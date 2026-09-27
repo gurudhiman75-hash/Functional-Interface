@@ -6,9 +6,18 @@ import {
   OPEN_NEWS_DISCOVERY_QUERIES,
   parseGdeltArticleList,
   parseTavilySearchResults,
+  parseTavilySearchResultsWindow,
+  tavilyNewsSearchBody,
   TRUSTED_NEWS_DISCOVERY_QUERIES,
   trustedNewsSearchBody,
 } from "./open-news-discovery";
+import {
+  COVERAGE_CATEGORY_SWEEPS,
+  COVERAGE_CATCHUP_LOOKBACK_DAYS,
+  COVERAGE_CATCHUP_SWEEPS,
+  coverageHoleKeys,
+  shiftCoverageDate,
+} from "./coverage-discovery-policy";
 
 assert.ok(OPEN_NEWS_DISCOVERY_QUERIES.length >= 9);
 assert.ok(OPEN_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "punjab"));
@@ -26,6 +35,31 @@ assert.ok(TRUSTED_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "trusted_pr
 assert.ok(TRUSTED_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "national_governance"));
 assert.ok(TRUSTED_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "economy_banking"));
 assert.ok(TRUSTED_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "punjab"));
+
+assert.ok(COVERAGE_CATEGORY_SWEEPS.length >= 24);
+for (const key of [
+  "national_governance", "schemes_welfare", "state_affairs", "punjab", "international",
+  "banking_rbi", "economy_macro", "business_industry", "regulators_markets", "courts_legal",
+  "appointments", "awards_honours", "reports_indices", "science_technology", "space",
+  "defence_security", "environment_climate", "sports", "mous_agreements", "mergers_acquisitions",
+  "apps_portals_digital", "books_authors", "important_days", "obituaries",
+]) {
+  assert.ok(COVERAGE_CATEGORY_SWEEPS.some((item) => item.key === key), `missing mandatory coverage sweep: ${key}`);
+}
+assert.ok(COVERAGE_CATCHUP_SWEEPS.length >= 6);
+assert.equal(COVERAGE_CATCHUP_LOOKBACK_DAYS, 2);
+assert.equal(shiftCoverageDate("2026-08-30", -2), "2026-08-28");
+assert.deepEqual(coverageHoleKeys({ national_governance: 2 }).includes("banking_rbi"), true);
+
+const openWebBody = tavilyNewsSearchBody(
+  "India banking current affairs 2026-08-30",
+  "2026-08-30",
+  "2026-08-31",
+);
+assert.equal(openWebBody.topic, "news");
+assert.equal(openWebBody.include_answer, false);
+assert.equal(openWebBody.include_raw_content, false);
+assert.equal(Object.prototype.hasOwnProperty.call(openWebBody, "include_domains"), false);
 
 const searchBody = trustedNewsSearchBody(
   "India current affairs 2026-08-30",
@@ -77,6 +111,41 @@ assert.equal(tavilyArticles[1]?.domain, "indianexpress.com");
 assert.ok(tavilyArticles[1]?.seenAt.startsWith("2026-08-30T"));
 assert.ok(tavilyArticles.every((article) => !Object.prototype.hasOwnProperty.call(article, "content")));
 assert.ok(tavilyArticles.every((article) => !Object.prototype.hasOwnProperty.call(article, "raw_content")));
+
+const openWebArticles = parseTavilySearchResultsWindow({
+  results: [
+    {
+      title: "Specialist portal reports an exam-relevant science development",
+      url: "https://science-example.org/india/story",
+      published_date: "2026-08-30T12:00:00Z",
+      content: "Search snippet must not be persisted.",
+    },
+    {
+      title: "Social post must be blocked from open-web discovery",
+      url: "https://www.facebook.com/example/story",
+      published_date: "2026-08-30T12:00:00Z",
+    },
+    {
+      title: "Previous-day item can be seen by the bounded catch-up window",
+      url: "https://regional-example.in/story",
+      published_date: "2026-08-29T12:00:00Z",
+    },
+  ],
+}, "2026-08-29", "2026-08-31");
+
+assert.equal(openWebArticles.length, 2);
+assert.ok(openWebArticles.some((article) => article.domain === "science-example.org"));
+assert.ok(openWebArticles.some((article) => article.domain === "regional-example.in"));
+assert.ok(openWebArticles.every((article) => !article.url.includes("facebook.com")));
+
+const catchupRequiresDate = parseTavilySearchResultsWindow({
+  results: [
+    { title: "Undated search result must not become a catch-up candidate", url: "https://example.org/undated" },
+    { title: "Dated previous-day result is eligible for catch-up inspection", url: "https://example.org/dated", published_date: "2026-08-29T03:00:00Z" },
+  ],
+}, "2026-08-28", "2026-08-31", [], true);
+assert.equal(catchupRequiresDate.length, 1);
+assert.ok(catchupRequiresDate[0]?.url.endsWith("/dated"));
 
 const url = new URL(gdeltQueryUrl("sourcecountry:india sourcelang:english", "2026-08-30", 500));
 assert.equal(url.origin, "https://api.gdeltproject.org");
@@ -177,4 +246,4 @@ const regulatorLowSignal = isOpenNewsClusterEligible({
 assert.equal(regulatorLowSignal.eligible, true);
 assert.equal(regulatorLowSignal.reason, "targeted_discovery_query");
 
-console.log("Current Affairs trusted-news metadata discovery, target-date and clustering-triage contracts passed");
+console.log("Current Affairs coverage-matrix, trusted-news metadata, 72-hour catch-up and clustering-triage contracts passed");

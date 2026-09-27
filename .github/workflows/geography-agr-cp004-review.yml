@@ -1,0 +1,45 @@
+name: Validate GEO-AGR-001 CP004 Review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/agriculture/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geo-agr-001-cp004-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp004:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Qualify thematic CP004
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild "src/knowledge-v1/indian-geography/agriculture/geo-agr-001-cp004-review-batch-v1.test.ts" --bundle --packages=external --platform=node --format=esm --outfile="dist/geography/geo-agr-001-cp004-review-batch-v1.test.mjs"
+          node "artifacts/api-server/dist/geography/geo-agr-001-cp004-review-batch-v1.test.mjs"
+      - name: Materialize CP004 review files
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild "src/knowledge-v1/indian-geography/agriculture/geo-agr-001-cp004-export-review-v1.ts" --bundle --packages=external --platform=node --format=esm --outfile="dist/geography/geo-agr-001-cp004-export-review-v1.mjs"
+          (cd artifacts/api-server && node "dist/geography/geo-agr-001-cp004-export-review-v1.mjs")
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GEO-AGR-001-CP004-REVIEW
+          path: artifacts/api-server/dist/geography-review/GEO-AGR-001-CP004-V1/
+          if-no-files-found: error
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build

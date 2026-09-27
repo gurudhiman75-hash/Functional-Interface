@@ -28,12 +28,12 @@ for (const profile of QUANT_V4_REAL_EXAM_PROFILES) {
 const punjabProfiles = QUANT_V4_REAL_EXAM_PROFILES.filter((profile) => profile.family === "PUNJAB_STATE");
 assert.equal(punjabProfiles.length, 3);
 for (const profile of punjabProfiles) {
-  assert.equal(profile.centralProfileGap, true, `${profile.id} must remain explicit about the missing central Punjab Quant profile.`);
-  assert.equal(profile.centralDeliveryProfile, null, `${profile.id} must not silently masquerade as an SSC central profile.`);
+  assert.equal(profile.centralProfileGap, false, `${profile.id} must use the merged Punjab central Quant profile.`);
+  assert.equal(profile.centralDeliveryProfile, "PUNJAB_STATE", `${profile.id} must propagate PUNJAB_STATE into ordinary core-slot generation.`);
   assert.equal(
     resolveProbabilitySimulationProfile(profile),
     "PUNJAB_STATE",
-    `${profile.id} Probability must use the explicit Punjab evidence gate instead of an SSC fallback.`,
+    `${profile.id} Probability must keep using the explicit Punjab evidence gate.`,
   );
 }
 
@@ -59,6 +59,26 @@ for (const examId of structuralProbeIds) {
   );
   assert.ok(section.questions.some((question) => question.sourceKind === "RUNTIME_GENERATED"), `${examId} did not exercise live generation.`);
 }
+
+const cglProbabilityProbe = [];
+for (let sectionIndex = 1; sectionIndex <= 20; sectionIndex += 1) {
+  const section = await generateQuantV4RealExamSection({
+    examId: "SSC_CGL_TIER_I",
+    sectionIndex,
+    seed: `QUANT-V4-CGL-PROBABILITY-ELIGIBILITY-P4:${sectionIndex}`,
+  });
+  cglProbabilityProbe.push(...section.questions.filter((question) => question.slotKind === "PROBABILITY"));
+}
+assert.equal(cglProbabilityProbe.length, 60, "SSC CGL Tier-I 20-section probe must exercise 60 Probability slots.");
+assert.equal(
+  cglProbabilityProbe.filter((question) => question.sourceKind === "CAPABILITY_GAP").length,
+  0,
+  "SSC CGL Tier-I Probability slots must retry profile-valid CPs before declaring capability gaps.",
+);
+assert.ok(
+  cglProbabilityProbe.every((question) => question.optionCount === 4),
+  "SSC CGL Tier-I Probability slots must preserve the four-option delivery contract.",
+);
 
 for (const examId of ["PSSSB", "PPSC", "PUNJAB_POLICE"] as const) {
   const section = await generateQuantV4RealExamSection({
@@ -116,8 +136,8 @@ for (const summary of audit.summaries) {
   assert.ok(summary.blockers.includes("PYQ_FREQUENCY_WEIGHTING_PENDING"), `${summary.examId} lost the empirical-weighting blocker.`);
 
   if (profile.family === "PUNJAB_STATE") {
-    assert.equal(summary.centralProfileGap, true);
-    assert.ok(summary.blockers.includes("CENTRAL_EXAM_PROFILE_MISSING"));
+    assert.equal(summary.centralProfileGap, false);
+    assert.equal(summary.blockers.includes("CENTRAL_EXAM_PROFILE_MISSING"), false);
   }
   if (profile.family === "BANKING") {
     assert.ok(summary.diSetCount > 0, `${summary.examId} did not exercise linked DI sets.`);
@@ -125,10 +145,24 @@ for (const summary of audit.summaries) {
   }
 }
 
-for (const examId of ["SSC_CGL_TIER_I", "SSC_CGL_TIER_II", "SSC_CHSL", "PSSSB", "PPSC", "PUNJAB_POLICE"] as const) {
+for (const examId of ["SSC_CGL_TIER_I", "SSC_CGL_TIER_II", "SSC_CHSL"] as const) {
   const summary = audit.summaries.find((entry) => entry.examId === examId)!;
-  assert.ok(summary.capabilityGapCount > 0, `${examId} unexpectedly hid the current Algebra/Trigonometry section-assembly gap.`);
+  assert.equal(summary.capabilityGapCount, 0, `${examId} must no longer carry historical Algebra/Trigonometry capability gaps.`);
+  assert.equal(summary.blockers.includes("CAPABILITY_GAPS_PRESENT"), false);
+  assert.ok(summary.blockers.includes("TEST_INELIGIBLE_RUNTIME_CONTENT_PRESENT"), `${examId} must preserve Algebra BANK_ONLY lifecycle as the current release blocker.`);
+}
+
+for (const examId of ["PSSSB", "PPSC", "PUNJAB_POLICE"] as const) {
+  const summary = audit.summaries.find((entry) => entry.examId === examId)!;
+  const profile = QUANT_V4_REAL_EXAM_PROFILES.find((entry) => entry.id === examId)!;
+  const expectedProbabilityGaps = profile.slotPlan.find((slot) => slot.kind === "PROBABILITY")?.count ?? 0;
+  assert.equal(
+    summary.capabilityGapCount,
+    expectedProbabilityGaps * audit.sectionsPerProfile,
+    `${examId} capability gaps should now be limited to evidence-gated Punjab Probability slots.`,
+  );
   assert.ok(summary.blockers.includes("CAPABILITY_GAPS_PRESENT"));
+  assert.ok(summary.blockers.includes("TEST_INELIGIBLE_RUNTIME_CONTENT_PRESENT"), `${examId} must preserve Algebra BANK_ONLY lifecycle.`);
 }
 
 const bankingSummaries = audit.summaries.filter((entry) =>

@@ -10,6 +10,18 @@ const tidy = (value: string) => value.replace(/\s+/g, " ").replace(/\s+([?.!,])/
 const clean = (value: string) => value.replace(/_/g, " ").replace(/\bnot \((.+)\)$/i, "not $1").toLowerCase().replace(/\s+/g, " ").trim();
 const eventName = (event: EventExpression) => clean(event.label);
 
+function qlVariant(entry: ProbabilityTaskRegistryEntry, count: number): number {
+  const match = entry.qlId.match(/(\d+)$/);
+  const value = match ? Number(match[1]) : 0;
+  return value % count;
+}
+
+function qlSeriesVariant(entry: ProbabilityTaskRegistryEntry, stride: number, count: number): number {
+  const match = entry.qlId.match(/(\d+)$/);
+  const value = match ? Number(match[1]) : 0;
+  return Math.floor(value / stride) % count;
+}
+
 function singularObject(value: string): string {
   if (value === "cards") return "card";
   if (value === "counters") return "counter";
@@ -92,9 +104,17 @@ function reverseTotalStem(p: GeneratedParameters): string {
 }
 function committeeStem(entry: ProbabilityTaskRegistryEntry, p: GeneratedParameters, solved: SolvedProbability): string {
   const men = num(p, "men"), women = num(p, "women"), size = num(p, "committeeSize"), required = num(p, "requiredWomen", 1);
-  if (entry.solveMode === "findRestrictedSelectionProbability") return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that the committee includes at least one woman?`;
+  if (entry.solveMode === "findRestrictedSelectionProbability") {
+    const form = qlSeriesVariant(entry, 8, 3);
+    if (form === 0) return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that the committee includes at least one woman?`;
+    if (form === 1) return `From ${men} men and ${women} women, ${size} people are selected at random to form a committee. Find the probability that at least one selected member is a woman.`;
+    return `A committee of ${size} is formed at random from a group containing ${men} men and ${women} women. What is the probability that the committee is not made up entirely of men?`;
+  }
   if (entry.solveMode === "findReverseCountFromProbability") return `A ${size}-member committee is chosen from ${men} men and ${women} women. The probability that it contains exactly ${required} ${noun(required, "woman", "women")} is ${frac(solved.evidence.favourableOutcomeCount ?? 0n, solved.evidence.totalOutcomeCount ?? 1n)}. How many such committees can be formed?`;
-  return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that it contains exactly ${required} ${noun(required, "woman", "women")}?`;
+  const form = qlVariant(entry, 3);
+  if (form === 0) return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that it contains exactly ${required} ${noun(required, "woman", "women")}?`;
+  if (form === 1) return `From a group of ${men} men and ${women} women, ${size} members are selected at random. Find the probability that exactly ${required} of the selected ${noun(required, "member")} ${required === 1 ? "is a woman" : "are women"}.`;
+  return `${size} people are chosen at random from ${men} men and ${women} women to form a committee. What is the probability that the committee has exactly ${required} ${noun(required, "woman", "women")}?`;
 }
 
 function eventGroupStem(mode: string, p: GeneratedParameters): string {
@@ -176,14 +196,45 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     case "findAtLeastOneAcrossIndependentStages": return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn with replacement. What is the probability of drawing at least one red ball?`;
     case "findConditionalProbabilityByCounting":
     case "findConditionalFromTwoWayTable": return `Of the ${num(p, "mathTotal")} students who passed Mathematics, ${num(p, "both")} also passed English. One of the Mathematics-pass students is selected at random. What is the probability that the selected student also passed English?`;
-    case "findConditionalCardProbability": return "A card is drawn from a standard deck and is known to be a face card. What is the probability that it is a king?";
-    case "findConditionalNumberProbability": return `An integer selected from 1 to ${num(p, "upper")} is known to be divisible by ${num(p, "conditionDivisor")}. What is the probability that it is also divisible by ${num(p, "targetDivisor")}?`;
-    case "findConditionalUrnProbability": return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?`;
+    case "findConditionalCardProbability": {
+      const form = qlSeriesVariant(entry, 6, 4);
+      if (form === 0) return "A card drawn from a standard deck is known to be a face card. What is the probability that the card is a king?";
+      if (form === 1) return "One face card is selected at random from the face cards of a standard deck. Find the probability that it is a king.";
+      if (form === 2) return "Given that a card chosen from a standard deck is a face card, what is the probability that it is a king?";
+      return "A card has been selected from a standard deck and is known to belong to the set of face cards. Find the probability that the selected card is a king.";
+    }
+    case "findConditionalNumberProbability": {
+      const upper = num(p, "upper"), condition = num(p, "conditionDivisor"), target = num(p, "targetDivisor");
+      const form = qlSeriesVariant(entry, 6, 4);
+      if (form === 0) return `An integer is selected at random from 1 to ${upper} and is known to be divisible by ${condition}. What is the probability that it is also divisible by ${target}?`;
+      if (form === 1) return `One number is chosen at random from the multiples of ${condition} between 1 and ${upper}. Find the probability that the chosen number is also a multiple of ${target}.`;
+      if (form === 2) return `A number selected uniformly from 1 to ${upper} is known to lie among the multiples of ${condition}. Given this information, find the probability that it is divisible by ${target} as well.`;
+      return `Consider only the integers from 1 to ${upper} that are divisible by ${condition}. If one of these integers is selected at random, what is the probability that it is also divisible by ${target}?`;
+    }
+    case "findConditionalUrnProbability": {
+      const form = qlSeriesVariant(entry, 6, 4);
+      if (form === 0) return `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?`;
+      if (form === 1) return `A bag has ${red} red and ${blue} blue balls. A red ball is drawn first without replacement. What is the probability that the next ball drawn is red?`;
+      if (form === 2) return `From a bag containing ${red} red and ${blue} blue balls, two balls are drawn successively without replacement. If the first draw is known to be red, find the probability that the second draw is red.`;
+      return `A bag contains ${red} red and ${blue} blue balls. After a red ball is drawn and kept aside, another ball is drawn at random. Find the probability that the second ball is red.`;
+    }
     case "findReverseConditionalCount": return `Among ${num(p, "restrictedTotal")} shortlisted candidates, the probability that a randomly selected candidate is ${text(p, "targetLabel", "certified")} is ${frac(num(p, "favourable"), num(p, "restrictedTotal", 1))}. How many candidates are ${text(p, "targetLabel", "certified")}?`;
     case "findRandomArrangementPropertyProbability": return `${num(p, "people")} people stand in a random order. What is the probability that a particular person is first?`;
     case "findTogetherOrApartProbability": return `${num(p, "people")} people stand in a random order. What is the probability that two particular people are ${text(p, "relation", "TOGETHER") === "APART" ? "not next to each other" : "next to each other"}?`;
-    case "findPositionRestrictionProbability": return `${num(p, "positions")} distinct posts are assigned at random among ${num(p, "men")} men and ${num(p, "women")} women. What is the probability that the first post is assigned to a woman?`;
-    case "findNumberFormationProbability": return `A ${num(p, "length")}-digit number is formed without repetition using the digits ${num(p, "minDigit", 1)} to ${num(p, "maxDigit")}. What is the probability that the number is even?`;
+    case "findPositionRestrictionProbability": {
+      const positions = num(p, "positions"), men = num(p, "men"), women = num(p, "women");
+      const form = qlSeriesVariant(entry, 8, 3);
+      if (form === 0) return `${positions} distinct posts are assigned at random among ${men} men and ${women} women. What is the probability that the first post is assigned to a woman?`;
+      if (form === 1) return `From ${men} men and ${women} women, candidates are assigned randomly to ${positions} distinct posts. Find the probability that a woman receives the first listed post.`;
+      return `${positions} different positions are filled at random from a group of ${men} men and ${women} women. What is the probability that the person chosen for the first position is a woman?`;
+    }
+    case "findNumberFormationProbability": {
+      const length = num(p, "length"), minDigit = num(p, "minDigit", 1), maxDigit = num(p, "maxDigit");
+      const form = qlSeriesVariant(entry, 8, 3);
+      if (form === 0) return `A ${length}-digit number is formed without repetition using the digits ${minDigit} to ${maxDigit}. What is the probability that the number is even?`;
+      if (form === 1) return `Using the digits ${minDigit} to ${maxDigit} without repetition, a ${length}-digit number is formed at random. Find the probability that its last digit is even.`;
+      return `One ${length}-digit number is chosen uniformly from all numbers that can be formed without repeating the digits ${minDigit} to ${maxDigit}. What is the probability that the chosen number is even?`;
+    }
     case "findUnionProbability":
     case "findIntersectionProbability":
     case "findExactlyOneOfTwoEvents":

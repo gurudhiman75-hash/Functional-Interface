@@ -1,0 +1,1031 @@
+[
+  {
+    "id": "WGE-001-CP002-Q001",
+    "cpId": "WGE-001-CP002",
+    "objective": "latitude-definition",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Latitude measures angular distance north or south of which line?",
+        "options": [
+          "Equator",
+          "Prime Meridian",
+          "International Date Line",
+          "Tropic of Capricorn"
+        ],
+        "explanation": "Latitude ranges from 0° at the equator to 90° at either pole. North or south specifies the hemisphere."
+      },
+      "hi": {
+        "stem": "अक्षांश किस रेखा से उत्तर या दक्षिण की कोणीय दूरी मापता है?",
+        "options": [
+          "भूमध्य रेखा",
+          "प्रधान मध्याह्न रेखा",
+          "अंतरराष्ट्रीय तिथि रेखा",
+          "मकर रेखा"
+        ],
+        "explanation": "अक्षांश भूमध्य रेखा पर 0° से ध्रुवों पर 90° तक होता है। उत्तर या दक्षिण से गोलार्ध स्पष्ट होता है।"
+      },
+      "pa": {
+        "stem": "ਵਿਥਕਾਰ ਕਿਹੜੀ ਰੇਖਾ ਤੋਂ ਉੱਤਰ ਜਾਂ ਦੱਖਣ ਵੱਲ ਦੀ ਕੋਣੀ ਦੂਰੀ ਮਾਪਦਾ ਹੈ?",
+        "options": [
+          "ਭੂਮੱਧ ਰੇਖਾ",
+          "ਪ੍ਰਮੁੱਖ ਮੱਧ ਰੇਖਾ",
+          "ਅੰਤਰਰਾਸ਼ਟਰੀ ਮਿਤੀ ਰੇਖਾ",
+          "ਮਕਰ ਰੇਖਾ"
+        ],
+        "explanation": "ਵਿਥਕਾਰ ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ 0° ਤੋਂ ਧਰੁਵਾਂ ਉੱਤੇ 90° ਤੱਕ ਹੁੰਦਾ ਹੈ। ਉੱਤਰ ਜਾਂ ਦੱਖਣ ਨਾਲ ਅਰਧ-ਗੋਲਾ ਸਪਸ਼ਟ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q002",
+    "cpId": "WGE-001-CP002",
+    "objective": "longitude-origin",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Longitude is measured east or west from which reference line?",
+        "options": [
+          "Prime Meridian",
+          "Equator",
+          "Arctic Circle",
+          "Tropic of Cancer"
+        ],
+        "explanation": "The prime meridian represents 0° longitude. Longitude extends to 180° east or west."
+      },
+      "hi": {
+        "stem": "देशांतर किस संदर्भ रेखा से पूर्व या पश्चिम की ओर मापा जाता है?",
+        "options": [
+          "प्रधान मध्याह्न रेखा",
+          "भूमध्य रेखा",
+          "आर्कटिक वृत्त",
+          "कर्क रेखा"
+        ],
+        "explanation": "प्रधान मध्याह्न रेखा 0° देशांतर है। देशांतर पूर्व या पश्चिम में 180° तक मापा जाता है।"
+      },
+      "pa": {
+        "stem": "ਲੰਬਕਾਰ ਕਿਹੜੀ ਹਵਾਲਾ ਰੇਖਾ ਤੋਂ ਪੂਰਬ ਜਾਂ ਪੱਛਮ ਵੱਲ ਮਾਪਿਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਪ੍ਰਮੁੱਖ ਮੱਧ ਰੇਖਾ",
+          "ਭੂਮੱਧ ਰੇਖਾ",
+          "ਆਰਕਟਿਕ ਚੱਕਰ",
+          "ਕਰਕ ਰੇਖਾ"
+        ],
+        "explanation": "ਪ੍ਰਮੁੱਖ ਮੱਧ ਰੇਖਾ 0° ਲੰਬਕਾਰ ਹੈ। ਲੰਬਕਾਰ ਪੂਰਬ ਜਾਂ ਪੱਛਮ ਵੱਲ 180° ਤੱਕ ਮਾਪਿਆ ਜਾਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q003",
+    "cpId": "WGE-001-CP002",
+    "objective": "cancer-latitude",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The Tropic of Cancer lies at approximately which latitude?",
+        "options": [
+          "23.5° N",
+          "23.5° S",
+          "66.5° N",
+          "66.5° S"
+        ],
+        "explanation": "The Tropic of Cancer is the northern tropical boundary. The corresponding southern line is the Tropic of Capricorn."
+      },
+      "hi": {
+        "stem": "कर्क रेखा लगभग किस अक्षांश पर है?",
+        "options": [
+          "23.5° उत्तर",
+          "23.5° दक्षिण",
+          "66.5° उत्तर",
+          "66.5° दक्षिण"
+        ],
+        "explanation": "कर्क रेखा उष्णकटिबंध की उत्तरी सीमा है। दक्षिण की समकक्ष रेखा मकर रेखा है।"
+      },
+      "pa": {
+        "stem": "ਕਰਕ ਰੇਖਾ ਲਗਭਗ ਕਿਹੜੇ ਵਿਥਕਾਰ ਉੱਤੇ ਹੈ?",
+        "options": [
+          "23.5° ਉੱਤਰ",
+          "23.5° ਦੱਖਣ",
+          "66.5° ਉੱਤਰ",
+          "66.5° ਦੱਖਣ"
+        ],
+        "explanation": "ਕਰਕ ਰੇਖਾ ਤਪਤ ਖੰਡ ਦੀ ਉੱਤਰੀ ਹੱਦ ਹੈ। ਇਸ ਦੇ ਬਰਾਬਰ ਦੱਖਣ ਵਾਲੀ ਰੇਖਾ ਮਕਰ ਰੇਖਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q004",
+    "cpId": "WGE-001-CP002",
+    "objective": "capricorn-latitude",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which named parallel lies approximately 23.5° south of the equator?",
+        "options": [
+          "Tropic of Capricorn",
+          "Tropic of Cancer",
+          "Antarctic Circle",
+          "Arctic Circle"
+        ],
+        "explanation": "The Tropic of Capricorn is in the Southern Hemisphere. The polar circles lie much farther from the equator, near 66.5°."
+      },
+      "hi": {
+        "stem": "भूमध्य रेखा से लगभग 23.5° दक्षिण में कौन-सी नामित अक्षांश रेखा है?",
+        "options": [
+          "मकर रेखा",
+          "कर्क रेखा",
+          "अंटार्कटिक वृत्त",
+          "आर्कटिक वृत्त"
+        ],
+        "explanation": "मकर रेखा दक्षिणी गोलार्ध में है। ध्रुवीय वृत्त भूमध्य रेखा से अधिक दूर, लगभग 66.5° पर हैं।"
+      },
+      "pa": {
+        "stem": "ਭੂਮੱਧ ਰੇਖਾ ਤੋਂ ਲਗਭਗ 23.5° ਦੱਖਣ ਵੱਲ ਕਿਹੜੀ ਰੇਖਾ ਹੈ?",
+        "options": [
+          "ਮਕਰ ਰੇਖਾ",
+          "ਕਰਕ ਰੇਖਾ",
+          "ਅੰਟਾਰਕਟਿਕ ਚੱਕਰ",
+          "ਆਰਕਟਿਕ ਚੱਕਰ"
+        ],
+        "explanation": "ਮਕਰ ਰੇਖਾ ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਹੈ। ਧਰੁਵੀ ਚੱਕਰ ਭੂਮੱਧ ਰੇਖਾ ਤੋਂ ਕਾਫ਼ੀ ਦੂਰ, ਲਗਭਗ 66.5° ਉੱਤੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q005",
+    "cpId": "WGE-001-CP002",
+    "objective": "polar-circles",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which pair correctly gives the approximate latitudes of the Arctic and Antarctic Circles?",
+        "options": [
+          "66.5° N and 66.5° S",
+          "23.5° N and 23.5° S",
+          "90° N and 90° S",
+          "45° N and 45° S"
+        ],
+        "explanation": "The Arctic Circle is north of the equator; the Antarctic Circle is south. They mark approximate limits of polar day/night phenomena."
+      },
+      "hi": {
+        "stem": "आर्कटिक और अंटार्कटिक वृत्तों के लगभग अक्षांशों का सही युग्म कौन-सा है?",
+        "options": [
+          "66.5° उत्तर और 66.5° दक्षिण",
+          "23.5° उत्तर और 23.5° दक्षिण",
+          "90° उत्तर और 90° दक्षिण",
+          "45° उत्तर और 45° दक्षिण"
+        ],
+        "explanation": "आर्कटिक वृत्त उत्तर में और अंटार्कटिक वृत्त दक्षिण में है। ये ध्रुवीय दिन-रात की घटनाओं की अनुमानित सीमाएँ हैं।"
+      },
+      "pa": {
+        "stem": "ਆਰਕਟਿਕ ਅਤੇ ਅੰਟਾਰਕਟਿਕ ਚੱਕਰਾਂ ਦੇ ਲਗਭਗ ਵਿਥਕਾਰਾਂ ਦਾ ਸਹੀ ਜੋੜਾ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "66.5° ਉੱਤਰ ਅਤੇ 66.5° ਦੱਖਣ",
+          "23.5° ਉੱਤਰ ਅਤੇ 23.5° ਦੱਖਣ",
+          "90° ਉੱਤਰ ਅਤੇ 90° ਦੱਖਣ",
+          "45° ਉੱਤਰ ਅਤੇ 45° ਦੱਖਣ"
+        ],
+        "explanation": "ਆਰਕਟਿਕ ਚੱਕਰ ਉੱਤਰ ਵਿੱਚ ਅਤੇ ਅੰਟਾਰਕਟਿਕ ਚੱਕਰ ਦੱਖਣ ਵਿੱਚ ਹੈ। ਇਹ ਧਰੁਵੀ ਦਿਨ-ਰਾਤ ਦੀਆਂ ਘਟਨਾਵਾਂ ਦੀਆਂ ਲਗਭਗ ਹੱਦਾਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q006",
+    "cpId": "WGE-001-CP002",
+    "objective": "meridian-convergence",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What happens to the distance between successive meridians towards the poles?",
+        "options": [
+          "It decreases to zero at the pole",
+          "It stays constant",
+          "It increases continuously",
+          "It becomes greatest at the pole"
+        ],
+        "explanation": "All meridians meet at the poles. Equal differences in longitude therefore represent smaller east–west distances at higher latitudes."
+      },
+      "hi": {
+        "stem": "ध्रुवों की ओर जाने पर क्रमागत देशांतर रेखाओं के बीच की दूरी में क्या परिवर्तन होता है?",
+        "options": [
+          "ध्रुव पर शून्य होने तक घटती है",
+          "स्थिर रहती है",
+          "लगातार बढ़ती है",
+          "ध्रुव पर सबसे अधिक होती है"
+        ],
+        "explanation": "सभी देशांतर रेखाएँ ध्रुवों पर मिलती हैं। इसलिए समान देशांतर अंतर उच्च अक्षांशों पर कम पूर्व-पश्चिम दूरी दर्शाता है।"
+      },
+      "pa": {
+        "stem": "ਧਰੁਵਾਂ ਵੱਲ ਜਾਣ ਨਾਲ ਲਾਗਲੀਆਂ ਲੰਬਕਾਰ ਰੇਖਾਵਾਂ ਵਿਚਕਾਰ ਦੂਰੀ ਕਿਵੇਂ ਬਦਲਦੀ ਹੈ?",
+        "options": [
+          "ਧਰੁਵ ਉੱਤੇ ਸਿਫ਼ਰ ਹੋਣ ਤੱਕ ਘਟਦੀ ਹੈ",
+          "ਇੱਕੋ ਜਿਹੀ ਰਹਿੰਦੀ ਹੈ",
+          "ਲਗਾਤਾਰ ਵਧਦੀ ਹੈ",
+          "ਧਰੁਵ ਉੱਤੇ ਸਭ ਤੋਂ ਵੱਧ ਹੁੰਦੀ ਹੈ"
+        ],
+        "explanation": "ਸਾਰੀਆਂ ਲੰਬਕਾਰ ਰੇਖਾਵਾਂ ਧਰੁਵਾਂ ਉੱਤੇ ਮਿਲਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਲੰਬਕਾਰ ਦਾ ਇੱਕੋ ਫ਼ਰਕ ਉੱਚੇ ਵਿਥਕਾਰਾਂ ਉੱਤੇ ਘੱਟ ਪੂਰਬ-ਪੱਛਮ ਦੂਰੀ ਦਰਸਾਉਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q007",
+    "cpId": "WGE-001-CP002",
+    "objective": "great-circle",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which parallel is a great circle?",
+        "options": [
+          "Equator",
+          "Tropic of Cancer",
+          "Arctic Circle",
+          "Tropic of Capricorn"
+        ],
+        "explanation": "The equator's plane passes through Earth's centre. Other parallels form smaller circles."
+      },
+      "hi": {
+        "stem": "कौन-सी अक्षांश रेखा बृहत् वृत्त है?",
+        "options": [
+          "भूमध्य रेखा",
+          "कर्क रेखा",
+          "आर्कटिक वृत्त",
+          "मकर रेखा"
+        ],
+        "explanation": "भूमध्य रेखा का तल पृथ्वी के केंद्र से गुजरता है। अन्य अक्षांश रेखाएँ छोटे वृत्त बनाती हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਵਿਥਕਾਰ ਰੇਖਾ ਮਹਾਨ ਚੱਕਰ ਹੈ?",
+        "options": [
+          "ਭੂਮੱਧ ਰੇਖਾ",
+          "ਕਰਕ ਰੇਖਾ",
+          "ਆਰਕਟਿਕ ਚੱਕਰ",
+          "ਮਕਰ ਰੇਖਾ"
+        ],
+        "explanation": "ਭੂਮੱਧ ਰੇਖਾ ਦਾ ਤਲ ਧਰਤੀ ਦੇ ਕੇਂਦਰ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ। ਹੋਰ ਵਿਥਕਾਰ ਰੇਖਾਵਾਂ ਛੋਟੇ ਚੱਕਰ ਬਣਾਉਂਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q008",
+    "cpId": "WGE-001-CP002",
+    "objective": "coordinates-hemisphere",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A place is at 30° S, 60° W. In which hemispheres is it located?",
+        "options": [
+          "Southern and Western",
+          "Northern and Western",
+          "Southern and Eastern",
+          "Northern and Eastern"
+        ],
+        "explanation": "South latitude places it below the equator. West longitude places it west of the prime meridian."
+      },
+      "hi": {
+        "stem": "कोई स्थान 30° दक्षिण, 60° पश्चिम पर है। वह किन गोलार्धों में है?",
+        "options": [
+          "दक्षिणी और पश्चिमी",
+          "उत्तरी और पश्चिमी",
+          "दक्षिणी और पूर्वी",
+          "उत्तरी और पूर्वी"
+        ],
+        "explanation": "दक्षिण अक्षांश इसे भूमध्य रेखा के दक्षिण में रखता है। पश्चिम देशांतर इसे प्रधान मध्याह्न रेखा के पश्चिम में रखता है।"
+      },
+      "pa": {
+        "stem": "ਕੋਈ ਸਥਾਨ 30° ਦੱਖਣ, 60° ਪੱਛਮ ਉੱਤੇ ਹੈ। ਉਹ ਕਿਹੜੇ ਅਰਧ-ਗੋਲਿਆਂ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਦੱਖਣੀ ਅਤੇ ਪੱਛਮੀ",
+          "ਉੱਤਰੀ ਅਤੇ ਪੱਛਮੀ",
+          "ਦੱਖਣੀ ਅਤੇ ਪੂਰਬੀ",
+          "ਉੱਤਰੀ ਅਤੇ ਪੂਰਬੀ"
+        ],
+        "explanation": "ਦੱਖਣੀ ਵਿਥਕਾਰ ਇਸ ਨੂੰ ਭੂਮੱਧ ਰੇਖਾ ਦੇ ਦੱਖਣ ਵਿੱਚ ਰੱਖਦਾ ਹੈ। ਪੱਛਮੀ ਲੰਬਕਾਰ ਇਸ ਨੂੰ ਪ੍ਰਮੁੱਖ ਮੱਧ ਰੇਖਾ ਦੇ ਪੱਛਮ ਵਿੱਚ ਰੱਖਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q009",
+    "cpId": "WGE-001-CP002",
+    "objective": "solar-time-rate",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A difference of one hour in mean local solar time corresponds to how many degrees of longitude?",
+        "options": [
+          "15°",
+          "4°",
+          "24°",
+          "30°"
+        ],
+        "explanation": "360° ÷ 24 hours = 15° per hour. Therefore 1° corresponds to 4 minutes of mean solar time."
+      },
+      "hi": {
+        "stem": "माध्य स्थानीय सौर समय में एक घंटे का अंतर कितने देशांतरों के अंतर के बराबर है?",
+        "options": [
+          "15°",
+          "4°",
+          "24°",
+          "30°"
+        ],
+        "explanation": "360° ÷ 24 घंटे = 15° प्रति घंटा। इसलिए 1° देशांतर का अंतर औसत सौर समय में 4 मिनट है।"
+      },
+      "pa": {
+        "stem": "ਔਸਤ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮੇਂ ਵਿੱਚ ਇੱਕ ਘੰਟੇ ਦਾ ਫ਼ਰਕ ਕਿੰਨੇ ਡਿਗਰੀ ਲੰਬਕਾਰ ਦੇ ਫ਼ਰਕ ਦੇ ਬਰਾਬਰ ਹੈ?",
+        "options": [
+          "15°",
+          "4°",
+          "24°",
+          "30°"
+        ],
+        "explanation": "360° ÷ 24 ਘੰਟੇ = 15° ਪ੍ਰਤੀ ਘੰਟਾ। ਇਸ ਲਈ 1° ਲੰਬਕਾਰ ਦਾ ਫ਼ਰਕ ਔਸਤ ਸੂਰਜੀ ਸਮੇਂ ਵਿੱਚ 4 ਮਿੰਟ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q010",
+    "cpId": "WGE-001-CP002",
+    "objective": "east-ahead",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Compared with a place to its west, a place to the east has a mean local solar time that is:",
+        "options": [
+          "Ahead of the western place",
+          "Behind the western place",
+          "Always identical",
+          "Determined only by latitude"
+        ],
+        "explanation": "Earth rotates eastward. Eastern meridians reach the Sun-facing position before western meridians."
+      },
+      "hi": {
+        "stem": "पश्चिम में स्थित स्थान की तुलना में पूर्व में स्थित स्थान का माध्य स्थानीय सौर समय होता है:",
+        "options": [
+          "पश्चिमी स्थान से आगे",
+          "पश्चिमी स्थान से पीछे",
+          "हमेशा समान",
+          "केवल अक्षांश से निर्धारित"
+        ],
+        "explanation": "पृथ्वी पूर्व की ओर घूमती है। पूर्वी देशांतर रेखाएँ पश्चिमी रेखाओं से पहले सूर्य के सामने आती हैं।"
+      },
+      "pa": {
+        "stem": "ਪੱਛਮ ਵੱਲ ਦੇ ਸਥਾਨ ਦੇ ਮੁਕਾਬਲੇ ਪੂਰਬ ਵੱਲ ਦੇ ਸਥਾਨ ਦਾ ਔਸਤ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮਾਂ ਹੁੰਦਾ ਹੈ:",
+        "options": [
+          "ਪੱਛਮੀ ਸਥਾਨ ਨਾਲੋਂ ਅੱਗੇ",
+          "ਪੱਛਮੀ ਸਥਾਨ ਨਾਲੋਂ ਪਿੱਛੇ",
+          "ਹਮੇਸ਼ਾ ਇੱਕੋ ਜਿਹਾ",
+          "ਕੇਵਲ ਵਿਥਕਾਰ ਨਾਲ ਨਿਰਧਾਰਤ"
+        ],
+        "explanation": "ਧਰਤੀ ਪੂਰਬ ਵੱਲ ਘੁੰਮਦੀ ਹੈ। ਪੂਰਬੀ ਲੰਬਕਾਰ ਰੇਖਾਵਾਂ ਪੱਛਮੀ ਰੇਖਾਵਾਂ ਤੋਂ ਪਹਿਲਾਂ ਸੂਰਜ ਦੇ ਸਾਹਮਣੇ ਆਉਂਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q011",
+    "cpId": "WGE-001-CP002",
+    "objective": "standard-time-purpose",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is the main purpose of adopting standard time?",
+        "options": [
+          "To use a common civil time within a time zone",
+          "To make every place use its own local solar time",
+          "To keep sunrise at the same clock time throughout the year",
+          "To make the duration of daylight uniform within a country"
+        ],
+        "explanation": "Standard time coordinates clocks within a zone. It does not make each place's local solar noon occur at the same clock time."
+      },
+      "hi": {
+        "stem": "मानक समय अपनाने का मुख्य उद्देश्य क्या है?",
+        "options": [
+          "एक समय क्षेत्र में समान नागरिक समय अपनाना",
+          "हर स्थान पर उसका अपना स्थानीय सौर समय लागू करना",
+          "पूरे वर्ष सूर्योदय का घड़ी वाला समय समान रखना",
+          "देश में दिन की अवधि समान करना"
+        ],
+        "explanation": "मानक समय एक क्षेत्र की घड़ियों में तालमेल रखता है। इससे हर स्थान का स्थानीय सौर मध्याह्न एक ही घड़ी-समय पर नहीं होता।"
+      },
+      "pa": {
+        "stem": "ਮਿਆਰੀ ਸਮਾਂ ਅਪਣਾਉਣ ਦਾ ਮੁੱਖ ਮਕਸਦ ਕੀ ਹੈ?",
+        "options": [
+          "ਇੱਕ ਸਮਾਂ ਖੇਤਰ ਵਿੱਚ ਸਾਂਝਾ ਨਾਗਰਿਕ ਸਮਾਂ ਵਰਤਣਾ",
+          "ਹਰ ਥਾਂ ਉੱਥੋਂ ਦਾ ਆਪਣਾ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮਾਂ ਲਾਗੂ ਕਰਨਾ",
+          "ਸਾਰਾ ਸਾਲ ਸੂਰਜ ਚੜ੍ਹਨ ਦਾ ਘੜੀ ਵਾਲਾ ਸਮਾਂ ਇੱਕੋ ਰੱਖਣਾ",
+          "ਦੇਸ਼ ਵਿੱਚ ਦਿਨ ਦੀ ਲੰਬਾਈ ਇੱਕੋ ਕਰਨਾ"
+        ],
+        "explanation": "ਮਿਆਰੀ ਸਮਾਂ ਇੱਕ ਖੇਤਰ ਦੀਆਂ ਘੜੀਆਂ ਵਿੱਚ ਤਾਲਮੇਲ ਰੱਖਦਾ ਹੈ। ਇਸ ਨਾਲ ਹਰ ਸਥਾਨ ਦੀ ਸੂਰਜੀ ਦੁਪਹਿਰ ਘੜੀ ਦੇ ਇੱਕੋ ਸਮੇਂ ਉੱਤੇ ਨਹੀਂ ਹੁੰਦੀ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q012",
+    "cpId": "WGE-001-CP002",
+    "objective": "civil-time-limit",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Two cities are 30° apart in longitude. Which statement must be true, regardless of their official time zones?",
+        "options": [
+          "Their mean local solar times differ by two hours",
+          "Their clocks must differ by two hours",
+          "Their clock dates must differ",
+          "Their sunrise times must be identical"
+        ],
+        "explanation": "30° × 4 minutes = 120 minutes. Legal time-zone boundaries can differ from longitude-based solar time."
+      },
+      "hi": {
+        "stem": "दो नगरों के देशांतर में 30° का अंतर है। उनके आधिकारिक समय क्षेत्रों की जानकारी के बिना भी कौन-सा कथन सही होगा?",
+        "options": [
+          "उनके औसत स्थानीय सौर समय में दो घंटे का अंतर है",
+          "उनकी घड़ियों में अवश्य दो घंटे का अंतर है",
+          "उनकी घड़ी की तारीखें अवश्य अलग हैं",
+          "उनका सूर्योदय समय अवश्य समान है"
+        ],
+        "explanation": "30° × 4 मिनट = 120 मिनट। कानूनी समय-क्षेत्र की सीमाएँ देशांतर आधारित सौर समय से अलग हो सकती हैं।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਸ਼ਹਿਰਾਂ ਦੇ ਲੰਬਕਾਰ ਵਿੱਚ 30° ਦਾ ਫ਼ਰਕ ਹੈ। ਉਨ੍ਹਾਂ ਦੇ ਅਧਿਕਾਰਤ ਸਮਾਂ ਖੇਤਰਾਂ ਦੀ ਜਾਣਕਾਰੀ ਤੋਂ ਬਿਨਾਂ ਵੀ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "ਉਨ੍ਹਾਂ ਦੇ ਔਸਤ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮੇਂ ਵਿੱਚ ਦੋ ਘੰਟਿਆਂ ਦਾ ਫ਼ਰਕ ਹੈ",
+          "ਉਨ੍ਹਾਂ ਦੀਆਂ ਘੜੀਆਂ ਵਿੱਚ ਲਾਜ਼ਮੀ ਦੋ ਘੰਟਿਆਂ ਦਾ ਫ਼ਰਕ ਹੈ",
+          "ਉਨ੍ਹਾਂ ਦੀਆਂ ਘੜੀਆਂ ਦੀ ਮਿਤੀ ਲਾਜ਼ਮੀ ਵੱਖਰੀ ਹੈ",
+          "ਉਨ੍ਹਾਂ ਦਾ ਸੂਰਜ ਚੜ੍ਹਨ ਦਾ ਸਮਾਂ ਲਾਜ਼ਮੀ ਇੱਕੋ ਹੈ"
+        ],
+        "explanation": "30° × 4 ਮਿੰਟ = 120 ਮਿੰਟ। ਕਾਨੂੰਨੀ ਸਮਾਂ ਖੇਤਰ ਲੰਬਕਾਰ-ਆਧਾਰਿਤ ਸੂਰਜੀ ਸਮੇਂ ਤੋਂ ਵੱਖ ਹੋ ਸਕਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q013",
+    "cpId": "WGE-001-CP002",
+    "objective": "date-line-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NOAA-DATE-LINE"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The International Date Line roughly follows which longitude?",
+        "options": [
+          "180°",
+          "0°",
+          "90° E",
+          "90° W"
+        ],
+        "explanation": "It runs mainly through the Pacific near the 180° meridian. Its bends accommodate political and island boundaries."
+      },
+      "hi": {
+        "stem": "अंतरराष्ट्रीय तिथि रेखा मोटे तौर पर किस देशांतर के साथ चलती है?",
+        "options": [
+          "180°",
+          "0°",
+          "90° पूर्व",
+          "90° पश्चिम"
+        ],
+        "explanation": "यह मुख्यतः प्रशांत महासागर में 180° देशांतर के पास है। देशों और द्वीप-समूहों की सीमाओं के अनुसार इसमें मोड़ हैं।"
+      },
+      "pa": {
+        "stem": "ਅੰਤਰਰਾਸ਼ਟਰੀ ਮਿਤੀ ਰੇਖਾ ਲਗਭਗ ਕਿਹੜੇ ਲੰਬਕਾਰ ਦੇ ਨਾਲ ਚੱਲਦੀ ਹੈ?",
+        "options": [
+          "180°",
+          "0°",
+          "90° ਪੂਰਬ",
+          "90° ਪੱਛਮ"
+        ],
+        "explanation": "ਇਹ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਵਿੱਚ 180° ਲੰਬਕਾਰ ਨੇੜੇ ਹੈ। ਦੇਸ਼ਾਂ ਅਤੇ ਟਾਪੂ-ਸਮੂਹਾਂ ਦੀਆਂ ਹੱਦਾਂ ਅਨੁਸਾਰ ਇਸ ਵਿੱਚ ਮੋੜ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q014",
+    "cpId": "WGE-001-CP002",
+    "objective": "date-line-west",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-DATE-LINE"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A traveller crosses the International Date Line from east to west. Ignoring journey time, how should the date be adjusted?",
+        "options": [
+          "Add one day",
+          "Subtract one day",
+          "Add twelve hours",
+          "Subtract twelve hours"
+        ],
+        "explanation": "Westward crossing advances the calendar by one day. Eastward crossing reverses this adjustment."
+      },
+      "hi": {
+        "stem": "एक यात्री अंतरराष्ट्रीय तिथि रेखा को पूर्व से पश्चिम की ओर पार करता है। यात्रा के समय को छोड़कर, तिथि में क्या परिवर्तन करना होगा?",
+        "options": [
+          "एक दिन जोड़ें",
+          "एक दिन घटाएँ",
+          "बारह घंटे जोड़ें",
+          "बारह घंटे घटाएँ"
+        ],
+        "explanation": "पश्चिम की ओर पार करने पर कैलेंडर एक दिन आगे किया जाता है। पूर्व की ओर पार करने पर इसका उल्टा होता है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਯਾਤਰੀ ਅੰਤਰਰਾਸ਼ਟਰੀ ਮਿਤੀ ਰੇਖਾ ਨੂੰ ਪੂਰਬ ਤੋਂ ਪੱਛਮ ਵੱਲ ਪਾਰ ਕਰਦਾ ਹੈ। ਸਫ਼ਰ ਦਾ ਸਮਾਂ ਛੱਡ ਕੇ, ਮਿਤੀ ਵਿੱਚ ਕੀ ਤਬਦੀਲੀ ਕਰਨੀ ਪਵੇਗੀ?",
+        "options": [
+          "ਇੱਕ ਦਿਨ ਜੋੜੋ",
+          "ਇੱਕ ਦਿਨ ਘਟਾਓ",
+          "ਬਾਰਾਂ ਘੰਟੇ ਜੋੜੋ",
+          "ਬਾਰਾਂ ਘੰਟੇ ਘਟਾਓ"
+        ],
+        "explanation": "ਪੱਛਮ ਵੱਲ ਪਾਰ ਕਰਨ ਉੱਤੇ ਕੈਲੰਡਰ ਇੱਕ ਦਿਨ ਅੱਗੇ ਕੀਤਾ ਜਾਂਦਾ ਹੈ। ਪੂਰਬ ਵੱਲ ਪਾਰ ਕਰਨ ਉੱਤੇ ਇਸ ਦੇ ਉਲਟ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q015",
+    "cpId": "WGE-001-CP002",
+    "objective": "date-line-east",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-DATE-LINE"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A traveller crosses the International Date Line from west to east on a Monday. Ignoring journey time, which day should be recorded after crossing?",
+        "options": [
+          "Sunday",
+          "Tuesday",
+          "Wednesday",
+          "Monday with no change"
+        ],
+        "explanation": "An eastward crossing subtracts one calendar day. Monday therefore changes to Sunday for this adjustment."
+      },
+      "hi": {
+        "stem": "एक यात्री सोमवार को अंतरराष्ट्रीय तिथि रेखा पश्चिम से पूर्व की ओर पार करता है। यात्रा के समय को छोड़कर, पार करने के बाद कौन-सा दिन माना जाएगा?",
+        "options": [
+          "रविवार",
+          "मंगलवार",
+          "बुधवार",
+          "बिना बदलाव सोमवार"
+        ],
+        "explanation": "पूर्व की ओर पार करने पर एक कैलेंडर दिन घटता है। इस समायोजन में सोमवार से रविवार होता है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਯਾਤਰੀ ਸੋਮਵਾਰ ਨੂੰ ਅੰਤਰਰਾਸ਼ਟਰੀ ਮਿਤੀ ਰੇਖਾ ਪੱਛਮ ਤੋਂ ਪੂਰਬ ਵੱਲ ਪਾਰ ਕਰਦਾ ਹੈ। ਸਫ਼ਰ ਦਾ ਸਮਾਂ ਛੱਡ ਕੇ, ਪਾਰ ਕਰਨ ਤੋਂ ਬਾਅਦ ਕਿਹੜਾ ਦਿਨ ਮੰਨਿਆ ਜਾਵੇਗਾ?",
+        "options": [
+          "ਐਤਵਾਰ",
+          "ਮੰਗਲਵਾਰ",
+          "ਬੁੱਧਵਾਰ",
+          "ਬਿਨਾਂ ਤਬਦੀਲੀ ਸੋਮਵਾਰ"
+        ],
+        "explanation": "ਪੂਰਬ ਵੱਲ ਪਾਰ ਕਰਨ ਉੱਤੇ ਕੈਲੰਡਰ ਦਾ ਇੱਕ ਦਿਨ ਘਟਦਾ ਹੈ। ਇਸ ਤਬਦੀਲੀ ਨਾਲ ਸੋਮਵਾਰ ਤੋਂ ਐਤਵਾਰ ਬਣਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q016",
+    "cpId": "WGE-001-CP002",
+    "objective": "same-meridian",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Two places lie on the same meridian but at different latitudes. Which of the following is the same at both places at a given instant?",
+        "options": [
+          "Mean local solar time",
+          "Day length throughout the year",
+          "Noon Sun altitude",
+          "Annual temperature"
+        ],
+        "explanation": "Mean local solar time depends on longitude. Latitude affects day length and solar altitude instead."
+      },
+      "hi": {
+        "stem": "दो स्थान एक ही देशांतर रेखा पर, लेकिन अलग-अलग अक्षांशों पर स्थित हैं। किसी एक क्षण दोनों स्थानों पर क्या समान होगा?",
+        "options": [
+          "औसत स्थानीय सौर समय",
+          "पूरे वर्ष दिन की अवधि",
+          "दोपहर में सूर्य की ऊँचाई",
+          "वार्षिक तापमान"
+        ],
+        "explanation": "औसत स्थानीय सौर समय देशांतर पर निर्भर है। अक्षांश दिन की अवधि और सूर्य की ऊँचाई को प्रभावित करता है।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਸਥਾਨ ਇੱਕੋ ਲੰਬਕਾਰ ਰੇਖਾ ਉੱਤੇ ਪਰ ਵੱਖ-ਵੱਖ ਵਿਥਕਾਰਾਂ ਉੱਤੇ ਹਨ। ਕਿਸੇ ਇੱਕ ਪਲ ਦੋਵੇਂ ਸਥਾਨਾਂ ਉੱਤੇ ਕੀ ਇੱਕੋ ਜਿਹਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "ਔਸਤ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮਾਂ",
+          "ਪੂਰੇ ਸਾਲ ਦਿਨ ਦੀ ਲੰਬਾਈ",
+          "ਦੁਪਹਿਰ ਵੇਲੇ ਸੂਰਜ ਦੀ ਉਚਾਈ",
+          "ਸਾਲਾਨਾ ਤਾਪਮਾਨ"
+        ],
+        "explanation": "ਔਸਤ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮਾਂ ਲੰਬਕਾਰ ਉੱਤੇ ਨਿਰਭਰ ਹੈ। ਵਿਥਕਾਰ ਦਿਨ ਦੀ ਲੰਬਾਈ ਅਤੇ ਸੂਰਜ ਦੀ ਉਚਾਈ ਉੱਤੇ ਅਸਰ ਪਾਉਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q017",
+    "cpId": "WGE-001-CP002",
+    "objective": "parallel-order",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which sequence is correct from north to south?",
+        "options": [
+          "Arctic Circle → Tropic of Cancer → Equator → Tropic of Capricorn",
+          "Tropic of Cancer → Arctic Circle → Equator → Tropic of Capricorn",
+          "Arctic Circle → Equator → Tropic of Cancer → Tropic of Capricorn",
+          "Equator → Tropic of Cancer → Arctic Circle → Tropic of Capricorn"
+        ],
+        "explanation": "Their approximate latitudes are 66.5° N, 23.5° N, 0° and 23.5° S. Decreasing latitude gives the stated order."
+      },
+      "hi": {
+        "stem": "उत्तर से दक्षिण की ओर सही क्रम कौन-सा है?",
+        "options": [
+          "आर्कटिक वृत्त → कर्क रेखा → भूमध्य रेखा → मकर रेखा",
+          "कर्क रेखा → आर्कटिक वृत्त → भूमध्य रेखा → मकर रेखा",
+          "आर्कटिक वृत्त → भूमध्य रेखा → कर्क रेखा → मकर रेखा",
+          "भूमध्य रेखा → कर्क रेखा → आर्कटिक वृत्त → मकर रेखा"
+        ],
+        "explanation": "इनके लगभग अक्षांश 66.5° उत्तर, 23.5° उत्तर, 0° और 23.5° दक्षिण हैं। इसी आधार पर उत्तर-दक्षिण क्रम बनता है।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰ ਤੋਂ ਦੱਖਣ ਵੱਲ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਆਰਕਟਿਕ ਚੱਕਰ → ਕਰਕ ਰੇਖਾ → ਭੂਮੱਧ ਰੇਖਾ → ਮਕਰ ਰੇਖਾ",
+          "ਕਰਕ ਰੇਖਾ → ਆਰਕਟਿਕ ਚੱਕਰ → ਭੂਮੱਧ ਰੇਖਾ → ਮਕਰ ਰੇਖਾ",
+          "ਆਰਕਟਿਕ ਚੱਕਰ → ਭੂਮੱਧ ਰੇਖਾ → ਕਰਕ ਰੇਖਾ → ਮਕਰ ਰੇਖਾ",
+          "ਭੂਮੱਧ ਰੇਖਾ → ਕਰਕ ਰੇਖਾ → ਆਰਕਟਿਕ ਚੱਕਰ → ਮਕਰ ਰੇਖਾ"
+        ],
+        "explanation": "ਇਨ੍ਹਾਂ ਦੇ ਲਗਭਗ ਵਿਥਕਾਰ 66.5° ਉੱਤਰ, 23.5° ਉੱਤਰ, 0° ਅਤੇ 23.5° ਦੱਖਣ ਹਨ। ਇਸੇ ਆਧਾਰ ਉੱਤੇ ਉੱਤਰ-ਦੱਖਣ ਕ੍ਰਮ ਬਣਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q018",
+    "cpId": "WGE-001-CP002",
+    "objective": "coordinate-range",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which of the following cannot be the coordinates of a place on Earth?",
+        "options": [
+          "100° N, 20° E",
+          "80° N, 170° E",
+          "45° S, 120° W",
+          "0°, 180°"
+        ],
+        "explanation": "Latitude cannot exceed 90° north or south. Longitude may reach 180° east or west."
+      },
+      "hi": {
+        "stem": "निम्नलिखित में से कौन-से निर्देशांक पृथ्वी पर किसी स्थान के नहीं हो सकते?",
+        "options": [
+          "100° उत्तर, 20° पूर्व",
+          "80° उत्तर, 170° पूर्व",
+          "45° दक्षिण, 120° पश्चिम",
+          "0°, 180°"
+        ],
+        "explanation": "अक्षांश उत्तर या दक्षिण में 90° से अधिक नहीं हो सकता। देशांतर पूर्व या पश्चिम में 180° तक हो सकता है।"
+      },
+      "pa": {
+        "stem": "ਹੇਠਾਂ ਦਿੱਤੇ ਕਿਹੜੇ ਨਿਰਦੇਸ਼ਾਂਕ ਧਰਤੀ ਉੱਤੇ ਕਿਸੇ ਸਥਾਨ ਦੇ ਨਹੀਂ ਹੋ ਸਕਦੇ?",
+        "options": [
+          "100° ਉੱਤਰ, 20° ਪੂਰਬ",
+          "80° ਉੱਤਰ, 170° ਪੂਰਬ",
+          "45° ਦੱਖਣ, 120° ਪੱਛਮ",
+          "0°, 180°"
+        ],
+        "explanation": "ਵਿਥਕਾਰ ਉੱਤਰ ਜਾਂ ਦੱਖਣ ਵੱਲ 90° ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦਾ। ਲੰਬਕਾਰ ਪੂਰਬ ਜਾਂ ਪੱਛਮ ਵੱਲ 180° ਤੱਕ ਹੋ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q019",
+    "cpId": "WGE-001-CP002",
+    "objective": "solar-east-calculation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "It is 12:00 noon mean local solar time at 0° longitude. What is it at 45° E at the same instant?",
+        "options": [
+          "15:00",
+          "09:00",
+          "12:45",
+          "14:00"
+        ],
+        "explanation": "45 × 4 = 180 minutes = 3 hours. Add the eastern time difference: 12:00 + 3 hours = 15:00."
+      },
+      "hi": {
+        "stem": "0° देशांतर पर औसत स्थानीय सौर समय दोपहर 12:00 है। उसी क्षण 45° पूर्व पर कितना होगा?",
+        "options": [
+          "15:00",
+          "09:00",
+          "12:45",
+          "14:00"
+        ],
+        "explanation": "45 × 4 = 180 मिनट = 3 घंटे। पूर्व का समय जोड़ें: 12:00 + 3 घंटे = 15:00।"
+      },
+      "pa": {
+        "stem": "0° ਲੰਬਕਾਰ ਉੱਤੇ ਔਸਤ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮਾਂ ਦੁਪਹਿਰ 12:00 ਹੈ। ਉਸੇ ਪਲ 45° ਪੂਰਬ ਉੱਤੇ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "15:00",
+          "09:00",
+          "12:45",
+          "14:00"
+        ],
+        "explanation": "45 × 4 = 180 ਮਿੰਟ = 3 ਘੰਟੇ। ਪੂਰਬ ਦਾ ਸਮਾਂ ਜੋੜੋ: 12:00 + 3 ਘੰਟੇ = 15:00।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q020",
+    "cpId": "WGE-001-CP002",
+    "objective": "solar-west-calculation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Mean local solar time at 30° E is 16:00. What is it at 15° W at the same instant?",
+        "options": [
+          "13:00",
+          "19:00",
+          "15:00",
+          "14:00"
+        ],
+        "explanation": "The separation is 30° + 15° = 45°. Time difference = 45 × 4 = 180 minutes; 16:00 − 3 hours = 13:00."
+      },
+      "hi": {
+        "stem": "30° पूर्व पर औसत स्थानीय सौर समय 16:00 है। उसी क्षण 15° पश्चिम पर कितना होगा?",
+        "options": [
+          "13:00",
+          "19:00",
+          "15:00",
+          "14:00"
+        ],
+        "explanation": "अंतर 30° + 15° = 45° है। समय अंतर = 45 × 4 = 180 मिनट; 16:00 − 3 घंटे = 13:00।"
+      },
+      "pa": {
+        "stem": "30° ਪੂਰਬ ਉੱਤੇ ਔਸਤ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮਾਂ 16:00 ਹੈ। ਉਸੇ ਪਲ 15° ਪੱਛਮ ਉੱਤੇ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "13:00",
+          "19:00",
+          "15:00",
+          "14:00"
+        ],
+        "explanation": "ਫ਼ਰਕ 30° + 15° = 45° ਹੈ। ਸਮੇਂ ਦਾ ਫ਼ਰਕ = 45 × 4 = 180 ਮਿੰਟ; 16:00 − 3 ਘੰਟੇ = 13:00।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q021",
+    "cpId": "WGE-001-CP002",
+    "objective": "fractional-longitude",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How much mean solar-time difference corresponds to 7.5° longitude?",
+        "options": [
+          "30 minutes",
+          "15 minutes",
+          "45 minutes",
+          "60 minutes"
+        ],
+        "explanation": "Each degree corresponds to 4 minutes. Thus 7.5 × 4 = 30 minutes."
+      },
+      "hi": {
+        "stem": "7.5° देशांतर के अंतर से औसत सौर समय में कितना अंतर होता है?",
+        "options": [
+          "30 मिनट",
+          "15 मिनट",
+          "45 मिनट",
+          "60 मिनट"
+        ],
+        "explanation": "प्रत्येक डिग्री का अंतर 4 मिनट है। इसलिए 7.5 × 4 = 30 मिनट।"
+      },
+      "pa": {
+        "stem": "7.5° ਲੰਬਕਾਰ ਦੇ ਫ਼ਰਕ ਨਾਲ ਔਸਤ ਸੂਰਜੀ ਸਮੇਂ ਵਿੱਚ ਕਿੰਨਾ ਫ਼ਰਕ ਪੈਂਦਾ ਹੈ?",
+        "options": [
+          "30 ਮਿੰਟ",
+          "15 ਮਿੰਟ",
+          "45 ਮਿੰਟ",
+          "60 ਮਿੰਟ"
+        ],
+        "explanation": "ਹਰ ਡਿਗਰੀ ਦਾ ਫ਼ਰਕ 4 ਮਿੰਟ ਹੈ। ਇਸ ਲਈ 7.5 × 4 = 30 ਮਿੰਟ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q022",
+    "cpId": "WGE-001-CP002",
+    "objective": "utc-date-rollover",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "At 22:45 UTC on 10 June, what is the civil time in a zone fixed at UTC+5:30?",
+        "options": [
+          "04:15 on 11 June",
+          "04:15 on 10 June",
+          "17:15 on 10 June",
+          "03:15 on 11 June"
+        ],
+        "explanation": "Add 5 hours 30 minutes: 22:45 + 5:30 = 28:15. Subtract 24 hours, giving 04:15 on the next day."
+      },
+      "hi": {
+        "stem": "10 जून को 22:45 यूटीसी पर, यूटीसी+5:30 वाले स्थिर समय क्षेत्र में समय क्या होगा?",
+        "options": [
+          "11 जून को 04:15",
+          "10 जून को 04:15",
+          "10 जून को 17:15",
+          "11 जून को 03:15"
+        ],
+        "explanation": "5 घंटे 30 मिनट जोड़ें: 22:45 + 5:30 = 28:15। 24 घंटे घटाने पर अगले दिन 04:15 मिलता है।"
+      },
+      "pa": {
+        "stem": "10 ਜੂਨ ਨੂੰ 22:45 ਯੂਟੀਸੀ ਵੇਲੇ, ਯੂਟੀਸੀ+5:30 ਵਾਲੇ ਨਿਸ਼ਚਿਤ ਸਮਾਂ ਖੇਤਰ ਵਿੱਚ ਸਮਾਂ ਕੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "11 ਜੂਨ ਨੂੰ 04:15",
+          "10 ਜੂਨ ਨੂੰ 04:15",
+          "10 ਜੂਨ ਨੂੰ 17:15",
+          "11 ਜੂਨ ਨੂੰ 03:15"
+        ],
+        "explanation": "5 ਘੰਟੇ 30 ਮਿੰਟ ਜੋੜੋ: 22:45 + 5:30 = 28:15। 24 ਘੰਟੇ ਘਟਾਉਣ ਉੱਤੇ ਅਗਲੇ ਦਿਨ 04:15 ਬਣਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q023",
+    "cpId": "WGE-001-CP002",
+    "objective": "utc-west-rollover",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "At 02:00 UTC on 8 March, what is the civil time in a zone fixed at UTC−4?",
+        "options": [
+          "22:00 on 7 March",
+          "22:00 on 8 March",
+          "06:00 on 8 March",
+          "00:00 on 8 March"
+        ],
+        "explanation": "Subtract 4 hours from 02:00. Crossing midnight backwards gives 22:00 on the previous day, 7 March."
+      },
+      "hi": {
+        "stem": "8 मार्च को 02:00 यूटीसी पर, यूटीसी−4 वाले स्थिर समय क्षेत्र में समय क्या होगा?",
+        "options": [
+          "7 मार्च को 22:00",
+          "8 मार्च को 22:00",
+          "8 मार्च को 06:00",
+          "8 मार्च को 00:00"
+        ],
+        "explanation": "02:00 से 4 घंटे घटाएँ। पीछे जाते हुए मध्यरात्रि पार करने पर पिछले दिन, 7 मार्च को 22:00 होता है।"
+      },
+      "pa": {
+        "stem": "8 ਮਾਰਚ ਨੂੰ 02:00 ਯੂਟੀਸੀ ਵੇਲੇ, ਯੂਟੀਸੀ−4 ਵਾਲੇ ਨਿਸ਼ਚਿਤ ਸਮਾਂ ਖੇਤਰ ਵਿੱਚ ਸਮਾਂ ਕੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "7 ਮਾਰਚ ਨੂੰ 22:00",
+          "8 ਮਾਰਚ ਨੂੰ 22:00",
+          "8 ਮਾਰਚ ਨੂੰ 06:00",
+          "8 ਮਾਰਚ ਨੂੰ 00:00"
+        ],
+        "explanation": "02:00 ਤੋਂ 4 ਘੰਟੇ ਘਟਾਓ। ਪਿੱਛੇ ਜਾਂਦਿਆਂ ਅੱਧੀ ਰਾਤ ਪਾਰ ਕਰਨ ਉੱਤੇ ਪਿਛਲੇ ਦਿਨ, 7 ਮਾਰਚ ਨੂੰ 22:00 ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP002-Q024",
+    "cpId": "WGE-001-CP002",
+    "objective": "longitude-from-time",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NOAA-LONGITUDE",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The mean local solar time at a place is 2 hours 20 minutes ahead of Greenwich. Find its longitude.",
+        "options": [
+          "35° E",
+          "35° W",
+          "30° E",
+          "40° E"
+        ],
+        "explanation": "2 hours 20 minutes = 140 minutes. Divide by 4 minutes per degree: 140 ÷ 4 = 35°. Being ahead indicates east."
+      },
+      "hi": {
+        "stem": "किसी स्थान का माध्य स्थानीय सौर समय ग्रीनविच से 2 घंटे 20 मिनट आगे है। उस स्थान का देशांतर ज्ञात करें।",
+        "options": [
+          "35° पूर्व",
+          "35° पश्चिम",
+          "30° पूर्व",
+          "40° पूर्व"
+        ],
+        "explanation": "2 घंटे 20 मिनट = 140 मिनट। 140 ÷ 4 मिनट प्रति डिग्री = 35°। समय आगे होने से दिशा पूर्व है।"
+      },
+      "pa": {
+        "stem": "ਕਿਸੇ ਸਥਾਨ ਦਾ ਔਸਤ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮਾਂ ਗ੍ਰੀਨਵਿਚ ਤੋਂ 2 ਘੰਟੇ 20 ਮਿੰਟ ਅੱਗੇ ਹੈ। ਉਸ ਸਥਾਨ ਦਾ ਲੰਬਕਾਰ ਪਤਾ ਕਰੋ।",
+        "options": [
+          "35° ਪੂਰਬ",
+          "35° ਪੱਛਮ",
+          "30° ਪੂਰਬ",
+          "40° ਪੂਰਬ"
+        ],
+        "explanation": "2 ਘੰਟੇ 20 ਮਿੰਟ = 140 ਮਿੰਟ। 140 ÷ 4 ਮਿੰਟ ਪ੍ਰਤੀ ਡਿਗਰੀ = 35°। ਸਮਾਂ ਅੱਗੇ ਹੋਣ ਕਾਰਨ ਦਿਸ਼ਾ ਪੂਰਬ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  }
+]

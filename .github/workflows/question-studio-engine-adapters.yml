@@ -1,0 +1,68 @@
+name: Validate Question Studio engine adapters
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/question-studio/engine-registry.test.ts
+      - artifacts/api-server/src/question-studio/engine-types.ts
+      - artifacts/api-server/src/question-studio/standard-lifecycle.ts
+      - artifacts/api-server/src/question-studio/standard-lifecycle.test.ts
+      - artifacts/api-server/src/question-studio/engines/**
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/question-studio/engine-registry.test.ts
+      - artifacts/api-server/src/question-studio/engine-types.ts
+      - artifacts/api-server/src/question-studio/standard-lifecycle.ts
+      - artifacts/api-server/src/question-studio/standard-lifecycle.test.ts
+      - artifacts/api-server/src/question-studio/engines/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: question-studio-engine-adapters-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-engine-adapters:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle Question Studio engine registry proof
+        run: |
+          mkdir -p artifacts/api-server/dist/question-studio
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engine-registry.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/question-studio/engine-registry.test.mjs
+
+      - name: Run Question Studio engine registry proof
+        run: node artifacts/api-server/dist/question-studio/engine-registry.test.mjs
+
+      - name: Patch hygiene
+        run: git diff --check

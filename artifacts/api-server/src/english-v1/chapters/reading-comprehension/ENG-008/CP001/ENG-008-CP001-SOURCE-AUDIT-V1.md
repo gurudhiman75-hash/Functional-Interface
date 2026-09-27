@@ -31,6 +31,12 @@ All learner passages are original Examtree-authored text. They are not copied fr
 
 Each question authority stores one correct answer, three curated distractors, a simple explanation, evidence text/rationale, difficulty, genre and passage ID.
 
+## Passage-length calibration
+
+Recent SSC passage checks show that the older ~130–150 word foundation texts were too short. The runtime contract is now **180–250 words**, keeping the prose simpler than Banking RC while still giving enough reading load for inference, title and supported-statement questions.
+
+Current expanded runtime distribution: **183–217 words**, average **205**.
+
 ## CP001 breadth
 
 The candidate contains **8 authored passages**:

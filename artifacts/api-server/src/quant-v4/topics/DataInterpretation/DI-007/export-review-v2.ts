@@ -2,10 +2,12 @@ import { writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { generateDi007V2ReviewSet } from "./missing-set-v2";
 import type { Di007V2QuestionSet, Di007V2TaskKind } from "./missing-v2-types";
+import { DI007_PERMANENT_QLS } from "./permanent-ql-registry";
+import { generateDi007LocalizedReviewQuestion, type Di007LocalizationLocale } from "./localization-review-v1";
 
 const OUTPUT = resolve(process.cwd(), process.argv[2] || "DI-007-REVIEW-V2.md");
 const ALL_TASKS: readonly Di007V2TaskKind[] = [
-  "DIRECT_VISIBLE_VALUE",
+  "VISIBLE_ROW_COMBINED_TOTAL",
   "VISIBLE_ROW_DIFFERENCE",
   "RECOVER_MISSING_VALUE",
   "HIDDEN_ROW_COMBINED_TOTAL",
@@ -68,7 +70,7 @@ const taskCoverage = new Set(sets.flatMap((set) => set.questions.map((question) 
 const lines: string[] = [
   "# DI-007 — Missing Data Interpretation V2 Review",
   "",
-  "Status: HUMAN_REVIEW_PENDING · REVIEW_ONLY · NO_PERMANENT_QLS",
+  "Status: ENGLISH_REVIEW_APPROVED · DIFFICULTY-FLOOR CORRECTION REVIEW",
   "",
   "Review sets: " + String(sets.length),
   "Questions: " + String(sets.reduce((sum, set) => sum + set.questions.length, 0)),
@@ -102,12 +104,41 @@ sets.forEach((set, setIndex) => {
 lines.push("---", "", "## Review checklist", "");
 lines.push("- Missing-table condition is understandable without internal terminology.");
 lines.push("- Context labels read naturally for banking-exam DI.");
-lines.push("- Easy questions are genuinely easy; Hard questions require missing-value recovery plus another operation.");
+lines.push("- Every Easy question requires arithmetic; zero-operation direct lookup is not allowed. Hard questions require missing-value recovery plus another operation.");
 lines.push("- Distractors are plausible and not absurd numerical fillers.");
 lines.push("- Explanations are simple, worked and question-specific.");
 lines.push("- No forced shortcut/trap boilerplate appears.");
 lines.push("- Five options remain unique for both Banking Prelims and Banking Mains.");
 lines.push("");
+
+lines.push("---", "", "## Hindi/Punjabi localization review", "");
+lines.push("Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW", "");
+for (const locale of ["hi-IN", "pa-IN"] as readonly Di007LocalizationLocale[]) {
+  lines.push(locale === "hi-IN" ? "### Hindi (hi-IN)" : "### Punjabi (pa-IN)", "");
+  for (const [index, descriptor] of DI007_PERMANENT_QLS.entries()) {
+    const examProfile = index % 2 === 0 ? "BANKING_PRELIMS" as const : "BANKING_MAINS" as const;
+    const pkg = generateDi007LocalizedReviewQuestion({
+      seed: `DI007-LOCALIZATION-REVIEW-${locale}-${descriptor.qlId}`,
+      examProfile,
+      taskKind: descriptor.taskKind,
+      locale,
+    });
+    const s = pkg.stimulus;
+    const q = pkg.question;
+    lines.push(`#### ${descriptor.qlId} — ${descriptor.taskKind} — ${q.difficulty}`, "");
+    lines.push(`**${s.title}**`, "");
+    lines.push(s.instruction, "");
+    lines.push("| " + s.rowLabel + " | " + s.seriesALabel + " | " + s.seriesBLabel + " |");
+    lines.push("|---|---:|---:|");
+    s.points.forEach((point) => lines.push("| " + point.label + " | " + String(point.seriesA) + " | " + String(point.displaySeriesB) + " |"));
+    lines.push("", q.stem, "");
+    q.options.forEach((option, optionIndex) => lines.push(String.fromCharCode(65 + optionIndex) + ". " + option));
+    lines.push("", "**Answer:** " + String.fromCharCode(65 + q.correctIndex) + ". " + q.answer, "");
+    lines.push("**Explanation:** " + q.explanation.keyIdea, "");
+    q.explanation.steps.forEach((step, stepIndex) => lines.push(String(stepIndex + 1) + ". " + step));
+    lines.push("");
+  }
+}
 
 await writeFile(OUTPUT, lines.join("\n") + "\n", "utf8");
 console.log(JSON.stringify({ output: OUTPUT, sets: sets.length, questions: questionNumber - 1, taskFamilies: taskCoverage.size }));

@@ -113,8 +113,16 @@ The profile records explicit blockers such as:
 
 The simulator must not infer or fabricate weights to remove these blockers.
 
+## Current profile state
+
+SSC CGL Tier-I has now advanced beyond the initial migration stage. The registered whole-section corpus contains 13 complete sections / 325 questions across 2022, 2023 and 2024, and the stability suite reports `STABILITY_CANDIDATE` with no evidence blockers.
+
+That candidate is already consumed by the non-production CGL shadow-governance layer, which derives an empirical section mix without mutating the live simulator. Production promotion remains separately unauthorized.
+
+Other exam profiles remain subject to their own evidence sufficiency and policy gates. Evidence from SSC CGL Tier-I must not be reused as a substitute for CHSL, CGL Tier II, Banking or Punjab frequency evidence.
+
 ## Next data work
 
-The next evidence pass should convert existing chapter source ledgers into normalized `QuantV4PyqObservation` records, beginning with directly identified PYQ fixtures. Each migrated record should preserve its original source reference so the mapping can be audited back to the chapter evidence.
+Continue normalizing attributable PYQ/whole-section evidence for profiles that have not yet reached their own empirical candidate state. Preserve original source references, paper identities, dates/shifts and question mappings so every frequency claim remains auditable.
 
-After enough normalized observations exist for a specific exam profile and an evidence threshold has been explicitly adopted, the real-exam simulator can consume that profile's empirical candidate weights and show the resulting section-distribution change.
+For SSC CGL Tier-I, the next step is no longer “collect enough evidence to clear stability.” Its next gate is an explicit production-frequency authorization decision after shadow delivery/lifecycle checks remain satisfactory.

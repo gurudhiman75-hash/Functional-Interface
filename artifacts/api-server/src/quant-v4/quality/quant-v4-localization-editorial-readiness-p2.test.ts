@@ -71,7 +71,7 @@ requireFragments(partnershipFreeze, "Partnership", [
 
 console.log("PASS_QUANT_V4_LOCALIZATION_EDITORIAL_READINESS_P2", {
   pendingExplicitHumanReview: ["Probability", "INT-CP-001", "TRG-001"],
-  activeLocalizationReviewCandidates: ["TRG-002-CP007", "TRG-002-CP008", "TRG-002-CP009", "TRG-002-CP010"],
+  engineeringReviewReadyHumanSignoffPending: ["TRG-002-CP007", "TRG-002-CP008", "TRG-002-CP009", "TRG-002-CP010"],
   protectedEditoriallyClosed: ["PRT-001"],
   fabricatedApprovals: 0,
   downstreamActivationsAuthorizedByThisCheckpoint: 0,

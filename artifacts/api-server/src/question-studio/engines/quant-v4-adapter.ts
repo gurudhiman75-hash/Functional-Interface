@@ -8,10 +8,20 @@ import {
   isDi001QuestionStudioRequest,
 } from "../../quant-v4/topics/DataInterpretation/DI-001/question-studio-adapter";
 import {
+  di002QuestionStudioPackageCard,
+  generateDi002QuestionStudioBatch,
+  isDi002QuestionStudioRequest,
+} from "../../quant-v4/topics/DataInterpretation/DI-002/question-studio-adapter";
+import {
   di003QuestionStudioPackageCard,
   generateDi003QuestionStudioBatch,
   isDi003QuestionStudioRequest,
 } from "../../quant-v4/topics/DataInterpretation/DI-003/question-studio-adapter";
+import {
+  di004QuestionStudioPackageCard,
+  generateDi004QuestionStudioBatch,
+  isDi004QuestionStudioRequest,
+} from "../../quant-v4/topics/DataInterpretation/DI-004/question-studio-adapter";
 import {
   di005QuestionStudioPackageCard,
   generateDi005QuestionStudioBatch,
@@ -153,7 +163,39 @@ function toDi001Request(request: QuestionStudioGenerationRequest) {
   };
 }
 
+function toDi002Request(request: QuestionStudioGenerationRequest) {
+  return {
+    packageId: request.packageId,
+    patternId: request.patternId,
+    topic: request.topic,
+    subtopic: request.subtopic,
+    difficulty: request.difficulty,
+    language: request.language,
+    seed: request.seed,
+    count: request.count,
+    canonicalProblemId: request.canonicalProblemId,
+    questionLanguageId: request.questionLanguageId,
+    examProfile: request.exam,
+  };
+}
+
 function toDi003Request(request: QuestionStudioGenerationRequest) {
+  return {
+    packageId: request.packageId,
+    patternId: request.patternId,
+    topic: request.topic,
+    subtopic: request.subtopic,
+    difficulty: request.difficulty,
+    language: request.language,
+    seed: request.seed,
+    count: request.count,
+    canonicalProblemId: request.canonicalProblemId,
+    questionLanguageId: request.questionLanguageId,
+    examProfile: request.exam,
+  };
+}
+
+function toDi004Request(request: QuestionStudioGenerationRequest) {
   return {
     packageId: request.packageId,
     patternId: request.patternId,
@@ -279,7 +321,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     };
 
     replaceOrPush("DI-001", di001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-002", di002QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-003", di003QuestionStudioPackageCard() as unknown as Record<string, unknown>);
+    replaceOrPush("DI-004", di004QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-005", di005QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-006", di006QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-007", di007QuestionStudioPackageCard() as unknown as Record<string, unknown>);
@@ -306,9 +350,19 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       return generateDi001QuestionStudioBatch(di001Request) as unknown as QuestionStudioGenerationResult;
     }
 
+    const di002Request = toDi002Request(request);
+    if (isDi002QuestionStudioRequest(di002Request)) {
+      return generateDi002QuestionStudioBatch(di002Request) as unknown as QuestionStudioGenerationResult;
+    }
+
     const di003Request = toDi003Request(request);
     if (isDi003QuestionStudioRequest(di003Request)) {
       return generateDi003QuestionStudioBatch(di003Request) as unknown as QuestionStudioGenerationResult;
+    }
+
+    const di004Request = toDi004Request(request);
+    if (isDi004QuestionStudioRequest(di004Request)) {
+      return generateDi004QuestionStudioBatch(di004Request) as unknown as QuestionStudioGenerationResult;
     }
 
     const di005Request = toDi005Request(request);

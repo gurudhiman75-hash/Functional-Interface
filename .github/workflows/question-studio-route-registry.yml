@@ -38,7 +38,11 @@ jobs:
           index='artifacts/api-server/src/routes/index.ts'
           registry='artifacts/api-server/src/routes/admin-question-studio-registry.ts'
 
-          grep -Fq 'import adminQuestionStudioRegistryRouter from "./admin-question-studio-registry";' "$index"
+          if ! grep -Fq 'import adminQuestionStudioRegistryRouter from "./admin-question-studio-registry";' "$index" \
+             && ! grep -Fq 'const adminQuestionStudioRegistryRouter = lazyRouter(() => import("./admin-question-studio-registry"));' "$index"; then
+            echo 'Question Studio registry must be mounted through either the static or lazy registry import.' >&2
+            exit 1
+          fi
           grep -Fq 'router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);' "$index"
 
           if grep -Eq 'import adminQuestionStudio[^R].*from "\./admin-question-studio-' "$index"; then

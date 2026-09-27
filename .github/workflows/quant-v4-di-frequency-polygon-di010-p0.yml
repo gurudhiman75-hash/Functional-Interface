@@ -8,7 +8,6 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/**"
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/question-studio-adapter.ts"
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/frequency-polygon-svg.ts"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   pull_request:
     branches:
       - New-main
@@ -16,7 +15,6 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-010/**"
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-009/question-studio-adapter.ts"
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/frequency-polygon-svg.ts"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   workflow_dispatch:
 
 concurrency:

@@ -16,6 +16,14 @@ CP002 therefore governs two passage classes:
 - editorial / argumentative;
 - current-affairs-style report / expository.
 
+## Passage-length calibration
+
+SSC editorial/current-affairs RC should be materially longer than the foundation story/report layer. The calibrated runtime band is now **220–350 words**.
+
+Current expanded runtime distribution: **225–262 words**, average **241**.
+
+This keeps the passages long enough for tone, purpose and implication questions without turning SSC RC into Banking Mains-style density.
+
 ## Passage breadth
 
 **12 original passages**

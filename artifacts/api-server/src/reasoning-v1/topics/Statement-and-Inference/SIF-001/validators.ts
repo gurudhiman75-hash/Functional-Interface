@@ -23,7 +23,10 @@ export function validateSifAuthority(authority: SifScenarioAuthority): readonly 
     DIFFICULTY_MATCH: [authority.difficulty === "EASY" ? authority.mechanisms.filter((mechanism) => mechanism !== "MIXED").length <= 2 : authority.mechanisms.filter((mechanism) => mechanism !== "MIXED").length <= 3, "Reasoning mechanisms remain within the difficulty ceiling."],
     EXPLANATION_QUALITY: [(["en-IN", "hi-IN", "pa-IN"] as const).every((locale) => authority.explanation[locale].length >= 45), "Explanation states the evidence, connection and result."],
     MULTILINGUAL_PARITY: [localized, `Answer class ${answer} is derived before language realization.`],
-    NOVELTY: [fingerprintSifAuthority(authority).length === 20, "A semantic fingerprint is available for repetition checks."],
+    NOVELTY: [
+      fingerprintSifAuthority(authority).length === 20,
+      "Semantic identity is fingerprinted for repetition checks. This gate means novelty-audit readiness only; it does not grant CONTROLLED_NOVEL provenance.",
+    ],
   };
   return GATES.map((gate) => ({ gate, passed: results[gate][0], detail: results[gate][1] }));
 }

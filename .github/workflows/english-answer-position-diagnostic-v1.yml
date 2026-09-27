@@ -8,14 +8,12 @@ on:
     paths:
       - artifacts/api-server/src/english-v1/tests/eng-001-answer-position-diagnostic-v1.test.ts
       - artifacts/api-server/src/english-v1/chapters/error-spotting/ENG-001/**
-      - artifacts/api-server/src/question-studio/**
   push:
     branches:
       - New-main
     paths:
       - artifacts/api-server/src/english-v1/tests/eng-001-answer-position-diagnostic-v1.test.ts
       - artifacts/api-server/src/english-v1/chapters/error-spotting/ENG-001/**
-      - artifacts/api-server/src/question-studio/**
   workflow_dispatch:
 
 permissions:

@@ -15,6 +15,18 @@ on:
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-*.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observation-registry-p2.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-selection-evidence-gate-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-readiness-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-tmw-cgl-cp-mapping-backfill-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-num-cgl-cp-mapping-backfill-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-mal-cgl-cp-mapping-backfill-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-avg-cgl-cp-reconcile-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-readiness-p3.ts"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-SPECIALIZED-PROFILE-CALIBRATION-READINESS-P3.md"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-empirical-difficulty-evidence-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-EMPIRICAL-DIFFICULTY-EVIDENCE-P3.md"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.ts"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-SPECIALIZED-PROFILE-CALIBRATION-POLICY-P3.md"
   pull_request:
     branches:
       - New-main
@@ -28,6 +40,18 @@ on:
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-*.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observation-registry-p2.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-selection-evidence-gate-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-readiness-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-tmw-cgl-cp-mapping-backfill-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-num-cgl-cp-mapping-backfill-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-mal-cgl-cp-mapping-backfill-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-avg-cgl-cp-reconcile-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-readiness-p3.ts"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-SPECIALIZED-PROFILE-CALIBRATION-READINESS-P3.md"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-empirical-difficulty-evidence-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-EMPIRICAL-DIFFICULTY-EVIDENCE-P3.md"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.ts"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-SPECIALIZED-PROFILE-CALIBRATION-POLICY-P3.md"
   workflow_dispatch:
 
 permissions:
@@ -81,6 +105,83 @@ jobs:
       - name: Run PYQ frequency authority regression
         working-directory: artifacts/api-server
         run: node dist/quant-v4/quality/quant-v4-pyq-frequency-evidence-p2.test.mjs
+
+      - name: Bundle specialized calibration readiness proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-specialized-profile-calibration-readiness-p3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-specialized-profile-calibration-readiness-p3.test.mjs
+
+      - name: Run specialized calibration readiness proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-specialized-profile-calibration-readiness-p3.test.mjs
+
+      - name: Bundle TMW CGL CP mapping backfill proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-tmw-cgl-cp-mapping-backfill-p3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-tmw-cgl-cp-mapping-backfill-p3.test.mjs
+
+      - name: Run TMW CGL CP mapping backfill proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-tmw-cgl-cp-mapping-backfill-p3.test.mjs
+
+      - name: Bundle NUM CGL CP mapping backfill proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-num-cgl-cp-mapping-backfill-p3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-num-cgl-cp-mapping-backfill-p3.test.mjs
+
+      - name: Run NUM CGL CP mapping backfill proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-num-cgl-cp-mapping-backfill-p3.test.mjs
+
+      - name: Bundle MAL CGL CP mapping backfill proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-mal-cgl-cp-mapping-backfill-p3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-mal-cgl-cp-mapping-backfill-p3.test.mjs
+
+      - name: Run MAL CGL CP mapping backfill proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-mal-cgl-cp-mapping-backfill-p3.test.mjs
+
+      - name: Bundle AVG CGL CP reconciliation proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-avg-cgl-cp-reconcile-p3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-avg-cgl-cp-reconcile-p3.test.mjs
+
+      - name: Run AVG CGL CP reconciliation proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-avg-cgl-cp-reconcile-p3.test.mjs
+
+      - name: Bundle specialized calibration policy proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.test.mjs
+
+      - name: Run specialized calibration policy proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.test.mjs
+
+      - name: Bundle empirical difficulty evidence proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-empirical-difficulty-evidence-p3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-empirical-difficulty-evidence-p3.test.mjs
+
+      - name: Run empirical difficulty evidence proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-empirical-difficulty-evidence-p3.test.mjs
 
       - name: Patch hygiene
         run: git diff --check

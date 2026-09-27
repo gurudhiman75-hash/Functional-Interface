@@ -1,0 +1,2114 @@
+[
+  {
+    "questionId": "WHI-CP002-Q001",
+    "englishQuestionId": "WHI-CP002-Q001",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "Which city became a leading centre of the Italian Renaissance?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Paris"
+      },
+      {
+        "key": "B",
+        "text": "Florence"
+      },
+      {
+        "key": "C",
+        "text": "London"
+      },
+      {
+        "key": "D",
+        "text": "Lisbon"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Florence became a major centre of Renaissance art, humanist learning, and patronage.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q002",
+    "englishQuestionId": "WHI-CP002-Q002",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F002",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "Renaissance humanists renewed the study of which body of writing?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mongol legal codes"
+      },
+      {
+        "key": "B",
+        "text": "Atlantic navigation logs"
+      },
+      {
+        "key": "C",
+        "text": "Classical Greek and Roman texts"
+      },
+      {
+        "key": "D",
+        "text": "Medieval Germanic law"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Humanists studied Greek and Roman literature, history, and philosophy, adapting classical learning to their own time.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q003",
+    "englishQuestionId": "WHI-CP002-Q003",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F003",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "Which family was a prominent patron of artists and scholars in Florence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Habsburgs"
+      },
+      {
+        "key": "B",
+        "text": "The Tudors"
+      },
+      {
+        "key": "C",
+        "text": "The Bourbons"
+      },
+      {
+        "key": "D",
+        "text": "The Medici"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Medici used wealth and political influence to commission art and support learning in Florence.",
+    "sourceIds": [
+      "S1",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q004",
+    "englishQuestionId": "WHI-CP002-Q004",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F004",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "Johannes Gutenberg is associated with the spread in western Europe of which technology?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The steam engine"
+      },
+      {
+        "key": "B",
+        "text": "Movable-metal-type printing"
+      },
+      {
+        "key": "C",
+        "text": "The telescope"
+      },
+      {
+        "key": "D",
+        "text": "The spinning jenny"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Gutenberg helped establish movable-metal-type printing in western Europe, making text reproduction more practical.",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q005",
+    "englishQuestionId": "WHI-CP002-Q005",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F005",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "Where was Gutenberg’s famous Bible printed?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Wittenberg"
+      },
+      {
+        "key": "B",
+        "text": "Geneva"
+      },
+      {
+        "key": "C",
+        "text": "Venice"
+      },
+      {
+        "key": "D",
+        "text": "Mainz"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Gutenberg’s Bible was printed in Mainz in the mid-fifteenth century. It is a major early western European book made with movable metal type.",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q006",
+    "englishQuestionId": "WHI-CP002-Q006",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F006",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "Which writer authored In Praise of Folly?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Thomas More"
+      },
+      {
+        "key": "B",
+        "text": "Erasmus"
+      },
+      {
+        "key": "C",
+        "text": "Niccolò Machiavelli"
+      },
+      {
+        "key": "D",
+        "text": "Francesco Petrarch"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Erasmus wrote In Praise of Folly, a humanist work that satirized social and religious practices.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q007",
+    "englishQuestionId": "WHI-CP002-Q007",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F007",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Who wrote Utopia, published in 1516?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Thomas More"
+      },
+      {
+        "key": "B",
+        "text": "Erasmus"
+      },
+      {
+        "key": "C",
+        "text": "Machiavelli"
+      },
+      {
+        "key": "D",
+        "text": "Petrarch"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Thomas More’s Utopia described an imagined society and became a major work of Renaissance humanist writing.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q008",
+    "englishQuestionId": "WHI-CP002-Q008",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F008",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "The Prince, a work on political power, was written by whom?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Thomas More"
+      },
+      {
+        "key": "B",
+        "text": "Erasmus"
+      },
+      {
+        "key": "C",
+        "text": "Niccolò Machiavelli"
+      },
+      {
+        "key": "D",
+        "text": "Dante Alighieri"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Machiavelli wrote The Prince, examining how rulers acquire and maintain political power.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q009",
+    "englishQuestionId": "WHI-CP002-Q009",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F009",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Who wrote The Divine Comedy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Petrarch"
+      },
+      {
+        "key": "B",
+        "text": "Dante Alighieri"
+      },
+      {
+        "key": "C",
+        "text": "Boccaccio"
+      },
+      {
+        "key": "D",
+        "text": "Ariosto"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Dante wrote The Divine Comedy in the early fourteenth century. Its use of Italian helped establish the vernacular as a language of major literature.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q010",
+    "englishQuestionId": "WHI-CP002-Q010",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F010",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Which writer is often called an early father of Renaissance humanism?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Martin Luther"
+      },
+      {
+        "key": "B",
+        "text": "Francesco Petrarch"
+      },
+      {
+        "key": "C",
+        "text": "Galileo Galilei"
+      },
+      {
+        "key": "D",
+        "text": "Vasco da Gama"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Petrarch’s recovery and study of classical Latin works helped shape Renaissance humanist scholarship.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q011",
+    "englishQuestionId": "WHI-CP002-Q011",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F011",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Which work was painted by Leonardo da Vinci in Milan?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The School of Athens"
+      },
+      {
+        "key": "B",
+        "text": "The Sistine Chapel ceiling"
+      },
+      {
+        "key": "C",
+        "text": "The Last Supper"
+      },
+      {
+        "key": "D",
+        "text": "The Birth of Venus"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Leonardo painted The Last Supper in Milan. The work depicts Jesus and his disciples at the meal before his arrest.",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q012",
+    "englishQuestionId": "WHI-CP002-Q012",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F012",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Who painted the Mona Lisa?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Raphael"
+      },
+      {
+        "key": "B",
+        "text": "Leonardo da Vinci"
+      },
+      {
+        "key": "C",
+        "text": "Michelangelo"
+      },
+      {
+        "key": "D",
+        "text": "Titian"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Leonardo da Vinci painted the Mona Lisa, one of the best-known portraits of the Renaissance.",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q013",
+    "englishQuestionId": "WHI-CP002-Q013",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F013",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement–idea",
+    "stem": "Which description best fits Renaissance humanism?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The study of classical learning and human life"
+      },
+      {
+        "key": "B",
+        "text": "The rejection of all ancient writing"
+      },
+      {
+        "key": "C",
+        "text": "The restoration of feudal obligations"
+      },
+      {
+        "key": "D",
+        "text": "The replacement of art by navigation"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Humanism renewed classical study and emphasized education and human capacities. It was not a single political or religious doctrine.",
+    "sourceIds": [
+      "S1",
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q014",
+    "englishQuestionId": "WHI-CP002-Q014",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F014",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Which artist painted the ceiling of the Sistine Chapel?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Raphael"
+      },
+      {
+        "key": "B",
+        "text": "Michelangelo"
+      },
+      {
+        "key": "C",
+        "text": "Leonardo da Vinci"
+      },
+      {
+        "key": "D",
+        "text": "Donatello"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Michelangelo painted the Sistine Chapel ceiling in Rome for Pope Julius II.",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q015",
+    "englishQuestionId": "WHI-CP002-Q015",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F015",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement–idea",
+    "stem": "What changed as printing with movable type spread?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Texts could be reproduced and circulated more widely"
+      },
+      {
+        "key": "B",
+        "text": "Handwritten books disappeared at once"
+      },
+      {
+        "key": "C",
+        "text": "Universities immediately closed"
+      },
+      {
+        "key": "D",
+        "text": "Only royal decrees could be printed"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Printing made it easier to reproduce books and arguments, although handwritten manuscripts continued to be used.",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q016",
+    "englishQuestionId": "WHI-CP002-Q016",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F016",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement–idea",
+    "stem": "Why were vernacular religious texts important during the Reformation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They prevented people from reading scripture"
+      },
+      {
+        "key": "B",
+        "text": "They were written only for the papacy"
+      },
+      {
+        "key": "C",
+        "text": "They ended the use of printing"
+      },
+      {
+        "key": "D",
+        "text": "They could reach readers who did not use Latin"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Texts in local languages could reach people beyond the Latin-educated clergy. Printing helped them circulate.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q017",
+    "englishQuestionId": "WHI-CP002-Q017",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F017",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Who painted The School of Athens?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Leonardo da Vinci"
+      },
+      {
+        "key": "B",
+        "text": "Raphael"
+      },
+      {
+        "key": "C",
+        "text": "Michelangelo"
+      },
+      {
+        "key": "D",
+        "text": "Erasmus"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Raphael painted The School of Athens for the Vatican rooms; it portrays ancient philosophers in an idealized setting.",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q018",
+    "englishQuestionId": "WHI-CP002-Q018",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F018",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Reformation and document",
+    "stem": "In which year did Martin Luther’s Ninety-five Theses appear?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1455"
+      },
+      {
+        "key": "B",
+        "text": "1492"
+      },
+      {
+        "key": "C",
+        "text": "1517"
+      },
+      {
+        "key": "D",
+        "text": "1543"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Luther’s Ninety-five Theses date to 1517 and challenged indulgence practices.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q019",
+    "englishQuestionId": "WHI-CP002-Q019",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F019",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "The Ninety-five Theses criticized the sale of what?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Royal land grants"
+      },
+      {
+        "key": "B",
+        "text": "Navigation licenses"
+      },
+      {
+        "key": "C",
+        "text": "Monastic libraries"
+      },
+      {
+        "key": "D",
+        "text": "Indulgences"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Luther criticized indulgences, which were connected to remission of temporal punishment for sin.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q020",
+    "englishQuestionId": "WHI-CP002-Q020",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Which German city is closely associated with Luther’s early Reformation activity?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Wittenberg"
+      },
+      {
+        "key": "B",
+        "text": "Mainz"
+      },
+      {
+        "key": "C",
+        "text": "Cologne"
+      },
+      {
+        "key": "D",
+        "text": "Hamburg"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Luther taught in Wittenberg, and the Ninety-five Theses are associated with the city. The exact posting story is debated.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q021",
+    "englishQuestionId": "WHI-CP002-Q021",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F021",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "At the Diet of Worms in 1521, Luther was asked to do what?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Lead a voyage to India"
+      },
+      {
+        "key": "B",
+        "text": "Recant his writings"
+      },
+      {
+        "key": "C",
+        "text": "Crown Charles V"
+      },
+      {
+        "key": "D",
+        "text": "Join the Council of Trent"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Luther was called upon to recant at the Diet of Worms and refused to withdraw his writings.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q022",
+    "englishQuestionId": "WHI-CP002-Q022",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F022",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Which reformer became closely associated with Geneva?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ignatius of Loyola"
+      },
+      {
+        "key": "B",
+        "text": "Thomas More"
+      },
+      {
+        "key": "C",
+        "text": "John Calvin"
+      },
+      {
+        "key": "D",
+        "text": "Pope Leo X"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "John Calvin’s ministry and writings were closely connected with Geneva and helped shape Reformed Protestant traditions.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q023",
+    "englishQuestionId": "WHI-CP002-Q023",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F023",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Which English monarch’s government asserted royal supremacy over the Church of England?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Henry II"
+      },
+      {
+        "key": "B",
+        "text": "Richard III"
+      },
+      {
+        "key": "C",
+        "text": "James II"
+      },
+      {
+        "key": "D",
+        "text": "Henry VIII"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Henry VIII’s government broke with papal authority and established the monarch’s supremacy over the English Church.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q024",
+    "englishQuestionId": "WHI-CP002-Q024",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F024",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "What did the Act of Supremacy of 1534 declare?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The pope became head of Parliament"
+      },
+      {
+        "key": "B",
+        "text": "England joined the Lutheran League"
+      },
+      {
+        "key": "C",
+        "text": "The English monarch was supreme head of the Church of England"
+      },
+      {
+        "key": "D",
+        "text": "Calvin became head of the English Church"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The 1534 Act of Supremacy established royal authority over the Church of England.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q025",
+    "englishQuestionId": "WHI-CP002-Q025",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F025",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Which council clarified Catholic doctrine during the Catholic Reformation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Council of Clermont"
+      },
+      {
+        "key": "B",
+        "text": "Council of Trent"
+      },
+      {
+        "key": "C",
+        "text": "Congress of Vienna"
+      },
+      {
+        "key": "D",
+        "text": "Council of Nicaea"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Council of Trent (1545–1563) clarified Catholic teaching and addressed reform within the Catholic Church.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q026",
+    "englishQuestionId": "WHI-CP002-Q026",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F026",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "What helped the Protestant Reformation spread across Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Printing and local religious and political networks"
+      },
+      {
+        "key": "B",
+        "text": "The immediate disappearance of monarchies"
+      },
+      {
+        "key": "C",
+        "text": "A ban on Bible translation"
+      },
+      {
+        "key": "D",
+        "text": "The closure of universities"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Printing aided the spread of reform arguments, while local rulers, communities, and religious networks shaped how they took hold.",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q027",
+    "englishQuestionId": "WHI-CP002-Q027",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F027",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Which statement distinguishes the Council of Trent from Luther’s movement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both were meetings led by Luther"
+      },
+      {
+        "key": "B",
+        "text": "Trent was part of Catholic reform; Luther’s movement helped form Protestant churches"
+      },
+      {
+        "key": "C",
+        "text": "Trent began before Luther’s theses"
+      },
+      {
+        "key": "D",
+        "text": "Both established royal supremacy in England"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Council of Trent was part of Catholic reform. Luther’s challenge contributed to the emergence and growth of Protestant churches.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q028",
+    "englishQuestionId": "WHI-CP002-Q028",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F028",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Which development most directly enabled reform arguments to circulate quickly?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Movable-type printing"
+      },
+      {
+        "key": "B",
+        "text": "The steam railway"
+      },
+      {
+        "key": "C",
+        "text": "The telegraph"
+      },
+      {
+        "key": "D",
+        "text": "The compass"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Printing made it easier to reproduce and circulate reform texts, though it was one factor among several.",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q029",
+    "englishQuestionId": "WHI-CP002-Q029",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F029",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Scientist–discovery",
+    "stem": "Who published a heliocentric account of the planetary system in 1543?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Isaac Newton"
+      },
+      {
+        "key": "B",
+        "text": "William Harvey"
+      },
+      {
+        "key": "C",
+        "text": "Andreas Vesalius"
+      },
+      {
+        "key": "D",
+        "text": "Nicolaus Copernicus"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Copernicus’s 1543 work placed the Sun at the centre of the planetary system and treated Earth as a moving planet.",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q030",
+    "englishQuestionId": "WHI-CP002-Q030",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F030",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Scientist–discovery",
+    "stem": "Galileo’s telescopic observations of Jupiter showed that what?",
+    "options": [
+      {
+        "key": "A",
+        "text": "All planets orbit the Moon"
+      },
+      {
+        "key": "B",
+        "text": "Some celestial bodies orbit a body other than Earth"
+      },
+      {
+        "key": "C",
+        "text": "The Sun orbits Jupiter"
+      },
+      {
+        "key": "D",
+        "text": "Earth is the only centre of motion"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Galileo observed moons orbiting Jupiter. This showed that not every celestial body revolved around Earth.",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q031",
+    "englishQuestionId": "WHI-CP002-Q031",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F031",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which work did Copernicus publish in 1543?",
+    "options": [
+      {
+        "key": "A",
+        "text": "De revolutionibus orbium coelestium"
+      },
+      {
+        "key": "B",
+        "text": "Principia Mathematica"
+      },
+      {
+        "key": "C",
+        "text": "De motu cordis"
+      },
+      {
+        "key": "D",
+        "text": "Utopia"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Copernicus published De revolutionibus in 1543. It presented a mathematical account of a Sun-centred planetary system.",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q032",
+    "englishQuestionId": "WHI-CP002-Q032",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F032",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which astronomer described planetary orbits as ellipses?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Copernicus"
+      },
+      {
+        "key": "B",
+        "text": "Galileo"
+      },
+      {
+        "key": "C",
+        "text": "Johannes Kepler"
+      },
+      {
+        "key": "D",
+        "text": "Newton"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Kepler’s laws described planets moving in elliptical rather than perfect circular orbits.",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q033",
+    "englishQuestionId": "WHI-CP002-Q033",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F033",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Newton’s Principia, published in 1687, is associated with which ideas?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Laws of motion and universal gravitation"
+      },
+      {
+        "key": "B",
+        "text": "The circulation of blood"
+      },
+      {
+        "key": "C",
+        "text": "The first printed Bible"
+      },
+      {
+        "key": "D",
+        "text": "The sale of indulgences"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Newton’s Principia set out laws of motion and gravitation, linking the study of earthly and celestial motion.",
+    "sourceIds": [
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q034",
+    "englishQuestionId": "WHI-CP002-Q034",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F034",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which scholar is known for observation-based human anatomy and De humani corporis fabrica?",
+    "options": [
+      {
+        "key": "A",
+        "text": "William Harvey"
+      },
+      {
+        "key": "B",
+        "text": "Andreas Vesalius"
+      },
+      {
+        "key": "C",
+        "text": "Francis Bacon"
+      },
+      {
+        "key": "D",
+        "text": "Tycho Brahe"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Vesalius’s 1543 anatomy work drew on direct observation of the human body and challenged inherited descriptions.",
+    "sourceIds": [
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q035",
+    "englishQuestionId": "WHI-CP002-Q035",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F035",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Who explained the circulation of blood through the body?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Andreas Vesalius"
+      },
+      {
+        "key": "B",
+        "text": "Johannes Kepler"
+      },
+      {
+        "key": "C",
+        "text": "William Harvey"
+      },
+      {
+        "key": "D",
+        "text": "Nicolaus Copernicus"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Harvey described the circulation of blood in De motu cordis, published in 1628.",
+    "sourceIds": [
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q036",
+    "englishQuestionId": "WHI-CP002-Q036",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F036",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Francis Bacon is most closely linked with support for which approach to knowledge?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Reliance on authority without testing"
+      },
+      {
+        "key": "B",
+        "text": "The rejection of experimentation"
+      },
+      {
+        "key": "C",
+        "text": "Systematic observation and empirical investigation"
+      },
+      {
+        "key": "D",
+        "text": "The use of astrology to explain anatomy"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Bacon promoted systematic observation and investigation as ways to develop knowledge about nature.",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q037",
+    "englishQuestionId": "WHI-CP002-Q037",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F037",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Vasco da Gama reached India by sailing along which route?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Around the Cape of Good Hope"
+      },
+      {
+        "key": "B",
+        "text": "Across the Isthmus of Panama"
+      },
+      {
+        "key": "C",
+        "text": "Through the Arctic Ocean"
+      },
+      {
+        "key": "D",
+        "text": "Across the Pacific from Mexico"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Da Gama rounded Africa and reached Calicut in 1498, establishing a Portuguese sea route to the Indian Ocean.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q038",
+    "englishQuestionId": "WHI-CP002-Q038",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F038",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Columbus’s 1492 expedition crossed which ocean while sailing west?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Atlantic Ocean"
+      },
+      {
+        "key": "B",
+        "text": "The Indian Ocean"
+      },
+      {
+        "key": "C",
+        "text": "The Arctic Ocean"
+      },
+      {
+        "key": "D",
+        "text": "The Pacific Ocean"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Columbus crossed the Atlantic while seeking a westward sea route to Asia; he reached Caribbean islands.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q039",
+    "englishQuestionId": "WHI-CP002-Q039",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F039",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Which navigator rounded Africa’s southern cape in 1488?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Bartolomeu Dias"
+      },
+      {
+        "key": "B",
+        "text": "Vasco da Gama"
+      },
+      {
+        "key": "C",
+        "text": "Pedro Álvares Cabral"
+      },
+      {
+        "key": "D",
+        "text": "Juan Sebastián Elcano"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Dias rounded Africa’s southern cape in 1488, opening the way for later Portuguese voyages toward the Indian Ocean.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q040",
+    "englishQuestionId": "WHI-CP002-Q040",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Pedro Álvares Cabral’s 1500 voyage is linked to Portuguese arrival in which present-day country?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mexico"
+      },
+      {
+        "key": "B",
+        "text": "Cuba"
+      },
+      {
+        "key": "C",
+        "text": "Peru"
+      },
+      {
+        "key": "D",
+        "text": "Brazil"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Cabral’s fleet reached the coast of Brazil in 1500 while sailing toward India.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q041",
+    "englishQuestionId": "WHI-CP002-Q041",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F041",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Which statement correctly compares Columbus’s and da Gama’s routes?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both sailed around Africa to reach the Caribbean"
+      },
+      {
+        "key": "B",
+        "text": "Columbus sailed around Africa; da Gama crossed the Pacific"
+      },
+      {
+        "key": "C",
+        "text": "Columbus sailed west across the Atlantic; da Gama rounded Africa toward India"
+      },
+      {
+        "key": "D",
+        "text": "Both crossed the Pacific to reach India"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Columbus crossed the Atlantic westward in 1492; da Gama rounded Africa to reach India in 1498.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q042",
+    "englishQuestionId": "WHI-CP002-Q042",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Why was the Cape of Good Hope important to Portuguese voyages?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It marked the boundary between England and France"
+      },
+      {
+        "key": "B",
+        "text": "It was the starting point of Columbus’s voyage"
+      },
+      {
+        "key": "C",
+        "text": "It connected the Mediterranean to the Baltic"
+      },
+      {
+        "key": "D",
+        "text": "It gave ships access around Africa into the Indian Ocean"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Rounding the Cape opened an ocean route from the Atlantic toward the Indian Ocean and Asian trade.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q043",
+    "englishQuestionId": "WHI-CP002-Q043",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F043",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "The 1494 Treaty of Tordesillas was agreed between which kingdoms?",
+    "options": [
+      {
+        "key": "A",
+        "text": "England and France"
+      },
+      {
+        "key": "B",
+        "text": "Portugal and the Netherlands"
+      },
+      {
+        "key": "C",
+        "text": "Spain and the Ottoman Empire"
+      },
+      {
+        "key": "D",
+        "text": "Spain and Portugal"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Spain and Portugal agreed to the Treaty of Tordesillas in 1494 amid competition over overseas claims.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q044",
+    "englishQuestionId": "WHI-CP002-Q044",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F044",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "What did the Treaty of Tordesillas establish?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A border between France and Germany"
+      },
+      {
+        "key": "B",
+        "text": "A religious settlement between Catholics and Lutherans"
+      },
+      {
+        "key": "C",
+        "text": "A line dividing Spanish and Portuguese overseas claims"
+      },
+      {
+        "key": "D",
+        "text": "A route linking Portugal to India"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The treaty set a line of demarcation for the overseas claims of Spain and Portugal.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q045",
+    "englishQuestionId": "WHI-CP002-Q045",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F045",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "Which expedition completed the first circumnavigation of Earth?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Magellan–Elcano expedition"
+      },
+      {
+        "key": "B",
+        "text": "Columbus’s first voyage"
+      },
+      {
+        "key": "C",
+        "text": "Dias’s Cape voyage"
+      },
+      {
+        "key": "D",
+        "text": "Da Gama’s India voyage"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The expedition began under Magellan and returned under Elcano in 1522. Magellan did not complete the return journey.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q046",
+    "englishQuestionId": "WHI-CP002-Q046",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "Who led the surviving crew back to Spain in 1522?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ferdinand Magellan"
+      },
+      {
+        "key": "B",
+        "text": "Bartolomeu Dias"
+      },
+      {
+        "key": "C",
+        "text": "Christopher Columbus"
+      },
+      {
+        "key": "D",
+        "text": "Juan Sebastián Elcano"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Elcano led the surviving expedition back to Spain after Magellan’s death in the Philippines.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q047",
+    "englishQuestionId": "WHI-CP002-Q047",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F047",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "Where did Magellan die during the circumnavigation expedition?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Calicut"
+      },
+      {
+        "key": "B",
+        "text": "The Cape of Good Hope"
+      },
+      {
+        "key": "C",
+        "text": "The Caribbean"
+      },
+      {
+        "key": "D",
+        "text": "The Philippines"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Magellan died in the Philippines in 1521; the surviving expedition continued and returned to Spain the following year.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q048",
+    "englishQuestionId": "WHI-CP002-Q048",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F048",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "Which year is associated with Cabral’s arrival on the coast of Brazil?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1488"
+      },
+      {
+        "key": "B",
+        "text": "1492"
+      },
+      {
+        "key": "C",
+        "text": "1498"
+      },
+      {
+        "key": "D",
+        "text": "1500"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Cabral’s expedition reached Brazil in 1500 while travelling toward India.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q049",
+    "englishQuestionId": "WHI-CP002-Q049",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F049",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "Which explanation best connects printing with the spread of Luther’s challenge?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Printing itself created Luther’s religious objections"
+      },
+      {
+        "key": "B",
+        "text": "Printing immediately ended Catholic authority throughout Europe"
+      },
+      {
+        "key": "C",
+        "text": "Vernacular texts prevented readers from discussing reform"
+      },
+      {
+        "key": "D",
+        "text": "Printed texts could be reproduced and circulated, carrying arguments beyond Wittenberg"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Printing helped Luther’s arguments reach wider audiences, but it did not create the religious disputes or end church authority at once.",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q050",
+    "englishQuestionId": "WHI-CP002-Q050",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F050",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "A Florentine family commissions a chapel, sculptures, and scholarly work. Which historical role does this example illustrate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A royal ban on public art"
+      },
+      {
+        "key": "B",
+        "text": "The end of civic influence in Italian cities"
+      },
+      {
+        "key": "C",
+        "text": "The replacement of humanist study by navigation"
+      },
+      {
+        "key": "D",
+        "text": "Patronage helped sustain Renaissance art and learning"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Wealthy patrons paid for works and supported scholars. Their support was one condition that allowed Renaissance cultural activity to flourish.",
+    "sourceIds": [
+      "S1",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q051",
+    "englishQuestionId": "WHI-CP002-Q051",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F051",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "Which statement best describes the religious changes of the sixteenth century?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Reformation united all western Christians under one church"
+      },
+      {
+        "key": "B",
+        "text": "The Council of Trent established Protestant churches"
+      },
+      {
+        "key": "C",
+        "text": "Protestant movements grew, while the Catholic Church also undertook reforms"
+      },
+      {
+        "key": "D",
+        "text": "The Catholic Church ended its institutional role in Europe"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Reformation produced Protestant churches, while the Council of Trent formed part of Catholic reform. These were related but distinct developments.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q052",
+    "englishQuestionId": "WHI-CP002-Q052",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F052",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "Why did vernacular printing matter to religious debate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It made some texts accessible to readers who did not read Latin and helped circulate them"
+      },
+      {
+        "key": "B",
+        "text": "It ensured every reader interpreted scripture in the same way"
+      },
+      {
+        "key": "C",
+        "text": "It replaced oral preaching immediately"
+      },
+      {
+        "key": "D",
+        "text": "It restricted religious debate to universities"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Local-language texts could reach readers beyond the Latin-educated clergy. Printing helped circulate them, though access and interpretation still varied.",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q053",
+    "englishQuestionId": "WHI-CP002-Q053",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F053",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "Which account of the Atlantic system is historically defensible?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It created equal benefits and political power for every connected society"
+      },
+      {
+        "key": "B",
+        "text": "It involved European merchants but no African or American communities"
+      },
+      {
+        "key": "C",
+        "text": "It ended the forced movement of people across the Atlantic"
+      },
+      {
+        "key": "D",
+        "text": "It connected regions through trade and settlement, as well as conquest and forced migration"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Atlantic connections included commerce and settlement, but also conquest, unequal power, and the forced migration of Africans.",
+    "sourceIds": [
+      "S8",
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q054",
+    "englishQuestionId": "WHI-CP002-Q054",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F054",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "Which description distinguishes the transatlantic slave trade from ordinary voluntary migration?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Africans were forcibly transported and sold into slavery across the Atlantic"
+      },
+      {
+        "key": "B",
+        "text": "Migrants chose their destination and retained equal legal rights"
+      },
+      {
+        "key": "C",
+        "text": "The movement consisted mainly of European scholars travelling to Asia"
+      },
+      {
+        "key": "D",
+        "text": "The trade ended plantation labour in the Americas"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The slave trade was a system of coercion that forcibly transported Africans and subjected them to enslavement and severe suffering.",
+    "sourceIds": [
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q055",
+    "englishQuestionId": "WHI-CP002-Q055",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F055",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "Which wording about the Gutenberg Bible avoids an inaccurate world-first claim?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It was the first book printed anywhere in the world"
+      },
+      {
+        "key": "B",
+        "text": "It was the first text ever copied by hand"
+      },
+      {
+        "key": "C",
+        "text": "It was the first major book printed with movable metal type in western Europe"
+      },
+      {
+        "key": "D",
+        "text": "It was the first religious work translated into a vernacular language"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Movable-type printing existed earlier in East Asia. The Gutenberg Bible is accurately described as the first major western European book printed with movable metal type.",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q056",
+    "englishQuestionId": "WHI-CP002-Q056",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F056",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "Which set of scientist–contribution links is fully correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Copernicus—blood circulation; Kepler—gravitation; Harvey—heliocentric model"
+      },
+      {
+        "key": "B",
+        "text": "Vesalius—planetary orbits; Newton—human anatomy; Galileo—blood circulation"
+      },
+      {
+        "key": "C",
+        "text": "Copernicus—heliocentric model; Kepler—elliptical orbits; Harvey—blood circulation"
+      },
+      {
+        "key": "D",
+        "text": "Newton—heliocentric model in 1543; Harvey—printing; Kepler—indulgences"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Copernicus advanced a heliocentric model, Kepler described elliptical planetary orbits, and Harvey studied the circulation of blood.",
+    "sourceIds": [
+      "S5",
+      "S6",
+      "S11",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q057",
+    "englishQuestionId": "WHI-CP002-Q057",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F057",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "Which distinction between Vesalius and Harvey is correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Vesalius described gravitation; Harvey published the heliocentric model"
+      },
+      {
+        "key": "B",
+        "text": "Vesalius advanced anatomy through direct study of the body; Harvey explained blood circulation"
+      },
+      {
+        "key": "C",
+        "text": "Vesalius studied planetary orbits; Harvey developed movable-type printing"
+      },
+      {
+        "key": "D",
+        "text": "Vesalius wrote The Prince; Harvey wrote Utopia"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Vesalius’s work focused on human anatomy, while Harvey described the circulation of blood. Their contributions belong to different areas of medicine.",
+    "sourceIds": [
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q058",
+    "englishQuestionId": "WHI-CP002-Q058",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F058",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "Which complete author–work pairing is correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Erasmus—Utopia; More—The Prince; Machiavelli—In Praise of Folly"
+      },
+      {
+        "key": "B",
+        "text": "Erasmus—In Praise of Folly; More—Utopia; Machiavelli—The Prince"
+      },
+      {
+        "key": "C",
+        "text": "Erasmus—The Last Supper; More—The School of Athens; Machiavelli—David"
+      },
+      {
+        "key": "D",
+        "text": "Erasmus—Principia; More—De revolutionibus; Machiavelli—De motu cordis"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Erasmus, More, and Machiavelli wrote In Praise of Folly, Utopia, and The Prince respectively. The works address different aspects of Renaissance thought.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q059",
+    "englishQuestionId": "WHI-CP002-Q059",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F059",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "Which sequence correctly orders the voyages and agreement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Columbus (1492) → Dias (1488) → da Gama (1498) → Tordesillas (1494)"
+      },
+      {
+        "key": "B",
+        "text": "Tordesillas (1494) → Dias (1488) → Columbus (1492) → da Gama (1498)"
+      },
+      {
+        "key": "C",
+        "text": "Dias rounds the Cape (1488) → Columbus crosses the Atlantic (1492) → Tordesillas (1494) → da Gama reaches India by sea (1498)"
+      },
+      {
+        "key": "D",
+        "text": "da Gama (1498) → Columbus (1492) → Dias (1488) → Tordesillas (1494)"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Dias rounded the Cape in 1488; Columbus crossed the Atlantic in 1492; Spain and Portugal signed Tordesillas in 1494; da Gama reached India in 1498.",
+    "sourceIds": [
+      "S8",
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q060",
+    "englishQuestionId": "WHI-CP002-Q060",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F060",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "Which conclusion about the first circumnavigation follows from the expedition’s sequence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Magellan began the voyage, died before its completion, and Elcano led the return to Spain"
+      },
+      {
+        "key": "B",
+        "text": "Magellan completed the return voyage after Elcano died"
+      },
+      {
+        "key": "C",
+        "text": "Columbus began the voyage and da Gama returned it to Spain"
+      },
+      {
+        "key": "D",
+        "text": "Elcano began the expedition in 1519 and Magellan returned in 1522"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The expedition began under Magellan in 1519. After his death in 1521, Elcano led the surviving crew back to Spain in 1522.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]

@@ -82,4 +82,23 @@ node scripts/assemble-hosting.mjs
 echo "[render-build] build API runtime"
 node artifacts/api-server/build-runtime.mjs
 
+# The free Render service has a 512 MiB runtime limit. A previous regression
+# collapsed the lazy Question Studio graph into the entry chunk and produced
+# an 88 MiB index.mjs, which expanded past 512 MiB during Node cold start.
+# The normal split entry is well under 1 MiB. Fail the deploy before startup
+# if the entry bundle becomes monolithic again, leaving the last live deploy
+# untouched instead of allowing Render to OOM the new instance.
+runtime_entry="artifacts/api-server/dist/index.mjs"
+runtime_entry_limit_bytes=$((12 * 1024 * 1024))
+if [[ ! -f "$runtime_entry" ]]; then
+  echo "[render-build] ERROR: missing API runtime entry: $runtime_entry" >&2
+  exit 1
+fi
+runtime_entry_bytes=$(wc -c < "$runtime_entry")
+echo "[render-build] API runtime entry size: ${runtime_entry_bytes} bytes"
+if (( runtime_entry_bytes > runtime_entry_limit_bytes )); then
+  echo "[render-build] ERROR: API runtime entry exceeds 12 MiB startup-memory guard" >&2
+  exit 1
+fi
+
 echo "[render-build] complete"

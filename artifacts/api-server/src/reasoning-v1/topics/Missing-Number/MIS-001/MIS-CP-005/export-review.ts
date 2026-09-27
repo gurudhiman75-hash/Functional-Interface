@@ -1,0 +1,7 @@
+import {mkdirSync,writeFileSync} from 'node:fs';import{resolve}from'node:path';
+import{generateMisCp005Question,MIS_CP005_CANDIDATE_IDS}from'./generator';import{misCp005RuleByCandidateId}from'./rule-definitions';
+const dir=process.env.MIS_CP005_REVIEW_OUTPUT_DIR||resolve(process.cwd(),'dist/reasoning-v1/mis-001'),path=resolve(dir,'MIS-CP-005-REVIEW.md');mkdirSync(dir,{recursive:true});
+const lines=['# MIS-CP-005 Review Pack','','**Lifecycle:** executable prototype / review-only','','Triangle geometry is a semantic number container; permanent QL allocation remains deferred.',''];
+for(const id of MIS_CP005_CANDIDATE_IDS){const rule=misCp005RuleByCandidateId(id);lines.push('## '+id+' — '+rule.label,'');
+ for(let n=1;n<=4;n++){const q=generateMisCp005Question(id,`MIS-CP005-REVIEW:${id}:S${n}`);lines.push('### Sample '+n+' · '+q.difficulty,'','~~~text',q.stem,'~~~','',...q.options.map((o,i)=>String.fromCharCode(65+i)+'. '+o.value+(i===q.correctIndex?'  ✅':'')),'','**Explanation**','','~~~text',q.explanation,'~~~','', '- Rule: '+q.ruleId,'- Renderer: '+q.renderer,'- Semantic positions: '+q.semanticPositions.join(', '),'- Ambiguity survivors: '+new Set(q.ambiguityAudit.matches.map(m=>m.semanticKey)).size,'- Structural fingerprint: '+q.structuralFingerprint,'');}}
+writeFileSync(path,lines.join('\n')+'\n');console.log(path);

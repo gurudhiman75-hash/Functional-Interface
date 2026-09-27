@@ -214,13 +214,13 @@ function localizedExplanation(question: AnyQuestion, locale: Trg002LocalizedLoca
     bodies = [`tanθ=${height}/${horizontal}।`, native(locale, "इस अनुपात को मानक त्रिकोणमितीय मान से मिलाएँ।", "ਇਸ ਅਨੁਪਾਤ ਨੂੰ ਮਿਆਰੀ ਤ੍ਰਿਕੋਣਮਿਤੀ ਮੁੱਲ ਨਾਲ ਮਿਲਾਓ।"), native(locale, `अतः θ=${answer}।`, `ਇਸ ਲਈ θ=${answer}।`)];
   } else if (g.observation.classification === "DEPRESSION" && g.state.requested.kind === "OBJECT_HEIGHT") {
     rule = native(locale, "अवनमन कोण पहले अवलोकन स्तर और लक्ष्य शीर्ष के बीच ऊर्ध्वाधर अंतर देता है।", "ਅਵਨਮਨ ਕੋਣ ਪਹਿਲਾਂ ਨਿਰੀਖਣ ਪੱਧਰ ਅਤੇ ਟੀਚੇ ਦੀ ਚੋਟੀ ਵਿਚਲਾ ਲੰਬਕਾਰੀ ਫਰਕ ਦਿੰਦਾ ਹੈ।");
-    shortcut = native(locale, "पहले drop=d×tanθ निकालें, फिर उसे अवलोकन ऊँचाई से घटाएँ।", "ਪਹਿਲਾਂ drop=d×tanθ ਕੱਢੋ, ਫਿਰ ਇਸ ਨੂੰ ਨਿਰੀਖਣ ਉਚਾਈ ਤੋਂ ਘਟਾਓ।");
+    shortcut = native(locale, "पहले ऊर्ध्वाधर अंतर=d×tanθ निकालें, फिर उसे अवलोकन ऊँचाई से घटाएँ।", "ਪਹਿਲਾਂ ਲੰਬਕਾਰੀ ਫਰਕ=d×tanθ ਕੱਢੋ, ਫਿਰ ਇਸ ਨੂੰ ਨਿਰੀਖਣ ਉਚਾਈ ਤੋਂ ਘਟਾਓ।");
     trap = native(locale, "tan से मिला मान पूरी वस्तु की ऊँचाई नहीं, स्तरों का अंतर है।", "tan ਨਾਲ ਮਿਲਿਆ ਮੁੱਲ ਪੂਰੀ ਵਸਤੂ ਦੀ ਉਚਾਈ ਨਹੀਂ, ਪੱਧਰਾਂ ਦਾ ਫਰਕ ਹੈ।");
     bodies = [native(locale, `ऊर्ध्वाधर अंतर=${horizontal}×tan${angle}=${drop} m।`, `ਲੰਬਕਾਰੀ ਫਰਕ=${horizontal}×tan${angle}=${drop} m।`), native(locale, `लक्ष्य की ऊँचाई=${observerHeight}−${drop} m।`, `ਟੀਚੇ ਦੀ ਉਚਾਈ=${observerHeight}−${drop} m।`), native(locale, `अतः ऊँचाई=${answer}।`, `ਇਸ ਲਈ ਉਚਾਈ=${answer}।`)];
   } else if (g.observation.classification === "DEPRESSION" && g.state.requested.kind === "HORIZONTAL_DISTANCE") {
     rule = native(locale, "अवनमन कोण में tanθ=ऊर्ध्वाधर स्तर-अंतर/क्षैतिज दूरी।", "ਅਵਨਮਨ ਕੋਣ ਵਿੱਚ tanθ=ਲੰਬਕਾਰੀ ਪੱਧਰ-ਫਰਕ/ਖਿਤਿਜੀ ਦੂਰੀ।");
     shortcut = native(locale, "पहले दोनों स्तरों का अंतर लें, फिर उसे tanθ से भाग दें।", "ਪਹਿਲਾਂ ਦੋਵੇਂ ਪੱਧਰਾਂ ਦਾ ਫਰਕ ਲਵੋ, ਫਿਰ ਇਸ ਨੂੰ tanθ ਨਾਲ ਭਾਗ ਦਿਓ।");
-    trap = native(locale, "पूरी अवलोकन ऊँचाई को सीधे opposite side न लें जब लक्ष्य भी जमीन से ऊपर हो।", "ਜੇ ਟੀਚਾ ਵੀ ਜ਼ਮੀਨ ਤੋਂ ਉੱਪਰ ਹੋਵੇ ਤਾਂ ਪੂਰੀ ਨਿਰੀਖਣ ਉਚਾਈ ਨੂੰ ਸਿੱਧਾ opposite side ਨਾ ਲਵੋ।");
+    trap = native(locale, "जब लक्ष्य भी जमीन से ऊपर हो, तो पूरी अवलोकन ऊँचाई को सीधे सामने वाली भुजा न लें।", "ਜੇ ਟੀਚਾ ਵੀ ਜ਼ਮੀਨ ਤੋਂ ਉੱਪਰ ਹੋਵੇ ਤਾਂ ਪੂਰੀ ਨਿਰੀਖਣ ਉਚਾਈ ਨੂੰ ਸਿੱਧਾ ਸਾਹਮਣੇ ਵਾਲੀ ਭੁਜਾ ਨਾ ਮੰਨੋ।");
     bodies = [native(locale, `ऊर्ध्वाधर स्तर-अंतर=${drop} m।`, `ਲੰਬਕਾਰੀ ਪੱਧਰ-ਫਰਕ=${drop} m।`), `d=${drop}/tan${angle}।`, native(locale, `अतः d=${answer}।`, `ਇਸ ਲਈ d=${answer}।`)];
   } else {
     throw new Error(`${question.qlId}: unsupported CP007 explanation form.`);

@@ -121,6 +121,35 @@ export type DailyDiscoveryCensus = {
   domainSnapshot: {
     sourceDomains?: Record<string, { registered: number; active: number; automated: number; fresh: number }>;
     eventCategories?: Record<string, { events: number; verified: number }>;
+    discoveryCoverage?: null | {
+      version?: string;
+      targetDate?: string;
+      sourceUniverseMode?: string;
+      mandatoryCategoryCount?: number;
+      categorySearchesSucceeded?: number;
+      categorySearchesFailed?: number;
+      categoriesWithResults?: number;
+      initialCoverageHoles?: string[];
+      unresolvedCoverageHoles?: string[];
+      rescueQueriesAttempted?: number;
+      rescueQueriesSucceeded?: number;
+      categoryCounts?: Record<string, number>;
+      targetDateUniqueArticles?: number;
+      catchupLookbackDays?: number;
+      catchupSearchesSucceeded?: number;
+      catchupSearchesFailed?: number;
+      catchupArticlesObserved?: number;
+      lateCatchupCandidates?: number;
+      skippedExistingOtherDate?: number;
+      registeredTrustedDomainCount?: number;
+      observedPublisherDomainCount?: number;
+      observedPublisherDomains?: string[];
+      metadataOnly?: boolean;
+      publisherArticleBodiesFetched?: false;
+      snippetsPersisted?: false;
+      rawArticlePersistence?: false;
+      editorialApprovalRequired?: true;
+    };
   };
   sourceSnapshot: { sourceTiers?: Record<string, { registered: number; active: number; automated: number; fresh: number }> };
   evidenceSnapshot: { grades?: Record<string, number> };
@@ -297,6 +326,11 @@ export type GenerateYesterdayCurrentAffairsResult = {
     localizedMasterPacksParityReady?: boolean;
     verifiedEvents: number;
     reviewEvents: number;
+    coverageCategoriesSearched?: number;
+    coverageCategoriesWithResults?: number;
+    coverageHoleCount?: number;
+    observedPublisherDomainCount?: number;
+    lateCatchupCandidates?: number;
     masterPackEventCount: number;
     coverageConfidenceScore: number;
     readinessColor: 'green' | 'amber' | 'red';

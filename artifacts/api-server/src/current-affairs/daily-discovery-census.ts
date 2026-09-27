@@ -275,8 +275,15 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
         (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
       )=${targetDate}
         AND candidate.status NOT IN ('rejected','error')
-        AND source.source_tier <> 'specialist'
-        AND (source.is_primary_source=true OR source.trust_score >= 0.75)
+        AND (
+          source.source_tier <> 'specialist'
+          OR COALESCE(candidate.payload->>'discoveryProvider','')='tavily_open_web_v1'
+        )
+        AND (
+          source.is_primary_source=true
+          OR source.trust_score >= 0.75
+          OR COALESCE(candidate.payload->>'discoveryProvider','')='tavily_open_web_v1'
+        )
       GROUP BY candidate.id, member.cluster_id
     `,
   ]);
@@ -343,6 +350,21 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
     verified: number(row.verifiedCount),
   }]));
 
+  const coverageProviderRows = await sqlClient`
+    SELECT metadata
+    FROM content.current_affairs_sources
+    WHERE source_key='tavily_open_news'
+    LIMIT 1
+  `;
+  const coverageMetadata = coverageProviderRows[0]?.metadata && typeof coverageProviderRows[0].metadata === "object"
+    ? coverageProviderRows[0].metadata as Record<string, unknown>
+    : {};
+  const discoveryCoverage = String(coverageMetadata.lastCoverageTargetDate ?? "") === targetDate
+    && coverageMetadata.lastCoverageDiagnostics
+    && typeof coverageMetadata.lastCoverageDiagnostics === "object"
+      ? coverageMetadata.lastCoverageDiagnostics as Record<string, unknown>
+      : null;
+
   const input: DailyDiscoveryCensusInput = {
     rawCandidateCount: number(candidates.rawCandidateCount),
     distinctSourceCount: number(candidates.distinctSourceCount),
@@ -361,6 +383,18 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
     eventCategoryCount: categoryRows.length,
   };
   const evaluation = evaluateDailyDiscoveryCensus(input);
+  if (discoveryCoverage) {
+    const failedSearches = number(discoveryCoverage.categorySearchesFailed);
+    const unresolvedHoles = Array.isArray(discoveryCoverage.unresolvedCoverageHoles)
+      ? discoveryCoverage.unresolvedCoverageHoles.map(String)
+      : [];
+    if (failedSearches > 0) {
+      evaluation.warnings.push(`${failedSearches} mandatory category discovery sweep(s) failed and should be retried before editorial approval.`);
+    }
+    if (unresolvedHoles.length > 0) {
+      evaluation.warnings.push(`Coverage-hole rescue still found no target-date result in ${unresolvedHoles.length} category/categories: ${unresolvedHoles.slice(0, 8).join(", ")}.`);
+    }
+  }
   const id = randomUUID();
   const highYieldGapSnapshot = {
     count: highYieldDiscoveryGaps.length,
@@ -386,7 +420,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
       ${input.officialCandidateCount}, ${input.trustedNewsCandidateCount}, ${input.specialistCandidateCount},
       ${input.clusterCount}, ${input.unresolvedClusterCount}, ${input.eventCount}, ${input.verifiedEventCount},
       ${input.reviewEventCount}, ${input.authoringReadyCount}, ${input.highPriorityUnresolvedCount},
-      ${JSON.stringify({ sourceDomains, eventCategories })}::jsonb,
+      ${JSON.stringify({ sourceDomains, eventCategories, discoveryCoverage })}::jsonb,
       ${JSON.stringify({ sourceTiers })}::jsonb,
       ${JSON.stringify({ grades: evidenceGrades, highYieldDiscoveryGaps: highYieldGapSnapshot })}::jsonb,
       ${JSON.stringify(evaluation.blockers)}::jsonb,
@@ -422,7 +456,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
   return {
     ...(rows[0] ?? { id, targetDate, status: evaluation.status, coverageConfidenceScore: evaluation.coverageConfidenceScore }),
     ...input,
-    domainSnapshot: { sourceDomains, eventCategories },
+    domainSnapshot: { sourceDomains, eventCategories, discoveryCoverage },
     sourceSnapshot: { sourceTiers },
     evidenceSnapshot: { grades: evidenceGrades, highYieldDiscoveryGaps: highYieldGapSnapshot },
     blockers: evaluation.blockers,

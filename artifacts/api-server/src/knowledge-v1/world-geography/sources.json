@@ -1,0 +1,434 @@
+[
+  {
+    "id": "NCERT-DOMAINS",
+    "title": "NCERT: Major Domains of the Earth (SATHEE/IIT Kanpur edition)",
+    "url": "https://sathee.iitk.ac.in/sathee-ssc/student-corner/ncert-books/class-06/social-science/the-earth-our-habitat/chapter-05-major-domains-of-the-earth/",
+    "section": "Continents; Oceans; world map",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "NOAA-OCEANS",
+    "title": "NOAA: How many oceans are there?",
+    "url": "https://oceanservice.noaa.gov/facts/howmanyoceans.html",
+    "section": "Connected ocean, five-ocean convention, surface water share",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NOAA-LONGITUDE",
+    "title": "NOAA: What is longitude?",
+    "url": "https://oceanservice.noaa.gov/facts/longitude.html",
+    "section": "Coordinate definition, meridians and civil-time boundaries",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NOAA-DATE-LINE",
+    "title": "NOAA: What is the international date line?",
+    "url": "https://oceanservice.noaa.gov/facts/international-date-line.html",
+    "section": "Location; west/east calendar adjustment",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NASA-EARTH",
+    "title": "NASA: Facts About Earth",
+    "url": "https://science.nasa.gov/earth/facts/",
+    "section": "Orbit and Rotation; Structure; Surface",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NASA-SEASONS",
+    "title": "NASA Space Place: What Causes the Seasons?",
+    "url": "https://spaceplace.nasa.gov/seasons/en/",
+    "section": "Axial tilt, opposite seasons, perihelion and aphelion",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NASA-ECLIPSES",
+    "title": "NASA Space Place: Lunar Eclipses and Solar Eclipses",
+    "url": "https://spaceplace.nasa.gov/eclipses/en/",
+    "section": "Solar and lunar eclipse geometry",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NCERT-INTERIOR",
+    "title": "NCERT XI: Interior of the Earth",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy203.pdf",
+    "section": "Printed pp. 18–26: interior evidence, waves, layers and volcanoes",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NCERT-ROCKS",
+    "title": "NCERT VII: Inside Our Earth",
+    "url": "https://ncert.nic.in/textbook/pdf/gess202.pdf",
+    "section": "Printed pp. 7–10: layers, rocks and minerals",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NPS-ROCKS",
+    "title": "NPS: How Rocks are Classified",
+    "url": "https://www.nps.gov/subjects/geology/how-rocks-are-classified.htm",
+    "section": "Igneous, sedimentary and metamorphic formation",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NPS-METAMORPHIC",
+    "title": "NPS: Metamorphic Rocks",
+    "url": "https://www.nps.gov/subjects/geology/metamorphic.htm",
+    "section": "Parent rocks, texture and metamorphic processes",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "USGS-TIME",
+    "title": "USGS: Fossils, Rocks, and Time — The Relative Time Scale",
+    "url": "https://pubs.usgs.gov/gip/fossils/scale.html",
+    "section": "Relative order of eras",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "USGS-GRAPHITE",
+    "title": "USGS: Earth Materials Scavenger Hunt",
+    "url": "https://www.usgs.gov/educational-resources/earth-materials-scavenger-hunt-activity",
+    "section": "Graphite in pencils",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "NCERT-PLATES",
+    "title": "NCERT XI: Distribution of Oceans and Continents",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy204.pdf",
+    "section": "Printed pp. 27–35: drift evidence, spreading, plate tectonics",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "USGS-MAGNITUDE",
+    "title": "USGS: Earthquake Magnitude, Energy Release, and Shaking Intensity",
+    "url": "https://www.usgs.gov/programs/earthquake-hazards/earthquake-magnitude-energy-release-and-shaking-intensity",
+    "section": "Magnitude versus intensity; moment magnitude; local effects",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NOAA-TSUNAMI",
+    "title": "NOAA: What is a tsunami?",
+    "url": "https://oceanservice.noaa.gov/facts/tsunami.html",
+    "section": "Generation, propagation and shallow-water effects",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NCERT-PROCESSES",
+    "title": "NCERT XI: Geomorphic Processes",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy205.pdf",
+    "section": "Printed pp. 36–46: weathering, mass movement, erosion and deposition",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NCERT-LANDFORMS",
+    "title": "NCERT XI: Landforms and their Evolution",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy206.pdf",
+    "section": "Printed pp. 47–62: running water; groundwater; glaciers; waves; winds",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "NPS-GLACIERS",
+    "title": "NPS: Glaciers and Glacial Landforms",
+    "url": "https://www.nps.gov/subjects/geology/glacial-landforms.htm",
+    "section": "Linked cirques, valleys, moraines, till and outwash articles",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-26",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-009A",
+    "title": "NCERT XI: Composition and Structure of Atmosphere",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy207.pdf",
+    "section": "Atmospheric composition, layers, weather elements and vertical structure",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-009B",
+    "title": "NCERT XI: Solar Radiation, Heat Balance and Temperature",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy208.pdf",
+    "section": "Insolation, heating and cooling, temperature distribution and inversion",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-010",
+    "title": "NCERT XI: Atmospheric Circulation and Weather Systems",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy209.pdf",
+    "section": "Pressure, forces, planetary and local winds, air masses and fronts",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-010B",
+    "title": "NOAA NESDIS: What is the jet stream?",
+    "url": "https://www.nesdis.noaa.gov/about/k-12-education/atmosphere/what-the-jet-stream",
+    "section": "Upper-tropospheric jet-stream position, flow and seasonal variation",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-011",
+    "title": "NCERT XI: Water in the Atmosphere",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy210.pdf",
+    "section": "Humidity, condensation, clouds, fog, precipitation and rainfall distribution",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-012",
+    "title": "NCERT XI: Atmospheric Circulation and Weather Systems",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy209.pdf",
+    "section": "Tropical and temperate cyclones, fronts, anticyclones and monsoon circulation",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-012A",
+    "title": "NOAA/AOML: Tropical cyclone formation conditions",
+    "url": "https://www.aoml.noaa.gov/hrd/tcfaq/D7.html",
+    "section": "Warm ocean water, moisture, Coriolis effect and wind shear conditions for tropical cyclone development",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-012B",
+    "title": "WMO: Tropical cyclone naming",
+    "url": "https://wmo.int/resources/wmo-fact-sheets/tropical-cyclone-naming",
+    "section": "Regional names and the role of WMO tropical cyclone bodies",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-012C",
+    "title": "NOAA Physical Sciences Laboratory: Dipole Mode Index",
+    "url": "https://psl.noaa.gov/data/timeseries/month/DMI/",
+    "section": "Sea-surface temperature gradient used to describe positive and negative Indian Ocean Dipole phases",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-013",
+    "title": "NCERT XI: World Climate and Climate Change",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy211.pdf",
+    "section": "Köppen classification and global climate regions, including equatorial, tropical, arid, temperate and polar types",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-014A",
+    "title": "National Geographic Education: What Makes a Biome?",
+    "url": "https://education.nationalgeographic.org/resource/what-makes-biome/7th-grade/",
+    "section": "Biome definition and broad forest, grassland, desert and tundra patterns",
+    "kind": "educational-reference",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-014B",
+    "title": "FAO: Lecture Notes on the Major Soils of the World",
+    "url": "https://www.fao.org/4/y1899e/y1899e02.htm",
+    "section": "Major soil groups, soil-forming factors and broad climate/vegetation relationships",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-015A",
+    "title": "NCERT XI: Distribution of Oceans and Continents",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy212.pdf",
+    "section": "Continental margins, ocean basins, deep-sea trenches, abyssal plains and mid-ocean ridges",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-015B",
+    "title": "NOAA: Ocean Floor Features",
+    "url": "https://www.noaa.gov/education/resource-collections/ocean-coasts/ocean-floor-features",
+    "section": "Continental shelf, slope, abyssal plains and related ocean-floor features",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-015C",
+    "title": "NOAA Ocean Service: What Is a Thermocline?",
+    "url": "https://oceanservice.noaa.gov/facts/thermocline.html",
+    "section": "Temperature layers and rapid temperature decline with depth",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-015D",
+    "title": "NOAA Ocean Exploration: How Does Ocean-Water Temperature Vary?",
+    "url": "https://oceanexplorer.noaa.gov/ocean-fact/temp-vary/",
+    "section": "Temperature variation with depth and broad regional patterns",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-012D",
+    "title": "NOAA Ocean Service: What Is Storm Surge?",
+    "url": "https://oceanservice.noaa.gov/facts/stormsurge-stormtide.html",
+    "section": "Storm-surge rise and the role of winds, tides, storm characteristics and coastal bathymetry",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-012E",
+    "title": "WMO: Northern Indian Ocean Cyclone Names",
+    "url": "https://wmo.int/content/tropical-cyclone-naming/northern-indian-ocean-names-arabian-sea-and-bay-of-bengal",
+    "section": "Naming responsibility for tropical cyclones over the Bay of Bengal and Arabian Sea",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-012F",
+    "title": "NOAA Ocean Service: What Are El Niño and La Niña?",
+    "url": "https://oceanservice.noaa.gov/facts/ninonina.html",
+    "section": "Equatorial Pacific sea-surface temperature, trade-wind and upwelling patterns in ENSO phases",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-PHY-016A",
+    "title": "NCERT XI: Distribution of Oceans and Continents",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy212.pdf",
+    "section": "Ocean-water movements and global circulation, including currents",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-PHY-016B",
+    "title": "NOAA National Ocean Service: Currents and Upwelling",
+    "url": "https://oceanservice.noaa.gov/education/tutorial_currents/",
+    "section": "Surface and deep currents, boundary currents, coastal upwelling and marine productivity",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-016C",
+    "title": "NOAA National Ocean Service: Tides and Water Levels",
+    "url": "https://oceanservice.noaa.gov/education/tutorial_tides/",
+    "section": "Tidal range, spring and neap tides, and tidal currents",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-PHY-016D",
+    "title": "NOAA National Ocean Service: What Are the Three Main Types of Coral Reefs?",
+    "url": "https://oceanservice.noaa.gov/facts/threecorals.html",
+    "section": "Fringing, barrier and atoll forms and their relative positions",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-017A",
+    "title": "NCERT XI: Distribution of Oceans and Continents",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy212.pdf",
+    "section": "World ocean and sea distribution, physical map relationships",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-PHY-017B",
+    "title": "Encyclopaedia Britannica: Straits, Channels and Canals",
+    "url": "https://www.britannica.com/science/strait",
+    "section": "Natural narrow passages and major world waterway connections; check each named feature against its linked entry",
+    "kind": "reference-encyclopedia",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-PHY-018A",
+    "title": "NCERT XI: Landforms and Their Evolution",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy206.pdf",
+    "section": "Major landform categories and global relief relationships",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-PHY-018B",
+    "title": "Encyclopaedia Britannica: Mountain, Plateau and Plain",
+    "url": "https://www.britannica.com/science/mountain-landform",
+    "section": "Landform definitions and selected world-range descriptions; range-specific claims cross-checked with maps",
+    "kind": "reference-encyclopedia",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-PHY-019A",
+    "title": "U.S. Geological Survey: Rivers of the World",
+    "url": "https://www.usgs.gov/water-science-school/science/rivers-world-worlds-longest-rivers",
+    "section": "Selected world river systems; length rankings are source-dependent and are not asserted here",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-019B",
+    "title": "U.S. Geological Survey: Watersheds and Drainage Basins",
+    "url": "https://www.usgs.gov/water-science-school/science/watersheds-and-drainage-basins",
+    "section": "Drainage basin, watershed, runoff and divide concepts",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  }
+]

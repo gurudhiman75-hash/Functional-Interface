@@ -5,17 +5,19 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/shared/geometry/**
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/**
-      - .github/workflows/geometry-gap-closure-v1.yml
   pull_request:
     branches: [New-main]
     types: [opened,reopened,synchronize,ready_for_review]
     paths:
       - artifacts/api-server/src/quant-v4/shared/geometry/**
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/**
-      - .github/workflows/geometry-gap-closure-v1.yml
   workflow_dispatch:
-permissions: {contents: read}
-concurrency: {group: geometry-gap-closure-v1-${{ github.ref }}, cancel-in-progress: true}
+permissions:
+  contents: read
+
+concurrency:
+  group: geometry-gap-closure-v1-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   validate-geometry-gap-closure-v1:
     runs-on: ubuntu-latest

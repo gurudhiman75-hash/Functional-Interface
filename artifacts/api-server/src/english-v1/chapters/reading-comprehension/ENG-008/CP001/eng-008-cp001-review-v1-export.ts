@@ -6,7 +6,7 @@ import{generateEng008Cp001QuestionV1}from"./eng-008-cp001-v1";
 const out:string[]=[
  "# ENG-008 CP001 — SSC Foundation Reading Comprehension — Review V1","",
  "Status: HUMAN REVIEW PENDING / REVIEW ONLY","",
- "Scope: 8 original SSC-foundation passages × 6 governed RC families = 48 atomic question authorities.","",
+ "Scope: full current SSC-foundation authority corpus, with six governed RC families per passage.","",
  "Genres: 4 simple narrative/story + 4 straightforward report/expository. Editorial/current-affairs RC is separated into CP002.","",
  "Families: factual retrieval, inference, main idea, title, vocabulary in context, passage-supported statement.","",
  "Review note: every authority is shown exactly once below. Option order is deterministic for this export.",""
@@ -27,7 +27,8 @@ for(const passage of ENG008_CP001_PASSAGES_V1){
   );
  }
 }
-if(number!==48)throw new Error(`Expected 48 review questions, got ${number}`);
+const expectedReviewQuestions=ENG008_CP001_PASSAGES_V1.reduce((sum,p)=>sum+p.questions.length,0);
+if(number!==expectedReviewQuestions)throw new Error(`Expected ${expectedReviewQuestions} review questions, got ${number}`);
 const target=resolve(process.cwd(),"dist/english-v1/ENG-008-CP001-REVIEW-V1.md");
 mkdirSync(dirname(target),{recursive:true});
 writeFileSync(target,out.join("\n"),"utf8");

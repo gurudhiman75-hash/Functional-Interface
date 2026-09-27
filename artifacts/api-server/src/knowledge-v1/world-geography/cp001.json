@@ -1,0 +1,1011 @@
+[
+  {
+    "id": "WGE-001-CP001-Q001",
+    "cpId": "WGE-001-CP001",
+    "objective": "earth-shape",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-EARTH",
+      "NOAA-LONGITUDE"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which statement about Earth's shape is correct?",
+        "options": [
+          "Nearly spherical, slightly flattened at the poles",
+          "A perfect sphere with equal polar and equatorial diameters",
+          "Elongated along the polar axis",
+          "Flattened at the equator and bulging at the poles"
+        ],
+        "explanation": "Earth bulges slightly at the equator. Its polar diameter is therefore smaller than its equatorial diameter."
+      },
+      "hi": {
+        "stem": "पृथ्वी के आकार के बारे में कौन-सा कथन सही है?",
+        "options": [
+          "लगभग गोलाकार, ध्रुवों पर कुछ चपटी",
+          "पूर्ण गोला, जिसके ध्रुवीय और विषुवतीय व्यास समान हैं",
+          "ध्रुवीय अक्ष की दिशा में लंबी",
+          "भूमध्य रेखा पर चपटी और ध्रुवों पर उभरी हुई"
+        ],
+        "explanation": "पृथ्वी भूमध्य रेखा पर कुछ उभरी हुई है। इसलिए उसका ध्रुवीय व्यास विषुवतीय व्यास से छोटा है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੇ ਆਕਾਰ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਲਗਭਗ ਗੋਲਾਕਾਰ, ਧਰੁਵਾਂ ਉੱਤੇ ਕੁਝ ਚਪਟੀ",
+          "ਪੂਰਾ ਗੋਲਾ, ਜਿਸ ਦੇ ਧਰੁਵੀ ਅਤੇ ਭੂਮੱਧੀ ਵਿਆਸ ਬਰਾਬਰ ਹਨ",
+          "ਧਰੁਵੀ ਧੁਰੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਲੰਮੀ",
+          "ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ ਚਪਟੀ ਅਤੇ ਧਰੁਵਾਂ ਉੱਤੇ ਉੱਭਰੀ ਹੋਈ"
+        ],
+        "explanation": "ਧਰਤੀ ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ ਕੁਝ ਉੱਭਰੀ ਹੋਈ ਹੈ। ਇਸ ਲਈ ਇਸ ਦਾ ਧਰੁਵੀ ਵਿਆਸ ਭੂਮੱਧ ਰੇਖਾ ਵਾਲੇ ਵਿਆਸ ਨਾਲੋਂ ਛੋਟਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q002",
+    "cpId": "WGE-001-CP001",
+    "objective": "hemisphere-divider",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which line divides Earth into Northern and Southern Hemispheres?",
+        "options": [
+          "Equator",
+          "Prime Meridian",
+          "Tropic of Cancer",
+          "Arctic Circle"
+        ],
+        "explanation": "The equator is at 0° latitude. Locations north and south of it belong to the corresponding hemispheres."
+      },
+      "hi": {
+        "stem": "कौन-सी रेखा पृथ्वी को उत्तरी और दक्षिणी गोलार्धों में बाँटती है?",
+        "options": [
+          "भूमध्य रेखा",
+          "प्रधान मध्याह्न रेखा",
+          "कर्क रेखा",
+          "आर्कटिक वृत्त"
+        ],
+        "explanation": "भूमध्य रेखा 0° अक्षांश पर है। इसके उत्तर और दक्षिण के स्थान क्रमशः उत्तरी और दक्षिणी गोलार्ध में आते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਰੇਖਾ ਧਰਤੀ ਨੂੰ ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਅਰਧ-ਗੋਲਿਆਂ ਵਿੱਚ ਵੰਡਦੀ ਹੈ?",
+        "options": [
+          "ਭੂਮੱਧ ਰੇਖਾ",
+          "ਪ੍ਰਮੁੱਖ ਮੱਧ ਰੇਖਾ",
+          "ਕਰਕ ਰੇਖਾ",
+          "ਆਰਕਟਿਕ ਚੱਕਰ"
+        ],
+        "explanation": "ਭੂਮੱਧ ਰੇਖਾ 0° ਵਿਥਕਾਰ ਉੱਤੇ ਹੈ। ਇਸ ਦੇ ਉੱਤਰ ਅਤੇ ਦੱਖਣ ਵਾਲੇ ਸਥਾਨ ਕ੍ਰਮਵਾਰ ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਆਉਂਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q003",
+    "cpId": "WGE-001-CP001",
+    "objective": "continent-model",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which of the following groups consists only of continents?",
+        "options": [
+          "Asia, Europe and Australia",
+          "Asia, Greenland and Europe",
+          "Africa, Antarctica and Arabia",
+          "Europe, Madagascar and Australia"
+        ],
+        "explanation": "The seven are Asia, Africa, North America, South America, Antarctica, Europe and Australia. Other continental conventions also exist."
+      },
+      "hi": {
+        "stem": "निम्नलिखित में से किस समूह में केवल महाद्वीप हैं?",
+        "options": [
+          "एशिया, यूरोप और ऑस्ट्रेलिया",
+          "एशिया, ग्रीनलैंड और यूरोप",
+          "अफ्रीका, अंटार्कटिका और अरब",
+          "यूरोप, मेडागास्कर और ऑस्ट्रेलिया"
+        ],
+        "explanation": "ये एशिया, अफ्रीका, उत्तरी अमेरिका, दक्षिणी अमेरिका, अंटार्कटिका, यूरोप और ऑस्ट्रेलिया हैं। महाद्वीपों के वर्गीकरण की अन्य परंपराएँ भी हैं।"
+      },
+      "pa": {
+        "stem": "ਹੇਠਾਂ ਦਿੱਤੇ ਕਿਹੜੇ ਸਮੂਹ ਵਿੱਚ ਸਿਰਫ਼ ਮਹਾਂਦੀਪ ਹਨ?",
+        "options": [
+          "ਏਸ਼ੀਆ, ਯੂਰਪ ਅਤੇ ਆਸਟ੍ਰੇਲੀਆ",
+          "ਏਸ਼ੀਆ, ਗ੍ਰੀਨਲੈਂਡ ਅਤੇ ਯੂਰਪ",
+          "ਅਫ਼ਰੀਕਾ, ਅੰਟਾਰਕਟਿਕਾ ਅਤੇ ਅਰਬ",
+          "ਯੂਰਪ, ਮੈਡਾਗਾਸਕਰ ਅਤੇ ਆਸਟ੍ਰੇਲੀਆ"
+        ],
+        "explanation": "ਇਹ ਏਸ਼ੀਆ, ਅਫ਼ਰੀਕਾ, ਉੱਤਰੀ ਅਮਰੀਕਾ, ਦੱਖਣੀ ਅਮਰੀਕਾ, ਅੰਟਾਰਕਟਿਕਾ, ਯੂਰਪ ਅਤੇ ਆਸਟ੍ਰੇਲੀਆ ਹਨ। ਮਹਾਂਦੀਪਾਂ ਦੀ ਵੰਡ ਦੇ ਹੋਰ ਤਰੀਕੇ ਵੀ ਪ੍ਰਚਲਿਤ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q004",
+    "cpId": "WGE-001-CP001",
+    "objective": "largest-continent-area",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which continent has the largest land area?",
+        "options": [
+          "Asia",
+          "Africa",
+          "North America",
+          "Antarctica"
+        ],
+        "explanation": "Asia is the largest continent by land area. Africa is the second largest."
+      },
+      "hi": {
+        "stem": "स्थल क्षेत्रफल की दृष्टि से सबसे बड़ा महाद्वीप कौन-सा है?",
+        "options": [
+          "एशिया",
+          "अफ्रीका",
+          "उत्तरी अमेरिका",
+          "अंटार्कटिका"
+        ],
+        "explanation": "स्थल क्षेत्रफल के आधार पर एशिया सबसे बड़ा और अफ्रीका दूसरा सबसे बड़ा महाद्वीप है।"
+      },
+      "pa": {
+        "stem": "ਥਲ ਖੇਤਰਫਲ ਪੱਖੋਂ ਸਭ ਤੋਂ ਵੱਡਾ ਮਹਾਂਦੀਪ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਏਸ਼ੀਆ",
+          "ਅਫ਼ਰੀਕਾ",
+          "ਉੱਤਰੀ ਅਮਰੀਕਾ",
+          "ਅੰਟਾਰਕਟਿਕਾ"
+        ],
+        "explanation": "ਥਲ ਖੇਤਰਫਲ ਪੱਖੋਂ ਏਸ਼ੀਆ ਸਭ ਤੋਂ ਵੱਡਾ ਅਤੇ ਅਫ਼ਰੀਕਾ ਦੂਜਾ ਸਭ ਤੋਂ ਵੱਡਾ ਮਹਾਂਦੀਪ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q005",
+    "cpId": "WGE-001-CP001",
+    "objective": "smallest-continent-area",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "In the seven-continent model, which is the smallest continent by land area?",
+        "options": [
+          "Australia",
+          "Europe",
+          "Antarctica",
+          "South America"
+        ],
+        "explanation": "Australia is the smallest continent in this convention. Oceania is a wider geographic region, not simply another name for the Australian mainland."
+      },
+      "hi": {
+        "stem": "सात-महाद्वीप मॉडल में स्थल क्षेत्रफल के आधार पर सबसे छोटा महाद्वीप कौन-सा है?",
+        "options": [
+          "ऑस्ट्रेलिया",
+          "यूरोप",
+          "अंटार्कटिका",
+          "दक्षिणी अमेरिका"
+        ],
+        "explanation": "इस मॉडल में ऑस्ट्रेलिया सबसे छोटा महाद्वीप है। ओशिनिया एक बड़ा भौगोलिक क्षेत्र है, केवल ऑस्ट्रेलियाई मुख्यभूमि का दूसरा नाम नहीं।"
+      },
+      "pa": {
+        "stem": "ਸੱਤ-ਮਹਾਂਦੀਪ ਮਾਡਲ ਵਿੱਚ ਥਲ ਖੇਤਰਫਲ ਪੱਖੋਂ ਸਭ ਤੋਂ ਛੋਟਾ ਮਹਾਂਦੀਪ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਆਸਟ੍ਰੇਲੀਆ",
+          "ਯੂਰਪ",
+          "ਅੰਟਾਰਕਟਿਕਾ",
+          "ਦੱਖਣੀ ਅਮਰੀਕਾ"
+        ],
+        "explanation": "ਇਸ ਮਾਡਲ ਵਿੱਚ ਆਸਟ੍ਰੇਲੀਆ ਸਭ ਤੋਂ ਛੋਟਾ ਮਹਾਂਦੀਪ ਹੈ। ਓਸ਼ੀਆਨੀਆ ਇੱਕ ਵੱਡਾ ਭੂਗੋਲਿਕ ਖੇਤਰ ਹੈ, ਸਿਰਫ਼ ਆਸਟ੍ਰੇਲੀਆਈ ਮੁੱਖ ਭੂਮੀ ਦਾ ਦੂਜਾ ਨਾਂ ਨਹੀਂ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q006",
+    "cpId": "WGE-001-CP001",
+    "objective": "oceania-distinction",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which statement about Oceania is correct?",
+        "options": [
+          "It includes Australia and many Pacific islands",
+          "It consists only of the Australian mainland",
+          "It is another name for the continent of Australia",
+          "It consists of Pacific islands but excludes Australia"
+        ],
+        "explanation": "Oceania is a regional term covering Australia and Pacific island regions. Its scope is wider than the country Australia."
+      },
+      "hi": {
+        "stem": "ओशिनिया के बारे में कौन-सा कथन सही है?",
+        "options": [
+          "इसमें ऑस्ट्रेलिया और प्रशांत के अनेक द्वीप शामिल हैं",
+          "इसमें केवल ऑस्ट्रेलिया का मुख्य भूभाग शामिल है",
+          "यह ऑस्ट्रेलिया महाद्वीप का दूसरा नाम है",
+          "इसमें प्रशांत के द्वीप हैं, लेकिन ऑस्ट्रेलिया नहीं है"
+        ],
+        "explanation": "ओशिनिया क्षेत्रीय नाम है जिसमें ऑस्ट्रेलिया और प्रशांत के द्वीपीय क्षेत्र आते हैं। इसका विस्तार ऑस्ट्रेलिया देश से अधिक है।"
+      },
+      "pa": {
+        "stem": "ਓਸ਼ੀਨੀਆ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਇਸ ਵਿੱਚ ਆਸਟ੍ਰੇਲੀਆ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਕਈ ਟਾਪੂ ਸ਼ਾਮਲ ਹਨ",
+          "ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਆਸਟ੍ਰੇਲੀਆ ਦਾ ਮੁੱਖ ਥਲ ਭਾਗ ਸ਼ਾਮਲ ਹੈ",
+          "ਇਹ ਆਸਟ੍ਰੇਲੀਆ ਮਹਾਂਦੀਪ ਦਾ ਦੂਜਾ ਨਾਂ ਹੈ",
+          "ਇਸ ਵਿੱਚ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਟਾਪੂ ਹਨ ਪਰ ਆਸਟ੍ਰੇਲੀਆ ਨਹੀਂ ਹੈ"
+        ],
+        "explanation": "ਓਸ਼ੀਆਨੀਆ ਇੱਕ ਖੇਤਰੀ ਨਾਂ ਹੈ ਜਿਸ ਵਿੱਚ ਆਸਟ੍ਰੇਲੀਆ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਟਾਪੂ-ਖੇਤਰ ਆਉਂਦੇ ਹਨ। ਇਸ ਦਾ ਘੇਰਾ ਆਸਟ੍ਰੇਲੀਆ ਦੇਸ਼ ਨਾਲੋਂ ਵੱਡਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q007",
+    "cpId": "WGE-001-CP001",
+    "objective": "eurasia",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which two continents form the landmass called Eurasia?",
+        "options": [
+          "Europe and Asia",
+          "Asia and Africa",
+          "Europe and Africa",
+          "North America and South America"
+        ],
+        "explanation": "Europe and Asia share a continuous landmass. Their conventional continental boundary is not a complete ocean separation."
+      },
+      "hi": {
+        "stem": "यूरेशिया नामक भूभाग किन दो महाद्वीपों से मिलकर बना है?",
+        "options": [
+          "यूरोप और एशिया",
+          "एशिया और अफ्रीका",
+          "यूरोप और अफ्रीका",
+          "उत्तरी अमेरिका और दक्षिणी अमेरिका"
+        ],
+        "explanation": "यूरोप और एशिया एक सतत भूभाग पर स्थित हैं। उनकी प्रचलित महाद्वीपीय सीमा पूर्ण महासागरीय विभाजन नहीं है।"
+      },
+      "pa": {
+        "stem": "ਯੂਰੇਸ਼ੀਆ ਨਾਂ ਦਾ ਭੂਖੰਡ ਕਿਹੜੇ ਦੋ ਮਹਾਂਦੀਪਾਂ ਤੋਂ ਬਣਦਾ ਹੈ?",
+        "options": [
+          "ਯੂਰਪ ਅਤੇ ਏਸ਼ੀਆ",
+          "ਏਸ਼ੀਆ ਅਤੇ ਅਫ਼ਰੀਕਾ",
+          "ਯੂਰਪ ਅਤੇ ਅਫ਼ਰੀਕਾ",
+          "ਉੱਤਰੀ ਅਮਰੀਕਾ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ"
+        ],
+        "explanation": "ਯੂਰਪ ਅਤੇ ਏਸ਼ੀਆ ਇੱਕ ਲਗਾਤਾਰ ਭੂਖੰਡ ਉੱਤੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀ ਪ੍ਰਚਲਿਤ ਮਹਾਂਦੀਪੀ ਹੱਦ ਕੋਈ ਪੂਰਾ ਸਮੁੰਦਰੀ ਵਿਛੋੜਾ ਨਹੀਂ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q008",
+    "cpId": "WGE-001-CP001",
+    "objective": "africa-crossings",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which continent is crossed by both the equator and the prime meridian?",
+        "options": [
+          "Africa",
+          "Australia",
+          "South America",
+          "Antarctica"
+        ],
+        "explanation": "Both lines cross Africa, at different places. Their intersection lies in the Atlantic Ocean in the Gulf of Guinea."
+      },
+      "hi": {
+        "stem": "भूमध्य रेखा और प्रधान मध्याह्न रेखा दोनों किस महाद्वीप से गुजरती हैं?",
+        "options": [
+          "अफ्रीका",
+          "ऑस्ट्रेलिया",
+          "दक्षिणी अमेरिका",
+          "अंटार्कटिका"
+        ],
+        "explanation": "दोनों रेखाएँ अफ्रीका को अलग-अलग स्थानों पर काटती हैं। उनका मिलन बिंदु गिनी की खाड़ी में अटलांटिक महासागर में है।"
+      },
+      "pa": {
+        "stem": "ਭੂਮੱਧ ਰੇਖਾ ਅਤੇ ਪ੍ਰਮੁੱਖ ਮੱਧ ਰੇਖਾ ਦੋਵੇਂ ਕਿਹੜੇ ਮਹਾਂਦੀਪ ਵਿੱਚੋਂ ਲੰਘਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਅਫ਼ਰੀਕਾ",
+          "ਆਸਟ੍ਰੇਲੀਆ",
+          "ਦੱਖਣੀ ਅਮਰੀਕਾ",
+          "ਅੰਟਾਰਕਟਿਕਾ"
+        ],
+        "explanation": "ਦੋਵੇਂ ਰੇਖਾਵਾਂ ਅਫ਼ਰੀਕਾ ਨੂੰ ਵੱਖ-ਵੱਖ ਥਾਵਾਂ ਉੱਤੇ ਕੱਟਦੀਆਂ ਹਨ। ਉਨ੍ਹਾਂ ਦਾ ਮਿਲਣ ਬਿੰਦੂ ਗਿਨੀ ਦੀ ਖਾੜੀ ਵਿੱਚ ਅਟਲਾਂਟਿਕ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q009",
+    "cpId": "WGE-001-CP001",
+    "objective": "australia-hemispheres",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The Australian mainland lies in which two hemispheres?",
+        "options": [
+          "Southern and Eastern",
+          "Northern and Eastern",
+          "Southern and Western",
+          "Northern and Western"
+        ],
+        "explanation": "The mainland is south of the equator and east of the prime meridian. Both conditions determine its hemispheres."
+      },
+      "hi": {
+        "stem": "ऑस्ट्रेलिया की मुख्यभूमि किन दो गोलार्धों में स्थित है?",
+        "options": [
+          "दक्षिणी और पूर्वी",
+          "उत्तरी और पूर्वी",
+          "दक्षिणी और पश्चिमी",
+          "उत्तरी और पश्चिमी"
+        ],
+        "explanation": "मुख्यभूमि भूमध्य रेखा के दक्षिण और प्रधान मध्याह्न रेखा के पूर्व में है। इसलिए यह दक्षिणी और पूर्वी गोलार्ध में आती है।"
+      },
+      "pa": {
+        "stem": "ਆਸਟ੍ਰੇਲੀਆ ਦੀ ਮੁੱਖ ਭੂਮੀ ਕਿਹੜੇ ਦੋ ਅਰਧ-ਗੋਲਿਆਂ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਦੱਖਣੀ ਅਤੇ ਪੂਰਬੀ",
+          "ਉੱਤਰੀ ਅਤੇ ਪੂਰਬੀ",
+          "ਦੱਖਣੀ ਅਤੇ ਪੱਛਮੀ",
+          "ਉੱਤਰੀ ਅਤੇ ਪੱਛਮੀ"
+        ],
+        "explanation": "ਮੁੱਖ ਭੂਮੀ ਭੂਮੱਧ ਰੇਖਾ ਦੇ ਦੱਖਣ ਅਤੇ ਪ੍ਰਮੁੱਖ ਮੱਧ ਰੇਖਾ ਦੇ ਪੂਰਬ ਵਿੱਚ ਹੈ। ਇਸ ਲਈ ਇਹ ਦੱਖਣੀ ਅਤੇ ਪੂਰਬੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਆਉਂਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q010",
+    "cpId": "WGE-001-CP001",
+    "objective": "south-pole-continent",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The South Pole lies on which continent?",
+        "options": [
+          "Antarctica",
+          "Australia",
+          "South America",
+          "Africa"
+        ],
+        "explanation": "The South Pole is on Antarctica's ice-covered landmass. The North Pole is over the Arctic Ocean."
+      },
+      "hi": {
+        "stem": "दक्षिण ध्रुव किस महाद्वीप पर स्थित है?",
+        "options": [
+          "अंटार्कटिका",
+          "ऑस्ट्रेलिया",
+          "दक्षिणी अमेरिका",
+          "अफ्रीका"
+        ],
+        "explanation": "दक्षिण ध्रुव अंटार्कटिका के बर्फ से ढके भूभाग पर है। उत्तरी ध्रुव आर्कटिक महासागर पर स्थित है।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਧਰੁਵ ਕਿਹੜੇ ਮਹਾਂਦੀਪ ਉੱਤੇ ਹੈ?",
+        "options": [
+          "ਅੰਟਾਰਕਟਿਕਾ",
+          "ਆਸਟ੍ਰੇਲੀਆ",
+          "ਦੱਖਣੀ ਅਮਰੀਕਾ",
+          "ਅਫ਼ਰੀਕਾ"
+        ],
+        "explanation": "ਦੱਖਣੀ ਧਰੁਵ ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਬਰਫ਼ ਨਾਲ ਢੱਕੀ ਧਰਤੀ ਉੱਤੇ ਹੈ। ਉੱਤਰੀ ਧਰੁਵ ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ ਉੱਤੇ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q011",
+    "cpId": "WGE-001-CP001",
+    "objective": "five-oceans",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NOAA-OCEANS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "In the five-ocean convention, which ocean surrounds Antarctica?",
+        "options": [
+          "Southern Ocean",
+          "Arctic Ocean",
+          "Indian Ocean alone",
+          "Atlantic Ocean alone"
+        ],
+        "explanation": "The Southern Ocean encircles Antarctica. The five named oceans are connected parts of one global ocean."
+      },
+      "hi": {
+        "stem": "पाँच महासागरों की परंपरा में अंटार्कटिका को कौन-सा महासागर घेरे हुए है?",
+        "options": [
+          "दक्षिणी महासागर",
+          "आर्कटिक महासागर",
+          "केवल हिंद महासागर",
+          "केवल अटलांटिक महासागर"
+        ],
+        "explanation": "दक्षिणी महासागर अंटार्कटिका के चारों ओर है। पाँचों नामित महासागर एक ही जुड़े हुए वैश्विक महासागर के भाग हैं।"
+      },
+      "pa": {
+        "stem": "ਪੰਜ ਮਹਾਂਸਾਗਰਾਂ ਦੀ ਵੰਡ ਅਨੁਸਾਰ ਅੰਟਾਰਕਟਿਕਾ ਨੂੰ ਕਿਹੜਾ ਮਹਾਂਸਾਗਰ ਘੇਰਦਾ ਹੈ?",
+        "options": [
+          "ਦੱਖਣੀ ਮਹਾਂਸਾਗਰ",
+          "ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ",
+          "ਕੇਵਲ ਹਿੰਦ ਮਹਾਂਸਾਗਰ",
+          "ਕੇਵਲ ਅਟਲਾਂਟਿਕ ਮਹਾਂਸਾਗਰ"
+        ],
+        "explanation": "ਦੱਖਣੀ ਮਹਾਂਸਾਗਰ ਅੰਟਾਰਕਟਿਕਾ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਹੈ। ਪੰਜੇ ਮਹਾਂਸਾਗਰ ਇੱਕੋ ਜੁੜੇ ਹੋਏ ਵਿਸ਼ਵ ਮਹਾਂਸਾਗਰ ਦੇ ਹਿੱਸੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q012",
+    "cpId": "WGE-001-CP001",
+    "objective": "largest-ocean",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which ocean has the greatest surface area?",
+        "options": [
+          "Pacific",
+          "Atlantic",
+          "Indian",
+          "Arctic"
+        ],
+        "explanation": "The Pacific is the largest ocean by surface area. It lies between the Americas and Asia–Australia."
+      },
+      "hi": {
+        "stem": "सतही क्षेत्रफल के आधार पर सबसे बड़ा महासागर कौन-सा है?",
+        "options": [
+          "प्रशांत",
+          "अटलांटिक",
+          "हिंद",
+          "आर्कटिक"
+        ],
+        "explanation": "प्रशांत सतही क्षेत्रफल में सबसे बड़ा महासागर है। यह अमेरिका महाद्वीपों और एशिया–ऑस्ट्रेलिया के बीच है।"
+      },
+      "pa": {
+        "stem": "ਸਤਹੀ ਖੇਤਰਫਲ ਪੱਖੋਂ ਸਭ ਤੋਂ ਵੱਡਾ ਮਹਾਂਸਾਗਰ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਪ੍ਰਸ਼ਾਂਤ",
+          "ਅਟਲਾਂਟਿਕ",
+          "ਹਿੰਦ",
+          "ਆਰਕਟਿਕ"
+        ],
+        "explanation": "ਪ੍ਰਸ਼ਾਂਤ ਸਤਹੀ ਖੇਤਰਫਲ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਡਾ ਮਹਾਂਸਾਗਰ ਹੈ। ਇਹ ਅਮਰੀਕੀ ਮਹਾਂਦੀਪਾਂ ਅਤੇ ਏਸ਼ੀਆ–ਆਸਟ੍ਰੇਲੀਆ ਵਿਚਕਾਰ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q013",
+    "cpId": "WGE-001-CP001",
+    "objective": "smallest-ocean",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which is the smallest of the five oceans by surface area?",
+        "options": [
+          "Arctic",
+          "Indian",
+          "Atlantic",
+          "Southern"
+        ],
+        "explanation": "The Arctic is the smallest ocean. It occupies the region around the North Pole."
+      },
+      "hi": {
+        "stem": "सतही क्षेत्रफल के आधार पर पाँच महासागरों में सबसे छोटा कौन-सा है?",
+        "options": [
+          "आर्कटिक",
+          "हिंद",
+          "अटलांटिक",
+          "दक्षिणी"
+        ],
+        "explanation": "आर्कटिक सबसे छोटा महासागर है। यह उत्तरी ध्रुव के आसपास का क्षेत्र घेरे हुए है।"
+      },
+      "pa": {
+        "stem": "ਸਤਹੀ ਖੇਤਰਫਲ ਪੱਖੋਂ ਪੰਜ ਮਹਾਂਸਾਗਰਾਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਛੋਟਾ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਆਰਕਟਿਕ",
+          "ਹਿੰਦ",
+          "ਅਟਲਾਂਟਿਕ",
+          "ਦੱਖਣੀ"
+        ],
+        "explanation": "ਆਰਕਟਿਕ ਸਭ ਤੋਂ ਛੋਟਾ ਮਹਾਂਸਾਗਰ ਹੈ। ਇਹ ਉੱਤਰੀ ਧਰੁਵ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਦੇ ਖੇਤਰ ਵਿੱਚ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q014",
+    "cpId": "WGE-001-CP001",
+    "objective": "atlantic-position",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which ocean separates South America from Africa?",
+        "options": [
+          "Atlantic",
+          "Pacific",
+          "Arctic",
+          "Indian"
+        ],
+        "explanation": "The Atlantic lies east of South America and west of Africa. Their facing coasts helped inspire early continental-drift arguments."
+      },
+      "hi": {
+        "stem": "दक्षिणी अमेरिका और अफ्रीका के बीच कौन-सा महासागर है?",
+        "options": [
+          "अटलांटिक",
+          "प्रशांत",
+          "आर्कटिक",
+          "हिंद"
+        ],
+        "explanation": "अटलांटिक दक्षिणी अमेरिका के पूर्व और अफ्रीका के पश्चिम में है। इनके आमने-सामने के तटों की बनावट ने महाद्वीपीय विस्थापन के विचार को प्रेरित किया।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਅਮਰੀਕਾ ਅਤੇ ਅਫ਼ਰੀਕਾ ਵਿਚਕਾਰ ਕਿਹੜਾ ਮਹਾਂਸਾਗਰ ਹੈ?",
+        "options": [
+          "ਅਟਲਾਂਟਿਕ",
+          "ਪ੍ਰਸ਼ਾਂਤ",
+          "ਆਰਕਟਿਕ",
+          "ਹਿੰਦ"
+        ],
+        "explanation": "ਅਟਲਾਂਟਿਕ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਪੂਰਬ ਅਤੇ ਅਫ਼ਰੀਕਾ ਦੇ ਪੱਛਮ ਵਿੱਚ ਹੈ। ਆਹਮੋ-ਸਾਹਮਣੇ ਦੇ ਤੱਟਾਂ ਦੀ ਬਣਤਰ ਨੇ ਮਹਾਂਦੀਪੀ ਖਿਸਕਾਅ ਦੇ ਵਿਚਾਰ ਨੂੰ ਪ੍ਰੇਰਿਆ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q015",
+    "cpId": "WGE-001-CP001",
+    "objective": "indian-position",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which ocean has Asia to its north, Africa to its west and Australia to its east?",
+        "options": [
+          "Indian",
+          "Atlantic",
+          "Pacific",
+          "Arctic"
+        ],
+        "explanation": "These continental boundaries identify the Indian Ocean. It opens towards the Southern Ocean to the south."
+      },
+      "hi": {
+        "stem": "किस महासागर के उत्तर में एशिया, पश्चिम में अफ्रीका और पूर्व में ऑस्ट्रेलिया है?",
+        "options": [
+          "हिंद",
+          "अटलांटिक",
+          "प्रशांत",
+          "आर्कटिक"
+        ],
+        "explanation": "ये महाद्वीपीय सीमाएँ हिंद महासागर की पहचान कराती हैं। दक्षिण में यह दक्षिणी महासागर की ओर खुलता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਮਹਾਂਸਾਗਰ ਦੇ ਉੱਤਰ ਵੱਲ ਏਸ਼ੀਆ, ਪੱਛਮ ਵੱਲ ਅਫ਼ਰੀਕਾ ਅਤੇ ਪੂਰਬ ਵੱਲ ਆਸਟ੍ਰੇਲੀਆ ਹੈ?",
+        "options": [
+          "ਹਿੰਦ",
+          "ਅਟਲਾਂਟਿਕ",
+          "ਪ੍ਰਸ਼ਾਂਤ",
+          "ਆਰਕਟਿਕ"
+        ],
+        "explanation": "ਇਹ ਮਹਾਂਦੀਪੀ ਹੱਦਾਂ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦੀ ਪਛਾਣ ਕਰਵਾਉਂਦੀਆਂ ਹਨ। ਦੱਖਣ ਵੱਲ ਇਹ ਦੱਖਣੀ ਮਹਾਂਸਾਗਰ ਨਾਲ ਮਿਲਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q016",
+    "cpId": "WGE-001-CP001",
+    "objective": "water-share",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NOAA-OCEANS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Approximately what percentage of Earth's surface is covered by water?",
+        "options": [
+          "71%",
+          "29%",
+          "50%",
+          "90%"
+        ],
+        "explanation": "Water covers about 71% of Earth's surface; land occupies about 29%. These are approximate surface-area shares."
+      },
+      "hi": {
+        "stem": "पृथ्वी की सतह का लगभग कितना प्रतिशत भाग जल से ढका है?",
+        "options": [
+          "71%",
+          "29%",
+          "50%",
+          "90%"
+        ],
+        "explanation": "पृथ्वी की सतह पर लगभग 71% जल और 29% स्थल है। ये सतही क्षेत्रफल के अनुमानित अनुपात हैं।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੀ ਸਤਹ ਦਾ ਲਗਭਗ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸਾ ਪਾਣੀ ਨਾਲ ਢੱਕਿਆ ਹੈ?",
+        "options": [
+          "71%",
+          "29%",
+          "50%",
+          "90%"
+        ],
+        "explanation": "ਧਰਤੀ ਦੀ ਸਤਹ ਉੱਤੇ ਲਗਭਗ 71% ਪਾਣੀ ਅਤੇ 29% ਥਲ ਹੈ। ਇਹ ਸਤਹੀ ਖੇਤਰਫਲ ਦੇ ਲਗਭਗ ਅਨੁਪਾਤ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q017",
+    "cpId": "WGE-001-CP001",
+    "objective": "land-distribution",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How is Earth's land area distributed between the Northern and Southern Hemispheres?",
+        "options": [
+          "More land lies in the Northern Hemisphere",
+          "More land lies in the Southern Hemisphere",
+          "The two hemispheres have equal land areas",
+          "The Northern Hemisphere has twice as much land as water"
+        ],
+        "explanation": "Most continental land is in the Northern Hemisphere. This does not mean that land occupies most of that hemisphere's surface."
+      },
+      "hi": {
+        "stem": "उत्तरी और दक्षिणी गोलार्धों में पृथ्वी का स्थल भाग किस प्रकार बँटा है?",
+        "options": [
+          "अधिक स्थल भाग उत्तरी गोलार्ध में है",
+          "अधिक स्थल भाग दक्षिणी गोलार्ध में है",
+          "दोनों गोलार्धों में स्थल क्षेत्रफल समान है",
+          "उत्तरी गोलार्ध में स्थल क्षेत्रफल जल क्षेत्रफल का दोगुना है"
+        ],
+        "explanation": "महाद्वीपीय स्थल का बड़ा भाग उत्तरी गोलार्ध में है। इसका अर्थ यह नहीं कि उस गोलार्ध की अधिकतर सतह स्थल है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦਾ ਥਲ ਭਾਗ ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਅਰਧ-ਗੋਲਿਆਂ ਵਿੱਚ ਕਿਵੇਂ ਵੰਡਿਆ ਹੋਇਆ ਹੈ?",
+        "options": [
+          "ਵੱਧ ਥਲ ਭਾਗ ਉੱਤਰੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਹੈ",
+          "ਵੱਧ ਥਲ ਭਾਗ ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਹੈ",
+          "ਦੋਵੇਂ ਅਰਧ-ਗੋਲਿਆਂ ਦਾ ਥਲ ਖੇਤਰਫਲ ਬਰਾਬਰ ਹੈ",
+          "ਉੱਤਰੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਥਲ ਦਾ ਖੇਤਰਫਲ ਪਾਣੀ ਦੇ ਖੇਤਰਫਲ ਤੋਂ ਦੁੱਗਣਾ ਹੈ"
+        ],
+        "explanation": "ਮਹਾਂਦੀਪੀ ਥਲ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਉੱਤਰੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਹੈ। ਇਸ ਦਾ ਅਰਥ ਇਹ ਨਹੀਂ ਕਿ ਉਸ ਅਰਧ-ਗੋਲੇ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਤਹ ਥਲ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q018",
+    "cpId": "WGE-001-CP001",
+    "objective": "panama-link",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which narrow land bridge connects North and South America?",
+        "options": [
+          "Isthmus of Panama",
+          "Isthmus of Suez",
+          "Strait of Gibraltar",
+          "Bering Strait"
+        ],
+        "explanation": "The Isthmus of Panama connects the American landmasses. An isthmus is land, whereas a strait is a water passage."
+      },
+      "hi": {
+        "stem": "उत्तरी और दक्षिणी अमेरिका को कौन-सा संकरा भूभाग जोड़ता है?",
+        "options": [
+          "पनामा स्थलडमरूमध्य",
+          "स्वेज स्थलडमरूमध्य",
+          "जिब्राल्टर जलडमरूमध्य",
+          "बेरिंग जलडमरूमध्य"
+        ],
+        "explanation": "पनामा स्थलडमरूमध्य दोनों अमेरिकी भूभागों को जोड़ता है। स्थलडमरूमध्य भूमि की पट्टी है, जबकि जलडमरूमध्य जल का मार्ग है।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਨੂੰ ਕਿਹੜੀ ਤੰਗ ਥਲ-ਪੱਟੀ ਜੋੜਦੀ ਹੈ?",
+        "options": [
+          "ਪਨਾਮਾ ਦੀ ਥਲ-ਪੱਟੀ",
+          "ਸੁਏਜ਼ ਦੀ ਥਲ-ਪੱਟੀ",
+          "ਜਿਬਰਾਲਟਰ ਜਲਡਮਰੂ",
+          "ਬੇਰਿੰਗ ਜਲਡਮਰੂ"
+        ],
+        "explanation": "ਪਨਾਮਾ ਦੀ ਤੰਗ ਥਲ-ਪੱਟੀ ਦੋਵੇਂ ਅਮਰੀਕੀ ਭੂਖੰਡਾਂ ਨੂੰ ਜੋੜਦੀ ਹੈ। ਥਲ-ਪੱਟੀ ਜ਼ਮੀਨ ਹੈ, ਜਦਕਿ ਜਲਡਮਰੂ ਪਾਣੀ ਦਾ ਰਸਤਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q019",
+    "cpId": "WGE-001-CP001",
+    "objective": "suez-link",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The Isthmus of Suez forms the land connection between which continents?",
+        "options": [
+          "Africa and Asia",
+          "Europe and Africa",
+          "Asia and Australia",
+          "Europe and North America"
+        ],
+        "explanation": "The Suez isthmus links Africa with Asia. The canal cuts through this narrow land connection."
+      },
+      "hi": {
+        "stem": "स्वेज स्थलडमरूमध्य किन महाद्वीपों के बीच स्थल-संपर्क बनाता है?",
+        "options": [
+          "अफ्रीका और एशिया",
+          "यूरोप और अफ्रीका",
+          "एशिया और ऑस्ट्रेलिया",
+          "यूरोप और उत्तरी अमेरिका"
+        ],
+        "explanation": "स्वेज की स्थल-पट्टी अफ्रीका और एशिया को जोड़ती है। नहर इसी संकरे स्थल-संपर्क को काटकर बनाई गई है।"
+      },
+      "pa": {
+        "stem": "ਸੁਏਜ਼ ਦੀ ਥਲ-ਪੱਟੀ ਕਿਹੜੇ ਮਹਾਂਦੀਪਾਂ ਨੂੰ ਜੋੜਦੀ ਹੈ?",
+        "options": [
+          "ਅਫ਼ਰੀਕਾ ਅਤੇ ਏਸ਼ੀਆ",
+          "ਯੂਰਪ ਅਤੇ ਅਫ਼ਰੀਕਾ",
+          "ਏਸ਼ੀਆ ਅਤੇ ਆਸਟ੍ਰੇਲੀਆ",
+          "ਯੂਰਪ ਅਤੇ ਉੱਤਰੀ ਅਮਰੀਕਾ"
+        ],
+        "explanation": "ਸੁਏਜ਼ ਦੀ ਥਲ-ਪੱਟੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਏਸ਼ੀਆ ਨੂੰ ਜੋੜਦੀ ਹੈ। ਨਹਿਰ ਇਸੇ ਤੰਗ ਥਲ-ਪੱਟੀ ਵਿੱਚੋਂ ਕੱਢੀ ਗਈ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q020",
+    "cpId": "WGE-001-CP001",
+    "objective": "bering-separation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The Bering Strait separates which continents?",
+        "options": [
+          "Asia and North America",
+          "Asia and Europe",
+          "Africa and Europe",
+          "Australia and Antarctica"
+        ],
+        "explanation": "The strait lies between eastern Siberia and Alaska. These belong to Asia and North America respectively."
+      },
+      "hi": {
+        "stem": "बेरिंग जलडमरूमध्य किन महाद्वीपों को अलग करता है?",
+        "options": [
+          "एशिया और उत्तरी अमेरिका",
+          "एशिया और यूरोप",
+          "अफ्रीका और यूरोप",
+          "ऑस्ट्रेलिया और अंटार्कटिका"
+        ],
+        "explanation": "यह जलडमरूमध्य पूर्वी साइबेरिया और अलास्का के बीच है, जो क्रमशः एशिया और उत्तरी अमेरिका में हैं।"
+      },
+      "pa": {
+        "stem": "ਬੇਰਿੰਗ ਜਲਡਮਰੂ ਕਿਹੜੇ ਮਹਾਂਦੀਪਾਂ ਨੂੰ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਏਸ਼ੀਆ ਅਤੇ ਉੱਤਰੀ ਅਮਰੀਕਾ",
+          "ਏਸ਼ੀਆ ਅਤੇ ਯੂਰਪ",
+          "ਅਫ਼ਰੀਕਾ ਅਤੇ ਯੂਰਪ",
+          "ਆਸਟ੍ਰੇਲੀਆ ਅਤੇ ਅੰਟਾਰਕਟਿਕਾ"
+        ],
+        "explanation": "ਇਹ ਜਲਡਮਰੂ ਪੂਰਬੀ ਸਾਇਬੇਰੀਆ ਅਤੇ ਅਲਾਸਕਾ ਵਿਚਕਾਰ ਹੈ। ਇਹ ਕ੍ਰਮਵਾਰ ਏਸ਼ੀਆ ਅਤੇ ਉੱਤਰੀ ਅਮਰੀਕਾ ਵਿੱਚ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q021",
+    "cpId": "WGE-001-CP001",
+    "objective": "continent-size-order",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Arrange the following continents in decreasing order of area.",
+        "options": [
+          "Asia → Africa → North America → South America",
+          "Africa → Asia → South America → North America",
+          "Asia → North America → Africa → South America",
+          "North America → Asia → Africa → South America"
+        ],
+        "explanation": "Asia and Africa rank first and second by area. North America is larger than South America."
+      },
+      "hi": {
+        "stem": "निम्नलिखित महाद्वीपों को क्षेत्रफल के घटते क्रम में रखें।",
+        "options": [
+          "एशिया → अफ्रीका → उत्तरी अमेरिका → दक्षिणी अमेरिका",
+          "अफ्रीका → एशिया → दक्षिणी अमेरिका → उत्तरी अमेरिका",
+          "एशिया → उत्तरी अमेरिका → अफ्रीका → दक्षिणी अमेरिका",
+          "उत्तरी अमेरिका → एशिया → अफ्रीका → दक्षिणी अमेरिका"
+        ],
+        "explanation": "क्षेत्रफल में एशिया पहले और अफ्रीका दूसरे स्थान पर है। उत्तरी अमेरिका का क्षेत्रफल दक्षिणी अमेरिका से अधिक है।"
+      },
+      "pa": {
+        "stem": "ਹੇਠਾਂ ਦਿੱਤੇ ਮਹਾਂਦੀਪਾਂ ਨੂੰ ਖੇਤਰਫਲ ਦੇ ਘਟਦੇ ਕ੍ਰਮ ਵਿੱਚ ਰੱਖੋ।",
+        "options": [
+          "ਏਸ਼ੀਆ → ਅਫ਼ਰੀਕਾ → ਉੱਤਰੀ ਅਮਰੀਕਾ → ਦੱਖਣੀ ਅਮਰੀਕਾ",
+          "ਅਫ਼ਰੀਕਾ → ਏਸ਼ੀਆ → ਦੱਖਣੀ ਅਮਰੀਕਾ → ਉੱਤਰੀ ਅਮਰੀਕਾ",
+          "ਏਸ਼ੀਆ → ਉੱਤਰੀ ਅਮਰੀਕਾ → ਅਫ਼ਰੀਕਾ → ਦੱਖਣੀ ਅਮਰੀਕਾ",
+          "ਉੱਤਰੀ ਅਮਰੀਕਾ → ਏਸ਼ੀਆ → ਅਫ਼ਰੀਕਾ → ਦੱਖਣੀ ਅਮਰੀਕਾ"
+        ],
+        "explanation": "ਖੇਤਰਫਲ ਵਿੱਚ ਏਸ਼ੀਆ ਪਹਿਲੇ ਅਤੇ ਅਫ਼ਰੀਕਾ ਦੂਜੇ ਸਥਾਨ ਉੱਤੇ ਹੈ। ਉੱਤਰੀ ਅਮਰੀਕਾ ਦਾ ਖੇਤਰਫਲ ਦੱਖਣੀ ਅਮਰੀਕਾ ਨਾਲੋਂ ਵੱਧ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q022",
+    "cpId": "WGE-001-CP001",
+    "objective": "polar-comparison",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which option correctly identifies the locations of the North and South Poles?",
+        "options": [
+          "North Pole—ocean; South Pole—continent",
+          "North Pole—continent; South Pole—ocean",
+          "Both poles—continents",
+          "Both poles—open ocean basins"
+        ],
+        "explanation": "Arctic ice rests largely on ocean water; Antarctic ice at the South Pole rests on land. Ice cover does not make the underlying settings identical."
+      },
+      "hi": {
+        "stem": "उत्तरी और दक्षिणी ध्रुव की स्थिति किस विकल्प में सही दी गई है?",
+        "options": [
+          "उत्तरी ध्रुव—महासागर; दक्षिणी ध्रुव—महाद्वीप",
+          "उत्तरी ध्रुव—महाद्वीप; दक्षिणी ध्रुव—महासागर",
+          "दोनों ध्रुव—महाद्वीप",
+          "दोनों ध्रुव—खुले महासागरीय बेसिन"
+        ],
+        "explanation": "आर्कटिक की बर्फ मुख्यतः समुद्री जल पर है; दक्षिण ध्रुव पर अंटार्कटिक बर्फ के नीचे भूमि है। बर्फ होने से दोनों की आधारभूत स्थिति समान नहीं हो जाती।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਧਰੁਵ ਦੀ ਸਥਿਤੀ ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਸਹੀ ਦਿੱਤੀ ਗਈ ਹੈ?",
+        "options": [
+          "ਉੱਤਰੀ ਧਰੁਵ—ਮਹਾਂਸਾਗਰ; ਦੱਖਣੀ ਧਰੁਵ—ਮਹਾਂਦੀਪ",
+          "ਉੱਤਰੀ ਧਰੁਵ—ਮਹਾਂਦੀਪ; ਦੱਖਣੀ ਧਰੁਵ—ਮਹਾਂਸਾਗਰ",
+          "ਦੋਵੇਂ ਧਰੁਵ—ਮਹਾਂਦੀਪ",
+          "ਦੋਵੇਂ ਧਰੁਵ—ਖੁੱਲ੍ਹੇ ਮਹਾਂਸਾਗਰੀ ਬੇਸਿਨ"
+        ],
+        "explanation": "ਆਰਕਟਿਕ ਦੀ ਬਰਫ਼ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਸਮੁੰਦਰੀ ਪਾਣੀ ਉੱਤੇ ਹੈ; ਦੱਖਣੀ ਧਰੁਵ ਦੀ ਬਰਫ਼ ਹੇਠਾਂ ਜ਼ਮੀਨ ਹੈ। ਬਰਫ਼ ਹੋਣ ਨਾਲ ਦੋਵਾਂ ਦੀ ਭੂਗੋਲਿਕ ਸਥਿਤੀ ਇੱਕੋ ਜਿਹੀ ਨਹੀਂ ਬਣ ਜਾਂਦੀ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q023",
+    "cpId": "WGE-001-CP001",
+    "objective": "equator-mainlands",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-DOMAINS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The equator crosses the mainland of both continents in which pair?",
+        "options": [
+          "Africa and South America",
+          "Europe and Africa",
+          "Australia and South America",
+          "North America and Europe"
+        ],
+        "explanation": "The equator crosses the African and South American mainlands. In Asia it crosses islands of Indonesia, not the Asian mainland."
+      },
+      "hi": {
+        "stem": "किस युग्म के दोनों महाद्वीपों के मुख्य भूभाग से भूमध्य रेखा गुजरती है?",
+        "options": [
+          "अफ्रीका और दक्षिणी अमेरिका",
+          "यूरोप और अफ्रीका",
+          "ऑस्ट्रेलिया और दक्षिणी अमेरिका",
+          "उत्तरी अमेरिका और यूरोप"
+        ],
+        "explanation": "भूमध्य रेखा अफ्रीका और दक्षिणी अमेरिका की मुख्यभूमि को काटती है। एशिया में यह इंडोनेशिया के द्वीपों से गुजरती है, एशियाई मुख्यभूमि से नहीं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਜੋੜੀ ਦੇ ਦੋਵੇਂ ਮਹਾਂਦੀਪਾਂ ਦੇ ਮੁੱਖ ਥਲ ਭਾਗ ਵਿੱਚੋਂ ਭੂਮੱਧ ਰੇਖਾ ਲੰਘਦੀ ਹੈ?",
+        "options": [
+          "ਅਫ਼ਰੀਕਾ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ",
+          "ਯੂਰਪ ਅਤੇ ਅਫ਼ਰੀਕਾ",
+          "ਆਸਟ੍ਰੇਲੀਆ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ",
+          "ਉੱਤਰੀ ਅਮਰੀਕਾ ਅਤੇ ਯੂਰਪ"
+        ],
+        "explanation": "ਭੂਮੱਧ ਰੇਖਾ ਅਫ਼ਰੀਕਾ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੀ ਮੁੱਖ ਭੂਮੀ ਨੂੰ ਕੱਟਦੀ ਹੈ। ਏਸ਼ੀਆ ਵਿੱਚ ਇਹ ਇੰਡੋਨੇਸ਼ੀਆ ਦੇ ਟਾਪੂਆਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ, ਮੁੱਖ ਭੂਮੀ ਵਿੱਚੋਂ ਨਹੀਂ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP001-Q024",
+    "cpId": "WGE-001-CP001",
+    "objective": "connected-ocean",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NOAA-OCEANS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Why are Earth's oceans regarded as a single global ocean?",
+        "options": [
+          "Their waters form one connected body",
+          "They all have the same average depth",
+          "Their surface waters have equal salinity",
+          "They lie on a single tectonic plate"
+        ],
+        "explanation": "Ocean names identify regions within a connected system. Water and heat can move between these regions."
+      },
+      "hi": {
+        "stem": "पृथ्वी के महासागरों को एक विश्व महासागर क्यों माना जाता है?",
+        "options": [
+          "उनका जल एक जुड़ी हुई जलराशि बनाता है",
+          "उनकी औसत गहराई समान है",
+          "उनके सतही जल की लवणता समान है",
+          "वे एक ही विवर्तनिक प्लेट पर स्थित हैं"
+        ],
+        "explanation": "महासागरों के नाम एक जुड़े तंत्र के क्षेत्रों को दर्शाते हैं। इन क्षेत्रों के बीच जल और ऊष्मा का आदान-प्रदान होता है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੇ ਮਹਾਂਸਾਗਰਾਂ ਨੂੰ ਇੱਕ ਵਿਸ਼ਵ ਮਹਾਂਸਾਗਰ ਕਿਉਂ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਉਨ੍ਹਾਂ ਦਾ ਪਾਣੀ ਇੱਕ ਜੁੜੀ ਹੋਈ ਜਲਰਾਸ਼ੀ ਬਣਾਉਂਦਾ ਹੈ",
+          "ਉਨ੍ਹਾਂ ਦੀ ਔਸਤ ਡੂੰਘਾਈ ਇੱਕੋ ਜਿਹੀ ਹੈ",
+          "ਉਨ੍ਹਾਂ ਦੇ ਸਤਹੀ ਪਾਣੀ ਦੀ ਖਾਰਾਪਣ ਮਾਤਰਾ ਇੱਕੋ ਜਿਹੀ ਹੈ",
+          "ਉਹ ਇੱਕੋ ਟੈਕਟੋਨਿਕ ਪਲੇਟ ਉੱਤੇ ਸਥਿਤ ਹਨ"
+        ],
+        "explanation": "ਮਹਾਂਸਾਗਰਾਂ ਦੇ ਨਾਂ ਇੱਕ ਜੁੜੇ ਤੰਤਰ ਦੇ ਖੇਤਰਾਂ ਨੂੰ ਦਰਸਾਉਂਦੇ ਹਨ। ਇਨ੍ਹਾਂ ਖੇਤਰਾਂ ਵਿਚਕਾਰ ਪਾਣੀ ਅਤੇ ਤਾਪ ਦਾ ਆਦਾਨ-ਪ੍ਰਦਾਨ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  }
+]

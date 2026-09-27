@@ -41,7 +41,7 @@ Every expected question position is represented by exactly one record:
 - `RUNTIME_GENERATED` when a current runtime can fill the slot; or
 - `CAPABILITY_GAP` when the correct exam component cannot currently be sampled through the central Quant section-generation boundary.
 
-The simulator must **not** hide a missing Trigonometry/Algebra/Punjab integration by substituting another chapter.
+The simulator must **not** hide any remaining capability gap by substituting another chapter. Algebra and Trigonometry are now integrated directly, and Punjab central-profile transport is now active.
 
 A structurally complete manifest containing `CAPABILITY_GAP` records is still graded `EXAM_SIMULATION_NOT_READY`.
 
@@ -61,19 +61,21 @@ The first implementation samples current authorities rather than creating a para
 
 The audit deliberately records integration gaps for content that exists but is not yet exposed through a safe central section-simulation contract.
 
-## Current deliberate gaps
+## Current deliberate gaps and locks
 
-### Algebra
+### Algebra lifecycle
 
-Algebra has a productionized `BANK_ONLY` lifecycle, but the real-exam simulator does not invent a new route around that authority. Until a deterministic central exam-profile sampling adapter is available, Algebra section slots remain an explicit capability gap.
+Algebra section generation is integrated, but its approved lifecycle remains `BANK_ONLY` / test-ineligible. The simulator therefore exposes real Algebra questions while preserving `TEST_INELIGIBLE_RUNTIME_CONTENT_PRESENT` as a readiness blocker.
 
 ### Trigonometry
 
-TRG-001/TRG-002 have mature internal lifecycle states, but they are not yet exposed through the central Quant section-simulation generation boundary. Their section slots remain explicit capability gaps rather than being replaced with Geometry or Mensuration.
+TRG-001/TRG-002 are integrated through the central section-simulation adapter. Their former structural capability gap is closed.
 
 ### Punjab central profile
 
-The central Quant V4 profile contract currently defines SSC, Banking and Generic profiles but no Punjab-specific contract. PSSSB/PPSC/Punjab Police therefore remain blocked by `CENTRAL_EXAM_PROFILE_MISSING` even when individual four-option questions can be generated.
+PSSSB/PPSC/Punjab Police now carry `PUNJAB_STATE` through the central simulator. The former `CENTRAL_EXAM_PROFILE_MISSING` blocker is closed.
+
+Punjab Probability remains separately evidence-gated and must not fall back to SSC selection.
 
 ### PYQ frequency weighting
 
@@ -135,7 +137,7 @@ A profile remains `EXAM_SIMULATION_NOT_READY` if any blocking condition is prese
 ## Option-count policy
 
 - SSC profiles: 4 options
-- Punjab profiles: 4 options, but Punjab-specific central profile still required
+- Punjab profiles: 4 options through the active PUNJAB_STATE central delivery profile
 - Banking profiles: 5 options
 
 The audit does not silently pad ordinary four-option arithmetic to five options. If Banking section assembly still receives a four-option arithmetic question, that is recorded as `OPTION_COUNT_PROFILE_DRIFT`.

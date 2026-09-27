@@ -58,9 +58,10 @@ export function independentlySolveDi007V2Question(set: Di007V2QuestionSet, quest
   const totalB = reconstructBTotal(set);
 
   switch (question.kind) {
-    case "DIRECT_VISIBLE_VALUE": {
+    case "VISIBLE_ROW_COMBINED_TOTAL": {
       const index = visibleIndex(question);
-      return String(set.stimulus.points[index]!.seriesB);
+      const point = set.stimulus.points[index]!;
+      return String(point.seriesA + point.seriesB);
     }
     case "VISIBLE_ROW_DIFFERENCE": {
       const index = visibleIndex(question);

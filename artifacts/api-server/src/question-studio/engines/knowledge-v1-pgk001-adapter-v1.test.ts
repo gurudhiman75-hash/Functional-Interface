@@ -1,15 +1,31 @@
 import { strict as assert } from "node:assert";
 
+import {
+  assertGeneratedQuestionBankEligible,
+  getGeneratedQuestionBankEligibilityIssue,
+  normalizeGeneratedQuestionPayload,
+} from "../../lib/admin-question-conversion";
+import { PGK_001_FULL_RELEASE_AUTHORITY_V1 } from "../../knowledge-v1/punjab-gk/pgk-001-full-question-studio-release-v1";
 import { knowledgeV1QuestionStudioAdapter } from "./knowledge-v1-adapter";
 import {
+  PGK_001_ENGLISH_FREEZE_AUTHORITY_V1,
   PGK_001_QUESTION_STUDIO_CORPUS_V1,
+  PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1,
+  PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1,
   PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
-  PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+  PGK_001_PRODUCTION_PACKAGE_V1,
   isPgk001QuestionStudioRequestV1,
   knowledgeV1Pgk001QuestionStudioAdapterV1,
 } from "./knowledge-v1-pgk001-adapter-v1";
+import {
+  PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
+  PGK_001_MATCH_FOLLOWING_PRODUCTION_PACKAGE_V1,
+  isPgk001MatchFollowingQuestionStudioRequestV1,
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1,
+} from "./knowledge-v1-pgk001-match-following-adapter-v1";
 
-const pkg = PGK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1;
+const pkg = PGK_001_PRODUCTION_PACKAGE_V1;
 
 assert.equal(pkg.packageId, "PGK-001");
 assert.equal(pkg.engineId, "knowledge-v1");
@@ -17,25 +33,97 @@ assert.equal(pkg.subject, "Static GK");
 assert.equal(pkg.topic, "Punjab GK");
 assert.equal(pkg.subtopic, "Complete Chapter");
 assert.equal(pkg.enabled, true);
-assert.equal(pkg.lifecycleStage, "REVIEW_ONLY");
-assert.equal(pkg.questionBankWritable, false);
-assert.equal(pkg.testEligible, false);
-assert.equal(pkg.mockTestEligible, false);
-assert.equal(pkg.publiclyPublishable, false);
+assert.equal(pkg.lifecycleStage, "BANK_ONLY");
+assert.equal(pkg.questionBankWritable, true);
+assert.equal(pkg.testEligible, true);
+assert.equal(pkg.mockTestEligible, true);
+assert.equal(pkg.publiclyPublishable, true);
 assert.equal(pkg.automaticStudentPublication, false);
-assert.equal(pkg.productionReleaseAuthorized, false);
-assert.deepEqual(pkg.supportedLanguages, ["en"]);
+assert.equal(pkg.questionBankAcceptanceMode, "FULL_RELEASE");
+assert.equal(pkg.questionBankAcceptanceAuthority, PGK_001_FULL_RELEASE_AUTHORITY_V1);
+assert.equal(pkg.testEligibility, "ELIGIBLE");
+assert.equal(pkg.metadata?.runtimeMode, "CANONICAL_REVIEW");
+assert.equal(pkg.metadata?.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
+assert.equal(pkg.metadata?.manualQuestionPublicationRequired, true);
+assert.equal(pkg.metadata?.publicReleaseAuthorized, true);
+assert.equal(pkg.metadata?.studentDeliveryAuthorized, true);
+assert.equal(pkg.metadata?.currentScopeClosed, true);
+assert.equal(pkg.metadata?.futureCodeCheckpointRequiredForCurrentScope, false);
+assert.equal(pkg.productionReleaseAuthorized, true);
+assert.deepEqual(pkg.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(pkg.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(pkg.cpIds?.length, 26);
 assert.equal(new Set(pkg.cpIds).size, 26);
 assert.equal(pkg.metadata?.cpCount, 26);
 assert.equal(pkg.metadata?.qlCount, 182);
 assert.equal(pkg.metadata?.englishQuestionCount, 1092);
+assert.equal(pkg.metadata?.hindiQuestionCount, 1092);
+assert.equal(pkg.metadata?.punjabiQuestionCount, 1092);
+assert.equal(pkg.metadata?.multilingualReviewSurfaceCount, 3276);
+assert.equal(pkg.metadata?.englishFreezeAuthorityId, PGK_001_ENGLISH_FREEZE_AUTHORITY_V1);
+assert.equal(pkg.metadata?.multilingualLocalizationComplete, true);
 assert.equal(pkg.metadata?.payloadsPerPermanentQl, 6);
 assert.equal(pkg.metadata?.registrationAuthorityId, PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1);
 
 assert.equal(PGK_001_QUESTION_STUDIO_CORPUS_V1.length, 1092);
 assert.equal(new Set(PGK_001_QUESTION_STUDIO_CORPUS_V1.map((q) => q.questionId)).size, 1092);
+assert.equal(PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1.length, 1092);
+assert.equal(PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1.length, 1092);
+assert.equal(new Set(PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1.map((q) => q.questionId)).size, 1092);
+assert.equal(new Set(PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1.map((q) => q.questionId)).size, 1092);
+
+const englishById = new Map(PGK_001_QUESTION_STUDIO_CORPUS_V1.map((q) => [q.questionId, q]));
+for (const [locale, corpus] of [
+  ["hi", PGK_001_QUESTION_STUDIO_HINDI_CORPUS_V1],
+  ["pa", PGK_001_QUESTION_STUDIO_PUNJABI_CORPUS_V1],
+] as const) {
+  const localizedQlCounts = new Map<string, number>();
+  for (const q of corpus) {
+    const english = englishById.get(q.englishQuestionId);
+    assert.ok(english, `${q.questionId}: English identity missing`);
+    assert.equal(q.questionId, `${english.questionId}-${locale.toUpperCase()}`);
+    assert.equal(q.cpId, english.cpId);
+    assert.equal(q.qlId, english.qlId);
+    assert.equal(q.difficulty, english.difficulty);
+    assert.equal(q.correctIndex, english.correctIndex);
+    assert.deepEqual(q.sourceIds, english.sourceIds);
+    assert.deepEqual(q.sourceFactIds, english.sourceFactIds);
+    assert.equal(q.options.length, 4);
+    assert.equal(new Set(q.options).size, 4);
+    assert.equal(q.options[q.correctIndex], q.canonicalAnswer);
+    assert.ok(q.stem.trim().length > 0);
+    assert.ok(q.explanation.trim().length > 0);
+    localizedQlCounts.set(q.qlId, (localizedQlCounts.get(q.qlId) ?? 0) + 1);
+  }
+  assert.equal(localizedQlCounts.size, 182);
+  for (const [qlId, count] of localizedQlCounts) {
+    assert.equal(count, 6, `${qlId}: expected six ${locale} questions`);
+  }
+}
+
+function assertFullReleasePayload(payload: any, itemId: string) {
+  assert.equal(payload.runtimeMode, "CANONICAL_REVIEW");
+  assert.equal(payload.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
+  assert.equal(payload.questionBankStatus, "READY_FOR_STORAGE");
+  assert.equal(payload.questionBankWritable, true);
+  assert.equal(payload.questionBankAcceptanceMode, "FULL_RELEASE");
+  assert.equal(payload.questionBankAcceptanceAuthority, PGK_001_FULL_RELEASE_AUTHORITY_V1);
+  assert.equal(payload.testEligibility, "ELIGIBLE");
+  assert.equal(payload.testEligible, true);
+  assert.equal(payload.mockTestEligible, true);
+  assert.equal(payload.publiclyPublishable, true);
+  assert.equal(payload.productionReleaseAuthorized, true);
+  assert.equal(payload.manualApprovalRequired, true);
+  assert.equal(payload.automaticStudentPublication, false);
+  assert.equal(getGeneratedQuestionBankEligibilityIssue(payload), null);
+  assertGeneratedQuestionBankEligible(payload);
+  const normalized = normalizeGeneratedQuestionPayload(payload, {
+    itemId,
+    generationRunCode: "PGK-001-FULL-RELEASE-PROOF",
+  });
+  assert.equal(normalized.options.length, 4);
+  assert.equal(normalized.correctIndex, payload.correctIndex);
+}
 
 const cpCounts = new Map<string, number>();
 const qlCounts = new Map<string, number>();
@@ -152,20 +240,28 @@ const replay = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate(request);
 assert.equal(first.questions.length, 30);
 assert.deepEqual(first, replay);
 assert.equal(new Set(first.questions.map((q) => q.questionId)).size, 30);
+assert.equal(first.generationContext?.questionBankWritable, true);
+assert.equal(first.generationContext?.testEligible, true);
+assert.equal(first.generationContext?.mockTestEligible, true);
+assert.equal(first.generationContext?.publiclyPublishable, true);
+assert.equal(first.generationContext?.productionReleaseAuthorized, true);
+assert.equal(first.generationContext?.automaticStudentPublication, false);
+
 
 for (const q of first.questions as any[]) {
   assert.equal(q.packageId, "PGK-001");
   assert.equal(q.language, "en");
-  assert.equal(q.registrationStatus, "REGISTERED_REVIEW_ONLY");
+  assert.equal(q.registrationStatus, "REGISTERED_PRODUCTION_READY");
   assert.equal(q.registrationAuthorityId, PGK_001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1);
   assert.equal(q.authoringReviewApproved, true);
   assert.equal(q.runtimeRegistered, true);
-  assert.equal(q.readOnly, true);
-  assert.equal(q.productionReleased, false);
-  assert.equal(q.questionBankWritable, false);
-  assert.equal(q.testEligible, false);
-  assert.equal(q.mockTestEligible, false);
-  assert.equal(q.publiclyPublishable, false);
+  assert.equal(q.readOnly, false);
+  assert.equal(q.productionReleased, true);
+  assert.equal(q.questionBankWritable, true);
+  assert.equal(q.testEligible, true);
+  assert.equal(q.mockTestEligible, true);
+  assert.equal(q.publiclyPublishable, true);
+  assertFullReleasePayload(q, `pgk-main-${q.questionId}`);
 }
 
 const composite = await knowledgeV1QuestionStudioAdapter.generate({
@@ -233,17 +329,281 @@ await assert.rejects(
   }),
   /Unknown PGK-001 selector/i,
 );
+const multilingualSeed = "pgk001-multilingual-parity";
+const englishParallel = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
+  packageId: "PGK-001",
+  language: "en",
+  difficulty: "Mixed",
+  count: 30,
+  seed: multilingualSeed,
+});
+const hindiParallel = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
+  packageId: "PGK-001",
+  language: "hi",
+  difficulty: "Mixed",
+  count: 30,
+  seed: multilingualSeed,
+});
+const punjabiParallel = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
+  packageId: "PGK-001",
+  language: "pa",
+  difficulty: "Mixed",
+  count: 30,
+  seed: multilingualSeed,
+});
+assert.deepEqual(
+  englishParallel.questions.map((q) => q.canonicalProblemId),
+  hindiParallel.questions.map((q) => q.canonicalProblemId),
+);
+assert.deepEqual(
+  englishParallel.questions.map((q) => q.canonicalProblemId),
+  punjabiParallel.questions.map((q) => q.canonicalProblemId),
+);
+
+for (const [language, locale, result] of [
+  ["hi", "hi-IN", hindiParallel],
+  ["pa", "pa-IN", punjabiParallel],
+] as const) {
+  assert.equal(result.questions.length, 30);
+  for (const q of result.questions as any[]) {
+    assert.equal(q.language, language);
+    assert.equal(q.locale, locale);
+    assert.equal(q.questionLanguageId, q.questionId);
+    assert.equal(q.questionId, `${q.canonicalProblemId}-${language.toUpperCase()}`);
+    assert.equal(q.multilingualLocalizationApproved, true);
+    assert.equal(q.registrationStatus, "REGISTERED_PRODUCTION_READY");
+    assert.equal(q.questionBankWritable, true);
+    assert.equal(q.testEligible, true);
+    assert.equal(q.mockTestEligible, true);
+    assert.equal(q.publiclyPublishable, true);
+    assertFullReleasePayload(q, `pgk-${language}-${q.questionId}`);
+  }
+}
+
+const hindiQl175 = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
+  packageId: "PGK-001",
+  language: "hi",
+  patternId: "PGK-001-QL-175",
+  count: 6,
+  seed: "ql175-hi-filter",
+});
+assert.equal(hindiQl175.questions.length, 6);
+assert.equal(hindiQl175.questions.every((q) => q.qlId === "PGK-001-QL-175"), true);
+assert.equal(hindiQl175.questions.every((q) => q.language === "hi"), true);
+
+const punjabiCp014 = await knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
+  packageId: "PGK-001",
+  language: "pa",
+  canonicalProblemId: "PGK-001-CP-014",
+  count: 12,
+  seed: "cp014-pa-filter",
+});
+assert.equal(punjabiCp014.questions.length, 12);
+assert.equal(punjabiCp014.questions.every((q) => q.cpId === "PGK-001-CP-014"), true);
+assert.equal(punjabiCp014.questions.every((q) => q.language === "pa"), true);
+
 await assert.rejects(
   knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
     packageId: "PGK-001",
-    language: "pa",
+    language: "bn",
   }),
-  /currently supports English only/i,
+  /supports English, Hindi and Punjabi/i,
 );
 await assert.rejects(
   knowledgeV1Pgk001QuestionStudioAdapterV1.generate({
     packageId: "PGK-001",
-    runtimeMode: "bank-only",
+    runtimeMode: "review-only",
   }),
-  /only supports review-only runtime/i,
+  /only supports CANONICAL_REVIEW runtime/i,
 );
+
+const mtfPkg = PGK_001_MATCH_FOLLOWING_PRODUCTION_PACKAGE_V1;
+assert.equal(mtfPkg.packageId, "PGK-001-MTF-V1");
+assert.equal(mtfPkg.engineId, "knowledge-v1");
+assert.equal(mtfPkg.subject, "Static GK");
+assert.equal(mtfPkg.topic, "Punjab GK");
+assert.equal(mtfPkg.subtopic, "Match the Following");
+assert.equal(mtfPkg.enabled, true);
+assert.equal(mtfPkg.lifecycleStage, "BANK_ONLY");
+assert.equal(mtfPkg.questionBankWritable, true);
+assert.equal(mtfPkg.testEligible, true);
+assert.equal(mtfPkg.mockTestEligible, true);
+assert.equal(mtfPkg.publiclyPublishable, true);
+assert.equal(mtfPkg.automaticStudentPublication, false);
+assert.equal(mtfPkg.questionBankAcceptanceMode, "FULL_RELEASE");
+assert.equal(mtfPkg.questionBankAcceptanceAuthority, PGK_001_FULL_RELEASE_AUTHORITY_V1);
+assert.equal(mtfPkg.testEligibility, "ELIGIBLE");
+assert.equal(mtfPkg.metadata?.runtimeMode, "CANONICAL_REVIEW");
+assert.equal(mtfPkg.metadata?.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
+assert.equal(mtfPkg.metadata?.manualQuestionPublicationRequired, true);
+assert.equal(mtfPkg.metadata?.publicReleaseAuthorized, true);
+assert.equal(mtfPkg.metadata?.studentDeliveryAuthorized, true);
+assert.equal(mtfPkg.productionReleaseAuthorized, true);
+assert.deepEqual(mtfPkg.supportedLanguages, ["en", "hi", "pa"]);
+assert.deepEqual(mtfPkg.supportedDifficulties, ["Medium", "Hard"]);
+assert.equal(mtfPkg.cpIds.length, 12);
+assert.equal(new Set(mtfPkg.cpIds).size, 12);
+assert.equal(mtfPkg.metadata?.matchingConceptCount, 24);
+assert.equal(mtfPkg.metadata?.reviewSurfaceCount, 72);
+assert.equal(mtfPkg.metadata?.frozenCoreQuestionCount, 1092);
+assert.equal(mtfPkg.metadata?.frozenCoreModified, false);
+assert.equal(
+  mtfPkg.metadata?.registrationAuthorityId,
+  PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
+);
+
+assert.equal(
+  isPgk001MatchFollowingQuestionStudioRequestV1({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  }),
+  true,
+);
+assert.equal(
+  isPgk001MatchFollowingQuestionStudioRequestV1({
+    canonicalProblemId: "PGK-001-MTF-017",
+  }),
+  true,
+);
+assert.equal(
+  isPgk001MatchFollowingQuestionStudioRequestV1({ packageId: "PGK-001" }),
+  false,
+);
+
+const packagesWithMatching = knowledgeV1QuestionStudioAdapter.listPackages();
+assert.equal(
+  packagesWithMatching.some((p) => p.packageId === PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1),
+  true,
+);
+assert.equal(
+  new Set(packagesWithMatching.map((p) => p.packageId)).size,
+  packagesWithMatching.length,
+);
+
+const mtfRequest = {
+  packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  language: "en" as const,
+  difficulty: "Mixed" as const,
+  count: 24,
+  seed: "pgk001-mtf-integration-contract",
+};
+const mtfFirst = await knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate(mtfRequest);
+const mtfReplay = await knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate(mtfRequest);
+assert.equal(mtfFirst.questions.length, 24);
+assert.deepEqual(mtfFirst, mtfReplay);
+assert.equal(new Set(mtfFirst.questions.map((q) => q.questionId)).size, 24);
+assert.equal(PGK_001_QUESTION_STUDIO_CORPUS_V1.length, 1092);
+
+for (const q of mtfFirst.questions as any[]) {
+  assert.equal(q.packageId, PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1);
+  assert.equal(q.questionType, "Match the Following");
+  assert.equal(q.language, "en");
+  assert.equal(q.listI.length, 4);
+  assert.equal(q.listII.length, 4);
+  assert.equal(q.options.length, 4);
+  assert.equal(new Set(q.options).size, 4);
+  assert.equal(q.options[q.correctIndex], q.canonicalAnswer);
+  assert.equal(q.renderer.kind, "MATCH_LISTS");
+  assert.equal(q.registrationStatus, "REGISTERED_PRODUCTION_READY");
+  assert.equal(
+    q.registrationAuthorityId,
+    PGK_001_MATCH_FOLLOWING_REGISTRATION_AUTHORITY_V1,
+  );
+  assert.equal(q.authoringReviewApproved, true);
+  assert.equal(q.formatReviewApproved, true);
+  assert.equal(q.runtimeRegistered, true);
+  assert.equal(q.readOnly, false);
+  assert.equal(q.additiveExtension, true);
+  assert.equal(q.frozenCoreQuestionCount, 1092);
+  assert.equal(q.frozenCoreModified, false);
+  assert.equal(q.productionReleased, true);
+  assert.equal(q.questionBankWritable, true);
+  assert.equal(q.testEligible, true);
+  assert.equal(q.mockTestEligible, true);
+  assert.equal(q.publiclyPublishable, true);
+  assertFullReleasePayload(q, `pgk-mtf-${q.questionId}`);
+}
+
+const mtfComposite = await knowledgeV1QuestionStudioAdapter.generate({
+  ...mtfRequest,
+  language: "pa",
+  count: 6,
+  seed: "pgk001-mtf-composite-pa",
+});
+assert.equal(mtfComposite.questions.length, 6);
+assert.equal(
+  mtfComposite.questions.every(
+    (q) =>
+      q.packageId === PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1 &&
+      q.language === "pa" &&
+      q.questionType === "Match the Following",
+  ),
+  true,
+);
+
+const mtfHindi = await knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+  packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  language: "hi",
+  canonicalProblemId: "PGK-001-MTF-017",
+  count: 1,
+  seed: "pgk001-mtf-hindi-specific",
+});
+assert.equal(mtfHindi.questions.length, 1);
+assert.equal(mtfHindi.questions[0]?.canonicalProblemId, "PGK-001-MTF-017");
+assert.equal(mtfHindi.questions[0]?.language, "hi");
+assert.equal(mtfHindi.questions[0]?.cpId, "PGK-001-CP-022");
+
+const mtfCp020 = await knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+  packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  canonicalProblemId: "PGK-001-CP-020",
+  count: 2,
+  seed: "pgk001-mtf-cp020",
+});
+assert.equal(mtfCp020.questions.length, 2);
+assert.equal(mtfCp020.questions.every((q) => q.cpId === "PGK-001-CP-020"), true);
+
+const mtfHard = await knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+  packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+  difficulty: "Hard",
+  count: 12,
+  seed: "pgk001-mtf-hard",
+});
+assert.equal(mtfHard.questions.every((q) => q.difficulty === "Hard"), true);
+
+await assert.rejects(
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+    difficulty: "Easy",
+  }),
+  /supports Medium, Hard, or Mixed/i,
+);
+await assert.rejects(
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+    canonicalProblemId: "PGK-001-CP-020",
+    count: 3,
+  }),
+  /without repeats/i,
+);
+await assert.rejects(
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+    canonicalProblemId: "PGK-001-CP-004",
+    patternId: "PGK-001-MTF-017",
+  }),
+  /Conflicting PGK-001 matching CP\/concept selectors/i,
+);
+await assert.rejects(
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+    canonicalProblemId: "PGK-001-MTF-999",
+  }),
+  /Unknown PGK-001 matching selector/i,
+);
+await assert.rejects(
+  knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate({
+    packageId: PGK_001_MATCH_FOLLOWING_PACKAGE_ID_V1,
+    runtimeMode: "review-only",
+  }),
+  /only supports CANONICAL_REVIEW runtime/i,
+);
+

@@ -31,6 +31,7 @@ export type Di005V2Stimulus = Readonly<{
   totalValue: number;
   totalLabel: string;
   unit: string;
+  description?: string;
   slices: readonly Di005V2Slice[];
   hiddenPercentIndex: number;
 }>;

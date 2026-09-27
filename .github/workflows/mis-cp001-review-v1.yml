@@ -1,0 +1,109 @@
+name: Validate MIS-001 review runtime
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Missing-Number/MIS-001/**
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mis-001-review-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mis-001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle MIS-001 proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/mis-001
+          for file in             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/mis-cp-001.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/question-studio-integration.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-002/mis-cp-002.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-003/mis-cp-003.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-004/mis-cp-004.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/mis-cp-005.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/mis-cp-006.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/mis-cp-007.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-008/mis-cp-008.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-009/mis-cp-009.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-010/mis-cp-010.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-011/mis-cp-011.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-012/mis-cp-012.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/question-studio-integration.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-002/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-003/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-004/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-008/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-009/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-010/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-011/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-012/export-review-html.ts
+          do
+            name="$(basename "$file" .ts)"
+            parent="$(basename "$(dirname "$file")")"
+            pnpm --dir artifacts/api-server exec esbuild "$file"               --bundle --platform=node --format=esm               --outfile="dist/reasoning-v1/mis-001/${parent}-${name}.mjs"
+          done
+      - name: Run MIS-CP-001 generator audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-001-mis-cp-001.test.mjs
+      - name: Run MIS-CP-001 checkpoint Question Studio audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-001-question-studio-integration.test.mjs
+      - name: Run MIS-CP-002 generator audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-002-mis-cp-002.test.mjs
+      - name: Run MIS-CP-003 generator audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-003-mis-cp-003.test.mjs
+      - name: Run MIS-CP-004 generator audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-004-mis-cp-004.test.mjs
+      - name: Run MIS-CP-005 generator audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-005-mis-cp-005.test.mjs
+      - name: Run MIS-CP-006 generator audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-006-mis-cp-006.test.mjs
+      - name: Run MIS-CP-007 generator audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-007-mis-cp-007.test.mjs
+      - name: Run MIS-CP-008 inverse audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-008-mis-cp-008.test.mjs
+      - name: Run MIS-CP-009 pair/cross audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-009-mis-cp-009.test.mjs
+      - name: Run MIS-CP-010 digit audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-010-mis-cp-010.test.mjs
+      - name: Run MIS-CP-011 mixed two-stage audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-011-mis-cp-011.test.mjs
+      - name: Run MIS-CP-012 competing-rule audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-012-mis-cp-012.test.mjs
+      - name: Run MIS-001 chapter Question Studio audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-question-studio-integration.test.mjs
+      - name: Generate MIS-001 review packs
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/mis-001/MIS-CP-001-export-review.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-002-export-review.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-003-export-review.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-004-export-review.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-005-export-review.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-006-export-review.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-007-export-review.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-005-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-006-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-007-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-008-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-009-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-010-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-011-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-012-export-review-html.mjs
+      - name: Upload MIS-001 review packs
+        uses: actions/upload-artifact@v4
+        with:
+          name: MIS-001-CP001-CP012-REVIEW
+          path: |
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-001-REVIEW.md
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-002-REVIEW.md
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-003-REVIEW.md
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-004-REVIEW.md
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-005-REVIEW.md
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-006-REVIEW.md
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-007-REVIEW.md
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-005-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-006-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-007-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-008-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-009-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-010-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-011-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-012-REVIEW.html

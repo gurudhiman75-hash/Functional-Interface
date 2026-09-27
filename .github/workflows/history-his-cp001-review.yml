@@ -5,7 +5,7 @@ on:
     branches:
       - New-main
     paths:
-      - "artifacts/api-server/src/knowledge-v1/indian-history/**"
+      - "artifacts/api-server/src/knowledge-v1/indian-history/prehistory-harappan/**"
   workflow_dispatch:
 
 permissions:

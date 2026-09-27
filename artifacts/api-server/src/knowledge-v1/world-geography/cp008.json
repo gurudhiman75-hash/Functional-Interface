@@ -1,0 +1,1273 @@
+[
+  {
+    "id": "WGE-001-CP008-Q001",
+    "cpId": "WGE-001-CP008",
+    "objective": "glacier-motion",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which feature distinguishes a glacier from a seasonal snowfield?",
+        "options": [
+          "Persistent land ice that moves under its own weight",
+          "Snow that melts completely each summer",
+          "Sea ice carried by ocean currents",
+          "A frozen lake surface that remains stationary"
+        ],
+        "explanation": "Glaciers form from accumulated snow and move slowly. Their moving ice can erode, transport and deposit material."
+      },
+      "hi": {
+        "stem": "कौन-सी विशेषता हिमनद को मौसमी हिमक्षेत्र से अलग करती है?",
+        "options": [
+          "अपने भार से चलने वाला स्थायी स्थलीय हिमपिंड",
+          "हर गर्मी में पूरी तरह पिघलने वाली बर्फ",
+          "महासागरीय धाराओं से बहती समुद्री बर्फ",
+          "स्थिर रहने वाली झील की जमी सतह"
+        ],
+        "explanation": "हिमनद जमा हिम से बनते और धीरे चलते हैं। चलती बर्फ पदार्थ काटती, ढोती और जमाती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਵਿਸ਼ੇਸ਼ਤਾ ਹਿਮਨਦ ਨੂੰ ਮੌਸਮੀ ਬਰਫ਼ ਵਾਲੇ ਖੇਤਰ ਤੋਂ ਵੱਖ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "ਆਪਣੇ ਭਾਰ ਨਾਲ ਚੱਲਣ ਵਾਲਾ ਸਥਾਈ ਥਲੀ ਬਰਫ਼ ਦਾ ਪਿੰਡ",
+          "ਹਰ ਗਰਮੀ ਵਿੱਚ ਪੂਰੀ ਤਰ੍ਹਾਂ ਪਿਘਲਣ ਵਾਲੀ ਬਰਫ਼",
+          "ਸਮੁੰਦਰੀ ਧਾਰਾਵਾਂ ਨਾਲ ਵਹਿੰਦੀ ਸਮੁੰਦਰੀ ਬਰਫ਼",
+          "ਝੀਲ ਦੀ ਜੰਮੀ ਹੋਈ ਸਥਿਰ ਸਤਹ"
+        ],
+        "explanation": "ਹਿਮਨਦ ਜਮ੍ਹਾਂ ਬਰਫ਼ ਤੋਂ ਬਣਦੇ ਅਤੇ ਹੌਲੀ ਚੱਲਦੇ ਹਨ। ਚੱਲਦੀ ਬਰਫ਼ ਪਦਾਰਥ ਕੱਟਦੀ, ਢੋਂਦੀ ਅਤੇ ਜਮ੍ਹਾਂ ਕਰਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q002",
+    "cpId": "WGE-001-CP008",
+    "objective": "cirque",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is a bowl-shaped depression at the head of a glacial valley called?",
+        "options": [
+          "Cirque",
+          "Arête",
+          "Drumlin",
+          "Moraine"
+        ],
+        "explanation": "A cirque is an erosional hollow shaped by a glacier. A small lake may occupy it after the ice melts."
+      },
+      "hi": {
+        "stem": "हिमनदीय घाटी के ऊपरी सिरे पर कटोरे जैसा गर्त क्या कहलाता है?",
+        "options": [
+          "सर्क",
+          "अरेत",
+          "ड्रमलिन",
+          "हिमोढ़"
+        ],
+        "explanation": "सर्क हिमनद के अपरदन से बना गर्त है। बर्फ पिघलने के बाद इसमें छोटी झील हो सकती है।"
+      },
+      "pa": {
+        "stem": "ਹਿਮਨਦੀ ਘਾਟੀ ਦੇ ਉੱਪਰਲੇ ਸਿਰੇ ਉੱਤੇ ਕਟੋਰੇ ਵਰਗੇ ਖੱਡੇ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਸਰਕ",
+          "ਅਰੇਤ",
+          "ਡਰਮਲਿਨ",
+          "ਮੋਰੇਨ"
+        ],
+        "explanation": "ਸਰਕ ਹਿਮਨਦ ਦੇ ਕਟਾਅ ਨਾਲ ਬਣਿਆ ਟੋਆ ਹੈ। ਬਰਫ਼ ਪਿਘਲਣ ਤੋਂ ਬਾਅਦ ਇਸ ਵਿੱਚ ਛੋਟੀ ਝੀਲ ਹੋ ਸਕਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q003",
+    "cpId": "WGE-001-CP008",
+    "objective": "arete",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which glacial landform is a sharp ridge between adjacent cirques?",
+        "options": [
+          "Arête",
+          "Horn",
+          "Moraine",
+          "Drumlin"
+        ],
+        "explanation": "Glacial erosion on both sides narrows a ridge into an arête. It is an erosional feature, not deposited debris."
+      },
+      "hi": {
+        "stem": "पास-पास के सर्कों के बीच तीखी कटक वाला हिमनदीय स्थलरूप क्या कहलाता है?",
+        "options": [
+          "अरेत",
+          "हॉर्न",
+          "हिमोढ़",
+          "ड्रमलिन"
+        ],
+        "explanation": "दोनों ओर हिमनदीय कटाव धार को संकरा करके अरीत बनाता है। यह अपरदित आकृति है, जमा मलबा नहीं।"
+      },
+      "pa": {
+        "stem": "ਨਾਲ-ਨਾਲ ਦੇ ਸਰਕਾਂ ਵਿਚਕਾਰ ਤਿੱਖੀ ਪਹਾੜੀ ਧਾਰ ਵਾਲੇ ਹਿਮਨਦੀ ਭੂ-ਰੂਪ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਅਰੇਤ",
+          "ਹੌਰਨ",
+          "ਮੋਰੇਨ",
+          "ਡਰਮਲਿਨ"
+        ],
+        "explanation": "ਦੋਵੇਂ ਪਾਸੇ ਹਿਮਨਦੀ ਕਟਾਅ ਧਾਰ ਨੂੰ ਤੰਗ ਕਰਕੇ ਅਰੇਤ ਬਣਾਉਂਦਾ ਹੈ। ਇਹ ਕੱਟੀ ਆਕ੍ਰਿਤੀ ਹੈ, ਜਮ੍ਹਾਂ ਮਲਬਾ ਨਹੀਂ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q004",
+    "cpId": "WGE-001-CP008",
+    "objective": "horn",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Glacial erosion on several sides of a mountain produces a pyramidal peak called a:",
+        "options": [
+          "Horn",
+          "Arête",
+          "Drumlin",
+          "Moraine"
+        ],
+        "explanation": "Several cirques can cut back towards the same summit. Their combined erosion leaves a sharp pyramidal horn."
+      },
+      "hi": {
+        "stem": "पर्वत के कई ओर हिमनदीय अपरदन से बनी पिरामिड जैसी चोटी क्या कहलाती है?",
+        "options": [
+          "हॉर्न",
+          "अरेत",
+          "ड्रमलिन",
+          "हिमोढ़"
+        ],
+        "explanation": "कई सर्क एक ही शिखर की ओर पीछे कट सकते हैं। संयुक्त कटाव तीखी पिरामिडाकार चोटी छोड़ता है।"
+      },
+      "pa": {
+        "stem": "ਪਹਾੜ ਦੇ ਕਈ ਪਾਸਿਆਂ ਉੱਤੇ ਹਿਮਨਦੀ ਕਟਾਅ ਨਾਲ ਬਣੀ ਪਿਰਾਮਿਡ ਵਰਗੀ ਚੋਟੀ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਹੌਰਨ",
+          "ਅਰੇਤ",
+          "ਡਰਮਲਿਨ",
+          "ਮੋਰੇਨ"
+        ],
+        "explanation": "ਕਈ ਸਰਕ ਇੱਕੋ ਸਿਖਰ ਵੱਲ ਪਿੱਛੇ ਕੱਟ ਸਕਦੇ ਹਨ। ਇਕੱਠਾ ਕਟਾਅ ਤਿੱਖੀ ਪਿਰਾਮਿਡ ਵਰਗੀ ਚੋਟੀ ਛੱਡਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q005",
+    "cpId": "WGE-001-CP008",
+    "objective": "u-valley",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is the typical cross-sectional shape of a glacial trough?",
+        "options": [
+          "U-shaped",
+          "V-shaped",
+          "Narrow and vertical-sided",
+          "Broad and nearly flat without steep sides"
+        ],
+        "explanation": "Glacial erosion widens and deepens the valley. This produces a relatively wide floor and steep sides."
+      },
+      "hi": {
+        "stem": "हिमनदीय घाटी का अनुप्रस्थ आकार सामान्यतः कैसा होता है?",
+        "options": [
+          "यू-आकार",
+          "वी-आकार",
+          "संकरी और खड़ी दीवारों वाली",
+          "तीव्र पार्श्व ढालों के बिना चौड़ी और लगभग समतल"
+        ],
+        "explanation": "हिमनदीय कटाव घाटी को चौड़ा और गहरा करता है। इससे अपेक्षाकृत चौड़ा तल और खड़े किनारे बनते हैं।"
+      },
+      "pa": {
+        "stem": "ਹਿਮਨਦੀ ਘਾਟੀ ਨੂੰ ਆਰ-ਪਾਰ ਦੇਖਣ ਉੱਤੇ ਇਸ ਦਾ ਆਕਾਰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੋ ਜਿਹਾ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਯੂ-ਆਕਾਰ",
+          "ਵੀ-ਆਕਾਰ",
+          "ਤੰਗ ਅਤੇ ਖੜ੍ਹੀਆਂ ਕੰਧਾਂ ਵਾਲੀ",
+          "ਤਿੱਖੇ ਪਾਸਿਆਂ ਤੋਂ ਬਿਨਾਂ ਚੌੜੀ ਅਤੇ ਲਗਭਗ ਪੱਧਰੀ"
+        ],
+        "explanation": "ਹਿਮਨਦੀ ਕਟਾਅ ਘਾਟੀ ਨੂੰ ਚੌੜਾ ਅਤੇ ਡੂੰਘਾ ਕਰਦਾ ਹੈ। ਇਸ ਨਾਲ ਮੁਕਾਬਲਤਨ ਚੌੜਾ ਤਲ ਅਤੇ ਖੜ੍ਹੇ ਕਿਨਾਰੇ ਬਣਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q006",
+    "cpId": "WGE-001-CP008",
+    "objective": "hanging-valley",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A tributary glacial valley ends above the floor of the main valley. What is it called?",
+        "options": [
+          "Hanging valley",
+          "Rift valley",
+          "Gorge",
+          "U-shaped main valley"
+        ],
+        "explanation": "The larger main glacier often cuts deeper than its tributary. After melting, the tributary valley can end high above the main floor."
+      },
+      "hi": {
+        "stem": "एक सहायक हिमनदीय घाटी का तल मुख्य घाटी के तल से ऊपर रह जाता है। यह क्या कहलाती है?",
+        "options": [
+          "लटकती घाटी",
+          "भ्रंश घाटी",
+          "महाखड्ड",
+          "यू-आकार की मुख्य घाटी"
+        ],
+        "explanation": "बड़ा मुख्य हिमनद सहायक से अधिक गहरा काटता है। पिघलने के बाद सहायक घाटी मुख्य तल से ऊपर समाप्त हो सकती है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਸਹਾਇਕ ਹਿਮਨਦੀ ਘਾਟੀ ਦਾ ਤਲ ਮੁੱਖ ਘਾਟੀ ਦੇ ਤਲ ਤੋਂ ਉੱਪਰ ਰਹਿ ਜਾਂਦਾ ਹੈ। ਇਸ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਲਟਕਦੀ ਘਾਟੀ",
+          "ਰਿਫ਼ਟ ਘਾਟੀ",
+          "ਡੂੰਘੀ ਤੰਗ ਘਾਟੀ",
+          "ਯੂ-ਆਕਾਰ ਦੀ ਮੁੱਖ ਘਾਟੀ"
+        ],
+        "explanation": "ਵੱਡਾ ਮੁੱਖ ਹਿਮਨਦ ਸਹਾਇਕ ਨਾਲੋਂ ਵੱਧ ਡੂੰਘਾ ਕੱਟਦਾ ਹੈ। ਪਿਘਲਣ ਤੋਂ ਬਾਅਦ ਸਹਾਇਕ ਘਾਟੀ ਮੁੱਖ ਤਲ ਤੋਂ ਉੱਪਰ ਮੁੱਕ ਸਕਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q007",
+    "cpId": "WGE-001-CP008",
+    "objective": "fjord",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How is a fjord formed?",
+        "options": [
+          "By seawater flooding a glacial valley",
+          "By a river depositing sediment at its mouth",
+          "By wind eroding a coastal basin",
+          "By waves joining an island to the mainland"
+        ],
+        "explanation": "When the sea enters a deeply eroded glacial valley, a fjord forms. Norway has many well-known examples."
+      },
+      "hi": {
+        "stem": "फ्योर्ड का निर्माण कैसे होता है?",
+        "options": [
+          "हिमनदीय घाटी में समुद्री जल भरने से",
+          "नदी के मुहाने पर तलछट जमा होने से",
+          "हवा द्वारा तटीय बेसिन काटने से",
+          "लहरों द्वारा द्वीप को मुख्य भूभाग से जोड़ने से"
+        ],
+        "explanation": "समुद्र के गहरी हिमनदीय घाटी में भरने से फ्योर्ड बनता है। नॉर्वे में इसके अनेक प्रसिद्ध उदाहरण हैं।"
+      },
+      "pa": {
+        "stem": "ਫਿਓਰਡ ਕਿਵੇਂ ਬਣਦਾ ਹੈ?",
+        "options": [
+          "ਹਿਮਨਦੀ ਘਾਟੀ ਵਿੱਚ ਸਮੁੰਦਰ ਦਾ ਪਾਣੀ ਭਰਨ ਨਾਲ",
+          "ਦਰਿਆ ਦੇ ਮੁਹਾਣੇ ਉੱਤੇ ਤਲਛਟ ਜਮ੍ਹਾਂ ਹੋਣ ਨਾਲ",
+          "ਹਵਾ ਵੱਲੋਂ ਤੱਟੀ ਬੇਸਿਨ ਕੱਟਣ ਨਾਲ",
+          "ਲਹਿਰਾਂ ਵੱਲੋਂ ਟਾਪੂ ਨੂੰ ਮੁੱਖ ਥਲ ਨਾਲ ਜੋੜਨ ਨਾਲ"
+        ],
+        "explanation": "ਸਮੁੰਦਰ ਦੇ ਡੂੰਘੀ ਹਿਮਨਦੀ ਘਾਟੀ ਵਿੱਚ ਭਰਨ ਨਾਲ ਫਿਓਰਡ ਬਣਦਾ ਹੈ। ਨਾਰਵੇ ਵਿੱਚ ਇਸ ਦੀਆਂ ਕਈ ਮਸ਼ਹੂਰ ਮਿਸਾਲਾਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q008",
+    "cpId": "WGE-001-CP008",
+    "objective": "moraine",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which landform consists of debris deposited directly by a glacier?",
+        "options": [
+          "Moraine",
+          "Cirque",
+          "Arête",
+          "Horn"
+        ],
+        "explanation": "Moraines are accumulations of glacial debris. They can occur along a glacier's sides, middle or former front."
+      },
+      "hi": {
+        "stem": "कौन-सा स्थलरूप हिमनद द्वारा सीधे जमा किए गए मलबे से बनता है?",
+        "options": [
+          "हिमोढ़",
+          "सर्क",
+          "अरेत",
+          "हॉर्न"
+        ],
+        "explanation": "हिमोढ़ हिमनदीय मलबे के जमाव हैं। वे किनारे, मध्य या पुराने अग्रभाग पर हो सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਭੂ-ਰੂਪ ਹਿਮਨਦ ਵੱਲੋਂ ਸਿੱਧਾ ਜਮ੍ਹਾਂ ਕੀਤੇ ਮਲਬੇ ਤੋਂ ਬਣਦਾ ਹੈ?",
+        "options": [
+          "ਮੋਰੇਨ",
+          "ਸਰਕ",
+          "ਅਰੇਤ",
+          "ਹੌਰਨ"
+        ],
+        "explanation": "ਹਿਮੋੜ ਹਿਮਨਦੀ ਮਲਬੇ ਦੀਆਂ ਜਮ੍ਹਾਂਵਟਾਂ ਹਨ। ਉਹ ਕਿਨਾਰੇ, ਵਿਚਕਾਰ ਜਾਂ ਪੁਰਾਣੇ ਅਗਲੇ ਸਿਰੇ ਉੱਤੇ ਹੋ ਸਕਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q009",
+    "cpId": "WGE-001-CP008",
+    "objective": "terminal-moraine",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What does a terminal moraine mark?",
+        "options": [
+          "The farthest advance of a glacier during a particular episode",
+          "The line where annual accumulation equals annual melting",
+          "The upper limit of the glacier’s snowfield",
+          "The margin between two merging glaciers"
+        ],
+        "explanation": "Debris accumulates at the glacier's end. A terminal moraine records the limit of an advance, not necessarily all advances in its history."
+      },
+      "hi": {
+        "stem": "अंतस्थ हिमोढ़ किस स्थिति को दर्शाता है?",
+        "options": [
+          "किसी विशेष चरण में हिमनद के सबसे आगे तक पहुँचने की सीमा",
+          "वार्षिक हिम संचय और पिघलाव के बराबर होने की रेखा",
+          "हिमनद के हिमक्षेत्र की ऊपरी सीमा",
+          "दो मिलते हिमनदों के बीच की सीमा"
+        ],
+        "explanation": "मलबा हिमनद के अंत में जमा होता है। अंत्य हिमोढ़ एक अग्रगमन की सीमा बताता है, पूरे इतिहास के हर अग्रगमन की नहीं।"
+      },
+      "pa": {
+        "stem": "ਅੰਤਲਾ ਮੋਰੇਨ ਕਿਹੜੀ ਸਥਿਤੀ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਕਿਸੇ ਖ਼ਾਸ ਪੜਾਅ ਵਿੱਚ ਹਿਮਨਦ ਦੇ ਸਭ ਤੋਂ ਅੱਗੇ ਪਹੁੰਚਣ ਦੀ ਹੱਦ",
+          "ਸਾਲਾਨਾ ਬਰਫ਼ ਜਮ੍ਹਾਂ ਹੋਣ ਅਤੇ ਪਿਘਲਣ ਦੇ ਬਰਾਬਰ ਹੋਣ ਦੀ ਰੇਖਾ",
+          "ਹਿਮਨਦ ਦੇ ਬਰਫ਼ ਵਾਲੇ ਖੇਤਰ ਦੀ ਉੱਪਰਲੀ ਹੱਦ",
+          "ਦੋ ਮਿਲਦੇ ਹਿਮਨਦਾਂ ਵਿਚਕਾਰ ਹੱਦ"
+        ],
+        "explanation": "ਮਲਬਾ ਹਿਮਨਦ ਦੇ ਅੰਤ ਉੱਤੇ ਜਮ੍ਹਾਂ ਹੁੰਦਾ ਹੈ। ਅੰਤਲਾ ਹਿਮੋੜ ਇੱਕ ਵਾਰ ਅੱਗੇ ਵਧਣ ਦੀ ਹੱਦ ਦੱਸਦਾ ਹੈ, ਪੂਰੇ ਇਤਿਹਾਸ ਦੀ ਹਰ ਪਹੁੰਚ ਨਹੀਂ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q010",
+    "cpId": "WGE-001-CP008",
+    "objective": "till-outwash",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How does glacial till differ from outwash?",
+        "options": [
+          "Till is deposited directly by ice; outwash by meltwater",
+          "Till is deposited by meltwater; outwash directly by ice",
+          "Both are deposited directly by ice without flowing water",
+          "Till is wind-deposited; outwash is wave-deposited"
+        ],
+        "explanation": "Till is commonly unsorted. Meltwater can sort and layer the sediment it carries as outwash."
+      },
+      "hi": {
+        "stem": "हिमनदीय टिल और हिमजल निक्षेप में क्या अंतर है?",
+        "options": [
+          "टिल सीधे बर्फ से और हिमजल निक्षेप पिघले जल से जमा होता है",
+          "टिल पिघले जल से और हिमजल निक्षेप सीधे बर्फ से जमा होता है",
+          "दोनों बहते जल के बिना सीधे बर्फ से जमा होते हैं",
+          "टिल पवन से और हिमजल निक्षेप लहरों से जमा होता है"
+        ],
+        "explanation": "टिल सामान्यतः अछँटा होता है। पिघला जल अपने अवसाद को आकार के अनुसार छाँटकर परतों में जमा कर सकता है।"
+      },
+      "pa": {
+        "stem": "ਹਿਮਨਦੀ ਟਿਲ ਅਤੇ ਪਿਘਲੀ ਬਰਫ਼ ਦੇ ਪਾਣੀ ਨਾਲ ਬਣੇ ਨਿਖੇਪ ਵਿੱਚ ਕੀ ਫ਼ਰਕ ਹੈ?",
+        "options": [
+          "ਟਿਲ ਸਿੱਧਾ ਬਰਫ਼ ਤੋਂ ਅਤੇ ਆਊਟਵਾਸ਼ ਪਿਘਲੇ ਪਾਣੀ ਤੋਂ ਜਮ੍ਹਾਂ ਹੁੰਦਾ ਹੈ",
+          "ਟਿਲ ਪਿਘਲੇ ਪਾਣੀ ਤੋਂ ਅਤੇ ਆਊਟਵਾਸ਼ ਸਿੱਧਾ ਬਰਫ਼ ਤੋਂ ਜਮ੍ਹਾਂ ਹੁੰਦਾ ਹੈ",
+          "ਦੋਵੇਂ ਵਹਿੰਦੇ ਪਾਣੀ ਤੋਂ ਬਿਨਾਂ ਸਿੱਧੇ ਬਰਫ਼ ਤੋਂ ਜਮ੍ਹਾਂ ਹੁੰਦੇ ਹਨ",
+          "ਟਿਲ ਹਵਾ ਨਾਲ ਅਤੇ ਆਊਟਵਾਸ਼ ਲਹਿਰਾਂ ਨਾਲ ਜਮ੍ਹਾਂ ਹੁੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਟਿਲ ਆਮ ਤੌਰ ਉੱਤੇ ਬਿਨਾਂ ਛਾਂਟਿਆ ਹੁੰਦਾ ਹੈ। ਪਿਘਲਿਆ ਪਾਣੀ ਆਪਣੀ ਤਲਛਟ ਨੂੰ ਆਕਾਰ ਅਨੁਸਾਰ ਛਾਂਟਕੇ ਪਰਤਾਂ ਵਿੱਚ ਜਮ੍ਹਾਂ ਕਰ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q011",
+    "cpId": "WGE-001-CP008",
+    "objective": "drumlin",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS",
+      "NPS-GLACIERS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which landform is a streamlined hill of glacial sediment shaped beneath moving ice?",
+        "options": [
+          "Drumlin",
+          "Cirque",
+          "Arête",
+          "Horn"
+        ],
+        "explanation": "Drumlins are elongated landforms shaped under glaciers. Their alignment can help indicate former ice-flow direction."
+      },
+      "hi": {
+        "stem": "चलती बर्फ के नीचे हिमनदीय तलछट से बनी धारारेखीय पहाड़ी क्या कहलाती है?",
+        "options": [
+          "ड्रमलिन",
+          "सर्क",
+          "अरेत",
+          "हॉर्न"
+        ],
+        "explanation": "ड्रमलिन हिमनदों के नीचे बनी लंबी आकृतियाँ हैं। उनका संरेखण पुरानी हिम-प्रवाह दिशा बता सकता है।"
+      },
+      "pa": {
+        "stem": "ਚੱਲਦੀ ਬਰਫ਼ ਦੇ ਹੇਠਾਂ ਹਿਮਨਦੀ ਤਲਛਟ ਤੋਂ ਬਣੀ ਲੰਬੂਤਰੀ ਪਹਾੜੀ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਡਰਮਲਿਨ",
+          "ਸਰਕ",
+          "ਅਰੇਤ",
+          "ਹੌਰਨ"
+        ],
+        "explanation": "ਡਰਮਲਿਨ ਹਿਮਨਦਾਂ ਹੇਠਾਂ ਬਣੀਆਂ ਲੰਮੀਆਂ ਆਕ੍ਰਿਤੀਆਂ ਹਨ। ਉਨ੍ਹਾਂ ਦੀ ਦਿਸ਼ਾ ਪੁਰਾਣੇ ਬਰਫ਼ੀਲੇ ਵਹਾਅ ਦਾ ਪਤਾ ਦੇ ਸਕਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q012",
+    "cpId": "WGE-001-CP008",
+    "objective": "deflation",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is the removal of loose particles by wind called?",
+        "options": [
+          "Deflation",
+          "Abrasion",
+          "Attrition",
+          "Deposition"
+        ],
+        "explanation": "Wind lifts and carries loose particles. Repeated removal may leave hollows or a stony surface."
+      },
+      "hi": {
+        "stem": "हवा द्वारा ढीले कणों को उड़ा ले जाने की प्रक्रिया क्या कहलाती है?",
+        "options": [
+          "अपवाहन",
+          "घर्षण",
+          "सन्निघर्षण",
+          "निक्षेपण"
+        ],
+        "explanation": "हवा ढीले कण उठाकर ले जाती है। बार-बार हटाने से गर्त या पथरीली सतह रह सकती है।"
+      },
+      "pa": {
+        "stem": "ਹਵਾ ਵੱਲੋਂ ਢਿੱਲੇ ਕਣਾਂ ਨੂੰ ਉਡਾ ਕੇ ਲੈ ਜਾਣ ਦੀ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਹਵਾ ਨਾਲ ਕਣਾਂ ਦਾ ਉੱਡਣਾ",
+          "ਘਿਸਾਈ",
+          "ਕਣਾਂ ਦਾ ਆਪਸ ਵਿੱਚ ਟਕਰਾ ਕੇ ਟੁੱਟਣਾ",
+          "ਜਮ੍ਹਾਂਵਟ"
+        ],
+        "explanation": "ਹਵਾ ਢਿੱਲੇ ਕਣ ਚੁੱਕਕੇ ਲੈ ਜਾਂਦੀ ਹੈ। ਵਾਰ-ਵਾਰ ਹਟਾਉਣ ਨਾਲ ਟੋਏ ਜਾਂ ਪੱਥਰੀਲੀ ਸਤਹ ਰਹਿ ਸਕਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q013",
+    "cpId": "WGE-001-CP008",
+    "objective": "wind-abrasion",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Wind-blown sand wears away an exposed rock surface. Which process is involved?",
+        "options": [
+          "Wind abrasion",
+          "Deflation without abrasion",
+          "Deposition",
+          "Chemical dissolution"
+        ],
+        "explanation": "Moving sand grains strike and grind the rock. This differs from deflation, which removes loose particles."
+      },
+      "hi": {
+        "stem": "हवा के साथ उड़ती रेत खुली चट्टान की सतह को घिसती है। यह कौन-सी प्रक्रिया है?",
+        "options": [
+          "पवन घर्षण",
+          "घर्षण के बिना अपवाहन",
+          "निक्षेपण",
+          "रासायनिक घुलन"
+        ],
+        "explanation": "चलते रेत कण चट्टान से टकराकर उसे घिसते हैं। अपवाहन में इसके विपरीत ढीले कण हटते हैं।"
+      },
+      "pa": {
+        "stem": "ਹਵਾ ਨਾਲ ਉੱਡਦੀ ਰੇਤ ਖੁੱਲ੍ਹੀ ਚੱਟਾਨ ਦੀ ਸਤਹ ਨੂੰ ਘਿਸਦੀ ਹੈ। ਇਹ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਹੈ?",
+        "options": [
+          "ਹਵਾ ਨਾਲ ਘਿਸਾਈ",
+          "ਘਿਸਾਈ ਤੋਂ ਬਿਨਾਂ ਕਣਾਂ ਦਾ ਉੱਡਣਾ",
+          "ਜਮ੍ਹਾਂਵਟ",
+          "ਰਸਾਇਣਕ ਘੁਲਣ"
+        ],
+        "explanation": "ਚੱਲਦੇ ਰੇਤ ਕਣ ਚੱਟਾਨ ਨਾਲ ਟਕਰਾਕੇ ਉਸ ਨੂੰ ਘਿਸਦੇ ਹਨ। ਹਵਾਈ ਉਡਾਅ ਵਿੱਚ ਇਸ ਦੇ ਉਲਟ ਢਿੱਲੇ ਕਣ ਹਟਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q014",
+    "cpId": "WGE-001-CP008",
+    "objective": "barchan",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "In which direction do the horns of a barchan dune point?",
+        "options": [
+          "Downwind",
+          "Upwind",
+          "At right angles to the wind",
+          "Towards each other, independently of wind direction"
+        ],
+        "explanation": "Barchans are crescent-shaped dunes formed with limited sand and a dominant wind direction. Their horns extend downwind."
+      },
+      "hi": {
+        "stem": "बरखान के सींग किस दिशा में होते हैं?",
+        "options": [
+          "हवा की दिशा में",
+          "हवा के विपरीत",
+          "हवा से समकोण पर",
+          "हवा की दिशा से स्वतंत्र, एक-दूसरे की ओर"
+        ],
+        "explanation": "बरखान सीमित रेत और प्रमुख पवन दिशा में बने अर्धचंद्राकार टीले हैं। उनके सींग हवा की दिशा में बढ़ते हैं।"
+      },
+      "pa": {
+        "stem": "ਬਰਖਾਨ ਦੇ ਸਿੰਗ ਕਿਸ ਦਿਸ਼ਾ ਵੱਲ ਹੁੰਦੇ ਹਨ?",
+        "options": [
+          "ਹਵਾ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ",
+          "ਹਵਾ ਦੇ ਉਲਟ",
+          "ਹਵਾ ਨਾਲ ਸਮਕੋਣ ਉੱਤੇ",
+          "ਹਵਾ ਦੀ ਦਿਸ਼ਾ ਤੋਂ ਬਿਨਾਂ, ਇੱਕ-ਦੂਜੇ ਵੱਲ"
+        ],
+        "explanation": "ਬਰਖਾਨ ਘੱਟ ਰੇਤ ਅਤੇ ਮੁੱਖ ਹਵਾ-ਦਿਸ਼ਾ ਨਾਲ ਬਣੇ ਅਰਧ-ਚੰਦ ਵਰਗੇ ਟਿੱਬੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੇ ਸਿੰਗ ਹਵਾ ਦੇ ਵਹਾਅ ਵੱਲ ਵਧਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q015",
+    "cpId": "WGE-001-CP008",
+    "objective": "dune-slipface",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "On which side of a sand dune is the steep slip face generally found?",
+        "options": [
+          "Leeward side",
+          "Windward side",
+          "Both sides with equal steepness",
+          "The side parallel to the prevailing wind"
+        ],
+        "explanation": "Wind carries sand up the gentler windward slope. Sand avalanches down the leeward slip face."
+      },
+      "hi": {
+        "stem": "बालू के टीले का तीव्र ढाल वाला फिसलन तल सामान्यतः किस ओर होता है?",
+        "options": [
+          "पवनविमुख ओर",
+          "पवनमुखी ओर",
+          "दोनों ओर समान तीव्र ढाल",
+          "प्रचलित हवा के समानांतर ओर"
+        ],
+        "explanation": "हवा रेत को मंद पवनाभिमुख ढाल पर चढ़ाती है। रेत पवनविमुख तीखे ढाल से नीचे फिसलती है।"
+      },
+      "pa": {
+        "stem": "ਰੇਤ ਦੇ ਟਿੱਬੇ ਦੀ ਤਿੱਖੀ ਢਲਾਣ ਵਾਲੀ ਫਿਸਲਣ ਸਤਹ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ ਪਾਸੇ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਹਵਾ ਤੋਂ ਪਿਛਲੇ ਪਾਸੇ",
+          "ਹਵਾ ਵੱਲ ਮੂੰਹ ਕਰਦੇ ਪਾਸੇ",
+          "ਦੋਵੇਂ ਪਾਸੇ ਇੱਕੋ ਤਿੱਖੀ ਢਲਾਣ",
+          "ਚੱਲਦੀ ਹਵਾ ਦੇ ਸਮਾਨਾਂਤਰ ਪਾਸੇ"
+        ],
+        "explanation": "ਹਵਾ ਰੇਤ ਨੂੰ ਸਾਹਮਣੇ ਵਾਲੀ ਹੌਲੀ ਢਲਾਣ ਉੱਤੇ ਚੜ੍ਹਾਉਂਦੀ ਹੈ। ਰੇਤ ਓਟ ਵਾਲੀ ਤਿੱਖੀ ਢਲਾਣ ਤੋਂ ਹੇਠਾਂ ਖਿਸਕਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q016",
+    "cpId": "WGE-001-CP008",
+    "objective": "loess",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Loess deposits consist mainly of wind-blown:",
+        "options": [
+          "Silt-sized particles",
+          "Coarse sand grains",
+          "Rounded gravel",
+          "Unsorted pebbles and boulders"
+        ],
+        "explanation": "Loess is a wind-deposited, predominantly silty sediment. It is finer than the sand that commonly builds dunes."
+      },
+      "hi": {
+        "stem": "लोएस निक्षेप मुख्यतः हवा द्वारा लाई गई किस सामग्री से बनते हैं?",
+        "options": [
+          "गाद के आकार के कण",
+          "मोटे बालू कण",
+          "गोल बजरी",
+          "बिना छँटे कंकड़ और शिलाखंड"
+        ],
+        "explanation": "लोएस हवा से जमा मुख्यतः गादी अवसाद है। यह सामान्य टीले बनाने वाली रेत से महीन है।"
+      },
+      "pa": {
+        "stem": "ਲੋਏਸ ਨਿਖੇਪ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਹਵਾ ਵੱਲੋਂ ਲਿਆਂਦੀ ਕਿਹੜੀ ਸਮੱਗਰੀ ਤੋਂ ਬਣਦੇ ਹਨ?",
+        "options": [
+          "ਗਾਰ ਦੇ ਆਕਾਰ ਦੇ ਕਣ",
+          "ਮੋਟੇ ਰੇਤ ਦੇ ਕਣ",
+          "ਗੋਲ ਬਜਰੀ",
+          "ਬਿਨਾਂ ਛਾਂਟੇ ਕੰਕਰ ਅਤੇ ਵੱਡੇ ਪੱਥਰ"
+        ],
+        "explanation": "ਲੋਐਸ ਹਵਾ ਨਾਲ ਜਮ੍ਹਾਂ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਗਾਦ ਵਾਲੀ ਤਲਛਟ ਹੈ। ਇਹ ਆਮ ਟਿੱਬੇ ਬਣਾਉਣ ਵਾਲੀ ਰੇਤ ਨਾਲੋਂ ਬਰੀਕ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q017",
+    "cpId": "WGE-001-CP008",
+    "objective": "mushroom-rock",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which landform can result when wind abrasion is stronger near the base of a rock than near its top?",
+        "options": [
+          "Mushroom rock",
+          "Barchan",
+          "Loess plain",
+          "Alluvial fan"
+        ],
+        "explanation": "Sand concentrated near the ground can erode the base more than the top. Differential rock resistance also influences the shape."
+      },
+      "hi": {
+        "stem": "चट्टान के ऊपरी भाग की तुलना में आधार के पास अधिक पवन घर्षण से कौन-सा स्थलरूप बन सकता है?",
+        "options": [
+          "छत्रक शिला",
+          "बरखान",
+          "लोएस मैदान",
+          "जलोढ़ पंख"
+        ],
+        "explanation": "भूमि के पास रेत आधार को ऊपर से अधिक घिस सकती है। चट्टान की अलग प्रतिरोध क्षमता भी आकार प्रभावित करती है।"
+      },
+      "pa": {
+        "stem": "ਚੱਟਾਨ ਦੇ ਉੱਪਰਲੇ ਹਿੱਸੇ ਨਾਲੋਂ ਇਸ ਦੇ ਹੇਠਲੇ ਹਿੱਸੇ ਉੱਤੇ ਵੱਧ ਹਵਾਈ ਘਿਸਾਈ ਨਾਲ ਕਿਹੜਾ ਭੂ-ਰੂਪ ਬਣ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਖੁੰਬ ਵਰਗੀ ਚੱਟਾਨ",
+          "ਬਰਖਾਨ",
+          "ਲੋਏਸ ਮੈਦਾਨ",
+          "ਜਲੋੜ ਪੱਖਾ"
+        ],
+        "explanation": "ਜ਼ਮੀਨ ਨੇੜੇ ਰੇਤ ਹੇਠਲੇ ਹਿੱਸੇ ਨੂੰ ਉੱਪਰਲੇ ਨਾਲੋਂ ਵੱਧ ਘਿਸ ਸਕਦੀ ਹੈ। ਚੱਟਾਨ ਦੀ ਵੱਖਰੀ ਟਿਕਾਊ ਸਮਰੱਥਾ ਵੀ ਆਕਾਰ ਉੱਤੇ ਅਸਰ ਪਾਉਂਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q018",
+    "cpId": "WGE-001-CP008",
+    "objective": "sea-cliff",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which landform develops when waves undercut and steepen a rocky coast?",
+        "options": [
+          "Sea cliff",
+          "Spit",
+          "Beach ridge",
+          "Tombolo"
+        ],
+        "explanation": "Waves erode the foot of the rock face. Collapse and retreat maintain a steep cliff above a wave-cut platform."
+      },
+      "hi": {
+        "stem": "लहरों द्वारा चट्टानी तट का आधार कटने और ढाल तीव्र होने से कौन-सा स्थलरूप बनता है?",
+        "options": [
+          "समुद्री भृगु",
+          "स्पिट",
+          "पुलिन कटक",
+          "टॉम्बोलो"
+        ],
+        "explanation": "लहरें चट्टान का आधार काटती हैं। गिरने और पीछे हटने से तरंग-कटित वेदिका के ऊपर खड़ा तट बनता है।"
+      },
+      "pa": {
+        "stem": "ਲਹਿਰਾਂ ਵੱਲੋਂ ਪਥਰੀਲੇ ਤੱਟ ਦਾ ਹੇਠਲਾ ਹਿੱਸਾ ਕੱਟਣ ਅਤੇ ਢਲਾਣ ਤਿੱਖੀ ਕਰਨ ਨਾਲ ਕਿਹੜਾ ਭੂ-ਰੂਪ ਬਣਦਾ ਹੈ?",
+        "options": [
+          "ਸਮੁੰਦਰੀ ਕਗਾਰ",
+          "ਸਪਿਟ",
+          "ਬੀਚ ਦੀ ਪੱਟੀ",
+          "ਟੌਮਬੋਲੋ"
+        ],
+        "explanation": "ਲਹਿਰਾਂ ਚੱਟਾਨ ਦਾ ਹੇਠਲਾ ਹਿੱਸਾ ਕੱਟਦੀਆਂ ਹਨ। ਡਿੱਗਣ ਅਤੇ ਪਿੱਛੇ ਹਟਣ ਨਾਲ ਲਹਿਰ-ਕੱਟੇ ਤਲ ਤੋਂ ਉੱਪਰ ਖੜ੍ਹਾ ਕਿਨਾਰਾ ਬਣਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q019",
+    "cpId": "WGE-001-CP008",
+    "objective": "sea-arch",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Wave erosion through which coastal feature can form a sea arch?",
+        "options": [
+          "A rocky headland",
+          "A beach ridge",
+          "A spit",
+          "A coastal dune"
+        ],
+        "explanation": "Waves enlarge weaknesses into caves and may cut through a headland. The remaining roof forms an arch."
+      },
+      "hi": {
+        "stem": "किस तटीय स्थलरूप को लहरों द्वारा आर-पार काटने से समुद्री मेहराब बन सकता है?",
+        "options": [
+          "चट्टानी अंतरीप",
+          "पुलिन कटक",
+          "स्पिट",
+          "तटीय बालू का टीला"
+        ],
+        "explanation": "लहरें कमजोर भागों को गुफाओं में बढ़ाकर अंतरीप के आर-पार काट सकती हैं। बची छत मेहराब बनती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਤੱਟੀ ਭੂ-ਰੂਪ ਨੂੰ ਲਹਿਰਾਂ ਵੱਲੋਂ ਆਰ-ਪਾਰ ਕੱਟਣ ਨਾਲ ਸਮੁੰਦਰੀ ਮਹਿਰਾਬ ਬਣ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਸਮੁੰਦਰ ਵਿੱਚ ਅੱਗੇ ਵਧਿਆ ਪਥਰੀਲਾ ਭੂਭਾਗ",
+          "ਬੀਚ ਦੀ ਪੱਟੀ",
+          "ਸਪਿਟ",
+          "ਤੱਟੀ ਰੇਤ ਦਾ ਟਿੱਬਾ"
+        ],
+        "explanation": "ਲਹਿਰਾਂ ਕਮਜ਼ੋਰ ਹਿੱਸਿਆਂ ਨੂੰ ਗੁਫ਼ਾਵਾਂ ਵਿੱਚ ਵਧਾਕੇ ਤੱਟ ਦੇ ਆਰ-ਪਾਰ ਕੱਟ ਸਕਦੀਆਂ ਹਨ। ਬਚੀ ਛੱਤ ਮਹਿਰਾਬ ਬਣਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q020",
+    "cpId": "WGE-001-CP008",
+    "objective": "sea-stack",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A sea stack commonly remains after the collapse of a:",
+        "options": [
+          "Sea arch",
+          "Spit",
+          "Beach ridge",
+          "Coastal dune"
+        ],
+        "explanation": "When an arch roof collapses, an isolated stack may remain. Continued erosion can reduce it further to a stump."
+      },
+      "hi": {
+        "stem": "समुद्री स्टैक सामान्यतः किसके ढहने के बाद बचता है?",
+        "options": [
+          "समुद्री मेहराब",
+          "स्पिट",
+          "पुलिन कटक",
+          "तटीय बालू का टीला"
+        ],
+        "explanation": "मेहराब की छत गिरने पर अलग स्तंभ बच सकता है। आगे कटाव उसे छोटे अवशेष में बदल सकता है।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਸਟੈਕ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ ਦੇ ਢਹਿਣ ਤੋਂ ਬਾਅਦ ਬਚਦਾ ਹੈ?",
+        "options": [
+          "ਸਮੁੰਦਰੀ ਮਹਿਰਾਬ",
+          "ਸਪਿਟ",
+          "ਬੀਚ ਦੀ ਪੱਟੀ",
+          "ਤੱਟੀ ਰੇਤ ਦਾ ਟਿੱਬਾ"
+        ],
+        "explanation": "ਮਹਿਰਾਬ ਦੀ ਛੱਤ ਡਿੱਗਣ ਉੱਤੇ ਵੱਖਰਾ ਥੰਮ੍ਹ ਬਚ ਸਕਦਾ ਹੈ। ਹੋਰ ਕਟਾਅ ਉਸ ਨੂੰ ਛੋਟੇ ਬਚੇ ਹਿੱਸੇ ਵਿੱਚ ਬਦਲ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q021",
+    "cpId": "WGE-001-CP008",
+    "objective": "beach",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which process is chiefly responsible for beach formation?",
+        "options": [
+          "Deposition of sediment along a shore",
+          "Wave erosion without deposition",
+          "Dissolution of coastal limestone",
+          "Uplift of the sea floor without sediment accumulation"
+        ],
+        "explanation": "Waves and currents sort and deposit sand or pebbles along shores. Beaches can change as the balance of erosion and deposition changes."
+      },
+      "hi": {
+        "stem": "पुलिन के निर्माण का मुख्य कारण कौन-सी प्रक्रिया है?",
+        "options": [
+          "तट के साथ तलछट का निक्षेपण",
+          "निक्षेपण के बिना लहरों का अपरदन",
+          "तटीय चूना-पत्थर का घुलना",
+          "तलछट जमाव के बिना समुद्र-तल का उत्थान"
+        ],
+        "explanation": "लहरें और धाराएँ तट पर रेत या कंकड़ छाँटकर जमाती हैं। कटाव-जमाव का संतुलन बदलने से पुलिन भी बदलते हैं।"
+      },
+      "pa": {
+        "stem": "ਬੀਚ ਬਣਨ ਦਾ ਮੁੱਖ ਕਾਰਨ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਹੈ?",
+        "options": [
+          "ਤੱਟ ਦੇ ਨਾਲ ਤਲਛਟ ਜਮ੍ਹਾਂ ਹੋਣਾ",
+          "ਜਮ੍ਹਾਂਵਟ ਤੋਂ ਬਿਨਾਂ ਲਹਿਰਾਂ ਦਾ ਕਟਾਅ",
+          "ਤੱਟੀ ਚੂਨਾ-ਪੱਥਰ ਦਾ ਘੁਲਣਾ",
+          "ਤਲਛਟ ਜਮ੍ਹਾਂ ਹੋਏ ਬਿਨਾਂ ਸਮੁੰਦਰੀ ਤਲ ਦਾ ਉੱਪਰ ਉੱਠਣਾ"
+        ],
+        "explanation": "ਲਹਿਰਾਂ ਅਤੇ ਧਾਰਾਵਾਂ ਤੱਟ ਉੱਤੇ ਰੇਤ ਜਾਂ ਕੰਕਰ ਛਾਂਟਕੇ ਜਮ੍ਹਾਂ ਕਰਦੀਆਂ ਹਨ। ਕਟਾਅ ਅਤੇ ਜਮ੍ਹਾਂਵਟ ਦਾ ਸੰਤੁਲਨ ਬਦਲਣ ਨਾਲ ਕਿਨਾਰੇ ਵੀ ਬਦਲਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q022",
+    "cpId": "WGE-001-CP008",
+    "objective": "spit",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A narrow ridge of sand projects into the sea and remains attached to land at one end. Identify the landform.",
+        "options": [
+          "Spit",
+          "Tombolo",
+          "Offshore bar",
+          "Sea stack"
+        ],
+        "explanation": "Longshore sediment transport can extend a spit beyond a bend in the coast. One end remains attached to land."
+      },
+      "hi": {
+        "stem": "रेत की एक संकरी पट्टी समुद्र में आगे तक फैली है और एक सिरे पर स्थल से जुड़ी है। स्थलरूप पहचानें।",
+        "options": [
+          "स्पिट",
+          "टॉम्बोलो",
+          "अपतटीय रोधिका",
+          "समुद्री स्टैक"
+        ],
+        "explanation": "तटवर्ती अवसाद परिवहन तट के मोड़ से आगे भूजिह्वा बढ़ा सकता है। इसका एक सिरा स्थल से जुड़ा रहता है।"
+      },
+      "pa": {
+        "stem": "ਰੇਤ ਦੀ ਇੱਕ ਤੰਗ ਪੱਟੀ ਸਮੁੰਦਰ ਵਿੱਚ ਅੱਗੇ ਤੱਕ ਫੈਲੀ ਹੈ ਅਤੇ ਇੱਕ ਸਿਰੇ ਤੋਂ ਧਰਤੀ ਨਾਲ ਜੁੜੀ ਹੈ। ਭੂ-ਰੂਪ ਪਛਾਣੋ।",
+        "options": [
+          "ਸਪਿਟ",
+          "ਟੌਮਬੋਲੋ",
+          "ਤੱਟ ਤੋਂ ਦੂਰ ਰੇਤ ਦੀ ਪੱਟੀ",
+          "ਸਮੁੰਦਰੀ ਸਟੈਕ"
+        ],
+        "explanation": "ਤੱਟ ਦੇ ਨਾਲ ਤਲਛਟ ਦੀ ਢੋਆ-ਢੁਆਈ ਮੋੜ ਤੋਂ ਅੱਗੇ ਪੱਟੀ ਵਧਾ ਸਕਦੀ ਹੈ। ਇਸ ਦਾ ਇੱਕ ਸਿਰਾ ਥਲ ਨਾਲ ਜੁੜਿਆ ਰਹਿੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q023",
+    "cpId": "WGE-001-CP008",
+    "objective": "longshore-drift",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Waves strike a beach at an angle. In which direction does the resulting longshore drift carry sediment?",
+        "options": [
+          "Along the shoreline",
+          "Directly offshore at right angles to the beach",
+          "Only vertically within the water column",
+          "Only towards the shore, with no sideways movement"
+        ],
+        "explanation": "Oblique swash and returning backwash shift sediment along the beach. This longshore movement can supply spits and bars."
+      },
+      "hi": {
+        "stem": "लहरें तट पर तिरछी पड़ती हैं। इससे उत्पन्न तटवर्ती प्रवाह तलछट को किस दिशा में ले जाता है?",
+        "options": [
+          "तटरेखा के समानांतर",
+          "तट से समकोण पर सीधे समुद्र की ओर",
+          "केवल जलस्तंभ में ऊर्ध्वाधर दिशा में",
+          "पार्श्व गति के बिना केवल तट की ओर"
+        ],
+        "explanation": "तिरछा चढ़ता जल और लौटता जल अवसाद को तट के साथ खिसकाते हैं। यह भूजिह्वा और रोधिका को पदार्थ दे सकता है।"
+      },
+      "pa": {
+        "stem": "ਲਹਿਰਾਂ ਤੱਟ ਉੱਤੇ ਤਿਰਛੀਆਂ ਪੈਂਦੀਆਂ ਹਨ। ਇਸ ਨਾਲ ਬਣਿਆ ਤੱਟਵਰਤੀ ਵਹਾਅ ਤਲਛਟ ਨੂੰ ਕਿਸ ਦਿਸ਼ਾ ਵਿੱਚ ਲੈ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਤੱਟ ਰੇਖਾ ਦੇ ਨਾਲ-ਨਾਲ",
+          "ਤੱਟ ਨਾਲ ਸਮਕੋਣ ਉੱਤੇ ਸਿੱਧਾ ਸਮੁੰਦਰ ਵੱਲ",
+          "ਸਿਰਫ਼ ਪਾਣੀ ਵਿੱਚ ਉੱਪਰ-ਹੇਠਾਂ",
+          "ਪਾਸੇ ਵੱਲ ਹਿਲਜੁਲ ਤੋਂ ਬਿਨਾਂ ਸਿਰਫ਼ ਤੱਟ ਵੱਲ"
+        ],
+        "explanation": "ਤਿਰਛਾ ਚੜ੍ਹਦਾ ਅਤੇ ਮੁੜਦਾ ਪਾਣੀ ਤਲਛਟ ਨੂੰ ਕਿਨਾਰੇ ਦੇ ਨਾਲ ਖਿਸਕਾਉਂਦਾ ਹੈ। ਇਹ ਪੱਟੀਆਂ ਅਤੇ ਰੇਤਲੇ ਰੋਕਾਂ ਨੂੰ ਪਦਾਰਥ ਦੇ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q024",
+    "cpId": "WGE-001-CP008",
+    "objective": "karst",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Karst topography is most commonly developed in:",
+        "options": [
+          "Limestone",
+          "Basalt",
+          "Quartzite",
+          "Granite"
+        ],
+        "explanation": "Weakly acidic water dissolves limestone along joints. Caves, sinkholes and underground drainage can develop."
+      },
+      "hi": {
+        "stem": "कार्स्ट स्थलाकृति सामान्यतः किस चट्टान में विकसित होती है?",
+        "options": [
+          "चूना-पत्थर",
+          "बेसाल्ट",
+          "क्वार्टजाइट",
+          "ग्रेनाइट"
+        ],
+        "explanation": "कमजोर अम्लीय जल चूना-पत्थर को संधियों पर घोलता है। गुफाएँ, गर्त और भूमिगत जलमार्ग बन सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਾਰਸਟ ਭੂ-ਰੂਪ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ ਚੱਟਾਨ ਵਿੱਚ ਵਿਕਸਿਤ ਹੁੰਦੇ ਹਨ?",
+        "options": [
+          "ਚੂਨਾ-ਪੱਥਰ",
+          "ਬੇਸਾਲਟ",
+          "ਕੁਆਰਟਜ਼ਾਈਟ",
+          "ਗ੍ਰੇਨਾਈਟ"
+        ],
+        "explanation": "ਹਲਕਾ ਤੇਜ਼ਾਬੀ ਪਾਣੀ ਚੂਨਾ-ਪੱਥਰ ਨੂੰ ਜੋੜਾਂ ਉੱਤੇ ਘੋਲਦਾ ਹੈ। ਗੁਫ਼ਾਵਾਂ, ਟੋਏ ਅਤੇ ਜ਼ਮੀਨ ਹੇਠਲੇ ਜਲ-ਰਸਤੇ ਬਣ ਸਕਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q025",
+    "cpId": "WGE-001-CP008",
+    "objective": "sinkhole",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is a closed depression formed by dissolution or collapse in limestone terrain called?",
+        "options": [
+          "Sinkhole",
+          "Cirque",
+          "Deflation hollow",
+          "Volcanic crater"
+        ],
+        "explanation": "Dissolution can enlarge underground openings. Collapse of a cavity roof is one way a sinkhole forms."
+      },
+      "hi": {
+        "stem": "चूना-पत्थर वाले क्षेत्र में घुलने या धँसने से बना बंद गर्त क्या कहलाता है?",
+        "options": [
+          "सिंकहोल",
+          "सर्क",
+          "अपवाहन गर्त",
+          "ज्वालामुखीय क्रेटर"
+        ],
+        "explanation": "घुलने से भूमिगत रिक्त स्थान बड़े हो सकते हैं। गुहा की छत धँसना गर्त बनने का एक तरीका है।"
+      },
+      "pa": {
+        "stem": "ਚੂਨਾ-ਪੱਥਰ ਵਾਲੇ ਖੇਤਰ ਵਿੱਚ ਘੁਲਣ ਜਾਂ ਧੱਸਣ ਨਾਲ ਬਣੇ ਬੰਦ ਖੱਡੇ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਸਿੰਕਹੋਲ",
+          "ਸਰਕ",
+          "ਹਵਾ ਨਾਲ ਬਣਿਆ ਖੱਡਾ",
+          "ਜਵਾਲਾਮੁਖੀ ਕ੍ਰੇਟਰ"
+        ],
+        "explanation": "ਘੁਲਣ ਨਾਲ ਜ਼ਮੀਨ ਹੇਠਲੀਆਂ ਖਾਲੀ ਥਾਵਾਂ ਵੱਡੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ। ਗੁਫ਼ਾ ਦੀ ਛੱਤ ਧਸਣਾ ਟੋਆ ਬਣਨ ਦਾ ਇੱਕ ਤਰੀਕਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q026",
+    "cpId": "WGE-001-CP008",
+    "objective": "stalactite",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is a mineral deposit hanging from a limestone cave's roof called?",
+        "options": [
+          "Stalactite",
+          "Stalagmite",
+          "Cave column",
+          "Flowstone on the cave floor"
+        ],
+        "explanation": "Mineral-rich dripping water can deposit calcium carbonate on the roof. The deposit grows downward."
+      },
+      "hi": {
+        "stem": "चूना-पत्थर की गुफा की छत से लटकता खनिज निक्षेप क्या कहलाता है?",
+        "options": [
+          "स्टैलेक्टाइट",
+          "स्टैलेग्माइट",
+          "गुफा स्तंभ",
+          "गुफा तल पर प्रवाह निक्षेप"
+        ],
+        "explanation": "खनिजयुक्त टपकता जल छत पर कैल्सियम कार्बोनेट जमा कर सकता है। निक्षेप नीचे की ओर बढ़ता है।"
+      },
+      "pa": {
+        "stem": "ਚੂਨਾ-ਪੱਥਰ ਦੀ ਗੁਫ਼ਾ ਦੀ ਛੱਤ ਤੋਂ ਲਟਕਦੇ ਖਣਿਜ ਨਿਖੇਪ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਸਟੈਲੈਕਟਾਈਟ",
+          "ਸਟੈਲੈਗਮਾਈਟ",
+          "ਗੁਫ਼ਾ ਦਾ ਥੰਮ੍ਹ",
+          "ਗੁਫ਼ਾ ਦੇ ਫਰਸ਼ ਉੱਤੇ ਵਹਾਅ ਨਾਲ ਬਣਿਆ ਨਿਖੇਪ"
+        ],
+        "explanation": "ਖਣਿਜਾਂ ਵਾਲਾ ਟਪਕਦਾ ਪਾਣੀ ਛੱਤ ਉੱਤੇ ਕੈਲਸ਼ੀਅਮ ਕਾਰਬੋਨੇਟ ਜਮ੍ਹਾਂ ਕਰ ਸਕਦਾ ਹੈ। ਜਮ੍ਹਾਂਵਟ ਹੇਠਾਂ ਵੱਲ ਵਧਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q027",
+    "cpId": "WGE-001-CP008",
+    "objective": "stalagmite",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is a mineral deposit growing upward from a cave floor called?",
+        "options": [
+          "Stalagmite",
+          "Stalactite",
+          "Sinkhole",
+          "Cave curtain hanging from the roof"
+        ],
+        "explanation": "Drops reaching the floor leave mineral deposits that build upward. A stalagmite may join a stalactite to form a column."
+      },
+      "hi": {
+        "stem": "गुफा के तल से ऊपर की ओर बढ़ता खनिज निक्षेप क्या कहलाता है?",
+        "options": [
+          "स्टैलेग्माइट",
+          "स्टैलेक्टाइट",
+          "सिंकहोल",
+          "छत से लटकता पर्देनुमा निक्षेप"
+        ],
+        "explanation": "तल पर गिरती बूँदें खनिज छोड़ती हैं जो ऊपर बढ़ते हैं। स्टैलेग्माइट स्टैलेक्टाइट से जुड़कर स्तंभ बना सकता है।"
+      },
+      "pa": {
+        "stem": "ਗੁਫ਼ਾ ਦੇ ਫਰਸ਼ ਤੋਂ ਉੱਪਰ ਵੱਲ ਵਧਦੇ ਖਣਿਜ ਨਿਖੇਪ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਸਟੈਲੈਗਮਾਈਟ",
+          "ਸਟੈਲੈਕਟਾਈਟ",
+          "ਸਿੰਕਹੋਲ",
+          "ਛੱਤ ਤੋਂ ਲਟਕਦਾ ਪਰਦੇ ਵਰਗਾ ਨਿਖੇਪ"
+        ],
+        "explanation": "ਤਲ ਉੱਤੇ ਡਿੱਗਦੀਆਂ ਬੂੰਦਾਂ ਖਣਿਜ ਛੱਡਦੀਆਂ ਹਨ ਜੋ ਉੱਪਰ ਵਧਦੇ ਹਨ। ਸਟੈਲੈਗਮਾਈਟ ਛੱਤ ਵਾਲੀ ਜਮ੍ਹਾਂਵਟ ਨਾਲ ਮਿਲਕੇ ਥੰਮ੍ਹ ਬਣਾ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q028",
+    "cpId": "WGE-001-CP008",
+    "objective": "process-match",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which option correctly matches the landforms with their principal agents of formation?",
+        "options": [
+          "Cirque—glacier; loess—wind; sea arch—waves",
+          "Cirque—wind; loess—glacier; sea arch—river",
+          "Cirque—river; loess—waves; sea arch—glacier",
+          "Cirque—waves; loess—river; sea arch—wind"
+        ],
+        "explanation": "Cirques and sea arches are chiefly erosional. Loess is a deposit, so agent and process must both be recognised."
+      },
+      "hi": {
+        "stem": "किस विकल्प में स्थलरूपों और उनके मुख्य निर्माणकारी कारकों का मिलान सही है?",
+        "options": [
+          "सर्क—हिमनद; लोएस—हवा; समुद्री मेहराब—लहरें",
+          "सर्क—हवा; लोएस—हिमनद; समुद्री मेहराब—नदी",
+          "सर्क—नदी; लोएस—लहरें; समुद्री मेहराब—हिमनद",
+          "सर्क—लहरें; लोएस—नदी; समुद्री मेहराब—हवा"
+        ],
+        "explanation": "सर्क और समुद्री मेहराब मुख्यतः अपरदित हैं। लोएस निक्षेप है, इसलिए कारक और प्रक्रिया दोनों पहचानने चाहिए।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਭੂ-ਰੂਪਾਂ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਬਣਾਉਣ ਵਾਲੇ ਮੁੱਖ ਕਾਰਕਾਂ ਦਾ ਮਿਲਾਣ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਸਰਕ—ਹਿਮਨਦ; ਲੋਐਸ—ਹਵਾ; ਸਮੁੰਦਰੀ ਮਹਿਰਾਬ—ਲਹਿਰਾਂ",
+          "ਸਰਕ—ਹਵਾ; ਲੋਐਸ—ਹਿਮਨਦ; ਸਮੁੰਦਰੀ ਮਹਿਰਾਬ—ਦਰਿਆ",
+          "ਸਰਕ—ਦਰਿਆ; ਲੋਐਸ—ਲਹਿਰਾਂ; ਸਮੁੰਦਰੀ ਮਹਿਰਾਬ—ਹਿਮਨਦ",
+          "ਸਰਕ—ਲਹਿਰਾਂ; ਲੋਐਸ—ਦਰਿਆ; ਸਮੁੰਦਰੀ ਮਹਿਰਾਬ—ਹਵਾ"
+        ],
+        "explanation": "ਸਰਕ ਅਤੇ ਸਮੁੰਦਰੀ ਮਹਿਰਾਬ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕਟਾਅ ਨਾਲ ਬਣਦੇ ਹਨ। ਲੋਐਸ ਜਮ੍ਹਾਂਵਟ ਹੈ, ਇਸ ਲਈ ਕਾਰਕ ਅਤੇ ਪ੍ਰਕਿਰਿਆ ਦੋਵੇਂ ਪਛਾਣਨੇ ਚਾਹੀਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q029",
+    "cpId": "WGE-001-CP008",
+    "objective": "cave-process-contrast",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which processes respectively enlarge limestone caves and form dripstone deposits within them?",
+        "options": [
+          "Dissolution; mineral deposition",
+          "Mineral deposition; dissolution",
+          "Abrasion; wind deposition",
+          "Dissolution; glacial deposition"
+        ],
+        "explanation": "Water can dissolve limestone in one setting and later deposit calcium carbonate under changed conditions. Both processes shape karst caves."
+      },
+      "hi": {
+        "stem": "चूना-पत्थर की गुफाओं को बड़ा करने और उनमें टपकन निक्षेप बनाने वाली प्रक्रियाएँ क्रमशः कौन-सी हैं?",
+        "options": [
+          "घुलन; खनिज निक्षेपण",
+          "खनिज निक्षेपण; घुलन",
+          "घर्षण; पवन निक्षेपण",
+          "घुलन; हिमनदीय निक्षेपण"
+        ],
+        "explanation": "जल एक स्थिति में चूना-पत्थर घोलकर बदली परिस्थितियों में कैल्सियम कार्बोनेट जमा कर सकता है। दोनों प्रक्रियाएँ कार्स्ट गुफाएँ बनाती हैं।"
+      },
+      "pa": {
+        "stem": "ਚੂਨਾ-ਪੱਥਰ ਦੀਆਂ ਗੁਫ਼ਾਵਾਂ ਨੂੰ ਵੱਡਾ ਕਰਨ ਅਤੇ ਉਨ੍ਹਾਂ ਅੰਦਰ ਟਪਕਦੇ ਪਾਣੀ ਤੋਂ ਨਿਖੇਪ ਬਣਾਉਣ ਵਾਲੀਆਂ ਪ੍ਰਕਿਰਿਆਵਾਂ ਕ੍ਰਮਵਾਰ ਕਿਹੜੀਆਂ ਹਨ?",
+        "options": [
+          "ਘੁਲਣਾ; ਖਣਿਜ ਜਮ੍ਹਾਂ ਹੋਣਾ",
+          "ਖਣਿਜ ਜਮ੍ਹਾਂ ਹੋਣਾ; ਘੁਲਣਾ",
+          "ਘਿਸਾਈ; ਹਵਾ ਨਾਲ ਜਮ੍ਹਾਂਵਟ",
+          "ਘੁਲਣਾ; ਹਿਮਨਦੀ ਜਮ੍ਹਾਂਵਟ"
+        ],
+        "explanation": "ਪਾਣੀ ਇੱਕ ਹਾਲਤ ਵਿੱਚ ਚੂਨਾ-ਪੱਥਰ ਘੋਲਕੇ ਬਦਲੀਆਂ ਹਾਲਤਾਂ ਵਿੱਚ ਕੈਲਸ਼ੀਅਮ ਕਾਰਬੋਨੇਟ ਜਮ੍ਹਾਂ ਕਰ ਸਕਦਾ ਹੈ। ਦੋਵੇਂ ਪ੍ਰਕਿਰਿਆਵਾਂ ਕਾਰਸਟ ਗੁਫ਼ਾਵਾਂ ਨੂੰ ਰੂਪ ਦਿੰਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP008-Q030",
+    "cpId": "WGE-001-CP008",
+    "objective": "coastal-sequence",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which sequence shows the stages of erosion of a rocky headland?",
+        "options": [
+          "Cave → arch → stack → stump",
+          "Arch → cave → stump → stack",
+          "Cave → stack → arch → stump",
+          "Stack → arch → cave → stump"
+        ],
+        "explanation": "Waves can enlarge a cave into an arch. Collapse leaves a stack, which further erosion reduces to a stump."
+      },
+      "hi": {
+        "stem": "कौन-सा क्रम चट्टानी अंतरीप के अपरदन की अवस्थाओं को दर्शाता है?",
+        "options": [
+          "गुफा → मेहराब → स्टैक → स्टंप",
+          "मेहराब → गुफा → स्टंप → स्टैक",
+          "गुफा → स्टैक → मेहराब → स्टंप",
+          "स्टैक → मेहराब → गुफा → स्टंप"
+        ],
+        "explanation": "लहरें गुफा बढ़ाकर मेहराब बना सकती हैं। छत गिरने से स्तंभ और आगे कटाव से छोटा अवशेष बचता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਕ੍ਰਮ ਸਮੁੰਦਰ ਵਿੱਚ ਅੱਗੇ ਵਧੇ ਪਥਰੀਲੇ ਭੂਭਾਗ ਦੇ ਕਟਾਅ ਦੀਆਂ ਅਵਸਥਾਵਾਂ ਦਰਸਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਗੁਫ਼ਾ → ਮਹਿਰਾਬ → ਸਟੈਕ → ਸਟੰਪ",
+          "ਮਹਿਰਾਬ → ਗੁਫ਼ਾ → ਸਟੰਪ → ਸਟੈਕ",
+          "ਗੁਫ਼ਾ → ਸਟੈਕ → ਮਹਿਰਾਬ → ਸਟੰਪ",
+          "ਸਟੈਕ → ਮਹਿਰਾਬ → ਗੁਫ਼ਾ → ਸਟੰਪ"
+        ],
+        "explanation": "ਲਹਿਰਾਂ ਗੁਫ਼ਾ ਵਧਾਕੇ ਮਹਿਰਾਬ ਬਣਾ ਸਕਦੀਆਂ ਹਨ। ਛੱਤ ਡਿੱਗਣ ਨਾਲ ਥੰਮ੍ਹ ਅਤੇ ਹੋਰ ਕਟਾਅ ਨਾਲ ਛੋਟਾ ਬਚਿਆ ਹਿੱਸਾ ਰਹਿੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  }
+]

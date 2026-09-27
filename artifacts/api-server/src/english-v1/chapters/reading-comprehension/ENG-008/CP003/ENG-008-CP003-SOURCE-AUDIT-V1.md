@@ -22,7 +22,7 @@ Recent Banking Prelims paper analyses show:
 
 ### Passage-length contract
 
-Banking Prelims RC should normally carry a noticeably larger reading load than SSC foundation RC. Recent IBPS Clerk analyses describe RC passages as moderately/a bit lengthy while still straightforward, and recent SBI PO prelims sets carried roughly 8–12 RC questions. CP003 therefore targets **roughly 320–500 words per passage**, usually **4–6 paragraphs**, with the difficulty kept primarily in reading speed, evidence location and contextual vocabulary rather than abstract prose.
+Banking Prelims RC should normally carry a noticeably larger reading load than SSC foundation RC. Recent IBPS Clerk analyses describe RC passages as moderately/a bit lengthy while still straightforward, and recent SBI PO prelims sets carried roughly 8–12 RC questions. After rechecking recent paper length, CP003 now targets **roughly 350–450 words per passage**, usually **4–6 paragraphs**, with the difficulty kept primarily in reading speed, evidence location and contextual vocabulary rather than abstract prose.
 
 Passage mix:
 - 2 narrative / anecdotal;
@@ -56,7 +56,7 @@ Banking Prelims difficulty is driven by **longer reading load, speed and close r
 ## Validation
 
 - 8 unique passages;
-- each passage normally 320–500 words and 4–6 paragraphs;
+- each passage normally 350–450 words and 4–6 paragraphs;
 - 72 unique authorities;
 - each family exactly 8 times;
 - all four passage-domain classes represented;

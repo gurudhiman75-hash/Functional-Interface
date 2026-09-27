@@ -125,7 +125,7 @@ const CONTEXTS: readonly Context[] = [
   },
 ];
 
-const EASY_TASKS: readonly Di007V2TaskKind[] = ["DIRECT_VISIBLE_VALUE", "VISIBLE_ROW_DIFFERENCE"];
+const EASY_TASKS: readonly Di007V2TaskKind[] = ["VISIBLE_ROW_COMBINED_TOTAL", "VISIBLE_ROW_DIFFERENCE"];
 const MEDIUM_TASKS: readonly Di007V2TaskKind[] = [
   "RECOVER_MISSING_VALUE",
   "HIDDEN_ROW_COMBINED_TOTAL",
@@ -397,12 +397,12 @@ function chooseTwoVisible(seed: string, stimulus: Di007V2Stimulus, salt: string)
   return [visible[0]!, visible[1]!];
 }
 
-function visibleValueStem(stimulus: Di007V2Stimulus, index: number, variant: 0 | 1 | 2): string {
+function visibleRowCombinedStem(stimulus: Di007V2Stimulus, index: number, variant: 0 | 1 | 2): string {
   const row = stimulus.points[index]!;
   const templates = [
-    `What is the ${stimulus.seriesBLabel} figure for ${row.label}?`,
-    `For ${row.label}, what is the figure under ${stimulus.seriesBLabel}?`,
-    `Find the ${stimulus.seriesBLabel} figure for ${row.label}.`,
+    `What is the combined value of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} for ${row.label}?`,
+    `For ${row.label}, find the sum of the two visible table values.`,
+    `Add the ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} figures for ${row.label}.`,
   ] as const;
   return templates[variant];
 }
@@ -540,24 +540,28 @@ function buildDraftForTask(seed: string, stimulus: Di007V2Stimulus, kind: Di007V
   const fallbackScale = gcdMany(stimulus.points.flatMap((point) => [point.seriesA, point.seriesB]));
 
   switch (kind) {
-    case "DIRECT_VISIBLE_VALUE": {
-      const answer = String(visiblePoint.seriesB);
+    case "VISIBLE_ROW_COMBINED_TOTAL": {
+      const combined = visiblePoint.seriesA + visiblePoint.seriesB;
       return {
         kind,
         difficulty: "Easy",
         stemVariant: variant,
-        stem: visibleValueStem(stimulus, visibleIndex, variant),
-        answer,
+        stem: visibleRowCombinedStem(stimulus, visibleIndex, variant),
+        answer: String(combined),
         candidates: [
-          { text: String(visiblePoint.seriesA), misconceptionId: "READ_PAIRED_A", derivation: "Reads the other value from the same row." },
-          { text: String(stimulus.points[visibleI]!.seriesB), misconceptionId: "READ_OTHER_ROW_1", derivation: "Reads the requested column from another visible row." },
-          { text: String(stimulus.points[visibleJ]!.seriesB), misconceptionId: "READ_OTHER_ROW_2", derivation: "Reads the requested column from a different visible row." },
-          { text: String(Math.abs(visiblePoint.seriesA - visiblePoint.seriesB)), misconceptionId: "TAKE_ROW_DIFFERENCE", derivation: "Calculates the row difference instead of reading the value." },
-          { text: String(visiblePoint.seriesA + visiblePoint.seriesB), misconceptionId: "TAKE_ROW_TOTAL", derivation: "Adds both values in the row instead of reading the requested entry." },
+          { text: String(visiblePoint.seriesA), misconceptionId: "USE_A_ONLY", derivation: "Uses only the first visible value from the requested row." },
+          { text: String(visiblePoint.seriesB), misconceptionId: "USE_B_ONLY", derivation: "Uses only the second visible value from the requested row." },
+          { text: String(Math.abs(visiblePoint.seriesA - visiblePoint.seriesB)), misconceptionId: "SUBTRACT_ROW_VALUES", derivation: "Finds the row difference instead of the combined total." },
+          { text: String(stimulus.points[visibleI]!.seriesA + stimulus.points[visibleI]!.seriesB), misconceptionId: "USE_OTHER_ROW_TOTAL_1", derivation: "Adds both values from another visible row." },
+          { text: String(stimulus.points[visibleJ]!.seriesA + stimulus.points[visibleJ]!.seriesB), misconceptionId: "USE_OTHER_ROW_TOTAL_2", derivation: "Adds both values from a different visible row." },
+          { text: String(combined + fallbackScale), misconceptionId: "ONE_STEP_ADDITION_SLIP", derivation: "Makes a one-step addition error at the table scale." },
         ],
         explanation: {
-          keyIdea: "This is a direct table-reading question; no missing-value calculation is needed.",
-          steps: [`Locate ${visiblePoint.label}.`, `The value under ${stimulus.seriesBLabel} is ${answer} ${stimulus.unit}.`],
+          keyIdea: "Both values are visible in the requested row, so add them to get the combined row total.",
+          steps: [
+            `${visiblePoint.label}: ${stimulus.seriesALabel} = ${visiblePoint.seriesA}, ${stimulus.seriesBLabel} = ${visiblePoint.seriesB}.`,
+            `Combined value = ${visiblePoint.seriesA} + ${visiblePoint.seriesB} = ${combined}.`,
+          ],
         },
         evidence: { visibleIndex },
       };

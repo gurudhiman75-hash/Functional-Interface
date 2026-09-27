@@ -51,7 +51,7 @@ for (const examId of examIds) {
   );
 
   assert.ok(advanced.length > 0, `${examId} structural section did not contain Advanced Mathematics slots.`);
-  assert.equal(first.advancedMathReplacements, advanced.length, `${examId} did not replace every historical Algebra/Trigonometry gap.`);
+  assert.equal(first.advancedMathReplacements, 0, `${examId} base simulator should already use the integrated Algebra/Trigonometry adapters.`);
   assert.equal(
     advanced.filter((question) => question.sourceKind === "CAPABILITY_GAP").length,
     0,
@@ -113,8 +113,8 @@ for (const summary of audit.summaries) {
     assert.equal(summary.centralProfileAuthority, "PUNJAB_STATE");
     assert.equal(
       summary.simulatorCentralProfilePropagationPending,
-      true,
-      `${summary.examId} historical simulator metadata changed; remove this assertion only when its core-slot calls actually pass PUNJAB_STATE.`,
+      false,
+      `${summary.examId} must propagate the merged PUNJAB_STATE central profile through the simulator.`,
     );
   } else {
     assert.equal(summary.simulatorCentralProfilePropagationPending, false);

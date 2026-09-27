@@ -1,0 +1,7 @@
+import {mkdirSync,writeFileSync} from 'node:fs';import{resolve}from'node:path';
+import{generateMisCp007Question,MIS_CP007_CANDIDATE_IDS}from'./generator';import{misCp007RuleByCandidateId}from'./rule-definitions';
+const dir=process.env.MIS_CP007_REVIEW_OUTPUT_DIR||resolve(process.cwd(),'dist/reasoning-v1/mis-001'),path=resolve(dir,'MIS-CP-007-REVIEW.md');mkdirSync(dir,{recursive:true});
+const lines=['# MIS-CP-007 Review Pack','','**Lifecycle:** executable prototype / review-only','','Square/rectangle is a renderer variation; genuine row-column Number Matrix questions are excluded.',''];
+for(const id of MIS_CP007_CANDIDATE_IDS){const rule=misCp007RuleByCandidateId(id);lines.push('## '+id+' — '+rule.label,'');
+ for(let n=1;n<=4;n++){const q=generateMisCp007Question(id,`MIS-CP007-REVIEW:${id}:S${n}`);lines.push('### Sample '+n+' · '+q.difficulty,'','~~~text',q.stem,'~~~','',...q.options.map((o,i)=>String.fromCharCode(65+i)+'. '+o.value+(i===q.correctIndex?'  ✅':'')),'','**Explanation**','','~~~text',q.explanation,'~~~','', '- Rule: '+q.ruleId,'- Renderer: '+q.renderer,'- Shape: '+q.figures[0]!.shape,'- Semantic positions: '+q.semanticPositions.join(', '),'- Ambiguity survivors: '+new Set(q.ambiguityAudit.matches.map(m=>m.semanticKey)).size,'- Structural fingerprint: '+q.structuralFingerprint,'');}}
+writeFileSync(path,lines.join('\n')+'\n');console.log(path);

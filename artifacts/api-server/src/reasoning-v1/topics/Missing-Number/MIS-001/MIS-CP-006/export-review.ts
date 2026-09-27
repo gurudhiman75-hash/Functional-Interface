@@ -1,0 +1,7 @@
+import {mkdirSync,writeFileSync} from 'node:fs';import{resolve}from'node:path';
+import{generateMisCp006Question,MIS_CP006_CANDIDATE_IDS}from'./generator';import{misCp006RuleByCandidateId}from'./rule-definitions';
+const dir=process.env.MIS_CP006_REVIEW_OUTPUT_DIR||resolve(process.cwd(),'dist/reasoning-v1/mis-001'),path=resolve(dir,'MIS-CP-006-REVIEW.md');mkdirSync(dir,{recursive:true});
+const lines=['# MIS-CP-006 Review Pack','','**Lifecycle:** executable prototype / review-only','','Wheels are limited to three or four surrounding values; no crowded decorative sectors.',''];
+for(const id of MIS_CP006_CANDIDATE_IDS){const rule=misCp006RuleByCandidateId(id);lines.push('## '+id+' — '+rule.label,'');
+ for(let n=1;n<=4;n++){const q=generateMisCp006Question(id,`MIS-CP006-REVIEW:${id}:S${n}`);lines.push('### Sample '+n+' · '+q.difficulty,'','~~~text',q.stem,'~~~','',...q.options.map((o,i)=>String.fromCharCode(65+i)+'. '+o.value+(i===q.correctIndex?'  ✅':'')),'','**Explanation**','','~~~text',q.explanation,'~~~','', '- Rule: '+q.ruleId,'- Renderer: '+q.renderer,'- Surrounding values: '+q.operandCount,'- Ambiguity survivors: '+new Set(q.ambiguityAudit.matches.map(m=>m.semanticKey)).size,'- Structural fingerprint: '+q.structuralFingerprint,'');}}
+writeFileSync(path,lines.join('\n')+'\n');console.log(path);

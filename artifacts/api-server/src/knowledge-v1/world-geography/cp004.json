@@ -1,0 +1,1161 @@
+[
+  {
+    "id": "WGE-001-CP004-Q001",
+    "cpId": "WGE-001-CP004",
+    "objective": "layer-order",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which sequence is correct from Earth's surface towards its centre?",
+        "options": [
+          "Crust → mantle → core",
+          "Mantle → crust → core",
+          "Core → crust → mantle",
+          "Crust → core → mantle"
+        ],
+        "explanation": "The crust is the thin outer layer. The mantle lies beneath it, while the core occupies the central region."
+      },
+      "hi": {
+        "stem": "पृथ्वी की सतह से केंद्र की ओर सही क्रम कौन-सा है?",
+        "options": [
+          "भूपर्पटी → मैंटल → क्रोड",
+          "मैंटल → भूपर्पटी → क्रोड",
+          "क्रोड → भूपर्पटी → मैंटल",
+          "भूपर्पटी → क्रोड → मैंटल"
+        ],
+        "explanation": "भूपर्पटी पतली बाहरी परत है। इसके नीचे मैंटल और मध्य में क्रोड है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੀ ਸਤਹ ਤੋਂ ਕੇਂਦਰ ਵੱਲ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਭੂ-ਪੇਪੜੀ → ਮੈਂਟਲ → ਕੇਂਦਰੀ ਭਾਗ",
+          "ਮੈਂਟਲ → ਭੂ-ਪੇਪੜੀ → ਕੇਂਦਰੀ ਭਾਗ",
+          "ਕੇਂਦਰੀ ਭਾਗ → ਭੂ-ਪੇਪੜੀ → ਮੈਂਟਲ",
+          "ਭੂ-ਪੇਪੜੀ → ਕੇਂਦਰੀ ਭਾਗ → ਮੈਂਟਲ"
+        ],
+        "explanation": "ਭੂ-ਪੇਪੜੀ ਪਤਲੀ ਬਾਹਰੀ ਪਰਤ ਹੈ। ਇਸ ਦੇ ਹੇਠਾਂ ਮੈਂਟਲ ਅਤੇ ਵਿਚਕਾਰ ਕੇਂਦਰੀ ਭਾਗ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q002",
+    "cpId": "WGE-001-CP004",
+    "objective": "crust-thickness",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How does continental crust generally compare with oceanic crust?",
+        "options": [
+          "Thicker and less dense",
+          "Thinner and denser",
+          "Thinner and less dense",
+          "Thicker and denser"
+        ],
+        "explanation": "Continental crust is generally thicker and more buoyant. Oceanic crust is generally thinner and basaltic in composition."
+      },
+      "hi": {
+        "stem": "महासागरीय भूपर्पटी की तुलना में महाद्वीपीय भूपर्पटी सामान्यतः कैसी होती है?",
+        "options": [
+          "अधिक मोटी और कम घनी",
+          "कम मोटी और अधिक घनी",
+          "कम मोटी और कम घनी",
+          "अधिक मोटी और अधिक घनी"
+        ],
+        "explanation": "महाद्वीपीय भूपर्पटी सामान्यतः मोटी और कम घनी होती है। महासागरीय भूपर्पटी पतली और मुख्यतः बेसाल्टिक संरचना वाली है।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਭੂ-ਪੇਪੜੀ ਦੇ ਮੁਕਾਬਲੇ ਮਹਾਂਦੀਪੀ ਭੂ-ਪੇਪੜੀ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੋ ਜਿਹੀ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਵੱਧ ਮੋਟੀ ਅਤੇ ਘੱਟ ਸੰਘਣੀ",
+          "ਘੱਟ ਮੋਟੀ ਅਤੇ ਵੱਧ ਸੰਘਣੀ",
+          "ਘੱਟ ਮੋਟੀ ਅਤੇ ਘੱਟ ਸੰਘਣੀ",
+          "ਵੱਧ ਮੋਟੀ ਅਤੇ ਵੱਧ ਸੰਘਣੀ"
+        ],
+        "explanation": "ਮਹਾਂਦੀਪੀ ਭੂ-ਪੇਪੜੀ ਆਮ ਤੌਰ ਉੱਤੇ ਮੋਟੀ ਅਤੇ ਘੱਟ ਸੰਘਣੀ ਹੁੰਦੀ ਹੈ। ਮਹਾਂਸਾਗਰੀ ਭੂ-ਪੇਪੜੀ ਪਤਲੀ ਅਤੇ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਬਸਾਲਟੀ ਬਣਤਰ ਵਾਲੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q003",
+    "cpId": "WGE-001-CP004",
+    "objective": "lithosphere",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Besides the crust, which layer forms part of the lithosphere?",
+        "options": [
+          "Rigid uppermost mantle",
+          "Entire liquid outer core",
+          "Entire mantle",
+          "Inner core"
+        ],
+        "explanation": "Lithospheric plates include both crust and rigid upper mantle. They are not made of crust alone."
+      },
+      "hi": {
+        "stem": "भूपर्पटी के अलावा कौन-सी परत स्थलमंडल का भाग है?",
+        "options": [
+          "मैंटल का कठोर ऊपरी भाग",
+          "पूरा तरल बाहरी क्रोड",
+          "पूरा मैंटल",
+          "आंतरिक क्रोड"
+        ],
+        "explanation": "स्थलमंडलीय प्लेटों में भूपर्पटी और ऊपरी कठोर मैंटल दोनों हैं। वे केवल भूपर्पटी से नहीं बनीं।"
+      },
+      "pa": {
+        "stem": "ਭੂ-ਪੇਪੜੀ ਤੋਂ ਇਲਾਵਾ ਕਿਹੜੀ ਪਰਤ ਥਲ ਮੰਡਲ ਦਾ ਹਿੱਸਾ ਹੈ?",
+        "options": [
+          "ਮੈਂਟਲ ਦਾ ਸਖ਼ਤ ਸਭ ਤੋਂ ਉੱਪਰਲਾ ਹਿੱਸਾ",
+          "ਪੂਰਾ ਤਰਲ ਬਾਹਰੀ ਕੇਂਦਰੀ ਭਾਗ",
+          "ਪੂਰਾ ਮੈਂਟਲ",
+          "ਅੰਦਰਲਾ ਕੇਂਦਰੀ ਭਾਗ"
+        ],
+        "explanation": "ਥਲ-ਮੰਡਲੀ ਪਲੇਟਾਂ ਵਿੱਚ ਭੂ-ਪੇਪੜੀ ਅਤੇ ਉੱਪਰਲਾ ਸਖ਼ਤ ਮੈਂਟਲ ਦੋਵੇਂ ਹਨ। ਉਹ ਸਿਰਫ਼ ਭੂ-ਪੇਪੜੀ ਤੋਂ ਨਹੀਂ ਬਣੀਆਂ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q004",
+    "cpId": "WGE-001-CP004",
+    "objective": "asthenosphere",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which statement about the asthenosphere is correct?",
+        "options": [
+          "A weak upper-mantle zone that deforms slowly",
+          "The rigid crust and uppermost mantle together",
+          "A liquid layer between the mantle and inner core",
+          "The lower part of the continental crust"
+        ],
+        "explanation": "The asthenosphere is mostly solid rock that flows slowly over geological time. It is not a continuous sea of liquid magma."
+      },
+      "hi": {
+        "stem": "दुर्बलतामंडल के बारे में कौन-सा कथन सही है?",
+        "options": [
+          "ऊपरी मैंटल का दुर्बल भाग, जो धीरे-धीरे विकृत हो सकता है",
+          "भूपर्पटी और कठोर ऊपरी मैंटल का संयुक्त भाग",
+          "मैंटल और आंतरिक क्रोड के बीच की द्रव परत",
+          "महाद्वीपीय भूपर्पटी का निचला भाग"
+        ],
+        "explanation": "दुर्बलतामंडल मुख्यतः ठोस चट्टान है जो भूवैज्ञानिक समय में धीरे बह सकती है। यह तरल मैग्मा का निरंतर समुद्र नहीं है।"
+      },
+      "pa": {
+        "stem": "ਅਸਥੀਨੋਸਫੀਅਰ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਉੱਪਰਲੇ ਮੈਂਟਲ ਦਾ ਕਮਜ਼ੋਰ ਭਾਗ ਜੋ ਹੌਲੀ-ਹੌਲੀ ਰੂਪ ਬਦਲ ਸਕਦਾ ਹੈ",
+          "ਭੂ-ਪੇਪੜੀ ਅਤੇ ਸਖ਼ਤ ਉੱਪਰਲੇ ਮੈਂਟਲ ਦਾ ਸਾਂਝਾ ਭਾਗ",
+          "ਮੈਂਟਲ ਅਤੇ ਅੰਦਰੂਨੀ ਕੇਂਦਰ ਵਿਚਕਾਰ ਤਰਲ ਪਰਤ",
+          "ਮਹਾਂਦੀਪੀ ਭੂ-ਪੇਪੜੀ ਦਾ ਹੇਠਲਾ ਭਾਗ"
+        ],
+        "explanation": "ਇਹ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਠੋਸ ਚੱਟਾਨ ਹੈ ਜੋ ਭੂਗੋਲਿਕ ਤੌਰ ਉੱਤੇ ਲੰਮੇ ਸਮੇਂ ਵਿੱਚ ਹੌਲੀ ਵਹਿ ਸਕਦੀ ਹੈ। ਇਹ ਤਰਲ ਮੈਗਮਾ ਦਾ ਲਗਾਤਾਰ ਸਮੁੰਦਰ ਨਹੀਂ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q005",
+    "cpId": "WGE-001-CP004",
+    "objective": "outer-core-state",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which major internal layer of Earth is liquid?",
+        "options": [
+          "Outer core",
+          "Inner core",
+          "Continental crust",
+          "Entire mantle"
+        ],
+        "explanation": "The outer core is liquid, whereas the inner core is solid. Seismic-wave behaviour helps establish this contrast."
+      },
+      "hi": {
+        "stem": "पृथ्वी की कौन-सी प्रमुख आंतरिक परत तरल है?",
+        "options": [
+          "बाहरी क्रोड",
+          "आंतरिक क्रोड",
+          "महाद्वीपीय भूपर्पटी",
+          "पूरा मैंटल"
+        ],
+        "explanation": "बाहरी क्रोड तरल और आंतरिक क्रोड ठोस है। भूकंपीय तरंगों का व्यवहार इस अंतर का प्रमाण देता है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੀ ਕਿਹੜੀ ਮੁੱਖ ਅੰਦਰਲੀ ਪਰਤ ਤਰਲ ਹੈ?",
+        "options": [
+          "ਬਾਹਰਲਾ ਕੇਂਦਰੀ ਭਾਗ",
+          "ਅੰਦਰਲਾ ਕੇਂਦਰੀ ਭਾਗ",
+          "ਮਹਾਂਦੀਪੀ ਭੂ-ਪੇਪੜੀ",
+          "ਪੂਰਾ ਮੈਂਟਲ"
+        ],
+        "explanation": "ਬਾਹਰਲਾ ਕੇਂਦਰੀ ਭਾਗ ਤਰਲ ਅਤੇ ਅੰਦਰਲਾ ਠੋਸ ਹੈ। ਭੂਚਾਲੀ ਤਰੰਗਾਂ ਦਾ ਵਰਤਾਰਾ ਇਸ ਫ਼ਰਕ ਦਾ ਸਬੂਤ ਦਿੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q006",
+    "cpId": "WGE-001-CP004",
+    "objective": "inner-core-pressure",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What keeps Earth's inner core solid despite its high temperature?",
+        "options": [
+          "Extremely high pressure raises the melting point",
+          "Low pressure lowers the melting point",
+          "Its temperature is lower than that of the crust",
+          "It consists mainly of minerals with no iron"
+        ],
+        "explanation": "At the centre, enormous pressure favours the solid state of iron-rich material. Temperature alone does not determine physical state."
+      },
+      "hi": {
+        "stem": "अत्यधिक तापमान के बावजूद पृथ्वी का आंतरिक क्रोड ठोस क्यों रहता है?",
+        "options": [
+          "अत्यधिक दाब गलनांक बढ़ा देता है",
+          "कम दाब गलनांक घटा देता है",
+          "इसका तापमान भूपर्पटी से कम है",
+          "यह मुख्यतः लौहरहित खनिजों से बना है"
+        ],
+        "explanation": "केंद्र में अत्यधिक दबाव लौह-समृद्ध पदार्थ को ठोस रखने में सहायक है। पदार्थ की अवस्था केवल तापमान से तय नहीं होती।"
+      },
+      "pa": {
+        "stem": "ਬਹੁਤ ਵੱਧ ਤਾਪਮਾਨ ਦੇ ਬਾਵਜੂਦ ਧਰਤੀ ਦਾ ਅੰਦਰੂਨੀ ਕੇਂਦਰੀ ਭਾਗ ਠੋਸ ਕਿਉਂ ਰਹਿੰਦਾ ਹੈ?",
+        "options": [
+          "ਬਹੁਤ ਵੱਧ ਦਬਾਅ ਪਿਘਲਣ ਦਾ ਤਾਪਮਾਨ ਵਧਾ ਦਿੰਦਾ ਹੈ",
+          "ਘੱਟ ਦਬਾਅ ਪਿਘਲਣ ਦਾ ਤਾਪਮਾਨ ਘਟਾ ਦਿੰਦਾ ਹੈ",
+          "ਇਸ ਦਾ ਤਾਪਮਾਨ ਭੂ-ਪੇਪੜੀ ਨਾਲੋਂ ਘੱਟ ਹੈ",
+          "ਇਹ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਲੋਹੇ ਤੋਂ ਬਿਨਾਂ ਖਣਿਜਾਂ ਦਾ ਬਣਿਆ ਹੈ"
+        ],
+        "explanation": "ਕੇਂਦਰ ਵਿੱਚ ਬਹੁਤ ਵੱਧ ਦਬਾਅ ਲੋਹੇ ਵਾਲੇ ਪਦਾਰਥ ਨੂੰ ਠੋਸ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ। ਪਦਾਰਥ ਦੀ ਹਾਲਤ ਸਿਰਫ਼ ਤਾਪਮਾਨ ਨਾਲ ਤੈਅ ਨਹੀਂ ਹੁੰਦੀ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q007",
+    "cpId": "WGE-001-CP004",
+    "objective": "core-composition",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-INTERIOR",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Earth's core is composed mainly of which metals?",
+        "options": [
+          "Iron and nickel",
+          "Aluminium and copper",
+          "Gold and silver",
+          "Calcium and sodium"
+        ],
+        "explanation": "Iron dominates the core, with nickel and smaller amounts of other elements. This differs from the silicate-rich mantle."
+      },
+      "hi": {
+        "stem": "पृथ्वी का क्रोड मुख्यतः किन धातुओं से बना है?",
+        "options": [
+          "लोहा और निकेल",
+          "ऐलुमिनियम और ताँबा",
+          "सोना और चाँदी",
+          "कैल्सियम और सोडियम"
+        ],
+        "explanation": "क्रोड में लोहा प्रमुख है, साथ में निकेल और अन्य तत्व कम मात्रा में हैं। मैंटल इसके विपरीत सिलिकेट-समृद्ध है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦਾ ਕੇਂਦਰੀ ਭਾਗ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀਆਂ ਧਾਤਾਂ ਦਾ ਬਣਿਆ ਹੈ?",
+        "options": [
+          "ਲੋਹਾ ਅਤੇ ਨਿਕਲ",
+          "ਐਲੂਮੀਨੀਅਮ ਅਤੇ ਤਾਂਬਾ",
+          "ਸੋਨਾ ਅਤੇ ਚਾਂਦੀ",
+          "ਕੈਲਸ਼ੀਅਮ ਅਤੇ ਸੋਡੀਅਮ"
+        ],
+        "explanation": "ਕੇਂਦਰੀ ਭਾਗ ਵਿੱਚ ਲੋਹਾ ਮੁੱਖ ਹੈ, ਨਾਲ ਨਿਕਲ ਅਤੇ ਥੋੜ੍ਹੇ ਹੋਰ ਤੱਤ ਹਨ। ਇਸ ਦੇ ਉਲਟ ਮੈਂਟਲ ਸਿਲੀਕੇਟਾਂ ਨਾਲ ਭਰਪੂਰ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q008",
+    "cpId": "WGE-001-CP004",
+    "objective": "moho",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The Mohorovičić discontinuity marks the boundary between which layers?",
+        "options": [
+          "Crust and mantle",
+          "Mantle and outer core",
+          "Outer and inner core",
+          "Atmosphere and crust"
+        ],
+        "explanation": "The Moho separates crust from mantle. A change in seismic-wave speed helps identify this boundary."
+      },
+      "hi": {
+        "stem": "मोहो असांतत्य किन परतों की सीमा है?",
+        "options": [
+          "भूपर्पटी और मैंटल",
+          "मैंटल और बाहरी क्रोड",
+          "बाहरी और आंतरिक क्रोड",
+          "वायुमंडल और भूपर्पटी"
+        ],
+        "explanation": "मोहो भूपर्पटी और मैंटल को अलग करता है। भूकंपीय तरंगों की गति में बदलाव से इसकी पहचान होती है।"
+      },
+      "pa": {
+        "stem": "ਮੋਹੋ ਅਸੰਤਤਤਾ ਕਿਹੜੀਆਂ ਪਰਤਾਂ ਦੀ ਹੱਦ ਹੈ?",
+        "options": [
+          "ਭੂ-ਪੇਪੜੀ ਅਤੇ ਮੈਂਟਲ",
+          "ਮੈਂਟਲ ਅਤੇ ਬਾਹਰਲਾ ਕੇਂਦਰੀ ਭਾਗ",
+          "ਬਾਹਰਲਾ ਅਤੇ ਅੰਦਰਲਾ ਕੇਂਦਰੀ ਭਾਗ",
+          "ਵਾਯੂਮੰਡਲ ਅਤੇ ਭੂ-ਪੇਪੜੀ"
+        ],
+        "explanation": "ਮੋਹੋ ਭੂ-ਪੇਪੜੀ ਅਤੇ ਮੈਂਟਲ ਨੂੰ ਵੱਖ ਕਰਦੀ ਹੈ। ਭੂਚਾਲੀ ਤਰੰਗਾਂ ਦੀ ਚਾਲ ਵਿੱਚ ਬਦਲਾਅ ਨਾਲ ਇਸ ਦੀ ਪਛਾਣ ਹੁੰਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q009",
+    "cpId": "WGE-001-CP004",
+    "objective": "interior-evidence",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-INTERIOR",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which of the following is used to infer the structure of Earth's deep interior?",
+        "options": [
+          "Seismic wave behaviour",
+          "Annual rainfall patterns",
+          "Changes in ocean surface salinity",
+          "The distribution of surface soils"
+        ],
+        "explanation": "Wave speeds, refraction and shadow zones reveal internal boundaries and states. Humans have not sampled the inner core directly."
+      },
+      "hi": {
+        "stem": "पृथ्वी के गहरे आंतरिक भाग की संरचना का अनुमान लगाने के लिए किसका उपयोग किया जाता है?",
+        "options": [
+          "भूकंपीय तरंगों का व्यवहार",
+          "वार्षिक वर्षा का प्रतिरूप",
+          "महासागरीय सतही लवणता में परिवर्तन",
+          "सतही मिट्टियों का वितरण"
+        ],
+        "explanation": "तरंगों की गति, अपवर्तन और छाया क्षेत्र आंतरिक सीमाएँ व अवस्थाएँ बताते हैं। मनुष्य ने आंतरिक क्रोड से सीधा नमूना नहीं लिया है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੇ ਡੂੰਘੇ ਅੰਦਰੂਨੀ ਭਾਗ ਦੀ ਬਣਤਰ ਦਾ ਅੰਦਾਜ਼ਾ ਲਾਉਣ ਲਈ ਕਿਸ ਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+        "options": [
+          "ਭੂਚਾਲੀ ਤਰੰਗਾਂ ਦਾ ਵਰਤਾਰਾ",
+          "ਸਾਲਾਨਾ ਮੀਂਹ ਦਾ ਰੁਝਾਨ",
+          "ਸਮੁੰਦਰ ਦੇ ਸਤਹੀ ਖਾਰਾਪਣ ਵਿੱਚ ਤਬਦੀਲੀ",
+          "ਸਤਹੀ ਮਿੱਟੀਆਂ ਦੀ ਵੰਡ"
+        ],
+        "explanation": "ਤਰੰਗਾਂ ਦੀ ਚਾਲ, ਅਪਵਰਤਨ ਅਤੇ ਛਾਂ ਵਾਲੇ ਖੇਤਰ ਅੰਦਰਲੀਆਂ ਹੱਦਾਂ ਤੇ ਹਾਲਤਾਂ ਦੱਸਦੇ ਹਨ। ਮਨੁੱਖ ਨੇ ਅੰਦਰਲੇ ਕੇਂਦਰੀ ਭਾਗ ਤੋਂ ਸਿੱਧਾ ਨਮੂਨਾ ਨਹੀਂ ਲਿਆ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q010",
+    "cpId": "WGE-001-CP004",
+    "objective": "mineral-rock",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-ROCKS",
+      "NPS-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which statement about rocks and minerals is correct?",
+        "options": [
+          "A rock may consist of one or more minerals",
+          "Every rock has a fixed chemical formula",
+          "A mineral is an aggregate of several rocks",
+          "A rock must contain more than one mineral"
+        ],
+        "explanation": "Minerals are natural substances with characteristic composition and structure. Rocks consist of mineral material, sometimes with non-mineral components."
+      },
+      "hi": {
+        "stem": "चट्टानों और खनिजों के बारे में कौन-सा कथन सही है?",
+        "options": [
+          "चट्टान एक या अधिक खनिजों से बनी हो सकती है",
+          "हर चट्टान का निश्चित रासायनिक सूत्र होता है",
+          "खनिज कई चट्टानों का समुच्चय होता है",
+          "चट्टान में एक से अधिक खनिज होना अनिवार्य है"
+        ],
+        "explanation": "खनिज विशिष्ट संघटन और संरचना वाले प्राकृतिक पदार्थ हैं। चट्टानों में खनिज पदार्थ और कभी-कभी गैर-खनिज घटक भी होते हैं।"
+      },
+      "pa": {
+        "stem": "ਚੱਟਾਨਾਂ ਅਤੇ ਖਣਿਜਾਂ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਚੱਟਾਨ ਇੱਕ ਜਾਂ ਵੱਧ ਖਣਿਜਾਂ ਦੀ ਬਣੀ ਹੋ ਸਕਦੀ ਹੈ",
+          "ਹਰ ਚੱਟਾਨ ਦਾ ਨਿਸ਼ਚਿਤ ਰਸਾਇਣਕ ਫਾਰਮੂਲਾ ਹੁੰਦਾ ਹੈ",
+          "ਖਣਿਜ ਕਈ ਚੱਟਾਨਾਂ ਦਾ ਇਕੱਠ ਹੁੰਦਾ ਹੈ",
+          "ਚੱਟਾਨ ਵਿੱਚ ਇੱਕ ਤੋਂ ਵੱਧ ਖਣਿਜ ਹੋਣੇ ਲਾਜ਼ਮੀ ਹਨ"
+        ],
+        "explanation": "ਖਣਿਜ ਖ਼ਾਸ ਬਣਤਰ ਅਤੇ ਸੰਘਟਨ ਵਾਲੇ ਕੁਦਰਤੀ ਪਦਾਰਥ ਹਨ। ਚੱਟਾਨਾਂ ਵਿੱਚ ਖਣਿਜ ਪਦਾਰਥ ਅਤੇ ਕਦੇ ਹੋਰ ਗੈਰ-ਖਣਿਜ ਹਿੱਸੇ ਵੀ ਹੁੰਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q011",
+    "cpId": "WGE-001-CP004",
+    "objective": "igneous-origin",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-ROCKS",
+      "NPS-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which process forms igneous rocks?",
+        "options": [
+          "Cooling and solidification of molten material",
+          "Compaction of sand alone",
+          "Evaporation of seawater alone",
+          "Compression of peat alone"
+        ],
+        "explanation": "Magma or lava cools and becomes solid rock. Cooling beneath or above the surface produces different textures."
+      },
+      "hi": {
+        "stem": "आग्नेय चट्टानें किस प्रक्रिया से बनती हैं?",
+        "options": [
+          "पिघले पदार्थ का ठंडा होकर जमना",
+          "केवल रेत का संपीडन",
+          "केवल समुद्री जल का वाष्पीकरण",
+          "केवल पीट का संपीडन"
+        ],
+        "explanation": "मैग्मा या लावा ठंडा होकर ठोस चट्टान बनता है। सतह के नीचे या ऊपर ठंडा होने से बनावट अलग होती है।"
+      },
+      "pa": {
+        "stem": "ਅਗਨੀ ਚੱਟਾਨਾਂ ਕਿਸ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਬਣਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਪਿਘਲੇ ਪਦਾਰਥ ਦਾ ਠੰਢਾ ਹੋ ਕੇ ਜੰਮਣਾ",
+          "ਕੇਵਲ ਰੇਤ ਦਾ ਦਬਣਾ",
+          "ਕੇਵਲ ਸਮੁੰਦਰੀ ਪਾਣੀ ਦਾ ਵਾਸ਼ਪੀਕਰਨ",
+          "ਕੇਵਲ ਪੀਟ ਦਾ ਦਬਣਾ"
+        ],
+        "explanation": "ਮੈਗਮਾ ਜਾਂ ਲਾਵਾ ਠੰਢਾ ਹੋ ਕੇ ਠੋਸ ਚੱਟਾਨ ਬਣਦਾ ਹੈ। ਸਤਹ ਹੇਠਾਂ ਜਾਂ ਉੱਪਰ ਠੰਢਾ ਹੋਣ ਨਾਲ ਬਣਤਰ ਵੱਖਰੀ ਹੁੰਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q012",
+    "cpId": "WGE-001-CP004",
+    "objective": "granite",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-ROCKS",
+      "NPS-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Granite is an example of which rock type?",
+        "options": [
+          "Intrusive igneous",
+          "Extrusive igneous",
+          "Clastic sedimentary",
+          "Organic sedimentary"
+        ],
+        "explanation": "Granite forms as magma cools slowly below the surface. Slow cooling allows relatively large crystals to grow."
+      },
+      "hi": {
+        "stem": "ग्रेनाइट किस प्रकार की चट्टान है?",
+        "options": [
+          "अंतर्वेधी आग्नेय",
+          "बहिर्वेधी आग्नेय",
+          "खंडज अवसादी",
+          "जैविक अवसादी"
+        ],
+        "explanation": "ग्रेनाइट सतह के नीचे मैग्मा के धीरे ठंडा होने से बनता है। धीमी शीतलन से अपेक्षाकृत बड़े क्रिस्टल बनते हैं।"
+      },
+      "pa": {
+        "stem": "ਗ੍ਰੇਨਾਈਟ ਕਿਸ ਕਿਸਮ ਦੀ ਚੱਟਾਨ ਹੈ?",
+        "options": [
+          "ਅੰਦਰ ਬਣੀ ਅਗਨੀ",
+          "ਬਾਹਰ ਬਣੀ ਅਗਨੀ",
+          "ਟੁਕੜਿਆਂ ਤੋਂ ਬਣੀ ਤਲਛਟੀ",
+          "ਜੈਵਿਕ ਤਲਛਟੀ"
+        ],
+        "explanation": "ਗ੍ਰੇਨਾਈਟ ਸਤਹ ਹੇਠਾਂ ਮੈਗਮਾ ਦੇ ਹੌਲੀ ਠੰਢਾ ਹੋਣ ਨਾਲ ਬਣਦਾ ਹੈ। ਹੌਲੀ ਠੰਢਾ ਹੋਣ ਨਾਲ ਮੁਕਾਬਲਤਨ ਵੱਡੇ ਕ੍ਰਿਸਟਲ ਬਣਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q013",
+    "cpId": "WGE-001-CP004",
+    "objective": "basalt",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-ROCKS",
+      "NPS-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Basalt forms when lava cools and solidifies:",
+        "options": [
+          "At or near Earth’s surface",
+          "Deep within the crust as a large intrusive body",
+          "Within sedimentary layers by compaction",
+          "Under high pressure without melting"
+        ],
+        "explanation": "Basalt is a common extrusive igneous rock. Relatively rapid cooling usually produces fine grains."
+      },
+      "hi": {
+        "stem": "बेसाल्ट का निर्माण लावा के ठंडा होकर जमने से कहाँ होता है?",
+        "options": [
+          "पृथ्वी की सतह पर या उसके पास",
+          "भूपर्पटी में गहराई पर एक बड़े अंतर्वेधी पिंड के रूप में",
+          "अवसादी परतों में संपीडन से",
+          "बिना पिघले उच्च दाब में"
+        ],
+        "explanation": "बेसाल्ट सामान्य बहिर्वेधी आग्नेय चट्टान है। अपेक्षाकृत तेज शीतलन से प्रायः महीन दाने बनते हैं।"
+      },
+      "pa": {
+        "stem": "ਲਾਵਾ ਕਿੱਥੇ ਠੰਢਾ ਹੋ ਕੇ ਜੰਮਣ ਨਾਲ ਬੇਸਾਲਟ ਬਣਦਾ ਹੈ?",
+        "options": [
+          "ਧਰਤੀ ਦੀ ਸਤਹ ਉੱਤੇ ਜਾਂ ਇਸ ਦੇ ਨੇੜੇ",
+          "ਭੂ-ਪੇਪੜੀ ਵਿੱਚ ਡੂੰਘਾਈ ਉੱਤੇ ਇੱਕ ਵੱਡੇ ਅੰਦਰੂਨੀ ਪਿੰਡ ਵਜੋਂ",
+          "ਤਲਛਟੀ ਪਰਤਾਂ ਵਿੱਚ ਦਬਣ ਨਾਲ",
+          "ਬਿਨਾਂ ਪਿਘਲੇ ਵੱਧ ਦਬਾਅ ਹੇਠਾਂ"
+        ],
+        "explanation": "ਬਸਾਲਟ ਬਾਹਰ ਬਣਨ ਵਾਲੀ ਆਮ ਅਗਨੀ ਚੱਟਾਨ ਹੈ। ਮੁਕਾਬਲਤਨ ਤੇਜ਼ ਠੰਢਾ ਹੋਣ ਨਾਲ ਆਮ ਤੌਰ ਉੱਤੇ ਬਰੀਕ ਦਾਣੇ ਬਣਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q014",
+    "cpId": "WGE-001-CP004",
+    "objective": "sedimentary-origin",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-ROCKS",
+      "NPS-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which rocks form by compaction and cementation of sediments?",
+        "options": [
+          "Sedimentary",
+          "Intrusive igneous",
+          "Extrusive igneous",
+          "Metamorphic"
+        ],
+        "explanation": "Sediments become rock through lithification. Sandstone is a familiar example formed from sand-sized grains."
+      },
+      "hi": {
+        "stem": "अवसादों के संपीडन और सीमेंटीकरण से कौन-सी चट्टानें बनती हैं?",
+        "options": [
+          "अवसादी",
+          "अंतर्वेधी आग्नेय",
+          "बहिर्वेधी आग्नेय",
+          "कायांतरित"
+        ],
+        "explanation": "अवसाद शिलीभवन से चट्टान बनते हैं। रेत के आकार के कणों से बना बलुआ पत्थर इसका परिचित उदाहरण है।"
+      },
+      "pa": {
+        "stem": "ਤਲਛਟ ਦੇ ਦਬਣ ਅਤੇ ਕਣਾਂ ਦੇ ਆਪਸ ਵਿੱਚ ਜੁੜਨ ਨਾਲ ਕਿਹੜੀਆਂ ਚੱਟਾਨਾਂ ਬਣਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਤਲਛਟੀ",
+          "ਅੰਦਰੂਨੀ ਅਗਨੀ",
+          "ਬਾਹਰੀ ਅਗਨੀ",
+          "ਰੂਪਾਂਤਰਿਤ"
+        ],
+        "explanation": "ਤਲਛਟ ਦੇ ਪੱਥਰ ਬਣਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਚੱਟਾਨ ਬਣਦੀ ਹੈ। ਰੇਤ ਦੇ ਆਕਾਰ ਦੇ ਕਣਾਂ ਤੋਂ ਬਣਿਆ ਰੇਤਲਾ ਪੱਥਰ ਇਸ ਦੀ ਆਮ ਮਿਸਾਲ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q015",
+    "cpId": "WGE-001-CP004",
+    "objective": "fossils",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-ROCKS",
+      "NPS-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Well-preserved fossils are most commonly found in which rock group?",
+        "options": [
+          "Sedimentary",
+          "Deep intrusive igneous",
+          "Highly metamorphosed rocks",
+          "Fresh lava flows"
+        ],
+        "explanation": "Burial in sediment can preserve remains and traces. Melting and strong metamorphism usually destroy such evidence."
+      },
+      "hi": {
+        "stem": "अच्छी तरह सुरक्षित जीवाश्म सामान्यतः किस चट्टान समूह में मिलते हैं?",
+        "options": [
+          "अवसादी",
+          "गहरी अंतर्वेधी आग्नेय",
+          "अत्यधिक कायांतरित चट्टानें",
+          "ताजा लावा प्रवाह"
+        ],
+        "explanation": "अवसाद में दबने से अवशेष और चिह्न सुरक्षित रह सकते हैं। पिघलना और तीव्र कायांतरण उन्हें प्रायः नष्ट कर देते हैं।"
+      },
+      "pa": {
+        "stem": "ਚੰਗੀ ਤਰ੍ਹਾਂ ਸੰਭਾਲੇ ਜੀਵਾਸ਼ਮ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜੇ ਚੱਟਾਨ ਸਮੂਹ ਵਿੱਚ ਮਿਲਦੇ ਹਨ?",
+        "options": [
+          "ਤਲਛਟੀ",
+          "ਡੂੰਘੀਆਂ ਅੰਦਰ ਬਣੀਆਂ ਅਗਨੀ",
+          "ਬਹੁਤ ਵੱਧ ਰੂਪਾਂਤਰਿਤ ਚੱਟਾਨਾਂ",
+          "ਤਾਜ਼ੇ ਲਾਵਾ ਪ੍ਰਵਾਹ"
+        ],
+        "explanation": "ਤਲਛਟ ਵਿੱਚ ਦੱਬਣ ਨਾਲ ਅਵਸ਼ੇਸ਼ ਅਤੇ ਨਿਸ਼ਾਨ ਬਚ ਸਕਦੇ ਹਨ। ਪਿਘਲਣਾ ਅਤੇ ਤੀਬਰ ਰੂਪਾਂਤਰਣ ਆਮ ਤੌਰ ਉੱਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਨਸ਼ਟ ਕਰਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q016",
+    "cpId": "WGE-001-CP004",
+    "objective": "metamorphism",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NPS-METAMORPHIC",
+      "NCERT-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which process converts an existing rock into a metamorphic rock?",
+        "options": [
+          "Heat and pressure without complete melting",
+          "Complete melting followed by cooling",
+          "Compaction and cementation of loose sediment",
+          "Precipitation of minerals from evaporating water"
+        ],
+        "explanation": "Metamorphism changes minerals or texture in the solid state. Complete melting would produce magma instead."
+      },
+      "hi": {
+        "stem": "किस प्रक्रिया से पहले से मौजूद चट्टान कायांतरित चट्टान में बदलती है?",
+        "options": [
+          "पूर्णतः पिघले बिना ताप और दाब का प्रभाव",
+          "पूर्णतः पिघलने के बाद ठंडा होना",
+          "ढीले अवसादों का संपीडन और सीमेंटीकरण",
+          "वाष्पित होते जल से खनिजों का अवक्षेपण"
+        ],
+        "explanation": "कायांतरण ठोस अवस्था में खनिज या बनावट बदलता है। पूरी तरह पिघलने पर मैग्मा बनेगा।"
+      },
+      "pa": {
+        "stem": "ਕਿਸ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਪਹਿਲਾਂ ਮੌਜੂਦ ਚੱਟਾਨ ਰੂਪਾਂਤਰਿਤ ਚੱਟਾਨ ਵਿੱਚ ਬਦਲਦੀ ਹੈ?",
+        "options": [
+          "ਪੂਰੀ ਤਰ੍ਹਾਂ ਪਿਘਲੇ ਬਿਨਾਂ ਗਰਮੀ ਅਤੇ ਦਬਾਅ ਦਾ ਅਸਰ",
+          "ਪੂਰੀ ਤਰ੍ਹਾਂ ਪਿਘਲਣ ਮਗਰੋਂ ਠੰਢਾ ਹੋਣਾ",
+          "ਢਿੱਲੀ ਤਲਛਟ ਦਾ ਦਬਣਾ ਅਤੇ ਜੁੜਨਾ",
+          "ਵਾਸ਼ਪ ਬਣਦੇ ਪਾਣੀ ਵਿੱਚੋਂ ਖਣਿਜਾਂ ਦਾ ਜਮ੍ਹਾਂ ਹੋਣਾ"
+        ],
+        "explanation": "ਰੂਪਾਂਤਰਣ ਠੋਸ ਹਾਲਤ ਵਿੱਚ ਖਣਿਜ ਜਾਂ ਬਣਤਰ ਬਦਲਦਾ ਹੈ। ਪੂਰੀ ਤਰ੍ਹਾਂ ਪਿਘਲਣ ਨਾਲ ਮੈਗਮਾ ਬਣੇਗਾ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q017",
+    "cpId": "WGE-001-CP004",
+    "objective": "marble-parent",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NPS-METAMORPHIC",
+      "NCERT-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Marble commonly forms through metamorphism of which rock?",
+        "options": [
+          "Limestone",
+          "Basalt",
+          "Sandstone",
+          "Coal"
+        ],
+        "explanation": "Limestone recrystallises under heat and pressure to form marble. Marble is widely used as a building and decorative stone."
+      },
+      "hi": {
+        "stem": "संगमरमर सामान्यतः किस चट्टान के कायांतरण से बनता है?",
+        "options": [
+          "चूना-पत्थर",
+          "बेसाल्ट",
+          "बलुआ पत्थर",
+          "कोयला"
+        ],
+        "explanation": "चूना-पत्थर ताप और दबाव से पुनः क्रिस्टलीकृत होकर संगमरमर बनता है। इसका उपयोग भवनों और सजावट में होता है।"
+      },
+      "pa": {
+        "stem": "ਸੰਗਮਰਮਰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀ ਚੱਟਾਨ ਦੇ ਰੂਪਾਂਤਰਣ ਨਾਲ ਬਣਦਾ ਹੈ?",
+        "options": [
+          "ਚੂਨਾ-ਪੱਥਰ",
+          "ਬਸਾਲਟ",
+          "ਰੇਤਲਾ ਪੱਥਰ",
+          "ਕੋਲਾ"
+        ],
+        "explanation": "ਚੂਨਾ-ਪੱਥਰ ਤਾਪ ਅਤੇ ਦਬਾਅ ਨਾਲ ਮੁੜ ਕ੍ਰਿਸਟਲ ਬਣਾਕੇ ਸੰਗਮਰਮਰ ਬਣਦਾ ਹੈ। ਇਹ ਇਮਾਰਤਾਂ ਅਤੇ ਸਜਾਵਟ ਵਿੱਚ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q018",
+    "cpId": "WGE-001-CP004",
+    "objective": "quartzite-parent",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NPS-METAMORPHIC",
+      "NCERT-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Quartzite commonly forms from which parent rock?",
+        "options": [
+          "Quartz-rich sandstone",
+          "Limestone",
+          "Shale",
+          "Rock salt"
+        ],
+        "explanation": "Quartz grains in sandstone recrystallise and interlock during metamorphism. The resulting quartzite is hard and resistant."
+      },
+      "hi": {
+        "stem": "क्वार्टजाइट सामान्यतः किस मूल चट्टान से बनता है?",
+        "options": [
+          "क्वार्ट्ज-समृद्ध बलुआ पत्थर",
+          "चूना-पत्थर",
+          "शेल",
+          "सेंधा नमक"
+        ],
+        "explanation": "कायांतरण में बलुआ पत्थर के क्वार्ट्ज कण पुनः क्रिस्टलीकृत होकर जुड़ते हैं। बना क्वार्टजाइट कठोर और प्रतिरोधी है।"
+      },
+      "pa": {
+        "stem": "ਕੁਆਰਟਜ਼ਾਈਟ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀ ਮੁੱਢਲੀ ਚੱਟਾਨ ਤੋਂ ਬਣਦਾ ਹੈ?",
+        "options": [
+          "ਕੁਆਰਟਜ਼ ਵਾਲਾ ਰੇਤਲਾ ਪੱਥਰ",
+          "ਚੂਨਾ-ਪੱਥਰ",
+          "ਸ਼ੇਲ",
+          "ਚੱਟਾਨੀ ਲੂਣ"
+        ],
+        "explanation": "ਰੂਪਾਂਤਰਣ ਵੇਲੇ ਰੇਤਲੇ ਪੱਥਰ ਦੇ ਕੁਆਰਟਜ਼ ਕਣ ਮੁੜ ਕ੍ਰਿਸਟਲ ਬਣਾਕੇ ਜੁੜਦੇ ਹਨ। ਬਣਿਆ ਕੁਆਰਟਜ਼ਾਈਟ ਸਖ਼ਤ ਅਤੇ ਟਿਕਾਊ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q019",
+    "cpId": "WGE-001-CP004",
+    "objective": "slate-parent",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NPS-METAMORPHIC",
+      "NCERT-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Slate commonly develops from low-grade metamorphism of which rock?",
+        "options": [
+          "Shale",
+          "Granite",
+          "Limestone",
+          "Conglomerate"
+        ],
+        "explanation": "Shale can change into slate under heat and pressure. Slate splits into thin sheets along its cleavage."
+      },
+      "hi": {
+        "stem": "स्लेट सामान्यतः किस चट्टान के निम्न-श्रेणी कायांतरण से बनती है?",
+        "options": [
+          "शेल",
+          "ग्रेनाइट",
+          "चूना-पत्थर",
+          "कांग्लोमरेट"
+        ],
+        "explanation": "शेल ताप और दबाव से स्लेट बन सकती है। स्लेट अपनी विदलन सतहों पर पतली परतों में टूटती है।"
+      },
+      "pa": {
+        "stem": "ਸਲੇਟ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀ ਚੱਟਾਨ ਦੇ ਘੱਟ ਦਰਜੇ ਦੇ ਰੂਪਾਂਤਰਣ ਨਾਲ ਬਣਦੀ ਹੈ?",
+        "options": [
+          "ਸ਼ੇਲ",
+          "ਗ੍ਰੇਨਾਈਟ",
+          "ਚੂਨਾ-ਪੱਥਰ",
+          "ਕਾਂਗਲੋਮਰੇਟ"
+        ],
+        "explanation": "ਸ਼ੇਲ ਤਾਪ ਅਤੇ ਦਬਾਅ ਨਾਲ ਸਲੇਟ ਬਣ ਸਕਦੀ ਹੈ। ਸਲੇਟ ਆਪਣੀਆਂ ਵੰਡ ਵਾਲੀਆਂ ਸਤਹਾਂ ਉੱਤੇ ਪਤਲੀਆਂ ਤਹਿਆਂ ਵਿੱਚ ਟੁੱਟਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q020",
+    "cpId": "WGE-001-CP004",
+    "objective": "rock-cycle",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-ROCKS",
+      "NPS-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which statement about the transformation of rocks is correct?",
+        "options": [
+          "Any rock type can change into another through suitable processes",
+          "Only sedimentary rocks can weather",
+          "Metamorphic rocks can never melt",
+          "Igneous rocks cannot supply sediment"
+        ],
+        "explanation": "Weathering, burial, metamorphism and melting connect rock groups. The cycle has multiple pathways rather than one compulsory sequence."
+      },
+      "hi": {
+        "stem": "चट्टानों के एक प्रकार से दूसरे प्रकार में बदलने के बारे में कौन-सा कथन सही है?",
+        "options": [
+          "उपयुक्त प्रक्रियाओं से एक चट्टान प्रकार दूसरे में बदल सकता है",
+          "केवल अवसादी चट्टानें अपक्षयित हो सकती हैं",
+          "कायांतरित चट्टानें कभी नहीं पिघलतीं",
+          "आग्नेय चट्टानें अवसाद नहीं दे सकतीं"
+        ],
+        "explanation": "अपक्षय, दफन होना, कायांतरण और पिघलना चट्टान समूहों को जोड़ते हैं। चक्र में कई मार्ग हैं, एक अनिवार्य क्रम नहीं।"
+      },
+      "pa": {
+        "stem": "ਚੱਟਾਨਾਂ ਦੇ ਇੱਕ ਕਿਸਮ ਤੋਂ ਦੂਜੀ ਕਿਸਮ ਵਿੱਚ ਬਦਲਣ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਢੁਕਵੀਆਂ ਪ੍ਰਕਿਰਿਆਵਾਂ ਨਾਲ ਇੱਕ ਚੱਟਾਨ ਕਿਸਮ ਦੂਜੀ ਵਿੱਚ ਬਦਲ ਸਕਦੀ ਹੈ",
+          "ਕੇਵਲ ਤਲਛਟੀ ਚੱਟਾਨਾਂ ਟੁੱਟ-ਭੱਜ ਸਕਦੀਆਂ ਹਨ",
+          "ਰੂਪਾਂਤਰਿਤ ਚੱਟਾਨਾਂ ਕਦੇ ਨਹੀਂ ਪਿਘਲਦੀਆਂ",
+          "ਅਗਨੀ ਚੱਟਾਨਾਂ ਤਲਛਟ ਨਹੀਂ ਦੇ ਸਕਦੀਆਂ"
+        ],
+        "explanation": "ਟੁੱਟ-ਭੱਜ, ਦੱਬਣਾ, ਰੂਪਾਂਤਰਣ ਅਤੇ ਪਿਘਲਣਾ ਚੱਟਾਨ ਸਮੂਹਾਂ ਨੂੰ ਜੋੜਦੇ ਹਨ। ਚੱਕਰ ਦੇ ਕਈ ਰਸਤੇ ਹਨ, ਇੱਕੋ ਲਾਜ਼ਮੀ ਕ੍ਰਮ ਨਹੀਂ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q021",
+    "cpId": "WGE-001-CP004",
+    "objective": "mineral-use",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "USGS-GRAPHITE"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which mineral is commonly used as the main material in pencil 'lead'?",
+        "options": [
+          "Graphite",
+          "Quartz",
+          "Calcite",
+          "Mica"
+        ],
+        "explanation": "Pencil cores contain graphite mixed with clay. The everyday name 'lead' does not mean the metal lead is used."
+      },
+      "hi": {
+        "stem": "पेंसिल की ‘लेड’ में मुख्यतः कौन-सा खनिज प्रयुक्त होता है?",
+        "options": [
+          "ग्रेफाइट",
+          "क्वार्ट्ज",
+          "कैल्साइट",
+          "अभ्रक"
+        ],
+        "explanation": "पेंसिल की कोर में ग्रेफाइट और मिट्टी का मिश्रण होता है। ‘लेड’ नाम का अर्थ सीसा धातु का उपयोग नहीं है।"
+      },
+      "pa": {
+        "stem": "ਪੈਨਸਿਲ ਦੀ ‘ਲੈੱਡ’ ਵਿੱਚ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕਿਹੜਾ ਖਣਿਜ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਗ੍ਰੈਫਾਈਟ",
+          "ਕੁਆਰਟਜ਼",
+          "ਕੈਲਸਾਈਟ",
+          "ਅਬਰਕ"
+        ],
+        "explanation": "ਪੈਨਸਿਲ ਦੇ ਵਿਚਕਾਰ ਗ੍ਰੈਫਾਈਟ ਅਤੇ ਮਿੱਟੀ ਦਾ ਮਿਸ਼ਰਣ ਹੁੰਦਾ ਹੈ। ‘ਲੈੱਡ’ ਨਾਂ ਦਾ ਅਰਥ ਸੀਸੇ ਦੀ ਧਾਤ ਦੀ ਵਰਤੋਂ ਨਹੀਂ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q022",
+    "cpId": "WGE-001-CP004",
+    "objective": "limestone-use",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-ROCKS",
+      "NPS-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which rock is an important raw material for cement manufacture?",
+        "options": [
+          "Limestone",
+          "Slate",
+          "Quartzite",
+          "Obsidian"
+        ],
+        "explanation": "Limestone supplies calcium carbonate for cement production. It is processed with other materials in a kiln."
+      },
+      "hi": {
+        "stem": "सीमेंट बनाने में कौन-सी चट्टान महत्वपूर्ण कच्चा माल है?",
+        "options": [
+          "चूना-पत्थर",
+          "स्लेट",
+          "क्वार्टजाइट",
+          "ऑब्सीडियन"
+        ],
+        "explanation": "चूना-पत्थर सीमेंट के लिए कैल्सियम कार्बोनेट देता है। इसे अन्य पदार्थों के साथ भट्ठी में संसाधित किया जाता है।"
+      },
+      "pa": {
+        "stem": "ਸੀਮੈਂਟ ਬਣਾਉਣ ਲਈ ਕਿਹੜੀ ਚੱਟਾਨ ਅਹਿਮ ਕੱਚਾ ਮਾਲ ਹੈ?",
+        "options": [
+          "ਚੂਨਾ-ਪੱਥਰ",
+          "ਸਲੇਟ",
+          "ਕੁਆਰਟਜ਼ਾਈਟ",
+          "ਆਬਸੀਡੀਅਨ"
+        ],
+        "explanation": "ਚੂਨਾ-ਪੱਥਰ ਸੀਮੈਂਟ ਲਈ ਕੈਲਸ਼ੀਅਮ ਕਾਰਬੋਨੇਟ ਦਿੰਦਾ ਹੈ। ਇਸ ਨੂੰ ਹੋਰ ਪਦਾਰਥਾਂ ਨਾਲ ਭੱਠੀ ਵਿੱਚ ਤਿਆਰ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q023",
+    "cpId": "WGE-001-CP004",
+    "objective": "relative-age",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-ROCKS",
+      "NPS-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "In an undisturbed sedimentary sequence that has not been overturned, the oldest layer is normally:",
+        "options": [
+          "The lowest layer",
+          "The highest layer",
+          "The layer containing the largest particles",
+          "The layer with the greatest thickness"
+        ],
+        "explanation": "Younger sediment is laid on top of older sediment. This superposition rule needs the sequence to be undisturbed."
+      },
+      "hi": {
+        "stem": "अवसादी परतों के ऐसे क्रम में, जो न बाधित हुआ हो और न उलटा हो, सबसे पुरानी परत सामान्यतः कौन-सी होती है?",
+        "options": [
+          "सबसे निचली परत",
+          "सबसे ऊपरी परत",
+          "सबसे बड़े कणों वाली परत",
+          "सबसे अधिक मोटाई वाली परत"
+        ],
+        "explanation": "नया अवसाद पुराने के ऊपर जमता है। अध्यारोपण का यह नियम अविक्षुब्ध क्रम के लिए लागू होता है।"
+      },
+      "pa": {
+        "stem": "ਤਲਛਟੀ ਪਰਤਾਂ ਦੇ ਅਜਿਹੇ ਕ੍ਰਮ ਵਿੱਚ, ਜਿਸ ਵਿੱਚ ਨਾ ਵਿਗਾੜ ਆਇਆ ਹੋਵੇ ਤੇ ਨਾ ਉਹ ਉਲਟਿਆ ਹੋਵੇ, ਸਭ ਤੋਂ ਪੁਰਾਣੀ ਪਰਤ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਸਭ ਤੋਂ ਹੇਠਲੀ ਪਰਤ",
+          "ਸਭ ਤੋਂ ਉੱਪਰਲੀ ਪਰਤ",
+          "ਸਭ ਤੋਂ ਵੱਡੇ ਕਣਾਂ ਵਾਲੀ ਪਰਤ",
+          "ਸਭ ਤੋਂ ਵੱਧ ਮੋਟਾਈ ਵਾਲੀ ਪਰਤ"
+        ],
+        "explanation": "ਨਵੀਂ ਤਲਛਟ ਪੁਰਾਣੀ ਦੇ ਉੱਪਰ ਜਮ੍ਹਾਂ ਹੁੰਦੀ ਹੈ। ਉੱਪਰ-ਹੇਠਾਂ ਦਾ ਇਹ ਨਿਯਮ ਬਿਨਾਂ ਉਲਟ-ਪੁਲਟ ਵਾਲੇ ਕ੍ਰਮ ਉੱਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q024",
+    "cpId": "WGE-001-CP004",
+    "objective": "geological-era-order",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "USGS-TIME"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Arrange the following geological eras from oldest to youngest.",
+        "options": [
+          "Palaeozoic → Mesozoic → Cenozoic",
+          "Mesozoic → Palaeozoic → Cenozoic",
+          "Cenozoic → Mesozoic → Palaeozoic",
+          "Palaeozoic → Cenozoic → Mesozoic"
+        ],
+        "explanation": "The Palaeozoic precedes the Mesozoic, followed by the Cenozoic. These are eras, not three equally long time intervals."
+      },
+      "hi": {
+        "stem": "निम्नलिखित भूवैज्ञानिक महाकल्पों को प्राचीन से नवीन क्रम में रखें।",
+        "options": [
+          "पुराजीवी → मध्यजीवी → नवजीवी",
+          "मध्यजीवी → पुराजीवी → नवजीवी",
+          "नवजीवी → मध्यजीवी → पुराजीवी",
+          "पुराजीवी → नवजीवी → मध्यजीवी"
+        ],
+        "explanation": "पुराजीवी के बाद मध्यजीवी और फिर नवजीवी आता है। ये महाकल्प समान अवधि के तीन खंड नहीं हैं।"
+      },
+      "pa": {
+        "stem": "ਹੇਠਾਂ ਦਿੱਤੇ ਭੂ-ਵਿਗਿਆਨਕ ਮਹਾਂਕਲਪਾਂ ਨੂੰ ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਤੋਂ ਨਵੇਂ ਕ੍ਰਮ ਵਿੱਚ ਰੱਖੋ।",
+        "options": [
+          "ਪੁਰਾਜੀਵੀ → ਮੱਧਜੀਵੀ → ਨਵਜੀਵੀ",
+          "ਮੱਧਜੀਵੀ → ਪੁਰਾਜੀਵੀ → ਨਵਜੀਵੀ",
+          "ਨਵਜੀਵੀ → ਮੱਧਜੀਵੀ → ਪੁਰਾਜੀਵੀ",
+          "ਪੁਰਾਜੀਵੀ → ਨਵਜੀਵੀ → ਮੱਧਜੀਵੀ"
+        ],
+        "explanation": "ਪੁਰਾਜੀਵੀ ਤੋਂ ਬਾਅਦ ਮੱਧਜੀਵੀ ਅਤੇ ਫਿਰ ਨਵਜੀਵੀ ਆਉਂਦਾ ਹੈ। ਇਹ ਮਹਾਂਕਾਲ ਇੱਕੋ ਲੰਬਾਈ ਦੇ ਤਿੰਨ ਸਮੇਂ ਨਹੀਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q025",
+    "cpId": "WGE-001-CP004",
+    "objective": "igneous-texture",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-ROCKS",
+      "NPS-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Two igneous rocks have similar compositions but different crystal sizes. What does the presence of larger crystals usually indicate?",
+        "options": [
+          "Slower cooling",
+          "Faster cooling",
+          "Rapid evaporation",
+          "Greater sediment compaction"
+        ],
+        "explanation": "Slow cooling gives crystals more time to grow. This explains a common contrast between intrusive and extrusive igneous textures."
+      },
+      "hi": {
+        "stem": "दो आग्नेय चट्टानों का संघटन समान है, लेकिन क्रिस्टलों का आकार अलग है। बड़े क्रिस्टल सामान्यतः किस बात का संकेत देते हैं?",
+        "options": [
+          "धीमा शीतलन",
+          "तेज शीतलन",
+          "तीव्र वाष्पीकरण",
+          "अवसादों का अधिक संपीडन"
+        ],
+        "explanation": "धीमे शीतलन में क्रिस्टलों को बढ़ने का अधिक समय मिलता है। इससे अंतर्वेधी और बहिर्वेधी आग्नेय बनावट का सामान्य अंतर समझ आता है।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਅਗਨੀ ਚੱਟਾਨਾਂ ਦੀ ਬਣਤਰ ਵਿੱਚ ਤੱਤ ਇੱਕੋ ਜਿਹੇ ਹਨ, ਪਰ ਕ੍ਰਿਸਟਲਾਂ ਦਾ ਆਕਾਰ ਵੱਖ ਹੈ। ਵੱਡੇ ਕ੍ਰਿਸਟਲ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ ਗੱਲ ਦਾ ਸੰਕੇਤ ਦਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਹੌਲੀ ਠੰਢਾ ਹੋਣਾ",
+          "ਤੇਜ਼ੀ ਨਾਲ ਠੰਢਾ ਹੋਣਾ",
+          "ਤੇਜ਼ ਵਾਸ਼ਪੀਕਰਨ",
+          "ਤਲਛਟ ਦਾ ਵੱਧ ਦਬਣਾ"
+        ],
+        "explanation": "ਹੌਲੀ ਠੰਢਾ ਹੋਣ ਨਾਲ ਕ੍ਰਿਸਟਲਾਂ ਨੂੰ ਵਧਣ ਲਈ ਵੱਧ ਸਮਾਂ ਮਿਲਦਾ ਹੈ। ਇਹ ਅੰਦਰ ਅਤੇ ਬਾਹਰ ਬਣੀਆਂ ਅਗਨੀ ਚੱਟਾਨਾਂ ਦੀ ਬਣਤਰ ਦਾ ਆਮ ਫ਼ਰਕ ਸਮਝਾਉਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q026",
+    "cpId": "WGE-001-CP004",
+    "objective": "rock-pair-test",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NPS-METAMORPHIC",
+      "NCERT-ROCKS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which option correctly matches the rocks with their metamorphic products?",
+        "options": [
+          "Limestone—marble; sandstone—quartzite",
+          "Limestone—slate; sandstone—marble",
+          "Shale—granite; limestone—basalt",
+          "Sandstone—basalt; shale—marble"
+        ],
+        "explanation": "Limestone recrystallises into marble, while quartz-rich sandstone becomes quartzite. Neither transformation requires complete melting."
+      },
+      "hi": {
+        "stem": "किस विकल्प में चट्टानों और उनके कायांतरित रूपों का मिलान सही है?",
+        "options": [
+          "चूना-पत्थर—संगमरमर; बलुआ पत्थर—क्वार्टजाइट",
+          "चूना-पत्थर—स्लेट; बलुआ पत्थर—संगमरमर",
+          "शेल—ग्रेनाइट; चूना-पत्थर—बेसाल्ट",
+          "बलुआ पत्थर—बेसाल्ट; शेल—संगमरमर"
+        ],
+        "explanation": "चूना-पत्थर से संगमरमर और क्वार्ट्ज-समृद्ध बलुआ पत्थर से क्वार्टजाइट बनता है। किसी में पूर्ण पिघलना आवश्यक नहीं है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਚੱਟਾਨਾਂ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਰੂਪਾਂਤਰਿਤ ਰੂਪਾਂ ਦਾ ਮਿਲਾਣ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਚੂਨਾ-ਪੱਥਰ—ਸੰਗਮਰਮਰ; ਰੇਤਲਾ ਪੱਥਰ—ਕੁਆਰਟਜ਼ਾਈਟ",
+          "ਚੂਨਾ-ਪੱਥਰ—ਸਲੇਟ; ਰੇਤਲਾ ਪੱਥਰ—ਸੰਗਮਰਮਰ",
+          "ਸ਼ੇਲ—ਗ੍ਰੇਨਾਈਟ; ਚੂਨਾ-ਪੱਥਰ—ਬਸਾਲਟ",
+          "ਰੇਤਲਾ ਪੱਥਰ—ਬਸਾਲਟ; ਸ਼ੇਲ—ਸੰਗਮਰਮਰ"
+        ],
+        "explanation": "ਚੂਨਾ-ਪੱਥਰ ਤੋਂ ਸੰਗਮਰਮਰ ਅਤੇ ਕੁਆਰਟਜ਼ ਵਾਲੇ ਰੇਤਲੇ ਪੱਥਰ ਤੋਂ ਕੁਆਰਟਜ਼ਾਈਟ ਬਣਦਾ ਹੈ। ਕਿਸੇ ਵਿੱਚ ਵੀ ਪੂਰਾ ਪਿਘਲਣਾ ਲਾਜ਼ਮੀ ਨਹੀਂ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP004-Q027",
+    "cpId": "WGE-001-CP004",
+    "objective": "mantle-state-trap",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-INTERIOR",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which statement about the physical state of Earth's mantle is correct?",
+        "options": [
+          "Mostly solid, but capable of flow over long timescales",
+          "Entirely molten beneath a rigid crust",
+          "Solid in the lower mantle but entirely liquid in the upper mantle",
+          "Liquid only where it joins the outer core, with no solid-state flow"
+        ],
+        "explanation": "Mantle rock deforms slowly under high temperature and pressure. A material can be solid yet flow over geological time."
+      },
+      "hi": {
+        "stem": "पृथ्वी के मैंटल की भौतिक अवस्था के बारे में कौन-सा कथन सही है?",
+        "options": [
+          "मुख्यतः ठोस, लेकिन लंबे समय में प्रवाह संभव",
+          "कठोर भूपर्पटी के नीचे पूर्णतः पिघला हुआ",
+          "निचला मैंटल ठोस, पर ऊपरी मैंटल पूर्णतः द्रव",
+          "केवल बाहरी क्रोड से सटे भाग में द्रव, ठोस अवस्था में प्रवाह नहीं"
+        ],
+        "explanation": "उच्च ताप-दबाव में मैंटल की चट्टान धीरे विकृत होती है। ठोस पदार्थ भी भूवैज्ञानिक समय में बह सकता है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੇ ਮੈਂਟਲ ਦੀ ਭੌਤਿਕ ਅਵਸਥਾ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਠੋਸ, ਪਰ ਲੰਮੇ ਸਮੇਂ ਵਿੱਚ ਵਹਿ ਸਕਦਾ ਹੈ",
+          "ਸਖ਼ਤ ਭੂ-ਪੇਪੜੀ ਹੇਠਾਂ ਪੂਰੀ ਤਰ੍ਹਾਂ ਪਿਘਲਿਆ ਹੋਇਆ",
+          "ਹੇਠਲਾ ਮੈਂਟਲ ਠੋਸ, ਪਰ ਉੱਪਰਲਾ ਪੂਰੀ ਤਰ੍ਹਾਂ ਤਰਲ",
+          "ਸਿਰਫ਼ ਬਾਹਰੀ ਕੇਂਦਰ ਨਾਲ ਲੱਗਦਾ ਭਾਗ ਤਰਲ, ਠੋਸ ਹਾਲਤ ਵਿੱਚ ਵਹਾਅ ਨਹੀਂ"
+        ],
+        "explanation": "ਉੱਚੇ ਤਾਪ ਅਤੇ ਦਬਾਅ ਹੇਠ ਮੈਂਟਲ ਦੀ ਚੱਟਾਨ ਹੌਲੀ ਰੂਪ ਬਦਲਦੀ ਹੈ। ਠੋਸ ਪਦਾਰਥ ਵੀ ਬਹੁਤ ਲੰਮੇ ਸਮੇਂ ਵਿੱਚ ਵਹਿ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  }
+]

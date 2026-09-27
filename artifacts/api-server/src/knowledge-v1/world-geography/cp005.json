@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "WGE-001-CP005-Q001",
+    "cpId": "WGE-001-CP005",
+    "objective": "wegener",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Who proposed the continental drift theory in the early twentieth century?",
+        "options": [
+          "Alfred Wegener",
+          "Harry Hess",
+          "Arthur Holmes",
+          "Charles Lyell"
+        ],
+        "explanation": "Wegener argued that continents had moved from an earlier joined arrangement. Later plate tectonics supplied a stronger physical framework."
+      },
+      "hi": {
+        "stem": "बीसवीं सदी के आरंभ में महाद्वीपीय विस्थापन सिद्धांत किसने प्रस्तुत किया?",
+        "options": [
+          "अल्फ्रेड वेगनर",
+          "हैरी हेस",
+          "आर्थर होम्स",
+          "चार्ल्स लायल"
+        ],
+        "explanation": "वेगेनर ने कहा कि महाद्वीप पहले जुड़े थे और बाद में खिसके। बाद का प्लेट विवर्तनिकी सिद्धांत इसका अधिक मजबूत भौतिक आधार बना।"
+      },
+      "pa": {
+        "stem": "ਵੀਹਵੀਂ ਸਦੀ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਮਹਾਂਦੀਪੀ ਖਿਸਕਾਅ ਦਾ ਸਿਧਾਂਤ ਕਿਸ ਨੇ ਪੇਸ਼ ਕੀਤਾ?",
+        "options": [
+          "ਅਲਫ਼ਰੇਡ ਵੇਗਨਰ",
+          "ਹੈਰੀ ਹੈਸ",
+          "ਆਰਥਰ ਹੋਮਜ਼",
+          "ਚਾਰਲਸ ਲਾਇਲ"
+        ],
+        "explanation": "ਵੇਗਨਰ ਨੇ ਕਿਹਾ ਕਿ ਮਹਾਂਦੀਪ ਪਹਿਲਾਂ ਜੁੜੇ ਸਨ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਖਿਸਕੇ। ਬਾਅਦ ਦੇ ਪਲੇਟ ਟੈਕਟੋਨਿਕਸ ਸਿਧਾਂਤ ਨੇ ਇਸ ਨੂੰ ਵੱਧ ਮਜ਼ਬੂਤ ਭੌਤਿਕ ਆਧਾਰ ਦਿੱਤਾ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q002",
+    "cpId": "WGE-001-CP005",
+    "objective": "pangaea",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What was the supercontinent proposed by Wegener called?",
+        "options": [
+          "Pangaea",
+          "Panthalassa",
+          "Tethys",
+          "Pacific"
+        ],
+        "explanation": "Pangaea was the joined supercontinent. Panthalassa was the surrounding great ocean in that reconstruction."
+      },
+      "hi": {
+        "stem": "वेगनर द्वारा प्रस्तावित विशाल महाद्वीप का क्या नाम था?",
+        "options": [
+          "पैंजिया",
+          "पैंथालासा",
+          "टेथिस",
+          "प्रशांत"
+        ],
+        "explanation": "पैंजिया जुड़ा हुआ महामहाद्वीप था। उस पुनर्निर्माण में आसपास का विशाल महासागर पैंथालासा था।"
+      },
+      "pa": {
+        "stem": "ਵੇਗਨਰ ਵੱਲੋਂ ਦੱਸੇ ਗਏ ਵਿਸ਼ਾਲ ਮਹਾਂਦੀਪ ਦਾ ਕੀ ਨਾਂ ਸੀ?",
+        "options": [
+          "ਪੈਂਜੀਆ",
+          "ਪੈਂਥਾਲਾਸਾ",
+          "ਟੈਥਿਸ",
+          "ਪ੍ਰਸ਼ਾਂਤ"
+        ],
+        "explanation": "ਪੈਂਜੀਆ ਜੁੜਿਆ ਹੋਇਆ ਮਹਾਂਭੂਖੰਡ ਸੀ। ਉਸ ਪੁਨਰ-ਨਿਰਮਾਣ ਵਿੱਚ ਆਲੇ-ਦੁਆਲੇ ਦਾ ਵਿਸ਼ਾਲ ਮਹਾਂਸਾਗਰ ਪੈਂਥਾਲਾਸਾ ਸੀ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q003",
+    "cpId": "WGE-001-CP005",
+    "objective": "drift-evidence",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Similar fossils occur on continents now separated by oceans. Which conclusion does this support?",
+        "options": [
+          "The continents were once connected",
+          "The oceans between them have remained unchanged",
+          "Continental positions have always been fixed",
+          "Identical fossils establish identical present-day climates"
+        ],
+        "explanation": "Shared fossil patterns can record former land connections. They are assessed with rock, climate and coastline evidence."
+      },
+      "hi": {
+        "stem": "आज महासागरों से अलग महाद्वीपों पर एक जैसे जीवाश्म मिलते हैं। यह किस निष्कर्ष का समर्थन करता है?",
+        "options": [
+          "महाद्वीप कभी आपस में जुड़े थे",
+          "उनके बीच के महासागर हमेशा अपरिवर्तित रहे हैं",
+          "महाद्वीपों की स्थिति हमेशा स्थिर रही है",
+          "समान जीवाश्म वर्तमान जलवायु के समान होने का प्रमाण हैं"
+        ],
+        "explanation": "समान जीवाश्म वितरण पुराने स्थल-संपर्क का संकेत दे सकता है। इसे चट्टानों, जलवायु और तटों के प्रमाण के साथ देखा जाता है।"
+      },
+      "pa": {
+        "stem": "ਅੱਜ ਸਮੁੰਦਰਾਂ ਨਾਲ ਵੱਖ ਹੋਏ ਮਹਾਂਦੀਪਾਂ ਉੱਤੇ ਇੱਕੋ ਜਿਹੇ ਜੀਵਾਸ਼ਮ ਮਿਲਦੇ ਹਨ। ਇਸ ਤੋਂ ਕਿਹੜੇ ਸਿੱਟੇ ਨੂੰ ਬਲ ਮਿਲਦਾ ਹੈ?",
+        "options": [
+          "ਮਹਾਂਦੀਪ ਕਦੇ ਆਪਸ ਵਿੱਚ ਜੁੜੇ ਹੋਏ ਸਨ",
+          "ਉਨ੍ਹਾਂ ਵਿਚਕਾਰ ਸਮੁੰਦਰ ਹਮੇਸ਼ਾ ਇੱਕੋ ਜਿਹੇ ਰਹੇ ਹਨ",
+          "ਮਹਾਂਦੀਪਾਂ ਦੀ ਸਥਿਤੀ ਹਮੇਸ਼ਾ ਸਥਿਰ ਰਹੀ ਹੈ",
+          "ਇੱਕੋ ਜਿਹੇ ਜੀਵਾਸ਼ਮ ਮੌਜੂਦਾ ਜਲਵਾਯੂ ਇੱਕੋ ਹੋਣ ਦਾ ਸਬੂਤ ਹਨ"
+        ],
+        "explanation": "ਮਿਲਦਾ ਜੀਵਾਸ਼ਮ ਫੈਲਾਅ ਪੁਰਾਣੇ ਥਲ-ਸੰਪਰਕ ਦਾ ਸੰਕੇਤ ਦੇ ਸਕਦਾ ਹੈ। ਇਸ ਨੂੰ ਚੱਟਾਨਾਂ, ਜਲਵਾਯੂ ਅਤੇ ਤੱਟਾਂ ਦੇ ਸਬੂਤ ਨਾਲ ਵੇਖਿਆ ਜਾਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q004",
+    "cpId": "WGE-001-CP005",
+    "objective": "plate-material",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Tectonic plates are fragments of the:",
+        "options": [
+          "Lithosphere",
+          "Asthenosphere",
+          "Continental crust alone",
+          "Oceanic crust alone"
+        ],
+        "explanation": "A plate includes crust and the rigid uppermost mantle. A single plate can contain both oceanic and continental areas."
+      },
+      "hi": {
+        "stem": "विवर्तनिक प्लेटें किस मंडल के खंड हैं?",
+        "options": [
+          "स्थलमंडल",
+          "दुर्बलतामंडल",
+          "केवल महाद्वीपीय भूपर्पटी",
+          "केवल महासागरीय भूपर्पटी"
+        ],
+        "explanation": "प्लेट में भूपर्पटी और मैंटल का कठोर ऊपरी भाग होता है। एक प्लेट में महासागरीय और महाद्वीपीय दोनों क्षेत्र हो सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਟੈਕਟੋਨਿਕ ਪਲੇਟਾਂ ਕਿਸ ਮੰਡਲ ਦੇ ਟੁਕੜੇ ਹਨ?",
+        "options": [
+          "ਥਲ ਮੰਡਲ",
+          "ਅਸਥੀਨੋਸਫੀਅਰ",
+          "ਸਿਰਫ਼ ਮਹਾਂਦੀਪੀ ਭੂ-ਪੇਪੜੀ",
+          "ਸਿਰਫ਼ ਸਮੁੰਦਰੀ ਭੂ-ਪੇਪੜੀ"
+        ],
+        "explanation": "ਪਲੇਟ ਵਿੱਚ ਭੂ-ਪੇਪੜੀ ਅਤੇ ਮੈਂਟਲ ਦਾ ਸਖ਼ਤ ਉੱਪਰਲਾ ਹਿੱਸਾ ਹੁੰਦਾ ਹੈ। ਇੱਕ ਪਲੇਟ ਵਿੱਚ ਮਹਾਂਸਾਗਰੀ ਅਤੇ ਮਹਾਂਦੀਪੀ ਦੋਵੇਂ ਖੇਤਰ ਹੋ ਸਕਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q005",
+    "cpId": "WGE-001-CP005",
+    "objective": "divergent",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How do plates move at a divergent boundary?",
+        "options": [
+          "Away from each other",
+          "Towards each other",
+          "Horizontally past each other",
+          "One beneath the other"
+        ],
+        "explanation": "Divergence stretches the lithosphere. At oceanic ridges, rising magma forms new oceanic crust."
+      },
+      "hi": {
+        "stem": "अपसारी सीमा पर प्लेटें किस प्रकार चलती हैं?",
+        "options": [
+          "एक-दूसरे से दूर",
+          "एक-दूसरे की ओर",
+          "एक-दूसरे के पास से क्षैतिज रूप में",
+          "एक प्लेट दूसरी के नीचे"
+        ],
+        "explanation": "अपसरण स्थलमंडल को खींचता है। महासागरीय कटक पर ऊपर आया मैग्मा नई महासागरीय भूपर्पटी बनाता है।"
+      },
+      "pa": {
+        "stem": "ਅਪਸਾਰੀ ਹੱਦ ਉੱਤੇ ਪਲੇਟਾਂ ਕਿਵੇਂ ਹਿਲਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਇੱਕ-ਦੂਜੇ ਤੋਂ ਦੂਰ",
+          "ਇੱਕ-ਦੂਜੇ ਵੱਲ",
+          "ਇੱਕ-ਦੂਜੇ ਦੇ ਕੋਲੋਂ ਖਿਤਿਜੀ ਤੌਰ ਉੱਤੇ",
+          "ਇੱਕ ਪਲੇਟ ਦੂਜੀ ਦੇ ਹੇਠਾਂ"
+        ],
+        "explanation": "ਵੱਖ ਹੋਣ ਨਾਲ ਥਲ-ਮੰਡਲ ਖਿੱਚਦਾ ਹੈ। ਸਮੁੰਦਰੀ ਪਹਾੜੀ ਲੜੀਆਂ ਉੱਤੇ ਉੱਪਰ ਆਇਆ ਮੈਗਮਾ ਨਵੀਂ ਮਹਾਂਸਾਗਰੀ ਭੂ-ਪੇਪੜੀ ਬਣਾਉਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q006",
+    "cpId": "WGE-001-CP005",
+    "objective": "convergent",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How do plates move at a convergent boundary?",
+        "options": [
+          "Towards each other",
+          "Away from each other",
+          "Horizontally past each other without convergence",
+          "With no relative displacement"
+        ],
+        "explanation": "Convergence can cause subduction or continental collision. The outcome depends on the types of crust involved."
+      },
+      "hi": {
+        "stem": "अभिसारी सीमा पर प्लेटें किस प्रकार चलती हैं?",
+        "options": [
+          "एक-दूसरे की ओर",
+          "एक-दूसरे से दूर",
+          "बिना अभिसरण के एक-दूसरे के पास से क्षैतिज रूप में",
+          "बिना सापेक्ष विस्थापन के"
+        ],
+        "explanation": "अभिसरण से अधोगमन या महाद्वीपीय टक्कर हो सकती है। परिणाम संबंधित भूपर्पटी के प्रकार पर निर्भर है।"
+      },
+      "pa": {
+        "stem": "ਅਭਿਸਾਰੀ ਹੱਦ ਉੱਤੇ ਪਲੇਟਾਂ ਕਿਵੇਂ ਹਿਲਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਇੱਕ-ਦੂਜੇ ਵੱਲ",
+          "ਇੱਕ-ਦੂਜੇ ਤੋਂ ਦੂਰ",
+          "ਬਿਨਾਂ ਨੇੜੇ ਆਏ ਇੱਕ-ਦੂਜੇ ਦੇ ਕੋਲੋਂ ਖਿਤਿਜੀ ਤੌਰ ਉੱਤੇ",
+          "ਬਿਨਾਂ ਸਾਪੇਖ ਖਿਸਕਾਅ ਦੇ"
+        ],
+        "explanation": "ਇਕੱਠੇ ਆਉਣ ਨਾਲ ਇੱਕ ਪਲੇਟ ਹੇਠਾਂ ਜਾ ਸਕਦੀ ਹੈ ਜਾਂ ਮਹਾਂਦੀਪੀ ਟੱਕਰ ਹੋ ਸਕਦੀ ਹੈ। ਨਤੀਜਾ ਭੂ-ਪੇਪੜੀ ਦੀ ਕਿਸਮ ਉੱਤੇ ਨਿਰਭਰ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q007",
+    "cpId": "WGE-001-CP005",
+    "objective": "transform",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is the relative motion of plates at a transform boundary?",
+        "options": [
+          "Horizontal sliding past each other",
+          "Separation with new crust formation",
+          "Convergence with subduction",
+          "Compression with continental collision"
+        ],
+        "explanation": "Transform motion is mainly sideways. Crust is neither systematically created nor consumed along an ideal transform boundary."
+      },
+      "hi": {
+        "stem": "रूपांतर सीमा पर प्लेटों की सापेक्ष गति कैसी होती है?",
+        "options": [
+          "एक-दूसरे के पास से क्षैतिज रूप में खिसकना",
+          "नई भूपर्पटी बनाते हुए अलग होना",
+          "अधोगमन के साथ अभिसरण",
+          "महाद्वीपीय टक्कर के साथ संपीडन"
+        ],
+        "explanation": "रूपांतर गति मुख्यतः पार्श्व दिशा में है। आदर्श रूपांतर सीमा पर भूपर्पटी न नियमित बनती है, न नष्ट होती है।"
+      },
+      "pa": {
+        "stem": "ਰੂਪਾਂਤਰ ਹੱਦ ਉੱਤੇ ਪਲੇਟਾਂ ਇੱਕ-ਦੂਜੇ ਦੇ ਮੁਕਾਬਲੇ ਕਿਵੇਂ ਹਿਲਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਇੱਕ-ਦੂਜੇ ਦੇ ਕੋਲੋਂ ਖਿਤਿਜੀ ਤੌਰ ਉੱਤੇ ਖਿਸਕਣਾ",
+          "ਨਵੀਂ ਭੂ-ਪੇਪੜੀ ਬਣਾਉਂਦਿਆਂ ਵੱਖ ਹੋਣਾ",
+          "ਹੇਠਾਂ ਉਤਰਨ ਨਾਲ ਅਭਿਸਰਨ",
+          "ਮਹਾਂਦੀਪੀ ਟੱਕਰ ਨਾਲ ਦਬਣਾ"
+        ],
+        "explanation": "ਟਰਾਂਸਫਾਰਮ ਗਤੀ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਪਾਸੇ ਵੱਲ ਹੈ। ਆਦਰਸ਼ ਅਜਿਹੀ ਹੱਦ ਉੱਤੇ ਭੂ-ਪੇਪੜੀ ਨਾ ਨਿਯਮਤ ਬਣਦੀ ਹੈ, ਨਾ ਖ਼ਤਮ ਹੁੰਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q008",
+    "cpId": "WGE-001-CP005",
+    "objective": "subduction",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which process is known as subduction?",
+        "options": [
+          "One plate descends beneath another",
+          "Two plates slide sideways without sinking",
+          "New crust rises at a spreading ridge",
+          "Continental crust stretches without sinking"
+        ],
+        "explanation": "At a subduction zone, a descending plate enters the mantle. Deep ocean trenches often mark the surface expression."
+      },
+      "hi": {
+        "stem": "किस प्रक्रिया को अधोगमन कहते हैं?",
+        "options": [
+          "एक प्लेट दूसरी के नीचे उतरती है",
+          "दो प्लेटें नीचे उतरे बिना पार्श्व खिसकती हैं",
+          "फैलाव कटक पर नई भूपर्पटी ऊपर आती है",
+          "महाद्वीपीय भूपर्पटी नीचे उतरे बिना खिंचती है"
+        ],
+        "explanation": "अधोगमन क्षेत्र में उतरती प्लेट मैंटल में जाती है। गहरी महासागरीय खाइयाँ अक्सर इसका सतही संकेत हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਸਬਡਕਸ਼ਨ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਇੱਕ ਪਲੇਟ ਦੂਜੀ ਹੇਠਾਂ ਉਤਰਦੀ ਹੈ",
+          "ਦੋ ਪਲੇਟਾਂ ਹੇਠਾਂ ਉਤਰੇ ਬਿਨਾਂ ਪਾਸੇ ਖਿਸਕਦੀਆਂ ਹਨ",
+          "ਫੈਲਾਅ ਕੇਂਦਰ ਉੱਤੇ ਨਵੀਂ ਭੂ-ਪੇਪੜੀ ਉੱਪਰ ਆਉਂਦੀ ਹੈ",
+          "ਮਹਾਂਦੀਪੀ ਭੂ-ਪੇਪੜੀ ਹੇਠਾਂ ਉਤਰੇ ਬਿਨਾਂ ਖਿੱਚਦੀ ਹੈ"
+        ],
+        "explanation": "ਇਸ ਖੇਤਰ ਵਿੱਚ ਹੇਠਾਂ ਜਾਂਦੀ ਪਲੇਟ ਮੈਂਟਲ ਵਿੱਚ ਉਤਰਦੀ ਹੈ। ਡੂੰਘੀਆਂ ਸਮੁੰਦਰੀ ਖਾਈਆਂ ਅਕਸਰ ਇਸ ਦਾ ਸਤਹੀ ਸੰਕੇਤ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q009",
+    "cpId": "WGE-001-CP005",
+    "objective": "mid-atlantic-ridge",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The Mid-Atlantic Ridge is mainly which type of plate boundary?",
+        "options": [
+          "Divergent",
+          "Convergent with subduction",
+          "Convergent with continental collision",
+          "Transform throughout its length"
+        ],
+        "explanation": "Plates separate along the ridge system and new oceanic crust forms. Transform faults offset segments of the ridge."
+      },
+      "hi": {
+        "stem": "मध्य-अटलांटिक कटक मुख्यतः किस प्रकार की प्लेट सीमा है?",
+        "options": [
+          "अपसारी",
+          "अधोगमन वाली अभिसारी",
+          "महाद्वीपीय टक्कर वाली अभिसारी",
+          "पूरी लंबाई में रूपांतर"
+        ],
+        "explanation": "कटक तंत्र में प्लेटें अलग होती हैं और नई महासागरीय भूपर्पटी बनती है। रूपांतर भ्रंश कटक के खंडों को खिसकाते हैं।"
+      },
+      "pa": {
+        "stem": "ਮੱਧ-ਅਟਲਾਂਟਿਕ ਸਮੁੰਦਰੀ ਪਹਾੜੀ ਲੜੀ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀ ਪਲੇਟ ਹੱਦ ਹੈ?",
+        "options": [
+          "ਅਪਸਾਰੀ",
+          "ਸਬਡਕਸ਼ਨ ਵਾਲੀ ਅਭਿਸਾਰੀ",
+          "ਮਹਾਂਦੀਪੀ ਟੱਕਰ ਵਾਲੀ ਅਭਿਸਾਰੀ",
+          "ਪੂਰੀ ਲੰਬਾਈ ਵਿੱਚ ਰੂਪਾਂਤਰ"
+        ],
+        "explanation": "ਪਹਾੜੀ ਲੜੀ ਦੇ ਤੰਤਰ ਵਿੱਚ ਪਲੇਟਾਂ ਵੱਖ ਹੁੰਦੀਆਂ ਅਤੇ ਨਵੀਂ ਮਹਾਂਸਾਗਰੀ ਭੂ-ਪੇਪੜੀ ਬਣਦੀ ਹੈ। ਟਰਾਂਸਫਾਰਮ ਦਰਾਰਾਂ ਇਸ ਦੇ ਖੰਡਾਂ ਨੂੰ ਪਾਸੇ ਕਰਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q010",
+    "cpId": "WGE-001-CP005",
+    "objective": "sea-floor-age",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Where is the youngest oceanic crust found in a sea-floor spreading system?",
+        "options": [
+          "Near the spreading ridge",
+          "Near a subduction trench",
+          "At the continental margin farthest from the ridge",
+          "At equal age throughout the basin"
+        ],
+        "explanation": "New crust forms at spreading centres and moves away. Its age generally increases with distance from the ridge."
+      },
+      "hi": {
+        "stem": "समुद्र-तल प्रसरण वाले क्षेत्र में सबसे नई महासागरीय भूपर्पटी कहाँ मिलती है?",
+        "options": [
+          "प्रसारी कटक के पास",
+          "अधोगमन गर्त के पास",
+          "कटक से सबसे दूर महाद्वीपीय किनारे पर",
+          "पूरे बेसिन में समान आयु की"
+        ],
+        "explanation": "नई भूपर्पटी फैलाव केंद्रों पर बनकर दूर जाती है। कटक से दूरी के साथ उसकी आयु सामान्यतः बढ़ती है।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਤਲ ਦੇ ਫੈਲਾਅ ਵਾਲੇ ਖੇਤਰ ਵਿੱਚ ਸਭ ਤੋਂ ਨਵੀਂ ਸਮੁੰਦਰੀ ਭੂ-ਪੇਪੜੀ ਕਿੱਥੇ ਮਿਲਦੀ ਹੈ?",
+        "options": [
+          "ਫੈਲਾਅ ਵਾਲੇ ਕਟਕ ਦੇ ਨੇੜੇ",
+          "ਸਬਡਕਸ਼ਨ ਖਾਈ ਦੇ ਨੇੜੇ",
+          "ਕਟਕ ਤੋਂ ਸਭ ਤੋਂ ਦੂਰ ਮਹਾਂਦੀਪੀ ਕਿਨਾਰੇ ਉੱਤੇ",
+          "ਪੂਰੇ ਬੇਸਿਨ ਵਿੱਚ ਇੱਕੋ ਉਮਰ ਦੀ"
+        ],
+        "explanation": "ਨਵੀਂ ਭੂ-ਪੇਪੜੀ ਫੈਲਾਅ ਕੇਂਦਰਾਂ ਉੱਤੇ ਬਣਕੇ ਦੂਰ ਜਾਂਦੀ ਹੈ। ਪਹਾੜੀ ਲੜੀ ਤੋਂ ਦੂਰੀ ਨਾਲ ਇਸ ਦੀ ਉਮਰ ਆਮ ਤੌਰ ਉੱਤੇ ਵਧਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q011",
+    "cpId": "WGE-001-CP005",
+    "objective": "magnetic-stripes",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Matching magnetic stripes on either side of an oceanic ridge provide evidence for:",
+        "options": [
+          "Sea-floor spreading",
+          "Continental collision",
+          "Transform faulting alone",
+          "Subsidence of a stationary ocean floor"
+        ],
+        "explanation": "Cooling lava records magnetic polarity. Reversals and outward movement produce corresponding bands on either side of a ridge."
+      },
+      "hi": {
+        "stem": "महासागरीय कटक के दोनों ओर समान चुंबकीय पट्टियाँ किसका प्रमाण हैं?",
+        "options": [
+          "समुद्र-तल प्रसरण",
+          "महाद्वीपीय टक्कर",
+          "केवल रूपांतर भ्रंशन",
+          "स्थिर समुद्र-तल का धँसना"
+        ],
+        "explanation": "ठंडा लावा चुंबकीय ध्रुवता दर्ज करता है। ध्रुवता के उलटने और बाहर की गति से दोनों ओर मिलती पट्टियाँ बनती हैं।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਕਟਕ ਦੇ ਦੋਵੇਂ ਪਾਸੇ ਮਿਲਦੀਆਂ-ਜੁਲਦੀਆਂ ਚੁੰਬਕੀ ਪੱਟੀਆਂ ਕਿਸ ਦਾ ਸਬੂਤ ਹਨ?",
+        "options": [
+          "ਸਮੁੰਦਰੀ ਤਲ ਦਾ ਫੈਲਾਅ",
+          "ਮਹਾਂਦੀਪੀ ਟੱਕਰ",
+          "ਸਿਰਫ਼ ਰੂਪਾਂਤਰ ਭ੍ਰੰਸ਼ਨ",
+          "ਸਥਿਰ ਸਮੁੰਦਰੀ ਤਲ ਦਾ ਧੱਸਣਾ"
+        ],
+        "explanation": "ਠੰਢਾ ਹੁੰਦਾ ਲਾਵਾ ਚੁੰਬਕੀ ਧਰੁਵਤਾ ਦਰਜ ਕਰਦਾ ਹੈ। ਧਰੁਵਤਾ ਦੇ ਉਲਟਣ ਅਤੇ ਬਾਹਰਲੀ ਗਤੀ ਨਾਲ ਦੋਵੇਂ ਪਾਸੇ ਮਿਲਦੀਆਂ ਪੱਟੀਆਂ ਬਣਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q012",
+    "cpId": "WGE-001-CP005",
+    "objective": "himalayan-collision",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The Himalayas chiefly formed through collision of which plates?",
+        "options": [
+          "Indian and Eurasian",
+          "Pacific and Antarctic",
+          "Nazca and South American",
+          "African and North American"
+        ],
+        "explanation": "Continental collision shortened and thickened the crust. Continued convergence raised the mountain system."
+      },
+      "hi": {
+        "stem": "हिमालय मुख्यतः किन प्लेटों की टक्कर से बना?",
+        "options": [
+          "भारतीय और यूरेशियाई",
+          "प्रशांत और अंटार्कटिक",
+          "नाज़्का और दक्षिण अमेरिकी",
+          "अफ्रीकी और उत्तरी अमेरिकी"
+        ],
+        "explanation": "महाद्वीपीय टक्कर से भूपर्पटी सिकुड़कर मोटी हुई और पर्वत उठे। दोनों प्लेटों का अभिसरण पर्वतनिर्माण का कारण है।"
+      },
+      "pa": {
+        "stem": "ਹਿਮਾਲਿਆ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀਆਂ ਪਲੇਟਾਂ ਦੀ ਟੱਕਰ ਨਾਲ ਬਣਿਆ?",
+        "options": [
+          "ਭਾਰਤੀ ਅਤੇ ਯੂਰੇਸ਼ੀਆਈ",
+          "ਪ੍ਰਸ਼ਾਂਤ ਅਤੇ ਅੰਟਾਰਕਟਿਕ",
+          "ਨਾਜ਼ਕਾ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕੀ",
+          "ਅਫ਼ਰੀਕੀ ਅਤੇ ਉੱਤਰੀ ਅਮਰੀਕੀ"
+        ],
+        "explanation": "ਮਹਾਂਦੀਪੀ ਟੱਕਰ ਨਾਲ ਭੂ-ਪੇਪੜੀ ਸੁੰਗੜ ਕੇ ਮੋਟੀ ਹੋਈ ਅਤੇ ਪਹਾੜ ਉੱਠੇ। ਦੋਵਾਂ ਪਲੇਟਾਂ ਦਾ ਮਿਲਣਾ ਪਹਾੜ ਬਣਨ ਦਾ ਕਾਰਨ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q013",
+    "cpId": "WGE-001-CP005",
+    "objective": "andes-subduction",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which plate descends beneath the South American Plate along much of the Andes?",
+        "options": [
+          "Nazca",
+          "Arabian",
+          "Indian",
+          "Eurasian"
+        ],
+        "explanation": "The oceanic Nazca Plate subducts beneath South America. This helps explain the Andean volcanic belt and nearby trench."
+      },
+      "hi": {
+        "stem": "एंडीज के बड़े भाग के साथ दक्षिण अमेरिकी प्लेट के नीचे कौन-सी प्लेट उतरती है?",
+        "options": [
+          "नाज़्का",
+          "अरबी",
+          "भारतीय",
+          "यूरेशियाई"
+        ],
+        "explanation": "महासागरीय नाज़्का प्लेट दक्षिण अमेरिका के नीचे जाती है। इससे एंडीज की ज्वालामुखीय पट्टी और निकट की खाई समझ आती है।"
+      },
+      "pa": {
+        "stem": "ਐਂਡੀਜ਼ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਦੇ ਨਾਲ ਦੱਖਣੀ ਅਮਰੀਕੀ ਪਲੇਟ ਹੇਠਾਂ ਕਿਹੜੀ ਪਲੇਟ ਉਤਰਦੀ ਹੈ?",
+        "options": [
+          "ਨਾਜ਼ਕਾ",
+          "ਅਰਬੀ",
+          "ਭਾਰਤੀ",
+          "ਯੂਰੇਸ਼ੀਆਈ"
+        ],
+        "explanation": "ਮਹਾਂਸਾਗਰੀ ਨਾਜ਼ਕਾ ਪਲੇਟ ਦੱਖਣੀ ਅਮਰੀਕਾ ਹੇਠਾਂ ਜਾਂਦੀ ਹੈ। ਇਸ ਨਾਲ ਐਂਡੀਜ਼ ਦੀ ਜਵਾਲਾਮੁਖੀ ਪੱਟੀ ਅਤੇ ਨੇੜਲੀ ਖਾਈ ਸਮਝ ਆਉਂਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q014",
+    "cpId": "WGE-001-CP005",
+    "objective": "san-andreas",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The San Andreas Fault is a well-known example of which boundary?",
+        "options": [
+          "Transform",
+          "Divergent",
+          "Oceanic subduction",
+          "Continental collision"
+        ],
+        "explanation": "The Pacific and North American plates slide past one another along this fault system. This sideways motion generates earthquakes."
+      },
+      "hi": {
+        "stem": "सैन एंड्रियास भ्रंश किस सीमा का प्रसिद्ध उदाहरण है?",
+        "options": [
+          "रूपांतर",
+          "अपसारी",
+          "महासागरीय अधोगमन",
+          "महाद्वीपीय टक्कर"
+        ],
+        "explanation": "इस भ्रंश तंत्र में प्रशांत और उत्तरी अमेरिकी प्लेटें पास से खिसकती हैं। पार्श्व गति से भूकंप आते हैं।"
+      },
+      "pa": {
+        "stem": "ਸੈਨ ਐਂਡਰੀਅਸ ਦਰਾਰ ਕਿਹੜੀ ਹੱਦ ਦੀ ਮਸ਼ਹੂਰ ਮਿਸਾਲ ਹੈ?",
+        "options": [
+          "ਰੂਪਾਂਤਰ",
+          "ਅਪਸਾਰੀ",
+          "ਸਮੁੰਦਰੀ ਸਬਡਕਸ਼ਨ",
+          "ਮਹਾਂਦੀਪੀ ਟੱਕਰ"
+        ],
+        "explanation": "ਇਸ ਦਰਾਰ ਤੰਤਰ ਵਿੱਚ ਪ੍ਰਸ਼ਾਂਤ ਅਤੇ ਉੱਤਰੀ ਅਮਰੀਕੀ ਪਲੇਟਾਂ ਕੋਲੋਂ ਖਿਸਕਦੀਆਂ ਹਨ। ਪਾਸੇ ਵਾਲੀ ਗਤੀ ਨਾਲ ਭੂਚਾਲ ਆਉਂਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q015",
+    "cpId": "WGE-001-CP005",
+    "objective": "east-african-rift",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which tectonic process is responsible for the East African Rift?",
+        "options": [
+          "Continental stretching and rifting",
+          "Continental collision and folding",
+          "Oceanic subduction beneath a continent",
+          "Horizontal motion along a transform boundary"
+        ],
+        "explanation": "Extension thins the lithosphere and produces faults and rift valleys. Rifting can be an early stage in ocean-basin development."
+      },
+      "hi": {
+        "stem": "पूर्वी अफ्रीकी भ्रंश घाटी का निर्माण किस विवर्तनिक प्रक्रिया से हुआ है?",
+        "options": [
+          "महाद्वीपीय खिंचाव और दरार पड़ना",
+          "महाद्वीपीय टक्कर और वलन",
+          "महाद्वीप के नीचे महासागरीय प्लेट का अधोगमन",
+          "रूपांतर सीमा पर क्षैतिज गति"
+        ],
+        "explanation": "खिंचाव स्थलमंडल को पतला करके भ्रंश और दरार घाटियाँ बनाता है। यह महासागरीय बेसिन बनने का शुरुआती चरण हो सकता है।"
+      },
+      "pa": {
+        "stem": "ਪੂਰਬੀ ਅਫ਼ਰੀਕੀ ਰਿਫ਼ਟ ਘਾਟੀ ਕਿਹੜੀ ਟੈਕਟੋਨਿਕ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਬਣੀ ਹੈ?",
+        "options": [
+          "ਮਹਾਂਦੀਪ ਦਾ ਖਿੱਚਿਆ ਜਾਣਾ ਅਤੇ ਦਰਾੜ ਪੈਣਾ",
+          "ਮਹਾਂਦੀਪੀ ਟੱਕਰ ਅਤੇ ਵਲਨ",
+          "ਮਹਾਂਦੀਪ ਹੇਠਾਂ ਸਮੁੰਦਰੀ ਪਲੇਟ ਦਾ ਉਤਰਨਾ",
+          "ਰੂਪਾਂਤਰ ਹੱਦ ਉੱਤੇ ਖਿਤਿਜੀ ਗਤੀ"
+        ],
+        "explanation": "ਖਿੱਚ ਥਲ-ਮੰਡਲ ਨੂੰ ਪਤਲਾ ਕਰਕੇ ਦਰਾਰਾਂ ਅਤੇ ਰਿਫ਼ਟ ਘਾਟੀਆਂ ਬਣਾਉਂਦੀ ਹੈ। ਇਹ ਮਹਾਂਸਾਗਰੀ ਬੇਸਿਨ ਬਣਨ ਦਾ ਸ਼ੁਰੂਆਤੀ ਪੜਾਅ ਹੋ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q016",
+    "cpId": "WGE-001-CP005",
+    "objective": "island-arc",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which pair of features commonly develops where two oceanic plates converge?",
+        "options": [
+          "Trench and volcanic island arc",
+          "Mid-ocean ridge and rift valley",
+          "Fold mountains and continental plateau",
+          "Transform fault and spreading ridge"
+        ],
+        "explanation": "One oceanic plate descends beneath another. Subduction creates a trench and can generate an arc of volcanic islands."
+      },
+      "hi": {
+        "stem": "दो महासागरीय प्लेटों के अभिसरण पर सामान्यतः कौन-सा स्थलरूप युग्म बनता है?",
+        "options": [
+          "महासागरीय गर्त और ज्वालामुखीय द्वीप चाप",
+          "मध्य-महासागरीय कटक और भ्रंश घाटी",
+          "वलित पर्वत और महाद्वीपीय पठार",
+          "रूपांतर भ्रंश और प्रसारी कटक"
+        ],
+        "explanation": "एक महासागरीय प्लेट दूसरी के नीचे उतरती है। इससे खाई और ज्वालामुखीय द्वीपों का चाप बन सकता है।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਸਮੁੰਦਰੀ ਪਲੇਟਾਂ ਦੇ ਟਕਰਾਉਣ ਵਾਲੇ ਖੇਤਰ ਵਿੱਚ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜੇ ਦੋ ਭੂ-ਰੂਪ ਬਣਦੇ ਹਨ?",
+        "options": [
+          "ਸਮੁੰਦਰੀ ਖਾਈ ਅਤੇ ਜਵਾਲਾਮੁਖੀ ਟਾਪੂ ਚਾਪ",
+          "ਮੱਧ-ਸਮੁੰਦਰੀ ਕਟਕ ਅਤੇ ਰਿਫ਼ਟ ਘਾਟੀ",
+          "ਵਲਿਤ ਪਹਾੜ ਅਤੇ ਮਹਾਂਦੀਪੀ ਪਠਾਰ",
+          "ਰੂਪਾਂਤਰ ਭ੍ਰੰਸ਼ ਅਤੇ ਫੈਲਾਅ ਵਾਲਾ ਕਟਕ"
+        ],
+        "explanation": "ਇੱਕ ਮਹਾਂਸਾਗਰੀ ਪਲੇਟ ਦੂਜੀ ਹੇਠਾਂ ਉਤਰਦੀ ਹੈ। ਇਸ ਨਾਲ ਖਾਈ ਅਤੇ ਜਵਾਲਾਮੁਖੀ ਟਾਪੂਆਂ ਦਾ ਚਾਪ ਬਣ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q017",
+    "cpId": "WGE-001-CP005",
+    "objective": "hotspot",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The formation of the Hawaiian island chain is mainly attributed to:",
+        "options": [
+          "A plate moving over a hotspot",
+          "Collision between two continental plates",
+          "Subduction at an oceanic trench",
+          "Spreading along a mid-ocean ridge"
+        ],
+        "explanation": "Hotspot volcanism can occur within a plate. Therefore not every volcano marks a plate boundary."
+      },
+      "hi": {
+        "stem": "हवाई द्वीप शृंखला के निर्माण का मुख्य कारण है:",
+        "options": [
+          "हॉटस्पॉट के ऊपर प्लेट की गति",
+          "दो महाद्वीपीय प्लेटों की टक्कर",
+          "महासागरीय गर्त पर अधोगमन",
+          "मध्य-महासागरीय कटक पर प्रसरण"
+        ],
+        "explanation": "तप्त स्थल का ज्वालामुखी प्लेट के भीतर भी हो सकता है। इसलिए हर ज्वालामुखी प्लेट सीमा नहीं दर्शाता।"
+      },
+      "pa": {
+        "stem": "ਹਵਾਈ ਟਾਪੂ ਲੜੀ ਦੇ ਬਣਨ ਦਾ ਮੁੱਖ ਕਾਰਨ ਹੈ:",
+        "options": [
+          "ਹੌਟਸਪੌਟ ਦੇ ਉੱਪਰ ਪਲੇਟ ਦੀ ਗਤੀ",
+          "ਦੋ ਮਹਾਂਦੀਪੀ ਪਲੇਟਾਂ ਦੀ ਟੱਕਰ",
+          "ਸਮੁੰਦਰੀ ਖਾਈ ਉੱਤੇ ਹੇਠਾਂ ਉਤਰਨਾ",
+          "ਮੱਧ-ਸਮੁੰਦਰੀ ਕਟਕ ਉੱਤੇ ਫੈਲਾਅ"
+        ],
+        "explanation": "ਤਪਤ ਕੇਂਦਰ ਵਾਲਾ ਜਵਾਲਾਮੁਖੀ ਪਲੇਟ ਦੇ ਅੰਦਰ ਵੀ ਹੋ ਸਕਦਾ ਹੈ। ਇਸ ਲਈ ਹਰ ਜਵਾਲਾਮੁਖੀ ਪਲੇਟ ਦੀ ਹੱਦ ਨਹੀਂ ਦੱਸਦਾ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q018",
+    "cpId": "WGE-001-CP005",
+    "objective": "ring-of-fire",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The 'Ring of Fire' is mainly found around which ocean?",
+        "options": [
+          "Pacific",
+          "Atlantic",
+          "Arctic",
+          "Southern"
+        ],
+        "explanation": "Many active plate boundaries surround the Pacific. Numerous earthquakes and volcanoes occur along these margins."
+      },
+      "hi": {
+        "stem": "‘अग्नि वलय’ मुख्यतः किस महासागर के चारों ओर है?",
+        "options": [
+          "प्रशांत",
+          "अटलांटिक",
+          "आर्कटिक",
+          "दक्षिणी"
+        ],
+        "explanation": "प्रशांत के आसपास अनेक सक्रिय प्लेट सीमाएँ हैं। इन किनारों पर बहुत से भूकंप और ज्वालामुखी होते हैं।"
+      },
+      "pa": {
+        "stem": "‘ਅੱਗ ਦਾ ਘੇਰਾ’ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕਿਹੜੇ ਮਹਾਂਸਾਗਰ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਹੈ?",
+        "options": [
+          "ਪ੍ਰਸ਼ਾਂਤ",
+          "ਅਟਲਾਂਟਿਕ",
+          "ਆਰਕਟਿਕ",
+          "ਦੱਖਣੀ"
+        ],
+        "explanation": "ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਕਈ ਸਰਗਰਮ ਪਲੇਟ ਹੱਦਾਂ ਹਨ। ਇਨ੍ਹਾਂ ਕਿਨਾਰਿਆਂ ਉੱਤੇ ਬਹੁਤ ਸਾਰੇ ਭੂਚਾਲ ਅਤੇ ਜਵਾਲਾਮੁਖੀ ਹੁੰਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q019",
+    "cpId": "WGE-001-CP005",
+    "objective": "plate-continent-distinction",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which statement about continents and tectonic plates is correct?",
+        "options": [
+          "Their boundaries need not coincide",
+          "Every continent is exactly one plate",
+          "Every plate contains only oceanic crust",
+          "Continents move independently through fixed oceanic crust"
+        ],
+        "explanation": "Continents are carried within lithospheric plates. Plate boundaries may lie on land or beneath oceans."
+      },
+      "hi": {
+        "stem": "महाद्वीपों और विवर्तनिक प्लेटों के बारे में कौन-सा कथन सही है?",
+        "options": [
+          "इनकी सीमाएँ समान होना जरूरी नहीं",
+          "हर महाद्वीप ठीक एक प्लेट है",
+          "हर प्लेट में केवल महासागरीय भूपर्पटी है",
+          "महाद्वीप स्थिर महासागरीय भूपर्पटी में स्वतंत्र चलते हैं"
+        ],
+        "explanation": "महाद्वीप स्थलमंडलीय प्लेटों के साथ चलते हैं। प्लेट सीमाएँ स्थल पर या महासागर के नीचे हो सकती हैं।"
+      },
+      "pa": {
+        "stem": "ਮਹਾਂਦੀਪਾਂ ਅਤੇ ਟੈਕਟੋਨਿਕ ਪਲੇਟਾਂ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਇਨ੍ਹਾਂ ਦੀਆਂ ਹੱਦਾਂ ਇੱਕੋ ਹੋਣੀਆਂ ਲਾਜ਼ਮੀ ਨਹੀਂ",
+          "ਹਰ ਮਹਾਂਦੀਪ ਬਿਲਕੁਲ ਇੱਕ ਪਲੇਟ ਹੈ",
+          "ਹਰ ਪਲੇਟ ਵਿੱਚ ਕੇਵਲ ਮਹਾਂਸਾਗਰੀ ਭੂ-ਪੇਪੜੀ ਹੈ",
+          "ਮਹਾਂਦੀਪ ਅਡੋਲ ਮਹਾਂਸਾਗਰੀ ਭੂ-ਪੇਪੜੀ ਵਿੱਚ ਸੁਤੰਤਰ ਚੱਲਦੇ ਹਨ"
+        ],
+        "explanation": "ਮਹਾਂਦੀਪ ਥਲ-ਮੰਡਲੀ ਪਲੇਟਾਂ ਨਾਲ ਚੱਲਦੇ ਹਨ। ਪਲੇਟਾਂ ਦੀਆਂ ਹੱਦਾਂ ਥਲ ਉੱਤੇ ਜਾਂ ਮਹਾਂਸਾਗਰ ਹੇਠਾਂ ਹੋ ਸਕਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q020",
+    "cpId": "WGE-001-CP005",
+    "objective": "plate-speed",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "The movement of tectonic plates is generally of the order of:",
+        "options": [
+          "Centimetres per year",
+          "Millimetres per century",
+          "Metres per day",
+          "Kilometres per year"
+        ],
+        "explanation": "Plate motion is slow on human timescales but accumulates over millions of years. Satellite measurements can detect it."
+      },
+      "hi": {
+        "stem": "विवर्तनिक प्लेटों की गति सामान्यतः किस परिमाण की होती है?",
+        "options": [
+          "सेंटीमीटर प्रति वर्ष",
+          "मिलीमीटर प्रति शताब्दी",
+          "मीटर प्रति दिन",
+          "किलोमीटर प्रति वर्ष"
+        ],
+        "explanation": "मानवीय समय में प्लेट गति धीमी है, पर लाखों वर्षों में बड़ा बदलाव करती है। उपग्रह मापन इसे पकड़ सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਟੈਕਟੋਨਿਕ ਪਲੇਟਾਂ ਦੀ ਗਤੀ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ ਪੱਧਰ ਦੀ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਸੈਂਟੀਮੀਟਰ ਪ੍ਰਤੀ ਸਾਲ",
+          "ਮਿਲੀਮੀਟਰ ਪ੍ਰਤੀ ਸਦੀ",
+          "ਮੀਟਰ ਪ੍ਰਤੀ ਦਿਨ",
+          "ਕਿਲੋਮੀਟਰ ਪ੍ਰਤੀ ਸਾਲ"
+        ],
+        "explanation": "ਮਨੁੱਖੀ ਸਮੇਂ ਵਿੱਚ ਪਲੇਟ ਗਤੀ ਹੌਲੀ ਹੈ ਪਰ ਲੱਖਾਂ ਸਾਲਾਂ ਵਿੱਚ ਵੱਡਾ ਬਦਲਾਅ ਕਰਦੀ ਹੈ। ਉਪਗ੍ਰਹਿ ਮਾਪ ਇਸ ਨੂੰ ਪਤਾ ਕਰ ਸਕਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q021",
+    "cpId": "WGE-001-CP005",
+    "objective": "slab-pull",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What causes slab pull at a subduction zone?",
+        "options": [
+          "The weight of the cold, dense descending slab",
+          "Pressure exerted by ocean currents on the plate",
+          "Thermal expansion of the descending slab",
+          "Friction from winds over the plate surface"
+        ],
+        "explanation": "A dense descending slab exerts slab pull on the rest of the plate. Plate movement involves several interacting forces."
+      },
+      "hi": {
+        "stem": "अधोगमन क्षेत्र में स्लैब पुल का कारण क्या है?",
+        "options": [
+          "ठंडी और सघन, नीचे उतरती प्लेट का भार",
+          "प्लेट पर महासागरीय धाराओं का दाब",
+          "नीचे उतरती प्लेट का तापीय प्रसार",
+          "प्लेट की सतह पर हवाओं का घर्षण"
+        ],
+        "explanation": "घनी उतरती प्लेट बाकी भाग पर खिंचाव डालती है। प्लेट गति में कई बल मिलकर काम करते हैं।"
+      },
+      "pa": {
+        "stem": "ਸਬਡਕਸ਼ਨ ਖੇਤਰ ਵਿੱਚ ਸਲੈਬ ਪੁੱਲ ਦਾ ਕਾਰਨ ਕੀ ਹੈ?",
+        "options": [
+          "ਠੰਢੀ ਅਤੇ ਸੰਘਣੀ, ਹੇਠਾਂ ਉਤਰਦੀ ਪਲੇਟ ਦਾ ਭਾਰ",
+          "ਪਲੇਟ ਉੱਤੇ ਸਮੁੰਦਰੀ ਧਾਰਾਵਾਂ ਦਾ ਦਬਾਅ",
+          "ਹੇਠਾਂ ਉਤਰਦੀ ਪਲੇਟ ਦਾ ਗਰਮੀ ਨਾਲ ਫੈਲਣਾ",
+          "ਪਲੇਟ ਦੀ ਸਤਹ ਉੱਤੇ ਹਵਾਵਾਂ ਦੀ ਰਗੜ"
+        ],
+        "explanation": "ਸੰਘਣੀ ਹੇਠਾਂ ਜਾਂਦੀ ਪਲੇਟ ਬਾਕੀ ਹਿੱਸੇ ਉੱਤੇ ਖਿੱਚ ਪਾਉਂਦੀ ਹੈ। ਪਲੇਟ ਗਤੀ ਵਿੱਚ ਕਈ ਬਲ ਮਿਲਕੇ ਕੰਮ ਕਰਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q022",
+    "cpId": "WGE-001-CP005",
+    "objective": "boundary-comparison",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which option correctly matches plate boundaries with their relative motions?",
+        "options": [
+          "Divergent—apart; convergent—together; transform—past each other",
+          "Divergent—together; convergent—apart; transform—past each other",
+          "Divergent—apart; convergent—past each other; transform—together",
+          "Divergent—past each other; convergent—together; transform—apart"
+        ],
+        "explanation": "The three types are classified by relative plate movement. This motion controls their characteristic landforms and hazards."
+      },
+      "hi": {
+        "stem": "किस विकल्प में प्लेट सीमाओं और उनकी सापेक्ष गतियों का मिलान सही है?",
+        "options": [
+          "अपसारी—दूर; अभिसारी—पास; रूपांतर—एक-दूसरे के पास से",
+          "अपसारी—पास; अभिसारी—दूर; रूपांतर—एक-दूसरे के पास से",
+          "अपसारी—दूर; अभिसारी—एक-दूसरे के पास से; रूपांतर—पास",
+          "अपसारी—एक-दूसरे के पास से; अभिसारी—पास; रूपांतर—दूर"
+        ],
+        "explanation": "तीनों प्रकार सापेक्ष प्लेट गति पर आधारित हैं। यही गति उनकी स्थलाकृतियों और खतरों को प्रभावित करती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਪਲੇਟਾਂ ਦੀਆਂ ਹੱਦਾਂ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਸਾਪੇਖ ਗਤੀਆਂ ਦਾ ਮਿਲਾਣ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਅਪਸਾਰੀ—ਦੂਰ; ਅਭਿਸਾਰੀ—ਨੇੜੇ; ਰੂਪਾਂਤਰ—ਇੱਕ-ਦੂਜੇ ਦੇ ਕੋਲੋਂ",
+          "ਅਪਸਾਰੀ—ਨੇੜੇ; ਅਭਿਸਾਰੀ—ਦੂਰ; ਰੂਪਾਂਤਰ—ਇੱਕ-ਦੂਜੇ ਦੇ ਕੋਲੋਂ",
+          "ਅਪਸਾਰੀ—ਦੂਰ; ਅਭਿਸਾਰੀ—ਇੱਕ-ਦੂਜੇ ਦੇ ਕੋਲੋਂ; ਰੂਪਾਂਤਰ—ਨੇੜੇ",
+          "ਅਪਸਾਰੀ—ਇੱਕ-ਦੂਜੇ ਦੇ ਕੋਲੋਂ; ਅਭਿਸਾਰੀ—ਨੇੜੇ; ਰੂਪਾਂਤਰ—ਦੂਰ"
+        ],
+        "explanation": "ਤਿੰਨੇ ਕਿਸਮਾਂ ਪਲੇਟਾਂ ਦੀ ਆਪਸੀ ਗਤੀ ਉੱਤੇ ਆਧਾਰਿਤ ਹਨ। ਇਹ ਗਤੀ ਉਨ੍ਹਾਂ ਦੀਆਂ ਭੂ-ਆਕ੍ਰਿਤੀਆਂ ਅਤੇ ਖ਼ਤਰਿਆਂ ਉੱਤੇ ਅਸਰ ਪਾਉਂਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q023",
+    "cpId": "WGE-001-CP005",
+    "objective": "ridge-trench-balance",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "New oceanic crust forms at spreading ridges. Which process prevents a corresponding continuous increase in Earth's surface area?",
+        "options": [
+          "Recycling of old oceanic lithosphere at subduction zones",
+          "Accumulation of river sediment on the sea floor",
+          "Cooling of continental crust at mountain tops",
+          "Horizontal sliding along transform faults alone"
+        ],
+        "explanation": "Creation at spreading ridges is balanced over time by recycling at subduction zones. Plates are parts of a renewing lithospheric system."
+      },
+      "hi": {
+        "stem": "प्रसारी कटकों पर नई महासागरीय भूपर्पटी बनती है। कौन-सी प्रक्रिया पृथ्वी के सतही क्षेत्रफल को उसी अनुपात में लगातार बढ़ने से रोकती है?",
+        "options": [
+          "अधोगमन क्षेत्रों में पुरानी महासागरीय स्थलमंडलीय प्लेट का पुनर्चक्रण",
+          "समुद्र-तल पर नदी की तलछट का जमाव",
+          "पर्वत शिखरों पर महाद्वीपीय भूपर्पटी का ठंडा होना",
+          "केवल रूपांतर भ्रंशों पर क्षैतिज खिसकना"
+        ],
+        "explanation": "फैलाव कटक पर निर्माण का लंबे समय में अधोगमन से संतुलन होता है। स्थलमंडल का पदार्थ पुनर्चक्रित होता रहता है।"
+      },
+      "pa": {
+        "stem": "ਫੈਲਾਅ ਵਾਲੇ ਕਟਕਾਂ ਉੱਤੇ ਨਵੀਂ ਸਮੁੰਦਰੀ ਭੂ-ਪੇਪੜੀ ਬਣਦੀ ਹੈ। ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਧਰਤੀ ਦਾ ਸਤਹੀ ਖੇਤਰਫਲ ਉਸੇ ਅਨੁਪਾਤ ਵਿੱਚ ਲਗਾਤਾਰ ਵਧਣ ਤੋਂ ਰੋਕਦੀ ਹੈ?",
+        "options": [
+          "ਸਬਡਕਸ਼ਨ ਖੇਤਰਾਂ ਵਿੱਚ ਪੁਰਾਣੀ ਸਮੁੰਦਰੀ ਥਲ-ਮੰਡਲੀ ਪਲੇਟ ਦਾ ਮੁੜ ਮੈਂਟਲ ਵਿੱਚ ਜਾਣਾ",
+          "ਸਮੁੰਦਰੀ ਤਲ ਉੱਤੇ ਦਰਿਆ ਦੀ ਤਲਛਟ ਜਮ੍ਹਾਂ ਹੋਣਾ",
+          "ਪਹਾੜੀ ਚੋਟੀਆਂ ਉੱਤੇ ਮਹਾਂਦੀਪੀ ਭੂ-ਪੇਪੜੀ ਦਾ ਠੰਢਾ ਹੋਣਾ",
+          "ਸਿਰਫ਼ ਰੂਪਾਂਤਰ ਭ੍ਰੰਸ਼ਾਂ ਉੱਤੇ ਖਿਤਿਜੀ ਖਿਸਕਣਾ"
+        ],
+        "explanation": "ਫੈਲਾਅ ਵਾਲੀਆਂ ਲੜੀਆਂ ਉੱਤੇ ਬਣਨਾ ਲੰਮੇ ਸਮੇਂ ਵਿੱਚ ਹੇਠਾਂ ਉਤਰਣ ਨਾਲ ਸੰਤੁਲਿਤ ਹੁੰਦਾ ਹੈ। ਥਲ-ਮੰਡਲ ਦਾ ਪਦਾਰਥ ਮੁੜ ਚੱਕਰ ਵਿੱਚ ਆਉਂਦਾ ਰਹਿੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP005-Q024",
+    "cpId": "WGE-001-CP005",
+    "objective": "rift-versus-fold",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-PLATES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which option correctly identifies the forces that form rift valleys and fold mountains?",
+        "options": [
+          "Rift valleys—extension; fold mountains—compression",
+          "Rift valleys—compression; fold mountains—extension",
+          "Both—extension",
+          "Both—compression"
+        ],
+        "explanation": "Extension can lower fault-bounded blocks. Compression shortens rock layers, often folding and uplifting them."
+      },
+      "hi": {
+        "stem": "किस विकल्प में भ्रंश घाटियों और वलित पर्वतों के निर्माणकारी बल सही दिए गए हैं?",
+        "options": [
+          "भ्रंश घाटियाँ—खिंचाव; वलित पर्वत—संपीडन",
+          "भ्रंश घाटियाँ—संपीडन; वलित पर्वत—खिंचाव",
+          "दोनों—खिंचाव",
+          "दोनों—संपीडन"
+        ],
+        "explanation": "खिंचाव भ्रंशों के बीच के खंड को नीचे कर सकता है। संपीडन परतों को छोटा करके मोड़ता और ऊपर उठाता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਰਿਫ਼ਟ ਘਾਟੀਆਂ ਅਤੇ ਵਲਿਤ ਪਹਾੜਾਂ ਨੂੰ ਬਣਾਉਣ ਵਾਲੇ ਬਲ ਸਹੀ ਦਿੱਤੇ ਗਏ ਹਨ?",
+        "options": [
+          "ਰਿਫ਼ਟ ਘਾਟੀਆਂ—ਖਿੱਚ; ਵਲਿਤ ਪਹਾੜ—ਦਬਾਅ",
+          "ਰਿਫ਼ਟ ਘਾਟੀਆਂ—ਦਬਾਅ; ਵਲਿਤ ਪਹਾੜ—ਖਿੱਚ",
+          "ਦੋਵੇਂ—ਖਿੱਚ",
+          "ਦੋਵੇਂ—ਦਬਾਅ"
+        ],
+        "explanation": "ਖਿੱਚ ਦਰਾਰਾਂ ਵਿਚਕਾਰਲੇ ਟੁਕੜੇ ਨੂੰ ਹੇਠਾਂ ਕਰ ਸਕਦੀ ਹੈ। ਦਬਾਅ ਪਰਤਾਂ ਨੂੰ ਸੁੰਗੋੜ ਕੇ ਮੋੜਦਾ ਅਤੇ ਉੱਪਰ ਚੁੱਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  }
+]

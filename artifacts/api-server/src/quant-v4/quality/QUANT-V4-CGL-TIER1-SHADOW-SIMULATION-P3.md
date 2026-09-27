@@ -7,7 +7,7 @@
 
 ## Purpose
 
-The preceding P3 governance checkpoint derived a stable empirical shadow mix from 13 complete SSC CGL Tier-I Quant sections / 325 questions:
+The P3 frequency-governance checkpoint derives a stable empirical shadow mix from 13 complete SSC CGL Tier-I Quant sections / 325 questions:
 
 - Arithmetic core: 11
 - Data Interpretation: 3
@@ -15,52 +15,87 @@ The preceding P3 governance checkpoint derived a stable empirical shadow mix fro
 - Trigonometry: 3
 - Algebra: 3
 
-This checkpoint asks the next practical question: **can Question Studio actually fill that more realistic 25-question mix without making the current section-level capability problem worse?**
+This audit asks whether Question Studio can fill that 25-question mix cleanly without mutating the active simulator profile.
 
-The active simulator remains unchanged at 13 Arithmetic, 4 Geometry/Mensuration, 3 Trigonometry, 2 Algebra and 3 Probability. The empirical shadow mix is generated only inside this audit.
+The active simulator remains unchanged. The empirical mix is generated only inside this shadow audit.
 
-## Structural finding before runtime sampling
+## Current structural state
 
-The central section-simulation contract currently has no deterministic SSC CGL Tier-I adapter for:
+The former section-assembly gaps for Algebra and Trigonometry are closed.
 
-- Trigonometry (`TRG-001` / `TRG-002`)
-- Algebra
+The shadow simulator now routes:
 
-That means the current provisional blueprint contains **5 structural gaps per section**: 3 Trigonometry + 2 Algebra.
+- Arithmetic through the normal Question Studio package pool;
+- Data Interpretation through linked DI generators;
+- Geometry/Mensuration through exposed Question Studio runtime packages;
+- Trigonometry through the merged advanced-math adapter;
+- Algebra through the merged advanced-math adapter.
 
-The empirical shadow blueprint contains **6 structural gaps per section**: 3 Trigonometry + 3 Algebra.
+A current 20-section / 500-question run is expected to have:
 
-So even before looking at generation quality, switching the simulator to the empirical mix would make the known section-assembly gap worse by one slot per 25-question section. The reason is not the empirical blueprint; it is the missing Algebra/Trigonometry section adapters.
+- 500 runtime-generated records;
+- 0 capability gaps;
+- 0 Advanced Mathematics capability gaps;
+- 0 current integrated baseline capability gaps;
+- 60 Algebra records;
+- 60 Trigonometry records;
+- 4 options on every generated CGL question;
+- no empty explanations.
 
-## Runtime audit
+## Lifecycle state
 
-The CI proof generates 20 complete shadow sections (500 records) and, in parallel, 20 current baseline SSC CGL Tier-I sections. Non-gap shadow slots use the existing Question Studio generation paths:
+Algebra remains deliberately `BANK_ONLY` / test-ineligible.
 
-- Arithmetic: normal Question Studio package pool
-- Data Interpretation: DI-001 to DI-006 linked-set generators
-- Geometry/Mensuration: the currently exposed GEO-001 / MEN-002 simulation pool
-- Trigonometry: explicit capability-gap record
-- Algebra: explicit capability-gap record
+That is a lifecycle/governance lock, not a generation capability gap. The shadow audit must therefore keep:
 
-The audit records option-count mismatches, empty explanations, normalized stem repetition, slot distribution and package distribution. It fails closed when capability gaps remain.
+`ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK`
+
+until a separate lifecycle authorization changes the Algebra contract.
+
+Trigonometry remains internally test-eligible but public-release locked.
+
+## Structural diversity
+
+The audit measures:
+
+- literal stem duplication;
+- normalized structural stem reuse.
+
+The conservative normalized structural reuse ceiling is **5%**.
+
+The current regression requires:
+
+`normalizedStructuralStemReuseRate <= 0.05`
+
+The latest observed 20-section / 500-question shadow run reports:
+
+- literal stem duplicate rate: **8.4%**;
+- normalized structural stem reuse: **21.8%**;
+- blocker: `SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT`.
+
+Therefore structural reuse is a current content-quality blocker and must be remediated rather than waived.
 
 ## Expected governance result
 
-The correct result at this checkpoint is `SHADOW_SIMULATION_HOLD`, not promotion.
+The correct current result remains:
 
-At minimum the audit must report:
+`SHADOW_SIMULATION_HOLD`
 
-- 20 sections / 500 records
-- 120 structural gap records from Algebra + Trigonometry
-- 6 structural gaps per shadow section versus 5 in the current provisional section
-- no mutation of the active simulator profile
-- `productionPromotionAuthorized = false`
-- `runtimeBlueprintMutationAuthorized = false`
+Structural capability gaps are closed, but the shadow remains on hold for two different reasons:
 
-Additional runtime failures or quality defects are allowed to add blockers; they must never be hidden to make the shadow plan appear healthier.
+1. `ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK` — deliberate lifecycle/governance hold;
+2. `SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT` — active content-diversity defect.
+
+The audit must continue to report:
+
+- no mutation of the active simulator profile;
+- `productionPromotionAuthorized = false`;
+- `runtimeBlueprintMutationAuthorized = false`.
 
 ## Interpretation
 
-This result does **not** reject the empirical 11/3/5/3/3 mix. It shows that the empirical evidence has advanced faster than the section assembler. The next engineering checkpoint should therefore expose deterministic SSC CGL Tier-I Algebra and Trigonometry adapters to the section simulation contract, then rerun the exact same shadow audit.
+The empirical 11/3/5/3/3 mix is structurally fillable by the current runtime.
 
-Production frequency promotion remains a separate authorization decision after the shadow simulation can pass without structural capability gaps.
+This still does not authorize production frequency promotion. Frequency promotion, Algebra lifecycle promotion, and public-release authorization remain separate governance decisions.
+
+Novelty is outside this checkpoint.

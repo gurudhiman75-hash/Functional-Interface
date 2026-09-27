@@ -40,6 +40,7 @@ const migrationFiles = [
   "20260901_current_affairs_master_pack_editorial_approval.sql",
   "20260903_current_affairs_selected_processing_runs.sql",
   "20260905_current_affairs_selected_processing_localization_method.sql",
+  "20260926_current_affairs_coverage_discovery.sql",
 ];
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -126,6 +127,20 @@ try {
     || Boolean(gdelt.is_primary_source)
     || Boolean(gdelt.allow_raw_text_persistence)) {
     throw new Error("Current Affairs open-news discovery provider did not bootstrap with the required non-primary metadata-only policy");
+  }
+
+  const [coverageDiscovery] = await sql`
+    SELECT source_key, source_tier, ingestion_mode, is_primary_source, allow_raw_text_persistence
+    FROM content.current_affairs_sources
+    WHERE source_key='tavily_open_news'
+    LIMIT 1
+  `;
+  if (!coverageDiscovery
+    || String(coverageDiscovery.source_tier) !== 'specialist'
+    || String(coverageDiscovery.ingestion_mode) !== 'api'
+    || Boolean(coverageDiscovery.is_primary_source)
+    || Boolean(coverageDiscovery.allow_raw_text_persistence)) {
+    throw new Error("Current Affairs coverage discovery provider did not bootstrap with the required metadata-only policy");
   }
 
   const [countRow] = await sql`

@@ -25,6 +25,9 @@ import {
   hasQuestionSpecificEvidence,
   semanticExplanationSignature,
 } from "./semantic-explanation-quality";
+import {
+  generateQuantV4AdvancedMathSectionQuestion,
+} from "./quant-v4-real-exam-advanced-math-adapters-p2";
 
 export const QUANT_V4_REAL_EXAM_SIMULATION_AUTHORITY =
   "QUANT-V4-REAL-EXAM-SIMULATION-AUDIT-P2" as const;
@@ -76,6 +79,7 @@ export interface QuantV4RealExamProfile {
     | "SSC_CGL_TIER_I"
     | "SSC_CGL_CHSL"
     | "SSC_CGL_JSO"
+    | "PUNJAB_STATE"
     | "BANKING_PRELIMS"
     | "BANKING_MAINS"
     | null;
@@ -150,8 +154,8 @@ export const QUANT_V4_REAL_EXAM_PROFILES: readonly QuantV4RealExamProfile[] = Ob
     family: "PUNJAB_STATE",
     questionCount: 20,
     expectedOptionCount: 4,
-    centralDeliveryProfile: null,
-    centralProfileGap: true,
+    centralDeliveryProfile: "PUNJAB_STATE",
+    centralProfileGap: false,
     blueprintEvidence: "PROVISIONAL_PYQ_WEIGHTING_REQUIRED",
     slotPlan: [
       { kind: "ARITHMETIC_CORE", count: 14 },
@@ -167,8 +171,8 @@ export const QUANT_V4_REAL_EXAM_PROFILES: readonly QuantV4RealExamProfile[] = Ob
     family: "PUNJAB_STATE",
     questionCount: 20,
     expectedOptionCount: 4,
-    centralDeliveryProfile: null,
-    centralProfileGap: true,
+    centralDeliveryProfile: "PUNJAB_STATE",
+    centralProfileGap: false,
     blueprintEvidence: "PROVISIONAL_PYQ_WEIGHTING_REQUIRED",
     slotPlan: [
       { kind: "ARITHMETIC_CORE", count: 14 },
@@ -184,8 +188,8 @@ export const QUANT_V4_REAL_EXAM_PROFILES: readonly QuantV4RealExamProfile[] = Ob
     family: "PUNJAB_STATE",
     questionCount: 20,
     expectedOptionCount: 4,
-    centralDeliveryProfile: null,
-    centralProfileGap: true,
+    centralDeliveryProfile: "PUNJAB_STATE",
+    centralProfileGap: false,
     blueprintEvidence: "PROVISIONAL_PYQ_WEIGHTING_REQUIRED",
     slotPlan: [
       { kind: "ARITHMETIC_CORE", count: 15 },
@@ -325,6 +329,16 @@ export interface QuantV4SimulatedSection {
   readonly questions: readonly QuantV4SimulatedQuestion[];
 }
 
+export interface QuantV4RealExamPackageQualitySummary {
+  readonly runtimeGeneratedCount: number;
+  readonly emptyExplanationCount: number;
+  readonly explanationSpecificityRate: number;
+  readonly normalizedStemDuplicateRate: number;
+  readonly semanticExplanationDuplicateRate: number;
+  readonly testIneligibleCount: number;
+  readonly publiclyLockedCount: number;
+}
+
 export interface QuantV4RealExamAuditSummary {
   readonly authority: typeof QUANT_V4_REAL_EXAM_SIMULATION_AUTHORITY;
   readonly examId: QuantV4RealExamId;
@@ -341,6 +355,7 @@ export interface QuantV4RealExamAuditSummary {
   readonly semanticExplanationDuplicateRate: number;
   readonly releaseIneligibleCount: number;
   readonly publiclyLockedCount: number;
+  readonly packageQuality: Readonly<Record<string, QuantV4RealExamPackageQualitySummary>>;
   readonly representationDistribution: Readonly<Record<string, number>>;
   readonly topicDistribution: Readonly<Record<string, number>>;
   readonly difficultyDistribution: Readonly<Record<string, number>>;
@@ -387,21 +402,47 @@ function optionTexts(question: any): string[] {
   );
 }
 
-function explanationText(question: any): string {
-  if (typeof question?.explanation === "string") return question.explanation.trim();
-  if (Array.isArray(question?.explanation?.lines)) return question.explanation.lines.join("\n\n").trim();
-  if (Array.isArray(question?.explanation?.steps)) {
-    const pieces = [
-      question.explanation.keyIdea,
-      ...question.explanation.steps,
-      question.explanation.shortcut,
-      question.explanation.trap,
-    ].filter(Boolean);
-    return pieces.join("\n\n").trim();
+function explanationPieces(value: unknown): string[] {
+  if (typeof value === "string") {
+    const text = value.trim();
+    return text ? [text] : [];
   }
-  if (typeof question?.learnerExplanation === "string") return question.learnerExplanation.trim();
-  if (Array.isArray(question?.learnerExplanation?.lines)) return question.learnerExplanation.lines.join("\n\n").trim();
-  if (Array.isArray(question?.packageExplanation?.lines)) return question.packageExplanation.lines.join("\n\n").trim();
+  if (Array.isArray(value)) return value.flatMap(explanationPieces);
+  if (!value || typeof value !== "object") return [];
+
+  const source = value as Record<string, unknown>;
+  const orderedKeys = [
+    "keyIdea",
+    "coreConcept",
+    "keyRule",
+    "concept",
+    "rule",
+    "working",
+    "steps",
+    "lines",
+    "calculation",
+    "reasoning",
+    "finalAnswer",
+    "verification",
+    "conclusion",
+    "shortcut",
+    "trap",
+  ] as const;
+
+  return orderedKeys.flatMap((key) => explanationPieces(source[key]));
+}
+
+function explanationText(question: any): string {
+  for (const candidate of [
+    question?.explanation,
+    question?.richExplanation,
+    question?.learnerExplanation,
+    question?.packageExplanation,
+    question?.solution,
+  ]) {
+    const pieces = explanationPieces(candidate);
+    if (pieces.length) return pieces.join("\n\n").trim();
+  }
   return "";
 }
 
@@ -452,6 +493,7 @@ function runtimeRecord(input: {
   subtopic: string;
   representation: string;
   stimulusId?: string;
+  learnerVisibleEvidenceContext?: string;
 }): QuantV4SimulatedQuestion {
   const text = questionText(input.question);
   const explanation = explanationText(input.question);
@@ -459,7 +501,7 @@ function runtimeRecord(input: {
   const assessment = assessExplanationQuality({
     packageId: input.packageId,
     questionKey: String(input.question?.questionId ?? `${input.profile.id}:${input.sectionIndex}:${input.ordinal}`),
-    stem: text,
+    stem: [text, input.learnerVisibleEvidenceContext].filter(Boolean).join("\n"),
     explanation,
     answer: input.question?.answer ?? input.question?.canonicalAnswer?.display ?? input.question?.canonicalAnswer?.value,
     options,
@@ -602,7 +644,7 @@ const ARITHMETIC_POOL = packagePool((pkg) => {
 
 const GEOMETRY_MENSURATION_POOL = packagePool((pkg) => {
   const id = String(pkg?.packageId ?? "");
-  return id === "GEO-001" || id === "MEN-002";
+  return id === "GEO-001" || id === "MENSURATION";
 });
 
 async function generateCoreSlot(
@@ -656,38 +698,70 @@ async function generateCoreSlot(
   });
 }
 
+const PROBABILITY_SIMULATION_CANDIDATES = Object.freeze([
+  { packageId: "PRB-001", cpId: "PRB-CP-001" },
+  { packageId: "PRB-001", cpId: "PRB-CP-002" },
+  { packageId: "PRB-001", cpId: "PRB-CP-003" },
+  { packageId: "PRB-001", cpId: "PRB-CP-004" },
+  { packageId: "PRB-001", cpId: "PRB-CP-005" },
+  { packageId: "PRB-002", cpId: "PRB-CP-006" },
+  { packageId: "PRB-002", cpId: "PRB-CP-007" },
+  { packageId: "PRB-002", cpId: "PRB-CP-008" },
+  { packageId: "PRB-002", cpId: "PRB-CP-009" },
+] as const);
+
 async function generateProbabilitySlot(
   profile: QuantV4RealExamProfile,
   sectionIndex: number,
   ordinal: number,
   seed: string,
 ): Promise<QuantV4SimulatedQuestion> {
-  try {
-    const packageId = hash(seed) % 2 === 0 ? "PRB-001" : "PRB-002";
-    const batch = await generateQuantQuestion({
-      packageId: packageId as any,
-      language: "en",
-      difficulty: difficultyFor(`${seed}:difficulty`),
-      examProfile: resolveProbabilitySimulationProfile(profile) as any,
-      seed,
-      count: 1,
-    } as any);
-    const question = extractBatchQuestions(batch)[0];
-    if (!question) throw new Error("Probability runtime returned no question.");
-    return runtimeRecord({
-      profile,
-      sectionIndex,
-      ordinal,
-      slotKind: "PROBABILITY",
-      question,
-      packageId,
-      topic: "Advanced Mathematics",
-      subtopic: "Probability",
-      representation: "DIRECT_MCQ",
-    });
-  } catch (error) {
-    return gapRecord({ profile, sectionIndex, ordinal, slotKind: "PROBABILITY", reason: error instanceof Error ? error.message : String(error) });
+  const examProfile = resolveProbabilitySimulationProfile(profile);
+  const difficulty = difficultyFor(`${seed}:difficulty`);
+  const start = hash(`${seed}:probability-candidate`) % PROBABILITY_SIMULATION_CANDIDATES.length;
+  const errors: string[] = [];
+
+  for (let offset = 0; offset < PROBABILITY_SIMULATION_CANDIDATES.length; offset += 1) {
+    const candidate = PROBABILITY_SIMULATION_CANDIDATES[
+      (start + offset) % PROBABILITY_SIMULATION_CANDIDATES.length
+    ]!;
+    try {
+      const batch = await generateQuantQuestion({
+        packageId: candidate.packageId as any,
+        canonicalProblemId: candidate.cpId,
+        language: "en",
+        difficulty,
+        examProfile: examProfile as any,
+        seed: `${seed}:${candidate.packageId}:${candidate.cpId}`,
+        count: 1,
+      } as any);
+      const question = extractBatchQuestions(batch)[0];
+      if (!question) throw new Error("Probability runtime returned no question.");
+      return runtimeRecord({
+        profile,
+        sectionIndex,
+        ordinal,
+        slotKind: "PROBABILITY",
+        question,
+        packageId: candidate.packageId,
+        topic: "Advanced Mathematics",
+        subtopic: "Probability",
+        representation: "DIRECT_MCQ",
+      });
+    } catch (error) {
+      errors.push(
+        `${candidate.packageId}/${candidate.cpId}: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
   }
+
+  return gapRecord({
+    profile,
+    sectionIndex,
+    ordinal,
+    slotKind: "PROBABILITY",
+    reason: `No Probability candidate can satisfy ${examProfile}/${difficulty}: ${errors.slice(0, 4).join(" | ")}`,
+  });
 }
 
 function generateStatisticsSlot(
@@ -754,6 +828,9 @@ function generateDiQuestions(
       const questions = Array.isArray(set?.questions) ? set.questions : [];
       if (!questions.length) throw new Error(`${packageId} returned no linked questions.`);
       const stimulusId = String(set?.setId ?? set?.stimulusId ?? `${packageId}:${seed}:set:${setIndex}`);
+      const learnerVisibleEvidenceContext = set?.stimulus == null
+        ? ""
+        : JSON.stringify(set.stimulus);
       for (const question of questions) {
         if (output.length >= requestedCount) break;
         output.push(runtimeRecord({
@@ -767,6 +844,7 @@ function generateDiQuestions(
           subtopic: representation,
           representation,
           stimulusId,
+          learnerVisibleEvidenceContext,
         }));
       }
     } catch (error) {
@@ -913,9 +991,68 @@ function generateDsSlot(
       topic: "Representation",
       subtopic: "Data Sufficiency",
       representation: "DATA_SUFFICIENCY",
+      learnerVisibleEvidenceContext: [
+        question?.questionPrompt,
+        ...(Array.isArray(question?.statements)
+          ? question.statements.map((statement: any) => statement?.text)
+          : []),
+      ].filter(Boolean).join("\n"),
     });
   } catch (error) {
     return gapRecord({ profile, sectionIndex, ordinal, slotKind: "DATA_SUFFICIENCY", reason: error instanceof Error ? error.message : String(error) });
+  }
+}
+
+async function generateAdvancedMathSlot(
+  profile: QuantV4RealExamProfile,
+  sectionIndex: number,
+  ordinal: number,
+  slotKind: "ALGEBRA" | "TRIGONOMETRY",
+  seed: string,
+): Promise<QuantV4SimulatedQuestion> {
+  if (
+    profile.id !== "SSC_CGL_TIER_I"
+    && profile.id !== "SSC_CGL_TIER_II"
+    && profile.id !== "SSC_CHSL"
+    && profile.id !== "PSSSB"
+    && profile.id !== "PPSC"
+    && profile.id !== "PUNJAB_POLICE"
+  ) {
+    return gapRecord({
+      profile,
+      sectionIndex,
+      ordinal,
+      slotKind,
+      reason: `${slotKind} has no section adapter for ${profile.id}.`,
+    });
+  }
+
+  try {
+    const result = await generateQuantV4AdvancedMathSectionQuestion({
+      examId: profile.id,
+      slotKind,
+      seed,
+    });
+    const question = result.question;
+    return runtimeRecord({
+      profile,
+      sectionIndex,
+      ordinal,
+      slotKind,
+      question,
+      packageId: result.packageId,
+      topic: "Advanced Mathematics",
+      subtopic: slotKind === "ALGEBRA" ? "Algebra" : "Trigonometry",
+      representation: "DIRECT_MCQ",
+    });
+  } catch (error) {
+    return gapRecord({
+      profile,
+      sectionIndex,
+      ordinal,
+      slotKind,
+      reason: `Advanced Mathematics adapter failed: ${error instanceof Error ? error.message : String(error)}`,
+    });
   }
 }
 
@@ -943,21 +1080,8 @@ async function generateOneSlot(
     case "DATA_SUFFICIENCY":
       return generateDsSlot(profile, sectionIndex, ordinal, seed);
     case "TRIGONOMETRY":
-      return gapRecord({
-        profile,
-        sectionIndex,
-        ordinal,
-        slotKind,
-        reason: "TRG-001/TRG-002 are internally activated but are not yet exposed through the central Quant section-simulation generation contract.",
-      });
     case "ALGEBRA":
-      return gapRecord({
-        profile,
-        sectionIndex,
-        ordinal,
-        slotKind,
-        reason: "Algebra is productionized BANK_ONLY, but no central Quant section-simulation adapter exists yet for deterministic exam-profile sampling.",
-      });
+      return generateAdvancedMathSlot(profile, sectionIndex, ordinal, slotKind, seed);
   }
 }
 
@@ -1020,6 +1144,34 @@ function average(values: readonly number[]): number {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
+function packageQualitySummary(
+  runtimeQuestions: readonly QuantV4SimulatedQuestion[],
+): Readonly<Record<string, QuantV4RealExamPackageQualitySummary>> {
+  const groups = new Map<string, QuantV4SimulatedQuestion[]>();
+  for (const question of runtimeQuestions) {
+    const group = groups.get(question.packageId) ?? [];
+    group.push(question);
+    groups.set(question.packageId, group);
+  }
+
+  return Object.freeze(Object.fromEntries(
+    [...groups.entries()]
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([packageId, questions]) => {
+        const specificCount = questions.filter((question) => question.questionSpecificExplanation).length;
+        return [packageId, Object.freeze({
+          runtimeGeneratedCount: questions.length,
+          emptyExplanationCount: questions.filter((question) => !question.explanation.trim()).length,
+          explanationSpecificityRate: questions.length ? specificCount / questions.length : 0,
+          normalizedStemDuplicateRate: duplicateRate(questions.map((question) => question.normalizedStemSignature)),
+          semanticExplanationDuplicateRate: duplicateRate(questions.map((question) => question.semanticExplanationSignature)),
+          testIneligibleCount: questions.filter((question) => !question.testEligible).length,
+          publiclyLockedCount: questions.filter((question) => !question.publiclyPublishable).length,
+        })];
+      }),
+  ));
+}
+
 export function summarizeQuantV4RealExamSections(
   profile: QuantV4RealExamProfile,
   sections: readonly QuantV4SimulatedSection[],
@@ -1064,6 +1216,7 @@ export function summarizeQuantV4RealExamSections(
     semanticExplanationDuplicateRate,
     releaseIneligibleCount,
     publiclyLockedCount,
+    packageQuality: packageQualitySummary(runtimeQuestions),
     representationDistribution: countBy(runtimeQuestions, (question) => question.representation),
     topicDistribution: countBy(runtimeQuestions, (question) => question.topic),
     difficultyDistribution: countBy(runtimeQuestions, (question) => question.difficulty),

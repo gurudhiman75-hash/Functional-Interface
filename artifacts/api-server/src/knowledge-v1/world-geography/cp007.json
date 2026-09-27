@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "WGE-001-CP007-Q001",
+    "cpId": "WGE-001-CP007",
+    "objective": "weathering-definition",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PROCESSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is the breakdown of rock in situ called?",
+        "options": [
+          "Weathering",
+          "Transportation",
+          "Deposition",
+          "Subduction"
+        ],
+        "explanation": "Weathering breaks down material in place. Erosion additionally involves removal by agents such as water, wind or ice."
+      },
+      "hi": {
+        "stem": "चट्टान के अपने स्थान पर टूटने या विघटित होने की प्रक्रिया क्या कहलाती है?",
+        "options": [
+          "अपक्षय",
+          "परिवहन",
+          "निक्षेपण",
+          "अधोगमन"
+        ],
+        "explanation": "अपक्षय में पदार्थ वहीं टूटता है। अपरदन में जल, हवा या बर्फ जैसे कारक उसे हटाते भी हैं।"
+      },
+      "pa": {
+        "stem": "ਚੱਟਾਨ ਦੇ ਆਪਣੀ ਥਾਂ ਉੱਤੇ ਟੁੱਟਣ ਜਾਂ ਭੁਰਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਅਪਖੰਡਨ",
+          "ਢੋਆ-ਢੁਆਈ",
+          "ਜਮ੍ਹਾਂਵਟ",
+          "ਪਲੇਟ ਦਾ ਹੇਠਾਂ ਉਤਰਨਾ"
+        ],
+        "explanation": "ਅਪਖੰਡਨ ਵਿੱਚ ਪਦਾਰਥ ਉਸੇ ਥਾਂ ਟੁੱਟਦਾ ਹੈ। ਕਟਾਅ ਵਿੱਚ ਪਾਣੀ, ਹਵਾ ਜਾਂ ਬਰਫ਼ ਵਰਗੇ ਕਾਰਕ ਉਸ ਨੂੰ ਹਟਾਉਂਦੇ ਵੀ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q002",
+    "cpId": "WGE-001-CP007",
+    "objective": "physical-weathering",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PROCESSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which type of weathering breaks rock without changing its mineral composition?",
+        "options": [
+          "Physical weathering",
+          "Chemical dissolution",
+          "Oxidation",
+          "Hydrolysis"
+        ],
+        "explanation": "Mechanical forces split rock into smaller pieces. Chemical weathering changes or dissolves minerals."
+      },
+      "hi": {
+        "stem": "किस प्रकार के अपक्षय में खनिज संघटन बदले बिना चट्टान टूटती है?",
+        "options": [
+          "भौतिक अपक्षय",
+          "रासायनिक घुलना",
+          "ऑक्सीकरण",
+          "जल-अपघटन"
+        ],
+        "explanation": "यांत्रिक बल चट्टान को छोटे टुकड़ों में तोड़ते हैं। रासायनिक अपक्षय खनिजों को बदलता या घोलता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਸ ਕਿਸਮ ਦੇ ਅਪਖੰਡਨ ਵਿੱਚ ਖਣਿਜ ਬਣਤਰ ਬਦਲੇ ਬਿਨਾਂ ਚੱਟਾਨ ਟੁੱਟਦੀ ਹੈ?",
+        "options": [
+          "ਭੌਤਿਕ ਅਪਖੰਡਨ",
+          "ਰਸਾਇਣਕ ਘੁਲਣਾ",
+          "ਆਕਸੀਕਰਨ",
+          "ਜਲ-ਅਪਘਟਨ"
+        ],
+        "explanation": "ਮਕੈਨੀਕੀ ਬਲ ਚੱਟਾਨ ਨੂੰ ਛੋਟੇ ਟੁਕੜਿਆਂ ਵਿੱਚ ਤੋੜਦੇ ਹਨ। ਰਸਾਇਣਕ ਅਪਖੰਡਨ ਖਣਿਜਾਂ ਨੂੰ ਬਦਲਦਾ ਜਾਂ ਘੋਲਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q003",
+    "cpId": "WGE-001-CP007",
+    "objective": "freeze-thaw",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PROCESSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Water repeatedly freezes and thaws in rock cracks, causing the rock to break. Identify the process.",
+        "options": [
+          "Freeze–thaw weathering",
+          "Carbonation",
+          "Oxidation",
+          "Exfoliation by pressure release"
+        ],
+        "explanation": "Water expands on freezing and can widen cracks. Repeated freezing and thawing can loosen rock fragments."
+      },
+      "hi": {
+        "stem": "चट्टान की दरारों में पानी के बार-बार जमने और पिघलने से चट्टान टूटती है। यह कौन-सी प्रक्रिया है?",
+        "options": [
+          "तुषार अपक्षय",
+          "कार्बोनेटीकरण",
+          "ऑक्सीकरण",
+          "दाब मुक्त होने से अपशल्कन"
+        ],
+        "explanation": "जल जमने पर फैलकर दरारें चौड़ी कर सकता है। बार-बार जमना-पिघलना टुकड़ों को ढीला कर सकता है।"
+      },
+      "pa": {
+        "stem": "ਚੱਟਾਨ ਦੀਆਂ ਤਰੇੜਾਂ ਵਿੱਚ ਪਾਣੀ ਦੇ ਵਾਰ-ਵਾਰ ਜੰਮਣ ਅਤੇ ਪਿਘਲਣ ਨਾਲ ਚੱਟਾਨ ਟੁੱਟਦੀ ਹੈ। ਇਹ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਹੈ?",
+        "options": [
+          "ਜੰਮਣ-ਪਿਘਲਣ ਨਾਲ ਅਪਖੰਡਨ",
+          "ਕਾਰਬੋਨੇਟੀਕਰਨ",
+          "ਆਕਸੀਕਰਨ",
+          "ਦਬਾਅ ਹਟਣ ਨਾਲ ਪਰਤਾਂ ਉਤਰਨਾ"
+        ],
+        "explanation": "ਪਾਣੀ ਜੰਮਣ ਵੇਲੇ ਫੈਲਕੇ ਦਰਾਰਾਂ ਚੌੜੀਆਂ ਕਰ ਸਕਦਾ ਹੈ। ਵਾਰ-ਵਾਰ ਜੰਮਣਾ-ਪਿਘਲਣਾ ਟੁਕੜਿਆਂ ਨੂੰ ਢਿੱਲਾ ਕਰ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q004",
+    "cpId": "WGE-001-CP007",
+    "objective": "thermal-stress",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PROCESSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Why can repeated heating and cooling disintegrate an exposed rock?",
+        "options": [
+          "Unequal expansion and contraction",
+          "Dissolution of minerals by carbonic acid",
+          "Oxidation of iron-bearing minerals",
+          "Cementation of loose rock fragments"
+        ],
+        "explanation": "Different minerals and rock surfaces respond differently to temperature changes. Repeated stress can weaken the rock."
+      },
+      "hi": {
+        "stem": "बार-बार गर्म होने और ठंडा होने से खुली चट्टान क्यों टूट सकती है?",
+        "options": [
+          "असमान प्रसार और संकुचन",
+          "कार्बोनिक अम्ल से खनिजों का घुलना",
+          "लौहयुक्त खनिजों का ऑक्सीकरण",
+          "ढीले चट्टानी टुकड़ों का सीमेंटीकरण"
+        ],
+        "explanation": "खनिज और सतहें तापमान बदलाव पर अलग प्रतिक्रिया देते हैं। बार-बार तनाव चट्टान को कमजोर कर सकता है।"
+      },
+      "pa": {
+        "stem": "ਵਾਰ-ਵਾਰ ਗਰਮ ਅਤੇ ਠੰਢੀ ਹੋਣ ਨਾਲ ਖੁੱਲ੍ਹੀ ਚੱਟਾਨ ਕਿਉਂ ਟੁੱਟ ਸਕਦੀ ਹੈ?",
+        "options": [
+          "ਅਸਮਾਨ ਫੈਲਾਅ ਅਤੇ ਸੁੰਗੜਨ",
+          "ਕਾਰਬੋਨਿਕ ਤੇਜ਼ਾਬ ਨਾਲ ਖਣਿਜਾਂ ਦਾ ਘੁਲਣਾ",
+          "ਲੋਹੇ ਵਾਲੇ ਖਣਿਜਾਂ ਦਾ ਆਕਸੀਕਰਨ",
+          "ਢਿੱਲੇ ਚੱਟਾਨੀ ਟੁਕੜਿਆਂ ਦਾ ਜੁੜਨਾ"
+        ],
+        "explanation": "ਖਣਿਜ ਅਤੇ ਸਤਹਾਂ ਤਾਪਮਾਨ ਦੇ ਬਦਲਾਅ ਨੂੰ ਵੱਖਰੇ ਤਰੀਕੇ ਨਾਲ ਸਹਿੰਦੇ ਹਨ। ਵਾਰ-ਵਾਰ ਤਣਾਅ ਚੱਟਾਨ ਨੂੰ ਕਮਜ਼ੋਰ ਕਰ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q005",
+    "cpId": "WGE-001-CP007",
+    "objective": "oxidation",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PROCESSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which chemical weathering process produces rust-like changes in iron-bearing minerals?",
+        "options": [
+          "Oxidation",
+          "Compaction",
+          "Glacial plucking",
+          "Saltation"
+        ],
+        "explanation": "Iron reacts with oxygen, often aided by moisture. This is chemical weathering rather than simple mechanical breakage."
+      },
+      "hi": {
+        "stem": "किस रासायनिक अपक्षय प्रक्रिया से लौहयुक्त खनिजों में जंग जैसे परिवर्तन होते हैं?",
+        "options": [
+          "ऑक्सीकरण",
+          "संपीडन",
+          "हिमनदीय उत्पाटन",
+          "उछलते हुए कणों का परिवहन"
+        ],
+        "explanation": "लोहा ऑक्सीजन से प्रतिक्रिया करता है, अक्सर नमी की सहायता से। यह रासायनिक अपक्षय है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਰਸਾਇਣਕ ਅਪਖੰਡਨ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਲੋਹੇ ਵਾਲੇ ਖਣਿਜਾਂ ਵਿੱਚ ਜੰਗ ਵਰਗੀਆਂ ਤਬਦੀਲੀਆਂ ਆਉਂਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਆਕਸੀਕਰਨ",
+          "ਦਬਾਅ ਨਾਲ ਜਮਣਾ",
+          "ਹਿਮਨਦ ਵੱਲੋਂ ਪੁੱਟਣਾ",
+          "ਉਛਲ ਕੇ ਢੋਆ-ਢੁਆਈ"
+        ],
+        "explanation": "ਲੋਹਾ ਆਕਸੀਜਨ ਨਾਲ ਕਿਰਿਆ ਕਰਦਾ ਹੈ, ਅਕਸਰ ਨਮੀ ਦੀ ਮਦਦ ਨਾਲ। ਇਹ ਰਸਾਇਣਕ ਅਪਖੰਡਨ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q006",
+    "cpId": "WGE-001-CP007",
+    "objective": "carbonation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PROCESSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Weak carbonic acid in water is especially effective in dissolving which rock?",
+        "options": [
+          "Limestone",
+          "Quartzite",
+          "Pure quartz",
+          "Fresh granite equally rapidly"
+        ],
+        "explanation": "Carbon dioxide dissolves in water to form weak carbonic acid. It reacts with calcium carbonate in limestone."
+      },
+      "hi": {
+        "stem": "जल में कमजोर कार्बोनिक अम्ल किस चट्टान को घोलने में विशेष प्रभावी है?",
+        "options": [
+          "चूना-पत्थर",
+          "क्वार्टजाइट",
+          "शुद्ध क्वार्ट्ज",
+          "ताजा ग्रेनाइट उतनी ही तेजी से"
+        ],
+        "explanation": "कार्बन डाइऑक्साइड जल में घुलकर कमजोर कार्बोनिक अम्ल बनाती है। यह चूना-पत्थर के कैल्सियम कार्बोनेट से प्रतिक्रिया करता है।"
+      },
+      "pa": {
+        "stem": "ਪਾਣੀ ਵਿੱਚ ਕਮਜ਼ੋਰ ਕਾਰਬੋਨਿਕ ਤੇਜ਼ਾਬ ਕਿਹੜੀ ਚੱਟਾਨ ਨੂੰ ਘੋਲਣ ਵਿੱਚ ਖ਼ਾਸ ਅਸਰਦਾਰ ਹੈ?",
+        "options": [
+          "ਚੂਨਾ-ਪੱਥਰ",
+          "ਕੁਆਰਟਜ਼ਾਈਟ",
+          "ਸ਼ੁੱਧ ਕੁਆਰਟਜ਼",
+          "ਤਾਜ਼ਾ ਗ੍ਰੇਨਾਈਟ ਓਨੀ ਹੀ ਤੇਜ਼ੀ ਨਾਲ"
+        ],
+        "explanation": "ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਪਾਣੀ ਵਿੱਚ ਘੁਲਕੇ ਕਮਜ਼ੋਰ ਕਾਰਬੋਨਿਕ ਤੇਜ਼ਾਬ ਬਣਾਉਂਦੀ ਹੈ। ਇਹ ਚੂਨਾ-ਪੱਥਰ ਦੇ ਕੈਲਸ਼ੀਅਮ ਕਾਰਬੋਨੇਟ ਨਾਲ ਕਿਰਿਆ ਕਰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q007",
+    "cpId": "WGE-001-CP007",
+    "objective": "biological-weathering",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PROCESSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Plant roots widen cracks in a rock as they grow. This is an example of:",
+        "options": [
+          "Biological weathering",
+          "Chemical oxidation",
+          "Abrasion by transported sediment",
+          "Thermal expansion"
+        ],
+        "explanation": "Growing roots exert pressure in cracks. Organisms can also promote chemical weathering through organic acids."
+      },
+      "hi": {
+        "stem": "पौधों की जड़ें बढ़ते हुए चट्टान की दरारों को चौड़ा करती हैं। यह किसका उदाहरण है?",
+        "options": [
+          "जैविक अपक्षय",
+          "रासायनिक ऑक्सीकरण",
+          "बहती तलछट से घर्षण",
+          "तापीय प्रसार"
+        ],
+        "explanation": "बढ़ती जड़ें दरारों पर दबाव डालती हैं। जीव कार्बनिक अम्लों से रासायनिक अपक्षय भी बढ़ा सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਪੌਦਿਆਂ ਦੀਆਂ ਜੜ੍ਹਾਂ ਵਧਦਿਆਂ ਚੱਟਾਨ ਦੀਆਂ ਤਰੇੜਾਂ ਨੂੰ ਚੌੜਾ ਕਰਦੀਆਂ ਹਨ। ਇਹ ਕਿਸ ਦੀ ਉਦਾਹਰਨ ਹੈ?",
+        "options": [
+          "ਜੈਵਿਕ ਅਪਖੰਡਨ",
+          "ਰਸਾਇਣਕ ਆਕਸੀਕਰਨ",
+          "ਵਹਿੰਦੀ ਤਲਛਟ ਨਾਲ ਘਿਸਾਈ",
+          "ਗਰਮੀ ਨਾਲ ਫੈਲਾਅ"
+        ],
+        "explanation": "ਵਧਦੀਆਂ ਜੜ੍ਹਾਂ ਦਰਾਰਾਂ ਉੱਤੇ ਦਬਾਅ ਪਾਉਂਦੀਆਂ ਹਨ। ਜੀਵ ਜੈਵਿਕ ਤੇਜ਼ਾਬਾਂ ਨਾਲ ਰਸਾਇਣਕ ਅਪਖੰਡਨ ਵੀ ਵਧਾ ਸਕਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q008",
+    "cpId": "WGE-001-CP007",
+    "objective": "mass-movement",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-PROCESSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is the downslope movement of rock and soil under the direct influence of gravity called?",
+        "options": [
+          "Mass movement",
+          "River transportation",
+          "Chemical weathering",
+          "Wind deflation"
+        ],
+        "explanation": "Gravity drives mass movement. Water may trigger or assist it, but a river is not required to carry the material."
+      },
+      "hi": {
+        "stem": "गुरुत्व के प्रत्यक्ष प्रभाव से चट्टान और मिट्टी का ढाल पर नीचे खिसकना क्या कहलाता है?",
+        "options": [
+          "बृहद संचलन",
+          "नदी परिवहन",
+          "रासायनिक अपक्षय",
+          "पवन अपवाहन"
+        ],
+        "explanation": "गुरुत्व बृहद संचलन का चालक है। जल मदद कर सकता है, लेकिन पदार्थ ढोने के लिए नदी जरूरी नहीं।"
+      },
+      "pa": {
+        "stem": "ਗੁਰੂਤਾ ਦੇ ਸਿੱਧੇ ਪ੍ਰਭਾਵ ਨਾਲ ਚੱਟਾਨ ਅਤੇ ਮਿੱਟੀ ਦਾ ਢਲਾਣ ਉੱਤੇ ਹੇਠਾਂ ਖਿਸਕਣਾ ਕੀ ਅਖਵਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਪੁੰਜ ਗਤੀ",
+          "ਦਰਿਆਈ ਢੋਆ-ਢੁਆਈ",
+          "ਰਸਾਇਣਕ ਅਪਖੰਡਨ",
+          "ਹਵਾ ਨਾਲ ਕਣਾਂ ਦਾ ਉੱਡਣਾ"
+        ],
+        "explanation": "ਗੁਰੂਤਾ ਸਮੂਹਕ ਢਲਾਣੀ ਗਤੀ ਚਲਾਉਂਦੀ ਹੈ। ਪਾਣੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ ਪਰ ਪਦਾਰਥ ਢੋਣ ਲਈ ਦਰਿਆ ਲਾਜ਼ਮੀ ਨਹੀਂ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q009",
+    "cpId": "WGE-001-CP007",
+    "objective": "creep",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PROCESSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which form of mass movement involves the very slow downslope movement of soil?",
+        "options": [
+          "Soil creep",
+          "Rockfall",
+          "Debris avalanche",
+          "Mudflow"
+        ],
+        "explanation": "Creep is gradual and may bend posts or tree trunks. Rockfalls are comparatively sudden movements."
+      },
+      "hi": {
+        "stem": "किस प्रकार के बृहद संचलन में मिट्टी ढाल पर बहुत धीरे-धीरे नीचे खिसकती है?",
+        "options": [
+          "मृदा सर्पण",
+          "शैलपात",
+          "मलबा हिमस्खलन",
+          "पंक प्रवाह"
+        ],
+        "explanation": "सर्पण धीरे होता है और खंभों या तनों को झुका सकता है। शैलपात अपेक्षाकृत अचानक होता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਸ ਕਿਸਮ ਦੀ ਪੁੰਜ ਗਤੀ ਵਿੱਚ ਮਿੱਟੀ ਢਲਾਣ ਉੱਤੇ ਬਹੁਤ ਹੌਲੀ-ਹੌਲੀ ਹੇਠਾਂ ਖਿਸਕਦੀ ਹੈ?",
+        "options": [
+          "ਮਿੱਟੀ ਦਾ ਹੌਲੀ ਸਰਕਣਾ",
+          "ਚੱਟਾਨ ਦਾ ਡਿੱਗਣਾ",
+          "ਮਲਬੇ ਦਾ ਤੇਜ਼ ਡਿੱਗਣਾ",
+          "ਚਿੱਕੜ ਦਾ ਵਹਾਅ"
+        ],
+        "explanation": "ਇਹ ਸਰਕਣਾ ਹੌਲੀ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖੰਭਿਆਂ ਜਾਂ ਤਣਿਆਂ ਨੂੰ ਝੁਕਾ ਸਕਦਾ ਹੈ। ਚੱਟਾਨਾਂ ਦਾ ਡਿੱਗਣਾ ਮੁਕਾਬਲਤਨ ਅਚਾਨਕ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q010",
+    "cpId": "WGE-001-CP007",
+    "objective": "landslide-trigger",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-PROCESSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How can prolonged heavy rainfall trigger a landslide?",
+        "options": [
+          "Water adds weight and can reduce slope strength",
+          "Infiltrating water lowers pore pressure and weakens the slope",
+          "Saturation reduces the weight of the slope material",
+          "Rainfall triggers movement by increasing friction between grains"
+        ],
+        "explanation": "Saturation can raise pore pressure and weaken frictional resistance. Added water also increases the load on the slope."
+      },
+      "hi": {
+        "stem": "लगातार भारी वर्षा से भूस्खलन कैसे हो सकता है?",
+        "options": [
+          "पानी भार बढ़ाता है और ढाल की मजबूती घटा सकता है",
+          "रिसता पानी रंध्र दाब घटाकर ढाल को कमजोर करता है",
+          "संतृप्ति ढाल के पदार्थ का भार घटाती है",
+          "वर्षा कणों के बीच घर्षण बढ़ाकर खिसकाव पैदा करती है"
+        ],
+        "explanation": "संतृप्ति छिद्र दबाव बढ़ाकर घर्षण प्रतिरोध घटा सकती है। अतिरिक्त जल ढाल का भार भी बढ़ाता है।"
+      },
+      "pa": {
+        "stem": "ਲਗਾਤਾਰ ਭਾਰੀ ਮੀਂਹ ਨਾਲ ਜ਼ਮੀਨ ਖਿਸਕਣ ਦੀ ਘਟਨਾ ਕਿਵੇਂ ਹੋ ਸਕਦੀ ਹੈ?",
+        "options": [
+          "ਪਾਣੀ ਭਾਰ ਵਧਾਉਂਦਾ ਹੈ ਅਤੇ ਢਲਾਣ ਦੀ ਮਜ਼ਬੂਤੀ ਘਟਾ ਸਕਦਾ ਹੈ",
+          "ਰਿਸਦਾ ਪਾਣੀ ਛਿਦਰਾਂ ਦਾ ਦਬਾਅ ਘਟਾ ਕੇ ਢਲਾਣ ਕਮਜ਼ੋਰ ਕਰਦਾ ਹੈ",
+          "ਪਾਣੀ ਨਾਲ ਭਿੱਜਣ ਉੱਤੇ ਢਲਾਣ ਦੀ ਸਮੱਗਰੀ ਦਾ ਭਾਰ ਘਟਦਾ ਹੈ",
+          "ਮੀਂਹ ਕਣਾਂ ਵਿਚਕਾਰ ਰਗੜ ਵਧਾ ਕੇ ਖਿਸਕਾਅ ਪੈਦਾ ਕਰਦਾ ਹੈ"
+        ],
+        "explanation": "ਪਾਣੀ ਨਾਲ ਭਿੱਜਣਾ ਰੰਧਰਾਂ ਦਾ ਦਬਾਅ ਵਧਾਕੇ ਰਗੜ ਦਾ ਵਿਰੋਧ ਘਟਾ ਸਕਦਾ ਹੈ। ਵਾਧੂ ਪਾਣੀ ਢਲਾਣ ਦਾ ਭਾਰ ਵੀ ਵਧਾਉਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q011",
+    "cpId": "WGE-001-CP007",
+    "objective": "erosion-transport",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which river process involves carrying sediment downstream?",
+        "options": [
+          "Transportation",
+          "Deposition",
+          "Weathering",
+          "Cementation"
+        ],
+        "explanation": "Transportation moves eroded material. When the river loses sufficient carrying ability, deposition can occur."
+      },
+      "hi": {
+        "stem": "नदी द्वारा तलछट को धारा के साथ आगे ले जाना कौन-सी प्रक्रिया है?",
+        "options": [
+          "परिवहन",
+          "निक्षेपण",
+          "अपक्षय",
+          "सीमेंटीकरण"
+        ],
+        "explanation": "परिवहन अपरदित पदार्थ को ले जाता है। नदी की वहन क्षमता घटने पर निक्षेपण हो सकता है।"
+      },
+      "pa": {
+        "stem": "ਦਰਿਆ ਵੱਲੋਂ ਤਲਛਟ ਨੂੰ ਵਹਾਅ ਦੇ ਨਾਲ ਅੱਗੇ ਲਿਜਾਣਾ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਹੈ?",
+        "options": [
+          "ਢੋਆ-ਢੁਆਈ",
+          "ਜਮ੍ਹਾਂਵਟ",
+          "ਅਪਖੰਡਨ",
+          "ਕਣਾਂ ਦਾ ਜੁੜਨਾ"
+        ],
+        "explanation": "ਢੋਆ-ਢੁਆਈ ਕੱਟੇ ਪਦਾਰਥ ਨੂੰ ਲਿਜਾਂਦੀ ਹੈ। ਦਰਿਆ ਦੀ ਢੋਣ ਦੀ ਸਮਰੱਥਾ ਘਟਣ ਉੱਤੇ ਜਮ੍ਹਾਂਵਟ ਹੋ ਸਕਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q012",
+    "cpId": "WGE-001-CP007",
+    "objective": "river-abrasion",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Pebbles carried by a river scrape its bed. Which process causes this erosion?",
+        "options": [
+          "Abrasion",
+          "Attrition",
+          "Solution",
+          "Deposition"
+        ],
+        "explanation": "Moving sediment acts as a cutting and grinding tool. This wears the channel bed and banks."
+      },
+      "hi": {
+        "stem": "नदी में बहते कंकड़ उसके तल को खुरचते हैं। इस प्रकार का अपरदन किस प्रक्रिया से होता है?",
+        "options": [
+          "घर्षण",
+          "सन्निघर्षण",
+          "घुलन",
+          "निक्षेपण"
+        ],
+        "explanation": "चलता अवसाद काटने और घिसने का औजार बनता है। इससे नदी का तल और किनारे घिसते हैं।"
+      },
+      "pa": {
+        "stem": "ਦਰਿਆ ਵਿੱਚ ਵਹਿੰਦੇ ਕੰਕਰ ਇਸ ਦੇ ਤਲ ਨੂੰ ਖੁਰਚਦੇ ਹਨ। ਇਸ ਤਰ੍ਹਾਂ ਦਾ ਕਟਾਅ ਕਿਸ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਘਿਸਾਈ",
+          "ਕਣਾਂ ਦਾ ਆਪਸ ਵਿੱਚ ਟਕਰਾ ਕੇ ਟੁੱਟਣਾ",
+          "ਘੁਲਣਾ",
+          "ਜਮ੍ਹਾਂਵਟ"
+        ],
+        "explanation": "ਚੱਲਦੀ ਤਲਛਟ ਕੱਟਣ ਅਤੇ ਘਿਸਣ ਦਾ ਸੰਦ ਬਣਦੀ ਹੈ। ਇਸ ਨਾਲ ਦਰਿਆ ਦਾ ਤਲ ਅਤੇ ਕਿਨਾਰੇ ਘਿਸਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q013",
+    "cpId": "WGE-001-CP007",
+    "objective": "v-valley",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which process is primarily responsible for a narrow V-shaped valley?",
+        "options": [
+          "River downcutting",
+          "Glacial widening alone",
+          "Wind deposition",
+          "Coral growth"
+        ],
+        "explanation": "Downcutting deepens the channel while slope processes shape its sides. Glacial valleys commonly have a wider U-shaped section."
+      },
+      "hi": {
+        "stem": "संकरी वी-आकार की घाटी के निर्माण का मुख्य कारण कौन-सी प्रक्रिया है?",
+        "options": [
+          "नदी का ऊर्ध्व कटाव",
+          "केवल हिमनदीय चौड़ीकरण",
+          "हवा का निक्षेपण",
+          "प्रवाल वृद्धि"
+        ],
+        "explanation": "ऊर्ध्व कटाव नदी तल को गहरा करता है और ढाल प्रक्रियाएँ किनारे बनाती हैं। हिमनदीय घाटियाँ सामान्यतः चौड़ी यू-आकार की होती हैं।"
+      },
+      "pa": {
+        "stem": "ਤੰਗ ਵੀ-ਆਕਾਰ ਦੀ ਘਾਟੀ ਬਣਨ ਦਾ ਮੁੱਖ ਕਾਰਨ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਹੈ?",
+        "options": [
+          "ਦਰਿਆ ਦਾ ਹੇਠਾਂ ਵੱਲ ਕਟਾਅ",
+          "ਕੇਵਲ ਹਿਮਨਦ ਵੱਲੋਂ ਚੌੜਾ ਕਰਨਾ",
+          "ਹਵਾ ਦੀ ਜਮ੍ਹਾਂਵਟ",
+          "ਮੂੰਗੇ ਦਾ ਵਧਣਾ"
+        ],
+        "explanation": "ਹੇਠਾਂ ਵੱਲ ਕਟਾਅ ਦਰਿਆ ਦਾ ਤਲ ਡੂੰਘਾ ਕਰਦਾ ਹੈ ਅਤੇ ਢਲਾਣੀ ਪ੍ਰਕਿਰਿਆਵਾਂ ਪਾਸੇ ਬਣਾਉਂਦੀਆਂ ਹਨ। ਹਿਮਨਦੀ ਘਾਟੀਆਂ ਆਮ ਤੌਰ ਉੱਤੇ ਚੌੜੀਆਂ ਯੂ-ਆਕਾਰ ਦੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q014",
+    "cpId": "WGE-001-CP007",
+    "objective": "waterfall-retreat",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A waterfall flows over hard rock lying above softer rock. What causes it to retreat upstream?",
+        "options": [
+          "Undercutting of the soft rock causes the hard overhang to collapse",
+          "The harder upper rock erodes faster than the softer layer",
+          "Sediment permanently fills the plunge pool and lifts the fall",
+          "Deposition at the river mouth pushes the waterfall upstream"
+        ],
+        "explanation": "Softer rock erodes faster beneath the resistant cap. Repeated collapse shifts the waterfall upstream and can leave a gorge."
+      },
+      "hi": {
+        "stem": "एक जलप्रपात कठोर चट्टान से गिरता है, जिसके नीचे नरम चट्टान है। उसके नदी के ऊपरी भाग की ओर पीछे हटने का कारण क्या है?",
+        "options": [
+          "नरम चट्टान का आधार कटने से ऊपर लटकी कठोर चट्टान गिर जाती है",
+          "ऊपर की कठोर चट्टान नरम परत से अधिक तेजी से कटती है",
+          "तल का कुंड स्थायी रूप से भरकर जलप्रपात को ऊपर उठा देता है",
+          "मुहाने का निक्षेपण जलप्रपात को नदी के ऊपरी भाग की ओर धकेलता है"
+        ],
+        "explanation": "प्रतिरोधी ऊपरी परत के नीचे नरम चट्टान जल्दी कटती है। बार-बार गिरने से जलप्रपात पीछे हटकर गॉर्ज छोड़ सकता है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਝਰਨਾ ਸਖ਼ਤ ਚੱਟਾਨ ਤੋਂ ਡਿੱਗਦਾ ਹੈ ਜਿਸ ਦੇ ਹੇਠਾਂ ਨਰਮ ਚੱਟਾਨ ਹੈ। ਝਰਨਾ ਦਰਿਆ ਦੇ ਉੱਪਰਲੇ ਪਾਸੇ ਵੱਲ ਪਿੱਛੇ ਕਿਉਂ ਹਟਦਾ ਹੈ?",
+        "options": [
+          "ਨਰਮ ਚੱਟਾਨ ਦਾ ਹੇਠਲਾ ਹਿੱਸਾ ਕੱਟਣ ਨਾਲ ਉੱਪਰ ਲਟਕਦੀ ਸਖ਼ਤ ਚੱਟਾਨ ਡਿੱਗ ਜਾਂਦੀ ਹੈ",
+          "ਉੱਪਰਲੀ ਸਖ਼ਤ ਚੱਟਾਨ ਨਰਮ ਪਰਤ ਨਾਲੋਂ ਤੇਜ਼ੀ ਨਾਲ ਕੱਟਦੀ ਹੈ",
+          "ਹੇਠਲਾ ਕੁੰਡ ਸਥਾਈ ਤੌਰ ਉੱਤੇ ਭਰ ਕੇ ਝਰਨੇ ਨੂੰ ਉੱਪਰ ਚੁੱਕ ਦਿੰਦਾ ਹੈ",
+          "ਮੁਹਾਣੇ ਦੀ ਜਮ੍ਹਾਂਵਟ ਝਰਨੇ ਨੂੰ ਦਰਿਆ ਦੇ ਉੱਪਰਲੇ ਪਾਸੇ ਧੱਕਦੀ ਹੈ"
+        ],
+        "explanation": "ਟਿਕਾਊ ਉੱਪਰਲੀ ਪਰਤ ਹੇਠਾਂ ਨਰਮ ਚੱਟਾਨ ਜਲਦੀ ਕੱਟਦੀ ਹੈ। ਵਾਰ-ਵਾਰ ਡਿੱਗਣ ਨਾਲ ਝਰਨਾ ਪਿੱਛੇ ਹਟਕੇ ਡੂੰਘੀ ਤੰਗ ਘਾਟੀ ਛੱਡ ਸਕਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q015",
+    "cpId": "WGE-001-CP007",
+    "objective": "meander-banks",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "On which bank of a river meander is erosion generally strongest?",
+        "options": [
+          "Outer bank",
+          "Inner bank",
+          "Both banks equally at every bend",
+          "Neither bank, because erosion occurs only on the bed"
+        ],
+        "explanation": "Faster flow commonly attacks the outer bank. Slower flow encourages deposition on the inner bank."
+      },
+      "hi": {
+        "stem": "नदी के विसर्प के किस तट पर सामान्यतः सबसे अधिक अपरदन होता है?",
+        "options": [
+          "बाहरी तट",
+          "भीतरी तट",
+          "हर मोड़ पर दोनों तट समान रूप से",
+          "किसी तट पर नहीं, क्योंकि अपरदन केवल तल पर होता है"
+        ],
+        "explanation": "तेज प्रवाह सामान्यतः बाहरी किनारे को काटता है। धीमा प्रवाह भीतरी किनारे पर निक्षेपण बढ़ाता है।"
+      },
+      "pa": {
+        "stem": "ਦਰਿਆ ਦੇ ਵਲ਼ ਦੇ ਕਿਹੜੇ ਕੰਢੇ ਉੱਤੇ ਆਮ ਤੌਰ ਉੱਤੇ ਸਭ ਤੋਂ ਵੱਧ ਕਟਾਅ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਬਾਹਰਲਾ ਕੰਢਾ",
+          "ਅੰਦਰਲਾ ਕੰਢਾ",
+          "ਹਰ ਮੋੜ ਉੱਤੇ ਦੋਵੇਂ ਕੰਢੇ ਬਰਾਬਰ",
+          "ਕਿਸੇ ਵੀ ਕੰਢੇ ਉੱਤੇ ਨਹੀਂ, ਕਿਉਂਕਿ ਕਟਾਅ ਸਿਰਫ਼ ਤਲ ਉੱਤੇ ਹੁੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਤੇਜ਼ ਵਹਾਅ ਆਮ ਤੌਰ ਉੱਤੇ ਬਾਹਰਲੇ ਕਿਨਾਰੇ ਨੂੰ ਕੱਟਦਾ ਹੈ। ਹੌਲਾ ਵਹਾਅ ਅੰਦਰਲੇ ਕਿਨਾਰੇ ਉੱਤੇ ਜਮ੍ਹਾਂਵਟ ਵਧਾਉਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q016",
+    "cpId": "WGE-001-CP007",
+    "objective": "oxbow",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "An oxbow lake is formed when the river cuts off a:",
+        "options": [
+          "Meander loop",
+          "Distributary at its mouth",
+          "Natural levee",
+          "River terrace"
+        ],
+        "explanation": "The river takes a shorter course across a meander neck. The abandoned loop becomes an oxbow lake when isolated."
+      },
+      "hi": {
+        "stem": "गोखुर झील तब बनती है जब नदी किस भाग को मुख्य धारा से अलग कर देती है?",
+        "options": [
+          "विसर्प का घुमावदार भाग",
+          "मुहाने की वितरिका",
+          "प्राकृतिक तटबंध",
+          "नदी वेदिका"
+        ],
+        "explanation": "नदी मोड़ की गर्दन काटकर छोटा मार्ग लेती है। अलग पड़ा पुराना मोड़ गोखुर झील बनता है।"
+      },
+      "pa": {
+        "stem": "ਘੋੜੇ ਦੀ ਨਾਲ ਵਰਗੀ ਝੀਲ ਉਦੋਂ ਬਣਦੀ ਹੈ ਜਦੋਂ ਦਰਿਆ ਕਿਸ ਹਿੱਸੇ ਨੂੰ ਮੁੱਖ ਧਾਰਾ ਤੋਂ ਵੱਖ ਕਰ ਦਿੰਦਾ ਹੈ?",
+        "options": [
+          "ਦਰਿਆ ਦੇ ਵਲ਼ ਵਾਲਾ ਹਿੱਸਾ",
+          "ਮੁਹਾਣੇ ਦੀ ਵੰਡੀ ਹੋਈ ਧਾਰਾ",
+          "ਕੁਦਰਤੀ ਬੰਨ੍ਹ",
+          "ਦਰਿਆਈ ਪੌੜੀਨੁਮਾ ਸਤਹ"
+        ],
+        "explanation": "ਦਰਿਆ ਮੋੜ ਦੀ ਗਰਦਨ ਕੱਟਕੇ ਛੋਟਾ ਰਸਤਾ ਲੈਂਦਾ ਹੈ। ਵੱਖਰਾ ਹੋਇਆ ਪੁਰਾਣਾ ਮੋੜ ਨਾਲ ਵਰਗੀ ਝੀਲ ਬਣ ਜਾਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q017",
+    "cpId": "WGE-001-CP007",
+    "objective": "floodplain",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which landform develops through repeated deposition during river floods?",
+        "options": [
+          "Floodplain",
+          "Gorge",
+          "River pothole",
+          "Plunge pool"
+        ],
+        "explanation": "Floodwater spreads beyond the channel and slows down. Its sediment contributes to a relatively flat floodplain."
+      },
+      "hi": {
+        "stem": "नदी में बाढ़ के दौरान बार-बार निक्षेपण से कौन-सा स्थलरूप बनता है?",
+        "options": [
+          "बाढ़ मैदान",
+          "महाखड्ड",
+          "नदी की गर्तिका",
+          "जलप्रपात कुंड"
+        ],
+        "explanation": "बाढ़ का जल नदी से बाहर फैलकर धीमा होता है। उसका अवसाद अपेक्षाकृत समतल बाढ़ मैदान बनाता है।"
+      },
+      "pa": {
+        "stem": "ਦਰਿਆ ਵਿੱਚ ਹੜ੍ਹਾਂ ਵੇਲੇ ਵਾਰ-ਵਾਰ ਤਲਛਟ ਜਮ੍ਹਾਂ ਹੋਣ ਨਾਲ ਕਿਹੜਾ ਭੂ-ਰੂਪ ਬਣਦਾ ਹੈ?",
+        "options": [
+          "ਹੜ੍ਹ ਮੈਦਾਨ",
+          "ਡੂੰਘੀ ਤੰਗ ਘਾਟੀ",
+          "ਦਰਿਆਈ ਖੱਡਾ",
+          "ਝਰਨੇ ਹੇਠਲਾ ਕੁੰਡ"
+        ],
+        "explanation": "ਹੜ੍ਹ ਦਾ ਪਾਣੀ ਦਰਿਆ ਤੋਂ ਬਾਹਰ ਫੈਲਕੇ ਹੌਲਾ ਹੁੰਦਾ ਹੈ। ਇਸ ਦੀ ਤਲਛਟ ਮੁਕਾਬਲਤਨ ਸਮਤਲ ਹੜ੍ਹ ਦਾ ਮੈਦਾਨ ਬਣਾਉਂਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q018",
+    "cpId": "WGE-001-CP007",
+    "objective": "natural-levee",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Where is sediment deposited to form natural levees?",
+        "options": [
+          "Along the channel banks during overbank floods",
+          "At the deepest point of a river gorge",
+          "At the base of a waterfall",
+          "Only at the river mouth"
+        ],
+        "explanation": "When floodwater leaves the channel, coarser sediment settles near the banks. Repeated floods can build raised natural ridges."
+      },
+      "hi": {
+        "stem": "प्राकृतिक तटबंध बनाने वाली तलछट कहाँ जमा होती है?",
+        "options": [
+          "बाढ़ का जल बाहर फैलने पर नदी के किनारों के साथ",
+          "नदी के महाखड्ड के सबसे गहरे भाग में",
+          "जलप्रपात के आधार पर",
+          "केवल नदी के मुहाने पर"
+        ],
+        "explanation": "बाढ़ का जल बाहर आते ही मोटा अवसाद किनारे के पास छोड़ता है। बार-बार बाढ़ से उठी प्राकृतिक पट्टियाँ बनती हैं।"
+      },
+      "pa": {
+        "stem": "ਕੁਦਰਤੀ ਬੰਨ੍ਹ ਬਣਾਉਣ ਵਾਲੀ ਤਲਛਟ ਕਿੱਥੇ ਜਮ੍ਹਾਂ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਹੜ੍ਹ ਦਾ ਪਾਣੀ ਬਾਹਰ ਫੈਲਣ ਵੇਲੇ ਦਰਿਆ ਦੇ ਕੰਢਿਆਂ ਨਾਲ",
+          "ਦਰਿਆ ਦੀ ਤੰਗ ਘਾਟੀ ਦੇ ਸਭ ਤੋਂ ਡੂੰਘੇ ਹਿੱਸੇ ਵਿੱਚ",
+          "ਝਰਨੇ ਦੇ ਹੇਠਲੇ ਹਿੱਸੇ ਵਿੱਚ",
+          "ਸਿਰਫ਼ ਦਰਿਆ ਦੇ ਮੁਹਾਣੇ ਉੱਤੇ"
+        ],
+        "explanation": "ਹੜ੍ਹ ਦਾ ਪਾਣੀ ਬਾਹਰ ਆਉਂਦਿਆਂ ਮੋਟੀ ਤਲਛਟ ਕਿਨਾਰੇ ਨੇੜੇ ਛੱਡਦਾ ਹੈ। ਵਾਰ-ਵਾਰ ਹੜ੍ਹ ਨਾਲ ਉੱਚੀਆਂ ਕੁਦਰਤੀ ਪੱਟੀਆਂ ਬਣਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q019",
+    "cpId": "WGE-001-CP007",
+    "objective": "delta",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which condition favours delta formation at a river mouth?",
+        "options": [
+          "Sediment accumulates faster than waves and currents remove it",
+          "Waves remove sediment faster than the river supplies it",
+          "The river carries almost no sediment",
+          "The river mainly deepens its bed without deposition"
+        ],
+        "explanation": "A delta is built by sediment deposition near the mouth. Waves, tides and sediment supply influence whether it develops."
+      },
+      "hi": {
+        "stem": "नदी के मुहाने पर कौन-सी स्थिति डेल्टा निर्माण के अनुकूल है?",
+        "options": [
+          "तलछट का जमाव लहरों और धाराओं द्वारा हटाए जाने से अधिक है",
+          "लहरें नदी की आपूर्ति से अधिक तेजी से तलछट हटाती हैं",
+          "नदी लगभग कोई तलछट नहीं लाती",
+          "नदी निक्षेपण किए बिना मुख्यतः अपना तल गहरा करती है"
+        ],
+        "explanation": "डेल्टा मुहाने के पास अवसाद जमने से बनता है। लहरें, ज्वार और अवसाद आपूर्ति इसका विकास प्रभावित करते हैं।"
+      },
+      "pa": {
+        "stem": "ਦਰਿਆ ਦੇ ਮੁਹਾਣੇ ਉੱਤੇ ਕਿਹੜੀ ਸਥਿਤੀ ਡੈਲਟਾ ਬਣਨ ਲਈ ਢੁਕਵੀਂ ਹੈ?",
+        "options": [
+          "ਤਲਛਟ ਲਹਿਰਾਂ ਅਤੇ ਧਾਰਾਵਾਂ ਵੱਲੋਂ ਹਟਾਏ ਜਾਣ ਨਾਲੋਂ ਵੱਧ ਤੇਜ਼ੀ ਨਾਲ ਜਮ੍ਹਾਂ ਹੁੰਦੀ ਹੈ",
+          "ਲਹਿਰਾਂ ਦਰਿਆ ਦੀ ਸਪਲਾਈ ਨਾਲੋਂ ਵੱਧ ਤੇਜ਼ੀ ਨਾਲ ਤਲਛਟ ਹਟਾਉਂਦੀਆਂ ਹਨ",
+          "ਦਰਿਆ ਲਗਭਗ ਕੋਈ ਤਲਛਟ ਨਹੀਂ ਲਿਆਉਂਦਾ",
+          "ਦਰਿਆ ਬਿਨਾਂ ਤਲਛਟ ਜਮ੍ਹਾਂ ਕੀਤੇ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਆਪਣਾ ਤਲ ਡੂੰਘਾ ਕਰਦਾ ਹੈ"
+        ],
+        "explanation": "ਡੈਲਟਾ ਮੁਹਾਣੇ ਨੇੜੇ ਤਲਛਟ ਜਮ੍ਹਾਂ ਹੋਣ ਨਾਲ ਬਣਦਾ ਹੈ। ਲਹਿਰਾਂ, ਜਵਾਰ ਅਤੇ ਤਲਛਟ ਦੀ ਆਮਦ ਇਸ ਦੇ ਬਣਨ ਉੱਤੇ ਅਸਰ ਪਾਉਂਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q020",
+    "cpId": "WGE-001-CP007",
+    "objective": "estuary",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which of the following describes an estuary?",
+        "options": [
+          "A partly enclosed coastal water body where river water mixes with seawater",
+          "A fan-shaped sediment deposit at the foot of a mountain",
+          "An abandoned river meander cut off from the main channel",
+          "A sediment ridge joining an island to the mainland"
+        ],
+        "explanation": "An estuary receives freshwater and has a connection to the sea. It is a water-body setting, not simply another name for a delta deposit."
+      },
+      "hi": {
+        "stem": "निम्नलिखित में से कौन-सा वर्णन ज्वारनदमुख का है?",
+        "options": [
+          "आंशिक रूप से घिरा तटीय जलक्षेत्र जहाँ नदी का जल समुद्री जल से मिलता है",
+          "पर्वत के पाद पर पंखे जैसा तलछट निक्षेप",
+          "मुख्य धारा से कटा पुराना नदी विसर्प",
+          "द्वीप को मुख्य भूभाग से जोड़ने वाली तलछट की पट्टी"
+        ],
+        "explanation": "ज्वारनदमुख में मीठा जल आता है और समुद्र से संपर्क रहता है। यह केवल डेल्टा के जमाव का दूसरा नाम नहीं है।"
+      },
+      "pa": {
+        "stem": "ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਵਰਣਨ ਐਸਟੁਅਰੀ ਦਾ ਹੈ?",
+        "options": [
+          "ਅੱਧ-ਘਿਰਿਆ ਤੱਟੀ ਜਲ ਖੇਤਰ ਜਿੱਥੇ ਦਰਿਆ ਦਾ ਪਾਣੀ ਸਮੁੰਦਰ ਦੇ ਪਾਣੀ ਨਾਲ ਮਿਲਦਾ ਹੈ",
+          "ਪਹਾੜ ਦੇ ਪੈਰਾਂ ਵਿੱਚ ਪੱਖੇ ਵਰਗੀ ਤਲਛਟ ਜਮ੍ਹਾਂਵਟ",
+          "ਮੁੱਖ ਧਾਰਾ ਤੋਂ ਕੱਟਿਆ ਪੁਰਾਣਾ ਦਰਿਆਈ ਵਲ਼",
+          "ਟਾਪੂ ਨੂੰ ਮੁੱਖ ਥਲ ਨਾਲ ਜੋੜਦੀ ਤਲਛਟ ਦੀ ਪੱਟੀ"
+        ],
+        "explanation": "ਐਸਟੂਅਰੀ ਵਿੱਚ ਤਾਜ਼ਾ ਪਾਣੀ ਆਉਂਦਾ ਹੈ ਅਤੇ ਸਮੁੰਦਰ ਨਾਲ ਸੰਪਰਕ ਰਹਿੰਦਾ ਹੈ। ਇਹ ਸਿਰਫ਼ ਡੈਲਟੇ ਦੀ ਜਮ੍ਹਾਂਵਟ ਦਾ ਦੂਜਾ ਨਾਂ ਨਹੀਂ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q021",
+    "cpId": "WGE-001-CP007",
+    "objective": "alluvial-fan",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A stream leaves a steep valley and deposits sediment on the adjoining plain. Which landform is likely to develop?",
+        "options": [
+          "Alluvial fan",
+          "Delta",
+          "Natural levee",
+          "Oxbow lake"
+        ],
+        "explanation": "The slope decreases and the flow spreads out. Sediment is deposited in a fan-shaped body."
+      },
+      "hi": {
+        "stem": "एक नदी तीव्र ढाल वाली घाटी से निकलकर पास के मैदान पर तलछट जमा करती है। कौन-सा स्थलरूप बनने की संभावना है?",
+        "options": [
+          "जलोढ़ पंख",
+          "डेल्टा",
+          "प्राकृतिक तटबंध",
+          "गोखुर झील"
+        ],
+        "explanation": "ढाल घटती है और प्रवाह फैलता है। अवसाद पंख के आकार में जमा होता है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਨਦੀ ਤਿੱਖੀ ਢਲਾਣ ਵਾਲੀ ਘਾਟੀ ਤੋਂ ਨਿਕਲ ਕੇ ਨਾਲ ਲੱਗਦੇ ਮੈਦਾਨ ਉੱਤੇ ਤਲਛਟ ਜਮ੍ਹਾਂ ਕਰਦੀ ਹੈ। ਕਿਹੜਾ ਭੂ-ਰੂਪ ਬਣ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਜਲੋੜ ਪੱਖਾ",
+          "ਡੈਲਟਾ",
+          "ਕੁਦਰਤੀ ਬੰਨ੍ਹ",
+          "ਘੋੜੇ ਦੀ ਨਾਲ ਵਰਗੀ ਝੀਲ"
+        ],
+        "explanation": "ਢਲਾਣ ਘਟਦੀ ਹੈ ਅਤੇ ਵਹਾਅ ਫੈਲਦਾ ਹੈ। ਤਲਛਟ ਪੱਖੇ ਦੇ ਆਕਾਰ ਵਿੱਚ ਜਮ੍ਹਾਂ ਹੁੰਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q022",
+    "cpId": "WGE-001-CP007",
+    "objective": "river-terrace",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "River terraces occur on both sides above the present floodplain. What do they commonly indicate?",
+        "options": [
+          "Downcutting into an older valley floor",
+          "Continuous deposition with no later incision",
+          "Exclusive erosion by wind",
+          "Formation of a new delta at the same site"
+        ],
+        "explanation": "Terraces preserve remnants of older floodplain or valley-floor levels. Later incision leaves them above the active river."
+      },
+      "hi": {
+        "stem": "वर्तमान बाढ़ मैदान से ऊपर नदी के दोनों ओर वेदिकाएँ हैं। वे सामान्यतः किस बात का संकेत देती हैं?",
+        "options": [
+          "पुराने घाटी तल में नदी का नीचे की ओर कटाव",
+          "बाद में कटाव हुए बिना लगातार निक्षेपण",
+          "केवल हवा द्वारा अपरदन",
+          "उसी स्थान पर नए डेल्टा का निर्माण"
+        ],
+        "explanation": "वेदिकाएँ पुराने बाढ़ मैदान या घाटी तल के अवशेष हैं। बाद का गहरा कटाव उन्हें सक्रिय नदी से ऊपर छोड़ देता है।"
+      },
+      "pa": {
+        "stem": "ਮੌਜੂਦਾ ਹੜ੍ਹ ਮੈਦਾਨ ਤੋਂ ਉੱਪਰ ਦਰਿਆ ਦੇ ਦੋਵੇਂ ਪਾਸੇ ਪੌੜੀਨੁਮਾ ਸਤਹਾਂ ਹਨ। ਇਹ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ ਗੱਲ ਦਾ ਸੰਕੇਤ ਦਿੰਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਪੁਰਾਣੇ ਘਾਟੀ ਤਲ ਵਿੱਚ ਦਰਿਆ ਵੱਲੋਂ ਹੇਠਾਂ ਵੱਲ ਕਟਾਅ",
+          "ਬਾਅਦ ਵਿੱਚ ਕਟਾਅ ਤੋਂ ਬਿਨਾਂ ਲਗਾਤਾਰ ਜਮ੍ਹਾਂਵਟ",
+          "ਸਿਰਫ਼ ਹਵਾ ਵੱਲੋਂ ਕਟਾਅ",
+          "ਉਸੇ ਥਾਂ ਨਵਾਂ ਡੈਲਟਾ ਬਣਨਾ"
+        ],
+        "explanation": "ਪੌੜੀਆਂ ਪੁਰਾਣੇ ਹੜ੍ਹ ਮੈਦਾਨ ਜਾਂ ਘਾਟੀ ਤਲ ਦੇ ਬਚੇ ਹਿੱਸੇ ਹਨ। ਬਾਅਦ ਦਾ ਡੂੰਘਾ ਕਟਾਅ ਉਨ੍ਹਾਂ ਨੂੰ ਚੱਲਦੇ ਦਰਿਆ ਤੋਂ ਉੱਪਰ ਛੱਡ ਦਿੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q023",
+    "cpId": "WGE-001-CP007",
+    "objective": "meander-process-integration",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which sequence leads to the formation of an oxbow lake?",
+        "options": [
+          "Meander growth → neck cutoff → isolation of the loop",
+          "Neck cutoff → meander growth → isolation of the loop",
+          "Meander growth → isolation of the loop → neck cutoff",
+          "Floodplain deposition → delta formation → valley deepening"
+        ],
+        "explanation": "Outer-bank erosion narrows a meander neck. A cutoff and subsequent deposition can isolate the old loop."
+      },
+      "hi": {
+        "stem": "कौन-सा क्रम गोखुर झील के निर्माण को दर्शाता है?",
+        "options": [
+          "विसर्प का बढ़ना → संकरी गर्दन का कटना → घुमावदार भाग का अलग होना",
+          "संकरी गर्दन का कटना → विसर्प का बढ़ना → घुमावदार भाग का अलग होना",
+          "विसर्प का बढ़ना → घुमावदार भाग का अलग होना → संकरी गर्दन का कटना",
+          "बाढ़ मैदान पर निक्षेपण → डेल्टा निर्माण → घाटी का गहरा होना"
+        ],
+        "explanation": "बाहरी किनारे का कटाव मोड़ की गर्दन संकरी करता है। कटाव और बाद का निक्षेपण पुराने मोड़ को अलग कर सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਕ੍ਰਮ ਘੋੜੇ ਦੀ ਨਾਲ ਵਰਗੀ ਝੀਲ ਦੇ ਬਣਨ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਵਲ਼ ਦਾ ਵਧਣਾ → ਤੰਗ ਗਰਦਨ ਦਾ ਕੱਟਣਾ → ਵਲ਼ ਵਾਲੇ ਹਿੱਸੇ ਦਾ ਵੱਖ ਹੋਣਾ",
+          "ਤੰਗ ਗਰਦਨ ਦਾ ਕੱਟਣਾ → ਵਲ਼ ਦਾ ਵਧਣਾ → ਵਲ਼ ਵਾਲੇ ਹਿੱਸੇ ਦਾ ਵੱਖ ਹੋਣਾ",
+          "ਵਲ਼ ਦਾ ਵਧਣਾ → ਵਲ਼ ਵਾਲੇ ਹਿੱਸੇ ਦਾ ਵੱਖ ਹੋਣਾ → ਤੰਗ ਗਰਦਨ ਦਾ ਕੱਟਣਾ",
+          "ਹੜ੍ਹ ਮੈਦਾਨ ਵਿੱਚ ਜਮ੍ਹਾਂਵਟ → ਡੈਲਟਾ ਬਣਨਾ → ਘਾਟੀ ਦਾ ਡੂੰਘਾ ਹੋਣਾ"
+        ],
+        "explanation": "ਬਾਹਰਲੇ ਕਿਨਾਰੇ ਦਾ ਕਟਾਅ ਮੋੜ ਦੀ ਗਰਦਨ ਤੰਗ ਕਰਦਾ ਹੈ। ਕੱਟਣਾ ਅਤੇ ਬਾਅਦ ਦੀ ਜਮ੍ਹਾਂਵਟ ਪੁਰਾਣੇ ਮੋੜ ਨੂੰ ਵੱਖ ਕਰ ਸਕਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP007-Q024",
+    "cpId": "WGE-001-CP007",
+    "objective": "process-classification",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-LANDFORMS"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which group consists entirely of landforms formed by river deposition?",
+        "options": [
+          "Delta, alluvial fan and natural levee",
+          "Delta, gorge and natural levee",
+          "Alluvial fan, waterfall and floodplain",
+          "Floodplain, pothole and gorge"
+        ],
+        "explanation": "Deltas, fans and levees accumulate river sediment. Their locations differ, but deposition is the common building process."
+      },
+      "hi": {
+        "stem": "किस समूह में सभी स्थलरूप नदी के निक्षेपण से बने हैं?",
+        "options": [
+          "डेल्टा, जलोढ़ पंख और प्राकृतिक तटबंध",
+          "डेल्टा, महाखड्ड और प्राकृतिक तटबंध",
+          "जलोढ़ पंख, जलप्रपात और बाढ़ मैदान",
+          "बाढ़ मैदान, गर्तिका और महाखड्ड"
+        ],
+        "explanation": "डेल्टा, पंख और तटबंध नदी के अवसाद से बनते हैं। स्थान अलग हैं, लेकिन निर्माण का साझा कारण निक्षेपण है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਸਮੂਹ ਦੇ ਸਾਰੇ ਭੂ-ਰੂਪ ਦਰਿਆ ਵੱਲੋਂ ਤਲਛਟ ਜਮ੍ਹਾਂ ਕਰਨ ਨਾਲ ਬਣਦੇ ਹਨ?",
+        "options": [
+          "ਡੈਲਟਾ, ਜਲੋੜ ਪੱਖਾ ਅਤੇ ਕੁਦਰਤੀ ਬੰਨ੍ਹ",
+          "ਡੈਲਟਾ, ਡੂੰਘੀ ਤੰਗ ਘਾਟੀ ਅਤੇ ਕੁਦਰਤੀ ਬੰਨ੍ਹ",
+          "ਜਲੋੜ ਪੱਖਾ, ਝਰਨਾ ਅਤੇ ਹੜ੍ਹ ਮੈਦਾਨ",
+          "ਹੜ੍ਹ ਮੈਦਾਨ, ਦਰਿਆਈ ਖੱਡਾ ਅਤੇ ਡੂੰਘੀ ਤੰਗ ਘਾਟੀ"
+        ],
+        "explanation": "ਡੈਲਟੇ, ਪੱਖੇ ਅਤੇ ਬੰਨ੍ਹ ਦਰਿਆ ਦੀ ਤਲਛਟ ਨਾਲ ਬਣਦੇ ਹਨ। ਥਾਵਾਂ ਵੱਖ ਹਨ ਪਰ ਬਣਨ ਦੀ ਸਾਂਝੀ ਪ੍ਰਕਿਰਿਆ ਜਮ੍ਹਾਂਵਟ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  }
+]

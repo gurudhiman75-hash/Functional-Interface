@@ -5,13 +5,17 @@ on:
     branches: [New-main]
     types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/src/english-v1/**
-      - .github/workflows/english-eng002-cp008-v1.yml
+      - artifacts/api-server/src/english-v1/chapters/**/ENG-002/CP008/**
+      - artifacts/api-server/src/english-v1/**/eng-002-cp008*
+      - artifacts/api-server/src/english-v1/**/ENG-002-CP008*
+      - artifacts/api-server/src/question-studio/engines/*eng002-cp008*
   push:
     branches: [New-main]
     paths:
-      - artifacts/api-server/src/english-v1/**
-      - .github/workflows/english-eng002-cp008-v1.yml
+      - artifacts/api-server/src/english-v1/chapters/**/ENG-002/CP008/**
+      - artifacts/api-server/src/english-v1/**/eng-002-cp008*
+      - artifacts/api-server/src/english-v1/**/ENG-002-CP008*
+      - artifacts/api-server/src/question-studio/engines/*eng002-cp008*
   workflow_dispatch:
 
 permissions:

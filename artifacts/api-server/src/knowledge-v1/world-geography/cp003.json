@@ -1,0 +1,1032 @@
+[
+  {
+    "id": "WGE-001-CP003-Q001",
+    "cpId": "WGE-001-CP003",
+    "objective": "rotation",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Earth's rotation takes place about:",
+        "options": [
+          "Its own axis",
+          "The Sun",
+          "The Moon",
+          "The Galactic centre"
+        ],
+        "explanation": "Rotation means spinning about an axis. Earth's daily rotation produces the regular cycle of day and night."
+      },
+      "hi": {
+        "stem": "पृथ्वी का घूर्णन होता है:",
+        "options": [
+          "अपनी धुरी",
+          "सूर्य",
+          "चंद्रमा",
+          "आकाशगंगा का केंद्र"
+        ],
+        "explanation": "घूर्णन का अर्थ धुरी पर घूमना है। पृथ्वी का दैनिक घूर्णन दिन-रात का नियमित चक्र बनाता है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੀ ਘੁੰਮਣ ਗਤੀ ਹੁੰਦੀ ਹੈ:",
+        "options": [
+          "ਆਪਣੀ ਧੁਰੀ",
+          "ਸੂਰਜ",
+          "ਚੰਦਰਮਾ",
+          "ਆਕਾਸ਼ਗੰਗਾ ਦਾ ਕੇਂਦਰ"
+        ],
+        "explanation": "ਘੁੰਮਣ ਦਾ ਅਰਥ ਧੁਰੀ ਦੁਆਲੇ ਘੁੰਮਣਾ ਹੈ। ਧਰਤੀ ਦਾ ਰੋਜ਼ਾਨਾ ਘੁੰਮਣਾ ਦਿਨ-ਰਾਤ ਦਾ ਚੱਕਰ ਬਣਾਉਂਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q002",
+    "cpId": "WGE-001-CP003",
+    "objective": "revolution",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Earth's revolution is its orbital motion around:",
+        "options": [
+          "Sun",
+          "Moon",
+          "Venus",
+          "Jupiter"
+        ],
+        "explanation": "Earth travels around the Sun in an orbit. One revolution takes approximately one year."
+      },
+      "hi": {
+        "stem": "पृथ्वी की परिक्रमण गति किसके चारों ओर होती है?",
+        "options": [
+          "सूर्य",
+          "चंद्रमा",
+          "शुक्र",
+          "बृहस्पति"
+        ],
+        "explanation": "पृथ्वी सूर्य के चारों ओर कक्षा में चलती है। एक परिक्रमा में लगभग एक वर्ष लगता है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਆਪਣੀ ਪਰਿਕਰਮਾ ਕਿਸ ਦੇ ਦੁਆਲੇ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "ਸੂਰਜ",
+          "ਚੰਦਰਮਾ",
+          "ਸ਼ੁੱਕਰ",
+          "ਬ੍ਰਹਿਸਪਤੀ"
+        ],
+        "explanation": "ਧਰਤੀ ਸੂਰਜ ਦੇ ਦੁਆਲੇ ਪੰਧ ਵਿੱਚ ਚੱਲਦੀ ਹੈ। ਇੱਕ ਪਰਿਕਰਮਾ ਵਿੱਚ ਲਗਭਗ ਇੱਕ ਸਾਲ ਲੱਗਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q003",
+    "cpId": "WGE-001-CP003",
+    "objective": "rotation-direction",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "In which direction does Earth rotate when viewed from above the North Pole?",
+        "options": [
+          "Anticlockwise",
+          "Clockwise",
+          "Clockwise in June and anticlockwise in December",
+          "Anticlockwise in June and clockwise in December"
+        ],
+        "explanation": "Earth rotates west to east. From above the North Pole, this appears anticlockwise."
+      },
+      "hi": {
+        "stem": "उत्तरी ध्रुव के ऊपर से देखने पर पृथ्वी किस दिशा में घूमती है?",
+        "options": [
+          "वामावर्त",
+          "दक्षिणावर्त",
+          "जून में दक्षिणावर्त और दिसंबर में वामावर्त",
+          "जून में वामावर्त और दिसंबर में दक्षिणावर्त"
+        ],
+        "explanation": "पृथ्वी पश्चिम से पूर्व घूमती है। उत्तरी ध्रुव के ऊपर से यह वामावर्त दिखाई देता है।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰੀ ਧਰੁਵ ਦੇ ਉੱਪਰੋਂ ਦੇਖਣ ਉੱਤੇ ਧਰਤੀ ਕਿਸ ਦਿਸ਼ਾ ਵਿੱਚ ਘੁੰਮਦੀ ਹੈ?",
+        "options": [
+          "ਘੜੀ ਦੀਆਂ ਸੂਈਆਂ ਦੇ ਉਲਟ",
+          "ਘੜੀ ਦੀਆਂ ਸੂਈਆਂ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ",
+          "ਜੂਨ ਵਿੱਚ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਅਤੇ ਦਸੰਬਰ ਵਿੱਚ ਉਲਟ",
+          "ਜੂਨ ਵਿੱਚ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਦੇ ਉਲਟ ਅਤੇ ਦਸੰਬਰ ਵਿੱਚ ਉਸੇ ਦਿਸ਼ਾ ਵਿੱਚ"
+        ],
+        "explanation": "ਧਰਤੀ ਪੱਛਮ ਤੋਂ ਪੂਰਬ ਵੱਲ ਘੁੰਮਦੀ ਹੈ। ਉੱਤਰੀ ਧਰੁਵ ਦੇ ਉੱਪਰੋਂ ਇਹ ਘੜੀ ਦੀਆਂ ਸੂਈਆਂ ਦੇ ਉਲਟ ਦਿਸਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q004",
+    "cpId": "WGE-001-CP003",
+    "objective": "day-night",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is the main cause of the daily alternation of day and night?",
+        "options": [
+          "Earth's rotation",
+          "Earth's changing distance from the Sun",
+          "The Moon's revolution",
+          "Ocean tides"
+        ],
+        "explanation": "As Earth rotates, places move into and out of the sunlit half. Revolution alone does not explain the daily cycle."
+      },
+      "hi": {
+        "stem": "दिन और रात के दैनिक बदलाव का मुख्य कारण क्या है?",
+        "options": [
+          "पृथ्वी का घूर्णन",
+          "सूर्य से पृथ्वी की बदलती दूरी",
+          "चंद्रमा की परिक्रमा",
+          "समुद्री ज्वार"
+        ],
+        "explanation": "पृथ्वी के घूमने से स्थान प्रकाशित भाग में आते-जाते हैं। केवल परिक्रमा दैनिक चक्र का कारण नहीं है।"
+      },
+      "pa": {
+        "stem": "ਦਿਨ ਅਤੇ ਰਾਤ ਦੇ ਰੋਜ਼ਾਨਾ ਬਦਲਾਅ ਦਾ ਮੁੱਖ ਕਾਰਨ ਕੀ ਹੈ?",
+        "options": [
+          "ਧਰਤੀ ਦਾ ਆਪਣੀ ਧੁਰੀ ਦੁਆਲੇ ਘੁੰਮਣਾ",
+          "ਸੂਰਜ ਤੋਂ ਧਰਤੀ ਦੀ ਬਦਲਦੀ ਦੂਰੀ",
+          "ਚੰਦਰਮਾ ਦੀ ਪਰਿਕਰਮਾ",
+          "ਸਮੁੰਦਰੀ ਜਵਾਰ"
+        ],
+        "explanation": "ਧਰਤੀ ਦੇ ਘੁੰਮਣ ਨਾਲ ਸਥਾਨ ਸੂਰਜ ਦੀ ਰੌਸ਼ਨੀ ਵਾਲੇ ਹਿੱਸੇ ਵਿੱਚ ਆਉਂਦੇ ਅਤੇ ਉਸ ਤੋਂ ਬਾਹਰ ਜਾਂਦੇ ਹਨ। ਕੇਵਲ ਪਰਿਕਰਮਾ ਰੋਜ਼ਾਨਾ ਚੱਕਰ ਨਹੀਂ ਬਣਾਉਂਦੀ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q005",
+    "cpId": "WGE-001-CP003",
+    "objective": "illumination-circle",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which two parts of Earth are separated by the circle of illumination?",
+        "options": [
+          "Day side and night side",
+          "Northern and Southern Hemispheres",
+          "Land and water",
+          "Tropical and temperate zones"
+        ],
+        "explanation": "It is the boundary between sunlight and darkness. Its position relative to the poles changes with the seasons."
+      },
+      "hi": {
+        "stem": "प्रदीप्ति वृत्त पृथ्वी के किन दो भागों को अलग करता है?",
+        "options": [
+          "दिन वाला और रात वाला भाग",
+          "उत्तरी और दक्षिणी गोलार्ध",
+          "स्थल और जल",
+          "उष्ण और शीतोष्ण कटिबंध"
+        ],
+        "explanation": "यह सूर्यप्रकाश और अंधकार की सीमा है। ध्रुवों के सापेक्ष इसकी स्थिति ऋतुओं के साथ बदलती है।"
+      },
+      "pa": {
+        "stem": "ਪ੍ਰਕਾਸ਼ ਚੱਕਰ ਧਰਤੀ ਦੇ ਕਿਹੜੇ ਦੋ ਹਿੱਸਿਆਂ ਨੂੰ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਦਿਨ ਵਾਲਾ ਅਤੇ ਰਾਤ ਵਾਲਾ ਹਿੱਸਾ",
+          "ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ",
+          "ਥਲ ਅਤੇ ਪਾਣੀ",
+          "ਤਪਤ ਅਤੇ ਸਮਸ਼ੀਤੋਸ਼ਣ ਖੰਡ"
+        ],
+        "explanation": "ਇਹ ਸੂਰਜ ਦੀ ਰੌਸ਼ਨੀ ਅਤੇ ਹਨੇਰੇ ਵਿਚਲੀ ਹੱਦ ਹੈ। ਧਰੁਵਾਂ ਦੇ ਮੁਕਾਬਲੇ ਇਸ ਦੀ ਸਥਿਤੀ ਰੁੱਤਾਂ ਨਾਲ ਬਦਲਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q006",
+    "cpId": "WGE-001-CP003",
+    "objective": "axis-tilt",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Earth's axis is tilted by about how much from the perpendicular to its orbital plane?",
+        "options": [
+          "23.5°",
+          "66.5°",
+          "90°",
+          "0°"
+        ],
+        "explanation": "The tilt from the perpendicular is about 23.5°. The angle with the orbital plane itself is about 66.5°."
+      },
+      "hi": {
+        "stem": "पृथ्वी की धुरी अपने कक्षीय तल के लंब से लगभग कितनी झुकी है?",
+        "options": [
+          "23.5°",
+          "66.5°",
+          "90°",
+          "0°"
+        ],
+        "explanation": "लंब से झुकाव लगभग 23.5° है। स्वयं कक्षीय तल से धुरी का कोण लगभग 66.5° है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੀ ਧੁਰੀ ਆਪਣੇ ਪੰਧ ਦੇ ਤਲ ਉੱਤੇ ਖੜ੍ਹੇ ਲੰਬ ਤੋਂ ਲਗਭਗ ਕਿੰਨੀ ਝੁਕੀ ਹੋਈ ਹੈ?",
+        "options": [
+          "23.5°",
+          "66.5°",
+          "90°",
+          "0°"
+        ],
+        "explanation": "ਲੰਬ ਤੋਂ ਝੁਕਾਅ ਲਗਭਗ 23.5° ਹੈ। ਪੰਧ ਦੇ ਤਲ ਨਾਲ ਧੁਰੀ ਦਾ ਕੋਣ ਲਗਭਗ 66.5° ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q007",
+    "cpId": "WGE-001-CP003",
+    "objective": "seasons-cause",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which combination is primarily responsible for the change of seasons on Earth?",
+        "options": [
+          "Axial tilt combined with revolution",
+          "Daily rotation alone",
+          "Changes in the Moon's phases",
+          "Earth being much nearer the Sun in northern summer"
+        ],
+        "explanation": "Tilt and revolution change sunlight angle and day length through the year. Seasonal distance changes are not the main cause."
+      },
+      "hi": {
+        "stem": "पृथ्वी पर ऋतु परिवर्तन का मुख्य कारण कौन-सा संयोजन है?",
+        "options": [
+          "धुरी का झुकाव और परिक्रमा",
+          "केवल दैनिक घूर्णन",
+          "चंद्रमा की कलाओं का बदलाव",
+          "उत्तरी गर्मियों में पृथ्वी का सूर्य के बहुत निकट होना"
+        ],
+        "explanation": "झुकाव और परिक्रमा वर्ष भर सूर्यकिरणों का कोण और दिन की अवधि बदलते हैं। दूरी में बदलाव मुख्य कारण नहीं है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਉੱਤੇ ਰੁੱਤਾਂ ਬਦਲਣ ਦਾ ਮੁੱਖ ਕਾਰਨ ਕਿਹੜਾ ਸੁਮੇਲ ਹੈ?",
+        "options": [
+          "ਧੁਰੀ ਦਾ ਝੁਕਾਅ ਅਤੇ ਪਰਿਕਰਮਾ",
+          "ਕੇਵਲ ਰੋਜ਼ਾਨਾ ਘੁੰਮਣਾ",
+          "ਚੰਦਰਮਾ ਦੀਆਂ ਕਲਾਵਾਂ ਦਾ ਬਦਲਾਅ",
+          "ਉੱਤਰੀ ਗਰਮੀਆਂ ਵਿੱਚ ਧਰਤੀ ਦਾ ਸੂਰਜ ਦੇ ਬਹੁਤ ਨੇੜੇ ਹੋਣਾ"
+        ],
+        "explanation": "ਝੁਕਾਅ ਅਤੇ ਪਰਿਕਰਮਾ ਸਾਲ ਭਰ ਸੂਰਜੀ ਕਿਰਨਾਂ ਦਾ ਕੋਣ ਅਤੇ ਦਿਨ ਦੀ ਲੰਬਾਈ ਬਦਲਦੇ ਹਨ। ਦੂਰੀ ਦਾ ਬਦਲਾਅ ਮੁੱਖ ਕਾਰਨ ਨਹੀਂ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q008",
+    "cpId": "WGE-001-CP003",
+    "objective": "opposite-seasons",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "When it is summer in the Northern Hemisphere, which season prevails in the Southern Hemisphere?",
+        "options": [
+          "Winter",
+          "Summer",
+          "Spring",
+          "Autumn"
+        ],
+        "explanation": "One hemisphere tilts towards the Sun while the other tilts away. Their astronomical seasons are therefore opposite."
+      },
+      "hi": {
+        "stem": "जब उत्तरी गोलार्ध में ग्रीष्म ऋतु होती है, तब दक्षिणी गोलार्ध में कौन-सी ऋतु होती है?",
+        "options": [
+          "शीत ऋतु",
+          "ग्रीष्म ऋतु",
+          "वसंत ऋतु",
+          "शरद ऋतु"
+        ],
+        "explanation": "एक गोलार्ध सूर्य की ओर और दूसरा उससे दूर झुका होता है। इसलिए दोनों की खगोलीय ऋतुएँ विपरीत होती हैं।"
+      },
+      "pa": {
+        "stem": "ਜਦੋਂ ਉੱਤਰੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਗਰਮੀ ਦੀ ਰੁੱਤ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਕਿਹੜੀ ਰੁੱਤ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਸਰਦੀ",
+          "ਗਰਮੀ",
+          "ਬਸੰਤ",
+          "ਪਤਝੜ"
+        ],
+        "explanation": "ਇੱਕ ਅਰਧ-ਗੋਲਾ ਸੂਰਜ ਵੱਲ ਅਤੇ ਦੂਜਾ ਉਸ ਤੋਂ ਪਰੇ ਝੁਕਿਆ ਹੁੰਦਾ ਹੈ। ਇਸ ਲਈ ਦੋਵਾਂ ਦੀਆਂ ਖਗੋਲੀ ਰੁੱਤਾਂ ਉਲਟ ਹੁੰਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q009",
+    "cpId": "WGE-001-CP003",
+    "objective": "june-overhead",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "At the June solstice, the noon Sun is directly overhead near which parallel?",
+        "options": [
+          "Tropic of Cancer",
+          "Tropic of Capricorn",
+          "Equator",
+          "Arctic Circle"
+        ],
+        "explanation": "At the June solstice, the subsolar point reaches about 23.5° north. This is the Tropic of Cancer."
+      },
+      "hi": {
+        "stem": "जून अयनांत पर दोपहर का सूर्य किस अक्षांश रेखा के पास ठीक सिर के ऊपर होता है?",
+        "options": [
+          "कर्क रेखा",
+          "मकर रेखा",
+          "भूमध्य रेखा",
+          "आर्कटिक वृत्त"
+        ],
+        "explanation": "जून अयनांत पर सूर्य का लंबवत बिंदु लगभग 23.5° उत्तर तक पहुँचता है। यह कर्क रेखा है।"
+      },
+      "pa": {
+        "stem": "ਜੂਨ ਦੇ ਅਯਨਾਂਤ ਉੱਤੇ ਦੁਪਹਿਰ ਦਾ ਸੂਰਜ ਕਿਹੜੀ ਰੇਖਾ ਨੇੜੇ ਠੀਕ ਸਿਰ ਉੱਤੇ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਕਰਕ ਰੇਖਾ",
+          "ਮਕਰ ਰੇਖਾ",
+          "ਭੂਮੱਧ ਰੇਖਾ",
+          "ਆਰਕਟਿਕ ਚੱਕਰ"
+        ],
+        "explanation": "ਜੂਨ ਦੇ ਅਯਨਾਂਤ ਉੱਤੇ ਸੂਰਜ ਦੇ ਸਿੱਧੇ ਉੱਪਰ ਹੋਣ ਵਾਲਾ ਬਿੰਦੂ ਲਗਭਗ 23.5° ਉੱਤਰ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ। ਇਹ ਕਰਕ ਰੇਖਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q010",
+    "cpId": "WGE-001-CP003",
+    "objective": "december-overhead",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "At the December solstice, the noon Sun is directly overhead near which parallel?",
+        "options": [
+          "Tropic of Capricorn",
+          "Tropic of Cancer",
+          "Equator",
+          "Antarctic Circle"
+        ],
+        "explanation": "The subsolar point reaches about 23.5° south at the December solstice. The Southern Hemisphere is tilted towards the Sun."
+      },
+      "hi": {
+        "stem": "दिसंबर अयनांत पर दोपहर का सूर्य किस अक्षांश रेखा के पास ठीक सिर के ऊपर होता है?",
+        "options": [
+          "मकर रेखा",
+          "कर्क रेखा",
+          "भूमध्य रेखा",
+          "अंटार्कटिक वृत्त"
+        ],
+        "explanation": "दिसंबर अयनांत पर लंबवत सूर्य का बिंदु लगभग 23.5° दक्षिण पहुँचता है। दक्षिणी गोलार्ध सूर्य की ओर झुका होता है।"
+      },
+      "pa": {
+        "stem": "ਦਸੰਬਰ ਦੇ ਅਯਨਾਂਤ ਉੱਤੇ ਦੁਪਹਿਰ ਦਾ ਸੂਰਜ ਕਿਹੜੀ ਰੇਖਾ ਨੇੜੇ ਠੀਕ ਸਿਰ ਉੱਤੇ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਮਕਰ ਰੇਖਾ",
+          "ਕਰਕ ਰੇਖਾ",
+          "ਭੂਮੱਧ ਰੇਖਾ",
+          "ਅੰਟਾਰਕਟਿਕ ਚੱਕਰ"
+        ],
+        "explanation": "ਦਸੰਬਰ ਦੇ ਅਯਨਾਂਤ ਉੱਤੇ ਸਿੱਧੇ ਉੱਪਰ ਸੂਰਜ ਦਾ ਬਿੰਦੂ ਲਗਭਗ 23.5° ਦੱਖਣ ਪਹੁੰਚਦਾ ਹੈ। ਦੱਖਣੀ ਅਰਧ-ਗੋਲਾ ਸੂਰਜ ਵੱਲ ਝੁਕਿਆ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q011",
+    "cpId": "WGE-001-CP003",
+    "objective": "equinox",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "At an equinox, the noon Sun is directly overhead at which line?",
+        "options": [
+          "Equator",
+          "Tropic of Cancer",
+          "Tropic of Capricorn",
+          "Arctic Circle"
+        ],
+        "explanation": "At the March and September equinoxes, solar declination is approximately zero. The overhead Sun is at the equator."
+      },
+      "hi": {
+        "stem": "विषुव पर दोपहर का सूर्य किस रेखा पर ठीक सिर के ऊपर होता है?",
+        "options": [
+          "भूमध्य रेखा",
+          "कर्क रेखा",
+          "मकर रेखा",
+          "आर्कटिक वृत्त"
+        ],
+        "explanation": "मार्च और सितंबर विषुव पर सूर्य का क्रांतिमान लगभग शून्य है। सूर्य भूमध्य रेखा पर लंबवत होता है।"
+      },
+      "pa": {
+        "stem": "ਵਿਸ਼ੂਵ ਉੱਤੇ ਦੁਪਹਿਰ ਦਾ ਸੂਰਜ ਕਿਹੜੀ ਰੇਖਾ ਉੱਤੇ ਠੀਕ ਸਿਰ ਉੱਤੇ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਭੂਮੱਧ ਰੇਖਾ",
+          "ਕਰਕ ਰੇਖਾ",
+          "ਮਕਰ ਰੇਖਾ",
+          "ਆਰਕਟਿਕ ਚੱਕਰ"
+        ],
+        "explanation": "ਮਾਰਚ ਅਤੇ ਸਤੰਬਰ ਦੇ ਵਿਸ਼ੂਵ ਉੱਤੇ ਸੂਰਜ ਦਾ ਝੁਕਾਅ ਲਗਭਗ ਸਿਫ਼ਰ ਹੁੰਦਾ ਹੈ। ਸੂਰਜ ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ ਸਿੱਧਾ ਉੱਪਰ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q012",
+    "cpId": "WGE-001-CP003",
+    "objective": "equinox-daylength",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which statement about day and night at an equinox is correct?",
+        "options": [
+          "Day and night are approximately equal",
+          "Daylight is longest in both hemispheres",
+          "Night is longest in both hemispheres",
+          "One hemisphere has continuous daylight"
+        ],
+        "explanation": "Refraction and the Sun's visible disc make observed daylight differ slightly from 12 hours. 'Approximately equal' avoids a false absolute."
+      },
+      "hi": {
+        "stem": "विषुव के समय दिन और रात के बारे में कौन-सा कथन सही है?",
+        "options": [
+          "दिन और रात लगभग बराबर होते हैं",
+          "दोनों गोलार्धों में दिन सबसे लंबा होता है",
+          "दोनों गोलार्धों में रात सबसे लंबी होती है",
+          "एक गोलार्ध में लगातार दिन रहता है"
+        ],
+        "explanation": "अपवर्तन और सूर्य के दृश्य चक्र के कारण वास्तविक दिन की अवधि 12 घंटे से कुछ अलग होती है। इसलिए ‘लगभग बराबर’ सही है।"
+      },
+      "pa": {
+        "stem": "ਵਿਸ਼ੁਵ ਵੇਲੇ ਦਿਨ ਅਤੇ ਰਾਤ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਦਿਨ ਅਤੇ ਰਾਤ ਲਗਭਗ ਬਰਾਬਰ ਹੁੰਦੇ ਹਨ",
+          "ਦੋਵੇਂ ਅਰਧ-ਗੋਲਿਆਂ ਵਿੱਚ ਦਿਨ ਸਭ ਤੋਂ ਲੰਮਾ ਹੁੰਦਾ ਹੈ",
+          "ਦੋਵੇਂ ਅਰਧ-ਗੋਲਿਆਂ ਵਿੱਚ ਰਾਤ ਸਭ ਤੋਂ ਲੰਮੀ ਹੁੰਦੀ ਹੈ",
+          "ਇੱਕ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਲਗਾਤਾਰ ਦਿਨ ਰਹਿੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਅਪਵਰਤਨ ਅਤੇ ਸੂਰਜ ਦੇ ਦਿਸਦੇ ਚੱਕਰ ਕਾਰਨ ਅਸਲ ਦਿਨ ਦੀ ਲੰਬਾਈ 12 ਘੰਟਿਆਂ ਤੋਂ ਕੁਝ ਵੱਖ ਹੁੰਦੀ ਹੈ। ਇਸ ਲਈ ‘ਲਗਭਗ ਬਰਾਬਰ’ ਸਹੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q013",
+    "cpId": "WGE-001-CP003",
+    "objective": "northern-longest-day",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A city at 45° N has its longest daylight near the:",
+        "options": [
+          "June solstice",
+          "December solstice",
+          "March equinox",
+          "September equinox"
+        ],
+        "explanation": "The Northern Hemisphere is tilted most towards the Sun near the June solstice. Its mid-latitudes then have their longest daylight."
+      },
+      "hi": {
+        "stem": "45° उत्तरी अक्षांश पर स्थित नगर में दिन की अवधि सबसे अधिक किस समय होती है?",
+        "options": [
+          "जून अयनांत",
+          "दिसंबर अयनांत",
+          "मार्च विषुव",
+          "सितंबर विषुव"
+        ],
+        "explanation": "जून अयनांत के पास उत्तरी गोलार्ध सूर्य की ओर सबसे अधिक झुका होता है। मध्य अक्षांशों पर तब दिन सबसे लंबा होता है।"
+      },
+      "pa": {
+        "stem": "45° ਉੱਤਰੀ ਵਿਥਕਾਰ ਉੱਤੇ ਸਥਿਤ ਸ਼ਹਿਰ ਵਿੱਚ ਦਿਨ ਸਭ ਤੋਂ ਲੰਮਾ ਕਦੋਂ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਜੂਨ ਅਯਨਾਂਤ",
+          "ਦਸੰਬਰ ਅਯਨਾਂਤ",
+          "ਮਾਰਚ ਵਿਸ਼ੂਵ",
+          "ਸਤੰਬਰ ਵਿਸ਼ੂਵ"
+        ],
+        "explanation": "ਜੂਨ ਅਯਨਾਂਤ ਨੇੜੇ ਉੱਤਰੀ ਅਰਧ-ਗੋਲਾ ਸੂਰਜ ਵੱਲ ਸਭ ਤੋਂ ਵੱਧ ਝੁਕਿਆ ਹੁੰਦਾ ਹੈ। ਮੱਧ ਵਿਥਕਾਰਾਂ ਉੱਤੇ ਉਦੋਂ ਦਿਨ ਸਭ ਤੋਂ ਲੰਮਾ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q014",
+    "cpId": "WGE-001-CP003",
+    "objective": "southern-longest-day",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A city at 45° S has its longest daylight near the:",
+        "options": [
+          "December solstice",
+          "June solstice",
+          "March equinox",
+          "September equinox"
+        ],
+        "explanation": "The Southern Hemisphere faces more directly towards the Sun near the December solstice. Daylight duration reaches its annual maximum there."
+      },
+      "hi": {
+        "stem": "45° दक्षिणी अक्षांश पर स्थित नगर में दिन की अवधि सबसे अधिक किस समय होती है?",
+        "options": [
+          "दिसंबर अयनांत",
+          "जून अयनांत",
+          "मार्च विषुव",
+          "सितंबर विषुव"
+        ],
+        "explanation": "दिसंबर अयनांत के पास दक्षिणी गोलार्ध सूर्य की ओर झुकता है। वहाँ दिन की अवधि वार्षिक अधिकतम होती है।"
+      },
+      "pa": {
+        "stem": "45° ਦੱਖਣੀ ਵਿਥਕਾਰ ਉੱਤੇ ਸਥਿਤ ਸ਼ਹਿਰ ਵਿੱਚ ਦਿਨ ਸਭ ਤੋਂ ਲੰਮਾ ਕਦੋਂ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਦਸੰਬਰ ਅਯਨਾਂਤ",
+          "ਜੂਨ ਅਯਨਾਂਤ",
+          "ਮਾਰਚ ਵਿਸ਼ੂਵ",
+          "ਸਤੰਬਰ ਵਿਸ਼ੂਵ"
+        ],
+        "explanation": "ਦਸੰਬਰ ਅਯਨਾਂਤ ਨੇੜੇ ਦੱਖਣੀ ਅਰਧ-ਗੋਲਾ ਸੂਰਜ ਵੱਲ ਝੁਕਦਾ ਹੈ। ਉੱਥੇ ਦਿਨ ਦੀ ਲੰਬਾਈ ਸਾਲ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਹੁੰਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q015",
+    "cpId": "WGE-001-CP003",
+    "objective": "north-polar-day",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which condition occurs at 80° N around the June solstice?",
+        "options": [
+          "Continuous daylight for at least 24 hours",
+          "Continuous darkness for at least 24 hours",
+          "Approximately twelve hours each of day and night",
+          "The noon Sun directly overhead"
+        ],
+        "explanation": "The northern polar region is tilted towards the Sun. Locations sufficiently poleward remain in sunlight through a full rotation."
+      },
+      "hi": {
+        "stem": "जून अयनांत के आसपास 80° उत्तरी अक्षांश पर कौन-सी स्थिति होती है?",
+        "options": [
+          "कम-से-कम 24 घंटे लगातार दिन",
+          "कम-से-कम 24 घंटे लगातार अंधकार",
+          "दिन और रात लगभग बारह-बारह घंटे",
+          "दोपहर का सूर्य ठीक सिर के ऊपर"
+        ],
+        "explanation": "उत्तरी ध्रुवीय क्षेत्र सूर्य की ओर झुका होता है। पर्याप्त उत्तर के स्थान पूरे घूर्णन के दौरान प्रकाश में रहते हैं।"
+      },
+      "pa": {
+        "stem": "ਜੂਨ ਦੇ ਅਯਨਾਂਤ ਨੇੜੇ 80° ਉੱਤਰੀ ਵਿਥਕਾਰ ਉੱਤੇ ਕਿਹੜੀ ਸਥਿਤੀ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਘੱਟੋ-ਘੱਟ 24 ਘੰਟੇ ਲਗਾਤਾਰ ਦਿਨ",
+          "ਘੱਟੋ-ਘੱਟ 24 ਘੰਟੇ ਲਗਾਤਾਰ ਹਨੇਰਾ",
+          "ਦਿਨ ਅਤੇ ਰਾਤ ਲਗਭਗ ਬਾਰਾਂ-ਬਾਰਾਂ ਘੰਟੇ",
+          "ਦੁਪਹਿਰ ਦਾ ਸੂਰਜ ਸਿਰ ਦੇ ਠੀਕ ਉੱਪਰ"
+        ],
+        "explanation": "ਉੱਤਰੀ ਧਰੁਵੀ ਖੇਤਰ ਸੂਰਜ ਵੱਲ ਝੁਕਿਆ ਹੁੰਦਾ ਹੈ। ਕਾਫ਼ੀ ਉੱਤਰ ਦੇ ਸਥਾਨ ਪੂਰੇ ਚੱਕਰ ਦੌਰਾਨ ਰੌਸ਼ਨੀ ਵਿੱਚ ਰਹਿੰਦੇ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q016",
+    "cpId": "WGE-001-CP003",
+    "objective": "polar-night",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which condition occurs at 80° N around the December solstice?",
+        "options": [
+          "The Sun remains below the horizon for at least 24 hours",
+          "The Sun remains above the horizon for at least 24 hours",
+          "Day and night are approximately twelve hours each",
+          "The noon Sun is directly overhead"
+        ],
+        "explanation": "The northern polar region tilts away from the Sun. Polar night means the Sun does not rise, though twilight may occur."
+      },
+      "hi": {
+        "stem": "दिसंबर अयनांत के आसपास 80° उत्तरी अक्षांश पर कौन-सी स्थिति होती है?",
+        "options": [
+          "सूर्य कम-से-कम 24 घंटे क्षितिज के नीचे रहता है",
+          "सूर्य कम-से-कम 24 घंटे क्षितिज के ऊपर रहता है",
+          "दिन और रात लगभग बारह-बारह घंटे होते हैं",
+          "दोपहर का सूर्य ठीक सिर के ऊपर होता है"
+        ],
+        "explanation": "उत्तरी ध्रुवीय क्षेत्र सूर्य से दूर झुका होता है। ध्रुवीय रात में सूर्य नहीं उगता, हालाँकि धुँधला प्रकाश हो सकता है।"
+      },
+      "pa": {
+        "stem": "ਦਸੰਬਰ ਦੇ ਅਯਨਾਂਤ ਨੇੜੇ 80° ਉੱਤਰੀ ਵਿਥਕਾਰ ਉੱਤੇ ਕਿਹੜੀ ਸਥਿਤੀ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਸੂਰਜ ਘੱਟੋ-ਘੱਟ 24 ਘੰਟੇ ਦਿਸਹੱਦੇ ਤੋਂ ਹੇਠਾਂ ਰਹਿੰਦਾ ਹੈ",
+          "ਸੂਰਜ ਘੱਟੋ-ਘੱਟ 24 ਘੰਟੇ ਦਿਸਹੱਦੇ ਤੋਂ ਉੱਪਰ ਰਹਿੰਦਾ ਹੈ",
+          "ਦਿਨ ਅਤੇ ਰਾਤ ਲਗਭਗ ਬਾਰਾਂ-ਬਾਰਾਂ ਘੰਟੇ ਹੁੰਦੇ ਹਨ",
+          "ਦੁਪਹਿਰ ਦਾ ਸੂਰਜ ਸਿਰ ਦੇ ਠੀਕ ਉੱਪਰ ਹੁੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਉੱਤਰੀ ਧਰੁਵੀ ਖੇਤਰ ਸੂਰਜ ਤੋਂ ਪਰੇ ਝੁਕਿਆ ਹੁੰਦਾ ਹੈ। ਧਰੁਵੀ ਰਾਤ ਵਿੱਚ ਸੂਰਜ ਨਹੀਂ ਚੜ੍ਹਦਾ, ਭਾਵੇਂ ਹਲਕੀ ਰੌਸ਼ਨੀ ਹੋ ਸਕਦੀ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q017",
+    "cpId": "WGE-001-CP003",
+    "objective": "overhead-sun-limits",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "In which region can the noon Sun appear directly overhead?",
+        "options": [
+          "Between the two tropics, including their boundaries",
+          "Between the Tropic of Cancer and the Arctic Circle",
+          "Between the Tropic of Capricorn and the Antarctic Circle",
+          "Between either polar circle and its pole"
+        ],
+        "explanation": "The subsolar point moves between about 23.5° N and 23.5° S. It does not reach temperate or polar latitudes."
+      },
+      "hi": {
+        "stem": "किस क्षेत्र में दोपहर का सूर्य ठीक सिर के ऊपर आ सकता है?",
+        "options": [
+          "दोनों उष्णकटिबंधीय रेखाओं के बीच, उनकी सीमाओं सहित",
+          "कर्क रेखा और आर्कटिक वृत्त के बीच",
+          "मकर रेखा और अंटार्कटिक वृत्त के बीच",
+          "किसी ध्रुवीय वृत्त और संबंधित ध्रुव के बीच"
+        ],
+        "explanation": "लंबवत सूर्य का बिंदु लगभग 23.5° उत्तर और 23.5° दक्षिण के बीच चलता है। यह शीतोष्ण या ध्रुवीय अक्षांशों तक नहीं पहुँचता।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਖੇਤਰ ਵਿੱਚ ਦੁਪਹਿਰ ਦਾ ਸੂਰਜ ਸਿਰ ਦੇ ਠੀਕ ਉੱਪਰ ਆ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਦੋਵੇਂ ਖੰਡੀ ਰੇਖਾਵਾਂ ਦੇ ਵਿਚਕਾਰ, ਉਨ੍ਹਾਂ ਦੀਆਂ ਹੱਦਾਂ ਸਮੇਤ",
+          "ਕਰਕ ਰੇਖਾ ਅਤੇ ਆਰਕਟਿਕ ਚੱਕਰ ਵਿਚਕਾਰ",
+          "ਮਕਰ ਰੇਖਾ ਅਤੇ ਅੰਟਾਰਕਟਿਕ ਚੱਕਰ ਵਿਚਕਾਰ",
+          "ਕਿਸੇ ਧਰੁਵੀ ਚੱਕਰ ਅਤੇ ਉਸ ਦੇ ਧਰੁਵ ਵਿਚਕਾਰ"
+        ],
+        "explanation": "ਸਿੱਧੇ ਉੱਪਰ ਸੂਰਜ ਦਾ ਬਿੰਦੂ ਲਗਭਗ 23.5° ਉੱਤਰ ਅਤੇ 23.5° ਦੱਖਣ ਵਿਚਕਾਰ ਚੱਲਦਾ ਹੈ। ਇਹ ਸਮਸ਼ੀਤੋਸ਼ਣ ਜਾਂ ਧਰੁਵੀ ਵਿਥਕਾਰਾਂ ਤੱਕ ਨਹੀਂ ਪਹੁੰਚਦਾ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q018",
+    "cpId": "WGE-001-CP003",
+    "objective": "sunrise-apparent-motion",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Why does the Sun appear to move from east to west across the sky each day?",
+        "options": [
+          "Earth rotates from west to east",
+          "Earth rotates from east to west",
+          "Earth revolves around the Sun once each day",
+          "Earth changes its axial tilt each day"
+        ],
+        "explanation": "The apparent daily motion is opposite Earth's rotation. It is not a daily orbit of the Sun around Earth."
+      },
+      "hi": {
+        "stem": "सूर्य प्रतिदिन आकाश में पूर्व से पश्चिम जाता क्यों दिखाई देता है?",
+        "options": [
+          "पृथ्वी पश्चिम से पूर्व की ओर घूमती है",
+          "पृथ्वी पूर्व से पश्चिम की ओर घूमती है",
+          "पृथ्वी प्रतिदिन सूर्य की एक परिक्रमा करती है",
+          "पृथ्वी की धुरी का झुकाव प्रतिदिन बदलता है"
+        ],
+        "explanation": "सूर्य की दिखाई देने वाली दैनिक गति पृथ्वी के घूर्णन के विपरीत है। यह सूर्य की पृथ्वी के चारों ओर दैनिक परिक्रमा नहीं है।"
+      },
+      "pa": {
+        "stem": "ਸੂਰਜ ਹਰ ਰੋਜ਼ ਅਸਮਾਨ ਵਿੱਚ ਪੂਰਬ ਤੋਂ ਪੱਛਮ ਵੱਲ ਜਾਂਦਾ ਕਿਉਂ ਦਿਸਦਾ ਹੈ?",
+        "options": [
+          "ਧਰਤੀ ਪੱਛਮ ਤੋਂ ਪੂਰਬ ਵੱਲ ਘੁੰਮਦੀ ਹੈ",
+          "ਧਰਤੀ ਪੂਰਬ ਤੋਂ ਪੱਛਮ ਵੱਲ ਘੁੰਮਦੀ ਹੈ",
+          "ਧਰਤੀ ਹਰ ਰੋਜ਼ ਸੂਰਜ ਦੀ ਇੱਕ ਪਰਿਕਰਮਾ ਕਰਦੀ ਹੈ",
+          "ਧਰਤੀ ਦੀ ਧੁਰੀ ਦਾ ਝੁਕਾਅ ਹਰ ਰੋਜ਼ ਬਦਲਦਾ ਹੈ"
+        ],
+        "explanation": "ਸੂਰਜ ਦੀ ਦਿਸਦੀ ਰੋਜ਼ਾਨਾ ਗਤੀ ਧਰਤੀ ਦੇ ਘੁੰਮਣ ਤੋਂ ਉਲਟ ਹੈ। ਇਹ ਸੂਰਜ ਦੀ ਧਰਤੀ ਦੁਆਲੇ ਰੋਜ਼ਾਨਾ ਪਰਿਕਰਮਾ ਨਹੀਂ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q019",
+    "cpId": "WGE-001-CP003",
+    "objective": "perihelion-season-trap",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Earth is nearest to the Sun in early January, yet the Northern Hemisphere experiences winter. Which conclusion follows?",
+        "options": [
+          "Distance from the Sun is not the main cause of seasons",
+          "Winter is caused by being farthest from the Sun",
+          "Axial tilt has no effect",
+          "Both hemispheres must have summer in January"
+        ],
+        "explanation": "Northern winter occurs despite the smaller Earth–Sun distance. Axial tilt gives shorter days and lower solar angles in the north."
+      },
+      "hi": {
+        "stem": "जनवरी के आरंभ में पृथ्वी सूर्य के सबसे निकट होती है, फिर भी उत्तरी गोलार्ध में शीत ऋतु होती है। इससे क्या निष्कर्ष निकलता है?",
+        "options": [
+          "सूर्य से दूरी ऋतुओं का मुख्य कारण नहीं है",
+          "सूर्य से सबसे दूर होना सर्दी का कारण है",
+          "धुरी के झुकाव का असर नहीं है",
+          "जनवरी में दोनों गोलार्धों में गर्मी होनी चाहिए"
+        ],
+        "explanation": "कम पृथ्वी-सूर्य दूरी के बावजूद उत्तर में सर्दी होती है। धुरी का झुकाव वहाँ छोटे दिन और कम ऊँचाई वाला सूर्य देता है।"
+      },
+      "pa": {
+        "stem": "ਜਨਵਰੀ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਧਰਤੀ ਸੂਰਜ ਦੇ ਸਭ ਤੋਂ ਨੇੜੇ ਹੁੰਦੀ ਹੈ, ਫਿਰ ਵੀ ਉੱਤਰੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਸਰਦੀ ਹੁੰਦੀ ਹੈ। ਇਸ ਤੋਂ ਕੀ ਸਿੱਟਾ ਨਿਕਲਦਾ ਹੈ?",
+        "options": [
+          "ਸੂਰਜ ਤੋਂ ਦੂਰੀ ਰੁੱਤਾਂ ਦਾ ਮੁੱਖ ਕਾਰਨ ਨਹੀਂ ਹੈ",
+          "ਸੂਰਜ ਤੋਂ ਸਭ ਤੋਂ ਦੂਰ ਹੋਣਾ ਸਰਦੀ ਦਾ ਕਾਰਨ ਹੈ",
+          "ਧੁਰੀ ਦੇ ਝੁਕਾਅ ਦਾ ਅਸਰ ਨਹੀਂ ਹੈ",
+          "ਜਨਵਰੀ ਵਿੱਚ ਦੋਵੇਂ ਅਰਧ-ਗੋਲਿਆਂ ਵਿੱਚ ਗਰਮੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ"
+        ],
+        "explanation": "ਘੱਟ ਧਰਤੀ-ਸੂਰਜ ਦੂਰੀ ਦੇ ਬਾਵਜੂਦ ਉੱਤਰ ਵਿੱਚ ਸਰਦੀ ਹੁੰਦੀ ਹੈ। ਧੁਰੀ ਦੇ ਝੁਕਾਅ ਕਾਰਨ ਉੱਥੇ ਦਿਨ ਛੋਟੇ ਅਤੇ ਸੂਰਜ ਨੀਵਾਂ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q020",
+    "cpId": "WGE-001-CP003",
+    "objective": "zero-tilt-counterfactual",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "If Earth's axis were perpendicular to its orbital plane, which change would largely disappear?",
+        "options": [
+          "Tilt-driven seasonal changes in day length",
+          "The daily day–night cycle",
+          "Earth's orbital motion",
+          "All differences between equatorial and polar heating"
+        ],
+        "explanation": "Without tilt, the overhead Sun would stay near the equator. Rotation would still produce day and night."
+      },
+      "hi": {
+        "stem": "यदि पृथ्वी की धुरी उसके कक्षीय तल पर लंबवत होती, तो कौन-सा परिवर्तन लगभग समाप्त हो जाता?",
+        "options": [
+          "झुकाव से होने वाले दिन की अवधि के मौसमी बदलाव",
+          "दैनिक दिन-रात चक्र",
+          "पृथ्वी की कक्षीय गति",
+          "भूमध्य और ध्रुवीय ताप के सभी अंतर"
+        ],
+        "explanation": "झुकाव न होने पर लंबवत सूर्य भूमध्य रेखा के पास रहेगा। घूर्णन से दिन और रात फिर भी होंगे।"
+      },
+      "pa": {
+        "stem": "ਜੇ ਧਰਤੀ ਦੀ ਧੁਰੀ ਇਸ ਦੇ ਪੰਧ ਦੇ ਤਲ ਨਾਲ ਲੰਬਕਾਰੀ ਹੁੰਦੀ, ਤਾਂ ਕਿਹੜੀ ਤਬਦੀਲੀ ਲਗਭਗ ਖ਼ਤਮ ਹੋ ਜਾਂਦੀ?",
+        "options": [
+          "ਝੁਕਾਅ ਕਾਰਨ ਦਿਨ ਦੀ ਲੰਬਾਈ ਦੇ ਮੌਸਮੀ ਬਦਲਾਅ",
+          "ਰੋਜ਼ਾਨਾ ਦਿਨ-ਰਾਤ ਦਾ ਚੱਕਰ",
+          "ਧਰਤੀ ਦੀ ਪੰਧ ਵਾਲੀ ਗਤੀ",
+          "ਭੂਮੱਧ ਅਤੇ ਧਰੁਵੀ ਤਾਪ ਦੇ ਸਾਰੇ ਫ਼ਰਕ"
+        ],
+        "explanation": "ਝੁਕਾਅ ਨਾ ਹੋਣ ਉੱਤੇ ਸਿੱਧੇ ਉੱਪਰ ਸੂਰਜ ਭੂਮੱਧ ਰੇਖਾ ਨੇੜੇ ਰਹੇਗਾ। ਘੁੰਮਣ ਨਾਲ ਦਿਨ ਅਤੇ ਰਾਤ ਫਿਰ ਵੀ ਹੋਣਗੇ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q021",
+    "cpId": "WGE-001-CP003",
+    "objective": "solar-eclipse",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-ECLIPSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "During a solar eclipse, which body lies between the Sun and Earth?",
+        "options": [
+          "Moon",
+          "Mercury",
+          "Venus",
+          "Mars"
+        ],
+        "explanation": "The Moon blocks sunlight from reaching part of Earth. A solar eclipse therefore affects a limited viewing region."
+      },
+      "hi": {
+        "stem": "सूर्य ग्रहण के समय सूर्य और पृथ्वी के बीच कौन-सा पिंड होता है?",
+        "options": [
+          "चंद्रमा",
+          "बुध",
+          "शुक्र",
+          "मंगल"
+        ],
+        "explanation": "चंद्रमा पृथ्वी के एक भाग तक सूर्यप्रकाश पहुँचने से रोकता है। इसलिए सूर्य ग्रहण सीमित क्षेत्र से दिखाई देता है।"
+      },
+      "pa": {
+        "stem": "ਸੂਰਜ ਗ੍ਰਹਿਣ ਵੇਲੇ ਸੂਰਜ ਅਤੇ ਧਰਤੀ ਵਿਚਕਾਰ ਕਿਹੜਾ ਪਿੰਡ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਚੰਦਰਮਾ",
+          "ਬੁੱਧ",
+          "ਸ਼ੁੱਕਰ",
+          "ਮੰਗਲ"
+        ],
+        "explanation": "ਚੰਦਰਮਾ ਧਰਤੀ ਦੇ ਇੱਕ ਹਿੱਸੇ ਤੱਕ ਧੁੱਪ ਪਹੁੰਚਣ ਤੋਂ ਰੋਕਦਾ ਹੈ। ਇਸ ਲਈ ਸੂਰਜ ਗ੍ਰਹਿਣ ਸੀਮਤ ਖੇਤਰ ਤੋਂ ਦਿਸਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q022",
+    "cpId": "WGE-001-CP003",
+    "objective": "lunar-eclipse",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-ECLIPSES"
+    ],
+    "locales": {
+      "en": {
+        "stem": "During a lunar eclipse, the Moon passes through the shadow of:",
+        "options": [
+          "Earth",
+          "Sun",
+          "Venus",
+          "Mars"
+        ],
+        "explanation": "Earth lies between the Sun and Moon, and its shadow falls on the Moon. The event is visible from suitable locations on Earth's night side."
+      },
+      "hi": {
+        "stem": "चंद्रग्रहण के दौरान चंद्रमा किसकी छाया से गुजरता है?",
+        "options": [
+          "पृथ्वी",
+          "सूर्य",
+          "शुक्र",
+          "मंगल"
+        ],
+        "explanation": "पृथ्वी सूर्य और चंद्रमा के बीच आती है और उसकी छाया चंद्रमा पर पड़ती है। इसे पृथ्वी के रात वाले भाग के उपयुक्त स्थानों से देखा जा सकता है।"
+      },
+      "pa": {
+        "stem": "ਚੰਦਰ ਗ੍ਰਹਿਣ ਵੇਲੇ ਚੰਦਰਮਾ ਕਿਸ ਦੀ ਛਾਂ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ?",
+        "options": [
+          "ਧਰਤੀ",
+          "ਸੂਰਜ",
+          "ਸ਼ੁੱਕਰ",
+          "ਮੰਗਲ"
+        ],
+        "explanation": "ਧਰਤੀ ਸੂਰਜ ਅਤੇ ਚੰਦਰਮਾ ਵਿਚਕਾਰ ਆਉਂਦੀ ਹੈ ਅਤੇ ਉਸ ਦਾ ਪਰਛਾਵਾਂ ਚੰਦਰਮਾ ਉੱਤੇ ਪੈਂਦਾ ਹੈ। ਇਹ ਧਰਤੀ ਦੇ ਰਾਤ ਵਾਲੇ ਪਾਸੇ ਦੇ ਢੁਕਵੇਂ ਸਥਾਨਾਂ ਤੋਂ ਦਿਸਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q023",
+    "cpId": "WGE-001-CP003",
+    "objective": "seasonal-solar-angle",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Why do vertical Sun rays heat a surface more strongly than oblique rays, other conditions being equal?",
+        "options": [
+          "The same solar energy is concentrated over a smaller area",
+          "The same solar energy is spread over a larger area",
+          "The rays pass through a thicker layer of atmosphere",
+          "A greater fraction of incoming energy is reflected"
+        ],
+        "explanation": "More direct rays deliver the same incoming energy over a smaller surface area. Low-angle rays spread it more widely."
+      },
+      "hi": {
+        "stem": "अन्य परिस्थितियाँ समान होने पर सूर्य की लंबवत किरणें तिरछी किरणों से अधिक ऊष्मा क्यों देती हैं?",
+        "options": [
+          "समान सौर ऊर्जा छोटे क्षेत्र पर केंद्रित होती है",
+          "समान सौर ऊर्जा बड़े क्षेत्र में फैलती है",
+          "किरणें वायुमंडल की अधिक मोटी परत से गुजरती हैं",
+          "आने वाली ऊर्जा का अधिक भाग परावर्तित होता है"
+        ],
+        "explanation": "अधिक सीधी किरणें समान ऊर्जा छोटे क्षेत्र पर पहुँचाती हैं। तिरछी किरणें उसे बड़े क्षेत्र में फैलाती हैं।"
+      },
+      "pa": {
+        "stem": "ਬਾਕੀ ਹਾਲਾਤ ਇੱਕੋ ਜਿਹੇ ਹੋਣ ਉੱਤੇ ਸੂਰਜ ਦੀਆਂ ਸਿੱਧੀਆਂ ਪੈਂਦੀਆਂ ਕਿਰਨਾਂ ਤਿਰਛੀਆਂ ਕਿਰਨਾਂ ਨਾਲੋਂ ਸਤਹ ਨੂੰ ਵੱਧ ਗਰਮ ਕਿਉਂ ਕਰਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਇੱਕੋ ਜਿੰਨੀ ਸੂਰਜੀ ਊਰਜਾ ਛੋਟੇ ਖੇਤਰ ਉੱਤੇ ਕੇਂਦਰਿਤ ਹੁੰਦੀ ਹੈ",
+          "ਇੱਕੋ ਜਿੰਨੀ ਸੂਰਜੀ ਊਰਜਾ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਫੈਲਦੀ ਹੈ",
+          "ਕਿਰਨਾਂ ਵਾਯੂਮੰਡਲ ਦੀ ਵੱਧ ਮੋਟੀ ਪਰਤ ਵਿੱਚੋਂ ਲੰਘਦੀਆਂ ਹਨ",
+          "ਆਉਂਦੀ ਊਰਜਾ ਦਾ ਵੱਧ ਹਿੱਸਾ ਪਰਤ ਜਾਂਦਾ ਹੈ"
+        ],
+        "explanation": "ਵੱਧ ਸਿੱਧੀਆਂ ਕਿਰਨਾਂ ਇੱਕੋ ਊਰਜਾ ਛੋਟੇ ਖੇਤਰ ਉੱਤੇ ਪਹੁੰਚਾਉਂਦੀਆਂ ਹਨ। ਤਿਰਛੀਆਂ ਕਿਰਨਾਂ ਇਸ ਨੂੰ ਵੱਡੇ ਖੇਤਰ ਉੱਤੇ ਫੈਲਾਉਂਦੀਆਂ ਹਨ।"
+      }
+    },
+    "correctIndex": 0
+  },
+  {
+    "id": "WGE-001-CP003-Q024",
+    "cpId": "WGE-001-CP003",
+    "objective": "solstice-integrated",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NASA-SEASONS",
+      "NASA-EARTH"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which option correctly describes the June solstice?",
+        "options": [
+          "Northern summer; southern winter; overhead Sun near 23.5° N",
+          "Northern winter; southern summer; overhead Sun near 23.5° N",
+          "Summer in both hemispheres; overhead Sun at the equator",
+          "Northern summer; southern winter; overhead Sun near 23.5° S"
+        ],
+        "explanation": "The northern end of Earth's axis tilts towards the Sun. This links northern summer, southern winter and the overhead Sun at the Tropic of Cancer."
+      },
+      "hi": {
+        "stem": "जून अयनांत की स्थिति किस विकल्प में सही दी गई है?",
+        "options": [
+          "उत्तर में गर्मी; दक्षिण में सर्दी; लंबवत सूर्य लगभग 23.5° उत्तर",
+          "उत्तर में सर्दी; दक्षिण में गर्मी; लंबवत सूर्य लगभग 23.5° उत्तर",
+          "दोनों में गर्मी; लंबवत सूर्य भूमध्य रेखा पर",
+          "उत्तर में गर्मी; दक्षिण में सर्दी; लंबवत सूर्य लगभग 23.5° दक्षिण"
+        ],
+        "explanation": "धुरी का उत्तरी सिरा सूर्य की ओर झुकता है। इसलिए उत्तर में गर्मी, दक्षिण में सर्दी और कर्क रेखा पर लंबवत सूर्य होता है।"
+      },
+      "pa": {
+        "stem": "ਜੂਨ ਦੇ ਅਯਨਾਂਤ ਦੀ ਸਥਿਤੀ ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਸਹੀ ਦਿੱਤੀ ਗਈ ਹੈ?",
+        "options": [
+          "ਉੱਤਰ ਵਿੱਚ ਗਰਮੀ; ਦੱਖਣ ਵਿੱਚ ਸਰਦੀ; ਸਿੱਧਾ ਉੱਪਰ ਸੂਰਜ ਲਗਭਗ 23.5° ਉੱਤਰ",
+          "ਉੱਤਰ ਵਿੱਚ ਸਰਦੀ; ਦੱਖਣ ਵਿੱਚ ਗਰਮੀ; ਸਿੱਧਾ ਉੱਪਰ ਸੂਰਜ ਲਗਭਗ 23.5° ਉੱਤਰ",
+          "ਦੋਵਾਂ ਵਿੱਚ ਗਰਮੀ; ਸਿੱਧਾ ਉੱਪਰ ਸੂਰਜ ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ",
+          "ਉੱਤਰ ਵਿੱਚ ਗਰਮੀ; ਦੱਖਣ ਵਿੱਚ ਸਰਦੀ; ਸਿੱਧਾ ਉੱਪਰ ਸੂਰਜ ਲਗਭਗ 23.5° ਦੱਖਣ"
+        ],
+        "explanation": "ਧੁਰੀ ਦਾ ਉੱਤਰੀ ਸਿਰਾ ਸੂਰਜ ਵੱਲ ਝੁਕਦਾ ਹੈ। ਇਸ ਲਈ ਉੱਤਰ ਵਿੱਚ ਗਰਮੀ, ਦੱਖਣ ਵਿੱਚ ਸਰਦੀ ਅਤੇ ਕਰਕ ਰੇਖਾ ਉੱਤੇ ਸਿੱਧਾ ਉੱਪਰ ਸੂਰਜ ਹੁੰਦਾ ਹੈ।"
+      }
+    },
+    "correctIndex": 0
+  }
+]
