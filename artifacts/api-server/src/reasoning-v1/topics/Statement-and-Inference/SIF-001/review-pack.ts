@@ -30,9 +30,9 @@ const CP008_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM:
 const CP009_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 24, HARD: 0 };
 const CP010_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 12 };
 const CP011_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 12 };
-const CP012_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 5, HARD: 3 };
-const CP013_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 4, HARD: 4 };
-const CP014_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 8, HARD: 0 };
+const CP012_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 7, HARD: 5 };
+const CP013_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 6, HARD: 6 };
+const CP014_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 0 };
 
 export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly locale: SifLocale; readonly seed?: number }): SifReviewPack {
   const baseSeed = input.seed ?? 10_001;
@@ -133,7 +133,7 @@ export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly l
   }
   if (input.cpId === "SIF-CP012" || input.cpId === "SIF-CP013" || input.cpId === "SIF-CP014") {
     const pool = listSifAuthorities(input.cpId);
-    if (pool.length !== 8) throw new Error(`${input.cpId}: expected eight unique authorities for this review checkpoint`);
+    if (pool.length !== 12) throw new Error(`${input.cpId}: expected twelve unique authorities for this review checkpoint`);
     for (const authority of pool) {
       const index = pool.findIndex((entry) => entry.id === authority.id);
       const offset = (index - (Math.abs(baseSeed) % pool.length) + pool.length) % pool.length;
