@@ -33,23 +33,20 @@ function headings(locale: CodPedagogyLocale) {
     return {
       core: "📌 मुख्य नियम",
       steps: "📝 चरण-दर-चरण समाधान",
-      shortcut: "⚡ परीक्षा में तेज़ तरीका",
-      trap: "⚠️ सामान्य गलती का विश्लेषण",
+
     } as const;
   }
   if (locale === "pa-IN") {
     return {
       core: "📌 ਮੁੱਖ ਨਿਯਮ",
       steps: "📝 ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ",
-      shortcut: "⚡ ਪੇਪਰ ਵਿੱਚ ਤੇਜ਼ ਤਰੀਕਾ",
-      trap: "⚠️ ਆਮ ਗਲਤੀ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ",
+
     } as const;
   }
   return {
     core: "📌 Core Rule",
     steps: "📝 Step-by-Step Solution",
-    shortcut: "⚡ Exam Speed Shortcut",
-    trap: "⚠️ Common Trap Analysis",
+
   } as const;
 }
 
@@ -106,14 +103,8 @@ export function formatCodExplanationMarkdown(question: QuestionLike): string[] {
     output.push(...renderVisual(block), "");
   }
 
-  output.push(
-    `### ${title.shortcut}`,
-    "",
-    pedagogy.examShortcut,
-    "",
-    `### ${title.trap}`,
-    "",
-    pedagogy.commonTrap,
-  );
+  // Reviewer/learner output intentionally stops after the worked solution.
+  // Shortcut and trap diagnostics remain available in the internal pedagogy
+  // object for QA, but are not forced into the learner-facing explanation.
   return output;
 }
