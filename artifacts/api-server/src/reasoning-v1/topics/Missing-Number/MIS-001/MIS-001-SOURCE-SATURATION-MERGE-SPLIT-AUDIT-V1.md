@@ -41,7 +41,7 @@ Current runtime review patterns:
 - CP021: 2 SSC source-discovered authorities
 - CP022: 1 SSC arithmetic-mean authority
 - CP023: 1 PSPCL mixed-root authority
-- CP024: 1 SSC CGL repeated-affine semantic authority
+- CP024: 1 SSC CGL second-input affine semantic authority
 - CP025: 1 RRB linked-product renderer/role alias of PRODUCT
 - CP026: 1 RRB opposite-square renderer/role alias of SQUARE_INPUT
 - CP027: 1 SSC Stenographer sum-of-cubes semantic authority
@@ -162,7 +162,7 @@ MIS-CAND-086 is not a new authority; the PSPCL missing-corner form reuses MIS-CA
 - MIS-CAND-105: `(ab+1)c`;
 - MIS-CAND-106: arithmetic mean `(a+b)/2`;
 - MIS-CAND-107: PSPCL mixed-root `(√a+√b)c+2`;
-- MIS-CAND-108: repeated affine transform `x→3x+1` applied twice across each row;
+- MIS-CAND-108: second-input affine transform `x→3x+1` applied twice across each row;
 - MIS-CAND-111: sum of individual cubes `a³+b³`;
 - MIS-CAND-112: signed exact-root combination `√a−√b+√c`.
 
@@ -258,7 +258,7 @@ Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V15`.
 
 Recent saturation waves:
 - V10 added arithmetic mean and PSPCL mixed-root semantic authorities;
-- V11 added the repeated-affine semantic authority plus two RRB source-form aliases;
+- V11 added the second-input affine semantic authority plus two RRB source-form aliases;
 - V12 added the sum-of-individual-cubes semantic authority;
 - V13 added the signed exact-square-root combination `√a−√b+√c`.
 
