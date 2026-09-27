@@ -17,9 +17,7 @@ Income determines whether higher prices reduce living standards. A worker whose 
 
 Taxes, benefits and public services also influence living costs without always appearing directly in consumer prices. Free school meals, transport subsidies or higher utility support can reduce household burden even if market prices remain unchanged.
 
-For policy, headline inflation is essential because it summarises broad price pressure and guides monetary decisions. But it should not be treated as a complete measure of household hardship. Distribution matters: which prices are rising, who buys those items and whether incomes or support adjust.
-
-The broader lesson is that inflation is an economy-wide price statistic, while cost of living is experienced through a household's own basket, location and resources. Understanding living standards therefore requires both general price measures and more specific information about spending patterns and income.`,
+For policy, headline inflation is essential because it summarises broad price pressure and guides monetary decisions. But it should not be treated as a complete measure of household hardship. Distribution matters: which prices are rising, who buys those items and whether incomes or support adjust. The broader lesson is that inflation is an economy-wide price statistic, while cost of living is experienced through a household's own basket, location and resources. Understanding living standards therefore requires both general price measures and more specific information about spending patterns and income.  Researchers also distinguish perceived cost pressure from measured expenditure. Households may feel especially affected by frequent visible purchases such as groceries or fuel even when another large expense changes little. That perception can shape wage demands and consumer confidence. Regional composition adds another layer: a national average can improve while high-rent cities worsen. For communication, analysts therefore need to state both the population and basket behind any cost measure. A number designed for monetary policy may be statistically sound yet still fail to describe the experience of a specific family.`,
  questions:[
  q("E11-Q1","BM-F01","medium","Why can a household experience higher cost pressure than the headline inflation rate?","Its spending may be concentrated in categories whose prices rise faster than average",["Inflation excludes all household spending","Every household buys the same basket","Headline inflation measures income"],"Different spending weights can make household experience diverge from the average index.","spends much more than average"),
  q("E11-Q2","BM-F02","hard","What can be inferred about substitution toward cheaper goods?","It may reduce spending without fully preserving quality or convenience",["Substitution always improves welfare","Price indexes ignore all substitution","Cheaper goods are always identical"],"The passage warns that adaptation can lower measured expenditure while changing what households consume.","reduce quality or convenience"),
@@ -41,9 +39,7 @@ Imagine two subscription services. One spends ₹1,000 to acquire a customer who
 
 This is why companies compare acquisition cost with contribution margin or lifetime value. Revenue alone is insufficient because serving the customer also has costs. A high-revenue customer can still be unattractive if fulfilment, support or discounts consume most of that revenue.
 
-Payback period adds a timing dimension. A business may eventually earn back a ₹1,000 acquisition cost, but if recovery takes three years, the company must finance that gap. Fast growth can then create cash pressure even when long-run unit economics look positive.
-
-Channel mix matters. Search ads, referrals, retail partnerships and sales teams can attract customers with different retention patterns. Blending every channel into one CAC can hide an expensive source that performs poorly or a higher-cost source that brings unusually valuable customers.
+Payback period adds a timing dimension. A business may eventually earn back a ₹1,000 acquisition cost, but if recovery takes three years, the company must finance that gap. Fast growth can then create cash pressure even when long-run unit economics look positive. Channel mix matters. Search ads, referrals, retail partnerships and sales teams can attract customers with different retention patterns. Blending every channel into one CAC can hide an expensive source that performs poorly or a higher-cost source that brings unusually valuable customers.
 
 Attribution creates uncertainty too. A buyer may see a social ad, later search the brand and finally purchase through a referral link. Assigning the full acquisition to the final click can exaggerate one channel's effectiveness.
 
@@ -51,9 +47,7 @@ Promotional periods distort comparison. Deep discounts may increase sign-ups and
 
 Cohort analysis helps by following customers acquired in the same period or channel and comparing payback over time. But even cohorts can be affected by product changes, seasonality or macroeconomic conditions.
 
-For management, the useful question is not “How cheaply did we buy a customer?” It is “How much did we spend, what margin did the customer generate, how long did they stay and when did the cash return?”
-
-The broader lesson is that CAC is a cost measure, not a verdict on growth quality. It becomes meaningful only when linked to retention, margin, attribution and payback.`,
+For management, the useful question is not “How cheaply did we buy a customer?” It is “How much did we spend, what margin did the customer generate, how long did they stay and when did the cash return?” The broader lesson is that CAC is a cost measure, not a verdict on growth quality. It becomes meaningful only when linked to retention, margin, attribution and payback.  Growth strategy also affects acceptable payback. A mature profitable company may tolerate slower recovery if customer retention is highly predictable, while a cash-constrained start-up may need faster payback to survive. Financing conditions matter as well: when capital becomes expensive, long recovery periods become harder to support. Companies sometimes respond by cutting acquisition spend, but that can slow growth and change channel mix, making year-to-year CAC comparisons harder. A robust analysis therefore separates marketing efficiency from financing capacity and from strategic willingness to invest ahead of revenue.`,
  questions:[
  q("B10-Q1","BM-F01","medium","Why can a business with lower CAC still have worse economics?","Its acquired customers may generate little margin or cancel quickly",["Lower CAC always increases losses","Acquisition cost determines price","Customers cannot cancel subscriptions"],"The example shows that low acquisition cost is weak if customer value is even lower.","cancel after one month"),
  q("B10-Q2","BM-F02","hard","What can be inferred about a long payback period?","Growth may consume cash for a long time before acquisition spending is recovered",["Lifetime value must be negative","Advertising should stop immediately","Revenue cannot grow"],"Timing matters because the business must finance the gap between acquisition spend and later margin.","finance that gap"),
@@ -73,23 +67,17 @@ The broader lesson is that CAC is a cost measure, not a verdict on growth qualit
 
 An incident can range from one blocked phishing email to a successful intrusion affecting millions of records. Counting both as one event hides enormous differences in consequence.
 
-Detection capability also affects the number. A company that installs better monitoring may suddenly report more incidents because it can now see events that previously went unnoticed. The increase can reflect improved visibility rather than worsening security.
-
-The denominator matters. A business with ten thousand employees, millions of logins and hundreds of internet-facing systems has more opportunities for events than a small organisation. Comparing raw incident counts without exposure can mislead.
+Detection capability also affects the number. A company that installs better monitoring may suddenly report more incidents because it can now see events that previously went unnoticed. The increase can reflect improved visibility rather than worsening security. The denominator matters. A business with ten thousand employees, millions of logins and hundreds of internet-facing systems has more opportunities for events than a small organisation. Comparing raw incident counts without exposure can mislead.
 
 Severity classification helps by distinguishing attempted, contained and successful events, as well as data loss, service disruption and financial impact. But categories need consistent definitions if trends are to be comparable over time.
 
 Time-to-detect and time-to-contain provide another dimension. Two organisations can experience the same type of intrusion, yet one isolates it within minutes while the other allows access for weeks. The incident count is identical, but risk is not.
 
-Near misses are useful too. A phishing campaign blocked before credentials are stolen may reveal an emerging threat even if no breach occurs. Ignoring blocked attacks can hide pressure on the system.
-
-On the other hand, flooding dashboards with every low-risk event can create alert fatigue. Security teams need thresholds that preserve visibility without treating every signal as equally urgent.
+Near misses are useful too. A phishing campaign blocked before credentials are stolen may reveal an emerging threat even if no breach occurs. Ignoring blocked attacks can hide pressure on the system. On the other hand, flooding dashboards with every low-risk event can create alert fatigue. Security teams need thresholds that preserve visibility without treating every signal as equally urgent.
 
 External reporting adds incentives. Firms may fear that public incident counts make them look weak, which can discourage disclosure. Metrics should therefore separate transparent detection from failure.
 
-A mature security dashboard combines event volume with severity, affected assets, users exposed, detection time and outcome. It also records changes in monitoring coverage so apparent trends can be interpreted.
-
-The broader lesson is that a count measures observed events, not the full quality of defence. More detected incidents can sometimes mean better monitoring, while one severe undetected breach can matter more than thousands of blocked attempts.`,
+A mature security dashboard combines event volume with severity, affected assets, users exposed, detection time and outcome. It also records changes in monitoring coverage so apparent trends can be interpreted. The broader lesson is that a count measures observed events, not the full quality of defence. More detected incidents can sometimes mean better monitoring, while one severe undetected breach can matter more than thousands of blocked attempts.  Risk reporting should also distinguish affected assets from confirmed harm. An attacker may reach a server without accessing sensitive data, or a stolen credential may be invalidated before use. Conversely, a small technical intrusion can create large harm if it reaches a critical system. Insurance claims and regulatory reporting add still more definitions, because the threshold for a reportable breach may differ from an internal incident threshold. Analysts therefore need to know not only how many events occurred but also which classification rules were used and whether those rules changed.`,
  questions:[
  q("T09-Q1","BM-F01","medium","Why can improved monitoring increase reported incident counts?","More events become visible even if underlying attack pressure is unchanged",["Monitoring creates attacks","Security tools count employees","Better defence always fails"],"The passage distinguishes actual risk from increased detection capability.","see events that previously went unnoticed"),
  q("T09-Q2","BM-F02","hard","What can be inferred from identical incident counts at two organisations?","Their risk can still differ because severity, exposure and response time may differ",["They have equal security quality","They faced identical attacks","Their monitoring is the same"],"Raw count does not capture consequence or how quickly incidents are contained.","count is identical, but risk is not"),
@@ -111,9 +99,7 @@ Combining all of these experiences into one average can hide where delay actuall
 
 Mean waiting time can be distorted by a small number of extremely long waits. Median time can better describe the typical patient, while percentiles show how the longest waits behave. Each measure answers a different question.
 
-Arrival pattern matters too. A department can be adequately staffed for the daily average yet become overwhelmed during a short evening peak. A daily waiting-time figure may hide several hours of severe congestion.
-
-Capacity is not only doctor time. Laboratory turnaround, imaging availability, bed occupancy and cleaning can all create bottlenecks. Adding one more doctor may not help if admitted patients cannot move to a ward.
+Arrival pattern matters too. A department can be adequately staffed for the daily average yet become overwhelmed during a short evening peak. A daily waiting-time figure may hide several hours of severe congestion. Capacity is not only doctor time. Laboratory turnaround, imaging availability, bed occupancy and cleaning can all create bottlenecks. Adding one more doctor may not help if admitted patients cannot move to a ward.
 
 Case mix also changes interpretation. A hospital treating more complex patients may have longer stays and more testing. Comparing it directly with a lower-complexity unit can reward speed without accounting for clinical need.
 
@@ -121,9 +107,7 @@ Targets can improve focus, but they can also create gaming if staff optimise the
 
 Patient experience matters alongside time. Clear updates can reduce uncertainty even when physical waiting cannot immediately be shortened. But communication should not be used as a substitute for addressing avoidable delay.
 
-For management, the strongest dashboard follows the pathway: arrival, triage, first clinical contact, diagnostics, decision and departure. It also separates priority groups and reports distribution, not just one average.
-
-The broader lesson is that waiting time is a symptom of flow through a system. Improving it requires knowing where patients are waiting, why the delay exists and whether faster movement preserves safety and quality.`,
+For management, the strongest dashboard follows the pathway: arrival, triage, first clinical contact, diagnostics, decision and departure. It also separates priority groups and reports distribution, not just one average. The broader lesson is that waiting time is a symptom of flow through a system. Improving it requires knowing where patients are waiting, why the delay exists and whether faster movement preserves safety and quality.  Queue measurement can also be affected by patients who leave before treatment. If they disappear from the denominator, reported waits among those remaining can look better even though access deteriorated. Hospitals may therefore track patients who leave without being seen, ambulance off-load delays and boarding time for admitted patients. Staffing decisions should also consider variability, because capacity that matches average demand may still fail during peaks. Simulation and flow analysis can help test whether changing one stage merely moves congestion elsewhere rather than reducing total delay.`,
  questions:[
  q("H09-Q1","BM-F01","medium","Why can one average waiting-time figure be misleading?","Patients wait at several different stages and for different reasons",["Hospitals do not record time","Every patient follows the same path","Triage removes all waiting"],"The passage identifies multiple queues that can be hidden inside one summary number.","several different queues"),
  q("H09-Q2","BM-F02","hard","What can be inferred if adding doctors does not reduce total delay?","Another bottleneck such as beds, imaging or laboratory work may be limiting flow",["Doctors are never useful","Waiting time cannot improve","Case mix must be simple"],"System capacity can be constrained by resources other than clinician availability.","may not help"),
@@ -145,9 +129,7 @@ A former wetland converted to farmland may have lost native plants, seasonal flo
 
 Reference conditions can come from historical records, nearby intact ecosystems or a desired future state designed for current climate. None is perfect. Historical conditions may be impossible to recreate because temperature, surrounding land use and invasive species have changed.
 
-Species count alone can mislead. A site may contain many species because invasive plants are present. Native richness, abundance, food-web structure and habitat quality can provide more useful information.
-
-Function matters too. A restored floodplain should not only contain the right plants; it should also store water, support nutrient cycling and provide habitat. Structural similarity without functional recovery may produce a landscape that looks restored but behaves differently.
+Species count alone can mislead. A site may contain many species because invasive plants are present. Native richness, abundance, food-web structure and habitat quality can provide more useful information. Function matters too. A restored floodplain should not only contain the right plants; it should also store water, support nutrient cycling and provide habitat. Structural similarity without functional recovery may produce a landscape that looks restored but behaves differently.
 
 Time is crucial. Trees can take decades to mature, soils recover slowly and animal communities may return only after habitat becomes suitable. A project assessed one year after planting can reward fast-growing vegetation while missing long-term failure.
 
@@ -155,9 +137,7 @@ Connectivity also influences success. A small restored patch surrounded by roads
 
 Monitoring design should match objectives. If the goal is bird habitat, count breeding use and food availability. If the goal is flood mitigation, measure water storage and flow. A generic “hectares restored” figure says little about whether the intended function returned.
 
-Adaptive management accepts that restoration is uncertain. Monitoring can show when water levels, grazing pressure or species composition need adjustment.
-
-The broader lesson is that restoration is a trajectory rather than a one-day transformation. Success requires an explicit ecological reference, multiple measures and enough time to see whether structure and function are moving in the intended direction.`,
+Adaptive management accepts that restoration is uncertain. Monitoring can show when water levels, grazing pressure or species composition need adjustment. The broader lesson is that restoration is a trajectory rather than a one-day transformation. Success requires an explicit ecological reference, multiple measures and enough time to see whether structure and function are moving in the intended direction.  Social values can also shape the reference condition. A restored grassland may support biodiversity while reducing access for recreation, or rewetting a peatland may conflict with current farming use. Ecological objectives therefore sit alongside land-use choices and community priorities. Climate adaptation may require aiming for a resilient future ecosystem rather than copying a historical snapshot exactly. Monitoring should record those choices openly so that later changes are not mistaken for failure simply because the project did not recreate the past. Restoration success is partly ecological measurement and partly clarity about the intended future state.`,
  questions:[
  q("EN08-Q1","BM-F01","medium","Why does restoration require a reference condition?","Success depends on what ecological state the project is trying to move toward",["Every ecosystem has one fixed historical state","References eliminate climate change","Planting automatically restores function"],"Without a target condition, the word restored has no clear ecological meaning.","restored toward what"),
  q("EN08-Q2","BM-F02","hard","What can be inferred from a wetland with planted reeds but incorrect water regime?","It may look more natural without recovering key wetland functions",["Reeds guarantee bird habitat","Hydrology is irrelevant","The site must have maximum biodiversity"],"Vegetation structure alone does not prove functional restoration.","still lack the water regime"),
@@ -177,23 +157,17 @@ The broader lesson is that restoration is a trajectory rather than a one-day tra
 
 A person who wants a job but has stopped searching because repeated attempts failed may be classified outside the labour force rather than unemployed. If many discouraged workers stop looking, the unemployment rate can fall even though job opportunities have not improved.
 
-Underemployment is another gap. Someone working ten hours a week who wants full-time hours is employed in the headline statistics. Their situation is different from a fully employed worker even though both count as employed.
-
-Job quality matters too. Temporary, unstable or very low-paid work can reduce financial security without appearing as unemployment. A labour market can therefore show low unemployment alongside widespread insecurity.
+Underemployment is another gap. Someone working ten hours a week who wants full-time hours is employed in the headline statistics. Their situation is different from a fully employed worker even though both count as employed. Job quality matters too. Temporary, unstable or very low-paid work can reduce financial security without appearing as unemployment. A labour market can therefore show low unemployment alongside widespread insecurity.
 
 Participation rate adds context by showing what share of working-age people are active in the labour force. Changes in participation can reflect retirement, education, caregiving, discouragement or demographic shifts. Interpretation requires understanding the reason.
 
 Vacancy data helps measure employer demand, but vacancies vary in wage, location and skill requirements. A high vacancy count does not guarantee that jobseekers can match available roles.
 
-Long-term unemployment deserves separate attention because the consequences of six months without work can differ from a short transition between jobs. Skills can erode, networks weaken and employers may treat long gaps differently.
-
-Regional averages can hide local distress. A national rate may look healthy while one industrial town experiences severe job loss.
+Long-term unemployment deserves separate attention because the consequences of six months without work can differ from a short transition between jobs. Skills can erode, networks weaken and employers may treat long gaps differently. Regional averages can hide local distress. A national rate may look healthy while one industrial town experiences severe job loss.
 
 For policy, the headline unemployment rate remains valuable because it is well defined and widely understood. The mistake is using it as the only measure of labour-market health.
 
-A broader dashboard can include participation, hours wanted, duration of unemployment, earnings, job stability and vacancies. These indicators do not replace the headline rate; they explain different dimensions of work.
-
-The broader lesson is that employment status is not simply a binary condition. Labour-market strain can appear through missing hours, discouraged search, unstable work or poor matching even when the standard unemployment rate is low.`,
+A broader dashboard can include participation, hours wanted, duration of unemployment, earnings, job stability and vacancies. These indicators do not replace the headline rate; they explain different dimensions of work. The broader lesson is that employment status is not simply a binary condition. Labour-market strain can appear through missing hours, discouraged search, unstable work or poor matching even when the standard unemployment rate is low.  Demographic change complicates trends further. An ageing population can lower participation because more people retire, while higher student enrolment can also reduce short-term labour-force participation without signalling weak demand. Seasonal industries create temporary swings, and migration can change both labour supply and employment. Wage growth may reveal shortages even when unemployment remains moderate. For policy design, the same unemployment rate can therefore imply different problems: insufficient demand, skill mismatch, geographic mismatch or voluntary transitions. Complementary indicators help identify which mechanism is actually limiting work opportunities.`,
  questions:[
  q("SP08-Q1","BM-F01","medium","Why can unemployment fall when discouraged workers stop searching?","They may leave the labour force and no longer meet the unemployment definition",["They automatically get jobs","Participation always rises","Vacancies disappear"],"Active job search is part of the standard unemployment definition.","stopped searching"),
  q("SP08-Q2","BM-F02","hard","What can be inferred about a worker wanting full-time hours but working ten hours?","Headline employment status can hide substantial underemployment",["The worker is classified unemployed","Hours never matter","Part-time work always reflects preference"],"The person is employed but still has unmet demand for work.","wants full-time hours"),
@@ -213,23 +187,17 @@ The broader lesson is that employment status is not simply a binary condition. L
 
 Appeals serve several purposes. They can correct factual errors, allow new evidence, clarify rules and provide accountability when discretion was used poorly. Their value depends on both access and the quality of review.
 
-Independence matters because people are naturally invested in their earlier judgement. A reviewer who was not responsible for the original decision may be better placed to reconsider it. Complete institutional separation is not always necessary, but some distance can reduce defensive reasoning.
-
-Access matters too. A perfectly independent appeal that requires complex legal language, high fees or travel may be unavailable to the people who need it. Formal existence is not the same as practical usability.
+Independence matters because people are naturally invested in their earlier judgement. A reviewer who was not responsible for the original decision may be better placed to reconsider it. Complete institutional separation is not always necessary, but some distance can reduce defensive reasoning. Access matters too. A perfectly independent appeal that requires complex legal language, high fees or travel may be unavailable to the people who need it. Formal existence is not the same as practical usability.
 
 Time is another dimension. An appeal that succeeds after the consequence has become irreversible may offer recognition without effective remedy. A student excluded from an examination cannot fully recover the opportunity months later merely because a review eventually agrees.
 
 Reason-giving improves review. If the original decision states the evidence and rule used, the appellant can identify what is disputed. A vague decision forces the person to guess what must be challenged.
 
-Consistency remains important. Appeals should not become a second lottery in which outcomes depend only on the reviewer. Clear standards, recorded reasons and oversight can help similar cases receive similar treatment.
-
-There is also a tension between finality and endless review. Systems need a point at which decisions settle. Multiple appeal levels may be justified for severe consequences, while minor administrative disputes may need only one quick review.
+Consistency remains important. Appeals should not become a second lottery in which outcomes depend only on the reviewer. Clear standards, recorded reasons and oversight can help similar cases receive similar treatment. There is also a tension between finality and endless review. Systems need a point at which decisions settle. Multiple appeal levels may be justified for severe consequences, while minor administrative disputes may need only one quick review.
 
 Evidence thresholds can differ from the original decision if the purpose of review differs. Some appeals ask whether the decision was reasonable based on available information; others reconsider the case completely.
 
-A fair design therefore specifies what the appeal can examine, who reviews it, how quickly it happens and what remedy is available.
-
-The broader lesson is that procedural fairness is not satisfied by adding an “appeal” button. A meaningful appeal must be reachable, sufficiently independent and capable of changing an incorrect decision before correction becomes pointless.`,
+A fair design therefore specifies what the appeal can examine, who reviews it, how quickly it happens and what remedy is available. The broader lesson is that procedural fairness is not satisfied by adding an “appeal” button. A meaningful appeal must be reachable, sufficiently independent and capable of changing an incorrect decision before correction becomes pointless.  Independence also has degrees. A review panel inside the same organisation can still provide meaningful distance if members were not involved in the first decision, while an external body can be ineffective if it has no power to order a remedy. Transparency about reviewer authority therefore matters as much as organisational location. Systems should also explain whether an appeal pauses the original consequence. In some cases a temporary stay is essential to prevent irreversible harm; in others immediate implementation may be necessary for safety. The design question is not independence in the abstract but independence sufficient for the consequence at stake.`,
  questions:[
  q("PH08-Q1","BM-F01","medium","Why can an appeal exist only in form but not in substance?","The same decision-maker may simply repeat the original judgement without genuine review",["Appeals always reverse decisions","New evidence is never allowed","Every appeal is independent"],"The opening distinguishes a nominal appeal from a process capable of reconsideration.","changing little in practice"),
  q("PH08-Q2","BM-F02","hard","What can be inferred from a successful appeal decided after an irreversible consequence?","Formal correction may arrive too late to provide an effective remedy",["Timing never matters","The original decision becomes correct","Every consequence can be reversed"],"The student example shows that delayed review can lose practical value.","cannot fully recover"),
@@ -249,23 +217,17 @@ The broader lesson is that procedural fairness is not satisfied by adding an “
 
 A headline can generate many clicks because it is surprising or emotionally charged. Readers may leave after a few seconds without absorbing the evidence or correction contained later in the article.
 
-Time spent on page is also ambiguous. A long session may indicate careful reading, but it can also mean the user left the tab open. A short session can reflect disinterest or simply a reader who found the needed fact immediately.
-
-Shares create another difficulty. People sometimes share articles they have not read, or share them to criticise rather than endorse. Treating every share as approval misreads the behaviour.
+Time spent on page is also ambiguous. A long session may indicate careful reading, but it can also mean the user left the tab open. A short session can reflect disinterest or simply a reader who found the needed fact immediately. Shares create another difficulty. People sometimes share articles they have not read, or share them to criticise rather than endorse. Treating every share as approval misreads the behaviour.
 
 Comments are similarly selective. A small highly motivated group can produce most discussion while the majority remains silent. Comment sentiment cannot automatically represent the wider audience.
 
 Comprehension requires different evidence. Surveys, quizzes or follow-up questions can test whether readers understood key facts, uncertainty and source strength. These methods are slower and more expensive than passive analytics, so they are used less often.
 
-Editorial goals also differ. Breaking alerts may need reach and speed, while an explanatory investigation may prioritise understanding and recall. One metric should not govern every format.
-
-Optimising only for engagement can create incentives for sensational framing because emotional content often performs well in attention metrics. That does not prove editors intentionally mislead, but it changes what the system rewards.
+Editorial goals also differ. Breaking alerts may need reach and speed, while an explanatory investigation may prioritise understanding and recall. One metric should not govern every format. Optimising only for engagement can create incentives for sensational framing because emotional content often performs well in attention metrics. That does not prove editors intentionally mislead, but it changes what the system rewards.
 
 Platforms add another layer because recommendation algorithms decide which stories receive exposure. High engagement may partly reflect distribution rather than intrinsic audience preference.
 
-A mature newsroom therefore separates reach, engagement, trust and comprehension. It can use clicks to understand discovery while using other methods to assess whether journalism achieved its informational purpose.
-
-The broader lesson is that behavioural metrics record what users did around content, not necessarily what they learned from it. Attention is valuable, but public understanding requires evidence about meaning, not only interaction.`,
+A mature newsroom therefore separates reach, engagement, trust and comprehension. It can use clicks to understand discovery while using other methods to assess whether journalism achieved its informational purpose. The broader lesson is that behavioural metrics record what users did around content, not necessarily what they learned from it. Attention is valuable, but public understanding requires evidence about meaning, not only interaction.  Trust adds another measurement problem. A story can be widely read and correctly understood yet still reduce trust if readers believe the outlet framed evidence unfairly. Conversely, high trust does not guarantee recall of specific facts. News organisations therefore need to define whether they are measuring discovery, comprehension, credibility, loyalty or public action. Experiments can help separate these outcomes by exposing comparable groups to different formats, but such studies are costly and may not reflect natural news use. No single dashboard can collapse every editorial objective into one universally valid success number.`,
  questions:[
  q("M08-Q1","BM-F01","medium","Why can high click volume fail to show understanding?","Readers may click but leave before absorbing the evidence",["Clicks cannot be measured","Every click means agreement","Headlines contain no information"],"The passage distinguishes attracting attention from successfully communicating meaning.","leave after a few seconds"),
  q("M08-Q2","BM-F02","hard","What can be inferred from a long time-on-page measurement?","It is compatible with careful reading but does not prove it",["It always means comprehension","It proves the reader liked the article","It excludes an open background tab"],"The metric has multiple plausible interpretations.","also mean the user left the tab open"),
