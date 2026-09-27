@@ -47,7 +47,7 @@ A useful system can show broad position bands, recent movement and factors that 
 
 The design challenge is to communicate uncertainty without making the system feel arbitrary.
 
-A transparent waitlist therefore explains both the ordinary order and the recognised exceptions. People may still dislike waiting, but they are better able to understand why the sequence can change.`,
+A transparent waitlist therefore explains both the ordinary order and the recognised exceptions. People may still dislike waiting, but they are better able to understand why the sequence can change.  Clear rules make movement easier to interpret.`,
  questions:[
  q("E37-Q1","RC2-F01","easy","Why can a waitlist number be misleading?","Priority rules can change the actual service order",["Numbers cannot be updated","Every service uses random order","Waitlists always have one person"],"The passage explains that urgent or category-based cases may move ahead of a simple numerical position.","priority rules"),
  q("E37-Q2","RC2-F02","medium","What can be inferred about exact waiting dates?","They can create false certainty when capacity changes",["They are always required","They never change","They improve service capacity"],"A precise date is weak if the system cannot predict future throughput reliably.","service capacity changes"),
@@ -105,7 +105,7 @@ This does not make rankings useless. They can summarise complex information and 
 
 The problem comes when the final order is treated as though it exists independently of the design choices used to create it.
 
-A responsible ranking is therefore transparent about the value judgements built into its formula and encourages users to look beyond the headline position.`,
+A responsible ranking is therefore transparent about the value judgements built into its formula and encourages users to look beyond the headline position.  Transparency also helps users compare alternative rankings built for different purposes.`,
  questions:[
  q("E39-Q1","RC2-F01","easy","Why can rankings change even if the underlying data does not?","The weighting of different measures can change",["Institutions always change names","Ranks are random","Data is never used"],"Different weights can reorder the same set of measured outcomes.","weight ... can change the final order"),
  q("E39-Q2","RC2-F02","medium","What can be inferred from large rank changes after small weighting changes?","The exact rank is not very robust",["The institution's data is false","Weighting never matters","The institution improved suddenly"],"Sensitivity to small design choices weakens the apparent precision of the final order.","apparent precision ... weak"),
@@ -133,7 +133,7 @@ Average reported waiting time fell at the busiest two stations, while use became
 
 Officials cautioned that the displays did not create more charging capacity. They improved how existing capacity was shared.
 
-The next phase will measure whether drivers make unnecessary extra trips between sites when queue information changes quickly.`,
+The next phase will measure whether drivers make unnecessary extra trips between sites when queue information changes quickly.  The city will also measure how often drivers abandon a site after seeing a long queue and whether those diversions create congestion at nearby chargers. Officials want to know whether information redistributes waiting or genuinely shortens it across the network.`,
  questions:[
  q("R32-Q1","RC2-F01","easy","What did the queue displays show?","Occupied chargers and waiting vehicles",["Electricity price history only","Driver names","Vehicle battery health"],"The system described current site demand and charging occupancy.","how many chargers were occupied"),
  q("R32-Q2","RC2-F02","medium","Why was “bay clearing” added?","A finished charging session did not always mean the parking space was physically free",["Chargers stopped recording sessions","Every driver used slow charging","Parking sensors were removed"],"The extra status prevented a recently finished bay from being shown as immediately usable.","driver had not yet moved"),
@@ -163,7 +163,7 @@ Officials also added a clear statement that the first alert was not a disciplina
 
 The next evaluation will compare correction rates, parent response and whether repeated absence is identified earlier.
 
-Administrators concluded that escalation works only if the underlying data is timely enough to prevent minor recording delays from looking like behaviour patterns.`,
+Administrators concluded that escalation works only if the underlying data is timely enough to prevent minor recording delays from looking like behaviour patterns.  The district will also compare whether the delay reduces false alerts without making genuine absence patterns harder to identify quickly. Staff will review outcomes separately for single-period mistakes and repeated multi-day absence.`,
  questions:[
  q("R33-Q1","RC2-F01","easy","What happened after repeated unexplained absences?","The system escalated toward confirmation and staff follow-up",["Every absence caused immediate punishment","Alerts stopped permanently","The student was automatically removed"],"The pilot used progressively stronger responses as the pattern became more serious.","three levels"),
  q("R33-Q2","RC2-F02","medium","Why was the first alert delayed by twenty minutes?","Teachers needed time to correct incomplete attendance records",["Parents wanted later school hours","Students needed travel time","The alert server was too slow"],"The delay reduced false alerts caused by unfinished registers.","not yet completed the register"),
@@ -191,7 +191,7 @@ Traders said the revised board was more useful because it answered the practical
 
 Managers concluded that capacity information should be based on the resource actually being consumed. Counting items is convenient, but floor area was the more relevant measure for a shared cold room.
 
-The next trial will test whether booking space in advance further reduces congestion at peak arrival times.`,
+The next trial will test whether booking space in advance further reduces congestion at peak arrival times.  Managers will also record how often the hourly physical check changes the digital status, because frequent corrections would indicate that scanning alone is not reliable enough for live capacity reporting.`,
  questions:[
  q("R34-Q1","RC2-F01","easy","What did the occupancy boards show?","Whether cold-room space was available, nearly full or full",["Fruit prices","Truck fuel use","Trader names"],"The boards summarised current storage capacity for arriving traders.","space available"),
  q("R34-Q2","RC2-F02","medium","Why could a board stay too full after pallets left?","An exit scan could be missed",["Cold rooms changed size","Pallets became heavier","Traders stopped using scans entirely"],"The status depended on both entry and exit updates, so a missing exit event left stale information.","exit scan was missed"),
@@ -221,7 +221,7 @@ Applicants said this was useful because it confirmed that their new documents ha
 
 Officials concluded that process transparency works best when status labels describe what has happened without implying an outcome that has not yet been decided.
 
-The municipality will next compare total processing time and the number of incomplete applications, because better visibility alone does not necessarily make review faster.`,
+The municipality will next compare total processing time and the number of incomplete applications, because better visibility alone does not necessarily make review faster.  The municipality will also review whether milestone wording changes applicant behaviour, such as prompting earlier responses to clarification requests. That will help separate better visibility from actual process improvement.`,
  questions:[
  q("R35-Q1","RC2-F01","easy","What did the new permit tracker show?","Stages such as document receipt, review and decision",["Construction prices","Inspector salaries","Neighbour names"],"The tracker replaced one generic receipt status with several process milestones.","milestone tracker"),
  q("R35-Q2","RC2-F02","medium","Why was a note added beside “technical review”?","Applicants were treating a process stage as a sign of likely approval",["Technical review had been removed","Every application was approved","The label had no meaning"],"The municipality wanted the status to show location in the workflow rather than outcome probability.","not likelihood of approval"),
