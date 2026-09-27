@@ -991,6 +991,12 @@ function generateDsSlot(
       topic: "Representation",
       subtopic: "Data Sufficiency",
       representation: "DATA_SUFFICIENCY",
+      learnerVisibleEvidenceContext: [
+        question?.questionPrompt,
+        ...(Array.isArray(question?.statements)
+          ? question.statements.map((statement: any) => statement?.text)
+          : []),
+      ].filter(Boolean).join("\n"),
     });
   } catch (error) {
     return gapRecord({ profile, sectionIndex, ordinal, slotKind: "DATA_SUFFICIENCY", reason: error instanceof Error ? error.message : String(error) });

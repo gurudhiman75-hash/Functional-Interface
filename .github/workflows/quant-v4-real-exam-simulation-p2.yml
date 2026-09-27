@@ -106,6 +106,17 @@ jobs:
         working-directory: artifacts/api-server
         run: node dist/quant-v4/real-exam-simulation/quant-v4-di-stimulus-specificity-p3.test.mjs
 
+      - name: Bundle DSF specificity-context regression
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-dsf-specificity-context-p3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/real-exam-simulation/quant-v4-dsf-specificity-context-p3.test.mjs
+
+      - name: Run DSF specificity-context regression
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/real-exam-simulation/quant-v4-dsf-specificity-context-p3.test.mjs
+
       - name: Run 220-section real exam simulation audit
         working-directory: artifacts/api-server
         run: node dist/quant-v4/real-exam-simulation/quant-v4-real-exam-simulation-p2.test.mjs
