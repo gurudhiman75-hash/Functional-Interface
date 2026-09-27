@@ -163,7 +163,7 @@ Staff noted that the booking rule mattered less after 8 p.m., when machines were
 
 The centre therefore restricted reservations to peak periods rather than using them all day.
 
-Managers concluded that booking can improve access to a scarce resource when demand is concentrated, but unnecessary reservation rules can add friction when capacity is already sufficient.`,
+Managers concluded that booking can improve access to a scarce resource when demand is concentrated, but unnecessary reservation rules can add friction when capacity is already sufficient.  This reduced avoidable waiting.`,
  questions:[
  q("R30-Q1","RC-F01","easy","What happened if a member was more than five minutes late?","The reservation was released",["The gym closed","The machine was removed","The slot doubled in length"],"The centre freed unused reservations shortly after the scheduled start.","released if"),
  q("R30-Q2","RC-F02","medium","Why was a one-reservation limit introduced?","Some members booked several future slots but used only one",["Machines became unsafe","The front desk lost the schedule","Members requested longer sessions"],"The limit reduced speculative booking that blocked access for others.","just in case"),
