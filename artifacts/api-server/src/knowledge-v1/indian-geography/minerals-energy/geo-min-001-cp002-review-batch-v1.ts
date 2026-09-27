@@ -1,6 +1,7 @@
 import { buildGeoMinQl, finalizeGeoMinCp, auditGeoMinCp } from "./geo-min-001-review-builder";
 
-const QL_010 = buildGeoMinQl("HEMATITE-IRON-ORE", "Hematite iron ore", [
+const QLS = Object.freeze([
+buildGeoMinQl("HEMATITE-IRON-ORE", "Hematite iron ore", [
   {
     "stem": "Which iron ore is widely used in India and has a high iron content suitable for steel making?",
     "answer": "Hematite",
@@ -67,9 +68,9 @@ const QL_010 = buildGeoMinQl("HEMATITE-IRON-ORE", "Hematite iron ore", [
     "explanation": "Iron ore and coking coal are classic bulk inputs for iron and steel manufacture. Transport access further strengthens the location advantage for a heavy metallurgical plant.",
     "sourceFactId": "HEMATITE-REASONING"
   }
-] as const);
+] as const),
 
-const QL_011 = buildGeoMinQl("MAGNETITE-IRON-ORE", "Magnetite iron ore", [
+buildGeoMinQl("MAGNETITE-IRON-ORE", "Magnetite iron ore", [
   {
     "stem": "Which iron ore is known for very high iron content and magnetic properties?",
     "answer": "Magnetite",
@@ -136,9 +137,9 @@ const QL_011 = buildGeoMinQl("MAGNETITE-IRON-ORE", "Magnetite iron ore", [
     "explanation": "Magnetic separation is especially effective where magnetite is present because its particles respond strongly to magnetic fields. Bauxite and limestone do not behave as magnetic iron ores.",
     "sourceFactId": "MAGNETITE-BENEFICIATION"
   }
-] as const);
+] as const),
 
-const QL_012 = buildGeoMinQl("ODISHA-JHARKHAND-IRON-ORE-BELT", "Odisha-Jharkhand iron ore belt", [
+buildGeoMinQl("ODISHA-JHARKHAND-IRON-ORE-BELT", "Odisha-Jharkhand iron ore belt", [
   {
     "stem": "The Badampahar mines and adjoining iron-ore deposits belong to which major belt?",
     "answer": "Odisha–Jharkhand belt",
@@ -205,9 +206,9 @@ const QL_012 = buildGeoMinQl("ODISHA-JHARKHAND-IRON-ORE-BELT", "Odisha-Jharkhand
     "explanation": "Keonjhar and Singhbhum are important iron-ore areas in the Odisha–Jharkhand belt. Their deposits provide a direct raw-material advantage to iron and steel industries in eastern India.",
     "sourceFactId": "IRON-EAST-REASONING"
   }
-] as const);
+] as const),
 
-const QL_013 = buildGeoMinQl("DURG-BASTAR-CHANDRAPUR-IRON-ORE-BELT", "Durg-Bastar-Chandrapur iron ore belt", [
+buildGeoMinQl("DURG-BASTAR-CHANDRAPUR-IRON-ORE-BELT", "Durg-Bastar-Chandrapur iron ore belt", [
   {
     "stem": "The Bailadila hills are part of which major iron-ore belt?",
     "answer": "Durg–Bastar–Chandrapur belt",
@@ -274,9 +275,9 @@ const QL_013 = buildGeoMinQl("DURG-BASTAR-CHANDRAPUR-IRON-ORE-BELT", "Durg-Basta
     "explanation": "Bailadila is important because of its rich, high-grade iron-ore deposits in Chhattisgarh. Its location within a major central Indian belt gives it strong industrial significance.",
     "sourceFactId": "BAILADILA-REASONING"
   }
-] as const);
+] as const),
 
-const QL_014 = buildGeoMinQl("BALLARI-CHITRADURGA-CHIKKAMAGALURU-TUMAKURU-BELT", "Ballari-Chitradurga-Chikkamagaluru-Tumakuru belt", [
+buildGeoMinQl("BALLARI-CHITRADURGA-CHIKKAMAGALURU-TUMAKURU-BELT", "Ballari-Chitradurga-Chikkamagaluru-Tumakuru belt", [
   {
     "stem": "Which state contains the Ballari–Chitradurga–Chikkamagaluru–Tumakuru iron-ore belt?",
     "answer": "Karnataka",
@@ -343,9 +344,9 @@ const QL_014 = buildGeoMinQl("BALLARI-CHITRADURGA-CHIKKAMAGALURU-TUMAKURU-BELT",
     "explanation": "Bailadila belongs to the Bastar region of Chhattisgarh, whereas Ballari is a major iron-ore district of Karnataka. Both are important, but in different belts.",
     "sourceFactId": "BAILADILA-BALLARI-COMPARE"
   }
-] as const);
+] as const),
 
-const QL_015 = buildGeoMinQl("MAHARASHTRA-GOA-IRON-ORE-BELT", "Maharashtra-Goa iron ore belt", [
+buildGeoMinQl("MAHARASHTRA-GOA-IRON-ORE-BELT", "Maharashtra-Goa iron ore belt", [
   {
     "stem": "Which major iron-ore belt lies along parts of the western coast and adjoining Western Ghats?",
     "answer": "Maharashtra–Goa belt",
@@ -412,9 +413,9 @@ const QL_015 = buildGeoMinQl("MAHARASHTRA-GOA-IRON-ORE-BELT", "Maharashtra-Goa i
     "explanation": "Goa combines iron-ore deposits with a short distance to Arabian Sea transport routes. That location reduces the overland movement required before ore reaches a port.",
     "sourceFactId": "GOA-PORT-REASONING"
   }
-] as const);
+] as const),
 
-const QL_016 = buildGeoMinQl("IRON-ORE-AS-STEEL-RAW-MATERIAL", "Iron ore as steel raw material", [
+buildGeoMinQl("IRON-ORE-AS-STEEL-RAW-MATERIAL", "Iron ore as steel raw material", [
   {
     "stem": "Which mineral raw material supplies the iron required for steel manufacture?",
     "answer": "Iron ore",
@@ -481,9 +482,9 @@ const QL_016 = buildGeoMinQl("IRON-ORE-AS-STEEL-RAW-MATERIAL", "Iron ore as stee
     "explanation": "Primary steel production requires large flows of mineral raw materials, especially iron ore. Local ore is therefore a real location advantage, although power, coal, transport and markets also matter.",
     "sourceFactId": "STEEL-RAW-MATERIAL-REASONING"
   }
-] as const);
+] as const),
 
-const QL_017 = buildGeoMinQl("IRON-ORE-BELT-RECOGNITION-AND-MAPPING", "Iron ore belt recognition and mapping", [
+buildGeoMinQl("IRON-ORE-BELT-RECOGNITION-AND-MAPPING", "Iron ore belt recognition and mapping", [
   {
     "stem": "Which sequence lists only major Indian iron-ore belts?",
     "answer": "Odisha–Jharkhand; Durg–Bastar–Chandrapur; Ballari–Chitradurga; Maharashtra–Goa",
@@ -550,9 +551,9 @@ const QL_017 = buildGeoMinQl("IRON-ORE-BELT-RECOGNITION-AND-MAPPING", "Iron ore 
     "explanation": "Each location is a major marker of a different iron-ore region in India. Together they provide a useful east-central-south-west map pattern for iron-ore geography.",
     "sourceFactId": "IRON-FOUR-CLUSTER"
   }
-] as const);
+] as const),
 
-const QL_018 = buildGeoMinQl("INTEGRATED-IRON-ORE-COMPARISON", "Integrated iron ore comparison", [
+buildGeoMinQl("INTEGRATED-IRON-ORE-COMPARISON", "Integrated iron ore comparison", [
   {
     "stem": "Which statement correctly compares hematite and magnetite?",
     "answer": "Both are iron ores, while magnetite is strongly magnetic",
@@ -619,7 +620,8 @@ const QL_018 = buildGeoMinQl("INTEGRATED-IRON-ORE-COMPARISON", "Integrated iron 
     "explanation": "Keonjhar is a major iron-ore area, iron ore is ferrous, and it provides the iron input for steel. The other chains combine locations and mineral classes incorrectly.",
     "sourceFactId": "IRON-ORE-INTEGRATED-6"
   }
-] as const);
+] as const)
+]);
 
-export const GEO_MIN_001_CP002_REVIEW_BATCH_V1 = finalizeGeoMinCp(2, [QL_010, QL_011, QL_012, QL_013, QL_014, QL_015, QL_016, QL_017, QL_018]);
-export function auditGeoMin001Cp002ReviewBatchV1() { return auditGeoMinCp(2, [QL_010, QL_011, QL_012, QL_013, QL_014, QL_015, QL_016, QL_017, QL_018], GEO_MIN_001_CP002_REVIEW_BATCH_V1); }
+export const GEO_MIN_001_CP002_REVIEW_BATCH_V1 = finalizeGeoMinCp(2, QLS);
+export function auditGeoMin001Cp002ReviewBatchV1() { return auditGeoMinCp(2, QLS, GEO_MIN_001_CP002_REVIEW_BATCH_V1); }
