@@ -90,6 +90,7 @@ export type QuantV4GenerationRequest = {
   questionLanguageId?: string;
   seed?: string;
   count?: number;
+  auditDiversityOrdinalByCanonicalProblemId?: Readonly<Record<string, number>>;
 };
 
 export interface QuantV4PackageDefinition {
@@ -1151,8 +1152,18 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
     }
     const currentCanonicalProblemId = cpOrder[i % cpOrder.length]!;
     const seed = `${batchSeed}:${currentCanonicalProblemId}:${i}`;
-    const diversityOrdinal = diversityUsageByCp.get(currentCanonicalProblemId) ?? 0;
-    diversityUsageByCp.set(currentCanonicalProblemId, diversityOrdinal + 1);
+    const carriedOrdinalRaw = Number(
+      request.auditDiversityOrdinalByCanonicalProblemId?.[currentCanonicalProblemId] ?? 0,
+    );
+    const carriedOrdinal = Number.isFinite(carriedOrdinalRaw)
+      ? Math.max(0, Math.floor(carriedOrdinalRaw))
+      : 0;
+    const diversityOrdinal =
+      carriedOrdinal + (diversityUsageByCp.get(currentCanonicalProblemId) ?? 0);
+    diversityUsageByCp.set(
+      currentCanonicalProblemId,
+      (diversityUsageByCp.get(currentCanonicalProblemId) ?? 0) + 1,
+    );
     const questionPackage = await pkg.run(currentCanonicalProblemId, {
       language,
       seed,
