@@ -1,11 +1,7 @@
 import assert from "node:assert/strict";
 
 import { getQuantV4ExamProfileContract } from "../common/exam-profile";
-import type { QuantV4GenerationRequest as CoreQuantV4GenerationRequest } from "../generation-engine-core";
-import { runAvg001QuestionStudioPipeline } from "../topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
-import { runMal001QuestionStudioPipeline } from "../topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
 import type { ProbabilityExamProfile } from "../topics/Probability/shared/types";
-import type { MenCp009StandardQuestionStudioRequest } from "../topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/question-studio-runtime";
 import {
   QUANT_V4_REAL_EXAM_PROFILES,
   resolveProbabilitySimulationProfile,
