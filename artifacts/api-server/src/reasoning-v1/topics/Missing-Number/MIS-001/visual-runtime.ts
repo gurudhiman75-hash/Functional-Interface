@@ -105,3 +105,45 @@ export function figurePreview(renderer: FigureRenderer, values: FigurePositionMa
     `${values.bottomLeft}       ${values.bottomRight}`,
   ].join('\n');
 }
+
+
+export function renderSharedProductSvg(values: {
+  readonly leftInput: number | '?';
+  readonly shared: number | '?';
+  readonly rightInput: number | '?';
+  readonly leftProduct: number | '?';
+  readonly rightProduct: number | '?';
+}): string {
+  return [
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 170" role="img" aria-label="linked product number figure">',
+    '<line x1="60" y1="92" x2="150" y2="92" stroke="currentColor" stroke-width="2"/>',
+    '<line x1="150" y1="92" x2="240" y2="92" stroke="currentColor" stroke-width="2"/>',
+    '<line x1="105" y1="92" x2="105" y2="35" stroke="currentColor" stroke-width="1.5"/>',
+    '<line x1="195" y1="92" x2="195" y2="35" stroke="currentColor" stroke-width="1.5"/>',
+    '<circle cx="60" cy="92" r="27" fill="white" stroke="currentColor" stroke-width="2"/>',
+    '<circle cx="150" cy="92" r="27" fill="white" stroke="currentColor" stroke-width="2"/>',
+    '<circle cx="240" cy="92" r="27" fill="white" stroke="currentColor" stroke-width="2"/>',
+    '<rect x="76" y="8" width="58" height="42" rx="8" fill="white" stroke="currentColor" stroke-width="2"/>',
+    '<rect x="166" y="8" width="58" height="42" rx="8" fill="white" stroke="currentColor" stroke-width="2"/>',
+    textNode(60, 92, values.leftInput),
+    textNode(150, 92, values.shared),
+    textNode(240, 92, values.rightInput),
+    textNode(105, 29, values.leftProduct),
+    textNode(195, 29, values.rightProduct),
+    '</svg>',
+  ].join('');
+}
+
+export function sharedProductPreview(values: {
+  readonly leftInput: number | '?';
+  readonly shared: number | '?';
+  readonly rightInput: number | '?';
+  readonly leftProduct: number | '?';
+  readonly rightProduct: number | '?';
+}): string {
+  return [
+    `      ${values.leftProduct}          ${values.rightProduct}`,
+    '       |            |',
+    `  ${values.leftInput} — ${values.shared} — ${values.rightInput}`,
+  ].join('\n');
+}
