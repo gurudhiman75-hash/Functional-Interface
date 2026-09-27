@@ -1,6 +1,6 @@
 import { buildGeoMinQl, finalizeGeoMinCp, auditGeoMinCp } from "./geo-min-001-review-builder";
 
-const QL_010 = buildGeoMinQl(10, "Hematite iron ore", [
+const QL_010 = buildGeoMinQl("HEMATITE-IRON-ORE", "Hematite iron ore", [
   {
     "stem": "Which iron ore is widely used in India and has a high iron content suitable for steel making?",
     "answer": "Hematite",
@@ -69,7 +69,7 @@ const QL_010 = buildGeoMinQl(10, "Hematite iron ore", [
   }
 ] as const);
 
-const QL_011 = buildGeoMinQl(11, "Magnetite iron ore", [
+const QL_011 = buildGeoMinQl("MAGNETITE-IRON-ORE", "Magnetite iron ore", [
   {
     "stem": "Which iron ore is known for very high iron content and magnetic properties?",
     "answer": "Magnetite",
@@ -138,7 +138,7 @@ const QL_011 = buildGeoMinQl(11, "Magnetite iron ore", [
   }
 ] as const);
 
-const QL_012 = buildGeoMinQl(12, "Odisha-Jharkhand iron ore belt", [
+const QL_012 = buildGeoMinQl("ODISHA-JHARKHAND-IRON-ORE-BELT", "Odisha-Jharkhand iron ore belt", [
   {
     "stem": "The Badampahar mines and adjoining iron-ore deposits belong to which major belt?",
     "answer": "Odisha–Jharkhand belt",
@@ -207,7 +207,7 @@ const QL_012 = buildGeoMinQl(12, "Odisha-Jharkhand iron ore belt", [
   }
 ] as const);
 
-const QL_013 = buildGeoMinQl(13, "Durg-Bastar-Chandrapur iron ore belt", [
+const QL_013 = buildGeoMinQl("DURG-BASTAR-CHANDRAPUR-IRON-ORE-BELT", "Durg-Bastar-Chandrapur iron ore belt", [
   {
     "stem": "The Bailadila hills are part of which major iron-ore belt?",
     "answer": "Durg–Bastar–Chandrapur belt",
@@ -276,7 +276,7 @@ const QL_013 = buildGeoMinQl(13, "Durg-Bastar-Chandrapur iron ore belt", [
   }
 ] as const);
 
-const QL_014 = buildGeoMinQl(14, "Ballari-Chitradurga-Chikkamagaluru-Tumakuru belt", [
+const QL_014 = buildGeoMinQl("BALLARI-CHITRADURGA-CHIKKAMAGALURU-TUMAKURU-BELT", "Ballari-Chitradurga-Chikkamagaluru-Tumakuru belt", [
   {
     "stem": "Which state contains the Ballari–Chitradurga–Chikkamagaluru–Tumakuru iron-ore belt?",
     "answer": "Karnataka",
@@ -345,7 +345,7 @@ const QL_014 = buildGeoMinQl(14, "Ballari-Chitradurga-Chikkamagaluru-Tumakuru be
   }
 ] as const);
 
-const QL_015 = buildGeoMinQl(15, "Maharashtra-Goa iron ore belt", [
+const QL_015 = buildGeoMinQl("MAHARASHTRA-GOA-IRON-ORE-BELT", "Maharashtra-Goa iron ore belt", [
   {
     "stem": "Which major iron-ore belt lies along parts of the western coast and adjoining Western Ghats?",
     "answer": "Maharashtra–Goa belt",
@@ -414,7 +414,7 @@ const QL_015 = buildGeoMinQl(15, "Maharashtra-Goa iron ore belt", [
   }
 ] as const);
 
-const QL_016 = buildGeoMinQl(16, "Iron ore as steel raw material", [
+const QL_016 = buildGeoMinQl("IRON-ORE-AS-STEEL-RAW-MATERIAL", "Iron ore as steel raw material", [
   {
     "stem": "Which mineral raw material supplies the iron required for steel manufacture?",
     "answer": "Iron ore",
@@ -483,7 +483,7 @@ const QL_016 = buildGeoMinQl(16, "Iron ore as steel raw material", [
   }
 ] as const);
 
-const QL_017 = buildGeoMinQl(17, "Iron ore belt recognition and mapping", [
+const QL_017 = buildGeoMinQl("IRON-ORE-BELT-RECOGNITION-AND-MAPPING", "Iron ore belt recognition and mapping", [
   {
     "stem": "Which sequence lists only major Indian iron-ore belts?",
     "answer": "Odisha–Jharkhand; Durg–Bastar–Chandrapur; Ballari–Chitradurga; Maharashtra–Goa",
@@ -552,7 +552,7 @@ const QL_017 = buildGeoMinQl(17, "Iron ore belt recognition and mapping", [
   }
 ] as const);
 
-const QL_018 = buildGeoMinQl(18, "Integrated iron ore comparison", [
+const QL_018 = buildGeoMinQl("INTEGRATED-IRON-ORE-COMPARISON", "Integrated iron ore comparison", [
   {
     "stem": "Which statement correctly compares hematite and magnetite?",
     "answer": "Both are iron ores, while magnetite is strongly magnetic",
@@ -622,4 +622,4 @@ const QL_018 = buildGeoMinQl(18, "Integrated iron ore comparison", [
 ] as const);
 
 export const GEO_MIN_001_CP002_REVIEW_BATCH_V1 = finalizeGeoMinCp(2, [QL_010, QL_011, QL_012, QL_013, QL_014, QL_015, QL_016, QL_017, QL_018]);
-export function auditGeoMin001Cp002ReviewBatchV1() { return auditGeoMinCp(2, 10, 18, GEO_MIN_001_CP002_REVIEW_BATCH_V1); }
+export function auditGeoMin001Cp002ReviewBatchV1() { return auditGeoMinCp(2, [QL_010, QL_011, QL_012, QL_013, QL_014, QL_015, QL_016, QL_017, QL_018], GEO_MIN_001_CP002_REVIEW_BATCH_V1); }
