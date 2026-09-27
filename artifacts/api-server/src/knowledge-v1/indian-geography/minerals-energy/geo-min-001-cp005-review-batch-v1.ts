@@ -1,6 +1,7 @@
 import { buildGeoMinQl, finalizeGeoMinCp, auditGeoMinCp } from "./geo-min-001-review-builder";
 
-const QL_037 = buildGeoMinQl("MICA-PROPERTIES-AND-ELECTRICAL-USE", "Mica properties and electrical use", [
+const QLS = Object.freeze([
+buildGeoMinQl("MICA-PROPERTIES-AND-ELECTRICAL-USE", "Mica properties and electrical use", [
   {
     "stem": "Which non-metallic mineral can be split into very thin sheets and is a good electrical insulator?",
     "answer": "Mica",
@@ -67,9 +68,9 @@ const QL_037 = buildGeoMinQl("MICA-PROPERTIES-AND-ELECTRICAL-USE", "Mica propert
     "explanation": "Electrical systems need both conductors and insulating materials. Mica does not carry current like copper, but it safely separates and protects electrical components.",
     "sourceFactId": "MICA-REASONING"
   }
-] as const);
+] as const),
 
-const QL_038 = buildGeoMinQl("KODERMA-GAYA-HAZARIBAGH-MICA-BELT", "Koderma-Gaya-Hazaribagh mica belt", [
+buildGeoMinQl("KODERMA-GAYA-HAZARIBAGH-MICA-BELT", "Koderma-Gaya-Hazaribagh mica belt", [
   {
     "stem": "The Koderma–Gaya–Hazaribagh belt is famous for which mineral?",
     "answer": "Mica",
@@ -136,9 +137,9 @@ const QL_038 = buildGeoMinQl("KODERMA-GAYA-HAZARIBAGH-MICA-BELT", "Koderma-Gaya-
     "explanation": "Koderma in Jharkhand is famous for mica, whereas Khetri in Rajasthan is known for copper. The comparison separates a non-metallic mineral belt from a non-ferrous metallic one.",
     "sourceFactId": "KODERMA-KHETRI-COMPARE"
   }
-] as const);
+] as const),
 
-const QL_039 = buildGeoMinQl("RAJASTHAN-MICA-BELT", "Rajasthan mica belt", [
+buildGeoMinQl("RAJASTHAN-MICA-BELT", "Rajasthan mica belt", [
   {
     "stem": "Which state contains an important mica belt around Ajmer and nearby areas?",
     "answer": "Rajasthan",
@@ -205,9 +206,9 @@ const QL_039 = buildGeoMinQl("RAJASTHAN-MICA-BELT", "Rajasthan mica belt", [
     "explanation": "Koderma represents the eastern mica belt, Nellore the southeastern belt and Rajasthan the western belt. The sequence brings together India's three classic mica-region associations.",
     "sourceFactId": "MICA-BELTS-SEQUENCE"
   }
-] as const);
+] as const),
 
-const QL_040 = buildGeoMinQl("NELLORE-MICA-BELT", "Nellore mica belt", [
+buildGeoMinQl("NELLORE-MICA-BELT", "Nellore mica belt", [
   {
     "stem": "The Nellore mica belt is located in which state?",
     "answer": "Andhra Pradesh",
@@ -274,9 +275,9 @@ const QL_040 = buildGeoMinQl("NELLORE-MICA-BELT", "Nellore mica belt", [
     "explanation": "India's classic mica geography spans several regions: Koderma in Jharkhand, Nellore in Andhra Pradesh and parts of Rajasthan in the west. The distribution is therefore not confined to one state.",
     "sourceFactId": "MICA-BELT-COMPARE"
   }
-] as const);
+] as const),
 
-const QL_041 = buildGeoMinQl("LIMESTONE-AND-CEMENT", "Limestone and cement", [
+buildGeoMinQl("LIMESTONE-AND-CEMENT", "Limestone and cement", [
   {
     "stem": "Which non-metallic mineral is a basic raw material for the cement industry?",
     "answer": "Limestone",
@@ -343,9 +344,9 @@ const QL_041 = buildGeoMinQl("LIMESTONE-AND-CEMENT", "Limestone and cement", [
     "explanation": "Limestone is the main cement raw material and gypsum is commonly added during cement production to regulate setting. Together they provide a strong mineral base for cement manufacturing.",
     "sourceFactId": "LIMESTONE-GYPSUM-REASONING"
   }
-] as const);
+] as const),
 
-const QL_042 = buildGeoMinQl("LIMESTONE-IN-METALLURGY-AND-INDUSTRIAL-USE", "Limestone in metallurgy and industrial use", [
+buildGeoMinQl("LIMESTONE-IN-METALLURGY-AND-INDUSTRIAL-USE", "Limestone in metallurgy and industrial use", [
   {
     "stem": "Besides cement manufacture, limestone is used in which major metallurgical activity?",
     "answer": "Iron and steel smelting as a flux",
@@ -412,9 +413,9 @@ const QL_042 = buildGeoMinQl("LIMESTONE-IN-METALLURGY-AND-INDUSTRIAL-USE", "Lime
     "explanation": "Limestone has multiple bulk industrial uses, especially in cement and metallurgy. A large deposit can therefore support several mineral-based industries rather than only one.",
     "sourceFactId": "LIMESTONE-REASONING"
   }
-] as const);
+] as const),
 
-const QL_043 = buildGeoMinQl("GYPSUM-USES-AND-INDUSTRIAL-ROLE", "Gypsum uses and industrial role", [
+buildGeoMinQl("GYPSUM-USES-AND-INDUSTRIAL-ROLE", "Gypsum uses and industrial role", [
   {
     "stem": "Which non-metallic mineral is widely used in plaster and also added to cement?",
     "answer": "Gypsum",
@@ -481,9 +482,9 @@ const QL_043 = buildGeoMinQl("GYPSUM-USES-AND-INDUSTRIAL-ROLE", "Gypsum uses and
     "explanation": "Limestone contributes the major calcium-bearing feedstock to cement, while gypsum is added in smaller amounts to control setting. Both are non-metallic but perform different roles.",
     "sourceFactId": "GYPSUM-LIMESTONE-COMPARE"
   }
-] as const);
+] as const),
 
-const QL_044 = buildGeoMinQl("GYPSUM-GEOGRAPHY-AND-RAJASTHAN", "Gypsum geography and Rajasthan", [
+buildGeoMinQl("GYPSUM-GEOGRAPHY-AND-RAJASTHAN", "Gypsum geography and Rajasthan", [
   {
     "stem": "Which state is especially well known for large gypsum deposits in India?",
     "answer": "Rajasthan",
@@ -550,9 +551,9 @@ const QL_044 = buildGeoMinQl("GYPSUM-GEOGRAPHY-AND-RAJASTHAN", "Gypsum geography
     "explanation": "Gypsum can develop in evaporative sedimentary environments, and Rajasthan has important deposits in such settings. Its use in plaster completes the location-process-use chain.",
     "sourceFactId": "GYPSUM-REASONING"
   }
-] as const);
+] as const),
 
-const QL_045 = buildGeoMinQl("INTEGRATED-NON-METALLIC-MINERAL-REASONING", "Integrated non-metallic mineral reasoning", [
+buildGeoMinQl("INTEGRATED-NON-METALLIC-MINERAL-REASONING", "Integrated non-metallic mineral reasoning", [
   {
     "stem": "Which set consists only of non-metallic industrial minerals?",
     "answer": "Mica, limestone and gypsum",
@@ -619,7 +620,8 @@ const QL_045 = buildGeoMinQl("INTEGRATED-NON-METALLIC-MINERAL-REASONING", "Integ
     "explanation": "Mica, limestone and gypsum are all non-metallic, but their uses differ sharply. Understanding those functional differences is more useful than memorising the classification alone.",
     "sourceFactId": "NONMETALLIC-INTEGRATED-6"
   }
-] as const);
+] as const)
+]);
 
-export const GEO_MIN_001_CP005_REVIEW_BATCH_V1 = finalizeGeoMinCp(5, [QL_037, QL_038, QL_039, QL_040, QL_041, QL_042, QL_043, QL_044, QL_045]);
-export function auditGeoMin001Cp005ReviewBatchV1() { return auditGeoMinCp(5, [QL_037, QL_038, QL_039, QL_040, QL_041, QL_042, QL_043, QL_044, QL_045], GEO_MIN_001_CP005_REVIEW_BATCH_V1); }
+export const GEO_MIN_001_CP005_REVIEW_BATCH_V1 = finalizeGeoMinCp(5, QLS);
+export function auditGeoMin001Cp005ReviewBatchV1() { return auditGeoMinCp(5, QLS, GEO_MIN_001_CP005_REVIEW_BATCH_V1); }
