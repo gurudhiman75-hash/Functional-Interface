@@ -36,7 +36,7 @@ for (const cpId of SIF_CP_IDS) {
     assert.equal(question.metadata.questionBankWritable, false);
   }
   const review = buildSifCpReviewPack({ cpId, locale: "en-IN", seed: 9000 });
-  assert.equal(review.questions.length, cpId === "SIF-CP012" || cpId === "SIF-CP013" || cpId === "SIF-CP014" ? 12 : cpId === "SIF-CP003" || cpId === "SIF-CP004" || cpId === "SIF-CP005" || cpId === "SIF-CP006" || cpId === "SIF-CP007" || cpId === "SIF-CP008" || cpId === "SIF-CP009" || cpId === "SIF-CP010" ? 24 : 20, `${cpId}: review pack size`);
+  assert.equal(review.questions.length, cpId === "SIF-CP012" || cpId === "SIF-CP013" ? 20 : cpId === "SIF-CP014" ? 12 : cpId === "SIF-CP003" || cpId === "SIF-CP004" || cpId === "SIF-CP005" || cpId === "SIF-CP006" || cpId === "SIF-CP007" || cpId === "SIF-CP008" || cpId === "SIF-CP009" || cpId === "SIF-CP010" ? 24 : 20, `${cpId}: review pack size`);
 }
 
 const cp001Authorities = listSifAuthorities("SIF-CP001");
@@ -268,16 +268,19 @@ assert.equal(cp011Review.questions.filter((entry) => entry.answerClass === "ONLY
 
 
 for (const [cpId, expectedDifficulty] of [
-  ["SIF-CP012", { EASY: 0, MEDIUM: 7, HARD: 5 }],
-  ["SIF-CP013", { EASY: 0, MEDIUM: 6, HARD: 6 }],
+  ["SIF-CP012", { EASY: 5, MEDIUM: 8, HARD: 7 }],
+  ["SIF-CP013", { EASY: 5, MEDIUM: 8, HARD: 7 }],
   ["SIF-CP014", { EASY: 0, MEDIUM: 12, HARD: 0 }],
 ] as const) {
   const authorities = listSifAuthorities(cpId);
-  assert.equal(authorities.length, 12, `${cpId}: twelve distinct trilingual authorities in this checkpoint`);
-  assert.equal(new Set(authorities.map(fingerprintSifAuthority)).size, 12, `${cpId}: scenarios must be distinct`);
+  const expectedPoolSize = cpId === "SIF-CP014" ? 12 : 20;
+  assert.equal(authorities.length, expectedPoolSize, `${cpId}: expected distinct trilingual authorities in this checkpoint`);
+  assert.equal(new Set(authorities.map(fingerprintSifAuthority)).size, expectedPoolSize, `${cpId}: scenarios must be distinct`);
   assert.deepEqual(authorities.reduce((counts, item) => ({ ...counts, [item.difficulty]: counts[item.difficulty] + 1 }), { EASY: 0, MEDIUM: 0, HARD: 0 }), expectedDifficulty, `${cpId}: difficulty distribution`);
   for (const [index, authority] of authorities.entries()) {
-    const triplet = locales.map((locale) => generateSifQuestion({ cpId, locale, seed: 91_500 + SIF_CP_IDS.indexOf(cpId) * 100 + index }));
+    const seedBase = 91_500 + SIF_CP_IDS.indexOf(cpId) * 100;
+    const alignedSeedBase = seedBase - (seedBase % authorities.length);
+    const triplet = locales.map((locale) => generateSifQuestion({ cpId, locale, seed: alignedSeedBase + index }));
     assert.ok(triplet.every((question) => question.scenarioId === authority.id && question.validation.every((gate) => gate.passed)), `${cpId} ${authority.id}: all locales and gates`);
     assertSifLanguageParity(triplet);
     for (const localized of [authority.statement, ...authority.facts.map((fact) => fact.text), ...authority.candidates.map((candidate) => candidate.text), authority.explanation]) {
@@ -288,10 +291,10 @@ for (const [cpId, expectedDifficulty] of [
     for (const locale of locales) assert.equal(authority.statement[locale].trim().split(/(?<=[.!?।])\s+/).length, 3, `${authority.id} ${locale}: three-sentence statement`);
   }
   const review = buildSifCpReviewPack({ cpId, locale: "en-IN", seed: 91_500 });
-  assert.equal(new Set(review.questions.map((question) => question.scenarioId)).size, 12, `${cpId}: no repeated review scenarios`);
+  assert.equal(new Set(review.questions.map((question) => question.scenarioId)).size, expectedPoolSize, `${cpId}: no repeated review scenarios`);
   assert.deepEqual(review.effectiveDistribution, expectedDifficulty, `${cpId}: sampler preserves pool difficulty`);
-  assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_I").length, 6, `${cpId}: balance supported inference I`);
-  assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_II").length, 6, `${cpId}: balance supported inference II`);
+  assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_I").length, expectedPoolSize / 2, `${cpId}: balance supported inference I`);
+  assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_II").length, expectedPoolSize / 2, `${cpId}: balance supported inference II`);
 }
 
 console.log("PASS_SIF_001_CHAPTER_REVIEW_CANDIDATE_V1");
