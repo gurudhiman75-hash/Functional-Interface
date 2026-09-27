@@ -66,6 +66,9 @@ export const MIS_SEMANTIC_AUTHORITY_ALIASES: readonly MisSemanticAuthorityAlias[
   { runtimeCandidateId:'MIS-CAND-081', canonicalCandidateId:'MIS-CAND-051', disposition:'RULE_COMPETITION_VARIANT', reason:'surviving semantic rule is pair-product sum.' },
   { runtimeCandidateId:'MIS-CAND-082', canonicalCandidateId:'MIS-CAND-075', disposition:'RULE_COMPETITION_VARIANT', reason:'surviving semantic rule is ab−c².' },
   { runtimeCandidateId:'MIS-CAND-083', canonicalCandidateId:'MIS-CAND-051', disposition:'RULE_COMPETITION_VARIANT', reason:'surviving semantic rule is pair-product sum.' },
+
+  // CP014 source-backed missing-corner presentation.
+  { runtimeCandidateId:'MIS-CAND-086', canonicalCandidateId:'MIS-CAND-050', disposition:'INVERSE_QUERY_VARIANT', reason:'PSPCL repeated-square missing-corner form reuses the four-corner-sum semantic authority; invariant total and blank position are query dimensions.' },
 ]);
 
 const DIRECT = new Map(MIS_SEMANTIC_AUTHORITY_ALIASES.map((entry) => [entry.runtimeCandidateId, entry.canonicalCandidateId]));
