@@ -2,7 +2,7 @@ import type { SifContextDomain, SifDifficulty, SifDistractorType, SifLocalizedTe
 
 type L = readonly [string, string, string];
 type Family = "ELIGIBILITY_INTERSECTION" | "PROCESS_REQUIREMENTS" | "SERVICE_AND_SCHEDULE" | "RESOURCE_AND_DEMAND" | "GROUP_AND_SCOPE" | "COMPARATIVE_CHAIN" | "CROSS_SENTENCE_RECORD" | "SEQUENCE_AND_STATUS";
-type Row = readonly [string, SifContextDomain, SifDifficulty, L, L, L, L, boolean];
+type Row = readonly [Family, string, SifContextDomain, SifDifficulty, L, L, L, L, boolean];
 const localized = ([en, hi, pa]: L): SifLocalizedText => ({ "en-IN": en, "hi-IN": hi, "pa-IN": pa });
 const guard = { evaluatesSupport: true, assumptionQuestion: false, conclusionQuestion: false, argumentQuestion: false, causeEffectQuestion: false, courseOfActionQuestion: false } as const;
 const families = {
@@ -631,7 +631,7 @@ const distractor: Readonly<Record<Family, SifDistractorType>> = {
   CROSS_SENTENCE_RECORD: "STRONGER_CLAIM", SEQUENCE_AND_STATUS: "TIME_DISTORTION"
 };
 export const SIF_CP011_MULTIPLE_FACTOR_AUTHORITIES: readonly SifScenarioAuthority[] = familyOrder.flatMap((family, familyIndex) =>
-  families[family].map(([key, domain, difficulty, statement, supportedText, unsupportedText, reasoning, answerI], rowIndex) => {
+  families[family].map(([, key, domain, difficulty, statement, supportedText, unsupportedText, reasoning, answerI], rowIndex) => {
     const globalIndex = familyIndex * 3 + rowIndex;
     const seedSwapsInReview = globalIndex % 2 === 1;
     const supportedFirst = answerI !== seedSwapsInReview;
