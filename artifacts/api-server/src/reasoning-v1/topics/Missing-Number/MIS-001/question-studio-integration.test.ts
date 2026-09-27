@@ -386,7 +386,7 @@ async function main() {
   assert.ok(cp024Rows.every(q=>q.sourceBacked===true));
   assert.ok(cp024Rows.every(q=>q.createsNewSemanticAuthority===true));
   assert.ok(cp024Rows.every(q=>q.context.multiplier===3 && q.context.addend===1));
-  assert.ok(cp024Rows.every(q=>q.structuralFingerprint.includes('REPEATED_AFFINE_TRANSFORM')));
+  assert.ok(cp024Rows.every(q=>q.structuralFingerprint.includes('SECOND_INPUT_AFFINE')));
 
   const cp025 = await generateMis001QuestionStudioBatch({
     packageId:'MIS-001', patternId:'MIS-CP-025', language:'en', count:8, seed:'MIS-QS-CP025-V1',
