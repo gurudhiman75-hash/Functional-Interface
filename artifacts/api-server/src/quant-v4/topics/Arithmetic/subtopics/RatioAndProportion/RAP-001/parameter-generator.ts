@@ -122,6 +122,7 @@ export interface Rap001ParameterInput {
   language?: Rap001Language;
   questionLanguageId?: string;
   difficultyBand?: Rap001DifficultyBand;
+  diversityOrdinal?: number;
 }
 
 function pick<T>(items: readonly T[], seed: string): T {

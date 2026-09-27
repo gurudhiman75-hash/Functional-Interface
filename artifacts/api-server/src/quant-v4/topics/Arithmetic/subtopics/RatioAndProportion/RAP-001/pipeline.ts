@@ -31,12 +31,10 @@ import { polishEnglishRapStem } from "../editorial-stem";
 import { stableBucket } from "./math";
 import { curateDefaultQuestionLanguageIds } from "../../../../../common/default-question-language-pool";
 
-function resolveRap001DefaultInput(
+export function listRap001CuratedDefaultQlIds(
   cpId: Rap001CanonicalProblemId,
-  input: Rap001ParameterInput,
-): Rap001ParameterInput {
-  if (input.questionLanguageId) return input;
-
+  input: Rap001ParameterInput = {},
+): readonly string[] {
   const language = input.language ?? "en";
   const availableIds = getSelectableQuestionLanguageIds(cpId, language);
   const curatedIds = curateDefaultQuestionLanguageIds(availableIds, (questionLanguageId) => {
@@ -55,13 +53,28 @@ function resolveRap001DefaultInput(
           getQuestionEntry(cpId, questionLanguageId, "en").difficulty === input.difficultyBand,
       )
     : curatedIds;
-  const source = difficultyFiltered.length > 0 ? difficultyFiltered : curatedIds;
+  return Object.freeze([...(difficultyFiltered.length > 0 ? difficultyFiltered : curatedIds)]);
+}
+
+function resolveRap001DefaultInput(
+  cpId: Rap001CanonicalProblemId,
+  input: Rap001ParameterInput,
+): Rap001ParameterInput {
+  if (input.questionLanguageId) return input;
+
+  const source = listRap001CuratedDefaultQlIds(cpId, input);
   if (source.length === 0) return input;
   const seed = input.seed ?? `RAP-001:${cpId}`;
+  const diversityOrdinal = Number.isInteger(input.diversityOrdinal)
+    ? Math.max(0, Math.floor(Number(input.diversityOrdinal)))
+    : null;
+  const selectedIndex = diversityOrdinal == null
+    ? stableBucket(`${seed}:curated-default-ql`, source.length)
+    : diversityOrdinal % source.length;
 
   return {
     ...input,
-    questionLanguageId: source[stableBucket(`${seed}:curated-default-ql`, source.length)]!,
+    questionLanguageId: source[selectedIndex]!,
   };
 }
 
