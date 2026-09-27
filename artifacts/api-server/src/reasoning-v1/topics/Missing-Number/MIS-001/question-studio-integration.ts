@@ -80,15 +80,18 @@ import { type MisCp015CandidateId } from './MIS-CP-015/rule-definitions';
 import { MIS_CP016_CANDIDATE_IDS, generateMisCp016Question, type GeneratedMisCp016Question } from './MIS-CP-016/generator';
 import { independentlyEvaluateMisCp016Rule, independentlyVerifyMisCp016Group } from './MIS-CP-016/independent-solver';
 import { type MisCp016CandidateId } from './MIS-CP-016/rule-definitions';
+import { MIS_CP017_CANDIDATE_IDS, generateMisCp017Question, type GeneratedMisCp017Question } from './MIS-CP-017/generator';
+import { independentlyEvaluateMisCp017Rule, independentlyVerifyMisCp017Group } from './MIS-CP-017/independent-solver';
+import { type MisCp017CandidateId } from './MIS-CP-017/rule-definitions';
 import { canonicalMisSemanticAuthorityId, misCandidateCreatesSemanticAuthority } from './semantic-authority-registry';
 
 export const MIS_001_PACKAGE_ID = 'MIS-001' as const;
 export const MIS_001_RUNTIME_MODE = 'review-only' as const;
-export const MIS_001_REVIEW_AUTHORITY = 'MIS-001-CP001-CP016-SOURCE-DISCOVERY-V1' as const;
-export const MIS_001_CHECKPOINT_IDS = ['MIS-CP-001', 'MIS-CP-002', 'MIS-CP-003', 'MIS-CP-004', 'MIS-CP-005', 'MIS-CP-006', 'MIS-CP-007', 'MIS-CP-008', 'MIS-CP-009', 'MIS-CP-010', 'MIS-CP-011', 'MIS-CP-012', 'MIS-CP-013', 'MIS-CP-014', 'MIS-CP-015', 'MIS-CP-016'] as const;
+export const MIS_001_REVIEW_AUTHORITY = 'MIS-001-CP001-CP017-SOURCE-DISCOVERY-V1' as const;
+export const MIS_001_CHECKPOINT_IDS = ['MIS-CP-001', 'MIS-CP-002', 'MIS-CP-003', 'MIS-CP-004', 'MIS-CP-005', 'MIS-CP-006', 'MIS-CP-007', 'MIS-CP-008', 'MIS-CP-009', 'MIS-CP-010', 'MIS-CP-011', 'MIS-CP-012', 'MIS-CP-013', 'MIS-CP-014', 'MIS-CP-015', 'MIS-CP-016', 'MIS-CP-017'] as const;
 
-type MisCandidateId = MisCp001CandidateId | MisCp002CandidateId | MisCp003CandidateId | MisCp004CandidateId | MisCp005CandidateId | MisCp006CandidateId | MisCp007CandidateId | MisCp008CandidateId | MisCp009CandidateId | MisCp010CandidateId | MisCp011CandidateId | MisCp012CandidateId | MisCp013CandidateId | MisCp014CandidateId | MisCp015CandidateId | MisCp016CandidateId;
-type MisGeneratedQuestion = GeneratedMisCp001Question | GeneratedMisCp002Question | GeneratedMisCp003Question | GeneratedMisCp004Question | GeneratedMisCp005Question | GeneratedMisCp006Question | GeneratedMisCp007Question | GeneratedMisCp008Question | GeneratedMisCp009Question | GeneratedMisCp010Question | GeneratedMisCp011Question | GeneratedMisCp012Question | GeneratedMisCp013Question | GeneratedMisCp014Question | GeneratedMisCp015Question | GeneratedMisCp016Question;
+type MisCandidateId = MisCp001CandidateId | MisCp002CandidateId | MisCp003CandidateId | MisCp004CandidateId | MisCp005CandidateId | MisCp006CandidateId | MisCp007CandidateId | MisCp008CandidateId | MisCp009CandidateId | MisCp010CandidateId | MisCp011CandidateId | MisCp012CandidateId | MisCp013CandidateId | MisCp014CandidateId | MisCp015CandidateId | MisCp016CandidateId | MisCp017CandidateId;
+type MisGeneratedQuestion = GeneratedMisCp001Question | GeneratedMisCp002Question | GeneratedMisCp003Question | GeneratedMisCp004Question | GeneratedMisCp005Question | GeneratedMisCp006Question | GeneratedMisCp007Question | GeneratedMisCp008Question | GeneratedMisCp009Question | GeneratedMisCp010Question | GeneratedMisCp011Question | GeneratedMisCp012Question | GeneratedMisCp013Question | GeneratedMisCp014Question | GeneratedMisCp015Question | GeneratedMisCp016Question | GeneratedMisCp017Question;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const ALL_CANDIDATES: readonly MisCandidateId[] = Object.freeze([
@@ -108,6 +111,7 @@ const ALL_CANDIDATES: readonly MisCandidateId[] = Object.freeze([
   ...MIS_CP014_CANDIDATE_IDS,
   ...MIS_CP015_CANDIDATE_IDS,
   ...MIS_CP016_CANDIDATE_IDS,
+  ...MIS_CP017_CANDIDATE_IDS,
 ]);
 
 function canonicalSemanticAuthorityId(candidateId: MisCandidateId): string {
@@ -208,12 +212,15 @@ function isCp015Candidate(value: string): value is MisCp015CandidateId {
 function isCp016Candidate(value: string): value is MisCp016CandidateId {
   return MIS_CP016_CANDIDATE_IDS.includes(value as MisCp016CandidateId);
 }
+function isCp017Candidate(value: string): value is MisCp017CandidateId {
+  return MIS_CP017_CANDIDATE_IDS.includes(value as MisCp017CandidateId);
+}
 
 function isCandidate(value: string): value is MisCandidateId {
   return isCp001Candidate(value) || isCp002Candidate(value) || isCp003Candidate(value) || isCp004Candidate(value)
     || isCp005Candidate(value) || isCp006Candidate(value) || isCp007Candidate(value)
     || isCp008Candidate(value) || isCp009Candidate(value) || isCp010Candidate(value)
-    || isCp011Candidate(value) || isCp012Candidate(value) || isCp013Candidate(value) || isCp014Candidate(value) || isCp015Candidate(value) || isCp016Candidate(value);
+    || isCp011Candidate(value) || isCp012Candidate(value) || isCp013Candidate(value) || isCp014Candidate(value) || isCp015Candidate(value) || isCp016Candidate(value) || isCp017Candidate(value);
 }
 
 function candidateCheckpoint(candidateId: MisCandidateId): typeof MIS_001_CHECKPOINT_IDS[number] {
@@ -232,7 +239,8 @@ function candidateCheckpoint(candidateId: MisCandidateId): typeof MIS_001_CHECKP
   if (isCp013Candidate(candidateId)) return 'MIS-CP-013';
   if (isCp014Candidate(candidateId)) return 'MIS-CP-014';
   if (isCp015Candidate(candidateId)) return 'MIS-CP-015';
-  return 'MIS-CP-016';
+  if (isCp016Candidate(candidateId)) return 'MIS-CP-016';
+  return 'MIS-CP-017';
 }
 
 function candidateSupportsDifficulty(candidateId: MisCandidateId, difficulty: 'Easy' | 'Medium' | 'Hard'): boolean {
@@ -276,7 +284,7 @@ function resolveCandidatePool(
 
   const candidates = [...new Set(selectors.filter(isCandidate))];
   const checkpoints = [...new Set(selectors.filter((value) =>
-    value === 'MIS-CP-001' || value === 'MIS-CP-002' || value === 'MIS-CP-003' || value === 'MIS-CP-004' || value === 'MIS-CP-005' || value === 'MIS-CP-006' || value === 'MIS-CP-007' || value === 'MIS-CP-008' || value === 'MIS-CP-009' || value === 'MIS-CP-010' || value === 'MIS-CP-011' || value === 'MIS-CP-012' || value === 'MIS-CP-013' || value === 'MIS-CP-014' || value === 'MIS-CP-015' || value === 'MIS-CP-016',
+    value === 'MIS-CP-001' || value === 'MIS-CP-002' || value === 'MIS-CP-003' || value === 'MIS-CP-004' || value === 'MIS-CP-005' || value === 'MIS-CP-006' || value === 'MIS-CP-007' || value === 'MIS-CP-008' || value === 'MIS-CP-009' || value === 'MIS-CP-010' || value === 'MIS-CP-011' || value === 'MIS-CP-012' || value === 'MIS-CP-013' || value === 'MIS-CP-014' || value === 'MIS-CP-015' || value === 'MIS-CP-016' || value === 'MIS-CP-017',
   ))] as (typeof MIS_001_CHECKPOINT_IDS[number])[];
 
   if (candidates.length > 1) throw new Error('Conflicting MIS-001 candidate selectors.');
@@ -321,7 +329,8 @@ function generateCandidate(candidateId: MisCandidateId, seed: string): MisGenera
   if (isCp013Candidate(candidateId)) return generateMisCp013Question(candidateId, seed);
   if (isCp014Candidate(candidateId)) return generateMisCp014Question(candidateId, seed);
   if (isCp015Candidate(candidateId)) return generateMisCp015Question(candidateId, seed);
-  return generateMisCp016Question(candidateId, seed);
+  if (isCp016Candidate(candidateId)) return generateMisCp016Question(candidateId, seed);
+  return generateMisCp017Question(candidateId, seed);
 }
 
 function resolveGeneratedCandidate(
@@ -486,14 +495,14 @@ function independentValidation(question: MisGeneratedQuestion) {
       solverAgreement: solved === question.answer,
     };
   }
-  if (question.missingPosition === 'RESULT') {
-    const solved = independentlyEvaluateMisCp015Rule(question.ruleId, question.target.inputs);
-    return {
-      sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp015Group(question.ruleId, group)),
-      solverAgreement: solved === question.answer,
-    };
-  }
   if (question.checkpointId === 'MIS-CP-015') {
+    if (question.missingPosition === 'RESULT') {
+      const solved = independentlyEvaluateMisCp015Rule(question.ruleId, question.target.inputs);
+      return {
+        sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp015Group(question.ruleId, group)),
+        solverAgreement: solved === question.answer,
+      };
+    }
     const index = question.missingPosition === 'FIRST_INPUT' ? 0 : question.missingPosition === 'SECOND_INPUT' ? 1 : 2;
     const visible = question.target.inputs.map((value, inputIndex) => inputIndex === index ? null : value);
     const solved = independentlySolveMisCp015Missing(question.ruleId, visible, question.target.result, question.missingPosition, 2, 25);
@@ -502,9 +511,16 @@ function independentValidation(question: MisGeneratedQuestion) {
       solverAgreement: solved.length === 1 && solved[0] === question.answer,
     };
   }
-  const solved = independentlyEvaluateMisCp016Rule(question.target.a, question.target.b, question.target.c, question.target.d, question.context);
+  if (question.checkpointId === 'MIS-CP-016') {
+    const solved = independentlyEvaluateMisCp016Rule(question.target.a, question.target.b, question.target.c, question.target.d, question.context);
+    return {
+      sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp016Group(group, question.context)),
+      solverAgreement: solved === question.answer,
+    };
+  }
+  const solved = independentlyEvaluateMisCp017Rule(question.target.first, question.target.second);
   return {
-    sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp016Group(group, question.context)),
+    sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp017Group(group)),
     solverAgreement: solved === question.answer,
   };
 }
@@ -529,7 +545,7 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
   subject: 'Reasoning',
   topic: 'Reasoning',
   subtopic: 'Missing Number',
-  label: 'Reasoning · Missing Number · MIS-001 (CP001-CP016 source-discovery review)',
+  label: 'Reasoning · Missing Number · MIS-001 (CP001-CP017 source-discovery review)',
   enabled: true,
   cpIds: [...MIS_001_CHECKPOINT_IDS],
   supportedLanguages: ['en'],
@@ -578,12 +594,13 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     cp014CandidateCount: MIS_CP014_CANDIDATE_IDS.length,
     cp015CandidateCount: MIS_CP015_CANDIDATE_IDS.length,
     cp016CandidateCount: MIS_CP016_CANDIDATE_IDS.length,
+    cp017CandidateCount: MIS_CP017_CANDIDATE_IDS.length,
     permanentQlCount: 0,
     permanentQlAllocation: false,
     sourceSaturationComplete: false,
     mergeSplitAuditComplete: true,
     mergeSplitAuditAuthority: 'MIS-001-SEMANTIC-AUTHORITY-REGISTRY-V1',
-    sourceSaturationBlocker: 'Target-exam source crosswalk has exposed CP013, CP015 and CP016 source-backed gaps plus the CP014 Punjab renderer variant; broader SSC/Punjab saturation remains pending; Banking repeated-group evidence remains thin.',
+    sourceSaturationBlocker: 'Target-exam source crosswalk has exposed CP013, CP015, CP016 and CP017 source-backed gaps plus the CP014 Punjab renderer variant; broader SSC/Punjab saturation remains pending; Banking repeated-group evidence remains thin.',
     englishEditorialFreezeComplete: false,
     localizationStarted: false,
     deterministicGeneration: true,
@@ -681,7 +698,7 @@ export async function generateMis001QuestionStudioBatch(
       readOnly: true,
       productionReleased: false,
       groupCount: generated.groupCount,
-      operandCount: ['MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015','MIS-CP-016'].includes(generated.checkpointId)
+      operandCount: ['MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015','MIS-CP-016','MIS-CP-017'].includes(generated.checkpointId)
         ? generated.operandCount
         : generated.checkpointId === 'MIS-CP-001' ? 2 : 3,
       missingPosition: generated.missingPosition,
