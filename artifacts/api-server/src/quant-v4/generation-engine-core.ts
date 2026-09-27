@@ -106,6 +106,7 @@ export interface QuantV4PackageDefinition {
       language?: QuantV4Language;
       questionLanguageId?: string;
       seed?: string;
+      diversityOrdinal?: number;
     },
   ) => Promise<any> | any;
 }
@@ -143,6 +144,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
         language: input.language,
         questionLanguageId: input.questionLanguageId,
         seed: input.seed,
+        diversityOrdinal: input.diversityOrdinal,
       }),
   },
   {
@@ -248,6 +250,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
         language: input.language,
         questionLanguageId: input.questionLanguageId,
         seed: input.seed,
+        diversityOrdinal: input.diversityOrdinal,
       }),
   },
   {
@@ -1076,6 +1079,7 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
       `${batchSeed}:package-order`,
     );
     const usageByPackage = new Map<string, number>();
+    const diversityUsageByPackageCp = new Map<string, number>();
     const results = [];
 
     for (let i = 0; i < count; i++) {
@@ -1093,11 +1097,15 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
       const canonicalProblemId =
         explicitCp ?? cpOrder[packageUsage % cpOrder.length]!;
       const seed = `${batchSeed}:${pkg.packageId}:${canonicalProblemId}:${packageUsage}:${i}`;
+      const diversityKey = `${pkg.packageId}::${canonicalProblemId}`;
+      const diversityOrdinal = diversityUsageByPackageCp.get(diversityKey) ?? 0;
+      diversityUsageByPackageCp.set(diversityKey, diversityOrdinal + 1);
       const questionPackage = await pkg.run(canonicalProblemId, {
         language,
         seed,
         questionLanguageId: request.questionLanguageId,
         difficulty: difficultyBand,
+        diversityOrdinal,
       });
 
       results.push(
@@ -1136,17 +1144,21 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
       );
 
   const results = [];
+  const diversityUsageByCp = new Map<string, number>();
   for (let i = 0; i < count; i++) {
     if (i > 0 && i % 100 === 0) {
       await new Promise((resolve) => setImmediate(resolve));
     }
     const currentCanonicalProblemId = cpOrder[i % cpOrder.length]!;
     const seed = `${batchSeed}:${currentCanonicalProblemId}:${i}`;
+    const diversityOrdinal = diversityUsageByCp.get(currentCanonicalProblemId) ?? 0;
+    diversityUsageByCp.set(currentCanonicalProblemId, diversityOrdinal + 1);
     const questionPackage = await pkg.run(currentCanonicalProblemId, {
       language,
       seed,
       questionLanguageId: request.questionLanguageId,
       difficulty: difficultyBand,
+      diversityOrdinal,
     });
     results.push(
       buildQuestionStudioResult(pkg, questionPackage, {
