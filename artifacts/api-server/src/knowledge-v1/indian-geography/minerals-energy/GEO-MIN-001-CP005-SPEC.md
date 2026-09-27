@@ -14,6 +14,10 @@ Permanent QLs: semantic registry; final count determined by coverage
 - dolomite: flux/refractory role and major resource states
 - rock phosphate/apatite: Jhamarkotra and fertilizer linkage
 - salt: Sambhar, marine/inland sources and Mandi rock salt
+- ilmenite/rutile: titanium-bearing beach sands
+- kyanite/sillimanite/andalusite: refractory polymorphs
+- fluorite: fluorine source and Indian regions
+- barytes: Mangampet and drilling-mud use
 
 ## Review contract
 - no fixed QL count
