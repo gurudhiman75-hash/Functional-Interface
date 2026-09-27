@@ -6,100 +6,155 @@ Status: IMPLEMENTATION IN PROGRESS — REVIEW ONLY
 
 Exam-oriented Indian Geography coverage for mineral occurrence, metallic and non-metallic minerals, coal, petroleum and natural gas, conventional power, nuclear energy, renewables, mineral-energy belts, map reasoning and integrated question forms.
 
-Primary authority:
-- NCERT Class X Geography, Contemporary India-II, Chapter 5 — Minerals and Energy Resources (current reprint).
-Supporting stable authority:
-- Ministry of Mines / Indian Bureau of Mines for durable mineral-location facts where NCERT needs supplementation.
-- Ministry of Coal, Ministry of Petroleum & Natural Gas, Ministry of Power, MNRE and Department of Atomic Energy for later energy CPs.
+This chapter is breadth-driven. CPs and QLs are created from genuine semantic coverage; they are not sized to hit a preset number.
 
-Avoid unstable annual production rankings unless tied to a named year and source. Permanent QLs should prefer durable geography.
+## 2. Authority stack
 
-## 2. Owning CP structure
+### Foundation authority
+- NCERT Class X Geography, Contemporary India-II, Chapter 5 — Minerals and Energy Resources.
+
+### Exhaustive mineral authority
+- Ministry of Mines Annual Report / National Mineral Scenario.
+- Indian Bureau of Mines (IBM) Indian Minerals Yearbook, including mineral-specific reviews.
+- IBM National Mineral Inventory (NMI).
+- IBM Indian Mineral Industry at a Glance.
+- IBM Statistical Profiles of Minerals.
+- Geological Survey of India for durable geology, occurrence and deposit framing.
+- Official State Directorates of Geology & Mining where a state-specific location fact needs authoritative confirmation.
+
+### Mineral-specific review families
+Use the relevant IBM review instead of a generic source wherever practical:
+- iron ore
+- manganese ore
+- chromite
+- bauxite
+- copper
+- lead-zinc
+- mica
+- limestone and other calcareous materials
+- gypsum
+- graphite
+- magnesite
+- apatite / rock phosphate
+- salt
+- rare earths and other exam-relevant strategic minerals where later coverage justifies them
+
+### Later energy authority
+- Ministry of Coal
+- Ministry of Petroleum & Natural Gas
+- Ministry of Power / Central Electricity Authority
+- Ministry of New and Renewable Energy
+- Department of Atomic Energy / Atomic Minerals Directorate
+- relevant official basin, field, plant and resource publications
+
+## 3. Source stability rule
+
+Permanent QLs prefer durable facts:
+- mineral classification
+- geological occurrence
+- important belts / fields / districts
+- mineral-to-industry relationship
+- map relationships
+- stable uses and properties
+- long-lived infrastructure/resource associations
+
+Annual production, reserve, consumption, export/import or state-rank facts are allowed only as dated questions with the source year embedded in provenance. They must never silently become timeless permanent facts.
+
+## 4. QL identity rule
+
+QLs use semantic IDs during authoring, for example:
+- GEO-MIN-001-QL-HEMATITE-IRON-ORE
+- GEO-MIN-001-QL-SUKINDA-CHROMITE-BELT
+- GEO-MIN-001-QL-LIMESTONE-CEMENT
+
+There is no hand-authored numeric QL range and no predeclared chapter total.
+
+If a final numeric sequence is ever needed for UI/display compatibility, it is generated only after chapter closure from the frozen semantic registry. Content ownership continues to be defined by semantic QL identity, not by a number.
+
+## 5. Owning CP structure
 
 ### CP001 — Mineral Foundations & Occurrence
-QL001–QL009
-- mineral meaning and characteristics
-- veins/lodes, beds/layers, residual and placer occurrence
-- metallic/non-metallic classification
-- ferrous/non-ferrous distinction
-- mineral conservation
+Current scope includes:
+- mineral / rock / ore distinction
+- modes of occurrence: veins and lodes, beds/layers, residual, placer
+- metallic / non-metallic
+- ferrous / non-ferrous
+- mineral-resource conservation
+- additional terminology or occurrence concepts may be added where official sources reveal genuine exam value
 
 ### CP002 — Iron Ore Geography
-QL010–QL018
+Current scope includes:
 - hematite and magnetite
-- major iron-ore belts
-- Odisha–Jharkhand
-- Durg–Bastar–Chandrapur
-- Ballari–Chitradurga–Chikkamagaluru–Tumakuru
-- Maharashtra–Goa
 - iron ore–steel relationship
-- comparative/map reasoning
+- Odisha–Jharkhand belt
+- Durg–Bastar–Chandrapur belt
+- Karnataka iron-ore belt
+- Maharashtra–Goa belt
+- important locations such as Keonjhar, Singhbhum, Bailadila, Ballari and Kudremukh
+- belt recognition, comparison and map reasoning
+- additional stable mines/belts may be added if they materially improve exam coverage
 
 ### CP003 — Manganese, Chromite & Ferro-alloy Minerals
-QL019–QL027
-- manganese properties and uses
-- important manganese regions
+Current scope includes:
+- manganese properties, industrial use and principal regions
+- Odisha, Karnataka and Madhya Pradesh–Maharashtra manganese geography
 - chromite and chromium
-- Sukinda/Odisha association
-- ferro-alloy logic
-- comparative and integrated reasoning
+- Sukinda
+- ferro-alloy resource logic
+- comparative/map reasoning
+- nickel/cobalt or other ferro-alloy minerals may be added if source audit shows repeated exam relevance
 
 ### CP004 — Bauxite, Copper, Lead-Zinc & Other Non-ferrous Minerals
-QL028–QL036
-- bauxite and aluminium
-- bauxite formation and plateau occurrence
-- copper uses and major fields
-- Balaghat, Singhbhum and Khetri
-- lead-zinc basics and Rajasthan belts
+Current scope includes:
+- bauxite, formation and plateau geography
+- aluminium chain and uses
+- copper properties, uses and major fields
+- Khetri, Balaghat, Singhbhum
+- lead-zinc basics and Rajasthan belt
+- Zawar and Rampura Agucha
 - integrated non-ferrous reasoning
+- other durable non-ferrous mineral facts may be added where exam value is established
 
-### CP005 — Mica, Limestone, Gypsum & Other Non-metallic Minerals
-QL037–QL045
-- mica properties and major belts
-- Koderma–Gaya–Hazaribagh, Rajasthan and Nellore belts
-- limestone uses and cement relationship
-- gypsum uses and distribution
-- non-metallic comparison/integration
+### CP005 — Non-metallic & Industrial Minerals
+Current scope includes:
+- mica properties and classic belts
+- Koderma–Gaya–Hazaribagh
+- Rajasthan mica
+- Nellore mica
+- limestone: cement and metallurgy
+- gypsum: plaster, cement and Rajasthan
+- breadth audit must also consider graphite, magnesite, dolomite, rock phosphate/apatite, salt and other durable industrial minerals before this CP is frozen
 
-### CP006 — Coal
-QL046–QL054
+### CP006 onward
+Later CP boundaries are thematic, not numerical:
+- coal and lignite
+- petroleum and natural gas
+- thermal/hydel and conventional power
+- nuclear/atomic minerals
+- renewable energy
+- map/belt comparison
+- integrated exam forms
+- exhaustive mastery/closure
 
-### CP007 — Petroleum & Natural Gas
-QL055–QL063
+These may expand, combine or split according to natural coverage.
 
-### CP008 — Thermal & Hydel Power
-QL064–QL072
+## 6. Review contract
 
-### CP009 — Nuclear Energy & Atomic Minerals
-QL073–QL081
-
-### CP010 — Renewable Energy
-QL082–QL090
-
-### CP011 — Mineral/Energy Belts & Map Comparison
-QL091–QL099
-
-### CP012 — Integrated Exam Forms
-QL100–QL108
-
-### CP013 — Exhaustive Mastery / Closure
-Non-owning; one representative review question per permanent QL after CP001–CP012 are approved.
-
-## 3. Review contract
-
-- 9 permanent QLs per owning CP in V1.
-- 6 questions per permanent QL.
-- 54 questions per CP.
-- Difficulty target per CP: Easy 18 / Medium 30 / Hard 6.
+- No fixed QL count per CP.
+- No fixed question count per CP.
+- A semantic QL must be broad enough to support at least four genuinely distinct exam questions before becoming permanent.
+- Six questions per mature QL remains a useful baseline, not a quota or ceiling.
+- Difficulty is determined by reasoning demand, not by a CP-wide numerical quota.
+- Answer positions should remain reasonably balanced without mechanical per-CP quotas.
 - Stems and explanations must be unique and exam-natural.
 - Hard questions require relation/elimination, not obscure trivia.
 - reviewOnly=true and runtimeRegistered=false.
 - No Question Studio/public registration until chapter closure is separately approved.
 - Hindi/Punjabi localization follows English approval.
 
-## 4. Style rules
+## 7. Style rules
 
 - Prefer direct exam language.
 - Do not use mechanical fillers such as “best describes”, “broadly”, “mainly”, or unnecessary “associated with”.
-- Use standard forms: direct identification, reverse association, statement sets, correctly/incorrectly matched pairs, clue-based identification, map/region reasoning and multi-fact elimination.
+- Use direct identification, reverse association, statement sets, correctly/incorrectly matched pairs, clue-based identification, map/region reasoning and multi-fact elimination where natural.
 - Explanations should be simple, coherent and normally at least two sentences.
