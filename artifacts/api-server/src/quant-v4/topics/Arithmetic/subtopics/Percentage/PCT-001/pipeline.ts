@@ -24,12 +24,10 @@ import { validatePct001QuestionPackage } from "./validator";
 import { stableBucket } from "./math";
 import { curateDefaultQuestionLanguageIds } from "../../../../../common/default-question-language-pool";
 
-function resolvePct001DefaultInput(
+export function listPct001CuratedDefaultQlIds(
   cpId: Pct001CanonicalProblemId,
-  input: Pct001ParameterInput,
-): Pct001ParameterInput {
-  if (input.questionLanguageId) return input;
-
+  input: Pct001ParameterInput = {},
+): readonly string[] {
   const language = input.language ?? "en";
   const availableIds = getSelectableQuestionLanguageIds(cpId, language);
   const curatedIds = curateDefaultQuestionLanguageIds(availableIds, (questionLanguageId) => {
@@ -48,7 +46,16 @@ function resolvePct001DefaultInput(
           getQuestionEntry(cpId, questionLanguageId, "en").difficulty === input.difficultyBand,
       )
     : curatedIds;
-  const source = difficultyFiltered.length > 0 ? difficultyFiltered : curatedIds;
+  return Object.freeze([...(difficultyFiltered.length > 0 ? difficultyFiltered : curatedIds)]);
+}
+
+function resolvePct001DefaultInput(
+  cpId: Pct001CanonicalProblemId,
+  input: Pct001ParameterInput,
+): Pct001ParameterInput {
+  if (input.questionLanguageId) return input;
+
+  const source = listPct001CuratedDefaultQlIds(cpId, input);
   if (source.length === 0) return input;
   const seed = input.seed ?? `PCT-001:${cpId}`;
   const diversityOrdinal = Number.isInteger(input.diversityOrdinal)
