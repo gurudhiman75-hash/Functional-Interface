@@ -1,3 +1,4 @@
+import "./localization-review-v1.test";
 import { generateDi002V2Set, DI002_V2_CONTEXT_COUNT, DI002_V2_OBJECT_LABEL_COUNT, DI002_V2_TASK_KINDS } from "./advanced-table-set-v2";
 import { independentlyVerifyDi002V2Set } from "./independent-verifier-v2";
 
@@ -52,6 +53,7 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
       assert(new Set(question.options).size === set.optionCount, `${seed}/${question.kind}: duplicate options.`);
       assert(question.options[question.correctIndex] === question.answer, `${seed}/${question.kind}: correct index mismatch.`);
       assert(!/\bassociated\b/iu.test(question.stem), `${seed}/${question.kind}: mechanical 'associated' wording leaked into the stem.`);
+      assert(!/nearest whole percent|round to the nearest whole percent|give the nearest whole percent/iu.test(question.stem), `${seed}/${question.kind}: explicit rounding instruction leaked into the stem.`);
       assert(!/\d+\.\d+%/u.test(question.stem + " " + question.answer), `${seed}/${question.kind}: decimal percentage leaked to the learner surface.`);
       assert(!/Selected\(|Applicants\(/u.test(question.stem), `${seed}/${question.kind}: formula-like table notation leaked into an exam stem.`);
       assert((question.explanation as any).shortcut === undefined && (question.explanation as any).trap === undefined, `${seed}/${question.kind}: forced shortcut/trap fields returned.`);
