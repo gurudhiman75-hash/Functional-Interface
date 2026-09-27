@@ -899,6 +899,192 @@ buildGeoMinQl("DOLOMITE-FLUX-REFRACTORY-INDUSTRIAL-USE", "Dolomite as flux and r
       "IBM-INDIAN-MINERALS-YEARBOOK-2024"
     ]
   }
+] as const),
+
+buildGeoMinQl("ROCK-PHOSPHATE-JHAMARKOTRA-FERTILIZER", "Rock phosphate, Jhamarkotra and fertilizer use", [
+  {
+    "stem": "Rock phosphate is an important raw material for which industry?",
+    "answer": "Phosphatic fertilizer industry",
+    "distractors": [
+      "Iron and steel industry",
+      "Copper smelting only",
+      "Jute textile industry"
+    ],
+    "explanation": "Rock phosphate is valued chiefly as a source of phosphorus for phosphatic fertilizers and phosphoric-acid products. Its industrial importance is therefore closely linked with agriculture and fertilizer manufacture.",
+    "sourceFactId": "PHOSPHATE-FERTILIZER",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-APATITE-ROCK-PHOSPHATE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Jhamarkotra, an important rock-phosphate mine, is located in which state?",
+    "answer": "Rajasthan",
+    "distractors": [
+      "Odisha",
+      "Jharkhand",
+      "Karnataka"
+    ],
+    "explanation": "Jhamarkotra is in Udaipur district of Rajasthan and is one of India's best-known rock-phosphate locations. IBM continues to record the mine and its beneficiation activity in official mineral reports.",
+    "sourceFactId": "PHOSPHATE-JHAMARKOTRA-STATE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-APATITE-ROCK-PHOSPHATE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Jhamarkotra is linked with rock phosphate. II. Rock phosphate is used in phosphatic fertilizer manufacture. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Jhamarkotra is a major Rajasthan rock-phosphate mine, and phosphate concentrates are used in fertilizer and phosphoric-acid production. Both statements correctly connect location and use.",
+    "sourceFactId": "PHOSPHATE-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-APATITE-ROCK-PHOSPHATE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Jhamarkotra — rock phosphate",
+    "distractors": [
+      "Jhamarkotra — petroleum",
+      "Jhamarkotra — mica",
+      "Jhamarkotra — chromite"
+    ],
+    "explanation": "Jhamarkotra is a standard rock-phosphate location in Rajasthan. Petroleum, mica and chromite belong to different mineral regions and geological settings.",
+    "sourceFactId": "PHOSPHATE-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-APATITE-ROCK-PHOSPHATE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A mineral deposit in Udaipur district supplies phosphorus-bearing material for SSP and related fertilizer products. Which mineral is indicated?",
+    "answer": "Rock phosphate",
+    "distractors": [
+      "Magnesite",
+      "Graphite",
+      "Gypsum"
+    ],
+    "explanation": "IBM records Jhamarkotra rock phosphate as a feedstock for phosphatic products including SSP-related uses. The location and fertilizer clue together point to rock phosphate.",
+    "sourceFactId": "PHOSPHATE-CLUE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-APATITE-ROCK-PHOSPHATE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which chain is geographically and economically correct?",
+    "answer": "Jhamarkotra → rock phosphate → phosphatic fertilizer",
+    "distractors": [
+      "Salem → rock phosphate → steel refractory",
+      "Sukinda → rock phosphate → stainless steel",
+      "Koderma → phosphate → electrical insulation"
+    ],
+    "explanation": "Jhamarkotra in Rajasthan is a rock-phosphate centre, and phosphate mineral is processed for fertilizer and phosphoric-acid uses. The other chains mix unrelated mineral locations and industries.",
+    "sourceFactId": "PHOSPHATE-CHAIN",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-APATITE-ROCK-PHOSPHATE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
+] as const),
+
+buildGeoMinQl("SALT-SOURCES-SAMBHAR-AND-COASTAL-CENTRES", "Salt sources, Sambhar and coastal centres", [
+  {
+    "stem": "Which is a major inland salt-producing centre in Rajasthan?",
+    "answer": "Sambhar Lake",
+    "distractors": [
+      "Noamundi",
+      "Sukinda",
+      "Khetri"
+    ],
+    "explanation": "The Salt Commissioner's official material lists Sambhar Lake among Rajasthan's inland salt works using lake brine. It is a classic inland-salt location in Indian geography.",
+    "sourceFactId": "SALT-SAMBHAR",
+    "sourceIds": [
+      "SALT-COMMISSIONER-INDIA-SALT-INDUSTRY",
+      "IBM-MINERAL-REVIEW-SALT"
+    ]
+  },
+  {
+    "stem": "Which source of salt is used at Sambhar Lake?",
+    "answer": "Lake brine",
+    "distractors": [
+      "Offshore petroleum",
+      "Iron-ore lode",
+      "Coal seam water"
+    ],
+    "explanation": "Sambhar is an inland salt centre where lake brine is used for salt production. This contrasts with marine salt works along the coasts of Gujarat and Tamil Nadu.",
+    "sourceFactId": "SALT-LAKE-BRINE",
+    "sourceIds": [
+      "SALT-COMMISSIONER-INDIA-SALT-INDUSTRY",
+      "IBM-MINERAL-REVIEW-SALT"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Gujarat has major marine salt works. II. Rajasthan has inland salt works using lake and sub-soil brine. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Official Salt Commissioner material identifies extensive marine salt centres along Gujarat's coast and inland salt works in Rajasthan. The two states illustrate different salt-producing environments.",
+    "sourceFactId": "SALT-STATEMENT",
+    "sourceIds": [
+      "SALT-COMMISSIONER-INDIA-SALT-INDUSTRY",
+      "IBM-MINERAL-REVIEW-SALT"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Tuticorin — marine salt works",
+    "distractors": [
+      "Sambhar — iron ore",
+      "Kharaghoda — mica belt",
+      "Mandi — offshore salt works"
+    ],
+    "explanation": "Tuticorin in Tamil Nadu is a major marine salt centre. Sambhar is an inland Rajasthan salt lake, Kharaghoda is linked with salt in Gujarat, and Mandi is known for rock-salt deposits.",
+    "sourceFactId": "SALT-TUTICORIN",
+    "sourceIds": [
+      "SALT-COMMISSIONER-INDIA-SALT-INDUSTRY",
+      "IBM-MINERAL-REVIEW-SALT"
+    ]
+  },
+  {
+    "stem": "Which location is linked with rock-salt deposits rather than marine or lake-brine salt?",
+    "answer": "Mandi in Himachal Pradesh",
+    "distractors": [
+      "Sambhar in Rajasthan",
+      "Tuticorin in Tamil Nadu",
+      "Kandla in Gujarat"
+    ],
+    "explanation": "The Salt Commissioner identifies rock-salt deposits at Mandi in Himachal Pradesh. Sambhar uses inland brine, while Tuticorin and Kandla belong to coastal salt-producing regions.",
+    "sourceFactId": "SALT-ROCK-MANDI",
+    "sourceIds": [
+      "SALT-COMMISSIONER-INDIA-SALT-INDUSTRY",
+      "IBM-MINERAL-REVIEW-SALT"
+    ]
+  },
+  {
+    "stem": "A question lists Sambhar, Kharaghoda and Tuticorin. What common resource connects them?",
+    "answer": "Salt",
+    "distractors": [
+      "Iron ore",
+      "Copper",
+      "Chromite"
+    ],
+    "explanation": "Sambhar is an inland salt centre, Kharaghoda a Gujarat salt centre and Tuticorin a marine salt centre in Tamil Nadu. The shared resource is salt despite their different production settings.",
+    "sourceFactId": "SALT-INTEGRATED",
+    "sourceIds": [
+      "SALT-COMMISSIONER-INDIA-SALT-INDUSTRY",
+      "IBM-MINERAL-REVIEW-SALT"
+    ]
+  }
 ] as const)
 ]);
 
