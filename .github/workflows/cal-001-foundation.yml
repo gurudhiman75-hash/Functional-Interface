@@ -22,7 +22,6 @@ on:
       - artifacts/admin-app/src/features/question-studio/calendar-review-api.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioCalendarReviewPanel.tsx
       - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
-      - .github/workflows/cal-001-foundation.yml
   pull_request:
     branches:
       - New-main
@@ -37,7 +36,6 @@ on:
       - artifacts/admin-app/src/features/question-studio/calendar-review-api.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioCalendarReviewPanel.tsx
       - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
-      - .github/workflows/cal-001-foundation.yml
   workflow_dispatch:
 
 permissions:
