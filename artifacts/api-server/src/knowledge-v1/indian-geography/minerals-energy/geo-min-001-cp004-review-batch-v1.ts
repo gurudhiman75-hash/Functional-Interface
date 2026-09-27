@@ -439,7 +439,7 @@ buildGeoMinQl("RAJASTHAN-LEAD-ZINC-BELT", "Rajasthan lead-zinc belt", [
     "sourceFactId": "ZAWAR-LEAD-ZINC"
   },
   {
-    "stem": "Consider the statements: I. Zawar lies in Rajasthan. II. It is associated with lead-zinc mineralisation. Which is correct?",
+    "stem": "Consider the statements: I. Zawar lies in Rajasthan. II. Zawar is a major lead-zinc mining area. Which is correct?",
     "answer": "Both I and II are correct",
     "distractors": [
       "Only I is correct",
