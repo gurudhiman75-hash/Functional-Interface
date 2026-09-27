@@ -68,7 +68,7 @@ export function generateMisCp026Question(candidateId:MisCp026CandidateId,seed:st
  return{
   packageId:'MIS-001',checkpointId:'MIS-CP-026',candidateId,provisionalQl:true,ruleId:'OPPOSITE_PAIR_SQUARE',ruleFamily:rule.label,context:null,
   difficulty:'Easy',renderer:'SVG_OPPOSITE_SQUARE_WHEEL',
-  stem:['Study the figure and find the number that will replace the question mark (?).','',oppositeSquareWheelPreview(positions)].join('\n\n'),
+  stem:['Find the missing value in the following figure.','',oppositeSquareWheelPreview(positions)].join('\n\n'),
   evidenceGroups:sel.evidence,target:sel.target,figures:[figure],options,correctIndex:ci,answer,explanation,
   solverTrace:[...sel.evidence.map(p=>`${p.input}²=${p.output}`),`${sel.target.input}²=${answer}`],
   ambiguityAudit:{accepted:true,survivingRules:['SQUARE_INPUT'],reason:'Three complete opposite pairs establish the square relation; the fourth output is uniquely determined.'},
