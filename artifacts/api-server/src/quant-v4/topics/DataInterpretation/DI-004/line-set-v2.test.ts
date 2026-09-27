@@ -1,3 +1,4 @@
+import "./localization-review-v1.test";
 import {
   DI004_V2_CONTEXT_COUNT,
   DI004_V2_ENTITY_LABEL_COUNT,
