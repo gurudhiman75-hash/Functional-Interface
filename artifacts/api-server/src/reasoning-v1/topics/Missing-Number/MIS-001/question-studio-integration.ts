@@ -680,7 +680,7 @@ function independentValidation(question: MisGeneratedQuestion) {
     };
   }
   if (question.checkpointId === 'MIS-CP-024') {
-    const solved = independentlyEvaluateMisCp024Rule(question.target.first, question.target.second, question.context);
+    const solved = independentlyEvaluateMisCp024Rule(question.target.second, question.context);
     return {
       sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp024Group(group, question.context)),
       solverAgreement: solved === question.answer,
