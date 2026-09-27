@@ -2,7 +2,7 @@
 
 Status: **ONE NEW SSC AUTHORITY FOUND — SATURATION REMAINS OPEN**
 
-## 1. New SSC CGL authority: repeated affine transform
+## 1. New SSC CGL authority: second-input affine transform
 
 Source:
 - SSC CGL Previous Paper 54
@@ -14,9 +14,9 @@ Observed rows:
 - 16 → 49 → 148
 - 12 → 37 → 112
 
-The same transform is applied twice:
+The source row shows the same transform between adjacent values, but the asked final blank only requires the second-to-result step:
 
-`x → 3x + 1`
+`result = 3×second + 1`
 
 Examples:
 
@@ -25,7 +25,7 @@ Examples:
 - `12×3+1 = 37`; `37×3+1 = 112`
 
 Decision:
-- add MIS-CAND-108 / REPEATED_AFFINE_TRANSFORM;
+- add MIS-CAND-108 / SECOND_INPUT_AFFINE;
 - retain the source-backed context `multiplier=3, addend=1`;
 - do not broaden to arbitrary affine constants until additional target-exam recurrence appears;
 - keep the family in MIS-001 because the exam presents repeated independent rows, not one continuous sequence.
