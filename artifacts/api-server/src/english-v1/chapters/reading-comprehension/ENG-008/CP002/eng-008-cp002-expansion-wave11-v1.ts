@@ -129,7 +129,7 @@ Officials concluded that balancing a shared fleet is not simply about keeping ev
 
 The next phase will test small user incentives for returning bicycles to under-supplied docks. The city will compare the cost and effect of incentives with staff-driven redistribution.
 
-The pilot showed that availability is a moving pattern. A dock that is overfull at 9 a.m. may be the place where bicycles are most needed later in the day.  The operator will also examine whether redistribution changes trip abandonment when users open the app and find no bicycle nearby.`,
+The pilot showed that availability is a moving pattern. A dock that is overfull at 9 a.m. may be the place where bicycles are most needed later in the day.  The operator will also examine whether redistribution changes trip abandonment when users open the app and find no bicycle nearby.  The review will include abandoned searches.`,
  questions:[
  q("R28-Q1","RC2-F01","easy","Why were bicycles moved away from the railway station?","Residential docks were becoming empty",["The station banned bicycles","Trains carried bicycles away","Residential users paid higher fares"],"Morning travel concentrated bikes at the station and reduced availability elsewhere.","residential docking points became empty"),
  q("R28-Q2","RC2-F02","medium","Why did the operator stop using one fixed redistribution target?","Demand varied by time and special events",["Truck capacity disappeared","Every dock had identical demand","The city removed hourly data"],"A static target created later shortages because different locations needed bikes at different times.","hourly demand data"),
@@ -157,7 +157,7 @@ Another issue involved multiple appointments on the same day. Early messages wer
 
 Administrators concluded that reminders are more useful when they support a practical response rather than simply repeat information.
 
-The hospital will next measure how many released appointments are actually refilled, because an early cancellation creates value only if the slot can be used. Officials also plan to compare patient preferences by age and clinic type before deciding whether the same message format should be used everywhere.  The next review will also compare how often patients choose each response channel.`,
+The hospital will next measure how many released appointments are actually refilled, because an early cancellation creates value only if the slot can be used. Officials also plan to compare patient preferences by age and clinic type before deciding whether the same message format should be used everywhere.  The next review will also compare how often patients choose each response channel.  This will show whether access needs differ.`,
  questions:[
  q("R29-Q1","RC2-F01","easy","What could patients do with the new reminder message?","Confirm, cancel or request a call",["Change their diagnosis","Order medicine","Choose a doctor salary"],"The pilot turned the reminder into a two-way scheduling tool.","confirm, cancel or request a call"),
  q("R29-Q2","RC2-F02","medium","Why was the department name added to reminders?","Patients with several appointments needed to know which visit the message referred to",["The hospital had no appointment times","Departments shared one building","Phone numbers changed daily"],"The added context prevented an ambiguous cancellation from affecting the wrong visit.","multiple appointments"),
@@ -185,7 +185,7 @@ Vendors appreciated that totals were calculated automatically, but several asked
 
 Officials concluded that digital receipts improved traceability but should not require customers to own a suitable phone.
 
-The next phase will test whether receipts can also support quick price comparisons without exposing personal purchase histories. The pilot showed that digitising a record can improve clarity while creating new questions about access, connectivity and data use.  Staff will also measure whether digital receipts reduce the time needed to resolve later price or quantity disputes.`,
+The next phase will test whether receipts can also support quick price comparisons without exposing personal purchase histories. The pilot showed that digitising a record can improve clarity while creating new questions about access, connectivity and data use.  Staff will also measure whether digital receipts reduce the time needed to resolve later price or quantity disputes.  The authority will also record resolution time.`,
  questions:[
  q("R30-Q1","RC2-F01","easy","What information did the digital receipt include?","Item, quantity, price and stall number",["Customer income","Vendor home address","Market opening history"],"The receipt recorded the transaction and identified the selling stall.","stall number"),
  q("R30-Q2","RC2-F02","medium","Why did the market keep paper receipts?","Not every customer could use the QR-based digital option easily",["Digital totals were inaccurate","Vendors refused all technology","Paper receipts were legally required in the passage"],"Accessibility problems with phones and scanning made a non-digital option necessary.","older customers found QR scanning difficult"),
