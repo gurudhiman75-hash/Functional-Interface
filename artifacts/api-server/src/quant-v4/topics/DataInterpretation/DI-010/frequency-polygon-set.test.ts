@@ -54,6 +54,11 @@ for (const profile of profiles) {
     assert((svg.match(/data-x-label=/g) ?? []).length === first.stimulus.classes.length, `${seed}: class-mark label count drifted.`);
     assert(!svg.includes("data-point-value"), `${seed}: point-value labels would leak graph-reading answers.`);
     assert(!/\d+\.\d+/u.test(svgText(svg)), `${seed}: visible polygon text contains decimal values.`);
+    assert(svg.includes('data-exact-frequency-axis="true"'), `${seed}: frequency-polygon y-axis does not certify exact frequency readability.`);
+    const yLabels = new Set([...svg.matchAll(/data-y-label="\d+"[^>]*>([^<]+)<\/text>/gu)].map((match) => Number(match[1])));
+    for (const item of first.stimulus.classes) {
+      assert(yLabels.has(item.frequency), `${seed}: frequency ${item.frequency} is not explicitly readable from the y-axis.`);
+    }
 
     shapes.add(first.stimulus.shape);
     classCounts.add(first.stimulus.classes.length);
