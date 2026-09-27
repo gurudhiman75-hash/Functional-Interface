@@ -1,6 +1,6 @@
 import { buildGeoMinQl, finalizeGeoMinCp, auditGeoMinCp } from "./geo-min-001-review-builder";
 
-const QL_019 = buildGeoMinQl(19, "Manganese uses in steel and industry", [
+const QL_019 = buildGeoMinQl("MANGANESE-USES-IN-STEEL-AND-INDUSTRY", "Manganese uses in steel and industry", [
   {
     "stem": "Which mineral is widely used in steel making as an alloying and deoxidising material?",
     "answer": "Manganese",
@@ -69,7 +69,7 @@ const QL_019 = buildGeoMinQl(19, "Manganese uses in steel and industry", [
   }
 ] as const);
 
-const QL_020 = buildGeoMinQl(20, "Odisha manganese geography", [
+const QL_020 = buildGeoMinQl("ODISHA-MANGANESE-GEOGRAPHY", "Odisha manganese geography", [
   {
     "stem": "Which state is an important manganese-producing region in eastern India?",
     "answer": "Odisha",
@@ -138,7 +138,7 @@ const QL_020 = buildGeoMinQl(20, "Odisha manganese geography", [
   }
 ] as const);
 
-const QL_021 = buildGeoMinQl(21, "Karnataka manganese geography", [
+const QL_021 = buildGeoMinQl("KARNATAKA-MANGANESE-GEOGRAPHY", "Karnataka manganese geography", [
   {
     "stem": "Which southern state is important for both iron ore and manganese deposits?",
     "answer": "Karnataka",
@@ -207,7 +207,7 @@ const QL_021 = buildGeoMinQl(21, "Karnataka manganese geography", [
   }
 ] as const);
 
-const QL_022 = buildGeoMinQl(22, "Madhya Pradesh-Maharashtra manganese belt", [
+const QL_022 = buildGeoMinQl("MADHYA-PRADESH-MAHARASHTRA-MANGANESE-BELT", "Madhya Pradesh-Maharashtra manganese belt", [
   {
     "stem": "Which pair of states forms an important central Indian manganese region?",
     "answer": "Madhya Pradesh and Maharashtra",
@@ -276,7 +276,7 @@ const QL_022 = buildGeoMinQl(22, "Madhya Pradesh-Maharashtra manganese belt", [
   }
 ] as const);
 
-const QL_023 = buildGeoMinQl(23, "Chromite and chromium", [
+const QL_023 = buildGeoMinQl("CHROMITE-AND-CHROMIUM", "Chromite and chromium", [
   {
     "stem": "Which mineral is the principal ore of chromium?",
     "answer": "Chromite",
@@ -345,7 +345,7 @@ const QL_023 = buildGeoMinQl(23, "Chromite and chromium", [
   }
 ] as const);
 
-const QL_024 = buildGeoMinQl(24, "Sukinda chromite belt", [
+const QL_024 = buildGeoMinQl("SUKINDA-CHROMITE-BELT", "Sukinda chromite belt", [
   {
     "stem": "Sukinda Valley, famous for chromite deposits, is located in which state?",
     "answer": "Odisha",
@@ -414,7 +414,7 @@ const QL_024 = buildGeoMinQl(24, "Sukinda chromite belt", [
   }
 ] as const);
 
-const QL_025 = buildGeoMinQl(25, "Manganese-chromite comparison", [
+const QL_025 = buildGeoMinQl("MANGANESE-CHROMITE-COMPARISON", "Manganese-chromite comparison", [
   {
     "stem": "Which comparison is correct?",
     "answer": "Manganese and chromite are both important ferro-alloy minerals",
@@ -483,7 +483,7 @@ const QL_025 = buildGeoMinQl(25, "Manganese-chromite comparison", [
   }
 ] as const);
 
-const QL_026 = buildGeoMinQl(26, "Ferro-alloy resource logic", [
+const QL_026 = buildGeoMinQl("FERRO-ALLOY-RESOURCE-LOGIC", "Ferro-alloy resource logic", [
   {
     "stem": "What is the common industrial link among iron ore, manganese and chromite?",
     "answer": "They support iron, steel and alloy production",
@@ -552,7 +552,7 @@ const QL_026 = buildGeoMinQl(26, "Ferro-alloy resource logic", [
   }
 ] as const);
 
-const QL_027 = buildGeoMinQl(27, "Integrated manganese and chromite reasoning", [
+const QL_027 = buildGeoMinQl("INTEGRATED-MANGANESE-AND-CHROMITE-REASONING", "Integrated manganese and chromite reasoning", [
   {
     "stem": "Which location-resource pair is correct?",
     "answer": "Sukinda — chromite",
@@ -622,4 +622,4 @@ const QL_027 = buildGeoMinQl(27, "Integrated manganese and chromite reasoning", 
 ] as const);
 
 export const GEO_MIN_001_CP003_REVIEW_BATCH_V1 = finalizeGeoMinCp(3, [QL_019, QL_020, QL_021, QL_022, QL_023, QL_024, QL_025, QL_026, QL_027]);
-export function auditGeoMin001Cp003ReviewBatchV1() { return auditGeoMinCp(3, 19, 27, GEO_MIN_001_CP003_REVIEW_BATCH_V1); }
+export function auditGeoMin001Cp003ReviewBatchV1() { return auditGeoMinCp(3, [QL_019, QL_020, QL_021, QL_022, QL_023, QL_024, QL_025, QL_026, QL_027], GEO_MIN_001_CP003_REVIEW_BATCH_V1); }
