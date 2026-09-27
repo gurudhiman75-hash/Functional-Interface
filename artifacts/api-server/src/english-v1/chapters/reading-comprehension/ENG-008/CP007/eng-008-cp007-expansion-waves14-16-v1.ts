@@ -8,4 +8,4 @@ export const ENG008_CP007_EXPANSION_WAVES14_16_V1=all.map(s=>({
  distractors:["unrelated","temporary","decorative"] as const,
  explanation:`The passage uses “${s.keyword}” to mean ${s.keywordMeaning}, so it is the word that best preserves the intended sense of the sentence.`,
  evidence:`${s.keyword} means ${s.keywordMeaning}`
-}));
+})) as any;
