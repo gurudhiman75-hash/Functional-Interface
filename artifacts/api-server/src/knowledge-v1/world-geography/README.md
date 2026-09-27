@@ -1,8 +1,8 @@
 # World Geography — Section A implementation
 
-Status: CP001–CP019 and editorial revisions are user approved. CP020–CP023 are newly authored and await review. The complete integration remains review only. No student publication or production release is authorized.
+Status: CP001–CP023 and editorial revisions are user approved. The complete integration remains review only. No student publication or production release is authorized.
 
-546 canonical questions; 1,638 localized versions across English, Hindi and Punjabi. CP001–CP008 account for 201 questions; approved CP009–CP011 add 78, CP012–CP015 add 101 and CP016–CP019 add 78; CP020–CP023 add 88 questions awaiting review. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
+546 canonical questions; 1,638 localized versions across English, Hindi and Punjabi. CP001–CP008 account for 201 questions; approved CP009–CP011 add 78, CP012–CP015 add 101 and CP016–CP019 add 78; CP020–CP023 add 88 questions approved on 27 September 2026. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
 
 ## CP009–CP011 exam-stem pass
 
@@ -16,9 +16,9 @@ Added four checkpoints from the approved blueprint sequence: cyclones/fronts/cli
 
 Added currents/tides/reefs (20), seas/gulfs/bays/passages (18), mountains/peaks/plateaus/plains (20), and world rivers/drainage (20). Stems use direct exam phrasing, same-category alternatives, qualified geographic relationships, and localized Hindi and Punjabi. River length rankings and unstable records are excluded. Each question is linked to a source-register entry. The user approved this batch on 27 September 2026.
 
-## CP020–CP023 implementation — review required
+## CP020–CP023 implementation — approved
 
-Added lakes, inland waters and waterfalls (20), deserts, islands, peninsulas and capes (21), country-capital and political geography (23), and South Asia and India’s neighbours (24). Questions cover freshwater and saline waters, qualified lake records, changing inland water bodies, desert settings, island and landform locations, sovereign states versus territories, enclaves and exclaves, multiple-capital functions, and regional physical relationships. English stems use direct exam phrasing; Hindi and Punjabi are localized in their native scripts. Each question is linked to the source register. These checkpoints remain review-required.
+Added lakes, inland waters and waterfalls (20), deserts, islands, peninsulas and capes (21), country-capital and political geography (23), and South Asia and India’s neighbours (24). Questions cover freshwater and saline waters, qualified lake records, changing inland water bodies, desert settings, island and landform locations, sovereign states versus territories, enclaves and exclaves, multiple-capital functions, and regional physical relationships. English stems use direct exam phrasing; Hindi and Punjabi are localized in their native scripts. Each question is linked to the source register. The user approved these checkpoints on 27 September 2026.
 
 ## Editorial revision 2
 
@@ -45,10 +45,10 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 | CP017 | 18 | user approved |
 | CP018 | 20 | user approved |
 | CP019 | 20 | user approved |
-| CP020 | 20 | review required |
-| CP021 | 21 | review required |
-| CP022 | 23 | review required |
-| CP023 | 24 | review required |
+| CP020 | 20 | user approved |
+| CP021 | 21 | user approved |
+| CP022 | 23 | user approved |
+| CP023 | 24 | user approved |
 
 ## Coverage ledger
 
@@ -82,7 +82,7 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 
 The owning corpus is WGE-001. CP001–CP023 are selectable aliases over the same records. CP009–CP019 teach global atmospheric, climatic, ecological and oceanic frameworks; existing Indian Geography packages retain India-specific climate facts, monsoon patterns and local winds (GEO-CLI-001), which are overlap references rather than copied banks. The questions emphasize global processes and examples. Later World Geography sections remain outside this change.
 
-The standard knowledge-v1 registry exposes a mixed package and twenty-three checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. CP001–CP019 are marked user approved; CP020–CP023 are marked review required. All outputs retain review-only lifecycle restrictions.
+The standard knowledge-v1 registry exposes a mixed package and twenty-three checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. CP001–CP023 are marked user approved. All outputs retain review-only lifecycle restrictions.
 
 ## Verification
 
@@ -90,4 +90,4 @@ The focused corpus/adapter test validates all 546 items, 3,276 filtered localize
 
 ## Review gate
 
-User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. CP020–CP023 require user review. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.
+User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. User approval of CP020–CP023, including their exam-stem revisions, was received on 27 September 2026. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.

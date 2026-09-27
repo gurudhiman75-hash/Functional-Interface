@@ -16,9 +16,9 @@ async function run() {
   const approved = await generateQuestionStudioQuestions({packageId:'WGE-001-CP019', language:'hi', count:1});
   assert.equal(approved.questions[0]!.authoringReviewApproved, true);
   assert.equal(approved.questions[0]!.localizationStatus, 'USER_APPROVED');
-  const pending = await generateQuestionStudioQuestions({packageId:'WGE-001-CP020', language:'pa', count:1});
-  assert.equal(pending.questions[0]!.authoringReviewApproved, false);
-  assert.equal(pending.questions[0]!.localizationStatus, 'REVIEW_REQUIRED');
+  const approvedNew = await generateQuestionStudioQuestions({packageId:'WGE-001-CP023', language:'pa', count:1});
+  assert.equal(approvedNew.questions[0]!.authoringReviewApproved, true);
+  assert.equal(approvedNew.questions[0]!.localizationStatus, 'USER_APPROVED');
   await assert.rejects(() => generateQuestionStudioQuestions({engineId: 'knowledge-v1',packageId:'WGE-001-CP024'}), /Unknown WGE/);
   console.log('PASS: WGE standard registry discovery and generation, 24 packages × 3 languages');
 }
