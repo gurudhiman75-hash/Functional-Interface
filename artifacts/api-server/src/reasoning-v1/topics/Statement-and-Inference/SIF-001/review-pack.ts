@@ -33,9 +33,9 @@ const CP011_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM:
 const CP012_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 5, MEDIUM: 8, HARD: 7 };
 const CP013_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 5, MEDIUM: 8, HARD: 7 };
 const CP014_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 0 };
-const CP015_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 8, HARD: 5 };
-const CP016_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 0, HARD: 13 };
-const CP017_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 6, HARD: 7 };
+const CP015_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 12 };
+const CP016_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 0, HARD: 24 };
+const CP017_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 12 };
 
 function reviewSeedForIndex(baseSeed: number, poolLength: number, authorityIndex: number, swapParity: number): number {
   const absoluteBase = Math.abs(baseSeed);
