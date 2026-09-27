@@ -1,9 +1,5 @@
 import { Router, type IRouter } from "express";
 
-import {
-  getSelectedAffairsProcessingRun,
-  startSelectedAffairsProcessingRun,
-} from "../current-affairs/selected-affairs-processing-job";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
 
@@ -40,6 +36,7 @@ router.post(
         return;
       }
       const date = targetDate(req.body?.date);
+      const { startSelectedAffairsProcessingRun } = await import("../current-affairs/selected-affairs-processing-job");
       const run = await startSelectedAffairsProcessingRun({
         targetDate: date,
         actorUserId,
@@ -63,6 +60,7 @@ router.get(
   async (req, res) => {
     try {
       const id = runId(req.params.runId);
+      const { getSelectedAffairsProcessingRun } = await import("../current-affairs/selected-affairs-processing-job");
       const run = await getSelectedAffairsProcessingRun(id);
       if (!run) {
         res.status(404).json({ error: "Selected Current Affairs processing run was not found.", code: "CURRENT_AFFAIRS_SELECTED_PROCESSING_RUN_NOT_FOUND" });
