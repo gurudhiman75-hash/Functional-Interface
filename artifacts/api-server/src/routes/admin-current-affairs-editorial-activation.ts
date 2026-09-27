@@ -313,6 +313,15 @@ router.get("/editorial/headlines", requireAdminPermission("content.questions.rea
   }
 });
 
+router.get("/editorial/headlines/:candidateId/news-preview", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const { loadCurrentAffairsHeadlineNewsPreview } = await import("../current-affairs/headline-review-runtime");
+    res.json(await loadCurrentAffairsHeadlineNewsPreview(uuid(req.params.candidateId, "INVALID_CANDIDATE_ID")));
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs news preview");
+  }
+});
+
 router.post("/editorial/headlines/:candidateId/selection", requireAdminPermission("content.questions.update"), async (req, res) => {
   try {
     const actorUserId = req.adminSession?.user.id;
