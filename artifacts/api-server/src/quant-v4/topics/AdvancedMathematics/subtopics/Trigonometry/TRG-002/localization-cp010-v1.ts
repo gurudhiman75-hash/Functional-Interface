@@ -191,7 +191,7 @@ function localizedExplanation(question: AnyQuestion, locale: Trg002Cp010Localize
       native(locale, "पूरी इमारत की ऊँचाई को सीधे tan में न रखें।", "ਪੂਰੀ ਇਮਾਰਤ ਦੀ ਉਚਾਈ ਨੂੰ ਸਿੱਧਾ tan ਵਿੱਚ ਨਾ ਰੱਖੋ।"));
     if (requested.kind === "HORIZONTAL_DISTANCE") return makeExplanation(locale,
       native(locale, "पहले कुल ऊँचाई में से आँख की ऊँचाई घटाकर वास्तविक ऊर्ध्वाधर बढ़त लें।", "ਪਹਿਲਾਂ ਕੁੱਲ ਉਚਾਈ ਵਿੱਚੋਂ ਅੱਖ ਦੀ ਉਚਾਈ ਘਟਾ ਕੇ ਅਸਲ ਲੰਬਕਾਰੀ ਵਾਧਾ ਲਵੋ।"),
-      [native(locale, `कुल ऊँचाई ${exactText(total)} m और आँख की ऊँचाई ${exactText(eye)} m है।`, `ਕੁੱਲ ਉਚਾਈ ${exactText(total)} m ਅਤੇ ਅੱਖ ਦੀ ਉਚਾਈ ${exactText(eye)} m ਹੈ।`), native(locale, `rise=${exactText(total)}−${exactText(eye)}=${exactText(rise)} m और d=rise/tan${obs.angle}।`, `rise=${exactText(total)}−${exactText(eye)}=${exactText(rise)} m ਅਤੇ d=rise/tan${obs.angle}।`), native(locale, `अतः क्षैतिज दूरी ${question.answer} है।`, `ਇਸ ਲਈ ਖਿਤਿਜੀ ਦੂਰੀ ${question.answer} ਹੈ।`)],
+      [native(locale, `कुल ऊँचाई ${exactText(total)} m और आँख की ऊँचाई ${exactText(eye)} m है।`, `ਕੁੱਲ ਉਚਾਈ ${exactText(total)} m ਅਤੇ ਅੱਖ ਦੀ ਉਚਾਈ ${exactText(eye)} m ਹੈ।`), native(locale, `ऊर्ध्वाधर बढ़त=${exactText(total)}−${exactText(eye)}=${exactText(rise)} m और d=ऊर्ध्वाधर बढ़त/tan${obs.angle}।`, `ਲੰਬਕਾਰੀ ਵਾਧਾ=${exactText(total)}−${exactText(eye)}=${exactText(rise)} m ਅਤੇ d=ਲੰਬਕਾਰੀ ਵਾਧਾ/tan${obs.angle}।`), native(locale, `अतः क्षैतिज दूरी ${question.answer} है।`, `ਇਸ ਲਈ ਖਿਤਿਜੀ ਦੂਰੀ ${question.answer} ਹੈ।`)],
       native(locale, "45° पर ऊर्ध्वाधर बढ़त और दूरी बराबर होते हैं; अन्य कोणों पर d=ऊर्ध्वाधर बढ़त/tanθ लगाएँ।", "45° 'ਤੇ ਲੰਬਕਾਰੀ ਵਾਧਾ ਅਤੇ ਦੂਰੀ ਬਰਾਬਰ ਹੁੰਦੇ ਹਨ; ਹੋਰ ਕੋਣਾਂ 'ਤੇ d=ਲੰਬਕਾਰੀ ਵਾਧਾ/tanθ ਲਗਾਓ।"),
       native(locale, "आँख की ऊँचाई दो बार न घटाएँ।", "ਅੱਖ ਦੀ ਉਚਾਈ ਦੋ ਵਾਰ ਨਾ ਘਟਾਓ।"));
     return makeExplanation(locale,
@@ -244,8 +244,8 @@ function localizedExplanation(question: AnyQuestion, locale: Trg002Cp010Localize
       native(locale, "मीनार की पूरी ऊँचाई को केवल आँख के स्तर से ऊपर की ऊँचाई के बराबर न मानें।", "ਮੀਨਾਰ ਦੀ ਪੂਰੀ ਉਚਾਈ ਨੂੰ ਸਿਰਫ਼ ਅੱਖ ਦੇ ਪੱਧਰ ਤੋਂ ਉੱਪਰ ਦੀ ਉਚਾਈ ਦੇ ਬਰਾਬਰ ਨਾ ਮੰਨੋ।"));
     if (requested.kind === "HORIZONTAL_DISTANCE") return makeExplanation(locale,
       native(locale, "आधार के अवनमन कोण से क्षैतिज दूरी सीधे मिलती है क्योंकि नीचे का ऊर्ध्वाधर अंतर पर्यवेक्षक की ऊँचाई है।", "ਅਧਾਰ ਦੇ ਅਵਨਮਨ ਕੋਣ ਤੋਂ ਖਿਤਿਜੀ ਦੂਰੀ ਸਿੱਧੀ ਮਿਲਦੀ ਹੈ ਕਿਉਂਕਿ ਹੇਠਾਂ ਵਾਲਾ ਲੰਬਕਾਰੀ ਫਰਕ ਨਿਰੀਖਕ ਦੀ ਉਚਾਈ ਹੈ।"),
-      [native(locale, `पर्यवेक्षक की ऊँचाई ${exactText(eyeHeight)} m और अवनमन कोण ${downG.angle} है।`, `ਨਿਰੀਖਕ ਦੀ ਉਚਾਈ ${exactText(eyeHeight)} m ਅਤੇ ਡਿਪ੍ਰੈਸ਼ਨ ਕੋਣ ${downG.angle} ਹੈ।`), native(locale, `tan${downG.angle}=${exactText(eyeHeight)}/d, इसलिए d=${exactText(eyeHeight)}/tan${downG.angle}।`, `tan${downG.angle}=${exactText(eyeHeight)}/d, ਇਸ ਲਈ d=${exactText(eyeHeight)}/tan${downG.angle}।`), native(locale, `अतः क्षैतिज दूरी ${question.answer} है; ऊपर की sight line उसी दूरी की पुष्टि करती है।`, `ਇਸ ਲਈ ਖਿਤਿਜੀ ਦੂਰੀ ${question.answer} ਹੈ; ਉੱਪਰ ਵਾਲੀ sight line ਉਸੇ ਦੂਰੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰਦੀ ਹੈ।`)],
-      native(locale, "दूरी के लिए पहले depression-to-base triangle देखें।", "ਦੂਰੀ ਲਈ ਪਹਿਲਾਂ depression-to-base triangle ਵੇਖੋ।"),
+      [native(locale, `पर्यवेक्षक की ऊँचाई ${exactText(eyeHeight)} m और अवनमन कोण ${downG.angle} है।`, `ਨਿਰੀਖਕ ਦੀ ਉਚਾਈ ${exactText(eyeHeight)} m ਅਤੇ ਡਿਪ੍ਰੈਸ਼ਨ ਕੋਣ ${downG.angle} ਹੈ।`), native(locale, `tan${downG.angle}=${exactText(eyeHeight)}/d, इसलिए d=${exactText(eyeHeight)}/tan${downG.angle}।`, `tan${downG.angle}=${exactText(eyeHeight)}/d, ਇਸ ਲਈ d=${exactText(eyeHeight)}/tan${downG.angle}।`), native(locale, `अतः क्षैतिज दूरी ${question.answer} है; ऊपर की दृष्टि-रेखा उसी दूरी की पुष्टि करती है।`, `ਇਸ ਲਈ ਖਿਤਿਜੀ ਦੂਰੀ ${question.answer} ਹੈ; ਉੱਪਰ ਵਾਲੀ ਦ੍ਰਿਸ਼ਟੀ-ਰੇਖਾ ਉਸੇ ਦੂਰੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰਦੀ ਹੈ।`)],
+      native(locale, "दूरी के लिए पहले आधार तक बने अवनमन-त्रिभुज को देखें।", "ਦੂਰੀ ਲਈ ਪਹਿਲਾਂ ਅਧਾਰ ਤੱਕ ਬਣੇ ਅਵਨਮਨ-ਤਿਕੋਣ ਨੂੰ ਵੇਖੋ।"),
       native(locale, "ऊपर और नीचे की दूरियों को जोड़ें नहीं; दोनों में वही क्षैतिज दूरी है।", "ਉੱਪਰ ਅਤੇ ਹੇਠਾਂ ਦੀਆਂ ਦੂਰੀਆਂ ਨਾ ਜੋੜੋ; ਦੋਵੇਂ ਵਿੱਚ ਉਹੀ ਖਿਤਿਜੀ ਦੂਰੀ ਹੈ।"));
     return makeExplanation(locale,
       native(locale, "अवनमन से क्षैतिज दूरी और उन्नयन से आँख के स्तर के ऊपर की ऊँचाई निकालें; दोनों को जोड़कर मीनार की कुल ऊँचाई मिलती है।", "ਅਵਨਮਨ ਕੋਣ ਤੋਂ ਖਿਤਿਜੀ ਦੂਰੀ ਅਤੇ ਉਚਾਈ ਕੋਣ ਤੋਂ ਅੱਖ ਦੇ ਪੱਧਰ ਤੋਂ ਉੱਪਰ ਦੀ ਉਚਾਈ ਕੱਢੋ; ਦੋਵੇਂ ਨੂੰ ਜੋੜ ਕੇ ਮੀਨਾਰ ਦੀ ਕੁੱਲ ਉਚਾਈ ਮਿਲਦੀ ਹੈ।"),
@@ -258,10 +258,10 @@ function localizedExplanation(question: AnyQuestion, locale: Trg002Cp010Localize
     const obs = observationGeometry(state, state.observations[0]);
     const drop = absoluteExactDifference(obs.eye.y, obs.target.y);
     return makeExplanation(locale,
-      native(locale, "अवनमन कोण के समकोण त्रिभुज में नदी की चौड़ाई horizontal adjacent side होती है।", "ਡਿਪ੍ਰੈਸ਼ਨ ਕੋਣ ਦੇ ਸਮਕੋਣ ਤਿਕੋਣ ਵਿੱਚ ਨਦੀ ਦੀ ਚੌੜਾਈ horizontal adjacent side ਹੁੰਦੀ ਹੈ।"),
+      native(locale, "अवनमन कोण के समकोण त्रिभुज में नदी की चौड़ाई क्षैतिज सन्निकट भुजा होती है।", "ਅਵਨਮਨ ਕੋਣ ਦੇ ਸਮਕੋਣ ਤਿਕੋਣ ਵਿੱਚ ਨਦੀ ਦੀ ਚੌੜਾਈ ਖਿਤਿਜੀ ਨਾਲ ਲੱਗਦੀ ਭੁਜਾ ਹੁੰਦੀ ਹੈ।"),
       [native(locale, `ऊँचाई ${exactText(drop)} m और अवनमन कोण ${obs.angle} है।`, `ਉਚਾਈ ${exactText(drop)} m ਅਤੇ ਡਿਪ੍ਰੈਸ਼ਨ ਕੋਣ ${obs.angle} ਹੈ।`), native(locale, `tan${obs.angle}=${exactText(drop)}/w, इसलिए w=${exactText(drop)}/tan${obs.angle}।`, `tan${obs.angle}=${exactText(drop)}/w, ਇਸ ਲਈ w=${exactText(drop)}/tan${obs.angle}।`), native(locale, `अतः नदी की चौड़ाई ${question.answer} है।`, `ਇਸ ਲਈ ਨਦੀ ਦੀ ਚੌੜਾਈ ${question.answer} ਹੈ।`)],
       native(locale, "चौड़ाई हमेशा क्षैतिज दूरी है, दृष्टि-रेखा नहीं।", "ਚੌੜਾਈ ਹਮੇਸ਼ਾਂ ਖਿਤਿਜੀ ਦੂਰੀ ਹੈ, ਦ੍ਰਿਸ਼ਟੀ-ਰੇਖਾ ਨਹੀਂ।"),
-      native(locale, "ऊँचाई या तिरछी sight line को नदी की चौड़ाई न मानें।", "ਉਚਾਈ ਜਾਂ ਤਿਰਛੀ sight line ਨੂੰ ਨਦੀ ਦੀ ਚੌੜਾਈ ਨਾ ਮੰਨੋ।"));
+      native(locale, "ऊँचाई या तिरछी दृष्टि-रेखा को नदी की चौड़ाई न मानें।", "ਉਚਾਈ ਜਾਂ ਤਿਰਛੀ ਦ੍ਰਿਸ਼ਟੀ-ਰੇਖਾ ਨੂੰ ਨਦੀ ਦੀ ਚੌੜਾਈ ਨਾ ਮੰਨੋ।"));
   }
 
   if (question.lockedFamily === "COMPOSITE_VERTICAL_OBJECT_RELATIONS") {
