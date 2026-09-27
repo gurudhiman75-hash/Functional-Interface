@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 
-import { TRG_001_PRODUCTION_REGISTRY } from "../topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-runtime";
 import {
   generateQuantV4AdvancedMathSectionQuestion,
+  listQuantV4Trg001RuntimeDifficultyQlIds,
   quantV4AdvancedMathDifficultyForSeed,
   quantV4TrigonometryPackageForSeed,
   type QuantV4AdvancedMathDifficulty,
@@ -17,7 +17,7 @@ function duplicateItems(values: readonly string[]): number {
 const poolSizes = Object.fromEntries(
   (["Easy", "Medium", "Hard"] as const).map((difficulty) => [
     difficulty,
-    TRG_001_PRODUCTION_REGISTRY.filter((entry) => entry.difficulty === difficulty).length,
+    listQuantV4Trg001RuntimeDifficultyQlIds(difficulty).length,
   ]),
 ) as Record<QuantV4AdvancedMathDifficulty, number>;
 
