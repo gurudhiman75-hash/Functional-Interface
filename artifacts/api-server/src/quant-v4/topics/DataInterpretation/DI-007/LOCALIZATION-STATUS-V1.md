@@ -46,9 +46,9 @@ Numeric values, hidden-cell position, recovery mode, answer, options, correct in
 - Exactly one hidden cell remains.
 - Five unique Banking options remain unchanged.
 - Deterministic replay is required.
-- Hindi/Punjabi remain Question Studio locked after human approval.
+- Hindi/Punjabi are enabled in Question Studio CONTROLLED_REVIEW.
 - Question Bank/tests/mocks/publication/production remain locked.
 
 ## Next gate
 
-Human review of the generated Hindi/Punjabi section in the standard DI-007 review artifact is required before HI_PA_FROZEN and multilingual Question Studio CONTROLLED_REVIEW.
+Question Bank, tests, mocks, public/student publication and production release remain closed. Any widening beyond Question Studio CONTROLLED_REVIEW requires a separate explicit release decision.
