@@ -1,6 +1,6 @@
 # DI-002 Advanced Table — Hindi/Punjabi Localization Review V1
 
-Status: HI_PA_REVIEW_CANDIDATE · HUMAN APPROVAL PENDING
+Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## Source authority
 
@@ -34,9 +34,9 @@ Numeric table values, hidden-row index, answer, options, correct index, difficul
 - Medium routes remain derived/aggregate.
 - Hard routes retain at least three worked steps.
 - deterministic replay is required.
-- Hindi/Punjabi remain Question Studio locked pending human approval.
+- Hindi/Punjabi are enabled in Question Studio CONTROLLED_REVIEW.
 - Question Bank/tests/mocks/publication/production remain locked.
 
 ## Next gate
 
-Human review of the generated Hindi/Punjabi pack is required before HI_PA_FROZEN and multilingual Question Studio CONTROLLED_REVIEW.
+Question Bank, tests, mocks, public/student publication and production release remain closed. Any widening beyond Question Studio CONTROLLED_REVIEW requires a separate explicit release decision.
