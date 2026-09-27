@@ -493,6 +493,7 @@ function runtimeRecord(input: {
   subtopic: string;
   representation: string;
   stimulusId?: string;
+  learnerVisibleEvidenceContext?: string;
 }): QuantV4SimulatedQuestion {
   const text = questionText(input.question);
   const explanation = explanationText(input.question);
@@ -500,7 +501,7 @@ function runtimeRecord(input: {
   const assessment = assessExplanationQuality({
     packageId: input.packageId,
     questionKey: String(input.question?.questionId ?? `${input.profile.id}:${input.sectionIndex}:${input.ordinal}`),
-    stem: text,
+    stem: [text, input.learnerVisibleEvidenceContext].filter(Boolean).join("\n"),
     explanation,
     answer: input.question?.answer ?? input.question?.canonicalAnswer?.display ?? input.question?.canonicalAnswer?.value,
     options,
@@ -827,6 +828,9 @@ function generateDiQuestions(
       const questions = Array.isArray(set?.questions) ? set.questions : [];
       if (!questions.length) throw new Error(`${packageId} returned no linked questions.`);
       const stimulusId = String(set?.setId ?? set?.stimulusId ?? `${packageId}:${seed}:set:${setIndex}`);
+      const learnerVisibleEvidenceContext = set?.stimulus == null
+        ? ""
+        : JSON.stringify(set.stimulus);
       for (const question of questions) {
         if (output.length >= requestedCount) break;
         output.push(runtimeRecord({
@@ -840,6 +844,7 @@ function generateDiQuestions(
           subtopic: representation,
           representation,
           stimulusId,
+          learnerVisibleEvidenceContext,
         }));
       }
     } catch (error) {
