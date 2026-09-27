@@ -52,6 +52,33 @@ function normalizeSeed(seed: number | undefined): number {
   return Math.trunc(seed);
 }
 
+function sanitizeQuestionStudioExplanation(value: unknown): unknown {
+  if (!value || typeof value !== "object") return value;
+  const explanation = value as Record<string, unknown>;
+  const {
+    commonTrapAlert: _commonTrapAlert,
+    closestTrapRejection: _closestTrapRejection,
+    quickMethod: _quickMethod,
+    pedagogicalPresentation,
+    ...rest
+  } = explanation;
+
+  if (!pedagogicalPresentation || typeof pedagogicalPresentation !== "object") {
+    return Object.freeze(rest);
+  }
+
+  const pedagogy = pedagogicalPresentation as Record<string, unknown>;
+  return Object.freeze({
+    ...rest,
+    pedagogicalPresentation: Object.freeze({
+      schemaVersion: pedagogy.schemaVersion,
+      coreRule: pedagogy.coreRule,
+      stepByStep: pedagogy.stepByStep,
+      visualAlignment: pedagogy.visualAlignment,
+    }),
+  });
+}
+
 export function previewCod001QuestionStudioReview(input: PreviewCod001QuestionStudioInput) {
   if (!COD_001_QUESTION_STUDIO_QL_SET.has(input.qlId)) {
     throw new Error(`COD-001 Question Studio does not own '${input.qlId}'.`);
@@ -68,6 +95,7 @@ export function previewCod001QuestionStudioReview(input: PreviewCod001QuestionSt
 
   const question = Object.freeze({
     ...generated,
+    explanation: sanitizeQuestionStudioExplanation(generated.explanation),
     questionStudioVisible: true as const,
     metadata: Object.freeze({
       ...metadata,
