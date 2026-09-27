@@ -1,3 +1,4 @@
+import "./localization-review-v1.test";
 import {
   generateDi007V2ReviewSet,
 } from "./missing-set-v2";
