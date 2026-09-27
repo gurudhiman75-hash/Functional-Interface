@@ -39,9 +39,9 @@ For all six SSC/Punjab section profiles that contain Advanced Mathematics slots:
 
 The central Quant V4 authority now contains a real `PUNJAB_STATE` profile with four-option `PUNJAB_STATE_OBJECTIVE` delivery. This integration records that authority explicitly.
 
-The historical P2 simulator still carries `centralDeliveryProfile: null` for PSSSB/PPSC/Punjab Police and therefore does not yet pass `PUNJAB_STATE` into every ordinary core-slot generation call. This checkpoint does **not** hide that drift. It reports `simulatorCentralProfilePropagationPending: true` for those three profiles.
+The P2 simulator now carries `centralDeliveryProfile: "PUNJAB_STATE"` for PSSSB/PPSC/Punjab Police and passes the Punjab delivery contract through the current simulation boundary. `simulatorCentralProfilePropagationPending` is therefore false for those three profiles.
 
-That is the next simulator-integration cleanup, separate from the now-closed Algebra/Trigonometry gap.
+Chapter-level Punjab CP/QL selection may still remain evidence-gated; that is a calibration issue rather than a simulator transport gap.
 
 ## Executable proof
 
@@ -56,7 +56,7 @@ The dedicated gate verifies:
 - Trigonometry retains current internal test eligibility;
 - public release stays locked for both;
 - all three Punjab profiles resolve to the merged `PUNJAB_STATE` central authority;
-- the historical simulator's remaining Punjab-profile propagation drift stays explicit rather than being marked complete prematurely.
+- Punjab simulator profile propagation is closed while chapter-level selection calibration remains independently governed.
 
 ## Readiness boundary
 

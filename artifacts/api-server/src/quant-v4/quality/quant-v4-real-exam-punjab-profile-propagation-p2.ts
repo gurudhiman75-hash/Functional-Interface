@@ -16,6 +16,7 @@ export type QuantV4PunjabSimulationExamId =
 
 export type QuantV4PunjabProfileBoundaryStatus =
   | "SUPPORTED"
+  | "DELIVERY_SUPPORTED_SELECTION_PENDING"
   | "PROFILE_BLIND"
   | "EVIDENCE_GATED"
   | "PUNJAB_PROFILE_UNSUPPORTED"
@@ -36,7 +37,7 @@ export interface QuantV4PunjabExamProfileBoundarySummary {
   readonly centralAuthority: "PUNJAB_STATE";
   readonly centralOptionCount: number;
   readonly centralDeliveryStyle: string;
-  readonly simulatorPropagationReady: false;
+  readonly simulatorPropagationReady: true;
 }
 
 /**
@@ -57,10 +58,10 @@ export const QUANT_V4_PUNJAB_PROFILE_BOUNDARY_FINDINGS = Object.freeze([
   }),
   Object.freeze({
     surface: "HISTORICAL_REAL_EXAM_SIMULATOR",
-    status: "STALE_SIMULATOR_METADATA" as const,
+    status: "SUPPORTED" as const,
     affectedPackages: Object.freeze(["PSSSB", "PPSC", "PUNJAB_POLICE"]),
-    evidence: "All three Punjab real-exam profiles still store centralDeliveryProfile=null and centralProfileGap=true.",
-    remediation: "Do not consolidate the composed simulator to PUNJAB_STATE until its downstream chapter routes can actually consume that profile.",
+    evidence: "All three Punjab real-exam profiles now store centralDeliveryProfile=PUNJAB_STATE and centralProfileGap=false.",
+    remediation: null,
   }),
   Object.freeze({
     surface: "REAL_EXAM_PROBABILITY_RESOLVER",
@@ -71,41 +72,41 @@ export const QUANT_V4_PUNJAB_PROFILE_BOUNDARY_FINDINGS = Object.freeze([
   }),
   Object.freeze({
     surface: "CORE_GENERATION_ENGINE",
-    status: "PROFILE_BLIND" as const,
+    status: "DELIVERY_SUPPORTED_SELECTION_PENDING" as const,
     affectedPackages: Object.freeze([
       "PCT-001", "PCT-002", "PCT-003", "PCT-004", "PCT-005", "PCT-006", "PCT-007",
       "RAP-001", "RAP-002", "RAP-003", "PRT-001",
     ]),
-    evidence: "QuantV4GenerationRequest in generation-engine-core has no examProfile field, and the core runtime contract forwards only difficulty/language/questionLanguageId/seed.",
-    remediation: "Add a shared Quant examProfile to the core request/runtime contract and thread PUNJAB_STATE through each package before claiming Punjab-profile delivery.",
+    evidence: "The public Quant generation boundary accepts the shared examProfile and applies the central four/five-option delivery contract even when an older low-level chapter runtime does not own native profile selection. These routes therefore preserve Punjab delivery semantics while remaining selection-uncalibrated.",
+    remediation: "Keep delivery through the shared profile wrapper. Add native Punjab CP/QL/difficulty selection only where normalized Punjab PYQ evidence supports it.",
   }),
   Object.freeze({
     surface: "QUESTION_STUDIO_AVERAGE_ROUTE",
-    status: "PROFILE_BLIND" as const,
+    status: "DELIVERY_SUPPORTED_SELECTION_PENDING" as const,
     affectedPackages: Object.freeze(["AVG-001"]),
-    evidence: "runAvg001QuestionStudioPipeline accepts difficulty/language/questionLanguageId/seed only; generateAverageQuestion does not forward request.examProfile.",
-    remediation: "Add examProfile to the AVG-001 adapter and define Punjab-specific selection/delivery behavior.",
+    evidence: "AVG-001 generation exits through the shared request-scoped exam-profile delivery wrapper. Punjab requests retain four-option PUNJAB_STATE delivery, while chapter-level CP/QL selection remains evidence-gated.",
+    remediation: "Calibrate Punjab-specific AVG selection only after normalized Punjab observations support CP/QL/difficulty weights.",
   }),
   Object.freeze({
     surface: "QUESTION_STUDIO_MIXTURE_ROUTE",
-    status: "PROFILE_BLIND" as const,
+    status: "DELIVERY_SUPPORTED_SELECTION_PENDING" as const,
     affectedPackages: Object.freeze(["MAL-001"]),
-    evidence: "runMal001QuestionStudioPipeline accepts difficulty/language/questionLanguageId/seed only; the Question Studio route does not forward request.examProfile.",
-    remediation: "Add examProfile to MAL-001 and define Punjab-specific selection/delivery behavior.",
+    evidence: "MAL-001 generation exits through the shared request-scoped exam-profile delivery wrapper. Punjab requests retain four-option PUNJAB_STATE delivery, while chapter-level CP/QL selection remains evidence-gated.",
+    remediation: "Calibrate Punjab-specific MAL selection only after normalized Punjab observations support CP/QL/difficulty weights.",
   }),
   Object.freeze({
     surface: "LEGACY_ARITHMETIC_RUNTIME_ROUTES",
-    status: "PROFILE_BLIND" as const,
+    status: "DELIVERY_SUPPORTED_SELECTION_PENDING" as const,
     affectedPackages: Object.freeze(["PNL-001", "RAP-001", "RAP-002", "RAP-003"]),
-    evidence: "The legacy runtime wrapper exposes examProfile for Probability, but the PNL/RAP runtime adapters omit it when invoking their chapter pipelines.",
-    remediation: "Separate generic runtime options from Probability-only typing and thread the shared Quant profile into Arithmetic chapter adapters.",
+    evidence: "These older chapter runtimes do not own native Punjab selection, but normal Question Studio generation applies the shared profile delivery contract at the public boundary. Delivery is therefore profile-correct while CP/QL selection remains generic.",
+    remediation: "Do not invent Punjab selection. Add native selection only after chapter-level Punjab evidence is normalized.",
   }),
   Object.freeze({
     surface: "MEN_002_STANDARD_QUESTION_STUDIO_ROUTE",
-    status: "PROFILE_BLIND" as const,
-    affectedPackages: Object.freeze(["MEN-002"]),
-    evidence: "The standard MEN-CP-009 Question Studio request type has no examProfile field even though the chapter-wide Mensuration runtime has Punjab-aware weighting elsewhere.",
-    remediation: "Bridge the standard MEN-002 Question Studio route to the Punjab-aware chapter delivery/runtime rather than dropping the profile at the route boundary.",
+    status: "SUPPORTED" as const,
+    affectedPackages: Object.freeze(["MENSURATION"]),
+    evidence: "The real-exam simulator now samples the full MENSURATION Question Studio package, whose standard runtime accepts examProfile and normalizes PUNJAB_STATE to the Punjab-aware Mensuration profile. The legacy MEN-002 CP009-only route is no longer the simulator surface.",
+    remediation: null,
   }),
   Object.freeze({
     surface: "PROBABILITY_PROFILE_CONTRACT",
@@ -128,12 +129,17 @@ export function runQuantV4PunjabProfilePropagationAudit() {
       centralAuthority: "PUNJAB_STATE" as const,
       centralOptionCount: central.optionCount,
       centralDeliveryStyle: central.deliveryStyle,
-      simulatorPropagationReady: false as const,
+      simulatorPropagationReady: true as const,
     });
   });
 
   const findings = QUANT_V4_PUNJAB_PROFILE_BOUNDARY_FINDINGS;
-  const blockingFindings = findings.filter((finding) => finding.status !== "SUPPORTED");
+  const blockingFindings = findings.filter(
+    (finding) => finding.status === "PROFILE_BLIND" || finding.status === "PUNJAB_PROFILE_UNSUPPORTED" || finding.status === "STALE_SIMULATOR_METADATA" || finding.status === "EVIDENCE_GATED",
+  );
+  const selectionPendingFindings = findings.filter(
+    (finding) => finding.status === "DELIVERY_SUPPORTED_SELECTION_PENDING",
+  );
   const probabilityHasPunjabProfile = Object.prototype.hasOwnProperty.call(
     PROBABILITY_EXAM_PROFILES,
     "PUNJAB_STATE",
@@ -143,9 +149,10 @@ export function runQuantV4PunjabProfilePropagationAudit() {
     authority: QUANT_V4_REAL_EXAM_PUNJAB_PROFILE_PROPAGATION_AUTHORITY,
     centralAuthority: "PUNJAB_STATE" as const,
     profilesAudited: summaries.length,
-    simulatorPropagationReady: false as const,
+    simulatorPropagationReady: true as const,
     probabilityHasPunjabProfile,
     blockingFindingCount: blockingFindings.length,
+    selectionPendingFindingCount: selectionPendingFindings.length,
     findings,
     summaries: Object.freeze(summaries),
   });
