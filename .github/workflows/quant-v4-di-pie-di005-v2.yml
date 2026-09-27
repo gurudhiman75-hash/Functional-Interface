@@ -58,6 +58,8 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set-v2-quality.test.ts
       - name: DI-005 Question Studio controlled-review integration proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/question-studio-integration.test.ts
+      - name: DI-005 visual answerability proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/visual-answerability.test.ts
       - name: Hindi Punjabi localization frozen proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/localization-review-v1.test.ts
       - name: Export Hindi Punjabi localization review pack
