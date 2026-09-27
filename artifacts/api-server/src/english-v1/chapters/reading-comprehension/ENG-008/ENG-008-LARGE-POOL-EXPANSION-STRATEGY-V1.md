@@ -150,3 +150,14 @@ Wave 11 continues the 40-passage large-wave cadence.
 - Candidate governed-authority pool after Wave 11: **2,620 authorities**
 
 The pool remains novelty-limited rather than hard-capped. If Wave 11 is approved and quality remains strong, the next planning waypoint is approximately **352 core passages after Wave 12**.
+
+
+## Wave 12 checkpoint
+
+Wave 12 continues the 40-passage large-wave cadence.
+
+- Wave 12 addition: **40 passages / 336 governed authorities**
+- Candidate core pool after Wave 12: **352 passages**
+- Candidate governed-authority pool after Wave 12: **2,956 authorities**
+
+The pool remains novelty-limited rather than hard-capped. If Wave 12 is approved and quality remains strong, the next planning waypoint is approximately **392 core passages after Wave 13**.
