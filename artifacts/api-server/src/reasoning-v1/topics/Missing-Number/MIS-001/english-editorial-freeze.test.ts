@@ -24,6 +24,7 @@ const result = await generateMis001QuestionStudioBatch({
 assert.equal(result.questions.length, 112);
 assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.sourceSaturationComplete, true);
 assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.mergeSplitAuditComplete, true);
+assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.englishEditorialFreezeComplete, true);
 
 for (const raw of result.questions as Record<string, any>[]) {
   const stem = String(raw.stem ?? '');
