@@ -329,6 +329,16 @@ export interface QuantV4SimulatedSection {
   readonly questions: readonly QuantV4SimulatedQuestion[];
 }
 
+export interface QuantV4RealExamPackageQualitySummary {
+  readonly runtimeGeneratedCount: number;
+  readonly emptyExplanationCount: number;
+  readonly explanationSpecificityRate: number;
+  readonly normalizedStemDuplicateRate: number;
+  readonly semanticExplanationDuplicateRate: number;
+  readonly testIneligibleCount: number;
+  readonly publiclyLockedCount: number;
+}
+
 export interface QuantV4RealExamAuditSummary {
   readonly authority: typeof QUANT_V4_REAL_EXAM_SIMULATION_AUTHORITY;
   readonly examId: QuantV4RealExamId;
@@ -345,6 +355,7 @@ export interface QuantV4RealExamAuditSummary {
   readonly semanticExplanationDuplicateRate: number;
   readonly releaseIneligibleCount: number;
   readonly publiclyLockedCount: number;
+  readonly packageQuality: Readonly<Record<string, QuantV4RealExamPackageQualitySummary>>;
   readonly representationDistribution: Readonly<Record<string, number>>;
   readonly topicDistribution: Readonly<Record<string, number>>;
   readonly difficultyDistribution: Readonly<Record<string, number>>;
@@ -1122,6 +1133,34 @@ function average(values: readonly number[]): number {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
+function packageQualitySummary(
+  runtimeQuestions: readonly QuantV4SimulatedQuestion[],
+): Readonly<Record<string, QuantV4RealExamPackageQualitySummary>> {
+  const groups = new Map<string, QuantV4SimulatedQuestion[]>();
+  for (const question of runtimeQuestions) {
+    const group = groups.get(question.packageId) ?? [];
+    group.push(question);
+    groups.set(question.packageId, group);
+  }
+
+  return Object.freeze(Object.fromEntries(
+    [...groups.entries()]
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([packageId, questions]) => {
+        const specificCount = questions.filter((question) => question.questionSpecificExplanation).length;
+        return [packageId, Object.freeze({
+          runtimeGeneratedCount: questions.length,
+          emptyExplanationCount: questions.filter((question) => !question.explanation.trim()).length,
+          explanationSpecificityRate: questions.length ? specificCount / questions.length : 0,
+          normalizedStemDuplicateRate: duplicateRate(questions.map((question) => question.normalizedStemSignature)),
+          semanticExplanationDuplicateRate: duplicateRate(questions.map((question) => question.semanticExplanationSignature)),
+          testIneligibleCount: questions.filter((question) => !question.testEligible).length,
+          publiclyLockedCount: questions.filter((question) => !question.publiclyPublishable).length,
+        })];
+      }),
+  ));
+}
+
 export function summarizeQuantV4RealExamSections(
   profile: QuantV4RealExamProfile,
   sections: readonly QuantV4SimulatedSection[],
@@ -1166,6 +1205,7 @@ export function summarizeQuantV4RealExamSections(
     semanticExplanationDuplicateRate,
     releaseIneligibleCount,
     publiclyLockedCount,
+    packageQuality: packageQualitySummary(runtimeQuestions),
     representationDistribution: countBy(runtimeQuestions, (question) => question.representation),
     topicDistribution: countBy(runtimeQuestions, (question) => question.topic),
     difficultyDistribution: countBy(runtimeQuestions, (question) => question.difficulty),
