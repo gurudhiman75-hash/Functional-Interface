@@ -1,6 +1,7 @@
 import { buildGeoMinQl, finalizeGeoMinCp, auditGeoMinCp } from "./geo-min-001-review-builder";
 
-const QL_019 = buildGeoMinQl("MANGANESE-USES-IN-STEEL-AND-INDUSTRY", "Manganese uses in steel and industry", [
+const QLS = Object.freeze([
+buildGeoMinQl("MANGANESE-USES-IN-STEEL-AND-INDUSTRY", "Manganese uses in steel and industry", [
   {
     "stem": "Which mineral is widely used in steel making as an alloying and deoxidising material?",
     "answer": "Manganese",
@@ -67,9 +68,9 @@ const QL_019 = buildGeoMinQl("MANGANESE-USES-IN-STEEL-AND-INDUSTRY", "Manganese 
     "explanation": "Iron ore supplies iron while manganese contributes alloying value in steel manufacture. Their proximity can therefore support metallurgical activity more directly than agricultural processing.",
     "sourceFactId": "MANGANESE-REASONING"
   }
-] as const);
+] as const),
 
-const QL_020 = buildGeoMinQl("ODISHA-MANGANESE-GEOGRAPHY", "Odisha manganese geography", [
+buildGeoMinQl("ODISHA-MANGANESE-GEOGRAPHY", "Odisha manganese geography", [
   {
     "stem": "Which state is an important manganese-producing region in eastern India?",
     "answer": "Odisha",
@@ -136,9 +137,9 @@ const QL_020 = buildGeoMinQl("ODISHA-MANGANESE-GEOGRAPHY", "Odisha manganese geo
     "explanation": "Odisha has a diversified metallic mineral base including iron ore, manganese and chromite. This combination is especially relevant to iron, steel and ferro-alloy industries.",
     "sourceFactId": "ODISHA-METALLURGY"
   }
-] as const);
+] as const),
 
-const QL_021 = buildGeoMinQl("KARNATAKA-MANGANESE-GEOGRAPHY", "Karnataka manganese geography", [
+buildGeoMinQl("KARNATAKA-MANGANESE-GEOGRAPHY", "Karnataka manganese geography", [
   {
     "stem": "Which southern state is important for both iron ore and manganese deposits?",
     "answer": "Karnataka",
@@ -205,9 +206,9 @@ const QL_021 = buildGeoMinQl("KARNATAKA-MANGANESE-GEOGRAPHY", "Karnataka mangane
     "explanation": "Ballari and Chitradurga are classic Karnataka iron-ore locations, and the state also contains manganese deposits. The combined clues point clearly to Karnataka.",
     "sourceFactId": "KARNATAKA-INTEGRATED"
   }
-] as const);
+] as const),
 
-const QL_022 = buildGeoMinQl("MADHYA-PRADESH-MAHARASHTRA-MANGANESE-BELT", "Madhya Pradesh-Maharashtra manganese belt", [
+buildGeoMinQl("MADHYA-PRADESH-MAHARASHTRA-MANGANESE-BELT", "Madhya Pradesh-Maharashtra manganese belt", [
   {
     "stem": "Which pair of states forms an important central Indian manganese region?",
     "answer": "Madhya Pradesh and Maharashtra",
@@ -274,9 +275,9 @@ const QL_022 = buildGeoMinQl("MADHYA-PRADESH-MAHARASHTRA-MANGANESE-BELT", "Madhy
     "explanation": "Balaghat is a central Indian manganese location, whereas Sukinda in Odisha is famous for chromite. The contrast helps separate two important ferro-alloy mineral regions.",
     "sourceFactId": "BALAGHAT-SUKINDA-COMPARE"
   }
-] as const);
+] as const),
 
-const QL_023 = buildGeoMinQl("CHROMITE-AND-CHROMIUM", "Chromite and chromium", [
+buildGeoMinQl("CHROMITE-AND-CHROMIUM", "Chromite and chromium", [
   {
     "stem": "Which mineral is the principal ore of chromium?",
     "answer": "Chromite",
@@ -343,9 +344,9 @@ const QL_023 = buildGeoMinQl("CHROMITE-AND-CHROMIUM", "Chromite and chromium", [
     "explanation": "Chromite is grouped with ferro-alloy minerals because chromium is added to iron-based alloys. Hematite and magnetite supply iron itself, while bauxite supplies aluminium.",
     "sourceFactId": "CHROMITE-REASONING"
   }
-] as const);
+] as const),
 
-const QL_024 = buildGeoMinQl("SUKINDA-CHROMITE-BELT", "Sukinda chromite belt", [
+buildGeoMinQl("SUKINDA-CHROMITE-BELT", "Sukinda chromite belt", [
   {
     "stem": "Sukinda Valley, famous for chromite deposits, is located in which state?",
     "answer": "Odisha",
@@ -412,9 +413,9 @@ const QL_024 = buildGeoMinQl("SUKINDA-CHROMITE-BELT", "Sukinda chromite belt", [
     "explanation": "Sukinda is a chromite region; chromite yields chromium; chromium is a key alloying metal in stainless steel. The full chain links location, ore, metal and use correctly.",
     "sourceFactId": "SUKINDA-CHAIN"
   }
-] as const);
+] as const),
 
-const QL_025 = buildGeoMinQl("MANGANESE-CHROMITE-COMPARISON", "Manganese-chromite comparison", [
+buildGeoMinQl("MANGANESE-CHROMITE-COMPARISON", "Manganese-chromite comparison", [
   {
     "stem": "Which comparison is correct?",
     "answer": "Manganese and chromite are both important ferro-alloy minerals",
@@ -481,9 +482,9 @@ const QL_025 = buildGeoMinQl("MANGANESE-CHROMITE-COMPARISON", "Manganese-chromit
     "explanation": "Manganese ore supplies manganese directly, while chromite supplies chromium. The pair therefore fits an alloy-oriented metallurgical supply chain.",
     "sourceFactId": "MN-CR-SUPPLY"
   }
-] as const);
+] as const),
 
-const QL_026 = buildGeoMinQl("FERRO-ALLOY-RESOURCE-LOGIC", "Ferro-alloy resource logic", [
+buildGeoMinQl("FERRO-ALLOY-RESOURCE-LOGIC", "Ferro-alloy resource logic", [
   {
     "stem": "What is the common industrial link among iron ore, manganese and chromite?",
     "answer": "They support iron, steel and alloy production",
@@ -550,9 +551,9 @@ const QL_026 = buildGeoMinQl("FERRO-ALLOY-RESOURCE-LOGIC", "Ferro-alloy resource
     "explanation": "Iron ore can supply the base metal, but specialised alloys also require elements such as manganese and chromium. Without those minerals, the region lacks part of the ferro-alloy resource chain.",
     "sourceFactId": "FERROALLOY-REASONING"
   }
-] as const);
+] as const),
 
-const QL_027 = buildGeoMinQl("INTEGRATED-MANGANESE-AND-CHROMITE-REASONING", "Integrated manganese and chromite reasoning", [
+buildGeoMinQl("INTEGRATED-MANGANESE-AND-CHROMITE-REASONING", "Integrated manganese and chromite reasoning", [
   {
     "stem": "Which location-resource pair is correct?",
     "answer": "Sukinda — chromite",
@@ -619,7 +620,8 @@ const QL_027 = buildGeoMinQl("INTEGRATED-MANGANESE-AND-CHROMITE-REASONING", "Int
     "explanation": "Iron ore supplies the iron base, while manganese and chromite provide alloying elements. This three-resource set directly matches the structure of iron and alloy-steel production.",
     "sourceFactId": "MN-CR-INTEGRATED-6"
   }
-] as const);
+] as const)
+]);
 
-export const GEO_MIN_001_CP003_REVIEW_BATCH_V1 = finalizeGeoMinCp(3, [QL_019, QL_020, QL_021, QL_022, QL_023, QL_024, QL_025, QL_026, QL_027]);
-export function auditGeoMin001Cp003ReviewBatchV1() { return auditGeoMinCp(3, [QL_019, QL_020, QL_021, QL_022, QL_023, QL_024, QL_025, QL_026, QL_027], GEO_MIN_001_CP003_REVIEW_BATCH_V1); }
+export const GEO_MIN_001_CP003_REVIEW_BATCH_V1 = finalizeGeoMinCp(3, QLS);
+export function auditGeoMin001Cp003ReviewBatchV1() { return auditGeoMinCp(3, QLS, GEO_MIN_001_CP003_REVIEW_BATCH_V1); }
