@@ -27,6 +27,12 @@ export type QuantV4PyqWeightingStatus =
   | "INSUFFICIENT_EMPIRICAL_EVIDENCE"
   | "EMPIRICAL_WEIGHT_CANDIDATE";
 
+export type QuantV4EmpiricalDifficultyBand = "EASY" | "MEDIUM" | "HARD";
+
+export type QuantV4EmpiricalDifficultyBasis =
+  | "SOURCE_LABEL"
+  | "RATIFIED_RUBRIC";
+
 export interface QuantV4PyqObservation {
   readonly observationId: string;
   readonly examId: QuantV4PyqExamId;
@@ -41,6 +47,9 @@ export interface QuantV4PyqObservation {
   readonly topic: string;
   readonly subtopic: string;
   readonly representation: string;
+  readonly empiricalDifficulty?: QuantV4EmpiricalDifficultyBand;
+  readonly empiricalDifficultyBasis?: QuantV4EmpiricalDifficultyBasis;
+  readonly difficultyEvidenceRef?: string;
   readonly language?: "en" | "hi" | "pa" | "mixed";
   readonly notes?: string;
 }
@@ -126,6 +135,16 @@ export function validatePyqObservation(observation: QuantV4PyqObservation): void
   }
 
   if (observation.heldDate) assertIsoDate(observation.heldDate, observation.observationId);
+
+  const hasDifficultyBand = Boolean(observation.empiricalDifficulty);
+  const hasDifficultyBasis = Boolean(observation.empiricalDifficultyBasis);
+  const hasDifficultyRef = Boolean(clean(observation.difficultyEvidenceRef));
+  const difficultyFieldsPresent = Number(hasDifficultyBand) + Number(hasDifficultyBasis) + Number(hasDifficultyRef);
+  if (difficultyFieldsPresent !== 0 && difficultyFieldsPresent !== 3) {
+    throw new Error(
+      `${observation.observationId}: empirical difficulty requires empiricalDifficulty, empiricalDifficultyBasis and difficultyEvidenceRef together.`,
+    );
+  }
 
   if (isCountablePyqEvidenceKind(observation.evidenceKind)) {
     if (!clean(observation.paperId)) {
