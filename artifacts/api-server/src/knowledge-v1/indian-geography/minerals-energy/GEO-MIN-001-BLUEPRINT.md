@@ -1,6 +1,6 @@
 # GEO-MIN-001 — Minerals & Energy Resources of India Blueprint
 
-Status: IMPLEMENTATION IN PROGRESS — REVIEW ONLY
+Status: CONTENT CLOSED — QUESTION STUDIO REVIEW-ONLY
 
 ## 1. Scope
 
@@ -158,3 +158,14 @@ These may expand, combine or split according to natural coverage.
 - Do not use mechanical fillers such as “best describes”, “broadly”, “mainly”, or unnecessary “associated with”.
 - Use direct identification, reverse association, statement sets, correctly/incorrectly matched pairs, clue-based identification, map/region reasoning and multi-fact elimination where natural.
 - Explanations should be simple, coherent and normally at least two sentences.
+
+
+## 8. Final closure state
+
+- CP001–CP012: closed owning coverage
+- 122 permanent semantic QLs
+- 732 owning review questions
+- CP013: non-owning 122-question mastery, one representative per semantic QL
+- final stem-style sweep passed across all 732 owning questions
+- Question Studio registration is review-only and read-only
+- Question Bank/test/mock/public release remains disabled
