@@ -26,7 +26,7 @@ Visual reassurance is useful, but it should not create a false sense of precisio
  q("E40-Q5","RC2-F05","medium","Why does the author prefer a stage label such as “checking file”?","It explains what the system is actually doing after upload",["It makes processing faster","It removes the need for servers","It guarantees success"],"A meaningful state label is more informative than an arbitrary percentage.","checking file"),
  q("E40-Q6","RC2-F06","hard","Which conclusion follows most logically?","A less precise but honest estimate can be more useful than a precise-looking estimate that changes constantly",["Precise numbers should never be used","Users do not care about waiting","Server load is irrelevant"],"The passage repeatedly values understandable uncertainty over false exactness.","broad range"),
  q("E40-Q7","RC2-F07","medium","Which statement is supported?","File checking can continue after upload itself is complete",["Upload and processing always finish together","Progress bars eliminate waiting","Every task has fixed duration"],"The example explicitly separates upload from later scanning and validation.","upload complete — checking file"),
- q("E40-Q8","RC2-F08","easy","In context, “uncertainty” most nearly means:","lack of exact knowledge about what will happen or how long it will take",["system failure","visual design","user action"],"The passage uses uncertainty for unpredictable remaining duration and process state.","uncertainty")
+ q("E40-Q8","RC2-F08","easy","In context, “uncertainty” most nearly means:","lack of exact knowledge about what will happen or how long it will take",["system failure","visual design","user action"],"The passage uses uncertainty for unpredictable remaining duration and process state.","stage, uncertainty and next step")
  ]
 },
 {
@@ -56,7 +56,7 @@ Good receipt design therefore includes not only delivery and search, but also re
  q("E41-Q5","RC2-F05","medium","Why might some records remain after account closure?","Legal or financial rules may require temporary retention",["The seller wants unlimited marketing data","Customers cannot delete accounts","Receipts contain no personal information"],"The passage gives tax, fraud and legal obligations as legitimate reasons.","may still need to be retained"),
  q("E41-Q6","RC2-F06","hard","Which conclusion follows most logically?","Deletion promises should explain exceptions instead of implying that all data disappears immediately",["Account closure should be banned","Tax records should be public","Receipt storage should be permanent"],"The passage argues for honest explanation of retained records and removal timing.","what remains, why"),
  q("E41-Q7","RC2-F07","medium","Which statement is supported?","A warranty period can help determine a reasonable receipt-retention period",["Warranties require permanent storage","Digital receipts cannot support warranty claims","Retention never depends on product type"],"The author uses a two-year warranty as an example of purpose-based retention.","two-year warranty"),
- q("E41-Q8","RC2-F08","easy","In context, “retention” most nearly means:","keeping information for a period of time",["sending a receipt","printing a receipt","refunding a purchase"],"The whole passage discusses how long stored receipt data remains available.","retention")
+ q("E41-Q8","RC2-F08","easy","In context, “retention” most nearly means:","keeping information for a period of time",["sending a receipt","printing a receipt","refunding a purchase"],"The whole passage discusses how long stored receipt data remains available.","retention period depends on purpose")
  ]
 },
 {
@@ -144,7 +144,7 @@ The next phase will measure whether reason information reduces unnecessary early
  q("R36-Q5","RC2-F05","medium","Why did depot staff enter the reason codes?","Drivers should not be distracted while driving",["Drivers did not know the route","Parents requested staff names","The app worked only at the depot"],"The system uses route-control information rather than asking drivers to update while moving.","did not enter ... while moving"),
  q("R36-Q6","RC2-F06","hard","Which conclusion is justified?","An explanation can become misleading if it is not refreshed when the cause changes",["Arrival estimates are unnecessary","Every bus needs detailed diagnostics","Traffic is the only useful reason"],"The report explicitly identifies stale reason codes as a problem.","reason codes could become stale"),
  q("R36-Q7","RC2-F07","medium","Which statement is supported?","Parent calls about possible safety problems decreased",["All buses became punctual","Weather delays disappeared","Drivers updated the app directly"],"The added reason context reduced uncertainty about why the bus was late.","fewer calls"),
- q("R36-Q8","RC2-F08","easy","In context, “stale” most nearly means:","outdated and no longer reflecting the current situation",["dangerous","detailed","automatic"],"The reason could remain on screen after the actual cause had changed.","stale")
+ q("R36-Q8","RC2-F08","easy","In context, “stale” most nearly means:","outdated and no longer reflecting the current situation",["dangerous","detailed","automatic"],"The reason could remain on screen after the actual cause had changed.","reason codes could become stale")
  ]
 },
 {
@@ -172,7 +172,7 @@ The next evaluation will measure whether the board changes actual discharge time
  q("R37-Q5","RC2-F05","medium","Why did the board note that some categories may not apply?","Different patients may require different discharge steps",["The system had missing data","Transport was always cancelled","Pharmacy medicines were optional for everyone"],"A universal board needed to distinguish required from irrelevant stages.","would not need every category"),
  q("R37-Q6","RC2-F06","hard","Which conclusion is justified?","Better process visibility may reduce uncertainty even if physical completion time does not change",["Boards guarantee faster pharmacy work","Every tick shortens discharge","Patients should ignore nurses"],"The next evaluation explicitly separates communication benefit from actual time reduction.","mainly reduces uncertainty"),
  q("R37-Q7","RC2-F07","medium","Which statement is supported?","Patients asked fewer repeated questions during the pilot",["All discharges became faster","Every patient needed hospital transport","The pharmacy delay disappeared"],"The board reduced repeated requests for status information.","fewer patients repeatedly asked"),
- q("R37-Q8","RC2-F08","easy","In context, “readiness” most nearly means:","being fully prepared for the next action",["hospital admission","medication cost","room cleaning"],"The board indicates whether discharge requirements are complete enough for departure.","readiness")
+ q("R37-Q8","RC2-F08","easy","In context, “readiness” most nearly means:","being fully prepared for the next action",["hospital admission","medication cost","room cleaning"],"The board indicates whether discharge requirements are complete enough for departure.","all required steps complete")
  ]
 },
 {
