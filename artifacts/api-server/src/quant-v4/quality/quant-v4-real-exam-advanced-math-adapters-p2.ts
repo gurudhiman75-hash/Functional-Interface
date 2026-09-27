@@ -6,6 +6,8 @@ import {
   type AlgebraStudioExamProfileV5,
 } from "../topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v5";
 import { generateQuestion as generateTrigonometryQuestion } from "../../question-studio/shared-generation-engine-trigonometry";
+import { TRG_001_PRODUCTION_REGISTRY } from "../topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-runtime";
+import { generatePostFreezeRemediatedTrg001Question } from "../topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-post-freeze-remediation-v1";
 
 export const QUANT_V4_REAL_EXAM_ADVANCED_MATH_ADAPTER_AUTHORITY =
   "QUANT-V4-REAL-EXAM-ADVANCED-MATH-ADAPTERS-P2" as const;
@@ -27,7 +29,9 @@ export interface QuantV4AdvancedMathSectionAdapterResult {
   readonly slotKind: QuantV4AdvancedMathSectionSlotKind;
   readonly seed: string;
   readonly packageId: string;
-  readonly selectionPolicy: "PROVISIONAL_NON_PYQ_WEIGHTED";
+  readonly selectionPolicy:
+    | "PROVISIONAL_NON_PYQ_WEIGHTED"
+    | "PROVISIONAL_NON_PYQ_WEIGHTED_DIVERSITY_CAPACITY";
   readonly question: any;
 }
 
@@ -40,7 +44,7 @@ function stableHash(value: string): number {
   return result >>> 0;
 }
 
-function difficultyFor(seed: string): QuantV4AdvancedMathDifficulty {
+export function quantV4AdvancedMathDifficultyForSeed(seed: string): QuantV4AdvancedMathDifficulty {
   const bucket = stableHash(`${seed}:difficulty`) % 10;
   if (bucket <= 2) return "Easy";
   if (bucket <= 7) return "Medium";
@@ -53,10 +57,48 @@ function algebraProfileFor(examId: QuantV4AdvancedMathSectionExamId): AlgebraStu
   return "SSC_CORE";
 }
 
-function trigonometryPackageFor(examId: QuantV4AdvancedMathSectionExamId, seed: string): "TRG-001" | "TRG-002" {
+export function quantV4TrigonometryPackageForSeed(examId: QuantV4AdvancedMathSectionExamId, seed: string): "TRG-001" | "TRG-002" {
   const bucket = stableHash(`${seed}:trigonometry-family`);
   if (examId === "SSC_CGL_TIER_II") return bucket % 2 === 0 ? "TRG-001" : "TRG-002";
   return bucket % 4 === 0 ? "TRG-002" : "TRG-001";
+}
+
+const TRG001_RUNTIME_DIFFICULTY_BY_QL = new Map<string, QuantV4AdvancedMathDifficulty>();
+
+function trg001RuntimeDifficulty(qlId: string): QuantV4AdvancedMathDifficulty {
+  const cached = TRG001_RUNTIME_DIFFICULTY_BY_QL.get(qlId);
+  if (cached) return cached;
+  const probe = generatePostFreezeRemediatedTrg001Question(
+    qlId,
+    `QUANT-V4-TRG001-DIVERSITY-CAPACITY-DIFFICULTY:${qlId}`,
+  ) as any;
+  const difficulty = String(probe?.difficulty ?? "").trim() as QuantV4AdvancedMathDifficulty;
+  if (difficulty !== "Easy" && difficulty !== "Medium" && difficulty !== "Hard") {
+    throw new Error(`TRG-001 ${qlId} returned unsupported runtime difficulty '${difficulty}'.`);
+  }
+  TRG001_RUNTIME_DIFFICULTY_BY_QL.set(qlId, difficulty);
+  return difficulty;
+}
+
+export function listQuantV4Trg001RuntimeDifficultyQlIds(
+  difficulty: QuantV4AdvancedMathDifficulty,
+): readonly string[] {
+  return Object.freeze(
+    TRG_001_PRODUCTION_REGISTRY
+      .map((entry) => entry.qlId)
+      .filter((qlId) => trg001RuntimeDifficulty(qlId) === difficulty)
+      .sort(),
+  );
+}
+
+function diversityCapacityTrg001QlId(
+  difficulty: QuantV4AdvancedMathDifficulty,
+  diversityOrdinal: number,
+): string {
+  const eligible = listQuantV4Trg001RuntimeDifficultyQlIds(difficulty);
+  if (!eligible.length) throw new Error(`TRG-001 has no frozen runtime-${difficulty} QLs for diversity-capacity sampling.`);
+  const index = Math.max(0, Math.floor(diversityOrdinal)) % eligible.length;
+  return eligible[index]!;
 }
 
 function firstQuestion(result: any): any {
@@ -79,8 +121,9 @@ export async function generateQuantV4AdvancedMathSectionQuestion(input: {
   examId: QuantV4AdvancedMathSectionExamId;
   slotKind: QuantV4AdvancedMathSectionSlotKind;
   seed: string;
+  diversityCapacityOrdinal?: number;
 }): Promise<QuantV4AdvancedMathSectionAdapterResult> {
-  const difficulty = difficultyFor(input.seed);
+  const difficulty = quantV4AdvancedMathDifficultyForSeed(input.seed);
 
   if (input.slotKind === "ALGEBRA") {
     const examProfile = algebraProfileFor(input.examId);
@@ -112,11 +155,16 @@ export async function generateQuantV4AdvancedMathSectionQuestion(input: {
     });
   }
 
-  const packageId = trigonometryPackageFor(input.examId, input.seed);
+  const packageId = quantV4TrigonometryPackageForSeed(input.examId, input.seed);
+  const diversityCapacityMode = packageId === "TRG-001" && Number.isInteger(input.diversityCapacityOrdinal);
+  const questionLanguageId = diversityCapacityMode
+    ? diversityCapacityTrg001QlId(difficulty, input.diversityCapacityOrdinal!)
+    : undefined;
   const result = await generateTrigonometryQuestion({
     packageId,
     language: "en",
     difficulty,
+    questionLanguageId,
     seed: input.seed,
     count: 1,
   } as any);
@@ -134,7 +182,9 @@ export async function generateQuantV4AdvancedMathSectionQuestion(input: {
     slotKind: input.slotKind,
     seed: input.seed,
     packageId,
-    selectionPolicy: "PROVISIONAL_NON_PYQ_WEIGHTED",
+    selectionPolicy: diversityCapacityMode
+      ? "PROVISIONAL_NON_PYQ_WEIGHTED_DIVERSITY_CAPACITY"
+      : "PROVISIONAL_NON_PYQ_WEIGHTED",
     question,
   });
 }
