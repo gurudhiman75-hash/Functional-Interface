@@ -13,8 +13,11 @@ export type GeoMin001VariantSeed = Readonly<{
   sourceFactId: string;
 }>;
 
-const DIFFICULTY_PATTERN: readonly GeoMin001Difficulty[] = Object.freeze([
+const HARD_QL_PATTERN: readonly GeoMin001Difficulty[] = Object.freeze([
   "Easy", "Easy", "Medium", "Medium", "Medium", "Hard",
+]);
+const MEDIUM_QL_PATTERN: readonly GeoMin001Difficulty[] = Object.freeze([
+  "Easy", "Easy", "Medium", "Medium", "Medium", "Medium",
 ]);
 
 export function buildGeoMinQl(
@@ -36,7 +39,7 @@ export function buildGeoMinQl(
       questionId: "PENDING",
       qlId,
       qlName,
-      difficulty: DIFFICULTY_PATTERN[index]!,
+      difficulty: (((qlNo - 1) % 9) < 6 ? HARD_QL_PATTERN : MEDIUM_QL_PATTERN)[index]!,
       stem: variant.stem,
       options: placeGeoMinOptions(variant.answer, variant.distractors, correctIndex),
       correctIndex,
