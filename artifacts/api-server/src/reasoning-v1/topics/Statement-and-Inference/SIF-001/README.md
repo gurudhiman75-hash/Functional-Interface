@@ -44,7 +44,7 @@ CP012 contains 20 scenarios about the boundary between supported and merely poss
 
 ## CP015–CP017 review candidates
 
-CP015 contains 13 distinct trilingual scenarios about bounded attitudes and positions, including qualified support, reservations, and explicit opposition. CP016 contains 13 short, advanced passages that combine reported figures, conditions, time limits, and missing evidence without adding causal claims. CP017 contains 13 mixed-format passages spanning quantifiers, conditions, exceptions, comparisons, and scope. Each pack has its own deterministic review sampler; all pool scenarios are sampled once, and Hindi/Punjabi parity and answer-position balance are checked.
+CP015 contains 24 distinct trilingual scenarios about bounded attitudes and positions, including qualified support, reservations, and explicit opposition. CP016 contains 24 short, advanced passages that combine reported figures, conditions, time limits, and missing evidence without adding causal claims. CP017 contains 24 mixed-format passages spanning quantifiers, conditions, exceptions, comparisons, and scope. Each pack has its own deterministic review sampler; all pool scenarios are sampled once, and Hindi/Punjabi parity and answer-position balance are checked.
 
 ## Review boundary
 

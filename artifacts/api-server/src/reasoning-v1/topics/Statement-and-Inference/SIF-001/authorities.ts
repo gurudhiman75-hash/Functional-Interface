@@ -15,6 +15,7 @@ import { SIF_CP009_DATA_AUTHORITIES } from "./cp009-data-authorities.ts";
 import { SIF_CP010_CONDITIONAL_AUTHORITIES } from "./cp010-conditional-authorities.ts";
 import { SIF_CP011_MULTIPLE_FACTOR_AUTHORITIES } from "./cp011-multiple-factor-authorities.ts";
 import { SIF_CP015_AUTHORITIES, SIF_CP016_AUTHORITIES, SIF_CP017_AUTHORITIES } from "./cp015-017-authorities.ts";
+import { SIF_CP015_WAVE2_AUTHORITIES, SIF_CP016_WAVE2_AUTHORITIES, SIF_CP017_WAVE2_AUTHORITIES } from "./cp015-017-authorities-wave2.ts";
 
 const t = (en: string, hi: string, pa: string): SifLocalizedText => ({ "en-IN": en, "hi-IN": hi, "pa-IN": pa });
 const fact = (id: string, text: SifLocalizedText) => ({ id, text });
@@ -140,7 +141,7 @@ const cp012To014Authorities: readonly SifScenarioAuthority[] = [
 
 ];
 
-export const SIF_SCENARIO_AUTHORITIES: readonly SifScenarioAuthority[] = [...primary, ...SIF_CP001_EXPANDED_AUTHORITIES, ...SIF_CP001_WAVE2_AUTHORITIES, ...SIF_CP001_WAVE3_AUTHORITIES, ...SIF_CP001_WAVE4_AUTHORITIES, ...SIF_CP001_WAVE5_AUTHORITIES, ...cp002Profiles, ...SIF_CP002_EXPANDED_AUTHORITIES, ...SIF_CP003_QUANTIFIER_AUTHORITIES, ...SIF_CP004_COMPARISON_AUTHORITIES, ...SIF_CP005_SUGGESTIVE_REASON_AUTHORITIES, ...SIF_CP006_PURPOSE_AUTHORITIES, ...SIF_CP007_NEGATIVE_AUTHORITIES, ...SIF_CP008_CONTEXT_AUTHORITIES, ...SIF_CP009_DATA_AUTHORITIES, ...SIF_CP010_CONDITIONAL_AUTHORITIES, ...SIF_CP011_MULTIPLE_FACTOR_AUTHORITIES, ...cp012To014Authorities, ...SIF_CP015_AUTHORITIES, ...SIF_CP016_AUTHORITIES, ...SIF_CP017_AUTHORITIES];
+export const SIF_SCENARIO_AUTHORITIES: readonly SifScenarioAuthority[] = [...primary, ...SIF_CP001_EXPANDED_AUTHORITIES, ...SIF_CP001_WAVE2_AUTHORITIES, ...SIF_CP001_WAVE3_AUTHORITIES, ...SIF_CP001_WAVE4_AUTHORITIES, ...SIF_CP001_WAVE5_AUTHORITIES, ...cp002Profiles, ...SIF_CP002_EXPANDED_AUTHORITIES, ...SIF_CP003_QUANTIFIER_AUTHORITIES, ...SIF_CP004_COMPARISON_AUTHORITIES, ...SIF_CP005_SUGGESTIVE_REASON_AUTHORITIES, ...SIF_CP006_PURPOSE_AUTHORITIES, ...SIF_CP007_NEGATIVE_AUTHORITIES, ...SIF_CP008_CONTEXT_AUTHORITIES, ...SIF_CP009_DATA_AUTHORITIES, ...SIF_CP010_CONDITIONAL_AUTHORITIES, ...SIF_CP011_MULTIPLE_FACTOR_AUTHORITIES, ...cp012To014Authorities, ...SIF_CP015_AUTHORITIES, ...SIF_CP016_AUTHORITIES, ...SIF_CP017_AUTHORITIES, ...SIF_CP015_WAVE2_AUTHORITIES, ...SIF_CP016_WAVE2_AUTHORITIES, ...SIF_CP017_WAVE2_AUTHORITIES];
 
 export const SIF_CP_TITLES: Readonly<Record<SifCpId, string>> = {
   "SIF-CP001": "Direct Fact-Based Inference", "SIF-CP002": "Two-Inference Evaluation", "SIF-CP003": "Quantifier-Based Inference", "SIF-CP004": "Comparison and Relationship Inference", "SIF-CP005": "Cause/Reason Suggestive Inference", "SIF-CP006": "Intention / Purpose Inference", "SIF-CP007": "Negative and Restrictive Statements", "SIF-CP008": "Multi-Sentence Contextual Inference", "SIF-CP009": "Data-Supported Verbal Inference", "SIF-CP010": "Conditional Inference", "SIF-CP011": "Multiple-Factor Inference", "SIF-CP012": "Supported vs Merely Possible", "SIF-CP013": "Scope Shift and Overgeneralisation", "SIF-CP014": "Time and Sequence Inference", "SIF-CP015": "Attitude / Position Inference", "SIF-CP016": "Short Paragraph Advanced Inference", "SIF-CP017": "Mixed Inference Mastery",
