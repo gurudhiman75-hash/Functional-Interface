@@ -1,0 +1,282 @@
+import type{Eng008Cp004PassageV1}from"./eng-008-cp004-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+export const ENG008_CP004_EXPANSION_WAVE12_V1:readonly Eng008Cp004PassageV1[]=[
+{
+ id:"ENG008-BM-E11",title:"Why Inflation and Cost of Living Are Related but Different",genre:"economy",
+ text:`Inflation measures how the prices of a broad basket of goods and services change over time. Cost of living asks a more personal question: how expensive is it for a particular household to maintain a given standard of living? The two ideas overlap, but they are not identical.
+
+An inflation index assigns weights to categories based on average spending patterns. A household that spends much more than average on rent, medicines or school fees can experience a larger increase in expenses than the headline index suggests. Another household may spend more on categories whose prices are stable and feel less pressure.
+
+Location matters. Rent can rise sharply in one city while remaining stable elsewhere. Transport choices matter too. A household dependent on a long car commute is more exposed to fuel prices than one using a fixed-price public transport pass.
+
+Substitution complicates measurement. When one food becomes expensive, households may switch to a cheaper alternative. A fixed basket may initially record the higher price even though consumers adapt. But substitution can also reduce quality or convenience, so lower spending does not necessarily mean the household is equally well off.
+
+Housing creates a special challenge. Existing homeowners with fixed mortgage payments may be protected from immediate rent increases, while new renters or buyers face current market prices. The same national inflation rate can therefore produce very different housing burdens.
+
+Income determines whether higher prices reduce living standards. A worker whose pay rises faster than prices can gain purchasing power even during positive inflation. Someone with fixed income can lose purchasing power even when the inflation rate is modest.
+
+Taxes, benefits and public services also influence living costs without always appearing directly in consumer prices. Free school meals, transport subsidies or higher utility support can reduce household burden even if market prices remain unchanged.
+
+For policy, headline inflation is essential because it summarises broad price pressure and guides monetary decisions. But it should not be treated as a complete measure of household hardship. Distribution matters: which prices are rising, who buys those items and whether incomes or support adjust.
+
+The broader lesson is that inflation is an economy-wide price statistic, while cost of living is experienced through a household's own basket, location and resources. Understanding living standards therefore requires both general price measures and more specific information about spending patterns and income.`,
+ questions:[
+ q("E11-Q1","BM-F01","medium","Why can a household experience higher cost pressure than the headline inflation rate?","Its spending may be concentrated in categories whose prices rise faster than average",["Inflation excludes all household spending","Every household buys the same basket","Headline inflation measures income"],"Different spending weights can make household experience diverge from the average index.","spends much more than average"),
+ q("E11-Q2","BM-F02","hard","What can be inferred about substitution toward cheaper goods?","It may reduce spending without fully preserving quality or convenience",["Substitution always improves welfare","Price indexes ignore all substitution","Cheaper goods are always identical"],"The passage warns that adaptation can lower measured expenditure while changing what households consume.","reduce quality or convenience"),
+ q("E11-Q3","BM-F03","hard","Which option best states the central argument?","Inflation is a broad price measure, while living-cost pressure depends on household-specific spending, location and income",["Inflation and cost of living are identical","Only rent determines living cost","Income growth is unrelated to prices"],"The passage repeatedly distinguishes average price movement from household experience.","not identical"),
+ q("E11-Q4","BM-F04","hard","What is the author's tone?","Analytical and qualified",["Dismissive of inflation data","Promotional","Alarmist"],"The author values headline inflation while carefully explaining its limits for household welfare.","essential ... But"),
+ q("E11-Q5","BM-F05","medium","Why does the author discuss fixed-rate homeowners and new renters?","Housing-cost exposure differs depending on when and how housing is financed",["Homeowners never face costs","Renters are excluded from inflation","Mortgage rates equal rent"],"The same market can affect existing and new housing arrangements differently.","different housing burdens"),
+ q("E11-Q6","BM-F06","hard","Which statement cannot be inferred?","A low national inflation rate guarantees that every household's living costs are rising slowly",["Location affects price exposure","Income growth changes purchasing power","Public support can offset some costs"],"Household baskets and local prices can diverge substantially from the national average.","very different"),
+ q("E11-Q7","BM-F07","hard","What role does the paragraph on taxes, benefits and services play?","It shows that household living cost can change through policy channels beyond market prices",["It argues inflation indexes should include income tax only","It defines substitution","It proves public services are free everywhere"],"Living standards depend partly on support and publicly provided services, not just sticker prices.","reduce household burden"),
+ q("E11-Q8","BM-F08","hard","Which conclusion follows most logically?","Policy analysis should pair inflation data with distributional information about spending and income",["Headline inflation should be abandoned","Every household needs a separate central bank","Cost of living should ignore prices"],"The final paragraphs argue that broad averages need household-level context.","Distribution matters"),
+ q("E11-Q9","BM-F09","medium","In context, “purchasing power” most nearly means:","the amount of goods and services income can buy",["the legal authority to set prices","the size of a shopping basket","the rate of taxation"],"Purchasing power rises or falls depending on how income changes relative to prices.","pay rises faster than prices"),
+ q("E11-Q10","BM-F10","hard","Which assumption does the passage challenge?","That one inflation number fully describes how expensive life has become for every household",["Prices change over time","Households buy goods","Income can rise"],"The entire passage explains why household experience differs around the average.","household's own basket")
+ ]
+},
+{
+ id:"ENG008-BM-B10",title:"Why Customer Acquisition Cost Needs Payback Context",genre:"business",
+ text:`Businesses that spend on advertising often calculate customer acquisition cost, or CAC: the sales and marketing cost associated with gaining a new customer. A lower CAC sounds better, but the number is difficult to interpret without knowing what the customer is worth and how quickly the business recovers the acquisition spend.
+
+Imagine two subscription services. One spends ₹1,000 to acquire a customer who pays ₹500 per month and remains for years. Another spends only ₹300 but attracts customers who cancel after one month. The lower CAC business may actually have weaker economics.
+
+This is why companies compare acquisition cost with contribution margin or lifetime value. Revenue alone is insufficient because serving the customer also has costs. A high-revenue customer can still be unattractive if fulfilment, support or discounts consume most of that revenue.
+
+Payback period adds a timing dimension. A business may eventually earn back a ₹1,000 acquisition cost, but if recovery takes three years, the company must finance that gap. Fast growth can then create cash pressure even when long-run unit economics look positive.
+
+Channel mix matters. Search ads, referrals, retail partnerships and sales teams can attract customers with different retention patterns. Blending every channel into one CAC can hide an expensive source that performs poorly or a higher-cost source that brings unusually valuable customers.
+
+Attribution creates uncertainty too. A buyer may see a social ad, later search the brand and finally purchase through a referral link. Assigning the full acquisition to the final click can exaggerate one channel's effectiveness.
+
+Promotional periods distort comparison. Deep discounts may increase sign-ups and lower apparent acquisition cost per account while attracting people who do not remain at normal price.
+
+Cohort analysis helps by following customers acquired in the same period or channel and comparing payback over time. But even cohorts can be affected by product changes, seasonality or macroeconomic conditions.
+
+For management, the useful question is not “How cheaply did we buy a customer?” It is “How much did we spend, what margin did the customer generate, how long did they stay and when did the cash return?”
+
+The broader lesson is that CAC is a cost measure, not a verdict on growth quality. It becomes meaningful only when linked to retention, margin, attribution and payback.`,
+ questions:[
+ q("B10-Q1","BM-F01","medium","Why can a business with lower CAC still have worse economics?","Its acquired customers may generate little margin or cancel quickly",["Lower CAC always increases losses","Acquisition cost determines price","Customers cannot cancel subscriptions"],"The example shows that low acquisition cost is weak if customer value is even lower.","cancel after one month"),
+ q("B10-Q2","BM-F02","hard","What can be inferred about a long payback period?","Growth may consume cash for a long time before acquisition spending is recovered",["Lifetime value must be negative","Advertising should stop immediately","Revenue cannot grow"],"Timing matters because the business must finance the gap between acquisition spend and later margin.","finance that gap"),
+ q("B10-Q3","BM-F03","hard","Which option best states the central argument?","CAC should be interpreted with retention, margin and payback rather than as a standalone efficiency score",["The lowest CAC is always best","Revenue alone measures customer value","All channels should have equal CAC"],"The passage repeatedly connects acquisition spend with the quality and timing of customer returns.","not a verdict"),
+ q("B10-Q4","BM-F04","hard","What is the author's tone?","Analytical and commercially focused",["Hostile to advertising","Promotional","Humorous"],"The author treats CAC as useful while warning against simplistic conclusions.","becomes meaningful only"),
+ q("B10-Q5","BM-F05","medium","Why does the author discuss fulfilment and support costs?","Revenue does not equal the margin actually available to repay acquisition cost",["Support costs determine ad clicks","Fulfilment is always free","High revenue customers always lose money"],"Customer value needs to reflect costs incurred after purchase.","serving the customer also has costs"),
+ q("B10-Q6","BM-F06","hard","Which statement cannot be inferred?","The marketing channel with the lowest CAC necessarily creates the most valuable customers",["Channel cohorts can retain differently","Attribution is uncertain","Promotions can attract weak-retention customers"],"Higher-cost channels may produce more valuable customers, so cost alone is insufficient.","higher-cost source"),
+ q("B10-Q7","BM-F07","hard","What role does the attribution paragraph play?","It shows that acquisition cost by channel depends on how credit for a purchase is assigned",["It argues referrals never matter","It defines contribution margin","It proves final click is correct"],"Multi-touch customer journeys make channel-level CAC dependent on attribution rules.","final click"),
+ q("B10-Q8","BM-F08","hard","Which conclusion follows most logically?","Companies should compare acquisition cohorts on recovered margin over time, not only sign-up cost",["CAC should be removed from dashboards","All marketing should use one channel","Payback timing is irrelevant"],"The article recommends following margin and retention after acquisition.","cohort analysis"),
+ q("B10-Q9","BM-F09","medium","In context, “payback” most nearly means:","the point when generated margin has recovered the acquisition cost",["a customer refund","a supplier payment","an advertising rebate"],"Payback period measures how long recovery of the initial acquisition spend takes.","earn back"),
+ q("B10-Q10","BM-F10","hard","Which assumption does the passage challenge?","That cheaper customer acquisition automatically means better growth",["Businesses advertise","Customers produce revenue","Marketing channels differ"],"The core argument distinguishes acquisition cost from the economics of the customers acquired.","lower CAC sounds better, but")
+ ]
+},
+{
+ id:"ENG008-BM-T09",title:"Why Security Incident Counts Need Severity and Exposure",genre:"technology",
+ text:`Organisations often report how many cybersecurity incidents they detect. A rising count can sound alarming, while a falling count can sound reassuring. Yet the number of incidents alone says little about actual security risk.
+
+An incident can range from one blocked phishing email to a successful intrusion affecting millions of records. Counting both as one event hides enormous differences in consequence.
+
+Detection capability also affects the number. A company that installs better monitoring may suddenly report more incidents because it can now see events that previously went unnoticed. The increase can reflect improved visibility rather than worsening security.
+
+The denominator matters. A business with ten thousand employees, millions of logins and hundreds of internet-facing systems has more opportunities for events than a small organisation. Comparing raw incident counts without exposure can mislead.
+
+Severity classification helps by distinguishing attempted, contained and successful events, as well as data loss, service disruption and financial impact. But categories need consistent definitions if trends are to be comparable over time.
+
+Time-to-detect and time-to-contain provide another dimension. Two organisations can experience the same type of intrusion, yet one isolates it within minutes while the other allows access for weeks. The incident count is identical, but risk is not.
+
+Near misses are useful too. A phishing campaign blocked before credentials are stolen may reveal an emerging threat even if no breach occurs. Ignoring blocked attacks can hide pressure on the system.
+
+On the other hand, flooding dashboards with every low-risk event can create alert fatigue. Security teams need thresholds that preserve visibility without treating every signal as equally urgent.
+
+External reporting adds incentives. Firms may fear that public incident counts make them look weak, which can discourage disclosure. Metrics should therefore separate transparent detection from failure.
+
+A mature security dashboard combines event volume with severity, affected assets, users exposed, detection time and outcome. It also records changes in monitoring coverage so apparent trends can be interpreted.
+
+The broader lesson is that a count measures observed events, not the full quality of defence. More detected incidents can sometimes mean better monitoring, while one severe undetected breach can matter more than thousands of blocked attempts.`,
+ questions:[
+ q("T09-Q1","BM-F01","medium","Why can improved monitoring increase reported incident counts?","More events become visible even if underlying attack pressure is unchanged",["Monitoring creates attacks","Security tools count employees","Better defence always fails"],"The passage distinguishes actual risk from increased detection capability.","see events that previously went unnoticed"),
+ q("T09-Q2","BM-F02","hard","What can be inferred from identical incident counts at two organisations?","Their risk can still differ because severity, exposure and response time may differ",["They have equal security quality","They faced identical attacks","Their monitoring is the same"],"Raw count does not capture consequence or how quickly incidents are contained.","count is identical, but risk is not"),
+ q("T09-Q3","BM-F03","hard","Which option best states the central argument?","Cybersecurity performance needs severity, exposure and response context beyond incident volume",["Incident counts should never be collected","More incidents always mean worse security","Only breaches matter"],"The article repeatedly adds dimensions needed to interpret observed event counts.","not the full quality of defence"),
+ q("T09-Q4","BM-F04","hard","What is the author's tone?","Technical and cautionary",["Dismissive of cybersecurity","Promotional","Alarmist"],"The passage warns against simplistic metrics while advocating richer operational measurement.","says little"),
+ q("T09-Q5","BM-F05","medium","Why does the author discuss blocked phishing attempts?","They can reveal threat pressure even when no breach occurs",["Blocked events should count as major breaches","Phishing never matters","Credentials cannot be stolen"],"Near misses provide information about attack activity and control effectiveness.","emerging threat"),
+ q("T09-Q6","BM-F06","hard","Which statement cannot be inferred?","A lower incident count necessarily means security improved",["Better monitoring can raise counts","One severe breach can outweigh many blocked events","Alert fatigue can come from too many low-risk signals"],"Observed count can fall for many reasons, including weak detection.","observed events"),
+ q("T09-Q7","BM-F07","hard","What role does the denominator paragraph play?","It shows that organisations with more users and systems have more opportunities for incidents",["It defines data loss","It argues large firms are always insecure","It removes the need for severity"],"Exposure changes the scale against which event volume should be interpreted.","more opportunities"),
+ q("T09-Q8","BM-F08","hard","Which conclusion follows most logically?","Security dashboards should report changes in monitoring coverage when showing incident trends",["Monitoring changes are irrelevant","Only public incidents should be counted","Every event needs the same priority"],"A trend cannot be understood if visibility changed during the period.","record changes in monitoring coverage"),
+ q("T09-Q9","BM-F09","medium","In context, “contain” most nearly means:","limit an incident so it cannot continue spreading or causing harm",["publicly announce it","count it","delete all systems"],"Time-to-contain measures how quickly access or impact is restricted after detection.","isolates it"),
+ q("T09-Q10","BM-F10","hard","Which assumption does the passage challenge?","That incident count alone is a direct measure of cybersecurity quality",["Attacks can occur","Companies use monitoring","Phishing exists"],"The article explains why visibility, scale and severity change the meaning of the same count.","count measures observed events")
+ ]
+},
+{
+ id:"ENG008-BM-H09",title:"Why Hospital Waiting Time Needs Pathway Context",genre:"health",
+ text:`Hospital waiting time is often summarised as one number: the average time until a patient is seen. The measure is easy to communicate, but hospitals contain several different queues. A patient can wait for triage, a doctor, a scan, a specialist review, a bed or discharge transport.
+
+Combining all of these experiences into one average can hide where delay actually occurs. Emergency departments also use clinical priority, so the longest-waiting patient is not always the next person who should be treated.
+
+Mean waiting time can be distorted by a small number of extremely long waits. Median time can better describe the typical patient, while percentiles show how the longest waits behave. Each measure answers a different question.
+
+Arrival pattern matters too. A department can be adequately staffed for the daily average yet become overwhelmed during a short evening peak. A daily waiting-time figure may hide several hours of severe congestion.
+
+Capacity is not only doctor time. Laboratory turnaround, imaging availability, bed occupancy and cleaning can all create bottlenecks. Adding one more doctor may not help if admitted patients cannot move to a ward.
+
+Case mix also changes interpretation. A hospital treating more complex patients may have longer stays and more testing. Comparing it directly with a lower-complexity unit can reward speed without accounting for clinical need.
+
+Targets can improve focus, but they can also create gaming if staff optimise the measured step rather than the whole patient journey. Moving a patient from one labelled area to another may stop one clock without improving care.
+
+Patient experience matters alongside time. Clear updates can reduce uncertainty even when physical waiting cannot immediately be shortened. But communication should not be used as a substitute for addressing avoidable delay.
+
+For management, the strongest dashboard follows the pathway: arrival, triage, first clinical contact, diagnostics, decision and departure. It also separates priority groups and reports distribution, not just one average.
+
+The broader lesson is that waiting time is a symptom of flow through a system. Improving it requires knowing where patients are waiting, why the delay exists and whether faster movement preserves safety and quality.`,
+ questions:[
+ q("H09-Q1","BM-F01","medium","Why can one average waiting-time figure be misleading?","Patients wait at several different stages and for different reasons",["Hospitals do not record time","Every patient follows the same path","Triage removes all waiting"],"The passage identifies multiple queues that can be hidden inside one summary number.","several different queues"),
+ q("H09-Q2","BM-F02","hard","What can be inferred if adding doctors does not reduce total delay?","Another bottleneck such as beds, imaging or laboratory work may be limiting flow",["Doctors are never useful","Waiting time cannot improve","Case mix must be simple"],"System capacity can be constrained by resources other than clinician availability.","may not help"),
+ q("H09-Q3","BM-F03","hard","Which option best states the central argument?","Hospital waiting should be analysed by pathway stage, priority and distribution rather than one headline average",["The average should never be used","Clinical priority is unfair","Fast care is always better care"],"The article frames waiting as a flow problem requiring stage-specific context.","follows the pathway"),
+ q("H09-Q4","BM-F04","hard","What is the author's tone?","Clinical and systems-oriented",["Dismissive of patients","Promotional","Humorous"],"The passage examines measurement and operational bottlenecks rather than blaming individuals.","flow through a system"),
+ q("H09-Q5","BM-F05","medium","Why are percentiles useful?","They show how very long waits behave beyond the typical patient",["They replace triage","They measure case complexity only","They remove outliers from care"],"Percentiles reveal the tail of the waiting-time distribution.","longest waits"),
+ q("H09-Q6","BM-F06","hard","Which statement cannot be inferred?","The patient who has waited longest should always be treated next",["Clinical priority affects queue order","Evening peaks can create short periods of congestion","Communication can reduce uncertainty"],"Emergency systems legitimately prioritise urgency rather than waiting duration alone.","not always the next"),
+ q("H09-Q7","BM-F07","hard","What role does the paragraph on targets and gaming play?","It warns that improving a measured step can fail to improve the actual patient journey",["It argues targets should never exist","It defines triage","It proves moving patients is harmful"],"A clock can stop while care quality and total flow remain unchanged.","stop one clock"),
+ q("H09-Q8","BM-F08","hard","Which conclusion follows most logically?","Hospitals should identify the stage causing delay before choosing an intervention",["More staff is always the solution","A single target applies to every queue","Communication alone solves congestion"],"Different bottlenecks require different operational responses.","where patients are waiting"),
+ q("H09-Q9","BM-F09","medium","In context, “bottleneck” most nearly means:","a stage whose limited capacity restricts the whole flow",["a hospital entrance","a patient complaint","a clinical diagnosis"],"Beds, labs or imaging can constrain movement through the system.","create bottlenecks"),
+ q("H09-Q10","BM-F10","hard","Which assumption does the passage challenge?","That one waiting-time average fully represents hospital performance",["Patients need triage","Hospitals use beds","Arrivals vary by time"],"The passage shows multiple stages, distributions and priorities hidden by one average.","one number")
+ ]
+},
+{
+ id:"ENG008-BM-EN08",title:"Why Biodiversity Restoration Needs Reference Conditions",genre:"environment",
+ text:`Ecological restoration is often described as returning a damaged site to nature. The phrase sounds simple, but “restored” requires a reference: restored toward what condition, over what timescale and for which ecological functions?
+
+A former wetland converted to farmland may have lost native plants, seasonal flooding and bird habitat. Planting reeds can increase vegetation quickly, yet the site may still lack the water regime needed for a functioning wetland.
+
+Reference conditions can come from historical records, nearby intact ecosystems or a desired future state designed for current climate. None is perfect. Historical conditions may be impossible to recreate because temperature, surrounding land use and invasive species have changed.
+
+Species count alone can mislead. A site may contain many species because invasive plants are present. Native richness, abundance, food-web structure and habitat quality can provide more useful information.
+
+Function matters too. A restored floodplain should not only contain the right plants; it should also store water, support nutrient cycling and provide habitat. Structural similarity without functional recovery may produce a landscape that looks restored but behaves differently.
+
+Time is crucial. Trees can take decades to mature, soils recover slowly and animal communities may return only after habitat becomes suitable. A project assessed one year after planting can reward fast-growing vegetation while missing long-term failure.
+
+Connectivity also influences success. A small restored patch surrounded by roads and development may support fewer species than a similar patch linked to larger habitat. Local work can therefore depend on landscape context.
+
+Monitoring design should match objectives. If the goal is bird habitat, count breeding use and food availability. If the goal is flood mitigation, measure water storage and flow. A generic “hectares restored” figure says little about whether the intended function returned.
+
+Adaptive management accepts that restoration is uncertain. Monitoring can show when water levels, grazing pressure or species composition need adjustment.
+
+The broader lesson is that restoration is a trajectory rather than a one-day transformation. Success requires an explicit ecological reference, multiple measures and enough time to see whether structure and function are moving in the intended direction.`,
+ questions:[
+ q("EN08-Q1","BM-F01","medium","Why does restoration require a reference condition?","Success depends on what ecological state the project is trying to move toward",["Every ecosystem has one fixed historical state","References eliminate climate change","Planting automatically restores function"],"Without a target condition, the word restored has no clear ecological meaning.","restored toward what"),
+ q("EN08-Q2","BM-F02","hard","What can be inferred from a wetland with planted reeds but incorrect water regime?","It may look more natural without recovering key wetland functions",["Reeds guarantee bird habitat","Hydrology is irrelevant","The site must have maximum biodiversity"],"Vegetation structure alone does not prove functional restoration.","still lack the water regime"),
+ q("EN08-Q3","BM-F03","hard","Which option best states the central argument?","Restoration should be judged against explicit ecological goals using structure, function and long-term monitoring",["Hectares planted are sufficient","Historical conditions must always be recreated exactly","Species count alone measures success"],"The passage presents restoration as a multi-dimensional trajectory.","multiple measures"),
+ q("EN08-Q4","BM-F04","hard","What is the author's tone?","Scientific and qualified",["Opposed to restoration","Promotional","Humorous"],"The author supports restoration while explaining uncertainty, context and measurement limits.","None is perfect"),
+ q("EN08-Q5","BM-F05","medium","Why can total species count be misleading?","Invasive species can increase the count without improving ecological quality",["Species cannot be counted","Native species are always rare","High counts reduce habitat"],"Composition and ecological role matter, not just the number of species present.","invasive plants"),
+ q("EN08-Q6","BM-F06","hard","Which statement cannot be inferred?","A site that looks structurally similar to a natural ecosystem has necessarily recovered its functions",["Hydrology can matter for wetlands","Connectivity affects habitat value","Recovery can take decades"],"The passage explicitly separates structural appearance from functional recovery.","looks restored but behaves differently"),
+ q("EN08-Q7","BM-F07","hard","What role does the paragraph on connectivity play?","It shows that restoration success can depend on the landscape beyond the project boundary",["It proves roads always destroy restoration","It defines native richness","It argues only large sites matter"],"Habitat linkage changes species movement and use even when local work is similar.","landscape context"),
+ q("EN08-Q8","BM-F08","hard","Which conclusion follows most logically?","Monitoring indicators should be chosen from the specific function the restoration is meant to recover",["Every project should use bird counts","Hectares restored are sufficient","One-year monitoring is enough"],"The passage gives different metrics for bird habitat and flood mitigation.","match objectives"),
+ q("EN08-Q9","BM-F09","medium","In context, “trajectory” most nearly means:","a direction of change over time",["a one-time planting event","a species list","a map boundary"],"Restoration is described as a process moving toward a desired ecological state.","trajectory"),
+ q("EN08-Q10","BM-F10","hard","Which assumption does the passage challenge?","That planting vegetation is enough to prove an ecosystem has been restored",["Wetlands contain plants","Climate changes","Birds need habitat"],"The article repeatedly distinguishes visible planting from deeper ecological structure and function.","one-day transformation")
+ ]
+},
+{
+ id:"ENG008-BM-SP08",title:"Why Unemployment Rates Miss Some Labour-Market Strain",genre:"social-policy",
+ text:`The unemployment rate is one of the most widely used labour-market indicators. It usually counts people who do not have a job, are available to work and are actively seeking work. That definition is useful and internationally comparable, but it does not capture every form of labour-market difficulty.
+
+A person who wants a job but has stopped searching because repeated attempts failed may be classified outside the labour force rather than unemployed. If many discouraged workers stop looking, the unemployment rate can fall even though job opportunities have not improved.
+
+Underemployment is another gap. Someone working ten hours a week who wants full-time hours is employed in the headline statistics. Their situation is different from a fully employed worker even though both count as employed.
+
+Job quality matters too. Temporary, unstable or very low-paid work can reduce financial security without appearing as unemployment. A labour market can therefore show low unemployment alongside widespread insecurity.
+
+Participation rate adds context by showing what share of working-age people are active in the labour force. Changes in participation can reflect retirement, education, caregiving, discouragement or demographic shifts. Interpretation requires understanding the reason.
+
+Vacancy data helps measure employer demand, but vacancies vary in wage, location and skill requirements. A high vacancy count does not guarantee that jobseekers can match available roles.
+
+Long-term unemployment deserves separate attention because the consequences of six months without work can differ from a short transition between jobs. Skills can erode, networks weaken and employers may treat long gaps differently.
+
+Regional averages can hide local distress. A national rate may look healthy while one industrial town experiences severe job loss.
+
+For policy, the headline unemployment rate remains valuable because it is well defined and widely understood. The mistake is using it as the only measure of labour-market health.
+
+A broader dashboard can include participation, hours wanted, duration of unemployment, earnings, job stability and vacancies. These indicators do not replace the headline rate; they explain different dimensions of work.
+
+The broader lesson is that employment status is not simply a binary condition. Labour-market strain can appear through missing hours, discouraged search, unstable work or poor matching even when the standard unemployment rate is low.`,
+ questions:[
+ q("SP08-Q1","BM-F01","medium","Why can unemployment fall when discouraged workers stop searching?","They may leave the labour force and no longer meet the unemployment definition",["They automatically get jobs","Participation always rises","Vacancies disappear"],"Active job search is part of the standard unemployment definition.","stopped searching"),
+ q("SP08-Q2","BM-F02","hard","What can be inferred about a worker wanting full-time hours but working ten hours?","Headline employment status can hide substantial underemployment",["The worker is classified unemployed","Hours never matter","Part-time work always reflects preference"],"The person is employed but still has unmet demand for work.","wants full-time hours"),
+ q("SP08-Q3","BM-F03","hard","Which option best states the central argument?","Unemployment is useful but should be interpreted with participation, hours, job quality and duration",["Unemployment rates should be discarded","Everyone outside the labour force is discouraged","Vacancy counts measure worker welfare"],"The passage adds several dimensions of labour-market strain beyond the headline rate.","broader dashboard"),
+ q("SP08-Q4","BM-F04","hard","What is the author's tone?","Policy-focused and analytical",["Dismissive of labour statistics","Promotional","Alarmist"],"The author values the standard measure while explaining where complementary indicators are needed.","remains valuable"),
+ q("SP08-Q5","BM-F05","medium","Why does the author discuss vacancies?","Employer demand may not match jobseekers by skill, wage or location",["Vacancies mean unemployment is zero","Every vacancy is identical","Vacancy data replaces participation"],"Open positions only help if workers can realistically match them.","skill requirements"),
+ q("SP08-Q6","BM-F06","hard","Which statement cannot be inferred?","Low unemployment guarantees that most workers have secure, adequate jobs",["Job instability can coexist with low unemployment","Participation changes need interpretation","Long jobless spells have distinct consequences"],"The passage explicitly separates employment status from job quality and hours.","low unemployment alongside widespread insecurity"),
+ q("SP08-Q7","BM-F07","hard","What role does the regional paragraph play?","It shows that national averages can conceal concentrated local weakness",["It argues labour statistics should be local only","It defines underemployment","It proves industrial towns always decline"],"A strong national number may not represent every area.","hide local distress"),
+ q("SP08-Q8","BM-F08","hard","Which conclusion follows most logically?","Policymakers should diagnose which dimension of labour-market strain is weak before choosing a response",["One unemployment rate determines every policy","Participation should always be maximised","Vacancies should be ignored"],"Different problems—hours, matching, discouragement or instability—require different interpretation.","different dimensions"),
+ q("SP08-Q9","BM-F09","medium","In context, “participation” most nearly means:","being active in the labour force by working or seeking work",["receiving unemployment benefits","working full-time only","holding more than one job"],"Participation rate measures how many working-age people are engaged in the labour market.","active in the labour force"),
+ q("SP08-Q10","BM-F10","hard","Which assumption does the passage challenge?","That the unemployment rate alone fully describes labour-market health",["People seek jobs","Vacancies exist","Workers have different skills"],"The entire passage identifies labour stress outside the headline unemployment definition.","not the only measure")
+ ]
+},
+{
+ id:"ENG008-BM-PH08",title:"Why Appeals Need Independence as Well as Access",genre:"philosophy",
+ text:`A decision system can offer an appeal without offering a meaningful remedy. If the same person who made the original decision simply repeats it without reviewing new evidence, the process may technically contain an appeal while changing little in practice.
+
+Appeals serve several purposes. They can correct factual errors, allow new evidence, clarify rules and provide accountability when discretion was used poorly. Their value depends on both access and the quality of review.
+
+Independence matters because people are naturally invested in their earlier judgement. A reviewer who was not responsible for the original decision may be better placed to reconsider it. Complete institutional separation is not always necessary, but some distance can reduce defensive reasoning.
+
+Access matters too. A perfectly independent appeal that requires complex legal language, high fees or travel may be unavailable to the people who need it. Formal existence is not the same as practical usability.
+
+Time is another dimension. An appeal that succeeds after the consequence has become irreversible may offer recognition without effective remedy. A student excluded from an examination cannot fully recover the opportunity months later merely because a review eventually agrees.
+
+Reason-giving improves review. If the original decision states the evidence and rule used, the appellant can identify what is disputed. A vague decision forces the person to guess what must be challenged.
+
+Consistency remains important. Appeals should not become a second lottery in which outcomes depend only on the reviewer. Clear standards, recorded reasons and oversight can help similar cases receive similar treatment.
+
+There is also a tension between finality and endless review. Systems need a point at which decisions settle. Multiple appeal levels may be justified for severe consequences, while minor administrative disputes may need only one quick review.
+
+Evidence thresholds can differ from the original decision if the purpose of review differs. Some appeals ask whether the decision was reasonable based on available information; others reconsider the case completely.
+
+A fair design therefore specifies what the appeal can examine, who reviews it, how quickly it happens and what remedy is available.
+
+The broader lesson is that procedural fairness is not satisfied by adding an “appeal” button. A meaningful appeal must be reachable, sufficiently independent and capable of changing an incorrect decision before correction becomes pointless.`,
+ questions:[
+ q("PH08-Q1","BM-F01","medium","Why can an appeal exist only in form but not in substance?","The same decision-maker may simply repeat the original judgement without genuine review",["Appeals always reverse decisions","New evidence is never allowed","Every appeal is independent"],"The opening distinguishes a nominal appeal from a process capable of reconsideration.","changing little in practice"),
+ q("PH08-Q2","BM-F02","hard","What can be inferred from a successful appeal decided after an irreversible consequence?","Formal correction may arrive too late to provide an effective remedy",["Timing never matters","The original decision becomes correct","Every consequence can be reversed"],"The student example shows that delayed review can lose practical value.","cannot fully recover"),
+ q("PH08-Q3","BM-F03","hard","Which option best states the central argument?","Meaningful appeals require practical access, independent review, timely decisions and real remedies",["Every dispute needs multiple appeal levels","Appeals should always retry the entire case","The original decision-maker should never be involved"],"The passage treats appeal quality as multi-dimensional rather than a simple yes/no feature.","specifies what ... who ... how quickly"),
+ q("PH08-Q4","BM-F04","hard","What is the author's tone?","Reflective and procedural",["Hostile to institutions","Promotional","Humorous"],"The author analyses design principles and trade-offs within review systems.","tension between finality"),
+ q("PH08-Q5","BM-F05","medium","Why does reason-giving improve appeals?","It tells the person what evidence or rule needs to be challenged",["It guarantees reversal","It eliminates independence","It shortens every case"],"Clear reasons make disagreement more precise and review more focused.","identify what is disputed"),
+ q("PH08-Q6","BM-F06","hard","Which statement cannot be inferred?","An appeal is meaningful merely because a formal appeal channel exists",["High fees can limit access","Independence can reduce defensive reasoning","Finality can justify limits on repeated review"],"The entire passage rejects formal existence as sufficient.","not the same as practical usability"),
+ q("PH08-Q7","BM-F07","hard","What role does the paragraph on finality play?","It shows that fairness must be balanced against the need for decisions eventually to settle",["It argues appeals are unnecessary","It defines evidence thresholds","It proves every case needs one review only"],"Unlimited review has costs, so appeal depth can vary with consequence.","point at which decisions settle"),
+ q("PH08-Q8","BM-F08","hard","Which conclusion follows most logically?","Appeal design should be proportionate to the seriousness and reversibility of the decision",["Every administrative decision needs a court","Minor disputes need unlimited review","Timing should be ignored"],"The passage links multiple levels and speed to the severity and consequence of decisions.","severe consequences"),
+ q("PH08-Q9","BM-F09","medium","In context, “remedy” most nearly means:","a practical correction or relief for a wrong decision",["the written reason","the appeal fee","the original evidence"],"The passage distinguishes recognising an error from actually correcting its consequence.","effective remedy"),
+ q("PH08-Q10","BM-F10","hard","Which assumption does the passage challenge?","That simply offering an appeal automatically makes a decision process fair",["Decisions can be wrong","Reviewers use standards","Appeals take time"],"The passage argues that access, independence, timing and remedy determine whether the appeal is meaningful.","not satisfied by adding")
+ ]
+},
+{
+ id:"ENG008-BM-M08",title:"Why Engagement Does Not Equal Public Understanding",genre:"media",
+ text:`Digital newsrooms can measure clicks, watch time, comments and shares almost instantly. These metrics help editors understand what attracts attention, but attention is not the same as understanding.
+
+A headline can generate many clicks because it is surprising or emotionally charged. Readers may leave after a few seconds without absorbing the evidence or correction contained later in the article.
+
+Time spent on page is also ambiguous. A long session may indicate careful reading, but it can also mean the user left the tab open. A short session can reflect disinterest or simply a reader who found the needed fact immediately.
+
+Shares create another difficulty. People sometimes share articles they have not read, or share them to criticise rather than endorse. Treating every share as approval misreads the behaviour.
+
+Comments are similarly selective. A small highly motivated group can produce most discussion while the majority remains silent. Comment sentiment cannot automatically represent the wider audience.
+
+Comprehension requires different evidence. Surveys, quizzes or follow-up questions can test whether readers understood key facts, uncertainty and source strength. These methods are slower and more expensive than passive analytics, so they are used less often.
+
+Editorial goals also differ. Breaking alerts may need reach and speed, while an explanatory investigation may prioritise understanding and recall. One metric should not govern every format.
+
+Optimising only for engagement can create incentives for sensational framing because emotional content often performs well in attention metrics. That does not prove editors intentionally mislead, but it changes what the system rewards.
+
+Platforms add another layer because recommendation algorithms decide which stories receive exposure. High engagement may partly reflect distribution rather than intrinsic audience preference.
+
+A mature newsroom therefore separates reach, engagement, trust and comprehension. It can use clicks to understand discovery while using other methods to assess whether journalism achieved its informational purpose.
+
+The broader lesson is that behavioural metrics record what users did around content, not necessarily what they learned from it. Attention is valuable, but public understanding requires evidence about meaning, not only interaction.`,
+ questions:[
+ q("M08-Q1","BM-F01","medium","Why can high click volume fail to show understanding?","Readers may click but leave before absorbing the evidence",["Clicks cannot be measured","Every click means agreement","Headlines contain no information"],"The passage distinguishes attracting attention from successfully communicating meaning.","leave after a few seconds"),
+ q("M08-Q2","BM-F02","hard","What can be inferred from a long time-on-page measurement?","It is compatible with careful reading but does not prove it",["It always means comprehension","It proves the reader liked the article","It excludes an open background tab"],"The metric has multiple plausible interpretations.","also mean the user left the tab open"),
+ q("M08-Q3","BM-F03","hard","Which option best states the central argument?","Newsrooms should distinguish reach and engagement from trust and comprehension",["Engagement metrics are useless","Comments represent all readers","Clicks should govern every format"],"The passage recommends different measures for different editorial goals.","separates reach, engagement, trust and comprehension"),
+ q("M08-Q4","BM-F04","hard","What is the author's tone?","Analytical and media-critical",["Hostile to digital journalism","Promotional","Humorous"],"The author treats analytics as useful while warning about overinterpretation and incentives.","help editors ... but"),
+ q("M08-Q5","BM-F05","medium","Why does the author discuss shares made in criticism?","The same visible action can represent very different attitudes",["Sharing is always negative","Critics never read articles","Shares measure comprehension directly"],"Behavioural signals do not reveal motive without more context.","rather than endorse"),
+ q("M08-Q6","BM-F06","hard","Which statement cannot be inferred?","The most commented article necessarily represents the opinion of most readers",["Comments can come from a small active group","Algorithms affect exposure","Surveys can measure comprehension more directly"],"The passage explicitly warns that commenters are a selective subset.","majority remains silent"),
+ q("M08-Q7","BM-F07","hard","What role does the paragraph on editorial goals play?","It explains why different types of journalism need different success metrics",["It argues breaking news should ignore accuracy","It defines platform algorithms","It proves investigations need fewer readers"],"Reach may matter more for alerts, while understanding matters more for explanatory work.","One metric should not govern every format"),
+ q("M08-Q8","BM-F08","hard","Which conclusion follows most logically?","News organisations should avoid using engagement as the sole optimisation target for informational quality",["Clicks should be removed from dashboards","Emotional content is always misleading","Surveys should replace all analytics"],"Engagement-only incentives can reward attention without ensuring understanding.","optimising only for engagement"),
+ q("M08-Q9","BM-F09","medium","In context, “comprehension” most nearly means:","understanding the meaning and important information",["opening a page","sharing a headline","watching an advertisement"],"The passage contrasts comprehension with passive engagement actions.","understood key facts"),
+ q("M08-Q10","BM-F10","hard","Which assumption does the passage challenge?","That strong audience engagement automatically means journalism informed people well",["Readers use phones","Newsrooms measure clicks","Stories are shared"],"The final paragraph distinguishes user interaction from what users actually learned.","not necessarily what they learned")
+ ]
+}
+] as const;
