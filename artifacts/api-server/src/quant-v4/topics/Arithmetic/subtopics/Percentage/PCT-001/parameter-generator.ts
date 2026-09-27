@@ -11,6 +11,7 @@ export interface Pct001ParameterInput {
   language?: Pct001Language;
   questionLanguageId?: string;
   difficultyBand?: Pct001DifficultyBand;
+  diversityOrdinal?: number;
 }
 
 function pick<T>(items: readonly T[], seed: string): T {
