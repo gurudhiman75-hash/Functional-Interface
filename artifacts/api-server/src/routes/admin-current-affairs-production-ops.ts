@@ -1,22 +1,8 @@
 import { randomUUID } from "node:crypto";
 import { Router, type IRouter, type Response } from "express";
 
-import { loadDailyDiscoveryCensus } from "../current-affairs/daily-discovery-census";
-import {
-  listDailyMasterPackApprovalHistory,
-  revokeDailyMasterPackApproval,
-} from "../current-affairs/daily-master-pack-approval-runtime";
-import {
-  assertDailyMasterPackLanguage,
-  loadDailyMasterPack,
-  loadDailyMasterPacks,
-  type DailyMasterPackLanguage,
-} from "../current-affairs/daily-master-pack";
-import { renderDailyMasterPackPdf } from "../current-affairs/daily-master-pack-pdf";
-import { generateYesterdayCurrentAffairsOnDemand } from "../current-affairs/on-demand-yesterday-runtime";
+import type { DailyMasterPackLanguage } from "../current-affairs/daily-master-pack";
 import { previousIndiaDate } from "../current-affairs/orchestration-policy";
-import { loadCurrentAffairsProductionReadiness } from "../current-affairs/production-readiness-runtime";
-import { runCurrentAffairsProductionRecovery } from "../current-affairs/production-recovery-runtime";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
@@ -36,7 +22,11 @@ function requestedDate(value: unknown) {
 }
 
 function requestedLanguage(value: unknown): DailyMasterPackLanguage {
-  return assertDailyMasterPackLanguage(typeof value === "string" ? value : "en");
+  const language = (typeof value === "string" ? value : "en").trim().toLowerCase();
+  if (language !== "en" && language !== "hi" && language !== "pa") {
+    throw new Error("Unsupported Current Affairs master-pack language.");
+  }
+  return language;
 }
 
 async function selectedHeadlineCount(targetDate: string) {
@@ -68,6 +58,7 @@ router.use(authenticate);
 
 router.get("/production/readiness", requireAdminPermission("content.questions.read"), async (_req, res) => {
   try {
+    const { loadCurrentAffairsProductionReadiness } = await import("../current-affairs/production-readiness-runtime");
     res.json(await loadCurrentAffairsProductionReadiness());
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs production readiness");
@@ -77,6 +68,7 @@ router.get("/production/readiness", requireAdminPermission("content.questions.re
 router.get("/production/discovery-census", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
     const targetDate = requestedDate(req.query.date);
+    const { loadDailyDiscoveryCensus } = await import("../current-affairs/daily-discovery-census");
     res.json({ targetDate, census: await loadDailyDiscoveryCensus(targetDate) });
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs daily discovery census");
@@ -86,6 +78,7 @@ router.get("/production/discovery-census", requireAdminPermission("content.quest
 router.get("/production/master-packs", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
     const targetDate = requestedDate(req.query.date);
+    const { loadDailyMasterPacks } = await import("../current-affairs/daily-master-pack");
     res.json({ targetDate, masterPacks: await loadDailyMasterPacks(targetDate) });
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs multilingual daily master packs");
@@ -134,7 +127,7 @@ router.get("/production/master-pack-approval", requireAdminPermission("content.q
     );
     const [candidate, history] = await Promise.all([
       loadDailyMasterPackApprovalCandidate(targetDate),
-      listDailyMasterPackApprovalHistory(targetDate, 20),
+      (await import("../current-affairs/daily-master-pack-approval-runtime")).listDailyMasterPackApprovalHistory(targetDate, 20),
     ]);
     res.json({ targetDate, candidate, history });
   } catch (error) {
@@ -168,6 +161,7 @@ router.post("/production/master-pack-approval/revoke", requireAdminPermission("c
       res.status(400).json({ error: "approvalId is required", code: "CURRENT_AFFAIRS_MASTER_PACK_APPROVAL_ID_REQUIRED" });
       return;
     }
+    const { revokeDailyMasterPackApproval } = await import("../current-affairs/daily-master-pack-approval-runtime");
     const result = await revokeDailyMasterPackApproval({
       approvalId,
       actorUserId,
@@ -183,6 +177,7 @@ router.get("/production/master-pack", requireAdminPermission("content.questions.
   try {
     const targetDate = requestedDate(req.query.date);
     const language = requestedLanguage(req.query.lang);
+    const { loadDailyMasterPack } = await import("../current-affairs/daily-master-pack");
     res.json({ targetDate, language, masterPack: await loadDailyMasterPack(targetDate, language) });
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs daily master pack");
@@ -193,6 +188,7 @@ router.get("/production/master-pack/text", requireAdminPermission("content.quest
   try {
     const targetDate = requestedDate(req.query.date);
     const language = requestedLanguage(req.query.lang);
+    const { loadDailyMasterPack } = await import("../current-affairs/daily-master-pack");
     const masterPack = await loadDailyMasterPack(targetDate, language);
     if (!masterPack) {
       res.status(404).json({
@@ -214,6 +210,7 @@ router.get("/production/master-pack/pdf", requireAdminPermission("content.questi
   try {
     const targetDate = requestedDate(req.query.date);
     const language = requestedLanguage(req.query.lang);
+    const { loadDailyMasterPack } = await import("../current-affairs/daily-master-pack");
     const masterPack = await loadDailyMasterPack(targetDate, language);
     if (!masterPack) {
       res.status(404).json({
@@ -222,6 +219,7 @@ router.get("/production/master-pack/pdf", requireAdminPermission("content.questi
       });
       return;
     }
+    const { renderDailyMasterPackPdf } = await import("../current-affairs/daily-master-pack-pdf");
     const rendered = renderDailyMasterPackPdf(masterPack.payload);
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Length", String(rendered.buffer.length));
@@ -275,6 +273,7 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
         return;
       }
     }
+    const { generateYesterdayCurrentAffairsOnDemand } = await import("../current-affairs/on-demand-yesterday-runtime");
     const result = await generateYesterdayCurrentAffairsOnDemand(new Date(), requestedTargetDate);
     await sqlClient`
       INSERT INTO platform.audit_events (
@@ -312,6 +311,7 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
 
 router.post("/production/recover", requireAdminPermission("jobs.manage"), async (_req, res) => {
   try {
+    const { runCurrentAffairsProductionRecovery } = await import("../current-affairs/production-recovery-runtime");
     const result = await runCurrentAffairsProductionRecovery({ triggerMode: "manual" });
     res.status(result.skipped ? 200 : 201).json(result);
   } catch (error) {
