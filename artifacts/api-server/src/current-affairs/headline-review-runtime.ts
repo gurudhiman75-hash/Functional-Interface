@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { isIP } from "node:net";
 
 import { sqlClient } from "../lib/db";
 import {
@@ -182,6 +183,200 @@ export function headlineReviewProfile(row: Record<string, unknown>, targetDate: 
     linkedEventCode: row.linkedEventCode ? String(row.linkedEventCode) : null,
     linkedEventStatus: row.linkedEventStatus ? String(row.linkedEventStatus) : null,
     linkedEventTitle: row.linkedEventTitle ? String(row.linkedEventTitle) : null,
+  };
+}
+
+
+export type CurrentAffairsHeadlineNewsPreview = {
+  candidateId: string;
+  title: string;
+  sourceName: string;
+  sourceUrl: string;
+  publishedAt: string | null;
+  context: string;
+  contextSource: "linked_event" | "stored_summary" | "live_source" | "unavailable";
+  note: string | null;
+  generatedAt: string;
+};
+
+const NEWS_PREVIEW_MAX_BYTES = 1_500_000;
+const NEWS_PREVIEW_MAX_CHARS = 2_400;
+
+function decodeHtmlEntities(value: string) {
+  return value
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&#(\d+);/g, (_match, code) => {
+      const value = Number(code);
+      return Number.isFinite(value) ? String.fromCodePoint(value) : " ";
+    })
+    .replace(/&#x([0-9a-f]+);/gi, (_match, code) => {
+      const value = Number.parseInt(code, 16);
+      return Number.isFinite(value) ? String.fromCodePoint(value) : " ";
+    });
+}
+
+function visibleHtmlText(value: string) {
+  return decodeHtmlEntities(
+    value
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+      .replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi, " ")
+      .replace(/<[^>]+>/g, " "),
+  ).replace(/\s+/g, " ").trim();
+}
+
+function extractMetaDescription(html: string) {
+  const candidates: string[] = [];
+  const patterns = [
+    /<meta\b[^>]*(?:name|property)\s*=\s*["'](?:description|og:description|twitter:description)["'][^>]*content\s*=\s*["']([^"']+)["'][^>]*>/gi,
+    /<meta\b[^>]*content\s*=\s*["']([^"']+)["'][^>]*(?:name|property)\s*=\s*["'](?:description|og:description|twitter:description)["'][^>]*>/gi,
+  ];
+  for (const pattern of patterns) {
+    for (const match of html.matchAll(pattern)) {
+      const text = visibleHtmlText(match[1] ?? "");
+      if (text.length >= 40) candidates.push(text);
+    }
+  }
+  return candidates.sort((a, b) => b.length - a.length)[0] ?? "";
+}
+
+function extractParagraphPreview(html: string) {
+  const paragraphs: string[] = [];
+  for (const match of html.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)) {
+    const text = visibleHtmlText(match[1] ?? "");
+    if (text.length < 70) continue;
+    if (/cookie|privacy policy|subscribe|sign in|advertisement/i.test(text) && text.length < 180) continue;
+    paragraphs.push(text);
+    if (paragraphs.join(" ").length >= NEWS_PREVIEW_MAX_CHARS) break;
+  }
+  return paragraphs.join(" ").slice(0, NEWS_PREVIEW_MAX_CHARS).trim();
+}
+
+function isPrivateIpv4(host: string) {
+  const parts = host.split(".").map(Number);
+  if (parts.length !== 4 || parts.some((part) => !Number.isInteger(part) || part < 0 || part > 255)) return false;
+  return parts[0] === 10
+    || parts[0] === 127
+    || (parts[0] === 169 && parts[1] === 254)
+    || (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31)
+    || (parts[0] === 192 && parts[1] === 168)
+    || parts[0] === 0;
+}
+
+function assertNewsPreviewUrl(raw: string) {
+  const url = new URL(raw);
+  if (url.protocol !== "https:") throw new Error("News preview requires an HTTPS source URL");
+  const host = url.hostname.toLowerCase().replace(/^\[|\]$/g, "");
+  if (!host || host === "localhost" || host.endsWith(".local") || host.endsWith(".internal")) {
+    throw new Error("News preview source host is not allowed");
+  }
+  const ipVersion = isIP(host);
+  if (ipVersion === 4 && isPrivateIpv4(host)) throw new Error("News preview source host is private");
+  if (ipVersion === 6 && (host === "::1" || host.startsWith("fc") || host.startsWith("fd") || host.startsWith("fe80:"))) {
+    throw new Error("News preview source host is private");
+  }
+  return url;
+}
+
+async function readNewsPreviewResponse(response: Response) {
+  const declared = Number(response.headers.get("content-length") ?? 0);
+  if (declared > NEWS_PREVIEW_MAX_BYTES) throw new Error("News source page exceeds preview size limit");
+  const buffer = Buffer.from(await response.arrayBuffer());
+  if (buffer.byteLength > NEWS_PREVIEW_MAX_BYTES) throw new Error("News source page exceeds preview size limit");
+  return buffer.toString("utf8");
+}
+
+async function fetchLiveNewsContext(sourceUrl: string) {
+  let url = assertNewsPreviewUrl(sourceUrl);
+  for (let redirectCount = 0; redirectCount <= 2; redirectCount += 1) {
+    const response = await fetch(url, {
+      headers: {
+        accept: "text/html,application/xhtml+xml;q=0.9,text/plain;q=0.5",
+        "user-agent": "Examtree-Current-Affairs-Editorial-Review/1.0",
+      },
+      redirect: "manual",
+      signal: AbortSignal.timeout(12_000),
+    });
+    if (response.status >= 300 && response.status < 400) {
+      const location = response.headers.get("location");
+      if (!location) throw new Error(`News source returned redirect HTTP ${response.status} without Location`);
+      if (redirectCount === 2) throw new Error("News source exceeded redirect limit");
+      url = assertNewsPreviewUrl(new URL(location, url).toString());
+      continue;
+    }
+    if (!response.ok) throw new Error(`News source returned HTTP ${response.status}`);
+    const contentType = String(response.headers.get("content-type") ?? "").toLowerCase();
+    if (contentType && !contentType.includes("html") && !contentType.includes("text/plain")) {
+      throw new Error(`News source has unsupported content type ${contentType.split(";")[0]}`);
+    }
+    const html = await readNewsPreviewResponse(response);
+    return (extractMetaDescription(html) || extractParagraphPreview(html)).slice(0, NEWS_PREVIEW_MAX_CHARS);
+  }
+  throw new Error("News source redirect resolution failed");
+}
+
+export async function loadCurrentAffairsHeadlineNewsPreview(candidateId: string): Promise<CurrentAffairsHeadlineNewsPreview> {
+  const rows = await sqlClient`
+    SELECT
+      candidate.id::text AS "candidateId",
+      candidate.raw_title AS title,
+      candidate.raw_summary AS "rawSummary",
+      candidate.source_url AS "sourceUrl",
+      candidate.published_at::text AS "publishedAt",
+      source.name AS "sourceName",
+      linked_event.summary AS "linkedEventSummary"
+    FROM content.current_affairs_ingestion_candidates candidate
+    JOIN content.current_affairs_sources source ON source.id=candidate.source_id
+    LEFT JOIN LATERAL (
+      SELECT event.summary
+      FROM content.current_affairs_event_candidates link
+      JOIN content.current_affairs_events event ON event.id=link.event_id
+      WHERE link.candidate_id=candidate.id
+      ORDER BY
+        CASE event.status WHEN 'verified' THEN 0 WHEN 'review' THEN 1 WHEN 'candidate' THEN 2 ELSE 3 END,
+        event.updated_at DESC
+      LIMIT 1
+    ) linked_event ON true
+    WHERE candidate.id=${candidateId}::uuid
+    LIMIT 1
+  `;
+  const row = rows[0];
+  if (!row) throw new Error("Current Affairs headline candidate not found");
+
+  const linkedEventSummary = String(row.linkedEventSummary ?? "").replace(/\s+/g, " ").trim();
+  const rawSummary = String(row.rawSummary ?? "").replace(/\s+/g, " ").trim();
+  let context = linkedEventSummary || rawSummary;
+  let contextSource: CurrentAffairsHeadlineNewsPreview["contextSource"] = linkedEventSummary
+    ? "linked_event"
+    : rawSummary
+      ? "stored_summary"
+      : "unavailable";
+  let note: string | null = null;
+
+  if (!context) {
+    try {
+      context = await fetchLiveNewsContext(String(row.sourceUrl ?? ""));
+      if (context) contextSource = "live_source";
+    } catch (error) {
+      note = (error instanceof Error ? error.message : "Unable to load source preview").slice(0, 500);
+    }
+  }
+
+  return {
+    candidateId: String(row.candidateId),
+    title: String(row.title ?? "").replace(/\s+/g, " ").trim(),
+    sourceName: String(row.sourceName ?? "Unknown source"),
+    sourceUrl: String(row.sourceUrl ?? ""),
+    publishedAt: row.publishedAt ? String(row.publishedAt) : null,
+    context: context.slice(0, NEWS_PREVIEW_MAX_CHARS),
+    contextSource,
+    note,
+    generatedAt: new Date().toISOString(),
   };
 }
 
