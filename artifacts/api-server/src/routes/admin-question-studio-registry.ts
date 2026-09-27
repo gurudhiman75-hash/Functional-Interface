@@ -1,41 +1,56 @@
-import { Router, type IRouter } from "express";
+import { Router, type IRouter, type RequestHandler } from "express";
 
-import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
-import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
-import adminQuestionStudioArgumentsCp015Router from "./admin-question-studio-arguments-cp015";
-import adminQuestionStudioArgumentsCp014Router from "./admin-question-studio-arguments-cp014";
-import adminQuestionStudioArgumentsCp013Router from "./admin-question-studio-arguments-cp013";
-import adminQuestionStudioArgumentsCp012Router from "./admin-question-studio-arguments-cp012";
-import adminQuestionStudioArgumentsCp010Router from "./admin-question-studio-arguments-cp010";
-import adminQuestionStudioArgumentsCp007Router from "./admin-question-studio-arguments-cp007-v2";
-import adminQuestionStudioArgumentsRouter from "./admin-question-studio-arguments";
-import adminQuestionStudioCom003Router from "./admin-question-studio-com003";
-import adminQuestionStudioSriRouter from "./admin-question-studio-sri";
-import adminQuestionStudioEngineV1Router from "./admin-question-studio-engine-v1";
-import adminQuestionStudioDataSufficiencyCurrentRouter from "./admin-question-studio-data-sufficiency-current";
-import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";
-import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";
-import adminQuestionStudioCp013Router from "./admin-question-studio-cp013";
-import adminQuestionStudioAverageRouter from "./admin-question-studio-average";
-import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
-import adminQuestionStudioCalibrationRouter from "./admin-question-studio-calibration";
-import adminQuestionStudioMixedDifficultyRouter from "./admin-question-studio-mixed-difficulty";
-import adminQuestionStudioSeriesWorkflowRouter from "./admin-question-studio-series-workflow";
-import adminQuestionStudioSeriesRouter from "./admin-question-studio-series";
-import adminQuestionStudioInterestChapterRouter from "./admin-question-studio-interest-chapter";
-import adminQuestionStudioInterestRouter from "./admin-question-studio-interest";
-import adminQuestionStudioMensurationRouter from "./admin-question-studio-mensuration";
-import adminQuestionStudioMensurationFullRouter from "./admin-question-studio-mensuration-full";
-import adminQuestionStudioAlgebraRouter from "./admin-question-studio-algebra";
-import adminQuestionStudioDataSufficiencyRouter from "./admin-question-studio-data-sufficiency";
-import adminQuestionStudioProbabilityRouter from "./admin-question-studio-probability";
-import adminQuestionStudioCalendarRouter from "./admin-question-studio-calendar";
-import adminQuestionStudioCubesDiceWorkflowRouter from "./admin-question-studio-cubes-dice-workflow";
-import adminQuestionStudioCubesDiceRouter from "./admin-question-studio-cubes-dice";
-import adminQuestionStudioSpatialWorkflowRouter from "./admin-question-studio-spatial-workflow";
-import adminQuestionStudioSpatialV5Router from "./admin-question-studio-spatial-v5";
-import adminQuestionStudioSpatialRouter from "./admin-question-studio-spatial";
-import adminQuestionStudioRouter from "./admin-question-studio";
+function lazyRouter(loader: () => Promise<{ default: IRouter }>): RequestHandler {
+  let routerPromise: Promise<IRouter> | null = null;
+  return (req, res, next) => {
+    routerPromise ??= loader().then((module) => module.default);
+    void routerPromise
+      .then((loadedRouter) => loadedRouter(req, res, next))
+      .catch(next);
+  };
+}
+
+// Keep governed Question Studio packages isolated. Loading the registry must
+// not hydrate every chapter engine/content authority into the 512 MiB web
+// process; each package is imported only when request flow reaches it.
+const adminQuestionStudioBulkHardeningRouter = lazyRouter(() => import("./admin-question-studio-bulk-hardening"));
+const adminQuestionStudioQualityRouter = lazyRouter(() => import("./admin-question-studio-quality"));
+const adminQuestionStudioArgumentsCp015Router = lazyRouter(() => import("./admin-question-studio-arguments-cp015"));
+const adminQuestionStudioArgumentsCp014Router = lazyRouter(() => import("./admin-question-studio-arguments-cp014"));
+const adminQuestionStudioArgumentsCp013Router = lazyRouter(() => import("./admin-question-studio-arguments-cp013"));
+const adminQuestionStudioArgumentsCp012Router = lazyRouter(() => import("./admin-question-studio-arguments-cp012"));
+const adminQuestionStudioArgumentsCp010Router = lazyRouter(() => import("./admin-question-studio-arguments-cp010"));
+const adminQuestionStudioArgumentsCp007Router = lazyRouter(() => import("./admin-question-studio-arguments-cp007-v2"));
+const adminQuestionStudioArgumentsRouter = lazyRouter(() => import("./admin-question-studio-arguments"));
+const adminQuestionStudioCom003Router = lazyRouter(() => import("./admin-question-studio-com003"));
+const adminQuestionStudioSriRouter = lazyRouter(() => import("./admin-question-studio-sri"));
+const adminQuestionStudioEngineV1Router = lazyRouter(() => import("./admin-question-studio-engine-v1"));
+const adminQuestionStudioDataSufficiencyCurrentRouter = lazyRouter(() => import("./admin-question-studio-data-sufficiency-current"));
+const adminQuestionStudioCp014Router = lazyRouter(() => import("./admin-question-studio-cp014"));
+const adminQuestionStudioTrigonometryRouter = lazyRouter(() => import("./admin-question-studio-trigonometry"));
+const adminQuestionStudioCp013Router = lazyRouter(() => import("./admin-question-studio-cp013"));
+const adminQuestionStudioAverageRouter = lazyRouter(() => import("./admin-question-studio-average"));
+const adminQuestionStudioRegenerationRouter = lazyRouter(() => import("./admin-question-studio-regeneration"));
+const adminQuestionStudioCalibrationRouter = lazyRouter(() => import("./admin-question-studio-calibration"));
+const adminQuestionStudioMixedDifficultyRouter = lazyRouter(() => import("./admin-question-studio-mixed-difficulty"));
+const adminQuestionStudioSeriesWorkflowRouter = lazyRouter(() => import("./admin-question-studio-series-workflow"));
+const adminQuestionStudioSeriesRouter = lazyRouter(() => import("./admin-question-studio-series"));
+const adminQuestionStudioInterestChapterRouter = lazyRouter(() => import("./admin-question-studio-interest-chapter"));
+const adminQuestionStudioInterestRouter = lazyRouter(() => import("./admin-question-studio-interest"));
+const adminQuestionStudioMensurationRouter = lazyRouter(() => import("./admin-question-studio-mensuration"));
+const adminQuestionStudioMensurationFullRouter = lazyRouter(() => import("./admin-question-studio-mensuration-full"));
+const adminQuestionStudioAlgebraRouter = lazyRouter(() => import("./admin-question-studio-algebra"));
+const adminQuestionStudioDataSufficiencyRouter = lazyRouter(() => import("./admin-question-studio-data-sufficiency"));
+const adminQuestionStudioProbabilityRouter = lazyRouter(() => import("./admin-question-studio-probability"));
+const adminQuestionStudioCalendarRouter = lazyRouter(() => import("./admin-question-studio-calendar"));
+const adminQuestionStudioCubesDiceWorkflowRouter = lazyRouter(() => import("./admin-question-studio-cubes-dice-workflow"));
+const adminQuestionStudioCubesDiceRouter = lazyRouter(() => import("./admin-question-studio-cubes-dice"));
+const adminQuestionStudioSpatialWorkflowRouter = lazyRouter(() => import("./admin-question-studio-spatial-workflow"));
+const adminQuestionStudioSpatialV5Router = lazyRouter(() => import("./admin-question-studio-spatial-v5"));
+const adminQuestionStudioSpatialRouter = lazyRouter(() => import("./admin-question-studio-spatial"));
+const adminQuestionStudioRouter = lazyRouter(() => import("./admin-question-studio"));
+
+
 
 /**
  * Canonical Question Studio route registry.
