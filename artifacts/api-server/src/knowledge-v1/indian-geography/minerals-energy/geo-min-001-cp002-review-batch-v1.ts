@@ -497,7 +497,7 @@ buildGeoMinQl("IRON-ORE-BELT-RECOGNITION-AND-MAPPING", "Iron ore belt recognitio
     "sourceFactId": "IRON-BELTS-LIST"
   },
   {
-    "stem": "Which iron-ore belt is correctly paired with its broad region?",
+    "stem": "Which iron-ore belt is correctly paired with its region?",
     "answer": "Ballari–Chitradurga — Karnataka",
     "distractors": [
       "Odisha–Jharkhand — western coast",
