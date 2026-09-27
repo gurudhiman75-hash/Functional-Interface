@@ -1,14 +1,10 @@
-import express, { type Express } from "express";
+import express, { type Express, type RequestHandler } from "express";
 import cors, { type CorsOptions } from "cors";
 import pinoHttp from "pino-http";
 import path from "path";
 import { fileURLToPath } from "url";
 import { logger } from "./lib/logger";
 import billingWebhookHandler from "./routes/billing-webhook";
-import adminCurrentAffairsProductionOpsRouter from "./routes/admin-current-affairs-production-ops";
-import adminCurrentAffairsEditorialActivationRouter from "./routes/admin-current-affairs-editorial-activation";
-import adminCurrentAffairsSelectedProcessingRouter from "./routes/admin-current-affairs-selected-processing";
-import adminCurrentAffairsPackEditorialRouter from "./routes/admin-current-affairs-pack-editorial";
 import adminSessionRouter from "./routes/admin-session";
 import { webhookRateLimit } from "./middlewares/rateLimit";
 import { adminRequestObservability } from "./middlewares/admin-request-observability";
@@ -16,6 +12,27 @@ import { adminRequestObservability } from "./middlewares/admin-request-observabi
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app: Express = express();
+
+function lazyRouter(loader: () => Promise<{ default: RequestHandler }>): RequestHandler {
+  let routerPromise: Promise<RequestHandler> | null = null;
+  return (req, res, next) => {
+    routerPromise ??= loader().then((module) => module.default);
+    void routerPromise.then((router) => router(req, res, next)).catch(next);
+  };
+}
+
+const adminCurrentAffairsProductionOpsRouter = lazyRouter(
+  () => import("./routes/admin-current-affairs-production-ops"),
+);
+const adminCurrentAffairsEditorialActivationRouter = lazyRouter(
+  () => import("./routes/admin-current-affairs-editorial-activation"),
+);
+const adminCurrentAffairsSelectedProcessingRouter = lazyRouter(
+  () => import("./routes/admin-current-affairs-selected-processing"),
+);
+const adminCurrentAffairsPackEditorialRouter = lazyRouter(
+  () => import("./routes/admin-current-affairs-pack-editorial"),
+);
 
 app.use(
   pinoHttp({
