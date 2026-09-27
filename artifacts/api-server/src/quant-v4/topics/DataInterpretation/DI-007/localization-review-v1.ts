@@ -9,6 +9,7 @@ import type {
 export type Di007LocalizationLocale = "hi-IN" | "pa-IN";
 
 export const DI007_LOCALIZATION_REVIEW_ID = "DI-007-HI-PA-REVIEW-V1" as const;
+export const DI007_LOCALIZATION_RELEASE_ID = "DI-007-HI-PA-FROZEN-V1" as const;
 
 type LocalizedContext = Readonly<{
   hi: Readonly<{
@@ -497,7 +498,8 @@ export function localizeDi007Question(
     language: locale === "hi-IN" ? "hi" as const : "pa" as const,
     locale,
     localizationReviewId: DI007_LOCALIZATION_REVIEW_ID,
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE" as const,
+    localizationReleaseId: DI007_LOCALIZATION_RELEASE_ID,
+    localizationStatus: "HI_PA_FROZEN" as const,
     sourceEnglishStatus: "ENGLISH_REVIEW_APPROVED" as const,
     stimulus: localizedStimulus,
     question: {
@@ -508,9 +510,9 @@ export function localizeDi007Question(
     validation: source.validation,
     traceability: {
       ...source.traceability,
-      reviewStatus: "MULTILINGUAL_REVIEW_CANDIDATE" as const,
-      localizationStatus: "HI_PA_REVIEW_CANDIDATE" as const,
-      questionStudioDiscoverable: false as const,
+      reviewStatus: "MULTILINGUAL_FROZEN" as const,
+      localizationStatus: "HI_PA_FROZEN" as const,
+      questionStudioDiscoverable: true as const,
       questionBankStatus: "NOT_STORED" as const,
       questionBankWritable: false as const,
       testEligibility: "INELIGIBLE" as const,
