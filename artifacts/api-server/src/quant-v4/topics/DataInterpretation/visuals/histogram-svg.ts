@@ -58,7 +58,7 @@ function niceYAxisStep(maxFrequency: number) {
 
 function readableYAxisStep(values: readonly number[], maxFrequency: number) {
   const commonUnit = values.filter((value) => value > 0).reduce((current, value) => gcd(current, value), 0);
-  if (commonUnit > 0 && maxFrequency / commonUnit <= 12) return commonUnit;
+  if (commonUnit > 0 && maxFrequency / commonUnit <= 20) return commonUnit;
   return niceYAxisStep(maxFrequency);
 }
 
