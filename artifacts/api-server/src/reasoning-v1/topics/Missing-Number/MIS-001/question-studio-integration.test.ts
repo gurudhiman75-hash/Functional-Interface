@@ -419,15 +419,6 @@ async function main() {
   assert.ok(cp027Rows.every(q=>q.structuralFingerprint.includes('SUM_OF_CUBES')));
   assert.ok(cp027Rows.every(q=>q.validation.solverAgreement===true && q.validation.exactlyOneIntendedRule===true));
 
-  const cp027 = await generateMis001QuestionStudioBatch({
-    packageId:'MIS-001', patternId:'MIS-CP-027', language:'en', count:8, seed:'MIS-QS-CP027-V1',
-  });
-  const cp027Rows = cp027.questions as Record<string,any>[];
-  assert.ok(cp027Rows.every(q=>q.candidateId==='MIS-CAND-111'));
-  assert.ok(cp027Rows.every(q=>q.sourceBacked===true));
-  assert.ok(cp027Rows.every(q=>q.createsNewSemanticAuthority===true));
-  assert.ok(cp027Rows.every(q=>q.structuralFingerprint.includes('SUM_OF_CUBES')));
-
   const hard = await generateMis001QuestionStudioBatch({
     packageId:'MIS-001', language:'en', difficulty:'Hard', count:18, seed:'MIS-QS-HARD-CP001-CP027',
   });
