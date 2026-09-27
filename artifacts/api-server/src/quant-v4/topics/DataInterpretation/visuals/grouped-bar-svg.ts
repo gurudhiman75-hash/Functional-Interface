@@ -95,7 +95,7 @@ export function renderDiGroupedBarSvg(model: DiGroupedBarVisualModel): string {
   const safeDescription = escapeSvgText(model.description ?? `Grouped bar chart with ${model.points.length} categories and two series, ${model.seriesALabel} and ${model.seriesBLabel}. Values are represented by bar height.`);
 
   const parts: string[] = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-grouped-bar="true" data-di-chart-theme="${DI_GROUPED_BAR_VISUAL_THEME}" data-color-palette="${DI_GROUPED_BAR_COLOR_PALETTE}" data-clean-axis="true" data-vertical-axis-spine="none" data-boundary-ticks="none" data-bar-value-labels="none" data-plot-headroom="true" shape-rendering="geometricPrecision">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-grouped-bar="true" data-di-chart-theme="${DI_GROUPED_BAR_VISUAL_THEME}" data-color-palette="${DI_GROUPED_BAR_COLOR_PALETTE}" data-clean-axis="true" data-vertical-axis-spine="none" data-boundary-ticks="none" data-bar-value-labels="true" data-plot-headroom="true" shape-rendering="geometricPrecision">`,
     `<title>${safeTitle}</title>`,
     `<desc>${safeDescription}</desc>`,
     `<rect x="0" y="0" width="${width}" height="${height}" fill="${COLORS.canvas}"/>`,
@@ -119,6 +119,7 @@ export function renderDiGroupedBarSvg(model: DiGroupedBarVisualModel): string {
     const h = (point.seriesA / yMax) * plotHeight;
     const y = plotBottom - h;
     parts.push(`<rect data-bar="true" data-series-id="SERIES_A" data-category-index="${index}" x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${barWidth.toFixed(2)}" height="${h.toFixed(2)}" rx="1.5" fill="${COLORS.seriesA.fill}" stroke="${COLORS.seriesA.stroke}" stroke-width="1" vector-effect="non-scaling-stroke"/>`);
+    parts.push(`<text data-series-a-value="${index}" x="${(x + barWidth / 2).toFixed(2)}" y="${(y - 8).toFixed(2)}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="${COLORS.seriesA.stroke}" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">${point.seriesA}</text>`);
   });
   parts.push(`</g>`);
 
@@ -129,6 +130,7 @@ export function renderDiGroupedBarSvg(model: DiGroupedBarVisualModel): string {
     const h = (point.seriesB / yMax) * plotHeight;
     const y = plotBottom - h;
     parts.push(`<rect data-bar="true" data-series-id="SERIES_B" data-category-index="${index}" x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${barWidth.toFixed(2)}" height="${h.toFixed(2)}" rx="1.5" fill="${COLORS.seriesB.fill}" stroke="${COLORS.seriesB.stroke}" stroke-width="1" vector-effect="non-scaling-stroke"/>`);
+    parts.push(`<text data-series-b-value="${index}" x="${(x + barWidth / 2).toFixed(2)}" y="${(y - 8).toFixed(2)}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="${COLORS.seriesB.stroke}" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">${point.seriesB}</text>`);
   });
   parts.push(`</g>`);
 
