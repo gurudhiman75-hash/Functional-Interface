@@ -172,20 +172,20 @@ function localizedStem(question: Di003V2Question, stimulus: Di003V2Stimulus, loc
     }
     case "PERCENT_CHANGE_WITHIN_SERIES": {
       const lower = Number(e.lowerIndex), higher = Number(e.higherIndex), label = seriesLabel(stimulus, locale, "SERIES_A"), c1 = categoryAt(stimulus, locale, lower), c2 = categoryAt(stimulus, locale, higher);
-      const h = [`निकटतम पूर्ण प्रतिशत में, ${c2} में ${label} का मान ${c1} की तुलना में कितने प्रतिशत अधिक है?`, `${c1} से ${c2} तक ${label} में लगभग कितने पूर्ण प्रतिशत की वृद्धि हुई?`, `${c2} में ${label} का मान ${c1} की तुलना में कितने प्रतिशत अधिक है? निकटतम पूर्ण प्रतिशत दीजिए।`];
-      const p = [`ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ, ${c2} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${c1} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${c1} ਤੋਂ ${c2} ਤੱਕ ${label} ਵਿੱਚ ਲਗਭਗ ਕਿੰਨੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਦਾ ਵਾਧਾ ਹੋਇਆ?`, `${c2} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${c1} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ? ਨਜ਼ਦੀਕੀ ਪੂਰਾ ਪ੍ਰਤੀਸ਼ਤ ਦਿਓ।`];
+      const h = [`${c2} में ${label} का मान ${c1} की तुलना में लगभग कितने प्रतिशत अधिक है?`, `${c1} से ${c2} तक ${label} में लगभग कितने प्रतिशत की वृद्धि हुई?`, `${c2} में ${label} का मान ${c1} की तुलना में लगभग कितने प्रतिशत अधिक है?`];
+      const p = [`${c2} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${c1} ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${c1} ਤੋਂ ${c2} ਤੱਕ ${label} ਵਿੱਚ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਦਾ ਵਾਧਾ ਹੋਇਆ?`, `${c2} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${c1} ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`];
       return (hi ? h : p)[s]!;
     }
     case "CATEGORY_SHARE_OF_SERIES_TOTAL": {
       const index = Number(e.categoryIndex), label = seriesLabel(stimulus, locale, e.seriesId), category = categoryAt(stimulus, locale, index);
-      const h = [`निकटतम पूर्ण प्रतिशत में, ${category} में ${label} का मान ${label} के पाँच-श्रेणी कुल का कितने प्रतिशत है?`, `${label} के कुल में ${category} की हिस्सेदारी लगभग कितने पूर्ण प्रतिशत है?`, `${label} के कुल में ${category} का प्रतिशत हिस्सा निकटतम पूर्ण प्रतिशत में ज्ञात कीजिए।`];
-      const p = [`ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ, ${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${label} ਦੇ ਪੰਜ-ਸ਼੍ਰੇਣੀ ਕੁੱਲ ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${label} ਦੇ ਕੁੱਲ ਵਿੱਚ ${category} ਦੀ ਹਿੱਸੇਦਾਰੀ ਲਗਭਗ ਕਿੰਨੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${label} ਦੇ ਕੁੱਲ ਵਿੱਚ ${category} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸਾ ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਕੱਢੋ।`];
+      const h = [`${category} में ${label} का मान ${label} के पाँच-श्रेणी कुल का लगभग कितने प्रतिशत है?`, `${label} के कुल में ${category} की हिस्सेदारी लगभग कितने प्रतिशत है?`, `${label} के कुल में ${category} का लगभग प्रतिशत हिस्सा ज्ञात कीजिए।`];
+      const p = [`${category} ਵਿੱਚ ${label} ਦਾ ਮੁੱਲ ${label} ਦੇ ਪੰਜ-ਸ਼੍ਰੇਣੀ ਕੁੱਲ ਦਾ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${label} ਦੇ ਕੁੱਲ ਵਿੱਚ ${category} ਦੀ ਹਿੱਸੇਦਾਰੀ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`, `${label} ਦੇ ਕੁੱਲ ਵਿੱਚ ${category} ਦਾ ਲਗਭਗ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸਾ ਕੱਢੋ।`];
       return (hi ? h : p)[s]!;
     }
     case "TOTAL_SERIES_PERCENT_EXCESS": {
       const a = seriesLabel(stimulus, locale, "SERIES_A"), b = seriesLabel(stimulus, locale, "SERIES_B");
-      const h = [`निकटतम पूर्ण प्रतिशत में, ${a} का कुल ${b} के कुल से कितने प्रतिशत अधिक है?`, `${a} का पाँच-श्रेणी कुल, ${b} के कुल से लगभग कितने पूर्ण प्रतिशत अधिक है?`, `${a} का समग्र कुल ${b} के कुल से कितने प्रतिशत अधिक है? निकटतम पूर्ण प्रतिशत दीजिए।`];
-      const p = [`ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ, ${a} ਦਾ ਕੁੱਲ ${b} ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${a} ਦਾ ਪੰਜ-ਸ਼੍ਰੇਣੀ ਕੁੱਲ, ${b} ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${a} ਦਾ ਸਮੁੱਚਾ ਕੁੱਲ ${b} ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ? ਨਜ਼ਦੀਕੀ ਪੂਰਾ ਪ੍ਰਤੀਸ਼ਤ ਦਿਓ।`];
+      const h = [`${a} का कुल ${b} के कुल से लगभग कितने प्रतिशत अधिक है?`, `${a} का पाँच-श्रेणी कुल, ${b} के कुल से लगभग कितने प्रतिशत अधिक है?`, `${a} का समग्र कुल ${b} के कुल से लगभग कितने प्रतिशत अधिक है?`];
+      const p = [`${a} ਦਾ ਕੁੱਲ ${b} ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${a} ਦਾ ਪੰਜ-ਸ਼੍ਰੇਣੀ ਕੁੱਲ, ${b} ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${a} ਦਾ ਸਮੁੱਚਾ ਕੁੱਲ ${b} ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`];
       return (hi ? h : p)[s]!;
     }
   }
@@ -242,17 +242,17 @@ function localizedExplanation(question: Di003V2Question, stimulus: Di003V2Stimul
     case "PERCENT_CHANGE_WITHIN_SERIES": {
       const i=Number(e.lowerIndex),j=Number(e.higherIndex),lower=stimulus.points[i]!.seriesA,higher=stimulus.points[j]!.seriesA,diff=higher-lower,label=seriesLabel(stimulus,locale,"SERIES_A");
       const headers=hi?["कम मान","अधिक मान","वृद्धि","वृद्धि प्रतिशत"]:["ਘੱਟ ਮੁੱਲ","ਵੱਧ ਮੁੱਲ","ਵਾਧਾ","ਵਾਧਾ ਪ੍ਰਤੀਸ਼ਤ"];
-      return pack("प्रतिशत वृद्धि के लिए वृद्धि को शुरुआती कम मान से भाग दें और 100 से गुणा करें। अंतिम उत्तर निकटतम पूर्ण प्रतिशत में लें।","ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਲਈ ਵਾਧੇ ਨੂੰ ਸ਼ੁਰੂਆਤੀ ਘੱਟ ਮੁੱਲ ਨਾਲ ਭਾਗ ਦਿਓ ਅਤੇ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ। ਅੰਤਿਮ ਉੱਤਰ ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਲਓ।",[`${label}: वृद्धि = ${higher} − ${lower} = ${diff}।`,`${diff}/${lower} × 100 ≈ ${question.answer}।`],[`${label}: ਵਾਧਾ = ${higher} − ${lower} = ${diff}।`,`${diff}/${lower} × 100 ≈ ${question.answer}।`],{headers,rows:[[String(lower),String(higher),String(diff),question.answer]]});
+      return pack("प्रतिशत वृद्धि के लिए वृद्धि को शुरुआती कम मान से भाग दें और 100 से गुणा करें।","ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੇ ਲਈ ਵਾਧੇ ਨੂੰ ਸ਼ੁਰੂਆਤੀ ਘੱਟ ਮੁੱਲ ਨਾਲ ਭਾਗ ਦਿਓ ਅਤੇ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।",[`${label}: वृद्धि = ${higher} − ${lower} = ${diff}।`,`${diff}/${lower} × 100 ≈ ${question.answer}।`],[`${label}: ਵਾਧਾ = ${higher} − ${lower} = ${diff}।`,`${diff}/${lower} × 100 ≈ ${question.answer}।`],{headers,rows:[[String(lower),String(higher),String(diff),question.answer]]});
     }
     case "CATEGORY_SHARE_OF_SERIES_TOTAL": {
       const index=Number(e.categoryIndex),label=seriesLabel(stimulus,locale,e.seriesId),value=seriesValue(stimulus,e.seriesId,index),total=totalForSeries(stimulus,e.seriesId);
       const headers=hi?["श्रेणी मान","शृंखला कुल","हिस्सेदारी"]:["ਸ਼੍ਰੇਣੀ ਮੁੱਲ","ਲੜੀ ਦਾ ਕੁੱਲ","ਹਿੱਸੇਦਾਰੀ"];
-      return pack("श्रेणी का मान भाग है और उसी शृंखला का पाँच-श्रेणी कुल पूर्ण है। भाग को पूर्ण से भाग देकर 100 से गुणा करें।","ਸ਼੍ਰੇਣੀ ਦਾ ਮੁੱਲ ਭਾਗ ਹੈ ਅਤੇ ਉਸੇ ਲੜੀ ਦਾ ਪੰਜ-ਸ਼੍ਰੇਣੀ ਕੁੱਲ ਪੂਰਾ ਹੈ। ਭਾਗ ਨੂੰ ਪੂਰੇ ਨਾਲ ਭਾਗ ਦੇ ਕੇ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।",[`${label} कुल = ${stimulus.points.map((_,i)=>seriesValue(stimulus,e.seriesId,i)).join(" + ")} = ${total}।`,`${value}/${total} × 100 ≈ ${question.answer} निकटतम पूर्ण प्रतिशत में।`],[`${label} ਕੁੱਲ = ${stimulus.points.map((_,i)=>seriesValue(stimulus,e.seriesId,i)).join(" + ")} = ${total}।`,`${value}/${total} × 100 ≈ ${question.answer} ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ।`],{headers,rows:[[String(value),String(total),question.answer]]});
+      return pack("श्रेणी का मान भाग है और उसी शृंखला का पाँच-श्रेणी कुल पूर्ण है। भाग को पूर्ण से भाग देकर 100 से गुणा करें।","ਸ਼੍ਰੇਣੀ ਦਾ ਮੁੱਲ ਭਾਗ ਹੈ ਅਤੇ ਉਸੇ ਲੜੀ ਦਾ ਪੰਜ-ਸ਼੍ਰੇਣੀ ਕੁੱਲ ਪੂਰਾ ਹੈ। ਭਾਗ ਨੂੰ ਪੂਰੇ ਨਾਲ ਭਾਗ ਦੇ ਕੇ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।",[`${label} कुल = ${stimulus.points.map((_,i)=>seriesValue(stimulus,e.seriesId,i)).join(" + ")} = ${total}।`,`${value}/${total} × 100 ≈ ${question.answer}।`],[`${label} ਕੁੱਲ = ${stimulus.points.map((_,i)=>seriesValue(stimulus,e.seriesId,i)).join(" + ")} = ${total}।`,`${value}/${total} × 100 ≈ ${question.answer}।`],{headers,rows:[[String(value),String(total),question.answer]]});
     }
     case "TOTAL_SERIES_PERCENT_EXCESS": {
       const totalA=stimulus.points.reduce((s,p)=>s+p.seriesA,0),totalB=stimulus.points.reduce((s,p)=>s+p.seriesB,0),diff=totalA-totalB;
       const headers=hi?[aLabel,bLabel,"अंतर","अधिक प्रतिशत"]:[aLabel,bLabel,"ਅੰਤਰ","ਵੱਧ ਪ੍ਰਤੀਸ਼ਤ"];
-      return pack("दोनों शृंखलाओं के कुल निकालें। बड़े और छोटे कुल का अंतर छोटे कुल का प्रतिशत होता है।","ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਕੁੱਲ ਕੱਢੋ। ਵੱਡੇ ਅਤੇ ਛੋਟੇ ਕੁੱਲ ਦਾ ਅੰਤਰ ਛੋਟੇ ਕੁੱਲ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਹੁੰਦਾ ਹੈ।",[`${aLabel} कुल = ${totalA}; ${bLabel} कुल = ${totalB}।`,`अंतर = ${totalA} − ${totalB} = ${diff}।`,`${diff}/${totalB} × 100 ≈ ${question.answer} निकटतम पूर्ण प्रतिशत में।`],[`${aLabel} ਕੁੱਲ = ${totalA}; ${bLabel} ਕੁੱਲ = ${totalB}।`,`ਅੰਤਰ = ${totalA} − ${totalB} = ${diff}।`,`${diff}/${totalB} × 100 ≈ ${question.answer} ਨਜ਼ਦੀਕੀ ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ।`],{headers,rows:[[String(totalA),String(totalB),String(diff),question.answer]]});
+      return pack("दोनों शृंखलाओं के कुल निकालें। बड़े और छोटे कुल का अंतर छोटे कुल का प्रतिशत होता है।","ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਕੁੱਲ ਕੱਢੋ। ਵੱਡੇ ਅਤੇ ਛੋਟੇ ਕੁੱਲ ਦਾ ਅੰਤਰ ਛੋਟੇ ਕੁੱਲ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਹੁੰਦਾ ਹੈ।",[`${aLabel} कुल = ${totalA}; ${bLabel} कुल = ${totalB}।`,`अंतर = ${totalA} − ${totalB} = ${diff}।`,`${diff}/${totalB} × 100 ≈ ${question.answer}।`],[`${aLabel} ਕੁੱਲ = ${totalA}; ${bLabel} ਕੁੱਲ = ${totalB}।`,`ਅੰਤਰ = ${totalA} − ${totalB} = ${diff}।`,`${diff}/${totalB} × 100 ≈ ${question.answer}।`],{headers,rows:[[String(totalA),String(totalB),String(diff),question.answer]]});
     }
   }
 }
