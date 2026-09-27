@@ -72,6 +72,9 @@ export const MIS_SEMANTIC_AUTHORITY_ALIASES: readonly MisSemanticAuthorityAlias[
 
   // CP019 stable pre-product subtraction is the same parameterized family as MIS-CAND-059.
   { runtimeCandidateId:'MIS-CAND-097', canonicalCandidateId:'MIS-CAND-059', disposition:'ALGEBRAIC_DUPLICATE', reason:'(a−2)b and ab−b=(a−1)b share the same subtract-a-stable-constant-from-first, then multiply-by-second semantic family; the constant is rule context.' },
+
+  // CP025 RRB linked-product figure repeats the existing PRODUCT relation on two adjacent pairs.
+  { runtimeCandidateId:'MIS-CAND-109', canonicalCandidateId:'MIS-CAND-003', disposition:'RENDERER_OR_ROLE_VARIANT', reason:'RRB linked-product figure applies the same multiplication authority to left×shared and shared×right; the shared-factor topology is a renderer/role dimension, not a new arithmetic semantic.' },
 ]);
 
 const DIRECT = new Map(MIS_SEMANTIC_AUTHORITY_ALIASES.map((entry) => [entry.runtimeCandidateId, entry.canonicalCandidateId]));
