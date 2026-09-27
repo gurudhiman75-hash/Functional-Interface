@@ -9,9 +9,7 @@ A family with a fixed-rate mortgage may carry large debt while facing predictabl
 
 Income quality matters too. A salaried household with stable earnings can manage a given payment more easily than a household whose income is seasonal or commission-based. Two families with identical annual income may therefore face different month-to-month risk.
 
-Debt purpose also matters. A mortgage may finance a long-lived asset, while high-interest consumer credit can fund short-lived spending. This does not make one form of debt automatically safe, but it changes the balance-sheet context.
-
-Liquid savings provide another buffer. A household with emergency savings can absorb a temporary income shock without immediately missing payments. A highly indebted household with no liquid assets is more exposed.
+Debt purpose also matters. A mortgage may finance a long-lived asset, while high-interest consumer credit can fund short-lived spending. This does not make one form of debt automatically safe, but it changes the balance-sheet context. Liquid savings provide another buffer. A household with emergency savings can absorb a temporary income shock without immediately missing payments. A highly indebted household with no liquid assets is more exposed.
 
 Aggregate ratios hide distribution. National household debt may rise because high-income homeowners borrow more, while low-income renters remain lightly indebted. The average leverage can increase without the same risk spreading evenly across society.
 
@@ -19,9 +17,7 @@ Lenders and policymakers therefore examine debt-service ratios, arrears, loan-to
 
 Stress tests are useful because they ask what happens if rates rise, income falls or house prices decline. They are scenarios, not predictions, and their value depends on realistic assumptions.
 
-Policy interpretation should also distinguish household distress from system-wide financial risk. A small group can suffer severe hardship without threatening banks, while widespread moderate stress can create broader economic effects through reduced spending.
-
-The broader lesson is that debt volume alone does not reveal debt sustainability. The relevant question is whether households can continue meeting obligations under plausible changes in income, rates and asset values.`,
+Policy interpretation should also distinguish household distress from system-wide financial risk. A small group can suffer severe hardship without threatening banks, while widespread moderate stress can create broader economic effects through reduced spending. The broader lesson is that debt volume alone does not reveal debt sustainability. The relevant question is whether households can continue meeting obligations under plausible changes in income, rates and asset values.  Repayment risk also changes over the life of a loan. A recently borrowed household may have little equity and a long period of payments ahead, while an older borrower may owe less relative to asset value even if the original loan was large. Inflation can reduce the real value of fixed nominal debt when incomes rise, but that benefit is uneven if wages lag. Currency denomination matters for some borrowers too: debt owed in a foreign currency can become harder to service when exchange rates move sharply. These factors reinforce why analysts need both balance-sheet and cash-flow views rather than one leverage ratio.`,
  questions:[
  q("E12-Q1","BM-F01","medium","Why can two households with similar debt levels face different repayment pressure?","Their interest rates and income stability can differ",["Debt amount determines everything","Mortgages never change payments","Income timing never matters"],"The passage separates debt stock from the cash-flow burden created by rates and earnings.","cash-flow burden"),
  q("E12-Q2","BM-F02","hard","What can be inferred about variable-rate borrowing?","It can become more difficult to service when interest rates rise",["It is always cheaper","It never affects monthly payments","It eliminates refinancing risk"],"The passage specifically notes that variable-rate debt can produce sharp payment increases.","payment increase"),
@@ -41,23 +37,17 @@ The broader lesson is that debt volume alone does not reveal debt sustainability
 
 Retailers therefore need to interpret turnover alongside service availability. A store can improve turnover by reducing safety stock, yet lose sales when demand unexpectedly rises.
 
-Product type matters. Fresh food should turn quickly because spoilage is costly. Spare parts for rare equipment may turn slowly but still be valuable if customers urgently need them when failures occur.
-
-Margins add another dimension. A low-margin grocery item may need fast turnover to be profitable, while a high-margin specialised product can justify slower movement.
+Product type matters. Fresh food should turn quickly because spoilage is costly. Spare parts for rare equipment may turn slowly but still be valuable if customers urgently need them when failures occur. Margins add another dimension. A low-margin grocery item may need fast turnover to be profitable, while a high-margin specialised product can justify slower movement.
 
 Seasonality can distort annual averages. A toy retailer may build stock before holidays and sell it rapidly over a short period. Looking only at year-end inventory can miss the buildup and clearance cycle.
 
 Supplier reliability changes the optimal stock level. If replenishment arrives daily and predictably, a company can operate with lower inventory. Long or uncertain lead times require more buffer.
 
-Stockouts are not fully visible in sales data because an unavailable item cannot be purchased. A product can appear to have weak demand when customers simply leave or choose another brand.
-
-For this reason, businesses track fill rate, lost sales, backorders and days of supply alongside turnover. These measures help distinguish healthy movement from chronic shortage.
+Stockouts are not fully visible in sales data because an unavailable item cannot be purchased. A product can appear to have weak demand when customers simply leave or choose another brand. For this reason, businesses track fill rate, lost sales, backorders and days of supply alongside turnover. These measures help distinguish healthy movement from chronic shortage.
 
 Technology can improve visibility but not remove the trade-off. Forecasting software can reduce error, yet demand shocks and supplier disruptions remain.
 
-Working capital also matters. Excess inventory ties up cash and may require discounting later. Too little inventory protects cash but can reduce revenue and customer trust.
-
-The broader lesson is that inventory efficiency is not about maximising turnover. It is about holding enough stock to meet economically valuable demand while avoiding unnecessary cash and obsolescence costs.`,
+Working capital also matters. Excess inventory ties up cash and may require discounting later. Too little inventory protects cash but can reduce revenue and customer trust. The broader lesson is that inventory efficiency is not about maximising turnover. It is about holding enough stock to meet economically valuable demand while avoiding unnecessary cash and obsolescence costs.  Inventory accuracy itself is another constraint. A system may report ten units available when two are damaged, misplaced or reserved for online orders. High turnover calculated from inaccurate records can create false confidence. Cycle counts, shrinkage measures and reservation states therefore matter alongside sales data. Businesses also distinguish deliberate stockouts from accidental ones: a product nearing replacement may be allowed to sell through, while a core item should remain available. The optimal inventory policy depends on service promise, product economics and replenishment risk, not a universal target turnover ratio.`,
  questions:[
  q("B11-Q1","BM-F01","medium","Why can very high inventory turnover be a warning sign?","The business may be holding too little stock and losing sales",["High turnover always means spoilage","Customers dislike fast-selling products","Turnover measures only profit"],"Rapid movement can come from understocking rather than pure efficiency.","customers frequently encounter shortages"),
  q("B11-Q2","BM-F02","hard","What can be inferred when a product sells poorly during frequent stockouts?","Observed sales may understate true demand",["Demand must be weak","The price must be too high","Inventory records are irrelevant"],"Customers cannot buy items that are unavailable, so sales alone miss lost demand.","cannot be purchased"),
@@ -79,9 +69,7 @@ A banking app may open successfully while money transfer fails. An e-commerce si
 
 This is why teams increasingly track service-level indicators tied to journeys: login success, payment completion, search latency or message delivery. These measures connect technical health with user outcome.
 
-Averages can still hide spikes. An API with acceptable average latency may become extremely slow during the busiest ten minutes of the day. Percentile measures help show the experience of slower requests.
-
-Dependency failure complicates responsibility. A platform can be healthy internally while a third-party payment gateway fails. Users still experience failure, so operational dashboards need to represent external dependencies even when the company does not control them.
+Averages can still hide spikes. An API with acceptable average latency may become extremely slow during the busiest ten minutes of the day. Percentile measures help show the experience of slower requests. Dependency failure complicates responsibility. A platform can be healthy internally while a third-party payment gateway fails. Users still experience failure, so operational dashboards need to represent external dependencies even when the company does not control them.
 
 Error budgets create a trade-off between reliability and change. A team that has used most of its allowed failure budget may delay risky releases until reliability improves. The concept treats some failure as inevitable but bounded.
 
@@ -89,9 +77,7 @@ Monitoring itself can fail. If a synthetic test checks only the homepage, it may
 
 Regional differences matter too. A service can perform well globally while one data centre or network route creates poor experience in a specific area.
 
-Incident review should therefore ask not only “Was the service up?” but “Which user actions failed, for whom, for how long and at what severity?”
-
-The broader lesson is that uptime is useful infrastructure information, not a complete measure of service reliability. Reliability is experienced through successful user journeys, and those journeys need direct measurement.`,
+Incident review should therefore ask not only “Was the service up?” but “Which user actions failed, for whom, for how long and at what severity?” The broader lesson is that uptime is useful infrastructure information, not a complete measure of service reliability. Reliability is experienced through successful user journeys, and those journeys need direct measurement.  Reliability targets also need consequence weighting. A five-minute outage in an internal analytics dashboard is not equivalent to five minutes of payment failure during peak commerce. Some teams therefore define separate objectives for critical and non-critical journeys. Recovery quality matters too. A system can return online while users still face duplicated transactions, lost state or delayed messages from the incident. Post-incident review should examine residual effects after nominal recovery. This broadens reliability from simple availability toward continuity, correctness and recoverability of the user experience.`,
  questions:[
  q("T10-Q1","BM-F01","medium","Why can 99.9 per cent uptime still hide serious problems?","The service can remain technically online while important user actions fail",["Uptime is never measured","Servers must always be offline","Users cannot experience latency"],"The passage distinguishes infrastructure availability from successful task completion.","checkout is broken"),
  q("T10-Q2","BM-F02","hard","What can be inferred from a homepage-only monitor?","It may miss failures deeper in the user journey",["It measures every transaction","It guarantees checkout health","It removes dependency risk"],"A narrow synthetic test can report success while a core function is broken.","checks only the homepage"),
@@ -113,9 +99,7 @@ A person may forget doses, stop because of side effects, be unable to afford a r
 
 Measurement method also matters. Self-report can be affected by memory or the desire to please clinicians. Pharmacy refill data show whether medicine was obtained, not whether each dose was taken. Electronic pill containers show opening events, not swallowing.
 
-Opportunity to take the medicine matters. If a patient is hospitalised and treatment is temporarily changed, counting the original home medication as “missed” may be inappropriate. The denominator should reflect periods when the prescription was actually intended to be taken.
-
-Complexity influences adherence. A once-daily medicine is usually easier to follow than several doses at different times. Multiple medications can create conflicting schedules.
+Opportunity to take the medicine matters. If a patient is hospitalised and treatment is temporarily changed, counting the original home medication as “missed” may be inappropriate. The denominator should reflect periods when the prescription was actually intended to be taken. Complexity influences adherence. A once-daily medicine is usually easier to follow than several doses at different times. Multiple medications can create conflicting schedules.
 
 Clinical importance varies too. Missing one low-risk supplement is not equivalent to missing a critical medicine where interruption can quickly cause harm. A single overall adherence percentage can flatten those differences.
 
@@ -123,9 +107,7 @@ Support should therefore be targeted. Reminder messages may help forgetfulness b
 
 Adherence also interacts with effectiveness. A medicine can be taken perfectly and still fail because it does not work for that patient. Conversely, poor adherence can make an effective treatment appear ineffective.
 
-For research and care, a stronger dashboard combines refill continuity, self-report, treatment opportunity, side effects and reasons for missed doses.
-
-The broader lesson is that adherence is behaviour embedded in access and treatment context. A percentage can show that prescribed use is incomplete, but it cannot by itself explain why or what intervention will help.`,
+For research and care, a stronger dashboard combines refill continuity, self-report, treatment opportunity, side effects and reasons for missed doses. The broader lesson is that adherence is behaviour embedded in access and treatment context. A percentage can show that prescribed use is incomplete, but it cannot by itself explain why or what intervention will help.  Social and household context can also affect adherence. A person managing several family responsibilities may miss doses because the schedule conflicts with work or caregiving. Packaging, language and health literacy can influence whether instructions are understood correctly. Clinicians sometimes simplify regimens or align doses with daily routines to reduce this burden. Yet simplification must preserve clinical effectiveness. Adherence support should therefore be designed around the specific barrier rather than assuming that motivation is the main problem. This avoids blaming patients for failures created partly by treatment complexity or access systems.`,
  questions:[
  q("H10-Q1","BM-F01","medium","Why can the same missed-dose rate require different interventions?","Missed doses can arise from different causes such as forgetting, cost or side effects",["All missed doses have one cause","Adherence measures only pharmacy stock","Every intervention is a reminder"],"The passage distinguishes several mechanisms behind the same behavioural outcome.","different responses"),
  q("H10-Q2","BM-F02","hard","What can be inferred from pharmacy refill data alone?","It cannot prove that every prescribed dose was actually taken",["It measures swallowing directly","It is always inaccurate","It shows side effects"],"Refill records capture medicine acquisition rather than ingestion.","not whether each dose was taken"),
@@ -145,23 +127,17 @@ The broader lesson is that adherence is behaviour embedded in access and treatme
 
 Two neighbourhoods receiving the same rainfall can experience very different flooding. One may have permeable ground, open drains and storage ponds. Another may be covered by roads and buildings that send water quickly into undersized drains.
 
-Drainage maintenance matters as much as design. A channel with adequate capacity on paper can fail if rubbish blocks the inlet or sediment reduces flow.
-
-Topography matters too. Low-lying roads can collect runoff from a much larger surrounding area. The amount of rain falling directly on one street therefore understates the water that may arrive there.
+Drainage maintenance matters as much as design. A channel with adequate capacity on paper can fail if rubbish blocks the inlet or sediment reduces flow. Topography matters too. Low-lying roads can collect runoff from a much larger surrounding area. The amount of rain falling directly on one street therefore understates the water that may arrive there.
 
 Exposure determines consequence. Flooding in an empty park is different from the same water depth entering homes, hospitals or electrical infrastructure.
 
 Vulnerability adds another layer. Ground-floor households with few savings may recover more slowly than businesses with insurance and backup systems.
 
-Climate change can alter rainfall intensity, but urban development can change runoff even without climate change. More paved surface and lost wetlands increase the share of rain that becomes rapid surface flow.
-
-Risk reduction therefore includes several tools: larger drains, retention ponds, permeable surfaces, maintenance, early warning, land-use planning and protection of critical sites.
+Climate change can alter rainfall intensity, but urban development can change runoff even without climate change. More paved surface and lost wetlands increase the share of rain that becomes rapid surface flow. Risk reduction therefore includes several tools: larger drains, retention ponds, permeable surfaces, maintenance, early warning, land-use planning and protection of critical sites.
 
 No single intervention is sufficient everywhere. A larger drain may move water downstream faster and create new problems if the receiving channel cannot cope.
 
-Monitoring should combine rainfall, drain performance, flood depth, affected assets and recovery time. This allows cities to distinguish hazard from consequence.
-
-The broader lesson is that flood risk is produced by hazard, exposure and vulnerability together. Rainfall is the trigger, but urban form and social conditions shape whether that trigger becomes a disaster.`,
+Monitoring should combine rainfall, drain performance, flood depth, affected assets and recovery time. This allows cities to distinguish hazard from consequence. The broader lesson is that flood risk is produced by hazard, exposure and vulnerability together. Rainfall is the trigger, but urban form and social conditions shape whether that trigger becomes a disaster.  Historical drainage maps can also mislead if urban surfaces have changed. A channel sized for a less-developed catchment may receive much more runoff after decades of construction. Informal development can increase exposure in places where flood maps are outdated or absent. Insurance data may reveal repeated losses but can underrepresent households without coverage. Community reports and high-water marks can add local evidence. Cities therefore need both engineering models and observed event data, updated as land use changes. Resilience planning is strongest when it treats drainage infrastructure, land development and household vulnerability as one connected system.`,
  questions:[
  q("EN09-Q1","BM-F01","medium","Why can the same rainfall produce different flooding in two neighbourhoods?","Surface cover, drainage and storage capacity can differ",["Rainfall totals are always wrong","Only elevation matters","Buildings absorb all water"],"The passage explains that urban form controls how quickly water becomes runoff and where it flows.","permeable ground"),
  q("EN09-Q2","BM-F02","hard","What can be inferred from a blocked drain with adequate design capacity?","Practical flood performance can be worse than engineering capacity on paper",["Design capacity becomes larger","Maintenance never matters","Rainfall stops entering drains"],"Sediment or rubbish can reduce real flow even if the designed size is sufficient.","fail if rubbish blocks"),
@@ -183,9 +159,7 @@ One student may miss school because of repeated illness. Another may be caring f
 
 Treating every absence as the same behaviour can produce weak policy. Reminder messages may help families who forgot reporting procedures but do little for transport failure or chronic illness.
 
-Duration and pattern matter. Ten consecutive missed days during hospital treatment differ from ten single-day absences scattered through the term. Both reduce attendance percentage, but they imply different causes and educational needs.
-
-Partial attendance is another issue. A student who arrives two hours late every day may technically be present for much of the term while repeatedly missing the same morning subject.
+Duration and pattern matter. Ten consecutive missed days during hospital treatment differ from ten single-day absences scattered through the term. Both reduce attendance percentage, but they imply different causes and educational needs. Partial attendance is another issue. A student who arrives two hours late every day may technically be present for much of the term while repeatedly missing the same morning subject.
 
 Data quality matters too. Teachers can mark attendance late or incorrectly, and school transfers can create apparent absence until enrolment systems reconcile.
 
@@ -193,9 +167,7 @@ Equity is central. Schools serving students with higher health, housing or trans
 
 At the same time, context should not become an excuse to ignore absence. Missing instruction still creates learning loss regardless of cause. The response should address both educational impact and underlying barrier.
 
-Useful dashboards therefore separate authorised and unexplained absence, duration, recurring time patterns and reasons where known. They can also track whether support changed attendance later.
-
-The broader lesson is that attendance percentage identifies that instructional time was lost. It does not, by itself, explain why it was lost or what intervention is likely to restore access.`,
+Useful dashboards therefore separate authorised and unexplained absence, duration, recurring time patterns and reasons where known. They can also track whether support changed attendance later. The broader lesson is that attendance percentage identifies that instructional time was lost. It does not, by itself, explain why it was lost or what intervention is likely to restore access.  School responses also need to distinguish voluntary disengagement from barriers outside the student's control. Punitive attendance policies can worsen the situation if transport, health or housing instability is the real cause. At the same time, repeated unexplained absence may require early outreach before learning gaps widen. Data-sharing between schools, health services and support agencies can help, but privacy and consent rules matter. The strongest systems use attendance patterns as a signal for investigation rather than a final judgement about the student or family. This keeps the metric useful without turning it into a simplistic label.`,
  questions:[
  q("SP09-Q1","BM-F01","medium","Why can equal attendance rates require different responses?","The underlying reasons for absence can differ",["Attendance percentage is always wrong","Every absence has the same cause","Only illness affects attendance"],"The passage lists illness, care, transport, bullying and records as different mechanisms.","different circumstances"),
  q("SP09-Q2","BM-F02","hard","What can be inferred about scattered versus consecutive absences?","The same total days missed can reflect different patterns and needs",["Consecutive absence is harmless","Scattered absence never affects learning","Only total percentage matters"],"Pattern contains information that a single attendance percentage loses.","different causes"),
@@ -215,23 +187,17 @@ The broader lesson is that attendance percentage identifies that instructional t
 
 Disclosure is therefore necessary but not sufficient. Information must also be accessible, relevant and presented at a time when it can influence action.
 
-A company can publish a complex fee table after purchase and claim that charges were disclosed. The information exists, but it did not help the customer make an informed choice before commitment.
-
-Volume can reduce transparency. If an important condition is buried inside hundreds of pages, formal disclosure may coexist with practical obscurity.
+A company can publish a complex fee table after purchase and claim that charges were disclosed. The information exists, but it did not help the customer make an informed choice before commitment. Volume can reduce transparency. If an important condition is buried inside hundreds of pages, formal disclosure may coexist with practical obscurity.
 
 Language matters too. Technical accuracy is valuable, but unexplained jargon can prevent non-specialists from understanding the rule. Simplification, however, must not remove important qualifications.
 
 Context matters because raw data can mislead without definitions. Publishing a performance number without explaining the denominator or time period can create an illusion of openness while withholding meaning.
 
-Timing is another part of transparency. A conflict of interest disclosed after a decision may allow accountability later but cannot help participants assess the conflict beforehand.
-
-There are limits. Privacy, security and confidential negotiation sometimes justify withholding information. Transparency is not an absolute demand that every fact be public.
+Timing is another part of transparency. A conflict of interest disclosed after a decision may allow accountability later but cannot help participants assess the conflict beforehand. There are limits. Privacy, security and confidential negotiation sometimes justify withholding information. Transparency is not an absolute demand that every fact be public.
 
 The relevant question is whether people receive enough intelligible information to understand the basis of a decision and protect their legitimate interests.
 
-Good transparency therefore combines disclosure with explanation, prominence, timing and justified limits.
-
-The broader lesson is that information can be technically public while functionally hidden. Transparency should be judged by whether relevant people can actually find, understand and use what has been disclosed.`,
+Good transparency therefore combines disclosure with explanation, prominence, timing and justified limits. The broader lesson is that information can be technically public while functionally hidden. Transparency should be judged by whether relevant people can actually find, understand and use what has been disclosed.  Power relationships also shape transparency. Information can be technically understandable yet difficult to challenge if the recipient has no realistic alternative or appeal. Transparency therefore supports accountability but does not replace it. A company may clearly disclose an unfair term; the disclosure does not by itself make the term fair. Likewise, a public body may explain a decision well while still lacking independent review. This distinction matters because transparency is sometimes treated as a universal remedy for governance problems. It is better understood as one condition that allows scrutiny, informed choice and contestation to function.`,
  questions:[
  q("PH09-Q1","BM-F01","medium","Why is disclosure alone insufficient for transparency?","Published information may still be inaccessible or hard to understand",["Disclosure is never useful","All information must remain private","Policies should contain no detail"],"The passage distinguishes mere publication from usable understanding.","necessary but not sufficient"),
  q("PH09-Q2","BM-F02","hard","What can be inferred from a fee table published only after purchase?","It may support later accountability without enabling informed pre-purchase choice",["The fees are automatically invalid","Customers never read prices","Timing does not matter"],"The article treats timing as part of meaningful transparency.","before commitment"),
@@ -249,27 +215,19 @@ The broader lesson is that information can be technically public while functiona
  id:"ENG008-BM-M09",title:"Why Headline Corrections Need Distribution Context",genre:"media",
  text:`When a news outlet corrects an inaccurate headline, editors often update the article page. But many readers may have encountered the headline through a push notification, social-media preview or search result and never opened the article.
 
-This creates a distribution problem. Correcting the source page does not guarantee that the correction travels through the same channels as the error.
-
-Prominence matters. A false headline that reached hundreds of thousands of people may require a more visible correction than a typo seen by a small audience.
+This creates a distribution problem. Correcting the source page does not guarantee that the correction travels through the same channels as the error. Prominence matters. A false headline that reached hundreds of thousands of people may require a more visible correction than a typo seen by a small audience.
 
 Platforms complicate repair because publishers do not control every cached preview or screenshot. A corrected article can coexist with an old image circulating elsewhere.
 
-Timing matters too. A misleading headline corrected after five minutes may have limited reach; one left unchanged during a major breaking event can spread widely before repair.
-
-Some outlets send corrected push notifications when the original alert contained a substantial factual error. Others worry that repeated alerts may confuse readers or draw more attention to a minor issue.
+Timing matters too. A misleading headline corrected after five minutes may have limited reach; one left unchanged during a major breaking event can spread widely before repair. Some outlets send corrected push notifications when the original alert contained a substantial factual error. Others worry that repeated alerts may confuse readers or draw more attention to a minor issue.
 
 This creates a proportionality question: how serious was the error, how widely was it distributed and what correction channel can realistically reach the affected audience?
 
-Measurement is imperfect. Publishers may know how many notifications were sent but not exactly who read the original and the correction.
-
-Nevertheless, distribution data can guide better repair. A headline that spread mainly through one social account may deserve a correction on that same account.
+Measurement is imperfect. Publishers may know how many notifications were sent but not exactly who read the original and the correction. Nevertheless, distribution data can guide better repair. A headline that spread mainly through one social account may deserve a correction on that same account.
 
 Correction wording matters as well. Quietly replacing text can leave readers unaware that the earlier claim was wrong. Clear acknowledgement helps distinguish correction from ordinary updating.
 
-The goal is not to reproduce every mistake indefinitely. It is to give materially affected audiences a reasonable chance to encounter the repair.
-
-The broader lesson is that correction quality depends on reach as well as accuracy. A perfectly corrected source page can still leave misinformation circulating if the repair does not follow the path through which the error spread.`,
+The goal is not to reproduce every mistake indefinitely. It is to give materially affected audiences a reasonable chance to encounter the repair. The broader lesson is that correction quality depends on reach as well as accuracy. A perfectly corrected source page can still leave misinformation circulating if the repair does not follow the path through which the error spread.  Search engines and aggregators add another difficulty because old headlines may remain indexed after correction. Publishers can update metadata and request refreshes, but the timing is not fully under their control. Newsletters create a similar problem because a sent email cannot always be recalled. In those cases, a later correction may need to be sent as a new message. Editors must also avoid amplifying trivial errors simply to demonstrate activity. Proportionality remains central: the correction should be visible enough to repair likely misunderstanding without creating more confusion than the original mistake caused.`,
  questions:[
  q("M09-Q1","BM-F01","medium","Why may correcting an article page be insufficient?","Many people may have seen the headline through other channels without opening the article",["Article pages cannot be edited","Push notifications update automatically","Headlines have no effect"],"The passage emphasises that distribution channels can separate the audience from the source page.","never opened the article"),
  q("M09-Q2","BM-F02","hard","What can be inferred from an old screenshot continuing to circulate?","A correction at the original source cannot fully control copies already distributed elsewhere",["The source correction failed technically","Screenshots always disappear","Platforms automatically replace images"],"Distributed copies can persist beyond the publisher's direct control.","old image circulating"),
