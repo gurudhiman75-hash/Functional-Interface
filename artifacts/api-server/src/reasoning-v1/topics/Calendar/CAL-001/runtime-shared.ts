@@ -267,9 +267,14 @@ export function difficultyFromDimensions(dimensions: DifficultyDimensions): Diff
   return score >= 14 ? "HARD" : score >= 8 ? "MEDIUM" : "EASY";
 }
 
-export function defaultDimensions(problem: Problem, seed: number): DifficultyDimensions {
+export function defaultDimensions(problem: Problem, _seed: number): DifficultyDimensions {
+  const workedSegments = Math.max(1, Math.min(4, problem.explanation.working.length));
+  const factCount = Object.keys(problem.facts ?? {}).length;
+  const informationFiltering = factCount >= 8 ? 2 : factCount >= 5 ? 1 : 0;
+
   return {
-    D1ArithmeticSegments: 1 + (seed % 3),
+    // Difficulty must follow the completed reasoning state, never the random seed.
+    D1ArithmeticSegments: workedSegments,
     D2ReverseReasoning: false,
     D3MonthBoundary: Boolean(problem.coverage?.crossesMonth),
     D4LeapDayExposure: Boolean(problem.coverage?.crossesFeb29),
@@ -277,8 +282,8 @@ export function defaultDimensions(problem: Problem, seed: number): DifficultyDim
     D6CountInterpretation: Boolean(problem.facts.countSemantics),
     D7OutputComplexity: problem.answer instanceof Array ? 3 : typeof problem.answer === "object" ? 2 : 1,
     D8InverseReasoning: false,
-    D9TrapCollisions: 2 + (seed % 2),
-    D10InformationFiltering: seed % 3,
+    D9TrapCollisions: 2,
+    D10InformationFiltering: informationFiltering,
     ...problem.difficultyDimensions,
   };
 }
