@@ -905,6 +905,99 @@ buildGeoMinQl("DIAMOND-PANNA-AND-INDIAN-DIAMOND-TRACTS", "Diamond, Panna and Ind
       "IBM-INDIAN-MINERALS-YEARBOOK-2024"
     ]
   }
+] as const),
+
+buildGeoMinQl("TIN-CASSITERITE-CHHATTISGARH-DANTEWADA", "Tin, cassiterite and Chhattisgarh", [
+  {
+    "stem": "Which mineral is the most important ore of tin?",
+    "answer": "Cassiterite",
+    "distractors": [
+      "Chromite",
+      "Bauxite",
+      "Magnesite"
+    ],
+    "explanation": "Cassiterite, chemically tin oxide, is the principal ore of tin. It is much more important economically than the less common tin mineral stannite.",
+    "sourceFactId": "TIN-CASSITERITE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-TIN",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "The Govindpal–Tongpal tin-bearing area is located in which state?",
+    "answer": "Chhattisgarh",
+    "distractors": [
+      "Rajasthan",
+      "Karnataka",
+      "Odisha"
+    ],
+    "explanation": "IBM records tin mineralisation and cassiterite mining in the Govindpal–Tongpal area of Dantewada district, Chhattisgarh. The location is a distinctive tin-geography fact.",
+    "sourceFactId": "TIN-GOVINDPAL-TONGPAL",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-TIN",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Cassiterite is a tin ore. II. Dantewada is linked with tin mineralisation. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Cassiterite is the principal tin mineral, and IBM records cassiterite-bearing stream sediments in Dantewada district of Chhattisgarh. Both statements are correct.",
+    "sourceFactId": "TIN-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-TIN",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Dantewada — tin ore",
+    "distractors": [
+      "Dantewada — mica",
+      "Panna — tin ore",
+      "Koderma — cassiterite"
+    ],
+    "explanation": "Dantewada in Chhattisgarh is an important Indian tin-ore region. Panna is known for diamond and Koderma for mica, so those alternatives mix unrelated mineral locations.",
+    "sourceFactId": "TIN-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-TIN",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Cassiterite in parts of Dantewada is recovered from which type of material?",
+    "answer": "Stream sediments",
+    "distractors": [
+      "Coal seams",
+      "Marine salt pans",
+      "Residual bauxite caps"
+    ],
+    "explanation": "IBM describes cassiterite being recovered from stream sediments in the Govindpal–Tongpal area. Panning separates the heavier cassiterite from lighter material, giving the occurrence a placer-like character.",
+    "sourceFactId": "TIN-STREAM-SEDIMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-TIN",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which chain is correct?",
+    "answer": "Dantewada → cassiterite → tin",
+    "distractors": [
+      "Sukinda → cassiterite → chromium",
+      "Koderma → tin → mica",
+      "Panna → cassiterite → diamond"
+    ],
+    "explanation": "Dantewada is linked with cassiterite, and cassiterite is the principal tin ore. The other chains combine unrelated mineral locations and commodities.",
+    "sourceFactId": "TIN-CHAIN",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-TIN",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
 ] as const)
 ]);
 
