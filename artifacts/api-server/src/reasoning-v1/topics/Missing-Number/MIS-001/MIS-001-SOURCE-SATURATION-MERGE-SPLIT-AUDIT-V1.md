@@ -6,7 +6,7 @@ Status: **MERGE-SPLIT COMPLETE AGAINST THE IMPLEMENTED BLUEPRINT; EXTERNAL SOURC
 
 The MIS-001 blueprint requires permanent QLs to represent semantic exam patterns rather than constants, number tuples, renderer shapes, blank positions or difficulty labels. It also requires source saturation across SSC, Banking and Punjab-state material before permanent QL allocation.
 
-The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP016. Source crosswalk waves V1–V4 now provide growing SSC and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
+The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP017. Source crosswalk waves V1–V4 now provide growing SSC and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
 
 Therefore:
 
@@ -34,15 +34,16 @@ Current runtime review patterns:
 - CP014: 1 source-backed missing-corner runtime variant
 - CP015: 3 SSC CHSL source-discovered authorities
 - CP016: 1 SSC GD source-discovered authority
+- CP017: 1 SSC CGL mixed whole-number/digit source-discovered authority
 
-**Total runtime patterns: 90**
+**Total runtime patterns: 91**
 
 ## 3. Chapter-wide consolidation result
 
 After normalization by semantic rule rather than checkpoint/renderer/query direction:
 
-- runtime patterns: **90**
-- canonical semantic authorities: **56**
+- runtime patterns: **91**
+- canonical semantic authorities: **57**
 - reuse / alias patterns: **34**
 - permanent QLs allocated: **0**
 
@@ -146,6 +147,16 @@ Examples retained separately include:
 - four-input pair-sum difference;
 - compound two-stage relations where multiple visible roles matter.
 
+### CP017 source discovery
+
+SSC CGL 2020 Tier-I, held 16 Aug 2021 Shift 1, exposes a mixed whole-number / digit-property rule:
+
+- MIS-CAND-091: `b − (a÷2) + digitProduct(a)`
+
+This is not covered by the existing CP010 digit-property authorities because the whole-number division step and digit-product step are both solve-relevant. It remains a distinct source-backed semantic authority.
+
+The SSC CHSL two-stage affine-row source (`x×4+3`, then `y×3+6`) remains on HOLD because the first stage is not required to compute the currently missing third value. It is source evidence, but not yet a justified permanent solve identity.
+
 ## 6. Source-thin / hold items
 
 MIS-CAND-034 `SMALL_FACTORIAL` remains explicitly `sourceThin: true`.
@@ -217,4 +228,4 @@ For each observed target-exam source family record:
 - frequency confidence
 - source-thin flag
 
-Only after the crosswalk reaches practical saturation should the current 56 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
+Only after the crosswalk reaches practical saturation should the current 57 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
