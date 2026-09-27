@@ -8,7 +8,6 @@ export function independentlyEvaluateMisCp011Rule(id:MisCp011RuleId,a:number,b:n
   case'PAIR_PRODUCT_MINUS_THIRD_SQUARE':return bounded(a*b-c*c);
   case'FIRST_SQUARE_PLUS_PAIR_PRODUCT':return bounded(a*a+b*c);
   case'PAIR_SUM_SQUARE_MINUS_THIRD':return bounded((a+b)*(a+b)-c);
-  case'PAIR_PRODUCT_PLUS_ABS_DIFFERENCE':return bounded(a*b+Math.abs(a-b));
  }
 }
 export function independentlyVerifyMisCp011Group(id:MisCp011RuleId,g:MisCp011Group){return independentlyEvaluateMisCp011Rule(id,g.a,g.b,g.c)===g.result;}
