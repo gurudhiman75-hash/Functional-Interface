@@ -122,7 +122,7 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
     assert(svg.includes('data-di-presentation-layer="shared"') && svg.includes('data-grouped-bar="true"'), `${profile} ${seed} bypassed the shared grouped-bar presentation layer.`);
     assert(svg.includes('data-clean-axis="true"') && svg.includes('data-vertical-axis-spine="none"') && svg.includes('data-boundary-ticks="none"'), `${profile} ${seed} lost clean-axis metadata.`);
     assert(!svg.includes('<line data-axis="y"') && !svg.includes("<line data-y-tick") && !svg.includes("<line data-boundary-tick"), `${profile} ${seed} contains a prohibited vertical axis/tick line.`);
-    assert(svg.includes('data-bar-value-labels="none"'), `${profile} ${seed} must not print bar values above the bars.`);
+    assert(svg.includes('data-bar-value-labels="true"'), `${profile} ${seed} must visibly label exact bar values.`);
     assert((svg.match(/data-bar="true"/gu) ?? []).length === 10, `${profile} ${seed} must render exactly ten bars.`);
     assert((svg.match(/data-series-id="SERIES_A"/gu) ?? []).length === 5 && (svg.match(/data-series-id="SERIES_B"/gu) ?? []).length === 5, `${profile} ${seed} must render five bars per series.`);
     assert((svg.match(/data-category-label=/gu) ?? []).length === 5, `${profile} ${seed} must render five category labels.`);
