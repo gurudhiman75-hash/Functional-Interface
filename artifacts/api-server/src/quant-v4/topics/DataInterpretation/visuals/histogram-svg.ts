@@ -88,6 +88,7 @@ export function renderDiHistogramSvg(model: DiHistogramVisualModel): string {
     const x = boundaryPositions[index]!, nextX = boundaryPositions[index + 1]!, barWidth = nextX - x, h = (bin.frequency / yMax) * plotHeight, y = plotBottom - h;
     const color = BAR_COLORS[index % BAR_COLORS.length]!;
     parts.push(`<rect data-bin-index="${index}" data-bar-color-index="${index % BAR_COLORS.length}" x="${x.toFixed(3)}" y="${y.toFixed(2)}" width="${barWidth.toFixed(3)}" height="${h.toFixed(2)}" fill="${color.fill}" stroke="${color.stroke}" stroke-width="1.05" vector-effect="non-scaling-stroke"/>`);
+    parts.push(`<text data-frequency-value="${index}" x="${(x + barWidth / 2).toFixed(3)}" y="${(y - 8).toFixed(2)}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="${color.stroke}" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">${bin.frequency}</text>`);
   });
   parts.push(`</g>`);
   model.bins.forEach((bin, index) => {
