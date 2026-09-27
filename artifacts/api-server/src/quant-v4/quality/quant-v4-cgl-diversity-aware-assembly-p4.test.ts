@@ -20,6 +20,28 @@ function runtimeSignatures(section: QuantV4CglTier1ShadowSection): string[] {
     .filter(Boolean);
 }
 
+function packageReuse(sections: readonly QuantV4CglTier1ShadowSection[]) {
+  const records = sections
+    .flatMap((section) => section.records)
+    .filter((record) => record.sourceKind === "RUNTIME_GENERATED");
+  const packages = [...new Set(records.map((record) => record.packageId))].sort();
+  return Object.fromEntries(packages.map((packageId) => {
+    const signatures = records
+      .filter((record) => record.packageId === packageId)
+      .map((record) => record.normalizedStemSignature)
+      .filter(Boolean);
+    const duplicates = duplicateItems(signatures);
+    return [packageId, {
+      records: signatures.length,
+      duplicateItems: duplicates,
+      duplicateRate: signatures.length ? duplicates / signatures.length : 0,
+    }];
+  }).sort((left, right) =>
+    (right[1] as any).duplicateItems - (left[1] as any).duplicateItems
+    || String(left[0]).localeCompare(String(right[0]))
+  ));
+}
+
 const baselineSections: QuantV4CglTier1ShadowSection[] = [];
 for (let sectionIndex = 1; sectionIndex <= 20; sectionIndex += 1) {
   baselineSections.push(await generateQuantV4CglTier1ShadowSection({
@@ -85,6 +107,7 @@ console.log("QUANT_V4_CGL_DIVERSITY_AWARE_ASSEMBLY_P4", JSON.stringify({
     duplicateItems: selectedDuplicateItems,
     duplicateRate: selectedDuplicateRate,
     selectedCandidateBySection,
+    packageReuse: packageReuse(selectedSections),
   },
   targetReuseCeiling: 0.05,
   meetsTarget: selectedDuplicateRate <= 0.05,
