@@ -36,7 +36,7 @@ buildGeoMinQl("MANGANESE-USES-IN-STEEL-AND-INDUSTRY", "Manganese uses in steel a
     "sourceFactId": "MANGANESE-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Manganese uses in steel and industry?",
     "answer": "Manganese — ferro-alloy mineral",
     "distractors": [
       "Manganese — non-metallic sheet mineral",
@@ -105,7 +105,7 @@ buildGeoMinQl("ODISHA-MANGANESE-GEOGRAPHY", "Odisha manganese geography", [
     "sourceFactId": "MANGANESE-ODISHA-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Odisha manganese geography?",
     "answer": "Odisha — manganese deposits",
     "distractors": [
       "Punjab — major manganese belt",
@@ -174,7 +174,7 @@ buildGeoMinQl("KARNATAKA-MANGANESE-GEOGRAPHY", "Karnataka manganese geography", 
     "sourceFactId": "MANGANESE-KARNATAKA-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Karnataka manganese geography?",
     "answer": "Karnataka — manganese and iron ore",
     "distractors": [
       "Karnataka — only petroleum resources",
@@ -243,7 +243,7 @@ buildGeoMinQl("MADHYA-PRADESH-MAHARASHTRA-MANGANESE-BELT", "Madhya Pradesh-Mahar
     "sourceFactId": "MANGANESE-CENTRAL-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Madhya Pradesh-Maharashtra manganese belt?",
     "answer": "Balaghat — Madhya Pradesh manganese",
     "distractors": [
       "Balaghat — Kerala mica",
@@ -265,7 +265,7 @@ buildGeoMinQl("MADHYA-PRADESH-MAHARASHTRA-MANGANESE-BELT", "Madhya Pradesh-Mahar
     "sourceFactId": "MANGANESE-CENTRAL-MAP"
   },
   {
-    "stem": "Which comparison is correct?",
+    "stem": "Which comparison is correct for Madhya Pradesh-Maharashtra manganese belt?",
     "answer": "Balaghat is linked with manganese in Madhya Pradesh, while Sukinda is linked with chromite in Odisha",
     "distractors": [
       "Both are petroleum fields",
@@ -312,7 +312,7 @@ buildGeoMinQl("CHROMITE-AND-CHROMIUM", "Chromite and chromium", [
     "sourceFactId": "CHROMITE-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Chromite and chromium?",
     "answer": "Chromite — chromium",
     "distractors": [
       "Bauxite — chromium",
@@ -381,7 +381,7 @@ buildGeoMinQl("SUKINDA-CHROMITE-BELT", "Sukinda chromite belt", [
     "sourceFactId": "SUKINDA-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Sukinda chromite belt?",
     "answer": "Sukinda — chromite",
     "distractors": [
       "Sukinda — petroleum",
@@ -403,7 +403,7 @@ buildGeoMinQl("SUKINDA-CHROMITE-BELT", "Sukinda chromite belt", [
     "sourceFactId": "SUKINDA-MAP"
   },
   {
-    "stem": "Which chain is correct?",
+    "stem": "Which chain is correct for Sukinda chromite belt?",
     "answer": "Sukinda → chromite → chromium → stainless steel",
     "distractors": [
       "Sukinda → bauxite → iron → steel",
@@ -417,7 +417,7 @@ buildGeoMinQl("SUKINDA-CHROMITE-BELT", "Sukinda chromite belt", [
 
 buildGeoMinQl("MANGANESE-CHROMITE-COMPARISON", "Manganese-chromite comparison", [
   {
-    "stem": "Which comparison is correct?",
+    "stem": "Which comparison is correct for Manganese-chromite comparison?",
     "answer": "Manganese and chromite are both important ferro-alloy minerals",
     "distractors": [
       "Both are non-metallic minerals",
@@ -450,7 +450,7 @@ buildGeoMinQl("MANGANESE-CHROMITE-COMPARISON", "Manganese-chromite comparison", 
     "sourceFactId": "MN-CR-STATEMENT"
   },
   {
-    "stem": "Which pair is incorrectly matched?",
+    "stem": "Which pair is incorrectly matched in Manganese-chromite comparison?",
     "answer": "Chromite — aluminium ore",
     "distractors": [
       "Manganese — ferro-alloy mineral",
@@ -566,7 +566,7 @@ buildGeoMinQl("INTEGRATED-MANGANESE-AND-CHROMITE-REASONING", "Integrated mangane
     "sourceFactId": "MN-CR-INTEGRATED-1"
   },
   {
-    "stem": "Which chain is correct?",
+    "stem": "Which chain is correct for Integrated manganese and chromite reasoning?",
     "answer": "Balaghat → manganese → ferro-alloy use",
     "distractors": [
       "Sukinda → mica → insulation",
@@ -672,7 +672,7 @@ buildGeoMinQl("NAGPUR-BHANDARA-MANGANESE-BELT", "Nagpur–Bhandara manganese bel
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Nagpur–Bhandara manganese belt?",
     "answer": "Bhandara — manganese ore",
     "distractors": [
       "Bhandara — offshore petroleum",
@@ -704,7 +704,7 @@ buildGeoMinQl("NAGPUR-BHANDARA-MANGANESE-BELT", "Nagpur–Bhandara manganese bel
     ]
   },
   {
-    "stem": "Which comparison is correct?",
+    "stem": "Which comparison is correct for Nagpur–Bhandara manganese belt?",
     "answer": "Nagpur–Bhandara is a manganese region, while Sukinda is a chromite region",
     "distractors": [
       "Both are mica belts",

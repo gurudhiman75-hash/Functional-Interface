@@ -36,7 +36,7 @@ buildGeoMinQl("MICA-PROPERTIES-AND-ELECTRICAL-USE", "Mica properties and electri
     "sourceFactId": "MICA-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Mica properties and electrical use?",
     "answer": "Mica — electrical insulation",
     "distractors": [
       "Mica — principal aluminium ore",
@@ -94,7 +94,7 @@ buildGeoMinQl("KODERMA-GAYA-HAZARIBAGH-MICA-BELT", "Koderma-Gaya-Hazaribagh mica
     "sourceFactId": "KODERMA-STATE"
   },
   {
-    "stem": "Consider the statements: I. Koderma is linked with mica. II. Hazaribagh lies within the same broad mica region. Which is correct?",
+    "stem": "Consider the statements: I. Koderma is linked with mica. II. Hazaribagh lies within the same mica region. Which is correct?",
     "answer": "Both I and II are correct",
     "distractors": [
       "Only I is correct",
@@ -105,7 +105,7 @@ buildGeoMinQl("KODERMA-GAYA-HAZARIBAGH-MICA-BELT", "Koderma-Gaya-Hazaribagh mica
     "sourceFactId": "MICA-EASTERN-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Koderma-Gaya-Hazaribagh mica belt?",
     "answer": "Koderma — mica",
     "distractors": [
       "Koderma — offshore petroleum",
@@ -127,7 +127,7 @@ buildGeoMinQl("KODERMA-GAYA-HAZARIBAGH-MICA-BELT", "Koderma-Gaya-Hazaribagh mica
     "sourceFactId": "MICA-EAST-MAP"
   },
   {
-    "stem": "Which comparison is correct?",
+    "stem": "Which comparison is correct for Koderma-Gaya-Hazaribagh mica belt?",
     "answer": "Koderma is a mica centre, while Khetri is a copper centre",
     "distractors": [
       "Both are petroleum fields",
@@ -174,7 +174,7 @@ buildGeoMinQl("RAJASTHAN-MICA-BELT", "Rajasthan mica belt", [
     "sourceFactId": "RAJASTHAN-MICA-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Rajasthan mica belt?",
     "answer": "Ajmer region — mica",
     "distractors": [
       "Ajmer region — offshore petroleum",
@@ -243,7 +243,7 @@ buildGeoMinQl("NELLORE-MICA-BELT", "Nellore mica belt", [
     "sourceFactId": "NELLORE-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Nellore mica belt?",
     "answer": "Nellore — mica",
     "distractors": [
       "Nellore — chromite",
@@ -312,7 +312,7 @@ buildGeoMinQl("LIMESTONE-AND-CEMENT", "Limestone and cement", [
     "sourceFactId": "LIMESTONE-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Limestone and cement?",
     "answer": "Limestone — cement raw material",
     "distractors": [
       "Limestone — principal aluminium ore",
@@ -381,7 +381,7 @@ buildGeoMinQl("LIMESTONE-IN-METALLURGY-AND-INDUSTRIAL-USE", "Limestone in metall
     "sourceFactId": "LIMESTONE-DUAL-USE"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Limestone in metallurgy and industrial use?",
     "answer": "Limestone — flux in iron smelting",
     "distractors": [
       "Mica — flux in blast furnace",
@@ -450,7 +450,7 @@ buildGeoMinQl("GYPSUM-USES-AND-INDUSTRIAL-ROLE", "Gypsum uses and industrial rol
     "sourceFactId": "GYPSUM-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Gypsum uses and industrial role?",
     "answer": "Gypsum — plaster of Paris",
     "distractors": [
       "Gypsum — chromium ore",
@@ -472,7 +472,7 @@ buildGeoMinQl("GYPSUM-USES-AND-INDUSTRIAL-ROLE", "Gypsum uses and industrial rol
     "sourceFactId": "GYPSUM-CEMENT"
   },
   {
-    "stem": "Which comparison is correct?",
+    "stem": "Which comparison is correct for Gypsum uses and industrial role?",
     "answer": "Limestone is a major cement raw material, while gypsum helps regulate cement setting",
     "distractors": [
       "Gypsum supplies iron and limestone supplies copper",
@@ -497,7 +497,7 @@ buildGeoMinQl("GYPSUM-GEOGRAPHY-AND-RAJASTHAN", "Gypsum geography and Rajasthan"
     "sourceFactId": "GYPSUM-RAJASTHAN"
   },
   {
-    "stem": "A mineral map highlights gypsum deposits across western Rajasthan. Which broad environment helps explain this occurrence?",
+    "stem": "A mineral map highlights gypsum deposits across western Rajasthan. Which environment helps explain this occurrence?",
     "answer": "Arid sedimentary and evaporative conditions",
     "distractors": [
       "Humid tropical rainforest only",
@@ -519,7 +519,7 @@ buildGeoMinQl("GYPSUM-GEOGRAPHY-AND-RAJASTHAN", "Gypsum geography and Rajasthan"
     "sourceFactId": "GYPSUM-RAJASTHAN-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Gypsum geography and Rajasthan?",
     "answer": "Rajasthan — gypsum",
     "distractors": [
       "Odisha — gypsum as its only mineral",
@@ -566,7 +566,7 @@ buildGeoMinQl("INTEGRATED-NON-METALLIC-MINERAL-REASONING", "Integrated non-metal
     "sourceFactId": "NONMETALLIC-INTEGRATED-1"
   },
   {
-    "stem": "Which location-resource pair is incorrect?",
+    "stem": "Which location-resource pair is incorrect for Integrated non-metallic mineral reasoning?",
     "answer": "Khetri — mica",
     "distractors": [
       "Koderma — mica",
@@ -588,7 +588,7 @@ buildGeoMinQl("INTEGRATED-NON-METALLIC-MINERAL-REASONING", "Integrated non-metal
     "sourceFactId": "NONMETALLIC-INTEGRATED-3"
   },
   {
-    "stem": "Which chain is correct?",
+    "stem": "Which chain is correct for Integrated non-metallic mineral reasoning?",
     "answer": "Koderma → mica → electrical insulation",
     "distractors": [
       "Nellore → iron ore → steel",
@@ -669,7 +669,7 @@ buildGeoMinQl("GRAPHITE-PROPERTIES-USES-AND-INDIAN-BELTS", "Graphite properties,
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Graphite properties, uses and Indian belts?",
     "answer": "Palamu — graphite",
     "distractors": [
       "Palamu — petroleum",
@@ -777,7 +777,7 @@ buildGeoMinQl("MAGNESITE-SALEM-REFRACTORY-GEOGRAPHY", "Magnesite, Salem and refr
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Magnesite, Salem and refractory use?",
     "answer": "Bageshwar — magnesite",
     "distractors": [
       "Bageshwar — chromite",
@@ -855,7 +855,7 @@ buildGeoMinQl("DOLOMITE-FLUX-REFRACTORY-INDUSTRIAL-USE", "Dolomite as flux and r
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Dolomite as flux and refractory mineral?",
     "answer": "Dolomite — flux and refractory use",
     "distractors": [
       "Dolomite — principal copper ore",
@@ -948,7 +948,7 @@ buildGeoMinQl("ROCK-PHOSPHATE-JHAMARKOTRA-FERTILIZER", "Rock phosphate, Jhamarko
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Rock phosphate, Jhamarkotra and fertilizer use?",
     "answer": "Jhamarkotra — rock phosphate",
     "distractors": [
       "Jhamarkotra — petroleum",
@@ -978,7 +978,7 @@ buildGeoMinQl("ROCK-PHOSPHATE-JHAMARKOTRA-FERTILIZER", "Rock phosphate, Jhamarko
     ]
   },
   {
-    "stem": "Which chain is geographically and economically correct?",
+    "stem": "Which chain is geographically and economically correct for Rock phosphate, Jhamarkotra and fertilizer use?",
     "answer": "Jhamarkotra → rock phosphate → phosphatic fertilizer",
     "distractors": [
       "Salem → rock phosphate → steel refractory",
@@ -1041,7 +1041,7 @@ buildGeoMinQl("SALT-SOURCES-SAMBHAR-AND-COASTAL-CENTRES", "Salt sources, Sambhar
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Salt sources, Sambhar and coastal centres?",
     "answer": "Tuticorin — marine salt works",
     "distractors": [
       "Sambhar — iron ore",
@@ -1134,7 +1134,7 @@ buildGeoMinQl("ILMENITE-RUTILE-BEACH-SAND-TITANIUM", "Ilmenite, rutile and beach
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Ilmenite, rutile and beach-sand titanium minerals?",
     "answer": "Chavara — ilmenite-rich beach sands",
     "distractors": [
       "Chavara — inland rock salt",
@@ -1227,7 +1227,7 @@ buildGeoMinQl("KYANITE-SILLIMANITE-ANDALUSITE-REFRACTORY-MINERALS", "Kyanite, si
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Kyanite, sillimanite and andalusite as refractory minerals?",
     "answer": "Kyanite — refractory mineral",
     "distractors": [
       "Kyanite — liquid fuel",
@@ -1320,7 +1320,7 @@ buildGeoMinQl("FLUORITE-FLUORSPAR-FLUORINE-AND-INDIAN-REGIONS", "Fluorite, fluor
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Fluorite, fluorine and Indian regions?",
     "answer": "Kadipani — fluorite",
     "distractors": [
       "Kadipani — gold",
@@ -1413,7 +1413,7 @@ buildGeoMinQl("BARYTES-MANGAMPET-DRILLING-MUD", "Barytes, Mangampet and drilling
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Barytes, Mangampet and drilling-mud use?",
     "answer": "Mangampet — barytes",
     "distractors": [
       "Mangampet — diamond",
@@ -1506,7 +1506,7 @@ buildGeoMinQl("WOLLASTONITE-RAJASTHAN-CALCIUM-SILICATE", "Wollastonite, Rajastha
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Wollastonite, Rajasthan and industrial uses?",
     "answer": "Wollastonite — Rajasthan",
     "distractors": [
       "Wollastonite — offshore petroleum",
@@ -1599,7 +1599,7 @@ buildGeoMinQl("GARNET-ABRASIVE-GEM-AND-BEACH-SANDS", "Garnet as abrasive, gem an
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Garnet as abrasive, gem and beach-sand mineral?",
     "answer": "Garnet — abrasive mineral",
     "distractors": [
       "Garnet — liquid fuel",
@@ -1677,7 +1677,7 @@ buildGeoMinQl("POTASH-FERTILIZER-RAJASTHAN-EVAPORITES", "Potash, fertilizer use 
     ]
   },
   {
-    "stem": "Consider the statements: I. Potash is used mainly in fertilizers. II. Major Indian potash resources occur in Rajasthan. Which is correct?",
+    "stem": "Consider the statements: I. Potash is used primarily in fertilizers. II. Major Indian potash resources occur in Rajasthan. Which is correct?",
     "answer": "Both I and II are correct",
     "distractors": [
       "Only I is correct",
@@ -1785,7 +1785,7 @@ buildGeoMinQl("SULPHUR-PYRITES-SULPHURIC-ACID-AND-INDIAN-OCCURRENCE", "Sulphur, 
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Sulphur, pyrites and sulphuric-acid use?",
     "answer": "Puga Valley — native sulphur occurrence",
     "distractors": [
       "Puga Valley — major iron ore",
