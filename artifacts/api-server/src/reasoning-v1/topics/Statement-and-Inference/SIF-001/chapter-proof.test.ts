@@ -234,7 +234,7 @@ for (const family of cp010Families) assert.equal(cp010Review.questions.filter((e
 assert.equal(cp010Review.questions.filter((entry) => entry.answerClass === "ONLY_I").length, 12, "SIF-CP010 review must balance inference I");
 assert.equal(cp010Review.questions.filter((entry) => entry.answerClass === "ONLY_II").length, 12, "SIF-CP010 review must balance inference II");
 
-console.log("PASS_SIF_001_CHAPTER_REVIEW_CANDIDATE_V1");
+
 
 const cp011Authorities = listSifAuthorities("SIF-CP011");
 assert.equal(cp011Authorities.length, 24, "SIF-CP011 requires twenty-four curated multiple-factor inference authorities");
@@ -264,7 +264,7 @@ for (const family of cp011Families) assert.equal(cp011Review.questions.filter((e
 assert.equal(cp011Review.questions.filter((entry) => entry.answerClass === "ONLY_I").length, 12, "SIF-CP011 review must balance inference I");
 assert.equal(cp011Review.questions.filter((entry) => entry.answerClass === "ONLY_II").length, 12, "SIF-CP011 review must balance inference II");
 
-console.log("PASS_SIF_001_CHAPTER_REVIEW_CANDIDATE_V1");
+
 
 
 for (const [cpId, expectedDifficulty] of [
@@ -293,3 +293,5 @@ for (const [cpId, expectedDifficulty] of [
   assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_I").length, 6, `${cpId}: balance supported inference I`);
   assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_II").length, 6, `${cpId}: balance supported inference II`);
 }
+
+console.log("PASS_SIF_001_CHAPTER_REVIEW_CANDIDATE_V1");
