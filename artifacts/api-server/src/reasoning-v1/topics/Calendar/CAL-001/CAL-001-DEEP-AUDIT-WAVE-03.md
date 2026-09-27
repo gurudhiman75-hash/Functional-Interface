@@ -83,6 +83,26 @@ The proof was updated to validate:
 
 This updates the proof to the current architecture; no Calendar endpoint was removed.
 
+## Outlier found by the generated-profile gate
+
+The first exact-head profile run exposed a real visible-diversity outlier:
+
+- `CAL-QL-018` — select the only leap/ordinary year.
+
+Across 12 English seeds, only two visibly distinct stems appeared because the stem changed only with the requested year class while the generated option years were not named in the sentence.
+
+### Remediation
+
+`CAL-PQL-022` now cycles three concise exam-standard stem forms in English, Hindi and Punjabi while preserving:
+
+- the same permanent QL;
+- the same leap/ordinary solve authority;
+- the same generated option years;
+- the same misconception-derived distractors;
+- the same answer and solver contract.
+
+No new semantic authority or novelty lane was introduced.
+
 ## Current disposition
 
 ```text
