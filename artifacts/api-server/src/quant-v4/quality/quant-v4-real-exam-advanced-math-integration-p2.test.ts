@@ -113,8 +113,8 @@ for (const summary of audit.summaries) {
     assert.equal(summary.centralProfileAuthority, "PUNJAB_STATE");
     assert.equal(
       summary.simulatorCentralProfilePropagationPending,
-      true,
-      `${summary.examId} historical simulator metadata changed; remove this assertion only when its core-slot calls actually pass PUNJAB_STATE.`,
+      false,
+      `${summary.examId} must propagate the merged PUNJAB_STATE central profile through the simulator.`,
     );
   } else {
     assert.equal(summary.simulatorCentralProfilePropagationPending, false);

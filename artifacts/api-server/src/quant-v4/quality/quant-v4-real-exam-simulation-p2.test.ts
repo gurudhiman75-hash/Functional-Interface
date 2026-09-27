@@ -28,12 +28,12 @@ for (const profile of QUANT_V4_REAL_EXAM_PROFILES) {
 const punjabProfiles = QUANT_V4_REAL_EXAM_PROFILES.filter((profile) => profile.family === "PUNJAB_STATE");
 assert.equal(punjabProfiles.length, 3);
 for (const profile of punjabProfiles) {
-  assert.equal(profile.centralProfileGap, true, `${profile.id} must remain explicit about the missing central Punjab Quant profile.`);
-  assert.equal(profile.centralDeliveryProfile, null, `${profile.id} must not silently masquerade as an SSC central profile.`);
+  assert.equal(profile.centralProfileGap, false, `${profile.id} must use the merged Punjab central Quant profile.`);
+  assert.equal(profile.centralDeliveryProfile, "PUNJAB_STATE", `${profile.id} must propagate PUNJAB_STATE into ordinary core-slot generation.`);
   assert.equal(
     resolveProbabilitySimulationProfile(profile),
     "PUNJAB_STATE",
-    `${profile.id} Probability must use the explicit Punjab evidence gate instead of an SSC fallback.`,
+    `${profile.id} Probability must keep using the explicit Punjab evidence gate.`,
   );
 }
 
@@ -136,8 +136,8 @@ for (const summary of audit.summaries) {
   assert.ok(summary.blockers.includes("PYQ_FREQUENCY_WEIGHTING_PENDING"), `${summary.examId} lost the empirical-weighting blocker.`);
 
   if (profile.family === "PUNJAB_STATE") {
-    assert.equal(summary.centralProfileGap, true);
-    assert.ok(summary.blockers.includes("CENTRAL_EXAM_PROFILE_MISSING"));
+    assert.equal(summary.centralProfileGap, false);
+    assert.equal(summary.blockers.includes("CENTRAL_EXAM_PROFILE_MISSING"), false);
   }
   if (profile.family === "BANKING") {
     assert.ok(summary.diSetCount > 0, `${summary.examId} did not exercise linked DI sets.`);
