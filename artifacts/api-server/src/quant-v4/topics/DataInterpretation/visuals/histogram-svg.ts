@@ -37,12 +37,29 @@ const BAR_COLORS = [
   { fill: "#e9a36d", stroke: "#b97545" },
 ] as const;
 
+function gcd(a: number, b: number) {
+  let x = Math.abs(Math.round(a));
+  let y = Math.abs(Math.round(b));
+  while (y !== 0) {
+    const next = x % y;
+    x = y;
+    y = next;
+  }
+  return x || 1;
+}
+
 function niceYAxisStep(maxFrequency: number) {
   const rough = Math.max(1, maxFrequency / 6);
   const magnitude = 10 ** Math.floor(Math.log10(rough));
   const normalized = rough / magnitude;
   const nice = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 2.5 ? 2.5 : normalized <= 5 ? 5 : 10;
   return Math.max(1, Math.ceil(nice * magnitude));
+}
+
+function readableYAxisStep(values: readonly number[], maxFrequency: number) {
+  const commonUnit = values.filter((value) => value > 0).reduce((current, value) => gcd(current, value), 0);
+  if (commonUnit > 0 && maxFrequency / commonUnit <= 12) return commonUnit;
+  return niceYAxisStep(maxFrequency);
 }
 
 function escapeSvgText(value: string) {
@@ -64,13 +81,14 @@ export function renderDiHistogramSvg(model: DiHistogramVisualModel): string {
   if (!model.bins.every((bin) => Number.isFinite(bin.frequency) && bin.frequency >= 0)) throw new Error("DI histogram renderer received an invalid frequency.");
   const width = 940, height = 500, left = 92, right = 28, top = 58, bottom = 92;
   const plotWidth = width - left - right, plotHeight = height - top - bottom, plotRight = left + plotWidth, plotBottom = top + plotHeight;
-  const maxFrequency = Math.max(...model.bins.map((bin) => bin.frequency), 1);
-  const yStep = niceYAxisStep(maxFrequency), roundedYMax = yStep * Math.ceil(maxFrequency / yStep), yMax = roundedYMax === maxFrequency ? roundedYMax + yStep : roundedYMax;
+  const frequencies = model.bins.map((bin) => bin.frequency);
+  const maxFrequency = Math.max(...frequencies, 1);
+  const yStep = readableYAxisStep(frequencies, maxFrequency), roundedYMax = yStep * Math.ceil(maxFrequency / yStep), yMax = roundedYMax === maxFrequency ? roundedYMax + yStep : roundedYMax;
   const boundaryPositions = Array.from({ length: model.bins.length + 1 }, (_, index) => Number((left + (plotWidth * index) / model.bins.length).toFixed(3)));
   const safeTitle = escapeSvgText(model.title), safeXAxis = escapeSvgText(model.xAxisLabel), safeYAxis = escapeSvgText(model.yAxisLabel);
   const safeDescription = escapeSvgText(model.description ?? `Continuous equal-width histogram with ${model.bins.length} class intervals. Frequency is represented by bar height.`);
   const parts: string[] = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-di-chart-theme="${DI_HISTOGRAM_VISUAL_THEME}" data-color-palette="${DI_HISTOGRAM_COLOR_PALETTE}" data-clean-axis="true" data-vertical-axis-spine="none" data-boundary-ticks="none" data-plot-headroom="true" shape-rendering="geometricPrecision">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-di-chart-theme="${DI_HISTOGRAM_VISUAL_THEME}" data-color-palette="${DI_HISTOGRAM_COLOR_PALETTE}" data-clean-axis="true" data-vertical-axis-spine="none" data-boundary-ticks="none" data-plot-headroom="true" data-exact-frequency-axis="true" data-y-step="${yStep}" shape-rendering="geometricPrecision">`,
     `<title>${safeTitle}</title>`,
     `<desc>${safeDescription}</desc>`,
     `<rect x="0" y="0" width="${width}" height="${height}" fill="${COLORS.canvas}"/>`,
