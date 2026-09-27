@@ -142,12 +142,21 @@ Deferred to later thematic coverage:
 - monazite / rare earths / thorium → nuclear and atomic-mineral CP
 - zircon and related beach-sand co-minerals → keep as supporting facts under the ilmenite/rutile QL unless later exam audit justifies standalone ownership
 
-Still inspect before final chapter closure:
+Implemented in the current review wave:
 - wollastonite
 - garnet
 - potash
 - sulphur / pyrites
-- other IBM-listed minor industrial minerals only if recurring exam evidence supports permanent ownership
+
+Deferred unless later exam-evidence audit justifies standalone ownership:
+- perlite
+- vermiculite
+- diatomite
+- boron minerals
+- cryolite
+- minor gemstone-only or ultra-niche mineral families
+
+These remain available as supporting facts where they naturally appear, but they do not currently justify permanent standalone QLs.
 - other stable industrial minerals exposed by IBM reviews
 
 Each candidate must be tested against:
