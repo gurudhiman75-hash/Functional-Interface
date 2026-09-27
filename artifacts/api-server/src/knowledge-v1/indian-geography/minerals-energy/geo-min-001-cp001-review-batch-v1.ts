@@ -47,7 +47,7 @@ buildGeoMinQl("MINERAL-MEANING-AND-BASIC-CHARACTER", "Mineral meaning and basic 
     "sourceFactId": "MINERAL-MATCH"
   },
   {
-    "stem": "Why can two rocks of the same broad type contain different mineral combinations?",
+    "stem": "Why can two rocks of the same rock type contain different mineral combinations?",
     "answer": "Rocks may be aggregates of different minerals",
     "distractors": [
       "Every rock is a pure mineral",
