@@ -95,7 +95,7 @@ CP006 samples and audits the entire chapter after all owning QLs are approved. I
 - CP001 — Farming Foundation & Food Crops — human-approved and merged.
 - CP002 — Commercial & Industrial Crops — human-approved and merged.
 - CP003 — Plantation, Horticulture & Other High-value Crops — human-approved and merged.
-- CP004 — Agricultural Systems, Irrigation, Inputs & Green Revolution — under review.
-- CP005 — pending.
+- CP004 — Agricultural Systems, Irrigation, Inputs & Green Revolution — human-approved and merged.
+- CP005 — Crop–Climate–Soil–Region Reasoning & Integrated Question Forms — under review.
 - CP006 — mastery/closure after owning content is approved.
 - No runtime/public registration is authorized.
