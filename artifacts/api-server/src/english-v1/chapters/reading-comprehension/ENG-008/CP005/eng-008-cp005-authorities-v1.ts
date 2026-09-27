@@ -1,3 +1,6 @@
+import { ENG008_CP005_EXPANSION_WAVE19_V1 } from "../eng-008-expansion-wave19-v1";
+import { ENG008_CP005_EXPANSION_WAVE18_V1 } from "../eng-008-expansion-wave18-v1";
+import { ENG008_CP005_EXPANSION_WAVE17_V1 } from "../eng-008-expansion-wave17-v1";
 import { ENG008_CP005_EXPANSION_WAVE16_V1 } from "../eng-008-expansion-wave16-v1";
 import { ENG008_CP005_EXPANSION_WAVE15_V1 } from "../eng-008-expansion-wave15-v1";
 import { ENG008_CP005_EXPANSION_WAVE14_V1 } from "../eng-008-expansion-wave14-v1";
@@ -22,6 +25,9 @@ export interface Eng008Cp005PassageV1{id:string;title:string;genre:Eng008Cp005Ge
 const q=(id:string,familyId:Eng008Cp005FamilyId,difficulty:Eng008Cp005Difficulty,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string):Eng008Cp005QuestionAuthorityV1=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
 
 export const ENG008_CP005_PASSAGES_V1:readonly Eng008Cp005PassageV1[]=[
+...ENG008_CP005_EXPANSION_WAVE19_V1,
+...ENG008_CP005_EXPANSION_WAVE18_V1,
+...ENG008_CP005_EXPANSION_WAVE17_V1,
 ...ENG008_CP005_EXPANSION_WAVE16_V1,
 ...ENG008_CP005_EXPANSION_WAVE15_V1,
 ...ENG008_CP005_EXPANSION_WAVE14_V1,
