@@ -65,7 +65,7 @@ Later, the cafeteria placed a small notice near the cashier explaining that temp
 
 Neha realised that colour was normally a shortcut for category, not the category itself.
 
-When the usual visual signal is deliberately replaced, a clearer explicit label can carry the real instruction. The unusual colour looked contradictory only until the temporary rule was understood.`,
+When the usual visual signal is deliberately replaced, a clearer explicit label can carry the real instruction. The unusual colour looked contradictory only until the temporary rule was understood.  The cafeteria later used a printed sticker instead of handwritten marker whenever a substitute colour was needed, making the temporary override easier to recognise.`,
  questions:[
  q("N38-Q1","RC-F01","easy","What meal had Neha purchased?","A vegetarian meal",["A mixed-menu meal","No meal","A dessert only"],"The cashier recorded and marked the token for a vegetarian order.","VEG"),
  q("N38-Q2","RC-F02","medium","Why was Neha given a green token?","The cafeteria had run out of blue tokens",["Her order changed","Green always meant vegetarian","The cashier made an unnoticed mistake"],"The green token was deliberately relabelled because the normal colour was unavailable.","ran out of blue"),
@@ -115,7 +115,7 @@ A few books failed to scan because barcodes were damaged. The library kept the d
 
 Managers concluded that one transaction can contain several stages: received, processed and ready for another borrower.
 
-The system worked best when each label described exactly what had happened, rather than using “returned” to imply that every later step was complete.`,
+The system worked best when each label described exactly what had happened, rather than using “returned” to imply that every later step was complete.  Staff also measured how long books remained in the shelving-pending state so users could see that receipt confirmation and shelf availability were separate operational steps.`,
  questions:[
  q("R36-Q1","RC-F01","easy","What did the new scanner confirm?","That the book had entered the return system",["That it was already on the shelf","That another user had borrowed it","That the barcode was replaced"],"The first new status was return received, with shelving still pending.","return received"),
  q("R36-Q2","RC-F02","medium","Why was “available” kept as a separate status?","A scanned return might not yet be sorted and shelved",["Users could not read the first status","Every book was damaged","The library removed shelves"],"Physical readiness for another borrower occurs after initial return receipt.","shelving pending"),
@@ -141,7 +141,7 @@ Pharmacy staff said the two-stage wording reduced arguments at the counter becau
 
 Managers concluded that one approval can trigger another process without completing it.
 
-The clinic kept both messages so patients could distinguish permission to dispense from physical readiness for collection.`,
+The clinic kept both messages so patients could distinguish permission to dispense from physical readiness for collection.  The clinic later added an estimated preparation range to the second stage so patients could avoid travelling too early when stock transfer was required.`,
  questions:[
  q("R37-Q1","RC-F01","easy","What did the second message mean?","The medicine was ready for collection",["The doctor had started reviewing the prescription","The medicine was unavailable","The appointment was cancelled"],"The second message represented physical pharmacy readiness.","ready for collection"),
  q("R37-Q2","RC-F02","medium","Why were two messages introduced?","Patients confused doctor approval with pharmacy preparation",["Texts were too expensive","Doctors stopped prescribing","The pharmacy moved buildings"],"The original single message collapsed two separate stages into one.","assumed ... already packed"),
@@ -165,7 +165,7 @@ Managers used that information to adjust inspector schedules during the morning 
 
 The depot kept both tags because “repair complete” and “approved for service” represented different stages.
 
-The change did not make repairs faster by itself, but it made the remaining step visible and reduced assumptions based only on the absence of a red tag.`,
+The change did not make repairs faster by itself, but it made the remaining step visible and reduced assumptions based only on the absence of a red tag.  Supervisors also began recording how long buses waited between repair completion and final release so recurring inspection bottlenecks could be identified.`,
  questions:[
  q("R38-Q1","RC-F01","easy","What did the green tag mean?","The bus had passed final checks and was released for service",["The bus needed repair","The driver had arrived","The route was cancelled"],"The green tag followed both repair and final safety inspection.","released for service"),
  q("R38-Q2","RC-F02","medium","Why was removing the red tag not enough?","Repair completion did not necessarily mean the safety check was complete",["Red tags were hard to see","Drivers preferred green buses","Mechanics did not repair vehicles"],"A second approval stage remained after mechanical work.","final safety check"),
@@ -193,7 +193,7 @@ The department therefore kept the two-capacity display and added a note explaini
 
 Managers concluded that visible space and functional capacity are not always the same thing.
 
-A room can look partly empty while the specific equipment needed for a task is already fully used.`,
+A room can look partly empty while the specific equipment needed for a task is already fully used.  The department later added a small explanation showing why equipped capacity, rather than empty chairs, determined whether another student could join the electronics session.`,
  questions:[
  q("R39-Q1","RC-F01","easy","How many workstations could support the electronics practical?","Twelve",["Twenty","Eight","None"],"Only twelve desks had the required power modules.","only twelve"),
  q("R39-Q2","RC-F02","medium","Why did empty desks mislead students?","Some desks lacked the equipment needed for that practical",["The lab had no chairs","The session was cancelled","Students ignored the board"],"Physical emptiness did not equal usable task capacity.","lacked the required power modules"),
