@@ -58,6 +58,13 @@ export interface QuantV4CglTier1ShadowSection {
   readonly records: readonly QuantV4CglTier1ShadowQuestionRecord[];
 }
 
+export interface QuantV4CglTier1ShadowPackageReuse {
+  readonly records: number;
+  readonly uniqueNormalizedStemSignatures: number;
+  readonly duplicateItems: number;
+  readonly duplicateRate: number;
+}
+
 export interface QuantV4CglTier1ShadowSimulationAudit {
   readonly authority: typeof QUANT_V4_CGL_TIER1_SHADOW_SIMULATION_AUTHORITY;
   readonly status: QuantV4CglTier1ShadowSimulationStatus;
@@ -83,6 +90,7 @@ export interface QuantV4CglTier1ShadowSimulationAudit {
   readonly normalizedStructuralStemReuseRate: number;
   readonly slotDistribution: Readonly<Record<string, number>>;
   readonly packageDistribution: Readonly<Record<string, number>>;
+  readonly packageStructuralReuse: Readonly<Record<string, QuantV4CglTier1ShadowPackageReuse>>;
   readonly blockers: readonly string[];
   readonly productionPromotionAuthorized: false;
   readonly runtimeBlueprintMutationAuthorized: false;
@@ -190,6 +198,24 @@ function duplicateRate(signatures: readonly string[]): number {
   const counts = countBy(filtered, (entry) => entry);
   const duplicateItems = Object.values(counts).reduce((sum, count) => sum + Math.max(0, count - 1), 0);
   return duplicateItems / filtered.length;
+}
+
+function packageStructuralReuse(
+  records: readonly QuantV4CglTier1ShadowQuestionRecord[],
+): Readonly<Record<string, QuantV4CglTier1ShadowPackageReuse>> {
+  const packages = [...new Set(records.map((record) => record.packageId))].sort();
+  return Object.freeze(Object.fromEntries(packages.map((packageId) => {
+    const items = records.filter((record) => record.packageId === packageId);
+    const signatures = items.map((record) => record.normalizedStemSignature).filter(Boolean);
+    const counts = countBy(signatures, (entry) => entry);
+    const duplicateItems = Object.values(counts).reduce((sum, count) => sum + Math.max(0, count - 1), 0);
+    return [packageId, Object.freeze({
+      records: signatures.length,
+      uniqueNormalizedStemSignatures: Object.keys(counts).length,
+      duplicateItems,
+      duplicateRate: signatures.length ? duplicateItems / signatures.length : 0,
+    })];
+  })));
 }
 
 function profile(): QuantV4RealExamProfile {
@@ -546,6 +572,7 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
     normalizedStructuralStemReuseRate,
     slotDistribution: countBy(records, (record) => record.slotKind),
     packageDistribution: countBy(runtimeRecords, (record) => record.packageId),
+    packageStructuralReuse: packageStructuralReuse(runtimeRecords),
     blockers: Object.freeze([...new Set(blockers)]),
     productionPromotionAuthorized: false,
     runtimeBlueprintMutationAuthorized: false,
