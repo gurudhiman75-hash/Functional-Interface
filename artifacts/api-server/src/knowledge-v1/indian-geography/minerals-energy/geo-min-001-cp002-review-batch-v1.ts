@@ -36,7 +36,7 @@ buildGeoMinQl("HEMATITE-IRON-ORE", "Hematite iron ore", [
     "sourceFactId": "HEMATITE-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Hematite iron ore?",
     "answer": "Hematite — iron ore",
     "distractors": [
       "Hematite — aluminium ore",
@@ -105,7 +105,7 @@ buildGeoMinQl("MAGNETITE-IRON-ORE", "Magnetite iron ore", [
     "sourceFactId": "MAGNETITE-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Magnetite iron ore?",
     "answer": "Magnetite — magnetic iron ore",
     "distractors": [
       "Magnetite — principal aluminium ore",
@@ -174,7 +174,7 @@ buildGeoMinQl("ODISHA-JHARKHAND-IRON-ORE-BELT", "Odisha-Jharkhand iron ore belt"
     "sourceFactId": "KEONJHAR-IRON"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Odisha-Jharkhand iron ore belt?",
     "answer": "Badampahar — Odisha–Jharkhand iron-ore belt",
     "distractors": [
       "Badampahar — Maharashtra–Goa belt",
@@ -243,7 +243,7 @@ buildGeoMinQl("DURG-BASTAR-CHANDRAPUR-IRON-ORE-BELT", "Durg-Bastar-Chandrapur ir
     "sourceFactId": "BASTAR-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Durg-Bastar-Chandrapur iron ore belt?",
     "answer": "Bailadila — Chhattisgarh iron ore",
     "distractors": [
       "Bailadila — Rajasthan copper",
@@ -312,7 +312,7 @@ buildGeoMinQl("BALLARI-CHITRADURGA-CHIKKAMAGALURU-TUMAKURU-BELT", "Ballari-Chitr
     "sourceFactId": "BALLARI-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Ballari-Chitradurga-Chikkamagaluru-Tumakuru belt?",
     "answer": "Ballari — Karnataka iron-ore belt",
     "distractors": [
       "Ballari — Assam petroleum field",
@@ -381,7 +381,7 @@ buildGeoMinQl("MAHARASHTRA-GOA-IRON-ORE-BELT", "Maharashtra-Goa iron ore belt", 
     "sourceFactId": "GOA-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Maharashtra-Goa iron ore belt?",
     "answer": "Goa — western iron-ore belt",
     "distractors": [
       "Goa — eastern coalfield belt",
@@ -450,7 +450,7 @@ buildGeoMinQl("IRON-ORE-AS-STEEL-RAW-MATERIAL", "Iron ore as steel raw material"
     "sourceFactId": "IRON-STEEL-STATEMENT"
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Iron ore as steel raw material?",
     "answer": "Iron ore — steel industry",
     "distractors": [
       "Mica — primary source of iron",
@@ -566,7 +566,7 @@ buildGeoMinQl("INTEGRATED-IRON-ORE-COMPARISON", "Integrated iron ore comparison"
     "sourceFactId": "IRON-ORE-INTEGRATED-1"
   },
   {
-    "stem": "Which location-resource pair is incorrect?",
+    "stem": "Which location-resource pair is incorrect for Integrated iron ore comparison?",
     "answer": "Digboi — iron ore",
     "distractors": [
       "Bailadila — iron ore",
@@ -610,7 +610,7 @@ buildGeoMinQl("INTEGRATED-IRON-ORE-COMPARISON", "Integrated iron ore comparison"
     "sourceFactId": "IRON-ORE-INTEGRATED-5"
   },
   {
-    "stem": "Which chain is geographically and economically correct?",
+    "stem": "Which chain is geographically and economically correct for Integrated iron ore comparison?",
     "answer": "Keonjhar → iron ore → ferrous mineral → steel raw material",
     "distractors": [
       "Koderma → iron ore → non-ferrous mineral → steel raw material",
@@ -672,7 +672,7 @@ buildGeoMinQl("NOAMUNDI-SINGHBHUM-IRON-ORE", "Noamundi and Singhbhum iron-ore ge
     ]
   },
   {
-    "stem": "Which pair is correctly matched?",
+    "stem": "Which pair is correctly matched in Noamundi and Singhbhum iron-ore geography?",
     "answer": "Noamundi — iron ore",
     "distractors": [
       "Noamundi — petroleum",
@@ -704,7 +704,7 @@ buildGeoMinQl("NOAMUNDI-SINGHBHUM-IRON-ORE", "Noamundi and Singhbhum iron-ore ge
     ]
   },
   {
-    "stem": "Which comparison is correct?",
+    "stem": "Which comparison is correct for Noamundi and Singhbhum iron-ore geography?",
     "answer": "Noamundi is in Jharkhand, while Bailadila is in Chhattisgarh",
     "distractors": [
       "Both are in Karnataka",
