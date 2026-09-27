@@ -1,16 +1,6 @@
 import { randomUUID } from "node:crypto";
 
 import { sqlClient } from "../lib/db";
-import { processSelectedCurrentAffairs } from "./selected-affairs-processing-runtime";
-import { recoverSelectedPrimaryEvidence } from "./selected-primary-recovery-runtime";
-import { recoverSelectedBlockerFacts } from "./selected-blocker-closure-runtime";
-import { finalizeSelectedBlockerClosure } from "./selected-blocker-closure-finalizer";
-import {
-  captureSelectedPackSnapshot,
-  pruneSupersededSelectedRecoveryClaims,
-  repairSelectedCandidateEventBindings,
-  restoreSelectedPackSnapshot,
-} from "./selected-binding-integrity-runtime";
 
 export type SelectedAffairsProcessingRunStatus = "queued" | "running" | "completed" | "failed";
 
@@ -218,20 +208,25 @@ async function runSelectedAffairsProcessingJob(runId: string) {
   heartbeat.unref();
 
   try {
-    const bindingIntegrity = await repairSelectedCandidateEventBindings({ targetDate, actorUserId });
-    const packSnapshot = await captureSelectedPackSnapshot(targetDate);
+    const bindingRuntime = await import("./selected-binding-integrity-runtime");
+    const bindingIntegrity = await bindingRuntime.repairSelectedCandidateEventBindings({ targetDate, actorUserId });
+    const packSnapshot = await bindingRuntime.captureSelectedPackSnapshot(targetDate);
 
     await setStage(runId, "primary_recovery");
+    const { recoverSelectedPrimaryEvidence } = await import("./selected-primary-recovery-runtime");
     const selectedPrimaryRecovery = await recoverSelectedPrimaryEvidence({ targetDate, actorUserId });
     await setStage(runId, "blocker_closure_recovery");
+    const { recoverSelectedBlockerFacts } = await import("./selected-blocker-closure-runtime");
     const blockerRecovery = await recoverSelectedBlockerFacts({ targetDate, actorUserId });
 
     await setStage(runId, "binding_claim_cleanup");
-    const claimPruning = await pruneSupersededSelectedRecoveryClaims(targetDate);
+    const claimPruning = await bindingRuntime.pruneSupersededSelectedRecoveryClaims(targetDate);
 
     await setStage(runId, "verification_authoring_localization");
+    const { processSelectedCurrentAffairs } = await import("./selected-affairs-processing-runtime");
     const result = await processSelectedCurrentAffairs({ targetDate, actorUserId });
     await setStage(runId, "blocker_closure_finalize");
+    const { finalizeSelectedBlockerClosure } = await import("./selected-blocker-closure-finalizer");
     const finalized = await finalizeSelectedBlockerClosure({
       targetDate,
       actorUserId,
@@ -241,7 +236,7 @@ async function runSelectedAffairsProcessingJob(runId: string) {
     const selectedPackResult = (finalized as any)?.stages?.dailyMasterPacks;
     const packPreservation = selectedPackResult?.created === true
       ? { restored: false, restoredPackCount: 0, reason: "selected_canonical_pack_materialized" }
-      : await restoreSelectedPackSnapshot(packSnapshot);
+      : await bindingRuntime.restoreSelectedPackSnapshot(packSnapshot);
 
     await setStage(runId, "persisting_result");
     const persistedResult = slimProcessingResult(

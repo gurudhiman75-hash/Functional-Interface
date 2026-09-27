@@ -1,24 +1,7 @@
 import { Router, type IRouter, type Response } from "express";
 
-import { createManualAuthoringVersion } from "../current-affairs/authoring-runtime";
-import {
-  loadCurrentAffairsHeadlineReview,
-  setCurrentAffairsHeadlineSelection,
-} from "../current-affairs/headline-review-runtime";
-import {
-  createManualCurrentAffairsLocalization,
-  CURRENT_AFFAIRS_LOCALIZATION_LANGUAGES,
-} from "../current-affairs/localization-runtime";
 import type { CurrentAffairsLocalizationLanguage } from "../current-affairs/multilingual-localization";
 import { previousIndiaDate } from "../current-affairs/orchestration-policy";
-import { titleSimilarity } from "../current-affairs/original-authoring";
-import {
-  approveCurrentAffairsQuestionEditorialItem,
-  createManualCurrentAffairsEnglishQuestionRevision,
-  loadCurrentAffairsQuestionEditorialDetail,
-  loadCurrentAffairsQuestionEditorialQueue,
-} from "../current-affairs/question-editorial-runtime";
-import { createManualCurrentAffairsQuestionLocalization } from "../current-affairs/question-localization-runtime";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
@@ -45,7 +28,7 @@ function uuid(value: unknown, code = "INVALID_ID"): string {
 
 function language(value: unknown): CurrentAffairsLocalizationLanguage {
   const code = text(value, 8).toLowerCase();
-  if (!(CURRENT_AFFAIRS_LOCALIZATION_LANGUAGES as readonly string[]).includes(code)) {
+  if (!(["hi", "pa"] as const).includes(code as "hi" | "pa")) {
     throw new EditorialActivationError("INVALID_LANGUAGE", "Choose Hindi (hi) or Punjabi (pa).");
   }
   return code as CurrentAffairsLocalizationLanguage;
@@ -89,6 +72,7 @@ async function sourceTitleSimilarityGate(eventId: string, learnerTitle: string) 
   `;
   let maxSimilarity = 0;
   for (const row of rows) {
+    const { titleSimilarity } = await import("../current-affairs/original-authoring");
     maxSimilarity = Math.max(maxSimilarity, titleSimilarity(learnerTitle, String(row.title ?? "")));
   }
   if (maxSimilarity >= MANUAL_TITLE_SIMILARITY_LIMIT) {
@@ -322,6 +306,7 @@ router.use(authenticate);
 router.get("/editorial/headlines", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
     const targetDate = text(req.query.date, 10) || previousIndiaDate(new Date());
+    const { loadCurrentAffairsHeadlineReview } = await import("../current-affairs/headline-review-runtime");
     res.json(await loadCurrentAffairsHeadlineReview(targetDate, positiveInteger(req.query.limit, 1000, 1500)));
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs headline review");
@@ -334,6 +319,7 @@ router.post("/editorial/headlines/:candidateId/selection", requireAdminPermissio
     if (!actorUserId) throw new EditorialActivationError("ADMIN_SESSION_REQUIRED", "Administrator session required.", 403);
     const reason = text(req.body?.reason, 1000);
     if (reason.length < 3) throw new EditorialActivationError("EDITORIAL_REASON_REQUIRED", "Provide a short editorial selection reason.");
+    const { setCurrentAffairsHeadlineSelection } = await import("../current-affairs/headline-review-runtime");
     res.json(await setCurrentAffairsHeadlineSelection({
       candidateId: uuid(req.params.candidateId, "INVALID_CANDIDATE_ID"),
       selected: req.body?.selected === true,
@@ -374,6 +360,7 @@ router.post("/editorial/events/:eventId/english", requireAdminPermission("conten
     if (summary.length < 20) throw new EditorialActivationError("SUMMARY_REQUIRED", "Learner summary must contain at least 20 characters.");
     if (reason.length < 8) throw new EditorialActivationError("EDITORIAL_REASON_REQUIRED", "Provide an editorial reason of at least 8 characters.");
     const sourceTitleSimilarity = await sourceTitleSimilarityGate(eventId, title);
+    const { createManualAuthoringVersion } = await import("../current-affairs/authoring-runtime");
     const result = await createManualAuthoringVersion({ eventId, title, summary, oneLiner: oneLiner || undefined, reason, actorUserId });
     res.status(201).json({ ...result, sourceTitleSimilarity });
   } catch (error) {
@@ -391,6 +378,7 @@ router.post("/editorial/events/:eventId/localization/:languageCode", requireAdmi
     const summary = text(req.body?.summary, 6000);
     const oneLiner = text(req.body?.oneLiner, 1000);
     const reason = text(req.body?.reason, 1000);
+    const { createManualCurrentAffairsLocalization } = await import("../current-affairs/localization-runtime");
     const result = await createManualCurrentAffairsLocalization({ eventId, languageCode, title, summary, oneLiner: oneLiner || undefined, reason, actorUserId });
     res.status(201).json(result);
   } catch (error) {
@@ -400,6 +388,7 @@ router.post("/editorial/events/:eventId/localization/:languageCode", requireAdmi
 
 router.get("/question-editorial/queue", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
+    const { loadCurrentAffairsQuestionEditorialQueue } = await import("../current-affairs/question-editorial-runtime");
     res.json(await loadCurrentAffairsQuestionEditorialQueue(positiveInteger(req.query.limit, 300, 500)));
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs question editorial queue");
@@ -408,6 +397,7 @@ router.get("/question-editorial/queue", requireAdminPermission("content.question
 
 router.get("/question-editorial/:generationItemId", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
+    const { loadCurrentAffairsQuestionEditorialDetail } = await import("../current-affairs/question-editorial-runtime");
     res.json(await loadCurrentAffairsQuestionEditorialDetail(uuid(req.params.generationItemId, "INVALID_GENERATION_ITEM_ID")));
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs question editorial detail");
@@ -418,6 +408,7 @@ router.post("/question-editorial/:generationItemId/english", requireAdminPermiss
   try {
     const actorUserId = req.adminSession?.user.id;
     if (!actorUserId) throw new EditorialActivationError("ADMIN_SESSION_REQUIRED", "Administrator session required.", 403);
+    const { createManualCurrentAffairsEnglishQuestionRevision } = await import("../current-affairs/question-editorial-runtime");
     const result = await createManualCurrentAffairsEnglishQuestionRevision({
       generationItemId: uuid(req.params.generationItemId, "INVALID_GENERATION_ITEM_ID"),
       stem: text(req.body?.stem, 20_000),
@@ -436,6 +427,7 @@ router.post("/question-editorial/:generationItemId/localization/:languageCode", 
     const actorUserId = req.adminSession?.user.id;
     if (!actorUserId) throw new EditorialActivationError("ADMIN_SESSION_REQUIRED", "Administrator session required.", 403);
     const options = Array.isArray(req.body?.options) ? req.body.options.map((item: unknown) => text(item, 4000)) : [];
+    const { createManualCurrentAffairsQuestionLocalization } = await import("../current-affairs/question-localization-runtime");
     const result = await createManualCurrentAffairsQuestionLocalization({
       generationItemId: uuid(req.params.generationItemId, "INVALID_GENERATION_ITEM_ID"),
       languageCode: language(req.params.languageCode),
@@ -455,6 +447,7 @@ router.post("/question-editorial/:generationItemId/approve", requireAdminPermiss
   try {
     const actorUserId = req.adminSession?.user.id;
     if (!actorUserId) throw new EditorialActivationError("ADMIN_SESSION_REQUIRED", "Administrator session required.", 403);
+    const { approveCurrentAffairsQuestionEditorialItem } = await import("../current-affairs/question-editorial-runtime");
     res.json(await approveCurrentAffairsQuestionEditorialItem({
       generationItemId: uuid(req.params.generationItemId, "INVALID_GENERATION_ITEM_ID"),
       reason: text(req.body?.reason, 1000),
