@@ -323,6 +323,7 @@ async function generateCoreRecord(input: {
   ordinal: number;
   slotKind: "ARITHMETIC_CORE" | "GEOMETRY_MENSURATION";
   seed: string;
+  diversityState?: Map<string, Map<string, number>>;
 }): Promise<QuantV4CglTier1ShadowQuestionRecord> {
   const pool = input.slotKind === "ARITHMETIC_CORE" ? ARITHMETIC_POOL : GEOMETRY_MENSURATION_POOL;
   if (!pool.length) {
@@ -333,20 +334,38 @@ async function generateCoreRecord(input: {
   for (let offset = 0; offset < pool.length; offset += 1) {
     const pkg = pool[(start + offset) % pool.length]!;
     try {
+      const carriedByCp = input.diversityState?.get(pkg.packageId);
       const batch = await generateQuantQuestion({
         packageId: pkg.packageId as any,
         language: "en",
         examProfile: "SSC_CGL_TIER_I",
         seed: input.seed,
         count: 1,
+        auditDiversityOrdinalByCanonicalProblemId: carriedByCp
+          ? Object.fromEntries(carriedByCp)
+          : undefined,
       } as any);
       const question = extractBatchQuestions(batch)[0];
       if (!question) throw new Error("runtime returned no question");
+
+      const generatedPackageId = String(question?.packageId ?? pkg.packageId);
+      const generatedCpId = String(
+        question?.canonicalProblemId
+          ?? question?.cpId
+          ?? question?.traceability?.canonicalProblemId
+          ?? "",
+      ).trim();
+      if (input.diversityState && generatedCpId) {
+        const packageState = input.diversityState.get(generatedPackageId) ?? new Map<string, number>();
+        packageState.set(generatedCpId, (packageState.get(generatedCpId) ?? 0) + 1);
+        input.diversityState.set(generatedPackageId, packageState);
+      }
+
       return runtimeRecord({
         sectionIndex: input.sectionIndex,
         ordinal: input.ordinal,
         slotKind: input.slotKind,
-        packageId: String(question?.packageId ?? pkg.packageId),
+        packageId: generatedPackageId,
         question,
       });
     } catch (error) {
@@ -443,6 +462,7 @@ export async function generateQuantV4CglTier1ShadowSection(input: {
   readonly sectionIndex: number;
   readonly seed?: string;
   readonly trigonometryDiversityOrdinals?: readonly (number | undefined)[];
+  readonly coreDiversityState?: Map<string, Map<string, number>>;
 }): Promise<QuantV4CglTier1ShadowSection> {
   const current = profile();
   const governance = buildQuantV4CglTier1ShadowFrequencyGovernance({ currentSlotPlan: current.slotPlan });
@@ -470,7 +490,13 @@ export async function generateQuantV4CglTier1ShadowSection(input: {
       const ordinal = records.length + 1;
       const slotSeed = `${seed}:${slot.kind}:${index}`;
       if (slot.kind === "ARITHMETIC_CORE" || slot.kind === "GEOMETRY_MENSURATION") {
-        records.push(await generateCoreRecord({ sectionIndex, ordinal, slotKind: slot.kind, seed: slotSeed }));
+        records.push(await generateCoreRecord({
+          sectionIndex,
+          ordinal,
+          slotKind: slot.kind,
+          seed: slotSeed,
+          diversityState: input.coreDiversityState,
+        }));
       } else if (slot.kind === "ALGEBRA" || slot.kind === "TRIGONOMETRY") {
         const diversityCapacityOrdinal = slot.kind === "TRIGONOMETRY"
           ? input.trigonometryDiversityOrdinals?.[trigonometrySlotIndex++]
@@ -515,6 +541,7 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
 
   const shadowSections: QuantV4CglTier1ShadowSection[] = [];
   const integratedBaselineSections = [];
+  const coreDiversityState = new Map<string, Map<string, number>>();
   const trigonometryDiversityCursor: Record<QuantV4AdvancedMathDifficulty, number> = {
     Easy: 0,
     Medium: 0,
@@ -534,6 +561,7 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
       sectionIndex,
       seed: shadowSeed,
       trigonometryDiversityOrdinals,
+      coreDiversityState,
     }));
     integratedBaselineSections.push(await generateQuantV4RealExamSectionWithAdvancedMath({
       examId: "SSC_CGL_TIER_I",
