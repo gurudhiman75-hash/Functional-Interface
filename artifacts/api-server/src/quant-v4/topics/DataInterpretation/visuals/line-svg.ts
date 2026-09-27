@@ -29,6 +29,7 @@ const COLORS = {
   seriesA: "#4c67c8",
   seriesB: "#3d927f",
   pointFill: "#ffffff",
+  valueText: "#344054",
 } as const;
 
 function escapeSvgText(value: string) {
@@ -84,7 +85,7 @@ export function renderDiLineSvg(model: DiLineVisualModel): string {
   const safeDescription = escapeSvgText(model.description ?? `Line chart with ${model.points.length} ordered periods and two series, ${model.seriesALabel} and ${model.seriesBLabel}.`);
 
   const parts: string[] = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-line-chart="true" data-di-chart-theme="${DI_LINE_VISUAL_THEME}" data-color-palette="${DI_LINE_COLOR_PALETTE}" shape-rendering="geometricPrecision">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-line-chart="true" data-di-chart-theme="${DI_LINE_VISUAL_THEME}" data-color-palette="${DI_LINE_COLOR_PALETTE}" data-point-value-labels="true" shape-rendering="geometricPrecision">`,
     `<title>${safeTitle}</title>`,
     `<desc>${safeDescription}</desc>`,
     `<rect x="0" y="0" width="${width}" height="${height}" fill="${COLORS.canvas}"/>`,
@@ -114,8 +115,15 @@ export function renderDiLineSvg(model: DiLineVisualModel): string {
 
   model.points.forEach((point, index) => {
     const xx = x(index);
-    parts.push(`<circle data-series-a-point="${index}" cx="${xx.toFixed(2)}" cy="${y(point.seriesA).toFixed(2)}" r="4.5" fill="${COLORS.pointFill}" stroke="${COLORS.seriesA}" stroke-width="2"/>`);
-    parts.push(`<circle data-series-b-point="${index}" cx="${xx.toFixed(2)}" cy="${y(point.seriesB).toFixed(2)}" r="4.5" fill="${COLORS.pointFill}" stroke="${COLORS.seriesB}" stroke-width="2"/>`);
+    const yA = y(point.seriesA);
+    const yB = y(point.seriesB);
+    const aAbove = point.seriesA >= point.seriesB;
+    const aLabelY = aAbove ? yA - 11 : yA + 19;
+    const bLabelY = aAbove ? yB + 19 : yB - 11;
+    parts.push(`<circle data-series-a-point="${index}" cx="${xx.toFixed(2)}" cy="${yA.toFixed(2)}" r="4.5" fill="${COLORS.pointFill}" stroke="${COLORS.seriesA}" stroke-width="2"/>`);
+    parts.push(`<circle data-series-b-point="${index}" cx="${xx.toFixed(2)}" cy="${yB.toFixed(2)}" r="4.5" fill="${COLORS.pointFill}" stroke="${COLORS.seriesB}" stroke-width="2"/>`);
+    parts.push(`<text data-series-a-value="${index}" x="${xx.toFixed(2)}" y="${aLabelY.toFixed(2)}" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="700" fill="${COLORS.seriesA}" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">${point.seriesA}</text>`);
+    parts.push(`<text data-series-b-value="${index}" x="${xx.toFixed(2)}" y="${bLabelY.toFixed(2)}" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="700" fill="${COLORS.seriesB}" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">${point.seriesB}</text>`);
   });
 
   const legendY = 58;
