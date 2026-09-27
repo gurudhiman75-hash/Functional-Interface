@@ -210,6 +210,7 @@ router.get("/production/master-pack/pdf", requireAdminPermission("content.questi
   try {
     const targetDate = requestedDate(req.query.date);
     const language = requestedLanguage(req.query.lang);
+    const { loadDailyMasterPack } = await import("../current-affairs/daily-master-pack");
     const masterPack = await loadDailyMasterPack(targetDate, language);
     if (!masterPack) {
       res.status(404).json({
