@@ -1457,6 +1457,378 @@ buildGeoMinQl("BARYTES-MANGAMPET-DRILLING-MUD", "Barytes, Mangampet and drilling
       "IBM-INDIAN-MINERALS-YEARBOOK-2024"
     ]
   }
+] as const),
+
+buildGeoMinQl("WOLLASTONITE-RAJASTHAN-CALCIUM-SILICATE", "Wollastonite, Rajasthan and industrial uses", [
+  {
+    "stem": "Wollastonite is chemically which type of mineral?",
+    "answer": "Calcium silicate",
+    "distractors": [
+      "Calcium fluoride",
+      "Magnesium carbonate",
+      "Aluminium oxide"
+    ],
+    "explanation": "Wollastonite has the chemical formula CaSiO3 and is a calcium silicate mineral. This composition distinguishes it from fluorite, magnesite and bauxite.",
+    "sourceFactId": "WOLLASTONITE-CHEMISTRY",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-WOLLASTONITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which state contains the major wollastonite deposits of India?",
+    "answer": "Rajasthan",
+    "distractors": [
+      "Punjab",
+      "Assam",
+      "Jharkhand"
+    ],
+    "explanation": "IBM records the major wollastonite deposits in districts such as Ajmer, Dungarpur, Pali, Sirohi and Udaipur in Rajasthan. The state is therefore the key location for this mineral.",
+    "sourceFactId": "WOLLASTONITE-RAJASTHAN",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-WOLLASTONITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Wollastonite occurs in Rajasthan. II. It can be used in ceramics, paints, plastics and refractory applications. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Rajasthan hosts India's major wollastonite deposits, and IBM lists a range of industrial uses including ceramics, paints, plastics and refractory products. Both statements are correct.",
+    "sourceFactId": "WOLLASTONITE-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-WOLLASTONITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Wollastonite — Rajasthan",
+    "distractors": [
+      "Wollastonite — offshore petroleum",
+      "Wollastonite — principal iron ore",
+      "Wollastonite — rock salt"
+    ],
+    "explanation": "Wollastonite is strongly linked with Rajasthan's mineral belt. It is an industrial non-metallic mineral rather than an energy resource, iron ore or salt mineral.",
+    "sourceFactId": "WOLLASTONITE-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-WOLLASTONITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which geological process commonly forms wollastonite?",
+    "answer": "Metamorphism of limestone or dolomite in the presence of silica",
+    "distractors": [
+      "Coalification of plant remains",
+      "Evaporation of seawater only",
+      "Weathering of bauxite only"
+    ],
+    "explanation": "Wollastonite can form where limestone or dolomite reacts with silica under high temperature and pressure. This contact or metamorphic setting explains many deposits.",
+    "sourceFactId": "WOLLASTONITE-FORMATION",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-WOLLASTONITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A question gives the clues 'CaSiO3, Rajasthan, ceramic filler'. Which mineral should be selected?",
+    "answer": "Wollastonite",
+    "distractors": [
+      "Fluorite",
+      "Magnesite",
+      "Gypsum"
+    ],
+    "explanation": "The formula CaSiO3, strong Rajasthan distribution and industrial filler use identify wollastonite. The other minerals have different chemistry and major uses.",
+    "sourceFactId": "WOLLASTONITE-CLUE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-WOLLASTONITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
+] as const),
+
+buildGeoMinQl("GARNET-ABRASIVE-GEM-AND-BEACH-SANDS", "Garnet as abrasive, gem and beach-sand mineral", [
+  {
+    "stem": "Which property makes many garnet varieties useful as abrasives?",
+    "answer": "High hardness",
+    "distractors": [
+      "Very low density",
+      "Complete solubility in water",
+      "Liquid state at room temperature"
+    ],
+    "explanation": "Garnet is hard and resistant to physical and chemical attack. These properties allow suitable varieties, especially almandine-rich material, to be used as industrial abrasives.",
+    "sourceFactId": "GARNET-ABRASIVE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GARNET",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which mineral may occur in Indian beach sands together with ilmenite and rutile?",
+    "answer": "Garnet",
+    "distractors": [
+      "Coal",
+      "Bauxite",
+      "Rock salt"
+    ],
+    "explanation": "IBM records garnet in coastal heavy-mineral sands along with ilmenite, rutile, sillimanite and related dense minerals. This gives garnet both inland and coastal mineral-geography importance.",
+    "sourceFactId": "GARNET-BEACH-SAND",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GARNET",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Garnet can be used as an abrasive. II. Some garnet varieties are used as gemstones. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Garnet is both an industrial abrasive mineral and, in suitable quality, a semi-precious gemstone. Its use depends on variety, colour, clarity and physical properties.",
+    "sourceFactId": "GARNET-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GARNET",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Garnet — abrasive mineral",
+    "distractors": [
+      "Garnet — liquid fuel",
+      "Garnet — principal aluminium ore",
+      "Garnet — sulphur source only"
+    ],
+    "explanation": "Garnet's hardness makes it valuable as an abrasive. It is not a fuel, aluminium ore or sulphur mineral.",
+    "sourceFactId": "GARNET-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GARNET",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which states are well known for garnet-bearing beach sands?",
+    "answer": "Tamil Nadu and Kerala",
+    "distractors": [
+      "Punjab and Haryana",
+      "Delhi and Chandigarh",
+      "Uttar Pradesh and Bihar only"
+    ],
+    "explanation": "IBM records garnet-bearing beach sands in southern coastal states including Tamil Nadu and Kerala, along with occurrences in Odisha. These deposits form part of India's heavy-mineral placer system.",
+    "sourceFactId": "GARNET-COASTAL-STATES",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GARNET",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A coastal mineral assemblage contains garnet, ilmenite, rutile and sillimanite. What type of deposit is indicated?",
+    "answer": "Heavy-mineral beach placer",
+    "distractors": [
+      "Coal seam",
+      "Residual bauxite cap",
+      "Copper lode"
+    ],
+    "explanation": "Dense resistant minerals can be concentrated by wave and current action in beach sands. Garnet together with ilmenite and rutile is a characteristic heavy-mineral placer assemblage.",
+    "sourceFactId": "GARNET-PLACER",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GARNET",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
+] as const),
+
+buildGeoMinQl("POTASH-FERTILIZER-RAJASTHAN-EVAPORITES", "Potash, fertilizer use and Indian deposits", [
+  {
+    "stem": "Potash is most important as a source of which plant nutrient?",
+    "answer": "Potassium",
+    "distractors": [
+      "Iron",
+      "Copper",
+      "Chromium"
+    ],
+    "explanation": "Potash supplies potassium, one of the three primary plant nutrients represented in N-P-K fertilizers. Its main economic use is therefore in agriculture and fertilizer manufacture.",
+    "sourceFactId": "POTASH-POTASSIUM",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-POTASH",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "What is the principal ore mixture used commercially for potash?",
+    "answer": "Sylvinite",
+    "distractors": [
+      "Hematite",
+      "Cassiterite",
+      "Chromite"
+    ],
+    "explanation": "IBM identifies sylvinite, a mixture of sylvite and halite, as the principal commercial potash ore. Potash deposits commonly originate in evaporite formations.",
+    "sourceFactId": "POTASH-SYLVINITE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-POTASH",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Potash is used mainly in fertilizers. II. Major Indian potash resources occur in Rajasthan. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Potash is primarily an agricultural fertilizer mineral, and IBM records major Indian resources in Rajasthan, especially within the Nagaur-Ganganagar evaporite basin and adjoining regions.",
+    "sourceFactId": "POTASH-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-POTASH",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which state contains India's most prominent potash resource base?",
+    "answer": "Rajasthan",
+    "distractors": [
+      "Kerala",
+      "Jharkhand",
+      "Goa"
+    ],
+    "explanation": "IBM resource data show Rajasthan as the dominant Indian potash resource state. The mineralisation is linked with evaporite sequences and potassium-bearing minerals such as sylvite and polyhalite.",
+    "sourceFactId": "POTASH-RAJASTHAN",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-POTASH",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which districts are linked with potash occurrences in Rajasthan?",
+    "answer": "Sawai Madhopur and Karauli",
+    "distractors": [
+      "Koderma and Hazaribagh",
+      "Panna and Satna",
+      "Keonjhar and Mayurbhanj"
+    ],
+    "explanation": "IBM records potash occurrences in Sawai Madhopur and Karauli districts, with broader exploration also focused in Rajasthan's evaporite basins. The other district pairs are known for different minerals.",
+    "sourceFactId": "POTASH-DISTRICTS",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-POTASH",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A deposit contains sylvite and polyhalite within halite-rich evaporite layers. Which resource is being explored?",
+    "answer": "Potash",
+    "distractors": [
+      "Iron ore",
+      "Barytes",
+      "Graphite"
+    ],
+    "explanation": "Sylvite and polyhalite are potassium-bearing evaporite minerals and are important indicators of potash mineralisation. Their occurrence with halite is typical of evaporite-basin potash systems.",
+    "sourceFactId": "POTASH-CLUE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-POTASH",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
+] as const),
+
+buildGeoMinQl("SULPHUR-PYRITES-SULPHURIC-ACID-AND-INDIAN-OCCURRENCE", "Sulphur, pyrites and sulphuric-acid use", [
+  {
+    "stem": "Sulphur is an essential raw material for the manufacture of which major industrial acid?",
+    "answer": "Sulphuric acid",
+    "distractors": [
+      "Hydrochloric acid only",
+      "Nitric acid only",
+      "Carbonic acid"
+    ],
+    "explanation": "Sulphur is a key feedstock for sulphuric acid, one of the most widely used industrial chemicals. Sulphuric acid is then used in fertilizers, petroleum refining, batteries and many other industries.",
+    "sourceFactId": "SULPHUR-ACID",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-SULPHUR-PYRITES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Pyrite has which chemical formula?",
+    "answer": "FeS2",
+    "distractors": [
+      "CaF2",
+      "MgCO3",
+      "Al2O3"
+    ],
+    "explanation": "Pyrite is iron disulphide, FeS2, and contains both iron and sulphur. Historically it has been used as a source material for sulphuric-acid production.",
+    "sourceFactId": "PYRITE-FORMULA",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-SULPHUR-PYRITES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Pyrites can be used as a source of sulphur. II. India has large currently mineable native elemental sulphur reserves. Which is correct?",
+    "answer": "Only I is correct",
+    "distractors": [
+      "Only II is correct",
+      "Both I and II are correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Pyrites can provide sulphur for industrial use, but IBM notes that India presently has no mineable elemental sulphur reserves. Much sulphur supply is therefore recovered from other industrial processes.",
+    "sourceFactId": "SULPHUR-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-SULPHUR-PYRITES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Puga Valley — native sulphur occurrence",
+    "distractors": [
+      "Puga Valley — major iron ore",
+      "Sukinda — native sulphur only",
+      "Koderma — pyrites only"
+    ],
+    "explanation": "IBM records native sulphur occurrences in Puga Valley in the Ladakh region, along with smaller occurrences elsewhere. The alternative mineral-location pairs are incorrect.",
+    "sourceFactId": "SULPHUR-PUGA",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-SULPHUR-PYRITES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which mineral is commonly known as 'fool's gold' and contains iron and sulphur?",
+    "answer": "Pyrite",
+    "distractors": [
+      "Graphite",
+      "Gypsum",
+      "Fluorite"
+    ],
+    "explanation": "Pyrite has a brassy metallic appearance that can resemble gold, giving rise to the nickname 'fool's gold'. Chemically it is iron disulphide, FeS2.",
+    "sourceFactId": "PYRITE-FOOLS-GOLD",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-SULPHUR-PYRITES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A mineral clue reads 'FeS2, brass-yellow colour, sulphur source'. Which answer should be selected?",
+    "answer": "Pyrite",
+    "distractors": [
+      "Cassiterite",
+      "Magnesite",
+      "Dolomite"
+    ],
+    "explanation": "The formula FeS2 and brass-yellow metallic appearance identify pyrite. Its sulphur content has also made it useful as a sulphur source for industrial chemistry.",
+    "sourceFactId": "PYRITE-CLUE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-SULPHUR-PYRITES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
 ] as const)
 ]);
 
