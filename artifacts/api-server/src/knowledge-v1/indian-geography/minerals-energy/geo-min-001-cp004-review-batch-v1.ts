@@ -1,6 +1,6 @@
 import { buildGeoMinQl, finalizeGeoMinCp, auditGeoMinCp } from "./geo-min-001-review-builder";
 
-const QL_028 = buildGeoMinQl(28, "Bauxite as aluminium ore", [
+const QL_028 = buildGeoMinQl("BAUXITE-AS-ALUMINIUM-ORE", "Bauxite as aluminium ore", [
   {
     "stem": "Which mineral is the principal ore of aluminium?",
     "answer": "Bauxite",
@@ -69,7 +69,7 @@ const QL_028 = buildGeoMinQl(28, "Bauxite as aluminium ore", [
   }
 ] as const);
 
-const QL_029 = buildGeoMinQl(29, "Bauxite formation and residual occurrence", [
+const QL_029 = buildGeoMinQl("BAUXITE-FORMATION-AND-RESIDUAL-OCCURRENCE", "Bauxite formation and residual occurrence", [
   {
     "stem": "Bauxite commonly forms through which process in tropical and subtropical conditions?",
     "answer": "Intense weathering and leaching of rocks rich in aluminium compounds",
@@ -138,7 +138,7 @@ const QL_029 = buildGeoMinQl(29, "Bauxite formation and residual occurrence", [
   }
 ] as const);
 
-const QL_030 = buildGeoMinQl(30, "Major bauxite regions and plateaus", [
+const QL_030 = buildGeoMinQl("MAJOR-BAUXITE-REGIONS-AND-PLATEAUS", "Major bauxite regions and plateaus", [
   {
     "stem": "Which plateau-region association is well known for bauxite deposits in central India?",
     "answer": "Amarkantak–Maikal plateau region",
@@ -207,7 +207,7 @@ const QL_030 = buildGeoMinQl(30, "Major bauxite regions and plateaus", [
   }
 ] as const);
 
-const QL_031 = buildGeoMinQl(31, "Copper properties and industrial uses", [
+const QL_031 = buildGeoMinQl("COPPER-PROPERTIES-AND-INDUSTRIAL-USES", "Copper properties and industrial uses", [
   {
     "stem": "Which metal is especially important for electrical cables because of its high electrical conductivity?",
     "answer": "Copper",
@@ -276,7 +276,7 @@ const QL_031 = buildGeoMinQl(31, "Copper properties and industrial uses", [
   }
 ] as const);
 
-const QL_032 = buildGeoMinQl(32, "Major copper fields: Khetri, Balaghat and Singhbhum", [
+const QL_032 = buildGeoMinQl("MAJOR-COPPER-FIELDS-KHETRI-BALAGHAT-AND-SINGHBHUM", "Major copper fields: Khetri, Balaghat and Singhbhum", [
   {
     "stem": "Khetri copper belt is located in which state?",
     "answer": "Rajasthan",
@@ -345,7 +345,7 @@ const QL_032 = buildGeoMinQl(32, "Major copper fields: Khetri, Balaghat and Sing
   }
 ] as const);
 
-const QL_033 = buildGeoMinQl(33, "Lead and zinc as non-ferrous minerals", [
+const QL_033 = buildGeoMinQl("LEAD-AND-ZINC-AS-NON-FERROUS-MINERALS", "Lead and zinc as non-ferrous minerals", [
   {
     "stem": "Lead and zinc belong to which mineral category?",
     "answer": "Non-ferrous metallic minerals",
@@ -414,7 +414,7 @@ const QL_033 = buildGeoMinQl(33, "Lead and zinc as non-ferrous minerals", [
   }
 ] as const);
 
-const QL_034 = buildGeoMinQl(34, "Rajasthan lead-zinc belt", [
+const QL_034 = buildGeoMinQl("RAJASTHAN-LEAD-ZINC-BELT", "Rajasthan lead-zinc belt", [
   {
     "stem": "Which state is especially important for India's lead-zinc mineral belt?",
     "answer": "Rajasthan",
@@ -483,7 +483,7 @@ const QL_034 = buildGeoMinQl(34, "Rajasthan lead-zinc belt", [
   }
 ] as const);
 
-const QL_035 = buildGeoMinQl(35, "Aluminium properties and uses", [
+const QL_035 = buildGeoMinQl("ALUMINIUM-PROPERTIES-AND-USES", "Aluminium properties and uses", [
   {
     "stem": "Which property helps explain aluminium's extensive use in aircraft and transport equipment?",
     "answer": "Low density combined with useful strength",
@@ -552,7 +552,7 @@ const QL_035 = buildGeoMinQl(35, "Aluminium properties and uses", [
   }
 ] as const);
 
-const QL_036 = buildGeoMinQl(36, "Integrated non-ferrous mineral reasoning", [
+const QL_036 = buildGeoMinQl("INTEGRATED-NON-FERROUS-MINERAL-REASONING", "Integrated non-ferrous mineral reasoning", [
   {
     "stem": "Which set contains only non-ferrous mineral resources?",
     "answer": "Bauxite, copper and lead-zinc",
@@ -622,4 +622,4 @@ const QL_036 = buildGeoMinQl(36, "Integrated non-ferrous mineral reasoning", [
 ] as const);
 
 export const GEO_MIN_001_CP004_REVIEW_BATCH_V1 = finalizeGeoMinCp(4, [QL_028, QL_029, QL_030, QL_031, QL_032, QL_033, QL_034, QL_035, QL_036]);
-export function auditGeoMin001Cp004ReviewBatchV1() { return auditGeoMinCp(4, 28, 36, GEO_MIN_001_CP004_REVIEW_BATCH_V1); }
+export function auditGeoMin001Cp004ReviewBatchV1() { return auditGeoMinCp(4, [QL_028, QL_029, QL_030, QL_031, QL_032, QL_033, QL_034, QL_035, QL_036], GEO_MIN_001_CP004_REVIEW_BATCH_V1); }
