@@ -1,6 +1,6 @@
 import { buildGeoMinQl, finalizeGeoMinCp, auditGeoMinCp } from "./geo-min-001-review-builder";
 
-const QL_001 = buildGeoMinQl(1, "Mineral meaning and basic character", [
+const QL_001 = buildGeoMinQl("MINERAL-MEANING-AND-BASIC-CHARACTER", "Mineral meaning and basic character", [
   {
     "stem": "Which statement correctly defines a mineral in geography?",
     "answer": "A naturally occurring homogeneous substance with a definable internal structure",
@@ -69,7 +69,7 @@ const QL_001 = buildGeoMinQl(1, "Mineral meaning and basic character", [
   }
 ] as const);
 
-const QL_002 = buildGeoMinQl(2, "Veins and lodes", [
+const QL_002 = buildGeoMinQl("VEINS-AND-LODES", "Veins and lodes", [
   {
     "stem": "Metallic minerals found in cracks, faults and joints of igneous and metamorphic rocks commonly occur in what form?",
     "answer": "Veins and lodes",
@@ -138,7 +138,7 @@ const QL_002 = buildGeoMinQl(2, "Veins and lodes", [
   }
 ] as const);
 
-const QL_003 = buildGeoMinQl(3, "Beds and layers in sedimentary rocks", [
+const QL_003 = buildGeoMinQl("BEDS-AND-LAYERS-IN-SEDIMENTARY-ROCKS", "Beds and layers in sedimentary rocks", [
   {
     "stem": "Coal and some other minerals in sedimentary rocks commonly occur in which form?",
     "answer": "Beds or layers",
@@ -207,7 +207,7 @@ const QL_003 = buildGeoMinQl(3, "Beds and layers in sedimentary rocks", [
   }
 ] as const);
 
-const QL_004 = buildGeoMinQl(4, "Residual deposits and weathering", [
+const QL_004 = buildGeoMinQl("RESIDUAL-DEPOSITS-AND-WEATHERING", "Residual deposits and weathering", [
   {
     "stem": "Which mineral is a standard example of a residual deposit formed by decomposition of surface rocks?",
     "answer": "Bauxite",
@@ -276,7 +276,7 @@ const QL_004 = buildGeoMinQl(4, "Residual deposits and weathering", [
   }
 ] as const);
 
-const QL_005 = buildGeoMinQl(5, "Placer and alluvial deposits", [
+const QL_005 = buildGeoMinQl("PLACER-AND-ALLUVIAL-DEPOSITS", "Placer and alluvial deposits", [
   {
     "stem": "Heavy minerals such as gold may become concentrated in river sands as what type of deposit?",
     "answer": "Placer deposit",
@@ -345,7 +345,7 @@ const QL_005 = buildGeoMinQl(5, "Placer and alluvial deposits", [
   }
 ] as const);
 
-const QL_006 = buildGeoMinQl(6, "Ferrous minerals", [
+const QL_006 = buildGeoMinQl("FERROUS-MINERALS", "Ferrous minerals", [
   {
     "stem": "Which group of minerals contains iron and is therefore classed as ferrous?",
     "answer": "Iron ore, manganese and chromite",
@@ -414,7 +414,7 @@ const QL_006 = buildGeoMinQl(6, "Ferrous minerals", [
   }
 ] as const);
 
-const QL_007 = buildGeoMinQl(7, "Non-ferrous metallic minerals", [
+const QL_007 = buildGeoMinQl("NON-FERROUS-METALLIC-MINERALS", "Non-ferrous metallic minerals", [
   {
     "stem": "Which set consists entirely of non-ferrous metallic minerals?",
     "answer": "Bauxite, copper and lead-zinc",
@@ -483,7 +483,7 @@ const QL_007 = buildGeoMinQl(7, "Non-ferrous metallic minerals", [
   }
 ] as const);
 
-const QL_008 = buildGeoMinQl(8, "Non-metallic minerals", [
+const QL_008 = buildGeoMinQl("NON-METALLIC-MINERALS", "Non-metallic minerals", [
   {
     "stem": "Which set consists entirely of non-metallic minerals?",
     "answer": "Mica, limestone and gypsum",
@@ -552,7 +552,7 @@ const QL_008 = buildGeoMinQl(8, "Non-metallic minerals", [
   }
 ] as const);
 
-const QL_009 = buildGeoMinQl(9, "Mineral conservation", [
+const QL_009 = buildGeoMinQl("MINERAL-CONSERVATION", "Mineral conservation", [
   {
     "stem": "Why is conservation important for mineral resources?",
     "answer": "They are finite and form over very long geological periods",
@@ -622,4 +622,4 @@ const QL_009 = buildGeoMinQl(9, "Mineral conservation", [
 ] as const);
 
 export const GEO_MIN_001_CP001_REVIEW_BATCH_V1 = finalizeGeoMinCp(1, [QL_001, QL_002, QL_003, QL_004, QL_005, QL_006, QL_007, QL_008, QL_009]);
-export function auditGeoMin001Cp001ReviewBatchV1() { return auditGeoMinCp(1, 1, 9, GEO_MIN_001_CP001_REVIEW_BATCH_V1); }
+export function auditGeoMin001Cp001ReviewBatchV1() { return auditGeoMinCp(1, [QL_001, QL_002, QL_003, QL_004, QL_005, QL_006, QL_007, QL_008, QL_009], GEO_MIN_001_CP001_REVIEW_BATCH_V1); }
