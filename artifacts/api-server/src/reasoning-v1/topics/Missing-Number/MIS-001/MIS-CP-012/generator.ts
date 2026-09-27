@@ -41,15 +41,41 @@ function pick(profileId:string,intended:string,competitor:string,seed:string){
  if(evidence.length!==2)throw new Error('No disambiguating second group for '+profileId);
  const third=vals.map(v=>group(intended,v)).find(g=>g&&g.result!==evidence[0]!.result&&g.result!==evidence[1]!.result&&survivingMisCp012Rules(rules,[...evidence,g]).length===1)!;
  if(!third)throw new Error('No third evidence group for '+profileId);evidence.push(third);
- const target=vals.map(v=>group(intended,v)).find(g=>g&&![...evidence].some(e=>e.result===g.result))!;
- if(!target)throw new Error('No target for '+profileId);
+ const target=vals.map(v=>group(intended,v)).find(g=>g&&![...evidence].some(e=>e.result===g.result)&&distractors(g,rules,intended).length>=3)!;
+ if(!target)throw new Error('No target with three misconception distractors for '+profileId);
  return{evidence,target,rules};
 }
 function distractors(target:MisCp012GenericGroup,rules:readonly string[],intended:string):MisCp012Option[]{
- const out:MisCp012Option[]=[];const add=(v:number|null,l:string)=>{if(v!=null&&v>0&&v<=999&&v!==target.result&&!out.some(x=>x.value===v))out.push({value:v,errorLabel:l});};
+ const out:MisCp012Option[]=[];const add=(v:number|null,l:string)=>{if(v!=null&&Number.isInteger(v)&&v>0&&v<=999&&v!==target.result&&!out.some(x=>x.value===v))out.push({value:v,errorLabel:l});};
  for(const r of rules)if(r!==intended)add(evaluateMisCp012Rule(r,target.values),'USED_REJECTED_COMPETING_RULE');
- const v=target.values;add(v.reduce((a,b)=>a+b,0),'ADDED_VISIBLE_VALUES');add(v.reduce((a,b)=>a*b,1),'MULTIPLIED_VISIBLE_VALUES');
- if(v.length>=2)add(Math.abs(v[0]!-v[1]!),'USED_SIMPLE_DIFFERENCE');
+ const v=target.values,a=v[0]!,b=v[1]!;
+ add(v.reduce((x,y)=>x+y,0),'ADDED_VISIBLE_VALUES');
+ add(v.reduce((x,y)=>x*y,1),'MULTIPLIED_VISIBLE_VALUES');
+ add(Math.abs(a-b),'USED_SIMPLE_DIFFERENCE');
+ if(v.length===2){
+   add(a*a+b,'SQUARE_FIRST_PLUS_SECOND');
+   add(b*b+a,'SQUARE_SECOND_PLUS_FIRST');
+   add((a+b)*(a+b),'SQUARED_PAIR_SUM');
+   add(a*a+b*b,'SUM_OF_SQUARES');
+ }
+ if(v.length===3){
+   const d=v[2]!;
+   add((a+b)*d,'PAIR_SUM_TIMES_THIRD');
+   add(a*b-d,'THIRD_NOT_SQUARED');
+   add(a*b-d*d,'PAIR_PRODUCT_MINUS_THIRD_SQUARE');
+   add(a*a+b*d,'FIRST_SQUARE_PLUS_PAIR_PRODUCT');
+   add((a+b)*(a+b)-d,'PAIR_SUM_SQUARE_MINUS_THIRD');
+   add(a*b+Math.abs(a-b),'PAIR_PRODUCT_PLUS_DIFFERENCE');
+ }
+ if(v.length===4){
+   const d=v[2]!,e=v[3]!;
+   add(a*b+d*e,'ROW_PRODUCTS_SUM');
+   add(a*d+b*e,'COLUMN_PRODUCTS_SUM');
+   add(a*e+b*d,'DIAGONAL_PRODUCTS_SUM');
+   add(Math.abs(a*b-d*e),'ROW_PRODUCTS_DIFFERENCE');
+   add(Math.abs(a*e-b*d),'DIAGONAL_PRODUCTS_DIFFERENCE');
+   add((a+b)*(d+e),'ROW_SUMS_PRODUCT');
+ }
  return out;
 }
 function row(g:MisCp012GenericGroup,hide=false){return[...g.values,hide?'?':g.result].join('   ');}
