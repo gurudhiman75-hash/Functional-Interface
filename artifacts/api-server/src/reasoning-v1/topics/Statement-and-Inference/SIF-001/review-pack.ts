@@ -30,10 +30,13 @@ const CP008_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM:
 const CP009_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 24, HARD: 0 };
 const CP010_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 12 };
 const CP011_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 12 };
+const CP012_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 3, HARD: 1 };
+const CP013_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 2, HARD: 2 };
+const CP014_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 4, HARD: 0 };
 
 export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly locale: SifLocale; readonly seed?: number }): SifReviewPack {
   const baseSeed = input.seed ?? 10_001;
-  const target = input.cpId === "SIF-CP003" ? CP003_TARGET : input.cpId === "SIF-CP004" ? CP004_TARGET : input.cpId === "SIF-CP005" ? CP005_TARGET : input.cpId === "SIF-CP006" ? CP006_TARGET : input.cpId === "SIF-CP007" ? CP007_TARGET : input.cpId === "SIF-CP008" ? CP008_TARGET : input.cpId === "SIF-CP009" ? CP009_TARGET : input.cpId === "SIF-CP010" ? CP010_TARGET : input.cpId === "SIF-CP011" ? CP011_TARGET : DEFAULT_TARGET;
+  const target = input.cpId === "SIF-CP003" ? CP003_TARGET : input.cpId === "SIF-CP004" ? CP004_TARGET : input.cpId === "SIF-CP005" ? CP005_TARGET : input.cpId === "SIF-CP006" ? CP006_TARGET : input.cpId === "SIF-CP007" ? CP007_TARGET : input.cpId === "SIF-CP008" ? CP008_TARGET : input.cpId === "SIF-CP009" ? CP009_TARGET : input.cpId === "SIF-CP010" ? CP010_TARGET : input.cpId === "SIF-CP011" ? CP011_TARGET : input.cpId === "SIF-CP012" ? CP012_TARGET : input.cpId === "SIF-CP013" ? CP013_TARGET : input.cpId === "SIF-CP014" ? CP014_TARGET : DEFAULT_TARGET;
   const requested = { ...target };
   const effective: Record<SifDifficulty, number> = { EASY: 0, MEDIUM: 0, HARD: 0 };
   const questions: GeneratedSifQuestion[] = [];
@@ -125,6 +128,19 @@ export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly l
         usedScenarioIds.add(question.scenarioId);
         effective[question.difficulty] += 1;
       }
+    }
+    return { chapterId: "SIF-001", cpId: input.cpId, locale: input.locale, requestedDistribution: requested, effectiveDistribution: effective, questions };
+  }
+  if (input.cpId === "SIF-CP012" || input.cpId === "SIF-CP013" || input.cpId === "SIF-CP014") {
+    const pool = listSifAuthorities(input.cpId);
+    if (pool.length !== 4) throw new Error(`${input.cpId}: expected four unique authorities for this review checkpoint`);
+    for (const authority of pool) {
+      const index = pool.findIndex((entry) => entry.id === authority.id);
+      const offset = (index - (Math.abs(baseSeed) % pool.length) + pool.length) % pool.length;
+      const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed: baseSeed + offset });
+      if (question.scenarioId !== authority.id) throw new Error(`${input.cpId}: deterministic review selection mismatch for ${authority.id}`);
+      questions.push(question);
+      effective[question.difficulty] += 1;
     }
     return { chapterId: "SIF-001", cpId: input.cpId, locale: input.locale, requestedDistribution: requested, effectiveDistribution: effective, questions };
   }
