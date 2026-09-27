@@ -1085,6 +1085,285 @@ buildGeoMinQl("SALT-SOURCES-SAMBHAR-AND-COASTAL-CENTRES", "Salt sources, Sambhar
       "IBM-MINERAL-REVIEW-SALT"
     ]
   }
+] as const),
+
+buildGeoMinQl("ILMENITE-RUTILE-BEACH-SAND-TITANIUM", "Ilmenite, rutile and beach-sand titanium minerals", [
+  {
+    "stem": "Which two beach-sand minerals are important ores of titanium?",
+    "answer": "Ilmenite and rutile",
+    "distractors": [
+      "Mica and gypsum",
+      "Limestone and dolomite",
+      "Manganese and chromite"
+    ],
+    "explanation": "Ilmenite and rutile are important titanium-bearing heavy minerals found in coastal placer deposits. Their occurrence in beach sands links mineral geography with India's coastal sediment systems.",
+    "sourceFactId": "TITANIUM-ILMENITE-RUTILE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-ILMENITE-RUTILE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Chavara, an important beach-sand mineral centre, is located in which state?",
+    "answer": "Kerala",
+    "distractors": [
+      "Punjab",
+      "Rajasthan",
+      "Jharkhand"
+    ],
+    "explanation": "Chavara in Kerala is a major beach-sand mineral location where ilmenite, rutile and other heavy minerals are processed. Its coastal setting is central to the deposit type.",
+    "sourceFactId": "TITANIUM-CHAVARA",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-ILMENITE-RUTILE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Manavalakurichi in Tamil Nadu is linked with beach-sand minerals. II. Gopalpur in Odisha is another such processing location. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Official IBM material identifies Manavalakurichi in Tamil Nadu and Gopalpur in Odisha among important beach-sand mineral centres. Both are associated with heavy-mineral processing.",
+    "sourceFactId": "TITANIUM-COASTAL-CENTRES",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-ILMENITE-RUTILE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Chavara — ilmenite-rich beach sands",
+    "distractors": [
+      "Chavara — inland rock salt",
+      "Manavalakurichi — coalfield",
+      "Gopalpur — copper belt"
+    ],
+    "explanation": "Chavara in Kerala is a major ilmenite-bearing beach-sand region. Manavalakurichi and Gopalpur also belong to India's coastal heavy-mineral geography, not coal or copper belts.",
+    "sourceFactId": "TITANIUM-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-ILMENITE-RUTILE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A coastal placer contains ilmenite, rutile, zircon and monazite. What type of deposit is being described?",
+    "answer": "Heavy-mineral beach-sand deposit",
+    "distractors": [
+      "Coal seam",
+      "Residual bauxite cap",
+      "Copper lode"
+    ],
+    "explanation": "Ilmenite, rutile, zircon and monazite commonly occur together as dense heavy minerals concentrated by coastal processes. This assemblage is characteristic of beach-sand placers.",
+    "sourceFactId": "TITANIUM-BEACH-PLACER",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-ILMENITE-RUTILE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which sequence correctly matches three important beach-sand centres with their states?",
+    "answer": "Chavara—Kerala; Manavalakurichi—Tamil Nadu; Gopalpur—Odisha",
+    "distractors": [
+      "Chavara—Rajasthan; Manavalakurichi—Punjab; Gopalpur—Jharkhand",
+      "All three—Madhya Pradesh",
+      "Chavara—Goa; Manavalakurichi—Assam; Gopalpur—Gujarat"
+    ],
+    "explanation": "The three centres lie on different parts of India's coast: Chavara in Kerala, Manavalakurichi in Tamil Nadu and Gopalpur in Odisha. Together they form a strong coastal-mineral map pattern.",
+    "sourceFactId": "TITANIUM-THREE-CENTRES",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-ILMENITE-RUTILE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
+] as const),
+
+buildGeoMinQl("KYANITE-SILLIMANITE-ANDALUSITE-REFRACTORY-MINERALS", "Kyanite, sillimanite and andalusite as refractory minerals", [
+  {
+    "stem": "Kyanite, sillimanite and andalusite share which chemical composition?",
+    "answer": "Aluminium silicate, Al2SiO5",
+    "distractors": [
+      "Calcium carbonate",
+      "Magnesium carbonate",
+      "Calcium fluoride"
+    ],
+    "explanation": "Kyanite, sillimanite and andalusite are polymorphs with the same Al2SiO5 composition but different crystal structures. Their high-temperature behaviour makes them important refractory minerals.",
+    "sourceFactId": "KSA-COMPOSITION",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-KYANITE-SILLIMANITE-ANDALUSITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which industrial use is most directly linked with kyanite, sillimanite and andalusite?",
+    "answer": "Refractory materials for high-temperature furnaces",
+    "distractors": [
+      "Petroleum refining feedstock",
+      "Electrical wiring metal",
+      "Phosphatic fertilizer"
+    ],
+    "explanation": "When heated, these aluminium-silicate minerals form mullite and silica, producing heat-resistant materials. They are therefore used in refractory applications for metallurgical and other high-temperature industries.",
+    "sourceFactId": "KSA-REFRACTORY",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-KYANITE-SILLIMANITE-ANDALUSITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Kyanite, sillimanite and andalusite are polymorphs. II. They are important refractory minerals. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "The three minerals have the same chemical formula but different crystal structures, making them polymorphs. Their conversion to refractory phases at high temperatures gives them industrial importance.",
+    "sourceFactId": "KSA-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-KYANITE-SILLIMANITE-ANDALUSITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Kyanite — refractory mineral",
+    "distractors": [
+      "Kyanite — liquid fuel",
+      "Sillimanite — principal copper ore",
+      "Andalusite — rock salt"
+    ],
+    "explanation": "Kyanite, sillimanite and andalusite are aluminium-silicate refractory minerals. They should not be confused with metallic ores, fuels or evaporite minerals.",
+    "sourceFactId": "KSA-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-KYANITE-SILLIMANITE-ANDALUSITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which process most commonly forms kyanite, sillimanite and andalusite?",
+    "answer": "Metamorphism of aluminium-rich rocks",
+    "distractors": [
+      "Evaporation of seawater only",
+      "Coalification of plant matter",
+      "Petroleum migration"
+    ],
+    "explanation": "IBM describes these minerals as metamorphic products formed in aluminium-rich rocks under different pressure-temperature conditions. Their occurrence therefore reflects metamorphic geology.",
+    "sourceFactId": "KSA-METAMORPHIC",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-KYANITE-SILLIMANITE-ANDALUSITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Why are these minerals grouped together despite having different crystal structures?",
+    "answer": "They have the same chemical formula and related refractory behaviour",
+    "distractors": [
+      "They are all fuels",
+      "They are all iron ores",
+      "They are all salts"
+    ],
+    "explanation": "Their shared Al2SiO5 composition makes them polymorphs, while their high-temperature transformation gives them similar refractory uses. The grouping is both mineralogical and industrial.",
+    "sourceFactId": "KSA-REASONING",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-KYANITE-SILLIMANITE-ANDALUSITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
+] as const),
+
+buildGeoMinQl("FLUORITE-FLUORSPAR-FLUORINE-AND-INDIAN-REGIONS", "Fluorite, fluorine and Indian regions", [
+  {
+    "stem": "Fluorite, also called fluorspar, has which chemical composition?",
+    "answer": "Calcium fluoride",
+    "distractors": [
+      "Calcium carbonate",
+      "Magnesium carbonate",
+      "Aluminium oxide"
+    ],
+    "explanation": "Fluorite is calcium fluoride, CaF2, and is the principal commercial mineral source of fluorine. This composition separates it clearly from limestone, magnesite and bauxite.",
+    "sourceFactId": "FLUORITE-CHEMISTRY",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-FLUORITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which mineral is an important commercial source of fluorine?",
+    "answer": "Fluorite",
+    "distractors": [
+      "Mica",
+      "Graphite",
+      "Gypsum"
+    ],
+    "explanation": "Fluorite or fluorspar is the principal commercial source of fluorine. It has uses in metallurgical, chemical and several specialised industrial processes.",
+    "sourceFactId": "FLUORITE-FLUORINE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-FLUORITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Fluorite is also called fluorspar. II. It is used in metallurgical and chemical industries. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Fluorite and fluorspar are names for the same CaF2 mineral, and its uses extend to metallurgy and fluorine-based chemical industries. Both statements are correct.",
+    "sourceFactId": "FLUORITE-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-FLUORITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Kadipani — fluorite",
+    "distractors": [
+      "Kadipani — gold",
+      "Panna — fluorite",
+      "Hutti — fluorspar"
+    ],
+    "explanation": "Kadipani in Gujarat is a recognised fluorite-mining and beneficiation centre. Panna is famous for diamond and Hutti for gold, so those alternatives mix unrelated mineral locations.",
+    "sourceFactId": "FLUORITE-KADIPANI",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-FLUORITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which states contain important fluorite resources according to IBM mineral reviews?",
+    "answer": "Gujarat and Rajasthan",
+    "distractors": [
+      "Punjab and Haryana only",
+      "Kerala and Goa only",
+      "Delhi and Chandigarh"
+    ],
+    "explanation": "IBM records major fluorite resources in Gujarat and Rajasthan, with additional resources in states such as Chhattisgarh and Maharashtra. This is a durable resource-geography fact, not an annual production rank.",
+    "sourceFactId": "FLUORITE-STATES",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-FLUORITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A mineral clue reads 'CaF2, fluorspar, source of fluorine'. Which answer should be selected?",
+    "answer": "Fluorite",
+    "distractors": [
+      "Dolomite",
+      "Magnesite",
+      "Rock phosphate"
+    ],
+    "explanation": "The formula CaF2 and the alternative name fluorspar uniquely identify fluorite. Its role as a fluorine source reinforces the identification.",
+    "sourceFactId": "FLUORITE-CLUE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-FLUORITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
 ] as const)
 ]);
 
