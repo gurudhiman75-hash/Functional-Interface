@@ -93,9 +93,7 @@ Students do not begin from identical starting points. One school may serve many 
 
 A raw final score combines what students already knew with what happened during the year.
 
-For this reason, growth measures can add useful context. If students begin far behind and make large gains, a school may be improving learning even if its final average remains below another school's.
-
-Growth measures also have limits. Tests contain measurement error, and very small groups can show large percentage changes from only a few students.
+For this reason, growth measures can add useful context. If students begin far behind and make large gains, a school may be improving learning even if its final average remains below another school's. Growth measures also have limits. Tests contain measurement error, and very small groups can show large percentage changes from only a few students.
 
 Attendance, subject choice and student mobility can also influence comparisons.
 
@@ -103,9 +101,7 @@ The answer is not to hide results. It is to present several measures together: c
 
 Dashboards should also avoid turning every difference into a league table. Ranking can imply more certainty than the data supports, especially when schools are separated by only a few marks.
 
-Good public reporting helps people ask better questions rather than offering one simplistic verdict.
-
-The broader lesson is that educational performance is multidimensional. A raw score is useful evidence, but it should not be treated as a complete measure of school quality or student progress.`,
+Good public reporting helps people ask better questions rather than offering one simplistic verdict. The broader lesson is that educational performance is multidimensional. A raw score is useful evidence, but it should not be treated as a complete measure of school quality or student progress.`,
  questions:[
  q("E35-Q1","RC2-F01","easy","Why can raw school scores be misleading when used alone?","Students can begin with different levels of prior preparation",["Scores cannot be measured","Every school teaches different subjects","Growth never matters"],"The passage explains that final scores combine starting point and learning during the year.","do not begin from identical starting points"),
  q("E35-Q2","RC2-F02","medium","What can be inferred about a school with low final scores but large gains?","It may be producing meaningful learning progress despite a lower final average",["It must be the weakest school","Its tests are invalid","Students learned nothing"],"Growth measures can reveal improvement that final-level comparisons alone miss.","make large gains"),
@@ -133,7 +129,7 @@ Officials concluded that balancing a shared fleet is not simply about keeping ev
 
 The next phase will test small user incentives for returning bicycles to under-supplied docks. The city will compare the cost and effect of incentives with staff-driven redistribution.
 
-The pilot showed that availability is a moving pattern. A dock that is overfull at 9 a.m. may be the place where bicycles are most needed later in the day.`,
+The pilot showed that availability is a moving pattern. A dock that is overfull at 9 a.m. may be the place where bicycles are most needed later in the day.  The operator will also examine whether redistribution changes trip abandonment when users open the app and find no bicycle nearby.`,
  questions:[
  q("R28-Q1","RC2-F01","easy","Why were bicycles moved away from the railway station?","Residential docks were becoming empty",["The station banned bicycles","Trains carried bicycles away","Residential users paid higher fares"],"Morning travel concentrated bikes at the station and reduced availability elsewhere.","residential docking points became empty"),
  q("R28-Q2","RC2-F02","medium","Why did the operator stop using one fixed redistribution target?","Demand varied by time and special events",["Truck capacity disappeared","Every dock had identical demand","The city removed hourly data"],"A static target created later shortages because different locations needed bikes at different times.","hourly demand data"),
@@ -161,9 +157,7 @@ Another issue involved multiple appointments on the same day. Early messages wer
 
 Administrators concluded that reminders are more useful when they support a practical response rather than simply repeat information.
 
-The hospital will next measure how many released appointments are actually refilled, because an early cancellation creates value only if the slot can be used.
-
-Officials also plan to compare patient preferences by age and clinic type before deciding whether the same message format should be used everywhere.`,
+The hospital will next measure how many released appointments are actually refilled, because an early cancellation creates value only if the slot can be used. Officials also plan to compare patient preferences by age and clinic type before deciding whether the same message format should be used everywhere.  The next review will also compare how often patients choose each response channel.`,
  questions:[
  q("R29-Q1","RC2-F01","easy","What could patients do with the new reminder message?","Confirm, cancel or request a call",["Change their diagnosis","Order medicine","Choose a doctor salary"],"The pilot turned the reminder into a two-way scheduling tool.","confirm, cancel or request a call"),
  q("R29-Q2","RC2-F02","medium","Why was the department name added to reminders?","Patients with several appointments needed to know which visit the message referred to",["The hospital had no appointment times","Departments shared one building","Phone numbers changed daily"],"The added context prevented an ambiguous cancellation from affecting the wrong visit.","multiple appointments"),
@@ -191,9 +185,7 @@ Vendors appreciated that totals were calculated automatically, but several asked
 
 Officials concluded that digital receipts improved traceability but should not require customers to own a suitable phone.
 
-The next phase will test whether receipts can also support quick price comparisons without exposing personal purchase histories.
-
-The pilot showed that digitising a record can improve clarity while creating new questions about access, connectivity and data use.`,
+The next phase will test whether receipts can also support quick price comparisons without exposing personal purchase histories. The pilot showed that digitising a record can improve clarity while creating new questions about access, connectivity and data use.  Staff will also measure whether digital receipts reduce the time needed to resolve later price or quantity disputes.`,
  questions:[
  q("R30-Q1","RC2-F01","easy","What information did the digital receipt include?","Item, quantity, price and stall number",["Customer income","Vendor home address","Market opening history"],"The receipt recorded the transaction and identified the selling stall.","stall number"),
  q("R30-Q2","RC2-F02","medium","Why did the market keep paper receipts?","Not every customer could use the QR-based digital option easily",["Digital totals were inaccurate","Vendors refused all technology","Paper receipts were legally required in the passage"],"Accessibility problems with phones and scanning made a non-digital option necessary.","older customers found QR scanning difficult"),
@@ -221,9 +213,7 @@ The district also kept verbal alerts because people with hearing difficulties or
 
 Emergency managers concluded that a warning system should not depend on memory of sound alone. Repetition across channels and regular practice help people understand what action is expected.
 
-The next monsoon season will be used to measure message reach, false alarms and evacuation response time.
-
-The pilot showed that warning design is not only about making a signal louder. A signal must also carry a meaning that people can recognise quickly under stress.`,
+The next monsoon season will be used to measure message reach, false alarms and evacuation response time. The pilot showed that warning design is not only about making a signal louder. A signal must also carry a meaning that people can recognise quickly under stress.  Officials will also test whether visitors and seasonal workers understand the signal codes as well as long-term residents.`,
  questions:[
  q("R31-Q1","RC2-F01","easy","Why were new siren patterns introduced?","The old single pattern did not clearly distinguish different situations",["The sirens were too quiet to hear anywhere","Text alerts were banned","Villages had no emergency plans"],"Using one sound for tests and real warnings left residents uncertain about required action.","same long siren"),
  q("R31-Q2","RC2-F02","medium","Why were monthly test signals added?","Residents could forget the meaning of rarely heard patterns",["The river flooded every month","Posters were removed","Siren volume decreased"],"Regular practice helps maintain recognition of the warning codes.","could not remember"),
