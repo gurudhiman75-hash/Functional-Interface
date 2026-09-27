@@ -6,7 +6,7 @@ Status: **MERGE-SPLIT COMPLETE AGAINST THE IMPLEMENTED BLUEPRINT; EXTERNAL SOURC
 
 The MIS-001 blueprint requires permanent QLs to represent semantic exam patterns rather than constants, number tuples, renderer shapes, blank positions or difficulty labels. It also requires source saturation across SSC, Banking and Punjab-state material before permanent QL allocation.
 
-The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP024. Source crosswalk waves V1–V10 now provide growing SSC and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
+The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP027. Source crosswalk waves V1–V12 now provide growing SSC, RRB and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
 
 Therefore:
 
@@ -41,17 +41,20 @@ Current runtime review patterns:
 - CP021: 2 SSC source-discovered authorities
 - CP022: 1 SSC arithmetic-mean authority
 - CP023: 1 PSPCL mixed-root authority
-- CP024: 1 SSC CGL repeated-affine authority
+- CP024: 1 SSC CGL repeated-affine semantic authority
+- CP025: 1 RRB linked-product renderer/role alias of PRODUCT
+- CP026: 1 RRB opposite-square renderer/role alias of SQUARE_INPUT
+- CP027: 1 SSC Stenographer sum-of-cubes semantic authority
 
-**Total runtime patterns: 108**
+**Total runtime patterns: 111**
 
 ## 3. Chapter-wide consolidation result
 
 After normalization by semantic rule rather than checkpoint/renderer/query direction:
 
-- runtime patterns: **108**
-- canonical semantic authorities: **73**
-- reuse / alias patterns: **35**
+- runtime patterns: **111**
+- canonical semantic authorities: **74**
+- reuse / alias patterns: **37**
 - permanent QLs allocated: **0**
 
 The authoritative mapping lives in `semantic-authority-registry.ts`.
@@ -158,7 +161,12 @@ MIS-CAND-086 is not a new authority; the PSPCL missing-corner form reuses MIS-CA
 - MIS-CAND-105: `(ab+1)c`;
 - MIS-CAND-106: arithmetic mean `(a+b)/2`;
 - MIS-CAND-107: PSPCL mixed-root `(√a+√b)c+2`;
-- MIS-CAND-108: repeated affine transform `x→3x+1` applied twice across each row.
+- MIS-CAND-108: repeated affine transform `x→3x+1` applied twice across each row;
+- MIS-CAND-111: sum of individual cubes `a³+b³`.
+
+Source-form additions that do **not** create semantic authorities:
+- MIS-CAND-109 → MIS-CAND-003 PRODUCT: RRB linked shared-factor dual-product figure;
+- MIS-CAND-110 → MIS-CAND-016 SQUARE_INPUT: RRB opposite-end square wheel.
 
 MIS-CAND-097 remains an alias of MIS-CAND-059 because the stable subtraction constant is rule context, not a separate semantic identity.
 
@@ -244,15 +252,18 @@ Still pending before closure:
 
 **Permanent QL allocation remains BLOCKED.**
 
-Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V12`. Those waves have confirmed existing authorities, added eighteen source-backed semantic gaps, added one Punjab-state missing-corner runtime variant, and strengthened Series/Number-Matrix boundary routing.
+Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V12`.
 
-V10 exposed two semantic gaps. V11 then exposed one further SSC semantic gap (repeated affine transform) plus two RRB source-form capability gaps that were correctly retained as aliases rather than new semantic authorities. Practical source saturation remains open.
+Recent saturation waves:
+- V10 added two semantic authorities: arithmetic mean and PSPCL mixed-root;
+- V11 added one semantic authority (repeated affine transform) plus two RRB source-form aliases;
+- V12 added one semantic authority: sum of individual cubes.
 
-V10 exposed a repeated-affine SSC CGL gap (`x→3x+1` applied twice), so practical source saturation remains open.
+Because three consecutive deep waves continued to expose meaningful gaps, practical source saturation is not yet proven.
 
 Required next checkpoint:
 
-`MIS-001-SOURCE-CROSSWALK-V11`
+`MIS-001-SOURCE-CROSSWALK-V13`
 
 For each observed target-exam source family record:
 
@@ -265,4 +276,4 @@ For each observed target-exam source family record:
 - frequency confidence
 - source-thin flag
 
-Only after the crosswalk reaches practical saturation should the current 73 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
+Only after the crosswalk reaches practical saturation should the current 74 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
