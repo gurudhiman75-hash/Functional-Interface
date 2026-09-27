@@ -44,7 +44,7 @@ async function main() {
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp028CandidateCount, 1);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp027CandidateCount, 1);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.permanentQlAllocation, false);
-  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.sourceSaturationComplete, false);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.sourceSaturationComplete, true);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.mergeSplitAuditComplete, true);
 
   const listed = reasoningV1QuestionStudioAdapter.listPackages()
