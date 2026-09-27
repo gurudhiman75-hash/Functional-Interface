@@ -1,6 +1,6 @@
 # MIS-001 Source-Saturation / Merge-Split Audit V1
 
-Status: **MERGE-SPLIT COMPLETE AGAINST THE IMPLEMENTED BLUEPRINT; EXTERNAL SOURCE SATURATION PENDING**
+Status: **PRACTICAL SOURCE SATURATION COMPLETE; FINAL MERGE-SPLIT RECHECK PASSED**
 
 ## 1. Governance basis
 
@@ -11,8 +11,8 @@ The repository contains the full blueprint-derived runtime plus source-discovere
 Therefore:
 
 - chapter-wide semantic merge/split can be completed against the implemented blueprint;
-- external source saturation cannot yet be claimed;
-- permanent QL allocation remains blocked.
+- practical SSC/Banking/Punjab source saturation is complete through V15;
+- permanent QL allocation remains blocked until English editorial freeze; source-thin MIS-CAND-034 and MIS-CAND-095 remain promotion-ineligible.
 
 ## 2. Runtime inventory
 
@@ -254,7 +254,7 @@ Still pending before closure:
 
 **Permanent QL allocation remains BLOCKED.**
 
-Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V13`.
+Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V15`.
 
 Recent saturation waves:
 - V10 added arithmetic mean and PSPCL mixed-root semantic authorities;
@@ -264,9 +264,11 @@ Recent saturation waves:
 
 Because successive deep waves are still exposing meaningful semantic gaps, practical source saturation is not yet proven.
 
+V14 and V15 were consecutive zero-new target-exam waves after the V13/CP028 addition. The final merge/split recheck found no further merge/split action. Practical source saturation is complete.
+
 Required next checkpoint:
 
-`MIS-001-SOURCE-CROSSWALK-V14`
+`MIS-001-ENGLISH-EDITORIAL-FREEZE-V1`
 
 For each observed target-exam source family record:
 
@@ -279,4 +281,4 @@ For each observed target-exam source family record:
 - frequency confidence
 - source-thin flag
 
-Only after the crosswalk reaches practical saturation should the current 75 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
+The final merge/split recheck retains 75 canonical authorities. Of these, 73 are promotion-ready and 2 remain source-thin holds. Permanent QL allocation waits for English editorial freeze.
