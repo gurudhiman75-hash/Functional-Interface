@@ -34,7 +34,7 @@ export function renderDiFrequencyPolygonSvg(model: DiFrequencyPolygonVisualModel
   const safeTitle = escapeSvgText(model.title), safeXAxis = escapeSvgText(model.xAxisLabel), safeYAxis = escapeSvgText(model.yAxisLabel);
   const safeDescription = escapeSvgText(model.description ?? "Frequency polygon formed by joining class-mark frequency points with straight segments and closing to zero frequency one class width outside the data range.");
   const parts: string[] = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-di-chart-theme="${DI_FREQUENCY_POLYGON_VISUAL_THEME}" data-frequency-polygon="true" data-straight-segments="true" data-zero-closing-endpoints="true" data-no-value-labels="true" shape-rendering="geometricPrecision">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-di-chart-theme="${DI_FREQUENCY_POLYGON_VISUAL_THEME}" data-frequency-polygon="true" data-straight-segments="true" data-zero-closing-endpoints="true" data-value-labels="true" shape-rendering="geometricPrecision">`,
     `<title>${safeTitle}</title>`,
     `<desc>${safeDescription}</desc>`,
     `<rect x="0" y="0" width="${width}" height="${height}" fill="${COLORS.canvas}"/>`,
@@ -50,8 +50,11 @@ export function renderDiFrequencyPolygonSvg(model: DiFrequencyPolygonVisualModel
   parts.push(`<polyline data-frequency-polygon-line="true" points="${pointString}" fill="none" stroke="${COLORS.line}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`);
   parts.push(`<circle data-closing-endpoint="left" cx="${x(xMin).toFixed(2)}" cy="${y(0).toFixed(2)}" r="4" fill="${COLORS.canvas}" stroke="${COLORS.endpoint}" stroke-width="1.5"/>`);
   model.classes.forEach((item, index) => {
-    parts.push(`<circle data-point-index="${index}" cx="${x(item.classMark).toFixed(2)}" cy="${y(item.frequency).toFixed(2)}" r="4.5" fill="${COLORS.pointFill}" stroke="${COLORS.pointStroke}" stroke-width="2"/>`);
-    parts.push(`<text data-x-label="${index}" x="${x(item.classMark).toFixed(2)}" y="${plotBottom + 28}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11.5" font-weight="500" fill="${COLORS.tickText}">${fmt(item.classMark)}</text>`);
+    const pointX = x(item.classMark);
+    const pointY = y(item.frequency);
+    parts.push(`<circle data-point-index="${index}" cx="${pointX.toFixed(2)}" cy="${pointY.toFixed(2)}" r="4.5" fill="${COLORS.pointFill}" stroke="${COLORS.pointStroke}" stroke-width="2"/>`);
+    parts.push(`<text data-frequency-value="${index}" x="${pointX.toFixed(2)}" y="${(pointY - 11).toFixed(2)}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="${COLORS.pointStroke}" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">${fmt(item.frequency)}</text>`);
+    parts.push(`<text data-x-label="${index}" x="${pointX.toFixed(2)}" y="${plotBottom + 28}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11.5" font-weight="500" fill="${COLORS.tickText}">${fmt(item.classMark)}</text>`);
   });
   parts.push(`<circle data-closing-endpoint="right" cx="${x(xMax).toFixed(2)}" cy="${y(0).toFixed(2)}" r="4" fill="${COLORS.canvas}" stroke="${COLORS.endpoint}" stroke-width="1.5"/>`);
   parts.push(`<text x="${left + plotWidth / 2}" y="${height - 18}" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="600" fill="${COLORS.axisLabel}">${safeXAxis}</text>`);
