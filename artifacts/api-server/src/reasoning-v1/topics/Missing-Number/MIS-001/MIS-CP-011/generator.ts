@@ -1,0 +1,30 @@
+import{MIS_CP011_RULES,misCp011RuleByCandidateId,type MisCp011CandidateId,type MisCp011RuleId}from'./rule-definitions';
+import{auditMisCp011Ambiguity,independentlyEvaluateMisCp011Rule,type MisCp011AmbiguityAudit,type MisCp011Group}from'./independent-solver';
+
+export interface MisCp011Option{readonly value:number;readonly errorLabel:string|null;}
+export interface GeneratedMisCp011Question{
+ readonly packageId:'MIS-001';readonly checkpointId:'MIS-CP-011';readonly candidateId:MisCp011CandidateId;readonly provisionalQl:true;
+ readonly ruleId:MisCp011RuleId;readonly ruleFamily:string;readonly context:null;readonly difficulty:'Medium'|'Hard';readonly renderer:'TABLE_GROUP';
+ readonly stem:string;readonly evidenceGroups:readonly MisCp011Group[];readonly target:MisCp011Group;readonly options:readonly MisCp011Option[];
+ readonly correctIndex:number;readonly answer:number;readonly explanation:string;readonly solverTrace:readonly string[];
+ readonly ambiguityAudit:MisCp011AmbiguityAudit;readonly structuralFingerprint:string;readonly numericFingerprint:string;
+ readonly operationDepth:2;readonly operandCount:3;readonly groupCount:3;readonly missingPosition:'RESULT';readonly forwardOrInverse:'FORWARD';
+ readonly semanticAuthorityCandidateId:string;readonly createsNewSemanticAuthority:true;
+}
+function hash(v:string){let h=2166136261;for(let i=0;i<v.length;i++){h^=v.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function rng(seed:string){let s=hash(seed)||1;return()=>{s+=0x6d2b79f5;let v=s;v=Math.imul(v^(v>>>15),v|1);v^=v+Math.imul(v^(v>>>7),v|61);return((v^(v>>>14))>>>0)/4294967296;};}
+function shuffle<T>(a:readonly T[],seed:string){const o=[...a],r=rng(seed);for(let i=o.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[o[i],o[j]]=[o[j]!,o[i]!];}return o;}
+function groups(id:MisCp011RuleId):MisCp011Group[]{const out:MisCp011Group[]=[];for(let a=2;a<=15;a++)for(let b=2;b<=15;b++)for(let c=2;c<=12;c++){if(new Set([a,b,c]).size<3)continue;const result=independentlyEvaluateMisCp011Rule(id,a,b,c);if(result&&![a,b,c].includes(result))out.push({a,b,c,result});}return out;}
+function distractors(g:MisCp011Group):MisCp011Option[]{const{a,b,c,result}=g,out:MisCp011Option[]=[];const add=(v:number,l:string)=>{if(Number.isInteger(v)&&v>0&&v<=999&&v!==result&&!out.some(x=>x.value===v))out.push({value:v,errorLabel:l});};add(a*b-c,'THIRD_NOT_SQUARED');add(a*b+c*c,'WRONG_SIGN_AFTER_PRODUCT');add(a*a+b*c,'FIRST_SQUARE_PLUS_PAIR_PRODUCT');add((a+b)*(a+b)-c,'PAIR_SUM_SQUARE_MINUS_THIRD');add(a*b+Math.abs(a-b),'PAIR_PRODUCT_PLUS_ABS_DIFFERENCE');add((a+b)*c,'PAIR_SUM_TIMES_THIRD');return out;}
+function select(id:MisCp011RuleId,seed:string){const gs=shuffle(groups(id),seed+':g');for(let i=0;i<Math.min(gs.length,50);i++)for(let j=i+1;j<Math.min(gs.length,180);j++){const a=gs[i]!,b=gs[j]!;if(a.result===b.result)continue;const evidence=[a,b],audit=auditMisCp011Ambiguity(id,evidence);if(!audit.accepted)continue;const target=gs.find((g,k)=>k!==i&&k!==j&&g.result!==a.result&&g.result!==b.result&&distractors(g).length>=3);if(target)return{evidence,target,audit};}throw new Error('Unable to construct CP011 '+id);}
+function words(id:MisCp011RuleId){switch(id){case'PAIR_PRODUCT_MINUS_THIRD_SQUARE':return'Multiply the first two numbers, then subtract the square of the third.';case'FIRST_SQUARE_PLUS_PAIR_PRODUCT':return'Square the first number, then add the product of the second and third.';case'PAIR_SUM_SQUARE_MINUS_THIRD':return'Add the first two numbers, square the sum, then subtract the third.';case'PAIR_PRODUCT_PLUS_ABS_DIFFERENCE':return'Multiply the first two numbers, then add their positive difference.';}}
+function calc(id:MisCp011RuleId,g:MisCp011Group){const{a,b,c,result:r}=g;switch(id){case'PAIR_PRODUCT_MINUS_THIRD_SQUARE':return`${a}×${b}=${a*b}; ${c}²=${c*c}; ${a*b}−${c*c}=${r}`;case'FIRST_SQUARE_PLUS_PAIR_PRODUCT':return`${a}²=${a*a}; ${b}×${c}=${b*c}; ${a*a}+${b*c}=${r}`;case'PAIR_SUM_SQUARE_MINUS_THIRD':return`${a}+${b}=${a+b}; (${a+b})²=${(a+b)*(a+b)}; ${(a+b)*(a+b)}−${c}=${r}`;case'PAIR_PRODUCT_PLUS_ABS_DIFFERENCE':return`${a}×${b}=${a*b}; |${a}−${b}|=${Math.abs(a-b)}; ${a*b}+${Math.abs(a-b)}=${r}`;}}
+function row(g:MisCp011Group,hide=false){return`${g.a}   ${g.b}   ${g.c}   ${hide?'?':g.result}`;}
+export function generateMisCp011Question(candidateId:MisCp011CandidateId,seed:string|number='mis-cp011-v1'):GeneratedMisCp011Question{
+ const rule=misCp011RuleByCandidateId(candidateId),base=String(seed),sel=select(rule.ruleId,base),wrong=shuffle(distractors(sel.target),base+':o').slice(0,3);if(wrong.length!==3)throw new Error('CP011 distractor shortage');
+ const ci=hash(base+candidateId)%4,options=[...wrong];options.splice(ci,0,{value:sel.target.result,errorLabel:null});
+ const stem=['Find the number that will replace the question mark (?).','',...sel.evidence.map(g=>row(g)),row(sel.target,true)].join('\n');
+ const explanation=['The same two-stage rule is used in every row.',words(rule.ruleId),'','Row 1:',calc(rule.ruleId,sel.evidence[0]!),'','Row 2:',calc(rule.ruleId,sel.evidence[1]!),'','Now apply the same rule:',calc(rule.ruleId,sel.target),'',`So, ? = ${sel.target.result}.`].join('\n');
+ return{packageId:'MIS-001',checkpointId:'MIS-CP-011',candidateId,provisionalQl:true,ruleId:rule.ruleId,ruleFamily:rule.label,context:null,difficulty:rule.difficulty,renderer:'TABLE_GROUP',stem,evidenceGroups:sel.evidence,target:sel.target,options,correctIndex:ci,answer:sel.target.result,explanation,solverTrace:[...sel.evidence.map(g=>calc(rule.ruleId,g)),calc(rule.ruleId,sel.target)],ambiguityAudit:sel.audit,structuralFingerprint:['MIS-CP-011',rule.ruleId,'TWO_STAGE'].join('|'),numericFingerprint:[...sel.evidence,sel.target].map(g=>`${g.a},${g.b},${g.c}:${g.result}`).join('|'),operationDepth:2,operandCount:3,groupCount:3,missingPosition:'RESULT',forwardOrInverse:'FORWARD',semanticAuthorityCandidateId:rule.semanticAuthorityCandidateId,createsNewSemanticAuthority:true};
+}
+export const MIS_CP011_CANDIDATE_IDS=Object.freeze(MIS_CP011_RULES.map(r=>r.candidateId));
