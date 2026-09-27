@@ -302,7 +302,7 @@ function explanation(question: Di004V2Question, stimulus: Di004V2Stimulus, local
     }
     case "TOTAL_SERIES_PERCENT_EXCESS": {
       const big = Math.max(totalA, totalB), small = Math.min(totalA, totalB), d = big - small;
-      return { keyIdea: h ? "दोनों श्रेणियों के छह अवधियों का कुल निकालें, अंतर ज्ञात करें और छोटे कुल को आधार बनाएं।" : "ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਛੇ ਮਿਆਦਾਂ ਦਾ ਕੁੱਲ ਕੱਢੋ, ਅੰਤਰ ਕੱਢੋ ਅਤੇ ਛੋਟੇ ਕੁੱਲ ਨੂੰ ਆਧਾਰ ਬਣਾਓ।", steps: [`${a} = ${totalA}; ${b} = ${totalB}।`, h ? `अंतर = ${big} - ${small} = ${d}।` : `ਅੰਤਰ = ${big} - ${small} = ${d}।`, h ? `प्रतिशत अधिक = ${d}/${small} × 100 ≈ ${question.answer}।` : `ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ = ${d}/${small} × 100 ≈ ${question.answer}।`] };
+      return { keyIdea: h ? "दोनों श्रेणियों के सभी छह मान अलग-अलग जोड़ें, अंतर ज्ञात करें और छोटे कुल को आधार बनाएं।" : "ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਸਾਰੇ ਛੇ ਮੁੱਲ ਵੱਖ-ਵੱਖ ਜੋੜੋ, ਅੰਤਰ ਕੱਢੋ ਅਤੇ ਛੋਟੇ ਕੁੱਲ ਨੂੰ ਆਧਾਰ ਬਣਾਓ।", steps: [`${a} = ${totalA}; ${b} = ${totalB}।`, h ? `अंतर = ${big} - ${small} = ${d}।` : `ਅੰਤਰ = ${big} - ${small} = ${d}।`, h ? `प्रतिशत अधिक = ${d}/${small} × 100 ≈ ${question.answer}।` : `ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ = ${d}/${small} × 100 ≈ ${question.answer}।`] };
     }
     case "THREE_VS_THREE_RATIO": {
       const ai = [Number(e.a1), Number(e.a2), Number(e.a3)], bi = [Number(e.b1), Number(e.b2), Number(e.b3)];
