@@ -88,7 +88,7 @@ export function generateMisCp025Question(candidateId:MisCp025CandidateId,seed:st
  return{
   packageId:'MIS-001',checkpointId:'MIS-CP-025',candidateId,provisionalQl:true,ruleId:'SHARED_FACTOR_DUAL_PRODUCT',
   ruleFamily:rule.label,context:null,difficulty:'Easy',renderer:'SVG_LINKED_PRODUCT',
-  stem:['Study the figures and find the number that will replace the question mark (?).','',...previews].join('\n\n'),
+  stem:['Find the missing value in the following figures.','',...previews].join('\n\n'),
   evidenceGroups:sel.evidence,target:sel.target,figures,options,correctIndex:ci,answer,explanation,
   solverTrace:[...sel.evidence.map(calc),calc(sel.target)],
   ambiguityAudit:{accepted:true,survivingRules:['SHARED_FACTOR_DUAL_PRODUCT'],reason:'Both product relations must hold in each complete figure; the missing output is uniquely determined by the shared factor and right input.'},
