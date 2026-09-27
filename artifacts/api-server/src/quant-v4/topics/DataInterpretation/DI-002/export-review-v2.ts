@@ -113,7 +113,7 @@ export function renderDi002V2ReviewMarkdown() {
   return [
     "# DI-002 Advanced Table V2 — Editorial Review Pack",
     "",
-    "English is the approved permanent authority. Hindi/Punjabi below are HI_PA_REVIEW_CANDIDATE and remain Question Studio locked until human approval. Question Bank, tests, mocks and public delivery remain unauthorized.",
+    "English is the approved permanent authority. Hindi/Punjabi below are HI_PA_FROZEN and are enabled in Question Studio CONTROLLED_REVIEW. Question Bank, tests, mocks and public delivery remain unauthorized.",
     "",
     renderProfile("SSC_CGL_TIER_I"),
     "",
