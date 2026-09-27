@@ -52,7 +52,7 @@ for (const profile of profiles) {
     assert(svg.includes('data-closing-endpoint="left"') && svg.includes('data-closing-endpoint="right"'), `${seed}: closing endpoints are missing.`);
     assert((svg.match(/data-point-index=/g) ?? []).length === first.stimulus.classes.length, `${seed}: plotted data-point count does not match class count.`);
     assert((svg.match(/data-x-label=/g) ?? []).length === first.stimulus.classes.length, `${seed}: class-mark label count drifted.`);
-    assert(!svg.includes("data-point-value"), `${seed}: point-value labels would leak graph-reading answers.`);
+    assert(svg.includes('data-value-labels="true"') && (svg.match(/data-frequency-value=/g) ?? []).length === first.stimulus.classes.length, `${seed}: every polygon frequency must be visibly labelled.`);
     assert(!/\d+\.\d+/u.test(svgText(svg)), `${seed}: visible polygon text contains decimal values.`);
 
     shapes.add(first.stimulus.shape);
@@ -67,6 +67,7 @@ for (const profile of profiles) {
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId}: answer index mismatch.`);
       assert(!/\d+\.\d+/u.test(learnerText(question)), `${question.questionId}: decimal learner-facing value leaked.`);
       assert(!/associated|shortcut|common trap|\btrap\b/i.test(question.stem), `${question.questionId}: banned machine-like wording leaked into stem.`);
+      assert(!/nearest whole|rounded? to the nearest|give the nearest whole/iu.test(learnerText(question)), `${question.questionId}: explicit rounding instruction leaked.`);
       assert(!/\bbars?\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${question.questionId}: unnecessary histogram-shape wording leaked into learner text.`);
       assert(!/^What class mark is used|^What is the coordinate of the point|absolute difference between the plotted frequencies/i.test(question.stem), `${question.questionId}: rejected P0-style mechanical stem leaked into P2.`);
       assert(!/\d+(?:\.\d+)?–\d+(?:\.\d+)?–\d+(?:\.\d+)?–\d+(?:\.\d+)?/.test(question.stem), `${question.questionId}: concatenated class intervals leaked into the stem.`);
