@@ -17,7 +17,7 @@ A subgroup analysis found that employees with the highest baseline meeting load 
 
 The study did not measure client satisfaction, evening overtime or project quality. A reduction in morning meetings could create hidden costs later in the day.
 
-A follow-up will rotate both divisions through the meeting-free policy and track total daily interruption, overtime and work quality. The preliminary evidence suggests protected mornings may help concentration-heavy tasks, but the value depends on whether meetings are genuinely reduced rather than simply pushed into a smaller afternoon window.`,
+A follow-up will rotate both divisions through the meeting-free policy and track total daily interruption, overtime and work quality. The preliminary evidence suggests protected mornings may help concentration-heavy tasks, but the value depends on whether meetings are genuinely reduced rather than simply pushed into a smaller afternoon window.  Researchers also examined calendar displacement by counting meetings that moved to lunch, late afternoon or Friday. The intervention division showed a small increase in late-afternoon scheduling, which reinforced the concern that some interruption had been shifted rather than removed. Employees differed in preference: analysts tended to value protected mornings, while client-facing staff worried about losing flexibility for quick internal coordination. The company therefore plans to measure not only focus but also response delay between teams. It will also compare voluntary and mandatory versions of the policy because employee control may influence both adherence and satisfaction.`,
  questions:[
  q("W12-Q1","RS-F01","medium","What was the intervention?","Two mornings each week without normal internal meetings",["A ban on all client calls","A shorter workweek","Daily afternoon leave"],"The firm protected Tuesday and Thursday mornings from routine internal meetings.","meeting-free mornings"),
  q("W12-Q2","RS-F02","hard","Why is the division comparison imperfect?","The groups had different job mixes",["Neither group had baseline data","The policy affected both divisions","No calendar data was collected"],"Analysts and account managers may benefit differently from protected focus time.","job-mix difference"),
@@ -45,7 +45,7 @@ Researchers also found that not every checklist field was equally useful. “Cus
 
 After week four, the company simplified the checklist by making low-value fields optional. A follow-up will switch the two units' handover methods and keep supervisor review rules the same.
 
-The preliminary result suggests that structured handover can reduce duplicated work when fields capture the next team's actual decision needs. The study does not show that longer forms are always better; useful structure depends on selecting information that changes what the receiving team can do.`,
+The preliminary result suggests that structured handover can reduce duplicated work when fields capture the next team's actual decision needs. The study does not show that longer forms are always better; useful structure depends on selecting information that changes what the receiving team can do.  Researchers reviewed a sample of handovers qualitatively as well. The clearest notes separated facts already established from hypotheses still needing tests. Free-form notes sometimes mixed the two, causing the next team to repeat checks because it could not tell whether a step had been completed or merely suggested. The company therefore added wording guidance rather than more mandatory fields. It will also measure whether checklist benefits persist after supervisors stop actively reminding staff, because early coaching can produce temporary improvements that fade once attention moves elsewhere.`,
  questions:[
  q("W13-Q1","RS-F01","medium","What did the checklist require staff to record?","Case status, attempted steps, customer impact and the next action",["Only ticket number","Employee salary","Customer location history"],"The checklist focused on information needed to continue unresolved cases.","next recommended action"),
  q("W13-Q2","RS-F02","hard","Why might supervisor coaching confound the result?","The checklist unit received extra review support during the trial",["The comparison group used the same checklist","Coaching was randomly assigned","No one reviewed handovers"],"Improvement could partly reflect leadership attention rather than the form alone.","experienced team leader"),
@@ -73,9 +73,7 @@ Weather complicates interpretation. The post-installation period had fewer extre
 
 Researchers compared only days with similar temperature and still found higher comfort, but the number of matched days was smaller.
 
-The study did not measure whether seating affected boarding speed or whether people with wheelchairs found the revised stop layout easier to use. A follow-up will include accessibility audits and randomise bench installation across a larger set of stops.
-
-The preliminary evidence suggests seating can improve the experience of waiting without changing service speed, but physical layout must preserve safe movement around the stop.`,
+The study did not measure whether seating affected boarding speed or whether people with wheelchairs found the revised stop layout easier to use. A follow-up will include accessibility audits and randomise bench installation across a larger set of stops. The preliminary evidence suggests seating can improve the experience of waiting without changing service speed, but physical layout must preserve safe movement around the stop.  Researchers also mapped where passengers stood before and after the benches were installed. At wide stops, seating reduced wandering and did not block boarding. At narrow stops, however, seated passengers, waiting riders and cyclists competed for limited space. This helped explain why one physical intervention produced different results by location. The follow-up will therefore classify stops by width and pedestrian volume before installation. Researchers will also record whether passengers choose to stand even when seats are available, since preference, trip length and fear of missing the bus may affect actual use.`,
  questions:[
  q("T09-Q1","RS-F01","medium","What was the intervention?","Installing benches at bus shelters that previously had no seats",["Increasing bus frequency","Changing ticket prices","Removing shelters"],"The trial changed passenger waiting conditions rather than the bus service itself.","installed benches"),
  q("T09-Q2","RS-F02","hard","Why can't the comfort increase be attributed entirely to the benches?","The post-installation period had milder weather",["Passengers were not surveyed","Bus times became shorter","No baseline existed"],"Temperature changed between periods and could also affect comfort.","fewer extremely hot days"),
@@ -103,9 +101,7 @@ Adherence varied. People with early work shifts followed the window more consist
 
 The wrist monitors estimated sleep from movement and could not identify all periods of quiet wakefulness. Diary and device measures nevertheless showed a similar reduction in timing variability.
 
-The study lasted only five weeks and did not examine long-term health outcomes. A follow-up will compare a fixed wake window with a combined wake-and-bedtime plan and will include more shift workers.
-
-The preliminary finding is narrow: a consistent wake window can make sleep timing more regular, but regularity does not guarantee adequate duration after a late night.`,
+The study lasted only five weeks and did not examine long-term health outcomes. A follow-up will compare a fixed wake window with a combined wake-and-bedtime plan and will include more shift workers. The preliminary finding is narrow: a consistent wake window can make sleep timing more regular, but regularity does not guarantee adequate duration after a late night.  Researchers also examined weekend behaviour separately. The fixed-window group showed the largest reduction in Sunday wake-time delay, but some participants compensated with longer daytime naps. Those naps were not prohibited, which makes it harder to know whether total sleep opportunity shifted rather than simply becoming more regular at night. The follow-up will therefore record nap duration more carefully and distinguish participants with fixed work schedules from those with rotating shifts. Investigators also plan to measure whether participants maintain the schedule after reminders stop, because short-term adherence may not represent a sustainable routine.`,
  questions:[
  q("S07-Q1","RS-F01","medium","What was the main instruction for the intervention group?","Wake within the same one-hour window every day",["Sleep exactly eight hours","Avoid all weekend activity","Use a fixed bedtime only"],"The study manipulated wake-time regularity rather than prescribing one exact bedtime.","same one-hour window"),
  q("S07-Q2","RS-F02","hard","Why could some participants become sleep deprived despite better regularity?","They kept the wake window after going to bed late",["The study forced daytime naps","Caffeine increased","The monitors woke them"],"A consistent wake time can shorten sleep if bedtime shifts much later.","slept less after late social nights"),
@@ -125,9 +121,7 @@ Participants were randomly shown either the usual total price, a small unit pric
 
 The large-unit-price group was more likely to choose the package with the lowest cost per kilogram or litre. The effect was strongest when package sizes differed greatly.
 
-However, choosing the lowest unit price did not always minimise the shopper's total spending. Some participants selected a larger package with better value per unit even when they said they needed only a small amount.
-
-Researchers therefore separated “unit-value choice” from “basket cost”. The larger label improved comparison accuracy but sometimes encouraged a bigger immediate purchase.
+However, choosing the lowest unit price did not always minimise the shopper's total spending. Some participants selected a larger package with better value per unit even when they said they needed only a small amount. Researchers therefore separated “unit-value choice” from “basket cost”. The larger label improved comparison accuracy but sometimes encouraged a bigger immediate purchase.
 
 The study was simulated, so participants did not spend their own money or carry products home. Real shoppers may care more about budget, storage space and product waste.
 
@@ -135,9 +129,7 @@ Brand preference also mattered. Strongly brand-loyal participants were less infl
 
 The study did not test whether shoppers understood promotions such as “buy two, get one free”, where calculating unit cost becomes more complicated.
 
-A follow-up will use a real-store field trial and will examine whether clearer unit prices help low-budget shoppers without increasing unwanted bulk purchases.
-
-The preliminary evidence suggests unit-price visibility can improve value comparison, but “best value per unit” and “best purchase for this household” are not always the same decision.`,
+A follow-up will use a real-store field trial and will examine whether clearer unit prices help low-budget shoppers without increasing unwanted bulk purchases. The preliminary evidence suggests unit-price visibility can improve value comparison, but “best value per unit” and “best purchase for this household” are not always the same decision.  Researchers also asked participants why they rejected the lowest unit-price option. Common reasons included limited storage, fear that food would spoil and unwillingness to spend more money at one time. These responses reinforced the distinction between economic value per unit and practical household value. The field trial will therefore record pantry space, household size and whether larger packs are fully used. Researchers also want to test a label that shows both unit price and estimated total saving without visually overpowering the regular price, because stronger emphasis may help comparison while also nudging shoppers toward quantities they do not need.`,
  questions:[
  q("C08-Q1","RS-F01","medium","What differed between the experimental display groups?","The visibility and size of the unit-price information",["Product size","Total price","Brand availability"],"The study held products constant and changed how unit price was presented.","larger unit price"),
  q("C08-Q2","RS-F02","hard","Why could a lower unit-price choice still increase immediate spending?","The better-value package was sometimes much larger",["Unit prices were inaccurate","Total prices were hidden","Participants had no budget"],"Buying more at a lower per-unit cost can still raise the amount paid today.","larger package"),
@@ -157,9 +149,7 @@ For the next six weeks, a board near the exit displayed the previous day's total
 
 Average plate waste fell during the display period. The decline was largest on days when the menu offered several portion sizes and smallest when only one fixed portion was available.
 
-Researchers also recorded meal count. Waste per diner fell, not just total waste, which reduced the chance that the result was caused by fewer customers.
-
-However, the intervention period occurred later in the academic term, when students may have become more familiar with portion sizes and cafeteria dishes.
+Researchers also recorded meal count. Waste per diner fell, not just total waste, which reduced the chance that the result was caused by fewer customers. However, the intervention period occurred later in the academic term, when students may have become more familiar with portion sizes and cafeteria dishes.
 
 Staff also changed two popular serving spoons during week four of the display period. Smaller spoons could have reduced the amount taken independently of the information board.
 
@@ -167,9 +157,7 @@ A survey found that many diners noticed the display, but only a minority said it
 
 The study did not measure kitchen preparation waste, only food returned on trays. It also did not track whether diners later bought snacks because they took smaller portions.
 
-A follow-up will randomise the display across two cafeterias and keep serving utensils constant. Researchers will also compare information-only displays with prompts encouraging diners to take a small first portion and return for more if needed.
-
-The preliminary evidence suggests visible waste totals may contribute to lower plate waste, especially when diners have flexible portion choices, but menu design and serving tools remain competing explanations.`,
+A follow-up will randomise the display across two cafeterias and keep serving utensils constant. Researchers will also compare information-only displays with prompts encouraging diners to take a small first portion and return for more if needed. The preliminary evidence suggests visible waste totals may contribute to lower plate waste, especially when diners have flexible portion choices, but menu design and serving tools remain competing explanations.  Researchers also separated edible from inedible plate waste in a small subsample. Fruit peels and bones changed little, while uneaten rice, bread and cooked vegetables accounted for most of the reduction during the display period. This suggests the intervention affected serving or consumption choices rather than every type of waste equally. The follow-up will weigh these categories systematically and will record menu satisfaction, because diners may leave more food when a dish is unpopular. Investigators also plan to examine whether smaller first portions increase repeat serving trips and whether that affects queue length.`,
  questions:[
  q("E09-Q1","RS-F01","medium","What did the intervention board display?","The previous day's total plate waste compared with the baseline",["Individual diner names","Kitchen salaries","Food prices"],"The board showed aggregate waste information without tracking individuals.","previous day's total waste"),
  q("E09-Q2","RS-F02","hard","Why could changing serving spoons confound the result?","Smaller utensils could reduce portions independently of the display",["Spoons changed the menu price","Waste was not weighed","Diners stopped using trays"],"The utensil change offers another mechanism for lower plate waste.","Smaller spoons"),
@@ -189,9 +177,7 @@ Five hundred students were randomly assigned to either faded examples or ordinar
 
 During practice, the faded-example group made fewer early errors and completed questions faster. By the final third of practice, performance between groups was similar.
 
-Two days later, students completed a test with familiar equations and transfer items that used different surface wording. The faded group scored slightly higher on familiar items and about the same on transfer items.
-
-Researchers had expected fading to improve transfer by gradually shifting responsibility to the learner, but the result did not clearly support that hypothesis.
+Two days later, students completed a test with familiar equations and transfer items that used different surface wording. The faded group scored slightly higher on familiar items and about the same on transfer items. Researchers had expected fading to improve transfer by gradually shifting responsibility to the learner, but the result did not clearly support that hypothesis.
 
 Hint use complicates interpretation. Independent-practice students opened more hints early, which may have effectively turned some of their questions into partial worked examples.
 
@@ -199,9 +185,7 @@ Students in the faded group reported lower frustration during the first half of 
 
 The study did not test students with very strong prior algebra knowledge separately. Such learners may need less scaffolding and could find faded examples unnecessarily slow.
 
-A follow-up will compare gradual and faster fading schedules, restrict hint content more carefully and include a one-week transfer test.
-
-The preliminary evidence suggests faded examples can make early practice smoother and may support short-term accuracy, but this version did not produce a clear advantage on unfamiliar transfer problems.`,
+A follow-up will compare gradual and faster fading schedules, restrict hint content more carefully and include a one-week transfer test. The preliminary evidence suggests faded examples can make early practice smoother and may support short-term accuracy, but this version did not produce a clear advantage on unfamiliar transfer problems.  Researchers also analysed error type. The faded group made fewer procedural mistakes early, such as applying an operation to only one side of an equation, but conceptual errors involving which operation to choose were less different between groups. This distinction may explain why familiar accuracy improved more clearly than transfer. The follow-up will therefore code errors by type and vary where fading occurs within the solution rather than only how many steps disappear. Researchers also plan to test whether asking learners to explain the removed step improves transfer without adding too much time.`,
  questions:[
  q("D13-Q1","RS-F01","medium","What is a faded example sequence?","Worked steps are gradually removed so learners complete more of the solution",["Every problem is fully solved","Hints are removed permanently","Question difficulty decreases"],"The design shifts responsibility from shown steps to independent completion over time.","progressively more steps"),
  q("D13-Q2","RS-F02","hard","Why does hint use complicate the group comparison?","Independent-practice students could turn difficult items into partial worked examples",["Hints were unavailable to the faded group","Hints changed the lesson topic","Every student used the same number"],"Extra scaffolding in the comparison group reduces the contrast between conditions.","opened more hints"),
@@ -221,9 +205,7 @@ Nine hundred users were randomly assigned to fixed or adaptive reminders for fou
 
 Adaptive users completed slightly more review sessions and performed better on vocabulary tested one week after the last lesson. The benefit was larger for words that users had answered incorrectly during initial practice.
 
-However, adaptive users also received more reminders on average. Researchers could not immediately tell whether better retention came from better timing or simply from more review opportunities.
-
-To investigate, they compared users within a narrower reminder-count range. The adaptive advantage became smaller but remained, suggesting timing may contribute beyond frequency.
+However, adaptive users also received more reminders on average. Researchers could not immediately tell whether better retention came from better timing or simply from more review opportunities. To investigate, they compared users within a narrower reminder-count range. The adaptive advantage became smaller but remained, suggesting timing may contribute beyond frequency.
 
 Notification fatigue was a concern. Users receiving more than five reminders in a week were more likely to disable app notifications regardless of group.
 
@@ -231,9 +213,7 @@ The algorithm also used response speed as a difficulty signal. Slow responses ca
 
 The study did not measure vocabulary use in spontaneous conversation, only recognition and recall tests inside the app.
 
-A follow-up will cap both groups at the same number of reminders and vary timing only. Researchers will also test whether users should be able to choose quiet periods so reminders do not arrive during work or sleep.
-
-The preliminary evidence suggests adaptive timing may improve short-term retention, particularly for difficult words, but reminder frequency and user tolerance remain important parts of the effect.`,
+A follow-up will cap both groups at the same number of reminders and vary timing only. Researchers will also test whether users should be able to choose quiet periods so reminders do not arrive during work or sleep. The preliminary evidence suggests adaptive timing may improve short-term retention, particularly for difficult words, but reminder frequency and user tolerance remain important parts of the effect.  Researchers also examined reminder timing by hour of day. Some users received adaptive prompts during work or late evening because the algorithm optimised predicted forgetting rather than convenience. Those reminders were more likely to be ignored, suggesting that theoretically optimal memory timing can conflict with practical attention. The follow-up will therefore constrain reminders to user-selected windows and compare retention with unconstrained adaptive timing. Researchers also plan to measure whether users voluntarily open the app before a reminder arrives, because those self-initiated reviews could influence both the algorithm's predictions and later test performance.`,
  questions:[
  q("D14-Q1","RS-F01","medium","How did adaptive reminders differ from fixed reminders?","Their timing depended on estimated forgetting risk",["They used different lesson content","They removed review sessions","They arrived only once a month"],"The adaptive system used recent performance to choose when a reminder should appear.","estimated when each learner was likely to forget"),
  q("D14-Q2","RS-F02","hard","Why is reminder frequency a confound?","Adaptive users received more opportunities to review as well as different timing",["Both groups had identical reminder counts","Frequency cannot affect memory","Fixed users received more lessons"],"Extra exposure could explain part of the retention difference independently of timing.","more reminders on average"),
