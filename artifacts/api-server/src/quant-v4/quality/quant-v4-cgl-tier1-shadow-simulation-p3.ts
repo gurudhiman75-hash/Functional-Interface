@@ -580,6 +580,7 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
     emptyExplanationCount,
     literalStemDuplicateRate,
     normalizedStructuralStemReuseRate,
+    learnerQuestionDuplicateRate,
     slotDistribution: countBy(records, (record) => record.slotKind),
     packageDistribution: countBy(runtimeRecords, (record) => record.packageId),
     packageStructuralReuse: packageStructuralReuse(runtimeRecords),
