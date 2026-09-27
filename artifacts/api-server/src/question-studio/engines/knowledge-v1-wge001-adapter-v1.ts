@@ -8,7 +8,7 @@ const runtimeMode = 'review-only';
 const cpIds = Object.keys(WGE_CP_TITLES) as WorldGeographyCpId[];
 const packageIds = new Set([packageId, ...cpIds]);
 const locales = { en: 'en-IN', hi: 'hi-IN', pa: 'pa-IN' };
-const registrationAuthorityId = 'WGE-001-SECTION-A-AUTHORED-REVIEW-V1';
+const registrationAuthorityId = 'WGE-001-WORLD-GEOGRAPHY-AUTHORED-REVIEW-V1';
 const normalize = (v: string | undefined) => (v ?? '').trim().toUpperCase();
 
 function definition(cp?: WorldGeographyCpId): QuestionStudioPackageDefinition {
@@ -16,8 +16,8 @@ function definition(cp?: WorldGeographyCpId): QuestionStudioPackageDefinition {
   const authoringReviewApproved = rows.every(q => Number(q.cpId.slice(-3)) <= 23);
   return {
     engineId: 'knowledge-v1', packageId: cp ?? packageId, subject: 'Static GK',
-    topic: 'World Geography', subtopic: cp ? WGE_CP_TITLES[cp] : 'Earth and Physical Foundations',
-    label: `World Geography · ${cp ? WGE_CP_TITLES[cp] : 'Earth and Physical Foundations — Mixed'}`,
+    topic: 'World Geography', subtopic: cp ? WGE_CP_TITLES[cp] : 'World Geography',
+    label: `World Geography · ${cp ? WGE_CP_TITLES[cp] : 'Mixed'}`,
     enabled: true, cpIds: cp ? [cp] : [...cpIds], supportedLanguages: [...WGE_LANGUAGES],
     supportedDifficulties: ['Easy', 'Medium', 'Hard'], difficultyFilterSupported: true,
     runtimeMode, supportedRuntimeModes: [runtimeMode],
@@ -61,7 +61,7 @@ function resolveSelection(request: QuestionStudioGenerationRequest) {
     }
   }
   const subtopic = request.subtopic?.trim();
-  if (subtopic && subtopic.toLowerCase() !== 'earth and physical foundations') {
+  if (subtopic && !['world geography', 'earth and physical foundations'].includes(subtopic.toLowerCase())) {
     const cp = cpIds.find(cp => WGE_CP_TITLES[cp].toLowerCase() === subtopic.toLowerCase() || cp === subtopic.toUpperCase());
     if (!cp) throw new Error(`Unknown WGE subtopic: ${subtopic}`);
     selectedCps.add(cp);
@@ -85,7 +85,7 @@ export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
     const candidates = WGE_CORPUS.filter(q => (!cp || q.cpId === cp) && (!questionId || q.id === questionId) && (difficulty === 'Mixed' || q.difficulty === difficulty));
     if (!candidates.length) throw new Error('WGE selection contains no questions');
     if (count > candidates.length) throw new Error(`WGE cannot generate ${count} questions from ${candidates.length} candidates without repeats`);
-    const seed = request.seed?.trim() || 'wge-section-a-v1';
+    const seed = request.seed?.trim() || 'wge-world-v1';
     // Language is deliberately absent: the same seed selects the same canonical
     // questions and option positions in all three languages.
     const chosen = deterministicShuffle(candidates, `${seed}:${cp ?? 'ALL'}:${difficulty}:${questionId ?? 'ALL'}`).slice(0, count);

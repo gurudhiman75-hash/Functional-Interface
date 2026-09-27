@@ -1,0 +1,902 @@
+[
+  {
+    "id": "WGE-001-CP024-Q001",
+    "cpId": "WGE-001-CP024",
+    "objective": "yangtze-east-china-sea",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which river flows east across China and empties into the East China Sea?",
+        "options": [
+          "Yangtze",
+          "YellowRiver",
+          "Mekong",
+          "Irrawaddy"
+        ],
+        "explanation": "The Yangtze (Chang Jiang) reaches the East China Sea near Shanghai."
+      },
+      "hi": {
+        "stem": "कौन-सी नदी चीन से पूर्व की ओर बहकर पूर्वी चीन सागर में गिरती है?",
+        "options": [
+          "यांग्त्से",
+          "ह्वांग हे (पीली नदी)",
+          "मेकांग",
+          "इरावदी"
+        ],
+        "explanation": "यांग्त्से (चांग जियांग) शंघाई के पास पूर्वी चीन सागर में गिरती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦਰਿਆ ਚੀਨ ਵਿੱਚੋਂ ਪੂਰਬ ਵੱਲ ਵਗ ਕੇ ਪੂਰਬੀ ਚੀਨ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਯਾਂਗਤ्से",
+          "ਹ्वांग ਹੋ (ਪੀਲੀ ਨਦੀ)",
+          "ਮੇਕਾਂਗ",
+          "ਇਰਾਵਦੀ"
+        ],
+        "explanation": "ਯਾਂਗਤਸੇ (ਚਾਂਗ ਜਿਆਂਗ) ਸ਼ੰਘਾਈ ਨੇੜੇ ਪੂਰਬੀ ਚੀਨ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q002",
+    "cpId": "WGE-001-CP024",
+    "objective": "yellow-river-bohai",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which major Chinese river flows into the Bohai Sea?",
+        "options": [
+          "Yangtze",
+          "Mekong",
+          "RedRiver",
+          "YellowRiver"
+        ],
+        "explanation": "The Huang He, or Yellow River, reaches the Bohai Sea in northern China."
+      },
+      "hi": {
+        "stem": "चीन की कौन-सी प्रमुख नदी बोहाई सागर में गिरती है?",
+        "options": [
+          "यांग्त्से",
+          "मेकांग",
+          "लाल नदी",
+          "ह्वांग हे (पीली नदी)"
+        ],
+        "explanation": "ह्वांग हे या पीली नदी उत्तरी चीन में बोहाई सागर तक पहुँचती है।"
+      },
+      "pa": {
+        "stem": "ਚੀਨ ਦਾ ਕਿਹੜਾ ਵੱਡਾ ਦਰਿਆ ਬੋਹਾਈ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਯਾਂਗਤ्से",
+          "ਮੇਕਾਂਗ",
+          "ਲਾਲ ਦਰਿਆ",
+          "ਹ्वांग ਹੋ (ਪੀਲੀ ਨਦੀ)"
+        ],
+        "explanation": "ਹਵਾਂਗ ਹੋ ਜਾਂ ਪੀਲੀ ਨਦੀ ਉੱਤਰੀ ਚੀਨ ਵਿੱਚ ਬੋਹਾਈ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q003",
+    "cpId": "WGE-001-CP024",
+    "objective": "tibetan-plateau-china",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which high plateau occupies much of southwestern China and is the source region of several major Asian rivers?",
+        "options": [
+          "Karakum",
+          "TienShan",
+          "Tibet",
+          "Mongolia"
+        ],
+        "explanation": "The Tibetan Plateau lies north of the Himalaya and feeds headwaters of several major Asian rivers."
+      },
+      "hi": {
+        "stem": "कौन-सा ऊँचा पठार दक्षिण-पश्चिमी चीन के बड़े भाग में फैला है और कई प्रमुख एशियाई नदियों का उद्गम क्षेत्र है?",
+        "options": [
+          "कराकुम मरुस्थल",
+          "तियान शान",
+          "तिब्बती पठार",
+          "मंगोलिया"
+        ],
+        "explanation": "तिब्बती पठार हिमालय के उत्तर में है और कई प्रमुख एशियाई नदियों के ऊपरी जलस्रोत इसी क्षेत्र में हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਉੱਚਾ ਪਠਾਰ ਦੱਖਣ-ਪੱਛਮੀ ਚੀਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੈ ਅਤੇ ਕਈ ਵੱਡੇ ਏਸ਼ੀਆਈ ਦਰਿਆਵਾਂ ਦਾ ਸਰੋਤ ਖੇਤਰ ਹੈ?",
+        "options": [
+          "ਕਾਰਾਕੁਮ ਮਾਰੂਥਲ",
+          "ਤਿਆਨ ਸ਼ਾਨ",
+          "ਤिब्बਤੀ ਪਠਾਰ",
+          "ਮੰਗੋਲੀਆ"
+        ],
+        "explanation": "ਤਿੱਬਤੀ ਪਠਾਰ ਹਿਮਾਲਿਆ ਦੇ ਉੱਤਰ ਵੱਲ ਹੈ ਅਤੇ ਕਈ ਵੱਡੇ ਏਸ਼ੀਆਈ ਦਰਿਆਵਾਂ ਦੇ ਉੱਪਰੀ ਸਰੋਤ ਇਸ ਖੇਤਰ ਵਿੱਚ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q004",
+    "cpId": "WGE-001-CP024",
+    "objective": "gobi-mongolia-north-china",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which desert extends across southern Mongolia and northern China?",
+        "options": [
+          "Kalahari",
+          "Gobi",
+          "Karakum",
+          "Sahara"
+        ],
+        "explanation": "The Gobi spans southern Mongolia and adjacent northern China; much of it is cold and arid."
+      },
+      "hi": {
+        "stem": "कौन-सा मरुस्थल दक्षिणी मंगोलिया और उत्तरी चीन में फैला है?",
+        "options": [
+          "कालाहारी क्षेत्र",
+          "गोबी मरुस्थल",
+          "कराकुम मरुस्थल",
+          "सहारा"
+        ],
+        "explanation": "गोबी दक्षिणी मंगोलिया और उससे लगे उत्तरी चीन में फैला है; इसका बड़ा भाग ठंडा और शुष्क है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਦੱਖਣੀ ਮੰਗੋਲੀਆ ਅਤੇ ਉੱਤਰੀ ਚੀਨ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਕਾਲਾਹਾਰੀ ਖੇਤਰ",
+          "ਗੋਬੀ ਮਾਰੂਥਲ",
+          "ਕਾਰਾਕੁਮ ਮਾਰੂਥਲ",
+          "ਸਹਾਰਾ"
+        ],
+        "explanation": "ਗੋਬੀ ਦੱਖਣੀ ਮੰਗੋਲੀਆ ਅਤੇ ਨਾਲ ਲੱਗਦੇ ਉੱਤਰੀ ਚੀਨ ਵਿੱਚ ਫੈਲਿਆ ਹੈ; ਇਸਦਾ ਵੱਡਾ ਹਿੱਸਾ ਠੰਢਾ ਅਤੇ ਸੁੱਕਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q005",
+    "cpId": "WGE-001-CP024",
+    "objective": "korean-peninsula-seas",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which peninsula lies between the Yellow Sea and the Sea of Japan (East Sea)?",
+        "options": [
+          "Korea",
+          "Japan",
+          "Borneo",
+          "ArabianPeninsula"
+        ],
+        "explanation": "The Korean Peninsula projects south from mainland Northeast Asia between these two seas."
+      },
+      "hi": {
+        "stem": "पीले सागर और जापान सागर (पूर्वी सागर) के बीच कौन-सा प्रायद्वीप स्थित है?",
+        "options": [
+          "कोरियाई प्रायद्वीप",
+          "जापान",
+          "बोर्नियो",
+          "अरब प्रायद्वीप"
+        ],
+        "explanation": "कोरियाई प्रायद्वीप उत्तर-पूर्वी एशिया की मुख्यभूमि से दक्षिण की ओर इन दोनों सागरों के बीच निकला है।"
+      },
+      "pa": {
+        "stem": "ਪੀਲੇ ਸਾਗਰ ਅਤੇ ਜਪਾਨ ਸਾਗਰ (ਪੂਰਬੀ ਸਾਗਰ) ਵਿਚਕਾਰ ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਜਪਾਨ",
+          "ਬੋਰਨਿਓ",
+          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਉੱਤਰ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੀ ਮੁੱਖ ਧਰਤੀ ਤੋਂ ਦੱਖਣ ਵੱਲ ਇਨ੍ਹਾਂ ਦੋਹਾਂ ਸਾਗਰਾਂ ਵਿਚਕਾਰ ਨਿਕਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q006",
+    "cpId": "WGE-001-CP024",
+    "objective": "japan-island-arc",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which island chain lies east of the Korean Peninsula in the northwest Pacific?",
+        "options": [
+          "Philippines",
+          "Indonesia",
+          "Mongolia",
+          "Japan"
+        ],
+        "explanation": "Japan is an island arc east of the Korean Peninsula, along the Pacific margin of East Asia."
+      },
+      "hi": {
+        "stem": "ਉੱਤਰ-ਪੱਛਮੀ प्रशांत में कोरियाई प्रायद्वीप के पूर्व में कौन-सी द्वीप-शृंखला है?",
+        "options": [
+          "फ़िलिपींस",
+          "इंडोनेशिया",
+          "मंगोलिया",
+          "जापान"
+        ],
+        "explanation": "जापान पूर्वी एशिया के प्रशांत किनारे पर कोरियाई प्रायद्वीप के पूर्व में स्थित द्वीप-चाप है।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰ-ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਦੇ ਪੂਰਬ ਵੱਲ ਕਿਹੜੀ ਟਾਪੂ-ਲੜੀ ਹੈ?",
+        "options": [
+          "ਫ਼ਿਲੀਪੀਨਜ਼",
+          "ਇੰਡੋਨੇਸ਼ੀਆ",
+          "ਮੰਗੋਲੀਆ",
+          "ਜਪਾਨ"
+        ],
+        "explanation": "ਜਪਾਨ ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੇ ਪ੍ਰਸ਼ਾਂਤ ਕਿਨਾਰੇ ਉੱਤੇ ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਦੇ ਪੂਰਬ ਵੱਲ ਟਾਪੂ-ਚਾਪ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q007",
+    "cpId": "WGE-001-CP024",
+    "objective": "mekong-south-china-sea",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which river crosses mainland Southeast Asia and forms a large delta in southern Vietnam?",
+        "options": [
+          "Irrawaddy",
+          "ChaoPhraya",
+          "Mekong",
+          "Yangtze"
+        ],
+        "explanation": "The Mekong flows through or borders several mainland Southeast Asian countries before reaching the South China Sea in Vietnam."
+      },
+      "hi": {
+        "stem": "कौन-सी नदी दक्षिण-पूर्व एशिया की मुख्यभूमि से होकर बहती है और दक्षिणी वियतनाम में बड़ा डेल्टा बनाती है?",
+        "options": [
+          "इरावदी",
+          "चाओ फ्राया",
+          "मेकांग",
+          "यांग्त्से"
+        ],
+        "explanation": "मेकांग वियतनाम में दक्षिण चीन सागर तक पहुँचने से पहले दक्षिण-पूर्व एशिया के कई देशों से होकर या उनकी सीमा के साथ बहती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦਰਿਆ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੀ ਮੁੱਖ ਧਰਤੀ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ ਅਤੇ ਦੱਖਣੀ ਵੀਅਤਨਾਮ ਵਿੱਚ ਵੱਡਾ ਡੈਲਟਾ ਬਣਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਇਰਾਵਦੀ",
+          "ਚਾਓ ਫਰਾਇਆ",
+          "ਮੇਕਾਂਗ",
+          "ਯਾਂਗਤ्से"
+        ],
+        "explanation": "ਮੇਕਾਂਗ ਵੀਅਤਨਾਮ ਵਿੱਚ ਦੱਖਣੀ ਚੀਨ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਣ ਤੋਂ ਪਹਿਲਾਂ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੇ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚੋਂ ਜਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਰਹੱਦ ਨਾਲ ਵਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q008",
+    "cpId": "WGE-001-CP024",
+    "objective": "irrawaddy-myanmar",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which river forms Myanmar’s principal north–south river system and delta?",
+        "options": [
+          "Niger",
+          "Irrawaddy",
+          "Mekong",
+          "Yangtze"
+        ],
+        "explanation": "The Irrawaddy flows south through Myanmar and enters the Andaman Sea through its delta."
+      },
+      "hi": {
+        "stem": "म्यांमार की प्रमुख उत्तर–दक्षिण नदी-प्रणाली और डेल्टा कौन-सी नदी बनाती है?",
+        "options": [
+          "नाइजर",
+          "इरावदी",
+          "मेकांग",
+          "यांग्त्से"
+        ],
+        "explanation": "इरावदी म्यांमार से दक्षिण की ओर बहती है और अपने डेल्टा से अंडमान सागर में गिरती है।"
+      },
+      "pa": {
+        "stem": "ਮਿਆਂਮਾਰ ਦੀ ਮੁੱਖ ਉੱਤਰ–ਦੱਖਣੀ ਦਰਿਆਈ ਪ੍ਰਣਾਲੀ ਅਤੇ ਡੈਲਟਾ ਕਿਹੜਾ ਦਰਿਆ ਬਣਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਨਾਈਜਰ",
+          "ਇਰਾਵਦੀ",
+          "ਮੇਕਾਂਗ",
+          "ਯਾਂਗਤ्से"
+        ],
+        "explanation": "ਇਰਾਵਦੀ ਮਿਆਂਮਾਰ ਵਿੱਚੋਂ ਦੱਖਣ ਵੱਲ ਵਗਦੀ ਹੈ ਅਤੇ ਆਪਣੇ ਡੈਲਟੇ ਰਾਹੀਂ ਅੰਡਮਾਨ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q009",
+    "cpId": "WGE-001-CP024",
+    "objective": "red-river-gulf-tonkin",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which river reaches the Gulf of Tonkin through a delta in northern Vietnam?",
+        "options": [
+          "RedRiver",
+          "Mekong",
+          "ChaoPhraya",
+          "YellowRiver"
+        ],
+        "explanation": "The Red River (Song Hong) forms a delta around Hanoi before entering the Gulf of Tonkin."
+      },
+      "hi": {
+        "stem": "उत्तरी वियतनाम के डेल्टा से होकर टोंकिन की खाड़ी में कौन-सी नदी गिरती है?",
+        "options": [
+          "लाल नदी",
+          "मेकांग",
+          "चाओ फ्राया",
+          "ह्वांग हे (पीली नदी)"
+        ],
+        "explanation": "लाल नदी (सोंग होंग) टोंकिन की खाड़ी में पहुँचने से पहले हनोई के आसपास डेल्टा बनाती है।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰੀ ਵੀਅਤਨਾਮ ਦੇ ਡੈਲਟੇ ਰਾਹੀਂ ਟੋਂਕਿਨ ਦੀ ਖਾੜੀ ਵਿੱਚ ਕਿਹੜਾ ਦਰਿਆ ਡਿੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਲਾਲ ਦਰਿਆ",
+          "ਮੇਕਾਂਗ",
+          "ਚਾਓ ਫਰਾਇਆ",
+          "ਹ्वांग ਹੋ (ਪੀਲੀ ਨਦੀ)"
+        ],
+        "explanation": "ਲਾਲ ਦਰਿਆ (ਸੋਂਗ ਹੋਂਗ) ਟੋਂਕਿਨ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਣ ਤੋਂ ਪਹਿਲਾਂ ਹਨੋਈ ਨੇੜੇ ਡੈਲਟਾ ਬਣਾਉਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q010",
+    "cpId": "WGE-001-CP024",
+    "objective": "chao-phraya-thailand-gulf",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which river flows through Bangkok before entering the Gulf of Thailand?",
+        "options": [
+          "Mekong",
+          "Irrawaddy",
+          "RedRiver",
+          "ChaoPhraya"
+        ],
+        "explanation": "The Chao Phraya flows through Bangkok and reaches the Gulf of Thailand."
+      },
+      "hi": {
+        "stem": "थाईलैंड की खाड़ी में गिरने से पहले कौन-सी नदी बैंकॉक से होकर बहती है?",
+        "options": [
+          "मेकांग",
+          "इरावदी",
+          "लाल नदी",
+          "चाओ फ्राया"
+        ],
+        "explanation": "चाओ फ्राया बैंकॉक से होकर बहती है और थाईलैंड की खाड़ी में गिरती है।"
+      },
+      "pa": {
+        "stem": "ਥਾਈਲੈਂਡ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਣ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜਾ ਦਰਿਆ ਬੈਂਕਾਕ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ?",
+        "options": [
+          "ਮੇਕਾਂਗ",
+          "ਇਰਾਵਦੀ",
+          "ਲਾਲ ਦਰਿਆ",
+          "ਚਾਓ ਫਰਾਇਆ"
+        ],
+        "explanation": "ਚਾਓ ਫਰਾਇਆ ਬੈਂਕਾਕ ਵਿੱਚੋਂ ਵਗਦਾ ਹੈ ਅਤੇ ਥਾਈਲੈਂਡ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q011",
+    "cpId": "WGE-001-CP024",
+    "objective": "malacca-strait-route",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which strait separates the Malay Peninsula from Sumatra and links the Andaman Sea with the South China Sea?",
+        "options": [
+          "Bosporus",
+          "Bering",
+          "Malacca",
+          "Hormuz"
+        ],
+        "explanation": "The Strait of Malacca is a major sea passage between the Malay Peninsula and Sumatra."
+      },
+      "hi": {
+        "stem": "मलय प्रायद्वीप और सुमात्रा को अलग करते हुए अंडमान सागर को दक्षिण चीन सागर से कौन-सा जलडमरूमध्य जोड़ता है?",
+        "options": [
+          "बोस्फोरस",
+          "बेरिंग जलडमरूमध्य",
+          "मलक्का जलडमरूमध्य",
+          "हॉर्मुज़ जलडमरूमध्य"
+        ],
+        "explanation": "मलक्का जलडमरूमध्य मलय प्रायद्वीप और सुमात्रा के बीच का प्रमुख समुद्री मार्ग है।"
+      },
+      "pa": {
+        "stem": "ਮਲਯ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਸੁਮਾਤਰਾ ਨੂੰ ਵੱਖ ਕਰਦਿਆਂ ਅੰਡਮਾਨ ਸਾਗਰ ਨੂੰ ਦੱਖਣੀ ਚੀਨ ਸਾਗਰ ਨਾਲ ਕਿਹੜਾ ਜਲਡਮਰੂ ਜੋੜਦਾ ਹੈ?",
+        "options": [
+          "ਬੋਸ्फੋਰਸ",
+          "ਬੇਰਿੰਗ ਜਲਡਮਰੂ",
+          "ਮਲੱਕਾ ਜਲਡਮਰੂ",
+          "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ"
+        ],
+        "explanation": "ਮਲੱਕਾ ਜਲਡਮਰੂ ਮਲਯ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਸੁਮਾਤਰਾ ਵਿਚਕਾਰ ਮਹੱਤਵਪੂਰਨ ਸਮੁੰਦਰੀ ਰਸਤਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q012",
+    "cpId": "WGE-001-CP024",
+    "objective": "japan-korea-sea",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which sea lies between the Korean Peninsula and Japan?",
+        "options": [
+          "AndamanSea",
+          "JapanSea",
+          "EastChinaSea",
+          "SouthChinaSea"
+        ],
+        "explanation": "The Sea of Japan lies between Japan and the Korean Peninsula."
+      },
+      "hi": {
+        "stem": "कोरियाई प्रायद्वीप और जापान के बीच कौन-सा सागर स्थित है?",
+        "options": [
+          "अंडमान सागर",
+          "जापान सागर",
+          "पूर्वी चीन सागर",
+          "दक्षिण चीन सागर"
+        ],
+        "explanation": "जापान सागर जापान और कोरियाई प्रायद्वीप के बीच स्थित है।"
+      },
+      "pa": {
+        "stem": "ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਜਪਾਨ ਵਿਚਕਾਰ ਕਿਹੜਾ ਸਾਗਰ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਅੰਡਮਾਨ ਸਾਗਰ",
+          "ਜਪਾਨ ਸਾਗਰ",
+          "ਪੂਰਬੀ ਚੀਨ ਸਾਗਰ",
+          "ਦੱਖਣੀ ਚੀਨ ਸਾਗਰ"
+        ],
+        "explanation": "ਜਪਾਨ ਸਾਗਰ ਜਪਾਨ ਅਤੇ ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q013",
+    "cpId": "WGE-001-CP024",
+    "objective": "philippines-pacific-archipelago",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which archipelagic country lies east of Vietnam in the western Pacific?",
+        "options": [
+          "Philippines",
+          "Japan",
+          "Malaysia",
+          "Mongolia"
+        ],
+        "explanation": "The Philippines is an archipelago in the western Pacific, east of Vietnam and north of Indonesia."
+      },
+      "hi": {
+        "stem": "पश्चिमी प्रशांत में वियतनाम के पूर्व कौन-सा द्वीपसमूह देश स्थित है?",
+        "options": [
+          "फ़िलिपींस",
+          "जापान",
+          "मलेशिया",
+          "मंगोलिया"
+        ],
+        "explanation": "फ़िलिपींस पश्चिमी प्रशांत में, वियतनाम के पूर्व और इंडोनेशिया के उत्तर में स्थित द्वीपसमूह है।"
+      },
+      "pa": {
+        "stem": "ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਵੀਅਤਨਾਮ ਦੇ ਪੂਰਬ ਵੱਲ ਕਿਹੜਾ ਟਾਪੂ-ਸਮੂਹ ਦੇਸ਼ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਫ਼ਿਲੀਪੀਨਜ਼",
+          "ਜਪਾਨ",
+          "ਮਲੇਸ਼ੀਆ",
+          "ਮੰਗੋਲੀਆ"
+        ],
+        "explanation": "ਫ਼ਿਲੀਪੀਨਜ਼ ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ, ਵੀਅਤਨਾਮ ਦੇ ਪੂਰਬ ਅਤੇ ਇੰਡੋਨੇਸ਼ੀਆ ਦੇ ਉੱਤਰ ਵੱਲ ਸਥਿਤ ਟਾਪੂ-ਸਮੂਹ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q014",
+    "cpId": "WGE-001-CP024",
+    "objective": "indonesia-equator-islands",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which country’s island arc stretches across the Equator between the Indian and Pacific oceans?",
+        "options": [
+          "Philippines",
+          "Japan",
+          "Mongolia",
+          "Indonesia"
+        ],
+        "explanation": "Indonesia spans the Equator across a large archipelago between the Indian and Pacific oceans."
+      },
+      "hi": {
+        "stem": "हिंद और प्रशांत महासागरों के बीच भूमध्य रेखा पर किस देश की द्वीप-शृंखला फैली है?",
+        "options": [
+          "फ़िलिपींस",
+          "जापान",
+          "मंगोलिया",
+          "इंडोनेशिया"
+        ],
+        "explanation": "इंडोनेशिया हिंद और प्रशांत महासागरों के बीच विशाल द्वीपसमूह में भूमध्य रेखा को पार करता है।"
+      },
+      "pa": {
+        "stem": "ਹਿੰਦ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰਾਂ ਵਿਚਕਾਰ ਭੂ-ਮੱਧ ਰੇਖਾ ਉੱਤੇ ਕਿਹੜੇ ਦੇਸ਼ ਦੀ ਟਾਪੂ-ਲੜੀ ਫੈਲੀ ਹੈ?",
+        "options": [
+          "ਫ਼ਿਲੀਪੀਨਜ਼",
+          "ਜਪਾਨ",
+          "ਮੰਗੋਲੀਆ",
+          "ਇੰਡੋਨੇਸ਼ੀਆ"
+        ],
+        "explanation": "ਇੰਡੋਨੇਸ਼ੀਆ ਹਿੰਦ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰਾਂ ਵਿਚਕਾਰ ਵਿਸ਼ਾਲ ਟਾਪੂ-ਸਮੂਹ ਰਾਹੀਂ ਭੂ-ਮੱਧ ਰੇਖਾ ਨੂੰ ਪਾਰ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q015",
+    "cpId": "WGE-001-CP024",
+    "objective": "central-asia-landlocked-region",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which Asian region includes Kazakhstan, Uzbekistan, Kyrgyzstan, Tajikistan and Turkmenistan?",
+        "options": [
+          "Scandinavia",
+          "Caribbean",
+          "CentralAsia",
+          "Levant"
+        ],
+        "explanation": "These five former Soviet republics are commonly grouped as Central Asia; all are landlocked."
+      },
+      "hi": {
+        "stem": "कज़ाख़स्तान, उज़्बेकिस्तान, किर्गिज़स्तान, ताजिकिस्तान और तुर्कमेनिस्तान किस एशियाई क्षेत्र में आते हैं?",
+        "options": [
+          "स्कैंडिनेविया",
+          "कैरेबियन सागर",
+          "मध्य एशिया",
+          "लेवांत"
+        ],
+        "explanation": "इन पाँच पूर्व सोवियत गणराज्यों को सामान्यतः मध्य एशिया में रखा जाता है; सभी स्थलरुद्ध हैं।"
+      },
+      "pa": {
+        "stem": "ਕਜ਼ਾਖ਼ਸਤਾਨ, ਉਜ਼ਬੇਕਿਸਤਾਨ, ਕਿਰਗਿਜ਼ਸਤਾਨ, ਤਾਜਿਕਿਸਤਾਨ ਅਤੇ ਤੁਰਕਮੇਨਿਸਤਾਨ ਏਸ਼ੀਆ ਦੇ ਕਿਹੜੇ ਖੇਤਰ ਵਿੱਚ ਹਨ?",
+        "options": [
+          "ਸਕੈਂਡੀਨੇਵੀਆ",
+          "ਕੈਰੇਬੀਅਨ ਸਾਗਰ",
+          "ਮੱਧ ਏਸ਼ੀਆ",
+          "ਲੇवांत"
+        ],
+        "explanation": "ਇਨ੍ਹਾਂ ਪੰਜ ਸਾਬਕਾ ਸੋਵੀਅਤ ਗਣਰਾਜਾਂ ਨੂੰ ਆਮ ਤੌਰ ’ਤੇ ਮੱਧ ਏਸ਼ੀਆ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ; ਸਾਰੇ ਭੂ-ਬੱਧ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q016",
+    "cpId": "WGE-001-CP024",
+    "objective": "kazakhstan-largest-landlocked",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which Central Asian country is the world’s largest landlocked state by area?",
+        "options": [
+          "Turkmenistan",
+          "Kazakhstan",
+          "Uzbekistan",
+          "Kyrgyzstan"
+        ],
+        "explanation": "Kazakhstan is the largest landlocked country by area; this distinction concerns area, not population."
+      },
+      "hi": {
+        "stem": "क्षेत्रफल के आधार पर विश्व का सबसे बड़ा स्थलरुद्ध देश कौन-सा मध्य एशियाई देश है?",
+        "options": [
+          "तुर्कमेनिस्तान",
+          "कज़ाख़स्तान",
+          "उज़्बेकिस्तान",
+          "किर्गिज़स्तान"
+        ],
+        "explanation": "क्षेत्रफल के आधार पर कज़ाख़स्तान सबसे बड़ा स्थलरुद्ध देश है; यह भेद क्षेत्रफल का है, जनसंख्या का नहीं।"
+      },
+      "pa": {
+        "stem": "ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਦੁਨੀਆ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਭੂ-ਬੱਧ ਦੇਸ਼ ਕਿਹੜਾ ਮੱਧ ਏਸ਼ੀਆਈ ਦੇਸ਼ ਹੈ?",
+        "options": [
+          "ਤੁਰਕਮੇਨਿਸਤਾਨ",
+          "ਕਜ਼ਾਖ਼ਸਤਾਨ",
+          "ਉਜ਼ਬੇਕਿਸतान",
+          "ਕਿਰਗਿਜ਼ਸਤਾਨ"
+        ],
+        "explanation": "ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਕਜ਼ਾਖ਼ਸਤਾਨ ਸਭ ਤੋਂ ਵੱਡਾ ਭੂ-ਬੱਧ ਦੇਸ਼ ਹੈ; ਇਹ ਦਰਜਾ ਖੇਤਰਫਲ ਦਾ ਹੈ, ਆਬਾਦੀ ਦਾ ਨਹੀਂ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q017",
+    "cpId": "WGE-001-CP024",
+    "objective": "tien-shan-central-asia",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which mountain system extends across Kyrgyzstan and into western China?",
+        "options": [
+          "TienShan",
+          "Himalaya",
+          "Alps",
+          "Atlas"
+        ],
+        "explanation": "The Tien Shan stretches across Central Asia and western China, including Kyrgyzstan."
+      },
+      "hi": {
+        "stem": "कौन-सी पर्वत-प्रणाली किर्गिज़स्तान से होकर पश्चिमी चीन तक फैली है?",
+        "options": [
+          "तियान शान",
+          "हिमालय",
+          "आल्प्स",
+          "एटलस पर्वत"
+        ],
+        "explanation": "तियान शान मध्य एशिया और पश्चिमी चीन में फैला है और किर्गिज़स्तान से होकर जाता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਪਹਾੜੀ ਪ੍ਰਣਾਲੀ ਕਿਰਗਿਜ਼ਸਤਾਨ ਤੋਂ ਪੱਛਮੀ ਚੀਨ ਤੱਕ ਫੈਲੀ ਹੈ?",
+        "options": [
+          "ਤਿਆਨ ਸ਼ਾਨ",
+          "ਹਿਮਾਲਿਆ",
+          "ਆਲਪਸ",
+          "ਐਟਲਸ ਪਹਾੜ"
+        ],
+        "explanation": "ਤਿਆਨ ਸ਼ਾਨ ਮੱਧ ਏਸ਼ੀਆ ਅਤੇ ਪੱਛਮੀ ਚੀਨ ਵਿੱਚ ਫੈਲਿਆ ਹੈ ਅਤੇ ਕਿਰਗਿਜ਼ਸਤਾਨ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q018",
+    "cpId": "WGE-001-CP024",
+    "objective": "karakum-turkmenistan",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which desert covers much of Turkmenistan?",
+        "options": [
+          "Gobi",
+          "Atacama",
+          "Namib",
+          "Karakum"
+        ],
+        "explanation": "The Karakum Desert occupies much of Turkmenistan in Central Asia."
+      },
+      "hi": {
+        "stem": "कौन-सा मरुस्थल तुर्कमेनिस्तान के बड़े भाग में फैला है?",
+        "options": [
+          "गोबी मरुस्थल",
+          "अटाकामा",
+          "नामिब मरुस्थल",
+          "कराकुम मरुस्थल"
+        ],
+        "explanation": "कराकुम मरुस्थल मध्य एशिया में तुर्कमेनिस्तान के बड़े भाग में फैला है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਤੁਰਕਮੇਨਿਸਤਾਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਗੋਬੀ ਮਾਰੂਥਲ",
+          "ਅਟਾਕਾਮਾ",
+          "ਨਾਮਿਬ ਮਾਰੂਥਲ",
+          "ਕਾਰਾਕੁਮ ਮਾਰੂਥਲ"
+        ],
+        "explanation": "ਕਾਰਾਕੁਮ ਮਾਰੂਥਲ ਮੱਧ ਏਸ਼ੀਆ ਵਿੱਚ ਤੁਰਕਮੇਨਿਸਤਾਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q019",
+    "cpId": "WGE-001-CP024",
+    "objective": "caspian-five-states",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which inland sea is bordered by Russia, Kazakhstan, Turkmenistan, Iran and Azerbaijan?",
+        "options": [
+          "BlackSea2",
+          "DeadSea",
+          "Caspian",
+          "Aral"
+        ],
+        "explanation": "The Caspian Sea has five littoral states and no natural outlet to the world ocean."
+      },
+      "hi": {
+        "stem": "रूस, कज़ाख़स्तान, तुर्कमेनिस्तान, ईरान और अज़रबैजान से कौन-सा अंतर्देशीय सागर लगता है?",
+        "options": [
+          "काला सागर",
+          "मृत सागर",
+          "कैस्पियन सागर",
+          "अराल सागर"
+        ],
+        "explanation": "कैस्पियन सागर से पाँच देश लगते हैं और इसका विश्व महासागर तक प्राकृतिक निकास नहीं है।"
+      },
+      "pa": {
+        "stem": "ਰੂਸ, ਕਜ਼ਾਖ਼ਸਤਾਨ, ਤੁਰਕਮੇਨਿਸਤਾਨ, ਈਰਾਨ ਅਤੇ ਅਜ਼ਰਬਾਈਜਾਨ ਨਾਲ ਕਿਹੜਾ ਅੰਦਰੂਨੀ ਸਾਗਰ ਲੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਕਾਲਾ ਸਾਗਰ",
+          "ਮ੍ਰਿਤ ਸਾਗਰ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ",
+          "ਅਰਾਲ ਸਾਗਰ"
+        ],
+        "explanation": "ਕੈਸਪੀਅਨ ਸਾਗਰ ਨਾਲ ਪੰਜ ਦੇਸ਼ ਲੱਗਦੇ ਹਨ ਅਤੇ ਇਸਦਾ ਵਿਸ਼ਵ ਮਹਾਂਸਾਗਰ ਵੱਲ ਕੁਦਰਤੀ ਨਿਕਾਸ ਨਹੀਂ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP024-Q020",
+    "cpId": "WGE-001-CP024",
+    "objective": "aral-sea-central-asia",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-ASIA-MAP",
+      "WGE-REG-FAO-ASIA"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which Central Asian inland sea has shrunk sharply after river water was diverted for irrigation?",
+        "options": [
+          "DeadSea",
+          "Aral",
+          "Caspian",
+          "LakeChad"
+        ],
+        "explanation": "Diversion from the Amu Darya and Syr Darya sharply reduced inflow to the Aral Sea."
+      },
+      "hi": {
+        "stem": "सिंचाई के लिए नदियों का पानी मोड़ने के बाद कौन-सा मध्य एशियाई अंतर्देशीय सागर बहुत सिकुड़ गया?",
+        "options": [
+          "मृत सागर",
+          "अराल सागर",
+          "कैस्पियन सागर",
+          "चाड झील"
+        ],
+        "explanation": "अमू दरिया और सिर दरिया से पानी मोड़ने के कारण अराल सागर में आने वाला जल बहुत घट गया।"
+      },
+      "pa": {
+        "stem": "ਸਿੰਚਾਈ ਲਈ ਦਰਿਆਵਾਂ ਦਾ ਪਾਣੀ ਮੋੜਨ ਤੋਂ ਬਾਅਦ ਕਿਹੜਾ ਮੱਧ ਏਸ਼ੀਆਈ ਅੰਦਰੂਨੀ ਸਾਗਰ ਬਹੁਤ ਸੁੱਕ ਗਿਆ?",
+        "options": [
+          "ਮ੍ਰਿਤ ਸਾਗਰ",
+          "ਅਰਾਲ ਸਾਗਰ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ",
+          "ਚਾਡ ਝੀਲ"
+        ],
+        "explanation": "ਅਮੂ ਦਰਿਆ ਅਤੇ ਸਿਰ ਦਰਿਆ ਦਾ ਪਾਣੀ ਮੋੜਨ ਕਾਰਨ ਅਰਾਲ ਸਾਗਰ ਵਿੱਚ ਆਉਣ ਵਾਲਾ ਪਾਣੀ ਬਹੁਤ ਘਟ ਗਿਆ।"
+      }
+    }
+  }
+]

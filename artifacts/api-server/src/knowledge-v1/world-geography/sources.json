@@ -538,5 +538,113 @@
     "kind": "primary-agency",
     "consultedOn": "2026-09-27",
     "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-REG-M49",
+    "title": "UN Statistics Division: Standard Country or Area Codes for Statistical Use (M49)",
+    "url": "https://unstats.un.org/unsd/methodology/m49/",
+    "section": "Continental and subregional groupings; statistical classification, not a boundary or sovereignty judgement",
+    "kind": "primary-statistical",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-REG-UNGEGN",
+    "title": "UNGEGN: World Geographical Names public dashboard",
+    "url": "https://ungegn.un.org/dashboard/countries/index",
+    "section": "Country names, regions and romanized forms; names are not used to decide disputed sovereignty",
+    "kind": "primary-geographical-names",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-REG-PHYSICAL-WORLD",
+    "title": "CIA World Factbook: Physical Map of the World (2025)",
+    "url": "https://www.cia.gov/the-world-factbook/static/47d9018542b378ee53f7e78001f9cf29/world_phy_03102025.pdf",
+    "section": "Continental relief, major mountain chains, rivers, deserts and oceans",
+    "kind": "primary-map",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-REG-ASIA-MAP",
+    "title": "CIA World Factbook: Physical Map of Asia",
+    "url": "https://www.cia.gov/the-world-factbook/static/07a6b0c94e4f668ee608b598c48b13e6/asia_phy.pdf",
+    "section": "Asian countries, major physical features, seas and relative location",
+    "kind": "primary-map",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-REG-AFRICA-MAP",
+    "title": "CIA World Factbook: Physical Map of Africa",
+    "url": "https://www.cia.gov/the-world-factbook/static/1649a3e16a86dcf2f65e53fa39b4a1e7/africa_phy.pdf",
+    "section": "African countries, capitals, major relief, rivers, seas and islands",
+    "kind": "primary-map",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-REG-SOUTH-AMERICA-MAP",
+    "title": "CIA World Factbook: Physical Map of South America",
+    "url": "https://www.cia.gov/the-world-factbook/static/9f46f4dbc5f42b191f5a8cda6c46cd36/south_america_phy.pdf",
+    "section": "South American relief and major geographic features",
+    "kind": "primary-map",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-REG-FAO-AFRICA",
+    "title": "FAO AQUASTAT: Regional Overview of Africa",
+    "url": "https://www.fao.org/aquastat/en/countries-and-basins/regional-overviews/africa/",
+    "section": "Regional water and irrigation context; 2005 overview, used only for stable hydrological context",
+    "kind": "primary-statistical",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-REG-FAO-ASIA",
+    "title": "FAO AQUASTAT: Southern and Eastern Asia overview",
+    "url": "https://www.fao.org/aquastat/en/countries-and-basins/regional-overviews/southern-eastern-asia/",
+    "section": "Regional water resources and irrigation context",
+    "kind": "primary-statistical",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-REG-UN-MAPS",
+    "title": "UN Geospatial: Regional map collection",
+    "url": "https://www.un.org/geospatial/mapsgeo",
+    "section": "Regional and country map reference; boundary display is not a sovereignty endorsement",
+    "kind": "primary-map",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-REG-CIA-BRAZIL",
+    "title": "CIA World Factbook Archive 2022: Brazil",
+    "url": "https://www.cia.gov/the-world-factbook/about/archives/2022/countries/brazil/",
+    "section": "Brazil terrain, rivers, land use and natural-resource context; historical archive, stable geography only",
+    "kind": "primary-reference",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-REG-CIA-IRAN-MAP",
+    "title": "CIA: Physiographical map of Iran",
+    "url": "https://www.cia.gov/resources/map/iran/",
+    "section": "Iranian plateau and regional relief",
+    "kind": "primary-map",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-REG-CIA-TURKIYE-MAP",
+    "title": "CIA: Physiographical map of Türkiye",
+    "url": "https://www.cia.gov/resources/map/turkey/",
+    "section": "Anatolian relief and country location",
+    "kind": "primary-map",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
   }
 ]
