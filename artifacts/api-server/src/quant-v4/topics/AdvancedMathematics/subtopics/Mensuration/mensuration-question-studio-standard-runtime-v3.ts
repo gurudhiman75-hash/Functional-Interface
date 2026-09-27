@@ -124,6 +124,7 @@ export function generateMensurationStandardQuestionStudioBatch(
     language,
     seed: request.seed,
     count: request.count,
+    auditExcludedPatternIds: request.auditExcludedPatternIds,
   });
 
   const questions = result.questions.map(toStandardQuestion);
