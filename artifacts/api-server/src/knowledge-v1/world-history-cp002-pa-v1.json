@@ -1,0 +1,2114 @@
+[
+  {
+    "questionId": "WHI-CP002-Q001-PA",
+    "englishQuestionId": "WHI-CP002-Q001",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F001",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "ਇਤਾਲਵੀ ਪੁਨਰਜਾਗਰਣ ਦਾ ਪ੍ਰਮੁੱਖ ਕੇਂਦਰ ਕਿਹੜਾ ਸ਼ਹਿਰ ਬਣਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੈਰਿਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਫਲੋਰੈਂਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੰਡਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਲਿਸਬਨ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਫਲੋਰੈਂਸ ਪੁਨਰਜਾਗਰਣੀ ਕਲਾ, ਮਨੁੱਖਵਾਦੀ ਵਿਦਿਆ ਅਤੇ ਕਲਾਕਾਰਾਂ ਨੂੰ ਸਰਪ੍ਰਸਤੀ ਦੇਣ ਦਾ ਵੱਡਾ ਕੇਂਦਰ ਬਣਿਆ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q002-PA",
+    "englishQuestionId": "WHI-CP002-Q002",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F002",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "ਪੁਨਰਜਾਗਰਣ ਦੇ ਮਨੁੱਖਵਾਦੀਆਂ ਨੇ ਕਿਹੜੀਆਂ ਲਿਖਤਾਂ ਦੇ ਅਧਿਐਨ ਨੂੰ ਮੁੜ ਮਹੱਤਵ ਦਿੱਤਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮੰਗੋਲ ਕਾਨੂੰਨੀ ਸੰਹਿਤਾਵਾਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਐਟਲਾਂਟਿਕ ਜਹਾਜ਼ਰਾਨੀ ਦੀਆਂ ਡਾਇਰੀਆਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਪ੍ਰਾਚੀਨ ਯੂਨਾਨੀ ਅਤੇ ਰੋਮਨ ਲਿਖਤਾਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਮੱਧਕਾਲੀ ਜਰਮਨ ਕਾਨੂੰਨ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਮਨੁੱਖਵਾਦੀਆਂ ਨੇ ਯੂਨਾਨੀ ਅਤੇ ਰੋਮਨ ਸਾਹਿਤ, ਇਤਿਹਾਸ ਤੇ ਦਰਸ਼ਨ ਪੜ੍ਹਿਆ ਅਤੇ ਪੁਰਾਤਨ ਗਿਆਨ ਨੂੰ ਆਪਣੇ ਸਮੇਂ ਨਾਲ ਜੋੜਿਆ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q003-PA",
+    "englishQuestionId": "WHI-CP002-Q003",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F003",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "ਫਲੋਰੈਂਸ ਵਿੱਚ ਕਲਾਕਾਰਾਂ ਅਤੇ ਵਿਦਵਾਨਾਂ ਨੂੰ ਸਰਪ੍ਰਸਤੀ ਦੇਣ ਵਾਲਾ ਪ੍ਰਮੁੱਖ ਪਰਿਵਾਰ ਕਿਹੜਾ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹੈਬਸਬਰਗ ਵੰਸ਼"
+      },
+      {
+        "key": "B",
+        "text": "ਟਿਊਡਰ ਵੰਸ਼"
+      },
+      {
+        "key": "C",
+        "text": "ਬੋਰਬੋਨ ਵੰਸ਼"
+      },
+      {
+        "key": "D",
+        "text": "ਮੇਦੀਚੀ ਪਰਿਵਾਰ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਮੇਦੀਚੀ ਪਰਿਵਾਰ ਨੇ ਆਪਣੀ ਦੌਲਤ ਅਤੇ ਸਿਆਸੀ ਅਸਰ ਨਾਲ ਕਲਾਕਾਰਾਂ ਨੂੰ ਕੰਮ ਦਿੱਤਾ ਅਤੇ ਫਲੋਰੈਂਸ ਵਿੱਚ ਵਿਦਿਆ ਨੂੰ ਸਹਾਰਾ ਦਿੱਤਾ।",
+    "sourceIds": [
+      "S1",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q004-PA",
+    "englishQuestionId": "WHI-CP002-Q004",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F004",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "ਯੋਹਾਨਸ ਗੁਟਨਬਰਗ ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਕਿਹੜੀ ਤਕਨੀਕ ਦੇ ਫੈਲਾਅ ਨਾਲ ਜੁੜੇ ਹਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਭਾਫ਼ ਇੰਜਣ"
+      },
+      {
+        "key": "B",
+        "text": "ਚੱਲਦੇ ਧਾਤੂ ਅੱਖਰਾਂ ਵਾਲੀ ਛਪਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਦੂਰਬੀਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਪਿਨਿੰਗ ਜੈਨੀ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਗੁਟਨਬਰਗ ਨੇ ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਚੱਲਦੇ ਧਾਤੂ ਅੱਖਰਾਂ ਨਾਲ ਛਪਾਈ ਨੂੰ ਪੱਕਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ। ਇਸ ਨਾਲ ਲਿਖਤ ਦੀਆਂ ਨਕਲਾਂ ਬਣਾਉਣੀਆਂ ਸੌਖੀਆਂ ਹੋਈਆਂ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q005-PA",
+    "englishQuestionId": "WHI-CP002-Q005",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F005",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "ਗੁਟਨਬਰਗ ਦੀ ਪ੍ਰਸਿੱਧ ਬਾਈਬਲ ਕਿੱਥੇ ਛਾਪੀ ਗਈ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਟਨਬਰਗ"
+      },
+      {
+        "key": "B",
+        "text": "ਜੇਨੇਵਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਵੇਨਿਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਾਇੰਜ਼"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਗੁਟਨਬਰਗ ਦੀ ਬਾਈਬਲ ਪੰਦਰਵੀਂ ਸਦੀ ਦੇ ਵਿਚਕਾਰ ਮਾਇੰਜ਼ ਵਿੱਚ ਛਪੀ। ਇਹ ਪੱਛਮੀ ਯੂਰਪ ਦੀਆਂ ਚੱਲਦੇ ਧਾਤੂ ਅੱਖਰਾਂ ਨਾਲ ਛਪੀਆਂ ਪਹਿਲੀਆਂ ਅਹਿਮ ਕਿਤਾਬਾਂ ਵਿੱਚੋਂ ਸੀ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q006-PA",
+    "englishQuestionId": "WHI-CP002-Q006",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F006",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "In Praise of Folly ਦੇ ਲੇਖਕ ਕੌਣ ਸਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਥਾਮਸ ਮੋਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਰੈਸਮਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਿਕੋਲੋ ਮੈਕਿਆਵੇਲੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਫਰਾਂਚੇਸਕੋ ਪੇਤਰਾਰਕ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਇਰੈਸਮਸ ਨੇ In Praise of Folly ਲਿਖੀ। ਇਸ ਮਨੁੱਖਵਾਦੀ ਰਚਨਾ ਵਿੱਚ ਸਮਾਜਕ ਅਤੇ ਧਾਰਮਿਕ ਰਵਾਇਤਾਂ ਉੱਤੇ ਵਿਅੰਗ ਕੀਤਾ ਗਿਆ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q007-PA",
+    "englishQuestionId": "WHI-CP002-Q007",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F007",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "1516 ਵਿੱਚ ਛਪੀ Utopia ਕਿਸ ਨੇ ਲਿਖੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਥਾਮਸ ਮੋਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਰੈਸਮਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੈਕਿਆਵੇਲੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੇਤਰਾਰਕ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਥਾਮਸ ਮੋਰ ਦੀ Utopia ਵਿੱਚ ਇੱਕ ਕਲਪਿਤ ਸਮਾਜ ਦਾ ਵੇਰਵਾ ਹੈ। ਇਹ ਪੁਨਰਜਾਗਰਣੀ ਮਨੁੱਖਵਾਦੀ ਲਿਖਤਾਂ ਦੀ ਅਹਿਮ ਰਚਨਾ ਬਣੀ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q008-PA",
+    "englishQuestionId": "WHI-CP002-Q008",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F008",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "ਸਿਆਸੀ ਤਾਕਤ ਬਾਰੇ ਲਿਖੀ ਕਿਤਾਬ The Prince ਦੇ ਲੇਖਕ ਕੌਣ ਸਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਥਾਮਸ ਮੋਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਰੈਸਮਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਿਕੋਲੋ ਮੈਕਿਆਵੇਲੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਦਾਂਤੇ ਅਲੀਘੀਏਰੀ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਮੈਕਿਆਵੇਲੀ ਦੀ The Prince ਵਿੱਚ ਦੱਸਿਆ ਗਿਆ ਕਿ ਹਾਕਮ ਸਿਆਸੀ ਤਾਕਤ ਕਿਵੇਂ ਹਾਸਲ ਕਰਦੇ ਅਤੇ ਕਾਇਮ ਰੱਖਦੇ ਹਨ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q009-PA",
+    "englishQuestionId": "WHI-CP002-Q009",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F009",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "The Divine Comedy ਕਿਸ ਨੇ ਲਿਖੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੇਤਰਾਰਕ"
+      },
+      {
+        "key": "B",
+        "text": "ਦਾਂਤੇ ਅਲੀਘੀਏਰੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੋਕਾਚਿਓ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਰੀਓਸਤੋ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਦਾਂਤੇ ਨੇ ਚੌਦ੍ਹਵੀਂ ਸਦੀ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ The Divine Comedy ਲਿਖੀ। ਇਤਾਲਵੀ ਭਾਸ਼ਾ ਦੀ ਵਰਤੋਂ ਨੇ ਲੋਕ-ਭਾਸ਼ਾ ਨੂੰ ਵੱਡੇ ਸਾਹਿਤ ਵਿੱਚ ਥਾਂ ਦਿਵਾਈ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q010-PA",
+    "englishQuestionId": "WHI-CP002-Q010",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F010",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "ਪੁਨਰਜਾਗਰਣ ਮਨੁੱਖਵਾਦ ਦੇ ਮੁੱਢਲੇ ਪਿਤਾਮਾ ਵਜੋਂ ਕਿਹੜੇ ਲੇਖਕ ਨੂੰ ਜਾਣਿਆ ਜਾਂਦਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਾਰਟਿਨ ਲੂਥਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਫਰਾਂਚੇਸਕੋ ਪੇਤਰਾਰਕ"
+      },
+      {
+        "key": "C",
+        "text": "ਗੈਲੀਲੀਓ ਗੈਲੀਲੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਾਸਕੋ ਡਾ ਗਾਮਾ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਪੇਤਰਾਰਕ ਨੇ ਪੁਰਾਤਨ ਲਾਤੀਨੀ ਲਿਖਤਾਂ ਲੱਭਣ ਅਤੇ ਪੜ੍ਹਨ ਉੱਤੇ ਜ਼ੋਰ ਦਿੱਤਾ। ਇਸ ਨਾਲ ਪੁਨਰਜਾਗਰਣੀ ਮਨੁੱਖਵਾਦੀ ਵਿਦਿਆ ਨੂੰ ਰੂਪ ਮਿਲਿਆ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q011-PA",
+    "englishQuestionId": "WHI-CP002-Q011",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F011",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "ਮਿਲਾਨ ਵਿੱਚ Leonardo da Vinci ਨੇ ਕਿਹੜੀ ਰਚਨਾ ਬਣਾਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The School of Athens"
+      },
+      {
+        "key": "B",
+        "text": "Sistine Chapel ਦੀ ਛੱਤ"
+      },
+      {
+        "key": "C",
+        "text": "The Last Supper"
+      },
+      {
+        "key": "D",
+        "text": "The Birth of Venus"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਲਿਓਨਾਰਦੋ ਨੇ ਮਿਲਾਨ ਵਿੱਚ The Last Supper ਬਣਾਈ। ਇਸ ਵਿੱਚ ਯਿਸੂ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਚੇਲਿਆਂ ਨੂੰ ਗ੍ਰਿਫ਼ਤਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਭੋਜਨ ਵੇਲੇ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q012-PA",
+    "englishQuestionId": "WHI-CP002-Q012",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F012",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Mona Lisa ਕਿਸ ਨੇ ਬਣਾਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਫੇਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਲਿਓਨਾਰਦੋ ਦਾ ਵਿੰਚੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਾਈਕਲਐਂਜਲੋ"
+      },
+      {
+        "key": "D",
+        "text": "ਤਿਸ਼ੀਅਨ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Mona Lisa ਲਿਓਨਾਰਦੋ ਦਾ ਵਿੰਚੀ ਦੀ ਬਣਾਈ ਪੁਨਰਜਾਗਰਣ ਦੀ ਮਸ਼ਹੂਰ ਤਸਵੀਰ ਹੈ।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q013-PA",
+    "englishQuestionId": "WHI-CP002-Q013",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F013",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Movement–idea",
+    "stem": "ਪੁਨਰਜਾਗਰਣ ਮਨੁੱਖਵਾਦ ਦਾ ਸਭ ਤੋਂ ਢੁੱਕਵਾਂ ਵਰਣਨ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੁਰਾਤਨ ਵਿਦਿਆ ਅਤੇ ਮਨੁੱਖੀ ਜੀਵਨ ਦਾ ਅਧਿਐਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰੀਆਂ ਪੁਰਾਣੀਆਂ ਲਿਖਤਾਂ ਨੂੰ ਰੱਦ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਗੀਰਦਾਰੀ ਫ਼ਰਜ਼ਾਂ ਨੂੰ ਮੁੜ ਲਾਗੂ ਕਰਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਲਾ ਦੀ ਥਾਂ ਜਹਾਜ਼ਰਾਨੀ ਲਿਆਉਣਾ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਮਨੁੱਖਵਾਦ ਵਿੱਚ ਪੁਰਾਤਨ ਲਿਖਤਾਂ ਦਾ ਅਧਿਐਨ ਅਤੇ ਸਿੱਖਿਆ ਤੇ ਮਨੁੱਖੀ ਸਮਰੱਥਾ ਉੱਤੇ ਧਿਆਨ ਸ਼ਾਮਲ ਸੀ। ਇਹ ਕੋਈ ਇੱਕ ਸਿਆਸੀ ਜਾਂ ਧਾਰਮਿਕ ਸਿਧਾਂਤ ਨਹੀਂ ਸੀ।",
+    "sourceIds": [
+      "S1",
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q014-PA",
+    "englishQuestionId": "WHI-CP002-Q014",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F014",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Sistine Chapel ਦੀ ਛੱਤ ਉੱਤੇ ਚਿੱਤਰ ਕਿਸ ਕਲਾਕਾਰ ਨੇ ਬਣਾਏ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਫੇਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਾਈਕਲਐਂਜਲੋ"
+      },
+      {
+        "key": "C",
+        "text": "ਲਿਓਨਾਰਦੋ ਦਾ ਵਿੰਚੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਡੋਨਾਟੈਲੋ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਮਾਈਕਲਐਂਜਲੋ ਨੇ ਰੋਮ ਵਿੱਚ ਪੋਪ ਜੂਲੀਅਸ ਦੂਜੇ ਲਈ Sistine Chapel ਦੀ ਛੱਤ ਉੱਤੇ ਚਿੱਤਰ ਬਣਾਏ।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q015-PA",
+    "englishQuestionId": "WHI-CP002-Q015",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F015",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Movement–idea",
+    "stem": "ਚੱਲਦੇ ਧਾਤੂ ਅੱਖਰਾਂ ਵਾਲੀ ਛਪਾਈ ਫੈਲਣ ਨਾਲ ਕੀ ਬਦਲਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਿਤਾਬਾਂ ਅਤੇ ਵਿਚਾਰਾਂ ਦੀਆਂ ਨਕਲਾਂ ਬਣਾ ਕੇ ਹੋਰ ਲੋਕਾਂ ਤੱਕ ਪਹੁੰਚਾਉਣਾ ਸੌਖਾ ਹੋਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੱਥ-ਲਿਖਤ ਕਿਤਾਬਾਂ ਤੁਰੰਤ ਬੰਦ ਹੋ ਗਈਆਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੂਨੀਵਰਸਿਟੀਆਂ ਤੁਰੰਤ ਬੰਦ ਹੋ ਗਈਆਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਿਰਫ਼ ਰਾਜੇ ਦੇ ਹੁਕਮ ਛਾਪੇ ਜਾ ਸਕਦੇ ਸਨ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਛਪਾਈ ਨਾਲ ਕਿਤਾਬਾਂ ਅਤੇ ਵਿਚਾਰਾਂ ਦੀਆਂ ਨਕਲਾਂ ਬਣਾਉਣੀਆਂ ਤੇ ਫੈਲਾਉਣੀਆਂ ਸੌਖੀਆਂ ਹੋਈਆਂ। ਫਿਰ ਵੀ ਹੱਥ-ਲਿਖਤਾਂ ਵਰਤੀਆਂ ਜਾਂਦੀਆਂ ਰਹੀਆਂ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q016-PA",
+    "englishQuestionId": "WHI-CP002-Q016",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F016",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Movement–idea",
+    "stem": "ਧਰਮ ਸੁਧਾਰ ਦੇ ਸਮੇਂ ਲੋਕ-ਭਾਸ਼ਾ ਦੀਆਂ ਧਾਰਮਿਕ ਲਿਖਤਾਂ ਕਿਉਂ ਮਹੱਤਵਪੂਰਨ ਸਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਿਹੜੇ ਲੋਕ ਲਾਤੀਨੀ ਨਹੀਂ ਜਾਣਦੇ ਸਨ, ਉਹ ਵੀ ਪੜ੍ਹ ਸਕਦੇ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਹ ਸਿਰਫ਼ ਪੋਪ ਲਈ ਲਿਖੀਆਂ ਜਾਂਦੀਆਂ ਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਨ੍ਹਾਂ ਨਾਲ ਛਪਾਈ ਦੀ ਵਰਤੋਂ ਮੁੱਕ ਗਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਨ੍ਹਾਂ ਨੇ ਧਾਰਮਿਕ ਲਿਖਤਾਂ ਪੜ੍ਹਨ ਤੋਂ ਰੋਕਿਆ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਲੋਕ-ਭਾਸ਼ਾ ਦੀਆਂ ਲਿਖਤਾਂ ਲਾਤੀਨੀ ਪੜ੍ਹੇ ਪਾਦਰੀਆਂ ਤੋਂ ਅੱਗੇ ਹੋਰ ਲੋਕਾਂ ਤੱਕ ਪਹੁੰਚ ਸਕਦੀਆਂ ਸਨ। ਛਪਾਈ ਨੇ ਇਹ ਲਿਖਤਾਂ ਫੈਲਾਉਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q017-PA",
+    "englishQuestionId": "WHI-CP002-Q017",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F017",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "The School of Athens ਕਿਸ ਨੇ ਬਣਾਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲਿਓਨਾਰਦੋ ਦਾ ਵਿੰਚੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਫੇਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਾਈਕਲਐਂਜਲੋ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਰੈਸਮਸ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਰਾਫੇਲ ਨੇ ਵੈਟੀਕਨ ਦੇ ਕਮਰਿਆਂ ਲਈ The School of Athens ਬਣਾਈ। ਇਸ ਵਿੱਚ ਪੁਰਾਤਨ ਦਾਰਸ਼ਨਿਕਾਂ ਨੂੰ ਆਦਰਸ਼ ਰੂਪ ਵਿੱਚ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q018-PA",
+    "englishQuestionId": "WHI-CP002-Q018",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F018",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Reformation and document",
+    "stem": "Martin Luther ਦੀਆਂ Ninety-five Theses ਕਿਹੜੇ ਸਾਲ ਸਾਹਮਣੇ ਆਈਆਂ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1455"
+      },
+      {
+        "key": "B",
+        "text": "1492"
+      },
+      {
+        "key": "C",
+        "text": "1517"
+      },
+      {
+        "key": "D",
+        "text": "1543"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Luther ਦੀਆਂ Ninety-five Theses 1517 ਦੀਆਂ ਹਨ। ਉਨ੍ਹਾਂ ਵਿੱਚ ਇੰਡਲਜੈਂਸ ਦੀ ਰੀਤ ਨੂੰ ਚੁਣੌਤੀ ਦਿੱਤੀ ਗਈ ਸੀ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q019-PA",
+    "englishQuestionId": "WHI-CP002-Q019",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F019",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Ninety-five Theses ਵਿੱਚ ਕਿਸ ਚੀਜ਼ ਦੀ ਵਿਕਰੀ ਦੀ ਆਲੋਚਨਾ ਕੀਤੀ ਗਈ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਜੇ ਵੱਲੋਂ ਜ਼ਮੀਨ ਦੇਣ ਦੇ ਫ਼ਰਮਾਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਮੁੰਦਰੀ ਯਾਤਰਾ ਦੇ ਪਰਮਿਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੱਠਾਂ ਦੀਆਂ ਲਾਇਬ੍ਰੇਰੀਆਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਇੰਡਲਜੈਂਸ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Luther ਨੇ ਇੰਡਲਜੈਂਸ ਦੀ ਵਿਕਰੀ ਦੀ ਆਲੋਚਨਾ ਕੀਤੀ। ਇਹ ਪਾਪ ਦੀ ਅਸਥਾਈ ਸਜ਼ਾ ਤੋਂ ਛੋਟ ਨਾਲ ਜੁੜੀ ਰੀਤ ਸੀ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q020-PA",
+    "englishQuestionId": "WHI-CP002-Q020",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F020",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Luther ਦੀਆਂ ਮੁੱਢਲੀਆਂ ਧਰਮ-ਸੁਧਾਰ ਸਰਗਰਮੀਆਂ ਨਾਲ ਕਿਹੜਾ ਜਰਮਨ ਸ਼ਹਿਰ ਜੁੜਿਆ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਟਨਬਰਗ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਾਇੰਜ਼"
+      },
+      {
+        "key": "C",
+        "text": "ਕੋਲੋਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੈਮਬਰਗ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Luther ਨੇ ਵਿਟਨਬਰਗ ਵਿੱਚ ਪੜ੍ਹਾਇਆ ਅਤੇ Ninety-five Theses ਉਸ ਸ਼ਹਿਰ ਨਾਲ ਜੁੜੀਆਂ ਹਨ। ਉਨ੍ਹਾਂ ਨੂੰ ਦਰਵਾਜ਼ੇ ਉੱਤੇ ਲਾਉਣ ਦੀ ਮਸ਼ਹੂਰ ਕਹਾਣੀ ਬਾਰੇ ਇਤਿਹਾਸਕਾਰਾਂ ਵਿੱਚ ਬਹਿਸ ਹੈ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q021-PA",
+    "englishQuestionId": "WHI-CP002-Q021",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F021",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "1521 ਵਿੱਚ Worms ਦੀ ਸਭਾ ਵਿੱਚ Luther ਨੂੰ ਕੀ ਕਰਨ ਲਈ ਕਿਹਾ ਗਿਆ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਭਾਰਤ ਵੱਲ ਸਮੁੰਦਰੀ ਯਾਤਰਾ ਦੀ ਅਗਵਾਈ ਕਰਨੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਪਣੀਆਂ ਲਿਖਤਾਂ ਤੋਂ ਮੁੱਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਚਾਰਲਸ ਪੰਜਵੇਂ ਦਾ ਰਾਜ-ਤਿਲਕ ਕਰਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "Council of Trent ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣਾ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Worms ਦੀ ਸਭਾ ਵਿੱਚ Luther ਨੂੰ ਆਪਣੀਆਂ ਲਿਖਤਾਂ ਵਾਪਸ ਲੈਣ ਲਈ ਕਿਹਾ ਗਿਆ ਸੀ। ਉਸ ਨੇ ਇਨਕਾਰ ਕਰ ਦਿੱਤਾ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q022-PA",
+    "englishQuestionId": "WHI-CP002-Q022",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F022",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "ਕਿਹੜੇ ਧਰਮ-ਸੁਧਾਰਕ ਦਾ ਨਾਂ Geneva ਨਾਲ ਖਾਸ ਤੌਰ 'ਤੇ ਜੁੜਿਆ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਗਨੇਸ਼ਸ ਲੋਯੋਲਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਥਾਮਸ ਮੋਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਜੌਨ ਕੈਲਵਿਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੋਪ ਲਿਓ ਦਸਵਾਂ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਜੌਨ ਕੈਲਵਿਨ ਦਾ ਕੰਮ ਅਤੇ ਲਿਖਤਾਂ Geneva ਨਾਲ ਜੁੜੀਆਂ ਸਨ। ਉਸ ਦੀਆਂ ਸਿੱਖਿਆਵਾਂ ਨੇ ਸੁਧਾਰਵਾਦੀ ਪ੍ਰੋਟੈਸਟੈਂਟ ਰਵਾਇਤ ਨੂੰ ਰੂਪ ਦਿੱਤਾ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q023-PA",
+    "englishQuestionId": "WHI-CP002-Q023",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F023",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "ਇੰਗਲੈਂਡ ਦੇ ਕਿਹੜੇ ਸ਼ਾਸਕ ਦੀ ਸਰਕਾਰ ਨੇ Church of England ਉੱਤੇ ਰਾਜੇ ਦੀ ਸਰਬੋਚਤਾ ਦਾ ਐਲਾਨ ਕੀਤਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹੈਨਰੀ ਦੂਜਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਿਚਰਡ ਤੀਜਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜੇਮਜ਼ ਦੂਜਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੈਨਰੀ ਅੱਠਵਾਂ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਹੈਨਰੀ ਅੱਠਵੇਂ ਦੀ ਸਰਕਾਰ ਪੋਪ ਦੇ ਅਧਿਕਾਰ ਤੋਂ ਵੱਖ ਹੋਈ ਅਤੇ ਇੰਗਲੈਂਡ ਦੇ ਚਰਚ ਉੱਤੇ ਰਾਜੇ ਦੀ ਸਰਬੋਚਤਾ ਕਾਇਮ ਕੀਤੀ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q024-PA",
+    "englishQuestionId": "WHI-CP002-Q024",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F024",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "1534 ਦੇ Act of Supremacy ਨੇ ਕੀ ਐਲਾਨਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੋਪ ਨੂੰ ਸੰਸਦ ਦਾ ਮੁਖੀ ਬਣਾਇਆ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਇੰਗਲੈਂਡ Lutheran League ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਇੰਗਲੈਂਡ ਦਾ ਰਾਜਾ Church of England ਦਾ ਸਰਬੋਚ ਮੁਖੀ ਬਣਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੈਲਵਿਨ ਇੰਗਲੈਂਡ ਦੇ ਚਰਚ ਦਾ ਮੁਖੀ ਬਣਿਆ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "1534 ਦੇ ਕਾਨੂੰਨ ਨੇ ਇੰਗਲੈਂਡ ਦੇ ਰਾਜੇ ਨੂੰ Church of England ਦਾ ਸਰਬੋਚ ਮੁਖੀ ਘੋਸ਼ਿਤ ਕੀਤਾ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q025-PA",
+    "englishQuestionId": "WHI-CP002-Q025",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F025",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "ਕਿਹੜੀ ਸਭਾ ਨੇ ਕੈਥੋਲਿਕ ਧਾਰਮਿਕ ਸਿਧਾਂਤ ਸਪੱਸ਼ਟ ਕੀਤੇ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Council of Clermont"
+      },
+      {
+        "key": "B",
+        "text": "Council of Trent"
+      },
+      {
+        "key": "C",
+        "text": "Congress of Vienna"
+      },
+      {
+        "key": "D",
+        "text": "Council of Nicaea"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Council of Trent (1545–1563) ਨੇ ਕੈਥੋਲਿਕ ਸਿੱਖਿਆ ਸਪੱਸ਼ਟ ਕੀਤੀ ਅਤੇ ਚਰਚ ਦੇ ਅੰਦਰ ਸੁਧਾਰ ਕੀਤੇ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q026-PA",
+    "englishQuestionId": "WHI-CP002-Q026",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F026",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "ਪ੍ਰੋਟੈਸਟੈਂਟ ਧਰਮ-ਸੁਧਾਰ ਨੂੰ ਯੂਰਪ ਵਿੱਚ ਫੈਲਣ ਵਿੱਚ ਕਿਸ ਗੱਲ ਨੇ ਮਦਦ ਕੀਤੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਛਪਾਈ ਅਤੇ ਸਥਾਨਕ ਧਾਰਮਿਕ ਤੇ ਸਿਆਸੀ ਜਾਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਜਤੰਤਰਾਂ ਦਾ ਤੁਰੰਤ ਅੰਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਾਈਬਲ ਦੇ ਅਨੁਵਾਦ ਉੱਤੇ ਪਾਬੰਦੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੂਨੀਵਰਸਿਟੀਆਂ ਦਾ ਬੰਦ ਹੋਣਾ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਛਪਾਈ ਨੇ ਸੁਧਾਰਕ ਲਿਖਤਾਂ ਫੈਲਾਉਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ। ਸਥਾਨਕ ਹਾਕਮਾਂ, ਭਾਈਚਾਰਿਆਂ ਅਤੇ ਧਾਰਮਿਕ ਜਾਲਾਂ ਨੇ ਵੀ ਅਸਰ ਪਾਇਆ।",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q027-PA",
+    "englishQuestionId": "WHI-CP002-Q027",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F027",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Council of Trent ਅਤੇ Luther ਦੇ ਅੰਦੋਲਨ ਵਿੱਚ ਕੀ ਫ਼ਰਕ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਵੇਂ Luther ਦੀ ਅਗਵਾਈ ਹੇਠ ਹੋਈਆਂ ਸਭਾਵਾਂ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "Trent ਕੈਥੋਲਿਕ ਸੁਧਾਰ ਦਾ ਹਿੱਸਾ ਸੀ; Luther ਦੇ ਅੰਦੋਲਨ ਨਾਲ ਪ੍ਰੋਟੈਸਟੈਂਟ ਚਰਚ ਬਣੇ"
+      },
+      {
+        "key": "C",
+        "text": "Trent, Luther ਦੀਆਂ Theses ਤੋਂ ਪਹਿਲਾਂ ਹੋਇਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੋਵਾਂ ਨੇ ਇੰਗਲੈਂਡ ਵਿੱਚ ਰਾਜੇ ਦੀ ਸਰਬੋਚਤਾ ਕਾਇਮ ਕੀਤੀ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Council of Trent ਕੈਥੋਲਿਕ ਸੁਧਾਰ ਨਾਲ ਜੁੜੀ ਸੀ। Luther ਦੀ ਚੁਣੌਤੀ ਨਾਲ ਪ੍ਰੋਟੈਸਟੈਂਟ ਚਰਚਾਂ ਦਾ ਉਭਾਰ ਅਤੇ ਵਾਧਾ ਹੋਇਆ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q028-PA",
+    "englishQuestionId": "WHI-CP002-Q028",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F028",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "ਕਿਹੜੇ ਵਿਕਾਸ ਨਾਲ ਧਰਮ-ਸੁਧਾਰ ਦੇ ਵਿਚਾਰ ਤੇਜ਼ੀ ਨਾਲ ਫੈਲ ਸਕੇ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚੱਲਦੇ ਧਾਤੂ ਅੱਖਰਾਂ ਵਾਲੀ ਛਪਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਭਾਫ਼ ਵਾਲੀ ਰੇਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਟੈਲੀਗ੍ਰਾਫ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੰਪਾਸ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਛਪਾਈ ਨਾਲ ਧਰਮ-ਸੁਧਾਰ ਦੀਆਂ ਲਿਖਤਾਂ ਦੀਆਂ ਨਕਲਾਂ ਬਣਾਉਣੀਆਂ ਅਤੇ ਫੈਲਾਉਣੀਆਂ ਸੌਖੀਆਂ ਹੋਈਆਂ, ਪਰ ਇਹ ਕਈ ਕਾਰਨਾਂ ਵਿੱਚੋਂ ਇੱਕ ਸੀ।",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q029-PA",
+    "englishQuestionId": "WHI-CP002-Q029",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F029",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Scientist–discovery",
+    "stem": "1543 ਵਿੱਚ ਗ੍ਰਹਿ-ਮੰਡਲ ਦਾ ਸੂਰਜ-ਕੇਂਦਰੀ ਵੇਰਵਾ ਕਿਸ ਨੇ ਛਾਪਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਇਜ਼ਕ ਨਿਊਟਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਿਲੀਅਮ ਹਾਰਵੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਆੰਦਰਿਆਸ ਵੇਸਾਲੀਅਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਿਕੋਲਸ ਕੋਪਰਨਿਕਸ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਕੋਪਰਨਿਕਸ ਦੀ 1543 ਦੀ ਕਿਤਾਬ ਨੇ ਸੂਰਜ ਨੂੰ ਗ੍ਰਹਿ-ਮੰਡਲ ਦੇ ਕੇਂਦਰ ਵਿੱਚ ਰੱਖਿਆ ਅਤੇ ਧਰਤੀ ਨੂੰ ਚਲਦਾ ਗ੍ਰਹਿ ਦੱਸਿਆ।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q030-PA",
+    "englishQuestionId": "WHI-CP002-Q030",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F030",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Scientist–discovery",
+    "stem": "ਬ੍ਰਹਸਪਤੀ ਦੇ ਚੰਦਾਂ ਬਾਰੇ Galileo ਦੇ ਦੂਰਬੀਨੀ ਨਿਰੀਖਣ ਤੋਂ ਕੀ ਪਤਾ ਲੱਗਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਾਰੇ ਗ੍ਰਹਿ ਚੰਦ ਦੇ ਗੇੜ ਲਾਉਂਦੇ ਹਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੁਝ ਆਕਾਸ਼ੀ ਪਿੰਡ ਧਰਤੀ ਦੀ ਥਾਂ ਕਿਸੇ ਹੋਰ ਪਿੰਡ ਦੇ ਗੇੜ ਲਾਉਂਦੇ ਹਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੂਰਜ ਬ੍ਰਹਸਪਤੀ ਦੇ ਗੇੜ ਲਾਉਂਦਾ ਹੈ"
+      },
+      {
+        "key": "D",
+        "text": "ਗਤੀ ਦਾ ਇਕੱਲਾ ਕੇਂਦਰ ਧਰਤੀ ਹੈ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਗੈਲੀਲੀਓ ਨੇ ਬ੍ਰਹਸਪਤੀ ਦੇ ਚੰਦਾਂ ਨੂੰ ਉਸ ਦੇ ਗੇੜ ਲਾਉਂਦੇ ਵੇਖਿਆ। ਹਰ ਆਕਾਸ਼ੀ ਪਿੰਡ ਧਰਤੀ ਦੇ ਗੇੜ ਨਹੀਂ ਲਾਉਂਦਾ।",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q031-PA",
+    "englishQuestionId": "WHI-CP002-Q031",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F031",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Copernicus ਨੇ 1543 ਵਿੱਚ ਕਿਹੜੀ ਕਿਤਾਬ ਛਾਪੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "De revolutionibus orbium coelestium"
+      },
+      {
+        "key": "B",
+        "text": "Principia Mathematica"
+      },
+      {
+        "key": "C",
+        "text": "De motu cordis"
+      },
+      {
+        "key": "D",
+        "text": "Utopia"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਕੋਪਰਨਿਕਸ ਨੇ 1543 ਵਿੱਚ De revolutionibus ਛਾਪੀ। ਇਸ ਵਿੱਚ ਸੂਰਜ-ਕੇਂਦਰੀ ਗ੍ਰਹਿ-ਮੰਡਲ ਦਾ ਗਣਿਤੀ ਵੇਰਵਾ ਸੀ।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q032-PA",
+    "englishQuestionId": "WHI-CP002-Q032",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F032",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "ਕਿਹੜੇ ਖਗੋਲ-ਵਿਗਿਆਨੀ ਨੇ ਗ੍ਰਹਿਆਂ ਦੇ ਰਸਤੇ ਅੰਡਾਕਾਰ ਦੱਸੇ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੋਪਰਨਿਕਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਗੈਲੀਲੀਓ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੋਹਾਨਸ ਕੇਪਲਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਿਊਟਨ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਕੇਪਲਰ ਦੇ ਨਿਯਮਾਂ ਮੁਤਾਬਕ ਗ੍ਰਹਿ ਪੂਰੇ ਗੋਲ ਨਹੀਂ, ਸਗੋਂ ਅੰਡਾਕਾਰ ਰਸਤਿਆਂ ਵਿੱਚ ਚਲਦੇ ਹਨ।",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q033-PA",
+    "englishQuestionId": "WHI-CP002-Q033",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F033",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "1687 ਵਿੱਚ ਛਪੀ Newton ਦੀ Principia ਕਿਹੜੇ ਵਿਚਾਰਾਂ ਨਾਲ ਜੁੜੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਗਤੀ ਦੇ ਨਿਯਮ ਅਤੇ ਸਰਬਵਿਆਪੀ ਗੁਰੁਤਾ-ਆਕਰਸ਼ਣ"
+      },
+      {
+        "key": "B",
+        "text": "ਖੂਨ ਦਾ ਗੇੜ"
+      },
+      {
+        "key": "C",
+        "text": "ਪਹਿਲੀ ਛਪੀ ਬਾਈਬਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਇੰਡਲਜੈਂਸ ਦੀ ਵਿਕਰੀ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Newton ਦੀ Principia ਵਿੱਚ ਗਤੀ ਅਤੇ ਗੁਰੁਤਾ-ਆਕਰਸ਼ਣ ਦੇ ਨਿਯਮ ਦਿੱਤੇ ਗਏ। ਇਸ ਨੇ ਧਰਤੀ ਅਤੇ ਆਕਾਸ਼ ਦੀ ਗਤੀ ਦੇ ਅਧਿਐਨ ਨੂੰ ਜੋੜਿਆ।",
+    "sourceIds": [
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q034-PA",
+    "englishQuestionId": "WHI-CP002-Q034",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F034",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "ਸਰੀਰ ਦੇ ਸਿੱਧੇ ਅਧਿਐਨ ਅਤੇ De humani corporis fabrica ਲਈ ਕਿਹੜਾ ਵਿਦਵਾਨ ਮਸ਼ਹੂਰ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਲੀਅਮ ਹਾਰਵੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਆੰਦਰਿਆਸ ਵੇਸਾਲੀਅਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਫਰਾਂਸਿਸ ਬੇਕਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਟਾਇਕੋ ਬ੍ਰਾਹੇ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਵੇਸਾਲੀਅਸ ਦੀ 1543 ਦੀ ਸਰੀਰ-ਰਚਨਾ ਬਾਰੇ ਕਿਤਾਬ ਸਿੱਧੇ ਨਿਰੀਖਣ ਉੱਤੇ ਆਧਾਰਿਤ ਸੀ ਅਤੇ ਪੁਰਾਣੇ ਵੇਰਵਿਆਂ ਨੂੰ ਚੁਣੌਤੀ ਦਿੰਦੀ ਸੀ।",
+    "sourceIds": [
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q035-PA",
+    "englishQuestionId": "WHI-CP002-Q035",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F035",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "ਸਰੀਰ ਵਿੱਚ ਖੂਨ ਦੇ ਗੇੜ ਦੀ ਵਿਆਖਿਆ ਕਿਸ ਨੇ ਕੀਤੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆੰਦਰਿਆਸ ਵੇਸਾਲੀਅਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੋਹਾਨਸ ਕੇਪਲਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਲੀਅਮ ਹਾਰਵੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਿਕੋਲਸ ਕੋਪਰਨਿਕਸ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਹਾਰਵੇ ਨੇ 1628 ਵਿੱਚ ਛਪੀ De motu cordis ਵਿੱਚ ਖੂਨ ਦੇ ਗੇੜ ਦਾ ਵੇਰਵਾ ਦਿੱਤਾ।",
+    "sourceIds": [
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q036-PA",
+    "englishQuestionId": "WHI-CP002-Q036",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F036",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Francis Bacon ਨੂੰ ਗਿਆਨ ਦੇ ਕਿਹੜੇ ਢੰਗ ਦੀ ਹਮਾਇਤ ਲਈ ਜਾਣਿਆ ਜਾਂਦਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਿਨਾਂ ਜਾਂਚੇ ਅਧਿਕਾਰ ਉੱਤੇ ਭਰੋਸਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਪ੍ਰਯੋਗਾਂ ਨੂੰ ਰੱਦ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਤਰਤੀਬਵਾਰ ਨਿਰੀਖਣ ਅਤੇ ਤਜਰਬੇ ਅਧਾਰਿਤ ਜਾਂਚ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਰੀਰ ਦੀ ਬਣਤਰ ਸਮਝਾਉਣ ਲਈ ਜੋਤਿਸ਼"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਬੇਕਨ ਨੇ ਕੁਦਰਤ ਨੂੰ ਸਮਝਣ ਲਈ ਤਰਤੀਬਵਾਰ ਨਿਰੀਖਣ ਅਤੇ ਜਾਂਚ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕੀਤਾ।",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q037-PA",
+    "englishQuestionId": "WHI-CP002-Q037",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F037",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Vasco da Gama ਭਾਰਤ ਕਿਹੜੇ ਰਸਤੇ ਰਾਹੀਂ ਪਹੁੰਚਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Cape of Good Hope ਦੇ ਗੇੜ ਲਾ ਕੇ"
+      },
+      {
+        "key": "B",
+        "text": "Panama ਦੇ ਥਲ-ਜੋੜ ਰਾਹੀਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ ਰਾਹੀਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਮੈਕਸੀਕੋ ਤੋਂ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਪਾਰ ਕਰਕੇ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਡਾ ਗਾਮਾ ਅਫ਼ਰੀਕਾ ਦਾ ਗੇੜ ਲਾ ਕੇ 1498 ਵਿੱਚ ਕਾਲੀਕਟ ਪਹੁੰਚਿਆ ਅਤੇ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦਾ ਪੁਰਤਗਾਲੀ ਸਮੁੰਦਰੀ ਰਸਤਾ ਬਣਾਇਆ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q038-PA",
+    "englishQuestionId": "WHI-CP002-Q038",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F038",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "1492 ਵਿੱਚ Columbus ਦਾ ਜਹਾਜ਼ੀ ਦਲ ਪੱਛਮ ਵੱਲ ਜਾਂਦਿਆਂ ਕਿਹੜਾ ਸਮੁੰਦਰ ਪਾਰ ਕਰ ਗਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਐਟਲਾਂਟਿਕ ਮਹਾਂਸਾਗਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਹਿੰਦ ਮਹਾਂਸਾਗਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਏਸ਼ੀਆ ਵੱਲ ਪੱਛਮੀ ਸਮੁੰਦਰੀ ਰਸਤਾ ਲੱਭਦਿਆਂ ਕੋਲੰਬਸ ਨੇ ਐਟਲਾਂਟਿਕ ਪਾਰ ਕੀਤਾ ਅਤੇ ਕੈਰੇਬੀਅਨ ਟਾਪੂਆਂ ਤੱਕ ਪਹੁੰਚਿਆ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q039-PA",
+    "englishQuestionId": "WHI-CP002-Q039",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F039",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "1488 ਵਿੱਚ ਅਫ਼ਰੀਕਾ ਦੇ ਦੱਖਣੀ ਸਿਰੇ ਤੋਂ ਕਿਹੜੇ ਮਲਾਹ ਨੇ ਚੱਕਰ ਲਾਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਾਰਤੋਲੋਮਿਊ ਡਿਆਜ਼"
+      },
+      {
+        "key": "B",
+        "text": "ਵਾਸਕੋ ਡਾ ਗਾਮਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੇਦਰੋ ਆਲਵਾਰੇਜ਼ ਕਾਬਰਾਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੁਆਨ ਸੇਬਾਸਤਿਆਨ ਐਲਕਾਨੋ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਡਿਆਜ਼ ਨੇ 1488 ਵਿੱਚ ਅਫ਼ਰੀਕਾ ਦੇ ਦੱਖਣੀ ਸਿਰੇ ਤੋਂ ਚੱਕਰ ਲਾਇਆ। ਇਸ ਨਾਲ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵੱਲ ਅੱਗੇ ਦੀਆਂ ਪੁਰਤਗਾਲੀ ਯਾਤਰਾਵਾਂ ਦਾ ਰਾਹ ਖੁੱਲ੍ਹਿਆ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q040-PA",
+    "englishQuestionId": "WHI-CP002-Q040",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F040",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Pedro Álvares Cabral ਦੀ 1500 ਦੀ ਯਾਤਰਾ ਅੱਜ ਦੇ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਪੁਰਤਗਾਲੀਆਂ ਦੇ ਪਹੁੰਚਣ ਨਾਲ ਜੁੜੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮੈਕਸੀਕੋ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਿਊਬਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੇਰੂ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਾਜ਼ੀਲ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਕਾਬਰਾਲ ਦਾ ਬੇੜਾ 1500 ਵਿੱਚ ਭਾਰਤ ਵੱਲ ਜਾਂਦਿਆਂ ਬ੍ਰਾਜ਼ੀਲ ਦੇ ਤੱਟ ਉੱਤੇ ਪਹੁੰਚਿਆ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q041-PA",
+    "englishQuestionId": "WHI-CP002-Q041",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F041",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Columbus ਅਤੇ da Gama ਦੇ ਸਮੁੰਦਰੀ ਰਸਤਿਆਂ ਦੀ ਸਹੀ ਤੁਲਨਾ ਕਿਹੜੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਵੇਂ ਅਫ਼ਰੀਕਾ ਦਾ ਗੇੜ ਲਾ ਕੇ ਕੈਰੇਬੀਅਨ ਪਹੁੰਚੇ"
+      },
+      {
+        "key": "B",
+        "text": "Columbus ਅਫ਼ਰੀਕਾ ਦਾ ਗੇੜ ਲਾ ਕੇ ਗਿਆ; da Gama ਨੇ ਪ੍ਰਸ਼ਾਂਤ ਪਾਰ ਕੀਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "Columbus ਐਟਲਾਂਟਿਕ ਪਾਰ ਕਰਕੇ ਪੱਛਮ ਵੱਲ ਗਿਆ; da Gama ਅਫ਼ਰੀਕਾ ਦਾ ਗੇੜ ਲਾ ਕੇ ਭਾਰਤ ਪਹੁੰਚਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੋਵਾਂ ਨੇ ਭਾਰਤ ਪਹੁੰਚਣ ਲਈ ਪ੍ਰਸ਼ਾਂਤ ਪਾਰ ਕੀਤਾ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Columbus 1492 ਵਿੱਚ ਐਟਲਾਂਟਿਕ ਪਾਰ ਕਰਕੇ ਪੱਛਮ ਵੱਲ ਗਿਆ। da Gama 1498 ਵਿੱਚ ਅਫ਼ਰੀਕਾ ਦਾ ਗੇੜ ਲਾ ਕੇ ਭਾਰਤ ਪਹੁੰਚਿਆ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q042-PA",
+    "englishQuestionId": "WHI-CP002-Q042",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F042",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "ਪੁਰਤਗਾਲੀ ਸਮੁੰਦਰੀ ਯਾਤਰਾਵਾਂ ਲਈ Cape of Good Hope ਕਿਉਂ ਮਹੱਤਵਪੂਰਨ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਇੰਗਲੈਂਡ ਅਤੇ ਫਰਾਂਸ ਦੀ ਹੱਦ ਤੈਅ ਕੀਤੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇੱਥੋਂ Columbus ਦੀ ਯਾਤਰਾ ਸ਼ੁਰੂ ਹੋਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਭੂ-ਮੱਧ ਸਾਗਰ ਨੂੰ ਬਾਲਟਿਕ ਨਾਲ ਜੋੜਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਰਾਹੀਂ ਜਹਾਜ਼ ਅਫ਼ਰੀਕਾ ਦਾ ਗੇੜ ਲਾ ਕੇ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਪਹੁੰਚੇ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Cape ਦੇ ਗੇੜ ਲਾਉਣ ਨਾਲ ਐਟਲਾਂਟਿਕ ਤੋਂ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਅਤੇ ਏਸ਼ੀਆਈ ਵਪਾਰ ਤੱਕ ਸਮੁੰਦਰੀ ਰਸਤਾ ਖੁੱਲ੍ਹਿਆ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q043-PA",
+    "englishQuestionId": "WHI-CP002-Q043",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F043",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "1494 ਦੀ Treaty of Tordesillas ਕਿਹੜੇ ਰਾਜਾਂ ਵਿਚਕਾਰ ਹੋਈ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇੰਗਲੈਂਡ ਅਤੇ ਫਰਾਂਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੁਰਤਗਾਲ ਅਤੇ ਨੀਦਰਲੈਂਡ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਪੇਨ ਅਤੇ ਓਟੋਮਨ ਸਾਮਰਾਜ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ ਨੇ ਸਮੁੰਦਰ-ਪਾਰ ਇਲਾਕਿਆਂ ਦੇ ਦਾਅਵਿਆਂ ਦੀ ਹੋੜ ਵਿਚਕਾਰ 1494 ਵਿੱਚ ਇਹ ਸੰਧੀ ਕੀਤੀ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q044-PA",
+    "englishQuestionId": "WHI-CP002-Q044",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F044",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "Treaty of Tordesillas ਨੇ ਕੀ ਤੈਅ ਕੀਤਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫਰਾਂਸ ਅਤੇ ਜਰਮਨੀ ਵਿਚਕਾਰ ਹੱਦ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੈਥੋਲਿਕਾਂ ਅਤੇ ਲੂਥਰਨਾਂ ਵਿਚਕਾਰ ਧਾਰਮਿਕ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ ਦੇ ਸਮੁੰਦਰ-ਪਾਰ ਦਾਅਵਿਆਂ ਨੂੰ ਵੰਡਦੀ ਰੇਖਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੁਰਤਗਾਲ ਤੋਂ ਭਾਰਤ ਤੱਕ ਦਾ ਰਸਤਾ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਇਸ ਸੰਧੀ ਨੇ ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ ਦੇ ਸਮੁੰਦਰ-ਪਾਰ ਦਾਅਵਿਆਂ ਲਈ ਹੱਦ-ਰੇਖਾ ਤੈਅ ਕੀਤੀ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q045-PA",
+    "englishQuestionId": "WHI-CP002-Q045",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F045",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "ਧਰਤੀ ਦਾ ਪਹਿਲਾ ਚੱਕਰ ਕਿਹੜੇ ਜਹਾਜ਼ੀ ਅਭਿਆਨ ਨੇ ਪੂਰਾ ਕੀਤਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮੈਗੇਲਨ–ਐਲਕਾਨੋ ਅਭਿਆਨ"
+      },
+      {
+        "key": "B",
+        "text": "Columbus ਦੀ ਪਹਿਲੀ ਯਾਤਰਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਡਿਆਜ਼ ਦੀ Cape ਯਾਤਰਾ"
+      },
+      {
+        "key": "D",
+        "text": "da Gama ਦੀ ਭਾਰਤ ਯਾਤਰਾ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਮੈਗੇਲਨ ਦੀ ਅਗਵਾਈ ਹੇਠ ਸ਼ੁਰੂ ਹੋਇਆ ਅਭਿਆਨ 1522 ਵਿੱਚ ਐਲਕਾਨੋ ਦੀ ਅਗਵਾਈ ਹੇਠ ਮੁੜਿਆ। ਮੈਗੇਲਨ ਵਾਪਸੀ ਪੂਰੀ ਨਾ ਕਰ ਸਕਿਆ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q046-PA",
+    "englishQuestionId": "WHI-CP002-Q046",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F046",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "1522 ਵਿੱਚ ਬਚੇ ਹੋਏ ਮਲਾਹਾਂ ਨੂੰ ਸਪੇਨ ਵਾਪਸ ਕੌਣ ਲੈ ਕੇ ਆਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫਰਡੀਨੈਂਡ ਮੈਗੇਲਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਾਰਤੋਲੋਮਿਊ ਡਿਆਜ਼"
+      },
+      {
+        "key": "C",
+        "text": "ਕ੍ਰਿਸਟੋਫਰ Columbus"
+      },
+      {
+        "key": "D",
+        "text": "ਹੁਆਨ ਸੇਬਾਸਤਿਆਨ ਐਲਕਾਨੋ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਫਿਲੀਪੀਨਜ਼ ਵਿੱਚ ਮੈਗੇਲਨ ਦੀ ਮੌਤ ਤੋਂ ਬਾਅਦ ਐਲਕਾਨੋ ਬਚੇ ਹੋਏ ਦਲ ਨੂੰ ਸਪੇਨ ਵਾਪਸ ਲੈ ਗਿਆ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q047-PA",
+    "englishQuestionId": "WHI-CP002-Q047",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F047",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "ਧਰਤੀ ਦੇ ਚੱਕਰ ਵਾਲੇ ਅਭਿਆਨ ਦੌਰਾਨ Magellan ਦੀ ਮੌਤ ਕਿੱਥੇ ਹੋਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਾਲੀਕਟ"
+      },
+      {
+        "key": "B",
+        "text": "Cape of Good Hope"
+      },
+      {
+        "key": "C",
+        "text": "ਕੈਰੇਬੀਅਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਫਿਲੀਪੀਨਜ਼"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਮੈਗੇਲਨ ਦੀ 1521 ਵਿੱਚ ਫਿਲੀਪੀਨਜ਼ ਵਿੱਚ ਮੌਤ ਹੋਈ। ਬਚੇ ਹੋਏ ਮਲਾਹ ਅੱਗੇ ਵਧੇ ਅਤੇ ਅਗਲੇ ਸਾਲ ਸਪੇਨ ਪਰਤੇ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q048-PA",
+    "englishQuestionId": "WHI-CP002-Q048",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F048",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "Cabral ਦੇ ਬ੍ਰਾਜ਼ੀਲ ਪਹੁੰਚਣ ਨਾਲ ਕਿਹੜਾ ਸਾਲ ਜੁੜਿਆ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1488"
+      },
+      {
+        "key": "B",
+        "text": "1492"
+      },
+      {
+        "key": "C",
+        "text": "1498"
+      },
+      {
+        "key": "D",
+        "text": "1500"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਕਾਬਰਾਲ ਦਾ ਅਭਿਆਨ ਭਾਰਤ ਵੱਲ ਜਾਂਦਿਆਂ 1500 ਵਿੱਚ ਬ੍ਰਾਜ਼ੀਲ ਪਹੁੰਚਿਆ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q049-PA",
+    "englishQuestionId": "WHI-CP002-Q049",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F049",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "ਛਪਾਈ ਅਤੇ Luther ਦੀ ਚੁਣੌਤੀ ਦੇ ਫੈਲਾਅ ਵਿਚਕਾਰ ਸਬੰਧ ਨੂੰ ਕਿਹੜਾ ਬਿਆਨ ਸਭ ਤੋਂ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਉਂਦਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਛਪਾਈ ਨੇ ਹੀ Luther ਦੇ ਧਾਰਮਿਕ ਇਤਰਾਜ਼ ਪੈਦਾ ਕੀਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਛਪਾਈ ਨੇ ਤੁਰੰਤ ਪੂਰੇ ਯੂਰਪ ਵਿੱਚ ਕੈਥੋਲਿਕ ਅਧਿਕਾਰ ਖਤਮ ਕਰ ਦਿੱਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੋਕ-ਭਾਸ਼ਾ ਦੀਆਂ ਲਿਖਤਾਂ ਨੇ ਲੋਕਾਂ ਨੂੰ ਸੁਧਾਰ ਬਾਰੇ ਗੱਲ ਕਰਨ ਤੋਂ ਰੋਕਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਛਪੀਆਂ ਲਿਖਤਾਂ ਦੀਆਂ ਨਕਲਾਂ ਬਣ ਕੇ Wittenberg ਤੋਂ ਦੂਰ ਤੱਕ ਪਹੁੰਚ ਸਕਦੀਆਂ ਸਨ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਛਪਾਈ ਨੇ Luther ਦੇ ਵਿਚਾਰਾਂ ਨੂੰ ਵੱਡੇ ਪਾਠਕ ਵਰਗ ਤੱਕ ਪਹੁੰਚਾਇਆ, ਪਰ ਇਸ ਨੇ ਧਾਰਮਿਕ ਵਿਵਾਦ ਪੈਦਾ ਨਹੀਂ ਕੀਤੇ ਅਤੇ ਚਰਚ ਦਾ ਅਧਿਕਾਰ ਤੁਰੰਤ ਨਹੀਂ ਮੁਕਾਇਆ।",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q050-PA",
+    "englishQuestionId": "WHI-CP002-Q050",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F050",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "ਫਲੋਰੈਂਸ ਦਾ ਇੱਕ ਪਰਿਵਾਰ ਚੈਪਲ, ਮੂਰਤੀਆਂ ਅਤੇ ਵਿਦਵਾਨਾਂ ਦੇ ਕੰਮ ਲਈ ਪੈਸਾ ਦਿੰਦਾ ਹੈ। ਇਹ ਉਦਾਹਰਨ ਕਿਹੜੀ ਇਤਿਹਾਸਕ ਭੂਮਿਕਾ ਦਿਖਾਉਂਦੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਨਤਕ ਕਲਾ ਉੱਤੇ ਰਾਜੇ ਦੀ ਪਾਬੰਦੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਤਾਲਵੀ ਸ਼ਹਿਰਾਂ ਵਿੱਚ ਨਾਗਰਿਕ ਅਸਰ ਦਾ ਅੰਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਨੁੱਖਵਾਦੀ ਪੜ੍ਹਾਈ ਦੀ ਥਾਂ ਜਹਾਜ਼ਰਾਨੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਰਪ੍ਰਸਤੀ ਨੇ ਪੁਨਰਜਾਗਰਣੀ ਕਲਾ ਅਤੇ ਵਿਦਿਆ ਨੂੰ ਸਹਾਰਾ ਦਿੱਤਾ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਦੌਲਤਮੰਦ ਸਰਪ੍ਰਸਤਾਂ ਨੇ ਕਲਾ-ਕਿਰਤਾਂ ਲਈ ਖਰਚ ਕੀਤਾ ਅਤੇ ਵਿਦਵਾਨਾਂ ਦੀ ਮਦਦ ਕੀਤੀ। ਇਸ ਨਾਲ ਪੁਨਰਜਾਗਰਣੀ ਸੱਭਿਆਚਾਰਕ ਸਰਗਰਮੀ ਨੂੰ ਹੌਸਲਾ ਮਿਲਿਆ।",
+    "sourceIds": [
+      "S1",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q051-PA",
+    "englishQuestionId": "WHI-CP002-Q051",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F051",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "ਸੋਲ੍ਹਵੀਂ ਸਦੀ ਦੇ ਧਾਰਮਿਕ ਬਦਲਾਵਾਂ ਦਾ ਸਹੀ ਵਰਣਨ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਧਰਮ ਸੁਧਾਰ ਨੇ ਸਾਰੇ ਪੱਛਮੀ ਇਸਾਈਆਂ ਨੂੰ ਇੱਕ ਚਰਚ ਵਿੱਚ ਜੋੜਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "Council of Trent ਨੇ ਪ੍ਰੋਟੈਸਟੈਂਟ ਚਰਚ ਬਣਾਏ"
+      },
+      {
+        "key": "C",
+        "text": "ਪ੍ਰੋਟੈਸਟੈਂਟ ਲਹਿਰਾਂ ਵਧੀਆਂ ਅਤੇ ਕੈਥੋਲਿਕ ਚਰਚ ਨੇ ਵੀ ਸੁਧਾਰ ਕੀਤੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੈਥੋਲਿਕ ਚਰਚ ਨੇ ਯੂਰਪ ਵਿੱਚ ਆਪਣੀ ਸੰਸਥਾਗਤ ਭੂਮਿਕਾ ਛੱਡ ਦਿੱਤੀ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਧਰਮ ਸੁਧਾਰ ਨਾਲ ਪ੍ਰੋਟੈਸਟੈਂਟ ਚਰਚ ਬਣੇ, ਜਦਕਿ Council of Trent ਕੈਥੋਲਿਕ ਸੁਧਾਰ ਦਾ ਹਿੱਸਾ ਸੀ। ਦੋਵੇਂ ਵੱਖਰੀਆਂ ਪ੍ਰਕਿਰਿਆਵਾਂ ਸਨ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q052-PA",
+    "englishQuestionId": "WHI-CP002-Q052",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F052",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "ਧਾਰਮਿਕ ਬਹਿਸ ਵਿੱਚ ਲੋਕ-ਭਾਸ਼ਾ ਵਿੱਚ ਛਪੀਆਂ ਲਿਖਤਾਂ ਦਾ ਕੀ ਮਹੱਤਵ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੁਝ ਲਿਖਤਾਂ ਲਾਤੀਨੀ ਨਾ ਪੜ੍ਹ ਸਕਣ ਵਾਲਿਆਂ ਤੱਕ ਪਹੁੰਚੀਆਂ ਅਤੇ ਫੈਲੀਆਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਹਰ ਪਾਠਕ ਨੇ ਧਾਰਮਿਕ ਲਿਖਤ ਨੂੰ ਇੱਕੋ ਤਰੀਕੇ ਨਾਲ ਸਮਝਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੌਖਿਕ ਉਪਦੇਸ਼ ਤੁਰੰਤ ਮੁੱਕ ਗਏ"
+      },
+      {
+        "key": "D",
+        "text": "ਧਾਰਮਿਕ ਬਹਿਸ ਯੂਨੀਵਰਸਿਟੀਆਂ ਤੱਕ ਸੀਮਤ ਹੋ ਗਈ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਲੋਕ-ਭਾਸ਼ਾ ਦੀਆਂ ਛਪੀਆਂ ਲਿਖਤਾਂ ਲਾਤੀਨੀ ਪੜ੍ਹੇ ਪਾਦਰੀਆਂ ਤੋਂ ਅੱਗੇ ਹੋਰ ਪਾਠਕਾਂ ਤੱਕ ਪਹੁੰਚੀਆਂ। ਫਿਰ ਵੀ ਪਹੁੰਚ ਅਤੇ ਸਮਝ ਹਰ ਥਾਂ ਇੱਕੋ ਜਿਹੀ ਨਹੀਂ ਸੀ।",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q053-PA",
+    "englishQuestionId": "WHI-CP002-Q053",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F053",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "ਐਟਲਾਂਟਿਕ ਪ੍ਰਬੰਧ ਬਾਰੇ ਕਿਹੜਾ ਇਤਿਹਾਸਕ ਤੌਰ 'ਤੇ ਠੀਕ ਵਰਣਨ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨਾਲ ਜੁੜੇ ਹਰ ਸਮਾਜ ਨੂੰ ਬਰਾਬਰ ਲਾਭ ਅਤੇ ਸਿਆਸੀ ਤਾਕਤ ਮਿਲੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਵਿੱਚ ਯੂਰਪੀ ਵਪਾਰੀ ਸਨ, ਪਰ ਅਫ਼ਰੀਕੀ ਜਾਂ ਅਮਰੀਕੀ ਭਾਈਚਾਰੇ ਨਹੀਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਐਟਲਾਂਟਿਕ ਪਾਰ ਲੋਕਾਂ ਦੀ ਜਬਰੀ ਆਵਾਜਾਈ ਰੋਕ ਦਿੱਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਵਪਾਰ ਤੇ ਵਸੇਬੇ ਨੂੰ ਜੋੜਿਆ, ਨਾਲ ਹੀ ਜਿੱਤ ਅਤੇ ਜਬਰੀ ਹਿਜਰਤ ਨੂੰ ਵੀ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਐਟਲਾਂਟਿਕ ਖੇਤਰ ਵਪਾਰ ਅਤੇ ਵਸੇਬੇ ਨਾਲ ਜੁੜਿਆ, ਪਰ ਇਸ ਵਿੱਚ ਜਿੱਤ, ਅਸਮਾਨ ਤਾਕਤ ਅਤੇ ਅਫ਼ਰੀਕੀ ਲੋਕਾਂ ਦੀ ਜਬਰੀ ਹਿਜਰਤ ਵੀ ਸ਼ਾਮਲ ਸੀ।",
+    "sourceIds": [
+      "S8",
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q054-PA",
+    "englishQuestionId": "WHI-CP002-Q054",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F054",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "ਐਟਲਾਂਟਿਕ ਗੁਲਾਮ ਵਪਾਰ ਆਪਣੀ ਮਰਜ਼ੀ ਨਾਲ ਹੋਏ ਆਮ ਪਰਵਾਸ ਤੋਂ ਕਿਵੇਂ ਵੱਖਰਾ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਫ਼ਰੀਕੀ ਲੋਕਾਂ ਨੂੰ ਜ਼ਬਰਦਸਤੀ ਐਟਲਾਂਟਿਕ ਪਾਰ ਲਿਜਾ ਕੇ ਗੁਲਾਮੀ ਵਿੱਚ ਵੇਚਿਆ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਲੋਕਾਂ ਨੇ ਆਪਣੀ ਮੰਜ਼ਿਲ ਚੁਣੀ ਅਤੇ ਬਰਾਬਰ ਕਾਨੂੰਨੀ ਹੱਕ ਰੱਖੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਵਿੱਚ ਮੁੱਖ ਤੌਰ 'ਤੇ ਯੂਰਪੀ ਵਿਦਵਾਨ ਏਸ਼ੀਆ ਗਏ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਵਪਾਰ ਨੇ ਅਮਰੀਕਾ ਵਿੱਚ ਬਾਗ਼ਾਂ ਦੀ ਮਜ਼ਦੂਰੀ ਖਤਮ ਕਰ ਦਿੱਤੀ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਗੁਲਾਮ ਵਪਾਰ ਜ਼ਬਰਦਸਤੀ ਦੀ ਪ੍ਰਣਾਲੀ ਸੀ। ਅਫ਼ਰੀਕੀ ਲੋਕਾਂ ਨੂੰ ਜਬਰੀ ਲਿਜਾ ਕੇ ਗੁਲਾਮ ਬਣਾਇਆ ਗਿਆ ਅਤੇ ਉਨ੍ਹਾਂ ਨੇ ਭਾਰੀ ਦੁੱਖ ਸਹਿਆ।",
+    "sourceIds": [
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q055-PA",
+    "englishQuestionId": "WHI-CP002-Q055",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F055",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "ਗੁਟਨਬਰਗ ਦੀ ਬਾਈਬਲ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਇਸ ਨੂੰ ਦੁਨੀਆ ਦੀ ਪਹਿਲੀ ਕਿਤਾਬ ਹੋਣ ਦਾ ਗਲਤ ਦਾਅਵਾ ਨਹੀਂ ਕਰਦਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਹ ਦੁਨੀਆ ਵਿੱਚ ਛਪੀ ਪਹਿਲੀ ਕਿਤਾਬ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਹ ਹੱਥ ਨਾਲ ਨਕਲ ਕੀਤਾ ਪਹਿਲਾ ਪਾਠ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਚੱਲਦੇ ਧਾਤੂ ਅੱਖਰਾਂ ਨਾਲ ਛਪੀ ਪਹਿਲੀ ਵੱਡੀ ਕਿਤਾਬ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਹ ਲੋਕ-ਭਾਸ਼ਾ ਵਿੱਚ ਅਨੁਵਾਦ ਹੋਈ ਪਹਿਲੀ ਧਾਰਮਿਕ ਰਚਨਾ ਸੀ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਚੱਲਦੇ ਅੱਖਰਾਂ ਨਾਲ ਛਪਾਈ ਪੂਰਬੀ ਏਸ਼ੀਆ ਵਿੱਚ ਪਹਿਲਾਂ ਮੌਜੂਦ ਸੀ। ਗੁਟਨਬਰਗ ਦੀ ਬਾਈਬਲ ਪੱਛਮੀ ਯੂਰਪ ਦੀ ਪਹਿਲੀ ਵੱਡੀ ਅਜਿਹੀ ਕਿਤਾਬ ਸੀ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q056-PA",
+    "englishQuestionId": "WHI-CP002-Q056",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F056",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "ਵਿਗਿਆਨੀ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਯੋਗਦਾਨ ਦੀ ਕਿਹੜੀ ਜੋੜੀ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸਹੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੋਪਰਨਿਕਸ—ਖੂਨ ਦਾ ਗੇੜ; ਕੇਪਲਰ—ਗੁਰੁਤਾ; ਹਾਰਵੇ—ਸੂਰਜ-ਕੇਂਦਰੀ ਮਾਡਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਵੇਸਾਲੀਅਸ—ਗ੍ਰਹਿਆਂ ਦੇ ਰਸਤੇ; ਨਿਊਟਨ—ਮਨੁੱਖੀ ਸਰੀਰ; ਗੈਲੀਲੀਓ—ਖੂਨ ਦਾ ਗੇੜ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੋਪਰਨਿਕਸ—ਸੂਰਜ-ਕੇਂਦਰੀ ਮਾਡਲ; ਕੇਪਲਰ—ਅੰਡਾਕਾਰ ਰਸਤੇ; ਹਾਰਵੇ—ਖੂਨ ਦਾ ਗੇੜ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਿਊਟਨ—1543 ਦਾ ਸੂਰਜ-ਕੇਂਦਰੀ ਮਾਡਲ; ਹਾਰਵੇ—ਛਪਾਈ; ਕੇਪਲਰ—ਇੰਡਲਜੈਂਸ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਕੋਪਰਨਿਕਸ ਨੇ ਸੂਰਜ-ਕੇਂਦਰੀ ਮਾਡਲ ਦਿੱਤਾ, ਕੇਪਲਰ ਨੇ ਅੰਡਾਕਾਰ ਰਸਤੇ ਦੱਸੇ ਅਤੇ ਹਾਰਵੇ ਨੇ ਖੂਨ ਦੇ ਗੇੜ ਦਾ ਅਧਿਐਨ ਕੀਤਾ।",
+    "sourceIds": [
+      "S5",
+      "S6",
+      "S11",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q057-PA",
+    "englishQuestionId": "WHI-CP002-Q057",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F057",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "Vesalius ਅਤੇ Harvey ਦੇ ਯੋਗਦਾਨ ਵਿੱਚ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵੇਸਾਲੀਅਸ ਨੇ ਗੁਰੁਤਾ ਦੱਸੀ; ਹਾਰਵੇ ਨੇ ਸੂਰਜ-ਕੇਂਦਰੀ ਮਾਡਲ ਛਾਪਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਵੇਸਾਲੀਅਸ ਨੇ ਸਰੀਰ ਦੇ ਸਿੱਧੇ ਅਧਿਐਨ ਨਾਲ ਸਰੀਰ-ਰਚਨਾ ਨੂੰ ਅੱਗੇ ਵਧਾਇਆ; ਹਾਰਵੇ ਨੇ ਖੂਨ ਦਾ ਗੇੜ ਸਮਝਾਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਵੇਸਾਲੀਅਸ ਨੇ ਗ੍ਰਹਿਆਂ ਦੇ ਰਸਤਿਆਂ ਦਾ ਅਧਿਐਨ ਕੀਤਾ; ਹਾਰਵੇ ਨੇ ਛਪਾਈ ਬਣਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਵੇਸਾਲੀਅਸ ਨੇ The Prince ਲਿਖੀ; ਹਾਰਵੇ ਨੇ Utopia"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਵੇਸਾਲੀਅਸ ਦਾ ਕੰਮ ਮਨੁੱਖੀ ਸਰੀਰ ਦੀ ਬਣਤਰ ਬਾਰੇ ਸੀ; ਹਾਰਵੇ ਨੇ ਖੂਨ ਦੇ ਵਹਾਅ ਦੀ ਵਿਆਖਿਆ ਕੀਤੀ।",
+    "sourceIds": [
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q058-PA",
+    "englishQuestionId": "WHI-CP002-Q058",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F058",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "ਲੇਖਕ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਰਚਨਾ ਦੀ ਕਿਹੜੀ ਪੂਰੀ ਜੋੜੀ ਸਹੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਰੈਸਮਸ—Utopia; ਮੋਰ—The Prince; ਮੈਕਿਆਵੇਲੀ—In Praise of Folly"
+      },
+      {
+        "key": "B",
+        "text": "ਇਰੈਸਮਸ—In Praise of Folly; ਮੋਰ—Utopia; ਮੈਕਿਆਵੇਲੀ—The Prince"
+      },
+      {
+        "key": "C",
+        "text": "ਇਰੈਸਮਸ—The Last Supper; ਮੋਰ—The School of Athens; ਮੈਕਿਆਵੇਲੀ—David"
+      },
+      {
+        "key": "D",
+        "text": "ਇਰੈਸਮਸ—Principia; ਮੋਰ—De revolutionibus; ਮੈਕਿਆਵੇਲੀ—De motu cordis"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਇਰੈਸਮਸ, ਮੋਰ ਅਤੇ ਮੈਕਿਆਵੇਲੀ ਨੇ ਕ੍ਰਮਵਾਰ In Praise of Folly, Utopia ਅਤੇ The Prince ਲਿਖੀਆਂ। ਇਨ੍ਹਾਂ ਦੇ ਵਿਸ਼ੇ ਵੱਖਰੇ ਹਨ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q059-PA",
+    "englishQuestionId": "WHI-CP002-Q059",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F059",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "ਸਮੁੰਦਰੀ ਯਾਤਰਾਵਾਂ ਅਤੇ ਸਮਝੌਤੇ ਦਾ ਸਹੀ ਕਾਲਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Columbus (1492) → Dias (1488) → da Gama (1498) → Tordesillas (1494)"
+      },
+      {
+        "key": "B",
+        "text": "Tordesillas (1494) → Dias (1488) → Columbus (1492) → da Gama (1498)"
+      },
+      {
+        "key": "C",
+        "text": "Dias ਨੇ Cape ਤੋਂ ਗੇੜ ਲਾਇਆ (1488) → Columbus ਨੇ ਐਟਲਾਂਟਿਕ ਪਾਰ ਕੀਤਾ (1492) → Tordesillas (1494) → da Gama ਸਮੁੰਦਰੀ ਰਸਤੇ ਭਾਰਤ ਪਹੁੰਚਿਆ (1498)"
+      },
+      {
+        "key": "D",
+        "text": "da Gama (1498) → Columbus (1492) → Dias (1488) → Tordesillas (1494)"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਡਿਆਜ਼ ਨੇ 1488 ਵਿੱਚ Cape ਪਾਰ ਕੀਤਾ; Columbus ਨੇ 1492 ਵਿੱਚ ਐਟਲਾਂਟਿਕ ਪਾਰ ਕੀਤਾ; ਸੰਧੀ 1494 ਵਿੱਚ ਹੋਈ; da Gama 1498 ਵਿੱਚ ਭਾਰਤ ਪਹੁੰਚਿਆ।",
+    "sourceIds": [
+      "S8",
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q060-PA",
+    "englishQuestionId": "WHI-CP002-Q060",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F060",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "ਧਰਤੀ ਦੇ ਪਹਿਲੇ ਚੱਕਰ ਦੀ ਯਾਤਰਾ ਦੇ ਕ੍ਰਮ ਤੋਂ ਕਿਹੜਾ ਨਤੀਜਾ ਨਿਕਲਦਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮੈਗੇਲਨ ਨੇ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕੀਤੀ, ਮੁਕੰਮਲ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਮਾਰਿਆ ਗਿਆ ਅਤੇ ਐਲਕਾਨੋ ਨੇ ਸਪੇਨ ਵਾਪਸੀ ਦੀ ਅਗਵਾਈ ਕੀਤੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਐਲਕਾਨੋ ਦੀ ਮੌਤ ਤੋਂ ਬਾਅਦ ਮੈਗੇਲਨ ਵਾਪਸੀ ਕਰਕੇ ਸਪੇਨ ਪਹੁੰਚਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "Columbus ਨੇ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕੀਤੀ ਅਤੇ da Gama ਜਹਾਜ਼ਾਂ ਨੂੰ ਸਪੇਨ ਵਾਪਸ ਲੈ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਐਲਕਾਨੋ ਨੇ 1519 ਵਿੱਚ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕੀਤੀ ਤੇ ਮੈਗੇਲਨ 1522 ਵਿੱਚ ਮੁੜਿਆ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਅਭਿਆਨ 1519 ਵਿੱਚ ਮੈਗੇਲਨ ਦੀ ਅਗਵਾਈ ਹੇਠ ਚੱਲਿਆ। ਉਸ ਦੀ ਮੌਤ ਮਗਰੋਂ ਐਲਕਾਨੋ ਬਚੇ ਹੋਏ ਦਲ ਨੂੰ 1522 ਵਿੱਚ ਸਪੇਨ ਵਾਪਸ ਲੈ ਆਇਆ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
