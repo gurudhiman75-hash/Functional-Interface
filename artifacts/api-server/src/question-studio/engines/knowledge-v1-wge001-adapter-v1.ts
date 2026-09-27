@@ -13,6 +13,7 @@ const normalize = (v: string | undefined) => (v ?? '').trim().toUpperCase();
 
 function definition(cp?: WorldGeographyCpId): QuestionStudioPackageDefinition {
   const rows = WGE_CORPUS.filter(q => !cp || q.cpId === cp);
+  const authoringReviewApproved = rows.every(q => Number(q.cpId.slice(-3)) <= 8);
   return {
     engineId: 'knowledge-v1', packageId: cp ?? packageId, subject: 'Static GK',
     topic: 'World Geography', subtopic: cp ? WGE_CP_TITLES[cp] : 'Earth and Physical Foundations',
@@ -26,8 +27,8 @@ function definition(cp?: WorldGeographyCpId): QuestionStudioPackageDefinition {
     testEligibility: lifecycle.testEligibility, testEligible: false, mockTestEligible: false,
     publiclyPublishable: false, automaticStudentPublication: false, productionReleaseAuthorized: false,
     metadata: {
-      ...lifecycle, registrationAuthorityId, authoringReviewApproved: true,
-      localizationStatus: 'USER_APPROVED', section: 'A', questionCountPerLanguage: rows.length,
+      ...lifecycle, registrationAuthorityId, authoringReviewApproved,
+      localizationStatus: authoringReviewApproved ? 'USER_APPROVED' : 'REVIEW_REQUIRED', section: 'A', questionCountPerLanguage: rows.length,
       canonicalPackageId: packageId, cpTitles: WGE_CP_TITLES,
       difficultyCounts: Object.fromEntries(['Easy', 'Medium', 'Hard'].map(d => [d, rows.filter(q => q.difficulty === d).length])),
       // CP package aliases make chapter selection available in the standard
@@ -105,7 +106,8 @@ export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         difficulty: q.difficulty, difficultyLabel: q.difficulty, learningObjective: q.objective,
         sourceIds: [...q.sourceIds], sourceReferences: WGE_SOURCES.filter(s => q.sourceIds.includes(s.id)),
         registrationAuthorityId, registrationStatus: 'REGISTERED_REVIEW_ONLY',
-        authoringReviewApproved: true, localizationStatus: 'USER_APPROVED', reviewOnly: true,
+        authoringReviewApproved: true,
+        localizationStatus: 'USER_APPROVED', reviewOnly: true,
         readOnly: true, runtimeRegistered: true, productionReleased: false,
         revisionPolicy: 'REVISE_SOURCE_CORPUS_AND_RELOCALIZE_ALL_LANGUAGES',
       };
@@ -113,7 +115,8 @@ export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
     return { questions, generationContext: {
       ...lifecycle, engineId: 'knowledge-v1', packageId: requestedPackage,
       canonicalPackageId: packageId, runtimeMode, registrationAuthorityId,
-      registrationStatus: 'REGISTERED_REVIEW_ONLY', authoringReviewApproved: true,
+      registrationStatus: 'REGISTERED_REVIEW_ONLY',
+      authoringReviewApproved: true,
       localizationStatus: 'USER_APPROVED', language, locale: locales[language], difficulty,
       cpId: cp ?? null, seed, requestedCount: count, candidateCount: candidates.length,
       corpusQuestionCount: WGE_CORPUS.length, studentPublicationAuthorized: false,

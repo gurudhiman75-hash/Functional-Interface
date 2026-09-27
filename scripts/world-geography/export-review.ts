@@ -3,9 +3,12 @@ import { dirname, resolve } from 'node:path';
 import { WGE_CORPUS, WGE_CP_TITLES, WGE_SOURCES, WGE_LANGUAGES } from '../../artifacts/api-server/src/knowledge-v1/world-geography/corpus';
 import { knowledgeV1Wge001QuestionStudioAdapterV1 as adapter } from '../../artifacts/api-server/src/question-studio/engines/knowledge-v1-wge001-adapter-v1';
 const destination = resolve(process.argv[2] || '/tmp/WORLD-GEOGRAPHY-SECTION-A-REVIEW.md');
+const selectedCpIds = new Set(process.argv.slice(3).map(value => value.toUpperCase()));
+const selectedCheckpoints = Object.entries(WGE_CP_TITLES).filter(([cp]) => !selectedCpIds.size || selectedCpIds.has(cp));
+if (selectedCpIds.size && selectedCheckpoints.length !== selectedCpIds.size) throw new Error(`Unknown WGE checkpoint selector: ${[...selectedCpIds].join(', ')}`);
 const lines = [readFileSync('artifacts/api-server/src/knowledge-v1/world-geography/README.md', 'utf8'), '\n## Complete question review\n'];
 let exported = 0;
-for (const [cp, title] of Object.entries(WGE_CP_TITLES)) {
+for (const [cp, title] of selectedCheckpoints) {
   lines.push(`\n## ${cp} — ${title}\n`);
   for (const row of WGE_CORPUS.filter(q => q.cpId === cp)) {
     lines.push(`\n### ${row.id} · ${row.difficulty}\n`, `Objective: ${row.objective}\n`);
@@ -20,6 +23,7 @@ for (const [cp, title] of Object.entries(WGE_CP_TITLES)) {
 }
 lines.push('\n## Source register\n');
 for (const s of WGE_SOURCES) lines.push(`- **${s.id}**: [${s.title}](${s.url}) — ${s.section}. Consulted ${s.consultedOn}; ${s.retrievalStatus}.`);
-if (exported !== 603) throw new Error(`Incomplete export: ${exported}`);
+const expected = selectedCheckpoints.reduce((count, [cp]) => count + WGE_CORPUS.filter(q => q.cpId === cp).length * WGE_LANGUAGES.length, 0);
+if (exported !== expected) throw new Error(`Incomplete export: ${exported}/${expected}`);
 mkdirSync(dirname(destination), {recursive:true}); writeFileSync(destination, lines.join('\n'));
 console.log(`Exported ${exported} localized questions to ${destination}`);

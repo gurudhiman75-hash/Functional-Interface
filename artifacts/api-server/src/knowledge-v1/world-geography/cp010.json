@@ -1,0 +1,1262 @@
+[
+  {
+    "id": "WGE-001-CP010-Q001",
+    "cpId": "WGE-001-CP010",
+    "objective": "pressure-gradient-force",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "What force initiates horizontal air movement from a high-pressure area towards a low-pressure area?",
+        "options": [
+          "Pressure-gradient force",
+          "Coriolis force",
+          "Centripetal force",
+          "Frictional force"
+        ],
+        "explanation": "A pressure difference over distance creates a pressure gradient. The pressure-gradient force pushes air from higher towards lower pressure."
+      },
+      "hi": {
+        "stem": "उच्च वायुदाब से निम्न वायुदाब की ओर क्षैतिज वायु गति शुरू करने वाला बल कौन-सा है?",
+        "options": [
+          "दाब-प्रवणता बल",
+          "कोरिऑलिस बल",
+          "अभिकेंद्रीय बल",
+          "घर्षण बल"
+        ],
+        "explanation": "दूरी के साथ वायुदाब का अंतर दाब-प्रवणता बनाता है। दाब-प्रवणता बल वायु को उच्च दाब से निम्न दाब की ओर धकेलता है।"
+      },
+      "pa": {
+        "stem": "ਉੱਚ ਹਵਾ-ਦਬਾਅ ਤੋਂ ਘੱਟ ਦਬਾਅ ਵੱਲ ਖਿਤਿਜੀ ਹਵਾ ਦੀ ਗਤੀ ਕਿਹੜਾ ਬਲ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਦਬਾਅ-ਢਲਾਣ ਬਲ",
+          "ਕੋਰੀਓਲਿਸ ਬਲ",
+          "ਕੇਂਦਰਮੁਖੀ ਬਲ",
+          "ਰਗੜ ਬਲ"
+        ],
+        "explanation": "ਦੂਰੀ ਨਾਲ ਹਵਾ-ਦਬਾਅ ਦੇ ਫ਼ਰਕ ਨੂੰ ਦਬਾਅ-ਢਲਾਣ ਕਹਿੰਦੇ ਹਨ। ਇਹ ਬਲ ਹਵਾ ਨੂੰ ਵੱਧ ਦਬਾਅ ਤੋਂ ਘੱਟ ਦਬਾਅ ਵੱਲ ਧੱਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q002",
+    "cpId": "WGE-001-CP010",
+    "objective": "pressure-gradient-speed",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Two isobars have the same pressure difference. Where will the pressure-gradient force be stronger?",
+        "options": [
+          "Where the isobars are closer together",
+          "Where the isobars are farther apart",
+          "At both places equally, regardless of spacing",
+          "Only at the equator"
+        ],
+        "explanation": "The same pressure change over a shorter distance produces a steeper gradient. Closer isobars therefore indicate stronger winds, all else being equal."
+      },
+      "hi": {
+        "stem": "दो समदाब रेखाओं के बीच दाबांतर समान है। दाब-प्रवणता बल कहाँ अधिक होगा?",
+        "options": [
+          "जहाँ समदाब रेखाएँ पास-पास हों",
+          "जहाँ समदाब रेखाएँ दूर-दूर हों",
+          "दोनों स्थानों पर दूरी का ध्यान किए बिना समान",
+          "केवल विषुवत रेखा पर"
+        ],
+        "explanation": "कम दूरी में समान दाब परिवर्तन होने से प्रवणता अधिक तीव्र बनती है। अन्य स्थितियाँ समान हों, तो पास-पास समदाब रेखाएँ तेज हवा का संकेत देती हैं।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਸਮਦਾਬ ਰੇਖਾਵਾਂ ਵਿਚਕਾਰ ਦਬਾਅ ਦਾ ਫ਼ਰਕ ਬਰਾਬਰ ਹੈ। ਦਬਾਅ-ਢਲਾਣ ਬਲ ਕਿੱਥੇ ਵੱਧ ਹੋਵੇਗਾ?",
+        "options": [
+          "ਜਿੱਥੇ ਸਮਦਾਬ ਰੇਖਾਵਾਂ ਨੇੜੇ ਹੋਣ",
+          "ਜਿੱਥੇ ਸਮਦਾਬ ਰੇਖਾਵਾਂ ਦੂਰ ਹੋਣ",
+          "ਦੂਰੀ ਦੀ ਪਰਵਾਹ ਕੀਤੇ ਬਿਨਾਂ ਦੋਵੇਂ ਥਾਵਾਂ ਉੱਤੇ ਬਰਾਬਰ",
+          "ਸਿਰਫ਼ ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ"
+        ],
+        "explanation": "ਘੱਟ ਦੂਰੀ ਵਿੱਚ ਇੱਕੋ ਦਬਾਅ-ਫ਼ਰਕ ਹੋਣ ਨਾਲ ਢਲਾਣ ਵੱਧ ਤਿੱਖੀ ਹੁੰਦੀ ਹੈ। ਬਾਕੀ ਹਾਲਾਤ ਇੱਕੋ ਹੋਣ ਤਾਂ ਨੇੜਲੀਆਂ ਸਮਦਾਬ ਰੇਖਾਵਾਂ ਤੇਜ਼ ਹਵਾ ਦੱਸਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q003",
+    "cpId": "WGE-001-CP010",
+    "objective": "wind-direction-definition",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "On a weather map, a “north wind” is blowing from which direction?",
+        "options": [
+          "North",
+          "South",
+          "West",
+          "East"
+        ],
+        "explanation": "A wind is named for the direction from which it comes. A north wind therefore comes from the north and generally moves southward."
+      },
+      "hi": {
+        "stem": "मौसम-मानचित्र पर “उत्तरी पवन” किस दिशा से चलती है?",
+        "options": [
+          "उत्तर",
+          "दक्षिण",
+          "पश्चिम",
+          "पूर्व"
+        ],
+        "explanation": "पवन का नाम उस दिशा पर रखा जाता है जहाँ से वह आती है। उत्तरी पवन उत्तर से आती है और सामान्यतः दक्षिण की ओर चलती है।"
+      },
+      "pa": {
+        "stem": "ਮੌਸਮੀ ਨਕਸ਼ੇ ਉੱਤੇ “ਉੱਤਰੀ ਪੌਣ” ਕਿਹੜੀ ਦਿਸ਼ਾ ਤੋਂ ਵਗਦੀ ਹੈ?",
+        "options": [
+          "ਉੱਤਰ",
+          "ਦੱਖਣ",
+          "ਪੱਛਮ",
+          "ਪੂਰਬ"
+        ],
+        "explanation": "ਪੌਣ ਦਾ ਨਾਂ ਉਸ ਦਿਸ਼ਾ ਉੱਤੇ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ ਜਿੱਥੋਂ ਇਹ ਆਉਂਦੀ ਹੈ। ਉੱਤਰੀ ਪੌਣ ਉੱਤਰ ਤੋਂ ਆਉਂਦੀ ਹੈ ਅਤੇ ਆਮ ਤੌਰ ਉੱਤੇ ਦੱਖਣ ਵੱਲ ਵਗਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q004",
+    "cpId": "WGE-001-CP010",
+    "objective": "trade-winds-north",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "In the Northern Hemisphere, the trade winds generally blow from the:",
+        "options": [
+          "Northeast",
+          "Northwest",
+          "Southeast",
+          "Southwest"
+        ],
+        "explanation": "Air moving from subtropical highs towards the equatorial low is deflected to the right in the Northern Hemisphere. The resulting trades are northeasterly."
+      },
+      "hi": {
+        "stem": "उत्तरी गोलार्ध में व्यापारिक पवनें सामान्यतः किस दिशा से चलती हैं?",
+        "options": [
+          "उत्तर-पूर्व",
+          "उत्तर-पश्चिम",
+          "दक्षिण-पूर्व",
+          "दक्षिण-पश्चिम"
+        ],
+        "explanation": "उपोष्ण उच्चदाब से भूमध्यरेखीय निम्नदाब की ओर जाती वायु उत्तरी गोलार्ध में दाईं ओर मुड़ती है। इसलिए व्यापारिक पवनें उत्तर-पूर्वी होती हैं।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਵਪਾਰਕ ਹਵਾਵਾਂ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀ ਦਿਸ਼ਾ ਤੋਂ ਵਗਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਉੱਤਰ-ਪੂਰਬ",
+          "ਉੱਤਰ-ਪੱਛਮ",
+          "ਦੱਖਣ-ਪੂਰਬ",
+          "ਦੱਖਣ-ਪੱਛਮ"
+        ],
+        "explanation": "ਉਪ-ਖੰਡੀ ਉੱਚ ਦਬਾਅ ਤੋਂ ਭੂਮੱਧੀ ਘੱਟ ਦਬਾਅ ਵੱਲ ਆਉਂਦੀ ਹਵਾ ਉੱਤਰੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਸੱਜੇ ਪਾਸੇ ਮੁੜਦੀ ਹੈ। ਇਸ ਲਈ ਵਪਾਰਕ ਹਵਾਵਾਂ ਉੱਤਰ-ਪੂਰਬੀ ਹੁੰਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q005",
+    "cpId": "WGE-001-CP010",
+    "objective": "trade-winds-south",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "In the Southern Hemisphere, the trade winds generally blow from the:",
+        "options": [
+          "Southeast",
+          "Northeast",
+          "Northwest",
+          "Southwest"
+        ],
+        "explanation": "Air moving towards the equatorial low is deflected to the left in the Southern Hemisphere. The southeast trades result."
+      },
+      "hi": {
+        "stem": "दक्षिणी गोलार्ध में व्यापारिक पवनें सामान्यतः किस दिशा से चलती हैं?",
+        "options": [
+          "दक्षिण-पूर्व",
+          "उत्तर-पूर्व",
+          "उत्तर-पश्चिम",
+          "दक्षिण-पश्चिम"
+        ],
+        "explanation": "भूमध्यरेखीय निम्नदाब की ओर जाती वायु दक्षिणी गोलार्ध में बाईं ओर मुड़ती है। इससे दक्षिण-पूर्वी व्यापारिक पवनें बनती हैं।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਵਪਾਰਕ ਹਵਾਵਾਂ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀ ਦਿਸ਼ਾ ਤੋਂ ਵਗਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਦੱਖਣ-ਪੂਰਬ",
+          "ਉੱਤਰ-ਪੂਰਬ",
+          "ਉੱਤਰ-ਪੱਛਮ",
+          "ਦੱਖਣ-ਪੱਛਮ"
+        ],
+        "explanation": "ਭੂਮੱਧੀ ਘੱਟ ਦਬਾਅ ਵੱਲ ਆਉਂਦੀ ਹਵਾ ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਖੱਬੇ ਪਾਸੇ ਮੁੜਦੀ ਹੈ। ਇਸ ਨਾਲ ਦੱਖਣ-ਪੂਰਬੀ ਵਪਾਰਕ ਹਵਾਵਾਂ ਬਣਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q006",
+    "cpId": "WGE-001-CP010",
+    "objective": "prevailing-westerlies",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which winds prevail across the mid-latitudes between the subtropical highs and subpolar lows?",
+        "options": [
+          "Westerlies",
+          "Trade winds",
+          "Polar easterlies",
+          "Doldrums"
+        ],
+        "explanation": "The prevailing mid-latitude winds generally blow from west to east. They are called westerlies because they come from the west."
+      },
+      "hi": {
+        "stem": "उपोष्ण उच्चदाब और उपध्रुवीय निम्नदाब के बीच मध्य अक्षांशों में कौन-सी पवनें प्रमुख होती हैं?",
+        "options": [
+          "पछुआ पवनें",
+          "व्यापारिक पवनें",
+          "ध्रुवीय पूर्वी पवनें",
+          "डोलड्रम"
+        ],
+        "explanation": "मध्य अक्षांशों में प्रमुख पवनें सामान्यतः पश्चिम से पूर्व की ओर चलती हैं। पश्चिम से आने के कारण इन्हें पछुआ पवनें कहते हैं।"
+      },
+      "pa": {
+        "stem": "ਉਪ-ਖੰਡੀ ਉੱਚ ਦਬਾਅ ਅਤੇ ਉਪ-ਧਰੁਵੀ ਘੱਟ ਦਬਾਅ ਵਿਚਕਾਰ ਮੱਧ ਵਿਥਕਾਰਾਂ ਵਿੱਚ ਕਿਹੜੀਆਂ ਹਵਾਵਾਂ ਪ੍ਰਮੁੱਖ ਹੁੰਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਪੱਛਮੀ ਹਵਾਵਾਂ",
+          "ਵਪਾਰਕ ਹਵਾਵਾਂ",
+          "ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ",
+          "ਡੋਲਡਰਮ"
+        ],
+        "explanation": "ਮੱਧ ਵਿਥਕਾਰਾਂ ਵਿੱਚ ਮੁੱਖ ਹਵਾਵਾਂ ਆਮ ਤੌਰ ਉੱਤੇ ਪੱਛਮ ਤੋਂ ਪੂਰਬ ਵੱਲ ਵਗਦੀਆਂ ਹਨ। ਪੱਛਮ ਤੋਂ ਆਉਣ ਕਰਕੇ ਉਨ੍ਹਾਂ ਨੂੰ ਪੱਛਮੀ ਹਵਾਵਾਂ ਕਹਿੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q007",
+    "cpId": "WGE-001-CP010",
+    "objective": "polar-easterlies",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Polar easterlies blow from which pressure belt towards which belt?",
+        "options": [
+          "Polar high-pressure belts towards subpolar low-pressure belts",
+          "Equatorial low-pressure belt towards subtropical highs",
+          "Subtropical highs towards the equator",
+          "Subpolar lows towards the poles"
+        ],
+        "explanation": "Polar easterlies flow outwards from polar highs towards subpolar lows. Their circulation is part of the global pressure-belt pattern."
+      },
+      "hi": {
+        "stem": "ध्रुवीय पूर्वी पवनें किस दाब-पट्टी से किस दाब-पट्टी की ओर चलती हैं?",
+        "options": [
+          "ध्रुवीय उच्चदाब से उपध्रुवीय निम्नदाब की ओर",
+          "भूमध्यरेखीय निम्नदाब से उपोष्ण उच्चदाब की ओर",
+          "उपोष्ण उच्चदाब से भूमध्य रेखा की ओर",
+          "उपध्रुवीय निम्नदाब से ध्रुवों की ओर"
+        ],
+        "explanation": "ध्रुवीय पूर्वी पवनें ध्रुवीय उच्चदाब से उपध्रुवीय निम्नदाब की ओर बहती हैं। यह वैश्विक दाब-पट्टियों के परिसंचरण का भाग है।"
+      },
+      "pa": {
+        "stem": "ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ ਕਿਹੜੀ ਦਬਾਅ-ਪੱਟੀ ਤੋਂ ਕਿਹੜੀ ਪੱਟੀ ਵੱਲ ਵਗਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਧਰੁਵੀ ਉੱਚ ਦਬਾਅ ਤੋਂ ਉਪ-ਧਰੁਵੀ ਘੱਟ ਦਬਾਅ ਵੱਲ",
+          "ਭੂਮੱਧੀ ਘੱਟ ਦਬਾਅ ਤੋਂ ਉਪ-ਖੰਡੀ ਉੱਚ ਦਬਾਅ ਵੱਲ",
+          "ਉਪ-ਖੰਡੀ ਉੱਚ ਦਬਾਅ ਤੋਂ ਭੂਮੱਧ ਰੇਖਾ ਵੱਲ",
+          "ਉਪ-ਧਰੁਵੀ ਘੱਟ ਦਬਾਅ ਤੋਂ ਧਰੁਵਾਂ ਵੱਲ"
+        ],
+        "explanation": "ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ ਧਰੁਵੀ ਉੱਚ ਦਬਾਅ ਤੋਂ ਉਪ-ਧਰੁਵੀ ਘੱਟ ਦਬਾਅ ਵੱਲ ਵਗਦੀਆਂ ਹਨ। ਇਹ ਵਿਸ਼ਵਵਿਆਪੀ ਦਬਾਅ-ਪੱਟੀਆਂ ਦੇ ਗੇੜ ਦਾ ਹਿੱਸਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q008",
+    "cpId": "WGE-001-CP010",
+    "objective": "coriolis-nh",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The Coriolis effect deflects a moving air mass to which side in the Northern Hemisphere?",
+        "options": [
+          "Right",
+          "Left",
+          "Straight towards the equator",
+          "Vertically downward"
+        ],
+        "explanation": "Earth's rotation produces an apparent rightward deflection in the Northern Hemisphere. The effect changes direction across the equator."
+      },
+      "hi": {
+        "stem": "पृथ्वी के घूर्णन से चलती वायु उत्तरी गोलार्ध में किस ओर मुड़ती है?",
+        "options": [
+          "दाईं ओर",
+          "बाईं ओर",
+          "सीधे भूमध्य रेखा की ओर",
+          "लंबवत नीचे"
+        ],
+        "explanation": "पृथ्वी के घूर्णन से उत्तरी गोलार्ध में वायु का आभासी विक्षेप दाईं ओर होता है। भूमध्य रेखा पार करने पर विक्षेप की दिशा बदल जाती है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੇ ਘੁੰਮਣ ਕਰਕੇ ਚੱਲਦੀ ਹਵਾ ਉੱਤਰੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਕਿਹੜੇ ਪਾਸੇ ਮੁੜਦੀ ਹੈ?",
+        "options": [
+          "ਸੱਜੇ ਪਾਸੇ",
+          "ਖੱਬੇ ਪਾਸੇ",
+          "ਸਿੱਧੀ ਭੂਮੱਧ ਰੇਖਾ ਵੱਲ",
+          "ਸਿੱਧੀ ਹੇਠਾਂ"
+        ],
+        "explanation": "ਧਰਤੀ ਦੇ ਘੁੰਮਣ ਨਾਲ ਉੱਤਰੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਹਵਾ ਦਾ ਦਿਖਾਈ ਦੇਣ ਵਾਲਾ ਮੋੜ ਸੱਜੇ ਪਾਸੇ ਹੁੰਦਾ ਹੈ। ਭੂਮੱਧ ਰੇਖਾ ਪਾਰ ਕਰਨ ਉੱਤੇ ਮੋੜ ਦੀ ਦਿਸ਼ਾ ਬਦਲ ਜਾਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q009",
+    "cpId": "WGE-001-CP010",
+    "objective": "coriolis-sh",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The Coriolis effect deflects a moving air mass to which side in the Southern Hemisphere?",
+        "options": [
+          "Left",
+          "Right",
+          "Straight towards the pole",
+          "Vertically upward"
+        ],
+        "explanation": "The apparent deflection is leftward in the Southern Hemisphere and rightward in the Northern Hemisphere."
+      },
+      "hi": {
+        "stem": "दक्षिणी गोलार्ध में चलती वायु कोरिऑलिस प्रभाव से किस ओर मुड़ती है?",
+        "options": [
+          "बाईं ओर",
+          "दाईं ओर",
+          "सीधे ध्रुव की ओर",
+          "लंबवत ऊपर"
+        ],
+        "explanation": "दक्षिणी गोलार्ध में आभासी विक्षेप बाईं ओर और उत्तरी गोलार्ध में दाईं ओर होता है।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਚੱਲਦੀ ਹਵਾ ਕੋਰੀਓਲਿਸ ਅਸਰ ਨਾਲ ਕਿਹੜੇ ਪਾਸੇ ਮੁੜਦੀ ਹੈ?",
+        "options": [
+          "ਖੱਬੇ ਪਾਸੇ",
+          "ਸੱਜੇ ਪਾਸੇ",
+          "ਸਿੱਧੀ ਧਰੁਵ ਵੱਲ",
+          "ਸਿੱਧੀ ਉੱਪਰ"
+        ],
+        "explanation": "ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਦਿਖਾਈ ਦੇਣ ਵਾਲਾ ਮੋੜ ਖੱਬੇ ਪਾਸੇ ਅਤੇ ਉੱਤਰੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਸੱਜੇ ਪਾਸੇ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q010",
+    "cpId": "WGE-001-CP010",
+    "objective": "coriolis-equator",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why is Coriolis deflection minimal at the equator?",
+        "options": [
+          "The effect varies with latitude and is zero at the equator",
+          "Surface pressure is always equal there",
+          "Winds do not occur there",
+          "Earth's rotation stops there"
+        ],
+        "explanation": "The Coriolis effect depends on latitude and vanishes at the equator. Air can still move there under pressure-gradient and other forces."
+      },
+      "hi": {
+        "stem": "भूमध्य रेखा पर कोरिऑलिस विक्षेप न्यूनतम क्यों होता है?",
+        "options": [
+          "यह प्रभाव अक्षांश के साथ बदलता है और भूमध्य रेखा पर शून्य होता है",
+          "वहाँ धरातलीय दाब हमेशा समान होता है",
+          "वहाँ हवा नहीं चलती",
+          "वहाँ पृथ्वी का घूर्णन रुक जाता है"
+        ],
+        "explanation": "कोरिऑलिस प्रभाव अक्षांश पर निर्भर करता है और भूमध्य रेखा पर समाप्त हो जाता है। दाब-प्रवणता सहित अन्य बलों से वहाँ हवा चल सकती है।"
+      },
+      "pa": {
+        "stem": "ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ ਕੋਰੀਓਲਿਸ ਮੋੜ ਸਭ ਤੋਂ ਘੱਟ ਕਿਉਂ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਇਹ ਅਸਰ ਵਿਥਕਾਰ ਨਾਲ ਬਦਲਦਾ ਹੈ ਅਤੇ ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ ਸਿਫ਼ਰ ਹੁੰਦਾ ਹੈ",
+          "ਉੱਥੇ ਸਤਹੀ ਦਬਾਅ ਹਮੇਸ਼ਾ ਇੱਕੋ ਹੁੰਦਾ ਹੈ",
+          "ਉੱਥੇ ਹਵਾ ਨਹੀਂ ਚੱਲਦੀ",
+          "ਉੱਥੇ ਧਰਤੀ ਦਾ ਘੁੰਮਣਾ ਰੁਕ ਜਾਂਦਾ ਹੈ"
+        ],
+        "explanation": "ਕੋਰੀਓਲਿਸ ਅਸਰ ਵਿਥਕਾਰ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ ਅਤੇ ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ ਸਿਫ਼ਰ ਹੋ ਜਾਂਦਾ ਹੈ। ਦਬਾਅ-ਢਲਾਣ ਸਮੇਤ ਹੋਰ ਬਲ ਉੱਥੇ ਹਵਾ ਚਲਾ ਸਕਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q011",
+    "cpId": "WGE-001-CP010",
+    "objective": "coriolis-rotation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which condition is necessary for the Coriolis effect to influence winds?",
+        "options": [
+          "Motion over a rotating Earth",
+          "A perfectly calm atmosphere",
+          "Equal pressure at all locations",
+          "Movement only along a meridian"
+        ],
+        "explanation": "The Coriolis effect modifies moving air because Earth rotates. It changes the wind's path; it does not initiate the wind."
+      },
+      "hi": {
+        "stem": "हवाओं को प्रभावित करने के लिए कोरिऑलिस प्रभाव की कौन-सी स्थिति आवश्यक है?",
+        "options": [
+          "घूर्णन करती पृथ्वी पर गति",
+          "पूर्णतः शांत वायुमंडल",
+          "सभी स्थानों पर समान दाब",
+          "केवल देशांतर रेखा के साथ गति"
+        ],
+        "explanation": "पृथ्वी के घूर्णन के कारण कोरिऑलिस प्रभाव चलती वायु का मार्ग बदलता है। यह हवा की दिशा बदलता है, हवा शुरू नहीं करता।"
+      },
+      "pa": {
+        "stem": "ਹਵਾਵਾਂ ਉੱਤੇ ਕੋਰੀਓਲਿਸ ਅਸਰ ਲਈ ਕਿਹੜੀ ਸਥਿਤੀ ਲਾਜ਼ਮੀ ਹੈ?",
+        "options": [
+          "ਘੁੰਮਦੀ ਧਰਤੀ ਉੱਤੇ ਗਤੀ",
+          "ਪੂਰੀ ਤਰ੍ਹਾਂ ਸ਼ਾਂਤ ਵਾਯੂਮੰਡਲ",
+          "ਹਰ ਥਾਂ ਇੱਕੋ ਦਬਾਅ",
+          "ਸਿਰਫ਼ ਲੰਬਕਾਰ ਰੇਖਾ ਦੇ ਨਾਲ ਗਤੀ"
+        ],
+        "explanation": "ਧਰਤੀ ਦੇ ਘੁੰਮਣ ਕਰਕੇ ਕੋਰੀਓਲਿਸ ਅਸਰ ਚੱਲਦੀ ਹਵਾ ਦਾ ਰਾਹ ਮੋੜਦਾ ਹੈ। ਇਹ ਹਵਾ ਸ਼ੁਰੂ ਨਹੀਂ ਕਰਦਾ, ਸਿਰਫ਼ ਉਸ ਦੀ ਦਿਸ਼ਾ ਬਦਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q012",
+    "cpId": "WGE-001-CP010",
+    "objective": "circulation-equator",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Near the equator, where the trade winds meet, which condition is typical?",
+        "options": [
+          "Rising air and frequent cloud development",
+          "Descending dry air and persistent clear skies",
+          "Cold polar air sinking",
+          "A permanent belt of strong surface westerlies"
+        ],
+        "explanation": "Trade winds meet near the migrating zone of low pressure around the tropics. Converging moist air often rises and forms clouds."
+      },
+      "hi": {
+        "stem": "भूमध्य रेखा के पास व्यापारिक पवनों के मिलने वाले क्षेत्र में कौन-सी दशा सामान्य है?",
+        "options": [
+          "ऊपर उठती वायु और बार-बार बादल बनना",
+          "नीचे उतरती शुष्क वायु और लगातार साफ आकाश",
+          "ध्रुवीय ठंडी वायु का नीचे उतरना",
+          "सतही पछुआ पवनों की स्थायी पट्टी"
+        ],
+        "explanation": "व्यापारिक पवनें उष्णकटिबंधीय निम्नदाब के खिसकते क्षेत्र के पास मिलती हैं। मिलती हुई नम वायु प्रायः ऊपर उठकर बादल बनाती है।"
+      },
+      "pa": {
+        "stem": "ਭੂਮੱਧ ਰੇਖਾ ਨੇੜੇ ਵਪਾਰਕ ਹਵਾਵਾਂ ਦੇ ਮਿਲਾਪ ਵਾਲੇ ਖੇਤਰ ਵਿੱਚ ਕਿਹੜੀ ਹਾਲਤ ਆਮ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਉੱਪਰ ਚੜ੍ਹਦੀ ਹਵਾ ਅਤੇ ਵਾਰ-ਵਾਰ ਬੱਦਲ ਬਣਨਾ",
+          "ਹੇਠਾਂ ਉਤਰਦੀ ਸੁੱਕੀ ਹਵਾ ਅਤੇ ਲਗਾਤਾਰ ਸਾਫ਼ ਆਕਾਸ਼",
+          "ਧਰੁਵੀ ਠੰਢੀ ਹਵਾ ਦਾ ਹੇਠਾਂ ਉਤਰਨਾ",
+          "ਸਤਹੀ ਪੱਛਮੀ ਹਵਾਵਾਂ ਦੀ ਸਥਾਈ ਪੱਟੀ"
+        ],
+        "explanation": "ਵਪਾਰਕ ਹਵਾਵਾਂ ਖਿਸਕਦੇ ਖੰਡੀ ਘੱਟ ਦਬਾਅ ਵਾਲੇ ਖੇਤਰ ਕੋਲ ਮਿਲਦੀਆਂ ਹਨ। ਮਿਲਦੀ ਨਮੀ ਵਾਲੀ ਹਵਾ ਅਕਸਰ ਉੱਪਰ ਚੜ੍ਹ ਕੇ ਬੱਦਲ ਬਣਾਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q013",
+    "cpId": "WGE-001-CP010",
+    "objective": "horse-latitudes",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which conditions are typical of the subtropical high-pressure belts near 30° latitude?",
+        "options": [
+          "Descending air and generally dry conditions",
+          "Persistent rising air and daily heavy rain",
+          "Polar easterlies meeting trade winds at the ground",
+          "A continuous ring of surface cyclones"
+        ],
+        "explanation": "Air commonly descends in the subtropical high-pressure belts, limiting cloud growth. Many major world deserts lie under or near these belts, though local controls also matter."
+      },
+      "hi": {
+        "stem": "लगभग 30° अक्षांश के उपोष्ण उच्चदाब क्षेत्रों में कौन-सी दशाएँ सामान्य हैं?",
+        "options": [
+          "अवरोही वायु और सामान्यतः शुष्क दशाएँ",
+          "लगातार ऊपर उठती वायु और प्रतिदिन भारी वर्षा",
+          "धरातल पर ध्रुवीय पूर्वी और व्यापारिक पवनों का मिलना",
+          "सतही चक्रवातों का निरंतर घेरा"
+        ],
+        "explanation": "उपोष्ण उच्चदाब क्षेत्रों में वायु सामान्यतः नीचे उतरती है, जिससे बादल कम बनते हैं। कई बड़े मरुस्थल इनके नीचे या पास हैं, यद्यपि स्थानीय कारक भी प्रभाव डालते हैं।"
+      },
+      "pa": {
+        "stem": "ਲਗਭਗ 30° ਵਿਥਕਾਰ ਦੇ ਉਪ-ਖੰਡੀ ਉੱਚ ਦਬਾਅ ਵਾਲੇ ਖੇਤਰਾਂ ਵਿੱਚ ਕਿਹੜੀਆਂ ਹਾਲਤਾਂ ਆਮ ਹਨ?",
+        "options": [
+          "ਹੇਠਾਂ ਉਤਰਦੀ ਹਵਾ ਅਤੇ ਆਮ ਤੌਰ ਉੱਤੇ ਖੁਸ਼ਕ ਹਾਲਾਤ",
+          "ਲਗਾਤਾਰ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹਵਾ ਅਤੇ ਰੋਜ਼ ਭਾਰੀ ਮੀਂਹ",
+          "ਧਰਤੀ ਉੱਤੇ ਧਰੁਵੀ ਪੂਰਬੀ ਅਤੇ ਵਪਾਰਕ ਹਵਾਵਾਂ ਦਾ ਮਿਲਣਾ",
+          "ਸਤਹੀ ਚੱਕਰਵਾਤਾਂ ਦਾ ਲਗਾਤਾਰ ਘੇਰਾ"
+        ],
+        "explanation": "ਉਪ-ਖੰਡੀ ਉੱਚ ਦਬਾਅ ਵਾਲੇ ਖੇਤਰਾਂ ਵਿੱਚ ਹਵਾ ਆਮ ਤੌਰ ਉੱਤੇ ਹੇਠਾਂ ਉਤਰਦੀ ਹੈ, ਜਿਸ ਨਾਲ ਬੱਦਲ ਘੱਟ ਬਣਦੇ ਹਨ। ਕਈ ਵੱਡੇ ਰੇਗਿਸਤਾਨ ਇਨ੍ਹਾਂ ਦੇ ਹੇਠਾਂ ਜਾਂ ਨੇੜੇ ਹਨ, ਹਾਲਾਂਕਿ ਸਥਾਨਕ ਕਾਰਕ ਵੀ ਅਸਰ ਕਰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q014",
+    "cpId": "WGE-001-CP010",
+    "objective": "calm-belt",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which pressure belt is also known by the traditional term doldrums?",
+        "options": [
+          "Equatorial low-pressure belt",
+          "Subtropical high-pressure belt",
+          "Subpolar low-pressure belt",
+          "Polar high-pressure belt"
+        ],
+        "explanation": "Doldrums refers to the equatorial low-pressure region where converging trade winds and rising air can produce unsettled weather and light surface winds."
+      },
+      "hi": {
+        "stem": "परंपरागत रूप से डोलड्रम किस दाब-पट्टी को कहा जाता है?",
+        "options": [
+          "भूमध्यरेखीय निम्नदाब पट्टी",
+          "उपोष्ण उच्चदाब पट्टी",
+          "उपध्रुवीय निम्नदाब पट्टी",
+          "ध्रुवीय उच्चदाब पट्टी"
+        ],
+        "explanation": "डोलड्रम भूमध्यरेखीय निम्नदाब क्षेत्र है जहाँ मिलती व्यापारिक पवनों और ऊपर उठती वायु के कारण बादल बन सकते हैं तथा सतही हवा हल्की रहती है।"
+      },
+      "pa": {
+        "stem": "ਰਵਾਇਤੀ ਤੌਰ ਉੱਤੇ ਡੋਲਡਰਮ ਕਿਹੜੀ ਦਬਾਅ-ਪੱਟੀ ਨੂੰ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਭੂਮੱਧੀ ਘੱਟ ਦਬਾਅ ਪੱਟੀ",
+          "ਉਪ-ਖੰਡੀ ਉੱਚ ਦਬਾਅ ਪੱਟੀ",
+          "ਉਪ-ਧਰੁਵੀ ਘੱਟ ਦਬਾਅ ਪੱਟੀ",
+          "ਧਰੁਵੀ ਉੱਚ ਦਬਾਅ ਪੱਟੀ"
+        ],
+        "explanation": "ਡੋਲਡਰਮ ਭੂਮੱਧੀ ਘੱਟ ਦਬਾਅ ਵਾਲਾ ਖੇਤਰ ਹੈ ਜਿੱਥੇ ਮਿਲਦੀਆਂ ਵਪਾਰਕ ਹਵਾਵਾਂ ਅਤੇ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹਵਾ ਬੱਦਲ ਬਣਾਉਂਦੀਆਂ ਹਨ ਅਤੇ ਸਤਹੀ ਹਵਾ ਹੌਲੀ ਰਹਿੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q015",
+    "cpId": "WGE-001-CP010",
+    "objective": "jet-stream-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Where are the major jet streams found?",
+        "options": [
+          "Upper troposphere and near the tropopause",
+          "Lowest part of the troposphere near the surface",
+          "Lower stratosphere near the stratopause",
+          "Mesosphere above the main weather systems"
+        ],
+        "explanation": "Jet streams are fast, narrow air currents high in the atmosphere, generally near the tropopause. Many flow from west to east."
+      },
+      "hi": {
+        "stem": "मुख्य जेट धाराएँ वायुमंडल के किस भाग में पाई जाती हैं?",
+        "options": [
+          "ऊपरी क्षोभमंडल में, क्षोभसीमा के पास",
+          "धरातल के पास क्षोभमंडल के निचले भाग में",
+          "स्तरतापसीमा के पास निचले समतापमंडल में",
+          "मुख्य मौसम प्रणालियों के ऊपर मध्यमंडल में"
+        ],
+        "explanation": "जेट धाराएँ वायुमंडल में ऊँचाई पर, सामान्यतः क्षोभसीमा के पास बहती तेज और संकरी वायु धाराएँ हैं। इनमें कई पश्चिम से पूर्व की ओर चलती हैं।"
+      },
+      "pa": {
+        "stem": "ਮੁੱਖ ਜੈੱਟ ਧਾਰਾਵਾਂ ਵਾਯੂਮੰਡਲ ਦੇ ਕਿਹੜੇ ਹਿੱਸੇ ਵਿੱਚ ਮਿਲਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਉੱਪਰਲੇ ਖੋਭ ਮੰਡਲ ਵਿੱਚ, ਖੋਭ ਸੀਮਾ ਨੇੜੇ",
+          "ਸਤਹ ਨੇੜੇ ਖੋਭ ਮੰਡਲ ਦੇ ਹੇਠਲੇ ਹਿੱਸੇ ਵਿੱਚ",
+          "ਸਮਤਾਪ ਸੀਮਾ ਨੇੜੇ ਹੇਠਲੇ ਸਮਤਾਪ ਮੰਡਲ ਵਿੱਚ",
+          "ਮੁੱਖ ਮੌਸਮੀ ਪ੍ਰਣਾਲੀਆਂ ਤੋਂ ਉੱਪਰ ਮੱਧ ਮੰਡਲ ਵਿੱਚ"
+        ],
+        "explanation": "ਜੈੱਟ ਧਾਰਾਵਾਂ ਵਾਯੂਮੰਡਲ ਵਿੱਚ ਉਚਾਈ ਉੱਤੇ, ਆਮ ਤੌਰ ਉੱਤੇ ਖੋਭ ਸੀਮਾ ਨੇੜੇ ਵਗਦੀਆਂ ਤੇਜ਼ ਅਤੇ ਤੰਗ ਹਵਾਈ ਧਾਰਾਵਾਂ ਹਨ। ਕਈ ਪੱਛਮ ਤੋਂ ਪੂਰਬ ਵੱਲ ਵਗਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q016",
+    "cpId": "WGE-001-CP010",
+    "objective": "jet-stream-direction",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which direction do the major jet streams generally flow?",
+        "options": [
+          "West to east",
+          "East to west",
+          "North to south only",
+          "From the equator directly towards both poles"
+        ],
+        "explanation": "The major jet streams generally flow from west to east. Their paths can meander and shift, so their local direction is not always straight."
+      },
+      "hi": {
+        "stem": "ਮੁੱਖ जेट धाराएँ सामान्यतः किस दिशा में बहती हैं?",
+        "options": [
+          "पश्चिम से पूर्व",
+          "पूर्व से पश्चिम",
+          "केवल उत्तर से दक्षिण",
+          "भूमध्य रेखा से सीधे दोनों ध्रुवों की ओर"
+        ],
+        "explanation": "मुख्य जेट धाराएँ सामान्यतः पश्चिम से पूर्व की ओर बहती हैं। उनका मार्ग टेढ़ा-मेढ़ा और परिवर्तनशील होता है।"
+      },
+      "pa": {
+        "stem": "ਮੁੱਖ ਜੈੱਟ ਧਾਰਾਵਾਂ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵਿੱਚ ਵਗਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਪੱਛਮ ਤੋਂ ਪੂਰਬ",
+          "ਪੂਰਬ ਤੋਂ ਪੱਛਮ",
+          "ਸਿਰਫ਼ ਉੱਤਰ ਤੋਂ ਦੱਖਣ",
+          "ਭੂਮੱਧ ਰੇਖਾ ਤੋਂ ਸਿੱਧੀਆਂ ਦੋਵੇਂ ਧਰੁਵਾਂ ਵੱਲ"
+        ],
+        "explanation": "ਮੁੱਖ ਜੈੱਟ ਧਾਰਾਵਾਂ ਆਮ ਤੌਰ ਉੱਤੇ ਪੱਛਮ ਤੋਂ ਪੂਰਬ ਵੱਲ ਵਗਦੀਆਂ ਹਨ। ਉਨ੍ਹਾਂ ਦਾ ਰਾਹ ਵਿੰਗਿਆ ਅਤੇ ਬਦਲਣ ਵਾਲਾ ਹੋ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q017",
+    "cpId": "WGE-001-CP010",
+    "objective": "land-sea-day",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "During a clear summer day, why does air often rise over land next to a cooler sea?",
+        "options": [
+          "Land heats faster and warms the air above it",
+          "The sea heats faster and cools the land",
+          "Air pressure over land always rises at noon",
+          "The Coriolis effect reverses each afternoon"
+        ],
+        "explanation": "Land warms faster than water during daytime. The warmer, less dense air rises, and cooler marine air may move towards the land."
+      },
+      "hi": {
+        "stem": "साफ गर्मी के दिन ठंडे समुद्र के पास स्थल पर वायु अक्सर ऊपर क्यों उठती है?",
+        "options": [
+          "स्थल जल्दी गर्म होकर ऊपर की वायु को गर्म करता है",
+          "समुद्र जल्दी गर्म होकर स्थल को ठंडा करता है",
+          "स्थल पर वायुदाब दोपहर में हमेशा बढ़ता है",
+          "कोरिऑलिस प्रभाव हर दोपहर उलट जाता है"
+        ],
+        "explanation": "दिन में स्थल का तापमान पानी से जल्दी बढ़ता है। गर्म और हल्की वायु ऊपर उठती है तथा समुद्र से ठंडी वायु स्थल की ओर आ सकती है।"
+      },
+      "pa": {
+        "stem": "ਸਾਫ਼ ਗਰਮੀ ਵਾਲੇ ਦਿਨ ਠੰਢੇ ਸਮੁੰਦਰ ਕੋਲ ਥਲ ਉੱਤੇ ਹਵਾ ਅਕਸਰ ਉੱਪਰ ਕਿਉਂ ਚੜ੍ਹਦੀ ਹੈ?",
+        "options": [
+          "ਥਲ ਜਲਦੀ ਗਰਮ ਹੋ ਕੇ ਉੱਪਰਲੀ ਹਵਾ ਨੂੰ ਗਰਮ ਕਰਦਾ ਹੈ",
+          "ਸਮੁੰਦਰ ਜਲਦੀ ਗਰਮ ਹੋ ਕੇ ਥਲ ਠੰਢਾ ਕਰਦਾ ਹੈ",
+          "ਥਲ ਉੱਤੇ ਹਵਾ ਦਾ ਦਬਾਅ ਦੁਪਹਿਰ ਨੂੰ ਹਮੇਸ਼ਾ ਵਧਦਾ ਹੈ",
+          "ਕੋਰੀਓਲਿਸ ਅਸਰ ਹਰ ਦੁਪਹਿਰ ਉਲਟ ਜਾਂਦਾ ਹੈ"
+        ],
+        "explanation": "ਦਿਨ ਵੇਲੇ ਥਲ ਪਾਣੀ ਨਾਲੋਂ ਜਲਦੀ ਗਰਮ ਹੁੰਦਾ ਹੈ। ਗਰਮ ਅਤੇ ਹਲਕੀ ਹਵਾ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹੈ ਅਤੇ ਸਮੁੰਦਰ ਦੀ ਠੰਢੀ ਹਵਾ ਥਲ ਵੱਲ ਆ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q018",
+    "cpId": "WGE-001-CP010",
+    "objective": "land-sea-night",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "After sunset, a land breeze near a coast usually blows:",
+        "options": [
+          "From land towards sea",
+          "From sea towards land",
+          "Parallel to the coast at every location",
+          "From the equator towards the poles"
+        ],
+        "explanation": "Land cools faster than the sea at night. Higher pressure over the cooler land can drive air offshore."
+      },
+      "hi": {
+        "stem": "सूर्यास्त के बाद तट के पास स्थल समीर सामान्यतः किस ओर चलती है?",
+        "options": [
+          "स्थल से समुद्र की ओर",
+          "समुद्र से स्थल की ओर",
+          "हर स्थान पर तट के समानांतर",
+          "भूमध्य रेखा से ध्रुवों की ओर"
+        ],
+        "explanation": "रात में स्थल समुद्र से जल्दी ठंडा होता है। ठंडे स्थल पर अपेक्षाकृत अधिक दाब से हवा समुद्र की ओर चल सकती है।"
+      },
+      "pa": {
+        "stem": "ਸੂਰਜ ਡੁੱਬਣ ਮਗਰੋਂ ਤੱਟ ਨੇੜੇ ਥਲ ਸਮੀਰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ ਪਾਸੇ ਵਗਦੀ ਹੈ?",
+        "options": [
+          "ਥਲ ਤੋਂ ਸਮੁੰਦਰ ਵੱਲ",
+          "ਸਮੁੰਦਰ ਤੋਂ ਥਲ ਵੱਲ",
+          "ਹਰ ਥਾਂ ਤੱਟ ਦੇ ਸਮਾਨਾਂਤਰ",
+          "ਭੂਮੱਧ ਰੇਖਾ ਤੋਂ ਧਰੁਵਾਂ ਵੱਲ"
+        ],
+        "explanation": "ਰਾਤ ਨੂੰ ਥਲ ਸਮੁੰਦਰ ਨਾਲੋਂ ਜਲਦੀ ਠੰਢਾ ਹੁੰਦਾ ਹੈ। ਠੰਢੇ ਥਲ ਉੱਤੇ ਵੱਧ ਦਬਾਅ ਕਾਰਨ ਹਵਾ ਸਮੁੰਦਰ ਵੱਲ ਵਗ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q019",
+    "cpId": "WGE-001-CP010",
+    "objective": "valley-breeze-day",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "On a sunny day, a valley breeze usually flows:",
+        "options": [
+          "Upslope from the valley towards the mountain slopes",
+          "Downslope from the peaks to the valley",
+          "From the sea towards the nearest desert",
+          "Only along the valley floor at night"
+        ],
+        "explanation": "Sunlit mountain slopes warm the adjacent air, which rises. Air moves upslope from the valley during the daytime."
+      },
+      "hi": {
+        "stem": "धूप वाले दिन घाटी समीर सामान्यतः किस दिशा में बहती है?",
+        "options": [
+          "घाटी से पर्वतीय ढालों की ओर ऊपर",
+          "चोटियों से घाटी की ओर नीचे",
+          "समुद्र से निकटतम मरुस्थल की ओर",
+          "केवल रात में घाटी तल के साथ"
+        ],
+        "explanation": "धूप से पर्वतीय ढालों के पास की वायु गर्म होकर ऊपर उठती है। दिन में घाटी से हवा ऊपर की ओर ढालों पर चलती है।"
+      },
+      "pa": {
+        "stem": "ਧੁੱਪ ਵਾਲੇ ਦਿਨ ਘਾਟੀ ਸਮੀਰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਵਗਦੀ ਹੈ?",
+        "options": [
+          "ਘਾਟੀ ਤੋਂ ਪਹਾੜੀ ਢਲਾਣਾਂ ਵੱਲ ਉੱਪਰ",
+          "ਚੋਟੀਆਂ ਤੋਂ ਘਾਟੀ ਵੱਲ ਹੇਠਾਂ",
+          "ਸਮੁੰਦਰ ਤੋਂ ਨੇੜਲੇ ਰੇਗਿਸਤਾਨ ਵੱਲ",
+          "ਸਿਰਫ਼ ਰਾਤ ਨੂੰ ਘਾਟੀ ਦੇ ਤਲ ਨਾਲ"
+        ],
+        "explanation": "ਧੁੱਪ ਨਾਲ ਪਹਾੜੀ ਢਲਾਣਾਂ ਨੇੜੇ ਦੀ ਹਵਾ ਗਰਮ ਹੋ ਕੇ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹੈ। ਦਿਨ ਵੇਲੇ ਘਾਟੀ ਤੋਂ ਹਵਾ ਢਲਾਣਾਂ ਵੱਲ ਉੱਪਰ ਵਗਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q020",
+    "cpId": "WGE-001-CP010",
+    "objective": "katabatic-night",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which airflow is characteristic of a katabatic wind?",
+        "options": [
+          "Cold, dense air draining downslope under gravity",
+          "Sun-warmed air rising upslope during the day",
+          "Air warming as it descends on a mountain’s leeward side",
+          "Cool air moving upslope from a valley after sunset"
+        ],
+        "explanation": "At night, cooled dense air can flow downhill under gravity. This downslope drainage is katabatic flow."
+      },
+      "hi": {
+        "stem": "काटाबेटिक पवन में वायु का प्रवाह किस प्रकार होता है?",
+        "options": [
+          "ठंडी, सघन वायु का गुरुत्व से ढाल के नीचे बहना",
+          "दिन में सूर्य से गर्म वायु का ढाल के ऊपर उठना",
+          "पर्वत की पवनविमुख ढाल पर उतरती वायु का गर्म होना",
+          "सूर्यास्त के बाद घाटी से ठंडी वायु का ढाल पर ऊपर चढ़ना"
+        ],
+        "explanation": "रात में ठंडी और सघन वायु गुरुत्व के कारण नीचे बह सकती है। ढाल से नीचे जाती इस हवा को अपसारी प्रवाह कहते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਟਾਬੈਟਿਕ ਹਵਾ ਵਿੱਚ ਹਵਾ ਦਾ ਵਹਾਅ ਕਿਹੋ ਜਿਹਾ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਠੰਢੀ, ਸੰਘਣੀ ਹਵਾ ਦਾ ਗੁਰੂਤਾ ਕਰਕੇ ਢਲਾਣ ਤੋਂ ਹੇਠਾਂ ਵਗਣਾ",
+          "ਦਿਨ ਵੇਲੇ ਸੂਰਜ ਨਾਲ ਗਰਮ ਹਵਾ ਦਾ ਢਲਾਣ ਉੱਤੇ ਚੜ੍ਹਨਾ",
+          "ਪਹਾੜ ਦੀ ਹਵਾ-ਵਿਮੁਖ ਢਲਾਣ ਉੱਤੇ ਹੇਠਾਂ ਉਤਰਦੀ ਹਵਾ ਦਾ ਗਰਮ ਹੋਣਾ",
+          "ਸੂਰਜ ਡੁੱਬਣ ਮਗਰੋਂ ਘਾਟੀ ਤੋਂ ਠੰਢੀ ਹਵਾ ਦਾ ਢਲਾਣ ਉੱਤੇ ਚੜ੍ਹਨਾ"
+        ],
+        "explanation": "ਰਾਤ ਨੂੰ ਠੰਢੀ ਅਤੇ ਸੰਘਣੀ ਹਵਾ ਗੁਰੂਤਾ ਨਾਲ ਹੇਠਾਂ ਵਗ ਸਕਦੀ ਹੈ। ਢਲਾਣ ਤੋਂ ਹੇਠਾਂ ਜਾਣ ਵਾਲੇ ਇਸ ਵਹਾਅ ਨੂੰ ਕਟਾਬੈਟਿਕ ਹਵਾ ਕਹਿੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q021",
+    "cpId": "WGE-001-CP010",
+    "objective": "föhn-leeward",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The Föhn is a warm, dry wind that descends on which side of the Alps?",
+        "options": [
+          "Leeward side",
+          "Windward side",
+          "Both sides equally",
+          "Only above the snowline"
+        ],
+        "explanation": "Moist air rises on the windward slope and loses moisture. Air descending on the lee side warms and dries, producing a Föhn wind."
+      },
+      "hi": {
+        "stem": "आल्प्स के किस ओर उतरने वाली गर्म और शुष्क फॉन पवन चलती है?",
+        "options": [
+          "पवनविमुख ओर",
+          "पवनमुखी ओर",
+          "दोनों ओर समान रूप से",
+          "केवल हिमरेखा से ऊपर"
+        ],
+        "explanation": "नम वायु पवनमुखी ढाल पर ऊपर उठकर नमी खोती है। दूसरी ओर उतरती हवा गर्म और शुष्क होती है, जिससे फॉन पवन चलती है।"
+      },
+      "pa": {
+        "stem": "ਐਲਪਸ ਦੇ ਕਿਹੜੇ ਪਾਸੇ ਹੇਠਾਂ ਉਤਰਦੀ ਗਰਮ ਅਤੇ ਖੁਸ਼ਕ ਫੋਨ ਹਵਾ ਵਗਦੀ ਹੈ?",
+        "options": [
+          "ਹਵਾ ਤੋਂ ਪਿਛਲੇ ਪਾਸੇ",
+          "ਹਵਾ ਵੱਲ ਮੂੰਹ ਕਰਦੇ ਪਾਸੇ",
+          "ਦੋਵੇਂ ਪਾਸਿਆਂ ਉੱਤੇ ਬਰਾਬਰ",
+          "ਸਿਰਫ਼ ਬਰਫ਼-ਰੇਖਾ ਤੋਂ ਉੱਪਰ"
+        ],
+        "explanation": "ਨਮੀ ਵਾਲੀ ਹਵਾ ਹਵਾ-ਮੁਖੀ ਢਲਾਣ ਉੱਤੇ ਚੜ੍ਹ ਕੇ ਨਮੀ ਗੁਆਉਂਦੀ ਹੈ। ਦੂਜੇ ਪਾਸੇ ਹੇਠਾਂ ਉਤਰਦੀ ਹਵਾ ਗਰਮ ਅਤੇ ਖੁਸ਼ਕ ਹੁੰਦੀ ਹੈ; ਇਸ ਨੂੰ ਫੋਨ ਹਵਾ ਕਹਿੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q022",
+    "cpId": "WGE-001-CP010",
+    "objective": "chinook-rockies",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The Chinook is a warm, dry downslope wind found east of which mountain range?",
+        "options": [
+          "Rocky Mountains",
+          "Andes",
+          "Alps",
+          "Atlas Mountains"
+        ],
+        "explanation": "The Chinook descends the eastern side of the Rocky Mountains in North America. Its warming can rapidly reduce snow cover locally."
+      },
+      "hi": {
+        "stem": "चिनूक गर्म, शुष्क ढलानी पवन है। यह किस पर्वत शृंखला के पूर्व में चलती है?",
+        "options": [
+          "रॉकी पर्वत",
+          "एंडीज",
+          "आल्प्स",
+          "एटलस पर्वत"
+        ],
+        "explanation": "चिनूक उत्तरी अमेरिका के रॉकी पर्वतों की पूर्वी ढाल पर उतरती है। इससे स्थानीय रूप से हिमावरण तेजी से घट सकता है।"
+      },
+      "pa": {
+        "stem": "ਚਿਨੂਕ ਗਰਮ ਅਤੇ ਖੁਸ਼ਕ ਢਲਾਣੀ ਹਵਾ ਹੈ। ਇਹ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਦੇ ਪੂਰਬ ਵੱਲ ਵਗਦੀ ਹੈ?",
+        "options": [
+          "ਰੌਕੀ ਪਹਾੜ",
+          "ਐਂਡੀਜ਼",
+          "ਐਲਪਸ",
+          "ਐਟਲਸ ਪਹਾੜ"
+        ],
+        "explanation": "ਚਿਨੂਕ ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਰੌਕੀ ਪਹਾੜਾਂ ਦੀ ਪੂਰਬੀ ਢਲਾਣ ਤੋਂ ਹੇਠਾਂ ਉਤਰਦੀ ਹੈ। ਇਸ ਨਾਲ ਸਥਾਨਕ ਤੌਰ ਉੱਤੇ ਬਰਫ਼ ਤੇਜ਼ੀ ਨਾਲ ਪਿਘਲ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q023",
+    "cpId": "WGE-001-CP010",
+    "objective": "mistral-france",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The Mistral is a cold, dry wind that blows down the Rhône Valley towards which coast?",
+        "options": [
+          "Mediterranean coast of southern France",
+          "Atlantic coast of Portugal",
+          "Arctic coast of Norway",
+          "Black Sea coast of Turkey"
+        ],
+        "explanation": "The Mistral funnels southward through the Rhône Valley towards the Mediterranean. It is a regional wind rather than a global wind belt."
+      },
+      "hi": {
+        "stem": "मिस्ट्रल ठंडी, शुष्क पवन है जो रोन घाटी से किस तट की ओर बहती है?",
+        "options": [
+          "दक्षिणी फ्रांस का भूमध्यसागरीय तट",
+          "पुर्तगाल का अटलांटिक तट",
+          "नॉर्वे का आर्कटिक तट",
+          "तुर्किये का काला सागर तट"
+        ],
+        "explanation": "मिस्ट्रल रोन घाटी से दक्षिण की ओर भूमध्यसागर तक बहती है। यह क्षेत्रीय पवन है, वैश्विक पवन-पट्टी नहीं।"
+      },
+      "pa": {
+        "stem": "मਿਸਟਰਲ ਠੰਢੀ, ਖੁਸ਼ਕ ਹਵਾ ਹੈ ਜੋ ਰੋਨ ਘਾਟੀ ਵਿੱਚੋਂ ਕਿਹੜੇ ਤੱਟ ਵੱਲ ਵਗਦੀ ਹੈ?",
+        "options": [
+          "ਦੱਖਣੀ ਫ਼ਰਾਂਸ ਦੇ ਭੂਮੱਧ ਸਾਗਰੀ ਤੱਟ",
+          "ਪੁਰਤਗਾਲ ਦੇ ਅਟਲਾਂਟਿਕ ਤੱਟ",
+          "ਨਾਰਵੇ ਦੇ ਆਰਕਟਿਕ ਤੱਟ",
+          "ਤੁਰਕੀ ਦੇ ਕਾਲੇ ਸਾਗਰ ਤੱਟ"
+        ],
+        "explanation": "ਮਿਸਟਰਲ ਰੋਨ ਘਾਟੀ ਰਾਹੀਂ ਦੱਖਣ ਵੱਲ ਭੂਮੱਧ ਸਾਗਰ ਤੱਕ ਵਗਦੀ ਹੈ। ਇਹ ਖੇਤਰੀ ਹਵਾ ਹੈ, ਵਿਸ਼ਵਵਿਆਪੀ ਹਵਾ-ਪੱਟੀ ਨਹੀਂ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q024",
+    "cpId": "WGE-001-CP010",
+    "objective": "bora-adriatic",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which sea borders the region affected by the Bora, a cold, gusty downslope wind?",
+        "options": [
+          "Adriatic Sea",
+          "Caribbean Sea",
+          "Arabian Sea",
+          "Baltic Sea"
+        ],
+        "explanation": "The Bora descends from the continental highlands towards the Adriatic coast. Local relief and pressure patterns influence its strength."
+      },
+      "hi": {
+        "stem": "ठंडी और झोंकेदार ढलानी बोरा पवन से प्रभावित क्षेत्र के पास कौन-सा सागर है?",
+        "options": [
+          "एड्रियाटिक सागर",
+          "कैरेबियन सागर",
+          "अरब सागर",
+          "बाल्टिक सागर"
+        ],
+        "explanation": "बोरा महाद्वीपीय ऊँचाइयों से एड्रियाटिक तट की ओर नीचे उतरती है। स्थानीय स्थलाकृति और दाब प्रतिरूप इसकी तीव्रता बदलते हैं।"
+      },
+      "pa": {
+        "stem": "ਠੰਢੀ ਅਤੇ ਝੱਖੜਦਾਰ ਢਲਾਣੀ ਬੋਰਾ ਹਵਾ ਤੋਂ ਪ੍ਰਭਾਵਿਤ ਖੇਤਰ ਦੇ ਨੇੜੇ ਕਿਹੜਾ ਸਮੁੰਦਰ ਹੈ?",
+        "options": [
+          "ਐਡਰਿਆਟਿਕ ਸਾਗਰ",
+          "ਕੈਰੇਬੀਅਨ ਸਾਗਰ",
+          "ਅਰਬ ਸਾਗਰ",
+          "ਬਾਲਟਿਕ ਸਾਗਰ"
+        ],
+        "explanation": "ਬੋਰਾ ਮਹਾਂਦੀਪੀ ਉੱਚੇ ਖੇਤਰਾਂ ਤੋਂ ਐਡਰਿਆਟਿਕ ਤੱਟ ਵੱਲ ਹੇਠਾਂ ਉਤਰਦੀ ਹੈ। ਸਥਾਨਕ ਭੂ-ਰੂਪ ਅਤੇ ਦਬਾਅ ਇਸ ਦੀ ਤਾਕਤ ਬਦਲਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q025",
+    "cpId": "WGE-001-CP010",
+    "objective": "harmattan-source",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The dry, dusty Harmattan blows across West Africa mainly from the:",
+        "options": [
+          "Sahara towards the Gulf of Guinea",
+          "Gulf of Guinea towards the Sahara",
+          "Atlantic Ocean towards the Andes",
+          "Mediterranean Sea towards southern Europe"
+        ],
+        "explanation": "The Harmattan is a dry northeasterly wind that carries Saharan dust towards parts of West Africa and the Gulf of Guinea."
+      },
+      "hi": {
+        "stem": "हार्मटन शुष्क, धूलभरी पवन है जो पश्चिमी अफ्रीका में मुख्यतः किस दिशा में बहती है?",
+        "options": [
+          "सहारा से गिनी की खाड़ी की ओर",
+          "गिनी की खाड़ी से सहारा की ओर",
+          "अटलांटिक महासागर से एंडीज की ओर",
+          "भूमध्यसागर से दक्षिणी यूरोप की ओर"
+        ],
+        "explanation": "हार्मटन शुष्क उत्तर-पूर्वी हवा है, जो सहारा की धूल पश्चिमी अफ्रीका और गिनी की खाड़ी की ओर ले जाती है।"
+      },
+      "pa": {
+        "stem": "ਹਰਮਟਨ ਖੁਸ਼ਕ, ਧੂੜ ਵਾਲੀ ਹਵਾ ਹੈ ਜੋ ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵਿੱਚ ਵਗਦੀ ਹੈ?",
+        "options": [
+          "ਸਹਾਰਾ ਤੋਂ ਗਿਨੀ ਦੀ ਖਾੜੀ ਵੱਲ",
+          "ਗਿਨੀ ਦੀ ਖਾੜੀ ਤੋਂ ਸਹਾਰਾ ਵੱਲ",
+          "ਅਟਲਾਂਟਿਕ ਮਹਾਂਸਾਗਰ ਤੋਂ ਐਂਡੀਜ਼ ਵੱਲ",
+          "ਭੂਮੱਧ ਸਾਗਰ ਤੋਂ ਦੱਖਣੀ ਯੂਰਪ ਵੱਲ"
+        ],
+        "explanation": "ਹਰਮਟਨ ਖੁਸ਼ਕ ਉੱਤਰ-ਪੂਰਬੀ ਹਵਾ ਹੈ, ਜੋ ਸਹਾਰਾ ਦੀ ਧੂੜ ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਗਿਨੀ ਦੀ ਖਾੜੀ ਵੱਲ ਲਿਆਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q026",
+    "cpId": "WGE-001-CP010",
+    "objective": "sirocco-origin",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The Sirocco reaches the Mediterranean from the:",
+        "options": [
+          "Sahara and North Africa",
+          "Scandinavian mountains",
+          "Central Asian steppe",
+          "Arctic Ocean"
+        ],
+        "explanation": "The Sirocco is a warm wind originating over North Africa that crosses towards the Mediterranean. Its temperature and moisture can change during the passage."
+      },
+      "hi": {
+        "stem": "सिरॉको भूमध्यसागर तक कहाँ से पहुँचती है?",
+        "options": [
+          "सहारा और उत्तरी अफ्रीका से",
+          "स्कैंडिनेवियाई पर्वतों से",
+          "मध्य एशियाई मैदान से",
+          "आर्कटिक महासागर से"
+        ],
+        "explanation": "सिरॉको उत्तरी अफ्रीका से भूमध्यसागर की ओर चलने वाली गर्म पवन है। समुद्र पार करते समय उसका तापमान और नमी बदल सकती है।"
+      },
+      "pa": {
+        "stem": "ਸਿਰੋਕੋ ਭੂਮੱਧ ਸਾਗਰ ਤੱਕ ਕਿੱਥੋਂ ਪਹੁੰਚਦੀ ਹੈ?",
+        "options": [
+          "ਸਹਾਰਾ ਅਤੇ ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਤੋਂ",
+          "ਸਕੈਂਡੀਨੇਵੀਆਈ ਪਹਾੜਾਂ ਤੋਂ",
+          "ਮੱਧ ਏਸ਼ੀਆਈ ਮੈਦਾਨ ਤੋਂ",
+          "ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ ਤੋਂ"
+        ],
+        "explanation": "ਸਿਰੋਕੋ ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਤੋਂ ਭੂਮੱਧ ਸਾਗਰ ਵੱਲ ਚੱਲਣ ਵਾਲੀ ਗਰਮ ਹਵਾ ਹੈ। ਸਮੁੰਦਰ ਪਾਰ ਕਰਦਿਆਂ ਇਸ ਦਾ ਤਾਪਮਾਨ ਅਤੇ ਨਮੀ ਬਦਲ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q027",
+    "cpId": "WGE-001-CP010",
+    "objective": "wind-ward-leeward",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Moist air descends on the leeward side of a mountain range. How do its temperature and humidity usually change?",
+        "options": [
+          "The air warms and becomes drier",
+          "The air cools and gains moisture",
+          "The air remains saturated and has no temperature change",
+          "The air becomes denser solely because longitude changes"
+        ],
+        "explanation": "Descending air is compressed and warms; much of its moisture was lost on the windward ascent. The lee slope therefore tends to be drier."
+      },
+      "hi": {
+        "stem": "पर्वत की पवनविमुख ढाल पर उतरती नम वायु के तापमान और आर्द्रता में सामान्यतः क्या बदलाव आता है?",
+        "options": [
+          "वायु गर्म और शुष्क होती है",
+          "वायु ठंडी होकर नमी पाती है",
+          "वायु संतृप्त रहती है और तापमान नहीं बदलता",
+          "केवल देशांतर बदलने से वायु सघन होती है"
+        ],
+        "explanation": "नीचे उतरती वायु संपीडित होकर गर्म होती है और पवनमुखी ढाल पर नमी खो चुकी होती है। इसलिए पवनविमुख ढाल अधिक शुष्क रहती है।"
+      },
+      "pa": {
+        "stem": "ਪਹਾੜ ਦੀ ਹਵਾ-ਵਿਮੁਖ ਢਲਾਣ ਉੱਤੇ ਹੇਠਾਂ ਉਤਰਦੀ ਨਮੀ ਵਾਲੀ ਹਵਾ ਦੇ ਤਾਪਮਾਨ ਅਤੇ ਨਮੀ ਵਿੱਚ ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਬਦਲਾਅ ਆਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਹਵਾ ਗਰਮ ਅਤੇ ਖੁਸ਼ਕ ਹੋ ਜਾਂਦੀ ਹੈ",
+          "ਹਵਾ ਠੰਢੀ ਹੋ ਕੇ ਨਮੀ ਲੈਂਦੀ ਹੈ",
+          "ਹਵਾ ਸੰਤ੍ਰਿਪਤ ਰਹਿੰਦੀ ਹੈ ਅਤੇ ਤਾਪਮਾਨ ਨਹੀਂ ਬਦਲਦਾ",
+          "ਸਿਰਫ਼ ਲੰਬਕਾਰ ਬਦਲਣ ਨਾਲ ਹਵਾ ਸੰਘਣੀ ਹੁੰਦੀ ਹੈ"
+        ],
+        "explanation": "ਹੇਠਾਂ ਉਤਰਦੀ ਹਵਾ ਦਬ ਕੇ ਗਰਮ ਹੁੰਦੀ ਹੈ ਅਤੇ ਹਵਾ-ਮੁਖੀ ਪਾਸੇ ਨਮੀ ਗੁਆ ਚੁੱਕੀ ਹੁੰਦੀ ਹੈ। ਇਸ ਲਈ ਦੂਜਾ ਪਾਸਾ ਵੱਧ ਖੁਸ਼ਕ ਰਹਿੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q028",
+    "cpId": "WGE-001-CP010",
+    "objective": "wind-order",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Arrange the planetary wind belts from the equator towards a pole in the correct order.",
+        "options": [
+          "Trade winds → westerlies → polar easterlies",
+          "Westerlies → trade winds → polar easterlies",
+          "Polar easterlies → westerlies → trade winds",
+          "Trade winds → polar easterlies → westerlies"
+        ],
+        "explanation": "Moving poleward, one passes from the Hadley-cell trade-wind belt into the mid-latitude westerlies and then polar easterlies. The belts shift seasonally and are idealised zones."
+      },
+      "hi": {
+        "stem": "भूमध्य रेखा से ध्रुव की ओर वायुमंडलीय पवन-पट्टियों का सही क्रम चुनें।",
+        "options": [
+          "व्यापारिक पवनें → पछुआ पवनें → ध्रुवीय पूर्वी पवनें",
+          "पछुआ पवनें → व्यापारिक पवनें → ध्रुवीय पूर्वी पवनें",
+          "ध्रुवीय पूर्वी पवनें → पछुआ पवनें → व्यापारिक पवनें",
+          "व्यापारिक पवनें → ध्रुवीय पूर्वी पवनें → पछुआ पवनें"
+        ],
+        "explanation": "ध्रुव की ओर बढ़ते हुए व्यापारिक पवनों की पट्टी के बाद मध्य अक्षांशों की पछुआ पवनें और फिर ध्रुवीय पूर्वी पवनें आती हैं। ये आदर्शीकृत पट्टियाँ ऋतु के साथ खिसकती हैं।"
+      },
+      "pa": {
+        "stem": "ਭੂਮੱਧ ਰੇਖਾ ਤੋਂ ਧਰੁਵ ਵੱਲ ਹਵਾਈ ਪੱਟੀਆਂ ਦਾ ਸਹੀ ਕ੍ਰਮ ਚੁਣੋ।",
+        "options": [
+          "ਵਪਾਰਕ ਹਵਾਵਾਂ → ਪੱਛਮੀ ਹਵਾਵਾਂ → ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ",
+          "ਪੱਛਮੀ ਹਵਾਵਾਂ → ਵਪਾਰਕ ਹਵਾਵਾਂ → ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ",
+          "ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ → ਪੱਛਮੀ ਹਵਾਵਾਂ → ਵਪਾਰਕ ਹਵਾਵਾਂ",
+          "ਵਪਾਰਕ ਹਵਾਵਾਂ → ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ → ਪੱਛਮੀ ਹਵਾਵਾਂ"
+        ],
+        "explanation": "ਧਰੁਵ ਵੱਲ ਜਾਂਦਿਆਂ ਵਪਾਰਕ ਹਵਾਵਾਂ ਦੀ ਪੱਟੀ ਤੋਂ ਬਾਅਦ ਮੱਧ ਵਿਥਕਾਰਾਂ ਦੀਆਂ ਪੱਛਮੀ ਹਵਾਵਾਂ ਅਤੇ ਫਿਰ ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ ਆਉਂਦੀਆਂ ਹਨ। ਇਹ ਆਦਰਸ਼ ਪੱਟੀਆਂ ਰੁੱਤ ਨਾਲ ਖਿਸਕਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q029",
+    "cpId": "WGE-001-CP010",
+    "objective": "trade-crossing",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "In the Southern Hemisphere, equatorward surface winds from a subtropical high are deflected westward. Which wind belt do they form?",
+        "options": [
+          "Southeast trade winds",
+          "Northeast trade winds",
+          "Westerlies",
+          "Polar easterlies"
+        ],
+        "explanation": "The pressure gradient directs air equatorward, and Earth's rotation deflects it left in the Southern Hemisphere. The resulting surface flow is from the southeast."
+      },
+      "hi": {
+        "stem": "दक्षिणी गोलार्ध में उपोष्ण उच्चदाब से भूमध्य रेखा की ओर चलती सतही पवनें पश्चिम की ओर मुड़ती हैं। वे कौन-सी पवन-पट्टी बनाती हैं?",
+        "options": [
+          "दक्षिण-पूर्वी व्यापारिक पवनें",
+          "उत्तर-पूर्वी व्यापारिक पवनें",
+          "पछुआ पवनें",
+          "ध्रुवीय पूर्वी पवनें"
+        ],
+        "explanation": "दाब-प्रवणता वायु को भूमध्य रेखा की ओर चलाती है और पृथ्वी का घूर्णन उसे दक्षिणी गोलार्ध में बाईं ओर मोड़ता है। सतही हवा दक्षिण-पूर्व से आती है।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਉਪ-ਖੰਡੀ ਉੱਚ ਦਬਾਅ ਤੋਂ ਭੂਮੱਧ ਰੇਖਾ ਵੱਲ ਜਾਂਦੀਆਂ ਸਤਹੀ ਹਵਾਵਾਂ ਪੱਛਮ ਵੱਲ ਮੁੜਦੀਆਂ ਹਨ। ਇਹ ਕਿਹੜੀ ਹਵਾਈ ਪੱਟੀ ਬਣਾਉਂਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਦੱਖਣ-ਪੂਰਬੀ ਵਪਾਰਕ ਹਵਾਵਾਂ",
+          "ਉੱਤਰ-ਪੂਰਬੀ ਵਪਾਰਕ ਹਵਾਵਾਂ",
+          "ਪੱਛਮੀ ਹਵਾਵਾਂ",
+          "ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ"
+        ],
+        "explanation": "ਦਬਾਅ-ਢਲਾਣ ਹਵਾ ਨੂੰ ਭੂਮੱਧ ਰੇਖਾ ਵੱਲ ਲੈ ਜਾਂਦੀ ਹੈ ਅਤੇ ਧਰਤੀ ਦਾ ਘੁੰਮਣਾ ਇਸ ਨੂੰ ਦੱਖਣੀ ਅਰਧ-ਗੋਲੇ ਵਿੱਚ ਖੱਬੇ ਪਾਸੇ ਮੋੜਦਾ ਹੈ। ਸਤਹੀ ਹਵਾ ਦੱਖਣ-ਪੂਰਬ ਤੋਂ ਆਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP010-Q030",
+    "cpId": "WGE-001-CP010",
+    "objective": "coriolis-process",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-010"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which statement best explains the Coriolis effect on planetary winds?",
+        "options": [
+          "It deflects moving air but does not create the pressure difference that starts it",
+          "It creates every high- and low-pressure belt",
+          "It pushes all air directly towards the poles",
+          "It is strongest at the equator and absent at the poles"
+        ],
+        "explanation": "Pressure gradients initiate large-scale movement; Earth's rotation alters the direction. Keeping these roles distinct explains the global wind belts."
+      },
+      "hi": {
+        "stem": "ग्रहों की पवनों पर कोरिऑलिस प्रभाव की सही व्याख्या कौन-सी है?",
+        "options": [
+          "यह चलती वायु को मोड़ता है, लेकिन उसे चलाने वाला दाबांतर नहीं बनाता",
+          "यह सभी उच्च और निम्नदाब पट्टियाँ बनाता है",
+          "यह सारी वायु को सीधे ध्रुवों की ओर धकेलता है",
+          "यह भूमध्य रेखा पर सबसे तेज और ध्रुवों पर अनुपस्थित है"
+        ],
+        "explanation": "दाब-प्रवणता व्यापक वायु गति शुरू करती है, जबकि पृथ्वी का घूर्णन दिशा बदलता है। इन भूमिकाओं को अलग रखने से वैश्विक पवनें समझ आती हैं।"
+      },
+      "pa": {
+        "stem": "ਗ੍ਰਹਿ-ਪੱਧਰੀ ਹਵਾਵਾਂ ਉੱਤੇ ਕੋਰੀਓਲਿਸ ਅਸਰ ਦੀ ਸਹੀ ਵਿਆਖਿਆ ਕਿਹੜੀ ਹੈ?",
+        "options": [
+          "ਇਹ ਚੱਲਦੀ ਹਵਾ ਨੂੰ ਮੋੜਦਾ ਹੈ, ਪਰ ਉਸ ਨੂੰ ਚਲਾਉਣ ਵਾਲਾ ਦਬਾਅ-ਫ਼ਰਕ ਨਹੀਂ ਬਣਾਉਂਦਾ",
+          "ਇਹ ਸਾਰੀਆਂ ਉੱਚ ਅਤੇ ਘੱਟ ਦਬਾਅ ਪੱਟੀਆਂ ਬਣਾਉਂਦਾ ਹੈ",
+          "ਇਹ ਸਾਰੀ ਹਵਾ ਨੂੰ ਸਿੱਧਾ ਧਰੁਵਾਂ ਵੱਲ ਧੱਕਦਾ ਹੈ",
+          "ਇਹ ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ ਸਭ ਤੋਂ ਵੱਧ ਅਤੇ ਧਰੁਵਾਂ ਉੱਤੇ ਨਹੀਂ ਹੁੰਦਾ"
+        ],
+        "explanation": "ਦਬਾਅ-ਢਲਾਣ ਵੱਡੇ ਪੱਧਰ ਦੀ ਹਵਾ ਦੀ ਗਤੀ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ, ਜਦਕਿ ਧਰਤੀ ਦਾ ਘੁੰਮਣਾ ਦਿਸ਼ਾ ਬਦਲਦਾ ਹੈ। ਇਹ ਦੋਵੇਂ ਕੰਮ ਵੱਖ ਰੱਖਣ ਨਾਲ ਵਿਸ਼ਵ ਦੀਆਂ ਹਵਾਵਾਂ ਸਮਝ ਆਉਂਦੀਆਂ ਹਨ।"
+      }
+    }
+  }
+]
