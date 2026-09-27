@@ -719,6 +719,192 @@ buildGeoMinQl("MALANJKHAND-COPPER-BALAGHAT", "Malanjkhand copper mine and Balagh
       "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
     ]
   }
+] as const),
+
+buildGeoMinQl("GOLD-HUTTI-KOLAR-KARNATAKA", "Gold geography: Hutti, Kolar and Karnataka", [
+  {
+    "stem": "Hutti, one of India's best-known gold-mining centres, is located in which state?",
+    "answer": "Karnataka",
+    "distractors": [
+      "Rajasthan",
+      "Jharkhand",
+      "Odisha"
+    ],
+    "explanation": "Hutti lies in Raichur district of Karnataka and remains one of the country's best-known gold-mining locations. It is a standard state-location pair in Indian mineral geography.",
+    "sourceFactId": "GOLD-HUTTI-STATE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GOLD",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which mineral is most strongly linked with Hutti in Raichur district?",
+    "answer": "Gold",
+    "distractors": [
+      "Copper",
+      "Chromite",
+      "Mica"
+    ],
+    "explanation": "IBM records Hutti as a gold mine in Raichur district of Karnataka. The location should be distinguished from copper belts such as Khetri and chromite centres such as Sukinda.",
+    "sourceFactId": "GOLD-HUTTI-RESOURCE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GOLD",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Hutti is in Karnataka. II. Kolar is historically linked with gold mining. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Hutti is an active gold-mining centre in Karnataka, while Kolar Gold Fields are historically important in the same state's gold geography. Both associations are durable exam facts.",
+    "sourceFactId": "GOLD-HUTTI-KOLAR-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GOLD",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Hutti — gold",
+    "distractors": [
+      "Hutti — mica",
+      "Kolar — petroleum",
+      "Raichur — chromite only"
+    ],
+    "explanation": "Hutti in Raichur district is a major gold location, and Kolar is also historically famous for gold. The alternative pairings attach unrelated resources to these Karnataka locations.",
+    "sourceFactId": "GOLD-HUTTI-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GOLD",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A mineral map marks Hutti in Raichur and the historic Kolar Gold Fields. Which resource is being shown?",
+    "answer": "Gold",
+    "distractors": [
+      "Bauxite",
+      "Gypsum",
+      "Rock phosphate"
+    ],
+    "explanation": "Hutti and Kolar are two of the best-known names in India's gold geography. Their joint appearance on a map strongly identifies gold rather than industrial non-metallic minerals.",
+    "sourceFactId": "GOLD-MAP",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GOLD",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which comparison is correct?",
+    "answer": "Hutti is linked with gold in Karnataka, while Panna is linked with diamond in Madhya Pradesh",
+    "distractors": [
+      "Both are copper mines",
+      "Panna is a goldfield and Hutti a diamond belt",
+      "Both are iron-ore regions"
+    ],
+    "explanation": "Hutti is a major Karnataka gold centre, whereas Panna in Madhya Pradesh is famous for diamonds. The contrast separates two high-value mineral regions frequently tested in static GK.",
+    "sourceFactId": "GOLD-DIAMOND-COMPARE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GOLD",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
+] as const),
+
+buildGeoMinQl("DIAMOND-PANNA-AND-INDIAN-DIAMOND-TRACTS", "Diamond, Panna and Indian diamond tracts", [
+  {
+    "stem": "Panna, India's best-known diamond-mining district, is located in which state?",
+    "answer": "Madhya Pradesh",
+    "distractors": [
+      "Karnataka",
+      "Rajasthan",
+      "Odisha"
+    ],
+    "explanation": "Panna district in Madhya Pradesh is the principal modern diamond-mining location highlighted by IBM. It is the core of the central Indian diamond tract.",
+    "sourceFactId": "DIAMOND-PANNA-STATE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DIAMOND",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which mineral is most strongly linked with Panna in Indian geography?",
+    "answer": "Diamond",
+    "distractors": [
+      "Mica",
+      "Iron ore",
+      "Gypsum"
+    ],
+    "explanation": "Panna is the classic diamond location of Madhya Pradesh and one of India's most familiar mineral-location pairs. It should not be confused with metallic or non-metallic industrial minerals.",
+    "sourceFactId": "DIAMOND-PANNA-RESOURCE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DIAMOND",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Diamond is composed of carbon. II. Panna lies in the central Indian diamond tract. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Diamond is crystalline carbon, and IBM groups Panna within the central Indian diamond tract of Madhya Pradesh. Both the mineral property and location statement are correct.",
+    "sourceFactId": "DIAMOND-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DIAMOND",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Panna — diamond",
+    "distractors": [
+      "Panna — petroleum",
+      "Panna — mica",
+      "Panna — chromite"
+    ],
+    "explanation": "Panna in Madhya Pradesh is synonymous with diamond mining in India. Petroleum, mica and chromite belong to different resource regions and geological settings.",
+    "sourceFactId": "DIAMOND-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DIAMOND",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Diamond deposits may occur in primary igneous rocks and also in which secondary setting?",
+    "answer": "Alluvial deposits derived from primary sources",
+    "distractors": [
+      "Coal seams only",
+      "Evaporite beds only",
+      "Limestone caves only"
+    ],
+    "explanation": "IBM notes that diamonds occur both in primary igneous settings and in alluvial deposits formed after weathering and transport from primary sources. This explains placer-type diamond occurrences.",
+    "sourceFactId": "DIAMOND-OCCURRENCE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DIAMOND",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A question gives the clues 'Madhya Pradesh, central Indian tract, Panna'. Which mineral should be selected?",
+    "answer": "Diamond",
+    "distractors": [
+      "Gold",
+      "Copper",
+      "Manganese"
+    ],
+    "explanation": "The combination of Madhya Pradesh and Panna is one of the strongest diamond clues in Indian mineral geography. Gold, copper and manganese have other principal location patterns.",
+    "sourceFactId": "DIAMOND-PANNA-CLUE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DIAMOND",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
 ] as const)
 ]);
 
