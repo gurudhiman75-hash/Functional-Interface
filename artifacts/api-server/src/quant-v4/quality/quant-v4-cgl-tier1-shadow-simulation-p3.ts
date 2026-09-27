@@ -46,6 +46,7 @@ export interface QuantV4CglTier1ShadowQuestionRecord {
   readonly emptyExplanation: boolean;
   readonly literalStemSignature: string;
   readonly normalizedStemSignature: string;
+  readonly learnerQuestionSignature: string;
   readonly testEligible: boolean | null;
   readonly publiclyPublishable: boolean | null;
   readonly bankOnly: boolean;
@@ -88,6 +89,7 @@ export interface QuantV4CglTier1ShadowSimulationAudit {
   readonly emptyExplanationCount: number;
   readonly literalStemDuplicateRate: number;
   readonly normalizedStructuralStemReuseRate: number;
+  readonly learnerQuestionDuplicateRate: number;
   readonly slotDistribution: Readonly<Record<string, number>>;
   readonly packageDistribution: Readonly<Record<string, number>>;
   readonly packageStructuralReuse: Readonly<Record<string, QuantV4CglTier1ShadowPackageReuse>>;
@@ -261,9 +263,11 @@ function runtimeRecord(input: {
   slotKind: QuantV4CglTier1ShadowSlotKind;
   packageId: string;
   question: any;
+  learnerVisibleContext?: unknown;
 }): QuantV4CglTier1ShadowQuestionRecord {
   const stem = questionText(input.question);
   const explanation = explanationText(input.question);
+  const context = input.learnerVisibleContext == null ? "" : JSON.stringify(input.learnerVisibleContext);
   return Object.freeze({
     sectionIndex: input.sectionIndex,
     ordinal: input.ordinal,
@@ -280,6 +284,7 @@ function runtimeRecord(input: {
     emptyExplanation: !explanation,
     literalStemSignature: literalStemSignature(stem),
     normalizedStemSignature: normalizeStemSignature(stem),
+    learnerQuestionSignature: literalStemSignature([stem, context].filter(Boolean).join("\n::VISIBLE_CONTEXT::\n")),
     testEligible: triState(input.question?.testEligible),
     publiclyPublishable: triState(input.question?.publiclyPublishable),
     bankOnly: isBankOnlyQuestion(input.question),
@@ -302,6 +307,7 @@ function gapRecord(input: {
     emptyExplanation: true,
     literalStemSignature: "",
     normalizedStemSignature: "",
+    learnerQuestionSignature: "",
     testEligible: null,
     publiclyPublishable: null,
     bankOnly: false,
@@ -377,6 +383,7 @@ function generateDiRecords(input: {
           slotKind: "DATA_INTERPRETATION",
           packageId,
           question,
+          learnerVisibleContext: set?.stimulus ?? null,
         }));
       }
     } catch (error) {
@@ -518,6 +525,9 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
   const literalStemDuplicateRate = duplicateRate(runtimeRecords.map((record) => record.literalStemSignature));
   const normalizedStructuralStemReuseRate = duplicateRate(
     runtimeRecords.map((record) => record.normalizedStemSignature),
+  );
+  const learnerQuestionDuplicateRate = duplicateRate(
+    runtimeRecords.map((record) => record.learnerQuestionSignature),
   );
 
   const baselineQuestions = integratedBaselineSections.flatMap((section) => section.questions);
