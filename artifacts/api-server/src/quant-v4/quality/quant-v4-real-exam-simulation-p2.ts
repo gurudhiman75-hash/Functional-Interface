@@ -25,6 +25,9 @@ import {
   hasQuestionSpecificEvidence,
   semanticExplanationSignature,
 } from "./semantic-explanation-quality";
+import {
+  generateQuantV4AdvancedMathSectionQuestion,
+} from "./quant-v4-real-exam-advanced-math-adapters-p2";
 
 export const QUANT_V4_REAL_EXAM_SIMULATION_AUTHORITY =
   "QUANT-V4-REAL-EXAM-SIMULATION-AUDIT-P2" as const;
@@ -952,6 +955,59 @@ function generateDsSlot(
   }
 }
 
+async function generateAdvancedMathSlot(
+  profile: QuantV4RealExamProfile,
+  sectionIndex: number,
+  ordinal: number,
+  slotKind: "ALGEBRA" | "TRIGONOMETRY",
+  seed: string,
+): Promise<QuantV4SimulatedQuestion> {
+  if (
+    profile.id !== "SSC_CGL_TIER_I"
+    && profile.id !== "SSC_CGL_TIER_II"
+    && profile.id !== "SSC_CHSL"
+    && profile.id !== "PSSSB"
+    && profile.id !== "PPSC"
+    && profile.id !== "PUNJAB_POLICE"
+  ) {
+    return gapRecord({
+      profile,
+      sectionIndex,
+      ordinal,
+      slotKind,
+      reason: `${slotKind} has no section adapter for ${profile.id}.`,
+    });
+  }
+
+  try {
+    const result = await generateQuantV4AdvancedMathSectionQuestion({
+      examId: profile.id,
+      slotKind,
+      seed,
+    });
+    const question = result.question;
+    return runtimeRecord({
+      profile,
+      sectionIndex,
+      ordinal,
+      slotKind,
+      question,
+      packageId: result.packageId,
+      topic: "Advanced Mathematics",
+      subtopic: slotKind === "ALGEBRA" ? "Algebra" : "Trigonometry",
+      representation: "DIRECT_MCQ",
+    });
+  } catch (error) {
+    return gapRecord({
+      profile,
+      sectionIndex,
+      ordinal,
+      slotKind,
+      reason: `Advanced Mathematics adapter failed: ${error instanceof Error ? error.message : String(error)}`,
+    });
+  }
+}
+
 async function generateOneSlot(
   profile: QuantV4RealExamProfile,
   sectionIndex: number,
@@ -976,21 +1032,8 @@ async function generateOneSlot(
     case "DATA_SUFFICIENCY":
       return generateDsSlot(profile, sectionIndex, ordinal, seed);
     case "TRIGONOMETRY":
-      return gapRecord({
-        profile,
-        sectionIndex,
-        ordinal,
-        slotKind,
-        reason: "TRG-001/TRG-002 are internally activated but are not yet exposed through the central Quant section-simulation generation contract.",
-      });
     case "ALGEBRA":
-      return gapRecord({
-        profile,
-        sectionIndex,
-        ordinal,
-        slotKind,
-        reason: "Algebra is productionized BANK_ONLY, but no central Quant section-simulation adapter exists yet for deterministic exam-profile sampling.",
-      });
+      return generateAdvancedMathSlot(profile, sectionIndex, ordinal, slotKind, seed);
   }
 }
 
