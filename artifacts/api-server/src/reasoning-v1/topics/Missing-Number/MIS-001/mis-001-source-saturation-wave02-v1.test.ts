@@ -21,15 +21,18 @@ const direct = MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "DIRECT_P
 const corroborated = MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "FAMILY_CORROBORATED");
 const reuse = MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "REUSE_ONLY");
 const holds = MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "SOURCE_THIN_HOLD");
+const excluded = MIS_001_SOURCE_DECISIONS_V1.filter((x) => x.support === "EXCLUDED_INVALID");
 
 assert.equal(direct.length, audit.directPyqCount);
 assert.equal(corroborated.length, audit.familyCorroboratedCount);
 assert.equal(reuse.length, audit.reuseOnlyCount);
 assert.equal(holds.length, audit.sourceThinHoldCount);
-assert.equal(direct.length + corroborated.length + reuse.length + holds.length, 83);
+assert.equal(excluded.length, audit.excludedInvalidCount);
+assert.equal(direct.length + corroborated.length + reuse.length + holds.length + excluded.length, 83);
 
 assert.equal(reuse.length, 13);
 assert.deepEqual(holds.map((x) => x.candidateId), ["MIS-CAND-034", "MIS-CAND-072"]);
+assert.deepEqual(excluded.map((x) => x.candidateId), ["MIS-CAND-078"]);
 assert.ok(MIS_001_SOURCE_EVIDENCE_V1.length >= 12);
 assert.equal(new Set(MIS_001_SOURCE_EVIDENCE_V1.map((x) => x.sourceId)).size, MIS_001_SOURCE_EVIDENCE_V1.length);
 
@@ -45,6 +48,9 @@ for (const item of reuse) {
 for (const item of holds) {
   assert.equal(item.decision, "HOLD_NO_PERMANENT_QL");
 }
+for (const item of excluded) {
+  assert.equal(item.decision, "EXCLUDE_RUNTIME");
+}
 
 const metadata = MIS_001_QUESTION_STUDIO_PACKAGE.metadata as Record<string, unknown>;
 assert.equal(metadata.permanentQlAllocation, false);
@@ -54,6 +60,8 @@ assert.equal(audit.ownershipBoundary.formulaChangeAloneCreatesQl, false);
 assert.equal(audit.ownershipBoundary.rendererChangeAloneCreatesQl, false);
 assert.equal(audit.ownershipBoundary.inverseMissingPositionAloneCreatesQl, false);
 assert.equal(audit.ownershipBoundary.evidenceCountAloneCreatesQl, false);
+assert.equal(audit.activeRuntimePatternCount, 82);
+assert.equal(audit.activeSemanticAuthorityCount, 69);
 assert.equal(audit.nextWave, "FORMULA_TO_LEARNER_SKILL_MERGE_SPLIT");
 
 console.log(JSON.stringify({
@@ -62,6 +70,7 @@ console.log(JSON.stringify({
   familyCorroborated: corroborated.length,
   reuseOnly: reuse.length,
   sourceThinHolds: holds.map((x) => x.candidateId),
+  excludedInvalid: excluded.map((x) => x.candidateId),
   permanentQlAllocationAllowed: audit.permanentQlAllocationAllowed,
   nextWave: audit.nextWave,
 }, null, 2));
