@@ -753,10 +753,10 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Run GEO-MIN-001 CP001-CP005 review gates
+      - name: Run GEO-MIN-001 review gates
         run: |
           mkdir -p artifacts/api-server/dist/geography
-          for cp in 001 002 003 004 005; do
+          for cp in 001 002 003 004 005 006 007; do
             pnpm --dir artifacts/api-server exec esbuild \
               "src/knowledge-v1/indian-geography/minerals-energy/geo-min-001-cp${cp}-review-batch-v1.test.ts" \
               --bundle --packages=external --platform=node --format=esm \
@@ -775,10 +775,10 @@ jobs:
             --outfile="dist/geography/geo-min-001-wave1-audit-v1.test.mjs"
           node "artifacts/api-server/dist/geography/geo-min-001-wave1-audit-v1.test.mjs"
 
-      - name: Upload GEO-MIN-001 CP001-CP005 review artifacts
+      - name: Upload GEO-MIN-001 review artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: GEO-MIN-001-CP001-CP005-REVIEW-V1
+          name: GEO-MIN-001-REVIEW-V1
           path: artifacts/api-server/dist/geography-review/GEO-MIN-001-CP*-V1/
           if-no-files-found: error
           retention-days: 30
