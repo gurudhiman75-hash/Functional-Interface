@@ -620,6 +620,105 @@ buildGeoMinQl("INTEGRATED-IRON-ORE-COMPARISON", "Integrated iron ore comparison"
     "explanation": "Keonjhar is a major iron-ore area, iron ore is ferrous, and it provides the iron input for steel. The other chains combine locations and mineral classes incorrectly.",
     "sourceFactId": "IRON-ORE-INTEGRATED-6"
   }
+] as const),
+
+buildGeoMinQl("NOAMUNDI-SINGHBHUM-IRON-ORE", "Noamundi and Singhbhum iron-ore geography", [
+  {
+    "stem": "Noamundi, an important iron-ore mining centre, is located in which state?",
+    "answer": "Jharkhand",
+    "distractors": [
+      "Odisha",
+      "Chhattisgarh",
+      "Karnataka"
+    ],
+    "explanation": "Noamundi lies in West Singhbhum district of Jharkhand and is one of the classic iron-ore locations of the eastern mineral belt. It is closely linked with the wider Singhbhum iron-ore region.",
+    "sourceFactId": "IRON-NOAMUNDI-STATE",
+    "sourceIds": [
+      "NCERT-CLASS10-CONTEMPORARY-INDIA-II-CH5-MINERALS-ENERGY-2025-26",
+      "IBM-MINERAL-REVIEW-IRON-ORE",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Which mineral is most strongly linked with Noamundi in Indian geography?",
+    "answer": "Iron ore",
+    "distractors": [
+      "Bauxite",
+      "Mica",
+      "Gypsum"
+    ],
+    "explanation": "Noamundi is a major iron-ore mining centre in Jharkhand. Its location within the Singhbhum belt makes it a standard map and location question in Indian mineral geography.",
+    "sourceFactId": "IRON-NOAMUNDI-RESOURCE",
+    "sourceIds": [
+      "NCERT-CLASS10-CONTEMPORARY-INDIA-II-CH5-MINERALS-ENERGY-2025-26",
+      "IBM-MINERAL-REVIEW-IRON-ORE",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Noamundi lies in Jharkhand. II. It forms part of the Singhbhum iron-ore region. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Noamundi is in West Singhbhum district of Jharkhand and belongs to the important Singhbhum iron-ore belt. Both statements correctly describe the same mineral region.",
+    "sourceFactId": "IRON-NOAMUNDI-STATEMENT",
+    "sourceIds": [
+      "NCERT-CLASS10-CONTEMPORARY-INDIA-II-CH5-MINERALS-ENERGY-2025-26",
+      "IBM-MINERAL-REVIEW-IRON-ORE",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Noamundi — iron ore",
+    "distractors": [
+      "Noamundi — petroleum",
+      "Noamundi — mica",
+      "Noamundi — gypsum"
+    ],
+    "explanation": "Noamundi is a well-known iron-ore centre of Jharkhand. Petroleum, mica and gypsum have different principal regions and should not be confused with the Singhbhum iron belt.",
+    "sourceFactId": "IRON-NOAMUNDI-MATCH",
+    "sourceIds": [
+      "NCERT-CLASS10-CONTEMPORARY-INDIA-II-CH5-MINERALS-ENERGY-2025-26",
+      "IBM-MINERAL-REVIEW-IRON-ORE",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "A mineral map marks Noamundi and adjoining Singhbhum. Which resource should be identified first?",
+    "answer": "Iron ore",
+    "distractors": [
+      "Lignite",
+      "Natural gas",
+      "Rock phosphate"
+    ],
+    "explanation": "Noamundi and Singhbhum together are strong clues to eastern India's iron-ore geography. The cluster is unrelated to lignite, gas or phosphate belts.",
+    "sourceFactId": "IRON-NOAMUNDI-MAP",
+    "sourceIds": [
+      "NCERT-CLASS10-CONTEMPORARY-INDIA-II-CH5-MINERALS-ENERGY-2025-26",
+      "IBM-MINERAL-REVIEW-IRON-ORE",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Which comparison is correct?",
+    "answer": "Noamundi is in Jharkhand, while Bailadila is in Chhattisgarh",
+    "distractors": [
+      "Both are in Karnataka",
+      "Noamundi is in Goa and Bailadila in Odisha",
+      "Both are petroleum fields"
+    ],
+    "explanation": "Noamundi represents the Singhbhum iron-ore region of Jharkhand, while Bailadila lies in Bastar, Chhattisgarh. Both are important iron-ore locations in different belts.",
+    "sourceFactId": "IRON-NOAMUNDI-BAILADILA",
+    "sourceIds": [
+      "NCERT-CLASS10-CONTEMPORARY-INDIA-II-CH5-MINERALS-ENERGY-2025-26",
+      "IBM-MINERAL-REVIEW-IRON-ORE",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  }
 ] as const)
 ]);
 
