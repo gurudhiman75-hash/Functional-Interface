@@ -620,6 +620,285 @@ buildGeoMinQl("INTEGRATED-NON-METALLIC-MINERAL-REASONING", "Integrated non-metal
     "explanation": "Mica, limestone and gypsum are all non-metallic, but their uses differ sharply. Understanding those functional differences is more useful than memorising the classification alone.",
     "sourceFactId": "NONMETALLIC-INTEGRATED-6"
   }
+] as const),
+
+buildGeoMinQl("GRAPHITE-PROPERTIES-USES-AND-INDIAN-BELTS", "Graphite properties, uses and Indian belts", [
+  {
+    "stem": "Which mineral is a naturally occurring form of carbon with a layered structure?",
+    "answer": "Graphite",
+    "distractors": [
+      "Gypsum",
+      "Dolomite",
+      "Bauxite"
+    ],
+    "explanation": "Graphite is a naturally occurring form of carbon and has a layered structure. Its layers help explain properties such as softness, lubrication and use in several industrial applications.",
+    "sourceFactId": "GRAPHITE-CARBON",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GRAPHITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which mineral is used in crucibles, refractories, pencils and battery applications?",
+    "answer": "Graphite",
+    "distractors": [
+      "Limestone",
+      "Mica",
+      "Gypsum"
+    ],
+    "explanation": "IBM lists graphite uses across crucibles, refractories, pencils, lubricants and batteries. The combination of thermal stability, conductivity and layered structure gives it this wide industrial range.",
+    "sourceFactId": "GRAPHITE-USES",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GRAPHITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Graphite occurs in flaky and amorphous varieties. II. Graphite is a metallic iron ore. Which is correct?",
+    "answer": "Only I is correct",
+    "distractors": [
+      "Only II is correct",
+      "Both I and II are correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Natural graphite is commercially recognised in crystalline flaky and amorphous forms. It is a non-metallic carbon mineral, not an iron ore or ferrous metallic mineral.",
+    "sourceFactId": "GRAPHITE-VARIETIES",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GRAPHITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Palamu — graphite",
+    "distractors": [
+      "Palamu — petroleum",
+      "Balangir — iron ore only",
+      "Sivagangai — chromite"
+    ],
+    "explanation": "IBM records graphite mining centres in Palamu district of Jharkhand, Balangir in Odisha and Sivagangai in Tamil Nadu. Palamu is therefore a durable graphite-location association.",
+    "sourceFactId": "GRAPHITE-PALAMU",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GRAPHITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A mineral map marks Palamu in Jharkhand, Balangir in Odisha and Sivagangai in Tamil Nadu. Which mineral links these locations?",
+    "answer": "Graphite",
+    "distractors": [
+      "Mica",
+      "Copper",
+      "Rock salt"
+    ],
+    "explanation": "These three locations are established graphite areas recorded in IBM mineral reviews. Their spread across eastern and southern India makes them useful for map-based identification.",
+    "sourceFactId": "GRAPHITE-MAP",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GRAPHITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Why is graphite useful in lithium-ion battery anodes?",
+    "answer": "Its layered structure can host lithium ions while conducting electrical charge",
+    "distractors": [
+      "It is a liquid electrolyte",
+      "It supplies aluminium metal",
+      "It acts only as a cement flux"
+    ],
+    "explanation": "Graphite's layered atomic structure can accommodate lithium ions and it also conducts electricity. This combination explains its important role as an anode material in lithium-ion batteries.",
+    "sourceFactId": "GRAPHITE-BATTERY",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-GRAPHITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
+] as const),
+
+buildGeoMinQl("MAGNESITE-SALEM-REFRACTORY-GEOGRAPHY", "Magnesite, Salem and refractory use", [
+  {
+    "stem": "Magnesite is chemically a carbonate of which element?",
+    "answer": "Magnesium",
+    "distractors": [
+      "Iron",
+      "Aluminium",
+      "Copper"
+    ],
+    "explanation": "Magnesite is magnesium carbonate, written chemically as MgCO3. This composition distinguishes it from limestone and dolomite and underlies its importance in refractory materials.",
+    "sourceFactId": "MAGNESITE-CHEMISTRY",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MAGNESITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which industry uses magnesite extensively for basic refractory materials?",
+    "answer": "Iron and steel industry",
+    "distractors": [
+      "Jute industry",
+      "Tea industry",
+      "Cotton spinning only"
+    ],
+    "explanation": "Calcined magnesite is an important basic refractory material capable of withstanding high temperatures. It is therefore used widely in furnace linings and other applications in the steel industry.",
+    "sourceFactId": "MAGNESITE-REFRACTORY",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MAGNESITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Salem is an important magnesite centre in which state?",
+    "answer": "Tamil Nadu",
+    "distractors": [
+      "Odisha",
+      "Rajasthan",
+      "Jharkhand"
+    ],
+    "explanation": "The Salem area of Tamil Nadu is one of India's best-known magnesite regions. IBM describes magnesite there as occurring in veins and stringers within ultrabasic rocks.",
+    "sourceFactId": "MAGNESITE-SALEM",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MAGNESITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Magnesite occurs around Salem in Tamil Nadu. II. It is important for refractory manufacture. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Salem is a major magnesite area and calcined magnesite is widely used for refractory products. Both the location and industrial-use statements are therefore correct.",
+    "sourceFactId": "MAGNESITE-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MAGNESITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Bageshwar — magnesite",
+    "distractors": [
+      "Bageshwar — chromite",
+      "Salem — rock phosphate",
+      "Pithoragarh — petroleum"
+    ],
+    "explanation": "IBM records important magnesite occurrences and workings in Uttarakhand, including Bageshwar and Pithoragarh, as well as the major Salem region in Tamil Nadu.",
+    "sourceFactId": "MAGNESITE-BAGESHWAR",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MAGNESITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A mineral occurs as veins in ultrabasic rocks near Salem and is used after calcination in furnace linings. Which mineral is it?",
+    "answer": "Magnesite",
+    "distractors": [
+      "Graphite",
+      "Gypsum",
+      "Mica"
+    ],
+    "explanation": "The combination of Salem, veins in ultrabasic rocks and refractory use points directly to magnesite. These geological and industrial clues make a stronger identification than location alone.",
+    "sourceFactId": "MAGNESITE-INTEGRATED",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MAGNESITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
+] as const),
+
+buildGeoMinQl("DOLOMITE-FLUX-REFRACTORY-INDUSTRIAL-USE", "Dolomite as flux and refractory mineral", [
+  {
+    "stem": "Which mineral is used as a flux in iron and steel manufacture and also in refractory applications?",
+    "answer": "Dolomite",
+    "distractors": [
+      "Mica",
+      "Graphite",
+      "Rock salt"
+    ],
+    "explanation": "Dolomite is used as a flux in iron and steel and ferro-alloy industries and, after suitable treatment, as a refractory material. Its industrial role overlaps partly with limestone but is not identical.",
+    "sourceFactId": "DOLOMITE-USES",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DOLOMITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "In which industry is flux-grade dolomite especially important?",
+    "answer": "Iron and steel industry",
+    "distractors": [
+      "Tea processing",
+      "Jute retting",
+      "Paper made only from bamboo"
+    ],
+    "explanation": "Flux-grade dolomite is used in iron and steel making to assist metallurgical processing. IBM also records refractory and glass uses for suitable grades of dolomite.",
+    "sourceFactId": "DOLOMITE-STEEL",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DOLOMITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Dolomite can be used as a metallurgical flux. II. High-purity dolomite can also be used in refractories. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Dolomite has important metallurgical and refractory uses. Flux-grade material serves iron and steel industries, while high-purity dead-burnt dolomite can be used in furnace linings.",
+    "sourceFactId": "DOLOMITE-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DOLOMITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Dolomite — flux and refractory use",
+    "distractors": [
+      "Dolomite — principal copper ore",
+      "Dolomite — petroleum source rock only",
+      "Dolomite — electrical sheet insulator"
+    ],
+    "explanation": "Dolomite is an industrial non-metallic mineral used as flux and refractory material. Copper ores, petroleum source rocks and mica insulation belong to different resource chains.",
+    "sourceFactId": "DOLOMITE-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DOLOMITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which states are among India's important dolomite-bearing regions?",
+    "answer": "Chhattisgarh and Odisha",
+    "distractors": [
+      "Punjab and Haryana only",
+      "Delhi and Chandigarh",
+      "Goa and Lakshadweep only"
+    ],
+    "explanation": "IBM resource tables record substantial dolomite resources in states including Chhattisgarh and Odisha, along with Madhya Pradesh, Karnataka, Rajasthan and others. The fact is geographic rather than a production-rank claim.",
+    "sourceFactId": "DOLOMITE-STATES",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DOLOMITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A steel plant seeks a non-metallic mineral that can serve both as flux and refractory feedstock. Which resource is the best fit?",
+    "answer": "Dolomite",
+    "distractors": [
+      "Mica",
+      "Salt",
+      "Graphite only"
+    ],
+    "explanation": "Dolomite can support steel making in more than one way: as a flux in metallurgical processes and as a raw material for refractory products. That dual role makes it distinct among industrial minerals.",
+    "sourceFactId": "DOLOMITE-REASONING",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-DOLOMITE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
 ] as const)
 ]);
 
