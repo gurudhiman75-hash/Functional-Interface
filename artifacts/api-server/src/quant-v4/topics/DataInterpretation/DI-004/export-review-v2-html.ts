@@ -2,6 +2,7 @@ import { writeFileSync } from "node:fs";
 import { renderDiLineSvg } from "../visuals/line-svg";
 import { DI004_PERMANENT_QLS } from "./permanent-ql-registry";
 import { generateDi004PermanentQuestion } from "./permanent-question-generator";
+import { generateDi004LocalizedReviewQuestion, type Di004LocalizationLocale } from "./localization-review-v1";
 
 function esc(value: string | number) {
   return String(value)
@@ -84,10 +85,41 @@ function englishSection(profile: "SSC_CGL_TIER_I" | "BANKING_PRELIMS") {
   return `<section class="language-block"><h2>${esc(profile.replaceAll("_", " "))} — English</h2>${cards}</section>`;
 }
 
+function localizedSection(locale: Di004LocalizationLocale) {
+  const title = locale === "hi-IN" ? "Hindi (hi-IN)" : "Punjabi (pa-IN)";
+  const cards = DI004_PERMANENT_QLS.map((descriptor, index) => {
+    const examProfile = index % 2 === 0 ? "SSC_CGL_TIER_I" as const : "BANKING_PRELIMS" as const;
+    const source = generateDi004LocalizedReviewQuestion({
+      seed: `DI004-HTML-LOCALIZATION-REVIEW:${locale}:${descriptor.qlId}`,
+      examProfile,
+      taskKind: descriptor.taskKind,
+      locale,
+    });
+    return `<section class="review-item">
+      <div class="item-head"><div><div class="eyebrow">${esc(descriptor.qlId)}</div><h3>${esc(descriptor.taskKind)}</h3></div><span class="badge">${esc(examProfile.replaceAll("_", " "))}</span></div>
+      <p class="instruction">${esc(source.stimulus.instruction)}</p>
+      <div class="chart">${lineSvg(source.stimulus)}</div>
+      ${questionCard({
+        qlId: descriptor.qlId,
+        taskKind: source.question.kind,
+        difficulty: source.question.difficulty,
+        stem: source.question.stem,
+        options: source.question.options,
+        correctIndex: source.question.correctIndex,
+        answer: source.question.answer,
+        explanation: source.question.explanation,
+      })}
+    </section>`;
+  }).join("");
+  return `<section class="language-block"><h2>${title}</h2>${cards}</section>`;
+}
+
 const outputPath = process.argv[2] ?? "DI-004-REVIEW-V2.html";
 const sections = [
   englishSection("SSC_CGL_TIER_I"),
   englishSection("BANKING_PRELIMS"),
+  localizedSection("hi-IN"),
+  localizedSection("pa-IN"),
 ].join("");
 
 const html = `<!doctype html>
@@ -101,7 +133,7 @@ const html = `<!doctype html>
 </style>
 </head>
 <body><main class="shell">
-<section class="hero"><h1>DI-004 Line Graph — Visual Review</h1><p>This is the primary human-review surface for DI-004. Each question is shown with the actual line graph generated from the same semantic stimulus used by the question engine.</p><p>The Markdown data tables remain only as a textual/debug representation and are not the intended learner presentation.</p><div class="notice"><strong>Review only.</strong> This decoupled pack contains the approved English authority only. Question Bank, tests, mocks and public/student publication remain locked.</div></section>
+<section class="hero"><h1>DI-004 Line Graph — Visual Review</h1><p>This is the primary human-review surface for DI-004. Each question is shown with the actual line graph generated from the same semantic stimulus used by the question engine.</p><p>The Markdown data tables remain only as a textual/debug representation and are not the intended learner presentation.</p><div class="notice"><strong>Review only.</strong> Hindi/Punjabi remain HI_PA_REVIEW_CANDIDATE until human approval. Question Bank, tests, mocks and public/student publication remain locked.</div></section>
 ${sections}
 </main></body></html>`;
 

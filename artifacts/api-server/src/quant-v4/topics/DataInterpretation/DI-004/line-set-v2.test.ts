@@ -1,3 +1,5 @@
+import { renderDiLineSvg } from "../visuals/line-svg";
+import "./localization-review-v1.test";
 import {
   DI004_V2_CONTEXT_COUNT,
   DI004_V2_ENTITY_LABEL_COUNT,
@@ -51,6 +53,20 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
     assert(set.stimulus.points.every((point) => Number.isSafeInteger(point.seriesA) && Number.isSafeInteger(point.seriesB) && point.seriesA > 0 && point.seriesB > 0), `${seed}: invalid plotted value.`);
     assert(valuesA.some((value, index) => value < valuesB[index]!) && valuesA.some((value, index) => value > valuesB[index]!), `${seed}: graph lost line-order reversal.`);
 
+    const svg = renderDiLineSvg({
+      title: set.stimulus.title,
+      yAxisLabel: set.stimulus.yAxisLabel,
+      unitLabel: set.stimulus.unitLabel,
+      seriesALabel: set.stimulus.series[0].label,
+      seriesBLabel: set.stimulus.series[1].label,
+      points: set.stimulus.points,
+    });
+    assert((svg.match(/data-series-a-value=/gu) ?? []).length === 6, `${seed}: line graph must expose all six Series A values.`);
+    assert((svg.match(/data-series-b-value=/gu) ?? []).length === 6, `${seed}: line graph must expose all six Series B values.`);
+    for (const point of set.stimulus.points) {
+      assert(svg.includes(`>${point.seriesA}</text>`) && svg.includes(`>${point.seriesB}</text>`), `${seed}: exact plotted values are not learner-readable.`);
+    }
+
     for (const question of set.questions) {
       taskSeen.add(question.kind);
       const byTask = surfaces.get(question.kind) ?? new Set<string>();
@@ -62,6 +78,7 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
       assert(new Set(question.options).size === set.optionCount, `${seed}/${question.kind}: duplicate options.`);
       assert(question.options[question.correctIndex] === question.answer, `${seed}/${question.kind}: correct-index mismatch.`);
       assert(!/\bassociated\b/iu.test(question.stem), `${seed}/${question.kind}: mechanical 'associated' wording leaked into the stem.`);
+      assert(!/nearest whole|round to the nearest|give the nearest whole/iu.test(question.stem), `${seed}/${question.kind}: explicit rounding instruction leaked into the stem.`);
       assert(!/\d+\.\d+%/u.test(question.stem + " " + question.answer), `${seed}/${question.kind}: decimal percentage leaked to learner surface.`);
       assert((question.explanation as any).shortcut === undefined && (question.explanation as any).trap === undefined, `${seed}/${question.kind}: forced shortcut/trap fields returned.`);
       assert(question.explanation.steps.length >= 2, `${seed}/${question.kind}: explanation is too thin.`);

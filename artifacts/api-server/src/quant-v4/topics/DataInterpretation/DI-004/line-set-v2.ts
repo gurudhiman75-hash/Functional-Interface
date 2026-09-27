@@ -432,15 +432,15 @@ function buildAllDrafts(seed: string, stimulus: Di004V2Stimulus): Draft[] {
   ]);
 
   const averageSurface = surface(`${seed}:THREE_PERIOD_AVERAGE:surface`, [
-    `What was the average value of ${averageLabel} from ${points[averageStart]!.period} through ${points[averageStart + 2]!.period}? Give the nearest whole number.`,
-    `Find the average for ${averageLabel} over ${points[averageStart]!.period}, ${points[averageStart + 1]!.period} and ${points[averageStart + 2]!.period}, to the nearest whole number.`,
-    `To the nearest whole number, what is the mean of ${averageLabel}'s values in the three periods from ${points[averageStart]!.period} to ${points[averageStart + 2]!.period}?`,
+    `Approximately what was the average value of ${averageLabel} from ${points[averageStart]!.period} through ${points[averageStart + 2]!.period}?`,
+    `Find the approximate average for ${averageLabel} over ${points[averageStart]!.period}, ${points[averageStart + 1]!.period} and ${points[averageStart + 2]!.period}.`,
+    `What is the approximate mean of ${averageLabel}'s values in the three periods from ${points[averageStart]!.period} to ${points[averageStart + 2]!.period}?`,
   ]);
 
   const increaseSurface = surface(`${seed}:CONSECUTIVE_PERCENT_INCREASE:surface`, [
-    `By what percentage did ${increaseLabel} increase from ${points[increaseFromIndex]!.period} to ${points[increaseToIndex]!.period}? Give the nearest whole percent.`,
-    `The value for ${increaseLabel} rose between ${points[increaseFromIndex]!.period} and ${points[increaseToIndex]!.period}. What was the percentage increase, to the nearest whole percent?`,
-    `Taking ${points[increaseFromIndex]!.period} as the base, by what percentage did ${increaseLabel} increase in ${points[increaseToIndex]!.period}? Round to the nearest whole percent.`,
+    `Approximately by what percentage did ${increaseLabel} increase from ${points[increaseFromIndex]!.period} to ${points[increaseToIndex]!.period}?`,
+    `The value for ${increaseLabel} rose between ${points[increaseFromIndex]!.period} and ${points[increaseToIndex]!.period}. Approximately what was the percentage increase?`,
+    `Taking ${points[increaseFromIndex]!.period} as the base, approximately by what percentage did ${increaseLabel} increase in ${points[increaseToIndex]!.period}?`,
   ]);
 
   const twoPeriodRatioSurface = surface(`${seed}:TWO_PERIOD_SERIES_RATIO:surface`, [
@@ -462,14 +462,14 @@ function buildAllDrafts(seed: string, stimulus: Di004V2Stimulus): Draft[] {
   ]);
 
   const combinedPercentSurface = surface(`${seed}:COMBINED_PERIOD_PERCENT_EXCESS:surface`, [
-    `The combined value of both series in ${points[largerCombinedIndex]!.period} was what percent higher than in ${points[smallerCombinedIndex]!.period}? Give the nearest whole percent.`,
-    `By what percentage did the two-series total in ${points[largerCombinedIndex]!.period} exceed the two-series total in ${points[smallerCombinedIndex]!.period}, to the nearest whole percent?`,
+    `The combined value of both series in ${points[largerCombinedIndex]!.period} was approximately what percent higher than in ${points[smallerCombinedIndex]!.period}?`,
+    `Approximately by what percentage did the two-series total in ${points[largerCombinedIndex]!.period} exceed the two-series total in ${points[smallerCombinedIndex]!.period}?`,
     `Taking the combined value in ${points[smallerCombinedIndex]!.period} as the base, how much higher was the combined value in ${points[largerCombinedIndex]!.period}, in percentage terms?`,
   ]);
 
   const totalPercentSurface = surface(`${seed}:TOTAL_SERIES_PERCENT_EXCESS:surface`, [
-    `Over all six periods, ${largerSeriesLabel}'s total was what percent higher than ${smallerSeriesLabel}'s total? Give the nearest whole percent.`,
-    `By what percentage did the six-period total of ${largerSeriesLabel} exceed that of ${smallerSeriesLabel}? Round to the nearest whole percent.`,
+    `Over all six periods, ${largerSeriesLabel}'s total was approximately what percent higher than ${smallerSeriesLabel}'s total?`,
+    `Approximately by what percentage did the six-period total of ${largerSeriesLabel} exceed that of ${smallerSeriesLabel}?`,
     `Taking ${smallerSeriesLabel}'s six-period total as the base, find the percentage excess of ${largerSeriesLabel}'s total.`,
   ]);
 
@@ -577,7 +577,7 @@ function buildAllDrafts(seed: string, stimulus: Di004V2Stimulus): Draft[] {
         keyIdea: "Add the three requested values from the same series and divide by three.",
         steps: [
           `${averageLabel} values = ${averageValues.join(", ")}; total = ${averageSum}.`,
-          `Average = ${averageSum}/3 ≈ ${averageAnswer} to the nearest whole number.`,
+          `Average = ${averageSum}/3 ≈ ${averageAnswer}.`,
         ],
       },
       evidence: { startIndex: averageStart, seriesCode: averageSeries },
