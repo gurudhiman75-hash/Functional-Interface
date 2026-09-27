@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "WGE-001-CP013-Q001",
+    "cpId": "WGE-001-CP013",
+    "objective": "climate-classification-factors",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which two elements form the main basis of the Köppen climate classification?",
+        "options": [
+          "Temperature and precipitation",
+          "Humidity and wind speed",
+          "Air pressure and cloud cover",
+          "Sunshine duration and visibility"
+        ],
+        "explanation": "Köppen classification uses temperature and precipitation patterns, which are closely related to vegetation."
+      },
+      "hi": {
+        "stem": "कोपेन जलवायु वर्गीकरण का मुख्य आधार कौन-से दो तत्व हैं?",
+        "options": [
+          "तापमान और वर्षण",
+          "आर्द्रता और पवन की गति",
+          "वायुदाब और बादलों का आवरण",
+          "धूप की अवधि और दृश्यता"
+        ],
+        "explanation": "कोपेन वर्गीकरण तापमान और वर्षण के प्रतिरूपों पर आधारित है, जिनका वनस्पति से निकट संबंध है।"
+      },
+      "pa": {
+        "stem": "कोਪਨ ਜਲਵਾਯੂ ਵਰਗੀਕਰਨ ਦਾ ਮੁੱਖ ਆਧਾਰ ਕਿਹੜੇ ਦੋ ਤੱਤ ਹਨ?",
+        "options": [
+          "ਤਾਪਮਾਨ ਅਤੇ ਵਰਖਾ",
+          "ਨਮੀ ਅਤੇ ਹਵਾ ਦੀ ਗਤੀ",
+          "ਹਵਾ ਦਾ ਦਬਾਅ ਅਤੇ ਬੱਦਲਾਂ ਦੀ ਢੱਕਣ",
+          "ਧੁੱਪ ਦੀ ਮਿਆਦ ਅਤੇ ਦਿੱਖ"
+        ],
+        "explanation": "ਕੋਪਨ ਵਰਗੀਕਰਨ ਤਾਪਮਾਨ ਅਤੇ ਵਰਖਾ ਦੇ ਰੂਪਾਂ ਉੱਤੇ ਆਧਾਰਿਤ ਹੈ, ਜਿਨ੍ਹਾਂ ਦਾ ਬਨਸਪਤੀ ਨਾਲ ਨੇੜਲਾ ਸੰਬੰਧ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q002",
+    "cpId": "WGE-001-CP013",
+    "objective": "equatorial-climate-rainfall",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which rainfall pattern is most typical of an equatorial climate?",
+        "options": [
+          "A single short rainy season",
+          "Heavy rain in most months with little annual temperature range",
+          "Winter rain and a dry summer",
+          "Rain only when temperate cyclones pass"
+        ],
+        "explanation": "Strong heating and humid rising air support frequent convectional rain through much of the year near the equator."
+      },
+      "hi": {
+        "stem": "विषुवतीय जलवायु में वर्षा का कौन-सा प्रतिरूप सामान्य है?",
+        "options": [
+          "वर्षा की एक छोटी ऋतु",
+          "अधिकांश महीनों में भारी वर्षा और सालाना तापांतर बहुत कम",
+          "सर्दियों में वर्षा और गर्मियों में शुष्कता",
+          "केवल समशीतोष्ण चक्रवात आने पर वर्षा"
+        ],
+        "explanation": "भूमध्य रेखा के पास तीव्र ऊष्मा और नम ऊपर उठती वायु से वर्ष के अधिकतर महीनों में संवहनीय वर्षा होती है।"
+      },
+      "pa": {
+        "stem": "ਭੂ-ਮੱਧੀ ਜਲਵਾਯੂ ਵਿੱਚ ਵਰਖਾ ਦਾ ਕਿਹੜਾ ਰੂਪ ਆਮ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਮੀਂਹ ਦੀ ਇੱਕ ਛੋਟੀ ਰੁੱਤ",
+          "ਜ਼ਿਆਦਾਤਰ ਮਹੀਨਿਆਂ ਵਿੱਚ ਭਾਰੀ ਮੀਂਹ ਅਤੇ ਸਾਲਾਨਾ ਤਾਪ-ਫ਼ਰਕ ਬਹੁਤ ਘੱਟ",
+          "ਸਰਦੀਆਂ ਵਿੱਚ ਮੀਂਹ ਅਤੇ ਗਰਮੀਆਂ ਵਿੱਚ ਖੁਸ਼ਕੀ",
+          "ਸਿਰਫ਼ ਸਮਸ਼ੀਤੋਸ਼ਣ ਚੱਕਰਵਾਤ ਆਉਣ ਤੇ ਮੀਂਹ"
+        ],
+        "explanation": "ਭੂ-ਮੱਧ ਰੇਖਾ ਨੇੜੇ ਤੇਜ਼ ਗਰਮੀ ਅਤੇ ਨਮੀ ਵਾਲੀ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹਵਾ ਸਾਲ ਦੇ ਬਹੁਤੇ ਮਹੀਨਿਆਂ ਵਿੱਚ ਸੰਵਹਨੀ ਮੀਂਹ ਲਿਆਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q003",
+    "cpId": "WGE-001-CP013",
+    "objective": "equatorial-regions",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which set of regions lies mainly within the equatorial rainforest climate belt?",
+        "options": [
+          "Amazon Basin, Congo Basin and Indonesia",
+          "Sahara, Arabian Peninsula and central Australia",
+          "Mediterranean Basin, California and central Chile",
+          "Siberia, northern Canada and Greenland"
+        ],
+        "explanation": "The Amazon and Congo basins and much of Indonesia lie near the equator and have hot, humid conditions through most of the year."
+      },
+      "hi": {
+        "stem": "कौन-सा समूह मुख्यतः विषुवतीय वर्षावन जलवायु क्षेत्र में आता है?",
+        "options": [
+          "अमेज़न बेसिन, कांगो बेसिन और इंडोनेशिया",
+          "सहारा, अरब प्रायद्वीप और मध्य ऑस्ट्रेलिया",
+          "भूमध्यसागरीय बेसिन, कैलिफ़ोर्निया और मध्य चिली",
+          "साइबेरिया, उत्तरी कनाडा और ग्रीनलैंड"
+        ],
+        "explanation": "अमेज़न और कांगो बेसिन तथा इंडोनेशिया का बड़ा भाग भूमध्य रेखा के पास है और वर्ष के अधिकांश समय गर्म व आर्द्र रहता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸਮੂਹ ਮੁੱਖ ਤੌਰ ਤੇ ਭੂ-ਮੱਧੀ ਵਰਖਾ-ਜੰਗਲ ਜਲਵਾਯੂ ਪੱਟੀ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਐਮਾਜ਼ਨ ਬੇਸਿਨ, ਕਾਂਗੋ ਬੇਸਿਨ ਅਤੇ ਇੰਡੋਨੇਸ਼ੀਆ",
+          "ਸਹਾਰਾ, ਅਰਬੀ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਮੱਧ ਆਸਟ੍ਰੇਲੀਆ",
+          "ਭੂ-ਮੱਧ ਸਾਗਰੀ ਬੇਸਿਨ, ਕੈਲੀਫੋਰਨੀਆ ਅਤੇ ਮੱਧ ਚਿਲੀ",
+          "ਸਾਈਬੇਰੀਆ, ਉੱਤਰੀ ਕੈਨੇਡਾ ਅਤੇ ਗ੍ਰੀਨਲੈਂਡ"
+        ],
+        "explanation": "ਐਮਾਜ਼ਨ ਅਤੇ ਕਾਂਗੋ ਬੇਸਿਨ ਤੇ ਇੰਡੋਨੇਸ਼ੀਆ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਭੂ-ਮੱਧ ਰੇਖਾ ਨੇੜੇ ਹੈ ਅਤੇ ਸਾਲ ਦੇ ਬਹੁਤੇ ਸਮੇਂ ਗਰਮ ਤੇ ਨਮੀ ਵਾਲਾ ਰਹਿੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q004",
+    "cpId": "WGE-001-CP013",
+    "objective": "tropical-savanna-seasonality",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A region has a pronounced wet summer and dry winter, with grassland and scattered trees. Which climate best fits?",
+        "options": [
+          "Equatorial rainforest",
+          "Mediterranean",
+          "Marine west coast",
+          "Tropical savanna"
+        ],
+        "explanation": "Tropical savanna climates have distinct wet and dry seasons; the length of the dry season often controls tree cover."
+      },
+      "hi": {
+        "stem": "किसी क्षेत्र में वर्षा वाली गर्मी, शुष्क सर्दी और घास के साथ विरल पेड़ हैं। कौन-सी जलवायु सबसे उपयुक्त है?",
+        "options": [
+          "विषुवतीय वर्षावन",
+          "भूमध्यसागरीय",
+          "समुद्री पश्चिमी तटीय",
+          "उष्णकटिबंधीय सवाना"
+        ],
+        "explanation": "उष्णकटिबंधीय सवाना में स्पष्ट वर्षा और शुष्क ऋतुएँ होती हैं। शुष्क ऋतु की अवधि पेड़ों की सघनता को प्रभावित करती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਸੇ ਖੇਤਰ ਵਿੱਚ ਮੀਂਹ ਵਾਲੀ ਗਰਮੀ, ਸੁੱਕੀ ਸਰਦੀ ਅਤੇ ਘਾਹ ਨਾਲ ਛਿੱਟੇ-ਛਿੱਟੇ ਦਰੱਖਤ ਹਨ। ਕਿਹੜੀ ਜਲਵਾਯੂ ਸਭ ਤੋਂ ਢੁੱਕਵੀਂ ਹੈ?",
+        "options": [
+          "ਭੂ-ਮੱਧੀ ਵਰਖਾ-ਜੰਗਲ",
+          "ਭੂ-ਮੱਧ ਸਾਗਰੀ",
+          "ਸਮੁੰਦਰੀ ਪੱਛਮੀ ਤੱਟੀ",
+          "ਗਰਮ-ਖੰਡੀ ਸਵਾਨਾ"
+        ],
+        "explanation": "ਗਰਮ-ਖੰਡੀ ਸਵਾਨਾ ਵਿੱਚ ਮੀਂਹ ਅਤੇ ਖੁਸ਼ਕੀ ਦੀਆਂ ਸਪਸ਼ਟ ਰੁੱਤਾਂ ਹੁੰਦੀਆਂ ਹਨ। ਸੁੱਕੀ ਰੁੱਤ ਦੀ ਮਿਆਦ ਦਰੱਖਤਾਂ ਦੀ ਘਣਤਾ ਉੱਤੇ ਅਸਰ ਪਾਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q005",
+    "cpId": "WGE-001-CP013",
+    "objective": "tropical-monsoon-versus-savanna",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "What most clearly separates a tropical monsoon climate from a tropical savanna climate?",
+        "options": [
+          "Monsoon climates have no seasonal rainfall pattern",
+          "Monsoon climates generally receive heavier seasonal rain and have a shorter dry season",
+          "Monsoon climates occur only at high latitudes",
+          "Savanna climates have rainfall evenly spread through the year"
+        ],
+        "explanation": "Both climates have seasonal rainfall, but monsoon regions usually receive a more concentrated and heavier seasonal rain supply."
+      },
+      "hi": {
+        "stem": "उष्णकटिबंधीय मानसूनी जलवायु को सवाना जलवायु से सबसे स्पष्ट रूप से क्या अलग करता है?",
+        "options": [
+          "मानसूनी जलवायु में वर्षा का कोई मौसमी प्रतिरूप नहीं होता",
+          "मानसूनी जलवायु में सामान्यतः अधिक तीव्र मौसमी वर्षा और छोटी शुष्क ऋतु होती है",
+          "मानसूनी जलवायु केवल उच्च अक्षांशों पर मिलती है",
+          "सवाना जलवायु में वर्षा साल भर समान रूप से होती है"
+        ],
+        "explanation": "दोनों में मौसमी वर्षा होती है, लेकिन मानसूनी क्षेत्रों में प्रायः वर्षा अधिक तीव्र और कम अवधि में केंद्रित होती है।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ-ਖੰਡੀ ਮਾਨਸੂਨੀ ਜਲਵਾਯੂ ਨੂੰ ਸਵਾਨਾ ਜਲਵਾਯੂ ਤੋਂ ਸਭ ਤੋਂ ਸਪਸ਼ਟ ਤੌਰ ਤੇ ਕੀ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਮਾਨਸੂਨੀ ਜਲਵਾਯੂ ਵਿੱਚ ਮੀਂਹ ਦਾ ਕੋਈ ਰੁੱਤੀ ਰੂਪ ਨਹੀਂ ਹੁੰਦਾ",
+          "ਮਾਨਸੂਨੀ ਜਲਵਾਯੂ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਵੱਧ ਮੌਸਮੀ ਮੀਂਹ ਅਤੇ ਛੋਟੀ ਸੁੱਕੀ ਰੁੱਤ ਹੁੰਦੀ ਹੈ",
+          "ਮਾਨਸੂਨੀ ਜਲਵਾਯੂ ਸਿਰਫ਼ ਉੱਚੇ ਅਕਸ਼ਾਂਸ਼ਾਂ ਉੱਤੇ ਮਿਲਦੀ ਹੈ",
+          "ਸਵਾਨਾ ਜਲਵਾਯੂ ਵਿੱਚ ਮੀਂਹ ਸਾਲ ਭਰ ਇਕਸਾਰ ਪੈਂਦਾ ਹੈ"
+        ],
+        "explanation": "ਦੋਵਾਂ ਵਿੱਚ ਰੁੱਤੀ ਮੀਂਹ ਹੁੰਦਾ ਹੈ, ਪਰ ਮਾਨਸੂਨੀ ਖੇਤਰਾਂ ਵਿੱਚ ਮੀਂਹ ਅਕਸਰ ਵੱਧ ਅਤੇ ਥੋੜ੍ਹੇ ਸਮੇਂ ਵਿੱਚ ਕੇਂਦਰਿਤ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q006",
+    "cpId": "WGE-001-CP013",
+    "objective": "hot-desert-subsidence",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Why are many hot deserts found near 20°–30° latitude?",
+        "options": [
+          "Polar air rises there throughout the year",
+          "Warm currents force continuous rainfall",
+          "Descending air in subtropical high-pressure belts suppresses cloud formation",
+          "The equatorial low-pressure belt remains fixed there"
+        ],
+        "explanation": "Descending air in the subtropical highs warms and dries, helping to limit cloud and rainfall over many desert regions."
+      },
+      "hi": {
+        "stem": "कई गर्म मरुस्थल 20°–30° अक्षांशों के पास क्यों पाए जाते हैं?",
+        "options": [
+          "वहाँ ध्रुवीय वायु पूरे वर्ष ऊपर उठती है",
+          "गर्म धाराएँ लगातार वर्षा कराती हैं",
+          "उपोष्ण उच्चदाब पेटियों में उतरती वायु बादल बनने को रोकती है",
+          "विषुवतीय निम्नदाब पेटी वहीं स्थिर रहती है"
+        ],
+        "explanation": "उपोष्ण उच्चदाब क्षेत्रों में उतरती वायु गर्म और शुष्क होती है, जिससे कई मरुस्थलीय क्षेत्रों में बादल और वर्षा कम होते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਈ ਗਰਮ ਮਾਰੂਥਲ 20°–30° ਅਕਸ਼ਾਂਸ਼ਾਂ ਨੇੜੇ ਕਿਉਂ ਮਿਲਦੇ ਹਨ?",
+        "options": [
+          "ਉੱਥੇ ਧਰੁਵੀ ਹਵਾ ਸਾਰਾ ਸਾਲ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹੈ",
+          "ਗਰਮ ਧਾਰਾਵਾਂ ਲਗਾਤਾਰ ਮੀਂਹ ਕਰਵਾਉਂਦੀਆਂ ਹਨ",
+          "ਉਪ-ਉੱਸ਼ਣ ਉੱਚ ਦਬਾਅ ਪੱਟੀਆਂ ਵਿੱਚ ਹੇਠਾਂ ਉਤਰਦੀ ਹਵਾ ਬੱਦਲ ਬਣਨ ਤੋਂ ਰੋਕਦੀ ਹੈ",
+          "ਭੂ-ਮੱਧੀ ਘੱਟ ਦਬਾਅ ਪੱਟੀ ਉੱਥੇ ਥਿਰ ਰਹਿੰਦੀ ਹੈ"
+        ],
+        "explanation": "ਉਪ-ਉੱਸ਼ਣ ਉੱਚ ਦਬਾਅ ਵਾਲੇ ਖੇਤਰਾਂ ਵਿੱਚ ਹੇਠਾਂ ਉਤਰਦੀ ਹਵਾ ਗਰਮ ਤੇ ਸੁੱਕੀ ਹੁੰਦੀ ਹੈ, ਜਿਸ ਨਾਲ ਕਈ ਮਾਰੂਥਲੀ ਖੇਤਰਾਂ ਵਿੱਚ ਬੱਦਲ ਅਤੇ ਮੀਂਹ ਘੱਟ ਹੁੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q007",
+    "cpId": "WGE-001-CP013",
+    "objective": "cold-desert-rainshadow",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A cold desert lies inland behind high mountains. Which factor most directly limits its rainfall?",
+        "options": [
+          "The mountains remove much of the incoming moisture on their windward slopes",
+          "Its low latitude produces persistent winter frost",
+          "Moist air rises on the leeward slope and loses its rain there",
+          "The region lies under the equatorial low-pressure belt"
+        ],
+        "explanation": "Air descending on the leeward side after losing moisture on the windward slopes creates a rain-shadow setting."
+      },
+      "hi": {
+        "stem": "ऊँचे पर्वतों के पीछे अंतर्देशीय ठंडा मरुस्थल है। उसकी वर्षा सबसे सीधे किस कारण कम होती है?",
+        "options": [
+          "पर्वतों की पवनाभिमुख ढाल आने वाली नमी का बड़ा भाग रोक लेती है",
+          "कम अक्षांश के कारण वहाँ लगातार शीतकालीन पाला पड़ता है",
+          "नम वायु पवनविमुख ढाल पर ऊपर उठकर वहीं वर्षा करती है",
+          "यह क्षेत्र विषुवतीय निम्नदाब पेटी में स्थित है"
+        ],
+        "explanation": "पवनाभिमुख ढाल पर नमी खोने के बाद वायु पर्वत की दूसरी ओर उतरती है, जिससे वर्षाछाया की स्थिति बनती है।"
+      },
+      "pa": {
+        "stem": "ਉੱਚੇ ਪਹਾੜਾਂ ਦੇ ਪਿੱਛੇ ਅੰਦਰੂਨੀ ਠੰਡਾ ਮਾਰੂਥਲ ਹੈ। ਇਸ ਦੀ ਵਰਖਾ ਸਭ ਤੋਂ ਸਿੱਧੇ ਕਿਹੜੇ ਕਾਰਨ ਘੱਟ ਹੈ?",
+        "options": [
+          "ਪਹਾੜਾਂ ਦੀ ਹਵਾ-ਵੱਲੀ ਢਲਾਣ ਆਉਂਦੀ ਨਮੀ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਰੋਕ ਲੈਂਦੀ ਹੈ",
+          "ਘੱਟ ਅਕਸ਼ਾਂਸ਼ ਕਰਕੇ ਉੱਥੇ ਲਗਾਤਾਰ ਸਰਦੀ ਦਾ ਪਾਲਾ ਪੈਂਦਾ ਹੈ",
+          "ਨਮੀ ਵਾਲੀ ਹਵਾ ਪਵਨ-ਵਿਰੋਧੀ ਢਲਾਣ ਉੱਤੇ ਚੜ੍ਹ ਕੇ ਉੱਥੇ ਹੀ ਮੀਂਹ ਪਾਉਂਦੀ ਹੈ",
+          "ਇਹ ਖੇਤਰ ਭੂ-ਮੱਧੀ ਘੱਟ ਦਬਾਅ ਪੱਟੀ ਹੇਠ ਸਥਿਤ ਹੈ"
+        ],
+        "explanation": "ਹਵਾ-ਵੱਲੀ ਢਲਾਣ ਉੱਤੇ ਨਮੀ ਗੁਆਉਣ ਪਿੱਛੋਂ ਹਵਾ ਪਹਾੜ ਦੇ ਦੂਜੇ ਪਾਸੇ ਹੇਠਾਂ ਉਤਰਦੀ ਹੈ, ਜਿਸ ਨਾਲ ਵਰਖਾ-ਛਾਂ ਬਣਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q008",
+    "cpId": "WGE-001-CP013",
+    "objective": "mediterranean-seasonality",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which seasonal pattern defines the Mediterranean climate?",
+        "options": [
+          "Wet summers and dry winters",
+          "Dry summers and wetter winters",
+          "Rainfall evenly spread through the year with severe winters",
+          "Permanent frost with little precipitation"
+        ],
+        "explanation": "Mediterranean climates typically have dry summers and most of their precipitation in the cooler part of the year."
+      },
+      "hi": {
+        "stem": "भूमध्यसागरीय जलवायु की मुख्य मौसमी विशेषता क्या है?",
+        "options": [
+          "वर्षा वाली गर्मी और शुष्क सर्दी",
+          "शुष्क गर्मी और अधिक वर्षा वाली सर्दी",
+          "साल भर समान वर्षा और कठोर सर्दी",
+          "लगातार पाला और बहुत कम वर्षा"
+        ],
+        "explanation": "भूमध्यसागरीय जलवायु में गर्मियाँ सामान्यतः शुष्क होती हैं और अधिकतर वर्षा ठंडे मौसम में होती है।"
+      },
+      "pa": {
+        "stem": "ਭੂ-ਮੱਧ ਸਾਗਰੀ ਜਲਵਾਯੂ ਦੀ ਮੁੱਖ ਰੁੱਤੀ ਵਿਸ਼ੇਸ਼ਤਾ ਕੀ ਹੈ?",
+        "options": [
+          "ਮੀਂਹ ਵਾਲੀਆਂ ਗਰਮੀਆਂ ਅਤੇ ਸੁੱਕੀਆਂ ਸਰਦੀਆਂ",
+          "ਸੁੱਕੀਆਂ ਗਰਮੀਆਂ ਅਤੇ ਵੱਧ ਮੀਂਹ ਵਾਲੀਆਂ ਸਰਦੀਆਂ",
+          "ਸਾਲ ਭਰ ਇਕਸਾਰ ਮੀਂਹ ਅਤੇ ਕੜਾਕੇ ਦੀ ਸਰਦੀ",
+          "ਸਦਾ ਪਾਲਾ ਅਤੇ ਬਹੁਤ ਘੱਟ ਮੀਂਹ"
+        ],
+        "explanation": "ਭੂ-ਮੱਧ ਸਾਗਰੀ ਜਲਵਾਯੂ ਵਿੱਚ ਗਰਮੀਆਂ ਆਮ ਤੌਰ ਤੇ ਸੁੱਕੀਆਂ ਹੁੰਦੀਆਂ ਹਨ ਅਤੇ ਵੱਧ ਮੀਂਹ ਠੰਡੇ ਮੌਸਮ ਵਿੱਚ ਪੈਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q009",
+    "cpId": "WGE-001-CP013",
+    "objective": "mediterranean-world-regions",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which group contains well-known Mediterranean-climate regions?",
+        "options": [
+          "Mediterranean Basin, coastal California and central Chile",
+          "Amazon Basin, Congo Basin and Indonesia",
+          "Sahara, Gobi and central Australia",
+          "Greenland, Siberia and Antarctica"
+        ],
+        "explanation": "Mediterranean-type climates occur on several west coasts in the mid-latitudes, including these three regions."
+      },
+      "hi": {
+        "stem": "किस समूह में भूमध्यसागरीय जलवायु वाले प्रसिद्ध क्षेत्र हैं?",
+        "options": [
+          "भूमध्यसागरीय बेसिन, तटीय कैलिफ़ोर्निया और मध्य चिली",
+          "अमेज़न बेसिन, कांगो बेसिन और इंडोनेशिया",
+          "सहारा, गोबी और मध्य ऑस्ट्रेलिया",
+          "ग्रीनलैंड, साइबेरिया और अंटार्कटिका"
+        ],
+        "explanation": "मध्य अक्षांशों के कई पश्चिमी तटों पर भूमध्यसागरीय प्रकार की जलवायु मिलती है; इन तीनों क्षेत्रों में भी ऐसी जलवायु है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਸਮੂਹ ਵਿੱਚ ਭੂ-ਮੱਧ ਸਾਗਰੀ ਜਲਵਾਯੂ ਵਾਲੇ ਪ੍ਰਸਿੱਧ ਖੇਤਰ ਹਨ?",
+        "options": [
+          "ਭੂ-ਮੱਧ ਸਾਗਰੀ ਬੇਸਿਨ, ਤੱਟੀ ਕੈਲੀਫੋਰਨੀਆ ਅਤੇ ਮੱਧ ਚਿਲੀ",
+          "ਐਮਾਜ਼ਨ ਬੇਸਿਨ, ਕਾਂਗੋ ਬੇਸਿਨ ਅਤੇ ਇੰਡੋਨੇਸ਼ੀਆ",
+          "ਸਹਾਰਾ, ਗੋਬੀ ਅਤੇ ਮੱਧ ਆਸਟ੍ਰੇਲੀਆ",
+          "ਗ੍ਰੀਨਲੈਂਡ, ਸਾਈਬੇਰੀਆ ਅਤੇ ਅੰਟਾਰਕਟਿਕਾ"
+        ],
+        "explanation": "ਮੱਧ ਅਕਸ਼ਾਂਸ਼ਾਂ ਦੇ ਕਈ ਪੱਛਮੀ ਤੱਟਾਂ ਉੱਤੇ ਭੂ-ਮੱਧ ਸਾਗਰੀ ਕਿਸਮ ਦੀ ਜਲਵਾਯੂ ਮਿਲਦੀ ਹੈ; ਇਨ੍ਹਾਂ ਤਿੰਨਾਂ ਖੇਤਰਾਂ ਵਿੱਚ ਵੀ ਇਹ ਜਲਵਾਯੂ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q010",
+    "cpId": "WGE-001-CP013",
+    "objective": "marine-west-coast-setting",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which setting is most typical of a marine west coast climate?",
+        "options": [
+          "An east coast near 25° latitude",
+          "A continental interior at 50° latitude",
+          "A west coast in the mid-latitudes exposed to prevailing westerlies",
+          "A high plateau in the tropics"
+        ],
+        "explanation": "Marine west coast climates are common on western margins of mid-latitude continents where westerlies bring moist ocean air."
+      },
+      "hi": {
+        "stem": "समुद्री पश्चिमी तटीय जलवायु के लिए कौन-सी स्थिति सबसे सामान्य है?",
+        "options": [
+          "25° अक्षांश के पास पूर्वी तट",
+          "50° अक्षांश पर महाद्वीपीय भीतरी भाग",
+          "मध्य अक्षांश का पश्चिमी तट, जहाँ पछुआ पवनें पहुँचती हैं",
+          "उष्णकटिबंधीय ऊँचा पठार"
+        ],
+        "explanation": "समुद्री पश्चिमी तटीय जलवायु मध्य अक्षांश के महाद्वीपों के पश्चिमी किनारों पर आम है, जहाँ पछुआ पवनें नम समुद्री वायु लाती हैं।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਪੱਛਮੀ ਤੱਟੀ ਜਲਵਾਯੂ ਲਈ ਕਿਹੜੀ ਸਥਿਤੀ ਸਭ ਤੋਂ ਆਮ ਹੈ?",
+        "options": [
+          "25° ਅਕਸ਼ਾਂਸ਼ ਨੇੜੇ ਪੂਰਬੀ ਤੱਟ",
+          "50° ਅਕਸ਼ਾਂਸ਼ ਉੱਤੇ ਮਹਾਂਦੀਪੀ ਅੰਦਰੂਨੀ ਖੇਤਰ",
+          "ਮੱਧ ਅਕਸ਼ਾਂਸ਼ ਦਾ ਪੱਛਮੀ ਤੱਟ ਜਿੱਥੇ ਪੱਛਮੀ ਹਵਾਵਾਂ ਪਹੁੰਚਦੀਆਂ ਹਨ",
+          "ਗਰਮ-ਖੰਡੀ ਉੱਚਾ ਪਠਾਰ"
+        ],
+        "explanation": "ਸਮੁੰਦਰੀ ਪੱਛਮੀ ਤੱਟੀ ਜਲਵਾਯੂ ਮੱਧ ਅਕਸ਼ਾਂਸ਼ੀ ਮਹਾਂਦੀਪਾਂ ਦੇ ਪੱਛਮੀ ਕਿਨਾਰਿਆਂ ਉੱਤੇ ਆਮ ਹੈ, ਜਿੱਥੇ ਪੱਛਮੀ ਹਵਾਵਾਂ ਨਮੀ ਵਾਲੀ ਸਮੁੰਦਰੀ ਹਵਾ ਲਿਆਉਂਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q011",
+    "cpId": "WGE-001-CP013",
+    "objective": "continental-interior-temperature-range",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why do continental interiors often have a larger annual temperature range than nearby coasts?",
+        "options": [
+          "Land heats and cools more rapidly than the sea",
+          "The Coriolis effect is stronger inland",
+          "Coastal winds block all sunlight",
+          "Continental air contains more water vapour"
+        ],
+        "explanation": "Land has a lower heat capacity than water and usually warms and cools more quickly, increasing seasonal temperature contrasts inland."
+      },
+      "hi": {
+        "stem": "महाद्वीपों के भीतरी भागों में पास के तटों की तुलना में सालाना तापांतर अधिक क्यों होता है?",
+        "options": [
+          "स्थल समुद्र की तुलना में जल्दी गर्म और ठंडा होता है",
+          "भीतरी भागों में कोरिओलिस प्रभाव अधिक होता है",
+          "तटीय हवाएँ सारी धूप रोक देती हैं",
+          "महाद्वीपीय वायु में जलवाष्प अधिक होता है"
+        ],
+        "explanation": "स्थल की ऊष्मा-धारिता जल से कम होती है, इसलिए वह जल्दी गर्म और ठंडा होता है। इससे भीतरी भागों में ऋतुजन्य तापांतर बढ़ता है।"
+      },
+      "pa": {
+        "stem": "ਮਹਾਂਦੀਪਾਂ ਦੇ ਅੰਦਰਲੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਨੇੜਲੇ ਤੱਟਾਂ ਨਾਲੋਂ ਸਾਲਾਨਾ ਤਾਪ-ਫ਼ਰਕ ਵੱਧ ਕਿਉਂ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਧਰਤੀ ਸਮੁੰਦਰ ਨਾਲੋਂ ਜਲਦੀ ਗਰਮ ਅਤੇ ਠੰਡੀ ਹੁੰਦੀ ਹੈ",
+          "ਅੰਦਰੂਨੀ ਖੇਤਰਾਂ ਵਿੱਚ ਕੋਰੀਓਲਿਸ ਪ੍ਰਭਾਵ ਵੱਧ ਹੁੰਦਾ ਹੈ",
+          "ਤੱਟੀ ਹਵਾਵਾਂ ਸਾਰੀ ਧੁੱਪ ਰੋਕਦੀਆਂ ਹਨ",
+          "ਮਹਾਂਦੀਪੀ ਹਵਾ ਵਿੱਚ ਜਲ-ਵਾਸ਼ਪ ਵੱਧ ਹੁੰਦੀ ਹੈ"
+        ],
+        "explanation": "ਧਰਤੀ ਦੀ ਤਾਪ-ਧਾਰਤਾ ਪਾਣੀ ਨਾਲੋਂ ਘੱਟ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਜਲਦੀ ਗਰਮ ਅਤੇ ਠੰਡੀ ਹੁੰਦੀ ਹੈ। ਇਸ ਨਾਲ ਅੰਦਰੂਨੀ ਖੇਤਰਾਂ ਵਿੱਚ ਰੁੱਤੀ ਤਾਪ-ਫ਼ਰਕ ਵਧਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q012",
+    "cpId": "WGE-001-CP013",
+    "objective": "subarctic-climate-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Where is the subarctic climate belt most extensive?",
+        "options": [
+          "Interior Alaska, Canada and northern Eurasia",
+          "Equatorial South America",
+          "The Mediterranean coast",
+          "The low islands of the western Pacific"
+        ],
+        "explanation": "Subarctic climates span large inland areas of high northern latitudes, including Canada and northern Eurasia."
+      },
+      "hi": {
+        "stem": "उप-आर्कटिक जलवायु का सबसे बड़ा विस्तार कहाँ है?",
+        "options": [
+          "अलास्का, कनाडा और उत्तरी यूरेशिया के भीतरी भागों में",
+          "विषुवतीय दक्षिण अमेरिका में",
+          "भूमध्यसागरीय तट पर",
+          "पश्चिमी प्रशांत के निचले द्वीपों पर"
+        ],
+        "explanation": "उप-आर्कटिक जलवायु उच्च उत्तरी अक्षांशों के बड़े अंतर्देशीय क्षेत्रों, जैसे कनाडा और उत्तरी यूरेशिया, में फैली है।"
+      },
+      "pa": {
+        "stem": "ਉਪ-ਆਰਕਟਿਕ ਜਲਵਾਯੂ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਫੈਲਾਅ ਕਿੱਥੇ ਹੈ?",
+        "options": [
+          "ਅਲਾਸਕਾ, ਕੈਨੇਡਾ ਅਤੇ ਉੱਤਰੀ ਯੂਰੇਸ਼ੀਆ ਦੇ ਅੰਦਰੂਨੀ ਖੇਤਰਾਂ ਵਿੱਚ",
+          "ਭੂ-ਮੱਧੀ ਦੱਖਣੀ ਅਮਰੀਕਾ ਵਿੱਚ",
+          "ਭੂ-ਮੱਧ ਸਾਗਰੀ ਤੱਟ ਉੱਤੇ",
+          "ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਨੀਵੇਂ ਟਾਪੂਆਂ ਉੱਤੇ"
+        ],
+        "explanation": "ਉਪ-ਆਰਕਟਿਕ ਜਲਵਾਯੂ ਉੱਚੇ ਉੱਤਰੀ ਅਕਸ਼ਾਂਸ਼ਾਂ ਦੇ ਵੱਡੇ ਅੰਦਰੂਨੀ ਖੇਤਰਾਂ, ਜਿਵੇਂ ਕੈਨੇਡਾ ਅਤੇ ਉੱਤਰੀ ਯੂਰੇਸ਼ੀਆ, ਵਿੱਚ ਫੈਲੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q013",
+    "cpId": "WGE-001-CP013",
+    "objective": "tundra-vs-icecap",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which feature is typical of tundra climate but not of an ice-cap climate?",
+        "options": [
+          "The coldest month falls below freezing",
+          "A short period each year can support low-growing plants",
+          "Strong winds may occur",
+          "Annual precipitation is low"
+        ],
+        "explanation": "Tundra has a brief growing season in which mosses, lichens and other low plants can grow; ice-cap regions remain too cold for such a season."
+      },
+      "hi": {
+        "stem": "टुंड्रा जलवायु की कौन-सी विशेषता हिमाच्छादित जलवायु से अलग है?",
+        "options": [
+          "सबसे ठंडे महीने में तापमान हिमांक से नीचे होना",
+          "हर वर्ष थोड़े समय के लिए कम ऊँचाई वाले पौधों का उग पाना",
+          "तेज हवाएँ चलना",
+          "वार्षिक वर्षण कम होना"
+        ],
+        "explanation": "टुंड्रा में थोड़े समय की बढ़वार ऋतु होती है, जिसमें काई, लाइकेन और छोटे पौधे उग सकते हैं। हिमाच्छादित क्षेत्रों में ऐसी ऋतु नहीं होती।"
+      },
+      "pa": {
+        "stem": "ਟੁੰਡਰਾ ਜਲਵਾਯੂ ਦੀ ਕਿਹੜੀ ਵਿਸ਼ੇਸ਼ਤਾ ਬਰਫ਼-ਢੱਕੀ ਜਲਵਾਯੂ ਤੋਂ ਵੱਖ ਹੈ?",
+        "options": [
+          "ਸਭ ਤੋਂ ਠੰਡੇ ਮਹੀਨੇ ਵਿੱਚ ਤਾਪਮਾਨ ਜਮਾਵ-ਬਿੰਦੂ ਤੋਂ ਹੇਠਾਂ ਹੋਣਾ",
+          "ਹਰ ਸਾਲ ਥੋੜ੍ਹੇ ਸਮੇਂ ਲਈ ਛੋਟੇ ਪੌਦੇ ਉੱਗ ਸਕਣਾ",
+          "ਤੇਜ਼ ਹਵਾਵਾਂ ਚੱਲਣਾ",
+          "ਸਾਲਾਨਾ ਵਰਖਾ ਘੱਟ ਹੋਣਾ"
+        ],
+        "explanation": "ਟੁੰਡਰਾ ਵਿੱਚ ਥੋੜ੍ਹੀ ਜਿਹੀ ਵਧਣ-ਰੁੱਤ ਹੁੰਦੀ ਹੈ, ਜਿਸ ਵਿੱਚ ਕਾਈ, ਲਾਇਕਨ ਅਤੇ ਛੋਟੇ ਪੌਦੇ ਉੱਗ ਸਕਦੇ ਹਨ। ਬਰਫ਼-ਢੱਕੇ ਖੇਤਰਾਂ ਵਿੱਚ ਇਹ ਰੁੱਤ ਨਹੀਂ ਹੁੰਦੀ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q014",
+    "cpId": "WGE-001-CP013",
+    "objective": "icecap-climate-regions",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which pair is strongly associated with ice-cap climate?",
+        "options": [
+          "Amazon Basin and Congo Basin",
+          "Interior Antarctica and central Greenland",
+          "Mediterranean Basin and coastal California",
+          "Central Europe and eastern China"
+        ],
+        "explanation": "Ice-cap climate dominates the interiors of Antarctica and Greenland, where even the warmest month remains below freezing."
+      },
+      "hi": {
+        "stem": "हिमाच्छादित जलवायु किन दो क्षेत्रों से विशेष रूप से जुड़ी है?",
+        "options": [
+          "अमेज़न बेसिन और कांगो बेसिन",
+          "अंटार्कटिका का भीतरी भाग और मध्य ग्रीनलैंड",
+          "भूमध्यसागरीय बेसिन और तटीय कैलिफ़ोर्निया",
+          "मध्य यूरोप और पूर्वी चीन"
+        ],
+        "explanation": "हिमाच्छादित जलवायु अंटार्कटिका और ग्रीनलैंड के भीतरी भागों में प्रमुख है; वहाँ सबसे गर्म महीने में भी तापमान हिमांक से नीचे रहता है।"
+      },
+      "pa": {
+        "stem": "ਬਰਫ਼-ਢੱਕੀ ਜਲਵਾਯੂ ਕਿਹੜੇ ਦੋ ਖੇਤਰਾਂ ਨਾਲ ਖ਼ਾਸ ਤੌਰ ਤੇ ਜੁੜੀ ਹੈ?",
+        "options": [
+          "ਐਮਾਜ਼ਨ ਬੇਸਿਨ ਅਤੇ ਕਾਂਗੋ ਬੇਸਿਨ",
+          "ਅੰਟਾਰਕਟਿਕਾ ਦਾ ਅੰਦਰੂਨੀ ਹਿੱਸਾ ਅਤੇ ਮੱਧ ਗ੍ਰੀਨਲੈਂਡ",
+          "ਭੂ-ਮੱਧ ਸਾਗਰੀ ਬੇਸਿਨ ਅਤੇ ਤੱਟੀ ਕੈਲੀਫੋਰਨੀਆ",
+          "ਮੱਧ ਯੂਰਪ ਅਤੇ ਪੂਰਬੀ ਚੀਨ"
+        ],
+        "explanation": "ਬਰਫ਼-ਢੱਕੀ ਜਲਵਾਯੂ ਅੰਟਾਰਕਟਿਕਾ ਅਤੇ ਗ੍ਰੀਨਲੈਂਡ ਦੇ ਅੰਦਰੂਨੀ ਹਿੱਸਿਆਂ ਵਿੱਚ ਪ੍ਰਮੁੱਖ ਹੈ; ਉੱਥੇ ਸਭ ਤੋਂ ਗਰਮ ਮਹੀਨੇ ਵਿੱਚ ਵੀ ਤਾਪਮਾਨ ਜਮਾਵ-ਬਿੰਦੂ ਤੋਂ ਹੇਠਾਂ ਰਹਿੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q015",
+    "cpId": "WGE-001-CP013",
+    "objective": "highland-climate-altitude",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Two nearby places share a latitude, but the mountain settlement is much cooler. Which factor best explains the difference?",
+        "options": [
+          "Higher elevation",
+          "Greater distance from the equator",
+          "Greater distance from the coast",
+          "A cold ocean current nearby"
+        ],
+        "explanation": "Air temperature generally decreases with altitude, so highland climates can differ sharply from nearby lowlands at the same latitude."
+      },
+      "hi": {
+        "stem": "दो पास के स्थान एक ही अक्षांश पर हैं, लेकिन पर्वतीय बस्ती बहुत ठंडी है। इसका सबसे अच्छा कारण क्या है?",
+        "options": [
+          "अधिक ऊँचाई",
+          "भूमध्य रेखा से अधिक दूरी",
+          "तट से अधिक दूरी",
+          "पास की ठंडी महासागरीय धारा"
+        ],
+        "explanation": "ऊँचाई के साथ वायु का तापमान सामान्यतः घटता है। इसलिए समान अक्षांश पर भी पर्वतीय जलवायु पास के मैदानी भाग से अलग हो सकती है।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਨੇੜਲੇ ਸਥਾਨ ਇੱਕੋ ਅਕਸ਼ਾਂਸ਼ ਉੱਤੇ ਹਨ, ਪਰ ਪਹਾੜੀ ਬਸਤੀ ਕਾਫ਼ੀ ਠੰਡੀ ਹੈ। ਇਸ ਦਾ ਸਭ ਤੋਂ ਵਧੀਆ ਕਾਰਨ ਕੀ ਹੈ?",
+        "options": [
+          "ਵੱਧ ਉਚਾਈ",
+          "ਭੂ-ਮੱਧ ਰੇਖਾ ਤੋਂ ਵੱਧ ਦੂਰੀ",
+          "ਤੱਟ ਤੋਂ ਵੱਧ ਦੂਰੀ",
+          "ਨੇੜਲੀ ਠੰਡੀ ਸਮੁੰਦਰੀ ਧਾਰਾ"
+        ],
+        "explanation": "ਉਚਾਈ ਨਾਲ ਹਵਾ ਦਾ ਤਾਪਮਾਨ ਆਮ ਤੌਰ ਤੇ ਘਟਦਾ ਹੈ। ਇਸ ਲਈ ਇੱਕੋ ਅਕਸ਼ਾਂਸ਼ ਉੱਤੇ ਵੀ ਪਹਾੜੀ ਜਲਵਾਯੂ ਨੇੜਲੇ ਮੈਦਾਨ ਤੋਂ ਵੱਖ ਹੋ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q016",
+    "cpId": "WGE-001-CP013",
+    "objective": "climate-zone-inference",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A station has mild winters, cool summers and rain in most months under onshore westerlies. Which climate is most likely?",
+        "options": [
+          "Hot desert",
+          "Tropical savanna",
+          "Mediterranean",
+          "Marine west coast"
+        ],
+        "explanation": "Mild temperatures and year-round precipitation on a mid-latitude western coast point to a marine west coast climate."
+      },
+      "hi": {
+        "stem": "किसी केंद्र पर सर्दियाँ हल्की, गर्मियाँ ठंडी और पछुआ समुद्री पवनों के साथ अधिकांश महीनों में वर्षा होती है। कौन-सी जलवायु संभावित है?",
+        "options": [
+          "गर्म मरुस्थलीय",
+          "उष्णकटिबंधीय सवाना",
+          "भूमध्यसागरीय",
+          "समुद्री पश्चिमी तटीय"
+        ],
+        "explanation": "मध्य अक्षांश के पश्चिमी तट पर हल्का तापमान और वर्ष भर वर्षा समुद्री पश्चिमी तटीय जलवायु की ओर संकेत करते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਸੇ ਕੇਂਦਰ ਉੱਤੇ ਸਰਦੀਆਂ ਹਲਕੀਆਂ, ਗਰਮੀਆਂ ਠੰਡੀਆਂ ਅਤੇ ਪੱਛਮੀ ਸਮੁੰਦਰੀ ਹਵਾਵਾਂ ਨਾਲ ਬਹੁਤੇ ਮਹੀਨਿਆਂ ਵਿੱਚ ਮੀਂਹ ਪੈਂਦਾ ਹੈ। ਕਿਹੜੀ ਜਲਵਾਯੂ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ?",
+        "options": [
+          "ਗਰਮ ਮਾਰੂਥਲੀ",
+          "ਗਰਮ-ਖੰਡੀ ਸਵਾਨਾ",
+          "ਭੂ-ਮੱਧ ਸਾਗਰੀ",
+          "ਸਮੁੰਦਰੀ ਪੱਛਮੀ ਤੱਟੀ"
+        ],
+        "explanation": "ਮੱਧ ਅਕਸ਼ਾਂਸ਼ ਦੇ ਪੱਛਮੀ ਤੱਟ ਉੱਤੇ ਹਲਕਾ ਤਾਪਮਾਨ ਅਤੇ ਸਾਲ ਭਰ ਮੀਂਹ ਸਮੁੰਦਰੀ ਪੱਛਮੀ ਤੱਟੀ ਜਲਵਾਯੂ ਵੱਲ ਸੰਕੇਤ ਕਰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q017",
+    "cpId": "WGE-001-CP013",
+    "objective": "climate-zone-inference-desert-steppe",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A dry region receives slightly more rain than a true desert and supports short grasses. Which climate type fits best?",
+        "options": [
+          "Equatorial",
+          "Steppe or semi-arid",
+          "Ice cap",
+          "Humid subtropical"
+        ],
+        "explanation": "Steppe climates form a semi-arid transition between deserts and wetter grassland or forest climates."
+      },
+      "hi": {
+        "stem": "शुष्क क्षेत्र में मरुस्थल से कुछ अधिक वर्षा होती है और छोटी घास उगती है। कौन-सा जलवायु प्रकार सबसे उपयुक्त है?",
+        "options": [
+          "विषुवतीय",
+          "स्टेपी या अर्ध-शुष्क",
+          "हिमाच्छादित",
+          "आर्द्र उपोष्णकटिबंधीय"
+        ],
+        "explanation": "स्टेपी जलवायु मरुस्थल और अधिक वर्षा वाले घासभूमि या वन क्षेत्रों के बीच अर्ध-शुष्क संक्रमण बनाती है।"
+      },
+      "pa": {
+        "stem": "ਸੁੱਕੇ ਖੇਤਰ ਵਿੱਚ ਮਾਰੂਥਲ ਨਾਲੋਂ ਕੁਝ ਵੱਧ ਮੀਂਹ ਪੈਂਦਾ ਹੈ ਅਤੇ ਛੋਟਾ ਘਾਹ ਉੱਗਦਾ ਹੈ। ਕਿਹੜੀ ਜਲਵਾਯੂ ਸਭ ਤੋਂ ਢੁੱਕਵੀਂ ਹੈ?",
+        "options": [
+          "ਭੂ-ਮੱਧੀ",
+          "ਸਟੈੱਪੀ ਜਾਂ ਅਰਧ-ਸੁੱਕੀ",
+          "ਬਰਫ਼-ਢੱਕੀ",
+          "ਨਮੀ ਵਾਲੀ ਉਪ-ਉੱਸ਼ਣ"
+        ],
+        "explanation": "ਸਟੈੱਪੀ ਜਲਵਾਯੂ ਮਾਰੂਥਲ ਅਤੇ ਵੱਧ ਮੀਂਹ ਵਾਲੇ ਘਾਹ-ਮੈਦਾਨ ਜਾਂ ਜੰਗਲਾਂ ਵਿਚਕਾਰ ਅਰਧ-ਸੁੱਕਾ ਸੰਕ੍ਰਮਣ ਖੇਤਰ ਬਣਾਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q018",
+    "cpId": "WGE-001-CP013",
+    "objective": "southern-hemisphere-midlatitude-climates",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why are some Northern Hemisphere climate belts more strongly continental than their Southern Hemisphere counterparts?",
+        "options": [
+          "The Northern Hemisphere has more extensive high-latitude land areas",
+          "The Southern Hemisphere has no prevailing westerlies",
+          "The Northern Hemisphere receives more solar energy each year",
+          "The Southern Hemisphere has no deserts"
+        ],
+        "explanation": "Large land areas across northern mid-latitudes allow stronger seasonal heating and cooling contrasts than the ocean-dominated south."
+      },
+      "hi": {
+        "stem": "कुछ उत्तरी गोलार्धीय जलवायु पेटियाँ दक्षिणी गोलार्ध की तुलना में अधिक महाद्वीपीय क्यों हैं?",
+        "options": [
+          "उत्तरी गोलार्ध में उच्च अक्षांशों पर विस्तृत स्थलभाग अधिक हैं",
+          "दक्षिणी गोलार्ध में पछुआ पवनें नहीं चलतीं",
+          "उत्तरी गोलार्ध को हर वर्ष अधिक सौर ऊर्जा मिलती है",
+          "दक्षिणी गोलार्ध में मरुस्थल नहीं हैं"
+        ],
+        "explanation": "उत्तरी मध्य अक्षांशों में बड़े स्थलभाग गर्मी-सर्दी के तापांतर को बढ़ाते हैं; दक्षिणी मध्य अक्षांशों में महासागर का प्रभाव अधिक है।"
+      },
+      "pa": {
+        "stem": "ਕੁਝ ਉੱਤਰੀ ਗੋਲਾਰਧੀ ਜਲਵਾਯੂ ਪੱਟੀਆਂ ਦੱਖਣੀ ਗੋਲਾਰਧ ਨਾਲੋਂ ਵੱਧ ਮਹਾਂਦੀਪੀ ਕਿਉਂ ਹਨ?",
+        "options": [
+          "ਉੱਤਰੀ ਗੋਲਾਰਧ ਵਿੱਚ ਉੱਚੇ ਅਕਸ਼ਾਂਸ਼ਾਂ ਉੱਤੇ ਵੱਡੇ ਧਰਤੀ-ਖੇਤਰ ਹਨ",
+          "ਦੱਖਣੀ ਗੋਲਾਰਧ ਵਿੱਚ ਪੱਛਮੀ ਹਵਾਵਾਂ ਨਹੀਂ ਚਲਦੀਆਂ",
+          "ਉੱਤਰੀ ਗੋਲਾਰਧ ਨੂੰ ਹਰ ਸਾਲ ਵੱਧ ਸੂਰਜੀ ਊਰਜਾ ਮਿਲਦੀ ਹੈ",
+          "ਦੱਖਣੀ ਗੋਲਾਰਧ ਵਿੱਚ ਮਾਰੂਥਲ ਨਹੀਂ ਹਨ"
+        ],
+        "explanation": "ਉੱਤਰੀ ਮੱਧ ਅਕਸ਼ਾਂਸ਼ਾਂ ਦੇ ਵੱਡੇ ਧਰਤੀ-ਖੇਤਰ ਗਰਮੀ-ਸਰਦੀ ਦਾ ਤਾਪ-ਫ਼ਰਕ ਵਧਾਉਂਦੇ ਹਨ; ਦੱਖਣੀ ਮੱਧ ਅਕਸ਼ਾਂਸ਼ਾਂ ਵਿੱਚ ਸਮੁੰਦਰ ਦਾ ਅਸਰ ਵੱਧ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q019",
+    "cpId": "WGE-001-CP013",
+    "objective": "warm-current-coastal-climate",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A warm ocean current flows past a mid-latitude coast. Which effect is most likely compared with a similar coast beside a cold current?",
+        "options": [
+          "Cooler, drier air in all seasons",
+          "More frequent sea ice",
+          "Milder coastal temperatures and greater atmospheric moisture",
+          "A permanent shift to desert climate"
+        ],
+        "explanation": "Warm currents can moderate nearby coastal temperatures and increase moisture available to the atmosphere, though local winds also matter."
+      },
+      "hi": {
+        "stem": "मध्य अक्षांश के तट के पास गर्म महासागरीय धारा बहती है। ठंडी धारा वाले समान तट की तुलना में कौन-सा प्रभाव अधिक संभावित है?",
+        "options": [
+          "हर ऋतु में ठंडी और शुष्क वायु",
+          "समुद्री हिम का अधिक जमाव",
+          "तटीय तापमान अधिक मृदु और वायुमंडल में नमी अधिक",
+          "स्थायी रूप से मरुस्थलीय जलवायु बनना"
+        ],
+        "explanation": "गर्म धाराएँ पास के तटों का तापमान संतुलित कर सकती हैं और वायुमंडल के लिए नमी बढ़ा सकती हैं, हालांकि स्थानीय पवनें भी असर डालती हैं।"
+      },
+      "pa": {
+        "stem": "ਮੱਧ ਅਕਸ਼ਾਂਸ਼ੀ ਤੱਟ ਦੇ ਕੋਲ ਗਰਮ ਸਮੁੰਦਰੀ ਧਾਰਾ ਵਗਦੀ ਹੈ। ਠੰਡੀ ਧਾਰਾ ਵਾਲੇ ਇਸੇ ਤਰ੍ਹਾਂ ਦੇ ਤੱਟ ਨਾਲੋਂ ਕਿਹੜਾ ਅਸਰ ਵੱਧ ਸੰਭਾਵੀ ਹੈ?",
+        "options": [
+          "ਹਰ ਰੁੱਤ ਵਿੱਚ ਠੰਡੀ ਤੇ ਸੁੱਕੀ ਹਵਾ",
+          "ਸਮੁੰਦਰੀ ਬਰਫ਼ ਵੱਧ ਜਮਣਾ",
+          "ਤੱਟੀ ਤਾਪਮਾਨ ਹਲਕਾ ਅਤੇ ਵਾਯੂਮੰਡਲ ਵਿੱਚ ਨਮੀ ਵੱਧ",
+          "ਪੱਕੀ ਮਾਰੂਥਲੀ ਜਲਵਾਯੂ ਬਣਨਾ"
+        ],
+        "explanation": "ਗਰਮ ਧਾਰਾਵਾਂ ਨੇੜਲੇ ਤੱਟਾਂ ਦਾ ਤਾਪਮਾਨ ਸੰਤੁਲਿਤ ਕਰ ਸਕਦੀਆਂ ਹਨ ਅਤੇ ਵਾਯੂਮੰਡਲ ਲਈ ਨਮੀ ਵਧਾ ਸਕਦੀਆਂ ਹਨ, ਹਾਲਾਂਕਿ ਸਥਾਨਕ ਹਵਾਵਾਂ ਵੀ ਅਸਰ ਕਰਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q020",
+    "cpId": "WGE-001-CP013",
+    "objective": "climate-weather-distinction",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A climate region is identified from long-term averages and patterns of:",
+        "options": [
+          "Temperature and precipitation",
+          "One day’s wind direction",
+          "A single cyclone track",
+          "The tides on one date"
+        ],
+        "explanation": "Climate describes long-term patterns in atmospheric conditions; a single day or storm cannot define a climate region."
+      },
+      "hi": {
+        "stem": "किसी जलवायु क्षेत्र की पहचान दीर्घकालीन औसत और किन प्रतिरूपों से होती है?",
+        "options": [
+          "तापमान और वर्षण",
+          "एक दिन की पवन दिशा",
+          "एक चक्रवात का मार्ग",
+          "किसी एक तारीख का ज्वार"
+        ],
+        "explanation": "जलवायु वायुमंडलीय दशाओं के दीर्घकालीन प्रतिरूप बताती है; एक दिन या एक तूफान से जलवायु क्षेत्र तय नहीं होता।"
+      },
+      "pa": {
+        "stem": "ਕਿਸੇ ਜਲਵਾਯੂ ਖੇਤਰ ਦੀ ਪਛਾਣ ਲੰਬੇ ਸਮੇਂ ਦੇ ਔਸਤ ਅਤੇ ਕਿਹੜੇ ਰੂਪਾਂ ਨਾਲ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਤਾਪਮਾਨ ਅਤੇ ਵਰਖਾ",
+          "ਇੱਕ ਦਿਨ ਦੀ ਹਵਾ ਦੀ ਦਿਸ਼ਾ",
+          "ਇੱਕ ਚੱਕਰਵਾਤ ਦਾ ਰਸਤਾ",
+          "ਕਿਸੇ ਇੱਕ ਮਿਤੀ ਦਾ ਜਵਾਰ"
+        ],
+        "explanation": "ਜਲਵਾਯੂ ਵਾਯੂਮੰਡਲੀ ਹਾਲਤਾਂ ਦੇ ਲੰਬੇ ਸਮੇਂ ਦੇ ਰੂਪ ਦੱਸਦੀ ਹੈ; ਇੱਕ ਦਿਨ ਜਾਂ ਇੱਕ ਤੂਫ਼ਾਨ ਨਾਲ ਜਲਵਾਯੂ ਖੇਤਰ ਤੈਅ ਨਹੀਂ ਹੁੰਦਾ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q021",
+    "cpId": "WGE-001-CP013",
+    "objective": "tundra-climate-vegetation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which vegetation is best adapted to tundra climate?",
+        "options": [
+          "Tall evergreen broadleaf forest",
+          "Low-growing mosses, lichens and dwarf shrubs",
+          "Dense tropical lianas",
+          "Tall grasses with scattered acacia trees"
+        ],
+        "explanation": "A short growing season, cold temperatures and often frozen subsoil favour low-growing tundra vegetation."
+      },
+      "hi": {
+        "stem": "टुंड्रा जलवायु में कौन-सी वनस्पति सबसे अधिक अनुकूल है?",
+        "options": [
+          "ऊँचा सदाबहार चौड़ी पत्ती वाला वन",
+          "कम ऊँचाई वाली काई, लाइकेन और बौनी झाड़ियाँ",
+          "घनी उष्णकटिबंधीय लताएँ",
+          "बबूल के विरल पेड़ों वाली ऊँची घास"
+        ],
+        "explanation": "छोटी बढ़वार ऋतु, कम तापमान और प्रायः जमी अधोमृदा टुंड्रा की कम ऊँचाई वाली वनस्पति के अनुकूल हैं।"
+      },
+      "pa": {
+        "stem": "ਟੁੰਡਰਾ ਜਲਵਾਯੂ ਵਿੱਚ ਕਿਹੜੀ ਬਨਸਪਤੀ ਸਭ ਤੋਂ ਵੱਧ ਅਨੁਕੂਲ ਹੈ?",
+        "options": [
+          "ਉੱਚਾ ਸਦਾ-ਹਰਾ ਚੌੜੇ ਪੱਤਿਆਂ ਵਾਲਾ ਜੰਗਲ",
+          "ਨੀਵੀਂ ਕਾਈ, ਲਾਇਕਨ ਅਤੇ ਬੌਣੀਆਂ ਝਾੜੀਆਂ",
+          "ਘਣੀਆਂ ਗਰਮ-ਖੰਡੀ ਵੇਲਾਂ",
+          "ਛਿੱਟੇ ਬਬੂਲਾਂ ਵਾਲੀ ਉੱਚੀ ਘਾਹ"
+        ],
+        "explanation": "ਛੋਟੀ ਵਧਣ-ਰੁੱਤ, ਘੱਟ ਤਾਪਮਾਨ ਅਤੇ ਅਕਸਰ ਜੰਮੀ ਹੋਈ ਹੇਠਲੀ ਮਿੱਟੀ ਟੁੰਡਰਾ ਦੀ ਨੀਵੀਂ ਬਨਸਪਤੀ ਲਈ ਢੁੱਕਵੀਂ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q022",
+    "cpId": "WGE-001-CP013",
+    "objective": "humid-subtropical-location",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which region is a typical example of a humid subtropical climate?",
+        "options": [
+          "The southeastern United States and eastern China",
+          "The Sahara and Namib deserts",
+          "Interior Antarctica",
+          "The central Amazon Basin"
+        ],
+        "explanation": "Humid subtropical climates commonly occur on the eastern sides of continents in the subtropics, including these regions."
+      },
+      "hi": {
+        "stem": "आर्द्र उपोष्णकटिबंधीय जलवायु का सामान्य उदाहरण कौन-सा क्षेत्र है?",
+        "options": [
+          "दक्षिण-पूर्वी संयुक्त राज्य और पूर्वी चीन",
+          "सहारा और नामीब मरुस्थल",
+          "अंटार्कटिका का भीतरी भाग",
+          "मध्य अमेज़न बेसिन"
+        ],
+        "explanation": "आर्द्र उपोष्णकटिबंधीय जलवायु उपोष्ण अक्षांशों में महाद्वीपों के पूर्वी भागों पर मिलती है; ये इसके उदाहरण हैं।"
+      },
+      "pa": {
+        "stem": "ਨਮੀ ਵਾਲੀ ਉਪ-ਉੱਸ਼ਣ ਜਲਵਾਯੂ ਦਾ ਆਮ ਉਦਾਹਰਨ ਕਿਹੜਾ ਖੇਤਰ ਹੈ?",
+        "options": [
+          "ਦੱਖਣ-ਪੂਰਬੀ ਸੰਯੁਕਤ ਰਾਜ ਅਤੇ ਪੂਰਬੀ ਚੀਨ",
+          "ਸਹਾਰਾ ਅਤੇ ਨਾਮੀਬ ਮਾਰੂਥਲ",
+          "ਅੰਟਾਰਕਟਿਕਾ ਦਾ ਅੰਦਰੂਨੀ ਹਿੱਸਾ",
+          "ਮੱਧ ਐਮਾਜ਼ਨ ਬੇਸਿਨ"
+        ],
+        "explanation": "ਨਮੀ ਵਾਲੀ ਉਪ-ਉੱਸ਼ਣ ਜਲਵਾਯੂ ਉਪ-ਉੱਸ਼ਣ ਅਕਸ਼ਾਂਸ਼ਾਂ ਵਿੱਚ ਮਹਾਂਦੀਪਾਂ ਦੇ ਪੂਰਬੀ ਹਿੱਸਿਆਂ ਉੱਤੇ ਮਿਲਦੀ ਹੈ; ਇਹ ਇਸ ਦੇ ਉਦਾਹਰਨ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q023",
+    "cpId": "WGE-001-CP013",
+    "objective": "climate-latitude-altitude",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A tropical city at high elevation is much cooler than a nearby lowland city. Which conclusion is sound?",
+        "options": [
+          "Altitude can modify the temperature pattern expected from latitude alone",
+          "A warm ocean current can fully cancel the effect of elevation",
+          "The city must lie farther from the equator than the lowland",
+          "High elevation increases the angle of incoming sunlight"
+        ],
+        "explanation": "Latitude is a major control, but altitude lowers temperature and can create a distinct highland climate within the tropics."
+      },
+      "hi": {
+        "stem": "ऊँचाई पर स्थित उष्णकटिबंधीय नगर पास के मैदानी नगर से बहुत ठंडा है। कौन-सा निष्कर्ष सही है?",
+        "options": [
+          "ऊँचाई अक्षांश से मिलने वाले तापमान प्रतिरूप को बदल सकती है",
+          "गर्म महासागरीय धारा ऊँचाई के प्रभाव को पूरी तरह समाप्त कर देती है",
+          "पर्वतीय नगर मैदानी नगर से भूमध्य रेखा के अधिक दूर ही होगा",
+          "अधिक ऊँचाई पर आने वाली सूर्य-किरणों का कोण बढ़ जाता है"
+        ],
+        "explanation": "अक्षांश जलवायु का बड़ा नियंत्रक है, लेकिन ऊँचाई तापमान घटाती है और उष्णकटिबंध में अलग पर्वतीय जलवायु बना सकती है।"
+      },
+      "pa": {
+        "stem": "ਉੱਚਾਈ ਉੱਤੇ ਵੱਸਿਆ ਗਰਮ-ਖੰਡੀ ਸ਼ਹਿਰ ਨੇੜਲੇ ਮੈਦਾਨੀ ਸ਼ਹਿਰ ਨਾਲੋਂ ਕਾਫ਼ੀ ਠੰਡਾ ਹੈ। ਕਿਹੜਾ ਨਤੀਜਾ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਉਚਾਈ ਅਕਸ਼ਾਂਸ਼ ਤੋਂ ਉਮੀਦ ਕੀਤੇ ਤਾਪਮਾਨ ਰੂਪ ਨੂੰ ਬਦਲ ਸਕਦੀ ਹੈ",
+          "ਗਰਮ ਸਮੁੰਦਰੀ ਧਾਰਾ ਉਚਾਈ ਦੇ ਅਸਰ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਤਮ ਕਰ ਦਿੰਦੀ ਹੈ",
+          "ਪਹਾੜੀ ਸ਼ਹਿਰ ਮੈਦਾਨੀ ਸ਼ਹਿਰ ਨਾਲੋਂ ਭੂ-ਮੱਧ ਰੇਖਾ ਤੋਂ ਦੂਰ ਹੀ ਹੋਵੇਗਾ",
+          "ਵੱਧ ਉਚਾਈ ਉੱਤੇ ਆਉਣ ਵਾਲੀਆਂ ਸੂਰਜੀ ਕਿਰਨਾਂ ਦਾ ਕੋਣ ਵਧ ਜਾਂਦਾ ਹੈ"
+        ],
+        "explanation": "ਅਕਸ਼ਾਂਸ਼ ਜਲਵਾਯੂ ਦਾ ਵੱਡਾ ਨਿਯੰਤਰਕ ਹੈ, ਪਰ ਉਚਾਈ ਤਾਪਮਾਨ ਘਟਾਉਂਦੀ ਹੈ ਅਤੇ ਗਰਮ-ਖੰਡੀ ਖੇਤਰ ਵਿੱਚ ਵੱਖਰੀ ਪਹਾੜੀ ਜਲਵਾਯੂ ਬਣਾ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP013-Q024",
+    "cpId": "WGE-001-CP013",
+    "objective": "climate-maritime-continental-comparison",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Two locations have similar latitude. One is on a west coast under oceanic westerlies; the other is deep inland. Which contrast is most likely?",
+        "options": [
+          "The inland site has the smaller annual temperature range",
+          "The coast has milder temperatures and a smaller annual range",
+          "The coast must be drier in every season",
+          "Both must have identical precipitation"
+        ],
+        "explanation": "Ocean influence moderates seasonal temperature extremes, while inland locations commonly have larger annual temperature ranges."
+      },
+      "hi": {
+        "stem": "दो स्थान समान अक्षांश पर हैं। एक पछुआ समुद्री पवनों वाले पश्चिमी तट पर है और दूसरा बहुत भीतर। कौन-सा अंतर अधिक संभावित है?",
+        "options": [
+          "भीतरी स्थान का सालाना तापांतर कम होगा",
+          "तट पर तापमान अधिक मृदु और सालाना तापांतर कम होगा",
+          "तट हर ऋतु में अधिक शुष्क होगा",
+          "दोनों में वर्षा बिल्कुल समान होगी"
+        ],
+        "explanation": "महासागर का प्रभाव ऋतुजन्य ताप-चरम को कम करता है, जबकि अंतर्देशीय स्थानों में सालाना तापांतर अक्सर अधिक होता है।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਥਾਵਾਂ ਇੱਕੋ ਅਕਸ਼ਾਂਸ਼ ਉੱਤੇ ਹਨ। ਇੱਕ ਸਮੁੰਦਰੀ ਪੱਛਮੀ ਹਵਾਵਾਂ ਵਾਲੇ ਪੱਛਮੀ ਤੱਟ ਉੱਤੇ ਹੈ ਅਤੇ ਦੂਜੀ ਕਾਫ਼ੀ ਅੰਦਰ ਹੈ। ਕਿਹੜਾ ਫ਼ਰਕ ਵੱਧ ਸੰਭਾਵੀ ਹੈ?",
+        "options": [
+          "ਅੰਦਰੂਨੀ ਥਾਂ ਦਾ ਸਾਲਾਨਾ ਤਾਪ-ਫ਼ਰਕ ਘੱਟ ਹੋਵੇਗਾ",
+          "ਤੱਟ ਉੱਤੇ ਤਾਪਮਾਨ ਹਲਕਾ ਅਤੇ ਸਾਲਾਨਾ ਤਾਪ-ਫ਼ਰਕ ਘੱਟ ਹੋਵੇਗਾ",
+          "ਤੱਟ ਹਰ ਰੁੱਤ ਵਿੱਚ ਵੱਧ ਸੁੱਕਾ ਹੋਵੇਗਾ",
+          "ਦੋਵਾਂ ਵਿੱਚ ਮੀਂਹ ਬਿਲਕੁਲ ਇਕੋ ਜਿਹਾ ਹੋਵੇਗਾ"
+        ],
+        "explanation": "ਸਮੁੰਦਰ ਦਾ ਅਸਰ ਰੁੱਤੀ ਤਾਪ-ਚਰਮ ਘਟਾਉਂਦਾ ਹੈ, ਜਦਕਿ ਅੰਦਰੂਨੀ ਥਾਵਾਂ ਉੱਤੇ ਸਾਲਾਨਾ ਤਾਪ-ਫ਼ਰਕ ਅਕਸਰ ਵੱਧ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  }
+]

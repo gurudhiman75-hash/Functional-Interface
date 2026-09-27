@@ -214,5 +214,131 @@
     "kind": "primary-educational",
     "consultedOn": "2026-09-27",
     "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-012",
+    "title": "NCERT XI: Atmospheric Circulation and Weather Systems",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy209.pdf",
+    "section": "Tropical and temperate cyclones, fronts, anticyclones and monsoon circulation",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-012A",
+    "title": "NOAA/AOML: Tropical cyclone formation conditions",
+    "url": "https://www.aoml.noaa.gov/hrd/tcfaq/D7.html",
+    "section": "Warm ocean water, moisture, Coriolis effect and wind shear conditions for tropical cyclone development",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-012B",
+    "title": "WMO: Tropical cyclone naming",
+    "url": "https://wmo.int/resources/wmo-fact-sheets/tropical-cyclone-naming",
+    "section": "Regional names and the role of WMO tropical cyclone bodies",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-012C",
+    "title": "NOAA Physical Sciences Laboratory: Dipole Mode Index",
+    "url": "https://psl.noaa.gov/data/timeseries/month/DMI/",
+    "section": "Sea-surface temperature gradient used to describe positive and negative Indian Ocean Dipole phases",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-013",
+    "title": "NCERT XI: World Climate and Climate Change",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy211.pdf",
+    "section": "Köppen classification and global climate regions, including equatorial, tropical, arid, temperate and polar types",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-014A",
+    "title": "National Geographic Education: What Makes a Biome?",
+    "url": "https://education.nationalgeographic.org/resource/what-makes-biome/7th-grade/",
+    "section": "Biome definition and broad forest, grassland, desert and tundra patterns",
+    "kind": "educational-reference",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-014B",
+    "title": "FAO: Lecture Notes on the Major Soils of the World",
+    "url": "https://www.fao.org/4/y1899e/y1899e02.htm",
+    "section": "Major soil groups, soil-forming factors and broad climate/vegetation relationships",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-015A",
+    "title": "NCERT XI: Distribution of Oceans and Continents",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy212.pdf",
+    "section": "Continental margins, ocean basins, deep-sea trenches, abyssal plains and mid-ocean ridges",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-015B",
+    "title": "NOAA: Ocean Floor Features",
+    "url": "https://www.noaa.gov/education/resource-collections/ocean-coasts/ocean-floor-features",
+    "section": "Continental shelf, slope, abyssal plains and related ocean-floor features",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-015C",
+    "title": "NOAA Ocean Service: What Is a Thermocline?",
+    "url": "https://oceanservice.noaa.gov/facts/thermocline.html",
+    "section": "Temperature layers and rapid temperature decline with depth",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-015D",
+    "title": "NOAA Ocean Exploration: How Does Ocean-Water Temperature Vary?",
+    "url": "https://oceanexplorer.noaa.gov/ocean-fact/temp-vary/",
+    "section": "Temperature variation with depth and broad regional patterns",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-ATM-012D",
+    "title": "NOAA Ocean Service: What Is Storm Surge?",
+    "url": "https://oceanservice.noaa.gov/facts/stormsurge-stormtide.html",
+    "section": "Storm-surge rise and the role of winds, tides, storm characteristics and coastal bathymetry",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-012E",
+    "title": "WMO: Northern Indian Ocean Cyclone Names",
+    "url": "https://wmo.int/content/tropical-cyclone-naming/northern-indian-ocean-names-arabian-sea-and-bay-of-bengal",
+    "section": "Naming responsibility for tropical cyclones over the Bay of Bengal and Arabian Sea",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-012F",
+    "title": "NOAA Ocean Service: What Are El Niño and La Niña?",
+    "url": "https://oceanservice.noaa.gov/facts/ninonina.html",
+    "section": "Equatorial Pacific sea-surface temperature, trade-wind and upwelling patterns in ENSO phases",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
   }
 ]

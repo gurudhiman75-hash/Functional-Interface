@@ -1,0 +1,1078 @@
+[
+  {
+    "id": "WGE-001-CP012-Q001",
+    "cpId": "WGE-001-CP012",
+    "objective": "tropical-cyclone-energy",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "What supplies most of the energy that sustains a tropical cyclone?",
+        "options": [
+          "Warm, moist ocean air",
+          "Cold continental air",
+          "Dry descending air",
+          "Mountain-valley winds"
+        ],
+        "explanation": "Evaporation from warm seas supplies water vapour; its condensation releases latent heat that helps power the storm."
+      },
+      "hi": {
+        "stem": "उष्णकटिबंधीय चक्रवात को ऊर्जा मुख्यतः कहाँ से मिलती है?",
+        "options": [
+          "गर्म समुद्र से उठी नम वायु",
+          "ठंडी महाद्वीपीय वायु",
+          "नीचे उतरती शुष्क वायु",
+          "पर्वतीय घाटी की हवाएँ"
+        ],
+        "explanation": "गर्म समुद्र से उठा जलवाष्प संघनित होकर गुप्त ऊष्मा छोड़ता है, जो चक्रवात को ऊर्जा देती है।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ-ਖੰਡੀ ਚੱਕਰਵਾਤ ਨੂੰ ਮੁੱਖ ਤੌਰ ਤੇ ਊਰਜਾ ਕਿੱਥੋਂ ਮਿਲਦੀ ਹੈ?",
+        "options": [
+          "ਗਰਮ ਸਮੁੰਦਰ ਤੋਂ ਉੱਠੀ ਨਮੀ ਵਾਲੀ ਹਵਾ",
+          "ਠੰਡੀ ਮਹਾਂਦੀਪੀ ਹਵਾ",
+          "ਹੇਠਾਂ ਉਤਰਦੀ ਸੁੱਕੀ ਹਵਾ",
+          "ਪਹਾੜੀ ਘਾਟੀ ਦੀਆਂ ਹਵਾਵਾਂ"
+        ],
+        "explanation": "ਗਰਮ ਸਮੁੰਦਰ ਤੋਂ ਉੱਠੀ ਜਲ-ਵਾਸ਼ਪ ਸੰਘਣੀ ਹੋ ਕੇ ਗੁਪਤ ਤਾਪ ਛੱਡਦੀ ਹੈ, ਜੋ ਚੱਕਰਵਾਤ ਨੂੰ ਊਰਜਾ ਦਿੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q002",
+    "cpId": "WGE-001-CP012",
+    "objective": "cyclone-formation-equator",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Why do tropical cyclones rarely form right on the equator?",
+        "options": [
+          "Sea temperatures are always too low there",
+          "The equatorial sea surface is too cold for deep convection",
+          "The Coriolis effect is too weak to organise rotation",
+          "Strong vertical wind shear always prevents storms there"
+        ],
+        "explanation": "The Coriolis effect approaches zero at the equator, so a developing low cannot readily acquire the rotation needed for a tropical cyclone."
+      },
+      "hi": {
+        "stem": "भूमध्य रेखा पर उष्णकटिबंधीय चक्रवात बहुत कम क्यों बनते हैं?",
+        "options": [
+          "वहाँ समुद्र का तापमान हमेशा कम रहता है",
+          "भूमध्यरेखीय समुद्री सतह गहरे संवहन के लिए बहुत ठंडी होती है",
+          "कोरिओलिस प्रभाव घूर्णन बनाने के लिए बहुत कमजोर होता है",
+          "वहाँ तेज ऊर्ध्वाधर पवन-कतरन हमेशा तूफान बनने से रोकती है"
+        ],
+        "explanation": "भूमध्य रेखा पर कोरिओलिस प्रभाव लगभग शून्य होता है, इसलिए बनता हुआ निम्न दाब चक्रवातीय घूर्णन आसानी से नहीं बना पाता।"
+      },
+      "pa": {
+        "stem": "ਭੂ-ਮੱਧ ਰੇਖਾ ਉੱਤੇ ਗਰਮ-ਖੰਡੀ ਚੱਕਰਵਾਤ ਬਹੁਤ ਘੱਟ ਕਿਉਂ ਬਣਦੇ ਹਨ?",
+        "options": [
+          "ਉੱਥੇ ਸਮੁੰਦਰ ਦਾ ਤਾਪਮਾਨ ਹਮੇਸ਼ਾ ਘੱਟ ਹੁੰਦਾ ਹੈ",
+          "ਭੂ-ਮੱਧੀ ਸਮੁੰਦਰੀ ਸਤਹ ਡੂੰਘੇ ਸੰਵਹਨ ਲਈ ਬਹੁਤ ਠੰਡੀ ਹੁੰਦੀ ਹੈ",
+          "ਕੋਰੀਓਲਿਸ ਪ੍ਰਭਾਵ ਘੁੰਮਣ ਬਣਾਉਣ ਲਈ ਬਹੁਤ ਕਮਜ਼ੋਰ ਹੁੰਦਾ ਹੈ",
+          "ਉੱਥੇ ਤੇਜ਼ ਲੰਬਕਾਰੀ ਹਵਾ-ਕਤਰਣ ਹਮੇਸ਼ਾ ਤੂਫ਼ਾਨ ਬਣਨ ਤੋਂ ਰੋਕਦੀ ਹੈ"
+        ],
+        "explanation": "ਭੂ-ਮੱਧ ਰੇਖਾ ਉੱਤੇ ਕੋਰੀਓਲਿਸ ਪ੍ਰਭਾਵ ਲਗਭਗ ਸਿਫ਼ਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਬਣਦਾ ਘੱਟ ਦਬਾਅ ਆਸਾਨੀ ਨਾਲ ਚੱਕਰਵਾਤੀ ਘੁੰਮਣ ਨਹੀਂ ਲੈਂਦਾ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q003",
+    "cpId": "WGE-001-CP012",
+    "objective": "cyclone-rotation-hemisphere",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A tropical cyclone lies in the Southern Hemisphere. Which way do its surface winds spiral around the low-pressure centre?",
+        "options": [
+          "Anticlockwise and outward",
+          "Clockwise and inward",
+          "Clockwise and outward",
+          "Anticlockwise and inward"
+        ],
+        "explanation": "In the Southern Hemisphere, Coriolis deflection gives a surface cyclone clockwise circulation, with air converging inward."
+      },
+      "hi": {
+        "stem": "दक्षिणी गोलार्ध में चक्रवात के निम्न दाब केंद्र के चारों ओर सतही हवाएँ किस दिशा में घूमती हैं?",
+        "options": [
+          "वामावर्त और बाहर की ओर",
+          "दक्षिणावर्त और भीतर की ओर",
+          "दक्षिणावर्त और बाहर की ओर",
+          "वामावर्त और भीतर की ओर"
+        ],
+        "explanation": "दक्षिणी गोलार्ध में कोरिओलिस प्रभाव सतही चक्रवात को दक्षिणावर्त घुमाता है और वायु केंद्र की ओर सिमटती है।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਗੋਲਾਰਧ ਵਿੱਚ ਚੱਕਰਵਾਤ ਦੇ ਘੱਟ ਦਬਾਅ ਕੇਂਦਰ ਦੁਆਲੇ ਸਤਹੀ ਹਵਾਵਾਂ ਕਿਸ ਪਾਸੇ ਘੁੰਮਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਘੜੀ ਦੇ ਉਲਟ ਅਤੇ ਬਾਹਰ ਵੱਲ",
+          "ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਅਤੇ ਅੰਦਰ ਵੱਲ",
+          "ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਅਤੇ ਬਾਹਰ ਵੱਲ",
+          "ਘੜੀ ਦੇ ਉਲਟ ਅਤੇ ਅੰਦਰ ਵੱਲ"
+        ],
+        "explanation": "ਦੱਖਣੀ ਗੋਲਾਰਧ ਵਿੱਚ ਕੋਰੀਓਲਿਸ ਪ੍ਰਭਾਵ ਸਤਹੀ ਚੱਕਰਵਾਤ ਨੂੰ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਘੁਮਾਉਂਦਾ ਹੈ ਅਤੇ ਹਵਾ ਕੇਂਦਰ ਵੱਲ ਇਕੱਠੀ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q004",
+    "cpId": "WGE-001-CP012",
+    "objective": "cyclone-eye",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Where are the calmest winds usually found in a mature tropical cyclone?",
+        "options": [
+          "In the eye",
+          "Along the outer rainbands",
+          "At the eyewall",
+          "Ahead of the storm’s path"
+        ],
+        "explanation": "The eye is the relatively calm central region; the strongest winds usually occur in the surrounding eyewall."
+      },
+      "hi": {
+        "stem": "परिपक्व उष्णकटिबंधीय चक्रवात में सबसे शांत हवाएँ सामान्यतः कहाँ होती हैं?",
+        "options": [
+          "चक्रवात की आँख में",
+          "बाहरी वर्षा-पट्टियों के पास",
+          "आँख की दीवार में",
+          "चक्रवात के आगे के भाग में"
+        ],
+        "explanation": "आँख अपेक्षाकृत शांत केंद्रीय भाग है; सबसे तेज हवाएँ सामान्यतः उसके चारों ओर की आँख-दीवार में चलती हैं।"
+      },
+      "pa": {
+        "stem": "ਪੱਕੇ ਗਰਮ-ਖੰਡੀ ਚੱਕਰਵਾਤ ਵਿੱਚ ਸਭ ਤੋਂ ਸ਼ਾਂਤ ਹਵਾਵਾਂ ਆਮ ਤੌਰ ਤੇ ਕਿੱਥੇ ਹੁੰਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਚੱਕਰਵਾਤ ਦੀ ਅੱਖ ਵਿੱਚ",
+          "ਬਾਹਰੀ ਮੀਂਹ-ਪੱਟੀਆਂ ਨੇੜੇ",
+          "ਅੱਖ ਦੀ ਕੰਧ ਵਿੱਚ",
+          "ਚੱਕਰਵਾਤ ਦੇ ਅੱਗੇ ਵਾਲੇ ਪਾਸੇ"
+        ],
+        "explanation": "ਅੱਖ ਤੁਲਨਾਤਮਕ ਤੌਰ ਤੇ ਸ਼ਾਂਤ ਕੇਂਦਰੀ ਹਿੱਸਾ ਹੁੰਦੀ ਹੈ; ਸਭ ਤੋਂ ਤੇਜ਼ ਹਵਾਵਾਂ ਆਮ ਤੌਰ ਤੇ ਇਸ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਦੀ ਅੱਖ-ਕੰਧ ਵਿੱਚ ਚਲਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q005",
+    "cpId": "WGE-001-CP012",
+    "objective": "storm-surge-cause",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A",
+      "WGE-ATM-012D"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which factor most directly raises coastal water during a storm surge?",
+        "options": [
+          "A very low tide beneath the storm",
+          "Offshore winds pushing surface water away from the coast",
+          "Strong onshore winds and low pressure pushing seawater shoreward",
+          "Cold air sinking over land behind the storm"
+        ],
+        "explanation": "Strong winds pile water against the coast, while low atmospheric pressure also raises the sea surface beneath the storm."
+      },
+      "hi": {
+        "stem": "तूफानी ज्वार में तट के पास समुद्र का जल मुख्यतः किस कारण ऊँचा उठता है?",
+        "options": [
+          "तूफान के नीचे बहुत निम्न ज्वार",
+          "तट से दूर चलती हवाओं द्वारा सतही जल को समुद्र की ओर धकेलना",
+          "तट की ओर चलती तेज हवाओं और कम वायुदाब से समुद्री जल धकेले जाने से",
+          "तूफान के पीछे भूमि पर ठंडी वायु का उतरना"
+        ],
+        "explanation": "तेज हवाएँ जल को तट की ओर धकेलती हैं और कम वायुदाब भी तूफान के नीचे समुद्र की सतह को ऊपर उठाता है।"
+      },
+      "pa": {
+        "stem": "ਤੂਫ਼ਾਨੀ ਜਵਾਰ ਵੇਲੇ ਤੱਟ ਕੋਲ ਸਮੁੰਦਰ ਦਾ ਪਾਣੀ ਮੁੱਖ ਤੌਰ ਤੇ ਕਿਹੜੇ ਕਾਰਨ ਉੱਪਰ ਚੜ੍ਹਦਾ ਹੈ?",
+        "options": [
+          "ਤੂਫ਼ਾਨ ਹੇਠ ਬਹੁਤ ਨੀਵਾਂ ਜਵਾਰ",
+          "ਤੱਟ ਤੋਂ ਦੂਰ ਵਗਦੀਆਂ ਹਵਾਵਾਂ ਵੱਲੋਂ ਸਤਹੀ ਪਾਣੀ ਨੂੰ ਸਮੁੰਦਰ ਵੱਲ ਧੱਕਣਾ",
+          "ਤੱਟ ਵੱਲ ਤੇਜ਼ ਹਵਾਵਾਂ ਅਤੇ ਘੱਟ ਦਬਾਅ ਨਾਲ ਸਮੁੰਦਰੀ ਪਾਣੀ ਧੱਕੇ ਜਾਣ ਨਾਲ",
+          "ਤੂਫ਼ਾਨ ਪਿੱਛੇ ਧਰਤੀ ਉੱਤੇ ਠੰਡੀ ਹਵਾ ਦਾ ਹੇਠਾਂ ਉਤਰਨਾ"
+        ],
+        "explanation": "ਤੇਜ਼ ਹਵਾਵਾਂ ਪਾਣੀ ਨੂੰ ਤੱਟ ਵੱਲ ਧੱਕਦੀਆਂ ਹਨ ਅਤੇ ਘੱਟ ਦਬਾਅ ਵੀ ਤੂਫ਼ਾਨ ਹੇਠ ਸਮੁੰਦਰ ਦੀ ਸਤਹ ਚੁੱਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q006",
+    "cpId": "WGE-001-CP012",
+    "objective": "cyclone-regional-names",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-012B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A tropical cyclone in the western North Pacific is commonly called a:",
+        "options": [
+          "Typhoon",
+          "Hurricane",
+          "Willy-willy",
+          "Nor’wester"
+        ],
+        "explanation": "The term typhoon is used for tropical cyclones in the western North Pacific; the storm type is the same."
+      },
+      "hi": {
+        "stem": "पश्चिमी उत्तरी प्रशांत में उष्णकटिबंधीय चक्रवात को सामान्यतः क्या कहते हैं?",
+        "options": [
+          "टाइफून",
+          "हरिकेन",
+          "विली-विली",
+          "नॉरवेस्टर"
+        ],
+        "explanation": "पश्चिमी उत्तरी प्रशांत के उष्णकटिबंधीय चक्रवात को टाइफून कहते हैं; यह उसी प्रकार का तूफान है।"
+      },
+      "pa": {
+        "stem": "ਪੱਛਮੀ ਉੱਤਰੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਗਰਮ-ਖੰਡੀ ਚੱਕਰਵਾਤ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਟਾਈਫੂਨ",
+          "ਹਰੀਕੇਨ",
+          "ਵਿਲੀ-ਵਿਲੀ",
+          "ਨੋਰਵੈਸਟਰ"
+        ],
+        "explanation": "ਪੱਛਮੀ ਉੱਤਰੀ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਗਰਮ-ਖੰਡੀ ਚੱਕਰਵਾਤ ਨੂੰ ਟਾਈਫੂਨ ਕਹਿੰਦੇ ਹਨ; ਤੂਫ਼ਾਨ ਦੀ ਕਿਸਮ ਉਹੀ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q007",
+    "cpId": "WGE-001-CP012",
+    "objective": "cyclone-regional-name-hurricane",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-012B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "In which region is the term “hurricane” used for a tropical cyclone?",
+        "options": [
+          "Western North Pacific",
+          "North Atlantic and eastern North Pacific",
+          "Southwest Indian Ocean",
+          "Australian region"
+        ],
+        "explanation": "Hurricane is the regional term used in the North Atlantic and eastern North Pacific; typhoon and cyclone are used elsewhere."
+      },
+      "hi": {
+        "stem": "किस क्षेत्र में उष्णकटिबंधीय चक्रवात के लिए “हरिकेन” शब्द इस्तेमाल होता है?",
+        "options": [
+          "पश्चिमी उत्तरी प्रशांत",
+          "उत्तरी अटलांटिक और पूर्वी उत्तरी प्रशांत",
+          "दक्षिण-पश्चिमी हिंद महासागर",
+          "ऑस्ट्रेलियाई क्षेत्र"
+        ],
+        "explanation": "उत्तरी अटलांटिक और पूर्वी उत्तरी प्रशांत में इसे हरिकेन कहते हैं; अन्य क्षेत्रों में टाइफून या चक्रवात शब्द चलते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਖੇਤਰ ਵਿੱਚ ਗਰਮ-ਖੰਡੀ ਚੱਕਰਵਾਤ ਲਈ “ਹਰੀਕੇਨ” ਸ਼ਬਦ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਪੱਛਮੀ ਉੱਤਰੀ ਪ੍ਰਸ਼ਾਂਤ",
+          "ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਅਤੇ ਪੂਰਬੀ ਉੱਤਰੀ ਪ੍ਰਸ਼ਾਂਤ",
+          "ਦੱਖਣ-ਪੱਛਮੀ ਹਿੰਦ ਮਹਾਂਸਾਗਰ",
+          "ਆਸਟ੍ਰੇਲੀਆਈ ਖੇਤਰ"
+        ],
+        "explanation": "ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਅਤੇ ਪੂਰਬੀ ਉੱਤਰੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਇਸ ਨੂੰ ਹਰੀਕੇਨ ਕਹਿੰਦੇ ਹਨ; ਹੋਰ ਖੇਤਰਾਂ ਵਿੱਚ ਟਾਈਫੂਨ ਜਾਂ ਚੱਕਰਵਾਤ ਸ਼ਬਦ ਵਰਤੇ ਜਾਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q008",
+    "cpId": "WGE-001-CP012",
+    "objective": "cyclone-name-north-indian-ocean",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012B",
+      "WGE-ATM-012E"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Who assigns names to tropical cyclones formed over the Bay of Bengal and Arabian Sea?",
+        "options": [
+          "The WMO Regional Specialised Meteorological Centre in New Delhi",
+          "The WMO centre in Tokyo",
+          "The International Hydrographic Organization",
+          "The cyclone’s first landfall country"
+        ],
+        "explanation": "WMO assigns naming responsibility for the northern Indian Ocean to its Regional Specialised Meteorological Centre in New Delhi."
+      },
+      "hi": {
+        "stem": "बंगाल की खाड़ी और अरब सागर में बने चक्रवातों के नाम कौन देता है?",
+        "options": [
+          "नई दिल्ली स्थित विश्व मौसम विज्ञान संगठन का क्षेत्रीय विशेष मौसम केंद्र",
+          "टोक्यो स्थित विश्व मौसम विज्ञान संगठन का केंद्र",
+          "अंतरराष्ट्रीय जल सर्वेक्षण संगठन",
+          "चक्रवात से सबसे पहले प्रभावित होने वाला देश"
+        ],
+        "explanation": "विश्व मौसम विज्ञान संगठन ने उत्तरी हिंद महासागर के चक्रवातों के नामकरण की जिम्मेदारी नई दिल्ली स्थित क्षेत्रीय विशेष मौसम केंद्र को दी है।"
+      },
+      "pa": {
+        "stem": "ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਅਤੇ ਅਰਬ ਸਾਗਰ ਵਿੱਚ ਬਣੇ ਚੱਕਰਵਾਤਾਂ ਦੇ ਨਾਮ ਕੌਣ ਰੱਖਦਾ ਹੈ?",
+        "options": [
+          "ਨਵੀਂ ਦਿੱਲੀ ਸਥਿਤ ਵਿਸ਼ਵ ਮੌਸਮ ਵਿਗਿਆਨ ਸੰਸਥਾ ਦਾ ਖੇਤਰੀ ਵਿਸ਼ੇਸ਼ ਕੇਂਦਰ",
+          "ਟੋਕੀਓ ਸਥਿਤ ਵਿਸ਼ਵ ਮੌਸਮ ਵਿਗਿਆਨ ਸੰਸਥਾ ਦਾ ਕੇਂਦਰ",
+          "ਅੰਤਰਰਾਸ਼ਟਰੀ ਜਲ ਸਰਵੇਖਣ ਸੰਸਥਾ",
+          "ਚੱਕਰਵਾਤ ਨਾਲ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਪ੍ਰਭਾਵਿਤ ਹੋਣ ਵਾਲਾ ਦੇਸ਼"
+        ],
+        "explanation": "ਵਿਸ਼ਵ ਮੌਸਮ ਵਿਗਿਆਨ ਸੰਸਥਾ ਨੇ ਉੱਤਰੀ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦੇ ਚੱਕਰਵਾਤਾਂ ਦੇ ਨਾਮਕਰਨ ਦੀ ਜ਼ਿੰਮੇਵਾਰੀ ਨਵੀਂ ਦਿੱਲੀ ਦੇ ਖੇਤਰੀ ਵਿਸ਼ੇਸ਼ ਕੇਂਦਰ ਨੂੰ ਦਿੱਤੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q009",
+    "cpId": "WGE-001-CP012",
+    "objective": "temperate-cyclone-fronts",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which feature most clearly distinguishes a typical temperate cyclone from a tropical cyclone?",
+        "options": [
+          "It has no rising air",
+          "It forms only over warm tropical seas",
+          "It has a warm core and no fronts",
+          "It develops along fronts between contrasting air masses"
+        ],
+        "explanation": "Temperate cyclones commonly develop where warm and cold air masses meet, forming warm and cold fronts."
+      },
+      "hi": {
+        "stem": "समशीतोष्ण चक्रवात को उष्णकटिबंधीय चक्रवात से सबसे स्पष्ट रूप से कौन-सी बात अलग करती है?",
+        "options": [
+          "इसमें वायु ऊपर नहीं उठती",
+          "यह केवल गर्म उष्णकटिबंधीय समुद्रों पर बनता है",
+          "इसका केंद्र गर्म होता है और इसमें वाताग्र नहीं होते",
+          "यह अलग-अलग वायुराशियों के बीच वाताग्रों पर विकसित होता है"
+        ],
+        "explanation": "समशीतोष्ण चक्रवात प्रायः गर्म और ठंडी वायुराशियों के मिलने पर बनते हैं और इनमें गर्म तथा शीत वाताग्र होते हैं।"
+      },
+      "pa": {
+        "stem": "ਸਮਸ਼ੀਤੋਸ਼ਣ ਚੱਕਰਵਾਤ ਨੂੰ ਗਰਮ-ਖੰਡੀ ਚੱਕਰਵਾਤ ਤੋਂ ਕਿਹੜੀ ਗੱਲ ਸਭ ਤੋਂ ਸਪਸ਼ਟ ਤੌਰ ਤੇ ਵੱਖ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "ਇਸ ਵਿੱਚ ਹਵਾ ਉੱਪਰ ਨਹੀਂ ਚੜ੍ਹਦੀ",
+          "ਇਹ ਸਿਰਫ਼ ਗਰਮ-ਖੰਡੀ ਸਮੁੰਦਰਾਂ ਉੱਤੇ ਬਣਦਾ ਹੈ",
+          "ਇਸ ਦਾ ਕੇਂਦਰ ਗਰਮ ਹੁੰਦਾ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਵਾਤਾਗ੍ਰ ਨਹੀਂ ਹੁੰਦੇ",
+          "ਇਹ ਵੱਖ-ਵੱਖ ਹਵਾਈ ਪੁੰਜਾਂ ਦੇ ਵਿਚਕਾਰ ਵਾਤਾਗ੍ਰਾਂ ਉੱਤੇ ਬਣਦਾ ਹੈ"
+        ],
+        "explanation": "ਸਮਸ਼ੀਤੋਸ਼ਣ ਚੱਕਰਵਾਤ ਆਮ ਤੌਰ ਤੇ ਗਰਮ ਅਤੇ ਠੰਡੇ ਹਵਾਈ ਪੁੰਜਾਂ ਦੇ ਮਿਲਣ ਉੱਤੇ ਬਣਦੇ ਹਨ ਅਤੇ ਇਨ੍ਹਾਂ ਵਿੱਚ ਗਰਮ ਤੇ ਠੰਡੇ ਵਾਤਾਗ੍ਰ ਹੁੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q010",
+    "cpId": "WGE-001-CP012",
+    "objective": "warm-front-weather",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "What usually happens as a warm front approaches an area?",
+        "options": [
+          "A narrow band of intense thunderstorms always arrives first",
+          "Clouds thicken gradually, often bringing steady precipitation",
+          "Air pressure rises sharply before any clouds form",
+          "The temperature falls steadily throughout the passage"
+        ],
+        "explanation": "Warm air glides over retreating cold air, producing layered cloud and often widespread, steady precipitation ahead of the front."
+      },
+      "hi": {
+        "stem": "गर्म वाताग्र के किसी क्षेत्र के पास आने पर सामान्यतः क्या होता है?",
+        "options": [
+          "पहले हमेशा तेज गरज-चमक की संकरी पट्टी आती है",
+          "बादल धीरे-धीरे घने होते हैं और अक्सर लगातार वर्षा होती है",
+          "बादल बनने से पहले वायुदाब तेजी से बढ़ता है",
+          "वाताग्र के गुजरने तक तापमान लगातार गिरता है"
+        ],
+        "explanation": "गर्म वायु पीछे हटती ठंडी वायु के ऊपर चढ़ती है। इससे परतदार बादल बनते हैं और वाताग्र से पहले व्यापक, लगातार वर्षा हो सकती है।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ ਵਾਤਾਗ੍ਰ ਕਿਸੇ ਖੇਤਰ ਵੱਲ ਆਵੇ ਤਾਂ ਆਮ ਤੌਰ ਤੇ ਕੀ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਪਹਿਲਾਂ ਹਮੇਸ਼ਾ ਤੇਜ਼ ਗਰਜ-ਚਮਕ ਦੀ ਤੰਗ ਪੱਟੀ ਆਉਂਦੀ ਹੈ",
+          "ਬੱਦਲ ਹੌਲੀ-ਹੌਲੀ ਸੰਘਣੇ ਹੁੰਦੇ ਹਨ ਅਤੇ ਅਕਸਰ ਲਗਾਤਾਰ ਮੀਂਹ ਪੈਂਦਾ ਹੈ",
+          "ਬੱਦਲ ਬਣਨ ਤੋਂ ਪਹਿਲਾਂ ਦਬਾਅ ਤੇਜ਼ੀ ਨਾਲ ਵਧਦਾ ਹੈ",
+          "ਵਾਤਾਗ੍ਰ ਲੰਘਣ ਤੱਕ ਤਾਪਮਾਨ ਲਗਾਤਾਰ ਘਟਦਾ ਹੈ"
+        ],
+        "explanation": "ਗਰਮ ਹਵਾ ਪਿੱਛੇ ਹਟਦੀ ਠੰਡੀ ਹਵਾ ਉੱਤੇ ਚੜ੍ਹਦੀ ਹੈ। ਇਸ ਨਾਲ ਪਰਤਦਾਰ ਬੱਦਲ ਬਣਦੇ ਹਨ ਅਤੇ ਵਾਤਾਗ੍ਰ ਤੋਂ ਪਹਿਲਾਂ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਲਗਾਤਾਰ ਮੀਂਹ ਪੈ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q011",
+    "cpId": "WGE-001-CP012",
+    "objective": "cold-front-weather",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A fast-moving cold front commonly produces which weather pattern?",
+        "options": [
+          "Long, gentle ascent with widespread drizzle only",
+          "Clear skies with no wind change",
+          "A narrow band of showers or thunderstorms followed by cooler air",
+          "A stationary fog bank with rising temperatures"
+        ],
+        "explanation": "Dense cold air wedges beneath warm air, forcing rapid uplift that can trigger a narrow band of showers or thunderstorms."
+      },
+      "hi": {
+        "stem": "तेजी से बढ़ता शीत वाताग्र सामान्यतः कैसा मौसम लाता है?",
+        "options": [
+          "धीरे-धीरे ऊपर उठती वायु और केवल हल्की व्यापक बूंदाबांदी",
+          "बिना हवा बदले साफ आकाश",
+          "बौछारों या गरज-चमक की संकरी पट्टी, फिर ठंडी वायु",
+          "स्थिर कोहरे की परत और बढ़ता तापमान"
+        ],
+        "explanation": "घनी ठंडी वायु गर्म वायु के नीचे घुसती है और उसे तेजी से ऊपर उठाती है। इससे बौछारों या गरज-चमक की संकरी पट्टी बन सकती है।"
+      },
+      "pa": {
+        "stem": "ਤੇਜ਼ੀ ਨਾਲ ਵਧਦਾ ਠੰਡਾ ਵਾਤਾਗ੍ਰ ਆਮ ਤੌਰ ਤੇ ਕਿਹੋ ਜਿਹਾ ਮੌਸਮ ਲਿਆਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਹੌਲੀ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹਵਾ ਅਤੇ ਸਿਰਫ਼ ਹਲਕੀ ਵਿਆਪਕ ਫੁਹਾਰ",
+          "ਹਵਾ ਬਦਲੇ ਬਿਨਾਂ ਸਾਫ਼ ਅਸਮਾਨ",
+          "ਛਮਕਾਂ ਜਾਂ ਗਰਜ-ਚਮਕ ਦੀ ਤੰਗ ਪੱਟੀ, ਫਿਰ ਠੰਡੀ ਹਵਾ",
+          "ਧੁੰਦ ਦੀ ਥਿਰ ਪਰਤ ਅਤੇ ਵਧਦਾ ਤਾਪਮਾਨ"
+        ],
+        "explanation": "ਘਣੀ ਠੰਡੀ ਹਵਾ ਗਰਮ ਹਵਾ ਹੇਠ ਵੜਦੀ ਹੈ ਅਤੇ ਉਸ ਨੂੰ ਤੇਜ਼ੀ ਨਾਲ ਉੱਪਰ ਚੜ੍ਹਾਉਂਦੀ ਹੈ। ਇਸ ਨਾਲ ਛਮਕਾਂ ਜਾਂ ਗਰਜ-ਚਮਕ ਦੀ ਤੰਗ ਪੱਟੀ ਬਣ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q012",
+    "cpId": "WGE-001-CP012",
+    "objective": "anticyclone-surface-flow",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "At the surface, air in a Northern Hemisphere anticyclone generally:",
+        "options": [
+          "Rises and spirals inward",
+          "Sinks and spirals inward",
+          "Rises and spirals outward",
+          "Sinks and spirals outward"
+        ],
+        "explanation": "A surface anticyclone has outward-diverging winds; air subsides above it, usually favouring more settled weather."
+      },
+      "hi": {
+        "stem": "उत्तरी गोलार्ध में प्रतिचक्रवात की सतह पर वायु सामान्यतः कैसी चलती है?",
+        "options": [
+          "ऊपर उठकर भीतर की ओर घूमती है",
+          "नीचे उतरकर भीतर की ओर घूमती है",
+          "ऊपर उठकर बाहर की ओर घूमती है",
+          "नीचे उतरकर बाहर की ओर घूमती है"
+        ],
+        "explanation": "प्रतिचक्रवात की सतह पर हवाएँ बाहर की ओर फैलती हैं। इसके ऊपर वायु नीचे उतरती है और अक्सर स्थिर मौसम बनाती है।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰੀ ਗੋਲਾਰਧ ਵਿੱਚ ਪ੍ਰਤੀਚੱਕਰਵਾਤ ਦੀ ਸਤਹ ਉੱਤੇ ਹਵਾ ਆਮ ਤੌਰ ਤੇ ਕਿਵੇਂ ਚਲਦੀ ਹੈ?",
+        "options": [
+          "ਉੱਪਰ ਚੜ੍ਹ ਕੇ ਅੰਦਰ ਵੱਲ ਘੁੰਮਦੀ ਹੈ",
+          "ਹੇਠਾਂ ਉਤਰ ਕੇ ਅੰਦਰ ਵੱਲ ਘੁੰਮਦੀ ਹੈ",
+          "ਉੱਪਰ ਚੜ੍ਹ ਕੇ ਬਾਹਰ ਵੱਲ ਘੁੰਮਦੀ ਹੈ",
+          "ਹੇਠਾਂ ਉਤਰ ਕੇ ਬਾਹਰ ਵੱਲ ਘੁੰਮਦੀ ਹੈ"
+        ],
+        "explanation": "ਪ੍ਰਤੀਚੱਕਰਵਾਤ ਦੀ ਸਤਹ ਉੱਤੇ ਹਵਾਵਾਂ ਬਾਹਰ ਵੱਲ ਫੈਲਦੀਆਂ ਹਨ। ਇਸ ਦੇ ਉੱਪਰਲੀ ਹਵਾ ਹੇਠਾਂ ਉਤਰਦੀ ਹੈ ਅਤੇ ਅਕਸਰ ਸ਼ਾਂਤ ਮੌਸਮ ਬਣਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q013",
+    "cpId": "WGE-001-CP012",
+    "objective": "monsoon-seasonal-reversal",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which change is central to a monsoon climate?",
+        "options": [
+          "A seasonal reversal in prevailing wind direction",
+          "A daily reversal between sea and land breezes",
+          "A seasonal reversal in ocean-current direction",
+          "A year-round flow of onshore winds from the same direction"
+        ],
+        "explanation": "A monsoon is defined by a marked seasonal change in prevailing winds, usually linked to seasonal heating contrasts between land and ocean."
+      },
+      "hi": {
+        "stem": "मानसूनी जलवायु की मुख्य पहचान क्या है?",
+        "options": [
+          "प्रचलित पवनों की दिशा में मौसमी बदलाव",
+          "समुद्र और स्थल की हवाओं में दैनिक बदलाव",
+          "महासागरीय धाराओं की दिशा में मौसमी बदलाव",
+          "एक ही दिशा से पूरे वर्ष तट की ओर चलने वाली हवाएँ"
+        ],
+        "explanation": "मानसून में प्रचलित पवनों की दिशा स्पष्ट रूप से ऋतु के अनुसार बदलती है। इसका संबंध स्थल और समुद्र के मौसमी तापांतर से होता है।"
+      },
+      "pa": {
+        "stem": "ਮਾਨਸੂਨੀ ਜਲਵਾਯੂ ਦੀ ਮੁੱਖ ਪਛਾਣ ਕੀ ਹੈ?",
+        "options": [
+          "ਪ੍ਰਚਲਿਤ ਹਵਾਵਾਂ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਰੁੱਤੀ ਬਦਲਾਅ",
+          "ਸਮੁੰਦਰੀ ਅਤੇ ਧਰਤੀ ਦੀਆਂ ਹਵਾਵਾਂ ਵਿੱਚ ਰੋਜ਼ਾਨਾ ਬਦਲਾਅ",
+          "ਸਮੁੰਦਰੀ ਧਾਰਾਵਾਂ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਰੁੱਤੀ ਬਦਲਾਅ",
+          "ਇੱਕੋ ਦਿਸ਼ਾ ਤੋਂ ਸਾਲ ਭਰ ਤੱਟ ਵੱਲ ਵਗਦੀਆਂ ਹਵਾਵਾਂ"
+        ],
+        "explanation": "ਮਾਨਸੂਨ ਵਿੱਚ ਪ੍ਰਚਲਿਤ ਹਵਾਵਾਂ ਦੀ ਦਿਸ਼ਾ ਰੁੱਤ ਅਨੁਸਾਰ ਸਪਸ਼ਟ ਤੌਰ ਤੇ ਬਦਲਦੀ ਹੈ। ਇਹ ਧਰਤੀ ਅਤੇ ਸਮੁੰਦਰ ਦੇ ਮੌਸਮੀ ਤਾਪ-ਫ਼ਰਕ ਨਾਲ ਜੁੜਿਆ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q014",
+    "cpId": "WGE-001-CP012",
+    "objective": "el-nino-ocean-location",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A",
+      "WGE-ATM-012F"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "During a typical El Niño event, unusual surface warming spreads across which part of the Pacific?",
+        "options": [
+          "The western equatorial Pacific near Indonesia",
+          "The central and eastern equatorial Pacific",
+          "The North Pacific near Alaska",
+          "The South Pacific near New Zealand"
+        ],
+        "explanation": "El Niño features anomalous warming of the central and eastern equatorial Pacific, especially near the South American coast."
+      },
+      "hi": {
+        "stem": "सामान्य एल नीनो के दौरान प्रशांत महासागर के किस भाग में सतही जल असामान्य रूप से गर्म होता है?",
+        "options": [
+          "इंडोनेशिया के पास पश्चिमी विषुवतीय प्रशांत में",
+          "मध्य और पूर्वी विषुवतीय प्रशांत में",
+          "अलास्का के पास उत्तरी प्रशांत में",
+          "न्यूज़ीलैंड के पास दक्षिणी प्रशांत में"
+        ],
+        "explanation": "एल नीनो में मध्य और पूर्वी विषुवतीय प्रशांत का सतही जल असामान्य रूप से गर्म होता है, विशेषकर दक्षिण अमेरिका के तट के पास।"
+      },
+      "pa": {
+        "stem": "ਆਮ ਐਲ ਨੀਨੋ ਦੌਰਾਨ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਦੇ ਕਿਹੜੇ ਹਿੱਸੇ ਦਾ ਸਤਹੀ ਪਾਣੀ ਅਸਧਾਰਨ ਤੌਰ ਤੇ ਗਰਮ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਇੰਡੋਨੇਸ਼ੀਆ ਨੇੜੇ ਪੱਛਮੀ ਭੂ-ਮੱਧ ਪ੍ਰਸ਼ਾਂਤ",
+          "ਮੱਧ ਅਤੇ ਪੂਰਬੀ ਭੂ-ਮੱਧ ਪ੍ਰਸ਼ਾਂਤ",
+          "ਅਲਾਸਕਾ ਨੇੜੇ ਉੱਤਰੀ ਪ੍ਰਸ਼ਾਂਤ",
+          "ਨਿਊਜ਼ੀਲੈਂਡ ਨੇੜੇ ਦੱਖਣੀ ਪ੍ਰਸ਼ਾਂਤ"
+        ],
+        "explanation": "ਐਲ ਨੀਨੋ ਵਿੱਚ ਮੱਧ ਅਤੇ ਪੂਰਬੀ ਭੂ-ਮੱਧ ਪ੍ਰਸ਼ਾਂਤ ਦਾ ਸਤਹੀ ਪਾਣੀ ਅਸਧਾਰਨ ਤੌਰ ਤੇ ਗਰਮ ਹੁੰਦਾ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਤੱਟ ਨੇੜੇ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q015",
+    "cpId": "WGE-001-CP012",
+    "objective": "el-nino-upwelling",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A",
+      "WGE-ATM-012F"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "What usually happens to nutrient-rich upwelling off Peru during El Niño?",
+        "options": [
+          "It weakens as warm surface water spreads eastward",
+          "It strengthens because trade winds intensify",
+          "It shifts to the Atlantic Ocean",
+          "It becomes unrelated to sea-surface temperature"
+        ],
+        "explanation": "During El Niño, weaker trade winds and warmer water in the eastern Pacific suppress the usual cold, nutrient-rich upwelling off Peru."
+      },
+      "hi": {
+        "stem": "एल नीनो के दौरान पेरू के तट के पास पोषक तत्वों से भरपूर जल का ऊपर उठना सामान्यतः कैसे बदलता है?",
+        "options": [
+          "पूर्व की ओर गर्म सतही जल फैलने से कमजोर पड़ता है",
+          "व्यापारिक पवनें तेज होने से मजबूत होता है",
+          "अटलांटिक महासागर में चला जाता है",
+          "समुद्री सतह के तापमान से असंबद्ध हो जाता है"
+        ],
+        "explanation": "एल नीनो में कमजोर व्यापारिक पवनें और पूर्वी प्रशांत का गर्म जल पेरू के पास ठंडे, पोषक तत्वों वाले जल के सामान्य ऊपर उठने को दबाते हैं।"
+      },
+      "pa": {
+        "stem": "ਐਲ ਨੀਨੋ ਦੌਰਾਨ ਪੇਰੂ ਦੇ ਤੱਟ ਨੇੜੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਨਾਲ ਭਰਪੂਰ ਪਾਣੀ ਦਾ ਉੱਪਰ ਚੜ੍ਹਨਾ ਆਮ ਤੌਰ ਤੇ ਕਿਵੇਂ ਬਦਲਦਾ ਹੈ?",
+        "options": [
+          "ਪੂਰਬ ਵੱਲ ਗਰਮ ਸਤਹੀ ਪਾਣੀ ਫੈਲਣ ਨਾਲ ਕਮਜ਼ੋਰ ਹੁੰਦਾ ਹੈ",
+          "ਵਪਾਰਕ ਹਵਾਵਾਂ ਤੇਜ਼ ਹੋਣ ਨਾਲ ਮਜ਼ਬੂਤ ਹੁੰਦਾ ਹੈ",
+          "ਐਟਲਾਂਟਿਕ ਮਹਾਂਸਾਗਰ ਵੱਲ ਚਲਾ ਜਾਂਦਾ ਹੈ",
+          "ਸਮੁੰਦਰੀ ਸਤਹ ਦੇ ਤਾਪਮਾਨ ਨਾਲ ਇਸ ਦਾ ਕੋਈ ਸੰਬੰਧ ਨਹੀਂ ਰਹਿੰਦਾ"
+        ],
+        "explanation": "ਐਲ ਨੀਨੋ ਵਿੱਚ ਕਮਜ਼ੋਰ ਵਪਾਰਕ ਹਵਾਵਾਂ ਅਤੇ ਪੂਰਬੀ ਪ੍ਰਸ਼ਾਂਤ ਦਾ ਗਰਮ ਪਾਣੀ ਪੇਰੂ ਨੇੜੇ ਠੰਡੇ, ਪੋਸ਼ਕ ਤੱਤਾਂ ਵਾਲੇ ਪਾਣੀ ਦੇ ਆਮ ਉੱਪਰ ਚੜ੍ਹਨ ਨੂੰ ਰੋਕਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q016",
+    "cpId": "WGE-001-CP012",
+    "objective": "la-nina-pacific",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A",
+      "WGE-ATM-012F"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which pattern is most characteristic of La Niña in the equatorial Pacific?",
+        "options": [
+          "Weaker trade winds and warmer eastern waters",
+          "Warmer-than-average central and eastern Pacific waters",
+          "Stronger trade winds and cooler central-eastern waters",
+          "A persistent cooling confined to the western tropical Atlantic"
+        ],
+        "explanation": "La Niña is generally marked by stronger-than-average trade winds and cooler-than-average central and eastern equatorial Pacific waters."
+      },
+      "hi": {
+        "stem": "भूमध्यरेखीय प्रशांत में ला नीना की सबसे सामान्य पहचान कौन-सी है?",
+        "options": [
+          "कमजोर व्यापारिक पवनें और पूर्वी जल का गर्म होना",
+          "मध्य और पूर्वी प्रशांत का औसत से अधिक गर्म जल",
+          "तेज व्यापारिक पवनें और मध्य-पूर्वी भाग का ठंडा होना",
+          "केवल पश्चिमी उष्णकटिबंधीय अटलांटिक में लगातार ठंडक"
+        ],
+        "explanation": "ला नीना में सामान्यतः व्यापारिक पवनें अधिक तेज और मध्य तथा पूर्वी विषुवतीय प्रशांत का जल औसत से ठंडा होता है।"
+      },
+      "pa": {
+        "stem": "ਭੂ-ਮੱਧ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਲਾ ਨੀਨਾ ਦੀ ਸਭ ਤੋਂ ਆਮ ਪਛਾਣ ਕਿਹੜੀ ਹੈ?",
+        "options": [
+          "ਕਮਜ਼ੋਰ ਵਪਾਰਕ ਹਵਾਵਾਂ ਅਤੇ ਪੂਰਬੀ ਪਾਣੀ ਦਾ ਗਰਮ ਹੋਣਾ",
+          "ਮੱਧ ਅਤੇ ਪੂਰਬੀ ਪ੍ਰਸ਼ਾਂਤ ਦਾ ਔਸਤ ਨਾਲੋਂ ਵੱਧ ਗਰਮ ਪਾਣੀ",
+          "ਤੇਜ਼ ਵਪਾਰਕ ਹਵਾਵਾਂ ਅਤੇ ਮੱਧ-ਪੂਰਬੀ ਹਿੱਸੇ ਦਾ ਠੰਡਾ ਹੋਣਾ",
+          "ਸਿਰਫ਼ ਪੱਛਮੀ ਗਰਮ-ਖੰਡੀ ਐਟਲਾਂਟਿਕ ਵਿੱਚ ਲਗਾਤਾਰ ਠੰਡਕ"
+        ],
+        "explanation": "ਲਾ ਨੀਨਾ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਵਪਾਰਕ ਹਵਾਵਾਂ ਔਸਤ ਨਾਲੋਂ ਤੇਜ਼ ਹੁੰਦੀਆਂ ਹਨ ਅਤੇ ਮੱਧ ਤੇ ਪੂਰਬੀ ਭੂ-ਮੱਧ ਪ੍ਰਸ਼ਾਂਤ ਦਾ ਪਾਣੀ ਔਸਤ ਨਾਲੋਂ ਠੰਡਾ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q017",
+    "cpId": "WGE-001-CP012",
+    "objective": "iod-positive-sst",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012A",
+      "WGE-ATM-012C"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A positive Indian Ocean Dipole is marked by which sea-surface pattern?",
+        "options": [
+          "Warmer water in the eastern equatorial Indian Ocean than the west",
+          "Warmer water in the western equatorial Indian Ocean than the east",
+          "Uniform warming of the whole Indian Ocean",
+          "Cooling confined to the Arabian Sea"
+        ],
+        "explanation": "A positive IOD has a warmer western equatorial Indian Ocean relative to the cooler south-eastern equatorial Indian Ocean."
+      },
+      "hi": {
+        "stem": "धनात्मक हिंद महासागर द्विध्रुव की पहचान समुद्री सतह के किस तापमान-पैटर्न से होती है?",
+        "options": [
+          "पश्चिम की तुलना में पूर्वी विषुवतीय हिंद महासागर का अधिक गर्म होना",
+          "पूर्व की तुलना में पश्चिमी विषुवतीय हिंद महासागर का अधिक गर्म होना",
+          "पूरे हिंद महासागर का समान रूप से गर्म होना",
+          "केवल अरब सागर का ठंडा होना"
+        ],
+        "explanation": "धनात्मक हिंद महासागर द्विध्रुव में पश्चिमी विषुवतीय हिंद महासागर, दक्षिण-पूर्वी विषुवतीय भाग की तुलना में अधिक गर्म होता है।"
+      },
+      "pa": {
+        "stem": "ਧਨਾਤਮਕ ਹਿੰਦ ਮਹਾਂਸਾਗਰੀ ਡਾਈਪੋਲ ਦੀ ਪਛਾਣ ਸਮੁੰਦਰੀ ਸਤਹ ਦੇ ਕਿਹੜੇ ਤਾਪਮਾਨ-ਰੂਪ ਨਾਲ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਪੱਛਮ ਨਾਲੋਂ ਪੂਰਬੀ ਭੂ-ਮੱਧ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦਾ ਵੱਧ ਗਰਮ ਹੋਣਾ",
+          "ਪੂਰਬ ਨਾਲੋਂ ਪੱਛਮੀ ਭੂ-ਮੱਧ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦਾ ਵੱਧ ਗਰਮ ਹੋਣਾ",
+          "ਸਾਰੇ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦਾ ਇਕਸਾਰ ਗਰਮ ਹੋਣਾ",
+          "ਸਿਰਫ਼ ਅਰਬ ਸਾਗਰ ਦਾ ਠੰਡਾ ਹੋਣਾ"
+        ],
+        "explanation": "ਧਨਾਤਮਕ ਹਿੰਦ ਮਹਾਂਸਾਗਰੀ ਡਾਈਪੋਲ ਵਿੱਚ ਪੱਛਮੀ ਭੂ-ਮੱਧ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦੱਖਣ-ਪੂਰਬੀ ਭੂ-ਮੱਧ ਹਿੱਸੇ ਨਾਲੋਂ ਵੱਧ ਗਰਮ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q018",
+    "cpId": "WGE-001-CP012",
+    "objective": "climate-variability-versus-change",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which statement best describes climate variability?",
+        "options": [
+          "A long-term shift in climate averages caused only by humans",
+          "The daily forecast for one location",
+          "A permanent rise in global mean temperature",
+          "Fluctuations around climate averages over months, years or decades"
+        ],
+        "explanation": "Climate variability describes departures from average climate conditions across time scales; it can occur within longer-term climate change."
+      },
+      "hi": {
+        "stem": "जलवायु परिवर्तनशीलता का सबसे उपयुक्त वर्णन कौन-सा है?",
+        "options": [
+          "केवल मानव कारणों से जलवायु औसत में दीर्घकालिक बदलाव",
+          "एक स्थान का दैनिक पूर्वानुमान",
+          "वैश्विक औसत तापमान में स्थायी वृद्धि",
+          "महीनों, वर्षों या दशकों में जलवायु औसत के आसपास होने वाले उतार-चढ़ाव"
+        ],
+        "explanation": "जलवायु परिवर्तनशीलता अलग-अलग समयावधियों में औसत जलवायु से विचलन को कहते हैं। यह दीर्घकालिक जलवायु परिवर्तन के साथ भी हो सकती है।"
+      },
+      "pa": {
+        "stem": "ਜਲਵਾਯੂ ਦੀ ਬਦਲਾਅਸ਼ੀਲਤਾ ਦਾ ਸਭ ਤੋਂ ਢੁੱਕਵਾਂ ਵਰਣਨ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਸਿਰਫ਼ ਮਨੁੱਖੀ ਕਾਰਨਾਂ ਨਾਲ ਜਲਵਾਯੂ ਔਸਤ ਵਿੱਚ ਲੰਬੇ ਸਮੇਂ ਦਾ ਬਦਲਾਅ",
+          "ਕਿਸੇ ਥਾਂ ਦਾ ਰੋਜ਼ਾਨਾ ਪੂਰਵ-ਅਨੁਮਾਨ",
+          "ਵਿਸ਼ਵ ਔਸਤ ਤਾਪਮਾਨ ਦਾ ਸਥਾਈ ਵਾਧਾ",
+          "ਮਹੀਨਿਆਂ, ਸਾਲਾਂ ਜਾਂ ਦਹਾਕਿਆਂ ਦੌਰਾਨ ਜਲਵਾਯੂ ਔਸਤ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਉਤਾਰ-ਚੜ੍ਹਾਅ"
+        ],
+        "explanation": "ਜਲਵਾਯੂ ਦੀ ਬਦਲਾਅਸ਼ੀਲਤਾ ਵੱਖ-ਵੱਖ ਸਮੇਂ ਦੇ ਪੈਮਾਨਿਆਂ ਉੱਤੇ ਔਸਤ ਤੋਂ ਹਟਾਅ ਨੂੰ ਕਹਿੰਦੇ ਹਨ। ਇਹ ਲੰਬੇ ਸਮੇਂ ਦੇ ਜਲਵਾਯੂ ਬਦਲਾਅ ਦੇ ਨਾਲ ਵੀ ਹੋ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q019",
+    "cpId": "WGE-001-CP012",
+    "objective": "front-occlusion",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "An occluded front forms when:",
+        "options": [
+          "A faster cold front overtakes a warm front and lifts the warm air off the ground",
+          "A warm front overtakes a stationary cold front",
+          "Two warm air masses merge",
+          "A cyclone loses all of its pressure gradient"
+        ],
+        "explanation": "Occlusion occurs when the faster cold front catches the warm front, lifting the warm sector above the surface."
+      },
+      "hi": {
+        "stem": "अवरोधित वाताग्र कब बनता है?",
+        "options": [
+          "जब तेज शीत वाताग्र गर्म वाताग्र को पकड़कर गर्म वायु को भूमि से ऊपर उठा देता है",
+          "जब गर्म वाताग्र स्थिर शीत वाताग्र को पकड़ लेता है",
+          "जब दो गर्म वायुराशियाँ मिलती हैं",
+          "जब चक्रवात का दाब-प्रवणता पूरी तरह समाप्त हो जाता है"
+        ],
+        "explanation": "तेज शीत वाताग्र गर्म वाताग्र तक पहुँचकर गर्म वायु को सतह से ऊपर उठा देता है; इसी से अवरोधित वाताग्र बनता है।"
+      },
+      "pa": {
+        "stem": "ਅਵਰੁੱਧ ਵਾਤਾਗ੍ਰ ਕਦੋਂ ਬਣਦਾ ਹੈ?",
+        "options": [
+          "ਜਦੋਂ ਤੇਜ਼ ਠੰਡਾ ਵਾਤਾਗ੍ਰ ਗਰਮ ਵਾਤਾਗ੍ਰ ਨੂੰ ਫੜ ਕੇ ਗਰਮ ਹਵਾ ਨੂੰ ਧਰਤੀ ਤੋਂ ਉੱਪਰ ਚੁੱਕ ਲੈਂਦਾ ਹੈ",
+          "ਜਦੋਂ ਗਰਮ ਵਾਤਾਗ੍ਰ ਥਿਰ ਠੰਡੇ ਵਾਤਾਗ੍ਰ ਨੂੰ ਫੜ ਲੈਂਦਾ ਹੈ",
+          "ਜਦੋਂ ਦੋ ਗਰਮ ਹਵਾਈ ਪੁੰਜ ਮਿਲਦੇ ਹਨ",
+          "ਜਦੋਂ ਚੱਕਰਵਾਤ ਦਾ ਦਬਾਅ-ਢਲਾਣ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਤਮ ਹੋ ਜਾਂਦਾ ਹੈ"
+        ],
+        "explanation": "ਤੇਜ਼ ਠੰਡਾ ਵਾਤਾਗ੍ਰ ਗਰਮ ਵਾਤਾਗ੍ਰ ਤੱਕ ਪਹੁੰਚ ਕੇ ਗਰਮ ਹਵਾ ਨੂੰ ਸਤਹ ਤੋਂ ਉੱਪਰ ਚੁੱਕ ਲੈਂਦਾ ਹੈ; ਇਸੇ ਨਾਲ ਅਵਰੁੱਧ ਵਾਤਾਗ੍ਰ ਬਣਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q020",
+    "cpId": "WGE-001-CP012",
+    "objective": "cyclone-rainbands",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which part of a tropical cyclone commonly contains spiral bands of heavy showers and thunderstorms?",
+        "options": [
+          "The eye only",
+          "The surrounding rainbands",
+          "The upper stratosphere",
+          "The cold front far ahead of the storm"
+        ],
+        "explanation": "Rainbands spiral around the eye and can bring repeated bursts of heavy rain and strong winds."
+      },
+      "hi": {
+        "stem": "उष्णकटिबंधीय चक्रवात के किस भाग में तेज वर्षा और गरज-चमक की सर्पिल पट्टियाँ होती हैं?",
+        "options": [
+          "केवल आँख में",
+          "आँख के चारों ओर की वर्षा-पट्टियों में",
+          "ऊपरी समतापमंडल में",
+          "तूफान से बहुत आगे स्थित शीत वाताग्र में"
+        ],
+        "explanation": "वर्षा-पट्टियाँ आँख के चारों ओर सर्पिल रूप में होती हैं और तेज वर्षा तथा हवाओं के दौर ला सकती हैं।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ-ਖੰਡੀ ਚੱਕਰਵਾਤ ਦੇ ਕਿਹੜੇ ਹਿੱਸੇ ਵਿੱਚ ਤੇਜ਼ ਮੀਂਹ ਅਤੇ ਗਰਜ-ਚਮਕ ਦੀਆਂ ਘੁੰਮਦੀਆਂ ਪੱਟੀਆਂ ਹੁੰਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਸਿਰਫ਼ ਅੱਖ ਵਿੱਚ",
+          "ਅੱਖ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਮੀਂਹ-ਪੱਟੀਆਂ ਵਿੱਚ",
+          "ਉੱਪਰੀ ਸਮਤਾਪ ਮੰਡਲ ਵਿੱਚ",
+          "ਤੂਫ਼ਾਨ ਤੋਂ ਕਾਫ਼ੀ ਅੱਗੇ ਠੰਡੇ ਵਾਤਾਗ੍ਰ ਵਿੱਚ"
+        ],
+        "explanation": "ਮੀਂਹ-ਪੱਟੀਆਂ ਅੱਖ ਦੁਆਲੇ ਘੁੰਮਦੀਆਂ ਹਨ ਅਤੇ ਤੇਜ਼ ਮੀਂਹ ਤੇ ਹਵਾਵਾਂ ਦੇ ਦੌਰ ਲਿਆ ਸਕਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q021",
+    "cpId": "WGE-001-CP012",
+    "objective": "tropical-cyclone-warm-core",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which vertical structure is typical of a mature tropical cyclone?",
+        "options": [
+          "A cold core with strongest winds near the tropopause",
+          "A warm core with rising air near the centre and outflow aloft",
+          "A warm core with sinking air throughout",
+          "A cold core surrounded by stationary fronts"
+        ],
+        "explanation": "Latent heat release warms the storm core; air rises near the centre and spreads outward near the top of the storm."
+      },
+      "hi": {
+        "stem": "परिपक्व उष्णकटिबंधीय चक्रवात की ऊर्ध्वाधर संरचना कैसी होती है?",
+        "options": [
+          "ठंडा केंद्र और सबसे तेज हवाएँ क्षोभसीमा के पास",
+          "गर्म केंद्र, मध्य के पास ऊपर उठती वायु और ऊँचाई पर बाहर की ओर प्रवाह",
+          "गर्म केंद्र और हर स्तर पर नीचे उतरती वायु",
+          "ठंडा केंद्र और स्थिर वाताग्रों का घेरा"
+        ],
+        "explanation": "गुप्त ऊष्मा निकलने से चक्रवात का केंद्र गर्म होता है। वायु केंद्र के पास ऊपर उठती है और ऊपरी स्तरों पर बाहर फैलती है।"
+      },
+      "pa": {
+        "stem": "ਪੱਕੇ ਗਰਮ-ਖੰਡੀ ਚੱਕਰਵਾਤ ਦੀ ਲੰਬਕਾਰੀ ਬਣਤਰ ਕਿਹੋ ਜਿਹੀ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਠੰਡਾ ਕੇਂਦਰ ਅਤੇ ਸਭ ਤੋਂ ਤੇਜ਼ ਹਵਾਵਾਂ ਖ਼ਰਾਬ ਮੰਡਲ ਦੀ ਹੱਦ ਨੇੜੇ",
+          "ਗਰਮ ਕੇਂਦਰ, ਵਿਚਕਾਰ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹਵਾ ਅਤੇ ਉਚਾਈ ਉੱਤੇ ਬਾਹਰ ਵੱਲ ਪ੍ਰਵਾਹ",
+          "ਗਰਮ ਕੇਂਦਰ ਅਤੇ ਹਰ ਪੱਧਰ ਉੱਤੇ ਹੇਠਾਂ ਉਤਰਦੀ ਹਵਾ",
+          "ਠੰਡਾ ਕੇਂਦਰ ਅਤੇ ਥਿਰ ਵਾਤਾਗ੍ਰਾਂ ਦਾ ਘੇਰਾ"
+        ],
+        "explanation": "ਗੁਪਤ ਤਾਪ ਨਿਕਲਣ ਨਾਲ ਚੱਕਰਵਾਤ ਦਾ ਕੇਂਦਰ ਗਰਮ ਹੁੰਦਾ ਹੈ। ਹਵਾ ਕੇਂਦਰ ਨੇੜੇ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹੈ ਅਤੇ ਉੱਪਰੀ ਪੱਧਰਾਂ ਉੱਤੇ ਬਾਹਰ ਫੈਲਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q022",
+    "cpId": "WGE-001-CP012",
+    "objective": "iod-monsoon-caution",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-012C"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "What is the soundest conclusion about the Indian Ocean Dipole and rainfall in South Asia?",
+        "options": [
+          "A positive IOD guarantees a wet monsoon everywhere",
+          "A negative IOD always prevents monsoon rain",
+          "The IOD can influence circulation, but it does not determine rainfall by itself",
+          "IOD events occur only during El Niño"
+        ],
+        "explanation": "The IOD is one climate driver among several; its regional rainfall effects depend on interactions with other ocean-atmosphere patterns."
+      },
+      "hi": {
+        "stem": "हिंद महासागर द्विध्रुव और दक्षिण एशिया की वर्षा के बारे में सबसे सही निष्कर्ष क्या है?",
+        "options": [
+          "धनात्मक द्विध्रुव हर जगह अच्छी मानसूनी वर्षा की गारंटी देता है",
+          "ऋणात्मक द्विध्रुव मानसूनी वर्षा को हमेशा रोकता है",
+          "द्विध्रुव परिसंचरण को प्रभावित कर सकता है, पर अकेले वर्षा तय नहीं करता",
+          "द्विध्रुव केवल एल नीनो के समय होता है"
+        ],
+        "explanation": "हिंद महासागर द्विध्रुव कई जलवायु कारकों में से एक है। क्षेत्रीय वर्षा पर इसका असर अन्य महासागर-वायुमंडल पैटर्न के साथ इसकी अंतःक्रिया पर निर्भर करता है।"
+      },
+      "pa": {
+        "stem": "ਹਿੰਦ ਮਹਾਂਸਾਗਰੀ ਡਾਈਪੋਲ ਅਤੇ ਦੱਖਣੀ ਏਸ਼ੀਆ ਦੀ ਵਰਖਾ ਬਾਰੇ ਸਭ ਤੋਂ ਸਹੀ ਨਤੀਜਾ ਕੀ ਹੈ?",
+        "options": [
+          "ਧਨਾਤਮਕ ਡਾਈਪੋਲ ਹਰ ਥਾਂ ਚੰਗੇ ਮਾਨਸੂਨੀ ਮੀਂਹ ਦੀ ਗਾਰੰਟੀ ਦਿੰਦਾ ਹੈ",
+          "ਰਿਣਾਤਮਕ ਡਾਈਪੋਲ ਮਾਨਸੂਨੀ ਮੀਂਹ ਨੂੰ ਹਮੇਸ਼ਾ ਰੋਕਦਾ ਹੈ",
+          "ਡਾਈਪੋਲ ਗਤੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦਾ ਹੈ, ਪਰ ਇਕੱਲਾ ਮੀਂਹ ਤੈਅ ਨਹੀਂ ਕਰਦਾ",
+          "ਡਾਈਪੋਲ ਸਿਰਫ਼ ਐਲ ਨੀਨੋ ਵੇਲੇ ਹੁੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਹਿੰਦ ਮਹਾਂਸਾਗਰੀ ਡਾਈਪੋਲ ਕਈ ਜਲਵਾਯੂ ਕਾਰਕਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ। ਖੇਤਰੀ ਮੀਂਹ ਉੱਤੇ ਇਸ ਦਾ ਅਸਰ ਹੋਰ ਸਮੁੰਦਰ-ਵਾਯੂਮੰਡਲ ਰੂਪਾਂ ਨਾਲ ਇਸ ਦੀ ਅੰਤਰਕਿਰਿਆ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q023",
+    "cpId": "WGE-001-CP012",
+    "objective": "tropical-cyclone-landfall-weakening",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why does a tropical cyclone usually weaken after moving far inland?",
+        "options": [
+          "It loses its supply of warm, moist ocean air and experiences greater surface friction",
+          "It loses access to the warm ocean mixed layer",
+          "Surface friction increases over rough land",
+          "Its central pressure immediately becomes higher than the surrounding air"
+        ],
+        "explanation": "Over land the storm is cut off from its oceanic moisture and heat source, and rough terrain increases friction."
+      },
+      "hi": {
+        "stem": "उष्णकटिबंधीय चक्रवात भूमि पर दूर जाने के बाद सामान्यतः कमजोर क्यों पड़ता है?",
+        "options": [
+          "गर्म, नम समुद्री वायु की आपूर्ति रुक जाती है और सतही घर्षण बढ़ता है",
+          "उसे महासागर की गर्म मिश्रित परत तक पहुँच नहीं मिलती",
+          "खुरदरी भूमि पर सतही घर्षण बढ़ता है",
+          "उसका केंद्रीय दाब तुरंत आसपास की वायु से अधिक हो जाता है"
+        ],
+        "explanation": "भूमि पर पहुँचने के बाद तूफान को समुद्र से नमी और ऊष्मा नहीं मिलती तथा खुरदरी सतह से घर्षण बढ़ता है।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ-ਖੰਡੀ ਚੱਕਰਵਾਤ ਧਰਤੀ ਉੱਤੇ ਕਾਫ਼ੀ ਅੰਦਰ ਜਾਣ ਪਿੱਛੋਂ ਆਮ ਤੌਰ ਤੇ ਕਮਜ਼ੋਰ ਕਿਉਂ ਪੈਂਦਾ ਹੈ?",
+        "options": [
+          "ਗਰਮ, ਨਮੀ ਵਾਲੀ ਸਮੁੰਦਰੀ ਹਵਾ ਦੀ ਸਪਲਾਈ ਰੁਕ ਜਾਂਦੀ ਹੈ ਅਤੇ ਸਤਹੀ ਰਗੜ ਵਧਦੀ ਹੈ",
+          "ਇਸ ਨੂੰ ਸਮੁੰਦਰ ਦੀ ਗਰਮ ਰਲੀ ਹੋਈ ਪਰਤ ਤੱਕ ਪਹੁੰਚ ਨਹੀਂ ਮਿਲਦੀ",
+          "ਖੁਰਦਰੀ ਧਰਤੀ ਉੱਤੇ ਸਤਹੀ ਰਗੜ ਵਧਦੀ ਹੈ",
+          "ਇਸ ਦਾ ਕੇਂਦਰੀ ਦਬਾਅ ਤੁਰੰਤ ਆਲੇ-ਦੁਆਲੇ ਦੀ ਹਵਾ ਨਾਲੋਂ ਵੱਧ ਹੋ ਜਾਂਦਾ ਹੈ"
+        ],
+        "explanation": "ਧਰਤੀ ਉੱਤੇ ਤੂਫ਼ਾਨ ਨੂੰ ਸਮੁੰਦਰ ਤੋਂ ਨਮੀ ਅਤੇ ਤਾਪ ਨਹੀਂ ਮਿਲਦਾ ਅਤੇ ਖੁਰਦਰੀ ਸਤਹ ਨਾਲ ਰਗੜ ਵਧ ਜਾਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q024",
+    "cpId": "WGE-001-CP012",
+    "objective": "temperate-cyclone-path",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-012",
+      "WGE-ATM-012A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Why do many temperate cyclones move from west to east across the middle latitudes?",
+        "options": [
+          "They are steered mainly by the polar easterlies",
+          "They are steered mainly by the prevailing westerlies",
+          "They are carried westward by the tropical trade winds",
+          "They move against the upper-air flow"
+        ],
+        "explanation": "Prevailing westerlies steer many mid-latitude weather systems eastward, though individual tracks vary."
+      },
+      "hi": {
+        "stem": "मध्य अक्षांशों में अनेक समशीतोष्ण चक्रवात पश्चिम से पूर्व की ओर क्यों बढ़ते हैं?",
+        "options": [
+          "मुख्यतः ध्रुवीय पूर्वी पवनें उन्हें दिशा देती हैं",
+          "मुख्यतः प्रचलित पछुआ पवनें उन्हें दिशा देती हैं",
+          "उष्णकटिबंधीय व्यापारिक पवनें उन्हें पश्चिम की ओर ले जाती हैं",
+          "वे ऊपरी वायु प्रवाह के विपरीत चलते हैं"
+        ],
+        "explanation": "प्रचलित पछुआ पवनें मध्य अक्षांशों की कई मौसम प्रणालियों को पूर्व की ओर ले जाती हैं, हालांकि हर चक्रवात का मार्ग अलग हो सकता है।"
+      },
+      "pa": {
+        "stem": "ਮੱਧ ਅਕਸ਼ਾਂਸ਼ਾਂ ਵਿੱਚ ਕਈ ਸਮਸ਼ੀਤੋਸ਼ਣ ਚੱਕਰਵਾਤ ਪੱਛਮ ਤੋਂ ਪੂਰਬ ਵੱਲ ਕਿਉਂ ਵਧਦੇ ਹਨ?",
+        "options": [
+          "ਮੁੱਖ ਤੌਰ ਤੇ ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਦਿਸ਼ਾ ਦਿੰਦੀਆਂ ਹਨ",
+          "ਮੁੱਖ ਤੌਰ ਤੇ ਪ੍ਰਚਲਿਤ ਪੱਛਮੀ ਹਵਾਵਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਦਿਸ਼ਾ ਦਿੰਦੀਆਂ ਹਨ",
+          "ਗਰਮ-ਖੰਡੀ ਵਪਾਰਕ ਹਵਾਵਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਪੱਛਮ ਵੱਲ ਲੈ ਜਾਂਦੀਆਂ ਹਨ",
+          "ਉਹ ਉੱਪਰੀ ਹਵਾ ਦੇ ਵਹਾਅ ਦੇ ਉਲਟ ਚਲਦੇ ਹਨ"
+        ],
+        "explanation": "ਪ੍ਰਚਲਿਤ ਪੱਛਮੀ ਹਵਾਵਾਂ ਮੱਧ ਅਕਸ਼ਾਂਸ਼ਾਂ ਦੀਆਂ ਕਈ ਮੌਸਮੀ ਪ੍ਰਣਾਲੀਆਂ ਨੂੰ ਪੂਰਬ ਵੱਲ ਲੈ ਜਾਂਦੀਆਂ ਹਨ, ਹਾਲਾਂਕਿ ਹਰ ਚੱਕਰਵਾਤ ਦਾ ਰਸਤਾ ਵੱਖਰਾ ਹੋ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP012-Q025",
+    "cpId": "WGE-001-CP012",
+    "objective": "enso-coupled-system",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-012C",
+      "WGE-ATM-012F"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why is El Niño called an ocean-atmosphere phenomenon?",
+        "options": [
+          "Changes in Pacific sea-surface temperature alter winds and pressure, which in turn affect the ocean",
+          "It is caused only by a change in ocean salinity",
+          "It is a seasonal land breeze in South America",
+          "It occurs only in the upper atmosphere"
+        ],
+        "explanation": "El Niño involves linked changes in equatorial Pacific temperatures and atmospheric circulation, with feedback between ocean and air."
+      },
+      "hi": {
+        "stem": "एल नीनो को महासागर-वायुमंडल घटना क्यों कहा जाता है?",
+        "options": [
+          "प्रशांत के समुद्री सतह तापमान में बदलाव पवनों और दाब को बदलता है, जो फिर महासागर को प्रभावित करते हैं",
+          "यह केवल समुद्र की लवणता बदलने से होता है",
+          "यह दक्षिण अमेरिका की मौसमी स्थल-समीर है",
+          "यह केवल ऊपरी वायुमंडल में होता है"
+        ],
+        "explanation": "एल नीनो में विषुवतीय प्रशांत के तापमान और वायुमंडलीय परिसंचरण में जुड़े बदलाव होते हैं; समुद्र और वायु एक-दूसरे को प्रभावित करते हैं।"
+      },
+      "pa": {
+        "stem": "ਐਲ ਨੀਨੋ ਨੂੰ ਸਮੁੰਦਰ-ਵਾਯੂਮੰਡਲ ਘਟਨਾ ਕਿਉਂ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਸਮੁੰਦਰੀ ਸਤਹ ਤਾਪਮਾਨ ਵਿੱਚ ਬਦਲਾਅ ਹਵਾਵਾਂ ਅਤੇ ਦਬਾਅ ਬਦਲਦਾ ਹੈ, ਜੋ ਫਿਰ ਸਮੁੰਦਰ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਦੇ ਹਨ",
+          "ਇਹ ਸਿਰਫ਼ ਸਮੁੰਦਰ ਦੀ ਖਾਰਾਪਣ ਬਦਲਣ ਨਾਲ ਹੁੰਦਾ ਹੈ",
+          "ਇਹ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੀ ਰੁੱਤੀ ਧਰਤੀ-ਸਮੁੰਦਰੀ ਹਵਾ ਹੈ",
+          "ਇਹ ਸਿਰਫ਼ ਉੱਪਰੀ ਵਾਯੂਮੰਡਲ ਵਿੱਚ ਹੁੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਐਲ ਨੀਨੋ ਵਿੱਚ ਭੂ-ਮੱਧ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਤਾਪਮਾਨ ਅਤੇ ਵਾਯੂਮੰਡਲੀ ਗਤੀ ਵਿੱਚ ਆਪਸੀ ਬਦਲਾਅ ਹੁੰਦਾ ਹੈ; ਸਮੁੰਦਰ ਅਤੇ ਹਵਾ ਇਕ-ਦੂਜੇ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਦੇ ਹਨ।"
+      }
+    }
+  }
+]
