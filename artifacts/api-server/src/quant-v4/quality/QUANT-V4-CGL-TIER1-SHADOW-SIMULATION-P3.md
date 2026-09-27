@@ -67,9 +67,13 @@ The current regression requires:
 
 `normalizedStructuralStemReuseRate <= 0.05`
 
-and requires `SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT` to be absent.
+The latest observed 20-section / 500-question shadow run reports:
 
-Therefore stem-reuse is not a current blocker when that regression passes.
+- literal stem duplicate rate: **8.4%**;
+- normalized structural stem reuse: **21.8%**;
+- blocker: `SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT`.
+
+Therefore structural reuse is a current content-quality blocker and must be remediated rather than waived.
 
 ## Expected governance result
 
@@ -77,7 +81,10 @@ The correct current result remains:
 
 `SHADOW_SIMULATION_HOLD`
 
-but the hold is not caused by structural capability gaps or stem repetition. The deliberate remaining blocker is Algebra lifecycle state.
+Structural capability gaps are closed, but the shadow remains on hold for two different reasons:
+
+1. `ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK` — deliberate lifecycle/governance hold;
+2. `SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT` — active content-diversity defect.
 
 The audit must continue to report:
 
