@@ -30,7 +30,7 @@ Key retained distinctions include:
 - stable-constant context versus visible-divisor relations where the solve structure differs;
 - direct powers versus root extraction;
 - sum of cubes versus cube of sum;
-- repeated affine transformation versus ordinary product/sum relations;
+- second-input affine transformation versus ordinary product/sum relations;
 - mixed whole-number/digit rules where both stages are solve-relevant;
 - multi-stage source-backed relations whose visible operand roles materially change inference.
 
