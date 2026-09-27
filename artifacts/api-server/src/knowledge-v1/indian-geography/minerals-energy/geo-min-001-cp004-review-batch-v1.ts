@@ -620,6 +620,105 @@ buildGeoMinQl("INTEGRATED-NON-FERROUS-MINERAL-REASONING", "Integrated non-ferrou
     "explanation": "Panchpatmali represents bauxite, Khetri copper and Zawar lead-zinc. Although the metals differ, all belong to the non-ferrous metallic group.",
     "sourceFactId": "NONFERROUS-INTEGRATED-6"
   }
+] as const),
+
+buildGeoMinQl("MALANJKHAND-COPPER-BALAGHAT", "Malanjkhand copper mine and Balaghat", [
+  {
+    "stem": "Malanjkhand, one of India's best-known copper mines, is located in which state?",
+    "answer": "Madhya Pradesh",
+    "distractors": [
+      "Rajasthan",
+      "Jharkhand",
+      "Odisha"
+    ],
+    "explanation": "Malanjkhand Copper Mine is in Balaghat district of Madhya Pradesh. It is a major copper location and should be distinguished from Khetri in Rajasthan and Singhbhum in Jharkhand.",
+    "sourceFactId": "CU-MALANJKHAND-STATE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-COPPER",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Which mineral is extracted at Malanjkhand in Balaghat district?",
+    "answer": "Copper ore",
+    "distractors": [
+      "Iron ore",
+      "Mica",
+      "Gypsum"
+    ],
+    "explanation": "IBM records Malanjkhand as a copper mine in Balaghat district, Madhya Pradesh. The location-resource pair is one of the most important copper facts in Indian geography.",
+    "sourceFactId": "CU-MALANJKHAND-RESOURCE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-COPPER",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Malanjkhand is in Balaghat district. II. It is linked with copper ore. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Malanjkhand lies in Balaghat district of Madhya Pradesh and is worked for copper ore. Both statements correctly identify its location and mineral resource.",
+    "sourceFactId": "CU-MALANJKHAND-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-COPPER",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Malanjkhand — copper",
+    "distractors": [
+      "Malanjkhand — mica",
+      "Malanjkhand — petroleum",
+      "Malanjkhand — gypsum"
+    ],
+    "explanation": "Malanjkhand is a major copper-mining centre. Mica, petroleum and gypsum belong to different mineral belts and should not be attached to this Balaghat location.",
+    "sourceFactId": "CU-MALANJKHAND-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-COPPER",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "A map marks Khetri, Malanjkhand and Singhbhum. Which mineral links all three locations?",
+    "answer": "Copper",
+    "distractors": [
+      "Manganese",
+      "Mica",
+      "Lignite"
+    ],
+    "explanation": "Khetri in Rajasthan, Malanjkhand in Madhya Pradesh and Singhbhum in Jharkhand are classic copper locations. Together they provide a useful west-central-east map pattern.",
+    "sourceFactId": "CU-THREE-FIELDS-MAP",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-COPPER",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Which comparison is correct?",
+    "answer": "Khetri is in Rajasthan, Malanjkhand in Madhya Pradesh and Singhbhum in Jharkhand",
+    "distractors": [
+      "All three are in Rajasthan",
+      "Malanjkhand is in Odisha and Khetri in Jharkhand",
+      "All three are iron-ore belts"
+    ],
+    "explanation": "The three copper regions lie in different states: Khetri in Rajasthan, Malanjkhand in Madhya Pradesh and Singhbhum in Jharkhand. This spatial contrast is valuable for elimination questions.",
+    "sourceFactId": "CU-THREE-FIELDS-COMPARE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-COPPER",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  }
 ] as const)
 ]);
 
