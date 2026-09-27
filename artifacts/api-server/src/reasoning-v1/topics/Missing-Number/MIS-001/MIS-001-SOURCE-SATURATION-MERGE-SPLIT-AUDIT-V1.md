@@ -6,7 +6,7 @@ Status: **MERGE-SPLIT COMPLETE AGAINST THE IMPLEMENTED BLUEPRINT; EXTERNAL SOURC
 
 The MIS-001 blueprint requires permanent QLs to represent semantic exam patterns rather than constants, number tuples, renderer shapes, blank positions or difficulty labels. It also requires source saturation across SSC, Banking and Punjab-state material before permanent QL allocation.
 
-The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP018. Source crosswalk waves V1–V5 now provide growing SSC and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
+The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP020. Source crosswalk waves V1–V6 now provide growing SSC and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
 
 Therefore:
 
@@ -36,16 +36,18 @@ Current runtime review patterns:
 - CP016: 1 SSC GD source-discovered authority
 - CP017: 1 SSC CGL mixed whole-number/digit source-discovered authority
 - CP018: 4 SSC CHSL source-discovered whole-number authorities
+- CP019: 5 SSC CGL source-discovered runtime patterns (4 new authorities + 1 alias)
+- CP020: 3 SSC root-extraction authorities
 
-**Total runtime patterns: 95**
+**Total runtime patterns: 103**
 
 ## 3. Chapter-wide consolidation result
 
 After normalization by semantic rule rather than checkpoint/renderer/query direction:
 
-- runtime patterns: **95**
-- canonical semantic authorities: **61**
-- reuse / alias patterns: **34**
+- runtime patterns: **103**
+- canonical semantic authorities: **68**
+- reuse / alias patterns: **35**
 - permanent QLs allocated: **0**
 
 The authoritative mapping lives in `semantic-authority-registry.ts`.
@@ -172,6 +174,8 @@ No permanent QL should be allocated to a source-thin authority until target-exam
 
 MIS-CAND-095 is also explicitly source-thin pending recurrence beyond its current SSC CHSL source.
 
+CP020 adds exact root-extraction authorities for √(ab), √a−√b and ∛a+∛b; these remain provisional until broader source saturation.
+
 ## 7. Boundary audit
 
 Ownership remains:
@@ -220,7 +224,7 @@ Still pending before closure:
 
 **Permanent QL allocation remains BLOCKED.**
 
-Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V6`. Those waves have confirmed existing authorities, added eleven source-backed semantic gaps, added one Punjab-state missing-corner runtime variant, and strengthened Series/Number-Matrix boundary routing.
+Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V7`. Those waves have confirmed existing authorities, added eighteen source-backed semantic gaps, added one Punjab-state missing-corner runtime variant, and strengthened Series/Number-Matrix boundary routing.
 
 Required next checkpoint:
 
@@ -237,4 +241,4 @@ For each observed target-exam source family record:
 - frequency confidence
 - source-thin flag
 
-Only after the crosswalk reaches practical saturation should the current 61 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
+Only after the crosswalk reaches practical saturation should the current 68 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
