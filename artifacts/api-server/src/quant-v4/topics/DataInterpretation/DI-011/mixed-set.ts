@@ -95,15 +95,17 @@ function buildStimulus(seed:string): Di011Stimulus {
 export function generateDi011MixedSet(input:{seed:string;examProfile?:Di011ExamProfile}):Di011QuestionSet {
   const examProfile=input.examProfile ?? "BANKING_MAINS";
   const stimulus=buildStimulus(input.seed);
+  const mediumPool = stimulus.pairKind === "PIE_TABLE" ? MEDIUM.filter((task) => task !== "CROSS_COMPONENT_AVERAGE") : MEDIUM;
+  const hardPool = stimulus.pairKind === "PIE_TABLE" ? HARD.filter((task) => task !== "FOUR_VALUE_CROSS_AVERAGE") : HARD;
   const tasks:[Di011TaskKind,Di011Difficulty][]=[
     [pick(EASY,`${input.seed}:easy`),"Easy"],
-    [pick(MEDIUM,`${input.seed}:m1`),"Medium"],
-    [pick(MEDIUM,`${input.seed}:m2x`),"Medium"],
-    [pick(HARD,`${input.seed}:h1`),"Hard"],
-    [pick(HARD,`${input.seed}:h2x`),"Hard"],
+    [pick(mediumPool,`${input.seed}:m1`),"Medium"],
+    [pick(mediumPool,`${input.seed}:m2x`),"Medium"],
+    [pick(hardPool,`${input.seed}:h1`),"Hard"],
+    [pick(hardPool,`${input.seed}:h2x`),"Hard"],
   ];
-  if(tasks[1]![0]===tasks[2]![0]) tasks[2]=[MEDIUM[(MEDIUM.indexOf(tasks[1]![0])+1)%MEDIUM.length]!,"Medium"];
-  if(tasks[3]![0]===tasks[4]![0]) tasks[4]=[HARD[(HARD.indexOf(tasks[3]![0])+1)%HARD.length]!,"Hard"];
+  if(tasks[1]![0]===tasks[2]![0]) tasks[2]=[mediumPool[(mediumPool.indexOf(tasks[1]![0])+1)%mediumPool.length]!,"Medium"];
+  if(tasks[3]![0]===tasks[4]![0]) tasks[4]=[hardPool[(hardPool.indexOf(tasks[3]![0])+1)%hardPool.length]!,"Hard"];
   const questions=tasks.map(([task,difficulty],i)=>makeQuestion(task,difficulty,stimulus,`${input.seed}:${task}:${i}`,i));
   return {packageId:"DI-011",setId:`DI-011:${input.seed}`,seed:input.seed,examProfile,stimulus,questions};
 }
