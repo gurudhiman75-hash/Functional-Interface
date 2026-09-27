@@ -145,10 +145,24 @@ for (const summary of audit.summaries) {
   }
 }
 
-for (const examId of ["SSC_CGL_TIER_I", "SSC_CGL_TIER_II", "SSC_CHSL", "PSSSB", "PPSC", "PUNJAB_POLICE"] as const) {
+for (const examId of ["SSC_CGL_TIER_I", "SSC_CGL_TIER_II", "SSC_CHSL"] as const) {
   const summary = audit.summaries.find((entry) => entry.examId === examId)!;
-  assert.ok(summary.capabilityGapCount > 0, `${examId} unexpectedly hid the current Algebra/Trigonometry section-assembly gap.`);
+  assert.equal(summary.capabilityGapCount, 0, `${examId} must no longer carry historical Algebra/Trigonometry capability gaps.`);
+  assert.equal(summary.blockers.includes("CAPABILITY_GAPS_PRESENT"), false);
+  assert.ok(summary.blockers.includes("TEST_INELIGIBLE_RUNTIME_CONTENT_PRESENT"), `${examId} must preserve Algebra BANK_ONLY lifecycle as the current release blocker.`);
+}
+
+for (const examId of ["PSSSB", "PPSC", "PUNJAB_POLICE"] as const) {
+  const summary = audit.summaries.find((entry) => entry.examId === examId)!;
+  const profile = QUANT_V4_REAL_EXAM_PROFILES.find((entry) => entry.id === examId)!;
+  const expectedProbabilityGaps = profile.slotPlan.find((slot) => slot.kind === "PROBABILITY")?.count ?? 0;
+  assert.equal(
+    summary.capabilityGapCount,
+    expectedProbabilityGaps * audit.sectionsPerProfile,
+    `${examId} capability gaps should now be limited to evidence-gated Punjab Probability slots.`,
+  );
   assert.ok(summary.blockers.includes("CAPABILITY_GAPS_PRESENT"));
+  assert.ok(summary.blockers.includes("TEST_INELIGIBLE_RUNTIME_CONTENT_PRESENT"), `${examId} must preserve Algebra BANK_ONLY lifecycle.`);
 }
 
 const bankingSummaries = audit.summaries.filter((entry) =>
