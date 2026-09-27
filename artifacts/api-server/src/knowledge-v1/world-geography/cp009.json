@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "WGE-001-CP009-Q001",
+    "cpId": "WGE-001-CP009",
+    "objective": "dry-air-nitrogen",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which gas makes up the largest share of dry air near Earth's surface?",
+        "options": [
+          "Nitrogen",
+          "Oxygen",
+          "Argon",
+          "Carbon dioxide"
+        ],
+        "explanation": "Nitrogen accounts for about 78% of dry air by volume. Oxygen contributes about 21%."
+      },
+      "hi": {
+        "stem": "पृथ्वी की सतह के पास शुष्क वायु में सबसे अधिक मात्रा किस गैस की है?",
+        "options": [
+          "नाइट्रोजन",
+          "ऑक्सीजन",
+          "आर्गन",
+          "कार्बन डाइऑक्साइड"
+        ],
+        "explanation": "शुष्क वायु के आयतन का लगभग 78% नाइट्रोजन है। ऑक्सीजन का भाग लगभग 21% है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੀ ਸਤਹ ਨੇੜੇ ਸੁੱਕੀ ਹਵਾ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਕਿਹੜੀ ਗੈਸ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਨਾਈਟ੍ਰੋਜਨ",
+          "ਆਕਸੀਜਨ",
+          "ਆਰਗਨ",
+          "ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ"
+        ],
+        "explanation": "ਸੁੱਕੀ ਹਵਾ ਦੇ ਆਇਤਨ ਦਾ ਲਗਭਗ 78% ਨਾਈਟ੍ਰੋਜਨ ਹੈ। ਆਕਸੀਜਨ ਦਾ ਹਿੱਸਾ ਲਗਭਗ 21% ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q002",
+    "cpId": "WGE-001-CP009",
+    "objective": "variable-vapour",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which atmospheric gas varies most in concentration from place to place and from season to season?",
+        "options": [
+          "Water vapour",
+          "Nitrogen",
+          "Oxygen",
+          "Argon"
+        ],
+        "explanation": "Water vapour changes with evaporation, condensation and air movement. The major gases have much steadier proportions in well-mixed lower air."
+      },
+      "hi": {
+        "stem": "वायुमंडल में किस गैस की मात्रा स्थान और ऋतु के अनुसार सबसे अधिक बदलती है?",
+        "options": [
+          "जलवाष्प",
+          "नाइट्रोजन",
+          "ऑक्सीजन",
+          "आर्गन"
+        ],
+        "explanation": "वाष्पीकरण, संघनन और वायु की गति से जलवाष्प की मात्रा बदलती है। अच्छी तरह मिली हुई निचली वायु में प्रमुख गैसों के अनुपात अधिक स्थिर होते हैं।"
+      },
+      "pa": {
+        "stem": "ਵਾਯੂਮੰਡਲ ਵਿੱਚ ਕਿਹੜੀ ਗੈਸ ਦੀ ਮਾਤਰਾ ਥਾਂ ਅਤੇ ਰੁੱਤ ਮੁਤਾਬਕ ਸਭ ਤੋਂ ਵੱਧ ਬਦਲਦੀ ਹੈ?",
+        "options": [
+          "ਪਾਣੀ ਦੀ ਭਾਫ਼",
+          "ਨਾਈਟ੍ਰੋਜਨ",
+          "ਆਕਸੀਜਨ",
+          "ਆਰਗਨ"
+        ],
+        "explanation": "ਵਾਸ਼ਪੀਕਰਨ, ਸੰਘਣਨ ਅਤੇ ਹਵਾ ਦੀ ਹਿਲਜੁਲ ਨਾਲ ਪਾਣੀ ਦੀ ਭਾਫ਼ ਦੀ ਮਾਤਰਾ ਬਦਲਦੀ ਹੈ। ਚੰਗੀ ਤਰ੍ਹਾਂ ਰਲੀ ਹੇਠਲੀ ਹਵਾ ਵਿੱਚ ਮੁੱਖ ਗੈਸਾਂ ਦੇ ਅਨੁਪਾਤ ਵੱਧ ਸਥਿਰ ਹੁੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q003",
+    "cpId": "WGE-001-CP009",
+    "objective": "weather-climate",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The long-term pattern of a region’s temperature and rainfall is its:",
+        "options": [
+          "Climate",
+          "Daily weather",
+          "Air pressure",
+          "Humidity"
+        ],
+        "explanation": "Climate describes long-term patterns and variability. Weather describes atmospheric conditions at a particular time."
+      },
+      "hi": {
+        "stem": "किसी क्षेत्र के तापमान और वर्षा के दीर्घकालीन प्रतिरूप को क्या कहते हैं?",
+        "options": [
+          "जलवायु",
+          "दैनिक मौसम",
+          "वायुदाब",
+          "आर्द्रता"
+        ],
+        "explanation": "जलवायु लंबे समय के प्रतिरूप और उनमें उतार-चढ़ाव बताती है। मौसम किसी विशेष समय की वायुमंडलीय दशा है।"
+      },
+      "pa": {
+        "stem": "ਕਿਸੇ ਖੇਤਰ ਦੇ ਤਾਪਮਾਨ ਅਤੇ ਮੀਂਹ ਦੇ ਲੰਮੇ ਸਮੇਂ ਦੇ ਰੁਝਾਨ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਜਲਵਾਯੂ",
+          "ਰੋਜ਼ਾਨਾ ਮੌਸਮ",
+          "ਹਵਾ ਦਾ ਦਬਾਅ",
+          "ਨਮੀ"
+        ],
+        "explanation": "ਜਲਵਾਯੂ ਲੰਮੇ ਸਮੇਂ ਦੇ ਰੁਝਾਨ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚ ਉਤਾਰ-ਚੜ੍ਹਾਅ ਦੱਸਦੀ ਹੈ। ਮੌਸਮ ਕਿਸੇ ਖ਼ਾਸ ਸਮੇਂ ਦੀ ਵਾਯੂਮੰਡਲੀ ਹਾਲਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q004",
+    "cpId": "WGE-001-CP009",
+    "objective": "layer-order",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-009A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Arrange these atmospheric layers from the surface upward.",
+        "options": [
+          "Troposphere → stratosphere → mesosphere → thermosphere",
+          "Stratosphere → troposphere → mesosphere → thermosphere",
+          "Troposphere → mesosphere → stratosphere → thermosphere",
+          "Troposphere → stratosphere → thermosphere → mesosphere"
+        ],
+        "explanation": "The troposphere is the lowest layer. The stratosphere, mesosphere and thermosphere follow above it."
+      },
+      "hi": {
+        "stem": "वायुमंडलीय परतों को सतह से ऊपर की ओर क्रम में रखें।",
+        "options": [
+          "क्षोभमंडल → समतापमंडल → मध्यमंडल → तापमंडल",
+          "समतापमंडल → क्षोभमंडल → मध्यमंडल → तापमंडल",
+          "क्षोभमंडल → मध्यमंडल → समतापमंडल → तापमंडल",
+          "क्षोभमंडल → समतापमंडल → तापमंडल → मध्यमंडल"
+        ],
+        "explanation": "क्षोभमंडल सबसे निचली परत है। इसके ऊपर समतापमंडल, मध्यमंडल और तापमंडल आते हैं।"
+      },
+      "pa": {
+        "stem": "ਵਾਯੂਮੰਡਲੀ ਪਰਤਾਂ ਨੂੰ ਸਤਹ ਤੋਂ ਉੱਪਰ ਵੱਲ ਕ੍ਰਮ ਵਿੱਚ ਰੱਖੋ।",
+        "options": [
+          "ਖੋਭ ਮੰਡਲ → ਸਮਤਾਪ ਮੰਡਲ → ਮੱਧ ਮੰਡਲ → ਤਾਪ ਮੰਡਲ",
+          "ਸਮਤਾਪ ਮੰਡਲ → ਖੋਭ ਮੰਡਲ → ਮੱਧ ਮੰਡਲ → ਤਾਪ ਮੰਡਲ",
+          "ਖੋਭ ਮੰਡਲ → ਮੱਧ ਮੰਡਲ → ਸਮਤਾਪ ਮੰਡਲ → ਤਾਪ ਮੰਡਲ",
+          "ਖੋਭ ਮੰਡਲ → ਸਮਤਾਪ ਮੰਡਲ → ਤਾਪ ਮੰਡਲ → ਮੱਧ ਮੰਡਲ"
+        ],
+        "explanation": "ਖੋਭ ਮੰਡਲ ਸਭ ਤੋਂ ਹੇਠਲੀ ਪਰਤ ਹੈ। ਇਸ ਦੇ ਉੱਪਰ ਸਮਤਾਪ ਮੰਡਲ, ਮੱਧ ਮੰਡਲ ਅਤੇ ਤਾਪ ਮੰਡਲ ਆਉਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q005",
+    "cpId": "WGE-001-CP009",
+    "objective": "tropospheric-weather",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Most clouds and rainfall occur in which atmospheric layer?",
+        "options": [
+          "Troposphere",
+          "Stratosphere",
+          "Mesosphere",
+          "Exosphere"
+        ],
+        "explanation": "Most atmospheric water vapour is concentrated in the troposphere. Vertical air movement there supports cloud formation and rainfall."
+      },
+      "hi": {
+        "stem": "अधिकांश बादल और वर्षा वायुमंडल की किस परत में होते हैं?",
+        "options": [
+          "क्षोभमंडल",
+          "समतापमंडल",
+          "मध्यमंडल",
+          "बहिर्मंडल"
+        ],
+        "explanation": "वायुमंडलीय जलवाष्प का अधिकांश भाग क्षोभमंडल में है। यहाँ वायु की ऊर्ध्वाधर गति से बादल और वर्षा बनते हैं।"
+      },
+      "pa": {
+        "stem": "ਜ਼ਿਆਦਾਤਰ ਬੱਦਲ ਅਤੇ ਮੀਂਹ ਵਾਯੂਮੰਡਲ ਦੀ ਕਿਹੜੀ ਪਰਤ ਵਿੱਚ ਬਣਦੇ ਹਨ?",
+        "options": [
+          "ਖੋਭ ਮੰਡਲ",
+          "ਸਮਤਾਪ ਮੰਡਲ",
+          "ਮੱਧ ਮੰਡਲ",
+          "ਬਾਹਰੀ ਮੰਡਲ"
+        ],
+        "explanation": "ਵਾਯੂਮੰਡਲ ਦੀ ਜ਼ਿਆਦਾਤਰ ਪਾਣੀ ਦੀ ਭਾਫ਼ ਖੋਭ ਮੰਡਲ ਵਿੱਚ ਹੁੰਦੀ ਹੈ। ਇੱਥੇ ਹਵਾ ਦੀ ਉੱਪਰ-ਹੇਠਾਂ ਗਤੀ ਬੱਦਲ ਅਤੇ ਮੀਂਹ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q006",
+    "cpId": "WGE-001-CP009",
+    "objective": "stratospheric-ozone",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Most of the ozone that shields Earth from harmful ultraviolet radiation is found in the:",
+        "options": [
+          "Stratosphere",
+          "Troposphere",
+          "Mesosphere",
+          "Exosphere"
+        ],
+        "explanation": "The stratospheric ozone layer absorbs much of the Sun's harmful ultraviolet radiation. Ozone near the ground has a different role and can be a pollutant."
+      },
+      "hi": {
+        "stem": "हानिकारक पराबैंगनी विकिरण से पृथ्वी की रक्षा करने वाली अधिकांश ओजोन कहाँ है?",
+        "options": [
+          "समतापमंडल",
+          "क्षोभमंडल",
+          "मध्यमंडल",
+          "बहिर्मंडल"
+        ],
+        "explanation": "समतापमंडलीय ओजोन सूर्य के हानिकारक पराबैंगनी विकिरण का बड़ा भाग अवशोषित करती है। धरातल के पास ओजोन प्रदूषक हो सकती है।"
+      },
+      "pa": {
+        "stem": "ਹਾਨੀਕਾਰਕ ਪਰਾਬੈਂਗਣੀ ਕਿਰਨਾਂ ਤੋਂ ਧਰਤੀ ਦੀ ਰੱਖਿਆ ਕਰਨ ਵਾਲੀ ਜ਼ਿਆਦਾਤਰ ਓਜ਼ੋਨ ਕਿੱਥੇ ਹੈ?",
+        "options": [
+          "ਸਮਤਾਪ ਮੰਡਲ",
+          "ਖੋਭ ਮੰਡਲ",
+          "ਮੱਧ ਮੰਡਲ",
+          "ਬਾਹਰੀ ਮੰਡਲ"
+        ],
+        "explanation": "ਸਮਤਾਪ ਮੰਡਲ ਦੀ ਓਜ਼ੋਨ ਸੂਰਜ ਦੀਆਂ ਹਾਨੀਕਾਰਕ ਪਰਾਬੈਂਗਣੀ ਕਿਰਨਾਂ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਸੋਖ ਲੈਂਦੀ ਹੈ। ਧਰਤੀ ਨੇੜੇ ਓਜ਼ੋਨ ਪ੍ਰਦੂਸ਼ਕ ਹੋ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q007",
+    "cpId": "WGE-001-CP009",
+    "objective": "stratospheric-warming",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-009A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why does temperature generally rise with height in the stratosphere?",
+        "options": [
+          "Ozone absorbs ultraviolet radiation",
+          "Pressure increases with height",
+          "Cloud droplets release heat throughout the layer",
+          "The layer is heated mainly by contact with the ground"
+        ],
+        "explanation": "Absorption of ultraviolet radiation warms the ozone-rich stratosphere. This differs from the usual decrease of temperature with height in the troposphere."
+      },
+      "hi": {
+        "stem": "समतापमंडल में ऊँचाई के साथ तापमान सामान्यतः क्यों बढ़ता है?",
+        "options": [
+          "ओजोन पराबैंगनी विकिरण अवशोषित करती है",
+          "ऊँचाई के साथ दाब बढ़ता है",
+          "पूरी परत में बादलों की बूँदें ऊष्मा छोड़ती हैं",
+          "परत मुख्यतः धरातल के संपर्क से गर्म होती है"
+        ],
+        "explanation": "पराबैंगनी विकिरण के अवशोषण से ओजोनयुक्त समतापमंडल गर्म होता है। क्षोभमंडल में सामान्यतः ऊँचाई के साथ तापमान घटता है।"
+      },
+      "pa": {
+        "stem": "ਸਮਤਾਪ ਮੰਡਲ ਵਿੱਚ ਉਚਾਈ ਨਾਲ ਤਾਪਮਾਨ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਉਂ ਵਧਦਾ ਹੈ?",
+        "options": [
+          "ਓਜ਼ੋਨ ਪਰਾਬੈਂਗਣੀ ਕਿਰਨਾਂ ਨੂੰ ਸੋਖਦੀ ਹੈ",
+          "ਉਚਾਈ ਨਾਲ ਦਬਾਅ ਵਧਦਾ ਹੈ",
+          "ਪੂਰੀ ਪਰਤ ਵਿੱਚ ਬੱਦਲਾਂ ਦੀਆਂ ਬੂੰਦਾਂ ਗਰਮੀ ਛੱਡਦੀਆਂ ਹਨ",
+          "ਪਰਤ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਧਰਤੀ ਦੇ ਸੰਪਰਕ ਨਾਲ ਗਰਮ ਹੁੰਦੀ ਹੈ"
+        ],
+        "explanation": "ਪਰਾਬੈਂਗਣੀ ਕਿਰਨਾਂ ਸੋਖਣ ਨਾਲ ਓਜ਼ੋਨ ਵਾਲਾ ਸਮਤਾਪ ਮੰਡਲ ਗਰਮ ਹੁੰਦਾ ਹੈ। ਖੋਭ ਮੰਡਲ ਵਿੱਚ ਆਮ ਤੌਰ ਉੱਤੇ ਉਚਾਈ ਨਾਲ ਤਾਪਮਾਨ ਘਟਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q008",
+    "cpId": "WGE-001-CP009",
+    "objective": "tropopause-depth",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-009A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why is the tropopause generally higher over the equator than over the poles?",
+        "options": [
+          "Heating and convection",
+          "Surface air pressure",
+          "Polar easterlies",
+          "Cooling by snow cover"
+        ],
+        "explanation": "Strong tropical heating supports deeper convection and a thicker troposphere. Its upper boundary is therefore generally higher in the tropics."
+      },
+      "hi": {
+        "stem": "भूमध्य रेखा पर क्षोभसीमा ध्रुवों की तुलना में सामान्यतः अधिक ऊँची क्यों होती है?",
+        "options": [
+          "अधिक ऊष्मन और संवहन",
+          "अधिक धरातलीय वायुदाब",
+          "ध्रुवीय पूर्वी पवनें",
+          "हिमावरण से अधिक शीतलन"
+        ],
+        "explanation": "उष्णकटिबंधीय ऊष्मन से संवहन अधिक ऊँचाई तक होता है और क्षोभमंडल अधिक मोटा रहता है। इसलिए उसकी ऊपरी सीमा भी अधिक ऊँची होती है।"
+      },
+      "pa": {
+        "stem": "ਭੂਮੱਧ ਰੇਖਾ ਉੱਤੇ ਖੋਭ ਸੀਮਾ ਧਰੁਵਾਂ ਨਾਲੋਂ ਆਮ ਤੌਰ ਉੱਤੇ ਵੱਧ ਉੱਚੀ ਕਿਉਂ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਵੱਧ ਗਰਮੀ ਅਤੇ ਸੰਵਹਨ",
+          "ਵੱਧ ਸਤਹੀ ਹਵਾ ਦਾ ਦਬਾਅ",
+          "ਧਰੁਵੀ ਪੂਰਬੀ ਹਵਾਵਾਂ",
+          "ਬਰਫ਼ ਦੀ ਪਰਤ ਨਾਲ ਵੱਧ ਠੰਢਕ"
+        ],
+        "explanation": "ਖੰਡੀ ਖੇਤਰਾਂ ਵਿੱਚ ਵੱਧ ਗਰਮੀ ਨਾਲ ਸੰਵਹਨ ਵੱਧ ਉਚਾਈ ਤੱਕ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖੋਭ ਮੰਡਲ ਮੋਟਾ ਰਹਿੰਦਾ ਹੈ। ਇਸ ਲਈ ਉਸ ਦੀ ਉੱਪਰਲੀ ਹੱਦ ਵੀ ਉੱਚੀ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q009",
+    "cpId": "WGE-001-CP009",
+    "objective": "insolation",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The solar radiation received by Earth is called:",
+        "options": [
+          "Incoming solar radiation",
+          "Outgoing terrestrial radiation",
+          "Heat transferred by ocean currents",
+          "Heat released from Earth's interior"
+        ],
+        "explanation": "Insolation is the solar energy reaching Earth. The energy emitted by Earth is termed terrestrial radiation."
+      },
+      "hi": {
+        "stem": "पृथ्वी को मिलने वाले सौर विकिरण को क्या कहते हैं?",
+        "options": [
+          "आने वाला सौर विकिरण",
+          "बाहर जाने वाला पार्थिव विकिरण",
+          "महासागरीय धाराओं द्वारा ऊष्मा का स्थानांतरण",
+          "पृथ्वी के भीतर से निकली ऊष्मा"
+        ],
+        "explanation": "पृथ्वी तक पहुँचने वाली सौर ऊर्जा सूर्यातप है। पृथ्वी द्वारा उत्सर्जित ऊर्जा पार्थिव विकिरण कहलाती है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਨੂੰ ਮਿਲਣ ਵਾਲੇ ਸੂਰਜੀ ਵਿਕਿਰਨ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਆਉਣ ਵਾਲਾ ਸੂਰਜੀ ਵਿਕਿਰਨ",
+          "ਬਾਹਰ ਜਾਣ ਵਾਲਾ ਧਰਤੀ ਦਾ ਵਿਕਿਰਨ",
+          "ਸਮੁੰਦਰੀ ਧਾਰਾਵਾਂ ਰਾਹੀਂ ਗਰਮੀ ਦਾ ਤਬਾਦਲਾ",
+          "ਧਰਤੀ ਦੇ ਅੰਦਰੋਂ ਨਿਕਲਦੀ ਗਰਮੀ"
+        ],
+        "explanation": "ਧਰਤੀ ਤੱਕ ਪਹੁੰਚਦੀ ਸੂਰਜੀ ਊਰਜਾ ਸੂਰਜੀ ਤਾਪ ਹੈ। ਧਰਤੀ ਵੱਲੋਂ ਛੱਡੀ ਊਰਜਾ ਨੂੰ ਧਰਤੀ ਦਾ ਵਿਕਿਰਨ ਕਹਿੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q010",
+    "cpId": "WGE-001-CP009",
+    "objective": "snow-albedo",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which surface generally reflects the greatest proportion of incoming sunlight?",
+        "options": [
+          "Fresh snow",
+          "Dark moist soil",
+          "Dense forest",
+          "Open ocean under a high Sun"
+        ],
+        "explanation": "Fresh snow has a high albedo, so it reflects much of the incoming sunlight. Dark surfaces usually absorb a larger share."
+      },
+      "hi": {
+        "stem": "कौन-सी सतह सामान्यतः आने वाले सूर्यप्रकाश का सबसे अधिक भाग परावर्तित करती है?",
+        "options": [
+          "ताजा हिम",
+          "गहरी नम मिट्टी",
+          "घना वन",
+          "ऊँचे सूर्य के नीचे खुला महासागर"
+        ],
+        "explanation": "ताजा हिम का ऐल्बीडो अधिक है, इसलिए वह बहुत-सा सूर्यप्रकाश परावर्तित करता है। गहरी सतहें सामान्यतः अधिक ऊर्जा सोखती हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਸਤਹ ਆਮ ਤੌਰ ਉੱਤੇ ਆਉਂਦੀ ਧੁੱਪ ਦਾ ਸਭ ਤੋਂ ਵੱਧ ਹਿੱਸਾ ਮੋੜ ਦਿੰਦੀ ਹੈ?",
+        "options": [
+          "ਤਾਜ਼ੀ ਬਰਫ਼",
+          "ਗੂੜ੍ਹੀ ਗਿੱਲੀ ਮਿੱਟੀ",
+          "ਸੰਘਣਾ ਜੰਗਲ",
+          "ਉੱਚੇ ਸੂਰਜ ਹੇਠਾਂ ਖੁੱਲ੍ਹਾ ਸਮੁੰਦਰ"
+        ],
+        "explanation": "ਤਾਜ਼ੀ ਬਰਫ਼ ਦਾ ਅਲਬੀਡੋ ਵੱਧ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਉਹ ਬਹੁਤ ਸਾਰੀ ਧੁੱਪ ਮੋੜ ਦਿੰਦੀ ਹੈ। ਗੂੜ੍ਹੀਆਂ ਸਤਹਾਂ ਆਮ ਤੌਰ ਉੱਤੇ ਵੱਧ ਊਰਜਾ ਸੋਖਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q011",
+    "cpId": "WGE-001-CP009",
+    "objective": "terrestrial-radiation",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Earth's surface emits most of its thermal radiation in which form?",
+        "options": [
+          "Long-wave infrared",
+          "Short-wave ultraviolet",
+          "Visible blue light",
+          "X-rays"
+        ],
+        "explanation": "At ordinary surface temperatures, Earth emits mainly infrared radiation. This has a longer wavelength than most incoming solar energy."
+      },
+      "hi": {
+        "stem": "पृथ्वी की सतह अपना अधिकांश तापीय विकिरण किस रूप में छोड़ती है?",
+        "options": [
+          "दीर्घतरंग अवरक्त",
+          "लघुतरंग पराबैंगनी",
+          "दृश्य नीला प्रकाश",
+          "एक्स-किरणें"
+        ],
+        "explanation": "सामान्य सतही तापमान पर पृथ्वी मुख्यतः अवरक्त विकिरण छोड़ती है। इसकी तरंगदैर्घ्य अधिकांश आने वाली सौर ऊर्जा से अधिक होती है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੀ ਸਤਹ ਆਪਣਾ ਜ਼ਿਆਦਾਤਰ ਤਾਪੀ ਵਿਕਿਰਨ ਕਿਸ ਰੂਪ ਵਿੱਚ ਛੱਡਦੀ ਹੈ?",
+        "options": [
+          "ਲੰਮੀ ਤਰੰਗ ਵਾਲਾ ਅਵਰਕਤ",
+          "ਛੋਟੀ ਤਰੰਗ ਵਾਲਾ ਪਰਾਬੈਂਗਣੀ",
+          "ਦਿਸਣ ਵਾਲੀ ਨੀਲੀ ਰੋਸ਼ਨੀ",
+          "ਐਕਸ-ਕਿਰਨਾਂ"
+        ],
+        "explanation": "ਆਮ ਸਤਹੀ ਤਾਪਮਾਨ ਉੱਤੇ ਧਰਤੀ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਅਵਰਕਤ ਵਿਕਿਰਨ ਛੱਡਦੀ ਹੈ। ਇਸ ਦੀ ਤਰੰਗ-ਲੰਬਾਈ ਜ਼ਿਆਦਾਤਰ ਆਉਂਦੀ ਸੂਰਜੀ ਊਰਜਾ ਨਾਲੋਂ ਵੱਧ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q012",
+    "cpId": "WGE-001-CP009",
+    "objective": "greenhouse-mechanism",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which radiation do greenhouse gases absorb and re-emit to warm the lower atmosphere?",
+        "options": [
+          "Outgoing infrared radiation",
+          "Only incoming ultraviolet radiation",
+          "Only visible sunlight",
+          "Radio waves from the ground"
+        ],
+        "explanation": "Greenhouse gases interact with infrared radiation emitted by Earth. Their emission includes radiation directed back towards the surface."
+      },
+      "hi": {
+        "stem": "निचले वायुमंडल को गर्म करने के लिए ग्रीनहाउस गैसें किस विकिरण को सोखकर फिर उत्सर्जित करती हैं?",
+        "options": [
+          "बाहर जाने वाला अवरक्त विकिरण",
+          "केवल आने वाला पराबैंगनी विकिरण",
+          "केवल दृश्य सूर्यप्रकाश",
+          "धरातल की रेडियो तरंगें"
+        ],
+        "explanation": "ग्रीनहाउस गैसें पृथ्वी से निकलने वाले अवरक्त विकिरण को सोखती और छोड़ती हैं। उत्सर्जित ऊर्जा का कुछ भाग सतह की ओर भी जाता है।"
+      },
+      "pa": {
+        "stem": "ਹੇਠਲੇ ਵਾਯੂਮੰਡਲ ਨੂੰ ਗਰਮ ਕਰਨ ਲਈ ਗ੍ਰੀਨਹਾਊਸ ਗੈਸਾਂ ਕਿਹੜਾ ਵਿਕਿਰਨ ਸੋਖ ਕੇ ਮੁੜ ਛੱਡਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਬਾਹਰ ਜਾਣ ਵਾਲਾ ਅਵਰਕਤ ਵਿਕਿਰਨ",
+          "ਸਿਰਫ਼ ਆਉਣ ਵਾਲਾ ਪਰਾਬੈਂਗਣੀ ਵਿਕਿਰਨ",
+          "ਸਿਰਫ਼ ਦਿਸਣ ਵਾਲੀ ਧੁੱਪ",
+          "ਧਰਤੀ ਦੀਆਂ ਰੇਡੀਓ ਤਰੰਗਾਂ"
+        ],
+        "explanation": "ਗ੍ਰੀਨਹਾਊਸ ਗੈਸਾਂ ਧਰਤੀ ਤੋਂ ਨਿਕਲਦਾ ਅਵਰਕਤ ਵਿਕਿਰਨ ਸੋਖਦੀਆਂ ਅਤੇ ਛੱਡਦੀਆਂ ਹਨ। ਛੱਡੀ ਊਰਜਾ ਦਾ ਕੁਝ ਹਿੱਸਾ ਸਤਹ ਵੱਲ ਵੀ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q013",
+    "cpId": "WGE-001-CP009",
+    "objective": "conduction-contact",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Air touching a warm ground surface gains heat directly through:",
+        "options": [
+          "Conduction",
+          "Advection",
+          "Condensation",
+          "Reflection"
+        ],
+        "explanation": "Conduction transfers heat through direct contact. It warms the thin layer of air touching the ground before other processes redistribute that heat."
+      },
+      "hi": {
+        "stem": "गर्म धरातल के संपर्क में आने वाली वायु सीधे किस प्रक्रिया से ऊष्मा पाती है?",
+        "options": [
+          "चालन",
+          "अभिवहन",
+          "संघनन",
+          "परावर्तन"
+        ],
+        "explanation": "चालन में सीधे संपर्क से ऊष्मा का स्थानांतरण होता है। धरातल से लगी वायु पहले गर्म होती है, फिर अन्य प्रक्रियाएँ ऊष्मा को फैलाती हैं।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ ਧਰਤੀ ਨੂੰ ਛੂੰਹਦੀ ਹਵਾ ਸਿੱਧੇ ਤੌਰ ਉੱਤੇ ਕਿਸ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਗਰਮੀ ਲੈਂਦੀ ਹੈ?",
+        "options": [
+          "ਚਾਲਨ",
+          "ਅਭਿਵਹਨ",
+          "ਸੰਘਣਨ",
+          "ਪਰਾਵਰਤਨ"
+        ],
+        "explanation": "ਚਾਲਨ ਵਿੱਚ ਸਿੱਧੇ ਸੰਪਰਕ ਨਾਲ ਗਰਮੀ ਦਾ ਤਬਾਦਲਾ ਹੁੰਦਾ ਹੈ। ਧਰਤੀ ਨਾਲ ਲੱਗੀ ਹਵਾ ਪਹਿਲਾਂ ਗਰਮ ਹੁੰਦੀ ਹੈ, ਫਿਰ ਹੋਰ ਪ੍ਰਕਿਰਿਆਵਾਂ ਗਰਮੀ ਫੈਲਾਉਂਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q014",
+    "cpId": "WGE-001-CP009",
+    "objective": "advection-horizontal",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Horizontal movement of warm air into a cooler region transfers heat by:",
+        "options": [
+          "Advection",
+          "Conduction",
+          "Reflection",
+          "Sublimation"
+        ],
+        "explanation": "Advection is horizontal transport by moving air. Convection usually refers to vertical movement in this geographical context."
+      },
+      "hi": {
+        "stem": "गर्म वायु के क्षैतिज रूप से ठंडे क्षेत्र में जाने पर ऊष्मा का स्थानांतरण किससे होता है?",
+        "options": [
+          "अभिवहन",
+          "चालन",
+          "परावर्तन",
+          "ऊर्ध्वपातन"
+        ],
+        "explanation": "अभिवहन में चलती वायु क्षैतिज दिशा में ऊष्मा ले जाती है। भौगोलिक संदर्भ में संवहन सामान्यतः ऊर्ध्वाधर गति है।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ ਹਵਾ ਦੇ ਖਿਤਿਜੀ ਤੌਰ ਉੱਤੇ ਠੰਢੇ ਖੇਤਰ ਵਿੱਚ ਜਾਣ ਨਾਲ ਗਰਮੀ ਦਾ ਤਬਾਦਲਾ ਕਿਸ ਰਾਹੀਂ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਅਭਿਵਹਨ",
+          "ਚਾਲਨ",
+          "ਪਰਾਵਰਤਨ",
+          "ਉਰਧਵਪਾਤਨ"
+        ],
+        "explanation": "ਅਭਿਵਹਨ ਵਿੱਚ ਚੱਲਦੀ ਹਵਾ ਗਰਮੀ ਨੂੰ ਖਿਤਿਜੀ ਦਿਸ਼ਾ ਵਿੱਚ ਲੈ ਜਾਂਦੀ ਹੈ। ਭੂਗੋਲ ਵਿੱਚ ਸੰਵਹਨ ਆਮ ਤੌਰ ਉੱਤੇ ਉੱਪਰ-ਹੇਠਾਂ ਦੀ ਗਤੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q015",
+    "cpId": "WGE-001-CP009",
+    "objective": "altitude-calculation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A mountain station records 25°C. If temperature falls by 6.5°C per kilometre, what temperature is expected 2 km higher?",
+        "options": [
+          "12°C",
+          "18.5°C",
+          "13°C",
+          "38°C"
+        ],
+        "explanation": "Temperature fall = 6.5 × 2 = 13°C. The expected temperature is 25 − 13 = 12°C; this uses the stated uniform lapse rate."
+      },
+      "hi": {
+        "stem": "पहाड़ी की एक वेधशाला में तापमान २५ डिग्री सेल्सियस है। यदि ऊँचाई के साथ तापमान प्रति किमी ६.५ डिग्री घटे, तो २ किमी ऊपर कितना तापमान होगा?",
+        "options": [
+          "12 डिग्री सेल्सियस",
+          "18.5 डिग्री सेल्सियस",
+          "13 डिग्री सेल्सियस",
+          "38 डिग्री सेल्सियस"
+        ],
+        "explanation": "तापमान में कमी = ६.५ × २ = १३ डिग्री सेल्सियस। अपेक्षित तापमान = २५ − १३ = १२ डिग्री सेल्सियस; यहाँ दी गई समान तापह्रास दर लागू है।"
+      },
+      "pa": {
+        "stem": "ਪਹਾੜੀ ਦੀ ਇੱਕ ਥਾਂ ਉੱਤੇ ਤਾਪਮਾਨ ੨੫ ਡਿਗਰੀ ਸੈਲਸੀਅਸ ਹੈ। ਜੇ ਉਚਾਈ ਨਾਲ ਤਾਪਮਾਨ ਹਰ ਕਿਲੋਮੀਟਰ ੬.੫ ਡਿਗਰੀ ਘਟੇ, ਤਾਂ ੨ ਕਿਮੀ ਉੱਪਰ ਤਾਪਮਾਨ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "12°ਸੈ.",
+          "18.5°ਸੈ.",
+          "13°ਸੈ.",
+          "38°ਸੈ."
+        ],
+        "explanation": "ਤਾਪਮਾਨ ਵਿੱਚ ਕਮੀ = 6.5 × 2 = 13°ਸੈ.। ਇਸ ਲਈ ਤਾਪਮਾਨ = 25 − 13 = 12°ਸੈ.; ਇੱਥੇ ਦਿੱਤੀ ਇੱਕਸਾਰ ਦਰ ਵਰਤੀ ਗਈ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q016",
+    "cpId": "WGE-001-CP009",
+    "objective": "inversion-profile",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "During a temperature inversion, the temperature in a layer:",
+        "options": [
+          "Increases with height through a layer",
+          "Decreases with height through a layer",
+          "Remains uniform from day to night at every altitude",
+          "Changes in step with longitude"
+        ],
+        "explanation": "An inversion reverses the usual tropospheric temperature decrease with height. Warmer air then overlies cooler air."
+      },
+      "hi": {
+        "stem": "तापमान प्रतिलोमन के दौरान किसी वायुमंडलीय परत में तापमान:",
+        "options": [
+          "एक परत में ऊँचाई के साथ तापमान बढ़ता है",
+          "एक परत में ऊँचाई के साथ तापमान घटता है",
+          "हर ऊँचाई पर दिन-रात तापमान समान रहता है",
+          "देशांतर के साथ तापमान बदलता है"
+        ],
+        "explanation": "प्रतिलोमन में ऊँचाई के साथ तापमान घटने का सामान्य क्षोभमंडलीय क्रम उलट जाता है। ठंडी वायु के ऊपर गर्म वायु रहती है।"
+      },
+      "pa": {
+        "stem": "ਤਾਪਮਾਨ ਦੇ ਉਲਟਾਅ ਦੌਰਾਨ ਵਾਯੂਮੰਡਲ ਦੀ ਇੱਕ ਪਰਤ ਵਿੱਚ ਤਾਪਮਾਨ:",
+        "options": [
+          "ਇੱਕ ਪਰਤ ਵਿੱਚ ਉਚਾਈ ਨਾਲ ਤਾਪਮਾਨ ਵਧਦਾ ਹੈ",
+          "ਇੱਕ ਪਰਤ ਵਿੱਚ ਉਚਾਈ ਨਾਲ ਤਾਪਮਾਨ ਘਟਦਾ ਹੈ",
+          "ਹਰ ਉਚਾਈ ਉੱਤੇ ਦਿਨ-ਰਾਤ ਤਾਪਮਾਨ ਇੱਕੋ ਰਹਿੰਦਾ ਹੈ",
+          "ਲੰਬਕਾਰ ਨਾਲ ਤਾਪਮਾਨ ਬਦਲਦਾ ਹੈ"
+        ],
+        "explanation": "ਉਲਟਾਅ ਵਿੱਚ ਖੋਭ ਮੰਡਲ ਦਾ ਉਚਾਈ ਨਾਲ ਤਾਪਮਾਨ ਘਟਣ ਵਾਲਾ ਆਮ ਕ੍ਰਮ ਉਲਟ ਜਾਂਦਾ ਹੈ। ਠੰਢੀ ਹਵਾ ਦੇ ਉੱਪਰ ਗਰਮ ਹਵਾ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q017",
+    "cpId": "WGE-001-CP009",
+    "objective": "radiation-inversion",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which night most favours a surface temperature inversion?",
+        "options": [
+          "Clear and calm",
+          "Cloudy with strong winds",
+          "Cloudy with steady rain",
+          "Windy with frequent mixing"
+        ],
+        "explanation": "A clear sky allows strong surface heat loss, while calm conditions limit mixing. Air next to the cooling ground can become colder than the air above."
+      },
+      "hi": {
+        "stem": "किस प्रकार की रात धरातलीय तापमान प्रतिलोमन के लिए सबसे अनुकूल है?",
+        "options": [
+          "साफ और शांत",
+          "बादलों वाली तथा तेज हवा वाली",
+          "लगातार वर्षा और बादलों वाली",
+          "तेज हवा और बार-बार मिश्रण वाली"
+        ],
+        "explanation": "साफ आकाश में धरातल अधिक ऊष्मा खोता है और शांत वायु में मिश्रण कम होता है। धरातल के पास की वायु ऊपर की वायु से अधिक ठंडी हो सकती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੋ ਜਿਹੀ ਰਾਤ ਸਤਹੀ ਤਾਪਮਾਨ ਦੇ ਉਲਟਾਅ ਲਈ ਸਭ ਤੋਂ ਢੁਕਵੀਂ ਹੈ?",
+        "options": [
+          "ਸਾਫ਼ ਅਤੇ ਸ਼ਾਂਤ",
+          "ਬੱਦਲਾਂ ਅਤੇ ਤੇਜ਼ ਹਵਾ ਵਾਲੀ",
+          "ਲਗਾਤਾਰ ਮੀਂਹ ਅਤੇ ਬੱਦਲਾਂ ਵਾਲੀ",
+          "ਤੇਜ਼ ਹਵਾ ਅਤੇ ਵਾਰ-ਵਾਰ ਰਲਣ ਵਾਲੀ"
+        ],
+        "explanation": "ਸਾਫ਼ ਆਕਾਸ਼ ਹੇਠਾਂ ਧਰਤੀ ਵੱਧ ਗਰਮੀ ਗੁਆਉਂਦੀ ਹੈ ਅਤੇ ਸ਼ਾਂਤ ਹਵਾ ਵਿੱਚ ਰਲਾਅ ਘੱਟ ਹੁੰਦਾ ਹੈ। ਧਰਤੀ ਨੇੜੇ ਹਵਾ ਉੱਪਰਲੀ ਹਵਾ ਨਾਲੋਂ ਠੰਢੀ ਹੋ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q018",
+    "cpId": "WGE-001-CP009",
+    "objective": "coast-interior-range",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Two lowland towns lie at the same latitude. Why does the inland town usually have a larger annual temperature range?",
+        "options": [
+          "Land heats and cools faster than the sea",
+          "The sea heats and cools faster than land",
+          "Latitude alone determines the annual range",
+          "Onshore winds eliminate seasonal temperature variation"
+        ],
+        "explanation": "The sea moderates temperatures because water changes temperature relatively slowly. Inland places receive less of this maritime influence."
+      },
+      "hi": {
+        "stem": "दो मैदानी नगर एक ही अक्षांश पर हैं। अंतर्देशीय नगर का वार्षिक तापांतर सामान्यतः अधिक क्यों होता है?",
+        "options": [
+          "स्थल समुद्र से जल्दी गर्म और ठंडा होता है",
+          "समुद्र स्थल से जल्दी गर्म और ठंडा होता है",
+          "केवल अक्षांश वार्षिक तापांतर तय करता है",
+          "समुद्र से आने वाली हवाएँ मौसमी तापांतर मिटा देती हैं"
+        ],
+        "explanation": "पानी का तापमान अपेक्षाकृत धीरे बदलने से समुद्र तापमान को संयमित करता है। अंतर्देशीय स्थानों पर यह समुद्री प्रभाव कम होता है।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਮੈਦਾਨੀ ਸ਼ਹਿਰ ਇੱਕੋ ਵਿਥਕਾਰ ਉੱਤੇ ਹਨ। ਸਮੁੰਦਰ ਤੋਂ ਦੂਰ ਸ਼ਹਿਰ ਦਾ ਸਾਲਾਨਾ ਤਾਪਮਾਨ ਫ਼ਰਕ ਆਮ ਤੌਰ ਉੱਤੇ ਵੱਧ ਕਿਉਂ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਥਲ ਸਮੁੰਦਰ ਨਾਲੋਂ ਜਲਦੀ ਗਰਮ ਅਤੇ ਠੰਢਾ ਹੁੰਦਾ ਹੈ",
+          "ਸਮੁੰਦਰ ਥਲ ਨਾਲੋਂ ਜਲਦੀ ਗਰਮ ਅਤੇ ਠੰਢਾ ਹੁੰਦਾ ਹੈ",
+          "ਸਿਰਫ਼ ਵਿਥਕਾਰ ਸਾਲਾਨਾ ਤਾਪ-ਫ਼ਰਕ ਤੈਅ ਕਰਦਾ ਹੈ",
+          "ਸਮੁੰਦਰ ਵੱਲੋਂ ਆਉਂਦੀਆਂ ਹਵਾਵਾਂ ਮੌਸਮੀ ਤਾਪ-ਫ਼ਰਕ ਮਿਟਾ ਦਿੰਦੀਆਂ ਹਨ"
+        ],
+        "explanation": "ਪਾਣੀ ਦਾ ਤਾਪਮਾਨ ਹੌਲੀ ਬਦਲਣ ਕਰਕੇ ਸਮੁੰਦਰ ਤਾਪਮਾਨ ਨੂੰ ਸੰਤੁਲਿਤ ਰੱਖਦਾ ਹੈ। ਸਮੁੰਦਰ ਤੋਂ ਦੂਰ ਥਾਵਾਂ ਉੱਤੇ ਇਹ ਅਸਰ ਘੱਟ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q019",
+    "cpId": "WGE-001-CP009",
+    "objective": "warm-current-coast",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "In winter, what effect can a warm ocean current have on a cool coast when onshore winds carry its air inland?",
+        "options": [
+          "Moderate coastal winter temperatures",
+          "Make winters colder by cooling the air",
+          "Remove the influence of latitude",
+          "Give the coast an equatorial climate"
+        ],
+        "explanation": "A warm current can warm the overlying air, which onshore winds carry towards land. It modifies the climate without overriding all other controls."
+      },
+      "hi": {
+        "stem": "सर्दियों में तट की ओर चलने वाली हवा गर्म महासागरीय धारा की वायु को स्थल तक लाए, तो ठंडे तट पर क्या प्रभाव पड़ सकता है?",
+        "options": [
+          "तटीय शीतकालीन तापमान को अपेक्षाकृत मृदु करना",
+          "वायु को ठंडा करके शीतकाल और ठंडा करना",
+          "अक्षांश का प्रभाव समाप्त करना",
+          "तट पर विषुवतीय जलवायु बनाना"
+        ],
+        "explanation": "गर्म धारा ऊपर की वायु को गर्म कर सकती है, जिसे समुद्री हवा स्थल तक लाती है। इससे जलवायु बदलती है, पर अन्य सभी कारकों का प्रभाव समाप्त नहीं होता।"
+      },
+      "pa": {
+        "stem": "ਸਰਦੀਆਂ ਵਿੱਚ ਜੇ ਸਮੁੰਦਰ ਵੱਲੋਂ ਆਉਂਦੀ ਹਵਾ ਗਰਮ ਸਮੁੰਦਰੀ ਧਾਰਾ ਦੀ ਹਵਾ ਥਲ ਵੱਲ ਲਿਆਵੇ, ਤਾਂ ਠੰਢੇ ਤੱਟ ਉੱਤੇ ਕੀ ਅਸਰ ਪੈ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਤੱਟੀ ਸਰਦੀਆਂ ਨੂੰ ਮੁਕਾਬਲਤਨ ਨਰਮ ਕਰਨਾ",
+          "ਹਵਾ ਠੰਢੀ ਕਰਕੇ ਸਰਦੀਆਂ ਹੋਰ ਠੰਢੀਆਂ ਕਰਨਾ",
+          "ਵਿਥਕਾਰ ਦਾ ਅਸਰ ਖ਼ਤਮ ਕਰਨਾ",
+          "ਤੱਟ ਉੱਤੇ ਭੂਮੱਧੀ ਜਲਵਾਯੂ ਬਣਾਉਣਾ"
+        ],
+        "explanation": "ਗਰਮ ਧਾਰਾ ਉੱਪਰਲੀ ਹਵਾ ਨੂੰ ਗਰਮ ਕਰ ਸਕਦੀ ਹੈ, ਜਿਸ ਨੂੰ ਸਮੁੰਦਰੀ ਹਵਾ ਥਲ ਵੱਲ ਲਿਆਉਂਦੀ ਹੈ। ਇਸ ਨਾਲ ਜਲਵਾਯੂ ਬਦਲਦੀ ਹੈ ਪਰ ਹੋਰ ਸਾਰੇ ਕਾਰਕਾਂ ਦਾ ਅਸਰ ਖ਼ਤਮ ਨਹੀਂ ਹੁੰਦਾ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q020",
+    "cpId": "WGE-001-CP009",
+    "objective": "isotherms",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Lines joining places with equal temperature on a map are called:",
+        "options": [
+          "Isotherms",
+          "Isobars",
+          "Isohyets",
+          "Contours"
+        ],
+        "explanation": "Isotherms connect equal temperatures. The temperature measurement must refer to the same time or averaging period."
+      },
+      "hi": {
+        "stem": "मानचित्र पर समान तापमान वाले स्थानों को जोड़ने वाली रेखाएँ क्या कहलाती हैं?",
+        "options": [
+          "समताप रेखाएँ",
+          "समदाब रेखाएँ",
+          "समवर्षा रेखाएँ",
+          "समोच्च रेखाएँ"
+        ],
+        "explanation": "समताप रेखाएँ समान तापमान वाले स्थान जोड़ती हैं। तुलना एक ही समय या समान औसत अवधि के तापमान की होनी चाहिए।"
+      },
+      "pa": {
+        "stem": "ਨਕਸ਼ੇ ਉੱਤੇ ਇੱਕੋ ਤਾਪਮਾਨ ਵਾਲੀਆਂ ਥਾਵਾਂ ਨੂੰ ਜੋੜਨ ਵਾਲੀਆਂ ਰੇਖਾਵਾਂ ਕੀ ਅਖਵਾਉਂਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਸਮਤਾਪ ਰੇਖਾਵਾਂ",
+          "ਸਮਦਾਬ ਰੇਖਾਵਾਂ",
+          "ਸਮਵਰਖਾ ਰੇਖਾਵਾਂ",
+          "ਸਮਉਚਾਈ ਰੇਖਾਵਾਂ"
+        ],
+        "explanation": "ਸਮਤਾਪ ਰੇਖਾਵਾਂ ਇੱਕੋ ਤਾਪਮਾਨ ਵਾਲੀਆਂ ਥਾਵਾਂ ਜੋੜਦੀਆਂ ਹਨ। ਤੁਲਨਾ ਇੱਕੋ ਸਮੇਂ ਜਾਂ ਇੱਕੋ ਔਸਤ ਮਿਆਦ ਦੇ ਤਾਪਮਾਨ ਦੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q021",
+    "cpId": "WGE-001-CP009",
+    "objective": "energy-surplus",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "On an annual average, excess heat from low latitudes is transferred towards higher latitudes mainly by:",
+        "options": [
+          "Atmospheric circulation and ocean currents",
+          "Tides and earthquakes",
+          "Volcanism and soil formation",
+          "Only conduction through rocks"
+        ],
+        "explanation": "Low latitudes receive an energy surplus while high latitudes generally have a deficit. Winds and ocean currents redistribute part of that energy."
+      },
+      "hi": {
+        "stem": "वार्षिक औसत पर निम्न अक्षांशों की अतिरिक्त ऊष्मा उच्च अक्षांशों तक मुख्यतः किससे पहुँचती है?",
+        "options": [
+          "वायुमंडलीय परिसंचरण और महासागरीय धाराएँ",
+          "ज्वार और भूकंप",
+          "ज्वालामुखिता और मृदा निर्माण",
+          "केवल चट्टानों में चालन"
+        ],
+        "explanation": "निम्न अक्षांशों पर ऊर्जा का अधिशेष और उच्च अक्षांशों पर सामान्यतः घाटा होता है। पवनें और महासागरीय धाराएँ इस ऊर्जा का कुछ भाग पुनर्वितरित करती हैं।"
+      },
+      "pa": {
+        "stem": "ਸਾਲਾਨਾ ਔਸਤ ਉੱਤੇ ਹੇਠਲੇ ਵਿਥਕਾਰਾਂ ਦੀ ਵਾਧੂ ਗਰਮੀ ਉੱਚੇ ਵਿਥਕਾਰਾਂ ਵੱਲ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕਿਵੇਂ ਜਾਂਦੀ ਹੈ?",
+        "options": [
+          "ਵਾਯੂਮੰਡਲੀ ਗੇੜ ਅਤੇ ਸਮੁੰਦਰੀ ਧਾਰਾਵਾਂ",
+          "ਜਵਾਰ ਅਤੇ ਭੂਚਾਲ",
+          "ਜਵਾਲਾਮੁਖੀ ਕਿਰਿਆ ਅਤੇ ਮਿੱਟੀ ਬਣਨਾ",
+          "ਸਿਰਫ਼ ਚੱਟਾਨਾਂ ਵਿੱਚ ਚਾਲਨ"
+        ],
+        "explanation": "ਹੇਠਲੇ ਵਿਥਕਾਰਾਂ ਉੱਤੇ ਊਰਜਾ ਵਾਧੂ ਅਤੇ ਉੱਚੇ ਵਿਥਕਾਰਾਂ ਉੱਤੇ ਆਮ ਤੌਰ ਉੱਤੇ ਘੱਟ ਹੁੰਦੀ ਹੈ। ਹਵਾਵਾਂ ਅਤੇ ਸਮੁੰਦਰੀ ਧਾਰਾਵਾਂ ਇਸ ਊਰਜਾ ਦਾ ਕੁਝ ਹਿੱਸਾ ਅੱਗੇ ਲਿਜਾਂਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q022",
+    "cpId": "WGE-001-CP009",
+    "objective": "heat-balance-change",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "If Earth absorbs more energy than it emits to space over a sustained period, what happens to the climate system's stored energy?",
+        "options": [
+          "It increases",
+          "It decreases",
+          "It stays fixed by definition",
+          "It changes only during daylight"
+        ],
+        "explanation": "A positive energy balance adds energy to the climate system, including the oceans. A balance diagram is an accounting model, not a rule that warming cannot occur."
+      },
+      "hi": {
+        "stem": "यदि लंबे समय तक पृथ्वी अंतरिक्ष में छोड़ने से अधिक ऊर्जा सोखे, तो जलवायु तंत्र की संचित ऊर्जा का क्या होगा?",
+        "options": [
+          "वह बढ़ेगी",
+          "वह घटेगी",
+          "परिभाषा के अनुसार स्थिर रहेगी",
+          "केवल दिन में बदलेगी"
+        ],
+        "explanation": "धनात्मक ऊर्जा संतुलन से महासागरों सहित जलवायु तंत्र में ऊर्जा जुड़ती है। ऊष्मा संतुलन का चित्र लेखा-जोखा है, यह नियम नहीं कि पृथ्वी गर्म हो ही नहीं सकती।"
+      },
+      "pa": {
+        "stem": "ਜੇ ਲੰਮੇ ਸਮੇਂ ਤੱਕ ਧਰਤੀ ਪੁਲਾੜ ਵਿੱਚ ਛੱਡਣ ਨਾਲੋਂ ਵੱਧ ਊਰਜਾ ਸੋਖੇ, ਤਾਂ ਜਲਵਾਯੂ ਤੰਤਰ ਦੀ ਜਮ੍ਹਾਂ ਊਰਜਾ ਦਾ ਕੀ ਹੋਵੇਗਾ?",
+        "options": [
+          "ਉਹ ਵਧੇਗੀ",
+          "ਉਹ ਘਟੇਗੀ",
+          "ਪਰਿਭਾਸ਼ਾ ਅਨੁਸਾਰ ਸਥਿਰ ਰਹੇਗੀ",
+          "ਸਿਰਫ਼ ਦਿਨ ਵੇਲੇ ਬਦਲੇਗੀ"
+        ],
+        "explanation": "ਧਨਾਤਮਕ ਊਰਜਾ ਸੰਤੁਲਨ ਨਾਲ ਸਮੁੰਦਰਾਂ ਸਮੇਤ ਜਲਵਾਯੂ ਤੰਤਰ ਵਿੱਚ ਊਰਜਾ ਜੁੜਦੀ ਹੈ। ਗਰਮੀ ਦੇ ਸੰਤੁਲਨ ਦਾ ਚਿੱਤਰ ਹਿਸਾਬ ਹੈ, ਇਹ ਨਿਯਮ ਨਹੀਂ ਕਿ ਧਰਤੀ ਗਰਮ ਹੋ ਹੀ ਨਹੀਂ ਸਕਦੀ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q023",
+    "cpId": "WGE-001-CP009",
+    "objective": "inversion-pollution",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A city lies beneath a warm air layer while colder air remains near the ground. Why may smoke accumulate near the surface?",
+        "options": [
+          "The stable layering restricts vertical mixing",
+          "The warm layer forces vigorous upward convection",
+          "The inversion removes particles by condensation",
+          "Cold air always contains less smoke than warm air"
+        ],
+        "explanation": "An inversion inhibits the rise and mixing of near-surface air. Pollutants can accumulate if emissions continue and ventilation is weak."
+      },
+      "hi": {
+        "stem": "एक नगर में धरातल के पास ठंडी वायु के ऊपर गर्म वायु की परत है। धुआँ सतह के पास क्यों जमा हो सकता है?",
+        "options": [
+          "स्थिर परतें ऊर्ध्वाधर मिश्रण को रोकती हैं",
+          "गर्म परत तीव्र ऊर्ध्व संवहन पैदा करती है",
+          "प्रतिलोमन संघनन से कण हटा देता है",
+          "ठंडी वायु में हमेशा गर्म वायु से कम धुआँ होता है"
+        ],
+        "explanation": "प्रतिलोमन धरातल की वायु के ऊपर उठने और मिलने को बाधित करता है। उत्सर्जन जारी रहने और वायु निकासी कम होने पर प्रदूषक जमा हो सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਸ਼ਹਿਰ ਵਿੱਚ ਧਰਤੀ ਨੇੜੇ ਠੰਢੀ ਹਵਾ ਦੇ ਉੱਪਰ ਗਰਮ ਹਵਾ ਦੀ ਪਰਤ ਹੈ। ਧੂੰਆਂ ਸਤਹ ਕੋਲ ਕਿਉਂ ਜਮ੍ਹਾਂ ਹੋ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਸਥਿਰ ਪਰਤਾਂ ਉੱਪਰ-ਹੇਠਾਂ ਹਵਾ ਦੇ ਰਲਾਅ ਨੂੰ ਰੋਕਦੀਆਂ ਹਨ",
+          "ਗਰਮ ਪਰਤ ਤੇਜ਼ ਉੱਪਰਲਾ ਸੰਵਹਨ ਬਣਾਉਂਦੀ ਹੈ",
+          "ਉਲਟਾਅ ਸੰਘਣਨ ਨਾਲ ਕਣ ਹਟਾ ਦਿੰਦਾ ਹੈ",
+          "ਠੰਢੀ ਹਵਾ ਵਿੱਚ ਹਮੇਸ਼ਾ ਗਰਮ ਹਵਾ ਨਾਲੋਂ ਘੱਟ ਧੂੰਆਂ ਹੁੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਉਲਟਾਅ ਧਰਤੀ ਨੇੜੇ ਹਵਾ ਦੇ ਉੱਠਣ ਅਤੇ ਰਲਣ ਨੂੰ ਰੋਕਦਾ ਹੈ। ਨਿਕਾਸ ਜਾਰੀ ਰਹਿਣ ਅਤੇ ਹਵਾ ਘੱਟ ਬਦਲਣ ਨਾਲ ਪ੍ਰਦੂਸ਼ਕ ਜਮ੍ਹਾਂ ਹੋ ਸਕਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP009-Q024",
+    "cpId": "WGE-001-CP009",
+    "objective": "albedo-energy-calculation",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-009B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Two surfaces receive 200 units of sunlight each. Their albedos are 0.2 and 0.6. If neither transmits light, how much more energy does the first absorb?",
+        "options": [
+          "80 units",
+          "40 units",
+          "120 units",
+          "160 units"
+        ],
+        "explanation": "The first absorbs 200 × 0.8 = 160 units; the second absorbs 200 × 0.4 = 80 units. The difference is 160 − 80 = 80 units."
+      },
+      "hi": {
+        "stem": "दो सतहों को 200-200 इकाई सूर्यप्रकाश मिलता है। उनके ऐल्बीडो 0.2 और 0.6 हैं। यदि प्रकाश आर-पार नहीं जाता, तो पहली सतह कितनी अधिक ऊर्जा सोखेगी?",
+        "options": [
+          "80 इकाई",
+          "40 इकाई",
+          "120 इकाई",
+          "160 इकाई"
+        ],
+        "explanation": "पहली सतह 200 × 0.8 = 160 और दूसरी 200 × 0.4 = 80 इकाई सोखेगी। अंतर = 160 − 80 = 80 इकाई।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਸਤਹਾਂ ਨੂੰ 200-200 ਇਕਾਈ ਧੁੱਪ ਮਿਲਦੀ ਹੈ। ਉਨ੍ਹਾਂ ਦੇ ਅਲਬੀਡੋ 0.2 ਅਤੇ 0.6 ਹਨ। ਜੇ ਰੋਸ਼ਨੀ ਆਰ-ਪਾਰ ਨਹੀਂ ਜਾਂਦੀ, ਤਾਂ ਪਹਿਲੀ ਸਤਹ ਕਿੰਨੀ ਵੱਧ ਊਰਜਾ ਸੋਖੇਗੀ?",
+        "options": [
+          "80 ਇਕਾਈ",
+          "40 ਇਕਾਈ",
+          "120 ਇਕਾਈ",
+          "160 ਇਕਾਈ"
+        ],
+        "explanation": "ਪਹਿਲੀ ਸਤਹ 200 × 0.8 = 160 ਅਤੇ ਦੂਜੀ 200 × 0.4 = 80 ਇਕਾਈ ਸੋਖੇਗੀ। ਫ਼ਰਕ = 160 − 80 = 80 ਇਕਾਈ।"
+      }
+    }
+  }
+]

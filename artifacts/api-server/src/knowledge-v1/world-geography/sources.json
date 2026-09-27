@@ -169,5 +169,50 @@
     "kind": "primary-educational",
     "consultedOn": "2026-09-26",
     "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-009A",
+    "title": "NCERT XI: Composition and Structure of Atmosphere",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy207.pdf",
+    "section": "Atmospheric composition, layers, weather elements and vertical structure",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-009B",
+    "title": "NCERT XI: Solar Radiation, Heat Balance and Temperature",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy208.pdf",
+    "section": "Insolation, heating and cooling, temperature distribution and inversion",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-010",
+    "title": "NCERT XI: Atmospheric Circulation and Weather Systems",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy209.pdf",
+    "section": "Pressure, forces, planetary and local winds, air masses and fronts",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-010B",
+    "title": "NOAA NESDIS: What is the jet stream?",
+    "url": "https://www.nesdis.noaa.gov/about/k-12-education/atmosphere/what-the-jet-stream",
+    "section": "Upper-tropospheric jet-stream position, flow and seasonal variation",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-ATM-011",
+    "title": "NCERT XI: Water in the Atmosphere",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy210.pdf",
+    "section": "Humidity, condensation, clouds, fog, precipitation and rainfall distribution",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
   }
 ]

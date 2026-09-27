@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "WGE-001-CP011-Q001",
+    "cpId": "WGE-001-CP011",
+    "objective": "humidity-meaning",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which component of air determines its humidity?",
+        "options": [
+          "Water vapour",
+          "Oxygen",
+          "Cloud droplets only",
+          "Liquid rain at the surface"
+        ],
+        "explanation": "Humidity describes atmospheric water vapour. Relative humidity compares the actual amount with the amount needed for saturation at that temperature."
+      },
+      "hi": {
+        "stem": "वायु में किस घटक की मात्रा उसकी आर्द्रता बताती है?",
+        "options": [
+          "जलवाष्प",
+          "ऑक्सीजन",
+          "केवल बादल की बूँदें",
+          "धरातल पर तरल वर्षा"
+        ],
+        "explanation": "आर्द्रता वायु में जलवाष्प की मात्रा बताती है। सापेक्ष आर्द्रता वास्तविक मात्रा की उसी तापमान पर संतृप्ति हेतु आवश्यक मात्रा से तुलना करती है।"
+      },
+      "pa": {
+        "stem": "ਹਵਾ ਵਿੱਚ ਕਿਹੜੇ ਹਿੱਸੇ ਦੀ ਮਾਤਰਾ ਇਸ ਦੀ ਨਮੀ ਦੱਸਦੀ ਹੈ?",
+        "options": [
+          "ਪਾਣੀ ਦੀ ਭਾਫ਼",
+          "ਆਕਸੀਜਨ",
+          "ਸਿਰਫ਼ ਬੱਦਲਾਂ ਦੀਆਂ ਬੂੰਦਾਂ",
+          "ਸਤਹ ਉੱਤੇ ਤਰਲ ਮੀਂਹ"
+        ],
+        "explanation": "ਨਮੀ ਹਵਾ ਵਿੱਚ ਪਾਣੀ ਦੀ ਭਾਫ਼ ਦੀ ਮਾਤਰਾ ਦੱਸਦੀ ਹੈ। ਸਾਪੇਖ ਨਮੀ ਅਸਲ ਮਾਤਰਾ ਦੀ ਉਸ ਤਾਪਮਾਨ ਉੱਤੇ ਸੰਤ੍ਰਿਪਤੀ ਲਈ ਲੋੜੀਂਦੀ ਮਾਤਰਾ ਨਾਲ ਤੁਲਨਾ ਕਰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q002",
+    "cpId": "WGE-001-CP011",
+    "objective": "relative-humidity",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "As air cools without losing water vapour, what happens to its relative humidity?",
+        "options": [
+          "It rises",
+          "It falls",
+          "It remains zero",
+          "It changes into atmospheric pressure"
+        ],
+        "explanation": "Cooler air requires less water vapour for saturation. If the actual content is unchanged, relative humidity rises as the air cools."
+      },
+      "hi": {
+        "stem": "जलवाष्प की मात्रा घटे बिना वायु ठंडी हो, तो उसकी सापेक्ष आर्द्रता पर क्या प्रभाव पड़ता है?",
+        "options": [
+          "बढ़ेगी",
+          "घटेगी",
+          "शून्य रहेगी",
+          "वायुदाब में बदल जाएगी"
+        ],
+        "explanation": "ठंडी वायु को संतृप्त होने के लिए कम जलवाष्प चाहिए। वास्तविक मात्रा स्थिर रहने पर वायु ठंडी होने से सापेक्ष आर्द्रता बढ़ती है।"
+      },
+      "pa": {
+        "stem": "ਪਾਣੀ ਦੀ ਭਾਫ਼ ਘਟੇ ਬਿਨਾਂ ਹਵਾ ਠੰਢੀ ਹੋਵੇ, ਤਾਂ ਇਸ ਦੀ ਸਾਪੇਖ ਨਮੀ ਉੱਤੇ ਕੀ ਅਸਰ ਪੈਂਦਾ ਹੈ?",
+        "options": [
+          "ਵਧੇਗੀ",
+          "ਘਟੇਗੀ",
+          "ਸਿਫ਼ਰ ਰਹੇਗੀ",
+          "ਹਵਾ ਦੇ ਦਬਾਅ ਵਿੱਚ ਬਦਲ ਜਾਵੇਗੀ"
+        ],
+        "explanation": "ਠੰਢੀ ਹਵਾ ਨੂੰ ਸੰਤ੍ਰਿਪਤ ਹੋਣ ਲਈ ਘੱਟ ਭਾਫ਼ ਚਾਹੀਦੀ ਹੈ। ਅਸਲ ਮਾਤਰਾ ਇੱਕੋ ਰਹਿਣ ਉੱਤੇ ਹਵਾ ਠੰਢੀ ਹੋਣ ਨਾਲ ਸਾਪੇਖ ਨਮੀ ਵਧਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q003",
+    "cpId": "WGE-001-CP011",
+    "objective": "condensation-nuclei",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "What role do tiny airborne particles play in cloud formation?",
+        "options": [
+          "Condensation nuclei",
+          "Pressure centres",
+          "Wind vanes",
+          "Heat sources"
+        ],
+        "explanation": "Water vapour can condense on suitable particles in the air. Dust and sea-salt aerosols commonly provide such nuclei."
+      },
+      "hi": {
+        "stem": "बादल बनने में वायु के सूक्ष्म कण क्या भूमिका निभाते हैं?",
+        "options": [
+          "संघनन केंद्रक",
+          "दाब केंद्र",
+          "पवनदर्शी",
+          "ऊष्मा स्रोत"
+        ],
+        "explanation": "जलवाष्प वायु के उपयुक्त कणों पर संघनित हो सकती है। धूल और समुद्री लवण के सूक्ष्म कण ऐसे केंद्रक प्रदान करते हैं।"
+      },
+      "pa": {
+        "stem": "ਬੱਦਲ ਬਣਨ ਵਿੱਚ ਹਵਾ ਦੇ ਬਹੁਤ ਛੋਟੇ ਕਣ ਕੀ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦੇ ਹਨ?",
+        "options": [
+          "ਸੰਘਣਨ ਕੇਂਦਰਕ",
+          "ਦਬਾਅ ਕੇਂਦਰ",
+          "ਹਵਾ-ਦਿਸ਼ਾ ਸੂਚਕ",
+          "ਗਰਮੀ ਦੇ ਸਰੋਤ"
+        ],
+        "explanation": "ਪਾਣੀ ਦੀ ਭਾਫ਼ ਹਵਾ ਦੇ ਢੁੱਕਵੇਂ ਕਣਾਂ ਉੱਤੇ ਸੰਘਣੀ ਹੋ ਸਕਦੀ ਹੈ। ਧੂੜ ਅਤੇ ਸਮੁੰਦਰੀ ਲੂਣ ਦੇ ਬਾਰੀਕ ਕਣ ਅਜਿਹੇ ਕੇਂਦਰਕ ਦਿੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q004",
+    "cpId": "WGE-001-CP011",
+    "objective": "relative-humidity-100",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "At 100% relative humidity, air at that temperature is:",
+        "options": [
+          "Saturated",
+          "Completely free of water vapour",
+          "At its lowest possible pressure",
+          "Guaranteed to produce heavy rain"
+        ],
+        "explanation": "Saturation means the air holds the maximum water vapour possible at that temperature. It does not by itself guarantee rain; lifting and cloud processes also matter."
+      },
+      "hi": {
+        "stem": "100% सापेक्ष आर्द्रता पर वायु उस तापमान पर कैसी होती है?",
+        "options": [
+          "संतृप्त",
+          "जलवाष्प से पूरी तरह मुक्त",
+          "न्यूनतम संभव दाब पर",
+          "निश्चित रूप से भारी वर्षा वाली"
+        ],
+        "explanation": "संतृप्ति का अर्थ है कि उस तापमान पर वायु में अधिकतम संभव जलवाष्प है। केवल इससे भारी वर्षा निश्चित नहीं होती; बादल बनने और वायु उठने की स्थितियाँ भी जरूरी हैं।"
+      },
+      "pa": {
+        "stem": "100% ਸਾਪੇਖ ਨਮੀ ਉੱਤੇ ਉਸ ਤਾਪਮਾਨ ਵਾਲੀ ਹਵਾ ਕਿਹੋ ਜਿਹੀ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਸੰਤ੍ਰਿਪਤ",
+          "ਪਾਣੀ ਦੀ ਭਾਫ਼ ਤੋਂ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ",
+          "ਸਭ ਤੋਂ ਘੱਟ ਸੰਭਵ ਦਬਾਅ ਉੱਤੇ",
+          "ਪੱਕਾ ਭਾਰੀ ਮੀਂਹ ਪਾਉਣ ਵਾਲੀ"
+        ],
+        "explanation": "ਸੰਤ੍ਰਿਪਤੀ ਦਾ ਮਤਲਬ ਹੈ ਕਿ ਉਸ ਤਾਪਮਾਨ ਉੱਤੇ ਹਵਾ ਵਿੱਚ ਵੱਧ ਤੋਂ ਵੱਧ ਸੰਭਵ ਭਾਫ਼ ਹੈ। ਸਿਰਫ਼ ਇਸ ਨਾਲ ਭਾਰੀ ਮੀਂਹ ਪੱਕਾ ਨਹੀਂ ਹੁੰਦਾ; ਬੱਦਲ ਬਣਨ ਅਤੇ ਹਵਾ ਚੜ੍ਹਨ ਦੀਆਂ ਹਾਲਤਾਂ ਵੀ ਲੋੜੀਂਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q005",
+    "cpId": "WGE-001-CP011",
+    "objective": "dew-point",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "When air cools at constant pressure to its dew point, it reaches:",
+        "options": [
+          "Saturated",
+          "Completely dry",
+          "A region of low pressure",
+          "An isobar"
+        ],
+        "explanation": "At the dew point, the air reaches saturation for its existing water-vapour content. Further cooling can lead to condensation."
+      },
+      "hi": {
+        "stem": "स्थिर दाब पर वायु ओसांक तक ठंडी हो, तो वह किस अवस्था में पहुँचती है?",
+        "options": [
+          "संतृप्त",
+          "पूर्णतः शुष्क",
+          "निम्नदाब क्षेत्र",
+          "समदाब रेखा"
+        ],
+        "explanation": "ओसांक पर वायु में मौजूद जलवाष्प की मात्रा के लिए वह संतृप्त हो जाती है। और ठंडा होने पर संघनन हो सकता है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕੋ ਦਬਾਅ ਉੱਤੇ ਹਵਾ ਓਸ-ਬਿੰਦੂ ਤੱਕ ਠੰਢੀ ਹੋਵੇ, ਤਾਂ ਇਹ ਕਿਸ ਹਾਲਤ ਵਿੱਚ ਪਹੁੰਚਦੀ ਹੈ?",
+        "options": [
+          "ਸੰਤ੍ਰਿਪਤ",
+          "ਪੂਰੀ ਤਰ੍ਹਾਂ ਖੁਸ਼ਕ",
+          "ਘੱਟ ਦਬਾਅ ਵਾਲਾ ਖੇਤਰ",
+          "ਸਮਦਾਬ ਰੇਖਾ"
+        ],
+        "explanation": "ਤ੍ਰੇਲ-ਬਿੰਦੂ ਉੱਤੇ ਹਵਾ ਵਿੱਚ ਮੌਜੂਦ ਭਾਫ਼ ਦੀ ਮਾਤਰਾ ਅਨੁਸਾਰ ਹਵਾ ਸੰਤ੍ਰਿਪਤ ਹੋ ਜਾਂਦੀ ਹੈ। ਹੋਰ ਠੰਢੀ ਹੋਣ ਨਾਲ ਸੰਘਣਨ ਹੋ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q006",
+    "cpId": "WGE-001-CP011",
+    "objective": "dew-surface",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "To what temperature must a surface cool for dew to begin forming on it?",
+        "options": [
+          "Dew point",
+          "Boiling point",
+          "Freezing level of the upper troposphere",
+          "Daily maximum temperature"
+        ],
+        "explanation": "A surface cools the adjacent air to its dew point, allowing condensation as liquid droplets. If the surface is below freezing, frost may form instead."
+      },
+      "hi": {
+        "stem": "किस तापमान तक ठंडी होने पर सतह पर ओस बनने लगती है?",
+        "options": [
+          "जब सतह ओसांक तक या उससे नीचे ठंडी हो",
+          "जब सतह जलांक तक गर्म हो",
+          "जब ऊपरी क्षोभमंडल की हिमांक रेखा ऊपर हो",
+          "जब दैनिक अधिकतम तापमान हो"
+        ],
+        "explanation": "सतह पास की वायु को ओसांक तक ठंडा कर देती है और जल की बूँदें संघनित होती हैं। सतह हिमांक से नीचे हो तो पाला बन सकता है।"
+      },
+      "pa": {
+        "stem": "ਸਤਹ ਕਿਹੜੇ ਤਾਪਮਾਨ ਤੱਕ ਠੰਢੀ ਹੋਵੇ ਤਾਂ ਇਸ ਉੱਤੇ ਤ੍ਰੇਲ ਬਣਨ ਲੱਗਦੀ ਹੈ?",
+        "options": [
+          "ਜਦੋਂ ਸਤਹ ਤ੍ਰੇਲ-ਬਿੰਦੂ ਤੱਕ ਜਾਂ ਇਸ ਤੋਂ ਹੇਠਾਂ ਠੰਢੀ ਹੋਵੇ",
+          "ਜਦੋਂ ਸਤਹ ਉਬਾਲ ਦਰਜੇ ਤੱਕ ਗਰਮ ਹੋਵੇ",
+          "ਜਦੋਂ ਉੱਪਰਲੇ ਖੋਭ ਮੰਡਲ ਦੀ ਬਰਫ਼-ਰੇਖਾ ਉੱਪਰ ਹੋਵੇ",
+          "ਜਦੋਂ ਰੋਜ਼ਾਨਾ ਵੱਧ ਤੋਂ ਵੱਧ ਤਾਪਮਾਨ ਹੋਵੇ"
+        ],
+        "explanation": "ਸਤਹ ਨੇੜਲੀ ਹਵਾ ਨੂੰ ਤ੍ਰੇਲ-ਬਿੰਦੂ ਤੱਕ ਠੰਢਾ ਕਰਦੀ ਹੈ ਅਤੇ ਪਾਣੀ ਦੀਆਂ ਬੂੰਦਾਂ ਸੰਘਣੀਆਂ ਹੁੰਦੀਆਂ ਹਨ। ਸਤਹ ਜੰਮਣ ਦੇ ਤਾਪਮਾਨ ਤੋਂ ਹੇਠਾਂ ਹੋਵੇ ਤਾਂ ਪਾਲਾ ਬਣ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q007",
+    "cpId": "WGE-001-CP011",
+    "objective": "frost",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Frost forms when water vapour changes directly into ice on a surface below freezing. This change is:",
+        "options": [
+          "Deposition",
+          "Evaporation",
+          "Melting",
+          "Advection"
+        ],
+        "explanation": "Deposition changes water vapour directly into ice without first becoming liquid. Frost commonly forms on sufficiently cold surfaces."
+      },
+      "hi": {
+        "stem": "हिमांक से नीचे सतह पर जलवाष्प सीधे बर्फ बन जाए, तो इस प्रक्रिया को क्या कहते हैं?",
+        "options": [
+          "निक्षेपण",
+          "वाष्पीकरण",
+          "गलन",
+          "अभिवहन"
+        ],
+        "explanation": "निक्षेपण में जलवाष्प बिना तरल बने सीधे बर्फ बनती है। पर्याप्त ठंडी सतह पर पाला बन सकता है।"
+      },
+      "pa": {
+        "stem": "ਜੰਮਣ ਦੇ ਤਾਪਮਾਨ ਤੋਂ ਹੇਠਾਂ ਸਤਹ ਉੱਤੇ ਪਾਣੀ ਦੀ ਭਾਫ਼ ਸਿੱਧੀ ਬਰਫ਼ ਬਣੇ, ਤਾਂ ਇਸ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਨਿਖੇਪਣ",
+          "ਵਾਸ਼ਪੀਕਰਨ",
+          "ਪਿਘਲਣਾ",
+          "ਅਭਿਵਹਨ"
+        ],
+        "explanation": "ਨਿਖੇਪਣ ਵਿੱਚ ਪਾਣੀ ਦੀ ਭਾਫ਼ ਤਰਲ ਬਣੇ ਬਿਨਾਂ ਸਿੱਧੀ ਬਰਫ਼ ਬਣਦੀ ਹੈ। ਕਾਫ਼ੀ ਠੰਢੀ ਸਤਹ ਉੱਤੇ ਪਾਲਾ ਬਣ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q008",
+    "cpId": "WGE-001-CP011",
+    "objective": "fog-versus-cloud",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "What is the defining feature of fog?",
+        "options": [
+          "Forms at or very near the ground",
+          "Forms only above mountain summits",
+          "Consists only of falling rain",
+          "Occurs only in deserts"
+        ],
+        "explanation": "Fog consists of tiny water droplets or ice crystals suspended near the surface. It reduces visibility at ground level."
+      },
+      "hi": {
+        "stem": "कोहरे की पहचान करने वाली मुख्य विशेषता क्या है?",
+        "options": [
+          "धरातल पर या उसके बहुत पास बना बादल",
+          "केवल पर्वत शिखर के ऊपर बना बादल",
+          "केवल गिरती वर्षा से बना पदार्थ",
+          "केवल मरुस्थल में होने वाली घटना"
+        ],
+        "explanation": "कोहरे में सतह के पास जल की सूक्ष्म बूँदें या बर्फ के कण निलंबित रहते हैं। इससे धरातल के पास दृश्यता घटती है।"
+      },
+      "pa": {
+        "stem": "ਧੁੰਦ ਦੀ ਪਛਾਣ ਕਰਾਉਣ ਵਾਲੀ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾ ਕੀ ਹੈ?",
+        "options": [
+          "ਧਰਤੀ ਉੱਤੇ ਜਾਂ ਇਸ ਦੇ ਬਹੁਤ ਨੇੜੇ ਬਣਿਆ ਬੱਦਲ",
+          "ਸਿਰਫ਼ ਪਹਾੜੀ ਚੋਟੀਆਂ ਉੱਤੇ ਬਣਿਆ ਬੱਦਲ",
+          "ਸਿਰਫ਼ ਡਿੱਗਦੇ ਮੀਂਹ ਤੋਂ ਬਣਿਆ ਪਦਾਰਥ",
+          "ਸਿਰਫ਼ ਰੇਗਿਸਤਾਨਾਂ ਵਿੱਚ ਹੋਣ ਵਾਲੀ ਘਟਨਾ"
+        ],
+        "explanation": "ਧੁੰਦ ਵਿੱਚ ਧਰਤੀ ਨੇੜੇ ਪਾਣੀ ਦੀਆਂ ਬਾਰੀਕ ਬੂੰਦਾਂ ਜਾਂ ਬਰਫ਼ ਦੇ ਕਣ ਹਵਾ ਵਿੱਚ ਟਿਕੇ ਰਹਿੰਦੇ ਹਨ। ਇਸ ਨਾਲ ਸਤਹ ਉੱਤੇ ਦਿਸਣ ਦੀ ਦੂਰੀ ਘਟ ਜਾਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q009",
+    "cpId": "WGE-001-CP011",
+    "objective": "cloud-upward-lift",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "When rising moist air cools to its dew point, what process begins?",
+        "options": [
+          "Condensation",
+          "Evaporation from cloud droplets",
+          "Surface conduction",
+          "Pressure-gradient acceleration"
+        ],
+        "explanation": "Rising air expands in lower pressure and cools. When it reaches saturation, water vapour condenses and clouds can form."
+      },
+      "hi": {
+        "stem": "ऊपर उठती नम वायु ओसांक तक ठंडी हो, तो कौन-सी प्रक्रिया शुरू होती है?",
+        "options": [
+          "संघनन",
+          "बादल की बूँदों का वाष्पीकरण",
+          "धरातलीय चालन",
+          "दाब-प्रवणता से त्वरण"
+        ],
+        "explanation": "ऊपर उठती वायु कम दाब में फैलकर ठंडी होती है। संतृप्ति पर जलवाष्प संघनित होकर बादल बना सकती है।"
+      },
+      "pa": {
+        "stem": "ਉੱਪਰ ਚੜ੍ਹਦੀ ਨਮੀ ਵਾਲੀ ਹਵਾ ਓਸ-ਬਿੰਦੂ ਤੱਕ ਠੰਢੀ ਹੋਵੇ, ਤਾਂ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਸੰਘਣਨ",
+          "ਬੱਦਲਾਂ ਦੀਆਂ ਬੂੰਦਾਂ ਦਾ ਵਾਸ਼ਪੀਕਰਨ",
+          "ਸਤਹੀ ਚਾਲਨ",
+          "ਦਬਾਅ-ਢਲਾਣ ਨਾਲ ਤੇਜ਼ੀ"
+        ],
+        "explanation": "ਉੱਪਰ ਚੜ੍ਹਦੀ ਹਵਾ ਘੱਟ ਦਬਾਅ ਵਿੱਚ ਫੈਲ ਕੇ ਠੰਢੀ ਹੁੰਦੀ ਹੈ। ਸੰਤ੍ਰਿਪਤੀ ਉੱਤੇ ਪਾਣੀ ਦੀ ਭਾਫ਼ ਸੰਘਣੀ ਹੋ ਕੇ ਬੱਦਲ ਬਣਾ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q010",
+    "cpId": "WGE-001-CP011",
+    "objective": "convectional-rain",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Intense surface heating causes warm, moist air to rise and produce showers. This is:",
+        "options": [
+          "Convectional rainfall",
+          "Orographic rainfall",
+          "Frontal rainfall",
+          "Drizzle from advection fog"
+        ],
+        "explanation": "Convection lifts air warmed from below. As the air cools and condenses, heavy local showers or thunderstorms can develop."
+      },
+      "hi": {
+        "stem": "तेज धरातलीय ऊष्मन से गर्म नम वायु ऊपर उठती है और बौछारें देती है। यह कौन-सी वर्षा है?",
+        "options": [
+          "संवहनीय वर्षा",
+          "पर्वतीय वर्षा",
+          "वाताग्री वर्षा",
+          "अभिवहन कोहरे की बूंदाबांदी"
+        ],
+        "explanation": "संवहन में नीचे से गर्म हुई वायु ऊपर उठती है। ठंडी होकर संघनित होने पर तेज स्थानीय बौछारें या गरज वाले तूफान बन सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਤੇਜ਼ ਸਤਹੀ ਗਰਮੀ ਨਾਲ ਗਰਮ ਨਮੀ ਵਾਲੀ ਹਵਾ ਉੱਪਰ ਚੜ੍ਹਦੀ ਅਤੇ ਛਿੱਟੇ ਪਾਉਂਦੀ ਹੈ। ਇਹ ਕਿਹੜਾ ਮੀਂਹ ਹੈ?",
+        "options": [
+          "ਸੰਵਹਨੀ ਮੀਂਹ",
+          "ਪਹਾੜੀ ਮੀਂਹ",
+          "ਵਾਤਾਗ੍ਰੀ ਮੀਂਹ",
+          "ਅਭਿਵਹਨੀ ਧੁੰਦ ਦੀ ਕਿਣਮਿਣ"
+        ],
+        "explanation": "ਸੰਵਹਨ ਵਿੱਚ ਹੇਠਾਂ ਤੋਂ ਗਰਮ ਹੋਈ ਹਵਾ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹੈ। ਠੰਢੀ ਹੋ ਕੇ ਸੰਘਣੀ ਹੋਣ ਨਾਲ ਸਥਾਨਕ ਤੇਜ਼ ਛਿੱਟੇ ਜਾਂ ਗਰਜ-ਤੂਫ਼ਾਨ ਬਣ ਸਕਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q011",
+    "cpId": "WGE-001-CP011",
+    "objective": "orographic-rain",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Rain falling on a mountain’s windward slope is known as:",
+        "options": [
+          "Orographic",
+          "Convectional",
+          "Frontal",
+          "Cyclonic-only"
+        ],
+        "explanation": "Relief forces moist air upwards, causing cooling and condensation. Descending air on the lee side often produces a rain shadow."
+      },
+      "hi": {
+        "stem": "पर्वत की पवनमुखी ढाल पर होने वाली वर्षा को क्या कहते हैं?",
+        "options": [
+          "पर्वतीय",
+          "संवहनीय",
+          "वाताग्री",
+          "केवल चक्रवाती"
+        ],
+        "explanation": "स्थलरूप नम वायु को ऊपर उठाता है; वायु ठंडी होकर संघनित होती है। पवनविमुख ढाल पर उतरती हवा से वर्षाछाया बन सकती है।"
+      },
+      "pa": {
+        "stem": "ਪਹਾੜ ਦੀ ਹਵਾ-ਮੁਖੀ ਢਲਾਣ ਉੱਤੇ ਪੈਣ ਵਾਲੇ ਮੀਂਹ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਪਹਾੜੀ",
+          "ਸੰਵਹਨੀ",
+          "ਵਾਤਾਗ੍ਰੀ",
+          "ਸਿਰਫ਼ ਚੱਕਰਵਾਤੀ"
+        ],
+        "explanation": "ਭੂ-ਰੂਪ ਨਮੀ ਵਾਲੀ ਹਵਾ ਨੂੰ ਉੱਪਰ ਚੜ੍ਹਾਉਂਦਾ ਹੈ; ਹਵਾ ਠੰਢੀ ਹੋ ਕੇ ਸੰਘਣੀ ਹੁੰਦੀ ਹੈ। ਦੂਜੇ ਪਾਸੇ ਹੇਠਾਂ ਉਤਰਦੀ ਹਵਾ ਨਾਲ ਵਰਖਾ-ਛਾਂ ਬਣ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q012",
+    "cpId": "WGE-001-CP011",
+    "objective": "frontal-rain",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which boundary between warm, moist air and colder, denser air can produce steady rain?",
+        "options": [
+          "A front",
+          "A low-pressure trough",
+          "A high-pressure ridge",
+          "A temperature inversion"
+        ],
+        "explanation": "At a front, contrasting air masses meet. The lighter warm air is forced to rise over colder air, leading to cloud and precipitation."
+      },
+      "hi": {
+        "stem": "गर्म, नम वायु और ठंडी, सघन वायु के बीच कौन-सी सीमा लगातार वर्षा करा सकती है?",
+        "options": [
+          "वाताग्र",
+          "निम्नदाब द्रोणी",
+          "उच्चदाब कटक",
+          "तापमान प्रतिलोमन"
+        ],
+        "explanation": "वाताग्र पर भिन्न वायुराशियाँ मिलती हैं। हल्की गर्म वायु ठंडी वायु के ऊपर उठती है, जिससे बादल और वर्षा हो सकती है।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ, ਨਮੀ ਵਾਲੀ ਹਵਾ ਅਤੇ ਠੰਢੀ, ਸੰਘਣੀ ਹਵਾ ਵਿਚਕਾਰ ਕਿਹੜੀ ਹੱਦ ਲਗਾਤਾਰ ਮੀਂਹ ਲਿਆ ਸਕਦੀ ਹੈ?",
+        "options": [
+          "ਮੋਰਚਾ",
+          "ਘੱਟ-ਦਬਾਅ ਵਾਲੀ ਦ੍ਰੋਣੀ",
+          "ਉੱਚ-ਦਬਾਅ ਵਾਲਾ ਕਟਕ",
+          "ਤਾਪਮਾਨ ਦਾ ਉਲਟਾਅ"
+        ],
+        "explanation": "ਵਾਤਾਗ੍ਰ ਉੱਤੇ ਵੱਖ-ਵੱਖ ਹਵਾਈ ਪੁੰਜ ਮਿਲਦੇ ਹਨ। ਹਲਕੀ ਗਰਮ ਹਵਾ ਠੰਢੀ ਹਵਾ ਉੱਪਰ ਚੜ੍ਹਦੀ ਹੈ ਅਤੇ ਬੱਦਲ ਤੇ ਮੀਂਹ ਬਣ ਸਕਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q013",
+    "cpId": "WGE-001-CP011",
+    "objective": "rain-shadow",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A mountain receives heavy rain on its windward side while the leeward plateau is dry. The plateau lies in a:",
+        "options": [
+          "Rain shadow",
+          "Cyclone track",
+          "Coastal convergence zone",
+          "Permanent low-pressure belt"
+        ],
+        "explanation": "Air loses moisture as it rises and rains on the windward side. Drier descending air on the lee side helps create a rain-shadow region."
+      },
+      "hi": {
+        "stem": "पर्वत की पवनमुखी ढाल पर भारी वर्षा होती है, जबकि पवनविमुख पठार शुष्क है। पठार किस क्षेत्र में है?",
+        "options": [
+          "वर्षाछाया",
+          "चक्रवात पथ",
+          "तटीय अभिसरण क्षेत्र",
+          "स्थायी निम्नदाब पट्टी"
+        ],
+        "explanation": "पवनमुखी ढाल पर ऊपर उठकर वायु नमी खोती है। दूसरी ओर नीचे उतरती शुष्क वायु वर्षाछाया क्षेत्र बनाने में मदद करती है।"
+      },
+      "pa": {
+        "stem": "ਪਹਾੜ ਦੇ ਹਵਾ-ਮੁਖੀ ਪਾਸੇ ਭਾਰੀ ਮੀਂਹ ਪੈਂਦਾ ਹੈ, ਜਦਕਿ ਦੂਜੇ ਪਾਸੇ ਦਾ ਪਠਾਰ ਖੁਸ਼ਕ ਹੈ। ਪਠਾਰ ਕਿਹੜੇ ਖੇਤਰ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਵਰਖਾ-ਛਾਂ",
+          "ਚੱਕਰਵਾਤ ਦਾ ਰਾਹ",
+          "ਤੱਟੀ ਮਿਲਾਪ ਖੇਤਰ",
+          "ਸਥਾਈ ਘੱਟ ਦਬਾਅ ਪੱਟੀ"
+        ],
+        "explanation": "ਹਵਾ-ਮੁਖੀ ਢਲਾਣ ਉੱਤੇ ਚੜ੍ਹ ਕੇ ਹਵਾ ਨਮੀ ਗੁਆਉਂਦੀ ਹੈ। ਦੂਜੇ ਪਾਸੇ ਹੇਠਾਂ ਉਤਰਦੀ ਖੁਸ਼ਕ ਹਵਾ ਵਰਖਾ-ਛਾਂ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q014",
+    "cpId": "WGE-001-CP011",
+    "objective": "rainfall-order",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Arrange the main steps of orographic rainfall in order.",
+        "options": [
+          "Moist air rises → expands and cools → condenses → precipitation",
+          "Moist air descends → warms → condenses → precipitation",
+          "Air condenses at sea level → sinks → warms → precipitation",
+          "Air rises → warms by expansion → becomes dry → precipitation"
+        ],
+        "explanation": "Forced ascent causes expansion and cooling. Once the air reaches saturation, condensation develops and precipitation may follow."
+      },
+      "hi": {
+        "stem": "पर्वतीय वर्षा की मुख्य अवस्थाओं को सही क्रम में रखें।",
+        "options": [
+          "नम वायु ऊपर उठती है → फैलकर ठंडी होती है → संघनन होता है → वर्षा होती है",
+          "नम वायु नीचे उतरती है → गर्म होती है → संघनन होता है → वर्षा होती है",
+          "समुद्र तल पर संघनन होता है → वायु नीचे जाती है → गर्म होती है → वर्षा होती है",
+          "वायु ऊपर उठती है → फैलने से गर्म होती है → शुष्क होती है → वर्षा होती है"
+        ],
+        "explanation": "बाध्य होकर ऊपर उठती वायु फैलकर ठंडी होती है। संतृप्ति पर संघनन होता है और फिर वर्षा हो सकती है।"
+      },
+      "pa": {
+        "stem": "ਪਹਾੜੀ ਮੀਂਹ ਦੇ ਮੁੱਖ ਪੜਾਅ ਸਹੀ ਕ੍ਰਮ ਵਿੱਚ ਰੱਖੋ।",
+        "options": [
+          "ਨਮੀ ਵਾਲੀ ਹਵਾ ਚੜ੍ਹਦੀ ਹੈ → ਫੈਲ ਕੇ ਠੰਢੀ ਹੁੰਦੀ ਹੈ → ਸੰਘਣਨ ਹੁੰਦਾ ਹੈ → ਮੀਂਹ ਪੈਂਦਾ ਹੈ",
+          "ਨਮੀ ਵਾਲੀ ਹਵਾ ਹੇਠਾਂ ਉਤਰਦੀ ਹੈ → ਗਰਮ ਹੁੰਦੀ ਹੈ → ਸੰਘਣਨ ਹੁੰਦਾ ਹੈ → ਮੀਂਹ ਪੈਂਦਾ ਹੈ",
+          "ਸਮੁੰਦਰ ਤਲ ਉੱਤੇ ਸੰਘਣਨ ਹੁੰਦਾ ਹੈ → ਹਵਾ ਹੇਠਾਂ ਜਾਂਦੀ ਹੈ → ਗਰਮ ਹੁੰਦੀ ਹੈ → ਮੀਂਹ ਪੈਂਦਾ ਹੈ",
+          "ਹਵਾ ਚੜ੍ਹਦੀ ਹੈ → ਫੈਲਣ ਨਾਲ ਗਰਮ ਹੁੰਦੀ ਹੈ → ਖੁਸ਼ਕ ਹੁੰਦੀ ਹੈ → ਮੀਂਹ ਪੈਂਦਾ ਹੈ"
+        ],
+        "explanation": "ਚੜ੍ਹਾਈ ਲਈ ਮਜਬੂਰ ਹਵਾ ਫੈਲ ਕੇ ਠੰਢੀ ਹੁੰਦੀ ਹੈ। ਸੰਤ੍ਰਿਪਤੀ ਉੱਤੇ ਸੰਘਣਨ ਹੁੰਦਾ ਹੈ ਅਤੇ ਫਿਰ ਮੀਂਹ ਪੈ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q015",
+    "cpId": "WGE-001-CP011",
+    "objective": "cloud-condensation",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "What process turns water vapour into liquid cloud droplets?",
+        "options": [
+          "Condensation",
+          "Evaporation",
+          "Sublimation",
+          "Runoff"
+        ],
+        "explanation": "During condensation, water vapour changes into liquid droplets or ice crystals. Suitable particles in the air can provide surfaces for this change."
+      },
+      "hi": {
+        "stem": "किस प्रक्रिया से जलवाष्प तरल बादल-बूँदों में बदलती है?",
+        "options": [
+          "संघनन",
+          "वाष्पीकरण",
+          "ऊर्ध्वपातन",
+          "अपवाह"
+        ],
+        "explanation": "संघनन में जलवाष्प तरल बूँदों या बर्फ के कणों में बदलती है। वायु में मौजूद सूक्ष्म कण इस परिवर्तन के लिए सतह देते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਪਾਣੀ ਦੀ ਭਾਫ਼ ਤਰਲ ਬੱਦਲ-ਬੂੰਦਾਂ ਵਿੱਚ ਬਦਲਦੀ ਹੈ?",
+        "options": [
+          "ਸੰਘਣਨ",
+          "ਵਾਸ਼ਪੀਕਰਨ",
+          "ਉਰਧਵਪਾਤਨ",
+          "ਸਤਹੀ ਵਹਾਅ"
+        ],
+        "explanation": "ਸੰਘਣਨ ਵੇਲੇ ਪਾਣੀ ਦੀ ਭਾਫ਼ ਤਰਲ ਬੂੰਦਾਂ ਜਾਂ ਬਰਫ਼ ਦੇ ਕਣ ਬਣਦੀ ਹੈ। ਹਵਾ ਦੇ ਬਾਰੀਕ ਕਣ ਇਸ ਤਬਦੀਲੀ ਲਈ ਸਤਹ ਦਿੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q016",
+    "cpId": "WGE-001-CP011",
+    "objective": "precipitation-growth",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Water droplets or ice particles falling from clouds are called:",
+        "options": [
+          "Precipitation",
+          "Humidity",
+          "Insolation",
+          "An air mass"
+        ],
+        "explanation": "Precipitation includes water or ice particles falling from clouds. Cloud droplets must grow sufficiently before they can overcome upward air motion."
+      },
+      "hi": {
+        "stem": "बादलों से गिरने वाली जल-बूँदों या हिम-कणों को क्या कहते हैं?",
+        "options": [
+          "वर्षण",
+          "आर्द्रता",
+          "सूर्यातप",
+          "वायुराशि"
+        ],
+        "explanation": "बादल से गिरने वाले जल या हिम कण वर्षण हैं। बूँदों को ऊपर उठती वायु का सामना करने से पहले पर्याप्त बड़ा होना पड़ता है।"
+      },
+      "pa": {
+        "stem": "ਬੱਦਲਾਂ ਤੋਂ ਡਿੱਗਦੀਆਂ ਪਾਣੀ ਦੀਆਂ ਬੂੰਦਾਂ ਜਾਂ ਬਰਫ਼ ਦੇ ਕਣਾਂ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਵਰਖਣ",
+          "ਨਮੀ",
+          "ਸੂਰਜੀ ਤਾਪ",
+          "ਹਵਾਈ ਪੁੰਜ"
+        ],
+        "explanation": "ਬੱਦਲਾਂ ਤੋਂ ਡਿੱਗਦੇ ਪਾਣੀ ਜਾਂ ਬਰਫ਼ ਦੇ ਕਣ ਵਰਖਣ ਹੁੰਦੇ ਹਨ। ਉੱਪਰ ਚੜ੍ਹਦੀ ਹਵਾ ਦਾ ਟਾਕਰਾ ਕਰਨ ਲਈ ਬੂੰਦਾਂ ਕਾਫ਼ੀ ਵੱਡੀਆਂ ਹੋਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q017",
+    "cpId": "WGE-001-CP011",
+    "objective": "coastal-rain-contrast",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Moist air from the ocean reaches a coastal mountain range. Which slope receives the heaviest orographic rain?",
+        "options": [
+          "The side facing the incoming moist air",
+          "The leeward slope beyond the crest",
+          "Both slopes receive similar rain regardless of wind direction",
+          "The highest part of the range in every case"
+        ],
+        "explanation": "Moist air is forced upward on the windward slope, where cooling and condensation support rainfall. The exact distribution also depends on wind direction and relief."
+      },
+      "hi": {
+        "stem": "समुद्र से आई नम वायु तटीय पर्वत शृंखला तक पहुँचती है। सबसे अधिक पर्वतीय वर्षा किस ढाल पर होगी?",
+        "options": [
+          "आने वाली नम वायु के सामने वाली ढाल",
+          "पर्वत-शिखर के पार पवनविमुख ढाल",
+          "पवन-दिशा चाहे जो हो, दोनों ढालों पर लगभग समान वर्षा",
+          "हर दशा में पर्वत शृंखला का सबसे ऊँचा भाग"
+        ],
+        "explanation": "पवनमुखी ढाल पर नम वायु ऊपर उठती है और ठंडी होकर संघनित होती है। सही स्थान पवन दिशा और स्थलरूप पर भी निर्भर करता है।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰ ਤੋਂ ਆਈ ਨਮੀ ਵਾਲੀ ਹਵਾ ਤੱਟੀ ਪਹਾੜੀ ਲੜੀ ਤੱਕ ਪਹੁੰਚਦੀ ਹੈ। ਸਭ ਤੋਂ ਵੱਧ ਪਹਾੜੀ ਮੀਂਹ ਕਿਹੜੀ ਢਲਾਣ ਉੱਤੇ ਪਵੇਗਾ?",
+        "options": [
+          "ਆਉਂਦੀ ਨਮੀ ਵਾਲੀ ਹਵਾ ਦੇ ਸਾਹਮਣੇ ਵਾਲੀ ਢਲਾਣ",
+          "ਪਹਾੜੀ ਚੋਟੀ ਤੋਂ ਪਾਰ ਹਵਾ-ਵਿਮੁਖ ਢਲਾਣ",
+          "ਹਵਾ ਦੀ ਦਿਸ਼ਾ ਭਾਵੇਂ ਜੋ ਹੋਵੇ, ਦੋਹਾਂ ਢਲਾਣਾਂ ਉੱਤੇ ਲਗਭਗ ਇੱਕੋ ਮੀਂਹ",
+          "ਹਰ ਹਾਲਤ ਵਿੱਚ ਪਹਾੜੀ ਲੜੀ ਦਾ ਸਭ ਤੋਂ ਉੱਚਾ ਹਿੱਸਾ"
+        ],
+        "explanation": "ਹਵਾ-ਮੁਖੀ ਢਲਾਣ ਉੱਤੇ ਨਮੀ ਵਾਲੀ ਹਵਾ ਚੜ੍ਹਦੀ ਅਤੇ ਠੰਢੀ ਹੋ ਕੇ ਸੰਘਣੀ ਹੁੰਦੀ ਹੈ। ਸਹੀ ਥਾਂ ਹਵਾ ਦੀ ਦਿਸ਼ਾ ਅਤੇ ਭੂ-ਰੂਪ ਉੱਤੇ ਵੀ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q018",
+    "cpId": "WGE-001-CP011",
+    "objective": "convective-cloud",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which cloud type most often produces thunderstorms and intense convective showers?",
+        "options": [
+          "Cumulonimbus",
+          "Stratus",
+          "Cirrus",
+          "Fog"
+        ],
+        "explanation": "Strong upward currents build cumulonimbus clouds vertically. These clouds can bring heavy showers, lightning and gusty winds."
+      },
+      "hi": {
+        "stem": "गरज-चमक और तेज संवहनीय बौछारें प्रायः किस प्रकार के बादल से आती हैं?",
+        "options": [
+          "क्यूम्यलोनिंबस",
+          "स्ट्रेटस",
+          "सिरस",
+          "कोहरा"
+        ],
+        "explanation": "तेज ऊपर उठती धाराएँ क्यूम्यलोनिंबस बादलों को ऊर्ध्वाधर रूप से विकसित करती हैं। इनसे तेज बौछारें, बिजली और झोंकेदार हवा आ सकती है।"
+      },
+      "pa": {
+        "stem": "ਗਰਜ-ਤੂਫ਼ਾਨ ਅਤੇ ਤੇਜ਼ ਸੰਵਹਨੀ ਛਿੱਟੇ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ ਕਿਸਮ ਦੇ ਬੱਦਲ ਤੋਂ ਪੈਂਦੇ ਹਨ?",
+        "options": [
+          "ਕਿਊਮੂਲੋਨਿੰਬਸ",
+          "ਸਟ੍ਰੇਟਸ",
+          "ਸਿਰਸ",
+          "ਧੁੰਦ"
+        ],
+        "explanation": "ਤੇਜ਼ ਉੱਪਰ ਚੜ੍ਹਦੀਆਂ ਹਵਾਈ ਧਾਰਾਵਾਂ ਕਿਊਮੂਲੋਨਿੰਬਸ ਬੱਦਲਾਂ ਨੂੰ ਉਚਾਈ ਵੱਲ ਵਿਕਸਿਤ ਕਰਦੀਆਂ ਹਨ। ਇਨ੍ਹਾਂ ਨਾਲ ਤੇਜ਼ ਛਿੱਟੇ, ਬਿਜਲੀ ਅਤੇ ਝੱਖੜ ਆ ਸਕਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q019",
+    "cpId": "WGE-001-CP011",
+    "objective": "rainfall-map",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Lines joining places that receive equal rainfall on a map are called:",
+        "options": [
+          "Isohyets",
+          "Isotherms",
+          "Isobars",
+          "Contours"
+        ],
+        "explanation": "Isohyets connect equal precipitation totals for a specified period. The period and measurement units should be given when comparing maps."
+      },
+      "hi": {
+        "stem": "मानचित्र पर समान वर्षा वाले स्थानों को जोड़ने वाली रेखाएँ क्या कहलाती हैं?",
+        "options": [
+          "समवर्षा रेखाएँ",
+          "समताप रेखाएँ",
+          "समदाब रेखाएँ",
+          "समोच्च रेखाएँ"
+        ],
+        "explanation": "समवर्षा रेखाएँ निश्चित अवधि में हुई समान वर्षा वाले स्थान जोड़ती हैं। मानचित्र की तुलना में अवधि और मापन इकाई स्पष्ट होनी चाहिए।"
+      },
+      "pa": {
+        "stem": "ਨਕਸ਼ੇ ਉੱਤੇ ਇੱਕੋ ਮੀਂਹ ਵਾਲੀਆਂ ਥਾਵਾਂ ਨੂੰ ਜੋੜਨ ਵਾਲੀਆਂ ਰੇਖਾਵਾਂ ਕੀ ਕਹਾਉਂਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਸਮਵਰਖਾ ਰੇਖਾਵਾਂ",
+          "ਸਮਤਾਪ ਰੇਖਾਵਾਂ",
+          "ਸਮਦਾਬ ਰੇਖਾਵਾਂ",
+          "ਸਮਉਚਾਈ ਰੇਖਾਵਾਂ"
+        ],
+        "explanation": "ਸਮਵਰਖਾ ਰੇਖਾਵਾਂ ਨਿਰਧਾਰਤ ਮਿਆਦ ਵਿੱਚ ਇੱਕੋ ਮੀਂਹ ਵਾਲੀਆਂ ਥਾਵਾਂ ਜੋੜਦੀਆਂ ਹਨ। ਨਕਸ਼ਿਆਂ ਦੀ ਤੁਲਨਾ ਵੇਲੇ ਮਿਆਦ ਅਤੇ ਇਕਾਈ ਦੱਸਣੀ ਚਾਹੀਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q020",
+    "cpId": "WGE-001-CP011",
+    "objective": "rainfall-seasonality",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A desert receives most of its small annual rainfall in a few short storms. Why can the average annual total be misleading?",
+        "options": [
+          "It hides the timing and concentration of rainfall",
+          "It identifies the wettest month automatically",
+          "It counts the number of rainy days in the year",
+          "It records the duration of each storm"
+        ],
+        "explanation": "Annual totals do not show how rainfall is distributed through the year. A few intense events can have different effects from regular light rainfall."
+      },
+      "hi": {
+        "stem": "किसी मरुस्थल की थोड़ी-सी वार्षिक वर्षा कुछ छोटे तूफानों में होती है। औसत वार्षिक कुल क्यों भ्रामक हो सकता है?",
+        "options": [
+          "यह वर्षा के समय और सघनता को नहीं दिखाता",
+          "यह अपने आप सबसे अधिक वर्षा वाला महीना बता देता है",
+          "यह वर्ष में वर्षा वाले दिनों की संख्या बताता है",
+          "यह हर तूफान की अवधि दर्ज करता है"
+        ],
+        "explanation": "वार्षिक कुल यह नहीं बताता कि वर्षा साल में कैसे बँटी है। कुछ तीव्र वर्षा घटनाओं का प्रभाव नियमित हल्की वर्षा से अलग हो सकता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਸੇ ਰੇਗਿਸਤਾਨ ਦਾ ਥੋੜ੍ਹਾ ਸਾਲਾਨਾ ਮੀਂਹ ਕੁਝ ਥੋੜ੍ਹੇ ਸਮੇਂ ਦੇ ਤੂਫ਼ਾਨਾਂ ਵਿੱਚ ਪੈਂਦਾ ਹੈ। ਸਾਲਾਨਾ ਔਸਤ ਕੁੱਲ ਗੁੰਮਰਾਹ ਕਿਉਂ ਕਰ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਇਹ ਮੀਂਹ ਦਾ ਸਮਾਂ ਅਤੇ ਇਕੱਠ ਨਹੀਂ ਦੱਸਦਾ",
+          "ਇਹ ਆਪਣੇ ਆਪ ਸਭ ਤੋਂ ਵੱਧ ਮੀਂਹ ਵਾਲਾ ਮਹੀਨਾ ਦੱਸਦਾ ਹੈ",
+          "ਇਹ ਸਾਲ ਵਿੱਚ ਮੀਂਹ ਵਾਲੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਦੱਸਦਾ ਹੈ",
+          "ਇਹ ਹਰ ਤੂਫ਼ਾਨ ਦਾ ਸਮਾਂ ਦਰਜ ਕਰਦਾ ਹੈ"
+        ],
+        "explanation": "ਸਾਲਾਨਾ ਕੁੱਲ ਇਹ ਨਹੀਂ ਦੱਸਦਾ ਕਿ ਸਾਲ ਭਰ ਮੀਂਹ ਕਿਵੇਂ ਵੰਡਿਆ। ਕੁਝ ਤੇਜ਼ ਮੀਂਹ ਦੀਆਂ ਘਟਨਾਵਾਂ ਦਾ ਅਸਰ ਨਿਯਮਤ ਹਲਕੇ ਮੀਂਹ ਤੋਂ ਵੱਖ ਹੋ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q021",
+    "cpId": "WGE-001-CP011",
+    "objective": "advection-fog",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Moist air moves over a cold ocean current and becomes saturated near the surface. Which fog is most likely?",
+        "options": [
+          "Advection fog",
+          "Radiation fog",
+          "Steam fog",
+          "Upslope fog"
+        ],
+        "explanation": "Advection fog forms when moist air moves horizontally over a colder surface and cools to its dew point. Radiation fog instead develops as the ground loses heat, usually under clear and calm conditions."
+      },
+      "hi": {
+        "stem": "नम वायु ठंडी महासागरीय धारा के ऊपर से गुजरते हुए सतह के पास संतृप्त हो जाती है। कौन-सा कोहरा बनने की सबसे अधिक संभावना है?",
+        "options": [
+          "अभिवहन कोहरा",
+          "विकिरण कोहरा",
+          "वाष्प कोहरा",
+          "ढाल कोहरा"
+        ],
+        "explanation": "अभिवहन कोहरा तब बनता है जब नम वायु ठंडी सतह के ऊपर क्षैतिज रूप से चलकर ओसांक तक ठंडी हो। विकिरण कोहरा आम तौर पर साफ और शांत दशा में धरातल के ऊष्मा खोने से बनता है।"
+      },
+      "pa": {
+        "stem": "ਨਮੀ ਵਾਲੀ ਹਵਾ ਠੰਢੀ ਸਮੁੰਦਰੀ ਧਾਰਾ ਦੇ ਉੱਪਰੋਂ ਲੰਘਦੀ ਹੋਈ ਸਤਹ ਨੇੜੇ ਸੰਤ੍ਰਿਪਤ ਹੋ ਜਾਂਦੀ ਹੈ। ਕਿਹੜੀ ਧੁੰਦ ਬਣਨ ਦੀ ਸਭ ਤੋਂ ਵੱਧ ਸੰਭਾਵਨਾ ਹੈ?",
+        "options": [
+          "ਐਡਵੈਕਸ਼ਨ ਧੁੰਦ",
+          "ਵਿਕਿਰਣ ਧੁੰਦ",
+          "ਭਾਫ਼ ਧੁੰਦ",
+          "ਢਲਾਣ ਧੁੰਦ"
+        ],
+        "explanation": "ਐਡਵੈਕਸ਼ਨ ਧੁੰਦ ਉਦੋਂ ਬਣਦੀ ਹੈ ਜਦੋਂ ਨਮੀ ਵਾਲੀ ਹਵਾ ਠੰਢੀ ਸਤਹ ਉੱਤੇ ਖਿਤਿਜੀ ਤੌਰ ਤੇ ਚੱਲ ਕੇ ਆਪਣੇ ਓਸ-ਅੰਕ ਤੱਕ ਠੰਢੀ ਹੋ ਜਾਂਦੀ ਹੈ। ਵਿਕਿਰਣ ਧੁੰਦ ਆਮ ਤੌਰ ਤੇ ਸਾਫ਼ ਅਤੇ ਸ਼ਾਂਤ ਹਾਲਤ ਵਿੱਚ ਧਰਤੀ ਦੇ ਤਾਪ ਗੁਆਉਣ ਨਾਲ ਬਣਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q022",
+    "cpId": "WGE-001-CP011",
+    "objective": "radiation-fog",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "After a clear, calm night, a shallow fog forms over an inland valley. What most likely cooled the air to saturation?",
+        "options": [
+          "Heat loss from the ground by radiation",
+          "Warm air descending from the stratosphere",
+          "A sudden rise in solar heating",
+          "Strong mixing with dry upper air"
+        ],
+        "explanation": "On a clear, calm night the ground loses heat by longwave radiation. Air in contact with the chilled surface cools to its dew point, producing radiation fog."
+      },
+      "hi": {
+        "stem": "साफ और शांत रात के बाद अंतर्देशीय घाटी में हल्का कोहरा बनता है। वायु को संतृप्त करने तक ठंडा करने का सबसे संभावित कारण क्या है?",
+        "options": [
+          "विकिरण से धरातल का ऊष्मा खोना",
+          "समतापमंडल से गर्म वायु का नीचे उतरना",
+          "सौर तापन का अचानक बढ़ना",
+          "ऊपरी शुष्क वायु के साथ तेज मिश्रण"
+        ],
+        "explanation": "साफ और शांत रात में धरातल दीर्घतरंग विकिरण से ऊष्मा खोता है। ठंडी सतह के संपर्क में वायु ओसांक तक ठंडी होकर विकिरण कोहरा बनाती है।"
+      },
+      "pa": {
+        "stem": "ਸਾਫ਼ ਅਤੇ ਸ਼ਾਂਤ ਰਾਤ ਤੋਂ ਬਾਅਦ ਅੰਦਰੂਨੀ ਘਾਟੀ ਉੱਤੇ ਹਲਕੀ ਧੁੰਦ ਬਣਦੀ ਹੈ। ਹਵਾ ਨੂੰ ਸੰਤ੍ਰਿਪਤੀ ਤੱਕ ਠੰਢਾ ਕਰਨ ਦਾ ਸਭ ਤੋਂ ਸੰਭਾਵੀ ਕਾਰਨ ਕੀ ਹੈ?",
+        "options": [
+          "ਵਿਕਿਰਣ ਰਾਹੀਂ ਧਰਤੀ ਦਾ ਤਾਪ ਗੁਆਉਣਾ",
+          "ਸਮਤਾਪ ਮੰਡਲ ਤੋਂ ਗਰਮ ਹਵਾ ਦਾ ਹੇਠਾਂ ਉਤਰਨਾ",
+          "ਸੂਰਜੀ ਤਾਪ ਦਾ ਅਚਾਨਕ ਵਧਣਾ",
+          "ਉੱਪਰਲੀ ਸੁੱਕੀ ਹਵਾ ਨਾਲ ਤੇਜ਼ ਮਿਲਾਵਟ"
+        ],
+        "explanation": "ਸਾਫ਼ ਅਤੇ ਸ਼ਾਂਤ ਰਾਤ ਵਿੱਚ ਧਰਤੀ ਲੰਮੀ-ਤਰੰਗੀ ਵਿਕਿਰਣ ਰਾਹੀਂ ਤਾਪ ਗੁਆਉਂਦੀ ਹੈ। ਠੰਢੀ ਸਤਹ ਨਾਲ ਲੱਗੀ ਹਵਾ ਓਸ-ਅੰਕ ਤੱਕ ਠੰਢੀ ਹੋ ਕੇ ਵਿਕਿਰਣ ਧੁੰਦ ਬਣਾਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q023",
+    "cpId": "WGE-001-CP011",
+    "objective": "cloud-formation-sequence",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which sequence leads from the uplift of moist air to cloud formation?",
+        "options": [
+          "Uplift → expansion and cooling → saturation → condensation",
+          "Condensation → compression and warming → uplift → evaporation",
+          "Cooling → falling pressure → evaporation → saturation",
+          "Uplift → warming → lower relative humidity → condensation"
+        ],
+        "explanation": "As unsaturated air rises, pressure falls and the parcel expands and cools. Once it reaches saturation, water vapour can condense on suitable nuclei to form cloud droplets."
+      },
+      "hi": {
+        "stem": "नम वायु के ऊपर उठने से बादल बनने तक की सही प्रक्रिया-श्रृंखला कौन-सी है?",
+        "options": [
+          "ऊर्ध्वगमन → प्रसार और शीतलन → संतृप्ति → संघनन",
+          "संघनन → संपीड़न और तापन → ऊर्ध्वगमन → वाष्पीकरण",
+          "शीतलन → दाब घटना → वाष्पीकरण → संतृप्ति",
+          "ऊर्ध्वगमन → तापन → सापेक्ष आर्द्रता घटना → संघनन"
+        ],
+        "explanation": "असंतृप्त वायु ऊपर उठते समय कम दाब के कारण फैलती और ठंडी होती है। संतृप्ति पर पहुँचने के बाद जलवाष्प उपयुक्त कणों पर संघनित होकर बादल की बूँदें बना सकती है।"
+      },
+      "pa": {
+        "stem": "ਨਮੀ ਵਾਲੀ ਹਵਾ ਦੇ ਉੱਪਰ ਚੜ੍ਹਨ ਤੋਂ ਬੱਦਲ ਬਣਨ ਤੱਕ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਉੱਪਰ ਚੜ੍ਹਨਾ → ਫੈਲਾਅ ਅਤੇ ਠੰਢਕ → ਸੰਤ੍ਰਿਪਤੀ → ਸੰਘਣਨ",
+          "ਸੰਘਣਨ → ਦਬਾਅ ਅਤੇ ਗਰਮੀ ਵਧਣਾ → ਉੱਪਰ ਚੜ੍ਹਨਾ → ਵਾਸ਼ਪੀਕਰਨ",
+          "ਠੰਢਕ → ਦਬਾਅ ਘਟਣਾ → ਵਾਸ਼ਪੀਕਰਨ → ਸੰਤ੍ਰਿਪਤੀ",
+          "ਉੱਪਰ ਚੜ੍ਹਨਾ → ਗਰਮੀ ਵਧਣਾ → ਸਾਪੇਖ ਨਮੀ ਘਟਣਾ → ਸੰਘਣਨ"
+        ],
+        "explanation": "ਅਸੰਤ੍ਰਿਪਤ ਹਵਾ ਉੱਪਰ ਚੜ੍ਹਦਿਆਂ ਘੱਟ ਦਬਾਅ ਕਾਰਨ ਫੈਲਦੀ ਅਤੇ ਠੰਢੀ ਹੁੰਦੀ ਹੈ। ਸੰਤ੍ਰਿਪਤੀ ਉੱਤੇ ਪਹੁੰਚਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ ਦੀ ਭਾਫ਼ ਢੁੱਕਵੇਂ ਕਣਾਂ ਉੱਤੇ ਸੰਘਣੀ ਹੋ ਕੇ ਬੱਦਲ ਦੀਆਂ ਬੂੰਦਾਂ ਬਣਾ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP011-Q024",
+    "cpId": "WGE-001-CP011",
+    "objective": "warm-front-rain",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-011"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why can a warm front produce steady rain ahead of its surface position?",
+        "options": [
+          "Warm air glides gradually over denser cold air, producing widespread uplift",
+          "Cold air rapidly undercuts warm air along a narrow line",
+          "Dry air descends on the warm side and evaporates all clouds",
+          "A mountain forces the air upward only at the front's centre"
+        ],
+        "explanation": "At a warm front, less-dense warm air rises gradually over retreating cold air. The broad, gentle ascent often creates layered cloud and widespread steady precipitation ahead of the surface front."
+      },
+      "hi": {
+        "stem": "उष्ण वाताग्र की सतही स्थिति से आगे लगातार वर्षा क्यों हो सकती है?",
+        "options": [
+          "गर्म वायु घनी ठंडी वायु के ऊपर धीरे-धीरे चढ़ती है और व्यापक उत्थान होता है",
+          "ठंडी वायु संकरी रेखा पर गर्म वायु के नीचे तेजी से घुसती है",
+          "उष्ण पक्ष पर शुष्क वायु उतरकर सभी बादल वाष्पित कर देती है",
+          "केवल वाताग्र के मध्य पर्वत वायु को ऊपर उठाता है"
+        ],
+        "explanation": "उष्ण वाताग्र पर कम घनी गर्म वायु पीछे हटती ठंडी वायु के ऊपर धीरे-धीरे चढ़ती है। यह विस्तृत और हल्का उत्थान परतदार बादल तथा सतही वाताग्र से आगे व्यापक लगातार वर्षा ला सकता है।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ ਮੋਰਚੇ ਦੀ ਸਤਹੀ ਸਥਿਤੀ ਤੋਂ ਅੱਗੇ ਲਗਾਤਾਰ ਮੀਂਹ ਕਿਉਂ ਪੈ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਗਰਮ ਹਵਾ ਸੰਘਣੀ ਠੰਢੀ ਹਵਾ ਉੱਤੇ ਹੌਲੀ-ਹੌਲੀ ਚੜ੍ਹਦੀ ਹੈ ਅਤੇ ਵਿਸ਼ਾਲ ਉੱਠਾਣ ਹੁੰਦਾ ਹੈ",
+          "ਠੰਢੀ ਹਵਾ ਤੰਗ ਲਕੀਰ ਉੱਤੇ ਗਰਮ ਹਵਾ ਹੇਠ ਤੇਜ਼ੀ ਨਾਲ ਵੜਦੀ ਹੈ",
+          "ਗਰਮ ਪਾਸੇ ਸੁੱਕੀ ਹਵਾ ਹੇਠਾਂ ਉਤਰ ਕੇ ਸਾਰੇ ਬੱਦਲ ਸੁਕਾ ਦਿੰਦੀ ਹੈ",
+          "ਸਿਰਫ਼ ਮੋਰਚੇ ਦੇ ਵਿਚਕਾਰ ਪਹਾੜ ਹਵਾ ਨੂੰ ਉੱਪਰ ਚੜ੍ਹਾਉਂਦਾ ਹੈ"
+        ],
+        "explanation": "ਗਰਮ ਮੋਰਚੇ ਉੱਤੇ ਘੱਟ ਸੰਘਣੀ ਗਰਮ ਹਵਾ ਪਿੱਛੇ ਹਟਦੀ ਠੰਢੀ ਹਵਾ ਉੱਤੇ ਹੌਲੀ-ਹੌਲੀ ਚੜ੍ਹਦੀ ਹੈ। ਇਹ ਵਿਸ਼ਾਲ ਅਤੇ ਹੌਲਾ ਉੱਠਾਣ ਪਰਤਦਾਰ ਬੱਦਲ ਅਤੇ ਸਤਹੀ ਮੋਰਚੇ ਤੋਂ ਅੱਗੇ ਲਗਾਤਾਰ ਮੀਂਹ ਲਿਆ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  }
+]

@@ -6,6 +6,9 @@ import cp005 from './cp005.json';
 import cp006 from './cp006.json';
 import cp007 from './cp007.json';
 import cp008 from './cp008.json';
+import cp009 from './cp009.json';
+import cp010 from './cp010.json';
+import cp011 from './cp011.json';
 import sources from './sources.json';
 import type { QuestionStudioDifficulty, QuestionStudioLanguage } from '../../question-studio/engine-types';
 
@@ -24,6 +27,9 @@ export const WGE_CP_TITLES = {
   'WGE-001-CP006': 'Earthquakes, Volcanoes and Tsunamis',
   'WGE-001-CP007': 'Weathering and River Landforms',
   'WGE-001-CP008': 'Glacial, Desert, Coastal and Karst Landforms',
+  'WGE-001-CP009': 'Atmosphere and Temperature',
+  'WGE-001-CP010': 'Pressure and Winds',
+  'WGE-001-CP011': 'Moisture and Rainfall',
 } as const;
 export type WorldGeographyCpId = keyof typeof WGE_CP_TITLES;
 export const WGE_SOURCES = sources;
@@ -72,6 +78,6 @@ export function validateWorldGeographyCorpus(rows: readonly WorldGeographyQuesti
     }
   }
 }
-const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008] as WorldGeographyQuestion[];
+const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011] as WorldGeographyQuestion[];
 validateWorldGeographyCorpus(authored);
 export const WGE_CORPUS: readonly WorldGeographyQuestion[] = deepFreeze(authored);

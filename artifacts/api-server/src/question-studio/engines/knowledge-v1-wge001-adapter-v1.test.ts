@@ -4,9 +4,9 @@ import { knowledgeV1Wge001QuestionStudioAdapterV1 as adapter, isWge001QuestionSt
 
 async function run() {
   const cpIds = Object.keys(WGE_CP_TITLES);
-  assert.equal(WGE_CORPUS.length, 201);
-  assert.equal(adapter.listPackages().length, 9);
-  assert.equal(new Set(adapter.listPackages().map(p => p.packageId)).size, 9);
+  assert.equal(WGE_CORPUS.length, 279);
+  assert.equal(adapter.listPackages().length, 12);
+  assert.equal(new Set(adapter.listPackages().map(p => p.packageId)).size, 12);
   for (const p of adapter.listPackages()) {
     assert.equal(p.lifecycleStage, 'REVIEW_ONLY'); assert.equal(p.questionBankWritable, false);
     assert.equal(p.productionReleaseAuthorized, false); assert.deepEqual(p.supportedLanguages, ['en', 'hi', 'pa']);
@@ -38,7 +38,7 @@ async function run() {
   const req = {packageId: 'WGE-001', count: 50, seed: 'mixed-coverage'};
   const first = await adapter.generate(req);
   assert.deepEqual(first, await adapter.generate(req));
-  assert.equal(new Set(first.questions.map(q => q.cpId)).size, 8);
+  assert.equal(new Set(first.questions.map(q => q.cpId)).size, 11);
   assert.notDeepEqual(first.questions.map(q => q.sourceQuestionId), (await adapter.generate({...req, seed: 'other'})).questions.map(q => q.sourceQuestionId));
   // Mutating a returned payload must not change the immutable owning library.
   (first.questions[0]!.options as string[])[0] = 'tampered';
@@ -47,7 +47,7 @@ async function run() {
   await assert.rejects(() => adapter.generate({language: 'fr' as never}), /language/);
   await assert.rejects(() => adapter.generate({difficulty: 'Impossible'}), /difficulty/);
   await assert.rejects(() => adapter.generate({runtimeMode: 'bank-only'}), /review-only/);
-  await assert.rejects(() => adapter.generate({packageId: 'WGE-001-CP009'}), /Unknown/);
+  await assert.rejects(() => adapter.generate({packageId: 'WGE-001-CP012'}), /Unknown/);
   await assert.rejects(() => adapter.generate({canonicalProblemId: 'WGE-001-CP999'}), /Unknown/);
   await assert.rejects(() => adapter.generate({packageId: 'WGE-001-CP001', canonicalProblemId: 'WGE-001-CP002'}), /Conflicting/);
   await assert.rejects(() => adapter.generate({patternId: 'WGE-001-CP001-Q001', questionLanguageId: 'WGE-001-CP001-Q002'}), /Conflicting/);
@@ -70,8 +70,8 @@ async function run() {
   clone[0].locales.hi.options[1] = clone[0].locales.hi.options[0];
   assert.throws(() => validateWorldGeographyCorpus(clone), /options/);
   assert.equal(owns({packageId: 'COM-001', topic: 'World Geography'}), false);
-  assert.equal(owns({packageId: 'WGE-001-CP008'}), true);
+  assert.equal(owns({packageId: 'WGE-001-CP011'}), true);
   assert.equal(owns({topic: 'World Geography'}), true);
-  console.log(`PASS: ${WGE_CORPUS.length} questions, ${checked} filtered localized outputs, 8 CPs, all selectors and invariants`);
+  console.log(`PASS: ${WGE_CORPUS.length} questions, ${checked} filtered localized outputs, 11 CPs, all selectors and invariants`);
 }
 void run();
