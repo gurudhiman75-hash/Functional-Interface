@@ -25,7 +25,9 @@ export interface QuantV4SpecializedCalibrationReadiness {
   readonly canonicalCpMappedObservationCount: number;
   readonly canonicalCpCoverage: readonly string[];
   readonly cpMappingCompleteness: number;
-  readonly difficultyEvidenceAvailable: false;
+  readonly difficultyMappedObservationCount: number;
+  readonly difficultyMappingCompleteness: number;
+  readonly difficultyEvidenceAvailable: boolean;
   readonly calibrationPolicyAdopted: false;
   readonly blockers: readonly string[];
   readonly selectionCalibrationAuthorized: false;
@@ -59,13 +61,27 @@ export function buildQuantV4SpecializedCalibrationReadiness(input: {
     .filter((entry): entry is string => Boolean(entry));
   const cpCoverage = [...new Set(mappedCps)].sort();
 
+  const difficultyMapped = observations.filter(
+    (entry) =>
+      Boolean(entry.empiricalDifficulty)
+      && Boolean(entry.empiricalDifficultyBasis)
+      && Boolean(String(entry.difficultyEvidenceRef ?? "").trim()),
+  );
+  const difficultyMappingCompleteness = observations.length
+    ? difficultyMapped.length / observations.length
+    : 0;
+  const difficultyEvidenceAvailable =
+    observations.length > 0 && difficultyMapped.length === observations.length;
+
   const blockers: string[] = [];
   if (!observations.length) blockers.push("NO_NORMALIZED_COUNTABLE_PYQ_EVIDENCE");
   if (observations.length) blockers.push("CALIBRATION_POLICY_NOT_ADOPTED");
   if (observations.length && mappedCps.length !== observations.length) {
     blockers.push("CANONICAL_CP_MAPPING_INCOMPLETE");
   }
-  if (observations.length) blockers.push("DIFFICULTY_EVIDENCE_NOT_NORMALIZED");
+  if (observations.length && !difficultyEvidenceAvailable) {
+    blockers.push("DIFFICULTY_EVIDENCE_NOT_NORMALIZED");
+  }
 
   return Object.freeze({
     authority: QUANT_V4_SPECIALIZED_PROFILE_CALIBRATION_READINESS_AUTHORITY,
@@ -79,7 +95,9 @@ export function buildQuantV4SpecializedCalibrationReadiness(input: {
     canonicalCpMappedObservationCount: mappedCps.length,
     canonicalCpCoverage: Object.freeze(cpCoverage),
     cpMappingCompleteness: observations.length ? mappedCps.length / observations.length : 0,
-    difficultyEvidenceAvailable: false,
+    difficultyMappedObservationCount: difficultyMapped.length,
+    difficultyMappingCompleteness,
+    difficultyEvidenceAvailable,
     calibrationPolicyAdopted: false,
     blockers: Object.freeze(blockers),
     selectionCalibrationAuthorized: false,
