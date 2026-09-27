@@ -73,6 +73,17 @@ jobs:
             --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/quant-v4/real-exam-simulation/quant-v4-real-exam-simulation-p2.test.mjs
 
+      - name: Bundle Banking explanation extractor regression
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-real-exam-explanation-extractor-p3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/real-exam-simulation/quant-v4-real-exam-explanation-extractor-p3.test.mjs
+
+      - name: Run Banking explanation extractor regression
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/real-exam-simulation/quant-v4-real-exam-explanation-extractor-p3.test.mjs
+
       - name: Run 220-section real exam simulation audit
         working-directory: artifacts/api-server
         run: node dist/quant-v4/real-exam-simulation/quant-v4-real-exam-simulation-p2.test.mjs
