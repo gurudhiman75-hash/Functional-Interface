@@ -1364,6 +1364,99 @@ buildGeoMinQl("FLUORITE-FLUORSPAR-FLUORINE-AND-INDIAN-REGIONS", "Fluorite, fluor
       "IBM-INDIAN-MINERALS-YEARBOOK-2024"
     ]
   }
+] as const),
+
+buildGeoMinQl("BARYTES-MANGAMPET-DRILLING-MUD", "Barytes, Mangampet and drilling-mud use", [
+  {
+    "stem": "Mangampet, a major barytes deposit, is located in which state?",
+    "answer": "Andhra Pradesh",
+    "distractors": [
+      "Rajasthan",
+      "Jharkhand",
+      "Karnataka"
+    ],
+    "explanation": "Mangampet in Kadapa district of Andhra Pradesh is one of India's best-known barytes locations. IBM records extensive mechanised barytes mining in this area.",
+    "sourceFactId": "BARYTES-MANGAMPET-STATE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-BARYTES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which mineral is most strongly linked with Mangampet in Kadapa district?",
+    "answer": "Barytes",
+    "distractors": [
+      "Mica",
+      "Chromite",
+      "Gold"
+    ],
+    "explanation": "Mangampet is a classic barytes-mining centre of Andhra Pradesh. The location-resource association is distinctive and highly suitable for static mineral-geography questions.",
+    "sourceFactId": "BARYTES-MANGAMPET-RESOURCE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-BARYTES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Barytes is an important source of barium. II. Drilling-grade barytes is used in drilling muds. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Barytes is the principal ore of barium and its high density makes suitable grades useful in drilling muds for oil and gas wells. Both statements correctly describe its industrial role.",
+    "sourceFactId": "BARYTES-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-BARYTES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Mangampet — barytes",
+    "distractors": [
+      "Mangampet — diamond",
+      "Mangampet — petroleum",
+      "Mangampet — tin"
+    ],
+    "explanation": "Mangampet is a major barytes deposit in Andhra Pradesh. Diamond, petroleum and tin have different principal Indian locations and should not be confused with it.",
+    "sourceFactId": "BARYTES-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-BARYTES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "Why is barytes important to oil and gas drilling?",
+    "answer": "Its high-density material is used in drilling mud",
+    "distractors": [
+      "It supplies crude oil",
+      "It replaces steel drill pipes",
+      "It acts as a fuel in the well"
+    ],
+    "explanation": "Drilling-grade barytes is added to drilling mud to increase its density and help control pressure in wells. This gives a non-metallic mineral a direct link with the petroleum industry.",
+    "sourceFactId": "BARYTES-DRILLING",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-BARYTES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  },
+  {
+    "stem": "A question gives the clues 'Kadapa district, Mangampet, drilling mud'. Which mineral should be selected?",
+    "answer": "Barytes",
+    "distractors": [
+      "Fluorite",
+      "Graphite",
+      "Dolomite"
+    ],
+    "explanation": "Mangampet in Kadapa is strongly linked with barytes, and drilling-mud use is another identifying clue. The combination makes barytes the clear answer.",
+    "sourceFactId": "BARYTES-CLUE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-BARYTES",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024"
+    ]
+  }
 ] as const)
 ]);
 
