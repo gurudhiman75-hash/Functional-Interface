@@ -36,7 +36,7 @@ for (const cpId of SIF_CP_IDS) {
     assert.equal(question.metadata.questionBankWritable, false);
   }
   const review = buildSifCpReviewPack({ cpId, locale: "en-IN", seed: 9000 });
-  assert.equal(review.questions.length, cpId === "SIF-CP012" || cpId === "SIF-CP013" || cpId === "SIF-CP014" ? 8 : cpId === "SIF-CP003" || cpId === "SIF-CP004" || cpId === "SIF-CP005" || cpId === "SIF-CP006" || cpId === "SIF-CP007" || cpId === "SIF-CP008" || cpId === "SIF-CP009" || cpId === "SIF-CP010" ? 24 : 20, `${cpId}: review pack size`);
+  assert.equal(review.questions.length, cpId === "SIF-CP012" || cpId === "SIF-CP013" || cpId === "SIF-CP014" ? 12 : cpId === "SIF-CP003" || cpId === "SIF-CP004" || cpId === "SIF-CP005" || cpId === "SIF-CP006" || cpId === "SIF-CP007" || cpId === "SIF-CP008" || cpId === "SIF-CP009" || cpId === "SIF-CP010" ? 24 : 20, `${cpId}: review pack size`);
 }
 
 const cp001Authorities = listSifAuthorities("SIF-CP001");
@@ -268,13 +268,13 @@ console.log("PASS_SIF_001_CHAPTER_REVIEW_CANDIDATE_V1");
 
 
 for (const [cpId, expectedDifficulty] of [
-  ["SIF-CP012", { EASY: 0, MEDIUM: 5, HARD: 3 }],
-  ["SIF-CP013", { EASY: 0, MEDIUM: 4, HARD: 4 }],
-  ["SIF-CP014", { EASY: 0, MEDIUM: 8, HARD: 0 }],
+  ["SIF-CP012", { EASY: 0, MEDIUM: 7, HARD: 5 }],
+  ["SIF-CP013", { EASY: 0, MEDIUM: 6, HARD: 6 }],
+  ["SIF-CP014", { EASY: 0, MEDIUM: 12, HARD: 0 }],
 ] as const) {
   const authorities = listSifAuthorities(cpId);
-  assert.equal(authorities.length, 8, `${cpId}: eight distinct trilingual authorities in this checkpoint`);
-  assert.equal(new Set(authorities.map(fingerprintSifAuthority)).size, 8, `${cpId}: scenarios must be distinct`);
+  assert.equal(authorities.length, 12, `${cpId}: twelve distinct trilingual authorities in this checkpoint`);
+  assert.equal(new Set(authorities.map(fingerprintSifAuthority)).size, 12, `${cpId}: scenarios must be distinct`);
   assert.deepEqual(authorities.reduce((counts, item) => ({ ...counts, [item.difficulty]: counts[item.difficulty] + 1 }), { EASY: 0, MEDIUM: 0, HARD: 0 }), expectedDifficulty, `${cpId}: difficulty distribution`);
   for (const [index, authority] of authorities.entries()) {
     const triplet = locales.map((locale) => generateSifQuestion({ cpId, locale, seed: 91_500 + SIF_CP_IDS.indexOf(cpId) * 100 + index }));
@@ -287,6 +287,6 @@ for (const [cpId, expectedDifficulty] of [
   const review = buildSifCpReviewPack({ cpId, locale: "en-IN", seed: 91_500 });
   assert.equal(new Set(review.questions.map((question) => question.scenarioId)).size, 4, `${cpId}: no repeated review scenarios`);
   assert.deepEqual(review.effectiveDistribution, expectedDifficulty, `${cpId}: sampler preserves pool difficulty`);
-  assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_I").length, 4, `${cpId}: balance supported inference I`);
-  assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_II").length, 4, `${cpId}: balance supported inference II`);
+  assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_I").length, 6, `${cpId}: balance supported inference I`);
+  assert.equal(review.questions.filter((question) => question.answerClass === "ONLY_II").length, 6, `${cpId}: balance supported inference II`);
 }
