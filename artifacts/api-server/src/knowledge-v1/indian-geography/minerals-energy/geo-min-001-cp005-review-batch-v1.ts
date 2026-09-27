@@ -1677,7 +1677,7 @@ buildGeoMinQl("POTASH-FERTILIZER-RAJASTHAN-EVAPORITES", "Potash, fertilizer use 
     ]
   },
   {
-    "stem": "Consider the statements: I. Potash is used mainly in fertilizers. II. Major Indian potash resources occur in Rajasthan. Which is correct?",
+    "stem": "Consider the statements: I. Potash is used primarily in fertilizers. II. Major Indian potash resources occur in Rajasthan. Which is correct?",
     "answer": "Both I and II are correct",
     "distractors": [
       "Only I is correct",
