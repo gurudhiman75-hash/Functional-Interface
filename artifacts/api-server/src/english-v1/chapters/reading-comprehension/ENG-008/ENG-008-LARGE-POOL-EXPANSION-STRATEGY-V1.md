@@ -194,3 +194,23 @@ Cumulative checkpoints:
 - after Wave 16: **512 passages / 4,300 authorities**
 
 The same calibrated length, family-breadth, deterministic replay, option-uniqueness and review-only lifecycle contracts continue to apply. The pool remains novelty-limited rather than count-capped.
+
+
+## Waves 17–19 checkpoint
+
+The 40-passage cadence continues unchanged.
+
+Each wave adds **40 passages / 336 governed authorities**:
+- CP001 SSC Foundation: 8 / 48
+- CP002 SSC Editorial / Current Affairs: 8 / 64
+- CP003 Banking Prelims: 8 / 72
+- CP007 BP-F10: 8 contextual word-fit authorities
+- CP004 Banking Mains: 8 / 80
+- CP005 Research / Survey: 8 / 64
+
+Cumulative checkpoints:
+- after Wave 17: **552 passages / 4,636 authorities**
+- after Wave 18: **592 passages / 4,972 authorities**
+- after Wave 19: **632 passages / 5,308 authorities**
+
+All existing length bands, family coverage, deterministic replay, option uniqueness and review-only lifecycle requirements remain unchanged.
