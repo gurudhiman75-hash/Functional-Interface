@@ -34,6 +34,13 @@ const CP012_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 5, MEDIUM:
 const CP013_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 5, MEDIUM: 8, HARD: 7 };
 const CP014_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 0 };
 
+function reviewSeedForIndex(baseSeed: number, poolLength: number, authorityIndex: number, swapParity: number): number {
+  const absoluteBase = Math.abs(baseSeed);
+  let seed = absoluteBase + ((authorityIndex - (absoluteBase % poolLength) + poolLength) % poolLength);
+  if (poolLength % 2 === 1 && seed % 2 !== swapParity) seed += poolLength;
+  return seed;
+}
+
 export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly locale: SifLocale; readonly seed?: number }): SifReviewPack {
   const baseSeed = input.seed ?? 10_001;
   const target = input.cpId === "SIF-CP003" ? CP003_TARGET : input.cpId === "SIF-CP004" ? CP004_TARGET : input.cpId === "SIF-CP005" ? CP005_TARGET : input.cpId === "SIF-CP006" ? CP006_TARGET : input.cpId === "SIF-CP007" ? CP007_TARGET : input.cpId === "SIF-CP008" ? CP008_TARGET : input.cpId === "SIF-CP009" ? CP009_TARGET : input.cpId === "SIF-CP010" ? CP010_TARGET : input.cpId === "SIF-CP011" ? CP011_TARGET : input.cpId === "SIF-CP012" ? CP012_TARGET : input.cpId === "SIF-CP013" ? CP013_TARGET : input.cpId === "SIF-CP014" ? CP014_TARGET : DEFAULT_TARGET;
@@ -104,8 +111,9 @@ export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly l
       if (authorities.length !== 3) throw new Error(`SIF-CP010: expected three authorities for ${family}`);
       for (const authority of authorities) {
         const index = completePool.findIndex((entry) => entry.id === authority.id);
-        const offset = (index - (Math.abs(baseSeed) % completePool.length) + completePool.length) % completePool.length;
-        const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed: baseSeed + offset });
+        const profileIndex = pool.findIndex((entry) => entry.id === authority.id);
+        const seed = reviewSeedForIndex(baseSeed, completePool.length, index, profileIndex % 2);
+        const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed });
         if (question.scenarioId !== authority.id) throw new Error(`SIF-CP010: deterministic review selection mismatch for ${authority.id}`);
         questions.push(question);
         usedScenarioIds.add(question.scenarioId);
@@ -122,8 +130,8 @@ export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly l
       if (authorities.length !== 3) throw new Error(`SIF-CP011: expected three authorities for ${family}`);
       for (const authority of authorities) {
         const index = pool.findIndex((entry) => entry.id === authority.id);
-        const offset = (index - (Math.abs(baseSeed) % pool.length) + pool.length) % pool.length;
-        const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed: baseSeed + offset });
+        const seed = reviewSeedForIndex(baseSeed, pool.length, index, index % 2);
+        const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed });
         if (question.scenarioId !== authority.id) throw new Error(`SIF-CP011: deterministic review selection mismatch for ${authority.id}`);
         questions.push(question);
         usedScenarioIds.add(question.scenarioId);
@@ -140,8 +148,8 @@ export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly l
     if (pool.length !== expectedPoolSize) throw new Error(`${input.cpId}: expected ${expectedPoolSize} unique authorities for this review checkpoint`);
     for (const authority of pool) {
       const index = completePool.findIndex((entry) => entry.id === authority.id);
-      const offset = (index - (Math.abs(baseSeed) % completePool.length) + completePool.length) % completePool.length;
-      const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed: baseSeed + offset });
+      const seed = reviewSeedForIndex(baseSeed, completePool.length, index, 0);
+      const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed });
       if (question.scenarioId !== authority.id) throw new Error(`${input.cpId}: deterministic review selection mismatch for ${authority.id}`);
       questions.push(question);
       effective[question.difficulty] += 1;
