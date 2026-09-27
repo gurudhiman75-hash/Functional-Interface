@@ -152,8 +152,9 @@ function hash(value: string): number {
 
 function normalizeCount(value: number | undefined): number {
   if (value == null) return 5;
-  if (!Number.isInteger(value) || value < 1 || value > 100) {
-    throw new Error('MIS-001 review batches require count between 1 and 100.');
+  const maxCount = Math.max(100, ALL_CANDIDATES.length);
+  if (!Number.isInteger(value) || value < 1 || value > maxCount) {
+    throw new Error(`MIS-001 review batches require count between 1 and ${maxCount}.`);
   }
   return value;
 }
