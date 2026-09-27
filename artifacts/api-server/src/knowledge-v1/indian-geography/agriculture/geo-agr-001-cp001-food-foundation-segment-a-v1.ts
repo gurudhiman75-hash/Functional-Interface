@@ -480,7 +480,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-005",
     "qlName": "Rabi crop examples",
     "difficulty": "Medium",
-    "stem": "Which crop is more likely to be sown after monsoon withdrawal than with monsoon onset?",
+    "stem": "Which crop is normally sown after the monsoon rather than with its onset?",
     "answer": "Mustard",
     "distractors": [
       "Rice",
@@ -848,7 +848,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-009",
     "qlName": "Commercial and plantation farming",
     "difficulty": "Medium",
-    "stem": "Which feature separates plantation farming from intensive subsistence farming?",
+    "stem": "How does plantation farming differ from intensive subsistence farming?",
     "answer": "Large estate with specialised commercial crop production",
     "distractors": [
       "Heavy family labour on a small food-producing holding",

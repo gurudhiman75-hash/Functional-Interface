@@ -256,7 +256,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-030",
     "qlName": "Mustard geography",
     "difficulty": "Medium",
-    "stem": "Which comparison between mustard and groundnut is accurate?",
+    "stem": "How do mustard and groundnut differ by cropping season?",
     "answer": "Mustard is commonly rabi; groundnut is commonly kharif",
     "distractors": [
       "Mustard is kharif; groundnut is rabi only",
@@ -288,7 +288,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-030",
     "qlName": "Mustard geography",
     "difficulty": "Hard",
-    "stem": "Field A is prepared in November under cool dry weather; Field B is planted with monsoon onset. Which oilseed is more naturally suited to Field A?",
+    "stem": "Field A is prepared in November under cool dry weather, while Field B is planted with monsoon onset. Which oilseed is better suited to Field A?",
     "answer": "Mustard",
     "distractors": [
       "Groundnut",
@@ -656,7 +656,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-034",
     "qlName": "Oilseed regional associations",
     "difficulty": "Medium",
-    "stem": "Which crop is the strongest match for a central Indian kharif oilseed belt?",
+    "stem": "Which oilseed is most characteristic of the central Indian kharif belt?",
     "answer": "Soybean",
     "distractors": [
       "Mustard",
@@ -720,7 +720,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-035",
     "qlName": "Oilseed climate and soil comparisons",
     "difficulty": "Medium",
-    "stem": "Which comparison is accurate?",
+    "stem": "How do groundnut and mustard differ in soil-water and seasonal needs?",
     "answer": "Groundnut needs good drainage; mustard suits cool rabi weather",
     "distractors": [
       "Groundnut requires permanent flooding; mustard needs monsoon swamp",

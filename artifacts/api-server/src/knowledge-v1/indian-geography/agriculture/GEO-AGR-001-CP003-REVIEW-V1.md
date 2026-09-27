@@ -78,7 +78,7 @@ D. Dry desert heat without irrigation
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-055 — Tea climate and rainfall
 
-### 6. Region A is warm, humid and receives frequent rain; Region B has a cool dry winter and sunny spring. Which crop is more naturally suited to Region A?
+### 6. Region A is warm, humid and receives frequent rain, while Region B has a cool dry winter and sunny spring. Which crop is better suited to Region A?
 
 A. Wheat
 B. Tea
@@ -260,7 +260,7 @@ D. Wheat
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-057 — Tea regional belts
 
-### 19. Which field operation is especially important in tea cultivation?
+### 19. Which harvesting operation is characteristic of tea cultivation?
 
 A. Cutting cane stalks for crushing
 B. Retting stems in water
@@ -316,7 +316,7 @@ D. Harvesting only underground pods
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-058 — Tea labour, plucking and processing linkage
 
-### 23. Which crop-processing clue points most strongly to tea?
+### 23. Which post-harvest pattern is characteristic of tea?
 
 A. Stems are soaked for retting
 B. Seed bolls are ginned
@@ -400,7 +400,7 @@ D. Humid shaded hill slope
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-059 — Coffee crop character and shade
 
-### 29. Which feature separates coffee from tea in many Indian plantations?
+### 29. How does coffee cultivation commonly differ from tea cultivation in India?
 
 A. Coffee is commonly raised under shade trees
 B. Coffee is a fibre crop
@@ -414,7 +414,7 @@ D. Coffee requires permanent flooding
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-059 — Coffee crop character and shade
 
-### 30. An upland estate grows a beverage crop beneath a canopy of taller trees to soften direct sunlight. Which crop is the strongest match?
+### 30. An upland estate grows a beverage crop beneath a canopy of taller trees to reduce direct sunlight. Which crop is being described?
 
 A. Cotton
 B. Coffee
@@ -484,7 +484,7 @@ D. Only snowfall
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-060 — Coffee climate, slope and soil
 
-### 35. Which landscape clue points toward coffee cultivation?
+### 35. Which landscape is most suitable for coffee cultivation?
 
 A. Open flooded delta
 B. Hot bare desert
@@ -722,7 +722,7 @@ D. Both are harvested as underground pods
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-063 — Tea–coffee integrated reasoning
 
-### 52. Which regional comparison is accurate?
+### 52. How do the major tea and coffee belts differ geographically?
 
 A. Coffee is concentrated in Punjab while tea is a desert crop
 B. Both are restricted to Rajasthan
@@ -836,7 +836,7 @@ D. Gram
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-064 — Rubber climate requirements
 
-### 60. Region A is hot, humid and frost-free with heavy rain; Region B has cool dry winters. Which crop is more naturally suited to Region A?
+### 60. Region A is hot, humid and frost-free with heavy rain, while Region B has cool dry winters. Which crop is better suited to Region A?
 
 A. Wheat
 B. Rubber
@@ -906,7 +906,7 @@ D. Both are harvested as underground pods
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-065 — Rubber latex and tapping
 
-### 65. Which plantation operation points most strongly to rubber?
+### 65. Which harvesting operation is characteristic of rubber cultivation?
 
 A. Plucking two leaves and a bud
 B. Picking red coffee berries
@@ -1410,7 +1410,7 @@ D. Rajasthan desert belt
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-071 — Coconut and coastal plantation geography
 
-### 101. Which crop is more naturally suited to a humid tropical coast than an apple orchard?
+### 101. Which crop is well suited to a humid tropical coast?
 
 A. Apple
 B. Apricot
@@ -1424,7 +1424,7 @@ D. Temperate pear
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-071 — Coconut and coastal plantation geography
 
-### 102. Which landscape clue points toward coconut cultivation?
+### 102. Which landscape is most suitable for coconut cultivation?
 
 A. Cold high-altitude valley
 B. Arid dune field without water
@@ -1480,7 +1480,7 @@ D. Tea—root digging; coffee—snow cover; rubber—jute retting
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-072 — Integrated plantation and horticulture reasoning
 
-### 106. Which climate pairing is accurate?
+### 106. Which crop–climate pairing correctly contrasts rubber and apple?
 
 A. Rubber—cold desert; apple—tropical coast
 B. Both require identical tropical heat
@@ -1508,7 +1508,7 @@ D. Mustard
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-072 — Integrated plantation and horticulture reasoning
 
-### 108. Which statement captures the main geographic contrast within CP003 crops?
+### 108. Which statement about the geographic distribution of plantation and horticultural crops in India is correct?
 
 A. All crops require the same climate and soil
 B. Plantation and horticultural crops occupy distinct climate belts from tropical coasts to temperate hills

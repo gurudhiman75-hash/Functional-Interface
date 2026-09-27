@@ -16,7 +16,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-091",
     "qlName": "Wet vs dry crop-environment reasoning",
     "difficulty": "Easy",
-    "stem": "A warm delta receives heavy monsoon rain and has level fields that retain water. Which crop is the strongest fit?",
+    "stem": "A warm delta receives heavy monsoon rain and has level fields that retain water. Which crop is most suitable?",
     "answer": "Rice",
     "distractors": [
       "Bajra",
@@ -400,7 +400,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-095",
     "qlName": "Plateau, plain, delta and hill crop inference",
     "difficulty": "Easy",
-    "stem": "Which crop is the strongest match for a humid river delta?",
+    "stem": "Which crop is most suitable for a humid river delta?",
     "answer": "Rice",
     "distractors": [
       "Bajra",
@@ -496,7 +496,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-096",
     "qlName": "Plantation vs field-crop environment",
     "difficulty": "Easy",
-    "stem": "Which crop is more likely to be grown on a managed estate with repeated leaf plucking?",
+    "stem": "Which crop is grown on managed estates and harvested by repeated plucking of tender leaves?",
     "answer": "Tea",
     "distractors": [
       "Wheat",
@@ -512,7 +512,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-096",
     "qlName": "Plantation vs field-crop environment",
     "difficulty": "Easy",
-    "stem": "Which crop is more likely to be grown under shade trees on a humid upland estate?",
+    "stem": "Which crop is commonly grown under shade trees on humid upland estates?",
     "answer": "Coffee",
     "distractors": [
       "Mustard",

@@ -8,7 +8,7 @@ Lifecycle: Review only; not runtime registered.
 
 ## Crop–Climate–Soil–Region Reasoning
 
-### 1. A warm delta receives heavy monsoon rain and has level fields that retain water. Which crop is the strongest fit?
+### 1. A warm delta receives heavy monsoon rain and has level fields that retain water. Which crop is most suitable?
 
 A. Rice
 B. Bajra
@@ -344,7 +344,7 @@ D. Paddy rice
 **Difficulty:** Hard
 **QL:** GEO-AGR-001-QL-094 — Irrigation-led crop extension
 
-### 25. Which crop is the strongest match for a humid river delta?
+### 25. Which crop is most suitable for a humid river delta?
 
 A. Rice
 B. Bajra
@@ -428,7 +428,7 @@ D. Tea, wheat, rubber
 **Difficulty:** Hard
 **QL:** GEO-AGR-001-QL-095 — Plateau, plain, delta and hill crop inference
 
-### 31. Which crop is more likely to be grown on a managed estate with repeated leaf plucking?
+### 31. Which crop is grown on managed estates and harvested by repeated plucking of tender leaves?
 
 A. Wheat
 B. Gram
@@ -442,7 +442,7 @@ D. Bajra
 **Difficulty:** Easy
 **QL:** GEO-AGR-001-QL-096 — Plantation vs field-crop environment
 
-### 32. Which crop is more likely to be grown under shade trees on a humid upland estate?
+### 32. Which crop is commonly grown under shade trees on humid upland estates?
 
 A. Mustard
 B. Wheat
@@ -1228,7 +1228,7 @@ D. Neither 1 nor 2
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-105 — Green Revolution cause–effect and regional matching
 
-### 88. Which chain is most logical?
+### 88. Which sequence correctly represents a Green Revolution cause-and-effect relationship?
 
 A. No water → guaranteed high yield
 B. Assured irrigation → HYV adoption → higher yield potential
@@ -1242,7 +1242,7 @@ D. Waterlogging → better root aeration
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-105 — Green Revolution cause–effect and regional matching
 
-### 89. Which outcome can accompany intensive Green Revolution farming if resources are poorly managed?
+### 89. Which environmental problem can result from poorly managed intensive Green Revolution farming?
 
 A. Unlimited groundwater recharge
 B. Elimination of all soil problems
@@ -1340,7 +1340,7 @@ D. Cotton—coral reef; jute—bare rock; ragi—ocean beach
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-106 — Crop–soil–climate match sets
 
-### 96. Which crop would be least suitable for a dry sandy field without irrigation?
+### 96. Which crop is least suitable for a dry sandy field without irrigation?
 
 A. Bajra
 B. Paddy rice
@@ -1438,7 +1438,7 @@ D. Tea
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-107 — Map-style regional inference
 
-### 103. Which crop has the strongest combined link with black soil, kharif timing and textile fibre?
+### 103. Which crop is identified by black soil, kharif sowing and use as a textile fibre?
 
 A. Cotton
 B. Jute
@@ -1452,7 +1452,7 @@ D. Wheat
 **Difficulty:** Easy
 **QL:** GEO-AGR-001-QL-108 — Full-chapter mixed elimination and synthesis
 
-### 104. Which crop has the strongest combined link with winter sowing, oil-rich seed and dry northwestern farming?
+### 104. Which crop is identified by winter sowing, oil-rich seed and dry northwestern farming?
 
 A. Soybean
 B. Mustard
@@ -1494,7 +1494,7 @@ D. Rice–wheat
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-108 — Full-chapter mixed elimination and synthesis
 
-### 107. Which three clues point to sugarcane rather than cotton or jute?
+### 107. Which set of clues identifies sugarcane?
 
 A. Long duration, heavy water need and nearby crushing mill
 B. Black soil, boll fibre and ginning

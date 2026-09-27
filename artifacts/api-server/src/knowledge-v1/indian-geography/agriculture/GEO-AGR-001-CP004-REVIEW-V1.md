@@ -134,7 +134,7 @@ D. It removes the need for soil moisture
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-074 — Need for irrigation in monsoon agriculture
 
-### 10. Which change would most reduce dependence on the exact arrival date of monsoon rain?
+### 10. Which measure would reduce farmers' dependence on the exact arrival of monsoon rainfall?
 
 A. Reducing all water storage
 B. Reliable irrigation
@@ -694,7 +694,7 @@ D. Permanent fallow
 **Difficulty:** Easy
 **QL:** GEO-AGR-001-QL-081 — Integrated irrigation and input suitability reasoning
 
-### 50. Which irrigation source is the strongest match for a shallow alluvial aquifer?
+### 50. Which irrigation source is most suitable where a shallow alluvial aquifer is available?
 
 A. Tank on a rocky hill only
 B. Tube-well
@@ -822,7 +822,7 @@ D. The new technology worked best where irrigation and input access were already
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-082 — Green Revolution meaning and historical setting
 
-### 59. Which statement captures the Green Revolution most accurately?
+### 59. Which statement about the Green Revolution in India is correct?
 
 A. It was a technological change in crop production rather than simply an expansion of cultivated land
 B. It depended only on adding new farmland
@@ -906,7 +906,7 @@ D. Jute
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-083 — Early wheat and rice emphasis
 
-### 65. Which change would most directly extend Green Revolution-style rice cultivation into a suitable area?
+### 65. Which measure would most directly support Green Revolution-style rice cultivation in a suitable region?
 
 A. Removing all water access
 B. Reducing seed quality
@@ -1158,7 +1158,7 @@ D. It reduced crop exposure to rainfall failure during critical stages
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-086 — Yield and foodgrain-output effects
 
-### 83. Which result is more consistent with successful HYV adoption?
+### 83. Which outcome is expected when HYV crops receive adequate water and nutrients?
 
 A. Higher cereal yield with adequate water and nutrients
 B. Lower yield despite perfect management by definition
@@ -1242,7 +1242,7 @@ D. Nearby markets
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-087 — Regional concentration and uneven adoption
 
-### 89. Which comparison shows uneven adoption most clearly?
+### 89. Which situation illustrates uneven adoption of Green Revolution technology?
 
 A. Two irrigated regions using the same seed
 B. Two rain-fed fields with identical methods
@@ -1466,7 +1466,7 @@ D. Andaman coast — wheat snow farming
 **Difficulty:** Easy
 **QL:** GEO-AGR-001-QL-090 — Integrated Green Revolution reasoning
 
-### 105. Which chain of cause and effect is most logical?
+### 105. Which sequence correctly shows the effect of irrigation, HYV seed and nutrients on crop yield?
 
 A. No water + poor seed → guaranteed high yield
 B. Groundwater decline → unlimited irrigation
@@ -1508,7 +1508,7 @@ D. Latitude alone blocks adoption
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-090 — Integrated Green Revolution reasoning
 
-### 108. Which comparison is most accurate for early Green Revolution geography?
+### 108. Which statement about the early geographic spread of the Green Revolution is correct?
 
 A. Rain-fed regions always adopted first
 B. Well-irrigated cereal regions adopted faster than many rain-fed regions

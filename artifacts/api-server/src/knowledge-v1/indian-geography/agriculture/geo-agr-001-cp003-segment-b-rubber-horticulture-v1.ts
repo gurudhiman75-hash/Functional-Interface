@@ -96,7 +96,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-064",
     "qlName": "Rubber climate requirements",
     "difficulty": "Hard",
-    "stem": "Region A is hot, humid and frost-free with heavy rain; Region B has cool dry winters. Which crop is more naturally suited to Region A?",
+    "stem": "Region A is hot, humid and frost-free with heavy rain, while Region B has cool dry winters. Which crop is better suited to Region A?",
     "answer": "Rubber",
     "distractors": [
       "Wheat",
@@ -176,7 +176,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-065",
     "qlName": "Rubber latex and tapping",
     "difficulty": "Medium",
-    "stem": "Which plantation operation points most strongly to rubber?",
+    "stem": "Which harvesting operation is characteristic of rubber cultivation?",
     "answer": "Collecting milky liquid from shallow bark cuts",
     "distractors": [
       "Plucking two leaves and a bud",
@@ -752,7 +752,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-071",
     "qlName": "Coconut and coastal plantation geography",
     "difficulty": "Medium",
-    "stem": "Which crop is more naturally suited to a humid tropical coast than an apple orchard?",
+    "stem": "Which crop is well suited to a humid tropical coast?",
     "answer": "Coconut",
     "distractors": [
       "Apple",
@@ -768,7 +768,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-071",
     "qlName": "Coconut and coastal plantation geography",
     "difficulty": "Medium",
-    "stem": "Which landscape clue points toward coconut cultivation?",
+    "stem": "Which landscape is most suitable for coconut cultivation?",
     "answer": "Frost-free tropical coast with sandy soil and abundant moisture",
     "distractors": [
       "Cold high-altitude valley",
@@ -832,7 +832,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-072",
     "qlName": "Integrated plantation and horticulture reasoning",
     "difficulty": "Medium",
-    "stem": "Which climate pairing is accurate?",
+    "stem": "Which crop–climate pairing correctly contrasts rubber and apple?",
     "answer": "Rubber—hot humid tropics; apple—cool temperate hills",
     "distractors": [
       "Rubber—cold desert; apple—tropical coast",
@@ -864,7 +864,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-072",
     "qlName": "Integrated plantation and horticulture reasoning",
     "difficulty": "Medium",
-    "stem": "Which statement captures the main geographic contrast within CP003 crops?",
+    "stem": "Which statement about the geographic distribution of plantation and horticultural crops in India is correct?",
     "answer": "Plantation and horticultural crops occupy distinct climate belts from tropical coasts to temperate hills",
     "distractors": [
       "All crops require the same climate and soil",

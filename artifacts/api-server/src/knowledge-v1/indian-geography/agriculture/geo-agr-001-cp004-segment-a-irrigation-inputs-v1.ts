@@ -160,7 +160,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-074",
     "qlName": "Need for irrigation in monsoon agriculture",
     "difficulty": "Medium",
-    "stem": "Which change would most reduce dependence on the exact arrival date of monsoon rain?",
+    "stem": "Which measure would reduce farmers' dependence on the exact arrival of monsoon rainfall?",
     "answer": "Reliable irrigation",
     "distractors": [
       "Reducing all water storage",
@@ -800,7 +800,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-081",
     "qlName": "Integrated irrigation and input suitability reasoning",
     "difficulty": "Easy",
-    "stem": "Which irrigation source is the strongest match for a shallow alluvial aquifer?",
+    "stem": "Which irrigation source is most suitable where a shallow alluvial aquifer is available?",
     "answer": "Tube-well",
     "distractors": [
       "Tank on a rocky hill only",

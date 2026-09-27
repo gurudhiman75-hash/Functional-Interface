@@ -413,7 +413,7 @@ D. Gram
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-005 — Rabi crop examples
 
-## 30. Which crop is more likely to be sown after monsoon withdrawal than with monsoon onset?
+## 30. Which crop is normally sown after the monsoon rather than with its onset?
 
 A. Rice
 B. Mustard
@@ -735,7 +735,7 @@ D. Large commercial output must reach factories and markets efficiently
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-009 — Commercial and plantation farming
 
-## 53. Which feature separates plantation farming from intensive subsistence farming?
+## 53. How does plantation farming differ from intensive subsistence farming?
 
 A. Large estate with specialised commercial crop production
 B. Heavy family labour on a small food-producing holding
@@ -836,7 +836,7 @@ D. A mild breeze during field preparation
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-010 — Rice — season and temperature/rainfall needs
 
-## 60. Region A is hot and humid with heavy monsoon rain; Region B is cool and dry with limited irrigation. Which crop is more naturally suited to Region A than B?
+## 60. Region A is hot and humid with heavy monsoon rainfall, while Region B is cool and dry with limited irrigation. Which crop is better suited to Region A?
 
 A. Wheat
 B. Rice
@@ -1004,7 +1004,7 @@ D. Dry dune field far from water
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-012 — Rice — major geographic belt
 
-## 72. Which location clue points most strongly toward a rice belt?
+## 72. Which of the following locations is most suitable for rice cultivation?
 
 A. Dry interior plateau with sparse rain and no irrigation
 B. Low-lying fertile plain receiving heavy monsoon rainfall
@@ -1074,7 +1074,7 @@ D. Replacing level fields with bare rocky slopes
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-013 — Rice — irrigated extension beyond high-rainfall belt
 
-## 77. Which comparison is accurate for rice geography in India?
+## 77. Which statement about the distribution of rice in India is correct?
 
 A. Northwestern rice needs no water while eastern rice needs irrigation only
 B. Rice is restricted completely to one rainfall zone
@@ -1172,7 +1172,7 @@ D. Cotton
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-014 — Wheat — season and temperature pattern
 
-## 84. Region A has a cool dry winter and sunny spring; Region B stays hot and waterlogged through the monsoon. Which region is more naturally suited to wheat?
+## 84. Region A has a cool dry winter and sunny spring, while Region B remains hot and waterlogged during the monsoon. Which region is better suited to wheat cultivation?
 
 A. Region B
 B. Region A
@@ -1326,7 +1326,7 @@ D. Cool rabi weather, fertile plains and extensive irrigation
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-016 — Wheat — major geographic belt
 
-## 95. Which landscape clue points most strongly toward a wheat belt?
+## 95. Which of the following landscapes is most suitable for wheat cultivation?
 
 A. Irrigated alluvial plain with cool winters
 B. Hot waterlogged delta throughout the monsoon
@@ -1354,7 +1354,7 @@ D. Western desert dunes and tidal swamps
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-016 — Wheat — major geographic belt
 
-## 97. Which comparison of rice and wheat is accurate?
+## 97. How do rice and wheat differ by cropping season?
 
 A. Rice is rabi; wheat is kharif
 B. Both are only zaid crops
@@ -1382,7 +1382,7 @@ D. Rice
 **Difficulty:** Easy
 **QL:** GEO-AGR-001-QL-017 — Rice vs wheat comparison
 
-## 99. Which climate pairing is accurate?
+## 99. Which crop–climate pairing is correct?
 
 A. Rice — warm and moist; wheat — cool growing season with sunny ripening
 B. Rice — cool and dry; wheat — hot and flooded
@@ -1438,7 +1438,7 @@ D. A rice; B wheat
 **Difficulty:** Hard
 **QL:** GEO-AGR-001-QL-017 — Rice vs wheat comparison
 
-## 103. A map marks a heavily irrigated northwestern plain under winter cereal cultivation. Which crop is the strongest match?
+## 103. A map shows a heavily irrigated northwestern plain under winter cereal cultivation. Which crop is most likely to dominate this area?
 
 A. Wheat
 B. Rice as the only possible answer
@@ -1480,7 +1480,7 @@ D. Only frost crops can be grown
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-018 — Rice/wheat map and season reasoning
 
-## 106. Which crop is more likely on an irrigated alluvial plain in January?
+## 106. Which crop is most suitable for an irrigated alluvial plain in January?
 
 A. Rice under normal kharif timing
 B. Jute
@@ -1489,7 +1489,7 @@ D. Wheat
 
 **Answer:** D. Wheat
 
-**Explanation:** January falls within the cool rabi growing season, so wheat is the strongest match on an irrigated alluvial plain. Rice, jute and cotton are ordinarily linked with kharif timing.
+**Explanation:** January falls within the cool rabi growing season, so wheat is well suited to an irrigated alluvial plain. Rice, jute and cotton are ordinarily linked with kharif timing.
 
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-018 — Rice/wheat map and season reasoning
@@ -1595,7 +1595,7 @@ D. A snow-covered mountain meadow
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-019 — Jowar geography
 
-## 114. Farm A has reliable standing water; Farm B is rain-fed on a semi-arid plateau. Which crop is more naturally suited to Farm B?
+## 114. Farm A has reliable standing water, while Farm B is rain-fed on a semi-arid plateau. Which crop is better suited to Farm B?
 
 A. Rice
 B. Jowar
@@ -2057,7 +2057,7 @@ D. Jowar
 **Difficulty:** Easy
 **QL:** GEO-AGR-001-QL-025 — Gram and tur/arhar
 
-## 147. Which comparison is accurate?
+## 147. How do gram and tur/arhar differ by cropping season?
 
 A. Gram is kharif; tur is rabi only
 B. Both are plantation crops

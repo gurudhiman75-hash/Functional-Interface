@@ -80,7 +80,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-082",
     "qlName": "Green Revolution meaning and historical setting",
     "difficulty": "Medium",
-    "stem": "Which statement captures the Green Revolution most accurately?",
+    "stem": "Which statement about the Green Revolution in India is correct?",
     "answer": "It was a technological change in crop production rather than simply an expansion of cultivated land",
     "distractors": [
       "It depended only on adding new farmland",
@@ -176,7 +176,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-083",
     "qlName": "Early wheat and rice emphasis",
     "difficulty": "Medium",
-    "stem": "Which change would most directly extend Green Revolution-style rice cultivation into a suitable area?",
+    "stem": "Which measure would most directly support Green Revolution-style rice cultivation in a suitable region?",
     "answer": "Reliable irrigation combined with responsive rice varieties",
     "distractors": [
       "Removing all water access",
@@ -464,7 +464,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-086",
     "qlName": "Yield and foodgrain-output effects",
     "difficulty": "Medium",
-    "stem": "Which result is more consistent with successful HYV adoption?",
+    "stem": "Which outcome is expected when HYV crops receive adequate water and nutrients?",
     "answer": "Higher cereal yield with adequate water and nutrients",
     "distractors": [
       "Lower yield despite perfect management by definition",
@@ -560,7 +560,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-087",
     "qlName": "Regional concentration and uneven adoption",
     "difficulty": "Medium",
-    "stem": "Which comparison shows uneven adoption most clearly?",
+    "stem": "Which situation illustrates uneven adoption of Green Revolution technology?",
     "answer": "Irrigated region using HYV seed widely while a nearby rain-fed region uses it little",
     "distractors": [
       "Two irrigated regions using the same seed",
@@ -816,7 +816,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-090",
     "qlName": "Integrated Green Revolution reasoning",
     "difficulty": "Medium",
-    "stem": "Which chain of cause and effect is most logical?",
+    "stem": "Which sequence correctly shows the effect of irrigation, HYV seed and nutrients on crop yield?",
     "answer": "Irrigation + HYV seed + nutrients → higher yield potential",
     "distractors": [
       "No water + poor seed → guaranteed high yield",
@@ -864,7 +864,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-090",
     "qlName": "Integrated Green Revolution reasoning",
     "difficulty": "Medium",
-    "stem": "Which comparison is most accurate for early Green Revolution geography?",
+    "stem": "Which statement about the early geographic spread of the Green Revolution is correct?",
     "answer": "Well-irrigated cereal regions adopted faster than many rain-fed regions",
     "distractors": [
       "Rain-fed regions always adopted first",

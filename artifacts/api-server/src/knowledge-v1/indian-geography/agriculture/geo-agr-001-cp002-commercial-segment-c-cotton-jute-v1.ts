@@ -272,7 +272,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-048",
     "qlName": "Cotton black-soil and Deccan association",
     "difficulty": "Medium",
-    "stem": "Which landscape clue points most strongly toward cotton?",
+    "stem": "Which landscape is most favourable for cotton cultivation?",
     "answer": "Warm black-soil plateau with seasonal rainfall",
     "distractors": [
       "Cold glaciated valley",
@@ -288,7 +288,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-048",
     "qlName": "Cotton black-soil and Deccan association",
     "difficulty": "Hard",
-    "stem": "Farm A has deep black soil with seasonal moisture; Farm B is a humid flooded delta. Which farm is more naturally suited to rain-fed cotton?",
+    "stem": "Farm A has deep black soil with seasonal moisture, while Farm B is a humid flooded delta. Which farm is better suited to rain-fed cotton?",
     "answer": "Farm A",
     "distractors": [
       "Farm B",
@@ -464,7 +464,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-050",
     "qlName": "Jute as golden fibre",
     "difficulty": "Medium",
-    "stem": "Which feature separates jute from cotton?",
+    "stem": "How does jute fibre differ from cotton fibre in its source within the plant?",
     "answer": "Jute fibre comes from the stem rather than the seed boll",
     "distractors": [
       "Jute is a sugar crop",
@@ -576,7 +576,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-051",
     "qlName": "Jute climate requirements",
     "difficulty": "Hard",
-    "stem": "Region A is warm, humid and rain-rich; Region B is warm but semi-arid. Which fibre crop is more naturally suited to Region A?",
+    "stem": "Region A is warm, humid and rain-rich, while Region B is warm but semi-arid. Which fibre crop is better suited to Region A?",
     "answer": "Jute",
     "distractors": [
       "Cotton",
@@ -752,7 +752,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-053",
     "qlName": "Jute regional belt",
     "difficulty": "Medium",
-    "stem": "Which crop is the strongest match for a humid alluvial floodplain in West Bengal?",
+    "stem": "Which fibre crop is most likely to be grown on a humid alluvial floodplain in West Bengal?",
     "answer": "Jute",
     "distractors": [
       "Bajra",
@@ -784,7 +784,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-054",
     "qlName": "Cotton–jute integrated fibre reasoning",
     "difficulty": "Easy",
-    "stem": "Which comparison of cotton and jute is accurate?",
+    "stem": "How do cotton and jute differ in the source of their fibre?",
     "answer": "Cotton fibre comes from bolls; jute fibre comes from stems",
     "distractors": [
       "Both fibres come from cane",
@@ -848,7 +848,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-054",
     "qlName": "Cotton–jute integrated fibre reasoning",
     "difficulty": "Medium",
-    "stem": "Which processing clue points to jute rather than cotton?",
+    "stem": "Which processing method is characteristic of jute rather than cotton?",
     "answer": "Retting stems in water before fibre separation",
     "distractors": [
       "Picking fibre from opened bolls",

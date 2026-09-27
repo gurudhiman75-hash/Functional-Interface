@@ -96,7 +96,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-010",
     "qlName": "Rice — season and temperature/rainfall needs",
     "difficulty": "Hard",
-    "stem": "Region A is hot and humid with heavy monsoon rain; Region B is cool and dry with limited irrigation. Which crop is more naturally suited to Region A than B?",
+    "stem": "Region A is hot and humid with heavy monsoon rainfall, while Region B is cool and dry with limited irrigation. Which crop is better suited to Region A?",
     "answer": "Rice",
     "distractors": [
       "Wheat",
@@ -288,7 +288,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-012",
     "qlName": "Rice — major geographic belt",
     "difficulty": "Medium",
-    "stem": "Which location clue points most strongly toward a rice belt?",
+    "stem": "Which of the following locations is most suitable for rice cultivation?",
     "answer": "Low-lying fertile plain receiving heavy monsoon rainfall",
     "distractors": [
       "Dry interior plateau with sparse rain and no irrigation",
@@ -368,7 +368,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-013",
     "qlName": "Rice — irrigated extension beyond high-rainfall belt",
     "difficulty": "Medium",
-    "stem": "Which comparison is accurate for rice geography in India?",
+    "stem": "Which statement about the distribution of rice in India is correct?",
     "answer": "High-rainfall eastern regions grow rice naturally; drier northwestern regions depend more on irrigation",
     "distractors": [
       "Northwestern rice needs no water while eastern rice needs irrigation only",
@@ -480,7 +480,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-014",
     "qlName": "Wheat — season and temperature pattern",
     "difficulty": "Hard",
-    "stem": "Region A has a cool dry winter and sunny spring; Region B stays hot and waterlogged through the monsoon. Which region is more naturally suited to wheat?",
+    "stem": "Region A has a cool dry winter and sunny spring, while Region B remains hot and waterlogged during the monsoon. Which region is better suited to wheat cultivation?",
     "answer": "Region A",
     "distractors": [
       "Region B",
@@ -656,7 +656,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-016",
     "qlName": "Wheat — major geographic belt",
     "difficulty": "Medium",
-    "stem": "Which landscape clue points most strongly toward a wheat belt?",
+    "stem": "Which of the following landscapes is most suitable for wheat cultivation?",
     "answer": "Irrigated alluvial plain with cool winters",
     "distractors": [
       "Hot waterlogged delta throughout the monsoon",
@@ -688,7 +688,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-017",
     "qlName": "Rice vs wheat comparison",
     "difficulty": "Easy",
-    "stem": "Which comparison of rice and wheat is accurate?",
+    "stem": "How do rice and wheat differ by cropping season?",
     "answer": "Rice is generally kharif; wheat is generally rabi",
     "distractors": [
       "Rice is rabi; wheat is kharif",
@@ -720,7 +720,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-017",
     "qlName": "Rice vs wheat comparison",
     "difficulty": "Medium",
-    "stem": "Which climate pairing is accurate?",
+    "stem": "Which crop–climate pairing is correct?",
     "answer": "Rice — warm and moist; wheat — cool growing season with sunny ripening",
     "distractors": [
       "Rice — cool and dry; wheat — hot and flooded",
@@ -784,7 +784,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-018",
     "qlName": "Rice/wheat map and season reasoning",
     "difficulty": "Easy",
-    "stem": "A map marks a heavily irrigated northwestern plain under winter cereal cultivation. Which crop is the strongest match?",
+    "stem": "A map shows a heavily irrigated northwestern plain under winter cereal cultivation. Which crop is most likely to dominate this area?",
     "answer": "Wheat",
     "distractors": [
       "Rice as the only possible answer",
@@ -832,14 +832,14 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-018",
     "qlName": "Rice/wheat map and season reasoning",
     "difficulty": "Medium",
-    "stem": "Which crop is more likely on an irrigated alluvial plain in January?",
+    "stem": "Which crop is most suitable for an irrigated alluvial plain in January?",
     "answer": "Wheat",
     "distractors": [
       "Rice under normal kharif timing",
       "Jute",
       "Cotton"
     ],
-    "explanation": "January falls within the cool rabi growing season, so wheat is the strongest match on an irrigated alluvial plain. Rice, jute and cotton are ordinarily linked with kharif timing.",
+    "explanation": "January falls within the cool rabi growing season, so wheat is well suited to an irrigated alluvial plain. Rice, jute and cotton are ordinarily linked with kharif timing.",
     "sourceFactIds": [
       "WHEAT-JANUARY-MAP"
     ]
