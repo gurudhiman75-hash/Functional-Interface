@@ -1,6 +1,7 @@
 import { buildGeoMinQl, finalizeGeoMinCp, auditGeoMinCp } from "./geo-min-001-review-builder";
 
-const QL_001 = buildGeoMinQl("MINERAL-MEANING-AND-BASIC-CHARACTER", "Mineral meaning and basic character", [
+const QLS = Object.freeze([
+buildGeoMinQl("MINERAL-MEANING-AND-BASIC-CHARACTER", "Mineral meaning and basic character", [
   {
     "stem": "Which statement correctly defines a mineral in geography?",
     "answer": "A naturally occurring homogeneous substance with a definable internal structure",
@@ -67,9 +68,9 @@ const QL_001 = buildGeoMinQl("MINERAL-MEANING-AND-BASIC-CHARACTER", "Mineral mea
     "explanation": "Ore is an economic concept: it contains enough useful mineral to justify extraction under given conditions. Mineral is the broader natural-material concept and need not be commercially workable.",
     "sourceFactId": "MINERAL-ORE-DISTINCTION"
   }
-] as const);
+] as const),
 
-const QL_002 = buildGeoMinQl("VEINS-AND-LODES", "Veins and lodes", [
+buildGeoMinQl("VEINS-AND-LODES", "Veins and lodes", [
   {
     "stem": "Metallic minerals found in cracks, faults and joints of igneous and metamorphic rocks commonly occur in what form?",
     "answer": "Veins and lodes",
@@ -136,9 +137,9 @@ const QL_002 = buildGeoMinQl("VEINS-AND-LODES", "Veins and lodes", [
     "explanation": "A fault zone provides fractures through which mineral-bearing solutions can move and deposit material. That setting is characteristic of vein or lode mineralisation in hard rocks.",
     "sourceFactId": "LODE-FAULT-REASONING"
   }
-] as const);
+] as const),
 
-const QL_003 = buildGeoMinQl("BEDS-AND-LAYERS-IN-SEDIMENTARY-ROCKS", "Beds and layers in sedimentary rocks", [
+buildGeoMinQl("BEDS-AND-LAYERS-IN-SEDIMENTARY-ROCKS", "Beds and layers in sedimentary rocks", [
   {
     "stem": "Coal and some other minerals in sedimentary rocks commonly occur in which form?",
     "answer": "Beds or layers",
@@ -205,9 +206,9 @@ const QL_003 = buildGeoMinQl("BEDS-AND-LAYERS-IN-SEDIMENTARY-ROCKS", "Beds and l
     "explanation": "A deposit parallel to sedimentary layers is bedded, whereas a mineral filling a fracture is a vein or lode. Their geometry reveals two different modes of mineral occurrence.",
     "sourceFactId": "BEDDED-VS-LODE"
   }
-] as const);
+] as const),
 
-const QL_004 = buildGeoMinQl("RESIDUAL-DEPOSITS-AND-WEATHERING", "Residual deposits and weathering", [
+buildGeoMinQl("RESIDUAL-DEPOSITS-AND-WEATHERING", "Residual deposits and weathering", [
   {
     "stem": "Which mineral is a standard example of a residual deposit formed by decomposition of surface rocks?",
     "answer": "Bauxite",
@@ -274,9 +275,9 @@ const QL_004 = buildGeoMinQl("RESIDUAL-DEPOSITS-AND-WEATHERING", "Residual depos
     "explanation": "Old stable surfaces can undergo prolonged chemical weathering and leaching, favouring residual bauxite formation. Active river channels are more typical settings for placer concentration.",
     "sourceFactId": "RESIDUAL-PLATEAU-REASONING"
   }
-] as const);
+] as const),
 
-const QL_005 = buildGeoMinQl("PLACER-AND-ALLUVIAL-DEPOSITS", "Placer and alluvial deposits", [
+buildGeoMinQl("PLACER-AND-ALLUVIAL-DEPOSITS", "Placer and alluvial deposits", [
   {
     "stem": "Heavy minerals such as gold may become concentrated in river sands as what type of deposit?",
     "answer": "Placer deposit",
@@ -343,9 +344,9 @@ const QL_005 = buildGeoMinQl("PLACER-AND-ALLUVIAL-DEPOSITS", "Placer and alluvia
     "explanation": "Gold-rich alluvium is a placer formed by mechanical sorting, while aluminium-rich material left by weathering is residual. The two deposits therefore record different surface processes.",
     "sourceFactId": "PLACER-VS-RESIDUAL"
   }
-] as const);
+] as const),
 
-const QL_006 = buildGeoMinQl("FERROUS-MINERALS", "Ferrous minerals", [
+buildGeoMinQl("FERROUS-MINERALS", "Ferrous minerals", [
   {
     "stem": "Which group of minerals contains iron and is therefore classed as ferrous?",
     "answer": "Iron ore, manganese and chromite",
@@ -412,9 +413,9 @@ const QL_006 = buildGeoMinQl("FERROUS-MINERALS", "Ferrous minerals", [
     "explanation": "Manganese and chromite provide alloying elements widely used with iron and steel. Their role is different from non-metallic minerals such as mica or gypsum.",
     "sourceFactId": "FERROUS-ALLOY-REASONING"
   }
-] as const);
+] as const),
 
-const QL_007 = buildGeoMinQl("NON-FERROUS-METALLIC-MINERALS", "Non-ferrous metallic minerals", [
+buildGeoMinQl("NON-FERROUS-METALLIC-MINERALS", "Non-ferrous metallic minerals", [
   {
     "stem": "Which set consists entirely of non-ferrous metallic minerals?",
     "answer": "Bauxite, copper and lead-zinc",
@@ -481,9 +482,9 @@ const QL_007 = buildGeoMinQl("NON-FERROUS-METALLIC-MINERALS", "Non-ferrous metal
     "explanation": "Copper and bauxite are both metallic resources outside the ferrous iron group. Iron ore is ferrous, while mica is a non-metallic mineral.",
     "sourceFactId": "NONFERROUS-SORTING"
   }
-] as const);
+] as const),
 
-const QL_008 = buildGeoMinQl("NON-METALLIC-MINERALS", "Non-metallic minerals", [
+buildGeoMinQl("NON-METALLIC-MINERALS", "Non-metallic minerals", [
   {
     "stem": "Which set consists entirely of non-metallic minerals?",
     "answer": "Mica, limestone and gypsum",
@@ -550,9 +551,9 @@ const QL_008 = buildGeoMinQl("NON-METALLIC-MINERALS", "Non-metallic minerals", [
     "explanation": "Mica and limestone are non-metallic industrial minerals, whereas copper and iron ore are metallic. The distinction is based on mineral character, not simply on economic importance.",
     "sourceFactId": "NONMETALLIC-SORTING"
   }
-] as const);
+] as const),
 
-const QL_009 = buildGeoMinQl("MINERAL-CONSERVATION", "Mineral conservation", [
+buildGeoMinQl("MINERAL-CONSERVATION", "Mineral conservation", [
   {
     "stem": "Why is conservation important for mineral resources?",
     "answer": "They are finite and form over very long geological periods",
@@ -619,7 +620,8 @@ const QL_009 = buildGeoMinQl("MINERAL-CONSERVATION", "Mineral conservation", [
     "explanation": "Improved recovery reduces mineral lost during processing, while recycling returns used metal to the supply chain. Together they lower the amount of freshly mined material needed for the same service.",
     "sourceFactId": "MINERAL-CONSERVATION-REASONING"
   }
-] as const);
+] as const)
+]);
 
-export const GEO_MIN_001_CP001_REVIEW_BATCH_V1 = finalizeGeoMinCp(1, [QL_001, QL_002, QL_003, QL_004, QL_005, QL_006, QL_007, QL_008, QL_009]);
-export function auditGeoMin001Cp001ReviewBatchV1() { return auditGeoMinCp(1, [QL_001, QL_002, QL_003, QL_004, QL_005, QL_006, QL_007, QL_008, QL_009], GEO_MIN_001_CP001_REVIEW_BATCH_V1); }
+export const GEO_MIN_001_CP001_REVIEW_BATCH_V1 = finalizeGeoMinCp(1, QLS);
+export function auditGeoMin001Cp001ReviewBatchV1() { return auditGeoMinCp(1, QLS, GEO_MIN_001_CP001_REVIEW_BATCH_V1); }
