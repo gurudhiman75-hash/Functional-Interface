@@ -108,6 +108,7 @@ for (const locale of locales) {
         assert(!/[\u0904-\u0939\u093C-\u094D\u0950-\u0961\u0971-\u097F]/u.test(text), `${key} leaks Devanagari letters into Punjabi learner text: ${text}`);
       }
       assert(!/associated/iu.test(text), `${key} leaked mechanical 'associated' wording.`);
+      assert(!/nearest whole percent|round to the nearest|निकटतम पूर्ण प्रतिशत|पूर्ण प्रतिशत तक पूर्णांकित|ਸਭ ਤੋਂ ਨੇੜਲਾ ਪੂਰਾ ਪ੍ਰਤੀਸ਼ਤ|ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਤੱਕ ਗੋਲ/iu.test(text), `${key} leaked explicit rounding instructions into the learner surface: ${text}`);
       leakageChecks += 1;
 
       if (descriptor.difficulty === "Easy") {
