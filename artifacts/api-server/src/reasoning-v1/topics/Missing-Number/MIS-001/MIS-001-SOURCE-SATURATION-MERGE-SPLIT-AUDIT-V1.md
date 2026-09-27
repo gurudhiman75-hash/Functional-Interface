@@ -31,16 +31,17 @@ Current runtime review patterns:
 - CP011: 4
 - CP012: 5
 - CP013: 2 source-discovered authorities
+- CP014: 1 source-backed missing-corner runtime variant
 
-**Total runtime patterns: 85**
+**Total runtime patterns: 86**
 
 ## 3. Chapter-wide consolidation result
 
 After normalization by semantic rule rather than checkpoint/renderer/query direction:
 
-- runtime patterns: **85**
+- runtime patterns: **86**
 - canonical semantic authorities: **52**
-- reuse / alias patterns: **33**
+- reuse / alias patterns: **34**
 - permanent QLs allocated: **0**
 
 The authoritative mapping lives in `semantic-authority-registry.ts`.
@@ -190,7 +191,7 @@ Wave 1 confirms SSC repeated-figure evidence for pair-product sum and sum-of-squ
 
 Required next checkpoint:
 
-`MIS-001-SOURCE-CROSSWALK-V3`
+`MIS-001-SOURCE-CROSSWALK-V4`
 
 For each observed target-exam source family record:
 
