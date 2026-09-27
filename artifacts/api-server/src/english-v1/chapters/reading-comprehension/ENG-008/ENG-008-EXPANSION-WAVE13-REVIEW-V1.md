@@ -41,7 +41,7 @@ D. Locker 42 with no rack
 
 **Explanation:** Her receipt combined locker number 42 with Rack B.
 
-**Evidence:** Rack B
+**Evidence:** Locker 42 in Rack B
 
 ---
 
@@ -75,7 +75,7 @@ D. Rack letters matter more than locker numbers
 
 **Explanation:** The story shows that locker number alone was incomplete; rack plus number identified the location.
 
-**Evidence:** complete location
+**Evidence:** full location required both
 
 ---
 
@@ -109,7 +109,7 @@ D. a bag size
 
 **Explanation:** The rack letter and locker number distinguish the correct storage location.
 
-**Evidence:** second identifier
+**Evidence:** second identifier printed below
 
 ---
 
@@ -126,7 +126,7 @@ D. The clerk changed her receipt
 
 **Explanation:** The clerk explains that expansion caused number sequences to repeat in separate racks.
 
-**Evidence:** numbers repeated
+**Evidence:** numbers repeated across different racks
 
 ---
 
@@ -212,7 +212,7 @@ D. The Empty Studio
 
 **Explanation:** The passage centres on identifying the current workshop timing after a revision.
 
-**Evidence:** updated timetable
+**Evidence:** showed the newer timetable and a note
 
 ---
 
@@ -229,7 +229,7 @@ D. ignored
 
 **Explanation:** The subject label marks a newer version containing a changed time.
 
-**Evidence:** REVISED
+**Evidence:** sent with “REVISED” in the subject line
 
 ---
 
@@ -246,7 +246,7 @@ D. Arjun missed the workshop
 
 **Explanation:** Only the practical-session time changed between the two versions.
 
-**Evidence:** only ... time had moved
+**Evidence:** only the practical-session time had moved
 
 ---
 
@@ -279,7 +279,7 @@ D. A dessert only
 
 **Explanation:** The cashier recorded and marked the token for a vegetarian order.
 
-**Evidence:** VEG
+**Evidence:** order as vegetarian
 
 ---
 
@@ -296,7 +296,7 @@ D. The cashier made an unnoticed mistake
 
 **Explanation:** The green token was deliberately relabelled because the normal colour was unavailable.
 
-**Evidence:** ran out of blue
+**Evidence:** ran out of blue plastic tokens
 
 ---
 
@@ -330,7 +330,7 @@ D. The New Menu
 
 **Explanation:** The confusion centres on a token whose temporary colour did not match its meal category.
 
-**Evidence:** green token
+**Evidence:** marked green token and gave her
 
 ---
 
@@ -347,7 +347,7 @@ D. delayed
 
 **Explanation:** The written VEG label controlled interpretation instead of the usual colour meaning.
 
-**Evidence:** overrode
+**Evidence:** written label overrode the temporary colour
 
 ---
 
@@ -364,7 +364,7 @@ D. Blue tokens were available
 
 **Explanation:** A separate record confirmed the intended meal category.
 
-**Evidence:** register ... vegetarian
+**Evidence:** meal register also showed Neha's order as vegetarian
 
 ---
 
@@ -399,7 +399,7 @@ D. Desk 3
 
 **Explanation:** The same-day notice reassigned his roll number to Desk 27.
 
-**Evidence:** Desk 27
+**Evidence:** sat at Desk 27 and wrote
 
 ---
 
@@ -416,7 +416,7 @@ D. His slip was fake
 
 **Explanation:** A row of desks had to be moved because of an overnight leak.
 
-**Evidence:** water had leaked
+**Evidence:** water had leaked from a window
 
 ---
 
@@ -517,7 +517,7 @@ D. That the barcode was replaced
 
 **Explanation:** The first new status was return received, with shelving still pending.
 
-**Evidence:** return received
+**Evidence:** return received — shelving pending
 
 ---
 
@@ -534,7 +534,7 @@ D. The library removed shelves
 
 **Explanation:** Physical readiness for another borrower occurs after initial return receipt.
 
-**Evidence:** shelving pending
+**Evidence:** return received — shelving pending
 
 ---
 
@@ -551,7 +551,7 @@ D. One label is enough for every stage
 
 **Explanation:** The library separates received, processed and available states to avoid overclaiming.
 
-**Evidence:** several stages
+**Evidence:** received, processed and ready
 
 ---
 
@@ -568,7 +568,7 @@ D. Why Books Stay Overdue
 
 **Explanation:** The report evaluates a staged status system for returned books.
 
-**Evidence:** status system
+**Evidence:** faster status system for books returned
 
 ---
 
@@ -585,7 +585,7 @@ D. unrelated
 
 **Explanation:** Shelving pending means the book has not yet completed that later step.
 
-**Evidence:** shelving pending
+**Evidence:** return received — shelving pending
 
 ---
 
@@ -654,7 +654,7 @@ D. The pharmacy moved buildings
 
 **Explanation:** The original single message collapsed two separate stages into one.
 
-**Evidence:** assumed ... already packed
+**Evidence:** medicine was already packed and ready
 
 ---
 
@@ -671,7 +671,7 @@ D. One message is always clearer
 
 **Explanation:** The system improves by distinguishing clinical approval from physical preparation.
 
-**Evidence:** two stages
+**Evidence:** approval can trigger another process
 
 ---
 
@@ -688,7 +688,7 @@ D. Why Medicines Are Expensive
 
 **Explanation:** The report is about clearer communication of prescription and collection readiness.
 
-**Evidence:** two messages
+**Evidence:** changed the system to use two messages
 
 ---
 
@@ -705,7 +705,7 @@ D. writing a medical report
 
 **Explanation:** The pharmacy step involves making the prescribed medicine ready for collection.
 
-**Evidence:** dispensing step
+**Evidence:** clinical approval step and the dispensing step
 
 ---
 
@@ -722,7 +722,7 @@ D. Doctor approval guaranteed counter readiness
 
 **Explanation:** The passage explains why time between stages could vary.
 
-**Evidence:** stock transfer
+**Evidence:** stock transfer took longer
 
 ---
 
@@ -789,7 +789,7 @@ D. Safety checks are optional
 
 **Explanation:** The two-tag system represents separate technical and operational stages.
 
-**Evidence:** different stages
+**Evidence:** represented different stages
 
 ---
 
@@ -806,7 +806,7 @@ D. Why Buses Break Down
 
 **Explanation:** The report evaluates red and green tags for repair and service release.
 
-**Evidence:** green tag
+**Evidence:** second green tag marked
 
 ---
 
@@ -877,7 +877,7 @@ D. None
 
 **Explanation:** Only twelve desks had the required power modules.
 
-**Evidence:** only twelve
+**Evidence:** only twelve could support
 
 ---
 
@@ -928,7 +928,7 @@ D. Why Students Stop Using Labs
 
 **Explanation:** The report is about clearer capacity information for a shared laboratory.
 
-**Evidence:** capacity boards
+**Evidence:** installed a board showing “general seats”
 
 ---
 
@@ -945,7 +945,7 @@ D. hidden
 
 **Explanation:** Equipped stations were already assigned to other students in the session.
 
-**Evidence:** fully allocated
+**Evidence:** already fully allocated
 
 ---
 
@@ -1016,7 +1016,7 @@ D. The final five per cent is always largest
 
 **Explanation:** The example shows that backend checking can take longer than the visual bar suggests.
 
-**Evidence:** then stops
+**Evidence:** stops for several minutes
 
 ---
 
@@ -1084,7 +1084,7 @@ D. Server load is irrelevant
 
 **Explanation:** The passage repeatedly values understandable uncertainty over false exactness.
 
-**Evidence:** broad range
+**Evidence:** broad range can be more honest
 
 ---
 
@@ -1118,7 +1118,7 @@ D. user action
 
 **Explanation:** The passage uses uncertainty for unpredictable remaining duration and process state.
 
-**Evidence:** uncertainty
+**Evidence:** stage, uncertainty and next step
 
 ---
 
@@ -1206,7 +1206,7 @@ D. Humorous
 
 **Explanation:** The passage recognises convenience while examining the obligations created by persistence.
 
-**Evidence:** convenient ... But
+**Evidence:** Digital receipts are convenient
 
 ---
 
@@ -1274,7 +1274,7 @@ D. refunding a purchase
 
 **Explanation:** The whole passage discusses how long stored receipt data remains available.
 
-**Evidence:** retention
+**Evidence:** retention period depends on purpose
 
 ---
 
@@ -1345,7 +1345,7 @@ D. Large samples guarantee quality
 
 **Explanation:** The article argues for contextualising the headline average rather than discarding it.
 
-**Evidence:** context
+**Evidence:** users benefit from context
 
 ---
 
@@ -1586,7 +1586,7 @@ D. a marketing schedule
 
 **Explanation:** The author proposes different alert strengths for different consequences.
 
-**Evidence:** urgency needs a hierarchy
+**Evidence:** Urgency therefore needs a hierarchy
 
 ---
 
@@ -1672,7 +1672,7 @@ D. Humorous
 
 **Explanation:** The report evaluates a communication feature and its limitations.
 
-**Evidence:** next phase
+**Evidence:** next phase will measure
 
 ---
 
@@ -1689,7 +1689,7 @@ D. The app worked only at the depot
 
 **Explanation:** The system uses route-control information rather than asking drivers to update while moving.
 
-**Evidence:** did not enter ... while moving
+**Evidence:** did not enter the codes themselves while moving
 
 ---
 
@@ -1723,7 +1723,7 @@ D. Drivers updated the app directly
 
 **Explanation:** The added reason context reduced uncertainty about why the bus was late.
 
-**Evidence:** fewer calls
+**Evidence:** parents made fewer calls
 
 ---
 
@@ -1740,7 +1740,7 @@ D. automatic
 
 **Explanation:** The reason could remain on screen after the actual cause had changed.
 
-**Evidence:** stale
+**Evidence:** reason codes could become stale
 
 ---
 
@@ -1775,7 +1775,7 @@ D. Room availability
 
 **Explanation:** The board tracked doctor decision, medicines, transport and paperwork.
 
-**Evidence:** four steps
+**Evidence:** four steps were complete
 
 ---
 
@@ -1894,7 +1894,7 @@ D. room cleaning
 
 **Explanation:** The board indicates whether discharge requirements are complete enough for departure.
 
-**Evidence:** readiness
+**Evidence:** all required steps complete
 
 ---
 
@@ -1963,7 +1963,7 @@ D. Priority should be hidden
 
 **Explanation:** The system becomes clearer by adding context around both bay assignment and sequence changes.
 
-**Evidence:** rules ... alter position
+**Evidence:** rules that can legitimately alter position
 
 ---
 
@@ -2085,7 +2085,7 @@ D. Water usage
 
 **Explanation:** The screens used three operational states for visitors.
 
-**Evidence:** open ... cleaning ... closed
+**Evidence:** screens showed “open”, “cleaning in progress”
 
 ---
 
@@ -2136,7 +2136,7 @@ D. Humorous
 
 **Explanation:** The passage evaluates a public-information feature and its limitations.
 
-**Evidence:** pilot
+**Evidence:** During the pilot
 
 ---
 
@@ -2187,7 +2187,7 @@ D. Users never moved elsewhere
 
 **Explanation:** The new screens reduced uncertainty about why doors were locked.
 
-**Evidence:** complaints ... fell
+**Evidence:** complaints about unexplained closures fell
 
 ---
 
@@ -2305,7 +2305,7 @@ D. hidden
 
 **Explanation:** The receipt was generated again after a record correction.
 
-**Evidence:** reissued
+**Evidence:** reissued for record correction
 
 ---
 
@@ -2320,7 +2320,7 @@ D. lost
 
 **Key:** present
 
-**Explanation:** Present is the opposite of missing.
+**Explanation:** Present is the opposite of missing in this record context.
 
 **Evidence:** missing hostel block name
 
@@ -2455,7 +2455,7 @@ D. Building B was in the original letter
 
 **Explanation:** The update changed only the interview location.
 
-**Evidence:** reporting time ... unchanged
+**Evidence:** reporting time and interview panel remained unchanged
 
 ---
 
@@ -2472,7 +2472,7 @@ D. confirmed permanently
 
 **Explanation:** The later room instruction replaced the original room detail.
 
-**Evidence:** superseded
+**Evidence:** one field is superseded
 
 ---
 
@@ -2571,7 +2571,7 @@ D. Until the book was due
 
 **Explanation:** The passage states that the pickup hold lasted three days.
 
-**Evidence:** three days
+**Evidence:** three days after the reader
 
 ---
 
@@ -2656,7 +2656,7 @@ D. open
 
 **Explanation:** Unavailable is the direct opposite of available.
 
-**Evidence:** available
+**Evidence:** general availability if no one else
 
 ---
 
@@ -2707,7 +2707,7 @@ D. A New Library Building
 
 **Explanation:** The passage focuses on status and queue information for reserved books.
 
-**Evidence:** hold queue
+**Evidence:** next person in the queue
 
 ---
 
@@ -2789,7 +2789,7 @@ D. Residents could join unlimited simultaneous lists
 
 **Explanation:** The offered slot moved to the next person if not accepted within two minutes.
 
-**Evidence:** two minutes
+**Evidence:** offer remained active for two minutes
 
 ---
 
@@ -2990,7 +2990,7 @@ D. wet
 
 **Explanation:** Dry is the opposite of humid in the context of air.
 
-**Evidence:** dry days
+**Evidence:** relatively dry days
 
 ---
 
@@ -3007,7 +3007,7 @@ D. To measure humidity
 
 **Explanation:** Equal starting water mass reduces variation between wrapped bottles.
 
-**Evidence:** equally wet
+**Evidence:** cloths were not always equally wet
 
 ---
 
@@ -3155,9 +3155,9 @@ D. store
 
 **Key:** release
 
-**Explanation:** Release is the opposite of retain.
+**Explanation:** Release is the opposite of retain in this soil-water context.
 
-**Evidence:** retained
+**Evidence:** sandy soil retained the least
 
 ---
 
@@ -3322,7 +3322,7 @@ D. authentic
 
 **Key:** false
 
-**Explanation:** False is the opposite of genuine.
+**Explanation:** False is the opposite of genuine in this reservation context.
 
 **Evidence:** genuine bookings
 
@@ -3491,7 +3491,7 @@ D. multi-step
 
 **Explanation:** Simple is the direct opposite of complex.
 
-**Evidence:** complex
+**Evidence:** unusually complex jobs
 
 ---
 
@@ -3715,7 +3715,7 @@ D. asset value
 
 **Explanation:** Arrears are cited as a measure of borrowers failing to meet scheduled obligations.
 
-**Evidence:** arrears
+**Evidence:** debt-service ratios, arrears
 
 ---
 
@@ -4211,7 +4211,7 @@ D. Hospital records replace prescriptions
 
 **Explanation:** A dose should not count as missed if the original treatment was not actually intended during that period.
 
-**Evidence:** denominator
+**Evidence:** denominator should reflect periods
 
 ---
 
@@ -4279,7 +4279,7 @@ D. the medicine name
 
 **Explanation:** The passage discusses which intended-treatment periods should count in the base of the adherence calculation.
 
-**Evidence:** denominator
+**Evidence:** The denominator should reflect
 
 ---
 
@@ -4553,7 +4553,7 @@ D. Context removes learning loss
 
 **Explanation:** The article separates identifying lost time from diagnosing the cause.
 
-**Evidence:** does not ... explain why
+**Evidence:** does not, by itself, explain why it was lost
 
 ---
 
@@ -4672,7 +4672,7 @@ D. Absence reduces instructional time
 
 **Explanation:** The central distinction is between measuring lost time and explaining its cause.
 
-**Evidence:** does not ... explain why
+**Evidence:** does not, by itself, explain why it was lost
 
 ---
 
@@ -5290,7 +5290,7 @@ D. It rose in both units
 
 **Explanation:** Managers were less likely to give new work to someone who was already overloaded.
 
-**Evidence:** Reassignment ... fell
+**Evidence:** Reassignment of newly assigned cases also fell
 
 ---
 
@@ -5307,7 +5307,7 @@ D. Every case was high complexity
 
 **Explanation:** Human judgment affected the weighted workload estimate.
 
-**Evidence:** rated ... differently
+**Evidence:** rated the same type of case differently
 
 ---
 
@@ -5393,7 +5393,7 @@ D. Passenger destinations
 
 **Explanation:** The intervention added real-time crowding categories and movement suggestions.
 
-**Evidence:** low, moderate or high
+**Evidence:** screens showed “low”, “moderate” or “high” crowding
 
 ---
 
@@ -5752,7 +5752,7 @@ D. Participants who ignored icons
 
 **Explanation:** Simple front labels added the most information for people who seldom used the detailed panel.
 
-**Evidence:** rarely read
+**Evidence:** rarely read detailed nutrition panels
 
 ---
 
@@ -5769,7 +5769,7 @@ D. All products had identical portions
 
 **Explanation:** The threshold icon captures one rule, not the whole nutritional value of the basket.
 
-**Evidence:** separated
+**Evidence:** separated “warning avoidance” from overall nutritional quality
 
 ---
 
@@ -5855,7 +5855,7 @@ D. New fountains only
 
 **Explanation:** The district added overhead shade structures to selected playground zones.
 
-**Evidence:** shade sails
+**Evidence:** installed shade sails over parts
 
 ---
 
@@ -5872,7 +5872,7 @@ D. All areas were identical
 
 **Explanation:** Other attractive features could confound where children chose to gather.
 
-**Evidence:** benches or ... fountains
+**Evidence:** contained benches or were closer to drinking fountains
 
 ---
 
@@ -6009,7 +6009,7 @@ D. Feedback quality
 
 **Explanation:** Both groups learned the same material but practised in different sequences.
 
-**Evidence:** blocked ... interleaved
+**Evidence:** In interleaved practice, the three problem types were mixed
 
 ---
 
