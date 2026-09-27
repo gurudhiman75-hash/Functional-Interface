@@ -6,6 +6,7 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/visuals/line-svg.ts"
   workflow_dispatch:
 
 concurrency:
@@ -50,6 +51,8 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/line-set.test.ts
       - name: Question Studio permanent controlled-review integration
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/question-studio-integration.test.ts
+      - name: DI-004 visual answerability proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/visual-answerability.test.ts
       - name: Export Markdown review pack
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/export-review-v2.ts DI-004-REVIEW-V2.md
       - uses: actions/upload-artifact@v4
