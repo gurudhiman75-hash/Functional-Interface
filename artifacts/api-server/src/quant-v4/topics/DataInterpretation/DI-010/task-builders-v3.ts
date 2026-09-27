@@ -311,9 +311,9 @@ function classShare(seed: string, stimulus: Di010Stimulus): Di010Draft {
   const people = populationLabel(stimulus);
   const subject = classSubject(stimulus, index);
   const s = surface(seed, "CLASS_SHARE_OF_TOTAL", [
-    `To the nearest whole percent, what percentage of the total ${people} are ${subject}?`,
-    `${subject[0]!.toUpperCase()}${subject.slice(1)} form approximately what whole percentage of all ${people}?`,
-    `The class ${interval(stimulus, index)} represents approximately what percentage of the total ${people}, to the nearest whole percent?`,
+    `Approximately what percentage of the total ${people} are ${subject}?`,
+    `${subject[0]!.toUpperCase()}${subject.slice(1)} form approximately what percentage of all ${people}?`,
+    `The class ${interval(stimulus, index)} represents approximately what percentage of the total ${people}?`,
   ]);
   return {
     kind: "CLASS_SHARE_OF_TOTAL",
@@ -325,7 +325,7 @@ function classShare(seed: string, stimulus: Di010Stimulus): Di010Draft {
       { text: percentage(item.frequency, Math.max(1, total - item.frequency)), misconceptionId: "EXCLUDE_TARGET_FROM_TOTAL", derivation: "Removes the target class from the denominator instead of using the complete total." },
       { text: percentage(item.frequency, Math.max(...stimulus.classes.map((current) => current.frequency))), misconceptionId: "USE_MAX_FREQUENCY_AS_TOTAL", derivation: "Divides by the largest single class frequency instead of the total frequency." },
     ],
-    explanation: { keyIdea: "Use the required class frequency as the part and the total frequency as the whole.", steps: [`Total ${people} = ${total}.`, `Required percentage = ${item.frequency}/${total} × 100 ≈ ${answer} to the nearest whole percent.`] },
+    explanation: { keyIdea: "Use the required class frequency as the part and the total frequency as the whole.", steps: [`Total ${people} = ${total}.`, `Required percentage = ${item.frequency}/${total} × 100 ≈ ${answer}.`] },
     evidence: { targetIndex: index, total, surfaceId: s.id },
   };
 }
@@ -427,9 +427,9 @@ function groupedMean(seed: string, stimulus: Di010Stimulus): Di010Draft {
   const lowerMean = Math.round(stimulus.classes.reduce((sum, item) => sum + item.lower * item.frequency, 0) / total);
   const upperMean = Math.round(stimulus.classes.reduce((sum, item) => sum + item.upper * item.frequency, 0) / total);
   const s = surface(seed, "GROUPED_MEAN_FROM_POLYGON", [
-    `Using the class marks, find the approximate ${averagePhrase(stimulus)} to the nearest whole number.`,
-    `What is the approximate ${averagePhrase(stimulus)} for the grouped distribution shown, rounded to the nearest whole number?`,
-    `Estimate the ${averagePhrase(stimulus)} by treating each class mark as the value for that class and give the nearest whole number.`,
+    `Using the class marks, find the approximate ${averagePhrase(stimulus)}.`,
+    `What is the approximate ${averagePhrase(stimulus)} for the grouped distribution shown?`,
+    `Estimate the ${averagePhrase(stimulus)} by treating each class mark as the value for that class.`,
   ]);
   return {
     kind: "GROUPED_MEAN_FROM_POLYGON",
@@ -443,7 +443,7 @@ function groupedMean(seed: string, stimulus: Di010Stimulus): Di010Draft {
     ],
     explanation: {
       keyIdea: "For grouped data, use each class mark as x and calculate Σfx ÷ Σf.",
-      steps: [`Σf = ${total}.`, `Σfx = ${fmt(weighted)}.`, `Approximate mean = ${fmt(weighted)} ÷ ${total} ≈ ${answer} to the nearest whole number.`],
+      steps: [`Σf = ${total}.`, `Σfx = ${fmt(weighted)}.`, `Approximate mean = ${fmt(weighted)} ÷ ${total} ≈ ${answer}.`],
       workingTable: {
         headers: ["Class", "Class mark (x)", "f", "fx"],
         rows: stimulus.classes.map((item, itemIndex) => [interval(stimulus, itemIndex), fmt(item.classMark), String(item.frequency), fmt(item.classMark * item.frequency)]),
