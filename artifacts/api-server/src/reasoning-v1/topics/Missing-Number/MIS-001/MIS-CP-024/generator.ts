@@ -69,7 +69,7 @@ export function generateMisCp024Question(candidateId:MisCp024CandidateId,seed:st
  const rule=misCp024RuleByCandidateId(candidateId),context=rule.contexts[0]!,base=String(seed),sel=select(context,base),wrong=shuffle(distractors(sel.target,context),base+':opts').slice(0,3);
  if(wrong.length!==3)throw new Error('CP024 distractor shortage');
  const ci=hash(base+candidateId)%4,options=[...wrong];options.splice(ci,0,{value:sel.target.result,errorLabel:null});
- const stem=['Study the pattern and find the number that will replace the question mark (?).','',...sel.evidence.map(g=>row(g)),row(sel.target,true)].join('\n');
+ const stem=['Find the number that will replace the question mark (?).','',...sel.evidence.map(g=>row(g)),row(sel.target,true)].join('\n');
  const explanation=['In the completed rows, the same ×3 + 1 pattern appears between adjacent numbers.','For the missing last number, use the second number: multiply it by 3 and add 1.','',
   'Row 1:',sourceCheck(sel.evidence[0]!,context),calc(sel.evidence[0]!,context),'',
   'Row 2:',sourceCheck(sel.evidence[1]!,context),calc(sel.evidence[1]!,context),'',
