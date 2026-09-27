@@ -93,6 +93,10 @@ export interface QuantV4CglTier1ShadowSimulationAudit {
   readonly literalStemDuplicateRate: number;
   readonly normalizedStructuralStemReuseRate: number;
   readonly learnerQuestionDuplicateRate: number;
+  readonly standaloneNormalizedStructuralStemReuseRate: number;
+  readonly standaloneLearnerQuestionDuplicateRate: number;
+  readonly linkedSetTaskShellReuseRate: number;
+  readonly linkedSetLearnerQuestionDuplicateRate: number;
   readonly slotDistribution: Readonly<Record<string, number>>;
   readonly packageDistribution: Readonly<Record<string, number>>;
   readonly packageStructuralReuse: Readonly<Record<string, QuantV4CglTier1ShadowPackageReuse>>;
@@ -602,6 +606,24 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
   const learnerQuestionDuplicateRate = duplicateRate(
     runtimeRecords.map((record) => record.learnerQuestionSignature),
   );
+  const standaloneRecords = runtimeRecords.filter(
+    (record) => record.slotKind !== "DATA_INTERPRETATION",
+  );
+  const linkedSetRecords = runtimeRecords.filter(
+    (record) => record.slotKind === "DATA_INTERPRETATION",
+  );
+  const standaloneNormalizedStructuralStemReuseRate = duplicateRate(
+    standaloneRecords.map((record) => record.normalizedStemSignature),
+  );
+  const standaloneLearnerQuestionDuplicateRate = duplicateRate(
+    standaloneRecords.map((record) => record.learnerQuestionSignature),
+  );
+  const linkedSetTaskShellReuseRate = duplicateRate(
+    linkedSetRecords.map((record) => record.normalizedStemSignature),
+  );
+  const linkedSetLearnerQuestionDuplicateRate = duplicateRate(
+    linkedSetRecords.map((record) => record.learnerQuestionSignature),
+  );
 
   const baselineQuestions = integratedBaselineSections.flatMap((section) => section.questions);
   const currentBaselineCapabilityGapCount = baselineQuestions.filter((question) => question.sourceKind === "CAPABILITY_GAP").length;
@@ -654,6 +676,10 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
     literalStemDuplicateRate,
     normalizedStructuralStemReuseRate,
     learnerQuestionDuplicateRate,
+    standaloneNormalizedStructuralStemReuseRate,
+    standaloneLearnerQuestionDuplicateRate,
+    linkedSetTaskShellReuseRate,
+    linkedSetLearnerQuestionDuplicateRate,
     slotDistribution: countBy(records, (record) => record.slotKind),
     packageDistribution: countBy(runtimeRecords, (record) => record.packageId),
     packageStructuralReuse: packageStructuralReuse(runtimeRecords),

@@ -100,6 +100,30 @@ assert.equal(audit.optionMismatchCount, 0);
 assert.equal(audit.emptyExplanationCount, 0);
 assert.ok(audit.literalStemDuplicateRate >= 0 && audit.literalStemDuplicateRate <= 1);
 assert.ok(
+  audit.standaloneNormalizedStructuralStemReuseRate >= 0
+    && audit.standaloneNormalizedStructuralStemReuseRate <= 1,
+);
+assert.ok(
+  audit.standaloneLearnerQuestionDuplicateRate >= 0
+    && audit.standaloneLearnerQuestionDuplicateRate <= 1,
+);
+assert.ok(
+  audit.linkedSetTaskShellReuseRate >= 0
+    && audit.linkedSetTaskShellReuseRate <= 1,
+);
+assert.ok(
+  audit.linkedSetLearnerQuestionDuplicateRate >= 0
+    && audit.linkedSetLearnerQuestionDuplicateRate <= 1,
+);
+assert.ok(
+  audit.linkedSetLearnerQuestionDuplicateRate <= audit.linkedSetTaskShellReuseRate,
+  "Linked-set learner-visible duplication cannot exceed linked-set task-shell reuse.",
+);
+assert.ok(
+  audit.standaloneLearnerQuestionDuplicateRate <= audit.standaloneNormalizedStructuralStemReuseRate,
+  "Standalone learner-visible duplication cannot exceed standalone normalized structural reuse.",
+);
+assert.ok(
   audit.normalizedStructuralStemReuseRate <= 0.05,
   "The remediated empirical shadow run must keep normalized structural stem reuse at or below 5%.",
 );
@@ -160,6 +184,10 @@ console.log(JSON.stringify({
   emptyExplanationCount: audit.emptyExplanationCount,
   literalStemDuplicateRate: audit.literalStemDuplicateRate,
   normalizedStructuralStemReuseRate: audit.normalizedStructuralStemReuseRate,
+  standaloneNormalizedStructuralStemReuseRate: audit.standaloneNormalizedStructuralStemReuseRate,
+  standaloneLearnerQuestionDuplicateRate: audit.standaloneLearnerQuestionDuplicateRate,
+  linkedSetTaskShellReuseRate: audit.linkedSetTaskShellReuseRate,
+  linkedSetLearnerQuestionDuplicateRate: audit.linkedSetLearnerQuestionDuplicateRate,
   slotDistribution: audit.slotDistribution,
   packageDistribution: audit.packageDistribution,
   blockers: audit.blockers,
