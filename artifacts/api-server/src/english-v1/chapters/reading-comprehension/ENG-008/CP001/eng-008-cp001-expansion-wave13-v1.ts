@@ -165,7 +165,7 @@ Managers used that information to adjust inspector schedules during the morning 
 
 The depot kept both tags because “repair complete” and “approved for service” represented different stages.
 
-The change did not make repairs faster by itself, but it made the remaining step visible and reduced assumptions based only on the absence of a red tag.  Supervisors also began recording how long buses waited between repair completion and final release so recurring inspection bottlenecks could be identified.`,
+The change did not make repairs faster by itself, but it made the remaining step visible and reduced assumptions based only on the absence of a red tag.  Supervisors also began recording how long buses waited between repair completion and final release so recurring inspection bottlenecks could be identified.  The depot will review these waiting intervals monthly.`,
  questions:[
  q("R38-Q1","RC-F01","easy","What did the green tag mean?","The bus had passed final checks and was released for service",["The bus needed repair","The driver had arrived","The route was cancelled"],"The green tag followed both repair and final safety inspection.","released for service"),
  q("R38-Q2","RC-F02","medium","Why was removing the red tag not enough?","Repair completion did not necessarily mean the safety check was complete",["Red tags were hard to see","Drivers preferred green buses","Mechanics did not repair vehicles"],"A second approval stage remained after mechanical work.","final safety check"),
@@ -193,7 +193,7 @@ The department therefore kept the two-capacity display and added a note explaini
 
 Managers concluded that visible space and functional capacity are not always the same thing.
 
-A room can look partly empty while the specific equipment needed for a task is already fully used.  The department later added a small explanation showing why equipped capacity, rather than empty chairs, determined whether another student could join the electronics session.`,
+A room can look partly empty while the specific equipment needed for a task is already fully used.  The department later added a small explanation showing why equipped capacity, rather than empty chairs, determined whether another student could join the electronics session.  Staff will also compare how often students misread general empty seats as usable electronics capacity after the new board is introduced.`,
  questions:[
  q("R39-Q1","RC-F01","easy","How many workstations could support the electronics practical?","Twelve",["Twenty","Eight","None"],"Only twelve desks had the required power modules.","only twelve"),
  q("R39-Q2","RC-F02","medium","Why did empty desks mislead students?","Some desks lacked the equipment needed for that practical",["The lab had no chairs","The session was cancelled","Students ignored the board"],"Physical emptiness did not equal usable task capacity.","lacked the required power modules"),
