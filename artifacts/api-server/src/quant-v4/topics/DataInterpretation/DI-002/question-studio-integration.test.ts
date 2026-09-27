@@ -1,5 +1,6 @@
 import { quantV4QuestionStudioAdapter } from "../../../../question-studio/engines/quant-v4-adapter";
 import { DI002_PERMANENT_QLS, DI002_PERMANENT_RELEASE_ID } from "./permanent-ql-registry";
+import { DI002_LOCALIZATION_RELEASE_ID } from "./localization-review-v1";
 import {
   DI002_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
   DI002_QUESTION_STUDIO_RUNTIME_MODE,
@@ -18,7 +19,7 @@ assert(card.runtimeMode === DI002_QUESTION_STUDIO_RUNTIME_MODE, "DI-002 package 
 assert(card.questionBankStatus === "NOT_STORED" && card.questionBankWritable === false, "DI-002 must remain outside Question Bank writes.");
 assert(card.testEligibility === "INELIGIBLE" && card.testEligible === false && card.mockTestEligible === false, "DI-002 must remain ineligible for tests and mocks.");
 assert(card.publiclyPublishable === false && card.automaticStudentPublication === false && card.productionReleaseAuthorized === false, "DI-002 publication locks drifted.");
-assert(card.supportedLanguages.length === 1 && card.supportedLanguages[0] === "en", "DI-002 must remain English-only until localization is approved.");
+assert(["en", "hi", "pa"].every((language) => card.supportedLanguages.includes(language as any)), "DI-002 package card must expose approved English, Hindi and Punjabi controlled-review languages.");
 
 const seen = new Set<string>();
 for (const descriptor of DI002_PERMANENT_QLS) {
@@ -80,6 +81,65 @@ assert(shared.questions.length === 12, "Shared Quant V4 adapter did not route DI
 assert(new Set(shared.questions.map((question) => question.questionLanguageId)).size === 12, "A 12-question mixed DI-002 batch must cover all permanent QLs once.");
 assert(shared.questions.every((question) => question.packageId === "DI-002" && question.questionBankWritable === false && question.testEligible === false), "Shared adapter widened DI-002 lifecycle authority.");
 
+for (const language of ["hi", "pa"] as const) {
+  const localized = await quantV4QuestionStudioAdapter.generate({
+    packageId: "DI-002",
+    canonicalProblemId: DI002_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
+    language,
+    count: 12,
+    seed: `DI002-MULTILINGUAL-QS-${language}`,
+    exam: "SSC CGL Tier I",
+  });
+  assert(localized.questions.length === 12, `DI-002 ${language} controlled review did not generate all 12 permanent QLs.`);
+  assert(new Set(localized.questions.map((question) => question.questionLanguageId)).size === 12, `DI-002 ${language} batch did not cover all permanent QLs.`);
+
+  for (const raw of localized.questions) {
+    const question = raw as Record<string, any>;
+    const learnerText = [
+      question.stimulus?.title,
+      question.stimulus?.instruction,
+      question.stimulus?.rowHeader,
+      ...(question.stimulus?.columns ?? []),
+      ...(question.stimulus?.rows ?? []).map((row: any) => row.label),
+      question.stem,
+      ...(question.options ?? []),
+      question.answer,
+      question.explanation,
+    ].join(" ");
+
+    assert(question.language === language, `DI-002 ${language} question lost requested language.`);
+    assert(question.reviewStatus === "MULTILINGUAL_FROZEN", `DI-002 ${language} question is not frozen multilingual authority.`);
+    assert(question.releaseId === DI002_LOCALIZATION_RELEASE_ID, `DI-002 ${language} question lost localization release identity.`);
+    assert(question.questionBankWritable === false && question.testEligible === false && question.mockTestEligible === false, `DI-002 ${language} widened learner lifecycle authority.`);
+    assert(question.publiclyPublishable === false && question.automaticStudentPublication === false && question.productionReleaseAuthorized === false, `DI-002 ${language} widened publication authority.`);
+    assert(Array.isArray(question.options) && question.options.length === 4 && new Set(question.options).size === 4, `DI-002 ${language} SSC options drifted.`);
+    assert(question.options[question.correctIndex] === question.answer, `DI-002 ${language} localized answer-index binding failed.`);
+    assert(question.stimulus?.kind === "TABLE" && question.stimulus.rows.length === 5, `DI-002 ${language} table stimulus drifted.`);
+    assert(question.stimulus.rows.filter((row: any) => row.applicants === "?").length === 1, `DI-002 ${language} lost the one-missing-Applicants contract.`);
+    assert(!/[A-Za-z]/u.test(learnerText), `DI-002 ${language} learner surface leaks Roman text: ${learnerText}`);
+    if (language === "hi") {
+      assert(/[\u0904-\u0939\u093C-\u094D\u0950-\u0961\u0971-\u097F]/u.test(learnerText), "DI-002 Hindi Question Studio surface lacks Devanagari.");
+      assert(!/[\u0A05-\u0A39\u0A3C-\u0A4D\u0A59-\u0A5E]/u.test(learnerText), `DI-002 Hindi Question Studio surface leaks Gurmukhi: ${learnerText}`);
+      assert(!/स्तंभ/u.test(learnerText), `DI-002 Hindi learner surface leaked banned terminology: ${learnerText}`);
+    } else {
+      assert(/[\u0A05-\u0A39\u0A3C-\u0A4D\u0A59-\u0A5E]/u.test(learnerText), "DI-002 Punjabi Question Studio surface lacks Gurmukhi.");
+      assert(!/[\u0904-\u0939\u093C-\u094D\u0950-\u0961\u0971-\u097F]/u.test(learnerText), `DI-002 Punjabi Question Studio surface leaks Devanagari: ${learnerText}`);
+    }
+    assert(!/nearest whole percent|round to the nearest|निकटतम पूर्ण प्रतिशत|पूर्ण प्रतिशत तक पूर्णांकित|ਸਭ ਤੋਂ ਨੇੜਲਾ ਪੂਰਾ ਪ੍ਰਤੀਸ਼ਤ|ਪੂਰੇ ਪ੍ਰਤੀਸ਼ਤ ਤੱਕ ਗੋਲ/iu.test(learnerText), `DI-002 ${language} reintroduced explicit rounding instructions.`);
+    assert(!new Set(["DIRECT_SELECTED_VALUE", "DIRECT_SELECTION_RATE", "SELECTION_RATE_POINT_GAP"]).has(question.taskKind), `DI-002 ${language} reintroduced a retired trivial family.`);
+    if (question.difficulty === "Easy") {
+      assert(["SELECTED_DIFFERENCE", "COMBINED_SELECTED"].includes(question.taskKind), `DI-002 ${language} Easy route stopped requiring arithmetic.`);
+      assert(Number(question.richExplanation?.steps?.length) >= 2, `DI-002 ${language} Easy explanation collapsed to lookup.`);
+    }
+    if (question.difficulty === "Medium") {
+      assert(Number(question.richExplanation?.steps?.length) >= 2, `DI-002 ${language} Medium explanation lost derived/aggregate working.`);
+    }
+    if (question.difficulty === "Hard") {
+      assert(Number(question.richExplanation?.steps?.length) >= 3, `DI-002 ${language} Hard explanation lost multi-step reasoning.`);
+    }
+  }
+}
+
 const banking = await quantV4QuestionStudioAdapter.generate({
   packageId: "DI-002",
   language: "en",
@@ -99,16 +159,8 @@ const explicit = await quantV4QuestionStudioAdapter.generate({
 });
 assert(explicit.questions[0]?.packageId === "DI-002", "DI-QL-097 was intercepted by another DI package selector.");
 
-let localizationBlocked = false;
-try {
-  await generateDi002QuestionStudioBatch({ packageId: "DI-002", language: "hi", count: 1, seed: "DI002-LOCALIZATION-LOCK" });
-} catch {
-  localizationBlocked = true;
-}
-assert(localizationBlocked, "DI-002 Hindi generation must stay blocked until localization is approved.");
-
 console.log(JSON.stringify({
-  status: "PASS_DI_002_QUESTION_STUDIO_CONTROLLED_REVIEW",
+  status: "PASS_DI_002_QUESTION_STUDIO_MULTILINGUAL_CONTROLLED_REVIEW",
   releaseId: DI002_PERMANENT_RELEASE_ID,
   runtimeMode: DI002_QUESTION_STUDIO_RUNTIME_MODE,
   permanentQlCount: DI002_PERMANENT_QLS.length,
