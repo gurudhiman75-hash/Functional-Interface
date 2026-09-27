@@ -17,6 +17,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
       - artifacts/api-server/src/quant-v4/generation-engine.ts
       - artifacts/api-server/src/routes/admin-question-studio-calendar.ts
+      - artifacts/api-server/src/routes/admin-question-studio-registry.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/features/question-studio/calendar-review-api.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioCalendarReviewPanel.tsx
@@ -31,6 +32,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
       - artifacts/api-server/src/quant-v4/generation-engine.ts
       - artifacts/api-server/src/routes/admin-question-studio-calendar.ts
+      - artifacts/api-server/src/routes/admin-question-studio-registry.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/features/question-studio/calendar-review-api.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioCalendarReviewPanel.tsx
