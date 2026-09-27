@@ -10,6 +10,9 @@ import { generateDi005PieSet } from "../topics/DataInterpretation/DI-005";
 import { generateDi006CaseletSet } from "../topics/DataInterpretation/DI-006";
 import {
   generateQuantV4AdvancedMathSectionQuestion,
+  quantV4AdvancedMathDifficultyForSeed,
+  quantV4TrigonometryPackageForSeed,
+  type QuantV4AdvancedMathDifficulty,
 } from "./quant-v4-real-exam-advanced-math-adapters-p2";
 import {
   generateQuantV4RealExamSectionWithAdvancedMath,
@@ -412,12 +415,14 @@ async function generateAdvancedMathRecord(input: {
   ordinal: number;
   slotKind: "ALGEBRA" | "TRIGONOMETRY";
   seed: string;
+  diversityCapacityOrdinal?: number;
 }): Promise<QuantV4CglTier1ShadowQuestionRecord> {
   try {
     const result = await generateQuantV4AdvancedMathSectionQuestion({
       examId: "SSC_CGL_TIER_I",
       slotKind: input.slotKind,
       seed: input.seed,
+      diversityCapacityOrdinal: input.diversityCapacityOrdinal,
     });
     return runtimeRecord({
       sectionIndex: input.sectionIndex,
@@ -437,6 +442,7 @@ async function generateAdvancedMathRecord(input: {
 export async function generateQuantV4CglTier1ShadowSection(input: {
   readonly sectionIndex: number;
   readonly seed?: string;
+  readonly trigonometryDiversityOrdinals?: readonly (number | undefined)[];
 }): Promise<QuantV4CglTier1ShadowSection> {
   const current = profile();
   const governance = buildQuantV4CglTier1ShadowFrequencyGovernance({ currentSlotPlan: current.slotPlan });
@@ -447,6 +453,7 @@ export async function generateQuantV4CglTier1ShadowSection(input: {
   const sectionIndex = Math.max(1, Math.floor(input.sectionIndex));
   const seed = input.seed ?? `${QUANT_V4_CGL_TIER1_SHADOW_SIMULATION_AUTHORITY}:${sectionIndex}`;
   const records: QuantV4CglTier1ShadowQuestionRecord[] = [];
+  let trigonometrySlotIndex = 0;
 
   for (const slot of governance.shadowSlotPlan) {
     if (slot.kind === "DATA_INTERPRETATION") {
@@ -465,7 +472,16 @@ export async function generateQuantV4CglTier1ShadowSection(input: {
       if (slot.kind === "ARITHMETIC_CORE" || slot.kind === "GEOMETRY_MENSURATION") {
         records.push(await generateCoreRecord({ sectionIndex, ordinal, slotKind: slot.kind, seed: slotSeed }));
       } else if (slot.kind === "ALGEBRA" || slot.kind === "TRIGONOMETRY") {
-        records.push(await generateAdvancedMathRecord({ sectionIndex, ordinal, slotKind: slot.kind, seed: slotSeed }));
+        const diversityCapacityOrdinal = slot.kind === "TRIGONOMETRY"
+          ? input.trigonometryDiversityOrdinals?.[trigonometrySlotIndex++]
+          : undefined;
+        records.push(await generateAdvancedMathRecord({
+          sectionIndex,
+          ordinal,
+          slotKind: slot.kind,
+          seed: slotSeed,
+          diversityCapacityOrdinal,
+        }));
       } else {
         records.push(gapRecord({
           sectionIndex,
@@ -499,10 +515,25 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
 
   const shadowSections: QuantV4CglTier1ShadowSection[] = [];
   const integratedBaselineSections = [];
+  const trigonometryDiversityCursor: Record<QuantV4AdvancedMathDifficulty, number> = {
+    Easy: 0,
+    Medium: 0,
+    Hard: 0,
+  };
   for (let sectionIndex = 1; sectionIndex <= sections; sectionIndex += 1) {
+    const shadowSeed = `${seedPrefix}:shadow:${sectionIndex}`;
+    const trigonometryDiversityOrdinals = Array.from({ length: 3 }, (_, slotIndex) => {
+      const slotSeed = `${shadowSeed}:TRIGONOMETRY:${slotIndex}`;
+      const family = quantV4TrigonometryPackageForSeed("SSC_CGL_TIER_I", slotSeed);
+      if (family !== "TRG-001") return undefined;
+      const difficulty = quantV4AdvancedMathDifficultyForSeed(slotSeed);
+      return trigonometryDiversityCursor[difficulty]++;
+    });
+
     shadowSections.push(await generateQuantV4CglTier1ShadowSection({
       sectionIndex,
-      seed: `${seedPrefix}:shadow:${sectionIndex}`,
+      seed: shadowSeed,
+      trigonometryDiversityOrdinals,
     }));
     integratedBaselineSections.push(await generateQuantV4RealExamSectionWithAdvancedMath({
       examId: "SSC_CGL_TIER_I",
