@@ -78,6 +78,7 @@ for (const locale of locales) {
       assert(!/[A-Za-z]/u.test(text), `${key} leaks Roman learner-facing text: ${text}`);
       assert(!/\d+\.\d+/u.test(text), `${key} exposes decimal learner-facing values: ${text}`);
       assert(!/स्तंभ|ਸਤੰਭ/u.test(text), `${key} uses literal column/pillar wording on a DI learner surface: ${text}`);
+      assert(!/निकटतम पूर्ण|ਨਜ਼ਦੀਕੀ ਪੂਰੇ|ਨਜ਼ਦੀਕੀ ਪੂਰੀ|ਨਜ਼ਦੀਕੀ ਪੂਰਾ/u.test(text), `${key} leaked explicit rounding instructions: ${text}`);
       if (locale === "hi-IN") assert(/[\u0900-\u097F]/u.test(text), `${key} lacks Devanagari learner text.`);
       else assert(/[\u0A00-\u0A7F]/u.test(text), `${key} lacks Gurmukhi learner text.`);
       assert(localized.question.explanation.steps.length >= 1, `${key} localized explanation is empty.`);
