@@ -11,7 +11,9 @@ for(let seed=0;seed<80;seed++){
  assert.equal(independentlySolveMisCp014Missing(q.target,q.targetTotal,q.missingCorner),q.answer);
  assert.equal(q.options.length,4);assert.equal(new Set(q.options.map(o=>o.value)).size,4);assert.equal(q.options[q.correctIndex]!.value,q.answer);
  assert.equal(q.figures.length,3);assert.ok(q.figures.every(f=>f.svg.includes('<rect')&&!f.svg.includes('<circle')));
- assert.equal((q.stem.match(/\?/g)??[]).length,2);
+ assert.equal((q.stem.match(/\?/g)??[]).length,1);
+ assert.ok(!q.figures[0]!.svg.includes('>?</text>')&&!q.figures[1]!.svg.includes('>?</text>'));
+ assert.ok(q.figures[2]!.svg.includes('>?</text>'));
  corners.add(q.missingCorner);pos[q.correctIndex]++;total++;
 }
 assert.equal(total,80);assert.deepEqual([...corners].sort(),['bottomLeft','bottomRight','topLeft','topRight']);assert.ok(Math.max(...pos)/Math.min(...pos)<1.8);
