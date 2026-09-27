@@ -76,8 +76,8 @@ console.log("SHADOW_ADVANCED_MATH_AUDIT", JSON.stringify(audit));
 // Advanced Mathematics adapters now close the former Algebra/Trigonometry
 // generation gaps, and Probability selection must choose only entries that are
 // valid for the requested exam profile+difficulty. Promotion still remains on
-// hold because Algebra is deliberately BANK_ONLY and the empirical shadow run
-// remains above the conservative normalized-stem repetition ceiling.
+// hold because Algebra is deliberately BANK_ONLY. The empirical shadow run must
+// keep normalized structural stem reuse at or below the conservative 5% ceiling.
 assert.equal(audit.status, "SHADOW_SIMULATION_HOLD");
 assert.equal(audit.sectionsGenerated, 20);
 assert.equal(audit.questionsExpected, 500);
