@@ -756,7 +756,7 @@ jobs:
       - name: Run GEO-MIN-001 review gates
         run: |
           mkdir -p artifacts/api-server/dist/geography
-          for cp in 001 002 003 004 005 006 007 008 009; do
+          for cp in 001 002 003 004 005 006 007 008 009 010 011 012; do
             pnpm --dir artifacts/api-server exec esbuild \
               "src/knowledge-v1/indian-geography/minerals-energy/geo-min-001-cp${cp}-review-batch-v1.test.ts" \
               --bundle --packages=external --platform=node --format=esm \
@@ -774,6 +774,14 @@ jobs:
             --bundle --packages=external --platform=node --format=esm \
             --outfile="dist/geography/geo-min-001-wave1-audit-v1.test.mjs"
           node "artifacts/api-server/dist/geography/geo-min-001-wave1-audit-v1.test.mjs"
+
+      - name: Run GEO-MIN-001 chapter-wide owning-pool audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            "src/knowledge-v1/indian-geography/minerals-energy/geo-min-001-owning-pool-v1.test.ts" \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile="dist/geography/geo-min-001-owning-pool-v1.test.mjs"
+          node "artifacts/api-server/dist/geography/geo-min-001-owning-pool-v1.test.mjs"
 
       - name: Upload GEO-MIN-001 review artifacts
         uses: actions/upload-artifact@v4
