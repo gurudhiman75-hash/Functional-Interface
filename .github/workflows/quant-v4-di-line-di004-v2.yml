@@ -56,6 +56,9 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/export-review-v2.ts DI-004-REVIEW-V2.md
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/export-review-v2-html.ts DI-004-REVIEW-V2.html
           grep -q 'data-line-chart="true"' DI-004-REVIEW-V2.html
+          grep -q 'data-point-value-labels="true"' DI-004-REVIEW-V2.html
+          grep -q 'data-series-a-value="0"' DI-004-REVIEW-V2.html
+          grep -q 'data-series-b-value="0"' DI-004-REVIEW-V2.html
           grep -q 'DI-004 Line Graph — Visual Review' DI-004-REVIEW-V2.html
       - uses: actions/upload-artifact@v4
         with:
