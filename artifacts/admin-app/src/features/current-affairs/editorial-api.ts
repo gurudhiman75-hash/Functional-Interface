@@ -30,6 +30,18 @@ export type CurrentAffairsHeadlineReviewItem = {
   linkedEventTitle: string | null;
 };
 
+export type CurrentAffairsHeadlineNewsPreview = {
+  candidateId: string;
+  title: string;
+  sourceName: string;
+  sourceUrl: string;
+  publishedAt: string | null;
+  context: string;
+  contextSource: 'linked_event' | 'stored_summary' | 'live_source' | 'unavailable';
+  note: string | null;
+  generatedAt: string;
+};
+
 export type CurrentAffairsHeadlineReview = {
   targetDate: string;
   items: CurrentAffairsHeadlineReviewItem[];
@@ -256,6 +268,10 @@ export type CurrentAffairsQuestionEditorialDetail = {
 
 export function getCurrentAffairsHeadlineReview(date: string, limit = 1000) {
   return adminRequest<CurrentAffairsHeadlineReview>(`/admin/current-affairs/editorial/headlines?date=${encodeURIComponent(date)}&limit=${limit}`);
+}
+
+export function getCurrentAffairsHeadlineNewsPreview(candidateId: string) {
+  return adminRequest<CurrentAffairsHeadlineNewsPreview>(`/admin/current-affairs/editorial/headlines/${encodeURIComponent(candidateId)}/news-preview`);
 }
 
 export function setCurrentAffairsHeadlineSelection(candidateId: string, selected: boolean, reason: string) {
