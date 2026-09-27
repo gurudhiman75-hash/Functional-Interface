@@ -69,9 +69,9 @@ export function leapCenturyProblem(id: CalendarPrototypeId, seed: number, locale
         if (stemVariant === 1) {
           return t(
             locale,
-            `Identify the only ${targetLeap ? "leap" : "ordinary"} year among the given options.`,
-            `दिए गए विकल्पों में केवल ${targetLeap ? "अधिवर्ष" : "साधारण वर्ष"} की पहचान कीजिए।`,
-            `ਦਿੱਤੇ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ਕੇਵਲ ${targetLeap ? "ਲੀਪ ਸਾਲ" : "ਸਧਾਰਣ ਸਾਲ"} ਦੀ ਪਛਾਣ ਕਰੋ।`,
+            `Which of the given options is the only ${targetLeap ? "leap" : "ordinary"} year?`,
+            `दिए गए विकल्पों में केवल कौन-सा ${targetLeap ? "अधिवर्ष" : "साधारण वर्ष"} है?`,
+            `ਦਿੱਤੇ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ਕੇਵਲ ਕਿਹੜਾ ${targetLeap ? "ਲੀਪ ਸਾਲ" : "ਸਧਾਰਣ ਸਾਲ"} ਹੈ?`,
           );
         }
         if (stemVariant === 2) {
