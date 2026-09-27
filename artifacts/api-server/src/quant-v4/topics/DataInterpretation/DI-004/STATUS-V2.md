@@ -28,8 +28,8 @@ V2 rebuilds the learner/content layer without mutating the old regression engine
 - SSC CGL Tier I: 4 options;
 - Banking Prelims: 5 options;
 - integer plotted values;
-- percentage answers rounded to the nearest whole percent with explicit wording;
-- three-period averages shown to the nearest whole number with explicit wording;
+- percentage answers use whole-number approximations without learner-facing rounding instructions;
+- three-period averages use whole-number approximations without learner-facing rounding instructions;
 - simple question-specific explanations;
 - working tables where they improve multi-step clarity;
 - no forced shortcut/trap boilerplate;
