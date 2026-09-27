@@ -76,6 +76,7 @@ export interface QuantV4RealExamProfile {
     | "SSC_CGL_TIER_I"
     | "SSC_CGL_CHSL"
     | "SSC_CGL_JSO"
+    | "PUNJAB_STATE"
     | "BANKING_PRELIMS"
     | "BANKING_MAINS"
     | null;
@@ -150,8 +151,8 @@ export const QUANT_V4_REAL_EXAM_PROFILES: readonly QuantV4RealExamProfile[] = Ob
     family: "PUNJAB_STATE",
     questionCount: 20,
     expectedOptionCount: 4,
-    centralDeliveryProfile: null,
-    centralProfileGap: true,
+    centralDeliveryProfile: "PUNJAB_STATE",
+    centralProfileGap: false,
     blueprintEvidence: "PROVISIONAL_PYQ_WEIGHTING_REQUIRED",
     slotPlan: [
       { kind: "ARITHMETIC_CORE", count: 14 },
@@ -167,8 +168,8 @@ export const QUANT_V4_REAL_EXAM_PROFILES: readonly QuantV4RealExamProfile[] = Ob
     family: "PUNJAB_STATE",
     questionCount: 20,
     expectedOptionCount: 4,
-    centralDeliveryProfile: null,
-    centralProfileGap: true,
+    centralDeliveryProfile: "PUNJAB_STATE",
+    centralProfileGap: false,
     blueprintEvidence: "PROVISIONAL_PYQ_WEIGHTING_REQUIRED",
     slotPlan: [
       { kind: "ARITHMETIC_CORE", count: 14 },
@@ -184,8 +185,8 @@ export const QUANT_V4_REAL_EXAM_PROFILES: readonly QuantV4RealExamProfile[] = Ob
     family: "PUNJAB_STATE",
     questionCount: 20,
     expectedOptionCount: 4,
-    centralDeliveryProfile: null,
-    centralProfileGap: true,
+    centralDeliveryProfile: "PUNJAB_STATE",
+    centralProfileGap: false,
     blueprintEvidence: "PROVISIONAL_PYQ_WEIGHTING_REQUIRED",
     slotPlan: [
       { kind: "ARITHMETIC_CORE", count: 15 },
