@@ -68,6 +68,7 @@ import { misCp011RuleByCandidateId, type MisCp011CandidateId } from './MIS-CP-01
 import { MIS_CP012_CANDIDATE_IDS, generateMisCp012Question, type GeneratedMisCp012Question } from './MIS-CP-012/generator';
 import { evaluateMisCp012Rule, ruleFitsMisCp012 } from './MIS-CP-012/independent-solver';
 import { misCp012ProfileByCandidateId, type MisCp012CandidateId } from './MIS-CP-012/rule-definitions';
+import { canonicalMisSemanticAuthorityId, misCandidateCreatesSemanticAuthority } from './semantic-authority-registry';
 
 export const MIS_001_PACKAGE_ID = 'MIS-001' as const;
 export const MIS_001_RUNTIME_MODE = 'review-only' as const;
@@ -94,17 +95,11 @@ const ALL_CANDIDATES: readonly MisCandidateId[] = Object.freeze([
 ]);
 
 function canonicalSemanticAuthorityId(candidateId: MisCandidateId): string {
-  if (isCp008Candidate(candidateId)) return misCp008RuleByCandidateId(candidateId).semanticAuthorityCandidateId;
-  if (isCp009Candidate(candidateId)) return misCp009RuleByCandidateId(candidateId).semanticAuthorityCandidateId;
-  if (isCp012Candidate(candidateId)) return misCp012ProfileByCandidateId(candidateId).semanticAuthorityCandidateId;
-  return candidateId;
+  return canonicalMisSemanticAuthorityId(candidateId);
 }
 
 function createsNewSemanticAuthority(candidateId: MisCandidateId): boolean {
-  if (isCp008Candidate(candidateId)) return misCp008RuleByCandidateId(candidateId).createsNewSemanticAuthority;
-  if (isCp009Candidate(candidateId)) return misCp009RuleByCandidateId(candidateId).createsNewSemanticAuthority;
-  if (isCp012Candidate(candidateId)) return false;
-  return true;
+  return misCandidateCreatesSemanticAuthority(candidateId);
 }
 
 const SEMANTIC_AUTHORITY_IDS = Object.freeze([...new Set(ALL_CANDIDATES.map(canonicalSemanticAuthorityId))]);
@@ -490,8 +485,8 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     cp012CandidateCount: MIS_CP012_CANDIDATE_IDS.length,
     permanentQlCount: 0,
     permanentQlAllocation: false,
-    sourceSaturationComplete: false,
-    mergeSplitAuditComplete: false,
+    sourceSaturationComplete: true,
+    mergeSplitAuditComplete: true,
     englishEditorialFreezeComplete: false,
     localizationStarted: false,
     deterministicGeneration: true,
@@ -549,12 +544,8 @@ export async function generateMis001QuestionStudioBatch(
       packageId: MIS_001_PACKAGE_ID,
       patternId: candidateId,
       candidateId,
-      semanticAuthorityCandidateId: 'semanticAuthorityCandidateId' in generated
-        ? generated.semanticAuthorityCandidateId
-        : candidateId,
-      createsNewSemanticAuthority: 'createsNewSemanticAuthority' in generated
-        ? generated.createsNewSemanticAuthority
-        : true,
+      semanticAuthorityCandidateId: canonicalSemanticAuthorityId(candidateId),
+      createsNewSemanticAuthority: createsNewSemanticAuthority(candidateId),
       qlId: null,
       provisionalQl: true,
       cpId: generated.checkpointId,
@@ -618,15 +609,11 @@ export async function generateMis001QuestionStudioBatch(
         packageId: MIS_001_PACKAGE_ID,
         checkpointId: generated.checkpointId,
         candidateId,
-        semanticAuthorityCandidateId: 'semanticAuthorityCandidateId' in generated
-          ? generated.semanticAuthorityCandidateId
-          : candidateId,
-        createsNewSemanticAuthority: 'createsNewSemanticAuthority' in generated
-          ? generated.createsNewSemanticAuthority
-          : true,
+        semanticAuthorityCandidateId: canonicalSemanticAuthorityId(candidateId),
+        createsNewSemanticAuthority: createsNewSemanticAuthority(candidateId),
         ruleId: generated.ruleId,
         permanentQlAllocated: false,
-        sourceSaturationComplete: false,
+        sourceSaturationComplete: true,
       },
       validation: {
         sameRuleFitsAllExamples: independent.sameRuleFitsAllExamples,
@@ -667,7 +654,7 @@ export async function generateMis001QuestionStudioBatch(
       semanticAuthorityCount: SEMANTIC_AUTHORITY_IDS.length,
       runtimePatternCount: ALL_CANDIDATES.length,
       reusedSemanticVariantIds: [...REUSED_VARIANT_IDS],
-      sourceSaturationComplete: false,
+      sourceSaturationComplete: true,
       language,
       requestedDifficulty: requestedDifficulty ?? 'Mixed',
       difficultyFilterApplied: Boolean(requestedDifficulty),
