@@ -1,6 +1,7 @@
 import { buildGeoMinQl, finalizeGeoMinCp, auditGeoMinCp } from "./geo-min-001-review-builder";
 
-const QL_028 = buildGeoMinQl("BAUXITE-AS-ALUMINIUM-ORE", "Bauxite as aluminium ore", [
+const QLS = Object.freeze([
+buildGeoMinQl("BAUXITE-AS-ALUMINIUM-ORE", "Bauxite as aluminium ore", [
   {
     "stem": "Which mineral is the principal ore of aluminium?",
     "answer": "Bauxite",
@@ -67,9 +68,9 @@ const QL_028 = buildGeoMinQl("BAUXITE-AS-ALUMINIUM-ORE", "Bauxite as aluminium o
     "explanation": "Bauxite can form as a residual weathering product and is the principal source of aluminium, a light non-ferrous metal. The combined clues separate it from manganese and non-metallic minerals.",
     "sourceFactId": "BAUXITE-REASONING"
   }
-] as const);
+] as const),
 
-const QL_029 = buildGeoMinQl("BAUXITE-FORMATION-AND-RESIDUAL-OCCURRENCE", "Bauxite formation and residual occurrence", [
+buildGeoMinQl("BAUXITE-FORMATION-AND-RESIDUAL-OCCURRENCE", "Bauxite formation and residual occurrence", [
   {
     "stem": "Bauxite commonly forms through which process in tropical and subtropical conditions?",
     "answer": "Intense weathering and leaching of rocks rich in aluminium compounds",
@@ -136,9 +137,9 @@ const QL_029 = buildGeoMinQl("BAUXITE-FORMATION-AND-RESIDUAL-OCCURRENCE", "Bauxi
     "explanation": "Leaching on a stable surface can create residual bauxite, whereas flowing water can concentrate heavy resistant grains into placers. The processes are fundamentally different.",
     "sourceFactId": "BAUXITE-VS-PLACER"
   }
-] as const);
+] as const),
 
-const QL_030 = buildGeoMinQl("MAJOR-BAUXITE-REGIONS-AND-PLATEAUS", "Major bauxite regions and plateaus", [
+buildGeoMinQl("MAJOR-BAUXITE-REGIONS-AND-PLATEAUS", "Major bauxite regions and plateaus", [
   {
     "stem": "Which plateau-region association is well known for bauxite deposits in central India?",
     "answer": "Amarkantak–Maikal plateau region",
@@ -205,9 +206,9 @@ const QL_030 = buildGeoMinQl("MAJOR-BAUXITE-REGIONS-AND-PLATEAUS", "Major bauxit
     "explanation": "The two locations are widely used examples of bauxite geography in India's plateau regions. Their shared link is aluminium ore rather than fuel or mica resources.",
     "sourceFactId": "BAUXITE-REGION-REASONING"
   }
-] as const);
+] as const),
 
-const QL_031 = buildGeoMinQl("COPPER-PROPERTIES-AND-INDUSTRIAL-USES", "Copper properties and industrial uses", [
+buildGeoMinQl("COPPER-PROPERTIES-AND-INDUSTRIAL-USES", "Copper properties and industrial uses", [
   {
     "stem": "Which metal is especially important for electrical cables because of its high electrical conductivity?",
     "answer": "Copper",
@@ -274,9 +275,9 @@ const QL_031 = buildGeoMinQl("COPPER-PROPERTIES-AND-INDUSTRIAL-USES", "Copper pr
     "explanation": "Electric networks, motors, transformers and electronics use substantial copper because of its conductivity. This demand channel is distinct from the iron-and-steel mineral chain.",
     "sourceFactId": "COPPER-REASONING"
   }
-] as const);
+] as const),
 
-const QL_032 = buildGeoMinQl("MAJOR-COPPER-FIELDS-KHETRI-BALAGHAT-AND-SINGHBHUM", "Major copper fields: Khetri, Balaghat and Singhbhum", [
+buildGeoMinQl("MAJOR-COPPER-FIELDS-KHETRI-BALAGHAT-AND-SINGHBHUM", "Major copper fields: Khetri, Balaghat and Singhbhum", [
   {
     "stem": "Khetri copper belt is located in which state?",
     "answer": "Rajasthan",
@@ -343,9 +344,9 @@ const QL_032 = buildGeoMinQl("MAJOR-COPPER-FIELDS-KHETRI-BALAGHAT-AND-SINGHBHUM"
     "explanation": "Khetri lies in Rajasthan, Balaghat in Madhya Pradesh and Singhbhum in Jharkhand. The three together form a standard west-central-east copper-location sequence.",
     "sourceFactId": "COPPER-MAP-REASONING"
   }
-] as const);
+] as const),
 
-const QL_033 = buildGeoMinQl("LEAD-AND-ZINC-AS-NON-FERROUS-MINERALS", "Lead and zinc as non-ferrous minerals", [
+buildGeoMinQl("LEAD-AND-ZINC-AS-NON-FERROUS-MINERALS", "Lead and zinc as non-ferrous minerals", [
   {
     "stem": "Lead and zinc belong to which mineral category?",
     "answer": "Non-ferrous metallic minerals",
@@ -412,9 +413,9 @@ const QL_033 = buildGeoMinQl("LEAD-AND-ZINC-AS-NON-FERROUS-MINERALS", "Lead and 
     "explanation": "Lead and zinc frequently occur together in sulphide ore bodies, so mining districts can produce both metals. Their shared geological occurrence supports combined regional treatment.",
     "sourceFactId": "LEAD-ZINC-REASONING"
   }
-] as const);
+] as const),
 
-const QL_034 = buildGeoMinQl("RAJASTHAN-LEAD-ZINC-BELT", "Rajasthan lead-zinc belt", [
+buildGeoMinQl("RAJASTHAN-LEAD-ZINC-BELT", "Rajasthan lead-zinc belt", [
   {
     "stem": "Which state is especially important for India's lead-zinc mineral belt?",
     "answer": "Rajasthan",
@@ -481,9 +482,9 @@ const QL_034 = buildGeoMinQl("RAJASTHAN-LEAD-ZINC-BELT", "Rajasthan lead-zinc be
     "explanation": "Khetri and Zawar are both in Rajasthan but represent different non-ferrous mineral resources. Khetri is a copper belt, whereas Zawar is linked with lead and zinc.",
     "sourceFactId": "KHETRI-ZAWAR-COMPARE"
   }
-] as const);
+] as const),
 
-const QL_035 = buildGeoMinQl("ALUMINIUM-PROPERTIES-AND-USES", "Aluminium properties and uses", [
+buildGeoMinQl("ALUMINIUM-PROPERTIES-AND-USES", "Aluminium properties and uses", [
   {
     "stem": "Which property helps explain aluminium's extensive use in aircraft and transport equipment?",
     "answer": "Low density combined with useful strength",
@@ -550,9 +551,9 @@ const QL_035 = buildGeoMinQl("ALUMINIUM-PROPERTIES-AND-USES", "Aluminium propert
     "explanation": "Bauxite is refined to alumina and then smelted to produce aluminium. The resulting metal is widely used because it is light, workable, conductive and corrosion resistant.",
     "sourceFactId": "BAUXITE-ALUMINIUM-CHAIN"
   }
-] as const);
+] as const),
 
-const QL_036 = buildGeoMinQl("INTEGRATED-NON-FERROUS-MINERAL-REASONING", "Integrated non-ferrous mineral reasoning", [
+buildGeoMinQl("INTEGRATED-NON-FERROUS-MINERAL-REASONING", "Integrated non-ferrous mineral reasoning", [
   {
     "stem": "Which set contains only non-ferrous mineral resources?",
     "answer": "Bauxite, copper and lead-zinc",
@@ -619,7 +620,8 @@ const QL_036 = buildGeoMinQl("INTEGRATED-NON-FERROUS-MINERAL-REASONING", "Integr
     "explanation": "Panchpatmali represents bauxite, Khetri copper and Zawar lead-zinc. Although the metals differ, all belong to the non-ferrous metallic group.",
     "sourceFactId": "NONFERROUS-INTEGRATED-6"
   }
-] as const);
+] as const)
+]);
 
-export const GEO_MIN_001_CP004_REVIEW_BATCH_V1 = finalizeGeoMinCp(4, [QL_028, QL_029, QL_030, QL_031, QL_032, QL_033, QL_034, QL_035, QL_036]);
-export function auditGeoMin001Cp004ReviewBatchV1() { return auditGeoMinCp(4, [QL_028, QL_029, QL_030, QL_031, QL_032, QL_033, QL_034, QL_035, QL_036], GEO_MIN_001_CP004_REVIEW_BATCH_V1); }
+export const GEO_MIN_001_CP004_REVIEW_BATCH_V1 = finalizeGeoMinCp(4, QLS);
+export function auditGeoMin001Cp004ReviewBatchV1() { return auditGeoMinCp(4, QLS, GEO_MIN_001_CP004_REVIEW_BATCH_V1); }
