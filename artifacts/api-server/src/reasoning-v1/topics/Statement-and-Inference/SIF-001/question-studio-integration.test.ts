@@ -13,5 +13,13 @@ assert.equal(preview.lifecycleStatus, "REVIEW_ONLY");
 assert.equal(preview.question.cpId, "SIF-CP010");
 assert.equal(preview.question.metadata.questionBankWritable, false);
 
+for (const cpId of ["SIF-CP015", "SIF-CP016", "SIF-CP017"] as const) {
+  const pack = previewReasoningV1QuestionStudioReview({ packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID, cpId, locale: "pa-IN", seed: 1010 });
+  assert.equal(pack.question.cpId, cpId);
+  assert.equal(pack.question.locale, "pa-IN");
+  assert.equal(pack.question.metadata.reviewOnly, true);
+  assert.equal(pack.question.validation.every((gate) => gate.passed), true);
+}
+
 assert.throws(() => persistReasoningV1QuestionStudioReview({ packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID, cpId: "SIF-CP001", locale: "en-IN", seed: 1 }), /review only.*delivery remain locked/i);
 console.log("PASS_SIF_001_QUESTION_STUDIO_REVIEW_INTEGRATION");

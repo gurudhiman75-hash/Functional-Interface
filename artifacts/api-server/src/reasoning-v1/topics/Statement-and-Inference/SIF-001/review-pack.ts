@@ -33,6 +33,9 @@ const CP011_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM:
 const CP012_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 5, MEDIUM: 8, HARD: 7 };
 const CP013_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 5, MEDIUM: 8, HARD: 7 };
 const CP014_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 12, HARD: 0 };
+const CP015_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 8, HARD: 5 };
+const CP016_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 0, HARD: 13 };
+const CP017_TARGET: Readonly<Record<SifDifficulty, number>> = { EASY: 0, MEDIUM: 6, HARD: 7 };
 
 function reviewSeedForIndex(baseSeed: number, poolLength: number, authorityIndex: number, swapParity: number): number {
   const absoluteBase = Math.abs(baseSeed);
@@ -43,7 +46,7 @@ function reviewSeedForIndex(baseSeed: number, poolLength: number, authorityIndex
 
 export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly locale: SifLocale; readonly seed?: number }): SifReviewPack {
   const baseSeed = input.seed ?? 10_001;
-  const target = input.cpId === "SIF-CP003" ? CP003_TARGET : input.cpId === "SIF-CP004" ? CP004_TARGET : input.cpId === "SIF-CP005" ? CP005_TARGET : input.cpId === "SIF-CP006" ? CP006_TARGET : input.cpId === "SIF-CP007" ? CP007_TARGET : input.cpId === "SIF-CP008" ? CP008_TARGET : input.cpId === "SIF-CP009" ? CP009_TARGET : input.cpId === "SIF-CP010" ? CP010_TARGET : input.cpId === "SIF-CP011" ? CP011_TARGET : input.cpId === "SIF-CP012" ? CP012_TARGET : input.cpId === "SIF-CP013" ? CP013_TARGET : input.cpId === "SIF-CP014" ? CP014_TARGET : DEFAULT_TARGET;
+  const target = input.cpId === "SIF-CP003" ? CP003_TARGET : input.cpId === "SIF-CP004" ? CP004_TARGET : input.cpId === "SIF-CP005" ? CP005_TARGET : input.cpId === "SIF-CP006" ? CP006_TARGET : input.cpId === "SIF-CP007" ? CP007_TARGET : input.cpId === "SIF-CP008" ? CP008_TARGET : input.cpId === "SIF-CP009" ? CP009_TARGET : input.cpId === "SIF-CP010" ? CP010_TARGET : input.cpId === "SIF-CP011" ? CP011_TARGET : input.cpId === "SIF-CP012" ? CP012_TARGET : input.cpId === "SIF-CP013" ? CP013_TARGET : input.cpId === "SIF-CP014" ? CP014_TARGET : input.cpId === "SIF-CP015" ? CP015_TARGET : input.cpId === "SIF-CP016" ? CP016_TARGET : input.cpId === "SIF-CP017" ? CP017_TARGET : DEFAULT_TARGET;
   const requested = { ...target };
   const effective: Record<SifDifficulty, number> = { EASY: 0, MEDIUM: 0, HARD: 0 };
   const questions: GeneratedSifQuestion[] = [];
@@ -152,6 +155,20 @@ export function buildSifCpReviewPack(input: { readonly cpId: SifCpId; readonly l
       const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed });
       if (question.scenarioId !== authority.id) throw new Error(`${input.cpId}: deterministic review selection mismatch for ${authority.id}`);
       questions.push(question);
+      effective[question.difficulty] += 1;
+    }
+    return { chapterId: "SIF-001", cpId: input.cpId, locale: input.locale, requestedDistribution: requested, effectiveDistribution: effective, questions };
+  }
+  if (input.cpId === "SIF-CP015" || input.cpId === "SIF-CP016" || input.cpId === "SIF-CP017") {
+    const pool = listSifAuthorities(input.cpId);
+    const distribution = { ...target };
+    if (pool.length !== Object.values(distribution).reduce((sum, count) => sum + count, 0)) throw new Error(`${input.cpId}: review distribution must cover the complete pool`);
+    for (const [index, authority] of pool.entries()) {
+      const seed = reviewSeedForIndex(baseSeed, pool.length, index, index % 2);
+      const question = generateSifQuestion({ cpId: input.cpId, locale: input.locale, seed });
+      if (question.scenarioId !== authority.id) throw new Error(`${input.cpId}: deterministic review selection mismatch for ${authority.id}`);
+      questions.push(question);
+      usedScenarioIds.add(question.scenarioId);
       effective[question.difficulty] += 1;
     }
     return { chapterId: "SIF-001", cpId: input.cpId, locale: input.locale, requestedDistribution: requested, effectiveDistribution: effective, questions };
