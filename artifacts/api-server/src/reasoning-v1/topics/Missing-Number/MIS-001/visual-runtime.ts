@@ -147,3 +147,51 @@ export function sharedProductPreview(values: {
     `  ${values.leftInput} — ${values.shared} — ${values.rightInput}`,
   ].join('\n');
 }
+
+
+export function renderOppositeSquareWheelSvg(values: {
+  readonly pairs: readonly [
+    readonly [number | '?', number | '?'],
+    readonly [number | '?', number | '?'],
+    readonly [number | '?', number | '?'],
+    readonly [number | '?', number | '?']
+  ];
+}): string {
+  const points = [
+    [110, 20], [200, 110],
+    [174, 46], [46, 174],
+    [110, 200], [20, 110],
+    [46, 46], [174, 174],
+  ] as const;
+  const lines = [
+    [110,20,110,200],
+    [200,110,20,110],
+    [174,46,46,174],
+    [46,46,174,174],
+  ] as const;
+  const pairValues = [
+    values.pairs[0]![0], values.pairs[1]![0],
+    values.pairs[2]![0], values.pairs[3]![0],
+    values.pairs[0]![1], values.pairs[1]![1],
+    values.pairs[2]![1], values.pairs[3]![1],
+  ] as const;
+  return [
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="opposite pair square number wheel">',
+    '<circle cx="110" cy="110" r="90" fill="none" stroke="currentColor" stroke-width="2"/>',
+    ...lines.map(([x1,y1,x2,y2])=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="currentColor" stroke-width="1.5"/>`),
+    '<circle cx="110" cy="110" r="18" fill="white" stroke="currentColor" stroke-width="1.5"/>',
+    ...points.map(([x,y],index)=>`<circle cx="${x}" cy="${y}" r="21" fill="white" stroke="currentColor" stroke-width="1.5"/>` + textNode(x,y,pairValues[index]!)),
+    '</svg>',
+  ].join('');
+}
+
+export function oppositeSquareWheelPreview(values: {
+  readonly pairs: readonly [
+    readonly [number | '?', number | '?'],
+    readonly [number | '?', number | '?'],
+    readonly [number | '?', number | '?'],
+    readonly [number | '?', number | '?']
+  ];
+}): string {
+  return values.pairs.map(([input,output],index)=>`Opposite pair ${index+1}: ${input} ↔ ${output}`).join('\n');
+}
