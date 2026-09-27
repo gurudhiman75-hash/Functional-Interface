@@ -22,6 +22,9 @@ on:
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-avg-cgl-cp-reconcile-p3.test.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-readiness-p3.ts"
       - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-SPECIALIZED-PROFILE-CALIBRATION-READINESS-P3.md"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.ts"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-SPECIALIZED-PROFILE-CALIBRATION-POLICY-P3.md"
   pull_request:
     branches:
       - New-main
@@ -42,6 +45,9 @@ on:
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-avg-cgl-cp-reconcile-p3.test.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-readiness-p3.ts"
       - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-SPECIALIZED-PROFILE-CALIBRATION-READINESS-P3.md"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.ts"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-SPECIALIZED-PROFILE-CALIBRATION-POLICY-P3.md"
   workflow_dispatch:
 
 permissions:
@@ -150,6 +156,17 @@ jobs:
       - name: Run AVG CGL CP reconciliation proof
         working-directory: artifacts/api-server
         run: node dist/quant-v4/quality/quant-v4-avg-cgl-cp-reconcile-p3.test.mjs
+
+      - name: Bundle specialized calibration policy proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.test.mjs
+
+      - name: Run specialized calibration policy proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/quality/quant-v4-specialized-profile-calibration-policy-p3.test.mjs
 
       - name: Patch hygiene
         run: git diff --check
