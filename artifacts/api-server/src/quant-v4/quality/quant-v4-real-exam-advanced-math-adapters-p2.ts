@@ -43,7 +43,7 @@ function stableHash(value: string): number {
   return result >>> 0;
 }
 
-function difficultyFor(seed: string): QuantV4AdvancedMathDifficulty {
+export function quantV4AdvancedMathDifficultyForSeed(seed: string): QuantV4AdvancedMathDifficulty {
   const bucket = stableHash(`${seed}:difficulty`) % 10;
   if (bucket <= 2) return "Easy";
   if (bucket <= 7) return "Medium";
@@ -65,15 +65,13 @@ function trigonometryPackageFor(examId: QuantV4AdvancedMathSectionExamId, seed: 
 function diversityCapacityTrg001QlId(
   difficulty: QuantV4AdvancedMathDifficulty,
   diversityOrdinal: number,
-  seed: string,
 ): string {
   const eligible = TRG_001_PRODUCTION_REGISTRY
     .filter((entry) => entry.difficulty === difficulty)
     .map((entry) => entry.qlId)
     .sort();
   if (!eligible.length) throw new Error(`TRG-001 has no frozen ${difficulty} QLs for diversity-capacity sampling.`);
-  const offset = stableHash(`${seed}:trg001-diversity-capacity-offset`) % eligible.length;
-  const index = (offset + Math.max(0, Math.floor(diversityOrdinal))) % eligible.length;
+  const index = Math.max(0, Math.floor(diversityOrdinal)) % eligible.length;
   return eligible[index]!;
 }
 
@@ -99,7 +97,7 @@ export async function generateQuantV4AdvancedMathSectionQuestion(input: {
   seed: string;
   diversityCapacityOrdinal?: number;
 }): Promise<QuantV4AdvancedMathSectionAdapterResult> {
-  const difficulty = difficultyFor(input.seed);
+  const difficulty = quantV4AdvancedMathDifficultyForSeed(input.seed);
 
   if (input.slotKind === "ALGEBRA") {
     const examProfile = algebraProfileFor(input.examId);
@@ -134,7 +132,7 @@ export async function generateQuantV4AdvancedMathSectionQuestion(input: {
   const packageId = trigonometryPackageFor(input.examId, input.seed);
   const diversityCapacityMode = packageId === "TRG-001" && Number.isInteger(input.diversityCapacityOrdinal);
   const questionLanguageId = diversityCapacityMode
-    ? diversityCapacityTrg001QlId(difficulty, input.diversityCapacityOrdinal!, input.seed)
+    ? diversityCapacityTrg001QlId(difficulty, input.diversityCapacityOrdinal!)
     : undefined;
   const result = await generateTrigonometryQuestion({
     packageId,
