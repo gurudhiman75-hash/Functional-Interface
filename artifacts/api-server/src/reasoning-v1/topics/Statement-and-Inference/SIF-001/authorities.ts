@@ -141,7 +141,7 @@ export const SIF_CP_TITLES: Readonly<Record<SifCpId, string>> = {
 };
 
 export const SIF_CP_DIFFICULTIES: Readonly<Record<SifCpId, readonly SifDifficulty[]>> = {
-  "SIF-CP001": ["EASY"], "SIF-CP002": ["EASY", "MEDIUM", "HARD"], "SIF-CP003": ["EASY", "MEDIUM", "HARD"], "SIF-CP004": ["EASY", "MEDIUM"], "SIF-CP005": ["MEDIUM"], "SIF-CP006": ["MEDIUM"], "SIF-CP007": ["MEDIUM", "HARD"], "SIF-CP008": ["MEDIUM", "HARD"], "SIF-CP009": ["MEDIUM"], "SIF-CP010": ["MEDIUM", "HARD"], "SIF-CP011": ["MEDIUM", "HARD"], "SIF-CP012": ["MEDIUM", "HARD"], "SIF-CP013": ["MEDIUM", "HARD"], "SIF-CP014": ["MEDIUM"], "SIF-CP015": ["MEDIUM", "HARD"], "SIF-CP016": ["HARD"], "SIF-CP017": ["MEDIUM", "HARD"],
+  "SIF-CP001": ["EASY"], "SIF-CP002": ["EASY", "MEDIUM", "HARD"], "SIF-CP003": ["EASY", "MEDIUM", "HARD"], "SIF-CP004": ["EASY", "MEDIUM"], "SIF-CP005": ["MEDIUM"], "SIF-CP006": ["MEDIUM"], "SIF-CP007": ["MEDIUM", "HARD"], "SIF-CP008": ["MEDIUM", "HARD"], "SIF-CP009": ["MEDIUM"], "SIF-CP010": ["MEDIUM", "HARD"], "SIF-CP011": ["MEDIUM", "HARD"], "SIF-CP012": ["EASY", "MEDIUM", "HARD"], "SIF-CP013": ["EASY", "MEDIUM", "HARD"], "SIF-CP014": ["MEDIUM"], "SIF-CP015": ["MEDIUM", "HARD"], "SIF-CP016": ["HARD"], "SIF-CP017": ["MEDIUM", "HARD"],
 };
 
 export function listSifAuthorities(cpId?: SifCpId): readonly SifScenarioAuthority[] {
