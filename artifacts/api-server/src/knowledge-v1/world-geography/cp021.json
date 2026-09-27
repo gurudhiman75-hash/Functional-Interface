@@ -1,0 +1,884 @@
+[
+  {
+    "id": "WGE-001-CP021-Q001",
+    "cpId": "WGE-001-CP021",
+    "objective": "sahara-hot-desert",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-021A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which desert extends across much of North Africa?",
+        "options": [
+          "Sahara",
+          "Gobi",
+          "Atacama",
+          "Namib"
+        ],
+        "explanation": "The Sahara spans a broad belt of North Africa."
+      },
+      "hi": {
+        "stem": "कौन-सा मरुस्थल उत्तरी अफ्रीका के बड़े भाग में फैला है?",
+        "options": [
+          "सहारा",
+          "गोबी",
+          "अटाकामा",
+          "नामिब"
+        ],
+        "explanation": "सहारा उत्तरी अफ्रीका के विशाल क्षेत्र में फैला है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਸਹਾਰਾ",
+          "ਗੋਬੀ",
+          "ਅਟਾਕਾਮਾ",
+          "ਨਾਮਿਬ"
+        ],
+        "explanation": "ਸਹਾਰਾ ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਦੇ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q002",
+    "cpId": "WGE-001-CP021",
+    "objective": "gobi-cold-desert",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which desert lies across Mongolia and northern China?",
+        "options": [
+          "Sahara",
+          "Kalahari",
+          "Atacama",
+          "Gobi"
+        ],
+        "explanation": "The Gobi is a cold desert extending across southern Mongolia and northern China."
+      },
+      "hi": {
+        "stem": "कौन-सा मरुस्थल मंगोलिया और उत्तरी चीन में फैला है?",
+        "options": [
+          "सहारा",
+          "कालाहारी",
+          "अटाकामा",
+          "गोबी"
+        ],
+        "explanation": "गोबी ठंडा मरुस्थल है, जो दक्षिणी मंगोलिया और उत्तरी चीन में फैला है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਮੰਗੋਲੀਆ ਅਤੇ ਉੱਤਰੀ ਚੀਨ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਸਹਾਰਾ",
+          "ਕਾਲਾਹਾਰੀ",
+          "ਅਟਾਕਾਮਾ",
+          "ਗੋਬੀ"
+        ],
+        "explanation": "ਗੋਬੀ ਠੰਢਾ ਮਾਰੂਥਲ ਹੈ, ਜੋ ਦੱਖਣੀ ਮੰਗੋਲੀਆ ਅਤੇ ਉੱਤਰੀ ਚੀਨ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q003",
+    "cpId": "WGE-001-CP021",
+    "objective": "atacama-west-coast",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-021A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which desert lies along the Pacific side of northern Chile?",
+        "options": [
+          "Sahara",
+          "Gobi",
+          "Atacama",
+          "Namib"
+        ],
+        "explanation": "The Atacama occupies the Pacific-facing side of northern Chile."
+      },
+      "hi": {
+        "stem": "कौन-सा मरुस्थल उत्तरी चिली के प्रशांत तट के साथ स्थित है?",
+        "options": [
+          "सहारा",
+          "गोबी",
+          "अटाकामा",
+          "नामिब"
+        ],
+        "explanation": "अटाकामा उत्तरी चिली के प्रशांतमुखी भाग में है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਉੱਤਰੀ ਚਿਲੀ ਦੇ ਪ੍ਰਸ਼ਾਂਤ ਤਟ ਨਾਲ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਸਹਾਰਾ",
+          "ਗੋਬੀ",
+          "ਅਟਾਕਾਮਾ",
+          "ਨਾਮਿਬ"
+        ],
+        "explanation": "ਅਟਾਕਾਮਾ ਉੱਤਰੀ ਚਿਲੀ ਦੇ ਪ੍ਰਸ਼ਾਂਤ ਵੱਲ ਦੇ ਹਿੱਸੇ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q004",
+    "cpId": "WGE-001-CP021",
+    "objective": "namib-coastal-desert",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which desert runs along the Atlantic coast of southwestern Africa?",
+        "options": [
+          "Gobi",
+          "Namib",
+          "Kalahari",
+          "Sahara"
+        ],
+        "explanation": "The Namib is a coastal desert along Namibia and adjacent southwestern African coasts."
+      },
+      "hi": {
+        "stem": "कौन-सा मरुस्थल दक्षिण-पश्चिमी अफ्रीका के अटलांटिक तट के साथ फैला है?",
+        "options": [
+          "गोबी",
+          "नामिब",
+          "कालाहारी",
+          "सहारा"
+        ],
+        "explanation": "नामिब नामीबिया और पास के दक्षिण-पश्चिमी अफ्रीकी तटों के साथ स्थित तटीय मरुस्थल है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਦੱਖਣ-ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਦੇ ਐਟਲਾਂਟਿਕ ਤਟ ਨਾਲ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਗੋਬੀ",
+          "ਨਾਮਿਬ",
+          "ਕਾਲਾਹਾਰੀ",
+          "ਸਹਾਰਾ"
+        ],
+        "explanation": "ਨਾਮਿਬ ਨਾਮੀਬੀਆ ਅਤੇ ਨਾਲ ਦੇ ਦੱਖਣ-ਪੱਛਮੀ ਅਫ਼ਰੀਕੀ ਤਟਾਂ ਨਾਲ ਲੱਗਦਾ ਤਟੀ ਮਾਰੂਥਲ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q005",
+    "cpId": "WGE-001-CP021",
+    "objective": "antarctica-polar-desert",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-021A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which continent is classified as a polar desert because it receives very little precipitation?",
+        "options": [
+          "Antarctica",
+          "Gobi",
+          "Sahara",
+          "Kalahari"
+        ],
+        "explanation": "Antarctica qualifies as a desert because precipitation is extremely low, despite its ice cover."
+      },
+      "hi": {
+        "stem": "बहुत कम वर्षण के कारण किस महाद्वीप को ध्रुवीय मरुस्थल माना जाता है?",
+        "options": [
+          "अंटार्कटिका",
+          "गोबी",
+          "सहारा",
+          "कालाहारी"
+        ],
+        "explanation": "अंटार्कटिका में बर्फ़ होने के बावजूद वर्षण बहुत कम है, इसलिए यह मरुस्थल है।"
+      },
+      "pa": {
+        "stem": "ਬਹੁਤ ਘੱਟ ਵਰਖਾ ਕਾਰਨ ਕਿਹੜੇ ਮਹਾਂਦੀਪ ਨੂੰ ਧਰੁਵੀ ਮਾਰੂਥਲ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਅੰਟਾਰਕਟਿਕਾ",
+          "ਗੋਬੀ",
+          "ਸਹਾਰਾ",
+          "ਕਾਲਾਹਾਰੀ"
+        ],
+        "explanation": "ਅੰਟਾਰਕਟਿਕਾ ਵਿੱਚ ਬਰਫ਼ ਹੋਣ ਦੇ ਬਾਵਜੂਦ ਵਰਖਾ ਬਹੁਤ ਘੱਟ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਮਾਰੂਥਲ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q006",
+    "cpId": "WGE-001-CP021",
+    "objective": "greenland-island-arctic",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which island is the world’s largest island, excluding continents?",
+        "options": [
+          "Madagascar",
+          "Borneo",
+          "NewGuinea",
+          "Greenland"
+        ],
+        "explanation": "Greenland is conventionally counted as the largest island; Australia is classified as a continent."
+      },
+      "hi": {
+        "stem": "कौन-सा द्वीप महाद्वीपों को छोड़कर दुनिया का सबसे बड़ा द्वीप है?",
+        "options": [
+          "मेडागास्कर",
+          "बोर्नियो",
+          "न्यू गिनी",
+          "ग्रीनलैंड"
+        ],
+        "explanation": "ग्रीनलैंड को सामान्यतः सबसे बड़ा द्वीप माना जाता है; ऑस्ट्रेलिया महाद्वीप है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਟਾਪੂ ਮਹਾਂਦੀਪਾਂ ਨੂੰ ਛੱਡ ਕੇ ਦੁਨੀਆ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਟਾਪੂ ਹੈ?",
+        "options": [
+          "ਮੈਡਾਗਾਸਕਰ",
+          "ਬੋਰਨਿਓ",
+          "ਨਿਊ ਗਿਨੀ",
+          "ਗ੍ਰੀਨਲੈਂਡ"
+        ],
+        "explanation": "ਗ੍ਰੀਨਲੈਂਡ ਨੂੰ ਆਮ ਤੌਰ ’ਤੇ ਸਭ ਤੋਂ ਵੱਡਾ ਟਾਪੂ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ; ਆਸਟ੍ਰੇਲੀਆ ਮਹਾਂਦੀਪ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q007",
+    "cpId": "WGE-001-CP021",
+    "objective": "madagascar-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which island lies in the Indian Ocean off southeastern Africa?",
+        "options": [
+          "Iceland",
+          "SriLanka",
+          "Madagascar",
+          "Greenland"
+        ],
+        "explanation": "Madagascar lies in the Indian Ocean east of Mozambique."
+      },
+      "hi": {
+        "stem": "कौन-सा द्वीप दक्षिण-पूर्वी अफ्रीका के तट से दूर हिंद महासागर में स्थित है?",
+        "options": [
+          "आइसलैंड",
+          "श्रीलंका",
+          "मेडागास्कर",
+          "ग्रीनलैंड"
+        ],
+        "explanation": "मेडागास्कर मोज़ाम्बिक के पूर्व में हिंद महासागर में है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਟਾਪੂ ਦੱਖਣ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਤੋਂ ਦੂਰ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਆਈਸਲੈਂਡ",
+          "ਸ੍ਰੀਲੰਕਾ",
+          "ਮੈਡਾਗਾਸਕਰ",
+          "ਗ੍ਰੀਨਲੈਂਡ"
+        ],
+        "explanation": "ਮੈਡਾਗਾਸਕਰ ਮੋਜ਼ਾਮਬੀਕ ਦੇ ਪੂਰਬ ਵੱਲ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q008",
+    "cpId": "WGE-001-CP021",
+    "objective": "borneo-three-states",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which island is shared by Brunei, Indonesia and Malaysia?",
+        "options": [
+          "Greenland",
+          "Borneo",
+          "Madagascar",
+          "NewGuinea"
+        ],
+        "explanation": "Borneo is divided among Brunei, Indonesia and Malaysia."
+      },
+      "hi": {
+        "stem": "कौन-सा द्वीप ब्रुनेई, इंडोनेशिया और मलेशिया में बँटा है?",
+        "options": [
+          "ग्रीनलैंड",
+          "बोर्नियो",
+          "मेडागास्कर",
+          "न्यू गिनी"
+        ],
+        "explanation": "बोर्नियो ब्रुनेई, इंडोनेशिया और मलेशिया में बँटा है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਟਾਪੂ ਬਰੂਨੇਈ, ਇੰਡੋਨੇਸ਼ੀਆ ਅਤੇ ਮਲੇਸ਼ੀਆ ਵਿੱਚ ਵੰਡਿਆ ਹੋਇਆ ਹੈ?",
+        "options": [
+          "ਗ੍ਰੀਨਲੈਂਡ",
+          "ਬੋਰਨਿਓ",
+          "ਮੈਡਾਗਾਸਕਰ",
+          "ਨਿਊ ਗਿਨੀ"
+        ],
+        "explanation": "ਬੋਰਨਿਓ ਬਰੂਨੇਈ, ਇੰਡੋਨੇਸ਼ੀਆ ਅਤੇ ਮਲੇਸ਼ੀਆ ਵਿੱਚ ਵੰਡਿਆ ਹੋਇਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q009",
+    "cpId": "WGE-001-CP021",
+    "objective": "new-guinea-australia",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which island lies north of Australia and is divided between Indonesia and Papua New Guinea?",
+        "options": [
+          "NewGuinea",
+          "Borneo",
+          "Madagascar",
+          "Greenland"
+        ],
+        "explanation": "New Guinea lies north of Australia; its western part belongs to Indonesia and its eastern part to Papua New Guinea."
+      },
+      "hi": {
+        "stem": "कौन-सा द्वीप ऑस्ट्रेलिया के उत्तर में है और इंडोनेशिया तथा पापुआ न्यू गिनी में बँटा है?",
+        "options": [
+          "न्यू गिनी",
+          "बोर्नियो",
+          "मेडागास्कर",
+          "ग्रीनलैंड"
+        ],
+        "explanation": "न्यू गिनी ऑस्ट्रेलिया के उत्तर में है; इसका पश्चिमी भाग इंडोनेशिया और पूर्वी भाग पापुआ न्यू गिनी में है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਟਾਪੂ ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਉੱਤਰ ਵਿੱਚ ਹੈ ਅਤੇ ਇੰਡੋਨੇਸ਼ੀਆ ਤੇ ਪਾਪੂਆ ਨਿਊ ਗਿਨੀ ਵਿੱਚ ਵੰਡਿਆ ਹੋਇਆ ਹੈ?",
+        "options": [
+          "ਨਿਊ ਗਿਨੀ",
+          "ਬੋਰਨਿਓ",
+          "ਮੈਡਾਗਾਸਕਰ",
+          "ਗ੍ਰੀਨਲੈਂਡ"
+        ],
+        "explanation": "ਨਿਊ ਗਿਨੀ ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਉੱਤਰ ਵਿੱਚ ਹੈ; ਇਸਦਾ ਪੱਛਮੀ ਹਿੱਸਾ ਇੰਡੋਨੇਸ਼ੀਆ ਅਤੇ ਪੂਰਬੀ ਹਿੱਸਾ ਪਾਪੂਆ ਨਿਊ ਗਿਨੀ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q010",
+    "cpId": "WGE-001-CP021",
+    "objective": "arabian-peninsula-waters",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which peninsula is bounded by the Red Sea to the west and the Persian Gulf to the northeast?",
+        "options": [
+          "Iberian",
+          "Yucatan",
+          "Sinai",
+          "Arabian"
+        ],
+        "explanation": "The Arabian Peninsula projects between the Red Sea, Arabian Sea and Persian Gulf."
+      },
+      "hi": {
+        "stem": "कौन-सा प्रायद्वीप पश्चिम में लाल सागर और उत्तर-पूर्व में फ़ारस की खाड़ी से घिरा है?",
+        "options": [
+          "आइबेरियाई प्रायद्वीप",
+          "युकातान प्रायद्वीप",
+          "सिनाई",
+          "अरब प्रायद्वीप"
+        ],
+        "explanation": "अरब प्रायद्वीप लाल सागर, अरब सागर और फ़ारस की खाड़ी के बीच फैला है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਪੱਛਮ ਵੱਲ ਲਾਲ ਸਾਗਰ ਅਤੇ ਉੱਤਰ-ਪੂਰਬ ਵੱਲ ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਨਾਲ ਘਿਰਿਆ ਹੈ?",
+        "options": [
+          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਯੂਕਾਤਾਨ ਪ੍ਰਾਇਦੀਪ",
+          "ਸਿਨਾਈ",
+          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਲਾਲ ਸਾਗਰ, ਅਰਬ ਸਾਗਰ ਅਤੇ ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਵਿਚਕਾਰ ਫੈਲਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q011",
+    "cpId": "WGE-001-CP021",
+    "objective": "panama-isthmus",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which isthmus joins North and South America and contains the Panama Canal?",
+        "options": [
+          "IsthmusOfTehuantepec",
+          "KraIsthmus",
+          "Panama",
+          "SuezIsthmus"
+        ],
+        "explanation": "The Isthmus of Panama is the narrow land bridge between North and South America."
+      },
+      "hi": {
+        "stem": "कौन-सा स्थलडमरूमध्य उत्तर और दक्षिण अमेरिका को जोड़ता है और इसमें पनामा नहर है?",
+        "options": [
+          "तेहुआंतेपेक स्थलडमरूमध्य",
+          "क्रा स्थलडमरूमध्य",
+          "पनामा स्थलडमरूमध्य",
+          "स्वेज स्थलडमरूमध्य"
+        ],
+        "explanation": "पनामा स्थलडमरूमध्य उत्तर और दक्षिण अमेरिका के बीच संकरा भू-संपर्क है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਭੂ-ਸੰਯੋਜਕ ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਨੂੰ ਜੋੜਦਾ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਨਾਮਾ ਨਹਿਰ ਹੈ?",
+        "options": [
+          "ਤੇਹੁਆਂਤੇਪੇਕ ਭੂ-ਸੰਯੋਜਕ",
+          "क्रा ਭੂ-ਸੰਯੋਜਕ",
+          "ਪਨਾਮਾ ਭੂ-ਸੰਯੋਜਕ",
+          "ਸੂਏਜ਼ ਭੂ-ਸੰਯੋਜਕ"
+        ],
+        "explanation": "ਪਨਾਮਾ ਭੂ-ਸੰਯੋਜਕ ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਵਿਚਕਾਰ ਤੰਗ ਧਰਤੀ ਦਾ ਜੋੜ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q012",
+    "cpId": "WGE-001-CP021",
+    "objective": "cape-good-hope",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which cape marks the southwestern tip of Africa near Cape Town?",
+        "options": [
+          "CapeYork",
+          "GoodHope",
+          "Horn",
+          "CapeAgulhas"
+        ],
+        "explanation": "The Cape of Good Hope is on South Africa’s southwestern coast; Cape Agulhas is the continent’s southernmost point."
+      },
+      "hi": {
+        "stem": "कौन-सा अंतरीप केप टाउन के पास अफ्रीका के दक्षिण-पश्चिमी सिरे पर है?",
+        "options": [
+          "केप यॉर्क",
+          "अच्छी आशा अंतरीप",
+          "हॉर्न अंतरीप",
+          "केप अगुलहास"
+        ],
+        "explanation": "अच्छी आशा अंतरीप दक्षिण अफ्रीका के दक्षिण-पश्चिमी तट पर है; महाद्वीप का दक्षिणतम बिंदु केप अगुलहास है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਅੰਤਰੀਪ ਕੇਪ ਟਾਊਨ ਨੇੜੇ ਅਫ਼ਰੀਕਾ ਦੇ ਦੱਖਣ-ਪੱਛਮੀ ਸਿਰੇ ਉੱਤੇ ਹੈ?",
+        "options": [
+          "ਕੇਪ ਯੌਰਕ",
+          "ਗੁੱਡ ਹੋਪ ਅੰਤਰੀਪ",
+          "ਹੌਰਨ ਅੰਤਰੀਪ",
+          "ਕੇਪ ਅਗੁਲਹਾਸ"
+        ],
+        "explanation": "ਗੁੱਡ ਹੋਪ ਅੰਤਰੀਪ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਦੇ ਦੱਖਣ-ਪੱਛਮੀ ਤਟ ਉੱਤੇ ਹੈ; ਮਹਾਂਦੀਪ ਦਾ ਸਭ ਤੋਂ ਦੱਖਣੀ ਬਿੰਦੂ ਕੇਪ ਅਗੁਲਹਾਸ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q013",
+    "cpId": "WGE-001-CP021",
+    "objective": "kalahari-southern-africa",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-021A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which desert occupies much of Botswana and extends into Namibia and South Africa?",
+        "options": [
+          "Kalahari",
+          "Namib",
+          "Sahara",
+          "Gobi"
+        ],
+        "explanation": "The Kalahari is a large semi-arid sandy basin across Botswana and neighbouring parts of southern Africa."
+      },
+      "hi": {
+        "stem": "कौन-सा मरुस्थल बोत्सवाना के बड़े भाग में है और नामीबिया व दक्षिण अफ्रीका तक फैला है?",
+        "options": [
+          "कालाहारी",
+          "नामिब",
+          "सहारा",
+          "गोबी"
+        ],
+        "explanation": "कालाहारी बोत्सवाना और दक्षिणी अफ्रीका के पड़ोसी भागों में फैला बड़ा अर्ध-शुष्क रेतीला बेसिन है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਬੋਤਸਵਾਨਾ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਹੈ ਅਤੇ ਨਾਮੀਬੀਆ ਤੇ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਤੱਕ ਫੈਲਦਾ ਹੈ?",
+        "options": [
+          "ਕਾਲਾਹਾਰੀ",
+          "ਨਾਮਿਬ",
+          "ਸਹਾਰਾ",
+          "ਗੋਬੀ"
+        ],
+        "explanation": "ਕਾਲਾਹਾਰੀ ਬੋਤਸਵਾਨਾ ਅਤੇ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਦੇ ਨੇੜਲੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਫੈਲਿਆ ਵੱਡਾ ਅਰਧ-ਸੁੱਕਾ ਰੇਤਲਾ ਖੇਤਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q014",
+    "cpId": "WGE-001-CP021",
+    "objective": "patagonia-desert",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which desert lies mainly in southern Argentina east of the Andes?",
+        "options": [
+          "Atacama",
+          "Gobi",
+          "Namib",
+          "Patagonian"
+        ],
+        "explanation": "The Patagonian Desert lies in the rain-shadow east of the southern Andes, chiefly in Argentina."
+      },
+      "hi": {
+        "stem": "कौन-सा मरुस्थल एंडीज़ के पूर्व में मुख्यतः दक्षिणी अर्जेंटीना में स्थित है?",
+        "options": [
+          "अटाकामा",
+          "गोबी",
+          "नामिब",
+          "पैटागोनिया"
+        ],
+        "explanation": "पैटागोनिया मरुस्थल दक्षिणी एंडीज़ की वर्षाछाया में, मुख्यतः अर्जेंटीना में है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਐਂਡੀਜ਼ ਦੇ ਪੂਰਬ ਵੱਲ ਮੁੱਖ ਤੌਰ ’ਤੇ ਦੱਖਣੀ ਅਰਜਨਟੀਨਾ ਵਿੱਚ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਅਟਾਕਾਮਾ",
+          "ਗੋਬੀ",
+          "ਨਾਮਿਬ",
+          "ਪੈਟਾਗੋਨੀਆ"
+        ],
+        "explanation": "ਪੈਟਾਗੋਨੀਆਈ ਮਾਰੂਥਲ ਦੱਖਣੀ ਐਂਡੀਜ਼ ਦੀ ਵਰਖਾ-ਛਾਂ ਵਿੱਚ, ਮੁੱਖ ਤੌਰ ’ਤੇ ਅਰਜਨਟੀਨਾ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q015",
+    "cpId": "WGE-001-CP021",
+    "objective": "thar-desert-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-021A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which desert straddles northwestern India and southeastern Pakistan?",
+        "options": [
+          "Sahara",
+          "Kalahari",
+          "Thar",
+          "Gobi"
+        ],
+        "explanation": "The Thar Desert extends across Rajasthan and adjoining parts of Pakistan."
+      },
+      "hi": {
+        "stem": "कौन-सा मरुस्थल उत्तर-पश्चिमी भारत और दक्षिण-पूर्वी पाकिस्तान में फैला है?",
+        "options": [
+          "सहारा",
+          "कालाहारी",
+          "थार मरुस्थल",
+          "गोबी"
+        ],
+        "explanation": "थार मरुस्थल राजस्थान और पाकिस्तान के सटे हुए भागों में फैला है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਉੱਤਰ-ਪੱਛਮੀ ਭਾਰਤ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਪਾਕਿਸਤਾਨ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਸਹਾਰਾ",
+          "ਕਾਲਾਹਾਰੀ",
+          "ਥਾਰ ਮਾਰੂਥਲ",
+          "ਗੋਬੀ"
+        ],
+        "explanation": "ਥਾਰ ਮਾਰੂਥਲ ਰਾਜਸਥਾਨ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੇ ਨਾਲ ਲੱਗਦੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q016",
+    "cpId": "WGE-001-CP021",
+    "objective": "iceland-north-atlantic",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which island is a volcanic island in the North Atlantic between Greenland and Norway?",
+        "options": [
+          "Borneo",
+          "Iceland",
+          "Greenland",
+          "Madagascar"
+        ],
+        "explanation": "Iceland is a volcanic island in the North Atlantic, southeast of Greenland."
+      },
+      "hi": {
+        "stem": "कौन-सा द्वीप ग्रीनलैंड और नॉर्वे के बीच उत्तर अटलांटिक का ज्वालामुखीय द्वीप है?",
+        "options": [
+          "बोर्नियो",
+          "आइसलैंड",
+          "ग्रीनलैंड",
+          "मेडागास्कर"
+        ],
+        "explanation": "आइसलैंड ग्रीनलैंड के दक्षिण-पूर्व में उत्तर अटलांटिक का ज्वालामुखीय द्वीप है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਟਾਪੂ ਗ੍ਰੀਨਲੈਂਡ ਅਤੇ ਨਾਰਵੇ ਵਿਚਕਾਰ ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਦਾ ਜਵਾਲਾਮੁਖੀ ਟਾਪੂ ਹੈ?",
+        "options": [
+          "ਬੋਰਨਿਓ",
+          "ਆਈਸਲੈਂਡ",
+          "ਗ੍ਰੀਨਲੈਂਡ",
+          "ਮੈਡਾਗਾਸਕਰ"
+        ],
+        "explanation": "ਆਈਸਲੈਂਡ ਗ੍ਰੀਨਲੈਂਡ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਵਿੱਚ ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਦਾ ਜਵਾਲਾਮੁਖੀ ਟਾਪੂ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q017",
+    "cpId": "WGE-001-CP021",
+    "objective": "philippines-archipelago",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which country is an archipelago in the western Pacific, east of Vietnam?",
+        "options": [
+          "Philippines",
+          "Japan",
+          "Indonesia",
+          "NewGuinea"
+        ],
+        "explanation": "The Philippines is a large island archipelago in the western Pacific."
+      },
+      "hi": {
+        "stem": "पश्चिमी प्रशांत में वियतनाम के पूर्व स्थित द्वीपसमूह वाला देश कौन-सा है?",
+        "options": [
+          "फ़िलिपींस",
+          "जापान",
+          "इंडोनेशिया",
+          "न्यू गिनी"
+        ],
+        "explanation": "फ़िलिपींस पश्चिमी प्रशांत का बड़ा द्वीपसमूह है।"
+      },
+      "pa": {
+        "stem": "ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਵੀਅਤਨਾਮ ਦੇ ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਟਾਪੂ-ਸਮੂਹ ਵਾਲਾ ਦੇਸ਼ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਫ਼ਿਲੀਪੀਨਜ਼",
+          "ਜਪਾਨ",
+          "ਇੰਡੋਨੇਸ਼ੀਆ",
+          "ਨਿਊ ਗਿਨੀ"
+        ],
+        "explanation": "ਫ਼ਿਲੀਪੀਨਜ਼ ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਦਾ ਵੱਡਾ ਟਾਪੂ-ਸਮੂਹ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q018",
+    "cpId": "WGE-001-CP021",
+    "objective": "indonesia-equatorial-archipelago",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which country is a vast archipelagic state straddling the Equator between the Indian and Pacific oceans?",
+        "options": [
+          "Philippines",
+          "Japan",
+          "SriLanka",
+          "Indonesia"
+        ],
+        "explanation": "Indonesia consists of thousands of islands spread across the equatorial seas between Asia and Australia."
+      },
+      "hi": {
+        "stem": "हिंद और प्रशांत महासागरों के बीच भूमध्य रेखा पर फैला विशाल द्वीपीय देश कौन-सा है?",
+        "options": [
+          "फ़िलिपींस",
+          "जापान",
+          "श्रीलंका",
+          "इंडोनेशिया"
+        ],
+        "explanation": "इंडोनेशिया एशिया और ऑस्ट्रेलिया के बीच भूमध्यरेखीय समुद्रों में फैले हज़ारों द्वीपों से बना है।"
+      },
+      "pa": {
+        "stem": "ਹਿੰਦ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰਾਂ ਵਿਚਕਾਰ ਭੂ-ਮੱਧ ਰੇਖਾ ਉੱਤੇ ਫੈਲਿਆ ਵਿਸ਼ਾਲ ਟਾਪੂ-ਦੇਸ਼ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਫ਼ਿਲੀਪੀਨਜ਼",
+          "ਜਪਾਨ",
+          "ਸ੍ਰੀਲੰਕਾ",
+          "ਇੰਡੋਨੇਸ਼ੀਆ"
+        ],
+        "explanation": "ਇੰਡੋਨੇਸ਼ੀਆ ਏਸ਼ੀਆ ਅਤੇ ਆਸਟ੍ਰੇਲੀਆ ਵਿਚਕਾਰ ਭੂ-ਮੱਧ ਰੇਖਾਈ ਸਮੁੰਦਰਾਂ ਵਿੱਚ ਫੈਲੇ ਹਜ਼ਾਰਾਂ ਟਾਪੂਆਂ ਤੋਂ ਬਣਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q019",
+    "cpId": "WGE-001-CP021",
+    "objective": "iberian-two-states",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which peninsula contains most of Spain and Portugal in southwestern Europe?",
+        "options": [
+          "Yucatan",
+          "Sinai",
+          "Iberian",
+          "Arabian"
+        ],
+        "explanation": "The Iberian Peninsula is occupied chiefly by Spain and Portugal and lies between the Atlantic and Mediterranean."
+      },
+      "hi": {
+        "stem": "कौन-सा प्रायद्वीप दक्षिण-पश्चिमी यूरोप में स्पेन और पुर्तगाल का अधिकांश भाग समेटे है?",
+        "options": [
+          "युकातान प्रायद्वीप",
+          "सिनाई",
+          "आइबेरियाई प्रायद्वीप",
+          "अरब प्रायद्वीप"
+        ],
+        "explanation": "आइबेरियाई प्रायद्वीप में मुख्यतः स्पेन और पुर्तगाल हैं; यह अटलांटिक और भूमध्य सागर के बीच है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਦੱਖਣ-ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਸਮੇਟਦਾ ਹੈ?",
+        "options": [
+          "ਯੂਕਾਤਾਨ ਪ੍ਰਾਇਦੀਪ",
+          "ਸਿਨਾਈ",
+          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਵਿੱਚ ਮੁੱਖ ਤੌਰ ’ਤੇ ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ ਹਨ; ਇਹ ਐਟਲਾਂਟਿਕ ਅਤੇ ਭੂ-ਮੱਧ ਸਾਗਰ ਵਿਚਕਾਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q020",
+    "cpId": "WGE-001-CP021",
+    "objective": "yucatan-water-bodies",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which peninsula separates the Gulf of Mexico from the Caribbean Sea?",
+        "options": [
+          "Sinai",
+          "Yucatan",
+          "Arabian",
+          "Iberian"
+        ],
+        "explanation": "The Yucatán Peninsula lies between the Gulf of Mexico and the Caribbean Sea."
+      },
+      "hi": {
+        "stem": "कौन-सा प्रायद्वीप मैक्सिको की खाड़ी को कैरेबियन सागर से अलग करता है?",
+        "options": [
+          "सिनाई",
+          "युकातान प्रायद्वीप",
+          "अरब प्रायद्वीप",
+          "आइबेरियाई प्रायद्वीप"
+        ],
+        "explanation": "युकातान प्रायद्वीप मैक्सिको की खाड़ी और कैरेबियन सागर के बीच है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਮੈਕਸੀਕੋ ਦੀ ਖਾੜੀ ਨੂੰ ਕੈਰੇਬੀਅਨ ਸਾਗਰ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਸਿਨਾਈ",
+          "ਯੂਕਾਤਾਨ ਪ੍ਰਾਇਦੀਪ",
+          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ",
+          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਯੂਕਾਤਾਨ ਪ੍ਰਾਇਦੀਪ ਮੈਕਸੀਕੋ ਦੀ ਖਾੜੀ ਅਤੇ ਕੈਰੇਬੀਅਨ ਸਾਗਰ ਵਿਚਕਾਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP021-Q021",
+    "cpId": "WGE-001-CP021",
+    "objective": "cape-horn-passage",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-021B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which cape marks the southern tip of the Tierra del Fuego archipelago in Chile?",
+        "options": [
+          "Horn",
+          "GoodHope",
+          "CapeAgulhas",
+          "CapeYork"
+        ],
+        "explanation": "Cape Horn lies at the southern end of the Tierra del Fuego archipelago in Chile, beside the Drake Passage."
+      },
+      "hi": {
+        "stem": "कौन-सा अंतरीप चिली के तिएरा डेल फ़ुएगो द्वीपसमूह के दक्षिणी सिरे पर है?",
+        "options": [
+          "हॉर्न अंतरीप",
+          "अच्छी आशा अंतरीप",
+          "केप अगुलहास",
+          "केप यॉर्क"
+        ],
+        "explanation": "हॉर्न अंतरीप चिली के तिएरा डेल फ़ुएगो द्वीपसमूह के दक्षिणी छोर पर, ड्रेक जलडमरूमध्य के पास है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਅੰਤਰੀਪ ਚਿਲੀ ਦੇ ਤੀਏਰਾ ਡੈਲ ਫ਼ੂਏਗੋ ਟਾਪੂ-ਸਮੂਹ ਦੇ ਦੱਖਣੀ ਸਿਰੇ ਉੱਤੇ ਹੈ?",
+        "options": [
+          "ਹੌਰਨ ਅੰਤਰੀਪ",
+          "ਗੁੱਡ ਹੋਪ ਅੰਤਰੀਪ",
+          "ਕੇਪ ਅਗੁਲਹਾਸ",
+          "ਕੇਪ ਯੌਰਕ"
+        ],
+        "explanation": "ਹੌਰਨ ਅੰਤਰੀਪ ਚਿਲੀ ਦੇ ਤੀਏਰਾ ਡੈਲ ਫ਼ੂਏਗੋ ਟਾਪੂ-ਸਮੂਹ ਦੇ ਦੱਖਣੀ ਸਿਰੇ ਉੱਤੇ, ਡਰੇਕ ਜਲਡਮਰੂ ਨੇੜੇ ਹੈ।"
+      }
+    }
+  }
+]

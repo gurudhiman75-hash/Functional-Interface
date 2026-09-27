@@ -1,0 +1,969 @@
+[
+  {
+    "id": "WGE-001-CP022-Q001",
+    "cpId": "WGE-001-CP022",
+    "objective": "capital-australia",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which city is Australia’s national capital?",
+        "options": [
+          "Canberra",
+          "Sydney",
+          "Melbourne",
+          "Perth"
+        ],
+        "explanation": "Canberra is Australia’s national capital; Sydney and Melbourne are larger cities but are not the capital."
+      },
+      "hi": {
+        "stem": "ऑस्ट्रेलिया की राष्ट्रीय राजधानी कौन-सा शहर है?",
+        "options": [
+          "कैनबरा",
+          "सिडनी",
+          "मेलबर्न",
+          "पर्थ"
+        ],
+        "explanation": "कैनबरा ऑस्ट्रेलिया की राष्ट्रीय राजधानी है; सिडनी और मेलबर्न बड़े शहर हैं, राजधानी नहीं।"
+      },
+      "pa": {
+        "stem": "ਆਸਟ੍ਰੇਲੀਆ ਦੀ ਰਾਸ਼ਟਰੀ ਰਾਜਧਾਨੀ ਕਿਹੜਾ ਸ਼ਹਿਰ ਹੈ?",
+        "options": [
+          "ਕੈਨਬਰਾ",
+          "ਸਿਡਨੀ",
+          "ਮੈਲਬਰਨ",
+          "ਪਰਥ"
+        ],
+        "explanation": "ਕੈਨਬਰਾ ਆਸਟ੍ਰੇਲੀਆ ਦੀ ਰਾਸ਼ਟਰੀ ਰਾਜਧਾਨੀ ਹੈ; ਸਿਡਨੀ ਅਤੇ ਮੈਲਬਰਨ ਵੱਡੇ ਸ਼ਹਿਰ ਹਨ, ਰਾਜਧਾਨੀ ਨਹੀਂ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q002",
+    "cpId": "WGE-001-CP022",
+    "objective": "capital-kazakhstan",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of Kazakhstan?",
+        "options": [
+          "Almaty",
+          "Tashkent",
+          "Bishkek",
+          "Astana"
+        ],
+        "explanation": "Astana is Kazakhstan’s capital; Almaty was the capital until 1997."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर कज़ाख़स्तान की राजधानी है?",
+        "options": [
+          "अल्माटी",
+          "ताशकंद",
+          "बिश्केक",
+          "अस्ताना"
+        ],
+        "explanation": "अस्ताना कज़ाख़स्तान की राजधानी है; 1997 तक अल्माटी राजधानी थी।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਕਜ਼ਾਖਸਤਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਅਲਮਾਟੀ",
+          "ਤਾਸ਼ਕੰਦ",
+          "ਬਿਸ਼ਕੇਕ",
+          "ਅਸਤਾਨਾ"
+        ],
+        "explanation": "ਅਸਤਾਨਾ ਕਜ਼ਾਖਸਤਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; 1997 ਤੱਕ ਅਲਮਾਟੀ ਰਾਜਧਾਨੀ ਸੀ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q003",
+    "cpId": "WGE-001-CP022",
+    "objective": "capital-tanzania",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of Tanzania?",
+        "options": [
+          "Nairobi",
+          "Kampala",
+          "Dodoma",
+          "Dar es Salaam"
+        ],
+        "explanation": "Dodoma is Tanzania’s capital; Dar es Salaam remains its largest city and a major port."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर तंज़ानिया की राजधानी है?",
+        "options": [
+          "नैरोबी",
+          "कंपाला",
+          "डोडोमा",
+          "दार एस सलाम"
+        ],
+        "explanation": "डोडोमा तंज़ानिया की राजधानी है; दार एस सलाम इसका सबसे बड़ा शहर और प्रमुख बंदरगाह है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਤਨਜ਼ਾਨੀਆ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਨੈਰੋਬੀ",
+          "ਕੰਪਾਲਾ",
+          "ਡੋਡੋਮਾ",
+          "ਦਾਰ ਐਸ ਸਲਾਮ"
+        ],
+        "explanation": "ਡੋਡੋਮਾ ਤਨਜ਼ਾਨੀਆ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਦਾਰ ਐਸ ਸਲਾਮ ਇਸਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਸ਼ਹਿਰ ਅਤੇ ਮੁੱਖ ਬੰਦਰਗਾਹ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q004",
+    "cpId": "WGE-001-CP022",
+    "objective": "capital-myanmar",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of Myanmar?",
+        "options": [
+          "Dhaka",
+          "Naypyidaw",
+          "Yangon",
+          "Mandalay"
+        ],
+        "explanation": "Naypyidaw is Myanmar’s capital; Yangon is its largest city."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर म्यांमार की राजधानी है?",
+        "options": [
+          "ढाका",
+          "नेपीडॉ",
+          "यांगून",
+          "मांडले"
+        ],
+        "explanation": "नेपीडॉ म्यांमार की राजधानी है; यांगून इसका सबसे बड़ा शहर है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਮਿਆਂਮਾਰ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਢਾਕਾ",
+          "ਨੇਪੀਡੌ",
+          "ਯਾਂਗੂਨ",
+          "ਮਾਂਡਲੇ"
+        ],
+        "explanation": "ਨੇਪੀਡੌ ਮਿਆਂਮਾਰ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਯਾਂਗੂਨ ਇਸਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਸ਼ਹਿਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q005",
+    "cpId": "WGE-001-CP022",
+    "objective": "capital-france",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of France?",
+        "options": [
+          "Paris",
+          "Lyon",
+          "Marseille",
+          "Nice"
+        ],
+        "explanation": "Paris is the capital of France."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर फ्रांस की राजधानी है?",
+        "options": [
+          "पेरिस",
+          "ल्योन",
+          "मार्सेय",
+          "नीस"
+        ],
+        "explanation": "पेरिस फ्रांस की राजधानी है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਫ਼ਰਾਂਸ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਪੈਰਿਸ",
+          "ਲਿਓਂ",
+          "ਮਾਰਸੇਈ",
+          "ਨੀਸ"
+        ],
+        "explanation": "ਪੈਰਿਸ ਫ਼ਰਾਂਸ ਦੀ ਰਾਜਧਾਨੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q006",
+    "cpId": "WGE-001-CP022",
+    "objective": "south-africa-capital-functions",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which city serves as South Africa’s executive capital, while Cape Town is legislative and Bloemfontein traditionally judicial?",
+        "options": [
+          "Cape Town",
+          "Bloemfontein",
+          "Johannesburg",
+          "Pretoria"
+        ],
+        "explanation": "South Africa has distinct capital functions: Pretoria is executive, Cape Town legislative, and Bloemfontein traditionally judicial."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर दक्षिण अफ्रीका की कार्यपालिका राजधानी है; केप टाउन विधायी और ब्लूमफ़ोन्टेन परंपरागत न्यायिक राजधानी है?",
+        "options": [
+          "केप टाउन",
+          "ब्लूमफ़ोन्टेन",
+          "जोहान्सबर्ग",
+          "प्रिटोरिया"
+        ],
+        "explanation": "दक्षिण अफ्रीका में राजधानी के कार्य बँटे हैं: प्रिटोरिया कार्यपालिका, केप टाउन विधायी और ब्लूमफ़ोन्टेन परंपरागत न्यायिक केंद्र है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਦੀ ਕਾਰਜਕਾਰੀ ਰਾਜਧਾਨੀ ਹੈ; ਕੇਪ ਟਾਊਨ ਵਿਧਾਨਕ ਅਤੇ ਬਲੂਮਫੋਂਟੇਨ ਰਵਾਇਤੀ ਨਿਆਂਕ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਕੇਪ ਟਾਊਨ",
+          "ਬਲੂਮਫੋਂਟੇਨ",
+          "ਜੋਹਾਨਸਬਰਗ",
+          "ਪ੍ਰਿਟੋਰੀਆ"
+        ],
+        "explanation": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਰਾਜਧਾਨੀ ਦੇ ਕੰਮ ਵੱਖਰੇ ਹਨ: ਪ੍ਰਿਟੋਰੀਆ ਕਾਰਜਕਾਰੀ, ਕੇਪ ਟਾਊਨ ਵਿਧਾਨਕ ਅਤੇ ਬਲੂਮਫੋਂਟੇਨ ਰਵਾਇਤੀ ਨਿਆਂਕ ਕੇਂਦਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q007",
+    "cpId": "WGE-001-CP022",
+    "objective": "capital-bolivia-constitutional",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which city is Bolivia’s constitutional capital? La Paz is the seat of government.",
+        "options": [
+          "Santa Cruz",
+          "Cochabamba",
+          "Sucre",
+          "La Paz"
+        ],
+        "explanation": "Sucre is Bolivia’s constitutional capital. The executive and legislative branches sit in La Paz."
+      },
+      "hi": {
+        "stem": "बोलीविया की संवैधानिक राजधानी कौन-सा शहर है? सरकार का मुख्यालय ला पाज़ में है।",
+        "options": [
+          "सांता क्रूज़",
+          "कोचाबांबा",
+          "सूक्रे",
+          "ला पाज़"
+        ],
+        "explanation": "सूक्रे बोलीविया की संवैधानिक राजधानी है। कार्यपालिका और विधायिका ला पाज़ में बैठती हैं।"
+      },
+      "pa": {
+        "stem": "ਬੋਲੀਵੀਆ ਦੀ ਸੰਵਿਧਾਨਕ ਰਾਜਧਾਨੀ ਕਿਹੜਾ ਸ਼ਹਿਰ ਹੈ? ਸਰਕਾਰ ਦਾ ਕੇਂਦਰ ਲਾ ਪਾਜ਼ ਵਿੱਚ ਹੈ।",
+        "options": [
+          "ਸਾਂਤਾ ਕ੍ਰੂਜ਼",
+          "ਕੋਚਾਬੰਬਾ",
+          "ਸੂਕਰੇ",
+          "ਲਾ ਪਾਜ਼"
+        ],
+        "explanation": "ਸੂਕਰੇ ਬੋਲੀਵੀਆ ਦੀ ਸੰਵਿਧਾਨਕ ਰਾਜਧਾਨੀ ਹੈ। ਕਾਰਜਕਾਰੀ ਅਤੇ ਵਿਧਾਨਕ ਸੰਸਥਾਵਾਂ ਲਾ ਪਾਜ਼ ਵਿੱਚ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q008",
+    "cpId": "WGE-001-CP022",
+    "objective": "netherlands-capital-seat",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which city is the constitutional capital of the Netherlands? The government sits in The Hague.",
+        "options": [
+          "Utrecht",
+          "Amsterdam",
+          "Hague",
+          "Rotterdam"
+        ],
+        "explanation": "Amsterdam is the constitutional capital; The Hague is the seat of government and parliament."
+      },
+      "hi": {
+        "stem": "नीदरलैंड की संवैधानिक राजधानी कौन-सा शहर है? सरकार हेग में बैठती है।",
+        "options": [
+          "यूट्रेक्ट",
+          "एम्स्टर्डम",
+          "हेग",
+          "रॉटरडैम"
+        ],
+        "explanation": "एम्स्टर्डम संवैधानिक राजधानी है; हेग सरकार और संसद का केंद्र है।"
+      },
+      "pa": {
+        "stem": "ਨੀਦਰਲੈਂਡ ਦੀ ਸੰਵਿਧਾਨਕ ਰਾਜਧਾਨੀ ਕਿਹੜਾ ਸ਼ਹਿਰ ਹੈ? ਸਰਕਾਰ ਹੇਗ ਵਿੱਚ ਬੈਠਦੀ ਹੈ।",
+        "options": [
+          "ਯੂਟ੍ਰੇਖ਼ਤ",
+          "ਐਮਸਟਰਡਮ",
+          "ਹੇਗ",
+          "ਰੌਟਰਡੈਮ"
+        ],
+        "explanation": "ਐਮਸਟਰਡਮ ਸੰਵਿਧਾਨਕ ਰਾਜਧਾਨੀ ਹੈ; ਹੇਗ ਸਰਕਾਰ ਅਤੇ ਸੰਸਦ ਦਾ ਕੇਂਦਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q009",
+    "cpId": "WGE-001-CP022",
+    "objective": "landlocked-switzerland",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which landlocked country lies in Central Europe?",
+        "options": [
+          "Switzerland",
+          "Portugal",
+          "Norway",
+          "Greece"
+        ],
+        "explanation": "Switzerland has no coastline and is surrounded by other countries."
+      },
+      "hi": {
+        "stem": "मध्य यूरोप में स्थित स्थलरुद्ध देश कौन-सा है?",
+        "options": [
+          "स्विट्ज़रलैंड",
+          "पुर्तगाल",
+          "नॉर्वे",
+          "यूनान"
+        ],
+        "explanation": "स्विट्ज़रलैंड का समुद्री तट नहीं है और यह अन्य देशों से घिरा है।"
+      },
+      "pa": {
+        "stem": "ਮੱਧ ਯੂਰਪ ਵਿੱਚ ਸਥਿਤ ਭੂ-ਬੱਧ ਦੇਸ਼ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਸਵਿਟਜ਼ਰਲੈਂਡ",
+          "ਪੁਰਤਗਾਲ",
+          "ਨਾਰਵੇ",
+          "ਯੂਨਾਨ"
+        ],
+        "explanation": "ਸਵਿਟਜ਼ਰਲੈਂਡ ਦਾ ਸਮੁੰਦਰੀ ਤਟ ਨਹੀਂ ਹੈ ਅਤੇ ਇਹ ਹੋਰ ਦੇਸ਼ਾਂ ਨਾਲ ਘਿਰਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q010",
+    "cpId": "WGE-001-CP022",
+    "objective": "island-state-japan",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which East Asian country is an island nation?",
+        "options": [
+          "Mongolia",
+          "Laos",
+          "Nepal",
+          "Japan"
+        ],
+        "explanation": "Japan is an island country in the northwest Pacific; Mongolia, Laos and Nepal are landlocked."
+      },
+      "hi": {
+        "stem": "पूर्वी एशिया का कौन-सा देश द्वीपीय राष्ट्र है?",
+        "options": [
+          "मंगोलिया",
+          "लाओस",
+          "नेपाल",
+          "जापान"
+        ],
+        "explanation": "जापान उत्तर-पश्चिमी प्रशांत का द्वीपीय देश है; मंगोलिया, लाओस और नेपाल स्थलरुद्ध हैं।"
+      },
+      "pa": {
+        "stem": "ਪੂਰਬੀ ਏਸ਼ੀਆ ਦਾ ਕਿਹੜਾ ਦੇਸ਼ ਟਾਪੂ-ਰਾਸ਼ਟਰ ਹੈ?",
+        "options": [
+          "ਮੰਗੋਲੀਆ",
+          "ਲਾਓਸ",
+          "ਨੇਪਾਲ",
+          "ਜਪਾਨ"
+        ],
+        "explanation": "ਜਪਾਨ ਉੱਤਰ-ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਦਾ ਟਾਪੂ-ਦੇਸ਼ ਹੈ; ਮੰਗੋਲੀਆ, ਲਾਓਸ ਅਤੇ ਨੇਪਾਲ ਭੂ-ਬੱਧ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q011",
+    "cpId": "WGE-001-CP022",
+    "objective": "lesotho-enclave",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which country is entirely surrounded by South Africa?",
+        "options": [
+          "Botswana",
+          "Namibia",
+          "Lesotho",
+          "Eswatini"
+        ],
+        "explanation": "Lesotho is a sovereign enclave completely surrounded by South Africa."
+      },
+      "hi": {
+        "stem": "कौन-सा देश पूरी तरह दक्षिण अफ्रीका से घिरा है?",
+        "options": [
+          "बोत्सवाना",
+          "नामीबिया",
+          "लेसोथो",
+          "एस्वातिनी"
+        ],
+        "explanation": "लेसोथो संप्रभु देश है और पूरी तरह दक्षिण अफ्रीका से घिरा है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਪੂਰੀ ਤਰ੍ਹਾਂ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਨਾਲ ਘਿਰਿਆ ਹੈ?",
+        "options": [
+          "ਬੋਤਸਵਾਨਾ",
+          "ਨਾਮੀਬੀਆ",
+          "ਲੈਸੋਥੋ",
+          "ਐਸਵਾਤੀਨੀ"
+        ],
+        "explanation": "ਲੈਸੋਥੋ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ ਅਤੇ ਪੂਰੀ ਤਰ੍ਹਾਂ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਨਾਲ ਘਿਰਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q012",
+    "cpId": "WGE-001-CP022",
+    "objective": "san-marino-enclave",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which country is a sovereign state enclosed by Italy?",
+        "options": [
+          "Malta",
+          "SanMarino",
+          "Monaco",
+          "Andorra"
+        ],
+        "explanation": "San Marino is an independent enclave within Italy."
+      },
+      "hi": {
+        "stem": "कौन-सा देश इटली से घिरा संप्रभु देश है?",
+        "options": [
+          "माल्टा",
+          "सैन मरीनो",
+          "मोनाको",
+          "अंडोरा"
+        ],
+        "explanation": "सैन मरीनो इटली के भीतर स्थित स्वतंत्र देश है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਇਟਲੀ ਨਾਲ ਘਿਰਿਆ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ?",
+        "options": [
+          "ਮਾਲਟਾ",
+          "ਸੈਨ ਮਰੀਨੋ",
+          "ਮੋਨਾਕੋ",
+          "ਅੰਡੋਰਾ"
+        ],
+        "explanation": "ਸੈਨ ਮਰੀਨੋ ਇਟਲੀ ਦੇ ਅੰਦਰ ਸਥਿਤ ਆਜ਼ਾਦ ਦੇਸ਼ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q013",
+    "cpId": "WGE-001-CP022",
+    "objective": "transcontinental-turkey",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which country has territory in both Europe and Asia?",
+        "options": [
+          "Turkey",
+          "Portugal",
+          "Mongolia",
+          "Iran"
+        ],
+        "explanation": "Turkey spans southeastern Europe and western Asia, separated in part by the Turkish Straits."
+      },
+      "hi": {
+        "stem": "किस देश का भूभाग यूरोप और एशिया दोनों में फैला है?",
+        "options": [
+          "तुर्किये",
+          "पुर्तगाल",
+          "मंगोलिया",
+          "ईरान"
+        ],
+        "explanation": "तुर्किये दक्षिण-पूर्वी यूरोप और पश्चिमी एशिया में फैला है; दोनों भागों के बीच तुर्की जलडमरूमध्य हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਦੇਸ਼ ਦਾ ਭੂ-ਭਾਗ ਯੂਰਪ ਅਤੇ ਏਸ਼ੀਆ ਦੋਹਾਂ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਤੁਰਕੀਏ",
+          "ਪੁਰਤਗਾਲ",
+          "ਮੰਗੋਲੀਆ",
+          "ਈਰਾਨ"
+        ],
+        "explanation": "ਤੁਰਕੀਏ ਦੱਖਣ-ਪੂਰਬੀ ਯੂਰਪ ਅਤੇ ਪੱਛਮੀ ਏਸ਼ੀਆ ਵਿੱਚ ਫੈਲਿਆ ਹੈ; ਦੋਹਾਂ ਹਿੱਸਿਆਂ ਵਿਚਕਾਰ ਤੁਰਕੀ ਜਲਡਮਰੂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q014",
+    "cpId": "WGE-001-CP022",
+    "objective": "transcontinental-egypt",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which country lies mainly in Africa but also includes the Sinai Peninsula in Asia?",
+        "options": [
+          "Libya",
+          "Sudan",
+          "Algeria",
+          "Egypt"
+        ],
+        "explanation": "Egypt is mainly in northeastern Africa; the Sinai Peninsula lies in Asia."
+      },
+      "hi": {
+        "stem": "कौन-सा देश मुख्यतः अफ्रीका में है, जबकि सिनाई प्रायद्वीप एशिया में स्थित है?",
+        "options": [
+          "लीबिया",
+          "सूडान",
+          "अल्जीरिया",
+          "मिस्र"
+        ],
+        "explanation": "मिस्र मुख्यतः उत्तर-पूर्वी अफ्रीका में है; सिनाई प्रायद्वीप एशिया में स्थित है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਮੁੱਖ ਤੌਰ ’ਤੇ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਹੈ, ਜਦਕਿ ਸਿਨਾਈ ਪ੍ਰਾਇਦੀਪ ਏਸ਼ੀਆ ਵਿੱਚ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਲੀਬੀਆ",
+          "ਸੂਡਾਨ",
+          "ਅਲਜੀਰੀਆ",
+          "ਮਿਸਰ"
+        ],
+        "explanation": "ਮਿਸਰ ਮੁੱਖ ਤੌਰ ’ਤੇ ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਹੈ; ਸਿਨਾਈ ਪ੍ਰਾਇਦੀਪ ਏਸ਼ੀਆ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q015",
+    "cpId": "WGE-001-CP022",
+    "objective": "vatican-enclave",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which country is an independent state enclosed within Rome?",
+        "options": [
+          "Cyprus",
+          "Monaco",
+          "Vatican",
+          "Malta"
+        ],
+        "explanation": "Vatican City is a sovereign state enclosed within Rome, Italy."
+      },
+      "hi": {
+        "stem": "कौन-सा देश रोम के भीतर स्थित स्वतंत्र देश है?",
+        "options": [
+          "साइप्रस",
+          "मोनाको",
+          "वेटिकन सिटी",
+          "माल्टा"
+        ],
+        "explanation": "वेटिकन सिटी इटली के रोम के भीतर स्थित संप्रभु देश है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਰੋਮ ਦੇ ਅੰਦਰ ਸਥਿਤ ਆਜ਼ਾਦ ਦੇਸ਼ ਹੈ?",
+        "options": [
+          "ਸਾਇਪ੍ਰਸ",
+          "ਮੋਨਾਕੋ",
+          "ਵੈਟੀਕਨ ਸਿਟੀ",
+          "ਮਾਲਟਾ"
+        ],
+        "explanation": "ਵੈਟੀਕਨ ਸਿਟੀ ਇਟਲੀ ਦੇ ਰੋਮ ਅੰਦਰ ਸਥਿਤ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q016",
+    "cpId": "WGE-001-CP022",
+    "objective": "capital-egypt",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of Egypt?",
+        "options": [
+          "Khartoum",
+          "Cairo",
+          "Alexandria",
+          "Tripoli"
+        ],
+        "explanation": "Cairo is Egypt’s capital, near the Nile Delta in the north of the country."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर मिस्र की राजधानी है?",
+        "options": [
+          "खार्तूम",
+          "काहिरा",
+          "अलेक्ज़ेंड्रिया",
+          "त्रिपोली"
+        ],
+        "explanation": "काहिरा मिस्र की राजधानी है और देश के उत्तर में नील डेल्टा के पास स्थित है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਮਿਸਰ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਖਾਰਤੂਮ",
+          "ਕਾਹਿਰਾ",
+          "ਅਲੈਗਜ਼ੈਂਡਰੀਆ",
+          "ਤ੍ਰਿਪੋਲੀ"
+        ],
+        "explanation": "ਕਾਹਿਰਾ ਮਿਸਰ ਦੀ ਰਾਜਧਾਨੀ ਹੈ ਅਤੇ ਦੇਸ਼ ਦੇ ਉੱਤਰ ਵਿੱਚ ਨੀਲ ਡੈਲਟਾ ਨੇੜੇ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q017",
+    "cpId": "WGE-001-CP022",
+    "objective": "capital-russia",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of Russia?",
+        "options": [
+          "Moscow",
+          "Saint Petersburg",
+          "Kyiv",
+          "Minsk"
+        ],
+        "explanation": "Moscow is Russia’s capital, in the European part of the country."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर रूस की राजधानी है?",
+        "options": [
+          "मॉस्को",
+          "सेंट पीटर्सबर्ग",
+          "कीव",
+          "मिन्स्क"
+        ],
+        "explanation": "मॉस्को रूस की राजधानी है और देश के यूरोपीय भाग में स्थित है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਰੂਸ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਮਾਸਕੋ",
+          "ਸੇਂਟ ਪੀਟਰਜ਼ਬਰਗ",
+          "ਕੀव",
+          "ਮਿੰਸਕ"
+        ],
+        "explanation": "ਮਾਸਕੋ ਰੂਸ ਦੀ ਰਾਜਧਾਨੀ ਹੈ ਅਤੇ ਦੇਸ਼ ਦੇ ਯੂਰਪੀ ਹਿੱਸੇ ਵਿੱਚ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q018",
+    "cpId": "WGE-001-CP022",
+    "objective": "capital-turkey",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of Türkiye?",
+        "options": [
+          "Istanbul",
+          "Izmir",
+          "Bursa",
+          "Ankara"
+        ],
+        "explanation": "Ankara is the capital of Türkiye; Istanbul is its largest city."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर तुर्किये की राजधानी है?",
+        "options": [
+          "इस्तांबुल",
+          "इज़मिर",
+          "बुर्सा",
+          "अंकारा"
+        ],
+        "explanation": "अंकारा तुर्किये की राजधानी है; इस्तांबुल इसका सबसे बड़ा शहर है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਤੁਰਕੀਏ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਇਸਤਾਂਬੁਲ",
+          "ਇਜ਼ਮੀਰ",
+          "ਬਰਸਾ",
+          "ਅੰਕਾਰਾ"
+        ],
+        "explanation": "ਅੰਕਾਰਾ ਤੁਰਕੀਏ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਇਸਤਾਂਬੁਲ ਇਸਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਸ਼ਹਿਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q019",
+    "cpId": "WGE-001-CP022",
+    "objective": "transcontinental-russia",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which country extends across eastern Europe and northern Asia?",
+        "options": [
+          "Egypt",
+          "Kazakhstan",
+          "Russia",
+          "Turkey"
+        ],
+        "explanation": "Russia spans eastern Europe and northern Asia, making it transcontinental."
+      },
+      "hi": {
+        "stem": "कौन-सा देश पूर्वी यूरोप और उत्तरी एशिया में फैला है?",
+        "options": [
+          "मिस्र",
+          "कज़ाख़स्तान",
+          "रूस",
+          "तुर्किये"
+        ],
+        "explanation": "रूस पूर्वी यूरोप और उत्तरी एशिया में फैला है, इसलिए यह अंतरमहाद्वीपीय देश है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਪੂਰਬੀ ਯੂਰਪ ਅਤੇ ਉੱਤਰੀ ਏਸ਼ੀਆ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਮਿਸਰ",
+          "ਕਜ਼ਾਖਸਤਾਨ",
+          "ਰੂਸ",
+          "ਤੁਰਕੀਏ"
+        ],
+        "explanation": "ਰੂਸ ਪੂਰਬੀ ਯੂਰਪ ਅਤੇ ਉੱਤਰੀ ਏਸ਼ੀਆ ਵਿੱਚ ਫੈਲਿਆ ਹੈ, ਇਸ ਲਈ ਇਹ ਦੋ ਮਹਾਂਦੀਪਾਂ ਵਿੱਚ ਸਥਿਤ ਦੇਸ਼ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q020",
+    "cpId": "WGE-001-CP022",
+    "objective": "sovereign-state-enclave",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-022A",
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which country is a sovereign state completely surrounded by Italy?",
+        "options": [
+          "Cyprus",
+          "Vatican",
+          "Greenland",
+          "Malta"
+        ],
+        "explanation": "Vatican City is an independent sovereign state enclosed within Rome; Greenland is an autonomous territory within the Kingdom of Denmark."
+      },
+      "hi": {
+        "stem": "कौन-सा देश इटली से पूरी तरह घिरा संप्रभु देश है?",
+        "options": [
+          "साइप्रस",
+          "वेटिकन सिटी",
+          "ग्रीनलैंड",
+          "माल्टा"
+        ],
+        "explanation": "वेटिकन सिटी रोम के भीतर स्वतंत्र संप्रभु देश है; ग्रीनलैंड डेनमार्क राज्य का स्वायत्त क्षेत्र है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਇਟਲੀ ਨਾਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਘਿਰਿਆ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ?",
+        "options": [
+          "ਸਾਇਪ੍ਰਸ",
+          "ਵੈਟੀਕਨ ਸਿਟੀ",
+          "ਗ੍ਰੀਨਲੈਂਡ",
+          "ਮਾਲਟਾ"
+        ],
+        "explanation": "ਵੈਟੀਕਨ ਸਿਟੀ ਰੋਮ ਅੰਦਰ ਆਜ਼ਾਦ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ; ਗ੍ਰੀਨਲੈਂਡ ਡੈਨਮਾਰਕ ਰਾਜ ਦਾ ਖੁਦਮੁਖਤਿਆਰ ਖੇਤਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q021",
+    "cpId": "WGE-001-CP022",
+    "objective": "territory-not-sovereign",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which territory has extensive self-government within the Kingdom of Denmark but is not a sovereign state?",
+        "options": [
+          "Greenland",
+          "Iceland",
+          "Malta",
+          "Cyprus"
+        ],
+        "explanation": "Greenland has extensive self-government but remains within the Kingdom of Denmark; it is not a separate sovereign state."
+      },
+      "hi": {
+        "stem": "डेनमार्क राज्य का कौन-सा क्षेत्र व्यापक स्वशासन रखता है, पर स्वतंत्र संप्रभु देश नहीं है?",
+        "options": [
+          "ग्रीनलैंड",
+          "आइसलैंड",
+          "माल्टा",
+          "साइप्रस"
+        ],
+        "explanation": "ग्रीनलैंड को व्यापक स्वशासन प्राप्त है, पर वह डेनमार्क राज्य का भाग है; अलग संप्रभु देश नहीं।"
+      },
+      "pa": {
+        "stem": "ਡੈਨਮਾਰਕ ਰਾਜ ਦਾ ਕਿਹੜਾ ਖੇਤਰ ਵੱਡਾ ਖੁਦ-ਸ਼ਾਸਨ ਰੱਖਦਾ ਹੈ ਪਰ ਆਜ਼ਾਦ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਨਹੀਂ ਹੈ?",
+        "options": [
+          "ਗ੍ਰੀਨਲੈਂਡ",
+          "ਆਈਸਲੈਂਡ",
+          "ਮਾਲਟਾ",
+          "ਸਾਇਪ੍ਰਸ"
+        ],
+        "explanation": "ਗ੍ਰੀਨਲੈਂਡ ਨੂੰ ਵੱਡਾ ਖੁਦ-ਸ਼ਾਸਨ ਪ੍ਰਾਪਤ ਹੈ, ਪਰ ਇਹ ਡੈਨਮਾਰਕ ਰਾਜ ਦਾ ਹਿੱਸਾ ਹੈ; ਵੱਖਰਾ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਨਹੀਂ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q022",
+    "cpId": "WGE-001-CP022",
+    "objective": "kaliningrad-exclave",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-022B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Kaliningrad is an exclave of which country?",
+        "options": [
+          "Poland",
+          "Lithuania",
+          "Latvia",
+          "Russia"
+        ],
+        "explanation": "Kaliningrad is a Russian exclave on the Baltic Sea between Poland and Lithuania."
+      },
+      "hi": {
+        "stem": "कालिनिनग्राद किस देश का एक्सक्लेव है?",
+        "options": [
+          "पोलैंड",
+          "लिथुआनिया",
+          "लातविया",
+          "रूस"
+        ],
+        "explanation": "कैलिनिनग्राद बाल्टिक सागर पर पोलैंड और लिथुआनिया के बीच रूस का एक्सक्लेव है।"
+      },
+      "pa": {
+        "stem": "ਕਾਲਿਨਿਨਗ੍ਰਾਦ ਕਿਹੜੇ ਦੇਸ਼ ਦਾ ਐਕਸਕਲੇਵ ਹੈ?",
+        "options": [
+          "ਪੋਲੈਂਡ",
+          "ਲਿਥੁਆਨੀਆ",
+          "ਲਾਤਵੀਆ",
+          "ਰੂਸ"
+        ],
+        "explanation": "ਕਾਲਿਨਿਨਗ੍ਰਾਦ ਬਾਲਟਿਕ ਸਾਗਰ ਉੱਤੇ ਪੋਲੈਂਡ ਅਤੇ ਲਿਥੂਆਨੀਆ ਵਿਚਕਾਰ ਰੂਸ ਦਾ ਐਕਸਕਲੇਵ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP022-Q023",
+    "cpId": "WGE-001-CP022",
+    "objective": "multiple-capitals-south-africa",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-022A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which country distributes its executive, legislative and judicial capital functions among different cities?",
+        "options": [
+          "Bolivia",
+          "France",
+          "SouthAfrica",
+          "Netherlands"
+        ],
+        "explanation": "South Africa distributes national capital functions among Pretoria, Cape Town and Bloemfontein."
+      },
+      "hi": {
+        "stem": "कौन-सा देश अपनी कार्यपालिका, विधायिका और न्यायपालिका के राजधानी-कार्य अलग-अलग शहरों में बाँटता है?",
+        "options": [
+          "बोलीविया",
+          "फ्रांस",
+          "दक्षिण अफ्रीका",
+          "नीदरलैंड"
+        ],
+        "explanation": "दक्षिण अफ्रीका में राष्ट्रीय राजधानी के कार्य प्रिटोरिया, केप टाउन और ब्लूमफ़ोन्टेन में बँटे हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਆਪਣੇ ਕਾਰਜਕਾਰੀ, ਵਿਧਾਨਕ ਅਤੇ ਨਿਆਂਕ ਰਾਜਧਾਨੀ-ਕੰਮ ਵੱਖ-ਵੱਖ ਸ਼ਹਿਰਾਂ ਵਿੱਚ ਵੰਡਦਾ ਹੈ?",
+        "options": [
+          "ਬੋਲੀਵੀਆ",
+          "ਫ਼ਰਾਂਸ",
+          "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ",
+          "ਨੀਦਰਲੈਂਡ"
+        ],
+        "explanation": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਰਾਸ਼ਟਰੀ ਰਾਜਧਾਨੀ ਦੇ ਕੰਮ ਪ੍ਰਿਟੋਰੀਆ, ਕੇਪ ਟਾਊਨ ਅਤੇ ਬਲੂਮਫੋਂਟੇਨ ਵਿੱਚ ਵੰਡੇ ਹਨ।"
+      }
+    }
+  }
+]

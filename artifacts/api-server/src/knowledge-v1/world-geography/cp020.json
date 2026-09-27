@@ -1,0 +1,842 @@
+[
+  {
+    "id": "WGE-001-CP020-Q001",
+    "cpId": "WGE-001-CP020",
+    "objective": "great-lakes-largest-area",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-020A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which Great Lake has the largest surface area?",
+        "options": [
+          "Superior",
+          "Michigan",
+          "Huron",
+          "Ontario"
+        ],
+        "explanation": "Lake Superior is the largest Great Lake by surface area."
+      },
+      "hi": {
+        "stem": "महान झीलों में सतही क्षेत्रफल के आधार पर सबसे बड़ी कौन-सी है?",
+        "options": [
+          "सुपीरियर",
+          "मिशिगन",
+          "ह्यूरॉन",
+          "ओंटारियो"
+        ],
+        "explanation": "सुपीरियर सतही क्षेत्रफल के अनुसार सबसे बड़ी महान झील है।"
+      },
+      "pa": {
+        "stem": "ਮਹਾਨ ਝੀਲਾਂ ਵਿੱਚੋਂ ਸਤਹੀ ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਸਭ ਤੋਂ ਵੱਡੀ ਕਿਹੜੀ ਹੈ?",
+        "options": [
+          "ਸੁਪੀਰੀਅਰ",
+          "ਮਿਸ਼ੀਗਨ",
+          "ਹਿਊਰੋਨ",
+          "ਓਨਟਾਰੀਓ"
+        ],
+        "explanation": "ਸੁਪੀਰੀਅਰ ਸਤਹੀ ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਸਭ ਤੋਂ ਵੱਡੀ ਮਹਾਨ ਝੀਲ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q002",
+    "cpId": "WGE-001-CP020",
+    "objective": "great-lakes-only-us",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-020A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which lake is the only Great Lake located wholly within the United States?",
+        "options": [
+          "Superior",
+          "Huron",
+          "Ontario",
+          "Michigan"
+        ],
+        "explanation": "Lake Michigan is the only Great Lake located entirely within the United States; the others are shared with Canada."
+      },
+      "hi": {
+        "stem": "कौन-सी झील एकमात्र महान झील है जो पूरी तरह संयुक्त राज्य में स्थित है?",
+        "options": [
+          "सुपीरियर",
+          "ह्यूरॉन",
+          "ओंटारियो",
+          "मिशिगन"
+        ],
+        "explanation": "मिशिगन एकमात्र महान झील है जो पूरी तरह संयुक्त राज्य में है; बाकी कनाडा के साथ साझा हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਝੀਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸੰਯੁਕਤ ਰਾਜ ਵਿੱਚ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਸੁਪੀਰੀਅਰ",
+          "ਹਿਊਰੋਨ",
+          "ਓਨਟਾਰੀਓ",
+          "ਮਿਸ਼ੀਗਨ"
+        ],
+        "explanation": "ਮਿਸ਼ੀਗਨ ਇਕੱਲੀ ਮਹਾਨ ਝੀਲ ਹੈ ਜੋ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸੰਯੁਕਤ ਰਾਜ ਵਿੱਚ ਹੈ; ਬਾਕੀਆਂ ਕੈਨੇਡਾ ਨਾਲ ਸਾਂਝੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q003",
+    "cpId": "WGE-001-CP020",
+    "objective": "baikal-volume",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-020B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which lake contains the largest volume of freshwater of any lake?",
+        "options": [
+          "Caspian",
+          "Tanganyika",
+          "Baikal",
+          "Victoria"
+        ],
+        "explanation": "Lake Baikal in Siberia holds more freshwater by volume than any other lake."
+      },
+      "hi": {
+        "stem": "कौन-सी झील में मीठे पानी का आयतन विश्व की झीलों में सबसे अधिक है?",
+        "options": [
+          "कैस्पियन सागर",
+          "टांगान्यिका",
+          "बैकाल",
+          "विक्टोरिया"
+        ],
+        "explanation": "साइबेरिया की बैकाल झील में किसी भी अन्य झील से अधिक मीठा पानी है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਝੀਲ ਵਿੱਚ ਮਿੱਠੇ ਪਾਣੀ ਦਾ ਆਇਤਨ ਦੁਨੀਆ ਦੀਆਂ ਝੀਲਾਂ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਹੈ?",
+        "options": [
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ",
+          "ਟਾਂਗਾਨੀਕਾ",
+          "ਬੈਕਾਲ",
+          "ਵਿਕਟੋਰੀਆ"
+        ],
+        "explanation": "ਸਾਈਬੇਰੀਆ ਦੀ ਬੈਕਾਲ ਝੀਲ ਵਿੱਚ ਹੋਰ ਕਿਸੇ ਵੀ ਝੀਲ ਨਾਲੋਂ ਵੱਧ ਮਿੱਠਾ ਪਾਣੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q004",
+    "cpId": "WGE-001-CP020",
+    "objective": "lake-victoria-countries",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-020B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which lake is bordered by Tanzania, Uganda and Kenya?",
+        "options": [
+          "Baikal",
+          "Victoria",
+          "Tanganyika",
+          "Chad"
+        ],
+        "explanation": "Lake Victoria occupies a basin shared by Tanzania, Uganda and Kenya."
+      },
+      "hi": {
+        "stem": "कौन-सी झील तंज़ानिया, युगांडा और केन्या से घिरी है?",
+        "options": [
+          "बैकाल",
+          "विक्टोरिया",
+          "टांगान्यिका",
+          "चाड झील"
+        ],
+        "explanation": "विक्टोरिया झील तंज़ानिया, युगांडा और केन्या के साझा बेसिन में है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਝੀਲ ਤਨਜ਼ਾਨੀਆ, ਯੂਗਾਂਡਾ ਅਤੇ ਕੀਨੀਆ ਨਾਲ ਘਿਰੀ ਹੈ?",
+        "options": [
+          "ਬੈਕਾਲ",
+          "ਵਿਕਟੋਰੀਆ",
+          "ਟਾਂਗਾਨੀਕਾ",
+          "ਚਾਡ ਝੀਲ"
+        ],
+        "explanation": "ਵਿਕਟੋਰੀਆ ਝੀਲ ਤਨਜ਼ਾਨੀਆ, ਯੂਗਾਂਡਾ ਅਤੇ ਕੀਨੀਆ ਦੇ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q005",
+    "cpId": "WGE-001-CP020",
+    "objective": "tanganyika-rift",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-020B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which lake occupies part of the East African Rift and borders four countries?",
+        "options": [
+          "Tanganyika",
+          "Victoria",
+          "Chad",
+          "Ontario"
+        ],
+        "explanation": "Lake Tanganyika is a long rift lake bordered by Tanzania, the Democratic Republic of the Congo, Burundi and Zambia."
+      },
+      "hi": {
+        "stem": "कौन-सी झील पूर्वी अफ्रीकी रिफ्ट में स्थित है और चार देशों से लगती है?",
+        "options": [
+          "टांगान्यिका",
+          "विक्टोरिया",
+          "चाड झील",
+          "ओंटारियो"
+        ],
+        "explanation": "टांगान्यिका लंबी रिफ्ट झील है, जिसके किनारे तंज़ानिया, कांगो लोकतांत्रिक गणराज्य, बुरुंडी और ज़ाम्बिया हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਝੀਲ ਪੂਰਬੀ ਅਫ਼ਰੀਕੀ ਰਿਫਟ ਵਿੱਚ ਸਥਿਤ ਹੈ ਅਤੇ ਚਾਰ ਦੇਸ਼ਾਂ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+        "options": [
+          "ਟਾਂਗਾਨੀਕਾ",
+          "ਵਿਕਟੋਰੀਆ",
+          "ਚਾਡ ਝੀਲ",
+          "ਓਨਟਾਰੀਓ"
+        ],
+        "explanation": "ਟਾਂਗਾਨੀਕਾ ਲੰਮੀ ਰਿਫਟ ਝੀਲ ਹੈ; ਇਸਦੇ ਕੰਢੇ ਤਨਜ਼ਾਨੀਆ, ਕਾਂਗੋ ਲੋਕਤੰਤਰੀ ਗਣਰਾਜ, ਬੁਰੁੰਡੀ ਅਤੇ ਜ਼ਾਮਬੀਆ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q006",
+    "cpId": "WGE-001-CP020",
+    "objective": "caspian-inland-water",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-020B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which inland water body is saline and has no natural outlet to the ocean?",
+        "options": [
+          "DeadSea",
+          "Aral",
+          "Chad",
+          "Caspian"
+        ],
+        "explanation": "The Caspian is an endorheic inland water body; despite its name, it has no natural ocean outlet."
+      },
+      "hi": {
+        "stem": "कौन-सा अंतर्देशीय जलक्षेत्र खारा है और जिसका महासागर तक प्राकृतिक निकास नहीं है?",
+        "options": [
+          "मृत सागर",
+          "अराल सागर",
+          "चाड झील",
+          "कैस्पियन सागर"
+        ],
+        "explanation": "कैस्पियन अंतःप्रवाही अंतर्देशीय जलाशय है; नाम में सागर होने पर भी इसका महासागर तक प्राकृतिक निकास नहीं है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਅੰਦਰੂਨੀ ਜਲ-ਖੇਤਰ ਖਾਰਾ ਹੈ ਅਤੇ ਜਿਸਦਾ ਮਹਾਂਸਾਗਰ ਵੱਲ ਕੁਦਰਤੀ ਨਿਕਾਸ ਨਹੀਂ ਹੈ?",
+        "options": [
+          "ਮ੍ਰਿਤ ਸਾਗਰ",
+          "ਅਰਾਲ ਸਾਗਰ",
+          "ਚਾਡ ਝੀਲ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ"
+        ],
+        "explanation": "ਕੈਸਪੀਅਨ ਅੰਦਰੂਨੀ ਨਿਕਾਸ ਵਾਲਾ ਜਲ-ਖੇਤਰ ਹੈ; ਸਾਗਰ ਕਹਾਉਣ ਦੇ ਬਾਵਜੂਦ ਇਸਦਾ ਮਹਾਂਸਾਗਰ ਵੱਲ ਕੁਦਰਤੀ ਨਿਕਾਸ ਨਹੀਂ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q007",
+    "cpId": "WGE-001-CP020",
+    "objective": "dead-sea-hypersaline",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-020B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which lake has exceptionally high salinity and lies in the Jordan Rift Valley?",
+        "options": [
+          "Victoria",
+          "Ontario",
+          "DeadSea",
+          "Caspian"
+        ],
+        "explanation": "The Dead Sea is a hypersaline lake in the Jordan Rift Valley, between Jordan and the Israel–West Bank area."
+      },
+      "hi": {
+        "stem": "जॉर्डन रिफ्ट घाटी में स्थित अत्यधिक लवणीय झील कौन-सी है?",
+        "options": [
+          "विक्टोरिया",
+          "ओंटारियो",
+          "मृत सागर",
+          "कैस्पियन सागर"
+        ],
+        "explanation": "मृत सागर जॉर्डन रिफ्ट घाटी में जॉर्डन तथा इज़राइल–वेस्ट बैंक क्षेत्र के बीच स्थित अत्यधिक लवणीय झील है।"
+      },
+      "pa": {
+        "stem": "ਜਾਰਡਨ ਰਿਫਟ ਘਾਟੀ ਵਿੱਚ ਸਥਿਤ ਬਹੁਤ ਖਾਰੀ ਝੀਲ ਕਿਹੜੀ ਹੈ?",
+        "options": [
+          "ਵਿਕਟੋਰੀਆ",
+          "ਓਨਟਾਰੀਓ",
+          "ਮ੍ਰਿਤ ਸਾਗਰ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ"
+        ],
+        "explanation": "ਮ੍ਰਿਤ ਸਾਗਰ ਜਾਰਡਨ ਰਿਫਟ ਘਾਟੀ ਵਿੱਚ ਜਾਰਡਨ ਅਤੇ ਇਜ਼ਰਾਈਲ–ਵੈਸਟ ਬੈਂਕ ਖੇਤਰ ਵਿਚਕਾਰ ਬਹੁਤ ਖਾਰੀ ਝੀਲ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q008",
+    "cpId": "WGE-001-CP020",
+    "objective": "aral-shrinkage",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-020C"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which inland sea shrank sharply after water was diverted from its feeder rivers for irrigation?",
+        "options": [
+          "Baikal",
+          "Aral",
+          "Chad",
+          "Caspian"
+        ],
+        "explanation": "Diversions from the Amu Darya and Syr Darya for irrigation caused major shrinkage of the Aral Sea."
+      },
+      "hi": {
+        "stem": "सहायक नदियों का पानी सिंचाई के लिए मोड़ने के बाद किस अंतर्देशीय सागर का विस्तार बहुत घट गया?",
+        "options": [
+          "बैकाल",
+          "अराल सागर",
+          "चाड झील",
+          "कैस्पियन सागर"
+        ],
+        "explanation": "अमू दरिया और सिर दरिया का पानी सिंचाई के लिए मोड़ने से अराल सागर बहुत सिकुड़ा।"
+      },
+      "pa": {
+        "stem": "ਸਹਾਇਕ ਦਰਿਆਵਾਂ ਦਾ ਪਾਣੀ ਸਿੰਚਾਈ ਲਈ ਮੋੜਨ ਤੋਂ ਬਾਅਦ ਕਿਹੜਾ ਅੰਦਰੂਨੀ ਸਾਗਰ ਬਹੁਤ ਸੁੱਕ ਗਿਆ?",
+        "options": [
+          "ਬੈਕਾਲ",
+          "ਅਰਾਲ ਸਾਗਰ",
+          "ਚਾਡ ਝੀਲ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ"
+        ],
+        "explanation": "ਅਮੂ ਦਰਿਆ ਅਤੇ ਸਿਰ ਦਰਿਆ ਦਾ ਪਾਣੀ ਸਿੰਚਾਈ ਲਈ ਮੋੜਨ ਕਾਰਨ ਅਰਾਲ ਸਾਗਰ ਬਹੁਤ ਸੁੱਕਿਆ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q009",
+    "cpId": "WGE-001-CP020",
+    "objective": "lake-chad-sahel",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-020B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which lake lies in the Sahel south of the Sahara?",
+        "options": [
+          "Chad",
+          "Aral",
+          "Victoria",
+          "Tanganyika"
+        ],
+        "explanation": "Lake Chad lies in the Sahel and is shared by the basin countries Chad, Nigeria, Niger and Cameroon; its area varies greatly."
+      },
+      "hi": {
+        "stem": "कौन-सी झील सहारा के दक्षिण में साहेल क्षेत्र में स्थित है?",
+        "options": [
+          "चाड झील",
+          "अराल सागर",
+          "विक्टोरिया",
+          "टांगान्यिका"
+        ],
+        "explanation": "चाड झील साहेल में है और चाड, नाइजीरिया, नाइजर तथा कैमरून के बेसिन देशों से जुड़ी है; इसका क्षेत्रफल बहुत बदलता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਝੀਲ ਸਹਾਰਾ ਦੇ ਦੱਖਣ ਵਿੱਚ ਸਾਹੇਲ ਖੇਤਰ ਵਿੱਚ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਚਾਡ ਝੀਲ",
+          "ਅਰਾਲ ਸਾਗਰ",
+          "ਵਿਕਟੋਰੀਆ",
+          "ਟਾਂਗਾਨੀਕਾ"
+        ],
+        "explanation": "ਚਾਡ ਝੀਲ ਸਾਹੇਲ ਵਿੱਚ ਹੈ ਅਤੇ ਚਾਡ, ਨਾਈਜੀਰੀਆ, ਨਾਈਜਰ ਤੇ ਕੈਮਰੂਨ ਦੇ ਬੇਸਿਨ ਦੇਸ਼ਾਂ ਨਾਲ ਜੁੜੀ ਹੈ; ਇਸਦਾ ਖੇਤਰਫਲ ਕਾਫ਼ੀ ਬਦਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q010",
+    "cpId": "WGE-001-CP020",
+    "objective": "victoria-falls-river",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-020D"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which waterfall lies on the Zambezi River?",
+        "options": [
+          "Niagara",
+          "Iguazu",
+          "Angel",
+          "Victoria"
+        ],
+        "explanation": "Victoria Falls is on the Zambezi River at the Zambia–Zimbabwe border."
+      },
+      "hi": {
+        "stem": "ज़ाम्बेज़ी नदी पर कौन-सा जलप्रपात स्थित है?",
+        "options": [
+          "नियाग्रा",
+          "इगुआज़ू",
+          "एंजेल",
+          "विक्टोरिया"
+        ],
+        "explanation": "विक्टोरिया जलप्रपात ज़ाम्बिया–ज़िम्बाब्वे सीमा पर ज़ाम्बेज़ी नदी में है।"
+      },
+      "pa": {
+        "stem": "ਜ਼ਾਮਬੇਜ਼ੀ ਦਰਿਆ ਉੱਤੇ ਕਿਹੜਾ ਜਲਪ੍ਰਪਾਤ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਨਿਆਗਰਾ",
+          "ਇਗੁਆਜ਼ੂ",
+          "ਏंजਲ",
+          "ਵਿਕਟੋਰੀਆ"
+        ],
+        "explanation": "ਵਿਕਟੋਰੀਆ ਜਲ-ਪ੍ਰਪਾਤ ਜ਼ਾਮਬੀਆ–ਜ਼ਿੰਬਾਬਵੇ ਸਰਹੱਦ ਉੱਤੇ ਜ਼ਾਮਬੇਜ਼ੀ ਦਰਿਆ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q011",
+    "cpId": "WGE-001-CP020",
+    "objective": "iguazu-border",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-020E"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which waterfall forms a major waterfall system on the Argentina–Brazil border?",
+        "options": [
+          "Angel",
+          "Zambezi",
+          "Iguazu",
+          "Niagara"
+        ],
+        "explanation": "Iguazu Falls are on the Iguazu River along the Argentina–Brazil border."
+      },
+      "hi": {
+        "stem": "कौन-सा जलप्रपात अर्जेंटीना–ब्राज़ील सीमा पर प्रमुख जलप्रपात-तंत्र बनाता है?",
+        "options": [
+          "एंजेल",
+          "ज़ाम्बेज़ी",
+          "इगुआज़ू",
+          "नियाग्रा"
+        ],
+        "explanation": "इगुआज़ू जलप्रपात इगुआज़ू नदी पर अर्जेंटीना–ब्राज़ील सीमा के साथ हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਜਲ-ਪ੍ਰਪਾਤ ਅਰਜਨਟੀਨਾ–ਬ੍ਰਾਜ਼ੀਲ ਸਰਹੱਦ ਉੱਤੇ ਵੱਡਾ ਜਲ-ਪ੍ਰਪਾਤ ਤੰਤਰ ਬਣਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਏंजਲ",
+          "ਜ਼ਾਮਬੇਜ਼ੀ",
+          "ਇਗੁਆਜ਼ੂ",
+          "ਨਿਆਗਰਾ"
+        ],
+        "explanation": "ਇਗੁਆਜ਼ੂ ਜਲ-ਪ੍ਰਪਾਤ ਇਗੁਆਜ਼ੂ ਦਰਿਆ ਉੱਤੇ ਅਰਜਨਟੀਨਾ–ਬ੍ਰਾਜ਼ੀਲ ਸਰਹੱਦ ਨਾਲ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q012",
+    "cpId": "WGE-001-CP020",
+    "objective": "angel-falls-country",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-020F"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which waterfall descends from Auyán-tepui in Venezuela’s Canaima National Park?",
+        "options": [
+          "Zambezi",
+          "Angel",
+          "Niagara",
+          "Iguazu"
+        ],
+        "explanation": "Angel Falls descends from Auyán-tepui in Venezuela’s Canaima National Park."
+      },
+      "hi": {
+        "stem": "वेनेज़ुएला के कनैमा राष्ट्रीय उद्यान में औयान-टेपुई से कौन-सा जलप्रपात गिरता है?",
+        "options": [
+          "ज़ाम्बेज़ी",
+          "एंजेल",
+          "नियाग्रा",
+          "इगुआज़ू"
+        ],
+        "explanation": "एंजेल जलप्रपात वेनेज़ुएला के कनैमा राष्ट्रीय उद्यान में औयान-टेपुई से गिरता है।"
+      },
+      "pa": {
+        "stem": "ਵੈਨੇਜ਼ੂਏਲਾ ਦੇ ਕਨਾਇਮਾ ਰਾਸ਼ਟਰੀ ਪਾਰਕ ਵਿੱਚ ਔਯਾਨ-ਟੇਪੁਈ ਤੋਂ ਕਿਹੜਾ ਜਲਪ੍ਰਪਾਤ ਡਿੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਜ਼ਾਮਬੇਜ਼ੀ",
+          "ਏंजਲ",
+          "ਨਿਆਗਰਾ",
+          "ਇਗੁਆਜ਼ੂ"
+        ],
+        "explanation": "ਐਂਜਲ ਜਲ-ਪ੍ਰਪਾਤ ਵੈਨੇਜ਼ੂਏਲਾ ਦੇ ਕਨਾਇਮਾ ਰਾਸ਼ਟਰੀ ਪਾਰਕ ਵਿੱਚ ਔਯਾਨ-ਟੇਪੁਈ ਤੋਂ ਡਿੱਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q013",
+    "cpId": "WGE-001-CP020",
+    "objective": "erie-shallowest",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-020A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which lake is the shallowest of the five Great Lakes?",
+        "options": [
+          "Erie",
+          "Superior",
+          "Huron",
+          "Ontario"
+        ],
+        "explanation": "Lake Erie is the shallowest Great Lake, which makes it especially sensitive to temperature and water-quality changes."
+      },
+      "hi": {
+        "stem": "कौन-सी झील पाँच महान झीलों में सबसे उथली है?",
+        "options": [
+          "ईरी",
+          "सुपीरियर",
+          "ह्यूरॉन",
+          "ओंटारियो"
+        ],
+        "explanation": "ईरी महान झीलों में सबसे उथली है, इसलिए तापमान और जल-गुणवत्ता में बदलाव का उस पर तेज़ असर पड़ता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਝੀਲ ਪੰਜ ਮਹਾਨ ਝੀਲਾਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਘੱਟ ਡੂੰਘੀ ਹੈ?",
+        "options": [
+          "ਈਰੀ",
+          "ਸੁਪੀਰੀਅਰ",
+          "ਹਿਊਰੋਨ",
+          "ਓਨਟਾਰੀਓ"
+        ],
+        "explanation": "ਈਰੀ ਮਹਾਨ ਝੀਲਾਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਘੱਟ ਡੂੰਘੀ ਹੈ, ਇਸ ਲਈ ਤਾਪਮਾਨ ਅਤੇ ਪਾਣੀ ਦੀ ਗੁਣਵੱਤਾ ਦੇ ਬਦਲਾਅ ਦਾ ਇਸ ’ਤੇ ਜਲਦੀ ਅਸਰ ਪੈਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q014",
+    "cpId": "WGE-001-CP020",
+    "objective": "niagara-between-lakes",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-020A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which waterfall is on the river that connects Lakes Erie and Ontario?",
+        "options": [
+          "Angel",
+          "Iguazu",
+          "Victoria",
+          "Niagara"
+        ],
+        "explanation": "The Niagara River carries water from Lake Erie toward Lake Ontario and forms Niagara Falls along its course."
+      },
+      "hi": {
+        "stem": "कौन-सा जलप्रपात उस नदी पर है जो ईरी और ओंटारियो झीलों को जोड़ती है?",
+        "options": [
+          "एंजेल",
+          "इगुआज़ू",
+          "विक्टोरिया",
+          "नियाग्रा"
+        ],
+        "explanation": "नियाग्रा नदी ईरी से ओंटारियो की ओर बहती है और इसके मार्ग में नियाग्रा जलप्रपात बनता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਜਲ-ਪ੍ਰਪਾਤ ਉਸ ਦਰਿਆ ਉੱਤੇ ਹੈ ਜੋ ਈਰੀ ਅਤੇ ਓਨਟਾਰੀਓ ਝੀਲਾਂ ਨੂੰ ਜੋੜਦਾ ਹੈ?",
+        "options": [
+          "ਏंजਲ",
+          "ਇਗੁਆਜ਼ੂ",
+          "ਵਿਕਟੋਰੀਆ",
+          "ਨਿਆਗਰਾ"
+        ],
+        "explanation": "ਨਿਆਗਰਾ ਦਰਿਆ ਈਰੀ ਤੋਂ ਓਨਟਾਰੀਓ ਵੱਲ ਵਗਦਾ ਹੈ ਅਤੇ ਇਸਦੇ ਰਾਹ ਵਿੱਚ ਨਿਆਗਰਾ ਜਲ-ਪ੍ਰਪਾਤ ਬਣਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q015",
+    "cpId": "WGE-001-CP020",
+    "objective": "victoria-white-nile-source",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-020B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which lake is the best-known source of the White Nile?",
+        "options": [
+          "Chad",
+          "Baikal",
+          "Victoria",
+          "Tanganyika"
+        ],
+        "explanation": "The White Nile’s best-known source is Lake Victoria, though the full headwater system extends farther south."
+      },
+      "hi": {
+        "stem": "श्वेत नील का प्रसिद्ध स्रोत कौन-सी झील है?",
+        "options": [
+          "चाड झील",
+          "बैकाल",
+          "विक्टोरिया",
+          "टांगान्यिका"
+        ],
+        "explanation": "श्वेत नील का प्रसिद्ध प्रमुख स्रोत विक्टोरिया झील है, हालाँकि इसकी पूरी उद्गम-प्रणाली और दक्षिण तक जाती है।"
+      },
+      "pa": {
+        "stem": "ਚਿੱਟੀ ਨੀਲ ਦਾ ਪ੍ਰਸਿੱਧ ਸਰੋਤ ਕਿਹੜੀ ਝੀਲ ਹੈ?",
+        "options": [
+          "ਚਾਡ ਝੀਲ",
+          "ਬੈਕਾਲ",
+          "ਵਿਕਟੋਰੀਆ",
+          "ਟਾਂਗਾਨੀਕਾ"
+        ],
+        "explanation": "ਚਿੱਟੀ ਨੀਲ ਦਾ ਪ੍ਰਸਿੱਧ ਮੁੱਖ ਸਰੋਤ ਵਿਕਟੋਰੀਆ ਝੀਲ ਹੈ, ਹਾਲਾਂਕਿ ਇਸਦੀ ਪੂਰੀ ਸਰੋਤ-ਪ੍ਰਣਾਲੀ ਹੋਰ ਦੱਖਣ ਤੱਕ ਫੈਲਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q016",
+    "cpId": "WGE-001-CP020",
+    "objective": "caspian-saline-inland",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-020B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which inland water body is saline and has no natural connection to the world ocean?",
+        "options": [
+          "Victoria",
+          "Caspian",
+          "Baikal",
+          "Superior"
+        ],
+        "explanation": "The Caspian is a saline, endorheic inland sea; Lake Baikal and the Great Lakes are freshwater systems."
+      },
+      "hi": {
+        "stem": "कौन-सा अंतर्देशीय जलक्षेत्र खारा है और जिसका विश्व-महासागर से प्राकृतिक जुड़ाव नहीं है?",
+        "options": [
+          "विक्टोरिया",
+          "कैस्पियन सागर",
+          "बैकाल",
+          "सुपीरियर"
+        ],
+        "explanation": "कैस्पियन खारा अंतःप्रवाही अंतर्देशीय सागर है; बैकाल और महान झीलें मीठे पानी की प्रणालियाँ हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਅੰਦਰੂਨੀ ਜਲ-ਖੇਤਰ ਖਾਰਾ ਹੈ ਅਤੇ ਜਿਸਦਾ ਵਿਸ਼ਵ ਮਹਾਂਸਾਗਰ ਨਾਲ ਕੁਦਰਤੀ ਜੋੜ ਨਹੀਂ ਹੈ?",
+        "options": [
+          "ਵਿਕਟੋਰੀਆ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ",
+          "ਬੈਕਾਲ",
+          "ਸੁਪੀਰੀਅਰ"
+        ],
+        "explanation": "ਕੈਸਪੀਅਨ ਖਾਰਾ, ਅੰਦਰੂਨੀ ਨਿਕਾਸ ਵਾਲਾ ਜਲ-ਖੇਤਰ ਹੈ; ਬੈਕਾਲ ਅਤੇ ਮਹਾਨ ਝੀਲਾਂ ਮਿੱਠੇ ਪਾਣੀ ਦੀਆਂ ਪ੍ਰਣਾਲੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q017",
+    "cpId": "WGE-001-CP020",
+    "objective": "great-lakes-outlet",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-020A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which lake drains eastward through the St Lawrence River system?",
+        "options": [
+          "Ontario",
+          "Michigan",
+          "Superior",
+          "Huron"
+        ],
+        "explanation": "Lake Ontario is the downstream Great Lake; its outlet continues through the St Lawrence River toward the Atlantic."
+      },
+      "hi": {
+        "stem": "कौन-सी झील सेंट लॉरेंस नदी-तंत्र से होकर पूर्व की ओर निकलती है?",
+        "options": [
+          "ओंटारियो",
+          "मिशिगन",
+          "सुपीरियर",
+          "ह्यूरॉन"
+        ],
+        "explanation": "ओंटारियो सबसे नीचे की महान झील है; इसका निकास सेंट लॉरेंस नदी से अटलांटिक की ओर जाता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਝੀਲ ਸੇਂਟ ਲਾਰੈਂਸ ਦਰਿਆਈ ਤੰਤਰ ਰਾਹੀਂ ਪੂਰਬ ਵੱਲ ਨਿਕਲਦੀ ਹੈ?",
+        "options": [
+          "ਓਨਟਾਰੀਓ",
+          "ਮਿਸ਼ੀਗਨ",
+          "ਸੁਪੀਰੀਅਰ",
+          "ਹਿਊਰੋਨ"
+        ],
+        "explanation": "ਓਨਟਾਰੀਓ ਸਭ ਤੋਂ ਹੇਠਾਂ ਵਾਲੀ ਮਹਾਨ ਝੀਲ ਹੈ; ਇਸਦਾ ਨਿਕਾਸ ਸੇਂਟ ਲਾਰੈਂਸ ਦਰਿਆ ਰਾਹੀਂ ਐਟਲਾਂਟਿਕ ਵੱਲ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q018",
+    "cpId": "WGE-001-CP020",
+    "objective": "baikal-rift-origin",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-020B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which lake occupies a tectonic rift basin in Siberia?",
+        "options": [
+          "Caspian",
+          "Erie",
+          "Chad",
+          "Baikal"
+        ],
+        "explanation": "Lake Baikal occupies a deep continental rift, linking its origin to crustal extension."
+      },
+      "hi": {
+        "stem": "कौन-सी झील साइबेरिया के विवर्तनिक रिफ्ट बेसिन में स्थित है?",
+        "options": [
+          "कैस्पियन सागर",
+          "ईरी",
+          "चाड झील",
+          "बैकाल"
+        ],
+        "explanation": "बैकाल झील गहरे महाद्वीपीय रिफ्ट में है; इसका निर्माण भू-पर्पटी के खिंचाव से जुड़ा है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਝੀਲ ਸਾਈਬੇਰੀਆ ਦੇ ਟੈਕਟੋਨਿਕ ਰਿਫਟ ਬੇਸਿਨ ਵਿੱਚ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ",
+          "ਈਰੀ",
+          "ਚਾਡ ਝੀਲ",
+          "ਬੈਕਾਲ"
+        ],
+        "explanation": "ਬੈਕਾਲ ਝੀਲ ਡੂੰਘੇ ਮਹਾਂਦੀਪੀ ਰਿਫਟ ਵਿੱਚ ਹੈ; ਇਸਦੀ ਬਣਤਰ ਭੂ-ਪਟਲ ਦੇ ਖਿੱਚ ਨਾਲ ਜੁੜੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q019",
+    "cpId": "WGE-001-CP020",
+    "objective": "victoria-falls-border",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-020D"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which waterfall lies on the border between Zambia and Zimbabwe?",
+        "options": [
+          "Angel",
+          "Niagara",
+          "Victoria",
+          "Iguazu"
+        ],
+        "explanation": "Victoria Falls straddles the Zambia–Zimbabwe border on the Zambezi River."
+      },
+      "hi": {
+        "stem": "कौन-सा जलप्रपात ज़ाम्बिया और ज़िम्बाब्वे की सीमा पर स्थित है?",
+        "options": [
+          "एंजेल",
+          "नियाग्रा",
+          "विक्टोरिया",
+          "इगुआज़ू"
+        ],
+        "explanation": "विक्टोरिया जलप्रपात ज़ाम्बेज़ी नदी पर ज़ाम्बिया–ज़िम्बाब्वे सीमा में फैला है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਜਲ-ਪ੍ਰਪਾਤ ਜ਼ਾਮਬੀਆ ਅਤੇ ਜ਼ਿੰਬਾਬਵੇ ਦੀ ਸਰਹੱਦ ਉੱਤੇ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਏंजਲ",
+          "ਨਿਆਗਰਾ",
+          "ਵਿਕਟੋਰੀਆ",
+          "ਇਗੁਆਜ਼ੂ"
+        ],
+        "explanation": "ਵਿਕਟੋਰੀਆ ਜਲ-ਪ੍ਰਪਾਤ ਜ਼ਾਮਬੇਜ਼ੀ ਦਰਿਆ ਉੱਤੇ ਜ਼ਾਮਬੀਆ–ਜ਼ਿੰਬਾਬਵੇ ਸਰਹੱਦ ’ਤੇ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP020-Q020",
+    "cpId": "WGE-001-CP020",
+    "objective": "lake-kind-salinity",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-020B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which freshwater lake contrasts with the saline Caspian and Dead Sea?",
+        "options": [
+          "Aral",
+          "Baikal",
+          "Caspian",
+          "DeadSea"
+        ],
+        "explanation": "Baikal is a freshwater lake; the Caspian and Dead Sea are inland saline waters."
+      },
+      "hi": {
+        "stem": "कैस्पियन और मृत सागर के विपरीत मीठे पानी की झील कौन-सी है?",
+        "options": [
+          "अराल सागर",
+          "बैकाल",
+          "कैस्पियन सागर",
+          "मृत सागर"
+        ],
+        "explanation": "बैकाल मीठे पानी की झील है; कैस्पियन और मृत सागर अंतर्देशीय खारे जलाशय हैं।"
+      },
+      "pa": {
+        "stem": "ਖਾਰੇ ਕੈਸਪੀਅਨ ਅਤੇ ਮ੍ਰਿਤ ਸਾਗਰ ਦੇ ਉਲਟ ਮਿੱਠੇ ਪਾਣੀ ਵਾਲੀ ਝੀਲ ਕਿਹੜੀ ਹੈ?",
+        "options": [
+          "ਅਰਾਲ ਸਾਗਰ",
+          "ਬੈਕਾਲ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ",
+          "ਮ੍ਰਿਤ ਸਾਗਰ"
+        ],
+        "explanation": "ਬੈਕਾਲ ਮਿੱਠੇ ਪਾਣੀ ਦੀ ਝੀਲ ਹੈ; ਕੈਸਪੀਅਨ ਅਤੇ ਮ੍ਰਿਤ ਸਾਗਰ ਅੰਦਰੂਨੀ ਖਾਰੇ ਜਲ-ਖੇਤਰ ਹਨ।"
+      }
+    }
+  }
+]

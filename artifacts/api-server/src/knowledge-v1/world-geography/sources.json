@@ -430,5 +430,113 @@
     "kind": "primary-agency",
     "consultedOn": "2026-09-27",
     "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-020A",
+    "title": "USGS: Great Lakes and Inland Seas",
+    "url": "https://www.usgs.gov/science/science-explorer/ocean/great-lakes-and-inland-seas",
+    "section": "Five Great Lakes and their North American setting",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-020B",
+    "title": "USGS: Lakes and Reservoirs",
+    "url": "https://www.usgs.gov/water-science-school/science/lakes-and-reservoirs",
+    "section": "Lake Baikal, lake types, inland saline waters",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-020C",
+    "title": "UNEP: The Changing Aral Sea",
+    "url": "https://www.unep.org/resources/emerging-issues/changing-aral-sea",
+    "section": "Aral Sea shrinkage and water diversion",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-020D",
+    "title": "UNESCO: Mosi-oa-Tunya / Victoria Falls",
+    "url": "https://whc.unesco.org/en/list/509",
+    "section": "Victoria Falls on the Zambia–Zimbabwe border and Zambezi setting",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-020E",
+    "title": "UNESCO: Iguazu National Park",
+    "url": "https://whc.unesco.org/en/list/303",
+    "section": "Iguazu Falls on the Argentina–Brazil border",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-021A",
+    "title": "NCERT: World Climate and Natural Vegetation",
+    "url": "https://ncert.nic.in/textbook.php?kege1=0-14",
+    "section": "World desert regions and climate settings",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-PHY-021B",
+    "title": "UN Geospatial: Map of the World",
+    "url": "https://www.un.org/geospatial/content/map-world-1",
+    "section": "World locations, countries, islands and coastlines",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-022A",
+    "title": "UNGEGN World Geographical Names Database",
+    "url": "https://unstats.un.org/unsd/GeoInfo/geonames/About.htm",
+    "section": "Standardized names of countries and capitals",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-022B",
+    "title": "UN Maps: Authoritative Boundaries",
+    "url": "https://maps.un.org/",
+    "section": "Country boundaries and geographic relationships",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-023A",
+    "title": "UN Geospatial: South Asia and country maps",
+    "url": "https://www.un.org/geospatial/mapsgeo",
+    "section": "South Asian country locations, capitals and neighbouring regions",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-023B",
+    "title": "NCERT: India Physical Environment",
+    "url": "https://ncert.nic.in/textbook.php?keph1=0-7",
+    "section": "Himalaya, river systems, coasts and neighbouring physical geography",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-PHY-020F",
+    "title": "UNESCO: Canaima National Park",
+    "url": "https://whc.unesco.org/en/list/701/",
+    "section": "Angel Falls in the Canaima tableland of Venezuela",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-27",
+    "retrievalStatus": "page-read"
   }
 ]

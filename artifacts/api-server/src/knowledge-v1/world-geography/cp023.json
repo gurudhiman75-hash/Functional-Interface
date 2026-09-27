@@ -1,0 +1,1019 @@
+[
+  {
+    "id": "WGE-001-CP023-Q001",
+    "cpId": "WGE-001-CP023",
+    "objective": "capital-pakistan",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of Pakistan?",
+        "options": [
+          "Islamabad",
+          "Karachi",
+          "Lahore",
+          "Peshawar"
+        ],
+        "explanation": "Islamabad is Pakistan’s capital; Karachi is its largest city and a major seaport."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर पाकिस्तान की राजधानी है?",
+        "options": [
+          "इस्लामाबाद",
+          "कराची",
+          "लाहौर",
+          "पेशावर"
+        ],
+        "explanation": "इस्लामाबाद पाकिस्तान की राजधानी है; कराची इसका सबसे बड़ा शहर और प्रमुख बंदरगाह है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਪਾਕਿਸਤਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਇਸਲਾਮਾਬਾਦ",
+          "ਕਰਾਚੀ",
+          "ਲਾਹੌਰ",
+          "ਪੇਸ਼ਾਵਰ"
+        ],
+        "explanation": "ਇਸਲਾਮਾਬਾਦ ਪਾਕਿਸਤਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਕਰਾਚੀ ਇਸਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਸ਼ਹਿਰ ਅਤੇ ਮੁੱਖ ਬੰਦਰਗਾਹ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q002",
+    "cpId": "WGE-001-CP023",
+    "objective": "capital-afghanistan",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-023A",
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of Afghanistan?",
+        "options": [
+          "Kandahar",
+          "Herat",
+          "Mazar-i-Sharif",
+          "Kabul"
+        ],
+        "explanation": "Kabul lies in eastern Afghanistan, in a valley surrounded by the Hindu Kush region."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर अफ़ग़ानिस्तान की राजधानी है?",
+        "options": [
+          "कंधार",
+          "हेरात",
+          "मज़ार-ए-शरीफ़",
+          "काबुल"
+        ],
+        "explanation": "काबुल पूर्वी अफ़ग़ानिस्तान में हिंदू कुश क्षेत्र से घिरी घाटी में है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਅਫ਼ਗਾਨਿਸਤਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਕੰਧਾਰ",
+          "ਹੇਰਾਤ",
+          "ਮਜ਼ਾਰ-ਏ-ਸ਼ਰੀਫ਼",
+          "ਕਾਬੁਲ"
+        ],
+        "explanation": "ਕਾਬੁਲ ਪੂਰਬੀ ਅਫ਼ਗਾਨਿਸਤਾਨ ਵਿੱਚ ਹਿੰਦੂ ਕੁਸ਼ ਖੇਤਰ ਨਾਲ ਘਿਰੀ ਘਾਟੀ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q003",
+    "cpId": "WGE-001-CP023",
+    "objective": "capital-nepal",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-023A",
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which city is Nepal’s capital in the Kathmandu Valley?",
+        "options": [
+          "Thimphu",
+          "Dhaka",
+          "Kathmandu",
+          "Pokhara"
+        ],
+        "explanation": "Kathmandu is Nepal’s capital, situated in a valley within the Himalayan foothills."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर काठमांडू घाटी में नेपाल की राजधानी है?",
+        "options": [
+          "थिम्फू",
+          "ढाका",
+          "काठमांडू",
+          "पोखरा"
+        ],
+        "explanation": "काठमांडू नेपाल की राजधानी है और हिमालय की तलहटी की घाटी में स्थित है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਕਾਠਮੰਡੂ ਘਾਟੀ ਵਿੱਚ ਨੇਪਾਲ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਥਿੰਫੂ",
+          "ਢਾਕਾ",
+          "ਕਾਠਮੰਡੂ",
+          "ਪੋਖਰਾ"
+        ],
+        "explanation": "ਕਾਠਮੰਡੂ ਨੇਪਾਲ ਦੀ ਰਾਜਧਾਨੀ ਹੈ ਅਤੇ ਹਿਮਾਲਿਆ ਦੀਆਂ ਪਹਾੜੀ ਢਲਾਣਾਂ ਵਾਲੀ ਘਾਟੀ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q004",
+    "cpId": "WGE-001-CP023",
+    "objective": "capital-bhutan",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of Bhutan?",
+        "options": [
+          "Male",
+          "Thimphu",
+          "Kathmandu",
+          "Kabul"
+        ],
+        "explanation": "Thimphu is Bhutan’s capital in the western part of the country."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर भूटान की राजधानी है?",
+        "options": [
+          "माले",
+          "थिम्फू",
+          "काठमांडू",
+          "काबुल"
+        ],
+        "explanation": "थिम्फू भूटान के पश्चिमी भाग में स्थित राजधानी है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਭੂਟਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਮਾਲੇ",
+          "ਥਿੰਫੂ",
+          "ਕਾਠਮੰਡੂ",
+          "ਕਾਬੁਲ"
+        ],
+        "explanation": "ਥਿੰਫੂ ਭੂਟਾਨ ਦੇ ਪੱਛਮੀ ਹਿੱਸੇ ਵਿੱਚ ਸਥਿਤ ਰਾਜਧਾਨੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q005",
+    "cpId": "WGE-001-CP023",
+    "objective": "capital-bangladesh",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-023A",
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of Bangladesh?",
+        "options": [
+          "Dhaka",
+          "Chittagong",
+          "Colombo",
+          "Islamabad"
+        ],
+        "explanation": "Dhaka is Bangladesh’s capital, in the Ganges–Brahmaputra delta region."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर बांग्लादेश की राजधानी है?",
+        "options": [
+          "ढाका",
+          "चटगाँव",
+          "कोलंबो",
+          "इस्लामाबाद"
+        ],
+        "explanation": "ढाका बांग्लादेश की राजधानी है और गंगा–ब्रह्मपुत्र डेल्टा क्षेत्र में है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਬੰਗਲਾਦੇਸ਼ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਢਾਕਾ",
+          "ਚਟਗਾਂਵ",
+          "ਕੋਲੰਬੋ",
+          "ਇਸਲਾਮਾਬਾਦ"
+        ],
+        "explanation": "ਢਾਕਾ ਬੰਗਲਾਦੇਸ਼ ਦੀ ਰਾਜਧਾਨੀ ਹੈ ਅਤੇ ਗੰਗਾ–ਬ੍ਰਹਮਪੁੱਤਰ ਡੈਲਟਾ ਖੇਤਰ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q006",
+    "cpId": "WGE-001-CP023",
+    "objective": "capital-maldives",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which city is the capital of the Maldives?",
+        "options": [
+          "Colombo",
+          "Dhaka",
+          "Kabul",
+          "Male"
+        ],
+        "explanation": "Malé is the capital of the Maldives, an island country of atolls in the Indian Ocean."
+      },
+      "hi": {
+        "stem": "कौन-सा शहर मालदीव की राजधानी है?",
+        "options": [
+          "कोलंबो",
+          "ढाका",
+          "काबुल",
+          "माले"
+        ],
+        "explanation": "माले मालदीव की राजधानी है; मालदीव हिंद महासागर के प्रवाल द्वीपों वाला देश है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਮਾਲਦੀਵ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
+        "options": [
+          "ਕੋਲੰਬੋ",
+          "ਢਾਕਾ",
+          "ਕਾਬੁਲ",
+          "ਮਾਲੇ"
+        ],
+        "explanation": "ਮਾਲੇ ਮਾਲਦੀਵ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਮਾਲਦੀਵ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦੇ ਐਟੋਲ ਟਾਪੂਆਂ ਵਾਲਾ ਦੇਸ਼ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q007",
+    "cpId": "WGE-001-CP023",
+    "objective": "capital-sri-lanka",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which city is Sri Lanka’s legislative capital, while Colombo is its principal commercial city?",
+        "options": [
+          "Kandy",
+          "Galle",
+          "SriJayawardenepuraKotte",
+          "Colombo"
+        ],
+        "explanation": "Sri Jayawardenepura Kotte is Sri Lanka’s legislative capital; Colombo remains the largest commercial centre."
+      },
+      "hi": {
+        "stem": "श्रीलंका की विधायी राजधानी कौन-सा शहर है, जबकि कोलंबो उसका प्रमुख वाणिज्यिक शहर है?",
+        "options": [
+          "कैंडी",
+          "गाले",
+          "श्री जयवर्धनेपुरा कोट्टे",
+          "कोलंबो"
+        ],
+        "explanation": "श्री जयवर्धनेपुरा कोट्टे श्रीलंका की विधायी राजधानी है; कोलंबो प्रमुख वाणिज्यिक केंद्र है।"
+      },
+      "pa": {
+        "stem": "ਸ੍ਰੀਲੰਕਾ ਦੀ ਵਿਧਾਨਕ ਰਾਜਧਾਨੀ ਕਿਹੜਾ ਸ਼ਹਿਰ ਹੈ, ਜਦਕਿ ਕੋਲੰਬੋ ਇਸਦਾ ਮੁੱਖ ਵਪਾਰਕ ਸ਼ਹਿਰ ਹੈ?",
+        "options": [
+          "ਕੈਂਡੀ",
+          "ਗਾਲੇ",
+          "ਸ੍ਰੀ ਜੈਵਰਧਨੇਪੁਰਾ ਕੋੱਟੇ",
+          "ਕੋਲੰਬੋ"
+        ],
+        "explanation": "ਸ੍ਰੀ ਜੈਵਰਧਨੇਪੁਰਾ ਕੋੱਟੇ ਸ੍ਰੀਲੰਕਾ ਦੀ ਵਿਧਾਨਕ ਰਾਜਧਾਨੀ ਹੈ; ਕੋਲੰਬੋ ਮੁੱਖ ਵਪਾਰਕ ਕੇਂਦਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q008",
+    "cpId": "WGE-001-CP023",
+    "objective": "indus-pakistan-outlet",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which river flows south through Pakistan and reaches the Arabian Sea?",
+        "options": [
+          "Jamuna",
+          "Indus",
+          "Ganges",
+          "Brahmaputra"
+        ],
+        "explanation": "The Indus runs through Pakistan and forms a delta at the Arabian Sea."
+      },
+      "hi": {
+        "stem": "कौन-सी नदी पाकिस्तान से दक्षिण की ओर बहकर अरब सागर में गिरती है?",
+        "options": [
+          "जमुना",
+          "सिंधु",
+          "गंगा",
+          "ब्रह्मपुत्र"
+        ],
+        "explanation": "सिंधु पाकिस्तान से बहती है और अरब सागर पर डेल्टा बनाती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦਰਿਆ ਪਾਕਿਸਤਾਨ ਵਿੱਚੋਂ ਦੱਖਣ ਵੱਲ ਵਗ ਕੇ ਅਰਬ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਜਮੁਨਾ",
+          "ਸਿੰਧ",
+          "ਗੰਗਾ",
+          "ਬ੍ਰਹਮਪੁੱਤਰ"
+        ],
+        "explanation": "ਸਿੰਧ ਦਰਿਆ ਪਾਕਿਸਤਾਨ ਵਿੱਚੋਂ ਵਗਦਾ ਹੈ ਅਤੇ ਅਰਬ ਸਾਗਰ ਕੋਲ ਡੈਲਟਾ ਬਣਾਉਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q009",
+    "cpId": "WGE-001-CP023",
+    "objective": "brahmaputra-bangladesh-name",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which river is known as the Jamuna after entering Bangladesh?",
+        "options": [
+          "Jamuna",
+          "Indus",
+          "Ganges",
+          "KabulRiver"
+        ],
+        "explanation": "The Brahmaputra enters Bangladesh as the Jamuna and later joins the Ganges distributary system."
+      },
+      "hi": {
+        "stem": "कौन-सी नदी बांग्लादेश में प्रवेश करने के बाद जमुना कहलाती है?",
+        "options": [
+          "जमुना",
+          "सिंधु",
+          "गंगा",
+          "काबुल नदी"
+        ],
+        "explanation": "ब्रह्मपुत्र बांग्लादेश में जमुना नाम से प्रवेश करती है और आगे गंगा नदी-तंत्र से मिलती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦਰਿਆ ਬੰਗਲਾਦੇਸ਼ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਣ ਮਗਰੋਂ ਜਮੁਨਾ ਕਹਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਜਮੁਨਾ",
+          "ਸਿੰਧ",
+          "ਗੰਗਾ",
+          "ਕਾਬੁਲ ਦਰਿਆ"
+        ],
+        "explanation": "ਬ੍ਰਹਮਪੁੱਤਰ ਬੰਗਲਾਦੇਸ਼ ਵਿੱਚ ਜਮੁਨਾ ਨਾਮ ਨਾਲ ਦਾਖ਼ਲ ਹੁੰਦਾ ਹੈ ਅਤੇ ਅੱਗੇ ਗੰਗਾ ਦੇ ਦਰਿਆਈ ਤੰਤਰ ਨਾਲ ਮਿਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q010",
+    "cpId": "WGE-001-CP023",
+    "objective": "bangladesh-bay-coast",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which country has a southern coastline on the Bay of Bengal?",
+        "options": [
+          "Nepal",
+          "Bhutan",
+          "Afghanistan",
+          "Bangladesh"
+        ],
+        "explanation": "Bangladesh borders the Bay of Bengal to the south; Nepal, Bhutan and Afghanistan are landlocked."
+      },
+      "hi": {
+        "stem": "किस देश का दक्षिणी तट बंगाल की खाड़ी से लगता है?",
+        "options": [
+          "नेपाल",
+          "भूटान",
+          "अफ़ग़ानिस्तान",
+          "बांग्लादेश"
+        ],
+        "explanation": "बांग्लादेश के दक्षिण में बंगाल की खाड़ी है; नेपाल, भूटान और अफ़ग़ानिस्तान स्थलरुद्ध हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਦੇਸ਼ ਦਾ ਦੱਖਣੀ ਤਟ ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਨਾਲ ਲੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਨੇਪਾਲ",
+          "ਭੂਟਾਨ",
+          "ਅਫ਼ਗਾਨਿਸਤਾਨ",
+          "ਬੰਗਲਾਦੇਸ਼"
+        ],
+        "explanation": "ਬੰਗਲਾਦੇਸ਼ ਦੇ ਦੱਖਣ ਵੱਲ ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਹੈ; ਨੇਪਾਲ, ਭੂਟਾਨ ਅਤੇ ਅਫ਼ਗਾਨਿਸਤਾਨ ਭੂ-ਬੱਧ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q011",
+    "cpId": "WGE-001-CP023",
+    "objective": "nepal-landlocked-himalaya",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-023A",
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which country is landlocked between India and China and contains part of the Himalaya?",
+        "options": [
+          "SriLanka",
+          "Maldives",
+          "Nepal",
+          "Bangladesh"
+        ],
+        "explanation": "Nepal is a landlocked Himalayan country bordered by India and China."
+      },
+      "hi": {
+        "stem": "कौन-सा देश भारत और चीन के बीच स्थलरुद्ध है और हिमालय का भाग इसमें है?",
+        "options": [
+          "श्रीलंका",
+          "मालदीव",
+          "नेपाल",
+          "बांग्लादेश"
+        ],
+        "explanation": "नेपाल भारत और चीन से घिरा स्थलरुद्ध हिमालयी देश है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਭਾਰਤ ਅਤੇ ਚੀਨ ਵਿਚਕਾਰ ਭੂ-ਬੱਧ ਹੈ ਅਤੇ ਹਿਮਾਲਿਆ ਦਾ ਹਿੱਸਾ ਇਸ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਸ੍ਰੀਲੰਕਾ",
+          "ਮਾਲਦੀਵ",
+          "ਨੇਪਾਲ",
+          "ਬੰਗਲਾਦੇਸ਼"
+        ],
+        "explanation": "ਨੇਪਾਲ ਭਾਰਤ ਅਤੇ ਚੀਨ ਨਾਲ ਲੱਗਦਾ ਭੂ-ਬੱਧ ਹਿਮਾਲਿਆਈ ਦੇਸ਼ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q012",
+    "cpId": "WGE-001-CP023",
+    "objective": "bhutan-landlocked-neighbours",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-023A",
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which country is a landlocked Himalayan kingdom between India and China?",
+        "options": [
+          "Maldives",
+          "Bhutan",
+          "Bangladesh",
+          "SriLanka"
+        ],
+        "explanation": "Bhutan is landlocked and lies between India and China along the eastern Himalaya."
+      },
+      "hi": {
+        "stem": "कौन-सा देश भारत और चीन के बीच स्थलरुद्ध हिमालयी देश है?",
+        "options": [
+          "मालदीव",
+          "भूटान",
+          "बांग्लादेश",
+          "श्रीलंका"
+        ],
+        "explanation": "भूटान स्थलरुद्ध है और पूर्वी हिमालय में भारत तथा चीन के बीच स्थित है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਭਾਰਤ ਅਤੇ ਚੀਨ ਵਿਚਕਾਰ ਭੂ-ਬੱਧ ਹਿਮਾਲਿਆਈ ਦੇਸ਼ ਹੈ?",
+        "options": [
+          "ਮਾਲਦੀਵ",
+          "ਭੂਟਾਨ",
+          "ਬੰਗਲਾਦੇਸ਼",
+          "ਸ੍ਰੀਲੰਕਾ"
+        ],
+        "explanation": "ਭੂਟਾਨ ਭੂ-ਬੱਧ ਹੈ ਅਤੇ ਪੂਰਬੀ ਹਿਮਾਲਿਆ ਵਿੱਚ ਭਾਰਤ ਤੇ ਚੀਨ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q013",
+    "cpId": "WGE-001-CP023",
+    "objective": "sri-lanka-palk-strait",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which island is separated from India by the Palk Strait?",
+        "options": [
+          "SriLanka",
+          "Maldives",
+          "Bangladesh",
+          "Myanmar"
+        ],
+        "explanation": "Sri Lanka lies southeast of India, across the Palk Strait and Gulf of Mannar."
+      },
+      "hi": {
+        "stem": "कौन-सा द्वीप पाक जलडमरूमध्य से भारत से अलग है?",
+        "options": [
+          "श्रीलंका",
+          "मालदीव",
+          "बांग्लादेश",
+          "म्यांमार"
+        ],
+        "explanation": "श्रीलंका भारत के दक्षिण-पूर्व में पाक जलडमरूमध्य और मन्नार की खाड़ी के पार है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਟਾਪੂ ਪਾਕ ਜਲਡਮਰੂ ਰਾਹੀਂ ਭਾਰਤ ਤੋਂ ਵੱਖ ਹੈ?",
+        "options": [
+          "ਸ੍ਰੀਲੰਕਾ",
+          "ਮਾਲਦੀਵ",
+          "ਬੰਗਲਾਦੇਸ਼",
+          "ਮਿਆਂਮਾਰ"
+        ],
+        "explanation": "ਸ੍ਰੀਲੰਕਾ ਭਾਰਤ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਪਾਕ ਜਲਡਮਰੂ ਅਤੇ ਮੰਨਾਰ ਦੀ ਖਾੜੀ ਦੇ ਪਾਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q014",
+    "cpId": "WGE-001-CP023",
+    "objective": "maldives-atolls-location",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which archipelago of coral atolls lies southwest of India in the Indian Ocean?",
+        "options": [
+          "SriLanka",
+          "Andaman",
+          "Lakshadweep",
+          "Maldives"
+        ],
+        "explanation": "The Maldives is an atoll archipelago in the Indian Ocean, southwest of India and Sri Lanka."
+      },
+      "hi": {
+        "stem": "हिंद महासागर में भारत के दक्षिण-पश्चिम में प्रवाल एटोलों का कौन-सा द्वीपसमूह स्थित है?",
+        "options": [
+          "श्रीलंका",
+          "अंडमान",
+          "लक्षद्वीप",
+          "मालदीव"
+        ],
+        "explanation": "मालदीव हिंद महासागर का एटोल द्वीपसमूह है, जो भारत और श्रीलंका के दक्षिण-पश्चिम में है।"
+      },
+      "pa": {
+        "stem": "ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਭਾਰਤ ਦੇ ਦੱਖਣ-ਪੱਛਮ ਵੱਲ ਕੋਰਲ ਐਟੋਲਾਂ ਦਾ ਕਿਹੜਾ ਟਾਪੂ-ਸਮੂਹ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਸ੍ਰੀਲੰਕਾ",
+          "ਅੰਡਮਾਨ",
+          "ਲਕਸ਼ਦੀਪ",
+          "ਮਾਲਦੀਵ"
+        ],
+        "explanation": "ਮਾਲਦੀਵ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦਾ ਐਟੋਲ ਟਾਪੂ-ਸਮੂਹ ਹੈ, ਜੋ ਭਾਰਤ ਅਤੇ ਸ੍ਰੀਲੰਕਾ ਦੇ ਦੱਖਣ-ਪੱਛਮ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q015",
+    "cpId": "WGE-001-CP023",
+    "objective": "myanmar-india-neighbour",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which country lies east of India and borders India’s northeastern states?",
+        "options": [
+          "Maldives",
+          "SriLanka",
+          "Myanmar",
+          "Pakistan"
+        ],
+        "explanation": "Myanmar lies east of India and shares a land boundary with several northeastern Indian states."
+      },
+      "hi": {
+        "stem": "कौन-सा देश भारत के पूर्व में है और भारत के पूर्वोत्तर राज्यों से सीमा साझा करता है?",
+        "options": [
+          "मालदीव",
+          "श्रीलंका",
+          "म्यांमार",
+          "पाकिस्तान"
+        ],
+        "explanation": "म्यांमार भारत के पूर्व में है और भारत के कई पूर्वोत्तर राज्यों से स्थल सीमा साझा करता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਭਾਰਤ ਦੇ ਪੂਰਬ ਵੱਲ ਹੈ ਅਤੇ ਭਾਰਤ ਦੇ ਉੱਤਰ-ਪੂਰਬੀ ਰਾਜਾਂ ਨਾਲ ਸਰਹੱਦ ਸਾਂਝੀ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਮਾਲਦੀਵ",
+          "ਸ੍ਰੀਲੰਕਾ",
+          "ਮਿਆਂਮਾਰ",
+          "ਪਾਕਿਸਤਾਨ"
+        ],
+        "explanation": "ਮਿਆਂਮਾਰ ਭਾਰਤ ਦੇ ਪੂਰਬ ਵੱਲ ਹੈ ਅਤੇ ਭਾਰਤ ਦੇ ਕਈ ਉੱਤਰ-ਪੂਰਬੀ ਰਾਜਾਂ ਨਾਲ ਧਰਤੀ ਦੀ ਸਰਹੱਦ ਸਾਂਝੀ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q016",
+    "cpId": "WGE-001-CP023",
+    "objective": "pakistan-arabian-coast",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-023A",
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which country reaches the Arabian Sea south of the Indus Plain?",
+        "options": [
+          "Afghanistan",
+          "Pakistan",
+          "Nepal",
+          "Bhutan"
+        ],
+        "explanation": "Pakistan reaches the Arabian Sea in the south; its Indus plain lies inland to the north."
+      },
+      "hi": {
+        "stem": "सिंधु मैदान के दक्षिण में कौन-सा देश अरब सागर तक पहुँचता है?",
+        "options": [
+          "अफ़ग़ानिस्तान",
+          "पाकिस्तान",
+          "नेपाल",
+          "भूटान"
+        ],
+        "explanation": "पाकिस्तान दक्षिण में अरब सागर तक पहुँचता है; सिंधु मैदान उत्तर में भीतर स्थित है।"
+      },
+      "pa": {
+        "stem": "ਸਿੰਧ ਮੈਦਾਨ ਦੇ ਦੱਖਣ ਵੱਲ ਕਿਹੜਾ ਦੇਸ਼ ਅਰਬ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ?",
+        "options": [
+          "ਅਫ਼ਗਾਨਿਸਤਾਨ",
+          "ਪਾਕਿਸਤਾਨ",
+          "ਨੇਪਾਲ",
+          "ਭੂਟਾਨ"
+        ],
+        "explanation": "ਪਾਕਿਸਤਾਨ ਦੱਖਣ ਵਿੱਚ ਅਰਬ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ; ਸਿੰਧ ਮੈਦਾਨ ਉੱਤਰ ਵੱਲ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q017",
+    "cpId": "WGE-001-CP023",
+    "objective": "himalaya-nepal-china",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-023A",
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which mountain range forms much of Nepal’s northern boundary with China?",
+        "options": [
+          "Himalaya",
+          "HinduKush",
+          "Karakoram",
+          "Aravalli"
+        ],
+        "explanation": "The Himalaya runs along Nepal’s northern boundary with the Tibet Autonomous Region of China."
+      },
+      "hi": {
+        "stem": "कौन-सी पर्वत-श्रेणी नेपाल की चीन के साथ उत्तरी सीमा का बड़ा भाग बनाती है?",
+        "options": [
+          "हिमालय",
+          "हिंदू कुश",
+          "काराकोरम",
+          "अरावली"
+        ],
+        "explanation": "हिमालय नेपाल की उत्तरी सीमा के साथ चीन के तिब्बत स्वायत्त क्षेत्र तक फैला है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਨੇਪਾਲ ਦੀ ਚੀਨ ਨਾਲ ਉੱਤਰੀ ਸਰਹੱਦ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਬਣਾਉਂਦੀ ਹੈ?",
+        "options": [
+          "ਹਿਮਾਲਿਆ",
+          "ਹਿੰਦੂ ਕੁਸ਼",
+          "ਕਾਰਾਕੋਰਮ",
+          "ਅਰਾਵਲੀ"
+        ],
+        "explanation": "ਹਿਮਾਲਿਆ ਨੇਪਾਲ ਦੀ ਉੱਤਰੀ ਸਰਹੱਦ ਨਾਲ ਚੀਨ ਦੇ ਤਿੱਬਤ ਖੁਦਮੁਖਤਿਆਰ ਖੇਤਰ ਤੱਕ ਫੈਲਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q018",
+    "cpId": "WGE-001-CP023",
+    "objective": "hindu-kush-afghanistan",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-023A",
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which mountain system crosses central Afghanistan and extends toward Pakistan?",
+        "options": [
+          "Himalaya",
+          "Karakoram",
+          "WesternGhats",
+          "HinduKush"
+        ],
+        "explanation": "The Hindu Kush is the major mountain system crossing central Afghanistan and extending toward Pakistan."
+      },
+      "hi": {
+        "stem": "कौन-सी पर्वत-प्रणाली मध्य अफ़ग़ानिस्तान से होकर पाकिस्तान की ओर फैली है?",
+        "options": [
+          "हिमालय",
+          "काराकोरम",
+          "पश्चिमी घाट",
+          "हिंदू कुश"
+        ],
+        "explanation": "हिंदू कुश अफ़ग़ानिस्तान के मध्य से होकर पाकिस्तान की ओर फैली प्रमुख पर्वत-प्रणाली है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਪਹਾੜੀ ਪ੍ਰਣਾਲੀ ਮੱਧ ਅਫ਼ਗਾਨਿਸਤਾਨ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਪਾਕਿਸਤਾਨ ਵੱਲ ਫੈਲਦੀ ਹੈ?",
+        "options": [
+          "ਹਿਮਾਲਿਆ",
+          "ਕਾਰਾਕੋਰਮ",
+          "ਪੱਛਮੀ ਘਾਟ",
+          "ਹਿੰਦੂ ਕੁਸ਼"
+        ],
+        "explanation": "ਹਿੰਦੂ ਕੁਸ਼ ਅਫ਼ਗਾਨਿਸਤਾਨ ਦੇ ਮੱਧ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਪਾਕਿਸਤਾਨ ਵੱਲ ਫੈਲੀ ਮੁੱਖ ਪਹਾੜੀ ਲੜੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q019",
+    "cpId": "WGE-001-CP023",
+    "objective": "afghanistan-landlocked",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which country is landlocked and lies west of Pakistan?",
+        "options": [
+          "SriLanka",
+          "Maldives",
+          "Afghanistan",
+          "Bangladesh"
+        ],
+        "explanation": "Afghanistan has no coastline and borders Pakistan to its east and southeast."
+      },
+      "hi": {
+        "stem": "कौन-सा देश स्थलरुद्ध है और पाकिस्तान के पश्चिम में स्थित है?",
+        "options": [
+          "श्रीलंका",
+          "मालदीव",
+          "अफ़ग़ानिस्तान",
+          "बांग्लादेश"
+        ],
+        "explanation": "अफ़ग़ानिस्तान का समुद्री तट नहीं है और इसकी पूर्वी तथा दक्षिण-पूर्वी सीमा पाकिस्तान से लगती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਭੂ-ਬੱਧ ਹੈ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੇ ਪੱਛਮ ਵੱਲ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਸ੍ਰੀਲੰਕਾ",
+          "ਮਾਲਦੀਵ",
+          "ਅਫ਼ਗਾਨਿਸਤਾਨ",
+          "ਬੰਗਲਾਦੇਸ਼"
+        ],
+        "explanation": "ਅਫ਼ਗਾਨਿਸਤਾਨ ਦਾ ਸਮੁੰਦਰੀ ਤਟ ਨਹੀਂ ਅਤੇ ਇਸਦੀ ਪੂਰਬੀ ਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਸਰਹੱਦ ਪਾਕਿਸਤਾਨ ਨਾਲ ਲੱਗਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q020",
+    "cpId": "WGE-001-CP023",
+    "objective": "brahmaputra-tibet-name",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which river rises on the Tibetan Plateau, where its upper course is called the Yarlung Tsangpo?",
+        "options": [
+          "Jamuna",
+          "Brahmaputra",
+          "Indus",
+          "Ganges"
+        ],
+        "explanation": "The Brahmaputra begins as the Yarlung Tsangpo on the Tibetan Plateau before flowing east and then turning south."
+      },
+      "hi": {
+        "stem": "कौन-सी नदी तिब्बती पठार से निकलती है, जहाँ इसका ऊपरी भाग यारलुंग त्सांगपो कहलाता है?",
+        "options": [
+          "जमुना",
+          "ब्रह्मपुत्र",
+          "सिंधु",
+          "गंगा"
+        ],
+        "explanation": "ब्रह्मपुत्र तिब्बती पठार पर यारलुंग त्सांगपो के रूप में निकलती है, फिर पूर्व और बाद में दक्षिण की ओर मुड़ती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦਰਿਆ ਤਿੱਬਤੀ ਪਠਾਰ ਤੋਂ ਨਿਕਲਦਾ ਹੈ, ਜਿੱਥੇ ਇਸਦਾ ਉੱਪਰਲਾ ਰਸਤਾ ਯਾਰਲੁੰਗ ਸਾਂਗਪੋ ਕਹਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਜਮੁਨਾ",
+          "ਬ੍ਰਹਮਪੁੱਤਰ",
+          "ਸਿੰਧ",
+          "ਗੰਗਾ"
+        ],
+        "explanation": "ਬ੍ਰਹਮਪੁੱਤਰ ਤਿੱਬਤੀ ਪਠਾਰ ਉੱਤੇ ਯਾਰਲੁੰਗ ਸਾਂਗਪੋ ਵਜੋਂ ਨਿਕਲਦਾ ਹੈ, ਫਿਰ ਪੂਰਬ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਦੱਖਣ ਵੱਲ ਮੁੜਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q021",
+    "cpId": "WGE-001-CP023",
+    "objective": "ganges-brahmaputra-delta",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which river joins the Ganges river system in Bangladesh before reaching the Bay of Bengal?",
+        "options": [
+          "Brahmaputra",
+          "Indus",
+          "Kabul",
+          "Jamuna"
+        ],
+        "explanation": "The Ganges and Brahmaputra systems combine in Bangladesh and form a vast delta at the Bay of Bengal."
+      },
+      "hi": {
+        "stem": "कौन-सी नदी बंगाल की खाड़ी तक पहुँचने से पहले बांग्लादेश में गंगा नदी-तंत्र से मिलती है?",
+        "options": [
+          "ब्रह्मपुत्र",
+          "सिंधु",
+          "काबुल",
+          "जमुना"
+        ],
+        "explanation": "गंगा और ब्रह्मपुत्र नदी-तंत्र बांग्लादेश में मिलकर बंगाल की खाड़ी पर विशाल डेल्टा बनाते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦਰਿਆ ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਤੱਕ ਪਹੁੰਚਣ ਤੋਂ ਪਹਿਲਾਂ ਬੰਗਲਾਦੇਸ਼ ਵਿੱਚ ਗੰਗਾ ਦਰਿਆਈ ਤੰਤਰ ਨਾਲ ਮਿਲਦਾ ਹੈ?",
+        "options": [
+          "ਬ੍ਰਹਮਪੁੱਤਰ",
+          "ਸਿੰਧ",
+          "ਕਾਬੁਲ",
+          "ਜਮੁਨਾ"
+        ],
+        "explanation": "ਗੰਗਾ ਅਤੇ ਬ੍ਰਹਮਪੁੱਤਰ ਦਰਿਆਈ ਤੰਤਰ ਬੰਗਲਾਦੇਸ਼ ਵਿੱਚ ਮਿਲ ਕੇ ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਕੋਲ ਵਿਸ਼ਾਲ ਡੈਲਟਾ ਬਣਾਉਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q022",
+    "cpId": "WGE-001-CP023",
+    "objective": "china-nepal-north",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which country lies north of Nepal across the Himalaya?",
+        "options": [
+          "Pakistan",
+          "Bangladesh",
+          "Myanmar",
+          "China"
+        ],
+        "explanation": "China borders Nepal along the Himalayan arc to Nepal’s north."
+      },
+      "hi": {
+        "stem": "कौन-सा देश हिमालय के पार नेपाल के उत्तर में स्थित है?",
+        "options": [
+          "पाकिस्तान",
+          "बांग्लादेश",
+          "म्यांमार",
+          "चीन"
+        ],
+        "explanation": "चीन नेपाल की उत्तरी हिमालयी सीमा से लगता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਹਿਮਾਲਿਆ ਦੇ ਪਾਰ ਨੇਪਾਲ ਦੇ ਉੱਤਰ ਵੱਲ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਪਾਕਿਸਤਾਨ",
+          "ਬੰਗਲਾਦੇਸ਼",
+          "ਮਿਆਂਮਾਰ",
+          "ਚੀਨ"
+        ],
+        "explanation": "ਚੀਨ ਨੇਪਾਲ ਦੀ ਉੱਤਰੀ ਹਿਮਾਲਿਆਈ ਸਰਹੱਦ ਨਾਲ ਲੱਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q023",
+    "cpId": "WGE-001-CP023",
+    "objective": "india-myanmar-east",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-023A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which country lies east of India and connects South Asia with mainland Southeast Asia?",
+        "options": [
+          "Afghanistan",
+          "Maldives",
+          "Myanmar",
+          "Nepal"
+        ],
+        "explanation": "Myanmar borders India to the west and forms a land connection toward mainland Southeast Asia."
+      },
+      "hi": {
+        "stem": "कौन-सा देश भारत के पूर्व में है और दक्षिण एशिया को मुख्यभूमि दक्षिण-पूर्व एशिया से जोड़ता है?",
+        "options": [
+          "अफ़ग़ानिस्तान",
+          "मालदीव",
+          "म्यांमार",
+          "नेपाल"
+        ],
+        "explanation": "म्यांमार भारत से पश्चिम में सीमा साझा करता है और मुख्यभूमि दक्षिण-पूर्व एशिया की ओर स्थल-संपर्क बनाता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਭਾਰਤ ਦੇ ਪੂਰਬ ਵੱਲ ਹੈ ਅਤੇ ਦੱਖਣੀ ਏਸ਼ੀਆ ਨੂੰ ਮੁੱਖਭੂਮੀ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਨਾਲ ਜੋੜਦਾ ਹੈ?",
+        "options": [
+          "ਅਫ਼ਗਾਨਿਸਤਾਨ",
+          "ਮਾਲਦੀਵ",
+          "ਮਿਆਂਮਾਰ",
+          "ਨੇਪਾਲ"
+        ],
+        "explanation": "ਮਿਆਂਮਾਰ ਭਾਰਤ ਨਾਲ ਪੱਛਮ ਵੱਲ ਸਰਹੱਦ ਸਾਂਝੀ ਕਰਦਾ ਹੈ ਅਤੇ ਮੁੱਖਭੂਮੀ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਵੱਲ ਧਰਤੀ ਦਾ ਜੋੜ ਬਣਾਉਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP023-Q024",
+    "cpId": "WGE-001-CP023",
+    "objective": "bangladesh-delta-setting",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-023A",
+      "WGE-PHY-023B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which country occupies the lower Ganges–Brahmaputra delta at the head of the Bay of Bengal?",
+        "options": [
+          "Afghanistan",
+          "Bangladesh",
+          "Nepal",
+          "Bhutan"
+        ],
+        "explanation": "Much of Bangladesh lies on the low-lying delta formed by the Ganges, Brahmaputra and Meghna river systems."
+      },
+      "hi": {
+        "stem": "कौन-सा देश बंगाल की खाड़ी के शीर्ष पर निचले गंगा–ब्रह्मपुत्र डेल्टा में स्थित है?",
+        "options": [
+          "अफ़ग़ानिस्तान",
+          "बांग्लादेश",
+          "नेपाल",
+          "भूटान"
+        ],
+        "explanation": "बांग्लादेश का बड़ा भाग गंगा, ब्रह्मपुत्र और मेघना नदी-तंत्रों से बने निचले डेल्टा पर है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਦੇ ਸਿਰੇ ਉੱਤੇ ਹੇਠਲੇ ਗੰਗਾ–ਬ੍ਰਹਮਪੁੱਤਰ ਡੈਲਟਾ ਵਿੱਚ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਅਫ਼ਗਾਨਿਸਤਾਨ",
+          "ਬੰਗਲਾਦੇਸ਼",
+          "ਨੇਪਾਲ",
+          "ਭੂਟਾਨ"
+        ],
+        "explanation": "ਬੰਗਲਾਦੇਸ਼ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਗੰਗਾ, ਬ੍ਰਹਮਪੁੱਤਰ ਅਤੇ ਮੇਘਨਾ ਦਰਿਆਈ ਤੰਤਰਾਂ ਨਾਲ ਬਣੇ ਨੀਵੇਂ ਡੈਲਟੇ ਉੱਤੇ ਹੈ।"
+      }
+    }
+  }
+]

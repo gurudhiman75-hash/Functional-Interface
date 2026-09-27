@@ -17,6 +17,10 @@ import cp016 from './cp016.json';
 import cp017 from './cp017.json';
 import cp018 from './cp018.json';
 import cp019 from './cp019.json';
+import cp020 from './cp020.json';
+import cp021 from './cp021.json';
+import cp022 from './cp022.json';
+import cp023 from './cp023.json';
 import sources from './sources.json';
 import type { QuestionStudioDifficulty, QuestionStudioLanguage } from '../../question-studio/engine-types';
 
@@ -46,6 +50,10 @@ export const WGE_CP_TITLES = {
   'WGE-001-CP017': 'Seas, Gulfs, Bays and Passages',
   'WGE-001-CP018': 'Mountains, Peaks, Plateaus and Plains',
   'WGE-001-CP019': 'World Rivers and Drainage',
+  'WGE-001-CP020': 'Lakes, Waterfalls and Inland Waters',
+  'WGE-001-CP021': 'Deserts, Islands, Peninsulas and Capes',
+  'WGE-001-CP022': 'Countries, Capitals and Political Geography',
+  'WGE-001-CP023': 'South Asia and India’s Neighbours',
 } as const;
 export type WorldGeographyCpId = keyof typeof WGE_CP_TITLES;
 export const WGE_SOURCES = sources;
@@ -94,6 +102,6 @@ export function validateWorldGeographyCorpus(rows: readonly WorldGeographyQuesti
     }
   }
 }
-const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011, ...cp012, ...cp013, ...cp014, ...cp015, ...cp016, ...cp017, ...cp018, ...cp019] as WorldGeographyQuestion[];
+const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011, ...cp012, ...cp013, ...cp014, ...cp015, ...cp016, ...cp017, ...cp018, ...cp019, ...cp020, ...cp021, ...cp022, ...cp023] as WorldGeographyQuestion[];
 validateWorldGeographyCorpus(authored);
 export const WGE_CORPUS: readonly WorldGeographyQuestion[] = deepFreeze(authored);
