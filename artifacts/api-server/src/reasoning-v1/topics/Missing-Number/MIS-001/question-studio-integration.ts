@@ -110,15 +110,18 @@ import { misCp025RuleByCandidateId, type MisCp025CandidateId } from './MIS-CP-02
 import { MIS_CP026_CANDIDATE_IDS, generateMisCp026Question, type GeneratedMisCp026Question } from './MIS-CP-026/generator';
 import { independentlyEvaluateMisCp026, independentlyVerifyMisCp026Pair } from './MIS-CP-026/independent-solver';
 import { misCp026RuleByCandidateId, type MisCp026CandidateId } from './MIS-CP-026/rule-definitions';
+import { MIS_CP027_CANDIDATE_IDS, generateMisCp027Question, type GeneratedMisCp027Question } from './MIS-CP-027/generator';
+import { independentlyEvaluateMisCp027, independentlyVerifyMisCp027Group } from './MIS-CP-027/independent-solver';
+import { misCp027RuleByCandidateId, type MisCp027CandidateId } from './MIS-CP-027/rule-definitions';
 import { canonicalMisSemanticAuthorityId, misCandidateCreatesSemanticAuthority } from './semantic-authority-registry';
 
 export const MIS_001_PACKAGE_ID = 'MIS-001' as const;
 export const MIS_001_RUNTIME_MODE = 'review-only' as const;
-export const MIS_001_REVIEW_AUTHORITY = 'MIS-001-CP001-CP026-SOURCE-DISCOVERY-V1' as const;
-export const MIS_001_CHECKPOINT_IDS = ['MIS-CP-001', 'MIS-CP-002', 'MIS-CP-003', 'MIS-CP-004', 'MIS-CP-005', 'MIS-CP-006', 'MIS-CP-007', 'MIS-CP-008', 'MIS-CP-009', 'MIS-CP-010', 'MIS-CP-011', 'MIS-CP-012', 'MIS-CP-013', 'MIS-CP-014', 'MIS-CP-015', 'MIS-CP-016', 'MIS-CP-017', 'MIS-CP-018', 'MIS-CP-019', 'MIS-CP-020', 'MIS-CP-021', 'MIS-CP-022', 'MIS-CP-023', 'MIS-CP-024', 'MIS-CP-025', 'MIS-CP-026'] as const;
+export const MIS_001_REVIEW_AUTHORITY = 'MIS-001-CP001-CP027-SOURCE-DISCOVERY-V1' as const;
+export const MIS_001_CHECKPOINT_IDS = ['MIS-CP-001', 'MIS-CP-002', 'MIS-CP-003', 'MIS-CP-004', 'MIS-CP-005', 'MIS-CP-006', 'MIS-CP-007', 'MIS-CP-008', 'MIS-CP-009', 'MIS-CP-010', 'MIS-CP-011', 'MIS-CP-012', 'MIS-CP-013', 'MIS-CP-014', 'MIS-CP-015', 'MIS-CP-016', 'MIS-CP-017', 'MIS-CP-018', 'MIS-CP-019', 'MIS-CP-020', 'MIS-CP-021', 'MIS-CP-022', 'MIS-CP-023', 'MIS-CP-024', 'MIS-CP-025', 'MIS-CP-026', 'MIS-CP-027'] as const;
 
-type MisCandidateId = MisCp001CandidateId | MisCp002CandidateId | MisCp003CandidateId | MisCp004CandidateId | MisCp005CandidateId | MisCp006CandidateId | MisCp007CandidateId | MisCp008CandidateId | MisCp009CandidateId | MisCp010CandidateId | MisCp011CandidateId | MisCp012CandidateId | MisCp013CandidateId | MisCp014CandidateId | MisCp015CandidateId | MisCp016CandidateId | MisCp017CandidateId | MisCp018CandidateId | MisCp019CandidateId | MisCp020CandidateId | MisCp021CandidateId | MisCp022CandidateId | MisCp023CandidateId | MisCp024CandidateId | MisCp025CandidateId | MisCp026CandidateId;
-type MisGeneratedQuestion = GeneratedMisCp001Question | GeneratedMisCp002Question | GeneratedMisCp003Question | GeneratedMisCp004Question | GeneratedMisCp005Question | GeneratedMisCp006Question | GeneratedMisCp007Question | GeneratedMisCp008Question | GeneratedMisCp009Question | GeneratedMisCp010Question | GeneratedMisCp011Question | GeneratedMisCp012Question | GeneratedMisCp013Question | GeneratedMisCp014Question | GeneratedMisCp015Question | GeneratedMisCp016Question | GeneratedMisCp017Question | GeneratedMisCp018Question | GeneratedMisCp019Question | GeneratedMisCp020Question | GeneratedMisCp021Question | GeneratedMisCp022Question | GeneratedMisCp023Question | GeneratedMisCp024Question | GeneratedMisCp025Question | GeneratedMisCp026Question;
+type MisCandidateId = MisCp001CandidateId | MisCp002CandidateId | MisCp003CandidateId | MisCp004CandidateId | MisCp005CandidateId | MisCp006CandidateId | MisCp007CandidateId | MisCp008CandidateId | MisCp009CandidateId | MisCp010CandidateId | MisCp011CandidateId | MisCp012CandidateId | MisCp013CandidateId | MisCp014CandidateId | MisCp015CandidateId | MisCp016CandidateId | MisCp017CandidateId | MisCp018CandidateId | MisCp019CandidateId | MisCp020CandidateId | MisCp021CandidateId | MisCp022CandidateId | MisCp023CandidateId | MisCp024CandidateId | MisCp025CandidateId | MisCp026CandidateId | MisCp027CandidateId;
+type MisGeneratedQuestion = GeneratedMisCp001Question | GeneratedMisCp002Question | GeneratedMisCp003Question | GeneratedMisCp004Question | GeneratedMisCp005Question | GeneratedMisCp006Question | GeneratedMisCp007Question | GeneratedMisCp008Question | GeneratedMisCp009Question | GeneratedMisCp010Question | GeneratedMisCp011Question | GeneratedMisCp012Question | GeneratedMisCp013Question | GeneratedMisCp014Question | GeneratedMisCp015Question | GeneratedMisCp016Question | GeneratedMisCp017Question | GeneratedMisCp018Question | GeneratedMisCp019Question | GeneratedMisCp020Question | GeneratedMisCp021Question | GeneratedMisCp022Question | GeneratedMisCp023Question | GeneratedMisCp024Question | GeneratedMisCp025Question | GeneratedMisCp026Question | GeneratedMisCp027Question;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const ALL_CANDIDATES: readonly MisCandidateId[] = Object.freeze([
@@ -148,6 +151,7 @@ const ALL_CANDIDATES: readonly MisCandidateId[] = Object.freeze([
   ...MIS_CP024_CANDIDATE_IDS,
   ...MIS_CP025_CANDIDATE_IDS,
   ...MIS_CP026_CANDIDATE_IDS,
+  ...MIS_CP027_CANDIDATE_IDS,
 ]);
 
 function canonicalSemanticAuthorityId(candidateId: MisCandidateId): string {
@@ -279,12 +283,15 @@ function isCp025Candidate(value: string): value is MisCp025CandidateId {
 function isCp026Candidate(value: string): value is MisCp026CandidateId {
   return MIS_CP026_CANDIDATE_IDS.includes(value as MisCp026CandidateId);
 }
+function isCp027Candidate(value: string): value is MisCp027CandidateId {
+  return MIS_CP027_CANDIDATE_IDS.includes(value as MisCp027CandidateId);
+}
 
 function isCandidate(value: string): value is MisCandidateId {
   return isCp001Candidate(value) || isCp002Candidate(value) || isCp003Candidate(value) || isCp004Candidate(value)
     || isCp005Candidate(value) || isCp006Candidate(value) || isCp007Candidate(value)
     || isCp008Candidate(value) || isCp009Candidate(value) || isCp010Candidate(value)
-    || isCp011Candidate(value) || isCp012Candidate(value) || isCp013Candidate(value) || isCp014Candidate(value) || isCp015Candidate(value) || isCp016Candidate(value) || isCp017Candidate(value) || isCp018Candidate(value) || isCp019Candidate(value) || isCp020Candidate(value) || isCp021Candidate(value) || isCp022Candidate(value) || isCp023Candidate(value) || isCp024Candidate(value) || isCp025Candidate(value) || isCp026Candidate(value);
+    || isCp011Candidate(value) || isCp012Candidate(value) || isCp013Candidate(value) || isCp014Candidate(value) || isCp015Candidate(value) || isCp016Candidate(value) || isCp017Candidate(value) || isCp018Candidate(value) || isCp019Candidate(value) || isCp020Candidate(value) || isCp021Candidate(value) || isCp022Candidate(value) || isCp023Candidate(value) || isCp024Candidate(value) || isCp025Candidate(value) || isCp026Candidate(value) || isCp027Candidate(value);
 }
 
 function candidateCheckpoint(candidateId: MisCandidateId): typeof MIS_001_CHECKPOINT_IDS[number] {
@@ -313,7 +320,8 @@ function candidateCheckpoint(candidateId: MisCandidateId): typeof MIS_001_CHECKP
   if (isCp023Candidate(candidateId)) return 'MIS-CP-023';
   if (isCp024Candidate(candidateId)) return 'MIS-CP-024';
   if (isCp025Candidate(candidateId)) return 'MIS-CP-025';
-  return 'MIS-CP-026';
+  if (isCp026Candidate(candidateId)) return 'MIS-CP-026';
+  return 'MIS-CP-027';
 }
 
 function candidateSupportsDifficulty(candidateId: MisCandidateId, difficulty: 'Easy' | 'Medium' | 'Hard'): boolean {
@@ -352,7 +360,8 @@ function candidateSupportsDifficulty(candidateId: MisCandidateId, difficulty: 'E
   if (isCp023Candidate(candidateId)) return misCp023RuleByCandidateId(candidateId).difficulty === difficulty;
   if (isCp024Candidate(candidateId)) return misCp024RuleByCandidateId(candidateId).difficulty === difficulty;
   if (isCp025Candidate(candidateId)) return misCp025RuleByCandidateId(candidateId).difficulty === difficulty;
-  return misCp026RuleByCandidateId(candidateId).difficulty === difficulty;
+  if (isCp026Candidate(candidateId)) return misCp026RuleByCandidateId(candidateId).difficulty === difficulty;
+  return misCp027RuleByCandidateId(candidateId).difficulty === difficulty;
 }
 
 function resolveCandidatePool(
@@ -367,7 +376,7 @@ function resolveCandidatePool(
 
   const candidates = [...new Set(selectors.filter(isCandidate))];
   const checkpoints = [...new Set(selectors.filter((value) =>
-    value === 'MIS-CP-001' || value === 'MIS-CP-002' || value === 'MIS-CP-003' || value === 'MIS-CP-004' || value === 'MIS-CP-005' || value === 'MIS-CP-006' || value === 'MIS-CP-007' || value === 'MIS-CP-008' || value === 'MIS-CP-009' || value === 'MIS-CP-010' || value === 'MIS-CP-011' || value === 'MIS-CP-012' || value === 'MIS-CP-013' || value === 'MIS-CP-014' || value === 'MIS-CP-015' || value === 'MIS-CP-016' || value === 'MIS-CP-017' || value === 'MIS-CP-018' || value === 'MIS-CP-019' || value === 'MIS-CP-020' || value === 'MIS-CP-021' || value === 'MIS-CP-022' || value === 'MIS-CP-023' || value === 'MIS-CP-024' || value === 'MIS-CP-025' || value === 'MIS-CP-026',
+    value === 'MIS-CP-001' || value === 'MIS-CP-002' || value === 'MIS-CP-003' || value === 'MIS-CP-004' || value === 'MIS-CP-005' || value === 'MIS-CP-006' || value === 'MIS-CP-007' || value === 'MIS-CP-008' || value === 'MIS-CP-009' || value === 'MIS-CP-010' || value === 'MIS-CP-011' || value === 'MIS-CP-012' || value === 'MIS-CP-013' || value === 'MIS-CP-014' || value === 'MIS-CP-015' || value === 'MIS-CP-016' || value === 'MIS-CP-017' || value === 'MIS-CP-018' || value === 'MIS-CP-019' || value === 'MIS-CP-020' || value === 'MIS-CP-021' || value === 'MIS-CP-022' || value === 'MIS-CP-023' || value === 'MIS-CP-024' || value === 'MIS-CP-025' || value === 'MIS-CP-026' || value === 'MIS-CP-027',
   ))] as (typeof MIS_001_CHECKPOINT_IDS[number])[];
 
   if (candidates.length > 1) throw new Error('Conflicting MIS-001 candidate selectors.');
@@ -422,7 +431,8 @@ function generateCandidate(candidateId: MisCandidateId, seed: string): MisGenera
   if (isCp023Candidate(candidateId)) return generateMisCp023Question(candidateId, seed);
   if (isCp024Candidate(candidateId)) return generateMisCp024Question(candidateId, seed);
   if (isCp025Candidate(candidateId)) return generateMisCp025Question(candidateId, seed);
-  return generateMisCp026Question(candidateId, seed);
+  if (isCp026Candidate(candidateId)) return generateMisCp026Question(candidateId, seed);
+  return generateMisCp027Question(candidateId, seed);
 }
 
 function resolveGeneratedCandidate(
@@ -678,9 +688,16 @@ function independentValidation(question: MisGeneratedQuestion) {
       solverAgreement: solved === question.answer,
     };
   }
-  const solved = independentlyEvaluateMisCp026(question.target.input);
+  if (question.checkpointId === 'MIS-CP-026') {
+    const solved = independentlyEvaluateMisCp026(question.target.input);
+    return {
+      sameRuleFitsAllExamples: question.evidenceGroups.every((pair) => independentlyVerifyMisCp026Pair(pair)),
+      solverAgreement: solved === question.answer,
+    };
+  }
+  const solved = independentlyEvaluateMisCp027(question.target.first, question.target.second);
   return {
-    sameRuleFitsAllExamples: question.evidenceGroups.every((pair) => independentlyVerifyMisCp026Pair(pair)),
+    sameRuleFitsAllExamples: question.evidenceGroups.every((group) => independentlyVerifyMisCp027Group(group)),
     solverAgreement: solved === question.answer,
   };
 }
@@ -705,7 +722,7 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
   subject: 'Reasoning',
   topic: 'Reasoning',
   subtopic: 'Missing Number',
-  label: 'Reasoning · Missing Number · MIS-001 (CP001-CP026 source-discovery review)',
+  label: 'Reasoning · Missing Number · MIS-001 (CP001-CP027 source-discovery review)',
   enabled: true,
   cpIds: [...MIS_001_CHECKPOINT_IDS],
   supportedLanguages: ['en'],
@@ -764,12 +781,13 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     cp024CandidateCount: MIS_CP024_CANDIDATE_IDS.length,
     cp025CandidateCount: MIS_CP025_CANDIDATE_IDS.length,
     cp026CandidateCount: MIS_CP026_CANDIDATE_IDS.length,
+    cp027CandidateCount: MIS_CP027_CANDIDATE_IDS.length,
     permanentQlCount: 0,
     permanentQlAllocation: false,
     sourceSaturationComplete: false,
     mergeSplitAuditComplete: true,
     mergeSplitAuditAuthority: 'MIS-001-SEMANTIC-AUTHORITY-REGISTRY-V1',
-    sourceSaturationBlocker: 'Target-exam source crosswalk has exposed source-backed gaps through CP026 plus the CP014 Punjab renderer variant; broader SSC/Punjab saturation remains pending; Banking repeated-group evidence remains thin.',
+    sourceSaturationBlocker: 'Target-exam source crosswalk has exposed source-backed gaps through CP027 plus the CP014 Punjab renderer variant; broader SSC/Punjab saturation remains pending; Banking repeated-group evidence remains thin.',
     englishEditorialFreezeComplete: false,
     localizationStarted: false,
     deterministicGeneration: true,
