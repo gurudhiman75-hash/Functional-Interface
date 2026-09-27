@@ -62,6 +62,7 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
       assert(new Set(question.options).size === set.optionCount, `${seed}/${question.kind}: duplicate options.`);
       assert(question.options[question.correctIndex] === question.answer, `${seed}/${question.kind}: correct-index mismatch.`);
       assert(!/\bassociated\b/iu.test(question.stem), `${seed}/${question.kind}: mechanical 'associated' wording leaked into the stem.`);
+      assert(!/nearest whole|round to the nearest|give the nearest whole/iu.test(question.stem), `${seed}/${question.kind}: explicit rounding instruction leaked into the stem.`);
       assert(!/\d+\.\d+%/u.test(question.stem + " " + question.answer), `${seed}/${question.kind}: decimal percentage leaked to learner surface.`);
       assert((question.explanation as any).shortcut === undefined && (question.explanation as any).trap === undefined, `${seed}/${question.kind}: forced shortcut/trap fields returned.`);
       assert(question.explanation.steps.length >= 2, `${seed}/${question.kind}: explanation is too thin.`);
