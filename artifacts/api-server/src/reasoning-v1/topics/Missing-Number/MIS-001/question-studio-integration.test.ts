@@ -1,3 +1,4 @@
+// V6 final source-saturation gate: CP001-CP020 must validate together.
 import assert from 'node:assert/strict';
 import { reasoningV1QuestionStudioAdapter } from '../../../../question-studio/engines/reasoning-v1-adapter';
 import {
