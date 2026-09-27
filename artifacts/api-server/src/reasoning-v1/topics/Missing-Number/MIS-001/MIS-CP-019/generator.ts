@@ -380,7 +380,7 @@ export function generateMisCp019Question(
   options.splice(correctIndex, 0, { value: selected.target.result, errorLabel: null });
 
   const stem = [
-    'Study the pattern and find the number that will replace the question mark (?).',
+    'Find the number that will replace the question mark (?).',
     '',
     ...selected.evidence.map((group) => row(group)),
     row(selected.target, true),
