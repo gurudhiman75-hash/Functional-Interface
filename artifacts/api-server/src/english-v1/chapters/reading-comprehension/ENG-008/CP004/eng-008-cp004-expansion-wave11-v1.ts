@@ -17,7 +17,7 @@ Affordability indexes therefore make choices about what to include: price, rent,
 
 Policy interpretation should match the measure. A programme that lowers mortgage interest for first-time buyers may help financing but can also increase demand if housing supply is fixed. A rent subsidy can reduce household burden without creating additional homes. Planning reform can increase supply slowly but may not help a household facing an immediate payment problem.
 
-The broader lesson is that affordability is not one price. It is a relationship between housing cost, financing, income, household needs and location. A useful measure should make that relationship visible instead of treating one headline price index as a complete description of access.`,
+The broader lesson is that affordability is not one price. It is a relationship between housing cost, financing, income, household needs and location. A useful measure should make that relationship visible instead of treating one headline price index as a complete description of access.  Regional comparisons add another complication. A national median may improve while high-demand cities become less affordable and smaller towns improve sharply. Analysts therefore need to state the geography behind any headline index.`,
  questions:[
  q("E10-Q1","BM-F01","medium","Why can a lower-priced home still have a higher monthly cost?","A higher interest rate can increase the mortgage payment",["Lower prices always require larger deposits","Rents determine mortgage rates","House size fixes interest"],"The passage explains that financing cost can offset a lower purchase price.","financed at a much higher rate"),
  q("E10-Q2","BM-F02","hard","What can be inferred about two households paying the same rent?","Their affordability burden can differ because income, family needs and other costs differ",["They face identical financial pressure","Utilities cannot matter","Family size affects only ownership"],"Affordability is defined as a relationship, not a rent amount alone.","same rent very differently"),
@@ -39,9 +39,7 @@ Yet the metric can still hide important changes. Revenue can rise because prices
 
 Store mix matters too. A retailer may close weak locations during the year. If those stores disappear from the comparison set, the remaining group can look healthier even without improvement at individual sites. Companies usually define eligibility rules, but readers need to know how closures and temporary shutdowns are treated.
 
-Online sales create another complication. Some retailers credit a digital order to the store that fulfilled it, while others treat online revenue separately. A store can therefore show higher same-store sales partly because it packs internet orders for customers who never entered the shop.
-
-Currency and calendar effects can distort comparisons for international businesses. A holiday moving between reporting weeks or a year containing an extra trading day can affect growth even if underlying demand changes little.
+Online sales create another complication. Some retailers credit a digital order to the store that fulfilled it, while others treat online revenue separately. A store can therefore show higher same-store sales partly because it packs internet orders for customers who never entered the shop. Currency and calendar effects can distort comparisons for international businesses. A holiday moving between reporting weeks or a year containing an extra trading day can affect growth even if underlying demand changes little.
 
 Margins are not captured by sales alone. A store can increase revenue by using deep discounts that reduce profit per item. Inventory clearance can produce strong same-store sales while weakening profitability.
 
@@ -49,9 +47,7 @@ For management, the measure is still valuable when combined with traffic, averag
 
 Investors also need consistency over time. If a company changes the definition of an eligible store or starts allocating online sales differently, the historical series may no longer be directly comparable. Clear disclosure matters as much as the headline percentage.
 
-The broader lesson is that same-store sales answer a narrow question: how much reported revenue changed in a defined group of established locations. They do not by themselves explain customer demand, profitability or the health of every store.
-
-A strong analysis therefore asks what entered the numerator, which stores remained in the denominator and whether price, channel or product mix changed. The headline becomes more informative when the business mechanics behind it are visible.`,
+The broader lesson is that same-store sales answer a narrow question: how much reported revenue changed in a defined group of established locations. They do not by themselves explain customer demand, profitability or the health of every store. A strong analysis therefore asks what entered the numerator, which stores remained in the denominator and whether price, channel or product mix changed. The headline becomes more informative when the business mechanics behind it are visible.  Customer mix can shift as well. Growth driven by a small number of unusually large transactions may not indicate broad-based demand. Analysts often compare transaction count and basket size to separate those effects.`,
  questions:[
  q("B09-Q1","BM-F01","medium","What is the main purpose of same-store sales?","To compare revenue at established locations while reducing the direct effect of new-store openings",["To measure only online sales","To calculate employee wages","To count every store ever opened"],"The measure focuses on locations present in both comparison periods.","open in both"),
  q("B09-Q2","BM-F02","hard","What can be inferred if same-store revenue rises after large price increases?","Unit demand may not have risen by the same percentage",["Profit must have doubled","Customer traffic always increased","Store count must have grown"],"Revenue growth can come from price rather than more units or visits.","prices increased"),
@@ -71,23 +67,17 @@ A strong analysis therefore asks what entered the numerator, which stores remain
 
 Calibration asks whether predictions given a particular confidence level are correct about that often in comparable cases. If a model makes one hundred predictions at roughly 80 per cent confidence, good calibration would mean that about eighty are correct over time. It does not mean that any single prediction has a visible eighty-per-cent chance in a simple physical sense.
 
-Accuracy and calibration are different. A model can be highly accurate but overconfident, assigning 99 per cent scores to many mistakes. Another model can be less accurate overall but more honest about uncertainty.
-
-The data used to check calibration matters. A model may be well calibrated on the population it was tested on and poorly calibrated after customer behaviour, language or product mix changes. Monitoring therefore has to continue after deployment.
+Accuracy and calibration are different. A model can be highly accurate but overconfident, assigning 99 per cent scores to many mistakes. Another model can be less accurate overall but more honest about uncertainty. The data used to check calibration matters. A model may be well calibrated on the population it was tested on and poorly calibrated after customer behaviour, language or product mix changes. Monitoring therefore has to continue after deployment.
 
 Subgroups can behave differently too. Overall calibration may look acceptable while confidence is systematically too high for rare document types or users from a new region. Aggregate results can hide these pockets.
 
 Threshold decisions depend on consequence. A low-risk recommendation system may act automatically at 70 per cent confidence, while a medical or financial review may require a much higher threshold and human verification. There is no universal confidence number that makes every decision safe.
 
-Scores can also be affected by model updates. If the model architecture, training data or label definitions change, an old threshold may no longer produce the same error pattern. Teams need to retest rather than assuming the numeric scale is stable.
-
-Human users must understand the score as well. Displaying “94% confidence” without explaining what the number was calibrated against can create false certainty. In some contexts, categories such as “high”, “medium” and “low” may be easier to use, provided those categories are themselves defined and tested.
+Scores can also be affected by model updates. If the model architecture, training data or label definitions change, an old threshold may no longer produce the same error pattern. Teams need to retest rather than assuming the numeric scale is stable. Human users must understand the score as well. Displaying “94% confidence” without explaining what the number was calibrated against can create false certainty. In some contexts, categories such as “high”, “medium” and “low” may be easier to use, provided those categories are themselves defined and tested.
 
 Feedback loops help. Confirmed outcomes can show whether high-confidence predictions are actually correct in current use. But feedback may be selective if only disputed cases receive human review.
 
-A mature system therefore combines discrimination, calibration, subgroup checks and decision costs. Confidence is not a decoration added to a prediction; it is part of the decision process.
-
-The broader lesson is that a probability-like number earns trust through repeated correspondence with outcomes. Without calibration, a precise score can look scientific while providing less information than its decimal places suggest.`,
+A mature system therefore combines discrimination, calibration, subgroup checks and decision costs. Confidence is not a decoration added to a prediction; it is part of the decision process. The broader lesson is that a probability-like number earns trust through repeated correspondence with outcomes. Without calibration, a precise score can look scientific while providing less information than its decimal places suggest.  Calibration can also drift gradually rather than fail suddenly. Teams may therefore track reliability curves over time and compare expected with observed error rates before users notice a visible problem.`,
  questions:[
  q("T08-Q1","BM-F01","medium","What does good calibration mean for many predictions near 80 per cent confidence?","Roughly 80 per cent of those predictions should be correct over time",["Every individual prediction is guaranteed","The model must have 80 per cent overall accuracy","Only twenty predictions should be reviewed"],"Calibration compares stated confidence with observed correctness across comparable cases.","about eighty are correct"),
  q("T08-Q2","BM-F02","hard","What can be inferred about a highly accurate but overconfident model?","Its confidence scores can still mislead users about uncertainty",["Accuracy makes calibration irrelevant","It cannot make mistakes","Every score will be below 50 per cent"],"Accuracy and calibration are separate properties, so strong prediction accuracy does not guarantee honest confidence.","highly accurate but overconfident"),
@@ -105,27 +95,19 @@ The broader lesson is that a probability-like number earns trust through repeate
  id:"ENG008-BM-H08",title:"Why Screening Uptake Is Not the Same as Health Benefit",genre:"health",
  text:`Health systems often try to increase participation in screening programmes. A higher screening rate can be useful because eligible people are more likely to receive a test that may detect disease earlier. Yet participation itself is an intermediate measure, not the final health outcome.
 
-A screening programme can achieve high uptake while still performing poorly if the test produces many false positives, if follow-up care is unavailable or if people at highest risk are least likely to participate. The path from invitation to benefit contains several stages.
-
-Eligibility matters first. Screening people outside the evidence-based age or risk group can increase the number tested without necessarily improving outcomes. It may also expose more people to unnecessary investigations.
+A screening programme can achieve high uptake while still performing poorly if the test produces many false positives, if follow-up care is unavailable or if people at highest risk are least likely to participate. The path from invitation to benefit contains several stages. Eligibility matters first. Screening people outside the evidence-based age or risk group can increase the number tested without necessarily improving outcomes. It may also expose more people to unnecessary investigations.
 
 Test performance matters next. Sensitivity describes how often the test detects a condition when it is present; specificity relates to how often it correctly gives a negative result when the condition is absent. A programme has to manage the consequences of both missed cases and false alarms.
 
-Follow-up is equally important. A positive screening result is not a diagnosis. If confirmatory testing is delayed or difficult to access, earlier detection on paper may not translate into timely treatment.
-
-Distribution can hide problems. A citywide screening rate of 75 per cent may coexist with very low participation in poorer neighbourhoods or among groups facing language, transport or trust barriers. Aggregate uptake can therefore overstate equitable access.
+Follow-up is equally important. A positive screening result is not a diagnosis. If confirmatory testing is delayed or difficult to access, earlier detection on paper may not translate into timely treatment. Distribution can hide problems. A citywide screening rate of 75 per cent may coexist with very low participation in poorer neighbourhoods or among groups facing language, transport or trust barriers. Aggregate uptake can therefore overstate equitable access.
 
 There is also overdiagnosis: detection of abnormalities that would never have caused symptoms during a person's lifetime. More detection is not always the same as more useful detection.
 
-Programme evaluation should therefore combine uptake with stage at diagnosis, false-positive burden, follow-up completion, treatment outcomes and distribution across groups. The appropriate mix depends on the disease and test.
-
-Communication needs care because encouraging eligible people to participate should not imply that screening guarantees protection. A negative test does not remove all future risk, and a positive test often requires additional assessment.
+Programme evaluation should therefore combine uptake with stage at diagnosis, false-positive burden, follow-up completion, treatment outcomes and distribution across groups. The appropriate mix depends on the disease and test. Communication needs care because encouraging eligible people to participate should not imply that screening guarantees protection. A negative test does not remove all future risk, and a positive test often requires additional assessment.
 
 Resources matter too. Expanding invitations without enough diagnostic capacity can lengthen follow-up queues. The screening programme and the downstream service have to be planned together.
 
-This does not reduce the value of uptake. Participation is necessary for a screening offer to reach people. The mistake is treating it as sufficient evidence of health benefit.
-
-The broader lesson is that screening is a pathway, not a single test event. A strong programme asks who is invited, who attends, what the test finds, what happens next and whether those steps improve outcomes without imposing disproportionate harm.`,
+This does not reduce the value of uptake. Participation is necessary for a screening offer to reach people. The mistake is treating it as sufficient evidence of health benefit. The broader lesson is that screening is a pathway, not a single test event. A strong programme asks who is invited, who attends, what the test finds, what happens next and whether those steps improve outcomes without imposing disproportionate harm.  Programme costs also matter. A screening strategy that finds disease earlier but requires many unnecessary follow-up procedures may still need redesign if harms and resource use outweigh the added benefit.`,
  questions:[
  q("H08-Q1","BM-F01","medium","Why is screening uptake an intermediate rather than final outcome?","Participation is only one step before diagnosis, follow-up and treatment outcomes",["Uptake cannot be measured","Every participant already has disease","Screening never affects health"],"The passage describes a multi-stage pathway from invitation to eventual benefit or harm.","contains several stages"),
  q("H08-Q2","BM-F02","hard","What can be inferred from high uptake with poor follow-up access?","The programme may detect possible disease earlier without delivering timely benefit",["High uptake guarantees treatment","Follow-up is unrelated to screening","Positive tests are diagnoses"],"Detection only helps if people can complete confirmation and, where needed, treatment.","may not translate into timely treatment"),
@@ -143,27 +125,19 @@ The broader lesson is that screening is a pathway, not a single test event. A st
  id:"ENG008-BM-EN07",title:"Why Tree-Planting Counts Need Survival Rates",genre:"environment",
  text:`Tree-planting campaigns often announce impressive numbers: ten thousand saplings planted in a weekend or a million trees pledged over several years. Planting counts are easy to communicate and can mobilise volunteers. But the environmental value of a tree depends on whether it survives and grows.
 
-Young saplings face heat, drought, grazing, vandalism, poor soil and competition. A campaign that plants widely without budgeting for watering or protection can lose a large share of trees within the first two years.
-
-Species choice matters too. A fast-growing species may survive well but provide fewer benefits for local biodiversity, require more water or become invasive. Native species are not automatically suitable for every site either; soil, drainage and available space still matter.
+Young saplings face heat, drought, grazing, vandalism, poor soil and competition. A campaign that plants widely without budgeting for watering or protection can lose a large share of trees within the first two years. Species choice matters too. A fast-growing species may survive well but provide fewer benefits for local biodiversity, require more water or become invasive. Native species are not automatically suitable for every site either; soil, drainage and available space still matter.
 
 Location changes the outcome. A street tree needs enough rooting space and clearance from utilities. A restoration site may need groups of compatible species rather than evenly spaced decorative planting. Counting both projects as “trees planted” hides very different objectives.
 
-Survival rates need a clear denominator and time point. Ninety per cent survival after three months says little about performance after three summers. Replacing dead saplings can also make a project look successful if the report does not distinguish original survival from replanting.
-
-Canopy growth may be more meaningful over the long term because environmental benefits such as shade, carbon storage and habitat depend on tree size. Yet canopy takes years to develop and is harder to measure than planting day activity.
+Survival rates need a clear denominator and time point. Ninety per cent survival after three months says little about performance after three summers. Replacing dead saplings can also make a project look successful if the report does not distinguish original survival from replanting. Canopy growth may be more meaningful over the long term because environmental benefits such as shade, carbon storage and habitat depend on tree size. Yet canopy takes years to develop and is harder to measure than planting day activity.
 
 Maintenance should therefore be considered part of the project, not an optional extra. Watering schedules, guards, pruning and replacement budgets determine whether the initial investment becomes a lasting asset.
 
-Community involvement can help, but volunteer enthusiasm is uneven. Areas with stronger local organisations may care for trees more consistently than places where no group takes responsibility.
-
-Climate risk complicates planning further. A species that survived historical summers may struggle under hotter or drier future conditions. Diversity can reduce the risk that one pest or climate stress damages every tree in a programme.
+Community involvement can help, but volunteer enthusiasm is uneven. Areas with stronger local organisations may care for trees more consistently than places where no group takes responsibility. Climate risk complicates planning further. A species that survived historical summers may struggle under hotter or drier future conditions. Diversity can reduce the risk that one pest or climate stress damages every tree in a programme.
 
 Evaluation should match the stated goal. If the goal is summer shade, measure canopy and surface temperature. If the goal is habitat, measure species diversity and ecological use. If the goal is carbon, estimate growth and long-term survival.
 
-Planting counts still matter because no tree can survive if it is never planted. They are simply the first step.
-
-The broader lesson is that environmental projects should be measured over the timescale on which benefits occur. A photograph of planting day captures effort; survival and growth show whether that effort became durable environmental value.`,
+Planting counts still matter because no tree can survive if it is never planted. They are simply the first step. The broader lesson is that environmental projects should be measured over the timescale on which benefits occur. A photograph of planting day captures effort; survival and growth show whether that effort became durable environmental value.  Reporting uncertainty is important too. Small projects can show highly variable survival when only a few trees die, so confidence intervals or simple counts alongside percentages can prevent false precision.`,
  questions:[
  q("EN07-Q1","BM-F01","medium","Why can a large planting count overstate environmental success?","Many saplings may die before they grow enough to provide lasting benefits",["Planting numbers cannot be counted","Every sapling is invasive","Volunteers always remove trees"],"The passage separates initial planting effort from later survival and growth.","depends on whether it survives and grows"),
  q("EN07-Q2","BM-F02","hard","What can be inferred from 90 per cent survival after three months?","It is encouraging but insufficient to judge performance over several years",["Long-term success is guaranteed","No replanting will be needed","Canopy benefits are already complete"],"The time point is too early to capture summer stress and longer-term mortality.","says little ... after three summers"),
@@ -181,29 +155,19 @@ The broader lesson is that environmental projects should be measured over the ti
  id:"ENG008-BM-SP07",title:"Why Food Subsidy Value Depends on the Redemption Network",genre:"social-policy",
  text:`Food subsidies can increase purchasing power for households facing high grocery costs. A benefit may look generous on paper, but its practical value depends on where and how recipients can use it.
 
-A digital food credit accepted only at large supermarkets may work well in dense cities while offering little help in a village where the nearest participating store is far away. Travel cost and time can consume part of the benefit.
-
-Merchant participation therefore matters. Small shops may hesitate to join if payment settlement is slow, equipment is expensive or compliance rules are difficult. A programme can have many eligible households but a thin redemption network.
+A digital food credit accepted only at large supermarkets may work well in dense cities while offering little help in a village where the nearest participating store is far away. Travel cost and time can consume part of the benefit. Merchant participation therefore matters. Small shops may hesitate to join if payment settlement is slow, equipment is expensive or compliance rules are difficult. A programme can have many eligible households but a thin redemption network.
 
 Product rules matter too. Limiting benefits to nutritious categories may support health goals, but overly narrow lists can create problems when local stores do not stock the approved brands or package sizes. Substitution rules need to be practical.
 
-Price differences can change real value. A fixed subsidy buys less in high-cost regions. If participating merchants face weak competition, the programme can also risk higher prices or lower selection.
+Price differences can change real value. A fixed subsidy buys less in high-cost regions. If participating merchants face weak competition, the programme can also risk higher prices or lower selection. Digital design creates another barrier. A phone-based benefit may be convenient for many users but difficult for people with shared phones, weak connectivity or limited digital literacy. Offline codes, physical cards or assisted service may still be needed.
 
-Digital design creates another barrier. A phone-based benefit may be convenient for many users but difficult for people with shared phones, weak connectivity or limited digital literacy. Offline codes, physical cards or assisted service may still be needed.
-
-Fraud controls are necessary because public funds are involved. Yet controls can also create false rejections. A household should have a clear way to resolve a blocked transaction rather than losing access while an error is investigated.
-
-Evaluation should therefore examine more than the amount issued. Important measures include the share actually redeemed, distance to participating merchants, transaction failure, price patterns and whether eligible households can buy the intended goods.
+Fraud controls are necessary because public funds are involved. Yet controls can also create false rejections. A household should have a clear way to resolve a blocked transaction rather than losing access while an error is investigated. Evaluation should therefore examine more than the amount issued. Important measures include the share actually redeemed, distance to participating merchants, transaction failure, price patterns and whether eligible households can buy the intended goods.
 
 Low redemption needs careful interpretation. It may mean households did not need the full subsidy, but it may also signal poor merchant access, technical problems or confusing rules.
 
-High redemption is not automatically proof of good nutrition outcomes either. The programme may reduce financial pressure without changing diet, which can still be a legitimate policy benefit depending on its goal.
+High redemption is not automatically proof of good nutrition outcomes either. The programme may reduce financial pressure without changing diet, which can still be a legitimate policy benefit depending on its goal. Supply effects matter in emergencies. Issuing more purchasing power where food supply is physically constrained can raise prices rather than increase consumption. Cash-like support and supply logistics sometimes need to be planned together.
 
-Supply effects matter in emergencies. Issuing more purchasing power where food supply is physically constrained can raise prices rather than increase consumption. Cash-like support and supply logistics sometimes need to be planned together.
-
-The strongest design therefore connects benefit generosity with a usable merchant network and clear transaction rules.
-
-The broader lesson is that entitlement is not the same as access. A household gains value only when the subsidy can be converted into suitable food at a reasonable cost and without excessive friction.`,
+The strongest design therefore connects benefit generosity with a usable merchant network and clear transaction rules. The broader lesson is that entitlement is not the same as access. A household gains value only when the subsidy can be converted into suitable food at a reasonable cost and without excessive friction.  Household composition can alter practical value as well. A fixed benefit may stretch differently for a single adult and a large family, so programme generosity should be interpreted alongside household need.`,
  questions:[
  q("SP07-Q1","BM-F01","medium","Why might a generous digital food benefit have little practical value in a village?","Few nearby merchants may accept it",["Digital benefits cannot buy food","Village prices are always lower","Recipients cannot receive subsidies"],"The passage distinguishes the formal entitlement from the network needed to spend it.","nearest participating store is far away"),
  q("SP07-Q2","BM-F02","hard","What can be inferred from low redemption?","It may reflect access or technical barriers rather than lack of need alone",["The subsidy amount is always too high","Every merchant rejected the programme","Households have enough food"],"Several operational problems can prevent eligible households from using issued value.","needs careful interpretation"),
@@ -221,27 +185,19 @@ The broader lesson is that entitlement is not the same as access. A household ga
  id:"ENG008-BM-PH07",title:"Why Exceptions Need Rules Too",genre:"philosophy",
  text:`Rules are valuable because they make decisions more predictable. A deadline, eligibility condition or safety standard tells people what normally happens and reduces the need to negotiate every case from the beginning. Yet real situations sometimes contain circumstances that a general rule did not anticipate.
 
-This creates pressure for exceptions. A student may miss a deadline because of hospitalisation. A road may normally prohibit vehicles but allow an ambulance. A library may ban food but permit a medically necessary item.
-
-An exception is not the opposite of a rule. It can be part of a well-designed rule system if the reason for it is stated clearly. Problems arise when exceptions depend only on who asks, who decides or how persuasive a person happens to be.
+This creates pressure for exceptions. A student may miss a deadline because of hospitalisation. A road may normally prohibit vehicles but allow an ambulance. A library may ban food but permit a medically necessary item. An exception is not the opposite of a rule. It can be part of a well-designed rule system if the reason for it is stated clearly. Problems arise when exceptions depend only on who asks, who decides or how persuasive a person happens to be.
 
 Consistency therefore has two levels. Similar ordinary cases should be treated similarly, and similar exceptional cases should also be treated similarly.
 
-Too many exceptions can weaken a rule. If nearly everyone qualifies for special treatment, the original rule may be badly designed. But refusing every exception can create obvious unfairness when the rule's purpose is better served by flexibility.
-
-The key question is purpose. A deadline designed to ensure equal examination conditions serves a different purpose from a deadline intended only to help staff plan paperwork. The strength of the reason for an exception depends partly on what the rule protects.
+Too many exceptions can weaken a rule. If nearly everyone qualifies for special treatment, the original rule may be badly designed. But refusing every exception can create obvious unfairness when the rule's purpose is better served by flexibility. The key question is purpose. A deadline designed to ensure equal examination conditions serves a different purpose from a deadline intended only to help staff plan paperwork. The strength of the reason for an exception depends partly on what the rule protects.
 
 Evidence matters as well. Requiring documentation can reduce arbitrary exceptions, but documentation itself can become burdensome. A system should ask for evidence proportionate to the significance of the exception.
 
-Transparency is important because unexplained exceptions can damage trust even when they are justified. People are more likely to accept flexibility when they understand the criteria and see that they are available to anyone meeting them.
-
-Appeal mechanisms can correct mistakes in both directions. A valid exception may be wrongly denied, or an exception may be granted where the criteria were not met.
+Transparency is important because unexplained exceptions can damage trust even when they are justified. People are more likely to accept flexibility when they understand the criteria and see that they are available to anyone meeting them. Appeal mechanisms can correct mistakes in both directions. A valid exception may be wrongly denied, or an exception may be granted where the criteria were not met.
 
 There is also a risk of precedent. One unusual decision can be cited later as though it created a general right. Decision-makers should record which facts made a case exceptional.
 
-This does not mean every rule needs a long list of possible exceptions written in advance. Some systems can use a general standard such as “serious circumstances beyond the person's control”, followed by examples and review.
-
-The broader lesson is that flexibility itself needs structure. Fairness does not require rigidly applying every rule regardless of context, nor does it require ad hoc mercy. A good system explains when departure from the normal rule is justified and applies that explanation consistently.`,
+This does not mean every rule needs a long list of possible exceptions written in advance. Some systems can use a general standard such as “serious circumstances beyond the person's control”, followed by examples and review. The broader lesson is that flexibility itself needs structure. Fairness does not require rigidly applying every rule regardless of context, nor does it require ad hoc mercy. A good system explains when departure from the normal rule is justified and applies that explanation consistently.  Institutional memory matters because staff turnover can weaken consistent exception handling. Written criteria and recorded reasons allow later decision-makers to distinguish a genuine precedent from an isolated mistake.`,
  questions:[
  q("PH07-Q1","BM-F01","medium","According to the passage, when can an exception be part of a sound rule system?","When the reason and criteria for the exception are clear",["When it depends on who asks","When every case receives one","When documentation is impossible"],"The author treats exceptions as legitimate when they are structured rather than arbitrary.","reason for it is stated clearly"),
  q("PH07-Q2","BM-F02","hard","What can be inferred if almost everyone needs an exception?","The underlying rule may not fit the situations it is meant to govern",["Exceptions should be removed","The rule must be perfectly fair","Documentation should become harder"],"Frequent exceptions can signal that the normal rule itself is poorly designed.","rule may be badly designed"),
@@ -259,29 +215,19 @@ The broader lesson is that flexibility itself needs structure. Fairness does not
  id:"ENG008-BM-M07",title:"Why Correction Counts Do Not Measure Correction Reach",genre:"media",
  text:`News organisations often track how many corrections they publish. A visible correction policy can encourage accountability, but a raw count is difficult to interpret. A newsroom with more corrections may make more errors, or it may simply be more willing to acknowledge them.
 
-The impact of a correction also depends on whether it reaches the audience that saw the original mistake. A false claim can spread through a headline, push notification and social post. Correcting only the article text may leave many readers with the earlier impression.
-
-This is especially important when the error itself was prominent. A correction to a front-page headline should not be buried in a small note that few people see.
+The impact of a correction also depends on whether it reaches the audience that saw the original mistake. A false claim can spread through a headline, push notification and social post. Correcting only the article text may leave many readers with the earlier impression. This is especially important when the error itself was prominent. A correction to a front-page headline should not be buried in a small note that few people see.
 
 Timing matters too. An error corrected within minutes may reach far fewer people than one left unchanged for a day. Counting both as one correction hides the difference in exposure.
 
-Severity varies as well. A misspelled place name and a false allegation about a person both count as corrections, but their potential harm is not comparable.
+Severity varies as well. A misspelled place name and a false allegation about a person both count as corrections, but their potential harm is not comparable. For this reason, some newsrooms classify corrections by significance and record where the original claim appeared. They may update the article, resend a push clarification or post a correction through the social account that distributed the initial statement.
 
-For this reason, some newsrooms classify corrections by significance and record where the original claim appeared. They may update the article, resend a push clarification or post a correction through the social account that distributed the initial statement.
-
-Measuring reach is difficult. Platforms may not show exactly which users saw both the original and the correction. Still, approximate exposure data can be more informative than the correction count alone.
-
-There is a behavioural issue too. Readers may remember the original claim even after seeing a correction, especially when the false version was repeated or emotionally striking. Clear wording should therefore state what was wrong rather than quietly replacing it.
+Measuring reach is difficult. Platforms may not show exactly which users saw both the original and the correction. Still, approximate exposure data can be more informative than the correction count alone. There is a behavioural issue too. Readers may remember the original claim even after seeing a correction, especially when the false version was repeated or emotionally striking. Clear wording should therefore state what was wrong rather than quietly replacing it.
 
 A good correction system also distinguishes correction from update. Adding a new confirmed fact to a developing story is different from admitting that an earlier statement was false.
 
-Internal learning matters. Repeated corrections involving the same process—such as names taken from unverified social posts—may reveal a workflow problem even if the total number remains small.
+Internal learning matters. Repeated corrections involving the same process—such as names taken from unverified social posts—may reveal a workflow problem even if the total number remains small. The goal is not zero corrections at any cost. A newsroom afraid to correct publicly may appear cleaner while preserving errors. Accountability requires both prevention and visible repair.
 
-The goal is not zero corrections at any cost. A newsroom afraid to correct publicly may appear cleaner while preserving errors. Accountability requires both prevention and visible repair.
-
-The broader lesson is that correction quality has at least three dimensions: whether the error is acknowledged, whether the correction reaches relevant audiences and whether the organisation learns from the cause.
-
-A count can support monitoring, but it should not become a simple ranking of newsroom accuracy. The more useful question is whether important errors are corrected proportionately, promptly and through channels capable of reaching the people who were misinformed.`,
+The broader lesson is that correction quality has at least three dimensions: whether the error is acknowledged, whether the correction reaches relevant audiences and whether the organisation learns from the cause. A count can support monitoring, but it should not become a simple ranking of newsroom accuracy. The more useful question is whether important errors are corrected proportionately, promptly and through channels capable of reaching the people who were misinformed.  Corrections also vary in persistence. A corrected article may remain visible for years, while a short-lived social post can disappear quickly. The repair strategy should reflect where the misinformation continues to circulate.`,
  questions:[
  q("M07-Q1","BM-F01","medium","Why is a raw correction count hard to interpret?","More corrections can reflect either more errors or greater willingness to acknowledge them",["Corrections cannot be counted","Every newsroom has the same error rate","Only print outlets correct mistakes"],"The same number can represent different underlying editorial behaviour.","difficult to interpret"),
  q("M07-Q2","BM-F02","hard","What can be inferred if an error spreads mainly through social media but the correction appears only inside the article?","Many people who saw the error may never encounter the correction",["The article becomes inaccurate again","Social posts update automatically","Correction reach is guaranteed"],"Repair must use channels capable of reaching the original audience.","leave many readers"),
