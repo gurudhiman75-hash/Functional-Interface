@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 
 import { generateQuestion } from "../generation-engine-core";
+import { listPct001CuratedDefaultQlIds } from "../topics/Arithmetic/subtopics/Percentage/PCT-001/pipeline";
+import { listRap001CuratedDefaultQlIds } from "../topics/Arithmetic/subtopics/RatioAndProportion/RAP-001/pipeline";
 
 function qlIds(batch: any): string[] {
   const rows = Array.isArray(batch?.questionPackages)
@@ -52,18 +54,26 @@ async function proveDefaultBatch(input: {
   return firstIds;
 }
 
+const pctCapacity = listPct001CuratedDefaultQlIds("PCT-CP-002", { language: "en" }).length;
+const rapCapacity = listRap001CuratedDefaultQlIds("RAP-CP-002", { language: "en" }).length;
+assert.ok(pctCapacity >= 2, "PCT-CP-002 curated default pool is unexpectedly narrow.");
+assert.ok(rapCapacity >= 2, "RAP-CP-002 curated default pool is unexpectedly narrow.");
+
+const pctCount = Math.min(6, pctCapacity);
+const rapCount = Math.min(6, rapCapacity);
+
 const pctIds = await proveDefaultBatch({
   packageId: "PCT-001",
   cpId: "PCT-CP-002",
   seed: "QUANT-V4-PCT-BATCH-DIVERSITY-P4",
-  count: 6,
+  count: pctCount,
 });
 
 const rapIds = await proveDefaultBatch({
   packageId: "RAP-001",
   cpId: "RAP-CP-002",
   seed: "QUANT-V4-RAP-BATCH-DIVERSITY-P4",
-  count: 6,
+  count: rapCount,
 });
 
 const explicit = await generateQuestion({
@@ -81,7 +91,7 @@ assert.deepEqual(
 );
 
 console.log("QUANT_V4_PCT_RAP_BATCH_DIVERSITY_P4", JSON.stringify({
-  pct: { cpId: "PCT-CP-002", qlIds: pctIds, unique: new Set(pctIds).size },
-  rap: { cpId: "RAP-CP-002", qlIds: rapIds, unique: new Set(rapIds).size },
+  pct: { cpId: "PCT-CP-002", curatedCapacity: pctCapacity, qlIds: pctIds, unique: new Set(pctIds).size },
+  rap: { cpId: "RAP-CP-002", curatedCapacity: rapCapacity, qlIds: rapIds, unique: new Set(rapIds).size },
   explicitQlPreserved: true,
 }));
