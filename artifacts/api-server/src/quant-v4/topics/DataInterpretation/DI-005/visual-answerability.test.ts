@@ -22,7 +22,7 @@ for (const examProfile of profiles) {
 
     set.stimulus.slices.forEach((slice, sliceIndex) => {
       if (slice.displayPercent === "?") {
-        const hiddenLabel = new RegExp(`data-slice-label="${sliceIndex}"[^>]*>\?<\\/text>`, "u");
+        const hiddenLabel = new RegExp(`data-slice-label="${sliceIndex}"[^>]*>\\?<\\/text>`, "u");
         assert(hiddenLabel.test(svg), `DI-005 hidden sector ${sliceIndex} must visibly show ?.`);
         hiddenLabels += 1;
       } else {
