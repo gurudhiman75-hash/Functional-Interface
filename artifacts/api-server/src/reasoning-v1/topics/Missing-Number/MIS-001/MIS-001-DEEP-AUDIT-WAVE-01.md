@@ -8,8 +8,8 @@ Status: **CURRENT RUNTIME RECONCILED / SOURCE SATURATION OPEN**
 The implemented chapter currently exposes:
 
 - 12 checkpoints: `MIS-CP-001..012`;
-- 83 runtime patterns;
-- 70 distinct semantic authorities;
+- 82 runtime patterns;
+- 69 distinct semantic authorities;
 - 13 reuse-only variants;
 - deterministic generation;
 - independent solver/recomputation;
