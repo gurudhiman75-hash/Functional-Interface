@@ -30,15 +30,16 @@ Current runtime review patterns:
 - CP010: 6
 - CP011: 4
 - CP012: 5
+- CP013: 2 source-discovered authorities
 
-**Total runtime patterns: 83**
+**Total runtime patterns: 85**
 
 ## 3. Chapter-wide consolidation result
 
 After normalization by semantic rule rather than checkpoint/renderer/query direction:
 
-- runtime patterns: **83**
-- canonical semantic authorities: **50**
+- runtime patterns: **85**
+- canonical semantic authorities: **52**
 - reuse / alias patterns: **33**
 - permanent QLs allocated: **0**
 
@@ -189,7 +190,7 @@ Wave 1 confirms SSC repeated-figure evidence for pair-product sum and sum-of-squ
 
 Required next checkpoint:
 
-`MIS-001-SOURCE-CROSSWALK-V2`
+`MIS-001-SOURCE-CROSSWALK-V3`
 
 For each observed target-exam source family record:
 
