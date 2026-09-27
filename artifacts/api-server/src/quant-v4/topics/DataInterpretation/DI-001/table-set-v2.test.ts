@@ -82,6 +82,7 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
       assert(question.optionMetadata.filter((option) => option.misconceptionId !== "CORRECT").every((option) => option.derivation.length >= 12), `${question.questionId} contains an unexplained distractor.`);
       assert(question.explanation.keyIdea.length >= 16 && question.explanation.steps.length >= 1, `${question.questionId} has an inadequate explanation.`);
       assert(!/associated|shortcut|common trap|\btrap\b/i.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${question.questionId} contains blocked learner-facing wording.`);
+      assert(!/nearest whole|rounded? to the nearest|give the nearest whole/iu.test(learnerText(question)), `${question.questionId} leaked explicit rounding instructions.`);
 
       const key = `${profile}:${question.kind}`;
       if (!positions.has(key)) positions.set(key, new Set<number>());
