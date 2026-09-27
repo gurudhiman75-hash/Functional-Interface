@@ -1,13 +1,34 @@
 # CAL-001 — Calendar
 
-Executable discovery implementation of the Calendar master design for Reasoning V1 Family F.
+Current production-integrated Calendar package for Reasoning V1.
+
+## Current authority
+
+```text
+Permanent QLs:                 CAL-QL-001..036
+Checkpoint span:               CAL-CP-001..010
+Languages:                     English, Hindi, Punjabi
+Question Studio:               ACTIVE
+Question Bank status:          READY_FOR_STORAGE after manual approval
+Test eligibility:              ELIGIBLE after manual approval
+Mock-test eligibility:         enabled after manual approval
+Publication workflow:          eligible after manual approval
+Automatic student publication: false
+```
+
+The current production lifecycle is defined by `question-studio-runtime.ts` and
+`CAL-001-QUESTION-STUDIO-COMPLETION.md`.
+
+Older discovery/freeze records remain immutable historical evidence and may show
+earlier locked states. They must not be interpreted as the current package
+lifecycle.
 
 ## Structure
 
 ```text
 foundation.ts                 Gregorian, odd-day, span, repetition, frequency and PRNG engines
-registry.ts                   44 provisional prototype authorities across CAL-CP-001…010
-runtime-shared.ts             semantic rendering, options, explanations and difficulty helpers
+registry.ts                   44 original provisional prototype authorities across CAL-CP-001…010
+runtime-shared.ts             semantic rendering, options, explanations and structural difficulty helpers
 runtime-cp001.ts              basic weekday-shift authorities
 runtime-cp002.ts              ordinary date-relation authorities
 runtime-cp003.ts              leap-boundary and count-semantics authorities
@@ -16,39 +37,44 @@ runtime-cp006-007.ts          leap-classification and century authorities
 runtime-cp008.ts              calendar-repetition authorities
 runtime-cp009.ts              month/year boundary authorities
 runtime-cp010.ts              weekday-frequency authorities
-runtime.ts                    deterministic package orchestration and lifecycle closure
+runtime.ts                    deterministic source-package orchestration
+permanent-contracts.ts        CAL-QL-001..036 semantic ownership
+question-studio-runtime.ts    active permanent-QL Question Studio projection
+question-studio-runtime.test.ts
+                              production lifecycle and multilingual parity proof
 verifier.ts                   package-level independent recomputation and lifecycle checks
-foundation-proof.test.ts      exhaustive 1600–2399 and 1,000-seed-per-prototype proof
-source-audit-gate.ts          initial uploaded-book audit and hard source-coverage gate
-question-studio-contract.ts   review metadata adapter, filters and activation lock
-review-export.ts              528-row English prototype review pack
-index.ts                      package exports
+foundation-proof.test.ts      exhaustive Gregorian foundation proof
+source-audit-gate.ts          source-coverage gate
+review-export.ts              English prototype review pack
+multilingual-review-export.ts multilingual review evidence
 ```
 
-## Run proof
+## Deep-audit status
 
-From this directory on Node 22 or later:
+The 2026-09-27 Reasoning V1 deep audit is active.
 
-```bash
-node --experimental-strip-types foundation-proof.test.ts
-```
+Wave 1 corrected learner-explanation projection so QA-only trap/verification
+diagnostics are not forced into the learner surface.
 
-## Generate review evidence
+Wave 2 removes seed-driven difficulty inflation and audits honest
+QL × difficulty reachability. Novelty remains deferred to the later final
+Reasoning novelty pass.
 
-```bash
-CAL_REVIEW_OUTPUT_DIR=./dist node --experimental-strip-types review-export.ts
-```
+See:
 
-## Lifecycle
+- `CAL-001-DEEP-AUDIT-WAVE-01.md`
+- `cal-001-deep-audit-wave1.test.ts`
+- `cal-001-difficulty-reachability.test.ts`
 
-This package is executable for internal discovery only.
+## Historical evidence
 
-```text
-Permanent QLs:                0
-Question Studio public view:  false
-Question Bank writes:         false
-Mock-test eligibility:        false
-Public publication:           false
-```
+The following documents are retained as historical audit/freeze records:
 
-Do not bypass `assertCalendarActivationAllowed`. Source, merge/split, inverse, gap and human-language gates must be approved separately.
+- `CAL-001-FINAL-SOURCE-GAP-AUDIT.md`
+- `CAL-001-FINAL-DISCOVERY-FREEZE.md`
+- `CAL-001-ENGLISH-EDITORIAL-FREEZE-V2.md`
+- `CAL-001-MULTILINGUAL-HUMAN-FREEZE-V1.md`
+- `CAL-001-QUESTION-STUDIO-COMPLETION.md`
+
+Historical lifecycle locks in those records are superseded only by later,
+explicit release authorities; the records themselves should not be rewritten.

@@ -228,19 +228,24 @@ function selectSourcePackage(
     }
   }
 
+  if (input.difficultyBand) {
+    throw new Error(
+      `${qlId}: requested difficulty '${input.difficultyBand}' is not reachable from the current generated-state contracts.`,
+    );
+  }
+
   return fallback!;
 }
 
 function explanationLines(pkg: CalendarSourcePackage): string[] {
+  // Learner-facing Question Studio explanations stay focused on the actual
+  // solution. Trap diagnostics and verification prose remain available in the
+  // source package for QA, but are intentionally not projected to learners.
   return [
     pkg.explanation.observation,
     pkg.explanation.rule,
     ...pkg.explanation.working,
     pkg.explanation.conclusion,
-    pkg.explanation.closestTrap ?? "",
-    "verification" in pkg.explanation && pkg.explanation.verification
-      ? pkg.explanation.verification
-      : "",
   ].filter(Boolean);
 }
 
@@ -620,15 +625,55 @@ export async function generateCal001QuestionStudioBatch(
   const questions: Array<ReturnType<typeof toCal001QuestionStudioPreview>> = [];
 
   for (let index = 0; index < count; index++) {
-    const qlId = qlOrder[index % qlOrder.length]!;
-    const seed = `${batchSeed}:${qlId}:${index}`;
-    const pkg = runCal001QuestionStudioPipeline(qlId, {
-      difficultyBand,
-      language,
-      seed,
-    });
-    questionPackages.push(pkg);
-    questions.push(toCal001QuestionStudioPreview(pkg, seed));
+    const requestedIndex = index % qlOrder.length;
+    let generated:
+      | {
+          qlId: CalendarPermanentQlId;
+          seed: string;
+          pkg: ReturnType<typeof runCal001QuestionStudioPipeline>;
+        }
+      | null = null;
+    let lastDifficultyError: unknown = null;
+
+    const candidates = requestedQlId
+      ? [qlOrder[requestedIndex]!]
+      : [
+          ...qlOrder.slice(requestedIndex),
+          ...qlOrder.slice(0, requestedIndex),
+        ];
+
+    for (const qlId of candidates) {
+      const seed = `${batchSeed}:${qlId}:${index}`;
+      try {
+        const pkg = runCal001QuestionStudioPipeline(qlId, {
+          difficultyBand,
+          language,
+          seed,
+        });
+        generated = { qlId, seed, pkg };
+        break;
+      } catch (error) {
+        if (
+          difficultyBand &&
+          error instanceof Error &&
+          error.message.includes("requested difficulty")
+        ) {
+          lastDifficultyError = error;
+          continue;
+        }
+        throw error;
+      }
+    }
+
+    if (!generated) {
+      if (lastDifficultyError instanceof Error) throw lastDifficultyError;
+      throw new Error(
+        `CAL-001 could not generate a compatible question for difficulty '${difficultyBand ?? "Any"}'.`,
+      );
+    }
+
+    questionPackages.push(generated.pkg);
+    questions.push(toCal001QuestionStudioPreview(generated.pkg, generated.seed));
   }
 
   return {
