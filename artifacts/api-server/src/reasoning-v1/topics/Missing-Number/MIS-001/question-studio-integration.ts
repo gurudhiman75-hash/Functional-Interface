@@ -730,7 +730,7 @@ export async function generateMis001QuestionStudioBatch(
       ambiguityAudit: generated.ambiguityAudit,
       localizationParity: 'NOT_STARTED_ENGLISH_REVIEW_FIRST',
       editorialStatus: 'EXECUTABLE_PROTOTYPE',
-      sourceThin: generated.checkpointId === 'MIS-CP-004' ? generated.sourceThin : false,
+      sourceThin: 'sourceThin' in generated ? generated.sourceThin === true : false,
       sourceBacked: 'sourceBacked' in generated ? generated.sourceBacked : null,
       sourceNote: 'sourceNote' in generated ? generated.sourceNote : null,
       figures: 'figures' in generated ? generated.figures : null,
