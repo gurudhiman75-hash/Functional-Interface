@@ -95,7 +95,7 @@ function isHindi(locale: Di004LocalizationLocale) {
   return locale === "hi-IN";
 }
 
-function localizePeriod(period: string, locale: Di004LocalizationLocale) {
+export function localizeDi004Period(period: string, locale: Di004LocalizationLocale) {
   const month = MONTHS[period];
   if (!month) return period;
   return isHindi(locale) ? month.hi : month.pa;
@@ -135,12 +135,12 @@ export function localizeDi004Stimulus(stimulus: Di004V2Stimulus, locale: Di004Lo
     instruction: isHindi(locale)
       ? "रेखा-ग्राफ का अध्ययन कीजिए और निम्नलिखित प्रश्नों के उत्तर दीजिए।"
       : "ਰੇਖਾ-ਗ੍ਰਾਫ ਦਾ ਅਧਿਐਨ ਕਰੋ ਅਤੇ ਹੇਠਾਂ ਦਿੱਤੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਉੱਤਰ ਦਿਓ।",
-    categories: stimulus.categories.map((period) => localizePeriod(period, locale)),
+    categories: stimulus.categories.map((period) => localizeDi004Period(period, locale)),
     series: [
       { id: "SERIES_A" as const, label: a },
       { id: "SERIES_B" as const, label: b },
     ] as const,
-    points: stimulus.points.map((point) => ({ ...point, period: localizePeriod(point.period, locale) })),
+    points: stimulus.points.map((point) => ({ ...point, period: localizeDi004Period(point.period, locale) })),
     yAxisLabel: c.yAxis,
     unitLabel: c.unit,
   };
@@ -152,7 +152,7 @@ function surfaceIndex(question: Di004V2Question) {
 }
 
 function period(stimulus: Di004V2Stimulus, locale: Di004LocalizationLocale, index: number) {
-  return localizePeriod(stimulus.points[index]!.period, locale);
+  return localizeDi004Period(stimulus.points[index]!.period, locale);
 }
 
 function series(stimulus: Di004V2Stimulus, locale: Di004LocalizationLocale, code: string) {
@@ -248,7 +248,7 @@ function stem(question: Di004V2Question, stimulus: Di004V2Stimulus, locale: Di00
 }
 
 function localizeCategorical(text: string, locale: Di004LocalizationLocale) {
-  return localizePeriod(text, locale);
+  return localizeDi004Period(text, locale);
 }
 
 function explanation(question: Di004V2Question, stimulus: Di004V2Stimulus, locale: Di004LocalizationLocale) {
@@ -271,7 +271,7 @@ function explanation(question: Di004V2Question, stimulus: Di004V2Stimulus, local
     }
     case "FIRST_OVERTAKE_PERIOD": {
       const i = Number(e.overtakeIndex), prev = i - 1, p0 = period(stimulus, locale, prev), p1 = period(stimulus, locale, i);
-      return { keyIdea: h ? "वह पहली अवधि देखें जहाँ पहली रेखा पिछली अवधि में नीचे होने के बाद दूसरी रेखा से ऊपर हो जाती है।" : "ਉਹ ਪਹਿਲੀ ਮਿਆਦ ਵੇਖੋ ਜਿੱਥੇ ਪਹਿਲੀ ਰੇਖਾ ਪਿਛਲੀ ਮਿਆਦ ਵਿੱਚ ਹੇਠਾਂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਦੂਜੀ ਰੇਖਾ ਤੋਂ ਉੱਪਰ ਹੋ ਜਾਂਦੀ ਹੈ।", steps: [`${p0}: ${a} = ${A[prev]}, ${b} = ${B[prev]}, इसलिए ${a} कम है।`, h ? `${p1}: ${a} = ${A[i]}, ${b} = ${B[i]}, इसलिए पहली बार ${a} अधिक हो गया।` : `${p1}: ${a} = ${A[i]}, ${b} = ${B[i]}, ਇਸ ਲਈ ਪਹਿਲੀ ਵਾਰ ${a} ਵੱਧ ਹੋ ਗਿਆ।`] };
+      return { keyIdea: h ? "वह पहली अवधि देखें जहाँ पहली रेखा पिछली अवधि में नीचे होने के बाद दूसरी रेखा से ऊपर हो जाती है।" : "ਉਹ ਪਹਿਲੀ ਮਿਆਦ ਵੇਖੋ ਜਿੱਥੇ ਪਹਿਲੀ ਰੇਖਾ ਪਿਛਲੀ ਮਿਆਦ ਵਿੱਚ ਹੇਠਾਂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਦੂਜੀ ਰੇਖਾ ਤੋਂ ਉੱਪਰ ਹੋ ਜਾਂਦੀ ਹੈ।", steps: [h ? `${p0}: ${a} = ${A[prev]}, ${b} = ${B[prev]}, इसलिए ${a} कम है।` : `${p0}: ${a} = ${A[prev]}, ${b} = ${B[prev]}, ਇਸ ਲਈ ${a} ਘੱਟ ਹੈ।`, h ? `${p1}: ${a} = ${A[i]}, ${b} = ${B[i]}, इसलिए पहली बार ${a} अधिक हो गया।` : `${p1}: ${a} = ${A[i]}, ${b} = ${B[i]}, ਇਸ ਲਈ ਪਹਿਲੀ ਵਾਰ ${a} ਵੱਧ ਹੋ ਗਿਆ।`] };
     }
     case "CLOSEST_LINES_PERIOD": {
       const gaps = A.map((v, i) => Math.abs(v - B[i]!)), i = Number(e.closestIndex), min = gaps[i]!;
