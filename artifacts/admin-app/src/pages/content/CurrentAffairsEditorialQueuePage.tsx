@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { AlertTriangle, CheckCircle2, ExternalLink, FileQuestion, Languages, Loader2, Newspaper, RefreshCw, ShieldCheck, Star } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, FileQuestion, FileText, Languages, Loader2, Newspaper, RefreshCw, ShieldCheck, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -9,10 +9,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
+  getCurrentAffairsEditorialEvent,
   getCurrentAffairsEditorialQueue,
   getCurrentAffairsHeadlineReview,
   getCurrentAffairsQuestionEditorialQueue,
   setCurrentAffairsHeadlineSelection,
+  type CurrentAffairsEditorialDetail,
   type CurrentAffairsEditorialQueue,
   type CurrentAffairsEditorialQueueItem,
   type CurrentAffairsHeadlineReview,
@@ -23,6 +25,11 @@ import {
   processCurrentAffairsSelected,
   type CurrentAffairsSelectedProcessingResult,
 } from '@/features/current-affairs/selected-processing-api';
+import {
+  getCurrentAffairsDailyMasterPacks,
+  type DailyMasterPack,
+  type DailyMasterPackSet,
+} from '@/features/current-affairs/production-ops-api';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
 
@@ -57,6 +64,57 @@ function priorityTone(priority: CurrentAffairsHeadlineReviewItem['priorityTier']
 
 function examScore(item: CurrentAffairsHeadlineReviewItem, family: string) {
   return item.examScores.find((score) => score.examFamily === family)?.score ?? 0;
+}
+
+type PdfTextPreview = {
+  title: string;
+  summary: string;
+  oneLiner: string;
+  facts: Array<{ label: string; value: string }>;
+  source: 'master_pack' | 'learner_copy';
+};
+
+function cleanPreviewText(value: unknown) {
+  return String(value ?? '').replace(/\s+/g, ' ').trim();
+}
+
+function masterPackPdfPreview(pack: DailyMasterPack | null, eventId: string): PdfTextPreview | null {
+  const payload = pack?.payload as {
+    sections?: Array<{ events?: unknown[] }>;
+    categories?: Array<{ events?: unknown[] }>;
+  } | null;
+  const sections = payload?.sections ?? payload?.categories ?? [];
+  for (const section of sections) {
+    for (const raw of Array.isArray(section.events) ? section.events : []) {
+      const event = raw as Record<string, unknown>;
+      if (cleanPreviewText(event.id) !== eventId) continue;
+      const facts = (Array.isArray(event.facts) ? event.facts : [])
+        .map((factRaw) => {
+          const fact = factRaw as Record<string, unknown>;
+          const key = cleanPreviewText(fact.key);
+          const label = cleanPreviewText(fact.label) || key.replace(/_/g, ' ');
+          return { label, value: cleanPreviewText(fact.value) };
+        })
+        .filter((fact) => fact.value);
+      return {
+        title: cleanPreviewText(event.title),
+        summary: cleanPreviewText(event.summary),
+        oneLiner: cleanPreviewText(event.oneLiner),
+        facts,
+        source: 'master_pack',
+      };
+    }
+  }
+  return null;
+}
+
+function learnerCopyPdfPreview(detail: CurrentAffairsEditorialDetail | undefined): PdfTextPreview | null {
+  if (!detail) return null;
+  const title = cleanPreviewText(detail.event.learnerTitle);
+  const summary = cleanPreviewText(detail.event.learnerSummary);
+  const oneLiner = cleanPreviewText(detail.event.learnerOneLiner);
+  if (!title && !summary && !oneLiner) return null;
+  return { title, summary, oneLiner, facts: [], source: 'learner_copy' };
 }
 
 type HeadlineFilter = 'all' | 'selected' | 'high_score' | 'selected_pending';
@@ -108,6 +166,10 @@ export function CurrentAffairsEditorialQueuePage() {
   const [savingCandidateId, setSavingCandidateId] = useState<string | null>(null);
   const [processingSelected, setProcessingSelected] = useState(false);
   const [processingResult, setProcessingResult] = useState<CurrentAffairsSelectedProcessingResult | null>(null);
+  const [masterPacks, setMasterPacks] = useState<DailyMasterPackSet | null>(null);
+  const [pdfPreviewCandidateId, setPdfPreviewCandidateId] = useState<string | null>(null);
+  const [pdfPreviewLoadingCandidateId, setPdfPreviewLoadingCandidateId] = useState<string | null>(null);
+  const [pdfPreviewDetails, setPdfPreviewDetails] = useState<Record<string, CurrentAffairsEditorialDetail>>({});
   const [error, setError] = useState<string | null>(null);
 
   const refreshSecondaryQueues = useCallback(async () => {
@@ -128,6 +190,14 @@ export function CurrentAffairsEditorialQueuePage() {
     try {
       const nextHeadlines = await getCurrentAffairsHeadlineReview(headlineDate, 1200);
       setHeadlines(nextHeadlines);
+      setPdfPreviewCandidateId(null);
+      setPdfPreviewDetails({});
+      try {
+        const packResult = await getCurrentAffairsDailyMasterPacks(headlineDate);
+        setMasterPacks(packResult.masterPacks);
+      } catch {
+        setMasterPacks(null);
+      }
       setError(null);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load Current Affairs headline review.');
@@ -198,6 +268,29 @@ export function CurrentAffairsEditorialQueuePage() {
     }
   }, [refresh]);
 
+  const togglePdfPreview = useCallback(async (item: CurrentAffairsHeadlineReviewItem) => {
+    if (pdfPreviewCandidateId === item.candidateId) {
+      setPdfPreviewCandidateId(null);
+      return;
+    }
+
+    setPdfPreviewCandidateId(item.candidateId);
+    if (!item.linkedEventId) return;
+
+    const currentPackPreview = masterPackPdfPreview(masterPacks?.en ?? null, item.linkedEventId);
+    if (currentPackPreview || pdfPreviewDetails[item.linkedEventId]) return;
+
+    setPdfPreviewLoadingCandidateId(item.candidateId);
+    try {
+      const detail = await getCurrentAffairsEditorialEvent(item.linkedEventId);
+      setPdfPreviewDetails((current) => ({ ...current, [item.linkedEventId!]: detail }));
+    } catch (caught) {
+      showToast.error('Unable to load PDF text preview', caught instanceof Error ? caught.message : 'Unknown error');
+    } finally {
+      setPdfPreviewLoadingCandidateId(null);
+    }
+  }, [masterPacks, pdfPreviewCandidateId, pdfPreviewDetails]);
+
   const processSelected = useCallback(async () => {
     setProcessingSelected(true);
     try {
@@ -238,7 +331,7 @@ export function CurrentAffairsEditorialQueuePage() {
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <CardTitle className="flex items-center gap-2 text-base"><Newspaper className="h-4 w-4" />Headline selection</CardTitle>
-              <p className="mt-1 text-sm text-muted-foreground">Every captured headline for the selected India-calendar date stays visible, including auto-withheld candidates. Select what matters, then process only those selected affairs through the factual and multilingual pipeline. Use View full news whenever the headline alone is not enough to judge importance.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Every captured headline for the selected India-calendar date stays visible, including auto-withheld candidates. Select what matters, then process only those selected affairs through the factual and multilingual pipeline. Use Preview PDF text to inspect the learner-facing note that will appear in the Daily Current Affairs PDF.</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <Input type="date" value={headlineDate} onChange={(event) => setHeadlineDate(event.target.value)} className="w-[160px]" disabled={processingSelected} />
@@ -315,6 +408,11 @@ export function CurrentAffairsEditorialQueuePage() {
                   const event = item.linkedEventId ? eventById.get(item.linkedEventId) : undefined;
                   const pipeline = currentAffairsPipeline(item, event);
                   const saving = savingCandidateId === item.candidateId;
+                  const packPreview = item.linkedEventId ? masterPackPdfPreview(masterPacks?.en ?? null, item.linkedEventId) : null;
+                  const learnerPreview = item.linkedEventId ? learnerCopyPdfPreview(pdfPreviewDetails[item.linkedEventId]) : null;
+                  const pdfPreview = packPreview ?? learnerPreview;
+                  const previewOpen = pdfPreviewCandidateId === item.candidateId;
+                  const previewLoading = pdfPreviewLoadingCandidateId === item.candidateId;
                   return (
                     <div key={item.candidateId} className={cn('rounded-lg border p-4 transition-colors', item.manualSelected && 'border-primary/40 bg-primary/[0.03]')}>
                       <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
@@ -348,7 +446,18 @@ export function CurrentAffairsEditorialQueuePage() {
                         </div>
                         <div className="flex shrink-0 flex-col items-stretch gap-2 sm:min-w-[210px]">
                           <div className="flex flex-wrap justify-end gap-2">
-                            {item.sourceUrl ? <Button size="sm" variant="outline" asChild><a href={item.sourceUrl} target="_blank" rel="noreferrer" aria-label={`View full news from ${item.sourceName}`} title={`Open the original ${item.sourceName} article in a new tab`}><ExternalLink className="mr-2 h-3.5 w-3.5" />View full news</a></Button> : null}
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant={previewOpen ? 'secondary' : 'outline'}
+                              onClick={() => void togglePdfPreview(item)}
+                              disabled={previewLoading}
+                              title="Preview the learner-facing Current Affairs text used for the Daily PDF."
+                            >
+                              {previewLoading ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <FileText className="mr-2 h-3.5 w-3.5" />}
+                              {previewOpen ? 'Hide PDF text' : 'Preview PDF text'}
+                            </Button>
+                            {item.sourceUrl ? <Button size="sm" variant="ghost" asChild><a href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a></Button> : null}
                             {item.linkedEventId ? <Button size="sm" variant="outline" asChild><Link to={`/content/current-affairs/events/${item.linkedEventId}`}>Open event</Link></Button> : null}
                           </div>
                           <Button
@@ -375,6 +484,51 @@ export function CurrentAffairsEditorialQueuePage() {
                           </p>
                         </div>
                       </div>
+                      {previewOpen ? (
+                        <div className="mt-4 rounded-lg border border-primary/20 bg-muted/20 p-4">
+                          <div className="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                              <p className="text-sm font-semibold">PDF text preview</p>
+                              <p className="mt-0.5 text-xs text-muted-foreground">
+                                {pdfPreview?.source === 'master_pack'
+                                  ? 'Exact English text from the current Daily Master Pack.'
+                                  : pdfPreview?.source === 'learner_copy'
+                                    ? 'Generated learner copy. It is not yet materialized in the Daily Master Pack.'
+                                    : 'No learner-facing PDF text is available yet.'}
+                              </p>
+                            </div>
+                            {item.linkedEventCode ? <Badge variant="outline">{item.linkedEventCode}</Badge> : null}
+                          </div>
+
+                          {previewLoading ? (
+                            <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" />Loading PDF text…</div>
+                          ) : pdfPreview ? (
+                            <div className="mt-4 space-y-3">
+                              {pdfPreview.title ? <p className="text-base font-semibold leading-6">{pdfPreview.title}</p> : null}
+                              {pdfPreview.summary ? <p className="whitespace-pre-wrap text-sm leading-6">{pdfPreview.summary}</p> : null}
+                              {pdfPreview.oneLiner ? (
+                                <div className="rounded-md border bg-background/70 px-3 py-2 text-sm">
+                                  <span className="font-semibold">Quick recall:</span> {pdfPreview.oneLiner}
+                                </div>
+                              ) : null}
+                              {pdfPreview.facts.length > 0 ? (
+                                <div className="grid gap-2 sm:grid-cols-2">
+                                  {pdfPreview.facts.map((fact, index) => (
+                                    <div key={`${fact.label}-${index}`} className="rounded-md border bg-background/60 px-3 py-2">
+                                      <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{titleCase(fact.label)}</p>
+                                      <p className="mt-1 text-sm">{fact.value}</p>
+                                    </div>
+                                  ))}
+                                </div>
+                              ) : null}
+                            </div>
+                          ) : (
+                            <div className="mt-4 rounded-md border border-warning/30 bg-warning/10 px-3 py-3 text-sm text-warning">
+                              PDF text has not been generated yet. Select and process this affair first; once learner wording is authored, it will appear here.
+                            </div>
+                          )}
+                        </div>
+                      ) : null}
                     </div>
                   );
                 })}
