@@ -756,7 +756,7 @@ jobs:
       - name: Run GEO-MIN-001 review gates
         run: |
           mkdir -p artifacts/api-server/dist/geography
-          for cp in 001 002 003 004 005 006 007; do
+          for cp in 001 002 003 004 005 006 007 008 009; do
             pnpm --dir artifacts/api-server exec esbuild \
               "src/knowledge-v1/indian-geography/minerals-energy/geo-min-001-cp${cp}-review-batch-v1.test.ts" \
               --bundle --packages=external --platform=node --format=esm \
