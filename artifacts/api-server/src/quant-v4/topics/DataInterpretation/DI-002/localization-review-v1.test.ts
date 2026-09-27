@@ -100,10 +100,12 @@ for (const locale of locales) {
       const text = learnerText(localized);
       assert(!/[A-Za-z]/u.test(text), `${key} leaks Roman learner-facing text: ${text}`);
       if (locale === "hi-IN") {
-        assert(/[\u0900-\u097F]/u.test(text), `${key} lacks Devanagari learner text.`);
+        assert(/[\u0904-\u0939\u093C-\u094D\u0950-\u0961\u0971-\u097F]/u.test(text), `${key} lacks Devanagari learner text.`);
+        assert(!/[\u0A05-\u0A39\u0A3C-\u0A4D\u0A59-\u0A5E]/u.test(text), `${key} leaks Gurmukhi letters into Hindi learner text: ${text}`);
         assert(!/स्तंभ/u.test(text), `${key} leaked banned Hindi DI terminology 'स्तंभ'.`);
       } else {
-        assert(/[\u0A00-\u0A7F]/u.test(text), `${key} lacks Gurmukhi learner text.`);
+        assert(/[\u0A05-\u0A39\u0A3C-\u0A4D\u0A59-\u0A5E]/u.test(text), `${key} lacks Gurmukhi learner text.`);
+        assert(!/[\u0904-\u0939\u093C-\u094D\u0950-\u0961\u0971-\u097F]/u.test(text), `${key} leaks Devanagari letters into Punjabi learner text: ${text}`);
       }
       assert(!/associated/iu.test(text), `${key} leaked mechanical 'associated' wording.`);
       leakageChecks += 1;
