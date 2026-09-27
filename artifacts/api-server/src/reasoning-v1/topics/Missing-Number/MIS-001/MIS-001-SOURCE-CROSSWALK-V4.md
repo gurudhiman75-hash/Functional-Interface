@@ -104,10 +104,51 @@ Decision:
 - retain Banking as an applicable target only when repeated-group/figure evidence is actually observed;
 - source saturation for MIS-001 should be driven primarily by SSC and Punjab-state evidence unless Banking previous-paper figure evidence emerges.
 
-## 5. Inventory after V4
 
-- runtime patterns: **90**
-- canonical semantic authorities: **56**
+## 5. SSC CGL 2020 mixed whole-number / digit-property gap — CP017
+
+Source:
+- SSC CGL 2020 Tier-I Official Paper 4, held 16 Aug 2021 Shift 1.
+- Rows include `14,16,13`; `12,21,17`; target `18,6,?`.
+
+Normalized rule:
+
+`result = b − (a÷2) + digitProduct(a)`
+
+Evidence:
+- `16 − (14÷2) + (1×4) = 13`
+- `21 − (12÷2) + (1×2) = 17`
+- `6 − (18÷2) + (1×8) = 5`
+
+Decision:
+- CP010 covers digit-only rules, but no prior semantic authority combines a whole-number division step with a digit-property step on the same visible input;
+- add **MIS-CAND-091 / SECOND_MINUS_HALF_FIRST_PLUS_FIRST_DIGIT_PRODUCT**;
+- retain as mixed whole-number/digit reasoning;
+- runtime owner: `MIS-CP-017`.
+
+## 6. Deliberate source holds and ownership boundaries
+
+### Two-stage affine row chain — HOLD
+
+SSC CHSL 2021, held 3 June 2022 Shift 3 includes:
+- `12 → 51 → 159`
+- `9 → 39 → 123`
+- `8 → 35 → ?`
+
+The source solution applies `x×4+3` and then `y×3+6`.
+
+Current decision: **do not allocate a semantic authority yet**.
+
+The target third value can be obtained from the already-visible middle value, so the first stage is not required to compute the answer. Keep this as source-faithful presentation evidence until another target-exam form makes both stages solve-relevant.
+
+### Power/exponent column grid — Number Matrix boundary
+
+Column-consistency forms such as `6³=216`, `2⁴=16`, `7²=49` are owned by Number Matrix. A missing exponent/cell does not become MIS-001 merely because the prompt says "missing number".
+
+## 7. Inventory after V4
+
+- runtime patterns: **91**
+- canonical semantic authorities: **57**
 - aliases / reuse-only variants: **34**
 - permanent QLs: **0**
 - source saturation: **false**
@@ -116,16 +157,17 @@ Source-discovered additions beyond the original blueprint-derived inventory now 
 - CP013: 2 semantic authorities;
 - CP014: 1 Punjab source-backed runtime/query variant;
 - CP015: 3 semantic authorities;
-- CP016: 1 semantic authority.
+- CP016: 1 semantic authority;
+- CP017: 1 semantic authority.
 
-## 6. Remaining high-priority source checks
+## 8. Remaining high-priority source checks
 
 Before permanent QL freeze:
 
 1. sample additional SSC CGL/CHSL/GD shifts for repeated-group rules not yet represented;
 2. sample additional Punjab-state papers for figure/repeated-group forms;
 3. verify whether SMALL_FACTORIAL appears in actual target-exam Missing Number sources;
-4. search specifically for digit-property Missing Number forms;
+4. sample further mixed whole-number/digit-property forms after the CP017 source gap;
 5. search specifically for inverse-input forms beyond the confirmed CHSL product-minus-one source;
 6. check whether stable multiplicative/divisive constants recur often enough to justify a shared parameterized permanent family;
 7. continue rejecting Series and genuine Number Matrix questions at the ownership boundary.
