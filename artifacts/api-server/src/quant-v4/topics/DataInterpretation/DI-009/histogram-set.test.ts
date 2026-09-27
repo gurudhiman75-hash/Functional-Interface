@@ -106,6 +106,11 @@ for (const profile of profiles) {
     assert(!svg.includes("data-bar-top=") && !svg.includes("data-bar-value-label="), `${profile} ${seed} leaked decorative or answer-helping bar labels.`);
     assert(svg.includes('preserveAspectRatio="xMidYMid meet"') && svg.includes("<title>") && svg.includes("<desc>"), `${profile} ${seed} lost responsive/accessibility metadata.`);
     assert(!/\d+\.\d+/u.test(visibleSvgText(svg)), `${profile} ${seed} histogram shows decimal learner-facing labels.`);
+    assert(svg.includes('data-exact-frequency-axis="true"'), `${profile} ${seed} histogram did not certify exact frequency readability.`);
+    const yLabels = new Set([...svg.matchAll(/data-y-label="\d+"[^>]*>([^<]+)<\/text>/gu)].map((match) => Number(match[1])));
+    for (const bin of first.stimulus.bins) {
+      assert(yLabels.has(bin.frequency), `${profile} ${seed} frequency ${bin.frequency} is not explicitly readable from the y-axis.`);
+    }
 
     for (let index = 1; index < bars.length; index += 1) {
       const previousRight = bars[index - 1]!.x + bars[index - 1]!.width;

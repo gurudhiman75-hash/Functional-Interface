@@ -5,12 +5,29 @@ export const DI_FREQUENCY_POLYGON_VISUAL_THEME = "EXAMTREE_DI_ORIGINAL_FAMILY_V1
 
 const COLORS = { canvas: "#ffffff", grid: "#e8ecf2", baseline: "#344054", tickText: "#667085", title: "#172033", axisLabel: "#172033", line: "#4c67c8", pointFill: "#ffffff", pointStroke: "#4c67c8", endpoint: "#98a2b3" } as const;
 
+function gcd(a: number, b: number) {
+  let x = Math.abs(Math.round(a));
+  let y = Math.abs(Math.round(b));
+  while (y !== 0) {
+    const next = x % y;
+    x = y;
+    y = next;
+  }
+  return x || 1;
+}
+
 function niceYAxisStep(maxFrequency: number) {
   const rough = Math.max(1, maxFrequency / 6);
   const magnitude = 10 ** Math.floor(Math.log10(rough));
   const normalized = rough / magnitude;
   const nice = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 2.5 ? 2.5 : normalized <= 5 ? 5 : 10;
   return Math.max(1, Math.ceil(nice * magnitude));
+}
+
+function readableYAxisStep(values: readonly number[], maxFrequency: number) {
+  const commonUnit = values.filter((value) => value > 0).reduce((current, value) => gcd(current, value), 0);
+  if (commonUnit > 0 && maxFrequency / commonUnit <= 20) return commonUnit;
+  return niceYAxisStep(maxFrequency);
 }
 
 function escapeSvgText(value: string) {
@@ -26,15 +43,16 @@ export function renderDiFrequencyPolygonSvg(model: DiFrequencyPolygonVisualModel
   const plotWidth = width - left - right, plotHeight = height - top - bottom, plotRight = left + plotWidth, plotBottom = top + plotHeight;
   const firstMark = model.classes[0]!.classMark, lastMark = model.classes[model.classes.length - 1]!.classMark;
   const xMin = firstMark - model.classWidth, xMax = lastMark + model.classWidth;
-  const maxFrequency = Math.max(...model.classes.map((item) => item.frequency), 1);
-  const yStep = niceYAxisStep(maxFrequency), roundedYMax = yStep * Math.ceil(maxFrequency / yStep), yMax = roundedYMax === maxFrequency ? roundedYMax + yStep : roundedYMax;
+  const frequencies = model.classes.map((item) => item.frequency);
+  const maxFrequency = Math.max(...frequencies, 1);
+  const yStep = readableYAxisStep(frequencies, maxFrequency), roundedYMax = yStep * Math.ceil(maxFrequency / yStep), yMax = roundedYMax === maxFrequency ? roundedYMax + yStep : roundedYMax;
   const x = (value: number) => left + ((value - xMin) / (xMax - xMin)) * plotWidth;
   const y = (value: number) => plotBottom - (value / yMax) * plotHeight;
   const points = [{ x: xMin, y: 0 }, ...model.classes.map((item) => ({ x: item.classMark, y: item.frequency })), { x: xMax, y: 0 }];
   const safeTitle = escapeSvgText(model.title), safeXAxis = escapeSvgText(model.xAxisLabel), safeYAxis = escapeSvgText(model.yAxisLabel);
   const safeDescription = escapeSvgText(model.description ?? "Frequency polygon formed by joining class-mark frequency points with straight segments and closing to zero frequency one class width outside the data range.");
   const parts: string[] = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-di-chart-theme="${DI_FREQUENCY_POLYGON_VISUAL_THEME}" data-frequency-polygon="true" data-straight-segments="true" data-zero-closing-endpoints="true" data-no-value-labels="true" shape-rendering="geometricPrecision">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${safeTitle}" data-di-presentation-layer="shared" data-di-chart-theme="${DI_FREQUENCY_POLYGON_VISUAL_THEME}" data-frequency-polygon="true" data-straight-segments="true" data-zero-closing-endpoints="true" data-no-value-labels="true" data-exact-frequency-axis="true" data-y-step="${yStep}" shape-rendering="geometricPrecision">`,
     `<title>${safeTitle}</title>`,
     `<desc>${safeDescription}</desc>`,
     `<rect x="0" y="0" width="${width}" height="${height}" fill="${COLORS.canvas}"/>`,
