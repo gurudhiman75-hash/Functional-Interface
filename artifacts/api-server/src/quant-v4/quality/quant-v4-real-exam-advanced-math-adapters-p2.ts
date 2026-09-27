@@ -6,6 +6,7 @@ import {
   type AlgebraStudioExamProfileV5,
 } from "../topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v5";
 import { generateQuestion as generateTrigonometryQuestion } from "../../question-studio/shared-generation-engine-trigonometry";
+import { TRG_001_PRODUCTION_REGISTRY } from "../topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-runtime";
 
 export const QUANT_V4_REAL_EXAM_ADVANCED_MATH_ADAPTER_AUTHORITY =
   "QUANT-V4-REAL-EXAM-ADVANCED-MATH-ADAPTERS-P2" as const;
@@ -27,7 +28,9 @@ export interface QuantV4AdvancedMathSectionAdapterResult {
   readonly slotKind: QuantV4AdvancedMathSectionSlotKind;
   readonly seed: string;
   readonly packageId: string;
-  readonly selectionPolicy: "PROVISIONAL_NON_PYQ_WEIGHTED";
+  readonly selectionPolicy:
+    | "PROVISIONAL_NON_PYQ_WEIGHTED"
+    | "PROVISIONAL_NON_PYQ_WEIGHTED_DIVERSITY_CAPACITY";
   readonly question: any;
 }
 
@@ -59,6 +62,21 @@ function trigonometryPackageFor(examId: QuantV4AdvancedMathSectionExamId, seed: 
   return bucket % 4 === 0 ? "TRG-002" : "TRG-001";
 }
 
+function diversityCapacityTrg001QlId(
+  difficulty: QuantV4AdvancedMathDifficulty,
+  diversityOrdinal: number,
+  seed: string,
+): string {
+  const eligible = TRG_001_PRODUCTION_REGISTRY
+    .filter((entry) => entry.difficulty === difficulty)
+    .map((entry) => entry.qlId)
+    .sort();
+  if (!eligible.length) throw new Error(`TRG-001 has no frozen ${difficulty} QLs for diversity-capacity sampling.`);
+  const offset = stableHash(`${seed}:trg001-diversity-capacity-offset`) % eligible.length;
+  const index = (offset + Math.max(0, Math.floor(diversityOrdinal))) % eligible.length;
+  return eligible[index]!;
+}
+
 function firstQuestion(result: any): any {
   if (Array.isArray(result?.questions) && result.questions.length) return result.questions[0];
   if (Array.isArray(result?.questionPackages) && result.questionPackages.length) return result.questionPackages[0];
@@ -79,6 +97,7 @@ export async function generateQuantV4AdvancedMathSectionQuestion(input: {
   examId: QuantV4AdvancedMathSectionExamId;
   slotKind: QuantV4AdvancedMathSectionSlotKind;
   seed: string;
+  diversityCapacityOrdinal?: number;
 }): Promise<QuantV4AdvancedMathSectionAdapterResult> {
   const difficulty = difficultyFor(input.seed);
 
@@ -113,10 +132,15 @@ export async function generateQuantV4AdvancedMathSectionQuestion(input: {
   }
 
   const packageId = trigonometryPackageFor(input.examId, input.seed);
+  const diversityCapacityMode = packageId === "TRG-001" && Number.isInteger(input.diversityCapacityOrdinal);
+  const questionLanguageId = diversityCapacityMode
+    ? diversityCapacityTrg001QlId(difficulty, input.diversityCapacityOrdinal!, input.seed)
+    : undefined;
   const result = await generateTrigonometryQuestion({
     packageId,
     language: "en",
     difficulty,
+    questionLanguageId,
     seed: input.seed,
     count: 1,
   } as any);
@@ -134,7 +158,9 @@ export async function generateQuantV4AdvancedMathSectionQuestion(input: {
     slotKind: input.slotKind,
     seed: input.seed,
     packageId,
-    selectionPolicy: "PROVISIONAL_NON_PYQ_WEIGHTED",
+    selectionPolicy: diversityCapacityMode
+      ? "PROVISIONAL_NON_PYQ_WEIGHTED_DIVERSITY_CAPACITY"
+      : "PROVISIONAL_NON_PYQ_WEIGHTED",
     question,
   });
 }
