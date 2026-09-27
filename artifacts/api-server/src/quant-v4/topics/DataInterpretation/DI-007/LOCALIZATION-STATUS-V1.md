@@ -1,6 +1,6 @@
 # DI-007 Missing Data Interpretation — Hindi/Punjabi Localization Review V1
 
-Status: HI_PA_REVIEW_CANDIDATE · HUMAN APPROVAL PENDING
+Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## Source authority
 
@@ -46,7 +46,7 @@ Numeric values, hidden-cell position, recovery mode, answer, options, correct in
 - Exactly one hidden cell remains.
 - Five unique Banking options remain unchanged.
 - Deterministic replay is required.
-- Hindi/Punjabi remain Question Studio locked pending human approval.
+- Hindi/Punjabi remain Question Studio locked after human approval.
 - Question Bank/tests/mocks/publication/production remain locked.
 
 ## Next gate
