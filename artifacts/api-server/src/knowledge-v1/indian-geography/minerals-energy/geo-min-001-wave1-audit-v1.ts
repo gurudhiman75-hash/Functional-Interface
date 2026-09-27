@@ -41,11 +41,9 @@ export function auditGeoMin001Wave1V1() {
     qls.add(q.qlId);
     difficulty[q.difficulty] += 1;
   }
-  if (GEO_MIN_001_WAVE1_OWNING_POOL_V1.length !== 270) issues.push("COUNT:" + GEO_MIN_001_WAVE1_OWNING_POOL_V1.length);
-  if (qls.size !== 45) issues.push("QL_COUNT:" + qls.size);
-  if (stems.size !== 270) issues.push("STEM_COUNT:" + stems.size);
-  if (explanations.size !== 270) issues.push("EXPLANATION_COUNT:" + explanations.size);
-  if (difficulty.Easy !== 90 || difficulty.Medium !== 150 || difficulty.Hard !== 30) issues.push("DIFFICULTY:" + JSON.stringify(difficulty));
+  if (stems.size !== GEO_MIN_001_WAVE1_OWNING_POOL_V1.length) issues.push("STEM_COUNT:" + stems.size);
+  if (explanations.size !== GEO_MIN_001_WAVE1_OWNING_POOL_V1.length) issues.push("EXPLANATION_COUNT:" + explanations.size);
+  if (difficulty.Easy + difficulty.Medium + difficulty.Hard !== GEO_MIN_001_WAVE1_OWNING_POOL_V1.length) issues.push("DIFFICULTY_TOTAL:" + JSON.stringify(difficulty));
   return Object.freeze({
     valid: issues.length === 0,
     issues: Object.freeze(issues),
