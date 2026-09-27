@@ -620,6 +620,105 @@ buildGeoMinQl("INTEGRATED-MANGANESE-AND-CHROMITE-REASONING", "Integrated mangane
     "explanation": "Iron ore supplies the iron base, while manganese and chromite provide alloying elements. This three-resource set directly matches the structure of iron and alloy-steel production.",
     "sourceFactId": "MN-CR-INTEGRATED-6"
   }
+] as const),
+
+buildGeoMinQl("NAGPUR-BHANDARA-MANGANESE-BELT", "Nagpur–Bhandara manganese belt", [
+  {
+    "stem": "The Nagpur–Bhandara belt is best known for which mineral?",
+    "answer": "Manganese ore",
+    "distractors": [
+      "Mica",
+      "Bauxite",
+      "Rock phosphate"
+    ],
+    "explanation": "Nagpur and Bhandara districts in Maharashtra form an important manganese-bearing region. Their recurring appearance in official mineral records makes the belt a durable location-resource association.",
+    "sourceFactId": "MN-NAGPUR-BHANDARA-RESOURCE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MANGANESE-ORE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Which state contains the important Nagpur and Bhandara manganese districts?",
+    "answer": "Maharashtra",
+    "distractors": [
+      "Odisha",
+      "Rajasthan",
+      "Jharkhand"
+    ],
+    "explanation": "Nagpur and Bhandara are districts of Maharashtra and both contain important manganese mines. They form part of the broader central Indian manganese belt.",
+    "sourceFactId": "MN-NAGPUR-BHANDARA-STATE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MANGANESE-ORE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Consider the statements: I. Nagpur is an important manganese district. II. Bhandara also has manganese deposits. Which is correct?",
+    "answer": "Both I and II are correct",
+    "distractors": [
+      "Only I is correct",
+      "Only II is correct",
+      "Neither I nor II is correct"
+    ],
+    "explanation": "Official IBM mineral records identify manganese mining in both Nagpur and Bhandara districts of Maharashtra. The two districts therefore belong to the same broad manganese geography.",
+    "sourceFactId": "MN-NAGPUR-BHANDARA-STATEMENT",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MANGANESE-ORE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Which pair is correctly matched?",
+    "answer": "Bhandara — manganese ore",
+    "distractors": [
+      "Bhandara — offshore petroleum",
+      "Nagpur — mica only",
+      "Bhandara — gypsum only"
+    ],
+    "explanation": "Bhandara is a recognised manganese district in Maharashtra, while Nagpur is another important manganese district nearby. The alternative resources belong to unrelated mineral regions.",
+    "sourceFactId": "MN-BHANDARA-MATCH",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MANGANESE-ORE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "A map marks Dongri Buzurg in Bhandara and manganese mines around Nagpur. Which mineral belt is being indicated?",
+    "answer": "Central Indian manganese belt",
+    "distractors": [
+      "Eastern mica belt",
+      "Western petroleum belt",
+      "Rajasthan gypsum belt"
+    ],
+    "explanation": "Dongri Buzurg in Bhandara and several Nagpur mines are manganese locations recorded by IBM. Together they identify the central Indian manganese belt of Maharashtra.",
+    "sourceFactId": "MN-NAGPUR-BHANDARA-MAP",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MANGANESE-ORE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  },
+  {
+    "stem": "Which comparison is correct?",
+    "answer": "Nagpur–Bhandara is a manganese region, while Sukinda is a chromite region",
+    "distractors": [
+      "Both are mica belts",
+      "Both are petroleum fields",
+      "Sukinda is manganese-only and Nagpur–Bhandara is gypsum"
+    ],
+    "explanation": "Nagpur–Bhandara is strongly linked with manganese in Maharashtra, whereas Sukinda in Odisha is famous for chromite. The comparison separates two major ferro-alloy mineral regions.",
+    "sourceFactId": "MN-NAGPUR-SUKINDA-COMPARE",
+    "sourceIds": [
+      "IBM-MINERAL-REVIEW-MANGANESE-ORE",
+      "IBM-INDIAN-MINERALS-YEARBOOK-2024",
+      "GEOLOGICAL-SURVEY-OF-INDIA-MINERAL-GEOLOGY"
+    ]
+  }
 ] as const)
 ]);
 
