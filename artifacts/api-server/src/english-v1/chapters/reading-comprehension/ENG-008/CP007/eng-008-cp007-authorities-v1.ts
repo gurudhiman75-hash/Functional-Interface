@@ -1,3 +1,4 @@
+import{ENG008_CP007_EXPANSION_WAVES17_19_V1}from"./eng-008-cp007-expansion-waves17-19-v1";
 import{ENG008_CP007_EXPANSION_WAVES14_16_V1}from"./eng-008-cp007-expansion-waves14-16-v1";
 import{ENG008_CP003_PASSAGES_V1,type Eng008Cp003Genre}from"../CP003/eng-008-cp003-authorities-v1";
 
@@ -19,6 +20,7 @@ export interface Eng008Cp007AuthorityV1{
 }
 
 export const ENG008_CP007_AUTHORITIES_V1:readonly Eng008Cp007AuthorityV1[]=[
+ ...ENG008_CP007_EXPANSION_WAVES17_19_V1,
  ...ENG008_CP007_EXPANSION_WAVES14_16_V1,
  {id:"N01-Q10",passageId:"ENG008-BP-N01",genre:"narrative",familyId:"BP-F10",difficulty:"medium",targetText:"consistent",prompt:"Which word best fits the blank in the passage?",correctAnswer:"consistent",distractors:["accidental","scattered","brief"],explanation:"The sentence describes a repeated and reliable pattern in the dog's behaviour, so “consistent” fits the context.",evidence:"Because the pattern was so consistent"},
  {id:"N02-Q10",passageId:"ENG008-BP-N02",genre:"narrative",familyId:"BP-F10",difficulty:"medium",targetText:"ambitious",prompt:"Which word best fits the blank in the passage?",correctAnswer:"ambitious",distractors:["crowded","familiar","costly"],explanation:"The revised itinerary contained fewer fixed stops than the original, so it was less ambitious in scope.",evidence:"The second was less ambitious"},
