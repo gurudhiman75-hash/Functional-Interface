@@ -1,0 +1,286 @@
+import type{Eng008Cp004PassageV1}from"./eng-008-cp004-authorities-v1";
+const q=(id:string,familyId:any,difficulty:any,question:string,correctAnswer:string,distractors:readonly[string,string,string],explanation:string,evidence:string)=>({id,familyId,difficulty,question,correctAnswer,distractors,explanation,evidence});
+export const ENG008_CP004_EXPANSION_WAVE13_V1:readonly Eng008Cp004PassageV1[]=[
+{
+ id:"ENG008-BM-E12",title:"Why Household Debt Ratios Need Interest and Income Context",genre:"economy",
+ text:`Household debt is often summarised as a ratio to income. A rising ratio can signal vulnerability, but the same debt-to-income level can create very different pressure depending on interest rates, repayment structure and household income stability.
+
+A family with a fixed-rate mortgage may carry large debt while facing predictable monthly payments. Another household with smaller variable-rate debt can experience a sharp payment increase when rates rise. The stock of debt is similar information; the cash-flow burden is not.
+
+Income quality matters too. A salaried household with stable earnings can manage a given payment more easily than a household whose income is seasonal or commission-based. Two families with identical annual income may therefore face different month-to-month risk.
+
+Debt purpose also matters. A mortgage may finance a long-lived asset, while high-interest consumer credit can fund short-lived spending. This does not make one form of debt automatically safe, but it changes the balance-sheet context.
+
+Liquid savings provide another buffer. A household with emergency savings can absorb a temporary income shock without immediately missing payments. A highly indebted household with no liquid assets is more exposed.
+
+Aggregate ratios hide distribution. National household debt may rise because high-income homeowners borrow more, while low-income renters remain lightly indebted. The average leverage can increase without the same risk spreading evenly across society.
+
+Lenders and policymakers therefore examine debt-service ratios, arrears, loan-to-value measures, income buffers and the share of borrowers on variable rates. Each metric answers a different question.
+
+Stress tests are useful because they ask what happens if rates rise, income falls or house prices decline. They are scenarios, not predictions, and their value depends on realistic assumptions.
+
+Policy interpretation should also distinguish household distress from system-wide financial risk. A small group can suffer severe hardship without threatening banks, while widespread moderate stress can create broader economic effects through reduced spending.
+
+The broader lesson is that debt volume alone does not reveal debt sustainability. The relevant question is whether households can continue meeting obligations under plausible changes in income, rates and asset values.`,
+ questions:[
+ q("E12-Q1","BM-F01","medium","Why can two households with similar debt levels face different repayment pressure?","Their interest rates and income stability can differ",["Debt amount determines everything","Mortgages never change payments","Income timing never matters"],"The passage separates debt stock from the cash-flow burden created by rates and earnings.","cash-flow burden"),
+ q("E12-Q2","BM-F02","hard","What can be inferred about variable-rate borrowing?","It can become more difficult to service when interest rates rise",["It is always cheaper","It never affects monthly payments","It eliminates refinancing risk"],"The passage specifically notes that variable-rate debt can produce sharp payment increases.","payment increase"),
+ q("E12-Q3","BM-F03","hard","Which option best states the central argument?","Debt sustainability depends on repayment burden, income quality, buffers and loan structure, not debt volume alone",["Debt-to-income should never be used","Mortgages are always safe","Only national averages matter"],"The article adds several dimensions needed to interpret household leverage.","does not reveal debt sustainability"),
+ q("E12-Q4","BM-F04","hard","What is the author's tone?","Analytical and risk-focused",["Hostile to borrowing","Promotional","Alarmist"],"The passage evaluates debt through multiple financial-risk dimensions without declaring all borrowing harmful.","can signal vulnerability"),
+ q("E12-Q5","BM-F05","medium","Why does the author discuss liquid savings?","Savings can absorb temporary shocks before a household misses payments",["Savings increase debt automatically","Liquid assets determine interest rates","Savings replace income permanently"],"Emergency funds provide a buffer when earnings temporarily fall.","absorb a temporary income shock"),
+ q("E12-Q6","BM-F06","hard","Which statement cannot be inferred?","A high national debt-to-income ratio means every household is highly indebted",["Variable rates can raise cash-flow risk","Debt purpose affects context","Stress tests depend on assumptions"],"Aggregate debt can be concentrated among particular groups.","hide distribution"),
+ q("E12-Q7","BM-F07","hard","What role does the stress-test paragraph play?","It shows how analysts examine resilience under adverse scenarios",["It predicts the next recession","It defines mortgage debt","It proves rates will rise"],"Stress tests are conditional scenarios used to evaluate vulnerability.","scenarios, not predictions"),
+ q("E12-Q8","BM-F08","hard","Which conclusion follows most logically?","Debt dashboards should combine stock measures with repayment and distribution measures",["Debt volume should be ignored","Only arrears matter","Income should not be measured"],"The passage repeatedly argues that no single debt ratio captures the full risk picture.","Each metric answers a different question"),
+ q("E12-Q9","BM-F09","medium","In context, “arrears” most nearly means:","payments that are overdue",["future income","liquid savings","asset value"],"Arrears are cited as a measure of borrowers failing to meet scheduled obligations.","arrears"),
+ q("E12-Q10","BM-F10","hard","Which assumption does the passage challenge?","That the amount of household debt alone tells whether borrowing is sustainable",["Households have income","Interest rates exist","Debt can finance assets"],"The central argument is that structure and cash-flow resilience matter alongside total debt.","debt volume alone")
+ ]
+},
+{
+ id:"ENG008-BM-B11",title:"Why Inventory Turnover Needs Availability Context",genre:"business",
+ text:`Inventory turnover measures how quickly a business sells and replaces stock. A high turnover ratio can indicate efficient use of inventory, but it can also signal that the company holds so little stock that customers frequently encounter shortages.
+
+Retailers therefore need to interpret turnover alongside service availability. A store can improve turnover by reducing safety stock, yet lose sales when demand unexpectedly rises.
+
+Product type matters. Fresh food should turn quickly because spoilage is costly. Spare parts for rare equipment may turn slowly but still be valuable if customers urgently need them when failures occur.
+
+Margins add another dimension. A low-margin grocery item may need fast turnover to be profitable, while a high-margin specialised product can justify slower movement.
+
+Seasonality can distort annual averages. A toy retailer may build stock before holidays and sell it rapidly over a short period. Looking only at year-end inventory can miss the buildup and clearance cycle.
+
+Supplier reliability changes the optimal stock level. If replenishment arrives daily and predictably, a company can operate with lower inventory. Long or uncertain lead times require more buffer.
+
+Stockouts are not fully visible in sales data because an unavailable item cannot be purchased. A product can appear to have weak demand when customers simply leave or choose another brand.
+
+For this reason, businesses track fill rate, lost sales, backorders and days of supply alongside turnover. These measures help distinguish healthy movement from chronic shortage.
+
+Technology can improve visibility but not remove the trade-off. Forecasting software can reduce error, yet demand shocks and supplier disruptions remain.
+
+Working capital also matters. Excess inventory ties up cash and may require discounting later. Too little inventory protects cash but can reduce revenue and customer trust.
+
+The broader lesson is that inventory efficiency is not about maximising turnover. It is about holding enough stock to meet economically valuable demand while avoiding unnecessary cash and obsolescence costs.`,
+ questions:[
+ q("B11-Q1","BM-F01","medium","Why can very high inventory turnover be a warning sign?","The business may be holding too little stock and losing sales",["High turnover always means spoilage","Customers dislike fast-selling products","Turnover measures only profit"],"Rapid movement can come from understocking rather than pure efficiency.","customers frequently encounter shortages"),
+ q("B11-Q2","BM-F02","hard","What can be inferred when a product sells poorly during frequent stockouts?","Observed sales may understate true demand",["Demand must be weak","The price must be too high","Inventory records are irrelevant"],"Customers cannot buy items that are unavailable, so sales alone miss lost demand.","cannot be purchased"),
+ q("B11-Q3","BM-F03","hard","Which option best states the central argument?","Inventory turnover should be interpreted with availability, lead time, margin and stockout measures",["The highest turnover is always best","Slow inventory has no value","Stockouts improve efficiency"],"The passage treats turnover as one metric within a broader inventory trade-off.","not about maximising turnover"),
+ q("B11-Q4","BM-F04","hard","What is the author's tone?","Analytical and operational",["Promotional","Hostile to inventory","Humorous"],"The author examines trade-offs and product-specific differences in stock management.","need to interpret"),
+ q("B11-Q5","BM-F05","medium","Why does the author mention rare spare parts?","Slow turnover can still be valuable when availability has high customer value",["Spare parts always spoil","Rare items have low margins","Every business should stock all parts"],"Some slow-moving stock exists to provide service when infrequent but urgent demand occurs.","urgently need them"),
+ q("B11-Q6","BM-F06","hard","Which statement cannot be inferred?","A lower inventory level always improves business performance",["Supplier reliability affects required buffer","Seasonality can distort averages","Excess stock can tie up cash"],"The passage repeatedly describes the costs of both excess and insufficient inventory.","Too little inventory"),
+ q("B11-Q7","BM-F07","hard","What role does the paragraph on supplier reliability play?","It explains why the same demand can require different stock levels under different replenishment conditions",["It argues suppliers determine price only","It defines turnover","It proves daily delivery eliminates stockouts"],"Reliable replenishment reduces the buffer needed against uncertainty.","Long or uncertain lead times"),
+ q("B11-Q8","BM-F08","hard","Which conclusion follows most logically?","Inventory dashboards should include lost-demand and availability measures in addition to sales velocity",["Turnover should be removed","Every product needs the same stock policy","Working capital should be ignored"],"Sales movement alone cannot reveal demand that was lost because stock was unavailable.","track fill rate, lost sales"),
+ q("B11-Q9","BM-F09","medium","In context, “obsolescence” most nearly means:","stock becoming outdated or no longer useful",["stock moving faster","supplier delivery","customer demand"],"Excess inventory can lose value if it becomes outdated before sale.","obsolescence costs"),
+ q("B11-Q10","BM-F10","hard","Which assumption does the passage challenge?","That faster inventory turnover is always evidence of better inventory management",["Businesses hold stock","Products differ","Suppliers deliver goods"],"The central argument is that turnover can improve at the cost of customer availability.","not about maximising turnover")
+ ]
+},
+{
+ id:"ENG008-BM-T10",title:"Why System Uptime Needs User-Journey Measures",genre:"technology",
+ text:`Technology teams often report uptime: the percentage of time a service is technically available. A platform with 99.9 per cent uptime sounds reliable, but the number can hide serious problems if important user journeys are degraded while servers remain online.
+
+A banking app may open successfully while money transfer fails. An e-commerce site may load product pages while checkout is broken. In both cases, core infrastructure is “up” even though users cannot complete the task they came to perform.
+
+This is why teams increasingly track service-level indicators tied to journeys: login success, payment completion, search latency or message delivery. These measures connect technical health with user outcome.
+
+Averages can still hide spikes. An API with acceptable average latency may become extremely slow during the busiest ten minutes of the day. Percentile measures help show the experience of slower requests.
+
+Dependency failure complicates responsibility. A platform can be healthy internally while a third-party payment gateway fails. Users still experience failure, so operational dashboards need to represent external dependencies even when the company does not control them.
+
+Error budgets create a trade-off between reliability and change. A team that has used most of its allowed failure budget may delay risky releases until reliability improves. The concept treats some failure as inevitable but bounded.
+
+Monitoring itself can fail. If a synthetic test checks only the homepage, it may report success while checkout is broken. Observability needs to reflect real paths.
+
+Regional differences matter too. A service can perform well globally while one data centre or network route creates poor experience in a specific area.
+
+Incident review should therefore ask not only “Was the service up?” but “Which user actions failed, for whom, for how long and at what severity?”
+
+The broader lesson is that uptime is useful infrastructure information, not a complete measure of service reliability. Reliability is experienced through successful user journeys, and those journeys need direct measurement.`,
+ questions:[
+ q("T10-Q1","BM-F01","medium","Why can 99.9 per cent uptime still hide serious problems?","The service can remain technically online while important user actions fail",["Uptime is never measured","Servers must always be offline","Users cannot experience latency"],"The passage distinguishes infrastructure availability from successful task completion.","checkout is broken"),
+ q("T10-Q2","BM-F02","hard","What can be inferred from a homepage-only monitor?","It may miss failures deeper in the user journey",["It measures every transaction","It guarantees checkout health","It removes dependency risk"],"A narrow synthetic test can report success while a core function is broken.","checks only the homepage"),
+ q("T10-Q3","BM-F03","hard","Which option best states the central argument?","Reliability should be measured through critical user journeys as well as infrastructure uptime",["Uptime is useless","Only payment systems matter","Every failure should stop releases forever"],"The article repeatedly links technical metrics to whether users can complete intended tasks.","user journeys"),
+ q("T10-Q4","BM-F04","hard","What is the author's tone?","Technical and systems-oriented",["Promotional","Alarmist","Humorous"],"The passage explains measurement trade-offs and operational design without dismissing uptime.","useful infrastructure information"),
+ q("T10-Q5","BM-F05","medium","Why are latency percentiles useful?","They reveal slow experiences hidden by an acceptable average",["They replace error rates","They measure only homepage visits","They remove peak demand"],"Averages can conceal severe slowness affecting part of the request distribution.","Percentile measures"),
+ q("T10-Q6","BM-F06","hard","Which statement cannot be inferred?","If a third-party dependency fails, users are unaffected because the company's own servers are healthy",["External dependencies affect user experience","Monitoring scope matters","Regional performance can differ"],"The passage explicitly says users still experience failure when dependencies break.","Users still experience failure"),
+ q("T10-Q7","BM-F07","hard","What role does the error-budget paragraph play?","It shows how reliability targets can influence release decisions",["It defines uptime mathematically","It proves all releases are risky","It removes the need for monitoring"],"Teams may slow change when recent failure has consumed their reliability allowance.","delay risky releases"),
+ q("T10-Q8","BM-F08","hard","Which conclusion follows most logically?","Operational dashboards should map technical failures to affected user actions and populations",["One global uptime number is sufficient","Regional metrics are unnecessary","Homepages should be the only synthetic test"],"The passage concludes that severity depends on which journeys fail and for whom.","Which user actions failed"),
+ q("T10-Q9","BM-F09","medium","In context, “dependency” most nearly means:","an external or internal service another system relies on",["a user password","a server colour","a software licence only"],"The payment gateway is an example of another service required for the user journey.","third-party payment gateway"),
+ q("T10-Q10","BM-F10","hard","Which assumption does the passage challenge?","That technical uptime alone fully describes service reliability",["Users perform tasks","Networks can be slow","Services use monitoring"],"The article's central distinction is between being online and enabling successful journeys.","not a complete measure")
+ ]
+},
+{
+ id:"ENG008-BM-H10",title:"Why Medication Adherence Rates Need Opportunity Context",genre:"health",
+ text:`Medication adherence is often measured as the proportion of prescribed doses taken. The metric is useful, but it can conceal why a patient missed treatment.
+
+A person may forget doses, stop because of side effects, be unable to afford a refill or temporarily lose access because the pharmacy is out of stock. These situations produce the same missed-dose result but require different responses.
+
+Measurement method also matters. Self-report can be affected by memory or the desire to please clinicians. Pharmacy refill data show whether medicine was obtained, not whether each dose was taken. Electronic pill containers show opening events, not swallowing.
+
+Opportunity to take the medicine matters. If a patient is hospitalised and treatment is temporarily changed, counting the original home medication as “missed” may be inappropriate. The denominator should reflect periods when the prescription was actually intended to be taken.
+
+Complexity influences adherence. A once-daily medicine is usually easier to follow than several doses at different times. Multiple medications can create conflicting schedules.
+
+Clinical importance varies too. Missing one low-risk supplement is not equivalent to missing a critical medicine where interruption can quickly cause harm. A single overall adherence percentage can flatten those differences.
+
+Support should therefore be targeted. Reminder messages may help forgetfulness but do little for unaffordable copayments or severe side effects. Transportation help may improve refill access but not solve confusing instructions.
+
+Adherence also interacts with effectiveness. A medicine can be taken perfectly and still fail because it does not work for that patient. Conversely, poor adherence can make an effective treatment appear ineffective.
+
+For research and care, a stronger dashboard combines refill continuity, self-report, treatment opportunity, side effects and reasons for missed doses.
+
+The broader lesson is that adherence is behaviour embedded in access and treatment context. A percentage can show that prescribed use is incomplete, but it cannot by itself explain why or what intervention will help.`,
+ questions:[
+ q("H10-Q1","BM-F01","medium","Why can the same missed-dose rate require different interventions?","Missed doses can arise from different causes such as forgetting, cost or side effects",["All missed doses have one cause","Adherence measures only pharmacy stock","Every intervention is a reminder"],"The passage distinguishes several mechanisms behind the same behavioural outcome.","different responses"),
+ q("H10-Q2","BM-F02","hard","What can be inferred from pharmacy refill data alone?","It cannot prove that every prescribed dose was actually taken",["It measures swallowing directly","It is always inaccurate","It shows side effects"],"Refill records capture medicine acquisition rather than ingestion.","not whether each dose was taken"),
+ q("H10-Q3","BM-F03","hard","Which option best states the central argument?","Adherence percentages need context about access, treatment opportunity, measurement and reasons for missed doses",["Adherence should not be measured","Every missed dose is equally serious","Electronic containers solve all uncertainty"],"The article shows why one percentage is insufficient for diagnosis or intervention.","embedded in access and treatment context"),
+ q("H10-Q4","BM-F04","hard","What is the author's tone?","Clinical and explanatory",["Promotional","Dismissive of patients","Alarmist"],"The passage analyses multiple causes and measurement limits rather than blaming patients.","why a patient missed"),
+ q("H10-Q5","BM-F05","medium","Why does the author discuss temporary hospital treatment changes?","The intended-treatment period affects which doses belong in the adherence denominator",["Hospitals always reduce adherence","Home medicine should always continue","Hospital records replace prescriptions"],"A dose should not count as missed if the original treatment was not actually intended during that period.","denominator"),
+ q("H10-Q6","BM-F06","hard","Which statement cannot be inferred?","A reminder message is the appropriate solution for every low-adherence patient",["Cost can reduce adherence","Treatment complexity matters","Perfect adherence does not guarantee effectiveness"],"The passage explicitly says reminders do not solve access or side-effect problems.","do little for unaffordable"),
+ q("H10-Q7","BM-F07","hard","What role does the paragraph on treatment effectiveness play?","It separates taking medicine correctly from whether the medicine works",["It argues adherence is unimportant","It defines refill continuity","It proves all treatment failures are behavioural"],"Outcome interpretation requires distinguishing adherence failure from treatment failure.","taken perfectly and still fail"),
+ q("H10-Q8","BM-F08","hard","Which conclusion follows most logically?","Clinicians should ask why doses were missed before choosing an adherence intervention",["Every patient needs electronic monitoring","Adherence percentage is sufficient","Side effects should be ignored"],"Different causes require different practical responses.","reasons for missed doses"),
+ q("H10-Q9","BM-F09","medium","In context, “denominator” most nearly means:","the total set of intended doses against which taken doses are compared",["a side-effect score","the pharmacy price","the medicine name"],"The passage discusses which intended-treatment periods should count in the base of the adherence calculation.","denominator"),
+ q("H10-Q10","BM-F10","hard","Which assumption does the passage challenge?","That one adherence percentage fully explains medication-use problems",["Patients receive prescriptions","Medicines have schedules","Refills occur"],"The central argument is that adherence data need causal and opportunity context.","cannot by itself explain why")
+ ]
+},
+{
+ id:"ENG008-BM-EN09",title:"Why Urban Flood Risk Needs Drainage and Exposure Together",genre:"environment",
+ text:`Urban flood risk is sometimes discussed through rainfall totals alone. Heavy rain matters, but flood damage also depends on where water can go and what lies in its path.
+
+Two neighbourhoods receiving the same rainfall can experience very different flooding. One may have permeable ground, open drains and storage ponds. Another may be covered by roads and buildings that send water quickly into undersized drains.
+
+Drainage maintenance matters as much as design. A channel with adequate capacity on paper can fail if rubbish blocks the inlet or sediment reduces flow.
+
+Topography matters too. Low-lying roads can collect runoff from a much larger surrounding area. The amount of rain falling directly on one street therefore understates the water that may arrive there.
+
+Exposure determines consequence. Flooding in an empty park is different from the same water depth entering homes, hospitals or electrical infrastructure.
+
+Vulnerability adds another layer. Ground-floor households with few savings may recover more slowly than businesses with insurance and backup systems.
+
+Climate change can alter rainfall intensity, but urban development can change runoff even without climate change. More paved surface and lost wetlands increase the share of rain that becomes rapid surface flow.
+
+Risk reduction therefore includes several tools: larger drains, retention ponds, permeable surfaces, maintenance, early warning, land-use planning and protection of critical sites.
+
+No single intervention is sufficient everywhere. A larger drain may move water downstream faster and create new problems if the receiving channel cannot cope.
+
+Monitoring should combine rainfall, drain performance, flood depth, affected assets and recovery time. This allows cities to distinguish hazard from consequence.
+
+The broader lesson is that flood risk is produced by hazard, exposure and vulnerability together. Rainfall is the trigger, but urban form and social conditions shape whether that trigger becomes a disaster.`,
+ questions:[
+ q("EN09-Q1","BM-F01","medium","Why can the same rainfall produce different flooding in two neighbourhoods?","Surface cover, drainage and storage capacity can differ",["Rainfall totals are always wrong","Only elevation matters","Buildings absorb all water"],"The passage explains that urban form controls how quickly water becomes runoff and where it flows.","permeable ground"),
+ q("EN09-Q2","BM-F02","hard","What can be inferred from a blocked drain with adequate design capacity?","Practical flood performance can be worse than engineering capacity on paper",["Design capacity becomes larger","Maintenance never matters","Rainfall stops entering drains"],"Sediment or rubbish can reduce real flow even if the designed size is sufficient.","fail if rubbish blocks"),
+ q("EN09-Q3","BM-F03","hard","Which option best states the central argument?","Urban flood risk depends on rainfall, drainage, exposure and vulnerability rather than rainfall alone",["Rainfall totals are irrelevant","Only larger drains reduce floods","Every flooded area has equal consequence"],"The article builds risk from hazard plus physical and social context.","hazard, exposure and vulnerability"),
+ q("EN09-Q4","BM-F04","hard","What is the author's tone?","Analytical and systems-focused",["Alarmist","Promotional","Humorous"],"The passage examines interacting physical and social drivers without presenting one universal solution.","No single intervention"),
+ q("EN09-Q5","BM-F05","medium","Why does the author compare flooding in a park with flooding in a hospital?","The same water depth can have very different consequences depending on what is exposed",["Parks cannot flood","Hospitals always lie lower","Water depth is impossible to measure"],"Exposure determines how much damage a hazard can cause.","Exposure determines consequence"),
+ q("EN09-Q6","BM-F06","hard","Which statement cannot be inferred?","Increasing drain size at one location always reduces flood risk everywhere",["Maintenance affects capacity","Urban development changes runoff","Vulnerability affects recovery"],"The passage warns that larger drains can move problems downstream.","create new problems"),
+ q("EN09-Q7","BM-F07","hard","What role does the paragraph on paved surfaces and wetlands play?","It shows that development can increase flood risk even without changes in rainfall",["It argues climate change is irrelevant","It defines recovery time","It proves wetlands stop all floods"],"Land-cover change alters runoff generation independently of climate trends.","even without climate change"),
+ q("EN09-Q8","BM-F08","hard","Which conclusion follows most logically?","Flood planning should match interventions to both water pathways and exposed people or assets",["Rainfall forecasts alone are sufficient","Every city needs the same drain size","Social vulnerability should be excluded"],"The passage treats risk reduction as multi-layered and location-specific.","several tools"),
+ q("EN09-Q9","BM-F09","medium","In context, “vulnerability” most nearly means:","susceptibility to harm and difficulty recovering",["rainfall intensity","drain width","road elevation"],"The passage links vulnerability with household resources and ability to recover.","recover more slowly"),
+ q("EN09-Q10","BM-F10","hard","Which assumption does the passage challenge?","That heavy rainfall alone determines urban flood damage",["Rain can cause runoff","Cities have drains","Low areas collect water"],"The central argument adds drainage, exposure and vulnerability to the rainfall trigger.","rainfall totals alone")
+ ]
+},
+{
+ id:"ENG008-BM-SP09",title:"Why School Attendance Rates Need Absence Reasons",genre:"social-policy",
+ text:`School attendance is often reported as the percentage of enrolled days a student is present. The measure is useful because sustained absence can harm learning, but the same attendance rate can reflect very different circumstances.
+
+One student may miss school because of repeated illness. Another may be caring for a family member, facing unsafe transport or avoiding school because of bullying. A third may be absent because the family moved and records have not yet been updated.
+
+Treating every absence as the same behaviour can produce weak policy. Reminder messages may help families who forgot reporting procedures but do little for transport failure or chronic illness.
+
+Duration and pattern matter. Ten consecutive missed days during hospital treatment differ from ten single-day absences scattered through the term. Both reduce attendance percentage, but they imply different causes and educational needs.
+
+Partial attendance is another issue. A student who arrives two hours late every day may technically be present for much of the term while repeatedly missing the same morning subject.
+
+Data quality matters too. Teachers can mark attendance late or incorrectly, and school transfers can create apparent absence until enrolment systems reconcile.
+
+Equity is central. Schools serving students with higher health, housing or transport barriers may show weaker attendance even with strong support. Ranking schools solely by raw attendance can therefore punish institutions facing harder circumstances.
+
+At the same time, context should not become an excuse to ignore absence. Missing instruction still creates learning loss regardless of cause. The response should address both educational impact and underlying barrier.
+
+Useful dashboards therefore separate authorised and unexplained absence, duration, recurring time patterns and reasons where known. They can also track whether support changed attendance later.
+
+The broader lesson is that attendance percentage identifies that instructional time was lost. It does not, by itself, explain why it was lost or what intervention is likely to restore access.`,
+ questions:[
+ q("SP09-Q1","BM-F01","medium","Why can equal attendance rates require different responses?","The underlying reasons for absence can differ",["Attendance percentage is always wrong","Every absence has the same cause","Only illness affects attendance"],"The passage lists illness, care, transport, bullying and records as different mechanisms.","different circumstances"),
+ q("SP09-Q2","BM-F02","hard","What can be inferred about scattered versus consecutive absences?","The same total days missed can reflect different patterns and needs",["Consecutive absence is harmless","Scattered absence never affects learning","Only total percentage matters"],"Pattern contains information that a single attendance percentage loses.","different causes"),
+ q("SP09-Q3","BM-F03","hard","Which option best states the central argument?","Attendance rates should be interpreted with absence reasons, timing and context before choosing interventions",["Attendance should not be measured","Every absence should be punished","Context removes learning loss"],"The article separates identifying lost time from diagnosing the cause.","does not ... explain why"),
+ q("SP09-Q4","BM-F04","hard","What is the author's tone?","Policy-focused and balanced",["Dismissive of attendance","Punitive","Humorous"],"The author recognises learning loss while warning against simplistic responses.","should address both"),
+ q("SP09-Q5","BM-F05","medium","Why does the author discuss late arrival?","A student can appear mostly present while repeatedly missing the same instruction",["Late students are counted absent all day","Morning classes do not matter","Partial attendance cannot be recorded"],"Attendance percentage can hide recurring within-day loss.","same morning subject"),
+ q("SP09-Q6","BM-F06","hard","Which statement cannot be inferred?","A low-attendance school necessarily provides weak support",["Transport barriers can affect attendance","Data errors can create apparent absence","Absence reason affects intervention choice"],"Schools serving higher-barrier populations can have lower raw rates despite strong support.","punish institutions facing harder circumstances"),
+ q("SP09-Q7","BM-F07","hard","What role does the equity paragraph play?","It shows that school comparisons can reflect differences in student barriers as well as school practice",["It argues attendance targets are useless","It defines authorised absence","It proves all schools should have equal rates"],"Raw attendance rankings can confound institutional performance with external barriers.","harder circumstances"),
+ q("SP09-Q8","BM-F08","hard","Which conclusion follows most logically?","Attendance interventions should target the cause while also addressing missed learning",["Only absence prevention matters","Learning loss disappears when absence is authorised","Schools should ignore context"],"The passage explicitly argues for addressing both educational impact and underlying barriers.","both educational impact"),
+ q("SP09-Q9","BM-F09","medium","In context, “reconcile” most nearly means:","bring records into agreement",["punish absence","close a school","change the timetable"],"Transfer records can temporarily disagree until systems are updated to match.","systems reconcile"),
+ q("SP09-Q10","BM-F10","hard","Which assumption does the passage challenge?","That an attendance percentage alone tells why a student is missing school",["Students are enrolled","Schools track attendance","Absence reduces instructional time"],"The central distinction is between measuring lost time and explaining its cause.","does not ... explain why")
+ ]
+},
+{
+ id:"ENG008-BM-PH09",title:"Why Transparency Is More Than Disclosure",genre:"philosophy",
+ text:`Transparency is often treated as the act of publishing information. A long policy document may be publicly available, yet the people affected by it may still be unable to understand how a decision was made.
+
+Disclosure is therefore necessary but not sufficient. Information must also be accessible, relevant and presented at a time when it can influence action.
+
+A company can publish a complex fee table after purchase and claim that charges were disclosed. The information exists, but it did not help the customer make an informed choice before commitment.
+
+Volume can reduce transparency. If an important condition is buried inside hundreds of pages, formal disclosure may coexist with practical obscurity.
+
+Language matters too. Technical accuracy is valuable, but unexplained jargon can prevent non-specialists from understanding the rule. Simplification, however, must not remove important qualifications.
+
+Context matters because raw data can mislead without definitions. Publishing a performance number without explaining the denominator or time period can create an illusion of openness while withholding meaning.
+
+Timing is another part of transparency. A conflict of interest disclosed after a decision may allow accountability later but cannot help participants assess the conflict beforehand.
+
+There are limits. Privacy, security and confidential negotiation sometimes justify withholding information. Transparency is not an absolute demand that every fact be public.
+
+The relevant question is whether people receive enough intelligible information to understand the basis of a decision and protect their legitimate interests.
+
+Good transparency therefore combines disclosure with explanation, prominence, timing and justified limits.
+
+The broader lesson is that information can be technically public while functionally hidden. Transparency should be judged by whether relevant people can actually find, understand and use what has been disclosed.`,
+ questions:[
+ q("PH09-Q1","BM-F01","medium","Why is disclosure alone insufficient for transparency?","Published information may still be inaccessible or hard to understand",["Disclosure is never useful","All information must remain private","Policies should contain no detail"],"The passage distinguishes mere publication from usable understanding.","necessary but not sufficient"),
+ q("PH09-Q2","BM-F02","hard","What can be inferred from a fee table published only after purchase?","It may support later accountability without enabling informed pre-purchase choice",["The fees are automatically invalid","Customers never read prices","Timing does not matter"],"The article treats timing as part of meaningful transparency.","before commitment"),
+ q("PH09-Q3","BM-F03","hard","Which option best states the central argument?","Transparency requires information to be findable, understandable, timely and relevant, not merely public",["Every fact should always be public","Disclosure should be abolished","Simple language should replace accuracy"],"The passage broadens transparency from publication to practical usability.","find, understand and use"),
+ q("PH09-Q4","BM-F04","hard","What is the author's tone?","Reflective and analytical",["Promotional","Hostile to disclosure","Humorous"],"The author develops conditions and limits rather than advocating unlimited openness.","There are limits"),
+ q("PH09-Q5","BM-F05","medium","Why does the author discuss long documents?","Important information can be functionally hidden by excessive volume",["Long documents are always inaccurate","Page count determines legality","Users prefer no information"],"Formal availability does not ensure practical prominence.","buried inside hundreds of pages"),
+ q("PH09-Q6","BM-F06","hard","Which statement cannot be inferred?","Transparency requires every piece of confidential information to be public",["Timing affects usefulness","Jargon can reduce accessibility","Raw data needs definitions"],"The passage explicitly recognises justified privacy and security limits.","not an absolute demand"),
+ q("PH09-Q7","BM-F07","hard","What role does the paragraph on raw data play?","It shows that openness without definitions can still mislead",["It argues data should be hidden","It defines privacy","It proves numbers are useless"],"Numbers require denominator and time context to be meaningful.","illusion of openness"),
+ q("PH09-Q8","BM-F08","hard","Which conclusion follows most logically?","Transparency should be evaluated from the perspective of the people expected to use the information",["Publication alone is sufficient","Only experts need access","Timing can be ignored"],"The conclusion focuses on whether relevant people can actually use disclosure to protect interests.","relevant people"),
+ q("PH09-Q9","BM-F09","medium","In context, “prominence” most nearly means:","how noticeable or easy to find information is",["legal authority","technical complexity","privacy level"],"Important conditions can be disclosed yet hidden if they are not presented visibly.","practical obscurity"),
+ q("PH09-Q10","BM-F10","hard","Which assumption does the passage challenge?","That making information public automatically makes a process transparent",["People need information","Privacy can matter","Documents contain rules"],"The central argument is that publication can coexist with functional concealment.","technically public while functionally hidden")
+ ]
+},
+{
+ id:"ENG008-BM-M09",title:"Why Headline Corrections Need Distribution Context",genre:"media",
+ text:`When a news outlet corrects an inaccurate headline, editors often update the article page. But many readers may have encountered the headline through a push notification, social-media preview or search result and never opened the article.
+
+This creates a distribution problem. Correcting the source page does not guarantee that the correction travels through the same channels as the error.
+
+Prominence matters. A false headline that reached hundreds of thousands of people may require a more visible correction than a typo seen by a small audience.
+
+Platforms complicate repair because publishers do not control every cached preview or screenshot. A corrected article can coexist with an old image circulating elsewhere.
+
+Timing matters too. A misleading headline corrected after five minutes may have limited reach; one left unchanged during a major breaking event can spread widely before repair.
+
+Some outlets send corrected push notifications when the original alert contained a substantial factual error. Others worry that repeated alerts may confuse readers or draw more attention to a minor issue.
+
+This creates a proportionality question: how serious was the error, how widely was it distributed and what correction channel can realistically reach the affected audience?
+
+Measurement is imperfect. Publishers may know how many notifications were sent but not exactly who read the original and the correction.
+
+Nevertheless, distribution data can guide better repair. A headline that spread mainly through one social account may deserve a correction on that same account.
+
+Correction wording matters as well. Quietly replacing text can leave readers unaware that the earlier claim was wrong. Clear acknowledgement helps distinguish correction from ordinary updating.
+
+The goal is not to reproduce every mistake indefinitely. It is to give materially affected audiences a reasonable chance to encounter the repair.
+
+The broader lesson is that correction quality depends on reach as well as accuracy. A perfectly corrected source page can still leave misinformation circulating if the repair does not follow the path through which the error spread.`,
+ questions:[
+ q("M09-Q1","BM-F01","medium","Why may correcting an article page be insufficient?","Many people may have seen the headline through other channels without opening the article",["Article pages cannot be edited","Push notifications update automatically","Headlines have no effect"],"The passage emphasises that distribution channels can separate the audience from the source page.","never opened the article"),
+ q("M09-Q2","BM-F02","hard","What can be inferred from an old screenshot continuing to circulate?","A correction at the original source cannot fully control copies already distributed elsewhere",["The source correction failed technically","Screenshots always disappear","Platforms automatically replace images"],"Distributed copies can persist beyond the publisher's direct control.","old image circulating"),
+ q("M09-Q3","BM-F03","hard","Which option best states the central argument?","Headline corrections should be proportionate to the error's seriousness and distribution path",["Every typo requires a push notification","Corrections should stay only on the article page","Old screenshots make correction pointless"],"The passage links repair strategy to severity, reach and channel.","proportionality question"),
+ q("M09-Q4","BM-F04","hard","What is the author's tone?","Analytical and accountability-focused",["Promotional","Alarmist","Humorous"],"The article weighs practical limits while arguing for correction reach.","reasonable chance"),
+ q("M09-Q5","BM-F05","medium","Why does the author compare five-minute and long-lived errors?","Exposure can differ greatly depending on how long inaccurate information remains live",["Short errors never matter","Breaking news should not be corrected","Timing replaces severity"],"Duration affects how widely a false headline can spread before repair.","spread widely"),
+ q("M09-Q6","BM-F06","hard","Which statement cannot be inferred?","Every correction can be guaranteed to reach every person who saw the original",["Platforms limit publisher control","Distribution data can guide repair","Clear acknowledgement can matter"],"The passage explicitly says exact audience overlap is often unknown.","Measurement is imperfect"),
+ q("M09-Q7","BM-F07","hard","What role does the paragraph on wording play?","It distinguishes visible acknowledgement of error from silent text replacement",["It argues corrections should be longer than articles","It defines platform caching","It removes the need for timing"],"Readers may not know a claim changed if correction is silent.","aware that the earlier claim was wrong"),
+ q("M09-Q8","BM-F08","hard","Which conclusion follows most logically?","Publishers should consider correcting through the same channels that distributed a serious error",["Article edits are always enough","Every social post needs deletion","Push alerts should never be corrected"],"The passage repeatedly argues for repair along the original distribution path.","same account"),
+ q("M09-Q9","BM-F09","medium","In context, “prominence” most nearly means:","how visible or widely noticed something is",["technical accuracy","word count","publication date"],"The passage connects prominence with the scale of correction needed.","more visible correction"),
+ q("M09-Q10","BM-F10","hard","Which assumption does the passage challenge?","That correcting the original article automatically corrects the audience's understanding",["News uses headlines","Platforms cache content","Corrections take time"],"The central argument is that misinformation can persist outside the corrected source page.","leave misinformation circulating")
+ ]
+}
+] as const;
