@@ -129,8 +129,25 @@ Implemented in the current review wave:
 - apatite / rock phosphate
 - salt
 
-Still inspect before freeze:
-- wollastonite, kyanite/sillimanite/andalusite, fluorite and other industrial minerals for genuine recurring exam value
+Implemented in the current review wave:
+- kyanite / sillimanite / andalusite
+- fluorite
+- ilmenite / rutile beach-sand geography
+- barytes / Mangampet
+- gold / Hutti-Kolar
+- diamond / Panna
+- tin / cassiterite / Dantewada
+
+Deferred to later thematic coverage:
+- monazite / rare earths / thorium → nuclear and atomic-mineral CP
+- zircon and related beach-sand co-minerals → keep as supporting facts under the ilmenite/rutile QL unless later exam audit justifies standalone ownership
+
+Still inspect before final chapter closure:
+- wollastonite
+- garnet
+- potash
+- sulphur / pyrites
+- other IBM-listed minor industrial minerals only if recurring exam evidence supports permanent ownership
 - other stable industrial minerals exposed by IBM reviews
 
 Each candidate must be tested against:
