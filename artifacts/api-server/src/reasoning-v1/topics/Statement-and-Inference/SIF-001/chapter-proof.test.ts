@@ -280,6 +280,9 @@ for (const [cpId, expectedDifficulty] of [
     const triplet = locales.map((locale) => generateSifQuestion({ cpId, locale, seed: 91_500 + SIF_CP_IDS.indexOf(cpId) * 100 + index }));
     assert.ok(triplet.every((question) => question.scenarioId === authority.id && question.validation.every((gate) => gate.passed)), `${cpId} ${authority.id}: all locales and gates`);
     assertSifLanguageParity(triplet);
+    for (const localized of [authority.statement, ...authority.facts.map((fact) => fact.text), ...authority.candidates.map((candidate) => candidate.text), authority.explanation]) {
+      assert.notEqual(localized["hi-IN"], localized["pa-IN"], `${authority.id}: Hindi and Punjabi must be independently localized`);
+    }
     assert.equal(authority.identityGuard.evaluatesSupport, true);
     assert.ok(authority.mechanisms.includes(cpId === "SIF-CP012" ? "SUPPORT_THRESHOLD" : cpId === "SIF-CP013" ? "SCOPE_CONTROL" : "TIME_SEQUENCE"));
     for (const locale of locales) assert.equal(authority.statement[locale].trim().split(/(?<=[.!?।])\s+/).length, 3, `${authority.id} ${locale}: three-sentence statement`);
