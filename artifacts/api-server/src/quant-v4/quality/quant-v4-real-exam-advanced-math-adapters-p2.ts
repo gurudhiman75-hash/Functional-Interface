@@ -56,7 +56,7 @@ function algebraProfileFor(examId: QuantV4AdvancedMathSectionExamId): AlgebraStu
   return "SSC_CORE";
 }
 
-function trigonometryPackageFor(examId: QuantV4AdvancedMathSectionExamId, seed: string): "TRG-001" | "TRG-002" {
+export function quantV4TrigonometryPackageForSeed(examId: QuantV4AdvancedMathSectionExamId, seed: string): "TRG-001" | "TRG-002" {
   const bucket = stableHash(`${seed}:trigonometry-family`);
   if (examId === "SSC_CGL_TIER_II") return bucket % 2 === 0 ? "TRG-001" : "TRG-002";
   return bucket % 4 === 0 ? "TRG-002" : "TRG-001";
@@ -129,7 +129,7 @@ export async function generateQuantV4AdvancedMathSectionQuestion(input: {
     });
   }
 
-  const packageId = trigonometryPackageFor(input.examId, input.seed);
+  const packageId = quantV4TrigonometryPackageForSeed(input.examId, input.seed);
   const diversityCapacityMode = packageId === "TRG-001" && Number.isInteger(input.diversityCapacityOrdinal);
   const questionLanguageId = diversityCapacityMode
     ? diversityCapacityTrg001QlId(difficulty, input.diversityCapacityOrdinal!)
