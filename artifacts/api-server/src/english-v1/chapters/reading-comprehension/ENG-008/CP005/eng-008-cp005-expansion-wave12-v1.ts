@@ -9,9 +9,7 @@ During the first week, employees worked normally while software recorded how oft
 
 The focus-block team showed fewer application switches during the scheduled two-hour period. Employees also reported that it was easier to return to unfinished design work after interruptions.
 
-However, message response time increased slightly during the focus periods because routine messages were checked mainly during breaks. Urgent channels remained available.
-
-The teams differed in project type. The focus-block team was working on longer design tasks, while the comparison team handled more client revisions. That difference could explain part of the switching pattern.
+However, message response time increased slightly during the focus periods because routine messages were checked mainly during breaks. Urgent channels remained available. The teams differed in project type. The focus-block team was working on longer design tasks, while the comparison team handled more client revisions. That difference could explain part of the switching pattern.
 
 Researchers also found that some employees ignored the timer when they entered a productive flow state. Others stopped early when a task naturally finished. Strict adherence therefore varied.
 
@@ -19,9 +17,7 @@ Task output did not increase consistently. Some employees completed more planned
 
 The study did not measure creative quality or end-of-day fatigue. It also covered only morning work, not the full day.
 
-A follow-up will rotate both teams through the method and compare fixed timers with self-selected focus lengths. Researchers will also measure total daily switching so they can see whether reduced morning switching is merely displaced into the afternoon.
-
-The preliminary result suggests timed focus blocks can reduce short-term switching, but their usefulness depends on task type and whether the timing fits natural work boundaries.`,
+A follow-up will rotate both teams through the method and compare fixed timers with self-selected focus lengths. Researchers will also measure total daily switching so they can see whether reduced morning switching is merely displaced into the afternoon. The preliminary result suggests timed focus blocks can reduce short-term switching, but their usefulness depends on task type and whether the timing fits natural work boundaries.  Researchers also compared switching immediately before and after the focus window. The intervention group showed a small rebound in message checking during the first fifteen minutes after the protected period, suggesting that some deferred communication accumulated rather than disappeared. Employees differed in how disruptive they found that rebound. People with few external dependencies liked the method more than those coordinating across several teams. The follow-up will therefore classify work by interdependence and measure whether focus blocks shift interruptions to another part of the day. It will also record subjective effort because fewer switches may still feel demanding if workers must suppress frequent incoming requests.`,
  questions:[
  q("W14-Q1","RS-F01","medium","What was the main intervention?","Two hours of morning work organised into twenty-five-minute focus blocks",["A ban on all messaging","A shorter workday","Daily client meetings"],"The treatment team used repeated focus-and-break cycles during part of the morning.","twenty-five-minute focus blocks"),
  q("W14-Q2","RS-F02","hard","Why is the team comparison difficult to interpret?","The teams were doing different kinds of work",["No baseline data existed","Both teams used timers","Switching was not recorded"],"Long design tasks and client-revision work may naturally involve different switching patterns.","differed in project type"),
@@ -49,9 +45,7 @@ The study had no external comparison team. Workload and team membership also cha
 
 Researchers did not measure product quality or whether faster meetings led to better decisions. They measured only repetition, search effort and user experience.
 
-A follow-up will test the log across several teams and compare a minimal version with a more detailed version. It will also measure how often decisions are reopened for valid new evidence versus simple loss of organisational memory.
-
-The preliminary result suggests a decision log can reduce repeated debate when it preserves the reason and the conditions for reopening, but excessive documentation can make the record harder to use.`,
+A follow-up will test the log across several teams and compare a minimal version with a more detailed version. It will also measure how often decisions are reopened for valid new evidence versus simple loss of organisational memory. The preliminary result suggests a decision log can reduce repeated debate when it preserves the reason and the conditions for reopening, but excessive documentation can make the record harder to use.  Researchers also reviewed the age of decisions that were reopened. The log seemed most useful for choices made several weeks earlier, when memory of the original rationale had faded. Recent decisions were rarely reopened even before the intervention. This suggests the tool may act mainly as organisational memory rather than as a universal meeting-control mechanism. The team also found that decision ownership mattered: entries without a clearly named owner were more likely to remain ambiguous when conditions changed. A follow-up will therefore test whether owner fields improve clarity and whether the log continues to be used after the novelty of the trial disappears.`,
  questions:[
  q("W15-Q1","RS-F01","medium","What information did the decision log record?","The decision, reason, alternatives and conditions for revisiting it",["Only meeting attendance","Employee salaries","Customer addresses"],"The log was designed to preserve both the choice and why it was made.","main reason"),
  q("W15-Q2","RS-F02","hard","Why is causal interpretation limited?","There was no comparison team and other workplace conditions changed",["The log was never used","Meeting notes were unavailable","No outcomes were measured"],"Without a control, other changes could partly explain reduced repetition.","no external comparison team"),
@@ -71,9 +65,7 @@ For eight weeks before installation, researchers recorded failed home-delivery a
 
 Customers who chose lockers had fewer failed deliveries because parcels could be deposited even when no one was home. Courier drivers also spent less time making second attempts for those packages.
 
-However, the benefit was partly offset by customer travel. Some users collected parcels during an existing commute, while others made a separate trip to the station.
-
-Locker capacity mattered during festival weeks. Full compartments forced some parcels back into the normal delivery system, reducing the advantage.
+However, the benefit was partly offset by customer travel. Some users collected parcels during an existing commute, while others made a separate trip to the station. Locker capacity mattered during festival weeks. Full compartments forced some parcels back into the normal delivery system, reducing the advantage.
 
 The study was not randomised. Customers chose whether to use a locker, and people with frequent delivery problems may have been more likely to opt in.
 
@@ -81,9 +73,7 @@ Researchers compared users with similar past failed-delivery rates and still fou
 
 The pilot did not measure emissions directly. Fewer van redeliveries might reduce travel, yet extra customer trips could offset part of that effect.
 
-A follow-up will randomise free locker credits among eligible customers, record actual travel patterns where participants consent and test larger lockers during peak periods.
-
-The preliminary evidence suggests parcel lockers can reduce failed deliveries, especially when collection fits an existing journey and locker capacity is sufficient.`,
+A follow-up will randomise free locker credits among eligible customers, record actual travel patterns where participants consent and test larger lockers during peak periods. The preliminary evidence suggests parcel lockers can reduce failed deliveries, especially when collection fits an existing journey and locker capacity is sufficient.  Researchers also examined package size. Small parcels fit lockers easily, while larger boxes sometimes exceeded available compartment dimensions even when a locker bank had empty spaces. This meant nominal locker capacity could overstate practical capacity for a particular delivery mix. The company therefore plans to classify compartments by size in the next pilot. Customer surveys also found that some users valued lockers for privacy or theft prevention even when they had rarely missed home deliveries. Those benefits are separate from the failed-delivery outcome and could influence voluntary uptake. A larger study will need to distinguish convenience, security and transport effects rather than treat all locker use as one behaviour.`,
  questions:[
  q("T10-Q1","RS-F01","medium","What was the intervention?","Optional parcel lockers near commuter stations",["More home-delivery vans","Higher delivery fees","Longer delivery windows"],"Customers could redirect eligible packages to secure station lockers.","parcel lockers"),
  q("T10-Q2","RS-F02","hard","Why is the study not fully causal?","Customers chose whether to use the lockers",["Failed deliveries were not recorded","The pilot had no before period","Lockers were never full"],"Self-selection can make locker users different from non-users before the intervention.","chose whether to use"),
@@ -103,9 +93,7 @@ The sensors recorded average and peak sound levels between 9 p.m. and 2 a.m. Par
 
 Nights with higher peak noise were associated with more recorded movement and more self-reported awakenings. Average sound level showed a weaker relationship.
 
-The study was observational. Traffic noise may have coincided with other factors such as warmer nights, open windows or weekend social activity.
-
-Researchers recorded bedroom temperature and whether windows were open. The association with peak noise became smaller but remained after statistical adjustment.
+The study was observational. Traffic noise may have coincided with other factors such as warmer nights, open windows or weekend social activity. Researchers recorded bedroom temperature and whether windows were open. The association with peak noise became smaller but remained after statistical adjustment.
 
 The sound sensor could not identify the source of every event. A loud motorcycle, a television inside the home or a dropped object could produce similar peaks.
 
@@ -113,9 +101,7 @@ Participants living on higher floors had slightly lower recorded peak levels, bu
 
 The study did not measure brain activity, so wrist movement could not confirm every awakening. It also lasted only two weeks.
 
-A follow-up will use source-classifying audio features that do not store intelligible speech, include longer monitoring and test whether temporary window inserts reduce night-time noise.
-
-The preliminary evidence suggests sudden noise peaks may matter more for sleep continuity than average evening sound level, but causal claims require stronger intervention evidence.`,
+A follow-up will use source-classifying audio features that do not store intelligible speech, include longer monitoring and test whether temporary window inserts reduce night-time noise. The preliminary evidence suggests sudden noise peaks may matter more for sleep continuity than average evening sound level, but causal claims require stronger intervention evidence.  Researchers also asked participants about bedroom orientation and whether they used fans or air conditioners, since both can affect noise exposure and sleep. Apartments facing the main road recorded higher peaks on average, but residents in those units were also more likely to keep windows closed. That behavioural response could reduce part of the exposure difference. The follow-up will therefore combine indoor and outdoor sensors and analyse nights by ventilation state. Investigators also plan to test whether subjective annoyance predicts awakenings beyond measured decibel level, because the meaning and predictability of a sound may influence sleep response as well as its physical intensity.`,
  questions:[
  q("S08-Q1","RS-F01","medium","What did the study measure in bedrooms?","Sound levels and sleep-related movement",["Air pollution only","Bed size","Daily income"],"Participants wore or used sensors that recorded acoustic exposure and movement-based sleep estimates.","sound sensors"),
  q("S08-Q2","RS-F02","hard","Why can't the study prove that traffic noise caused the awakenings?","Noise exposure was observed rather than randomly assigned and could coincide with other factors",["No sound was measured","Sleep diaries were unavailable","Every participant lived on the same floor"],"Observational association can reflect confounding by temperature, open windows or behaviour.","observational"),
@@ -135,9 +121,7 @@ Participants were randomly assigned to product pages showing either price and fe
 
 The labelled group was more likely to choose products with higher repairability when price differences were small. The effect weakened when the more repairable product cost substantially more.
 
-Participants who had recently experienced an appliance failure responded more strongly to the label than those who had not.
-
-The study measured stated choices, not real purchases. Participants did not spend their own money, wait for a repair or verify whether spare parts were actually available.
+Participants who had recently experienced an appliance failure responded more strongly to the label than those who had not. The study measured stated choices, not real purchases. Participants did not spend their own money, wait for a repair or verify whether spare parts were actually available.
 
 Researchers also asked what people thought the score meant. Some incorrectly assumed a high score meant the product was less likely to fail, even though the label described ease of repair rather than reliability.
 
@@ -145,9 +129,7 @@ The team added a clarification in a second small pilot: “This score does not p
 
 The study did not test brand loyalty, extended warranties or retailer repair services, all of which could influence real decisions.
 
-A follow-up will run a field experiment with real discounts and track whether consumers later use repair services.
-
-The preliminary evidence suggests repairability information can influence choice, but the label must clearly distinguish ease of repair from product durability.`,
+A follow-up will run a field experiment with real discounts and track whether consumers later use repair services. The preliminary evidence suggests repairability information can influence choice, but the label must clearly distinguish ease of repair from product durability.  Researchers also measured how long participants spent viewing the label. Some shoppers noticed the score only after comparing price, while others used it early to narrow the options. This suggests the same label can influence different stages of choice. The field trial will therefore track click sequence and whether repairability information changes search effort as well as final purchase. Investigators also plan to test whether showing expected spare-parts availability in years improves interpretation, since a single score may hide why a product is easier to repair. Any added detail, however, risks making the label too complex for quick shopping decisions.`,
  questions:[
  q("C09-Q1","RS-F01","medium","What did the repairability score represent?","Ease of parts access, disassembly and repair information",["Probability of never failing","Energy use only","Retailer profit"],"The label described how repairable the product was, not whether it would fail.","easier access to spare parts"),
  q("C09-Q2","RS-F02","hard","Why is the online choice task limited?","Participants did not face real financial or repair consequences",["Prices were not shown","No appliances were compared","Random assignment was absent"],"Hypothetical choices can differ from decisions made with actual money and future repair needs.","not real purchases"),
@@ -167,9 +149,7 @@ Temperature sensors recorded pavement surface temperature every fifteen minutes 
 
 On clear afternoons, coated pavement was cooler at the surface than uncoated pavement. The difference was smaller in the morning and on cloudy days.
 
-Researchers also measured air temperature one metre above the ground. Differences there were much smaller and inconsistent.
-
-The coated sites reflected more sunlight, but drivers reported greater glare around midday. The city added this as a design concern rather than treating lower surface temperature as the only outcome.
+Researchers also measured air temperature one metre above the ground. Differences there were much smaller and inconsistent. The coated sites reflected more sunlight, but drivers reported greater glare around midday. The city added this as a design concern rather than treating lower surface temperature as the only outcome.
 
 One coated area had more tree shade than its comparison site. Researchers analysed only fully sunlit periods separately and still found a surface-temperature difference, though the sample became smaller.
 
@@ -177,9 +157,7 @@ The coating also became slightly darker as dust accumulated. Cleaning restored s
 
 The pilot did not measure building energy use, pedestrian comfort or long-term coating durability.
 
-A follow-up will test larger street sections, standardise shade exposure and monitor reflectivity after rain, cleaning and traffic wear.
-
-The preliminary evidence supports a narrow conclusion: reflective coating lowered pavement surface temperature under strong sun, but effects on surrounding air and broader urban heat remain uncertain.`,
+A follow-up will test larger street sections, standardise shade exposure and monitor reflectivity after rain, cleaning and traffic wear. The preliminary evidence supports a narrow conclusion: reflective coating lowered pavement surface temperature under strong sun, but effects on surrounding air and broader urban heat remain uncertain.  Researchers also measured surface brightness and found that the coolest coated sections were generally the most reflective. Yet greater reflectivity also corresponded with stronger glare reports, illustrating a trade-off rather than a simple improvement. The city will therefore test coatings with different reflectance levels instead of treating maximum reflectivity as the only goal. Maintenance cost will also be tracked because repeated cleaning or recoating could reduce practical value. A larger trial will include pedestrian routes and adjacent building walls to examine whether reflected radiation changes comfort nearby even when pavement itself becomes cooler.`,
  questions:[
  q("E10-Q1","RS-F01","medium","What was the main intervention?","A light-coloured reflective pavement coating",["New trees only","Underground cooling pipes","Reduced parking hours"],"Two parking areas received a reflective surface treatment.","reflective coating"),
  q("E10-Q2","RS-F02","hard","Why was tree shade a confound?","One treated area received more shade, which can also reduce surface temperature",["Shade increases sunlight","Trees changed sensor timing","Comparison sites had no pavement"],"Different solar exposure could explain part of the temperature gap.","more tree shade"),
@@ -197,23 +175,17 @@ The preliminary evidence supports a narrow conclusion: reflective coating lowere
 
 The retrieval group saw a question and had twenty seconds to type or select an answer before the explanation appeared. The study group saw the question and explanation together without first attempting an answer.
 
-Immediately after practice, the study group rated the material as easier. Two days later, the retrieval group remembered slightly more facts on a delayed quiz.
-
-The benefit was larger for questions that students initially answered incorrectly but then corrected after feedback.
+Immediately after practice, the study group rated the material as easier. Two days later, the retrieval group remembered slightly more facts on a delayed quiz. The benefit was larger for questions that students initially answered incorrectly but then corrected after feedback.
 
 However, the retrieval format took more time because learners paused before receiving the explanation. Extra time-on-task could contribute to the memory difference.
 
 Researchers created a small third condition in which learners waited twenty seconds without attempting an answer. That group's delayed performance was between the main groups but closer to the study condition.
 
-This suggests active retrieval may contribute beyond delay alone, though the third condition was smaller.
-
-The study measured factual recall, not essay quality or transfer to unfamiliar historical problems.
+This suggests active retrieval may contribute beyond delay alone, though the third condition was smaller. The study measured factual recall, not essay quality or transfer to unfamiliar historical problems.
 
 Some learners in the retrieval group reported frustration when they had no idea of the answer. Researchers plan to test an “I don't know yet” option that still preserves a brief retrieval attempt without forcing random guessing.
 
-A follow-up will equalise total study time more tightly and include a one-week test.
-
-The preliminary evidence suggests attempting retrieval before feedback can strengthen short-term recall, but time cost and learner frustration should be considered.`,
+A follow-up will equalise total study time more tightly and include a one-week test. The preliminary evidence suggests attempting retrieval before feedback can strengthen short-term recall, but time cost and learner frustration should be considered.  Researchers also coded the kinds of facts remembered. The retrieval advantage was somewhat larger for dates and named events than for broad thematic statements, although the study was not powered to make strong claims about item type. This raises the possibility that retrieval timing interacts with the form of knowledge being tested. The follow-up will include conceptual questions and source-evaluation items so the intervention is not judged only on isolated factual memory. Researchers will also record whether repeated retrieval attempts become faster over time, which could indicate growing fluency but might also encourage guessing if learners rush.`,
  questions:[
  q("D15-Q1","RS-F01","medium","What did the retrieval group do before seeing feedback?","Attempted an answer",["Read the explanation first","Skipped every question","Watched a video"],"The intervention required a response attempt before the solution appeared.","attempt an answer"),
  q("D15-Q2","RS-F02","hard","Why is extra time-on-task a competing explanation?","The retrieval group spent longer with each question",["Both groups had identical timing","Time cannot affect memory","The study group used more practice"],"Longer exposure could partly contribute to better delayed recall.","took more time"),
@@ -233,9 +205,7 @@ After submission, both groups saw the same explanation. The confidence group als
 
 During the four-week trial, high-confidence errors became slightly less common in the prompt group. Overall accuracy improved only modestly.
 
-Learners with low confidence often spent more time reviewing explanations, regardless of whether their answer was correct.
-
-The prompt added a few seconds to each question. Some users found repeated confidence ratings annoying and began choosing the middle option automatically.
+Learners with low confidence often spent more time reviewing explanations, regardless of whether their answer was correct. The prompt added a few seconds to each question. Some users found repeated confidence ratings annoying and began choosing the middle option automatically.
 
 Researchers therefore analysed participants who used all three confidence levels versus those who almost always selected “medium”. The reduction in high-confidence errors was concentrated among the more varied users, but this comparison was not random.
 
@@ -243,9 +213,7 @@ The study did not show whether confidence judgements became better calibrated ou
 
 A follow-up will ask for confidence only on selected questions and will test calibration on new problem types after one week.
 
-Researchers also plan to compare a numeric confidence scale with simple verbal categories to see which produces more thoughtful responses with less burden.
-
-The preliminary finding is that confidence prompts may help learners notice some strongly held errors, but excessive prompting can become mechanical and reduce the quality of the self-assessment.`,
+Researchers also plan to compare a numeric confidence scale with simple verbal categories to see which produces more thoughtful responses with less burden. The preliminary finding is that confidence prompts may help learners notice some strongly held errors, but excessive prompting can become mechanical and reduce the quality of the self-assessment.  Researchers also compared calibration curves, asking whether answers marked high confidence were actually correct more often than those marked medium or low. The prompt group showed a slightly clearer separation by the end of the study, but the difference was small. Because confidence ratings themselves were part of the intervention, repeated measurement may have changed the behaviour being measured. A follow-up will therefore include occasional unprompted calibration checks and compare them with prompted questions. Researchers also want to know whether learners transfer better self-monitoring to entirely new reasoning formats rather than only becoming familiar with one confidence scale.`,
  questions:[
  q("D16-Q1","RS-F01","medium","What did the intervention add?","A low-medium-high confidence rating before submission",["A second correct answer","A longer lesson","Peer discussion"],"The treatment group rated certainty before seeing feedback.","confidence prompt"),
  q("D16-Q2","RS-F02","hard","Why is the varied-user subgroup comparison not causal?","Use of confidence levels was not randomly assigned",["Accuracy was never measured","The comparison group also rated confidence","No feedback was given"],"Users who engage thoughtfully with the scale may differ in other ways.","not random"),
