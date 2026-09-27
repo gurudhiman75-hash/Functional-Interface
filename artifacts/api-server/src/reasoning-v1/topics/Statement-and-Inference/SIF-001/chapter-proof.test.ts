@@ -282,7 +282,7 @@ for (const [cpId, expectedDifficulty] of [
     assertSifLanguageParity(triplet);
     assert.equal(authority.identityGuard.evaluatesSupport, true);
     assert.ok(authority.mechanisms.includes(cpId === "SIF-CP012" ? "SUPPORT_THRESHOLD" : cpId === "SIF-CP013" ? "SCOPE_CONTROL" : "TIME_SEQUENCE"));
-    for (const locale of locales) assert.equal(authority.statement[locale].trim().split(/(?<=[.!?।])\\s+/).length, 3, `${authority.id} ${locale}: three-sentence statement`);
+    for (const locale of locales) assert.equal(authority.statement[locale].trim().split(/(?<=[.!?।])\s+/).length, 3, `${authority.id} ${locale}: three-sentence statement`);
   }
   const review = buildSifCpReviewPack({ cpId, locale: "en-IN", seed: 91_500 });
   assert.equal(new Set(review.questions.map((question) => question.scenarioId)).size, 4, `${cpId}: no repeated review scenarios`);
