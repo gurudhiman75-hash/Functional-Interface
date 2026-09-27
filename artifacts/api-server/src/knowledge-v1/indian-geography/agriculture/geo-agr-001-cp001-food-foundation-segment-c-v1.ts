@@ -96,7 +96,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-019",
     "qlName": "Jowar geography",
     "difficulty": "Hard",
-    "stem": "Farm A has reliable standing water; Farm B is rain-fed on a semi-arid plateau. Which crop is more naturally suited to Farm B?",
+    "stem": "Farm A has reliable standing water, while Farm B is rain-fed on a semi-arid plateau. Which crop is better suited to Farm B?",
     "answer": "Jowar",
     "distractors": [
       "Rice",
@@ -624,7 +624,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-025",
     "qlName": "Gram and tur/arhar",
     "difficulty": "Medium",
-    "stem": "Which comparison is accurate?",
+    "stem": "How do gram and tur/arhar differ by cropping season?",
     "answer": "Gram is commonly rabi; tur/arhar is commonly kharif",
     "distractors": [
       "Gram is kharif; tur is rabi only",

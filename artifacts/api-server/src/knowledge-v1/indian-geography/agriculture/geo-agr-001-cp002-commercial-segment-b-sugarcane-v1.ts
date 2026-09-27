@@ -64,7 +64,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-037",
     "qlName": "Sugarcane crop type and duration",
     "difficulty": "Medium",
-    "stem": "Which feature separates sugarcane from short-duration zaid crops?",
+    "stem": "How does sugarcane differ from short-duration zaid crops?",
     "answer": "Its growing period extends across many months",
     "distractors": [
       "It is harvested within a few weeks",
@@ -464,7 +464,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-041",
     "qlName": "Northern sugarcane belt",
     "difficulty": "Medium",
-    "stem": "Which landscape clue points toward a northern sugarcane belt?",
+    "stem": "Which landscape is typical of the northern sugarcane belt?",
     "answer": "Irrigated alluvial plain with warm summers",
     "distractors": [
       "Glaciated valley",
@@ -832,7 +832,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-045",
     "qlName": "Integrated sugarcane reasoning",
     "difficulty": "Medium",
-    "stem": "Which regional comparison is accurate?",
+    "stem": "How do the northern and peninsular sugarcane belts differ?",
     "answer": "North India has a major cane belt, while peninsular India benefits from a longer warm season",
     "distractors": [
       "Sugarcane grows only in snowfields",

@@ -1,6 +1,6 @@
 # GEO-AGR-001 — Indian Agriculture Blueprint
 
-Status: IMPLEMENTATION STARTED — REVIEW ONLY
+Status: CONTENT CLOSED — RUNTIME NOT RELEASED
 
 ## 1. Scope
 
@@ -35,7 +35,7 @@ Contains:
 - QL037–QL045 — sugarcane
 - QL046–QL054 — cotton and jute
 
-Expected breadth: 27 permanent QLs. Question volume follows the owning QLs rather than a pre-fixed CP quota.
+Current owning pool: 27 permanent QLs / 162 questions.
 
 ### CP003 — Plantation, Horticulture & Other High-value Crops
 QL055–QL072
@@ -44,7 +44,7 @@ Contains:
 - QL055–QL063 — tea and coffee
 - QL064–QL072 — rubber, horticulture and other durable exam-relevant commercial-crop geography
 
-Expected breadth: 18 permanent QLs.
+Current owning pool: 18 permanent QLs / 108 questions.
 
 ### CP004 — Agricultural Systems, Irrigation, Inputs & Green Revolution
 QL073–QL090
@@ -53,7 +53,7 @@ Contains:
 - QL073–QL081 — irrigation, cropping pattern and agricultural inputs
 - QL082–QL090 — Green Revolution and regional agricultural change
 
-Expected breadth: 18 permanent QLs.
+Current owning pool: 18 permanent QLs / 108 questions.
 
 ### CP005 — Crop–Climate–Soil–Region Reasoning & Integrated Question Forms
 QL091–QL108
@@ -62,7 +62,7 @@ Contains:
 - QL091–QL099 — crop–climate–soil–region reasoning
 - QL100–QL108 — multi-fact, statement, match and map integration
 
-Expected breadth: 18 permanent QLs.
+Current owning pool: 18 permanent QLs / 108 questions.
 
 ### CP006 — Exhaustive Agriculture Mastery / Closure
 Non-owning; no new permanent QLs.
@@ -96,6 +96,9 @@ CP006 samples and audits the entire chapter after all owning QLs are approved. I
 - CP002 — Commercial & Industrial Crops — human-approved and merged.
 - CP003 — Plantation, Horticulture & Other High-value Crops — human-approved and merged.
 - CP004 — Agricultural Systems, Irrigation, Inputs & Green Revolution — human-approved and merged.
-- CP005 — Crop–Climate–Soil–Region Reasoning & Integrated Question Forms — under review.
-- CP006 — mastery/closure after owning content is approved.
+- CP005 — Crop–Climate–Soil–Region Reasoning & Integrated Question Forms — human-approved and merged.
+- CP006 — Exhaustive Agriculture Mastery / Closure — human-approved chapter closure.
+- Final owning pool: 108 permanent QLs / 648 questions.
+- Final mastery review: 108 questions, one per QL.
+- Chapter-wide stem audit: 648 unique exam-standard stems; zero flagged mechanical/internal patterns.
 - No runtime/public registration is authorized.

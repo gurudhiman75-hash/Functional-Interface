@@ -218,7 +218,7 @@ D. Goa only
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-030 — Mustard geography
 
-### 16. Which comparison between mustard and groundnut is accurate?
+### 16. How do mustard and groundnut differ by cropping season?
 
 A. Mustard is kharif; groundnut is rabi only
 B. Both are plantation crops
@@ -246,7 +246,7 @@ D. Cotton
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-030 — Mustard geography
 
-### 18. Field A is prepared in November under cool dry weather; Field B is planted with monsoon onset. Which oilseed is more naturally suited to Field A?
+### 18. Field A is prepared in November under cool dry weather, while Field B is planted with monsoon onset. Which oilseed is better suited to Field A?
 
 A. Groundnut
 B. Mustard
@@ -568,7 +568,7 @@ D. Western India, central India, northwestern dry rabi belt
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-034 — Oilseed regional associations
 
-### 41. Which crop is the strongest match for a central Indian kharif oilseed belt?
+### 41. Which oilseed is most characteristic of the central Indian kharif belt?
 
 A. Soybean
 B. Mustard
@@ -624,7 +624,7 @@ D. Soybean
 **Difficulty:** Easy
 **QL:** GEO-AGR-001-QL-035 — Oilseed climate and soil comparisons
 
-### 45. Which comparison is accurate?
+### 45. How do groundnut and mustard differ in soil-water and seasonal needs?
 
 A. Groundnut needs good drainage; mustard suits cool rabi weather
 B. Groundnut requires permanent flooding; mustard needs monsoon swamp
@@ -808,7 +808,7 @@ D. It is harvested before sowing
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-037 — Sugarcane crop type and duration
 
-### 58. Which feature separates sugarcane from short-duration zaid crops?
+### 58. How does sugarcane differ from short-duration zaid crops?
 
 A. It is harvested within a few weeks
 B. It never needs a field
@@ -1158,7 +1158,7 @@ D. Long warm season, fertile soils and irrigation
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-041 — Northern sugarcane belt
 
-### 83. Which landscape clue points toward a northern sugarcane belt?
+### 83. Which landscape is typical of the northern sugarcane belt?
 
 A. Irrigated alluvial plain with warm summers
 B. Glaciated valley
@@ -1480,7 +1480,7 @@ D. Dry bare rock without irrigation
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-045 — Integrated sugarcane reasoning
 
-### 106. Which regional comparison is accurate?
+### 106. How do the northern and peninsular sugarcane belts differ?
 
 A. Sugarcane grows only in snowfields
 B. Peninsular India is too cold for cane
@@ -1748,7 +1748,7 @@ D. Maharashtra
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-048 — Cotton black-soil and Deccan association
 
-### 125. Which landscape clue points most strongly toward cotton?
+### 125. Which landscape is most favourable for cotton cultivation?
 
 A. Warm black-soil plateau with seasonal rainfall
 B. Cold glaciated valley
@@ -1762,7 +1762,7 @@ D. Deeply flooded delta
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-048 — Cotton black-soil and Deccan association
 
-### 126. Farm A has deep black soil with seasonal moisture; Farm B is a humid flooded delta. Which farm is more naturally suited to rain-fed cotton?
+### 126. Farm A has deep black soil with seasonal moisture, while Farm B is a humid flooded delta. Which farm is better suited to rain-fed cotton?
 
 A. Farm B
 B. Farm A
@@ -1916,7 +1916,7 @@ D. Jute — packaging and fibre industry
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-050 — Jute as golden fibre
 
-### 137. Which feature separates jute from cotton?
+### 137. How does jute fibre differ from cotton fibre in its source within the plant?
 
 A. Jute fibre comes from the stem rather than the seed boll
 B. Jute is a sugar crop
@@ -2014,7 +2014,7 @@ D. Neither needs rainfall
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-051 — Jute climate requirements
 
-### 144. Region A is warm, humid and rain-rich; Region B is warm but semi-arid. Which fibre crop is more naturally suited to Region A?
+### 144. Region A is warm, humid and rain-rich, while Region B is warm but semi-arid. Which fibre crop is better suited to Region A?
 
 A. Cotton
 B. Wool
@@ -2168,7 +2168,7 @@ D. It has no rivers
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-053 — Jute regional belt
 
-### 155. Which crop is the strongest match for a humid alluvial floodplain in West Bengal?
+### 155. Which fibre crop is most likely to be grown on a humid alluvial floodplain in West Bengal?
 
 A. Bajra
 B. Mustard
@@ -2196,7 +2196,7 @@ D. Jute and cotton
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-053 — Jute regional belt
 
-### 157. Which comparison of cotton and jute is accurate?
+### 157. How do cotton and jute differ in the source of their fibre?
 
 A. Cotton fibre comes from bolls; jute fibre comes from stems
 B. Both fibres come from cane
@@ -2252,7 +2252,7 @@ D. Cotton — western/central plateau and irrigated northwest; jute — humid ea
 **Difficulty:** Medium
 **QL:** GEO-AGR-001-QL-054 — Cotton–jute integrated fibre reasoning
 
-### 161. Which processing clue points to jute rather than cotton?
+### 161. Which processing method is characteristic of jute rather than cotton?
 
 A. Retting stems in water before fibre separation
 B. Picking fibre from opened bolls

@@ -544,7 +544,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-105",
     "qlName": "Green Revolution cause–effect and regional matching",
     "difficulty": "Medium",
-    "stem": "Which chain is most logical?",
+    "stem": "Which sequence correctly represents a Green Revolution cause-and-effect relationship?",
     "answer": "Assured irrigation → HYV adoption → higher yield potential",
     "distractors": [
       "No water → guaranteed high yield",
@@ -560,7 +560,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-105",
     "qlName": "Green Revolution cause–effect and regional matching",
     "difficulty": "Medium",
-    "stem": "Which outcome can accompany intensive Green Revolution farming if resources are poorly managed?",
+    "stem": "Which environmental problem can result from poorly managed intensive Green Revolution farming?",
     "answer": "Groundwater decline or soil salinity",
     "distractors": [
       "Unlimited groundwater recharge",
@@ -672,7 +672,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-106",
     "qlName": "Crop–soil–climate match sets",
     "difficulty": "Medium",
-    "stem": "Which crop would be least suitable for a dry sandy field without irrigation?",
+    "stem": "Which crop is least suitable for a dry sandy field without irrigation?",
     "answer": "Paddy rice",
     "distractors": [
       "Bajra",
@@ -784,7 +784,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-108",
     "qlName": "Full-chapter mixed elimination and synthesis",
     "difficulty": "Easy",
-    "stem": "Which crop has the strongest combined link with black soil, kharif timing and textile fibre?",
+    "stem": "Which crop is identified by black soil, kharif sowing and use as a textile fibre?",
     "answer": "Cotton",
     "distractors": [
       "Jute",
@@ -800,7 +800,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-108",
     "qlName": "Full-chapter mixed elimination and synthesis",
     "difficulty": "Easy",
-    "stem": "Which crop has the strongest combined link with winter sowing, oil-rich seed and dry northwestern farming?",
+    "stem": "Which crop is identified by winter sowing, oil-rich seed and dry northwestern farming?",
     "answer": "Mustard",
     "distractors": [
       "Soybean",
@@ -848,7 +848,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-108",
     "qlName": "Full-chapter mixed elimination and synthesis",
     "difficulty": "Medium",
-    "stem": "Which three clues point to sugarcane rather than cotton or jute?",
+    "stem": "Which set of clues identifies sugarcane?",
     "answer": "Long duration, heavy water need and nearby crushing mill",
     "distractors": [
       "Black soil, boll fibre and ginning",

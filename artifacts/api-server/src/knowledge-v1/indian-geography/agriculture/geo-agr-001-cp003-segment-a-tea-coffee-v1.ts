@@ -96,7 +96,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-055",
     "qlName": "Tea climate and rainfall",
     "difficulty": "Hard",
-    "stem": "Region A is warm, humid and receives frequent rain; Region B has a cool dry winter and sunny spring. Which crop is more naturally suited to Region A?",
+    "stem": "Region A is warm, humid and receives frequent rain, while Region B has a cool dry winter and sunny spring. Which crop is better suited to Region A?",
     "answer": "Tea",
     "distractors": [
       "Wheat",
@@ -304,7 +304,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-058",
     "qlName": "Tea labour, plucking and processing linkage",
     "difficulty": "Easy",
-    "stem": "Which field operation is especially important in tea cultivation?",
+    "stem": "Which harvesting operation is characteristic of tea cultivation?",
     "answer": "Plucking tender leaves and shoots",
     "distractors": [
       "Cutting cane stalks for crushing",
@@ -368,7 +368,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-058",
     "qlName": "Tea labour, plucking and processing linkage",
     "difficulty": "Medium",
-    "stem": "Which crop-processing clue points most strongly to tea?",
+    "stem": "Which post-harvest pattern is characteristic of tea?",
     "answer": "Fresh leaves move quickly from plantation to a nearby factory",
     "distractors": [
       "Stems are soaked for retting",
@@ -464,7 +464,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-059",
     "qlName": "Coffee crop character and shade",
     "difficulty": "Medium",
-    "stem": "Which feature separates coffee from tea in many Indian plantations?",
+    "stem": "How does coffee cultivation commonly differ from tea cultivation in India?",
     "answer": "Coffee is commonly raised under shade trees",
     "distractors": [
       "Coffee is a fibre crop",
@@ -480,7 +480,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-059",
     "qlName": "Coffee crop character and shade",
     "difficulty": "Medium",
-    "stem": "An upland estate grows a beverage crop beneath a canopy of taller trees to soften direct sunlight. Which crop is the strongest match?",
+    "stem": "An upland estate grows a beverage crop beneath a canopy of taller trees to reduce direct sunlight. Which crop is being described?",
     "answer": "Coffee",
     "distractors": [
       "Cotton",
@@ -560,7 +560,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-060",
     "qlName": "Coffee climate, slope and soil",
     "difficulty": "Medium",
-    "stem": "Which landscape clue points toward coffee cultivation?",
+    "stem": "Which landscape is most suitable for coffee cultivation?",
     "answer": "Shaded, well-drained humid upland",
     "distractors": [
       "Open flooded delta",
@@ -832,7 +832,7 @@ const RAW: readonly RawQuestion[] = Object.freeze([
     "qlId": "GEO-AGR-001-QL-063",
     "qlName": "Tea–coffee integrated reasoning",
     "difficulty": "Medium",
-    "stem": "Which regional comparison is accurate?",
+    "stem": "How do the major tea and coffee belts differ geographically?",
     "answer": "Tea has major belts in Assam and Darjeeling; coffee is concentrated in southern uplands",
     "distractors": [
       "Coffee is concentrated in Punjab while tea is a desert crop",
