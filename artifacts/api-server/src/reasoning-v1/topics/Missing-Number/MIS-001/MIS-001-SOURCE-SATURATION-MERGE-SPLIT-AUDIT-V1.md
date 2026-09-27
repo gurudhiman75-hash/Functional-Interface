@@ -6,7 +6,7 @@ Status: **MERGE-SPLIT COMPLETE AGAINST THE IMPLEMENTED BLUEPRINT; EXTERNAL SOURC
 
 The MIS-001 blueprint requires permanent QLs to represent semantic exam patterns rather than constants, number tuples, renderer shapes, blank positions or difficulty labels. It also requires source saturation across SSC, Banking and Punjab-state material before permanent QL allocation.
 
-The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP020. Source crosswalk waves V1–V7 now provide growing SSC and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
+The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP020. Source crosswalk waves V1–V8 now provide growing SSC and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
 
 Therefore:
 
@@ -45,8 +45,8 @@ Current runtime review patterns:
 
 After normalization by semantic rule rather than checkpoint/renderer/query direction:
 
-- runtime patterns: **103**
-- canonical semantic authorities: **68**
+- runtime patterns: **105**
+- canonical semantic authorities: **70**
 - reuse / alias patterns: **35**
 - permanent QLs allocated: **0**
 
@@ -224,7 +224,7 @@ Still pending before closure:
 
 **Permanent QL allocation remains BLOCKED.**
 
-Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V8`. Those waves have confirmed existing authorities, added eighteen source-backed semantic gaps, added one Punjab-state missing-corner runtime variant, and strengthened Series/Number-Matrix boundary routing.
+Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V9`. Those waves have confirmed existing authorities, added eighteen source-backed semantic gaps, added one Punjab-state missing-corner runtime variant, and strengthened Series/Number-Matrix boundary routing.
 
 Required next checkpoint:
 
