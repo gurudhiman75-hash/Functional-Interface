@@ -2,7 +2,7 @@
 
 Status: **ONE NEW SEMANTIC AUTHORITY + TWO SOURCE-FORM CAPABILITY GAPS — SATURATION REMAINS OPEN**
 
-## 1. New SSC semantic authority — repeated affine transform
+## 1. New SSC semantic authority — second-input affine transform
 
 Source:
 - SSC CGL Previous Paper 54
@@ -16,12 +16,12 @@ Observed rows:
 
 Normalized rule:
 
-`T(x)=3x+1`, applied twice in the same row.
+The source row shows `x→3x+1` between adjacent values; for the asked final blank the solve-relevant rule is `result = 3×second + 1`.
 
 Decision:
 - add `MIS-CAND-108`;
 - runtime owner: `MIS-CP-024`;
-- retain as a new semantic authority because the row requires the same affine transform to be inferred and applied recursively;
+- retain as a new semantic authority for the solve-relevant relation `result = 3×second + 1`; the first→second step is source-form consistency, not required to compute the blank;
 - keep multiplier 3 and addend 1 source-bound until recurrence supports parameter widening.
 
 ## 2. RRB ALP source-form gap — linked dual product
