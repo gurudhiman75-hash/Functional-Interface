@@ -1,6 +1,6 @@
 import { buildGeoMinQl, finalizeGeoMinCp, auditGeoMinCp } from "./geo-min-001-review-builder";
 
-const QL_037 = buildGeoMinQl(37, "Mica properties and electrical use", [
+const QL_037 = buildGeoMinQl("MICA-PROPERTIES-AND-ELECTRICAL-USE", "Mica properties and electrical use", [
   {
     "stem": "Which non-metallic mineral can be split into very thin sheets and is a good electrical insulator?",
     "answer": "Mica",
@@ -69,7 +69,7 @@ const QL_037 = buildGeoMinQl(37, "Mica properties and electrical use", [
   }
 ] as const);
 
-const QL_038 = buildGeoMinQl(38, "Koderma-Gaya-Hazaribagh mica belt", [
+const QL_038 = buildGeoMinQl("KODERMA-GAYA-HAZARIBAGH-MICA-BELT", "Koderma-Gaya-Hazaribagh mica belt", [
   {
     "stem": "The Koderma–Gaya–Hazaribagh belt is famous for which mineral?",
     "answer": "Mica",
@@ -138,7 +138,7 @@ const QL_038 = buildGeoMinQl(38, "Koderma-Gaya-Hazaribagh mica belt", [
   }
 ] as const);
 
-const QL_039 = buildGeoMinQl(39, "Rajasthan mica belt", [
+const QL_039 = buildGeoMinQl("RAJASTHAN-MICA-BELT", "Rajasthan mica belt", [
   {
     "stem": "Which state contains an important mica belt around Ajmer and nearby areas?",
     "answer": "Rajasthan",
@@ -207,7 +207,7 @@ const QL_039 = buildGeoMinQl(39, "Rajasthan mica belt", [
   }
 ] as const);
 
-const QL_040 = buildGeoMinQl(40, "Nellore mica belt", [
+const QL_040 = buildGeoMinQl("NELLORE-MICA-BELT", "Nellore mica belt", [
   {
     "stem": "The Nellore mica belt is located in which state?",
     "answer": "Andhra Pradesh",
@@ -276,7 +276,7 @@ const QL_040 = buildGeoMinQl(40, "Nellore mica belt", [
   }
 ] as const);
 
-const QL_041 = buildGeoMinQl(41, "Limestone and cement", [
+const QL_041 = buildGeoMinQl("LIMESTONE-AND-CEMENT", "Limestone and cement", [
   {
     "stem": "Which non-metallic mineral is a basic raw material for the cement industry?",
     "answer": "Limestone",
@@ -345,7 +345,7 @@ const QL_041 = buildGeoMinQl(41, "Limestone and cement", [
   }
 ] as const);
 
-const QL_042 = buildGeoMinQl(42, "Limestone in metallurgy and industrial use", [
+const QL_042 = buildGeoMinQl("LIMESTONE-IN-METALLURGY-AND-INDUSTRIAL-USE", "Limestone in metallurgy and industrial use", [
   {
     "stem": "Besides cement manufacture, limestone is used in which major metallurgical activity?",
     "answer": "Iron and steel smelting as a flux",
@@ -414,7 +414,7 @@ const QL_042 = buildGeoMinQl(42, "Limestone in metallurgy and industrial use", [
   }
 ] as const);
 
-const QL_043 = buildGeoMinQl(43, "Gypsum uses and industrial role", [
+const QL_043 = buildGeoMinQl("GYPSUM-USES-AND-INDUSTRIAL-ROLE", "Gypsum uses and industrial role", [
   {
     "stem": "Which non-metallic mineral is widely used in plaster and also added to cement?",
     "answer": "Gypsum",
@@ -483,7 +483,7 @@ const QL_043 = buildGeoMinQl(43, "Gypsum uses and industrial role", [
   }
 ] as const);
 
-const QL_044 = buildGeoMinQl(44, "Gypsum geography and Rajasthan", [
+const QL_044 = buildGeoMinQl("GYPSUM-GEOGRAPHY-AND-RAJASTHAN", "Gypsum geography and Rajasthan", [
   {
     "stem": "Which state is especially well known for large gypsum deposits in India?",
     "answer": "Rajasthan",
@@ -552,7 +552,7 @@ const QL_044 = buildGeoMinQl(44, "Gypsum geography and Rajasthan", [
   }
 ] as const);
 
-const QL_045 = buildGeoMinQl(45, "Integrated non-metallic mineral reasoning", [
+const QL_045 = buildGeoMinQl("INTEGRATED-NON-METALLIC-MINERAL-REASONING", "Integrated non-metallic mineral reasoning", [
   {
     "stem": "Which set consists only of non-metallic industrial minerals?",
     "answer": "Mica, limestone and gypsum",
@@ -622,4 +622,4 @@ const QL_045 = buildGeoMinQl(45, "Integrated non-metallic mineral reasoning", [
 ] as const);
 
 export const GEO_MIN_001_CP005_REVIEW_BATCH_V1 = finalizeGeoMinCp(5, [QL_037, QL_038, QL_039, QL_040, QL_041, QL_042, QL_043, QL_044, QL_045]);
-export function auditGeoMin001Cp005ReviewBatchV1() { return auditGeoMinCp(5, 37, 45, GEO_MIN_001_CP005_REVIEW_BATCH_V1); }
+export function auditGeoMin001Cp005ReviewBatchV1() { return auditGeoMinCp(5, [QL_037, QL_038, QL_039, QL_040, QL_041, QL_042, QL_043, QL_044, QL_045], GEO_MIN_001_CP005_REVIEW_BATCH_V1); }
