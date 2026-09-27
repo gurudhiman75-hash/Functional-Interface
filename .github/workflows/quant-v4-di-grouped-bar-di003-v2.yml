@@ -59,6 +59,9 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-set.test.ts
       - name: DI-003 Question Studio controlled-review proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/question-studio-integration.test.ts
+      - name: DI-003 visual answerability proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/visual-answerability.test.ts
+
       - name: Hindi Punjabi localization review proof
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/localization-review-v1.test.ts
       - name: Export Hindi Punjabi localization review pack
