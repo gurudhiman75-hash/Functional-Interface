@@ -1,3 +1,4 @@
+import "./localization-review-v1.test";
 import { generateDi002V2Set, DI002_V2_CONTEXT_COUNT, DI002_V2_OBJECT_LABEL_COUNT, DI002_V2_TASK_KINDS } from "./advanced-table-set-v2";
 import { independentlyVerifyDi002V2Set } from "./independent-verifier-v2";
 
