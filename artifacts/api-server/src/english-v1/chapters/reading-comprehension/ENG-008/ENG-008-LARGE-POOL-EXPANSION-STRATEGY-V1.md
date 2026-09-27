@@ -172,3 +172,25 @@ Wave 13 continues the 40-passage large-wave cadence.
 - Candidate governed-authority pool after Wave 13: **3,292 authorities**
 
 The pool remains novelty-limited rather than hard-capped. If Wave 13 is approved and quality remains strong, the next planning waypoint is approximately **432 core passages after Wave 14**.
+
+
+## Waves 14–16 checkpoint
+
+The approved large-wave cadence continues unchanged through Waves 14, 15 and 16.
+
+Each wave adds:
+- CP001 SSC Foundation: **8 passages / 48 authorities**
+- CP002 SSC Editorial / Current Affairs: **8 passages / 64 authorities**
+- CP003 Banking Prelims: **8 passages / 72 base authorities**
+- CP007 BP-F10: **8 contextual word-fit authorities**
+- CP004 Banking Mains: **8 passages / 80 authorities**
+- CP005 Research / Survey: **8 passages / 64 authorities**
+
+Per-wave total: **40 passages / 336 governed authorities**.
+
+Cumulative checkpoints:
+- after Wave 14: **432 passages / 3,628 authorities**
+- after Wave 15: **472 passages / 3,964 authorities**
+- after Wave 16: **512 passages / 4,300 authorities**
+
+The same calibrated length, family-breadth, deterministic replay, option-uniqueness and review-only lifecycle contracts continue to apply. The pool remains novelty-limited rather than count-capped.
