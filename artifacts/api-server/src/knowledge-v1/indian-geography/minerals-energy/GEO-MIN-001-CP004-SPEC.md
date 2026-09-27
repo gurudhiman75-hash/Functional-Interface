@@ -11,6 +11,9 @@ Permanent QLs: semantic registry; final count determined by coverage
 - Rajasthan belt
 - aluminium properties
 - integrated non-ferrous reasoning
+- gold: Hutti/Kolar geography
+- diamond: Panna and Indian diamond occurrence
+- tin: cassiterite and Dantewada/Chhattisgarh
 
 ## Review contract
 - no fixed QL count
