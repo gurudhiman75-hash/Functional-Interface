@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { AlertTriangle, CheckCircle2, FileQuestion, Languages, Loader2, Newspaper, RefreshCw, ShieldCheck, Star } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, ExternalLink, FileQuestion, Languages, Loader2, Newspaper, RefreshCw, ShieldCheck, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -238,7 +238,7 @@ export function CurrentAffairsEditorialQueuePage() {
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <CardTitle className="flex items-center gap-2 text-base"><Newspaper className="h-4 w-4" />Headline selection</CardTitle>
-              <p className="mt-1 text-sm text-muted-foreground">Every captured headline for the selected India-calendar date stays visible, including auto-withheld candidates. Select what matters, then process only those selected affairs through the factual and multilingual pipeline.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Every captured headline for the selected India-calendar date stays visible, including auto-withheld candidates. Select what matters, then process only those selected affairs through the factual and multilingual pipeline. Use View full news whenever the headline alone is not enough to judge importance.</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <Input type="date" value={headlineDate} onChange={(event) => setHeadlineDate(event.target.value)} className="w-[160px]" disabled={processingSelected} />
@@ -348,7 +348,7 @@ export function CurrentAffairsEditorialQueuePage() {
                         </div>
                         <div className="flex shrink-0 flex-col items-stretch gap-2 sm:min-w-[210px]">
                           <div className="flex flex-wrap justify-end gap-2">
-                            {item.sourceUrl ? <Button size="sm" variant="outline" asChild><a href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a></Button> : null}
+                            {item.sourceUrl ? <Button size="sm" variant="outline" asChild><a href={item.sourceUrl} target="_blank" rel="noreferrer" aria-label={`View full news from ${item.sourceName}`} title={`Open the original ${item.sourceName} article in a new tab`}><ExternalLink className="mr-2 h-3.5 w-3.5" />View full news</a></Button> : null}
                             {item.linkedEventId ? <Button size="sm" variant="outline" asChild><Link to={`/content/current-affairs/events/${item.linkedEventId}`}>Open event</Link></Button> : null}
                           </div>
                           <Button
