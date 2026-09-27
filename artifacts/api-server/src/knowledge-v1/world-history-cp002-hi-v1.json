@@ -1,0 +1,2114 @@
+[
+  {
+    "questionId": "WHI-CP002-Q001-HI",
+    "englishQuestionId": "WHI-CP002-Q001",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F001",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "इतालवी पुनर्जागरण का प्रमुख केन्द्र कौन-सा शहर बना?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पेरिस"
+      },
+      {
+        "key": "B",
+        "text": "फ्लोरेंस"
+      },
+      {
+        "key": "C",
+        "text": "लंदन"
+      },
+      {
+        "key": "D",
+        "text": "लिस्बन"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "फ्लोरेंस पुनर्जागरण कला, मानववादी शिक्षा और कला-संरक्षण का प्रमुख केन्द्र बना।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q002-HI",
+    "englishQuestionId": "WHI-CP002-Q002",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F002",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "पुनर्जागरण के मानववादियों ने किन ग्रंथों के अध्ययन को फिर से महत्व दिया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "मंगोल विधि-संहिताएँ"
+      },
+      {
+        "key": "B",
+        "text": "अटलांटिक नौवहन-दैनंदिनियाँ"
+      },
+      {
+        "key": "C",
+        "text": "प्राचीन यूनानी और रोमन ग्रंथ"
+      },
+      {
+        "key": "D",
+        "text": "मध्यकालीन जर्मन विधि"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "मानववादियों ने यूनानी और रोमन साहित्य, इतिहास तथा दर्शन पढ़ा और प्राचीन ज्ञान को अपने समय से जोड़ा।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q003-HI",
+    "englishQuestionId": "WHI-CP002-Q003",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F003",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "फ्लोरेंस में कलाकारों और विद्वानों को संरक्षण देने वाला प्रमुख परिवार कौन-सा था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "हैब्सबर्ग वंश"
+      },
+      {
+        "key": "B",
+        "text": "ट्यूडर वंश"
+      },
+      {
+        "key": "C",
+        "text": "बोर्बों वंश"
+      },
+      {
+        "key": "D",
+        "text": "मेदिची परिवार"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "मेदिची परिवार ने अपनी संपत्ति और राजनीतिक प्रभाव से कलाकारों को काम दिया और फ्लोरेंस में विद्वता को सहारा दिया।",
+    "sourceIds": [
+      "S1",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q004-HI",
+    "englishQuestionId": "WHI-CP002-Q004",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F004",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "योहानेस गुटेनबर्ग पश्चिमी यूरोप में किस तकनीक के प्रसार से जुड़े हैं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "भाप इंजन"
+      },
+      {
+        "key": "B",
+        "text": "चल धातु-अक्षर मुद्रण"
+      },
+      {
+        "key": "C",
+        "text": "दूरबीन"
+      },
+      {
+        "key": "D",
+        "text": "स्पिनिंग जेनी"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "गुटेनबर्ग ने पश्चिमी यूरोप में चल धातु-अक्षरों से छपाई को स्थापित करने में मदद की। इससे पाठ की प्रतियाँ बनाना आसान हुआ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q005-HI",
+    "englishQuestionId": "WHI-CP002-Q005",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F005",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "गुटेनबर्ग की प्रसिद्ध बाइबिल कहाँ छापी गई थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "विटेनबर्ग"
+      },
+      {
+        "key": "B",
+        "text": "जेनेवा"
+      },
+      {
+        "key": "C",
+        "text": "वेनिस"
+      },
+      {
+        "key": "D",
+        "text": "माइंज"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "गुटेनबर्ग की बाइबिल पंद्रहवीं शताब्दी के मध्य में माइंज में छपी। यह पश्चिमी यूरोप की चल धातु-अक्षरों से छपी शुरुआती प्रमुख पुस्तकों में थी।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q006-HI",
+    "englishQuestionId": "WHI-CP002-Q006",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F006",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Direct fact",
+    "stem": "In Praise of Folly के लेखक कौन थे?",
+    "options": [
+      {
+        "key": "A",
+        "text": "थॉमस मोर"
+      },
+      {
+        "key": "B",
+        "text": "इरास्मस"
+      },
+      {
+        "key": "C",
+        "text": "निकोलो मैकियावेली"
+      },
+      {
+        "key": "D",
+        "text": "फ्रांसेस्को पेट्रार्क"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "इरास्मस ने In Praise of Folly लिखी। इस मानववादी रचना में सामाजिक और धार्मिक प्रथाओं पर व्यंग्य किया गया।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q007-HI",
+    "englishQuestionId": "WHI-CP002-Q007",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F007",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "1516 में प्रकाशित Utopia किसने लिखी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "थॉमस मोर"
+      },
+      {
+        "key": "B",
+        "text": "इरास्मस"
+      },
+      {
+        "key": "C",
+        "text": "मैकियावेली"
+      },
+      {
+        "key": "D",
+        "text": "पेट्रार्क"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "थॉमस मोर की Utopia में एक कल्पित समाज का वर्णन है। यह पुनर्जागरण मानववादी लेखन की प्रमुख कृति बनी।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q008-HI",
+    "englishQuestionId": "WHI-CP002-Q008",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F008",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "राजनीतिक सत्ता पर लिखी पुस्तक The Prince के लेखक कौन थे?",
+    "options": [
+      {
+        "key": "A",
+        "text": "थॉमस मोर"
+      },
+      {
+        "key": "B",
+        "text": "इरास्मस"
+      },
+      {
+        "key": "C",
+        "text": "निकोलो मैकियावेली"
+      },
+      {
+        "key": "D",
+        "text": "दांते अलीघिएरी"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "मैकियावेली की The Prince में विचार किया गया कि शासक सत्ता कैसे प्राप्त करते और बनाए रखते हैं।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q009-HI",
+    "englishQuestionId": "WHI-CP002-Q009",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F009",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "The Divine Comedy किसने लिखी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पेट्रार्क"
+      },
+      {
+        "key": "B",
+        "text": "दांते अलीघिएरी"
+      },
+      {
+        "key": "C",
+        "text": "बोकाचियो"
+      },
+      {
+        "key": "D",
+        "text": "आरियोस्तो"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "दांते ने चौदहवीं शताब्दी के आरंभ में The Divine Comedy लिखी। इतालवी भाषा के प्रयोग ने स्थानीय भाषा को उच्च साहित्य में प्रतिष्ठा दिलाई।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q010-HI",
+    "englishQuestionId": "WHI-CP002-Q010",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F010",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "पुनर्जागरण मानववाद के आरंभिक जनक के रूप में किस लेखक को जाना जाता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "मार्टिन लूथर"
+      },
+      {
+        "key": "B",
+        "text": "फ्रांसेस्को पेट्रार्क"
+      },
+      {
+        "key": "C",
+        "text": "गैलीलियो गैलीली"
+      },
+      {
+        "key": "D",
+        "text": "वास्को द गामा"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "पेट्रार्क ने शास्त्रीय लैटिन रचनाओं को खोजने और पढ़ने पर जोर दिया। इससे पुनर्जागरण मानववादी विद्वता को आकार मिला।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q011-HI",
+    "englishQuestionId": "WHI-CP002-Q011",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F011",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "मिलान में Leonardo da Vinci ने कौन-सी कृति बनाई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The School of Athens"
+      },
+      {
+        "key": "B",
+        "text": "Sistine Chapel की छत"
+      },
+      {
+        "key": "C",
+        "text": "The Last Supper"
+      },
+      {
+        "key": "D",
+        "text": "The Birth of Venus"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "लियोनार्डो ने मिलान में The Last Supper बनाई। इसमें गिरफ्तारी से पहले भोजन के समय यीशु और उनके शिष्यों को दिखाया गया है।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q012-HI",
+    "englishQuestionId": "WHI-CP002-Q012",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F012",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Mona Lisa किसने बनाई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "राफेल"
+      },
+      {
+        "key": "B",
+        "text": "लियोनार्डो दा विंची"
+      },
+      {
+        "key": "C",
+        "text": "माइकलएंजेलो"
+      },
+      {
+        "key": "D",
+        "text": "टिशियन"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Mona Lisa लियोनार्डो दा विंची की बनाई पुनर्जागरण की प्रसिद्ध चित्रकृति है।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q013-HI",
+    "englishQuestionId": "WHI-CP002-Q013",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F013",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Movement–idea",
+    "stem": "पुनर्जागरण मानववाद का सबसे उपयुक्त वर्णन कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "शास्त्रीय शिक्षा और मानव जीवन का अध्ययन"
+      },
+      {
+        "key": "B",
+        "text": "सभी प्राचीन लेखन का निषेध"
+      },
+      {
+        "key": "C",
+        "text": "सामंती दायित्वों की बहाली"
+      },
+      {
+        "key": "D",
+        "text": "कला की जगह नौवहन को रखना"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "मानववाद में शास्त्रीय ग्रंथों का अध्ययन और शिक्षा तथा मानवीय क्षमता पर ध्यान शामिल था। यह कोई एक राजनीतिक या धार्मिक सिद्धांत नहीं था।",
+    "sourceIds": [
+      "S1",
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q014-HI",
+    "englishQuestionId": "WHI-CP002-Q014",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F014",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "Sistine Chapel की छत पर चित्र किस कलाकार ने बनाए?",
+    "options": [
+      {
+        "key": "A",
+        "text": "राफेल"
+      },
+      {
+        "key": "B",
+        "text": "माइकलएंजेलो"
+      },
+      {
+        "key": "C",
+        "text": "लियोनार्डो दा विंची"
+      },
+      {
+        "key": "D",
+        "text": "डोनाटेलो"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "माइकलएंजेलो ने रोम में पोप जूलियस द्वितीय के लिए सिस्टिन चैपल की छत पर चित्र बनाए।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q015-HI",
+    "englishQuestionId": "WHI-CP002-Q015",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F015",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Movement–idea",
+    "stem": "चल प्रकार की छपाई फैलने से क्या बदलाव आया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पुस्तकों और विचारों की प्रतियाँ बनाकर अधिक लोगों तक पहुँचाना संभव हुआ"
+      },
+      {
+        "key": "B",
+        "text": "हस्तलिखित पुस्तकें तुरंत समाप्त हो गईं"
+      },
+      {
+        "key": "C",
+        "text": "विश्वविद्यालय तुरंत बंद हो गए"
+      },
+      {
+        "key": "D",
+        "text": "केवल राजकीय आदेश छापे जा सकते थे"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "छपाई से पुस्तकों और विचारों की प्रतियाँ बनाना और उन्हें फैलाना आसान हुआ। फिर भी हस्तलिखित पांडुलिपियाँ चलती रहीं।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q016-HI",
+    "englishQuestionId": "WHI-CP002-Q016",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F016",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Movement–idea",
+    "stem": "धर्म-सुधार के दौर में स्थानीय भाषाओं के धार्मिक ग्रंथ क्यों महत्त्वपूर्ण थे?",
+    "options": [
+      {
+        "key": "A",
+        "text": "लैटिन न जानने वाले पाठक भी इन्हें पढ़ सकते थे"
+      },
+      {
+        "key": "B",
+        "text": "ये केवल पोप के लिए लिखे जाते थे"
+      },
+      {
+        "key": "C",
+        "text": "इनसे छपाई का उपयोग समाप्त हो गया"
+      },
+      {
+        "key": "D",
+        "text": "इन्होंने धर्मग्रंथों का पढ़ना रोक दिया"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "स्थानीय भाषा के ग्रंथ लैटिन पढ़े हुए पादरियों से आगे के लोगों तक पहुँच सकते थे। छपाई ने उनके प्रसार में मदद की।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q017-HI",
+    "englishQuestionId": "WHI-CP002-Q017",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F017",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Person–work relationship",
+    "stem": "The School of Athens किसने बनाई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "लियोनार्डो दा विंची"
+      },
+      {
+        "key": "B",
+        "text": "राफेल"
+      },
+      {
+        "key": "C",
+        "text": "माइकलएंजेलो"
+      },
+      {
+        "key": "D",
+        "text": "इरास्मस"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "राफेल ने वेटिकन के कक्षों के लिए The School of Athens बनाई। इसमें प्राचीन दार्शनिकों को आदर्श रूप में दिखाया गया है।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q018-HI",
+    "englishQuestionId": "WHI-CP002-Q018",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F018",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Reformation and document",
+    "stem": "Martin Luther की Ninety-five Theses किस वर्ष सामने आईं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1455"
+      },
+      {
+        "key": "B",
+        "text": "1492"
+      },
+      {
+        "key": "C",
+        "text": "1517"
+      },
+      {
+        "key": "D",
+        "text": "1543"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Luther की Ninety-five Theses 1517 की हैं। उनमें क्षमा-पत्र की प्रथा को चुनौती दी गई थी।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q019-HI",
+    "englishQuestionId": "WHI-CP002-Q019",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F019",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Ninety-five Theses में किसकी बिक्री की आलोचना की गई थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "राजकीय भूमि-अनुदान"
+      },
+      {
+        "key": "B",
+        "text": "नौवहन अनुमति-पत्र"
+      },
+      {
+        "key": "C",
+        "text": "मठों के पुस्तकालय"
+      },
+      {
+        "key": "D",
+        "text": "क्षमा-पत्र"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Luther ने क्षमा-पत्र की बिक्री की आलोचना की। यह पाप के लिए अस्थायी दंड से मुक्ति से जुड़ी प्रथा थी।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q020-HI",
+    "englishQuestionId": "WHI-CP002-Q020",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F020",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Luther की शुरुआती धर्म-सुधार गतिविधियों से कौन-सा जर्मन शहर जुड़ा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "विटेनबर्ग"
+      },
+      {
+        "key": "B",
+        "text": "माइंज"
+      },
+      {
+        "key": "C",
+        "text": "कोलोन"
+      },
+      {
+        "key": "D",
+        "text": "हैम्बर्ग"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Luther ने विटेनबर्ग में अध्यापन किया और Ninety-five Theses उस शहर से जुड़ी हैं। उन्हें वहाँ दरवाजे पर लगाने की प्रसिद्ध कथा पर इतिहासकारों में बहस है।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q021-HI",
+    "englishQuestionId": "WHI-CP002-Q021",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F021",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "1521 में Worms की सभा में Luther से क्या करने को कहा गया था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "भारत की ओर समुद्री यात्रा का नेतृत्व करना"
+      },
+      {
+        "key": "B",
+        "text": "अपने लेखन से इनकार करना"
+      },
+      {
+        "key": "C",
+        "text": "चार्ल्स V का राज्याभिषेक करना"
+      },
+      {
+        "key": "D",
+        "text": "Council of Trent में शामिल होना"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Luther से अपने लेखन वापस लेने को कहा गया था। उन्होंने इनकार कर दिया।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q022-HI",
+    "englishQuestionId": "WHI-CP002-Q022",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F022",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "कौन-से धर्म-सुधारक का नाम Geneva से विशेष रूप से जुड़ा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इग्नेशियस लोयोला"
+      },
+      {
+        "key": "B",
+        "text": "थॉमस मोर"
+      },
+      {
+        "key": "C",
+        "text": "जॉन कैल्विन"
+      },
+      {
+        "key": "D",
+        "text": "पोप लियो X"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "कैल्विन का काम और लेखन जेनेवा से जुड़ा था। उनकी शिक्षाओं ने रिफॉर्म्ड प्रोटेस्टेंट परंपरा को आकार दिया।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q023-HI",
+    "englishQuestionId": "WHI-CP002-Q023",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F023",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "इंग्लैंड के किस शासक की सरकार ने चर्च ऑफ इंग्लैंड पर राजसत्ता की सर्वोच्चता घोषित की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "हेनरी II"
+      },
+      {
+        "key": "B",
+        "text": "रिचर्ड III"
+      },
+      {
+        "key": "C",
+        "text": "जेम्स II"
+      },
+      {
+        "key": "D",
+        "text": "हेनरी VIII"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "हेनरी VIII की सरकार ने पोप के अधिकार से अलग होकर इंग्लैंड के चर्च पर सम्राट की सर्वोच्चता स्थापित की।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q024-HI",
+    "englishQuestionId": "WHI-CP002-Q024",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F024",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "1534 के Act of Supremacy ने क्या घोषित किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पोप को संसद का प्रमुख बनाया गया"
+      },
+      {
+        "key": "B",
+        "text": "इंग्लैंड Lutheran League में शामिल हुआ"
+      },
+      {
+        "key": "C",
+        "text": "इंग्लैंड का सम्राट चर्च ऑफ इंग्लैंड का सर्वोच्च प्रमुख बना"
+      },
+      {
+        "key": "D",
+        "text": "कैल्विन इंग्लैंड के चर्च का प्रमुख बना"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "1534 के अधिनियम ने इंग्लैंड के सम्राट को चर्च ऑफ इंग्लैंड का सर्वोच्च प्रमुख घोषित किया।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q025-HI",
+    "englishQuestionId": "WHI-CP002-Q025",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F025",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "किस परिषद ने कैथोलिक धर्म-सिद्धांतों को स्पष्ट किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Council of Clermont"
+      },
+      {
+        "key": "B",
+        "text": "Council of Trent"
+      },
+      {
+        "key": "C",
+        "text": "Congress of Vienna"
+      },
+      {
+        "key": "D",
+        "text": "Council of Nicaea"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Council of Trent (1545–1563) ने कैथोलिक शिक्षा स्पष्ट की और चर्च के भीतर सुधार किए।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q026-HI",
+    "englishQuestionId": "WHI-CP002-Q026",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F026",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "प्रोटेस्टेंट धर्म-सुधार को यूरोप में फैलने में किससे मदद मिली?",
+    "options": [
+      {
+        "key": "A",
+        "text": "छपाई और स्थानीय धार्मिक तथा राजनीतिक नेटवर्क"
+      },
+      {
+        "key": "B",
+        "text": "राजतंत्रों का तुरंत अंत"
+      },
+      {
+        "key": "C",
+        "text": "बाइबिल के अनुवाद पर रोक"
+      },
+      {
+        "key": "D",
+        "text": "विश्वविद्यालयों का बंद होना"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "छपाई ने सुधार संबंधी लेखों को फैलाया। स्थानीय शासकों, समुदायों और धार्मिक नेटवर्क ने भी असर डाला।",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q027-HI",
+    "englishQuestionId": "WHI-CP002-Q027",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F027",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "Council of Trent और Luther के आंदोलन में क्या अंतर था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "दोनों Luther की अध्यक्षता में हुई सभाएँ थीं"
+      },
+      {
+        "key": "B",
+        "text": "Trent कैथोलिक सुधार का हिस्सा था; Luther के आंदोलन से प्रोटेस्टेंट चर्च बने"
+      },
+      {
+        "key": "C",
+        "text": "Trent, Luther की Theses से पहले हुआ"
+      },
+      {
+        "key": "D",
+        "text": "दोनों ने इंग्लैंड में राजकीय सर्वोच्चता स्थापित की"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Council of Trent कैथोलिक सुधार से जुड़ी थी। Luther की चुनौती से प्रोटेस्टेंट चर्च उभरे और बढ़े।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q028-HI",
+    "englishQuestionId": "WHI-CP002-Q028",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F028",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Reformation and document",
+    "stem": "किस विकास ने धर्म-सुधार के विचारों को तेज़ी से फैलाना संभव बनाया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "चल प्रकार की छपाई"
+      },
+      {
+        "key": "B",
+        "text": "भाप से चलने वाली रेल"
+      },
+      {
+        "key": "C",
+        "text": "टेलीग्राफ"
+      },
+      {
+        "key": "D",
+        "text": "कम्पास"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "छपाई से धर्म-सुधार के लेखों की प्रतियाँ बनाना और फैलाना आसान हुआ, हालांकि यह कई कारणों में से एक था।",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q029-HI",
+    "englishQuestionId": "WHI-CP002-Q029",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F029",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Scientist–discovery",
+    "stem": "1543 में ग्रह-व्यवस्था का सूर्यकेन्द्रित विवरण किसने प्रकाशित किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "आइज़ैक न्यूटन"
+      },
+      {
+        "key": "B",
+        "text": "विलियम हार्वे"
+      },
+      {
+        "key": "C",
+        "text": "आंद्रेयास वेसालियस"
+      },
+      {
+        "key": "D",
+        "text": "निकोलस कोपरनिकस"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "कोपरनिकस की 1543 की पुस्तक ने सूर्य को ग्रह-व्यवस्था के केन्द्र में रखा और पृथ्वी को गतिशील ग्रह माना।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q030-HI",
+    "englishQuestionId": "WHI-CP002-Q030",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F030",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Scientist–discovery",
+    "stem": "बृहस्पति के चंद्रमाओं पर Galileo के दूरबीन संबंधी अवलोकन से क्या पता चला?",
+    "options": [
+      {
+        "key": "A",
+        "text": "सभी ग्रह चंद्रमा की परिक्रमा करते हैं"
+      },
+      {
+        "key": "B",
+        "text": "कुछ खगोलीय पिंड पृथ्वी के अलावा किसी अन्य पिंड की परिक्रमा करते हैं"
+      },
+      {
+        "key": "C",
+        "text": "सूर्य बृहस्पति की परिक्रमा करता है"
+      },
+      {
+        "key": "D",
+        "text": "गति का एकमात्र केन्द्र पृथ्वी है"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "गैलीलियो ने बृहस्पति के चंद्रमाओं को उसकी परिक्रमा करते देखा। हर खगोलीय पिंड पृथ्वी के चारों ओर नहीं घूमता।",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q031-HI",
+    "englishQuestionId": "WHI-CP002-Q031",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F031",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Copernicus ने 1543 में कौन-सी पुस्तक प्रकाशित की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "De revolutionibus orbium coelestium"
+      },
+      {
+        "key": "B",
+        "text": "Principia Mathematica"
+      },
+      {
+        "key": "C",
+        "text": "De motu cordis"
+      },
+      {
+        "key": "D",
+        "text": "Utopia"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "कोपरनिकस ने 1543 में De revolutionibus प्रकाशित की। इसमें सूर्य-केन्द्रित ग्रह-व्यवस्था का गणितीय वर्णन था।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q032-HI",
+    "englishQuestionId": "WHI-CP002-Q032",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F032",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "किस खगोलशास्त्री ने ग्रहों की कक्षाओं को दीर्घवृत्ताकार बताया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कोपरनिकस"
+      },
+      {
+        "key": "B",
+        "text": "गैलीलियो"
+      },
+      {
+        "key": "C",
+        "text": "योहानेस केप्लर"
+      },
+      {
+        "key": "D",
+        "text": "न्यूटन"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "केप्लर के नियमों के अनुसार ग्रह पूर्ण वृत्तों के बजाय दीर्घवृत्ताकार कक्षाओं में चलते हैं।",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q033-HI",
+    "englishQuestionId": "WHI-CP002-Q033",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F033",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "1687 में प्रकाशित Newton की Principia किन विचारों से जुड़ी है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "गति के नियम और सार्वत्रिक गुरुत्वाकर्षण"
+      },
+      {
+        "key": "B",
+        "text": "रक्त-संचार"
+      },
+      {
+        "key": "C",
+        "text": "पहली मुद्रित बाइबिल"
+      },
+      {
+        "key": "D",
+        "text": "क्षमा-पत्र की बिक्री"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Newton की Principia में गति और गुरुत्वाकर्षण के नियम दिए गए। इससे पृथ्वी और आकाश की गति का अध्ययन जुड़ा।",
+    "sourceIds": [
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q034-HI",
+    "englishQuestionId": "WHI-CP002-Q034",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F034",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "मानव शरीर के प्रत्यक्ष अध्ययन और De humani corporis fabrica के लिए कौन-सा विद्वान प्रसिद्ध है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "विलियम हार्वे"
+      },
+      {
+        "key": "B",
+        "text": "आंद्रेयास वेसालियस"
+      },
+      {
+        "key": "C",
+        "text": "फ्रांसिस बेकन"
+      },
+      {
+        "key": "D",
+        "text": "टाइको ब्राहे"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "वेसालियस की 1543 की शरीर-रचना संबंधी पुस्तक प्रत्यक्ष अवलोकन पर आधारित थी और पुराने विवरणों को चुनौती देती थी।",
+    "sourceIds": [
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q035-HI",
+    "englishQuestionId": "WHI-CP002-Q035",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F035",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "शरीर में रक्त-संचार की व्याख्या किसने की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "आंद्रेयास वेसालियस"
+      },
+      {
+        "key": "B",
+        "text": "योहानेस केप्लर"
+      },
+      {
+        "key": "C",
+        "text": "विलियम हार्वे"
+      },
+      {
+        "key": "D",
+        "text": "निकोलस कोपरनिकस"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "हार्वे ने 1628 में प्रकाशित De motu cordis में रक्त-संचार का वर्णन किया।",
+    "sourceIds": [
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q036-HI",
+    "englishQuestionId": "WHI-CP002-Q036",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F036",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Francis Bacon को ज्ञान के किस तरीके के समर्थन के लिए जाना जाता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "बिना जाँच के प्राधिकार पर भरोसा"
+      },
+      {
+        "key": "B",
+        "text": "प्रयोग को नकारना"
+      },
+      {
+        "key": "C",
+        "text": "व्यवस्थित अवलोकन और अनुभव-आधारित जाँच"
+      },
+      {
+        "key": "D",
+        "text": "शरीर-रचना समझाने के लिए ज्योतिष"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "बेकन ने प्रकृति के बारे में ज्ञान पाने के लिए व्यवस्थित अवलोकन और जाँच को बढ़ावा दिया।",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q037-HI",
+    "englishQuestionId": "WHI-CP002-Q037",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F037",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Vasco da Gama भारत किस मार्ग से पहुँचा?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Cape of Good Hope के चारों ओर से"
+      },
+      {
+        "key": "B",
+        "text": "पनामा के स्थलडमरूमध्य से"
+      },
+      {
+        "key": "C",
+        "text": "आर्कटिक महासागर से"
+      },
+      {
+        "key": "D",
+        "text": "मेक्सिको से प्रशांत महासागर पार करके"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "द गामा अफ्रीका के चारों ओर से गया और 1498 में कालीकट पहुँचा। इससे भारत तक पुर्तगाली समुद्री मार्ग बना।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q038-HI",
+    "englishQuestionId": "WHI-CP002-Q038",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F038",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "1492 में Columbus का अभियान पश्चिम की ओर जाते हुए किस महासागर को पार कर गया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "अटलांटिक महासागर"
+      },
+      {
+        "key": "B",
+        "text": "हिंद महासागर"
+      },
+      {
+        "key": "C",
+        "text": "आर्कटिक महासागर"
+      },
+      {
+        "key": "D",
+        "text": "प्रशांत महासागर"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "एशिया तक पश्चिमी समुद्री मार्ग खोजते हुए कोलंबस ने अटलांटिक पार किया और कैरेबियाई द्वीपों तक पहुँचा।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q039-HI",
+    "englishQuestionId": "WHI-CP002-Q039",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F039",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "1488 में अफ्रीका के दक्षिणी छोर को किस नाविक ने पार किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "बार्तोलोम्यू डायस"
+      },
+      {
+        "key": "B",
+        "text": "वास्को द गामा"
+      },
+      {
+        "key": "C",
+        "text": "पेद्रो आल्वारेस काब्राल"
+      },
+      {
+        "key": "D",
+        "text": "जुआन सेबास्टियन एल्कानो"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "डायस ने 1488 में अफ्रीका के दक्षिणी छोर को पार किया। इससे आगे हिंद महासागर की ओर पुर्तगाली यात्राओं का रास्ता खुला।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q040-HI",
+    "englishQuestionId": "WHI-CP002-Q040",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F040",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Pedro Álvares Cabral की 1500 की यात्रा आज के किस देश में पुर्तगालियों के आगमन से जुड़ी है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "मेक्सिको"
+      },
+      {
+        "key": "B",
+        "text": "क्यूबा"
+      },
+      {
+        "key": "C",
+        "text": "पेरू"
+      },
+      {
+        "key": "D",
+        "text": "ब्राज़ील"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "काब्राल का बेड़ा 1500 में भारत की ओर जाते हुए ब्राज़ील के तट पर पहुँचा।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q041-HI",
+    "englishQuestionId": "WHI-CP002-Q041",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F041",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "Columbus और da Gama के समुद्री मार्गों की सही तुलना कौन-सी है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "दोनों अफ्रीका घूमकर कैरेबियन पहुँचे"
+      },
+      {
+        "key": "B",
+        "text": "Columbus अफ्रीका घूमकर गया; da Gama ने प्रशांत पार किया"
+      },
+      {
+        "key": "C",
+        "text": "Columbus अटलांटिक पार करके पश्चिम गया; da Gama अफ्रीका घूमकर भारत पहुँचा"
+      },
+      {
+        "key": "D",
+        "text": "दोनों ने भारत पहुँचने के लिए प्रशांत पार किया"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Columbus 1492 में अटलांटिक पार करके पश्चिम गया। da Gama 1498 में अफ्रीका के चारों ओर से भारत पहुँचा।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q042-HI",
+    "englishQuestionId": "WHI-CP002-Q042",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F042",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Navigator–route",
+    "stem": "पुर्तगाली यात्राओं के लिए Cape of Good Hope क्यों महत्त्वपूर्ण था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इससे इंग्लैंड और फ्रांस की सीमा तय हुई"
+      },
+      {
+        "key": "B",
+        "text": "यहीं से Columbus की यात्रा शुरू हुई"
+      },
+      {
+        "key": "C",
+        "text": "इसने भूमध्यसागर को बाल्टिक से जोड़ा"
+      },
+      {
+        "key": "D",
+        "text": "इससे जहाज अफ्रीका घूमकर हिंद महासागर तक पहुँच सके"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Cape के चारों ओर से जाने पर अटलांटिक से हिंद महासागर और एशियाई व्यापार तक समुद्री रास्ता खुला।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q043-HI",
+    "englishQuestionId": "WHI-CP002-Q043",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F043",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "1494 की Treaty of Tordesillas किन राज्यों के बीच हुई थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इंग्लैंड और फ्रांस"
+      },
+      {
+        "key": "B",
+        "text": "पुर्तगाल और नीदरलैंड"
+      },
+      {
+        "key": "C",
+        "text": "स्पेन और ओटोमन साम्राज्य"
+      },
+      {
+        "key": "D",
+        "text": "स्पेन और पुर्तगाल"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "समुद्रपार क्षेत्रों पर दावों की होड़ के बीच स्पेन और पुर्तगाल ने 1494 में यह संधि की।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q044-HI",
+    "englishQuestionId": "WHI-CP002-Q044",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F044",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "Treaty of Tordesillas ने क्या तय किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांस और जर्मनी के बीच सीमा"
+      },
+      {
+        "key": "B",
+        "text": "कैथोलिक और लूथरन के बीच धार्मिक समझौता"
+      },
+      {
+        "key": "C",
+        "text": "स्पेन और पुर्तगाल के समुद्रपार दावों को बाँटने वाली रेखा"
+      },
+      {
+        "key": "D",
+        "text": "पुर्तगाल से भारत तक का रास्ता"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "इस संधि ने स्पेन और पुर्तगाल के समुद्रपार दावों के लिए सीमा-रेखा तय की।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q045-HI",
+    "englishQuestionId": "WHI-CP002-Q045",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F045",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "पृथ्वी की पहली परिक्रमा किस अभियान ने पूरी की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "मैगेलन–एल्कानो अभियान"
+      },
+      {
+        "key": "B",
+        "text": "Columbus की पहली यात्रा"
+      },
+      {
+        "key": "C",
+        "text": "डायस की Cape यात्रा"
+      },
+      {
+        "key": "D",
+        "text": "da Gama की भारत यात्रा"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "मैगेलन के नेतृत्व में शुरू हुआ अभियान 1522 में एल्कानो के नेतृत्व में लौटा। मैगेलन वापसी यात्रा पूरी नहीं कर सका।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q046-HI",
+    "englishQuestionId": "WHI-CP002-Q046",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F046",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "1522 में बचे हुए नाविकों को स्पेन वापस कौन ले गया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "फर्डिनेंड मैगेलन"
+      },
+      {
+        "key": "B",
+        "text": "बार्तोलोम्यू डायस"
+      },
+      {
+        "key": "C",
+        "text": "क्रिस्टोफर Columbus"
+      },
+      {
+        "key": "D",
+        "text": "जुआन सेबास्टियन एल्कानो"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "फिलीपींस में मैगेलन की मृत्यु के बाद एल्कानो बचे हुए दल को स्पेन वापस लाया।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q047-HI",
+    "englishQuestionId": "WHI-CP002-Q047",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F047",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "पृथ्वी की परिक्रमा वाले अभियान के दौरान Magellan की मृत्यु कहाँ हुई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कालीकट"
+      },
+      {
+        "key": "B",
+        "text": "Cape of Good Hope"
+      },
+      {
+        "key": "C",
+        "text": "कैरेबियाई द्वीप"
+      },
+      {
+        "key": "D",
+        "text": "फिलीपींस"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "मैगेलन की 1521 में फिलीपींस में मृत्यु हुई। बचे हुए नाविक आगे बढ़े और अगले वर्ष स्पेन लौटे।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q048-HI",
+    "englishQuestionId": "WHI-CP002-Q048",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F048",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Treaty–event",
+    "stem": "Cabral के ब्राज़ील पहुँचने से कौन-सा वर्ष जुड़ा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1488"
+      },
+      {
+        "key": "B",
+        "text": "1492"
+      },
+      {
+        "key": "C",
+        "text": "1498"
+      },
+      {
+        "key": "D",
+        "text": "1500"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "काब्राल का अभियान 1500 में भारत की ओर जाते हुए ब्राज़ील पहुँचा।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q049-HI",
+    "englishQuestionId": "WHI-CP002-Q049",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F049",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "छपाई और Luther की चुनौती के प्रसार के बीच संबंध को कौन-सा वर्णन सबसे अच्छी तरह समझाता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "छपाई ने ही Luther की धार्मिक आपत्तियाँ पैदा कीं"
+      },
+      {
+        "key": "B",
+        "text": "छपाई ने तुरंत पूरे यूरोप में कैथोलिक सत्ता समाप्त कर दी"
+      },
+      {
+        "key": "C",
+        "text": "स्थानीय भाषा के ग्रंथों ने लोगों को सुधार पर चर्चा करने से रोका"
+      },
+      {
+        "key": "D",
+        "text": "छपे लेखों की प्रतियाँ बनाकर उन्हें Wittenberg से दूर तक पहुँचाया जा सकता था"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "छपाई ने Luther के विचारों को अधिक लोगों तक पहुँचाया, लेकिन उसने विवाद पैदा नहीं किए और चर्च का अधिकार तुरंत समाप्त नहीं किया।",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q050-HI",
+    "englishQuestionId": "WHI-CP002-Q050",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F050",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "एक फ्लोरेंटाइन परिवार किसी चैपल, मूर्तियों और विद्वानों के काम के लिए धन देता है। यह उदाहरण किस ऐतिहासिक भूमिका को दिखाता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "सार्वजनिक कला पर राजकीय रोक"
+      },
+      {
+        "key": "B",
+        "text": "इतालवी नगरों में नागरिक प्रभाव का अंत"
+      },
+      {
+        "key": "C",
+        "text": "मानववादी अध्ययन की जगह नौवहन का आना"
+      },
+      {
+        "key": "D",
+        "text": "संरक्षण से पुनर्जागरण कला और विद्या को सहारा मिला"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "धनी संरक्षकों ने कलाकृतियों के लिए भुगतान किया और विद्वानों को सहारा दिया। इससे पुनर्जागरण की सांस्कृतिक गतिविधियों को बल मिला।",
+    "sourceIds": [
+      "S1",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q051-HI",
+    "englishQuestionId": "WHI-CP002-Q051",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F051",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "सोलहवीं शताब्दी के धार्मिक बदलावों का सही वर्णन कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "धर्म-सुधार ने सभी पश्चिमी ईसाइयों को एक चर्च में जोड़ा"
+      },
+      {
+        "key": "B",
+        "text": "Council of Trent ने प्रोटेस्टेंट चर्च स्थापित किए"
+      },
+      {
+        "key": "C",
+        "text": "प्रोटेस्टेंट आंदोलन बढ़े और कैथोलिक चर्च ने भी सुधार किए"
+      },
+      {
+        "key": "D",
+        "text": "कैथोलिक चर्च ने यूरोप में अपनी संस्थागत भूमिका समाप्त कर दी"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "धर्म-सुधार से प्रोटेस्टेंट चर्च बने, जबकि Council of Trent कैथोलिक सुधार का हिस्सा थी। दोनों अलग प्रक्रियाएँ थीं।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q052-HI",
+    "englishQuestionId": "WHI-CP002-Q052",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F052",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "धार्मिक बहस में स्थानीय भाषा में छपी पुस्तकों का क्या महत्त्व था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कुछ ग्रंथ लैटिन न पढ़ने वाले पाठकों तक पहुँचे और उनका प्रसार हुआ"
+      },
+      {
+        "key": "B",
+        "text": "हर पाठक ने धर्मग्रंथ को एक ही तरह समझा"
+      },
+      {
+        "key": "C",
+        "text": "मौखिक उपदेश तुरंत बंद हो गए"
+      },
+      {
+        "key": "D",
+        "text": "धार्मिक बहस केवल विश्वविद्यालयों तक सीमित हो गई"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "स्थानीय भाषा की छपी सामग्री लैटिन पढ़े पादरियों से आगे के पाठकों तक पहुँची, हालांकि पहुँच और व्याख्या अलग-अलग रही।",
+    "sourceIds": [
+      "S3",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q053-HI",
+    "englishQuestionId": "WHI-CP002-Q053",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F053",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "अटलांटिक व्यवस्था का कौन-सा वर्णन इतिहाससम्मत है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इससे जुड़े सभी समाजों को समान लाभ और राजनीतिक शक्ति मिली"
+      },
+      {
+        "key": "B",
+        "text": "इसमें केवल यूरोपीय व्यापारी थे; अफ्रीकी या अमेरिकी समुदाय नहीं"
+      },
+      {
+        "key": "C",
+        "text": "इसने अटलांटिक पार लोगों की जबरन आवाजाही समाप्त की"
+      },
+      {
+        "key": "D",
+        "text": "इसने व्यापार और बसावट को जोड़ा, साथ ही विजय और जबरन विस्थापन को भी"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "अटलांटिक संबंधों में व्यापार और बसावट के साथ विजय, असमान सत्ता और अफ्रीकियों का जबरन विस्थापन भी शामिल था।",
+    "sourceIds": [
+      "S8",
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q054-HI",
+    "englishQuestionId": "WHI-CP002-Q054",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F054",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "अटलांटिक दास व्यापार स्वेच्छा से हुए सामान्य प्रवास से किस तरह अलग था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "अफ्रीकियों को जबरन अटलांटिक पार ले जाकर गुलामी में बेचा गया"
+      },
+      {
+        "key": "B",
+        "text": "लोगों ने अपनी मंज़िल चुनी और समान कानूनी अधिकार रखे"
+      },
+      {
+        "key": "C",
+        "text": "इसमें मुख्यतः यूरोपीय विद्वान एशिया गए"
+      },
+      {
+        "key": "D",
+        "text": "इस व्यापार ने अमेरिका में बागानी मजदूरी समाप्त कर दी"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "यह जबरदस्ती की व्यवस्था थी। अफ्रीकियों को बलपूर्वक ले जाकर गुलाम बनाया गया और उन्हें भारी कष्ट सहना पड़ा।",
+    "sourceIds": [
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q055-HI",
+    "englishQuestionId": "WHI-CP002-Q055",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F055",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "गुटेनबर्ग बाइबिल के बारे में कौन-सा कथन दुनिया में पहली पुस्तक होने का गलत दावा नहीं करता?",
+    "options": [
+      {
+        "key": "A",
+        "text": "यह दुनिया में छपी पहली पुस्तक थी"
+      },
+      {
+        "key": "B",
+        "text": "यह हाथ से नकल किया गया पहला पाठ था"
+      },
+      {
+        "key": "C",
+        "text": "यह पश्चिमी यूरोप की चल धातु-अक्षर छपाई से बनी पहली प्रमुख पुस्तक थी"
+      },
+      {
+        "key": "D",
+        "text": "यह स्थानीय भाषा में अनूदित पहली धार्मिक रचना थी"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "चल प्रकार की छपाई पूर्वी एशिया में पहले से थी। गुटेनबर्ग बाइबिल पश्चिमी यूरोप की पहली प्रमुख ऐसी पुस्तक थी।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q056-HI",
+    "englishQuestionId": "WHI-CP002-Q056",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F056",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "वैज्ञानिक और उनके योगदान की कौन-सी जोड़ी पूरी तरह सही है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कोपरनिकस—रक्त-संचार; केप्लर—गुरुत्वाकर्षण; हार्वे—सूर्यकेन्द्रित मॉडल"
+      },
+      {
+        "key": "B",
+        "text": "वेसालियस—ग्रहों की कक्षाएँ; न्यूटन—मानव शरीर; गैलीलियो—रक्त-संचार"
+      },
+      {
+        "key": "C",
+        "text": "कोपरनिकस—सूर्यकेन्द्रित मॉडल; केप्लर—दीर्घवृत्ताकार कक्षाएँ; हार्वे—रक्त-संचार"
+      },
+      {
+        "key": "D",
+        "text": "न्यूटन—1543 का सूर्यकेन्द्रित मॉडल; हार्वे—छपाई; केप्लर—क्षमा-पत्र"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "कोपरनिकस ने सूर्यकेन्द्रित मॉडल दिया, केप्लर ने दीर्घवृत्ताकार कक्षाएँ बताईं और हार्वे ने रक्त-संचार का अध्ययन किया।",
+    "sourceIds": [
+      "S5",
+      "S6",
+      "S11",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q057-HI",
+    "englishQuestionId": "WHI-CP002-Q057",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F057",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "Vesalius और Harvey के योगदान में सही अंतर कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वेसालियस ने गुरुत्वाकर्षण बताया; हार्वे ने सूर्यकेन्द्रित मॉडल प्रकाशित किया"
+      },
+      {
+        "key": "B",
+        "text": "वेसालियस ने शरीर के प्रत्यक्ष अध्ययन से शरीर-रचना को आगे बढ़ाया; हार्वे ने रक्त-संचार समझाया"
+      },
+      {
+        "key": "C",
+        "text": "वेसालियस ने ग्रहों की कक्षाएँ पढ़ीं; हार्वे ने चल-अक्षर छपाई विकसित की"
+      },
+      {
+        "key": "D",
+        "text": "वेसालियस ने The Prince लिखा; हार्वे ने Utopia"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "वेसालियस का काम मानव शरीर की बनावट पर था, जबकि हार्वे ने रक्त के प्रवाह की व्याख्या की।",
+    "sourceIds": [
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q058-HI",
+    "englishQuestionId": "WHI-CP002-Q058",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F058",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "लेखक और उनकी कृति की कौन-सी पूरी जोड़ी सही है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इरास्मस—Utopia; मोर—The Prince; मैकियावेली—In Praise of Folly"
+      },
+      {
+        "key": "B",
+        "text": "इरास्मस—In Praise of Folly; मोर—Utopia; मैकियावेली—The Prince"
+      },
+      {
+        "key": "C",
+        "text": "इरास्मस—The Last Supper; मोर—The School of Athens; मैकियावेली—David"
+      },
+      {
+        "key": "D",
+        "text": "इरास्मस—Principia; मोर—De revolutionibus; मैकियावेली—De motu cordis"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "इरास्मस, मोर और मैकियावेली ने क्रमशः In Praise of Folly, Utopia और The Prince लिखीं।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q059-HI",
+    "englishQuestionId": "WHI-CP002-Q059",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F059",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "समुद्री यात्राओं और समझौते का सही कालक्रम कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Columbus (1492) → Dias (1488) → da Gama (1498) → Tordesillas (1494)"
+      },
+      {
+        "key": "B",
+        "text": "Tordesillas (1494) → Dias (1488) → Columbus (1492) → da Gama (1498)"
+      },
+      {
+        "key": "C",
+        "text": "Dias ने Cape पार किया (1488) → Columbus ने अटलांटिक पार किया (1492) → Tordesillas (1494) → da Gama समुद्र से भारत पहुँचा (1498)"
+      },
+      {
+        "key": "D",
+        "text": "da Gama (1498) → Columbus (1492) → Dias (1488) → Tordesillas (1494)"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "डायस ने 1488 में Cape पार किया; Columbus 1492 में अटलांटिक गया; Tordesillas 1494 में हुई; da Gama 1498 में भारत पहुँचा।",
+    "sourceIds": [
+      "S8",
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP002-Q060-HI",
+    "englishQuestionId": "WHI-CP002-Q060",
+    "checkpointId": "WHI-001-CP002",
+    "factId": "WHI-CP002-F060",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cross-topic synthesis",
+    "stem": "पहली पृथ्वी-परिक्रमा के क्रम से कौन-सा निष्कर्ष निकलता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "मैगेलन ने यात्रा शुरू की, पूरी होने से पहले मारा गया और एल्कानो ने स्पेन वापसी का नेतृत्व किया"
+      },
+      {
+        "key": "B",
+        "text": "एल्कानो की मृत्यु के बाद मैगेलन वापसी कर स्पेन पहुँचा"
+      },
+      {
+        "key": "C",
+        "text": "Columbus ने यात्रा शुरू की और da Gama जहाजों को स्पेन वापस लाया"
+      },
+      {
+        "key": "D",
+        "text": "एल्कानो ने 1519 में यात्रा शुरू की और मैगेलन 1522 में लौटा"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "यात्रा 1519 में मैगेलन के नेतृत्व में चली। उसकी मृत्यु के बाद एल्कानो बचे दल को 1522 में स्पेन वापस लाया।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
