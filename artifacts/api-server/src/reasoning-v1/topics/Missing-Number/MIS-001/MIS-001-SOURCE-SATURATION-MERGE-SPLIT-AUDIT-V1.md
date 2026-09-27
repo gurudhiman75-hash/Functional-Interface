@@ -6,7 +6,7 @@ Status: **MERGE-SPLIT COMPLETE AGAINST THE IMPLEMENTED BLUEPRINT; EXTERNAL SOURC
 
 The MIS-001 blueprint requires permanent QLs to represent semantic exam patterns rather than constants, number tuples, renderer shapes, blank positions or difficulty labels. It also requires source saturation across SSC, Banking and Punjab-state material before permanent QL allocation.
 
-The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP020. Source crosswalk waves V1–V8 now provide growing SSC and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
+The repository contains the full blueprint-derived runtime plus source-discovered extensions through CP023. Source crosswalk waves V1–V10 now provide growing SSC and Punjab-state evidence, but practical target-exam saturation has not yet been reached.
 
 Therefore:
 
@@ -38,15 +38,18 @@ Current runtime review patterns:
 - CP018: 4 SSC CHSL source-discovered whole-number authorities
 - CP019: 5 SSC CGL source-discovered runtime patterns (4 new authorities + 1 alias)
 - CP020: 3 SSC root-extraction authorities
+- CP021: 2 SSC source-discovered authorities
+- CP022: 1 SSC arithmetic-mean authority
+- CP023: 1 PSPCL mixed-root authority
 
-**Total runtime patterns: 103**
+**Total runtime patterns: 107**
 
 ## 3. Chapter-wide consolidation result
 
 After normalization by semantic rule rather than checkpoint/renderer/query direction:
 
-- runtime patterns: **105**
-- canonical semantic authorities: **70**
+- runtime patterns: **107**
+- canonical semantic authorities: **72**
 - reuse / alias patterns: **35**
 - permanent QLs allocated: **0**
 
@@ -143,6 +146,21 @@ Target-exam discovery added semantic relations that were not present in the orig
 
 MIS-CAND-086 is not a new authority; the PSPCL missing-corner form reuses MIS-CAND-050.
 
+- MIS-CAND-096: `((a+1)(b+1))/2`;
+- MIS-CAND-098: `a³−b²`;
+- MIS-CAND-099: `(a+b)×5+b`;
+- MIS-CAND-100: `(a+b+c+d)×2`;
+- MIS-CAND-101: `√(a×b)`;
+- MIS-CAND-102: `√a−√b`;
+- MIS-CAND-103: `∛a+∛b`;
+- MIS-CAND-104: `∛|a−b|`;
+- MIS-CAND-105: `(ab+1)c`;
+- MIS-CAND-106: arithmetic mean `(a+b)/2`;
+- MIS-CAND-107: PSPCL mixed-root `(√a+√b)c+2`.
+
+MIS-CAND-097 remains an alias of MIS-CAND-059 because the stable subtraction constant is rule context, not a separate semantic identity.
+
+
 ## 5. Families deliberately not merged
 
 The audit does **not** merge rules merely because algebraic identities can rewrite them when the visible structure materially changes the inference pattern.
@@ -224,11 +242,13 @@ Still pending before closure:
 
 **Permanent QL allocation remains BLOCKED.**
 
-Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V9`. Those waves have confirmed existing authorities, added eighteen source-backed semantic gaps, added one Punjab-state missing-corner runtime variant, and strengthened Series/Number-Matrix boundary routing.
+Source discovery has progressed through `MIS-001-SOURCE-CROSSWALK-V10`. Those waves have confirmed existing authorities, added eighteen source-backed semantic gaps, added one Punjab-state missing-corner runtime variant, and strengthened Series/Number-Matrix boundary routing.
+
+V10 exposed two additional target-exam gaps—SSC arithmetic mean and a PSPCL mixed-root relation—so practical source saturation remains open.
 
 Required next checkpoint:
 
-`MIS-001-SOURCE-CROSSWALK-V5`
+`MIS-001-SOURCE-CROSSWALK-V11`
 
 For each observed target-exam source family record:
 
@@ -241,4 +261,4 @@ For each observed target-exam source family record:
 - frequency confidence
 - source-thin flag
 
-Only after the crosswalk reaches practical saturation should the current 68 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
+Only after the crosswalk reaches practical saturation should the current 72 canonical authorities be retained, merged further, split, rejected or promoted into permanent QLs.
