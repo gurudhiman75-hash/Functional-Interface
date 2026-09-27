@@ -1,3 +1,4 @@
+import { renderDiLineSvg } from "../visuals/line-svg";
 import "./localization-review-v1.test";
 import {
   DI004_V2_CONTEXT_COUNT,
@@ -51,6 +52,20 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
     assert(set.stimulus.points.length === 6, `${seed}: line graph lost six-period shape.`);
     assert(set.stimulus.points.every((point) => Number.isSafeInteger(point.seriesA) && Number.isSafeInteger(point.seriesB) && point.seriesA > 0 && point.seriesB > 0), `${seed}: invalid plotted value.`);
     assert(valuesA.some((value, index) => value < valuesB[index]!) && valuesA.some((value, index) => value > valuesB[index]!), `${seed}: graph lost line-order reversal.`);
+
+    const svg = renderDiLineSvg({
+      title: set.stimulus.title,
+      yAxisLabel: set.stimulus.yAxisLabel,
+      unitLabel: set.stimulus.unitLabel,
+      seriesALabel: set.stimulus.series[0].label,
+      seriesBLabel: set.stimulus.series[1].label,
+      points: set.stimulus.points,
+    });
+    assert((svg.match(/data-series-a-value=/gu) ?? []).length === 6, `${seed}: line graph must expose all six Series A values.`);
+    assert((svg.match(/data-series-b-value=/gu) ?? []).length === 6, `${seed}: line graph must expose all six Series B values.`);
+    for (const point of set.stimulus.points) {
+      assert(svg.includes(`>${point.seriesA}</text>`) && svg.includes(`>${point.seriesB}</text>`), `${seed}: exact plotted values are not learner-readable.`);
+    }
 
     for (const question of set.questions) {
       taskSeen.add(question.kind);
