@@ -9,8 +9,8 @@ export const MIS_001_DEEP_AUDIT_WAVE01_V1 = Object.freeze({
     "MIS-CP-009","MIS-CP-010","MIS-CP-011","MIS-CP-012",
   ] as const),
 
-  runtimePatternCount: 83 as const,
-  distinctSemanticAuthorityCount: 70 as const,
+  runtimePatternCount: 82 as const,
+  distinctSemanticAuthorityCount: 69 as const,
   reuseOnlyVariantCount: 13 as const,
   permanentQlCount: 0 as const,
 
