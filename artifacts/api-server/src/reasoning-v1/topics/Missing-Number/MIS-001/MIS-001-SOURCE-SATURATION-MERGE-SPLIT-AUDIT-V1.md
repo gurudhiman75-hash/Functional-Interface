@@ -183,9 +183,13 @@ Still pending before closure:
 
 **Permanent QL allocation remains BLOCKED.**
 
+Source discovery has now started in `MIS-001-SOURCE-CROSSWALK-V1`.
+
+Wave 1 confirms SSC repeated-figure evidence for pair-product sum and sum-of-squares, while also documenting Punjab/Banking search results that correctly route to Series or Number Matrix rather than MIS-001.
+
 Required next checkpoint:
 
-`MIS-001-SOURCE-CROSSWALK-V1`
+`MIS-001-SOURCE-CROSSWALK-V2`
 
 For each observed target-exam source family record:
 
