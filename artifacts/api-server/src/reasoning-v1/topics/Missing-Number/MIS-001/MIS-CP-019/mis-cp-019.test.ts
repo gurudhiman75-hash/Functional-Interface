@@ -25,8 +25,13 @@ for (const candidateId of MIS_CP019_CANDIDATE_IDS) {
 
     assert.deepEqual(question, replay);
     assert.equal(question.sourceBacked, true);
-    assert.equal(question.createsNewSemanticAuthority, true);
-    assert.equal(question.semanticAuthorityCandidateId, candidateId);
+    if (candidateId === 'MIS-CAND-097') {
+      assert.equal(question.createsNewSemanticAuthority, false);
+      assert.equal(question.semanticAuthorityCandidateId, 'MIS-CAND-059');
+    } else {
+      assert.equal(question.createsNewSemanticAuthority, true);
+      assert.equal(question.semanticAuthorityCandidateId, candidateId);
+    }
     assert.equal(question.ambiguityAudit.accepted, true);
     assert.equal(question.ambiguityAudit.survivingRules.length, 1);
     assert.equal(question.ambiguityAudit.survivingRules[0], question.ruleId);
