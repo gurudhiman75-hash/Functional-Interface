@@ -51,6 +51,8 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/line-set.test.ts
       - name: Question Studio permanent controlled-review integration
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/question-studio-integration.test.ts
+      - name: DI-004 visual answerability proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/visual-answerability.test.ts
       - name: Export review packs
         run: |
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/export-review-v2.ts DI-004-REVIEW-V2.md
