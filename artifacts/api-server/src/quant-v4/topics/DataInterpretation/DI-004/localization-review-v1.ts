@@ -169,14 +169,14 @@ function stem(question: Di004V2Question, stimulus: Di004V2Stimulus, locale: Di00
   switch (question.kind) {
     case "CROSS_SERIES_DIFFERENCE": {
       const p = period(stimulus, locale, Number(e.targetIndex));
-      const H = [`${p} में ${a} और ${b} के मानों में कितना अंतर है?`, `${p} में ${a} और ${b} के मान कितने अलग हैं?`, `${p} में दोनों रेखाओं के मानों का निरपेक्ष अंतर ज्ञात कीजिए।`];
+      const H = [`${p} में ${a} और ${b} के मानों में कितना अंतर है?`, `${p} में ${a} और ${b} के मान कितने अलग हैं?`, `${p} में दोनों रेखाओं के मानों का अंतर ज्ञात कीजिए।`];
       const P = [`${p} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੈ?`, `${p} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦੇ ਮੁੱਲ ਕਿੰਨੇ ਵੱਖਰੇ ਹਨ?`, `${p} ਵਿੱਚ ਦੋਵੇਂ ਰੇਖਾਵਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਕੱਢੋ।`];
       return (h ? H : P)[s]!;
     }
     case "COMBINED_PERIOD_TOTAL": {
       const p = period(stimulus, locale, Number(e.targetIndex));
       const H = [`${p} में ${a} और ${b} का संयुक्त मान कितना है?`, `${p} में दोनों श्रेणियों का कुल ज्ञात कीजिए।`, `${p} में ${a} और ${b} के मानों का योग कितना है?`];
-      const P = [`${p} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦਾ ਮਿਲਿਆ ਹੋਇਆ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${p} ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦਾ ਕੁੱਲ ਕੱਢੋ।`, `${p} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦੇ ਮੁੱਲਾਂ ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੈ?`];
+      const P = [`${p} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦਾ ਕੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${p} ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦਾ ਕੁੱਲ ਕੱਢੋ।`, `${p} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦੇ ਮੁੱਲਾਂ ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੈ?`];
       return (h ? H : P)[s]!;
     }
     case "FIRST_OVERTAKE_PERIOD": {
@@ -185,7 +185,7 @@ function stem(question: Di004V2Question, stimulus: Di004V2Stimulus, locale: Di00
       return (h ? H : P)[s]!;
     }
     case "CLOSEST_LINES_PERIOD": {
-      const H = [`किस अवधि में ${a} और ${b} के मान एक-दूसरे के सबसे निकट थे?`, `किस अवधि में दोनों श्रेणियों के बीच अंतर सबसे कम था?`, `रेखा-ग्राफ में किस अवधि पर ${a} और ${b} के मानों का निरपेक्ष अंतर न्यूनतम है?`];
+      const H = [`किस अवधि में ${a} और ${b} के मान एक-दूसरे के सबसे निकट थे?`, `किस अवधि में दोनों श्रेणियों के बीच अंतर सबसे कम था?`, `रेखा-ग्राफ में किस अवधि पर ${a} और ${b} के मानों का अंतर न्यूनतम है?`];
       const P = [`ਕਿਹੜੀ ਮਿਆਦ ਵਿੱਚ ${a} ਅਤੇ ${b} ਦੇ ਮੁੱਲ ਇਕ-ਦੂਜੇ ਦੇ ਸਭ ਤੋਂ ਨੇੜੇ ਸਨ?`, `ਕਿਹੜੀ ਮਿਆਦ ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਵਿਚਕਾਰ ਅੰਤਰ ਸਭ ਤੋਂ ਘੱਟ ਸੀ?`, `ਰੇਖਾ-ਗ੍ਰਾਫ ਵਿੱਚ ਕਿਹੜੀ ਮਿਆਦ 'ਤੇ ${a} ਅਤੇ ${b} ਦੇ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਸਭ ਤੋਂ ਘੱਟ ਹੈ?`];
       return (h ? H : P)[s]!;
     }
@@ -208,13 +208,13 @@ function stem(question: Di004V2Question, stimulus: Di004V2Stimulus, locale: Di00
     case "TWO_PERIOD_SERIES_RATIO": {
       const i = Number(e.firstIndex), j = Number(e.secondIndex), p1 = period(stimulus, locale, i), p2 = period(stimulus, locale, j);
       const H = [`${p1} और ${p2} में ${a} के संयुक्त मान का, इन्हीं अवधियों में ${b} के संयुक्त मान से अनुपात क्या है?`, `${p1} और ${p2} में पहले ${a} के मान जोड़ें और फिर ${b} के। दोनों योगों का अनुपात क्या है?`, `${p1} और ${p2} को साथ लेकर ${a} : ${b} ज्ञात कीजिए।`];
-      const P = [`${p1} ਅਤੇ ${p2} ਵਿੱਚ ${a} ਦੇ ਮਿਲੇ ਮੁੱਲ ਦਾ, ਇਨ੍ਹਾਂ ਹੀ ਮਿਆਦਾਂ ਵਿੱਚ ${b} ਦੇ ਮਿਲੇ ਮੁੱਲ ਨਾਲ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `${p1} ਅਤੇ ${p2} ਵਿੱਚ ਪਹਿਲਾਂ ${a} ਦੇ ਮੁੱਲ ਜੋੜੋ ਅਤੇ ਫਿਰ ${b} ਦੇ। ਦੋਵੇਂ ਜੋੜਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `${p1} ਅਤੇ ${p2} ਨੂੰ ਇਕੱਠੇ ਲੈ ਕੇ ${a} : ${b} ਕੱਢੋ।`];
+      const P = [`${p1} ਅਤੇ ${p2} ਵਿੱਚ ${a} ਦੇ ਜੋੜ ਦਾ, ਇਨ੍ਹਾਂ ਹੀ ਮਿਆਦਾਂ ਵਿੱਚ ${b} ਦੇ ਮਿਲੇ ਮੁੱਲ ਨਾਲ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `${p1} ਅਤੇ ${p2} ਵਿੱਚ ਪਹਿਲਾਂ ${a} ਦੇ ਮੁੱਲ ਜੋੜੋ ਅਤੇ ਫਿਰ ${b} ਦੇ। ਦੋਵੇਂ ਜੋੜਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`, `${p1} ਅਤੇ ${p2} ਨੂੰ ਇਕੱਠੇ ਲੈ ਕੇ ${a} : ${b} ਕੱਢੋ।`];
       return (h ? H : P)[s]!;
     }
     case "TWO_PERIOD_COMBINED_TOTAL": {
       const i = Number(e.firstIndex), j = Number(e.secondIndex), p1 = period(stimulus, locale, i), p2 = period(stimulus, locale, j);
       const H = [`${p1} और ${p2} में दोनों श्रेणियों का कुल कितना है?`, `${p1} और ${p2} में ${a} तथा ${b} के सभी मानों का संयुक्त कुल ज्ञात कीजिए।`, `${p1} और ${p2} के चारों प्रदर्शित मानों को जोड़ने पर कुल कितना होगा?`];
-      const P = [`${p1} ਅਤੇ ${p2} ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦਾ ਕੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${p1} ਅਤੇ ${p2} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦੇ ਸਾਰੇ ਮੁੱਲਾਂ ਦਾ ਮਿਲਿਆ ਕੁੱਲ ਕੱਢੋ।`, `${p1} ਅਤੇ ${p2} ਦੇ ਚਾਰੇ ਦਿਖਾਏ ਮੁੱਲ ਜੋੜਨ 'ਤੇ ਕੁੱਲ ਕਿੰਨਾ ਹੋਵੇਗਾ?`];
+      const P = [`${p1} ਅਤੇ ${p2} ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦਾ ਕੁੱਲ ਕਿੰਨਾ ਹੈ?`, `${p1} ਅਤੇ ${p2} ਵਿੱਚ ${a} ਅਤੇ ${b} ਦੇ ਸਾਰੇ ਮੁੱਲਾਂ ਦਾ ਕੁੱਲ ਕੱਢੋ।`, `${p1} ਅਤੇ ${p2} ਦੇ ਚਾਰੇ ਦਿਖਾਏ ਮੁੱਲ ਜੋੜਨ 'ਤੇ ਕੁੱਲ ਕਿੰਨਾ ਹੋਵੇਗਾ?`];
       return (h ? H : P)[s]!;
     }
     case "TOTAL_SERIES_RATIO": {
@@ -225,14 +225,14 @@ function stem(question: Di004V2Question, stimulus: Di004V2Stimulus, locale: Di00
     case "COMBINED_PERIOD_PERCENT_EXCESS": {
       const large = Number(e.largerIndex), small = Number(e.smallerIndex), pL = period(stimulus, locale, large), pS = period(stimulus, locale, small);
       const H = [`${pL} में दोनों श्रेणियों का संयुक्त मान, ${pS} के संयुक्त मान से लगभग कितने प्रतिशत अधिक है?`, `${pL} का दोनों श्रेणियों का कुल, ${pS} के कुल से लगभग कितने प्रतिशत अधिक है?`, `${pS} के संयुक्त मान को आधार मानकर, ${pL} का संयुक्त मान लगभग कितने प्रतिशत अधिक है?`];
-      const P = [`${pL} ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦਾ ਮਿਲਿਆ ਮੁੱਲ, ${pS} ਦੇ ਮਿਲੇ ਮੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${pL} ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦਾ ਕੁੱਲ, ${pS} ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${pS} ਦੇ ਮਿਲੇ ਮੁੱਲ ਨੂੰ ਆਧਾਰ ਮੰਨ ਕੇ, ${pL} ਦਾ ਮਿਲਿਆ ਮੁੱਲ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`];
+      const P = [`${pL} ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦਾ ਕੁੱਲ, ${pS} ਦੇ ਮਿਲੇ ਮੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${pL} ਵਿੱਚ ਦੋਵੇਂ ਲੜੀਆਂ ਦਾ ਕੁੱਲ, ${pS} ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${pS} ਦੇ ਮਿਲੇ ਮੁੱਲ ਨੂੰ ਆਧਾਰ ਮੰਨ ਕੇ, ${pL} ਦਾ ਕੁੱਲ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`];
       return (h ? H : P)[s]!;
     }
     case "TOTAL_SERIES_PERCENT_EXCESS": {
       const totalA = Number(e.totalA), totalB = Number(e.totalB);
       const larger = totalA > totalB ? a : b, smaller = totalA > totalB ? b : a;
-      const H = [`सभी छह अवधियों में ${larger} का कुल, ${smaller} के कुल से लगभग कितने प्रतिशत अधिक है?`, `${larger} की छह-अवधि का कुल, ${smaller} की छह-अवधि के कुल से लगभग कितने प्रतिशत अधिक है?`, `${smaller} के छह-अवधि कुल को आधार मानकर, ${larger} के कुल की लगभग प्रतिशत अधिकता ज्ञात कीजिए।`];
-      const P = [`ਸਾਰੀਆਂ ਛੇ ਮਿਆਦਾਂ ਵਿੱਚ ${larger} ਦਾ ਕੁੱਲ, ${smaller} ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${larger} ਦੀਆਂ ਛੇ ਮਿਆਦਾਂ ਦਾ ਕੁੱਲ, ${smaller} ਦੀਆਂ ਛੇ ਮਿਆਦਾਂ ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${smaller} ਦੇ ਛੇ-ਮਿਆਦੀ ਕੁੱਲ ਨੂੰ ਆਧਾਰ ਮੰਨ ਕੇ, ${larger} ਦੇ ਕੁੱਲ ਦੀ ਲਗਭਗ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧੂਤਾ ਕੱਢੋ।`];
+      const H = [`सभी छह अवधियों में ${larger} का कुल, ${smaller} के कुल से लगभग कितने प्रतिशत अधिक है?`, `${larger} की छह अवधियों का कुल, ${smaller} की छह-अवधि के कुल से लगभग कितने प्रतिशत अधिक है?`, `${smaller} के छह अवधियों का कुल को आधार मानकर, ${larger} के कुल की लगभग प्रतिशत अधिक ज्ञात कीजिए।`];
+      const P = [`ਸਾਰੀਆਂ ਛੇ ਮਿਆਦਾਂ ਵਿੱਚ ${larger} ਦਾ ਕੁੱਲ, ${smaller} ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${larger} ਦੀਆਂ ਛੇ ਮਿਆਦਾਂ ਦਾ ਕੁੱਲ, ${smaller} ਦੀਆਂ ਛੇ ਮਿਆਦਾਂ ਦੇ ਕੁੱਲ ਨਾਲੋਂ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?`, `${smaller} ਦੇ ਛੇ ਮਿਆਦਾਂ ਦਾ ਕੁੱਲ ਨੂੰ ਆਧਾਰ ਮੰਨ ਕੇ, ${larger} ਦੇ ਕੁੱਲ ਦੀ ਲਗਭਗ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਕੱਢੋ।`];
       return (h ? H : P)[s]!;
     }
     case "THREE_VS_THREE_RATIO": {
@@ -267,7 +267,7 @@ function explanation(question: Di004V2Question, stimulus: Di004V2Stimulus, local
     }
     case "COMBINED_PERIOD_TOTAL": {
       const i = Number(e.targetIndex), n = A[i]! + B[i]!, p = period(stimulus, locale, i);
-      return { keyIdea: h ? "मांगी गई अवधि में दोनों रेखाओं के मान जोड़ें।" : "ਪੁੱਛੀ ਗਈ ਮਿਆਦ ਵਿੱਚ ਦੋਵੇਂ ਰੇਖਾਵਾਂ ਦੇ ਮੁੱਲ ਜੋੜੋ।", steps: [`${p}: ${a} = ${A[i]}, ${b} = ${B[i]}।`, h ? `संयुक्त मान = ${A[i]} + ${B[i]} = ${n}।` : `ਮਿਲਿਆ ਮੁੱਲ = ${A[i]} + ${B[i]} = ${n}।`] };
+      return { keyIdea: h ? "मांगी गई अवधि में दोनों रेखाओं के मान जोड़ें।" : "ਪੁੱਛੀ ਗਈ ਮਿਆਦ ਵਿੱਚ ਦੋਵੇਂ ਰੇਖਾਵਾਂ ਦੇ ਮੁੱਲ ਜੋੜੋ।", steps: [`${p}: ${a} = ${A[i]}, ${b} = ${B[i]}।`, h ? `संयुक्त मान = ${A[i]} + ${B[i]} = ${n}।` : `ਕੁੱਲ = ${A[i]} + ${B[i]} = ${n}।`] };
     }
     case "FIRST_OVERTAKE_PERIOD": {
       const i = Number(e.overtakeIndex), prev = i - 1, p0 = period(stimulus, locale, prev), p1 = period(stimulus, locale, i);
@@ -275,7 +275,7 @@ function explanation(question: Di004V2Question, stimulus: Di004V2Stimulus, local
     }
     case "CLOSEST_LINES_PERIOD": {
       const gaps = A.map((v, i) => Math.abs(v - B[i]!)), i = Number(e.closestIndex), min = gaps[i]!;
-      return { keyIdea: h ? "हर अवधि में दोनों रेखाओं का निरपेक्ष अंतर निकालें और सबसे छोटा अंतर चुनें।" : "ਹਰ ਮਿਆਦ ਵਿੱਚ ਦੋਵੇਂ ਰੇਖਾਵਾਂ ਦਾ ਅੰਤਰ ਕੱਢੋ ਅਤੇ ਸਭ ਤੋਂ ਛੋਟਾ ਅੰਤਰ ਚੁਣੋ।", steps: [h ? `छह अंतर = ${gaps.join(", ")}।` : `ਛੇ ਅੰਤਰ = ${gaps.join(", ")}।`, h ? `सबसे छोटा अंतर ${min} है, जो ${period(stimulus, locale, i)} में है।` : `ਸਭ ਤੋਂ ਛੋਟਾ ਅੰਤਰ ${min} ਹੈ, ਜੋ ${period(stimulus, locale, i)} ਵਿੱਚ ਹੈ।`], workingTable: { headers: h ? ["अवधि", "अंतर"] : ["ਮਿਆਦ", "ਅੰਤਰ"], rows: stimulus.points.map((_, idx) => [period(stimulus, locale, idx), String(gaps[idx]!)]) } };
+      return { keyIdea: h ? "हर अवधि में दोनों रेखाओं का अंतर निकालें और सबसे छोटा अंतर चुनें।" : "ਹਰ ਮਿਆਦ ਵਿੱਚ ਦੋਵੇਂ ਰੇਖਾਵਾਂ ਦਾ ਅੰਤਰ ਕੱਢੋ ਅਤੇ ਸਭ ਤੋਂ ਛੋਟਾ ਅੰਤਰ ਚੁਣੋ।", steps: [h ? `छह अंतर = ${gaps.join(", ")}।` : `ਛੇ ਅੰਤਰ = ${gaps.join(", ")}।`, h ? `सबसे छोटा अंतर ${min} है, जो ${period(stimulus, locale, i)} में है।` : `ਸਭ ਤੋਂ ਛੋਟਾ ਅੰਤਰ ${min} ਹੈ, ਜੋ ${period(stimulus, locale, i)} ਵਿੱਚ ਹੈ।`], workingTable: { headers: h ? ["अवधि", "अंतर"] : ["ਮਿਆਦ", "ਅੰਤਰ"], rows: stimulus.points.map((_, idx) => [period(stimulus, locale, idx), String(gaps[idx]!)]) } };
     }
     case "THREE_PERIOD_AVERAGE": {
       const start = Number(e.startIndex), code = String(e.seriesCode), vals = (code === "A" ? A : B).slice(start, start + 3), sum = vals.reduce((x, y) => x + y, 0), name = series(stimulus, locale, code);
@@ -294,15 +294,15 @@ function explanation(question: Di004V2Question, stimulus: Di004V2Stimulus, local
       return { keyIdea: h ? "दोनों अवधियों में पहले दोनों श्रेणियों के मान जोड़ें, फिर दोनों अवधि-कुल जोड़ें।" : "ਦੋਵੇਂ ਮਿਆਦਾਂ ਵਿੱਚ ਪਹਿਲਾਂ ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਮੁੱਲ ਜੋੜੋ, ਫਿਰ ਦੋਵੇਂ ਮਿਆਦ-ਕੁੱਲ ਜੋੜੋ।", steps: [`${period(stimulus, locale, i)}: ${A[i]} + ${B[i]} = ${x}।`, `${period(stimulus, locale, j)}: ${A[j]} + ${B[j]} = ${y}।`, h ? `आवश्यक कुल = ${x} + ${y} = ${x + y}।` : `ਲੋੜੀਂਦਾ ਕੁੱਲ = ${x} + ${y} = ${x + y}।`] };
     }
     case "TOTAL_SERIES_RATIO": {
-      return { keyIdea: h ? "दोनों रेखाओं की छहों अवधियों के मान अलग-अलग जोड़ें और कुलों का अनुपात सरल करें।" : "ਦੋਵੇਂ ਰੇਖਾਵਾਂ ਦੀਆਂ ਛੇ ਮਿਆਦਾਂ ਦੇ ਮੁੱਲ ਵੱਖ-ਵੱਖ ਜੋੜੋ ਅਤੇ ਕੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।", steps: [`${a}: ${A.join(" + ")} = ${totalA}।`, `${b}: ${B.join(" + ")} = ${totalB}।`, `${totalA}:${totalB} = ${question.answer}।`], workingTable: { headers: h ? ["श्रेणी", "छह-अवधि कुल"] : ["ਲੜੀ", "ਛੇ-ਮਿਆਦੀ ਕੁੱਲ"], rows: [[a, String(totalA)], [b, String(totalB)]] } };
+      return { keyIdea: h ? "दोनों रेखाओं की छहों अवधियों के मान अलग-अलग जोड़ें और कुलों का अनुपात सरल करें।" : "ਦੋਵੇਂ ਰੇਖਾਵਾਂ ਦੀਆਂ ਛੇ ਮਿਆਦਾਂ ਦੇ ਮੁੱਲ ਵੱਖ-ਵੱਖ ਜੋੜੋ ਅਤੇ ਕੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਸਰਲ ਕਰੋ।", steps: [`${a}: ${A.join(" + ")} = ${totalA}।`, `${b}: ${B.join(" + ")} = ${totalB}।`, `${totalA}:${totalB} = ${question.answer}।`], workingTable: { headers: h ? ["श्रेणी", "छह अवधियों का कुल"] : ["ਲੜੀ", "ਛੇ ਮਿਆਦਾਂ ਦਾ ਕੁੱਲ"], rows: [[a, String(totalA)], [b, String(totalB)]] } };
     }
     case "COMBINED_PERIOD_PERCENT_EXCESS": {
       const large = Number(e.largerIndex), small = Number(e.smallerIndex), big = A[large]! + B[large]!, little = A[small]! + B[small]!, d = big - little;
-      return { keyIdea: h ? "पहले दोनों अवधियों के संयुक्त कुल निकालें, फिर अंतर को छोटे कुल से भाग देकर 100 से गुणा करें।" : "ਪਹਿਲਾਂ ਦੋਵੇਂ ਮਿਆਦਾਂ ਦੇ ਮਿਲੇ ਕੁੱਲ ਕੱਢੋ, ਫਿਰ ਅੰਤਰ ਨੂੰ ਛੋਟੇ ਕੁੱਲ ਨਾਲ ਭਾਗ ਦੇ ਕੇ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।", steps: [`${period(stimulus, locale, large)} = ${big}; ${period(stimulus, locale, small)} = ${little}।`, h ? `अंतर = ${big} - ${little} = ${d}।` : `ਅੰਤਰ = ${big} - ${little} = ${d}।`, h ? `प्रतिशत अधिक = ${d}/${little} × 100 ≈ ${question.answer}।` : `ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ = ${d}/${little} × 100 ≈ ${question.answer}।`] };
+      return { keyIdea: h ? "पहले दोनों अवधियों के संयुक्त कुल निकालें, फिर अंतर को छोटे कुल से भाग देकर 100 से गुणा करें।" : "ਪਹਿਲਾਂ ਦੋਵੇਂ ਮਿਆਦਾਂ ਦੇ ਕੁੱਲ ਕੱਢੋ, ਫਿਰ ਅੰਤਰ ਨੂੰ ਛੋਟੇ ਕੁੱਲ ਨਾਲ ਭਾਗ ਦੇ ਕੇ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।", steps: [`${period(stimulus, locale, large)} = ${big}; ${period(stimulus, locale, small)} = ${little}।`, h ? `अंतर = ${big} - ${little} = ${d}।` : `ਅੰਤਰ = ${big} - ${little} = ${d}।`, h ? `प्रतिशत अधिक = ${d}/${little} × 100 ≈ ${question.answer}।` : `ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ = ${d}/${little} × 100 ≈ ${question.answer}।`] };
     }
     case "TOTAL_SERIES_PERCENT_EXCESS": {
       const big = Math.max(totalA, totalB), small = Math.min(totalA, totalB), d = big - small;
-      return { keyIdea: h ? "दोनों श्रेणियों के छह-अवधि कुल निकालें, अंतर ज्ञात करें और छोटे कुल को आधार बनाएं।" : "ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਛੇ-ਮਿਆਦੀ ਕੁੱਲ ਕੱਢੋ, ਅੰਤਰ ਕੱਢੋ ਅਤੇ ਛੋਟੇ ਕੁੱਲ ਨੂੰ ਆਧਾਰ ਬਣਾਓ।", steps: [`${a} = ${totalA}; ${b} = ${totalB}।`, h ? `अंतर = ${big} - ${small} = ${d}।` : `ਅੰਤਰ = ${big} - ${small} = ${d}।`, h ? `प्रतिशत अधिक = ${d}/${small} × 100 ≈ ${question.answer}।` : `ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ = ${d}/${small} × 100 ≈ ${question.answer}।`] };
+      return { keyIdea: h ? "दोनों श्रेणियों के छह अवधियों का कुल निकालें, अंतर ज्ञात करें और छोटे कुल को आधार बनाएं।" : "ਦੋਵੇਂ ਲੜੀਆਂ ਦੇ ਛੇ ਮਿਆਦਾਂ ਦਾ ਕੁੱਲ ਕੱਢੋ, ਅੰਤਰ ਕੱਢੋ ਅਤੇ ਛੋਟੇ ਕੁੱਲ ਨੂੰ ਆਧਾਰ ਬਣਾਓ।", steps: [`${a} = ${totalA}; ${b} = ${totalB}।`, h ? `अंतर = ${big} - ${small} = ${d}।` : `ਅੰਤਰ = ${big} - ${small} = ${d}।`, h ? `प्रतिशत अधिक = ${d}/${small} × 100 ≈ ${question.answer}।` : `ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ = ${d}/${small} × 100 ≈ ${question.answer}।`] };
     }
     case "THREE_VS_THREE_RATIO": {
       const ai = [Number(e.a1), Number(e.a2), Number(e.a3)], bi = [Number(e.b1), Number(e.b2), Number(e.b3)];
