@@ -64,7 +64,31 @@ export function leapCenturyProblem(id: CalendarPrototypeId, seed: number, locale
       queryType: targetLeap ? "SELECT_ONLY_LEAP_YEAR" : "SELECT_ONLY_ORDINARY_YEAR", facts: { year: correctYear, booleanAnswer: targetLeap, optionYears: optionsPool }, answer: correctYear,
       groundTruth: { method: "LEAP_RULE", segments: optionsPool.map((year) => ({ year, leap: ordinalLeapYear(year) })), answer: correctYear },
       teachingTrace: { method: "LEAP_RULE", segments: optionsPool.map((year) => ({ year, leap: oddDayLeapYear(year) })), answer: correctYear },
-      stem: t(locale, `Which of the following is the only ${targetLeap ? "leap" : "ordinary"} year?`, `निम्न में से केवल कौन-सा ${targetLeap ? "अधिवर्ष" : "साधारण वर्ष"} है?`, `ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਕੇਵਲ ਕਿਹੜਾ ${targetLeap ? "ਲੀਪ ਸਾਲ" : "ਸਧਾਰਣ ਸਾਲ"} ਹੈ?`),
+      stem: (() => {
+        const stemVariant = seed % 3;
+        if (stemVariant === 1) {
+          return t(
+            locale,
+            `Identify the only ${targetLeap ? "leap" : "ordinary"} year among the given options.`,
+            `दिए गए विकल्पों में केवल ${targetLeap ? "अधिवर्ष" : "साधारण वर्ष"} की पहचान कीजिए।`,
+            `ਦਿੱਤੇ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ਕੇਵਲ ${targetLeap ? "ਲੀਪ ਸਾਲ" : "ਸਧਾਰਣ ਸਾਲ"} ਦੀ ਪਛਾਣ ਕਰੋ।`,
+          );
+        }
+        if (stemVariant === 2) {
+          return t(
+            locale,
+            `Which option gives the only ${targetLeap ? "leap" : "ordinary"} year?`,
+            `किस विकल्प में केवल ${targetLeap ? "अधिवर्ष" : "साधारण वर्ष"} दिया गया है?`,
+            `ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਕੇਵਲ ${targetLeap ? "ਲੀਪ ਸਾਲ" : "ਸਧਾਰਣ ਸਾਲ"} ਦਿੱਤਾ ਗਿਆ ਹੈ?`,
+          );
+        }
+        return t(
+          locale,
+          `Which of the following is the only ${targetLeap ? "leap" : "ordinary"} year?`,
+          `निम्न में से केवल कौन-सा ${targetLeap ? "अधिवर्ष" : "साधारण वर्ष"} है?`,
+          `ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਕੇਵਲ ਕਿਹੜਾ ${targetLeap ? "ਲੀਪ ਸਾਲ" : "ਸਧਾਰਣ ਸਾਲ"} ਹੈ?`,
+        );
+      })(),
       wrongs: optionsPool.filter((year) => year !== correctYear).map((year, index) => ({ value: year, misconceptionId: (["LEAP_EVERY_FOUR_YEARS_ONLY", "CENTURY_ALWAYS_LEAP", "DIVISIBLE_BY_400_RULE_OMITTED"] as MisconceptionId[])[index]!, derivation: { year, actualLeap: ordinalLeapYear(year) } })),
       explanation: makeExplanation(locale, `Target class: ${targetLeap ? "leap" : "ordinary"}`, "Apply the 400/100/4 order to every option.", optionsPool.map((year) => `${year}: ${ordinalLeapYear(year) ? "leap" : "ordinary"}`), String(correctYear)),
       coverage: { usesCenturyYear: optionsPool.some((year) => year % 100 === 0), usesDivisibleBy400Year: optionsPool.some((year) => year % 400 === 0) },
