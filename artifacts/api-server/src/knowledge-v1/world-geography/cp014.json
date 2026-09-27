@@ -1,0 +1,1163 @@
+[
+  {
+    "id": "WGE-001-CP014-Q001",
+    "cpId": "WGE-001-CP014",
+    "objective": "biome-climate-link",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which combination best explains the broad distribution of terrestrial biomes?",
+        "options": [
+          "Rainfall amount and seasonality alone",
+          "Climate and the plant and animal communities adapted to it",
+          "Soil type and relief alone",
+          "Latitude and elevation alone"
+        ],
+        "explanation": "A biome is a large ecological region shaped especially by climate and the characteristic communities adapted to it."
+      },
+      "hi": {
+        "stem": "स्थलीय जीवोमों के व्यापक वितरण की सबसे अच्छी व्याख्या कौन-सा मेल करता है?",
+        "options": [
+          "केवल वर्षा की मात्रा और उसका मौसमी वितरण",
+          "जलवायु तथा उसके अनुकूल पौधों और जीवों के समुदाय",
+          "केवल मृदा का प्रकार और स्थलाकृति",
+          "केवल अक्षांश और ऊँचाई"
+        ],
+        "explanation": "जीवोम एक बड़ा पारिस्थितिक क्षेत्र है, जिसका स्वरूप विशेषकर जलवायु और उससे अनुकूलित समुदायों से बनता है।"
+      },
+      "pa": {
+        "stem": "ਥਲਚਰੀ ਜੀਵ-ਖੇਤਰਾਂ ਦੇ ਵਿਆਪਕ ਫੈਲਾਅ ਦੀ ਸਭ ਤੋਂ ਵਧੀਆ ਵਿਆਖਿਆ ਕਿਹੜਾ ਮੇਲ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਸਿਰਫ਼ ਮੀਂਹ ਦੀ ਮਾਤਰਾ ਅਤੇ ਇਸ ਦਾ ਰੁੱਤੀ ਵੰਡ",
+          "ਜਲਵਾਯੂ ਅਤੇ ਇਸ ਨਾਲ ਅਨੁਕੂਲ ਪੌਦਿਆਂ ਤੇ ਜੀਵਾਂ ਦੇ ਸਮੂਹ",
+          "ਸਿਰਫ਼ ਮਿੱਟੀ ਦੀ ਕਿਸਮ ਅਤੇ ਭੂ-ਆਕਾਰ",
+          "ਸਿਰਫ਼ ਅਕਸ਼ਾਂਸ਼ ਅਤੇ ਉਚਾਈ"
+        ],
+        "explanation": "ਜੀਵ-ਖੇਤਰ ਇੱਕ ਵੱਡਾ ਪਰਿਸਥਿਤਕੀ ਖੇਤਰ ਹੁੰਦਾ ਹੈ, ਜਿਸ ਦਾ ਰੂਪ ਖ਼ਾਸ ਤੌਰ ਤੇ ਜਲਵਾਯੂ ਅਤੇ ਇਸ ਨਾਲ ਅਨੁਕੂਲ ਹੋਏ ਜੀਵ-ਸਮੂਹਾਂ ਨਾਲ ਬਣਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q002",
+    "cpId": "WGE-001-CP014",
+    "objective": "rainforest-biome",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which vegetation is most characteristic of a humid equatorial rainforest?",
+        "options": [
+          "Dense, multilayered evergreen forest",
+          "Open grassland with scattered thorn trees",
+          "Low mosses above the tree line",
+          "Needle-leaved forest with a short growing season"
+        ],
+        "explanation": "Warm temperatures and abundant moisture through the year support dense, evergreen rainforest vegetation."
+      },
+      "hi": {
+        "stem": "आर्द्र विषुवतीय वर्षावन की सबसे विशिष्ट वनस्पति कौन-सी है?",
+        "options": [
+          "घना, कई स्तरों वाला सदाबहार वन",
+          "छिटपुट कांटेदार पेड़ों वाली खुली घासभूमि",
+          "वृक्ष-रेखा से ऊपर काई की छोटी वनस्पति",
+          "छोटी बढ़वार ऋतु वाला सुई-पत्ती वन"
+        ],
+        "explanation": "साल भर गर्मी और पर्याप्त नमी घने सदाबहार वर्षावन को सहारा देती है।"
+      },
+      "pa": {
+        "stem": "ਨਮੀ ਵਾਲੇ ਭੂ-ਮੱਧੀ ਵਰਖਾ-ਜੰਗਲ ਦੀ ਸਭ ਤੋਂ ਖ਼ਾਸ ਬਨਸਪਤੀ ਕਿਹੜੀ ਹੈ?",
+        "options": [
+          "ਘਣਾ, ਕਈ ਪਰਤਾਂ ਵਾਲਾ ਸਦਾ-ਹਰਾ ਜੰਗਲ",
+          "ਛਿੱਟੇ ਕੰਡਿਆਂ ਵਾਲੇ ਦਰੱਖਤਾਂ ਵਾਲਾ ਖੁੱਲ੍ਹਾ ਘਾਹ-ਮੈਦਾਨ",
+          "ਦਰੱਖਤਾਂ ਦੀ ਹੱਦ ਤੋਂ ਉੱਪਰ ਨੀਵੀਂ ਕਾਈ",
+          "ਛੋਟੀ ਵਧਣ-ਰੁੱਤ ਵਾਲਾ ਸੂਈਦਾਰ ਪੱਤਿਆਂ ਦਾ ਜੰਗਲ"
+        ],
+        "explanation": "ਸਾਲ ਭਰ ਗਰਮੀ ਅਤੇ ਕਾਫ਼ੀ ਨਮੀ ਘਣੇ ਸਦਾ-ਹਰੇ ਵਰਖਾ-ਜੰਗਲ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q003",
+    "cpId": "WGE-001-CP014",
+    "objective": "savanna-biome",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A tropical grassland has tall grasses and scattered trees, with marked wet and dry seasons. Which biome is it?",
+        "options": [
+          "Taiga",
+          "Tundra",
+          "Savanna",
+          "Temperate deciduous forest"
+        ],
+        "explanation": "Savannas are tropical grasslands where seasonal rainfall supports grasses and scattered trees."
+      },
+      "hi": {
+        "stem": "उष्णकटिबंधीय घासभूमि में ऊँची घास, विरल पेड़ और स्पष्ट वर्षा तथा शुष्क ऋतुएँ हैं। यह कौन-सा जीवोम है?",
+        "options": [
+          "टाइगा",
+          "टुंड्रा",
+          "सवाना",
+          "समशीतोष्ण पर्णपाती वन"
+        ],
+        "explanation": "सवाना उष्णकटिबंधीय घासभूमि है, जहाँ मौसमी वर्षा घास और विरल पेड़ों को सहारा देती है।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ-ਖੰਡੀ ਘਾਹ-ਮੈਦਾਨ ਵਿੱਚ ਉੱਚਾ ਘਾਹ, ਛਿੱਟੇ ਦਰੱਖਤ ਅਤੇ ਮੀਂਹ ਤੇ ਖੁਸ਼ਕੀ ਦੀਆਂ ਸਪਸ਼ਟ ਰੁੱਤਾਂ ਹਨ। ਇਹ ਕਿਹੜਾ ਜੀਵ-ਖੇਤਰ ਹੈ?",
+        "options": [
+          "ਟਾਈਗਾ",
+          "ਟੁੰਡਰਾ",
+          "ਸਵਾਨਾ",
+          "ਸਮਸ਼ੀਤੋਸ਼ਣ ਪਤਝੜੀ ਜੰਗਲ"
+        ],
+        "explanation": "ਸਵਾਨਾ ਗਰਮ-ਖੰਡੀ ਘਾਹ-ਮੈਦਾਨ ਹੁੰਦਾ ਹੈ, ਜਿੱਥੇ ਰੁੱਤੀ ਮੀਂਹ ਘਾਹ ਅਤੇ ਛਿੱਟੇ ਦਰੱਖਤਾਂ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q004",
+    "cpId": "WGE-001-CP014",
+    "objective": "temperate-grassland-prairies",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "What is the usual name for the temperate grasslands of central North America?",
+        "options": [
+          "Prairies",
+          "Pampas",
+          "Steppes",
+          "Veld"
+        ],
+        "explanation": "Prairies are the temperate grasslands of central North America."
+      },
+      "hi": {
+        "stem": "मध्य उत्तरी अमेरिका की समशीतोष्ण घासभूमियों को सामान्यतः क्या कहते हैं?",
+        "options": [
+          "प्रेयरी",
+          "पम्पास",
+          "स्टेपी",
+          "वेल्ड"
+        ],
+        "explanation": "प्रेयरी मध्य उत्तरी अमेरिका की समशीतोष्ण घासभूमियाँ हैं।"
+      },
+      "pa": {
+        "stem": "ਮੱਧ ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨਾਂ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਪ੍ਰੇਰੀ",
+          "ਪੰਪਾਸ",
+          "ਸਟੈੱਪੀ",
+          "ਵੈਲਡ"
+        ],
+        "explanation": "ਪ੍ਰੇਰੀ ਮੱਧ ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q005",
+    "cpId": "WGE-001-CP014",
+    "objective": "temperate-grassland-pampas",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which South American region is widely known for its temperate grasslands?",
+        "options": [
+          "Llanos",
+          "Pampas",
+          "Caatinga",
+          "Campos do Jordão"
+        ],
+        "explanation": "The Pampas are extensive temperate grasslands of southeastern South America, especially Argentina and Uruguay."
+      },
+      "hi": {
+        "stem": "दक्षिण अमेरिका का कौन-सा क्षेत्र समशीतोष्ण घासभूमि के लिए प्रसिद्ध है?",
+        "options": [
+          "ल्यानोस",
+          "पम्पास",
+          "कातिंगा",
+          "कम्पोस दो जोर्दाओ"
+        ],
+        "explanation": "पम्पास दक्षिण-पूर्वी दक्षिण अमेरिका, विशेषकर अर्जेंटीना और उरुग्वे, की विस्तृत समशीतोष्ण घासभूमियाँ हैं।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਅਮਰੀਕਾ ਦਾ ਕਿਹੜਾ ਖੇਤਰ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨਾਂ ਲਈ ਪ੍ਰਸਿੱਧ ਹੈ?",
+        "options": [
+          "ਲਿਆਨੋਸ",
+          "ਪੰਪਾਸ",
+          "ਕਾਤਿੰਗਾ",
+          "ਕੈਂਪੋਸ ਦੋ ਜੋਰਦਾਓ"
+        ],
+        "explanation": "ਪੰਪਾਸ ਦੱਖਣ-ਪੂਰਬੀ ਦੱਖਣੀ ਅਮਰੀਕਾ, ਖ਼ਾਸ ਕਰਕੇ ਅਰਜਨਟੀਨਾ ਅਤੇ ਉਰੂਗਵੇ, ਦੇ ਵਿਸ਼ਾਲ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q006",
+    "cpId": "WGE-001-CP014",
+    "objective": "temperate-grassland-steppes",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "The extensive temperate grasslands of Eurasia are commonly called:",
+        "options": [
+          "Downs",
+          "Veld",
+          "Steppes",
+          "Prairies"
+        ],
+        "explanation": "Steppes form a broad belt of temperate grassland across Eurasia."
+      },
+      "hi": {
+        "stem": "यूरेशिया की विस्तृत समशीतोष्ण घासभूमियों को सामान्यतः क्या कहते हैं?",
+        "options": [
+          "डाउनस",
+          "वेल्ड",
+          "स्टेपी",
+          "प्रेयरी"
+        ],
+        "explanation": "स्टेपी यूरेशिया में फैली समशीतोष्ण घासभूमियों की विस्तृत पेटी है।"
+      },
+      "pa": {
+        "stem": "ਯੂਰੇਸ਼ੀਆ ਦੇ ਵਿਸ਼ਾਲ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨਾਂ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਡਾਊਨਜ਼",
+          "ਵੈਲਡ",
+          "ਸਟੈੱਪੀ",
+          "ਪ੍ਰੇਰੀ"
+        ],
+        "explanation": "ਸਟੈੱਪੀ ਯੂਰੇਸ਼ੀਆ ਵਿੱਚ ਫੈਲੀ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨਾਂ ਦੀ ਵਿਸ਼ਾਲ ਪੱਟੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q007",
+    "cpId": "WGE-001-CP014",
+    "objective": "temperate-grassland-veld-downs",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which pairing is correct?",
+        "options": [
+          "Veld — South Africa; Downs — Australia",
+          "Veld — Argentina; Downs — Eurasia",
+          "Veld — Australia; Downs — North America",
+          "Veld — central Asia; Downs — South Africa"
+        ],
+        "explanation": "Veld refers to South African grasslands, while downs is used for temperate grasslands in parts of Australia."
+      },
+      "hi": {
+        "stem": "कौन-सा युग्म सही है?",
+        "options": [
+          "वेल्ड — दक्षिण अफ्रीका; डाउनस — ऑस्ट्रेलिया",
+          "वेल्ड — अर्जेंटीना; डाउनस — यूरेशिया",
+          "वेल्ड — ऑस्ट्रेलिया; डाउनस — उत्तरी अमेरिका",
+          "वेल्ड — मध्य एशिया; डाउनस — दक्षिण अफ्रीका"
+        ],
+        "explanation": "वेल्ड दक्षिण अफ्रीका की घासभूमियों के लिए प्रयुक्त होता है, जबकि ऑस्ट्रेलिया के कुछ समशीतोष्ण घास क्षेत्रों को डाउनस कहते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਜੋੜਾ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਵੈਲਡ — ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ; ਡਾਊਨਜ਼ — ਆਸਟ੍ਰੇਲੀਆ",
+          "ਵੈਲਡ — ਅਰਜਨਟੀਨਾ; ਡਾਊਨਜ਼ — ਯੂਰੇਸ਼ੀਆ",
+          "ਵੈਲਡ — ਆਸਟ੍ਰੇਲੀਆ; ਡਾਊਨਜ਼ — ਉੱਤਰੀ ਅਮਰੀਕਾ",
+          "ਵੈਲਡ — ਮੱਧ ਏਸ਼ੀਆ; ਡਾਊਨਜ਼ — ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ"
+        ],
+        "explanation": "ਵੈਲਡ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਦੇ ਘਾਹ-ਮੈਦਾਨਾਂ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਜਦਕਿ ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਕੁਝ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਖੇਤਰਾਂ ਨੂੰ ਡਾਊਨਜ਼ ਕਹਿੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q008",
+    "cpId": "WGE-001-CP014",
+    "objective": "taiga-biome",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which forest biome dominates large parts of northern Canada and Siberia?",
+        "options": [
+          "Tropical rainforest",
+          "Mediterranean woodland",
+          "Boreal coniferous forest or taiga",
+          "Tropical thorn forest"
+        ],
+        "explanation": "The taiga, or boreal forest, is a broad high-latitude belt dominated by coniferous trees."
+      },
+      "hi": {
+        "stem": "उत्तरी कनाडा और साइबेरिया के बड़े भागों में कौन-सा वन जीवोम प्रमुख है?",
+        "options": [
+          "उष्णकटिबंधीय वर्षावन",
+          "भूमध्यसागरीय वुडलैंड",
+          "बोरियल शंकुधारी वन या टाइगा",
+          "उष्णकटिबंधीय कांटेदार वन"
+        ],
+        "explanation": "टाइगा या बोरियल वन उच्च अक्षांशों की विस्तृत पेटी है, जहाँ शंकुधारी पेड़ प्रमुख हैं।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰੀ ਕੈਨੇਡਾ ਅਤੇ ਸਾਈਬੇਰੀਆ ਦੇ ਵੱਡੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਕਿਹੜਾ ਜੰਗਲੀ ਜੀਵ-ਖੇਤਰ ਪ੍ਰਮੁੱਖ ਹੈ?",
+        "options": [
+          "ਗਰਮ-ਖੰਡੀ ਵਰਖਾ-ਜੰਗਲ",
+          "ਭੂ-ਮੱਧ ਸਾਗਰੀ ਜੰਗਲੀ ਖੇਤਰ",
+          "ਬੋਰੀਅਲ ਸੂਈਦਾਰ ਜੰਗਲ ਜਾਂ ਟਾਈਗਾ",
+          "ਗਰਮ-ਖੰਡੀ ਕੰਡਿਆਲਾ ਜੰਗਲ"
+        ],
+        "explanation": "ਟਾਈਗਾ ਜਾਂ ਬੋਰੀਅਲ ਜੰਗਲ ਉੱਚੇ ਅਕਸ਼ਾਂਸ਼ਾਂ ਦੀ ਵਿਸ਼ਾਲ ਪੱਟੀ ਹੈ, ਜਿੱਥੇ ਸੂਈਦਾਰ ਦਰੱਖਤ ਪ੍ਰਮੁੱਖ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q009",
+    "cpId": "WGE-001-CP014",
+    "objective": "tundra-biome-permafrost",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which soil condition is closely associated with Arctic tundra?",
+        "options": [
+          "Deep, permanently warm soil",
+          "Permafrost beneath a seasonally thawed surface layer",
+          "Thick laterite formed by intense leaching",
+          "Deep black soil under tall prairie grasses"
+        ],
+        "explanation": "Arctic tundra commonly overlies permafrost; only a shallow surface layer may thaw during the short summer."
+      },
+      "hi": {
+        "stem": "आर्कटिक टुंड्रा से कौन-सी मृदा दशा निकटता से जुड़ी है?",
+        "options": [
+          "गहरी और स्थायी रूप से गर्म मृदा",
+          "मौसमी रूप से पिघलने वाली सतही परत के नीचे स्थायी जमी मृदा",
+          "तीव्र निक्षालन से बनी मोटी लैटराइट",
+          "ऊँची प्रेयरी घास के नीचे गहरी काली मृदा"
+        ],
+        "explanation": "आर्कटिक टुंड्रा के नीचे सामान्यतः स्थायी जमी मृदा होती है; छोटी गर्मी में केवल ऊपरी पतली परत पिघल सकती है।"
+      },
+      "pa": {
+        "stem": "ਆਰਕਟਿਕ ਟੁੰਡਰਾ ਨਾਲ ਕਿਹੜੀ ਮਿੱਟੀ ਦੀ ਹਾਲਤ ਨੇੜਲੇ ਤੌਰ ਤੇ ਜੁੜੀ ਹੈ?",
+        "options": [
+          "ਡੂੰਘੀ ਅਤੇ ਸਦਾ ਗਰਮ ਮਿੱਟੀ",
+          "ਮੌਸਮੀ ਤੌਰ ਤੇ ਪਿਘਲਣ ਵਾਲੀ ਉੱਪਰੀ ਪਰਤ ਹੇਠ ਸਦਾ ਜੰਮੀ ਮਿੱਟੀ",
+          "ਤੀਬਰ ਧੁਲਾਈ ਨਾਲ ਬਣੀ ਮੋਟੀ ਲੈਟਰਾਈਟ",
+          "ਉੱਚੀ ਪ੍ਰੇਰੀ ਘਾਹ ਹੇਠ ਡੂੰਘੀ ਕਾਲੀ ਮਿੱਟੀ"
+        ],
+        "explanation": "ਆਰਕਟਿਕ ਟੁੰਡਰਾ ਹੇਠ ਆਮ ਤੌਰ ਤੇ ਸਦਾ ਜੰਮੀ ਮਿੱਟੀ ਹੁੰਦੀ ਹੈ; ਛੋਟੀ ਗਰਮੀ ਵਿੱਚ ਸਿਰਫ਼ ਉੱਪਰਲੀ ਪਤਲੀ ਪਰਤ ਪਿਘਲ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q010",
+    "cpId": "WGE-001-CP014",
+    "objective": "soil-forming-factors",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which set contains the classic major soil-forming factors?",
+        "options": [
+          "Climate, organisms, relief, parent material and time",
+          "Climate, organisms, relief, parent material and human activity",
+          "Climate, drainage, slope, vegetation and soil depth",
+          "Rainfall, soil texture, slope, vegetation and parent material"
+        ],
+        "explanation": "Soil develops through interactions among climate, organisms, relief, parent material and time."
+      },
+      "hi": {
+        "stem": "मृदा निर्माण के प्रमुख पारंपरिक कारकों का सही समूह कौन-सा है?",
+        "options": [
+          "जलवायु, जीव, स्थलाकृति, मूल पदार्थ और समय",
+          "जलवायु, जीव, स्थलाकृति, मूल पदार्थ और मानव गतिविधि",
+          "जलवायु, जलनिकास, ढाल, वनस्पति और मृदा की गहराई",
+          "वर्षा, मृदा की बनावट, ढाल, वनस्पति और मूल पदार्थ"
+        ],
+        "explanation": "मृदा का विकास जलवायु, जीवों, स्थलाकृति, मूल पदार्थ और समय की अंतःक्रिया से होता है।"
+      },
+      "pa": {
+        "stem": "ਮਿੱਟੀ ਬਣਨ ਦੇ ਮੁੱਖ ਰਵਾਇਤੀ ਕਾਰਕਾਂ ਦਾ ਸਹੀ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਜਲਵਾਯੂ, ਜੀਵ, ਭੂ-ਆਕਾਰ, ਮੂਲ ਪਦਾਰਥ ਅਤੇ ਸਮਾਂ",
+          "ਜਲਵਾਯੂ, ਜੀਵ, ਭੂ-ਆਕਾਰ, ਮੂਲ ਪਦਾਰਥ ਅਤੇ ਮਨੁੱਖੀ ਗਤੀਵਿਧੀ",
+          "ਜਲਵਾਯੂ, ਜਲ-ਨਿਕਾਸ, ਢਲਾਣ, ਬਨਸਪਤੀ ਅਤੇ ਮਿੱਟੀ ਦੀ ਡੂੰਘਾਈ",
+          "ਮੀਂਹ, ਮਿੱਟੀ ਦੀ ਬਣਤਰ, ਢਲਾਣ, ਬਨਸਪਤੀ ਅਤੇ ਮੂਲ ਪਦਾਰਥ"
+        ],
+        "explanation": "ਮਿੱਟੀ ਦਾ ਵਿਕਾਸ ਜਲਵਾਯੂ, ਜੀਵਾਂ, ਭੂ-ਆਕਾਰ, ਮੂਲ ਪਦਾਰਥ ਅਤੇ ਸਮੇਂ ਦੀ ਆਪਸੀ ਕਿਰਿਆ ਨਾਲ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q011",
+    "cpId": "WGE-001-CP014",
+    "objective": "soil-parent-material",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "How does parent material influence a developing soil?",
+        "options": [
+          "It supplies the mineral material from which the soil initially forms",
+          "It affects how quickly organic litter decomposes",
+          "It influences drainage and the depth of soil development",
+          "It controls the length of the growing season"
+        ],
+        "explanation": "Parent material provides the initial mineral matter; weathering and other soil-forming processes later modify it."
+      },
+      "hi": {
+        "stem": "मूल पदार्थ विकसित होती मृदा को किस प्रकार प्रभावित करता है?",
+        "options": [
+          "यह वह खनिज पदार्थ देता है जिससे मृदा शुरू में बनती है",
+          "यह जैविक पत्तियों के अपघटन की गति को प्रभावित करता है",
+          "यह जलनिकास और मृदा-विकास की गहराई को प्रभावित करता है",
+          "यह बढ़वार ऋतु की अवधि नियंत्रित करता है"
+        ],
+        "explanation": "मूल पदार्थ आरंभिक खनिज सामग्री देता है; अपक्षय और अन्य मृदा-निर्माण प्रक्रियाएँ बाद में इसे बदलती हैं।"
+      },
+      "pa": {
+        "stem": "ਮੂਲ ਪਦਾਰਥ ਵਿਕਸਤ ਹੋ ਰਹੀ ਮਿੱਟੀ ਨੂੰ ਕਿਵੇਂ ਪ੍ਰਭਾਵਿਤ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਇਹ ਸ਼ੁਰੂਆਤੀ ਖਣਿਜ ਪਦਾਰਥ ਦਿੰਦਾ ਹੈ ਜਿਸ ਤੋਂ ਮਿੱਟੀ ਬਣਦੀ ਹੈ",
+          "ਇਹ ਜੈਵਿਕ ਪੱਤਿਆਂ ਦੇ ਵਿਘਟਨ ਦੀ ਗਤੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਦਾ ਹੈ",
+          "ਇਹ ਜਲ-ਨਿਕਾਸ ਅਤੇ ਮਿੱਟੀ ਦੇ ਵਿਕਾਸ ਦੀ ਡੂੰਘਾਈ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਦਾ ਹੈ",
+          "ਇਹ ਵਧਣ-ਰੁੱਤ ਦੀ ਮਿਆਦ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ"
+        ],
+        "explanation": "ਮੂਲ ਪਦਾਰਥ ਸ਼ੁਰੂਆਤੀ ਖਣਿਜ ਸਮੱਗਰੀ ਦਿੰਦਾ ਹੈ; ਅਪਖੰਡਨ ਅਤੇ ਹੋਰ ਮਿੱਟੀ-ਬਣਾਉਣ ਪ੍ਰਕਿਰਿਆਵਾਂ ਬਾਅਦ ਵਿੱਚ ਇਸ ਨੂੰ ਬਦਲਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q012",
+    "cpId": "WGE-001-CP014",
+    "objective": "soil-climate-leaching",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Why are strongly weathered, leached soils common under hot, humid tropical conditions?",
+        "options": [
+          "Low temperatures prevent decomposition",
+          "Heavy rainfall can wash soluble materials downward while warmth speeds weathering",
+          "Permafrost blocks water movement",
+          "Dry winds deposit fresh loess every season"
+        ],
+        "explanation": "Warmth speeds chemical weathering and abundant rain can leach soluble nutrients and compounds from the upper soil."
+      },
+      "hi": {
+        "stem": "गर्म और आर्द्र उष्णकटिबंधीय दशाओं में अत्यधिक अपक्षयित तथा निक्षालित मृदाएँ सामान्य क्यों हैं?",
+        "options": [
+          "कम तापमान अपघटन रोकता है",
+          "भारी वर्षा घुलनशील पदार्थों को नीचे धो सकती है और गर्मी अपक्षय तेज करती है",
+          "स्थायी जमी मृदा पानी की गति रोकती है",
+          "शुष्क पवन हर ऋतु में नया लोएस जमा करती है"
+        ],
+        "explanation": "गर्मी रासायनिक अपक्षय तेज करती है और अधिक वर्षा ऊपरी मृदा से घुलनशील पोषक तत्वों व यौगिकों को नीचे ले जा सकती है।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ ਤੇ ਨਮੀ ਵਾਲੀਆਂ ਗਰਮ-ਖੰਡੀ ਹਾਲਤਾਂ ਵਿੱਚ ਬਹੁਤ ਅਪਖੰਡਿਤ ਅਤੇ ਧੁਲੀਆਂ ਮਿੱਟੀਆਂ ਆਮ ਕਿਉਂ ਹਨ?",
+        "options": [
+          "ਘੱਟ ਤਾਪਮਾਨ ਵਿਘਟਨ ਰੋਕਦਾ ਹੈ",
+          "ਭਾਰੀ ਮੀਂਹ ਘੁਲਣਸ਼ੀਲ ਪਦਾਰਥ ਹੇਠਾਂ ਲੈ ਜਾਂਦਾ ਹੈ ਅਤੇ ਗਰਮੀ ਅਪਖੰਡਨ ਤੇਜ਼ ਕਰਦੀ ਹੈ",
+          "ਸਦਾ ਜੰਮੀ ਮਿੱਟੀ ਪਾਣੀ ਦੀ ਗਤੀ ਰੋਕਦੀ ਹੈ",
+          "ਸੁੱਕੀਆਂ ਹਵਾਵਾਂ ਹਰ ਰੁੱਤ ਨਵਾਂ ਲੋਏਸ ਜਮ੍ਹਾਂ ਕਰਦੀਆਂ ਹਨ"
+        ],
+        "explanation": "ਗਰਮੀ ਰਸਾਇਣਕ ਅਪਖੰਡਨ ਤੇਜ਼ ਕਰਦੀ ਹੈ ਅਤੇ ਵੱਧ ਮੀਂਹ ਉੱਪਰੀ ਮਿੱਟੀ ਤੋਂ ਘੁਲਣਸ਼ੀਲ ਪੋਸ਼ਕ ਤੱਤ ਤੇ ਯੋਗਿਕ ਹੇਠਾਂ ਲੈ ਜਾ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q013",
+    "cpId": "WGE-001-CP014",
+    "objective": "podzol-taiga-soil",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A cool, humid coniferous forest belt is commonly associated with which broad soil group in traditional geography?",
+        "options": [
+          "Chernozem soils",
+          "Desert soils",
+          "Podzolic soils",
+          "Lateritic soils"
+        ],
+        "explanation": "Podzolic soils are traditionally associated with cool, humid coniferous forest environments and strong leaching."
+      },
+      "hi": {
+        "stem": "ठंडी, आर्द्र शंकुधारी वन-पेटी को पारंपरिक भूगोल में किस व्यापक मृदा समूह से जोड़ा जाता है?",
+        "options": [
+          "चेरनोज़ेम मृदाएँ",
+          "मरुस्थलीय मृदाएँ",
+          "पॉडज़ोलिक मृदाएँ",
+          "लैटराइट मृदाएँ"
+        ],
+        "explanation": "पॉडज़ोलिक मृदाएँ पारंपरिक रूप से ठंडे, आर्द्र शंकुधारी वन क्षेत्रों और तीव्र निक्षालन से जुड़ी हैं।"
+      },
+      "pa": {
+        "stem": "ਠੰਡੀ, ਨਮੀ ਵਾਲੀ ਸੂਈਦਾਰ ਜੰਗਲ ਪੱਟੀ ਨੂੰ ਰਵਾਇਤੀ ਭੂਗੋਲ ਵਿੱਚ ਕਿਹੜੇ ਵੱਡੇ ਮਿੱਟੀ ਸਮੂਹ ਨਾਲ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਚੇਰਨੋਜ਼ੇਮ ਮਿੱਟੀਆਂ",
+          "ਮਾਰੂਥਲੀ ਮਿੱਟੀਆਂ",
+          "ਪੋਡਜ਼ੋਲਿਕ ਮਿੱਟੀਆਂ",
+          "ਲੈਟਰਾਈਟ ਮਿੱਟੀਆਂ"
+        ],
+        "explanation": "ਪੋਡਜ਼ੋਲਿਕ ਮਿੱਟੀਆਂ ਰਵਾਇਤੀ ਤੌਰ ਤੇ ਠੰਡੇ, ਨਮੀ ਵਾਲੇ ਸੂਈਦਾਰ ਜੰਗਲ ਖੇਤਰਾਂ ਅਤੇ ਤੀਬਰ ਧੁਲਾਈ ਨਾਲ ਜੁੜੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q014",
+    "cpId": "WGE-001-CP014",
+    "objective": "chernozem-grassland-soil",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which broad soil type is traditionally associated with temperate steppe grasslands?",
+        "options": [
+          "Podzol",
+          "Chernozem or black steppe soil",
+          "Laterite",
+          "Tundra soil"
+        ],
+        "explanation": "Chernozem soils are associated with many temperate grasslands and often contain a dark, humus-rich surface horizon."
+      },
+      "hi": {
+        "stem": "समशीतोष्ण स्टेपी घासभूमियों से पारंपरिक रूप से किस व्यापक मृदा प्रकार को जोड़ा जाता है?",
+        "options": [
+          "पॉडज़ोल",
+          "चेरनोज़ेम या काली स्टेपी मृदा",
+          "लैटराइट",
+          "टुंड्रा मृदा"
+        ],
+        "explanation": "चेरनोज़ेम मृदाएँ कई समशीतोष्ण घासभूमियों से जुड़ी हैं और इनमें प्रायः गहरी ह्यूमस-समृद्ध ऊपरी परत होती है।"
+      },
+      "pa": {
+        "stem": "ਸਮਸ਼ੀਤੋਸ਼ਣ ਸਟੈੱਪੀ ਘਾਹ-ਮੈਦਾਨਾਂ ਨਾਲ ਰਵਾਇਤੀ ਤੌਰ ਤੇ ਕਿਹੜੀ ਵੱਡੀ ਮਿੱਟੀ ਕਿਸਮ ਜੋੜੀ ਜਾਂਦੀ ਹੈ?",
+        "options": [
+          "ਪੋਡਜ਼ੋਲ",
+          "ਚੇਰਨੋਜ਼ੇਮ ਜਾਂ ਕਾਲੀ ਸਟੈੱਪੀ ਮਿੱਟੀ",
+          "ਲੈਟਰਾਈਟ",
+          "ਟੁੰਡਰਾ ਮਿੱਟੀ"
+        ],
+        "explanation": "ਚੇਰਨੋਜ਼ੇਮ ਮਿੱਟੀਆਂ ਕਈ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨਾਂ ਨਾਲ ਜੁੜੀਆਂ ਹਨ ਅਤੇ ਇਨ੍ਹਾਂ ਵਿੱਚ ਅਕਸਰ ਗੂੜ੍ਹੀ ਹਿਊਮਸ-ਭਰਪੂਰ ਉੱਪਰੀ ਪਰਤ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q015",
+    "cpId": "WGE-001-CP014",
+    "objective": "desert-soil-organic-matter",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why are many arid-region soils low in organic matter?",
+        "options": [
+          "Sparse plant growth supplies little organic material",
+          "Warm rainfall rapidly adds humus every month",
+          "The soils are permanently flooded",
+          "Dense forests remove all minerals"
+        ],
+        "explanation": "Limited plant production in dry climates means less litter and organic matter enters the soil."
+      },
+      "hi": {
+        "stem": "शुष्क क्षेत्रों की अनेक मृदाओं में जैविक पदार्थ कम क्यों होता है?",
+        "options": [
+          "कम वनस्पति से मृदा में जैविक पदार्थ कम पहुँचता है",
+          "गर्म वर्षा हर महीने तेजी से ह्यूमस जोड़ती है",
+          "मृदाएँ हमेशा जलमग्न रहती हैं",
+          "घने वन सारे खनिज निकाल लेते हैं"
+        ],
+        "explanation": "शुष्क जलवायु में पौधों की कम वृद्धि के कारण मृदा में पत्तियाँ और जैविक पदार्थ कम जमा होते हैं।"
+      },
+      "pa": {
+        "stem": "ਸੁੱਕੇ ਖੇਤਰਾਂ ਦੀਆਂ ਕਈ ਮਿੱਟੀਆਂ ਵਿੱਚ ਜੈਵਿਕ ਪਦਾਰਥ ਘੱਟ ਕਿਉਂ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਘੱਟ ਬਨਸਪਤੀ ਕਰਕੇ ਮਿੱਟੀ ਵਿੱਚ ਜੈਵਿਕ ਪਦਾਰਥ ਘੱਟ ਪਹੁੰਚਦਾ ਹੈ",
+          "ਗਰਮ ਮੀਂਹ ਹਰ ਮਹੀਨੇ ਤੇਜ਼ੀ ਨਾਲ ਹਿਊਮਸ ਜੋੜਦਾ ਹੈ",
+          "ਮਿੱਟੀਆਂ ਸਦਾ ਪਾਣੀ ਹੇਠ ਰਹਿੰਦੀਆਂ ਹਨ",
+          "ਘਣੇ ਜੰਗਲ ਸਾਰੇ ਖਣਿਜ ਕੱਢ ਲੈਂਦੇ ਹਨ"
+        ],
+        "explanation": "ਸੁੱਕੀ ਜਲਵਾਯੂ ਵਿੱਚ ਪੌਦਿਆਂ ਦੀ ਘੱਟ ਵਾਧ ਕਰਕੇ ਮਿੱਟੀ ਵਿੱਚ ਪੱਤੇ ਅਤੇ ਜੈਵਿਕ ਪਦਾਰਥ ਘੱਟ ਇਕੱਠੇ ਹੁੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q016",
+    "cpId": "WGE-001-CP014",
+    "objective": "alluvial-soil-deposition",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Alluvial soils form mainly through:",
+        "options": [
+          "Chemical weathering beneath conifer forest",
+          "Deposition of river-borne sediment on floodplains and deltas",
+          "Volcanic ash falling on mountain peaks",
+          "Wind removal of all fine material"
+        ],
+        "explanation": "Rivers deposit sediment during floods and at their mouths, building alluvial soils across floodplains and deltas."
+      },
+      "hi": {
+        "stem": "जलोढ़ मृदाएँ मुख्यतः किस प्रक्रिया से बनती हैं?",
+        "options": [
+          "शंकुधारी वनों के नीचे रासायनिक अपक्षय से",
+          "बाढ़ के मैदानों और डेल्टा में नदी द्वारा लाई गई तलछट के जमाव से",
+          "पर्वत चोटियों पर ज्वालामुखीय राख गिरने से",
+          "पवन द्वारा सारी महीन सामग्री उड़ा ले जाने से"
+        ],
+        "explanation": "नदियाँ बाढ़ के समय और मुहानों पर तलछट जमा करती हैं, जिससे बाढ़ मैदानों और डेल्टा में जलोढ़ मृदाएँ बनती हैं।"
+      },
+      "pa": {
+        "stem": "ਜਲੋਢ ਮਿੱਟੀਆਂ ਮੁੱਖ ਤੌਰ ਤੇ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਬਣਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਸੂਈਦਾਰ ਜੰਗਲ ਹੇਠ ਰਸਾਇਣਕ ਅਪਖੰਡਨ ਨਾਲ",
+          "ਹੜ੍ਹ-ਮੈਦਾਨਾਂ ਅਤੇ ਡੈਲਟਿਆਂ ਵਿੱਚ ਦਰਿਆਈ ਗਾਰ ਦੇ ਜਮ੍ਹਾਂ ਹੋਣ ਨਾਲ",
+          "ਪਹਾੜੀ ਚੋਟੀਆਂ ਉੱਤੇ ਜਵਾਲਾਮੁਖੀ ਰਾਖ ਪੈਣ ਨਾਲ",
+          "ਹਵਾ ਵੱਲੋਂ ਸਾਰੀ ਬਰੀਕ ਸਮੱਗਰੀ ਉਡਾ ਦੇਣ ਨਾਲ"
+        ],
+        "explanation": "ਦਰਿਆ ਹੜ੍ਹਾਂ ਵੇਲੇ ਅਤੇ ਮੁਹਾਣਿਆਂ ਉੱਤੇ ਗਾਰ ਜਮ੍ਹਾਂ ਕਰਦੇ ਹਨ, ਜਿਸ ਨਾਲ ਹੜ੍ਹ-ਮੈਦਾਨਾਂ ਅਤੇ ਡੈਲਟਿਆਂ ਵਿੱਚ ਜਲੋਢ ਮਿੱਟੀ ਬਣਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q017",
+    "cpId": "WGE-001-CP014",
+    "objective": "soil-relief-drainage",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why are soils on steep upper slopes often shallower than soils on nearby gentle land?",
+        "options": [
+          "Rapid runoff and erosion remove soil material",
+          "Steep slopes trap more fine sediment than valley floors",
+          "Slope position prevents water from moving downslope",
+          "Steep slopes receive no weathering at all"
+        ],
+        "explanation": "Steep slopes commonly lose soil through runoff and erosion, while gentler ground can retain more material."
+      },
+      "hi": {
+        "stem": "पास की मंद ढाल वाली भूमि की तुलना में तीव्र ऊपरी ढालों की मृदा अक्सर उथली क्यों होती है?",
+        "options": [
+          "तेज बहाव और अपरदन मृदा सामग्री हटा देते हैं",
+          "तीव्र ढालें घाटी तल से अधिक महीन तलछट रोकती हैं",
+          "ढाल की स्थिति पानी को नीचे जाने से रोकती है",
+          "तीव्र ढालों पर अपक्षय बिल्कुल नहीं होता"
+        ],
+        "explanation": "तेज ढालों पर बहाव और अपरदन मृदा को हटा सकते हैं, जबकि मंद भूमि अधिक सामग्री रोक सकती है।"
+      },
+      "pa": {
+        "stem": "ਨੇੜਲੀ ਹੌਲੀ ਢਲਾਣ ਵਾਲੀ ਧਰਤੀ ਨਾਲੋਂ ਤੇਜ਼ ਉੱਪਰੀ ਢਲਾਣਾਂ ਦੀ ਮਿੱਟੀ ਅਕਸਰ ਘੱਟ ਡੂੰਘੀ ਕਿਉਂ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਤੇਜ਼ ਵਹਾਅ ਅਤੇ ਕਟਾਅ ਮਿੱਟੀ ਦੀ ਸਮੱਗਰੀ ਹਟਾ ਦਿੰਦੇ ਹਨ",
+          "ਤੇਜ਼ ਢਲਾਣਾਂ ਘਾਟੀ ਦੇ ਤਲ ਨਾਲੋਂ ਵੱਧ ਬਰੀਕ ਗਾਰ ਰੋਕਦੀਆਂ ਹਨ",
+          "ਢਲਾਣ ਦੀ ਸਥਿਤੀ ਪਾਣੀ ਨੂੰ ਹੇਠਾਂ ਜਾਣ ਤੋਂ ਰੋਕਦੀ ਹੈ",
+          "ਤੇਜ਼ ਢਲਾਣਾਂ ਉੱਤੇ ਅਪਖੰਡਨ ਬਿਲਕੁਲ ਨਹੀਂ ਹੁੰਦਾ"
+        ],
+        "explanation": "ਤੇਜ਼ ਢਲਾਣਾਂ ਉੱਤੇ ਵਹਾਅ ਅਤੇ ਕਟਾਅ ਮਿੱਟੀ ਹਟਾ ਸਕਦੇ ਹਨ, ਜਦਕਿ ਹੌਲੀ ਧਰਤੀ ਵੱਧ ਸਮੱਗਰੀ ਰੋਕ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q018",
+    "cpId": "WGE-001-CP014",
+    "objective": "biome-transition-rainfall",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Moving away from an equatorial rainforest into a region with a long dry season, which vegetation change is most likely?",
+        "options": [
+          "A shift toward seasonal forest or savanna",
+          "A shift toward more continuous forest cover",
+          "A shift to dense taiga",
+          "No change in vegetation structure"
+        ],
+        "explanation": "A longer dry season favours more seasonal vegetation and, where dryness is pronounced, open savanna rather than closed rainforest."
+      },
+      "hi": {
+        "stem": "विषुवतीय वर्षावन से लंबी शुष्क ऋतु वाले क्षेत्र की ओर जाने पर कौन-सा वनस्पति बदलाव अधिक संभावित है?",
+        "options": [
+          "मौसमी वन या सवाना की ओर बदलाव",
+          "अधिक सतत वनावरण की ओर बदलाव",
+          "घने टाइगा की ओर बदलाव",
+          "वनस्पति संरचना में कोई बदलाव नहीं"
+        ],
+        "explanation": "लंबी शुष्क ऋतु मौसमी वनस्पति को बढ़ावा देती है; अधिक शुष्क दशाओं में घने वर्षावन की जगह खुला सवाना मिलता है।"
+      },
+      "pa": {
+        "stem": "ਭੂ-ਮੱਧੀ ਵਰਖਾ-ਜੰਗਲ ਤੋਂ ਲੰਬੀ ਸੁੱਕੀ ਰੁੱਤ ਵਾਲੇ ਖੇਤਰ ਵੱਲ ਜਾਣ ਤੇ ਕਿਹੜਾ ਬਨਸਪਤੀ ਬਦਲਾਅ ਵੱਧ ਸੰਭਾਵੀ ਹੈ?",
+        "options": [
+          "ਮੌਸਮੀ ਜੰਗਲ ਜਾਂ ਸਵਾਨਾ ਵੱਲ ਬਦਲਾਅ",
+          "ਹੋਰ ਲਗਾਤਾਰ ਜੰਗਲੀ ਢੱਕਣ ਵੱਲ ਬਦਲਾਅ",
+          "ਘਣੇ ਟਾਈਗਾ ਵੱਲ ਬਦਲਾਅ",
+          "ਬਨਸਪਤੀ ਦੇ ਰੂਪ ਵਿੱਚ ਕੋਈ ਬਦਲਾਅ ਨਹੀਂ"
+        ],
+        "explanation": "ਲੰਬੀ ਸੁੱਕੀ ਰੁੱਤ ਮੌਸਮੀ ਬਨਸਪਤੀ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰਦੀ ਹੈ; ਵੱਧ ਖੁਸ਼ਕੀ ਵਿੱਚ ਘਣੇ ਵਰਖਾ-ਜੰਗਲ ਦੀ ਥਾਂ ਖੁੱਲ੍ਹਾ ਸਵਾਨਾ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q019",
+    "cpId": "WGE-001-CP014",
+    "objective": "biome-vs-vegetation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why is a biome broader than a single vegetation type?",
+        "options": [
+          "It includes characteristic animal communities and their environmental setting as well as plants",
+          "It describes only the dominant plant cover",
+          "It groups ecosystems by rainfall but excludes temperature",
+          "It is defined only by climatic conditions, regardless of living communities"
+        ],
+        "explanation": "Biomes describe large ecological communities shaped by climate, plants, animals and their interactions, not just one plant formation."
+      },
+      "hi": {
+        "stem": "जीवोम केवल एक वनस्पति प्रकार से व्यापक क्यों है?",
+        "options": [
+          "इसमें पौधों के साथ विशिष्ट जीव समुदाय और उनका पर्यावरण भी शामिल होता है",
+          "यह केवल प्रमुख वनस्पति आवरण बताता है",
+          "यह तापमान को छोड़कर केवल वर्षा के आधार पर पारितंत्रों को बाँटता है",
+          "यह जीव समुदायों से अलग केवल जलवायु दशाओं से तय होता है"
+        ],
+        "explanation": "जीवोम जलवायु, पौधों, जीवों और उनकी अंतःक्रियाओं से बने बड़े पारिस्थितिक समुदाय हैं, केवल एक वनस्पति रूप नहीं।"
+      },
+      "pa": {
+        "stem": "ਜੀਵ-ਖੇਤਰ ਸਿਰਫ਼ ਇੱਕ ਬਨਸਪਤੀ ਕਿਸਮ ਨਾਲੋਂ ਵੱਡਾ ਸੰਕਲਪ ਕਿਉਂ ਹੈ?",
+        "options": [
+          "ਇਸ ਵਿੱਚ ਪੌਦਿਆਂ ਨਾਲ ਖ਼ਾਸ ਜੀਵ-ਸਮੂਹ ਅਤੇ ਉਨ੍ਹਾਂ ਦਾ ਵਾਤਾਵਰਣ ਵੀ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ",
+          "ਇਹ ਸਿਰਫ਼ ਮੁੱਖ ਬਨਸਪਤੀ ਢੱਕਣ ਦੱਸਦਾ ਹੈ",
+          "ਇਹ ਤਾਪਮਾਨ ਛੱਡ ਕੇ ਸਿਰਫ਼ ਮੀਂਹ ਦੇ ਆਧਾਰ ਤੇ ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਵੰਡਦਾ ਹੈ",
+          "ਇਹ ਜੀਵ-ਸਮੂਹਾਂ ਤੋਂ ਵੱਖ ਸਿਰਫ਼ ਜਲਵਾਯੂ ਹਾਲਤਾਂ ਨਾਲ ਤੈਅ ਹੁੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਜੀਵ-ਖੇਤਰ ਜਲਵਾਯੂ, ਪੌਦਿਆਂ, ਜੀਵਾਂ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਆਪਸੀ ਕਿਰਿਆਵਾਂ ਨਾਲ ਬਣੇ ਵੱਡੇ ਪਰਿਸਥਿਤਕੀ ਸਮੂਹ ਹਨ, ਸਿਰਫ਼ ਇੱਕ ਬਨਸਪਤੀ ਰੂਪ ਨਹੀਂ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q020",
+    "cpId": "WGE-001-CP014",
+    "objective": "prairie-soil-grassroots",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why do many temperate grassland soils develop a dark, humus-rich surface layer?",
+        "options": [
+          "Dense grass roots die and add organic matter through the soil",
+          "Repeated river flooding adds fine mineral sediment",
+          "Strong leaching removes most organic material",
+          "Sparse vegetation leaves little material to decompose"
+        ],
+        "explanation": "Extensive grass root systems contribute abundant organic matter that can build a dark surface horizon."
+      },
+      "hi": {
+        "stem": "समशीतोष्ण घासभूमियों की अनेक मृदाओं में गहरी ह्यूमस-समृद्ध ऊपरी परत क्यों बनती है?",
+        "options": [
+          "घास की घनी जड़ें मरकर मृदा में जैविक पदार्थ जोड़ती हैं",
+          "बार-बार नदी की बाढ़ महीन खनिज तलछट जोड़ती है",
+          "तीव्र निक्षालन अधिकांश जैविक पदार्थ हटा देता है",
+          "विरल वनस्पति से अपघटन के लिए कम पदार्थ मिलता है"
+        ],
+        "explanation": "घास की विस्तृत जड़ें बहुत-सा जैविक पदार्थ देती हैं, जिससे गहरी ऊपरी मृदा परत बन सकती है।"
+      },
+      "pa": {
+        "stem": "ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨਾਂ ਦੀਆਂ ਕਈ ਮਿੱਟੀਆਂ ਵਿੱਚ ਗੂੜ੍ਹੀ ਹਿਊਮਸ-ਭਰਪੂਰ ਉੱਪਰੀ ਪਰਤ ਕਿਉਂ ਬਣਦੀ ਹੈ?",
+        "options": [
+          "ਘਾਹ ਦੀਆਂ ਘਣੀਆਂ ਜੜ੍ਹਾਂ ਮਰ ਕੇ ਮਿੱਟੀ ਵਿੱਚ ਜੈਵਿਕ ਪਦਾਰਥ ਜੋੜਦੀਆਂ ਹਨ",
+          "ਵਾਰ-ਵਾਰ ਦਰਿਆਈ ਹੜ੍ਹ ਬਰੀਕ ਖਣਿਜ ਗਾਰ ਜੋੜਦਾ ਹੈ",
+          "ਤੀਬਰ ਧੁਲਾਈ ਜ਼ਿਆਦਾਤਰ ਜੈਵਿਕ ਪਦਾਰਥ ਹਟਾ ਦਿੰਦੀ ਹੈ",
+          "ਛਿੱਟੀ ਬਨਸਪਤੀ ਕਰਕੇ ਵਿਘਟਨ ਲਈ ਘੱਟ ਪਦਾਰਥ ਮਿਲਦਾ ਹੈ"
+        ],
+        "explanation": "ਘਾਹ ਦੀਆਂ ਵਿਸ਼ਾਲ ਜੜ੍ਹਾਂ ਬਹੁਤ ਜੈਵਿਕ ਪਦਾਰਥ ਦਿੰਦੀਆਂ ਹਨ, ਜਿਸ ਨਾਲ ਗੂੜ੍ਹੀ ਉੱਪਰੀ ਮਿੱਟੀ ਬਣ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q021",
+    "cpId": "WGE-001-CP014",
+    "objective": "soil-zonal-caution",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why should broad soil–biome associations not be treated as exact one-to-one boundaries?",
+        "options": [
+          "Soils also depend on parent material, relief, drainage and time, and may vary within one climate region",
+          "Each biome has exactly one soil everywhere",
+          "Soil types are determined only by longitude",
+          "Climate has no influence on soil"
+        ],
+        "explanation": "Climate and vegetation are important, but other soil-forming factors and local conditions create variation within broad zones."
+      },
+      "hi": {
+        "stem": "व्यापक मृदा–जीवोम संबंधों को बिल्कुल एक-से-एक सीमा क्यों नहीं मानना चाहिए?",
+        "options": [
+          "मृदा मूल पदार्थ, स्थलाकृति, जलनिकास और समय पर भी निर्भर करती है; एक जलवायु क्षेत्र में भी बदल सकती है",
+          "हर जीवोम में हर जगह ठीक एक ही मृदा होती है",
+          "मृदा प्रकार केवल देशांतर से तय होते हैं",
+          "जलवायु का मृदा पर कोई प्रभाव नहीं होता"
+        ],
+        "explanation": "जलवायु और वनस्पति महत्वपूर्ण हैं, लेकिन अन्य मृदा-निर्माण कारक और स्थानीय दशाएँ व्यापक क्षेत्रों के भीतर भी भिन्नता पैदा करती हैं।"
+      },
+      "pa": {
+        "stem": "ਵੱਡੇ ਮਿੱਟੀ-ਜੀਵ-ਖੇਤਰ ਸੰਬੰਧਾਂ ਨੂੰ ਬਿਲਕੁਲ ਇੱਕ-ਨਾਲ-ਇੱਕ ਹੱਦ ਕਿਉਂ ਨਹੀਂ ਮੰਨਣਾ ਚਾਹੀਦਾ?",
+        "options": [
+          "ਮਿੱਟੀ ਮੂਲ ਪਦਾਰਥ, ਭੂ-ਆਕਾਰ, ਜਲ-ਨਿਕਾਸ ਅਤੇ ਸਮੇਂ ਉੱਤੇ ਵੀ ਨਿਰਭਰ ਕਰਦੀ ਹੈ; ਇੱਕ ਜਲਵਾਯੂ ਖੇਤਰ ਵਿੱਚ ਵੀ ਬਦਲ ਸਕਦੀ ਹੈ",
+          "ਹਰ ਜੀਵ-ਖੇਤਰ ਵਿੱਚ ਹਰ ਥਾਂ ਇੱਕੋ ਮਿੱਟੀ ਹੁੰਦੀ ਹੈ",
+          "ਮਿੱਟੀ ਦੀ ਕਿਸਮ ਸਿਰਫ਼ ਦੇਸ਼ਾਂਤਰ ਨਾਲ ਤੈਅ ਹੁੰਦੀ ਹੈ",
+          "ਜਲਵਾਯੂ ਦਾ ਮਿੱਟੀ ਉੱਤੇ ਕੋਈ ਅਸਰ ਨਹੀਂ ਹੁੰਦਾ"
+        ],
+        "explanation": "ਜਲਵਾਯੂ ਅਤੇ ਬਨਸਪਤੀ ਮਹੱਤਵਪੂਰਨ ਹਨ, ਪਰ ਹੋਰ ਮਿੱਟੀ-ਬਣਾਉਣ ਕਾਰਕ ਅਤੇ ਸਥਾਨਕ ਹਾਲਤਾਂ ਵੱਡੇ ਖੇਤਰਾਂ ਅੰਦਰ ਵੀ ਫ਼ਰਕ ਪੈਦਾ ਕਰਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q022",
+    "cpId": "WGE-001-CP014",
+    "objective": "laterite-leaching",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which process most strongly contributes to lateritic soil development in hot, wet regions?",
+        "options": [
+          "Salt accumulation under intense evaporation",
+          "Leaching under prolonged heavy rainfall and strong chemical weathering",
+          "Permafrost freezing for most of the year",
+          "Wind deposition of fresh dust"
+        ],
+        "explanation": "Strong chemical weathering and prolonged leaching in hot, wet conditions can leave iron- and aluminium-rich lateritic material."
+      },
+      "hi": {
+        "stem": "गर्म और अधिक वर्षा वाले क्षेत्रों में लैटराइट मृदा के विकास में कौन-सी प्रक्रिया प्रमुख है?",
+        "options": [
+          "तीव्र वाष्पीकरण से लवण का जमाव",
+          "लंबे समय की भारी वर्षा से निक्षालन और तीव्र रासायनिक अपक्षय",
+          "अधिकांश वर्ष स्थायी हिम जमना",
+          "पवन द्वारा नई धूल का जमाव"
+        ],
+        "explanation": "गर्म और आर्द्र दशाओं में तीव्र रासायनिक अपक्षय तथा लंबे निक्षालन से लौह और एल्युमिनियम-समृद्ध लैटराइट पदार्थ बच सकता है।"
+      },
+      "pa": {
+        "stem": "ਗਰਮ ਅਤੇ ਵੱਧ ਮੀਂਹ ਵਾਲੇ ਖੇਤਰਾਂ ਵਿੱਚ ਲੈਟਰਾਈਟ ਮਿੱਟੀ ਬਣਨ ਵਿੱਚ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਸਭ ਤੋਂ ਵੱਧ ਯੋਗਦਾਨ ਪਾਂਦੀ ਹੈ?",
+        "options": [
+          "ਤੀਬਰ ਵਾਸ਼ਪੀਕਰਨ ਨਾਲ ਲੂਣ ਜਮ੍ਹਾਂ ਹੋਣਾ",
+          "ਲੰਬੇ ਸਮੇਂ ਦੇ ਭਾਰੀ ਮੀਂਹ ਨਾਲ ਧੁਲਾਈ ਅਤੇ ਤੀਬਰ ਰਸਾਇਣਕ ਅਪਖੰਡਨ",
+          "ਸਾਲ ਦੇ ਬਹੁਤੇ ਸਮੇਂ ਸਦਾ ਬਰਫ਼ ਜੰਮਣਾ",
+          "ਹਵਾ ਨਾਲ ਨਵੀਂ ਧੂੜ ਜਮ੍ਹਾਂ ਹੋਣਾ"
+        ],
+        "explanation": "ਗਰਮ ਤੇ ਨਮੀ ਵਾਲੀਆਂ ਹਾਲਤਾਂ ਵਿੱਚ ਤੀਬਰ ਰਸਾਇਣਕ ਅਪਖੰਡਨ ਅਤੇ ਲੰਬੀ ਧੁਲਾਈ ਨਾਲ ਲੋਹੇ ਤੇ ਐਲੂਮੀਨੀਅਮ ਨਾਲ ਭਰਪੂਰ ਲੈਟਰਾਈਟ ਪਦਾਰਥ ਬਚ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q023",
+    "cpId": "WGE-001-CP014",
+    "objective": "vegetation-temperature-latitude",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why does vegetation often change with altitude on a high mountain?",
+        "options": [
+          "Temperature and growing conditions change with elevation, creating belts similar to changes with latitude",
+          "Soil disappears above every valley",
+          "Longitude changes with height",
+          "Rainfall is identical at all elevations"
+        ],
+        "explanation": "Temperature generally declines with elevation, so vegetation belts may change upslope in a pattern comparable to moving toward higher latitudes."
+      },
+      "hi": {
+        "stem": "ऊँचे पर्वत पर वनस्पति ऊँचाई के साथ क्यों बदलती है?",
+        "options": [
+          "ऊँचाई के साथ तापमान और बढ़वार की दशाएँ बदलती हैं; इससे अक्षांश जैसी वनस्पति पेटियाँ बन सकती हैं",
+          "हर घाटी के ऊपर मृदा समाप्त हो जाती है",
+          "ऊँचाई के साथ देशांतर बदलता है",
+          "हर ऊँचाई पर वर्षा समान होती है"
+        ],
+        "explanation": "ऊँचाई बढ़ने पर तापमान सामान्यतः घटता है। इसलिए ऊपर की ओर वनस्पति पेटियाँ उच्च अक्षांशों की ओर जाने जैसी बदल सकती हैं।"
+      },
+      "pa": {
+        "stem": "ਉੱਚੇ ਪਹਾੜ ਉੱਤੇ ਉਚਾਈ ਨਾਲ ਬਨਸਪਤੀ ਕਿਉਂ ਬਦਲਦੀ ਹੈ?",
+        "options": [
+          "ਉਚਾਈ ਨਾਲ ਤਾਪਮਾਨ ਅਤੇ ਵਾਧ ਦੀਆਂ ਹਾਲਤਾਂ ਬਦਲਦੀਆਂ ਹਨ; ਇਸ ਨਾਲ ਅਕਸ਼ਾਂਸ਼ਾਂ ਵਰਗੀਆਂ ਬਨਸਪਤੀ ਪੱਟੀਆਂ ਬਣ ਸਕਦੀਆਂ ਹਨ",
+          "ਹਰ ਘਾਟੀ ਤੋਂ ਉੱਪਰ ਮਿੱਟੀ ਮੁੱਕ ਜਾਂਦੀ ਹੈ",
+          "ਉਚਾਈ ਨਾਲ ਦੇਸ਼ਾਂਤਰ ਬਦਲਦਾ ਹੈ",
+          "ਹਰ ਉਚਾਈ ਉੱਤੇ ਮੀਂਹ ਇਕੋ ਜਿਹਾ ਹੁੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਉਚਾਈ ਵਧਣ ਨਾਲ ਤਾਪਮਾਨ ਆਮ ਤੌਰ ਤੇ ਘਟਦਾ ਹੈ। ਇਸ ਲਈ ਉੱਪਰ ਵੱਲ ਬਨਸਪਤੀ ਪੱਟੀਆਂ ਉੱਚੇ ਅਕਸ਼ਾਂਸ਼ਾਂ ਵੱਲ ਜਾਣ ਵਾਂਗ ਬਦਲ ਸਕਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q024",
+    "cpId": "WGE-001-CP014",
+    "objective": "savanna-forest-rainfall-threshold",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-014B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A savanna receives a longer dry season than a nearby seasonal forest. What vegetation change is most likely?",
+        "options": [
+          "More continuous closed-canopy forest",
+          "Fewer trees and greater dominance of grasses",
+          "Conversion to permanent ice cover",
+          "No change because rainfall seasonality never affects vegetation"
+        ],
+        "explanation": "A longer dry season generally limits tree density and favours more open grassland, though soils, fire and grazing also matter."
+      },
+      "hi": {
+        "stem": "पास के मौसमी वन की तुलना में सवाना में शुष्क ऋतु अधिक लंबी है। कौन-सा वनस्पति बदलाव अधिक संभावित है?",
+        "options": [
+          "और अधिक बंद छत्र वाला वन",
+          "पेड़ कम और घास का प्रभुत्व अधिक",
+          "स्थायी हिमावरण में बदलाव",
+          "कोई बदलाव नहीं, क्योंकि वर्षा ऋतु का वनस्पति पर असर नहीं होता"
+        ],
+        "explanation": "लंबी शुष्क ऋतु सामान्यतः पेड़ों की सघनता घटाती है और खुली घासभूमि को बढ़ावा देती है; मृदा, आग और चराई भी असर डालती हैं।"
+      },
+      "pa": {
+        "stem": "ਨੇੜਲੇ ਮੌਸਮੀ ਜੰਗਲ ਨਾਲੋਂ ਸਵਾਨਾ ਵਿੱਚ ਸੁੱਕੀ ਰੁੱਤ ਲੰਮੀ ਹੈ। ਕਿਹੜਾ ਬਨਸਪਤੀ ਬਦਲਾਅ ਵੱਧ ਸੰਭਾਵੀ ਹੈ?",
+        "options": [
+          "ਹੋਰ ਘਣਾ ਬੰਦ ਛੱਤ ਵਾਲਾ ਜੰਗਲ",
+          "ਦਰੱਖਤ ਘੱਟ ਅਤੇ ਘਾਹ ਦਾ ਪ੍ਰਭਾਵ ਵੱਧ",
+          "ਸਥਾਈ ਬਰਫ਼-ਢੱਕਣ ਵਿੱਚ ਬਦਲਾਅ",
+          "ਕੋਈ ਬਦਲਾਅ ਨਹੀਂ, ਕਿਉਂਕਿ ਮੀਂਹ ਦੀ ਰੁੱਤ ਬਨਸਪਤੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਨਹੀਂ ਕਰਦੀ"
+        ],
+        "explanation": "ਲੰਬੀ ਸੁੱਕੀ ਰੁੱਤ ਆਮ ਤੌਰ ਤੇ ਦਰੱਖਤਾਂ ਦੀ ਘਣਤਾ ਘਟਾਉਂਦੀ ਹੈ ਅਤੇ ਖੁੱਲ੍ਹੇ ਘਾਹ-ਮੈਦਾਨ ਨੂੰ ਵਧਾਉਂਦੀ ਹੈ; ਮਿੱਟੀ, ਅੱਗ ਅਤੇ ਚਰਾਈ ਵੀ ਅਸਰ ਕਰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q025",
+    "cpId": "WGE-001-CP014",
+    "objective": "tropical-seasonal-forest",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which feature distinguishes many tropical seasonal forests from equatorial rainforests?",
+        "options": [
+          "Trees may shed leaves during a pronounced dry season",
+          "They remain frozen throughout the year",
+          "They have no tree cover in any month",
+          "They receive rain only from frontal cyclones"
+        ],
+        "explanation": "A marked dry season can cause trees in tropical seasonal forests to shed leaves, unlike the year-round moisture of equatorial rainforest."
+      },
+      "hi": {
+        "stem": "कई उष्णकटिबंधीय मौसमी वनों को विषुवतीय वर्षावनों से कौन-सी विशेषता अलग करती है?",
+        "options": [
+          "स्पष्ट शुष्क ऋतु में पेड़ पत्तियाँ गिरा सकते हैं",
+          "वे पूरे वर्ष जमे रहते हैं",
+          "उनमें किसी भी महीने पेड़ नहीं होते",
+          "उन्हें केवल वाताग्रीय चक्रवातों से वर्षा मिलती है"
+        ],
+        "explanation": "स्पष्ट शुष्क ऋतु में उष्णकटिबंधीय मौसमी वन के पेड़ पत्तियाँ गिरा सकते हैं; विषुवतीय वर्षावन में वर्ष भर नमी रहती है।"
+      },
+      "pa": {
+        "stem": "ਕਈ ਗਰਮ-ਖੰਡੀ ਮੌਸਮੀ ਜੰਗਲਾਂ ਨੂੰ ਭੂ-ਮੱਧੀ ਵਰਖਾ-ਜੰਗਲਾਂ ਤੋਂ ਕਿਹੜੀ ਵਿਸ਼ੇਸ਼ਤਾ ਵੱਖ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "ਸਪਸ਼ਟ ਸੁੱਕੀ ਰੁੱਤ ਵਿੱਚ ਦਰੱਖਤ ਪੱਤੇ ਝਾੜ ਸਕਦੇ ਹਨ",
+          "ਉਹ ਸਾਰਾ ਸਾਲ ਜੰਮੇ ਰਹਿੰਦੇ ਹਨ",
+          "ਉਨ੍ਹਾਂ ਵਿੱਚ ਕਿਸੇ ਵੀ ਮਹੀਨੇ ਦਰੱਖਤ ਨਹੀਂ ਹੁੰਦੇ",
+          "ਉਨ੍ਹਾਂ ਨੂੰ ਸਿਰਫ਼ ਵਾਤਾਗ੍ਰੀ ਚੱਕਰਵਾਤਾਂ ਤੋਂ ਮੀਂਹ ਮਿਲਦਾ ਹੈ"
+        ],
+        "explanation": "ਸਪਸ਼ਟ ਸੁੱਕੀ ਰੁੱਤ ਵਿੱਚ ਗਰਮ-ਖੰਡੀ ਮੌਸਮੀ ਜੰਗਲਾਂ ਦੇ ਦਰੱਖਤ ਪੱਤੇ ਝਾੜ ਸਕਦੇ ਹਨ; ਭੂ-ਮੱਧੀ ਵਰਖਾ-ਜੰਗਲ ਵਿੱਚ ਸਾਲ ਭਰ ਨਮੀ ਰਹਿੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q026",
+    "cpId": "WGE-001-CP014",
+    "objective": "temperate-deciduous-forest",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which vegetation pattern is typical of temperate deciduous forests?",
+        "options": [
+          "Broadleaf trees shed leaves seasonally",
+          "Conifers dominate under permanently frozen soil",
+          "Grasses grow without trees because rainfall is absent",
+          "Mosses and lichens replace nearly all trees"
+        ],
+        "explanation": "Temperate deciduous forests are dominated by broadleaf trees that commonly lose their leaves during the colder season."
+      },
+      "hi": {
+        "stem": "समशीतोष्ण पर्णपाती वनों की सामान्य वनस्पति विशेषता क्या है?",
+        "options": [
+          "चौड़ी पत्ती वाले पेड़ ऋतु के अनुसार पत्तियाँ गिराते हैं",
+          "स्थायी जमी मृदा पर शंकुधारी पेड़ प्रमुख होते हैं",
+          "वर्षा न होने से बिना पेड़ों के घास उगती है",
+          "काई और लाइकेन लगभग सभी पेड़ों की जगह ले लेते हैं"
+        ],
+        "explanation": "समशीतोष्ण पर्णपाती वनों में चौड़ी पत्ती वाले पेड़ प्रमुख होते हैं, जो सामान्यतः ठंडे मौसम में पत्तियाँ गिराते हैं।"
+      },
+      "pa": {
+        "stem": "ਸਮਸ਼ੀਤੋਸ਼ਣ ਪਤਝੜੀ ਜੰਗਲਾਂ ਦੀ ਆਮ ਬਨਸਪਤੀ ਵਿਸ਼ੇਸ਼ਤਾ ਕੀ ਹੈ?",
+        "options": [
+          "ਚੌੜੇ ਪੱਤਿਆਂ ਵਾਲੇ ਦਰੱਖਤ ਰੁੱਤ ਅਨੁਸਾਰ ਪੱਤੇ ਝਾੜਦੇ ਹਨ",
+          "ਸਦਾ ਜੰਮੀ ਮਿੱਟੀ ਉੱਤੇ ਸੂਈਦਾਰ ਦਰੱਖਤ ਪ੍ਰਮੁੱਖ ਹੁੰਦੇ ਹਨ",
+          "ਮੀਂਹ ਨਾ ਹੋਣ ਕਰਕੇ ਬਿਨਾਂ ਦਰੱਖਤਾਂ ਦੇ ਘਾਹ ਉੱਗਦੀ ਹੈ",
+          "ਕਾਈ ਅਤੇ ਲਾਇਕਨ ਲਗਭਗ ਸਾਰੇ ਦਰੱਖਤਾਂ ਦੀ ਥਾਂ ਲੈ ਲੈਂਦੇ ਹਨ"
+        ],
+        "explanation": "ਸਮਸ਼ੀਤੋਸ਼ਣ ਪਤਝੜੀ ਜੰਗਲਾਂ ਵਿੱਚ ਚੌੜੇ ਪੱਤਿਆਂ ਵਾਲੇ ਦਰੱਖਤ ਪ੍ਰਮੁੱਖ ਹੁੰਦੇ ਹਨ, ਜੋ ਆਮ ਤੌਰ ਤੇ ਠੰਡੇ ਮੌਸਮ ਵਿੱਚ ਪੱਤੇ ਝਾੜਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP014-Q027",
+    "cpId": "WGE-001-CP014",
+    "objective": "desert-biome-drought-adaptation",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-014A",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which statement about desert biomes is correct?",
+        "options": [
+          "All deserts are hot and have no plant life",
+          "Deserts can be hot or cold, and their plants are adapted to limited water",
+          "Deserts occur only beside oceans",
+          "Desert vegetation depends on permanently wet soil"
+        ],
+        "explanation": "Deserts are defined by low precipitation rather than heat alone; plants are adapted to water scarcity."
+      },
+      "hi": {
+        "stem": "मरुस्थलीय जीवोमों के बारे में कौन-सा कथन सही है?",
+        "options": [
+          "सभी मरुस्थल गर्म होते हैं और उनमें वनस्पति नहीं होती",
+          "मरुस्थल गर्म या ठंडे हो सकते हैं और उनकी वनस्पति कम जल के अनुकूल होती है",
+          "मरुस्थल केवल महासागरों के पास मिलते हैं",
+          "मरुस्थलीय वनस्पति स्थायी रूप से गीली मृदा पर निर्भर होती है"
+        ],
+        "explanation": "मरुस्थल की पहचान कम वर्षण से होती है, केवल गर्मी से नहीं; वहाँ की वनस्पति कम जल के अनुकूल होती है।"
+      },
+      "pa": {
+        "stem": "ਮਾਰੂਥਲੀ ਜੀਵ-ਖੇਤਰਾਂ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਸਾਰੇ ਮਾਰੂਥਲ ਗਰਮ ਹੁੰਦੇ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚ ਬਨਸਪਤੀ ਨਹੀਂ ਹੁੰਦੀ",
+          "ਮਾਰੂਥਲ ਗਰਮ ਜਾਂ ਠੰਡੇ ਹੋ ਸਕਦੇ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਬਨਸਪਤੀ ਘੱਟ ਪਾਣੀ ਨਾਲ ਅਨੁਕੂਲ ਹੁੰਦੀ ਹੈ",
+          "ਮਾਰੂਥਲ ਸਿਰਫ਼ ਸਮੁੰਦਰਾਂ ਨੇੜੇ ਮਿਲਦੇ ਹਨ",
+          "ਮਾਰੂਥਲੀ ਬਨਸਪਤੀ ਸਦਾ ਗਿੱਲੀ ਮਿੱਟੀ ਉੱਤੇ ਨਿਰਭਰ ਹੁੰਦੀ ਹੈ"
+        ],
+        "explanation": "ਮਾਰੂਥਲ ਦੀ ਪਛਾਣ ਘੱਟ ਵਰਖਾ ਨਾਲ ਹੁੰਦੀ ਹੈ, ਸਿਰਫ਼ ਗਰਮੀ ਨਾਲ ਨਹੀਂ; ਉੱਥੋਂ ਦੀ ਬਨਸਪਤੀ ਘੱਟ ਪਾਣੀ ਨਾਲ ਅਨੁਕੂਲ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  }
+]

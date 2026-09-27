@@ -106,8 +106,8 @@ export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         difficulty: q.difficulty, difficultyLabel: q.difficulty, learningObjective: q.objective,
         sourceIds: [...q.sourceIds], sourceReferences: WGE_SOURCES.filter(s => q.sourceIds.includes(s.id)),
         registrationAuthorityId, registrationStatus: 'REGISTERED_REVIEW_ONLY',
-        authoringReviewApproved: true,
-        localizationStatus: 'USER_APPROVED', reviewOnly: true,
+        authoringReviewApproved: Number(q.cpId.slice(-3)) <= 11,
+        localizationStatus: Number(q.cpId.slice(-3)) <= 11 ? 'USER_APPROVED' : 'REVIEW_REQUIRED', reviewOnly: true,
         readOnly: true, runtimeRegistered: true, productionReleased: false,
         revisionPolicy: 'REVISE_SOURCE_CORPUS_AND_RELOCALIZE_ALL_LANGUAGES',
       };
@@ -116,8 +116,8 @@ export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       ...lifecycle, engineId: 'knowledge-v1', packageId: requestedPackage,
       canonicalPackageId: packageId, runtimeMode, registrationAuthorityId,
       registrationStatus: 'REGISTERED_REVIEW_ONLY',
-      authoringReviewApproved: true,
-      localizationStatus: 'USER_APPROVED', language, locale: locales[language], difficulty,
+      authoringReviewApproved: WGE_CORPUS.filter(q => !cp || q.cpId === cp).every(q => Number(q.cpId.slice(-3)) <= 11),
+      localizationStatus: WGE_CORPUS.filter(q => !cp || q.cpId === cp).every(q => Number(q.cpId.slice(-3)) <= 11) ? 'USER_APPROVED' : 'REVIEW_REQUIRED', language, locale: locales[language], difficulty,
       cpId: cp ?? null, seed, requestedCount: count, candidateCount: candidates.length,
       corpusQuestionCount: WGE_CORPUS.length, studentPublicationAuthorized: false,
     } };

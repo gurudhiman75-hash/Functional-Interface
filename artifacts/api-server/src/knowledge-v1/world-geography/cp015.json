@@ -1,0 +1,1075 @@
+[
+  {
+    "id": "WGE-001-CP015-Q001",
+    "cpId": "WGE-001-CP015",
+    "objective": "continental-shelf",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which ocean-floor zone is the shallow, gently sloping submerged edge of a continent?",
+        "options": [
+          "Abyssal plain",
+          "Continental shelf",
+          "Deep-sea trench",
+          "Mid-ocean ridge"
+        ],
+        "explanation": "The continental shelf is the shallow submerged extension of a continent, ending where the seabed descends more steeply."
+      },
+      "hi": {
+        "stem": "महासागर तल का कौन-सा भाग महाद्वीप का उथला, मंद ढाल वाला जलमग्न किनारा है?",
+        "options": [
+          "अगाध मैदान",
+          "महाद्वीपीय मग्नतट",
+          "गहरे समुद्र की खाई",
+          "मध्य-महासागरीय कटक"
+        ],
+        "explanation": "महाद्वीपीय मग्नतट महाद्वीप का उथला जलमग्न विस्तार है; इसके बाद समुद्र तल अधिक तीव्रता से नीचे जाता है।"
+      },
+      "pa": {
+        "stem": "ਮਹਾਂਸਾਗਰੀ ਤਲ ਦਾ ਕਿਹੜਾ ਹਿੱਸਾ ਮਹਾਂਦੀਪ ਦਾ ਥੋੜ੍ਹਾ ਡੂੰਘਾ, ਹੌਲੀ ਢਲਾਣ ਵਾਲਾ ਡੁੱਬਿਆ ਕਿਨਾਰਾ ਹੈ?",
+        "options": [
+          "ਅਥਾਹ ਮੈਦਾਨ",
+          "ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼",
+          "ਡੂੰਘੇ ਸਮੁੰਦਰ ਦੀ ਖਾਈ",
+          "ਮੱਧ-ਮਹਾਂਸਾਗਰੀ ਕਟਕ"
+        ],
+        "explanation": "ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼ ਮਹਾਂਦੀਪ ਦਾ ਥੋੜ੍ਹਾ ਡੂੰਘਾ ਡੁੱਬਿਆ ਫੈਲਾਅ ਹੁੰਦਾ ਹੈ; ਇਸ ਤੋਂ ਅੱਗੇ ਸਮੁੰਦਰੀ ਤਲ ਹੋਰ ਤਿੱਖਾ ਹੇਠਾਂ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q002",
+    "cpId": "WGE-001-CP015",
+    "objective": "continental-slope",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "What connects the continental shelf to the deep-ocean basin?",
+        "options": [
+          "Continental slope",
+          "Abyssal plain",
+          "Ocean trench",
+          "Guyot summit"
+        ],
+        "explanation": "The continental slope begins near the shelf break and descends toward the deep-ocean basin."
+      },
+      "hi": {
+        "stem": "महाद्वीपीय मग्नतट को गहरे महासागरीय बेसिन से कौन जोड़ता है?",
+        "options": [
+          "महाद्वीपीय ढाल",
+          "अगाध मैदान",
+          "महासागरीय खाई",
+          "गायोट शिखर"
+        ],
+        "explanation": "महाद्वीपीय ढाल मग्नतट के किनारे से शुरू होकर गहरे महासागरीय बेसिन की ओर उतरती है।"
+      },
+      "pa": {
+        "stem": "ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼ ਨੂੰ ਡੂੰਘੇ ਮਹਾਂਸਾਗਰੀ ਬੇਸਿਨ ਨਾਲ ਕਿਹੜਾ ਹਿੱਸਾ ਜੋੜਦਾ ਹੈ?",
+        "options": [
+          "ਮਹਾਂਦੀਪੀ ਢਲਾਣ",
+          "ਅਥਾਹ ਮੈਦਾਨ",
+          "ਮਹਾਂਸਾਗਰੀ ਖਾਈ",
+          "ਗਾਇਓਟ ਚੋਟੀ"
+        ],
+        "explanation": "ਮਹਾਂਦੀਪੀ ਢਲਾਣ ਸ਼ੈਲਫ਼ ਦੇ ਕਿਨਾਰੇ ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ਡੂੰਘੇ ਮਹਾਂਸਾਗਰੀ ਬੇਸਿਨ ਵੱਲ ਹੇਠਾਂ ਜਾਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q003",
+    "cpId": "WGE-001-CP015",
+    "objective": "abyssal-plain",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which feature is a broad, nearly level area of the deep-ocean floor?",
+        "options": [
+          "Continental shelf",
+          "Abyssal plain",
+          "Oceanic island arc",
+          "Submarine canyon"
+        ],
+        "explanation": "Abyssal plains are extensive, relatively flat areas of the deep ocean basin, often covered by fine sediment."
+      },
+      "hi": {
+        "stem": "गहरे महासागर तल का विस्तृत, लगभग समतल भाग कौन-सा है?",
+        "options": [
+          "महाद्वीपीय मग्नतट",
+          "अगाध मैदान",
+          "महासागरीय द्वीप चाप",
+          "समुद्री घाटी"
+        ],
+        "explanation": "अगाध मैदान गहरे महासागरीय बेसिन के विस्तृत, अपेक्षाकृत समतल भाग हैं, जिन पर महीन तलछट हो सकती है।"
+      },
+      "pa": {
+        "stem": "ਡੂੰਘੇ ਮਹਾਂਸਾਗਰੀ ਤਲ ਦਾ ਵਿਸ਼ਾਲ, ਲਗਭਗ ਸਮਤਲ ਹਿੱਸਾ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼",
+          "ਅਥਾਹ ਮੈਦਾਨ",
+          "ਮਹਾਂਸਾਗਰੀ ਟਾਪੂ-ਚਾਪ",
+          "ਸਮੁੰਦਰੀ ਘਾਟੀ"
+        ],
+        "explanation": "ਅਥਾਹ ਮੈਦਾਨ ਡੂੰਘੇ ਮਹਾਂਸਾਗਰੀ ਬੇਸਿਨ ਦੇ ਵਿਸ਼ਾਲ, ਤੁਲਨਾਤਮਕ ਤੌਰ ਤੇ ਸਮਤਲ ਹਿੱਸੇ ਹੁੰਦੇ ਹਨ, ਜਿਨ੍ਹਾਂ ਉੱਤੇ ਬਰੀਕ ਗਾਰ ਹੋ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q004",
+    "cpId": "WGE-001-CP015",
+    "objective": "mid-ocean-ridge-process",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Mid-ocean ridges are mainly formed at which type of plate boundary?",
+        "options": [
+          "Convergent",
+          "Transform",
+          "Divergent",
+          "Collision-only continental"
+        ],
+        "explanation": "At divergent boundaries, magma rises as plates move apart and creates new oceanic crust along mid-ocean ridges."
+      },
+      "hi": {
+        "stem": "मध्य-महासागरीय कटक मुख्यतः किस प्रकार की प्लेट सीमा पर बनते हैं?",
+        "options": [
+          "अभिसारी",
+          "रूपांतरित",
+          "अपसारी",
+          "केवल महाद्वीपीय टक्कर वाली"
+        ],
+        "explanation": "अपसारी सीमाओं पर प्लेटें अलग होती हैं, मैग्मा ऊपर आता है और कटक के साथ नया महासागरीय भूपर्पटी बनता है।"
+      },
+      "pa": {
+        "stem": "ਮੱਧ-ਮਹਾਂਸਾਗਰੀ ਕਟਕ ਮੁੱਖ ਤੌਰ ਤੇ ਕਿਹੜੀ ਪਲੇਟ ਹੱਦ ਉੱਤੇ ਬਣਦੇ ਹਨ?",
+        "options": [
+          "ਅਭਿਸਾਰੀ",
+          "ਰੂਪਾਂਤਰਣ",
+          "ਅਪਸਾਰੀ",
+          "ਸਿਰਫ਼ ਮਹਾਂਦੀਪੀ ਟੱਕਰ ਵਾਲੀ"
+        ],
+        "explanation": "ਅਪਸਾਰੀ ਹੱਦਾਂ ਉੱਤੇ ਪਲੇਟਾਂ ਦੂਰ ਹੁੰਦੀਆਂ ਹਨ, ਮੈਗਮਾ ਉੱਪਰ ਚੜ੍ਹਦਾ ਹੈ ਅਤੇ ਕਟਕਾਂ ਨਾਲ ਨਵੀਂ ਮਹਾਂਸਾਗਰੀ ਭੂ-ਪੇਪੜੀ ਬਣਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q005",
+    "cpId": "WGE-001-CP015",
+    "objective": "trench-subduction",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Deep ocean trenches most commonly form where:",
+        "options": [
+          "One plate bends down beneath another at a convergent boundary",
+          "Two plates slide past each other without sinking",
+          "A river deposits sediment on a shelf",
+          "A mid-ocean ridge cools and sinks"
+        ],
+        "explanation": "Trenches commonly mark subduction zones where oceanic lithosphere bends and descends beneath another plate."
+      },
+      "hi": {
+        "stem": "गहरे महासागरीय गर्त सामान्यतः कहाँ बनते हैं?",
+        "options": [
+          "अभिसारी सीमा पर एक प्लेट दूसरी के नीचे मुड़कर धँसती है",
+          "दो प्लेटें बिना धँसे एक-दूसरे के साथ खिसकती हैं",
+          "नदी मग्नतट पर तलछट जमा करती है",
+          "मध्य-महासागरीय कटक ठंडा होकर डूबता है"
+        ],
+        "explanation": "महासागरीय गर्त प्रायः सबडक्शन क्षेत्रों को चिह्नित करते हैं, जहाँ महासागरीय स्थलमंडल मुड़कर दूसरी प्लेट के नीचे जाता है।"
+      },
+      "pa": {
+        "stem": "ਡੂੰਘੀਆਂ ਮਹਾਂਸਾਗਰੀ ਖਾਈਆਂ ਆਮ ਤੌਰ ਤੇ ਕਿੱਥੇ ਬਣਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਅਭਿਸਾਰੀ ਹੱਦ ਉੱਤੇ ਇੱਕ ਪਲੇਟ ਦੂਜੀ ਹੇਠ ਮੁੜ ਕੇ ਧੱਸਦੀ ਹੈ",
+          "ਦੋ ਪਲੇਟਾਂ ਬਿਨਾਂ ਧੱਸੇ ਇੱਕ-ਦੂਜੇ ਕੋਲੋਂ ਲੰਘਦੀਆਂ ਹਨ",
+          "ਦਰਿਆ ਸ਼ੈਲਫ਼ ਉੱਤੇ ਗਾਰ ਜਮ੍ਹਾਂ ਕਰਦਾ ਹੈ",
+          "ਮੱਧ-ਮਹਾਂਸਾਗਰੀ ਕਟਕ ਠੰਡਾ ਹੋ ਕੇ ਡੁੱਬਦਾ ਹੈ"
+        ],
+        "explanation": "ਮਹਾਂਸਾਗਰੀ ਖਾਈਆਂ ਅਕਸਰ ਸਬਡਕਸ਼ਨ ਖੇਤਰ ਦਰਸਾਉਂਦੀਆਂ ਹਨ, ਜਿੱਥੇ ਮਹਾਂਸਾਗਰੀ ਲਿਥੋਸਫੀਅਰ ਮੁੜ ਕੇ ਦੂਜੀ ਪਲੇਟ ਹੇਠ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q006",
+    "cpId": "WGE-001-CP015",
+    "objective": "continental-margin-sequence",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Moving seaward from a continent, which sequence correctly describes a typical continental margin?",
+        "options": [
+          "Abyssal plain → shelf → slope → rise",
+          "Shelf → slope → continental rise → deep-ocean basin",
+          "Trench → shelf → ridge → coastline",
+          "Ridge → shelf → canyon → slope"
+        ],
+        "explanation": "A typical margin descends from shelf to slope and often to a gentler continental rise before the deep-ocean basin."
+      },
+      "hi": {
+        "stem": "महाद्वीप से समुद्र की ओर जाते हुए सामान्य महाद्वीपीय किनारे का सही क्रम कौन-सा है?",
+        "options": [
+          "अगाध मैदान → मग्नतट → ढाल → महाद्वीपीय उत्थान",
+          "मग्नतट → ढाल → महाद्वीपीय उत्थान → गहरा महासागरीय बेसिन",
+          "गर्त → मग्नतट → कटक → तटरेखा",
+          "कटक → मग्नतट → घाटी → ढाल"
+        ],
+        "explanation": "सामान्य किनारे पर क्रमशः मग्नतट, ढाल और अक्सर मंद महाद्वीपीय उत्थान के बाद गहरा महासागरीय बेसिन आता है।"
+      },
+      "pa": {
+        "stem": "ਮਹਾਂਦੀਪ ਤੋਂ ਸਮੁੰਦਰ ਵੱਲ ਜਾਂਦਿਆਂ ਆਮ ਮਹਾਂਦੀਪੀ ਹਾਸ਼ੀਏ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਅਥਾਹ ਮੈਦਾਨ → ਸ਼ੈਲਫ਼ → ਢਲਾਣ → ਮਹਾਂਦੀਪੀ ਉਭਾਰ",
+          "ਸ਼ੈਲਫ਼ → ਢਲਾਣ → ਮਹਾਂਦੀਪੀ ਉਭਾਰ → ਡੂੰਘਾ ਮਹਾਂਸਾਗਰੀ ਬੇਸਿਨ",
+          "ਖਾਈ → ਸ਼ੈਲਫ਼ → ਕਟਕ → ਤੱਟ-ਰੇਖਾ",
+          "ਕਟਕ → ਸ਼ੈਲਫ਼ → ਘਾਟੀ → ਢਲਾਣ"
+        ],
+        "explanation": "ਆਮ ਹਾਸ਼ੀਏ ਉੱਤੇ ਪਹਿਲਾਂ ਸ਼ੈਲਫ਼, ਫਿਰ ਢਲਾਣ ਅਤੇ ਅਕਸਰ ਹੌਲਾ ਮਹਾਂਦੀਪੀ ਉਭਾਰ ਹੁੰਦਾ ਹੈ, ਉਸ ਤੋਂ ਬਾਅਦ ਡੂੰਘਾ ਮਹਾਂਸਾਗਰੀ ਬੇਸਿਨ ਆਉਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q007",
+    "cpId": "WGE-001-CP015",
+    "objective": "continental-shelf-productivity",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why are many continental-shelf waters biologically productive?",
+        "options": [
+          "They receive sunlight and can gain nutrients from river runoff and upwelling",
+          "They have lower salinity than all nearby deep water",
+          "They are protected from all waves and currents",
+          "They lie below the thermocline throughout the year"
+        ],
+        "explanation": "The shallow shelf receives sunlight, while nutrients can arrive from rivers and from upwelling, supporting marine food webs."
+      },
+      "hi": {
+        "stem": "महाद्वीपीय मग्नतट के अनेक जल जैविक रूप से उत्पादक क्यों होते हैं?",
+        "options": [
+          "उन्हें धूप मिलती है और नदी के बहाव या अपवेलिंग से पोषक तत्व मिल सकते हैं",
+          "उनकी लवणता पास के सभी गहरे जल से कम होती है",
+          "वे सभी लहरों और धाराओं से सुरक्षित रहते हैं",
+          "वे पूरे वर्ष ताप-प्रवणता परत के नीचे रहते हैं"
+        ],
+        "explanation": "उथले मग्नतट पर धूप पहुँचती है और नदियों तथा ऊपर उठते जल से पोषक तत्व आ सकते हैं; इससे समुद्री खाद्य-जाल को सहारा मिलता है।"
+      },
+      "pa": {
+        "stem": "ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼ ਦੇ ਕਈ ਪਾਣੀ ਜੈਵਿਕ ਤੌਰ ਤੇ ਉਤਪਾਦਕ ਕਿਉਂ ਹੁੰਦੇ ਹਨ?",
+        "options": [
+          "ਉਨ੍ਹਾਂ ਨੂੰ ਧੁੱਪ ਮਿਲਦੀ ਹੈ ਅਤੇ ਦਰਿਆਈ ਵਹਾਅ ਜਾਂ ਉੱਪਰ-ਚੜ੍ਹਦੇ ਪਾਣੀ ਤੋਂ ਪੋਸ਼ਕ ਤੱਤ ਮਿਲ ਸਕਦੇ ਹਨ",
+          "ਉਨ੍ਹਾਂ ਦਾ ਖਾਰਾਪਣ ਨੇੜਲੇ ਸਾਰੇ ਡੂੰਘੇ ਪਾਣੀ ਨਾਲੋਂ ਘੱਟ ਹੁੰਦਾ ਹੈ",
+          "ਉਹ ਸਾਰੀਆਂ ਲਹਿਰਾਂ ਅਤੇ ਧਾਰਾਵਾਂ ਤੋਂ ਬਚੇ ਰਹਿੰਦੇ ਹਨ",
+          "ਉਹ ਸਾਰਾ ਸਾਲ ਤਾਪ-ਢਲਾਣ ਪਰਤ ਤੋਂ ਹੇਠਾਂ ਰਹਿੰਦੇ ਹਨ"
+        ],
+        "explanation": "ਥੋੜ੍ਹੇ ਡੂੰਘੇ ਸ਼ੈਲਫ਼ ਤੱਕ ਧੁੱਪ ਪਹੁੰਚਦੀ ਹੈ ਅਤੇ ਦਰਿਆਵਾਂ ਜਾਂ ਉੱਪਰ ਚੜ੍ਹਦੇ ਪਾਣੀ ਤੋਂ ਪੋਸ਼ਕ ਤੱਤ ਆ ਸਕਦੇ ਹਨ; ਇਸ ਨਾਲ ਸਮੁੰਦਰੀ ਭੋਜਨ-ਜਾਲ ਨੂੰ ਸਹਾਰਾ ਮਿਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q008",
+    "cpId": "WGE-001-CP015",
+    "objective": "seamount-guyot",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "What is a guyot?",
+        "options": [
+          "A deep ocean trench at a subduction zone",
+          "A flat-topped submerged volcanic mountain",
+          "A broad continental shelf",
+          "A sediment-filled river delta"
+        ],
+        "explanation": "A guyot is a flat-topped seamount, commonly interpreted as a volcanic island summit that was eroded near sea level and later submerged."
+      },
+      "hi": {
+        "stem": "गायोट क्या है?",
+        "options": [
+          "सबडक्शन क्षेत्र की गहरी महासागरीय खाई",
+          "चपटी चोटी वाला जलमग्न ज्वालामुखीय पर्वत",
+          "विस्तृत महाद्वीपीय मग्नतट",
+          "तलछट से भरा नदी डेल्टा"
+        ],
+        "explanation": "गायोट चपटी चोटी वाला समुद्री पर्वत है; इसे प्रायः समुद्र-स्तर के पास अपरदित होकर बाद में डूबे ज्वालामुखीय द्वीप का अवशेष माना जाता है।"
+      },
+      "pa": {
+        "stem": "ਗਾਇਓਟ ਕੀ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਸਬਡਕਸ਼ਨ ਖੇਤਰ ਦੀ ਡੂੰਘੀ ਮਹਾਂਸਾਗਰੀ ਖਾਈ",
+          "ਚਪਟੀ ਚੋਟੀ ਵਾਲਾ ਡੁੱਬਿਆ ਜਵਾਲਾਮੁਖੀ ਪਹਾੜ",
+          "ਵਿਸ਼ਾਲ ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼",
+          "ਗਾਰ ਨਾਲ ਭਰਿਆ ਦਰਿਆਈ ਡੈਲਟਾ"
+        ],
+        "explanation": "ਗਾਇਓਟ ਚਪਟੀ ਚੋਟੀ ਵਾਲਾ ਸਮੁੰਦਰੀ ਪਹਾੜ ਹੁੰਦਾ ਹੈ; ਇਸ ਨੂੰ ਅਕਸਰ ਸਮੁੰਦਰ-ਪੱਧਰ ਨੇੜੇ ਘਿਸ ਕੇ ਬਾਅਦ ਵਿੱਚ ਡੁੱਬੇ ਜਵਾਲਾਮੁਖੀ ਟਾਪੂ ਦਾ ਅਵਸ਼ੇਸ਼ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q009",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-seamount",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A seamount is best described as:",
+        "options": [
+          "A flat plain below the continental shelf",
+          "An isolated underwater mountain, commonly volcanic in origin",
+          "A narrow coastal lagoon",
+          "A broad trench running beside a continent"
+        ],
+        "explanation": "Seamounts are underwater mountains rising from the seafloor; many are volcanic, though not all reach the surface."
+      },
+      "hi": {
+        "stem": "समुद्री पर्वत का सबसे उपयुक्त वर्णन क्या है?",
+        "options": [
+          "महाद्वीपीय मग्नतट के नीचे समतल मैदान",
+          "समुद्र तल से उठता अकेला जलमग्न पर्वत, जो प्रायः ज्वालामुखीय होता है",
+          "संकरा तटीय लैगून",
+          "महाद्वीप के साथ चलने वाला चौड़ा गर्त"
+        ],
+        "explanation": "समुद्री पर्वत समुद्र तल से उठने वाले जलमग्न पर्वत हैं; कई ज्वालामुखीय होते हैं, पर सभी सतह तक नहीं पहुँचते।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਪਹਾੜ ਦਾ ਸਭ ਤੋਂ ਢੁੱਕਵਾਂ ਵਰਣਨ ਕੀ ਹੈ?",
+        "options": [
+          "ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼ ਹੇਠ ਸਮਤਲ ਮੈਦਾਨ",
+          "ਸਮੁੰਦਰੀ ਤਲ ਤੋਂ ਉੱਠਦਾ ਇਕੱਲਾ ਡੁੱਬਿਆ ਪਹਾੜ, ਜੋ ਅਕਸਰ ਜਵਾਲਾਮੁਖੀ ਹੁੰਦਾ ਹੈ",
+          "ਤੰਗ ਤੱਟੀ ਝੀਲ",
+          "ਮਹਾਂਦੀਪ ਨਾਲ ਲੱਗਦੀ ਚੌੜੀ ਖਾਈ"
+        ],
+        "explanation": "ਸਮੁੰਦਰੀ ਪਹਾੜ ਸਮੁੰਦਰੀ ਤਲ ਤੋਂ ਉੱਠਣ ਵਾਲੇ ਡੁੱਬੇ ਪਹਾੜ ਹੁੰਦੇ ਹਨ; ਕਈ ਜਵਾਲਾਮੁਖੀ ਹੁੰਦੇ ਹਨ, ਪਰ ਸਾਰੇ ਸਤਹ ਤੱਕ ਨਹੀਂ ਪਹੁੰਚਦੇ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q010",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-temperature-depth",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-015C"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "How does ocean-water temperature generally change below the sunlit surface layer?",
+        "options": [
+          "It falls with depth, often rapidly through the thermocline",
+          "It rises steadily as pressure increases",
+          "It falls at the same rate through every ocean layer",
+          "It remains nearly constant through the thermocline"
+        ],
+        "explanation": "The thermocline is the layer where temperature declines rapidly between warmer surface water and colder deep water."
+      },
+      "hi": {
+        "stem": "सूर्यप्रकाशित सतही परत के नीचे महासागर के जल का तापमान सामान्यतः कैसे बदलता है?",
+        "options": [
+          "गहराई के साथ घटता है और ताप-प्रवणता परत में तेजी से गिर सकता है",
+          "दाब बढ़ने के साथ लगातार बढ़ता है",
+          "हर महासागरीय परत में समान दर से घटता है",
+          "ताप-प्रवणता परत में लगभग स्थिर रहता है"
+        ],
+        "explanation": "ताप-प्रवणता परत में गर्म सतही जल और ठंडे गहरे जल के बीच तापमान तेजी से घटता है।"
+      },
+      "pa": {
+        "stem": "ਧੁੱਪ ਪਹੁੰਚਣ ਵਾਲੀ ਉੱਪਰੀ ਪਰਤ ਹੇਠ ਸਮੁੰਦਰੀ ਪਾਣੀ ਦਾ ਤਾਪਮਾਨ ਆਮ ਤੌਰ ਤੇ ਕਿਵੇਂ ਬਦਲਦਾ ਹੈ?",
+        "options": [
+          "ਡੂੰਘਾਈ ਨਾਲ ਘਟਦਾ ਹੈ ਅਤੇ ਤਾਪ-ਢਲਾਣ ਪਰਤ ਵਿੱਚ ਤੇਜ਼ੀ ਨਾਲ ਡਿੱਗ ਸਕਦਾ ਹੈ",
+          "ਦਬਾਅ ਵਧਣ ਨਾਲ ਲਗਾਤਾਰ ਵਧਦਾ ਹੈ",
+          "ਹਰ ਮਹਾਂਸਾਗਰੀ ਪਰਤ ਵਿੱਚ ਇਕੋ ਦਰ ਨਾਲ ਘਟਦਾ ਹੈ",
+          "ਤਾਪ-ਢਲਾਣ ਪਰਤ ਵਿੱਚ ਲਗਭਗ ਥਿਰ ਰਹਿੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਤਾਪ-ਢਲਾਣ ਪਰਤ ਵਿੱਚ ਗਰਮ ਸਤਹੀ ਪਾਣੀ ਅਤੇ ਠੰਡੇ ਡੂੰਘੇ ਪਾਣੀ ਵਿਚਕਾਰ ਤਾਪਮਾਨ ਤੇਜ਼ੀ ਨਾਲ ਘਟਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q011",
+    "cpId": "WGE-001-CP015",
+    "objective": "thermocline-definition",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015C"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "The thermocline is the ocean layer in which:",
+        "options": [
+          "Salinity changes rapidly with depth",
+          "Water density remains constant at every depth",
+          "Temperature changes rapidly with depth",
+          "Currents stop moving between surface and deep water"
+        ],
+        "explanation": "A thermocline separates warmer mixed surface water from much colder deep water through a rapid temperature gradient."
+      },
+      "hi": {
+        "stem": "ताप-प्रवणता परत महासागर की वह परत है जिसमें:",
+        "options": [
+          "गहराई के साथ लवणता तेजी से बदलती है",
+          "हर गहराई पर जल का घनत्व स्थिर रहता है",
+          "गहराई के साथ तापमान तेजी से बदलता है",
+          "सतही और गहरे जल के बीच धाराएँ रुक जाती हैं"
+        ],
+        "explanation": "ताप-प्रवणता परत गर्म मिश्रित सतही जल को बहुत ठंडे गहरे जल से अलग करती है; इसमें तापमान तेजी से घटता है।"
+      },
+      "pa": {
+        "stem": "ਤਾਪ-ਢਲਾਣ ਪਰਤ ਸਮੁੰਦਰ ਦੀ ਉਹ ਪਰਤ ਹੈ ਜਿਸ ਵਿੱਚ:",
+        "options": [
+          "ਡੂੰਘਾਈ ਨਾਲ ਖਾਰਾਪਣ ਤੇਜ਼ੀ ਨਾਲ ਬਦਲਦਾ ਹੈ",
+          "ਹਰ ਡੂੰਘਾਈ ਉੱਤੇ ਪਾਣੀ ਦੀ ਘਣਤਾ ਥਿਰ ਰਹਿੰਦੀ ਹੈ",
+          "ਡੂੰਘਾਈ ਨਾਲ ਤਾਪਮਾਨ ਤੇਜ਼ੀ ਨਾਲ ਬਦਲਦਾ ਹੈ",
+          "ਸਤਹੀ ਅਤੇ ਡੂੰਘੇ ਪਾਣੀ ਵਿਚਕਾਰ ਧਾਰਾਵਾਂ ਰੁਕ ਜਾਂਦੀਆਂ ਹਨ"
+        ],
+        "explanation": "ਤਾਪ-ਢਲਾਣ ਪਰਤ ਗਰਮ ਰਲੇ ਹੋਏ ਸਤਹੀ ਪਾਣੀ ਨੂੰ ਬਹੁਤ ਠੰਡੇ ਡੂੰਘੇ ਪਾਣੀ ਤੋਂ ਵੱਖ ਕਰਦੀ ਹੈ; ਇਸ ਵਿੱਚ ਤਾਪਮਾਨ ਤੇਜ਼ੀ ਨਾਲ ਘਟਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q012",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-salinity-evaporation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Where evaporation greatly exceeds precipitation, what is the likely effect on surface salinity?",
+        "options": [
+          "Salinity falls as freshwater is added by precipitation",
+          "Salinity rises as water is removed but most dissolved salts remain",
+          "Salinity falls because evaporation removes salt before water",
+          "Salinity stays unchanged whenever the sea is enclosed"
+        ],
+        "explanation": "Evaporation removes water while leaving most dissolved salts behind, tending to increase salinity."
+      },
+      "hi": {
+        "stem": "जहाँ वाष्पीकरण वर्षा से बहुत अधिक हो, वहाँ सतही लवणता पर क्या प्रभाव पड़ने की संभावना है?",
+        "options": [
+          "वर्षा से मीठा जल जुड़ने पर लवणता घटती है",
+          "जल हटने पर भी अधिकांश घुले लवण रह जाते हैं, इसलिए लवणता बढ़ती है",
+          "लवणता घटती है क्योंकि वाष्पीकरण में जल से पहले लवण उड़ते हैं",
+          "समुद्र बंद होने पर लवणता नहीं बदलती"
+        ],
+        "explanation": "वाष्पीकरण जल को हटाता है जबकि अधिकांश घुले लवण पीछे रह जाते हैं; इससे लवणता बढ़ने की प्रवृत्ति होती है।"
+      },
+      "pa": {
+        "stem": "ਜਿੱਥੇ ਵਾਸ਼ਪੀਕਰਨ ਮੀਂਹ ਨਾਲੋਂ ਕਾਫ਼ੀ ਵੱਧ ਹੋਵੇ, ਉੱਥੇ ਸਤਹੀ ਖਾਰਾਪਣ ਉੱਤੇ ਕੀ ਅਸਰ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ?",
+        "options": [
+          "ਮੀਂਹ ਨਾਲ ਮਿੱਠਾ ਪਾਣੀ ਮਿਲਣ ਤੇ ਖਾਰਾਪਣ ਘਟਦਾ ਹੈ",
+          "ਪਾਣੀ ਹਟਣ ਉੱਤੇ ਵੀ ਬਹੁਤੇ ਘੁਲੇ ਲੂਣ ਰਹਿ ਜਾਂਦੇ ਹਨ, ਇਸ ਲਈ ਖਾਰਾਪਣ ਵਧਦਾ ਹੈ",
+          "ਖਾਰਾਪਣ ਘਟਦਾ ਹੈ ਕਿਉਂਕਿ ਵਾਸ਼ਪੀਕਰਨ ਵਿੱਚ ਪਾਣੀ ਤੋਂ ਪਹਿਲਾਂ ਲੂਣ ਉੱਡਦੇ ਹਨ",
+          "ਸਮੁੰਦਰ ਬੰਦ ਹੋਣ ਨਾਲ ਖਾਰਾਪਣ ਨਹੀਂ ਬਦਲਦਾ"
+        ],
+        "explanation": "ਵਾਸ਼ਪੀਕਰਨ ਪਾਣੀ ਹਟਾਉਂਦਾ ਹੈ ਜਦਕਿ ਬਹੁਤੇ ਘੁਲੇ ਲੂਣ ਪਿੱਛੇ ਰਹਿ ਜਾਂਦੇ ਹਨ; ਇਸ ਨਾਲ ਖਾਰਾਪਣ ਵਧਣ ਦੀ ਰੁਝਾਨ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q013",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-salinity-river-input",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why is surface water near a large river mouth often less saline than nearby open-ocean water?",
+        "options": [
+          "Freshwater input dilutes the seawater",
+          "High evaporation concentrates salts near the mouth",
+          "Upwelling brings salt-free water to the surface",
+          "Tidal mixing removes dissolved salts from the sea"
+        ],
+        "explanation": "Freshwater runoff lowers salinity near river mouths by mixing with and diluting seawater."
+      },
+      "hi": {
+        "stem": "बड़े नदी मुहाने के पास सतही जल खुले महासागर से कम खारा क्यों हो सकता है?",
+        "options": [
+          "मीठे जल का प्रवाह समुद्री जल को पतला करता है",
+          "तेज वाष्पीकरण मुहाने के पास लवणों को सघन करता है",
+          "अपवेलिंग लवण-रहित जल को सतह तक लाती है",
+          "ज्वारीय मिश्रण समुद्र से घुले लवण हटा देता है"
+        ],
+        "explanation": "मीठे जल का बहाव समुद्री जल में मिलकर नदी मुहानों के पास लवणता कम करता है।"
+      },
+      "pa": {
+        "stem": "ਵੱਡੇ ਦਰਿਆਈ ਮੁਹਾਣੇ ਨੇੜੇ ਸਤਹੀ ਪਾਣੀ ਖੁੱਲ੍ਹੇ ਸਮੁੰਦਰ ਨਾਲੋਂ ਘੱਟ ਖਾਰਾ ਕਿਉਂ ਹੋ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਮਿੱਠੇ ਪਾਣੀ ਦਾ ਵਹਾਅ ਸਮੁੰਦਰੀ ਪਾਣੀ ਨੂੰ ਪਤਲਾ ਕਰਦਾ ਹੈ",
+          "ਤੇਜ਼ ਵਾਸ਼ਪੀਕਰਨ ਮੁਹਾਣੇ ਨੇੜੇ ਲੂਣਾਂ ਨੂੰ ਸੰਘਣਾ ਕਰਦਾ ਹੈ",
+          "ਉੱਪਰ-ਚੜ੍ਹਦਾ ਪਾਣੀ ਲੂਣ-ਰਹਿਤ ਪਾਣੀ ਸਤਹ ਤੱਕ ਲਿਆਉਂਦਾ ਹੈ",
+          "ਜਵਾਰੀ ਮਿਲਾਵਟ ਸਮੁੰਦਰ ਵਿਚੋਂ ਘੁਲੇ ਲੂਣ ਹਟਾ ਦਿੰਦੀ ਹੈ"
+        ],
+        "explanation": "ਮਿੱਠੇ ਪਾਣੀ ਦਾ ਵਹਾਅ ਸਮੁੰਦਰੀ ਪਾਣੀ ਨਾਲ ਮਿਲ ਕੇ ਦਰਿਆਈ ਮੁਹਾਣਿਆਂ ਨੇੜੇ ਖਾਰਾਪਣ ਘਟਾਉਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q014",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-salinity-high-latitudes",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which process can lower surface salinity in a high-latitude ocean region?",
+        "options": [
+          "Rapid evaporation under subtropical high pressure",
+          "Freshwater from precipitation, ice melt or river runoff",
+          "Formation of sea ice removing freshwater from seawater",
+          "Strong sunlight throughout the polar night"
+        ],
+        "explanation": "Precipitation, melting ice and river runoff add freshwater and can reduce surface salinity."
+      },
+      "hi": {
+        "stem": "उच्च अक्षांश के महासागरीय क्षेत्र में कौन-सी प्रक्रिया सतही लवणता घटा सकती है?",
+        "options": [
+          "उपोष्ण उच्चदाब में तेज वाष्पीकरण",
+          "वर्षा, हिम-पिघलन या नदी बहाव से मीठे जल का मिलना",
+          "समुद्री हिम बनने पर समुद्र से मीठा जल निकलना",
+          "ध्रुवीय रात में तेज धूप"
+        ],
+        "explanation": "वर्षा, पिघलती हिम और नदी का बहाव मीठा जल जोड़ते हैं और सतही लवणता घटा सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਉੱਚੇ ਅਕਸ਼ਾਂਸ਼ਾਂ ਵਾਲੇ ਸਮੁੰਦਰੀ ਖੇਤਰ ਵਿੱਚ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਸਤਹੀ ਖਾਰਾਪਣ ਘਟਾ ਸਕਦੀ ਹੈ?",
+        "options": [
+          "ਉਪ-ਉੱਸ਼ਣ ਉੱਚ ਦਬਾਅ ਹੇਠ ਤੇਜ਼ ਵਾਸ਼ਪੀਕਰਨ",
+          "ਮੀਂਹ, ਪਿਘਲੀ ਬਰਫ਼ ਜਾਂ ਦਰਿਆਈ ਵਹਾਅ ਤੋਂ ਮਿੱਠੇ ਪਾਣੀ ਦਾ ਮਿਲਣਾ",
+          "ਸਮੁੰਦਰੀ ਬਰਫ਼ ਬਣਨ ਨਾਲ ਸਮੁੰਦਰ ਵਿਚੋਂ ਮਿੱਠਾ ਪਾਣੀ ਨਿਕਲਣਾ",
+          "ਧਰੁਵੀ ਰਾਤ ਵਿੱਚ ਤੇਜ਼ ਧੁੱਪ"
+        ],
+        "explanation": "ਮੀਂਹ, ਪਿਘਲਦੀ ਬਰਫ਼ ਅਤੇ ਦਰਿਆਈ ਵਹਾਅ ਮਿੱਠਾ ਪਾਣੀ ਜੋੜਦੇ ਹਨ ਅਤੇ ਸਤਹੀ ਖਾਰਾਪਣ ਘਟਾ ਸਕਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q015",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-salinity-seaice-brine",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "What happens to the salinity of nearby seawater as sea ice forms?",
+        "options": [
+          "It tends to increase because most salt is excluded from the ice",
+          "It tends to decrease because sea ice adds freshwater to the water below",
+          "It remains unchanged because freezing removes neither salt nor water",
+          "It changes only when tides turn"
+        ],
+        "explanation": "Sea-ice formation generally rejects most salt into surrounding water, increasing its salinity and density."
+      },
+      "hi": {
+        "stem": "समुद्री हिम बनने पर पास के समुद्री जल की लवणता पर क्या असर होता है?",
+        "options": [
+          "अधिकांश लवण हिम में नहीं जाते, इसलिए लवणता बढ़ने की प्रवृत्ति होती है",
+          "समुद्री हिम नीचे के जल में मीठा जल जोड़ती है, इसलिए लवणता घटती है",
+          "हिम बनने में न लवण हटता है न जल, इसलिए लवणता स्थिर रहती है",
+          "लवणता केवल ज्वार बदलने पर बदलती है"
+        ],
+        "explanation": "समुद्री हिम बनने पर अधिकांश लवण आसपास के जल में रह जाते हैं; इससे उसकी लवणता और घनत्व बढ़ने की प्रवृत्ति होती है।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਬਰਫ਼ ਬਣਨ ਨਾਲ ਨੇੜਲੇ ਸਮੁੰਦਰੀ ਪਾਣੀ ਦੇ ਖਾਰਾਪਣ ਉੱਤੇ ਕੀ ਅਸਰ ਪੈਂਦਾ ਹੈ?",
+        "options": [
+          "ਜ਼ਿਆਦਾਤਰ ਲੂਣ ਬਰਫ਼ ਵਿੱਚ ਨਹੀਂ ਜਾਂਦਾ, ਇਸ ਲਈ ਖਾਰਾਪਣ ਵਧਣ ਦੀ ਰੁਝਾਨ ਹੁੰਦੀ ਹੈ",
+          "ਸਮੁੰਦਰੀ ਬਰਫ਼ ਹੇਠਲੇ ਪਾਣੀ ਵਿੱਚ ਮਿੱਠਾ ਪਾਣੀ ਜੋੜਦੀ ਹੈ, ਇਸ ਲਈ ਖਾਰਾਪਣ ਘਟਦਾ ਹੈ",
+          "ਬਰਫ਼ ਬਣਨ ਨਾਲ ਨਾ ਲੂਣ ਹਟਦਾ ਹੈ ਨਾ ਪਾਣੀ, ਇਸ ਲਈ ਖਾਰਾਪਣ ਥਿਰ ਰਹਿੰਦਾ ਹੈ",
+          "ਖਾਰਾਪਣ ਸਿਰਫ਼ ਜਵਾਰ ਬਦਲਣ ਨਾਲ ਬਦਲਦਾ ਹੈ"
+        ],
+        "explanation": "ਸਮੁੰਦਰੀ ਬਰਫ਼ ਬਣਨ ਵੇਲੇ ਬਹੁਤਾ ਲੂਣ ਆਲੇ-ਦੁਆਲੇ ਦੇ ਪਾਣੀ ਵਿੱਚ ਰਹਿ ਜਾਂਦਾ ਹੈ; ਇਸ ਨਾਲ ਉਸ ਦਾ ਖਾਰਾਪਣ ਅਤੇ ਘਣਤਾ ਵਧਣ ਦੀ ਰੁਝਾਨ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q016",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-latitudinal-temperature",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why does average surface-ocean temperature generally decrease from the tropics toward the poles?",
+        "options": [
+          "Solar energy arrives at a lower angle and is spread over a larger area at high latitudes",
+          "The water is farther from the Moon’s orbit",
+          "High salinity prevents sunlight from warming the water",
+          "Earth’s rotation draws heat away from the poles"
+        ],
+        "explanation": "High latitudes receive less concentrated solar energy because the Sun’s rays strike at a lower angle."
+      },
+      "hi": {
+        "stem": "औसत महासागरीय सतह तापमान उष्णकटिबंध से ध्रुवों की ओर सामान्यतः क्यों घटता है?",
+        "options": [
+          "उच्च अक्षांशों पर सौर ऊर्जा कम कोण से आती है और बड़े क्षेत्र में फैलती है",
+          "जल चंद्रमा की कक्षा से अधिक दूर होता है",
+          "अधिक लवणता सूर्यप्रकाश को जल गर्म करने से रोकती है",
+          "पृथ्वी का घूर्णन ध्रुवों से ऊष्मा खींच लेता है"
+        ],
+        "explanation": "उच्च अक्षांशों पर सूर्य की किरणें कम कोण पर पड़ती हैं, इसलिए सौर ऊर्जा कम सघनता से मिलती है।"
+      },
+      "pa": {
+        "stem": "ਔਸਤ ਸਮੁੰਦਰੀ ਸਤਹ ਤਾਪਮਾਨ ਗਰਮ-ਖੰਡੀ ਖੇਤਰਾਂ ਤੋਂ ਧਰੁਵਾਂ ਵੱਲ ਆਮ ਤੌਰ ਤੇ ਕਿਉਂ ਘਟਦਾ ਹੈ?",
+        "options": [
+          "ਉੱਚੇ ਅਕਸ਼ਾਂਸ਼ਾਂ ਉੱਤੇ ਸੂਰਜੀ ਊਰਜਾ ਘੱਟ ਕੋਣ ਨਾਲ ਆਉਂਦੀ ਹੈ ਅਤੇ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਫੈਲਦੀ ਹੈ",
+          "ਪਾਣੀ ਚੰਦ ਦੇ ਪੰਧ ਤੋਂ ਹੋਰ ਦੂਰ ਹੁੰਦਾ ਹੈ",
+          "ਵੱਧ ਖਾਰਾਪਣ ਧੁੱਪ ਨੂੰ ਪਾਣੀ ਗਰਮ ਕਰਨ ਤੋਂ ਰੋਕਦਾ ਹੈ",
+          "ਧਰਤੀ ਦਾ ਘੁੰਮਣਾ ਧਰੁਵਾਂ ਤੋਂ ਤਾਪ ਖਿੱਚ ਲੈਂਦਾ ਹੈ"
+        ],
+        "explanation": "ਉੱਚੇ ਅਕਸ਼ਾਂਸ਼ਾਂ ਉੱਤੇ ਸੂਰਜ ਦੀਆਂ ਕਿਰਨਾਂ ਘੱਟ ਕੋਣ ਨਾਲ ਪੈਂਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਸੂਰਜੀ ਊਰਜਾ ਘੱਟ ਕੇਂਦਰਿਤ ਮਿਲਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q017",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-upwelling-nutrients",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why are some coastal upwelling zones important fishing grounds?",
+        "options": [
+          "Rising deep water brings nutrients that support plankton and food webs",
+          "Upwelling removes all oxygen from the sea",
+          "Deep water is always warmer than the surface",
+          "Upwelling prevents sunlight from reaching the coast"
+        ],
+        "explanation": "Upwelling can bring nutrient-rich deep water into the sunlit surface layer, supporting plankton and productive fisheries."
+      },
+      "hi": {
+        "stem": "कुछ तटीय अपवेलिंग क्षेत्र महत्वपूर्ण मत्स्य क्षेत्र क्यों होते हैं?",
+        "options": [
+          "ऊपर उठता गहरा जल पोषक तत्व लाता है, जो प्लवक और खाद्य-जाल को सहारा देते हैं",
+          "अपवेलिंग समुद्र की सारी ऑक्सीजन हटा देती है",
+          "गहरा जल हमेशा सतही जल से गर्म होता है",
+          "अपवेलिंग तट तक धूप पहुँचने से रोकती है"
+        ],
+        "explanation": "ऊपर उठता पोषक तत्वों से भरपूर गहरा जल सूर्यप्रकाशित सतही परत में पहुँच सकता है; इससे प्लवक और उत्पादक मत्स्य क्षेत्र पनपते हैं।"
+      },
+      "pa": {
+        "stem": "ਕੁਝ ਤੱਟੀ ਉੱਪਰ-ਚੜ੍ਹਦੇ ਪਾਣੀ ਵਾਲੇ ਖੇਤਰ ਮਹੱਤਵਪੂਰਨ ਮੱਛੀ-ਪਕੜ ਥਾਵਾਂ ਕਿਉਂ ਹੁੰਦੇ ਹਨ?",
+        "options": [
+          "ਉੱਪਰ ਚੜ੍ਹਦਾ ਡੂੰਘਾ ਪਾਣੀ ਪੋਸ਼ਕ ਤੱਤ ਲਿਆਉਂਦਾ ਹੈ ਜੋ ਪਲੈਂਕਟਨ ਅਤੇ ਭੋਜਨ-ਜਾਲ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦੇ ਹਨ",
+          "ਉੱਪਰ-ਚੜ੍ਹਦਾ ਪਾਣੀ ਸਮੁੰਦਰ ਦੀ ਸਾਰੀ ਆਕਸੀਜਨ ਹਟਾ ਦਿੰਦਾ ਹੈ",
+          "ਡੂੰਘਾ ਪਾਣੀ ਹਮੇਸ਼ਾ ਸਤਹੀ ਪਾਣੀ ਨਾਲੋਂ ਗਰਮ ਹੁੰਦਾ ਹੈ",
+          "ਉੱਪਰ-ਚੜ੍ਹਦਾ ਪਾਣੀ ਤੱਟ ਤੱਕ ਧੁੱਪ ਆਉਣ ਤੋਂ ਰੋਕਦਾ ਹੈ"
+        ],
+        "explanation": "ਪੋਸ਼ਕ ਤੱਤਾਂ ਨਾਲ ਭਰਪੂਰ ਡੂੰਘਾ ਪਾਣੀ ਉੱਪਰ ਚੜ੍ਹ ਕੇ ਧੁੱਪ ਵਾਲੀ ਸਤਹੀ ਪਰਤ ਵਿੱਚ ਆ ਸਕਦਾ ਹੈ; ਇਸ ਨਾਲ ਪਲੈਂਕਟਨ ਅਤੇ ਉਤਪਾਦਕ ਮੱਛੀ-ਖੇਤਰ ਵਧਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q018",
+    "cpId": "WGE-001-CP015",
+    "objective": "continental-shelf-resources",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why have many continental shelves been important for offshore petroleum exploration?",
+        "options": [
+          "Sedimentary basins and accessible shallow waters can make them prospective areas",
+          "They are made entirely of fresh volcanic lava",
+          "They contain the oldest oceanic crust in each basin",
+          "They form where deep-ocean trenches meet the coast"
+        ],
+        "explanation": "Many shelves overlie sedimentary basins that can contain petroleum systems, and their relatively shallow waters ease exploration."
+      },
+      "hi": {
+        "stem": "समुद्रतटीय पेट्रोलियम खोज में अनेक महाद्वीपीय मग्नतट क्यों महत्वपूर्ण रहे हैं?",
+        "options": [
+          "तलछटी बेसिन और अपेक्षाकृत उथला जल उन्हें संभावित क्षेत्र बनाते हैं",
+          "वे पूरी तरह ताजे ज्वालामुखीय लावा से बने हैं",
+          "उनमें प्रत्येक बेसिन की सबसे पुरानी महासागरीय भूपर्पटी होती है",
+          "वे वहाँ बनते हैं जहाँ गहरे महासागरीय गर्त तट से मिलते हैं"
+        ],
+        "explanation": "कई मग्नतटों के नीचे पेट्रोलियम तंत्र वाले तलछटी बेसिन होते हैं; उथला जल खोज कार्य को अपेक्षाकृत आसान बनाता है।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਪੈਟਰੋਲੀਅਮ ਖੋਜ ਵਿੱਚ ਕਈ ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼ ਮਹੱਤਵਪੂਰਨ ਕਿਉਂ ਰਹੇ ਹਨ?",
+        "options": [
+          "ਤਲਛਟੀ ਬੇਸਿਨ ਅਤੇ ਥੋੜ੍ਹਾ ਡੂੰਘਾ ਪਾਣੀ ਉਨ੍ਹਾਂ ਨੂੰ ਸੰਭਾਵੀ ਖੇਤਰ ਬਣਾਉਂਦੇ ਹਨ",
+          "ਉਹ ਪੂਰੀ ਤਰ੍ਹਾਂ ਤਾਜ਼ੇ ਜਵਾਲਾਮੁਖੀ ਲਾਵੇ ਦੇ ਬਣੇ ਹਨ",
+          "ਉਨ੍ਹਾਂ ਵਿੱਚ ਹਰ ਬੇਸਿਨ ਦੀ ਸਭ ਤੋਂ ਪੁਰਾਣੀ ਮਹਾਂਸਾਗਰੀ ਭੂ-ਪੇਪੜੀ ਹੁੰਦੀ ਹੈ",
+          "ਉਹ ਉੱਥੇ ਬਣਦੇ ਹਨ ਜਿੱਥੇ ਡੂੰਘੀਆਂ ਮਹਾਂਸਾਗਰੀ ਖਾਈਆਂ ਤੱਟ ਨਾਲ ਮਿਲਦੀਆਂ ਹਨ"
+        ],
+        "explanation": "ਕਈ ਸ਼ੈਲਫ਼ਾਂ ਹੇਠ ਪੈਟਰੋਲੀਅਮ ਪ੍ਰਣਾਲੀਆਂ ਵਾਲੇ ਤਲਛਟੀ ਬੇਸਿਨ ਹੁੰਦੇ ਹਨ; ਥੋੜ੍ਹਾ ਡੂੰਘਾ ਪਾਣੀ ਖੋਜ ਨੂੰ ਤੁਲਨਾਤਮਕ ਤੌਰ ਤੇ ਸੌਖਾ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q019",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-bathymetry",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A bathymetric map primarily shows:",
+        "options": [
+          "The height of land above sea level",
+          "The depth and shape of the ocean floor",
+          "The salinity of every river",
+          "The age of coastal cities"
+        ],
+        "explanation": "Bathymetry maps underwater depth and seafloor relief, the oceanic equivalent of land topography."
+      },
+      "hi": {
+        "stem": "समुद्रतलीय गहराई का मानचित्र मुख्यतः क्या दिखाता है?",
+        "options": [
+          "समुद्र तल से ऊपर भूमि की ऊँचाई",
+          "महासागर तल की गहराई और आकृति",
+          "हर नदी की लवणता",
+          "तटीय नगरों की आयु"
+        ],
+        "explanation": "समुद्रतलीय गहराई के मानचित्र जल के नीचे की गहराई और समुद्र तल की आकृति दिखाते हैं; यह स्थलाकृति का समुद्री रूप है।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਡੂੰਘਾਈ ਦਾ ਨਕਸ਼ਾ ਮੁੱਖ ਤੌਰ ਤੇ ਕੀ ਦਿਖਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਸਮੁੰਦਰ-ਪੱਧਰ ਤੋਂ ਉੱਪਰ ਧਰਤੀ ਦੀ ਉਚਾਈ",
+          "ਮਹਾਂਸਾਗਰੀ ਤਲ ਦੀ ਡੂੰਘਾਈ ਅਤੇ ਬਣਤਰ",
+          "ਹਰ ਦਰਿਆ ਦਾ ਖਾਰਾਪਣ",
+          "ਤੱਟੀ ਸ਼ਹਿਰਾਂ ਦੀ ਉਮਰ"
+        ],
+        "explanation": "ਸਮੁੰਦਰੀ ਡੂੰਘਾਈ ਦੇ ਨਕਸ਼ੇ ਪਾਣੀ ਹੇਠਲੀ ਡੂੰਘਾਈ ਅਤੇ ਸਮੁੰਦਰੀ ਤਲ ਦੀ ਬਣਤਰ ਦਿਖਾਉਂਦੇ ਹਨ; ਇਹ ਧਰਤੀ ਦੀ ਭੂ-ਆਕ੍ਰਿਤੀ ਦਾ ਸਮੁੰਦਰੀ ਰੂਪ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q020",
+    "cpId": "WGE-001-CP015",
+    "objective": "mariana-trench-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "The Mariana Trench lies in which ocean?",
+        "options": [
+          "Atlantic",
+          "Indian",
+          "Arctic",
+          "Pacific"
+        ],
+        "explanation": "The Mariana Trench is in the western Pacific Ocean, east of the Mariana Islands."
+      },
+      "hi": {
+        "stem": "मेरियाना गर्त किस महासागर में स्थित है?",
+        "options": [
+          "अटलांटिक",
+          "हिंद",
+          "आर्कटिक",
+          "प्रशांत"
+        ],
+        "explanation": "मेरियाना गर्त पश्चिमी प्रशांत महासागर में, मेरियाना द्वीपों के पूर्व में स्थित है।"
+      },
+      "pa": {
+        "stem": "ਮਰੀਆਨਾ ਖਾਈ ਕਿਹੜੇ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਐਟਲਾਂਟਿਕ",
+          "ਹਿੰਦ",
+          "ਆਰਕਟਿਕ",
+          "ਪ੍ਰਸ਼ਾਂਤ"
+        ],
+        "explanation": "ਮਰੀਆਨਾ ਖਾਈ ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਵਿੱਚ, ਮਰੀਆਨਾ ਟਾਪੂਆਂ ਦੇ ਪੂਰਬ ਵੱਲ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q021",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-relief-order",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which sequence moves from the continent toward a typical deep-ocean basin?",
+        "options": [
+          "Shelf → slope → rise → abyssal plain",
+          "Trench → ridge → shelf → slope",
+          "Abyssal plain → shelf → trench → rise",
+          "Rise → trench → shelf → ridge"
+        ],
+        "explanation": "A typical continental margin descends across the shelf, slope and rise before meeting the deep basin and its plains."
+      },
+      "hi": {
+        "stem": "महाद्वीप से सामान्य गहरे महासागरीय बेसिन की ओर जाने वाला क्रम कौन-सा है?",
+        "options": [
+          "मग्नतट → ढाल → उत्थान → अगाध मैदान",
+          "गर्त → कटक → मग्नतट → ढाल",
+          "अगाध मैदान → मग्नतट → गर्त → उत्थान",
+          "उत्थान → गर्त → मग्नतट → कटक"
+        ],
+        "explanation": "सामान्य महाद्वीपीय किनारा मग्नतट, ढाल और उत्थान से नीचे उतरकर गहरे बेसिन और उसके मैदानों तक पहुँचता है।"
+      },
+      "pa": {
+        "stem": "ਮਹਾਂਦੀਪ ਤੋਂ ਆਮ ਡੂੰਘੇ ਮਹਾਂਸਾਗਰੀ ਬੇਸਿਨ ਵੱਲ ਜਾਣ ਵਾਲਾ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਸ਼ੈਲਫ਼ → ਢਲਾਣ → ਉਭਾਰ → ਅਥਾਹ ਮੈਦਾਨ",
+          "ਖਾਈ → ਕਟਕ → ਸ਼ੈਲਫ਼ → ਢਲਾਣ",
+          "ਅਥਾਹ ਮੈਦਾਨ → ਸ਼ੈਲਫ਼ → ਖਾਈ → ਉਭਾਰ",
+          "ਉਭਾਰ → ਖਾਈ → ਸ਼ੈਲਫ਼ → ਕਟਕ"
+        ],
+        "explanation": "ਆਮ ਮਹਾਂਦੀਪੀ ਹਾਸ਼ੀਆ ਸ਼ੈਲਫ਼, ਢਲਾਣ ਅਤੇ ਉਭਾਰ ਤੋਂ ਹੇਠਾਂ ਜਾ ਕੇ ਡੂੰਘੇ ਬੇਸਿਨ ਅਤੇ ਇਸ ਦੇ ਮੈਦਾਨਾਂ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q022",
+    "cpId": "WGE-001-CP015",
+    "objective": "mid-ocean-ridge-global-system",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why are mid-ocean ridges often described as a connected global system?",
+        "options": [
+          "They form long, linked mountain belts across several ocean basins",
+          "They are isolated peaks on continental shelves",
+          "They occur only in the Arctic Ocean",
+          "They are made by river deposition"
+        ],
+        "explanation": "The mid-ocean ridge system consists of connected or linked spreading ridges extending through multiple ocean basins."
+      },
+      "hi": {
+        "stem": "मध्य-महासागरीय कटक को अक्सर जुड़ी हुई वैश्विक प्रणाली क्यों कहा जाता है?",
+        "options": [
+          "वे कई महासागरीय बेसिनों में लंबी जुड़ी पर्वत-पेटियाँ बनाते हैं",
+          "वे महाद्वीपीय मग्नतट पर अलग-थलग चोटियाँ हैं",
+          "वे केवल आर्कटिक महासागर में मिलते हैं",
+          "वे नदी निक्षेप से बनते हैं"
+        ],
+        "explanation": "मध्य-महासागरीय कटक प्रणाली कई महासागरीय बेसिनों में फैली परस्पर जुड़ी प्रसारी कटक-पेटियों से बनी है।"
+      },
+      "pa": {
+        "stem": "ਮੱਧ-ਮਹਾਂਸਾਗਰੀ ਕਟਕਾਂ ਨੂੰ ਅਕਸਰ ਜੁੜੀ ਹੋਈ ਵਿਸ਼ਵ ਪ੍ਰਣਾਲੀ ਕਿਉਂ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਉਹ ਕਈ ਮਹਾਂਸਾਗਰੀ ਬੇਸਿਨਾਂ ਵਿੱਚ ਲੰਬੀਆਂ ਜੁੜੀਆਂ ਪਹਾੜੀ ਪੱਟੀਆਂ ਬਣਾਉਂਦੇ ਹਨ",
+          "ਉਹ ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼ਾਂ ਉੱਤੇ ਇਕੱਲੀਆਂ ਚੋਟੀਆਂ ਹਨ",
+          "ਉਹ ਸਿਰਫ਼ ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਮਿਲਦੇ ਹਨ",
+          "ਉਹ ਦਰਿਆਈ ਜਮਾਵ ਨਾਲ ਬਣਦੇ ਹਨ"
+        ],
+        "explanation": "ਮੱਧ-ਮਹਾਂਸਾਗਰੀ ਕਟਕ ਪ੍ਰਣਾਲੀ ਕਈ ਮਹਾਂਸਾਗਰੀ ਬੇਸਿਨਾਂ ਵਿੱਚ ਫੈਲੀਆਂ ਆਪਸ ਵਿੱਚ ਜੁੜੀਆਂ ਫੈਲਾਅ ਵਾਲੀਆਂ ਕਟਕ-ਪੱਟੀਆਂ ਤੋਂ ਬਣੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q023",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-shelf-slope-break",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "What marks the transition from continental shelf to continental slope?",
+        "options": [
+          "A sudden decrease in water salinity",
+          "The shelf break, where the seabed begins to descend more steeply",
+          "The point where sunlight first reaches the seabed",
+          "The mouth of a submarine trench"
+        ],
+        "explanation": "The shelf break is the point beyond which the seafloor steepens into the continental slope."
+      },
+      "hi": {
+        "stem": "महाद्वीपीय मग्नतट से महाद्वीपीय ढाल में परिवर्तन किससे चिह्नित होता है?",
+        "options": [
+          "जल की लवणता में अचानक कमी से",
+          "मग्नतट के किनारे से, जहाँ समुद्र तल अधिक तीव्रता से नीचे उतरने लगता है",
+          "उस बिंदु से जहाँ धूप पहली बार समुद्र तल तक पहुँचती है",
+          "समुद्री गर्त के मुहाने से"
+        ],
+        "explanation": "मग्नतट का किनारा वह स्थान है जिसके आगे समुद्र तल तीव्र ढाल बनाकर नीचे उतरता है।"
+      },
+      "pa": {
+        "stem": "ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼ ਤੋਂ ਮਹਾਂਦੀਪੀ ਢਲਾਣ ਵੱਲ ਬਦਲਾਅ ਕਿਸ ਨਾਲ ਦਰਸਾਇਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਪਾਣੀ ਦੇ ਖਾਰਾਪਣ ਵਿੱਚ ਅਚਾਨਕ ਘਾਟ ਨਾਲ",
+          "ਸ਼ੈਲਫ਼ ਦੇ ਕਿਨਾਰੇ ਨਾਲ ਜਿੱਥੇ ਸਮੁੰਦਰੀ ਤਲ ਹੋਰ ਤਿੱਖਾ ਹੇਠਾਂ ਜਾਣ ਲੱਗਦਾ ਹੈ",
+          "ਉਸ ਬਿੰਦੂ ਨਾਲ ਜਿੱਥੇ ਧੁੱਪ ਪਹਿਲੀ ਵਾਰ ਸਮੁੰਦਰੀ ਤਲ ਤੱਕ ਪਹੁੰਚਦੀ ਹੈ",
+          "ਸਮੁੰਦਰੀ ਖਾਈ ਦੇ ਮੂੰਹ ਨਾਲ"
+        ],
+        "explanation": "ਸ਼ੈਲਫ਼ ਦਾ ਕਿਨਾਰਾ ਉਹ ਥਾਂ ਹੈ ਜਿਸ ਤੋਂ ਅੱਗੇ ਸਮੁੰਦਰੀ ਤਲ ਤਿੱਖੀ ਢਲਾਣ ਨਾਲ ਹੇਠਾਂ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q024",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-surface-temperature-upwelling",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Cold upwelled water reaches a tropical coast. Which immediate effect is most likely in the nearby surface ocean?",
+        "options": [
+          "Lower surface temperature and increased nutrient supply",
+          "Higher surface temperature and fewer nutrients",
+          "No change in temperature or nutrients",
+          "A permanent increase in sea level"
+        ],
+        "explanation": "Upwelling replaces some warm surface water with colder, nutrient-rich water from below."
+      },
+      "hi": {
+        "stem": "ठंडा ऊपर उठता जल उष्णकटिबंधीय तट तक पहुँचता है। पास के सतही महासागर में तत्काल कौन-सा प्रभाव अधिक संभावित है?",
+        "options": [
+          "सतही तापमान घटेगा और पोषक तत्व बढ़ेंगे",
+          "सतही तापमान बढ़ेगा और पोषक तत्व घटेंगे",
+          "तापमान और पोषक तत्व नहीं बदलेंगे",
+          "समुद्र तल स्थायी रूप से बढ़ेगा"
+        ],
+        "explanation": "अपवेलिंग में कुछ गर्म सतही जल की जगह नीचे से आया ठंडा, पोषक तत्वों से भरपूर जल लेता है।"
+      },
+      "pa": {
+        "stem": "ਠੰਡਾ ਉੱਪਰ ਚੜ੍ਹਦਾ ਪਾਣੀ ਗਰਮ-ਖੰਡੀ ਤੱਟ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ। ਨੇੜਲੇ ਸਤਹੀ ਸਮੁੰਦਰ ਵਿੱਚ ਤੁਰੰਤ ਕਿਹੜਾ ਅਸਰ ਵੱਧ ਸੰਭਾਵੀ ਹੈ?",
+        "options": [
+          "ਸਤਹੀ ਤਾਪਮਾਨ ਘਟੇਗਾ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤ ਵਧਣਗੇ",
+          "ਸਤਹੀ ਤਾਪਮਾਨ ਵਧੇਗਾ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤ ਘਟਣਗੇ",
+          "ਤਾਪਮਾਨ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤ ਨਹੀਂ ਬਦਲਣਗੇ",
+          "ਸਮੁੰਦਰ-ਪੱਧਰ ਸਥਾਈ ਤੌਰ ਤੇ ਵਧੇਗਾ"
+        ],
+        "explanation": "ਉੱਪਰ-ਚੜ੍ਹਦੇ ਪਾਣੀ ਨਾਲ ਗਰਮ ਸਤਹੀ ਪਾਣੀ ਦੀ ਕੁਝ ਥਾਂ ਹੇਠੋਂ ਆਏ ਠੰਡੇ, ਪੋਸ਼ਕ ਤੱਤਾਂ ਭਰਪੂਰ ਪਾਣੀ ਲੈ ਲੈਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP015-Q025",
+    "cpId": "WGE-001-CP015",
+    "objective": "ocean-property-factor-comparison",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-ATM-015A",
+      "WGE-ATM-015B"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Two enclosed subtropical seas have high evaporation and limited freshwater input. Which property is likely to be relatively high?",
+        "options": [
+          "Surface salinity",
+          "River discharge",
+          "Sea-ice duration",
+          "Deep-water temperature"
+        ],
+        "explanation": "Strong evaporation and limited freshwater input tend to concentrate dissolved salts in surface water."
+      },
+      "hi": {
+        "stem": "दो बंद उपोष्णकटिबंधीय समुद्रों में वाष्पीकरण अधिक और मीठे जल का आगमन कम है। कौन-सा गुण अपेक्षाकृत अधिक हो सकता है?",
+        "options": [
+          "सतही लवणता",
+          "नदी का बहाव",
+          "समुद्री हिम की अवधि",
+          "गहरे जल का तापमान"
+        ],
+        "explanation": "अधिक वाष्पीकरण और कम मीठा जल सतही जल में घुले लवणों को सघन करने की प्रवृत्ति रखते हैं।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਬੰਦ ਉਪ-ਉੱਸ਼ਣ ਸਮੁੰਦਰਾਂ ਵਿੱਚ ਵਾਸ਼ਪੀਕਰਨ ਵੱਧ ਅਤੇ ਮਿੱਠੇ ਪਾਣੀ ਦੀ ਆਮਦ ਘੱਟ ਹੈ। ਕਿਹੜਾ ਗੁਣ ਤੁਲਨਾਤਮਕ ਤੌਰ ਤੇ ਵੱਧ ਹੋ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਸਤਹੀ ਖਾਰਾਪਣ",
+          "ਦਰਿਆਈ ਵਹਾਅ",
+          "ਸਮੁੰਦਰੀ ਬਰਫ਼ ਦੀ ਮਿਆਦ",
+          "ਡੂੰਘੇ ਪਾਣੀ ਦਾ ਤਾਪਮਾਨ"
+        ],
+        "explanation": "ਵੱਧ ਵਾਸ਼ਪੀਕਰਨ ਅਤੇ ਘੱਟ ਮਿੱਠਾ ਪਾਣੀ ਸਤਹੀ ਪਾਣੀ ਵਿੱਚ ਘੁਲੇ ਲੂਣਾਂ ਨੂੰ ਸੰਘਣਾ ਕਰਨ ਦੀ ਰੁਝਾਨ ਰੱਖਦੇ ਹਨ।"
+      }
+    }
+  }
+]
