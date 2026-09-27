@@ -1,99 +1,95 @@
 # MIS-001 Target-Exam Source Crosswalk V9
 
-Status: **TWO NEW SEMANTIC AUTHORITIES FOUND — PRIOR ZERO-GAP V9 INVALIDATED**
+Status: **ZERO-NEW-AUTHORITY WAVE AFTER CP021 — SATURATION SIGNAL ONLY, NOT FREEZE**
 
-## 1. New SSC authority: pair arithmetic mean
+## 1. SSC CGL reconfirmations
 
-Source:
-- SSC CGL Previous Paper 62
-- Held 13 Jun 2019 Shift 2
-- previous-paper label verified through Testbook
+### Directional / absolute difference
 
-Observed columns:
-- (36 + 28) ÷ 2 = 32
-- (52 + 40) ÷ 2 = 46
-- target: (86 + 12) ÷ 2 = 49
+SSC CGL 17 Aug 2017 Shift 2:
 
-Normalized rule:
-
-`result = (a+b)÷2`
+- 104 − 57 = 47
+- 87 − 9 = 78
+- 103 − 25 = 78
 
 Decision:
-- add `MIS-CAND-106`;
-- require an exact integer mean;
-- retain as a distinct semantic authority rather than treating it as generic division;
-- runtime owner: `MIS-CP-022`.
+- maps to existing difference authority;
+- no new semantic family.
 
-## 2. New Punjab-state authority: root-sum × third + 2
+### Triangle / grouped addition
 
-Source:
-- PSPCL LDC Previous Paper 8
-- Held 23 Dec 2019 Shift 2
-- previous-paper label verified through Testbook
-
-Observed groups:
-- (√25 + √9) × 12 + 2 = 98
-- (√36 + √16) × 15 + 2 = 152
-- target: (√49 + √25) × 18 + 2 = 218
-
-Normalized rule:
-
-`result = (√a + √b) × c + 2`
+SSC CGL 2016 previous-paper triangle examples resolve through ordinary addition relationships.
 
 Decision:
-- add `MIS-CAND-107`;
-- first two inputs must be exact perfect squares;
-- keep distinct from CP020 simple root-extraction authorities because the third operand and final +2 are both solve-relevant;
-- runtime owner: `MIS-CP-023`.
+- maps to existing sum authority;
+- triangle placement remains renderer/role-map context.
 
-## 3. Reconfirmed existing authorities
+### Column multiplication table
 
-The same V9 pass reconfirmed several already-owned families:
+SSC CGL 23 Aug 2017 Shift 3:
 
-- SSC CGL 9 Aug 2017 Shift 3: pair-product sum `ab+cd` -> `MIS-CAND-051`;
-- SSC GD 3 Mar 2019 Shift 3: pair-product difference followed by ×2 -> `MIS-CAND-090`;
-- SSC GD 9 Mar 2019 Shift 2: cube-root sum -> `MIS-CAND-103`;
-- PSSSB reasoning sample: `ab+8` -> CP001 product-plus-stable-constant `MIS-CAND-006`;
-- PSPCL LDC 4 Jan 2020 Shift 2: repeated-square invariant corner sum -> `MIS-CAND-050` / inverse presentation `MIS-CAND-086`.
+- second-row value × third-row value = first-row value.
 
-Series-only results remain routed to Series. Genuine row/column consistency remains routed to Number Matrix.
+Decision:
+- genuine row/column table consistency;
+- route to Number Matrix rather than MIS-001.
 
-## 4. Factorial and inverse-query status
+## 2. SSC GD reconfirmations
 
-The targeted V9 sample did not expose a second independent target-exam recurrence for:
-- `SMALL_FACTORIAL` / `MIS-CAND-034`;
-- `MIS-CAND-095`.
+### Pair-sum difference
 
-Both remain source-thin.
+SSC GD 5 Mar 2019 Shift 2:
 
-No new semantic authority was justified merely because the missing position changed. Existing inverse forms remain query-direction variants unless the arithmetic relation itself changes.
+- first completed figure: (72+18) − (24+17) = 49
+- target: (42+36) − (29+31) = 18
 
-## 5. Inventory after corrected V9
+Decision:
+- already covered by grouped pair-sum difference authority;
+- no new family.
 
-- runtime patterns: **107**
-- canonical semantic authorities: **72**
+### Existing product / pair-product families
+
+Additional SSC GD figure samples map to:
+- PRODUCT;
+- pair-product-difference × constant;
+- cube-root / power authorities already introduced in CP016/CP020/CP021.
+
+No new authority required.
+
+## 3. Punjab-state sample
+
+PSSSB / Punjab-state searches predominantly resolve to:
+- Number Series;
+- Number Matrix;
+- Number Analogy;
+- figure series.
+
+No new MIS-001 semantic authority was found in this wave.
+
+## 4. Source-thin recurrence
+
+No independent recurrence found for:
+- SMALL_FACTORIAL;
+- MIS-CAND-095.
+
+Both remain source-thin and ineligible for permanent QL promotion.
+
+## 5. Inventory after V9
+
+No executable change:
+
+- runtime patterns: **105**
+- canonical semantic authorities: **70**
 - aliases / reuse-only variants: **35**
 - permanent QLs: **0**
 - source saturation: **false**
 
 ## 6. Saturation interpretation
 
-The earlier V9 note treated the wave as zero-new-authority. That conclusion is no longer valid.
+V9 was a zero-new-authority wave after the V8/CP021 additions.
 
-A deeper targeted pass exposed:
-1. one new SSC semantic authority;
-2. one new Punjab-state mixed-root authority.
+It was a useful saturation signal, but not enough to freeze the chapter. The deeper V10 pass subsequently exposed two real gaps, so V9 must not be treated as a final saturation proof.
 
-Therefore the saturation clock resets again. Permanent QL allocation remains blocked.
+## 7. Next gate
 
-## 7. Next gate — V10
-
-V10 must target:
-1. older SSC CGL/CHSL figure PYQs not represented in V8/V9;
-2. Punjab-state repeated-group and figure questions beyond the PSPCL examples already mapped;
-3. Banking/RRB repeated-group forms only where ownership is genuinely Missing Number;
-4. recurrence evidence for `SMALL_FACTORIAL` and `MIS-CAND-095`;
-5. mixed root/power compositions;
-6. inverse-input forms that change solve topology rather than blank position only.
-
-A freeze should be considered only after consecutive targeted waves stop exposing meaningful new semantic authorities.
+Proceed to V10 for a deeper targeted source pass before any freeze decision.
