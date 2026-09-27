@@ -47,7 +47,7 @@ A useful system can show broad position bands, recent movement and factors that 
 
 The design challenge is to communicate uncertainty without making the system feel arbitrary.
 
-A transparent waitlist therefore explains both the ordinary order and the recognised exceptions. People may still dislike waiting, but they are better able to understand why the sequence can change.  Clear rules make movement easier to interpret.`,
+A transparent waitlist therefore explains both the ordinary order and the recognised exceptions. People may still dislike waiting, but they are better able to understand why the sequence can change.  Clear rules make movement easier to interpret.  That context preserves trust.`,
  questions:[
  q("E37-Q1","RC2-F01","easy","Why can a waitlist number be misleading?","Priority rules can change the actual service order",["Numbers cannot be updated","Every service uses random order","Waitlists always have one person"],"The passage explains that urgent or category-based cases may move ahead of a simple numerical position.","priority rules"),
  q("E37-Q2","RC2-F02","medium","What can be inferred about exact waiting dates?","They can create false certainty when capacity changes",["They are always required","They never change","They improve service capacity"],"A precise date is weak if the system cannot predict future throughput reliably.","service capacity changes"),
@@ -221,7 +221,7 @@ Applicants said this was useful because it confirmed that their new documents ha
 
 Officials concluded that process transparency works best when status labels describe what has happened without implying an outcome that has not yet been decided.
 
-The municipality will next compare total processing time and the number of incomplete applications, because better visibility alone does not necessarily make review faster.  The municipality will also review whether milestone wording changes applicant behaviour, such as prompting earlier responses to clarification requests. That will help separate better visibility from actual process improvement.`,
+The municipality will next compare total processing time and the number of incomplete applications, because better visibility alone does not necessarily make review faster.  The municipality will also review whether milestone wording changes applicant behaviour, such as prompting earlier responses to clarification requests. That will help separate better visibility from actual process improvement.  Staff will also review whether clearer milestones reduce duplicate document uploads.`,
  questions:[
  q("R35-Q1","RC2-F01","easy","What did the new permit tracker show?","Stages such as document receipt, review and decision",["Construction prices","Inspector salaries","Neighbour names"],"The tracker replaced one generic receipt status with several process milestones.","milestone tracker"),
  q("R35-Q2","RC2-F02","medium","Why was a note added beside “technical review”?","Applicants were treating a process stage as a sign of likely approval",["Technical review had been removed","Every application was approved","The label had no meaning"],"The municipality wanted the status to show location in the workflow rather than outcome probability.","not likelihood of approval"),
