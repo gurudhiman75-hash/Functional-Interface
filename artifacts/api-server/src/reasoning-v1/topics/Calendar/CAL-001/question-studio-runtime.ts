@@ -232,15 +232,14 @@ function selectSourcePackage(
 }
 
 function explanationLines(pkg: CalendarSourcePackage): string[] {
+  // Learner-facing Question Studio explanations stay focused on the actual
+  // solution. Trap diagnostics and verification prose remain available in the
+  // source package for QA, but are intentionally not projected to learners.
   return [
     pkg.explanation.observation,
     pkg.explanation.rule,
     ...pkg.explanation.working,
     pkg.explanation.conclusion,
-    pkg.explanation.closestTrap ?? "",
-    "verification" in pkg.explanation && pkg.explanation.verification
-      ? pkg.explanation.verification
-      : "",
   ].filter(Boolean);
 }
 
