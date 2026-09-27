@@ -69,7 +69,7 @@ async function main() {
   const replay = await generateMis001QuestionStudioBatch({
     packageId: 'MIS-001',
     language: 'en',
-    count: 86,
+    count: 89,
     seed: 'MIS-QS-CHAPTER-V1',
   });
   assert.deepEqual(first, replay);
@@ -98,7 +98,7 @@ async function main() {
     assert.ok(['RESULT_MISSING','CENTRE_MISSING','FIRST_INPUT','SECOND_INPUT','THIRD_INPUT','RESULT','TOP_VERTEX','LEFT_VERTEX','RIGHT_VERTEX','CENTRE','CORNER_MISSING'].includes(question.missingPosition));
   }
   assert.equal(candidateIds.size, 89);
-  assert.deepEqual([...checkpointIds].sort(), ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014']);
+  assert.deepEqual([...checkpointIds].sort(), ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015']);
 
   const cp002 = await generateMis001QuestionStudioBatch({
     packageId: 'MIS-001',
