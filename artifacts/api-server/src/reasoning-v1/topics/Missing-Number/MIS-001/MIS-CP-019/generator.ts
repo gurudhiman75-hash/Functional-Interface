@@ -48,8 +48,8 @@ export interface GeneratedMisCp019Question {
   readonly forwardOrInverse: 'FORWARD';
   readonly sourceBacked: true;
   readonly sourceNote: string;
-  readonly semanticAuthorityCandidateId: MisCp019CandidateId;
-  readonly createsNewSemanticAuthority: true;
+  readonly semanticAuthorityCandidateId: string;
+  readonly createsNewSemanticAuthority: boolean;
   readonly wholeNumberOrDigitMode: 'WHOLE_NUMBER';
 }
 
@@ -440,8 +440,8 @@ export function generateMisCp019Question(
     forwardOrInverse: 'FORWARD',
     sourceBacked: true,
     sourceNote: rule.sourceNote,
-    semanticAuthorityCandidateId: candidateId,
-    createsNewSemanticAuthority: true,
+    semanticAuthorityCandidateId: candidateId === 'MIS-CAND-097' ? 'MIS-CAND-059' : candidateId,
+    createsNewSemanticAuthority: candidateId !== 'MIS-CAND-097',
     wholeNumberOrDigitMode: 'WHOLE_NUMBER',
   };
 }
