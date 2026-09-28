@@ -1,0 +1,542 @@
+[
+  {
+    "id": "WGE-001-CP036-Q001",
+    "cpId": "WGE-001-CP036",
+    "objective": "steel-industry-location-factors",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which two inputs have traditionally influenced the location of iron and steel works?",
+        "options": [
+          "Iron ore and fuel or power",
+          "Tea and jute",
+          "Cotton and tropical rain",
+          "Fish and salt"
+        ],
+        "explanation": "Iron and steel production has traditionally favoured access to bulky iron ore and energy; transport and markets also matter."
+      },
+      "hi": {
+        "stem": "लोहा-इस्पात उद्योगों के स्थान को परंपरागत रूप से कौन-से दो साधन प्रभावित करते रहे हैं?",
+        "options": [
+          "लौह-अयस्क और ईंधन या ऊर्जा",
+          "चाय और जूट",
+          "कपास और उष्णकटिबंधीय वर्षा",
+          "मछली और नमक"
+        ],
+        "explanation": "लोहा-इस्पात उत्पादन में भारी लौह-अयस्क और ऊर्जा तक पहुँच परंपरागत रूप से महत्वपूर्ण रही है; परिवहन और बाजार भी मायने रखते हैं।"
+      },
+      "pa": {
+        "stem": "ਲੋਹਾ-ਇਸਪਾਤ ਉਦਯੋਗਾਂ ਦੀ ਥਾਂ ਨੂੰ ਰਵਾਇਤੀ ਤੌਰ ਤੇ ਕਿਹੜੇ ਦੋ ਸਰੋਤ ਪ੍ਰਭਾਵਿਤ ਕਰਦੇ ਰਹੇ ਹਨ?",
+        "options": [
+          "ਲੋਹ-ਅਯਸਕ ਅਤੇ ਇੰਧਨ ਜਾਂ ਬਿਜਲੀ",
+          "ਚਾਹ ਅਤੇ ਜੂਟ",
+          "ਕਪਾਹ ਅਤੇ ਗਰਮ-ਖੇਤਰੀ ਵਰਖਾ",
+          "ਮੱਛੀ ਅਤੇ ਲੂਣ"
+        ],
+        "explanation": "ਲੋਹਾ-ਇਸਪਾਤ ਬਣਾਉਣ ਲਈ ਭਾਰੀ ਲੋਹ-ਅਯਸਕ ਅਤੇ ਊਰਜਾ ਤੱਕ ਪਹੁੰਚ ਰਵਾਇਤੀ ਤੌਰ ਤੇ ਅਹਿਮ ਰਹੀ ਹੈ; ਆਵਾਜਾਈ ਅਤੇ ਬਾਜ਼ਾਰ ਵੀ ਮਾਇਨੇ ਰੱਖਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q002",
+    "cpId": "WGE-001-CP036",
+    "objective": "petrochemical-industry-feedstock",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Petrochemical complexes are commonly located near refineries because they need:",
+        "options": [
+          "Large supplies of timber",
+          "Hydrocarbon feedstocks",
+          "High-altitude pastures",
+          "Freshwater fish"
+        ],
+        "explanation": "Many petrochemical processes use oil- or gas-based feedstocks, making links with refineries and pipelines valuable."
+      },
+      "hi": {
+        "stem": "पेट्रो-रासायनिक परिसर प्रायः तेलशोधक कारखानों के पास क्यों बनाए जाते हैं?",
+        "options": [
+          "लकड़ी की बड़ी आपूर्ति के कारण",
+          "हाइड्रोकार्बन कच्चे माल के कारण",
+          "ऊँचाई वाले चरागाहों के कारण",
+          "मीठे पानी की मछलियों के कारण"
+        ],
+        "explanation": "कई पेट्रो-रासायनिक प्रक्रियाओं में तेल या गैस आधारित कच्चा माल लगता है, इसलिए तेलशोधक कारखानों और पाइपलाइनों से जुड़ाव उपयोगी होता है।"
+      },
+      "pa": {
+        "stem": "ਪੈਟਰੋ-ਰਸਾਇਣਕ ਕੰਪਲੈਕਸ ਅਕਸਰ ਤੇਲ ਸੋਧਕ ਕਾਰਖਾਨਿਆਂ ਨੇੜੇ ਕਿਉਂ ਬਣਾਏ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "ਲੱਕੜ ਦੀ ਵੱਡੀ ਸਪਲਾਈ ਕਰਕੇ",
+          "ਹਾਈਡਰੋਕਾਰਬਨ ਕੱਚੇ ਮਾਲ ਕਰਕੇ",
+          "ਉੱਚਾਈ ਵਾਲੇ ਚਰਾਗਾਹਾਂ ਕਰਕੇ",
+          "ਤਾਜ਼ੇ ਪਾਣੀ ਦੀ ਮੱਛੀ ਕਰਕੇ"
+        ],
+        "explanation": "ਕਈ ਪੈਟਰੋ-ਰਸਾਇਣਕ ਪ੍ਰਕਿਰਿਆਵਾਂ ਵਿੱਚ ਤੇਲ ਜਾਂ ਗੈਸ ਤੋਂ ਬਣਿਆ ਕੱਚਾ ਮਾਲ ਲੱਗਦਾ ਹੈ, ਇਸ ਲਈ ਤੇਲ ਸੋਧਕ ਕਾਰਖਾਨਿਆਂ ਅਤੇ ਪਾਈਪਲਾਈਨਾਂ ਨਾਲ ਜੋੜ ਲਾਭਦਾਇਕ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q003",
+    "cpId": "WGE-001-CP036",
+    "objective": "textile-industry-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A garment factory choosing a location near a large pool of trained workers is responding mainly to:",
+        "options": [
+          "Climate",
+          "Labour availability",
+          "Mineral deposits",
+          "Tidal range"
+        ],
+        "explanation": "Labour availability is an important location factor for labour-intensive stages of textile and garment production."
+      },
+      "hi": {
+        "stem": "कपड़ा कारखाना प्रशिक्षित श्रमिकों की बड़ी उपलब्धता के पास स्थान चुनता है। वह मुख्यतः किस कारक पर ध्यान दे रहा है?",
+        "options": [
+          "जलवायु",
+          "श्रम की उपलब्धता",
+          "खनिज निक्षेप",
+          "ज्वार-भाटा का अंतर"
+        ],
+        "explanation": "कपड़ा और परिधान उत्पादन के श्रम-प्रधान चरणों में श्रमिकों की उपलब्धता एक महत्वपूर्ण स्थान-कारक है।"
+      },
+      "pa": {
+        "stem": "ਕੱਪੜੇ ਦਾ ਕਾਰਖਾਨਾ ਸਿਖਲਾਈਯਾਫ਼ਤਾ ਮਜ਼ਦੂਰਾਂ ਦੀ ਵੱਡੀ ਉਪਲਬਧਤਾ ਨੇੜੇ ਥਾਂ ਚੁਣਦਾ ਹੈ। ਉਹ ਮੁੱਖ ਤੌਰ ਤੇ ਕਿਹੜੇ ਕਾਰਕ ਨੂੰ ਦੇਖ ਰਿਹਾ ਹੈ?",
+        "options": [
+          "ਜਲਵਾਯੂ",
+          "ਮਜ਼ਦੂਰੀ ਦੀ ਉਪਲਬਧਤਾ",
+          "ਖਣਿਜ ਭੰਡਾਰ",
+          "ਜਵਾਰ-ਭਾਟੇ ਦਾ ਫ਼ਰਕ"
+        ],
+        "explanation": "ਕੱਪੜੇ ਅਤੇ ਪਹਿਰਾਵੇ ਦੇ ਮਜ਼ਦੂਰੀ-ਪ੍ਰਧਾਨ ਕੰਮਾਂ ਲਈ ਮਜ਼ਦੂਰਾਂ ਦੀ ਉਪਲਬਧਤਾ ਇੱਕ ਅਹਿਮ ਥਾਂ-ਕਾਰਕ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q004",
+    "cpId": "WGE-001-CP036",
+    "objective": "technology-industry-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which combination most supports a high-technology industrial cluster?",
+        "options": [
+          "Skilled labour, research institutions and reliable connectivity",
+          "Only nearby grazing land",
+          "Distance from universities and markets",
+          "A single raw material with no transport"
+        ],
+        "explanation": "Technology-intensive firms often benefit from skilled workers, research networks, suppliers and communications infrastructure."
+      },
+      "hi": {
+        "stem": "उच्च-प्रौद्योगिकी उद्योगों के समूह को कौन-सा संयोजन सबसे अधिक सहारा देता है?",
+        "options": [
+          "कुशल श्रमिक, शोध संस्थान और भरोसेमंद संपर्क",
+          "केवल पास के चरागाह",
+          "विश्वविद्यालयों और बाजारों से दूरी",
+          "बिना परिवहन का एक कच्चा माल"
+        ],
+        "explanation": "प्रौद्योगिकी-प्रधान कंपनियों को कुशल श्रमिकों, शोध नेटवर्क, आपूर्तिकर्ताओं और संचार ढाँचे से लाभ हो सकता है।"
+      },
+      "pa": {
+        "stem": "ਉੱਚ-ਤਕਨੀਕੀ ਉਦਯੋਗਕ ਸਮੂਹ ਨੂੰ ਕਿਹੜਾ ਜੋੜ ਸਭ ਤੋਂ ਵੱਧ ਸਹਾਰਾ ਦਿੰਦਾ ਹੈ?",
+        "options": [
+          "ਕੁਸ਼ਲ ਮਜ਼ਦੂਰ, ਖੋਜ ਸੰਸਥਾਵਾਂ ਅਤੇ ਭਰੋਸੇਯੋਗ ਸੰਪਰਕ",
+          "ਸਿਰਫ਼ ਨੇੜਲੇ ਚਰਾਗਾਹ",
+          "ਯੂਨੀਵਰਸਿਟੀਆਂ ਅਤੇ ਬਾਜ਼ਾਰਾਂ ਤੋਂ ਦੂਰੀ",
+          "ਆਵਾਜਾਈ ਤੋਂ ਬਿਨਾਂ ਇੱਕ ਕੱਚਾ ਮਾਲ"
+        ],
+        "explanation": "ਤਕਨੀਕ-ਪ੍ਰਧਾਨ ਕੰਪਨੀਆਂ ਨੂੰ ਕੁਸ਼ਲ ਮਜ਼ਦੂਰਾਂ, ਖੋਜ ਜਾਲ, ਸਪਲਾਇਰਾਂ ਅਤੇ ਸੰਚਾਰ ਢਾਂਚੇ ਤੋਂ ਲਾਭ ਹੋ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q005",
+    "cpId": "WGE-001-CP036",
+    "objective": "aluminium-smelting-energy-location",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why have aluminium smelters often favoured locations with abundant, relatively low-cost electricity?",
+        "options": [
+          "Smelting aluminium is energy-intensive",
+          "Bauxite can only be transported by air",
+          "Aluminium requires a cold climate",
+          "The process uses no electricity"
+        ],
+        "explanation": "Aluminium smelting uses large amounts of electricity, so power supply and cost can strongly affect plant location."
+      },
+      "hi": {
+        "stem": "एल्युमिनियम गलाने वाले कारखाने प्रचुर और अपेक्षाकृत सस्ती बिजली वाले स्थान क्यों चुनते हैं?",
+        "options": [
+          "एल्युमिनियम गलाना ऊर्जा-गहन है",
+          "बॉक्साइट केवल हवाई मार्ग से जाता है",
+          "एल्युमिनियम के लिए ठंडी जलवायु चाहिए",
+          "इस प्रक्रिया में बिजली नहीं लगती"
+        ],
+        "explanation": "एल्युमिनियम गलाने में बहुत बिजली लगती है, इसलिए बिजली की उपलब्धता और लागत कारखाने के स्थान को प्रभावित करती है।"
+      },
+      "pa": {
+        "stem": "ਐਲੂਮੀਨੀਅਮ ਗਲਾਉਣ ਵਾਲੇ ਕਾਰਖਾਨੇ ਵੱਧ ਅਤੇ ਤੁਲਨਾਤਮਕ ਤੌਰ ਤੇ ਸਸਤੀ ਬਿਜਲੀ ਵਾਲੀ ਥਾਂ ਕਿਉਂ ਚੁਣਦੇ ਹਨ?",
+        "options": [
+          "ਐਲੂਮੀਨੀਅਮ ਗਲਾਉਣਾ ਊਰਜਾ-ਪ੍ਰਧਾਨ ਕੰਮ ਹੈ",
+          "ਬਾਕਸਾਈਟ ਸਿਰਫ਼ ਹਵਾਈ ਰਸਤੇ ਆ ਸਕਦਾ ਹੈ",
+          "ਐਲੂਮੀਨੀਅਮ ਲਈ ਠੰਢਾ ਮੌਸਮ ਚਾਹੀਦਾ ਹੈ",
+          "ਇਸ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਬਿਜਲੀ ਨਹੀਂ ਲੱਗਦੀ"
+        ],
+        "explanation": "ਐਲੂਮੀਨੀਅਮ ਗਲਾਉਣ ਵਿੱਚ ਬਹੁਤ ਬਿਜਲੀ ਲੱਗਦੀ ਹੈ, ਇਸ ਲਈ ਬਿਜਲੀ ਦੀ ਉਪਲਬਧਤਾ ਅਤੇ ਲਾਗਤ ਕਾਰਖਾਨੇ ਦੀ ਥਾਂ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q006",
+    "cpId": "WGE-001-CP036",
+    "objective": "industrial-cluster-benefit",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Firms in an industrial cluster may benefit from:",
+        "options": [
+          "Isolation from suppliers",
+          "Shared suppliers, skilled labour and knowledge spillovers",
+          "The absence of transport links",
+          "Uniform distance from every market"
+        ],
+        "explanation": "Clustering can lower costs and support exchange of skills and information among firms, though it may also create congestion."
+      },
+      "hi": {
+        "stem": "औद्योगिक समूह में स्थित कंपनियों को किससे लाभ हो सकता है?",
+        "options": [
+          "आपूर्तिकर्ताओं से अलगाव",
+          "साझा आपूर्तिकर्ता, कुशल श्रमिक और ज्ञान का प्रसार",
+          "परिवहन संपर्क का अभाव",
+          "हर बाजार से समान दूरी"
+        ],
+        "explanation": "औद्योगिक समूह लागत घटा सकता है और कंपनियों के बीच कौशल तथा जानकारी का आदान-प्रदान बढ़ा सकता है, हालांकि भीड़ भी बढ़ सकती है।"
+      },
+      "pa": {
+        "stem": "ਉਦਯੋਗਕ ਸਮੂਹ ਵਿੱਚ ਕੰਮ ਕਰਦੀਆਂ ਕੰਪਨੀਆਂ ਨੂੰ ਕਿਸ ਗੱਲ ਦਾ ਲਾਭ ਹੋ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਸਪਲਾਇਰਾਂ ਤੋਂ ਅਲੱਗ ਰਹਿਣਾ",
+          "ਸਾਂਝੇ ਸਪਲਾਇਰ, ਕੁਸ਼ਲ ਮਜ਼ਦੂਰ ਅਤੇ ਗਿਆਨ ਦਾ ਫੈਲਾਅ",
+          "ਆਵਾਜਾਈ ਸੰਪਰਕ ਦੀ ਕਮੀ",
+          "ਹਰ ਬਾਜ਼ਾਰ ਤੋਂ ਇੱਕੋ ਜਿਹੀ ਦੂਰੀ"
+        ],
+        "explanation": "ਉਦਯੋਗਕ ਸਮੂਹ ਖ਼ਰਚ ਘਟਾ ਸਕਦਾ ਹੈ ਅਤੇ ਕੰਪਨੀਆਂ ਵਿਚਕਾਰ ਹੁਨਰ ਤੇ ਜਾਣਕਾਰੀ ਦਾ ਲੈਣ-ਦੇਣ ਵਧਾ ਸਕਦਾ ਹੈ, ਹਾਲਾਂਕਿ ਭੀੜ ਵੀ ਵਧ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q007",
+    "cpId": "WGE-001-CP036",
+    "objective": "ruhr-industrial-region",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "The Ruhr, historically associated with coal, steel and heavy industry, is in:",
+        "options": [
+          "Northern Italy",
+          "Western Germany",
+          "Eastern Spain",
+          "Southern Sweden"
+        ],
+        "explanation": "The Ruhr industrial region lies in western Germany; its historic development was linked to coal, transport and manufacturing."
+      },
+      "hi": {
+        "stem": "कोयला, इस्पात और भारी उद्योग से ऐतिहासिक रूप से जुड़ा रुहर क्षेत्र कहाँ है?",
+        "options": [
+          "उत्तरी इटली",
+          "पश्चिमी जर्मनी",
+          "पूर्वी स्पेन",
+          "दक्षिणी स्वीडन"
+        ],
+        "explanation": "रुहर औद्योगिक क्षेत्र पश्चिमी जर्मनी में है; इसका ऐतिहासिक विकास कोयले, परिवहन और विनिर्माण से जुड़ा रहा।"
+      },
+      "pa": {
+        "stem": "ਕੋਲੇ, ਇਸਪਾਤ ਅਤੇ ਭਾਰੀ ਉਦਯੋਗ ਨਾਲ ਇਤਿਹਾਸਕ ਤੌਰ ਤੇ ਜੁੜਿਆ ਰੂਹਰ ਖੇਤਰ ਕਿੱਥੇ ਹੈ?",
+        "options": [
+          "ਉੱਤਰੀ ਇਟਲੀ",
+          "ਪੱਛਮੀ ਜਰਮਨੀ",
+          "ਪੂਰਬੀ ਸਪੇਨ",
+          "ਦੱਖਣੀ ਸਵੀਡਨ"
+        ],
+        "explanation": "ਰੂਹਰ ਉਦਯੋਗਕ ਖੇਤਰ ਪੱਛਮੀ ਜਰਮਨੀ ਵਿੱਚ ਹੈ; ਇਸ ਦਾ ਇਤਿਹਾਸਕ ਵਿਕਾਸ ਕੋਲੇ, ਆਵਾਜਾਈ ਅਤੇ ਨਿਰਮਾਣ ਨਾਲ ਜੁੜਿਆ ਰਿਹਾ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q008",
+    "cpId": "WGE-001-CP036",
+    "objective": "port-oriented-industrial-location",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A steel plant that imports bulky ore and exports finished products may gain from a site near:",
+        "options": [
+          "A mountain summit",
+          "An isolated farm belt",
+          "A port and efficient freight links",
+          "A seasonal grazing route"
+        ],
+        "explanation": "Ports and freight connections can reduce transport costs for industries that move heavy inputs and finished goods."
+      },
+      "hi": {
+        "stem": "भारी अयस्क आयात करने और तैयार उत्पाद निर्यात करने वाले इस्पात संयंत्र को किस स्थान से लाभ हो सकता है?",
+        "options": [
+          "पर्वत शिखर",
+          "अलग-थलग कृषि क्षेत्र",
+          "बंदरगाह और कुशल माल-परिवहन संपर्क",
+          "मौसमी चराई मार्ग"
+        ],
+        "explanation": "बंदरगाह और माल-परिवहन संपर्क भारी कच्चे माल तथा तैयार वस्तुओं की ढुलाई लागत घटा सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਭਾਰੀ ਅਯਸਕ ਮੰਗਵਾਉਣ ਅਤੇ ਤਿਆਰ ਸਮਾਨ ਭੇਜਣ ਵਾਲੇ ਇਸਪਾਤ ਕਾਰਖਾਨੇ ਨੂੰ ਕਿਹੜੀ ਥਾਂ ਤੋਂ ਲਾਭ ਹੋ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਪਹਾੜੀ ਚੋਟੀ",
+          "ਇਕਾਂਤ ਖੇਤੀ ਪੱਟੀ",
+          "ਬੰਦਰਗਾਹ ਅਤੇ ਕੁਸ਼ਲ ਮਾਲ-ਢੁਆਈ ਸੰਪਰਕ",
+          "ਮੌਸਮੀ ਚਰਾਈ ਰਸਤਾ"
+        ],
+        "explanation": "ਬੰਦਰਗਾਹ ਅਤੇ ਮਾਲ-ਢੁਆਈ ਸੰਪਰਕ ਭਾਰੀ ਕੱਚੇ ਮਾਲ ਅਤੇ ਤਿਆਰ ਸਮਾਨ ਦੇ ਆਵਾਜਾਈ ਖ਼ਰਚ ਘਟਾ ਸਕਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q009",
+    "cpId": "WGE-001-CP036",
+    "objective": "industrial-location-shift",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A firm moves from a coalfield to a coastal port after bulk shipping becomes cheaper. Which location factor has most changed?",
+        "options": [
+          "Transport cost",
+          "Labour skill",
+          "Climate",
+          "Water table"
+        ],
+        "explanation": "Cheaper sea transport can shift a firm's preferred location toward a port, especially when raw materials are bulky and imported."
+      },
+      "hi": {
+        "stem": "थोक समुद्री ढुलाई सस्ती होने के बाद कोई कंपनी कोयला क्षेत्र से तटीय बंदरगाह चली जाती है। कौन-सा स्थान-कारक सबसे अधिक बदला?",
+        "options": [
+          "परिवहन लागत",
+          "श्रम-कौशल",
+          "जलवायु",
+          "भूजल स्तर"
+        ],
+        "explanation": "सस्ती समुद्री ढुलाई कंपनी को बंदरगाह की ओर ले जा सकती है, खासकर जब कच्चा माल भारी और आयातित हो।"
+      },
+      "pa": {
+        "stem": "ਥੋਕ ਸਮੁੰਦਰੀ ਢੁਆਈ ਸਸਤੀ ਹੋਣ ਮਗਰੋਂ ਕੋਈ ਕੰਪਨੀ ਕੋਲਾ ਖੇਤਰ ਤੋਂ ਤੱਟੀ ਬੰਦਰਗਾਹ ਵੱਲ ਚਲੀ ਜਾਂਦੀ ਹੈ। ਕਿਹੜਾ ਥਾਂ-ਕਾਰਕ ਸਭ ਤੋਂ ਵੱਧ ਬਦਲਿਆ?",
+        "options": [
+          "ਆਵਾਜਾਈ ਦਾ ਖ਼ਰਚ",
+          "ਮਜ਼ਦੂਰਾਂ ਦਾ ਹੁਨਰ",
+          "ਜਲਵਾਯੂ",
+          "ਧਰਤੀ ਹੇਠਲੇ ਪਾਣੀ ਦਾ ਪੱਧਰ"
+        ],
+        "explanation": "ਸਸਤੀ ਸਮੁੰਦਰੀ ਢੁਆਈ ਕੰਪਨੀ ਨੂੰ ਬੰਦਰਗਾਹ ਵੱਲ ਲੈ ਜਾ ਸਕਦੀ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਜਦੋਂ ਕੱਚਾ ਮਾਲ ਭਾਰੀ ਅਤੇ ਆਯਾਤ ਕੀਤਾ ਹੋਵੇ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q010",
+    "cpId": "WGE-001-CP036",
+    "objective": "footloose-industry",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which industry is most likely to be described as footloose when transport costs for inputs are small?",
+        "options": [
+          "A refinery tied to an oil pipeline",
+          "A software services firm relying on skilled workers and digital links",
+          "A cement kiln beside a limestone quarry",
+          "An iron smelter beside a coalfield"
+        ],
+        "explanation": "A footloose industry is less tied to a particular raw-material site; skills, services and connectivity may matter more."
+      },
+      "hi": {
+        "stem": "जब कच्चे माल की ढुलाई लागत कम हो, तो किस उद्योग को स्थान-स्वतंत्र कहा जा सकता है?",
+        "options": [
+          "तेल पाइपलाइन से जुड़ा तेलशोधक कारखाना",
+          "कुशल श्रमिकों और डिजिटल संपर्क पर निर्भर सॉफ्टवेयर सेवा कंपनी",
+          "चूना-पत्थर खदान के पास सीमेंट भट्ठा",
+          "कोयला क्षेत्र के पास लौह गलाने का संयंत्र"
+        ],
+        "explanation": "स्थान-स्वतंत्र उद्योग किसी खास कच्चे माल के स्रोत से कम बँधा होता है; उसमें कौशल, सेवाएँ और संपर्क अधिक मायने रख सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਜਦੋਂ ਕੱਚੇ ਮਾਲ ਦੀ ਢੁਆਈ ਦਾ ਖ਼ਰਚ ਘੱਟ ਹੋਵੇ ਤਾਂ ਕਿਹੜੇ ਉਦਯੋਗ ਨੂੰ ਥਾਂ-ਨਿਰਭਰ ਨਾ ਹੋਣ ਵਾਲਾ ਕਿਹਾ ਜਾ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਤੇਲ ਪਾਈਪਲਾਈਨ ਨਾਲ ਜੁੜਿਆ ਸੋਧਕ ਕਾਰਖਾਨਾ",
+          "ਕੁਸ਼ਲ ਮਜ਼ਦੂਰਾਂ ਅਤੇ ਡਿਜ਼ਿਟਲ ਸੰਪਰਕ ਉੱਤੇ ਨਿਰਭਰ ਸਾਫਟਵੇਅਰ ਸੇਵਾ ਕੰਪਨੀ",
+          "ਚੂਨਾ-ਪੱਥਰ ਦੀ ਖਾਣ ਨੇੜੇ ਸੀਮੈਂਟ ਭੱਠੀ",
+          "ਕੋਲਾ ਖੇਤਰ ਨੇੜੇ ਲੋਹਾ ਗਲਾਉਣ ਵਾਲਾ ਕਾਰਖਾਨਾ"
+        ],
+        "explanation": "ਥਾਂ-ਨਿਰਭਰ ਨਾ ਹੋਣ ਵਾਲਾ ਉਦਯੋਗ ਕਿਸੇ ਖ਼ਾਸ ਕੱਚੇ ਮਾਲ ਦੇ ਸਰੋਤ ਨਾਲ ਘੱਟ ਬੱਝਿਆ ਹੁੰਦਾ ਹੈ; ਹੁਨਰ, ਸੇਵਾਵਾਂ ਅਤੇ ਸੰਪਰਕ ਵੱਧ ਮਾਇਨੇ ਰੱਖ ਸਕਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q011",
+    "cpId": "WGE-001-CP036",
+    "objective": "industry-market-oriented",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A food-processing plant using perishable farm produce is often attracted to farms or cities mainly because:",
+        "options": [
+          "Raw material or consumers must be reached quickly",
+          "It requires a coal seam under the factory",
+          "It can operate only on mountain slopes",
+          "It needs a sea current"
+        ],
+        "explanation": "Perishable inputs or finished foods make proximity to farms, transport nodes or consumer markets valuable."
+      },
+      "hi": {
+        "stem": "जल्दी खराब होने वाली कृषि उपज का उपयोग करने वाला खाद्य-प्रसंस्करण संयंत्र खेतों या शहरों के पास क्यों जाता है?",
+        "options": [
+          "कच्चे माल या उपभोक्ताओं तक जल्दी पहुँचना होता है",
+          "कारखाने के नीचे कोयले की परत चाहिए",
+          "यह केवल पर्वतीय ढाल पर चल सकता है",
+          "इसे समुद्री धारा चाहिए"
+        ],
+        "explanation": "जल्दी खराब होने वाला कच्चा माल या तैयार भोजन होने पर खेतों, परिवहन केंद्रों या उपभोक्ता बाजारों के पास होना उपयोगी होता है।"
+      },
+      "pa": {
+        "stem": "ਛੇਤੀ ਖ਼ਰਾਬ ਹੋਣ ਵਾਲੀ ਖੇਤੀ ਉਪਜ ਵਰਤਣ ਵਾਲਾ ਖਾਦ-ਪ੍ਰਸੰਸਕਰਨ ਕਾਰਖਾਨਾ ਖੇਤਾਂ ਜਾਂ ਸ਼ਹਿਰਾਂ ਨੇੜੇ ਕਿਉਂ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਕੱਚੇ ਮਾਲ ਜਾਂ ਖਪਤਕਾਰਾਂ ਤੱਕ ਛੇਤੀ ਪਹੁੰਚਣਾ ਹੁੰਦਾ ਹੈ",
+          "ਕਾਰਖਾਨੇ ਹੇਠ ਕੋਲੇ ਦੀ ਪਰਤ ਚਾਹੀਦੀ ਹੈ",
+          "ਇਹ ਸਿਰਫ਼ ਪਹਾੜੀ ਢਲਾਣ ਉੱਤੇ ਚੱਲ ਸਕਦਾ ਹੈ",
+          "ਇਸ ਨੂੰ ਸਮੁੰਦਰੀ ਧਾਰਾ ਚਾਹੀਦੀ ਹੈ"
+        ],
+        "explanation": "ਛੇਤੀ ਖ਼ਰਾਬ ਹੋਣ ਵਾਲਾ ਕੱਚਾ ਮਾਲ ਜਾਂ ਤਿਆਰ ਭੋਜਨ ਹੋਣ ਕਰਕੇ ਖੇਤਾਂ, ਆਵਾਜਾਈ ਕੇਂਦਰਾਂ ਜਾਂ ਖਪਤਕਾਰ ਬਾਜ਼ਾਰਾਂ ਨੇੜੇ ਹੋਣਾ ਲਾਭਦਾਇਕ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP036-Q012",
+    "cpId": "WGE-001-CP036",
+    "objective": "industrial-region-location-logic",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-IND-UNIDO-LOCATION",
+      "WGE-IND-UNIDO-IDR",
+      "WGE-IND-WB-GVC",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A region with ports, skilled labour, suppliers and a large market is attractive to varied industries because it offers:",
+        "options": [
+          "Only a single mineral",
+          "Several linked location advantages",
+          "No need for power",
+          "A guarantee against economic change"
+        ],
+        "explanation": "Industrial regions often grow through a combination of transport, labour, supplier networks, power and market access rather than one factor alone."
+      },
+      "hi": {
+        "stem": "बंदरगाह, कुशल श्रमिक, आपूर्तिकर्ता और बड़ा बाजार वाला क्षेत्र कई उद्योगों को क्यों आकर्षित करता है?",
+        "options": [
+          "केवल एक खनिज के कारण",
+          "कई परस्पर जुड़े स्थान-लाभों के कारण",
+          "बिजली की जरूरत न होने के कारण",
+          "आर्थिक बदलाव से सुरक्षा की गारंटी के कारण"
+        ],
+        "explanation": "औद्योगिक क्षेत्र अक्सर केवल एक कारक से नहीं, बल्कि परिवहन, श्रम, आपूर्तिकर्ता-जाल, ऊर्जा और बाजार की संयुक्त उपलब्धता से विकसित होते हैं।"
+      },
+      "pa": {
+        "stem": "ਬੰਦਰਗਾਹਾਂ, ਕੁਸ਼ਲ ਮਜ਼ਦੂਰਾਂ, ਸਪਲਾਇਰਾਂ ਅਤੇ ਵੱਡੇ ਬਾਜ਼ਾਰ ਵਾਲਾ ਖੇਤਰ ਵੱਖ-ਵੱਖ ਉਦਯੋਗਾਂ ਨੂੰ ਕਿਉਂ ਖਿੱਚਦਾ ਹੈ?",
+        "options": [
+          "ਸਿਰਫ਼ ਇੱਕ ਖਣਿਜ ਕਰਕੇ",
+          "ਕਈ ਆਪਸ ਵਿੱਚ ਜੁੜੇ ਥਾਂ-ਲਾਭਾਂ ਕਰਕੇ",
+          "ਬਿਜਲੀ ਦੀ ਲੋੜ ਨਾ ਹੋਣ ਕਰਕੇ",
+          "ਆਰਥਿਕ ਬਦਲਾਅ ਤੋਂ ਬਚਾਅ ਦੀ ਗਾਰੰਟੀ ਕਰਕੇ"
+        ],
+        "explanation": "ਉਦਯੋਗਕ ਖੇਤਰ ਅਕਸਰ ਇੱਕੋ ਕਾਰਕ ਕਰਕੇ ਨਹੀਂ, ਸਗੋਂ ਆਵਾਜਾਈ, ਮਜ਼ਦੂਰੀ, ਸਪਲਾਇਰ ਜਾਲ, ਊਰਜਾ ਅਤੇ ਬਾਜ਼ਾਰ ਦੇ ਮਿਲੇ-ਜੁਲੇ ਲਾਭਾਂ ਨਾਲ ਵਧਦੇ ਹਨ।"
+      }
+    }
+  }
+]
