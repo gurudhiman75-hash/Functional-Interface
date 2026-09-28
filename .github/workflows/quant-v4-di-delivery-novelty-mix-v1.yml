@@ -1,0 +1,31 @@
+name: quant-v4-di-delivery-novelty-mix-v1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-DELIVERY-NOVELTY-MIX-V1.md"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di-delivery-novelty-mix-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  novelty-mix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run DI novelty delivery mix acceptance
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1.test.ts
+      - name: Lifecycle locks
+        run: |
+          ! grep -n 'questionBankWritable:true\|testEligible:true\|mockTestEligible:true\|publiclyPublishable:true\|productionReleaseAuthorized:true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1.ts
+      - name: Patch hygiene
+        run: git diff --check
