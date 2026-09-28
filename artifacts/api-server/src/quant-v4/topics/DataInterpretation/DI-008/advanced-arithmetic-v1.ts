@@ -3,8 +3,8 @@ import type { Di008AdvancedDifficulty, Di008AdvancedDomain, Di008AdvancedExamPro
 
 const DOMAINS: readonly Di008AdvancedDomain[]=["TIME_WORK","TIME_SPEED_DISTANCE","PARTNERSHIP","MIXTURE_ALLIGATION","INTEREST_LOAN","PROBABILITY_SELECTION"];
 const EASY: readonly Di008AdvancedTask[]=["ROW_DERIVED_VALUE","TWO_ROW_DERIVED_TOTAL"];
-const MEDIUM: readonly Di008AdvancedTask[]=["DERIVED_DIFFERENCE","DERIVED_RATIO","DERIVED_SHARE_OF_TOTAL","THREE_ROW_DERIVED_TOTAL"];
-const HARD: readonly Di008AdvancedTask[]=["GROUP_DERIVED_RATIO","DERIVED_PERCENT_EXCESS","AVERAGE_DERIVED_VALUE","REMAINDER_DERIVED_TOTAL"];
+const MEDIUM: readonly Di008AdvancedTask[]=["DERIVED_DIFFERENCE","DERIVED_RATIO","HIGHEST_DERIVED_CATEGORY","THREE_ROW_DERIVED_TOTAL"];
+const HARD: readonly Di008AdvancedTask[]=["GROUP_DERIVED_RATIO","FOUR_ROW_DERIVED_TOTAL","AVERAGE_DERIVED_VALUE","REMAINDER_DERIVED_TOTAL"];
 
 function pick<T>(a:readonly T[],seed:string):T{return a[hashSeed(seed)%a.length]!;}
 function shuffle<T>(a:readonly T[],seed:string){return [...a].sort((x,y)=>hashSeed(`${seed}:${String(x)}`)-hashSeed(`${seed}:${String(y)}`));}
@@ -20,11 +20,6 @@ function ratioOptions(answer:string,a:number,b:number,seed:string){
   const v=new Set<string>([answer,ratio(b,a),ratio(a+1,b),ratio(a,b+1),ratio(a+2,b+1),ratio(a+1,b+2)]);
   const out=[...v].slice(0,5);for(let n=2;out.length<5;n++)out.push(`${n}:${n+1}`);return shuffle(out,seed);
 }
-function percentOptions(answer:number,seed:string){
-  const v=new Set<number>([answer]);for(const d of [5,10,15,20,-5,-10,-15,-20]){if(answer+d>0)v.add(answer+d);if(v.size>=5)break;}
-  return shuffle([...v].slice(0,5).map(x=>`${x}%`),seed);
-}
-
 function buildStimulus(seed:string){
   const domain=pick(DOMAINS,`${seed}:domain`);
   const labels=shuffle(["A","B","C","D","E"],`${seed}:labels`).map(x=>`Case ${x}`);
@@ -44,7 +39,7 @@ function buildStimulus(seed:string){
     const quantities=[100,120,160,200,240],percentages=[25,40,50,60,75];rows=labels.map((label,i)=>({label,a:pick(quantities,`${seed}:q:${i}`),b:pick(percentages,`${seed}:p:${i}`)}));derived=rows.map(r=>r.a*r.b/100);
   } else if(domain==="INTEREST_LOAN"){
     title="Simple-interest data for five loans";columnA="Principal (₹ thousand)";columnB="Rate (% p.a.)";columnC="Time (years)";note="Simple interest = principal × rate × time ÷ 100.";
-    const principals=[100,150,200,250,300],rates=[5,8,10,12],years=[2,3,4,5];rows=labels.map((label,i)=>({label,a:pick(principals,`${seed}:p:${i}`),b:pick(rates,`${seed}:r:${i}`),c:pick(years,`${seed}:y:${i}`)}));derived=rows.map(r=>r.a*r.b*r.c/100);
+    const principals=[100,200,300,400,500],rates=[5,8,10,12],years=[2,3,4,5];rows=labels.map((label,i)=>({label,a:pick(principals,`${seed}:p:${i}`),b:pick(rates,`${seed}:r:${i}`),c:pick(years,`${seed}:y:${i}`)}));derived=rows.map(r=>r.a*r.b*r.c/100);
   } else {
     title="Selection data for five groups";columnA="Eligible candidates";columnB="Selected candidates";note="Selection rate = selected ÷ eligible × 100. Questions use selected counts as the derived comparison value.";
     const eligible=[200,250,300,400,500];const rates=[20,25,40,50,60];rows=labels.map((label,i)=>{const a=pick(eligible,`${seed}:e:${i}`),rate=pick(rates,`${seed}:r:${i}`);return {label,a,b:a*rate/100};});derived=rows.map(r=>r.b);
@@ -68,11 +63,17 @@ function makeQuestion(task:Di008AdvancedTask,difficulty:Di008AdvancedDifficulty,
   else if(task==="TWO_ROW_DERIVED_TOTAL"){const v=derived[i]!+derived[j]!;stem=`What is the combined ${label} for ${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`${derived[i]} + ${derived[j]} = ${v}.`];}
   else if(task==="DERIVED_DIFFERENCE"){const v=Math.abs(derived[i]!-derived[j]!);stem=`What is the difference in ${label} between ${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`Difference = |${derived[i]} − ${derived[j]}| = ${v}.`];}
   else if(task==="DERIVED_RATIO"){const v=ratio(derived[i]!,derived[j]!);stem=`What is the ratio of the ${label} for ${stimulus.rows[i]!.label} to that for ${stimulus.rows[j]!.label}?`;answer=v;options=ratioOptions(v,derived[i]!,derived[j]!,seed);steps=[`${derived[i]}:${derived[j]} = ${v}.`];}
-  else if(task==="DERIVED_SHARE_OF_TOTAL"){const total=derived.reduce((a,b)=>a+b,0),v=Math.round(derived[i]!*100/total);stem=`${stimulus.rows[i]!.label} contributes approximately what whole percent of the total ${label}?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[`Total ${label} = ${total}.`,`Share = (${derived[i]} ÷ ${total}) × 100 ≈ ${v}%.`];}
+  else if(task==="HIGHEST_DERIVED_CATEGORY"){const best=derived.reduce((p,v,idx)=>v>derived[p]!?idx:p,0);stem=`Which case has the highest ${label}?`;answer=stimulus.rows[best]!.label;options=shuffle(stimulus.rows.map(r=>r.label),seed);steps=[...derived.map((v,idx)=>`${stimulus.rows[idx]!.label}: ${v}`),`The highest value is for ${answer}.`];}
   else if(task==="THREE_ROW_DERIVED_TOTAL"){const v=derived[i]!+derived[j]!+derived[k]!;stem=`Find the total ${label} for ${stimulus.rows[i]!.label}, ${stimulus.rows[j]!.label} and ${stimulus.rows[k]!.label}.`;answer=String(v);options=numOptions(v,seed);steps=[`${derived[i]} + ${derived[j]} + ${derived[k]} = ${v}.`];}
   else if(task==="GROUP_DERIVED_RATIO"){const a=derived[i]!+derived[j]!,b=derived[k]!+derived[l]!,v=ratio(a,b);stem=`What is the ratio of combined ${label} for ${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label} to that for ${stimulus.rows[k]!.label} and ${stimulus.rows[l]!.label}?`;answer=v;options=ratioOptions(v,a,b,seed);steps=[`First group = ${a}.`,`Second group = ${b}.`,`Ratio = ${v}.`];}
-  else if(task==="DERIVED_PERCENT_EXCESS"){let a=derived[i]!,b=derived[j]!,an=stimulus.rows[i]!.label,bn=stimulus.rows[j]!.label;if(a<b){[a,b]=[b,a];[an,bn]=[bn,an];}const v=Math.round((a-b)*100/b);stem=`The ${label} for ${an} is approximately what whole percent more than that for ${bn}?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[`Difference = ${a-b}.`,`Percentage excess ≈ ${v}%.`];}
-  else if(task==="AVERAGE_DERIVED_VALUE"){const sum=derived[i]!+derived[j]!+derived[k]!,v=Math.round(sum/3);stem=`What is the nearest whole-number average ${label} for ${stimulus.rows[i]!.label}, ${stimulus.rows[j]!.label} and ${stimulus.rows[k]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`Sum = ${sum}.`,`Average = ${sum} ÷ 3 ≈ ${v}.`];}
+  else if(task==="FOUR_ROW_DERIVED_TOTAL"){const v=derived[i]!+derived[j]!+derived[k]!+derived[l]!;stem=`Find the total ${label} for ${stimulus.rows[i]!.label}, ${stimulus.rows[j]!.label}, ${stimulus.rows[k]!.label} and ${stimulus.rows[l]!.label}.`;answer=String(v);options=numOptions(v,seed);steps=[`${derived[i]} + ${derived[j]} + ${derived[k]} + ${derived[l]} = ${v}.`];}
+  else if(task==="AVERAGE_DERIVED_VALUE"){
+    const triples:[[number,number,number],number][]=[];
+    for(let a=0;a<5;a++)for(let b=a+1;b<5;b++)for(let c=b+1;c<5;c++){const sum=derived[a]!+derived[b]!+derived[c]!;if(sum%3===0)triples.push([[a,b,c],sum]);}
+    if(!triples.length)throw new Error("DI-008 advanced could not find an exact three-row average.");
+    const [triple,sum]=pick(triples,`${seed}:avg-triple`),[a,b,c]=triple,v=sum/3;
+    stem=`What is the average ${label} for ${stimulus.rows[a]!.label}, ${stimulus.rows[b]!.label} and ${stimulus.rows[c]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`Sum = ${sum}.`,`Average = ${sum} ÷ 3 = ${v}.`];
+  }
   else {const total=derived.reduce((a,b)=>a+b,0),excluded=derived[i]!+derived[j]!,v=total-excluded;stem=`What ${label} remains after excluding ${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`Total = ${total}.`,`Excluded = ${excluded}.`,`Remaining = ${v}.`];}
   const correctIndex=options.indexOf(answer);if(correctIndex<0)throw new Error(`DI-008 advanced lost answer for ${task}.`);
   return {questionId:`DI-008-ADV:${seed}:Q${index+1}`,kind:task,difficulty,stem,options,correctIndex,answer,explanation:{keyIdea:`First derive the ${label} from the learner-visible data, then perform the requested comparison.`,steps}};
