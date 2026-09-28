@@ -204,5 +204,5 @@ export const MIS_LOCALIZATION_WAVE1_STATE=Object.freeze({
   languages:Object.freeze(['en','hi','pa'] as const),
   hindiStatus:'IMPLEMENTED_REVIEW_ONLY' as const,
   punjabiStatus:'IMPLEMENTED_REVIEW_ONLY' as const,
-  parityStatus:'WAVE1_EXECUTABLE_GUARD_PENDING' as const,
+  parityStatus:'WAVE1_EXECUTABLE_GUARD_IMPLEMENTED' as const,
 });
