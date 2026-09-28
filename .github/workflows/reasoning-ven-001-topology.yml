@@ -25,3 +25,11 @@ jobs:
           --outfile=dist/reasoning-v1/ven-001-topology.test.mjs
       - name: Run topology proof
         run: node artifacts/api-server/dist/reasoning-v1/ven-001-topology.test.mjs
+      - name: Bundle renderer proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/logical-venn-renderer.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-renderer.test.mjs
+      - name: Run renderer proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-renderer.test.mjs
