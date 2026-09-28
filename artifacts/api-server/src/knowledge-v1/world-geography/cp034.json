@@ -1,0 +1,542 @@
+[
+  {
+    "id": "WGE-001-CP034-Q001",
+    "cpId": "WGE-001-CP034",
+    "objective": "subsistence-commercial-farming",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A farmer growing mainly for household use, with little surplus for sale, practises:",
+        "options": [
+          "Subsistence farming",
+          "Commercial farming",
+          "Plantation farming",
+          "Ranching"
+        ],
+        "explanation": "Subsistence farming is directed mainly toward the needs of the producing household or community."
+      },
+      "hi": {
+        "stem": "जो किसान मुख्यतः परिवार के उपयोग के लिए खेती करता है और बहुत कम अतिरिक्त उपज बेचता है, वह कौन-सी खेती करता है?",
+        "options": [
+          "निर्वाह खेती",
+          "व्यावसायिक खेती",
+          "बागान खेती",
+          "पशुपालन रैंचिंग"
+        ],
+        "explanation": "निर्वाह खेती मुख्यतः खेती करने वाले परिवार या समुदाय की जरूरतें पूरी करने के लिए की जाती है।"
+      },
+      "pa": {
+        "stem": "ਜੋ ਕਿਸਾਨ ਮੁੱਖ ਤੌਰ ਤੇ ਆਪਣੇ ਪਰਿਵਾਰ ਦੀ ਲੋੜ ਲਈ ਖੇਤੀ ਕਰਦਾ ਹੈ ਅਤੇ ਬਹੁਤ ਥੋੜ੍ਹੀ ਵਾਧੂ ਫ਼ਸਲ ਵੇਚਦਾ ਹੈ, ਉਹ ਕਿਹੜੀ ਖੇਤੀ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਗੁਜ਼ਾਰਾ ਖੇਤੀ",
+          "ਵਪਾਰਕ ਖੇਤੀ",
+          "ਬਾਗਾਨ ਖੇਤੀ",
+          "ਵੱਡੇ ਪੱਧਰ ਦੀ ਪਸ਼ੂ-ਪਾਲਣਾ"
+        ],
+        "explanation": "ਗੁਜ਼ਾਰਾ ਖੇਤੀ ਮੁੱਖ ਤੌਰ ਤੇ ਕਿਸਾਨ ਪਰਿਵਾਰ ਜਾਂ ਭਾਈਚਾਰੇ ਦੀਆਂ ਲੋੜਾਂ ਪੂਰੀਆਂ ਕਰਨ ਲਈ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q002",
+    "cpId": "WGE-001-CP034",
+    "objective": "intensive-rice-farming",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which combination best supports intensive paddy cultivation in monsoon Asia?",
+        "options": [
+          "Large ranches and sparse rainfall",
+          "Abundant water, warm conditions and much labour",
+          "Short summers and frozen soils",
+          "Mediterranean winter rain and dry summers"
+        ],
+        "explanation": "Paddy rice commonly depends on ample water and warm growing conditions; intensive cultivation uses substantial labour per unit of land."
+      },
+      "hi": {
+        "stem": "मानसूनी एशिया में सघन धान की खेती के लिए कौन-सा संयोजन सबसे अनुकूल है?",
+        "options": [
+          "बड़े रैंच और कम वर्षा",
+          "पर्याप्त जल, गर्म दशाएँ और अधिक श्रम",
+          "छोटी गर्मियाँ और जमी हुई मिट्टी",
+          "भूमध्यसागरीय शीतकालीन वर्षा और शुष्क ग्रीष्म"
+        ],
+        "explanation": "धान को सामान्यतः पर्याप्त जल और गर्म बढ़वार अवधि चाहिए; सघन खेती में भूमि की प्रति इकाई पर अधिक श्रम लगता है।"
+      },
+      "pa": {
+        "stem": "ਮਾਨਸੂਨੀ ਏਸ਼ੀਆ ਵਿੱਚ ਸਘਣੀ ਝੋਨੇ ਦੀ ਖੇਤੀ ਲਈ ਕਿਹੜਾ ਜੋੜ ਸਭ ਤੋਂ ਅਨੁਕੂਲ ਹੈ?",
+        "options": [
+          "ਵੱਡੇ ਰੈਂਚ ਅਤੇ ਘੱਟ ਵਰਖਾ",
+          "ਕਾਫ਼ੀ ਪਾਣੀ, ਗਰਮ ਮੌਸਮ ਅਤੇ ਵੱਧ ਮਜ਼ਦੂਰੀ",
+          "ਛੋਟੀਆਂ ਗਰਮੀਆਂ ਅਤੇ ਜਮੀ ਹੋਈ ਮਿੱਟੀ",
+          "ਭੂ-ਮੱਧ ਸਾਗਰੀ ਸਰਦੀ ਦੀ ਵਰਖਾ ਅਤੇ ਸੁੱਕੀਆਂ ਗਰਮੀਆਂ"
+        ],
+        "explanation": "ਝੋਨੇ ਲਈ ਆਮ ਤੌਰ ਤੇ ਕਾਫ਼ੀ ਪਾਣੀ ਅਤੇ ਗਰਮ ਵਧਣ ਦਾ ਮੌਸਮ ਚਾਹੀਦਾ ਹੈ; ਸਘਣੀ ਖੇਤੀ ਵਿੱਚ ਜ਼ਮੀਨ ਦੇ ਹਰ ਹਿੱਸੇ ਉੱਤੇ ਵੱਧ ਮਜ਼ਦੂਰੀ ਲੱਗਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q003",
+    "cpId": "WGE-001-CP034",
+    "objective": "extensive-grain-farming",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Large mechanised grain farms with low labour input per hectare are typical of:",
+        "options": [
+          "Shifting cultivation",
+          "Market gardening",
+          "Extensive commercial grain farming",
+          "Intensive wet-rice farming"
+        ],
+        "explanation": "Extensive commercial grain farming uses large land areas and mechanisation, so labour per hectare is relatively low."
+      },
+      "hi": {
+        "stem": "प्रति हेक्टेयर कम श्रम वाली बड़ी यंत्रीकृत अनाज खेती किस प्रणाली की विशेषता है?",
+        "options": [
+          "स्थानांतरित खेती",
+          "बाजार बागवानी",
+          "विस्तृत व्यावसायिक अनाज खेती",
+          "सघन आर्द्र धान खेती"
+        ],
+        "explanation": "विस्तृत व्यावसायिक अनाज खेती में बड़े भू-भाग और मशीनों का उपयोग होता है, इसलिए प्रति हेक्टेयर श्रम अपेक्षाकृत कम होता है।"
+      },
+      "pa": {
+        "stem": "ਪ੍ਰਤੀ ਹੈਕਟੇਅਰ ਘੱਟ ਮਜ਼ਦੂਰੀ ਵਾਲੀ ਵੱਡੀ ਮਸ਼ੀਨੀ ਅਨਾਜ ਖੇਤੀ ਕਿਹੜੀ ਪ੍ਰਣਾਲੀ ਦੀ ਵਿਸ਼ੇਸ਼ਤਾ ਹੈ?",
+        "options": [
+          "ਝੂਮ ਖੇਤੀ",
+          "ਬਾਜ਼ਾਰੀ ਬਾਗਬਾਨੀ",
+          "ਵਿਸਤ੍ਰਿਤ ਵਪਾਰਕ ਅਨਾਜ ਖੇਤੀ",
+          "ਸਘਣੀ ਗਿੱਲੀ ਝੋਨਾ ਖੇਤੀ"
+        ],
+        "explanation": "ਵਿਸਤ੍ਰਿਤ ਵਪਾਰਕ ਅਨਾਜ ਖੇਤੀ ਵਿੱਚ ਵੱਡੇ ਖੇਤਰ ਅਤੇ ਮਸ਼ੀਨਾਂ ਵਰਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਪ੍ਰਤੀ ਹੈਕਟੇਅਰ ਮਜ਼ਦੂਰੀ ਘੱਟ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q004",
+    "cpId": "WGE-001-CP034",
+    "objective": "plantation-cash-crop-system",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Tea, rubber or oil-palm grown on large estates mainly for sale is associated with:",
+        "options": [
+          "Mixed subsistence farming",
+          "Pastoral nomadism",
+          "Extensive ranching",
+          "Plantation agriculture"
+        ],
+        "explanation": "Plantation agriculture specialises in one or a few cash crops, often for processing or export."
+      },
+      "hi": {
+        "stem": "बड़े बागानों में बिक्री के लिए उगाई जाने वाली चाय, रबर या ताड़ की फसल किससे जुड़ी है?",
+        "options": [
+          "मिश्रित निर्वाह खेती",
+          "घुमंतू पशुपालन",
+          "विस्तृत रैंचिंग",
+          "बागान कृषि"
+        ],
+        "explanation": "बागान कृषि में एक या कुछ नकदी फसलों पर विशेष ध्यान दिया जाता है, अक्सर प्रसंस्करण या निर्यात के लिए।"
+      },
+      "pa": {
+        "stem": "ਵੱਡੇ ਬਾਗਾਂ ਵਿੱਚ ਵੇਚਣ ਲਈ ਉਗਾਈ ਜਾਣ ਵਾਲੀ ਚਾਹ, ਰਬੜ ਜਾਂ ਤੇਲ-ਤਾੜ ਦੀ ਫ਼ਸਲ ਕਿਸ ਨਾਲ ਜੁੜੀ ਹੈ?",
+        "options": [
+          "ਮਿਸ਼ਰਤ ਗੁਜ਼ਾਰਾ ਖੇਤੀ",
+          "ਘੁੰਮੰਤੂ ਪਸ਼ੂ-ਪਾਲਣਾ",
+          "ਵਿਸਤ੍ਰਿਤ ਰੈਂਚਿੰਗ",
+          "ਬਾਗਾਨ ਖੇਤੀ"
+        ],
+        "explanation": "ਬਾਗਾਨ ਖੇਤੀ ਵਿੱਚ ਇੱਕ ਜਾਂ ਕੁਝ ਨਕਦੀ ਫ਼ਸਲਾਂ ਉੱਤੇ ਖ਼ਾਸ ਧਿਆਨ ਹੁੰਦਾ ਹੈ, ਅਕਸਰ ਪ੍ਰਸੰਸਕਰਨ ਜਾਂ ਨਿਰਯਾਤ ਲਈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q005",
+    "cpId": "WGE-001-CP034",
+    "objective": "mediterranean-farming-crops",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which crop group is strongly associated with Mediterranean-type farming?",
+        "options": [
+          "Olives, grapes and citrus fruits",
+          "Paddy rice, jute and tea",
+          "Spruce, larch and rye",
+          "Cotton, sugarcane and rubber"
+        ],
+        "explanation": "Mediterranean farming commonly includes olives, grapes and citrus, alongside cereals and vegetables."
+      },
+      "hi": {
+        "stem": "भूमध्यसागरीय प्रकार की कृषि से कौन-सा फसल समूह विशेष रूप से जुड़ा है?",
+        "options": [
+          "जैतून, अंगूर और खट्टे फल",
+          "धान, जूट और चाय",
+          "स्प्रूस, लार्च और राई",
+          "कपास, गन्ना और रबर"
+        ],
+        "explanation": "भूमध्यसागरीय खेती में अनाज और सब्जियों के साथ जैतून, अंगूर तथा खट्टे फल आम हैं।"
+      },
+      "pa": {
+        "stem": "ਭੂ-ਮੱਧ ਸਾਗਰੀ ਕਿਸਮ ਦੀ ਖੇਤੀ ਨਾਲ ਕਿਹੜਾ ਫ਼ਸਲੀ ਸਮੂਹ ਖ਼ਾਸ ਤੌਰ ਤੇ ਜੁੜਿਆ ਹੈ?",
+        "options": [
+          "ਜੈਤੂਨ, ਅੰਗੂਰ ਅਤੇ ਖੱਟੇ ਫਲ",
+          "ਝੋਨਾ, ਜੂਟ ਅਤੇ ਚਾਹ",
+          "ਸਪਰੂਸ, ਲਾਰਚ ਅਤੇ ਰਾਈ",
+          "ਕਪਾਹ, ਗੰਨਾ ਅਤੇ ਰਬੜ"
+        ],
+        "explanation": "ਭੂ-ਮੱਧ ਸਾਗਰੀ ਖੇਤੀ ਵਿੱਚ ਅਨਾਜ ਅਤੇ ਸਬਜ਼ੀਆਂ ਦੇ ਨਾਲ ਜੈਤੂਨ, ਅੰਗੂਰ ਅਤੇ ਖੱਟੇ ਫਲ ਆਮ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q006",
+    "cpId": "WGE-001-CP034",
+    "objective": "pastoral-nomadism",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Seasonal movement of herders and livestock in search of pasture is called:",
+        "options": [
+          "Dairy farming",
+          "Pastoral nomadism",
+          "Plantation agriculture",
+          "Market gardening"
+        ],
+        "explanation": "Pastoral nomadism involves moving herds between grazing areas as water and pasture availability changes."
+      },
+      "hi": {
+        "stem": "चरागाह की तलाश में चरवाहों और पशुओं का मौसमी स्थानांतरण क्या कहलाता है?",
+        "options": [
+          "डेयरी खेती",
+          "घुमंतू पशुपालन",
+          "बागान कृषि",
+          "बाजार बागवानी"
+        ],
+        "explanation": "घुमंतू पशुपालन में पानी और चारे की उपलब्धता के अनुसार झुंडों को चराई क्षेत्रों के बीच ले जाया जाता है।"
+      },
+      "pa": {
+        "stem": "ਚਰਾਗਾਹ ਦੀ ਭਾਲ ਵਿੱਚ ਚਰਵਾਹਿਆਂ ਅਤੇ ਪਸ਼ੂਆਂ ਦਾ ਮੌਸਮੀ ਤੌਰ ਤੇ ਇੱਕ ਥਾਂ ਤੋਂ ਦੂਜੀ ਥਾਂ ਜਾਣਾ ਕੀ ਕਹਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਡੇਅਰੀ ਖੇਤੀ",
+          "ਘੁੰਮੰਤੂ ਪਸ਼ੂ-ਪਾਲਣਾ",
+          "ਬਾਗਾਨ ਖੇਤੀ",
+          "ਬਾਜ਼ਾਰੀ ਬਾਗਬਾਨੀ"
+        ],
+        "explanation": "ਘੁੰਮੰਤੂ ਪਸ਼ੂ-ਪਾਲਣਾ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਚਾਰੇ ਦੀ ਉਪਲਬਧਤਾ ਦੇ ਅਨੁਸਾਰ ਝੁੰਡਾਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਚਰਾਗਾਹਾਂ ਵਿੱਚ ਲਿਜਾਇਆ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q007",
+    "cpId": "WGE-001-CP034",
+    "objective": "ranching-extensive-livestock",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Extensive commercial cattle or sheep raising over large, sparsely settled areas is:",
+        "options": [
+          "Intensive dairy farming",
+          "Mixed crop farming",
+          "Ranching",
+          "Plantation agriculture"
+        ],
+        "explanation": "Ranching is extensive livestock production over large areas, often where crop cultivation is limited by dryness or distance."
+      },
+      "hi": {
+        "stem": "कम आबादी वाले बड़े क्षेत्रों में व्यावसायिक रूप से गाय या भेड़ पालना क्या कहलाता है?",
+        "options": [
+          "सघन डेयरी खेती",
+          "मिश्रित फसल खेती",
+          "रैंचिंग",
+          "बागान कृषि"
+        ],
+        "explanation": "रैंचिंग बड़े क्षेत्रों में विस्तृत पशुपालन है; यह अक्सर उन जगहों पर होती है जहाँ शुष्कता या दूरी के कारण फसल खेती सीमित रहती है।"
+      },
+      "pa": {
+        "stem": "ਘੱਟ ਵਸੋਂ ਵਾਲੇ ਵੱਡੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵਪਾਰਕ ਤੌਰ ਤੇ ਗਾਂ ਜਾਂ ਭੇਡਾਂ ਪਾਲਣਾ ਕੀ ਕਹਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਸਘਣੀ ਡੇਅਰੀ ਖੇਤੀ",
+          "ਮਿਸ਼ਰਤ ਫ਼ਸਲੀ ਖੇਤੀ",
+          "ਰੈਂਚਿੰਗ",
+          "ਬਾਗਾਨ ਖੇਤੀ"
+        ],
+        "explanation": "ਰੈਂਚਿੰਗ ਵੱਡੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵਿਸਤ੍ਰਿਤ ਪਸ਼ੂ-ਪਾਲਣਾ ਹੈ; ਇਹ ਅਕਸਰ ਉੱਥੇ ਹੁੰਦੀ ਹੈ ਜਿੱਥੇ ਖੁਸ਼ਕੀ ਜਾਂ ਦੂਰੀ ਕਾਰਨ ਫ਼ਸਲ ਖੇਤੀ ਸੀਮਿਤ ਰਹਿੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q008",
+    "cpId": "WGE-001-CP034",
+    "objective": "dairy-perishable-market",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Why is commercial dairy farming often located near large urban markets?",
+        "options": [
+          "Cattle need high altitude everywhere",
+          "Milk and fresh products are perishable",
+          "Pasture can grow only in cities",
+          "Dairy farms require ocean ports"
+        ],
+        "explanation": "Proximity to consumers reduces the time and cost of transporting milk and other perishable products."
+      },
+      "hi": {
+        "stem": "व्यावसायिक डेयरी फार्म अक्सर बड़े शहरी बाजारों के पास क्यों होते हैं?",
+        "options": [
+          "गायों को हर जगह अधिक ऊँचाई चाहिए",
+          "दूध और ताजे उत्पाद जल्दी खराब होते हैं",
+          "चरागाह केवल शहरों में उगते हैं",
+          "डेयरी फार्म को समुद्री बंदरगाह चाहिए"
+        ],
+        "explanation": "उपभोक्ताओं के पास होने से दूध और अन्य जल्दी खराब होने वाले उत्पादों के परिवहन का समय और खर्च घटता है।"
+      },
+      "pa": {
+        "stem": "ਵਪਾਰਕ ਡੇਅਰੀ ਫਾਰਮ ਅਕਸਰ ਵੱਡੇ ਸ਼ਹਿਰੀ ਬਾਜ਼ਾਰਾਂ ਦੇ ਨੇੜੇ ਕਿਉਂ ਹੁੰਦੇ ਹਨ?",
+        "options": [
+          "ਗਾਂਵਾਂ ਨੂੰ ਹਰ ਥਾਂ ਵੱਧ ਉਚਾਈ ਚਾਹੀਦੀ ਹੈ",
+          "ਦੁੱਧ ਅਤੇ ਤਾਜ਼ੇ ਉਤਪਾਦ ਛੇਤੀ ਖ਼ਰਾਬ ਹੁੰਦੇ ਹਨ",
+          "ਚਰਾਗਾਹ ਸਿਰਫ਼ ਸ਼ਹਿਰਾਂ ਵਿੱਚ ਉੱਗਦੇ ਹਨ",
+          "ਡੇਅਰੀ ਫਾਰਮਾਂ ਨੂੰ ਸਮੁੰਦਰੀ ਬੰਦਰਗਾਹ ਚਾਹੀਦੀ ਹੈ"
+        ],
+        "explanation": "ਖਪਤਕਾਰਾਂ ਦੇ ਨੇੜੇ ਹੋਣ ਨਾਲ ਦੁੱਧ ਅਤੇ ਹੋਰ ਛੇਤੀ ਖ਼ਰਾਬ ਹੋਣ ਵਾਲੇ ਉਤਪਾਦਾਂ ਦੀ ਢੁਆਈ ਦਾ ਸਮਾਂ ਅਤੇ ਖ਼ਰਚ ਘਟਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q009",
+    "cpId": "WGE-001-CP034",
+    "objective": "mixed-farming-system",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A farm that grows crops and keeps livestock, using residues or manure between them, practises:",
+        "options": [
+          "Mixed farming",
+          "Ranching",
+          "Plantation monoculture",
+          "Nomadic herding"
+        ],
+        "explanation": "Mixed farming combines crop production and livestock, allowing outputs and inputs such as fodder and manure to complement one another."
+      },
+      "hi": {
+        "stem": "जो खेत फसल उगाने के साथ पशुपालन भी करता है और दोनों में अवशेष या खाद का उपयोग करता है, वह कौन-सी प्रणाली अपनाता है?",
+        "options": [
+          "मिश्रित खेती",
+          "रैंचिंग",
+          "एकल-बागान खेती",
+          "घुमंतू पशुपालन"
+        ],
+        "explanation": "मिश्रित खेती में फसल उत्पादन और पशुपालन साथ होते हैं; चारा और खाद जैसे साधन एक-दूसरे के पूरक बन सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਜੋ ਖੇਤ ਫ਼ਸਲ ਉਗਾਉਣ ਦੇ ਨਾਲ ਪਸ਼ੂ ਵੀ ਪਾਲਦਾ ਹੈ ਅਤੇ ਦੋਵਾਂ ਵਿੱਚ ਬਚਿਆ ਚਾਰਾ ਜਾਂ ਖਾਦ ਵਰਤਦਾ ਹੈ, ਉਹ ਕਿਹੜੀ ਪ੍ਰਣਾਲੀ ਅਪਣਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਮਿਸ਼ਰਤ ਖੇਤੀ",
+          "ਰੈਂਚਿੰਗ",
+          "ਇੱਕ-ਫ਼ਸਲੀ ਬਾਗਾਨ ਖੇਤੀ",
+          "ਘੁੰਮੰਤੂ ਪਸ਼ੂ-ਪਾਲਣਾ"
+        ],
+        "explanation": "ਮਿਸ਼ਰਤ ਖੇਤੀ ਵਿੱਚ ਫ਼ਸਲ ਅਤੇ ਪਸ਼ੂ-ਪਾਲਣਾ ਇਕੱਠੇ ਹੁੰਦੇ ਹਨ; ਚਾਰਾ ਅਤੇ ਖਾਦ ਵਰਗੇ ਸਰੋਤ ਇੱਕ-ਦੂਜੇ ਦੇ ਕੰਮ ਆਉਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q010",
+    "cpId": "WGE-001-CP034",
+    "objective": "intensive-extensive-inputs",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which feature distinguishes intensive farming from extensive farming?",
+        "options": [
+          "Intensive farming always uses more land per worker",
+          "Higher inputs are applied per unit of land",
+          "Extensive farming always grows one crop",
+          "Intensive farming is limited to plantations"
+        ],
+        "explanation": "Intensive farming uses more labour, capital or other inputs per unit of land; it does not necessarily mean larger farms."
+      },
+      "hi": {
+        "stem": "सघन खेती को विस्तृत खेती से कौन-सी विशेषता अलग करती है?",
+        "options": [
+          "सघन खेती में प्रति श्रमिक हमेशा अधिक भूमि होती है",
+          "भूमि की प्रति इकाई पर अधिक साधन लगाए जाते हैं",
+          "विस्तृत खेती में हमेशा एक ही फसल उगती है",
+          "सघन खेती केवल बागानों तक सीमित है"
+        ],
+        "explanation": "सघन खेती में भूमि की प्रति इकाई पर अधिक श्रम, पूँजी या अन्य साधन लगाए जाते हैं; इसका अर्थ बड़े खेत होना जरूरी नहीं।"
+      },
+      "pa": {
+        "stem": "ਸਘਣੀ ਖੇਤੀ ਨੂੰ ਵਿਸਤ੍ਰਿਤ ਖੇਤੀ ਤੋਂ ਕਿਹੜੀ ਵਿਸ਼ੇਸ਼ਤਾ ਵੱਖ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "ਸਘਣੀ ਖੇਤੀ ਵਿੱਚ ਹਰ ਮਜ਼ਦੂਰ ਕੋਲ ਹਮੇਸ਼ਾ ਵੱਧ ਜ਼ਮੀਨ ਹੁੰਦੀ ਹੈ",
+          "ਜ਼ਮੀਨ ਦੇ ਹਰ ਇਕਾਈ ਹਿੱਸੇ ਉੱਤੇ ਵੱਧ ਸਰੋਤ ਲੱਗਦੇ ਹਨ",
+          "ਵਿਸਤ੍ਰਿਤ ਖੇਤੀ ਵਿੱਚ ਹਮੇਸ਼ਾ ਇੱਕੋ ਫ਼ਸਲ ਹੁੰਦੀ ਹੈ",
+          "ਸਘਣੀ ਖੇਤੀ ਸਿਰਫ਼ ਬਾਗਾਨਾਂ ਤੱਕ ਸੀਮਿਤ ਹੈ"
+        ],
+        "explanation": "ਸਘਣੀ ਖੇਤੀ ਵਿੱਚ ਜ਼ਮੀਨ ਦੇ ਹਰ ਇਕਾਈ ਹਿੱਸੇ ਉੱਤੇ ਵੱਧ ਮਜ਼ਦੂਰੀ, ਪੂੰਜੀ ਜਾਂ ਹੋਰ ਸਰੋਤ ਲੱਗਦੇ ਹਨ; ਇਸ ਦਾ ਮਤਲਬ ਵੱਡੇ ਖੇਤ ਹੋਣਾ ਲਾਜ਼ਮੀ ਨਹੀਂ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q011",
+    "cpId": "WGE-001-CP034",
+    "objective": "wheat-growing-climate-region",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Large commercial wheat farms are most closely associated with which environment?",
+        "options": [
+          "Humid equatorial forest with year-round rain",
+          "Steep tropical slopes with shifting cultivation",
+          "Temperate grassland and steppe regions",
+          "Tidal mangrove swamps"
+        ],
+        "explanation": "Temperate grasslands and steppe regions provide broad, relatively level areas suited to mechanised grain production."
+      },
+      "hi": {
+        "stem": "बड़े व्यावसायिक गेहूँ फार्म किस पर्यावरण से सबसे अधिक जुड़े हैं?",
+        "options": [
+          "साल भर वर्षा वाला आर्द्र विषुवतीय वन",
+          "स्थानांतरित खेती वाली खड़ी उष्णकटिबंधीय ढालें",
+          "समशीतोष्ण घासभूमि और स्टेपी क्षेत्र",
+          "ज्वारीय मैंग्रोव दलदल"
+        ],
+        "explanation": "समशीतोष्ण घासभूमि और स्टेपी के विस्तृत, अपेक्षाकृत समतल क्षेत्र यंत्रीकृत अनाज उत्पादन के अनुकूल हैं।"
+      },
+      "pa": {
+        "stem": "ਵੱਡੇ ਵਪਾਰਕ ਕਣਕ ਫਾਰਮ ਕਿਹੜੇ ਵਾਤਾਵਰਨ ਨਾਲ ਸਭ ਤੋਂ ਵੱਧ ਜੁੜੇ ਹਨ?",
+        "options": [
+          "ਸਾਲ ਭਰ ਵਰਖਾ ਵਾਲਾ ਨਮੀਦਾਰ ਭੂ-ਮੱਧ ਰੇਖਾਈ ਜੰਗਲ",
+          "ਝੂਮ ਖੇਤੀ ਵਾਲੀਆਂ ਖੜ੍ਹੀਆਂ ਗਰਮ-ਖੇਤਰੀ ਢਲਾਣਾਂ",
+          "ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਭੂਮੀਆਂ ਅਤੇ ਸਟੈਪੀ ਖੇਤਰ",
+          "ਜਵਾਰੀ ਮੈਂਗਰੋਵ ਦਲਦਲ"
+        ],
+        "explanation": "ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਭੂਮੀਆਂ ਅਤੇ ਸਟੈਪੀ ਦੇ ਵਿਸ਼ਾਲ, ਕਾਫ਼ੀ ਸਮਤਲ ਖੇਤਰ ਮਸ਼ੀਨੀ ਅਨਾਜ ਉਤਪਾਦਨ ਲਈ ਢੁੱਕਵੇਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP034-Q012",
+    "cpId": "WGE-001-CP034",
+    "objective": "agriculture-water-constraint",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-AGR-FAO-SYS",
+      "WGE-AGR-FAO-ASIA",
+      "WGE-AGR-FAO-MENA",
+      "WGE-AGR-FAO-FAOSTAT"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "In a semi-arid farming region, which change most directly reduces reliance on uncertain rainfall?",
+        "options": [
+          "Replacing all crops with timber",
+          "Using irrigation from a dependable water source",
+          "Moving farms to a port",
+          "Increasing field size without water management"
+        ],
+        "explanation": "Irrigation supplies water when rainfall is insufficient or poorly timed, though it depends on sustainable water access."
+      },
+      "hi": {
+        "stem": "अर्ध-शुष्क कृषि क्षेत्र में कौन-सा बदलाव अनिश्चित वर्षा पर निर्भरता सीधे घटाता है?",
+        "options": [
+          "सभी फसलों की जगह लकड़ी उगाना",
+          "विश्वसनीय जलस्रोत से सिंचाई करना",
+          "खेतों को बंदरगाह पर ले जाना",
+          "जल प्रबंधन के बिना खेत का आकार बढ़ाना"
+        ],
+        "explanation": "वर्षा कम या गलत समय पर होने पर सिंचाई जल देती है, हालांकि इसके लिए जलस्रोत का टिकाऊ उपयोग जरूरी है।"
+      },
+      "pa": {
+        "stem": "ਅਰਧ-ਖੁਸ਼ਕ ਖੇਤੀ ਖੇਤਰ ਵਿੱਚ ਕਿਹੜਾ ਬਦਲਾਅ ਅਨਿਸ਼ਚਿਤ ਵਰਖਾ ਉੱਤੇ ਨਿਰਭਰਤਾ ਸਿੱਧੀ ਘਟਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਸਾਰੀਆਂ ਫ਼ਸਲਾਂ ਦੀ ਥਾਂ ਲੱਕੜ ਉਗਾਉਣਾ",
+          "ਭਰੋਸੇਯੋਗ ਜਲ ਸਰੋਤ ਤੋਂ ਸਿੰਚਾਈ ਕਰਨਾ",
+          "ਖੇਤਾਂ ਨੂੰ ਬੰਦਰਗਾਹ ਉੱਤੇ ਲਿਜਾਣਾ",
+          "ਪਾਣੀ ਦੇ ਪ੍ਰਬੰਧ ਤੋਂ ਬਿਨਾਂ ਖੇਤ ਦਾ ਆਕਾਰ ਵਧਾਉਣਾ"
+        ],
+        "explanation": "ਜਦੋਂ ਵਰਖਾ ਘੱਟ ਜਾਂ ਗਲਤ ਸਮੇਂ ਤੇ ਹੋਵੇ ਤਾਂ ਸਿੰਚਾਈ ਪਾਣੀ ਦਿੰਦੀ ਹੈ, ਪਰ ਇਸ ਲਈ ਜਲ ਸਰੋਤ ਦੀ ਟਿਕਾਊ ਵਰਤੋਂ ਲਾਜ਼ਮੀ ਹੈ।"
+      }
+    }
+  }
+]
