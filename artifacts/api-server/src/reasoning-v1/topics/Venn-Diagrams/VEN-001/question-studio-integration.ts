@@ -430,7 +430,7 @@ export function generateVen001QuestionStudioBatch(
         (candidate) => candidate.authorityId === authority.authorityId,
       );
       stimulusSvgs = [
-        renderVennTopologySvg(authority.topologyId, undefined, false),
+        renderVennTopologySvg(authority.topologyId, targetLabels),
       ];
       optionDetails = candidates.map((candidate, optionIndex) => ({
         label: String.fromCharCode(65 + optionIndex),
