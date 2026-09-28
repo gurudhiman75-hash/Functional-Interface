@@ -6,6 +6,7 @@ import {
   getCommonQuestionLanguageIds,
   getQuestionEntry,
   getRequiredVariables,
+  getSelectableQuestionLanguageIds,
   getTaskKind,
   runPct002ForLanguages,
   runPct002Pipeline,
@@ -97,6 +98,32 @@ assert.equal(audit.libraryValidationFailures.length, 0);
 for (const cpId of PCT_002_CP_IDS) {
   assert.equal(getCommonQuestionLanguageIds(cpId).length, 2, `${cpId} must expose two shared QL IDs`);
 }
+
+const diversityCp = "PCT-CP-008" as const;
+const diversityPool = getSelectableQuestionLanguageIds(diversityCp, "en");
+const byDifficulty = new Map<string, string[]>();
+for (const qlId of diversityPool) {
+  const difficulty = getQuestionEntry(diversityCp, qlId, "en").difficulty;
+  const rows = byDifficulty.get(difficulty) ?? [];
+  rows.push(qlId);
+  byDifficulty.set(difficulty, rows);
+}
+const diversityDifficulty = [...byDifficulty.entries()]
+  .sort((left, right) => right[1].length - left[1].length)[0];
+assert.ok(diversityDifficulty && diversityDifficulty[1].length >= 4, "PCT-002 diversity proof needs at least four eligible QLs in one difficulty pool.");
+const selectedByOrdinal = [0, 1, 2, 3].map((diversityOrdinal) =>
+  runPct002Pipeline(diversityCp, {
+    language: "en",
+    seed: "pct-002-diversity-ordinal-proof",
+    difficultyBand: diversityDifficulty[0] as any,
+    diversityOrdinal,
+  }).questionLanguageId
+);
+assert.equal(
+  new Set(selectedByOrdinal).size,
+  4,
+  `PCT-002 must consume distinct eligible QLs across diversity ordinals before reuse: ${selectedByOrdinal.join(", ")}`,
+);
 
 for (let index = 0; index < 40; index += 1) {
   const cpId = PCT_002_CP_IDS[index % PCT_002_CP_IDS.length]!;
