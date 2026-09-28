@@ -41,6 +41,9 @@ If the reviewer explicitly selects Easy, Medium or Hard, that explicit choice ov
 
 Novelty tier and difficulty are allocated independently: a fresh or higher-novelty question is not automatically treated as a hard question.
 
+
+For Banking Mains, Hard slots are additionally restricted to source modes with genuine Mains-hard reasoning depth. Single-series bar, single-series line, donut/ring and radar remain eligible for Banking Mains Easy/Medium slots, but are not used to satisfy the Hard quota.
+
 ## Tier meaning
 
 ### STANDARD
