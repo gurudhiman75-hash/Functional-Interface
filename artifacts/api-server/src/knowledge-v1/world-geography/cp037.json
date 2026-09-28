@@ -13,18 +13,33 @@
     "locales": {
       "en": {
         "stem": "Which two seas are linked by the Suez Canal?",
-        "options": "Mediterranean Sea and Red Sea",
-        "explanation": "Black Sea and Aegean Sea"
+        "options": [
+          "Black Sea and Aegean Sea",
+          "Baltic Sea and North Sea",
+          "Mediterranean Sea and Red Sea",
+          "Arabian Sea and South China Sea"
+        ],
+        "explanation": "The Suez Canal crosses Egypt and links the Mediterranean Sea with the Red Sea."
       },
       "hi": {
         "stem": "स्वेज नहर किन दो समुद्रों को जोड़ती है?",
-        "options": "भूमध्य सागर और लाल सागर",
-        "explanation": "काला सागर और एजियन सागर"
+        "options": [
+          "काला सागर और एजियन सागर",
+          "बाल्टिक सागर और उत्तरी सागर",
+          "भूमध्य सागर और लाल सागर",
+          "अरब सागर और दक्षिण चीन सागर"
+        ],
+        "explanation": "स्वेज नहर मिस्र से होकर भूमध्य सागर को लाल सागर से जोड़ती है।"
       },
       "pa": {
         "stem": "ਸੂਏਜ਼ ਨਹਿਰ ਕਿਹੜੇ ਦੋ ਸਮੁੰਦਰਾਂ ਨੂੰ ਜੋੜਦੀ ਹੈ?",
-        "options": "ਭੂਮੱਧ ਸਾਗਰ ਅਤੇ ਲਾਲ ਸਾਗਰ",
-        "explanation": "ਕਾਲਾ ਸਾਗਰ ਅਤੇ ਏਜੀਅਨ ਸਾਗਰ"
+        "options": [
+          "ਕਾਲਾ ਸਾਗਰ ਅਤੇ ਏਜੀਅਨ ਸਾਗਰ",
+          "ਬਾਲਟਿਕ ਸਾਗਰ ਅਤੇ ਉੱਤਰੀ ਸਾਗਰ",
+          "ਭੂਮੱਧ ਸਾਗਰ ਅਤੇ ਲਾਲ ਸਾਗਰ",
+          "ਅਰਬ ਸਾਗਰ ਅਤੇ ਦੱਖਣੀ ਚੀਨ ਸਾਗਰ"
+        ],
+        "explanation": "ਸੂਏਜ਼ ਨਹਿਰ ਮਿਸਰ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਭੂਮੱਧ ਸਾਗਰ ਨੂੰ ਲਾਲ ਸਾਗਰ ਨਾਲ ਜੋੜਦੀ ਹੈ।"
       }
     }
   },
@@ -42,18 +57,33 @@
     "locales": {
       "en": {
         "stem": "The Panama Canal provides a ship route between the:",
-        "options": "Atlantic and Pacific oceans",
-        "explanation": "Indian and Arctic oceans"
+        "options": [
+          "Atlantic and Pacific oceans",
+          "Indian and Arctic oceans",
+          "Pacific and Southern oceans",
+          "Atlantic and Indian oceans"
+        ],
+        "explanation": "The Panama Canal crosses the Central American isthmus and links Atlantic and Pacific routes."
       },
       "hi": {
         "stem": "पनामा नहर जहाजों को किन महासागरों के बीच मार्ग देती है?",
-        "options": "अटलांटिक और प्रशांत महासागर",
-        "explanation": "हिंद और आर्कटिक महासागर"
+        "options": [
+          "अटलांटिक और प्रशांत महासागर",
+          "हिंद और आर्कटिक महासागर",
+          "प्रशांत और दक्षिणी महासागर",
+          "अटलांटिक और हिंद महासागर"
+        ],
+        "explanation": "पनामा नहर मध्य अमेरिकी स्थलडमरूमध्य को पार करके अटलांटिक और प्रशांत मार्गों को जोड़ती है।"
       },
       "pa": {
         "stem": "ਪਨਾਮਾ ਨਹਿਰ ਜਹਾਜ਼ਾਂ ਨੂੰ ਕਿਹੜੇ ਮਹਾਂਸਾਗਰਾਂ ਵਿਚਕਾਰ ਰਸਤਾ ਦਿੰਦੀ ਹੈ?",
-        "options": "ਅਟਲਾਂਟਿਕ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ",
-        "explanation": "ਹਿੰਦ ਅਤੇ ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ"
+        "options": [
+          "ਅਟਲਾਂਟਿਕ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ",
+          "ਹਿੰਦ ਅਤੇ ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ",
+          "ਪ੍ਰਸ਼ਾਂਤ ਅਤੇ ਦੱਖਣੀ ਮਹਾਂਸਾਗਰ",
+          "ਅਟਲਾਂਟਿਕ ਅਤੇ ਹਿੰਦ ਮਹਾਂਸਾਗਰ"
+        ],
+        "explanation": "ਪਨਾਮਾ ਨਹਿਰ ਮੱਧ ਅਮਰੀਕਾ ਦੇ ਥਲ-ਜੋੜ ਨੂੰ ਪਾਰ ਕਰਕੇ ਅਟਲਾਂਟਿਕ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਰਸਤਿਆਂ ਨੂੰ ਜੋੜਦੀ ਹੈ।"
       }
     }
   },
@@ -71,18 +101,33 @@
     "locales": {
       "en": {
         "stem": "Which passage links the Persian Gulf with the Gulf of Oman?",
-        "options": "Bab el-Mandeb",
-        "explanation": "Strait of Hormuz"
+        "options": [
+          "Bab el-Mandeb",
+          "Strait of Hormuz",
+          "Strait of Malacca",
+          "Dardanelles"
+        ],
+        "explanation": "The Strait of Hormuz lies at the entrance to the Persian Gulf, between Iran and the Arabian Peninsula."
       },
       "hi": {
         "stem": "कौन-सा जलडमरूमध्य फारस की खाड़ी को ओमान की खाड़ी से जोड़ता है?",
-        "options": "बाब-अल-मंदेब",
-        "explanation": "होर्मुज़ जलडमरूमध्य"
+        "options": [
+          "बाब-अल-मंदेब",
+          "होर्मुज़ जलडमरूमध्य",
+          "मलक्का जलडमरूमध्य",
+          "दार्दानेल्स"
+        ],
+        "explanation": "होर्मुज़ जलडमरूमध्य फारस की खाड़ी के मुहाने पर, ईरान और अरब प्रायद्वीप के बीच स्थित है।"
       },
       "pa": {
         "stem": "ਕਿਹੜੀ ਜਲਡਮਰੂਧੀ ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਨੂੰ ਓਮਾਨ ਦੀ ਖਾੜੀ ਨਾਲ ਜੋੜਦੀ ਹੈ?",
-        "options": "ਬਾਬ-ਅਲ-ਮੰਦਬ",
-        "explanation": "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂਧੀ"
+        "options": [
+          "ਬਾਬ-ਅਲ-ਮੰਦਬ",
+          "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂਧੀ",
+          "ਮਲਾਕਾ ਜਲਡਮਰੂਧੀ",
+          "ਦਾਰਦਾਨੇਲਜ਼"
+        ],
+        "explanation": "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂਧੀ ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਦੇ ਮੁਹਾਣੇ ਉੱਤੇ ਈਰਾਨ ਅਤੇ ਅਰਬੀ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
       }
     }
   },
@@ -100,18 +145,33 @@
     "locales": {
       "en": {
         "stem": "A vessel passing through the Strait of Malacca travels between the Indian Ocean region and the:",
-        "options": "Mediterranean Sea",
-        "explanation": "Arctic Ocean"
+        "options": [
+          "Mediterranean Sea",
+          "Arctic Ocean",
+          "Caribbean Sea",
+          "Pacific Ocean region"
+        ],
+        "explanation": "The Strait of Malacca is a key route between the Indian Ocean and the South China Sea and wider Pacific routes."
       },
       "hi": {
         "stem": "मलक्का जलडमरूमध्य से गुजरने वाला जहाज हिंद महासागर क्षेत्र और किस क्षेत्र के बीच जाता है?",
-        "options": "भूमध्य सागर",
-        "explanation": "आर्कटिक महासागर"
+        "options": [
+          "भूमध्य सागर",
+          "आर्कटिक महासागर",
+          "कैरेबियन सागर",
+          "प्रशांत महासागर क्षेत्र"
+        ],
+        "explanation": "मलक्का जलडमरूमध्य हिंद महासागर को दक्षिण चीन सागर और आगे के प्रशांत मार्गों से जोड़ने वाला अहम रास्ता है।"
       },
       "pa": {
         "stem": "ਮਲਾਕਾ ਜਲਡਮਰੂਧੀ ਰਾਹੀਂ ਲੰਘਦਾ ਜਹਾਜ਼ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਖੇਤਰ ਅਤੇ ਕਿਹੜੇ ਖੇਤਰ ਵਿਚਕਾਰ ਜਾਂਦਾ ਹੈ?",
-        "options": "ਭੂਮੱਧ ਸਾਗਰ",
-        "explanation": "ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ"
+        "options": [
+          "ਭੂਮੱਧ ਸਾਗਰ",
+          "ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ",
+          "ਕੈਰੇਬੀਅਨ ਸਾਗਰ",
+          "ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਖੇਤਰ"
+        ],
+        "explanation": "ਮਲਾਕਾ ਜਲਡਮਰੂਧੀ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਨੂੰ ਦੱਖਣੀ ਚੀਨ ਸਾਗਰ ਅਤੇ ਅੱਗੇ ਦੇ ਪ੍ਰਸ਼ਾਂਤੀ ਰਸਤਿਆਂ ਨਾਲ ਜੋੜਦਾ ਅਹਿਮ ਰਾਹ ਹੈ।"
       }
     }
   },
@@ -128,18 +188,33 @@
     "locales": {
       "en": {
         "stem": "A port’s hinterland is the area that:",
-        "options": "The port serves through inland links",
-        "explanation": "Lies only beyond the open ocean"
+        "options": [
+          "The port serves through inland links",
+          "Lies only beyond the open ocean",
+          "Contains the port’s lighthouse",
+          "Has no transport connection to the port"
+        ],
+        "explanation": "A port’s hinterland is its inland service area, connected to the port by road, rail, river or other corridors."
       },
       "hi": {
         "stem": "किसी बंदरगाह का पश्चप्रदेश किसे कहते हैं?",
-        "options": "वह अंदरूनी क्षेत्र जिसे बंदरगाह परिवहन संपर्कों से सेवा देता है",
-        "explanation": "खुले समुद्र के पार का क्षेत्र"
+        "options": [
+          "वह अंदरूनी क्षेत्र जिसे बंदरगाह परिवहन संपर्कों से सेवा देता है",
+          "खुले समुद्र के पार का क्षेत्र",
+          "वह क्षेत्र जहाँ केवल बंदरगाह का प्रकाशस्तंभ हो",
+          "वह क्षेत्र जिसका बंदरगाह से कोई परिवहन संपर्क न हो"
+        ],
+        "explanation": "बंदरगाह का पश्चप्रदेश उसका अंदरूनी सेवा-क्षेत्र होता है, जो सड़क, रेल, नदी या अन्य मार्गों से जुड़ा होता है।"
       },
       "pa": {
         "stem": "ਬੰਦਰਗਾਹ ਦਾ ਪਿਛਲਾ ਇਲਾਕਾ ਕਿਹੜਾ ਹੁੰਦਾ ਹੈ?",
-        "options": "ਉਹ ਅੰਦਰੂਨੀ ਖੇਤਰ ਜਿਸ ਨੂੰ ਬੰਦਰਗਾਹ ਆਵਾਜਾਈ ਰਾਹੀਂ ਸੇਵਾ ਦਿੰਦੀ ਹੈ",
-        "explanation": "ਖੁੱਲ੍ਹੇ ਸਮੁੰਦਰ ਤੋਂ ਪਾਰਲਾ ਖੇਤਰ"
+        "options": [
+          "ਉਹ ਅੰਦਰੂਨੀ ਖੇਤਰ ਜਿਸ ਨੂੰ ਬੰਦਰਗਾਹ ਆਵਾਜਾਈ ਰਾਹੀਂ ਸੇਵਾ ਦਿੰਦੀ ਹੈ",
+          "ਖੁੱਲ੍ਹੇ ਸਮੁੰਦਰ ਤੋਂ ਪਾਰਲਾ ਖੇਤਰ",
+          "ਉਹ ਖੇਤਰ ਜਿੱਥੇ ਸਿਰਫ਼ ਬੰਦਰਗਾਹ ਦਾ ਚਾਨਣ-ਘਰ ਹੋਵੇ",
+          "ਉਹ ਖੇਤਰ ਜਿਸ ਦਾ ਬੰਦਰਗਾਹ ਨਾਲ ਕੋਈ ਆਵਾਜਾਈ ਜੋੜ ਨਾ ਹੋਵੇ"
+        ],
+        "explanation": "ਬੰਦਰਗਾਹ ਦਾ ਪਿਛਲਾ ਇਲਾਕਾ ਇਸ ਦਾ ਅੰਦਰੂਨੀ ਸੇਵਾ-ਖੇਤਰ ਹੁੰਦਾ ਹੈ, ਜੋ ਸੜਕ, ਰੇਲ, ਨਦੀ ਜਾਂ ਹੋਰ ਰਸਤਿਆਂ ਨਾਲ ਜੁੜਿਆ ਹੁੰਦਾ ਹੈ।"
       }
     }
   },
@@ -156,18 +231,33 @@
     "locales": {
       "en": {
         "stem": "A region has a navigable river, bulky freight and reliable terminals. Which mode may carry that freight efficiently over long inland distances?",
-        "options": "Passenger air service",
-        "explanation": "Small motorcycles"
+        "options": [
+          "Passenger air service",
+          "Small motorcycles",
+          "Inland water transport",
+          "Cable cars"
+        ],
+        "explanation": "Where rivers are navigable and terminals are reliable, inland water transport can move bulky cargo efficiently; actual costs depend on the route and service."
       },
       "hi": {
         "stem": "किसी क्षेत्र में नौगम्य नदी, भारी माल और भरोसेमंद टर्मिनल हैं। लंबी दूरी तक माल ले जाने का कौन-सा साधन उपयोगी हो सकता है?",
-        "options": "यात्री विमान सेवा",
-        "explanation": "छोटी मोटरसाइकिलें"
+        "options": [
+          "यात्री विमान सेवा",
+          "छोटी मोटरसाइकिलें",
+          "अंतर्देशीय जल-परिवहन",
+          "रोपवे"
+        ],
+        "explanation": "जहाँ नदी नौगम्य हो और टर्मिनल भरोसेमंद हों, वहाँ अंतर्देशीय जल-परिवहन भारी माल ले जा सकता है; लागत मार्ग और सेवा पर निर्भर करती है।"
       },
       "pa": {
         "stem": "ਕਿਸੇ ਖੇਤਰ ਵਿੱਚ ਜਹਾਜ਼ਰਾਨੀ ਯੋਗ ਨਦੀ, ਭਾਰੀ ਮਾਲ ਅਤੇ ਭਰੋਸੇਯੋਗ ਟਰਮੀਨਲ ਹਨ। ਲੰਮੀ ਅੰਦਰੂਨੀ ਦੂਰੀ ਉੱਤੇ ਮਾਲ ਲਿਜਾਣ ਲਈ ਕਿਹੜਾ ਸਾਧਨ ਲਾਭਦਾਇਕ ਹੋ ਸਕਦਾ ਹੈ?",
-        "options": "ਯਾਤਰੀ ਹਵਾਈ ਸੇਵਾ",
-        "explanation": "ਛੋਟੇ ਮੋਟਰਸਾਈਕਲ"
+        "options": [
+          "ਯਾਤਰੀ ਹਵਾਈ ਸੇਵਾ",
+          "ਛੋਟੇ ਮੋਟਰਸਾਈਕਲ",
+          "ਅੰਦਰੂਨੀ ਜਲ-ਆਵਾਜਾਈ",
+          "ਰੋਪਵੇ"
+        ],
+        "explanation": "ਜਿੱਥੇ ਨਦੀ ਜਹਾਜ਼ਰਾਨੀ ਯੋਗ ਹੋਵੇ ਅਤੇ ਟਰਮੀਨਲ ਭਰੋਸੇਯੋਗ ਹੋਣ, ਉੱਥੇ ਅੰਦਰੂਨੀ ਜਲ-ਆਵਾਜਾਈ ਭਾਰੀ ਮਾਲ ਲਿਜਾ ਸਕਦੀ ਹੈ; ਲਾਗਤ ਰਸਤੇ ਅਤੇ ਸੇਵਾ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।"
       }
     }
   }
