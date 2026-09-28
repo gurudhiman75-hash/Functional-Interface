@@ -34,7 +34,7 @@ function piePanel(stimulus:Di011Stimulus,x:number,y:number,w:number,h:number){
 function panel(stimulus:Di011Stimulus, which:"left"|"right", x:number,y:number,w:number,h:number){
   const pair=stimulus.pairKind;
   if(which==="left" && pair==="PIE_TABLE") return piePanel(stimulus,x,y,w,h);
-  if((which==="left" && (pair==="BAR_TABLE"||pair==="BAR_LINE")) || (which==="right"&&pair==="BAR_LINE")) return barPanel(stimulus,which,x,y,w,h);
+  if(which==="left" && (pair==="BAR_TABLE"||pair==="BAR_LINE")) return barPanel(stimulus,which,x,y,w,h);
   if((which==="left" && pair==="LINE_TABLE") || (which==="right"&&pair==="BAR_LINE")) return linePanel(stimulus,which,x,y,w,h);
   return tablePanel(stimulus,which,x,y,w,h);
 }
