@@ -188,7 +188,7 @@ export const MIS_PERMANENT_QL_ALLOCATION_STATE = Object.freeze({
   nextAvailableId: 'MIS-QL-074' as const,
   allocatedRange: 'MIS-QL-001..MIS-QL-073' as const,
   englishStatus: 'ENGLISH_EDITORIAL_FROZEN' as const,
-  localizationStatus: 'NOT_STARTED' as const,
+  localizationStatus: 'HI_PA_IMPLEMENTED_REVIEW_PENDING' as const,
   activeQlCount: 0,
   questionBankWritableCount: 0,
   testEligibleCount: 0,
