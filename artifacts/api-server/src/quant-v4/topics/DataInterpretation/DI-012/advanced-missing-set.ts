@@ -75,7 +75,9 @@ export function generateDi012Set(input:{seed:string;examProfile?:Di012ExamProfil
   const hasY=state.modelKind!=="SINGLE_X_TOTAL"&&state.modelKind!=="MISSING_RATE"&&state.modelKind!=="AVERAGE_CONSTRAINED";
   const easy:Di012TaskKind=hasY?pick(["RECOVER_X","RECOVER_Y"] as const,`${input.seed}:easy`):"RECOVER_X";
   const mediumPool:readonly Di012TaskKind[]=hasY?["UNKNOWN_SUM","UNKNOWN_DIFFERENCE","UNKNOWN_RATIO","RECOVERED_ROW_TOTAL","RECOVERED_COLUMN_TOTAL"]:["RECOVERED_ROW_TOTAL","RECOVERED_COLUMN_TOTAL"];
-  const hardPool:readonly Di012TaskKind[]=["RECOVERED_SHARE_OF_TOTAL","CROSS_ROW_RATIO_AFTER_RECOVERY","COMBINED_RECOVERED_PERCENT"];
+  const hardPool:readonly Di012TaskKind[]=hasY
+    ? ["RECOVERED_SHARE_OF_TOTAL","CROSS_ROW_RATIO_AFTER_RECOVERY","COMBINED_RECOVERED_PERCENT"]
+    : ["RECOVERED_SHARE_OF_TOTAL","CROSS_ROW_RATIO_AFTER_RECOVERY"];
   const tasks:[Di012TaskKind,Di012Difficulty][]=[[easy,"Easy"],[pick(mediumPool,`${input.seed}:m1`),"Medium"],[pick(mediumPool,`${input.seed}:m2`),"Medium"],[pick(hardPool,`${input.seed}:h1`),"Hard"],[pick(hardPool,`${input.seed}:h2`),"Hard"]];
   if(tasks[1]![0]===tasks[2]![0])tasks[2]=[mediumPool[(mediumPool.indexOf(tasks[1]![0])+1)%mediumPool.length]!,"Medium"];
   if(tasks[3]![0]===tasks[4]![0])tasks[4]=[hardPool[(hardPool.indexOf(tasks[3]![0])+1)%hardPool.length]!,"Hard"];
