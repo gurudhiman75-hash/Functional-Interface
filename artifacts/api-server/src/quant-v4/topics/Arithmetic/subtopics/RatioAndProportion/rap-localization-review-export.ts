@@ -7,9 +7,11 @@ import { RAP_001_CP_IDS } from "./RAP-001/types";
 import { getRap002QuestionLanguageIds } from "./RAP-002/library";
 import { runRap002Pipeline } from "./RAP-002/pipeline";
 import { RAP_002_CP_IDS } from "./RAP-002/types";
-import { getRap003QuestionLanguageIds } from "./RAP-003/library";
+import {
+  getRap003ActiveCanonicalProblemIds,
+  getRap003QuestionLanguageIds,
+} from "./RAP-003/library";
 import { runRap003Pipeline } from "./RAP-003/pipeline";
-import { RAP_003_CP_IDS } from "./RAP-003/types";
 
 const basePath = "src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion";
 const languages = ["hi", "pa"] as const;
@@ -95,14 +97,20 @@ const packageConfigs = [
   },
   {
     packageId: "RAP-003" as const,
-    cpIds: RAP_003_CP_IDS,
+    cpIds: getRap003ActiveCanonicalProblemIds(),
     qlIds: (cpId: string) => getRap003QuestionLanguageIds(cpId as any),
     run: (cpId: string, qlId: string, language: "en" | ReviewLanguage, seed: string) =>
       runRap003Pipeline(cpId as any, { language, questionLanguageId: qlId, seed }),
   },
 ];
 
-const expectedCounts: Record<PackageId, number> = { "RAP-001": 67, "RAP-002": 102, "RAP-003": 222 };
+const expectedCounts = Object.fromEntries(
+  packageConfigs.map((config) => [
+    config.packageId,
+    config.cpIds.reduce((sum, cpId) => sum + config.qlIds(String(cpId)).length, 0),
+  ]),
+) as Record<PackageId, number>;
+const expectedCombinedCount = Object.values(expectedCounts).reduce((sum, count) => sum + count, 0);
 const summary: Record<string, number> = {};
 
 for (const language of languages) {
@@ -117,7 +125,11 @@ for (const language of languages) {
     combined.push(...rows);
     summary[`${config.packageId}:${language}`] = rows.length;
   }
-  if (combined.length - 1 !== 391) throw new Error(`Combined ${language} export count ${combined.length - 1}; expected 391`);
+  if (combined.length - 1 !== expectedCombinedCount) {
+    throw new Error(
+      `Combined ${language} export count ${combined.length - 1}; expected ${expectedCombinedCount}`,
+    );
+  }
   fs.writeFileSync(path.resolve(basePath, `rap-all-human-review-${language}.csv`), combined.join("\n") + "\n", "utf8");
   summary[`RAP-ALL:${language}`] = combined.length - 1;
 }
