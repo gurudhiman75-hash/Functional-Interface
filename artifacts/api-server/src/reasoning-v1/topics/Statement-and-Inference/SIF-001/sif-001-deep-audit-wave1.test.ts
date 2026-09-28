@@ -3,7 +3,7 @@ import { SIF_CP_IDS, type SifLocale } from "./types.ts";
 import { previewSif001QuestionStudioReview } from "./question-studio-review.ts";
 
 const locales: readonly SifLocale[] = ["en-IN", "hi-IN", "pa-IN"];
-const seeds = [1101, 2202, 3303, 4404, 5505, 6606] as const;
+const seeds = Array.from({ length: 12 }, (_, index) => index) as readonly number[];
 let checked = 0;
 
 for (const cpId of SIF_CP_IDS) {
@@ -48,7 +48,7 @@ for (const cpId of SIF_CP_IDS) {
       checked++;
     }
 
-    assert.ok(statements.size >= 3, `${cpId}/${locale}: weak scenario variation (${statements.size}/6)`);
+    assert.ok(statements.size >= 6, `${cpId}/${locale}: weak scenario variation (${statements.size}/12)`);
     assert.ok(answerPositions.size >= 2, `${cpId}/${locale}: answer position is too fixed`);
   }
 }
