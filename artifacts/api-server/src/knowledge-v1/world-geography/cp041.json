@@ -5,7 +5,7 @@
     "objective": "hdi-dimensions",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-POP-NCERT"
+      "WGE-HDI-UNDP"
     ],
     "correctIndex": 0,
     "locales": {
@@ -47,7 +47,7 @@
     "objective": "hdi-average-limit",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-POP-UN-DESA"
+      "WGE-HDI-UNDP"
     ],
     "correctIndex": 2,
     "locales": {
@@ -89,7 +89,7 @@
     "objective": "primary-sector-resource",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-SET-UNHABITAT"
+      "WGE-HDI-UNDP"
     ],
     "correctIndex": 0,
     "locales": {
@@ -131,7 +131,7 @@
     "objective": "secondary-sector-processing",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-IND-WB-GVC"
+      "WGE-HUMGEO-NCERT-SYLLABUS"
     ],
     "correctIndex": 3,
     "locales": {
@@ -173,7 +173,8 @@
     "objective": "tertiary-logistics-service",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-TRN-UNCTAD"
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-IND-UNIDO-IDR"
     ],
     "correctIndex": 1,
     "locales": {
@@ -215,7 +216,7 @@
     "objective": "quaternary-research",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-POP-NCERT"
+      "WGE-HUMGEO-NCERT-SYLLABUS"
     ],
     "correctIndex": 0,
     "locales": {
@@ -257,7 +258,8 @@
     "objective": "sector-interdependence",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-POP-UN-DESA"
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-IND-UNIDO-IDR"
     ],
     "correctIndex": 2,
     "locales": {
@@ -299,7 +301,8 @@
     "objective": "global-value-chain",
     "difficulty": "Hard",
     "sourceIds": [
-      "WGE-SET-UNHABITAT"
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-IND-WB-GVC"
     ],
     "correctIndex": 1,
     "locales": {
@@ -383,7 +386,7 @@
     "objective": "goods-trade-deficit",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-TRN-UNCTAD"
+      "WGE-IND-WB-GVC"
     ],
     "correctIndex": 0,
     "locales": {
@@ -425,7 +428,8 @@
     "objective": "digital-access-divide",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-POP-NCERT"
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-TRN-UNCTAD"
     ],
     "correctIndex": 2,
     "locales": {
@@ -467,7 +471,7 @@
     "objective": "rural-service-catchment",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-POP-UN-DESA"
+      "WGE-HUMGEO-NCERT-SYLLABUS"
     ],
     "correctIndex": 3,
     "locales": {
@@ -509,6 +513,7 @@
     "objective": "settlement-basic-services",
     "difficulty": "Medium",
     "sourceIds": [
+      "WGE-HUMGEO-NCERT-SYLLABUS",
       "WGE-SET-UNHABITAT"
     ],
     "correctIndex": 1,
@@ -551,7 +556,7 @@
     "objective": "urban-transit-access",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-IND-WB-GVC"
+      "WGE-HAB-SETTLEMENT-SERVICES"
     ],
     "correctIndex": 0,
     "locales": {
@@ -593,7 +598,8 @@
     "objective": "periurban-farmland-conflict",
     "difficulty": "Hard",
     "sourceIds": [
-      "WGE-TRN-UNCTAD"
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-SET-UNHABITAT"
     ],
     "correctIndex": 3,
     "locales": {
@@ -635,7 +641,7 @@
     "objective": "cluster-knowledge-labour",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-POP-NCERT"
+      "WGE-URB-EPA"
     ],
     "correctIndex": 3,
     "locales": {
@@ -677,7 +683,7 @@
     "objective": "service-catchment-settlements",
     "difficulty": "Hard",
     "sourceIds": [
-      "WGE-POP-UN-DESA"
+      "WGE-IND-UNIDO-IDR"
     ],
     "correctIndex": 0,
     "locales": {
@@ -761,7 +767,7 @@
     "objective": "hdi-health-life-expectancy",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-POP-UN-DESA"
+      "WGE-HDI-UNDP"
     ],
     "correctIndex": 1,
     "locales": {
@@ -803,7 +809,7 @@
     "objective": "hdi-education-years",
     "difficulty": "Hard",
     "sourceIds": [
-      "WGE-POP-UN-DESA"
+      "WGE-HDI-UNDP"
     ],
     "correctIndex": 3,
     "locales": {
