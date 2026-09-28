@@ -86,13 +86,13 @@ type SourceMode = Readonly<{
 }>;
 
 const SOURCE_MODES:readonly SourceMode[] = Object.freeze([
-  { id:"DI001_BASIC_TABLE", packageId:"DI-001", canonicalProblemId:DI001_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi001QuestionStudioBatch },
+  { id:"DI001_BASIC_TABLE", packageId:"DI-001", canonicalProblemId:DI001_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi001QuestionStudioBatch },
   { id:"DI002_ADVANCED_TABLE", packageId:"DI-002", canonicalProblemId:DI002_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi002QuestionStudioBatch },
-  { id:"DI003_GROUPED_BAR", packageId:"DI-003", canonicalProblemId:DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi003QuestionStudioBatch },
-  { id:"DI004_TWO_SERIES_LINE", packageId:"DI-004", canonicalProblemId:DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi004QuestionStudioBatch },
-  { id:"DI005_HIDDEN_PIE", packageId:"DI-005", canonicalProblemId:DI005_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi005QuestionStudioBatch },
-  { id:"DI005_VISIBLE_PIE", packageId:"DI-005", canonicalProblemId:DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi005QuestionStudioBatch },
-  { id:"DI006_BASE_CASELET", packageId:"DI-006", canonicalProblemId:DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi006QuestionStudioBatch },
+  { id:"DI003_GROUPED_BAR", packageId:"DI-003", canonicalProblemId:DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi003QuestionStudioBatch },
+  { id:"DI004_TWO_SERIES_LINE", packageId:"DI-004", canonicalProblemId:DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi004QuestionStudioBatch },
+  { id:"DI005_HIDDEN_PIE", packageId:"DI-005", canonicalProblemId:DI005_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi005QuestionStudioBatch },
+  { id:"DI005_VISIBLE_PIE", packageId:"DI-005", canonicalProblemId:DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi005QuestionStudioBatch },
+  { id:"DI006_BASE_CASELET", packageId:"DI-006", canonicalProblemId:DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["BANKING_PRELIMS"], generate:generateDi006QuestionStudioBatch },
   { id:"DI007_MISSING", packageId:"DI-007", canonicalProblemId:DI007_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi007QuestionStudioBatch },
   { id:"DI008_BUSINESS_ARITHMETIC", packageId:"DI-008", canonicalProblemId:DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi008QuestionStudioBatch },
   { id:"DI009_HISTOGRAM", packageId:"DI-009", canonicalProblemId:DI009_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I"], generate:generateDi009QuestionStudioBatch },
@@ -257,6 +257,44 @@ function distributeAcrossModes(total:number,modes:readonly SourceMode[],seed:str
   return modes.filter(mode=>counts.has(mode.id)).map(mode=>({mode,count:counts.get(mode.id)!}));
 }
 
+function rebalanceAssignmentsForHardCapacity(
+  assignments:readonly {tier:DiNoveltyTier;mode:SourceMode;count:number}[],
+  profile:DiDeliveryExamProfile,
+  nonHardCapacity:number,
+  seed:string,
+){
+  const adjusted=assignments.map(assignment=>({...assignment}));
+  const constrainedCount=()=>adjusted
+    .filter(assignment=>!isHardEligible(assignment.mode,profile))
+    .reduce((sum,assignment)=>sum+assignment.count,0);
+
+  let deficit=Math.max(0,constrainedCount()-nonHardCapacity);
+  for(let step=0;step<deficit;step+=1){
+    const donors=adjusted
+      .filter(assignment=>assignment.count>0&&!isHardEligible(assignment.mode,profile))
+      .map(assignment=>({assignment,rank:hashSeed(`${seed}:hard-rebalance:donor:${step}:${assignment.tier}:${assignment.mode.id}`)}))
+      .sort((a,b)=>a.rank-b.rank||a.assignment.mode.id.localeCompare(b.assignment.mode.id));
+    const donor=donors[0]?.assignment;
+    if(!donor) throw new Error("DI novelty mix could not find a hard-ineligible source slot to rebalance.");
+
+    const eligibleModes=SOURCE_MODES
+      .filter(mode=>mode.tier===donor.tier&&mode.profiles.includes(profile)&&isHardEligible(mode,profile))
+      .map(mode=>({mode,rank:hashSeed(`${seed}:hard-rebalance:target:${step}:${donor.tier}:${mode.id}`)}))
+      .sort((a,b)=>a.rank-b.rank||a.mode.id.localeCompare(b.mode.id));
+    const targetMode=eligibleModes[0]?.mode;
+    if(!targetMode){
+      throw new Error(`DI novelty mix cannot rebalance ${donor.tier} for ${profile}: no hard-capable source mode is available in the same novelty tier.`);
+    }
+
+    donor.count-=1;
+    const existing=adjusted.find(assignment=>assignment.tier===donor.tier&&assignment.mode.id===targetMode.id);
+    if(existing) existing.count+=1;
+    else adjusted.push({tier:donor.tier,mode:targetMode,count:1});
+  }
+
+  return adjusted.filter(assignment=>assignment.count>0);
+}
+
 function deterministicShuffle<T>(values:readonly T[],seed:string){
   return [...values]
     .map((value,index)=>({value,index,rank:hashSeed(`${seed}:${index}`)}))
@@ -386,16 +424,23 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
     }
   }
 
-  const constrainedSlots=sourceAssignments
+  const nonHardCapacity=difficultyMix.counts.Easy+difficultyMix.counts.Medium;
+  const balancedAssignments=rebalanceAssignmentsForHardCapacity(
+    sourceAssignments,
+    examProfile,
+    nonHardCapacity,
+    seed,
+  );
+
+  const constrainedSlots=balancedAssignments
     .filter(assignment=>!isHardEligible(assignment.mode,examProfile))
     .reduce((sum,assignment)=>sum+assignment.count,0);
-  const nonHardCapacity=difficultyMix.counts.Easy+difficultyMix.counts.Medium;
   if(constrainedSlots>nonHardCapacity){
-    throw new Error(`DI novelty mix has ${constrainedSlots} Mains-hard-ineligible source slots but only ${nonHardCapacity} non-hard difficulty slots.`);
+    throw new Error(`DI novelty mix hard-source rebalance failed: ${constrainedSlots} constrained slots remain for ${nonHardCapacity} non-hard positions.`);
   }
 
   const difficultyPool=[...difficultyMix.plan];
-  const generationAssignments=[...sourceAssignments].sort((a,b)=>{
+  const generationAssignments=[...balancedAssignments].sort((a,b)=>{
     const aConstrained=isHardEligible(a.mode,examProfile)?1:0;
     const bConstrained=isHardEligible(b.mode,examProfile)?1:0;
     if(aConstrained!==bConstrained) return aConstrained-bConstrained;
