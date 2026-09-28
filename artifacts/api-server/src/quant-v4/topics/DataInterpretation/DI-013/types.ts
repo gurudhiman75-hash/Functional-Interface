@@ -2,7 +2,7 @@ export type Di013ExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";
 export type Di013Difficulty = "Easy" | "Medium" | "Hard";
 export type Di013TaskKind =
   | "DIRECT_SERIES_VALUE"
-  | "HIGHEST_CATEGORY_FOR_SERIES"
+  | "HIGHEST_VALUE_FOR_SERIES"
   | "SAME_CATEGORY_DIFFERENCE"
   | "SAME_CATEGORY_COMBINED_TOTAL"
   | "WITHIN_SERIES_RATIO"
