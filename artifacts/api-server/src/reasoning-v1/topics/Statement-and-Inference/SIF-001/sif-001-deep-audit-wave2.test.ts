@@ -16,13 +16,16 @@ const ADVANCED_MECHANISMS = new Set([
   "MIXED",
 ]);
 
-function reasoningBurden(authority: SifScenarioAuthority): number {
+function reasoningBurden(authority: SifScenarioAuthority, answer: string): number {
   const factBurden = Math.min(3, authority.facts.length);
   const mechanismBurden = Math.min(3, authority.mechanisms.filter((m) => m !== "MIXED").length);
   const advancedBurden = authority.mechanisms.some((m) => ADVANCED_MECHANISMS.has(m)) ? 1 : 0;
   const invalidCount = authority.candidates.filter((candidate) => !candidate.follows).length;
   const contrastBurden = invalidCount === 1 ? 1 : invalidCount === 2 ? 2 : 0;
-  return factBurden + mechanismBurden + advancedBurden + contrastBurden;
+  // "Either I or II follows" requires recognizing an exclusive unresolved
+  // alternative rather than simply rejecting two distractors independently.
+  const exclusiveAlternativeBurden = answer === "EITHER" ? 1 : 0;
+  return factBurden + mechanismBurden + advancedBurden + contrastBurden + exclusiveAlternativeBurden;
 }
 
 function assertExplanationSpecificity(authority: SifScenarioAuthority): void {
@@ -57,7 +60,7 @@ for (const cpId of SIF_CP_IDS) {
   for (const authority of authorities) {
     authorityCount++;
     const answer = solveSifScenario(authority);
-    const burden = reasoningBurden(authority);
+    const burden = reasoningBurden(authority, answer);
 
     if (authority.difficulty === "EASY") {
       easy++;
