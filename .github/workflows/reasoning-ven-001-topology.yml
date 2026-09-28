@@ -37,3 +37,11 @@ jobs:
           --outfile=dist/reasoning-v1/ven-001-renderer.test.mjs
       - name: Run renderer proof
         run: node artifacts/api-server/dist/reasoning-v1/ven-001-renderer.test.mjs
+      - name: Bundle scenario authority proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-scenario-authorities.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-authorities.test.mjs
+      - name: Run scenario authority proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-authorities.test.mjs
