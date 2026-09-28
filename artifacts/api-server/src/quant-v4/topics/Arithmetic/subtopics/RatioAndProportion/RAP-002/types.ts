@@ -123,4 +123,5 @@ export interface Rap002ParameterInput {
   canonicalProblemId?: Rap002CanonicalProblemId;
   questionLanguageId?: string;
   difficultyBand?: Rap002DifficultyBand;
+  diversityOrdinal?: number;
 }
