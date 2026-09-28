@@ -2,10 +2,14 @@ name: Validate VEN-001 topology foundation
 
 on:
   pull_request:
+    branches: [New-main]
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/**"
-      - ".github/workflows/reasoning-ven-001-topology.yml"
   workflow_dispatch:
+
+concurrency:
+  group: ven-001-topology-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   topology-proof:
