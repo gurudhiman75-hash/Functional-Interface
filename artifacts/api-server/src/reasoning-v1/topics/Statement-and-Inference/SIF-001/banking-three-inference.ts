@@ -69,14 +69,14 @@ const OVERLAYS: readonly ThreeInferenceAuthority[] = [
   },
   {
     id: "SIF-B3I-002",
-    baseScenarioId: "SIF-CP002-BOTH",
-    cpId: "SIF-CP002",
+    baseScenarioId: "SIF-CP010-IF_THEN-LIBRARY-HOLD",
+    cpId: "SIF-CP010",
     third: candidate(
       "III",
       t(
-        "Exactly 120 more surveyed customers preferred digital receipts than printed receipts.",
-        "सर्वेक्षित ग्राहकों में ठीक 120 अधिक लोगों ने मुद्रित रसीद की तुलना में डिजिटल रसीद पसंद की।",
-        "ਸਰਵੇਖਣ ਕੀਤੇ ਗਾਹਕਾਂ ਵਿੱਚ ਛਪੀ ਰਸੀਦ ਨਾਲੋਂ ਠੀਕ 120 ਵੱਧ ਲੋਕਾਂ ਨੇ ਡਿਜ਼ੀਟਲ ਰਸੀਦ ਪਸੰਦ ਕੀਤੀ।",
+        "The stated cancellation rule applies to Neel's reservation.",
+        "बताया गया रद्दीकरण नियम नील के आरक्षण पर लागू होता है।",
+        "ਦੱਸਿਆ ਰੱਦ ਕਰਨ ਵਾਲਾ ਨਿਯਮ ਨੀਲ ਦੇ ਰਾਖਵੇਂਕਰਨ 'ਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।",
       ),
       true,
       "CERTAIN",
