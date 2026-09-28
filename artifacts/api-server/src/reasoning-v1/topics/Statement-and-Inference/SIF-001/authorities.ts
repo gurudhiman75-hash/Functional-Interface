@@ -141,7 +141,72 @@ const cp012To014Authorities: readonly SifScenarioAuthority[] = [
 
 ];
 
-export const SIF_SCENARIO_AUTHORITIES: readonly SifScenarioAuthority[] = [...primary, ...SIF_CP001_EXPANDED_AUTHORITIES, ...SIF_CP001_WAVE2_AUTHORITIES, ...SIF_CP001_WAVE3_AUTHORITIES, ...SIF_CP001_WAVE4_AUTHORITIES, ...SIF_CP001_WAVE5_AUTHORITIES, ...cp002Profiles, ...SIF_CP002_EXPANDED_AUTHORITIES, ...SIF_CP003_QUANTIFIER_AUTHORITIES, ...SIF_CP004_COMPARISON_AUTHORITIES, ...SIF_CP005_SUGGESTIVE_REASON_AUTHORITIES, ...SIF_CP006_PURPOSE_AUTHORITIES, ...SIF_CP007_NEGATIVE_AUTHORITIES, ...SIF_CP008_CONTEXT_AUTHORITIES, ...SIF_CP009_DATA_AUTHORITIES, ...SIF_CP010_CONDITIONAL_AUTHORITIES, ...SIF_CP011_MULTIPLE_FACTOR_AUTHORITIES, ...cp012To014Authorities, ...SIF_CP015_AUTHORITIES, ...SIF_CP016_AUTHORITIES, ...SIF_CP017_AUTHORITIES, ...SIF_CP015_WAVE2_AUTHORITIES, ...SIF_CP016_WAVE2_AUTHORITIES, ...SIF_CP017_WAVE2_AUTHORITIES];
+const RAW_SIF_SCENARIO_AUTHORITIES: readonly SifScenarioAuthority[] = [...primary, ...SIF_CP001_EXPANDED_AUTHORITIES, ...SIF_CP001_WAVE2_AUTHORITIES, ...SIF_CP001_WAVE3_AUTHORITIES, ...SIF_CP001_WAVE4_AUTHORITIES, ...SIF_CP001_WAVE5_AUTHORITIES, ...cp002Profiles, ...SIF_CP002_EXPANDED_AUTHORITIES, ...SIF_CP003_QUANTIFIER_AUTHORITIES, ...SIF_CP004_COMPARISON_AUTHORITIES, ...SIF_CP005_SUGGESTIVE_REASON_AUTHORITIES, ...SIF_CP006_PURPOSE_AUTHORITIES, ...SIF_CP007_NEGATIVE_AUTHORITIES, ...SIF_CP008_CONTEXT_AUTHORITIES, ...SIF_CP009_DATA_AUTHORITIES, ...SIF_CP010_CONDITIONAL_AUTHORITIES, ...SIF_CP011_MULTIPLE_FACTOR_AUTHORITIES, ...cp012To014Authorities, ...SIF_CP015_AUTHORITIES, ...SIF_CP016_AUTHORITIES, ...SIF_CP017_AUTHORITIES, ...SIF_CP015_WAVE2_AUTHORITIES, ...SIF_CP016_WAVE2_AUTHORITIES, ...SIF_CP017_WAVE2_AUTHORITIES];
+
+type DecisionClass = "ONLY_I" | "ONLY_II" | "EITHER" | "NEITHER" | "BOTH";
+
+function decisionClass(authority: SifScenarioAuthority): DecisionClass {
+  if (authority.id.endsWith("-EITHER")) return "EITHER";
+  const first = authority.candidates.find((entry) => entry.id === "I")?.follows ?? false;
+  const second = authority.candidates.find((entry) => entry.id === "II")?.follows ?? false;
+  if (first && second) return "BOTH";
+  if (first) return "ONLY_I";
+  if (second) return "ONLY_II";
+  return "NEITHER";
+}
+
+const DECISION_ENDINGS: Readonly<Record<DecisionClass, SifLocalizedText>> = {
+  ONLY_I: t(
+    "Therefore, only Inference I follows.",
+    "अतः केवल अनुमान I सही है।",
+    "ਇਸ ਲਈ ਕੇਵਲ ਅਨੁਮਾਨ I ਸਹੀ ਹੈ।",
+  ),
+  ONLY_II: t(
+    "Therefore, only Inference II follows.",
+    "अतः केवल अनुमान II सही है।",
+    "ਇਸ ਲਈ ਕੇਵਲ ਅਨੁਮਾਨ II ਸਹੀ ਹੈ।",
+  ),
+  EITHER: t(
+    "Therefore, either Inference I or Inference II follows.",
+    "अतः अनुमान I या II में से कोई एक सही है।",
+    "ਇਸ ਲਈ ਅਨੁਮਾਨ I ਜਾਂ II ਵਿੱਚੋਂ ਕੋਈ ਇੱਕ ਸਹੀ ਹੈ।",
+  ),
+  NEITHER: t(
+    "Therefore, neither Inference I nor Inference II follows.",
+    "अतः न अनुमान I न अनुमान II सही है।",
+    "ਇਸ ਲਈ ਨਾ ਅਨੁਮਾਨ I ਨਾ ਅਨੁਮਾਨ II ਸਹੀ ਹੈ।",
+  ),
+  BOTH: t(
+    "Therefore, both Inference I and Inference II follow.",
+    "अतः अनुमान I और II दोनों सही हैं।",
+    "ਇਸ ਲਈ ਅਨੁਮਾਨ I ਅਤੇ II ਦੋਵੇਂ ਸਹੀ ਹਨ।",
+  ),
+};
+
+function explanationAlreadyResolves(text: string, locale: keyof SifLocalizedText): boolean {
+  if (locale === "en-IN") {
+    return /Inference I|Inference II|only I|only II|both inferences|neither inference|either inference/i.test(text);
+  }
+  if (locale === "hi-IN") {
+    return /अनुमान I|अनुमान II|केवल I|केवल II|दोनों अनुमान|कोई भी अनुमान|न अनुमान/u.test(text);
+  }
+  return /ਅਨੁਮਾਨ I|ਅਨੁਮਾਨ II|ਕੇਵਲ I|ਕੇਵਲ II|ਦੋਵੇਂ ਅਨੁਮਾਨ|ਕੋਈ ਵੀ ਅਨੁਮਾਨ|ਨਾ ਅਨੁਮਾਨ/u.test(text);
+}
+
+function withResolvedDecision(authority: SifScenarioAuthority): SifScenarioAuthority {
+  const answer = decisionClass(authority);
+  const explanation = Object.fromEntries(
+    (["en-IN", "hi-IN", "pa-IN"] as const).map((locale) => {
+      const authored = authority.explanation[locale].trim();
+      if (explanationAlreadyResolves(authored, locale)) return [locale, authored];
+      return [locale, `${authored} ${DECISION_ENDINGS[answer][locale]}`];
+    }),
+  ) as unknown as SifLocalizedText;
+  return { ...authority, explanation };
+}
+
+export const SIF_SCENARIO_AUTHORITIES: readonly SifScenarioAuthority[] =
+  RAW_SIF_SCENARIO_AUTHORITIES.map(withResolvedDecision);
 
 export const SIF_CP_TITLES: Readonly<Record<SifCpId, string>> = {
   "SIF-CP001": "Direct Fact-Based Inference", "SIF-CP002": "Two-Inference Evaluation", "SIF-CP003": "Quantifier-Based Inference", "SIF-CP004": "Comparison and Relationship Inference", "SIF-CP005": "Cause/Reason Suggestive Inference", "SIF-CP006": "Intention / Purpose Inference", "SIF-CP007": "Negative and Restrictive Statements", "SIF-CP008": "Multi-Sentence Contextual Inference", "SIF-CP009": "Data-Supported Verbal Inference", "SIF-CP010": "Conditional Inference", "SIF-CP011": "Multiple-Factor Inference", "SIF-CP012": "Supported vs Merely Possible", "SIF-CP013": "Scope Shift and Overgeneralisation", "SIF-CP014": "Time and Sequence Inference", "SIF-CP015": "Attitude / Position Inference", "SIF-CP016": "Short Paragraph Advanced Inference", "SIF-CP017": "Mixed Inference Mastery",
