@@ -98,5 +98,5 @@ export function localizeMisWave3Question<T extends Q>(q:T,language:MisLocalizedL
 export const MIS_LOCALIZATION_WAVE3_STATE=Object.freeze({
  checkpoints:Object.freeze(['MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015'] as const),
  runtimePatternCount:21, permanentQlCoverageCount:19, languages:Object.freeze(['en','hi','pa'] as const),
- parityStatus:'WAVE3_EXECUTABLE_GUARD_PENDING' as const,
+ parityStatus:'WAVE3_EXECUTABLE_GUARD_IMPLEMENTED' as const,
 });
