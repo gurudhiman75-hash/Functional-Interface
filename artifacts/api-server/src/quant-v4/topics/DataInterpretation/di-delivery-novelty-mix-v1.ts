@@ -82,12 +82,13 @@ type SourceMode = Readonly<{
   tier:DiNoveltyTier;
   profiles:readonly DiDeliveryExamProfile[];
   hardEligibleProfiles?:readonly DiDeliveryExamProfile[];
+  mainsHardTaskKinds?:readonly string[];
   generate:Generator;
 }>;
 
 const SOURCE_MODES:readonly SourceMode[] = Object.freeze([
   { id:"DI001_BASIC_TABLE", packageId:"DI-001", canonicalProblemId:DI001_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi001QuestionStudioBatch },
-  { id:"DI002_ADVANCED_TABLE", packageId:"DI-002", canonicalProblemId:DI002_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi002QuestionStudioBatch },
+  { id:"DI002_ADVANCED_TABLE", packageId:"DI-002", canonicalProblemId:DI002_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], mainsHardTaskKinds:["COMBINED_SELECTED_RATIO","COMBINED_SELECTION_RATE","REJECTED_TO_SELECTED_RATIO"], generate:generateDi002QuestionStudioBatch },
   { id:"DI003_GROUPED_BAR", packageId:"DI-003", canonicalProblemId:DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi003QuestionStudioBatch },
   { id:"DI004_TWO_SERIES_LINE", packageId:"DI-004", canonicalProblemId:DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi004QuestionStudioBatch },
   { id:"DI005_HIDDEN_PIE", packageId:"DI-005", canonicalProblemId:DI005_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi005QuestionStudioBatch },
@@ -100,17 +101,17 @@ const SOURCE_MODES:readonly SourceMode[] = Object.freeze([
 
   { id:"DI003_SINGLE_BAR", packageId:"DI-003", canonicalProblemId:DI003_SINGLE_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi003QuestionStudioBatch },
   { id:"DI004_SINGLE_LINE", packageId:"DI-004", canonicalProblemId:DI004_SINGLE_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi004QuestionStudioBatch },
-  { id:"DI005_COMPARATIVE_PIE", packageId:"DI-005", canonicalProblemId:DI005_COMPARATIVE_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi005QuestionStudioBatch },
+  { id:"DI005_COMPARATIVE_PIE", packageId:"DI-005", canonicalProblemId:DI005_COMPARATIVE_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_PRELIMS","BANKING_MAINS"], mainsHardTaskKinds:["TWO_CATEGORY_GROUP_RATIO","CROSS_PIE_GROUP_DIFFERENCE","FOUR_VALUE_CROSS_RATIO"], generate:generateDi005QuestionStudioBatch },
   { id:"DI005_DONUT", packageId:"DI-005", canonicalProblemId:DI005_DONUT_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["BANKING_PRELIMS"], generate:generateDi005QuestionStudioBatch },
-  { id:"DI006_ADVANCED_CASELET", packageId:"DI-006", canonicalProblemId:DI006_ADVANCED_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_MAINS"], generate:generateDi006QuestionStudioBatch },
+  { id:"DI006_ADVANCED_CASELET", packageId:"DI-006", canonicalProblemId:DI006_ADVANCED_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_MAINS"], mainsHardTaskKinds:["GROUP_RATIO","DERIVED_PERCENT_EXCESS"], generate:generateDi006QuestionStudioBatch },
   { id:"DI008_ADVANCED_ARITHMETIC", packageId:"DI-008", canonicalProblemId:DI008_ADVANCED_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_MAINS"], generate:generateDi008QuestionStudioBatch },
-  { id:"DI012_ADVANCED_MISSING", packageId:"DI-012", canonicalProblemId:DI012_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi012QuestionStudioBatch },
+  { id:"DI012_ADVANCED_MISSING", packageId:"DI-012", canonicalProblemId:DI012_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_PRELIMS","BANKING_MAINS"], mainsHardTaskKinds:["RECOVERED_SHARE_OF_TOTAL","CROSS_ROW_RATIO_AFTER_RECOVERY","COMBINED_RECOVERED_PERCENT"], generate:generateDi012QuestionStudioBatch },
 
-  { id:"DI011_MIXED_MULTI_CHART", packageId:"DI-011", canonicalProblemId:DI011_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi011QuestionStudioBatch },
-  { id:"DI003_STACKED_BAR", packageId:"DI-003", canonicalProblemId:DI003_STACKED_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_MAINS"], generate:generateDi003QuestionStudioBatch },
-  { id:"DI004_THREE_SERIES_LINE", packageId:"DI-004", canonicalProblemId:DI004_MULTI_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_MAINS"], generate:generateDi004QuestionStudioBatch },
+  { id:"DI011_MIXED_MULTI_CHART", packageId:"DI-011", canonicalProblemId:DI011_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_PRELIMS","BANKING_MAINS"], mainsHardTaskKinds:["TWO_GROUP_CROSS_RATIO","TWO_GROUP_COMBINED_DIFFERENCE","FOUR_VALUE_CROSS_AVERAGE"], generate:generateDi011QuestionStudioBatch },
+  { id:"DI003_STACKED_BAR", packageId:"DI-003", canonicalProblemId:DI003_STACKED_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_MAINS"], mainsHardTaskKinds:["TWO_CATEGORY_GROUP_RATIO","CATEGORY_TOTAL_DIFFERENCE"], generate:generateDi003QuestionStudioBatch },
+  { id:"DI004_THREE_SERIES_LINE", packageId:"DI-004", canonicalProblemId:DI004_MULTI_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_MAINS"], mainsHardTaskKinds:["TWO_SERIES_GROUP_RATIO"], generate:generateDi004QuestionStudioBatch },
   { id:"DI013_RADAR", packageId:"DI-013", canonicalProblemId:DI013_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["BANKING_PRELIMS"], generate:generateDi013QuestionStudioBatch },
-  { id:"DI014_RADAR_PIE", packageId:"DI-014", canonicalProblemId:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_MAINS"], generate:generateDi014QuestionStudioBatch },
+  { id:"DI014_RADAR_PIE", packageId:"DI-014", canonicalProblemId:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_MAINS"], mainsHardTaskKinds:["GROUP_APPLICATION_TO_APPROVAL_RATIO","TOTAL_APPLICATION_TO_APPROVAL_RATIO","CROSS_CATEGORY_APPLICATION_APPROVAL_RATIO"], generate:generateDi014QuestionStudioBatch },
 ]);
 
 export type DiDeliveryNoveltyMixRequest = Readonly<{
@@ -490,6 +491,63 @@ function normalizedStem(question:any){
   return String(question.stem??question.text??"").toLowerCase().replace(/\s+/g," ").trim();
 }
 
+function isAllowedMainsHardTask(mode:SourceMode,question:any,profile:DiDeliveryExamProfile,band:DiDifficultyBand){
+  if(profile!=="BANKING_MAINS"||band!=="Hard"||!mode.mainsHardTaskKinds) return true;
+  const task=String(question.taskKind??question.kind??question.metadata?.taskKind??"");
+  return mode.mainsHardTaskKinds.includes(task);
+}
+
+async function generateSourceQuestions(
+  mode:SourceMode,
+  tier:DiNoveltyTier,
+  band:DiDifficultyBand,
+  count:number,
+  profile:DiDeliveryExamProfile,
+  seed:string,
+  sourcePackages:any[],
+){
+  if(count<=0) return [] as any[];
+  if(profile!=="BANKING_MAINS"||band!=="Hard"||!mode.mainsHardTaskKinds){
+    const result=await mode.generate({
+      canonicalProblemId:mode.canonicalProblemId,
+      difficulty:band.toLowerCase(),
+      language:"en",
+      seed,
+      count,
+      examProfile:examProfileForSource(profile),
+    });
+    sourcePackages.push(...(result.questionPackages??[]));
+    return [...(result.questions??[])];
+  }
+
+  const accepted:any[]=[];
+  for(let slot=0;slot<count;slot+=1){
+    let found:any|undefined;
+    for(let attempt=0;attempt<30;attempt+=1){
+      const attemptSeed=`${seed}:mains-hard-task:${slot}:${attempt}`;
+      const result=await mode.generate({
+        canonicalProblemId:mode.canonicalProblemId,
+        difficulty:"hard",
+        language:"en",
+        seed:attemptSeed,
+        count:1,
+        examProfile:examProfileForSource(profile),
+      });
+      sourcePackages.push(...(result.questionPackages??[]));
+      const candidate=result.questions?.[0];
+      if(candidate&&isAllowedMainsHardTask(mode,candidate,profile,band)){
+        found=candidate;
+        break;
+      }
+    }
+    if(!found){
+      throw new Error(`DI novelty mix could not obtain an approved Banking Mains Hard task from ${mode.id} after 30 deterministic attempts.`);
+    }
+    accepted.push(found);
+  }
+  return accepted;
+}
+
 function decorateNoveltyQuestion(question:any,tier:DiNoveltyTier,mode:SourceMode){
   return {
     ...question,
@@ -637,16 +695,16 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
   );
 
   for(const {tier,mode,band,count:bandCount} of difficultyAssignment.groups){
-    const result=await mode.generate({
-      canonicalProblemId:mode.canonicalProblemId,
-      difficulty:band.toLowerCase(),
-      language:"en",
-      seed:`${seed}:${tier}:${mode.id}:${band}`,
-      count:bandCount,
-      examProfile:examProfileForSource(examProfile),
-    });
-    sourcePackages.push(...(result.questionPackages??[]));
-    for(const question of result.questions??[]){
+    const sourceQuestions=await generateSourceQuestions(
+      mode,
+      tier,
+      band,
+      bandCount,
+      examProfile,
+      `${seed}:${tier}:${mode.id}:${band}`,
+      sourcePackages,
+    );
+    for(const question of sourceQuestions){
       actualCounts[tier]+=1;
       generated.push(decorateNoveltyQuestion(question,tier,mode));
     }
