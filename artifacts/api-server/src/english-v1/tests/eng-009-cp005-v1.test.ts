@@ -1,10 +1,10 @@
 import assert from"node:assert/strict";
 import{ENG009_CP005_PASSAGES_V1,ENG009_CP005_BLANKS_V1}from"../chapters/cloze-test/ENG-009/CP005/eng-009-cp005-authorities-v1";
 import{generateEng009Cp005QuestionV1,generateEng009Cp005SetV1,renderEng009Cp005Passage}from"../chapters/cloze-test/ENG-009/CP005/eng-009-cp005-v1";
-assert.equal(ENG009_CP005_PASSAGES_V1.length,14);
-assert.equal(ENG009_CP005_BLANKS_V1.length,84);
-assert.equal(new Set(ENG009_CP005_PASSAGES_V1.map(x=>x.id)).size,14);
-assert.equal(new Set(ENG009_CP005_BLANKS_V1.map(x=>x.blank.id)).size,84);
+assert.equal(ENG009_CP005_PASSAGES_V1.length,16);
+assert.equal(ENG009_CP005_BLANKS_V1.length,96);
+assert.equal(new Set(ENG009_CP005_PASSAGES_V1.map(x=>x.id)).size,16);
+assert.equal(new Set(ENG009_CP005_BLANKS_V1.map(x=>x.blank.id)).size,96);
 const modes=new Set<string>(),diffs=new Set<string>();
 for(const p of ENG009_CP005_PASSAGES_V1){
  assert.equal(p.blanks.length,6);
@@ -31,4 +31,4 @@ for(const p of ENG009_CP005_PASSAGES_V1){
 assert.deepEqual([...modes].sort(),["can-fit","cannot-fit","phrasal-word"]);
 assert.deepEqual([...diffs].sort(),["hard","medium"]);
 for(let i=0;i<6000;i++){const q=generateEng009Cp005QuestionV1({seed:`soak:${i}`});assert.equal(q.options.length,4);}
-console.log("ENG-009 CP005 new-pattern cloze audit passed.",{passages:14,blanks:84,soak:6000});
+console.log("ENG-009 CP005 new-pattern cloze audit passed.",{passages:16,blanks:96,soak:6000});
