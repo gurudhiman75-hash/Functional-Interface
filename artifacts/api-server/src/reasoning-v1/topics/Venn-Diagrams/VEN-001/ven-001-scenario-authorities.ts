@@ -37,7 +37,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     sets: [
       {
         setId: "A",
-        labels: { "en-IN": "Sparrows", "hi-IN": "गौरैयाँ", "pa-IN": "ਗੌਰੀਆਂ" },
+        labels: { "en-IN": "Sparrows", "hi-IN": "गौरैयाँ", "pa-IN": "ਚਿੜੀਆਂ" },
       },
       {
         setId: "B",
@@ -71,7 +71,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
         labels: {
           "en-IN": "Lizards",
           "hi-IN": "छिपकलियाँ",
-          "pa-IN": "ਛਿਪਕਲੀਆਂ",
+          "pa-IN": "ਕਿਰਲੀਆਂ",
         },
       },
       {
@@ -79,7 +79,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
         labels: {
           "en-IN": "Reptiles",
           "hi-IN": "सरीसृप",
-          "pa-IN": "ਰੇਂਗਣ ਵਾਲੇ ਜੀਵ",
+          "pa-IN": "ਸਰੀਸ੍ਰਪ",
         },
       },
     ],
@@ -136,14 +136,14 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
       },
       {
         setId: "B",
-        labels: { "en-IN": "Circles", "hi-IN": "वृत्त", "pa-IN": "ਵ੍ਰਿਤ" },
+        labels: { "en-IN": "Circles", "hi-IN": "वृत्त", "pa-IN": "ਵ੍ਰਿੱਤ" },
       },
       {
         setId: "C",
         labels: {
           "en-IN": "Plane figures",
-          "hi-IN": "समतलीय आकृतियाँ",
-          "pa-IN": "ਸਮਤਲੀ ਆਕ੍ਰਿਤੀਆਂ",
+          "hi-IN": "समतल आकृतियाँ",
+          "pa-IN": "ਸਮਤਲ ਆਕਾਰ",
         },
       },
     ],
@@ -365,7 +365,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
         labels: {
           "en-IN": "Whole numbers",
           "hi-IN": "पूर्ण संख्याएँ",
-          "pa-IN": "ਸੰਪੂਰਨ ਸੰਖਿਆਵਾਂ",
+          "pa-IN": "ਪੂਰਨ ਸੰਖਿਆਵਾਂ",
         },
       },
       {
@@ -552,14 +552,14 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
       },
       {
         setId: "B",
-        labels: { "en-IN": "Insects", "hi-IN": "कीट", "pa-IN": "ਕੀੜੇ-ਮਕੌੜੇ" },
+        labels: { "en-IN": "Insects", "hi-IN": "कीट", "pa-IN": "ਕੀਟ" },
       },
       {
         setId: "C",
         labels: {
           "en-IN": "Arthropods",
           "hi-IN": "संधिपाद",
-          "pa-IN": "ਸੰਧੀਪਾਦ",
+          "pa-IN": "ਆਰਥਰੋਪੌਡ",
         },
       },
     ],
@@ -586,7 +586,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
         labels: {
           "en-IN": "Reptiles",
           "hi-IN": "सरीसृप",
-          "pa-IN": "ਰੇਂਗਣ ਵਾਲੇ ਜੀਵ",
+          "pa-IN": "ਸਰੀਸ੍ਰਪ",
         },
       },
       {
@@ -687,7 +687,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
         labels: {
           "en-IN": "Whole numbers",
           "hi-IN": "पूर्ण संख्याएँ",
-          "pa-IN": "ਸੰਪੂਰਨ ਸੰਖਿਆਵਾਂ",
+          "pa-IN": "ਪੂਰਨ ਸੰਖਿਆਵਾਂ",
         },
       },
       {
