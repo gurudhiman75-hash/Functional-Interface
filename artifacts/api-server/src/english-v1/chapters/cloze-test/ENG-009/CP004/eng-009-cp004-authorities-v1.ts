@@ -1,3 +1,4 @@
+import{ENG009_CP004_BREADTH_WAVE4}from"./eng-009-cp004-breadth-wave4";
 import{ENG009_CP004_BREADTH_WAVE3}from"./eng-009-cp004-breadth-wave3";
 import{ENG009_CP004_BREADTH_WAVE2}from"./eng-009-cp004-breadth-wave2";
 import{ENG009_CP004_BREADTH_WAVE1}from"./eng-009-cp004-breadth-wave1";
@@ -139,6 +140,8 @@ export const ENG009_CP004_PASSAGES_V1:readonly Eng009Cp004PassageV1[]=[
 ...ENG009_CP004_BREADTH_WAVE2
 ,
 ...ENG009_CP004_BREADTH_WAVE3
+,
+...ENG009_CP004_BREADTH_WAVE4
 ];
 
 export const ENG009_CP004_BLANKS_V1=ENG009_CP004_PASSAGES_V1.flatMap(p=>p.blanks.map(blank=>({passage:p,blank})));
