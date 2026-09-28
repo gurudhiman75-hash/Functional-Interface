@@ -232,32 +232,32 @@
       "en": {
         "stem": "Which statement about Greenland and Nuuk is most precise?",
         "options": [
-          "Nuuk is Greenland’s capital; Greenland is an autonomous territory within the Kingdom of Denmark",
+          "Nuuk is Greenland’s capital; Greenland is part of the Kingdom of Denmark with extensive self-government",
           "Nuuk is the capital of an independent sovereign state called Greenland",
           "Greenland is a city and Nuuk is its region",
           "Nuuk is the capital of Denmark"
         ],
-        "explanation": "Nuuk is Greenland’s capital, while Greenland’s constitutional status is an autonomous territory within the Kingdom of Denmark."
+        "explanation": "Nuuk is Greenland’s capital. Greenland is part of the Kingdom of Denmark and has extensive self-government."
       },
       "hi": {
         "stem": "ग्रीनलैंड और नूक के बारे में कौन-सा कथन सबसे सटीक है?",
         "options": [
-          "नूक ग्रीनलैंड की राजधानी है; ग्रीनलैंड डेनमार्क राज्य के भीतर एक स्वायत्त क्षेत्र है",
+          "नूक ग्रीनलैंड की राजधानी है; ग्रीनलैंड डेनमार्क राज्य का हिस्सा है और उसे व्यापक स्वशासन प्राप्त है",
           "नूक स्वतंत्र संप्रभु देश ग्रीनलैंड की राजधानी है",
           "ग्रीनलैंड एक शहर है और नूक उसका क्षेत्र है",
           "नूक डेनमार्क की राजधानी है"
         ],
-        "explanation": "नूक ग्रीनलैंड की राजधानी है, जबकि ग्रीनलैंड की संवैधानिक स्थिति डेनमार्क राज्य के भीतर स्वायत्त क्षेत्र की है।"
+        "explanation": "नूक ग्रीनलैंड की राजधानी है। ग्रीनलैंड डेनमार्क राज्य का हिस्सा है और उसे व्यापक स्वशासन प्राप्त है।"
       },
       "pa": {
         "stem": "ਗ੍ਰੀਨਲੈਂਡ ਅਤੇ ਨੂਕ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਭ ਤੋਂ ਸਹੀ ਹੈ?",
         "options": [
-          "ਨੂਕ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਗ੍ਰੀਨਲੈਂਡ ਡੈਨਮਾਰਕ ਰਾਜ ਅੰਦਰ ਖੁਦਮੁਖਤਿਆਰ ਇਲਾਕਾ ਹੈ",
+          "ਨੂਕ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਗ੍ਰੀਨਲੈਂਡ ਡੈਨਮਾਰਕ ਰਾਜ ਦਾ ਹਿੱਸਾ ਹੈ ਅਤੇ ਇਸ ਨੂੰ ਵਿਆਪਕ ਖੁਦ-ਸ਼ਾਸਨ ਹੈ",
           "ਨੂਕ ਆਜ਼ਾਦ ਸਰਬਭੌਮ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ",
           "ਗ੍ਰੀਨਲੈਂਡ ਇੱਕ ਸ਼ਹਿਰ ਹੈ ਅਤੇ ਨੂਕ ਇਸ ਦਾ ਇਲਾਕਾ ਹੈ",
           "ਨੂਕ ਡੈਨਮਾਰਕ ਦੀ ਰਾਜਧਾਨੀ ਹੈ"
         ],
-        "explanation": "ਨੂਕ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ, ਜਦਕਿ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਸੰਵਿਧਾਨਕ ਸਥਿਤੀ ਡੈਨਮਾਰਕ ਰਾਜ ਅੰਦਰ ਖੁਦਮੁਖਤਿਆਰ ਇਲਾਕੇ ਦੀ ਹੈ।"
+        "explanation": "ਨੂਕ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ। ਗ੍ਰੀਨਲੈਂਡ ਡੈਨਮਾਰਕ ਰਾਜ ਦਾ ਹਿੱਸਾ ਹੈ ਅਤੇ ਇਸ ਨੂੰ ਵਿਆਪਕ ਖੁਦ-ਸ਼ਾਸਨ ਹੈ।"
       }
     }
   }
