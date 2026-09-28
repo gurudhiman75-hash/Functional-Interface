@@ -1,0 +1,30 @@
+name: quant-v4-di-novelty-repetition-audit-v1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-novelty-repetition-audit-v1.ts"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run DI novelty and repetition audit
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-novelty-repetition-audit-v1.ts
+      - name: Upload audit artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-novelty-repetition-audit-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/di-novelty-repetition-audit-v1.json
+            artifacts/api-server/dist/quant-v4/di-novelty-repetition-audit-v1.md
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
