@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { DI003_SINGLE_CANONICAL_PROBLEM_ID, DI003_SINGLE_RUNTIME_MODE, generateDi003QuestionStudioBatch } from "../DI-003/question-studio-adapter";
-import { DI004_SINGLE_CANONICAL_PROBLEM_ID, DI004_SINGLE_RUNTIME_MODE, generateDi004QuestionStudioBatch } from "../DI-004/question-studio-adapter";
+import { DI003_SINGLE_CANONICAL_PROBLEM_ID, DI003_SINGLE_RUNTIME_MODE, generateDi003QuestionStudioBatch } from "./DI-003/question-studio-adapter";
+import { DI004_SINGLE_CANONICAL_PROBLEM_ID, DI004_SINGLE_RUNTIME_MODE, generateDi004QuestionStudioBatch } from "./DI-004/question-studio-adapter";
 
 const bar=await generateDi003QuestionStudioBatch({canonicalProblemId:DI003_SINGLE_CANONICAL_PROBLEM_ID,language:"en",examProfile:"SSC_CGL_TIER_I",count:20,seed:"DI-SINGLE-BAR-QS"});
 assert.equal(bar.generationContext.runtimeMode,DI003_SINGLE_RUNTIME_MODE);
