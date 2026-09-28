@@ -14,6 +14,9 @@ for(let i=0;i<300;i++){
   pairs.add(a.stimulus.pairKind);
   const svg=renderDi011MixedSvg(a.stimulus);
   assert(svg.includes("<svg") && svg.includes(a.stimulus.title));
+  if (a.stimulus.pairKind === "BAR_LINE") {
+    assert(svg.includes("<rect") && svg.includes("<polyline"), `${seed}: BAR_LINE must visibly contain both a bar chart and a line graph.`);
+  }
   for(const row of a.stimulus.rows){
     assert(svg.includes(row.category),`${seed}: category not learner-visible: ${row.category}`);
     assert(svg.includes(String(row.left)),`${seed}: left value not learner-visible: ${row.left}`);
