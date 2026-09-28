@@ -29,6 +29,8 @@ Warranty data can also reveal operational problems. A rise in claims for one com
 
 Too small a reserve can overstate current profit, while too large a reserve can depress it unnecessarily. The aim is to choose a reasonable estimate supported by evidence. Sensitivity analysis can show how the reserve changes when failure rates or repair costs move, making uncertainty more __(3)__.
 
+Claim frequency and claim severity should also be separated. A product may fail less often but cost much more to repair, or fail more often with only minor expense. Looking at both dimensions prevents the reserve from being driven by one headline number.
+
 Warranty policy itself also affects costs. Extending coverage or making claims easier may increase future obligations. Regular review is therefore essential. If new evidence changes the expected cost, the reserve should be updated rather than defended because it was used before. This keeps reporting more __(4)__.
 
 The broader lesson is that accounting estimates are structured judgments, not guesses without rules. A good process explains assumptions and recognises uncertainty without making the estimate __(5)__. Warranty reserves are most useful when they remain evidence-based, regularly reviewed and sufficiently __(6)__ to change with the facts.`,blanks:[
