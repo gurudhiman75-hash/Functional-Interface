@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { DI012_MODEL_KINDS, generateDi012Set } from "./advanced-missing-set";
+import { renderDi012TableHtml } from "./render-table";
 
 function numberAfter(text:string, pattern:RegExp) {
   const m=text.match(pattern); assert(m, `Pattern ${pattern} not found in: ${text}`); return Number(m[1]);
@@ -51,6 +52,14 @@ for(let i=0;i<350;i++){
   assert(set.stimulus.rows.some(r=>r.a==="x"||r.b==="x"),`${seed}: x must be learner-visible`);
   if(set.solution.y!==undefined) assert(set.stimulus.rows.some(r=>r.a==="y"||r.b==="y"),`${seed}: y must be learner-visible when used`);
   assert(set.stimulus.condition.length>10);
+  const rendered = renderDi012TableHtml(set.stimulus);
+  assert(rendered.includes(set.stimulus.title), `${seed}: title missing from learner surface`);
+  assert(rendered.includes(set.stimulus.condition), `${seed}: recovery condition missing from learner surface`);
+  assert(rendered.includes(">x<"), `${seed}: x missing from learner-facing table`);
+  if(set.solution.y!==undefined) assert(rendered.includes(">y<"), `${seed}: y missing from learner-facing table`);
+  for (const row of set.stimulus.rows) {
+    assert(rendered.includes(row.label), `${seed}: row label missing from learner surface`);
+  }
   models.add(set.stimulus.modelKind);
   for(const q of set.questions){
     questions++; tasks.add(q.kind);
