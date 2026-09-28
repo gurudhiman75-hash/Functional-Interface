@@ -42,3 +42,46 @@ console.log(JSON.stringify({
   deterministic: true,
   productionDefaultChanged: false,
 }));
+
+
+async function cp002QlFor(ordinal: number) {
+  const result = await generateQuestion({
+    packageId: "PCT-002",
+    canonicalProblemId: "PCT-CP-002",
+    language: "en",
+    seed: "QUANT-V4-PCT002-FULL-POOL-DIVERSITY-P6",
+    count: 1,
+    auditDiversityOrdinalByCanonicalProblemId: {
+      "PCT-CP-002": ordinal,
+    },
+  });
+  const question = result.questionPackages[0];
+  assert.ok(question);
+  return String(question.questionLanguageId);
+}
+
+const cp002Ordinals = await Promise.all(
+  Array.from({ length: 9 }, (_, ordinal) => cp002QlFor(ordinal)),
+);
+assert.equal(
+  new Set(cp002Ordinals).size,
+  cp002Ordinals.length,
+  "PCT-002 CP002 must consume distinct QLs across the full authored pool before reuse when audit diversity is active.",
+);
+
+const explicitDifficultyResult = await generateQuestion({
+  packageId: "PCT-002",
+  canonicalProblemId: "PCT-CP-002",
+  language: "en",
+  seed: "QUANT-V4-PCT002-EXPLICIT-DIFFICULTY-P6",
+  count: 1,
+  difficulty: "Easy",
+  auditDiversityOrdinalByCanonicalProblemId: {
+    "PCT-CP-002": 1,
+  },
+});
+assert.equal(
+  explicitDifficultyResult.questionPackages[0]?.difficultyBand,
+  "Easy",
+  "Explicit difficulty must continue to constrain PCT-002 audit diversity selection.",
+);
