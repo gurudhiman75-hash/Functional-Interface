@@ -79,6 +79,10 @@ import {
   knowledgeV1GeoMin001QuestionStudioAdapterV1,
 } from "./knowledge-v1-geo-min-001-adapter-v1";
 import {
+  isGeoInd001QuestionStudioRequestV1,
+  knowledgeV1GeoInd001QuestionStudioAdapterV1,
+} from "./knowledge-v1-geo-ind-001-adapter-v1";
+import {
   isPgk001QuestionStudioRequestV1,
   knowledgeV1Pgk001QuestionStudioAdapterV1,
 } from "./knowledge-v1-pgk001-adapter-v1";
@@ -132,6 +136,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1GeoLoc001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoAgr001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoMin001QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1GeoInd001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Pgk001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1His001QuestionStudioAdapterV1.listPackages(),
@@ -183,6 +188,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isGeoMin001QuestionStudioRequestV1(request)) {
       return knowledgeV1GeoMin001QuestionStudioAdapterV1.generate(request);
+    }
+    if (isGeoInd001QuestionStudioRequestV1(request)) {
+      return knowledgeV1GeoInd001QuestionStudioAdapterV1.generate(request);
     }
     if (isPgk001MatchFollowingQuestionStudioRequestV1(request)) {
       return knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate(request);
