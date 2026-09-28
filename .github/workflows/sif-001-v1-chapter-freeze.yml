@@ -40,6 +40,9 @@ jobs:
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Inference/SIF-001/sif-001-deep-audit-wave1.test.ts
 
 
+      - name: Run deep-audit Wave 2 difficulty and explanation proof
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Inference/SIF-001/sif-001-deep-audit-wave2.test.ts
+
       - name: Validate Question Studio registration
         working-directory: artifacts/api-server
         run: |
