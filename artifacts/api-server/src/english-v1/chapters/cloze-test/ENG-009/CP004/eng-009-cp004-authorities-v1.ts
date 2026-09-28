@@ -1,3 +1,4 @@
+import{ENG009_CP004_BREADTH_WAVE1}from"./eng-009-cp004-breadth-wave1";
 export type Eng009Cp004Difficulty="medium"|"hard";
 export type Eng009Cp004BlankKind="vocabulary"|"collocation"|"context"|"discourse"|"phrase-fit"|"logic-link";
 export interface Eng009Cp004BlankV1{
@@ -130,6 +131,8 @@ export const ENG009_CP004_PASSAGES_V1:readonly Eng009Cp004PassageV1[]=[
  b("C10-B6",6,"hard","discourse","stop",["end","remove","abandon"],"The final decision may be to continue, change or stop a policy.","what to ...")
  ]
 }
+,
+...ENG009_CP004_BREADTH_WAVE1
 ];
 
 export const ENG009_CP004_BLANKS_V1=ENG009_CP004_PASSAGES_V1.flatMap(p=>p.blanks.map(blank=>({passage:p,blank})));
