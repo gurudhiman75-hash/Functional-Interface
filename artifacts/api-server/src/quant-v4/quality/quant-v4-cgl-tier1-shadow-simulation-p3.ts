@@ -271,6 +271,7 @@ function runtimeRecord(input: {
   packageId: string;
   question: any;
   learnerVisibleContext?: unknown;
+  questionLanguageIdOverride?: string;
 }): QuantV4CglTier1ShadowQuestionRecord {
   const stem = questionText(input.question);
   const explanation = explanationText(input.question);
@@ -283,7 +284,7 @@ function runtimeRecord(input: {
     packageId: input.packageId,
     questionId: metadataValue(input.question, "questionId"),
     canonicalProblemId: metadataValue(input.question, "canonicalProblemId"),
-    questionLanguageId: metadataValue(input.question, "questionLanguageId"),
+    questionLanguageId: input.questionLanguageIdOverride ?? metadataValue(input.question, "questionLanguageId"),
     taskKind:
       metadataValue(input.question, "taskKind") ??
       metadataValue(input.question, "kind"),
@@ -362,11 +363,22 @@ async function generateCoreRecord(input: {
 
       const generatedPackageId = String(question?.packageId ?? pkg.packageId);
       const generatedPatternId = String(
-        question?.questionLanguageId
-          ?? question?.patternId
-          ?? question?.qlId
-          ?? question?.metadata?.questionLanguageId
-          ?? "",
+        generatedPackageId === "MENSURATION"
+          ? (
+              question?.patternId
+                ?? question?.metadata?.patternId
+                ?? question?.questionLanguageId
+                ?? question?.qlId
+                ?? question?.metadata?.questionLanguageId
+                ?? ""
+            )
+          : (
+              question?.questionLanguageId
+                ?? question?.patternId
+                ?? question?.qlId
+                ?? question?.metadata?.questionLanguageId
+                ?? ""
+            ),
       ).trim();
       if (
         generatedPackageId === "MENSURATION"
@@ -401,6 +413,10 @@ async function generateCoreRecord(input: {
         slotKind: input.slotKind,
         packageId: generatedPackageId,
         question,
+        questionLanguageIdOverride:
+          generatedPackageId === "MENSURATION" && generatedPatternId
+            ? generatedPatternId
+            : undefined,
       });
     } catch (error) {
       errors.push(`${pkg.packageId}: ${error instanceof Error ? error.message : String(error)}`);
