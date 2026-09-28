@@ -1,4 +1,4 @@
-import { hashSeed } from "../DI-001/exact";
+import { hashSeed, pick as randomPick, seededRandom } from "../DI-001/exact";
 import type { Di013Difficulty, Di013ExamProfile, Di013Question, Di013Set, Di013TaskKind } from "./types";
 
 const VALUES=[10,20,30,40,50,60,70,80,90,100] as const;
@@ -23,8 +23,9 @@ function ratio(a:number,b:number){const g=gcd(a,b);return `${a/g}:${b/g}`;}
 function numOptions(answer:number,seed:string){const v=new Set<number>([answer]);for(const d of [20,40,60,80,100,-20,-40,-60]){if(answer+d>=0)v.add(answer+d);if(v.size>=5)break;}return shuffle([...v].slice(0,5).map(String),seed);}
 function ratioOptions(answer:string,a:number,b:number,seed:string){const v=new Set<string>([answer,ratio(b,a),ratio(a+20,b),ratio(a,b+20),ratio(a+40,b+20),ratio(a+20,b+40)]);const out=[...v].slice(0,5);for(let n=2;out.length<5;n++)out.push(`${n}:${n+1}`);return shuffle(out,seed);}
 function build(seed:string){
-  const c=pick(CONTEXTS,`${seed}:ctx`);
-  const points=c.cats.map((category,i)=>({category,seriesA:pick(VALUES,`${seed}:a:${i}`),seriesB:pick(VALUES,`${seed}:b:${i}`)}));
+  const random=seededRandom(`${seed}:radar-state-v2`);
+  const c=randomPick(random,CONTEXTS);
+  const points=c.cats.map((category)=>({category,seriesA:randomPick(random,VALUES),seriesB:randomPick(random,VALUES)}));
   return {kind:"RADAR" as const,contextId:c.id,title:c.title,instruction:"Study the radar chart and answer the questions that follow.",seriesALabel:c.a,seriesBLabel:c.b,unit:c.unit,points,radialTicks:[0,10,20,30,40,50,60,70,80,90,100] as const};
 }
 function q(task:Di013TaskKind,difficulty:Di013Difficulty,stimulus:ReturnType<typeof build>,seed:string,index:number):Di013Question{
