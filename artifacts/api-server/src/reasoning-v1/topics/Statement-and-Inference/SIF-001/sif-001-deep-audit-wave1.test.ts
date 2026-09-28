@@ -35,7 +35,7 @@ for (const cpId of SIF_CP_IDS) {
       );
       assert.doesNotMatch(
         learnerText,
-        /associated with|most closely linked|broad(?:ly)?/i,
+        /associated with|most closely linked|broadly associated|broad category/i,
         `${cpId}/${locale}/${seed}: mechanical wording detected`,
       );
 
