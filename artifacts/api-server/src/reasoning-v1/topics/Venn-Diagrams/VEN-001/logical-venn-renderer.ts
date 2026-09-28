@@ -77,9 +77,9 @@ const TOPOLOGY_SPECS: Readonly<Record<VennTopologyId, RenderSpec>> = {
   },
   THREE_PAIRWISE_OVERLAP_WITH_TRIPLE: {
     circles: [
-      { cx: 95, cy: 58, r: 36 },
-      { cx: 155, cy: 58, r: 36 },
-      { cx: 125, cy: 110, r: 36 },
+      { cx: 95, cy: 126, r: 46 },
+      { cx: 125, cy: 56, r: 54 },
+      { cx: 155, cy: 126, r: 46 },
     ],
     accessibleName: "Three groups with a common intersection",
     accessibleDescription:
@@ -87,9 +87,9 @@ const TOPOLOGY_SPECS: Readonly<Record<VennTopologyId, RenderSpec>> = {
   },
   THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE: {
     circles: [
-      { cx: 95, cy: 58, r: 32 },
-      { cx: 155, cy: 58, r: 32 },
-      { cx: 125, cy: 110, r: 32 },
+      { cx: 95, cy: 129, r: 34 },
+      { cx: 125, cy: 55, r: 53 },
+      { cx: 155, cy: 129, r: 34 },
     ],
     accessibleName: "Three pairwise-overlapping groups without a common region",
     accessibleDescription:
@@ -142,12 +142,12 @@ function labelAnchors(
       ];
     case "TWO_CONTAINMENT":
       return [
-        { x: 125, y: 43 },
+        { x: 125, y: 50 },
         { x: 125, y: 91 },
       ];
     case "THREE_NESTED":
       return [
-        { x: 125, y: 24 },
+        { x: 125, y: 30 },
         { x: 125, y: 55 },
         { x: 125, y: 91 },
       ];
@@ -165,15 +165,15 @@ function labelAnchors(
       ];
     case "THREE_PAIRWISE_OVERLAP_WITH_TRIPLE":
       return [
-        { x: 76, y: 51 },
-        { x: 174, y: 51 },
-        { x: 125, y: 139 },
+        { x: 76, y: 139 },
+        { x: 125, y: 34 },
+        { x: 174, y: 139 },
       ];
     case "THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE":
       return [
-        { x: 73, y: 48 },
-        { x: 177, y: 48 },
-        { x: 125, y: 140 },
+        { x: 76, y: 137 },
+        { x: 125, y: 32 },
+        { x: 174, y: 137 },
       ];
     case "THREE_TWO_OVERLAP_ONE_SEPARATE":
       return [
@@ -183,7 +183,7 @@ function labelAnchors(
       ];
     case "THREE_ONE_NESTED_PAIR_ONE_SEPARATE":
       return [
-        { x: 39, y: 57 },
+        { x: 50, y: 53 },
         { x: 65, y: 91 },
         { x: 184, y: 91 },
       ];
@@ -216,7 +216,7 @@ export function renderVennTopologySvg(
     ? actualLabels
         .map(
           (label, index) =>
-            `<text x="${anchors[index]!.x}" y="${anchors[index]!.y}" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#17324D">${escapeXml(label)}</text>`,
+            `<text x="${anchors[index]!.x}" y="${anchors[index]!.y}" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#17324D" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round" paint-order="stroke">${escapeXml(label)}</text>`,
         )
         .join("")
     : "";
