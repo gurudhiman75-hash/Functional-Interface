@@ -1,0 +1,186 @@
+[
+  {
+    "id": "WGE-001-CP038-Q001",
+    "cpId": "WGE-001-CP038",
+    "objective": "latitude-order-tropics",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-016B",
+      "WGE-PHY-017A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which sequence runs from north to south?",
+        "options": "Equator, Tropic of Cancer, Tropic of Capricorn",
+        "explanation": "Tropic of Cancer, Equator, Tropic of Capricorn"
+      },
+      "hi": {
+        "stem": "उत्तर से दक्षिण की ओर सही क्रम कौन-सा है?",
+        "options": "भूमध्य रेखा, कर्क रेखा, मकर रेखा",
+        "explanation": "कर्क रेखा, भूमध्य रेखा, मकर रेखा"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰ ਤੋਂ ਦੱਖਣ ਵੱਲ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+        "options": "ਭੂ-ਮੱਧ ਰੇਖਾ, ਕਰਕ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ",
+        "explanation": "ਕਰਕ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP038-Q002",
+    "cpId": "WGE-001-CP038",
+    "objective": "europe-asia-ural-boundary",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-016B",
+      "WGE-PHY-017A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which major landform is commonly used as part of the boundary between Europe and Asia?",
+        "options": "Atlas Mountains",
+        "explanation": "Andes"
+      },
+      "hi": {
+        "stem": "यूरोप और एशिया के बीच की सीमा के एक भाग के रूप में किस प्रमुख स्थलरूप का उपयोग किया जाता है?",
+        "options": "एटलस पर्वत",
+        "explanation": "एंडीज़"
+      },
+      "pa": {
+        "stem": "ਯੂਰਪ ਅਤੇ ਏਸ਼ੀਆ ਵਿਚਕਾਰ ਹੱਦ ਦੇ ਇੱਕ ਹਿੱਸੇ ਵਜੋਂ ਕਿਹੜੀ ਵੱਡੀ ਭੂ-ਆਕ੍ਰਿਤੀ ਵਰਤੀ ਜਾਂਦੀ ਹੈ?",
+        "options": "ਐਟਲਸ ਪਹਾੜ",
+        "explanation": "ਐਂਡੀਜ਼"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP038-Q003",
+    "cpId": "WGE-001-CP038",
+    "objective": "equatorial-climate-biome-link",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-016B",
+      "WGE-PHY-017A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A persistently hot, very wet equatorial climate most commonly supports which natural vegetation?",
+        "options": "Tundra",
+        "explanation": "Temperate grassland"
+      },
+      "hi": {
+        "stem": "भूमध्यरेखीय क्षेत्र की लगातार गर्म और बहुत आर्द्र जलवायु में सामान्यतः कौन-सी प्राकृतिक वनस्पति मिलती है?",
+        "options": "टुंड्रा",
+        "explanation": "समशीतोष्ण घासभूमि"
+      },
+      "pa": {
+        "stem": "ਭੂ-ਮੱਧ ਰੇਖਾਈ ਖੇਤਰ ਦੀ ਲਗਾਤਾਰ ਗਰਮ ਅਤੇ ਬਹੁਤ ਨਮੀ ਵਾਲੀ ਜਲਵਾਯੂ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਕਿਹੜੀ ਕੁਦਰਤੀ ਬਨਸਪਤੀ ਮਿਲਦੀ ਹੈ?",
+        "options": "ਟੁੰਡਰਾ",
+        "explanation": "ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਭੂਮੀ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP038-Q004",
+    "cpId": "WGE-001-CP038",
+    "objective": "peru-current-coastal-aridity",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-PHY-016B",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The arid coast of Peru is partly associated with which oceanographic influence?",
+        "options": "Cold Peru (Humboldt) Current and coastal upwelling",
+        "explanation": "Warm Gulf Stream"
+      },
+      "hi": {
+        "stem": "पेरू का शुष्क तट आंशिक रूप से किस महासागरीय प्रभाव से जुड़ा है?",
+        "options": "ठंडी पेरू (हम्बोल्ट) धारा और तटीय अपवेलिंग",
+        "explanation": "गर्म गल्फ स्ट्रीम"
+      },
+      "pa": {
+        "stem": "ਪੇਰੂ ਦਾ ਸੁੱਕਾ ਤੱਟ ਅੰਸ਼ਕ ਤੌਰ ਤੇ ਕਿਸ ਸਮੁੰਦਰੀ ਪ੍ਰਭਾਵ ਨਾਲ ਜੁੜਿਆ ਹੈ?",
+        "options": "ਠੰਢੀ ਪੇਰੂ (ਹੰਬੋਲਟ) ਧਾਰਾ ਅਤੇ ਤੱਟੀ ਉੱਪਰਲਾ ਵਹਾਅ",
+        "explanation": "ਗਰਮ ਗਲਫ਼ ਸਟ੍ਰੀਮ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP038-Q005",
+    "cpId": "WGE-001-CP038",
+    "objective": "latitude-zone-order",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-016B",
+      "WGE-PHY-017A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which sequence lists latitude lines from north to south?",
+        "options": "Equator, Arctic Circle, Tropic of Cancer, Antarctic Circle",
+        "explanation": "Tropic of Capricorn, Equator, Tropic of Cancer, Arctic Circle"
+      },
+      "hi": {
+        "stem": "अक्षांश रेखाओं का उत्तर से दक्षिण सही क्रम कौन-सा है?",
+        "options": "भूमध्य रेखा, आर्कटिक वृत्त, कर्क रेखा, अंटार्कटिक वृत्त",
+        "explanation": "मकर रेखा, भूमध्य रेखा, कर्क रेखा, आर्कटिक वृत्त"
+      },
+      "pa": {
+        "stem": "ਅਕਸ਼ਾਂਸ਼ ਰੇਖਾਵਾਂ ਦਾ ਉੱਤਰ ਤੋਂ ਦੱਖਣ ਵੱਲ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+        "options": "ਭੂ-ਮੱਧ ਰੇਖਾ, ਆਰਕਟਿਕ ਚੱਕਰ, ਕਰਕ ਰੇਖਾ, ਅੰਟਾਰਕਟਿਕ ਚੱਕਰ",
+        "explanation": "ਮਕਰ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਕਰਕ ਰੇਖਾ, ਆਰਕਟਿਕ ਚੱਕਰ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP038-Q006",
+    "cpId": "WGE-001-CP038",
+    "objective": "alps-central-europe-shared-feature",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-016B",
+      "WGE-PHY-017A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A physical map shows the Alps at the meeting area of France, Switzerland, Italy and Austria. Which inference is best supported?",
+        "options": "The Alps lie wholly within one country",
+        "explanation": "The Alps form a shared cross-border mountain region"
+      },
+      "hi": {
+        "stem": "मानचित्र में आल्प्स फ्रांस, स्विट्ज़रलैंड, इटली और ऑस्ट्रिया के मिलन-क्षेत्र में दिखते हैं। कौन-सा निष्कर्ष उचित है?",
+        "options": "आल्प्स पूरी तरह एक ही देश में हैं",
+        "explanation": "आल्प्स कई देशों में फैला साझा पर्वतीय क्षेत्र हैं"
+      },
+      "pa": {
+        "stem": "ਨਕਸ਼ੇ ਵਿੱਚ ਐਲਪਸ ਫ਼ਰਾਂਸ, ਸਵਿਟਜ਼ਰਲੈਂਡ, ਇਟਲੀ ਅਤੇ ਆਸਟਰੀਆ ਦੇ ਮਿਲਦੇ ਇਲਾਕੇ ਵਿੱਚ ਦਿਖਦੇ ਹਨ। ਕਿਹੜਾ ਨਤੀਜਾ ਠੀਕ ਹੈ?",
+        "options": "ਐਲਪਸ ਪੂਰੀ ਤਰ੍ਹਾਂ ਇੱਕੋ ਦੇਸ਼ ਵਿੱਚ ਹਨ",
+        "explanation": "ਐਲਪਸ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚ ਫੈਲਿਆ ਸਾਂਝਾ ਪਹਾੜੀ ਖੇਤਰ ਹਨ"
+      }
+    }
+  }
+]
