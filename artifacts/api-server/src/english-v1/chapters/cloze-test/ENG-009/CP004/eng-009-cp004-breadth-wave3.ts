@@ -1,0 +1,59 @@
+import type{Eng009Cp004PassageV1}from"./eng-009-cp004-authorities-v1";
+export const ENG009_CP004_BREADTH_WAVE3:readonly Eng009Cp004PassageV1[]=[
+{id:"ENG009-BM-C15",title:"Why Hospitals Hold Critical Inventory",topic:"healthcare operations",template:`Hospitals face a difficult inventory problem. Holding too much stock ties up money, uses storage space and can lead to expiry. Holding too little stock creates a different risk: a critical medicine or device may be unavailable when a patient needs it. The correct level therefore depends not only on average usage but also on how serious a shortage would be.
+
+For routine items with many suppliers, hospitals may be able to operate with relatively lean inventory. For critical products with long lead times or few substitutes, a larger buffer may be justified. This is because the cost of running out can be far greater than the cost of holding extra units. Inventory policy should therefore reflect clinical importance, supply reliability and replacement time rather than applying one rule to every item.
+
+Demand can also be unpredictable. Seasonal illness, accidents or local outbreaks may cause sudden increases. Historical averages help, but they cannot capture every unusual event. Hospitals often use minimum stock levels, emergency reserves and supplier agreements to reduce this risk. The aim is not to predict every surge but to remain able to respond when demand exceeds expectations. This makes the system more __(1)__.
+
+Expiry risk complicates the decision. Some items have short shelf lives, so holding large reserves may create waste. Rotation policies can help by using older stock first and moving inventory between locations when demand differs. Good data is essential because managers need to know what is available, where it is stored and when it will expire. Poor records can create the illusion of safety while usable stock is actually much lower.
+
+Supplier concentration matters too. A hospital may believe it has several vendors, but those vendors may depend on the same manufacturer. A disruption upstream can therefore affect multiple contracts at once. Procurement teams need to understand the true structure of supply, not just the number of vendors listed. This makes risk assessment more __(2)__.
+
+Hospitals should also distinguish between service level and waste. A policy that avoids every possible stockout may be extremely expensive. A policy that minimises inventory cost may be clinically unsafe. The goal is to choose protection that is proportionate to consequence. Critical items deserve more redundancy than easily replaced supplies. This makes inventory spending more __(3)__.
+
+Technology can support the process through barcode systems, expiry alerts and automated reorder points. These tools improve visibility, but they do not remove the need for judgment. A sudden change in clinical practice or supply conditions may require managers to override normal settings. Good systems therefore combine automation with review.
+
+The broader lesson is that hospital inventory is a risk-management problem, not merely a purchasing problem. Managers must balance cost, waste, availability and patient safety. This balance becomes easier when items are classified by criticality and when data is accurate. The strongest systems are designed to absorb reasonable disruption without holding unnecessary stock everywhere.
+
+A critical inventory buffer may appear inefficient during ordinary periods because much of it is unused. Its value becomes clear only when normal supply fails. This is similar to insurance: some capacity is deliberately held for conditions that may not occur often. The challenge is to decide where that protection is __(4)__.
+
+Regular review is therefore essential. A product that was once difficult to source may later have several reliable suppliers, while another item may become more critical. Inventory rules should change as evidence changes. A mature system keeps its policies current rather than allowing old assumptions to become permanent. This makes the organisation better able to __(5)__ to new risks.
+
+Ultimately, the objective is not maximum stock or minimum stock. It is dependable clinical service at a reasonable cost. Hospitals achieve this when they understand which shortages matter most, prepare for them and revise their assumptions over time. In that sense, good inventory policy makes scarce resources both more efficient and more __(6)__.`,blanks:[
+{id:"C15-B1",blankNo:1,difficulty:"hard",kind:"vocabulary",answer:"resilient",distractors:["large","visible","formal"],explanation:"Buffers and reserves make the inventory system better able to handle demand shocks.",clue:"system more ..."},
+{id:"C15-B2",blankNo:2,difficulty:"medium",kind:"context",answer:"realistic",distractors:["simple","rapid","uniform"],explanation:"Understanding upstream dependence makes the risk picture more realistic.",clue:"risk assessment more ..."},
+{id:"C15-B3",blankNo:3,difficulty:"hard",kind:"phrase-fit",answer:"targeted",distractors:["general","equal","automatic"],explanation:"Critical items should receive more protection, making spending more targeted.",clue:"spending more ..."},
+{id:"C15-B4",blankNo:4,difficulty:"hard",kind:"logic-link",answer:"justified",distractors:["visible","common","automatic"],explanation:"Extra stock is appropriate only where the protection is justified.",clue:"where that protection is ..."},
+{id:"C15-B5",blankNo:5,difficulty:"medium",kind:"collocation",answer:"adapt",distractors:["pause","repeat","remain"],explanation:"Policies should adapt when supply risks change.",clue:"able to ... to new risks"},
+{id:"C15-B6",blankNo:6,difficulty:"hard",kind:"discourse",answer:"reliable",distractors:["cheap","simple","large"],explanation:"Good inventory policy supports dependable or reliable clinical service.",clue:"more efficient and more ..."}]},
+{id:"ENG009-BM-C16",title:"Why Commodity Hedging Is Not a Forecast",topic:"risk management",template:`Businesses that buy or sell commodities often face prices that can move sharply. A food manufacturer may worry that wheat prices will rise, while a farmer may worry that prices will fall before the crop is sold. Hedging is one way to reduce this uncertainty. It uses contracts or financial instruments to offset part of the price risk. The purpose is not necessarily to make more money; it is to make future cash flows more predictable.
+
+This distinction matters because hedging is sometimes judged by whether the hedge itself makes a profit. That can be misleading. If a company locks in a purchase price and market prices later fall, the hedge may appear to have been a poor decision. Yet the company may still have achieved its original goal: protecting its budget from a possible rise. The success of the hedge should therefore be judged against the risk it was designed to __(1)__.
+
+A good hedging policy begins with exposure. Managers need to know how much commodity risk the business actually has, over what period and how changes in price affect profit or cash flow. Hedging more than the underlying exposure can create a new speculative position. Hedging too little may leave the business vulnerable. The policy should therefore define limits and approved instruments.
+
+Timing also matters. A company may choose to hedge gradually rather than fix the entire exposure at one price. This can reduce the risk of making one large decision at an unfavourable moment. On the other hand, partial hedging leaves some price uncertainty. There is no single correct ratio for every business. The appropriate level depends on margins, financial strength and the ability to pass price changes to customers.
+
+Accounting and liquidity effects also need attention. Some contracts require cash collateral when market prices move, even if the hedge is economically sensible in the long run. A company that ignores these cash requirements can face pressure at exactly the wrong time. Risk management therefore needs to consider liquidity as well as price exposure. This makes the policy more __(2)__.
+
+Hedging can also affect commercial decisions. A business that has locked in input costs may be able to price products with more confidence. A producer that has protected part of its selling price may be better able to plan investment. The value therefore comes partly from reducing uncertainty around decisions, not simply from the financial result of the hedge contract.
+
+Governance is important because hedging involves instruments that can be complex. Boards and senior managers should understand the purpose, limits and reporting of the programme. Traders should not be rewarded simply for making gains on hedges because this may encourage unnecessary risk-taking. Performance should be measured against approved objectives. This keeps the programme more __(3)__.
+
+The broader lesson is that risk management differs from prediction. A company does not need to know exactly where prices will move in order to hedge. It needs to know which price movements would be difficult to absorb. Hedging is therefore a way of exchanging some upside or flexibility for greater certainty. That trade-off should be deliberate.
+
+A mature programme also reviews whether the hedge still matches the underlying exposure. Production volumes can change, contracts can be cancelled and customer demand can shift. If the exposure changes but the hedge remains fixed, the company may become over- or under-hedged. Regular review keeps the protection more __(4)__.
+
+Hedging is most useful when it supports the business rather than becoming a separate profit centre. Its purpose is to protect margins, budgets or cash flows from movements that could disrupt operations. When that purpose remains clear, the programme is easier to explain and control. It also prevents a risk-management tool from turning into a source of risk itself.
+
+The strongest policies therefore connect hedging decisions to real commercial exposure, liquidity capacity and governance. They accept that the hedge may sometimes look unfavourable after the fact. The relevant question is whether it reduced an important uncertainty at a reasonable cost. This makes hedging a tool for financial stability rather than a contest to be __(5)__ about future prices.
+
+In that sense, a good hedge does not prove that the company predicted the market correctly. It shows that the company understood which risks it could not comfortably bear and took steps to make those risks more __(6)__.`,blanks:[
+{id:"C16-B1",blankNo:1,difficulty:"hard",kind:"context",answer:"reduce",distractors:["measure","display","predict"],explanation:"A hedge is designed to reduce a specific risk.",clue:"risk it was designed to ..."},
+{id:"C16-B2",blankNo:2,difficulty:"medium",kind:"vocabulary",answer:"complete",distractors:["simple","rapid","visible"],explanation:"Considering liquidity as well as price exposure makes the policy more complete.",clue:"policy more ..."},
+{id:"C16-B3",blankNo:3,difficulty:"hard",kind:"phrase-fit",answer:"disciplined",distractors:["broad","frequent","automatic"],explanation:"Clear objectives and limits make the programme more disciplined.",clue:"programme more ..."},
+{id:"C16-B4",blankNo:4,difficulty:"hard",kind:"logic-link",answer:"aligned",distractors:["fixed","general","hidden"],explanation:"The hedge should stay aligned with the actual exposure.",clue:"protection more ..."},
+{id:"C16-B5",blankNo:5,difficulty:"medium",kind:"collocation",answer:"right",distractors:["certain","fast","visible"],explanation:"Hedging should not become a contest to be right about future prices.",clue:"contest to be ..."},
+{id:"C16-B6",blankNo:6,difficulty:"hard",kind:"discourse",answer:"manageable",distractors:["profitable","large","formal"],explanation:"Hedging makes difficult risks more manageable.",clue:"risks more ..."}]}
+];
