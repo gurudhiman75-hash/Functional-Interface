@@ -34,6 +34,10 @@ import cp033 from './cp033.json';
 import cp034 from './cp034.json';
 import cp035 from './cp035.json';
 import cp036 from './cp036.json';
+import cp037 from './cp037.json';
+import cp038 from './cp038.json';
+import cp039 from './cp039.json';
+import cp040 from './cp040.json';
 import sources from './sources.json';
 import type { QuestionStudioDifficulty, QuestionStudioLanguage } from '../../question-studio/engine-types';
 
@@ -80,6 +84,10 @@ export const WGE_CP_TITLES = {
   'WGE-001-CP034': 'World Agriculture and Livestock',
   'WGE-001-CP035': 'Minerals and Energy Resources',
   'WGE-001-CP036': 'Industries and Economic Regions',
+  'WGE-001-CP037': 'Transport, Trade Routes and Ports',
+  'WGE-001-CP038': 'Spatial Relationships and Integrated Geography',
+  'WGE-001-CP039': 'Qualified Records and Common Confusions',
+  'WGE-001-CP040': 'Advanced Geographic Applications',
 } as const;
 export type WorldGeographyCpId = keyof typeof WGE_CP_TITLES;
 export const WGE_SOURCES = sources;
@@ -130,6 +138,6 @@ export function validateWorldGeographyCorpus(rows: readonly WorldGeographyQuesti
     }
   }
 }
-const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011, ...cp012, ...cp013, ...cp014, ...cp015, ...cp016, ...cp017, ...cp018, ...cp019, ...cp020, ...cp021, ...cp022, ...cp023, ...cp024, ...cp025, ...cp026, ...cp027, ...cp028, ...cp029, ...cp030, ...cp031, ...cp032, ...cp033, ...cp034, ...cp035, ...cp036] as WorldGeographyQuestion[];
+const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011, ...cp012, ...cp013, ...cp014, ...cp015, ...cp016, ...cp017, ...cp018, ...cp019, ...cp020, ...cp021, ...cp022, ...cp023, ...cp024, ...cp025, ...cp026, ...cp027, ...cp028, ...cp029, ...cp030, ...cp031, ...cp032, ...cp033, ...cp034, ...cp035, ...cp036, ...cp037, ...cp038, ...cp039, ...cp040] as WorldGeographyQuestion[];
 validateWorldGeographyCorpus(authored);
 export const WGE_CORPUS: readonly WorldGeographyQuestion[] = deepFreeze(authored);
