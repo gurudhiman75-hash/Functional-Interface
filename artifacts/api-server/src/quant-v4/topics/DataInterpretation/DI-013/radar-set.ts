@@ -8,7 +8,7 @@ const CONTEXTS=[
   {id:"DEPARTMENT_TARGETS",title:"Targets achieved by five departments",cats:["Sales","Operations","Support","Accounts","Service"],a:"Team A",b:"Team B",unit:"points"},
   {id:"COURSE_ENROLMENT",title:"Enrolment across five courses",cats:["Course A","Course B","Course C","Course D","Course E"],a:"Session 1",b:"Session 2",unit:"students"},
 ] as const;
-const EASY:readonly Di013TaskKind[]=["DIRECT_SERIES_VALUE","HIGHEST_CATEGORY_FOR_SERIES"];
+const EASY:readonly Di013TaskKind[]=["DIRECT_SERIES_VALUE","HIGHEST_VALUE_FOR_SERIES"];
 const MEDIUM:readonly Di013TaskKind[]=["SAME_CATEGORY_DIFFERENCE","SAME_CATEGORY_COMBINED_TOTAL","WITHIN_SERIES_RATIO","THREE_CATEGORY_SERIES_TOTAL"];
 const HARD:readonly Di013TaskKind[]=["SERIES_TOTAL_DIFFERENCE","TWO_CATEGORY_GROUP_RATIO","TOTAL_SERIES_RATIO","FOUR_VALUE_CROSS_TOTAL"];
 
