@@ -54,6 +54,7 @@ export type MensurationStandardQuestionStudioRequest = Readonly<{
   seed?: string;
   count?: number;
   examProfile?: string;
+  auditExcludedPatternIds?: readonly string[];
 }>;
 
 function normalizeDifficulty(value: MensurationStandardQuestionStudioRequest["difficulty"]): MensurationQuestionStudioDifficulty | undefined {
