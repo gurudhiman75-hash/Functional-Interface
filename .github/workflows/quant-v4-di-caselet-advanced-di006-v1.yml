@@ -1,0 +1,39 @@
+name: quant-v4-di-caselet-advanced-di006-v1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/**"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di-caselet-advanced-di006-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  advanced-caselet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Advanced caselet topology proof
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/advanced-caselet-v1.test.ts
+      - name: Advanced caselet Question Studio integration
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/advanced-caselet-question-studio-v1.test.ts
+      - name: Generate review HTML
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/export-advanced-caselet-review-v1.ts /tmp/DI-006-ADVANCED-CASELET-REVIEW-V1.html
+      - name: Lifecycle locks
+        run: |
+          ! grep -R 'questionBankWritable: true\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/advanced-caselet-v1.ts artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/advanced-caselet-question-studio-v1.test.ts
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-006-advanced-caselet-review-v1
+          path: /tmp/DI-006-ADVANCED-CASELET-REVIEW-V1.html
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
