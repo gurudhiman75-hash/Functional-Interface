@@ -4,8 +4,9 @@ import { getQuestionLanguageIds as getRap001QuestionLanguageIds } from "./RAP-00
 import { RAP_001_CP_IDS } from "./RAP-001/types";
 import { getRap002QuestionLanguageIds } from "./RAP-002/library";
 import { RAP_002_CP_IDS } from "./RAP-002/types";
-import { getRap003QuestionLanguageIds } from "./RAP-003/library";
-import { RAP_003_CP_IDS } from "./RAP-003/types";
+import { getRap003ActiveCanonicalProblemIds, getRap003QuestionLanguageIds } from "./RAP-003/library";
+
+const rap003ActiveCpIds = getRap003ActiveCanonicalProblemIds();
 
 const packages = [
   {
@@ -20,8 +21,8 @@ const packages = [
   },
   {
     packageId: "RAP-003" as const,
-    cpId: RAP_003_CP_IDS[0]!,
-    qlId: getRap003QuestionLanguageIds(RAP_003_CP_IDS[0]!)[0]!,
+    cpId: rap003ActiveCpIds[0]!,
+    qlId: getRap003QuestionLanguageIds(rap003ActiveCpIds[0]!)[0]!,
   },
 ];
 

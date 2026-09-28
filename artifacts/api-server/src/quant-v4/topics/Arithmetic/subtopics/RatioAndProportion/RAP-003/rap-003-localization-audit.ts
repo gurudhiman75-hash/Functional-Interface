@@ -71,6 +71,8 @@ for (const cpId of getRap003ActiveCanonicalProblemIds()) {
 }
 
 console.log(JSON.stringify({ qlCount, languages, seedsPerQl, generated, failureCount: failures.length, failures: failures.slice(0, 160) }, null, 2));
-assert.equal(qlCount, 222);
-assert.equal(generated, 222 * 2 * seedsPerQl);
+const expectedActiveQlCount = getRap003ActiveCanonicalProblemIds()
+  .reduce((total, cpId) => total + getRap003QuestionLanguageIds(cpId).length, 0);
+assert.equal(qlCount, expectedActiveQlCount);
+assert.equal(generated, expectedActiveQlCount * languages.length * seedsPerQl);
 assert.equal(failures.length, 0, failures.slice(0, 60).join("\n"));
