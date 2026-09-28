@@ -298,7 +298,7 @@ export const VEN_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition =
     subtopic: "Logical Venn Diagrams",
     label: "Reasoning · Logical Venn Diagrams — VEN-001",
     enabled: true,
-    cpIds: ["VEN-CP003"],
+    cpIds: ["VEN-CP001", "VEN-CP002", "VEN-CP003", "VEN-CP004"],
     supportedLanguages: ["en", "hi", "pa"],
     supportedDifficulties: ["Easy", "Medium"],
     difficultyFilterSupported: true,
@@ -324,8 +324,10 @@ export const VEN_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition =
       registrationAuthorityId: VEN_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
       permanentQlIdsAllocated: false,
       supportedQuestionOperations: [
+        "RELATIONS_TO_DIAGRAM",
         "CATEGORIES_TO_DIAGRAM",
         "DIAGRAM_TO_CATEGORIES",
+        "REGION_IDENTIFICATION",
       ],
     },
   };
