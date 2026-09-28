@@ -38,7 +38,11 @@ assert.ok(mensuration.length > 0);
 assert.ok(positiveWeightPatternIds.size > 0);
 
 const patternIds = mensuration.map((record) => String(record.questionLanguageId ?? ""));
-assert.ok(patternIds.every(Boolean), "Every Mensuration shadow record must expose its pattern/QL id.");
+assert.ok(patternIds.every(Boolean), "Every Mensuration shadow record must expose its pattern id.");
+assert.ok(
+  patternIds.every((patternId) => positiveWeightPatternIds.has(patternId)),
+  "Mensuration shadow diversity must track actual positive-weight pattern ids, not a secondary QL alias.",
+);
 
 const expectedUnique = Math.min(mensuration.length, positiveWeightPatternIds.size);
 assert.equal(
