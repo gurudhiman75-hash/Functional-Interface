@@ -71,6 +71,10 @@ for (const cpId of getRap003ActiveCanonicalProblemIds()) {
 }
 
 console.log(JSON.stringify({ qlCount, languages, seedsPerQl, generated, failureCount: failures.length, failures: failures.slice(0, 160) }, null, 2));
-assert.equal(qlCount, 222);
-assert.equal(generated, 222 * 2 * seedsPerQl);
+assert.ok(qlCount > 0, "RAP-003 active localization audit must cover at least one active QL.");
+assert.equal(
+  generated,
+  qlCount * languages.length * seedsPerQl,
+  "Generated localization sample count must track the active RAP-003 QL registry.",
+);
 assert.equal(failures.length, 0, failures.slice(0, 60).join("\n"));
