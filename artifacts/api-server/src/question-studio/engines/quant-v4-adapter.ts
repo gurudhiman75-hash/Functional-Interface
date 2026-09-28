@@ -73,6 +73,11 @@ import {
   isDi014QuestionStudioRequest,
 } from "../../quant-v4/topics/DataInterpretation/DI-014/question-studio-adapter";
 import {
+  diDeliveryNoveltyMixPackageCard,
+  generateDiDeliveryNoveltyMix,
+  isDiDeliveryNoveltyMixRequest,
+} from "../../quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1";
+import {
   generateStat001QuestionStudioBatch,
   isStat001QuestionStudioRequest,
   stat001QuestionStudioPackageCard,
@@ -387,6 +392,21 @@ function toDi014Request(request: QuestionStudioGenerationRequest) {
   };
 }
 
+function toDiMixRequest(request: QuestionStudioGenerationRequest) {
+  return {
+    packageId: request.packageId,
+    patternId: request.patternId,
+    topic: request.topic,
+    subtopic: request.subtopic,
+    difficulty: request.difficulty,
+    language: request.language,
+    seed: request.seed,
+    count: request.count,
+    canonicalProblemId: request.canonicalProblemId,
+    examProfile: request.exam,
+  };
+}
+
 export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   engineId: "quant-v4",
 
@@ -427,6 +447,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (!packages.some((pkg) => pkg.packageId === "DI-014")) {
       packages.push(toSharedPackage(di014QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
+    if (!packages.some((pkg) => pkg.packageId === "DI-MIX-001")) {
+      packages.push(toSharedPackage(diDeliveryNoveltyMixPackageCard() as unknown as Record<string, unknown>));
+    }
     if (!packages.some((pkg) => pkg.packageId === "STAT-001")) {
       packages.push(toSharedPackage(stat001QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
@@ -437,6 +460,11 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    const diMixRequest = toDiMixRequest(request);
+    if (isDiDeliveryNoveltyMixRequest(diMixRequest)) {
+      return generateDiDeliveryNoveltyMix(diMixRequest) as unknown as QuestionStudioGenerationResult;
+    }
+
     const di001Request = toDi001Request(request);
     if (isDi001QuestionStudioRequest(di001Request)) {
       return generateDi001QuestionStudioBatch(di001Request) as unknown as QuestionStudioGenerationResult;
