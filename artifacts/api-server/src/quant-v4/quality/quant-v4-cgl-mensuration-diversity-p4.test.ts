@@ -37,8 +37,12 @@ const mensuration = records.filter(
 assert.ok(mensuration.length > 0);
 assert.ok(positiveWeightPatternIds.size > 0);
 
-const patternIds = mensuration.map((record) => String(record.questionLanguageId ?? ""));
-assert.ok(patternIds.every(Boolean), "Every Mensuration shadow record must expose its pattern/QL id.");
+const patternIds = mensuration.map((record) => String(record.patternId ?? ""));
+assert.ok(patternIds.every(Boolean), "Every Mensuration shadow record must expose its actual pattern id.");
+assert.ok(
+  patternIds.every((patternId) => positiveWeightPatternIds.has(patternId)),
+  "Every Mensuration shadow pattern must belong to the positive-weight SSC_CORE capacity.",
+);
 
 const expectedUnique = Math.min(mensuration.length, positiveWeightPatternIds.size);
 assert.equal(
