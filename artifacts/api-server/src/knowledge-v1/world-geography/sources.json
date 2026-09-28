@@ -871,5 +871,14 @@
     "kind": "primary-government",
     "consultedOn": "2026-09-28",
     "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-REC-EPA-GREAT-LAKES",
+    "title": "U.S. Environmental Protection Agency: Physical Features of the Great Lakes",
+    "url": "https://www.epa.gov/greatlakes/physical-features-great-lakes",
+    "section": "Surface area and physical measures for each of the five Great Lakes",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
   }
 ]
