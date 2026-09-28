@@ -1,6 +1,6 @@
 # CP037–CP040 Review Packet
 
-**Status:** Review required. The items are integrated into the review-only corpus and are not approved for student publication.
+**Status:** User approved in PR #2468. The items remain in the review-only corpus and are not approved for student publication.
 
 | Checkpoint | Focus | Questions |
 |---|---|---:|
@@ -60,5 +60,5 @@ All 24 canonical questions include English, Hindi and Punjabi stems, four locali
 - Each checkpoint has two Easy, two Medium and two Hard questions.
 - Source IDs resolve against the source register; qualified claims avoid unqualified ranking assertions.
 - CP037’s hinterland wording identifies the port’s inland service area in each language.
-- CP037–CP040 remain marked `REVIEW_REQUIRED`; manual review and approval remain required.
+- CP037–CP040 are marked `USER_APPROVED` for authoring and localization.
 - The package stays in review-only mode. Student testing, publication and production release remain disabled.
