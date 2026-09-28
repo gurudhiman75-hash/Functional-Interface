@@ -36,6 +36,6 @@ async function run() {
     assert.equal(review.questions[0]!.reviewOnly, true);
   }
   await assert.rejects(() => generateQuestionStudioQuestions({engineId: 'knowledge-v1',packageId:'WGE-001-CP041'}), /Unknown WGE/);
-  console.log('PASS: WGE standard registry discovery and generation, 37 packages × 3 languages');
+  console.log('PASS: WGE standard registry discovery and generation, 41 packages × 3 languages');
 }
 void run();
