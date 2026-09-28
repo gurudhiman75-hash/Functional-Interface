@@ -6,11 +6,12 @@ import {
   generateMis001QuestionStudioBatch,
   isMis001QuestionStudioRequest,
 } from './question-studio-integration';
+import { permanentQlForMisCandidate } from './MIS-PERMANENT-QL-REGISTRY';
 
 async function main() {
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.packageId, 'MIS-001');
   assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.cpIds, ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015','MIS-CP-016','MIS-CP-017','MIS-CP-018','MIS-CP-019','MIS-CP-020','MIS-CP-021','MIS-CP-022','MIS-CP-023','MIS-CP-024','MIS-CP-025','MIS-CP-026','MIS-CP-027','MIS-CP-028']);
-  assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.supportedLanguages, ['en']);
+  assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.supportedLanguages, ['en', 'hi', 'pa']);
   assert.deepEqual(MIS_001_QUESTION_STUDIO_PACKAGE.supportedDifficulties, ['Easy', 'Medium', 'Hard']);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.candidateCount, 75);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.semanticAuthorityCount, 75);
@@ -43,7 +44,9 @@ async function main() {
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp027CandidateCount, 1);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp028CandidateCount, 1);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.cp027CandidateCount, 1);
-  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.permanentQlAllocation, false);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.permanentQlAllocation, true);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.permanentQlCount, 73);
+  assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.localizationCoverageComplete, true);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.sourceSaturationComplete, true);
   assert.equal(MIS_001_QUESTION_STUDIO_PACKAGE.metadata?.mergeSplitAuditComplete, true);
 
@@ -124,8 +127,9 @@ async function main() {
     candidateIds.add(String(question.candidateId));
     checkpointIds.add(String(question.checkpointId));
     assert.equal(question.packageId, 'MIS-001');
-    assert.equal(question.provisionalQl, true);
-    assert.equal(question.qlId, null);
+    const expectedQl = permanentQlForMisCandidate(String(question.candidateId));
+    assert.equal(question.qlId, expectedQl);
+    assert.equal(question.provisionalQl, expectedQl == null);
     assert.equal(question.reviewOnly, true);
     assert.equal(question.productionReleased, false);
     assert.equal(question.questionStudioDiscoverable, true);
