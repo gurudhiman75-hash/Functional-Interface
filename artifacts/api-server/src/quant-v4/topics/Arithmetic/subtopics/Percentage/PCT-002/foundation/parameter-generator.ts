@@ -550,12 +550,17 @@ export function selectQuestionLanguageId(
 export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: Pct002ParameterInput = {}): Pct002Parameters {
   const seed = input.seed ?? `PCT-002:${cpId}`;
   const language = input.language ?? "en";
-  const difficultyBand = input.difficultyBand ?? assignDifficulty(cpId, language, seed);
+  const auditRotatesFullPool =
+    !input.questionLanguageId
+    && input.difficultyBand === undefined
+    && Number.isInteger(input.diversityOrdinal);
+  const selectionDifficulty = input.difficultyBand
+    ?? (auditRotatesFullPool ? undefined : assignDifficulty(cpId, language, seed));
   const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(
     cpId,
     language,
     seed,
-    difficultyBand,
+    selectionDifficulty,
     input.diversityOrdinal,
   );
 
