@@ -1,0 +1,87 @@
+import assert from "node:assert/strict";
+import type { QuestionStudioGenerationRequest } from "../../../../question-studio/engine-types.ts";
+import {
+  generateVen001NextCheckpointBatch,
+  isVen001NextCheckpointRequest,
+} from "./ven-001-next-checkpoints.ts";
+
+const locales = ["en", "hi", "pa"] as const;
+const families = [
+  { id: "VEN-CP001", count: 4, operation: "RELATIONS_TO_DIAGRAM" },
+  { id: "VEN-CP002", count: 5, operation: "RELATIONS_TO_DIAGRAM" },
+  { id: "VEN-CP004", count: 3, operation: "REGION_IDENTIFICATION" },
+] as const;
+
+for (const family of families) {
+  for (const language of locales) {
+    const request = {
+      packageId: "VEN-001",
+      patternId: family.id,
+      count: family.count,
+      language,
+      seed: `VEN-001:${family.id}:${language}:review-test`,
+      runtimeMode: "review-only",
+    } as QuestionStudioGenerationRequest;
+    assert.equal(isVen001NextCheckpointRequest(request), true);
+    const result = generateVen001NextCheckpointBatch(request);
+    assert.equal(result.questions.length, family.count);
+    assert.equal(result.generationContext.requestedOperation, family.operation);
+    const keys = new Set<string>();
+    for (const item of result.questions) {
+      assert.equal(item.cpId, family.id);
+      assert.equal(item.questionOperation, family.operation);
+      assert.equal(item.language, language);
+      assert.equal(item.reviewOnly, true);
+      assert.equal(item.questionBankWritable, false);
+      assert.equal(item.productionReleaseAuthorized, false);
+      assert.equal(item.validation.exactlyOneCorrect, true);
+      assert.ok(item.stem.length > 30);
+      keys.add(item.candidateId);
+      if (family.id === "VEN-CP004") {
+        assert.equal(item.stimulusSvgs?.length, 1);
+        assert.equal(item.options.length, 4);
+        assert.equal(new Set(item.options).size, 4);
+        assert.equal(item.validation.diagramLabelsMatchAssignment, true);
+        assert.match(item.stimulusSvgs?.[0] ?? "", /Numbered regions/);
+      } else {
+        assert.equal(item.optionSvgs?.length, 4);
+        assert.equal(item.optionDetails.length, 4);
+        assert.equal(item.validation.distinctOptions, true);
+        assert.equal(item.correctIndex, item.optionDetails.findIndex((o) => o.isCorrect));
+        assert.ok(item.optionSvgs?.every((svg) => /<text[^>]*>[ABC]<\/text>/.test(svg)));
+      }
+    }
+    assert.equal(keys.size, family.count);
+  }
+}
+
+assert.throws(
+  () =>
+    generateVen001NextCheckpointBatch({
+      patternId: "VEN-CP004",
+      count: 4,
+      language: "en",
+    } as QuestionStudioGenerationRequest),
+  /has 3 distinct region candidates/,
+);
+assert.throws(
+  () =>
+    generateVen001NextCheckpointBatch({
+      patternId: "VEN-CP001",
+      count: 5,
+      language: "en",
+    } as QuestionStudioGenerationRequest),
+  /has 4 distinct candidates/,
+);
+assert.throws(
+  () =>
+    generateVen001NextCheckpointBatch({
+      patternId: "VEN-CP004",
+      count: 1,
+      language: "en",
+      runtimeMode: "production",
+    } as QuestionStudioGenerationRequest),
+  /only supports review-only/,
+);
+
+console.log("VEN-001 CP001/CP002/CP004 Question Studio review generation passed.");
