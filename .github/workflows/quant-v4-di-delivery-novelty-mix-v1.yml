@@ -24,6 +24,8 @@ jobs:
           node-version: 20
       - name: Run DI novelty delivery mix acceptance
         run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1.test.ts
+      - name: Shared Quant adapter smoke proof
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-adapter-v1.test.ts
       - name: Lifecycle locks
         run: |
           ! grep -n 'questionBankWritable:true\|testEligible:true\|mockTestEligible:true\|publiclyPublishable:true\|productionReleaseAuthorized:true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1.ts
