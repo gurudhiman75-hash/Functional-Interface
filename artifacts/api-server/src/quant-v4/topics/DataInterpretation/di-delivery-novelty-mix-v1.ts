@@ -71,6 +71,7 @@ export const DI_DELIVERY_NOVELTY_MIX_CP_ID = "DI-CP-MIX-001" as const;
 export const DI_DELIVERY_NOVELTY_MIX_RUNTIME_MODE = "DI_DELIVERY_NOVELTY_MIX_CONTROLLED_REVIEW_V1" as const;
 
 export type DiNoveltyTier = "STANDARD" | "FRESH_FAMILIAR" | "HIGHER_NOVELTY";
+export type DiDifficultyBand = "Easy" | "Medium" | "Hard";
 export type DiDeliveryExamProfile = "SSC_CGL_TIER_I" | "BANKING_PRELIMS" | "BANKING_MAINS";
 
 type Generator = (request:any)=>Promise<any>;
@@ -165,6 +166,63 @@ export function allocateDiNoveltyTiers(count:number, profile:DiDeliveryExamProfi
   return {count:safe,weights,counts,highNoveltyEligible:highEligible};
 }
 
+function normalizeDifficultyBand(value:unknown):DiDifficultyBand|undefined{
+  const n=norm(value);
+  if(n==="easy") return "Easy";
+  if(n==="medium"||n==="moderate") return "Medium";
+  if(n==="hard"||n==="difficult") return "Hard";
+  return undefined;
+}
+
+export function allocateDiDifficultyBands(count:number,profile:DiDeliveryExamProfile){
+  const safe=Math.min(1000,Math.max(1,Math.floor(count||1)));
+  const weights:Record<DiDifficultyBand,number>=profile==="BANKING_MAINS"
+    ? {Easy:.15,Medium:.45,Hard:.40}
+    : profile==="BANKING_PRELIMS"
+      ? {Easy:.30,Medium:.50,Hard:.20}
+      : {Easy:.35,Medium:.40,Hard:.25};
+  const bands:DiDifficultyBand[]=["Easy","Medium","Hard"];
+  const raw=bands.map(band=>({band,exact:safe*weights[band]}));
+  const counts=Object.fromEntries(raw.map(row=>[row.band,Math.floor(row.exact)])) as Record<DiDifficultyBand,number>;
+  let remaining=safe-bands.reduce((sum,band)=>sum+counts[band],0);
+  for(const row of [...raw].sort((a,b)=>(b.exact-Math.floor(b.exact))-(a.exact-Math.floor(a.exact))||bands.indexOf(a.band)-bands.indexOf(b.band))){
+    if(remaining<=0) break;
+    counts[row.band]+=1;
+    remaining-=1;
+  }
+  return {count:safe,weights,counts};
+}
+
+function buildDifficultyPlan(
+  count:number,
+  profile:DiDeliveryExamProfile,
+  explicitDifficulty:unknown,
+  seed:string,
+){
+  const explicit=normalizeDifficultyBand(explicitDifficulty);
+  if(explicit){
+    const counts:Record<DiDifficultyBand,number>={Easy:0,Medium:0,Hard:0};
+    counts[explicit]=count;
+    return {
+      plan:Array.from({length:count},()=>explicit),
+      weights:null,
+      counts,
+      explicitDifficulty:explicit,
+    };
+  }
+  const allocation=allocateDiDifficultyBands(count,profile);
+  const plan:DiDifficultyBand[]=[];
+  for(const band of ["Easy","Medium","Hard"] as const){
+    for(let i=0;i<allocation.counts[band];i+=1) plan.push(band);
+  }
+  return {
+    plan:deterministicShuffle(plan,`${seed}:difficulty-plan`),
+    weights:allocation.weights,
+    counts:allocation.counts,
+    explicitDifficulty:null,
+  };
+}
+
 function stableModes(profile:DiDeliveryExamProfile,tier:DiNoveltyTier,seed:string){
   return SOURCE_MODES
     .filter(mode=>mode.tier===tier&&mode.profiles.includes(profile))
@@ -237,7 +295,7 @@ async function repairExactStemDuplicates(
     for(let attempt=1;attempt<=12;attempt+=1){
       const result=await mode.generate({
         canonicalProblemId:mode.canonicalProblemId,
-        difficulty,
+        difficulty:normalizeDifficultyBand(question.difficultyLabel??question.difficulty??difficulty)?.toLowerCase(),
         language:"en",
         seed:`${seed}:dedupe:${mode.id}:${index}:${attempt}`,
         count:1,
@@ -301,6 +359,8 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
   const count=Math.min(1000,Math.max(1,Math.floor(Number(request.count??20)||20)));
   const seed=String(request.seed??"").trim()||`DI-MIX-V1:${examProfile}:${count}`;
   const allocation=allocateDiNoveltyTiers(count,examProfile);
+  const difficultyMix=buildDifficultyPlan(count,examProfile,request.difficulty,seed);
+  let difficultyCursor=0;
   const generated:any[]=[];
   const sourcePackages:any[]=[];
   const actualCounts:Record<DiNoveltyTier,number>={STANDARD:0,FRESH_FAMILIAR:0,HIGHER_NOVELTY:0};
@@ -311,18 +371,26 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
     const modes=stableModes(examProfile,tier,`${seed}:modes`);
     const assignments=distributeAcrossModes(tierCount,modes,`${seed}:${tier}`);
     for(const {mode,count:modeCount} of assignments){
-      const result=await mode.generate({
-        canonicalProblemId:mode.canonicalProblemId,
-        difficulty:request.difficulty,
-        language:"en",
-        seed:`${seed}:${tier}:${mode.id}`,
-        count:modeCount,
-        examProfile:examProfileForSource(examProfile),
-      });
-      sourcePackages.push(...(result.questionPackages??[]));
-      for(const question of result.questions??[]){
-        actualCounts[tier]+=1;
-        generated.push(decorateNoveltyQuestion(question,tier,mode));
+      const requestedBands=difficultyMix.plan.slice(difficultyCursor,difficultyCursor+modeCount);
+      difficultyCursor+=modeCount;
+      const bandCounts=new Map<DiDifficultyBand,number>();
+      for(const band of requestedBands) bandCounts.set(band,(bandCounts.get(band)??0)+1);
+      for(const band of ["Easy","Medium","Hard"] as const){
+        const bandCount=bandCounts.get(band)??0;
+        if(!bandCount) continue;
+        const result=await mode.generate({
+          canonicalProblemId:mode.canonicalProblemId,
+          difficulty:band.toLowerCase(),
+          language:"en",
+          seed:`${seed}:${tier}:${mode.id}:${band}`,
+          count:bandCount,
+          examProfile:examProfileForSource(examProfile),
+        });
+        sourcePackages.push(...(result.questionPackages??[]));
+        for(const question of result.questions??[]){
+          actualCounts[tier]+=1;
+          generated.push(decorateNoveltyQuestion(question,tier,mode));
+        }
       }
     }
   }
@@ -342,6 +410,12 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
     mixQuestionIndex:index+1,
     mixQuestionCount:count,
   }));
+  const actualDifficultyCounts:Record<DiDifficultyBand,number>={Easy:0,Medium:0,Hard:0};
+  for(const question of questions){
+    const band=normalizeDifficultyBand(question.difficultyLabel??question.difficulty);
+    if(!band) throw new Error(`DI novelty mix received an unknown difficulty '${question.difficultyLabel??question.difficulty}'.`);
+    actualDifficultyCounts[band]+=1;
+  }
 
   return {
     generationContext:{
@@ -372,6 +446,12 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
         requestedCounts:allocation.counts,
         actualCounts,
         highNoveltyEligible:allocation.highNoveltyEligible,
+      },
+      difficultyMix:{
+        requestedWeights:difficultyMix.weights,
+        requestedCounts:difficultyMix.counts,
+        actualCounts:actualDifficultyCounts,
+        explicitDifficulty:difficultyMix.explicitDifficulty,
       },
     },
     questionPackages:sourcePackages,
@@ -414,7 +494,12 @@ export function diDeliveryNoveltyMixPackageCard(){
     noveltyPolicy:{
       banking:{standard:.75,freshFamiliar:.20,higherNovelty:.05},
       ssc:{standard:.75,freshFamiliar:.25,higherNovelty:0},
-      note:"Higher-novelty quota is used only where exam-valid source modes are explicitly eligible.",
+      difficulty:{
+        ssc:{easy:.35,medium:.40,hard:.25},
+        bankingPrelims:{easy:.30,medium:.50,hard:.20},
+        bankingMains:{easy:.15,medium:.45,hard:.40},
+      },
+      note:"Novelty and difficulty are allocated independently. Higher-novelty quota is used only where exam-valid source modes are explicitly eligible.",
     },
   };
 }
