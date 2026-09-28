@@ -12,8 +12,11 @@ function independentlyRecover(set: ReturnType<typeof generateDi012Set>) {
     const total=numberAfter(s.condition,/is (\d+)\.$/u); return {x:total-sumKnown("b")};
   }
   if(s.modelKind==="X_Y_SUM_DIFFERENCE"){
-    const m=s.condition.match(/x \+ y = (-?\d+) and x − y = (-?\d+)/u); assert(m);
-    const sum=Number(m[1]),diff=Number(m[2]); return {x:(sum+diff)/2,y:(sum-diff)/2};
+    const m=s.condition.match(/x \+ y = (\d+), and x is (\d+) (more|less) than y\./u); assert(m);
+    const sum=Number(m[1]), gap=Number(m[2]), relation=m[3];
+    return relation==="more"
+      ? {x:(sum+gap)/2,y:(sum-gap)/2}
+      : {x:(sum-gap)/2,y:(sum+gap)/2};
   }
   if(s.modelKind==="X_Y_RATIO_TOTAL"){
     const m=s.condition.match(/x : y = (\d+):(\d+) and x \+ y = (\d+)/u); assert(m);
