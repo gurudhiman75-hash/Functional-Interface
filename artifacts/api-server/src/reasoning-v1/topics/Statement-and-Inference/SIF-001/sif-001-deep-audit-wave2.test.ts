@@ -54,6 +54,7 @@ let easy = 0;
 let medium = 0;
 let hard = 0;
 let invalidCandidates = 0;
+const calibrationOutliers: string[] = [];
 
 for (const cpId of SIF_CP_IDS) {
   const authorities = listSifAuthorities(cpId);
@@ -66,22 +67,13 @@ for (const cpId of SIF_CP_IDS) {
 
     if (authority.difficulty === "EASY") {
       easy++;
-      assert.ok(
-        burden <= 6,
-        `${authority.id}: Easy authority has excessive reasoning burden (${burden})`,
-      );
+      if (burden > 6) calibrationOutliers.push(`${authority.id}: EASY burden ${burden} > 6`);
     } else if (authority.difficulty === "MEDIUM") {
       medium++;
-      assert.ok(
-        burden >= 3,
-        `${authority.id}: Medium authority is structurally too thin (${burden})`,
-      );
+      if (burden < 3) calibrationOutliers.push(`${authority.id}: MEDIUM burden ${burden} < 3`);
     } else {
       hard++;
-      assert.ok(
-        burden >= 5,
-        `${authority.id}: Hard authority lacks structural reasoning burden (${burden})`,
-      );
+      if (burden < 5) calibrationOutliers.push(`${authority.id}: HARD burden ${burden} < 5`);
     }
 
     for (const candidate of authority.candidates) {
@@ -115,6 +107,11 @@ for (const cpId of SIF_CP_IDS) {
 assert.ok(easy > 0, "SIF-001 has no Easy authorities");
 assert.ok(medium > 0, "SIF-001 has no Medium authorities");
 assert.ok(hard > 0, "SIF-001 has no Hard authorities");
+assert.deepEqual(
+  calibrationOutliers,
+  [],
+  `Difficulty calibration outliers (${calibrationOutliers.length}): ${calibrationOutliers.join("; ")}`,
+);
 
 console.log(JSON.stringify({
   status: "PASS_SIF_001_DEEP_AUDIT_WAVE2",
