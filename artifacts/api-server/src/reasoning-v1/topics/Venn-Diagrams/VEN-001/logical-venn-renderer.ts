@@ -49,12 +49,12 @@ const TOPOLOGY_SPECS: Readonly<Record<VennTopologyId, RenderSpec>> = {
     accessibleDescription: "Two overlapping small circles lie inside one larger circle.",
   },
   THREE_PAIRWISE_OVERLAP_WITH_TRIPLE: {
-    circles: [{ cx: 80, cy: 62, r: 27 }, { cx: 170, cy: 62, r: 27 }, { cx: 125, cy: 132, r: 27 }],
+    circles: [{ cx: 95, cy: 58, r: 36 }, { cx: 155, cy: 58, r: 36 }, { cx: 125, cy: 110, r: 36 }],
     accessibleName: "Three groups with a common intersection",
     accessibleDescription: "Each pair overlaps, and all three circles share a central region.",
   },
   THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE: {
-    circles: [{ cx: 80, cy: 58, r: 22 }, { cx: 170, cy: 58, r: 22 }, { cx: 125, cy: 101, r: 22 }],
+    circles: [{ cx: 95, cy: 58, r: 32 }, { cx: 155, cy: 58, r: 32 }, { cx: 125, cy: 110, r: 32 }],
     accessibleName: "Three pairwise-overlapping groups without a common region",
     accessibleDescription: "Each pair overlaps, but there is no region shared by all three groups.",
   },
