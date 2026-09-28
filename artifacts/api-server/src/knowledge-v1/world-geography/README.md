@@ -1,8 +1,8 @@
 # World Geography — Section A implementation
 
-Status: CP001–CP023 and editorial revisions are user approved. CP024–CP028 are integrated and require user review. The complete integration remains review only. No student publication or production release is authorized.
+Status: CP001–CP023 and editorial revisions are user approved. CP024–CP032 are integrated and require user review. The complete integration remains review only. No student publication or production release is authorized.
 
-642 canonical questions; 1,926 localized versions across English, Hindi and Punjabi. CP001–CP008 account for 201 questions; approved CP009–CP011 add 78, CP012–CP015 add 101, CP016–CP019 add 78 and CP020–CP023 add 88 questions; CP024–CP028 add 96 questions pending review. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
+692 canonical questions; 2,076 localized versions across English, Hindi and Punjabi. CP001–CP008 account for 201 questions; approved CP009–CP011 add 78, CP012–CP015 add 101, CP016–CP019 add 78 and CP020–CP023 add 88 questions; CP024–CP028 add 96 and CP029–CP032 add 50 questions pending review. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
 
 ## CP009–CP011 exam-stem pass
 
@@ -23,6 +23,10 @@ Added lakes, inland waters and waterfalls (20), deserts, islands, peninsulas and
 ## CP024–CP028 implementation — pending review
 
 Added East, Southeast and Central Asia (20), West Asia (19), Europe (18), Africa (18), and North America, Central America and the Caribbean (21). Items assess regional position, landforms, rivers, seas, drainage and subregional geography. All five checkpoints have English, Hindi and Punjabi variants, explanations, answer mappings, difficulty labels and source-register references. The new items are integrated into the WGE-001 corpus and standard Question Studio package selector. Their authoring and localization status remains review required; no approval or publication is inferred from integration or tests.
+
+## CP029–CP032 implementation — pending review
+
+Added South America (12), Australia, New Zealand and Pacific islands (13), Antarctica and the Arctic (12), and population and migration (13). Regional questions connect landforms and drainage with locations without duplicating the general world-river fact bank. Polar questions distinguish ocean, sea ice and continental ice and avoid describing Antarctica as a sovereign country. Population items cover density, physical controls, push and pull factors, internal migration and demographic transition without using undated country rankings. All items have English, Hindi and Punjabi variants, explanations, answer mappings and source-register references. They are integrated into the WGE-001 corpus and standard Question Studio selectors; authoring status remains review required.
 
 ## Editorial revision 2
 
@@ -58,6 +62,10 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 | CP026 | 18 | pending user review |
 | CP027 | 18 | pending user review |
 | CP028 | 21 | pending user review |
+| CP029 | 12 | pending user review |
+| CP030 | 13 | pending user review |
+| CP031 | 12 | pending user review |
+| CP032 | 13 | pending user review |
 
 ## Coverage ledger
 
@@ -91,17 +99,21 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 | CP026 | 18 | alps-central-europe, pyrenees-france-spain, scandinavian-peninsula, jutland-denmark-germany, balkan-southeast-europe, danube-black-sea-delta, rhine-north-sea, volga-caspian-outlet, po-plain-northern-italy, carpathians-central-eastern-europe, north-european-plain, iberian-spain-portugal, mediterranean-southern-europe, iceland-north-atlantic, finland-lake-region, north-sea-nordic-western-europe, danube-countries-black-sea, volga-caspian-sea |
 | CP027 | 18 | blue-nile-source-highlands, sahel-south-sahara, nile-mediterranean-outlet, congo-basin-equatorial-africa, niger-gulf-guinea, east-african-rift-lakes-volcanoes, somalia-horn-of-africa, atlas-northwest-africa, lake-victoria-east-africa, lake-chad-sahel, madagascar-off-mozambique, namib-atlantic-coast, drakensberg-south-africa-lesotho, kalahari-semiarid-region, gulf-guinea-west-africa-coast, lesotho-enclave-africa, cape-good-hope-southwest-africa, blue-white-nile-confluence-khartoum |
 | CP028 | 21 | rockies-western-north-america, appalachians-eastern-north-america, great-plains-east-rockies, mississippi-gulf-mexico, st-lawrence-great-lakes-atlantic, great-lakes-us-canada, canadian-shield-north-america, hudson-bay-canada, colorado-river-gulf-california, mexican-plateau-sierra-madre, rio-grande-us-mexico-border, panama-isthmus-americas, gulf-california-position, central-america-caribbean-pacific, cuba-largest-caribbean-island, hispaniola-two-countries, caribbean-sea-position, bahamas-atlantic-not-caribbean, baja-california-pacific-gulf, prairies-central-north-america, rockies-continental-divide |
+| CP029 | 12 | roraima-triple-border, amazon-basin-country, gran-chaco-region, orinoco-atlantic-outlet, brazil-land-border-exceptions, orinoco-basin, guiana-highlands-setting, patagonia-rainshadow, parana-la-plata-outlet, gran-chaco-climate, tierra-del-fuego-separation, titicaca-border |
+| CP030 | 13 | great-dividing-drainage-divide, murray-darling-region, cook-strait-new-zealand, south-island-alps, melanesia-region, micronesia-region, australia-population-coast, polynesia-region, tasmania-bass-strait, lake-eyre-inland-drainage, great-artesian-basin, australia-interior-aridity, new-zealand-pacific-location |
+| CP031 | 12 | arctic-ocean-setting, vinson-massif-ellworth, arctic-sea-ice, greenland-ice-sheet, drake-passage, antarctic-treaty-status, transantarctic-mountains, antarctic-peninsula-direction, arctic-permafrost, arctic-states-region, amundsen-scott-south-pole, antarctica-sovereignty-claims |
+| CP032 | 13 | population-density-definition, arithmetic-density-limit, population-physical-control, push-factor-drought, pull-factor-employment, rural-urban-migration, population-pyramid-wide-base, demographic-transition-low-birth, natural-increase, net-migration, mortality-transition-sequence, forced-migration, age-dependency-ratio |
 
 ## Ownership and integration
 
-The owning corpus is WGE-001. CP001–CP028 are selectable aliases over the same records. CP009–CP019 teach global atmospheric, climatic, ecological and oceanic frameworks; existing Indian Geography packages retain India-specific climate facts, monsoon patterns and local winds (GEO-CLI-001), which are overlap references rather than copied banks. The questions emphasize global processes and examples. Later World Geography sections remain outside this change.
+The owning corpus is WGE-001. CP001–CP032 are selectable aliases over the same records. CP009–CP019 teach global atmospheric, climatic, ecological and oceanic frameworks; existing Indian Geography packages retain India-specific climate facts, monsoon patterns and local winds (GEO-CLI-001), which are overlap references rather than copied banks. The questions emphasize global processes and examples. Later World Geography sections remain outside this change.
 
-The standard knowledge-v1 registry exposes a mixed package and twenty-eight checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. CP001–CP023 are marked user approved; CP024–CP028 require user review. All outputs retain review-only lifecycle restrictions.
+The standard knowledge-v1 registry exposes a mixed package and thirty-two checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. CP001–CP023 are marked user approved; CP024–CP032 require user review. All outputs retain review-only lifecycle restrictions.
 
 ## Verification
 
-The focused corpus/adapter test validates all 642 items, 3,852 filtered localized outputs, all single-item selectors, deterministic generation, cross-language parity, source links, answer mappings and invalid requests. The registry test covers twenty-nine package choices in three languages. A browser session and production deployment have not been tested.
+The focused corpus/adapter test validates all 692 items, 4,152 filtered localized outputs, all single-item selectors, deterministic generation, cross-language parity, source links, answer mappings and invalid requests. The registry test covers thirty-three package choices in three languages. A browser session and production deployment have not been tested.
 
 ## Review gate
 
-User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. User approval of CP020–CP023, including their exam-stem revisions, was received on 27 September 2026. CP024–CP028 are awaiting user review. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.
+User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. User approval of CP020–CP023, including their exam-stem revisions, was received on 27 September 2026. CP024–CP032 are awaiting user review. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.

@@ -1,0 +1,566 @@
+[
+  {
+    "id": "WGE-001-CP031-Q001",
+    "cpId": "WGE-001-CP031",
+    "objective": "arctic-ocean-setting",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which statement correctly describes the Arctic region?",
+        "options": [
+          "It lies entirely south of the Antarctic Circle",
+          "It is a landlocked plateau",
+          "It is centred on an ocean surrounded by northern landmasses",
+          "It is a continent surrounded by the Southern Ocean"
+        ],
+        "explanation": "The Arctic is centred on the Arctic Ocean, bordered by northern parts of North America, Europe and Asia."
+      },
+      "hi": {
+        "stem": "आर्कटिक क्षेत्र का सही वर्णन कौन-सा है?",
+        "options": [
+          "यह पूरी तरह अंटार्कटिक वृत्त के दक्षिण में है",
+          "यह स्थलरुद्ध पठार है",
+          "यह उत्तरी भूभागों से घिरे महासागर के आसपास केंद्रित है",
+          "यह दक्षिणी महासागर से घिरा महाद्वीप है"
+        ],
+        "explanation": "आर्कटिक का केंद्र आर्कटिक महासागर है, जिसके चारों ओर उत्तरी अमेरिका, यूरोप और एशिया के उत्तरी भाग हैं।"
+      },
+      "pa": {
+        "stem": "ਆਰਕਟਿਕ ਖੇਤਰ ਦਾ ਸਹੀ ਵਰਣਨ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਇਹ ਪੂਰੀ ਤਰ੍ਹਾਂ ਅੰਟਾਰਕਟਿਕ ਚੱਕਰ ਦੇ ਦੱਖਣ ਵੱਲ ਹੈ",
+          "ਇਹ ਧਰਤੀ ਨਾਲ ਘਿਰਿਆ ਪਠਾਰ ਹੈ",
+          "ਇਹ ਉੱਤਰੀ ਧਰਤੀ-ਭਾਗਾਂ ਨਾਲ ਘਿਰੇ ਮਹਾਂਸਾਗਰ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਹੈ",
+          "ਇਹ ਦੱਖਣੀ ਮਹਾਂਸਾਗਰ ਨਾਲ ਘਿਰਿਆ ਮਹਾਂਦੀਪ ਹੈ"
+        ],
+        "explanation": "ਆਰਕਟਿਕ ਦਾ ਕੇਂਦਰ ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ ਹੈ, ਜਿਸ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਉੱਤਰੀ ਅਮਰੀਕਾ, ਯੂਰਪ ਅਤੇ ਏਸ਼ੀਆ ਦੇ ਉੱਤਰੀ ਹਿੱਸੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q002",
+    "cpId": "WGE-001-CP031",
+    "objective": "vinson-massif-ellworth",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Mount Vinson lies within which Antarctic mountain range?",
+        "options": [
+          "Ellsworth Mountains",
+          "Transantarctic Mountains",
+          "Prince Charles Mountains",
+          "Gamburtsev Mountains"
+        ],
+        "explanation": "Mount Vinson, Antarctica’s highest peak, is part of the Ellsworth Mountains."
+      },
+      "hi": {
+        "stem": "माउंट विंसन अंटार्कटिका की किस पर्वत-श्रेणी में स्थित है?",
+        "options": [
+          "एल्सवर्थ पर्वत",
+          "ट्रांसअंटार्कटिक पर्वत",
+          "प्रिंस चार्ल्स पर्वत",
+          "गाम्बुर्त्सेव पर्वत"
+        ],
+        "explanation": "अंटार्कटिका की सबसे ऊँची चोटी माउंट विंसन एल्सवर्थ पर्वत का हिस्सा है।"
+      },
+      "pa": {
+        "stem": "ਮਾਊਂਟ ਵਿਨਸਨ ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਐਲਸਵਰਥ ਪਹਾੜ",
+          "ਟ੍ਰਾਂਸਅੰਟਾਰਕਟਿਕ ਪਹਾੜ",
+          "ਪ੍ਰਿੰਸ ਚਾਰਲਜ਼ ਪਹਾੜ",
+          "ਗੈਂਬਰਟਸੇਵ ਪਹਾੜ"
+        ],
+        "explanation": "ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਸਭ ਤੋਂ ਉੱਚੀ ਚੋਟੀ ਮਾਊਂਟ ਵਿਨਸਨ ਐਲਸਵਰਥ ਪਹਾੜਾਂ ਦਾ ਹਿੱਸਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q003",
+    "cpId": "WGE-001-CP031",
+    "objective": "arctic-sea-ice",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "How does Arctic sea ice differ from the Antarctic ice sheet?",
+        "options": [
+          "Both are floating ice on the same ocean",
+          "Arctic sea ice rests on a continent, while Antarctic ice floats",
+          "Neither is connected with ocean water",
+          "Sea ice floats on ocean water; the Antarctic ice sheet rests on land"
+        ],
+        "explanation": "Arctic sea ice forms over ocean water, whereas the main Antarctic ice sheet covers continental land."
+      },
+      "hi": {
+        "stem": "आर्कटिक की समुद्री बर्फ़ अंटार्कटिका की हिमचादर से कैसे अलग है?",
+        "options": [
+          "दोनों एक ही महासागर पर तैरती हैं",
+          "आर्कटिक की समुद्री बर्फ़ महाद्वीप पर है और अंटार्कटिका की बर्फ़ तैरती है",
+          "दोनों का महासागर के जल से संबंध नहीं है",
+          "समुद्री बर्फ़ महासागर पर तैरती है; अंटार्कटिका की हिमचादर भूमि पर स्थित है"
+        ],
+        "explanation": "आर्कटिक की समुद्री बर्फ़ महासागर के जल पर बनती है, जबकि अंटार्कटिका की मुख्य हिमचादर महाद्वीपीय भूमि को ढकती है।"
+      },
+      "pa": {
+        "stem": "ਆਰਕਟਿਕ ਦੀ ਸਮੁੰਦਰੀ ਬਰਫ਼ ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਬਰਫ਼ੀਲੀ ਚਾਦਰ ਤੋਂ ਕਿਵੇਂ ਵੱਖਰੀ ਹੈ?",
+        "options": [
+          "ਦੋਵੇਂ ਇੱਕੋ ਮਹਾਂਸਾਗਰ ਉੱਤੇ ਤੈਰਦੀਆਂ ਹਨ",
+          "ਆਰਕਟਿਕ ਦੀ ਸਮੁੰਦਰੀ ਬਰਫ਼ ਧਰਤੀ ਉੱਤੇ ਹੈ ਅਤੇ ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਬਰਫ਼ ਤੈਰਦੀ ਹੈ",
+          "ਦੋਵਾਂ ਦਾ ਮਹਾਂਸਾਗਰ ਦੇ ਪਾਣੀ ਨਾਲ ਕੋਈ ਸੰਬੰਧ ਨਹੀਂ",
+          "ਸਮੁੰਦਰੀ ਬਰਫ਼ ਮਹਾਂਸਾਗਰ ਦੇ ਪਾਣੀ ਉੱਤੇ ਤੈਰਦੀ ਹੈ; ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਬਰਫ਼ੀਲੀ ਚਾਦਰ ਧਰਤੀ ਉੱਤੇ ਟਿਕੀ ਹੈ"
+        ],
+        "explanation": "ਆਰਕਟਿਕ ਦੀ ਸਮੁੰਦਰੀ ਬਰਫ਼ ਮਹਾਂਸਾਗਰ ਦੇ ਪਾਣੀ ਉੱਤੇ ਬਣਦੀ ਹੈ, ਜਦਕਿ ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਮੁੱਖ ਬਰਫ਼ੀਲੀ ਚਾਦਰ ਮਹਾਂਦੀਪੀ ਧਰਤੀ ਨੂੰ ਢੱਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q004",
+    "cpId": "WGE-001-CP031",
+    "objective": "greenland-ice-sheet",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "What covers most of Greenland’s interior?",
+        "options": [
+          "A tropical rainforest",
+          "A continental ice sheet",
+          "Floating Arctic sea ice",
+          "Temperate grassland"
+        ],
+        "explanation": "Greenland’s large ice sheet rests on the island’s land surface; it is distinct from floating sea ice."
+      },
+      "hi": {
+        "stem": "ग्रीनलैंड के आंतरिक भाग का अधिकांश क्षेत्र किससे ढका है?",
+        "options": [
+          "उष्णकटिबंधीय वर्षावन",
+          "महाद्वीपीय हिमचादर",
+          "तैरती हुई आर्कटिक समुद्री बर्फ़",
+          "समशीतोष्ण घासभूमि"
+        ],
+        "explanation": "ग्रीनलैंड की विशाल हिमचादर द्वीप की भूमि पर स्थित है; यह तैरती समुद्री बर्फ़ से अलग है।"
+      },
+      "pa": {
+        "stem": "ਗ੍ਰੀਨਲੈਂਡ ਦੇ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਦਾ ਜ਼ਿਆਦਾਤਰ ਭਾਗ ਕਿਸ ਨਾਲ ਢੱਕਿਆ ਹੈ?",
+        "options": [
+          "ਗਰਮ-ਖੇਤਰੀ ਵਰਖਾ-ਜੰਗਲ",
+          "ਮਹਾਂਦੀਪੀ ਬਰਫ਼ੀਲੀ ਚਾਦਰ",
+          "ਤੈਰਦੀ ਆਰਕਟਿਕ ਸਮੁੰਦਰੀ ਬਰਫ਼",
+          "ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਭੂਮੀ"
+        ],
+        "explanation": "ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਵਿਸ਼ਾਲ ਬਰਫ਼ੀਲੀ ਚਾਦਰ ਟਾਪੂ ਦੀ ਧਰਤੀ ਉੱਤੇ ਟਿਕੀ ਹੈ; ਇਹ ਤੈਰਦੀ ਸਮੁੰਦਰੀ ਬਰਫ਼ ਤੋਂ ਵੱਖਰੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q005",
+    "cpId": "WGE-001-CP031",
+    "objective": "drake-passage",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "The Drake Passage separates which two land areas?",
+        "options": [
+          "Greenland and Canada",
+          "Australia and New Zealand",
+          "Africa and Madagascar",
+          "South America and the Antarctic Peninsula"
+        ],
+        "explanation": "The Drake Passage lies between the southern tip of South America and the Antarctic Peninsula."
+      },
+      "hi": {
+        "stem": "ड्रेक पैसेज किन दो भूभागों को अलग करता है?",
+        "options": [
+          "ग्रीनलैंड और कनाडा",
+          "ऑस्ट्रेलिया और न्यूज़ीलैंड",
+          "अफ़्रीका और मेडागास्कर",
+          "दक्षिण अमेरिका और अंटार्कटिक प्रायद्वीप"
+        ],
+        "explanation": "ड्रेक पैसेज दक्षिण अमेरिका के दक्षिणी सिरे और अंटार्कटिक प्रायद्वीप के बीच स्थित है।"
+      },
+      "pa": {
+        "stem": "ਡਰੇਕ ਪੈਸੇਜ ਕਿਹੜੇ ਦੋ ਧਰਤੀ-ਭਾਗਾਂ ਨੂੰ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਗ੍ਰੀਨਲੈਂਡ ਅਤੇ ਕੈਨੇਡਾ",
+          "ਆਸਟ੍ਰੇਲੀਆ ਅਤੇ ਨਿਊਜ਼ੀਲੈਂਡ",
+          "ਅਫ਼ਰੀਕਾ ਅਤੇ ਮੈਡਾਗਾਸਕਰ",
+          "ਦੱਖਣੀ ਅਮਰੀਕਾ ਅਤੇ ਅੰਟਾਰਕਟਿਕ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਡਰੇਕ ਪੈਸੇਜ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਦੱਖਣੀ ਸਿਰੇ ਅਤੇ ਅੰਟਾਰਕਟਿਕ ਪ੍ਰਾਇਦੀਪ ਦੇ ਵਿਚਕਾਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q006",
+    "cpId": "WGE-001-CP031",
+    "objective": "antarctic-treaty-status",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which statement about Antarctica’s political status is correct?",
+        "options": [
+          "It is administered as a province of New Zealand",
+          "It is not a sovereign country; its use is governed by the Antarctic Treaty System",
+          "It is divided into universally recognised sovereign states",
+          "It is part of the Arctic Council"
+        ],
+        "explanation": "Antarctica has no sovereign national government; the Antarctic Treaty System provides the framework for international cooperation and peaceful use."
+      },
+      "hi": {
+        "stem": "अंटार्कटिका की राजनीतिक स्थिति के बारे में कौन-सा कथन सही है?",
+        "options": [
+          "यह न्यूज़ीलैंड का प्रांत है",
+          "यह संप्रभु देश नहीं है; इसका उपयोग अंटार्कटिक संधि-प्रणाली के अंतर्गत होता है",
+          "यह सार्वभौमिक रूप से मान्य संप्रभु देशों में बँटा है",
+          "यह आर्कटिक परिषद का हिस्सा है"
+        ],
+        "explanation": "अंटार्कटिका की कोई संप्रभु राष्ट्रीय सरकार नहीं है; अंटार्कटिक संधि-प्रणाली अंतरराष्ट्रीय सहयोग और शांतिपूर्ण उपयोग का ढाँचा देती है।"
+      },
+      "pa": {
+        "stem": "ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਰਾਜਨੀਤਿਕ ਸਥਿਤੀ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+        "options": [
+          "ਇਹ ਨਿਊਜ਼ੀਲੈਂਡ ਦਾ ਸੂਬਾ ਹੈ",
+          "ਇਹ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਨਹੀਂ ਹੈ; ਇਸ ਦੀ ਵਰਤੋਂ ਅੰਟਾਰਕਟਿਕ ਸੰਧੀ ਪ੍ਰਣਾਲੀ ਹੇਠ ਹੁੰਦੀ ਹੈ",
+          "ਇਹ ਸਭ ਵੱਲੋਂ ਮੰਨੇ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲੇ ਦੇਸ਼ਾਂ ਵਿੱਚ ਵੰਡਿਆ ਹੋਇਆ ਹੈ",
+          "ਇਹ ਆਰਕਟਿਕ ਕੌਂਸਲ ਦਾ ਹਿੱਸਾ ਹੈ"
+        ],
+        "explanation": "ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਕੋਈ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲੀ ਕੌਮੀ ਸਰਕਾਰ ਨਹੀਂ ਹੈ; ਅੰਟਾਰਕਟਿਕ ਸੰਧੀ ਪ੍ਰਣਾਲੀ ਅੰਤਰਰਾਸ਼ਟਰੀ ਸਹਿਯੋਗ ਅਤੇ ਸ਼ਾਂਤੀਪੂਰਨ ਵਰਤੋਂ ਦਾ ਢਾਂਚਾ ਦਿੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q007",
+    "cpId": "WGE-001-CP031",
+    "objective": "transantarctic-mountains",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which mountain chain divides East Antarctica from West Antarctica?",
+        "options": [
+          "Transantarctic Mountains",
+          "Andes",
+          "Urals",
+          "Great Dividing Range"
+        ],
+        "explanation": "The Transantarctic Mountains cross the continent and separate its eastern and western sectors."
+      },
+      "hi": {
+        "stem": "पूर्वी अंटार्कटिका और पश्चिमी अंटार्कटिका को कौन-सी पर्वत-श्रेणी अलग करती है?",
+        "options": [
+          "ट्रांसअंटार्कटिक पर्वत",
+          "एंडीज़",
+          "यूराल",
+          "ग्रेट डिवाइडिंग रेंज"
+        ],
+        "explanation": "ट्रांसअंटार्कटिक पर्वत महाद्वीप को पार करते हैं और उसके पूर्वी तथा पश्चिमी भागों को अलग करते हैं।"
+      },
+      "pa": {
+        "stem": "ਪੂਰਬੀ ਅੰਟਾਰਕਟਿਕਾ ਅਤੇ ਪੱਛਮੀ ਅੰਟਾਰਕਟਿਕਾ ਨੂੰ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਵੱਖ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "ਟ੍ਰਾਂਸਅੰਟਾਰਕਟਿਕ ਪਹਾੜ",
+          "ਐਂਡੀਜ਼",
+          "ਯੂਰਾਲ",
+          "ਗ੍ਰੇਟ ਡਿਵਾਈਡਿੰਗ ਰੇਂਜ"
+        ],
+        "explanation": "ਟ੍ਰਾਂਸਅੰਟਾਰਕਟਿਕ ਪਹਾੜ ਮਹਾਂਦੀਪ ਨੂੰ ਪਾਰ ਕਰਦੇ ਹਨ ਅਤੇ ਇਸ ਦੇ ਪੂਰਬੀ ਤੇ ਪੱਛਮੀ ਹਿੱਸਿਆਂ ਨੂੰ ਵੱਖ ਕਰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q008",
+    "cpId": "WGE-001-CP031",
+    "objective": "antarctic-peninsula-direction",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "The Antarctic Peninsula extends towards which continent?",
+        "options": [
+          "Australia",
+          "Asia",
+          "South America",
+          "Africa"
+        ],
+        "explanation": "The Antarctic Peninsula projects north from Antarctica towards the southern tip of South America."
+      },
+      "hi": {
+        "stem": "अंटार्कटिक प्रायद्वीप किस महाद्वीप की ओर बढ़ता है?",
+        "options": [
+          "ऑस्ट्रेलिया",
+          "एशिया",
+          "दक्षिण अमेरिका",
+          "अफ़्रीका"
+        ],
+        "explanation": "अंटार्कटिक प्रायद्वीप अंटार्कटिका से उत्तर की ओर दक्षिण अमेरिका के दक्षिणी सिरे की दिशा में निकला है।"
+      },
+      "pa": {
+        "stem": "ਅੰਟਾਰਕਟਿਕ ਪ੍ਰਾਇਦੀਪ ਕਿਹੜੇ ਮਹਾਂਦੀਪ ਵੱਲ ਨਿਕਲਦਾ ਹੈ?",
+        "options": [
+          "ਆਸਟ੍ਰੇਲੀਆ",
+          "ਏਸ਼ੀਆ",
+          "ਦੱਖਣੀ ਅਮਰੀਕਾ",
+          "ਅਫ਼ਰੀਕਾ"
+        ],
+        "explanation": "ਅੰਟਾਰਕਟਿਕ ਪ੍ਰਾਇਦੀਪ ਅੰਟਾਰਕਟਿਕਾ ਤੋਂ ਉੱਤਰ ਵੱਲ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਦੱਖਣੀ ਸਿਰੇ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਨਿਕਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q009",
+    "cpId": "WGE-001-CP031",
+    "objective": "arctic-permafrost",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Permafrost is ground that remains frozen for at least:",
+        "options": [
+          "Ten summer months only",
+          "Two consecutive years",
+          "One winter only",
+          "One month each year"
+        ],
+        "explanation": "Permafrost is ground that stays at or below freezing for at least two consecutive years."
+      },
+      "hi": {
+        "stem": "परमाफ़्रॉस्ट वह भूमि है जो कम-से-कम कितने समय तक जमी रहती है?",
+        "options": [
+          "केवल दस ग्रीष्म महीने",
+          "लगातार दो वर्ष",
+          "केवल एक सर्दी",
+          "हर वर्ष एक महीना"
+        ],
+        "explanation": "परमाफ़्रॉस्ट ऐसी भूमि है जो लगातार कम-से-कम दो वर्ष तक हिमांक पर या उससे नीचे रहती है।"
+      },
+      "pa": {
+        "stem": "ਪਰਮਾਫ਼ਰੌਸਟ ਉਹ ਧਰਤੀ ਹੈ ਜੋ ਘੱਟੋ-ਘੱਟ ਕਿੰਨੇ ਸਮੇਂ ਲਈ ਜੰਮੀ ਰਹਿੰਦੀ ਹੈ?",
+        "options": [
+          "ਕੇਵਲ ਦਸ ਗਰਮੀ ਦੇ ਮਹੀਨੇ",
+          "ਲਗਾਤਾਰ ਦੋ ਸਾਲ",
+          "ਕੇਵਲ ਇੱਕ ਸਰਦੀ",
+          "ਹਰ ਸਾਲ ਇੱਕ ਮਹੀਨਾ"
+        ],
+        "explanation": "ਪਰਮਾਫ਼ਰੌਸਟ ਉਹ ਧਰਤੀ ਹੈ ਜੋ ਲਗਾਤਾਰ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਾਲ ਤੱਕ ਜਮਾਉ ਬਿੰਦੂ ਉੱਤੇ ਜਾਂ ਇਸ ਤੋਂ ਹੇਠਾਂ ਰਹਿੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q010",
+    "cpId": "WGE-001-CP031",
+    "objective": "arctic-states-region",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which country has territory in both the Arctic and North America?",
+        "options": [
+          "Brazil",
+          "New Zealand",
+          "South Africa",
+          "Canada"
+        ],
+        "explanation": "Canada extends into the Arctic region and occupies a large part of northern North America."
+      },
+      "hi": {
+        "stem": "किस देश का भूभाग आर्कटिक और उत्तरी अमेरिका दोनों में आता है?",
+        "options": [
+          "ब्राज़ील",
+          "न्यूज़ीलैंड",
+          "दक्षिण अफ़्रीका",
+          "कनाडा"
+        ],
+        "explanation": "कनाडा का भूभाग आर्कटिक क्षेत्र तक फैला है और वह उत्तरी अमेरिका के बड़े भाग में स्थित है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਦੇਸ਼ ਦਾ ਭੂ-ਭਾਗ ਆਰਕਟਿਕ ਅਤੇ ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੋਵਾਂ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਬ੍ਰਾਜ਼ੀਲ",
+          "ਨਿਊਜ਼ੀਲੈਂਡ",
+          "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ",
+          "ਕੈਨੇਡਾ"
+        ],
+        "explanation": "ਕੈਨੇਡਾ ਦਾ ਭੂ-ਭਾਗ ਆਰਕਟਿਕ ਖੇਤਰ ਤੱਕ ਫੈਲਿਆ ਹੋਇਆ ਹੈ ਅਤੇ ਇਹ ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q011",
+    "cpId": "WGE-001-CP031",
+    "objective": "amundsen-scott-south-pole",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which research station is located at the geographic South Pole?",
+        "options": [
+          "Rothera Research Station",
+          "Davis Station",
+          "Amundsen–Scott South Pole Station",
+          "McMurdo Station"
+        ],
+        "explanation": "The United States’ Amundsen–Scott station is located at the geographic South Pole."
+      },
+      "hi": {
+        "stem": "भौगोलिक दक्षिण ध्रुव पर कौन-सा अनुसंधान केंद्र स्थित है?",
+        "options": [
+          "रोथेरा अनुसंधान केंद्र",
+          "डेविस केंद्र",
+          "एमुंडसेन–स्कॉट दक्षिण ध्रुव केंद्र",
+          "मैकमुर्डो केंद्र"
+        ],
+        "explanation": "संयुक्त राज्य का एमुंडसेन–स्कॉट केंद्र भौगोलिक दक्षिण ध्रुव पर स्थित है।"
+      },
+      "pa": {
+        "stem": "ਭੂਗੋਲਕ ਦੱਖਣੀ ਧਰੁਵ ਉੱਤੇ ਕਿਹੜਾ ਖੋਜ ਕੇਂਦਰ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਰੋਥੇਰਾ ਖੋਜ ਕੇਂਦਰ",
+          "ਡੇਵਿਸ ਕੇਂਦਰ",
+          "ਐਮੰਡਸਨ–ਸਕਾਟ ਦੱਖਣੀ ਧਰੁਵ ਕੇਂਦਰ",
+          "ਮੈਕਮਰਡੋ ਕੇਂਦਰ"
+        ],
+        "explanation": "ਸੰਯੁਕਤ ਰਾਜ ਦਾ ਐਮੰਡਸਨ–ਸਕਾਟ ਕੇਂਦਰ ਭੂਗੋਲਕ ਦੱਖਣੀ ਧਰੁਵ ਉੱਤੇ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP031-Q012",
+    "cpId": "WGE-001-CP031",
+    "objective": "antarctica-sovereignty-claims",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-POLAR-NOAA",
+      "WGE-POLAR-SCAR",
+      "WGE-POLAR-NSIDC",
+      "WGE-POLAR-TREATY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "How should territorial claims in Antarctica be described in a basic geography question?",
+        "options": [
+          "Several claims exist, but the Antarctic Treaty System sets them aside without resolving them",
+          "The UN has divided the continent into provinces",
+          "Every claim is universally recognised as a sovereign state",
+          "Antarctica is a territory of the Arctic Council"
+        ],
+        "explanation": "The Antarctic Treaty does not settle competing territorial claims; it preserves the existing positions while promoting peaceful cooperation."
+      },
+      "hi": {
+        "stem": "अंटार्कटिका के क्षेत्रीय दावों का मूल भूगोल में सही वर्णन क्या है?",
+        "options": [
+          "कई दावे हैं, पर संधि-प्रणाली उन्हें सुलझाए बिना अलग रखती है",
+          "संयुक्त राष्ट्र ने महाद्वीप को प्रांतों में बाँट दिया है",
+          "हर दावा सार्वभौमिक रूप से मान्य संप्रभु देश है",
+          "अंटार्कटिका आर्कटिक परिषद का क्षेत्र है"
+        ],
+        "explanation": "अंटार्कटिक संधि प्रतिस्पर्धी क्षेत्रीय दावों का निपटारा नहीं करती; यह शांतिपूर्ण सहयोग को बढ़ावा देते हुए मौजूदा स्थितियों को बनाए रखती है।"
+      },
+      "pa": {
+        "stem": "ਅੰਟਾਰਕਟਿਕਾ ਦੇ ਖੇਤਰੀ ਦਾਅਵਿਆਂ ਦਾ ਮੁੱਢਲੇ ਭੂਗੋਲ ਵਿੱਚ ਸਹੀ ਵਰਣਨ ਕੀ ਹੈ?",
+        "options": [
+          "ਕਈ ਦਾਅਵੇ ਹਨ, ਪਰ ਸੰਧੀ ਪ੍ਰਣਾਲੀ ਉਨ੍ਹਾਂ ਦਾ ਫ਼ੈਸਲਾ ਕੀਤੇ ਬਿਨਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਪਾਸੇ ਰੱਖਦੀ ਹੈ",
+          "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੇ ਮਹਾਂਦੀਪ ਨੂੰ ਸੂਬਿਆਂ ਵਿੱਚ ਵੰਡ ਦਿੱਤਾ ਹੈ",
+          "ਹਰ ਦਾਅਵਾ ਸਭ ਵੱਲੋਂ ਮੰਨਿਆ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ",
+          "ਅੰਟਾਰਕਟਿਕਾ ਆਰਕਟਿਕ ਕੌਂਸਲ ਦਾ ਖੇਤਰ ਹੈ"
+        ],
+        "explanation": "ਅੰਟਾਰਕਟਿਕ ਸੰਧੀ ਮੁਕਾਬਲੇ ਵਾਲੇ ਖੇਤਰੀ ਦਾਅਵਿਆਂ ਦਾ ਨਿਪਟਾਰਾ ਨਹੀਂ ਕਰਦੀ; ਇਹ ਸ਼ਾਂਤੀਪੂਰਨ ਸਹਿਯੋਗ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰਦਿਆਂ ਮੌਜੂਦਾ ਸਥਿਤੀਆਂ ਕਾਇਮ ਰੱਖਦੀ ਹੈ।"
+      }
+    }
+  }
+]

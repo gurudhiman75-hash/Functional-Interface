@@ -1,0 +1,587 @@
+[
+  {
+    "id": "WGE-001-CP032-Q001",
+    "cpId": "WGE-001-CP032",
+    "objective": "population-density-definition",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Population density is generally calculated as population divided by:",
+        "options": [
+          "Number of households",
+          "Annual migration",
+          "Land area",
+          "Births in a year"
+        ],
+        "explanation": "Population density expresses the number of people per unit of land area."
+      },
+      "hi": {
+        "stem": "जनसंख्या घनत्व सामान्यतः जनसंख्या को किससे भाग देकर निकाला जाता है?",
+        "options": [
+          "परिवारों की संख्या से",
+          "वार्षिक प्रवास से",
+          "भूमि के क्षेत्रफल से",
+          "एक वर्ष के जन्मों से"
+        ],
+        "explanation": "जनसंख्या घनत्व भूमि के प्रति इकाई क्षेत्र में लोगों की संख्या बताता है।"
+      },
+      "pa": {
+        "stem": "ਆਬਾਦੀ ਘਣਤਾ ਆਮ ਤੌਰ ਤੇ ਆਬਾਦੀ ਨੂੰ ਕਿਸ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਕੱਢੀ ਜਾਂਦੀ ਹੈ?",
+        "options": [
+          "ਪਰਿਵਾਰਾਂ ਦੀ ਗਿਣਤੀ ਨਾਲ",
+          "ਸਾਲਾਨਾ ਪਰਵਾਸ ਨਾਲ",
+          "ਧਰਤੀ ਦੇ ਖੇਤਰਫਲ ਨਾਲ",
+          "ਇੱਕ ਸਾਲ ਦੇ ਜਨਮਾਂ ਨਾਲ"
+        ],
+        "explanation": "ਆਬਾਦੀ ਘਣਤਾ ਧਰਤੀ ਦੇ ਪ੍ਰਤੀ ਇਕਾਈ ਖੇਤਰ ਵਿੱਚ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਦੱਸਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q002",
+    "cpId": "WGE-001-CP032",
+    "objective": "arithmetic-density-limit",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why can arithmetic population density hide local crowding?",
+        "options": [
+          "It averages people over the whole area, including sparsely settled land",
+          "It counts only people who migrate",
+          "It measures births but not population",
+          "It excludes every urban settlement"
+        ],
+        "explanation": "An area-wide average can conceal dense cities and thinly populated regions within the same country."
+      },
+      "hi": {
+        "stem": "अंकगणितीय जनसंख्या घनत्व स्थानीय भीड़ को क्यों छिपा सकता है?",
+        "options": [
+          "यह विरल आबादी वाली भूमि सहित पूरे क्षेत्र का औसत लेता है",
+          "यह केवल प्रवासियों को गिनता है",
+          "यह जन्म गिनता है, कुल जनसंख्या नहीं",
+          "यह सभी शहरी बस्तियों को छोड़ देता है"
+        ],
+        "explanation": "पूरे क्षेत्र का औसत एक ही देश के घनी आबादी वाले शहरों और विरल आबादी वाले भागों के अंतर को छिपा सकता है।"
+      },
+      "pa": {
+        "stem": "ਅੰਕਗਣਿਤੀ ਆਬਾਦੀ ਘਣਤਾ ਸਥਾਨਕ ਭੀੜ ਨੂੰ ਕਿਉਂ ਲੁਕਾ ਸਕਦੀ ਹੈ?",
+        "options": [
+          "ਇਹ ਘੱਟ ਵਸੋਂ ਵਾਲੀ ਧਰਤੀ ਸਮੇਤ ਪੂਰੇ ਖੇਤਰ ਦੀ ਔਸਤ ਕੱਢਦੀ ਹੈ",
+          "ਇਹ ਕੇਵਲ ਪਰਵਾਸੀਆਂ ਨੂੰ ਗਿਣਦੀ ਹੈ",
+          "ਇਹ ਜਨਮ ਗਿਣਦੀ ਹੈ, ਕੁੱਲ ਆਬਾਦੀ ਨਹੀਂ",
+          "ਇਹ ਸਾਰੀਆਂ ਸ਼ਹਿਰੀ ਬਸਤੀਆਂ ਨੂੰ ਛੱਡ ਦਿੰਦੀ ਹੈ"
+        ],
+        "explanation": "ਪੂਰੇ ਖੇਤਰ ਦੀ ਔਸਤ ਇੱਕੋ ਦੇਸ਼ ਦੇ ਸੰਘਣੀ ਵਸੋਂ ਵਾਲੇ ਸ਼ਹਿਰਾਂ ਅਤੇ ਘੱਟ ਵਸੋਂ ਵਾਲੇ ਖੇਤਰਾਂ ਦਾ ਫ਼ਰਕ ਲੁਕਾ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q003",
+    "cpId": "WGE-001-CP032",
+    "objective": "population-physical-control",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which physical condition commonly limits dense settlement?",
+        "options": [
+          "A moderate climate",
+          "A navigable river",
+          "Fertile alluvial soil",
+          "Very low water availability"
+        ],
+        "explanation": "Severe water shortage constrains farming, industry and daily life, so it often limits settlement density."
+      },
+      "hi": {
+        "stem": "कौन-सी भौतिक स्थिति घनी बसावट को सामान्यतः सीमित करती है?",
+        "options": [
+          "समशीतोष्ण जलवायु",
+          "नौगम्य नदी",
+          "उपजाऊ जलोढ़ मिट्टी",
+          "पानी की बहुत कम उपलब्धता"
+        ],
+        "explanation": "पानी की भारी कमी खेती, उद्योग और दैनिक जीवन को सीमित करती है, इसलिए यह अक्सर बसावट का घनत्व घटाती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਭੌਤਿਕ ਹਾਲਤ ਆਮ ਤੌਰ ਤੇ ਸੰਘਣੀ ਵਸੋਂ ਨੂੰ ਸੀਮਿਤ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "ਮੱਧਮ ਮੌਸਮ",
+          "ਜਹਾਜ਼ਰਾਨੀ ਯੋਗ ਦਰਿਆ",
+          "ਉਪਜਾਊ ਜਲੋੜ ਮਿੱਟੀ",
+          "ਪਾਣੀ ਦੀ ਬਹੁਤ ਘੱਟ ਉਪਲਬਧਤਾ"
+        ],
+        "explanation": "ਪਾਣੀ ਦੀ ਭਾਰੀ ਘਾਟ ਖੇਤੀ, ਉਦਯੋਗ ਅਤੇ ਰੋਜ਼ਾਨਾ ਜੀਵਨ ਨੂੰ ਸੀਮਿਤ ਕਰਦੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਅਕਸਰ ਵਸੋਂ ਦੀ ਘਣਤਾ ਘਟਾਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q004",
+    "cpId": "WGE-001-CP032",
+    "objective": "push-factor-drought",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A prolonged drought that forces families to leave their homes is an example of a:",
+        "options": [
+          "Population pyramid",
+          "Push factor",
+          "Pull factor",
+          "Census category"
+        ],
+        "explanation": "A push factor makes people leave a place; prolonged drought can undermine water, livelihoods and safety."
+      },
+      "hi": {
+        "stem": "लंबा सूखा, जिसके कारण परिवार घर छोड़ते हैं, किसका उदाहरण है?",
+        "options": [
+          "जनसंख्या पिरामिड",
+          "प्रतिकर्ष कारक",
+          "आकर्षण कारक",
+          "जनगणना वर्ग"
+        ],
+        "explanation": "प्रतिकर्ष कारक लोगों को स्थान छोड़ने के लिए प्रेरित करता है; लंबा सूखा पानी और आजीविका को प्रभावित कर सकता है।"
+      },
+      "pa": {
+        "stem": "ਲੰਮਾ ਸੋਕਾ ਜਿਸ ਕਾਰਨ ਪਰਿਵਾਰ ਘਰ ਛੱਡਣ ਲਈ ਮਜਬੂਰ ਹੋਣ, ਕਿਸ ਦੀ ਮਿਸਾਲ ਹੈ?",
+        "options": [
+          "ਆਬਾਦੀ ਪਿਰਾਮਿਡ",
+          "ਧੱਕਣ ਵਾਲਾ ਕਾਰਨ",
+          "ਖਿੱਚਣ ਵਾਲਾ ਕਾਰਨ",
+          "ਜਨਗਣਨਾ ਸ਼੍ਰੇਣੀ"
+        ],
+        "explanation": "ਧੱਕਣ ਵਾਲਾ ਕਾਰਨ ਲੋਕਾਂ ਨੂੰ ਥਾਂ ਛੱਡਣ ਲਈ ਮਜਬੂਰ ਕਰਦਾ ਹੈ; ਲੰਮਾ ਸੋਕਾ ਪਾਣੀ ਅਤੇ ਰੋਜ਼ੀ-ਰੋਟੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q005",
+    "cpId": "WGE-001-CP032",
+    "objective": "pull-factor-employment",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A city attracting migrants because it offers more jobs illustrates a:",
+        "options": [
+          "Push factor",
+          "Death rate",
+          "Natural increase",
+          "Pull factor"
+        ],
+        "explanation": "A pull factor draws people towards a destination, for example through employment opportunities."
+      },
+      "hi": {
+        "stem": "अधिक रोज़गार के कारण प्रवासियों को आकर्षित करने वाला शहर किसका उदाहरण है?",
+        "options": [
+          "प्रतिकर्ष कारक",
+          "मृत्यु दर",
+          "प्राकृतिक वृद्धि",
+          "आकर्षण कारक"
+        ],
+        "explanation": "आकर्षण कारक लोगों को किसी गंतव्य की ओर खींचता है, जैसे रोज़गार के अवसर।"
+      },
+      "pa": {
+        "stem": "ਵਧੇਰੇ ਰੋਜ਼ਗਾਰ ਕਾਰਨ ਪਰਵਾਸੀਆਂ ਨੂੰ ਖਿੱਚਣ ਵਾਲਾ ਸ਼ਹਿਰ ਕਿਸ ਦੀ ਮਿਸਾਲ ਹੈ?",
+        "options": [
+          "ਧੱਕਣ ਵਾਲਾ ਕਾਰਨ",
+          "ਮੌਤ ਦਰ",
+          "ਕੁਦਰਤੀ ਵਾਧਾ",
+          "ਖਿੱਚਣ ਵਾਲਾ ਕਾਰਨ"
+        ],
+        "explanation": "ਖਿੱਚਣ ਵਾਲਾ ਕਾਰਨ ਲੋਕਾਂ ਨੂੰ ਕਿਸੇ ਮੰਜ਼ਿਲ ਵੱਲ ਆਕਰਸ਼ਿਤ ਕਰਦਾ ਹੈ, ਜਿਵੇਂ ਰੋਜ਼ਗਾਰ ਦੇ ਮੌਕੇ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q006",
+    "cpId": "WGE-001-CP032",
+    "objective": "rural-urban-migration",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Movement from a village to a city within the same country is called:",
+        "options": [
+          "Natural increase",
+          "Internal rural-to-urban migration",
+          "International migration",
+          "Seasonal nomadism"
+        ],
+        "explanation": "The move crosses an urban–rural boundary but not a national border, so it is internal rural-to-urban migration."
+      },
+      "hi": {
+        "stem": "एक ही देश में गाँव से शहर जाने को क्या कहते हैं?",
+        "options": [
+          "प्राकृतिक वृद्धि",
+          "आंतरिक ग्रामीण-नगरीय प्रवास",
+          "अंतरराष्ट्रीय प्रवास",
+          "मौसमी घुमंतू जीवन"
+        ],
+        "explanation": "यह आवागमन देश की सीमा पार नहीं करता, इसलिए इसे आंतरिक ग्रामीण-नगरीय प्रवास कहते हैं।"
+      },
+      "pa": {
+        "stem": "ਇੱਕੋ ਦੇਸ਼ ਵਿੱਚ ਪਿੰਡ ਤੋਂ ਸ਼ਹਿਰ ਜਾਣ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਕੁਦਰਤੀ ਵਾਧਾ",
+          "ਅੰਦਰੂਨੀ ਪੇਂਡੂ-ਸ਼ਹਿਰੀ ਪਰਵਾਸ",
+          "ਅੰਤਰਰਾਸ਼ਟਰੀ ਪਰਵਾਸ",
+          "ਮੌਸਮੀ ਖਾਨਾਬਦੋਸ਼ ਜੀਵਨ"
+        ],
+        "explanation": "ਇਸ ਆਵਾਜਾਈ ਵਿੱਚ ਦੇਸ਼ ਦੀ ਸਰਹੱਦ ਪਾਰ ਨਹੀਂ ਹੁੰਦੀ, ਇਸ ਲਈ ਇਹ ਅੰਦਰੂਨੀ ਪੇਂਡੂ-ਸ਼ਹਿਰੀ ਪਰਵਾਸ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q007",
+    "cpId": "WGE-001-CP032",
+    "objective": "population-pyramid-wide-base",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A population pyramid with a broad base usually indicates:",
+        "options": [
+          "A relatively high share of children and a high birth rate",
+          "A very old population with few children",
+          "Equal numbers in every age group",
+          "A country with no migration"
+        ],
+        "explanation": "A broad base represents many younger age groups and commonly reflects high birth rates."
+      },
+      "hi": {
+        "stem": "चौड़े आधार वाला जनसंख्या पिरामिड सामान्यतः क्या दर्शाता है?",
+        "options": [
+          "बच्चों का अपेक्षाकृत बड़ा हिस्सा और ऊँची जन्म-दर",
+          "बहुत वृद्ध आबादी और कम बच्चे",
+          "हर आयु-वर्ग में समान संख्या",
+          "ऐसा देश जहाँ प्रवास नहीं होता"
+        ],
+        "explanation": "चौड़ा आधार कम आयु-वर्गों में बड़ी आबादी और सामान्यतः ऊँची जन्म-दर दिखाता है।"
+      },
+      "pa": {
+        "stem": "ਚੌੜੇ ਅਧਾਰ ਵਾਲਾ ਆਬਾਦੀ ਪਿਰਾਮਿਡ ਆਮ ਤੌਰ ਤੇ ਕੀ ਦਰਸਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਬੱਚਿਆਂ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਅਤੇ ਉੱਚੀ ਜਨਮ ਦਰ",
+          "ਬਹੁਤ ਬੁੱਢੀ ਆਬਾਦੀ ਅਤੇ ਘੱਟ ਬੱਚੇ",
+          "ਹਰ ਉਮਰ ਵਰਗ ਵਿੱਚ ਬਰਾਬਰ ਗਿਣਤੀ",
+          "ਅਜਿਹਾ ਦੇਸ਼ ਜਿੱਥੇ ਪਰਵਾਸ ਨਹੀਂ ਹੁੰਦਾ"
+        ],
+        "explanation": "ਚੌੜਾ ਅਧਾਰ ਘੱਟ ਉਮਰ ਵਰਗਾਂ ਵਿੱਚ ਵੱਡੀ ਆਬਾਦੀ ਅਤੇ ਆਮ ਤੌਰ ਤੇ ਉੱਚੀ ਜਨਮ ਦਰ ਦਿਖਾਉਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q008",
+    "cpId": "WGE-001-CP032",
+    "objective": "demographic-transition-low-birth",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "In a late stage of demographic transition, birth rates are generally:",
+        "options": [
+          "Unrelated to fertility levels",
+          "Fixed at the same level in every country",
+          "Low, with population growth often slowing",
+          "High because death rates rise sharply"
+        ],
+        "explanation": "In later transition stages, low birth and death rates are typical, and population growth often slows; countries do not all follow an identical path."
+      },
+      "hi": {
+        "stem": "जनांकिकीय संक्रमण के अंतिम चरण में जन्म-दर सामान्यतः कैसी होती है?",
+        "options": [
+          "प्रजनन स्तर से असंबंधित",
+          "हर देश में समान स्तर पर स्थिर",
+          "कम, और जनसंख्या वृद्धि अक्सर धीमी पड़ती है",
+          "ऊँची, क्योंकि मृत्यु-दर तेज़ी से बढ़ती है"
+        ],
+        "explanation": "अंतिम संक्रमण चरणों में जन्म और मृत्यु-दर सामान्यतः कम होती हैं और जनसंख्या वृद्धि धीमी पड़ सकती है; सभी देशों का मार्ग एक जैसा नहीं होता।"
+      },
+      "pa": {
+        "stem": "ਜਨਸੰਖਿਆਈ ਤਬਦੀਲੀ ਦੇ ਆਖ਼ਰੀ ਪੜਾਅ ਵਿੱਚ ਜਨਮ ਦਰ ਆਮ ਤੌਰ ਤੇ ਕਿਹੋ ਜਿਹੀ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਜਣਨ ਦਰ ਨਾਲ ਕੋਈ ਸੰਬੰਧ ਨਹੀਂ",
+          "ਹਰ ਦੇਸ਼ ਵਿੱਚ ਇੱਕੋ ਪੱਧਰ ਤੇ ਸਥਿਰ",
+          "ਘੱਟ, ਅਤੇ ਆਬਾਦੀ ਦਾ ਵਾਧਾ ਅਕਸਰ ਹੌਲਾ ਪੈਂਦਾ ਹੈ",
+          "ਉੱਚੀ, ਕਿਉਂਕਿ ਮੌਤ ਦਰ ਤੇਜ਼ੀ ਨਾਲ ਵਧਦੀ ਹੈ"
+        ],
+        "explanation": "ਆਖ਼ਰੀ ਪੜਾਵਾਂ ਵਿੱਚ ਜਨਮ ਅਤੇ ਮੌਤ ਦਰ ਆਮ ਤੌਰ ਤੇ ਘੱਟ ਹੁੰਦੀਆਂ ਹਨ ਅਤੇ ਆਬਾਦੀ ਦਾ ਵਾਧਾ ਹੌਲਾ ਪੈ ਸਕਦਾ ਹੈ; ਹਰ ਦੇਸ਼ ਦਾ ਰਸਤਾ ਇੱਕੋ ਜਿਹਾ ਨਹੀਂ ਹੁੰਦਾ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q009",
+    "cpId": "WGE-001-CP032",
+    "objective": "natural-increase",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Natural increase is the difference between:",
+        "options": [
+          "Population and land area",
+          "Births and deaths",
+          "Immigration and emigration",
+          "Urban and rural population"
+        ],
+        "explanation": "Natural increase is births minus deaths; migration is accounted for separately in total population change."
+      },
+      "hi": {
+        "stem": "प्राकृतिक वृद्धि किनके बीच का अंतर है?",
+        "options": [
+          "जनसंख्या और भूमि क्षेत्रफल",
+          "जन्म और मृत्यु",
+          "आप्रवासन और उत्प्रवासन",
+          "नगरीय और ग्रामीण जनसंख्या"
+        ],
+        "explanation": "प्राकृतिक वृद्धि जन्मों में से मृत्यु घटाने पर मिलती है; कुल जनसंख्या परिवर्तन में प्रवास अलग से जुड़ता है।"
+      },
+      "pa": {
+        "stem": "ਕੁਦਰਤੀ ਵਾਧਾ ਕਿਨ੍ਹਾਂ ਵਿਚਕਾਰਲਾ ਫ਼ਰਕ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਆਬਾਦੀ ਅਤੇ ਧਰਤੀ ਦਾ ਖੇਤਰਫਲ",
+          "ਜਨਮ ਅਤੇ ਮੌਤਾਂ",
+          "ਆਵਾਸਨ ਅਤੇ ਪ੍ਰਵਾਸਨ",
+          "ਸ਼ਹਿਰੀ ਅਤੇ ਪੇਂਡੂ ਆਬਾਦੀ"
+        ],
+        "explanation": "ਕੁਦਰਤੀ ਵਾਧਾ ਜਨਮਾਂ ਵਿੱਚੋਂ ਮੌਤਾਂ ਘਟਾ ਕੇ ਮਿਲਦਾ ਹੈ; ਕੁੱਲ ਆਬਾਦੀ ਦੇ ਬਦਲਾਅ ਵਿੱਚ ਪਰਵਾਸ ਨੂੰ ਵੱਖਰੇ ਤੌਰ ਤੇ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q010",
+    "cpId": "WGE-001-CP032",
+    "objective": "net-migration",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Net migration is generally calculated as:",
+        "options": [
+          "Births minus deaths",
+          "Total population divided by area",
+          "Children minus older people",
+          "Immigrants minus emigrants"
+        ],
+        "explanation": "Net migration compares people entering an area with people leaving it over a stated period."
+      },
+      "hi": {
+        "stem": "शुद्ध प्रवास की गणना सामान्यतः कैसे की जाती है?",
+        "options": [
+          "जन्मों में से मृत्यु घटाकर",
+          "कुल जनसंख्या को क्षेत्रफल से भाग देकर",
+          "बच्चों में से वृद्धों को घटाकर",
+          "आप्रवासियों में से उत्प्रवासियों को घटाकर"
+        ],
+        "explanation": "शुद्ध प्रवास किसी अवधि में क्षेत्र में आने वाले और वहाँ से जाने वाले लोगों की संख्या की तुलना करता है।"
+      },
+      "pa": {
+        "stem": "ਸ਼ੁੱਧ ਪਰਵਾਸ ਦੀ ਗਿਣਤੀ ਆਮ ਤੌਰ ਤੇ ਕਿਵੇਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+        "options": [
+          "ਜਨਮਾਂ ਵਿੱਚੋਂ ਮੌਤਾਂ ਘਟਾ ਕੇ",
+          "ਕੁੱਲ ਆਬਾਦੀ ਨੂੰ ਖੇਤਰਫਲ ਨਾਲ ਭਾਗ ਦੇ ਕੇ",
+          "ਬੱਚਿਆਂ ਵਿੱਚੋਂ ਬਜ਼ੁਰਗਾਂ ਨੂੰ ਘਟਾ ਕੇ",
+          "ਆਉਣ ਵਾਲਿਆਂ ਵਿੱਚੋਂ ਜਾਣ ਵਾਲਿਆਂ ਨੂੰ ਘਟਾ ਕੇ"
+        ],
+        "explanation": "ਸ਼ੁੱਧ ਪਰਵਾਸ ਕਿਸੇ ਸਮੇਂ ਦੌਰਾਨ ਖੇਤਰ ਵਿੱਚ ਆਉਣ ਅਤੇ ਉੱਥੋਂ ਜਾਣ ਵਾਲੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਦੀ ਤੁਲਨਾ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q011",
+    "cpId": "WGE-001-CP032",
+    "objective": "mortality-transition-sequence",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "In the demographic transition, which change commonly occurs before birth rates fall?",
+        "options": [
+          "Migration stops",
+          "The population becomes evenly spread",
+          "Death rates decline",
+          "Birth rates disappear"
+        ],
+        "explanation": "Improvements in food, sanitation and health often reduce mortality before fertility and birth rates decline."
+      },
+      "hi": {
+        "stem": "जनांकिकीय संक्रमण में जन्म-दर घटने से पहले सामान्यतः कौन-सा बदलाव होता है?",
+        "options": [
+          "प्रवास रुक जाता है",
+          "जनसंख्या समान रूप से फैल जाती है",
+          "मृत्यु-दर घटती है",
+          "जन्म-दर समाप्त हो जाती है"
+        ],
+        "explanation": "भोजन, स्वच्छता और स्वास्थ्य में सुधार से अक्सर प्रजनन और जन्म-दर घटने से पहले मृत्यु-दर कम होती है।"
+      },
+      "pa": {
+        "stem": "ਜਨਸੰਖਿਆਈ ਤਬਦੀਲੀ ਵਿੱਚ ਜਨਮ ਦਰ ਘਟਣ ਤੋਂ ਪਹਿਲਾਂ ਆਮ ਤੌਰ ਤੇ ਕਿਹੜਾ ਬਦਲਾਅ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਪਰਵਾਸ ਰੁਕ ਜਾਂਦਾ ਹੈ",
+          "ਆਬਾਦੀ ਹਰ ਥਾਂ ਬਰਾਬਰ ਫੈਲ ਜਾਂਦੀ ਹੈ",
+          "ਮੌਤ ਦਰ ਘਟਦੀ ਹੈ",
+          "ਜਨਮ ਦਰ ਖ਼ਤਮ ਹੋ ਜਾਂਦੀ ਹੈ"
+        ],
+        "explanation": "ਭੋਜਨ, ਸਫ਼ਾਈ ਅਤੇ ਸਿਹਤ ਵਿੱਚ ਸੁਧਾਰ ਨਾਲ ਅਕਸਰ ਜਣਨ ਅਤੇ ਜਨਮ ਦਰ ਘਟਣ ਤੋਂ ਪਹਿਲਾਂ ਮੌਤ ਦਰ ਘਟਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q012",
+    "cpId": "WGE-001-CP032",
+    "objective": "forced-migration",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A family leaving its home because of armed conflict is an example of:",
+        "options": [
+          "Forced migration",
+          "Seasonal commuting",
+          "Voluntary retirement migration",
+          "Natural increase"
+        ],
+        "explanation": "Armed conflict can compel people to leave, making the movement forced rather than a freely chosen move."
+      },
+      "hi": {
+        "stem": "सशस्त्र संघर्ष के कारण घर छोड़ने वाला परिवार किसका उदाहरण है?",
+        "options": [
+          "बलपूर्वक प्रवास",
+          "मौसमी आवागमन",
+          "स्वैच्छिक सेवानिवृत्ति प्रवास",
+          "प्राकृतिक वृद्धि"
+        ],
+        "explanation": "सशस्त्र संघर्ष लोगों को घर छोड़ने के लिए बाध्य कर सकता है; ऐसा जाना स्वैच्छिक चयन नहीं होता।"
+      },
+      "pa": {
+        "stem": "ਹਥਿਆਰਬੰਦ ਟਕਰਾਅ ਕਾਰਨ ਘਰ ਛੱਡਣ ਵਾਲਾ ਪਰਿਵਾਰ ਕਿਸ ਦੀ ਮਿਸਾਲ ਹੈ?",
+        "options": [
+          "ਮਜਬੂਰੀ ਵਾਲਾ ਪਰਵਾਸ",
+          "ਮੌਸਮੀ ਆਉਣਾ-ਜਾਣਾ",
+          "ਆਪਣੀ ਮਰਜ਼ੀ ਨਾਲ ਰਿਟਾਇਰਮੈਂਟ ਪਰਵਾਸ",
+          "ਕੁਦਰਤੀ ਵਾਧਾ"
+        ],
+        "explanation": "ਹਥਿਆਰਬੰਦ ਟਕਰਾਅ ਲੋਕਾਂ ਨੂੰ ਘਰ ਛੱਡਣ ਲਈ ਮਜਬੂਰ ਕਰ ਸਕਦਾ ਹੈ; ਇਹ ਜਾਣਾ ਆਪਣੀ ਮਰਜ਼ੀ ਨਾਲ ਕੀਤਾ ਗਿਆ ਕਦਮ ਨਹੀਂ ਹੁੰਦਾ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP032-Q013",
+    "cpId": "WGE-001-CP032",
+    "objective": "age-dependency-ratio",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-POP-UN-DESA",
+      "WGE-POP-IOM",
+      "WGE-POP-NCERT",
+      "WGE-POP-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A high share of dependants relative to working-age people usually means:",
+        "options": [
+          "No population ageing",
+          "Net migration must be positive",
+          "Greater support needs per working-age person",
+          "Higher arithmetic density by definition"
+        ],
+        "explanation": "A high dependency ratio means relatively more children and/or older people for each working-age person; it does not itself measure density or migration."
+      },
+      "hi": {
+        "stem": "कामकाजी आयु के लोगों की तुलना में आश्रितों का बड़ा हिस्सा सामान्यतः क्या दर्शाता है?",
+        "options": [
+          "जनसंख्या का वृद्ध न होना",
+          "शुद्ध प्रवास का अनिवार्य रूप से धनात्मक होना",
+          "प्रत्येक कामकाजी व्यक्ति पर अधिक सहारा देने की ज़िम्मेदारी",
+          "परिभाषा के अनुसार अधिक अंकगणितीय घनत्व"
+        ],
+        "explanation": "उच्च निर्भरता अनुपात का अर्थ है कि प्रत्येक कामकाजी व्यक्ति की तुलना में बच्चे और/या वृद्ध अधिक हैं; यह स्वयं घनत्व या प्रवास नहीं मापता।"
+      },
+      "pa": {
+        "stem": "ਕੰਮਕਾਜੀ ਉਮਰ ਦੇ ਲੋਕਾਂ ਦੇ ਮੁਕਾਬਲੇ ਆਸ਼੍ਰਿਤ ਲੋਕਾਂ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਆਮ ਤੌਰ ਤੇ ਕੀ ਦਰਸਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਆਬਾਦੀ ਦਾ ਬੁੱਢੀ ਨਾ ਹੋਣਾ",
+          "ਸ਼ੁੱਧ ਪਰਵਾਸ ਦਾ ਲਾਜ਼ਮੀ ਤੌਰ ਤੇ ਧਨਾਤਮਕ ਹੋਣਾ",
+          "ਹਰ ਕੰਮਕਾਜੀ ਵਿਅਕਤੀ ਉੱਤੇ ਸਹਾਰੇ ਦੀ ਵੱਧ ਜ਼ਿੰਮੇਵਾਰੀ",
+          "ਪਰਿਭਾਸ਼ਾ ਅਨੁਸਾਰ ਵੱਧ ਅੰਕਗਣਿਤੀ ਘਣਤਾ"
+        ],
+        "explanation": "ਉੱਚ ਨਿਰਭਰਤਾ ਅਨੁਪਾਤ ਦਾ ਮਤਲਬ ਹੈ ਕਿ ਹਰ ਕੰਮਕਾਜੀ ਵਿਅਕਤੀ ਦੇ ਮੁਕਾਬਲੇ ਬੱਚੇ ਅਤੇ/ਜਾਂ ਬਜ਼ੁਰਗ ਵੱਧ ਹਨ; ਇਹ ਆਪਣੇ ਆਪ ਘਣਤਾ ਜਾਂ ਪਰਵਾਸ ਨਹੀਂ ਮਾਪਦਾ।"
+      }
+    }
+  }
+]

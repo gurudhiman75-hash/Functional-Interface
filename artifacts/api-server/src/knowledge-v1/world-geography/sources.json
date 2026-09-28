@@ -646,5 +646,77 @@
     "kind": "primary-map",
     "consultedOn": "2026-09-27",
     "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-POLAR-NOAA",
+    "title": "NOAA Climate.gov: Polar opposites — the Arctic and Antarctic",
+    "url": "https://www.climate.gov/news-features/understanding-climate/polar-opposites-arctic-and-antarctic",
+    "section": "Arctic ocean surrounded by land; Antarctic continent surrounded by ocean",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-POLAR-SCAR",
+    "title": "Australian Antarctic Program: Antarctic geography",
+    "url": "https://www.antarctica.gov.au/about-antarctica/geography-and-geology/geography/",
+    "section": "Antarctic landmass, mountain ranges and the surrounding Southern Ocean",
+    "kind": "primary-scientific",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-POLAR-TREATY",
+    "title": "United Nations Treaty Collection: The Antarctic Treaty",
+    "url": "https://treaties.un.org/pages/showDetails.aspx?objid=0800000280136dbc",
+    "section": "Antarctica's international legal and political status",
+    "kind": "primary-treaty",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-POP-UN-DESA",
+    "title": "UN DESA Population Division: World Population Prospects 2024",
+    "url": "https://population.un.org/wpp/",
+    "section": "Demographic indicators, age structure and population change",
+    "kind": "primary-statistical",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-POP-IOM",
+    "title": "IOM: Glossary on Migration",
+    "url": "https://publications.iom.int/books/international-migration-law-ndeg34-glossary-migration",
+    "section": "Migration terminology and drivers",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-POP-UN-MAPS",
+    "title": "UN Geospatial: Geographic information and maps",
+    "url": "https://www.un.org/geospatial/",
+    "section": "World and regional reference maps",
+    "kind": "primary-reference",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-POLAR-NSIDC",
+    "title": "National Snow and Ice Data Center: Sea ice glossary",
+    "url": "https://nsidc.org/learn/cryosphere-glossary/sea-ice",
+    "section": "Sea ice forms from freezing ocean water; contrast with land ice",
+    "kind": "primary-scientific",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-POP-NCERT",
+    "title": "NCERT: Fundamentals of Human Geography",
+    "url": "https://ncert.nic.in/textbook.php?legy1=0-8",
+    "section": "Population distribution, demographic transition and migration concepts",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
   }
 ]
