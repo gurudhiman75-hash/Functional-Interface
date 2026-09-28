@@ -64,7 +64,7 @@ async function run() {
           assert.equal(options.length, 4); assert.equal(new Set(options).size, 4);
           assert.equal(options[q.correctIndex as number], canonical.locales[language].options[canonical.correctIndex]);
           assert.equal(q.explanation, canonical.locales[language].explanation);
-          assert.equal(q.authoringReviewApproved, Number(cp.slice(-3)) <= 36); assert.equal(q.questionBankWritable, false);
+          assert.equal(q.authoringReviewApproved, Number(cp.slice(-3)) <= 40); assert.equal(q.questionBankWritable, false);
           assert.equal(q.testEligible, false); assert.equal(q.productionReleased, false);
           checked++;
         }
