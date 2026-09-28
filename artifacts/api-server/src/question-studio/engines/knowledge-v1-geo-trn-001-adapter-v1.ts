@@ -123,7 +123,7 @@ export function isGeoTrn001QuestionStudioRequestV1(request: QuestionStudioGenera
   const topic = String(request.topic ?? "").trim().toLowerCase();
   const subtopic = String(request.subtopic ?? "").trim().toLowerCase();
   return selectorValues(request).some((v) => v.startsWith("GEO-TRN-001")) ||
-    ((subject === "static gk" || !subject) && topic === "indian geography" && subtopic === "transport-communication & industrial geography of india");
+    ((subject === "static gk" || !subject) && topic === "indian geography" && subtopic === "transport & communication of india");
 }
 
 export const knowledgeV1GeoTrn001QuestionStudioAdapterV1: QuestionStudioEngineAdapter = {
