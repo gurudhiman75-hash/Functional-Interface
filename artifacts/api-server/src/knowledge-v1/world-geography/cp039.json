@@ -13,18 +13,33 @@
     "locales": {
       "en": {
         "stem": "Which Great Lake is largest by surface area?",
-        "options": "Lake Erie",
-        "explanation": "Lake Ontario"
+        "options": [
+          "Lake Erie",
+          "Lake Ontario",
+          "Lake Superior",
+          "Lake Huron"
+        ],
+        "explanation": "Lake Superior is the largest of the Great Lakes by surface area; that does not mean every ‘largest lake’ measure refers to it."
       },
       "hi": {
         "stem": "क्षेत्रफल के आधार पर कौन-सी महान झील सबसे बड़ी है?",
-        "options": "एरी झील",
-        "explanation": "ओंटारियो झील"
+        "options": [
+          "एरी झील",
+          "ओंटारियो झील",
+          "सुपीरियर झील",
+          "ह्यूरॉन झील"
+        ],
+        "explanation": "क्षेत्रफल के आधार पर सुपीरियर महान झीलों में सबसे बड़ी है; ‘सबसे बड़ी झील’ का हर माप इसी को नहीं दर्शाता।"
       },
       "pa": {
         "stem": "ਸਤਹੀ ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਕਿਹੜੀ ਮਹਾਨ ਝੀਲ ਸਭ ਤੋਂ ਵੱਡੀ ਹੈ?",
-        "options": "ਏਰੀ ਝੀਲ",
-        "explanation": "ਓਂਟਾਰੀਓ ਝੀਲ"
+        "options": [
+          "ਏਰੀ ਝੀਲ",
+          "ਓਂਟਾਰੀਓ ਝੀਲ",
+          "ਸੁਪੀਰੀਅਰ ਝੀਲ",
+          "ਹਿਊਰੋਨ ਝੀਲ"
+        ],
+        "explanation": "ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਸੁਪੀਰੀਅਰ ਮਹਾਨ ਝੀਲਾਂ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਡੀ ਹੈ; ‘ਸਭ ਤੋਂ ਵੱਡੀ ਝੀਲ’ ਦਾ ਹਰ ਮਾਪ ਇਸੇ ਨੂੰ ਨਹੀਂ ਦੱਸਦਾ।"
       }
     }
   },
@@ -41,18 +56,33 @@
     "locales": {
       "en": {
         "stem": "Which lake is known for holding the greatest volume of freshwater among the world’s lakes?",
-        "options": "Lake Baikal",
-        "explanation": "Lake Victoria"
+        "options": [
+          "Lake Baikal",
+          "Lake Victoria",
+          "Lake Superior",
+          "Lake Tanganyika"
+        ],
+        "explanation": "Lake Baikal in Siberia is commonly identified as the world’s largest freshwater lake by volume."
       },
       "hi": {
         "stem": "विश्व की झीलों में मीठे पानी का सबसे अधिक आयतन किस झील में है?",
-        "options": "बैकाल झील",
-        "explanation": "विक्टोरिया झील"
+        "options": [
+          "बैकाल झील",
+          "विक्टोरिया झील",
+          "सुपीरियर झील",
+          "टांगान्यीका झील"
+        ],
+        "explanation": "साइबेरिया की बैकाल झील को सामान्यतः मीठे पानी के आयतन के आधार पर विश्व की सबसे बड़ी झील माना जाता है।"
       },
       "pa": {
         "stem": "ਦੁਨੀਆ ਦੀਆਂ ਝੀਲਾਂ ਵਿੱਚ ਤਾਜ਼ੇ ਪਾਣੀ ਦਾ ਸਭ ਤੋਂ ਵੱਧ ਆਇਤਨ ਕਿਹੜੀ ਝੀਲ ਵਿੱਚ ਹੈ?",
-        "options": "ਬੈਕਾਲ ਝੀਲ",
-        "explanation": "ਵਿਕਟੋਰੀਆ ਝੀਲ"
+        "options": [
+          "ਬੈਕਾਲ ਝੀਲ",
+          "ਵਿਕਟੋਰੀਆ ਝੀਲ",
+          "ਸੁਪੀਰੀਅਰ ਝੀਲ",
+          "ਟਾਂਗਾਨੀਕਾ ਝੀਲ"
+        ],
+        "explanation": "ਸਾਈਬੇਰੀਆ ਦੀ ਬੈਕਾਲ ਝੀਲ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਤਾਜ਼ੇ ਪਾਣੀ ਦੇ ਆਇਤਨ ਅਨੁਸਾਰ ਦੁਨੀਆ ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਝੀਲ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ।"
       }
     }
   },
@@ -69,18 +99,33 @@
     "locales": {
       "en": {
         "stem": "A mountain summit is 6,000 m above sea level and rises 4,000 m above its nearby base. Which pair gives elevation and local rise, in that order?",
-        "options": "4,000 m and 6,000 m",
-        "explanation": "10,000 m and 6,000 m"
+        "options": [
+          "4,000 m and 6,000 m",
+          "10,000 m and 6,000 m",
+          "6,000 m and 10,000 m",
+          "6,000 m and 4,000 m"
+        ],
+        "explanation": "Elevation is measured relative to sea level; the stated rise above the nearby base is a separate local relief measure."
       },
       "hi": {
         "stem": "एक पर्वत-शिखर समुद्र तल से ६,००० मीटर ऊँचा है और पास के आधार से ४,००० मीटर ऊपर उठता है। क्रमशः ऊँचाई और स्थानीय उभार कितना है?",
-        "options": "४,००० मीटर और ६,००० मीटर",
-        "explanation": "१०,००० मीटर और ६,००० मीटर"
+        "options": [
+          "४,००० मीटर और ६,००० मीटर",
+          "१०,००० मीटर और ६,००० मीटर",
+          "६,००० मीटर और १०,००० मीटर",
+          "६,००० मीटर और ४,००० मीटर"
+        ],
+        "explanation": "समुद्र तल से ऊँचाई और पास के आधार से उभार अलग-अलग माप हैं।"
       },
       "pa": {
         "stem": "ਇੱਕ ਪਹਾੜੀ ਚੋਟੀ ਸਮੁੰਦਰ ਤਲ ਤੋਂ ੬,੦੦੦ ਮੀਟਰ ਉੱਚੀ ਹੈ ਅਤੇ ਨੇੜਲੇ ਪਾਏ ਤੋਂ ੪,੦੦੦ ਮੀਟਰ ਚੜ੍ਹਦੀ ਹੈ। ਕ੍ਰਮਵਾਰ ਉਚਾਈ ਅਤੇ ਸਥਾਨਕ ਉਭਾਰ ਕਿੰਨਾ ਹੈ?",
-        "options": "੪,੦੦੦ ਮੀਟਰ ਅਤੇ ੬,੦੦੦ ਮੀਟਰ",
-        "explanation": "੧੦,੦੦੦ ਮੀਟਰ ਅਤੇ ੬,੦੦੦ ਮੀਟਰ"
+        "options": [
+          "੪,੦੦੦ ਮੀਟਰ ਅਤੇ ੬,੦੦੦ ਮੀਟਰ",
+          "੧੦,੦੦੦ ਮੀਟਰ ਅਤੇ ੬,੦੦੦ ਮੀਟਰ",
+          "੬,੦੦੦ ਮੀਟਰ ਅਤੇ ੧੦,੦੦੦ ਮੀਟਰ",
+          "੬,੦੦੦ ਮੀਟਰ ਅਤੇ ੪,੦੦੦ ਮੀਟਰ"
+        ],
+        "explanation": "ਸਮੁੰਦਰ ਤਲ ਤੋਂ ਉਚਾਈ ਅਤੇ ਨੇੜਲੇ ਪਾਏ ਤੋਂ ਉਭਾਰ ਵੱਖਰੇ ਮਾਪ ਹਨ।"
       }
     }
   },
@@ -98,18 +143,33 @@
     "locales": {
       "en": {
         "stem": "Which statement distinguishes the largest desert from the largest hot desert?",
-        "options": "Sahara is largest overall; Antarctica is the largest hot desert",
-        "explanation": "Antarctica is largest overall; Sahara is the largest hot desert"
+        "options": [
+          "Sahara is largest overall; Antarctica is the largest hot desert",
+          "Antarctica is largest overall; Sahara is the largest hot desert",
+          "Gobi is largest overall; Namib is the largest hot desert",
+          "Greenland is a hot desert; Sahara is polar"
+        ],
+        "explanation": "Antarctica is the largest desert overall when polar deserts are included; the Sahara is the largest hot desert."
       },
       "hi": {
         "stem": "सबसे बड़े मरुस्थल और सबसे बड़े गर्म मरुस्थल में सही अंतर कौन-सा है?",
-        "options": "सहारा कुल मिलाकर सबसे बड़ा है; अंटार्कटिका सबसे बड़ा गर्म मरुस्थल है",
-        "explanation": "अंटार्कटिका कुल मिलाकर सबसे बड़ा है; सहारा सबसे बड़ा गर्म मरुस्थल है"
+        "options": [
+          "सहारा कुल मिलाकर सबसे बड़ा है; अंटार्कटिका सबसे बड़ा गर्म मरुस्थल है",
+          "अंटार्कटिका कुल मिलाकर सबसे बड़ा है; सहारा सबसे बड़ा गर्म मरुस्थल है",
+          "गोबी कुल मिलाकर सबसे बड़ा है; नामीब सबसे बड़ा गर्म मरुस्थल है",
+          "ग्रीनलैंड गर्म मरुस्थल है; सहारा ध्रुवीय है"
+        ],
+        "explanation": "ध्रुवीय मरुस्थलों को शामिल करने पर अंटार्कटिका कुल क्षेत्रफल में सबसे बड़ा है; सहारा सबसे बड़ा गर्म मरुस्थल है।"
       },
       "pa": {
         "stem": "ਸਭ ਤੋਂ ਵੱਡੇ ਮਾਰੂਥਲ ਅਤੇ ਸਭ ਤੋਂ ਵੱਡੇ ਗਰਮ ਮਾਰੂਥਲ ਵਿੱਚ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?",
-        "options": "ਸਹਾਰਾ ਕੁੱਲ ਮਿਲਾ ਕੇ ਸਭ ਤੋਂ ਵੱਡਾ ਹੈ; ਅੰਟਾਰਕਟਿਕਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗਰਮ ਮਾਰੂਥਲ ਹੈ",
-        "explanation": "ਅੰਟਾਰਕਟਿਕਾ ਕੁੱਲ ਮਿਲਾ ਕੇ ਸਭ ਤੋਂ ਵੱਡਾ ਹੈ; ਸਹਾਰਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗਰਮ ਮਾਰੂਥਲ ਹੈ"
+        "options": [
+          "ਸਹਾਰਾ ਕੁੱਲ ਮਿਲਾ ਕੇ ਸਭ ਤੋਂ ਵੱਡਾ ਹੈ; ਅੰਟਾਰਕਟਿਕਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗਰਮ ਮਾਰੂਥਲ ਹੈ",
+          "ਅੰਟਾਰਕਟਿਕਾ ਕੁੱਲ ਮਿਲਾ ਕੇ ਸਭ ਤੋਂ ਵੱਡਾ ਹੈ; ਸਹਾਰਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗਰਮ ਮਾਰੂਥਲ ਹੈ",
+          "ਗੋਬੀ ਕੁੱਲ ਮਿਲਾ ਕੇ ਸਭ ਤੋਂ ਵੱਡਾ ਹੈ; ਨਾਮੀਬ ਸਭ ਤੋਂ ਵੱਡਾ ਗਰਮ ਮਾਰੂਥਲ ਹੈ",
+          "ਗ੍ਰੀਨਲੈਂਡ ਗਰਮ ਮਾਰੂਥਲ ਹੈ; ਸਹਾਰਾ ਧਰੁਵੀ ਹੈ"
+        ],
+        "explanation": "ਧਰੁਵੀ ਮਾਰੂਥਲ ਸ਼ਾਮਲ ਕਰਨ ਤੇ ਅੰਟਾਰਕਟਿਕਾ ਕੁੱਲ ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਸਭ ਤੋਂ ਵੱਡਾ ਹੈ; ਸਹਾਰਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗਰਮ ਮਾਰੂਥਲ ਹੈ।"
       }
     }
   },
@@ -125,18 +185,33 @@
     "locales": {
       "en": {
         "stem": "Why should a question about the ‘world’s longest river’ name its measurement source or convention?",
-        "options": "River lengths never change",
-        "explanation": "Every atlas measures tributaries identically"
+        "options": [
+          "River lengths never change",
+          "Every atlas measures tributaries identically",
+          "Headwater choices and measurement methods can produce different totals",
+          "Only rivers in one continent can be compared"
+        ],
+        "explanation": "River-length rankings can vary with the chosen source, tributary path and measurement method, so a source-qualified claim is safer."
       },
       "hi": {
         "stem": "‘विश्व की सबसे लंबी नदी’ पर प्रश्न में मापन का स्रोत या पद्धति बताना क्यों उपयोगी है?",
-        "options": "नदियों की लंबाई कभी नहीं बदलती",
-        "explanation": "हर एटलस सहायक नदियों को एक ही तरह मापता है"
+        "options": [
+          "नदियों की लंबाई कभी नहीं बदलती",
+          "हर एटलस सहायक नदियों को एक ही तरह मापता है",
+          "उद्गम-धारा और मापन पद्धति से कुल लंबाई अलग हो सकती है",
+          "केवल एक महाद्वीप की नदियों की तुलना हो सकती है"
+        ],
+        "explanation": "नदी की लंबाई की सूची चुने गए उद्गम, सहायक धारा और मापन पद्धति से बदल सकती है, इसलिए स्रोत बताना बेहतर है।"
       },
       "pa": {
         "stem": "‘ਦੁਨੀਆ ਦੀ ਸਭ ਤੋਂ ਲੰਮੀ ਨਦੀ’ ਬਾਰੇ ਸਵਾਲ ਵਿੱਚ ਮਾਪ ਦਾ ਸਰੋਤ ਜਾਂ ਢੰਗ ਦੱਸਣਾ ਕਿਉਂ ਚੰਗਾ ਹੈ?",
-        "options": "ਨਦੀਆਂ ਦੀ ਲੰਬਾਈ ਕਦੇ ਨਹੀਂ ਬਦਲਦੀ",
-        "explanation": "ਹਰ ਐਟਲਸ ਸਹਾਇਕ ਨਦੀਆਂ ਨੂੰ ਇੱਕੋ ਤਰ੍ਹਾਂ ਮਾਪਦਾ ਹੈ"
+        "options": [
+          "ਨਦੀਆਂ ਦੀ ਲੰਬਾਈ ਕਦੇ ਨਹੀਂ ਬਦਲਦੀ",
+          "ਹਰ ਐਟਲਸ ਸਹਾਇਕ ਨਦੀਆਂ ਨੂੰ ਇੱਕੋ ਤਰ੍ਹਾਂ ਮਾਪਦਾ ਹੈ",
+          "ਚੁਣੇ ਸਰੋਤ-ਧਾਰਾ ਅਤੇ ਮਾਪਣ ਦੇ ਢੰਗ ਨਾਲ ਕੁੱਲ ਲੰਬਾਈ ਵੱਖ ਹੋ ਸਕਦੀ ਹੈ",
+          "ਸਿਰਫ਼ ਇੱਕ ਮਹਾਂਦੀਪ ਦੀਆਂ ਨਦੀਆਂ ਦੀ ਤੁਲਨਾ ਹੋ ਸਕਦੀ ਹੈ"
+        ],
+        "explanation": "ਨਦੀ ਦੀ ਲੰਬਾਈ ਦੀ ਦਰਜਾਬੰਦੀ ਚੁਣੇ ਸਰੋਤ, ਸਹਾਇਕ ਧਾਰਾ ਅਤੇ ਮਾਪਣ ਦੇ ਢੰਗ ਨਾਲ ਬਦਲ ਸਕਦੀ ਹੈ, ਇਸ ਲਈ ਸਰੋਤ ਦੱਸਣਾ ਚੰਗਾ ਹੈ।"
       }
     }
   },
@@ -155,18 +230,33 @@
     "locales": {
       "en": {
         "stem": "Which statement about Greenland and Nuuk is most precise?",
-        "options": "Nuuk is Greenland’s capital; Greenland is an autonomous territory within the Kingdom of Denmark",
-        "explanation": "Nuuk is the capital of an independent sovereign state called Greenland"
+        "options": [
+          "Nuuk is Greenland’s capital; Greenland is an autonomous territory within the Kingdom of Denmark",
+          "Nuuk is the capital of an independent sovereign state called Greenland",
+          "Greenland is a city and Nuuk is its region",
+          "Nuuk is the capital of Denmark"
+        ],
+        "explanation": "Nuuk is Greenland’s capital, while Greenland’s constitutional status is an autonomous territory within the Kingdom of Denmark."
       },
       "hi": {
         "stem": "ग्रीनलैंड और नूक के बारे में कौन-सा कथन सबसे सटीक है?",
-        "options": "नूक ग्रीनलैंड की राजधानी है; ग्रीनलैंड डेनमार्क राज्य के भीतर एक स्वायत्त क्षेत्र है",
-        "explanation": "नूक स्वतंत्र संप्रभु देश ग्रीनलैंड की राजधानी है"
+        "options": [
+          "नूक ग्रीनलैंड की राजधानी है; ग्रीनलैंड डेनमार्क राज्य के भीतर एक स्वायत्त क्षेत्र है",
+          "नूक स्वतंत्र संप्रभु देश ग्रीनलैंड की राजधानी है",
+          "ग्रीनलैंड एक शहर है और नूक उसका क्षेत्र है",
+          "नूक डेनमार्क की राजधानी है"
+        ],
+        "explanation": "नूक ग्रीनलैंड की राजधानी है, जबकि ग्रीनलैंड की संवैधानिक स्थिति डेनमार्क राज्य के भीतर स्वायत्त क्षेत्र की है।"
       },
       "pa": {
         "stem": "ਗ੍ਰੀਨਲੈਂਡ ਅਤੇ ਨੂਕ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਭ ਤੋਂ ਸਹੀ ਹੈ?",
-        "options": "ਨੂਕ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਗ੍ਰੀਨਲੈਂਡ ਡੈਨਮਾਰਕ ਰਾਜ ਅੰਦਰ ਖੁਦਮੁਖਤਿਆਰ ਇਲਾਕਾ ਹੈ",
-        "explanation": "ਨੂਕ ਆਜ਼ਾਦ ਸਰਬਭੌਮ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ"
+        "options": [
+          "ਨੂਕ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਗ੍ਰੀਨਲੈਂਡ ਡੈਨਮਾਰਕ ਰਾਜ ਅੰਦਰ ਖੁਦਮੁਖਤਿਆਰ ਇਲਾਕਾ ਹੈ",
+          "ਨੂਕ ਆਜ਼ਾਦ ਸਰਬਭੌਮ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ",
+          "ਗ੍ਰੀਨਲੈਂਡ ਇੱਕ ਸ਼ਹਿਰ ਹੈ ਅਤੇ ਨੂਕ ਇਸ ਦਾ ਇਲਾਕਾ ਹੈ",
+          "ਨੂਕ ਡੈਨਮਾਰਕ ਦੀ ਰਾਜਧਾਨੀ ਹੈ"
+        ],
+        "explanation": "ਨੂਕ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ, ਜਦਕਿ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਸੰਵਿਧਾਨਕ ਸਥਿਤੀ ਡੈਨਮਾਰਕ ਰਾਜ ਅੰਦਰ ਖੁਦਮੁਖਤਿਆਰ ਇਲਾਕੇ ਦੀ ਹੈ।"
       }
     }
   }
