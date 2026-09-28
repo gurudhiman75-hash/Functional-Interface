@@ -11,7 +11,7 @@ The packet presents each English, Hindi and Punjabi stem, option set and explana
 
 ### WGE-001-CP041-Q001 — hdi-dimensions (Easy)
 
-**Sources:** WGE-POP-NCERT  
+**Source:** WGE-HDI-UNDP  
 **Key:** 0 — Health, education and income
 
 **EN** — Which three dimensions are combined in the Human Development Index?
@@ -41,9 +41,9 @@ HDI summarises achievements in health, knowledge and standard of living.
 
 ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਸਿਹਤ, ਗਿਆਨ ਅਤੇ ਜੀਵਨ-ਮਿਆਰ ਦੀਆਂ ਪ੍ਰਾਪਤੀਆਂ ਦਾ ਸਾਰ ਦਿੰਦਾ ਹੈ।
 
-### WGE-001-CP041-Q002 — hdi-average-limit (Medium)
+## WGE-001-CP041-Q002 — hdi-average-limit (Medium)
 
-**Sources:** WGE-POP-UN-DESA  
+**Source:** WGE-HDI-UNDP  
 **Key:** 2 — Development outcomes may be distributed unequally within each country
 
 **EN** — Two countries have the same average HDI. What important difference could this average hide?
@@ -73,9 +73,9 @@ A national average can conceal differences between regions and social groups.
 
 ਕੌਮੀ ਔਸਤ ਖੇਤਰਾਂ ਅਤੇ ਸਮਾਜਿਕ ਸਮੂਹਾਂ ਵਿਚਕਾਰ ਫ਼ਰਕ ਲੁਕਾ ਸਕਦਾ ਹੈ।
 
-### WGE-001-CP041-Q003 — primary-sector-resource (Easy)
+## WGE-001-CP041-Q003 — primary-sector-resource (Easy)
 
-**Sources:** WGE-SET-UNHABITAT  
+**Source:** WGE-HDI-UNDP  
 **Key:** 0 — Harvesting fish from the sea
 
 **EN** — Which activity belongs most directly to the primary economic sector?
@@ -105,9 +105,9 @@ Primary activities obtain raw materials directly from nature, including fishing,
 
 ਮੁੱਢਲੀਆਂ ਗਤੀਵਿਧੀਆਂ ਮੱਛੀ-ਪਕੜ, ਖੇਤੀ ਅਤੇ ਖਾਣੀ ਸਮੇਤ ਕੁਦਰਤ ਤੋਂ ਸਿੱਧਾ ਕੱਚਾ ਮਾਲ ਲੈਂਦੀਆਂ ਹਨ।
 
-### WGE-001-CP041-Q004 — secondary-sector-processing (Easy)
+## WGE-001-CP041-Q004 — secondary-sector-processing (Easy)
 
-**Sources:** WGE-IND-WB-GVC  
+**Source:** WGE-HUMGEO-NCERT-SYLLABUS  
 **Key:** 3 — Secondary
 
 **EN** — A factory turns iron ore into steel. Which economic sector performs this transformation?
@@ -137,9 +137,9 @@ The secondary sector processes raw materials and manufactures goods.
 
 ਦੂਜਾ ਖੇਤਰ ਕੱਚੇ ਮਾਲ ਦੀ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਵਸਤਾਂ ਦਾ ਨਿਰਮਾਣ ਕਰਦਾ ਹੈ।
 
-### WGE-001-CP041-Q005 — tertiary-logistics-service (Easy)
+## WGE-001-CP041-Q005 — tertiary-logistics-service (Easy)
 
-**Sources:** WGE-TRN-UNCTAD  
+**Source:** WGE-HUMGEO-NCERT-SYLLABUS, WGE-IND-UNIDO-IDR  
 **Key:** 1 — Operating a freight warehouse
 
 **EN** — Which activity is a tertiary service rather than the production of a physical good?
@@ -169,9 +169,9 @@ Warehousing and logistics are services for producers and consumers.
 
 ਗੋਦਾਮ ਅਤੇ ਮਾਲ-ਪ੍ਰਬੰਧ ਉਤਪਾਦਕਾਂ ਤੇ ਖਪਤਕਾਰਾਂ ਨੂੰ ਸੇਵਾਵਾਂ ਦਿੰਦੇ ਹਨ।
 
-### WGE-001-CP041-Q006 — quaternary-research (Medium)
+## WGE-001-CP041-Q006 — quaternary-research (Medium)
 
-**Sources:** WGE-POP-NCERT  
+**Source:** WGE-HUMGEO-NCERT-SYLLABUS  
 **Key:** 0 — Developing a crop variety through research
 
 **EN** — Which activity is a clear example of quaternary work?
@@ -201,9 +201,9 @@ Quaternary work centres on information, research and knowledge creation.
 
 ਚੌਥੇ ਖੇਤਰ ਦੇ ਕੰਮ ਵਿੱਚ ਜਾਣਕਾਰੀ, ਖੋਜ ਅਤੇ ਗਿਆਨ-ਸਿਰਜਣਾ ਮੁੱਖ ਹੁੰਦੇ ਹਨ।
 
-### WGE-001-CP041-Q007 — sector-interdependence (Medium)
+## WGE-001-CP041-Q007 — sector-interdependence (Medium)
 
-**Sources:** WGE-POP-UN-DESA  
+**Source:** WGE-HUMGEO-NCERT-SYLLABUS, WGE-IND-UNIDO-IDR  
 **Key:** 2 — Different economic sectors depend on one another
 
 **EN** — A bread chain links wheat farms, mills, bakeries and shops. What does this show?
@@ -233,9 +233,9 @@ The chain links primary production, secondary processing and tertiary distributi
 
 ਇਹ ਲੜੀ ਮੁੱਢਲੇ ਉਤਪਾਦਨ, ਦੂਜੀ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਤੀਜੀ ਵੰਡ ਨੂੰ ਜੋੜਦੀ ਹੈ।
 
-### WGE-001-CP041-Q008 — global-value-chain (Hard)
+## WGE-001-CP041-Q008 — global-value-chain (Hard)
 
-**Sources:** WGE-SET-UNHABITAT  
+**Source:** WGE-HUMGEO-NCERT-SYLLABUS, WGE-IND-WB-GVC  
 **Key:** 1 — A geographically divided global value chain
 
 **EN** — A device is designed in one country, uses parts from several countries and is assembled elsewhere. This is:
@@ -265,9 +265,9 @@ Trade and investment connect different locations that perform stages of one prod
 
 ਵਪਾਰ ਅਤੇ ਨਿਵੇਸ਼ ਇੱਕ ਵਸਤੂ ਦੇ ਵੱਖਰੇ ਉਤਪਾਦਨ ਪੜਾਅ ਕਰਨ ਵਾਲੀਆਂ ਥਾਵਾਂ ਨੂੰ ਜੋੜਦੇ ਹਨ।
 
-### WGE-001-CP041-Q009 — export-specialisation-risk (Hard)
+## WGE-001-CP041-Q009 — export-specialisation-risk (Hard)
 
-**Sources:** WGE-IND-WB-GVC  
+**Source:** WGE-IND-WB-GVC  
 **Key:** 3 — Vulnerability from narrow specialisation
 
 **EN** — A region relies on one export crop. A global price fall sharply reduces its income. Which risk is clearest?
@@ -297,9 +297,9 @@ Specialisation can support trade, but dependence on one export increases exposur
 
 ਵਿਸ਼ੇਸ਼ਤਾ ਵਪਾਰ ਨੂੰ ਸਹਾਰਾ ਦੇ ਸਕਦੀ ਹੈ, ਪਰ ਇੱਕ ਨਿਰਯਾਤ ਉੱਤੇ ਨਿਰਭਰਤਾ ਕੀਮਤੀ ਝਟਕਿਆਂ ਦਾ ਜੋਖਮ ਵਧਾਉਂਦੀ ਹੈ।
 
-### WGE-001-CP041-Q010 — goods-trade-deficit (Medium)
+## WGE-001-CP041-Q010 — goods-trade-deficit (Medium)
 
-**Sources:** WGE-TRN-UNCTAD  
+**Source:** WGE-IND-WB-GVC  
 **Key:** 0 — A merchandise trade deficit
 
 **EN** — A country's goods imports are worth more than its goods exports during a period. This indicates:
@@ -329,9 +329,9 @@ When goods imports exceed goods exports in value over the stated period, the mer
 
 ਦਿੱਤੇ ਅਰਸੇ ਵਿੱਚ ਵਸਤਾਂ ਦੇ ਆਯਾਤ ਦਾ ਮੁੱਲ ਨਿਰਯਾਤ ਤੋਂ ਵੱਧ ਹੋਵੇ ਤਾਂ ਵਸਤੂ-ਵਪਾਰ ਸੰਤੁਲਨ ਘਾਟੇ ਵਿੱਚ ਹੁੰਦਾ ਹੈ।
 
-### WGE-001-CP041-Q011 — digital-access-divide (Medium)
+## WGE-001-CP041-Q011 — digital-access-divide (Medium)
 
-**Sources:** WGE-POP-NCERT  
+**Source:** WGE-HUMGEO-NCERT-SYLLABUS, WGE-TRN-UNCTAD  
 **Key:** 2 — A spatial digital divide
 
 **EN** — A city has reliable broadband while nearby rural settlements have weak coverage and few affordable devices. This shows:
@@ -361,9 +361,9 @@ Access to coverage, devices and skills differs by place, creating a spatial digi
 
 ਜੋੜ, ਸਾਜ਼ਾਂ ਅਤੇ ਹੁਨਰ ਤੱਕ ਪਹੁੰਚ ਥਾਂ ਅਨੁਸਾਰ ਵੱਖਰੀ ਹੁੰਦੀ ਹੈ ਅਤੇ ਡਿਜ਼ਿਟਲ ਪਾੜਾ ਬਣਾਉਂਦੀ ਹੈ।
 
-### WGE-001-CP041-Q012 — rural-service-catchment (Medium)
+## WGE-001-CP041-Q012 — rural-service-catchment (Medium)
 
-**Sources:** WGE-POP-UN-DESA  
+**Source:** WGE-HUMGEO-NCERT-SYLLABUS  
 **Key:** 3 — Build only where services already exist
 
 **EN** — Small settlements are far from hospitals and secondary schools. Which response can improve access when facilities cannot be placed everywhere?
@@ -393,9 +393,9 @@ Transport links and mobile or shared services can reduce access gaps in disperse
 
 ਖਿੰਡੀ ਆਬਾਦੀ ਵਿੱਚ ਆਵਾਜਾਈ ਜੋੜ ਅਤੇ ਚਲਦੀਆਂ ਜਾਂ ਸਾਂਝੀਆਂ ਸੇਵਾਵਾਂ ਪਹੁੰਚ ਦੀ ਘਾਟ ਘਟਾ ਸਕਦੀਆਂ ਹਨ।
 
-### WGE-001-CP041-Q013 — settlement-basic-services (Medium)
+## WGE-001-CP041-Q013 — settlement-basic-services (Medium)
 
-**Sources:** WGE-SET-UNHABITAT  
+**Source:** WGE-HUMGEO-NCERT-SYLLABUS, WGE-SET-UNHABITAT  
 **Key:** 1 — Extend safe basic services and involve residents in upgrading
 
 **EN** — An unplanned settlement grows faster than water, sanitation and transport networks. What is the strongest immediate planning priority?
@@ -425,9 +425,9 @@ Safe water, sanitation, access and resident participation address urgent needs a
 
 ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸਫ਼ਾਈ, ਪਹੁੰਚ ਅਤੇ ਵਸਨੀਕਾਂ ਦੀ ਭਾਗੀਦਾਰੀ ਤੁਰੰਤ ਲੋੜਾਂ ਪੂਰੀਆਂ ਕਰਕੇ ਯੋਜਨਾਬੱਧ ਸੁਧਾਰ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।
 
-### WGE-001-CP041-Q014 — urban-transit-access (Medium)
+## WGE-001-CP041-Q014 — urban-transit-access (Medium)
 
-**Sources:** WGE-IND-WB-GVC  
+**Source:** WGE-HAB-SETTLEMENT-SERVICES  
 **Key:** 0 — Frequent public transport with safe walking and cycling routes
 
 **EN** — A city wants to reduce car dependence for short journeys. Which combined strategy is most likely to help?
@@ -457,9 +457,9 @@ Reliable transit and safe walking or cycling routes make short trips possible wi
 
 ਭਰੋਸੇਯੋਗ ਆਵਾਜਾਈ ਅਤੇ ਸੁਰੱਖਿਅਤ ਪੈਦਲ ਜਾਂ ਸਾਈਕਲ ਰਾਹ ਛੋਟੇ ਸਫ਼ਰ ਕਾਰ ਤੋਂ ਬਿਨਾਂ ਸੰਭਵ ਬਣਾਉਂਦੇ ਹਨ।
 
-### WGE-001-CP041-Q015 — periurban-farmland-conflict (Hard)
+## WGE-001-CP041-Q015 — periurban-farmland-conflict (Hard)
 
-**Sources:** WGE-TRN-UNCTAD  
+**Source:** WGE-HUMGEO-NCERT-SYLLABUS, WGE-SET-UNHABITAT  
 **Key:** 3 — The city loses all transport links
 
 **EN** — A city's edge expands over irrigated farmland. Which conflict may require land-use planning?
@@ -489,9 +489,9 @@ Peri-urban growth can convert productive farmland and create competition among h
 
 ਸ਼ਹਿਰ-ਕਿਨਾਰੇ ਦਾ ਫੈਲਾਅ ਉਪਜਾਊ ਖੇਤੀ ਧਰਤੀ ਬਦਲ ਸਕਦਾ ਹੈ ਅਤੇ ਰਿਹਾਇਸ਼, ਬੁਨਿਆਦੀ ਢਾਂਚੇ ਤੇ ਅਨਾਜ ਉਤਪਾਦਨ ਵਿਚਕਾਰ ਮੁਕਾਬਲਾ ਪੈਦਾ ਕਰ ਸਕਦਾ ਹੈ।
 
-### WGE-001-CP041-Q016 — cluster-knowledge-labour (Medium)
+## WGE-001-CP041-Q016 — cluster-knowledge-labour (Medium)
 
-**Sources:** WGE-POP-NCERT  
+**Source:** WGE-URB-EPA  
 **Key:** 3 — A guarantee that costs are zero
 
 **EN** — Several firms locate near a research institute and skilled workers. Which advantage may explain this cluster?
@@ -521,9 +521,9 @@ Related firms may cluster to access skilled workers, ideas and collaboration, th
 
 ਸਬੰਧਤ ਕੰਪਨੀਆਂ ਹੁਨਰਮੰਦ ਕਾਮਿਆਂ, ਵਿਚਾਰਾਂ ਅਤੇ ਸਹਿਯੋਗ ਲਈ ਇਕੱਠੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ; ਇਸ ਨਾਲ ਲਾਗਤ ਸਿਫ਼ਰ ਹੋਣ ਦੀ ਗਾਰੰਟੀ ਨਹੀਂ।
 
-### WGE-001-CP041-Q017 — service-catchment-settlements (Hard)
+## WGE-001-CP041-Q017 — service-catchment-settlements (Hard)
 
-**Sources:** WGE-POP-UN-DESA  
+**Source:** WGE-IND-UNIDO-IDR  
 **Key:** 0 — A service catchment linking settlements
 
 **EN** — A regional hospital serves several small towns beyond its own settlement. This relationship is best called:
@@ -553,9 +553,9 @@ A service catchment draws users from surrounding settlements and creates functio
 
 ਸੇਵਾ-ਖੇਤਰ ਨੇੜਲੀਆਂ ਬਸਤੀਆਂ ਤੋਂ ਲੋਕਾਂ ਨੂੰ ਖਿੱਚਦਾ ਹੈ ਅਤੇ ਥਾਵਾਂ ਵਿਚਕਾਰ ਕਾਰਜਕਾਰੀ ਜੋੜ ਬਣਾਉਂਦਾ ਹੈ।
 
-### WGE-001-CP041-Q018 — route-resilience-diversification (Hard)
+## WGE-001-CP041-Q018 — route-resilience-diversification (Hard)
 
-**Sources:** WGE-SET-UNHABITAT  
+**Source:** WGE-SET-UNHABITAT  
 **Key:** 1 — Develop alternative routes and suppliers
 
 **EN** — A region depends on one border crossing for essential imports. Which strategy improves resilience to a route closure?
@@ -585,9 +585,9 @@ Alternative routes, suppliers and suitable reserves reduce dependence on a singl
 
 ਵਿਕਲਪਕ ਰਸਤੇ, ਸਪਲਾਇਰ ਅਤੇ ਢੁੱਕਵੇਂ ਭੰਡਾਰ ਇੱਕੋ ਲਾਂਘੇ ਉੱਤੇ ਨਿਰਭਰਤਾ ਘਟਾਉਂਦੇ ਹਨ।
 
-### WGE-001-CP041-Q019 — hdi-health-life-expectancy (Easy)
+## WGE-001-CP041-Q019 — hdi-health-life-expectancy (Easy)
 
-**Sources:** WGE-POP-UN-DESA  
+**Source:** WGE-HDI-UNDP  
 **Key:** 1 — Annual exports
 
 **EN** — Which indicator is used for the health dimension of the standard Human Development Index?
@@ -617,9 +617,9 @@ Life expectancy at birth represents the longevity dimension in the standard HDI 
 
 ਮਿਆਰੀ ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਵਿੱਚ ਜਨਮ ਵੇਲੇ ਜੀਵਨ ਦੀ ਉਮੀਦ ਲੰਮੀ ਉਮਰ ਵਾਲਾ ਪੱਖ ਦਰਸਾਉਂਦੀ ਹੈ।
 
-### WGE-001-CP041-Q020 — hdi-education-years (Hard)
+## WGE-001-CP041-Q020 — hdi-education-years (Hard)
 
-**Sources:** WGE-POP-UN-DESA  
+**Source:** WGE-HDI-UNDP  
 **Key:** 3 — Mean years and expected years of schooling
 
 **EN** — Which pair of measures represents the education dimension in the current standard HDI method?
@@ -649,9 +649,9 @@ The education dimension combines mean years of schooling among adults with expec
 
 ਸਿੱਖਿਆ ਪੱਖ ਬਾਲਗਾਂ ਦੇ ਪੜ੍ਹਾਈ ਦੇ ਔਸਤ ਸਾਲਾਂ ਨੂੰ ਸਕੂਲ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਣ ਵਾਲੇ ਬੱਚਿਆਂ ਦੇ ਉਮੀਦ ਕੀਤੇ ਸਾਲਾਂ ਨਾਲ ਜੋੜਦਾ ਹੈ।
 
-### WGE-001-CP042-Q001 — solar-energy-evaporation (Easy)
+## WGE-001-CP042-Q001 — solar-energy-evaporation (Easy)
 
-**Sources:** WGE-HYDRO-NCERT  
+**Source:** WGE-HYDRO-NCERT  
 **Key:** 0 — Evaporation
 
 **EN** — Which process moves liquid water from the ocean surface into the atmosphere?
@@ -681,9 +681,9 @@ Solar heating causes surface water to evaporate and enter the atmosphere as wate
 
 ਸੂਰਜੀ ਤਾਪ ਨਾਲ ਸਤਹੀ ਪਾਣੀ ਵਾਸ਼ਪ ਬਣ ਕੇ ਜਲ-ਵਾਸ਼ਪ ਰੂਪ ਵਿੱਚ ਵਾਤਾਵਰਣ ਵਿੱਚ ਜਾਂਦਾ ਹੈ।
 
-### WGE-001-CP042-Q002 — water-vapour-condensation (Easy)
+## WGE-001-CP042-Q002 — water-vapour-condensation (Easy)
 
-**Sources:** WGE-HYDRO-NOAA  
+**Source:** WGE-HYDRO-NOAA  
 **Key:** 1 — Condensation
 
 **EN** — Water vapour cools and forms tiny cloud droplets. Which process has occurred?
@@ -713,9 +713,9 @@ Cooling changes water vapour into liquid droplets; this is condensation.
 
 ਠੰਢ ਪੈਣ ਨਾਲ ਜਲ-ਵਾਸ਼ਪ ਤਰਲ ਬੂੰਦਾਂ ਵਿੱਚ ਬਦਲਦੀ ਹੈ; ਇਸ ਨੂੰ ਸੰਘਣਨ ਕਹਿੰਦੇ ਹਨ।
 
-### WGE-001-CP042-Q003 — plant-transpiration-water-cycle (Easy)
+## WGE-001-CP042-Q003 — plant-transpiration-water-cycle (Easy)
 
-**Sources:** WGE-HYDRO-CHART  
+**Source:** WGE-HYDRO-CHART  
 **Key:** 3 — Transpiration
 
 **EN** — Water released from plant leaves into the air enters the water cycle through:
@@ -745,9 +745,9 @@ Transpiration transfers water from plants to the atmosphere as vapour.
 
 ਬਾਫ਼-ਉਤਸਰਜਨ ਬੂਟਿਆਂ ਤੋਂ ਪਾਣੀ ਨੂੰ ਵਾਸ਼ਪ ਰੂਪ ਵਿੱਚ ਵਾਤਾਵਰਣ ਤੱਕ ਲੈ ਜਾਂਦਾ ਹੈ।
 
-### WGE-001-CP042-Q004 — infiltration-groundwater-recharge (Medium)
+## WGE-001-CP042-Q004 — infiltration-groundwater-recharge (Medium)
 
-**Sources:** WGE-HYDRO-NCERT  
+**Source:** WGE-HYDRO-NCERT  
 **Key:** 2 — Wave refraction
 
 **EN** — Rain passes through permeable soil and reaches an aquifer. Which process replenishes the groundwater store?
@@ -777,9 +777,9 @@ Infiltration and percolation can carry water downward to recharge an aquifer whe
 
 ਜਿੱਥੇ ਭੂਗਰਭੀ ਹਾਲਾਤ ਇਜਾਜ਼ਤ ਦੇਣ, ਉੱਥੇ ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ ਪਾਣੀ ਨੂੰ ਹੇਠਾਂ ਲੈ ਜਾ ਕੇ ਜਲ-ਭੰਡਾਰ ਮੁੜ ਭਰ ਸਕਦਾ ਹੈ।
 
-### WGE-001-CP042-Q005 — impervious-surface-runoff (Medium)
+## WGE-001-CP042-Q005 — impervious-surface-runoff (Medium)
 
-**Sources:** WGE-HYDRO-NOAA  
+**Source:** WGE-HYDRO-NOAA  
 **Key:** 0 — Impervious surfaces limit infiltration
 
 **EN** — After heavy rain, a paved district sends water quickly into drains. Which change most directly explains the rapid runoff?
@@ -809,9 +809,9 @@ Pavement reduces infiltration, so a greater share of rain can flow rapidly over 
 
 ਪੱਕੀਆਂ ਸਤਹਾਂ ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ ਘਟਾਉਂਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਮੀਂਹ ਦਾ ਵੱਧ ਹਿੱਸਾ ਸਤਹ ਉੱਤੇ ਤੇਜ਼ੀ ਨਾਲ ਨਾਲਿਆਂ ਤੱਕ ਵਹਿ ਸਕਦਾ ਹੈ।
 
-### WGE-001-CP042-Q006 — snow-glacier-storage (Medium)
+## WGE-001-CP042-Q006 — snow-glacier-storage (Medium)
 
-**Sources:** WGE-HYDRO-CHART  
+**Source:** WGE-HYDRO-CHART  
 **Key:** 3 — A map projection
 
 **EN** — In a mountain basin, winter snowfall is stored and later released during warmer months. Snow and glacier ice act mainly as:
@@ -841,9 +841,9 @@ Snow and glacier ice store water and can release it later as meltwater, with tim
 
 ਬਰਫ਼ ਅਤੇ ਹਿਮਨਦ ਪਾਣੀ ਸੰਭਾਲਦੇ ਹਨ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਪਿਘਲਿਆ ਪਾਣੀ ਛੱਡ ਸਕਦੇ ਹਨ; ਸਮਾਂ ਜਲਵਾਯੂ ਅਨੁਸਾਰ ਬਦਲਦਾ ਹੈ।
 
-### WGE-001-CP042-Q007 — groundwater-overuse-water-table (Hard)
+## WGE-001-CP042-Q007 — groundwater-overuse-water-table (Hard)
 
-**Sources:** WGE-HYDRO-NCERT  
+**Source:** WGE-HYDRO-NCERT  
 **Key:** 2 — The local water table may fall
 
 **EN** — A town pumps groundwater faster than it is replenished for many years. Which result is most likely near the wells?
@@ -873,9 +873,9 @@ If pumping persistently exceeds recharge, groundwater levels can decline; the am
 
 ਜੇ ਪਾਣੀ ਕੱਢਣਾ ਲਗਾਤਾਰ ਮੁੜ-ਭਰਨ ਤੋਂ ਵੱਧ ਹੋਵੇ ਤਾਂ ਭੂਜਲ-ਪੱਧਰ ਘਟ ਸਕਦਾ ਹੈ; ਮਾਤਰਾ ਜਲ-ਭੰਡਾਰ ਅਤੇ ਵਰਤੋਂ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।
 
-### WGE-001-CP042-Q008 — wetland-flood-storage (Medium)
+## WGE-001-CP042-Q008 — wetland-flood-storage (Medium)
 
-**Sources:** WGE-HYDRO-NOAA  
+**Source:** WGE-HYDRO-NOAA  
 **Key:** 1 — By preventing all rainfall
 
 **EN** — How can a wetland reduce flood peaks in some river basins?
@@ -905,9 +905,9 @@ Wetlands can temporarily store water and slow its movement, although their effec
 
 ਦਲਦਲੀ ਇਲਾਕੇ ਕੁਝ ਪਾਣੀ ਅਸਥਾਈ ਤੌਰ ਉੱਤੇ ਰੋਕ ਕੇ ਵਹਾਅ ਹੌਲਾ ਕਰ ਸਕਦੇ ਹਨ; ਅਸਰ ਆਕਾਰ ਅਤੇ ਘਾਟੀ ਦੇ ਹਾਲਾਤਾਂ ਅਨੁਸਾਰ ਬਦਲਦਾ ਹੈ।
 
-### WGE-001-CP042-Q009 — shared-river-basin-coordination (Hard)
+## WGE-001-CP042-Q009 — shared-river-basin-coordination (Hard)
 
-**Sources:** WGE-HYDRO-CHART  
+**Source:** WGE-HYDRO-CHART  
 **Key:** 0 — Share flow data and negotiate coordinated basin management
 
 **EN** — Two countries share a river basin. Which approach best addresses upstream and downstream water needs?
@@ -937,9 +937,9 @@ Shared data and coordination help countries consider seasonal flows, water uses 
 
 ਸਾਂਝੇ ਅੰਕੜੇ ਅਤੇ ਤਾਲਮੇਲ ਦੇਸ਼ਾਂ ਨੂੰ ਮੌਸਮੀ ਵਹਾਅ, ਵਰਤੋਂ ਅਤੇ ਹੇਠਾਂ ਪੈਣ ਵਾਲੇ ਅਸਰਾਂ ਉੱਤੇ ਇਕੱਠੇ ਵਿਚਾਰ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।
 
-### WGE-001-CP042-Q010 — ocean-dominant-water-store (Easy)
+## WGE-001-CP042-Q010 — ocean-dominant-water-store (Easy)
 
-**Sources:** WGE-HYDRO-NCERT  
+**Source:** WGE-HYDRO-NCERT  
 **Key:** 2 — Oceans
 
 **EN** — Which store contains by far the largest share of Earth's water?
@@ -969,9 +969,9 @@ The oceans hold most of Earth's water, and most ocean water is saline.
 
 ਸਮੁੰਦਰਾਂ ਵਿੱਚ ਧਰਤੀ ਦਾ ਬਹੁਤਾ ਪਾਣੀ ਹੈ ਅਤੇ ਸਮੁੰਦਰੀ ਪਾਣੀ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਖਾਰਾ ਹੈ।
 
-### WGE-001-CP042-Q011 — ocean-evaporation-land-rain (Medium)
+## WGE-001-CP042-Q011 — ocean-evaporation-land-rain (Medium)
 
-**Sources:** WGE-HYDRO-NOAA  
+**Source:** WGE-HYDRO-NOAA  
 **Key:** 3 — Tides lift clouds over inland areas
 
 **EN** — How can ocean water contribute to rainfall over land far from the coast?
@@ -1001,9 +1001,9 @@ Evaporated water vapour can move with the atmosphere, condense into clouds and f
 
 ਵਾਸ਼ਪ ਬਣਿਆ ਪਾਣੀ ਵਾਤਾਵਰਣ ਨਾਲ ਚੱਲ ਕੇ ਬੱਦਲ ਬਣ ਸਕਦਾ ਹੈ ਅਤੇ ਧਰਤੀ ਉੱਤੇ ਮੀਂਹ ਵਜੋਂ ਡਿੱਗ ਸਕਦਾ ਹੈ।
 
-### WGE-001-CP042-Q012 — wind-fetch-wave-size (Medium)
+## WGE-001-CP042-Q012 — wind-fetch-wave-size (Medium)
 
-**Sources:** WGE-HYDRO-CHART  
+**Source:** WGE-HYDRO-CHART  
 **Key:** 0 — Stronger wind, longer duration and longer fetch
 
 **EN** — For wind-generated surface waves, which combination can produce larger waves?
@@ -1033,9 +1033,9 @@ Wave growth depends on wind speed, duration and fetch, the distance wind blows o
 
 ਲਹਿਰਾਂ ਦਾ ਵਾਧਾ ਹਵਾ ਦੀ ਰਫ਼ਤਾਰ, ਸਮਾਂ ਅਤੇ ਖੁੱਲ੍ਹੇ ਪਾਣੀ ਉੱਤੇ ਹਵਾ ਦੀ ਦੂਰੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।
 
-### WGE-001-CP042-Q013 — wave-energy-transfer (Hard)
+## WGE-001-CP042-Q013 — wave-energy-transfer (Hard)
 
-**Sources:** WGE-HYDRO-NCERT  
+**Source:** WGE-HYDRO-NCERT  
 **Key:** 2 — Energy, while water particles mostly move in orbital paths
 
 **EN** — What is mainly transferred shoreward by a passing surface wave in deep water?
@@ -1065,9 +1065,9 @@ A surface wave carries energy; in deep water the water particles mostly oscillat
 
 ਸਤਹੀ ਲਹਿਰ ਊਰਜਾ ਲੈ ਜਾਂਦੀ ਹੈ; ਡੂੰਘੇ ਪਾਣੀ ਵਿੱਚ ਜਲ-ਕਣ ਵੱਧਤਰ ਡੋਲਦੇ ਹਨ, ਲਹਿਰ ਨਾਲ ਦੂਰ ਨਹੀਂ ਜਾਂਦੇ।
 
-### WGE-001-CP042-Q014 — tsunami-generation-not-tide (Hard)
+## WGE-001-CP042-Q014 — tsunami-generation-not-tide (Hard)
 
-**Sources:** WGE-HYDRO-NOAA  
+**Source:** WGE-HYDRO-NOAA  
 **Key:** 1 — A large undersea earthquake
 
 **EN** — Which event can generate a tsunami by suddenly displacing a large volume of seawater?
@@ -1097,9 +1097,9 @@ A large undersea earthquake can displace the seabed and water column, generating
 
 ਵੱਡਾ ਸਮੁੰਦਰ-ਹੇਠਲਾ ਭੂਚਾਲ ਸਮੁੰਦਰ-ਤਲ ਅਤੇ ਪਾਣੀ ਦੇ ਸਤੰਭ ਨੂੰ ਹਿਲਾ ਕੇ ਸੁਨਾਮੀ ਲਹਿਰਾਂ ਪੈਦਾ ਕਰ ਸਕਦਾ ਹੈ; ਹਰ ਭੂਚਾਲ ਅਜਿਹਾ ਨਹੀਂ ਕਰਦਾ।
 
-### WGE-001-CP042-Q015 — bathymetric-contour-reading (Medium)
+## WGE-001-CP042-Q015 — bathymetric-contour-reading (Medium)
 
-**Sources:** WGE-HYDRO-CHART  
+**Source:** WGE-HYDRO-CHART  
 **Key:** 0 — The shape and depth pattern of the seabed
 
 **EN** — On a bathymetric chart, what do contour lines joining places of equal depth show?
@@ -1129,9 +1129,9 @@ Bathymetric contours connect points of equal water depth and help show underwate
 
 ਸਮੁੰਦਰੀ ਡੂੰਘਾਈ ਦੀਆਂ ਸਮੋਚ ਰੇਖਾਵਾਂ ਇੱਕੋ ਡੂੰਘਾਈ ਵਾਲੇ ਬਿੰਦੂ ਜੋੜਦੀਆਂ ਅਤੇ ਪਾਣੀ ਹੇਠਲਾ ਧਰਾਤਲ ਦਿਖਾਉਂਦੀਆਂ ਹਨ।
 
-### WGE-001-CP042-Q016 — isohyet-equal-rainfall (Easy)
+## WGE-001-CP042-Q016 — isohyet-equal-rainfall (Easy)
 
-**Sources:** WGE-HYDRO-NCERT  
+**Source:** WGE-HYDRO-NCERT  
 **Key:** 3 — Equal rainfall over a stated period
 
 **EN** — A weather map uses isohyets. What do these lines connect?
@@ -1161,9 +1161,9 @@ An isohyet joins places receiving equal precipitation during the mapped period.
 
 ਸਮਵਰਖਾ ਰੇਖਾ ਨਕਸ਼ੇ ਦੇ ਅਰਸੇ ਦੌਰਾਨ ਇੱਕੋ ਜਿਹਾ ਮੀਂਹ ਲੈਣ ਵਾਲੀਆਂ ਥਾਵਾਂ ਜੋੜਦੀ ਹੈ।
 
-### WGE-001-CP042-Q017 — storm-hydrograph-urban-response (Hard)
+## WGE-001-CP042-Q017 — storm-hydrograph-urban-response (Hard)
 
-**Sources:** WGE-HYDRO-NOAA  
+**Source:** WGE-HYDRO-NOAA  
 **Key:** 2 — The basin has no drainage network
 
 **EN** — Two basins receive similar rain. The paved basin shows a higher, earlier discharge peak. Which explanation best fits?
@@ -1193,9 +1193,9 @@ Urban paving can reduce infiltration and shorten lag time, producing a faster an
 
 ਸ਼ਹਿਰੀ ਪੱਕੀਆਂ ਸਤਹਾਂ ਮਿੱਟੀ-ਰਿਸਾਅ ਘਟਾ ਕੇ ਸਮਾਂ-ਦੇਰੀ ਘਟਾ ਸਕਦੀਆਂ ਹਨ, ਜਿਸ ਨਾਲ ਤੇਜ਼ ਅਤੇ ਉੱਚਾ ਹੜ੍ਹ-ਵਹਾਅ ਬਣਦਾ ਹੈ।
 
-### WGE-001-CP042-Q018 — discharge-measurement (Medium)
+## WGE-001-CP042-Q018 — discharge-measurement (Medium)
 
-**Sources:** WGE-HYDRO-CHART  
+**Source:** WGE-HYDRO-CHART  
 **Key:** 1 — Discharge
 
 **EN** — A river gauge records 40 cubic metres of water passing a point each second. Which quantity is being measured?
@@ -1225,9 +1225,9 @@ Discharge is the volume of water passing a cross-section per unit time.
 
 ਵਹਾਅ ਦੀ ਮਾਤਰਾ ਪ੍ਰਤੀ ਇਕਾਈ ਸਮੇਂ ਵਿੱਚ ਨਦੀ ਦੇ ਕੱਟ-ਭਾਗ ਵਿੱਚੋਂ ਲੰਘਦੇ ਪਾਣੀ ਦਾ ਆਇਤਨ ਹੈ।
 
-### WGE-001-CP042-Q019 — water-balance-surplus-deficit (Hard)
+## WGE-001-CP042-Q019 — water-balance-surplus-deficit (Hard)
 
-**Sources:** WGE-HYDRO-NCERT  
+**Source:** WGE-HYDRO-NCERT  
 **Key:** 3 — A rising ocean tide
 
 **EN** — A basin receives less precipitation than its combined evaporation and water exports during a long period. What broad balance is indicated?
@@ -1257,9 +1257,9 @@ If inputs remain below combined losses over time, the basin has a water deficit 
 
 ਜੇ ਸਮੇਂ ਨਾਲ ਆਉਣ ਵਾਲਾ ਪਾਣੀ ਕੁੱਲ ਨੁਕਸਾਨ ਤੋਂ ਘੱਟ ਰਹੇ ਤਾਂ ਖੇਤਰ ਵਿੱਚ ਪਾਣੀ ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ ਭੰਡਾਰ ਘਟ ਸਕਦਾ ਹੈ।
 
-### WGE-001-CP042-Q020 — rainfall-runoff-land-cover (Hard)
+## WGE-001-CP042-Q020 — rainfall-runoff-land-cover (Hard)
 
-**Sources:** WGE-HYDRO-NOAA  
+**Source:** WGE-HYDRO-NOAA  
 **Key:** 0 — Vegetation and soils can intercept and store water
 
 **EN** — A hydrograph shows a delayed, lower peak after similar rainfall in a forested basin than in a paved basin. Which factor helps explain the difference?
