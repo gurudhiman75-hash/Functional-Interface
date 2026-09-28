@@ -31,7 +31,7 @@ assert.throws(() => renderVennTopologySvg("UNSUPPORTED" as VennTopologyId), /Uns
 
 
 function circleGeometry(svg: string) {
-  return [...svg.matchAll(/<circle cx="(\\d+)" cy="(\\d+)" r="(\\d+)" \/>/g)]
+  return [...svg.matchAll(/<circle cx="(\d+)" cy="(\d+)" r="(\d+)" \/>/g)]
     .map((match) => ({ x: Number(match[1]), y: Number(match[2]), r: Number(match[3]) }));
 }
 function distance(a: ReturnType<typeof circleGeometry>[number], b: ReturnType<typeof circleGeometry>[number]) {
