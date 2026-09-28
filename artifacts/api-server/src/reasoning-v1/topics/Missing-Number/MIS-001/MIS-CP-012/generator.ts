@@ -87,6 +87,17 @@ function explainCalc(rule:string,g:MisCp012GenericGroup){const v=g.values,r=g.re
  case'DIAGONAL_PRODUCTS_SUM':return`${v[0]}×${v[3]} + ${v[1]}×${v[2]} = ${r}`;
  case'PAIR_PRODUCT_MINUS_THIRD_SQUARE':return`${v[0]}×${v[1]} − ${v[2]}² = ${r}`;
  case'FIRST_SQUARE_PLUS_PAIR_PRODUCT':return`${v[0]}² + ${v[1]}×${v[2]} = ${r}`;default:return'';}}
+function friendlyRule(rule:string):string{switch(rule){
+ case'SUM':return'add the two numbers';
+ case'PRODUCT':return'multiply the two numbers';
+ case'SQUARE_FIRST_PLUS_SECOND':return'square the first number, then add the second';
+ case'ROW_PRODUCTS_SUM':return'multiply each row pair and add the two products';
+ case'COLUMN_PRODUCTS_SUM':return'multiply each column pair and add the two products';
+ case'DIAGONAL_PRODUCTS_SUM':return'multiply the two diagonal pairs and add the products';
+ case'PAIR_PRODUCT_MINUS_THIRD_SQUARE':return'multiply the first two numbers, then subtract the square of the third';
+ case'FIRST_SQUARE_PLUS_PAIR_PRODUCT':return'square the first number, then add the product of the second and third';
+ default:return'the intended rule';
+}}
 export function generateMisCp012Question(candidateId:MisCp012CandidateId,seed:string|number='mis-cp012-v1'):GeneratedMisCp012Question{
  const p=misCp012ProfileByCandidateId(candidateId),base=String(seed),sel=pick(p.profileId,p.intendedRule,p.competingRule,base);
  const firstSurvivors=survivingMisCp012Rules(sel.rules,[sel.evidence[0]!]),finalSurvivors=survivingMisCp012Rules(sel.rules,sel.evidence);
@@ -96,7 +107,7 @@ export function generateMisCp012Question(candidateId:MisCp012CandidateId,seed:st
  let figures:null|{svg:string;positions:Record<string,number|'?'>}[]=null,stem:string,renderer:'TABLE_GROUP'|'SVG_BOX'='TABLE_GROUP',missing:'RESULT'|'CENTRE_MISSING'='RESULT';
  if(p.renderer==='SVG_BOX'){renderer='SVG_BOX';missing='CENTRE_MISSING';const make=(g:MisCp012GenericGroup,hide=false)=>{const [a,b,c,d]=g.values;const positions={topLeft:a!,topRight:b!,bottomLeft:c!,bottomRight:d!,centre:hide?'?' as const:g.result};return{positions,svg:renderBoxSvg(positions,'SQUARE')}};figures=[...sel.evidence.map(g=>make(g)),make(sel.target,true)];stem=['Find the missing value in the following figures.','',...figures.map((f,i)=>`Figure ${i+1}:\n${figurePreview('SVG_BOX',f.positions)}`)].join('\n\n');}
  else stem=['Find the number that will replace the question mark (?).','',...sel.evidence.map(g=>row(g)),row(sel.target,true)].join('\n');
- const explanation=['The first example alone can suggest more than one rule, so check all the completed examples.','',`Possible after Example 1: ${firstSurvivors.join(' or ')}.`,'',`The later examples reject ${p.competingRule} and keep ${p.intendedRule}.`,'',...sel.evidence.map((g,i)=>`Example ${i+1}: ${explainCalc(p.intendedRule,g)}`),'',`Target: ${explainCalc(p.intendedRule,sel.target)}`,'',`So, ? = ${sel.target.result}.`].join('\n');
+ const explanation=['The first example alone can suggest more than one rule, so check all the completed examples.','',`After Example 1, both “${friendlyRule(firstSurvivors[0]!)}” and “${friendlyRule(firstSurvivors[1]!)}” can work.`,'',`The later examples rule out “${friendlyRule(p.competingRule)}”. The consistent rule is to ${friendlyRule(p.intendedRule)}.`,'',...sel.evidence.map((g,i)=>`Example ${i+1}: ${explainCalc(p.intendedRule,g)}`),'',`Target: ${explainCalc(p.intendedRule,sel.target)}`,'',`So, ? = ${sel.target.result}.`].join('\n');
  return{packageId:'MIS-001',checkpointId:'MIS-CP-012',candidateId,provisionalQl:true,ruleId:p.intendedRule,ruleFamily:p.label,context:null,difficulty:'Hard',renderer,stem,evidenceGroups:sel.evidence,target:sel.target,figures,options,correctIndex:ci,answer:sel.target.result,explanation,solverTrace:[...sel.evidence.map(g=>explainCalc(p.intendedRule,g)),explainCalc(p.intendedRule,sel.target)],ambiguityAudit:{accepted:true,intendedSemanticKey:p.intendedRule,matches:finalSurvivors.map(r=>({ruleId:r,semanticKey:r})),reason:'Multiple rules fit the first example; exactly one survives the complete evidence set.'},structuralFingerprint:['MIS-CP-012',p.profileId,p.intendedRule,p.competingRule].join('|'),numericFingerprint:[...sel.evidence,sel.target].map(g=>g.values.join(',')+':'+g.result).join('|'),operationDepth:2,operandCount:sel.target.values.length as 2|3|4,groupCount:4,missingPosition:missing,forwardOrInverse:'FORWARD',semanticAuthorityCandidateId:p.semanticAuthorityCandidateId,createsNewSemanticAuthority:false,firstGroupCompetingRuleCount:firstSurvivors.length,finalCompetingRuleCount:finalSurvivors.length};
 }
 export const MIS_CP012_CANDIDATE_IDS=Object.freeze(MIS_CP012_PROFILES.map(p=>p.candidateId));

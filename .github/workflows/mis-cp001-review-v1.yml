@@ -35,7 +35,7 @@ jobs:
       - name: Bundle MIS-001 proofs
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/mis-001
-          for file in             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/mis-cp-001.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/question-studio-integration.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-002/mis-cp-002.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-003/mis-cp-003.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-004/mis-cp-004.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/mis-cp-005.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/mis-cp-006.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/mis-cp-007.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-008/mis-cp-008.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-009/mis-cp-009.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-010/mis-cp-010.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-011/mis-cp-011.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-012/mis-cp-012.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/question-studio-integration.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-002/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-003/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-004/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-008/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-009/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-010/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-011/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-012/export-review-html.ts
+          for file in             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/mis-cp-001.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/question-studio-integration.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-002/mis-cp-002.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-003/mis-cp-003.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-004/mis-cp-004.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/mis-cp-005.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/mis-cp-006.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/mis-cp-007.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-008/mis-cp-008.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-009/mis-cp-009.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-010/mis-cp-010.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-011/mis-cp-011.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-012/mis-cp-012.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-013/mis-cp-013.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-014/mis-cp-014.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-015/mis-cp-015.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-016/mis-cp-016.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-017/mis-cp-017.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-018/mis-cp-018.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-019/mis-cp-019.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-020/mis-cp-020.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-021/mis-cp-021.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-022/mis-cp-022.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-023/mis-cp-023.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-024/mis-cp-024.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-025/mis-cp-025.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-026/mis-cp-026.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-027/mis-cp-027.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-028/mis-cp-028.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/semantic-authority-registry.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/question-studio-integration.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/english-editorial-freeze.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-PERMANENT-QL-REGISTRY.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/localization-wave1.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/localization-wave2.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/localization-wave3.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/localization-wave4.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/localization-chapter-accounting.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/final-corpus-readiness.test.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-001/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-002/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-003/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-004/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/export-review.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-005/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-006/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-007/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-008/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-009/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-010/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-011/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-012/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-013/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-014/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-015/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-016/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-017/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-018/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-019/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-020/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-021/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-022/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-023/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-024/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-025/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-026/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-027/export-review-html.ts             src/reasoning-v1/topics/Missing-Number/MIS-001/MIS-CP-028/export-review-html.ts
           do
             name="$(basename "$file" .ts)"
             parent="$(basename "$(dirname "$file")")"
@@ -67,8 +67,58 @@ jobs:
         run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-011-mis-cp-011.test.mjs
       - name: Run MIS-CP-012 competing-rule audit
         run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-012-mis-cp-012.test.mjs
+      - name: Run MIS-CP-013 source-discovered audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-013-mis-cp-013.test.mjs
+      - name: Run MIS-CP-014 PSPCL missing-corner audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-014-mis-cp-014.test.mjs
+      - name: Run MIS-CP-015 SSC source-gap audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-015-mis-cp-015.test.mjs
+      - name: Run MIS-CP-016 SSC GD source audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-016-mis-cp-016.test.mjs
+      - name: Run MIS-CP-017 SSC CGL mixed digit-whole audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-017-mis-cp-017.test.mjs
+      - name: Run MIS-CP-018 SSC CHSL source audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-018-mis-cp-018.test.mjs
+      - name: Run MIS-CP-019 SSC CGL source audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-019-mis-cp-019.test.mjs
+      - name: Run MIS-CP-020 SSC root-extraction audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-020-mis-cp-020.test.mjs
+      - name: Run MIS-CP-021 SSC source audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-021-mis-cp-021.test.mjs
+      - name: Run MIS-CP-022 SSC arithmetic-mean audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-022-mis-cp-022.test.mjs
+      - name: Run MIS-CP-023 PSPCL mixed-root audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-023-mis-cp-023.test.mjs
+      - name: Run MIS-CP-024 repeated affine audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-024-mis-cp-024.test.mjs
+      - name: Run MIS-CP-025 RRB linked-product alias audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-025-mis-cp-025.test.mjs
+      - name: Run MIS-CP-026 RRB opposite-square alias audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-026-mis-cp-026.test.mjs
+      - name: Run MIS-CP-027 SSC sum-of-cubes audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-027-mis-cp-027.test.mjs
+      - name: Run MIS-CP-028 SSC root-combination audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-028-mis-cp-028.test.mjs
+      - name: Run MIS-001 semantic authority merge-split audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-semantic-authority-registry.test.mjs
       - name: Run MIS-001 chapter Question Studio audit
         run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-question-studio-integration.test.mjs
+      - name: Run MIS-001 English editorial freeze audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-english-editorial-freeze.test.mjs
+      - name: Run MIS-001 permanent QL allocation audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-MIS-PERMANENT-QL-REGISTRY.test.mjs
+      - name: Run MIS-001 Hindi Punjabi localization wave 1 audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-localization-wave1.test.mjs
+      - name: Run MIS-001 Hindi Punjabi localization wave 2 audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-localization-wave2.test.mjs
+      - name: Run MIS-001 Hindi Punjabi localization wave 3 audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-localization-wave3.test.mjs
+      - name: Run MIS-001 Hindi Punjabi localization wave 4 audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-localization-wave4.test.mjs
+      - name: Run MIS-001 chapter localization accounting audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-localization-chapter-accounting.test.mjs
+      - name: Run MIS-001 final multilingual corpus readiness audit
+        run: node artifacts/api-server/dist/reasoning-v1/mis-001/MIS-001-final-corpus-readiness.test.mjs
       - name: Generate MIS-001 review packs
         run: |
           cd artifacts/api-server
@@ -87,10 +137,26 @@ jobs:
           node dist/reasoning-v1/mis-001/MIS-CP-010-export-review-html.mjs
           node dist/reasoning-v1/mis-001/MIS-CP-011-export-review-html.mjs
           node dist/reasoning-v1/mis-001/MIS-CP-012-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-013-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-014-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-015-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-016-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-017-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-018-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-019-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-020-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-021-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-022-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-023-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-024-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-025-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-026-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-027-export-review-html.mjs
+          node dist/reasoning-v1/mis-001/MIS-CP-028-export-review-html.mjs
       - name: Upload MIS-001 review packs
         uses: actions/upload-artifact@v4
         with:
-          name: MIS-001-CP001-CP012-REVIEW
+          name: MIS-001-CP001-CP028-REVIEW
           path: |
             artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-001-REVIEW.md
             artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-002-REVIEW.md
@@ -107,3 +173,19 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-010-REVIEW.html
             artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-011-REVIEW.html
             artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-012-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-013-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-014-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-015-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-016-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-017-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-018-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-019-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-020-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-021-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-022-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-023-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-024-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-025-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-026-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-027-REVIEW.html
+            artifacts/api-server/dist/reasoning-v1/mis-001/MIS-CP-028-REVIEW.html
