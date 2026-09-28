@@ -5,8 +5,7 @@ import { getQuestionLanguageIds as getRap001QuestionLanguageIds } from "./RAP-00
 import { RAP_001_CP_IDS } from "./RAP-001/types";
 import { getRap002QuestionLanguageIds } from "./RAP-002/library";
 import { RAP_002_CP_IDS } from "./RAP-002/types";
-import { getRap003QuestionLanguageIds } from "./RAP-003/library";
-import { RAP_003_CP_IDS } from "./RAP-003/types";
+import { getRap003ActiveCanonicalProblemIds, getRap003QuestionLanguageIds } from "./RAP-003/library";
 
 const basePath = "src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion";
 
@@ -43,7 +42,7 @@ const results = await Promise.all([
   }),
   writeHumanReviewExports({
     packageId: "RAP-003",
-    cpIds: RAP_003_CP_IDS,
+    cpIds: getRap003ActiveCanonicalProblemIds(),
     qlIds: (cpId) => getRap003QuestionLanguageIds(cpId as any),
     generate: (cpId, qlId, seed) => generate("RAP-003", cpId, qlId, seed),
     reviewPath: path.resolve(basePath, "RAP-003/rap-003-human-review-en.csv"),
