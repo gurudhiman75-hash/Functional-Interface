@@ -1,0 +1,56 @@
+name: Validate SIF-001 V1 Chapter Freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Inference/SIF-001/**'
+      - '.github/workflows/sif-001-v1-chapter-freeze.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sif-001-v1-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sif001-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Validate all chapter authorities and review packs
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Inference/SIF-001/chapter-proof.test.ts
+
+      - name: Validate frozen multilingual Question Studio contract
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Inference/SIF-001/chapter-freeze-v1-proof.test.ts
+
+      - name: Validate Question Studio registration
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Inference/SIF-001/question-studio-integration.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/sif-001-question-studio-integration.mjs
+          node dist/sif-001-question-studio-integration.mjs
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: node build.mjs
+
+      - name: Preserve release boundary
+        run: |
+          echo 'SIF-001 V1 is frozen for Question Studio review only.'
+          echo 'Question Bank, tests, mocks, public delivery, and automatic student publication remain locked.'
+          echo 'Learner release requires separate approval.';
