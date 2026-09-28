@@ -9,13 +9,16 @@ import {
 import { generateDi005PermanentQuestion } from "./permanent-question-generator";
 import { DI005_LOCALIZATION_RELEASE_ID, localizeDi005Question } from "./localization-review-v1";
 import { generateDi005FullyVisibleSet } from "./fully-visible-pie-v1";
+import { generateDi005ComparativePieSet, type Di005ComparativeExamProfile } from "./comparative-pie-v1";
 import { renderDiPieSvg } from "../visuals/pie-svg";
 import type { Di005V2Difficulty, Di005V2ExamProfile } from "./pie-v2-types";
 
 export const DI005_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-005" as const;
 export const DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID = "DI-CP-005-FULLY-VISIBLE" as const;
+export const DI005_COMPARATIVE_CANONICAL_PROBLEM_ID = "DI-CP-005-COMPARATIVE" as const;
 export const DI005_QUESTION_STUDIO_RUNTIME_MODE = "DI005_PERMANENT_MULTILINGUAL_REVIEW_V1" as const;
 export const DI005_FULLY_VISIBLE_RUNTIME_MODE = "DI005_FULLY_VISIBLE_PIE_REVIEW_V1" as const;
+export const DI005_COMPARATIVE_RUNTIME_MODE = "DI005_COMPARATIVE_DOUBLE_PIE_REVIEW_V1" as const;
 
 export type Di005QuestionStudioRequest = Readonly<{
   packageId?: string;
@@ -49,7 +52,8 @@ export function isDi005QuestionStudioRequest(request: Di005QuestionStudioRequest
     || Boolean(getDi005PermanentQl(qlId))
     || cpId === DI005_QUESTION_STUDIO_CANONICAL_PROBLEM_ID
     || cpId === DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID
-    || (topic === "data interpretation" && ["pie", "pie chart", "pie chart di", "pie interpretation", "fully visible pie", "fully labelled pie"].includes(subtopic));
+    || cpId === DI005_COMPARATIVE_CANONICAL_PROBLEM_ID
+    || (topic === "data interpretation" && ["pie", "pie chart", "pie chart di", "pie interpretation", "fully visible pie", "fully labelled pie", "double pie", "comparative pie"].includes(subtopic));
 }
 
 function normalizeDifficulty(value: unknown): Di005V2Difficulty | undefined {
@@ -188,6 +192,51 @@ function toQuestionStudioPreview(
 }
 
 
+
+function normalizeComparativeProfile(value: unknown): Di005ComparativeExamProfile {
+  const normalized = normalizeSelector(value);
+  if (normalized.includes("mains")) return "BANKING_MAINS";
+  return "BANKING_PRELIMS";
+}
+
+async function generateDi005ComparativeQuestionStudioBatch(request: Di005QuestionStudioRequest) {
+  const languageValue = String(request.language ?? "en").trim().toLowerCase();
+  if (languageValue !== "en") throw new Error("DI-005 comparative pie V1 is English review-only.");
+  const profile = normalizeComparativeProfile(request.examProfile);
+  const difficulty = normalizeDifficulty(request.difficulty);
+  const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
+  const batchSeed = String(request.seed ?? "").trim() || `quant-v4:DI-005:comparative:${profile}:${difficulty ?? "mixed"}:${Date.now()}`;
+  const questionPackages: ReturnType<typeof generateDi005ComparativePieSet>[] = [];
+  const questions:any[] = [];
+  for(let index=0;index<count;index+=1){
+    const seed=`${batchSeed}:${index}`;
+    const set=generateDi005ComparativePieSet({seed,examProfile:profile});
+    questionPackages.push(set);
+    const pool=difficulty?set.questions.filter(q=>q.difficulty===difficulty):set.questions;
+    const question=pool[index%pool.length]!;
+    questions.push({
+      text:question.stem,stem:question.stem,stimulus:{left:set.left,right:set.right},
+      stimulusSvgs:[renderDiPieSvg(set.left),renderDiPieSvg(set.right)],
+      options:[...question.options],correct:question.correctIndex,correctIndex:question.correctIndex,answer:question.answer,
+      canonicalAnswer:{kind:"symbolic" as const,value:question.answer,display:question.answer,rendered:question.answer,rounding:"exact" as const},
+      explanation:[question.explanation.keyIdea,...question.explanation.steps].join("\n\n"),richExplanation:question.explanation,
+      difficulty:question.difficulty,difficultyLabel:question.difficulty,patternId:"DI-005",section:"Quant",topic:"Data Interpretation",subtopic:"Comparative / Double Pie",
+      generationBackend:"quant-v4",debugSource:"quant-v4-di005-comparative-pie-review-v1",questionId:question.questionId,sourceQuestionId:question.questionId,
+      seed,examProfile:set.examProfile,packageId:"DI-005" as const,canonicalProblemId:DI005_COMPARATIVE_CANONICAL_PROBLEM_ID,taskKind:question.kind,
+      runtimeMode:DI005_COMPARATIVE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+      questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,questionBankEligible:false as const,testEligibility:"INELIGIBLE" as const,
+      testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
+      productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:"en" as const,
+      metadata:{packageId:"DI-005",canonicalProblemId:DI005_COMPARATIVE_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:set.examProfile,runtimeMode:DI005_COMPARATIVE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_SHARED_VISUALS"}
+    });
+  }
+  return {generationContext:{generationDomain:"quant-v4" as const,chapterId:"DataInterpretation" as const,packageId:"DI-005" as const,canonicalProblemId:DI005_COMPARATIVE_CANONICAL_PROBLEM_ID,
+    seed:batchSeed,timestamp:Date.now(),language:"en" as const,examProfile:profile,runtimeMode:DI005_COMPARATIVE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+    questionStudioDiscoverable:true as const,questionStudioMode:"CONTROLLED_REVIEW" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
+    testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
+    productionReleaseAuthorized:false as const,manualApprovalRequired:true as const},questionPackages,questions};
+}
+
 async function generateDi005FullyVisibleQuestionStudioBatch(request: Di005QuestionStudioRequest) {
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
   if (languageValue !== "en") throw new Error("DI-005 fully-visible V1 is English review-only.");
@@ -289,6 +338,7 @@ async function generateDi005FullyVisibleQuestionStudioBatch(request: Di005Questi
 export async function generateDi005QuestionStudioBatch(request: Di005QuestionStudioRequest = {}) {
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
   if (cpId === DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID) return generateDi005FullyVisibleQuestionStudioBatch(request);
+  if (cpId === DI005_COMPARATIVE_CANONICAL_PROBLEM_ID) return generateDi005ComparativeQuestionStudioBatch(request);
   if (cpId && cpId !== DI005_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cpId}' for package DI-005.`);
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
   if (!["en", "hi", "pa"].includes(languageValue)) throw new Error(`DI-005 controlled review supports en, hi and pa; received '${String(request.language ?? "")}'.`);
@@ -358,20 +408,21 @@ export function di005QuestionStudioPackageCard() {
     name: "DI-005 Pie Chart",
     label: "Pie Chart",
     generationDomain: "quant-v4",
-    cpIds: [DI005_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID],
+    cpIds: [DI005_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID, DI005_COMPARATIVE_CANONICAL_PROBLEM_ID],
     canonicalProblems: [
       { id: DI005_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Pie Chart — Hidden Sector" },
       { id: DI005_FULLY_VISIBLE_CANONICAL_PROBLEM_ID, label: "Pie Chart — Fully Visible" },
+      { id: DI005_COMPARATIVE_CANONICAL_PROBLEM_ID, label: "Pie Chart — Comparative / Double Pie" },
     ],
     permanentQlIds: DI005_PERMANENT_QLS.map((descriptor) => descriptor.qlId),
     permanentQlCount: DI005_PERMANENT_QLS.length,
     qls: DI005_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, taskKind: descriptor.taskKind })),
     supportedDifficulties: ["easy", "medium", "hard"],
     supportedLanguages: ["en", "hi", "pa"],
-    supportedExamProfiles: ["SSC_CGL_TIER_I", "BANKING_PRELIMS"],
+    supportedExamProfiles: ["SSC_CGL_TIER_I", "BANKING_PRELIMS", "BANKING_MAINS"],
     enabled: true,
     runtimeMode: DI005_QUESTION_STUDIO_RUNTIME_MODE,
-    supportedRuntimeModes: [DI005_QUESTION_STUDIO_RUNTIME_MODE, DI005_FULLY_VISIBLE_RUNTIME_MODE],
+    supportedRuntimeModes: [DI005_QUESTION_STUDIO_RUNTIME_MODE, DI005_FULLY_VISIBLE_RUNTIME_MODE, DI005_COMPARATIVE_RUNTIME_MODE],
     reviewStatus: "MULTILINGUAL_FROZEN",
     releaseId: DI005_LOCALIZATION_RELEASE_ID,
     questionStudioDiscoverable: DI005_PERMANENT_OWNERSHIP.lifecycle.questionStudioDiscoverable,
