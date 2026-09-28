@@ -64,6 +64,28 @@ function options(answer:string,candidates:readonly string[],count:4|5,seed:strin
   for(const value of [answer,...candidates]){
     if(!seen.has(value)){seen.add(value);values.push(value);}
   }
+  const angleMatch=answer.match(/^(\d+)°$/u);
+  if(angleMatch){
+    const n=Number(angleMatch[1]);
+    for(const delta of [18,36,54,72,90,-18,-36,-54]){
+      if(values.length>=count) break;
+      const candidate=n+delta;
+      if(candidate<=0||candidate>=360) continue;
+      const v=`${candidate}°`;
+      if(!seen.has(v)){seen.add(v);values.push(v);}
+    }
+  }
+  const percentMatch=answer.match(/^(\d+)%$/u);
+  if(percentMatch){
+    const n=Number(percentMatch[1]);
+    for(const delta of [5,10,15,20,-5,-10,-15]){
+      if(values.length>=count) break;
+      const candidate=n+delta;
+      if(candidate<=0) continue;
+      const v=`${candidate}%`;
+      if(!seen.has(v)){seen.add(v);values.push(v);}
+    }
+  }
   if(/^\d+$/.test(answer)){
     const n=Number(answer);
     for(let i=1;values.length<count&&i<=20;i++){
