@@ -1,0 +1,554 @@
+[
+  {
+    "id": "WGE-001-CP029-Q001",
+    "cpId": "WGE-001-CP029",
+    "objective": "roraima-triple-border",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Mount Roraima lies near the junction of which three countries?",
+        "options": [
+          "Argentina, Uruguay and Brazil",
+          "Colombia, Ecuador and Peru",
+          "Venezuela, Guyana and Brazil",
+          "Peru, Bolivia and Chile"
+        ],
+        "explanation": "Mount Roraima stands near the meeting point of the borders of Venezuela, Guyana and Brazil."
+      },
+      "hi": {
+        "stem": "माउंट रोराइमा किन तीन देशों की सीमा के मिलन-क्षेत्र के पास स्थित है?",
+        "options": [
+          "अर्जेंटीना, उरुग्वे और ब्राज़ील",
+          "कोलंबिया, इक्वाडोर और पेरू",
+          "वेनेज़ुएला, गुयाना और ब्राज़ील",
+          "पेरू, बोलीविया और चिली"
+        ],
+        "explanation": "माउंट रोराइमा वेनेज़ुएला, गुयाना और ब्राज़ील की सीमाओं के मिलन-क्षेत्र के पास है।"
+      },
+      "pa": {
+        "stem": "ਮਾਊਂਟ ਰੋਰਾਈਮਾ ਕਿਹੜੇ ਤਿੰਨ ਦੇਸ਼ਾਂ ਦੀਆਂ ਸਰਹੱਦਾਂ ਦੇ ਮਿਲਣ ਵਾਲੇ ਖੇਤਰ ਨੇੜੇ ਹੈ?",
+        "options": [
+          "ਅਰਜਨਟੀਨਾ, ਉਰੂਗਵੇ ਅਤੇ ਬ੍ਰਾਜ਼ੀਲ",
+          "ਕੋਲੰਬੀਆ, ਇਕਵਾਡੋਰ ਅਤੇ ਪੇਰੂ",
+          "ਵੇਨੇਜ਼ੂਏਲਾ, ਗੁਯਾਨਾ ਅਤੇ ਬ੍ਰਾਜ਼ੀਲ",
+          "ਪੇਰੂ, ਬੋਲੀਵੀਆ ਅਤੇ ਚਿਲੀ"
+        ],
+        "explanation": "ਮਾਊਂਟ ਰੋਰਾਈਮਾ ਵੇਨੇਜ਼ੂਏਲਾ, ਗੁਯਾਨਾ ਅਤੇ ਬ੍ਰਾਜ਼ੀਲ ਦੀਆਂ ਸਰਹੱਦਾਂ ਦੇ ਮਿਲਣ ਵਾਲੇ ਖੇਤਰ ਨੇੜੇ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q002",
+    "cpId": "WGE-001-CP029",
+    "objective": "amazon-basin-country",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Most of the Amazon Basin lies within which country?",
+        "options": [
+          "Brazil",
+          "Peru",
+          "Colombia",
+          "Ecuador"
+        ],
+        "explanation": "The basin extends across several countries, but its largest share lies in northern Brazil."
+      },
+      "hi": {
+        "stem": "अमेज़न बेसिन का अधिकांश भाग किस देश में स्थित है?",
+        "options": [
+          "ब्राज़ील",
+          "पेरू",
+          "कोलंबिया",
+          "इक्वाडोर"
+        ],
+        "explanation": "बेसिन कई देशों में फैला है, लेकिन इसका सबसे बड़ा भाग उत्तरी ब्राज़ील में है।"
+      },
+      "pa": {
+        "stem": "ਐਮਾਜ਼ਨ ਬੇਸਿਨ ਦਾ ਜ਼ਿਆਦਾਤਰ ਹਿੱਸਾ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਬ੍ਰਾਜ਼ੀਲ",
+          "ਪੇਰੂ",
+          "ਕੋਲੰਬੀਆ",
+          "ਇਕਵਾਡੋਰ"
+        ],
+        "explanation": "ਇਹ ਬੇਸਿਨ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚ ਫੈਲਿਆ ਹੈ, ਪਰ ਇਸ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਹਿੱਸਾ ਉੱਤਰੀ ਬ੍ਰਾਜ਼ੀਲ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q003",
+    "cpId": "WGE-001-CP029",
+    "objective": "gran-chaco-region",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "The Gran Chaco lowland extends across parts of which three countries?",
+        "options": [
+          "Chile, Peru and Ecuador",
+          "Brazil, Uruguay and Guyana",
+          "Colombia, Venezuela and Suriname",
+          "Argentina, Bolivia and Paraguay"
+        ],
+        "explanation": "The Gran Chaco is a broad lowland region shared by northern Argentina, western Paraguay and southeastern Bolivia."
+      },
+      "hi": {
+        "stem": "ग्रान चाको निम्नभूमि किन तीन देशों के कुछ भागों में फैली है?",
+        "options": [
+          "चिली, पेरू और इक्वाडोर",
+          "ब्राज़ील, उरुग्वे और गुयाना",
+          "कोलंबिया, वेनेज़ुएला और सूरीनाम",
+          "अर्जेंटीना, बोलीविया और पराग्वे"
+        ],
+        "explanation": "ग्रान चाको विस्तृत निम्नभूमि है जो उत्तरी अर्जेंटीना, पश्चिमी पराग्वे और दक्षिण-पूर्वी बोलीविया में फैली है।"
+      },
+      "pa": {
+        "stem": "ਗ੍ਰਾਨ ਚਾਕੋ ਨੀਵੀਂ ਧਰਤੀ ਕਿਹੜੇ ਤਿੰਨ ਦੇਸ਼ਾਂ ਦੇ ਕੁਝ ਹਿੱਸਿਆਂ ਵਿੱਚ ਫੈਲੀ ਹੈ?",
+        "options": [
+          "ਚਿਲੀ, ਪੇਰੂ ਅਤੇ ਇਕਵਾਡੋਰ",
+          "ਬ੍ਰਾਜ਼ੀਲ, ਉਰੂਗਵੇ ਅਤੇ ਗੁਯਾਨਾ",
+          "ਕੋਲੰਬੀਆ, ਵੇਨੇਜ਼ੂਏਲਾ ਅਤੇ ਸੂਰੀਨਾਮ",
+          "ਅਰਜਨਟੀਨਾ, ਬੋਲੀਵੀਆ ਅਤੇ ਪੈਰਾਗੁਏ"
+        ],
+        "explanation": "ਗ੍ਰਾਨ ਚਾਕੋ ਵਿਸ਼ਾਲ ਨੀਵੀਂ ਧਰਤੀ ਹੈ ਜੋ ਉੱਤਰੀ ਅਰਜਨਟੀਨਾ, ਪੱਛਮੀ ਪੈਰਾਗੁਏ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਬੋਲੀਵੀਆ ਵਿੱਚ ਫੈਲੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q004",
+    "cpId": "WGE-001-CP029",
+    "objective": "orinoco-atlantic-outlet",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "The Orinoco River reaches the Atlantic Ocean through which feature?",
+        "options": [
+          "Gulf of Guayaquil",
+          "Orinoco Delta",
+          "Río de la Plata",
+          "Amazon Estuary"
+        ],
+        "explanation": "The Orinoco flows northeast across Venezuela and enters the Atlantic through its delta."
+      },
+      "hi": {
+        "stem": "ओरिनोको नदी किस भौगोलिक संरचना से होकर अटलांटिक महासागर तक पहुँचती है?",
+        "options": [
+          "ग्वायाकिल की खाड़ी",
+          "ओरिनोको डेल्टा",
+          "रियो दे ला प्लाटा",
+          "अमेज़न मुहाना"
+        ],
+        "explanation": "ओरिनोको वेनेज़ुएला में उत्तर-पूर्व की ओर बहती है और अपने डेल्टा से अटलांटिक में गिरती है।"
+      },
+      "pa": {
+        "stem": "ਓਰੀਨੋਕੋ ਦਰਿਆ ਕਿਹੜੀ ਭੂਗੋਲਕ ਬਣਤਰ ਰਾਹੀਂ ਅਟਲਾਂਟਿਕ ਮਹਾਂਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ?",
+        "options": [
+          "ਗੁਆਯਾਕਿਲ ਦੀ ਖਾੜੀ",
+          "ਓਰੀਨੋਕੋ ਡੈਲਟਾ",
+          "ਰਿਓ ਦੇ ਲਾ ਪਲਾਟਾ",
+          "ਐਮਾਜ਼ਨ ਮੁਹਾਣਾ"
+        ],
+        "explanation": "ਓਰੀਨੋਕੋ ਵੇਨੇਜ਼ੂਏਲਾ ਵਿੱਚ ਉੱਤਰ-ਪੂਰਬ ਵੱਲ ਵਗਦਾ ਹੈ ਅਤੇ ਆਪਣੇ ਡੈਲਟੇ ਰਾਹੀਂ ਅਟਲਾਂਟਿਕ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q005",
+    "cpId": "WGE-001-CP029",
+    "objective": "brazil-land-border-exceptions",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which two South American countries do not share a land border with Brazil?",
+        "options": [
+          "Peru and Bolivia",
+          "Uruguay and Argentina",
+          "Colombia and Venezuela",
+          "Chile and Ecuador"
+        ],
+        "explanation": "Brazil borders every South American country except Chile and Ecuador."
+      },
+      "hi": {
+        "stem": "दक्षिण अमेरिका के कौन-से दो देशों की ब्राज़ील से स्थलीय सीमा नहीं लगती?",
+        "options": [
+          "पेरू और बोलीविया",
+          "उरुग्वे और अर्जेंटीना",
+          "कोलंबिया और वेनेज़ुएला",
+          "चिली और इक्वाडोर"
+        ],
+        "explanation": "दक्षिण अमेरिका में ब्राज़ील की स्थलीय सीमा चिली और इक्वाडोर को छोड़कर सभी देशों से लगती है।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਕਿਹੜੇ ਦੋ ਦੇਸ਼ਾਂ ਦੀ ਬ੍ਰਾਜ਼ੀਲ ਨਾਲ ਜ਼ਮੀਨੀ ਸਰਹੱਦ ਨਹੀਂ ਲੱਗਦੀ?",
+        "options": [
+          "ਪੇਰੂ ਅਤੇ ਬੋਲੀਵੀਆ",
+          "ਉਰੂਗਵੇ ਅਤੇ ਅਰਜਨਟੀਨਾ",
+          "ਕੋਲੰਬੀਆ ਅਤੇ ਵੇਨੇਜ਼ੂਏਲਾ",
+          "ਚਿਲੀ ਅਤੇ ਇਕਵਾਡੋਰ"
+        ],
+        "explanation": "ਦੱਖਣੀ ਅਮਰੀਕਾ ਵਿੱਚ ਬ੍ਰਾਜ਼ੀਲ ਦੀ ਜ਼ਮੀਨੀ ਸਰਹੱਦ ਚਿਲੀ ਅਤੇ ਇਕਵਾਡੋਰ ਤੋਂ ਇਲਾਵਾ ਸਾਰੇ ਦੇਸ਼ਾਂ ਨਾਲ ਲੱਗਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q006",
+    "cpId": "WGE-001-CP029",
+    "objective": "orinoco-basin",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "The Llanos are seasonal grasslands of which river basin?",
+        "options": [
+          "São Francisco",
+          "Orinoco",
+          "Amazon",
+          "Paraná"
+        ],
+        "explanation": "The Llanos occupy the Orinoco basin in Venezuela and eastern Colombia."
+      },
+      "hi": {
+        "stem": "ल्यानोस किस नदी-बेसिन की मौसमी घासभूमि है?",
+        "options": [
+          "साओ फ़्रांसिस्को",
+          "ओरिनोको",
+          "अमेज़न",
+          "पराना"
+        ],
+        "explanation": "ल्यानोस वेनेज़ुएला और पूर्वी कोलंबिया में ओरिनोको बेसिन में फैली है।"
+      },
+      "pa": {
+        "stem": "ਲਿਆਨੋਸ ਕਿਹੜੇ ਦਰਿਆਈ ਬੇਸਿਨ ਦੀ ਮੌਸਮੀ ਘਾਹ-ਭੂਮੀ ਹੈ?",
+        "options": [
+          "ਸਾਓ ਫ਼ਰਾਂਸਿਸਕੋ",
+          "ਓਰੀਨੋਕੋ",
+          "ਐਮਾਜ਼ਨ",
+          "ਪਰਾਨਾ"
+        ],
+        "explanation": "ਲਿਆਨੋਸ ਵੇਨੇਜ਼ੂਏਲਾ ਅਤੇ ਪੂਰਬੀ ਕੋਲੰਬੀਆ ਵਿੱਚ ਓਰੀਨੋਕੋ ਬੇਸਿਨ ਵਿੱਚ ਫੈਲੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q007",
+    "cpId": "WGE-001-CP029",
+    "objective": "guiana-highlands-setting",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The Guiana Highlands lie mainly in which part of South America?",
+        "options": [
+          "The north, between the Orinoco and Amazon lowlands",
+          "The far south, east of the Andes",
+          "The southeast, between the Pampas and Atlantic",
+          "The southwest, along the Pacific coast"
+        ],
+        "explanation": "The Guiana Highlands occupy northern South America, north of the Amazon lowlands and east of the Orinoco basin."
+      },
+      "hi": {
+        "stem": "गुयाना उच्चभूमि दक्षिण अमेरिका के किस भाग में मुख्यतः स्थित है?",
+        "options": [
+          "उत्तर में, ओरिनोको और अमेज़न निम्नभूमियों के बीच",
+          "सुदूर दक्षिण में, एंडीज़ के पूर्व में",
+          "दक्षिण-पूर्व में, पम्पास और अटलांटिक के बीच",
+          "दक्षिण-पश्चिम में, प्रशांत तट के साथ"
+        ],
+        "explanation": "गुयाना उच्चभूमि उत्तरी दक्षिण अमेरिका में, अमेज़न निम्नभूमि के उत्तर और ओरिनोको बेसिन के पूर्व में है।"
+      },
+      "pa": {
+        "stem": "ਗੁਯਾਨਾ ਉੱਚ-ਭੂਮੀ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਕਿਹੜੇ ਹਿੱਸੇ ਵਿੱਚ ਮੁੱਖ ਤੌਰ ਤੇ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਉੱਤਰ ਵਿੱਚ, ਓਰੀਨੋਕੋ ਅਤੇ ਐਮਾਜ਼ਨ ਦੇ ਨੀਵੇਂ ਮੈਦਾਨਾਂ ਵਿਚਕਾਰ",
+          "ਦੂਰ ਦੱਖਣ ਵਿੱਚ, ਐਂਡੀਜ਼ ਦੇ ਪੂਰਬ ਵੱਲ",
+          "ਦੱਖਣ-ਪੂਰਬ ਵਿੱਚ, ਪੰਪਾਸ ਅਤੇ ਅਟਲਾਂਟਿਕ ਵਿਚਕਾਰ",
+          "ਦੱਖਣ-ਪੱਛਮ ਵਿੱਚ, ਪ੍ਰਸ਼ਾਂਤ ਤਟ ਨਾਲ"
+        ],
+        "explanation": "ਗੁਯਾਨਾ ਉੱਚ-ਭੂਮੀ ਉੱਤਰੀ ਦੱਖਣੀ ਅਮਰੀਕਾ ਵਿੱਚ, ਐਮਾਜ਼ਨ ਦੇ ਨੀਵੇਂ ਮੈਦਾਨਾਂ ਦੇ ਉੱਤਰ ਅਤੇ ਓਰੀਨੋਕੋ ਬੇਸਿਨ ਦੇ ਪੂਰਬ ਵੱਲ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q008",
+    "cpId": "WGE-001-CP029",
+    "objective": "patagonia-rainshadow",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Why is eastern Patagonia much drier than the western side of the southern Andes?",
+        "options": [
+          "The region lies under the equatorial calm belt",
+          "The Pampas block every westerly wind",
+          "The Andes create a rain shadow to the east",
+          "The Atlantic Current removes all moisture"
+        ],
+        "explanation": "Moist westerlies lose much of their moisture on the western slopes of the Andes, leaving drier conditions to the east."
+      },
+      "hi": {
+        "stem": "दक्षिणी एंडीज़ के पश्चिमी भाग की तुलना में पूर्वी पैटागोनिया अधिक शुष्क क्यों है?",
+        "options": [
+          "यह क्षेत्र विषुवतीय शांत पट्टी में है",
+          "पम्पास सभी पछुआ पवनों को रोक देता है",
+          "एंडीज़ के पूर्व में वर्षाछाया बनती है",
+          "अटलांटिक धारा सारी नमी हटा देती है"
+        ],
+        "explanation": "नम पछुआ पवनें एंडीज़ की पश्चिमी ढाल पर काफी नमी खो देती हैं, इसलिए पूर्व में शुष्क स्थितियाँ रहती हैं।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਐਂਡੀਜ਼ ਦੇ ਪੱਛਮੀ ਪਾਸੇ ਨਾਲੋਂ ਪੂਰਬੀ ਪੈਟਾਗੋਨੀਆ ਵਧੇਰੇ ਸੁੱਕਾ ਕਿਉਂ ਹੈ?",
+        "options": [
+          "ਇਹ ਖੇਤਰ ਭੂ-ਮੱਧ ਰੇਖਾਈ ਸ਼ਾਂਤ ਪੱਟੀ ਵਿੱਚ ਹੈ",
+          "ਪੰਪਾਸ ਸਾਰੀਆਂ ਪੱਛਮੀ ਹਵਾਵਾਂ ਨੂੰ ਰੋਕ ਦਿੰਦਾ ਹੈ",
+          "ਐਂਡੀਜ਼ ਦੇ ਪੂਰਬ ਵੱਲ ਵਰਖਾ-ਛਾਂ ਬਣਦੀ ਹੈ",
+          "ਅਟਲਾਂਟਿਕ ਧਾਰਾ ਸਾਰੀ ਨਮੀ ਖਿੱਚ ਲੈਂਦੀ ਹੈ"
+        ],
+        "explanation": "ਨਮੀ ਵਾਲੀਆਂ ਪੱਛਮੀ ਹਵਾਵਾਂ ਐਂਡੀਜ਼ ਦੀਆਂ ਪੱਛਮੀ ਢਲਾਣਾਂ ਉੱਤੇ ਕਾਫ਼ੀ ਨਮੀ ਗੁਆ ਦਿੰਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਪੂਰਬ ਵੱਲ ਖੁਸ਼ਕ ਹਾਲਤਾਂ ਰਹਿੰਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q009",
+    "cpId": "WGE-001-CP029",
+    "objective": "parana-la-plata-outlet",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "The Paraná River reaches the Atlantic through which estuary?",
+        "options": [
+          "Gulf of Guayaquil",
+          "Río de la Plata",
+          "Orinoco Delta",
+          "Amazon Estuary"
+        ],
+        "explanation": "The Paraná joins the Uruguay River system near the Río de la Plata, which opens to the South Atlantic."
+      },
+      "hi": {
+        "stem": "पराना नदी किस मुहाने से होकर अटलांटिक तक पहुँचती है?",
+        "options": [
+          "ग्वायाकिल की खाड़ी",
+          "रियो दे ला प्लाटा",
+          "ओरिनोको डेल्टा",
+          "अमेज़न मुहाना"
+        ],
+        "explanation": "पराना नदी रियो दे ला प्लाटा के पास उरुग्वे नदी-प्रणाली से मिलती है और यह मुहाना दक्षिण अटलांटिक में खुलता है।"
+      },
+      "pa": {
+        "stem": "ਪਰਾਨਾ ਦਰਿਆ ਕਿਹੜੇ ਮੁਹਾਣੇ ਰਾਹੀਂ ਅਟਲਾਂਟਿਕ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ?",
+        "options": [
+          "ਗੁਆਯਾਕਿਲ ਦੀ ਖਾੜੀ",
+          "ਰਿਓ ਦੇ ਲਾ ਪਲਾਟਾ",
+          "ਓਰੀਨੋਕੋ ਡੈਲਟਾ",
+          "ਐਮਾਜ਼ਨ ਮੁਹਾਣਾ"
+        ],
+        "explanation": "ਪਰਾਨਾ ਦਰਿਆ ਰਿਓ ਦੇ ਲਾ ਪਲਾਟਾ ਨੇੜੇ ਉਰੂਗਵੇ ਦਰਿਆ ਪ੍ਰਣਾਲੀ ਨਾਲ ਮਿਲਦਾ ਹੈ ਅਤੇ ਇਹ ਮੁਹਾਣਾ ਦੱਖਣੀ ਅਟਲਾਂਟਿਕ ਵਿੱਚ ਖੁੱਲ੍ਹਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q010",
+    "cpId": "WGE-001-CP029",
+    "objective": "gran-chaco-climate",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "The Gran Chaco has which broad climate characteristic?",
+        "options": [
+          "Year-round polar frost",
+          "Mediterranean winter rainfall throughout",
+          "Uniform equatorial rainfall in every month",
+          "Hot summers and a pronounced dry season in much of the region"
+        ],
+        "explanation": "Much of the Gran Chaco is hot, with rainfall concentrated in a wet season and a marked dry season."
+      },
+      "hi": {
+        "stem": "ग्रान चाको की जलवायु की प्रमुख विशेषता क्या है?",
+        "options": [
+          "साल भर ध्रुवीय पाला",
+          "पूरे क्षेत्र में भूमध्यसागरीय शीतकालीन वर्षा",
+          "हर महीने समान विषुवतीय वर्षा",
+          "गर्म ग्रीष्म और क्षेत्र के बड़े भाग में स्पष्ट शुष्क ऋतु"
+        ],
+        "explanation": "ग्रान चाको के बड़े भाग में गर्म जलवायु होती है; वर्षा एक आर्द्र ऋतु में अधिक होती है और शुष्क ऋतु स्पष्ट रहती है।"
+      },
+      "pa": {
+        "stem": "ਗ੍ਰਾਨ ਚਾਕੋ ਦੀ ਜਲਵਾਯੂ ਦੀ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾ ਕੀ ਹੈ?",
+        "options": [
+          "ਸਾਲ ਭਰ ਧਰੁਵੀ ਪਾਲਾ",
+          "ਪੂਰੇ ਖੇਤਰ ਵਿੱਚ ਭੂ-ਮੱਧ ਸਾਗਰੀ ਸਰਦੀ ਦੀ ਵਰਖਾ",
+          "ਹਰ ਮਹੀਨੇ ਇੱਕੋ ਜਿਹੀ ਭੂ-ਮੱਧ ਰੇਖਾਈ ਵਰਖਾ",
+          "ਗਰਮ ਗਰਮੀਆਂ ਅਤੇ ਖੇਤਰ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਸਪਸ਼ਟ ਖੁਸ਼ਕ ਰੁੱਤ"
+        ],
+        "explanation": "ਗ੍ਰਾਨ ਚਾਕੋ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਗਰਮ ਜਲਵਾਯੂ ਹੈ; ਵਰਖਾ ਇੱਕ ਵਰਖਾ ਰੁੱਤ ਵਿੱਚ ਵਧੇਰੇ ਹੁੰਦੀ ਹੈ ਅਤੇ ਖੁਸ਼ਕ ਰੁੱਤ ਸਪਸ਼ਟ ਰਹਿੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q011",
+    "cpId": "WGE-001-CP029",
+    "objective": "tierra-del-fuego-separation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which strait separates Tierra del Fuego from mainland South America?",
+        "options": [
+          "Beagle Channel",
+          "Panama Canal",
+          "Strait of Magellan",
+          "Drake Passage"
+        ],
+        "explanation": "The Strait of Magellan separates Tierra del Fuego from the South American mainland; the Drake Passage lies farther south."
+      },
+      "hi": {
+        "stem": "टिएरा डेल फुएगो को दक्षिण अमेरिका की मुख्यभूमि से कौन-सा जलडमरूमध्य अलग करता है?",
+        "options": [
+          "बीगल चैनल",
+          "पनामा नहर",
+          "मैगेलन जलडमरूमध्य",
+          "ड्रेक पैसेज"
+        ],
+        "explanation": "मैगेलन जलडमरूमध्य टिएरा डेल फुएगो को दक्षिण अमेरिकी मुख्यभूमि से अलग करता है; ड्रेक पैसेज इससे और दक्षिण में है।"
+      },
+      "pa": {
+        "stem": "ਟਿਏਰਾ ਡੈਲ ਫੂਏਗੋ ਨੂੰ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੀ ਮੁੱਖ ਧਰਤੀ ਤੋਂ ਕਿਹੜਾ ਜਲਡਮਰੂ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਬੀਗਲ ਚੈਨਲ",
+          "ਪਨਾਮਾ ਨਹਿਰ",
+          "ਮੈਗਲਨ ਜਲਡਮਰੂ",
+          "ਡਰੇਕ ਪੈਸੇਜ"
+        ],
+        "explanation": "ਮੈਗਲਨ ਜਲਡਮਰੂ ਟਿਏਰਾ ਡੈਲ ਫੂਏਗੋ ਨੂੰ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੀ ਮੁੱਖ ਧਰਤੀ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ; ਡਰੇਕ ਪੈਸੇਜ ਇਸ ਤੋਂ ਹੋਰ ਦੱਖਣ ਵੱਲ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP029-Q012",
+    "cpId": "WGE-001-CP029",
+    "objective": "titicaca-border",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-SOUTH-AMERICA-MAP",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Lake Titicaca lies on the border of which two countries?",
+        "options": [
+          "Peru and Bolivia",
+          "Chile and Argentina",
+          "Brazil and Paraguay",
+          "Ecuador and Colombia"
+        ],
+        "explanation": "Lake Titicaca lies in the Andes between Peru and Bolivia."
+      },
+      "hi": {
+        "stem": "टिटिकाका झील किन दो देशों की सीमा पर स्थित है?",
+        "options": [
+          "पेरू और बोलीविया",
+          "चिली और अर्जेंटीना",
+          "ब्राज़ील और पराग्वे",
+          "इक्वाडोर और कोलंबिया"
+        ],
+        "explanation": "टिटिकाका झील एंडीज़ में पेरू और बोलीविया के बीच स्थित है।"
+      },
+      "pa": {
+        "stem": "ਟਿਟਿਕਾਕਾ ਝੀਲ ਕਿਹੜੇ ਦੋ ਦੇਸ਼ਾਂ ਦੀ ਸਰਹੱਦ ਉੱਤੇ ਹੈ?",
+        "options": [
+          "ਪੇਰੂ ਅਤੇ ਬੋਲੀਵੀਆ",
+          "ਚਿਲੀ ਅਤੇ ਅਰਜਨਟੀਨਾ",
+          "ਬ੍ਰਾਜ਼ੀਲ ਅਤੇ ਪੈਰਾਗੁਏ",
+          "ਇਕਵਾਡੋਰ ਅਤੇ ਕੋਲੰਬੀਆ"
+        ],
+        "explanation": "ਟਿਟਿਕਾਕਾ ਝੀਲ ਐਂਡੀਜ਼ ਵਿੱਚ ਪੇਰੂ ਅਤੇ ਬੋਲੀਵੀਆ ਦੇ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  }
+]

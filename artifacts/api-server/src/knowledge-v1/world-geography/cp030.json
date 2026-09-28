@@ -1,0 +1,600 @@
+[
+  {
+    "id": "WGE-001-CP030-Q001",
+    "cpId": "WGE-001-CP030",
+    "objective": "great-dividing-drainage-divide",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "How does the Great Dividing Range affect river drainage in eastern Australia?",
+        "options": [
+          "It directs every river north to the Gulf of Carpentaria",
+          "It prevents rivers from reaching the coast",
+          "Many short rivers flow east to the Pacific, while inland streams join drainage systems such as the Murray–Darling",
+          "All rivers flow west into the Indian Ocean"
+        ],
+        "explanation": "The range forms a broad divide: coastal streams descend east, while inland drainage flows towards interior basins and the Murray–Darling system."
+      },
+      "hi": {
+        "stem": "ग्रेट डिवाइडिंग रेंज पूर्वी ऑस्ट्रेलिया के नदी-जल निकास को कैसे प्रभावित करती है?",
+        "options": [
+          "यह हर नदी को उत्तर में कारपेंटारिया की खाड़ी की ओर मोड़ती है",
+          "यह नदियों को तट तक पहुँचने से रोकती है",
+          "कई छोटी नदियाँ पूर्व में प्रशांत तक जाती हैं, जबकि अंदरूनी जलधाराएँ मरे–डार्लिंग जैसी प्रणालियों में मिलती हैं",
+          "सभी नदियाँ पश्चिम में हिंद महासागर तक जाती हैं"
+        ],
+        "explanation": "यह पर्वत-प्रणाली बड़ा जल-विभाजक बनाती है: तटीय जलधाराएँ पूर्व की ओर उतरती हैं, जबकि आंतरिक जल-निकास बेसिनों और मरे–डार्लिंग प्रणाली की ओर जाता है।"
+      },
+      "pa": {
+        "stem": "ਗ੍ਰੇਟ ਡਿਵਾਈਡਿੰਗ ਰੇਂਜ ਪੂਰਬੀ ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਦਰਿਆਈ ਜਲ-ਨਿਕਾਸ ਨੂੰ ਕਿਵੇਂ ਪ੍ਰਭਾਵਿਤ ਕਰਦੀ ਹੈ?",
+        "options": [
+          "ਇਹ ਹਰ ਦਰਿਆ ਨੂੰ ਉੱਤਰ ਵੱਲ ਕਾਰਪੈਂਟੇਰੀਆ ਦੀ ਖਾੜੀ ਤੱਕ ਲੈ ਜਾਂਦੀ ਹੈ",
+          "ਇਹ ਦਰਿਆਵਾਂ ਨੂੰ ਤਟ ਤੱਕ ਪਹੁੰਚਣ ਤੋਂ ਰੋਕਦੀ ਹੈ",
+          "ਕਈ ਛੋਟੇ ਦਰਿਆ ਪੂਰਬ ਵੱਲ ਪ੍ਰਸ਼ਾਂਤ ਤੱਕ ਜਾਂਦੇ ਹਨ, ਜਦਕਿ ਅੰਦਰੂਨੀ ਨਾਲੇ ਮਰੇ–ਡਾਰਲਿੰਗ ਵਰਗੀਆਂ ਪ੍ਰਣਾਲੀਆਂ ਨਾਲ ਜੁੜਦੇ ਹਨ",
+          "ਸਾਰੇ ਦਰਿਆ ਪੱਛਮ ਵੱਲ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਤੱਕ ਜਾਂਦੇ ਹਨ"
+        ],
+        "explanation": "ਇਹ ਪਹਾੜੀ ਲੜੀ ਵੱਡਾ ਜਲ-ਵਿਭਾਜਕ ਬਣਾਉਂਦੀ ਹੈ: ਤੱਟੀ ਨਾਲੇ ਪੂਰਬ ਵੱਲ ਢਲਦੇ ਹਨ, ਜਦਕਿ ਅੰਦਰੂਨੀ ਜਲ-ਨਿਕਾਸ ਬੇਸਿਨਾਂ ਅਤੇ ਮਰੇ–ਡਾਰਲਿੰਗ ਪ੍ਰਣਾਲੀ ਵੱਲ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q002",
+    "cpId": "WGE-001-CP030",
+    "objective": "murray-darling-region",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The Murray–Darling river system is concentrated mainly in which part of Australia?",
+        "options": [
+          "The southeast",
+          "The far north",
+          "The southwest coast",
+          "The central desert interior"
+        ],
+        "explanation": "The Murray and Darling rivers form Australia’s best-known major river system in the southeast."
+      },
+      "hi": {
+        "stem": "मरे–डार्लिंग नदी-प्रणाली ऑस्ट्रेलिया के किस भाग में मुख्यतः है?",
+        "options": [
+          "दक्षिण-पूर्व में",
+          "सुदूर उत्तर में",
+          "दक्षिण-पश्चिमी तट पर",
+          "मध्य मरुस्थलीय आंतरिक भाग में"
+        ],
+        "explanation": "मरे और डार्लिंग नदियाँ दक्षिण-पूर्वी ऑस्ट्रेलिया की प्रमुख नदी-प्रणाली बनाती हैं।"
+      },
+      "pa": {
+        "stem": "ਮਰੇ–ਡਾਰਲਿੰਗ ਦਰਿਆਈ ਪ੍ਰਣਾਲੀ ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਕਿਹੜੇ ਹਿੱਸੇ ਵਿੱਚ ਮੁੱਖ ਤੌਰ ਤੇ ਹੈ?",
+        "options": [
+          "ਦੱਖਣ-ਪੂਰਬ ਵਿੱਚ",
+          "ਦੂਰ ਉੱਤਰ ਵਿੱਚ",
+          "ਦੱਖਣ-ਪੱਛਮੀ ਤਟ ਉੱਤੇ",
+          "ਮੱਧਲੇ ਮਾਰੂਥਲੀ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਵਿੱਚ"
+        ],
+        "explanation": "ਮਰੇ ਅਤੇ ਡਾਰਲਿੰਗ ਦਰਿਆ ਦੱਖਣ-ਪੂਰਬੀ ਆਸਟ੍ਰੇਲੀਆ ਦੀ ਮੁੱਖ ਦਰਿਆਈ ਪ੍ਰਣਾਲੀ ਬਣਾਉਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q003",
+    "cpId": "WGE-001-CP030",
+    "objective": "cook-strait-new-zealand",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Cook Strait separates which two main islands of New Zealand?",
+        "options": [
+          "South Island and Stewart Island",
+          "New Zealand and Tasmania",
+          "New Zealand and New Caledonia",
+          "North Island and South Island"
+        ],
+        "explanation": "Cook Strait lies between New Zealand’s North Island and South Island."
+      },
+      "hi": {
+        "stem": "कुक जलडमरूमध्य न्यूज़ीलैंड के किन दो मुख्य द्वीपों को अलग करता है?",
+        "options": [
+          "दक्षिण द्वीप और स्टीवर्ट द्वीप",
+          "न्यूज़ीलैंड और तस्मानिया",
+          "न्यूज़ीलैंड और न्यू कैलेडोनिया",
+          "उत्तर द्वीप और दक्षिण द्वीप"
+        ],
+        "explanation": "कुक जलडमरूमध्य न्यूज़ीलैंड के उत्तर द्वीप और दक्षिण द्वीप के बीच स्थित है।"
+      },
+      "pa": {
+        "stem": "ਕੁੱਕ ਜਲਡਮਰੂ ਨਿਊਜ਼ੀਲੈਂਡ ਦੇ ਕਿਹੜੇ ਦੋ ਮੁੱਖ ਟਾਪੂਆਂ ਨੂੰ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਦੱਖਣੀ ਟਾਪੂ ਅਤੇ ਸਟੀਵਰਟ ਟਾਪੂ",
+          "ਨਿਊਜ਼ੀਲੈਂਡ ਅਤੇ ਤਸਮਾਨੀਆ",
+          "ਨਿਊਜ਼ੀਲੈਂਡ ਅਤੇ ਨਿਊ ਕੈਲੇਡੋਨੀਆ",
+          "ਉੱਤਰੀ ਟਾਪੂ ਅਤੇ ਦੱਖਣੀ ਟਾਪੂ"
+        ],
+        "explanation": "ਕੁੱਕ ਜਲਡਮਰੂ ਨਿਊਜ਼ੀਲੈਂਡ ਦੇ ਉੱਤਰੀ ਟਾਪੂ ਅਤੇ ਦੱਖਣੀ ਟਾਪੂ ਦੇ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q004",
+    "cpId": "WGE-001-CP030",
+    "objective": "south-island-alps",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "The Southern Alps are the principal mountain chain of which island?",
+        "options": [
+          "New Guinea",
+          "South Island of New Zealand",
+          "North Island of New Zealand",
+          "Tasmania"
+        ],
+        "explanation": "The Southern Alps extend along New Zealand’s South Island."
+      },
+      "hi": {
+        "stem": "सदर्न आल्प्स किस द्वीप की प्रमुख पर्वत-श्रेणी है?",
+        "options": [
+          "न्यू गिनी",
+          "न्यूज़ीलैंड का दक्षिण द्वीप",
+          "न्यूज़ीलैंड का उत्तर द्वीप",
+          "तस्मानिया"
+        ],
+        "explanation": "सदर्न आल्प्स न्यूज़ीलैंड के दक्षिण द्वीप में फैली है।"
+      },
+      "pa": {
+        "stem": "ਸਦਰਨ ਐਲਪਸ ਕਿਹੜੇ ਟਾਪੂ ਦੀ ਮੁੱਖ ਪਹਾੜੀ ਲੜੀ ਹੈ?",
+        "options": [
+          "ਨਿਊ ਗਿਨੀ",
+          "ਨਿਊਜ਼ੀਲੈਂਡ ਦਾ ਦੱਖਣੀ ਟਾਪੂ",
+          "ਨਿਊਜ਼ੀਲੈਂਡ ਦਾ ਉੱਤਰੀ ਟਾਪੂ",
+          "ਤਸਮਾਨੀਆ"
+        ],
+        "explanation": "ਸਦਰਨ ਐਲਪਸ ਨਿਊਜ਼ੀਲੈਂਡ ਦੇ ਦੱਖਣੀ ਟਾਪੂ ਵਿੱਚ ਫੈਲੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q005",
+    "cpId": "WGE-001-CP030",
+    "objective": "melanesia-region",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Fiji, Vanuatu and the Solomon Islands are generally grouped in which Pacific subregion?",
+        "options": [
+          "Micronesia",
+          "Polynesia",
+          "Australasia only",
+          "Melanesia"
+        ],
+        "explanation": "Fiji, Vanuatu and the Solomon Islands are commonly included in Melanesia."
+      },
+      "hi": {
+        "stem": "फ़िजी, वानुअतु और सोलोमन द्वीपसमूह को प्रशांत के किस उपक्षेत्र में रखा जाता है?",
+        "options": [
+          "माइक्रोनेशिया",
+          "पॉलिनेशिया",
+          "केवल ऑस्ट्रेलेशिया",
+          "मेलानेशिया"
+        ],
+        "explanation": "फ़िजी, वानुअतु और सोलोमन द्वीपसमूह को सामान्यतः मेलानेशिया में रखा जाता है।"
+      },
+      "pa": {
+        "stem": "ਫਿਜੀ, ਵਾਨੂਆਟੂ ਅਤੇ ਸੋਲੋਮਨ ਟਾਪੂਆਂ ਨੂੰ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਕਿਹੜੇ ਉਪ-ਖੇਤਰ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਮਾਈਕ੍ਰੋਨੇਸ਼ੀਆ",
+          "ਪੋਲੀਨੇਸ਼ੀਆ",
+          "ਕੇਵਲ ਆਸਟ੍ਰੇਲੇਸ਼ੀਆ",
+          "ਮੇਲਾਨੇਸ਼ੀਆ"
+        ],
+        "explanation": "ਫਿਜੀ, ਵਾਨੂਆਟੂ ਅਤੇ ਸੋਲੋਮਨ ਟਾਪੂਆਂ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਮੇਲਾਨੇਸ਼ੀਆ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q006",
+    "cpId": "WGE-001-CP030",
+    "objective": "micronesia-region",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "The Caroline and Marshall Islands belong to which Pacific subregion?",
+        "options": [
+          "Australasia",
+          "Micronesia",
+          "Melanesia",
+          "Polynesia"
+        ],
+        "explanation": "The Caroline and Marshall island groups are part of Micronesia."
+      },
+      "hi": {
+        "stem": "कैरोलाइन और मार्शल द्वीपसमूह प्रशांत के किस उपक्षेत्र में आते हैं?",
+        "options": [
+          "ऑस्ट्रेलेशिया",
+          "माइक्रोनेशिया",
+          "मेलानेशिया",
+          "पॉलिनेशिया"
+        ],
+        "explanation": "कैरोलाइन और मार्शल द्वीपसमूह माइक्रोनेशिया का हिस्सा हैं।"
+      },
+      "pa": {
+        "stem": "ਕੈਰੋਲਾਈਨ ਅਤੇ ਮਾਰਸ਼ਲ ਟਾਪੂ-ਸਮੂਹ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਕਿਹੜੇ ਉਪ-ਖੇਤਰ ਵਿੱਚ ਆਉਂਦੇ ਹਨ?",
+        "options": [
+          "ਆਸਟ੍ਰੇਲੇਸ਼ੀਆ",
+          "ਮਾਈਕ੍ਰੋਨੇਸ਼ੀਆ",
+          "ਮੇਲਾਨੇਸ਼ੀਆ",
+          "ਪੋਲੀਨੇਸ਼ੀਆ"
+        ],
+        "explanation": "ਕੈਰੋਲਾਈਨ ਅਤੇ ਮਾਰਸ਼ਲ ਟਾਪੂ-ਸਮੂਹ ਮਾਈਕ੍ਰੋਨੇਸ਼ੀਆ ਦਾ ਹਿੱਸਾ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q007",
+    "cpId": "WGE-001-CP030",
+    "objective": "australia-population-coast",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why are Australia’s major population centres concentrated mainly near the coast?",
+        "options": [
+          "Much of the interior is arid, while coastal areas have more favourable water and climate conditions",
+          "The interior is permanently covered by ice",
+          "All rivers flow only to the north coast",
+          "The coastline has no mountain barriers"
+        ],
+        "explanation": "Large areas of inland Australia are arid; water availability and milder conditions have favoured settlement along parts of the coast."
+      },
+      "hi": {
+        "stem": "ऑस्ट्रेलिया के प्रमुख आबादी केंद्र अधिकतर तट के पास क्यों केंद्रित हैं?",
+        "options": [
+          "आंतरिक भाग का बड़ा क्षेत्र शुष्क है, जबकि तट पर जल और जलवायु की स्थितियाँ अधिक अनुकूल हैं",
+          "आंतरिक भाग पर स्थायी हिमावरण है",
+          "सभी नदियाँ केवल उत्तरी तट की ओर बहती हैं",
+          "तटीय भाग में कोई पर्वतीय अवरोध नहीं है"
+        ],
+        "explanation": "ऑस्ट्रेलिया का बड़ा आंतरिक भाग शुष्क है। जल की उपलब्धता और अपेक्षाकृत अनुकूल स्थितियों ने तट के कुछ भागों में बसावट को बढ़ावा दिया है।"
+      },
+      "pa": {
+        "stem": "ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਵੱਡੇ ਆਬਾਦੀ ਕੇਂਦਰ ਜ਼ਿਆਦਾਤਰ ਤਟ ਦੇ ਨੇੜੇ ਕਿਉਂ ਹਨ?",
+        "options": [
+          "ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਦਾ ਵੱਡਾ ਭਾਗ ਸੁੱਕਾ ਹੈ, ਜਦਕਿ ਤਟ ਉੱਤੇ ਪਾਣੀ ਅਤੇ ਮੌਸਮ ਦੀਆਂ ਹਾਲਤਾਂ ਵਧੇਰੇ ਅਨੁਕੂਲ ਹਨ",
+          "ਅੰਦਰੂਨੀ ਹਿੱਸਾ ਸਦਾ ਬਰਫ਼ ਨਾਲ ਢੱਕਿਆ ਰਹਿੰਦਾ ਹੈ",
+          "ਸਾਰੇ ਦਰਿਆ ਕੇਵਲ ਉੱਤਰੀ ਤਟ ਵੱਲ ਵਗਦੇ ਹਨ",
+          "ਤਟ ਉੱਤੇ ਕੋਈ ਪਹਾੜੀ ਰੁਕਾਵਟ ਨਹੀਂ ਹੈ"
+        ],
+        "explanation": "ਆਸਟ੍ਰੇਲੀਆ ਦਾ ਵੱਡਾ ਅੰਦਰੂਨੀ ਭਾਗ ਸੁੱਕਾ ਹੈ। ਪਾਣੀ ਦੀ ਉਪਲਬਧਤਾ ਅਤੇ ਤੁਲਨਾਤਮਕ ਤੌਰ ਤੇ ਅਨੁਕੂਲ ਹਾਲਤਾਂ ਨੇ ਤਟ ਦੇ ਕੁਝ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵਸੋਂ ਨੂੰ ਵਧਾਇਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q008",
+    "cpId": "WGE-001-CP030",
+    "objective": "polynesia-region",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Hawaii, Samoa and Tonga are generally placed in which Pacific subregion?",
+        "options": [
+          "Melanesia",
+          "Australasia",
+          "Polynesia",
+          "Micronesia"
+        ],
+        "explanation": "Hawaii, Samoa and Tonga are widely grouped within Polynesia."
+      },
+      "hi": {
+        "stem": "हवाई, समोआ और टोंगा को प्रशांत के किस उपक्षेत्र में रखा जाता है?",
+        "options": [
+          "मेलानेशिया",
+          "ऑस्ट्रेलेशिया",
+          "पॉलिनेशिया",
+          "माइक्रोनेशिया"
+        ],
+        "explanation": "हवाई, समोआ और टोंगा को सामान्यतः पॉलिनेशिया में रखा जाता है।"
+      },
+      "pa": {
+        "stem": "ਹਵਾਈ, ਸਮੋਆ ਅਤੇ ਟੋਂਗਾ ਨੂੰ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਕਿਹੜੇ ਉਪ-ਖੇਤਰ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਮੇਲਾਨੇਸ਼ੀਆ",
+          "ਆਸਟ੍ਰੇਲੇਸ਼ੀਆ",
+          "ਪੋਲੀਨੇਸ਼ੀਆ",
+          "ਮਾਈਕ੍ਰੋਨੇਸ਼ੀਆ"
+        ],
+        "explanation": "ਹਵਾਈ, ਸਮੋਆ ਅਤੇ ਟੋਂਗਾ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਪੋਲੀਨੇਸ਼ੀਆ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q009",
+    "cpId": "WGE-001-CP030",
+    "objective": "tasmania-bass-strait",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which body of water separates Tasmania from mainland Australia?",
+        "options": [
+          "Coral Sea",
+          "Bass Strait",
+          "Torres Strait",
+          "Cook Strait"
+        ],
+        "explanation": "Bass Strait lies between Tasmania and the southeastern mainland of Australia."
+      },
+      "hi": {
+        "stem": "तस्मानिया को ऑस्ट्रेलिया की मुख्यभूमि से कौन-सा जलडमरूमध्य अलग करता है?",
+        "options": [
+          "कोरल सागर",
+          "बास जलडमरूमध्य",
+          "टॉरेस जलडमरूमध्य",
+          "कुक जलडमरूमध्य"
+        ],
+        "explanation": "बास जलडमरूमध्य तस्मानिया और ऑस्ट्रेलिया की दक्षिण-पूर्वी मुख्यभूमि के बीच है।"
+      },
+      "pa": {
+        "stem": "ਤਸਮਾਨੀਆ ਨੂੰ ਆਸਟ੍ਰੇਲੀਆ ਦੀ ਮੁੱਖ ਧਰਤੀ ਤੋਂ ਕਿਹੜਾ ਜਲਡਮਰੂ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਕੋਰਲ ਸਾਗਰ",
+          "ਬਾਸ ਜਲਡਮਰੂ",
+          "ਟੋਰੇਸ ਜਲਡਮਰੂ",
+          "ਕੁੱਕ ਜਲਡਮਰੂ"
+        ],
+        "explanation": "ਬਾਸ ਜਲਡਮਰੂ ਤਸਮਾਨੀਆ ਅਤੇ ਆਸਟ੍ਰੇਲੀਆ ਦੀ ਦੱਖਣ-ਪੂਰਬੀ ਮੁੱਖ ਧਰਤੀ ਦੇ ਵਿਚਕਾਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q010",
+    "cpId": "WGE-001-CP030",
+    "objective": "lake-eyre-inland-drainage",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Lake Eyre belongs to which type of drainage setting?",
+        "options": [
+          "A coastal basin draining to the Pacific",
+          "A glacier-fed basin draining to the Indian Ocean",
+          "A river delta on the east coast",
+          "An inland basin with no permanent outlet to the sea"
+        ],
+        "explanation": "Lake Eyre lies in an endorheic basin; water does not flow from it to the ocean through a permanent river outlet."
+      },
+      "hi": {
+        "stem": "लेक आयर किस प्रकार के जल-निकास क्षेत्र में स्थित है?",
+        "options": [
+          "प्रशांत महासागर तक निकास वाले तटीय बेसिन में",
+          "हिंद महासागर तक निकास वाले हिमनदीय बेसिन में",
+          "पूर्वी तट के नदी डेल्टा में",
+          "समुद्र तक स्थायी निकास रहित आंतरिक बेसिन में"
+        ],
+        "explanation": "लेक आयर अंतःप्रवाही बेसिन में है; वहाँ से पानी किसी स्थायी नदी-निकास द्वारा महासागर तक नहीं पहुँचता।"
+      },
+      "pa": {
+        "stem": "ਲੇਕ ਆਇਰ ਕਿਹੋ ਜਿਹੇ ਜਲ-ਨਿਕਾਸ ਖੇਤਰ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਵੱਲ ਨਿਕਾਸ ਵਾਲੇ ਤੱਟੀ ਬੇਸਿਨ ਵਿੱਚ",
+          "ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵੱਲ ਨਿਕਾਸ ਵਾਲੇ ਹਿਮਨਦੀ ਬੇਸਿਨ ਵਿੱਚ",
+          "ਪੂਰਬੀ ਤਟ ਦੇ ਦਰਿਆਈ ਡੈਲਟੇ ਵਿੱਚ",
+          "ਸਮੁੰਦਰ ਵੱਲ ਪੱਕਾ ਨਿਕਾਸ ਨਾ ਰੱਖਣ ਵਾਲੇ ਅੰਦਰੂਨੀ ਬੇਸਿਨ ਵਿੱਚ"
+        ],
+        "explanation": "ਲੇਕ ਆਇਰ ਅੰਦਰੂਨੀ ਬੇਸਿਨ ਵਿੱਚ ਹੈ; ਉੱਥੋਂ ਪਾਣੀ ਕਿਸੇ ਪੱਕੇ ਦਰਿਆਈ ਰਾਹ ਰਾਹੀਂ ਮਹਾਂਸਾਗਰ ਤੱਕ ਨਹੀਂ ਜਾਂਦਾ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q011",
+    "cpId": "WGE-001-CP030",
+    "objective": "great-artesian-basin",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "The Great Artesian Basin is an important groundwater system beneath which country?",
+        "options": [
+          "Fiji",
+          "Papua New Guinea",
+          "Australia",
+          "New Zealand"
+        ],
+        "explanation": "The Great Artesian Basin underlies a large part of Australia’s interior and is a major groundwater resource."
+      },
+      "hi": {
+        "stem": "ग्रेट आर्टीज़ियन बेसिन किस देश के नीचे फैली प्रमुख भूजल-प्रणाली है?",
+        "options": [
+          "फ़िजी",
+          "पापुआ न्यू गिनी",
+          "ऑस्ट्रेलिया",
+          "न्यूज़ीलैंड"
+        ],
+        "explanation": "ग्रेट आर्टीज़ियन बेसिन ऑस्ट्रेलिया के आंतरिक भाग के बड़े क्षेत्र के नीचे फैली है और भूजल का प्रमुख स्रोत है।"
+      },
+      "pa": {
+        "stem": "ਗ੍ਰੇਟ ਆਰਟੀਜ਼ੀਅਨ ਬੇਸਿਨ ਕਿਹੜੇ ਦੇਸ਼ ਹੇਠ ਫੈਲੀ ਮੁੱਖ ਭੂ-ਜਲ ਪ੍ਰਣਾਲੀ ਹੈ?",
+        "options": [
+          "ਫਿਜੀ",
+          "ਪਾਪੂਆ ਨਿਊ ਗਿਨੀ",
+          "ਆਸਟ੍ਰੇਲੀਆ",
+          "ਨਿਊਜ਼ੀਲੈਂਡ"
+        ],
+        "explanation": "ਗ੍ਰੇਟ ਆਰਟੀਜ਼ੀਅਨ ਬੇਸਿਨ ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਦੇ ਵੱਡੇ ਖੇਤਰ ਹੇਠ ਫੈਲੀ ਹੈ ਅਤੇ ਭੂ-ਜਲ ਦਾ ਮੁੱਖ ਸਰੋਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q012",
+    "cpId": "WGE-001-CP030",
+    "objective": "australia-interior-aridity",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which broad factor helps explain the aridity of much of Australia’s interior?",
+        "options": [
+          "Much of it lies beneath the subtropical high-pressure belt",
+          "It is exposed to moist westerlies throughout the year",
+          "It lies within the equatorial low-pressure belt",
+          "It is surrounded by high mountains on every side"
+        ],
+        "explanation": "Descending air under the subtropical high-pressure belt suppresses rainfall across extensive parts of Australia’s interior."
+      },
+      "hi": {
+        "stem": "ऑस्ट्रेलिया के आंतरिक भाग के बड़े क्षेत्र में शुष्कता का एक प्रमुख कारण क्या है?",
+        "options": [
+          "इसका बड़ा भाग उपोष्णकटिबंधीय उच्च-दाब पट्टी के नीचे है",
+          "यह पूरे वर्ष नम पछुआ पवनों के प्रभाव में है",
+          "यह विषुवतीय निम्न-दाब पट्टी में है",
+          "यह चारों ओर ऊँचे पर्वतों से घिरा है"
+        ],
+        "explanation": "उपोष्णकटिबंधीय उच्च-दाब पट्टी में नीचे उतरती हवा ऑस्ट्रेलिया के आंतरिक भाग के बड़े क्षेत्रों में वर्षा कम करती है।"
+      },
+      "pa": {
+        "stem": "ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਦੇ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਖੁਸ਼ਕਤਾ ਦਾ ਇੱਕ ਮੁੱਖ ਕਾਰਨ ਕੀ ਹੈ?",
+        "options": [
+          "ਇਸ ਦਾ ਵੱਡਾ ਭਾਗ ਉਪ-ਉਸ਼ਣਕਟੀਬੰਧੀ ਉੱਚ-ਦਬਾਅ ਪੱਟੀ ਹੇਠ ਹੈ",
+          "ਇਹ ਸਾਲ ਭਰ ਨਮੀ ਵਾਲੀਆਂ ਪੱਛਮੀ ਹਵਾਵਾਂ ਦੇ ਅਸਰ ਹੇਠ ਹੈ",
+          "ਇਹ ਭੂ-ਮੱਧ ਰੇਖਾਈ ਘੱਟ-ਦਬਾਅ ਪੱਟੀ ਵਿੱਚ ਹੈ",
+          "ਇਹ ਹਰ ਪਾਸੇ ਉੱਚੇ ਪਹਾੜਾਂ ਨਾਲ ਘਿਰਿਆ ਹੈ"
+        ],
+        "explanation": "ਉਪ-ਉਸ਼ਣਕਟੀਬੰਧੀ ਉੱਚ-ਦਬਾਅ ਪੱਟੀ ਵਿੱਚ ਹੇਠਾਂ ਉਤਰਦੀ ਹਵਾ ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਦੇ ਵੱਡੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵਰਖਾ ਘਟਾਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP030-Q013",
+    "cpId": "WGE-001-CP030",
+    "objective": "new-zealand-pacific-location",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-UN-MAPS",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "New Zealand lies southeast of which continent?",
+        "options": [
+          "Africa",
+          "South America",
+          "Australia",
+          "Asia"
+        ],
+        "explanation": "New Zealand is in the southwestern Pacific, southeast of Australia."
+      },
+      "hi": {
+        "stem": "न्यूज़ीलैंड किस महाद्वीप के दक्षिण-पूर्व में स्थित है?",
+        "options": [
+          "अफ़्रीका",
+          "दक्षिण अमेरिका",
+          "ऑस्ट्रेलिया",
+          "एशिया"
+        ],
+        "explanation": "न्यूज़ीलैंड दक्षिण-पश्चिमी प्रशांत में ऑस्ट्रेलिया के दक्षिण-पूर्व में स्थित है।"
+      },
+      "pa": {
+        "stem": "ਨਿਊਜ਼ੀਲੈਂਡ ਕਿਹੜੇ ਮਹਾਂਦੀਪ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਅਫ਼ਰੀਕਾ",
+          "ਦੱਖਣੀ ਅਮਰੀਕਾ",
+          "ਆਸਟ੍ਰੇਲੀਆ",
+          "ਏਸ਼ੀਆ"
+        ],
+        "explanation": "ਨਿਊਜ਼ੀਲੈਂਡ ਦੱਖਣ-ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  }
+]

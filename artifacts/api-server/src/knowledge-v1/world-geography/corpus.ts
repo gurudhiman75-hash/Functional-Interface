@@ -26,6 +26,10 @@ import cp025 from './cp025.json';
 import cp026 from './cp026.json';
 import cp027 from './cp027.json';
 import cp028 from './cp028.json';
+import cp029 from './cp029.json';
+import cp030 from './cp030.json';
+import cp031 from './cp031.json';
+import cp032 from './cp032.json';
 import sources from './sources.json';
 import type { QuestionStudioDifficulty, QuestionStudioLanguage } from '../../question-studio/engine-types';
 
@@ -64,6 +68,10 @@ export const WGE_CP_TITLES = {
   'WGE-001-CP026': 'Europe',
   'WGE-001-CP027': 'Africa',
   'WGE-001-CP028': 'North America, Central America and the Caribbean',
+  'WGE-001-CP029': 'South America',
+  'WGE-001-CP030': 'Australia, New Zealand and Pacific Islands',
+  'WGE-001-CP031': 'Antarctica and the Arctic',
+  'WGE-001-CP032': 'Population and Migration',
 } as const;
 export type WorldGeographyCpId = keyof typeof WGE_CP_TITLES;
 export const WGE_SOURCES = sources;
@@ -114,6 +122,6 @@ export function validateWorldGeographyCorpus(rows: readonly WorldGeographyQuesti
     }
   }
 }
-const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011, ...cp012, ...cp013, ...cp014, ...cp015, ...cp016, ...cp017, ...cp018, ...cp019, ...cp020, ...cp021, ...cp022, ...cp023, ...cp024, ...cp025, ...cp026, ...cp027, ...cp028] as WorldGeographyQuestion[];
+const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011, ...cp012, ...cp013, ...cp014, ...cp015, ...cp016, ...cp017, ...cp018, ...cp019, ...cp020, ...cp021, ...cp022, ...cp023, ...cp024, ...cp025, ...cp026, ...cp027, ...cp028, ...cp029, ...cp030, ...cp031, ...cp032] as WorldGeographyQuestion[];
 validateWorldGeographyCorpus(authored);
 export const WGE_CORPUS: readonly WorldGeographyQuestion[] = deepFreeze(authored);
