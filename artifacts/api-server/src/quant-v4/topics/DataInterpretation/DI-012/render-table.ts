@@ -1,7 +1,12 @@
 import type { Di012Stimulus } from "./types";
 
 function esc(value: unknown) {
-  return String(value).replace(/[&<>"]/g, (ch) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[ch]!));
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 export function renderDi012TableHtml(stimulus: Di012Stimulus) {
   const rows = stimulus.rows.map((row) =>
