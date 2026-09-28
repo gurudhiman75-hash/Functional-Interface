@@ -1,6 +1,8 @@
 # CLS-CP-005 — Number-Pair, Triple and Set Classification
 
-Status: `OPEN_EXECUTABLE_DISCOVERY`
+Status: `HISTORICAL_DISCOVERY_PLAN__SUPERSEDED_BY_FROZEN_RUNTIME_AND_LEARNER_V2`
+
+> **Current authority note (2026-09-18):** This is the original discovery plan. The final authorities are the CP-005 English freeze, multilingual runtime freeze and approved learner-review V2 freeze. Discovery-era shortcut/trap and prototype-target wording is historical and must not override the frozen learner surface.
 
 ## Purpose
 

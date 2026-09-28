@@ -2,10 +2,16 @@ name: Validate CLS-001 English Editorial Approval
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**"
-      - ".github/workflows/cls-001-english-editorial-approval.yml"
+      - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
   workflow_dispatch:
+
+concurrency:
+  group: cls-001-final-closure-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -41,8 +47,20 @@ jobs:
             --platform=node \
             --format=esm \
             --outfile="$OUT/english-editorial-approval.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/final-chapter-closure.test.ts" \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile="$OUT/final-chapter-closure.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/question-studio-review.test.ts" \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile="$OUT/question-studio-review.test.mjs"
 
       - name: Run approval and lifecycle guard
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/cls-001/english-editorial-approval/english-editorial-approval.test.mjs
+          node dist/reasoning-v1/cls-001/english-editorial-approval/final-chapter-closure.test.mjs
+          node dist/reasoning-v1/cls-001/english-editorial-approval/question-studio-review.test.mjs
