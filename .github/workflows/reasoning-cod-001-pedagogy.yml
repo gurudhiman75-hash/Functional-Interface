@@ -56,6 +56,15 @@ jobs:
           status=$?
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
           exit 0
+      - name: Run distractor provenance audit
+        id: distractor_provenance
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/cod-001-distractor-provenance.test.ts > cod-001-distractor-provenance.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
       - name: Export upgraded multilingual review corpus
         id: export
         shell: bash
@@ -81,6 +90,7 @@ jobs:
             cod-001-deep-audit-wave1.log
             cod-001-deep-audit-wave2.log
             cod-001-generated-profile.log
+            cod-001-distractor-provenance.log
             cod-001-pedagogy-review
           retention-days: 14
       - name: Enforce pedagogical quality
@@ -90,8 +100,10 @@ jobs:
           cat cod-001-deep-audit-wave1.log
           cat cod-001-deep-audit-wave2.log
           cat cod-001-generated-profile.log
+          cat cod-001-distractor-provenance.log
           test "${{ steps.audit.outputs.exit_code }}" = "0"
           test "${{ steps.learner_surface.outputs.exit_code }}" = "0"
           test "${{ steps.difficulty_wave2.outputs.exit_code }}" = "0"
           test "${{ steps.generated_profile.outputs.exit_code }}" = "0"
+          test "${{ steps.distractor_provenance.outputs.exit_code }}" = "0"
           test "${{ steps.export.outputs.exit_code }}" = "0"
