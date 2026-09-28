@@ -1,0 +1,40 @@
+name: quant-v4-di-radar-pie-di014-v1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-014/**"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di-radar-pie-di014-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  radar-pie:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Radar pie deterministic cross-chart proof
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-014/radar-pie-set.test.ts
+      - name: Radar pie Question Studio integration
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-014/question-studio-integration.test.ts
+      - name: Generate review HTML
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-014/export-review-html.ts /tmp/DI-014-RADAR-PIE-REVIEW-V1.html
+      - name: Lifecycle locks
+        run: |
+          ! grep -R 'questionBankWritable: true\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-014
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-014-radar-pie-review-v1
+          path: /tmp/DI-014-RADAR-PIE-REVIEW-V1.html
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
