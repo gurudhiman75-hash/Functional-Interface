@@ -1,0 +1,2124 @@
+[
+  {
+    "questionId": "WHI-CP004-Q001-HI",
+    "englishQuestionId": "WHI-CP004-Q001",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F001",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "फ्रांसीसी क्रांति किस वर्ष शुरू हुई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1776"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1815"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1789 में राजनीतिक, वित्तीय और सामाजिक संघर्षों के बीच क्रांति शुरू हुई।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q002-HI",
+    "englishQuestionId": "WHI-CP004-Q002",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F002",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "1789 में एस्टेट्स-जनरल की बैठक कहाँ हुई थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "लाइपज़िग"
+      },
+      {
+        "key": "B",
+        "text": "वाटरलू"
+      },
+      {
+        "key": "C",
+        "text": "वर्साय"
+      },
+      {
+        "key": "D",
+        "text": "वियना"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "लुई सोलहवें ने मई 1789 में एस्टेट्स-जनरल को वर्साय बुलाया था।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q003-HI",
+    "englishQuestionId": "WHI-CP004-Q003",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F003",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "बास्तील पर धावा किस तारीख को बोला गया था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "4 अगस्त 1789"
+      },
+      {
+        "key": "B",
+        "text": "14 जुलाई 1789"
+      },
+      {
+        "key": "C",
+        "text": "21 जनवरी 1793"
+      },
+      {
+        "key": "D",
+        "text": "26 अगस्त 1789"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "14 जुलाई 1789 को पेरिस में बास्तील पर धावा बोला गया; यह क्रांति की शुरुआती महत्त्वपूर्ण घटना थी।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q004-HI",
+    "englishQuestionId": "WHI-CP004-Q004",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F004",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Document–principle",
+    "stem": "1789 की मनुष्य और नागरिक के अधिकारों की घोषणा ने किस सिद्धांत को स्वीकार किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कानून के सामने अधिकारों की समानता"
+      },
+      {
+        "key": "B",
+        "text": "सामंती करों की बहाली"
+      },
+      {
+        "key": "C",
+        "text": "प्रथम एस्टेट का स्थायी वंशानुगत विशेषाधिकार"
+      },
+      {
+        "key": "D",
+        "text": "विदेशी सेनाओं का शासन"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "घोषणा ने स्वतंत्रता और अधिकारों में समानता पर जोर दिया तथा पुराने शासन के कानूनी विशेषाधिकारों को चुनौती दी।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q005-HI",
+    "englishQuestionId": "WHI-CP004-Q005",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F005",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Regime–institution",
+    "stem": "डायरेक्टरी के समय फ्रांस पर किस निकाय ने शासन किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "लुई सोलहवें के नेतृत्व वाली वंशानुगत सीनेट"
+      },
+      {
+        "key": "B",
+        "text": "कमेटी ऑफ यूनियन एंड प्रोग्रेस"
+      },
+      {
+        "key": "C",
+        "text": "पाँच सदस्यों की कार्यकारी परिषद"
+      },
+      {
+        "key": "D",
+        "text": "एस्टेट्स-जनरल"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "वर्ष III के संविधान के तहत पाँच डायरेक्टरों के पास कार्यकारी सत्ता थी।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q006-HI",
+    "englishQuestionId": "WHI-CP004-Q006",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F006",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Chronology",
+    "stem": "इनमें से कौन-सी घटना सबसे पहले हुई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वियना कांग्रेस"
+      },
+      {
+        "key": "B",
+        "text": "बास्तील पर धावा"
+      },
+      {
+        "key": "C",
+        "text": "नेपोलियन का 18 ब्रूमेयर तख्तापलट"
+      },
+      {
+        "key": "D",
+        "text": "वाटरलू का युद्ध"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "बास्तील 1789 में गिरा; तख्तापलट 1799 में हुआ, वियना कांग्रेस 1814–15 में हुई और वाटरलू 1815 में लड़ा गया।",
+    "sourceIds": [
+      "S1",
+      "S3",
+      "S4",
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q007-HI",
+    "englishQuestionId": "WHI-CP004-Q007",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F007",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–outcome",
+    "stem": "जून 1789 की टेनिस कोर्ट शपथ में प्रतिभागियों ने क्या करने की प्रतिज्ञा की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ऑस्ट्रिया के विरुद्ध युद्ध घोषित करना"
+      },
+      {
+        "key": "B",
+        "text": "डायरेक्टरी समाप्त करना"
+      },
+      {
+        "key": "C",
+        "text": "फ्रांस का संविधान बनने तक सभा में बने रहना"
+      },
+      {
+        "key": "D",
+        "text": "नेपोलियन को फिर से गद्दी पर बैठाना"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "प्रतिनिधियों ने प्रतिज्ञा की कि फ्रांस का संविधान बनाए बिना वे अलग नहीं होंगे।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q008-HI",
+    "englishQuestionId": "WHI-CP004-Q008",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F008",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Person–event",
+    "stem": "1799 के 18 ब्रूमेयर तख्तापलट में सत्ता किसने हथियाई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "मैक्सिमिलियन रोबेस्पियर"
+      },
+      {
+        "key": "B",
+        "text": "लुई अठारहवें"
+      },
+      {
+        "key": "C",
+        "text": "मेटरनिख"
+      },
+      {
+        "key": "D",
+        "text": "नेपोलियन बोनापार्ट"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "9–10 नवंबर 1799 को बोनापार्ट के तख्तापलट ने डायरेक्टरी समाप्त की और कौंसुलेट की शुरुआत की।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q009-HI",
+    "englishQuestionId": "WHI-CP004-Q009",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F009",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "1815 का वाटरलू युद्ध आज के किस देश के भूभाग में लड़ा गया था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "बेल्जियम"
+      },
+      {
+        "key": "B",
+        "text": "इटली"
+      },
+      {
+        "key": "C",
+        "text": "ऑस्ट्रिया"
+      },
+      {
+        "key": "D",
+        "text": "स्पेन"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "वाटरलू आज के बेल्जियम में, ब्रुसेल्स के दक्षिण में स्थित है।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q010-HI",
+    "englishQuestionId": "WHI-CP004-Q010",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F010",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Cause–context",
+    "stem": "1789 में फ्रांसीसी राजतंत्र का वित्तीय संकट संवैधानिक संकट क्यों बन गया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वियना कांग्रेस ने राजा को हटा दिया।"
+      },
+      {
+        "key": "B",
+        "text": "डायरेक्टरी दस वर्षों से फ्रांस पर शासन कर रही थी।"
+      },
+      {
+        "key": "C",
+        "text": "नेपोलियन ने संयुक्त राष्ट्र भंग कर दिया।"
+      },
+      {
+        "key": "D",
+        "text": "राजतंत्र ने एस्टेट्स-जनरल बुलाया, जहाँ प्रतिनिधित्व और मतदान को लेकर विवाद तेज हुए।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "वित्तीय संकट के कारण एस्टेट्स-जनरल की बैठक हुई; एस्टेट्स के मतदान के तरीके पर मतभेद ने राजनीतिक सत्ता के संघर्ष को तेज किया।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q011-HI",
+    "englishQuestionId": "WHI-CP004-Q011",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F011",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Institution–sequence",
+    "stem": "तीसरे एस्टेट के प्रतिनिधियों ने किस शपथ से पहले स्वयं को राष्ट्रीय सभा घोषित किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "सर्वोच्चता की शपथ"
+      },
+      {
+        "key": "B",
+        "text": "पवित्र गठबंधन"
+      },
+      {
+        "key": "C",
+        "text": "टेनिस कोर्ट शपथ"
+      },
+      {
+        "key": "D",
+        "text": "होरातियों की शपथ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "राष्ट्रीय सभा घोषित करने के बाद प्रतिनिधियों ने टेनिस कोर्ट में शपथ ली कि फ्रांस का संविधान बनने तक वे अलग नहीं होंगे।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q012-HI",
+    "englishQuestionId": "WHI-CP004-Q012",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F012",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Document–date",
+    "stem": "मनुष्य और नागरिक के अधिकारों की घोषणा किस वर्ष स्वीकृत हुई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1795"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1804"
+      },
+      {
+        "key": "D",
+        "text": "1776"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "संविधान सभा ने अगस्त 1789 में यह घोषणा स्वीकृत की।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q013-HI",
+    "englishQuestionId": "WHI-CP004-Q013",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F013",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Phase–event",
+    "stem": "फ्रांसीसी क्रांति के दौरान आतंक का शासन किस अवधि में चला?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1814–1815"
+      },
+      {
+        "key": "B",
+        "text": "1793–1794"
+      },
+      {
+        "key": "C",
+        "text": "1787–1788"
+      },
+      {
+        "key": "D",
+        "text": "1804–1805"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "आतंक का शासन आमतौर पर 1793–94 के उग्र दौर से जुड़ा है, जब गृह-संघर्ष और विदेशी युद्ध चल रहे थे।",
+    "sourceIds": [
+      "S1",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q014-HI",
+    "englishQuestionId": "WHI-CP004-Q014",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F014",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Regime–date",
+    "stem": "डायरेक्टरी ने 1795 से 1799 तक किस घटना के होने तक फ्रांस पर शासन किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "बास्तील पर धावा"
+      },
+      {
+        "key": "B",
+        "text": "वियना कांग्रेस"
+      },
+      {
+        "key": "C",
+        "text": "लुई सोलहवें को मृत्युदंड"
+      },
+      {
+        "key": "D",
+        "text": "नेपोलियन का 18 ब्रूमेयर तख्तापलट"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "9 नवंबर 1799 के तख्तापलट ने डायरेक्टरी का अंत किया और कौंसुलेट का दौर शुरू हुआ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q015-HI",
+    "englishQuestionId": "WHI-CP004-Q015",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F015",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chronology",
+    "stem": "सही क्रम चुनिए।",
+    "options": [
+      {
+        "key": "A",
+        "text": "डायरेक्टरी → बास्तील → 18 ब्रूमेयर तख्तापलट → अधिकारों की घोषणा"
+      },
+      {
+        "key": "B",
+        "text": "अधिकारों की घोषणा → 18 ब्रूमेयर तख्तापलट → बास्तील → डायरेक्टरी"
+      },
+      {
+        "key": "C",
+        "text": "बास्तील → अधिकारों की घोषणा → डायरेक्टरी → 18 ब्रूमेयर तख्तापलट"
+      },
+      {
+        "key": "D",
+        "text": "18 ब्रूमेयर तख्तापलट → बास्तील → डायरेक्टरी → अधिकारों की घोषणा"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "जुलाई 1789 में बास्तील गिरा, अगस्त में अधिकारों की घोषणा हुई, 1795 में डायरेक्टरी बनी और 1799 में नेपोलियन ने तख्तापलट किया।",
+    "sourceIds": [
+      "S1",
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q016-HI",
+    "englishQuestionId": "WHI-CP004-Q016",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F016",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Policy–purpose",
+    "stem": "नेपोलियन की महाद्वीपीय व्यवस्था का मुख्य उद्देश्य आर्थिक दबाव के जरिए किस प्रतिद्वंद्वी को कमजोर करना था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ब्रिटेन"
+      },
+      {
+        "key": "B",
+        "text": "उस्मानी साम्राज्य"
+      },
+      {
+        "key": "C",
+        "text": "पुर्तगाल"
+      },
+      {
+        "key": "D",
+        "text": "रूस"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "इस व्यवस्था का उद्देश्य महाद्वीपीय यूरोप के साथ ब्रिटिश व्यापार रोकना था, लेकिन इसे लागू करना कठिन और महँगा पड़ा।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q017-HI",
+    "englishQuestionId": "WHI-CP004-Q017",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F017",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "War–region",
+    "stem": "प्रायद्वीपीय युद्ध मुख्य रूप से किस क्षेत्र में लड़ा गया था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्पेन और पुर्तगाल"
+      },
+      {
+        "key": "B",
+        "text": "केवल निम्न देश"
+      },
+      {
+        "key": "C",
+        "text": "बाल्कन"
+      },
+      {
+        "key": "D",
+        "text": "स्कैंडिनेविया"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "इबेरिया में नेपोलियन के हस्तक्षेप से लंबा युद्ध हुआ, जिसमें स्पेनिश और पुर्तगाली प्रतिरोध के साथ ब्रिटिश सेना भी शामिल थी।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q018-HI",
+    "englishQuestionId": "WHI-CP004-Q018",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F018",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Campaign–consequence",
+    "stem": "1812 में रूस पर नेपोलियन के आक्रमण का अंत किस परिणाम के साथ हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1789 में फ्रांसीसी क्रांति समाप्त हुई"
+      },
+      {
+        "key": "B",
+        "text": "यूरोपीय संघ तुरंत बना"
+      },
+      {
+        "key": "C",
+        "text": "विनाशकारी वापसी से ग्रांद आर्मी बहुत कमजोर हुई"
+      },
+      {
+        "key": "D",
+        "text": "रूस का पूरा भूभाग स्थायी रूप से फ्रांस में मिला लिया गया"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "अभियान और वापसी में भारी नुकसान हुआ तथा नेपोलियन की सैन्य स्थिति कमजोर पड़ गई।",
+    "sourceIds": [
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q019-HI",
+    "englishQuestionId": "WHI-CP004-Q019",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F019",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Battle–outcome",
+    "stem": "वाटरलू में 1815 की हार के तुरंत बाद क्या हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "अधिकारों की घोषणा स्वीकृत हुई"
+      },
+      {
+        "key": "B",
+        "text": "डायरेक्टरी शुरू हुई"
+      },
+      {
+        "key": "C",
+        "text": "नेपोलियन ने अंतिम बार त्यागपत्र दिया और सेंट हेलेना निर्वासित किया गया"
+      },
+      {
+        "key": "D",
+        "text": "उन्हें पवित्र रोमन सम्राट का ताज पहनाया गया"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "जून 1815 की हार के बाद नेपोलियन ने त्यागपत्र दिया और उन्हें सेंट हेलेना निर्वासित किया गया।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q020-HI",
+    "englishQuestionId": "WHI-CP004-Q020",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F020",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Conference–purpose",
+    "stem": "नेपोलियन की हार के बाद वियना कांग्रेस का मुख्य उद्देश्य क्या था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "अमेरिकी स्वतंत्रता युद्ध समाप्त करना"
+      },
+      {
+        "key": "B",
+        "text": "यूरोप का पुनर्गठन करना और शक्ति-संतुलन बहाल करना"
+      },
+      {
+        "key": "C",
+        "text": "अमेरिका में फ्रांसीसी शासन स्थापित करना"
+      },
+      {
+        "key": "D",
+        "text": "डायरेक्टरी बनाना"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "वियना में शक्तियों ने यूरोप की राजनीतिक व्यवस्था को फिर से तय करने और फ्रांस के दोबारा विस्तार को रोकने का प्रयास किया।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q021-HI",
+    "englishQuestionId": "WHI-CP004-Q021",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F021",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Legal reform",
+    "stem": "नेपोलियन की 1804 की नागरिक संहिता किस नाम से जानी जाती है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "बारह पट्टिकाओं का कानून"
+      },
+      {
+        "key": "B",
+        "text": "नेपोलियन संहिता (नागरिक संहिता)"
+      },
+      {
+        "key": "C",
+        "text": "हम्मूराबी की संहिता"
+      },
+      {
+        "key": "D",
+        "text": "जस्टिनियन संहिता"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1804 की नागरिक संहिता ने दीवानी कानूनों को एकत्र किया और फ्रांसीसी प्रभाव या नियंत्रण वाले क्षेत्रों में फैली।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q022-HI",
+    "englishQuestionId": "WHI-CP004-Q022",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F022",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Relationship",
+    "stem": "यूरोप के कुछ हिस्सों में नेपोलियन के शासन के एक स्थायी प्रभाव का सबसे सही वर्णन कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पवित्र रोमन साम्राज्य मजबूत हुआ और उसका विस्तार हुआ।"
+      },
+      {
+        "key": "B",
+        "text": "वियना कांग्रेस ने आतंक का शासन शुरू किया।"
+      },
+      {
+        "key": "C",
+        "text": "नेपोलियन के शासन वाले हर क्षेत्र में सामंती विशेषाधिकार बहाल हुए।"
+      },
+      {
+        "key": "D",
+        "text": "फ्रांसीसी सैन्य प्रभुत्व के साथ कानूनी और प्रशासनिक सुधार भी फैले।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "फ्रांसीसी शासन ने पुरुषों के लिए कानूनी समानता और अधिक केंद्रीकृत प्रशासन जैसे सुधार फैलाए, साथ ही कब्ज़ा और राजनीतिक नियंत्रण भी थोपा।",
+    "sourceIds": [
+      "S10",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q023-HI",
+    "englishQuestionId": "WHI-CP004-Q023",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F023",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Incorrect match",
+    "stem": "कौन-सा युग्म गलत है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वाटरलू — 1815 में नेपोलियन की अंतिम हार"
+      },
+      {
+        "key": "B",
+        "text": "डायरेक्टरी — पाँच सदस्यों की कार्यकारी परिषद"
+      },
+      {
+        "key": "C",
+        "text": "वियना कांग्रेस — अमेरिकी स्वतंत्रता की घोषणा"
+      },
+      {
+        "key": "D",
+        "text": "महाद्वीपीय व्यवस्था — ब्रिटेन पर आर्थिक दबाव"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "वियना कांग्रेस ने नेपोलियन के बाद यूरोप का पुनर्गठन किया; अमेरिकी स्वतंत्रता की घोषणा 1776 में हुई थी।",
+    "sourceIds": [
+      "S3",
+      "S5",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q024-HI",
+    "englishQuestionId": "WHI-CP004-Q024",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F024",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Multi-statement",
+    "stem": "निम्नलिखित कथनों पर विचार कीजिए:\n\n1. डायरेक्टरी क्रांति के उग्र दौर के बाद आई।  \n2. नेपोलियन के तख्तापलट ने डायरेक्टरी समाप्त की।  \n3. वियना कांग्रेस वाटरलू के युद्ध से पहले हुई।\n\nकौन-से कथन सही हैं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "केवल 1 और 2"
+      },
+      {
+        "key": "B",
+        "text": "केवल 1 और 3"
+      },
+      {
+        "key": "C",
+        "text": "केवल 2 और 3"
+      },
+      {
+        "key": "D",
+        "text": "1, 2 और 3"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "डायरेक्टरी उग्र दौर के बाद बनी, नेपोलियन के तख्तापलट ने इसे समाप्त किया और वियना कांग्रेस 1814 में शुरू हुई—वाटरलू के 1815 के युद्ध से पहले।",
+    "sourceIds": [
+      "S3",
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q025-HI",
+    "englishQuestionId": "WHI-CP004-Q025",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F025",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "सही क्रम कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "18 ब्रूमेयर तख्तापलट → नेपोलियन साम्राज्य → रूस अभियान → वाटरलू"
+      },
+      {
+        "key": "B",
+        "text": "नेपोलियन साम्राज्य → वाटरलू → रूस अभियान → 18 ब्रूमेयर तख्तापलट"
+      },
+      {
+        "key": "C",
+        "text": "रूस अभियान → 18 ब्रूमेयर तख्तापलट → वाटरलू → नेपोलियन साम्राज्य"
+      },
+      {
+        "key": "D",
+        "text": "वाटरलू → नेपोलियन साम्राज्य → 18 ब्रूमेयर तख्तापलट → रूस अभियान"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "नेपोलियन 1799 में सत्ता में आया, 1804 में सम्राट बना, 1812 में रूस पर चढ़ा और 1815 में वाटरलू में हारा।",
+    "sourceIds": [
+      "S3",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q026-HI",
+    "englishQuestionId": "WHI-CP004-Q026",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F026",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cause versus trigger",
+    "stem": "फ्रांसीसी क्रांति के दीर्घकालीन कारण और तात्कालिक घटना में अंतर बताने वाला सही कथन कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वित्तीय दबाव और सामाजिक विशेषाधिकार लंबे समय के कारण थे; 1789 में प्रतिनिधित्व को लेकर राजनीतिक टकराव ने संकट तेज किया।"
+      },
+      {
+        "key": "B",
+        "text": "वाटरलू 1789 की क्रांति का दीर्घकालीन कारण था।"
+      },
+      {
+        "key": "C",
+        "text": "नेपोलियन के 1799 के तख्तापलट से मई 1789 में एस्टेट्स-जनरल बुलाया गया।"
+      },
+      {
+        "key": "D",
+        "text": "वियना कांग्रेस के कारण बास्तील पर धावा बोला गया।"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "क्रांति वित्तीय और सामाजिक ढाँचे की समस्याओं से बढ़ी, जो 1789 में तात्कालिक राजनीतिक टकराव में बदल गईं।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q027-HI",
+    "englishQuestionId": "WHI-CP004-Q027",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F027",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Policy consequence",
+    "stem": "महाद्वीपीय व्यवस्था लागू करना कठिन क्यों साबित हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ब्रिटेन ने हर फ्रांसीसी बंदरगाह पर सीधा नियंत्रण कर लिया था।"
+      },
+      {
+        "key": "B",
+        "text": "इसने फ्रांस के भीतर सभी व्यापार पर रोक लगाई, लेकिन ब्रिटिश व्यापार खुला छोड़ा।"
+      },
+      {
+        "key": "C",
+        "text": "यह वाटरलू के बाद हस्ताक्षरित संधि थी।"
+      },
+      {
+        "key": "D",
+        "text": "इसमें यूरोपीय राज्यों से ब्रिटेन के साथ व्यापार रोकने की अपेक्षा थी, पर तस्करी और अलग-अलग हितों ने नाकेबंदी कमजोर की।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "नेपोलियन की व्यापार-रोक के लिए बड़े और राजनीतिक रूप से विविध क्षेत्र का सहयोग जरूरी था; तस्करी और विरोध ने इसे कमजोर किया।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q028-HI",
+    "englishQuestionId": "WHI-CP004-Q028",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F028",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "वियना कांग्रेस की व्यवस्था और 1789 में घोषित आदर्शों के बीच सही अंतर कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "दोनों सार्वभौमिक मताधिकार की एक जैसी घोषणाएँ थीं।"
+      },
+      {
+        "key": "B",
+        "text": "वियना ने राजवंशों की बहाली और शक्तियों के संतुलन को प्राथमिकता दी, जबकि 1789 की घोषणा ने व्यक्तिगत अधिकारों और राष्ट्रीय संप्रभुता को व्यक्त किया।"
+      },
+      {
+        "key": "C",
+        "text": "1789 की घोषणा ने नेपोलियन को फिर सत्ता में लौटाया।"
+      },
+      {
+        "key": "D",
+        "text": "वियना ने यूरोप की हर राजशाही समाप्त कर दी।"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ये दो अलग राजनीतिक दौरों के विचार थे: क्रांतिकारी अधिकारों के दावे और नेपोलियन के बाद राज्यों में स्थिरता बहाल करने का प्रयास।",
+    "sourceIds": [
+      "S2",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q029-HI",
+    "englishQuestionId": "WHI-CP004-Q029",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F029",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement",
+    "stem": "नेपोलियन के बारे में कथनों पर विचार कीजिए:\n\n1. उसके शासन ने कुछ कानूनी सुधार फ्रांस से बाहर फैलाए।  \n2. उसके सैन्य विस्तार से प्रतिरोध और गठबंधन युद्ध भी हुए।  \n3. रूस अभियान ने उसकी सेना को स्थायी रूप से मजबूत किया।\n\nकौन-से कथन सही हैं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "केवल 1 और 3"
+      },
+      {
+        "key": "B",
+        "text": "केवल 2 और 3"
+      },
+      {
+        "key": "C",
+        "text": "केवल 1 और 2"
+      },
+      {
+        "key": "D",
+        "text": "1, 2 और 3"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "नेपोलियन की सेनाओं के साथ सुधार भी फैले, लेकिन विस्तार से विरोध बढ़ा; रूस अभियान ने सेना को मजबूत नहीं, बल्कि तबाह किया।",
+    "sourceIds": [
+      "S9",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q030-HI",
+    "englishQuestionId": "WHI-CP004-Q030",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F030",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Phase–event synthesis",
+    "stem": "क्रांतिकारी शासन से नेपोलियन के शासन तक के बदलाव का सही क्रम कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "डायरेक्टरी → एस्टेट्स-जनरल → बास्तील → कौंसुलेट → राष्ट्रीय सभा"
+      },
+      {
+        "key": "B",
+        "text": "राष्ट्रीय सभा → गणराज्य और उग्र दौर → डायरेक्टरी → 18 ब्रूमेयर तख्तापलट → कौंसुलेट"
+      },
+      {
+        "key": "C",
+        "text": "कौंसुलेट → एस्टेट्स-जनरल → आतंक → डायरेक्टरी → बास्तील"
+      },
+      {
+        "key": "D",
+        "text": "बास्तील → वियना कांग्रेस → राष्ट्रीय सभा → डायरेक्टरी → कौंसुलेट"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "क्रांति के दौरान शासन-संस्थाएँ कई चरणों से बदलीं; बोनापार्ट के तख्तापलट ने डायरेक्टरी समाप्त कर कौंसुलेट स्थापित किया।",
+    "sourceIds": [
+      "S1",
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q031-HI",
+    "englishQuestionId": "WHI-CP004-Q031",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F031",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "तीसरे एस्टेट के प्रतिनिधियों ने किस तारीख को स्वयं को राष्ट्रीय सभा घोषित किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "4 अगस्त 1789"
+      },
+      {
+        "key": "B",
+        "text": "17 जून 1789"
+      },
+      {
+        "key": "C",
+        "text": "26 अगस्त 1789"
+      },
+      {
+        "key": "D",
+        "text": "14 जुलाई 1789"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "17 जून को तीसरे एस्टेट के प्रतिनिधियों ने स्वयं को राष्ट्रीय सभा घोषित किया और राष्ट्र का प्रतिनिधित्व करने का दावा किया।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q032-HI",
+    "englishQuestionId": "WHI-CP004-Q032",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F032",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–purpose",
+    "stem": "टेनिस कोर्ट शपथ में प्रतिनिधियों ने क्या वचन दिया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांस का संविधान बनने तक अलग न होने का"
+      },
+      {
+        "key": "B",
+        "text": "ब्रिटेन के विरुद्ध युद्ध घोषित करने का"
+      },
+      {
+        "key": "C",
+        "text": "नेपोलियन को सम्राट बनाने का"
+      },
+      {
+        "key": "D",
+        "text": "सभी सामंती विशेषाधिकार बहाल करने का"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "शपथ में संविधान बनने तक सभा में बने रहने की प्रतिज्ञा की गई।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q033-HI",
+    "englishQuestionId": "WHI-CP004-Q033",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F033",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Reform–date",
+    "stem": "किस वर्ष 4 अगस्त की रात राष्ट्रीय सभा ने कई सामंती विशेषाधिकार समाप्त करने के लिए मतदान किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1791"
+      },
+      {
+        "key": "B",
+        "text": "1799"
+      },
+      {
+        "key": "C",
+        "text": "1789"
+      },
+      {
+        "key": "D",
+        "text": "1795"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "4 अगस्त 1789 को सभा ने पुराने शासन से जुड़े अनेक विशेषाधिकार समाप्त करने के लिए मतदान किया।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q034-HI",
+    "englishQuestionId": "WHI-CP004-Q034",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F034",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Constitution–regime",
+    "stem": "1791 के संविधान ने फ्रांस में किस तरह की शासन-व्यवस्था बनाई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "डायरेक्टरी"
+      },
+      {
+        "key": "B",
+        "text": "संवैधानिक राजतंत्र"
+      },
+      {
+        "key": "C",
+        "text": "संघीय गणराज्य"
+      },
+      {
+        "key": "D",
+        "text": "सैन्य तानाशाही"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1791 के संविधान में राजा बना रहा, लेकिन संवैधानिक व्यवस्था के तहत उसकी सत्ता सीमित कर दी गई।",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q035-HI",
+    "englishQuestionId": "WHI-CP004-Q035",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F035",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "1791 में भागने की कोशिश के दौरान लुई सोलहवें और उनके परिवार को किस नगर में गिरफ्तार किया गया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वाटरलू"
+      },
+      {
+        "key": "B",
+        "text": "वारेन"
+      },
+      {
+        "key": "C",
+        "text": "वियना"
+      },
+      {
+        "key": "D",
+        "text": "लाइपज़िग"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "राजपरिवार को पेरिस छोड़कर भागते समय वारेन में रोक लिया गया; इससे राजा पर भरोसा कम हुआ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q036-HI",
+    "englishQuestionId": "WHI-CP004-Q036",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F036",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "राष्ट्रीय कन्वेंशन ने राजतंत्र कब समाप्त कर फ्रांस को गणराज्य घोषित किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1804"
+      },
+      {
+        "key": "B",
+        "text": "1799"
+      },
+      {
+        "key": "C",
+        "text": "1789"
+      },
+      {
+        "key": "D",
+        "text": "1792"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "कन्वेंशन ने सितंबर 1792 में राजतंत्र समाप्त किया और प्रथम फ्रांसीसी गणराज्य स्थापित किया।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q037-HI",
+    "englishQuestionId": "WHI-CP004-Q037",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F037",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "लुई सोलहवें को किस वर्ष मृत्युदंड दिया गया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1795"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1815"
+      },
+      {
+        "key": "D",
+        "text": "1793"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "कन्वेंशन में मुकदमे के बाद पूर्व राजा को 21 जनवरी 1793 को मृत्युदंड दिया गया।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q038-HI",
+    "englishQuestionId": "WHI-CP004-Q038",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F038",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–leader",
+    "stem": "वाटरलू में ब्लूशर की प्रशियाई सेना के साथ गठबंधन सेना का नेतृत्व किस ब्रिटिश सेनापति ने किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ड्यूक ऑफ़ वेलिंगटन"
+      },
+      {
+        "key": "B",
+        "text": "आर्थर वेलज़्ली, ड्यूक ऑफ़ मार्लबरो"
+      },
+      {
+        "key": "C",
+        "text": "विलियम पिट"
+      },
+      {
+        "key": "D",
+        "text": "होराशियो नेल्सन"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "वेलिंगटन ने वाटरलू में मित्र सेना की कमान संभाली; युद्ध के दौरान ब्लूशर की प्रशियाई सेना भी पहुँची।",
+    "sourceIds": [
+      "S5",
+      "S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q039-HI",
+    "englishQuestionId": "WHI-CP004-Q039",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F039",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Law–date",
+    "stem": "नेपोलियन संहिता कहलाने वाली नागरिक संहिता किस वर्ष लागू हुई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1815"
+      },
+      {
+        "key": "B",
+        "text": "1804"
+      },
+      {
+        "key": "C",
+        "text": "1791"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "फ्रांस की नागरिक संहिता 1804 में लागू हुई और नेपोलियन के शासन में दीवानी कानूनों को एकीकृत किया।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q040-HI",
+    "englishQuestionId": "WHI-CP004-Q040",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F040",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Event–sequence",
+    "stem": "बास्तील पर धावा होने से पहले कौन-सी घटना हुई थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "तीसरे एस्टेट ने स्वयं को राष्ट्रीय सभा घोषित किया।"
+      },
+      {
+        "key": "B",
+        "text": "नेपोलियन ने रूस पर आक्रमण किया।"
+      },
+      {
+        "key": "C",
+        "text": "डायरेक्टरी सत्ता में आई।"
+      },
+      {
+        "key": "D",
+        "text": "वियना कांग्रेस हुई।"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "जून 1789 में राष्ट्रीय सभा की घोषणा हुई; अगले महीने बास्तील पर धावा बोला गया।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q041-HI",
+    "englishQuestionId": "WHI-CP004-Q041",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F041",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Event–consequence",
+    "stem": "1791 में शाही परिवार के वारेन भागने की कोशिश से राजनीतिक संकट गहरा क्यों गया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इससे डायरेक्टरी सत्ता में आई।"
+      },
+      {
+        "key": "B",
+        "text": "इसने तुरंत नेपोलियन साम्राज्य समाप्त कर दिया।"
+      },
+      {
+        "key": "C",
+        "text": "इसने पूरे फ्रांस में सामंती कर बहाल किए।"
+      },
+      {
+        "key": "D",
+        "text": "इससे यह भरोसा कमजोर हुआ कि लुई सोलहवाँ संवैधानिक व्यवस्था स्वीकार करता है।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "भागने की कोशिश से कई क्रांतिकारियों को संदेह हुआ कि राजा संवैधानिक राजतंत्र के प्रति प्रतिबद्ध है या नहीं।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q042-HI",
+    "englishQuestionId": "WHI-CP004-Q042",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F042",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Event–sequence",
+    "stem": "1792 में राजतंत्र समाप्त होने के बाद कौन-सा बदलाव हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "डायरेक्टरी स्थापित हुई।"
+      },
+      {
+        "key": "B",
+        "text": "नेपोलियन सम्राट बना।"
+      },
+      {
+        "key": "C",
+        "text": "वियना कांग्रेस शुरू हुई।"
+      },
+      {
+        "key": "D",
+        "text": "फ्रांस गणराज्य बना।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "कन्वेंशन ने सितंबर 1792 में राजतंत्र समाप्त कर गणराज्य घोषित किया।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q043-HI",
+    "englishQuestionId": "WHI-CP004-Q043",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F043",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Government–institution",
+    "stem": "कमेटी ऑफ़ पब्लिक सेफ़्टी किस दौर में एक शक्तिशाली शासकीय निकाय बनी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1789 की एस्टेट्स-जनरल बैठक"
+      },
+      {
+        "key": "B",
+        "text": "क्रांति का उग्र दौर और आतंक का शासन"
+      },
+      {
+        "key": "C",
+        "text": "वियना कांग्रेस"
+      },
+      {
+        "key": "D",
+        "text": "बोर्बों राजवंश की बहाली"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "कन्वेंशन ने 1793 में कमेटी ऑफ़ पब्लिक सेफ़्टी बनाई, जब फ्रांस में विद्रोह और विदेशी युद्ध चल रहे थे।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q044-HI",
+    "englishQuestionId": "WHI-CP004-Q044",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F044",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Event–consequence",
+    "stem": "जुलाई 1794 में रोबेस्पियर के पतन का एक परिणाम क्या था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "आतंक के शासन के सबसे उग्र दौर का अंत"
+      },
+      {
+        "key": "B",
+        "text": "नेपोलियन संहिता लागू होना"
+      },
+      {
+        "key": "C",
+        "text": "अमेरिकी क्रांति शुरू होना"
+      },
+      {
+        "key": "D",
+        "text": "प्रथम विश्व युद्ध शुरू होना"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "9 थर्मिडोर (जुलाई 1794) को रोबेस्पियर का तख्तापलट जैकोबिन नेतृत्व वाले उग्र दौर से हटने का संकेत था।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q045-HI",
+    "englishQuestionId": "WHI-CP004-Q045",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F045",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Constitution–institution",
+    "stem": "वर्ष III (1795) के संविधान ने कैसी कार्यकारी व्यवस्था बनाई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "बोर्बों का वंशानुगत राजतंत्र"
+      },
+      {
+        "key": "B",
+        "text": "एक सम्राट"
+      },
+      {
+        "key": "C",
+        "text": "तीन एस्टेट्स की परिषद"
+      },
+      {
+        "key": "D",
+        "text": "पाँच सदस्यों वाली डायरेक्टरी"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "वर्ष III के संविधान ने पाँच सदस्यों वाली कार्यपालिका बनाई, जिसे डायरेक्टरी कहा गया।",
+    "sourceIds": [
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q046-HI",
+    "englishQuestionId": "WHI-CP004-Q046",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F046",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Event–date",
+    "stem": "नेपोलियन का 18 ब्रूमेयर तख्तापलट किस वर्ष हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1794"
+      },
+      {
+        "key": "B",
+        "text": "1804"
+      },
+      {
+        "key": "C",
+        "text": "1789"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "9–10 नवंबर 1799 के तख्तापलट ने डायरेक्टरी समाप्त कर कौंसुलेट की शुरुआत की।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q047-HI",
+    "englishQuestionId": "WHI-CP004-Q047",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F047",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Policy–purpose",
+    "stem": "1801 के कॉनकॉर्डेट का उद्देश्य क्या था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वियना कांग्रेस स्थापित करना"
+      },
+      {
+        "key": "B",
+        "text": "क्रांतिकारी संघर्ष के बाद फ्रांसीसी राज्य और कैथोलिक चर्च में समझौता कराना"
+      },
+      {
+        "key": "C",
+        "text": "रूस के साथ सैन्य गठबंधन बनाना"
+      },
+      {
+        "key": "D",
+        "text": "अमेरिकी स्वतंत्रता युद्ध समाप्त करना"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "नेपोलियन की सरकार ने पोप के साथ समझौता किया ताकि सार्वजनिक धार्मिक गतिविधियाँ लौटें और चर्च राज्य की व्यवस्था के अधीन रहे।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q048-HI",
+    "englishQuestionId": "WHI-CP004-Q048",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F048",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Event–date",
+    "stem": "नेपोलियन ने किस वर्ष स्वयं को फ्रांसीसियों का सम्राट घोषित किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1801"
+      },
+      {
+        "key": "B",
+        "text": "1812"
+      },
+      {
+        "key": "C",
+        "text": "1804"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "1804 में कौंसुलेट की जगह वंशानुगत साम्राज्य बना और नेपोलियन का राज्याभिषेक हुआ।",
+    "sourceIds": [
+      "S8",
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q049-HI",
+    "englishQuestionId": "WHI-CP004-Q049",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F049",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Battle–outcome",
+    "stem": "1805 का ऑस्टरलिट्ज़ का युद्ध नेपोलियन की किन शक्तियों पर बड़ी जीत थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ऑस्ट्रिया और रूस"
+      },
+      {
+        "key": "B",
+        "text": "प्रशा और उस्मानी साम्राज्य"
+      },
+      {
+        "key": "C",
+        "text": "पुर्तगाल और स्वीडन"
+      },
+      {
+        "key": "D",
+        "text": "ब्रिटेन और स्पेन"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ऑस्टरलिट्ज़ में नेपोलियन ने तीसरे गठबंधन की ऑस्ट्रियाई और रूसी संयुक्त सेनाओं को हराया।",
+    "sourceIds": [
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q050-HI",
+    "englishQuestionId": "WHI-CP004-Q050",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F050",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Decree–purpose",
+    "stem": "नेपोलियन का 1806 का बर्लिन डिक्री किस नीति का हिस्सा था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ब्रिटिश व्यापार के विरुद्ध महाद्वीपीय व्यवस्था"
+      },
+      {
+        "key": "B",
+        "text": "डायरेक्टरी समाप्त करना"
+      },
+      {
+        "key": "C",
+        "text": "वियना कांग्रेस की व्यवस्था"
+      },
+      {
+        "key": "D",
+        "text": "फ्रांसीसी अधिकारों की घोषणा"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "बर्लिन डिक्री का उद्देश्य फ्रांसीसी प्रभाव वाले क्षेत्रों से ब्रिटिश वस्तुओं को बाहर रखना था।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q051-HI",
+    "englishQuestionId": "WHI-CP004-Q051",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F051",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "War–region",
+    "stem": "प्रायद्वीपीय युद्ध में फ्रांसीसी सेना किस क्षेत्र में लड़ी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "क्रीमिया प्रायद्वीप"
+      },
+      {
+        "key": "B",
+        "text": "केवल इतालवी प्रायद्वीप"
+      },
+      {
+        "key": "C",
+        "text": "स्कैंडिनेवियाई प्रायद्वीप"
+      },
+      {
+        "key": "D",
+        "text": "इबेरियाई प्रायद्वीप"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "इस युद्ध में स्पेन और पुर्तगाल में फ्रांसीसी हस्तक्षेप हुआ तथा ब्रिटिश सेना की सहायता से प्रतिरोध किया गया।",
+    "sourceIds": [
+      "S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q052-HI",
+    "englishQuestionId": "WHI-CP004-Q052",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F052",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Campaign–consequence",
+    "stem": "1812 में रूस पर नेपोलियन के विनाशकारी आक्रमण के पीछे किन कारणों का मेल था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "लंबी रसद-रेखाएँ, रूसी प्रतिरोध, आपूर्ति की कमी और कठोर मौसम"
+      },
+      {
+        "key": "B",
+        "text": "आक्रमण से पहले वाटरलू में ब्रिटिश जीत"
+      },
+      {
+        "key": "C",
+        "text": "मास्को पर फ्रांसीसी नौसैनिक नाकेबंदी"
+      },
+      {
+        "key": "D",
+        "text": "डायरेक्टरी का विघटन"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ग्रांद आर्मी रूस में बहुत भीतर तक गई, लेकिन वापसी के समय आपूर्ति की दिक्कतें, रूसी प्रतिरोध और कठिन मौसम झेलना पड़ा।",
+    "sourceIds": [
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q053-HI",
+    "englishQuestionId": "WHI-CP004-Q053",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F053",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Battle–date",
+    "stem": "लीपज़िग का युद्ध, जिसे राष्ट्रों का युद्ध भी कहते हैं, किस वर्ष हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1805"
+      },
+      {
+        "key": "B",
+        "text": "1812"
+      },
+      {
+        "key": "C",
+        "text": "1813"
+      },
+      {
+        "key": "D",
+        "text": "1815"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "1813 में गठबंधन की लीपज़िग में जीत के बाद नेपोलियन की सेनाएँ पश्चिम की ओर पीछे हटने लगीं।",
+    "sourceIds": [
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q054-HI",
+    "englishQuestionId": "WHI-CP004-Q054",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F054",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Event–outcome",
+    "stem": "1814 में पहले त्यागपत्र के बाद नेपोलियन को कहाँ निर्वासित किया गया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "माल्टा"
+      },
+      {
+        "key": "B",
+        "text": "कोर्सिका"
+      },
+      {
+        "key": "C",
+        "text": "सेंट हेलेना"
+      },
+      {
+        "key": "D",
+        "text": "एल्बा"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "1814 के समझौते में नेपोलियन को एल्बा भेजा गया। 1815 में लौटने और वाटरलू में हारने के बाद उन्हें सेंट हेलेना निर्वासित किया गया।",
+    "sourceIds": [
+      "S4",
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q055-HI",
+    "englishQuestionId": "WHI-CP004-Q055",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F055",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Conference–period",
+    "stem": "वियना कांग्रेस मुख्य रूप से किस अवधि में हुई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1795–1799"
+      },
+      {
+        "key": "B",
+        "text": "1789–1790"
+      },
+      {
+        "key": "C",
+        "text": "1806–1807"
+      },
+      {
+        "key": "D",
+        "text": "1814–1815"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "यूरोपीय शक्तियों ने 1814 से 1815 तक वियना में नेपोलियन के बाद की व्यवस्था पर बातचीत की।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q056-HI",
+    "englishQuestionId": "WHI-CP004-Q056",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F056",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "सही क्रम चुनिए।",
+    "options": [
+      {
+        "key": "A",
+        "text": "1791 का संविधान → राजतंत्र समाप्त → लुई सोलहवें को मृत्युदंड → डायरेक्टरी"
+      },
+      {
+        "key": "B",
+        "text": "डायरेक्टरी → 1791 का संविधान → बास्तील → लुई सोलहवें को मृत्युदंड"
+      },
+      {
+        "key": "C",
+        "text": "लुई सोलहवें को मृत्युदंड → 1791 का संविधान → डायरेक्टरी → बास्तील"
+      },
+      {
+        "key": "D",
+        "text": "राजतंत्र समाप्त → बास्तील → डायरेक्टरी → 1791 का संविधान"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "संवैधानिक राजतंत्र 1791 में शुरू हुआ; 1792 में राजतंत्र समाप्त हुआ; 1793 में लुई सोलहवें को मृत्युदंड दिया गया और 1795 में डायरेक्टरी बनी।",
+    "sourceIds": [
+      "S1",
+      "S13",
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q057-HI",
+    "englishQuestionId": "WHI-CP004-Q057",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F057",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Political contrast",
+    "stem": "क्रांतिकारी फ्रांस और नेपोलियन की बाद की राजनीतिक व्यवस्था में सबसे सही अंतर कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "नेपोलियन ने पूरा केंद्रीकृत प्रशासन समाप्त कर दिया।"
+      },
+      {
+        "key": "B",
+        "text": "डायरेक्टरी ने सारी सत्ता वंशानुगत सम्राट को दे दी।"
+      },
+      {
+        "key": "C",
+        "text": "क्रांति में अधिकारों की भाषा फैली, जबकि नेपोलियन ने कुछ कानूनी सुधार बनाए रखते हुए कार्यपालिका में सत्ता केंद्रित की।"
+      },
+      {
+        "key": "D",
+        "text": "नेपोलियन ने एस्टेट्स-जनरल को अकेली कानून बनाने वाली संस्था बना दिया।"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "नेपोलियन ने कुछ सुधार बनाए रखे और फैलाए, लेकिन कौंसुलेट और साम्राज्य में राजनीतिक सत्ता कार्यपालिका में केंद्रित हो गई।",
+    "sourceIds": [
+      "S3",
+      "S8",
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q058-HI",
+    "englishQuestionId": "WHI-CP004-Q058",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F058",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Treaty settlement",
+    "stem": "वियना कांग्रेस ने यूरोप में कौन-सा लक्ष्य हासिल करने का प्रयास किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "राजवंशों की बहाली और यूरोप में शक्ति-संतुलन बनाए रखना"
+      },
+      {
+        "key": "B",
+        "text": "अमेरिकी संविधान को यूरोप में लागू करना"
+      },
+      {
+        "key": "C",
+        "text": "सभी उपनिवेशों में राष्ट्रीय आत्मनिर्णय लागू करना"
+      },
+      {
+        "key": "D",
+        "text": "यूरोप की हर राजशाही समाप्त करना"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "इस व्यवस्था ने सार्वभौमिक लोकतंत्र या आत्मनिर्णय की जगह राजवंशों की बहाली और प्रमुख शक्तियों के बीच संतुलन से स्थिरता खोजी।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q059-HI",
+    "englishQuestionId": "WHI-CP004-Q059",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F059",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cause–consequence",
+    "stem": "महाद्वीपीय व्यवस्था ने 1812 में रूस पर नेपोलियन के आक्रमण से पहले का तनाव कैसे बढ़ाया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "रूस वाटरलू में नेपोलियन को पहले ही हरा चुका था।"
+      },
+      {
+        "key": "B",
+        "text": "नाकेबंदी ने ब्रिटेन को नेपोलियन का सहयोगी बना दिया।"
+      },
+      {
+        "key": "C",
+        "text": "नाकेबंदी में सहयोग से रूस के हटने पर नेपोलियन और ज़ार अलेक्ज़ांडर प्रथम के बीच तनाव बढ़ा।"
+      },
+      {
+        "key": "D",
+        "text": "इस नीति के तहत फ्रांस को 1791 में रूस से सारा व्यापार रोकना पड़ा।"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "महाद्वीपीय व्यवस्था और व्यापार पर विवाद तनावपूर्ण संबंधों का एक कारण थे, जिनसे आक्रमण की राह बनी; यही अकेला कारण नहीं था।",
+    "sourceIds": [
+      "S7",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q060-HI",
+    "englishQuestionId": "WHI-CP004-Q060",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F060",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement synthesis",
+    "stem": "नेपोलियन के शासन के अंत के बारे में कथनों पर विचार कीजिए:\n\n1. नेपोलियन ने 1814 में पहली बार त्यागपत्र दिया और उसे एल्बा निर्वासित किया गया।  \n2. 1815 में वाटरलू की हार से पहले वह सत्ता में लौट आया।  \n3. वाटरलू के बाद उसे सेंट हेलेना निर्वासित किया गया।\n\nकौन-से कथन सही हैं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "केवल 1 और 2"
+      },
+      {
+        "key": "B",
+        "text": "केवल 1 और 3"
+      },
+      {
+        "key": "C",
+        "text": "1, 2 और 3"
+      },
+      {
+        "key": "D",
+        "text": "केवल 2 और 3"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "पहले त्यागपत्र के बाद नेपोलियन को एल्बा भेजा गया; उसकी वापसी का अंत वाटरलू की हार और सेंट हेलेना के अंतिम निर्वासन से हुआ।",
+    "sourceIds": [
+      "S4",
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]

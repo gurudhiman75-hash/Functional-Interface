@@ -1,0 +1,2124 @@
+[
+  {
+    "questionId": "WHI-CP004-Q001-PA",
+    "englishQuestionId": "WHI-CP004-Q001",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F001",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "ਫ਼ਰਾਂਸੀਸੀ ਇਨਕਲਾਬ ਕਿਹੜੇ ਸਾਲ ਸ਼ੁਰੂ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1776"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1815"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1789 ਵਿੱਚ ਰਾਜਨੀਤਿਕ, ਮਾਲੀ ਅਤੇ ਸਮਾਜਕ ਟਕਰਾਵਾਂ ਵਿਚਕਾਰ ਇਨਕਲਾਬ ਸ਼ੁਰੂ ਹੋਇਆ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q002-PA",
+    "englishQuestionId": "WHI-CP004-Q002",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F002",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "1789 ਵਿੱਚ ਐਸਟੇਟਸ-ਜਨਰਲ ਦੀ ਬੈਠਕ ਕਿੱਥੇ ਹੋਈ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲਾਈਪਜ਼ਿਗ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਾਟਰਲੂ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਰਸਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਿਯੇਨਾ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਲੂਈ ਸੋਲ੍ਹਵੇਂ ਨੇ ਮਈ 1789 ਵਿੱਚ ਐਸਟੇਟਸ-ਜਨਰਲ ਨੂੰ ਵਰਸਾਈ ਬੁਲਾਇਆ ਸੀ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q003-PA",
+    "englishQuestionId": "WHI-CP004-Q003",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F003",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "ਬਾਸਤੀਲ ਕਿਲ੍ਹੇ ਉੱਤੇ ਹਮਲਾ ਕਿਹੜੀ ਤਾਰੀਖ਼ ਨੂੰ ਹੋਇਆ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "4 ਅਗਸਤ 1789"
+      },
+      {
+        "key": "B",
+        "text": "14 ਜੁਲਾਈ 1789"
+      },
+      {
+        "key": "C",
+        "text": "21 ਜਨਵਰੀ 1793"
+      },
+      {
+        "key": "D",
+        "text": "26 ਅਗਸਤ 1789"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "14 ਜੁਲਾਈ 1789 ਨੂੰ ਪੈਰਿਸ ਵਿੱਚ ਬਾਸਤੀਲ ਉੱਤੇ ਹਮਲਾ ਹੋਇਆ; ਇਹ ਇਨਕਲਾਬ ਦੀ ਸ਼ੁਰੂਆਤ ਦੀ ਅਹਿਮ ਘਟਨਾ ਸੀ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q004-PA",
+    "englishQuestionId": "WHI-CP004-Q004",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F004",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Document–principle",
+    "stem": "1789 ਦੇ ਮਨੁੱਖ ਅਤੇ ਨਾਗਰਿਕ ਦੇ ਹੱਕਾਂ ਦੇ ਐਲਾਨ ਨੇ ਕਿਹੜੇ ਅਸੂਲ ਨੂੰ ਮੰਨਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਾਨੂੰਨ ਅੱਗੇ ਹੱਕਾਂ ਦੀ ਬਰਾਬਰੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਗੀਰਦਾਰੀ ਲਗਾਨਾਂ ਦੀ ਵਾਪਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਪਹਿਲੇ ਵਰਗ ਦਾ ਸਦਾ ਲਈ ਵੰਸ਼ਾਨੁਗਤ ਵਿਸ਼ੇਸ਼ ਹੱਕ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਿਦੇਸ਼ੀ ਫ਼ੌਜਾਂ ਦਾ ਰਾਜ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਐਲਾਨ ਨੇ ਆਜ਼ਾਦੀ ਅਤੇ ਹੱਕਾਂ ਵਿੱਚ ਬਰਾਬਰੀ ਉੱਤੇ ਜ਼ੋਰ ਦਿੱਤਾ ਅਤੇ ਪੁਰਾਣੇ ਰਾਜ ਦੇ ਕਾਨੂੰਨੀ ਵਿਸ਼ੇਸ਼ ਹੱਕਾਂ ਨੂੰ ਚੁਣੌਤੀ ਦਿੱਤੀ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q005-PA",
+    "englishQuestionId": "WHI-CP004-Q005",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F005",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Regime–institution",
+    "stem": "ਡਾਇਰੈਕਟਰੀ ਦੇ ਸਮੇਂ ਫ਼ਰਾਂਸ ਦਾ ਰਾਜ ਕਿਹੜੇ ਅਦਾਰੇ ਨੇ ਚਲਾਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲੂਈ ਸੋਲ੍ਹਵੇਂ ਦੀ ਅਗਵਾਈ ਵਾਲੀ ਵੰਸ਼ਾਨੁਗਤ ਸੈਨੇਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਮੇਟੀ ਆਫ਼ ਯੂਨੀਅਨ ਐਂਡ ਪ੍ਰੋਗਰੈੱਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੰਜ ਮੈਂਬਰਾਂ ਵਾਲੀ ਕਾਰਜਕਾਰੀ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਐਸਟੇਟਸ-ਜਨਰਲ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਸਾਲ III ਦੇ ਸੰਵਿਧਾਨ ਹੇਠ ਪੰਜ ਡਾਇਰੈਕਟਰਾਂ ਕੋਲ ਕਾਰਜਕਾਰੀ ਤਾਕਤ ਸੀ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q006-PA",
+    "englishQuestionId": "WHI-CP004-Q006",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F006",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Chronology",
+    "stem": "ਹੇਠ ਲਿਖੀਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਘਟਨਾ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਵਾਪਰੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਾਸਤੀਲ ਉੱਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨੈਪੋਲੀਅਨ ਦਾ 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਾਟਰਲੂ ਦੀ ਜੰਗ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਬਾਸਤੀਲ 1789 ਵਿੱਚ ਡਿੱਗਿਆ; ਤਖ਼ਤਾ ਪਲਟ 1799 ਵਿੱਚ ਹੋਇਆ, ਵਿਯੇਨਾ ਕਾਂਗਰਸ 1814–15 ਵਿੱਚ ਬੈਠੀ ਅਤੇ ਵਾਟਰਲੂ 1815 ਵਿੱਚ ਲੜਿਆ ਗਿਆ।",
+    "sourceIds": [
+      "S1",
+      "S3",
+      "S4",
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q007-PA",
+    "englishQuestionId": "WHI-CP004-Q007",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F007",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–outcome",
+    "stem": "ਜੂਨ 1789 ਦੀ ਟੈਨਿਸ ਕੋਰਟ ਸਹੁੰ ਵਿੱਚ ਸ਼ਾਮਲ ਲੋਕਾਂ ਨੇ ਕੀ ਕਰਨ ਦਾ ਵਚਨ ਦਿੱਤਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਸਟ੍ਰੀਆ ਵਿਰੁੱਧ ਜੰਗ ਦਾ ਐਲਾਨ ਕਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਡਾਇਰੈਕਟਰੀ ਖ਼ਤਮ ਕਰਨੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਫ਼ਰਾਂਸ ਦਾ ਸੰਵਿਧਾਨ ਬਣਨ ਤੱਕ ਇਕੱਠੇ ਰਹਿਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੈਪੋਲੀਅਨ ਨੂੰ ਮੁੜ ਤਖ਼ਤ ਉੱਤੇ ਬਿਠਾਉਣਾ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਨੁਮਾਇੰਦਿਆਂ ਨੇ ਸਹੁੰ ਖਾਧੀ ਕਿ ਫ਼ਰਾਂਸ ਦਾ ਸੰਵਿਧਾਨ ਬਣਾਏ ਬਿਨਾਂ ਉਹ ਵੱਖ ਨਹੀਂ ਹੋਣਗੇ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q008-PA",
+    "englishQuestionId": "WHI-CP004-Q008",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F008",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Person–event",
+    "stem": "1799 ਦੇ 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ ਵਿੱਚ ਕਿਸ ਨੇ ਸੱਤਾ ਹਥਿਆਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮੈਕਸਿਮਿਲੀਅਨ ਰੋਬਸਪੀਅਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਲੂਈ ਅਠਾਰਵਾਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੈਟਰਨਿਖ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੈਪੋਲੀਅਨ ਬੋਨਾਪਾਰਟ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "9–10 ਨਵੰਬਰ 1799 ਨੂੰ ਬੋਨਾਪਾਰਟ ਦੇ ਤਖ਼ਤਾ ਪਲਟ ਨੇ ਡਾਇਰੈਕਟਰੀ ਖ਼ਤਮ ਕੀਤੀ ਅਤੇ ਕੌਂਸਲੇਟ ਦਾ ਦੌਰ ਸ਼ੁਰੂ ਕੀਤਾ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q009-PA",
+    "englishQuestionId": "WHI-CP004-Q009",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F009",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "1815 ਦੀ ਵਾਟਰਲੂ ਦੀ ਜੰਗ ਅੱਜ ਦੇ ਕਿਹੜੇ ਦੇਸ਼ ਦੇ ਇਲਾਕੇ ਵਿੱਚ ਲੜੀ ਗਈ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬੈਲਜੀਅਮ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਟਲੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਸਟ੍ਰੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਪੇਨ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਵਾਟਰਲੂ ਅੱਜ ਦੇ ਬੈਲਜੀਅਮ ਵਿੱਚ, ਬਰੱਸਲਜ਼ ਦੇ ਦੱਖਣ ਵੱਲ ਹੈ।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q010-PA",
+    "englishQuestionId": "WHI-CP004-Q010",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F010",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Cause–context",
+    "stem": "1789 ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਰਾਜਤੰਤਰ ਦਾ ਮਾਲੀ ਸੰਕਟ ਸੰਵਿਧਾਨਕ ਸੰਕਟ ਕਿਉਂ ਬਣਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਨੇ ਰਾਜੇ ਨੂੰ ਹਟਾ ਦਿੱਤਾ।"
+      },
+      {
+        "key": "B",
+        "text": "ਡਾਇਰੈਕਟਰੀ ਦਸ ਸਾਲਾਂ ਤੋਂ ਫ਼ਰਾਂਸ ਉੱਤੇ ਰਾਜ ਕਰ ਰਹੀ ਸੀ।"
+      },
+      {
+        "key": "C",
+        "text": "ਨੈਪੋਲੀਅਨ ਨੇ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਭੰਗ ਕਰ ਦਿੱਤਾ।"
+      },
+      {
+        "key": "D",
+        "text": "ਰਾਜਤੰਤਰ ਨੇ ਐਸਟੇਟਸ-ਜਨਰਲ ਸੱਦੀ, ਜਿੱਥੇ ਨੁਮਾਇੰਦਗੀ ਅਤੇ ਵੋਟਿੰਗ ਬਾਰੇ ਝਗੜਾ ਵਧਿਆ।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਮਾਲੀ ਸੰਕਟ ਕਰਕੇ ਐਸਟੇਟਸ-ਜਨਰਲ ਦੀ ਬੈਠਕ ਸੱਦੀ ਗਈ; ਵਰਗਾਂ ਵੱਲੋਂ ਵੋਟ ਪਾਉਣ ਦੇ ਢੰਗ ਬਾਰੇ ਮਤਭੇਦ ਨੇ ਰਾਜਨੀਤਿਕ ਤਾਕਤ ਦੀ ਖਿੱਚੋਤਾਣ ਵਧਾ ਦਿੱਤੀ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q011-PA",
+    "englishQuestionId": "WHI-CP004-Q011",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F011",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Institution–sequence",
+    "stem": "ਤੀਜੇ ਵਰਗ ਦੇ ਨੁਮਾਇੰਦਿਆਂ ਨੇ ਕਿਹੜੀ ਸਹੁੰ ਤੋਂ ਪਹਿਲਾਂ ਆਪਣੇ ਆਪ ਨੂੰ ਕੌਮੀ ਸਭਾ ਐਲਾਨਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਰਬੋਚਤਾ ਦੀ ਸਹੁੰ"
+      },
+      {
+        "key": "B",
+        "text": "ਪਵਿੱਤਰ ਗੱਠਜੋੜ"
+      },
+      {
+        "key": "C",
+        "text": "ਟੈਨਿਸ ਕੋਰਟ ਸਹੁੰ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੋਰੇਸ਼ੀਅਨਾਂ ਦੀ ਸਹੁੰ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਕੌਮੀ ਸਭਾ ਦਾ ਐਲਾਨ ਕਰਨ ਮਗਰੋਂ ਨੁਮਾਇੰਦਿਆਂ ਨੇ ਟੈਨਿਸ ਕੋਰਟ ਵਿੱਚ ਸਹੁੰ ਖਾਧੀ ਕਿ ਸੰਵਿਧਾਨ ਬਣਨ ਤੱਕ ਉਹ ਵੱਖ ਨਹੀਂ ਹੋਣਗੇ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q012-PA",
+    "englishQuestionId": "WHI-CP004-Q012",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F012",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Document–date",
+    "stem": "ਮਨੁੱਖ ਅਤੇ ਨਾਗਰਿਕ ਦੇ ਹੱਕਾਂ ਦਾ ਐਲਾਨ ਕਿਹੜੇ ਸਾਲ ਮਨਜ਼ੂਰ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1795"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1804"
+      },
+      {
+        "key": "D",
+        "text": "1776"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਸੰਵਿਧਾਨ ਸਭਾ ਨੇ ਅਗਸਤ 1789 ਵਿੱਚ ਇਹ ਐਲਾਨ ਮਨਜ਼ੂਰ ਕੀਤਾ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q013-PA",
+    "englishQuestionId": "WHI-CP004-Q013",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F013",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Phase–event",
+    "stem": "ਫ਼ਰਾਂਸੀਸੀ ਇਨਕਲਾਬ ਦੌਰਾਨ ਦਹਿਸ਼ਤ ਦਾ ਰਾਜ ਕਿਹੜੇ ਸਮੇਂ ਰਿਹਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1814–1815"
+      },
+      {
+        "key": "B",
+        "text": "1793–1794"
+      },
+      {
+        "key": "C",
+        "text": "1787–1788"
+      },
+      {
+        "key": "D",
+        "text": "1804–1805"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਦਹਿਸ਼ਤ ਦਾ ਰਾਜ ਆਮ ਤੌਰ 'ਤੇ 1793–94 ਦੇ ਕੱਟੜ ਪੜਾਅ ਨਾਲ ਜੁੜਿਆ ਹੈ, ਜਦੋਂ ਅੰਦਰੂਨੀ ਟਕਰਾਅ ਅਤੇ ਵਿਦੇਸ਼ੀ ਜੰਗ ਚੱਲ ਰਹੀ ਸੀ।",
+    "sourceIds": [
+      "S1",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q014-PA",
+    "englishQuestionId": "WHI-CP004-Q014",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F014",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Regime–date",
+    "stem": "ਡਾਇਰੈਕਟਰੀ ਨੇ 1795 ਤੋਂ 1799 ਤੱਕ ਕਿਹੜੀ ਘਟਨਾ ਹੋਣ ਤੱਕ ਫ਼ਰਾਂਸ ਉੱਤੇ ਰਾਜ ਕੀਤਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਾਸਤੀਲ ਉੱਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੂਈ ਸੋਲ੍ਹਵੇਂ ਨੂੰ ਫ਼ਾਂਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੈਪੋਲੀਅਨ ਦਾ 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "9 ਨਵੰਬਰ 1799 ਦੇ ਤਖ਼ਤਾ ਪਲਟ ਨੇ ਡਾਇਰੈਕਟਰੀ ਖ਼ਤਮ ਕੀਤੀ ਅਤੇ ਕੌਂਸਲੇਟ ਦਾ ਸਮਾਂ ਸ਼ੁਰੂ ਕੀਤਾ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q015-PA",
+    "englishQuestionId": "WHI-CP004-Q015",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F015",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chronology",
+    "stem": "ਸਹੀ ਕ੍ਰਮ ਚੁਣੋ।",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਡਾਇਰੈਕਟਰੀ → ਬਾਸਤੀਲ → 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ → ਹੱਕਾਂ ਦਾ ਐਲਾਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੱਕਾਂ ਦਾ ਐਲਾਨ → 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ → ਬਾਸਤੀਲ → ਡਾਇਰੈਕਟਰੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਾਸਤੀਲ → ਹੱਕਾਂ ਦਾ ਐਲਾਨ → ਡਾਇਰੈਕਟਰੀ → 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ"
+      },
+      {
+        "key": "D",
+        "text": "18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ → ਬਾਸਤੀਲ → ਡਾਇਰੈਕਟਰੀ → ਹੱਕਾਂ ਦਾ ਐਲਾਨ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਜੁਲਾਈ 1789 ਵਿੱਚ ਬਾਸਤੀਲ ਡਿੱਗਿਆ, ਅਗਸਤ ਵਿੱਚ ਹੱਕਾਂ ਦਾ ਐਲਾਨ ਆਇਆ, ਡਾਇਰੈਕਟਰੀ 1795 ਵਿੱਚ ਬਣੀ ਅਤੇ ਨੈਪੋਲੀਅਨ ਦਾ ਤਖ਼ਤਾ ਪਲਟ 1799 ਵਿੱਚ ਹੋਇਆ।",
+    "sourceIds": [
+      "S1",
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q016-PA",
+    "englishQuestionId": "WHI-CP004-Q016",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F016",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Policy–purpose",
+    "stem": "ਨੈਪੋਲੀਅਨ ਦੀ ਮਹਾਂਦੀਪੀ ਪ੍ਰਣਾਲੀ ਦਾ ਮੁੱਖ ਨਿਸ਼ਾਨਾ ਆਰਥਿਕ ਦਬਾਅ ਰਾਹੀਂ ਕਿਹੜੇ ਵਿਰੋਧੀ ਨੂੰ ਕਮਜ਼ੋਰ ਕਰਨਾ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਸਮਾਨੀ ਸਾਮਰਾਜ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੁਰਤਗਾਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਰੂਸ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਇਸ ਪ੍ਰਬੰਧ ਦਾ ਮਕਸਦ ਮਹਾਂਦੀਪੀ ਯੂਰਪ ਨਾਲ ਬ੍ਰਿਟਿਸ਼ ਵਪਾਰ ਰੋਕਣਾ ਸੀ, ਪਰ ਇਸ ਨੂੰ ਲਾਗੂ ਕਰਨਾ ਔਖਾ ਅਤੇ ਮਹਿੰਗਾ ਸੀ।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q017-PA",
+    "englishQuestionId": "WHI-CP004-Q017",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F017",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "War–region",
+    "stem": "ਪ੍ਰਾਇਦੀਪੀ ਜੰਗ ਮੁੱਖ ਤੌਰ 'ਤੇ ਕਿਹੜੇ ਇਲਾਕੇ ਵਿੱਚ ਲੜੀ ਗਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਿਰਫ਼ ਨੀਵੇਂ ਦੇਸ਼"
+      },
+      {
+        "key": "C",
+        "text": "ਬਾਲਕਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਕੈਂਡੇਨੇਵੀਆ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਆਈਬੀਰੀਆ ਵਿੱਚ ਨੈਪੋਲੀਅਨ ਦੇ ਦਖ਼ਲ ਕਾਰਨ ਲੰਮਾ ਟਕਰਾਅ ਹੋਇਆ, ਜਿਸ ਵਿੱਚ ਸਪੇਨੀ ਤੇ ਪੁਰਤਗਾਲੀ ਵਿਰੋਧ ਅਤੇ ਬ੍ਰਿਟਿਸ਼ ਫ਼ੌਜਾਂ ਸ਼ਾਮਲ ਸਨ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q018-PA",
+    "englishQuestionId": "WHI-CP004-Q018",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F018",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Campaign–consequence",
+    "stem": "1812 ਵਿੱਚ ਰੂਸ ਉੱਤੇ ਨੈਪੋਲੀਅਨ ਦੇ ਹਮਲੇ ਦਾ ਅੰਤ ਕਿਹੜੇ ਨਤੀਜੇ ਨਾਲ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1789 ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਇਨਕਲਾਬ ਖ਼ਤਮ ਹੋਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਰਪੀ ਸੰਘ ਤੁਰੰਤ ਬਣ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਤਬਾਹਕੁਨ ਵਾਪਸੀ ਨਾਲ ਗ੍ਰਾਂਦ ਆਰਮੀ ਬੁਰੀ ਤਰ੍ਹਾਂ ਕਮਜ਼ੋਰ ਹੋਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਰੂਸ ਦਾ ਸਾਰਾ ਇਲਾਕਾ ਪੱਕੇ ਤੌਰ 'ਤੇ ਫ਼ਰਾਂਸ ਵਿੱਚ ਮਿਲਾ ਲਿਆ ਗਿਆ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਮੁਹਿੰਮ ਅਤੇ ਵਾਪਸੀ ਵਿੱਚ ਭਾਰੀ ਜਾਨੀ ਤੇ ਫ਼ੌਜੀ ਨੁਕਸਾਨ ਹੋਇਆ ਅਤੇ ਨੈਪੋਲੀਅਨ ਦੀ ਫ਼ੌਜੀ ਸਥਿਤੀ ਕਮਜ਼ੋਰ ਪਈ।",
+    "sourceIds": [
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q019-PA",
+    "englishQuestionId": "WHI-CP004-Q019",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F019",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Battle–outcome",
+    "stem": "1815 ਵਿੱਚ ਵਾਟਰਲੂ ਦੀ ਹਾਰ ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ ਕੀ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹੱਕਾਂ ਦਾ ਐਲਾਨ ਮਨਜ਼ੂਰ ਹੋਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਡਾਇਰੈਕਟਰੀ ਸ਼ੁਰੂ ਹੋਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਨੈਪੋਲੀਅਨ ਨੇ ਆਖ਼ਰੀ ਵਾਰ ਤਖ਼ਤ ਛੱਡਿਆ ਅਤੇ ਉਸ ਨੂੰ ਸੇਂਟ ਹੇਲੇਨਾ ਭੇਜਿਆ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਸ ਨੂੰ ਪਵਿੱਤਰ ਰੋਮਨ ਸਮਰਾਟ ਦਾ ਤਾਜ ਪਹਿਨਾਇਆ ਗਿਆ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਜੂਨ 1815 ਦੀ ਹਾਰ ਮਗਰੋਂ ਨੈਪੋਲੀਅਨ ਨੇ ਤਖ਼ਤ ਛੱਡ ਦਿੱਤਾ ਅਤੇ ਉਸ ਨੂੰ ਸੇਂਟ ਹੇਲੇਨਾ ਟਾਪੂ ਉੱਤੇ ਜਲਾਵਤਨ ਕੀਤਾ ਗਿਆ।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q020-PA",
+    "englishQuestionId": "WHI-CP004-Q020",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F020",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Conference–purpose",
+    "stem": "ਨੈਪੋਲੀਅਨ ਦੀ ਹਾਰ ਤੋਂ ਬਾਅਦ ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਦਾ ਮੁੱਖ ਮਕਸਦ ਕੀ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਦੀ ਜੰਗ ਮੁਕਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਰਪ ਦਾ ਮੁੜ ਨਕਸ਼ਾ ਬਣਾਉਣਾ ਅਤੇ ਤਾਕਤਾਂ ਦਾ ਸੰਤੁਲਨ ਕਾਇਮ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਮਰੀਕਾ ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਰਾਜ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਡਾਇਰੈਕਟਰੀ ਕਾਇਮ ਕਰਨੀ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਵਿਯੇਨਾ ਵਿੱਚ ਵੱਡੀਆਂ ਤਾਕਤਾਂ ਨੇ ਯੂਰਪ ਦੀ ਨਵੀਂ ਵਿਵਸਥਾ ਬਣਾਉਣ ਅਤੇ ਫ਼ਰਾਂਸ ਦੇ ਮੁੜ ਫੈਲਾਅ ਨੂੰ ਰੋਕਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q021-PA",
+    "englishQuestionId": "WHI-CP004-Q021",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F021",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Legal reform",
+    "stem": "ਨੈਪੋਲੀਅਨ ਦੀ 1804 ਦੀ ਸਿਵਲ ਸੰਹਿਤਾ ਕਿਸ ਨਾਂ ਨਾਲ ਜਾਣੀ ਜਾਂਦੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਾਰਾਂ ਪੱਟੀਆਂ ਦਾ ਕਾਨੂੰਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੈਪੋਲੀਅਨ ਕੋਡ (ਸਿਵਲ ਕੋਡ)"
+      },
+      {
+        "key": "C",
+        "text": "ਹਮੂਰਾਬੀ ਦੀ ਸੰਹਿਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਸਟਿਨੀਅਨ ਕੋਡ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1804 ਦੇ ਸਿਵਲ ਕੋਡ ਨੇ ਦੀਵਾਨੀ ਕਾਨੂੰਨਾਂ ਨੂੰ ਇਕੱਠਾ ਕੀਤਾ ਅਤੇ ਫ਼ਰਾਂਸ ਦੇ ਪ੍ਰਭਾਵ ਜਾਂ ਕਬਜ਼ੇ ਹੇਠਲੇ ਇਲਾਕਿਆਂ ਵਿੱਚ ਫੈਲਿਆ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q022-PA",
+    "englishQuestionId": "WHI-CP004-Q022",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F022",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Relationship",
+    "stem": "ਯੂਰਪ ਦੇ ਕੁਝ ਹਿੱਸਿਆਂ ਵਿੱਚ ਨੈਪੋਲੀਅਨ ਦੇ ਰਾਜ ਦਾ ਲੰਮੇ ਸਮੇਂ ਤੱਕ ਰਹਿਣ ਵਾਲਾ ਅਸਰ ਕਿਹੜਾ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪਵਿੱਤਰ ਰੋਮਨ ਸਾਮਰਾਜ ਹੋਰ ਮਜ਼ਬੂਤ ਹੋ ਕੇ ਫੈਲਿਆ।"
+      },
+      {
+        "key": "B",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਨੇ ਦਹਿਸ਼ਤ ਦਾ ਰਾਜ ਲਾਗੂ ਕੀਤਾ।"
+      },
+      {
+        "key": "C",
+        "text": "ਨੈਪੋਲੀਅਨ ਦੇ ਰਾਜ ਹੇਠ ਹਰ ਥਾਂ ਜਗੀਰਦਾਰੀ ਹੱਕ ਮੁੜ ਬਹਾਲ ਹੋਏ।"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਫ਼ੌਜੀ ਦਬਦਬੇ ਦੇ ਨਾਲ ਕਾਨੂੰਨੀ ਅਤੇ ਪ੍ਰਸ਼ਾਸਕੀ ਸੁਧਾਰ ਵੀ ਫੈਲੇ।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਫ਼ਰਾਂਸੀਸੀ ਰਾਜ ਨਾਲ ਮਰਦਾਂ ਲਈ ਕਾਨੂੰਨੀ ਬਰਾਬਰੀ ਅਤੇ ਵਧੇਰੇ ਕੇਂਦਰੀ ਪ੍ਰਸ਼ਾਸਨ ਵਰਗੇ ਸੁਧਾਰ ਫੈਲੇ, ਪਰ ਕਬਜ਼ਾ ਅਤੇ ਰਾਜਨੀਤਿਕ ਕਾਬੂ ਵੀ ਥੋਪਿਆ ਗਿਆ।",
+    "sourceIds": [
+      "S10",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q023-PA",
+    "englishQuestionId": "WHI-CP004-Q023",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F023",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Incorrect match",
+    "stem": "ਕਿਹੜੀ ਜੋੜੀ ਗ਼ਲਤ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਾਟਰਲੂ — 1815 ਵਿੱਚ ਨੈਪੋਲੀਅਨ ਦੀ ਆਖ਼ਰੀ ਹਾਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਡਾਇਰੈਕਟਰੀ — ਪੰਜ ਮੈਂਬਰਾਂ ਵਾਲੀ ਕਾਰਜਕਾਰੀ ਕੌਂਸਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ — ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਹਾਂਦੀਪੀ ਪ੍ਰਣਾਲੀ — ਬ੍ਰਿਟੇਨ ਉੱਤੇ ਮਾਲੀ ਦਬਾਅ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਨੇ ਨੈਪੋਲੀਅਨ ਤੋਂ ਬਾਅਦ ਯੂਰਪ ਦੀ ਮੁੜ ਵਿਵਸਥਾ ਕੀਤੀ; ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ 1776 ਵਿੱਚ ਹੋਇਆ ਸੀ।",
+    "sourceIds": [
+      "S3",
+      "S5",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q024-PA",
+    "englishQuestionId": "WHI-CP004-Q024",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F024",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Multi-statement",
+    "stem": "ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ:\n\n1. ਡਾਇਰੈਕਟਰੀ ਇਨਕਲਾਬ ਦੇ ਕੱਟੜ ਪੜਾਅ ਤੋਂ ਬਾਅਦ ਆਈ।  \n2. ਨੈਪੋਲੀਅਨ ਦੇ ਤਖ਼ਤਾ ਪਲਟ ਨੇ ਡਾਇਰੈਕਟਰੀ ਮੁਕਾਈ।  \n3. ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਵਾਟਰਲੂ ਦੀ ਜੰਗ ਤੋਂ ਪਹਿਲਾਂ ਹੋਈ।\n\nਕਿਹੜੇ ਕਥਨ ਸਹੀ ਹਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 2"
+      },
+      {
+        "key": "B",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 3"
+      },
+      {
+        "key": "C",
+        "text": "ਕੇਵਲ 2 ਅਤੇ 3"
+      },
+      {
+        "key": "D",
+        "text": "1, 2 ਅਤੇ 3"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਡਾਇਰੈਕਟਰੀ ਕੱਟੜ ਪੜਾਅ ਮਗਰੋਂ ਆਈ, ਨੈਪੋਲੀਅਨ ਦੇ ਤਖ਼ਤਾ ਪਲਟ ਨੇ ਇਸ ਨੂੰ ਮੁਕਾਇਆ ਅਤੇ ਵਿਯੇਨਾ ਕਾਂਗਰਸ 1814 ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਈ, 1815 ਦੀ ਵਾਟਰਲੂ ਜੰਗ ਤੋਂ ਪਹਿਲਾਂ।",
+    "sourceIds": [
+      "S3",
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q025-PA",
+    "englishQuestionId": "WHI-CP004-Q025",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F025",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ → ਨੈਪੋਲੀਅਨ ਸਾਮਰਾਜ → ਰੂਸ ਮੁਹਿੰਮ → ਵਾਟਰਲੂ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੈਪੋਲੀਅਨ ਸਾਮਰਾਜ → ਵਾਟਰਲੂ → ਰੂਸ ਮੁਹਿੰਮ → 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੂਸ ਮੁਹਿੰਮ → 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ → ਵਾਟਰਲੂ → ਨੈਪੋਲੀਅਨ ਸਾਮਰਾਜ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਾਟਰਲੂ → ਨੈਪੋਲੀਅਨ ਸਾਮਰਾਜ → 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ → ਰੂਸ ਮੁਹਿੰਮ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਨੈਪੋਲੀਅਨ 1799 ਵਿੱਚ ਸੱਤਾ ਵਿੱਚ ਆਇਆ, 1804 ਵਿੱਚ ਸਮਰਾਟ ਬਣਿਆ, 1812 ਵਿੱਚ ਰੂਸ ਉੱਤੇ ਚੜ੍ਹਿਆ ਅਤੇ 1815 ਵਿੱਚ ਵਾਟਰਲੂ ਵਿਖੇ ਹਾਰਿਆ।",
+    "sourceIds": [
+      "S3",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q026-PA",
+    "englishQuestionId": "WHI-CP004-Q026",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F026",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cause versus trigger",
+    "stem": "ਫ਼ਰਾਂਸੀਸੀ ਇਨਕਲਾਬ ਦੇ ਲੰਮੇ ਸਮੇਂ ਦੇ ਕਾਰਨ ਅਤੇ ਤੁਰੰਤ ਵਾਪਰੀ ਘਟਨਾ ਵਿੱਚ ਫ਼ਰਕ ਦੱਸਣ ਵਾਲਾ ਸਹੀ ਕਥਨ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਾਲੀ ਤੰਗੀ ਅਤੇ ਸਮਾਜਕ ਵਿਸ਼ੇਸ਼ ਹੱਕ ਲੰਮੇ ਸਮੇਂ ਦੇ ਦਬਾਅ ਸਨ; 1789 ਵਿੱਚ ਨੁਮਾਇੰਦਗੀ ਬਾਰੇ ਰਾਜਨੀਤਿਕ ਟਕਰਾਅ ਨੇ ਸੰਕਟ ਤੇਜ਼ ਕੀਤਾ।"
+      },
+      {
+        "key": "B",
+        "text": "ਵਾਟਰਲੂ 1789 ਦੇ ਇਨਕਲਾਬ ਦਾ ਲੰਮੇ ਸਮੇਂ ਦਾ ਕਾਰਨ ਸੀ।"
+      },
+      {
+        "key": "C",
+        "text": "1799 ਦੇ ਨੈਪੋਲੀਅਨ ਤਖ਼ਤਾ ਪਲਟ ਨੇ ਮਈ 1789 ਵਿੱਚ ਐਸਟੇਟਸ-ਜਨਰਲ ਬੁਲਵਾਈ।"
+      },
+      {
+        "key": "D",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਕਾਰਨ ਬਾਸਤੀਲ ਉੱਤੇ ਹਮਲਾ ਹੋਇਆ।"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਇਨਕਲਾਬ ਦੀਆਂ ਜੜ੍ਹਾਂ ਮਾਲੀ ਅਤੇ ਸਮਾਜਕ ਬਣਤਰ ਦੀਆਂ ਸਮੱਸਿਆਵਾਂ ਵਿੱਚ ਸਨ, ਜੋ 1789 ਵਿੱਚ ਤੁਰੰਤ ਰਾਜਨੀਤਿਕ ਟਕਰਾਅ ਬਣ ਗਈਆਂ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q027-PA",
+    "englishQuestionId": "WHI-CP004-Q027",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F027",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Policy consequence",
+    "stem": "ਮਹਾਂਦੀਪੀ ਪ੍ਰਣਾਲੀ ਨੂੰ ਲਾਗੂ ਕਰਨਾ ਔਖਾ ਕਿਉਂ ਸਾਬਤ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬ੍ਰਿਟੇਨ ਨੇ ਹਰ ਫ਼ਰਾਂਸੀਸੀ ਬੰਦਰਗਾਹ ਉੱਤੇ ਸਿੱਧਾ ਕਾਬੂ ਕਰ ਲਿਆ ਸੀ।"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਫ਼ਰਾਂਸ ਦੇ ਅੰਦਰ ਸਾਰਾ ਵਪਾਰ ਰੋਕਿਆ ਪਰ ਬ੍ਰਿਟਿਸ਼ ਵਪਾਰ ਖੁੱਲ੍ਹਾ ਛੱਡਿਆ।"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ ਵਾਟਰਲੂ ਮਗਰੋਂ ਹੋਈ ਸੰਧੀ ਸੀ।"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਲਈ ਯੂਰਪੀ ਦੇਸ਼ਾਂ ਨੂੰ ਬ੍ਰਿਟੇਨ ਨਾਲ ਵਪਾਰ ਰੋਕਣਾ ਸੀ, ਪਰ ਤਸਕਰੀ ਅਤੇ ਵੱਖਰੇ ਹਿੱਤਾਂ ਨੇ ਨਾਕਾਬੰਦੀ ਕਮਜ਼ੋਰ ਕੀਤੀ।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਨੈਪੋਲੀਅਨ ਦੀ ਵਪਾਰਕ ਰੋਕ ਲਈ ਵੱਡੇ ਤੇ ਵੱਖ-ਵੱਖ ਰਾਜਨੀਤਿਕ ਹਿੱਤਾਂ ਵਾਲੇ ਇਲਾਕੇ ਦਾ ਸਾਥ ਲੋੜੀਂਦਾ ਸੀ; ਤਸਕਰੀ ਅਤੇ ਵਿਰੋਧ ਨੇ ਇਸ ਨੂੰ ਕਮਜ਼ੋਰ ਕੀਤਾ।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q028-PA",
+    "englishQuestionId": "WHI-CP004-Q028",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F028",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਦੇ ਪ੍ਰਬੰਧ ਅਤੇ 1789 ਵਿੱਚ ਐਲਾਨੇ ਅਸੂਲਾਂ ਵਿਚਕਾਰ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਵੇਂ ਸਰਬਵਿਆਪੀ ਵੋਟ ਦੇ ਹੱਕ ਦੇ ਇੱਕੋ ਜਿਹੇ ਐਲਾਨ ਸਨ।"
+      },
+      {
+        "key": "B",
+        "text": "ਵਿਯੇਨਾ ਨੇ ਰਾਜਵੰਸ਼ਾਂ ਦੀ ਵਾਪਸੀ ਅਤੇ ਤਾਕਤਾਂ ਦੇ ਸੰਤੁਲਨ ਨੂੰ ਤਰਜੀਹ ਦਿੱਤੀ, ਜਦਕਿ 1789 ਦੇ ਐਲਾਨ ਨੇ ਵਿਅਕਤੀਗਤ ਹੱਕਾਂ ਅਤੇ ਕੌਮੀ ਖ਼ੁਦਮੁਖ਼ਤਿਆਰੀ ਦੀ ਗੱਲ ਕੀਤੀ।"
+      },
+      {
+        "key": "C",
+        "text": "1789 ਦੇ ਐਲਾਨ ਨੇ ਨੈਪੋਲੀਅਨ ਨੂੰ ਮੁੜ ਸੱਤਾ ਵਿੱਚ ਲਿਆਂਦਾ।"
+      },
+      {
+        "key": "D",
+        "text": "ਵਿਯੇਨਾ ਨੇ ਯੂਰਪ ਦੀ ਹਰ ਬਾਦਸ਼ਾਹੀ ਖ਼ਤਮ ਕਰ ਦਿੱਤੀ।"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਇਹ ਦੋ ਵੱਖਰੇ ਰਾਜਨੀਤਿਕ ਦੌਰਾਂ ਦੀ ਸੋਚ ਸੀ: ਇਨਕਲਾਬੀ ਹੱਕਾਂ ਦੇ ਦਾਅਵੇ ਅਤੇ ਨੈਪੋਲੀਅਨ ਮਗਰੋਂ ਦੇਸ਼ਾਂ ਵਿੱਚ ਸਥਿਰਤਾ ਵਾਪਸ ਲਿਆਉਣ ਦੀ ਕੋਸ਼ਿਸ਼।",
+    "sourceIds": [
+      "S2",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q029-PA",
+    "englishQuestionId": "WHI-CP004-Q029",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F029",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement",
+    "stem": "ਨੈਪੋਲੀਅਨ ਬਾਰੇ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ:\n\n1. ਉਸ ਦੇ ਰਾਜ ਨਾਲ ਕੁਝ ਕਾਨੂੰਨੀ ਸੁਧਾਰ ਫ਼ਰਾਂਸ ਤੋਂ ਬਾਹਰ ਫੈਲੇ।  \n2. ਉਸ ਦੇ ਫ਼ੌਜੀ ਫੈਲਾਅ ਕਾਰਨ ਵਿਰੋਧ ਅਤੇ ਗੱਠਜੋੜੀ ਜੰਗਾਂ ਹੋਈਆਂ।  \n3. ਰੂਸ ਦੀ ਮੁਹਿੰਮ ਨੇ ਉਸ ਦੀ ਫ਼ੌਜ ਨੂੰ ਪੱਕੇ ਤੌਰ 'ਤੇ ਮਜ਼ਬੂਤ ਕੀਤਾ।\n\nਕਿਹੜੇ ਕਥਨ ਸਹੀ ਹਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 3"
+      },
+      {
+        "key": "B",
+        "text": "ਕੇਵਲ 2 ਅਤੇ 3"
+      },
+      {
+        "key": "C",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 2"
+      },
+      {
+        "key": "D",
+        "text": "1, 2 ਅਤੇ 3"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਨੈਪੋਲੀਅਨ ਦੀਆਂ ਫ਼ੌਜਾਂ ਨਾਲ ਸੁਧਾਰ ਵੀ ਫੈਲੇ, ਪਰ ਉਸ ਦੇ ਫੈਲਾਅ ਨੇ ਵਿਰੋਧ ਪੈਦਾ ਕੀਤਾ; ਰੂਸ ਦੀ ਮੁਹਿੰਮ ਨੇ ਉਸ ਦੀ ਫ਼ੌਜ ਨੂੰ ਮਜ਼ਬੂਤ ਨਹੀਂ, ਤਬਾਹ ਕੀਤਾ।",
+    "sourceIds": [
+      "S9",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q030-PA",
+    "englishQuestionId": "WHI-CP004-Q030",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F030",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Phase–event synthesis",
+    "stem": "ਇਨਕਲਾਬੀ ਸਰਕਾਰ ਤੋਂ ਨੈਪੋਲੀਅਨ ਦੇ ਰਾਜ ਤੱਕ ਬਦਲਾਅ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਡਾਇਰੈਕਟਰੀ → ਐਸਟੇਟਸ-ਜਨਰਲ → ਬਾਸਤੀਲ → ਕੌਂਸਲੇਟ → ਕੌਮੀ ਸਭਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੌਮੀ ਸਭਾ → ਗਣਰਾਜ ਅਤੇ ਕੱਟੜ ਪੜਾਅ → ਡਾਇਰੈਕਟਰੀ → 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ → ਕੌਂਸਲੇਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੌਂਸਲੇਟ → ਐਸਟੇਟਸ-ਜਨਰਲ → ਦਹਿਸ਼ਤ ਦਾ ਰਾਜ → ਡਾਇਰੈਕਟਰੀ → ਬਾਸਤੀਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਾਸਤੀਲ → ਵਿਯੇਨਾ ਕਾਂਗਰਸ → ਕੌਮੀ ਸਭਾ → ਡਾਇਰੈਕਟਰੀ → ਕੌਂਸਲੇਟ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਇਨਕਲਾਬ ਦੌਰਾਨ ਸ਼ਾਸਕੀ ਸੰਸਥਾਵਾਂ ਕਈ ਪੜਾਵਾਂ ਵਿੱਚ ਬਦਲੀਆਂ; ਬੋਨਾਪਾਰਟ ਦੇ ਤਖ਼ਤਾ ਪਲਟ ਨੇ ਡਾਇਰੈਕਟਰੀ ਖ਼ਤਮ ਕਰਕੇ ਕੌਂਸਲੇਟ ਕਾਇਮ ਕੀਤਾ।",
+    "sourceIds": [
+      "S1",
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q031-PA",
+    "englishQuestionId": "WHI-CP004-Q031",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F031",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "ਤੀਜੇ ਵਰਗ ਦੇ ਨੁਮਾਇੰਦਿਆਂ ਨੇ ਕਿਹੜੀ ਤਾਰੀਖ਼ ਨੂੰ ਆਪਣੇ ਆਪ ਨੂੰ ਕੌਮੀ ਸਭਾ ਐਲਾਨਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "4 ਅਗਸਤ 1789"
+      },
+      {
+        "key": "B",
+        "text": "17 ਜੂਨ 1789"
+      },
+      {
+        "key": "C",
+        "text": "26 ਅਗਸਤ 1789"
+      },
+      {
+        "key": "D",
+        "text": "14 ਜੁਲਾਈ 1789"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "17 ਜੂਨ ਨੂੰ ਤੀਜੇ ਵਰਗ ਦੇ ਨੁਮਾਇੰਦਿਆਂ ਨੇ ਆਪਣੇ ਆਪ ਨੂੰ ਕੌਮੀ ਸਭਾ ਐਲਾਨਿਆ ਅਤੇ ਕੌਮ ਦੀ ਨੁਮਾਇੰਦਗੀ ਦਾ ਦਾਅਵਾ ਕੀਤਾ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q032-PA",
+    "englishQuestionId": "WHI-CP004-Q032",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F032",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–purpose",
+    "stem": "ਟੈਨਿਸ ਕੋਰਟ ਸਹੁੰ ਵਿੱਚ ਨੁਮਾਇੰਦਿਆਂ ਨੇ ਕੀ ਵਚਨ ਦਿੱਤਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸ ਦਾ ਸੰਵਿਧਾਨ ਬਣਨ ਤੱਕ ਵੱਖ ਨਾ ਹੋਣ ਦਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ ਵਿਰੁੱਧ ਜੰਗ ਦਾ ਐਲਾਨ ਕਰਨ ਦਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨੈਪੋਲੀਅਨ ਨੂੰ ਸਮਰਾਟ ਬਣਾਉਣ ਦਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਾਰੇ ਜਗੀਰਦਾਰੀ ਹੱਕ ਮੁੜ ਲਿਆਉਣ ਦਾ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਸਹੁੰ ਵਿੱਚ ਸੰਵਿਧਾਨ ਬਣਨ ਤੱਕ ਇਕੱਠੇ ਰਹਿਣ ਦਾ ਵਚਨ ਦਿੱਤਾ ਗਿਆ ਸੀ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q033-PA",
+    "englishQuestionId": "WHI-CP004-Q033",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F033",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Reform–date",
+    "stem": "ਕਿਹੜੇ ਸਾਲ 4 ਅਗਸਤ ਦੀ ਰਾਤ ਕੌਮੀ ਸਭਾ ਨੇ ਕਈ ਜਗੀਰਦਾਰੀ ਵਿਸ਼ੇਸ਼ ਹੱਕ ਖ਼ਤਮ ਕਰਨ ਲਈ ਵੋਟ ਪਾਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1791"
+      },
+      {
+        "key": "B",
+        "text": "1799"
+      },
+      {
+        "key": "C",
+        "text": "1789"
+      },
+      {
+        "key": "D",
+        "text": "1795"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "4 ਅਗਸਤ 1789 ਨੂੰ ਸਭਾ ਨੇ ਪੁਰਾਣੇ ਰਾਜ ਨਾਲ ਜੁੜੇ ਕਈ ਵਿਸ਼ੇਸ਼ ਹੱਕ ਖ਼ਤਮ ਕਰਨ ਲਈ ਵੋਟ ਪਾਈ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q034-PA",
+    "englishQuestionId": "WHI-CP004-Q034",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F034",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Constitution–regime",
+    "stem": "1791 ਦੇ ਸੰਵਿਧਾਨ ਨੇ ਫ਼ਰਾਂਸ ਵਿੱਚ ਕਿਹੋ ਜਿਹੀ ਰਾਜ-ਪ੍ਰਬੰਧ ਕਾਇਮ ਕੀਤੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਡਾਇਰੈਕਟਰੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਵਿਧਾਨਕ ਬਾਦਸ਼ਾਹੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਘੀ ਗਣਰਾਜ"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ੌਜੀ ਤਾਨਾਸ਼ਾਹੀ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1791 ਦੇ ਸੰਵਿਧਾਨ ਨੇ ਰਾਜੇ ਨੂੰ ਕਾਇਮ ਰੱਖਿਆ ਪਰ ਸੰਵਿਧਾਨਕ ਪ੍ਰਬੰਧ ਹੇਠ ਉਸ ਦੀ ਤਾਕਤ ਸੀਮਤ ਕਰ ਦਿੱਤੀ।",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q035-PA",
+    "englishQuestionId": "WHI-CP004-Q035",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F035",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "1791 ਵਿੱਚ ਭੱਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਦੌਰਾਨ ਲੂਈ ਸੋਲ੍ਹਵੇਂ ਅਤੇ ਉਸ ਦੇ ਪਰਿਵਾਰ ਨੂੰ ਕਿਹੜੇ ਕਸਬੇ ਵਿੱਚ ਫੜਿਆ ਗਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਾਟਰਲੂ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਾਰੇਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਯੇਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਲਾਈਪਜ਼ਿਗ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਰਾਜ ਪਰਿਵਾਰ ਨੂੰ ਪੈਰਿਸ ਤੋਂ ਨਿਕਲਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰਦਿਆਂ ਵਾਰੇਨ ਵਿਖੇ ਰੋਕਿਆ ਗਿਆ; ਇਸ ਨਾਲ ਰਾਜੇ ਉੱਤੇ ਭਰੋਸਾ ਘਟਿਆ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q036-PA",
+    "englishQuestionId": "WHI-CP004-Q036",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F036",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "ਕੌਮੀ ਕਨਵੈਨਸ਼ਨ ਨੇ ਬਾਦਸ਼ਾਹੀ ਕਦੋਂ ਖ਼ਤਮ ਕਰਕੇ ਫ਼ਰਾਂਸ ਨੂੰ ਗਣਰਾਜ ਐਲਾਨਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1804"
+      },
+      {
+        "key": "B",
+        "text": "1799"
+      },
+      {
+        "key": "C",
+        "text": "1789"
+      },
+      {
+        "key": "D",
+        "text": "1792"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਕਨਵੈਨਸ਼ਨ ਨੇ ਸਤੰਬਰ 1792 ਵਿੱਚ ਬਾਦਸ਼ਾਹੀ ਖ਼ਤਮ ਕਰਕੇ ਪਹਿਲਾ ਫ਼ਰਾਂਸੀਸੀ ਗਣਰਾਜ ਕਾਇਮ ਕੀਤਾ।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q037-PA",
+    "englishQuestionId": "WHI-CP004-Q037",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F037",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "ਲੂਈ ਸੋਲ੍ਹਵੇਂ ਨੂੰ ਕਿਹੜੇ ਸਾਲ ਮੌਤ ਦੀ ਸਜ਼ਾ ਦਿੱਤੀ ਗਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1795"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1815"
+      },
+      {
+        "key": "D",
+        "text": "1793"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਕਨਵੈਨਸ਼ਨ ਵਿੱਚ ਮੁਕੱਦਮੇ ਮਗਰੋਂ ਸਾਬਕਾ ਰਾਜੇ ਨੂੰ 21 ਜਨਵਰੀ 1793 ਨੂੰ ਮੌਤ ਦੀ ਸਜ਼ਾ ਦਿੱਤੀ ਗਈ।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q038-PA",
+    "englishQuestionId": "WHI-CP004-Q038",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F038",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–leader",
+    "stem": "ਵਾਟਰਲੂ ਵਿੱਚ ਬਲੂਸ਼ਰ ਦੀ ਪ੍ਰਸ਼ੀਆਈ ਫ਼ੌਜ ਦੇ ਨਾਲ ਗੱਠਜੋੜੀ ਫ਼ੌਜ ਦੀ ਕਮਾਨ ਕਿਹੜੇ ਬ੍ਰਿਟਿਸ਼ ਜਰਨੈਲ ਨੇ ਸੰਭਾਲੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਡਿਊਕ ਆਫ਼ ਵੈਲਿੰਗਟਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਰਥਰ ਵੈਲਜ਼ਲੀ, ਡਿਊਕ ਆਫ਼ ਮਾਰਲਬਰੋ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਲੀਅਮ ਪਿਟ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੋਰੈਸ਼ਿਓ ਨੈਲਸਨ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਵੈਲਿੰਗਟਨ ਨੇ ਵਾਟਰਲੂ ਵਿਖੇ ਸਾਂਝੀ ਫ਼ੌਜ ਦੀ ਕਮਾਨ ਕੀਤੀ; ਜੰਗ ਦੌਰਾਨ ਬਲੂਸ਼ਰ ਦੀ ਪ੍ਰਸ਼ੀਆਈ ਫ਼ੌਜ ਵੀ ਪਹੁੰਚੀ।",
+    "sourceIds": [
+      "S5",
+      "S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q039-PA",
+    "englishQuestionId": "WHI-CP004-Q039",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F039",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Law–date",
+    "stem": "ਨੈਪੋਲੀਅਨ ਕੋਡ ਕਹਾਉਣ ਵਾਲਾ ਸਿਵਲ ਕੋਡ ਕਿਹੜੇ ਸਾਲ ਲਾਗੂ ਕੀਤਾ ਗਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1815"
+      },
+      {
+        "key": "B",
+        "text": "1804"
+      },
+      {
+        "key": "C",
+        "text": "1791"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਫ਼ਰਾਂਸ ਦਾ ਸਿਵਲ ਕੋਡ 1804 ਵਿੱਚ ਲਾਗੂ ਹੋਇਆ ਅਤੇ ਨੈਪੋਲੀਅਨ ਦੇ ਰਾਜ ਹੇਠ ਦੀਵਾਨੀ ਕਾਨੂੰਨ ਇਕੱਠੇ ਕੀਤੇ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q040-PA",
+    "englishQuestionId": "WHI-CP004-Q040",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F040",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Event–sequence",
+    "stem": "ਬਾਸਤੀਲ ਉੱਤੇ ਹਮਲੇ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੀ ਘਟਨਾ ਹੋਈ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਤੀਜੇ ਵਰਗ ਨੇ ਆਪਣੇ ਆਪ ਨੂੰ ਕੌਮੀ ਸਭਾ ਐਲਾਨਿਆ।"
+      },
+      {
+        "key": "B",
+        "text": "ਨੈਪੋਲੀਅਨ ਨੇ ਰੂਸ ਉੱਤੇ ਹਮਲਾ ਕੀਤਾ।"
+      },
+      {
+        "key": "C",
+        "text": "ਡਾਇਰੈਕਟਰੀ ਸੱਤਾ ਵਿੱਚ ਆਈ।"
+      },
+      {
+        "key": "D",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਹੋਈ।"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਜੂਨ 1789 ਵਿੱਚ ਕੌਮੀ ਸਭਾ ਦਾ ਐਲਾਨ ਹੋਇਆ; ਅਗਲੇ ਮਹੀਨੇ ਬਾਸਤੀਲ ਉੱਤੇ ਹਮਲਾ ਕੀਤਾ ਗਿਆ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q041-PA",
+    "englishQuestionId": "WHI-CP004-Q041",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F041",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Event–consequence",
+    "stem": "1791 ਵਿੱਚ ਸ਼ਾਹੀ ਪਰਿਵਾਰ ਦੀ ਵਾਰੇਨ ਵੱਲ ਭੱਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਨਾਲ ਰਾਜਨੀਤਿਕ ਸੰਕਟ ਹੋਰ ਡੂੰਘਾ ਕਿਉਂ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨਾਲ ਡਾਇਰੈਕਟਰੀ ਸੱਤਾ ਵਿੱਚ ਆਈ।"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਨੈਪੋਲੀਅਨ ਸਾਮਰਾਜ ਤੁਰੰਤ ਖ਼ਤਮ ਕਰ ਦਿੱਤਾ।"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਸਾਰੇ ਫ਼ਰਾਂਸ ਵਿੱਚ ਜਗੀਰਦਾਰੀ ਲਗਾਨ ਮੁੜ ਲਾਗੂ ਕੀਤੇ।"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨਾਲ ਇਹ ਭਰੋਸਾ ਡੋਲਿਆ ਕਿ ਲੂਈ ਸੋਲ੍ਹਵਾਂ ਸੰਵਿਧਾਨਕ ਸਮਝੌਤੇ ਨੂੰ ਮੰਨਦਾ ਸੀ।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਭੱਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਾਰਨ ਕਈ ਇਨਕਲਾਬੀਆਂ ਨੂੰ ਸ਼ੱਕ ਹੋਇਆ ਕਿ ਰਾਜਾ ਸੰਵਿਧਾਨਕ ਬਾਦਸ਼ਾਹੀ ਲਈ ਸੱਚਮੁੱਚ ਵਚਨਬੱਧ ਹੈ ਜਾਂ ਨਹੀਂ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q042-PA",
+    "englishQuestionId": "WHI-CP004-Q042",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F042",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Event–sequence",
+    "stem": "1792 ਵਿੱਚ ਬਾਦਸ਼ਾਹੀ ਖ਼ਤਮ ਹੋਣ ਮਗਰੋਂ ਕਿਹੜਾ ਬਦਲਾਅ ਆਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਡਾਇਰੈਕਟਰੀ ਕਾਇਮ ਹੋਈ।"
+      },
+      {
+        "key": "B",
+        "text": "ਨੈਪੋਲੀਅਨ ਸਮਰਾਟ ਬਣਿਆ।"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਸ਼ੁਰੂ ਹੋਈ।"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਰਾਂਸ ਗਣਰਾਜ ਬਣਿਆ।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਕਨਵੈਨਸ਼ਨ ਨੇ ਸਤੰਬਰ 1792 ਵਿੱਚ ਬਾਦਸ਼ਾਹੀ ਮੁਕਾ ਕੇ ਗਣਰਾਜ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q043-PA",
+    "englishQuestionId": "WHI-CP004-Q043",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F043",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Government–institution",
+    "stem": "ਕਮੇਟੀ ਆਫ਼ ਪਬਲਿਕ ਸੇਫ਼ਟੀ ਕਿਹੜੇ ਸਮੇਂ ਦੌਰਾਨ ਸ਼ਕਤੀਸ਼ਾਲੀ ਸ਼ਾਸਕੀ ਅਦਾਰਾ ਬਣੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1789 ਦੀ ਐਸਟੇਟਸ-ਜਨਰਲ ਬੈਠਕ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਨਕਲਾਬ ਦਾ ਕੱਟੜ ਪੜਾਅ ਅਤੇ ਦਹਿਸ਼ਤ ਦਾ ਰਾਜ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਬੋਰਬੋਂ ਰਾਜਵੰਸ਼ ਦੀ ਵਾਪਸੀ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਫ਼ਰਾਂਸ ਨੂੰ ਅੰਦਰੂਨੀ ਬਗ਼ਾਵਤ ਅਤੇ ਵਿਦੇਸ਼ੀ ਜੰਗ ਦਾ ਸਾਹਮਣਾ ਸੀ, ਇਸ ਲਈ ਕਨਵੈਨਸ਼ਨ ਨੇ 1793 ਵਿੱਚ ਕਮੇਟੀ ਆਫ਼ ਪਬਲਿਕ ਸੇਫ਼ਟੀ ਬਣਾਈ।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q044-PA",
+    "englishQuestionId": "WHI-CP004-Q044",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F044",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Event–consequence",
+    "stem": "ਜੁਲਾਈ 1794 ਵਿੱਚ ਰੋਬਸਪੀਅਰ ਦੇ ਪਤਨ ਦਾ ਇੱਕ ਨਤੀਜਾ ਕੀ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦਹਿਸ਼ਤ ਦੇ ਰਾਜ ਦੇ ਸਭ ਤੋਂ ਕੱਟੜ ਪੜਾਅ ਦਾ ਅੰਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੈਪੋਲੀਅਨ ਕੋਡ ਲਾਗੂ ਹੋਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਮਰੀਕੀ ਇਨਕਲਾਬ ਦੀ ਸ਼ੁਰੂਆਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਪਹਿਲੀ ਵਿਸ਼ਵ ਜੰਗ ਦੀ ਸ਼ੁਰੂਆਤ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "9 ਥਰਮੀਡੋਰ (ਜੁਲਾਈ 1794) ਨੂੰ ਰੋਬਸਪੀਅਰ ਦਾ ਤਖ਼ਤਾ ਪਲਟ ਜੈਕੋਬਿਨਾਂ ਦੀ ਅਗਵਾਈ ਵਾਲੇ ਕੱਟੜ ਪੜਾਅ ਤੋਂ ਹਟਣ ਦਾ ਸੰਕੇਤ ਸੀ।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q045-PA",
+    "englishQuestionId": "WHI-CP004-Q045",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F045",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Constitution–institution",
+    "stem": "ਸਾਲ III (1795) ਦੇ ਸੰਵਿਧਾਨ ਨੇ ਕਿਹੋ ਜਿਹੀ ਕਾਰਜਕਾਰੀ ਵਿਵਸਥਾ ਬਣਾਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬੋਰਬੋਂ ਦੀ ਵੰਸ਼ਾਨੁਗਤ ਬਾਦਸ਼ਾਹੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇੱਕ ਸਮਰਾਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਤਿੰਨ ਵਰਗਾਂ ਦੀ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੰਜ ਮੈਂਬਰਾਂ ਵਾਲੀ ਡਾਇਰੈਕਟਰੀ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਸਾਲ III ਦੇ ਸੰਵਿਧਾਨ ਨੇ ਪੰਜ ਮੈਂਬਰਾਂ ਵਾਲੀ ਕਾਰਜਕਾਰੀ ਕੌਂਸਲ ਬਣਾਈ ਜਿਸ ਨੂੰ ਡਾਇਰੈਕਟਰੀ ਕਿਹਾ ਗਿਆ।",
+    "sourceIds": [
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q046-PA",
+    "englishQuestionId": "WHI-CP004-Q046",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F046",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Event–date",
+    "stem": "ਨੈਪੋਲੀਅਨ ਦਾ 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ ਕਿਹੜੇ ਸਾਲ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1794"
+      },
+      {
+        "key": "B",
+        "text": "1804"
+      },
+      {
+        "key": "C",
+        "text": "1789"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "9–10 ਨਵੰਬਰ 1799 ਦੇ ਤਖ਼ਤਾ ਪਲਟ ਨੇ ਡਾਇਰੈਕਟਰੀ ਮੁਕਾਈ ਅਤੇ ਕੌਂਸਲੇਟ ਦੀ ਸ਼ੁਰੂਆਤ ਕੀਤੀ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q047-PA",
+    "englishQuestionId": "WHI-CP004-Q047",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F047",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Policy–purpose",
+    "stem": "1801 ਦੇ ਕੌਨਕੋਰਡੈਟ ਦਾ ਮਕਸਦ ਕੀ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਕਾਇਮ ਕਰਨੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਨਕਲਾਬੀ ਟਕਰਾਅ ਮਗਰੋਂ ਫ਼ਰਾਂਸੀਸੀ ਰਾਜ ਅਤੇ ਕੈਥੋਲਿਕ ਚਰਚ ਵਿੱਚ ਸਮਝੌਤਾ ਕਰਾਉਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੂਸ ਨਾਲ ਫ਼ੌਜੀ ਗੱਠਜੋੜ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਦੀ ਜੰਗ ਮੁਕਾਉਣਾ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਨੈਪੋਲੀਅਨ ਦੀ ਸਰਕਾਰ ਨੇ ਪੋਪ ਨਾਲ ਸਮਝੌਤਾ ਕੀਤਾ ਤਾਂ ਜੋ ਲੋਕਾਂ ਲਈ ਧਾਰਮਿਕ ਰਸਮਾਂ ਮੁੜ ਚੱਲਣ, ਪਰ ਚਰਚ ਰਾਜ ਦੀ ਤੈਅ ਕੀਤੇ ਪ੍ਰਬੰਧ ਹੇਠ ਰਹੇ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q048-PA",
+    "englishQuestionId": "WHI-CP004-Q048",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F048",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Event–date",
+    "stem": "ਨੈਪੋਲੀਅਨ ਨੇ ਕਿਹੜੇ ਸਾਲ ਆਪਣੇ ਆਪ ਨੂੰ ਫ਼ਰਾਂਸੀਸੀਆਂ ਦਾ ਸਮਰਾਟ ਬਣਾਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1801"
+      },
+      {
+        "key": "B",
+        "text": "1812"
+      },
+      {
+        "key": "C",
+        "text": "1804"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "1804 ਵਿੱਚ ਕੌਂਸਲੇਟ ਦੀ ਥਾਂ ਵੰਸ਼ਾਨੁਗਤ ਸਾਮਰਾਜ ਬਣਿਆ ਅਤੇ ਨੈਪੋਲੀਅਨ ਦਾ ਰਾਜਤਿਲਕ ਹੋਇਆ।",
+    "sourceIds": [
+      "S8",
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q049-PA",
+    "englishQuestionId": "WHI-CP004-Q049",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F049",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Battle–outcome",
+    "stem": "1805 ਦੀ ਔਸਟਰਲਿਟਜ਼ ਜੰਗ ਵਿੱਚ ਨੈਪੋਲੀਅਨ ਨੇ ਕਿਹੜੀਆਂ ਤਾਕਤਾਂ ਦੀਆਂ ਫ਼ੌਜਾਂ ਨੂੰ ਵੱਡੀ ਹਾਰ ਦਿੱਤੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਸਟ੍ਰੀਆ ਅਤੇ ਰੂਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਪ੍ਰਸ਼ੀਆ ਅਤੇ ਉਸਮਾਨੀ ਸਾਮਰਾਜ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੁਰਤਗਾਲ ਅਤੇ ਸਵੀਡਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਿਟੇਨ ਅਤੇ ਸਪੇਨ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਔਸਟਰਲਿਟਜ਼ ਵਿਖੇ ਨੈਪੋਲੀਅਨ ਨੇ ਤੀਜੇ ਗੱਠਜੋੜ ਦੀਆਂ ਆਸਟ੍ਰੀਆਈ ਅਤੇ ਰੂਸੀ ਸਾਂਝੀਆਂ ਫ਼ੌਜਾਂ ਨੂੰ ਹਰਾਇਆ।",
+    "sourceIds": [
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q050-PA",
+    "englishQuestionId": "WHI-CP004-Q050",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F050",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Decree–purpose",
+    "stem": "ਨੈਪੋਲੀਅਨ ਦਾ 1806 ਦਾ ਬਰਲਿਨ ਫ਼ਰਮਾਨ ਕਿਹੜੀ ਨੀਤੀ ਦਾ ਹਿੱਸਾ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬ੍ਰਿਟਿਸ਼ ਵਪਾਰ ਵਿਰੁੱਧ ਮਹਾਂਦੀਪੀ ਪ੍ਰਣਾਲੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਡਾਇਰੈਕਟਰੀ ਨੂੰ ਖ਼ਤਮ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਦਾ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਹੱਕਾਂ ਦਾ ਐਲਾਨ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਬਰਲਿਨ ਫ਼ਰਮਾਨ ਨੇ ਫ਼ਰਾਂਸੀਸੀ ਅਸਰ ਹੇਠਲੇ ਇਲਾਕਿਆਂ ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਮਾਲ ਦੀ ਵਿਕਰੀ ਰੋਕਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q051-PA",
+    "englishQuestionId": "WHI-CP004-Q051",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F051",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "War–region",
+    "stem": "ਪ੍ਰਾਇਦੀਪੀ ਜੰਗ ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਫ਼ੌਜਾਂ ਕਿਹੜੇ ਖੇਤਰ ਵਿੱਚ ਲੜੀਆਂ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕ੍ਰੀਮੀਆਈ ਪ੍ਰਾਇਦੀਪ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਿਰਫ਼ ਇਤਾਲਵੀ ਪ੍ਰਾਇਦੀਪ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਕੈਂਡੇਨੇਵੀਆਈ ਪ੍ਰਾਇਦੀਪ"
+      },
+      {
+        "key": "D",
+        "text": "ਆਈਬੀਰੀਆਈ ਪ੍ਰਾਇਦੀਪ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਇਸ ਜੰਗ ਵਿੱਚ ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਦਖ਼ਲ ਹੋਇਆ ਅਤੇ ਬ੍ਰਿਟਿਸ਼ ਮਦਦ ਨਾਲ ਵਿਰੋਧ ਕੀਤਾ ਗਿਆ।",
+    "sourceIds": [
+      "S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q052-PA",
+    "englishQuestionId": "WHI-CP004-Q052",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F052",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Campaign–consequence",
+    "stem": "1812 ਵਿੱਚ ਰੂਸ ਉੱਤੇ ਨੈਪੋਲੀਅਨ ਦੇ ਹਮਲੇ ਦੇ ਤਬਾਹਕੁਨ ਨਤੀਜੇ ਪਿੱਛੇ ਕਿਹੜੇ ਕਾਰਨਾਂ ਦਾ ਮੇਲ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲੰਮੀਆਂ ਰਸਦ ਲਾਈਨਾਂ, ਰੂਸੀ ਵਿਰੋਧ, ਘਾਟ ਅਤੇ ਸਖ਼ਤ ਮੌਸਮ"
+      },
+      {
+        "key": "B",
+        "text": "ਹਮਲੇ ਤੋਂ ਪਹਿਲਾਂ ਵਾਟਰਲੂ ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਜਿੱਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਾਸਕੋ ਦੀ ਫ਼ਰਾਂਸੀਸੀ ਜਲ-ਨਾਕਾਬੰਦੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਡਾਇਰੈਕਟਰੀ ਦਾ ਖ਼ਾਤਮਾ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਗ੍ਰਾਂਦ ਆਰਮੀ ਰੂਸ ਵਿੱਚ ਬਹੁਤ ਅੰਦਰ ਤੱਕ ਗਈ, ਪਰ ਵਾਪਸੀ ਵੇਲੇ ਰਸਦ ਦੀਆਂ ਮੁਸ਼ਕਲਾਂ, ਰੂਸੀ ਵਿਰੋਧ ਅਤੇ ਕਠਿਨ ਹਾਲਾਤਾਂ ਦਾ ਸਾਹਮਣਾ ਕਰਨਾ ਪਿਆ।",
+    "sourceIds": [
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q053-PA",
+    "englishQuestionId": "WHI-CP004-Q053",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F053",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Battle–date",
+    "stem": "ਲੀਪਜ਼ਿਗ ਦੀ ਜੰਗ, ਜਿਸ ਨੂੰ ਕੌਮਾਂ ਦੀ ਜੰਗ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ, ਕਿਹੜੇ ਸਾਲ ਹੋਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1805"
+      },
+      {
+        "key": "B",
+        "text": "1812"
+      },
+      {
+        "key": "C",
+        "text": "1813"
+      },
+      {
+        "key": "D",
+        "text": "1815"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "1813 ਵਿੱਚ ਲੀਪਜ਼ਿਗ ਵਿਖੇ ਗੱਠਜੋੜ ਦੀ ਜਿੱਤ ਮਗਰੋਂ ਨੈਪੋਲੀਅਨ ਦੀਆਂ ਫ਼ੌਜਾਂ ਪੱਛਮ ਵੱਲ ਪਿੱਛੇ ਹਟੀਆਂ।",
+    "sourceIds": [
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q054-PA",
+    "englishQuestionId": "WHI-CP004-Q054",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F054",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Event–outcome",
+    "stem": "1814 ਵਿੱਚ ਪਹਿਲੀ ਵਾਰ ਤਖ਼ਤ ਛੱਡਣ ਮਗਰੋਂ ਨੈਪੋਲੀਅਨ ਨੂੰ ਕਿੱਥੇ ਜਲਾਵਤਨ ਕੀਤਾ ਗਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਾਲਟਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੋਰਸਿਕਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੇਂਟ ਹੇਲੇਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਐਲਬਾ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "1814 ਦੇ ਸਮਝੌਤੇ ਤਹਿਤ ਨੈਪੋਲੀਅਨ ਨੂੰ ਐਲਬਾ ਭੇਜਿਆ ਗਿਆ; 1815 ਵਿੱਚ ਸੱਤਾ ਵਿੱਚ ਵਾਪਸੀ ਅਤੇ ਵਾਟਰਲੂ ਦੀ ਹਾਰ ਮਗਰੋਂ ਉਸ ਨੂੰ ਸੇਂਟ ਹੇਲੇਨਾ ਭੇਜਿਆ ਗਿਆ।",
+    "sourceIds": [
+      "S4",
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q055-PA",
+    "englishQuestionId": "WHI-CP004-Q055",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F055",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Conference–period",
+    "stem": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਮੁੱਖ ਤੌਰ 'ਤੇ ਕਿਹੜੇ ਸਮੇਂ ਦੌਰਾਨ ਹੋਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1795–1799"
+      },
+      {
+        "key": "B",
+        "text": "1789–1790"
+      },
+      {
+        "key": "C",
+        "text": "1806–1807"
+      },
+      {
+        "key": "D",
+        "text": "1814–1815"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਯੂਰਪੀ ਤਾਕਤਾਂ ਨੇ ਨੈਪੋਲੀਅਨ ਮਗਰੋਂ ਦਾ ਪ੍ਰਬੰਧ ਬਾਰੇ 1814 ਤੋਂ 1815 ਤੱਕ ਵਿਯੇਨਾ ਵਿੱਚ ਗੱਲਬਾਤ ਕੀਤੀ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q056-PA",
+    "englishQuestionId": "WHI-CP004-Q056",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F056",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "ਸਹੀ ਕ੍ਰਮ ਚੁਣੋ।",
+    "options": [
+      {
+        "key": "A",
+        "text": "1791 ਦਾ ਸੰਵਿਧਾਨ → ਬਾਦਸ਼ਾਹੀ ਖ਼ਤਮ → ਲੂਈ ਸੋਲ੍ਹਵੇਂ ਨੂੰ ਮੌਤ ਦੀ ਸਜ਼ਾ → ਡਾਇਰੈਕਟਰੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਡਾਇਰੈਕਟਰੀ → 1791 ਦਾ ਸੰਵਿਧਾਨ → ਬਾਸਤੀਲ → ਲੂਈ ਸੋਲ੍ਹਵੇਂ ਨੂੰ ਮੌਤ ਦੀ ਸਜ਼ਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੂਈ ਸੋਲ੍ਹਵੇਂ ਨੂੰ ਮੌਤ ਦੀ ਸਜ਼ਾ → 1791 ਦਾ ਸੰਵਿਧਾਨ → ਡਾਇਰੈਕਟਰੀ → ਬਾਸਤੀਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਾਦਸ਼ਾਹੀ ਖ਼ਤਮ → ਬਾਸਤੀਲ → ਡਾਇਰੈਕਟਰੀ → 1791 ਦਾ ਸੰਵਿਧਾਨ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਸੰਵਿਧਾਨਕ ਬਾਦਸ਼ਾਹੀ 1791 ਵਿੱਚ ਬਣੀ; 1792 ਵਿੱਚ ਬਾਦਸ਼ਾਹੀ ਮੁੱਕੀ; 1793 ਵਿੱਚ ਲੂਈ ਸੋਲ੍ਹਵੇਂ ਨੂੰ ਮੌਤ ਦੀ ਸਜ਼ਾ ਦਿੱਤੀ ਗਈ ਅਤੇ 1795 ਵਿੱਚ ਡਾਇਰੈਕਟਰੀ ਬਣੀ।",
+    "sourceIds": [
+      "S1",
+      "S13",
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q057-PA",
+    "englishQuestionId": "WHI-CP004-Q057",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F057",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Political contrast",
+    "stem": "ਇਨਕਲਾਬੀ ਫ਼ਰਾਂਸ ਅਤੇ ਨੈਪੋਲੀਅਨ ਦੀ ਬਾਅਦਲੀ ਰਾਜ-ਪ੍ਰਬੰਧ ਵਿਚਕਾਰ ਸਭ ਤੋਂ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨੈਪੋਲੀਅਨ ਨੇ ਸਾਰਾ ਕੇਂਦਰੀ ਪ੍ਰਸ਼ਾਸਨ ਖ਼ਤਮ ਕਰ ਦਿੱਤਾ।"
+      },
+      {
+        "key": "B",
+        "text": "ਡਾਇਰੈਕਟਰੀ ਨੇ ਸਾਰੀ ਤਾਕਤ ਵੰਸ਼ਾਨੁਗਤ ਸਮਰਾਟ ਨੂੰ ਦੇ ਦਿੱਤੀ।"
+      },
+      {
+        "key": "C",
+        "text": "ਇਨਕਲਾਬੀ ਹੱਕਾਂ ਦੀ ਗੱਲ ਫੈਲੀ, ਪਰ ਨੈਪੋਲੀਅਨ ਨੇ ਕੁਝ ਕਾਨੂੰਨੀ ਸੁਧਾਰ ਕਾਇਮ ਰੱਖਦਿਆਂ ਕਾਰਜਕਾਰੀ ਸੱਤਾ ਆਪਣੇ ਹੱਥ ਇਕੱਠੀ ਕੀਤੀ।"
+      },
+      {
+        "key": "D",
+        "text": "ਨੈਪੋਲੀਅਨ ਨੇ ਐਸਟੇਟਸ-ਜਨਰਲ ਨੂੰ ਇਕੱਲੀ ਕਾਨੂੰਨ ਬਣਾਉਣ ਵਾਲੀ ਸੰਸਥਾ ਬਣਾ ਦਿੱਤਾ।"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਨੈਪੋਲੀਅਨ ਨੇ ਕੁਝ ਸੁਧਾਰ ਕਾਇਮ ਰੱਖੇ ਅਤੇ ਫੈਲਾਏ, ਪਰ ਕੌਂਸਲੇਟ ਤੇ ਸਾਮਰਾਜ ਵਿੱਚ ਰਾਜਨੀਤਿਕ ਤਾਕਤ ਕਾਰਜਕਾਰੀ ਹੱਥਾਂ ਵਿੱਚ ਇਕੱਠੀ ਹੋ ਗਈ।",
+    "sourceIds": [
+      "S3",
+      "S8",
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q058-PA",
+    "englishQuestionId": "WHI-CP004-Q058",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F058",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Treaty settlement",
+    "stem": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਨੇ ਯੂਰਪ ਵਿੱਚ ਕਿਹੜਾ ਟੀਚਾ ਹਾਸਲ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਜਵੰਸ਼ਾਂ ਨੂੰ ਮੁੜ ਗੱਦੀ ਉੱਤੇ ਲਿਆਉਣਾ ਅਤੇ ਯੂਰਪ ਵਿੱਚ ਤਾਕਤਾਂ ਦਾ ਸੰਤੁਲਨ ਬਣਾਈ ਰੱਖਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਮਰੀਕੀ ਸੰਵਿਧਾਨ ਨੂੰ ਯੂਰਪ ਵਿੱਚ ਲਾਗੂ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਰੀਆਂ ਬਸਤੀਆਂ ਵਿੱਚ ਕੌਮੀ ਖ਼ੁਦਮੁਖ਼ਤਿਆਰੀ ਲਾਗੂ ਕਰਨੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੂਰਪ ਦੀ ਹਰ ਬਾਦਸ਼ਾਹੀ ਖ਼ਤਮ ਕਰਨੀ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਇਸ ਸਮਝੌਤੇ ਨੇ ਸਰਬਵਿਆਪੀ ਲੋਕਤੰਤਰ ਦੀ ਥਾਂ ਰਾਜਵੰਸ਼ਾਂ ਦੀ ਵਾਪਸੀ ਅਤੇ ਵੱਡੀਆਂ ਤਾਕਤਾਂ ਦੇ ਸੰਤੁਲਨ ਰਾਹੀਂ ਸਥਿਰਤਾ ਲੱਭੀ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q059-PA",
+    "englishQuestionId": "WHI-CP004-Q059",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F059",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cause–consequence",
+    "stem": "ਮਹਾਂਦੀਪੀ ਪ੍ਰਣਾਲੀ ਨੇ 1812 ਵਿੱਚ ਰੂਸ ਉੱਤੇ ਨੈਪੋਲੀਅਨ ਦੇ ਹਮਲੇ ਤੋਂ ਪਹਿਲਾਂ ਤਣਾਅ ਕਿਵੇਂ ਵਧਾਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰੂਸ ਵਾਟਰਲੂ ਵਿਖੇ ਪਹਿਲਾਂ ਹੀ ਨੈਪੋਲੀਅਨ ਨੂੰ ਹਰਾ ਚੁੱਕਾ ਸੀ।"
+      },
+      {
+        "key": "B",
+        "text": "ਨਾਕਾਬੰਦੀ ਕਾਰਨ ਬ੍ਰਿਟੇਨ ਨੈਪੋਲੀਅਨ ਦਾ ਸਾਥੀ ਬਣ ਗਿਆ।"
+      },
+      {
+        "key": "C",
+        "text": "ਨਾਕਾਬੰਦੀ ਨਾਲ ਸਹਿਯੋਗ ਤੋਂ ਰੂਸ ਦੇ ਪਿੱਛੇ ਹਟਣ ਨਾਲ ਨੈਪੋਲੀਅਨ ਅਤੇ ਜ਼ਾਰ ਅਲੈਗਜ਼ੈਂਡਰ ਪਹਿਲੇ ਵਿਚਕਾਰ ਟਕਰਾਅ ਵਧਿਆ।"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੀਤੀ ਨੇ ਫ਼ਰਾਂਸ ਨੂੰ 1791 ਵਿੱਚ ਰੂਸ ਨਾਲ ਸਾਰਾ ਵਪਾਰ ਰੋਕਣ ਲਈ ਕਿਹਾ।"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਮਹਾਂਦੀਪੀ ਪ੍ਰਣਾਲੀ ਅਤੇ ਵਪਾਰ ਬਾਰੇ ਝਗੜੇ ਤਣਾਅਪੂਰਨ ਰਿਸ਼ਤਿਆਂ ਦਾ ਇੱਕ ਕਾਰਨ ਸਨ, ਜਿਨ੍ਹਾਂ ਤੋਂ ਹਮਲੇ ਦਾ ਰਾਹ ਬਣਿਆ; ਇਹ ਇਕੱਲਾ ਕਾਰਨ ਨਹੀਂ ਸੀ।",
+    "sourceIds": [
+      "S7",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q060-PA",
+    "englishQuestionId": "WHI-CP004-Q060",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F060",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement synthesis",
+    "stem": "ਨੈਪੋਲੀਅਨ ਦੇ ਰਾਜ ਦੇ ਅੰਤ ਬਾਰੇ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ:\n\n1. ਨੈਪੋਲੀਅਨ ਨੇ 1814 ਵਿੱਚ ਪਹਿਲੀ ਵਾਰ ਤਖ਼ਤ ਛੱਡਿਆ ਅਤੇ ਉਸ ਨੂੰ ਐਲਬਾ ਭੇਜਿਆ ਗਿਆ।  \n2. 1815 ਵਿੱਚ ਵਾਟਰਲੂ ਦੀ ਹਾਰ ਤੋਂ ਪਹਿਲਾਂ ਉਹ ਮੁੜ ਸੱਤਾ ਵਿੱਚ ਆਇਆ।  \n3. ਵਾਟਰਲੂ ਮਗਰੋਂ ਉਸ ਨੂੰ ਸੇਂਟ ਹੇਲੇਨਾ ਜਲਾਵਤਨ ਕੀਤਾ ਗਿਆ।\n\nਕਿਹੜੇ ਕਥਨ ਸਹੀ ਹਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 2"
+      },
+      {
+        "key": "B",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 3"
+      },
+      {
+        "key": "C",
+        "text": "1, 2 ਅਤੇ 3"
+      },
+      {
+        "key": "D",
+        "text": "ਕੇਵਲ 2 ਅਤੇ 3"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਪਹਿਲੀ ਵਾਰ ਤਖ਼ਤ ਛੱਡਣ ਮਗਰੋਂ ਨੈਪੋਲੀਅਨ ਐਲਬਾ ਗਿਆ; ਵਾਪਸੀ ਦਾ ਅੰਤ ਵਾਟਰਲੂ ਦੀ ਹਾਰ ਅਤੇ ਸੇਂਟ ਹੇਲੇਨਾ ਵਿੱਚ ਆਖ਼ਰੀ ਜਲਾਵਤਨੀ ਨਾਲ ਹੋਇਆ।",
+    "sourceIds": [
+      "S4",
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]

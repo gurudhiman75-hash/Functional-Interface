@@ -1,0 +1,2137 @@
+[
+  {
+    "questionId": "WHI-CP003-Q001",
+    "englishQuestionId": "WHI-CP003-Q001",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Thinker–idea",
+    "stem": "Which Enlightenment thinker argued that government should rest on the consent of the governed and protect natural rights?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Thomas Hobbes"
+      },
+      {
+        "key": "B",
+        "text": "Robert Filmer"
+      },
+      {
+        "key": "C",
+        "text": "John Locke"
+      },
+      {
+        "key": "D",
+        "text": "Jean Bodin"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Locke argued that legitimate government depends on consent and should protect life, liberty and property.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q002",
+    "englishQuestionId": "WHI-CP003-Q002",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F002",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Thinker–idea",
+    "stem": "Who argued for separating legislative, executive and judicial powers?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Voltaire"
+      },
+      {
+        "key": "B",
+        "text": "Diderot"
+      },
+      {
+        "key": "C",
+        "text": "Rousseau"
+      },
+      {
+        "key": "D",
+        "text": "Montesquieu"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Montesquieu argued that dividing political powers helps prevent despotism.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q003",
+    "englishQuestionId": "WHI-CP003-Q003",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F003",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "Who wrote *The Social Contract*, published in 1762?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Jean-Jacques Rousseau"
+      },
+      {
+        "key": "B",
+        "text": "Thomas Paine"
+      },
+      {
+        "key": "C",
+        "text": "John Locke"
+      },
+      {
+        "key": "D",
+        "text": "Baron de Montesquieu"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Rousseau’s 1762 work examined political authority and the idea of a social contract.",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q004",
+    "englishQuestionId": "WHI-CP003-Q004",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F004",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Idea identification",
+    "stem": "Which idea holds that political authority ultimately belongs to the people or nation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Popular sovereignty"
+      },
+      {
+        "key": "B",
+        "text": "Divine right of kings"
+      },
+      {
+        "key": "C",
+        "text": "Feudal obligation"
+      },
+      {
+        "key": "D",
+        "text": "Mercantilism"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Popular sovereignty places the source of political authority in the people rather than a monarch’s inherited or divine claim.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q005",
+    "englishQuestionId": "WHI-CP003-Q005",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F005",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Document–event",
+    "stem": "The Declaration of Independence adopted by the American colonies in 1776 announced separation from which country?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Great Britain"
+      },
+      {
+        "key": "B",
+        "text": "Spain"
+      },
+      {
+        "key": "C",
+        "text": "Portugal"
+      },
+      {
+        "key": "D",
+        "text": "France"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Declaration stated that the thirteen colonies were separating from British rule.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q006",
+    "englishQuestionId": "WHI-CP003-Q006",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F006",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Date–document",
+    "stem": "Which document, adopted on 4 July 1776, set out the American colonies’ case for independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Bill of Rights"
+      },
+      {
+        "key": "B",
+        "text": "Declaration of Independence"
+      },
+      {
+        "key": "C",
+        "text": "Treaty of Paris"
+      },
+      {
+        "key": "D",
+        "text": "Articles of Confederation"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Continental Congress adopted the Declaration in 1776 to explain and proclaim the colonies’ independence.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q007",
+    "englishQuestionId": "WHI-CP003-Q007",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F007",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–outcome",
+    "stem": "The American victory at Saratoga in 1777 was significant partly because it helped bring which power into the war as an ally?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Portugal"
+      },
+      {
+        "key": "B",
+        "text": "France"
+      },
+      {
+        "key": "C",
+        "text": "Russia"
+      },
+      {
+        "key": "D",
+        "text": "Prussia"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The victory strengthened French confidence in the American cause and helped secure French military support.",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q008",
+    "englishQuestionId": "WHI-CP003-Q008",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F008",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Treaty–outcome",
+    "stem": "Which treaty formally ended the American Revolutionary War in 1783?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Treaty of Versailles"
+      },
+      {
+        "key": "B",
+        "text": "Treaty of Paris"
+      },
+      {
+        "key": "C",
+        "text": "Treaty of Ghent"
+      },
+      {
+        "key": "D",
+        "text": "Treaty of Utrecht"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The 1783 Treaty of Paris ended the war and recognized American independence.",
+    "sourceIds": [
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q009",
+    "englishQuestionId": "WHI-CP003-Q009",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F009",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Revolution–place",
+    "stem": "The Haitian Revolution began in the French colony of Saint-Domingue, located on which island?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Cuba"
+      },
+      {
+        "key": "B",
+        "text": "Martinique"
+      },
+      {
+        "key": "C",
+        "text": "Hispaniola"
+      },
+      {
+        "key": "D",
+        "text": "Jamaica"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Saint-Domingue occupied the western part of Hispaniola; Haiti emerged there after the revolution.",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q010",
+    "englishQuestionId": "WHI-CP003-Q010",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F010",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Thinker–idea",
+    "stem": "Which pairing is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Rousseau — divine right of hereditary monarchy"
+      },
+      {
+        "key": "B",
+        "text": "Voltaire — rejection of religious toleration"
+      },
+      {
+        "key": "C",
+        "text": "Montesquieu — division of government powers"
+      },
+      {
+        "key": "D",
+        "text": "Locke — separation of powers as his central proposal"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Montesquieu’s political writing is especially associated with separating legislative, executive and judicial authority.",
+    "sourceIds": [
+      "S1",
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q011",
+    "englishQuestionId": "WHI-CP003-Q011",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F011",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Concept distinction",
+    "stem": "A constitution distributes authority among different branches so that no one branch holds unchecked power. Which Enlightenment idea does this most directly reflect?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Divine right"
+      },
+      {
+        "key": "B",
+        "text": "Balance of trade"
+      },
+      {
+        "key": "C",
+        "text": "Mercantilism"
+      },
+      {
+        "key": "D",
+        "text": "Separation of powers"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Dividing government authority among branches is the institutional safeguard associated with Montesquieu’s argument.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q012",
+    "englishQuestionId": "WHI-CP003-Q012",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F012",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cause–event",
+    "stem": "Which development most directly helped turn colonial opposition to British policies into armed conflict in 1775?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Signing of the Treaty of Paris"
+      },
+      {
+        "key": "B",
+        "text": "Fighting at Lexington and Concord"
+      },
+      {
+        "key": "C",
+        "text": "The Boston evacuation of 1783"
+      },
+      {
+        "key": "D",
+        "text": "Ratification of the Constitution"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The first shots of the American War of Independence were fired at Lexington and Concord in April 1775.",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q013",
+    "englishQuestionId": "WHI-CP003-Q013",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F013",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology",
+    "stem": "Choose the correct order of these American Revolution milestones.",
+    "options": [
+      {
+        "key": "A",
+        "text": "Declaration of Independence → Saratoga → Yorktown → Treaty of Paris"
+      },
+      {
+        "key": "B",
+        "text": "Saratoga → Treaty of Paris → Yorktown → Declaration of Independence"
+      },
+      {
+        "key": "C",
+        "text": "Yorktown → Declaration of Independence → Saratoga → Treaty of Paris"
+      },
+      {
+        "key": "D",
+        "text": "Treaty of Paris → Saratoga → Declaration of Independence → Yorktown"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Declaration came in 1776, Saratoga in 1777, Yorktown in 1781, and the peace treaty in 1783.",
+    "sourceIds": [
+      "S5",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q014",
+    "englishQuestionId": "WHI-CP003-Q014",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F014",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Document–purpose",
+    "stem": "What was the principal purpose of the Articles of Confederation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To establish the French Directory"
+      },
+      {
+        "key": "B",
+        "text": "To serve as the first national governing framework of the United States"
+      },
+      {
+        "key": "C",
+        "text": "To create the League of Nations"
+      },
+      {
+        "key": "D",
+        "text": "To declare the end of slavery in all the Americas"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Articles, in force from 1781 until 1789, served as the United States’ first constitution.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q015",
+    "englishQuestionId": "WHI-CP003-Q015",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F015",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Document–sequence",
+    "stem": "Which sequence correctly places the main early United States documents?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Declaration (1776) → Constitution (1787) → Bill of Rights (1791)"
+      },
+      {
+        "key": "B",
+        "text": "Bill of Rights (1791) → Constitution (1787) → Declaration (1776)"
+      },
+      {
+        "key": "C",
+        "text": "Constitution (1787) → Declaration (1776) → Bill of Rights (1791)"
+      },
+      {
+        "key": "D",
+        "text": "Declaration (1776) → Bill of Rights (1777) → Constitution (1783)"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Declaration announced independence; the Constitution established the federal framework, and the first ten amendments followed as the Bill of Rights.",
+    "sourceIds": [
+      "S4",
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q016",
+    "englishQuestionId": "WHI-CP003-Q016",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F016",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Revolution–leader",
+    "stem": "Toussaint Louverture became a leading figure in which revolution?",
+    "options": [
+      {
+        "key": "A",
+        "text": "American Revolution"
+      },
+      {
+        "key": "B",
+        "text": "Greek War of Independence"
+      },
+      {
+        "key": "C",
+        "text": "Haitian Revolution"
+      },
+      {
+        "key": "D",
+        "text": "French July Revolution"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Louverture was a major leader in the revolt of enslaved people in Saint-Domingue, though he died before Haitian independence was declared.",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q017",
+    "englishQuestionId": "WHI-CP003-Q017",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F017",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology",
+    "stem": "Which event occurred first?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The American Declaration of Independence was adopted"
+      },
+      {
+        "key": "B",
+        "text": "The United States ratified the Bill of Rights"
+      },
+      {
+        "key": "C",
+        "text": "Bolívar’s Congress of Panama met"
+      },
+      {
+        "key": "D",
+        "text": "Haiti declared independence"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Declaration dates to 1776; Haiti declared independence in 1804, the Bill of Rights was ratified in 1791, and the Congress of Panama met in 1826.",
+    "sourceIds": [
+      "S4",
+      "S7",
+      "S9",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q018",
+    "englishQuestionId": "WHI-CP003-Q018",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F018",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Revolution–outcome",
+    "stem": "Which statement about Haiti is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It became independent in 1804 after a revolution against French colonial rule."
+      },
+      {
+        "key": "B",
+        "text": "It was created by the Congress of Vienna."
+      },
+      {
+        "key": "C",
+        "text": "It became independent from Spain in 1776."
+      },
+      {
+        "key": "D",
+        "text": "It remained a British colony after 1804."
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The revolution in former Saint-Domingue ended in Haiti’s declaration of independence in 1804.",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q019",
+    "englishQuestionId": "WHI-CP003-Q019",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F019",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cause–context",
+    "stem": "Which event in Europe helped create a political opening for independence movements in Spanish America in the early nineteenth century?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Congress of Berlin"
+      },
+      {
+        "key": "B",
+        "text": "Napoleon’s invasion of Spain and the crisis of the Spanish monarchy"
+      },
+      {
+        "key": "C",
+        "text": "The fall of Constantinople"
+      },
+      {
+        "key": "D",
+        "text": "The Treaty of Tordesillas"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The disruption of Spanish royal authority in 1808 accelerated political crises and independence movements in Spanish America.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q020",
+    "englishQuestionId": "WHI-CP003-Q020",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Person–region",
+    "stem": "Simón Bolívar’s campaigns were central to independence movements in which part of the Americas?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Central Europe"
+      },
+      {
+        "key": "B",
+        "text": "The British Isles"
+      },
+      {
+        "key": "C",
+        "text": "Northern South America"
+      },
+      {
+        "key": "D",
+        "text": "Southern Africa"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Bolívar led campaigns that helped free territories including Venezuela, New Granada and Quito from Spanish rule.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q021",
+    "englishQuestionId": "WHI-CP003-Q021",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F021",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Person–region",
+    "stem": "San Martín led independence campaigns in Argentina, Chile and Peru. Which continent did these campaigns take place in?",
+    "options": [
+      {
+        "key": "A",
+        "text": "South America"
+      },
+      {
+        "key": "B",
+        "text": "North Africa"
+      },
+      {
+        "key": "C",
+        "text": "Caribbean islands under Danish rule"
+      },
+      {
+        "key": "D",
+        "text": "The Netherlands"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "San Martín played a leading role in the liberation of Argentina, Chile and Peru.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q022",
+    "englishQuestionId": "WHI-CP003-Q022",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F022",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Relationship",
+    "stem": "Which pairing correctly matches a document with its role?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Bill of Rights — declared Haiti independent"
+      },
+      {
+        "key": "B",
+        "text": "Articles of Confederation — ended the Napoleonic Wars"
+      },
+      {
+        "key": "C",
+        "text": "Declaration of Independence — announced separation from Britain"
+      },
+      {
+        "key": "D",
+        "text": "Treaty of Paris (1783) — established the French Directory"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Declaration stated the colonies’ separation; the Treaty of Paris later ended the war, while the other documents served different purposes.",
+    "sourceIds": [
+      "S4",
+      "S6",
+      "S8",
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q023",
+    "englishQuestionId": "WHI-CP003-Q023",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F023",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Incorrect statement",
+    "stem": "Which statement about Enlightenment political thought is incorrect?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It questioned inherited political authority."
+      },
+      {
+        "key": "B",
+        "text": "It uniformly defended absolute hereditary rule as the only legitimate system."
+      },
+      {
+        "key": "C",
+        "text": "It included arguments for natural rights."
+      },
+      {
+        "key": "D",
+        "text": "It treated popular consent as a possible basis of legitimate government."
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Enlightenment thinkers differed, but influential writers challenged absolutism and developed arguments about rights, consent and political institutions.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q024",
+    "englishQuestionId": "WHI-CP003-Q024",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F024",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Multi-statement",
+    "stem": "Consider the following statements about the American Revolution:\n\n1. France became an ally of the American cause during the war.  \n2. The Treaty of Paris was signed in 1783.  \n3. The Declaration of Independence was adopted after the Treaty of Paris.\n\nWhich are correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1, 2 and 3"
+      },
+      {
+        "key": "B",
+        "text": "1 and 3 only"
+      },
+      {
+        "key": "C",
+        "text": "2 and 3 only"
+      },
+      {
+        "key": "D",
+        "text": "1 and 2 only"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "France supported the Americans; the 1783 treaty ended the war. The Declaration was adopted earlier, in 1776.",
+    "sourceIds": [
+      "S4",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q025",
+    "englishQuestionId": "WHI-CP003-Q025",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F025",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "Which comparison best distinguishes the American and Haitian Revolutions?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Haitian Revolution was a peaceful transfer negotiated by Britain."
+      },
+      {
+        "key": "B",
+        "text": "The American Revolution took place in a French colony on Hispaniola."
+      },
+      {
+        "key": "C",
+        "text": "Both were independence movements, but the Haitian Revolution also directly overthrew a slave-based colonial order."
+      },
+      {
+        "key": "D",
+        "text": "The American Revolution abolished slavery throughout the Americas, while Haiti preserved French colonial rule."
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Haiti’s revolution was shaped by slavery and colonial rule in Saint-Domingue; the American colonies’ conflict had a different social and political context.",
+    "sourceIds": [
+      "S4",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q026",
+    "englishQuestionId": "WHI-CP003-Q026",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F026",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "Select the correct sequence.",
+    "options": [
+      {
+        "key": "A",
+        "text": "Spanish-American independence movements → Haitian independence → American independence → Congress of Panama"
+      },
+      {
+        "key": "B",
+        "text": "Congress of Panama → American independence → Haitian independence → Spanish-American independence movements"
+      },
+      {
+        "key": "C",
+        "text": "American independence → Haitian independence → Spanish-American independence movements → Congress of Panama"
+      },
+      {
+        "key": "D",
+        "text": "Haitian independence → American independence → Congress of Panama → Spanish-American independence movements"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The American break came first; Haiti declared independence in 1804; Spanish-American movements followed in the early nineteenth century, before Bolívar’s 1826 congress.",
+    "sourceIds": [
+      "S4",
+      "S7",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q027",
+    "englishQuestionId": "WHI-CP003-Q027",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F027",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Inference",
+    "stem": "Which Enlightenment thinker’s ideas are reflected in this separation of powers?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Voltaire’s support for hereditary privilege"
+      },
+      {
+        "key": "B",
+        "text": "Montesquieu’s argument for separated political powers"
+      },
+      {
+        "key": "C",
+        "text": "Locke’s defence of absolute monarchy"
+      },
+      {
+        "key": "D",
+        "text": "Rousseau’s rejection of all political communities"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The institutional division of legislative, executive and judicial powers reflects Montesquieu’s influential proposal.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q028",
+    "englishQuestionId": "WHI-CP003-Q028",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F028",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Claim qualification",
+    "stem": "Which claim about the Declaration of Independence is historically careful?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It immediately granted equal political rights to every person in the colonies."
+      },
+      {
+        "key": "B",
+        "text": "It created the United States Constitution in the same year."
+      },
+      {
+        "key": "C",
+        "text": "Its language asserted equality and rights, although political rights and slavery remained deeply contested in practice."
+      },
+      {
+        "key": "D",
+        "text": "It ended slavery across the United States in 1776."
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Declaration set out influential principles, but its ideals were not fully extended in the society that adopted it.",
+    "sourceIds": [
+      "S4",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q029",
+    "englishQuestionId": "WHI-CP003-Q029",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F029",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement",
+    "stem": "Consider these statements about the independence movements of the Americas:\n\n1. They all had identical social aims and outcomes.  \n2. Bolívar and San Martín were important leaders in Spanish American struggles.  \n3. Haiti’s revolution included a mass uprising against slavery.\n\nWhich are correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "2 and 3 only"
+      },
+      {
+        "key": "B",
+        "text": "1 and 2 only"
+      },
+      {
+        "key": "C",
+        "text": "1, 2 and 3"
+      },
+      {
+        "key": "D",
+        "text": "1 only"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Bolívar and San Martín were major leaders, and Haiti’s uprising challenged slavery; the revolutions differed in aims, participants and outcomes.",
+    "sourceIds": [
+      "S7",
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q030",
+    "englishQuestionId": "WHI-CP003-Q030",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F030",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "Why is the American victory at Yorktown in 1781 often treated as a decisive turning point rather than the formal end of the war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It ended the French Revolution."
+      },
+      {
+        "key": "B",
+        "text": "It led to negotiations, while the formal peace came with the 1783 Treaty of Paris."
+      },
+      {
+        "key": "C",
+        "text": "It immediately created the Bill of Rights."
+      },
+      {
+        "key": "D",
+        "text": "It was the date the Declaration of Independence was adopted."
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Cornwallis’s surrender at Yorktown weakened Britain’s position, but the war formally ended with the Treaty of Paris in 1783.",
+    "sourceIds": [
+      "S5",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q031",
+    "englishQuestionId": "WHI-CP003-Q031",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F031",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Thinker–principle",
+    "stem": "Which Enlightenment writer defended religious toleration and criticized intolerance?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Edmund Burke"
+      },
+      {
+        "key": "B",
+        "text": "Voltaire"
+      },
+      {
+        "key": "C",
+        "text": "James I"
+      },
+      {
+        "key": "D",
+        "text": "Robert Filmer"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Voltaire’s writings attacked religious intolerance and arbitrary authority, though Enlightenment thinkers did not hold one identical political programme.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q032",
+    "englishQuestionId": "WHI-CP003-Q032",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F032",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "Who wrote *Two Treatises of Government*, a work that argued against absolute monarchy and defended natural rights?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Jean Bodin"
+      },
+      {
+        "key": "B",
+        "text": "John Locke"
+      },
+      {
+        "key": "C",
+        "text": "Joseph de Maistre"
+      },
+      {
+        "key": "D",
+        "text": "Thomas Hobbes"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Locke’s political writing defended natural rights and government by consent.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q033",
+    "englishQuestionId": "WHI-CP003-Q033",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F033",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "Who wrote the influential pamphlet *Common Sense* in 1776?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Benjamin Franklin"
+      },
+      {
+        "key": "B",
+        "text": "Thomas Jefferson"
+      },
+      {
+        "key": "C",
+        "text": "George Washington"
+      },
+      {
+        "key": "D",
+        "text": "Thomas Paine"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Paine’s pamphlet argued for independence from Britain and helped popularize the republican cause.",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q034",
+    "englishQuestionId": "WHI-CP003-Q034",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F034",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "The Boston Tea Party took place in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1783"
+      },
+      {
+        "key": "B",
+        "text": "1763"
+      },
+      {
+        "key": "C",
+        "text": "1776"
+      },
+      {
+        "key": "D",
+        "text": "1773"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "In December 1773, colonists protested British tea policy by destroying tea cargo in Boston harbour.",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q035",
+    "englishQuestionId": "WHI-CP003-Q035",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F035",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Revolution–ally",
+    "stem": "Which European power became a formal ally of the United States during the American Revolutionary War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Austria"
+      },
+      {
+        "key": "B",
+        "text": "Sweden"
+      },
+      {
+        "key": "C",
+        "text": "Russia"
+      },
+      {
+        "key": "D",
+        "text": "France"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "France entered a formal alliance with the United States in 1778 and provided military and naval support.",
+    "sourceIds": [
+      "S5",
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q036",
+    "englishQuestionId": "WHI-CP003-Q036",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F036",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Document–date",
+    "stem": "The Articles of Confederation took effect in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1776"
+      },
+      {
+        "key": "B",
+        "text": "1777"
+      },
+      {
+        "key": "C",
+        "text": "1781"
+      },
+      {
+        "key": "D",
+        "text": "1789"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Congress adopted the Articles in 1777, and they came into force in 1781 after state ratification.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q037",
+    "englishQuestionId": "WHI-CP003-Q037",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F037",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "The Constitutional Convention that drafted the United States Constitution met in which city in 1787?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Philadelphia"
+      },
+      {
+        "key": "B",
+        "text": "Charleston"
+      },
+      {
+        "key": "C",
+        "text": "Boston"
+      },
+      {
+        "key": "D",
+        "text": "New York"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Delegates met in Philadelphia in 1787, initially to revise the Articles of Confederation and instead drafted a new constitution.",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q038",
+    "englishQuestionId": "WHI-CP003-Q038",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F038",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Document–content",
+    "stem": "The Bill of Rights consists of which part of the United States Constitution?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The first ten articles"
+      },
+      {
+        "key": "B",
+        "text": "The Declaration’s opening paragraphs"
+      },
+      {
+        "key": "C",
+        "text": "The Articles of Confederation"
+      },
+      {
+        "key": "D",
+        "text": "The first ten amendments"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Ten of the twelve amendments proposed in 1789 were ratified in 1791 and became the Bill of Rights.",
+    "sourceIds": [
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q039",
+    "englishQuestionId": "WHI-CP003-Q039",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F039",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "The large uprising of enslaved people that began the Haitian Revolution started in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1791"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1776"
+      },
+      {
+        "key": "D",
+        "text": "1804"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "A coordinated uprising in Saint-Domingue began in 1791 and developed into a prolonged revolution against slavery and colonial rule.",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q040",
+    "englishQuestionId": "WHI-CP003-Q040",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Law–outcome",
+    "stem": "What did the French National Convention decree in 1794 that affected the course of the Haitian Revolution?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Abolition of slavery in French colonies"
+      },
+      {
+        "key": "B",
+        "text": "Restoration of slavery in Saint-Domingue"
+      },
+      {
+        "key": "C",
+        "text": "Independence of all Spanish American colonies"
+      },
+      {
+        "key": "D",
+        "text": "Creation of the Congress of Panama"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The 1794 decree abolished slavery in French colonies; Toussaint Louverture then joined French forces against Spain.",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q041",
+    "englishQuestionId": "WHI-CP003-Q041",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F041",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Person–event",
+    "stem": "What happened to Toussaint Louverture after the French expedition reached Saint-Domingue in 1802?",
+    "options": [
+      {
+        "key": "A",
+        "text": "He was arrested and deported to France."
+      },
+      {
+        "key": "B",
+        "text": "He led the Congress of Panama."
+      },
+      {
+        "key": "C",
+        "text": "He became president of the United States."
+      },
+      {
+        "key": "D",
+        "text": "He signed the Treaty of Paris ending the American war."
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "French forces captured Louverture in 1802; he died in a French prison the following year, before Haiti became independent.",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q042",
+    "englishQuestionId": "WHI-CP003-Q042",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Leader–outcome",
+    "stem": "Who proclaimed Haiti’s independence on 1 January 1804?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Jean-Jacques Dessalines"
+      },
+      {
+        "key": "B",
+        "text": "Henri Christophe"
+      },
+      {
+        "key": "C",
+        "text": "Alexandre Pétion"
+      },
+      {
+        "key": "D",
+        "text": "Toussaint Louverture"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Dessalines led the final phase of the struggle and proclaimed Haiti independent after the defeat of French forces.",
+    "sourceIds": [
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q043",
+    "englishQuestionId": "WHI-CP003-Q043",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F043",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Movement–date",
+    "stem": "Hidalgo’s 1810 call for revolt marked the beginning of the independence struggle in which country?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Chile’s"
+      },
+      {
+        "key": "B",
+        "text": "Haiti’s"
+      },
+      {
+        "key": "C",
+        "text": "Mexico’s"
+      },
+      {
+        "key": "D",
+        "text": "Brazil’s"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Hidalgo’s call at Dolores in 1810 began a major phase of the Mexican independence struggle; independence was achieved later.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q044",
+    "englishQuestionId": "WHI-CP003-Q044",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F044",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Country–date",
+    "stem": "Mexico achieved independence from Spain in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1826"
+      },
+      {
+        "key": "B",
+        "text": "1804"
+      },
+      {
+        "key": "C",
+        "text": "1821"
+      },
+      {
+        "key": "D",
+        "text": "1810"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Hidalgo’s revolt began in 1810, but Mexico’s independence was secured in 1821 after a longer and changing struggle.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q045",
+    "englishQuestionId": "WHI-CP003-Q045",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F045",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Person–battle",
+    "stem": "The victory at Boyacá in 1819 was a turning point in campaigns led by whom?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Bernardo O’Higgins"
+      },
+      {
+        "key": "B",
+        "text": "José de San Martín"
+      },
+      {
+        "key": "C",
+        "text": "Miguel Hidalgo"
+      },
+      {
+        "key": "D",
+        "text": "Simón Bolívar"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Bolívar’s victory at Boyacá helped secure New Granada and advanced independence in northern South America.",
+    "sourceIds": [
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q046",
+    "englishQuestionId": "WHI-CP003-Q046",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event–purpose",
+    "stem": "Bolívar convened the Congress of Panama in 1826 with what principal aim?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To restore Spanish colonial rule"
+      },
+      {
+        "key": "B",
+        "text": "To create a French monarchy"
+      },
+      {
+        "key": "C",
+        "text": "To end the American Revolutionary War"
+      },
+      {
+        "key": "D",
+        "text": "To encourage cooperation and common security among newly independent American states"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Bolívar sought a league or association that could help protect the new republics and coordinate policy.",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q047",
+    "englishQuestionId": "WHI-CP003-Q047",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F047",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Person–region",
+    "stem": "San Martín’s campaigns helped secure independence for Argentina, Chile and which other country?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Canada"
+      },
+      {
+        "key": "B",
+        "text": "Mexico"
+      },
+      {
+        "key": "C",
+        "text": "Cuba"
+      },
+      {
+        "key": "D",
+        "text": "Peru"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "San Martín helped liberate Argentina and Chile and led a campaign into Peru; he later met Bolívar at Guayaquil.",
+    "sourceIds": [
+      "S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q048",
+    "englishQuestionId": "WHI-CP003-Q048",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F048",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cause–context",
+    "stem": "Which development weakened Spanish royal authority and helped open the way for Spanish American juntas and independence movements after 1808?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Congress of Vienna’s decision to end the Spanish Empire"
+      },
+      {
+        "key": "B",
+        "text": "The Berlin Decree"
+      },
+      {
+        "key": "C",
+        "text": "The 1783 Treaty of Paris"
+      },
+      {
+        "key": "D",
+        "text": "Napoleon’s occupation of Spain and the removal of the Spanish monarch"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The crisis of the Spanish monarchy created uncertainty over legitimate authority in the colonies and accelerated local political movements.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q049",
+    "englishQuestionId": "WHI-CP003-Q049",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F049",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Social group",
+    "stem": "In Spanish America, the term *creole* generally referred to which group in the colonial social order?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Indigenous rulers of the Aztec Empire"
+      },
+      {
+        "key": "B",
+        "text": "People of European ancestry born in the Americas"
+      },
+      {
+        "key": "C",
+        "text": "Officials born in Spain only"
+      },
+      {
+        "key": "D",
+        "text": "Enslaved people brought from Africa"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Creoles were locally born people of European ancestry; many resented limits on their access to high colonial offices.",
+    "sourceIds": [
+      "S20"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q050",
+    "englishQuestionId": "WHI-CP003-Q050",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F050",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Movement–outcome",
+    "stem": "Which statement best describes the results of Latin American independence movements?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Independence ended all conflict in the region."
+      },
+      {
+        "key": "B",
+        "text": "Spain retained direct rule over all mainland colonies until 1900."
+      },
+      {
+        "key": "C",
+        "text": "Every new state immediately adopted the same constitution."
+      },
+      {
+        "key": "D",
+        "text": "Political independence did not automatically end social inequality or create identical republics."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "New states won political independence through varied processes, while social hierarchies and political conflicts often continued.",
+    "sourceIds": [
+      "S10",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q051",
+    "englishQuestionId": "WHI-CP003-Q051",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F051",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "Choose the correct sequence of Haitian revolutionary milestones.",
+    "options": [
+      {
+        "key": "A",
+        "text": "French abolition decree → Haiti declares independence → uprising begins → Louverture captured"
+      },
+      {
+        "key": "B",
+        "text": "Haiti declares independence → uprising begins → Louverture captured → abolition decree"
+      },
+      {
+        "key": "C",
+        "text": "Louverture captured → Haiti declares independence → uprising begins → abolition decree"
+      },
+      {
+        "key": "D",
+        "text": "Uprising begins → French abolition decree → Louverture captured → Haiti declares independence"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The uprising began in 1791; France abolished slavery in 1794; Louverture was captured in 1802; independence followed in 1804.",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q052",
+    "englishQuestionId": "WHI-CP003-Q052",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F052",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Grievance–event",
+    "stem": "Which colonial grievance was expressed in the slogan “no taxation without representation”?",
+    "options": [
+      {
+        "key": "A",
+        "text": "France required the colonies to pay for the Seven Years’ War."
+      },
+      {
+        "key": "B",
+        "text": "Colonists opposed all forms of local government."
+      },
+      {
+        "key": "C",
+        "text": "British merchants demanded taxes on tea be doubled."
+      },
+      {
+        "key": "D",
+        "text": "Colonists objected to taxes imposed without elected colonial representation in Parliament."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The slogan summarized opposition to taxation by a Parliament in which the colonies had no elected representatives.",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q053",
+    "englishQuestionId": "WHI-CP003-Q053",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F053",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event–grievance",
+    "stem": "The Boston Tea Party protested British policy concerning which commodity?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Tea"
+      },
+      {
+        "key": "B",
+        "text": "Cotton"
+      },
+      {
+        "key": "C",
+        "text": "Tobacco"
+      },
+      {
+        "key": "D",
+        "text": "Sugar"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Protesters dumped tea cargo into Boston harbour in opposition to the Tea Act and the wider conflict over imperial taxation.",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q054",
+    "englishQuestionId": "WHI-CP003-Q054",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F054",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cause–consequence",
+    "stem": "Why did French support matter to the American revolutionary cause?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It immediately drafted the U.S. Constitution."
+      },
+      {
+        "key": "B",
+        "text": "It forced the colonies to restore British rule."
+      },
+      {
+        "key": "C",
+        "text": "It added military, naval and diplomatic support against Britain."
+      },
+      {
+        "key": "D",
+        "text": "It ended the conflict before Saratoga."
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "French aid strengthened the American war effort and helped make the British position harder to sustain.",
+    "sourceIds": [
+      "S5",
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q055",
+    "englishQuestionId": "WHI-CP003-Q055",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F055",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Correctly matched pairs",
+    "stem": "Which set is correctly matched?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Rousseau — *Common Sense*; San Martín — Treaty of Paris; Locke — Haitian independence"
+      },
+      {
+        "key": "B",
+        "text": "Paine — *Common Sense*; Bolívar — Congress of Panama; Dessalines — Haitian independence"
+      },
+      {
+        "key": "C",
+        "text": "Montesquieu — Congress of Panama; Louverture — U.S. Constitution; Jefferson — *The Social Contract*"
+      },
+      {
+        "key": "D",
+        "text": "Voltaire — Boyacá; Hidalgo — Bill of Rights; Paine — *Two Treatises*"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Each person in option A is linked to the correct work, political initiative or independence movement.",
+    "sourceIds": [
+      "S3",
+      "S12",
+      "S17",
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q056",
+    "englishQuestionId": "WHI-CP003-Q056",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F056",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Document sequence",
+    "stem": "Which sequence correctly traces the early U.S. constitutional order?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Constitution signed → Articles take effect → Declaration adopted"
+      },
+      {
+        "key": "B",
+        "text": "Treaty of Paris → Bill of Rights → Declaration of Independence"
+      },
+      {
+        "key": "C",
+        "text": "Articles take effect → Constitution drafted and signed → Bill of Rights ratified"
+      },
+      {
+        "key": "D",
+        "text": "Bill of Rights ratified → Declaration adopted → Articles take effect"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Articles took effect in 1781, the Constitution was signed in 1787, and the Bill of Rights was ratified in 1791.",
+    "sourceIds": [
+      "S8",
+      "S13",
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q057",
+    "englishQuestionId": "WHI-CP003-Q057",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F057",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Claim distinction",
+    "stem": "Which statement correctly distinguishes the Declaration of Independence from the Treaty of Paris?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Declaration ended the war in 1783; the treaty announced independence in 1776."
+      },
+      {
+        "key": "B",
+        "text": "The Declaration announced separation in 1776; the treaty formally ended the war and recognized independence in 1783."
+      },
+      {
+        "key": "C",
+        "text": "The Declaration created the Articles of Confederation in 1781."
+      },
+      {
+        "key": "D",
+        "text": "Both were signed in 1791 to establish the Bill of Rights."
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Declaration proclaimed the political break; the Treaty of Paris came after the military conflict and formalized peace.",
+    "sourceIds": [
+      "S4",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q058",
+    "englishQuestionId": "WHI-CP003-Q058",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F058",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement",
+    "stem": "Consider the following statements about the Haitian Revolution:\n\n1. It began in the French colony of Saint-Domingue.  \n2. Toussaint Louverture proclaimed independence in 1804.  \n3. Jean-Jacques Dessalines proclaimed Haitian independence.\n\nWhich are correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "2 and 3 only"
+      },
+      {
+        "key": "B",
+        "text": "1 and 2 only"
+      },
+      {
+        "key": "C",
+        "text": "1, 2 and 3"
+      },
+      {
+        "key": "D",
+        "text": "1 and 3 only"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The revolution began in Saint-Domingue and Dessalines proclaimed independence; Louverture had been captured and died before 1804.",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q059",
+    "englishQuestionId": "WHI-CP003-Q059",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F059",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "Which comparison of the American and Latin American independence struggles is the most accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The American colonies fought Spain, while Spanish America fought France alone."
+      },
+      {
+        "key": "B",
+        "text": "Both challenged European imperial rule, but they involved different colonial systems, leaders and political outcomes."
+      },
+      {
+        "key": "C",
+        "text": "Both were led by the same generals and ended in 1776."
+      },
+      {
+        "key": "D",
+        "text": "Latin American independence began only after the Congress of Panama."
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The movements shared a challenge to imperial authority, but their timelines, social structures and results were not identical.",
+    "sourceIds": [
+      "S5",
+      "S10",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q060",
+    "englishQuestionId": "WHI-CP003-Q060",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F060",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement synthesis",
+    "stem": "Consider these statements:\n\n1. Enlightenment arguments about rights and consent influenced revolutionary political language.  \n2. Political independence always produced equal rights for every group.  \n3. The Haitian Revolution directly confronted slavery in a way distinct from the U.S. independence movement.\n\nWhich are correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1, 2 and 3"
+      },
+      {
+        "key": "B",
+        "text": "2 and 3 only"
+      },
+      {
+        "key": "C",
+        "text": "1 and 3 only"
+      },
+      {
+        "key": "D",
+        "text": "1 and 2 only"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Rights language influenced revolutionary claims, but equality was not fully realized in practice; Haiti’s revolution directly overthrew a slave-based colonial order.",
+    "sourceIds": [
+      "S1",
+      "S4",
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
