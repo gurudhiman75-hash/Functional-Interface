@@ -1,0 +1,27 @@
+name: Validate VEN-001 topology foundation
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/**"
+      - ".github/workflows/reasoning-ven-001-topology.yml"
+  workflow_dispatch:
+
+jobs:
+  topology-proof:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle topology proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/logical-venn-topology.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-topology.test.mjs
+      - name: Run topology proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-topology.test.mjs
