@@ -7,6 +7,8 @@ export type VennPairRelation =
   | "RIGHT_SUBSET_LEFT"
   | "EQUAL";
 
+export type VennThreeWayIntersection = "UNSPECIFIED" | "REQUIRED" | "FORBIDDEN";
+
 export type VennRelationAssertion = Readonly<{
   left: VennSetId;
   right: VennSetId;
@@ -108,9 +110,13 @@ function validateAssertions(
 export function findVennTopologyWitness(
   setIds: readonly VennSetId[],
   relations: readonly VennRelationAssertion[],
+  threeWayIntersection: VennThreeWayIntersection = "UNSPECIFIED",
 ): VennTopologyWitness | null {
   validateSetIds(setIds);
   validateAssertions(setIds, relations);
+  if (setIds.length === 2 && threeWayIntersection !== "UNSPECIFIED") {
+    throw new Error("VEN-001 three-way intersection constraints require three sets");
+  }
 
   const candidateCount = 1 << atomMasks(setIds.length).length;
   for (let occupancy = 1; occupancy < candidateCount; occupancy += 1) {
@@ -119,10 +125,16 @@ export function findVennTopologyWitness(
       continue;
     }
 
-    const matches = relations.every((assertion) =>
+    const matchesRelations = relations.every((assertion) =>
       relationFromAtoms(membershipAtoms, assertion.left, assertion.right) === assertion.relation,
     );
-    if (matches) return { setIds: [...setIds], membershipAtoms };
+    const hasThreeWayIntersection = setIds.length === 3 && membershipAtoms.some((atom) =>
+      setIds.every((setId) => atom.includes(setId)),
+    );
+    const matchesIntersection = threeWayIntersection === "UNSPECIFIED"
+      || (threeWayIntersection === "REQUIRED" && hasThreeWayIntersection)
+      || (threeWayIntersection === "FORBIDDEN" && !hasThreeWayIntersection);
+    if (matchesRelations && matchesIntersection) return { setIds: [...setIds], membershipAtoms };
   }
   return null;
 }
@@ -130,10 +142,11 @@ export function findVennTopologyWitness(
 export function validateVennTopology(
   setIds: readonly VennSetId[],
   relations: readonly VennRelationAssertion[],
+  threeWayIntersection: VennThreeWayIntersection = "UNSPECIFIED",
 ): VennTopologyWitness {
-  const witness = findVennTopologyWitness(setIds, relations);
+  const witness = findVennTopologyWitness(setIds, relations, threeWayIntersection);
   if (!witness) {
-    throw new Error("VEN-001 relation signature is inconsistent or leaves a set empty");
+    throw new Error("VEN-001 relation signature or three-way intersection constraint is inconsistent, or a set is empty");
   }
   return witness;
 }
