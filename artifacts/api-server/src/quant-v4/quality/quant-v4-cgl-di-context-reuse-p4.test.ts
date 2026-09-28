@@ -30,6 +30,6 @@ console.log("QUANT_V4_CGL_DI_CONTEXT_REUSE_P4", JSON.stringify({
   literalStemDuplicateRate: audit.literalStemDuplicateRate,
   normalizedStructuralStemReuseRate: audit.normalizedStructuralStemReuseRate,
   learnerQuestionDuplicateRate: audit.learnerQuestionDuplicateRate,
-  structuralReuseGateUnchanged: true,
+  representationAwareReuseGate: true,
   productionBehaviorChanged: false,
 }));
