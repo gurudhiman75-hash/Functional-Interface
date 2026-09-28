@@ -96,12 +96,22 @@ function buildOptions(
   return { options, correctIndex: options.findIndex((option) => option.isCorrect) };
 }
 
-function directDifficulty(seed: number, topology: Cp008Topology, mappingSize: number): CodDifficulty {
-  return topology === "OPEN_CHAIN" && mappingSize <= 5 && seed % 3 !== 0 ? "EASY" : "MEDIUM";
+function directDifficulty(topology: Cp008Topology, mappingSize: number): CodDifficulty {
+  // Difficulty follows the displayed reasoning burden only.
+  // A short open chain is the simplest direct-renaming form; cycles or longer
+  // mappings require more filtering but do not become harder because of seed.
+  return topology === "OPEN_CHAIN" && mappingSize <= 5 ? "EASY" : "MEDIUM";
 }
 
-function semanticDifficulty(seed: number, topology: Cp008Topology, fact: Cp008SemanticFact): CodDifficulty {
-  if (topology === "CYCLE" && (seed % 4 === 0 || fact.category === "CATEGORY")) return "HARD";
+function semanticDifficulty(
+  topology: Cp008Topology,
+  mappingSize: number,
+  fact: Cp008SemanticFact,
+): CodDifficulty {
+  // Semantic referent recovery adds a reasoning step before renaming.
+  // Hard is reserved for a genuinely denser visible state: category inference
+  // combined with either a cycle or a long mapping.
+  if (fact.category === "CATEGORY" && (topology === "CYCLE" || mappingSize >= 6)) return "HARD";
   return "MEDIUM";
 }
 
@@ -211,8 +221,8 @@ export function generateCp008PrototypeQuestion(
     seed,
     locale: "en-IN",
     difficulty: contract.taskKind === "DIRECT_LABEL_QUERY"
-      ? directDifficulty(seed, topology, mapping.length)
-      : semanticDifficulty(seed, topology, fact!),
+      ? directDifficulty(topology, mapping.length)
+      : semanticDifficulty(topology, mapping.length, fact!),
     renderer: RENDERERS[(seed + style) % RENDERERS.length]!,
     answerType: "WORD_OR_LABEL",
     stem: buildStem(mapping, directTarget, fact, style),
