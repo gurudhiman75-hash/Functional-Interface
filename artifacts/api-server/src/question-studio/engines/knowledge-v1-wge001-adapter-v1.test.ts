@@ -83,7 +83,7 @@ async function run() {
   await assert.rejects(() => adapter.generate({language: 'fr' as never}), /language/);
   await assert.rejects(() => adapter.generate({difficulty: 'Impossible'}), /difficulty/);
   await assert.rejects(() => adapter.generate({runtimeMode: 'bank-only'}), /review-only/);
-  await assert.rejects(() => adapter.generate({packageId: 'WGE-001-CP037'}), /Unknown/);
+  await assert.rejects(() => adapter.generate({packageId: 'WGE-001-CP041'}), /Unknown/);
   await assert.rejects(() => adapter.generate({canonicalProblemId: 'WGE-001-CP999'}), /Unknown/);
   await assert.rejects(() => adapter.generate({packageId: 'WGE-001-CP001', canonicalProblemId: 'WGE-001-CP002'}), /Conflicting/);
   await assert.rejects(() => adapter.generate({patternId: 'WGE-001-CP001-Q001', questionLanguageId: 'WGE-001-CP001-Q002'}), /Conflicting/);
