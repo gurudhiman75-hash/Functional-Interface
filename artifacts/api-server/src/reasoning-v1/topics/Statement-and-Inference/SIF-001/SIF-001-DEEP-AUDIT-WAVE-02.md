@@ -58,6 +58,14 @@ Wave 02 additionally requires the learner explanation to visibly resolve the two
 
 This prevents long but non-decisive explanation prose from satisfying the quality gate.
 
+## Calibration note — EITHER answer class
+
+The first structural pass under-counted `EITHER` authorities because it treated both individually unresolved candidates like two ordinary rejected distractors.
+
+That is not the actual reasoning burden. An `EITHER` question requires the learner to recognise a mutually exclusive unresolved alternative: exactly one conclusion must hold even though neither one can be selected individually.
+
+The burden model now adds one explicit exclusive-alternative step for `EITHER` authorities. This preserves the approved Hard classification where justified without artificially inflating ordinary ONLY_I / ONLY_II / BOTH / NEITHER cases.
+
 ## Existing strengths preserved
 
 - Question Studio difficulty filtering is already honest: it filters frozen authorities by their actual difficulty and fails if the selected CP contains no authority at the requested band.
