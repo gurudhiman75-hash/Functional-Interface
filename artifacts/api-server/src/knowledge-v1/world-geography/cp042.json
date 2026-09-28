@@ -1,0 +1,842 @@
+[
+  {
+    "id": "WGE-001-CP042-Q001",
+    "cpId": "WGE-001-CP042",
+    "objective": "solar-energy-evaporation",
+    "difficulty": "Easy",
+    "correctIndex": 0,
+    "sourceIds": [
+      "WGE-HYDRO-NCERT"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which process moves liquid water from the ocean surface into the atmosphere?",
+        "options": [
+          "Evaporation",
+          "Infiltration",
+          "Condensation",
+          "Deposition"
+        ],
+        "explanation": "Solar heating causes surface water to evaporate and enter the atmosphere as water vapour."
+      },
+      "hi": {
+        "stem": "कौन-सी प्रक्रिया महासागर की सतह से तरल जल को वायुमंडल में पहुँचाती है?",
+        "options": [
+          "वाष्पीकरण",
+          "अंतःस्रवण",
+          "संघनन",
+          "निक्षेपण"
+        ],
+        "explanation": "सौर ताप से सतही जल वाष्पित होकर जलवाष्प के रूप में वायुमंडल में जाता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਸਮੁੰਦਰ ਦੀ ਸਤਹ ਤੋਂ ਤਰਲ ਪਾਣੀ ਨੂੰ ਵਾਤਾਵਰਣ ਵਿੱਚ ਲੈ ਜਾਂਦੀ ਹੈ?",
+        "options": [
+          "ਵਾਸ਼ਪੀਕਰਨ",
+          "ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ",
+          "ਸੰਘਣਨ",
+          "ਜਮਾਵ"
+        ],
+        "explanation": "ਸੂਰਜੀ ਤਾਪ ਨਾਲ ਸਤਹੀ ਪਾਣੀ ਵਾਸ਼ਪ ਬਣ ਕੇ ਜਲ-ਵਾਸ਼ਪ ਰੂਪ ਵਿੱਚ ਵਾਤਾਵਰਣ ਵਿੱਚ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q002",
+    "cpId": "WGE-001-CP042",
+    "objective": "water-vapour-condensation",
+    "difficulty": "Easy",
+    "correctIndex": 1,
+    "sourceIds": [
+      "WGE-HYDRO-NOAA"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Water vapour cools and forms tiny cloud droplets. Which process has occurred?",
+        "options": [
+          "Runoff",
+          "Condensation",
+          "Infiltration",
+          "Transpiration"
+        ],
+        "explanation": "Cooling changes water vapour into liquid droplets; this is condensation."
+      },
+      "hi": {
+        "stem": "जलवाष्प ठंडी होकर बादल की छोटी बूँदें बनाती है। कौन-सी प्रक्रिया हुई?",
+        "options": [
+          "सतही बहाव",
+          "संघनन",
+          "अंतःस्रवण",
+          "वाष्पोत्सर्जन"
+        ],
+        "explanation": "ठंडा होने पर जलवाष्प तरल बूँदों में बदलती है; इसे संघनन कहते हैं।"
+      },
+      "pa": {
+        "stem": "ਜਲ-ਵਾਸ਼ਪ ਠੰਢੀ ਹੋ ਕੇ ਬੱਦਲਾਂ ਦੀਆਂ ਨਿੱਕੀਆਂ ਬੂੰਦਾਂ ਬਣਾਉਂਦੀ ਹੈ। ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਹੋਈ?",
+        "options": [
+          "ਸਤਹੀ ਵਹਾਅ",
+          "ਸੰਘਣਨ",
+          "ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ",
+          "ਬਾਫ਼-ਉਤਸਰਜਨ"
+        ],
+        "explanation": "ਠੰਢ ਪੈਣ ਨਾਲ ਜਲ-ਵਾਸ਼ਪ ਤਰਲ ਬੂੰਦਾਂ ਵਿੱਚ ਬਦਲਦੀ ਹੈ; ਇਸ ਨੂੰ ਸੰਘਣਨ ਕਹਿੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q003",
+    "cpId": "WGE-001-CP042",
+    "objective": "plant-transpiration-water-cycle",
+    "difficulty": "Easy",
+    "correctIndex": 3,
+    "sourceIds": [
+      "WGE-HYDRO-CHART"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Water released from plant leaves into the air enters the water cycle through:",
+        "options": [
+          "Infiltration",
+          "Runoff",
+          "Condensation",
+          "Transpiration"
+        ],
+        "explanation": "Transpiration transfers water from plants to the atmosphere as vapour."
+      },
+      "hi": {
+        "stem": "पौधों की पत्तियों से हवा में निकला जल किस प्रक्रिया से जल-चक्र में शामिल होता है?",
+        "options": [
+          "अंतःस्रवण",
+          "सतही बहाव",
+          "संघनन",
+          "वाष्पोत्सर्जन"
+        ],
+        "explanation": "वाष्पोत्सर्जन पौधों से जल को वाष्प के रूप में वायुमंडल तक पहुँचाता है।"
+      },
+      "pa": {
+        "stem": "ਬੂਟਿਆਂ ਦੇ ਪੱਤਿਆਂ ਤੋਂ ਹਵਾ ਵਿੱਚ ਨਿਕਲਿਆ ਪਾਣੀ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਰਾਹੀਂ ਜਲ-ਚੱਕਰ ਵਿੱਚ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ",
+          "ਸਤਹੀ ਵਹਾਅ",
+          "ਸੰਘਣਨ",
+          "ਬਾਫ਼-ਉਤਸਰਜਨ"
+        ],
+        "explanation": "ਬਾਫ਼-ਉਤਸਰਜਨ ਬੂਟਿਆਂ ਤੋਂ ਪਾਣੀ ਨੂੰ ਵਾਸ਼ਪ ਰੂਪ ਵਿੱਚ ਵਾਤਾਵਰਣ ਤੱਕ ਲੈ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q004",
+    "cpId": "WGE-001-CP042",
+    "objective": "infiltration-groundwater-recharge",
+    "difficulty": "Medium",
+    "correctIndex": 2,
+    "sourceIds": [
+      "WGE-HYDRO-NCERT"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Rain passes through permeable soil and reaches an aquifer. Which process replenishes the groundwater store?",
+        "options": [
+          "Surface evaporation",
+          "Groundwater recharge by infiltration",
+          "Wave refraction",
+          "Ocean upwelling"
+        ],
+        "explanation": "Infiltration and percolation can carry water downward to recharge an aquifer where geology allows."
+      },
+      "hi": {
+        "stem": "वर्षा पारगम्य मिट्टी से गुजरकर जलभृत तक पहुँचती है। कौन-सी प्रक्रिया भूजल भंडार को भरती है?",
+        "options": [
+          "सतही वाष्पीकरण",
+          "अंतःस्रवण से भूजल पुनर्भरण",
+          "लहरों का अपवर्तन",
+          "महासागरीय जल का ऊपर उठना"
+        ],
+        "explanation": "जहाँ भूगर्भीय दशाएँ अनुमति दें, वहाँ अंतःस्रवण और नीचे रिसाव जलभृत का पुनर्भरण कर सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਮੀਂਹ ਪਾਰਗਮ ਮਿੱਟੀ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਜਲ-ਭੰਡਾਰ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ। ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਧਰਤੀ ਹੇਠਲੇ ਪਾਣੀ ਨੂੰ ਮੁੜ ਭਰਦੀ ਹੈ?",
+        "options": [
+          "ਸਤਹੀ ਵਾਸ਼ਪੀਕਰਨ",
+          "ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ ਰਾਹੀਂ ਭੂਜਲ ਮੁੜ-ਭਰਨਾ",
+          "ਲਹਿਰਾਂ ਦਾ ਅਪਵਰਤਨ",
+          "ਸਮੁੰਦਰੀ ਪਾਣੀ ਦਾ ਉੱਪਰ ਚੜ੍ਹਨਾ"
+        ],
+        "explanation": "ਜਿੱਥੇ ਭੂਗਰਭੀ ਹਾਲਾਤ ਇਜਾਜ਼ਤ ਦੇਣ, ਉੱਥੇ ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ ਪਾਣੀ ਨੂੰ ਹੇਠਾਂ ਲੈ ਜਾ ਕੇ ਜਲ-ਭੰਡਾਰ ਮੁੜ ਭਰ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q005",
+    "cpId": "WGE-001-CP042",
+    "objective": "impervious-surface-runoff",
+    "difficulty": "Medium",
+    "correctIndex": 0,
+    "sourceIds": [
+      "WGE-HYDRO-NOAA"
+    ],
+    "locales": {
+      "en": {
+        "stem": "After heavy rain, a paved district sends water quickly into drains. Which change most directly explains the rapid runoff?",
+        "options": [
+          "Impervious surfaces limit infiltration",
+          "More forest interception",
+          "Greater aquifer storage",
+          "Lower rainfall intensity"
+        ],
+        "explanation": "Pavement reduces infiltration, so a greater share of rain can flow rapidly over the surface into channels."
+      },
+      "hi": {
+        "stem": "तेज़ वर्षा के बाद पक्का शहरी क्षेत्र पानी को जल्दी नालियों में भेजता है। तेज़ बहाव का सीधा कारण क्या है?",
+        "options": [
+          "अभेद्य सतहें अंतःस्रवण घटाती हैं",
+          "अधिक वन-अवरोधन",
+          "अधिक जलभृत भंडारण",
+          "कम वर्षा तीव्रता"
+        ],
+        "explanation": "पक्की सतहें अंतःस्रवण घटाती हैं, इसलिए वर्षा का अधिक भाग सतह पर बहकर जल्दी नालियों तक पहुँच सकता है।"
+      },
+      "pa": {
+        "stem": "ਤੇਜ਼ ਮੀਂਹ ਤੋਂ ਬਾਅਦ ਪੱਕਾ ਸ਼ਹਿਰੀ ਇਲਾਕਾ ਪਾਣੀ ਨੂੰ ਛੇਤੀ ਨਾਲਿਆਂ ਵਿੱਚ ਭੇਜਦਾ ਹੈ। ਤੇਜ਼ ਵਹਾਅ ਦਾ ਸਿੱਧਾ ਕਾਰਨ ਕੀ ਹੈ?",
+        "options": [
+          "ਨਾ-ਸਮਾਉਣ ਵਾਲੀਆਂ ਸਤਹਾਂ ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ ਘਟਾਉਂਦੀਆਂ ਹਨ",
+          "ਵੱਧ ਜੰਗਲੀ ਰੋਕ",
+          "ਵੱਧ ਭੂਜਲ ਭੰਡਾਰ",
+          "ਘੱਟ ਮੀਂਹ ਦੀ ਤੀਬਰਤਾ"
+        ],
+        "explanation": "ਪੱਕੀਆਂ ਸਤਹਾਂ ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ ਘਟਾਉਂਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਮੀਂਹ ਦਾ ਵੱਧ ਹਿੱਸਾ ਸਤਹ ਉੱਤੇ ਤੇਜ਼ੀ ਨਾਲ ਨਾਲਿਆਂ ਤੱਕ ਵਹਿ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q006",
+    "cpId": "WGE-001-CP042",
+    "objective": "snow-glacier-storage",
+    "difficulty": "Medium",
+    "correctIndex": 3,
+    "sourceIds": [
+      "WGE-HYDRO-CHART"
+    ],
+    "locales": {
+      "en": {
+        "stem": "In a mountain basin, winter snowfall is stored and later released during warmer months. Snow and glacier ice act mainly as:",
+        "options": [
+          "A seasonal water store",
+          "A permanent ocean current",
+          "A source of salt in groundwater",
+          "A map projection"
+        ],
+        "explanation": "Snow and glacier ice store water and can release it later as meltwater, with timing varying by climate."
+      },
+      "hi": {
+        "stem": "पर्वतीय जलग्रहण क्षेत्र में सर्दियों की बर्फ़ जमा रहती है और गर्म महीनों में पिघलकर निकलती है। बर्फ़ और हिमनद मुख्यतः किसका काम करते हैं?",
+        "options": [
+          "मौसमी जल-भंडार",
+          "स्थायी महासागरीय धारा",
+          "भूजल में लवण का स्रोत",
+          "मानचित्र प्रक्षेप"
+        ],
+        "explanation": "बर्फ़ और हिमनद जल जमा करते हैं और बाद में पिघला जल छोड़ सकते हैं; समय जलवायु के अनुसार बदलता है।"
+      },
+      "pa": {
+        "stem": "ਪਹਾੜੀ ਜਲ-ਗ੍ਰਹਿਣ ਖੇਤਰ ਵਿੱਚ ਸਰਦੀਆਂ ਦੀ ਬਰਫ਼ ਜਮ੍ਹਾਂ ਰਹਿੰਦੀ ਹੈ ਅਤੇ ਗਰਮ ਮਹੀਨਿਆਂ ਵਿੱਚ ਪਿਘਲਦੀ ਹੈ। ਬਰਫ਼ ਅਤੇ ਹਿਮਨਦ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕੀ ਹਨ?",
+        "options": [
+          "ਮੌਸਮੀ ਪਾਣੀ ਦਾ ਭੰਡਾਰ",
+          "ਸਥਾਈ ਸਮੁੰਦਰੀ ਧਾਰਾ",
+          "ਭੂਜਲ ਵਿੱਚ ਲੂਣ ਦਾ ਸਰੋਤ",
+          "ਨਕਸ਼ਾ-ਪ੍ਰক্ষেপ"
+        ],
+        "explanation": "ਬਰਫ਼ ਅਤੇ ਹਿਮਨਦ ਪਾਣੀ ਸੰਭਾਲਦੇ ਹਨ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਪਿਘਲਿਆ ਪਾਣੀ ਛੱਡ ਸਕਦੇ ਹਨ; ਸਮਾਂ ਜਲਵਾਯੂ ਅਨੁਸਾਰ ਬਦਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q007",
+    "cpId": "WGE-001-CP042",
+    "objective": "groundwater-overuse-water-table",
+    "difficulty": "Hard",
+    "correctIndex": 2,
+    "sourceIds": [
+      "WGE-HYDRO-NCERT"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A town pumps groundwater faster than it is replenished for many years. Which result is most likely near the wells?",
+        "options": [
+          "The water table rises everywhere",
+          "The aquifer turns into an ocean",
+          "The local water table may fall",
+          "Rainfall must increase"
+        ],
+        "explanation": "If pumping persistently exceeds recharge, groundwater levels can decline; the amount depends on aquifer conditions and use."
+      },
+      "hi": {
+        "stem": "एक नगर कई वर्षों तक भूजल के पुनर्भरण से तेज़ पानी निकालता है। कुओं के पास कौन-सा परिणाम अधिक संभावित है?",
+        "options": [
+          "हर जगह जल-स्तर ऊपर उठता है",
+          "जलभृत महासागर बन जाता है",
+          "स्थानीय भूजल-स्तर नीचे जा सकता है",
+          "वर्षा अवश्य बढ़ती है"
+        ],
+        "explanation": "यदि निकासी लगातार पुनर्भरण से अधिक हो तो भूजल-स्तर घट सकता है; मात्रा जलभृत और उपयोग पर निर्भर करती है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਸ਼ਹਿਰ ਕਈ ਸਾਲਾਂ ਤੱਕ ਭੂਜਲ ਮੁੜ-ਭਰਨ ਨਾਲੋਂ ਤੇਜ਼ ਪਾਣੀ ਕੱਢਦਾ ਹੈ। ਖੂਹਾਂ ਕੋਲ ਕਿਹੜਾ ਨਤੀਜਾ ਵਧੇਰੇ ਸੰਭਵ ਹੈ?",
+        "options": [
+          "ਹਰ ਥਾਂ ਜਲ-ਪੱਧਰ ਚੜ੍ਹਦਾ ਹੈ",
+          "ਜਲ-ਭੰਡਾਰ ਸਮੁੰਦਰ ਬਣ ਜਾਂਦਾ ਹੈ",
+          "ਸਥਾਨਕ ਭੂਜਲ-ਪੱਧਰ ਹੇਠਾਂ ਜਾ ਸਕਦਾ ਹੈ",
+          "ਮੀਂਹ ਲਾਜ਼ਮੀ ਵਧਦਾ ਹੈ"
+        ],
+        "explanation": "ਜੇ ਪਾਣੀ ਕੱਢਣਾ ਲਗਾਤਾਰ ਮੁੜ-ਭਰਨ ਤੋਂ ਵੱਧ ਹੋਵੇ ਤਾਂ ਭੂਜਲ-ਪੱਧਰ ਘਟ ਸਕਦਾ ਹੈ; ਮਾਤਰਾ ਜਲ-ਭੰਡਾਰ ਅਤੇ ਵਰਤੋਂ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q008",
+    "cpId": "WGE-001-CP042",
+    "objective": "wetland-flood-storage",
+    "difficulty": "Medium",
+    "correctIndex": 1,
+    "sourceIds": [
+      "WGE-HYDRO-NOAA"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How can a wetland reduce flood peaks in some river basins?",
+        "options": [
+          "By storing and slowly releasing water",
+          "By preventing all rainfall",
+          "By stopping the river upstream",
+          "By increasing paved surfaces"
+        ],
+        "explanation": "Wetlands can temporarily store water and slow its movement, although their effect varies with size and basin conditions."
+      },
+      "hi": {
+        "stem": "कुछ नदी-घाटियों में आर्द्रभूमि बाढ़ की ऊँची लहर को कैसे घटा सकती है?",
+        "options": [
+          "जल रोककर धीरे-धीरे छोड़ना",
+          "सारी वर्षा रोक देना",
+          "ऊपर नदी को पूरी तरह रोकना",
+          "पक्की सतहें बढ़ाना"
+        ],
+        "explanation": "आर्द्रभूमियाँ कुछ जल अस्थायी रूप से रोककर उसका बहाव धीमा कर सकती हैं; प्रभाव उनके आकार और घाटी की दशाओं पर निर्भर करता है।"
+      },
+      "pa": {
+        "stem": "ਕੁਝ ਨਦੀ-ਘਾਟੀਆਂ ਵਿੱਚ ਦਲਦਲੀ ਇਲਾਕਾ ਹੜ੍ਹ ਦੀ ਚੋਟੀ ਕਿਵੇਂ ਘਟਾ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਪਾਣੀ ਰੋਕ ਕੇ ਹੌਲੀ-ਹੌਲੀ ਛੱਡਣਾ",
+          "ਸਾਰਾ ਮੀਂਹ ਰੋਕ ਦੇਣਾ",
+          "ਉੱਪਰ ਵੱਲ ਨਦੀ ਪੂਰੀ ਰੋਕਣਾ",
+          "ਪੱਕੀਆਂ ਸਤਹਾਂ ਵਧਾਉਣਾ"
+        ],
+        "explanation": "ਦਲਦਲੀ ਇਲਾਕੇ ਕੁਝ ਪਾਣੀ ਅਸਥਾਈ ਤੌਰ ਉੱਤੇ ਰੋਕ ਕੇ ਵਹਾਅ ਹੌਲਾ ਕਰ ਸਕਦੇ ਹਨ; ਅਸਰ ਆਕਾਰ ਅਤੇ ਘਾਟੀ ਦੇ ਹਾਲਾਤਾਂ ਅਨੁਸਾਰ ਬਦਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q009",
+    "cpId": "WGE-001-CP042",
+    "objective": "shared-river-basin-coordination",
+    "difficulty": "Hard",
+    "correctIndex": 0,
+    "sourceIds": [
+      "WGE-HYDRO-CHART"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Two countries share a river basin. Which approach best addresses upstream and downstream water needs?",
+        "options": [
+          "Share flow data and negotiate coordinated basin management",
+          "Allow only the upstream country to measure flow",
+          "Ignore seasonal changes",
+          "Build projects without informing the other country"
+        ],
+        "explanation": "Shared data and coordination help countries consider seasonal flows, water uses and downstream effects together."
+      },
+      "hi": {
+        "stem": "दो देश एक नदी-घाटी साझा करते हैं। ऊपर और नीचे के जल-हितों का बेहतर समाधान क्या है?",
+        "options": [
+          "प्रवाह के आँकड़े साझा कर समन्वित घाटी-प्रबंधन पर बातचीत",
+          "केवल ऊपरी देश को प्रवाह मापने देना",
+          "मौसमी बदलाव अनदेखा करना",
+          "दूसरे देश को बताए बिना परियोजनाएँ बनाना"
+        ],
+        "explanation": "साझा आँकड़े और समन्वय देशों को मौसमी प्रवाह, उपयोग और नीचे की ओर पड़ने वाले प्रभावों पर साथ विचार करने में मदद करते हैं।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਦੇਸ਼ ਇੱਕ ਨਦੀ-ਘਾਟੀ ਸਾਂਝੀ ਕਰਦੇ ਹਨ। ਉੱਪਰਲੇ ਅਤੇ ਹੇਠਲੇ ਪਾਣੀ ਦੀਆਂ ਲੋੜਾਂ ਲਈ ਵਧੀਆ ਢੰਗ ਕੀ ਹੈ?",
+        "options": [
+          "ਵਹਾਅ ਦੇ ਅੰਕੜੇ ਸਾਂਝੇ ਕਰਕੇ ਘਾਟੀ ਦੇ ਸਾਂਝੇ ਪ੍ਰਬੰਧ ਉੱਤੇ ਗੱਲਬਾਤ",
+          "ਸਿਰਫ਼ ਉੱਪਰਲੇ ਦੇਸ਼ ਨੂੰ ਵਹਾਅ ਮਾਪਣ ਦੇਣਾ",
+          "ਮੌਸਮੀ ਬਦਲਾਅ ਅਣਡਿੱਠੇ ਕਰਨੇ",
+          "ਦੂਜੇ ਦੇਸ਼ ਨੂੰ ਦੱਸੇ ਬਿਨਾਂ ਯੋਜਨਾਵਾਂ ਬਣਾਉਣੀਆਂ"
+        ],
+        "explanation": "ਸਾਂਝੇ ਅੰਕੜੇ ਅਤੇ ਤਾਲਮੇਲ ਦੇਸ਼ਾਂ ਨੂੰ ਮੌਸਮੀ ਵਹਾਅ, ਵਰਤੋਂ ਅਤੇ ਹੇਠਾਂ ਪੈਣ ਵਾਲੇ ਅਸਰਾਂ ਉੱਤੇ ਇਕੱਠੇ ਵਿਚਾਰ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q010",
+    "cpId": "WGE-001-CP042",
+    "objective": "ocean-dominant-water-store",
+    "difficulty": "Easy",
+    "correctIndex": 2,
+    "sourceIds": [
+      "WGE-HYDRO-NCERT"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which store contains by far the largest share of Earth's water?",
+        "options": [
+          "Rivers",
+          "Atmospheric clouds",
+          "Oceans",
+          "Freshwater lakes"
+        ],
+        "explanation": "The oceans hold most of Earth's water, and most ocean water is saline."
+      },
+      "hi": {
+        "stem": "पृथ्वी के जल का सबसे बड़ा हिस्सा किस भंडार में है?",
+        "options": [
+          "नदियाँ",
+          "वायुमंडलीय बादल",
+          "महासागर",
+          "मीठे पानी की झीलें"
+        ],
+        "explanation": "महासागरों में पृथ्वी का अधिकांश जल है और अधिकांश महासागरीय जल खारा है।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੇ ਪਾਣੀ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਹਿੱਸਾ ਕਿਹੜੇ ਭੰਡਾਰ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਨਦੀਆਂ",
+          "ਵਾਤਾਵਰਣੀ ਬੱਦਲ",
+          "ਸਮੁੰਦਰ",
+          "ਮਿੱਠੇ ਪਾਣੀ ਦੀਆਂ ਝੀਲਾਂ"
+        ],
+        "explanation": "ਸਮੁੰਦਰਾਂ ਵਿੱਚ ਧਰਤੀ ਦਾ ਬਹੁਤਾ ਪਾਣੀ ਹੈ ਅਤੇ ਸਮੁੰਦਰੀ ਪਾਣੀ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਖਾਰਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q011",
+    "cpId": "WGE-001-CP042",
+    "objective": "ocean-evaporation-land-rain",
+    "difficulty": "Medium",
+    "correctIndex": 3,
+    "sourceIds": [
+      "WGE-HYDRO-NOAA"
+    ],
+    "locales": {
+      "en": {
+        "stem": "How can ocean water contribute to rainfall over land far from the coast?",
+        "options": [
+          "Ocean water evaporates, vapour is transported in air, then condenses and precipitates",
+          "Ocean water flows underground directly to every field",
+          "Waves carry seawater across the continent",
+          "Tides lift clouds over inland areas"
+        ],
+        "explanation": "Evaporated water vapour can move with the atmosphere, condense into clouds and fall as precipitation over land."
+      },
+      "hi": {
+        "stem": "तट से दूर स्थल पर वर्षा में महासागरीय जल कैसे योगदान देता है?",
+        "options": [
+          "महासागरीय जल वाष्पित होता है, वायु जलवाष्प ले जाती है और फिर संघनन तथा वर्षा होती है",
+          "महासागर का जल भूमिगत होकर सीधे खेतों तक जाता है",
+          "लहरें समुद्री जल को महाद्वीप पार ले जाती हैं",
+          "ज्वार बादलों को अंदरूनी क्षेत्रों के ऊपर उठाता है"
+        ],
+        "explanation": "वाष्पित जलवाष्प वायुमंडल के साथ चलकर बादल बना सकती है और स्थल पर वर्षा के रूप में गिर सकती है।"
+      },
+      "pa": {
+        "stem": "ਤਟ ਤੋਂ ਦੂਰ ਧਰਤੀ ਉੱਤੇ ਮੀਂਹ ਵਿੱਚ ਸਮੁੰਦਰੀ ਪਾਣੀ ਕਿਵੇਂ ਯੋਗਦਾਨ ਪਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਸਮੁੰਦਰੀ ਪਾਣੀ ਵਾਸ਼ਪ ਬਣਦਾ ਹੈ, ਹਵਾ ਵਾਸ਼ਪ ਲੈ ਜਾਂਦੀ ਹੈ ਅਤੇ ਫਿਰ ਸੰਘਣਨ ਤੇ ਵਰਖਾ ਹੁੰਦੀ ਹੈ",
+          "ਸਮੁੰਦਰ ਦਾ ਪਾਣੀ ਧਰਤੀ ਹੇਠਾਂ ਸਿੱਧਾ ਹਰ ਖੇਤ ਤੱਕ ਜਾਂਦਾ ਹੈ",
+          "ਲਹਿਰਾਂ ਸਮੁੰਦਰੀ ਪਾਣੀ ਨੂੰ ਮਹਾਂਦੀਪ ਪਾਰ ਲੈ ਜਾਂਦੀਆਂ ਹਨ",
+          "ਜਵਾਰ ਬੱਦਲਾਂ ਨੂੰ ਅੰਦਰੂਨੀ ਇਲਾਕਿਆਂ ਉੱਤੇ ਚੁੱਕਦਾ ਹੈ"
+        ],
+        "explanation": "ਵਾਸ਼ਪ ਬਣਿਆ ਪਾਣੀ ਵਾਤਾਵਰਣ ਨਾਲ ਚੱਲ ਕੇ ਬੱਦਲ ਬਣ ਸਕਦਾ ਹੈ ਅਤੇ ਧਰਤੀ ਉੱਤੇ ਮੀਂਹ ਵਜੋਂ ਡਿੱਗ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q012",
+    "cpId": "WGE-001-CP042",
+    "objective": "wind-fetch-wave-size",
+    "difficulty": "Medium",
+    "correctIndex": 0,
+    "sourceIds": [
+      "WGE-HYDRO-CHART"
+    ],
+    "locales": {
+      "en": {
+        "stem": "For wind-generated surface waves, which combination can produce larger waves?",
+        "options": [
+          "Stronger wind, longer duration and longer fetch",
+          "Still air over a short distance",
+          "Less time and weaker wind",
+          "A smaller water body alone"
+        ],
+        "explanation": "Wave growth depends on wind speed, duration and fetch, the distance wind blows over open water."
+      },
+      "hi": {
+        "stem": "पवन से बनी सतही लहरों के लिए कौन-सा मेल बड़ी लहरें बना सकता है?",
+        "options": [
+          "तेज़ हवा, लंबी अवधि और लंबा पवन-प्रवाह क्षेत्र",
+          "कम दूरी पर शांत हवा",
+          "कम समय और हल्की हवा",
+          "केवल छोटा जलाशय"
+        ],
+        "explanation": "लहरों की वृद्धि हवा की गति, अवधि और खुले जल पर हवा की दूरी पर निर्भर करती है।"
+      },
+      "pa": {
+        "stem": "ਹਵਾ ਨਾਲ ਬਣੀਆਂ ਸਤਹੀ ਲਹਿਰਾਂ ਲਈ ਕਿਹੜਾ ਮੇਲ ਵੱਡੀਆਂ ਲਹਿਰਾਂ ਪੈਦਾ ਕਰ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਤੇਜ਼ ਹਵਾ, ਲੰਮਾ ਸਮਾਂ ਅਤੇ ਲੰਮਾ ਹਵਾ-ਵਹਾਅ ਖੇਤਰ",
+          "ਛੋਟੀ ਦੂਰੀ ਉੱਤੇ ਸ਼ਾਂਤ ਹਵਾ",
+          "ਘੱਟ ਸਮਾਂ ਅਤੇ ਹੌਲੀ ਹਵਾ",
+          "ਸਿਰਫ਼ ਛੋਟਾ ਜਲ-ਖੇਤਰ"
+        ],
+        "explanation": "ਲਹਿਰਾਂ ਦਾ ਵਾਧਾ ਹਵਾ ਦੀ ਰਫ਼ਤਾਰ, ਸਮਾਂ ਅਤੇ ਖੁੱਲ੍ਹੇ ਪਾਣੀ ਉੱਤੇ ਹਵਾ ਦੀ ਦੂਰੀ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q013",
+    "cpId": "WGE-001-CP042",
+    "objective": "wave-energy-transfer",
+    "difficulty": "Hard",
+    "correctIndex": 2,
+    "sourceIds": [
+      "WGE-HYDRO-NCERT"
+    ],
+    "locales": {
+      "en": {
+        "stem": "What is mainly transferred shoreward by a passing surface wave in deep water?",
+        "options": [
+          "The entire ocean water mass",
+          "A permanent shift of all water molecules",
+          "Energy, while water particles mostly move in orbital paths",
+          "Only dissolved salt"
+        ],
+        "explanation": "A surface wave carries energy; in deep water the water particles mostly oscillate rather than travelling with the wave."
+      },
+      "hi": {
+        "stem": "गहरे जल में गुजरती सतही लहर मुख्यतः क्या तट की ओर ले जाती है?",
+        "options": [
+          "पूरा महासागरीय जल-द्रव्यमान",
+          "सभी जल-अणुओं का स्थायी स्थानांतरण",
+          "ऊर्जा, जबकि जल-कण अधिकतर कक्षीय पथ में चलते हैं",
+          "केवल घुला हुआ नमक"
+        ],
+        "explanation": "सतही लहर ऊर्जा ले जाती है; गहरे जल में जल-कण अधिकतर दोलन करते हैं, लहर के साथ दूर नहीं जाते।"
+      },
+      "pa": {
+        "stem": "ਡੂੰਘੇ ਪਾਣੀ ਵਿੱਚ ਲੰਘਦੀ ਸਤਹੀ ਲਹਿਰ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕੀ ਤਟ ਵੱਲ ਲੈ ਜਾਂਦੀ ਹੈ?",
+        "options": [
+          "ਸਾਰਾ ਸਮੁੰਦਰੀ ਪਾਣੀ",
+          "ਸਾਰੇ ਜਲ-ਕਣਾਂ ਦਾ ਪੱਕਾ ਸਥਾਨ-ਬਦਲਾਅ",
+          "ਊਰਜਾ, ਜਦਕਿ ਪਾਣੀ ਦੇ ਕਣ ਵੱਧਤਰ ਗੋਲਾਕਾਰ ਰਾਹਾਂ ਵਿੱਚ ਹਿਲਦੇ ਹਨ",
+          "ਸਿਰਫ਼ ਘੁਲਿਆ ਲੂਣ"
+        ],
+        "explanation": "ਸਤਹੀ ਲਹਿਰ ਊਰਜਾ ਲੈ ਜਾਂਦੀ ਹੈ; ਡੂੰਘੇ ਪਾਣੀ ਵਿੱਚ ਜਲ-ਕਣ ਵੱਧਤਰ ਡੋਲਦੇ ਹਨ, ਲਹਿਰ ਨਾਲ ਦੂਰ ਨਹੀਂ ਜਾਂਦੇ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q014",
+    "cpId": "WGE-001-CP042",
+    "objective": "tsunami-generation-not-tide",
+    "difficulty": "Hard",
+    "correctIndex": 1,
+    "sourceIds": [
+      "WGE-HYDRO-NOAA"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Which event can generate a tsunami by suddenly displacing a large volume of seawater?",
+        "options": [
+          "A daily sea breeze",
+          "A large undersea earthquake",
+          "A normal river flood",
+          "A change in cloud cover"
+        ],
+        "explanation": "A large undersea earthquake can displace the seabed and water column, generating tsunami waves; not every earthquake does so."
+      },
+      "hi": {
+        "stem": "समुद्री जल की बड़ी मात्रा को अचानक खिसकाकर कौन-सी घटना सुनामी बना सकती है?",
+        "options": [
+          "दैनिक समुद्री समीर",
+          "बड़ा समुद्रतलीय भूकंप",
+          "सामान्य नदी-बाढ़",
+          "बादलों के आवरण में बदलाव"
+        ],
+        "explanation": "बड़ा समुद्रतलीय भूकंप समुद्र-तल और जल-स्तंभ को खिसकाकर सुनामी लहरें बना सकता है; हर भूकंप ऐसा नहीं करता।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਪਾਣੀ ਦੀ ਵੱਡੀ ਮਾਤਰਾ ਨੂੰ ਅਚਾਨਕ ਹਿਲਾ ਕੇ ਕਿਹੜੀ ਘਟਨਾ ਸੁਨਾਮੀ ਪੈਦਾ ਕਰ ਸਕਦੀ ਹੈ?",
+        "options": [
+          "ਰੋਜ਼ਾਨਾ ਸਮੁੰਦਰੀ ਹਵਾ",
+          "ਵੱਡਾ ਸਮੁੰਦਰ-ਹੇਠਲਾ ਭੂਚਾਲ",
+          "ਆਮ ਨਦੀ-ਹੜ੍ਹ",
+          "ਬੱਦਲਾਂ ਦੀ ਢਕਾਈ ਵਿੱਚ ਬਦਲਾਅ"
+        ],
+        "explanation": "ਵੱਡਾ ਸਮੁੰਦਰ-ਹੇਠਲਾ ਭੂਚਾਲ ਸਮੁੰਦਰ-ਤਲ ਅਤੇ ਪਾਣੀ ਦੇ ਸਤੰਭ ਨੂੰ ਹਿਲਾ ਕੇ ਸੁਨਾਮੀ ਲਹਿਰਾਂ ਪੈਦਾ ਕਰ ਸਕਦਾ ਹੈ; ਹਰ ਭੂਚਾਲ ਅਜਿਹਾ ਨਹੀਂ ਕਰਦਾ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q015",
+    "cpId": "WGE-001-CP042",
+    "objective": "bathymetric-contour-reading",
+    "difficulty": "Medium",
+    "correctIndex": 0,
+    "sourceIds": [
+      "WGE-HYDRO-CHART"
+    ],
+    "locales": {
+      "en": {
+        "stem": "On a bathymetric chart, what do contour lines joining places of equal depth show?",
+        "options": [
+          "The shape and depth pattern of the seabed",
+          "The route of every ocean current",
+          "Annual rainfall on land",
+          "Political boundaries at sea"
+        ],
+        "explanation": "Bathymetric contours connect points of equal water depth and help show underwater relief."
+      },
+      "hi": {
+        "stem": "समुद्री गहराई के मानचित्र पर समान गहराई वाले स्थानों को जोड़ती रेखाएँ क्या दिखाती हैं?",
+        "options": [
+          "समुद्र-तल का आकार और गहराई का प्रतिरूप",
+          "हर महासागरीय धारा का मार्ग",
+          "स्थल पर वार्षिक वर्षा",
+          "समुद्र की राजनीतिक सीमाएँ"
+        ],
+        "explanation": "समुद्री गहराई की समोच्च रेखाएँ समान गहराई वाले बिंदुओं को जोड़ती हैं और जलमग्न उच्चावच दिखाती हैं।"
+      },
+      "pa": {
+        "stem": "ਸਮੁੰਦਰੀ ਡੂੰਘਾਈ ਦੇ ਨਕਸ਼ੇ ਉੱਤੇ ਇੱਕੋ ਡੂੰਘਾਈ ਵਾਲੀਆਂ ਥਾਵਾਂ ਜੋੜਦੀਆਂ ਰੇਖਾਵਾਂ ਕੀ ਦਿਖਾਉਂਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਸਮੁੰਦਰ-ਤਲ ਦਾ ਰੂਪ ਅਤੇ ਡੂੰਘਾਈ ਦਾ ਨਮੂਨਾ",
+          "ਹਰ ਸਮੁੰਦਰੀ ਧਾਰਾ ਦਾ ਰਾਹ",
+          "ਧਰਤੀ ਉੱਤੇ ਸਾਲਾਨਾ ਮੀਂਹ",
+          "ਸਮੁੰਦਰ ਦੀਆਂ ਰਾਜਨੀਤਿਕ ਹੱਦਾਂ"
+        ],
+        "explanation": "ਸਮੁੰਦਰੀ ਡੂੰਘਾਈ ਦੀਆਂ ਸਮੋਚ ਰੇਖਾਵਾਂ ਇੱਕੋ ਡੂੰਘਾਈ ਵਾਲੇ ਬਿੰਦੂ ਜੋੜਦੀਆਂ ਅਤੇ ਪਾਣੀ ਹੇਠਲਾ ਧਰਾਤਲ ਦਿਖਾਉਂਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q016",
+    "cpId": "WGE-001-CP042",
+    "objective": "isohyet-equal-rainfall",
+    "difficulty": "Easy",
+    "correctIndex": 3,
+    "sourceIds": [
+      "WGE-HYDRO-NCERT"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A weather map uses isohyets. What do these lines connect?",
+        "options": [
+          "Equal air pressure",
+          "Equal elevation",
+          "Equal water depth",
+          "Equal rainfall over a stated period"
+        ],
+        "explanation": "An isohyet joins places receiving equal precipitation during the mapped period."
+      },
+      "hi": {
+        "stem": "मौसम मानचित्र में समवर्षा रेखाएँ हैं। ये रेखाएँ किन स्थानों को जोड़ती हैं?",
+        "options": [
+          "समान वायुदाब",
+          "समान ऊँचाई",
+          "समान जल-गहराई",
+          "दी गई अवधि में समान वर्षा"
+        ],
+        "explanation": "समवर्षा रेखा मानचित्र की अवधि में समान वर्षा पाने वाले स्थानों को जोड़ती है।"
+      },
+      "pa": {
+        "stem": "ਮੌਸਮੀ ਨਕਸ਼ੇ ਉੱਤੇ ਸਮਵਰਖਾ ਰੇਖਾਵਾਂ ਹਨ। ਇਹ ਰੇਖਾਵਾਂ ਕਿਹੜੀਆਂ ਥਾਵਾਂ ਜੋੜਦੀਆਂ ਹਨ?",
+        "options": [
+          "ਇੱਕੋ ਹਵਾਈ ਦਬਾਅ",
+          "ਇੱਕੋ ਉਚਾਈ",
+          "ਇੱਕੋ ਪਾਣੀ ਦੀ ਡੂੰਘਾਈ",
+          "ਦਿੱਤੇ ਅਰਸੇ ਵਿੱਚ ਇੱਕੋ ਮੀਂਹ"
+        ],
+        "explanation": "ਸਮਵਰਖਾ ਰੇਖਾ ਨਕਸ਼ੇ ਦੇ ਅਰਸੇ ਦੌਰਾਨ ਇੱਕੋ ਜਿਹਾ ਮੀਂਹ ਲੈਣ ਵਾਲੀਆਂ ਥਾਵਾਂ ਜੋੜਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q017",
+    "cpId": "WGE-001-CP042",
+    "objective": "storm-hydrograph-urban-response",
+    "difficulty": "Hard",
+    "correctIndex": 2,
+    "sourceIds": [
+      "WGE-HYDRO-NOAA"
+    ],
+    "locales": {
+      "en": {
+        "stem": "Two basins receive similar rain. The paved basin shows a higher, earlier discharge peak. Which explanation best fits?",
+        "options": [
+          "More infiltration delays runoff",
+          "Impervious cover speeds runoff into channels",
+          "The basin has no drainage network",
+          "Rainfall did not occur"
+        ],
+        "explanation": "Urban paving can reduce infiltration and shorten lag time, producing a faster and higher storm-flow response."
+      },
+      "hi": {
+        "stem": "दो जलग्रहण क्षेत्रों में समान वर्षा होती है। पक्के क्षेत्र में जल-प्रवाह की चोटी ऊँची और जल्दी आती है। कारण क्या है?",
+        "options": [
+          "अधिक अंतःस्रवण बहाव देर से लाता है",
+          "अभेद्य सतह बहाव को जल्दी नालों तक पहुँचाती है",
+          "क्षेत्र में जलनिकास जाल नहीं है",
+          "वर्षा हुई ही नहीं"
+        ],
+        "explanation": "शहरी पक्की सतहें अंतःस्रवण घटाकर समय-विलंब कम कर सकती हैं, जिससे तेज़ और ऊँचा बाढ़-प्रवाह बनता है।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਜਲ-ਗ੍ਰਹਿਣ ਖੇਤਰਾਂ ਵਿੱਚ ਇੱਕੋ ਜਿਹਾ ਮੀਂਹ ਪੈਂਦਾ ਹੈ। ਪੱਕੇ ਖੇਤਰ ਵਿੱਚ ਪਾਣੀ ਦੇ ਵਹਾਅ ਦੀ ਚੋਟੀ ਉੱਚੀ ਅਤੇ ਛੇਤੀ ਆਉਂਦੀ ਹੈ। ਕਾਰਨ ਕੀ ਹੈ?",
+        "options": [
+          "ਵੱਧ ਮਿੱਟੀ-ਰਿਸਾਅ ਵਹਾਅ ਦੇਰੀ ਨਾਲ ਲਿਆਉਂਦਾ ਹੈ",
+          "ਨਾ-ਸਮਾਉਣ ਵਾਲੀ ਸਤਹ ਵਹਾਅ ਛੇਤੀ ਨਾਲਿਆਂ ਤੱਕ ਲੈਂਦੀ ਹੈ",
+          "ਖੇਤਰ ਵਿੱਚ ਨਿਕਾਸੀ ਜਾਲ ਨਹੀਂ",
+          "ਮੀਂਹ ਪਿਆ ਹੀ ਨਹੀਂ"
+        ],
+        "explanation": "ਸ਼ਹਿਰੀ ਪੱਕੀਆਂ ਸਤਹਾਂ ਮਿੱਟੀ-ਰਿਸਾਅ ਘਟਾ ਕੇ ਸਮਾਂ-ਦੇਰੀ ਘਟਾ ਸਕਦੀਆਂ ਹਨ, ਜਿਸ ਨਾਲ ਤੇਜ਼ ਅਤੇ ਉੱਚਾ ਹੜ੍ਹ-ਵਹਾਅ ਬਣਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q018",
+    "cpId": "WGE-001-CP042",
+    "objective": "discharge-measurement",
+    "difficulty": "Medium",
+    "correctIndex": 1,
+    "sourceIds": [
+      "WGE-HYDRO-CHART"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A river gauge records 40 cubic metres of water passing a point each second. Which quantity is being measured?",
+        "options": [
+          "Channel width",
+          "Discharge",
+          "Water salinity",
+          "Rainfall duration"
+        ],
+        "explanation": "Discharge is the volume of water passing a cross-section per unit time."
+      },
+      "hi": {
+        "stem": "नदी मापक दर्ज करता है कि हर सेकंड एक बिंदु से चालीस घन मीटर जल गुजरता है। कौन-सी मात्रा मापी गई है?",
+        "options": [
+          "चैनल की चौड़ाई",
+          "जल-प्रवाह मात्रा",
+          "जल की लवणता",
+          "वर्षा अवधि"
+        ],
+        "explanation": "जल-प्रवाह मात्रा प्रति इकाई समय में नदी के अनुप्रस्थ भाग से गुजरने वाले जल का आयतन है।"
+      },
+      "pa": {
+        "stem": "ਨਦੀ ਮਾਪਕ ਦਰਜ ਕਰਦਾ ਹੈ ਕਿ ਹਰ ਸਕਿੰਟ ਇੱਕ ਬਿੰਦੂ ਤੋਂ ਚਾਲੀ ਘਣ ਮੀਟਰ ਪਾਣੀ ਲੰਘਦਾ ਹੈ। ਕਿਹੜੀ ਮਾਤਰਾ ਮਾਪੀ ਗਈ ਹੈ?",
+        "options": [
+          "ਨਦੀ-ਪਟੜੀ ਦੀ ਚੌੜਾਈ",
+          "ਪਾਣੀ ਦੇ ਵਹਾਅ ਦੀ ਮਾਤਰਾ",
+          "ਪਾਣੀ ਦੀ ਖਾਰਾਪਣ",
+          "ਮੀਂਹ ਦੀ ਮਿਆਦ"
+        ],
+        "explanation": "ਵਹਾਅ ਦੀ ਮਾਤਰਾ ਪ੍ਰਤੀ ਇਕਾਈ ਸਮੇਂ ਵਿੱਚ ਨਦੀ ਦੇ ਕੱਟ-ਭਾਗ ਵਿੱਚੋਂ ਲੰਘਦੇ ਪਾਣੀ ਦਾ ਆਇਤਨ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q019",
+    "cpId": "WGE-001-CP042",
+    "objective": "water-balance-surplus-deficit",
+    "difficulty": "Hard",
+    "correctIndex": 3,
+    "sourceIds": [
+      "WGE-HYDRO-NCERT"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A basin receives less precipitation than its combined evaporation and water exports during a long period. What broad balance is indicated?",
+        "options": [
+          "A water surplus",
+          "A water deficit",
+          "No water movement",
+          "A rising ocean tide"
+        ],
+        "explanation": "If inputs remain below combined losses over time, the basin has a water deficit and may draw down storage."
+      },
+      "hi": {
+        "stem": "लंबी अवधि में किसी जलग्रहण क्षेत्र में वर्षा, वाष्पीकरण और बाहर भेजे जल के योग से कम है। कौन-सा जल-संतुलन संकेतित है?",
+        "options": [
+          "जल-अधिशेष",
+          "जल-घाटा",
+          "जल का कोई संचलन नहीं",
+          "बढ़ता समुद्री ज्वार"
+        ],
+        "explanation": "यदि समय के साथ आगम संयुक्त हानि से कम रहे तो क्षेत्र में जल-घाटा होता है और भंडार घट सकता है।"
+      },
+      "pa": {
+        "stem": "ਲੰਮੇ ਅਰਸੇ ਵਿੱਚ ਜਲ-ਗ੍ਰਹਿਣ ਖੇਤਰ ਵਿੱਚ ਮੀਂਹ, ਵਾਸ਼ਪੀਕਰਨ ਅਤੇ ਬਾਹਰ ਭੇਜੇ ਪਾਣੀ ਦੇ ਜੋੜ ਨਾਲੋਂ ਘੱਟ ਹੈ। ਕਿਹੜਾ ਜਲ-ਸੰਤੁਲਨ ਦਰਸਾਇਆ ਗਿਆ ਹੈ?",
+        "options": [
+          "ਪਾਣੀ ਦਾ ਵਾਧੂ ਭੰਡਾਰ",
+          "ਪਾਣੀ ਦੀ ਘਾਟ",
+          "ਪਾਣੀ ਦੀ ਕੋਈ ਗਤੀ ਨਹੀਂ",
+          "ਚੜ੍ਹਦਾ ਸਮੁੰਦਰੀ ਜਵਾਰ"
+        ],
+        "explanation": "ਜੇ ਸਮੇਂ ਨਾਲ ਆਉਣ ਵਾਲਾ ਪਾਣੀ ਕੁੱਲ ਨੁਕਸਾਨ ਤੋਂ ਘੱਟ ਰਹੇ ਤਾਂ ਖੇਤਰ ਵਿੱਚ ਪਾਣੀ ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ ਭੰਡਾਰ ਘਟ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP042-Q020",
+    "cpId": "WGE-001-CP042",
+    "objective": "rainfall-runoff-land-cover",
+    "difficulty": "Hard",
+    "correctIndex": 0,
+    "sourceIds": [
+      "WGE-HYDRO-NOAA"
+    ],
+    "locales": {
+      "en": {
+        "stem": "A hydrograph shows a delayed, lower peak after similar rainfall in a forested basin than in a paved basin. Which factor helps explain the difference?",
+        "options": [
+          "Vegetation and soils can intercept and store water",
+          "Forest cover prevents all rain",
+          "Pavement increases infiltration",
+          "A hydrograph measures only wind"
+        ],
+        "explanation": "Interception, infiltration and temporary storage can slow runoff and spread the river response over time."
+      },
+      "hi": {
+        "stem": "समान वर्षा के बाद वनाच्छादित क्षेत्र का जलालेख पक्के क्षेत्र की तुलना में देर से और नीची चोटी दिखाता है। कौन-सा कारक अंतर समझाता है?",
+        "options": [
+          "वनस्पति और मिट्टी जल रोक तथा जमा सकती हैं",
+          "वन सभी वर्षा रोक देते हैं",
+          "पक्की सतह अंतःस्रवण बढ़ाती है",
+          "जलालेख केवल हवा मापता है"
+        ],
+        "explanation": "अवरोधन, अंतःस्रवण और अस्थायी भंडारण बहाव धीमा कर नदी की प्रतिक्रिया को समय में फैला सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਇੱਕੋ ਮੀਂਹ ਪਿੱਛੋਂ ਜੰਗਲ ਵਾਲੇ ਖੇਤਰ ਦਾ ਜਲ-ਲੇਖ ਪੱਕੇ ਖੇਤਰ ਨਾਲੋਂ ਦੇਰੀ ਨਾਲ ਅਤੇ ਨੀਵੀਂ ਚੋਟੀ ਦਿਖਾਉਂਦਾ ਹੈ। ਕਿਹੜਾ ਕਾਰਕ ਫ਼ਰਕ ਸਮਝਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਬਨਸਪਤੀ ਅਤੇ ਮਿੱਟੀ ਪਾਣੀ ਰੋਕ ਤੇ ਸੰਭਾਲ ਸਕਦੇ ਹਨ",
+          "ਜੰਗਲ ਸਾਰਾ ਮੀਂਹ ਰੋਕ ਦਿੰਦੇ ਹਨ",
+          "ਪੱਕੀ ਸਤਹ ਮਿੱਟੀ-ਰਿਸਾਅ ਵਧਾਉਂਦੀ ਹੈ",
+          "ਜਲ-ਲੇਖ ਸਿਰਫ਼ ਹਵਾ ਮਾਪਦਾ ਹੈ"
+        ],
+        "explanation": "ਰੋਕ, ਮਿੱਟੀ-ਰਿਸਾਅ ਅਤੇ ਅਸਥਾਈ ਭੰਡਾਰ ਵਹਾਅ ਹੌਲਾ ਕਰਕੇ ਨਦੀ ਦੀ ਪ੍ਰਤੀਕਿਰਿਆ ਨੂੰ ਸਮੇਂ ਵਿੱਚ ਫੈਲਾ ਸਕਦੇ ਹਨ।"
+      }
+    }
+  }
+]
