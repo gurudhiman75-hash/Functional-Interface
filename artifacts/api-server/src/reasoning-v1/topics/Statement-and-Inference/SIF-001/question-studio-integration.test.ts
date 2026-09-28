@@ -4,12 +4,15 @@ import { SIF_001_QUESTION_STUDIO_PACKAGE_ID, SIF_001_QUESTION_STUDIO_REVIEW_PACK
 
 assert.equal(SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE.cpCount, 17);
 assert.equal(SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE.lifecycleStatus, "REVIEW_ONLY");
+assert.equal(SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualFrozen, true);
+assert.equal(SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE.reviewStatus, "SIF_001_V1_FROZEN_REVIEW_ONLY");
 assert.ok(listReasoningV1QuestionStudioReviewPackages().some((entry) => entry.packageId === SIF_001_QUESTION_STUDIO_PACKAGE_ID));
 assert.ok(listEnabledReasoningV1QuestionStudioPackages().some((entry) => entry.packageId === SIF_001_QUESTION_STUDIO_PACKAGE_ID));
 
 const preview = previewReasoningV1QuestionStudioReview({ packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID, cpId: "SIF-CP010", locale: "pa-IN", seed: 1010 });
 assert.equal(preview.packageId, SIF_001_QUESTION_STUDIO_PACKAGE_ID);
 assert.equal(preview.lifecycleStatus, "REVIEW_ONLY");
+assert.equal(preview.multilingualFrozen, true);
 assert.equal(preview.question.cpId, "SIF-CP010");
 assert.equal(preview.question.metadata.questionBankWritable, false);
 

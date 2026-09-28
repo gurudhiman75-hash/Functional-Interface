@@ -28,9 +28,9 @@ export const SIF_001_MANIFEST = {
     formalCauseEffectOwnedBy: "CAE-001",
   },
   lifecycle: {
-    implementationStatus: "IMPLEMENTED_REVIEW_CANDIDATE_V1",
-    chapterFrozen: false,
-    multilingualFrozen: false,
+    implementationStatus: "FROZEN_V1_REVIEW_ONLY",
+    chapterFrozen: true,
+    multilingualFrozen: true,
     questionStudio: "REGISTERED_REVIEW_ONLY",
     questionBankWritable: false,
     testEligible: false,
@@ -38,5 +38,7 @@ export const SIF_001_MANIFEST = {
     publicEligible: false,
     automaticPublication: false,
     humanEditorialApprovalRequired: true,
+    separateReleaseApprovalRequired: true,
+    noveltyExpansion: "DEFERRED_TO_CROSS_CHAPTER_FINAL_PASS",
   },
 } as const;

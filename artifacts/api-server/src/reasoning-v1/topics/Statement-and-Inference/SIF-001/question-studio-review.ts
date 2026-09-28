@@ -1,7 +1,11 @@
 import { SIF_CP_IDS, type SifCpId, type SifLocale, type SifQuestionFormat } from "./types.ts";
 import { generateSifQuestion } from "./generator.ts";
+import { SIF_001_CHAPTER_FREEZE_V1 } from "./chapter-freeze-v1-manifest.ts";
 
 export const SIF_001_QUESTION_STUDIO_PACKAGE_ID = "reasoning-v1:sif-001:review-v1" as const;
+export const SIF_001_QUESTION_STUDIO_REVIEW_AUTHORITY = "SIF-001-QUESTION-STUDIO-V1-FROZEN" as const;
+export const SIF_001_QUESTION_STUDIO_REVIEW_STATUS = "SIF_001_V1_FROZEN_REVIEW_ONLY" as const;
+export const SIF_001_QUESTION_STUDIO_RELEASE_FREEZE = SIF_001_CHAPTER_FREEZE_V1.freezeId;
 export const SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE = {
   packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID,
   chapterId: "SIF-001",
@@ -13,6 +17,10 @@ export const SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE = {
   questionStudioVisible: true,
   enabled: true,
   lifecycleStatus: "REVIEW_ONLY",
+  reviewStatus: SIF_001_QUESTION_STUDIO_REVIEW_STATUS,
+  integrationAuthority: SIF_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
+  releaseFreezeStatus: SIF_001_QUESTION_STUDIO_RELEASE_FREEZE,
+  multilingualFrozen: true,
   multilingualStatus: "REVIEW_CANDIDATE",
   reviewOnly: true,
   questionBankWritable: false,
@@ -36,6 +44,10 @@ export function previewSif001QuestionStudioReview(input: PreviewSif001QuestionSt
     packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID,
     chapterId: "SIF-001" as const,
     lifecycleStatus: "REVIEW_ONLY" as const,
+    reviewStatus: SIF_001_QUESTION_STUDIO_REVIEW_STATUS,
+    integrationAuthority: SIF_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
+    freezeId: SIF_001_QUESTION_STUDIO_RELEASE_FREEZE,
+    multilingualFrozen: true as const,
     questionStudioVisible: true as const,
     questionBankWritable: false as const,
     testEligible: false as const,
@@ -86,5 +98,5 @@ export function previewSif001QuestionStudioReview(input: PreviewSif001QuestionSt
 }
 
 export function assertSif001QuestionStudioPersistenceAllowed(): never {
-  throw new Error("SIF-001 is review only; Question Bank, test, mock and public delivery remain locked until human editorial approval and chapter freeze.");
+  throw new Error("SIF-001 V1 is frozen for Question Studio review only; Question Bank, test, mock and public delivery remain locked until separate release approval.");
 }
