@@ -672,8 +672,11 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
   if (algebraBankOnlyCount) blockers.push("ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK");
   if (optionMismatchCount) blockers.push("SHADOW_OPTION_COUNT_PROFILE_DRIFT");
   if (emptyExplanationCount) blockers.push("SHADOW_EMPTY_EXPLANATIONS_PRESENT");
-  if (normalizedStructuralStemReuseRate > 0.05) {
-    blockers.push("SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT");
+  if (standaloneNormalizedStructuralStemReuseRate > 0.05) {
+    blockers.push("SHADOW_STANDALONE_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT");
+  }
+  if (linkedSetLearnerQuestionDuplicateRate > 0.05) {
+    blockers.push("SHADOW_LINKED_SET_LEARNER_QUESTION_DUPLICATION_ABOVE_5_PERCENT");
   }
 
   return Object.freeze({
