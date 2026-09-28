@@ -1,0 +1,47 @@
+import type{Eng009Cp005PassageV1}from"./eng-009-cp005-authorities-v1";
+export const ENG009_CP005_BREADTH_WAVE2:readonly Eng009Cp005PassageV1[]=[
+{id:"ENG009-NP-C11",title:"Why Password Managers Help",topic:"digital security",template:`People often reuse passwords because remembering a different strong password for every account is difficult. This creates a serious weakness: if one password is exposed, attackers may try the same password on other services. A password manager can reduce this risk by storing many complex passwords behind one protected account. The user then needs to remember only the main password and follow good security practices for that account.
+
+The main benefit is that each website can have a different password. This makes one breach less likely to affect every account. Password managers can also generate long random passwords that are harder to guess. However, the tool does not remove all responsibility from the user. The main password must itself be strong and should not be shared. Multi-factor authentication can add another layer of protection. These steps make the system more __(1)__.
+
+Some users worry that storing passwords in one place creates a single point of failure. That concern is reasonable, which is why the quality of the password manager matters. A well-designed service protects stored data with strong encryption and clear security controls. Users should still keep recovery information safe and understand what happens if they lose access.
+
+Convenience is also important. A security tool that is too difficult to use may be abandoned. Browser and mobile integration can make secure passwords easier to use in daily life. This helps good security become more __(2)__ rather than something users must remember to do manually each time.
+
+A password manager should also reduce risky habits such as writing passwords in obvious places or making only small changes to the same password. It cannot prevent phishing if a user willingly gives credentials to a fake site, but some managers can help by filling passwords only on the correct domain. This makes certain attacks harder to __(3)__.
+
+The broader lesson is that security often improves when the safe option is also the convenient option. People are more likely to follow a rule that fits normal behaviour. Password managers work because they reduce the memory burden while allowing stronger credentials. They are not perfect, but they can make password use more __(4)__ across many accounts.
+
+Users should still review old accounts, update recovery details and respond to security alerts. No tool should create false confidence. A password manager supports good security; it does not replace judgment. The best setup combines strong passwords, multi-factor authentication and careful behaviour. This creates several layers of protection rather than depending on one control.
+
+For most users, the value of a password manager is therefore not simply that it remembers passwords. It allows each account to be protected with a different credential without making daily use too __(5)__. That balance between security and convenience is what makes the approach sustainable. When used properly, the tool can reduce password reuse and make account protection more __(6)__.`,blanks:[
+{id:"N11-B1",blankNo:1,difficulty:"medium",mode:"can-fit",accepted:["secure","resilient","protected"],rejected:["careless"],explanation:"A strong master password and MFA make the system more secure.",clue:"system more ..."},
+{id:"N11-B2",blankNo:2,difficulty:"hard",mode:"cannot-fit",accepted:["automatic","routine","consistent"],rejected:["rare"],explanation:"Good security should become part of normal use. 'Rare' does not fit.",clue:"security become more ..."},
+{id:"N11-B3",blankNo:3,difficulty:"hard",mode:"phrasal-word",accepted:["execute"],rejected:["admire","store","celebrate"],explanation:"A fake-site attack becomes harder to execute when passwords are filled only on the correct domain.",clue:"attacks harder to ..."},
+{id:"N11-B4",blankNo:4,difficulty:"medium",mode:"can-fit",accepted:["consistent","disciplined","reliable"],rejected:["random"],explanation:"The tool helps users follow stronger password habits consistently.",clue:"password use more ..."},
+{id:"N11-B5",blankNo:5,difficulty:"hard",mode:"cannot-fit",accepted:["difficult","burdensome","inconvenient"],rejected:["effortless"],explanation:"The sentence says daily use should not become too hard. 'Effortless' does not fit.",clue:"without making daily use too ..."},
+{id:"N11-B6",blankNo:6,difficulty:"medium",mode:"phrasal-word",accepted:["manageable"],rejected:["fragile","hidden","random"],explanation:"The tool makes strong account protection easier to manage.",clue:"protection more ..."}]},
+{id:"ENG009-NP-C12",title:"Why Preventive Vehicle Maintenance Matters",topic:"asset maintenance",template:`Vehicle problems are often noticed only after a warning light appears or the vehicle stops working. Preventive maintenance tries to act earlier by checking parts that wear gradually, such as tyres, brakes, fluids and filters. The aim is not to replace everything too soon, but to identify problems before they create a larger failure.
+
+A maintenance schedule gives owners a basic structure, but driving conditions still matter. A vehicle used on rough roads, in heavy traffic or under high loads may need some checks more often. This means the schedule should be treated as a guide rather than an absolute rule. Owners should also pay attention to changes in sound, handling or fuel use. These signals can make maintenance more __(1)__.
+
+Records are useful because they show when work was last completed. Without records, the same service may be repeated too early or forgotten for too long. A simple log also helps a mechanic understand the vehicle's history. This makes diagnosis more __(2)__ when a problem appears.
+
+Preventive work can seem expensive because money is spent before a breakdown happens. The benefit is often invisible: a failure that never occurred. This makes it easy to postpone maintenance when budgets are tight. Yet delayed work can turn a small problem into a larger repair. Good maintenance therefore compares the cost of early action with the risk of later failure.
+
+Not every recommendation has the same urgency. A cosmetic issue can usually wait, while worn brakes require immediate attention. Owners therefore need to __(3)__ maintenance tasks according to safety and consequence. This prevents minor work from distracting from important repairs.
+
+Maintenance also affects reliability. A vehicle that is serviced regularly is less likely to create unexpected downtime. For a business fleet, this can matter as much as repair cost because a vehicle that cannot operate may delay deliveries or staff. Preventive maintenance therefore protects both the asset and the work that depends on it.
+
+The best maintenance plans are reviewed over time. If a particular component repeatedly fails earlier than expected, the schedule may need adjustment. If a newer part lasts longer, servicing may be extended. This makes the plan more __(4)__ to actual use.
+
+The broader lesson is that maintenance is a form of risk management. It uses small, planned actions to reduce the chance of large, unplanned failures. The system works best when owners keep records, follow safety priorities and remain alert to changes. It should be structured enough to prevent neglect but flexible enough to respond to real conditions.
+
+A vehicle does not become reliable because one service was completed. Reliability comes from repeated attention over time. Preventive maintenance therefore depends on consistency rather than one-time effort. When that habit is maintained, breakdowns become less __(5)__ and repair decisions become more __(6)__.`,blanks:[
+{id:"N12-B1",blankNo:1,difficulty:"hard",mode:"cannot-fit",accepted:["timely","targeted","responsive"],rejected:["blind"],explanation:"Vehicle signals help maintenance happen at the right time. 'Blind' does not fit.",clue:"maintenance more ..."},
+{id:"N12-B2",blankNo:2,difficulty:"medium",mode:"can-fit",accepted:["accurate","efficient","informed"],rejected:["random"],explanation:"A service history helps diagnosis become more accurate and informed.",clue:"diagnosis more ..."},
+{id:"N12-B3",blankNo:3,difficulty:"hard",mode:"phrasal-word",accepted:["prioritise"],rejected:["decorate","scatter","hide"],explanation:"Safety-critical work should be prioritised over minor issues.",clue:"need to ... maintenance tasks"},
+{id:"N12-B4",blankNo:4,difficulty:"medium",mode:"can-fit",accepted:["responsive","adapted","suited"],rejected:["rigid"],explanation:"The plan should reflect actual vehicle use rather than stay rigid.",clue:"plan more ... to actual use"},
+{id:"N12-B5",blankNo:5,difficulty:"hard",mode:"cannot-fit",accepted:["frequent","likely","disruptive"],rejected:["planned"],explanation:"Good maintenance should make unexpected breakdowns less frequent or likely. 'Planned' does not fit.",clue:"breakdowns become less ..."},
+{id:"N12-B6",blankNo:6,difficulty:"medium",mode:"phrasal-word",accepted:["informed"],rejected:["hidden","random","careless"],explanation:"Good records and checks make repair decisions more informed.",clue:"decisions become more ..."}]}
+];
