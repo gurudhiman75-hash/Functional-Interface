@@ -1,0 +1,812 @@
+[
+  {
+    "id": "WGE-001-CP027-Q001",
+    "cpId": "WGE-001-CP027",
+    "objective": "blue-nile-source-highlands",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which highland region is the source of the Blue Nile at Lake Tana?",
+        "options": [
+          "EthiopianHighlands",
+          "Atlas",
+          "Drakensberg",
+          "EastAfricanRift"
+        ],
+        "explanation": "The Blue Nile rises at Lake Tana in the Ethiopian Highlands."
+      },
+      "hi": {
+        "stem": "टाना झील से निकलने वाली नीली नील का स्रोत कौन-सा उच्चभूमि क्षेत्र है?",
+        "options": [
+          "इथियोपियाई उच्चभूमि",
+          "एटलस पर्वत",
+          "ड्रैकन्सबर्ग पर्वत",
+          "पूर्वी अफ्रीकी रिफ्ट घाटी"
+        ],
+        "explanation": "नीली नील इथियोपियाई उच्चभूमि की टाना झील से निकलती है।"
+      },
+      "pa": {
+        "stem": "ਟਾਨਾ ਝੀਲ ਤੋਂ ਨਿਕਲਣ ਵਾਲੇ ਨੀਲੇ ਨੀਲ ਦਾ ਸਰੋਤ ਕਿਹੜਾ ਉੱਚਭੂਮੀ ਖੇਤਰ ਹੈ?",
+        "options": [
+          "ਇਥੋਪੀਆਈ ਉੱਚਭੂਮੀ",
+          "ਐਟਲਸ ਪਹਾੜ",
+          "ਡ੍ਰੈਕਨਜ਼ਬਰਗ ਪਹਾੜ",
+          "ਪੂਰਬੀ ਅਫ਼ਰੀਕੀ ਰਿਫਟ ਘਾਟੀ"
+        ],
+        "explanation": "ਨੀਲਾ ਨੀਲ ਇਥੋਪੀਆਈ ਉੱਚਭੂਮੀ ਦੀ ਟਾਨਾ ਝੀਲ ਤੋਂ ਨਿਕਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q002",
+    "cpId": "WGE-001-CP027",
+    "objective": "sahel-south-sahara",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which semi-arid transition belt lies immediately south of the Sahara?",
+        "options": [
+          "Sahara",
+          "Namib",
+          "Drakensberg",
+          "Sahel"
+        ],
+        "explanation": "The Sahel is a semi-arid transition zone between the Sahara and wetter savanna regions farther south."
+      },
+      "hi": {
+        "stem": "सहारा के ठीक दक्षिण में कौन-सी अर्ध-शुष्क संक्रमण पट्टी स्थित है?",
+        "options": [
+          "सहारा",
+          "नामिब मरुस्थल",
+          "ड्रैकन्सबर्ग पर्वत",
+          "साहेल"
+        ],
+        "explanation": "साहेल सहारा और दक्षिण में स्थित अधिक वर्षा वाले सवाना क्षेत्रों के बीच अर्ध-शुष्क संक्रमण क्षेत्र है।"
+      },
+      "pa": {
+        "stem": "ਸਹਾਰਾ ਦੇ ਬਿਲਕੁਲ ਦੱਖਣ ਵੱਲ ਕਿਹੜੀ ਅਰਧ-ਸੁੱਕੀ ਬਦਲਾਅ ਪੱਟੀ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਸਹਾਰਾ",
+          "ਨਾਮਿਬ ਮਾਰੂਥਲ",
+          "ਡ੍ਰੈਕਨਜ਼ਬਰਗ ਪਹਾੜ",
+          "ਸਾਹੇਲ"
+        ],
+        "explanation": "ਸਾਹੇਲ ਸਹਾਰਾ ਅਤੇ ਇਸਦੇ ਦੱਖਣ ਵੱਲ ਵਧੇਰੇ ਵਰਖਾ ਵਾਲੇ ਸਵਾਨਾ ਖੇਤਰਾਂ ਵਿਚਕਾਰ ਅਰਧ-ਸੁੱਕਾ ਬਦਲਾਅ ਖੇਤਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q003",
+    "cpId": "WGE-001-CP027",
+    "objective": "nile-mediterranean-outlet",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which river flows north through Egypt into the Mediterranean Sea?",
+        "options": [
+          "Niger",
+          "Zambezi",
+          "Nile",
+          "Congo"
+        ],
+        "explanation": "The Nile flows north through Sudan and Egypt and reaches the Mediterranean Sea."
+      },
+      "hi": {
+        "stem": "मिस्र से उत्तर की ओर बहकर भूमध्य सागर में कौन-सी नदी गिरती है?",
+        "options": [
+          "नाइजर",
+          "ज़ाम्बेज़ी",
+          "नील",
+          "कांगो"
+        ],
+        "explanation": "नील सूडान और मिस्र से उत्तर की ओर बहती है और भूमध्य सागर में गिरती है।"
+      },
+      "pa": {
+        "stem": "ਮਿਸਰ ਵਿੱਚੋਂ ਉੱਤਰ ਵੱਲ ਵਗ ਕੇ ਭੂਮੱਧ ਸਾਗਰ ਵਿੱਚ ਕਿਹੜਾ ਦਰਿਆ ਡਿੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਨਾਈਜਰ",
+          "ਜ਼ੈਂਬੇਜ਼ੀ",
+          "ਨੀਲ",
+          "ਕਾਂਗੋ"
+        ],
+        "explanation": "ਨੀਲ ਸੁਡਾਨ ਅਤੇ ਮਿਸਰ ਵਿੱਚੋਂ ਉੱਤਰ ਵੱਲ ਵਗਦਾ ਹੈ ਅਤੇ ਭੂਮੱਧ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q004",
+    "cpId": "WGE-001-CP027",
+    "objective": "congo-basin-equatorial-africa",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which river drains a large equatorial basin in Central Africa?",
+        "options": [
+          "OrangeRiver",
+          "Congo",
+          "Nile",
+          "Niger"
+        ],
+        "explanation": "The Congo River drains the Congo Basin, a broad lowland region crossed by the Equator."
+      },
+      "hi": {
+        "stem": "मध्य अफ्रीका के बड़े भूमध्यरेखीय बेसिन का जल निकास कौन-सी नदी करती है?",
+        "options": [
+          "ऑरेंज नदी",
+          "कांगो",
+          "नील",
+          "नाइजर"
+        ],
+        "explanation": "कांगो नदी कांगो बेसिन का जल निकास करती है; यह विस्तृत निम्नभूमि भूमध्य रेखा से होकर गुजरती है।"
+      },
+      "pa": {
+        "stem": "ਮੱਧ ਅਫ਼ਰੀਕਾ ਦੇ ਵੱਡੇ ਭੂ-ਮੱਧ ਰੇਖਾਈ ਬੇਸਿਨ ਦਾ ਪਾਣੀ ਕਿਹੜਾ ਦਰਿਆ ਲੈ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਔਰੇਂਜ ਦਰਿਆ",
+          "ਕਾਂਗੋ",
+          "ਨੀਲ",
+          "ਨਾਈਜਰ"
+        ],
+        "explanation": "ਕਾਂਗੋ ਦਰਿਆ ਕਾਂਗੋ ਬੇਸਿਨ ਦਾ ਪਾਣੀ ਲੈ ਜਾਂਦਾ ਹੈ; ਇਹ ਵਿਸ਼ਾਲ ਨੀਵਾਂ ਖੇਤਰ ਭੂ-ਮੱਧ ਰੇਖਾ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q005",
+    "cpId": "WGE-001-CP027",
+    "objective": "niger-gulf-guinea",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which West African river forms a delta in Nigeria before reaching the Gulf of Guinea?",
+        "options": [
+          "Niger",
+          "Nile",
+          "Congo",
+          "Zambezi"
+        ],
+        "explanation": "The Niger River forms a large delta in Nigeria before entering the Gulf of Guinea."
+      },
+      "hi": {
+        "stem": "गिनी की खाड़ी में गिरने से पहले नाइजीरिया में डेल्टा बनाने वाली पश्चिमी अफ्रीका की नदी कौन-सी है?",
+        "options": [
+          "नाइजर",
+          "नील",
+          "कांगो",
+          "ज़ाम्बेज़ी"
+        ],
+        "explanation": "नाइजर नदी गिनी की खाड़ी में गिरने से पहले नाइजीरिया में बड़ा डेल्टा बनाती है।"
+      },
+      "pa": {
+        "stem": "ਗਿਨੀ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਣ ਤੋਂ ਪਹਿਲਾਂ ਨਾਈਜੀਰੀਆ ਵਿੱਚ ਡੈਲਟਾ ਬਣਾਉਣ ਵਾਲਾ ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਦਾ ਦਰਿਆ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਨਾਈਜਰ",
+          "ਨੀਲ",
+          "ਕਾਂਗੋ",
+          "ਜ਼ੈਂਬੇਜ਼ੀ"
+        ],
+        "explanation": "ਨਾਈਜਰ ਦਰਿਆ ਗਿਨੀ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਣ ਤੋਂ ਪਹਿਲਾਂ ਨਾਈਜੀਰੀਆ ਵਿੱਚ ਵੱਡਾ ਡੈਲਟਾ ਬਣਾਉਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q006",
+    "cpId": "WGE-001-CP027",
+    "objective": "east-african-rift-lakes-volcanoes",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which rift system crosses East Africa’s lake and volcanic region?",
+        "options": [
+          "Atlas",
+          "Drakensberg",
+          "Alps",
+          "EastAfricanRift"
+        ],
+        "explanation": "The East African Rift is an active continental rift zone with deep lakes, escarpments and volcanic areas."
+      },
+      "hi": {
+        "stem": "पूर्वी अफ्रीका के झीलों और ज्वालामुखियों वाले क्षेत्र से कौन-सी रिफ्ट प्रणाली गुजरती है?",
+        "options": [
+          "एटलस पर्वत",
+          "ड्रैकन्सबर्ग पर्वत",
+          "आल्प्स",
+          "पूर्वी अफ्रीकी रिफ्ट घाटी"
+        ],
+        "explanation": "पूर्वी अफ्रीकी रिफ्ट सक्रिय महाद्वीपीय दरार क्षेत्र है, जहाँ गहरी झीलें, कगार और ज्वालामुखीय क्षेत्र हैं।"
+      },
+      "pa": {
+        "stem": "ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਦੇ ਝੀਲਾਂ ਅਤੇ ਜਵਾਲਾਮੁਖੀਆਂ ਵਾਲੇ ਖੇਤਰ ਵਿੱਚੋਂ ਕਿਹੜੀ ਰਿਫਟ ਪ੍ਰਣਾਲੀ ਲੰਘਦੀ ਹੈ?",
+        "options": [
+          "ਐਟਲਸ ਪਹਾੜ",
+          "ਡ੍ਰੈਕਨਜ਼ਬਰਗ ਪਹਾੜ",
+          "ਆਲਪਸ",
+          "ਪੂਰਬੀ ਅਫ਼ਰੀਕੀ ਰਿਫਟ ਘਾਟੀ"
+        ],
+        "explanation": "ਪੂਰਬੀ ਅਫ਼ਰੀਕੀ ਰਿਫਟ ਸਰਗਰਮ ਮਹਾਂਦੀਪੀ ਦਰਾਰ ਖੇਤਰ ਹੈ, ਜਿੱਥੇ ਡੂੰਘੀਆਂ ਝੀਲਾਂ, ਕਿਨਾਰੇ ਅਤੇ ਜਵਾਲਾਮੁਖੀ ਖੇਤਰ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q007",
+    "cpId": "WGE-001-CP027",
+    "objective": "somalia-horn-of-africa",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which country occupies the eastern part of the Horn of Africa?",
+        "options": [
+          "Nigeria",
+          "SouthAfrica",
+          "Somalia",
+          "Kenya"
+        ],
+        "explanation": "Somalia occupies the eastern part of the Horn of Africa, south of Djibouti and east of Ethiopia."
+      },
+      "hi": {
+        "stem": "अफ़्रीका के हॉर्न का पूर्वी भाग किस देश में आता है?",
+        "options": [
+          "नाइजीरिया",
+          "दक्षिण अफ्रीका",
+          "सोमालिया",
+          "केन्या"
+        ],
+        "explanation": "सोमालिया हॉर्न ऑफ़ अफ्रीका के पूर्वी भाग में, जिबूती के दक्षिण और इथियोपिया के पूर्व में है।"
+      },
+      "pa": {
+        "stem": "ਅਫ਼ਰੀਕਾ ਦੇ ਹੌਰਨ ਦਾ ਪੂਰਬੀ ਹਿੱਸਾ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਨਾਈਜੀਰੀਆ",
+          "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ",
+          "ਸੋਮਾਲੀਆ",
+          "ਕੀਨੀਆ"
+        ],
+        "explanation": "ਸੋਮਾਲੀਆ ਅਫ਼ਰੀਕਾ ਦੇ ਹੌਰਨ ਦੇ ਪੂਰਬੀ ਹਿੱਸੇ ਵਿੱਚ, ਜਿਬੂਤੀ ਦੇ ਦੱਖਣ ਅਤੇ ਇਥੋਪੀਆ ਦੇ ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q008",
+    "cpId": "WGE-001-CP027",
+    "objective": "atlas-northwest-africa",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which mountain range runs across Morocco and other parts of northwest Africa?",
+        "options": [
+          "Carpathians",
+          "Atlas",
+          "Alps",
+          "Drakensberg"
+        ],
+        "explanation": "The Atlas Mountains extend across Morocco, Algeria and Tunisia in northwest Africa."
+      },
+      "hi": {
+        "stem": "मोरक्को और उत्तर-पश्चिमी अफ्रीका के अन्य भागों में कौन-सी पर्वत-श्रेणी फैली है?",
+        "options": [
+          "कार्पेथियन पर्वत",
+          "एटलस पर्वत",
+          "आल्प्स",
+          "ड्रैकन्सबर्ग पर्वत"
+        ],
+        "explanation": "एटलस पर्वत उत्तर-पश्चिमी अफ्रीका में मोरक्को, अल्जीरिया और ट्यूनीशिया तक फैले हैं।"
+      },
+      "pa": {
+        "stem": "ਮੋਰੱਕੋ ਅਤੇ ਉੱਤਰ-ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਦੇ ਹੋਰ ਹਿੱਸਿਆਂ ਵਿੱਚ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਫੈਲੀ ਹੈ?",
+        "options": [
+          "ਕਾਰਪੇਥੀਅਨ ਪਹਾੜ",
+          "ਐਟਲਸ ਪਹਾੜ",
+          "ਆਲਪਸ",
+          "ਡ੍ਰੈਕਨਜ਼ਬਰਗ ਪਹਾੜ"
+        ],
+        "explanation": "ਐਟਲਸ ਪਹਾੜ ਉੱਤਰ-ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਮੋਰੱਕੋ, ਅਲਜੀਰੀਆ ਅਤੇ ਟਿਊਨੀਸ਼ੀਆ ਤੱਕ ਫੈਲੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q009",
+    "cpId": "WGE-001-CP027",
+    "objective": "lake-victoria-east-africa",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which African lake is bordered by Tanzania, Uganda and Kenya?",
+        "options": [
+          "LakeVictoria",
+          "LakeChad",
+          "LakeTanganyika",
+          "Caspian"
+        ],
+        "explanation": "Lake Victoria is shared by these three East African countries."
+      },
+      "hi": {
+        "stem": "कौन-सी अफ्रीकी झील तंज़ानिया, युगांडा और केन्या से लगती है?",
+        "options": [
+          "विक्टोरिया झील",
+          "चाड झील",
+          "टांगानिका झील",
+          "कैस्पियन सागर"
+        ],
+        "explanation": "विक्टोरिया झील इन तीन पूर्वी अफ्रीकी देशों से लगती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਅਫ਼ਰੀਕੀ ਝੀਲ ਤਨਜ਼ਾਨੀਆ, ਯੂਗਾਂਡਾ ਅਤੇ ਕੀਨੀਆ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
+        "options": [
+          "ਵਿਕਟੋਰੀਆ ਝੀਲ",
+          "ਚਾਡ ਝੀਲ",
+          "ਟਾਂਗਾਨੀਕਾ ਝੀਲ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ"
+        ],
+        "explanation": "ਵਿਕਟੋਰੀਆ ਝੀਲ ਇਨ੍ਹਾਂ ਤਿੰਨ ਪੂਰਬੀ ਅਫ਼ਰੀਕੀ ਦੇਸ਼ਾਂ ਨਾਲ ਲੱਗਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q010",
+    "cpId": "WGE-001-CP027",
+    "objective": "lake-chad-sahel",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which shallow lake lies in the Sahel near Chad, Niger, Nigeria and Cameroon?",
+        "options": [
+          "LakeVictoria",
+          "Tanganyika",
+          "DeadSea",
+          "LakeChad"
+        ],
+        "explanation": "Lake Chad lies at the southern edge of the Sahara and its shoreline changes with inflow and climate."
+      },
+      "hi": {
+        "stem": "चाड, नाइजर, नाइजीरिया और कैमरून के पास साहेल में कौन-सी उथली झील स्थित है?",
+        "options": [
+          "विक्टोरिया झील",
+          "टांगानिका झील",
+          "मृत सागर",
+          "चाड झील"
+        ],
+        "explanation": "चाड झील सहारा के दक्षिणी किनारे पर है और इसका तटवर्ती फैलाव जल-आगमन व जलवायु के साथ बदलता है।"
+      },
+      "pa": {
+        "stem": "ਚਾਡ, ਨਾਈਜਰ, ਨਾਈਜੀਰੀਆ ਅਤੇ ਕੈਮਰੂਨ ਨੇੜੇ ਸਾਹੇਲ ਵਿੱਚ ਕਿਹੜੀ ਥੋੜ੍ਹੀ ਡੂੰਘੀ ਝੀਲ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਵਿਕਟੋਰੀਆ ਝੀਲ",
+          "ਟਾਂਗਾਨੀਕਾ ਝੀਲ",
+          "ਮ੍ਰਿਤ ਸਾਗਰ",
+          "ਚਾਡ ਝੀਲ"
+        ],
+        "explanation": "ਚਾਡ ਝੀਲ ਸਹਾਰਾ ਦੇ ਦੱਖਣੀ ਕਿਨਾਰੇ ਉੱਤੇ ਹੈ ਅਤੇ ਇਸਦਾ ਤਟ ਪਾਣੀ ਦੇ ਆਉਣ ਤੇ ਜਲਵਾਯੂ ਨਾਲ ਬਦਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q011",
+    "cpId": "WGE-001-CP027",
+    "objective": "madagascar-off-mozambique",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which large island lies across the Mozambique Channel from Africa?",
+        "options": [
+          "SriLanka",
+          "Cuba",
+          "Madagascar",
+          "Borneo"
+        ],
+        "explanation": "Madagascar lies in the Indian Ocean east of Mozambique, separated from mainland Africa by the Mozambique Channel."
+      },
+      "hi": {
+        "stem": "अफ्रीका से मोज़ाम्बिक चैनल के पार कौन-सा बड़ा द्वीप है?",
+        "options": [
+          "श्रीलंका",
+          "क्यूबा",
+          "मेडागास्कर",
+          "बोर्नियो"
+        ],
+        "explanation": "मेडागास्कर हिंद महासागर में मोज़ाम्बिक के पूर्व में है और मुख्यभूमि अफ्रीका से मोज़ाम्बिक चैनल द्वारा अलग है।"
+      },
+      "pa": {
+        "stem": "ਅਫ਼ਰੀਕਾ ਤੋਂ ਮੋਜ਼ਾਮਬੀਕ ਚੈਨਲ ਦੇ ਪਾਰ ਕਿਹੜਾ ਵੱਡਾ ਟਾਪੂ ਹੈ?",
+        "options": [
+          "ਸ੍ਰੀਲੰਕਾ",
+          "ਕਿਊਬਾ",
+          "ਮੈਡਾਗਾਸਕਰ",
+          "ਬੋਰਨਿਓ"
+        ],
+        "explanation": "ਮੈਡਾਗਾਸਕਰ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਮੋਜ਼ਾਮਬੀਕ ਦੇ ਪੂਰਬ ਵੱਲ ਹੈ ਅਤੇ ਮੁੱਖ ਅਫ਼ਰੀਕਾ ਤੋਂ ਮੋਜ਼ਾਮਬੀਕ ਚੈਨਲ ਰਾਹੀਂ ਵੱਖ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q012",
+    "cpId": "WGE-001-CP027",
+    "objective": "namib-atlantic-coast",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which desert lies along Namibia’s Atlantic coast?",
+        "options": [
+          "Gobi",
+          "Namib",
+          "Sahara",
+          "Kalahari"
+        ],
+        "explanation": "The Namib is a coastal desert along the Atlantic side of Namibia; cold offshore waters help maintain aridity."
+      },
+      "hi": {
+        "stem": "नामीबिया के अटलांटिक तट पर कौन-सा मरुस्थल है?",
+        "options": [
+          "गोबी मरुस्थल",
+          "नामिब मरुस्थल",
+          "सहारा",
+          "कालाहारी क्षेत्र"
+        ],
+        "explanation": "नामिब नामीबिया के अटलांटिक तट पर स्थित तटीय मरुस्थल है; ठंडा समुद्री जल इसकी शुष्कता बनाए रखने में मदद करता है।"
+      },
+      "pa": {
+        "stem": "ਨਾਮੀਬੀਆ ਦੇ ਐਟਲਾਂਟਿਕ ਤਟ ਨਾਲ ਕਿਹੜਾ ਮਾਰੂਥਲ ਲੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਗੋਬੀ ਮਾਰੂਥਲ",
+          "ਨਾਮਿਬ ਮਾਰੂਥਲ",
+          "ਸਹਾਰਾ",
+          "ਕਾਲਾਹਾਰੀ ਖੇਤਰ"
+        ],
+        "explanation": "ਨਾਮਿਬ ਨਾਮੀਬੀਆ ਦੇ ਐਟਲਾਂਟਿਕ ਤਟ ਨਾਲ ਲੱਗਦਾ ਤਟੀ ਮਾਰੂਥਲ ਹੈ; ਠੰਢਾ ਸਮੁੰਦਰੀ ਪਾਣੀ ਇਸਦੀ ਖੁਸ਼ਕੀ ਬਣਾਈ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q013",
+    "cpId": "WGE-001-CP027",
+    "objective": "drakensberg-south-africa-lesotho",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which range forms part of the escarpment between South Africa and Lesotho?",
+        "options": [
+          "Drakensberg",
+          "Atlas",
+          "Alps",
+          "EthiopianHighlands"
+        ],
+        "explanation": "The Drakensberg is part of the Great Escarpment and runs along the Lesotho–South Africa region."
+      },
+      "hi": {
+        "stem": "दक्षिण अफ्रीका और लेसोथो के बीच कगार का भाग कौन-सी पर्वत-श्रेणी बनाती है?",
+        "options": [
+          "ड्रैकन्सबर्ग पर्वत",
+          "एटलस पर्वत",
+          "आल्प्स",
+          "इथियोपियाई उच्चभूमि"
+        ],
+        "explanation": "ड्रैकन्सबर्ग महान कगार का भाग है और लेसोथो–दक्षिण अफ्रीका क्षेत्र के साथ फैला है।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਲੇਸੋਥੋ ਵਿਚਕਾਰ ਪਹਾੜੀ ਕਿਨਾਰੇ ਦਾ ਹਿੱਸਾ ਕਿਹੜੀ ਲੜੀ ਬਣਾਉਂਦੀ ਹੈ?",
+        "options": [
+          "ਡ੍ਰੈਕਨਜ਼ਬਰਗ ਪਹਾੜ",
+          "ਐਟਲਸ ਪਹਾੜ",
+          "ਆਲਪਸ",
+          "ਇਥੋਪੀਆਈ ਉੱਚਭੂਮੀ"
+        ],
+        "explanation": "ਡ੍ਰੈਕਨਜ਼ਬਰਗ ਮਹਾਨ ਕਿਨਾਰੇ ਦਾ ਹਿੱਸਾ ਹੈ ਅਤੇ ਲੇਸੋਥੋ–ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਖੇਤਰ ਨਾਲ ਫੈਲਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q014",
+    "cpId": "WGE-001-CP027",
+    "objective": "kalahari-semiarid-region",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which semi-arid sandy region spans Botswana and parts of Namibia and South Africa?",
+        "options": [
+          "Sahara",
+          "Namib",
+          "Atacama",
+          "Kalahari"
+        ],
+        "explanation": "The Kalahari is a broad semi-arid region; it is not uniformly a barren sand desert."
+      },
+      "hi": {
+        "stem": "बोत्सवाना तथा नामीबिया और दक्षिण अफ्रीका के कुछ भागों में कौन-सा अर्ध-शुष्क रेतीला क्षेत्र फैला है?",
+        "options": [
+          "सहारा",
+          "नामिब मरुस्थल",
+          "अटाकामा",
+          "कालाहारी क्षेत्र"
+        ],
+        "explanation": "कालाहारी विस्तृत अर्ध-शुष्क क्षेत्र है; यह पूरी तरह बंजर रेतीला मरुस्थल नहीं है।"
+      },
+      "pa": {
+        "stem": "ਬੋਤਸਵਾਨਾ ਅਤੇ ਨਾਮੀਬੀਆ ਤੇ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਦੇ ਕੁਝ ਹਿੱਸਿਆਂ ਵਿੱਚ ਕਿਹੜਾ ਅਰਧ-ਸੁੱਕਾ ਰੇਤੀਲਾ ਖੇਤਰ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਸਹਾਰਾ",
+          "ਨਾਮਿਬ ਮਾਰੂਥਲ",
+          "ਅਟਾਕਾਮਾ",
+          "ਕਾਲਾਹਾਰੀ ਖੇਤਰ"
+        ],
+        "explanation": "ਕਾਲਾਹਾਰੀ ਵਿਸ਼ਾਲ ਅਰਧ-ਸੁੱਕਾ ਖੇਤਰ ਹੈ; ਇਹ ਹਰ ਥਾਂ ਬੰਜਰ ਰੇਤੀਲਾ ਮਾਰੂਥਲ ਨਹੀਂ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q015",
+    "cpId": "WGE-001-CP027",
+    "objective": "gulf-guinea-west-africa-coast",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which gulf indents the coast of West Africa south of Ghana and Nigeria?",
+        "options": [
+          "GulfTonkin",
+          "PersianGulf",
+          "GuineaGulf",
+          "GulfMexico"
+        ],
+        "explanation": "The Gulf of Guinea is the Atlantic gulf along the coast of West Africa."
+      },
+      "hi": {
+        "stem": "घाना और नाइजीरिया के दक्षिण में पश्चिमी अफ्रीका के तट पर कौन-सी खाड़ी है?",
+        "options": [
+          "टोंकिन की खाड़ी",
+          "फ़ारस की खाड़ी",
+          "गिनी की खाड़ी",
+          "मैक्सिको की खाड़ी"
+        ],
+        "explanation": "गिनी की खाड़ी पश्चिमी अफ्रीका के तट से लगी अटलांटिक खाड़ी है।"
+      },
+      "pa": {
+        "stem": "ਘਾਨਾ ਅਤੇ ਨਾਈਜੀਰੀਆ ਦੇ ਦੱਖਣ ਵੱਲ ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਦੇ ਤਟ ਉੱਤੇ ਕਿਹੜੀ ਖਾੜੀ ਹੈ?",
+        "options": [
+          "ਟੋਂਕਿਨ ਦੀ ਖਾੜੀ",
+          "ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ",
+          "ਗਿਨੀ ਦੀ ਖਾੜੀ",
+          "ਮੈਕਸੀਕੋ ਦੀ ਖਾੜੀ"
+        ],
+        "explanation": "ਗਿਨੀ ਦੀ ਖਾੜੀ ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਦੇ ਤਟ ਨਾਲ ਲੱਗਦੀ ਐਟਲਾਂਟਿਕ ਖਾੜੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q016",
+    "cpId": "WGE-001-CP027",
+    "objective": "lesotho-enclave-africa",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which African country is completely surrounded by South Africa?",
+        "options": [
+          "Madagascar",
+          "Lesotho",
+          "Ghana",
+          "Uganda"
+        ],
+        "explanation": "Lesotho is a sovereign enclave entirely surrounded by South Africa."
+      },
+      "hi": {
+        "stem": "कौन-सा अफ्रीकी देश पूरी तरह दक्षिण अफ्रीका से घिरा है?",
+        "options": [
+          "मेडागास्कर",
+          "लेसोथो",
+          "घाना",
+          "युगांडा"
+        ],
+        "explanation": "लेसोथो दक्षिण अफ्रीका से पूरी तरह घिरा संप्रभु देश है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਅਫ਼ਰੀਕੀ ਦੇਸ਼ ਪੂਰੀ ਤਰ੍ਹਾਂ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਨਾਲ ਘਿਰਿਆ ਹੋਇਆ ਹੈ?",
+        "options": [
+          "ਮੈਡਾਗਾਸਕਰ",
+          "ਲੇਸੋਥੋ",
+          "ਘਾਨਾ",
+          "ਯੂਗਾਂਡਾ"
+        ],
+        "explanation": "ਲੇਸੋਥੋ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਨਾਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਘਿਰਿਆ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q017",
+    "cpId": "WGE-001-CP027",
+    "objective": "cape-good-hope-southwest-africa",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which country includes the Cape of Good Hope near the southwestern tip of Africa?",
+        "options": [
+          "SouthAfrica",
+          "Egypt",
+          "Nigeria",
+          "Kenya"
+        ],
+        "explanation": "The Cape of Good Hope is in South Africa; Cape Agulhas, farther southeast, is Africa’s southernmost point."
+      },
+      "hi": {
+        "stem": "अफ्रीका के दक्षिण-पश्चिमी सिरे के पास केप ऑफ गुड होप किस देश में है?",
+        "options": [
+          "दक्षिण अफ्रीका",
+          "मिस्र",
+          "नाइजीरिया",
+          "केन्या"
+        ],
+        "explanation": "केप ऑफ गुड होप दक्षिण अफ्रीका में है; इससे दक्षिण-पूर्व में केप अगुलहास अफ्रीका का सबसे दक्षिणी बिंदु है।"
+      },
+      "pa": {
+        "stem": "ਅਫ਼ਰੀਕਾ ਦੇ ਦੱਖਣ-ਪੱਛਮੀ ਸਿਰੇ ਨੇੜੇ ਕੇਪ ਆਫ਼ ਗੁੱਡ ਹੋਪ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ",
+          "ਮਿਸਰ",
+          "ਨਾਈਜੀਰੀਆ",
+          "ਕੀਨੀਆ"
+        ],
+        "explanation": "ਕੇਪ ਆਫ਼ ਗੁੱਡ ਹੋਪ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਹੈ; ਇਸ ਤੋਂ ਹੋਰ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਕੇਪ ਅਗੁਲਹਾਸ ਅਫ਼ਰੀਕਾ ਦਾ ਸਭ ਤੋਂ ਦੱਖਣੀ ਬਿੰਦੂ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP027-Q018",
+    "cpId": "WGE-001-CP027",
+    "objective": "blue-white-nile-confluence-khartoum",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-AFRICA-MAP",
+      "WGE-REG-FAO-AFRICA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "The Blue Nile and White Nile meet at which city?",
+        "options": [
+          "Cairo",
+          "Juba",
+          "AddisAbaba",
+          "Khartoum"
+        ],
+        "explanation": "The Blue Nile and White Nile meet at Khartoum, the capital of Sudan."
+      },
+      "hi": {
+        "stem": "नीली नील और श्वेत नील किस शहर में मिलती हैं?",
+        "options": [
+          "काहिरा",
+          "जूबा",
+          "अदीस अबाबा",
+          "खार्तूम"
+        ],
+        "explanation": "नीली नील और श्वेत नील सूडान की राजधानी खार्तूम में मिलती हैं।"
+      },
+      "pa": {
+        "stem": "ਨੀਲਾ ਨੀਲ ਅਤੇ ਚਿੱਟਾ ਨੀਲ ਕਿਹੜੇ ਸ਼ਹਿਰ ਵਿੱਚ ਮਿਲਦੇ ਹਨ?",
+        "options": [
+          "ਕਾਹਿਰਾ",
+          "ਜੂਬਾ",
+          "ਅਦੀਸ ਅਬਾਬਾ",
+          "ਖਾਰਤੂਮ"
+        ],
+        "explanation": "ਨੀਲਾ ਨੀਲ ਅਤੇ ਚਿੱਟਾ ਨੀਲ ਸੁਡਾਨ ਦੀ ਰਾਜਧਾਨੀ ਖਾਰਤੂਮ ਵਿੱਚ ਮਿਲਦੇ ਹਨ।"
+      }
+    }
+  }
+]

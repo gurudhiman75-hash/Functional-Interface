@@ -21,6 +21,11 @@ import cp020 from './cp020.json';
 import cp021 from './cp021.json';
 import cp022 from './cp022.json';
 import cp023 from './cp023.json';
+import cp024 from './cp024.json';
+import cp025 from './cp025.json';
+import cp026 from './cp026.json';
+import cp027 from './cp027.json';
+import cp028 from './cp028.json';
 import sources from './sources.json';
 import type { QuestionStudioDifficulty, QuestionStudioLanguage } from '../../question-studio/engine-types';
 
@@ -54,6 +59,11 @@ export const WGE_CP_TITLES = {
   'WGE-001-CP021': 'Deserts, Islands, Peninsulas and Capes',
   'WGE-001-CP022': 'Countries, Capitals and Political Geography',
   'WGE-001-CP023': 'South Asia and India’s Neighbours',
+  'WGE-001-CP024': 'East, Southeast and Central Asia',
+  'WGE-001-CP025': 'West Asia',
+  'WGE-001-CP026': 'Europe',
+  'WGE-001-CP027': 'Africa',
+  'WGE-001-CP028': 'North America, Central America and the Caribbean',
 } as const;
 export type WorldGeographyCpId = keyof typeof WGE_CP_TITLES;
 export const WGE_SOURCES = sources;
@@ -89,6 +99,8 @@ export function validateWorldGeographyCorpus(rows: readonly WorldGeographyQuesti
       const text = [l.stem, ...l.options, l.explanation].join(' ');
       if (/\{\{|\}\}|\b(?:TODO|TBD|undefined)\b/.test(text)) throw new Error(`Unresolved content: ${q.id}`);
       if (language !== 'en' && /[a-z]/i.test(text)) throw new Error(`English leakage: ${q.id}/${language}`);
+      if (Number(q.cpId.slice(-3)) >= 24 && language === 'hi' && /[\u0A00-\u0A7F]/.test(text)) throw new Error(`Punjabi-script leakage: ${q.id}/${language}`);
+      if (Number(q.cpId.slice(-3)) >= 24 && language === 'pa' && /[\u0900-\u097F]/.test(text.replace(/[।॥]/g, ''))) throw new Error(`Devanagari-script leakage: ${q.id}/${language}`);
       const stemKey = `${language}:${l.stem.normalize('NFC').trim().toLowerCase()}`;
       if (stems.has(stemKey)) throw new Error(`Duplicate stem: ${q.id}/${language}`);
       stems.add(stemKey);
@@ -102,6 +114,6 @@ export function validateWorldGeographyCorpus(rows: readonly WorldGeographyQuesti
     }
   }
 }
-const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011, ...cp012, ...cp013, ...cp014, ...cp015, ...cp016, ...cp017, ...cp018, ...cp019, ...cp020, ...cp021, ...cp022, ...cp023] as WorldGeographyQuestion[];
+const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011, ...cp012, ...cp013, ...cp014, ...cp015, ...cp016, ...cp017, ...cp018, ...cp019, ...cp020, ...cp021, ...cp022, ...cp023, ...cp024, ...cp025, ...cp026, ...cp027, ...cp028] as WorldGeographyQuestion[];
 validateWorldGeographyCorpus(authored);
 export const WGE_CORPUS: readonly WorldGeographyQuestion[] = deepFreeze(authored);

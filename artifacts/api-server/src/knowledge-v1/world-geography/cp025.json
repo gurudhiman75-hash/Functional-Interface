@@ -1,0 +1,876 @@
+[
+  {
+    "id": "WGE-001-CP025-Q001",
+    "cpId": "WGE-001-CP025",
+    "objective": "zagros-western-flank",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which range forms a major divide between the Iranian Plateau and the Mesopotamian lowlands?",
+        "options": [
+          "Zagros",
+          "Caucasus",
+          "Atlas",
+          "Alps"
+        ],
+        "explanation": "The Zagros Mountains form a prominent barrier between the Iranian Plateau and Mesopotamia."
+      },
+      "hi": {
+        "stem": "ईरानी पठार और मेसोपोटामिया की निम्नभूमि के बीच प्रमुख विभाजक कौन-सी पर्वत-श्रेणी है?",
+        "options": [
+          "ज़ाग्रोस पर्वत",
+          "काकेशस पर्वत",
+          "एटलस पर्वत",
+          "आल्प्स"
+        ],
+        "explanation": "ज़ाग्रोस पर्वत ईरानी पठार और मेसोपोटामिया के बीच प्रमुख बाधा बनाते हैं।"
+      },
+      "pa": {
+        "stem": "ਈਰਾਨੀ ਪਠਾਰ ਅਤੇ ਮੈਸੋਪੋਟੇਮੀਆ ਦੇ ਨੀਵੇਂ ਮੈਦਾਨਾਂ ਵਿਚਕਾਰ ਵੱਡਾ ਵਿਭਾਜਕ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਹੈ?",
+        "options": [
+          "ਜ਼ਾਗਰੋਸ ਪਹਾੜ",
+          "ਕਾਕੇਸ਼ਸ ਪਹਾੜ",
+          "ਐਟਲਸ ਪਹਾੜ",
+          "ਆਲਪਸ"
+        ],
+        "explanation": "ਜ਼ਾਗਰੋਸ ਪਹਾੜ ਈਰਾਨੀ ਪਠਾਰ ਅਤੇ ਮੈਸੋਪੋਟੇਮੀਆ ਵਿਚਕਾਰ ਪ੍ਰਮੁੱਖ ਰੁਕਾਵਟ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q002",
+    "cpId": "WGE-001-CP025",
+    "objective": "iranian-plateau-location",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which plateau extends from Iran into Afghanistan and Pakistan?",
+        "options": [
+          "TibetanPlateau",
+          "AnatolianPlateau",
+          "DeccanPlateau",
+          "IranianPlateau"
+        ],
+        "explanation": "The Iranian Plateau covers much of Iran and extends eastward into neighbouring parts of South and Central Asia."
+      },
+      "hi": {
+        "stem": "कौन-सा पठार ईरान से अफ़ग़ानिस्तान और पाकिस्तान तक फैला है?",
+        "options": [
+          "तिब्बती पठार",
+          "अनातोलियाई पठार",
+          "दक्कन का पठार",
+          "ईरानी पठार"
+        ],
+        "explanation": "ईरानी पठार ईरान के बड़े भाग में फैला है और पूर्व में दक्षिण व मध्य एशिया के पड़ोसी क्षेत्रों तक जाता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਪਠਾਰ ਈਰਾਨ ਤੋਂ ਅਫ਼ਗਾਨਿਸਤਾਨ ਅਤੇ ਪਾਕਿਸਤਾਨ ਤੱਕ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਤਿੱਬਤੀ ਪਠਾਰ",
+          "ਅਨਾਤੋਲੀਆਈ ਪਠਾਰ",
+          "ਦੱਖਣੀ ਪਠਾਰ",
+          "ਈਰਾਨੀ ਪਠਾਰ"
+        ],
+        "explanation": "ਈਰਾਨੀ ਪਠਾਰ ਈਰਾਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੈ ਅਤੇ ਪੂਰਬ ਵੱਲ ਦੱਖਣੀ ਤੇ ਮੱਧ ਏਸ਼ੀਆ ਦੇ ਗੁਆਂਢੀ ਖੇਤਰਾਂ ਤੱਕ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q003",
+    "cpId": "WGE-001-CP025",
+    "objective": "zagros-western-iran",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which mountain range forms much of the Iran–Iraq border?",
+        "options": [
+          "Carpathians",
+          "Alps",
+          "Zagros",
+          "Atlas"
+        ],
+        "explanation": "The Zagros Mountains run along western Iran and form much of its border with Iraq."
+      },
+      "hi": {
+        "stem": "ईरान–इराक सीमा का बड़ा भाग कौन-सी पर्वत-श्रेणी बनाती है?",
+        "options": [
+          "कार्पेथियन पर्वत",
+          "आल्प्स",
+          "ज़ाग्रोस पर्वत",
+          "एटलस पर्वत"
+        ],
+        "explanation": "ज़ाग्रोस पर्वत पश्चिमी ईरान में फैले हैं और इराक के साथ इसकी सीमा का बड़ा भाग बनाते हैं।"
+      },
+      "pa": {
+        "stem": "ਈਰਾਨ–ਇਰਾਕ ਸਰਹੱਦ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਬਣਾਉਂਦੀ ਹੈ?",
+        "options": [
+          "ਕਾਰਪੇਥੀਅਨ ਪਹਾੜ",
+          "ਆਲਪਸ",
+          "ਜ਼ਾਗਰੋਸ ਪਹਾੜ",
+          "ਐਟਲਸ ਪਹਾੜ"
+        ],
+        "explanation": "ਜ਼ਾਗਰੋਸ ਪਹਾੜ ਪੱਛਮੀ ਈਰਾਨ ਨਾਲ ਫੈਲੇ ਹਨ ਅਤੇ ਇਰਾਕ ਨਾਲ ਇਸਦੀ ਸਰਹੱਦ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਬਣਾਉਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q004",
+    "cpId": "WGE-001-CP025",
+    "objective": "tigris-euphrates-iraq",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "The Tigris and Euphrates join to form which river?",
+        "options": [
+          "JordanRiver",
+          "ShattAlArab",
+          "Niger",
+          "Nile"
+        ],
+        "explanation": "The Tigris and Euphrates join to form the Shatt al-Arab, which flows into the Persian Gulf."
+      },
+      "hi": {
+        "stem": "दजला और फ़रात मिलकर कौन-सी नदी बनाते हैं?",
+        "options": [
+          "जॉर्डन नदी",
+          "शत्त अल-अरब",
+          "नाइजर",
+          "नील"
+        ],
+        "explanation": "दजला और फ़रात मिलकर शत्त अल-अरब बनाती हैं, जो फ़ारस की खाड़ी में गिरती है।"
+      },
+      "pa": {
+        "stem": "ਦਜਲਾ ਅਤੇ ਫ਼ਰਾਤ ਮਿਲ ਕੇ ਕਿਹੜਾ ਦਰਿਆ ਬਣਾਉਂਦੇ ਹਨ?",
+        "options": [
+          "ਜਾਰਡਨ ਦਰਿਆ",
+          "ਸ਼ੱਤ ਅਲ-ਅਰਬ",
+          "ਨਾਈਜਰ",
+          "ਨੀਲ"
+        ],
+        "explanation": "ਦਜਲਾ ਅਤੇ ਫ਼ਰਾਤ ਮਿਲ ਕੇ ਸ਼ੱਤ ਅਲ-ਅਰਬ ਬਣਾਉਂਦੇ ਹਨ, ਜੋ ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q005",
+    "cpId": "WGE-001-CP025",
+    "objective": "mesopotamian-plain-rivers",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which country contains most of the lower Tigris–Euphrates plain?",
+        "options": [
+          "Iraq",
+          "Iran",
+          "Turkey",
+          "SaudiArabia"
+        ],
+        "explanation": "The lower Mesopotamian plain and the confluence region lie mainly in Iraq."
+      },
+      "hi": {
+        "stem": "दजला–फ़रात का निचला मैदानी क्षेत्र मुख्यतः किस देश में है?",
+        "options": [
+          "इराक",
+          "ईरान",
+          "तुर्किये",
+          "सऊदी अरब"
+        ],
+        "explanation": "निचला मेसोपोटामियाई मैदान और संगम क्षेत्र मुख्यतः इराक में स्थित हैं।"
+      },
+      "pa": {
+        "stem": "ਦਜਲਾ–ਫ਼ਰਾਤ ਦਾ ਹੇਠਲਾ ਮੈਦਾਨੀ ਖੇਤਰ ਮੁੱਖ ਤੌਰ ’ਤੇ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਇਰਾਕ",
+          "ਈਰਾਨ",
+          "ਤੁਰਕੀਏ",
+          "ਸਾਊਦੀ ਅਰਬ"
+        ],
+        "explanation": "ਹੇਠਲਾ ਮੈਸੋਪੋਟੇਮੀਆਈ ਮੈਦਾਨ ਅਤੇ ਸੰਗਮ ਖੇਤਰ ਮੁੱਖ ਤੌਰ ’ਤੇ ਇਰਾਕ ਵਿੱਚ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q006",
+    "cpId": "WGE-001-CP025",
+    "objective": "dardanelles-aegean-marmara",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "The Dardanelles connects the Aegean Sea with the Sea of:",
+        "options": [
+          "Bosporus",
+          "Hormuz",
+          "Malacca",
+          "Dardanelles"
+        ],
+        "explanation": "The Dardanelles links the Aegean Sea with the Sea of Marmara."
+      },
+      "hi": {
+        "stem": "डार्डानेल्स जलडमरूमध्य एजियन सागर को किस सागर से जोड़ता है?",
+        "options": [
+          "बोस्फोरस",
+          "हॉर्मुज़ जलडमरूमध्य",
+          "मलक्का जलडमरूमध्य",
+          "डार्डानेल्स जलडमरूमध्य"
+        ],
+        "explanation": "डार्डानेल्स जलडमरूमध्य एजियन सागर को मरमरा सागर से जोड़ता है।"
+      },
+      "pa": {
+        "stem": "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ ਏਜੀਅਨ ਸਾਗਰ ਨੂੰ ਕਿਹੜੇ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ?",
+        "options": [
+          "ਬੋਸਫੋਰਸ",
+          "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ",
+          "ਮਲੱਕਾ ਜਲਡਮਰੂ",
+          "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ"
+        ],
+        "explanation": "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ ਏਜੀਅਨ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q007",
+    "cpId": "WGE-001-CP025",
+    "objective": "red-sea-arabian-peninsula",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which sea separates the Arabian Peninsula from northeast Africa?",
+        "options": [
+          "NorthSea",
+          "BlackSea",
+          "RedSea",
+          "Caspian"
+        ],
+        "explanation": "The Red Sea separates the Arabian Peninsula from northeast Africa."
+      },
+      "hi": {
+        "stem": "अरब प्रायद्वीप और उत्तर-पूर्वी अफ्रीका के बीच कौन-सा सागर है?",
+        "options": [
+          "उत्तरी सागर",
+          "काला सागर",
+          "लाल सागर",
+          "कैस्पियन सागर"
+        ],
+        "explanation": "लाल सागर अरब प्रायद्वीप को उत्तर-पूर्वी अफ्रीका से अलग करता है।"
+      },
+      "pa": {
+        "stem": "ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਵਿਚਕਾਰ ਕਿਹੜਾ ਸਾਗਰ ਹੈ?",
+        "options": [
+          "ਉੱਤਰੀ ਸਾਗਰ",
+          "ਕਾਲਾ ਸਾਗਰ",
+          "ਲਾਲ ਸਾਗਰ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ"
+        ],
+        "explanation": "ਲਾਲ ਸਾਗਰ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਨੂੰ ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q008",
+    "cpId": "WGE-001-CP025",
+    "objective": "jordan-rift-dead-sea",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which saline lake lies in the Jordan Rift Valley between Jordan and Israel/Palestine?",
+        "options": [
+          "LakeChad",
+          "DeadSea",
+          "Caspian",
+          "Aral"
+        ],
+        "explanation": "The Dead Sea occupies a deep basin in the Jordan Rift Valley and has very high salinity."
+      },
+      "hi": {
+        "stem": "जॉर्डन और इज़राइल/फ़िलिस्तीन के बीच जॉर्डन रिफ्ट घाटी में कौन-सी खारी झील स्थित है?",
+        "options": [
+          "चाड झील",
+          "मृत सागर",
+          "कैस्पियन सागर",
+          "अराल सागर"
+        ],
+        "explanation": "मृत सागर जॉर्डन रिफ्ट घाटी के गहरे बेसिन में है और इसका पानी बहुत खारा है।"
+      },
+      "pa": {
+        "stem": "ਜਾਰਡਨ ਅਤੇ ਇਜ਼ਰਾਈਲ/ਫ਼ਲਸਤੀਨ ਵਿਚਕਾਰ ਜਾਰਡਨ ਰਿਫਟ ਘਾਟੀ ਵਿੱਚ ਕਿਹੜੀ ਖਾਰੀ ਝੀਲ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਚਾਡ ਝੀਲ",
+          "ਮ੍ਰਿਤ ਸਾਗਰ",
+          "ਕੈਸਪੀਅਨ ਸਾਗਰ",
+          "ਅਰਾਲ ਸਾਗਰ"
+        ],
+        "explanation": "ਮ੍ਰਿਤ ਸਾਗਰ ਜਾਰਡਨ ਰਿਫਟ ਘਾਟੀ ਦੇ ਡੂੰਘੇ ਬੇਸਿਨ ਵਿੱਚ ਹੈ ਅਤੇ ਇਸਦਾ ਪਾਣੀ ਬਹੁਤ ਖਾਰਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q009",
+    "cpId": "WGE-001-CP025",
+    "objective": "anatolian-plateau-turkey",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Most of Türkiye’s interior lies on which plateau?",
+        "options": [
+          "AnatolianPlateau",
+          "IranianPlateau",
+          "TibetanPlateau",
+          "DeccanPlateau"
+        ],
+        "explanation": "The Anatolian Plateau occupies much of central Türkiye."
+      },
+      "hi": {
+        "stem": "तुर्किये का अधिकांश आंतरिक भाग किस पठार पर स्थित है?",
+        "options": [
+          "अनातोलियाई पठार",
+          "ईरानी पठार",
+          "तिब्बती पठार",
+          "दक्कन का पठार"
+        ],
+        "explanation": "अनातोलियाई पठार तुर्किये के मध्यवर्ती भाग के बड़े क्षेत्र में फैला है।"
+      },
+      "pa": {
+        "stem": "ਤੁਰਕੀਏ ਦਾ ਵੱਡਾ ਅੰਦਰੂਨੀ ਭਾਗ ਕਿਹੜੇ ਪਠਾਰ ਉੱਤੇ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਅਨਾਤੋਲੀਆਈ ਪਠਾਰ",
+          "ਈਰਾਨੀ ਪਠਾਰ",
+          "ਤਿੱਬਤੀ ਪਠਾਰ",
+          "ਦੱਖਣੀ ਪਠਾਰ"
+        ],
+        "explanation": "ਅਨਾਤੋਲੀਆਈ ਪਠਾਰ ਤੁਰਕੀਏ ਦੇ ਕੇਂਦਰੀ ਹਿੱਸੇ ਦੇ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q010",
+    "cpId": "WGE-001-CP025",
+    "objective": "bosporus-black-sea-marmara",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which strait joins the Black Sea to the Sea of Marmara?",
+        "options": [
+          "Hormuz",
+          "Dardanelles",
+          "Malacca",
+          "Bosporus"
+        ],
+        "explanation": "The Bosporus connects the Black Sea with the Sea of Marmara."
+      },
+      "hi": {
+        "stem": "काला सागर को मरमरा सागर से कौन-सा जलडमरूमध्य जोड़ता है?",
+        "options": [
+          "हॉर्मुज़ जलडमरूमध्य",
+          "डार्डानेल्स जलडमरूमध्य",
+          "मलक्का जलडमरूमध्य",
+          "बोस्फोरस"
+        ],
+        "explanation": "बोस्फोरस काला सागर को मरमरा सागर से जोड़ता है।"
+      },
+      "pa": {
+        "stem": "ਕਾਲੇ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਕਿਹੜਾ ਜਲਡਮਰੂ ਜੋੜਦਾ ਹੈ?",
+        "options": [
+          "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ",
+          "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ",
+          "ਮਲੱਕਾ ਜਲਡਮਰੂ",
+          "ਬੋਸਫੋਰਸ"
+        ],
+        "explanation": "ਬੋਸਫੋਰਸ ਕਾਲੇ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q011",
+    "cpId": "WGE-001-CP025",
+    "objective": "levant-eastern-mediterranean",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Lebanon and Syria lie in which eastern Mediterranean region?",
+        "options": [
+          "Caucasus",
+          "Anatolia",
+          "Levant",
+          "ArabianPeninsula"
+        ],
+        "explanation": "The Levant is the eastern Mediterranean region that includes Lebanon and Syria."
+      },
+      "hi": {
+        "stem": "लेबनान और सीरिया पूर्वी भूमध्यसागरीय क्षेत्र के किस भाग में आते हैं?",
+        "options": [
+          "काकेशस पर्वत",
+          "अनातोलिया",
+          "लेवांत",
+          "अरब प्रायद्वीप"
+        ],
+        "explanation": "लेवांत पूर्वी भूमध्यसागरीय क्षेत्र है, जिसमें लेबनान और सीरिया आते हैं।"
+      },
+      "pa": {
+        "stem": "ਲੇਬਨਾਨ ਅਤੇ ਸੀਰੀਆ ਪੂਰਬੀ ਭੂਮੱਧ ਸਾਗਰੀ ਖੇਤਰ ਦੇ ਕਿਹੜੇ ਹਿੱਸੇ ਵਿੱਚ ਆਉਂਦੇ ਹਨ?",
+        "options": [
+          "ਕਾਕੇਸ਼ਸ ਪਹਾੜ",
+          "ਅਨਾਤੋਲੀਆ",
+          "ਲੇਵਾਂਤ",
+          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਲੇਵਾਂਤ ਪੂਰਬੀ ਭੂਮੱਧ ਸਾਗਰੀ ਖੇਤਰ ਹੈ, ਜਿਸ ਵਿੱਚ ਲੇਬਨਾਨ ਅਤੇ ਸੀਰੀਆ ਆਉਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q012",
+    "cpId": "WGE-001-CP025",
+    "objective": "persian-gulf-arabian-sea",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Iran and the Arabian Peninsula lie on opposite sides of which gulf?",
+        "options": [
+          "BlackSea",
+          "PersianGulf",
+          "GulfTonkin",
+          "RedSea"
+        ],
+        "explanation": "The Persian Gulf lies between Iran and the Arabian Peninsula."
+      },
+      "hi": {
+        "stem": "ईरान और अरब प्रायद्वीप किस खाड़ी के विपरीत किनारों पर स्थित हैं?",
+        "options": [
+          "काला सागर",
+          "फ़ारस की खाड़ी",
+          "टोंकिन की खाड़ी",
+          "लाल सागर"
+        ],
+        "explanation": "फ़ारस की खाड़ी ईरान और अरब प्रायद्वीप के बीच स्थित है।"
+      },
+      "pa": {
+        "stem": "ਈਰਾਨ ਅਤੇ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਕਿਹੜੀ ਖਾੜੀ ਦੇ ਦੋਹਾਂ ਪਾਸੇ ਸਥਿਤ ਹਨ?",
+        "options": [
+          "ਕਾਲਾ ਸਾਗਰ",
+          "ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ",
+          "ਟੋਂਕਿਨ ਦੀ ਖਾੜੀ",
+          "ਲਾਲ ਸਾਗਰ"
+        ],
+        "explanation": "ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਈਰਾਨ ਅਤੇ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q013",
+    "cpId": "WGE-001-CP025",
+    "objective": "suez-mediterranean-red-sea",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which canal links the Mediterranean Sea and the Red Sea?",
+        "options": [
+          "Suez",
+          "PanamaIsthmus",
+          "Hormuz",
+          "Bosporus"
+        ],
+        "explanation": "The Suez Canal connects the Mediterranean Sea with the Red Sea."
+      },
+      "hi": {
+        "stem": "भूमध्य सागर और लाल सागर को कौन-सी नहर जोड़ती है?",
+        "options": [
+          "स्वेज नहर",
+          "पनामा स्थलडमरूमध्य",
+          "हॉर्मुज़ जलडमरूमध्य",
+          "बोस्फोरस"
+        ],
+        "explanation": "स्वेज नहर भूमध्य सागर को लाल सागर से जोड़ती है।"
+      },
+      "pa": {
+        "stem": "ਭੂਮੱਧ ਸਾਗਰ ਅਤੇ ਲਾਲ ਸਾਗਰ ਨੂੰ ਕਿਹੜੀ ਨਹਿਰ ਜੋੜਦੀ ਹੈ?",
+        "options": [
+          "ਸੂਏਜ਼ ਨਹਿਰ",
+          "ਪਨਾਮਾ ਭੂ-ਸੰਯੋਜਕ",
+          "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ",
+          "ਬੋਸਫੋਰਸ"
+        ],
+        "explanation": "ਸੂਏਜ਼ ਨਹਿਰ ਭੂਮੱਧ ਸਾਗਰ ਨੂੰ ਲਾਲ ਸਾਗਰ ਨਾਲ ਜੋੜਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q014",
+    "cpId": "WGE-001-CP025",
+    "objective": "oman-gulf-of-oman",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which country borders both the Strait of Hormuz and the Gulf of Oman?",
+        "options": [
+          "Yemen",
+          "Jordan",
+          "Lebanon",
+          "Oman"
+        ],
+        "explanation": "Oman occupies the southeastern Arabian Peninsula and borders both the Gulf of Oman and the Strait of Hormuz."
+      },
+      "hi": {
+        "stem": "हॉर्मुज़ जलडमरूमध्य और ओमान की खाड़ी, दोनों से कौन-सा देश लगता है?",
+        "options": [
+          "यमन",
+          "जॉर्डन",
+          "लेबनान",
+          "ओमान"
+        ],
+        "explanation": "ओमान अरब प्रायद्वीप के दक्षिण-पूर्व में है और ओमान की खाड़ी तथा हॉर्मुज़ जलडमरूमध्य दोनों से लगता है।"
+      },
+      "pa": {
+        "stem": "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ ਅਤੇ ਓਮਾਨ ਦੀ ਖਾੜੀ, ਦੋਹਾਂ ਨਾਲ ਕਿਹੜਾ ਦੇਸ਼ ਲੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਯਮਨ",
+          "ਜਾਰਡਨ",
+          "ਲੇਬਨਾਨ",
+          "ਓਮਾਨ"
+        ],
+        "explanation": "ਓਮਾਨ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਵਿੱਚ ਹੈ ਅਤੇ ਓਮਾਨ ਦੀ ਖਾੜੀ ਤੇ ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ ਦੋਹਾਂ ਨਾਲ ਲੱਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q015",
+    "cpId": "WGE-001-CP025",
+    "objective": "rub-al-khali-arabia",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which desert covers much of the southeastern Arabian Peninsula?",
+        "options": [
+          "Namib",
+          "Sahara",
+          "RubAlKhali",
+          "Gobi"
+        ],
+        "explanation": "Rub al-Khali, the Empty Quarter, covers a large area of the southern Arabian Peninsula."
+      },
+      "hi": {
+        "stem": "दक्षिण-पूर्वी अरब प्रायद्वीप का बड़ा भाग किस मरुस्थल से ढका है?",
+        "options": [
+          "नामिब मरुस्थल",
+          "सहारा",
+          "रुब-अल-ख़ाली",
+          "गोबी मरुस्थल"
+        ],
+        "explanation": "रुब-अल-ख़ाली यानी एम्प्टी क्वार्टर दक्षिणी अरब प्रायद्वीप के बड़े भाग में फैला है।"
+      },
+      "pa": {
+        "stem": "ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਦੇ ਦੱਖਣ-ਪੂਰਬੀ ਵੱਡੇ ਹਿੱਸੇ ਉੱਤੇ ਕਿਹੜਾ ਮਾਰੂਥਲ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਨਾਮਿਬ ਮਾਰੂਥਲ",
+          "ਸਹਾਰਾ",
+          "ਰੁਬ-ਅਲ-ਖ਼ਾਲੀ",
+          "ਗੋਬੀ ਮਾਰੂਥਲ"
+        ],
+        "explanation": "ਰੁਬ-ਅਲ-ਖ਼ਾਲੀ ਦੱਖਣੀ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੋਇਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q016",
+    "cpId": "WGE-001-CP025",
+    "objective": "turkey-two-continents",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Most of Türkiye occupies which peninsula?",
+        "options": [
+          "ArabianPeninsula",
+          "Anatolia",
+          "Iberian",
+          "Balkan"
+        ],
+        "explanation": "Anatolia, also called Asia Minor, makes up most of Türkiye."
+      },
+      "hi": {
+        "stem": "तुर्किये का अधिकांश भाग किस प्रायद्वीप में आता है?",
+        "options": [
+          "अरब प्रायद्वीप",
+          "अनातोलिया",
+          "आइबेरियाई प्रायद्वीप",
+          "बाल्कन प्रायद्वीप"
+        ],
+        "explanation": "अनातोलिया, जिसे एशिया माइनर भी कहते हैं, तुर्किये का अधिकांश भाग है।"
+      },
+      "pa": {
+        "stem": "ਤੁਰਕੀਏ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਕਿਹੜੇ ਪ੍ਰਾਇਦੀਪ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ",
+          "ਅਨਾਤੋਲੀਆ",
+          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਅਨਾਤੋਲੀਆ, ਜਿਸਨੂੰ ਏਸ਼ੀਆ ਮਾਈਨਰ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ, ਤੁਰਕੀਏ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q017",
+    "cpId": "WGE-001-CP025",
+    "objective": "armenia-landlocked-west-asia",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which landlocked country lies in the South Caucasus?",
+        "options": [
+          "Armenia",
+          "Turkey",
+          "UAE",
+          "Oman"
+        ],
+        "explanation": "Armenia is a landlocked country in the South Caucasus."
+      },
+      "hi": {
+        "stem": "दक्षिण काकेशस का कौन-सा देश स्थलरुद्ध है?",
+        "options": [
+          "आर्मेनिया",
+          "तुर्किये",
+          "संयुक्त अरब अमीरात",
+          "ओमान"
+        ],
+        "explanation": "आर्मेनिया दक्षिण काकेशस का स्थलरुद्ध देश है।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਕਾਕੇਸ਼ਸ ਦਾ ਕਿਹੜਾ ਦੇਸ਼ ਭੂ-ਬੱਧ ਹੈ?",
+        "options": [
+          "ਅਰਮੀਨੀਆ",
+          "ਤੁਰਕੀਏ",
+          "ਸੰਯੁਕਤ ਅਰਬ ਅਮੀਰਾਤ",
+          "ਓਮਾਨ"
+        ],
+        "explanation": "ਅਰਮੀਨੀਆ ਦੱਖਣੀ ਕਾਕੇਸ਼ਸ ਦਾ ਭੂ-ਬੱਧ ਦੇਸ਼ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q018",
+    "cpId": "WGE-001-CP025",
+    "objective": "anatolia-between-seas",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "The Bosporus and Dardanelles are located in which country?",
+        "options": [
+          "Iran",
+          "Egypt",
+          "SaudiArabia",
+          "Turkey"
+        ],
+        "explanation": "Both straits lie in Türkiye and connect the Black Sea region with the Aegean and Mediterranean seas."
+      },
+      "hi": {
+        "stem": "बोस्फोरस और डार्डानेल्स किस देश में स्थित हैं?",
+        "options": [
+          "ईरान",
+          "मिस्र",
+          "सऊदी अरब",
+          "तुर्किये"
+        ],
+        "explanation": "दोनों जलडमरूमध्य तुर्किये में हैं और काला सागर क्षेत्र को एजियन व भूमध्य सागर से जोड़ते हैं।"
+      },
+      "pa": {
+        "stem": "ਬੋਸਫੋਰਸ ਅਤੇ ਡਾਰਡਾਨੇਲਸ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਸਥਿਤ ਹਨ?",
+        "options": [
+          "ਈਰਾਨ",
+          "ਮਿਸਰ",
+          "ਸਾਊਦੀ ਅਰਬ",
+          "ਤੁਰਕੀਏ"
+        ],
+        "explanation": "ਦੋਵੇਂ ਜਲਡਮਰੂ ਤੁਰਕੀਏ ਵਿੱਚ ਹਨ ਅਤੇ ਕਾਲੇ ਸਾਗਰ ਦੇ ਖੇਤਰ ਨੂੰ ਏਜੀਅਨ ਅਤੇ ਭੂਮੱਧ ਸਾਗਰਾਂ ਨਾਲ ਜੋੜਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP025-Q019",
+    "cpId": "WGE-001-CP025",
+    "objective": "jordan-river-dead-sea",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REG-CIA-IRAN-MAP",
+      "WGE-REG-CIA-TURKIYE-MAP"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which river flows into the Dead Sea from the north?",
+        "options": [
+          "Euphrates",
+          "Nile",
+          "JordanRiver",
+          "Tigris"
+        ],
+        "explanation": "The Jordan River flows south through the Jordan Valley and ends in the Dead Sea."
+      },
+      "hi": {
+        "stem": "उत्तर से मृत सागर में कौन-सी नदी गिरती है?",
+        "options": [
+          "फ़रात",
+          "नील",
+          "जॉर्डन नदी",
+          "दजला"
+        ],
+        "explanation": "जॉर्डन नदी जॉर्डन घाटी से दक्षिण की ओर बहती है और मृत सागर में समाप्त होती है।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰ ਵੱਲੋਂ ਮ੍ਰਿਤ ਸਾਗਰ ਵਿੱਚ ਕਿਹੜਾ ਦਰਿਆ ਡਿੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਫ਼ਰਾਤ",
+          "ਨੀਲ",
+          "ਜਾਰਡਨ ਦਰਿਆ",
+          "ਦਜਲਾ"
+        ],
+        "explanation": "ਜਾਰਡਨ ਦਰਿਆ ਜਾਰਡਨ ਘਾਟੀ ਵਿੱਚੋਂ ਦੱਖਣ ਵੱਲ ਵਗਦਾ ਹੈ ਅਤੇ ਮ੍ਰਿਤ ਸਾਗਰ ਵਿੱਚ ਖਤਮ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  }
+]

@@ -1,0 +1,794 @@
+[
+  {
+    "id": "WGE-001-CP026-Q001",
+    "cpId": "WGE-001-CP026",
+    "objective": "alps-central-europe",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which range crosses Switzerland and Austria and extends into northern Italy?",
+        "options": [
+          "Alps",
+          "Pyrenees",
+          "Atlas",
+          "Carpathians"
+        ],
+        "explanation": "The Alps form a major arc across central Europe, including Switzerland and Austria, and reach northern Italy."
+      },
+      "hi": {
+        "stem": "स्विट्ज़रलैंड और ऑस्ट्रिया से होकर उत्तरी इटली तक कौन-सी पर्वत-श्रेणी फैली है?",
+        "options": [
+          "आल्प्स",
+          "पिरेनीज़",
+          "एटलस पर्वत",
+          "कार्पेथियन पर्वत"
+        ],
+        "explanation": "आल्प्स मध्य यूरोप में प्रमुख चाप बनाते हैं; इनमें स्विट्ज़रलैंड और ऑस्ट्रिया आते हैं तथा ये उत्तरी इटली तक फैले हैं।"
+      },
+      "pa": {
+        "stem": "ਸਵਿਟਜ਼ਰਲੈਂਡ ਅਤੇ ਆਸਟਰੀਆ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਉੱਤਰੀ ਇਟਲੀ ਤੱਕ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਫੈਲੀ ਹੈ?",
+        "options": [
+          "ਆਲਪਸ",
+          "ਪਿਰੀਨੀਜ਼",
+          "ਐਟਲਸ ਪਹਾੜ",
+          "ਕਾਰਪੇਥੀਅਨ ਪਹਾੜ"
+        ],
+        "explanation": "ਆਲਪਸ ਮੱਧ ਯੂਰਪ ਵਿੱਚ ਵੱਡਾ ਚਾਪ ਬਣਾਉਂਦੇ ਹਨ; ਇਨ੍ਹਾਂ ਵਿੱਚ ਸਵਿਟਜ਼ਰਲੈਂਡ ਤੇ ਆਸਟਰੀਆ ਆਉਂਦੇ ਹਨ ਅਤੇ ਇਹ ਉੱਤਰੀ ਇਟਲੀ ਤੱਕ ਫੈਲਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q002",
+    "cpId": "WGE-001-CP026",
+    "objective": "pyrenees-france-spain",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which mountain range forms much of the boundary between Spain and France?",
+        "options": [
+          "Alps",
+          "Ural",
+          "Atlas",
+          "Pyrenees"
+        ],
+        "explanation": "The Pyrenees extend along much of the border between Spain and France."
+      },
+      "hi": {
+        "stem": "स्पेन और फ़्रांस के बीच सीमा का बड़ा भाग कौन-सी पर्वत-श्रेणी बनाती है?",
+        "options": [
+          "आल्प्स",
+          "यूराल पर्वत",
+          "एटलस पर्वत",
+          "पिरेनीज़"
+        ],
+        "explanation": "पिरेनीज़ स्पेन और फ़्रांस के बीच सीमा के बड़े भाग में फैले हैं।"
+      },
+      "pa": {
+        "stem": "ਸਪੇਨ ਅਤੇ ਫ਼ਰਾਂਸ ਵਿਚਕਾਰ ਸਰਹੱਦ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਬਣਾਉਂਦੀ ਹੈ?",
+        "options": [
+          "ਆਲਪਸ",
+          "ਯੂਰਾਲ ਪਹਾੜ",
+          "ਐਟਲਸ ਪਹਾੜ",
+          "ਪਿਰੀਨੀਜ਼"
+        ],
+        "explanation": "ਪਿਰੀਨੀਜ਼ ਸਪੇਨ ਅਤੇ ਫ਼ਰਾਂਸ ਵਿਚਕਾਰ ਸਰਹੱਦ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਨਾਲ ਫੈਲੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q003",
+    "cpId": "WGE-001-CP026",
+    "objective": "scandinavian-peninsula",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which peninsula is occupied mainly by Norway and Sweden?",
+        "options": [
+          "Balkan",
+          "Jutland",
+          "Scandinavian",
+          "Iberian"
+        ],
+        "explanation": "The Scandinavian Peninsula is occupied mainly by Norway and Sweden, with a small part in Finland."
+      },
+      "hi": {
+        "stem": "कौन-सा प्रायद्वीप मुख्यतः नॉर्वे और स्वीडन में फैला है?",
+        "options": [
+          "बाल्कन प्रायद्वीप",
+          "जटलैंड प्रायद्वीप",
+          "स्कैंडिनेवियाई प्रायद्वीप",
+          "आइबेरियाई प्रायद्वीप"
+        ],
+        "explanation": "स्कैंडिनेवियाई प्रायद्वीप मुख्यतः नॉर्वे और स्वीडन में है तथा इसका छोटा भाग फ़िनलैंड में है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਮੁੱਖ ਤੌਰ ’ਤੇ ਨਾਰਵੇ ਅਤੇ ਸਵੀਡਨ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
+        "options": [
+          "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ",
+          "ਜਟਲੈਂਡ ਪ੍ਰਾਇਦੀਪ",
+          "ਸਕੈਂਡੀਨੇਵੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਸਕੈਂਡੀਨੇਵੀਆਈ ਪ੍ਰਾਇਦੀਪ ਮੁੱਖ ਤੌਰ ’ਤੇ ਨਾਰਵੇ ਅਤੇ ਸਵੀਡਨ ਵਿੱਚ ਹੈ ਅਤੇ ਇਸਦਾ ਛੋਟਾ ਹਿੱਸਾ ਫਿਨਲੈਂਡ ਵਿੱਚ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q004",
+    "cpId": "WGE-001-CP026",
+    "objective": "jutland-denmark-germany",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which peninsula contains mainland Denmark and extends south into Germany?",
+        "options": [
+          "Scandinavian",
+          "Jutland",
+          "Iberian",
+          "Balkan"
+        ],
+        "explanation": "Jutland forms the mainland part of Denmark and continues south into northern Germany."
+      },
+      "hi": {
+        "stem": "कौन-सा प्रायद्वीप डेनमार्क की मुख्यभूमि में है और दक्षिण में जर्मनी तक जाता है?",
+        "options": [
+          "स्कैंडिनेवियाई प्रायद्वीप",
+          "जटलैंड प्रायद्वीप",
+          "आइबेरियाई प्रायद्वीप",
+          "बाल्कन प्रायद्वीप"
+        ],
+        "explanation": "जटलैंड डेनमार्क की मुख्यभूमि बनाता है और दक्षिण में उत्तरी जर्मनी तक जाता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਡੈਨਮਾਰਕ ਦੀ ਮੁੱਖ ਧਰਤੀ ਵਿੱਚ ਹੈ ਅਤੇ ਦੱਖਣ ਵੱਲ ਜਰਮਨੀ ਤੱਕ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਸਕੈਂਡੀਨੇਵੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਜਟਲੈਂਡ ਪ੍ਰਾਇਦੀਪ",
+          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਜਟਲੈਂਡ ਡੈਨਮਾਰਕ ਦੀ ਮੁੱਖ ਧਰਤੀ ਬਣਾਉਂਦਾ ਹੈ ਅਤੇ ਦੱਖਣ ਵੱਲ ਉੱਤਰੀ ਜਰਮਨੀ ਤੱਕ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q005",
+    "cpId": "WGE-001-CP026",
+    "objective": "balkan-southeast-europe",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which peninsula occupies much of southeastern Europe?",
+        "options": [
+          "Balkan",
+          "Iberian",
+          "Scandinavian",
+          "ArabianPeninsula"
+        ],
+        "explanation": "The Balkan Peninsula occupies southeastern Europe, though its precise boundaries vary by definition."
+      },
+      "hi": {
+        "stem": "दक्षिण-पूर्वी यूरोप के बड़े भाग में कौन-सा प्रायद्वीप स्थित है?",
+        "options": [
+          "बाल्कन प्रायद्वीप",
+          "आइबेरियाई प्रायद्वीप",
+          "स्कैंडिनेवियाई प्रायद्वीप",
+          "अरब प्रायद्वीप"
+        ],
+        "explanation": "बाल्कन प्रायद्वीप दक्षिण-पूर्वी यूरोप में है, हालाँकि इसकी सटीक सीमा परिभाषा के अनुसार बदल सकती है।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣ-ਪੂਰਬੀ ਯੂਰਪ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਕਿਹੜਾ ਪ੍ਰਾਇਦੀਪ ਸਥਿਤ ਹੈ?",
+        "options": [
+          "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ",
+          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਸਕੈਂਡੀਨੇਵੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਅਰਬ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ ਦੱਖਣ-ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚ ਹੈ, ਹਾਲਾਂਕਿ ਇਸਦੀ ਸਹੀ ਹੱਦ ਪਰਿਭਾਸ਼ਾ ਅਨੁਸਾਰ ਬਦਲ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q006",
+    "cpId": "WGE-001-CP026",
+    "objective": "danube-black-sea-delta",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which river forms a large delta on the Black Sea coast of Romania and Ukraine?",
+        "options": [
+          "Rhine",
+          "Volga",
+          "Po",
+          "Danube"
+        ],
+        "explanation": "The Danube flows southeast across Europe and enters the Black Sea through its delta."
+      },
+      "hi": {
+        "stem": "रोमानिया और यूक्रेन के काला सागर तट पर बड़ा डेल्टा कौन-सी नदी बनाती है?",
+        "options": [
+          "राइन",
+          "वोल्गा",
+          "पो नदी",
+          "डेन्यूब"
+        ],
+        "explanation": "डेन्यूब यूरोप में दक्षिण-पूर्व की ओर बहती है और अपने डेल्टा से काला सागर में गिरती है।"
+      },
+      "pa": {
+        "stem": "ਰੋਮਾਨੀਆ ਅਤੇ ਯੂਕਰੇਨ ਦੇ ਕਾਲੇ ਸਾਗਰ ਤਟ ਉੱਤੇ ਵੱਡਾ ਡੈਲਟਾ ਕਿਹੜਾ ਦਰਿਆ ਬਣਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਰਾਈਨ",
+          "ਵੋਲਗਾ",
+          "ਪੋ ਦਰਿਆ",
+          "ਡੈਨਿਊਬ"
+        ],
+        "explanation": "ਡੈਨਿਊਬ ਯੂਰਪ ਵਿੱਚ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਵਗਦਾ ਹੈ ਅਤੇ ਆਪਣੇ ਡੈਲਟੇ ਰਾਹੀਂ ਕਾਲੇ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q007",
+    "cpId": "WGE-001-CP026",
+    "objective": "rhine-north-sea",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which river reaches the North Sea after crossing Germany and the Netherlands?",
+        "options": [
+          "Po",
+          "Danube",
+          "Rhine",
+          "Volga"
+        ],
+        "explanation": "The Rhine flows through western Europe and reaches the North Sea in the Netherlands."
+      },
+      "hi": {
+        "stem": "जर्मनी और नीदरलैंड से होकर उत्तरी सागर तक कौन-सी नदी पहुँचती है?",
+        "options": [
+          "पो नदी",
+          "डेन्यूब",
+          "राइन",
+          "वोल्गा"
+        ],
+        "explanation": "राइन पश्चिमी यूरोप से होकर बहती है और नीदरलैंड में उत्तरी सागर तक पहुँचती है।"
+      },
+      "pa": {
+        "stem": "ਜਰਮਨੀ ਅਤੇ ਨੀਦਰਲੈਂਡ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਉੱਤਰੀ ਸਾਗਰ ਤੱਕ ਕਿਹੜਾ ਦਰਿਆ ਪਹੁੰਚਦਾ ਹੈ?",
+        "options": [
+          "ਪੋ ਦਰਿਆ",
+          "ਡੈਨਿਊਬ",
+          "ਰਾਈਨ",
+          "ਵੋਲਗਾ"
+        ],
+        "explanation": "ਰਾਈਨ ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚੋਂ ਵਗਦਾ ਹੈ ਅਤੇ ਨੀਦਰਲੈਂਡ ਵਿੱਚ ਉੱਤਰੀ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q008",
+    "cpId": "WGE-001-CP026",
+    "objective": "volga-caspian-outlet",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which major European river drains into the Caspian Sea?",
+        "options": [
+          "Po",
+          "Volga",
+          "Danube",
+          "Rhine"
+        ],
+        "explanation": "The Volga flows south through western Russia and ends in the Caspian Sea."
+      },
+      "hi": {
+        "stem": "कौन-सी प्रमुख यूरोपीय नदी कैस्पियन सागर में गिरती है?",
+        "options": [
+          "पो नदी",
+          "वोल्गा",
+          "डेन्यूब",
+          "राइन"
+        ],
+        "explanation": "वोल्गा पश्चिमी रूस से दक्षिण की ओर बहती है और कैस्पियन सागर में समाप्त होती है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਵੱਡਾ ਯੂਰਪੀ ਦਰਿਆ ਕੈਸਪੀਅਨ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਪੋ ਦਰਿਆ",
+          "ਵੋਲਗਾ",
+          "ਡੈਨਿਊਬ",
+          "ਰਾਈਨ"
+        ],
+        "explanation": "ਵੋਲਗਾ ਪੱਛਮੀ ਰੂਸ ਵਿੱਚੋਂ ਦੱਖਣ ਵੱਲ ਵਗਦਾ ਹੈ ਅਤੇ ਕੈਸਪੀਅਨ ਸਾਗਰ ਵਿੱਚ ਖਤਮ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q009",
+    "cpId": "WGE-001-CP026",
+    "objective": "po-plain-northern-italy",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which river crosses the Po Valley of northern Italy before reaching the Adriatic Sea?",
+        "options": [
+          "Po",
+          "Rhine",
+          "Danube",
+          "Volga"
+        ],
+        "explanation": "The Po drains much of northern Italy and enters the Adriatic Sea."
+      },
+      "hi": {
+        "stem": "एड्रियाटिक सागर तक पहुँचने से पहले उत्तरी इटली की पो घाटी से कौन-सी नदी गुजरती है?",
+        "options": [
+          "पो नदी",
+          "राइन",
+          "डेन्यूब",
+          "वोल्गा"
+        ],
+        "explanation": "पो नदी उत्तरी इटली के बड़े भाग का जल निकास करती है और एड्रियाटिक सागर में गिरती है।"
+      },
+      "pa": {
+        "stem": "ਐਡਰੀਆਟਿਕ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਣ ਤੋਂ ਪਹਿਲਾਂ ਉੱਤਰੀ ਇਟਲੀ ਦੀ ਪੋ ਘਾਟੀ ਵਿੱਚੋਂ ਕਿਹੜਾ ਦਰਿਆ ਲੰਘਦਾ ਹੈ?",
+        "options": [
+          "ਪੋ ਦਰਿਆ",
+          "ਰਾਈਨ",
+          "ਡੈਨਿਊਬ",
+          "ਵੋਲਗਾ"
+        ],
+        "explanation": "ਪੋ ਦਰਿਆ ਉੱਤਰੀ ਇਟਲੀ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਦਾ ਪਾਣੀ ਲੈ ਜਾਂਦਾ ਹੈ ਅਤੇ ਐਡਰੀਆਟਿਕ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q010",
+    "cpId": "WGE-001-CP026",
+    "objective": "carpathians-central-eastern-europe",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which mountain arc extends across Slovakia and Romania?",
+        "options": [
+          "Alps",
+          "Pyrenees",
+          "Atlas",
+          "Carpathians"
+        ],
+        "explanation": "The Carpathians form a broad arc through Central and Eastern Europe."
+      },
+      "hi": {
+        "stem": "स्लोवाकिया और रोमानिया से होकर कौन-सा पर्वतीय चाप फैला है?",
+        "options": [
+          "आल्प्स",
+          "पिरेनीज़",
+          "एटलस पर्वत",
+          "कार्पेथियन पर्वत"
+        ],
+        "explanation": "कार्पेथियन पर्वत मध्य और पूर्वी यूरोप में चौड़ा चाप बनाते हैं।"
+      },
+      "pa": {
+        "stem": "ਸਲੋਵਾਕੀਆ ਅਤੇ ਰੋਮਾਨੀਆ ਵਿੱਚੋਂ ਕਿਹੜਾ ਪਹਾੜੀ ਚਾਪ ਲੰਘਦਾ ਹੈ?",
+        "options": [
+          "ਆਲਪਸ",
+          "ਪਿਰੀਨੀਜ਼",
+          "ਐਟਲਸ ਪਹਾੜ",
+          "ਕਾਰਪੇਥੀਅਨ ਪਹਾੜ"
+        ],
+        "explanation": "ਕਾਰਪੇਥੀਅਨ ਪਹਾੜ ਮੱਧ ਅਤੇ ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚ ਵੱਡਾ ਚਾਪ ਬਣਾਉਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q011",
+    "cpId": "WGE-001-CP026",
+    "objective": "north-european-plain",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which plain stretches across northern Europe from France through Germany toward Poland?",
+        "options": [
+          "EastEuropeanPlain",
+          "WestSiberianPlain",
+          "NorthEuropeanPlain",
+          "PannonianPlain"
+        ],
+        "explanation": "The North European Plain extends across parts of France, Germany, Poland and neighbouring countries."
+      },
+      "hi": {
+        "stem": "उत्तरी यूरोप का कौन-सा मैदान फ़्रांस से जर्मनी होते हुए पोलैंड की ओर फैला है?",
+        "options": [
+          "पूर्वी यूरोपीय मैदान",
+          "पश्चिमी साइबेरियाई मैदान",
+          "उत्तरी यूरोपीय मैदान",
+          "पैनोनियन मैदान"
+        ],
+        "explanation": "उत्तरी यूरोपीय मैदान फ़्रांस, जर्मनी, पोलैंड और पड़ोसी देशों के हिस्सों में फैला है।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰੀ ਯੂਰਪ ਦਾ ਕਿਹੜਾ ਮੈਦਾਨ ਫ਼ਰਾਂਸ ਤੋਂ ਜਰਮਨੀ ਰਾਹੀਂ ਪੋਲੈਂਡ ਵੱਲ ਫੈਲਦਾ ਹੈ?",
+        "options": [
+          "ਪੂਰਬੀ ਯੂਰਪੀ ਮੈਦਾਨ",
+          "ਪੱਛਮੀ ਸਾਇਬੇਰੀਆਈ ਮੈਦਾਨ",
+          "ਉੱਤਰੀ ਯੂਰਪੀ ਮੈਦਾਨ",
+          "ਪੈਨੋਨੀਅਨ ਮੈਦਾਨ"
+        ],
+        "explanation": "ਉੱਤਰੀ ਯੂਰਪੀ ਮੈਦਾਨ ਫ਼ਰਾਂਸ, ਜਰਮਨੀ, ਪੋਲੈਂਡ ਅਤੇ ਗੁਆਂਢੀ ਦੇਸ਼ਾਂ ਦੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q012",
+    "cpId": "WGE-001-CP026",
+    "objective": "iberian-spain-portugal",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which peninsula contains most of Spain and Portugal?",
+        "options": [
+          "Scandinavian",
+          "Iberian",
+          "Balkan",
+          "Jutland"
+        ],
+        "explanation": "The Iberian Peninsula occupies southwestern Europe and contains Spain and Portugal."
+      },
+      "hi": {
+        "stem": "स्पेन और पुर्तगाल का अधिकांश भाग किस प्रायद्वीप में है?",
+        "options": [
+          "स्कैंडिनेवियाई प्रायद्वीप",
+          "आइबेरियाई प्रायद्वीप",
+          "बाल्कन प्रायद्वीप",
+          "जटलैंड प्रायद्वीप"
+        ],
+        "explanation": "आइबेरियाई प्रायद्वीप दक्षिण-पश्चिमी यूरोप में है और इसमें स्पेन तथा पुर्तगाल आते हैं।"
+      },
+      "pa": {
+        "stem": "ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਕਿਹੜੇ ਪ੍ਰਾਇਦੀਪ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਸਕੈਂਡੀਨੇਵੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
+          "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ",
+          "ਜਟਲੈਂਡ ਪ੍ਰਾਇਦੀਪ"
+        ],
+        "explanation": "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਦੱਖਣ-ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਸਪੇਨ ਤੇ ਪੁਰਤਗਾਲ ਆਉਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q013",
+    "cpId": "WGE-001-CP026",
+    "objective": "mediterranean-southern-europe",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which sea separates southern Europe from North Africa?",
+        "options": [
+          "Mediterranean",
+          "BalticSea",
+          "NorthSea",
+          "BlackSea2"
+        ],
+        "explanation": "The Mediterranean Sea lies between southern Europe, northern Africa and western Asia."
+      },
+      "hi": {
+        "stem": "दक्षिणी यूरोप को उत्तर अफ्रीका से कौन-सा सागर अलग करता है?",
+        "options": [
+          "भूमध्य सागर",
+          "बाल्टिक सागर",
+          "उत्तरी सागर",
+          "काला सागर"
+        ],
+        "explanation": "भूमध्य सागर दक्षिणी यूरोप, उत्तरी अफ्रीका और पश्चिमी एशिया के बीच स्थित है।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣੀ ਯੂਰਪ ਨੂੰ ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਤੋਂ ਕਿਹੜਾ ਸਾਗਰ ਵੱਖ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਭੂਮੱਧ ਸਾਗਰ",
+          "ਬਾਲਟਿਕ ਸਾਗਰ",
+          "ਉੱਤਰੀ ਸਾਗਰ",
+          "ਕਾਲਾ ਸਾਗਰ"
+        ],
+        "explanation": "ਭੂਮੱਧ ਸਾਗਰ ਦੱਖਣੀ ਯੂਰਪ, ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਪੱਛਮੀ ਏਸ਼ੀਆ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q014",
+    "cpId": "WGE-001-CP026",
+    "objective": "iceland-north-atlantic",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which island country lies northwest of mainland Europe in the North Atlantic?",
+        "options": [
+          "Malta",
+          "Cyprus",
+          "Madagascar",
+          "Iceland"
+        ],
+        "explanation": "Iceland is a North Atlantic island country northwest of mainland Europe."
+      },
+      "hi": {
+        "stem": "उत्तरी अटलांटिक में मुख्य यूरोप के उत्तर-पश्चिम में कौन-सा द्वीपीय देश है?",
+        "options": [
+          "माल्टा",
+          "साइप्रस",
+          "मेडागास्कर",
+          "आइसलैंड"
+        ],
+        "explanation": "आइसलैंड उत्तरी अटलांटिक में मुख्यभूमि यूरोप के उत्तर-पश्चिम में स्थित द्वीपीय देश है।"
+      },
+      "pa": {
+        "stem": "ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਵਿੱਚ ਯੂਰਪ ਦੀ ਮੁੱਖ ਧਰਤੀ ਦੇ ਉੱਤਰ-ਪੱਛਮ ਵੱਲ ਕਿਹੜਾ ਟਾਪੂ-ਦੇਸ਼ ਹੈ?",
+        "options": [
+          "ਮਾਲਟਾ",
+          "ਸਾਈਪ੍ਰਸ",
+          "ਮੈਡਾਗਾਸਕਰ",
+          "ਆਈਸਲੈਂਡ"
+        ],
+        "explanation": "ਆਈਸਲੈਂਡ ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਵਿੱਚ ਯੂਰਪ ਦੀ ਮੁੱਖ ਧਰਤੀ ਦੇ ਉੱਤਰ-ਪੱਛਮ ਵੱਲ ਟਾਪੂ-ਦੇਸ਼ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q015",
+    "cpId": "WGE-001-CP026",
+    "objective": "finland-lake-region",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which Nordic country lies between Sweden and Russia and has many lakes?",
+        "options": [
+          "Greece",
+          "Denmark",
+          "Finland",
+          "Portugal"
+        ],
+        "explanation": "Finland lies between Sweden and Russia and has a lake-rich landscape shaped by glaciation."
+      },
+      "hi": {
+        "stem": "स्वीडन और रूस के बीच स्थित अनेक झीलों वाला नॉर्डिक देश कौन-सा है?",
+        "options": [
+          "ग्रीस",
+          "डेनमार्क",
+          "फ़िनलैंड",
+          "पुर्तगाल"
+        ],
+        "explanation": "फ़िनलैंड स्वीडन और रूस के बीच है और हिमानी क्रिया से बना झीलों वाला भू-दृश्य रखता है।"
+      },
+      "pa": {
+        "stem": "ਸਵੀਡਨ ਅਤੇ ਰੂਸ ਵਿਚਕਾਰ ਸਥਿਤ ਬਹੁਤ ਸਾਰੀਆਂ ਝੀਲਾਂ ਵਾਲਾ ਨੌਰਡਿਕ ਦੇਸ਼ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਗ੍ਰੀਸ",
+          "ਡੈਨਮਾਰਕ",
+          "ਫਿਨਲੈਂਡ",
+          "ਪੁਰਤਗਾਲ"
+        ],
+        "explanation": "ਫਿਨਲੈਂਡ ਸਵੀਡਨ ਅਤੇ ਰੂਸ ਵਿਚਕਾਰ ਹੈ ਅਤੇ ਹਿਮਾਨੀ ਕਿਰਿਆ ਨਾਲ ਬਣਿਆ ਝੀਲਾਂ ਵਾਲਾ ਭੂ-ਦ੍ਰਿਸ਼ ਰੱਖਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q016",
+    "cpId": "WGE-001-CP026",
+    "objective": "north-sea-nordic-western-europe",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which sea lies between Great Britain and Norway and borders the Netherlands?",
+        "options": [
+          "Mediterranean",
+          "NorthSea",
+          "BalticSea",
+          "BlackSea2"
+        ],
+        "explanation": "The North Sea is bordered by Great Britain to the west and Norway, Denmark, Germany and the Netherlands to the east and south."
+      },
+      "hi": {
+        "stem": "ग्रेट ब्रिटेन और नॉर्वे के बीच तथा नीदरलैंड से लगा कौन-सा सागर है?",
+        "options": [
+          "भूमध्य सागर",
+          "उत्तरी सागर",
+          "बाल्टिक सागर",
+          "काला सागर"
+        ],
+        "explanation": "उत्तरी सागर के पश्चिम में ग्रेट ब्रिटेन और पूर्व तथा दक्षिण में नॉर्वे, डेनमार्क, जर्मनी व नीदरलैंड हैं।"
+      },
+      "pa": {
+        "stem": "ਗ੍ਰੇਟ ਬ੍ਰਿਟੇਨ ਅਤੇ ਨਾਰਵੇ ਵਿਚਕਾਰ ਅਤੇ ਨੀਦਰਲੈਂਡ ਨਾਲ ਲੱਗਦਾ ਕਿਹੜਾ ਸਾਗਰ ਹੈ?",
+        "options": [
+          "ਭੂਮੱਧ ਸਾਗਰ",
+          "ਉੱਤਰੀ ਸਾਗਰ",
+          "ਬਾਲਟਿਕ ਸਾਗਰ",
+          "ਕਾਲਾ ਸਾਗਰ"
+        ],
+        "explanation": "ਉੱਤਰੀ ਸਾਗਰ ਦੇ ਪੱਛਮ ਵੱਲ ਗ੍ਰੇਟ ਬ੍ਰਿਟੇਨ ਅਤੇ ਪੂਰਬ ਤੇ ਦੱਖਣ ਵੱਲ ਨਾਰਵੇ, ਡੈਨਮਾਰਕ, ਜਰਮਨੀ ਤੇ ਨੀਦਰਲੈਂਡ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q017",
+    "cpId": "WGE-001-CP026",
+    "objective": "danube-countries-black-sea",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which river crosses southeastern Europe and empties into the Black Sea?",
+        "options": [
+          "Danube",
+          "Rhine",
+          "Volga",
+          "Po"
+        ],
+        "explanation": "The Danube crosses or borders several countries before reaching the Black Sea."
+      },
+      "hi": {
+        "stem": "दक्षिण-पूर्वी यूरोप से होकर काला सागर में कौन-सी नदी गिरती है?",
+        "options": [
+          "डेन्यूब",
+          "राइन",
+          "वोल्गा",
+          "पो नदी"
+        ],
+        "explanation": "डेन्यूब कई देशों से होकर या उनकी सीमा के साथ बहती हुई काला सागर तक पहुँचती है।"
+      },
+      "pa": {
+        "stem": "ਦੱਖਣ-ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਕਾਲੇ ਸਾਗਰ ਵਿੱਚ ਕਿਹੜਾ ਦਰਿਆ ਡਿੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਡੈਨਿਊਬ",
+          "ਰਾਈਨ",
+          "ਵੋਲਗਾ",
+          "ਪੋ ਦਰਿਆ"
+        ],
+        "explanation": "ਡੈਨਿਊਬ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚੋਂ ਜਾਂ ਉਨ੍ਹਾਂ ਦੀ ਸਰਹੱਦ ਨਾਲ ਵਗਦਾ ਹੋਇਆ ਕਾਲੇ ਸਾਗਰ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP026-Q018",
+    "cpId": "WGE-001-CP026",
+    "objective": "volga-caspian-sea",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which is Europe’s longest river and drains into the Caspian Sea?",
+        "options": [
+          "Danube",
+          "Rhine",
+          "Po",
+          "Volga"
+        ],
+        "explanation": "The Volga is Europe’s longest river and flows southeast into the Caspian Sea."
+      },
+      "hi": {
+        "stem": "यूरोप की सबसे लंबी नदी कौन-सी है, जो कैस्पियन सागर में गिरती है?",
+        "options": [
+          "डेन्यूब",
+          "राइन",
+          "पो नदी",
+          "वोल्गा"
+        ],
+        "explanation": "वोल्गा यूरोप की सबसे लंबी नदी है और दक्षिण-पूर्व की ओर बहकर कैस्पियन सागर में गिरती है।"
+      },
+      "pa": {
+        "stem": "ਯੂਰਪ ਦਾ ਸਭ ਤੋਂ ਲੰਮਾ ਦਰਿਆ ਕਿਹੜਾ ਹੈ, ਜੋ ਕੈਸਪੀਅਨ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ?",
+        "options": [
+          "ਡੈਨਿਊਬ",
+          "ਰਾਈਨ",
+          "ਪੋ ਦਰਿਆ",
+          "ਵੋਲਗਾ"
+        ],
+        "explanation": "ਵੋਲਗਾ ਯੂਰਪ ਦਾ ਸਭ ਤੋਂ ਲੰਮਾ ਦਰਿਆ ਹੈ ਅਤੇ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਵਗ ਕੇ ਕੈਸਪੀਅਨ ਸਾਗਰ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
+      }
+    }
+  }
+]
