@@ -3,7 +3,12 @@ import { generateDi005FullyVisibleSet } from "./fully-visible-pie-v1";
 import { renderDiPieSvg } from "../visuals/pie-svg";
 
 function esc(value: unknown) {
-  return String(value).replace(/[&<>"]/g, (ch) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[ch]!));
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 const seeds=Array.from({length:10},(_,i)=>`DI-005-FV-REVIEW-${String(i+1).padStart(2,"0")}`);
 const sections=seeds.map(seed=>{
