@@ -64,7 +64,14 @@ The first structural pass under-counted `EITHER` authorities because it treated 
 
 That is not the actual reasoning burden. An `EITHER` question requires the learner to recognise a mutually exclusive unresolved alternative: exactly one conclusion must hold even though neither one can be selected individually.
 
-The burden model now adds one explicit exclusive-alternative step for `EITHER` authorities. This preserves the approved Hard classification where justified without artificially inflating ordinary ONLY_I / ONLY_II / BOTH / NEITHER cases.
+The burden model now uses an explicit answer-class decision burden instead of merely counting rejected candidates:
+
+- ONLY_I / ONLY_II: one support-vs-rejection decision;
+- BOTH: two positive support decisions;
+- NEITHER: two rejection decisions;
+- EITHER: two unresolved alternatives plus the exclusive-choice relation.
+
+This avoids systematically under-scoring BOTH cases and preserves the extra reasoning step in EITHER authorities without changing approved learner content.
 
 ## Existing strengths preserved
 
