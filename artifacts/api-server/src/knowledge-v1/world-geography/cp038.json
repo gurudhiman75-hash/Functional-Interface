@@ -2,274 +2,258 @@
   {
     "id": "WGE-001-CP038-Q001",
     "cpId": "WGE-001-CP038",
-    "objective": "latitude-order-tropics",
+    "objective": "contour-v-shape-upstream",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-REG-UN-MAPS",
-      "WGE-REG-PHYSICAL-WORLD",
-      "WGE-ATM-013",
-      "WGE-PHY-016B",
-      "WGE-PHY-017A"
+      "NCERT-LANDFORMS",
+      "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which sequence runs from north to south?",
+        "stem": "On a topographic map, contour lines make a V shape where they cross a stream. Which way does the V point?",
         "options": [
-          "Equator, Tropic of Cancer, Tropic of Capricorn",
-          "Tropic of Cancer, Equator, Tropic of Capricorn",
-          "Tropic of Capricorn, Equator, Tropic of Cancer",
-          "Tropic of Cancer, Tropic of Capricorn, Equator"
+          "Downstream",
+          "Along the contour interval",
+          "Upstream toward higher ground",
+          "Toward the nearest coast"
         ],
-        "explanation": "The Tropic of Cancer lies north of the Equator; the Tropic of Capricorn lies south of it."
+        "explanation": "Contour lines bend upstream where they cross a valley; the V points toward higher ground."
       },
       "hi": {
-        "stem": "अक्षांश रेखाओं को उत्तर से दक्षिण रखने पर सही क्रम कौन-सा होगा?",
+        "stem": "स्थलाकृतिक मानचित्र पर समोच्च रेखाएँ नदी को पार करते समय वी आकार बनाती हैं। यह आकार किस दिशा में नुकीला होता है?",
         "options": [
-          "भूमध्य रेखा, कर्क रेखा, मकर रेखा",
-          "कर्क रेखा, भूमध्य रेखा, मकर रेखा",
-          "मकर रेखा, भूमध्य रेखा, कर्क रेखा",
-          "कर्क रेखा, मकर रेखा, भूमध्य रेखा"
+          "धारा के नीचे की ओर",
+          "समोच्च अंतराल के साथ",
+          "ऊँची भूमि की ओर, धारा के ऊपर",
+          "निकटतम तट की ओर"
         ],
-        "explanation": "कर्क रेखा भूमध्य रेखा के उत्तर में और मकर रेखा उसके दक्षिण में स्थित है।"
+        "explanation": "घाटी को पार करते समय समोच्च रेखाएँ धारा के ऊपर की ओर मुड़ती हैं; वी का सिरा ऊँची भूमि की ओर होता है।"
       },
       "pa": {
-        "stem": "ਅਕਸ਼ਾਂਸ਼ ਰੇਖਾਵਾਂ ਨੂੰ ਉੱਤਰ ਤੋਂ ਦੱਖਣ ਰੱਖਣ ਤੇ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੋਵੇਗਾ?",
+        "stem": "ਸਥਲ-ਆਕ੍ਰਿਤੀ ਨਕਸ਼ੇ ਉੱਤੇ ਸਮੋਚ ਰੇਖਾਵਾਂ ਨਦੀ ਨੂੰ ਪਾਰ ਕਰਦਿਆਂ ਵੀ ਆਕਾਰ ਬਣਾਉਂਦੀਆਂ ਹਨ। ਇਹ ਆਕਾਰ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਨੋਕ ਕਰਦਾ ਹੈ?",
         "options": [
-          "ਭੂ-ਮੱਧ ਰੇਖਾ, ਕਰਕ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ",
-          "ਕਰਕ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ",
-          "ਮਕਰ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਕਰਕ ਰੇਖਾ",
-          "ਕਰਕ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ"
+          "ਧਾਰਾ ਦੇ ਹੇਠਾਂ ਵੱਲ",
+          "ਸਮੋਚ ਅੰਤਰਾਲ ਦੇ ਨਾਲ",
+          "ਉੱਚੀ ਧਰਤੀ ਵੱਲ, ਧਾਰਾ ਦੇ ਉੱਪਰ",
+          "ਨੇੜਲੇ ਤਟ ਵੱਲ"
         ],
-        "explanation": "ਕਰਕ ਰੇਖਾ ਭੂ-ਮੱਧ ਰੇਖਾ ਦੇ ਉੱਤਰ ਅਤੇ ਮਕਰ ਰੇਖਾ ਇਸ ਦੇ ਦੱਖਣ ਵੱਲ ਹੈ।"
+        "explanation": "ਘਾਟੀ ਪਾਰ ਕਰਦਿਆਂ ਸਮੋਚ ਰੇਖਾਵਾਂ ਧਾਰਾ ਦੇ ਉੱਪਰ ਵੱਲ ਮੁੜਦੀਆਂ ਹਨ; ਵੀ ਦੀ ਨੋਕ ਉੱਚੀ ਧਰਤੀ ਵੱਲ ਹੁੰਦੀ ਹੈ।"
       }
     }
   },
   {
     "id": "WGE-001-CP038-Q002",
     "cpId": "WGE-001-CP038",
-    "objective": "europe-asia-ural-boundary",
+    "objective": "contour-spacing-slope-steepness",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-REG-UN-MAPS",
-      "WGE-REG-PHYSICAL-WORLD",
-      "WGE-ATM-013",
-      "WGE-PHY-016B",
-      "WGE-PHY-017A"
+      "NCERT-LANDFORMS",
+      "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which major landform is commonly used as part of the boundary between Europe and Asia?",
+        "stem": "Two hills are shown with the same contour interval. What do very closely spaced contours indicate?",
         "options": [
-          "Atlas Mountains",
-          "Andes",
-          "Ural Mountains",
-          "Great Dividing Range"
+          "A steep slope",
+          "A broad, level plain",
+          "A river with no valley",
+          "A low point below sea level"
         ],
-        "explanation": "The Ural Mountains are a commonly used physical boundary between Europe and Asia, though regional boundary conventions include other features too."
+        "explanation": "A large change in elevation over a short horizontal distance is shown by closely spaced contours, indicating a steep slope."
       },
       "hi": {
-        "stem": "यूरोप और एशिया के बीच की सीमा के एक भाग के रूप में किस प्रमुख स्थलरूप का उपयोग किया जाता है?",
+        "stem": "दो पहाड़ियों पर समोच्च अंतराल समान है। बहुत पास-पास बनी समोच्च रेखाएँ क्या दर्शाती हैं?",
         "options": [
-          "एटलस पर्वत",
-          "एंडीज़",
-          "यूराल पर्वत",
-          "ग्रेट डिवाइडिंग रेंज"
+          "खड़ी ढलान",
+          "चौड़ा समतल मैदान",
+          "घाटी-विहीन नदी",
+          "समुद्र तल से नीचे का निम्न स्थान"
         ],
-        "explanation": "यूराल पर्वत यूरोप और एशिया के बीच प्रचलित भौतिक सीमा का एक भाग हैं; क्षेत्रीय सीमा-निर्धारण में अन्य स्थलरूप भी शामिल होते हैं।"
+        "explanation": "कम क्षैतिज दूरी में ऊँचाई का बड़ा अंतर पास-पास बनी समोच्च रेखाओं से दिखता है और खड़ी ढलान दर्शाता है।"
       },
       "pa": {
-        "stem": "ਯੂਰਪ ਅਤੇ ਏਸ਼ੀਆ ਵਿਚਕਾਰ ਹੱਦ ਦੇ ਇੱਕ ਹਿੱਸੇ ਵਜੋਂ ਕਿਹੜੀ ਵੱਡੀ ਭੂ-ਆਕ੍ਰਿਤੀ ਵਰਤੀ ਜਾਂਦੀ ਹੈ?",
+        "stem": "ਦੋ ਪਹਾੜੀਆਂ ਉੱਤੇ ਸਮੋਚ ਅੰਤਰਾਲ ਇੱਕੋ ਜਿਹਾ ਹੈ। ਬਹੁਤ ਨੇੜੇ ਬਣੀਆਂ ਸਮੋਚ ਰੇਖਾਵਾਂ ਕੀ ਦਰਸਾਉਂਦੀਆਂ ਹਨ?",
         "options": [
-          "ਐਟਲਸ ਪਹਾੜ",
-          "ਐਂਡੀਜ਼",
-          "ਯੂਰਾਲ ਪਹਾੜ",
-          "ਗ੍ਰੇਟ ਡਿਵਾਈਡਿੰਗ ਰੇਂਜ"
+          "ਤੀਢੀ ਢਲਾਣ",
+          "ਚੌੜਾ ਸਮਤਲ ਮੈਦਾਨ",
+          "ਘਾਟੀ ਤੋਂ ਬਿਨਾਂ ਨਦੀ",
+          "ਸਮੁੰਦਰ-ਤਲ ਤੋਂ ਹੇਠਾਂ ਨੀਵਾਂ ਥਾਂ"
         ],
-        "explanation": "ਯੂਰਾਲ ਪਹਾੜ ਯੂਰਪ ਅਤੇ ਏਸ਼ੀਆ ਵਿਚਕਾਰ ਆਮ ਤੌਰ ਤੇ ਮੰਨੀ ਭੌਤਿਕ ਹੱਦ ਦਾ ਹਿੱਸਾ ਹਨ; ਖੇਤਰੀ ਹੱਦਬੰਦੀ ਵਿੱਚ ਹੋਰ ਭੂ-ਆਕ੍ਰਿਤੀਆਂ ਵੀ ਆਉਂਦੀਆਂ ਹਨ।"
+        "explanation": "ਘੱਟ ਲੰਬਕਾਰੀ ਦੂਰੀ ਵਿੱਚ ਉਚਾਈ ਦਾ ਵੱਡਾ ਫ਼ਰਕ ਨੇੜੇ-ਨੇੜੇ ਸਮੋਚ ਰੇਖਾਵਾਂ ਨਾਲ ਦਿਖਦਾ ਹੈ ਅਤੇ ਤੀਢੀ ਢਲਾਣ ਦਰਸਾਉਂਦਾ ਹੈ।"
       }
     }
   },
   {
     "id": "WGE-001-CP038-Q003",
     "cpId": "WGE-001-CP038",
-    "objective": "equatorial-climate-biome-link",
+    "objective": "watershed-upstream-land-use-downstream-risk",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-REG-UN-MAPS",
-      "WGE-REG-PHYSICAL-WORLD",
-      "WGE-ATM-013",
-      "WGE-PHY-016B",
-      "WGE-PHY-017A"
+      "NCERT-LANDFORMS",
+      "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 3,
+    "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "A persistently hot, very wet equatorial climate most commonly supports which natural vegetation?",
+        "stem": "A town lies downstream from a catchment where forest has been cleared. Which change most directly raises the town’s rapid-runoff flood risk?",
         "options": [
-          "Tundra",
-          "Temperate grassland",
-          "Mediterranean scrub",
-          "Tropical rainforest"
+          "More water soaking into deep soil",
+          "Less interception and infiltration on the cleared slopes",
+          "A smaller drainage basin",
+          "A longer river channel"
         ],
-        "explanation": "High temperatures and abundant rainfall through much of the year support dense tropical rainforest near the Equator."
+        "explanation": "Removing forest cover can reduce interception and infiltration, allowing more rainwater to reach channels quickly; local outcomes also depend on soil and rainfall."
       },
       "hi": {
-        "stem": "भूमध्यरेखीय क्षेत्र की लगातार गर्म और बहुत आर्द्र जलवायु में सामान्यतः कौन-सी प्राकृतिक वनस्पति मिलती है?",
+        "stem": "एक नगर उस जलग्रहण क्षेत्र के नीचे स्थित है जहाँ जंगल काटे गए हैं। कौन-सा बदलाव नगर में तेज़ सतही बहाव से बाढ़ का जोखिम सबसे सीधे बढ़ाता है?",
         "options": [
-          "टुंड्रा",
-          "समशीतोष्ण घासभूमि",
-          "भूमध्यसागरीय झाड़ीदार वनस्पति",
-          "उष्णकटिबंधीय वर्षावन"
+          "गहरी मिट्टी में अधिक जल का सोखना",
+          "वन-विहीन ढलानों पर अवरोधन और अंतःस्रवण का घटना",
+          "जलनिकास क्षेत्र का छोटा होना",
+          "नदी मार्ग का लंबा होना"
         ],
-        "explanation": "भूमध्य रेखा के पास वर्ष के अधिकांश समय गर्मी और अधिक वर्षा घने उष्णकटिबंधीय वर्षावनों को सहारा देती है।"
+        "explanation": "वन हटने से जल का अवरोधन और मिट्टी में अंतःस्रवण घट सकता है; तब अधिक वर्षाजल जल्दी नदी-नालों तक पहुँचता है। वास्तविक असर मिट्टी और वर्षा पर भी निर्भर करता है।"
       },
       "pa": {
-        "stem": "ਭੂ-ਮੱਧ ਰੇਖਾਈ ਖੇਤਰ ਦੀ ਲਗਾਤਾਰ ਗਰਮ ਅਤੇ ਬਹੁਤ ਨਮੀ ਵਾਲੀ ਜਲਵਾਯੂ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਕਿਹੜੀ ਕੁਦਰਤੀ ਬਨਸਪਤੀ ਮਿਲਦੀ ਹੈ?",
+        "stem": "ਇੱਕ ਸ਼ਹਿਰ ਉਸ ਜਲ-ਗ੍ਰਹਿਣ ਖੇਤਰ ਤੋਂ ਹੇਠਾਂ ਹੈ ਜਿੱਥੇ ਜੰਗਲ ਕੱਟਿਆ ਗਿਆ ਹੈ। ਕਿਹੜਾ ਬਦਲਾਅ ਸ਼ਹਿਰ ਵਿੱਚ ਤੇਜ਼ ਸਤਹੀ ਵਹਾਅ ਕਾਰਨ ਹੜ੍ਹ ਦਾ ਖ਼ਤਰਾ ਸਿੱਧੇ ਤੌਰ ਉੱਤੇ ਵਧਾਉਂਦਾ ਹੈ?",
         "options": [
-          "ਟੁੰਡਰਾ",
-          "ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਭੂਮੀ",
-          "ਭੂਮੱਧ-ਸਾਗਰੀ ਝਾੜੀਆਂ",
-          "ਗਰਮ-ਖੇਤਰੀ ਵਰਖਾ-ਜੰਗਲ"
+          "ਡੂੰਘੀ ਮਿੱਟੀ ਵਿੱਚ ਹੋਰ ਪਾਣੀ ਸਮਾਉਣਾ",
+          "ਜੰਗਲ-ਰਹਿਤ ਢਲਾਣਾਂ ਉੱਤੇ ਰੋਕ ਅਤੇ ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ ਘਟਣਾ",
+          "ਜਲ-ਨਿਕਾਸ ਖੇਤਰ ਦਾ ਛੋਟਾ ਹੋਣਾ",
+          "ਨਦੀ-ਮਾਰਗ ਦਾ ਲੰਮਾ ਹੋਣਾ"
         ],
-        "explanation": "ਭੂ-ਮੱਧ ਰੇਖਾ ਨੇੜੇ ਸਾਲ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਗਰਮੀ ਅਤੇ ਵੱਧ ਵਰਖਾ ਸੰਘਣੇ ਗਰਮ-ਖੇਤਰੀ ਵਰਖਾ-ਜੰਗਲਾਂ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦੀ ਹੈ।"
+        "explanation": "ਜੰਗਲ ਹਟਣ ਨਾਲ ਪਾਣੀ ਰੁਕਣ ਅਤੇ ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਣ ਦੀ ਮਾਤਰਾ ਘਟ ਸਕਦੀ ਹੈ; ਫਿਰ ਵੱਧ ਮੀਂਹ ਦਾ ਪਾਣੀ ਛੇਤੀ ਨਦੀਆਂ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ। ਅਸਲ ਅਸਰ ਮਿੱਟੀ ਅਤੇ ਮੀਂਹ ਉੱਤੇ ਵੀ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।"
       }
     }
   },
   {
     "id": "WGE-001-CP038-Q004",
     "cpId": "WGE-001-CP038",
-    "objective": "peru-current-coastal-aridity",
+    "objective": "floodplain-zoning-exposure",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-REG-PHYSICAL-WORLD",
-      "WGE-PHY-016B",
-      "WGE-ATM-013"
+      "NCERT-LANDFORMS",
+      "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 0,
+    "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "The arid coast of Peru is partly associated with which oceanographic influence?",
+        "stem": "A growing settlement occupies a low floodplain beside a river. Which planning choice most directly reduces exposure to frequent inundation?",
         "options": [
-          "Cold Peru (Humboldt) Current and coastal upwelling",
-          "Warm Gulf Stream",
-          "Benguela Current on Africa’s west coast",
-          "North Atlantic Drift"
+          "Build more homes on the lowest ground",
+          "Straighten every tributary without assessment",
+          "Remove flood-warning signs",
+          "Keep critical facilities outside the mapped flood-prone zone"
         ],
-        "explanation": "The cold Peru Current and upwelling help cool and stabilize air along the coast; regional aridity also reflects broader atmospheric circulation."
+        "explanation": "Keeping hospitals and other essential facilities outside mapped flood-prone areas reduces their exposure; zoning and warning systems also help."
       },
       "hi": {
-        "stem": "पेरू का शुष्क तट आंशिक रूप से किस महासागरीय प्रभाव से जुड़ा है?",
+        "stem": "एक बढ़ती बस्ती नदी के पास निचले बाढ़-मैदान में फैल रही है। बार-बार जलमग्न होने के जोखिम को सबसे सीधे घटाने वाला नियोजन निर्णय कौन-सा है?",
         "options": [
-          "ठंडी पेरू (हम्बोल्ट) धारा और तटीय अपवेलिंग",
-          "गर्म गल्फ स्ट्रीम",
-          "अफ्रीका के पश्चिमी तट की बेंगुएला धारा",
-          "उत्तर अटलांटिक प्रवाह"
+          "सबसे निचली भूमि पर और घर बनाना",
+          "जाँच के बिना हर सहायक नदी को सीधा करना",
+          "बाढ़ चेतावनी संकेत हटाना",
+          "महत्वपूर्ण सेवाओं को चिह्नित बाढ़-जोखिम क्षेत्र से बाहर रखना"
         ],
-        "explanation": "ठंडी पेरू धारा और अपवेलिंग तट की हवा को ठंडा और स्थिर करने में मदद करते हैं; शुष्कता पर व्यापक वायुमंडलीय परिसंचरण का भी प्रभाव है।"
+        "explanation": "अस्पतालों और अन्य आवश्यक सेवाओं को चिह्नित बाढ़-जोखिम क्षेत्र से बाहर रखने से उनका जोखिम घटता है; भूमि-उपयोग नियोजन और चेतावनी व्यवस्था भी सहायक हैं।"
       },
       "pa": {
-        "stem": "ਪੇਰੂ ਦਾ ਸੁੱਕਾ ਤੱਟ ਅੰਸ਼ਕ ਤੌਰ ਤੇ ਕਿਸ ਸਮੁੰਦਰੀ ਪ੍ਰਭਾਵ ਨਾਲ ਜੁੜਿਆ ਹੈ?",
+        "stem": "ਇੱਕ ਵਧਦੀ ਬਸਤੀ ਨਦੀ ਕੋਲ ਨੀਵੇਂ ਹੜ੍ਹ-ਮੈਦਾਨ ਵਿੱਚ ਫੈਲ ਰਹੀ ਹੈ। ਵਾਰ-ਵਾਰ ਪਾਣੀ ਚੜ੍ਹਨ ਦਾ ਖ਼ਤਰਾ ਸਿੱਧੇ ਤੌਰ ਉੱਤੇ ਘਟਾਉਣ ਵਾਲਾ ਯੋਜਨਾਤਮਕ ਫ਼ੈਸਲਾ ਕਿਹੜਾ ਹੈ?",
         "options": [
-          "ਠੰਢੀ ਪੇਰੂ (ਹੰਬੋਲਟ) ਧਾਰਾ ਅਤੇ ਤੱਟੀ ਉੱਪਰਲਾ ਵਹਾਅ",
-          "ਗਰਮ ਗਲਫ਼ ਸਟ੍ਰੀਮ",
-          "ਅਫ਼ਰੀਕਾ ਦੇ ਪੱਛਮੀ ਤੱਟ ਦੀ ਬੇਂਗੁਏਲਾ ਧਾਰਾ",
-          "ਉੱਤਰੀ ਅਟਲਾਂਟਿਕ ਡ੍ਰਿਫ਼ਟ"
+          "ਸਭ ਤੋਂ ਨੀਵੀਂ ਧਰਤੀ ਉੱਤੇ ਹੋਰ ਘਰ ਬਣਾਉਣਾ",
+          "ਜਾਂਚ ਤੋਂ ਬਿਨਾਂ ਹਰ ਸਹਾਇਕ ਨਦੀ ਨੂੰ ਸਿੱਧਾ ਕਰਨਾ",
+          "ਹੜ੍ਹ-ਚੇਤਾਵਨੀ ਨਿਸ਼ਾਨ ਹਟਾਉਣਾ",
+          "ਜ਼ਰੂਰੀ ਸੇਵਾਵਾਂ ਨੂੰ ਨਕਸ਼ੇ ਦੇ ਹੜ੍ਹ-ਖ਼ਤਰੇ ਵਾਲੇ ਖੇਤਰ ਤੋਂ ਬਾਹਰ ਰੱਖਣਾ"
         ],
-        "explanation": "ਠੰਢੀ ਪੇਰੂ ਧਾਰਾ ਅਤੇ ਉੱਪਰਲਾ ਵਹਾਅ ਤੱਟ ਦੀ ਹਵਾ ਨੂੰ ਠੰਢਾ ਤੇ ਸਥਿਰ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ; ਸੁੱਕੇਪਣ ਉੱਤੇ ਵੱਡੇ ਵਾਯੂ-ਚੱਕਰ ਦਾ ਵੀ ਅਸਰ ਹੁੰਦਾ ਹੈ।"
+        "explanation": "ਹਸਪਤਾਲਾਂ ਅਤੇ ਹੋਰ ਜ਼ਰੂਰੀ ਸੇਵਾਵਾਂ ਨੂੰ ਨਕਸ਼ੇ ਦੇ ਹੜ੍ਹ-ਖ਼ਤਰੇ ਵਾਲੇ ਖੇਤਰ ਤੋਂ ਬਾਹਰ ਰੱਖਣ ਨਾਲ ਉਹਨਾਂ ਦਾ ਜੋਖਮ ਘਟਦਾ ਹੈ; ਭੂ-ਵਰਤੋਂ ਯੋਜਨਾ ਅਤੇ ਚੇਤਾਵਨੀ ਪ੍ਰਬੰਧ ਵੀ ਮਦਦ ਕਰਦੇ ਹਨ।"
       }
     }
   },
   {
     "id": "WGE-001-CP038-Q005",
     "cpId": "WGE-001-CP038",
-    "objective": "latitude-zone-order",
+    "objective": "closed-contours-hachures-depression",
     "difficulty": "Hard",
     "sourceIds": [
-      "WGE-REG-UN-MAPS",
-      "WGE-REG-PHYSICAL-WORLD",
-      "WGE-ATM-013",
-      "WGE-PHY-016B",
-      "WGE-PHY-017A"
+      "NCERT-LANDFORMS",
+      "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which sequence lists latitude lines from north to south?",
+        "stem": "A topographic map shows closed contour lines with short inward ticks. What landform do these hachured contours usually represent?",
         "options": [
-          "Equator, Arctic Circle, Tropic of Cancer, Antarctic Circle",
-          "Tropic of Capricorn, Equator, Tropic of Cancer, Arctic Circle",
-          "Arctic Circle, Tropic of Cancer, Equator, Tropic of Capricorn",
-          "Tropic of Cancer, Tropic of Capricorn, Equator, Arctic Circle"
+          "A depression",
+          "A conical peak",
+          "A river terrace",
+          "A saddle between two peaks"
         ],
-        "explanation": "The Arctic Circle is farthest north in this set, followed by the Tropic of Cancer, Equator and Tropic of Capricorn."
+        "explanation": "Short inward hachures on closed contours mark a depression whose interior is lower than the surrounding ground."
       },
       "hi": {
-        "stem": "अक्षांश रेखाओं का उत्तर से दक्षिण सही क्रम कौन-सा है?",
+        "stem": "स्थलाकृतिक मानचित्र पर बंद समोच्च रेखाओं के भीतर छोटे निशान बने हैं। ऐसे खाँचेदार समोच्च सामान्यतः किस स्थलरूप को दर्शाते हैं?",
         "options": [
-          "भूमध्य रेखा, आर्कटिक वृत्त, कर्क रेखा, अंटार्कटिक वृत्त",
-          "मकर रेखा, भूमध्य रेखा, कर्क रेखा, आर्कटिक वृत्त",
-          "आर्कटिक वृत्त, कर्क रेखा, भूमध्य रेखा, मकर रेखा",
-          "कर्क रेखा, मकर रेखा, भूमध्य रेखा, आर्कटिक वृत्त"
+          "गर्त या धँसा हुआ भाग",
+          "शंक्वाकार चोटी",
+          "नदी का सोपान",
+          "दो चोटियों के बीच की काठी"
         ],
-        "explanation": "इस सूची में आर्कटिक वृत्त सबसे उत्तर में है, फिर कर्क रेखा, भूमध्य रेखा और मकर रेखा आती हैं।"
+        "explanation": "बंद समोच्चों पर भीतर की ओर बने छोटे निशान ऐसे गर्त को दिखाते हैं जिसका भीतरी भाग आसपास की भूमि से नीचा होता है।"
       },
       "pa": {
-        "stem": "ਅਕਸ਼ਾਂਸ਼ ਰੇਖਾਵਾਂ ਦਾ ਉੱਤਰ ਤੋਂ ਦੱਖਣ ਵੱਲ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+        "stem": "ਸਥਲ-ਆਕ੍ਰਿਤੀ ਨਕਸ਼ੇ ਉੱਤੇ ਬੰਦ ਸਮੋਚ ਰੇਖਾਵਾਂ ਅੰਦਰ ਛੋਟੇ ਨਿਸ਼ਾਨ ਹਨ। ਅਜਿਹੀਆਂ ਹੈਚ-ਨਿਸ਼ਾਨ ਵਾਲੀਆਂ ਰੇਖਾਵਾਂ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜਾ ਭੂ-ਰੂਪ ਦਿਖਾਉਂਦੀਆਂ ਹਨ?",
         "options": [
-          "ਭੂ-ਮੱਧ ਰੇਖਾ, ਆਰਕਟਿਕ ਚੱਕਰ, ਕਰਕ ਰੇਖਾ, ਅੰਟਾਰਕਟਿਕ ਚੱਕਰ",
-          "ਮਕਰ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਕਰਕ ਰੇਖਾ, ਆਰਕਟਿਕ ਚੱਕਰ",
-          "ਆਰਕਟਿਕ ਚੱਕਰ, ਕਰਕ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ",
-          "ਕਰਕ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਆਰਕਟਿਕ ਚੱਕਰ"
+          "ਖੱਡ ਜਾਂ ਧੱਸਿਆ ਹਿੱਸਾ",
+          "ਸੰਕੂ-ਆਕਾਰ ਚੋਟੀ",
+          "ਨਦੀ ਦਾ ਪੌੜਾ",
+          "ਦੋ ਚੋਟੀਆਂ ਵਿਚਕਾਰ ਕਾਠੀ"
         ],
-        "explanation": "ਇਸ ਸੂਚੀ ਵਿੱਚ ਆਰਕਟਿਕ ਚੱਕਰ ਸਭ ਤੋਂ ਉੱਤਰ ਹੈ, ਫਿਰ ਕਰਕ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ ਅਤੇ ਮਕਰ ਰੇਖਾ ਆਉਂਦੀਆਂ ਹਨ।"
+        "explanation": "ਬੰਦ ਸਮੋਚਾਂ ਉੱਤੇ ਅੰਦਰ ਵੱਲ ਛੋਟੇ ਨਿਸ਼ਾਨ ਅਜਿਹੀ ਖੱਡ ਦਿਖਾਉਂਦੇ ਹਨ ਜਿਸ ਦਾ ਅੰਦਰਲਾ ਹਿੱਸਾ ਆਲੇ-ਦੁਆਲੇ ਦੀ ਧਰਤੀ ਤੋਂ ਨੀਵਾਂ ਹੁੰਦਾ ਹੈ।"
       }
     }
   },
   {
     "id": "WGE-001-CP038-Q006",
     "cpId": "WGE-001-CP038",
-    "objective": "alps-central-europe-shared-feature",
+    "objective": "river-mouth-sediment-low-energy-delta",
     "difficulty": "Hard",
     "sourceIds": [
-      "WGE-REG-UN-MAPS",
-      "WGE-REG-PHYSICAL-WORLD",
-      "WGE-ATM-013",
-      "WGE-PHY-016B",
-      "WGE-PHY-017A"
+      "NCERT-LANDFORMS",
+      "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "A physical map shows the Alps at the meeting area of France, Switzerland, Italy and Austria. Which inference is best supported?",
+        "stem": "A river enters a sheltered, shallow sea and loses speed. Which process most directly encourages a delta to build outward?",
         "options": [
-          "The Alps lie wholly within one country",
-          "The Alps form a shared cross-border mountain region",
-          "The Alps separate Africa from Europe",
-          "The Alps are a river delta"
+          "The river dissolves all its bed load",
+          "Strong offshore winds carry every particle away",
+          "The river deposits sediment as its flow decelerates",
+          "Tides prevent sediment from settling anywhere"
         ],
-        "explanation": "The Alpine chain crosses several national territories in central Europe, so it is a transboundary physical region."
+        "explanation": "When a river slows as it enters a lower-energy water body, it can deposit sediment that helps a delta grow; waves and tides may reshape it."
       },
       "hi": {
-        "stem": "मानचित्र में आल्प्स फ्रांस, स्विट्ज़रलैंड, इटली और ऑस्ट्रिया के मिलन-क्षेत्र में दिखते हैं। कौन-सा निष्कर्ष उचित है?",
+        "stem": "एक नदी शांत और उथले समुद्र में प्रवेश करके धीमी हो जाती है। कौन-सी प्रक्रिया डेल्टा को बाहर की ओर बढ़ने में सबसे सीधे सहायता करती है?",
         "options": [
-          "आल्प्स पूरी तरह एक ही देश में हैं",
-          "आल्प्स कई देशों में फैला साझा पर्वतीय क्षेत्र हैं",
-          "आल्प्स अफ्रीका को यूरोप से अलग करते हैं",
-          "आल्प्स नदी का डेल्टा हैं"
+          "नदी अपने तलछट को पूरी तरह घोल देती है",
+          "तेज़ अपतटीय पवन सभी कणों को बहा ले जाती है",
+          "प्रवाह धीमा होने पर नदी तलछट जमा करती है",
+          "ज्वार कहीं भी तलछट को जमने नहीं देता"
         ],
-        "explanation": "आल्प्स पर्वतमाला मध्य यूरोप के कई देशों में फैली है, इसलिए यह सीमापार भौतिक क्षेत्र है।"
+        "explanation": "कम ऊर्जा वाले जल में प्रवेश करते समय नदी की गति घटे तो वह तलछट जमा कर सकती है और डेल्टा का विस्तार हो सकता है; लहरें और ज्वार उसका आकार बदल सकते हैं।"
       },
       "pa": {
-        "stem": "ਨਕਸ਼ੇ ਵਿੱਚ ਐਲਪਸ ਫ਼ਰਾਂਸ, ਸਵਿਟਜ਼ਰਲੈਂਡ, ਇਟਲੀ ਅਤੇ ਆਸਟਰੀਆ ਦੇ ਮਿਲਦੇ ਇਲਾਕੇ ਵਿੱਚ ਦਿਖਦੇ ਹਨ। ਕਿਹੜਾ ਨਤੀਜਾ ਠੀਕ ਹੈ?",
+        "stem": "ਇੱਕ ਨਦੀ ਠੰਢੇ ਅਤੇ ਥੋੜ੍ਹੇ ਡੂੰਘੇ ਸਮੁੰਦਰ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋ ਕੇ ਹੌਲੀ ਹੋ ਜਾਂਦੀ ਹੈ। ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਡੈਲਟੇ ਨੂੰ ਬਾਹਰ ਵੱਲ ਵਧਣ ਵਿੱਚ ਸਿੱਧੀ ਮਦਦ ਕਰਦੀ ਹੈ?",
         "options": [
-          "ਐਲਪਸ ਪੂਰੀ ਤਰ੍ਹਾਂ ਇੱਕੋ ਦੇਸ਼ ਵਿੱਚ ਹਨ",
-          "ਐਲਪਸ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚ ਫੈਲਿਆ ਸਾਂਝਾ ਪਹਾੜੀ ਖੇਤਰ ਹਨ",
-          "ਐਲਪਸ ਅਫ਼ਰੀਕਾ ਨੂੰ ਯੂਰਪ ਤੋਂ ਵੱਖ ਕਰਦੇ ਹਨ",
-          "ਐਲਪਸ ਨਦੀ ਦਾ ਡੈਲਟਾ ਹਨ"
+          "ਨਦੀ ਆਪਣਾ ਸਾਰਾ ਤਲਛਟ ਘੋਲ ਦਿੰਦੀ ਹੈ",
+          "ਤੇਜ਼ ਤਟ-ਤੋਂ-ਦੂਰ ਹਵਾਵਾਂ ਹਰ ਕਣ ਲੈ ਜਾਂਦੀਆਂ ਹਨ",
+          "ਵਹਾਅ ਹੌਲਾ ਹੋਣ ਉੱਤੇ ਨਦੀ ਤਲਛਟ ਜਮ੍ਹਾਂ ਕਰਦੀ ਹੈ",
+          "ਜਵਾਰ ਕਿਤੇ ਵੀ ਤਲਛਟ ਨੂੰ ਜਮਣ ਨਹੀਂ ਦਿੰਦਾ"
         ],
-        "explanation": "ਐਲਪਸ ਪਹਾੜੀ ਲੜੀ ਮੱਧ ਯੂਰਪ ਦੇ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚ ਫੈਲੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਸਰਹੱਦ-ਪਾਰ ਭੌਤਿਕ ਖੇਤਰ ਹੈ।"
+        "explanation": "ਘੱਟ ਊਰਜਾ ਵਾਲੇ ਜਲ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਣ ਸਮੇਂ ਨਦੀ ਦੀ ਰਫ਼ਤਾਰ ਘਟੇ ਤਾਂ ਉਹ ਤਲਛਟ ਜਮ੍ਹਾਂ ਕਰ ਸਕਦੀ ਹੈ ਅਤੇ ਡੈਲਟਾ ਫੈਲ ਸਕਦਾ ਹੈ; ਲਹਿਰਾਂ ਅਤੇ ਜਵਾਰ ਇਸ ਦਾ ਰੂਪ ਬਦਲ ਸਕਦੇ ਹਨ।"
       }
     }
   }
