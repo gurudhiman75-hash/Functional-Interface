@@ -124,7 +124,7 @@ assert.ok(
 for (const item of reverseBatch.questions) {
   assert.equal((item.stimulusSvgs as string[]).length, 1);
   const reverseSvgLabels = [
-    ...String((item.stimulusSvgs as string[])[0]).matchAll(/<text\\b[^>]*>(.*?)<\\/text>/g),
+    ...String((item.stimulusSvgs as string[])[0]).matchAll(/<text\b[^>]*>(.*?)<\/text>/g),
   ].map((match) => match[1]);
   assert.deepEqual(
     reverseSvgLabels,
