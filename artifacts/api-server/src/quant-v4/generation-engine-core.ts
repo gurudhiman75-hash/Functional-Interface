@@ -161,6 +161,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
         language: input.language,
         questionLanguageId: input.questionLanguageId,
         seed: input.seed,
+        diversityOrdinal: input.diversityOrdinal,
       }),
   },
   {
