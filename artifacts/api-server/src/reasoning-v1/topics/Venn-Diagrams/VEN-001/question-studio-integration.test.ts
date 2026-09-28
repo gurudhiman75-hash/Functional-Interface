@@ -123,6 +123,14 @@ assert.ok(
 );
 for (const item of reverseBatch.questions) {
   assert.equal((item.stimulusSvgs as string[]).length, 1);
+  const reverseSvgLabels = [
+    ...String((item.stimulusSvgs as string[])[0]).matchAll(/<text\\b[^>]*>(.*?)<\\/text>/g),
+  ].map((match) => match[1]);
+  assert.deepEqual(
+    reverseSvgLabels,
+    (item.semanticMetadata as any).correctCircleLabelOrder,
+    "The reverse-operation diagram must visibly label the sets using the target relation order",
+  );
   assert.equal(item.optionSvgs, undefined);
   assert.equal(item.options?.length, 4);
   assert.equal((item.validation as any).exactlyOneCorrect, true);
