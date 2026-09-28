@@ -46,6 +46,10 @@ CP012 contains 20 scenarios about the boundary between supported and merely poss
 
 CP015 contains 24 distinct trilingual scenarios about bounded attitudes and positions, including qualified support, reservations, and explicit opposition. CP016 contains 24 short, advanced passages that combine reported figures, conditions, time limits, and missing evidence without adding causal claims. CP017 contains 24 mixed-format passages spanning quantifiers, conditions, exceptions, comparisons, and scope. Each pack has its own deterministic review sampler; all pool scenarios are sampled once, and Hindi/Punjabi parity and answer-position balance are checked.
 
+## Normal Question Studio workflow
+
+SIF-001 is registered in the shared reasoning-v1 engine. It appears in standard package capabilities and supports deterministic batches filtered by content pack, language, and difficulty. Normal authenticated Question Studio runs save the generation run, item versions, audit event, and outbox event through the shared runs route. These are review records only; the standard lifecycle blocks canonical Question Bank writes and learner release.
+
 ## V1 freeze boundary
 
 All 17 content packs are executable, registered in Question Studio, and frozen for trilingual review. CP015, CP016, and CP017 have approved 24-question review packs with English, Hindi, and Punjabi coverage. The chapter remains `REVIEW_ONLY`: Question Bank persistence, tests, mocks, public delivery, and automatic publication stay locked until a separate release approval. Novelty expansion is deferred to the cross-chapter final pass and does not block this review-only freeze.
