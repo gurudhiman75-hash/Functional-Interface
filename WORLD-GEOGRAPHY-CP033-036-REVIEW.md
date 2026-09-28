@@ -40,7 +40,7 @@ D. सीमा
 
 A. **ਥਾਂ — correct**
 B. ਸਥਿਤੀ
-C. ਪਿਛਲਾ ਖੇਤਰ
+C. ਸ਼ਹਿਰ ਨਾਲ ਜੁੜਿਆ ਇਲਾਕਾ
 D. ਹੱਦ
 
 ਥਾਂ ਉਸ ਜ਼ਮੀਨ ਅਤੇ ਉਸ ਦੀਆਂ ਭੌਤਿਕ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਕਹਿੰਦੇ ਹਨ ਜਿਸ ਉੱਤੇ ਬਸਤੀ ਵਸੀ ਹੁੰਦੀ ਹੈ।
@@ -223,22 +223,22 @@ A conurbation forms when the built-up areas of adjacent towns or cities merge.
 जब पास-पास के नगरों का निर्मित क्षेत्र फैलकर जुड़ जाता है, तो बने निरंतर शहरी क्षेत्र को क्या कहते हैं?
 
 A. पृष्ठप्रदेश
-B. **नगर-पुंज — correct**
+B. **जुड़ा हुआ शहरी क्षेत्र — correct**
 C. ग्रामीण किनारा
 D. रेखीय गाँव
 
-नगर-पुंज तब बनता है जब पास-पास के नगरों या शहरों के निर्मित क्षेत्र आपस में मिल जाते हैं।
+जुड़ा हुआ शहरी क्षेत्र तब बनता है जब पास-पास के नगरों या शहरों के निर्मित क्षेत्र आपस में मिल जाते हैं।
 
 **Punjabi**
 
 ਜਦੋਂ ਨੇੜਲੇ ਕਸਬਿਆਂ ਦੇ ਬਣੇ ਹੋਏ ਹਿੱਸੇ ਫੈਲ ਕੇ ਆਪਸ ਵਿੱਚ ਜੁੜ ਜਾਂਦੇ ਹਨ, ਤਾਂ ਬਣੇ ਲਗਾਤਾਰ ਸ਼ਹਿਰੀ ਖੇਤਰ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?
 
-A. ਪਿਛਲਾ ਖੇਤਰ
-B. **ਮਹਾਨਗਰੀ ਪੁੰਜ — correct**
+A. ਸ਼ਹਿਰ ਨਾਲ ਜੁੜਿਆ ਇਲਾਕਾ
+B. **ਜੁੜਿਆ ਹੋਇਆ ਸ਼ਹਿਰੀ ਖੇਤਰ — correct**
 C. ਪੇਂਡੂ ਕਿਨਾਰਾ
 D. ਰੇਖੀ ਪਿੰਡ
 
-ਮਹਾਨਗਰੀ ਪੁੰਜ ਉਦੋਂ ਬਣਦਾ ਹੈ ਜਦੋਂ ਨਾਲ ਲੱਗਦੇ ਕਸਬਿਆਂ ਜਾਂ ਸ਼ਹਿਰਾਂ ਦੇ ਬਣੇ ਹੋਏ ਹਿੱਸੇ ਮਿਲ ਜਾਂਦੇ ਹਨ।
+ਜੁੜਿਆ ਹੋਇਆ ਸ਼ਹਿਰੀ ਖੇਤਰ ਉਦੋਂ ਬਣਦਾ ਹੈ ਜਦੋਂ ਨਾਲ ਲੱਗਦੇ ਕਸਬਿਆਂ ਜਾਂ ਸ਼ਹਿਰਾਂ ਦੇ ਬਣੇ ਹੋਏ ਹਿੱਸੇ ਮਿਲ ਜਾਂਦੇ ਹਨ।
 
 Sources: WGE-SET-UNHABITAT, WGE-REG-UN-MAPS
 
@@ -250,9 +250,9 @@ Objective: urban-hinterland
 
 The surrounding area that supplies a city with goods, workers and customers is its:
 
-A. Hinterland
+A. **Hinterland — correct**
 B. Site
-C. **Urban core — correct**
+C. Urban core
 D. Commuter belt
 
 A city's hinterland is the area linked to it through services, trade and movement of people or goods.
@@ -261,9 +261,9 @@ A city's hinterland is the area linked to it through services, trade and movemen
 
 जो आसपास का क्षेत्र किसी नगर को वस्तुएँ, श्रमिक और ग्राहक उपलब्ध कराता है, उसे क्या कहते हैं?
 
-A. पृष्ठप्रदेश
+A. **पृष्ठप्रदेश — correct**
 B. स्थल
-C. **शहरी केंद्र — correct**
+C. शहरी केंद्र
 D. आवागमन क्षेत्र
 
 नगर का पृष्ठप्रदेश वह क्षेत्र है जो सेवाओं, व्यापार और लोगों या वस्तुओं की आवाजाही से उससे जुड़ा होता है।
@@ -272,12 +272,12 @@ D. आवागमन क्षेत्र
 
 ਜੋ ਆਲੇ-ਦੁਆਲੇ ਦਾ ਖੇਤਰ ਕਿਸੇ ਸ਼ਹਿਰ ਨੂੰ ਵਸਤਾਂ, ਮਜ਼ਦੂਰ ਅਤੇ ਗਾਹਕ ਦਿੰਦਾ ਹੈ, ਉਸ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?
 
-A. ਪਿਛਲਾ ਖੇਤਰ
+A. **ਸ਼ਹਿਰ ਨਾਲ ਜੁੜਿਆ ਇਲਾਕਾ — correct**
 B. ਥਾਂ
-C. **ਸ਼ਹਿਰੀ ਕੇਂਦਰ — correct**
+C. ਸ਼ਹਿਰੀ ਕੇਂਦਰ
 D. ਆਵਾਜਾਈ ਪੱਟੀ
 
-ਸ਼ਹਿਰ ਦਾ ਪਿਛਲਾ ਖੇਤਰ ਉਹ ਇਲਾਕਾ ਹੁੰਦਾ ਹੈ ਜੋ ਸੇਵਾਵਾਂ, ਵਪਾਰ ਅਤੇ ਲੋਕਾਂ ਜਾਂ ਵਸਤਾਂ ਦੀ ਆਵਾਜਾਈ ਰਾਹੀਂ ਇਸ ਨਾਲ ਜੁੜਿਆ ਹੁੰਦਾ ਹੈ।
+ਸ਼ਹਿਰ ਨਾਲ ਜੁੜਿਆ ਆਲੇ-ਦੁਆਲੇ ਦਾ ਇਲਾਕਾ ਉਹ ਇਲਾਕਾ ਹੁੰਦਾ ਹੈ ਜੋ ਸੇਵਾਵਾਂ, ਵਪਾਰ ਅਤੇ ਲੋਕਾਂ ਜਾਂ ਵਸਤਾਂ ਦੀ ਆਵਾਜਾਈ ਰਾਹੀਂ ਇਸ ਨਾਲ ਜੁੜਿਆ ਹੁੰਦਾ ਹੈ।
 
 Sources: WGE-SET-UNHABITAT, WGE-REG-UN-MAPS
 
@@ -291,8 +291,8 @@ A settlement whose growth is closely tied to loading, unloading and maritime tra
 
 A. Mining town
 B. Market village
-C. Port city
-D. **Administrative capital — correct**
+C. **Port city — correct**
+D. Administrative capital
 
 A port city performs a transport and trade function through its harbour and links with inland routes.
 
@@ -302,8 +302,8 @@ A port city performs a transport and trade function through its harbour and link
 
 A. खनन नगर
 B. बाजार गाँव
-C. बंदरगाह नगर
-D. **प्रशासनिक राजधानी — correct**
+C. **बंदरगाह नगर — correct**
+D. प्रशासनिक राजधानी
 
 बंदरगाह नगर अपने बंदरगाह और अंतर्देशीय मार्गों के संपर्क से परिवहन तथा व्यापार का कार्य करता है।
 
@@ -313,8 +313,8 @@ D. **प्रशासनिक राजधानी — correct**
 
 A. ਖਣਨ ਸ਼ਹਿਰ
 B. ਬਾਜ਼ਾਰ ਪਿੰਡ
-C. ਬੰਦਰਗਾਹ ਸ਼ਹਿਰ
-D. **ਪ੍ਰਸ਼ਾਸਕੀ ਰਾਜਧਾਨੀ — correct**
+C. **ਬੰਦਰਗਾਹ ਸ਼ਹਿਰ — correct**
+D. ਪ੍ਰਸ਼ਾਸਕੀ ਰਾਜਧਾਨੀ
 
 ਬੰਦਰਗਾਹ ਸ਼ਹਿਰ ਆਪਣੇ ਬੰਦਰਗਾਹ ਅਤੇ ਅੰਦਰੂਨੀ ਰਸਤਿਆਂ ਦੇ ਸੰਪਰਕ ਰਾਹੀਂ ਆਵਾਜਾਈ ਅਤੇ ਵਪਾਰ ਦਾ ਕੰਮ ਕਰਦਾ ਹੈ।
 
@@ -341,7 +341,7 @@ Urban sprawl is outward, often low-density expansion of the built-up area into s
 
 A. **शहरी फैलाव — correct**
 B. शहरी नवीनीकरण
-C. नगर-पुंज
+C. जुड़ा हुआ शहरी क्षेत्र
 D. ग्रामीण केंद्रीकरण
 
 शहरी फैलाव में निर्मित क्षेत्र आसपास की भूमि पर बाहर की ओर, अक्सर कम घनत्व के साथ, बढ़ता है।
@@ -352,7 +352,7 @@ D. ग्रामीण केंद्रीकरण
 
 A. **ਸ਼ਹਿਰੀ ਫੈਲਾਅ — correct**
 B. ਸ਼ਹਿਰੀ ਨਵੀਨੀਕਰਨ
-C. ਮਹਾਨਗਰੀ ਪੁੰਜ
+C. ਜੁੜਿਆ ਹੋਇਆ ਸ਼ਹਿਰੀ ਖੇਤਰ
 D. ਪੇਂਡੂ ਕੇਂਦਰੀਕਰਨ
 
 ਸ਼ਹਿਰੀ ਫੈਲਾਅ ਵਿੱਚ ਬਣਿਆ ਹੋਇਆ ਖੇਤਰ ਆਲੇ-ਦੁਆਲੇ ਦੀ ਜ਼ਮੀਨ ਵੱਲ ਬਾਹਰ ਨੂੰ, ਅਕਸਰ ਘੱਟ ਘਣਤਾ ਨਾਲ, ਵਧਦਾ ਹੈ।
@@ -500,7 +500,7 @@ Subsistence farming is directed mainly toward the needs of the producing househo
 A. **निर्वाह खेती — correct**
 B. व्यावसायिक खेती
 C. बागान खेती
-D. पशुपालन रैंचिंग
+D. पशुपालन बड़े क्षेत्रों में वाणिज्यिक पशुपालन
 
 निर्वाह खेती मुख्यतः खेती करने वाले परिवार या समुदाय की जरूरतें पूरी करने के लिए की जाती है।
 
@@ -616,7 +616,7 @@ Plantation agriculture specialises in one or a few cash crops, often for process
 
 A. मिश्रित निर्वाह खेती
 B. घुमंतू पशुपालन
-C. विस्तृत रैंचिंग
+C. विस्तृत बड़े क्षेत्रों में वाणिज्यिक पशुपालन
 D. **बागान कृषि — correct**
 
 बागान कृषि में एक या कुछ नकदी फसलों पर विशेष ध्यान दिया जाता है, अक्सर प्रसंस्करण या निर्यात के लिए।
@@ -627,7 +627,7 @@ D. **बागान कृषि — correct**
 
 A. ਮਿਸ਼ਰਤ ਗੁਜ਼ਾਰਾ ਖੇਤੀ
 B. ਘੁੰਮੰਤੂ ਪਸ਼ੂ-ਪਾਲਣਾ
-C. ਵਿਸਤ੍ਰਿਤ ਰੈਂਚਿੰਗ
+C. ਵਿਸਤ੍ਰਿਤ ਵੱਡੇ ਪੱਧਰ ਦਾ ਵਪਾਰਕ ਪਸ਼ੂ-ਪਾਲਣ
 D. **ਬਾਗਾਨ ਖੇਤੀ — correct**
 
 ਬਾਗਾਨ ਖੇਤੀ ਵਿੱਚ ਇੱਕ ਜਾਂ ਕੁਝ ਨਕਦੀ ਫ਼ਸਲਾਂ ਉੱਤੇ ਖ਼ਾਸ ਧਿਆਨ ਹੁੰਦਾ ਹੈ, ਅਕਸਰ ਪ੍ਰਸੰਸਕਰਨ ਜਾਂ ਨਿਰਯਾਤ ਲਈ।
@@ -733,10 +733,10 @@ Ranching is extensive livestock production over large areas, often where crop cu
 
 A. सघन डेयरी खेती
 B. मिश्रित फसल खेती
-C. **रैंचिंग — correct**
+C. **बड़े क्षेत्रों में वाणिज्यिक पशुपालन — correct**
 D. बागान कृषि
 
-रैंचिंग बड़े क्षेत्रों में विस्तृत पशुपालन है; यह अक्सर उन जगहों पर होती है जहाँ शुष्कता या दूरी के कारण फसल खेती सीमित रहती है।
+बड़े क्षेत्रों में वाणिज्यिक पशुपालन किया जाता है; यह अक्सर उन जगहों पर होती है जहाँ शुष्कता या दूरी के कारण फसल खेती सीमित रहती है।
 
 **Punjabi**
 
@@ -744,10 +744,10 @@ D. बागान कृषि
 
 A. ਸਘਣੀ ਡੇਅਰੀ ਖੇਤੀ
 B. ਮਿਸ਼ਰਤ ਫ਼ਸਲੀ ਖੇਤੀ
-C. **ਰੈਂਚਿੰਗ — correct**
+C. **ਵੱਡੇ ਪੱਧਰ ਦਾ ਵਪਾਰਕ ਪਸ਼ੂ-ਪਾਲਣ — correct**
 D. ਬਾਗਾਨ ਖੇਤੀ
 
-ਰੈਂਚਿੰਗ ਵੱਡੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵਿਸਤ੍ਰਿਤ ਪਸ਼ੂ-ਪਾਲਣਾ ਹੈ; ਇਹ ਅਕਸਰ ਉੱਥੇ ਹੁੰਦੀ ਹੈ ਜਿੱਥੇ ਖੁਸ਼ਕੀ ਜਾਂ ਦੂਰੀ ਕਾਰਨ ਫ਼ਸਲ ਖੇਤੀ ਸੀਮਿਤ ਰਹਿੰਦੀ ਹੈ।
+ਵੱਡੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵਪਾਰਕ ਪਸ਼ੂ-ਪਾਲਣ ਕੀਤਾ ਜਾਂਦਾ ਹੈ; ਇਹ ਅਕਸਰ ਉੱਥੇ ਹੁੰਦੀ ਹੈ ਜਿੱਥੇ ਖੁਸ਼ਕੀ ਜਾਂ ਦੂਰੀ ਕਾਰਨ ਫ਼ਸਲ ਖੇਤੀ ਸੀਮਿਤ ਰਹਿੰਦੀ ਹੈ।
 
 Sources: WGE-AGR-FAO-SYS, WGE-AGR-FAO-ASIA, WGE-AGR-FAO-MENA, WGE-AGR-FAO-FAOSTAT
 
@@ -760,9 +760,9 @@ Objective: dairy-perishable-market
 Why is commercial dairy farming often located near large urban markets?
 
 A. Cattle need high altitude everywhere
-B. Milk and fresh products are perishable
+B. **Milk and fresh products are perishable — correct**
 C. Pasture can grow only in cities
-D. **Dairy farms require ocean ports — correct**
+D. Dairy farms require ocean ports
 
 Proximity to consumers reduces the time and cost of transporting milk and other perishable products.
 
@@ -771,9 +771,9 @@ Proximity to consumers reduces the time and cost of transporting milk and other 
 व्यावसायिक डेयरी फार्म अक्सर बड़े शहरी बाजारों के पास क्यों होते हैं?
 
 A. गायों को हर जगह अधिक ऊँचाई चाहिए
-B. दूध और ताजे उत्पाद जल्दी खराब होते हैं
+B. **दूध और ताजे उत्पाद जल्दी खराब होते हैं — correct**
 C. चरागाह केवल शहरों में उगते हैं
-D. **डेयरी फार्म को समुद्री बंदरगाह चाहिए — correct**
+D. डेयरी फार्म को समुद्री बंदरगाह चाहिए
 
 उपभोक्ताओं के पास होने से दूध और अन्य जल्दी खराब होने वाले उत्पादों के परिवहन का समय और खर्च घटता है।
 
@@ -782,9 +782,9 @@ D. **डेयरी फार्म को समुद्री बंदर�
 ਵਪਾਰਕ ਡੇਅਰੀ ਫਾਰਮ ਅਕਸਰ ਵੱਡੇ ਸ਼ਹਿਰੀ ਬਾਜ਼ਾਰਾਂ ਦੇ ਨੇੜੇ ਕਿਉਂ ਹੁੰਦੇ ਹਨ?
 
 A. ਗਾਂਵਾਂ ਨੂੰ ਹਰ ਥਾਂ ਵੱਧ ਉਚਾਈ ਚਾਹੀਦੀ ਹੈ
-B. ਦੁੱਧ ਅਤੇ ਤਾਜ਼ੇ ਉਤਪਾਦ ਛੇਤੀ ਖ਼ਰਾਬ ਹੁੰਦੇ ਹਨ
+B. **ਦੁੱਧ ਅਤੇ ਤਾਜ਼ੇ ਉਤਪਾਦ ਛੇਤੀ ਖ਼ਰਾਬ ਹੁੰਦੇ ਹਨ — correct**
 C. ਚਰਾਗਾਹ ਸਿਰਫ਼ ਸ਼ਹਿਰਾਂ ਵਿੱਚ ਉੱਗਦੇ ਹਨ
-D. **ਡੇਅਰੀ ਫਾਰਮਾਂ ਨੂੰ ਸਮੁੰਦਰੀ ਬੰਦਰਗਾਹ ਚਾਹੀਦੀ ਹੈ — correct**
+D. ਡੇਅਰੀ ਫਾਰਮਾਂ ਨੂੰ ਸਮੁੰਦਰੀ ਬੰਦਰਗਾਹ ਚਾਹੀਦੀ ਹੈ
 
 ਖਪਤਕਾਰਾਂ ਦੇ ਨੇੜੇ ਹੋਣ ਨਾਲ ਦੁੱਧ ਅਤੇ ਹੋਰ ਛੇਤੀ ਖ਼ਰਾਬ ਹੋਣ ਵਾਲੇ ਉਤਪਾਦਾਂ ਦੀ ਢੁਆਈ ਦਾ ਸਮਾਂ ਅਤੇ ਖ਼ਰਚ ਘਟਦਾ ਹੈ।
 
@@ -810,7 +810,7 @@ Mixed farming combines crop production and livestock, allowing outputs and input
 जो खेत फसल उगाने के साथ पशुपालन भी करता है और दोनों में अवशेष या खाद का उपयोग करता है, वह कौन-सी प्रणाली अपनाता है?
 
 A. **मिश्रित खेती — correct**
-B. रैंचिंग
+B. बड़े क्षेत्रों में वाणिज्यिक पशुपालन
 C. एकल-बागान खेती
 D. घुमंतू पशुपालन
 
@@ -821,7 +821,7 @@ D. घुमंतू पशुपालन
 ਜੋ ਖੇਤ ਫ਼ਸਲ ਉਗਾਉਣ ਦੇ ਨਾਲ ਪਸ਼ੂ ਵੀ ਪਾਲਦਾ ਹੈ ਅਤੇ ਦੋਵਾਂ ਵਿੱਚ ਬਚਿਆ ਚਾਰਾ ਜਾਂ ਖਾਦ ਵਰਤਦਾ ਹੈ, ਉਹ ਕਿਹੜੀ ਪ੍ਰਣਾਲੀ ਅਪਣਾਉਂਦਾ ਹੈ?
 
 A. **ਮਿਸ਼ਰਤ ਖੇਤੀ — correct**
-B. ਰੈਂਚਿੰਗ
+B. ਵੱਡੇ ਪੱਧਰ ਦਾ ਵਪਾਰਕ ਪਸ਼ੂ-ਪਾਲਣ
 C. ਇੱਕ-ਫ਼ਸਲੀ ਬਾਗਾਨ ਖੇਤੀ
 D. ਘੁੰਮੰਤੂ ਪਸ਼ੂ-ਪਾਲਣਾ
 
@@ -916,9 +916,9 @@ Objective: agriculture-water-constraint
 In a semi-arid farming region, which change most directly reduces reliance on uncertain rainfall?
 
 A. Replacing all crops with timber
-B. Using irrigation from a dependable water source
+B. **Using irrigation from a dependable water source — correct**
 C. Moving farms to a port
-D. **Increasing field size without water management — correct**
+D. Increasing field size without water management
 
 Irrigation supplies water when rainfall is insufficient or poorly timed, though it depends on sustainable water access.
 
@@ -927,9 +927,9 @@ Irrigation supplies water when rainfall is insufficient or poorly timed, though 
 अर्ध-शुष्क कृषि क्षेत्र में कौन-सा बदलाव अनिश्चित वर्षा पर निर्भरता सीधे घटाता है?
 
 A. सभी फसलों की जगह लकड़ी उगाना
-B. विश्वसनीय जलस्रोत से सिंचाई करना
+B. **विश्वसनीय जलस्रोत से सिंचाई करना — correct**
 C. खेतों को बंदरगाह पर ले जाना
-D. **जल प्रबंधन के बिना खेत का आकार बढ़ाना — correct**
+D. जल प्रबंधन के बिना खेत का आकार बढ़ाना
 
 वर्षा कम या गलत समय पर होने पर सिंचाई जल देती है, हालांकि इसके लिए जलस्रोत का टिकाऊ उपयोग जरूरी है।
 
@@ -938,9 +938,9 @@ D. **जल प्रबंधन के बिना खेत का आका
 ਅਰਧ-ਖੁਸ਼ਕ ਖੇਤੀ ਖੇਤਰ ਵਿੱਚ ਕਿਹੜਾ ਬਦਲਾਅ ਅਨਿਸ਼ਚਿਤ ਵਰਖਾ ਉੱਤੇ ਨਿਰਭਰਤਾ ਸਿੱਧੀ ਘਟਾਉਂਦਾ ਹੈ?
 
 A. ਸਾਰੀਆਂ ਫ਼ਸਲਾਂ ਦੀ ਥਾਂ ਲੱਕੜ ਉਗਾਉਣਾ
-B. ਭਰੋਸੇਯੋਗ ਜਲ ਸਰੋਤ ਤੋਂ ਸਿੰਚਾਈ ਕਰਨਾ
+B. **ਭਰੋਸੇਯੋਗ ਜਲ ਸਰੋਤ ਤੋਂ ਸਿੰਚਾਈ ਕਰਨਾ — correct**
 C. ਖੇਤਾਂ ਨੂੰ ਬੰਦਰਗਾਹ ਉੱਤੇ ਲਿਜਾਣਾ
-D. **ਪਾਣੀ ਦੇ ਪ੍ਰਬੰਧ ਤੋਂ ਬਿਨਾਂ ਖੇਤ ਦਾ ਆਕਾਰ ਵਧਾਉਣਾ — correct**
+D. ਪਾਣੀ ਦੇ ਪ੍ਰਬੰਧ ਤੋਂ ਬਿਨਾਂ ਖੇਤ ਦਾ ਆਕਾਰ ਵਧਾਉਣਾ
 
 ਜਦੋਂ ਵਰਖਾ ਘੱਟ ਜਾਂ ਗਲਤ ਸਮੇਂ ਤੇ ਹੋਵੇ ਤਾਂ ਸਿੰਚਾਈ ਪਾਣੀ ਦਿੰਦੀ ਹੈ, ਪਰ ਇਸ ਲਈ ਜਲ ਸਰੋਤ ਦੀ ਟਿਕਾਊ ਵਰਤੋਂ ਲਾਜ਼ਮੀ ਹੈ।
 
@@ -1054,14 +1054,14 @@ D. कनाडा
 
 **Punjabi**
 
-ਮੁੱਖ ਲੋਹ-ਅਯਸਕ ਖੇਤਰ ਪਿਲਬਰਾ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?
+ਮੁੱਖ ਲੋਹੇ ਦਾ ਅਯਸਕ ਖੇਤਰ ਪਿਲਬਰਾ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?
 
 A. ਬ੍ਰਾਜ਼ੀਲ
 B. ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ
 C. **ਆਸਟ੍ਰੇਲੀਆ — correct**
 D. ਕੈਨੇਡਾ
 
-ਪੱਛਮੀ ਆਸਟ੍ਰੇਲੀਆ ਦਾ ਪਿਲਬਰਾ ਇੱਕ ਵੱਡਾ ਲੋਹ-ਅਯਸਕ ਖਣਨ ਖੇਤਰ ਹੈ।
+ਪੱਛਮੀ ਆਸਟ੍ਰੇਲੀਆ ਦਾ ਪਿਲਬਰਾ ਇੱਕ ਵੱਡਾ ਲੋਹੇ ਦਾ ਅਯਸਕ ਖਣਨ ਖੇਤਰ ਹੈ।
 
 Sources: WGE-RES-USGS-MCS, WGE-RES-USGS-DATA, WGE-RES-IEA-ENERGY, WGE-REG-UN-MAPS
 
@@ -1171,14 +1171,14 @@ D. मेक्सिको
 
 **Punjabi**
 
-ਲੋਹ-ਅਯਸਕ ਲਈ ਪ੍ਰਸਿੱਧ ਕਾਰਾਜਾਸ ਖਣਿਜ ਖੇਤਰ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?
+ਲੋਹੇ ਦਾ ਅਯਸਕ ਲਈ ਪ੍ਰਸਿੱਧ ਕਾਰਾਜਾਸ ਖਣਿਜ ਖੇਤਰ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?
 
 A. ਪੇਰੂ
 B. **ਬ੍ਰਾਜ਼ੀਲ — correct**
 C. ਅਰਜਨਟੀਨਾ
 D. ਮੈਕਸੀਕੋ
 
-ਕਾਰਾਜਾਸ ਖਣਿਜ ਖੇਤਰ ਉੱਤਰੀ ਬ੍ਰਾਜ਼ੀਲ ਵਿੱਚ ਹੈ ਅਤੇ ਉੱਥੇ ਵੱਡੇ ਲੋਹ-ਅਯਸਕ ਭੰਡਾਰ ਹਨ।
+ਕਾਰਾਜਾਸ ਖਣਿਜ ਖੇਤਰ ਉੱਤਰੀ ਬ੍ਰਾਜ਼ੀਲ ਵਿੱਚ ਹੈ ਅਤੇ ਉੱਥੇ ਵੱਡੇ ਲੋਹੇ ਦਾ ਅਯਸਕ ਭੰਡਾਰ ਹਨ।
 
 Sources: WGE-RES-USGS-MCS, WGE-RES-USGS-DATA, WGE-RES-IEA-ENERGY, WGE-REG-UN-MAPS
 
@@ -1323,7 +1323,7 @@ B. **विश्वसनीय जल प्रवाह और पर्य�
 C. गहरा पेट्रोलियम बेसिन
 D. केवल मौसमी समुद्री बर्फ वाला क्षेत्र
 
-जलविद्युत के लिए जल प्रवाह और उपयोगी जल-शीर्ष चाहिए; जल-शीर्ष वह ऊँचाई-अंतर है जो पानी को टरबाइन से गुजारता है।
+जलविद्युत के लिए जल प्रवाह और पानी की ऊँचाई का उपयोगी अंतर चाहिए; यह वही ऊँचाई-अंतर है जो पानी को टरबाइन से गुजारता है।
 
 **Punjabi**
 
@@ -1334,7 +1334,7 @@ B. **ਭਰੋਸੇਯੋਗ ਪਾਣੀ ਦਾ ਵਹਾਅ ਅਤੇ ਕਾ�
 C. ਡੂੰਘਾ ਪੈਟਰੋਲੀਅਮ ਬੇਸਿਨ
 D. ਸਿਰਫ਼ ਮੌਸਮੀ ਸਮੁੰਦਰੀ ਬਰਫ਼ ਵਾਲਾ ਖੇਤਰ
 
-ਪਣ-ਬਿਜਲੀ ਲਈ ਪਾਣੀ ਦਾ ਵਹਾਅ ਅਤੇ ਵਰਤਣਯੋਗ ਜਲ-ਸਿਰ ਚਾਹੀਦਾ ਹੈ; ਇਹ ਉਹ ਉਚਾਈ ਦਾ ਫ਼ਰਕ ਹੈ ਜੋ ਪਾਣੀ ਨੂੰ ਟਰਬਾਈਨ ਵਿੱਚੋਂ ਲੰਘਾਉਂਦਾ ਹੈ।
+ਪਣ-ਬਿਜਲੀ ਲਈ ਪਾਣੀ ਦਾ ਵਹਾਅ ਅਤੇ ਪਾਣੀ ਦੀ ਉਚਾਈ ਦਾ ਵਰਤਣਯੋਗ ਫ਼ਰਕ ਚਾਹੀਦਾ ਹੈ; ਇਹੀ ਫ਼ਰਕ ਪਾਣੀ ਨੂੰ ਟਰਬਾਈਨ ਵਿੱਚੋਂ ਲੰਘਾਉਂਦਾ ਹੈ।
 
 Sources: WGE-RES-USGS-MCS, WGE-RES-USGS-DATA, WGE-RES-IEA-ENERGY, WGE-REG-UN-MAPS
 
@@ -1347,8 +1347,8 @@ Objective: mineral-resource-location
 A mineral deposit is most likely to support a large mine when it is:
 
 A. Remote from transport and technically inaccessible
-B. Economically recoverable with available technology and infrastructure
-C. **Classified only as a theoretical resource — correct**
+B. **Economically recoverable with available technology and infrastructure — correct**
+C. Classified only as a theoretical resource
 D. Located where no processing is possible
 
 A deposit's economic viability depends on grade, extraction costs, technology, infrastructure and market conditions, not geology alone.
@@ -1358,22 +1358,22 @@ A deposit's economic viability depends on grade, extraction costs, technology, i
 किस खनिज निक्षेप से बड़ी खदान चलने की संभावना अधिक होती है?
 
 A. जो परिवहन से दूर और तकनीकी रूप से दुर्गम हो
-B. जिसे उपलब्ध तकनीक और ढाँचे से लाभकारी ढंग से निकाला जा सके
-C. **जिसे केवल सैद्धांतिक संसाधन कहा गया हो — correct**
+B. **जिसे उपलब्ध तकनीक और ढाँचे से लाभकारी ढंग से निकाला जा सके — correct**
+C. जिसे केवल सैद्धांतिक संसाधन कहा गया हो
 D. जहाँ प्रसंस्करण संभव न हो
 
 निक्षेप की आर्थिक उपयोगिता अयस्क की गुणवत्ता, निष्कर्षण लागत, तकनीक, ढाँचे और बाजार पर निर्भर करती है, केवल भूविज्ञान पर नहीं।
 
 **Punjabi**
 
-ਕਿਹੜੇ ਖਣਿਜ ਭੰਡਾਰ ਤੋਂ ਵੱਡੀ ਖਾਣ ਚੱਲਣ ਦੀ ਸੰਭਾਵਨਾ ਵੱਧ ਹੁੰਦੀ ਹੈ?
+ਕਿਹੜੇ ਖਣਿਜ ਜਮ੍ਹਾਂ ਤੋਂ ਵੱਡੀ ਖਾਣ ਚੱਲਣ ਦੀ ਸੰਭਾਵਨਾ ਵੱਧ ਹੁੰਦੀ ਹੈ?
 
 A. ਜੋ ਆਵਾਜਾਈ ਤੋਂ ਦੂਰ ਅਤੇ ਤਕਨੀਕੀ ਤੌਰ ਤੇ ਪਹੁੰਚ ਤੋਂ ਬਾਹਰ ਹੋਵੇ
-B. ਜਿਸ ਨੂੰ ਮੌਜੂਦਾ ਤਕਨੀਕ ਅਤੇ ਢਾਂਚੇ ਨਾਲ ਲਾਭ ਨਾਲ ਕੱਢਿਆ ਜਾ ਸਕੇ
-C. **ਜਿਸ ਨੂੰ ਸਿਰਫ਼ ਕਲਪਨਾਤਮਕ ਸਰੋਤ ਕਿਹਾ ਗਿਆ ਹੋਵੇ — correct**
+B. **ਜਿਸ ਨੂੰ ਮੌਜੂਦਾ ਤਕਨੀਕ ਅਤੇ ਢਾਂਚੇ ਨਾਲ ਲਾਭ ਨਾਲ ਕੱਢਿਆ ਜਾ ਸਕੇ — correct**
+C. ਜਿਸ ਨੂੰ ਸਿਰਫ਼ ਸਿਧਾਂਤਕ ਸਰੋਤ ਮੰਨਿਆ ਗਿਆ ਹੋਵੇ
 D. ਜਿੱਥੇ ਪ੍ਰਸੰਸਕਰਨ ਸੰਭਵ ਨਾ ਹੋਵੇ
 
-ਭੰਡਾਰ ਦੀ ਆਰਥਿਕ ਵਰਤੋਂ ਧਾਤ ਦੀ ਗੁਣਵੱਤਾ, ਕੱਢਣ ਦੇ ਖ਼ਰਚ, ਤਕਨੀਕ, ਢਾਂਚੇ ਅਤੇ ਬਾਜ਼ਾਰ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ, ਸਿਰਫ਼ ਭੂ-ਵਿਗਿਆਨ ਉੱਤੇ ਨਹੀਂ।
+ਜਮ੍ਹਾਂ ਖਣਿਜ ਦੀ ਆਰਥਿਕ ਵਰਤੋਂ ਧਾਤ ਦੀ ਗੁਣਵੱਤਾ, ਕੱਢਣ ਦੇ ਖ਼ਰਚ, ਤਕਨੀਕ, ਢਾਂਚੇ ਅਤੇ ਬਾਜ਼ਾਰ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ, ਸਿਰਫ਼ ਭੂ-ਵਿਗਿਆਨ ਉੱਤੇ ਨਹੀਂ।
 
 Sources: WGE-RES-USGS-MCS, WGE-RES-USGS-DATA, WGE-RES-IEA-ENERGY, WGE-REG-UN-MAPS
 
@@ -1386,9 +1386,9 @@ Objective: renewable-nonrenewable-resource
 Which statement correctly distinguishes a renewable energy flow from a fossil-fuel stock?
 
 A. Coal replenishes on a human timescale
-B. Sunlight is replenished continuously, while coal forms over geological time
+B. **Sunlight is replenished continuously, while coal forms over geological time — correct**
 C. Natural gas is renewable because it is gaseous
-D. **Wind can only be used where coal is mined — correct**
+D. Wind can only be used where coal is mined
 
 Solar radiation is an ongoing energy flow; fossil fuels form over geological timescales and are not replenished at comparable human rates.
 
@@ -1397,9 +1397,9 @@ Solar radiation is an ongoing energy flow; fossil fuels form over geological tim
 नवीकरणीय ऊर्जा प्रवाह और जीवाश्म ईंधन भंडार में सही अंतर कौन-सा है?
 
 A. कोयला मानव जीवनकाल में फिर बन जाता है
-B. सूर्य का प्रकाश लगातार मिलता है, जबकि कोयला भूवैज्ञानिक समय में बनता है
+B. **सूर्य का प्रकाश लगातार मिलता है, जबकि कोयला भूवैज्ञानिक समय में बनता है — correct**
 C. प्राकृतिक गैस गैस होने से नवीकरणीय है
-D. **पवन का उपयोग केवल कोयला खदानों के पास हो सकता है — correct**
+D. पवन का उपयोग केवल कोयला खदानों के पास हो सकता है
 
 सौर विकिरण लगातार मिलने वाला ऊर्जा प्रवाह है; जीवाश्म ईंधन भूवैज्ञानिक समय में बनते हैं और मानव समयमान पर फिर से नहीं बनते।
 
@@ -1408,9 +1408,9 @@ D. **पवन का उपयोग केवल कोयला खदान�
 ਨਵਿਆਉਣਯੋਗ ਊਰਜਾ ਦੇ ਵਹਾਅ ਅਤੇ ਜੀਵਾਸ਼ਮ ਇੰਧਨ ਦੇ ਭੰਡਾਰ ਵਿੱਚ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?
 
 A. ਕੋਲਾ ਮਨੁੱਖੀ ਜੀਵਨਕਾਲ ਵਿੱਚ ਮੁੜ ਬਣ ਜਾਂਦਾ ਹੈ
-B. ਸੂਰਜੀ ਰੌਸ਼ਨੀ ਲਗਾਤਾਰ ਮਿਲਦੀ ਹੈ, ਜਦਕਿ ਕੋਲਾ ਭੂ-ਵਿਗਿਆਨਕ ਸਮੇਂ ਵਿੱਚ ਬਣਦਾ ਹੈ
+B. **ਸੂਰਜੀ ਰੌਸ਼ਨੀ ਲਗਾਤਾਰ ਮਿਲਦੀ ਹੈ, ਜਦਕਿ ਕੋਲਾ ਭੂ-ਵਿਗਿਆਨਕ ਸਮੇਂ ਵਿੱਚ ਬਣਦਾ ਹੈ — correct**
 C. ਕੁਦਰਤੀ ਗੈਸ ਗੈਸ ਹੋਣ ਕਰਕੇ ਨਵਿਆਉਣਯੋਗ ਹੈ
-D. **ਪਵਨ ਦੀ ਵਰਤੋਂ ਸਿਰਫ਼ ਕੋਲਾ ਖਾਣਾਂ ਨੇੜੇ ਹੋ ਸਕਦੀ ਹੈ — correct**
+D. ਪਵਨ ਦੀ ਵਰਤੋਂ ਸਿਰਫ਼ ਕੋਲਾ ਖਾਣਾਂ ਨੇੜੇ ਹੋ ਸਕਦੀ ਹੈ
 
 ਸੂਰਜੀ ਰੌਸ਼ਨੀ ਲਗਾਤਾਰ ਮਿਲਣ ਵਾਲਾ ਊਰਜਾ ਵਹਾਅ ਹੈ; ਜੀਵਾਸ਼ਮ ਇੰਧਨ ਭੂ-ਵਿਗਿਆਨਕ ਸਮੇਂ ਵਿੱਚ ਬਣਦੇ ਹਨ ਅਤੇ ਮਨੁੱਖੀ ਸਮੇਂ ਵਿੱਚ ਮੁੜ ਨਹੀਂ ਬਣਦੇ।
 
@@ -1448,12 +1448,12 @@ D. मछली और नमक
 
 ਲੋਹਾ-ਇਸਪਾਤ ਉਦਯੋਗਾਂ ਦੀ ਥਾਂ ਨੂੰ ਰਵਾਇਤੀ ਤੌਰ ਤੇ ਕਿਹੜੇ ਦੋ ਸਰੋਤ ਪ੍ਰਭਾਵਿਤ ਕਰਦੇ ਰਹੇ ਹਨ?
 
-A. **ਲੋਹ-ਅਯਸਕ ਅਤੇ ਇੰਧਨ ਜਾਂ ਬਿਜਲੀ — correct**
+A. **ਲੋਹੇ ਦਾ ਅਯਸਕ ਅਤੇ ਇੰਧਨ ਜਾਂ ਬਿਜਲੀ — correct**
 B. ਚਾਹ ਅਤੇ ਜੂਟ
 C. ਕਪਾਹ ਅਤੇ ਗਰਮ-ਖੇਤਰੀ ਵਰਖਾ
 D. ਮੱਛੀ ਅਤੇ ਲੂਣ
 
-ਲੋਹਾ-ਇਸਪਾਤ ਬਣਾਉਣ ਲਈ ਭਾਰੀ ਲੋਹ-ਅਯਸਕ ਅਤੇ ਊਰਜਾ ਤੱਕ ਪਹੁੰਚ ਰਵਾਇਤੀ ਤੌਰ ਤੇ ਅਹਿਮ ਰਹੀ ਹੈ; ਆਵਾਜਾਈ ਅਤੇ ਬਾਜ਼ਾਰ ਵੀ ਮਾਇਨੇ ਰੱਖਦੇ ਹਨ।
+ਲੋਹਾ-ਇਸਪਾਤ ਬਣਾਉਣ ਲਈ ਭਾਰੀ ਲੋਹੇ ਦਾ ਅਯਸਕ ਅਤੇ ਊਰਜਾ ਤੱਕ ਪਹੁੰਚ ਰਵਾਇਤੀ ਤੌਰ ਤੇ ਅਹਿਮ ਰਹੀ ਹੈ; ਆਵਾਜਾਈ ਅਤੇ ਬਾਜ਼ਾਰ ਵੀ ਮਾਇਨੇ ਰੱਖਦੇ ਹਨ।
 
 Sources: WGE-IND-UNIDO-LOCATION, WGE-IND-UNIDO-IDR, WGE-IND-WB-GVC, WGE-REG-UN-MAPS
 
@@ -1505,30 +1505,30 @@ Objective: textile-industry-location
 A garment factory choosing a location near a large pool of trained workers is responding mainly to:
 
 A. Climate
-B. Labour availability
-C. **Mineral deposits — correct**
+B. **Labour availability — correct**
+C. Mineral deposits
 D. Tidal range
 
 Labour availability is an important location factor for labour-intensive stages of textile and garment production.
 
 **Hindi**
 
-कपड़ा कारखाना प्रशिक्षित श्रमिकों की बड़ी उपलब्धता के पास स्थान चुनता है। वह मुख्यतः किस कारक पर ध्यान दे रहा है?
+जहाँ प्रशिक्षित श्रमिक बड़ी संख्या में मिलते हों, वहाँ कपड़ा कारखाना लगाने का मुख्य कारण क्या है?
 
 A. जलवायु
-B. श्रम की उपलब्धता
-C. **खनिज निक्षेप — correct**
+B. **श्रम की उपलब्धता — correct**
+C. खनिज निक्षेप
 D. ज्वार-भाटा का अंतर
 
 कपड़ा और परिधान उत्पादन के श्रम-प्रधान चरणों में श्रमिकों की उपलब्धता एक महत्वपूर्ण स्थान-कारक है।
 
 **Punjabi**
 
-ਕੱਪੜੇ ਦਾ ਕਾਰਖਾਨਾ ਸਿਖਲਾਈਯਾਫ਼ਤਾ ਮਜ਼ਦੂਰਾਂ ਦੀ ਵੱਡੀ ਉਪਲਬਧਤਾ ਨੇੜੇ ਥਾਂ ਚੁਣਦਾ ਹੈ। ਉਹ ਮੁੱਖ ਤੌਰ ਤੇ ਕਿਹੜੇ ਕਾਰਕ ਨੂੰ ਦੇਖ ਰਿਹਾ ਹੈ?
+ਜਿੱਥੇ ਸਿਖਲਾਈ ਪ੍ਰਾਪਤ ਮਜ਼ਦੂਰ ਵੱਡੀ ਗਿਣਤੀ ਵਿੱਚ ਮਿਲਦੇ ਹੋਣ, ਉੱਥੇ ਕੱਪੜੇ ਦਾ ਕਾਰਖਾਨਾ ਲਗਾਉਣ ਦਾ ਮੁੱਖ ਕਾਰਨ ਕੀ ਹੈ?
 
 A. ਜਲਵਾਯੂ
-B. ਮਜ਼ਦੂਰੀ ਦੀ ਉਪਲਬਧਤਾ
-C. **ਖਣਿਜ ਭੰਡਾਰ — correct**
+B. **ਮਜ਼ਦੂਰਾਂ ਦੀ ਉਪਲਬਧਤਾ — correct**
+C. ਖਣਿਜ ਜਮ੍ਹਾਂ
 D. ਜਵਾਰ-ਭਾਟੇ ਦਾ ਫ਼ਰਕ
 
 ਕੱਪੜੇ ਅਤੇ ਪਹਿਰਾਵੇ ਦੇ ਮਜ਼ਦੂਰੀ-ਪ੍ਰਧਾਨ ਕੰਮਾਂ ਲਈ ਮਜ਼ਦੂਰਾਂ ਦੀ ਉਪਲਬਧਤਾ ਇੱਕ ਅਹਿਮ ਥਾਂ-ਕਾਰਕ ਹੈ।
@@ -1543,10 +1543,10 @@ Objective: technology-industry-location
 
 Which combination most supports a high-technology industrial cluster?
 
-A. Skilled labour, research institutions and reliable connectivity
+A. **Skilled labour, research institutions and reliable connectivity — correct**
 B. Only nearby grazing land
 C. Distance from universities and markets
-D. **A single raw material with no transport — correct**
+D. A single raw material with no transport
 
 Technology-intensive firms often benefit from skilled workers, research networks, suppliers and communications infrastructure.
 
@@ -1554,10 +1554,10 @@ Technology-intensive firms often benefit from skilled workers, research networks
 
 उच्च-प्रौद्योगिकी उद्योगों के समूह को कौन-सा संयोजन सबसे अधिक सहारा देता है?
 
-A. कुशल श्रमिक, शोध संस्थान और भरोसेमंद संपर्क
+A. **कुशल श्रमिक, शोध संस्थान और भरोसेमंद संपर्क — correct**
 B. केवल पास के चरागाह
 C. विश्वविद्यालयों और बाजारों से दूरी
-D. **बिना परिवहन का एक कच्चा माल — correct**
+D. बिना परिवहन का एक कच्चा माल
 
 प्रौद्योगिकी-प्रधान कंपनियों को कुशल श्रमिकों, शोध नेटवर्क, आपूर्तिकर्ताओं और संचार ढाँचे से लाभ हो सकता है।
 
@@ -1565,10 +1565,10 @@ D. **बिना परिवहन का एक कच्चा माल —
 
 ਉੱਚ-ਤਕਨੀਕੀ ਉਦਯੋਗਕ ਸਮੂਹ ਨੂੰ ਕਿਹੜਾ ਜੋੜ ਸਭ ਤੋਂ ਵੱਧ ਸਹਾਰਾ ਦਿੰਦਾ ਹੈ?
 
-A. ਕੁਸ਼ਲ ਮਜ਼ਦੂਰ, ਖੋਜ ਸੰਸਥਾਵਾਂ ਅਤੇ ਭਰੋਸੇਯੋਗ ਸੰਪਰਕ
+A. **ਕੁਸ਼ਲ ਮਜ਼ਦੂਰ, ਖੋਜ ਸੰਸਥਾਵਾਂ ਅਤੇ ਭਰੋਸੇਯੋਗ ਸੰਪਰਕ — correct**
 B. ਸਿਰਫ਼ ਨੇੜਲੇ ਚਰਾਗਾਹ
 C. ਯੂਨੀਵਰਸਿਟੀਆਂ ਅਤੇ ਬਾਜ਼ਾਰਾਂ ਤੋਂ ਦੂਰੀ
-D. **ਆਵਾਜਾਈ ਤੋਂ ਬਿਨਾਂ ਇੱਕ ਕੱਚਾ ਮਾਲ — correct**
+D. ਆਵਾਜਾਈ ਤੋਂ ਬਿਨਾਂ ਇੱਕ ਕੱਚਾ ਮਾਲ
 
 ਤਕਨੀਕ-ਪ੍ਰਧਾਨ ਕੰਪਨੀਆਂ ਨੂੰ ਕੁਸ਼ਲ ਮਜ਼ਦੂਰਾਂ, ਖੋਜ ਜਾਲ, ਸਪਲਾਇਰਾਂ ਅਤੇ ਸੰਚਾਰ ਢਾਂਚੇ ਤੋਂ ਲਾਭ ਹੋ ਸਕਦਾ ਹੈ।
 
@@ -1661,8 +1661,8 @@ Objective: ruhr-industrial-region
 The Ruhr, historically associated with coal, steel and heavy industry, is in:
 
 A. Northern Italy
-B. Western Germany
-C. **Eastern Spain — correct**
+B. **Western Germany — correct**
+C. Eastern Spain
 D. Southern Sweden
 
 The Ruhr industrial region lies in western Germany; its historic development was linked to coal, transport and manufacturing.
@@ -1672,8 +1672,8 @@ The Ruhr industrial region lies in western Germany; its historic development was
 कोयला, इस्पात और भारी उद्योग से ऐतिहासिक रूप से जुड़ा रुहर क्षेत्र कहाँ है?
 
 A. उत्तरी इटली
-B. पश्चिमी जर्मनी
-C. **पूर्वी स्पेन — correct**
+B. **पश्चिमी जर्मनी — correct**
+C. पूर्वी स्पेन
 D. दक्षिणी स्वीडन
 
 रुहर औद्योगिक क्षेत्र पश्चिमी जर्मनी में है; इसका ऐतिहासिक विकास कोयले, परिवहन और विनिर्माण से जुड़ा रहा।
@@ -1683,8 +1683,8 @@ D. दक्षिणी स्वीडन
 ਕੋਲੇ, ਇਸਪਾਤ ਅਤੇ ਭਾਰੀ ਉਦਯੋਗ ਨਾਲ ਇਤਿਹਾਸਕ ਤੌਰ ਤੇ ਜੁੜਿਆ ਰੂਹਰ ਖੇਤਰ ਕਿੱਥੇ ਹੈ?
 
 A. ਉੱਤਰੀ ਇਟਲੀ
-B. ਪੱਛਮੀ ਜਰਮਨੀ
-C. **ਪੂਰਬੀ ਸਪੇਨ — correct**
+B. **ਪੱਛਮੀ ਜਰਮਨੀ — correct**
+C. ਪੂਰਬੀ ਸਪੇਨ
 D. ਦੱਖਣੀ ਸਵੀਡਨ
 
 ਰੂਹਰ ਉਦਯੋਗਕ ਖੇਤਰ ਪੱਛਮੀ ਜਰਮਨੀ ਵਿੱਚ ਹੈ; ਇਸ ਦਾ ਇਤਿਹਾਸਕ ਵਿਕਾਸ ਕੋਲੇ, ਆਵਾਜਾਈ ਅਤੇ ਨਿਰਮਾਣ ਨਾਲ ਜੁੜਿਆ ਰਿਹਾ।
@@ -1701,8 +1701,8 @@ A steel plant that imports bulky ore and exports finished products may gain from
 
 A. A mountain summit
 B. An isolated farm belt
-C. A port and efficient freight links
-D. **A seasonal grazing route — correct**
+C. **A port and efficient freight links — correct**
+D. A seasonal grazing route
 
 Ports and freight connections can reduce transport costs for industries that move heavy inputs and finished goods.
 
@@ -1712,8 +1712,8 @@ Ports and freight connections can reduce transport costs for industries that mov
 
 A. पर्वत शिखर
 B. अलग-थलग कृषि क्षेत्र
-C. बंदरगाह और कुशल माल-परिवहन संपर्क
-D. **मौसमी चराई मार्ग — correct**
+C. **बंदरगाह और कुशल माल-परिवहन संपर्क — correct**
+D. मौसमी चराई मार्ग
 
 बंदरगाह और माल-परिवहन संपर्क भारी कच्चे माल तथा तैयार वस्तुओं की ढुलाई लागत घटा सकते हैं।
 
@@ -1723,8 +1723,8 @@ D. **मौसमी चराई मार्ग — correct**
 
 A. ਪਹਾੜੀ ਚੋਟੀ
 B. ਇਕਾਂਤ ਖੇਤੀ ਪੱਟੀ
-C. ਬੰਦਰਗਾਹ ਅਤੇ ਕੁਸ਼ਲ ਮਾਲ-ਢੁਆਈ ਸੰਪਰਕ
-D. **ਮੌਸਮੀ ਚਰਾਈ ਰਸਤਾ — correct**
+C. **ਬੰਦਰਗਾਹ ਅਤੇ ਕੁਸ਼ਲ ਮਾਲ-ਢੁਆਈ ਸੰਪਰਕ — correct**
+D. ਮੌਸਮੀ ਚਰਾਈ ਰਸਤਾ
 
 ਬੰਦਰਗਾਹ ਅਤੇ ਮਾਲ-ਢੁਆਈ ਸੰਪਰਕ ਭਾਰੀ ਕੱਚੇ ਮਾਲ ਅਤੇ ਤਿਆਰ ਸਮਾਨ ਦੇ ਆਵਾਜਾਈ ਖ਼ਰਚ ਘਟਾ ਸਕਦੇ ਹਨ।
 
@@ -1816,9 +1816,9 @@ Objective: industry-market-oriented
 
 A food-processing plant using perishable farm produce is often attracted to farms or cities mainly because:
 
-A. Raw material or consumers must be reached quickly
+A. **Raw material or consumers must be reached quickly — correct**
 B. It requires a coal seam under the factory
-C. **It can operate only on mountain slopes — correct**
+C. It can operate only on mountain slopes
 D. It needs a sea current
 
 Perishable inputs or finished foods make proximity to farms, transport nodes or consumer markets valuable.
@@ -1827,9 +1827,9 @@ Perishable inputs or finished foods make proximity to farms, transport nodes or 
 
 जल्दी खराब होने वाली कृषि उपज का उपयोग करने वाला खाद्य-प्रसंस्करण संयंत्र खेतों या शहरों के पास क्यों जाता है?
 
-A. कच्चे माल या उपभोक्ताओं तक जल्दी पहुँचना होता है
+A. **कच्चे माल या उपभोक्ताओं तक जल्दी पहुँचना होता है — correct**
 B. कारखाने के नीचे कोयले की परत चाहिए
-C. **यह केवल पर्वतीय ढाल पर चल सकता है — correct**
+C. यह केवल पर्वतीय ढाल पर चल सकता है
 D. इसे समुद्री धारा चाहिए
 
 जल्दी खराब होने वाला कच्चा माल या तैयार भोजन होने पर खेतों, परिवहन केंद्रों या उपभोक्ता बाजारों के पास होना उपयोगी होता है।
@@ -1838,9 +1838,9 @@ D. इसे समुद्री धारा चाहिए
 
 ਛੇਤੀ ਖ਼ਰਾਬ ਹੋਣ ਵਾਲੀ ਖੇਤੀ ਉਪਜ ਵਰਤਣ ਵਾਲਾ ਖਾਦ-ਪ੍ਰਸੰਸਕਰਨ ਕਾਰਖਾਨਾ ਖੇਤਾਂ ਜਾਂ ਸ਼ਹਿਰਾਂ ਨੇੜੇ ਕਿਉਂ ਹੁੰਦਾ ਹੈ?
 
-A. ਕੱਚੇ ਮਾਲ ਜਾਂ ਖਪਤਕਾਰਾਂ ਤੱਕ ਛੇਤੀ ਪਹੁੰਚਣਾ ਹੁੰਦਾ ਹੈ
+A. **ਕੱਚੇ ਮਾਲ ਜਾਂ ਖਪਤਕਾਰਾਂ ਤੱਕ ਛੇਤੀ ਪਹੁੰਚਣਾ ਹੁੰਦਾ ਹੈ — correct**
 B. ਕਾਰਖਾਨੇ ਹੇਠ ਕੋਲੇ ਦੀ ਪਰਤ ਚਾਹੀਦੀ ਹੈ
-C. **ਇਹ ਸਿਰਫ਼ ਪਹਾੜੀ ਢਲਾਣ ਉੱਤੇ ਚੱਲ ਸਕਦਾ ਹੈ — correct**
+C. ਇਹ ਸਿਰਫ਼ ਪਹਾੜੀ ਢਲਾਣ ਉੱਤੇ ਚੱਲ ਸਕਦਾ ਹੈ
 D. ਇਸ ਨੂੰ ਸਮੁੰਦਰੀ ਧਾਰਾ ਚਾਹੀਦੀ ਹੈ
 
 ਛੇਤੀ ਖ਼ਰਾਬ ਹੋਣ ਵਾਲਾ ਕੱਚਾ ਮਾਲ ਜਾਂ ਤਿਆਰ ਭੋਜਨ ਹੋਣ ਕਰਕੇ ਖੇਤਾਂ, ਆਵਾਜਾਈ ਕੇਂਦਰਾਂ ਜਾਂ ਖਪਤਕਾਰ ਬਾਜ਼ਾਰਾਂ ਨੇੜੇ ਹੋਣਾ ਲਾਭਦਾਇਕ ਹੁੰਦਾ ਹੈ।
@@ -1856,9 +1856,9 @@ Objective: industrial-region-location-logic
 A region with ports, skilled labour, suppliers and a large market is attractive to varied industries because it offers:
 
 A. Only a single mineral
-B. Several linked location advantages
+B. **Several linked location advantages — correct**
 C. No need for power
-D. **A guarantee against economic change — correct**
+D. A guarantee against economic change
 
 Industrial regions often grow through a combination of transport, labour, supplier networks, power and market access rather than one factor alone.
 
@@ -1867,22 +1867,22 @@ Industrial regions often grow through a combination of transport, labour, suppli
 बंदरगाह, कुशल श्रमिक, आपूर्तिकर्ता और बड़ा बाजार वाला क्षेत्र कई उद्योगों को क्यों आकर्षित करता है?
 
 A. केवल एक खनिज के कारण
-B. कई परस्पर जुड़े स्थान-लाभों के कारण
+B. **कई परस्पर जुड़े स्थान-लाभों के कारण — correct**
 C. बिजली की जरूरत न होने के कारण
-D. **आर्थिक बदलाव से सुरक्षा की गारंटी के कारण — correct**
+D. आर्थिक बदलाव से सुरक्षा की गारंटी के कारण
 
-औद्योगिक क्षेत्र अक्सर केवल एक कारक से नहीं, बल्कि परिवहन, श्रम, आपूर्तिकर्ता-जाल, ऊर्जा और बाजार की संयुक्त उपलब्धता से विकसित होते हैं।
+औद्योगिक क्षेत्र अक्सर केवल एक कारक से नहीं, बल्कि परिवहन, श्रम, आपूर्तिकर्ताओं के नेटवर्क, ऊर्जा और बाजार की संयुक्त उपलब्धता से विकसित होते हैं।
 
 **Punjabi**
 
 ਬੰਦਰਗਾਹਾਂ, ਕੁਸ਼ਲ ਮਜ਼ਦੂਰਾਂ, ਸਪਲਾਇਰਾਂ ਅਤੇ ਵੱਡੇ ਬਾਜ਼ਾਰ ਵਾਲਾ ਖੇਤਰ ਵੱਖ-ਵੱਖ ਉਦਯੋਗਾਂ ਨੂੰ ਕਿਉਂ ਖਿੱਚਦਾ ਹੈ?
 
 A. ਸਿਰਫ਼ ਇੱਕ ਖਣਿਜ ਕਰਕੇ
-B. ਕਈ ਆਪਸ ਵਿੱਚ ਜੁੜੇ ਥਾਂ-ਲਾਭਾਂ ਕਰਕੇ
+B. **ਕਈ ਆਪਸ ਵਿੱਚ ਜੁੜੇ ਥਾਂ-ਲਾਭਾਂ ਕਰਕੇ — correct**
 C. ਬਿਜਲੀ ਦੀ ਲੋੜ ਨਾ ਹੋਣ ਕਰਕੇ
-D. **ਆਰਥਿਕ ਬਦਲਾਅ ਤੋਂ ਬਚਾਅ ਦੀ ਗਾਰੰਟੀ ਕਰਕੇ — correct**
+D. ਆਰਥਿਕ ਬਦਲਾਅ ਤੋਂ ਬਚਾਅ ਦੀ ਗਾਰੰਟੀ ਕਰਕੇ
 
-ਉਦਯੋਗਕ ਖੇਤਰ ਅਕਸਰ ਇੱਕੋ ਕਾਰਕ ਕਰਕੇ ਨਹੀਂ, ਸਗੋਂ ਆਵਾਜਾਈ, ਮਜ਼ਦੂਰੀ, ਸਪਲਾਇਰ ਜਾਲ, ਊਰਜਾ ਅਤੇ ਬਾਜ਼ਾਰ ਦੇ ਮਿਲੇ-ਜੁਲੇ ਲਾਭਾਂ ਨਾਲ ਵਧਦੇ ਹਨ।
+ਉਦਯੋਗਕ ਖੇਤਰ ਅਕਸਰ ਇੱਕੋ ਕਾਰਕ ਕਰਕੇ ਨਹੀਂ, ਸਗੋਂ ਆਵਾਜਾਈ, ਮਜ਼ਦੂਰੀ, ਸਪਲਾਇਰਾਂ ਦੇ ਨੈੱਟਵਰਕ, ਊਰਜਾ ਅਤੇ ਬਾਜ਼ਾਰ ਦੇ ਮਿਲੇ-ਜੁਲੇ ਲਾਭਾਂ ਨਾਲ ਵਧਦੇ ਹਨ।
 
 Sources: WGE-IND-UNIDO-LOCATION, WGE-IND-UNIDO-IDR, WGE-IND-WB-GVC, WGE-REG-UN-MAPS
 
