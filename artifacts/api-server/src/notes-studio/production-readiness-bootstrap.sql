@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS catalog.exam_families (
   id UUID PRIMARY KEY,
   code TEXT NOT NULL UNIQUE,
   name TEXT NOT NULL,
+  description TEXT,
   is_active BOOLEAN NOT NULL DEFAULT true
 );
 
@@ -19,7 +20,10 @@ CREATE TABLE IF NOT EXISTS catalog.exams (
   family_id UUID NOT NULL REFERENCES catalog.exam_families(id) ON DELETE RESTRICT,
   code TEXT NOT NULL UNIQUE,
   name TEXT NOT NULL,
-  is_active BOOLEAN NOT NULL DEFAULT true
+  description TEXT,
+  is_active BOOLEAN NOT NULL DEFAULT true,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE TABLE IF NOT EXISTS catalog.exam_versions (
@@ -27,7 +31,10 @@ CREATE TABLE IF NOT EXISTS catalog.exam_versions (
   exam_id UUID NOT NULL REFERENCES catalog.exams(id) ON DELETE CASCADE,
   version_number INTEGER NOT NULL DEFAULT 1,
   name TEXT NOT NULL,
-  is_current BOOLEAN NOT NULL DEFAULT false
+  effective_from TIMESTAMPTZ,
+  effective_until TIMESTAMPTZ,
+  is_current BOOLEAN NOT NULL DEFAULT false,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE TABLE IF NOT EXISTS catalog.languages (
@@ -37,6 +44,17 @@ CREATE TABLE IF NOT EXISTS catalog.languages (
   native_name TEXT,
   is_active BOOLEAN NOT NULL DEFAULT true
 );
+
+CREATE TABLE IF NOT EXISTS catalog.exam_version_languages (
+  exam_version_id UUID NOT NULL REFERENCES catalog.exam_versions(id) ON DELETE CASCADE,
+  language_id UUID NOT NULL REFERENCES catalog.languages(id) ON DELETE RESTRICT,
+  is_primary BOOLEAN NOT NULL DEFAULT false,
+  PRIMARY KEY (exam_version_id, language_id)
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS exam_version_languages_one_primary_idx
+  ON catalog.exam_version_languages (exam_version_id)
+  WHERE is_primary = true;
 
 CREATE TABLE IF NOT EXISTS catalog.taxonomy_nodes (
   id UUID PRIMARY KEY,
