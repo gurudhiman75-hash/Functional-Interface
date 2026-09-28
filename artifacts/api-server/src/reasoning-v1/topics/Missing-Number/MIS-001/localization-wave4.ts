@@ -97,5 +97,5 @@ export function localizeMisWave4Question<T extends Q>(q:T,language:MisLocalizedL
 export const MIS_LOCALIZATION_WAVE4_STATE=Object.freeze({
  checkpoints:Object.freeze(Array.from({length:13},(_,i)=>`MIS-CP-${String(i+16).padStart(3,'0')}`)),
  runtimePatternCount:23, permanentQlCoverageCount:22, sourceThinLocalizedRuntimeCount:1,
- languages:Object.freeze(['en','hi','pa'] as const), parityStatus:'WAVE4_EXECUTABLE_GUARD_PENDING' as const,
+ languages:Object.freeze(['en','hi','pa'] as const), parityStatus:'WAVE4_EXECUTABLE_GUARD_IMPLEMENTED' as const,
 });
