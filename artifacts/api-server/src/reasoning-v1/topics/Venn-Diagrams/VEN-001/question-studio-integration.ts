@@ -217,7 +217,7 @@ function correctCircleLabelOrder(authority: VennScenarioAuthority): string[] {
 function stemFor(authority: VennScenarioAuthority, locale: VennLocale): string {
   const groups = authority.sets
     .map((set) => \`\${set.setId} = \${set.labels[locale]}\`)
-    .join(locale === "en-IN" ? ", " : "، ");
+    .join(", ");
   if (locale === "hi-IN")
     return groups + "। A, B और C के बीच संबंध को कौन-सा वेन आरेख सही दर्शाता है?";
   if (locale === "pa-IN")
