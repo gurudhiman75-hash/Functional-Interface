@@ -302,6 +302,110 @@ function deterministicShuffle<T>(values:readonly T[],seed:string){
     .map(row=>row.value);
 }
 
+type SourceSlot = Readonly<{
+  tier:DiNoveltyTier;
+  mode:SourceMode;
+  ordinal:number;
+}>;
+
+function assignDifficultyBandsAcrossSources(
+  assignments:readonly {tier:DiNoveltyTier;mode:SourceMode;count:number}[],
+  profile:DiDeliveryExamProfile,
+  difficultyCounts:Record<DiDifficultyBand,number>,
+  seed:string,
+){
+  const slots:SourceSlot[]=[];
+  for(const assignment of assignments){
+    for(let i=0;i<assignment.count;i+=1){
+      slots.push({tier:assignment.tier,mode:assignment.mode,ordinal:i});
+    }
+  }
+
+  const hardTarget=difficultyCounts.Hard;
+  const hardEligibleGroups=[...new Map(
+    slots
+      .filter(slot=>isHardEligible(slot.mode,profile))
+      .map(slot=>[slot.mode.id,slot.mode] as const)
+  ).values()]
+    .map(mode=>({mode,rank:hashSeed(`${seed}:hard-mode-order:${mode.id}`)}))
+    .sort((a,b)=>a.rank-b.rank||a.mode.id.localeCompare(b.mode.id))
+    .map(row=>row.mode);
+
+  if(hardTarget>0&&!hardEligibleGroups.length){
+    throw new Error(`DI novelty mix has no hard-capable source mode for ${profile}.`);
+  }
+
+  const remainingByMode=new Map<string,SourceSlot[]>();
+  for(const mode of hardEligibleGroups){
+    remainingByMode.set(
+      mode.id,
+      deterministicShuffle(
+        slots.filter(slot=>slot.mode.id===mode.id),
+        `${seed}:hard-slot-order:${mode.id}`,
+      ),
+    );
+  }
+
+  const hardSlots:SourceSlot[]=[];
+  let round=0;
+  while(hardSlots.length<hardTarget){
+    let progress=false;
+    for(const mode of hardEligibleGroups){
+      if(hardSlots.length>=hardTarget) break;
+      const bucket=remainingByMode.get(mode.id)!;
+      const slot=bucket.shift();
+      if(!slot) continue;
+      hardSlots.push(slot);
+      progress=true;
+    }
+    if(!progress){
+      throw new Error(`DI novelty mix has only ${hardSlots.length} hard-capable source slots for ${hardTarget} requested Hard questions.`);
+    }
+    round+=1;
+    if(round>slots.length+1) throw new Error("DI novelty mix hard-source round-robin did not converge.");
+  }
+
+  const hardKeys=new Set(hardSlots.map(slot=>`${slot.tier}|${slot.mode.id}|${slot.ordinal}`));
+  const nonHardSlots=slots.filter(slot=>!hardKeys.has(`${slot.tier}|${slot.mode.id}|${slot.ordinal}`));
+  const nonHardPlan:DiDifficultyBand[]=[
+    ...Array.from({length:difficultyCounts.Easy},()=>"Easy" as const),
+    ...Array.from({length:difficultyCounts.Medium},()=>"Medium" as const),
+  ];
+  if(nonHardPlan.length!==nonHardSlots.length){
+    throw new Error(`DI novelty mix non-hard slot mismatch: ${nonHardSlots.length} source slots for ${nonHardPlan.length} Easy/Medium positions.`);
+  }
+
+  const shuffledNonHardSlots=deterministicShuffle(nonHardSlots,`${seed}:non-hard-source-order`);
+  const shuffledNonHardPlan=deterministicShuffle(nonHardPlan,`${seed}:non-hard-band-order`);
+  const bandBySlot=new Map<string,DiDifficultyBand>();
+  for(const slot of hardSlots){
+    bandBySlot.set(`${slot.tier}|${slot.mode.id}|${slot.ordinal}`,"Hard");
+  }
+  for(let i=0;i<shuffledNonHardSlots.length;i+=1){
+    const slot=shuffledNonHardSlots[i]!;
+    bandBySlot.set(
+      `${slot.tier}|${slot.mode.id}|${slot.ordinal}`,
+      shuffledNonHardPlan[i]!,
+    );
+  }
+
+  const grouped=new Map<string,{tier:DiNoveltyTier;mode:SourceMode;band:DiDifficultyBand;count:number}>();
+  for(const slot of slots){
+    const key=`${slot.tier}|${slot.mode.id}|${slot.ordinal}`;
+    const band=bandBySlot.get(key);
+    if(!band) throw new Error(`DI novelty mix lost a difficulty assignment for ${slot.mode.id}.`);
+    const groupKey=`${slot.tier}|${slot.mode.id}|${band}`;
+    const existing=grouped.get(groupKey);
+    if(existing) existing.count+=1;
+    else grouped.set(groupKey,{tier:slot.tier,mode:slot.mode,band,count:1});
+  }
+
+  return {
+    groups:[...grouped.values()],
+    hardSourceModes:[...new Set(hardSlots.map(slot=>slot.mode.id))],
+  };
+}
+
 function normalizedStem(question:any){
   return String(question.stem??question.text??"").toLowerCase().replace(/\s+/g," ").trim();
 }
@@ -439,53 +543,27 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
     throw new Error(`DI novelty mix hard-source rebalance failed: ${constrainedSlots} constrained slots remain for ${nonHardCapacity} non-hard positions.`);
   }
 
-  const difficultyPool=[...difficultyMix.plan];
-  const generationAssignments=[...balancedAssignments].sort((a,b)=>{
-    const aConstrained=isHardEligible(a.mode,examProfile)?1:0;
-    const bConstrained=isHardEligible(b.mode,examProfile)?1:0;
-    if(aConstrained!==bConstrained) return aConstrained-bConstrained;
-    return hashSeed(`${seed}:assignment-order:${a.tier}:${a.mode.id}`)-hashSeed(`${seed}:assignment-order:${b.tier}:${b.mode.id}`);
-  });
+  const difficultyAssignment=assignDifficultyBandsAcrossSources(
+    balancedAssignments,
+    examProfile,
+    difficultyMix.counts,
+    seed,
+  );
 
-  for(const {tier,mode,count:modeCount} of generationAssignments){
-    const requestedBands:DiDifficultyBand[]=[];
-    for(let slot=0;slot<modeCount;slot+=1){
-      const eligibleIndices=difficultyPool
-        .map((band,index)=>({band,index}))
-        .filter(row=>row.band!=="Hard" || isHardEligible(mode,examProfile))
-        .map(row=>row.index);
-      if(!eligibleIndices.length){
-        throw new Error(`DI novelty mix could not assign a compatible difficulty to ${mode.id} for ${examProfile}.`);
-      }
-      const chosenIndex=eligibleIndices[
-        hashSeed(`${seed}:difficulty-slot:${tier}:${mode.id}:${slot}`)%eligibleIndices.length
-      ]!;
-      requestedBands.push(difficultyPool.splice(chosenIndex,1)[0]!);
+  for(const {tier,mode,band,count:bandCount} of difficultyAssignment.groups){
+    const result=await mode.generate({
+      canonicalProblemId:mode.canonicalProblemId,
+      difficulty:band.toLowerCase(),
+      language:"en",
+      seed:`${seed}:${tier}:${mode.id}:${band}`,
+      count:bandCount,
+      examProfile:examProfileForSource(examProfile),
+    });
+    sourcePackages.push(...(result.questionPackages??[]));
+    for(const question of result.questions??[]){
+      actualCounts[tier]+=1;
+      generated.push(decorateNoveltyQuestion(question,tier,mode));
     }
-
-    const bandCounts=new Map<DiDifficultyBand,number>();
-    for(const band of requestedBands) bandCounts.set(band,(bandCounts.get(band)??0)+1);
-    for(const band of ["Easy","Medium","Hard"] as const){
-      const bandCount=bandCounts.get(band)??0;
-      if(!bandCount) continue;
-      const result=await mode.generate({
-        canonicalProblemId:mode.canonicalProblemId,
-        difficulty:band.toLowerCase(),
-        language:"en",
-        seed:`${seed}:${tier}:${mode.id}:${band}`,
-        count:bandCount,
-        examProfile:examProfileForSource(examProfile),
-      });
-      sourcePackages.push(...(result.questionPackages??[]));
-      for(const question of result.questions??[]){
-        actualCounts[tier]+=1;
-        generated.push(decorateNoveltyQuestion(question,tier,mode));
-      }
-    }
-  }
-
-  if(difficultyPool.length!==0){
-    throw new Error(`DI novelty mix left ${difficultyPool.length} unassigned difficulty slots.`);
   }
 
   if(generated.length!==count){
@@ -545,6 +623,7 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
         requestedCounts:difficultyMix.counts,
         actualCounts:actualDifficultyCounts,
         explicitDifficulty:difficultyMix.explicitDifficulty,
+        hardSourceModes:difficultyAssignment.hardSourceModes,
       },
     },
     questionPackages:sourcePackages,
