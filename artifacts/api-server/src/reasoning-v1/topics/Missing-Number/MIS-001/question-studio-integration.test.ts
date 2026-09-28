@@ -458,10 +458,22 @@ async function main() {
   });
   assert.ok((medium.questions as Record<string, any>[]).every((question) => question.difficulty === 'Medium'));
 
-  await assert.rejects(
-    () => generateMis001QuestionStudioBatch({ packageId: 'MIS-001', language: 'hi', count: 1 }),
-    /English editorial review/,
-  );
+  const hindi = await generateMis001QuestionStudioBatch({
+    packageId: 'MIS-001',
+    language: 'hi',
+    count: 4,
+    seed: 'MIS-QS-HINDI-SMOKE',
+  });
+  const punjabi = await generateMis001QuestionStudioBatch({
+    packageId: 'MIS-001',
+    language: 'pa',
+    count: 4,
+    seed: 'MIS-QS-PUNJABI-SMOKE',
+  });
+  assert.equal(hindi.questions.length, 4);
+  assert.equal(punjabi.questions.length, 4);
+  assert.ok((hindi.questions as Record<string, any>[]).every((question) => question.locale === 'hi-IN'));
+  assert.ok((punjabi.questions as Record<string, any>[]).every((question) => question.locale === 'pa-IN'));
   await assert.rejects(
     () => generateMis001QuestionStudioBatch({
       packageId: 'MIS-001',
