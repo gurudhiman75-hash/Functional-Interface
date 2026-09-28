@@ -46,6 +46,11 @@ assert.equal(
   expectedUnique,
   `Mensuration must exhaust unused positive-weight patterns before reuse (records=${mensuration.length}, capacity=${positiveWeightPatternIds.size}).`,
 );
+assert.equal(
+  mensurationUsedPatternIds.size,
+  new Set(patternIds).size,
+  "Mensuration exclusion tracking must use the same actual pattern IDs emitted by the runtime.",
+);
 
 console.log("QUANT_V4_CGL_MENSURATION_DIVERSITY_P4", JSON.stringify({
   mensurationRecords: mensuration.length,
