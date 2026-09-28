@@ -1,6 +1,6 @@
 import { deterministicShuffle } from "../../knowledge-v1/deterministic";
 import { GEO_IND_001_OWNING_POOL_V1 } from "../../knowledge-v1/indian-geography/industries/geo-ind-001-owning-pool-v1";
-import { auditGeoInd001ChapterClosureV1 } from "../../knowledge-v1/indian-geography/industries/geo-ind-001-cp013-mastery-v1";
+import { auditGeoInd001ChapterClosureV1 } from "../../knowledge-v1/indian-geography/industries/geo-ind-001-cp014-mastery-v1";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -24,7 +24,7 @@ const closure = auditGeoInd001ChapterClosureV1();
 if (!closure.valid) throw new Error("GEO-IND-001 Question Studio registration blocked: " + closure.issues.join(" | "));
 
 function cpIdForQuestion(questionId: string) {
-  const match = questionId.match(/^GEO\-MIN\-001-CP(\d{3})-/);
+  const match = questionId.match(/^GEO\-IND\-001-CP(\d{3})-/);
   if (!match) throw new Error("Cannot derive GEO-IND-001 CP from " + questionId);
   return "GEO-IND-001-CP" + match[1];
 }
@@ -123,7 +123,7 @@ export function isGeoInd001QuestionStudioRequestV1(request: QuestionStudioGenera
   const topic = String(request.topic ?? "").trim().toLowerCase();
   const subtopic = String(request.subtopic ?? "").trim().toLowerCase();
   return selectorValues(request).some((v) => v.startsWith("GEO-IND-001")) ||
-    ((subject === "static gk" || !subject) && topic === "indian geography" && subtopic === "minerals & energy resources of india");
+    ((subject === "static gk" || !subject) && topic === "indian geography" && subtopic === "industries & industrial geography of india");
 }
 
 export const knowledgeV1GeoInd001QuestionStudioAdapterV1: QuestionStudioEngineAdapter = {
