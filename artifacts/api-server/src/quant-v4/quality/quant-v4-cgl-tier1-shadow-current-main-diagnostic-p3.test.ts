@@ -1,3 +1,4 @@
+// Audit rerun marker: RAP-002 diversity P5 merged; no runtime logic change.
 import assert from "node:assert/strict";
 
 import { generateQuantV4CglTier1ShadowSection } from "./quant-v4-cgl-tier1-shadow-simulation-p3";
