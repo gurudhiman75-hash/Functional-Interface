@@ -33,10 +33,18 @@ function pickDifficulty(seed: string): Rap002DifficultyBand {
   return (["Medium", "Hard"] as const)[stableBucket(seed, 2)]!;
 }
 
-function pickQl(cpId: Rap002CanonicalProblemId, seed: string, requested?: string) {
+function pickQl(
+  cpId: Rap002CanonicalProblemId,
+  seed: string,
+  requested?: string,
+  diversityOrdinal?: number,
+) {
   if (requested) return requested;
   const ids = getRap002QuestionLanguageIds(cpId);
-  return ids[stableBucket(`${seed}:ql`, ids.length)]!;
+  const selectedIndex = Number.isInteger(diversityOrdinal)
+    ? Math.max(0, Math.floor(Number(diversityOrdinal))) % ids.length
+    : stableBucket(`${seed}:ql`, ids.length);
+  return ids[selectedIndex]!;
 }
 
 function ratioTerm(difficulty: Rap002DifficultyBand, seed: string) {
@@ -795,7 +803,7 @@ export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap0
   const seed = input.seed ?? `RAP-002:${cpId}`;
   const language = input.language ?? "en";
 
-  const qlId = pickQl(cpId, seed, input.questionLanguageId);
+  const qlId = pickQl(cpId, seed, input.questionLanguageId, input.diversityOrdinal);
   const registry = getRap002RegistryEntry(qlId);
   const difficulty = input.difficultyBand ?? registry.difficulty ?? pickDifficulty(seed);
   const fixedVariables = phase2FixedVariables(qlId);
