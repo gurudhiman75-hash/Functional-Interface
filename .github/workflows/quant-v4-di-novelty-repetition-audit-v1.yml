@@ -7,10 +7,14 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-novelty-repetition-audit-v1.ts"
   workflow_dispatch:
 
+concurrency:
+  group: quant-v4-di-novelty-repetition-audit-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
