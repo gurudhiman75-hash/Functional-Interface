@@ -37,8 +37,8 @@ const mensuration = records.filter(
 assert.ok(mensuration.length > 0);
 assert.ok(positiveWeightPatternIds.size > 0);
 
-const patternIds = mensuration.map((record) => String(record.questionLanguageId ?? ""));
-assert.ok(patternIds.every(Boolean), "Every Mensuration shadow record must expose its pattern/QL id.");
+const patternIds = mensuration.map((record) => String(record.patternId ?? ""));
+assert.ok(patternIds.every(Boolean), "Every Mensuration shadow record must expose its actual patternId.");
 
 const expectedUnique = Math.min(mensuration.length, positiveWeightPatternIds.size);
 assert.equal(
@@ -52,5 +52,8 @@ console.log("QUANT_V4_CGL_MENSURATION_DIVERSITY_P4", JSON.stringify({
   positiveWeightPatternCapacity: positiveWeightPatternIds.size,
   uniquePatternIds: new Set(patternIds).size,
   duplicatePatternItems: mensuration.length - new Set(patternIds).size,
+  trackedExcludedPatternIds: mensurationUsedPatternIds.size,
+  exclusionTrackingMatchesObservedPatterns:
+    mensurationUsedPatternIds.size === new Set(patternIds).size,
   productionBehaviorChanged: false,
 }));
