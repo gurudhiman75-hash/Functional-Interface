@@ -89,6 +89,26 @@ For every QL/locale it requires:
 
 This is a fatigue-resistance and learner-surface gate, not a novelty claim.
 
+## Generated-profile outlier found
+
+The first full profile run exposed a visible-repetition defect:
+
+- `COD-QL-187` — recover missing token.
+
+Its English stem was hardcoded to one sentence across all seeds. The mirror missing-word contract `COD-QL-188` used the same one-template design.
+
+### Remediation
+
+Both missing-member generators now cycle three concise direct-question forms while preserving:
+
+- the same permanent QLs;
+- the same incomplete-statement topology;
+- the same solver;
+- the same options and answer;
+- the same multilingual localization architecture.
+
+No semantic authority or novelty lane was added.
+
 ## Current disposition
 
 ```text
