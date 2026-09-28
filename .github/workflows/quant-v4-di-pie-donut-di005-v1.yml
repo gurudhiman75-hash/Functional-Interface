@@ -1,0 +1,40 @@
+name: quant-v4-di-pie-donut-di005-v1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/**"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di-pie-donut-di005-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  donut-pie:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Donut visual and semantic proof
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/donut-v1.test.ts
+      - name: Donut Question Studio integration
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/donut-question-studio-v1.test.ts
+      - name: Fully-visible pie regression
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/fully-visible-pie-v1.test.ts
+      - name: Comparative pie regression
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/comparative-pie-v1.test.ts
+      - name: Generate review HTML
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/export-donut-review-v1.ts /tmp/DI-005-DONUT-REVIEW-V1.html
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-005-donut-review-v1
+          path: /tmp/DI-005-DONUT-REVIEW-V1.html
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
