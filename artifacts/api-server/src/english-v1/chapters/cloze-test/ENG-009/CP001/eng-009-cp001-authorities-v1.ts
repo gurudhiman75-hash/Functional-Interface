@@ -1,3 +1,4 @@
+import{ENG009_CP001_BREADTH_WAVE2}from"./eng-009-cp001-breadth-wave2";
 import{ENG009_CP001_BREADTH_WAVE1}from"./eng-009-cp001-breadth-wave1";
 export type Eng009Cp001Difficulty="easy"|"medium";
 export type Eng009Cp001BlankKind="grammar"|"vocabulary"|"collocation"|"context";
@@ -123,6 +124,8 @@ export const ENG009_CP001_PASSAGES_V1:readonly Eng009Cp001PassageV1[]=[
 }
 ,
 ...ENG009_CP001_BREADTH_WAVE1
+,
+...ENG009_CP001_BREADTH_WAVE2
 ];
 
 export const ENG009_CP001_BLANKS_V1=ENG009_CP001_PASSAGES_V1.flatMap(p=>p.blanks.map(blank=>({passage:p,blank})));
