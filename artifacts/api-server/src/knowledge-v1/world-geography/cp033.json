@@ -1,0 +1,518 @@
+[
+  {
+    "id": "WGE-001-CP033-Q001",
+    "cpId": "WGE-001-CP033",
+    "objective": "settlement-site-situation",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which term refers to the actual ground on which a settlement is built?",
+        "options": [
+          "Site",
+          "Situation",
+          "Hinterland",
+          "Threshold"
+        ],
+        "explanation": "Site means the physical location and characteristics of the ground occupied by a settlement."
+      },
+      "hi": {
+        "stem": "बस्ती जिस वास्तविक भूमि पर बनी होती है, उसे क्या कहते हैं?",
+        "options": [
+          "स्थल",
+          "स्थिति",
+          "पृष्ठप्रदेश",
+          "सीमा"
+        ],
+        "explanation": "स्थल उस भूमि और उसकी भौतिक विशेषताओं को कहते हैं जिस पर बस्ती बनी होती है।"
+      },
+      "pa": {
+        "stem": "ਬਸਤੀ ਜਿਸ ਅਸਲ ਜ਼ਮੀਨ ਉੱਤੇ ਵਸੀ ਹੁੰਦੀ ਹੈ, ਉਸ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਥਾਂ",
+          "ਸਥਿਤੀ",
+          "ਪਿਛਲਾ ਖੇਤਰ",
+          "ਹੱਦ"
+        ],
+        "explanation": "ਥਾਂ ਉਸ ਜ਼ਮੀਨ ਅਤੇ ਉਸ ਦੀਆਂ ਭੌਤਿਕ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਕਹਿੰਦੇ ਹਨ ਜਿਸ ਉੱਤੇ ਬਸਤੀ ਵਸੀ ਹੁੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q002",
+    "cpId": "WGE-001-CP033",
+    "objective": "settlement-situation",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A town's position in relation to roads, rivers and nearby markets is its:",
+        "options": [
+          "site",
+          "situation",
+          "density",
+          "function"
+        ],
+        "explanation": "Situation describes a settlement's position in relation to surrounding routes, resources and other places."
+      },
+      "hi": {
+        "stem": "सड़कों, नदियों और पास के बाजारों के संदर्भ में किसी नगर की स्थिति क्या कहलाती है?",
+        "options": [
+          "स्थल",
+          "स्थिति",
+          "घनत्व",
+          "कार्य"
+        ],
+        "explanation": "स्थिति आसपास के मार्गों, संसाधनों और स्थानों के सापेक्ष बस्ती की स्थिति बताती है।"
+      },
+      "pa": {
+        "stem": "ਸੜਕਾਂ, ਦਰਿਆਵਾਂ ਅਤੇ ਨੇੜਲੇ ਬਾਜ਼ਾਰਾਂ ਦੇ ਸੰਦਰਭ ਵਿੱਚ ਕਿਸੇ ਸ਼ਹਿਰ ਦੀ ਸਥਿਤੀ ਕੀ ਕਹਾਉਂਦੀ ਹੈ?",
+        "options": [
+          "ਥਾਂ",
+          "ਸਥਿਤੀ",
+          "ਘਣਤਾ",
+          "ਕੰਮ"
+        ],
+        "explanation": "ਸਥਿਤੀ ਨੇੜਲੇ ਰਸਤਿਆਂ, ਸਰੋਤਾਂ ਅਤੇ ਹੋਰ ਥਾਵਾਂ ਦੇ ਮੁਕਾਬਲੇ ਬਸਤੀ ਦੀ ਜਗ੍ਹਾ ਦੱਸਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q003",
+    "cpId": "WGE-001-CP033",
+    "objective": "linear-settlement-pattern",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Houses arranged mainly along a road or river form which settlement pattern?",
+        "options": [
+          "Dispersed",
+          "Radial",
+          "Linear",
+          "Nucleated"
+        ],
+        "explanation": "A linear settlement develops in a line along a route, valley, coast or river."
+      },
+      "hi": {
+        "stem": "सड़क या नदी के किनारे एक पंक्ति में बसी बस्ती का प्रतिरूप कौन-सा है?",
+        "options": [
+          "बिखरा हुआ",
+          "वृत्ताकार",
+          "रेखीय",
+          "सघन"
+        ],
+        "explanation": "रेखीय बस्ती मार्ग, घाटी, तट या नदी के साथ लंबाई में विकसित होती है।"
+      },
+      "pa": {
+        "stem": "ਸੜਕ ਜਾਂ ਦਰਿਆ ਦੇ ਨਾਲ ਕਤਾਰ ਵਿੱਚ ਵਸੀ ਬਸਤੀ ਦਾ ਕਿਹੜਾ ਰੂਪ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਖਿੰਡੀ ਹੋਈ",
+          "ਗੋਲਾਕਾਰ",
+          "ਰੇਖੀ",
+          "ਸੰਘਣੀ"
+        ],
+        "explanation": "ਰੇਖੀ ਬਸਤੀ ਰਸਤੇ, ਘਾਟੀ, ਤਟ ਜਾਂ ਦਰਿਆ ਦੇ ਨਾਲ ਲੰਬਾਈ ਵਿੱਚ ਵਧਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q004",
+    "cpId": "WGE-001-CP033",
+    "objective": "nucleated-settlement-pattern",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A compact village with homes clustered around a common centre is usually described as:",
+        "options": [
+          "Linear",
+          "Dispersed",
+          "Seasonal",
+          "Nucleated"
+        ],
+        "explanation": "In a nucleated settlement, buildings are grouped closely together, often around a shared centre."
+      },
+      "hi": {
+        "stem": "साझा केंद्र के आसपास घरों का समूह बनाकर बसा गाँव सामान्यतः कैसा होता है?",
+        "options": [
+          "रेखीय",
+          "बिखरा हुआ",
+          "मौसमी",
+          "सघन"
+        ],
+        "explanation": "सघन बस्ती में इमारतें अक्सर किसी साझा केंद्र के आसपास पास-पास स्थित होती हैं।"
+      },
+      "pa": {
+        "stem": "ਸਾਂਝੇ ਕੇਂਦਰ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਘਰਾਂ ਦਾ ਸਮੂਹ ਬਣਾ ਕੇ ਵਸਿਆ ਪਿੰਡ ਆਮ ਤੌਰ ਤੇ ਕਿਹੋ ਜਿਹਾ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਰੇਖੀ",
+          "ਖਿੰਡਿਆ ਹੋਇਆ",
+          "ਮੌਸਮੀ",
+          "ਸੰਘਣਾ"
+        ],
+        "explanation": "ਸੰਘਣੀ ਬਸਤੀ ਵਿੱਚ ਇਮਾਰਤਾਂ ਅਕਸਰ ਕਿਸੇ ਸਾਂਝੇ ਕੇਂਦਰ ਦੇ ਨੇੜੇ ਇਕੱਠੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q005",
+    "cpId": "WGE-001-CP033",
+    "objective": "urbanisation-definition",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "An increase in the share of a country's population living in urban areas is called:",
+        "options": [
+          "Urbanisation",
+          "Suburbanisation",
+          "Counter-urbanisation",
+          "Rural depopulation"
+        ],
+        "explanation": "Urbanisation is the rising proportion of people living in urban areas; it is distinct from growth in one city's population alone."
+      },
+      "hi": {
+        "stem": "किसी देश की शहरी क्षेत्रों में रहने वाली जनसंख्या के अनुपात में वृद्धि क्या कहलाती है?",
+        "options": [
+          "नगरीकरण",
+          "उपनगरीकरण",
+          "प्रतिनगरीकरण",
+          "ग्रामीण जनसंख्या में कमी"
+        ],
+        "explanation": "नगरीकरण का अर्थ शहरी क्षेत्रों में रहने वाले लोगों के अनुपात में वृद्धि है; यह केवल किसी एक नगर की जनसंख्या वृद्धि से अलग है।"
+      },
+      "pa": {
+        "stem": "ਕਿਸੇ ਦੇਸ਼ ਦੀ ਸ਼ਹਿਰੀ ਇਲਾਕਿਆਂ ਵਿੱਚ ਰਹਿੰਦੀ ਆਬਾਦੀ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵਾਧੇ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਸ਼ਹਿਰੀਕਰਨ",
+          "ਉਪ-ਸ਼ਹਿਰੀਕਰਨ",
+          "ਪ੍ਰਤੀ-ਸ਼ਹਿਰੀਕਰਨ",
+          "ਪੇਂਡੂ ਆਬਾਦੀ ਦੀ ਘਾਟ"
+        ],
+        "explanation": "ਸ਼ਹਿਰੀਕਰਨ ਦਾ ਮਤਲਬ ਸ਼ਹਿਰੀ ਇਲਾਕਿਆਂ ਵਿੱਚ ਰਹਿੰਦੀ ਆਬਾਦੀ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵਾਧਾ ਹੈ; ਇਹ ਸਿਰਫ਼ ਇੱਕ ਸ਼ਹਿਰ ਦੀ ਆਬਾਦੀ ਵਧਣ ਤੋਂ ਵੱਖਰਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q006",
+    "cpId": "WGE-001-CP033",
+    "objective": "conurbation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "When neighbouring towns expand until their built-up areas join, the resulting continuous urban area is a:",
+        "options": [
+          "Hinterland",
+          "Conurbation",
+          "Rural fringe",
+          "Linear village"
+        ],
+        "explanation": "A conurbation forms when the built-up areas of adjacent towns or cities merge."
+      },
+      "hi": {
+        "stem": "जब पास-पास के नगरों का निर्मित क्षेत्र फैलकर जुड़ जाता है, तो बने निरंतर शहरी क्षेत्र को क्या कहते हैं?",
+        "options": [
+          "पृष्ठप्रदेश",
+          "नगर-पुंज",
+          "ग्रामीण किनारा",
+          "रेखीय गाँव"
+        ],
+        "explanation": "नगर-पुंज तब बनता है जब पास-पास के नगरों या शहरों के निर्मित क्षेत्र आपस में मिल जाते हैं।"
+      },
+      "pa": {
+        "stem": "ਜਦੋਂ ਨੇੜਲੇ ਕਸਬਿਆਂ ਦੇ ਬਣੇ ਹੋਏ ਹਿੱਸੇ ਫੈਲ ਕੇ ਆਪਸ ਵਿੱਚ ਜੁੜ ਜਾਂਦੇ ਹਨ, ਤਾਂ ਬਣੇ ਲਗਾਤਾਰ ਸ਼ਹਿਰੀ ਖੇਤਰ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਪਿਛਲਾ ਖੇਤਰ",
+          "ਮਹਾਨਗਰੀ ਪੁੰਜ",
+          "ਪੇਂਡੂ ਕਿਨਾਰਾ",
+          "ਰੇਖੀ ਪਿੰਡ"
+        ],
+        "explanation": "ਮਹਾਨਗਰੀ ਪੁੰਜ ਉਦੋਂ ਬਣਦਾ ਹੈ ਜਦੋਂ ਨਾਲ ਲੱਗਦੇ ਕਸਬਿਆਂ ਜਾਂ ਸ਼ਹਿਰਾਂ ਦੇ ਬਣੇ ਹੋਏ ਹਿੱਸੇ ਮਿਲ ਜਾਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q007",
+    "cpId": "WGE-001-CP033",
+    "objective": "urban-hinterland",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "The surrounding area that supplies a city with goods, workers and customers is its:",
+        "options": [
+          "Hinterland",
+          "Site",
+          "Urban core",
+          "Commuter belt"
+        ],
+        "explanation": "A city's hinterland is the area linked to it through services, trade and movement of people or goods."
+      },
+      "hi": {
+        "stem": "जो आसपास का क्षेत्र किसी नगर को वस्तुएँ, श्रमिक और ग्राहक उपलब्ध कराता है, उसे क्या कहते हैं?",
+        "options": [
+          "पृष्ठप्रदेश",
+          "स्थल",
+          "शहरी केंद्र",
+          "आवागमन क्षेत्र"
+        ],
+        "explanation": "नगर का पृष्ठप्रदेश वह क्षेत्र है जो सेवाओं, व्यापार और लोगों या वस्तुओं की आवाजाही से उससे जुड़ा होता है।"
+      },
+      "pa": {
+        "stem": "ਜੋ ਆਲੇ-ਦੁਆਲੇ ਦਾ ਖੇਤਰ ਕਿਸੇ ਸ਼ਹਿਰ ਨੂੰ ਵਸਤਾਂ, ਮਜ਼ਦੂਰ ਅਤੇ ਗਾਹਕ ਦਿੰਦਾ ਹੈ, ਉਸ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਪਿਛਲਾ ਖੇਤਰ",
+          "ਥਾਂ",
+          "ਸ਼ਹਿਰੀ ਕੇਂਦਰ",
+          "ਆਵਾਜਾਈ ਪੱਟੀ"
+        ],
+        "explanation": "ਸ਼ਹਿਰ ਦਾ ਪਿਛਲਾ ਖੇਤਰ ਉਹ ਇਲਾਕਾ ਹੁੰਦਾ ਹੈ ਜੋ ਸੇਵਾਵਾਂ, ਵਪਾਰ ਅਤੇ ਲੋਕਾਂ ਜਾਂ ਵਸਤਾਂ ਦੀ ਆਵਾਜਾਈ ਰਾਹੀਂ ਇਸ ਨਾਲ ਜੁੜਿਆ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q008",
+    "cpId": "WGE-001-CP033",
+    "objective": "port-settlement-function",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A settlement whose growth is closely tied to loading, unloading and maritime trade is primarily a:",
+        "options": [
+          "Mining town",
+          "Market village",
+          "Port city",
+          "Administrative capital"
+        ],
+        "explanation": "A port city performs a transport and trade function through its harbour and links with inland routes."
+      },
+      "hi": {
+        "stem": "जिस बस्ती का विकास जहाजों से माल चढ़ाने-उतारने और समुद्री व्यापार से जुड़ा हो, वह मुख्यतः क्या है?",
+        "options": [
+          "खनन नगर",
+          "बाजार गाँव",
+          "बंदरगाह नगर",
+          "प्रशासनिक राजधानी"
+        ],
+        "explanation": "बंदरगाह नगर अपने बंदरगाह और अंतर्देशीय मार्गों के संपर्क से परिवहन तथा व्यापार का कार्य करता है।"
+      },
+      "pa": {
+        "stem": "ਜਿਸ ਬਸਤੀ ਦਾ ਵਿਕਾਸ ਜਹਾਜ਼ਾਂ ਰਾਹੀਂ ਮਾਲ ਚੜ੍ਹਾਉਣ-ਉਤਾਰਣ ਅਤੇ ਸਮੁੰਦਰੀ ਵਪਾਰ ਨਾਲ ਜੁੜਿਆ ਹੋਵੇ, ਉਹ ਮੁੱਖ ਤੌਰ ਤੇ ਕੀ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਖਣਨ ਸ਼ਹਿਰ",
+          "ਬਾਜ਼ਾਰ ਪਿੰਡ",
+          "ਬੰਦਰਗਾਹ ਸ਼ਹਿਰ",
+          "ਪ੍ਰਸ਼ਾਸਕੀ ਰਾਜਧਾਨੀ"
+        ],
+        "explanation": "ਬੰਦਰਗਾਹ ਸ਼ਹਿਰ ਆਪਣੇ ਬੰਦਰਗਾਹ ਅਤੇ ਅੰਦਰੂਨੀ ਰਸਤਿਆਂ ਦੇ ਸੰਪਰਕ ਰਾਹੀਂ ਆਵਾਜਾਈ ਅਤੇ ਵਪਾਰ ਦਾ ਕੰਮ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q009",
+    "cpId": "WGE-001-CP033",
+    "objective": "urban-sprawl",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The low-density outward spread of a city into its surrounding countryside is known as:",
+        "options": [
+          "Urban sprawl",
+          "Urban renewal",
+          "Conurbation",
+          "Rural centralisation"
+        ],
+        "explanation": "Urban sprawl is outward, often low-density expansion of the built-up area into surrounding land."
+      },
+      "hi": {
+        "stem": "किसी शहर का कम घनत्व वाला बाहरी विस्तार आसपास के ग्रामीण क्षेत्र में होने को क्या कहते हैं?",
+        "options": [
+          "शहरी फैलाव",
+          "शहरी नवीनीकरण",
+          "नगर-पुंज",
+          "ग्रामीण केंद्रीकरण"
+        ],
+        "explanation": "शहरी फैलाव में निर्मित क्षेत्र आसपास की भूमि पर बाहर की ओर, अक्सर कम घनत्व के साथ, बढ़ता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਸੇ ਸ਼ਹਿਰ ਦਾ ਘੱਟ ਘਣਤਾ ਵਾਲਾ ਬਾਹਰੀ ਫੈਲਾਅ ਆਲੇ-ਦੁਆਲੇ ਦੇ ਪੇਂਡੂ ਖੇਤਰ ਵਿੱਚ ਹੋਣ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਸ਼ਹਿਰੀ ਫੈਲਾਅ",
+          "ਸ਼ਹਿਰੀ ਨਵੀਨੀਕਰਨ",
+          "ਮਹਾਨਗਰੀ ਪੁੰਜ",
+          "ਪੇਂਡੂ ਕੇਂਦਰੀਕਰਨ"
+        ],
+        "explanation": "ਸ਼ਹਿਰੀ ਫੈਲਾਅ ਵਿੱਚ ਬਣਿਆ ਹੋਇਆ ਖੇਤਰ ਆਲੇ-ਦੁਆਲੇ ਦੀ ਜ਼ਮੀਨ ਵੱਲ ਬਾਹਰ ਨੂੰ, ਅਕਸਰ ਘੱਟ ਘਣਤਾ ਨਾਲ, ਵਧਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q010",
+    "cpId": "WGE-001-CP033",
+    "objective": "river-crossing-site",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Before modern bridges, why did a shallow river crossing often attract a settlement?",
+        "options": [
+          "It guaranteed year-round irrigation",
+          "It reduced the difficulty of crossing a route",
+          "It prevented all flooding",
+          "It created a natural harbour"
+        ],
+        "explanation": "A ford or other easier crossing concentrated movement along a route, encouraging trade and services at that point."
+      },
+      "hi": {
+        "stem": "आधुनिक पुलों से पहले नदी के उथले पार-स्थल पर बस्ती क्यों विकसित हो सकती थी?",
+        "options": [
+          "वहाँ साल भर सिंचाई निश्चित थी",
+          "वहाँ से मार्ग पार करना आसान था",
+          "वहाँ बाढ़ पूरी तरह रुक जाती थी",
+          "वहाँ प्राकृतिक बंदरगाह बनता था"
+        ],
+        "explanation": "घाट या अन्य आसान पार-स्थल मार्ग पर आवाजाही को केंद्रित करता था, जिससे वहाँ व्यापार और सेवाएँ विकसित हो सकती थीं।"
+      },
+      "pa": {
+        "stem": "ਆਧੁਨਿਕ ਪੁਲਾਂ ਤੋਂ ਪਹਿਲਾਂ ਦਰਿਆ ਦੇ ਥੋੜ੍ਹੇ ਡੂੰਘੇ ਪਾਰ-ਸਥਾਨ ਉੱਤੇ ਬਸਤੀ ਕਿਉਂ ਵਸ ਸਕਦੀ ਸੀ?",
+        "options": [
+          "ਉੱਥੇ ਸਾਲ ਭਰ ਸਿੰਚਾਈ ਪੱਕੀ ਸੀ",
+          "ਉੱਥੋਂ ਰਸਤਾ ਪਾਰ ਕਰਨਾ ਸੌਖਾ ਸੀ",
+          "ਉੱਥੇ ਹੜ੍ਹ ਪੂਰੀ ਤਰ੍ਹਾਂ ਰੁਕ ਜਾਂਦਾ ਸੀ",
+          "ਉੱਥੇ ਕੁਦਰਤੀ ਬੰਦਰਗਾਹ ਬਣਦਾ ਸੀ"
+        ],
+        "explanation": "ਘਾਟ ਜਾਂ ਹੋਰ ਸੌਖਾ ਪਾਰ-ਸਥਾਨ ਰਸਤੇ ਦੀ ਆਵਾਜਾਈ ਨੂੰ ਇੱਕ ਥਾਂ ਇਕੱਠਾ ਕਰਦਾ ਸੀ, ਜਿਸ ਨਾਲ ਉੱਥੇ ਵਪਾਰ ਅਤੇ ਸੇਵਾਵਾਂ ਵਧ ਸਕਦੀਆਂ ਸਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q011",
+    "cpId": "WGE-001-CP033",
+    "objective": "delta-settlement-risk",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A settlement on a low-lying river delta gains water and fertile land but faces which major physical risk?",
+        "options": [
+          "Avalanche",
+          "Volcanic ashfall",
+          "Flooding and storm-surge exposure",
+          "Permafrost collapse"
+        ],
+        "explanation": "Low elevation and branching channels can make delta settlements vulnerable to river floods and coastal storm surges."
+      },
+      "hi": {
+        "stem": "नदी के निचले डेल्टा में बस्ती को जल और उपजाऊ भूमि मिलती है, पर उसे किस प्रमुख भौतिक खतरे का सामना करना पड़ता है?",
+        "options": [
+          "हिमस्खलन",
+          "ज्वालामुखीय राख",
+          "बाढ़ और तूफानी ज्वार",
+          "हिमभूमि का पिघलना"
+        ],
+        "explanation": "कम ऊँचाई और शाखित धाराओं के कारण डेल्टा बस्तियाँ नदी-बाढ़ तथा तटीय तूफानी ज्वार की चपेट में आ सकती हैं।"
+      },
+      "pa": {
+        "stem": "ਦਰਿਆ ਦੇ ਨੀਵੇਂ ਡੈਲਟੇ ਵਿੱਚ ਵਸੀ ਬਸਤੀ ਨੂੰ ਪਾਣੀ ਅਤੇ ਉਪਜਾਊ ਜ਼ਮੀਨ ਮਿਲਦੀ ਹੈ, ਪਰ ਉਸ ਨੂੰ ਕਿਹੜਾ ਵੱਡਾ ਭੌਤਿਕ ਖ਼ਤਰਾ ਹੁੰਦਾ ਹੈ?",
+        "options": [
+          "ਬਰਫ਼ੀਲਾ ਧਸਣਾ",
+          "ਜਵਾਲਾਮੁਖੀ ਦੀ ਰਾਖ",
+          "ਹੜ੍ਹ ਅਤੇ ਤੂਫ਼ਾਨੀ ਲਹਿਰ",
+          "ਜਮੀ ਹੋਈ ਧਰਤੀ ਦਾ ਪਿਘਲਣਾ"
+        ],
+        "explanation": "ਘੱਟ ਉਚਾਈ ਅਤੇ ਕਈ ਸ਼ਾਖਾਵਾਂ ਵਾਲੇ ਦਰਿਆ ਕਾਰਨ ਡੈਲਟੇ ਦੀਆਂ ਬਸਤੀਆਂ ਦਰਿਆਈ ਹੜ੍ਹਾਂ ਅਤੇ ਤੱਟੀ ਤੂਫ਼ਾਨੀ ਲਹਿਰਾਂ ਦੇ ਖ਼ਤਰੇ ਵਿੱਚ ਰਹਿੰਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP033-Q012",
+    "cpId": "WGE-001-CP033",
+    "objective": "metropolitan-region",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A metropolitan region is best identified by which feature?",
+        "options": [
+          "One city's legal boundary only",
+          "A rural district with no commuting",
+          "A group of unrelated villages",
+          "A large urban core linked to surrounding settlements by daily flows"
+        ],
+        "explanation": "Metropolitan regions extend beyond a central city because surrounding communities are tied to it by commuting, services and economic activity."
+      },
+      "hi": {
+        "stem": "महानगरीय क्षेत्र की पहचान किस विशेषता से होती है?",
+        "options": [
+          "केवल एक शहर की कानूनी सीमा",
+          "बिना आवागमन वाला ग्रामीण जिला",
+          "आपस में असंबद्ध गाँवों का समूह",
+          "दैनिक आवाजाही से जुड़े बड़े शहरी केंद्र और आसपास की बस्तियाँ"
+        ],
+        "explanation": "महानगरीय क्षेत्र केंद्रीय शहर से बाहर तक फैलता है, क्योंकि आसपास की बस्तियाँ आवागमन, सेवाओं और आर्थिक गतिविधियों से उससे जुड़ी होती हैं।"
+      },
+      "pa": {
+        "stem": "ਮਹਾਨਗਰੀ ਖੇਤਰ ਦੀ ਪਛਾਣ ਕਿਹੜੀ ਵਿਸ਼ੇਸ਼ਤਾ ਨਾਲ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਸਿਰਫ਼ ਇੱਕ ਸ਼ਹਿਰ ਦੀ ਕਾਨੂੰਨੀ ਹੱਦ",
+          "ਬਿਨਾਂ ਆਉਣ-ਜਾਣ ਵਾਲਾ ਪੇਂਡੂ ਜ਼ਿਲ੍ਹਾ",
+          "ਆਪਸ ਵਿੱਚ ਨਾ ਜੁੜੇ ਪਿੰਡਾਂ ਦਾ ਸਮੂਹ",
+          "ਰੋਜ਼ਾਨਾ ਆਵਾਜਾਈ ਨਾਲ ਜੁੜਿਆ ਵੱਡਾ ਸ਼ਹਿਰੀ ਕੇਂਦਰ ਅਤੇ ਨੇੜਲੀਆਂ ਬਸਤੀਆਂ"
+        ],
+        "explanation": "ਮਹਾਨਗਰੀ ਖੇਤਰ ਕੇਂਦਰੀ ਸ਼ਹਿਰ ਤੋਂ ਅੱਗੇ ਤੱਕ ਫੈਲਦਾ ਹੈ ਕਿਉਂਕਿ ਨੇੜਲੀਆਂ ਬਸਤੀਆਂ ਆਉਣ-ਜਾਣ, ਸੇਵਾਵਾਂ ਅਤੇ ਆਰਥਿਕ ਕੰਮਾਂ ਰਾਹੀਂ ਇਸ ਨਾਲ ਜੁੜੀਆਂ ਹੁੰਦੀਆਂ ਹਨ।"
+      }
+    }
+  }
+]
