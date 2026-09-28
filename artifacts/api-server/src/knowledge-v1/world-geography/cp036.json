@@ -35,12 +35,12 @@
       "pa": {
         "stem": "ਲੋਹਾ-ਇਸਪਾਤ ਉਦਯੋਗਾਂ ਦੀ ਥਾਂ ਨੂੰ ਰਵਾਇਤੀ ਤੌਰ ਤੇ ਕਿਹੜੇ ਦੋ ਸਰੋਤ ਪ੍ਰਭਾਵਿਤ ਕਰਦੇ ਰਹੇ ਹਨ?",
         "options": [
-          "ਲੋਹ-ਅਯਸਕ ਅਤੇ ਇੰਧਨ ਜਾਂ ਬਿਜਲੀ",
+          "ਲੋਹੇ ਦਾ ਅਯਸਕ ਅਤੇ ਇੰਧਨ ਜਾਂ ਬਿਜਲੀ",
           "ਚਾਹ ਅਤੇ ਜੂਟ",
           "ਕਪਾਹ ਅਤੇ ਗਰਮ-ਖੇਤਰੀ ਵਰਖਾ",
           "ਮੱਛੀ ਅਤੇ ਲੂਣ"
         ],
-        "explanation": "ਲੋਹਾ-ਇਸਪਾਤ ਬਣਾਉਣ ਲਈ ਭਾਰੀ ਲੋਹ-ਅਯਸਕ ਅਤੇ ਊਰਜਾ ਤੱਕ ਪਹੁੰਚ ਰਵਾਇਤੀ ਤੌਰ ਤੇ ਅਹਿਮ ਰਹੀ ਹੈ; ਆਵਾਜਾਈ ਅਤੇ ਬਾਜ਼ਾਰ ਵੀ ਮਾਇਨੇ ਰੱਖਦੇ ਹਨ।"
+        "explanation": "ਲੋਹਾ-ਇਸਪਾਤ ਬਣਾਉਣ ਲਈ ਭਾਰੀ ਲੋਹੇ ਦਾ ਅਯਸਕ ਅਤੇ ਊਰਜਾ ਤੱਕ ਪਹੁੰਚ ਰਵਾਇਤੀ ਤੌਰ ਤੇ ਅਹਿਮ ਰਹੀ ਹੈ; ਆਵਾਜਾਈ ਅਤੇ ਬਾਜ਼ਾਰ ਵੀ ਮਾਇਨੇ ਰੱਖਦੇ ਹਨ।"
       }
     }
   },
@@ -100,7 +100,7 @@
       "WGE-IND-WB-GVC",
       "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 2,
+    "correctIndex": 1,
     "locales": {
       "en": {
         "stem": "A garment factory choosing a location near a large pool of trained workers is responding mainly to:",
@@ -113,21 +113,21 @@
         "explanation": "Labour availability is an important location factor for labour-intensive stages of textile and garment production."
       },
       "hi": {
-        "stem": "कपड़ा कारखाना प्रशिक्षित श्रमिकों की बड़ी उपलब्धता के पास स्थान चुनता है। वह मुख्यतः किस कारक पर ध्यान दे रहा है?",
+        "stem": "जहाँ प्रशिक्षित श्रमिक बड़ी संख्या में मिलते हों, वहाँ कपड़ा कारखाना लगाने का मुख्य कारण क्या है?",
         "options": [
           "जलवायु",
-          "श्रम की उपलब्धता",
+          "श्रमिकों की उपलब्धता",
           "खनिज निक्षेप",
           "ज्वार-भाटा का अंतर"
         ],
         "explanation": "कपड़ा और परिधान उत्पादन के श्रम-प्रधान चरणों में श्रमिकों की उपलब्धता एक महत्वपूर्ण स्थान-कारक है।"
       },
       "pa": {
-        "stem": "ਕੱਪੜੇ ਦਾ ਕਾਰਖਾਨਾ ਸਿਖਲਾਈਯਾਫ਼ਤਾ ਮਜ਼ਦੂਰਾਂ ਦੀ ਵੱਡੀ ਉਪਲਬਧਤਾ ਨੇੜੇ ਥਾਂ ਚੁਣਦਾ ਹੈ। ਉਹ ਮੁੱਖ ਤੌਰ ਤੇ ਕਿਹੜੇ ਕਾਰਕ ਨੂੰ ਦੇਖ ਰਿਹਾ ਹੈ?",
+        "stem": "ਜਿੱਥੇ ਸਿਖਲਾਈ ਪ੍ਰਾਪਤ ਮਜ਼ਦੂਰ ਵੱਡੀ ਗਿਣਤੀ ਵਿੱਚ ਮਿਲਦੇ ਹੋਣ, ਉੱਥੇ ਕੱਪੜੇ ਦਾ ਕਾਰਖਾਨਾ ਲਗਾਉਣ ਦਾ ਮੁੱਖ ਕਾਰਨ ਕੀ ਹੈ?",
         "options": [
           "ਜਲਵਾਯੂ",
-          "ਮਜ਼ਦੂਰੀ ਦੀ ਉਪਲਬਧਤਾ",
-          "ਖਣਿਜ ਭੰਡਾਰ",
+          "ਮਜ਼ਦੂਰਾਂ ਦੀ ਉਪਲਬਧਤਾ",
+          "ਖਣਿਜ ਜਮ੍ਹਾਂ",
           "ਜਵਾਰ-ਭਾਟੇ ਦਾ ਫ਼ਰਕ"
         ],
         "explanation": "ਕੱਪੜੇ ਅਤੇ ਪਹਿਰਾਵੇ ਦੇ ਮਜ਼ਦੂਰੀ-ਪ੍ਰਧਾਨ ਕੰਮਾਂ ਲਈ ਮਜ਼ਦੂਰਾਂ ਦੀ ਉਪਲਬਧਤਾ ਇੱਕ ਅਹਿਮ ਥਾਂ-ਕਾਰਕ ਹੈ।"
@@ -145,7 +145,7 @@
       "WGE-IND-WB-GVC",
       "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 3,
+    "correctIndex": 0,
     "locales": {
       "en": {
         "stem": "Which combination most supports a high-technology industrial cluster?",
@@ -280,7 +280,7 @@
       "WGE-IND-WB-GVC",
       "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 2,
+    "correctIndex": 1,
     "locales": {
       "en": {
         "stem": "The Ruhr, historically associated with coal, steel and heavy industry, is in:",
@@ -325,7 +325,7 @@
       "WGE-IND-WB-GVC",
       "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 3,
+    "correctIndex": 2,
     "locales": {
       "en": {
         "stem": "A steel plant that imports bulky ore and exports finished products may gain from a site near:",
@@ -460,7 +460,7 @@
       "WGE-IND-WB-GVC",
       "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "locales": {
       "en": {
         "stem": "A food-processing plant using perishable farm produce is often attracted to farms or cities mainly because:",
@@ -505,7 +505,7 @@
       "WGE-IND-WB-GVC",
       "WGE-REG-UN-MAPS"
     ],
-    "correctIndex": 3,
+    "correctIndex": 1,
     "locales": {
       "en": {
         "stem": "A region with ports, skilled labour, suppliers and a large market is attractive to varied industries because it offers:",
@@ -525,7 +525,7 @@
           "बिजली की जरूरत न होने के कारण",
           "आर्थिक बदलाव से सुरक्षा की गारंटी के कारण"
         ],
-        "explanation": "औद्योगिक क्षेत्र अक्सर केवल एक कारक से नहीं, बल्कि परिवहन, श्रम, आपूर्तिकर्ता-जाल, ऊर्जा और बाजार की संयुक्त उपलब्धता से विकसित होते हैं।"
+        "explanation": "औद्योगिक क्षेत्र अक्सर केवल एक कारक से नहीं, बल्कि परिवहन, श्रम, आपूर्तिकर्ताओं के नेटवर्क, ऊर्जा और बाजार की संयुक्त उपलब्धता से विकसित होते हैं।"
       },
       "pa": {
         "stem": "ਬੰਦਰਗਾਹਾਂ, ਕੁਸ਼ਲ ਮਜ਼ਦੂਰਾਂ, ਸਪਲਾਇਰਾਂ ਅਤੇ ਵੱਡੇ ਬਾਜ਼ਾਰ ਵਾਲਾ ਖੇਤਰ ਵੱਖ-ਵੱਖ ਉਦਯੋਗਾਂ ਨੂੰ ਕਿਉਂ ਖਿੱਚਦਾ ਹੈ?",
@@ -535,7 +535,7 @@
           "ਬਿਜਲੀ ਦੀ ਲੋੜ ਨਾ ਹੋਣ ਕਰਕੇ",
           "ਆਰਥਿਕ ਬਦਲਾਅ ਤੋਂ ਬਚਾਅ ਦੀ ਗਾਰੰਟੀ ਕਰਕੇ"
         ],
-        "explanation": "ਉਦਯੋਗਕ ਖੇਤਰ ਅਕਸਰ ਇੱਕੋ ਕਾਰਕ ਕਰਕੇ ਨਹੀਂ, ਸਗੋਂ ਆਵਾਜਾਈ, ਮਜ਼ਦੂਰੀ, ਸਪਲਾਇਰ ਜਾਲ, ਊਰਜਾ ਅਤੇ ਬਾਜ਼ਾਰ ਦੇ ਮਿਲੇ-ਜੁਲੇ ਲਾਭਾਂ ਨਾਲ ਵਧਦੇ ਹਨ।"
+        "explanation": "ਉਦਯੋਗਕ ਖੇਤਰ ਅਕਸਰ ਇੱਕੋ ਕਾਰਕ ਕਰਕੇ ਨਹੀਂ, ਸਗੋਂ ਆਵਾਜਾਈ, ਮਜ਼ਦੂਰੀ, ਸਪਲਾਇਰਾਂ ਦੇ ਨੈੱਟਵਰਕ, ਊਰਜਾ ਅਤੇ ਬਾਜ਼ਾਰ ਦੇ ਮਿਲੇ-ਜੁਲੇ ਲਾਭਾਂ ਨਾਲ ਵਧਦੇ ਹਨ।"
       }
     }
   }
