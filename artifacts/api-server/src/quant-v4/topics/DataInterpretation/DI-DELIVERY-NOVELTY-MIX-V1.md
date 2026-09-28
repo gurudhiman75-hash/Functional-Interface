@@ -62,6 +62,9 @@ Still exam-valid, but structurally less routine:
 ## Guardrails
 
 - Deterministic selection and ordering for a fixed seed.
+- Exact normalized learner stems are de-duplicated across source modes within a delivered batch.
+- Fresh/familiar and higher-novelty questions are spaced through the batch instead of being allowed to cluster.
+- Higher-novelty source selection rotates deterministically across eligible modes over different batch seeds.
 - Source package/CP metadata remains intact.
 - Each delivered question is tagged with:
   - `noveltyTier`
