@@ -1,0 +1,27 @@
+name: temp-di-mix-difficulty-profile-v3
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1.test.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: temp-di-mix-difficulty-profile-v3-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run DI mix difficulty-profile regression
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/di-delivery-novelty-mix-v1.test.ts
+      - name: Patch hygiene
+        run: git diff --check
