@@ -1,0 +1,41 @@
+name: quant-v4-di-single-series-bar-line-v1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/single-series-question-studio-v1.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/export-single-series-review-v1.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di-single-series-bar-line-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  single-series:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Single-series bar proof
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/single-bar-v1.test.ts
+      - name: Single-series line proof
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/single-line-v1.test.ts
+      - name: Single-series Question Studio integration
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/single-series-question-studio-v1.test.ts
+      - name: Generate review HTML
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/export-single-series-review-v1.ts /tmp/DI-SINGLE-SERIES-REVIEW-V1.html
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-single-series-review-v1
+          path: /tmp/DI-SINGLE-SERIES-REVIEW-V1.html
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
