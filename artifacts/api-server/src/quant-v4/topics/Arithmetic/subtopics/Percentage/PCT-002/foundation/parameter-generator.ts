@@ -534,20 +534,30 @@ export function selectQuestionLanguageId(
   language: Pct002Language,
   seed: string,
   difficultyBand?: Pct002DifficultyBand,
+  diversityOrdinal?: number,
 ) {
   const qlIds = getSelectableQuestionLanguageIds(cpId, language);
   const filtered = difficultyBand
     ? qlIds.filter((qlId) => getQuestionEntry(cpId, qlId, language).difficulty === difficultyBand)
     : qlIds;
   const source = filtered.length > 0 ? filtered : qlIds;
-  return source[stableBucket(seed, source.length)]!;
+  const selectedIndex = Number.isInteger(diversityOrdinal)
+    ? Math.max(0, Math.floor(Number(diversityOrdinal))) % source.length
+    : stableBucket(seed, source.length);
+  return source[selectedIndex]!;
 }
 
 export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: Pct002ParameterInput = {}): Pct002Parameters {
   const seed = input.seed ?? `PCT-002:${cpId}`;
   const language = input.language ?? "en";
   const difficultyBand = input.difficultyBand ?? assignDifficulty(cpId, language, seed);
-  const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, seed, difficultyBand);
+  const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(
+    cpId,
+    language,
+    seed,
+    difficultyBand,
+    input.diversityOrdinal,
+  );
 
   if (!isQlLocalized("PCT-002", questionLanguageId, language)) {
     throw new Error(
