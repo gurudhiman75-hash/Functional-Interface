@@ -81,6 +81,7 @@ type SourceMode = Readonly<{
   canonicalProblemId:string;
   tier:DiNoveltyTier;
   profiles:readonly DiDeliveryExamProfile[];
+  hardEligibleProfiles?:readonly DiDeliveryExamProfile[];
   generate:Generator;
 }>;
 
@@ -97,10 +98,10 @@ const SOURCE_MODES:readonly SourceMode[] = Object.freeze([
   { id:"DI009_HISTOGRAM", packageId:"DI-009", canonicalProblemId:DI009_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I"], generate:generateDi009QuestionStudioBatch },
   { id:"DI010_FREQUENCY_POLYGON", packageId:"DI-010", canonicalProblemId:DI010_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"STANDARD", profiles:["SSC_CGL_TIER_I"], generate:generateDi010QuestionStudioBatch },
 
-  { id:"DI003_SINGLE_BAR", packageId:"DI-003", canonicalProblemId:DI003_SINGLE_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi003QuestionStudioBatch },
-  { id:"DI004_SINGLE_LINE", packageId:"DI-004", canonicalProblemId:DI004_SINGLE_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi004QuestionStudioBatch },
+  { id:"DI003_SINGLE_BAR", packageId:"DI-003", canonicalProblemId:DI003_SINGLE_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi003QuestionStudioBatch },
+  { id:"DI004_SINGLE_LINE", packageId:"DI-004", canonicalProblemId:DI004_SINGLE_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["SSC_CGL_TIER_I","BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["SSC_CGL_TIER_I","BANKING_PRELIMS"], generate:generateDi004QuestionStudioBatch },
   { id:"DI005_COMPARATIVE_PIE", packageId:"DI-005", canonicalProblemId:DI005_COMPARATIVE_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi005QuestionStudioBatch },
-  { id:"DI005_DONUT", packageId:"DI-005", canonicalProblemId:DI005_DONUT_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi005QuestionStudioBatch },
+  { id:"DI005_DONUT", packageId:"DI-005", canonicalProblemId:DI005_DONUT_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["BANKING_PRELIMS"], generate:generateDi005QuestionStudioBatch },
   { id:"DI006_ADVANCED_CASELET", packageId:"DI-006", canonicalProblemId:DI006_ADVANCED_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_MAINS"], generate:generateDi006QuestionStudioBatch },
   { id:"DI008_ADVANCED_ARITHMETIC", packageId:"DI-008", canonicalProblemId:DI008_ADVANCED_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_MAINS"], generate:generateDi008QuestionStudioBatch },
   { id:"DI012_ADVANCED_MISSING", packageId:"DI-012", canonicalProblemId:DI012_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"FRESH_FAMILIAR", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi012QuestionStudioBatch },
@@ -108,7 +109,7 @@ const SOURCE_MODES:readonly SourceMode[] = Object.freeze([
   { id:"DI011_MIXED_MULTI_CHART", packageId:"DI-011", canonicalProblemId:DI011_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi011QuestionStudioBatch },
   { id:"DI003_STACKED_BAR", packageId:"DI-003", canonicalProblemId:DI003_STACKED_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_MAINS"], generate:generateDi003QuestionStudioBatch },
   { id:"DI004_THREE_SERIES_LINE", packageId:"DI-004", canonicalProblemId:DI004_MULTI_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_MAINS"], generate:generateDi004QuestionStudioBatch },
-  { id:"DI013_RADAR", packageId:"DI-013", canonicalProblemId:DI013_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_PRELIMS","BANKING_MAINS"], generate:generateDi013QuestionStudioBatch },
+  { id:"DI013_RADAR", packageId:"DI-013", canonicalProblemId:DI013_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_PRELIMS","BANKING_MAINS"], hardEligibleProfiles:["BANKING_PRELIMS"], generate:generateDi013QuestionStudioBatch },
   { id:"DI014_RADAR_PIE", packageId:"DI-014", canonicalProblemId:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, tier:"HIGHER_NOVELTY", profiles:["BANKING_MAINS"], generate:generateDi014QuestionStudioBatch },
 ]);
 
@@ -223,9 +224,19 @@ function buildDifficultyPlan(
   };
 }
 
-function stableModes(profile:DiDeliveryExamProfile,tier:DiNoveltyTier,seed:string){
+function isHardEligible(mode:SourceMode,profile:DiDeliveryExamProfile){
+  return !mode.hardEligibleProfiles || mode.hardEligibleProfiles.includes(profile);
+}
+
+function stableModes(
+  profile:DiDeliveryExamProfile,
+  tier:DiNoveltyTier,
+  seed:string,
+  explicitDifficulty:DiDifficultyBand|null,
+){
   return SOURCE_MODES
     .filter(mode=>mode.tier===tier&&mode.profiles.includes(profile))
+    .filter(mode=>explicitDifficulty!=="Hard" || isHardEligible(mode,profile))
     .map(mode=>({mode,rank:hashSeed(`${seed}:${tier}:${mode.id}`)}))
     .sort((a,b)=>a.rank-b.rank||a.mode.id.localeCompare(b.mode.id))
     .map(row=>row.mode);
@@ -360,39 +371,76 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
   const seed=String(request.seed??"").trim()||`DI-MIX-V1:${examProfile}:${count}`;
   const allocation=allocateDiNoveltyTiers(count,examProfile);
   const difficultyMix=buildDifficultyPlan(count,examProfile,request.difficulty,seed);
-  let difficultyCursor=0;
   const generated:any[]=[];
   const sourcePackages:any[]=[];
   const actualCounts:Record<DiNoveltyTier,number>={STANDARD:0,FRESH_FAMILIAR:0,HIGHER_NOVELTY:0};
+  const sourceAssignments:Array<{tier:DiNoveltyTier;mode:SourceMode;count:number}>=[];
 
   for(const tier of ["STANDARD","FRESH_FAMILIAR","HIGHER_NOVELTY"] as const){
     const tierCount=allocation.counts[tier];
     if(!tierCount) continue;
-    const modes=stableModes(examProfile,tier,`${seed}:modes`);
+    const modes=stableModes(examProfile,tier,`${seed}:modes`,difficultyMix.explicitDifficulty);
     const assignments=distributeAcrossModes(tierCount,modes,`${seed}:${tier}`);
-    for(const {mode,count:modeCount} of assignments){
-      const requestedBands=difficultyMix.plan.slice(difficultyCursor,difficultyCursor+modeCount);
-      difficultyCursor+=modeCount;
-      const bandCounts=new Map<DiDifficultyBand,number>();
-      for(const band of requestedBands) bandCounts.set(band,(bandCounts.get(band)??0)+1);
-      for(const band of ["Easy","Medium","Hard"] as const){
-        const bandCount=bandCounts.get(band)??0;
-        if(!bandCount) continue;
-        const result=await mode.generate({
-          canonicalProblemId:mode.canonicalProblemId,
-          difficulty:band.toLowerCase(),
-          language:"en",
-          seed:`${seed}:${tier}:${mode.id}:${band}`,
-          count:bandCount,
-          examProfile:examProfileForSource(examProfile),
-        });
-        sourcePackages.push(...(result.questionPackages??[]));
-        for(const question of result.questions??[]){
-          actualCounts[tier]+=1;
-          generated.push(decorateNoveltyQuestion(question,tier,mode));
-        }
+    for(const assignment of assignments){
+      sourceAssignments.push({tier,mode:assignment.mode,count:assignment.count});
+    }
+  }
+
+  const constrainedSlots=sourceAssignments
+    .filter(assignment=>!isHardEligible(assignment.mode,examProfile))
+    .reduce((sum,assignment)=>sum+assignment.count,0);
+  const nonHardCapacity=difficultyMix.counts.Easy+difficultyMix.counts.Medium;
+  if(constrainedSlots>nonHardCapacity){
+    throw new Error(`DI novelty mix has ${constrainedSlots} Mains-hard-ineligible source slots but only ${nonHardCapacity} non-hard difficulty slots.`);
+  }
+
+  const difficultyPool=[...difficultyMix.plan];
+  const generationAssignments=[...sourceAssignments].sort((a,b)=>{
+    const aConstrained=isHardEligible(a.mode,examProfile)?1:0;
+    const bConstrained=isHardEligible(b.mode,examProfile)?1:0;
+    if(aConstrained!==bConstrained) return aConstrained-bConstrained;
+    return hashSeed(`${seed}:assignment-order:${a.tier}:${a.mode.id}`)-hashSeed(`${seed}:assignment-order:${b.tier}:${b.mode.id}`);
+  });
+
+  for(const {tier,mode,count:modeCount} of generationAssignments){
+    const requestedBands:DiDifficultyBand[]=[];
+    for(let slot=0;slot<modeCount;slot+=1){
+      const eligibleIndices=difficultyPool
+        .map((band,index)=>({band,index}))
+        .filter(row=>row.band!=="Hard" || isHardEligible(mode,examProfile))
+        .map(row=>row.index);
+      if(!eligibleIndices.length){
+        throw new Error(`DI novelty mix could not assign a compatible difficulty to ${mode.id} for ${examProfile}.`);
+      }
+      const chosenIndex=eligibleIndices[
+        hashSeed(`${seed}:difficulty-slot:${tier}:${mode.id}:${slot}`)%eligibleIndices.length
+      ]!;
+      requestedBands.push(difficultyPool.splice(chosenIndex,1)[0]!);
+    }
+
+    const bandCounts=new Map<DiDifficultyBand,number>();
+    for(const band of requestedBands) bandCounts.set(band,(bandCounts.get(band)??0)+1);
+    for(const band of ["Easy","Medium","Hard"] as const){
+      const bandCount=bandCounts.get(band)??0;
+      if(!bandCount) continue;
+      const result=await mode.generate({
+        canonicalProblemId:mode.canonicalProblemId,
+        difficulty:band.toLowerCase(),
+        language:"en",
+        seed:`${seed}:${tier}:${mode.id}:${band}`,
+        count:bandCount,
+        examProfile:examProfileForSource(examProfile),
+      });
+      sourcePackages.push(...(result.questionPackages??[]));
+      for(const question of result.questions??[]){
+        actualCounts[tier]+=1;
+        generated.push(decorateNoveltyQuestion(question,tier,mode));
       }
     }
+  }
+
+  if(difficultyPool.length!==0){
+    throw new Error(`DI novelty mix left ${difficultyPool.length} unassigned difficulty slots.`);
   }
 
   if(generated.length!==count){
@@ -499,7 +547,7 @@ export function diDeliveryNoveltyMixPackageCard(){
         bankingPrelims:{easy:.30,medium:.50,hard:.20},
         bankingMains:{easy:.15,medium:.45,hard:.40},
       },
-      note:"Novelty and difficulty are allocated independently. Higher-novelty quota is used only where exam-valid source modes are explicitly eligible.",
+      note:"Novelty and difficulty are allocated independently. Banking Mains Hard slots are restricted to source modes with genuine Mains-hard reasoning depth. Higher-novelty quota is used only where exam-valid source modes are explicitly eligible.",
     },
   };
 }

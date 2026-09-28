@@ -30,6 +30,20 @@ assert.equal(banking.questions.length,20);
 assert.deepEqual(banking.generationContext.noveltyMix.actualCounts,{STANDARD:15,FRESH_FAMILIAR:4,HIGHER_NOVELTY:1});
 assert.deepEqual(banking.generationContext.difficultyMix.actualCounts,{Easy:3,Medium:9,Hard:8});
 assert.deepEqual(banking.generationContext.difficultyMix.requestedCounts,{Easy:3,Medium:9,Hard:8});
+const mainsHardIneligible=new Set([
+  "DI003_SINGLE_BAR",
+  "DI004_SINGLE_LINE",
+  "DI005_DONUT",
+  "DI013_RADAR",
+]);
+for(const q of banking.questions as any[]){
+  if((q.difficultyLabel??q.difficulty)==="Hard"){
+    assert(
+      !mainsHardIneligible.has(q.noveltySourceMode),
+      `Banking Mains Hard slot used non-hard-capable source ${q.noveltySourceMode}`,
+    );
+  }
+}
 assert.equal(banking.generationContext.noveltyMix.authority,DI_DELIVERY_NOVELTY_MIX_AUTHORITY);
 assert(banking.questions.every((q:any)=>q.questionBankWritable===false));
 assert(banking.questions.every((q:any)=>q.testEligible===false));
@@ -97,6 +111,10 @@ const hardOverride=await generateDiDeliveryNoveltyMix({
 });
 assert.deepEqual(hardOverride.generationContext.difficultyMix.actualCounts,{Easy:0,Medium:0,Hard:10});
 assert.equal(hardOverride.generationContext.difficultyMix.explicitDifficulty,"Hard");
+assert(
+  (hardOverride.questions as any[]).every(q=>!mainsHardIneligible.has(q.noveltySourceMode)),
+  "Explicit Banking Mains Hard override must use only hard-capable source modes.",
+);
 
 const highNoveltySources=new Set<string>();
 for(let i=0;i<25;i+=1){
@@ -132,6 +150,7 @@ console.log("DI_DELIVERY_NOVELTY_MIX_V1",JSON.stringify({
   deterministicReplay:true,
   exactStemDeduplication:true,
   tierSpacing:true,
+  mainsHardSourceGuard:true,
   higherNoveltySources:[...highNoveltySources].sort(),
   lifecycleLocked:true,
 }));
