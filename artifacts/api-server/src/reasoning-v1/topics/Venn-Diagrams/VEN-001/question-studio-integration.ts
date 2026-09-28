@@ -18,7 +18,7 @@ import {
 
 export const VEN_001_QUESTION_STUDIO_PACKAGE_ID = "VEN-001" as const;
 export const VEN_001_QUESTION_STUDIO_REVIEW_AUTHORITY =
-  "VEN-001-TRILINGUAL-REVIEW-CANDIDATES-V1" as const;
+  "VEN-001-TRILINGUAL-REVIEW-CANDIDATES-V2" as const;
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const topologyIds: readonly VennTopologyId[] = [
   "THREE_NESTED",
@@ -464,7 +464,7 @@ export function generateVen001QuestionStudioBatch(
       checkpointId: "VEN-CP003",
       candidateId: authority.authorityId,
       sourceAuthorityId: authority.authorityId,
-      sourceAuthorityVersion: "VEN-001-CANDIDATES-V1",
+      sourceAuthorityVersion: "VEN-001-CANDIDATES-V2",
       subject: "Reasoning",
       topic: "Logical Venn Diagrams",
       subtopic: "Category-set classification",
