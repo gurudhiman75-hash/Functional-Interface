@@ -26,28 +26,70 @@ for (const [index, svg] of diagrams.entries()) {
   assert.ok((svg.match(/<circle /g) ?? []).length >= 2);
   assert.ok(getVennTopologyDescription(ids[index]!).length > 10);
 }
-assert.match(renderVennTopologySvg("THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE"), /no region shared by all three/);
-assert.throws(() => renderVennTopologySvg("UNSUPPORTED" as VennTopologyId), /Unsupported VEN-001 topology/);
-
+assert.match(
+  renderVennTopologySvg("THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE"),
+  /no region shared by all three/,
+);
+assert.throws(
+  () => renderVennTopologySvg("UNSUPPORTED" as VennTopologyId),
+  /Unsupported VEN-001 topology/,
+);
+assert.match(
+  renderVennTopologySvg("TWO_PARTIAL_OVERLAP", ["A<&", "B"]),
+  /A&lt;&amp;/,
+);
+assert.throws(
+  () => renderVennTopologySvg("TWO_DISJOINT", ["A"]),
+  /requires 2 non-empty circle labels/,
+);
 
 function circleGeometry(svg: string) {
-  return [...svg.matchAll(/<circle cx="(\d+)" cy="(\d+)" r="(\d+)" \/>/g)]
-    .map((match) => ({ x: Number(match[1]), y: Number(match[2]), r: Number(match[3]) }));
+  return [...svg.matchAll(/<circle cx="(\d+)" cy="(\d+)" r="(\d+)" \/>/g)].map(
+    (match) => ({
+      x: Number(match[1]),
+      y: Number(match[2]),
+      r: Number(match[3]),
+    }),
+  );
 }
-function distance(a: ReturnType<typeof circleGeometry>[number], b: ReturnType<typeof circleGeometry>[number]) {
+function distance(
+  a: ReturnType<typeof circleGeometry>[number],
+  b: ReturnType<typeof circleGeometry>[number],
+) {
   return Math.hypot(a.x - b.x, a.y - b.y);
 }
 const separated = circleGeometry(renderVennTopologySvg("TWO_DISJOINT"));
-assert.ok(distance(separated[0]!, separated[1]!) > separated[0]!.r + separated[1]!.r);
-const pairOverlap = circleGeometry(renderVennTopologySvg("TWO_PARTIAL_OVERLAP"));
-assert.ok(distance(pairOverlap[0]!, pairOverlap[1]!) < pairOverlap[0]!.r + pairOverlap[1]!.r);
-assert.ok(distance(pairOverlap[0]!, pairOverlap[1]!) > Math.abs(pairOverlap[0]!.r - pairOverlap[1]!.r));
-const threeWithoutTriple = circleGeometry(renderVennTopologySvg("THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE"));
+assert.ok(
+  distance(separated[0]!, separated[1]!) > separated[0]!.r + separated[1]!.r,
+);
+const pairOverlap = circleGeometry(
+  renderVennTopologySvg("TWO_PARTIAL_OVERLAP"),
+);
+assert.ok(
+  distance(pairOverlap[0]!, pairOverlap[1]!) <
+    pairOverlap[0]!.r + pairOverlap[1]!.r,
+);
+assert.ok(
+  distance(pairOverlap[0]!, pairOverlap[1]!) >
+    Math.abs(pairOverlap[0]!.r - pairOverlap[1]!.r),
+);
+const threeWithoutTriple = circleGeometry(
+  renderVennTopologySvg("THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE"),
+);
 for (let left = 0; left < 3; left += 1) {
   for (let right = left + 1; right < 3; right += 1) {
-    assert.ok(distance(threeWithoutTriple[left]!, threeWithoutTriple[right]!) < threeWithoutTriple[left]!.r + threeWithoutTriple[right]!.r);
+    assert.ok(
+      distance(threeWithoutTriple[left]!, threeWithoutTriple[right]!) <
+        threeWithoutTriple[left]!.r + threeWithoutTriple[right]!.r,
+    );
   }
 }
-const threeWithTriple = circleGeometry(renderVennTopologySvg("THREE_PAIRWISE_OVERLAP_WITH_TRIPLE"));
-assert.ok(threeWithTriple.every((circle) => Math.hypot(circle.x - 125, circle.y - 76) < circle.r));
-\nconsole.log("PASS_VEN_001_ACCESSIBLE_TOPOLOGY_RENDERER");
+const threeWithTriple = circleGeometry(
+  renderVennTopologySvg("THREE_PAIRWISE_OVERLAP_WITH_TRIPLE"),
+);
+assert.ok(
+  threeWithTriple.every(
+    (circle) => Math.hypot(circle.x - 125, circle.y - 76) < circle.r,
+  ),
+);
+console.log("PASS_VEN_001_ACCESSIBLE_TOPOLOGY_RENDERER");
