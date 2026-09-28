@@ -51,9 +51,9 @@ function qlId(number: number): string {
 }
 
 function headings(locale: Cod001Locale): readonly string[] {
-  if (locale === "hi-IN") return ["📌 मुख्य नियम", "📝 चरण-दर-चरण समाधान", "⚡ परीक्षा में तेज़ तरीका", "⚠️ सामान्य गलती का विश्लेषण"];
-  if (locale === "pa-IN") return ["📌 ਮੁੱਖ ਨਿਯਮ", "📝 ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ", "⚡ ਪੇਪਰ ਵਿੱਚ ਤੇਜ਼ ਤਰੀਕਾ", "⚠️ ਆਮ ਗਲਤੀ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ"];
-  return ["📌 Core Rule", "📝 Step-by-Step Solution", "⚡ Exam Speed Shortcut", "⚠️ Common Trap Analysis"];
+  if (locale === "hi-IN") return ["📌 मुख्य नियम", "📝 चरण-दर-चरण समाधान"];
+  if (locale === "pa-IN") return ["📌 ਮੁੱਖ ਨਿਯਮ", "📝 ਕਦਮ-ਦਰ-ਕਦਮ ਹੱਲ"];
+  return ["📌 Core Rule", "📝 Step-by-Step Solution"];
 }
 
 const qlIds = Array.from({ length: 199 }, (_, index) => qlId(index + 1));
@@ -103,6 +103,7 @@ for (const id of qlIds) {
 
       const markdown = formatCodExplanationMarkdown(question).join("\n");
       for (const heading of headings(locale)) assert.ok(markdown.includes(heading), `${id}/${locale}/${seed} misses '${heading}'`);
+      assert.doesNotMatch(markdown, /Exam Speed Shortcut|Common Trap Analysis|परीक्षा में तेज़ तरीका|सामान्य गलती का विश्लेषण|ਪੇਪਰ ਵਿੱਚ ਤੇਜ਼ ਤਰੀਕਾ|ਆਮ ਗਲਤੀ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ/u);
       assert.doesNotMatch(markdown, /\*\*Explanation:\*\*\s*\{|"(?:ruleStatement|quickMethod|sourceDemonstration|targetApplication)"\s*:/u);
       assert.ok(markdown.includes("```text") || markdown.includes("|---|---|"), `${id}/${locale}/${seed} lacks rendered visual alignment`);
 

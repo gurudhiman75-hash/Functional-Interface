@@ -140,10 +140,20 @@ function buildStem(
   }
 
   if (prototypeId === "COD-CP009-PROT-MISSING-TOKEN") {
-    return `${PREFIX} In the first statement, one code word has been replaced by ‘?’. Which code word should replace ‘?’?`;
+    const endings = [
+      "In the first statement, one code word has been replaced by ‘?’. Which code word should replace ‘?’?",
+      "One code word is missing from the first statement. Which code word completes it?",
+      "Which code word should fill the ‘?’ in the first statement?",
+    ];
+    return `${PREFIX} ${endings[styleIndex % endings.length]}`;
   }
 
-  return `${PREFIX} In the first statement, one word has been replaced by a blank. Which word should replace the blank?`;
+  const endings = [
+    "In the first statement, one word has been replaced by a blank. Which word should replace the blank?",
+    "One word is missing from the first statement. Which word completes it?",
+    "Which word should fill the blank in the first statement?",
+  ];
+  return `${PREFIX} ${endings[styleIndex % endings.length]}`;
 }
 
 export function generateExactSetMissingPrototypeQuestion(
