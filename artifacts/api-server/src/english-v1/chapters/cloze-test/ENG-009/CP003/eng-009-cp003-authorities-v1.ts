@@ -1,3 +1,4 @@
+import{ENG009_CP003_BREADTH_WAVE1}from"./eng-009-cp003-breadth-wave1";
 export type Eng009Cp003Difficulty="medium"|"hard";
 export type Eng009Cp003BlankKind="grammar"|"vocabulary"|"collocation"|"context"|"discourse"|"phrase-fit";
 export interface Eng009Cp003BlankV1{
@@ -130,6 +131,8 @@ export const ENG009_CP003_PASSAGES_V1:readonly Eng009Cp003PassageV1[]=[
  b("C10-B6",6,"medium","grammar","change",["changed","changes","changing"],"After 'when conditions', the simple present 'change' fits.","when conditions ...")
  ]
 }
+,
+...ENG009_CP003_BREADTH_WAVE1
 ];
 
 export const ENG009_CP003_BLANKS_V1=ENG009_CP003_PASSAGES_V1.flatMap(p=>p.blanks.map(blank=>({passage:p,blank})));
