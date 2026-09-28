@@ -8,10 +8,14 @@ import {
 } from "./permanent-ql-registry";
 import { generateDi006PermanentQuestion } from "./permanent-question-generator";
 import { DI006_LOCALIZATION_RELEASE_ID, localizeDi006Question } from "./localization-review-v1";
+import { generateDi006AdvancedCaseletSet } from "./advanced-caselet-v1";
+import type { Di006AdvancedExamProfile } from "./advanced-caselet-types";
 import type { Di006V2Difficulty, Di006V2ExamProfile } from "./caselet-v2-types";
 
 export const DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-006" as const;
+export const DI006_ADVANCED_CANONICAL_PROBLEM_ID = "DI-CP-006-ADVANCED" as const;
 export const DI006_QUESTION_STUDIO_RUNTIME_MODE = "DI006_PERMANENT_MULTILINGUAL_REVIEW_V1" as const;
+export const DI006_ADVANCED_RUNTIME_MODE = "DI006_ADVANCED_CASELET_REVIEW_V1" as const;
 
 export type Di006QuestionStudioRequest = Readonly<{
   packageId?: string;
@@ -44,7 +48,8 @@ export function isDi006QuestionStudioRequest(request: Di006QuestionStudioRequest
     || patternId === "di 006"
     || Boolean(getDi006PermanentQl(qlId))
     || cpId === DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID
-    || (topic === "data interpretation" && ["caselet", "caselet di", "paragraph di", "relational caselet"].includes(subtopic));
+    || cpId === DI006_ADVANCED_CANONICAL_PROBLEM_ID
+    || (topic === "data interpretation" && ["caselet", "caselet di", "paragraph di", "relational caselet", "advanced caselet", "banking mains caselet"].includes(subtopic));
 }
 
 function normalizeDifficulty(value: unknown): Di006V2Difficulty | undefined {
@@ -181,8 +186,114 @@ function toQuestionStudioPreview(
   };
 }
 
+
+function normalizeAdvancedProfile(value: unknown): Di006AdvancedExamProfile {
+  const normalized = normalizeSelector(value);
+  if (normalized.includes("mains")) return "BANKING_MAINS";
+  return "BANKING_PRELIMS";
+}
+
+async function generateDi006AdvancedQuestionStudioBatch(request: Di006QuestionStudioRequest) {
+  const languageValue = String(request.language ?? "en").trim().toLowerCase();
+  if (languageValue !== "en") throw new Error("DI-006 advanced caselet V1 is English review-only.");
+  const examProfile = normalizeAdvancedProfile(request.examProfile);
+  const difficulty = normalizeDifficulty(request.difficulty);
+  const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
+  const batchSeed = String(request.seed ?? "").trim() || `quant-v4:DI-006:advanced:${examProfile}:${difficulty ?? "mixed"}:${Date.now()}`;
+  const questionPackages: ReturnType<typeof generateDi006AdvancedCaseletSet>[] = [];
+  const questions: any[] = [];
+
+  for (let index = 0; index < count; index += 1) {
+    const seed = `${batchSeed}:${index}`;
+    const set = generateDi006AdvancedCaseletSet({ seed, examProfile });
+    questionPackages.push(set);
+    const pool = difficulty ? set.questions.filter((question) => question.difficulty === difficulty) : set.questions;
+    const question = pool[index % pool.length]!;
+    questions.push({
+      text: question.stem,
+      stem: question.stem,
+      stimulus: set.stimulus,
+      options: [...question.options],
+      correct: question.correctIndex,
+      correctIndex: question.correctIndex,
+      answer: question.answer,
+      canonicalAnswer: { kind: "symbolic" as const, value: question.answer, display: question.answer, rendered: question.answer, rounding: "exact" as const },
+      explanation: [question.explanation.keyIdea, ...question.explanation.steps].join("\n\n"),
+      richExplanation: question.explanation,
+      difficulty: question.difficulty,
+      difficultyLabel: question.difficulty,
+      patternId: "DI-006",
+      section: "Quant",
+      topic: "Data Interpretation",
+      subtopic: "Advanced Caselet",
+      generationBackend: "quant-v4",
+      debugSource: "quant-v4-di006-advanced-caselet-review-v1",
+      questionId: question.questionId,
+      sourceQuestionId: question.questionId,
+      seed,
+      examProfile: set.examProfile,
+      packageId: "DI-006" as const,
+      canonicalProblemId: DI006_ADVANCED_CANONICAL_PROBLEM_ID,
+      taskKind: question.kind,
+      topology: set.stimulus.topology,
+      runtimeMode: DI006_ADVANCED_RUNTIME_MODE,
+      reviewStatus: "ENGLISH_REVIEW_CANDIDATE" as const,
+      questionBankStatus: "NOT_STORED" as const,
+      questionBankWritable: false as const,
+      questionBankEligible: false as const,
+      testEligibility: "INELIGIBLE" as const,
+      testEligible: false as const,
+      mockTestEligible: false as const,
+      publiclyPublishable: false as const,
+      automaticStudentPublication: false as const,
+      productionReleaseAuthorized: false as const,
+      reviewOnly: true as const,
+      manualApprovalRequired: true as const,
+      language: "en" as const,
+      metadata: {
+        packageId: "DI-006",
+        canonicalProblemId: DI006_ADVANCED_CANONICAL_PROBLEM_ID,
+        taskKind: question.kind,
+        topology: set.stimulus.topology,
+        examProfile: set.examProfile,
+        runtimeMode: DI006_ADVANCED_RUNTIME_MODE,
+        reviewStatus: "ENGLISH_REVIEW_CANDIDATE",
+      },
+    });
+  }
+
+  return {
+    generationContext: {
+      generationDomain: "quant-v4" as const,
+      chapterId: "DataInterpretation" as const,
+      packageId: "DI-006" as const,
+      canonicalProblemId: DI006_ADVANCED_CANONICAL_PROBLEM_ID,
+      seed: batchSeed,
+      timestamp: Date.now(),
+      language: "en" as const,
+      examProfile,
+      runtimeMode: DI006_ADVANCED_RUNTIME_MODE,
+      reviewStatus: "ENGLISH_REVIEW_CANDIDATE" as const,
+      questionStudioDiscoverable: true as const,
+      questionStudioMode: "CONTROLLED_REVIEW" as const,
+      questionBankStatus: "NOT_STORED" as const,
+      questionBankWritable: false as const,
+      testEligibility: "INELIGIBLE" as const,
+      testEligible: false as const,
+      mockTestEligible: false as const,
+      publiclyPublishable: false as const,
+      automaticStudentPublication: false as const,
+      productionReleaseAuthorized: false as const,
+      manualApprovalRequired: true as const,
+    },
+    questionPackages,
+    questions,
+  };
+}
+
 export async function generateDi006QuestionStudioBatch(request: Di006QuestionStudioRequest = {}) {
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
+  if (cpId === DI006_ADVANCED_CANONICAL_PROBLEM_ID) return generateDi006AdvancedQuestionStudioBatch(request);
   if (cpId && cpId !== DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cpId}' for package DI-006.`);
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
   if (!["en", "hi", "pa"].includes(languageValue)) throw new Error(`DI-006 controlled review supports en, hi and pa; received '${String(request.language ?? "")}'.`);
@@ -252,17 +363,20 @@ export function di006QuestionStudioPackageCard() {
     name: "DI-006 Caselet",
     label: "Caselet",
     generationDomain: "quant-v4",
-    cpIds: [DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID],
-    canonicalProblems: [{ id: DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Caselet" }],
+    cpIds: [DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, DI006_ADVANCED_CANONICAL_PROBLEM_ID],
+    canonicalProblems: [
+      { id: DI006_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Caselet — Relational / Remainder" },
+      { id: DI006_ADVANCED_CANONICAL_PROBLEM_ID, label: "Caselet — Advanced Banking Topologies" },
+    ],
     permanentQlIds: DI006_PERMANENT_QLS.map((descriptor) => descriptor.qlId),
     permanentQlCount: DI006_PERMANENT_QLS.length,
     qls: DI006_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, taskKind: descriptor.taskKind })),
     supportedDifficulties: ["easy", "medium", "hard"],
     supportedLanguages: ["en", "hi", "pa"],
-    supportedExamProfiles: ["SSC_CGL_TIER_I", "BANKING_PRELIMS"],
+    supportedExamProfiles: ["SSC_CGL_TIER_I", "BANKING_PRELIMS", "BANKING_MAINS"],
     enabled: true,
     runtimeMode: DI006_QUESTION_STUDIO_RUNTIME_MODE,
-    supportedRuntimeModes: [DI006_QUESTION_STUDIO_RUNTIME_MODE],
+    supportedRuntimeModes: [DI006_QUESTION_STUDIO_RUNTIME_MODE, DI006_ADVANCED_RUNTIME_MODE],
     reviewStatus: "MULTILINGUAL_FROZEN",
     releaseId: DI006_LOCALIZATION_RELEASE_ID,
     questionStudioDiscoverable: DI006_PERMANENT_OWNERSHIP.lifecycle.questionStudioDiscoverable,
