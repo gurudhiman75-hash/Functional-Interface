@@ -3,7 +3,7 @@ import type { Di008AdvancedDifficulty, Di008AdvancedDomain, Di008AdvancedExamPro
 
 const DOMAINS: readonly Di008AdvancedDomain[]=["TIME_WORK","TIME_SPEED_DISTANCE","PARTNERSHIP","MIXTURE_ALLIGATION","INTEREST_LOAN","PROBABILITY_SELECTION"];
 const EASY: readonly Di008AdvancedTask[]=["ROW_DERIVED_VALUE","TWO_ROW_DERIVED_TOTAL"];
-const MEDIUM: readonly Di008AdvancedTask[]=["DERIVED_DIFFERENCE","DERIVED_RATIO","HIGHEST_DERIVED_CATEGORY","THREE_ROW_DERIVED_TOTAL"];
+const MEDIUM: readonly Di008AdvancedTask[]=["DERIVED_DIFFERENCE","DERIVED_RATIO","MAXIMUM_DERIVED_VALUE","THREE_ROW_DERIVED_TOTAL"];
 const HARD: readonly Di008AdvancedTask[]=["GROUP_DERIVED_RATIO","FOUR_ROW_DERIVED_TOTAL","AVERAGE_DERIVED_VALUE","REMAINDER_DERIVED_TOTAL"];
 
 function pick<T>(a:readonly T[],seed:string):T{return a[hashSeed(seed)%a.length]!;}
@@ -57,7 +57,12 @@ function derivedLabel(domain:Di008AdvancedDomain){
   return"selected candidates";
 }
 function makeQuestion(task:Di008AdvancedTask,difficulty:Di008AdvancedDifficulty,state:ReturnType<typeof buildStimulus>,seed:string,index:number):Di008AdvancedQuestion{
-  const {stimulus,derived}=state,label=derivedLabel(stimulus.domain),ids=shuffle([0,1,2,3,4],`${seed}:ids`),i=ids[0]!,j=ids[1]!,k=ids[2]!,l=ids[3]!;
+  const {stimulus,derived}=state,label=derivedLabel(stimulus.domain),ids=shuffle([0,1,2,3,4],`${seed}:ids`);
+  const i=ids[0]!;
+  const distinctJ=ids.find((idx)=>idx!==i && derived[idx]!==derived[i]);
+  const j=distinctJ ?? ids[1]!;
+  const remaining=ids.filter((idx)=>idx!==i && idx!==j);
+  const k=remaining[0] ?? ids[2]!, l=remaining[1] ?? ids[3]!;
   let stem="",answer="",options:string[]=[],steps:string[]=[];
   if(task==="ROW_DERIVED_VALUE"){const v=derived[i]!;stem=`What is the ${label} for ${stimulus.rows[i]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`Using the rule shown with the data, the ${label} is ${v}.`];}
   else if(task==="TWO_ROW_DERIVED_TOTAL"){const v=derived[i]!+derived[j]!;stem=`What is the combined ${label} for ${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`${derived[i]} + ${derived[j]} = ${v}.`];}
