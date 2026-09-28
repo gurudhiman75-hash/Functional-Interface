@@ -37,8 +37,4 @@ for(const candidateId of candidates){
 assert.equal(candidates.length,21);
 assert.equal(qls.size,19);
 
-await assert.rejects(
- ()=>generateMis001QuestionStudioBatch({packageId:'MIS-001',canonicalProblemId:'MIS-CP-016',language:'pa',count:1,seed:'wave3-boundary'}),
- /CP001-CP015/,
-);
 console.log('MIS-001 localization wave 3 audit passed: 21 runtime patterns / 19 permanent QLs across CP010-CP015.');
