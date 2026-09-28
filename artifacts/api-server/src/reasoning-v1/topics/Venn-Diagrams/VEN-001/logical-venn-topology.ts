@@ -75,7 +75,7 @@ function requiredPairs(setIds: readonly VennSetId[]): Set<string> {
   const pairs = new Set<string>();
   for (let left = 0; left < setIds.length; left += 1) {
     for (let right = left + 1; right < setIds.length; right += 1) {
-      pairs.add([setIds[left], setIds[right]].join(":"));
+      pairs.add([setIds[left], setIds[right]].sort().join(":"));
     }
   }
   return pairs;
