@@ -60,6 +60,36 @@ router.post("/exams", requireAdminPermission("content.taxonomy.manage"), async (
   try { const id=randomUUID(); await sqlClient.begin(async(tx)=>{ await tx`INSERT INTO catalog.exams (id,family_id,code,name,description,is_active) VALUES (${id}::uuid,${familyId}::uuid,${code},${name},${description||null},true)`; await tx`INSERT INTO platform.audit_events (id,actor_type,actor_user_id,action_key,entity_type,entity_id,summary,reason,metadata) VALUES (${randomUUID()}::uuid,'user'::audit_actor_type,${req.adminSession!.user.id}::uuid,'settings.exam.created','exam',${id}::uuid,${`Created exam ${code}`},${description||null},${tx.json({ familyId,code,name })})`; }); res.status(201).json({id}); } catch(error){console.error("Unable to create exam",error);res.status(409).json({error:"Unable to create exam; verify the family and unique code",code:"EXAM_CREATE_FAILED"});}
 });
 
+router.patch("/exams/:examId", requireAdminPermission("content.taxonomy.manage"), async (req, res) => {
+  const examId = String(req.params.examId ?? "");
+  const name = text(req.body?.name, 200);
+  const description = text(req.body?.description, 2000);
+  const reason = text(req.body?.reason, 1000);
+  if (!uuid.test(examId) || name.length < 2 || reason.length < 8) {
+    return void res.status(400).json({ error: "A valid exam name and change reason are required", code: "INVALID_EXAM_METADATA" });
+  }
+  try {
+    const result = await sqlClient.begin(async (tx) => {
+      const rows = await tx`SELECT id::text AS id,code,name,description FROM catalog.exams WHERE id=${examId}::uuid FOR UPDATE`;
+      const current = rows[0];
+      if (!current) throw Object.assign(new Error("Exam not found"), { statusCode: 404, code: "EXAM_NOT_FOUND" });
+      const before = { name: String(current.name), description: current.description ? String(current.description) : null };
+      const after = { name, description: description || null };
+      if (before.name === after.name && before.description === after.description) {
+        throw Object.assign(new Error("No exam metadata changes were provided"), { statusCode: 400, code: "NO_EXAM_METADATA_CHANGES" });
+      }
+      await tx`UPDATE catalog.exams SET name=${name},description=${description || null},updated_at=now() WHERE id=${examId}::uuid`;
+      await tx`INSERT INTO platform.audit_events (id,actor_type,actor_user_id,action_key,entity_type,entity_id,summary,reason,metadata) VALUES (${randomUUID()}::uuid,'user'::audit_actor_type,${req.adminSession!.user.id}::uuid,'settings.exam.metadata_updated','exam',${examId}::uuid,${`Updated exam metadata for ${current.code}`},${reason},${tx.json({ before, after })})`;
+      return { id: examId, code: String(current.code), ...after };
+    });
+    res.json(result);
+  } catch (error) {
+    const typed = error as { statusCode?: number; code?: string; message?: string };
+    console.error("Unable to update exam metadata", error);
+    res.status(typed.statusCode ?? 500).json({ error: typed.message ?? "Unable to update exam metadata", code: typed.code ?? "EXAM_METADATA_UPDATE_FAILED" });
+  }
+});
+
 router.post("/exams/:examId/versions", requireAdminPermission("content.taxonomy.manage"), async (req, res) => {
   const examId=String(req.params.examId??""); const name=text(req.body?.name,200); const reason=text(req.body?.changeReason,1000); const languageIds=Array.isArray(req.body?.languageIds)?[...new Set(req.body.languageIds.map((v:unknown)=>String(v)).filter((v:string)=>uuid.test(v)))]:[]; const primaryLanguageId=text(req.body?.primaryLanguageId,50);
   if(!uuid.test(examId)||name.length<2||reason.length<8||languageIds.length===0||!languageIds.includes(primaryLanguageId)) return void res.status(400).json({error:"Version name, change reason and at least one primary language are required",code:"INVALID_EXAM_VERSION"});
