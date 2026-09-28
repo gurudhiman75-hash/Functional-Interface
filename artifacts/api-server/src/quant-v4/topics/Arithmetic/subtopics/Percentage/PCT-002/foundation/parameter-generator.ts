@@ -29,6 +29,7 @@ export interface Pct002ParameterInput {
   language?: Pct002Language;
   questionLanguageId?: string;
   difficultyBand?: Pct002DifficultyBand;
+  diversityOrdinal?: number;
 }
 
 type ScenarioFactory = (difficulty: Pct002DifficultyBand, seed: string) => Pct002Variables;
