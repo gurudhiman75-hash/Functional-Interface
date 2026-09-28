@@ -295,6 +295,69 @@ function rebalanceAssignmentsForHardCapacity(
   return adjusted.filter(assignment=>assignment.count>0);
 }
 
+function rebalanceAssignmentsForHardDiversity(
+  assignments:readonly {tier:DiNoveltyTier;mode:SourceMode;count:number}[],
+  profile:DiDeliveryExamProfile,
+  hardTarget:number,
+  seed:string,
+){
+  if(profile!=="BANKING_MAINS"||hardTarget<=0) return assignments.map(assignment=>({...assignment}));
+
+  const adjusted=assignments.map(assignment=>({...assignment}));
+  const desiredSourceCount=Math.min(4,hardTarget);
+  const perModeCap=Math.max(1,Math.ceil(hardTarget/desiredSourceCount));
+  const hardCapacity=()=>adjusted
+    .filter(assignment=>isHardEligible(assignment.mode,profile))
+    .reduce((sum,assignment)=>sum+Math.min(assignment.count,perModeCap),0);
+
+  let step=0;
+  while(hardCapacity()<hardTarget){
+    const donors=adjusted
+      .filter(assignment=>isHardEligible(assignment.mode,profile)&&assignment.count>perModeCap)
+      .map(assignment=>({assignment,rank:hashSeed(`${seed}:hard-diversity:donor:${step}:${assignment.tier}:${assignment.mode.id}`)}))
+      .sort((a,b)=>a.rank-b.rank||b.assignment.count-a.assignment.count||a.assignment.mode.id.localeCompare(b.assignment.mode.id));
+    const donor=donors[0]?.assignment;
+    if(!donor){
+      throw new Error(`DI novelty mix cannot create ${hardTarget} Hard slots within a ${perModeCap}-per-source cap.`);
+    }
+
+    const currentCounts=new Map(
+      adjusted
+        .filter(assignment=>assignment.tier===donor.tier)
+        .map(assignment=>[assignment.mode.id,assignment.count] as const)
+    );
+    const targets=SOURCE_MODES
+      .filter(mode=>
+        mode.tier===donor.tier
+        &&mode.profiles.includes(profile)
+        &&isHardEligible(mode,profile)
+        &&mode.id!==donor.mode.id
+        &&(currentCounts.get(mode.id)??0)<perModeCap
+      )
+      .map(mode=>({
+        mode,
+        count:currentCounts.get(mode.id)??0,
+        rank:hashSeed(`${seed}:hard-diversity:target:${step}:${donor.tier}:${mode.id}`),
+      }))
+      .sort((a,b)=>a.count-b.count||a.rank-b.rank||a.mode.id.localeCompare(b.mode.id));
+    const targetMode=targets[0]?.mode;
+    if(!targetMode){
+      throw new Error(`DI novelty mix cannot diversify Hard sources inside ${donor.tier}; no under-cap hard-capable target exists.`);
+    }
+
+    donor.count-=1;
+    const existing=adjusted.find(assignment=>assignment.tier===donor.tier&&assignment.mode.id===targetMode.id);
+    if(existing) existing.count+=1;
+    else adjusted.push({tier:donor.tier,mode:targetMode,count:1});
+    step+=1;
+    if(step>hardTarget+SOURCE_MODES.length){
+      throw new Error("DI novelty mix Hard-source diversity rebalance did not converge.");
+    }
+  }
+
+  return adjusted.filter(assignment=>assignment.count>0);
+}
+
 function deterministicShuffle<T>(values:readonly T[],seed:string){
   return [...values]
     .map((value,index)=>({value,index,rank:hashSeed(`${seed}:${index}`)}))
@@ -347,19 +410,24 @@ function assignDifficultyBandsAcrossSources(
   }
 
   const hardSlots:SourceSlot[]=[];
+  const desiredHardSourceCount=profile==="BANKING_MAINS"?Math.min(4,hardTarget):Math.min(hardEligibleGroups.length,hardTarget);
+  const perModeHardCap=desiredHardSourceCount>0?Math.max(1,Math.ceil(hardTarget/desiredHardSourceCount)):hardTarget;
+  const hardCountByMode=new Map<string,number>();
   let round=0;
   while(hardSlots.length<hardTarget){
     let progress=false;
     for(const mode of hardEligibleGroups){
       if(hardSlots.length>=hardTarget) break;
+      if((hardCountByMode.get(mode.id)??0)>=perModeHardCap) continue;
       const bucket=remainingByMode.get(mode.id)!;
       const slot=bucket.shift();
       if(!slot) continue;
       hardSlots.push(slot);
+      hardCountByMode.set(mode.id,(hardCountByMode.get(mode.id)??0)+1);
       progress=true;
     }
     if(!progress){
-      throw new Error(`DI novelty mix has only ${hardSlots.length} hard-capable source slots for ${hardTarget} requested Hard questions.`);
+      throw new Error(`DI novelty mix has only ${hardSlots.length} Hard slots within the ${perModeHardCap}-per-source cap; target is ${hardTarget}.`);
     }
     round+=1;
     if(round>slots.length+1) throw new Error("DI novelty mix hard-source round-robin did not converge.");
@@ -529,10 +597,16 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
   }
 
   const nonHardCapacity=difficultyMix.counts.Easy+difficultyMix.counts.Medium;
-  const balancedAssignments=rebalanceAssignmentsForHardCapacity(
+  const capacityBalancedAssignments=rebalanceAssignmentsForHardCapacity(
     sourceAssignments,
     examProfile,
     nonHardCapacity,
+    seed,
+  );
+  const balancedAssignments=rebalanceAssignmentsForHardDiversity(
+    capacityBalancedAssignments,
+    examProfile,
+    difficultyMix.counts.Hard,
     seed,
   );
 
