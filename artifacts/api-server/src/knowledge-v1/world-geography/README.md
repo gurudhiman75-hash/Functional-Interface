@@ -1,8 +1,8 @@
 # World Geography — Section A implementation
 
-Status: CP001–CP032 and editorial revisions are user approved. CP033–CP036 are integrated and require user review. The complete integration remains review only. No student publication or production release is authorized.
+Status: CP001–CP036 and editorial revisions are user approved. The complete integration remains review only. No student publication or production release is authorized.
 
-740 canonical questions; 2,220 localized versions across English, Hindi and Punjabi. CP001–CP008 account for 201 questions; approved CP009–CP011 add 78, CP012–CP015 add 101, CP016–CP019 add 78 and CP020–CP023 add 88 questions; CP024–CP028 add 96 and CP029–CP032 add 50 questions; approved in PR #2432. CP033–CP036 add 48 questions pending review. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
+740 canonical questions; 2,220 localized versions across English, Hindi and Punjabi. CP001–CP008 account for 201 questions; approved CP009–CP011 add 78, CP012–CP015 add 101, CP016–CP019 add 78 and CP020–CP023 add 88 questions; approved CP024–CP028 add 96, CP029–CP032 add 50 questions in PR #2432, and CP033–CP036 add 48 questions in PR #2450. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
 
 ## CP009–CP011 exam-stem pass
 
@@ -20,17 +20,17 @@ Added currents/tides/reefs (20), seas/gulfs/bays/passages (18), mountains/peaks/
 
 Added lakes, inland waters and waterfalls (20), deserts, islands, peninsulas and capes (21), country-capital and political geography (23), and South Asia and India’s neighbours (24). Questions cover freshwater and saline waters, qualified lake records, changing inland water bodies, desert settings, island and landform locations, sovereign states versus territories, enclaves and exclaves, multiple-capital functions, and regional physical relationships. English stems use direct exam phrasing; Hindi and Punjabi are localized in their native scripts. Each question is linked to the source register. The user approved these checkpoints on 27 September 2026.
 
-## CP024–CP028 implementation — pending review
+## CP024–CP028 implementation — approved
 
-Added East, Southeast and Central Asia (20), West Asia (19), Europe (18), Africa (18), and North America, Central America and the Caribbean (21). Items assess regional position, landforms, rivers, seas, drainage and subregional geography. All five checkpoints have English, Hindi and Punjabi variants, explanations, answer mappings, difficulty labels and source-register references. The new items are integrated into the WGE-001 corpus and standard Question Studio package selector. Their authoring and localization status remains review required; no approval or publication is inferred from integration or tests.
+Added East, Southeast and Central Asia (20), West Asia (19), Europe (18), Africa (18), and North America, Central America and the Caribbean (21). Items assess regional position, landforms, rivers, seas, drainage and subregional geography. All five checkpoints have English, Hindi and Punjabi variants, explanations, answer mappings, difficulty labels and source-register references. The items are integrated into the WGE-001 corpus and standard Question Studio package selector. The user approved this batch; the publication lock remains in place.
 
-## CP029–CP032 implementation — pending review
+## CP029–CP032 implementation — approved
 
-Added South America (12), Australia, New Zealand and Pacific islands (13), Antarctica and the Arctic (12), and population and migration (13). Regional questions connect landforms and drainage with locations without duplicating the general world-river fact bank. Polar questions distinguish ocean, sea ice and continental ice and avoid describing Antarctica as a sovereign country. Population items cover density, physical controls, push and pull factors, internal migration and demographic transition without using undated country rankings. All items have English, Hindi and Punjabi variants, explanations, answer mappings and source-register references. They are integrated into the WGE-001 corpus and standard Question Studio selectors; authoring status remains review required.
+Added South America (12), Australia, New Zealand and Pacific islands (13), Antarctica and the Arctic (12), and population and migration (13). Regional questions connect landforms and drainage with locations without duplicating the general world-river fact bank. Polar questions distinguish ocean, sea ice and continental ice and avoid describing Antarctica as a sovereign country. Population items cover density, physical controls, push and pull factors, internal migration and demographic transition without using undated country rankings. All items have English, Hindi and Punjabi variants, explanations, answer mappings and source-register references. They are integrated into the WGE-001 corpus and standard Question Studio selectors. The user approved this batch in PR #2432; the publication lock remains in place.
 
-## CP033–CP036 implementation — pending review
+## CP033–CP036 implementation — approved
 
-Added settlements and urban geography (12), world agriculture and livestock (12), minerals and energy resources (12), and industries and economic regions (12). All questions have English, Hindi and Punjabi versions, answer mappings, explanations, difficulty levels and source-register links. They are integrated in the WGE-001 corpus and standard Question Studio selector; authoring and localization remain review required.
+Added settlements and urban geography (12), world agriculture and livestock (12), minerals and energy resources (12), and industries and economic regions (12). All questions have English, Hindi and Punjabi versions, answer mappings, explanations, difficulty levels and source-register links. They are integrated in the WGE-001 corpus and standard Question Studio selector. The user approved this batch in PR #2450; the publication lock remains in place.
 
 ## Editorial revision 2
 
@@ -61,15 +61,19 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 | CP021 | 21 | user approved |
 | CP022 | 23 | user approved |
 | CP023 | 24 | user approved |
-| CP024 | 20 | pending user review |
-| CP025 | 19 | pending user review |
-| CP026 | 18 | pending user review |
-| CP027 | 18 | pending user review |
-| CP028 | 21 | pending user review |
-| CP029 | 12 | pending user review |
-| CP030 | 13 | pending user review |
-| CP031 | 12 | pending user review |
-| CP032 | 13 | pending user review |
+| CP024 | 20 | user approved |
+| CP025 | 19 | user approved |
+| CP026 | 18 | user approved |
+| CP027 | 18 | user approved |
+| CP028 | 21 | user approved |
+| CP029 | 12 | user approved |
+| CP030 | 13 | user approved |
+| CP031 | 12 | user approved |
+| CP032 | 13 | user approved |
+| CP033 | 12 | user approved |
+| CP034 | 12 | user approved |
+| CP035 | 12 | user approved |
+| CP036 | 12 | user approved |
 
 ## Coverage ledger
 
@@ -114,9 +118,9 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 
 ## Ownership and integration
 
-The owning corpus is WGE-001. CP001–CP032 are selectable aliases over the same records. CP009–CP019 teach global atmospheric, climatic, ecological and oceanic frameworks; existing Indian Geography packages retain India-specific climate facts, monsoon patterns and local winds (GEO-CLI-001), which are overlap references rather than copied banks. The questions emphasize global processes and examples. Later World Geography sections remain outside this change.
+The owning corpus is WGE-001. CP001–CP036 are selectable aliases over the same records. CP009–CP019 teach global atmospheric, climatic, ecological and oceanic frameworks; existing Indian Geography packages retain India-specific climate facts, monsoon patterns and local winds (GEO-CLI-001), which are overlap references rather than copied banks. The questions emphasize global processes and examples. Later World Geography sections remain outside this change.
 
-The standard knowledge-v1 registry exposes a mixed package and thirty-two checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. CP001–CP032 are marked user approved; CP033–CP036 require user review. All outputs retain review-only lifecycle restrictions.
+The standard knowledge-v1 registry exposes a mixed package and thirty-six checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. CP001–CP036 are marked user approved. All outputs retain review-only lifecycle restrictions.
 
 ## Verification
 
@@ -124,4 +128,4 @@ The focused corpus/adapter test validates all 740 items, 4,440 filtered localize
 
 ## Review gate
 
-User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. User approval of CP020–CP023, including their exam-stem revisions, was received on 27 September 2026. CP029–CP032 approval was received on 28 September 2026 and merged in PR #2432. CP033–CP036 are awaiting user review. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.
+User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. User approval of CP020–CP023, including their exam-stem revisions, was received on 27 September 2026. CP029–CP032 approval was received on 28 September 2026 and merged in PR #2432. CP033–CP036 approval was received on 28 September 2026 and merged in PR #2450. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.
