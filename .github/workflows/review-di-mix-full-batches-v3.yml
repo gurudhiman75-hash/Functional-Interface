@@ -1,0 +1,32 @@
+name: review-di-mix-full-batches-v3
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/export-di-mix-full-review-v3.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: review-di-mix-full-batches-v3-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Generate full DI mix review V3
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/export-di-mix-full-review-v3.ts /tmp/DI-MIX-FULL-BATCH-REVIEW-V3.html
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-mix-full-batch-review-v3
+          path: /tmp/DI-MIX-FULL-BATCH-REVIEW-V3.html
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
