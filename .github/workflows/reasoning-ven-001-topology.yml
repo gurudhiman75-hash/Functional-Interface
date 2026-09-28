@@ -57,5 +57,14 @@ jobs:
       - name: Run Question Studio integration proof
         run: node artifacts/api-server/dist/reasoning-v1/ven-001-question-studio.test.mjs
 
+      - name: Bundle and run next checkpoint question proofs
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-next-checkpoints.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-next-checkpoints.test.mjs
+      - name: Run next checkpoint question proofs
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-next-checkpoints.test.mjs
+
       - name: Check patch whitespace
         run: git diff --check
