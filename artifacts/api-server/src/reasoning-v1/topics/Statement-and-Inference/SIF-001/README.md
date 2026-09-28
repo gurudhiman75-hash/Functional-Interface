@@ -1,6 +1,6 @@
 # SIF-001 — Statement and Inference
 
-This package implements the 17 content packs in the approved Statement & Inference blueprint.
+V1 is frozen for multilingual Question Studio review across all 17 content packs. The approved CP015–CP017 review packs are included in this freeze.
 
 The runtime is logic-first:
 
@@ -42,10 +42,10 @@ The package does not infer its answer from generated prose. It also keeps infere
 
 CP012 contains 20 scenarios about the boundary between supported and merely possible claims; CP013 contains 20 scenarios about sample and population scope; CP014 contains 12 scenarios about temporal order without unsupported causation. Each pool has a deterministic, non-repeating Question Studio review pack, trilingual parity checks, and difficulty-specific proofs.
 
-## CP015–CP017 review candidates
+## CP015–CP017 approved review packs
 
 CP015 contains 24 distinct trilingual scenarios about bounded attitudes and positions, including qualified support, reservations, and explicit opposition. CP016 contains 24 short, advanced passages that combine reported figures, conditions, time limits, and missing evidence without adding causal claims. CP017 contains 24 mixed-format passages spanning quantifiers, conditions, exceptions, comparisons, and scope. Each pack has its own deterministic review sampler; all pool scenarios are sampled once, and Hindi/Punjabi parity and answer-position balance are checked.
 
-## Review boundary
+## V1 freeze boundary
 
-All 17 content packs are executable and registered for Question Studio review. The full chapter is an implementation review candidate; it is not frozen. Question Bank persistence, tests, mocks, public delivery and automatic publication remain locked until CP-level human editorial review, multilingual parity review, novelty expansion and the chapter freeze are approved.
+All 17 content packs are executable, registered in Question Studio, and frozen for trilingual review. CP015, CP016, and CP017 have approved 24-question review packs with English, Hindi, and Punjabi coverage. The chapter remains `REVIEW_ONLY`: Question Bank persistence, tests, mocks, public delivery, and automatic publication stay locked until a separate release approval. Novelty expansion is deferred to the cross-chapter final pass and does not block this review-only freeze.
