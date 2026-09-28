@@ -907,5 +907,41 @@
     "kind": "primary-agency",
     "consultedOn": "2026-09-28",
     "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-HUMGEO-NCERT-SYLLABUS",
+    "title": "NCERT: Geography Syllabus for Classes XI–XII",
+    "url": "https://www.ncert.nic.in/pdf/syllabus/08HGPES%20%28XI-XII%29.pdf",
+    "section": "Human development, economic activity sectors, transport, communication and trade",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-HDI-UNDP",
+    "title": "UNDP: Human Development Index",
+    "url": "https://hdr.undp.org/data-center/human-development-index",
+    "section": "Health, education and income dimensions; life expectancy, schooling and gross national income per capita indicators",
+    "kind": "primary-methodology",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-HAB-SETTLEMENT-SERVICES",
+    "title": "UN-Habitat: Mwanza Informal Settlements Baseline Survey",
+    "url": "https://unhabitat.org/youth-led-mwanza-city-informal-settlements-baseline-survey-state-of-living-conditions-and-access-to",
+    "section": "Housing, infrastructure and access to urban basic services in informal settlements",
+    "kind": "primary-report",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-URB-EPA",
+    "title": "U.S. Environmental Protection Agency: Urbanization Overview",
+    "url": "https://www.epa.gov/caddis/urbanization-overview",
+    "section": "Urban land transformation and peri-urban or suburban fringes",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
   }
 ]
