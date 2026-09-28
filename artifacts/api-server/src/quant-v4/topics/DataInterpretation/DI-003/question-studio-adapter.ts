@@ -10,12 +10,16 @@ import { generateDi003PermanentQuestion } from "./permanent-question-generator";
 import { DI003_LOCALIZATION_RELEASE_ID, localizeDi003Question } from "./localization-review-v1";
 import { generateDi003SingleBarSet } from "./single-bar-v1";
 import { renderDi003SingleBarSvg } from "./single-bar-svg-v1";
+import { generateDi003StackedBarSet } from "./stacked-bar-v1";
+import { renderDi003StackedBarSvg } from "./stacked-bar-svg-v1";
 import type { Di003V2Difficulty, Di003V2ExamProfile } from "./grouped-bar-v2-types";
 
 export const DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-003" as const;
 export const DI003_SINGLE_CANONICAL_PROBLEM_ID = "DI-CP-003-SINGLE" as const;
+export const DI003_STACKED_CANONICAL_PROBLEM_ID = "DI-CP-003-STACKED" as const;
 export const DI003_QUESTION_STUDIO_RUNTIME_MODE = "DI003_PERMANENT_MULTILINGUAL_REVIEW_V1" as const;
 export const DI003_SINGLE_RUNTIME_MODE = "DI003_SINGLE_SERIES_BAR_REVIEW_V1" as const;
+export const DI003_STACKED_RUNTIME_MODE = "DI003_STACKED_BAR_REVIEW_V1" as const;
 
 export type Di003QuestionStudioRequest = Readonly<{
   packageId?: string;
@@ -49,7 +53,8 @@ export function isDi003QuestionStudioRequest(request: Di003QuestionStudioRequest
     || Boolean(getDi003PermanentQl(qlId))
     || cpId === DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID
     || cpId === DI003_SINGLE_CANONICAL_PROBLEM_ID
-    || (topic === "data interpretation" && ["grouped bar", "grouped bar chart", "bar chart", "multiple bar graph", "single bar", "single series bar"].includes(subtopic));
+    || cpId === DI003_STACKED_CANONICAL_PROBLEM_ID
+    || (topic === "data interpretation" && ["grouped bar", "grouped bar chart", "bar chart", "multiple bar graph", "single bar", "single series bar", "stacked bar", "segmented bar"].includes(subtopic));
 }
 
 function normalizeDifficulty(value: unknown): Di003V2Difficulty | undefined {
@@ -185,6 +190,46 @@ function toQuestionStudioPreview(
 }
 
 
+
+async function generateDi003StackedQuestionStudioBatch(request: Di003QuestionStudioRequest) {
+  const languageValue = String(request.language ?? "en").trim().toLowerCase();
+  if (languageValue !== "en") throw new Error("DI-003 stacked bar V1 is English review-only.");
+  const examSelector = normalizeSelector(request.examProfile);
+  if (examSelector && !(examSelector.includes("bank") || examSelector.includes("ibps") || examSelector.includes("sbi") || examSelector.includes("rrb") || examSelector.includes("mains"))) {
+    throw new Error("DI-003 stacked bar V1 is scoped to Banking Mains review.");
+  }
+  const difficulty = normalizeDifficulty(request.difficulty);
+  const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
+  const batchSeed = String(request.seed ?? "").trim() || `quant-v4:DI-003:stacked:BANKING_MAINS:${difficulty ?? "mixed"}:${Date.now()}`;
+  const questionPackages: ReturnType<typeof generateDi003StackedBarSet>[] = [];
+  const questions:any[] = [];
+  for(let index=0;index<count;index+=1){
+    const seed=`${batchSeed}:${index}`;
+    const set=generateDi003StackedBarSet({seed});
+    questionPackages.push(set);
+    const pool=difficulty?set.questions.filter(q=>q.difficulty===difficulty):set.questions;
+    const question=pool[index%pool.length]!;
+    questions.push({
+      text:question.stem,stem:question.stem,stimulus:set.stimulus,stimulusSvgs:[renderDi003StackedBarSvg(set.stimulus)],
+      options:[...question.options],correct:question.correctIndex,correctIndex:question.correctIndex,answer:question.answer,
+      canonicalAnswer:{kind:"symbolic" as const,value:question.answer,display:question.answer,rendered:question.answer,rounding:"exact" as const},
+      explanation:[question.explanation.keyIdea,...question.explanation.steps].join("\n\n"),richExplanation:question.explanation,
+      difficulty:question.difficulty,difficultyLabel:question.difficulty,patternId:"DI-003",section:"Quant",topic:"Data Interpretation",subtopic:"Stacked / Segmented Bar Chart",
+      generationBackend:"quant-v4",debugSource:"quant-v4-di003-stacked-bar-review-v1",questionId:question.questionId,sourceQuestionId:question.questionId,
+      seed,examProfile:"BANKING_MAINS" as const,packageId:"DI-003" as const,canonicalProblemId:DI003_STACKED_CANONICAL_PROBLEM_ID,taskKind:question.kind,
+      runtimeMode:DI003_STACKED_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
+      questionBankEligible:false as const,testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,
+      automaticStudentPublication:false as const,productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:"en" as const,
+      metadata:{packageId:"DI-003",canonicalProblemId:DI003_STACKED_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:"BANKING_MAINS",runtimeMode:DI003_STACKED_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_STACKED_BAR_SVG"}
+    });
+  }
+  return {generationContext:{generationDomain:"quant-v4" as const,chapterId:"DataInterpretation" as const,packageId:"DI-003" as const,canonicalProblemId:DI003_STACKED_CANONICAL_PROBLEM_ID,
+    seed:batchSeed,timestamp:Date.now(),language:"en" as const,examProfile:"BANKING_MAINS" as const,runtimeMode:DI003_STACKED_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+    questionStudioDiscoverable:true as const,questionStudioMode:"CONTROLLED_REVIEW" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
+    testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
+    productionReleaseAuthorized:false as const,manualApprovalRequired:true as const},questionPackages,questions};
+}
+
 async function generateDi003SingleQuestionStudioBatch(request: Di003QuestionStudioRequest) {
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
   if (languageValue !== "en") throw new Error("DI-003 single-series bar V1 is English review-only.");
@@ -224,6 +269,7 @@ async function generateDi003SingleQuestionStudioBatch(request: Di003QuestionStud
 export async function generateDi003QuestionStudioBatch(request: Di003QuestionStudioRequest = {}) {
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
   if (cpId === DI003_SINGLE_CANONICAL_PROBLEM_ID) return generateDi003SingleQuestionStudioBatch(request);
+  if (cpId === DI003_STACKED_CANONICAL_PROBLEM_ID) return generateDi003StackedQuestionStudioBatch(request);
   if (cpId && cpId !== DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cpId}' for package DI-003.`);
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
   if (!["en", "hi", "pa"].includes(languageValue)) throw new Error(`DI-003 controlled review supports en, hi and pa; received '${String(request.language ?? "")}'.`);
@@ -291,20 +337,21 @@ export function di003QuestionStudioPackageCard() {
     name: "DI-003 Grouped Bar Chart",
     label: "Grouped Bar Chart",
     generationDomain: "quant-v4",
-    cpIds: [DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, DI003_SINGLE_CANONICAL_PROBLEM_ID],
+    cpIds: [DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, DI003_SINGLE_CANONICAL_PROBLEM_ID, DI003_STACKED_CANONICAL_PROBLEM_ID],
     canonicalProblems: [
       { id: DI003_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Grouped Bar Chart" },
       { id: DI003_SINGLE_CANONICAL_PROBLEM_ID, label: "Single-Series Bar Chart" },
+      { id: DI003_STACKED_CANONICAL_PROBLEM_ID, label: "Stacked / Segmented Bar Chart" },
     ],
     permanentQlIds: DI003_PERMANENT_QLS.map((descriptor) => descriptor.qlId),
     permanentQlCount: DI003_PERMANENT_QLS.length,
     qls: DI003_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, taskKind: descriptor.taskKind })),
     supportedDifficulties: ["easy", "medium", "hard"],
     supportedLanguages: ["en", "hi", "pa"],
-    supportedExamProfiles: ["SSC_CGL_TIER_I", "BANKING_PRELIMS"],
+    supportedExamProfiles: ["SSC_CGL_TIER_I", "BANKING_PRELIMS", "BANKING_MAINS"],
     enabled: true,
     runtimeMode: DI003_QUESTION_STUDIO_RUNTIME_MODE,
-    supportedRuntimeModes: [DI003_QUESTION_STUDIO_RUNTIME_MODE, DI003_SINGLE_RUNTIME_MODE],
+    supportedRuntimeModes: [DI003_QUESTION_STUDIO_RUNTIME_MODE, DI003_SINGLE_RUNTIME_MODE, DI003_STACKED_RUNTIME_MODE],
     reviewStatus: "MULTILINGUAL_FROZEN",
     releaseId: DI003_LOCALIZATION_RELEASE_ID,
     questionStudioDiscoverable: DI003_PERMANENT_OWNERSHIP.lifecycle.questionStudioDiscoverable,
