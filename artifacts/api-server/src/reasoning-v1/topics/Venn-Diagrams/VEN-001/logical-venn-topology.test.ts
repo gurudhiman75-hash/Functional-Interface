@@ -12,6 +12,11 @@ const nested = validateVennTopology(["A", "B", "C"], [
 ]);
 assert.equal(relationForPair(nested, "A", "C"), "LEFT_SUBSET_RIGHT");
 
+const reversedLabelOrder = validateVennTopology(["B", "A"], [
+  { left: "B", right: "A", relation: "LEFT_SUBSET_RIGHT" },
+]);
+assert.equal(relationForPair(reversedLabelOrder, "B", "A"), "LEFT_SUBSET_RIGHT");
+
 const siblingSets = validateVennTopology(["A", "B", "C"], [
   { left: "A", right: "B", relation: "DISJOINT" },
   { left: "A", right: "C", relation: "LEFT_SUBSET_RIGHT" },
