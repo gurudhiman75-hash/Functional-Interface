@@ -862,5 +862,14 @@
     "kind": "primary-methodology",
     "consultedOn": "2026-09-28",
     "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-REG-DENMARK-GREENLAND",
+    "title": "Danish Ministry of Foreign Affairs: Greenland and the Faroe Islands",
+    "url": "https://um.dk/en/foreign-policy/the-arctic/greenland-and-the-faroe-islands/",
+    "section": "Greenland's self-government status within the Kingdom of Denmark",
+    "kind": "primary-government",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
   }
 ]
