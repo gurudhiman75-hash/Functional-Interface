@@ -7,10 +7,14 @@ import {
   type Di004PermanentQlDescriptor,
 } from "./permanent-ql-registry";
 import { generateDi004PermanentQuestion } from "./permanent-question-generator";
+import { generateDi004SingleLineSet } from "./single-line-v1";
+import { renderDi004SingleLineSvg } from "./single-line-svg-v1";
 import type { Di004V2Difficulty, Di004V2ExamProfile } from "./line-v2-types";
 
 export const DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-004" as const;
+export const DI004_SINGLE_CANONICAL_PROBLEM_ID = "DI-CP-004-SINGLE" as const;
 export const DI004_QUESTION_STUDIO_RUNTIME_MODE = "DI004_PERMANENT_ENGLISH_REVIEW_P1" as const;
+export const DI004_SINGLE_RUNTIME_MODE = "DI004_SINGLE_SERIES_LINE_REVIEW_V1" as const;
 
 export type Di004QuestionStudioRequest = Readonly<{
   packageId?: string;
@@ -43,7 +47,8 @@ export function isDi004QuestionStudioRequest(request: Di004QuestionStudioRequest
     || patternId === "di 004"
     || Boolean(getDi004PermanentQl(qlId))
     || cpId === DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID
-    || (topic === "data interpretation" && ["line graph", "line graph di", "line chart", "line di"].includes(subtopic));
+    || cpId === DI004_SINGLE_CANONICAL_PROBLEM_ID
+    || (topic === "data interpretation" && ["line graph", "line graph di", "line chart", "line di", "single line", "single series line"].includes(subtopic));
 }
 
 function normalizeDifficulty(value: unknown): Di004V2Difficulty | undefined {
@@ -175,8 +180,46 @@ function toQuestionStudioPreview(
   };
 }
 
+
+async function generateDi004SingleQuestionStudioBatch(request: Di004QuestionStudioRequest) {
+  const language = String(request.language ?? "en").trim().toLowerCase();
+  if (language !== "en") throw new Error("DI-004 single-series line V1 is English review-only.");
+  const profile = normalizeProfile(request.examProfile);
+  const difficulty = normalizeDifficulty(request.difficulty);
+  const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
+  const batchSeed = String(request.seed ?? "").trim() || `quant-v4:DI-004:single:${profile}:${difficulty ?? "mixed"}:${Date.now()}`;
+  const questionPackages: ReturnType<typeof generateDi004SingleLineSet>[] = [];
+  const questions:any[] = [];
+  for(let index=0;index<count;index+=1){
+    const seed=`${batchSeed}:${index}`;
+    const set=generateDi004SingleLineSet({seed,examProfile:profile});
+    questionPackages.push(set);
+    const pool=difficulty?set.questions.filter(q=>q.difficulty===difficulty):set.questions;
+    const question=pool[index%pool.length]!;
+    questions.push({
+      text:question.stem,stem:question.stem,stimulus:set.stimulus,stimulusSvgs:[renderDi004SingleLineSvg(set.stimulus)],
+      options:[...question.options],correct:question.correctIndex,correctIndex:question.correctIndex,answer:question.answer,
+      canonicalAnswer:{kind:"symbolic" as const,value:question.answer,display:question.answer,rendered:question.answer,rounding:"exact" as const},
+      explanation:[question.explanation.keyIdea,...question.explanation.steps].join("\n\n"),richExplanation:question.explanation,
+      difficulty:question.difficulty,difficultyLabel:question.difficulty,patternId:"DI-004",section:"Quant",topic:"Data Interpretation",subtopic:"Single-Series Line Graph",
+      generationBackend:"quant-v4",debugSource:"quant-v4-di004-single-line-review-v1",questionId:question.questionId,sourceQuestionId:question.questionId,
+      seed,examProfile:set.examProfile,packageId:"DI-004" as const,canonicalProblemId:DI004_SINGLE_CANONICAL_PROBLEM_ID,taskKind:question.kind,
+      runtimeMode:DI004_SINGLE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
+      questionBankEligible:false as const,testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,
+      automaticStudentPublication:false as const,productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:"en" as const,
+      metadata:{packageId:"DI-004",canonicalProblemId:DI004_SINGLE_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:set.examProfile,runtimeMode:DI004_SINGLE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_SINGLE_LINE_SVG"}
+    });
+  }
+  return {generationContext:{generationDomain:"quant-v4" as const,chapterId:"DataInterpretation" as const,packageId:"DI-004" as const,canonicalProblemId:DI004_SINGLE_CANONICAL_PROBLEM_ID,
+    seed:batchSeed,timestamp:Date.now(),language:"en" as const,examProfile:profile,runtimeMode:DI004_SINGLE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+    questionStudioDiscoverable:true as const,questionStudioMode:"CONTROLLED_REVIEW" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
+    testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
+    productionReleaseAuthorized:false as const,manualApprovalRequired:true as const},questionPackages,questions};
+}
+
 export async function generateDi004QuestionStudioBatch(request: Di004QuestionStudioRequest = {}) {
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
+  if (cpId === DI004_SINGLE_CANONICAL_PROBLEM_ID) return generateDi004SingleQuestionStudioBatch(request);
   if (cpId && cpId !== DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cpId}' for package DI-004.`);
   const language = String(request.language ?? "en").trim().toLowerCase();
   if (language !== "en") throw new Error("DI-004 permanent Question Studio review is English-only; localization has not started.");
@@ -245,8 +288,11 @@ export function di004QuestionStudioPackageCard() {
     name: "DI-004 Line Graph",
     label: "Line Graph",
     generationDomain: "quant-v4",
-    cpIds: [DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID],
-    canonicalProblems: [{ id: DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Line Graph" }],
+    cpIds: [DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, DI004_SINGLE_CANONICAL_PROBLEM_ID],
+    canonicalProblems: [
+      { id: DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Two-Series Line Graph" },
+      { id: DI004_SINGLE_CANONICAL_PROBLEM_ID, label: "Single-Series Line Graph" },
+    ],
     permanentQlIds: DI004_PERMANENT_QLS.map((descriptor) => descriptor.qlId),
     permanentQlCount: DI004_PERMANENT_QLS.length,
     qls: DI004_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, taskKind: descriptor.taskKind })),
@@ -255,7 +301,7 @@ export function di004QuestionStudioPackageCard() {
     supportedExamProfiles: ["SSC_CGL_TIER_I", "BANKING_PRELIMS"],
     enabled: true,
     runtimeMode: DI004_QUESTION_STUDIO_RUNTIME_MODE,
-    supportedRuntimeModes: [DI004_QUESTION_STUDIO_RUNTIME_MODE],
+    supportedRuntimeModes: [DI004_QUESTION_STUDIO_RUNTIME_MODE, DI004_SINGLE_RUNTIME_MODE],
     reviewStatus: "ENGLISH_REVIEW_APPROVED",
     releaseId: DI004_PERMANENT_RELEASE_ID,
     questionStudioDiscoverable: DI004_PERMANENT_OWNERSHIP.lifecycle.questionStudioDiscoverable,
