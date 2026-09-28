@@ -75,6 +75,15 @@ function options(answer:string,candidates:readonly string[],count:4|5,seed:strin
   return shuffled(values.slice(0,count),seed);
 }
 function pair(seed:string){const ids=shuffled([0,1,2,3,4],seed);return [ids[0]!,ids[1]!] as const;}
+function exactExcessPair(stimulus:Di005V2Stimulus,seed:string){
+  const pairs: [number,number][]=[];
+  for(let i=0;i<stimulus.slices.length;i++) for(let j=i+1;j<stimulus.slices.length;j++){
+    const a=stimulus.slices[i]!.percent,b=stimulus.slices[j]!.percent,hi=Math.max(a,b),lo=Math.min(a,b);
+    if(((hi-lo)*100)%lo===0) pairs.push([i,j]);
+  }
+  if(!pairs.length) throw new Error("DI-005 fully-visible has no exact relative-percent pair.");
+  return pick(pairs,`${seed}:exact-excess`);
+}
 
 function buildQuestion(task:Di005FullyVisibleTaskKind,difficulty:Di005V2Difficulty,stimulus:Di005V2Stimulus,seed:string,index:number,optionCount:4|5):Di005FullyVisibleQuestion{
   const slices=stimulus.slices;
@@ -95,7 +104,7 @@ function buildQuestion(task:Di005FullyVisibleTaskKind,difficulty:Di005V2Difficul
   } else if(task==="RATIO_OF_TWO_SECTORS"){
     const [i,j]=pair(seed),a=slices[i]!,b=slices[j]!,v=ratio(a.percent,b.percent);stem=`What is the ratio of ${a.category} to ${b.category}?`;answer=v;cands=[ratio(b.percent,a.percent),ratio(a.percent,a.percent+b.percent),ratio(a.percent+5,b.percent),ratio(a.percent,b.percent+5)];steps=[`Required ratio = ${a.percent}:${b.percent} = ${v}.`];
   } else if(task==="RELATIVE_SECTOR_PERCENT_EXCESS"){
-    const [i,j]=pair(seed),x=slices[i]!,y=slices[j]!,a=x.percent>=y.percent?x:y,b=x.percent>=y.percent?y:x;const v=((a.percent-b.percent)*100)/b.percent;stem=`${a.category} is what percent more than ${b.category}?`;answer=`${v}%`;cands=[a.percent-b.percent,(a.percent-b.percent)*100/a.percent,a.percent*100/b.percent,100-v].map(x=>`${x}%`);steps=[`Difference = ${a.percent-b.percent} percentage points.`,`Relative increase = (${a.percent-b.percent} ÷ ${b.percent}) × 100 = ${v}%.`];
+    const [i,j]=exactExcessPair(stimulus,seed),x=slices[i]!,y=slices[j]!,a=x.percent>=y.percent?x:y,b=x.percent>=y.percent?y:x;const v=((a.percent-b.percent)*100)/b.percent;stem=`${a.category} is what percent more than ${b.category}?`;answer=`${v}%`;cands=[a.percent-b.percent,v+10,Math.max(5,v-10),v+20].map(x=>`${x}%`);steps=[`Difference = ${a.percent-b.percent} percentage points.`,`Relative increase = (${a.percent-b.percent} ÷ ${b.percent}) × 100 = ${v}%.`];
   } else if(task==="COMBINED_SECTOR_ANGLE"){
     const [i,j]=pair(seed),a=slices[i]!,b=slices[j]!,v=(a.percent+b.percent)*3.6;stem=`What is the combined central angle of ${a.category} and ${b.category}?`;answer=`${v}°`;cands=[Math.abs(a.percent-b.percent)*3.6,a.percent*3.6,b.percent*3.6,360-v].map(x=>`${x}°`);steps=[`Combined share = ${a.percent+b.percent}%.`,`Angle = ${a.percent+b.percent}% of 360° = ${v}°.`];
   } else {
