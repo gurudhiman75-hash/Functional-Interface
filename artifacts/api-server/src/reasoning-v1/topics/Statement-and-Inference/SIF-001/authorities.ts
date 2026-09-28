@@ -185,12 +185,18 @@ const DECISION_ENDINGS: Readonly<Record<DecisionClass, SifLocalizedText>> = {
 
 function explanationAlreadyResolves(text: string, locale: keyof SifLocalizedText): boolean {
   if (locale === "en-IN") {
-    return /Inference I|Inference II|only I|only II|both inferences|neither inference|either inference/i.test(text);
+    const namesBoth = /Inference I/i.test(text) && /Inference II/i.test(text);
+    const statesClass = /only I|only II|both inferences|neither inference|either inference/i.test(text);
+    return namesBoth || statesClass;
   }
   if (locale === "hi-IN") {
-    return /अनुमान I|अनुमान II|केवल I|केवल II|दोनों अनुमान|कोई भी अनुमान|न अनुमान/u.test(text);
+    const namesBoth = /अनुमान I/u.test(text) && /अनुमान II/u.test(text);
+    const statesClass = /केवल I|केवल II|दोनों अनुमान|कोई भी अनुमान|न अनुमान I.*न अनुमान II/u.test(text);
+    return namesBoth || statesClass;
   }
-  return /ਅਨੁਮਾਨ I|ਅਨੁਮਾਨ II|ਕੇਵਲ I|ਕੇਵਲ II|ਦੋਵੇਂ ਅਨੁਮਾਨ|ਕੋਈ ਵੀ ਅਨੁਮਾਨ|ਨਾ ਅਨੁਮਾਨ/u.test(text);
+  const namesBoth = /ਅਨੁਮਾਨ I/u.test(text) && /ਅਨੁਮਾਨ II/u.test(text);
+  const statesClass = /ਕੇਵਲ I|ਕੇਵਲ II|ਦੋਵੇਂ ਅਨੁਮਾਨ|ਕੋਈ ਵੀ ਅਨੁਮਾਨ|ਨਾ ਅਨੁਮਾਨ I.*ਨਾ ਅਨੁਮਾਨ II/u.test(text);
+  return namesBoth || statesClass;
 }
 
 function withResolvedDecision(authority: SifScenarioAuthority): SifScenarioAuthority {
