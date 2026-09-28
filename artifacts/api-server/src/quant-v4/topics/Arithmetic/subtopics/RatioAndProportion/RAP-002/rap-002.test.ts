@@ -466,4 +466,24 @@ for (let index = 0; index < 120; index += 1) {
   }
 }
 
+
+for (const cpId of ["RAP-CP-008", "RAP-CP-012"] as const) {
+  const qlIds = getRap002QuestionLanguageIds(cpId);
+  const rotated = qlIds.map((_, diversityOrdinal) =>
+    generateRap002Parameters({
+      canonicalProblemId: cpId,
+      seed: `rap-002-diversity-ordinal:${cpId}`,
+      diversityOrdinal,
+    }).questionLanguageId
+  );
+  assert.deepEqual(rotated, qlIds, `RAP-002 diversity ordinal rotation failed for ${cpId}`);
+
+  const wrapped = generateRap002Parameters({
+    canonicalProblemId: cpId,
+    seed: `rap-002-diversity-wrap:${cpId}`,
+    diversityOrdinal: qlIds.length,
+  }).questionLanguageId;
+  assert.equal(wrapped, qlIds[0], `RAP-002 diversity ordinal wrap failed for ${cpId}`);
+}
+
 console.log(`RAP-002 multilingual enrichment test passed. CP-007 QLs covered: ${seenQlIds.size}. CP-008 QLs covered: ${seenCp008QlIds.size}. CP-009 QLs covered: ${seenCp009QlIds.size}. CP-010 QLs covered: ${seenCp010QlIds.size}. CP-011 QLs covered: ${seenCp011QlIds.size}. CP-012 QLs covered: ${seenCp012QlIds.size}.`);
