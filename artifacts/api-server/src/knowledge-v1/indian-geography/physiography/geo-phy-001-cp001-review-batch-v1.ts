@@ -1,7 +1,10 @@
 import { generateGeoPhy001Cp001ReviewBatchV1 } from "./geo-phy-001-cp001-review-generator-v1";
+import { simplifyGeoPhy001Cp001QuestionV2 } from "./geo-phy-001-cp001-review-realizer-v2";
 
 export const GEO_PHY_001_CP001_REVIEW_BATCH_V1 = Object.freeze(
-  generateGeoPhy001Cp001ReviewBatchV1().map((question) => Object.freeze(question)),
+  generateGeoPhy001Cp001ReviewBatchV1()
+    .map(simplifyGeoPhy001Cp001QuestionV2)
+    .map((question) => Object.freeze(question)),
 );
 
 export function auditGeoPhy001Cp001ReviewBatchV1() {

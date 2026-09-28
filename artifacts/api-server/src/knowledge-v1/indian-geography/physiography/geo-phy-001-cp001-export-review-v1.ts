@@ -9,7 +9,7 @@ const outDir = path.resolve(process.cwd(), "dist/geography-review/GEO-PHY-001-CP
 fs.mkdirSync(outDir, { recursive: true });
 const letters = ["A", "B", "C", "D"];
 const lines: string[] = [
-  "# GEO-PHY-001 CP001 — Major Physiographic Divisions — Review Batch V1",
+  "# GEO-PHY-001 CP001 — Major Physical Regions — Review Batch V2",
   "",
   `**Questions:** ${audit.questionCount}  `,
   `**Semantic unique:** ${audit.semanticCount}  `,
@@ -44,7 +44,7 @@ GEO_PHY_001_CP001_REVIEW_BATCH_V1.forEach((question, index) => {
 });
 
 const markdown = lines.join("\n");
-const baseName = "GEO-PHY-001-CP001-REVIEW-BATCH-V1";
+const baseName = "GEO-PHY-001-CP001-REVIEW-BATCH-V2";
 fs.writeFileSync(path.join(outDir, `${baseName}.md`), markdown);
 fs.writeFileSync(path.join(outDir, `${baseName}.json`), JSON.stringify({ audit, questions: GEO_PHY_001_CP001_REVIEW_BATCH_V1 }, null, 2));
 console.log(JSON.stringify(audit));
