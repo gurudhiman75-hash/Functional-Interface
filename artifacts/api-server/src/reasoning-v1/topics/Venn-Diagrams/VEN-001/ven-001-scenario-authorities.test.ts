@@ -5,10 +5,10 @@ import {
   validateVennTopology,
 } from "./logical-venn-topology.ts";
 
-assert.equal(VEN_001_SCENARIO_AUTHORITIES.length, 19);
+assert.equal(VEN_001_SCENARIO_AUTHORITIES.length, 22);
 assert.equal(
   new Set(VEN_001_SCENARIO_AUTHORITIES.map((entry) => entry.authorityId)).size,
-  19,
+  22,
 );
 
 for (const authority of VEN_001_SCENARIO_AUTHORITIES) {
@@ -27,26 +27,39 @@ for (const authority of VEN_001_SCENARIO_AUTHORITIES) {
     authority.threeWayIntersection,
   );
   if (setIds.length === 3) {
-    const outer = setIds.find((candidate) =>
-      setIds
-        .filter((other) => other !== candidate)
-        .every(
-          (other) =>
-            relationForPair(witness, other, candidate) === "LEFT_SUBSET_RIGHT",
+    const nestedPair = setIds.flatMap((left, index) =>
+      setIds.slice(index + 1).flatMap((right) => {
+        const relation = relationForPair(witness, left, right);
+        return relation === "LEFT_SUBSET_RIGHT" || relation === "RIGHT_SUBSET_LEFT"
+          ? [{ left, right }]
+          : [];
+      }),
+    )[0];
+    const nestedPairTopology = nestedPair && (() => {
+      const separate = setIds.find((setId) => setId !== nestedPair.left && setId !== nestedPair.right)!;
+      return relationForPair(witness, nestedPair.left, separate) === "DISJOINT" &&
+        relationForPair(witness, nestedPair.right, separate) === "DISJOINT"
+        ? "THREE_ONE_NESTED_PAIR_ONE_SEPARATE"
+        : null;
+    })();
+    let expectedTopology: string | null = nestedPairTopology;
+    if (!expectedTopology) {
+      const outer = setIds.find((candidate) =>
+        setIds.filter((other) => other !== candidate).every(
+          (other) => relationForPair(witness, other, candidate) === "LEFT_SUBSET_RIGHT",
         ),
-    );
-    assert.ok(outer, `${authority.authorityId}: expected one outer set`);
-    const children = setIds.filter((setId) => setId !== outer);
-    const childRelation = relationForPair(witness, children[0]!, children[1]!);
-    const expectedTopology =
-      childRelation === "DISJOINT"
+      );
+      assert.ok(outer, `${authority.authorityId}: expected one outer set`);
+      const children = setIds.filter((setId) => setId !== outer);
+      const childRelation = relationForPair(witness, children[0]!, children[1]!);
+      expectedTopology = childRelation === "DISJOINT"
         ? "THREE_TWO_DISJOINT_SUBSETS"
         : childRelation === "PARTIAL_OVERLAP"
           ? "THREE_PARTIAL_OVERLAP_INSIDE_SUPERSET"
-          : childRelation === "LEFT_SUBSET_RIGHT" ||
-              childRelation === "RIGHT_SUBSET_LEFT"
+          : childRelation === "LEFT_SUBSET_RIGHT" || childRelation === "RIGHT_SUBSET_LEFT"
             ? "THREE_NESTED"
             : null;
+    }
     assert.equal(
       authority.topologyId,
       expectedTopology,
@@ -60,6 +73,9 @@ const domains = new Set(
 );
 assert.deepEqual([...domains].sort(), [
   "ANIMAL_CLASSIFICATION",
+  "ASTRONOMY_CLASSIFICATION",
+  "FOOD_CLASSIFICATION",
+  "GENERAL_CLASSIFICATION",
   "GEOMETRY",
   "LANGUAGE_CLASSIFICATION",
   "NUMBER_CLASSIFICATION",

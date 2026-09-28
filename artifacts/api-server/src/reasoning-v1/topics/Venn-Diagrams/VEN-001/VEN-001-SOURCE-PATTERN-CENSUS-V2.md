@@ -13,6 +13,12 @@ Status: **supplemental source evidence; all scenario authorities remain human-re
 
 These are secondary reproductions, not original SSC or Delhi Police artifacts. They support observed question operations and attributed exam examples, but do not establish pattern frequency or independently certify answer-key correctness.
 
+| SSC GD question reproduced by Testbook | Category labels → diagram: Cats, Animals, Boxes | Attributed example for one nested pair plus one separate class. |
+| SSC CPO question reproduced by Careers360 | Category labels → diagram: Star, Sun, Polaris | Attributed example for two disjoint subsets within Stars. |
+| SSC CHSL question reproduced by Careers360 | Category labels → diagram: Mango, Fruit, Banana | Attributed example for two disjoint subsets within Fruits. |
+
+These are secondary reproductions, not original exam artifacts. Treat them as pattern evidence only; the three authorities and their translations remain pending review.
+
 ## What is evidenced and what is not
 
 - Category triples → diagram is observed across multiple attributed papers.
@@ -23,10 +29,13 @@ These are secondary reproductions, not original SSC or Delhi Police artifacts. T
 
 ## Candidate authority additions
 
-V2 grows the multilingual candidate set to 19, adding the source-attributed Prose / Poetry / Literature and Whole / Rational / Real examples. Other number, geometry, and animal authorities are curated canonical-fact candidates. All 19 stay marked `PENDING_TRILINGUAL_HUMAN_REVIEW`; source-pattern evidence does not equal content approval.
+V2 grows the multilingual candidate set to 22, adding the source-attributed Prose / Poetry / Literature and Whole / Rational / Real examples. Other number, geometry, and animal authorities are curated canonical-fact candidates. All 22 stay marked `PENDING_TRILINGUAL_HUMAN_REVIEW`; source-pattern evidence does not equal content approval.
 
 ## Retrieval references
 
 - Testbook, SSC JE CE previous paper stem: https://testbook.com/question-answer/select-the-venn-diagram-that-best-represents-the-r--61926df83d66
 - Testbook, Delhi Police Constable previous paper stem: https://testbook.com/question-answer/select-the-venn-diagram-that-best-illustrates-the--605b3501f0317e156d871d5a
 - Testbook, SSC CGL previous paper stem with ambiguous “Poisonous” class: https://testbook.com/question-answer/select-the-venn-diagram-that-best-illustrates-the--5d790220fdb8bb3615fea776
+- Testbook, SSC GD Cats / Animals / Boxes reproduction: https://testbook.com/question-answer/select-the-venn-diagram-that-best-illustrates-the--67e12e48dcefcd685be74776
+- Careers360, SSC CPO Star / Sun / Polaris reproduction: https://www.careers360.com/question-directions-select-the-venn-diagram-that-best-represents-the-relationship-between-the-following-classes-star-sun-polaris-lnq
+- Careers360, SSC CHSL Mango / Fruit / Banana reproduction: https://www.careers360.com/question-directions-select-the-venn-diagram-that-best-represents-the-relationship-between-the-following-classes-mango-fruit-banana-lnq

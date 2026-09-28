@@ -27,6 +27,7 @@ const topologyIds: readonly VennTopologyId[] = [
   "THREE_PAIRWISE_OVERLAP_WITH_TRIPLE",
   "THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE",
   "THREE_TWO_OVERLAP_ONE_SEPARATE",
+  "THREE_ONE_NESTED_PAIR_ONE_SEPARATE",
 ];
 type VennDifficulty = "Easy" | "Medium";
 type VennOperation =
@@ -52,7 +53,8 @@ function text(value: unknown): string {
 }
 function difficultyFor(topologyId: VennTopologyId): VennDifficulty {
   return topologyId === "THREE_NESTED" ||
-    topologyId === "THREE_TWO_DISJOINT_SUBSETS"
+    topologyId === "THREE_TWO_DISJOINT_SUBSETS" ||
+    topologyId === "THREE_ONE_NESTED_PAIR_ONE_SEPARATE"
     ? "Easy"
     : "Medium";
 }
@@ -173,6 +175,21 @@ function correctCircleLabelOrder(authority: VennScenarioAuthority): string[] {
         (a, b) => (supersets.get(b.setId) ?? 0) - (supersets.get(a.setId) ?? 0),
       )
       .map((set) => set.setId);
+  }
+  if (authority.topologyId === "THREE_ONE_NESTED_PAIR_ONE_SEPARATE") {
+    const containment = authority.relations.find(
+      (relation) => relation.relation === "LEFT_SUBSET_RIGHT" || relation.relation === "RIGHT_SUBSET_LEFT",
+    );
+    if (!containment)
+      throw new Error(`VEN-001 cannot locate nested pair in ${authority.authorityId}`);
+    const inner = containment.relation === "LEFT_SUBSET_RIGHT" ? containment.left : containment.right;
+    const outer = containment.relation === "LEFT_SUBSET_RIGHT" ? containment.right : containment.left;
+    const separate = authority.sets.find((set) => set.setId !== inner && set.setId !== outer)?.setId;
+    if (!separate || authority.relations.some((relation) =>
+      (relation.left === separate || relation.right === separate) && relation.relation !== "DISJOINT"
+    ))
+      throw new Error(`VEN-001 expected one separate set in ${authority.authorityId}`);
+    return [outer, inner, separate];
   }
   if (
     authority.topologyId === "THREE_TWO_DISJOINT_SUBSETS" ||

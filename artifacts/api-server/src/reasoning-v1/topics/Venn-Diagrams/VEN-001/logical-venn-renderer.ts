@@ -7,7 +7,8 @@ export type VennTopologyId =
   | "THREE_PARTIAL_OVERLAP_INSIDE_SUPERSET"
   | "THREE_PAIRWISE_OVERLAP_WITH_TRIPLE"
   | "THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE"
-  | "THREE_TWO_OVERLAP_ONE_SEPARATE";
+  | "THREE_TWO_OVERLAP_ONE_SEPARATE"
+  | "THREE_ONE_NESTED_PAIR_ONE_SEPARATE";
 
 type Circle = Readonly<{ cx: number; cy: number; r: number }>;
 
@@ -104,6 +105,16 @@ const TOPOLOGY_SPECS: Readonly<Record<VennTopologyId, RenderSpec>> = {
     accessibleDescription:
       "The first two circles overlap; the third circle is separate.",
   },
+  THREE_ONE_NESTED_PAIR_ONE_SEPARATE: {
+    circles: [
+      { cx: 65, cy: 86, r: 46 },
+      { cx: 65, cy: 86, r: 21 },
+      { cx: 184, cy: 86, r: 34 },
+    ],
+    accessibleName: "One contained pair and one separate group",
+    accessibleDescription:
+      "A small circle lies inside a larger circle; the third circle is separate from both.",
+  },
 };
 
 function escapeXml(value: string): string {
@@ -169,6 +180,12 @@ function labelAnchors(
         { x: 58, y: 91 },
         { x: 132, y: 91 },
         { x: 207, y: 91 },
+      ];
+    case "THREE_ONE_NESTED_PAIR_ONE_SEPARATE":
+      return [
+        { x: 39, y: 57 },
+        { x: 65, y: 91 },
+        { x: 184, y: 91 },
       ];
   }
 }

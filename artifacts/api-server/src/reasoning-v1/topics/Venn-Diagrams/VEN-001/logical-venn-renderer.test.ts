@@ -15,6 +15,7 @@ const ids: readonly VennTopologyId[] = [
   "THREE_PAIRWISE_OVERLAP_WITH_TRIPLE",
   "THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE",
   "THREE_TWO_OVERLAP_ONE_SEPARATE",
+  "THREE_ONE_NESTED_PAIR_ONE_SEPARATE",
 ];
 
 const diagrams = ids.map((id) => renderVennTopologySvg(id));
@@ -96,4 +97,8 @@ assert.ok(
     (circle) => Math.hypot(circle.x - 125, circle.y - 76) < circle.r,
   ),
 );
+const nestedAndSeparate = circleGeometry(renderVennTopologySvg("THREE_ONE_NESTED_PAIR_ONE_SEPARATE"));
+assert.ok(nestedAndSeparate[0]!.r > nestedAndSeparate[1]!.r);
+assert.equal(distance(nestedAndSeparate[0]!, nestedAndSeparate[1]!), 0);
+assert.ok(distance(nestedAndSeparate[0]!, nestedAndSeparate[2]!) > nestedAndSeparate[0]!.r + nestedAndSeparate[2]!.r);
 console.log("PASS_VEN_001_ACCESSIBLE_TOPOLOGY_RENDERER");

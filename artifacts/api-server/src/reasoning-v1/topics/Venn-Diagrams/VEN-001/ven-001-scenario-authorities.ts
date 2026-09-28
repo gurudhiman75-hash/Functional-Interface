@@ -14,7 +14,7 @@ export type VennScenarioAuthority = Readonly<{
     | "ANIMAL_CLASSIFICATION"
     | "GEOMETRY"
     | "NUMBER_CLASSIFICATION"
-    | "LANGUAGE_CLASSIFICATION";
+    | "LANGUAGE_CLASSIFICATION" | "GENERAL_CLASSIFICATION" | "ASTRONOMY_CLASSIFICATION" | "FOOD_CLASSIFICATION";
   sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE";
   reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW";
   sets: readonly VennCategorySet[];
@@ -715,5 +715,59 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     topologyId: "THREE_NESTED",
     rationale:
       "Every whole number is rational, and every rational number is real.",
+  },
+  {
+    authorityId: "VEN-AUTH-020-CATS-ANIMALS-BOXES",
+    domain: "GENERAL_CLASSIFICATION",
+    sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
+    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    sets: [
+      { setId: "A", labels: { "en-IN": "Cats", "hi-IN": "बिल्लियाँ", "pa-IN": "ਬਿੱਲੀਆਂ" } },
+      { setId: "B", labels: { "en-IN": "Animals", "hi-IN": "जानवर", "pa-IN": "ਜਾਨਵਰ" } },
+      { setId: "C", labels: { "en-IN": "Boxes", "hi-IN": "डिब्बे", "pa-IN": "ਡੱਬੇ" } },
+    ],
+    relations: [
+      { left: "A", right: "B", relation: "LEFT_SUBSET_RIGHT" },
+      { left: "A", right: "C", relation: "DISJOINT" },
+      { left: "B", right: "C", relation: "DISJOINT" },
+    ],
+    topologyId: "THREE_ONE_NESTED_PAIR_ONE_SEPARATE",
+    rationale: "Every cat is an animal, while boxes are a separate class of objects.",
+  },
+  {
+    authorityId: "VEN-AUTH-021-SUN-STARS-POLARIS",
+    domain: "ASTRONOMY_CLASSIFICATION",
+    sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
+    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    sets: [
+      { setId: "A", labels: { "en-IN": "The Sun", "hi-IN": "सूर्य", "pa-IN": "ਸੂਰਜ" } },
+      { setId: "B", labels: { "en-IN": "Stars", "hi-IN": "तारे", "pa-IN": "ਤਾਰੇ" } },
+      { setId: "C", labels: { "en-IN": "Polaris", "hi-IN": "ध्रुव तारा", "pa-IN": "ਧਰੁਵ ਤਾਰਾ" } },
+    ],
+    relations: [
+      { left: "A", right: "B", relation: "LEFT_SUBSET_RIGHT" },
+      { left: "A", right: "C", relation: "DISJOINT" },
+      { left: "C", right: "B", relation: "LEFT_SUBSET_RIGHT" },
+    ],
+    topologyId: "THREE_TWO_DISJOINT_SUBSETS",
+    rationale: "The Sun and Polaris are distinct stars; both are included in the class of stars.",
+  },
+  {
+    authorityId: "VEN-AUTH-022-MANGO-FRUIT-BANANA",
+    domain: "FOOD_CLASSIFICATION",
+    sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
+    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    sets: [
+      { setId: "A", labels: { "en-IN": "Mangoes", "hi-IN": "आम", "pa-IN": "ਅੰਬ" } },
+      { setId: "B", labels: { "en-IN": "Fruits", "hi-IN": "फल", "pa-IN": "ਫਲ" } },
+      { setId: "C", labels: { "en-IN": "Bananas", "hi-IN": "केले", "pa-IN": "ਕੇਲੇ" } },
+    ],
+    relations: [
+      { left: "A", right: "B", relation: "LEFT_SUBSET_RIGHT" },
+      { left: "A", right: "C", relation: "DISJOINT" },
+      { left: "C", right: "B", relation: "LEFT_SUBSET_RIGHT" },
+    ],
+    topologyId: "THREE_TWO_DISJOINT_SUBSETS",
+    rationale: "Mangoes and bananas are distinct kinds of fruit.",
   },
 ];

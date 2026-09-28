@@ -1,6 +1,6 @@
 # VEN-001 CP003 Category-Set Candidate Pool V2
 
-Status: **19 trilingual candidate authorities; every record remains pending human review**
+Status: **22 trilingual candidate authorities; every record remains pending human review**
 
 The pool is available through the shared Question Studio reasoning-v1 package for review-only generation. These records are candidate factual authorities, not approved answer keys. The Hindi and Punjabi text, domain facts, and exam suitability require human review before any freeze or permanent QL assignment.
 
@@ -9,9 +9,10 @@ The pool is available through the shared Question Studio reasoning-v1 package fo
 | Relation topology | Candidate count | Candidate examples |
 |---|---:|---|
 | Three nested classes | 5 | Sparrows / birds / animals; squares / rectangles / quadrilaterals; integers / rational numbers / real numbers; whole numbers / rational numbers / real numbers |
-| Two separate subsets in a common class | 7 | Snakes and lizards / reptiles; squares and circles / plane figures; spiders and insects / arthropods; prose and poetry / literature |
+| Two separate subsets in a common class | 9 | Snakes and lizards / reptiles; squares and circles / plane figures; spiders and insects / arthropods; prose and poetry / literature |
 | Two overlapping subsets in a common class | 7 | Prime and odd natural numbers; right and isosceles triangles; rectangles and rhombi / quadrilaterals; multiples of 4 and 6 / natural numbers |
-| **Total** | **19** | Animal classification, geometry, number classification, and literary categories |
+| One nested pair + one separate set | 1 | Cats / animals / boxes |
+| **Total** | **22** | Animal, astronomy, food, geometry, general classification, number, and literary categories |
 
 The overlap candidates include explicit witnesses for the shared region and for both exclusive regions. For example, the prime / even natural number candidate uses 2 as a shared member, odd primes as a prime-only witness, and even composite natural numbers as an even-only witness.
 

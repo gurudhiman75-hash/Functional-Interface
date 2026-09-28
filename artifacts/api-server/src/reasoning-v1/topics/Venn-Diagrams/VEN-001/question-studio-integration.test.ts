@@ -81,16 +81,16 @@ for (const language of ["en", "hi", "pa"] as const) {
   }
   assert.notEqual(first.questionId, "");
 }
-assert.equal(VEN_001_SCENARIO_AUTHORITIES.length, 19);
+assert.equal(VEN_001_SCENARIO_AUTHORITIES.length, 22);
 const fullReviewPool = await reasoningV1QuestionStudioAdapter.generate({
   packageId: VEN_001_QUESTION_STUDIO_PACKAGE_ID,
-  count: 19,
+  count: 22,
   seed: "ven001-full-review-pool-proof",
 });
-assert.equal(fullReviewPool.questions.length, 19);
+assert.equal(fullReviewPool.questions.length, 22);
 assert.equal(
   new Set(fullReviewPool.questions.map((item) => item.sourceAuthorityId)).size,
-  19,
+  22,
 );
 assert.ok(
   fullReviewPool.questions.every(
@@ -169,8 +169,8 @@ await assert.rejects(
   () =>
     reasoningV1QuestionStudioAdapter.generate({
       packageId: VEN_001_QUESTION_STUDIO_PACKAGE_ID,
-      count: 20,
+      count: 23,
     }),
-  /currently has 19 distinct review authorities/,
+  /currently has 22 distinct review authorities/,
 );
 console.log("PASS_VEN_001_QUESTION_STUDIO_REVIEW_INTEGRATION");
