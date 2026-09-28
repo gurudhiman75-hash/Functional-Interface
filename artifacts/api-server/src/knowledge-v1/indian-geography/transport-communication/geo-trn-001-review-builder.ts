@@ -26,7 +26,7 @@ export function auditGeoTrnCp(cpNo:number,qls:readonly GeoTrn001Ql[],questions:r
   qlCounts[q.qlId]=(qlCounts[q.qlId]??0)+1; if(q.options.length!==4||new Set(q.options).size!==4)issues.push("OPTIONS:"+q.questionId);
   if(q.options[q.correctIndex]!==q.canonicalAnswer)issues.push("ANSWER:"+q.questionId); if(!q.sourceIds.length||!q.sourceFactIds.length)issues.push("PROVENANCE:"+q.questionId);
   if(!q.reviewOnly||q.runtimeRegistered)issues.push("LIFECYCLE:"+q.questionId);
-  if(/best describes|\bbroad(?:ly)?\b|associated with|\bmainly\b|most strongly|strongest fit/i.test(q.stem))issues.push("MECHANICAL_STEM:"+q.questionId);
+  if(/best describes|\bbroadly\b|\bbroad\b(?!\s+gauge)|associated with|\bmainly\b|most strongly|strongest fit/i.test(q.stem))issues.push("MECHANICAL_STEM:"+q.questionId);
  }
  for(const ql of qls)if((qlCounts[ql.qlId]??0)<4)issues.push("QL_TOO_THIN:"+ql.qlId);
  return Object.freeze({valid:issues.length===0,issues:Object.freeze(issues),cpId:"GEO-TRN-001-CP"+String(cpNo).padStart(3,"0"),questionCount:questions.length,permanentQlCount:qls.length,stemCount:stems.size,explanationCount:exps.size,qlCounts:Object.freeze(qlCounts)});
