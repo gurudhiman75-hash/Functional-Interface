@@ -5,7 +5,6 @@ on:
     branches: [New-main]
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-014/**"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   workflow_dispatch:
 
 concurrency:
