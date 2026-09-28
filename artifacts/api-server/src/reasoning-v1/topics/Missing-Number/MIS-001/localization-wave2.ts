@@ -172,5 +172,5 @@ export const MIS_LOCALIZATION_WAVE2_STATE=Object.freeze({
   runtimePatternCount:34,
   permanentQlCoverageCount:15,
   languages:Object.freeze(['en','hi','pa'] as const),
-  parityStatus:'WAVE2_EXECUTABLE_GUARD_PENDING' as const,
+  parityStatus:'WAVE2_EXECUTABLE_GUARD_IMPLEMENTED' as const,
 });
