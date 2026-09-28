@@ -48,7 +48,14 @@ function build(seed:string){
   } else if(modelKind==="AVERAGE_CONSTRAINED"){
     x=base[3]!.a;rows[3].a="x";const avg=base.reduce((s,r)=>s+r.a,0)/5;condition=`The average ${ctx.a} across all five rows is ${avg}.`;
   } else {
-    x=base[1]!.b;y=base[4]!.a;rows[1].b="x";rows[4].a="y";condition=`x is ${x-base[0]!.b} more than ${ctx.b} for ${base[0]!.label}. Also, y is twice x.`; y=2*x; rows[4].a="y"; base[4]!.a=y;
+    const delta=20*(1+(hashSeed(`${seed}:chain-delta`)%4));
+    x=base[0]!.b+delta;
+    y=2*x;
+    base[1]!.b=x;
+    base[4]!.a=y;
+    rows[1].b="x";
+    rows[4].a="y";
+    condition=`x is ${delta} more than ${ctx.b} for ${base[0]!.label}. Also, y is twice x.`;
   }
   return {modelKind,ctx,base,rows,x,y,condition};
 }
