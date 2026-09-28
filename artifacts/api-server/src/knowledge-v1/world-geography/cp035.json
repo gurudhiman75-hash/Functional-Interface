@@ -1,0 +1,542 @@
+[
+  {
+    "id": "WGE-001-CP035-Q001",
+    "cpId": "WGE-001-CP035",
+    "objective": "reserves-resources-distinction",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "In mineral reporting, which term usually refers to the part of a resource that can be economically extracted under stated conditions?",
+        "options": [
+          "Reserves",
+          "Ore grade",
+          "Overburden",
+          "Gangue"
+        ],
+        "explanation": "Reserves are the economically recoverable part of a resource under specified technical and economic conditions; estimates can change."
+      },
+      "hi": {
+        "stem": "खनिज विवरण में किस शब्द का अर्थ निर्दिष्ट परिस्थितियों में आर्थिक रूप से निकाले जा सकने वाले संसाधन का भाग है?",
+        "options": [
+          "भंडार",
+          "अयस्क की मात्रा",
+          "ऊपरी मिट्टी",
+          "अपशिष्ट खनिज"
+        ],
+        "explanation": "भंडार किसी संसाधन का वह भाग है जिसे बताई गई तकनीकी और आर्थिक परिस्थितियों में लाभकारी ढंग से निकाला जा सकता है; अनुमान बदल सकते हैं।"
+      },
+      "pa": {
+        "stem": "ਖਣਿਜ ਰਿਪੋਰਟਿੰਗ ਵਿੱਚ ਕਿਹੜਾ ਸ਼ਬਦ ਉਹ ਹਿੱਸਾ ਦੱਸਦਾ ਹੈ ਜਿਸ ਨੂੰ ਦਿੱਤੀਆਂ ਹਾਲਤਾਂ ਵਿੱਚ ਆਰਥਿਕ ਤੌਰ ਤੇ ਕੱਢਿਆ ਜਾ ਸਕੇ?",
+        "options": [
+          "ਭੰਡਾਰ",
+          "ਧਾਤ ਦੀ ਮਾਤਰਾ",
+          "ਉੱਪਰਲੀ ਮਿੱਟੀ",
+          "ਬੇਕਾਰ ਖਣਿਜ"
+        ],
+        "explanation": "ਭੰਡਾਰ ਕਿਸੇ ਸਰੋਤ ਦਾ ਉਹ ਹਿੱਸਾ ਹੁੰਦਾ ਹੈ ਜਿਸ ਨੂੰ ਦਿੱਤੀਆਂ ਤਕਨੀਕੀ ਅਤੇ ਆਰਥਿਕ ਹਾਲਤਾਂ ਵਿੱਚ ਲਾਭ ਨਾਲ ਕੱਢਿਆ ਜਾ ਸਕੇ; ਅੰਦਾਜ਼ੇ ਬਦਲ ਸਕਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q002",
+    "cpId": "WGE-001-CP035",
+    "objective": "bauxite-aluminium-ore",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Bauxite is the principal ore used to produce which metal?",
+        "options": [
+          "Copper",
+          "Aluminium",
+          "Iron",
+          "Nickel"
+        ],
+        "explanation": "Bauxite is the main ore from which alumina is produced before aluminium is smelted."
+      },
+      "hi": {
+        "stem": "बॉक्साइट किस धातु के उत्पादन का प्रमुख अयस्क है?",
+        "options": [
+          "ताँबा",
+          "एल्युमिनियम",
+          "लोहा",
+          "निकल"
+        ],
+        "explanation": "बॉक्साइट से पहले एल्युमिना बनाया जाता है और फिर उससे एल्युमिनियम गलाकर प्राप्त किया जाता है।"
+      },
+      "pa": {
+        "stem": "ਬਾਕਸਾਈਟ ਕਿਹੜੀ ਧਾਤ ਬਣਾਉਣ ਲਈ ਮੁੱਖ ਅਯਸਕ ਹੈ?",
+        "options": [
+          "ਤਾਂਬਾ",
+          "ਐਲੂਮੀਨੀਅਮ",
+          "ਲੋਹਾ",
+          "ਨਿੱਕਲ"
+        ],
+        "explanation": "ਬਾਕਸਾਈਟ ਤੋਂ ਪਹਿਲਾਂ ਐਲੂਮੀਨਾ ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਇਸ ਨੂੰ ਗਲਾ ਕੇ ਐਲੂਮੀਨੀਅਮ ਤਿਆਰ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q003",
+    "cpId": "WGE-001-CP035",
+    "objective": "pilbara-iron-ore",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "The Pilbara, a major iron-ore region, is located in which country?",
+        "options": [
+          "Brazil",
+          "South Africa",
+          "Australia",
+          "Canada"
+        ],
+        "explanation": "The Pilbara in Western Australia is a major iron-ore mining region."
+      },
+      "hi": {
+        "stem": "प्रमुख लौह-अयस्क क्षेत्र पिलबरा किस देश में स्थित है?",
+        "options": [
+          "ब्राज़ील",
+          "दक्षिण अफ्रीका",
+          "ऑस्ट्रेलिया",
+          "कनाडा"
+        ],
+        "explanation": "पश्चिमी ऑस्ट्रेलिया का पिलबरा प्रमुख लौह-अयस्क खनन क्षेत्र है।"
+      },
+      "pa": {
+        "stem": "ਮੁੱਖ ਲੋਹੇ ਦਾ ਅਯਸਕ ਖੇਤਰ ਪਿਲਬਰਾ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਬ੍ਰਾਜ਼ੀਲ",
+          "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ",
+          "ਆਸਟ੍ਰੇਲੀਆ",
+          "ਕੈਨੇਡਾ"
+        ],
+        "explanation": "ਪੱਛਮੀ ਆਸਟ੍ਰੇਲੀਆ ਦਾ ਪਿਲਬਰਾ ਇੱਕ ਵੱਡਾ ਲੋਹੇ ਦਾ ਅਯਸਕ ਖਣਨ ਖੇਤਰ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q004",
+    "cpId": "WGE-001-CP035",
+    "objective": "copper-andes-chile",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "The Andes are especially important for the mining of which metal in Chile?",
+        "options": [
+          "Bauxite",
+          "Tin",
+          "Nickel",
+          "Copper"
+        ],
+        "explanation": "Chile's Andean mining belt is particularly associated with large copper deposits."
+      },
+      "hi": {
+        "stem": "चिली के एंडीज़ क्षेत्र में किस धातु का खनन विशेष रूप से महत्वपूर्ण है?",
+        "options": [
+          "बॉक्साइट",
+          "टिन",
+          "निकल",
+          "ताँबा"
+        ],
+        "explanation": "चिली का एंडीज़ खनन क्षेत्र विशेष रूप से बड़े ताँबा भंडारों के लिए जाना जाता है।"
+      },
+      "pa": {
+        "stem": "ਚਿਲੀ ਦੇ ਐਂਡੀਜ਼ ਖੇਤਰ ਵਿੱਚ ਕਿਹੜੀ ਧਾਤ ਦੀ ਖਣਨ ਖ਼ਾਸ ਤੌਰ ਤੇ ਮਹੱਤਵਪੂਰਨ ਹੈ?",
+        "options": [
+          "ਬਾਕਸਾਈਟ",
+          "ਟਿਨ",
+          "ਨਿੱਕਲ",
+          "ਤਾਂਬਾ"
+        ],
+        "explanation": "ਚਿਲੀ ਦਾ ਐਂਡੀਜ਼ ਖਣਨ ਖੇਤਰ ਵੱਡੇ ਤਾਂਬੇ ਦੇ ਭੰਡਾਰਾਂ ਲਈ ਖ਼ਾਸ ਤੌਰ ਤੇ ਜਾਣਿਆ ਜਾਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q005",
+    "cpId": "WGE-001-CP035",
+    "objective": "petroleum-persian-gulf-region",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which region has long been a major concentration of petroleum fields and export terminals?",
+        "options": [
+          "Persian Gulf region",
+          "Baltic Shield",
+          "Amazon Basin",
+          "Great Lakes region"
+        ],
+        "explanation": "Petroleum fields and export infrastructure are concentrated around parts of the Persian Gulf, though production varies over time."
+      },
+      "hi": {
+        "stem": "कौन-सा क्षेत्र लंबे समय से पेट्रोलियम क्षेत्रों और निर्यात टर्मिनलों का प्रमुख केंद्र रहा है?",
+        "options": [
+          "फारस की खाड़ी का क्षेत्र",
+          "बाल्टिक शील्ड",
+          "अमेज़न बेसिन",
+          "ग्रेट लेक्स क्षेत्र"
+        ],
+        "explanation": "फारस की खाड़ी के आसपास के कुछ भागों में तेल क्षेत्र और निर्यात ढाँचा केंद्रित हैं, हालांकि उत्पादन समय के साथ बदलता है।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜਾ ਖੇਤਰ ਲੰਮੇ ਸਮੇਂ ਤੋਂ ਪੈਟਰੋਲੀਅਮ ਖੇਤਰਾਂ ਅਤੇ ਨਿਰਯਾਤ ਟਰਮੀਨਲਾਂ ਦਾ ਵੱਡਾ ਕੇਂਦਰ ਰਿਹਾ ਹੈ?",
+        "options": [
+          "ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਦਾ ਖੇਤਰ",
+          "ਬਾਲਟਿਕ ਸ਼ੀਲਡ",
+          "ਐਮਾਜ਼ਨ ਬੇਸਿਨ",
+          "ਗ੍ਰੇਟ ਲੇਕਸ ਖੇਤਰ"
+        ],
+        "explanation": "ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਕੁਝ ਹਿੱਸਿਆਂ ਵਿੱਚ ਤੇਲ ਖੇਤਰ ਅਤੇ ਨਿਰਯਾਤ ਢਾਂਚਾ ਕੇਂਦਰਿਤ ਹਨ, ਹਾਲਾਂਕਿ ਉਤਪਾਦਨ ਸਮੇਂ ਨਾਲ ਬਦਲਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q006",
+    "cpId": "WGE-001-CP035",
+    "objective": "iron-ore-carajas",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "The Carajás mineral province, known for iron ore, lies in which country?",
+        "options": [
+          "Peru",
+          "Brazil",
+          "Argentina",
+          "Mexico"
+        ],
+        "explanation": "The Carajás mineral province is in northern Brazil and includes extensive iron-ore deposits."
+      },
+      "hi": {
+        "stem": "लौह-अयस्क के लिए प्रसिद्ध काराजास खनिज क्षेत्र किस देश में है?",
+        "options": [
+          "पेरू",
+          "ब्राज़ील",
+          "अर्जेंटीना",
+          "मेक्सिको"
+        ],
+        "explanation": "काराजास खनिज क्षेत्र उत्तरी ब्राज़ील में है और वहाँ बड़े लौह-अयस्क भंडार हैं।"
+      },
+      "pa": {
+        "stem": "ਲੋਹ-ਅਯਸਕ ਲਈ ਪ੍ਰਸਿੱਧ ਕਾਰਾਜਾਸ ਖਣਿਜ ਖੇਤਰ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?",
+        "options": [
+          "ਪੇਰੂ",
+          "ਬ੍ਰਾਜ਼ੀਲ",
+          "ਅਰਜਨਟੀਨਾ",
+          "ਮੈਕਸੀਕੋ"
+        ],
+        "explanation": "ਕਾਰਾਜਾਸ ਖਣਿਜ ਖੇਤਰ ਉੱਤਰੀ ਬ੍ਰਾਜ਼ੀਲ ਵਿੱਚ ਹੈ ਅਤੇ ਉੱਥੇ ਵੱਡੇ ਲੋਹ-ਅਯਸਕ ਭੰਡਾਰ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q007",
+    "cpId": "WGE-001-CP035",
+    "objective": "geothermal-volcanic-belt",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Geothermal energy is most directly associated with regions where:",
+        "options": [
+          "Coal seams lie near the surface",
+          "Strong tides occur",
+          "Heat from the Earth's interior is accessible",
+          "Steady trade winds blow"
+        ],
+        "explanation": "Geothermal power uses heat from within the Earth, often in volcanically or tectonically active regions."
+      },
+      "hi": {
+        "stem": "भूतापीय ऊर्जा का सबसे सीधा संबंध उन क्षेत्रों से है जहाँ:",
+        "options": [
+          "कोयले की परतें सतह के पास हों",
+          "ज्वार बहुत तेज हों",
+          "पृथ्वी के भीतर की ऊष्मा उपलब्ध हो",
+          "नियमित व्यापारिक पवनें चलें"
+        ],
+        "explanation": "भूतापीय ऊर्जा पृथ्वी के भीतर की ऊष्मा का उपयोग करती है और अक्सर ज्वालामुखीय या विवर्तनिक सक्रिय क्षेत्रों में उपलब्ध होती है।"
+      },
+      "pa": {
+        "stem": "ਭੂ-ਤਾਪੀ ਊਰਜਾ ਦਾ ਸਭ ਤੋਂ ਸਿੱਧਾ ਸੰਬੰਧ ਉਹਨਾਂ ਖੇਤਰਾਂ ਨਾਲ ਹੈ ਜਿੱਥੇ:",
+        "options": [
+          "ਕੋਲੇ ਦੀਆਂ ਪਰਤਾਂ ਸਤ੍ਹਾ ਨੇੜੇ ਹੋਣ",
+          "ਜਵਾਰ ਬਹੁਤ ਤੇਜ਼ ਹੋਣ",
+          "ਧਰਤੀ ਦੇ ਅੰਦਰਲੀ ਗਰਮੀ ਮਿਲ ਸਕੇ",
+          "ਨਿਯਮਤ ਵਪਾਰਕ ਹਵਾਵਾਂ ਚੱਲਣ"
+        ],
+        "explanation": "ਭੂ-ਤਾਪੀ ਊਰਜਾ ਧਰਤੀ ਦੇ ਅੰਦਰਲੀ ਗਰਮੀ ਵਰਤਦੀ ਹੈ ਅਤੇ ਅਕਸਰ ਜਵਾਲਾਮੁਖੀ ਜਾਂ ਭੂ-ਗਰਭੀ ਸਰਗਰਮ ਖੇਤਰਾਂ ਵਿੱਚ ਮਿਲਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q008",
+    "cpId": "WGE-001-CP035",
+    "objective": "solar-energy-high-insolation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which location is generally favourable for large solar-power installations?",
+        "options": [
+          "A persistently foggy, shaded valley",
+          "A high-latitude winter coast",
+          "A dense rainforest with low surface sunlight",
+          "A dry region with high annual insolation"
+        ],
+        "explanation": "High and reliable solar radiation makes many dry subtropical regions favourable for solar generation, subject to grid and land constraints."
+      },
+      "hi": {
+        "stem": "बड़े सौर ऊर्जा संयंत्रों के लिए सामान्यतः कौन-सा स्थान अनुकूल होता है?",
+        "options": [
+          "लगातार धुंध वाली छायादार घाटी",
+          "उच्च अक्षांश का शीतकालीन तट",
+          "कम धूप वाला घना वर्षावन",
+          "अधिक वार्षिक सौर विकिरण वाला शुष्क क्षेत्र"
+        ],
+        "explanation": "अधिक और नियमित सौर विकिरण वाले कई शुष्क उपोष्णकटिबंधीय क्षेत्र सौर उत्पादन के अनुकूल हैं; बिजली-जाल और भूमि की सीमाएँ भी देखनी होती हैं।"
+      },
+      "pa": {
+        "stem": "ਵੱਡੇ ਸੂਰਜੀ ਊਰਜਾ ਪਲਾਂਟਾਂ ਲਈ ਆਮ ਤੌਰ ਤੇ ਕਿਹੜੀ ਥਾਂ ਢੁੱਕਵੀਂ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਲਗਾਤਾਰ ਧੁੰਦ ਵਾਲੀ ਛਾਂਦਾਰ ਘਾਟੀ",
+          "ਉੱਚ ਅਕਸ਼ਾਂਸ਼ ਵਾਲਾ ਸਰਦੀ ਦਾ ਤਟ",
+          "ਘੱਟ ਧੁੱਪ ਵਾਲਾ ਸੰਘਣਾ ਵਰਖਾ-ਜੰਗਲ",
+          "ਵੱਧ ਸਾਲਾਨਾ ਸੂਰਜੀ ਰੌਸ਼ਨੀ ਵਾਲਾ ਸੁੱਕਾ ਖੇਤਰ"
+        ],
+        "explanation": "ਵੱਧ ਅਤੇ ਨਿਯਮਤ ਸੂਰਜੀ ਰੌਸ਼ਨੀ ਵਾਲੇ ਕਈ ਸੁੱਕੇ ਉਪ-ਉਸ਼ਣ ਖੇਤਰ ਸੂਰਜੀ ਬਿਜਲੀ ਲਈ ਢੁੱਕਵੇਂ ਹਨ; ਬਿਜਲੀ ਜਾਲ ਅਤੇ ਜ਼ਮੀਨ ਦੀਆਂ ਸੀਮਾਵਾਂ ਵੀ ਦੇਖਣੀਆਂ ਪੈਂਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q009",
+    "cpId": "WGE-001-CP035",
+    "objective": "wind-energy-coastal-setting",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Why are coastal and offshore areas often considered for wind farms?",
+        "options": [
+          "They can have strong, relatively consistent winds",
+          "They contain no competing land uses",
+          "They eliminate the need for transmission lines",
+          "They have no seasonal variation"
+        ],
+        "explanation": "Coastal and offshore sites can offer strong winds, but projects still require grid connections and environmental assessment."
+      },
+      "hi": {
+        "stem": "पवन ऊर्जा के लिए तटीय और समुद्र से दूर के क्षेत्र अक्सर क्यों चुने जाते हैं?",
+        "options": [
+          "वहाँ तेज और अपेक्षाकृत नियमित हवाएँ मिल सकती हैं",
+          "वहाँ भूमि का कोई दूसरा उपयोग नहीं होता",
+          "वहाँ बिजली पारेषण की जरूरत नहीं होती",
+          "वहाँ मौसम के अनुसार बदलाव नहीं होता"
+        ],
+        "explanation": "तटीय और समुद्री क्षेत्रों में तेज हवाएँ मिल सकती हैं, पर परियोजनाओं के लिए बिजली-जाल संपर्क और पर्यावरणीय आकलन फिर भी जरूरी हैं।"
+      },
+      "pa": {
+        "stem": "ਪਵਨ ਊਰਜਾ ਲਈ ਤੱਟੀ ਅਤੇ ਸਮੁੰਦਰ ਤੋਂ ਦੂਰ ਵਾਲੇ ਖੇਤਰ ਅਕਸਰ ਕਿਉਂ ਚੁਣੇ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "ਉੱਥੇ ਤੇਜ਼ ਅਤੇ ਕਾਫ਼ੀ ਨਿਯਮਤ ਹਵਾਵਾਂ ਮਿਲ ਸਕਦੀਆਂ ਹਨ",
+          "ਉੱਥੇ ਜ਼ਮੀਨ ਦਾ ਹੋਰ ਕੋਈ ਵਰਤੋਂ ਨਹੀਂ ਹੁੰਦੀ",
+          "ਉੱਥੇ ਬਿਜਲੀ ਲਾਈਨਾਂ ਦੀ ਲੋੜ ਨਹੀਂ ਹੁੰਦੀ",
+          "ਉੱਥੇ ਮੌਸਮੀ ਫ਼ਰਕ ਨਹੀਂ ਹੁੰਦਾ"
+        ],
+        "explanation": "ਤੱਟੀ ਅਤੇ ਸਮੁੰਦਰੀ ਥਾਵਾਂ ਉੱਤੇ ਤੇਜ਼ ਹਵਾਵਾਂ ਮਿਲ ਸਕਦੀਆਂ ਹਨ, ਪਰ ਬਿਜਲੀ ਜਾਲ ਨਾਲ ਜੋੜ ਅਤੇ ਵਾਤਾਵਰਣੀ ਜਾਂਚ ਫਿਰ ਵੀ ਲੋੜੀਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q010",
+    "cpId": "WGE-001-CP035",
+    "objective": "hydropower-site-factor",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which physical combination is most useful for a hydroelectric dam?",
+        "options": [
+          "Flat, dry plain with no river",
+          "Reliable water flow and sufficient elevation difference",
+          "A deep petroleum basin",
+          "A region with only seasonal sea ice"
+        ],
+        "explanation": "Hydropower depends on water flow and a usable head, the elevation difference that drives water through turbines."
+      },
+      "hi": {
+        "stem": "जलविद्युत बाँध के लिए कौन-सा भौतिक संयोजन सबसे उपयोगी है?",
+        "options": [
+          "बिना नदी का समतल शुष्क मैदान",
+          "विश्वसनीय जल प्रवाह और पर्याप्त ऊँचाई-अंतर",
+          "गहरा पेट्रोलियम बेसिन",
+          "केवल मौसमी समुद्री बर्फ वाला क्षेत्र"
+        ],
+        "explanation": "जलविद्युत के लिए जल प्रवाह और पानी की ऊँचाई का उपयोगी अंतर चाहिए; यह वही ऊँचाई-अंतर है जो पानी को टरबाइन से गुजारता है।"
+      },
+      "pa": {
+        "stem": "ਪਣ-ਬਿਜਲੀ ਬੰਨ੍ਹ ਲਈ ਕਿਹੜਾ ਭੌਤਿਕ ਜੋੜ ਸਭ ਤੋਂ ਲਾਭਦਾਇਕ ਹੈ?",
+        "options": [
+          "ਦਰਿਆ ਤੋਂ ਬਿਨਾਂ ਸਮਤਲ ਸੁੱਕਾ ਮੈਦਾਨ",
+          "ਭਰੋਸੇਯੋਗ ਪਾਣੀ ਦਾ ਵਹਾਅ ਅਤੇ ਕਾਫ਼ੀ ਉਚਾਈ ਦਾ ਫ਼ਰਕ",
+          "ਡੂੰਘਾ ਪੈਟਰੋਲੀਅਮ ਬੇਸਿਨ",
+          "ਸਿਰਫ਼ ਮੌਸਮੀ ਸਮੁੰਦਰੀ ਬਰਫ਼ ਵਾਲਾ ਖੇਤਰ"
+        ],
+        "explanation": "ਪਣ-ਬਿਜਲੀ ਲਈ ਪਾਣੀ ਦਾ ਵਹਾਅ ਅਤੇ ਪਾਣੀ ਦੀ ਉਚਾਈ ਦਾ ਵਰਤਣਯੋਗ ਫ਼ਰਕ ਚਾਹੀਦਾ ਹੈ; ਇਹੀ ਫ਼ਰਕ ਪਾਣੀ ਨੂੰ ਟਰਬਾਈਨ ਵਿੱਚੋਂ ਲੰਘਾਉਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q011",
+    "cpId": "WGE-001-CP035",
+    "objective": "mineral-resource-location",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A mineral deposit is most likely to support a large mine when it is:",
+        "options": [
+          "Remote from transport and technically inaccessible",
+          "Economically recoverable with available technology and infrastructure",
+          "Classified only as a theoretical resource",
+          "Located where no processing is possible"
+        ],
+        "explanation": "A deposit's economic viability depends on grade, extraction costs, technology, infrastructure and market conditions, not geology alone."
+      },
+      "hi": {
+        "stem": "किस खनिज निक्षेप से बड़ी खदान चलने की संभावना अधिक होती है?",
+        "options": [
+          "जो परिवहन से दूर और तकनीकी रूप से दुर्गम हो",
+          "जिसे उपलब्ध तकनीक और ढाँचे से लाभकारी ढंग से निकाला जा सके",
+          "जिसे केवल सैद्धांतिक संसाधन कहा गया हो",
+          "जहाँ प्रसंस्करण संभव न हो"
+        ],
+        "explanation": "निक्षेप की आर्थिक उपयोगिता अयस्क की गुणवत्ता, निष्कर्षण लागत, तकनीक, ढाँचे और बाजार पर निर्भर करती है, केवल भूविज्ञान पर नहीं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੇ ਖਣਿਜ ਜਮ੍ਹਾਂ ਤੋਂ ਵੱਡੀ ਖਾਣ ਚੱਲਣ ਦੀ ਸੰਭਾਵਨਾ ਵੱਧ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਜੋ ਆਵਾਜਾਈ ਤੋਂ ਦੂਰ ਅਤੇ ਤਕਨੀਕੀ ਤੌਰ ਤੇ ਪਹੁੰਚ ਤੋਂ ਬਾਹਰ ਹੋਵੇ",
+          "ਜਿਸ ਨੂੰ ਮੌਜੂਦਾ ਤਕਨੀਕ ਅਤੇ ਢਾਂਚੇ ਨਾਲ ਲਾਭ ਨਾਲ ਕੱਢਿਆ ਜਾ ਸਕੇ",
+          "ਜਿਸ ਨੂੰ ਸਿਰਫ਼ ਸਿਧਾਂਤਕ ਸਰੋਤ ਮੰਨਿਆ ਗਿਆ ਹੋਵੇ",
+          "ਜਿੱਥੇ ਪ੍ਰਸੰਸਕਰਨ ਸੰਭਵ ਨਾ ਹੋਵੇ"
+        ],
+        "explanation": "ਜਮ੍ਹਾਂ ਖਣਿਜ ਦੀ ਆਰਥਿਕ ਵਰਤੋਂ ਧਾਤ ਦੀ ਗੁਣਵੱਤਾ, ਕੱਢਣ ਦੇ ਖ਼ਰਚ, ਤਕਨੀਕ, ਢਾਂਚੇ ਅਤੇ ਬਾਜ਼ਾਰ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ, ਸਿਰਫ਼ ਭੂ-ਵਿਗਿਆਨ ਉੱਤੇ ਨਹੀਂ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP035-Q012",
+    "cpId": "WGE-001-CP035",
+    "objective": "renewable-nonrenewable-resource",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-RES-USGS-MCS",
+      "WGE-RES-USGS-DATA",
+      "WGE-RES-IEA-ENERGY",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which statement correctly distinguishes a renewable energy flow from a fossil-fuel stock?",
+        "options": [
+          "Coal replenishes on a human timescale",
+          "Sunlight is replenished continuously, while coal forms over geological time",
+          "Natural gas is renewable because it is gaseous",
+          "Wind can only be used where coal is mined"
+        ],
+        "explanation": "Solar radiation is an ongoing energy flow; fossil fuels form over geological timescales and are not replenished at comparable human rates."
+      },
+      "hi": {
+        "stem": "नवीकरणीय ऊर्जा प्रवाह और जीवाश्म ईंधन भंडार में सही अंतर कौन-सा है?",
+        "options": [
+          "कोयला मानव जीवनकाल में फिर बन जाता है",
+          "सूर्य का प्रकाश लगातार मिलता है, जबकि कोयला भूवैज्ञानिक समय में बनता है",
+          "प्राकृतिक गैस गैस होने से नवीकरणीय है",
+          "पवन का उपयोग केवल कोयला खदानों के पास हो सकता है"
+        ],
+        "explanation": "सौर विकिरण लगातार मिलने वाला ऊर्जा प्रवाह है; जीवाश्म ईंधन भूवैज्ञानिक समय में बनते हैं और मानव समयमान पर फिर से नहीं बनते।"
+      },
+      "pa": {
+        "stem": "ਨਵਿਆਉਣਯੋਗ ਊਰਜਾ ਦੇ ਵਹਾਅ ਅਤੇ ਜੀਵਾਸ਼ਮ ਇੰਧਨ ਦੇ ਭੰਡਾਰ ਵਿੱਚ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਕੋਲਾ ਮਨੁੱਖੀ ਜੀਵਨਕਾਲ ਵਿੱਚ ਮੁੜ ਬਣ ਜਾਂਦਾ ਹੈ",
+          "ਸੂਰਜੀ ਰੌਸ਼ਨੀ ਲਗਾਤਾਰ ਮਿਲਦੀ ਹੈ, ਜਦਕਿ ਕੋਲਾ ਭੂ-ਵਿਗਿਆਨਕ ਸਮੇਂ ਵਿੱਚ ਬਣਦਾ ਹੈ",
+          "ਕੁਦਰਤੀ ਗੈਸ ਗੈਸ ਹੋਣ ਕਰਕੇ ਨਵਿਆਉਣਯੋਗ ਹੈ",
+          "ਪਵਨ ਦੀ ਵਰਤੋਂ ਸਿਰਫ਼ ਕੋਲਾ ਖਾਣਾਂ ਨੇੜੇ ਹੋ ਸਕਦੀ ਹੈ"
+        ],
+        "explanation": "ਸੂਰਜੀ ਰੌਸ਼ਨੀ ਲਗਾਤਾਰ ਮਿਲਣ ਵਾਲਾ ਊਰਜਾ ਵਹਾਅ ਹੈ; ਜੀਵਾਸ਼ਮ ਇੰਧਨ ਭੂ-ਵਿਗਿਆਨਕ ਸਮੇਂ ਵਿੱਚ ਬਣਦੇ ਹਨ ਅਤੇ ਮਨੁੱਖੀ ਸਮੇਂ ਵਿੱਚ ਮੁੜ ਨਹੀਂ ਬਣਦੇ।"
+      }
+    }
+  }
+]
