@@ -44,6 +44,7 @@ export interface QuantV4CglTier1ShadowQuestionRecord {
   readonly questionId?: string;
   readonly canonicalProblemId?: string;
   readonly questionLanguageId?: string;
+  readonly patternId?: string;
   readonly taskKind?: string;
   readonly optionCount: number;
   readonly emptyExplanation: boolean;
@@ -284,6 +285,7 @@ function runtimeRecord(input: {
     questionId: metadataValue(input.question, "questionId"),
     canonicalProblemId: metadataValue(input.question, "canonicalProblemId"),
     questionLanguageId: metadataValue(input.question, "questionLanguageId"),
+    patternId: metadataValue(input.question, "patternId"),
     taskKind:
       metadataValue(input.question, "taskKind") ??
       metadataValue(input.question, "kind"),
@@ -362,8 +364,9 @@ async function generateCoreRecord(input: {
 
       const generatedPackageId = String(question?.packageId ?? pkg.packageId);
       const generatedPatternId = String(
-        question?.questionLanguageId
-          ?? question?.patternId
+        question?.patternId
+          ?? question?.metadata?.patternId
+          ?? question?.questionLanguageId
           ?? question?.qlId
           ?? question?.metadata?.questionLanguageId
           ?? "",
