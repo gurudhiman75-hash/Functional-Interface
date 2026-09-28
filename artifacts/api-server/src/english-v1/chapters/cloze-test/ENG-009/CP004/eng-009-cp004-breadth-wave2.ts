@@ -1,0 +1,37 @@
+import type{Eng009Cp004PassageV1}from"./eng-009-cp004-authorities-v1";
+export const ENG009_CP004_BREADTH_WAVE2:readonly Eng009Cp004PassageV1[]=[
+{id:"ENG009-BM-C13",title:"Why Deposit Competition Matters",topic:"banking competition",template:`Banks compete not only for borrowers but also for deposits. Deposits provide funding, and the rates banks pay for them influence the cost of lending. When competition rises, banks may offer higher rates or better account features. This can benefit savers, but it also raises funding costs. A bank that attracts money only by paying the highest rate may find those balances move quickly when another institution offers more. Funding that appears abundant today may therefore be less __(1)__ than it seems.
+
+The quality of deposits matters as much as their amount. Some balances remain for long periods, while others move in response to small rate changes. Banks study customer behaviour to understand this difference. They also need a pricing framework that considers funding needs, customer behaviour and market conditions together. The goal is not simply to offer the highest rate but to attract funding at a cost that remains __(2)__.
+
+Deposit competition becomes especially important when market interest rates change quickly. Customers may shift money from low-interest accounts into term deposits or other investments. Banks that respond too slowly can lose funding, while those that respond too aggressively may lock themselves into expensive liabilities. Technology has made switching easier, but customers still value convenience, trust and service quality. Competing on more than price can make funding relationships more __(3)__.
+
+Banks also use stress tests to estimate how much money might leave under different conditions. This makes liquidity planning more __(4)__ and prevents managers from assuming that all deposits behave alike. Healthy competition can improve returns for savers, but chasing deposits at any price can weaken margins. The best strategy balances cost, stability and customer value.
+
+Deposits are therefore part of a bank's funding strategy, not passive balances. Managers need to understand the relationship between funding cost and funding __(5)__. When this relationship is managed well, banks can grow without making their funding structure too __(6)__.`,blanks:[
+{id:"C13-B1",blankNo:1,difficulty:"hard",kind:"vocabulary",answer:"stable",distractors:["large","cheap","visible"],explanation:"Rate-sensitive deposits may leave quickly, so they may be less stable than they appear.",clue:"funding ... less ..."},
+{id:"C13-B2",blankNo:2,difficulty:"medium",kind:"context",answer:"sustainable",distractors:["simple","fixed","rapid"],explanation:"The funding cost must remain manageable over time, so 'sustainable' fits.",clue:"cost that remains ..."},
+{id:"C13-B3",blankNo:3,difficulty:"hard",kind:"phrase-fit",answer:"durable",distractors:["short","formal","uniform"],explanation:"Competing on trust and service can create longer-lasting funding relationships.",clue:"relationships more ..."},
+{id:"C13-B4",blankNo:4,difficulty:"hard",kind:"logic-link",answer:"robust",distractors:["narrow","quick","simple"],explanation:"Stress testing makes liquidity planning better able to handle shocks. 'Robust' fits.",clue:"planning more ..."},
+{id:"C13-B5",blankNo:5,difficulty:"medium",kind:"collocation",answer:"stability",distractors:["volume","shape","speed"],explanation:"Deposit strategy balances funding cost with funding stability.",clue:"funding cost and funding ..."},
+{id:"C13-B6",blankNo:6,difficulty:"hard",kind:"discourse",answer:"fragile",distractors:["expensive","large","complex"],explanation:"Poorly managed funding can become too fragile when conditions change.",clue:"structure too ..."}]},
+{id:"ENG009-BM-C14",title:"The Risks of Dynamic Pricing",topic:"pricing strategy",template:`Dynamic pricing allows a business to change prices in response to demand, capacity or timing. The economic logic is simple: when demand is high and supply is limited, a higher price can help allocate scarce capacity; when demand is weak, lower prices can attract customers. Yet flexibility can also create fairness concerns.
+
+Customers often accept price differences when they understand the reason. A hotel room costing more during a major event may feel predictable. The reaction can be very different when two customers receive different prices at the same moment without explanation. A pricing system may be efficient but still damage trust if its rules are not __(1)__.
+
+Data quality creates another risk. Dynamic systems may use demand forecasts, competitor prices and inventory levels. If these inputs are wrong, prices can move in the wrong direction. Automated systems can also react too strongly to temporary signals. Guardrails can limit extreme movements and make the system more __(2)__.
+
+If several firms use similar automated tools, prices may react rapidly to one another. Such feedback can create volatility that no individual firm intended. Companies therefore need to monitor the market effect of their systems so flexibility does not become __(3)__.
+
+Businesses may also test different prices to learn how demand responds. Experiments should be controlled because large unexplained differences can frustrate customers. Careful testing keeps experimentation more __(4)__.
+
+Governance matters because pricing decisions can affect more than immediate revenue. A rule that works well in ordinary periods may look unfair during shortages or emergencies. Firms therefore need escalation rules for unusual conditions and a clear record of major pricing changes. This helps managers distinguish normal market response from cases that require extra judgment.
+
+The strongest systems combine data, constraints and judgment. Clear rules make pricing adaptive and __(5)__ while allowing managers to explain why a price changed. The goal is not maximum flexibility but useful flexibility. Without safeguards, dynamic pricing may make prices too __(6)__ and weaken long-term trust.`,blanks:[
+{id:"C14-B1",blankNo:1,difficulty:"hard",kind:"context",answer:"defensible",distractors:["visible","profitable","simple"],explanation:"Customers should be able to understand and justify the pricing rule. 'Defensible' fits.",clue:"rule behind it is ..."},
+{id:"C14-B2",blankNo:2,difficulty:"medium",kind:"vocabulary",answer:"controlled",distractors:["rapid","broad","automatic"],explanation:"Guardrails keep price changes under control.",clue:"system more ..."},
+{id:"C14-B3",blankNo:3,difficulty:"hard",kind:"logic-link",answer:"unstable",distractors:["expensive","complex","visible"],explanation:"Repeated automated reactions can make the market unstable.",clue:"system to become ..."},
+{id:"C14-B4",blankNo:4,difficulty:"hard",kind:"phrase-fit",answer:"disciplined",distractors:["frequent","broad","random"],explanation:"Controlled experiments are more disciplined than uncontrolled price changes.",clue:"experimentation more ..."},
+{id:"C14-B5",blankNo:5,difficulty:"medium",kind:"collocation",answer:"accountable",distractors:["formal","stable","quick"],explanation:"Clear rules make pricing easier to explain and take responsibility for.",clue:"adaptive and ..."},
+{id:"C14-B6",blankNo:6,difficulty:"hard",kind:"discourse",answer:"erratic",distractors:["flexible","profitable","competitive"],explanation:"Without safeguards, price changes may become unpredictable or erratic.",clue:"too ..."}]}
+];

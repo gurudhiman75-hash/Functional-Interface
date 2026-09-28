@@ -1,10 +1,10 @@
 import assert from"node:assert/strict";
 import{ENG009_CP003_PASSAGES_V1,ENG009_CP003_BLANKS_V1}from"../chapters/cloze-test/ENG-009/CP003/eng-009-cp003-authorities-v1";
 import{generateEng009Cp003QuestionV1,generateEng009Cp003SetV1,renderEng009Cp003Passage}from"../chapters/cloze-test/ENG-009/CP003/eng-009-cp003-v1";
-assert.equal(ENG009_CP003_PASSAGES_V1.length,12);
-assert.equal(ENG009_CP003_BLANKS_V1.length,72);
-assert.equal(new Set(ENG009_CP003_PASSAGES_V1.map(x=>x.id)).size,12);
-assert.equal(new Set(ENG009_CP003_BLANKS_V1.map(x=>x.blank.id)).size,72);
+assert.equal(ENG009_CP003_PASSAGES_V1.length,14);
+assert.equal(ENG009_CP003_BLANKS_V1.length,84);
+assert.equal(new Set(ENG009_CP003_PASSAGES_V1.map(x=>x.id)).size,14);
+assert.equal(new Set(ENG009_CP003_BLANKS_V1.map(x=>x.blank.id)).size,84);
 const kinds=new Set<string>(),diffs=new Set<string>();
 for(const p of ENG009_CP003_PASSAGES_V1){
  assert.equal(p.blanks.length,6);
@@ -30,4 +30,4 @@ for(const p of ENG009_CP003_PASSAGES_V1){
 assert.deepEqual([...kinds].sort(),["collocation","context","discourse","grammar","phrase-fit","vocabulary"]);
 assert.deepEqual([...diffs].sort(),["hard","medium"]);
 for(let i=0;i<5000;i++){const q=generateEng009Cp003QuestionV1({seed:`soak:${i}`});assert.equal(q.options.length,4);assert.equal(new Set(q.options.map(x=>x.toLowerCase())).size,4);}
-console.log("ENG-009 CP003 Banking Prelims cloze audit passed.",{passages:12,blanks:72,soak:5000});
+console.log("ENG-009 CP003 Banking Prelims cloze audit passed.",{passages:14,blanks:84,soak:5000});
