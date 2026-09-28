@@ -31,7 +31,10 @@ function numericalOptions(answer: number, seed: string) {
   const offsets = [10,20,30,40,50,60].map((x,i)=>x + (hashSeed(`${seed}:${i}`) % 3)*10);
   const values = new Set<number>([answer]);
   for (const d of offsets) { if (answer-d > 0) values.add(answer-d); values.add(answer+d); if(values.size>=5) break; }
-  while(values.size<5) values.add(answer + values.size*10 + 10);
+  for (let step = 1; values.size < 5 && step <= 20; step += 1) {
+    values.add(answer + 10 * step);
+  }
+  if (values.size < 5) throw new Error(`DI-011 could not construct five unique numerical options for ${answer}.`);
   const arr=[...values].slice(0,5).map(String);
   return arr.sort((a,b)=>(hashSeed(`${seed}:${a}`)-hashSeed(`${seed}:${b}`)));
 }
