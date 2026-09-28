@@ -38,6 +38,11 @@ import {
   generateMis001QuestionStudioBatch,
   isMis001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Missing-Number/MIS-001/question-studio-integration";
+import {
+  SIF_001_QUESTION_STUDIO_PACKAGE,
+  generateSif001QuestionStudioBatch,
+  isSif001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Statement-and-Inference/SIF-001/question-studio-adapter.ts";
 
 export const OPS001_QUESTION_STUDIO_PACKAGE_ID_V1 = "OPS-001" as const;
 export const OPS001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -273,10 +278,14 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       CLK_001_QUESTION_STUDIO_PACKAGE,
       MIS_001_QUESTION_STUDIO_PACKAGE,
       COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE,
+      SIF_001_QUESTION_STUDIO_PACKAGE,
     ];
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isSif001QuestionStudioRequest(request)) {
+      return generateSif001QuestionStudioBatch(request);
+    }
     if (isClk001QuestionStudioRequest(request)) {
       return generateClk001QuestionStudioBatch(request);
     }
