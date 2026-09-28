@@ -1,0 +1,39 @@
+name: quant-v4-di-advanced-missing-di012-v1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-012/**"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di-advanced-missing-di012-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  advanced-missing-di012-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: DI-012 independent recovery and exhaustiveness proof
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-012/advanced-missing-set.test.ts
+      - name: Generate DI-012 review HTML
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-012/export-review-html.ts /tmp/DI-012-REVIEW-V1.html
+      - name: Lifecycle locks
+        run: |
+          test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-012/question-studio-adapter.ts
+          grep -q 'questionStudioMode:"CONTROLLED_REVIEW"' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-012/question-studio-adapter.ts
+          ! grep -R 'questionBankWritable:true\|testEligible:true\|mockTestEligible:true\|publiclyPublishable:true\|automaticStudentPublication:true\|productionReleaseAuthorized:true' artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-012
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-012-advanced-missing-review-v1
+          path: /tmp/DI-012-REVIEW-V1.html
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
