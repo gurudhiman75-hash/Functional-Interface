@@ -4,8 +4,14 @@ import { getQuestionLanguageIds as getRap001QuestionLanguageIds } from "./RAP-00
 import { RAP_001_CP_IDS } from "./RAP-001/types";
 import { getRap002QuestionLanguageIds } from "./RAP-002/library";
 import { RAP_002_CP_IDS } from "./RAP-002/types";
-import { getRap003QuestionLanguageIds } from "./RAP-003/library";
-import { RAP_003_CP_IDS } from "./RAP-003/types";
+import {
+  getRap003ActiveCanonicalProblemIds,
+  getRap003QuestionLanguageIds,
+} from "./RAP-003/library";
+
+const activeRap003Cps = getRap003ActiveCanonicalProblemIds();
+assert.equal(activeRap003Cps.includes("RAP-CP-013"), false, "Legacy Partnership RAP-CP-013 must stay retired from active RAP-003 routing.");
+assert.ok(activeRap003Cps.length > 0, "RAP-003 must expose at least one active CP.");
 
 const packages = [
   {
@@ -20,8 +26,8 @@ const packages = [
   },
   {
     packageId: "RAP-003" as const,
-    cpId: RAP_003_CP_IDS[0]!,
-    qlId: getRap003QuestionLanguageIds(RAP_003_CP_IDS[0]!)[0]!,
+    cpId: activeRap003Cps[0]!,
+    qlId: getRap003QuestionLanguageIds(activeRap003Cps[0]!)[0]!,
   },
 ];
 
