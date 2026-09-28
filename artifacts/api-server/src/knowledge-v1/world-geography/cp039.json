@@ -7,7 +7,8 @@
     "sourceIds": [
       "WGE-PHY-020A",
       "WGE-PHY-020B",
-      "WGE-REG-PHYSICAL-WORLD"
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-REC-EPA-GREAT-LAKES"
     ],
     "correctIndex": 2,
     "locales": {
