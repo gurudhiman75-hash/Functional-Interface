@@ -23,6 +23,24 @@ For SSC Tier-I review:
 
 The SSC high-novelty quota is intentionally disabled in V1 because the current explicitly higher-novelty source modes are Banking-oriented. The 5% is reassigned to fresh/familiar instead of importing an exam-misaligned representation.
 
+## Default difficulty composition
+
+When Question Studio does not request one explicit difficulty, the chapter mix applies an independent exam-profile difficulty plan:
+
+- SSC CGL Tier I: 35% Easy / 40% Medium / 25% Hard
+- Banking Prelims: 30% Easy / 50% Medium / 20% Hard
+- Banking Mains: 15% Easy / 45% Medium / 40% Hard
+
+For 20 questions this resolves to:
+
+- SSC: 7 Easy / 8 Medium / 5 Hard
+- Banking Prelims: 6 Easy / 10 Medium / 4 Hard
+- Banking Mains: 3 Easy / 9 Medium / 8 Hard
+
+If the reviewer explicitly selects Easy, Medium or Hard, that explicit choice overrides the default mix.
+
+Novelty tier and difficulty are allocated independently: a fresh or higher-novelty question is not automatically treated as a hard question.
+
 ## Tier meaning
 
 ### STANDARD
