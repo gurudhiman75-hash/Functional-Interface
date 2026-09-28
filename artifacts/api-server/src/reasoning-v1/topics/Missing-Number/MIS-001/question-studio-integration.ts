@@ -937,7 +937,7 @@ export async function generateMis001QuestionStudioBatch(
       optionErrorLabels: generated.options.map((option) => option.errorLabel),
       solverTrace: generated.solverTrace,
       ambiguityAudit: generated.ambiguityAudit,
-      localizationParity: language === 'en' ? 'ENGLISH_EDITORIAL_FROZEN' : 'WAVE1_LOCALIZED_REVIEW',
+      localizationParity: language === 'en' ? 'ENGLISH_EDITORIAL_FROZEN' : 'MULTILINGUAL_LOCALIZATION_REVIEW',
       editorialStatus: language === 'en' ? 'ENGLISH_EDITORIAL_FROZEN' : 'LOCALIZATION_REVIEW',
       sourceThin: 'sourceThin' in generated ? generated.sourceThin === true : false,
       sourceBacked: 'sourceBacked' in generated ? generated.sourceBacked : null,
