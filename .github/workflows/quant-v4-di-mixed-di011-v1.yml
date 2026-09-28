@@ -5,9 +5,11 @@ on:
     branches: [New-main]
     paths:
       - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-011/**"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
-      - ".github/workflows/quant-v4-di-mixed-di011-v1.yml"
   workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di-mixed-di011-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   mixed-di011-v1:
@@ -19,9 +21,9 @@ jobs:
         with:
           node-version: 20
       - name: DI-011 deterministic exhaustiveness and learner-visible answerability proof
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-011/mixed-set.test.ts
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-011/mixed-set.test.ts
       - name: Generate DI-011 review HTML
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-011/export-review-html.ts /tmp/DI-011-REVIEW-V1.html
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-011/export-review-html.ts /tmp/DI-011-REVIEW-V1.html
       - name: Lifecycle locks
         run: |
           test -f artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-011/question-studio-adapter.ts
