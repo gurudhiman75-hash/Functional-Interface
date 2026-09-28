@@ -6,16 +6,19 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**
-      - .github/workflows/cls-001-cp001-prototype.yml
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001/**
 
 permissions:
   contents: read
 
+concurrency:
+  group: cls-001-cp001-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-semantic-classification:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -39,7 +42,7 @@ jobs:
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001
           OUT=dist/reasoning-v1/cls-001
           mkdir -p artifacts/api-server/$OUT
-          for TEST in prototype hierarchy-ambiguity editorial-difficulty cp001-coherent-group-runtime cp001-permanent-runtime cp001-multilingual-runtime cp001-student-editorial; do
+          for TEST in prototype hierarchy-ambiguity editorial-difficulty cp001-coherent-group-runtime cp001-permanent-runtime cp001-multilingual-runtime cp001-student-editorial cp001-learner-review-v2; do
             pnpm --dir artifacts/api-server exec esbuild "$ROOT/$TEST.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/$TEST.test.mjs"
           done
 
@@ -50,7 +53,7 @@ jobs:
           DIAG=artifacts/api-server/dist/reasoning-v1/cls-001/diagnostics
           mkdir -p "$DIAG"
           STATUS=0
-          for TEST in prototype hierarchy-ambiguity editorial-difficulty cp001-coherent-group-runtime cp001-permanent-runtime cp001-multilingual-runtime cp001-student-editorial; do
+          for TEST in prototype hierarchy-ambiguity editorial-difficulty cp001-coherent-group-runtime cp001-permanent-runtime cp001-multilingual-runtime cp001-student-editorial cp001-learner-review-v2; do
             (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/$TEST.test.mjs") >"$DIAG/$TEST-audit.log" 2>&1
             if [ $? -ne 0 ]; then STATUS=1; fi
           done
@@ -88,6 +91,13 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp001-permanent-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp001-permanent-review.mjs"
           (cd artifacts/api-server && node "$OUT/export-cp001-permanent-review.mjs")
 
+      - name: Generate compact learner V2 review export
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001
+          OUT=dist/reasoning-v1/cls-001
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp001-learner-review-v2.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp001-learner-review-v2.mjs"
+          (cd artifacts/api-server && node "$OUT/export-cp001-learner-review-v2.mjs")
+
       - name: Upload semantic discovery review
         uses: actions/upload-artifact@v4
         with:
@@ -100,4 +110,11 @@ jobs:
         with:
           name: cls-001-cp001-permanent-multilingual-review
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp001-permanent-review
+          if-no-files-found: error
+
+      - name: Upload compact learner V2 review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp001-learner-review-v2
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp001-learner-review-v2
           if-no-files-found: error
