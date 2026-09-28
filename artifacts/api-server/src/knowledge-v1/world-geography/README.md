@@ -1,8 +1,8 @@
 # World Geography — Section A implementation
 
-Status: CP001–CP036 and editorial revisions are user approved. The complete integration remains review only. No student publication or production release is authorized.
+Status: CP001–CP036 and editorial revisions are user approved. CP037–CP040 are newly authored and require review. The complete integration remains review only. No student publication or production release is authorized.
 
-740 canonical questions; 2,220 localized versions across English, Hindi and Punjabi. CP001–CP008 account for 201 questions; approved CP009–CP011 add 78, CP012–CP015 add 101, CP016–CP019 add 78 and CP020–CP023 add 88 questions; approved CP024–CP028 add 96, CP029–CP032 add 50 questions in PR #2432, and CP033–CP036 add 48 questions in PR #2450. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
+764 canonical questions; 2,292 localized versions across English, Hindi and Punjabi. CP001–CP008 account for 201 questions; approved CP009–CP011 add 78, CP012–CP015 add 101, CP016–CP019 add 78 and CP020–CP023 add 88 questions; approved CP024–CP028 add 96, CP029–CP032 add 50 questions in PR #2432, and CP033–CP036 add 48 questions in PR #2450. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
 
 ## CP009–CP011 exam-stem pass
 
@@ -31,6 +31,10 @@ Added South America (12), Australia, New Zealand and Pacific islands (13), Antar
 ## CP033–CP036 implementation — approved
 
 Added settlements and urban geography (12), world agriculture and livestock (12), minerals and energy resources (12), and industries and economic regions (12). All questions have English, Hindi and Punjabi versions, answer mappings, explanations, difficulty levels and source-register links. They are integrated in the WGE-001 corpus and standard Question Studio selector. The user approved this batch in PR #2450; the publication lock remains in place.
+
+## CP037–CP040 implementation — review required
+
+Added 24 questions across transport and trade routes (6), spatial relationships (6), qualified geographic records (6), and advanced applications (6). Each has English, Hindi and Punjabi wording, answer mapping, explanation and source-register references. Source-qualified records distinguish lake area from volume, sea-level elevation from local relief, desert types and river-length conventions. These checkpoints are integrated for review only; they have not been user approved.
 
 ## Editorial revision 2
 
