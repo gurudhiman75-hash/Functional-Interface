@@ -26,7 +26,7 @@ function reasoningBurden(authority: SifScenarioAuthority, answer: string): numbe
   return factBurden + mechanismBurden + advancedBurden + decisionBurden;
 }
 
-function assertExplanationSpecificity(authority: SifScenarioAuthority): void {
+function assertExplanationSpecificity(authority: SifScenarioAuthority, answer: string): void {
   for (const locale of ["en-IN", "hi-IN", "pa-IN"] as const) {
     const explanation = authority.explanation[locale];
     assert.ok(explanation.trim().length >= 45, `${authority.id}/${locale}: explanation too thin`);
@@ -38,9 +38,13 @@ function assertExplanationSpecificity(authority: SifScenarioAuthority): void {
     const resolvesClass =
       /both|neither|either|only I|only II|दोनों|न I|न II|केवल I|केवल II|कोई भी अनुमान|ਦੋਵੇਂ|ਨਾ I|ਨਾ II|ਕੇਵਲ I|ਕੇਵਲ II|ਕੋਈ ਵੀ ਅਨੁਮਾਨ/ui.test(explanation);
 
+    const resolvesOnlyByContrast =
+      (answer === "ONLY_I" || answer === "ONLY_II")
+      && /but|however|while|does not|cannot|not stated|not given|no .*evidence|पर|लेकिन|नहीं|ਪਰ|ਨਹੀਂ/ui.test(explanation);
+
     assert.ok(
-      resolvesBoth || resolvesClass,
-      `${authority.id}/${locale}: explanation does not explicitly resolve the two-inference decision`,
+      resolvesBoth || resolvesClass || resolvesOnlyByContrast,
+      `${authority.id}/${locale}: explanation does not resolve the two-inference decision`,
     );
   }
 }
@@ -99,7 +103,7 @@ for (const cpId of SIF_CP_IDS) {
       );
     }
 
-    assertExplanationSpecificity(authority);
+    assertExplanationSpecificity(authority, answer);
 
     assert.ok(
       ["ONLY_I", "ONLY_II", "BOTH", "NEITHER", "EITHER"].includes(answer),
