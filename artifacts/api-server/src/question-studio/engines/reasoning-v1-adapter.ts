@@ -48,6 +48,10 @@ import {
   generateVen001QuestionStudioBatch,
   isVen001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Venn-Diagrams/VEN-001/question-studio-integration.ts";
+import {
+  generateVen001NextCheckpointBatch,
+  isVen001NextCheckpointRequest,
+} from "../../reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-next-checkpoints.ts";
 
 export const OPS001_QUESTION_STUDIO_PACKAGE_ID_V1 = "OPS-001" as const;
 export const OPS001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -289,6 +293,9 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isVen001NextCheckpointRequest(request)) {
+      return generateVen001NextCheckpointBatch(request);
+    }
     if (isVen001QuestionStudioRequest(request)) {
       return generateVen001QuestionStudioBatch(request);
     }
