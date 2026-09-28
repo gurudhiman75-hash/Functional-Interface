@@ -1,5 +1,7 @@
 import { hashSeed } from "../DI-001/exact";
-import type { Di005V2Difficulty, Di005V2ExamProfile, Di005V2Stimulus } from "./pie-v2-types";
+import type { Di005V2Difficulty, Di005V2Stimulus } from "./pie-v2-types";
+
+export type Di005ComparativeExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";
 
 export type Di005ComparativeTask =
   | "SAME_CATEGORY_COUNT_DIFFERENCE"
@@ -17,7 +19,7 @@ export type Di005ComparativeSet = Readonly<{
   packageId:"DI-005";
   mode:"COMPARATIVE_DOUBLE_PIE_V1";
   seed:string;
-  examProfile:Di005V2ExamProfile;
+  examProfile:Di005ComparativeExamProfile;
   left:Di005V2Stimulus;
   right:Di005V2Stimulus;
   questions:readonly Readonly<{
@@ -88,7 +90,7 @@ function question(task:Di005ComparativeTask,difficulty:Di005V2Difficulty,state:R
   const correctIndex=options.indexOf(answer);if(correctIndex<0)throw new Error(`DI-005 comparative lost answer for ${task}.`);
   return {questionId:`DI-005-COMP:${seed}:Q${index+1}`,kind:task,difficulty,stem,options,correctIndex,answer,explanation:{keyIdea:"Convert the visible sector percentages to counts using each pie's own total, then compare the required values.",steps}};
 }
-export function generateDi005ComparativePieSet(input:{seed:string;examProfile?:Di005V2ExamProfile}):Di005ComparativeSet{
+export function generateDi005ComparativePieSet(input:{seed:string;examProfile?:Di005ComparativeExamProfile}):Di005ComparativeSet{
   const state=build(input.seed),examProfile=input.examProfile??"BANKING_PRELIMS";
   const m1=pick(MEDIUM,`${input.seed}:m1`);let m2=pick(MEDIUM,`${input.seed}:m2`);if(m1===m2)m2=MEDIUM[(MEDIUM.indexOf(m1)+1)%MEDIUM.length]!;
   const h1=pick(HARD,`${input.seed}:h1`);let h2=pick(HARD,`${input.seed}:h2`);if(h1===h2)h2=HARD[(HARD.indexOf(h1)+1)%HARD.length]!;
