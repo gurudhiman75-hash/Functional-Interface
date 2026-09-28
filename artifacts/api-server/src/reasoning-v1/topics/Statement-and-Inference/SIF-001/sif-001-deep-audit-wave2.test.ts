@@ -82,10 +82,19 @@ for (const cpId of SIF_CP_IDS) {
     for (const candidate of authority.candidates) {
       if (candidate.follows) continue;
       invalidCandidates++;
-      assert.ok(candidate.distractorType, `${authority.id}/${candidate.id}: unsupported candidate lacks distractor provenance`);
+
+      // In an EITHER authority, both individual candidates are intentionally
+      // possible but unresolved; they are not ordinary wrong-answer distractors.
+      if (answer !== "EITHER") {
+        assert.ok(
+          candidate.distractorType,
+          `${authority.id}/${candidate.id}: unsupported candidate lacks distractor provenance`,
+        );
+      }
+
       assert.ok(
         candidate.supportFactIds.length > 0,
-        `${authority.id}/${candidate.id}: distractor has no declared evidence anchor`,
+        `${authority.id}/${candidate.id}: unsupported candidate has no declared evidence anchor`,
       );
     }
 
