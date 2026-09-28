@@ -120,6 +120,7 @@ import { canonicalMisSemanticAuthorityId, misCandidateCreatesSemanticAuthority }
 import { permanentQlForMisCandidate, MIS_PERMANENT_QL_ALLOCATION_STATE } from './MIS-PERMANENT-QL-REGISTRY';
 import { localizeMisWave1Question, MIS_LOCALIZATION_WAVE1_STATE, type MisLocalizedLanguage } from './localization-wave1';
 import { localizeMisWave2Question, MIS_LOCALIZATION_WAVE2_STATE } from './localization-wave2';
+import { localizeMisWave3Question, MIS_LOCALIZATION_WAVE3_STATE } from './localization-wave3';
 
 export const MIS_001_PACKAGE_ID = 'MIS-001' as const;
 export const MIS_001_RUNTIME_MODE = 'review-only' as const;
@@ -813,6 +814,7 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     localizationStarted: true,
     localizationWave1: MIS_LOCALIZATION_WAVE1_STATE,
     localizationWave2: MIS_LOCALIZATION_WAVE2_STATE,
+    localizationWave3: MIS_LOCALIZATION_WAVE3_STATE,
     deterministicGeneration: true,
     independentSolver: true,
     ambiguityEnumeration: true,
@@ -844,8 +846,8 @@ export async function generateMis001QuestionStudioBatch(
   const requestedDifficulty = normalizeDifficulty(request.difficulty);
   let pool = resolveCandidatePool(request, requestedDifficulty);
   if (language !== 'en') {
-    pool = pool.filter((candidateId) => ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009'].includes(candidateCheckpoint(candidateId)));
-    if (pool.length === 0) throw new Error('MIS-001 Hindi/Punjabi localization currently covers CP001-CP009.');
+    pool = pool.filter((candidateId) => ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004','MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009','MIS-CP-010','MIS-CP-011','MIS-CP-012','MIS-CP-013','MIS-CP-014','MIS-CP-015'].includes(candidateCheckpoint(candidateId)));
+    if (pool.length === 0) throw new Error('MIS-001 Hindi/Punjabi localization currently covers CP001-CP015.');
   }
   const baseSeed = text(request.seed) || 'mis-001-question-studio-v1';
   const start = hash(baseSeed + ':candidate-start') % pool.length;
@@ -863,7 +865,9 @@ export async function generateMis001QuestionStudioBatch(
     const { generated, candidateId, itemSeed, attempt } = resolved;
     const localized = ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004'].includes(generated.checkpointId)
       ? localizeMisWave1Question(generated, language)
-      : localizeMisWave2Question(generated, language);
+      : ['MIS-CP-005','MIS-CP-006','MIS-CP-007','MIS-CP-008','MIS-CP-009'].includes(generated.checkpointId)
+        ? localizeMisWave2Question(generated, language)
+        : localizeMisWave3Question(generated, language);
     const independent = independentValidation(generated);
     const permanentQlId = permanentQlForMisCandidate(candidateId);
     const options = generated.options.map((option) => String(option.value));
@@ -984,6 +988,7 @@ export async function generateMis001QuestionStudioBatch(
       permanentQlCount: MIS_PERMANENT_QL_ALLOCATION_STATE.allocatedPermanentQlCount,
       localizationWave1: MIS_LOCALIZATION_WAVE1_STATE,
       localizationWave2: MIS_LOCALIZATION_WAVE2_STATE,
+      localizationWave3: MIS_LOCALIZATION_WAVE3_STATE,
       candidateIds: [...ALL_CANDIDATES],
       semanticAuthorityIds: [...SEMANTIC_AUTHORITY_IDS],
       semanticAuthorityCount: SEMANTIC_AUTHORITY_IDS.length,
