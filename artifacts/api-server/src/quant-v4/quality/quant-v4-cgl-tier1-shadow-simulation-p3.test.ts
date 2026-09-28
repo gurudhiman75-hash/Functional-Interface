@@ -124,8 +124,12 @@ assert.ok(
   "Standalone learner-visible duplication cannot exceed standalone normalized structural reuse.",
 );
 assert.ok(
-  audit.normalizedStructuralStemReuseRate <= 0.05,
-  "The remediated empirical shadow run must keep normalized structural stem reuse at or below 5%.",
+  audit.standaloneNormalizedStructuralStemReuseRate <= 0.05,
+  "Standalone CGL questions must keep normalized structural stem reuse at or below 5%.",
+);
+assert.ok(
+  audit.linkedSetLearnerQuestionDuplicateRate <= 0.05,
+  "Linked DI sets must keep full learner-visible question duplication at or below 5%.",
 );
 assert.deepEqual(audit.slotDistribution, {
   ALGEBRA: 60,
@@ -142,6 +146,14 @@ assert.equal((audit.packageDistribution["TRG-001"] ?? 0) + (audit.packageDistrib
 
 assert.equal(audit.blockers.includes("CURRENT_INTEGRATED_BASELINE_CAPABILITY_GAPS_PRESENT"), false);
 assert.ok(audit.blockers.includes("ALGEBRA_BANK_ONLY_LIFECYCLE_LOCK"));
+assert.equal(
+  audit.blockers.includes("SHADOW_STANDALONE_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT"),
+  false,
+);
+assert.equal(
+  audit.blockers.includes("SHADOW_LINKED_SET_LEARNER_QUESTION_DUPLICATION_ABOVE_5_PERCENT"),
+  false,
+);
 assert.equal(
   audit.blockers.includes("SHADOW_STRUCTURAL_STEM_REUSE_ABOVE_5_PERCENT"),
   false,
