@@ -880,5 +880,32 @@
     "kind": "primary-agency",
     "consultedOn": "2026-09-28",
     "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-HYDRO-NCERT",
+    "title": "NCERT XI: Water (Oceans)",
+    "url": "https://ncert.nic.in/textbook/pdf/kegy212.pdf",
+    "section": "Hydrological cycle; ocean water; waves, tides and currents",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-HYDRO-NOAA",
+    "title": "NOAA Education: The Water Cycle",
+    "url": "https://prod-01-alb-www-noaa.woc.noaa.gov/education/resource-collections/freshwater/water-cycle",
+    "section": "Water transfers among atmosphere, ocean, land, vegetation, snow and glaciers",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-HYDRO-CHART",
+    "title": "NOAA: All About Nautical Charts — Waves, Tides, Currents and Hydrography",
+    "url": "https://oceanservice.noaa.gov/education/tutorial_nautical_charts/nautical_charts07_hydrography.html",
+    "section": "Wind-generated waves and bathymetric chart interpretation",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
   }
 ]
