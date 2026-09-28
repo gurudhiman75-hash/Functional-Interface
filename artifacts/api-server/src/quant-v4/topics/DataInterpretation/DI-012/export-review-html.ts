@@ -3,7 +3,12 @@ import { generateDi012Set } from "./advanced-missing-set";
 import { renderDi012TableHtml } from "./render-table";
 
 function esc(value: unknown) {
-  return String(value).replace(/[&<>"]/g, (ch) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[ch]!));
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 const seeds=Array.from({length:14},(_,i)=>`DI-012-REVIEW-${String(i+1).padStart(2,"0")}`);
 const blocks=seeds.map(seed=>{
