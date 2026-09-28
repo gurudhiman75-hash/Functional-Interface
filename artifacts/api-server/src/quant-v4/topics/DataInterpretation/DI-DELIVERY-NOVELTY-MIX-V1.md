@@ -88,6 +88,7 @@ Still exam-valid, but structurally less routine:
 - Exact normalized learner stems are de-duplicated across source modes within a delivered batch.
 - Fresh/familiar and higher-novelty questions are spaced through the batch instead of being allowed to cluster.
 - Higher-novelty source selection rotates deterministically across eligible modes over different batch seeds.
+- Banking Mains Hard slots are spread round-robin across hard-capable source modes; a 20-question default batch requires at least four distinct Hard sources and caps any one Hard source at two questions.
 - Source package/CP metadata remains intact.
 - Each delivered question is tagged with:
   - `noveltyTier`
