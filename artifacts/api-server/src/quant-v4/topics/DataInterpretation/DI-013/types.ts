@@ -10,7 +10,11 @@ export type Di013TaskKind =
   | "SERIES_TOTAL_DIFFERENCE"
   | "TWO_CATEGORY_GROUP_RATIO"
   | "TOTAL_SERIES_RATIO"
-  | "FOUR_VALUE_CROSS_TOTAL";
+  | "FOUR_VALUE_CROSS_TOTAL"
+  | "CROSS_SERIES_CATEGORY_RATIO"
+  | "COMBINED_CATEGORY_MAXIMUM"
+  | "COUNT_A_EXCEEDS_B"
+  | "NET_SERIES_ADVANTAGE";
 
 export type Di013Point = Readonly<{ category:string; seriesA:number; seriesB:number }>;
 export type Di013Stimulus = Readonly<{
