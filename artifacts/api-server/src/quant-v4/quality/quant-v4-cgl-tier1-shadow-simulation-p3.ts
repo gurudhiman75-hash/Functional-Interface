@@ -362,11 +362,21 @@ async function generateCoreRecord(input: {
 
       const generatedPackageId = String(question?.packageId ?? pkg.packageId);
       const generatedPatternId = String(
-        question?.questionLanguageId
-          ?? question?.patternId
-          ?? question?.qlId
-          ?? question?.metadata?.questionLanguageId
-          ?? "",
+        generatedPackageId === "MENSURATION"
+          ? (
+              question?.patternId
+                ?? question?.questionLanguageId
+                ?? question?.qlId
+                ?? question?.metadata?.questionLanguageId
+                ?? ""
+            )
+          : (
+              question?.questionLanguageId
+                ?? question?.patternId
+                ?? question?.qlId
+                ?? question?.metadata?.questionLanguageId
+                ?? ""
+            ),
       ).trim();
       if (
         generatedPackageId === "MENSURATION"
