@@ -352,6 +352,7 @@ async function generateCoreRecord(input: {
           ? Object.fromEntries(carriedByCp)
           : undefined,
         auditDiversityOrdinal: packageDiversityOrdinal,
+        auditCanonicalProblemOrdinal: packageDiversityOrdinal,
         auditExcludedPatternIds:
           pkg.packageId === "MENSURATION" && input.mensurationUsedPatternIds
             ? [...input.mensurationUsedPatternIds]

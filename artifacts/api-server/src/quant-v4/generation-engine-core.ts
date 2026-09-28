@@ -91,6 +91,7 @@ export type QuantV4GenerationRequest = {
   seed?: string;
   count?: number;
   auditDiversityOrdinalByCanonicalProblemId?: Readonly<Record<string, number>>;
+  auditCanonicalProblemOrdinal?: number;
 };
 
 export interface QuantV4PackageDefinition {
@@ -1140,12 +1141,18 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
   }
   const explicitCanonicalProblemId = request.canonicalProblemId ?? request.cpId;
   const canonicalProblemId = resolveCpId(pkg, request);
+  const auditCanonicalProblemOrdinalRaw = Number(request.auditCanonicalProblemOrdinal);
+  const auditCanonicalProblemOrdinal = Number.isInteger(auditCanonicalProblemOrdinalRaw)
+    ? Math.max(0, Math.floor(auditCanonicalProblemOrdinalRaw))
+    : null;
   const cpOrder = explicitCanonicalProblemId
     ? [canonicalProblemId]
-    : shuffleDeterministically(
-        pkg.cpIds,
-        `${batchSeed}:${pkg.packageId}:cp-order`,
-      );
+    : auditCanonicalProblemOrdinal == null
+      ? shuffleDeterministically(
+          pkg.cpIds,
+          `${batchSeed}:${pkg.packageId}:cp-order`,
+        )
+      : [...pkg.cpIds];
 
   const results = [];
   const diversityUsageByCp = new Map<string, number>();
@@ -1153,7 +1160,9 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
     if (i > 0 && i % 100 === 0) {
       await new Promise((resolve) => setImmediate(resolve));
     }
-    const currentCanonicalProblemId = cpOrder[i % cpOrder.length]!;
+    const currentCanonicalProblemId = cpOrder[
+      ((auditCanonicalProblemOrdinal ?? 0) + i) % cpOrder.length
+    ]!;
     const seed = `${batchSeed}:${currentCanonicalProblemId}:${i}`;
     const carriedOrdinalRaw = Number(
       request.auditDiversityOrdinalByCanonicalProblemId?.[currentCanonicalProblemId] ?? 0,
