@@ -25,6 +25,8 @@ for (const [index, svg] of diagrams.entries()) {
   assert.match(svg, /<title id="ven-title">/);
   assert.match(svg, /<desc id="ven-desc">/);
   assert.ok((svg.match(/<circle /g) ?? []).length >= 2);
+  assert.equal((svg.match(/<text /g) ?? []).length, ids[index]!.startsWith("TWO_") ? 2 : 3);
+  assert.match(svg, /stroke="#FFFFFF"[^>]*paint-order="stroke"/);
   assert.ok(getVennTopologyDescription(ids[index]!).length > 10);
 }
 assert.match(
@@ -89,12 +91,20 @@ for (let left = 0; left < 3; left += 1) {
     );
   }
 }
+const tripleGap = threeWithoutTriple[1]!.y + threeWithoutTriple[1]!.r;
+const separatePairLensTop =
+  threeWithoutTriple[0]!.y -
+  Math.sqrt(threeWithoutTriple[0]!.r ** 2 - (125 - threeWithoutTriple[0]!.x) ** 2);
+assert.ok(
+  separatePairLensTop - tripleGap >= 4,
+  "The no-triple diagram must show a visible gap between the pair intersection and the third set",
+);
 const threeWithTriple = circleGeometry(
   renderVennTopologySvg("THREE_PAIRWISE_OVERLAP_WITH_TRIPLE"),
 );
 assert.ok(
   threeWithTriple.every(
-    (circle) => Math.hypot(circle.x - 125, circle.y - 76) < circle.r,
+    (circle) => Math.hypot(circle.x - 125, circle.y - 100) < circle.r,
   ),
 );
 const nestedAndSeparate = circleGeometry(renderVennTopologySvg("THREE_ONE_NESTED_PAIR_ONE_SEPARATE"));
