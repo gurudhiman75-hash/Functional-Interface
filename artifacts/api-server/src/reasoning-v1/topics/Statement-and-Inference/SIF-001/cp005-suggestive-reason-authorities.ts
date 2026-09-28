@@ -7,6 +7,21 @@ export type SifCp005Trap = "SOLE_CAUSE" | "CERTAINTY_OVERREACH" | "MOTIVE_WITHOU
 
 const localized = ([en, hi, pa]: L): SifLocalizedText => ({ "en-IN": en, "hi-IN": hi, "pa-IN": pa });
 const guard = { evaluatesSupport: true, assumptionQuestion: false, conclusionQuestion: false, argumentQuestion: false, causeEffectQuestion: false, courseOfActionQuestion: false } as const;
+
+function resolvedExplanation(explanation: L): L {
+  const endings: L = [
+    " Therefore, Inference I is supported and Inference II does not follow.",
+    " अतः अनुमान I समर्थित है और अनुमान II सही नहीं है।",
+    " ਇਸ ਲਈ ਅਨੁਮਾਨ I ਸਮਰਥਿਤ ਹੈ ਅਤੇ ਅਨੁਮਾਨ II ਸਹੀ ਨਹੀਂ ਹੈ।",
+  ];
+  return explanation.map((text, index) => {
+    const alreadyResolves =
+      /Inference I|Inference II|only I|only II/i.test(text)
+      || /अनुमान I|अनुमान II|केवल I|केवल II/u.test(text)
+      || /ਅਨੁਮਾਨ I|ਅਨੁਮਾਨ II|ਕੇਵਲ I|ਕੇਵਲ II/u.test(text);
+    return alreadyResolves ? text : `${text}${endings[index]}`;
+  }) as unknown as L;
+}
 const traps: Readonly<Record<SifCp005ReasonKind, SifCp005Trap>> = {
   DEMAND_SIGNAL: "SOLE_CAUSE", CONVERGING_CLUES: "CERTAINTY_OVERREACH", LOCALIZED_PATTERN: "SCOPE_EXPANSION", CONTROLLED_CHANGE: "SOLE_CAUSE", OPERATIONAL_EVIDENCE: "UNSUPPORTED_MECHANISM", RESOURCE_PRESSURE: "MOTIVE_WITHOUT_EVIDENCE", SERVICE_PATTERN: "SEQUENCE_ONLY", ALTERNATIVE_CAUSE_LIMIT: "CERTAINTY_OVERREACH",
 };
@@ -20,7 +35,7 @@ function make(kind: SifCp005ReasonKind, rows: readonly Row[]): readonly SifScena
       { id: "I", text: localized(follows), follows: true, strength: "STRONGLY_SUPPORTED", supportFactIds: ["F1"] },
       { id: "II", text: localized(doesNotFollow), follows: false, strength: "POSSIBLE_ONLY", supportFactIds: ["F1"], distractorType: "CAUSE_ASSUMPTION" },
     ],
-    explanation: localized(explanation), identityGuard: guard,
+    explanation: localized(resolvedExplanation(explanation)), identityGuard: guard,
   }));
 }
 
