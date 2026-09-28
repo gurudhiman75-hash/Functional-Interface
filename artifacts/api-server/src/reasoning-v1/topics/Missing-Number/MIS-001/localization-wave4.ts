@@ -74,9 +74,15 @@ function rule(q:Q,l:'hi'|'pa'):string{
 }
 function trace(s:string,l:'hi'|'pa'):string{
  let o=s;
+ const digitProduct=o.match(/^Product of digits of (\\d+) = (\\d+)$/);
+ if(digitProduct){
+   return l==='hi'
+     ? `${digitProduct[1]} के अंकों का गुणनफल = ${digitProduct[2]}`
+     : `${digitProduct[1]} ਦੇ ਅੰਕਾਂ ਦਾ ਗੁਣਨਫਲ = ${digitProduct[2]}`;
+ }
  const reps=l==='hi'
- ? [['Top pair:','ऊपरी जोड़ी:'],['Bottom pair:','निचली जोड़ी:'],['Product of digits of ','के अंकों का गुणनफल '],['Source row check:','स्रोत पंक्ति जाँच:'],['Target pair:','अंतिम जोड़ी:'],['Pair ','जोड़ी '],['Figure ','आकृति ']]
- : [['Top pair:','ਉੱਪਰਲੀ ਜੋੜੀ:'],['Bottom pair:','ਹੇਠਲੀ ਜੋੜੀ:'],['Product of digits of ','ਦੇ ਅੰਕਾਂ ਦਾ ਗੁਣਨਫਲ '],['Source row check:','ਸਰੋਤ ਕਤਾਰ ਜਾਂਚ:'],['Target pair:','ਆਖਰੀ ਜੋੜੀ:'],['Pair ','ਜੋੜੀ '],['Figure ','ਆਕ੍ਰਿਤੀ ']];
+ ? [['Top pair:','ऊपरी जोड़ी:'],['Bottom pair:','निचली जोड़ी:'],['Source row check:','पंक्ति जाँच:'],['Target pair:','अंतिम जोड़ी:'],['Pair ','जोड़ी '],['Figure ','आकृति ']]
+ : [['Top pair:','ਉੱਪਰਲੀ ਜੋੜੀ:'],['Bottom pair:','ਹੇਠਲੀ ਜੋੜੀ:'],['Source row check:','ਕਤਾਰ ਜਾਂਚ:'],['Target pair:','ਆਖਰੀ ਜੋੜੀ:'],['Pair ','ਜੋੜੀ '],['Figure ','ਆਕ੍ਰਿਤੀ ']];
  for(const [a,b] of reps)o=o.split(a).join(b);
  return o;
 }
