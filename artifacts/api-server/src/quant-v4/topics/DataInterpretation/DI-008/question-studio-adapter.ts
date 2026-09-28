@@ -8,10 +8,14 @@ import {
 } from "./permanent-ql-registry";
 import { generateDi008PermanentQuestion } from "./permanent-question-generator";
 import { DI008_LOCALIZATION_RELEASE_ID, localizeDi008Question } from "./localization-review-v1";
+import { generateDi008AdvancedArithmeticSet } from "./advanced-arithmetic-v1";
+import { renderDi008AdvancedTableHtml } from "./advanced-arithmetic-table";
 import type { Di008V2Difficulty, Di008V2ExamProfile } from "./arithmetic-v2-types";
 
 export const DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-008" as const;
+export const DI008_ADVANCED_CANONICAL_PROBLEM_ID = "DI-CP-008-ADVANCED" as const;
 export const DI008_QUESTION_STUDIO_RUNTIME_MODE = "DI008_PERMANENT_MULTILINGUAL_REVIEW_V1" as const;
+export const DI008_ADVANCED_RUNTIME_MODE = "DI008_ADVANCED_ARITHMETIC_REVIEW_V1" as const;
 
 export type Di008QuestionStudioRequest = Readonly<{
   packageId?: string;
@@ -44,7 +48,8 @@ export function isDi008QuestionStudioRequest(request: Di008QuestionStudioRequest
     || patternId === "di 008"
     || Boolean(getDi008PermanentQl(qlId))
     || cpId === DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID
-    || (topic === "data interpretation" && ["arithmetic di", "arithmetic data interpretation", "business arithmetic", "arithmetic table"].includes(subtopic));
+    || cpId === DI008_ADVANCED_CANONICAL_PROBLEM_ID
+    || (topic === "data interpretation" && ["arithmetic di", "arithmetic data interpretation", "business arithmetic", "arithmetic table", "advanced arithmetic di", "banking mains arithmetic di"].includes(subtopic));
 }
 
 function normalizeDifficulty(value: unknown): Di008V2Difficulty | undefined {
@@ -183,8 +188,47 @@ function toQuestionStudioPreview(
   };
 }
 
+
+async function generateDi008AdvancedQuestionStudioBatch(request: Di008QuestionStudioRequest) {
+  const languageValue = String(request.language ?? "en").trim().toLowerCase();
+  if (languageValue !== "en") throw new Error("DI-008 advanced arithmetic V1 is English review-only.");
+  const profile = normalizeProfile(request.examProfile);
+  const difficulty = normalizeDifficulty(request.difficulty);
+  const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
+  const batchSeed = String(request.seed ?? "").trim() || `quant-v4:DI-008:advanced:${profile}:${difficulty ?? "mixed"}:${Date.now()}`;
+  const questionPackages: ReturnType<typeof generateDi008AdvancedArithmeticSet>[] = [];
+  const questions:any[] = [];
+  for(let index=0;index<count;index+=1){
+    const seed=`${batchSeed}:${index}`;
+    const set=generateDi008AdvancedArithmeticSet({seed,examProfile:profile});
+    questionPackages.push(set);
+    const pool=difficulty?set.questions.filter(q=>q.difficulty===difficulty):set.questions;
+    const question=pool[index%pool.length]!;
+    questions.push({
+      text:question.stem,stem:question.stem,stimulus:set.stimulus,stimulusHtml:renderDi008AdvancedTableHtml(set.stimulus),
+      options:[...question.options],correct:question.correctIndex,correctIndex:question.correctIndex,answer:question.answer,
+      canonicalAnswer:{kind:"symbolic" as const,value:question.answer,display:question.answer,rendered:question.answer,rounding:"exact" as const},
+      explanation:[question.explanation.keyIdea,...question.explanation.steps].join("\n\n"),richExplanation:question.explanation,
+      difficulty:question.difficulty,difficultyLabel:question.difficulty,patternId:"DI-008",section:"Quant",topic:"Data Interpretation",subtopic:"Advanced Arithmetic DI",
+      generationBackend:"quant-v4",debugSource:"quant-v4-di008-advanced-arithmetic-review-v1",questionId:question.questionId,sourceQuestionId:question.questionId,
+      seed,examProfile:set.examProfile,packageId:"DI-008" as const,canonicalProblemId:DI008_ADVANCED_CANONICAL_PROBLEM_ID,taskKind:question.kind,
+      domain:set.stimulus.domain,runtimeMode:DI008_ADVANCED_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+      questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,questionBankEligible:false as const,testEligibility:"INELIGIBLE" as const,
+      testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
+      productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:"en" as const,
+      metadata:{packageId:"DI-008",canonicalProblemId:DI008_ADVANCED_CANONICAL_PROBLEM_ID,taskKind:question.kind,domain:set.stimulus.domain,examProfile:set.examProfile,runtimeMode:DI008_ADVANCED_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE"}
+    });
+  }
+  return {generationContext:{generationDomain:"quant-v4" as const,chapterId:"DataInterpretation" as const,packageId:"DI-008" as const,canonicalProblemId:DI008_ADVANCED_CANONICAL_PROBLEM_ID,
+    seed:batchSeed,timestamp:Date.now(),language:"en" as const,examProfile:profile,runtimeMode:DI008_ADVANCED_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+    questionStudioDiscoverable:true as const,questionStudioMode:"CONTROLLED_REVIEW" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
+    testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
+    productionReleaseAuthorized:false as const,manualApprovalRequired:true as const},questionPackages,questions};
+}
+
 export async function generateDi008QuestionStudioBatch(request: Di008QuestionStudioRequest = {}) {
   const cpId = String(request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
+  if (cpId === DI008_ADVANCED_CANONICAL_PROBLEM_ID) return generateDi008AdvancedQuestionStudioBatch(request);
   if (cpId && cpId !== DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID) throw new Error(`Unknown canonical problem '${cpId}' for package DI-008.`);
   const languageValue = String(request.language ?? "en").trim().toLowerCase();
   if (!["en", "hi", "pa"].includes(languageValue)) throw new Error(`DI-008 controlled review supports en, hi and pa; received '${String(request.language ?? "")}'.`);
@@ -254,8 +298,11 @@ export function di008QuestionStudioPackageCard() {
     name: "DI-008 Arithmetic Data Interpretation",
     label: "Arithmetic Data Interpretation",
     generationDomain: "quant-v4",
-    cpIds: [DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID],
-    canonicalProblems: [{ id: DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Arithmetic Data Interpretation" }],
+    cpIds: [DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, DI008_ADVANCED_CANONICAL_PROBLEM_ID],
+    canonicalProblems: [
+      { id: DI008_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, label: "Arithmetic DI — Business / Revenue" },
+      { id: DI008_ADVANCED_CANONICAL_PROBLEM_ID, label: "Arithmetic DI — Advanced Banking Domains" },
+    ],
     permanentQlIds: DI008_PERMANENT_QLS.map((descriptor) => descriptor.qlId),
     permanentQlCount: DI008_PERMANENT_QLS.length,
     qls: DI008_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, taskKind: descriptor.taskKind })),
@@ -264,7 +311,7 @@ export function di008QuestionStudioPackageCard() {
     supportedExamProfiles: ["BANKING_PRELIMS", "BANKING_MAINS"],
     enabled: true,
     runtimeMode: DI008_QUESTION_STUDIO_RUNTIME_MODE,
-    supportedRuntimeModes: [DI008_QUESTION_STUDIO_RUNTIME_MODE],
+    supportedRuntimeModes: [DI008_QUESTION_STUDIO_RUNTIME_MODE, DI008_ADVANCED_RUNTIME_MODE],
     reviewStatus: "MULTILINGUAL_FROZEN",
     releaseId: DI008_LOCALIZATION_RELEASE_ID,
     questionStudioDiscoverable: DI008_PERMANENT_OWNERSHIP.lifecycle.questionStudioDiscoverable,
