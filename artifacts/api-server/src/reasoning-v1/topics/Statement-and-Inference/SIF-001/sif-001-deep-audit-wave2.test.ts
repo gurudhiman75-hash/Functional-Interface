@@ -36,7 +36,7 @@ function assertExplanationSpecificity(authority: SifScenarioAuthority, answer: s
     const resolvesBoth = /\bI\b|अनुमान I|ਅਨੁਮਾਨ I/u.test(explanation)
       && /\bII\b|अनुमान II|ਅਨੁਮਾਨ II/u.test(explanation);
     const resolvesClass =
-      /both|neither|either|only I|only II|दोनों|न I|न II|केवल I|केवल II|कोई भी अनुमान|ਦੋਵੇਂ|ਨਾ I|ਨਾ II|ਕੇਵਲ I|ਕੇਵਲ II|ਕੋਈ ਵੀ ਅਨੁਮਾਨ/ui.test(explanation);
+      /both|neither|either|only I|only II|only Inference I|only Inference II|both Inference I and Inference II|neither Inference I nor Inference II|either Inference I or Inference II|दोनों|न I|न II|केवल I|केवल II|केवल अनुमान I|केवल अनुमान II|अनुमान I और II दोनों|न अनुमान I.*न अनुमान II|अनुमान I या II|कोई भी अनुमान|ਦੋਵੇਂ|ਨਾ I|ਨਾ II|ਕੇਵਲ I|ਕੇਵਲ II|ਕੇਵਲ ਅਨੁਮਾਨ I|ਕੇਵਲ ਅਨੁਮਾਨ II|ਅਨੁਮਾਨ I ਅਤੇ II ਦੋਵੇਂ|ਨਾ ਅਨੁਮਾਨ I.*ਨਾ ਅਨੁਮਾਨ II|ਅਨੁਮਾਨ I ਜਾਂ II|ਕੋਈ ਵੀ ਅਨੁਮਾਨ/ui.test(explanation);
 
     const resolvesOnlyByContrast =
       (answer === "ONLY_I" || answer === "ONLY_II")
