@@ -7,15 +7,24 @@ const PARTITIONS=[
   [5,15,20,25,35],
   [10,10,20,25,35],
   [5,20,20,25,30],
+  [10,15,15,20,40],
+  [5,10,20,30,35],
+  [10,10,15,25,40],
+  [5,15,25,25,30],
 ] as const;
 const CONTEXTS=[
   {title:"Applications and approvals across five branches",cats:["Branch A","Branch B","Branch C","Branch D","Branch E"]},
   {title:"Applications and approvals across five regions",cats:["North","South","East","West","Central"]},
   {title:"Applications and approvals across five centres",cats:["Centre A","Centre B","Centre C","Centre D","Centre E"]},
+  {title:"Loan applications and sanctions across five zones",cats:["Zone A","Zone B","Zone C","Zone D","Zone E"]},
+  {title:"Claims received and settled across five teams",cats:["Team A","Team B","Team C","Team D","Team E"]},
+  {title:"Admissions received and confirmed across five courses",cats:["Course A","Course B","Course C","Course D","Course E"]},
+  {title:"Orders received and fulfilled across five segments",cats:["Segment A","Segment B","Segment C","Segment D","Segment E"]},
+  {title:"Requests received and resolved across five units",cats:["Unit A","Unit B","Unit C","Unit D","Unit E"]},
 ] as const;
 const EASY:readonly Di014Task[]=["DIRECT_APPLICATIONS","APPROVED_COUNT_FROM_PIE"];
-const MEDIUM:readonly Di014Task[]=["CATEGORY_GAP","CATEGORY_APPROVAL_RATE","APPLICATION_TO_APPROVAL_RATIO","TWO_CATEGORY_APPROVED_TOTAL"];
-const HARD:readonly Di014Task[]=["TWO_CATEGORY_APPLICATION_TOTAL","GROUP_APPLICATION_TO_APPROVAL_RATIO","TOTAL_APPLICATION_TO_APPROVAL_RATIO","CROSS_CATEGORY_APPLICATION_APPROVAL_RATIO"];
+const MEDIUM:readonly Di014Task[]=["CATEGORY_GAP","CATEGORY_APPROVAL_RATE","APPLICATION_TO_APPROVAL_RATIO","TWO_CATEGORY_APPROVED_TOTAL","REJECTED_TO_APPROVED_RATIO","TWO_CATEGORY_REJECTED_TOTAL"];
+const HARD:readonly Di014Task[]=["TWO_CATEGORY_APPLICATION_TOTAL","GROUP_APPLICATION_TO_APPROVAL_RATIO","TOTAL_APPLICATION_TO_APPROVAL_RATIO","CROSS_CATEGORY_APPLICATION_APPROVAL_RATIO","APPROVAL_RATE_DIFFERENCE","HIGHEST_APPROVAL_RATE"];
 
 function pick<T>(a:readonly T[],seed:string):T{return a[hashSeed(seed)%a.length]!;}
 function shuffle<T>(a:readonly T[],seed:string){return [...a].sort((x,y)=>hashSeed(`${seed}:${String(x)}`)-hashSeed(`${seed}:${String(y)}`));}
@@ -28,9 +37,9 @@ function percentOptions(answer:number,seed:string){const vals=new Set<number>([a
 function build(seed:string){
   const context=pick(CONTEXTS,`${seed}:ctx`);
   const shares=shuffle(pick(PARTITIONS,`${seed}:shares`),`${seed}:order`);
-  const totalApproved=pick([800,1000,1200,1600] as const,`${seed}:approved-total`);
+  const totalApproved=pick([800,1200,1600,2000,2400] as const,`${seed}:approved-total`);
   const approved=shares.map(p=>totalApproved*p/100);
-  const rates=approved.map((_,i)=>pick([25,50] as const,`${seed}:rate:${i}`));
+  const rates=approved.map((_,i)=>pick([20,25,40,50] as const,`${seed}:rate:${i}`));
   const applications=approved.map((v,i)=>v*100/rates[i]!);
   if([...approved,...applications].some(v=>!Number.isSafeInteger(v)))throw new Error("DI-014 requires exact integer counts.");
   const max=Math.max(...applications),step=200,yMax=Math.ceil((max+step)/step)*step;
@@ -51,7 +60,11 @@ function q(task:Di014Task,difficulty:Di014Difficulty,state:ReturnType<typeof bui
   else if(task==="TWO_CATEGORY_APPLICATION_TOTAL"){const v=applications[i]!+applications[j]!;stem=`What is the total number of applications received by ${cats[i]} and ${cats[j]} together?`;answer=String(v);options=numOptions(v,seed);steps=[`${applications[i]} + ${applications[j]} = ${v}.`];}
   else if(task==="GROUP_APPLICATION_TO_APPROVAL_RATIO"){const a=applications[i]!+applications[j]!,b=approved[i]!+approved[j]!,v=ratio(a,b);stem=`What is the ratio of total applications received to total applications approved for ${cats[i]} and ${cats[j]} together?`;answer=v;options=ratioOptions(v,a,b,seed);steps=[`Received total = ${a}.`,`Approved total = ${b}.`,`Ratio = ${v}.`];}
   else if(task==="TOTAL_APPLICATION_TO_APPROVAL_RATIO"){const a=applications.reduce((x,y)=>x+y,0),b=pie.totalValue,v=ratio(a,b);stem="What is the ratio of total applications received across all categories to total applications approved?";answer=v;options=ratioOptions(v,a,b,seed);steps=[`Total received = ${a}.`,`Total approved = ${b}.`,`Ratio = ${v}.`];}
-  else {const a=applications[i]!,b=approved[j]!,v=ratio(a,b);stem=`What is the ratio of applications received by ${cats[i]} to applications approved for ${cats[j]}?`;answer=v;options=ratioOptions(v,a,b,seed);steps=[`${a}:${b} = ${v}.`];}
+  else if(task==="CROSS_CATEGORY_APPLICATION_APPROVAL_RATIO"){const a=applications[i]!,b=approved[j]!,v=ratio(a,b);stem=`What is the ratio of applications received by ${cats[i]} to applications approved for ${cats[j]}?`;answer=v;options=ratioOptions(v,a,b,seed);steps=[`${a}:${b} = ${v}.`];}
+  else if(task==="REJECTED_TO_APPROVED_RATIO"){const rejected=applications[i]!-approved[i]!,v=ratio(rejected,approved[i]!);stem=`For ${cats[i]}, what is the ratio of applications not approved to applications approved?`;answer=v;options=ratioOptions(v,rejected,approved[i]!,seed);steps=[`Not approved = ${applications[i]} - ${approved[i]} = ${rejected}.`,`Ratio = ${v}.`];}
+  else if(task==="TWO_CATEGORY_REJECTED_TOTAL"){const r1=applications[i]!-approved[i]!,r2=applications[j]!-approved[j]!,v=r1+r2;stem=`How many applications were not approved for ${cats[i]} and ${cats[j]} together?`;answer=String(v);options=numOptions(v,seed);steps=[`${cats[i]} not approved = ${r1}.`,`${cats[j]} not approved = ${r2}.`,`Total = ${v}.`];}
+  else if(task==="APPROVAL_RATE_DIFFERENCE"){const v=Math.abs(rates[i]!-rates[j]!);stem=`What is the difference between the approval rates of ${cats[i]} and ${cats[j]}?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[`Rates are ${rates[i]}% and ${rates[j]}%.`,`Difference = ${v}%.`];}
+  else {const v=Math.max(...rates);stem="What is the highest approval rate among the five categories?";answer=`${v}%`;options=percentOptions(v,seed);steps=[...rates.map((rate,n)=>`${cats[n]}: ${rate}%`),`Highest approval rate = ${v}%.`];}
   const correctIndex=options.indexOf(answer);if(correctIndex<0)throw new Error("DI-014 answer drift");
   return {questionId:`DI-014:${seed}:Q${index+1}`,kind:task,difficulty,stem,options,correctIndex,answer,explanation:{keyIdea:"Read received applications from the radar chart and approved applications from the pie distribution, then combine them as required.",steps}};
 }
