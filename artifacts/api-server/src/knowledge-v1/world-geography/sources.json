@@ -718,5 +718,104 @@
     "kind": "primary-educational",
     "consultedOn": "2026-09-28",
     "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-SET-UNHABITAT",
+    "title": "UN-Habitat / European Commission: Applying the Degree of Urbanisation",
+    "url": "https://unhabitat.org/applying-the-degree-of-urbanisation-a-methodological-manual-to-define-cities-towns-and-rural-areas",
+    "section": "Urban–rural continuum, classification and settlement concepts",
+    "kind": "primary-methodology",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-AGR-FAO-SYS",
+    "title": "FAO: Farming Systems and Poverty — farming systems framework",
+    "url": "https://www.fao.org/4/ac349e/ac349e03.htm",
+    "section": "Farming-system classification by climate, water, scale, intensity and livelihood",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-AGR-FAO-ASIA",
+    "title": "FAO: Farming Systems and Poverty — East Asia and Pacific",
+    "url": "https://www.fao.org/4/ac349e/ac349e08.htm",
+    "section": "Rice-based, mixed crop-livestock and tree-crop farming systems",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-AGR-FAO-MENA",
+    "title": "FAO: Farming Systems and Poverty — Middle East and North Africa",
+    "url": "https://www.fao.org/4/y1860e/y1860e05.htm",
+    "section": "Rainfed cereals, Mediterranean tree crops, irrigated farming and pastoral systems",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-AGR-FAO-FAOSTAT",
+    "title": "FAO: FAOSTAT",
+    "url": "https://www.fao.org/faostat/en/#data/QCL",
+    "section": "Crop and livestock production concepts and geographic statistical reference; no changing rank used in stems",
+    "kind": "primary-statistical",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-RES-USGS-MCS",
+    "title": "USGS: Mineral Commodity Summaries 2026",
+    "url": "https://pubs.usgs.gov/publication/mcs2026",
+    "section": "Global mineral commodity production, reserves and resources; iron ore, copper and bauxite",
+    "kind": "primary-statistical",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-RES-USGS-DATA",
+    "title": "USGS: Mineral Resources Data",
+    "url": "https://www.usgs.gov/programs/mineral-resources-program/mineral-resources-data",
+    "section": "Mineral-resource and reserve classification; global commodity datasets",
+    "kind": "primary-scientific",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-RES-IEA-ENERGY",
+    "title": "International Energy Agency: Renewables and Low-Emissions Fuels",
+    "url": "https://www.iea.org/energy-system/renewables-and-low-emissions-fuels",
+    "section": "Solar, wind, hydropower, geothermal and other renewable energy technologies",
+    "kind": "primary-statistical",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-IND-UNIDO-LOCATION",
+    "title": "UNIDO: Factors in the Location of Industry",
+    "url": "https://www.unido.org/publications/ot/9636436/pdf",
+    "section": "Raw materials, fuel, power, labour, transport, market and location factors",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-IND-UNIDO-IDR",
+    "title": "UNIDO: Industrial Development Report",
+    "url": "https://www.unido.org/idr",
+    "section": "Industrial regions, manufacturing, innovation, skills, energy and production networks",
+    "kind": "primary-statistical",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-IND-WB-GVC",
+    "title": "World Bank: Global Value Chains",
+    "url": "https://www.worldbank.org/ext/en/topic/trade/global-value-chains",
+    "section": "Manufacturing and services networks, supply chains and connections among production locations",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "page-read"
   }
 ]
