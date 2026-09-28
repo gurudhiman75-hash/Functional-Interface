@@ -33,6 +33,26 @@ const overlapInsideSuperset = validateVennTopology(["A", "B", "C"], [
 ]);
 assert.ok(overlapInsideSuperset.membershipAtoms.some((atom) => atom.length === 3));
 
+const pairwiseOverlapWithoutCommonRegion = validateVennTopology(["A", "B", "C"], [
+  { left: "A", right: "B", relation: "PARTIAL_OVERLAP" },
+  { left: "A", right: "C", relation: "PARTIAL_OVERLAP" },
+  { left: "B", right: "C", relation: "PARTIAL_OVERLAP" },
+], "FORBIDDEN");
+assert.equal(pairwiseOverlapWithoutCommonRegion.membershipAtoms.some((atom) => atom.length === 3), false);
+
+const pairwiseOverlapWithCommonRegion = validateVennTopology(["A", "B", "C"], [
+  { left: "A", right: "B", relation: "PARTIAL_OVERLAP" },
+  { left: "A", right: "C", relation: "PARTIAL_OVERLAP" },
+  { left: "B", right: "C", relation: "PARTIAL_OVERLAP" },
+], "REQUIRED");
+assert.equal(pairwiseOverlapWithCommonRegion.membershipAtoms.some((atom) => atom.length === 3), true);
+
+assert.equal(findVennTopologyWitness(["A", "B", "C"], [
+  { left: "A", right: "B", relation: "EQUAL" },
+  { left: "A", right: "C", relation: "EQUAL" },
+  { left: "B", right: "C", relation: "EQUAL" },
+], "FORBIDDEN"), null);
+
 assert.throws(() => validateVennTopology(["A", "B"], [
   { left: "A", right: "B", relation: "LEFT_SUBSET_RIGHT" },
   { left: "B", right: "A", relation: "DISJOINT" },
