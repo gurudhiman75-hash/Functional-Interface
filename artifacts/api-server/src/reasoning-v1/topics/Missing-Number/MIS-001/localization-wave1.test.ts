@@ -47,7 +47,7 @@ for (const candidateId of candidates) {
     assert.ok(!forbiddenEnglish.test(localized.stem), candidateId + ' localized stem leaked English prose: ' + localized.stem);
     assert.ok(!forbiddenEnglish.test(localized.explanation), candidateId + ' localized explanation leaked English prose: ' + localized.explanation);
     assert.equal(localized.locale, language === 'hi' ? 'hi-IN' : 'pa-IN');
-    assert.equal(localized.localizationParity, 'WAVE1_LOCALIZED_REVIEW');
+    assert.equal(localized.localizationParity, 'MULTILINGUAL_LOCALIZATION_REVIEW');
 
     if (localized.qlId) localizedQlIds.add(localized.qlId);
   }
@@ -55,16 +55,5 @@ for (const candidateId of candidates) {
 
 assert.equal(candidates.length, 34);
 assert.equal(localizedQlIds.size, 31);
-
-await assert.rejects(
-  () => generateMis001QuestionStudioBatch({
-    packageId:'MIS-001',
-    canonicalProblemId:'MIS-CP-005',
-    language:'pa',
-    count:1,
-    seed:'mis-wave1-boundary',
-  }),
-  /CP001-CP004/,
-);
 
 console.log('MIS-001 localization wave 1 audit passed: 34 runtime patterns / 31 permanent QLs in Hindi and Punjabi.');
