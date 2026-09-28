@@ -1,3 +1,4 @@
+import{ENG009_CP005_BREADTH_WAVE1}from"./eng-009-cp005-breadth-wave1";
 export type Eng009Cp005Difficulty="medium"|"hard";
 export type Eng009Cp005Mode="can-fit"|"cannot-fit"|"phrasal-word";
 export interface Eng009Cp005BlankV1{
@@ -106,6 +107,8 @@ export const ENG009_CP005_PASSAGES_V1:readonly Eng009Cp005PassageV1[]=[
  b("N08-B6",6,"medium","phrasal-word",["followed"],["forgotten","hidden","broken"],"Written instructions matter only if people can follow them.","instructions will automatically be ...")
  ]
 }
+,
+...ENG009_CP005_BREADTH_WAVE1
 ];
 
 export const ENG009_CP005_BLANKS_V1=ENG009_CP005_PASSAGES_V1.flatMap(p=>p.blanks.map(blank=>({passage:p,blank})));

@@ -1,3 +1,4 @@
+import{ENG009_CP002_BREADTH_WAVE1}from"./eng-009-cp002-breadth-wave1";
 export type Eng009Cp002Difficulty="medium"|"hard";
 export type Eng009Cp002BlankKind="grammar"|"vocabulary"|"collocation"|"context"|"discourse";
 export interface Eng009Cp002BlankV1{
@@ -120,6 +121,8 @@ export const ENG009_CP002_PASSAGES_V1:readonly Eng009Cp002PassageV1[]=[
  b("A10-B5",5,"medium","discourse","reliable",["precise","detailed","complete"],"Repeating the measurement helps make the conclusion more reliable.","conclusions more ...")
  ]
 }
+,
+...ENG009_CP002_BREADTH_WAVE1
 ];
 
 export const ENG009_CP002_BLANKS_V1=ENG009_CP002_PASSAGES_V1.flatMap(p=>p.blanks.map(blank=>({passage:p,blank})));
