@@ -64,6 +64,23 @@ function options(answer:string,candidates:readonly string[],count:4|5,seed:strin
   for(const value of [answer,...candidates]){
     if(!seen.has(value)){seen.add(value);values.push(value);}
   }
+  const ratioMatch=answer.match(/^(\d+):(\d+)$/u);
+  if(ratioMatch){
+    const left=Number(ratioMatch[1]), right=Number(ratioMatch[2]);
+    const candidates=[
+      ratio(right,left),
+      ratio(left+1,right),
+      ratio(left,right+1),
+      ratio(left+2,right+1),
+      ratio(left+1,right+2),
+      ratio(left+2,right),
+      ratio(left,right+2),
+    ];
+    for(const v of candidates){
+      if(values.length>=count) break;
+      if(!seen.has(v)){seen.add(v);values.push(v);}
+    }
+  }
   const angleMatch=answer.match(/^(\d+)°$/u);
   if(angleMatch){
     const n=Number(angleMatch[1]);
