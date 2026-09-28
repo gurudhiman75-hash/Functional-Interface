@@ -38,7 +38,7 @@ function assertExplanationSpecificity(authority: SifScenarioAuthority): void {
     const resolvesBoth = /\bI\b|अनुमान I|ਅਨੁਮਾਨ I/u.test(explanation)
       && /\bII\b|अनुमान II|ਅਨੁਮਾਨ II/u.test(explanation);
     const resolvesClass =
-      /both|neither|either|only I|only II|दोनों|न I|न II|केवल I|केवल II|ਦੋਵੇਂ|ਨਾ I|ਨਾ II|ਕੇਵਲ I|ਕੇਵਲ II/ui.test(explanation);
+      /both|neither|either|only I|only II|दोनों|न I|न II|केवल I|केवल II|कोई भी अनुमान|ਦੋਵੇਂ|ਨਾ I|ਨਾ II|ਕੇਵਲ I|ਕੇਵਲ II|ਕੋਈ ਵੀ ਅਨੁਮਾਨ/ui.test(explanation);
 
     assert.ok(
       resolvesBoth || resolvesClass,
