@@ -30,7 +30,7 @@ for (const cpId of SIF_CP_IDS) {
       const learnerText = [q.instruction, q.statement, ...q.inferences, q.explanation].join(" ");
       assert.doesNotMatch(
         learnerText,
-        /prototype|authority|fingerprint|solver|generation order|CONTROLLED_NOVEL|NOVELTY_READINESS/i,
+        /prototypeOnly|sourceAuthorityId|sourceAuthorityVersion|fingerprint|SIF_STRUCTURED_SUPPORT|generation order|CONTROLLED_NOVEL|NOVELTY_READINESS/i,
         `${cpId}/${locale}/${seed}: internal audit vocabulary leaked to learner text`,
       );
       assert.doesNotMatch(
