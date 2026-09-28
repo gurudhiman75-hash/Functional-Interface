@@ -41,8 +41,8 @@ function buildStimulus(seed:string){
     title="Simple-interest data for five loans";columnA="Principal (₹ thousand)";columnB="Rate (% p.a.)";columnC="Time (years)";note="Simple interest = principal × rate × time ÷ 100.";
     const principals=[100,200,300,400,500],rates=[5,8,10,12],years=[2,3,4,5];rows=labels.map((label,i)=>({label,a:pick(principals,`${seed}:p:${i}`),b:pick(rates,`${seed}:r:${i}`),c:pick(years,`${seed}:y:${i}`)}));derived=rows.map(r=>r.a*r.b*r.c/100);
   } else {
-    title="Selection data for five groups";columnA="Eligible candidates";columnB="Selected candidates";note="Selection rate = selected ÷ eligible × 100. Questions use selected counts as the derived comparison value.";
-    const eligible=[200,250,300,400,500];const rates=[20,25,40,50,60];rows=labels.map((label,i)=>{const a=pick(eligible,`${seed}:e:${i}`),rate=pick(rates,`${seed}:r:${i}`);return {label,a,b:a*rate/100};});derived=rows.map(r=>r.b);
+    title="Selection data for five groups";columnA="Eligible candidates";columnB="Selection rate (%)";note="Selected candidates = eligible candidates × selection rate ÷ 100.";
+    const eligible=[200,250,300,400,500];const rates=[20,25,40,50,60];rows=labels.map((label,i)=>({label,a:pick(eligible,`${seed}:e:${i}`),b:pick(rates,`${seed}:r:${i}`)}));derived=rows.map(r=>r.a*r.b/100);
   }
   if(derived.some(v=>!Number.isSafeInteger(v)||v<=0))throw new Error(`DI-008 advanced generated non-integral derived values for ${domain}.`);
   const stimulus:Di008AdvancedStimulus={kind:"ADVANCED_ARITHMETIC_DI",domain,title,instruction:"Study the data and answer the questions that follow.",columnA,columnB,columnC,rows,note};
