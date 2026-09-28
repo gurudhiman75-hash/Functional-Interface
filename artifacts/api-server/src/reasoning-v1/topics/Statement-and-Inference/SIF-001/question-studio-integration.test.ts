@@ -3,6 +3,7 @@ import { listQuestionStudioPackages, resolveQuestionStudioEngine, generateQuesti
 import { SIF_001_QUESTION_STUDIO_PACKAGE as SIF_NORMAL_PACKAGE } from "./question-studio-adapter.ts";
 import { listEnabledReasoningV1QuestionStudioPackages, listReasoningV1QuestionStudioReviewPackages, persistReasoningV1QuestionStudioReview, previewReasoningV1QuestionStudioReview } from "../../../question-studio-review-registry.ts";
 import { SIF_001_QUESTION_STUDIO_PACKAGE_ID, SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE } from "./question-studio-review.ts";
+import { SIF_BANKING_THREE_INFERENCE_PROFILE_ID } from "./banking-three-inference.ts";
 
 assert.equal(SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE.cpCount, 17);
 assert.equal(SIF_001_QUESTION_STUDIO_REVIEW_PACKAGE.lifecycleStatus, "REVIEW_ONLY");
@@ -87,4 +88,37 @@ for (const [index, paQuestion] of paRun.questions.entries()) {
   assert.equal(paQuestion.answerClass, hiQuestion.answerClass);
   assert.equal(paQuestion.correctIndex, hiQuestion.correctIndex);
 }
+
+const bankingThreeInference = await generateQuestionStudioQuestions({
+  engineId: "reasoning-v1",
+  packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID,
+  patternId: SIF_BANKING_THREE_INFERENCE_PROFILE_ID,
+  language: "pa",
+  runtimeMode: "review-only",
+  count: 5,
+  seed: "sif-banking-three-inference-integration",
+});
+assert.equal(bankingThreeInference.questions.length, 5);
+assert.equal(bankingThreeInference.generationContext?.presentationProfileId, SIF_BANKING_THREE_INFERENCE_PROFILE_ID);
+for (const question of bankingThreeInference.questions) {
+  assert.equal(question.patternId, SIF_BANKING_THREE_INFERENCE_PROFILE_ID);
+  assert.equal(question.canonicalProblemId, SIF_BANKING_THREE_INFERENCE_PROFILE_ID);
+  assert.equal(question.format, "THREE_INFERENCES");
+  assert.equal(question.language, "pa");
+  assert.equal(question.locale, "pa-IN");
+  assert.equal(question.options.length, 5);
+  assert.equal(question.inferences.length, 3);
+  assert.equal(question.reviewOnly, true);
+  assert.equal(question.questionBankWritable, false);
+  assert.equal(question.testEligible, false);
+  assert.equal(question.mockTestEligible, false);
+  assert.equal(question.publiclyPublishable, false);
+  assert.ok(["Medium", "Hard"].includes(String(question.difficulty)));
+}
+assert.equal(
+  new Set(bankingThreeInference.questions.map((question) => question.sourceAuthorityId)).size,
+  5,
+  "Banking three-inference review batch must use five distinct curated authorities",
+);
+
 console.log("PASS_SIF_001_NORMAL_QUESTION_STUDIO_INTEGRATION");
