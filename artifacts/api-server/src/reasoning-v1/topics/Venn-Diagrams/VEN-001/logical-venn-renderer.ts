@@ -176,6 +176,7 @@ function labelAnchors(
 export function renderVennTopologySvg(
   topologyId: VennTopologyId,
   labels?: readonly string[],
+  showLabels = true,
 ): string {
   const spec = TOPOLOGY_SPECS[topologyId];
   if (!spec)
@@ -186,19 +187,22 @@ export function renderVennTopologySvg(
   const actualLabels = labels ?? ["A", "B", "C"].slice(0, spec.circles.length);
   const anchors = labelAnchors(topologyId);
   if (
-    actualLabels.length !== anchors.length ||
-    actualLabels.some((label) => !label.trim())
+    showLabels &&
+    (actualLabels.length !== anchors.length ||
+      actualLabels.some((label) => !label.trim()))
   ) {
     throw new Error(
       `VEN-001 ${topologyId} requires ${anchors.length} non-empty circle labels`,
     );
   }
-  const labelSvg = actualLabels
-    .map(
-      (label, index) =>
-        `<text x="${anchors[index]!.x}" y="${anchors[index]!.y}" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#17324D">${escapeXml(label)}</text>`,
-    )
-    .join("");
+  const labelSvg = showLabels
+    ? actualLabels
+        .map(
+          (label, index) =>
+            `<text x="${anchors[index]!.x}" y="${anchors[index]!.y}" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#17324D">${escapeXml(label)}</text>`,
+        )
+        .join("")
+    : "";
 
   return [
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 172" role="img" aria-labelledby="ven-title ven-desc">',

@@ -19,6 +19,7 @@ assert.equal(packageDefinition.testEligible, false);
 assert.equal(packageDefinition.mockTestEligible, false);
 assert.equal(packageDefinition.publiclyPublishable, false);
 
+let canonicalOperationSignature: unknown;
 for (const language of ["en", "hi", "pa"] as const) {
   const result = await reasoningV1QuestionStudioAdapter.generate({
     packageId: VEN_001_QUESTION_STUDIO_PACKAGE_ID,
@@ -38,16 +39,35 @@ for (const language of ["en", "hi", "pa"] as const) {
     result.questions.map((item) => item.questionId),
     repeated.questions.map((item) => item.questionId),
   );
+  const operationSignature = result.questions.map((item) => ({
+    authorityId: item.sourceAuthorityId,
+    questionOperation: item.questionOperation,
+    topology: (item.semanticMetadata as any).targetTopologyId,
+    correctIndex: item.correctIndex,
+    optionSemantics: (item.optionDetails as any[]).map(
+      (option) => option.semanticKey,
+    ),
+  }));
+  if (language === "en") canonicalOperationSignature = operationSignature;
+  else
+    assert.deepEqual(
+      operationSignature,
+      canonicalOperationSignature,
+      `${language} must preserve operation, topology, options and answer position`,
+    );
   for (const item of result.questions) {
     assert.equal(item.options?.length, 4);
-    assert.equal((item.optionSvgs as string[]).length, 4);
+    assert.equal((item.validation as any).distinctOptions, true);
+    if (item.questionOperation === "CATEGORIES_TO_DIAGRAM") {
+      assert.equal((item.optionSvgs as string[]).length, 4);
+      assert.equal(item.stimulusSvgs, undefined);
+    } else {
+      assert.equal((item.stimulusSvgs as string[]).length, 1);
+      assert.equal(item.optionSvgs, undefined);
+    }
     assert.equal(
-      new Set(
-        item.semanticMetadata && (item.semanticMetadata as any).targetTopologyId
-          ? (item.optionDetails as any[]).map((option) => option.semanticKey)
-          : [],
-      ).size,
-      4,
+      item.canonicalAnswer,
+      item.options?.[item.correctIndex as number],
     );
     assert.equal((item.validation as any).exactlyOneCorrect, true);
     assert.equal(item.reviewOnly, true);
@@ -62,6 +82,44 @@ for (const language of ["en", "hi", "pa"] as const) {
   assert.notEqual(first.questionId, "");
 }
 assert.equal(VEN_001_SCENARIO_AUTHORITIES.length, 8);
+const reverseBatch = await reasoningV1QuestionStudioAdapter.generate({
+  packageId: VEN_001_QUESTION_STUDIO_PACKAGE_ID,
+  patternId: "VEN-CP003-REVERSE",
+  count: 4,
+  language: "en",
+  seed: "ven001-reverse-operation-proof",
+});
+assert.ok(
+  reverseBatch.questions.every(
+    (item) => item.questionOperation === "DIAGRAM_TO_CATEGORIES",
+  ),
+);
+for (const item of reverseBatch.questions) {
+  assert.equal((item.stimulusSvgs as string[]).length, 1);
+  assert.equal(item.optionSvgs, undefined);
+  assert.equal(item.options?.length, 4);
+  assert.equal((item.validation as any).exactlyOneCorrect, true);
+  assert.equal(
+    new Set((item.optionDetails as any[]).map((option) => option.semanticKey))
+      .size,
+    4,
+  );
+  assert.equal(
+    item.canonicalAnswer,
+    item.options?.[item.correctIndex as number],
+  );
+}
+const directBatch = await reasoningV1QuestionStudioAdapter.generate({
+  packageId: VEN_001_QUESTION_STUDIO_PACKAGE_ID,
+  patternId: "VEN-CP003-DIRECT",
+  count: 3,
+  seed: "ven001-direct-operation-proof",
+});
+assert.ok(
+  directBatch.questions.every(
+    (item) => item.questionOperation === "CATEGORIES_TO_DIAGRAM",
+  ),
+);
 const easyBatch = await reasoningV1QuestionStudioAdapter.generate({
   packageId: VEN_001_QUESTION_STUDIO_PACKAGE_ID,
   difficulty: "Easy",

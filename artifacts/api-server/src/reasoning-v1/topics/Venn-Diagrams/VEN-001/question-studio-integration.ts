@@ -29,6 +29,10 @@ const topologyIds: readonly VennTopologyId[] = [
   "THREE_TWO_OVERLAP_ONE_SEPARATE",
 ];
 type VennDifficulty = "Easy" | "Medium";
+type VennOperation =
+  | "MIXED"
+  | "CATEGORIES_TO_DIAGRAM"
+  | "DIAGRAM_TO_CATEGORIES";
 const localeByLanguage: Record<QuestionStudioLanguage, VennLocale> = {
   en: "en-IN",
   hi: "hi-IN",
@@ -87,6 +91,8 @@ function selectedAuthorities(
   const allowed = new Set([
     "VEN-001",
     "VEN-CP003",
+    "VEN-CP003-DIRECT",
+    "VEN-CP003-REVERSE",
     ...VEN_001_SCENARIO_AUTHORITIES.map((a) => a.authorityId),
   ]);
   const unknown = selectors.find(
@@ -103,6 +109,59 @@ function selectedAuthorities(
     throw new Error(`VEN-001 has no scenario for ${authorityId}`);
   return result;
 }
+function requestedOperation(
+  request: QuestionStudioGenerationRequest,
+): VennOperation {
+  const selectors = [
+    request.patternId,
+    request.canonicalProblemId,
+    request.questionLanguageId,
+  ].map((value) => text(value).toUpperCase());
+  if (selectors.includes("VEN-CP003-DIRECT")) return "CATEGORIES_TO_DIAGRAM";
+  if (selectors.includes("VEN-CP003-REVERSE")) return "DIAGRAM_TO_CATEGORIES";
+  return "MIXED";
+}
+function categoryOption(
+  authority: VennScenarioAuthority,
+  locale: VennLocale,
+): string {
+  return authority.sets
+    .map((set) => `${set.setId} = ${set.labels[locale]}`)
+    .join(locale === "en-IN" ? "; " : "；");
+}
+function reverseDistractors(
+  authority: VennScenarioAuthority,
+  seed: number,
+): VennScenarioAuthority[] {
+  return VEN_001_SCENARIO_AUTHORITIES.filter(
+    (candidate) =>
+      candidate.authorityId !== authority.authorityId &&
+      candidate.topologyId !== authority.topologyId,
+  )
+    .sort(
+      (a, b) =>
+        stableHash(`${seed}:${a.authorityId}`) -
+          stableHash(`${seed}:${b.authorityId}`) ||
+        a.authorityId.localeCompare(b.authorityId),
+    )
+    .slice(0, 3);
+}
+function relationExplanation(
+  authority: VennScenarioAuthority,
+  locale: VennLocale,
+  reverse: boolean,
+): string {
+  const facts = relationText(authority, locale).join(
+    locale === "en-IN" ? "; " : "；",
+  );
+  if (!reverse) return facts + (locale === "en-IN" ? "." : "।");
+  if (locale === "hi-IN")
+    return `आरेख में तीन समूहों की यही बनावट दिखाई गई है: ${facts}।`;
+  if (locale === "pa-IN")
+    return `ਚਿੱਤਰ ਵਿੱਚ ਤਿੰਨ ਸਮੂਹਾਂ ਦੀ ਇਹੀ ਬਣਤਰ ਦਿਖਾਈ ਗਈ ਹੈ: ${facts}।`;
+  return `The diagram has this three-group structure: ${facts}.`;
+}
+
 function correctCircleLabelOrder(authority: VennScenarioAuthority): string[] {
   if (authority.topologyId === "THREE_NESTED") {
     const supersets = new Map(authority.sets.map((set) => [set.setId, 0]));
@@ -151,6 +210,14 @@ function stemFor(authority: VennScenarioAuthority, locale: VennLocale): string {
     return `ਮੰਨੋ, ${groups}। ਕਿਹੜਾ ਚਿੱਤਰ ਇਨ੍ਹਾਂ ਸਮੂਹਾਂ ਦਾ ਸਹੀ ਸੰਬੰਧ ਦਿਖਾਉਂਦਾ ਹੈ?`;
   return `Let ${groups}. Which diagram shows the relationship among these groups?`;
 }
+function stemForDiagram(locale: VennLocale): string {
+  if (locale === "hi-IN")
+    return "दिए गए वेन आरेख से मेल खाने वाले तीन समूहों का सही सेट चुनें।";
+  if (locale === "pa-IN")
+    return "ਦਿੱਤੇ ਵੇਨ ਚਿੱਤਰ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਤਿੰਨ ਸਮੂਹਾਂ ਦਾ ਸਹੀ ਸੈੱਟ ਚੁਣੋ।";
+  return "Choose the set of three groups that best matches the Venn diagram.";
+}
+
 function relationText(
   authority: VennScenarioAuthority,
   locale: VennLocale,
@@ -245,6 +312,10 @@ export const VEN_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition =
       reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
       registrationAuthorityId: VEN_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
       permanentQlIdsAllocated: false,
+      supportedQuestionOperations: [
+        "CATEGORIES_TO_DIAGRAM",
+        "DIAGRAM_TO_CATEGORIES",
+      ],
     },
   };
 
@@ -288,6 +359,7 @@ export function generateVen001QuestionStudioBatch(
   const lang = language(request.language);
   const locale = localeByLanguage[lang];
   const baseSeed = text(request.seed) || "ven-001-question-studio-review-v1";
+  const operation = requestedOperation(request);
   const authorities = selectedAuthorities(request)
     .filter(
       (authority) =>
@@ -318,25 +390,69 @@ export function generateVen001QuestionStudioBatch(
         `VEN-001 authority ${authority.authorityId} is not satisfiable`,
       );
     const seed = `${baseSeed}:${authority.authorityId}:${index}`;
+    const reverse =
+      operation === "DIAGRAM_TO_CATEGORIES" ||
+      (operation === "MIXED" && stableHash(`${seed}:operation`) % 2 === 1);
     const targetLabels = correctCircleLabelOrder(authority);
-    const selectedOptions = shuffle(
-      [
-        authority.topologyId,
-        ...distractors(authority.topologyId, stableHash(seed)),
-      ],
-      stableHash(`${seed}:option-order`),
-    );
-    const correctIndex = selectedOptions.indexOf(authority.topologyId);
-    const optionSvgs = selectedOptions.map((topologyId) =>
-      renderVennTopologySvg(
-        topologyId,
-        topologyId === authority.topologyId ? targetLabels : ["A", "B", "C"],
-      ),
-    );
-    const stem = stemFor(authority, locale);
-    const explanation =
-      relationText(authority, locale).join(locale === "en-IN" ? "; " : "；") +
-      (locale === "en-IN" ? "." : "।");
+    let options: string[];
+    let optionSvgs: string[] | undefined;
+    let stimulusSvgs: string[] | undefined;
+    let optionDetails: Record<string, unknown>[];
+    let correctIndex: number;
+    if (reverse) {
+      const distractorAuthorities = reverseDistractors(
+        authority,
+        stableHash(`${seed}:reverse-options`),
+      );
+      if (distractorAuthorities.length !== 3)
+        throw new Error(
+          `VEN-001 needs three unique reverse-choice authorities for ${authority.authorityId}`,
+        );
+      const candidates = shuffle(
+        [authority, ...distractorAuthorities],
+        stableHash(`${seed}:reverse-option-order`),
+      );
+      options = candidates.map((candidate) =>
+        categoryOption(candidate, locale),
+      );
+      correctIndex = candidates.findIndex(
+        (candidate) => candidate.authorityId === authority.authorityId,
+      );
+      stimulusSvgs = [
+        renderVennTopologySvg(authority.topologyId, undefined, false),
+      ];
+      optionDetails = candidates.map((candidate, optionIndex) => ({
+        label: String.fromCharCode(65 + optionIndex),
+        text: options[optionIndex],
+        isCorrect: optionIndex === correctIndex,
+        semanticKey: candidate.authorityId,
+      }));
+    } else {
+      const selectedOptions = shuffle(
+        [
+          authority.topologyId,
+          ...distractors(authority.topologyId, stableHash(seed)),
+        ],
+        stableHash(`${seed}:option-order`),
+      );
+      correctIndex = selectedOptions.indexOf(authority.topologyId);
+      optionSvgs = selectedOptions.map((topologyId) =>
+        renderVennTopologySvg(
+          topologyId,
+          topologyId === authority.topologyId ? targetLabels : ["A", "B", "C"],
+        ),
+      );
+      options = ["A", "B", "C", "D"];
+      optionDetails = optionSvgs.map((svg, optionIndex) => ({
+        label: String.fromCharCode(65 + optionIndex),
+        text: "Venn diagram",
+        svg,
+        isCorrect: optionIndex === correctIndex,
+        semanticKey: selectedOptions[optionIndex],
+      }));
+    }
+    const stem = reverse ? stemForDiagram(locale) : stemFor(authority, locale);
+    const explanation = relationExplanation(authority, locale, reverse);
     return {
       ...lifecycle,
       id: `${authority.authorityId}:${stableHash(seed)}:${lang}`,
@@ -352,24 +468,22 @@ export function generateVen001QuestionStudioBatch(
       subject: "Reasoning",
       topic: "Logical Venn Diagrams",
       subtopic: "Category-set classification",
+      questionOperation: reverse
+        ? "DIAGRAM_TO_CATEGORIES"
+        : "CATEGORIES_TO_DIAGRAM",
       language: lang,
       locale,
       stem,
       text: stem,
-      options: ["A", "B", "C", "D"],
+      options,
       optionLabels: ["A", "B", "C", "D"],
-      optionSvgs,
-      optionDetails: optionSvgs.map((svg, optionIndex) => ({
-        label: String.fromCharCode(65 + optionIndex),
-        text: "Venn diagram",
-        svg,
-        isCorrect: optionIndex === correctIndex,
-        semanticKey: selectedOptions[optionIndex],
-      })),
+      ...(optionSvgs ? { optionSvgs } : {}),
+      ...(stimulusSvgs ? { stimulusSvgs } : {}),
+      optionDetails,
       correctIndex,
       correct: correctIndex,
       answer: String.fromCharCode(65 + correctIndex),
-      canonicalAnswer: String.fromCharCode(65 + correctIndex),
+      canonicalAnswer: options[correctIndex],
       explanation,
       difficulty: difficultyFor(authority.topologyId),
       difficultyLabel: difficultyFor(authority.topologyId),
@@ -394,9 +508,10 @@ export function generateVen001QuestionStudioBatch(
       validation: {
         topologySatisfiable: true,
         exactlyOneCorrect:
-          selectedOptions.filter((id) => id === authority.topologyId).length ===
+          optionDetails.filter((option) => option.isCorrect === true).length ===
           1,
-        distinctOptions: new Set(selectedOptions).size === 4,
+        distinctOptions:
+          new Set(optionDetails.map((option) => option.semanticKey)).size === 4,
         localeParityPendingHumanReview: true,
       },
       semanticMetadata: {
@@ -421,6 +536,7 @@ export function generateVen001QuestionStudioBatch(
       registrationStatus: "REGISTERED_REVIEW_ONLY",
       registrationAuthorityId: VEN_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
       language: lang,
+      requestedOperation: operation,
       requestedDifficulty: difficulty ?? "Mixed",
       difficultyFilterApplied: difficulty !== undefined,
       difficultyCalibrationStatus: "PROVISIONAL_STRUCTURE_BASED_CANDIDATE",

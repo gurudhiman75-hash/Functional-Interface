@@ -42,6 +42,10 @@ assert.throws(
   () => renderVennTopologySvg("TWO_DISJOINT", ["A"]),
   /requires 2 non-empty circle labels/,
 );
+assert.doesNotMatch(
+  renderVennTopologySvg("THREE_NESTED", undefined, false),
+  /<text /,
+);
 
 function circleGeometry(svg: string) {
   return [...svg.matchAll(/<circle cx="(\d+)" cy="(\d+)" r="(\d+)" \/>/g)].map(
