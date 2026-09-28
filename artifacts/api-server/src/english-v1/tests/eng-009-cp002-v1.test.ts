@@ -2,10 +2,10 @@ import assert from"node:assert/strict";
 import{ENG009_CP002_PASSAGES_V1,ENG009_CP002_BLANKS_V1}from"../chapters/cloze-test/ENG-009/CP002/eng-009-cp002-authorities-v1";
 import{generateEng009Cp002QuestionV1,generateEng009Cp002SetV1,renderEng009Cp002Passage}from"../chapters/cloze-test/ENG-009/CP002/eng-009-cp002-v1";
 
-assert.equal(ENG009_CP002_PASSAGES_V1.length,10);
-assert.equal(ENG009_CP002_BLANKS_V1.length,50);
-assert.equal(new Set(ENG009_CP002_PASSAGES_V1.map(x=>x.id)).size,10);
-assert.equal(new Set(ENG009_CP002_BLANKS_V1.map(x=>x.blank.id)).size,50);
+assert.equal(ENG009_CP002_PASSAGES_V1.length,12);
+assert.equal(ENG009_CP002_BLANKS_V1.length,60);
+assert.equal(new Set(ENG009_CP002_PASSAGES_V1.map(x=>x.id)).size,12);
+assert.equal(new Set(ENG009_CP002_BLANKS_V1.map(x=>x.blank.id)).size,60);
 
 const kinds=new Set<string>(),diffs=new Set<string>();
 for(const p of ENG009_CP002_PASSAGES_V1){
@@ -38,4 +38,4 @@ for(let i=0;i<4000;i++){
  assert.equal(q.options.length,4);
  assert.equal(new Set(q.options.map(x=>x.toLowerCase())).size,4);
 }
-console.log("ENG-009 CP002 SSC advanced cloze audit passed.",{passages:10,blanks:50,soak:4000});
+console.log("ENG-009 CP002 SSC advanced cloze audit passed.",{passages:12,blanks:60,soak:4000});
