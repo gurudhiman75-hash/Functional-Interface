@@ -74,7 +74,7 @@ function rule(q:Q,l:'hi'|'pa'):string{
 }
 function trace(s:string,l:'hi'|'pa'):string{
  let o=s;
- o=o.replace(/Product of digits of (\\d+) = (\\d+)/g,(_all,n,p)=>
+ o=o.replace(/Product of digits of (\d+) = (\d+)/g,(_all,n,p)=>
    l==='hi'
      ? `${n} के अंकों का गुणनफल = ${p}`
      : `${n} ਦੇ ਅੰਕਾਂ ਦਾ ਗੁਣਨਫਲ = ${p}`
