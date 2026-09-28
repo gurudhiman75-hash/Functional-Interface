@@ -10,10 +10,12 @@ const packageIds = new Set([packageId, ...cpIds]);
 const locales = { en: 'en-IN', hi: 'hi-IN', pa: 'pa-IN' };
 const registrationAuthorityId = 'WGE-001-WORLD-GEOGRAPHY-AUTHORED-REVIEW-V1';
 const normalize = (v: string | undefined) => (v ?? '').trim().toUpperCase();
+// CP037–CP038 were revised after approval; their replacement wording returns to review.
+const isAuthoringApproved = (cp: string) => { const n = Number(cp.slice(-3)); return n <= 36 || (n >= 39 && n <= 40); };
 
 function definition(cp?: WorldGeographyCpId): QuestionStudioPackageDefinition {
   const rows = WGE_CORPUS.filter(q => !cp || q.cpId === cp);
-  const authoringReviewApproved = rows.every(q => Number(q.cpId.slice(-3)) <= 40);
+  const authoringReviewApproved = rows.every(q => isAuthoringApproved(q.cpId));
   return {
     engineId: 'knowledge-v1', packageId: cp ?? packageId, subject: 'Static GK',
     topic: 'World Geography', subtopic: cp ? WGE_CP_TITLES[cp] : 'World Geography',
@@ -106,8 +108,8 @@ export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         difficulty: q.difficulty, difficultyLabel: q.difficulty, learningObjective: q.objective,
         sourceIds: [...q.sourceIds], sourceReferences: WGE_SOURCES.filter(s => q.sourceIds.includes(s.id)),
         registrationAuthorityId, registrationStatus: 'REGISTERED_REVIEW_ONLY',
-        authoringReviewApproved: Number(q.cpId.slice(-3)) <= 40,
-        localizationStatus: Number(q.cpId.slice(-3)) <= 40 ? 'USER_APPROVED' : 'REVIEW_REQUIRED', reviewOnly: true,
+        authoringReviewApproved: isAuthoringApproved(q.cpId),
+        localizationStatus: isAuthoringApproved(q.cpId) ? 'USER_APPROVED' : 'REVIEW_REQUIRED', reviewOnly: true,
         readOnly: true, runtimeRegistered: true, productionReleased: false,
         revisionPolicy: 'REVISE_SOURCE_CORPUS_AND_RELOCALIZE_ALL_LANGUAGES',
       };
@@ -116,8 +118,8 @@ export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       ...lifecycle, engineId: 'knowledge-v1', packageId: requestedPackage,
       canonicalPackageId: packageId, runtimeMode, registrationAuthorityId,
       registrationStatus: 'REGISTERED_REVIEW_ONLY',
-      authoringReviewApproved: WGE_CORPUS.filter(q => !cp || q.cpId === cp).every(q => Number(q.cpId.slice(-3)) <= 40),
-      localizationStatus: WGE_CORPUS.filter(q => !cp || q.cpId === cp).every(q => Number(q.cpId.slice(-3)) <= 40) ? 'USER_APPROVED' : 'REVIEW_REQUIRED', language, locale: locales[language], difficulty,
+      authoringReviewApproved: WGE_CORPUS.filter(q => !cp || q.cpId === cp).every(q => isAuthoringApproved(q.cpId)),
+      localizationStatus: WGE_CORPUS.filter(q => !cp || q.cpId === cp).every(q => isAuthoringApproved(q.cpId)) ? 'USER_APPROVED' : 'REVIEW_REQUIRED', language, locale: locales[language], difficulty,
       cpId: cp ?? null, seed, requestedCount: count, candidateCount: candidates.length,
       corpusQuestionCount: WGE_CORPUS.length, studentPublicationAuthorized: false,
     } };
