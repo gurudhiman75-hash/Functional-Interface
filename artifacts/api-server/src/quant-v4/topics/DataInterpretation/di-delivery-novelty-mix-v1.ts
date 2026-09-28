@@ -312,39 +312,51 @@ function rebalanceAssignmentsForHardDiversity(
 
   let step=0;
   while(hardCapacity()<hardTarget){
-    const donors=adjusted
-      .filter(assignment=>isHardEligible(assignment.mode,profile)&&assignment.count>perModeCap)
-      .map(assignment=>({assignment,rank:hashSeed(`${seed}:hard-diversity:donor:${step}:${assignment.tier}:${assignment.mode.id}`)}))
-      .sort((a,b)=>a.rank-b.rank||b.assignment.count-a.assignment.count||a.assignment.mode.id.localeCompare(b.assignment.mode.id));
-    const donor=donors[0]?.assignment;
-    if(!donor){
-      throw new Error(`DI novelty mix cannot create ${hardTarget} Hard slots within a ${perModeCap}-per-source cap.`);
-    }
-
-    const currentCounts=new Map(
-      adjusted
-        .filter(assignment=>assignment.tier===donor.tier)
-        .map(assignment=>[assignment.mode.id,assignment.count] as const)
-    );
-    const targets=SOURCE_MODES
-      .filter(mode=>
-        mode.tier===donor.tier
-        &&mode.profiles.includes(profile)
-        &&isHardEligible(mode,profile)
-        &&mode.id!==donor.mode.id
-        &&(currentCounts.get(mode.id)??0)<perModeCap
+    const donorCandidates=adjusted
+      .filter(assignment=>
+        assignment.count>0
+        &&(!isHardEligible(assignment.mode,profile)||assignment.count>perModeCap)
       )
-      .map(mode=>({
-        mode,
-        count:currentCounts.get(mode.id)??0,
-        rank:hashSeed(`${seed}:hard-diversity:target:${step}:${donor.tier}:${mode.id}`),
-      }))
-      .sort((a,b)=>a.count-b.count||a.rank-b.rank||a.mode.id.localeCompare(b.mode.id));
-    const targetMode=targets[0]?.mode;
-    if(!targetMode){
-      throw new Error(`DI novelty mix cannot diversify Hard sources inside ${donor.tier}; no under-cap hard-capable target exists.`);
+      .map(assignment=>{
+        const currentCounts=new Map(
+          adjusted
+            .filter(candidate=>candidate.tier===assignment.tier)
+            .map(candidate=>[candidate.mode.id,candidate.count] as const)
+        );
+        const targets=SOURCE_MODES
+          .filter(mode=>
+            mode.tier===assignment.tier
+            &&mode.profiles.includes(profile)
+            &&isHardEligible(mode,profile)
+            &&mode.id!==assignment.mode.id
+            &&(currentCounts.get(mode.id)??0)<perModeCap
+          )
+          .map(mode=>({
+            mode,
+            count:currentCounts.get(mode.id)??0,
+            rank:hashSeed(`${seed}:hard-diversity:target:${step}:${assignment.tier}:${mode.id}`),
+          }))
+          .sort((a,b)=>a.count-b.count||a.rank-b.rank||a.mode.id.localeCompare(b.mode.id));
+        return {
+          assignment,
+          targets,
+          donorRank:hashSeed(`${seed}:hard-diversity:donor:${step}:${assignment.tier}:${assignment.mode.id}`),
+        };
+      })
+      .filter(candidate=>candidate.targets.length>0)
+      .sort((a,b)=>
+        a.donorRank-b.donorRank
+        ||b.assignment.count-a.assignment.count
+        ||a.assignment.mode.id.localeCompare(b.assignment.mode.id)
+      );
+
+    const candidate=donorCandidates[0];
+    if(!candidate){
+      throw new Error(`DI novelty mix cannot create ${hardTarget} Hard slots within a ${perModeCap}-per-source cap across the available novelty tiers.`);
     }
 
+    const donor=candidate.assignment;
+    const targetMode=candidate.targets[0]!.mode;
     donor.count-=1;
     const existing=adjusted.find(assignment=>assignment.tier===donor.tier&&assignment.mode.id===targetMode.id);
     if(existing) existing.count+=1;
