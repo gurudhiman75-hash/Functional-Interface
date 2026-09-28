@@ -1,0 +1,172 @@
+[
+  {
+    "id": "WGE-001-CP039-Q001",
+    "cpId": "WGE-001-CP039",
+    "objective": "lake-superior-area-versus-volume",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-020A",
+      "WGE-PHY-020B",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which Great Lake is largest by surface area?",
+        "options": "Lake Erie",
+        "explanation": "Lake Ontario"
+      },
+      "hi": {
+        "stem": "क्षेत्रफल के आधार पर कौन-सी महान झील सबसे बड़ी है?",
+        "options": "एरी झील",
+        "explanation": "ओंटारियो झील"
+      },
+      "pa": {
+        "stem": "ਸਤਹੀ ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਕਿਹੜੀ ਮਹਾਨ ਝੀਲ ਸਭ ਤੋਂ ਵੱਡੀ ਹੈ?",
+        "options": "ਏਰੀ ਝੀਲ",
+        "explanation": "ਓਂਟਾਰੀਓ ਝੀਲ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP039-Q002",
+    "cpId": "WGE-001-CP039",
+    "objective": "baikal-freshwater-volume",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-PHY-020B",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which lake is known for holding the greatest volume of freshwater among the world’s lakes?",
+        "options": "Lake Baikal",
+        "explanation": "Lake Victoria"
+      },
+      "hi": {
+        "stem": "विश्व की झीलों में मीठे पानी का सबसे अधिक आयतन किस झील में है?",
+        "options": "बैकाल झील",
+        "explanation": "विक्टोरिया झील"
+      },
+      "pa": {
+        "stem": "ਦੁਨੀਆ ਦੀਆਂ ਝੀਲਾਂ ਵਿੱਚ ਤਾਜ਼ੇ ਪਾਣੀ ਦਾ ਸਭ ਤੋਂ ਵੱਧ ਆਇਤਨ ਕਿਹੜੀ ਝੀਲ ਵਿੱਚ ਹੈ?",
+        "options": "ਬੈਕਾਲ ਝੀਲ",
+        "explanation": "ਵਿਕਟੋਰੀਆ ਝੀਲ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP039-Q003",
+    "cpId": "WGE-001-CP039",
+    "objective": "elevation-vs-local-relief",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A mountain summit is 6,000 m above sea level and rises 4,000 m above its nearby base. Which pair gives elevation and local rise, in that order?",
+        "options": "4,000 m and 6,000 m",
+        "explanation": "10,000 m and 6,000 m"
+      },
+      "hi": {
+        "stem": "एक पर्वत-शिखर समुद्र तल से ६,००० मीटर ऊँचा है और पास के आधार से ४,००० मीटर ऊपर उठता है। क्रमशः ऊँचाई और स्थानीय उभार कितना है?",
+        "options": "४,००० मीटर और ६,००० मीटर",
+        "explanation": "१०,००० मीटर और ६,००० मीटर"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਪਹਾੜੀ ਚੋਟੀ ਸਮੁੰਦਰ ਤਲ ਤੋਂ ੬,੦੦੦ ਮੀਟਰ ਉੱਚੀ ਹੈ ਅਤੇ ਨੇੜਲੇ ਪਾਏ ਤੋਂ ੪,੦੦੦ ਮੀਟਰ ਚੜ੍ਹਦੀ ਹੈ। ਕ੍ਰਮਵਾਰ ਉਚਾਈ ਅਤੇ ਸਥਾਨਕ ਉਭਾਰ ਕਿੰਨਾ ਹੈ?",
+        "options": "੪,੦੦੦ ਮੀਟਰ ਅਤੇ ੬,੦੦੦ ਮੀਟਰ",
+        "explanation": "੧੦,੦੦੦ ਮੀਟਰ ਅਤੇ ੬,੦੦੦ ਮੀਟਰ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP039-Q004",
+    "cpId": "WGE-001-CP039",
+    "objective": "antarctica-largest-desert-sahara-hot",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-021A",
+      "WGE-POLAR-NOAA",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which statement distinguishes the largest desert from the largest hot desert?",
+        "options": "Sahara is largest overall; Antarctica is the largest hot desert",
+        "explanation": "Antarctica is largest overall; Sahara is the largest hot desert"
+      },
+      "hi": {
+        "stem": "सबसे बड़े मरुस्थल और सबसे बड़े गर्म मरुस्थल में सही अंतर कौन-सा है?",
+        "options": "सहारा कुल मिलाकर सबसे बड़ा है; अंटार्कटिका सबसे बड़ा गर्म मरुस्थल है",
+        "explanation": "अंटार्कटिका कुल मिलाकर सबसे बड़ा है; सहारा सबसे बड़ा गर्म मरुस्थल है"
+      },
+      "pa": {
+        "stem": "ਸਭ ਤੋਂ ਵੱਡੇ ਮਾਰੂਥਲ ਅਤੇ ਸਭ ਤੋਂ ਵੱਡੇ ਗਰਮ ਮਾਰੂਥਲ ਵਿੱਚ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?",
+        "options": "ਸਹਾਰਾ ਕੁੱਲ ਮਿਲਾ ਕੇ ਸਭ ਤੋਂ ਵੱਡਾ ਹੈ; ਅੰਟਾਰਕਟਿਕਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗਰਮ ਮਾਰੂਥਲ ਹੈ",
+        "explanation": "ਅੰਟਾਰਕਟਿਕਾ ਕੁੱਲ ਮਿਲਾ ਕੇ ਸਭ ਤੋਂ ਵੱਡਾ ਹੈ; ਸਹਾਰਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗਰਮ ਮਾਰੂਥਲ ਹੈ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP039-Q005",
+    "cpId": "WGE-001-CP039",
+    "objective": "river-length-source-dependent",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-PHY-019A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Why should a question about the ‘world’s longest river’ name its measurement source or convention?",
+        "options": "River lengths never change",
+        "explanation": "Every atlas measures tributaries identically"
+      },
+      "hi": {
+        "stem": "‘विश्व की सबसे लंबी नदी’ पर प्रश्न में मापन का स्रोत या पद्धति बताना क्यों उपयोगी है?",
+        "options": "नदियों की लंबाई कभी नहीं बदलती",
+        "explanation": "हर एटलस सहायक नदियों को एक ही तरह मापता है"
+      },
+      "pa": {
+        "stem": "‘ਦੁਨੀਆ ਦੀ ਸਭ ਤੋਂ ਲੰਮੀ ਨਦੀ’ ਬਾਰੇ ਸਵਾਲ ਵਿੱਚ ਮਾਪ ਦਾ ਸਰੋਤ ਜਾਂ ਢੰਗ ਦੱਸਣਾ ਕਿਉਂ ਚੰਗਾ ਹੈ?",
+        "options": "ਨਦੀਆਂ ਦੀ ਲੰਬਾਈ ਕਦੇ ਨਹੀਂ ਬਦਲਦੀ",
+        "explanation": "ਹਰ ਐਟਲਸ ਸਹਾਇਕ ਨਦੀਆਂ ਨੂੰ ਇੱਕੋ ਤਰ੍ਹਾਂ ਮਾਪਦਾ ਹੈ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP039-Q006",
+    "cpId": "WGE-001-CP039",
+    "objective": "territory-country-capital-qualification",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-M49",
+      "WGE-REG-UNGEGN",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which statement about Greenland and Nuuk is most precise?",
+        "options": "Nuuk is Greenland’s capital; Greenland is an autonomous territory within the Kingdom of Denmark",
+        "explanation": "Nuuk is the capital of an independent sovereign state called Greenland"
+      },
+      "hi": {
+        "stem": "ग्रीनलैंड और नूक के बारे में कौन-सा कथन सबसे सटीक है?",
+        "options": "नूक ग्रीनलैंड की राजधानी है; ग्रीनलैंड डेनमार्क राज्य के भीतर एक स्वायत्त क्षेत्र है",
+        "explanation": "नूक स्वतंत्र संप्रभु देश ग्रीनलैंड की राजधानी है"
+      },
+      "pa": {
+        "stem": "ਗ੍ਰੀਨਲੈਂਡ ਅਤੇ ਨੂਕ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਭ ਤੋਂ ਸਹੀ ਹੈ?",
+        "options": "ਨੂਕ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਗ੍ਰੀਨਲੈਂਡ ਡੈਨਮਾਰਕ ਰਾਜ ਅੰਦਰ ਖੁਦਮੁਖਤਿਆਰ ਇਲਾਕਾ ਹੈ",
+        "explanation": "ਨੂਕ ਆਜ਼ਾਦ ਸਰਬਭੌਮ ਗ੍ਰੀਨਲੈਂਡ ਦੀ ਰਾਜਧਾਨੀ ਹੈ"
+      }
+    }
+  }
+]
