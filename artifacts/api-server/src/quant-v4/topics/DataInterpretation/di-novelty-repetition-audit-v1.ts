@@ -94,7 +94,7 @@ function dominantShare(values:string[]){
 function scoreMode(row:any){
   const stateScore=Math.min(100,row.stimulusUniqueRatio*100);
   const exactStemScore=Math.min(100,row.exactStemUniqueRatio*100);
-  const frameScore=Math.max(0,100-(row.dominantFrameShare*100-10)*1.4);
+  const frameScore=Math.min(100,Math.max(0,100-(row.dominantFrameShare*100-10)*1.4));
   const taskScore=Math.min(100,row.taskFamilyCount*9);
   const explanationScore=Math.min(100,row.explanationUniqueRatio*100);
   return Math.round(stateScore*.30+exactStemScore*.15+frameScore*.25+taskScore*.20+explanationScore*.10);
