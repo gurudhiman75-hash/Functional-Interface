@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Inference/SIF-001/**'
-      - '.github/workflows/sif-001-v1-chapter-freeze.yml'
   workflow_dispatch:
 
 permissions:
