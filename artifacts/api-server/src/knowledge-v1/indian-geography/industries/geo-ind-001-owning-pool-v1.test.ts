@@ -1,0 +1,10 @@
+import assert from "node:assert/strict";
+import { GEO_IND_001_OWNING_POOL_V1, auditGeoInd001OwningPoolV1 } from "./geo-ind-001-owning-pool-v1";
+const a=auditGeoInd001OwningPoolV1();
+assert.equal(a.valid,true,a.issues.join("\n"));
+assert.equal(a.questionCount,690);
+assert.equal(a.permanentQlCount,115);
+assert.equal(a.stemCount,690);
+assert.equal(a.explanationCount,690);
+assert.equal(GEO_IND_001_OWNING_POOL_V1.length,690);
+console.log(JSON.stringify(a,null,2));
