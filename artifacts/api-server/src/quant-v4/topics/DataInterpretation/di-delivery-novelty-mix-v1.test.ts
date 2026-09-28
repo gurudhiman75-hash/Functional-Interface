@@ -31,6 +31,12 @@ assert.deepEqual(banking.generationContext.noveltyMix.actualCounts,{STANDARD:15,
 assert.deepEqual(banking.generationContext.difficultyMix.actualCounts,{Easy:3,Medium:9,Hard:8});
 assert.deepEqual(banking.generationContext.difficultyMix.requestedCounts,{Easy:3,Medium:9,Hard:8});
 const mainsHardIneligible=new Set([
+  "DI001_BASIC_TABLE",
+  "DI003_GROUPED_BAR",
+  "DI004_TWO_SERIES_LINE",
+  "DI005_HIDDEN_PIE",
+  "DI005_VISIBLE_PIE",
+  "DI006_BASE_CASELET",
   "DI003_SINGLE_BAR",
   "DI004_SINGLE_LINE",
   "DI005_DONUT",
@@ -115,6 +121,25 @@ assert(
   (hardOverride.questions as any[]).every(q=>!mainsHardIneligible.has(q.noveltySourceMode)),
   "Explicit Banking Mains Hard override must use only hard-capable source modes.",
 );
+
+for(let i=0;i<20;i+=1){
+  const result=await generateDiDeliveryNoveltyMix({
+    packageId:DI_DELIVERY_NOVELTY_MIX_PACKAGE_ID,
+    examProfile:"BANKING_MAINS",
+    language:"en",
+    seed:`DI-MIX-MAINS-HARD-GUARD-${i}`,
+    count:20,
+  });
+  assert.deepEqual(result.generationContext.difficultyMix.actualCounts,{Easy:3,Medium:9,Hard:8});
+  for(const q of result.questions as any[]){
+    if((q.difficultyLabel??q.difficulty)==="Hard"){
+      assert(
+        !mainsHardIneligible.has(q.noveltySourceMode),
+        `Banking Mains Hard slot used excluded source ${q.noveltySourceMode} for seed ${i}`,
+      );
+    }
+  }
+}
 
 const highNoveltySources=new Set<string>();
 for(let i=0;i<25;i+=1){
