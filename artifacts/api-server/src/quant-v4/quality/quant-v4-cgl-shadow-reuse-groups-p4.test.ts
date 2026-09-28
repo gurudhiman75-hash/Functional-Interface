@@ -90,6 +90,12 @@ for (const group of repeated) {
   }
 }
 
+assert.equal(
+  byPackage.get("GEO-001")?.repeatedItems ?? 0,
+  0,
+  "Stateful exact-reuse diagnostic must preserve the authoritative GEO no-reuse result.",
+);
+
 console.log("QUANT_V4_CGL_SHADOW_REUSE_GROUPS_P4", JSON.stringify({
   sections: sections.length,
   records: records.length,
