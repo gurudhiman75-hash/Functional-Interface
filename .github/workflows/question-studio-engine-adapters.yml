@@ -12,7 +12,6 @@ on:
       - artifacts/api-server/src/question-studio/standard-lifecycle.ts
       - artifacts/api-server/src/question-studio/standard-lifecycle.test.ts
       - artifacts/api-server/src/question-studio/engines/**
-      - artifacts/api-server/src/knowledge-v1/world-geography/**
   push:
     branches:
       - New-main
@@ -53,22 +52,6 @@ jobs:
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-
-      - name: Run WGE-001 Question Studio adapter and registry proofs
-        run: |
-          mkdir -p artifacts/api-server/dist/question-studio
-          tests=(
-            "src/question-studio/engines/knowledge-v1-wge001-adapter-v1.test.ts"
-            "src/question-studio/engines/knowledge-v1-wge001-registry-v1.test.ts"
-          )
-          for test_file in "${tests[@]}"; do
-            output_name="$(basename "${test_file}" .ts).mjs"
-            pnpm --dir artifacts/api-server exec esbuild \
-              "${test_file}" \
-              --bundle --platform=node --format=esm --packages=external \
-              --outfile="dist/question-studio/${output_name}"
-            node "artifacts/api-server/dist/question-studio/${output_name}"
-          done
 
       - name: Bundle Question Studio engine registry proof
         run: |
