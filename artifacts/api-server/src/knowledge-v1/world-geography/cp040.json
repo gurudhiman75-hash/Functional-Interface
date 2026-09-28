@@ -1,0 +1,180 @@
+[
+  {
+    "id": "WGE-001-CP040-Q001",
+    "cpId": "WGE-001-CP040",
+    "objective": "map-scale-distance",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-019B",
+      "WGE-TRN-WB-CORRIDORS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "On a map with scale 1:100,000, what ground distance does 2 cm represent?",
+        "options": "200 m",
+        "explanation": "2 km"
+      },
+      "hi": {
+        "stem": "१:१००,००० पैमाने वाले मानचित्र पर २ सेमी कितनी वास्तविक दूरी दर्शाते हैं?",
+        "options": "२०० मीटर",
+        "explanation": "२ किलोमीटर"
+      },
+      "pa": {
+        "stem": "੧:੧੦੦,੦੦੦ ਪੈਮਾਨੇ ਵਾਲੇ ਨਕਸ਼ੇ ਉੱਤੇ ੨ ਸੈਂਟੀਮੀਟਰ ਜ਼ਮੀਨ ਉੱਤੇ ਕਿੰਨੀ ਦੂਰੀ ਦੱਸਦੇ ਹਨ?",
+        "options": "੨੦੦ ਮੀਟਰ",
+        "explanation": "੨ ਕਿਲੋਮੀਟਰ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP040-Q002",
+    "cpId": "WGE-001-CP040",
+    "objective": "map-projection-distortion",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-019B",
+      "WGE-TRN-WB-CORRIDORS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Why can the shape or area of a continent look different on two world maps?",
+        "options": "Continents move when a map is printed",
+        "explanation": "All map scales are identical"
+      },
+      "hi": {
+        "stem": "दो विश्व मानचित्रों पर किसी महाद्वीप का आकार या क्षेत्रफल अलग क्यों दिख सकता है?",
+        "options": "छपाई के समय महाद्वीप खिसक जाते हैं",
+        "explanation": "सभी मानचित्रों का पैमाना एक जैसा होता है"
+      },
+      "pa": {
+        "stem": "ਦੋ ਵਿਸ਼ਵ ਨਕਸ਼ਿਆਂ ਉੱਤੇ ਮਹਾਂਦੀਪ ਦਾ ਆਕਾਰ ਜਾਂ ਖੇਤਰਫਲ ਵੱਖਰਾ ਕਿਉਂ ਦਿਸ ਸਕਦਾ ਹੈ?",
+        "options": "ਛਪਾਈ ਵੇਲੇ ਮਹਾਂਦੀਪ ਖਿਸਕ ਜਾਂਦੇ ਹਨ",
+        "explanation": "ਸਾਰੇ ਨਕਸ਼ਿਆਂ ਦਾ ਪੈਮਾਨਾ ਇੱਕੋ ਹੁੰਦਾ ਹੈ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP040-Q003",
+    "cpId": "WGE-001-CP040",
+    "objective": "drainage-divide-land-use",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-019B",
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A proposed road crosses a ridge separating two drainage basins. What map feature identifies that ridge?",
+        "options": "Watershed divide",
+        "explanation": "River delta"
+      },
+      "hi": {
+        "stem": "दो अपवाह-बेसिनों को अलग करने वाली पर्वत-धार को मानचित्र पर क्या कहते हैं?",
+        "options": "जल-विभाजक",
+        "explanation": "नदी डेल्टा"
+      },
+      "pa": {
+        "stem": "ਦੋ ਜਲ-ਨਿਕਾਸ ਖੇਤਰਾਂ ਨੂੰ ਵੱਖ ਕਰਨ ਵਾਲੀ ਪਹਾੜੀ ਧਾਰ ਨੂੰ ਨਕਸ਼ੇ ਉੱਤੇ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?",
+        "options": "ਜਲ-ਵਿਭਾਜਕ",
+        "explanation": "ਨਦੀ ਡੈਲਟਾ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP040-Q004",
+    "cpId": "WGE-001-CP040",
+    "objective": "rain-shadow-integrated-explanation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-PHY-018A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Moist air rises over a mountain range and descends on the far side. Why is the leeward slope often drier?",
+        "options": "Descending air always gains moisture from snow",
+        "explanation": "The mountain blocks all sunlight"
+      },
+      "hi": {
+        "stem": "नम हवा पर्वतमाला पर उठकर दूसरी ओर उतरती है। पवन-विमुख ढाल प्रायः अधिक शुष्क क्यों होती है?",
+        "options": "उतरती हवा हमेशा हिम से नमी लेती है",
+        "explanation": "पर्वत सारी धूप रोक देता है"
+      },
+      "pa": {
+        "stem": "ਨਮੀ ਵਾਲੀ ਹਵਾ ਪਹਾੜੀ ਲੜੀ ਉੱਤੇ ਚੜ੍ਹ ਕੇ ਦੂਜੇ ਪਾਸੇ ਥੱਲੇ ਉਤਰਦੀ ਹੈ। ਹਵਾ ਤੋਂ ਓਟ ਵਾਲੀ ਢਲਾਣ ਅਕਸਰ ਸੁੱਕੀ ਕਿਉਂ ਹੁੰਦੀ ਹੈ?",
+        "options": "ਥੱਲੇ ਉਤਰਦੀ ਹਵਾ ਹਮੇਸ਼ਾ ਬਰਫ਼ ਤੋਂ ਨਮੀ ਲੈਂਦੀ ਹੈ",
+        "explanation": "ਪਹਾੜ ਸਾਰੀ ਧੁੱਪ ਰੋਕ ਦਿੰਦਾ ਹੈ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP040-Q005",
+    "cpId": "WGE-001-CP040",
+    "objective": "multi-factor-port-siting",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-TRN-WB-CORRIDORS",
+      "WGE-TRN-UNCTAD",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A port has a large inland market, rail links and a deep sheltered harbour. Which conclusion is best supported?",
+        "options": "Its hinterland must be limited to the coastline",
+        "explanation": "Several linked physical and transport advantages can support a major port"
+      },
+      "hi": {
+        "stem": "किसी बंदरगाह के पास बड़ा अंदरूनी बाजार, रेल संपर्क और गहरा सुरक्षित प्राकृतिक बंदरगाह है। कौन-सा निष्कर्ष उचित है?",
+        "options": "उसका पश्चप्रदेश केवल तट तक सीमित होगा",
+        "explanation": "कई जुड़े भौतिक और परिवहन लाभ बड़े बंदरगाह को सहारा दे सकते हैं"
+      },
+      "pa": {
+        "stem": "ਕਿਸੇ ਬੰਦਰਗਾਹ ਕੋਲ ਵੱਡਾ ਅੰਦਰੂਨੀ ਬਾਜ਼ਾਰ, ਰੇਲ ਜੋੜ ਅਤੇ ਡੂੰਘੀ ਸੁਰੱਖਿਅਤ ਖਾੜੀ ਹੈ। ਕਿਹੜਾ ਨਤੀਜਾ ਠੀਕ ਹੈ?",
+        "options": "ਇਸ ਦਾ ਪਿਛਲਾ ਇਲਾਕਾ ਸਿਰਫ਼ ਤੱਟ ਤੱਕ ਸੀਮਿਤ ਹੋਵੇਗਾ",
+        "explanation": "ਕਈ ਜੁੜੇ ਭੌਤਿਕ ਅਤੇ ਆਵਾਜਾਈ ਲਾਭ ਵੱਡੀ ਬੰਦਰਗਾਹ ਨੂੰ ਸਹਾਰਾ ਦੇ ਸਕਦੇ ਹਨ"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP040-Q006",
+    "cpId": "WGE-001-CP040",
+    "objective": "hot-desert-solar-resource",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-RES-IEA-ENERGY",
+      "WGE-ATM-013",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A hot desert has intense sunshine, sparse settlement and long distances to cities. Which energy-planning inference is strongest?",
+        "options": "Solar plants need permanent snow cover",
+        "explanation": "Desert heat guarantees year-round water for cooling"
+      },
+      "hi": {
+        "stem": "एक गर्म मरुस्थल में तेज धूप, विरल आबादी और शहरों से लंबी दूरी है। ऊर्जा-योजना में कौन-सा निष्कर्ष सबसे मजबूत है?",
+        "options": "सौर संयंत्रों को स्थायी हिमावरण चाहिए",
+        "explanation": "मरुस्थलीय गर्मी साल भर शीतलन के लिए पानी सुनिश्चित करती है"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਗਰਮ ਮਾਰੂਥਲ ਵਿੱਚ ਤੇਜ਼ ਧੁੱਪ, ਘੱਟ ਵਸੋਂ ਅਤੇ ਸ਼ਹਿਰਾਂ ਤੋਂ ਲੰਮੀ ਦੂਰੀ ਹੈ। ਊਰਜਾ-ਯੋਜਨਾ ਲਈ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਨਤੀਜਾ ਕਿਹੜਾ ਹੈ?",
+        "options": "ਸੂਰਜੀ ਪਲਾਂਟਾਂ ਨੂੰ ਸਦਾ ਬਰਫ਼ ਦੀ ਪਰਤ ਚਾਹੀਦੀ ਹੈ",
+        "explanation": "ਮਾਰੂਥਲ ਦੀ ਗਰਮੀ ਸਾਲ ਭਰ ਠੰਢਕ ਲਈ ਪਾਣੀ ਯਕੀਨੀ ਬਣਾਉਂਦੀ ਹੈ"
+      }
+    }
+  }
+]
