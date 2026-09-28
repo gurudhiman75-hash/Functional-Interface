@@ -1,3 +1,4 @@
+import{ENG009_CP001_BREADTH_WAVE1}from"./eng-009-cp001-breadth-wave1";
 export type Eng009Cp001Difficulty="easy"|"medium";
 export type Eng009Cp001BlankKind="grammar"|"vocabulary"|"collocation"|"context";
 export interface Eng009Cp001BlankV1{
@@ -120,6 +121,8 @@ export const ENG009_CP001_PASSAGES_V1:readonly Eng009Cp001PassageV1[]=[
  b("C10-B5",5,"medium","context","effectively",["privately","roughly","rarely"],"Borrowing records helped the library choose suitable books more effectively.","borrowing records helped the library do this more ...")
  ]
 }
+,
+...ENG009_CP001_BREADTH_WAVE1
 ];
 
 export const ENG009_CP001_BLANKS_V1=ENG009_CP001_PASSAGES_V1.flatMap(p=>p.blanks.map(blank=>({passage:p,blank})));
