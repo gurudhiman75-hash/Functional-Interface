@@ -117,6 +117,8 @@ import { MIS_CP028_CANDIDATE_IDS, generateMisCp028Question, type GeneratedMisCp0
 import { independentlyEvaluateMisCp028, independentlyVerifyMisCp028Group } from './MIS-CP-028/independent-solver';
 import { misCp028RuleByCandidateId, type MisCp028CandidateId } from './MIS-CP-028/rule-definitions';
 import { canonicalMisSemanticAuthorityId, misCandidateCreatesSemanticAuthority } from './semantic-authority-registry';
+import { permanentQlForMisCandidate, MIS_PERMANENT_QL_ALLOCATION_STATE } from './MIS-PERMANENT-QL-REGISTRY';
+import { localizeMisWave1Question, MIS_LOCALIZATION_WAVE1_STATE, type MisLocalizedLanguage } from './localization-wave1';
 
 export const MIS_001_PACKAGE_ID = 'MIS-001' as const;
 export const MIS_001_RUNTIME_MODE = 'review-only' as const;
@@ -191,10 +193,10 @@ function normalizeCount(value: number | undefined): number {
   return value;
 }
 
-function normalizeLanguage(value: QuestionStudioGenerationRequest['language']): 'en' {
+function normalizeLanguage(value: QuestionStudioGenerationRequest['language']): MisLocalizedLanguage {
   const language = value ?? 'en';
-  if (language === 'en') return language;
-  throw new Error('MIS-001 is in English editorial review; Hindi and Punjabi localization are not frozen yet.');
+  if (language === 'en' || language === 'hi' || language === 'pa') return language;
+  throw new Error('MIS-001 supports English, Hindi and Punjabi review generation.');
 }
 
 function normalizeDifficulty(value: unknown): 'Easy' | 'Medium' | 'Hard' | undefined {
@@ -742,7 +744,7 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
   label: 'Reasoning · Missing Number · MIS-001 (CP001-CP028 source-discovery review)',
   enabled: true,
   cpIds: [...MIS_001_CHECKPOINT_IDS],
-  supportedLanguages: ['en'],
+  supportedLanguages: ['en', 'hi', 'pa'],
   supportedDifficulties: ['Easy', 'Medium', 'Hard'],
   difficultyFilterSupported: true,
   runtimeMode: MIS_001_RUNTIME_MODE,
@@ -800,14 +802,15 @@ export const MIS_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     cp026CandidateCount: MIS_CP026_CANDIDATE_IDS.length,
     cp027CandidateCount: MIS_CP027_CANDIDATE_IDS.length,
     cp028CandidateCount: MIS_CP028_CANDIDATE_IDS.length,
-    permanentQlCount: 0,
-    permanentQlAllocation: false,
+    permanentQlCount: MIS_PERMANENT_QL_ALLOCATION_STATE.allocatedPermanentQlCount,
+    permanentQlAllocation: true,
     sourceSaturationComplete: true,
     mergeSplitAuditComplete: true,
     mergeSplitAuditAuthority: 'MIS-001-SEMANTIC-AUTHORITY-REGISTRY-V1',
     sourceSaturationBlocker: 'None for practical SSC/Banking/Punjab saturation through V15; source-thin MIS-CAND-034 and MIS-CAND-095 remain excluded from automatic permanent-QL promotion.',
     englishEditorialFreezeComplete: true,
-    localizationStarted: false,
+    localizationStarted: true,
+    localizationWave1: MIS_LOCALIZATION_WAVE1_STATE,
     deterministicGeneration: true,
     independentSolver: true,
     ambiguityEnumeration: true,
@@ -837,7 +840,11 @@ export async function generateMis001QuestionStudioBatch(
   const language = normalizeLanguage(request.language);
   const count = normalizeCount(request.count);
   const requestedDifficulty = normalizeDifficulty(request.difficulty);
-  const pool = resolveCandidatePool(request, requestedDifficulty);
+  let pool = resolveCandidatePool(request, requestedDifficulty);
+  if (language !== 'en') {
+    pool = pool.filter((candidateId) => ['MIS-CP-001','MIS-CP-002','MIS-CP-003','MIS-CP-004'].includes(candidateCheckpoint(candidateId)));
+    if (pool.length === 0) throw new Error('MIS-001 Hindi/Punjabi localization wave 1 currently covers CP001-CP004 only.');
+  }
   const baseSeed = text(request.seed) || 'mis-001-question-studio-v1';
   const start = hash(baseSeed + ':candidate-start') % pool.length;
   const questions: Record<string, unknown>[] = [];
@@ -852,9 +859,11 @@ export async function generateMis001QuestionStudioBatch(
       requestedDifficulty,
     );
     const { generated, candidateId, itemSeed, attempt } = resolved;
+    const localized = localizeMisWave1Question(generated, language);
     const independent = independentValidation(generated);
+    const permanentQlId = permanentQlForMisCandidate(candidateId);
     const options = generated.options.map((option) => String(option.value));
-    const questionId = `MIS-001:${generated.checkpointId}:${candidateId}:${hash(itemSeed)}:en`;
+    const questionId = `MIS-001:${generated.checkpointId}:${candidateId}:${hash(itemSeed)}:${language}`;
 
     questions.push({
       ...lifecycle,
@@ -865,23 +874,23 @@ export async function generateMis001QuestionStudioBatch(
       candidateId,
       semanticAuthorityCandidateId: canonicalSemanticAuthorityId(candidateId),
       createsNewSemanticAuthority: createsNewSemanticAuthority(candidateId),
-      qlId: null,
-      provisionalQl: true,
+      qlId: permanentQlId,
+      provisionalQl: permanentQlId == null,
       cpId: generated.checkpointId,
       checkpointId: generated.checkpointId,
       subject: 'Reasoning',
       topic: 'Reasoning',
       subtopic: 'Missing Number',
       language,
-      locale: 'en-IN',
-      stem: generated.stem,
-      text: generated.stem,
+      locale: language === 'en' ? 'en-IN' : language === 'hi' ? 'hi-IN' : 'pa-IN',
+      stem: localized.stem,
+      text: localized.stem,
       options,
       correctIndex: generated.correctIndex,
       correct: generated.correctIndex,
       answer: String(generated.answer),
       canonicalAnswer: generated.answer,
-      explanation: generated.explanation,
+      explanation: localized.explanation,
       packageExplanation: {
         solverTrace: generated.solverTrace,
         ruleFamily: generated.ruleFamily,
@@ -914,8 +923,8 @@ export async function generateMis001QuestionStudioBatch(
       optionErrorLabels: generated.options.map((option) => option.errorLabel),
       solverTrace: generated.solverTrace,
       ambiguityAudit: generated.ambiguityAudit,
-      localizationParity: 'ENGLISH_FROZEN_LOCALIZATION_NOT_STARTED',
-      editorialStatus: 'ENGLISH_EDITORIAL_FROZEN',
+      localizationParity: language === 'en' ? 'ENGLISH_EDITORIAL_FROZEN' : 'WAVE1_LOCALIZED_REVIEW',
+      editorialStatus: language === 'en' ? 'ENGLISH_EDITORIAL_FROZEN' : 'LOCALIZATION_REVIEW',
       sourceThin: 'sourceThin' in generated ? generated.sourceThin === true : false,
       sourceBacked: 'sourceBacked' in generated ? generated.sourceBacked : null,
       sourceNote: 'sourceNote' in generated ? generated.sourceNote : null,
@@ -933,7 +942,8 @@ export async function generateMis001QuestionStudioBatch(
         semanticAuthorityCandidateId: canonicalSemanticAuthorityId(candidateId),
         createsNewSemanticAuthority: createsNewSemanticAuthority(candidateId),
         ruleId: generated.ruleId,
-        permanentQlAllocated: false,
+        permanentQlAllocated: permanentQlId != null,
+        permanentQlId,
         sourceSaturationComplete: true,
       },
       validation: {
@@ -944,7 +954,7 @@ export async function generateMis001QuestionStudioBatch(
         solverAgreement: independent.solverAgreement,
         resultWithinBounds: generated.answer > 0 && generated.answer <= 999,
         noDecimal: Number.isInteger(generated.answer),
-        explanationUsesGeneratedValues: generated.explanation.includes(String(generated.answer)),
+        explanationUsesGeneratedValues: localized.explanation.includes(String(generated.answer)),
         everyDisplayedInputParticipates: true,
       },
       hiddenCompleteStructure: {
@@ -966,8 +976,9 @@ export async function generateMis001QuestionStudioBatch(
       runtimeMode: MIS_001_RUNTIME_MODE,
       registrationStatus: 'REGISTERED_REVIEW_ONLY_PROVISIONAL',
       reviewAuthority: MIS_001_REVIEW_AUTHORITY,
-      permanentQlAllocation: false,
-      permanentQlCount: 0,
+      permanentQlAllocation: true,
+      permanentQlCount: MIS_PERMANENT_QL_ALLOCATION_STATE.allocatedPermanentQlCount,
+      localizationWave1: MIS_LOCALIZATION_WAVE1_STATE,
       candidateIds: [...ALL_CANDIDATES],
       semanticAuthorityIds: [...SEMANTIC_AUTHORITY_IDS],
       semanticAuthorityCount: SEMANTIC_AUTHORITY_IDS.length,
