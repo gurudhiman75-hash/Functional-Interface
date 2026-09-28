@@ -1,0 +1,45 @@
+name: quant-v4-di-stacked-bar-multiline-v1
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/**"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/stacked-multiline-question-studio-v1.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/export-stacked-multiline-review-v1.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-di-stacked-bar-multiline-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  stacked-multiline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Stacked bar proof
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/stacked-bar-v1.test.ts
+      - name: Three-series line proof
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/multi-line-v1.test.ts
+      - name: Question Studio integration
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/stacked-multiline-question-studio-v1.test.ts
+      - name: Single-series bar regression
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/single-bar-v1.test.ts
+      - name: Single-series line regression
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/single-line-v1.test.ts
+      - name: Generate review HTML
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/export-stacked-multiline-review-v1.ts /tmp/DI-STACKED-MULTILINE-REVIEW-V1.html
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-stacked-multiline-review-v1
+          path: /tmp/DI-STACKED-MULTILINE-REVIEW-V1.html
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
