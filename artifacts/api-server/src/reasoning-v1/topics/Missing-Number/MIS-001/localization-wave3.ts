@@ -71,8 +71,8 @@ function rule(q:Q,l:'hi'|'pa'):string{
 function trace(s:string,l:'hi'|'pa'):string{
  let o=s;
  const reps=l==='hi'
- ? [['Reverse ','उलटने पर '],['Testing the missing value ','लुप्त मान '],['Target total = ','लक्ष्य कुल = '],['missing corner = ','लुप्त कोना = '],['sum of the other three corners','अन्य तीन कोनों का योग'],['Figure ','आकृति ']]
- : [['Reverse ','ਉਲਟਣ ਤੇ '],['Testing the missing value ','ਲੁਪਤ ਮੁੱਲ '],['Target total = ','ਲਕਸ਼ਿਤ ਕੁੱਲ = '],['missing corner = ','ਲੁਪਤ ਕੋਨਾ = '],['sum of the other three corners','ਬਾਕੀ ਤਿੰਨ ਕੋਨਿਆਂ ਦਾ ਜੋੜ'],['Figure ','ਆਕ੍ਰਿਤੀ ']];
+ ? [['Reverse ','उलटने पर '],['Testing the missing value ','लुप्त मान '],['Target total = ','कुल योग = '],['missing corner = ','लुप्त कोना = '],['sum of the other three corners','अन्य तीन कोनों का योग'],['Figure ','आकृति ']]
+ : [['Reverse ','ਉਲਟਣ ਤੇ '],['Testing the missing value ','ਲੁਪਤ ਮੁੱਲ '],['Target total = ','ਕੁੱਲ ਜੋੜ = '],['missing corner = ','ਲੁਪਤ ਕੋਨਾ = '],['sum of the other three corners','ਬਾਕੀ ਤਿੰਨ ਕੋਨਿਆਂ ਦਾ ਜੋੜ'],['Figure ','ਆਕ੍ਰਿਤੀ ']];
  for(const [a,b] of reps)o=o.split(a).join(b);
  return o;
 }
@@ -85,8 +85,12 @@ function explanation(q:Q,l:'hi'|'pa'):string{
  const out=[intro,rule(q,l),''];
  evidence.forEach((x,i)=>out.push(l==='hi'?(figure?`आकृति ${i+1}:`:`समूह ${i+1}:`):(figure?`ਆਕ੍ਰਿਤੀ ${i+1}:`:`ਸਮੂਹ ${i+1}:`),x,''));
  const instruction=l==='hi'
-   ? (q.forwardOrInverse==='INVERSE'?'अब प्रश्नवाचक चिन्ह वाले समूह/आकृति में इसी नियम को उल्टा लागू करें:':'अब प्रश्नवाचक चिन्ह वाले समूह/आकृति पर यही नियम लगाएँ:')
-   : (q.forwardOrInverse==='INVERSE'?'ਹੁਣ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਵਾਲੇ ਸਮੂਹ/ਆਕ੍ਰਿਤੀ ਵਿੱਚ ਇਹੀ ਨਿਯਮ ਉਲਟ ਤਰੀਕੇ ਨਾਲ ਲਗਾਓ:':'ਹੁਣ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਵਾਲੇ ਸਮੂਹ/ਆਕ੍ਰਿਤੀ ਉੱਤੇ ਇਹੀ ਨਿਯਮ ਲਗਾਓ:');
+   ? (q.forwardOrInverse==='INVERSE'
+      ? (figure?'अब प्रश्नवाचक चिन्ह वाली आकृति में इसी नियम को उल्टा लागू करें:':'अब प्रश्नवाचक चिन्ह वाले समूह में इसी नियम को उल्टा लागू करें:')
+      : (figure?'अब प्रश्नवाचक चिन्ह वाली आकृति पर यही नियम लगाएँ:':'अब प्रश्नवाचक चिन्ह वाले समूह पर यही नियम लगाएँ:'))
+   : (q.forwardOrInverse==='INVERSE'
+      ? (figure?'ਹੁਣ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਵਾਲੀ ਆਕ੍ਰਿਤੀ ਵਿੱਚ ਇਹੀ ਨਿਯਮ ਉਲਟ ਤਰੀਕੇ ਨਾਲ ਲਗਾਓ:':'ਹੁਣ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਇਹੀ ਨਿਯਮ ਉਲਟ ਤਰੀਕੇ ਨਾਲ ਲਗਾਓ:')
+      : (figure?'ਹੁਣ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਵਾਲੀ ਆਕ੍ਰਿਤੀ ਉੱਤੇ ਇਹੀ ਨਿਯਮ ਲਗਾਓ:':'ਹੁਣ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਵਾਲੇ ਸਮੂਹ ਉੱਤੇ ਇਹੀ ਨਿਯਮ ਲਗਾਓ:'));
  out.push(instruction,target,'',l==='hi'?`अतः ? = ${q.answer}।`:`ਇਸ ਲਈ ? = ${q.answer}।`);
  return out.join('\n');
 }
