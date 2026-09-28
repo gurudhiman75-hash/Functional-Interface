@@ -195,6 +195,105 @@ function deterministicShuffle<T>(values:readonly T[],seed:string){
     .map(row=>row.value);
 }
 
+function normalizedStem(question:any){
+  return String(question.stem??question.text??"").toLowerCase().replace(/\s+/g," ").trim();
+}
+
+function decorateNoveltyQuestion(question:any,tier:DiNoveltyTier,mode:SourceMode){
+  return {
+    ...question,
+    noveltyTier:tier,
+    noveltyMixAuthority:DI_DELIVERY_NOVELTY_MIX_AUTHORITY,
+    noveltySourceMode:mode.id,
+    metadata:{
+      ...(question.metadata??{}),
+      noveltyTier:tier,
+      noveltyMixAuthority:DI_DELIVERY_NOVELTY_MIX_AUTHORITY,
+      noveltySourceMode:mode.id,
+    },
+  };
+}
+
+async function repairExactStemDuplicates(
+  questions:any[],
+  profile:DiDeliveryExamProfile,
+  difficulty:unknown,
+  seed:string,
+  sourcePackages:any[],
+){
+  const seen=new Set<string>();
+  const repaired:any[]=[];
+  for(let index=0;index<questions.length;index+=1){
+    let question=questions[index]!;
+    let key=normalizedStem(question);
+    if(!seen.has(key)){
+      seen.add(key);
+      repaired.push(question);
+      continue;
+    }
+    const mode=SOURCE_MODES.find(candidate=>candidate.id===question.noveltySourceMode);
+    if(!mode) throw new Error(`DI novelty mix cannot resolve source mode '${question.noveltySourceMode}' for duplicate repair.`);
+    let replacement:any|undefined;
+    for(let attempt=1;attempt<=12;attempt+=1){
+      const result=await mode.generate({
+        canonicalProblemId:mode.canonicalProblemId,
+        difficulty,
+        language:"en",
+        seed:`${seed}:dedupe:${mode.id}:${index}:${attempt}`,
+        count:1,
+        examProfile:examProfileForSource(profile),
+      });
+      sourcePackages.push(...(result.questionPackages??[]));
+      const candidate=result.questions?.[0];
+      if(!candidate) continue;
+      const candidateKey=normalizedStem(candidate);
+      if(seen.has(candidateKey)) continue;
+      replacement=decorateNoveltyQuestion(candidate,question.noveltyTier,mode);
+      key=candidateKey;
+      break;
+    }
+    if(!replacement){
+      throw new Error(`DI novelty mix could not remove an exact stem duplicate from ${mode.id} after 12 deterministic attempts.`);
+    }
+    seen.add(key);
+    repaired.push(replacement);
+  }
+  return repaired;
+}
+
+function spreadNoveltyTiers(values:readonly any[],seed:string){
+  const standard=deterministicShuffle(values.filter(q=>q.noveltyTier==="STANDARD"),`${seed}:standard-order`);
+  const specials=deterministicShuffle(values.filter(q=>q.noveltyTier!=="STANDARD"),`${seed}:special-order`);
+  if(!specials.length) return standard;
+  if(!standard.length) return specials;
+
+  const total=values.length;
+  const specialSlots:number[]=[];
+  let previous=-2;
+  for(let i=0;i<specials.length;i+=1){
+    const ideal=Math.round(((i+1)*(total+1))/(specials.length+1))-1;
+    const jitter=(hashSeed(`${seed}:slot:${i}`)%3)-1;
+    let slot=Math.max(1,Math.min(total-2,ideal+jitter));
+    if(slot<=previous+1) slot=Math.min(total-2,previous+2);
+    while(specialSlots.includes(slot)&&slot<total-1) slot+=1;
+    specialSlots.push(slot);
+    previous=slot;
+  }
+
+  const output:any[]=[];
+  let standardIndex=0,specialIndex=0;
+  for(let position=0;position<total;position+=1){
+    if(specialSlots.includes(position)&&specialIndex<specials.length){
+      output.push(specials[specialIndex++]!);
+    }else if(standardIndex<standard.length){
+      output.push(standard[standardIndex++]!);
+    }else{
+      output.push(specials[specialIndex++]!);
+    }
+  }
+  return output;
+}
+
 export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixRequest={}){
   const language=String(request.language??"en").trim().toLowerCase();
   if(language!=="en") throw new Error("DI novelty mix V1 is English controlled-review only until fresh/high-novelty modes complete localization.");
@@ -223,18 +322,7 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
       sourcePackages.push(...(result.questionPackages??[]));
       for(const question of result.questions??[]){
         actualCounts[tier]+=1;
-        generated.push({
-          ...question,
-          noveltyTier:tier,
-          noveltyMixAuthority:DI_DELIVERY_NOVELTY_MIX_AUTHORITY,
-          noveltySourceMode:mode.id,
-          metadata:{
-            ...(question.metadata??{}),
-            noveltyTier:tier,
-            noveltyMixAuthority:DI_DELIVERY_NOVELTY_MIX_AUTHORITY,
-            noveltySourceMode:mode.id,
-          },
-        });
+        generated.push(decorateNoveltyQuestion(question,tier,mode));
       }
     }
   }
@@ -242,7 +330,14 @@ export async function generateDiDeliveryNoveltyMix(request:DiDeliveryNoveltyMixR
   if(generated.length!==count){
     throw new Error(`DI novelty mix generated ${generated.length} of ${count} requested questions.`);
   }
-  const questions=deterministicShuffle(generated,`${seed}:final-order`).map((question,index)=>({
+  const deduplicated=await repairExactStemDuplicates(
+    generated,
+    examProfile,
+    request.difficulty,
+    seed,
+    sourcePackages,
+  );
+  const questions=spreadNoveltyTiers(deduplicated,`${seed}:tier-spacing`).map((question,index)=>({
     ...question,
     mixQuestionIndex:index+1,
     mixQuestionCount:count,
