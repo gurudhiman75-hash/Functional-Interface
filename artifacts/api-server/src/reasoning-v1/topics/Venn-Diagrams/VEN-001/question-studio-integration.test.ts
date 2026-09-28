@@ -78,6 +78,18 @@ for (const language of ["en", "hi", "pa"] as const) {
     assert.equal(item.productionReleaseAuthorized, false);
     assert.ok(String(item.stem).length > 20);
     assert.ok(String(item.explanation).length > 20);
+    const stemText = String(item.stem);
+    const explanationText = String(item.explanation);
+    assert.doesNotMatch(stemText, /^Let A =|^मानें,|^ਮੰਨੋ,/);
+    assert.doesNotMatch(explanationText, /Every [A-Za-z]+s is a [A-Za-z]+s/);
+    if (language === "en") {
+      assert.match(stemText, /Which Venn diagram|Which option names/);
+    } else if (language === "hi") {
+      assert.match(stemText, /वेन आरेख/);
+    } else {
+      assert.match(stemText, /ਵੇਨ ਚਿੱਤਰ/);
+    }
+
   }
   assert.notEqual(first.questionId, "");
 }

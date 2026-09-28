@@ -153,15 +153,12 @@ function relationExplanation(
   locale: VennLocale,
   reverse: boolean,
 ): string {
-  const facts = relationText(authority, locale).join(
-    locale === "en-IN" ? "; " : "；",
-  );
-  if (!reverse) return facts + (locale === "en-IN" ? "." : "।");
+  const facts = relationText(authority, locale).join(" ");
   if (locale === "hi-IN")
-    return `आरेख में तीन समूहों की यही बनावट दिखाई गई है: ${facts}।`;
+    return reverse ? "यह विकल्प सही है क्योंकि चित्र में यही संबंध हैं: " + facts : facts;
   if (locale === "pa-IN")
-    return `ਚਿੱਤਰ ਵਿੱਚ ਤਿੰਨ ਸਮੂਹਾਂ ਦੀ ਇਹੀ ਬਣਤਰ ਦਿਖਾਈ ਗਈ ਹੈ: ${facts}।`;
-  return `The diagram has this three-group structure: ${facts}.`;
+    return reverse ? "ਇਹ ਵਿਕਲਪ ਸਹੀ ਹੈ ਕਿਉਂਕਿ ਚਿੱਤਰ ਵਿੱਚ ਇਹ ਸੰਬੰਧ ਦਿਖਾਏ ਗਏ ਹਨ: " + facts : facts;
+  return reverse ? "This option is correct because the diagram shows these relationships: " + facts : facts;
 }
 
 function correctCircleLabelOrder(authority: VennScenarioAuthority): string[] {
@@ -219,61 +216,58 @@ function correctCircleLabelOrder(authority: VennScenarioAuthority): string[] {
 }
 function stemFor(authority: VennScenarioAuthority, locale: VennLocale): string {
   const groups = authority.sets
-    .map((set) => `${set.setId} = ${set.labels[locale]}`)
-    .join(locale === "en-IN" ? ", " : "，");
+    .map((set) => \`\${set.setId} = \${set.labels[locale]}\`)
+    .join(locale === "en-IN" ? ", " : "، ");
   if (locale === "hi-IN")
-    return `मानें, ${groups}। कौन-सा आरेख इन समूहों का सही संबंध दिखाता है?`;
+    return groups + "। A, B और C के बीच संबंध को कौन-सा वेन आरेख सही दर्शाता है?";
   if (locale === "pa-IN")
-    return `ਮੰਨੋ, ${groups}। ਕਿਹੜਾ ਚਿੱਤਰ ਇਨ੍ਹਾਂ ਸਮੂਹਾਂ ਦਾ ਸਹੀ ਸੰਬੰਧ ਦਿਖਾਉਂਦਾ ਹੈ?`;
-  return `Let ${groups}. Which diagram shows the relationship among these groups?`;
+    return groups + "। A, B ਅਤੇ C ਦਾ ਆਪਸੀ ਸੰਬੰਧ ਕਿਹੜਾ ਵੇਨ ਚਿੱਤਰ ਸਹੀ ਦਰਸਾਉਂਦਾ ਹੈ?";
+  return groups + ". Which Venn diagram correctly represents the relationship among A, B and C?";
 }
 function stemForDiagram(locale: VennLocale): string {
   if (locale === "hi-IN")
-    return "दिए गए वेन आरेख से मेल खाने वाले तीन समूहों का सही सेट चुनें।";
+    return "वेन आरेख में दिखाए गए संबंध से मेल खाने वाले तीन समूह किस विकल्प में दिए गए हैं?";
   if (locale === "pa-IN")
-    return "ਦਿੱਤੇ ਵੇਨ ਚਿੱਤਰ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਤਿੰਨ ਸਮੂਹਾਂ ਦਾ ਸਹੀ ਸੈੱਟ ਚੁਣੋ।";
-  return "Choose the set of three groups that best matches the Venn diagram.";
+    return "ਵੇਨ ਚਿੱਤਰ ਵਿੱਚ ਦਿਖਾਏ ਸੰਬੰਧ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਤਿੰਨ ਸਮੂਹ ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਦਿੱਤੇ ਹਨ?";
+  return "Which option names three groups that match the relationship shown in the Venn diagram?";
 }
 
 function relationText(
   authority: VennScenarioAuthority,
   locale: VennLocale,
 ): string[] {
-  const label = new Map(
-    authority.sets.map((set) => [set.setId, set.labels[locale]]),
-  );
   return authority.relations.map(({ left, right, relation }) => {
-    const a = label.get(left)!;
-    const b = label.get(right)!;
     if (locale === "hi-IN") {
       if (relation === "LEFT_SUBSET_RIGHT")
-        return `${a} का हर सदस्य ${b} में है`;
-      if (relation === "DISJOINT")
-        return `${a} और ${b} का कोई सदस्य समान नहीं है`;
-      if (relation === "PARTIAL_OVERLAP")
-        return `${a} और ${b} के कुछ सदस्य समान हैं, लेकिन दोनों समूह पूरी तरह समान नहीं हैं`;
+        return left + " का हर सदस्य " + right + " में आता है।";
       if (relation === "RIGHT_SUBSET_LEFT")
-        return `${b} का हर सदस्य ${a} में है`;
-      return `${a} और ${b} के सदस्य समान हैं`;
+        return right + " का हर सदस्य " + left + " में आता है।";
+      if (relation === "DISJOINT")
+        return left + " और " + right + " में कोई सदस्य समान नहीं है।";
+      if (relation === "PARTIAL_OVERLAP")
+        return left + " और " + right + " में कुछ सदस्य समान हैं, लेकिन दोनों में कुछ अलग सदस्य भी हैं।";
+      return left + " और " + right + " के सदस्य समान हैं।";
     }
     if (locale === "pa-IN") {
       if (relation === "LEFT_SUBSET_RIGHT")
-        return `${a} ਦਾ ਹਰ ਮੈਂਬਰ ${b} ਵਿੱਚ ਹੈ`;
-      if (relation === "DISJOINT")
-        return `${a} ਅਤੇ ${b} ਦਾ ਕੋਈ ਸਾਂਝਾ ਮੈਂਬਰ ਨਹੀਂ ਹੈ`;
-      if (relation === "PARTIAL_OVERLAP")
-        return `${a} ਅਤੇ ${b} ਦੇ ਕੁਝ ਮੈਂਬਰ ਸਾਂਝੇ ਹਨ, ਪਰ ਦੋਵੇਂ ਸਮੂਹ ਪੂਰੀ ਤਰ੍ਹਾਂ ਇੱਕੋ ਨਹੀਂ ਹਨ`;
+        return left + " ਸਮੂਹ ਦਾ ਹਰ ਮੈਂਬਰ " + right + " ਸਮੂਹ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।";
       if (relation === "RIGHT_SUBSET_LEFT")
-        return `${b} ਦਾ ਹਰ ਮੈਂਬਰ ${a} ਵਿੱਚ ਹੈ`;
-      return `${a} ਅਤੇ ${b} ਦੇ ਮੈਂਬਰ ਇੱਕੋ ਹਨ`;
+        return right + " ਸਮੂਹ ਦਾ ਹਰ ਮੈਂਬਰ " + left + " ਸਮੂਹ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।";
+      if (relation === "DISJOINT")
+        return left + " ਅਤੇ " + right + " ਵਿੱਚ ਕੋਈ ਸਾਂਝਾ ਮੈਂਬਰ ਨਹੀਂ ਹੈ।";
+      if (relation === "PARTIAL_OVERLAP")
+        return left + " ਅਤੇ " + right + " ਵਿੱਚ ਕੁਝ ਮੈਂਬਰ ਸਾਂਝੇ ਹਨ, ਪਰ ਦੋਵਾਂ ਵਿੱਚ ਕੁਝ ਵੱਖਰੇ ਮੈਂਬਰ ਵੀ ਹਨ।";
+      return left + " ਅਤੇ " + right + " ਦੇ ਸਾਰੇ ਮੈਂਬਰ ਇੱਕੋ ਹਨ।";
     }
-    if (relation === "LEFT_SUBSET_RIGHT") return `Every ${a} is a ${b}`;
+    if (relation === "LEFT_SUBSET_RIGHT")
+      return "Every member of " + left + " belongs to " + right + ".";
+    if (relation === "RIGHT_SUBSET_LEFT")
+      return "Every member of " + right + " belongs to " + left + ".";
     if (relation === "DISJOINT")
-      return `${a} and ${b} have no members in common`;
+      return left + " and " + right + " have no members in common.";
     if (relation === "PARTIAL_OVERLAP")
-      return `${a} and ${b} share some, but not all, members`;
-    if (relation === "RIGHT_SUBSET_LEFT") return `Every ${b} is a ${a}`;
-    return `${a} and ${b} contain the same members`;
+      return left + " and " + right + " share some members, but each also has members outside the other.";
+    return left + " and " + right + " contain the same members.";
   });
 }
 function distractors(correct: VennTopologyId, seed: number): VennTopologyId[] {
