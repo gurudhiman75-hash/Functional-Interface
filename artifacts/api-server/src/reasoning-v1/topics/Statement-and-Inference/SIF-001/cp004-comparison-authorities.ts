@@ -9,6 +9,21 @@ export type SifCp004Trap = "UNSTATED_MAGNITUDE" | "METRIC_SWITCH" | "ORDER_TO_CA
 const localized = ([en, hi, pa]: L): SifLocalizedText => ({ "en-IN": en, "hi-IN": hi, "pa-IN": pa });
 const guard = { evaluatesSupport: true, assumptionQuestion: false, conclusionQuestion: false, argumentQuestion: false, causeEffectQuestion: false, courseOfActionQuestion: false } as const;
 
+function resolvedExplanation(explanation: L): L {
+  const endings: L = [
+    " Therefore, Inference I follows and Inference II does not follow.",
+    " अतः अनुमान I सही है और अनुमान II सही नहीं है।",
+    " ਇਸ ਲਈ ਅਨੁਮਾਨ I ਸਹੀ ਹੈ ਅਤੇ ਅਨੁਮਾਨ II ਸਹੀ ਨਹੀਂ ਹੈ।",
+  ];
+  return explanation.map((text, index) => {
+    const alreadyResolves =
+      /Inference I|Inference II|only I|only II/i.test(text)
+      || /अनुमान I|अनुमान II|केवल I|केवल II/u.test(text)
+      || /ਅਨੁਮਾਨ I|ਅਨੁਮਾਨ II|ਕੇਵਲ I|ਕੇਵਲ II/u.test(text);
+    return alreadyResolves ? text : `${text}${endings[index]}`;
+  }) as unknown as L;
+}
+
 const trapFor: Readonly<Record<SifCp004ComparisonKind, SifCp004Trap>> = {
   MORE_LESS: "UNSTATED_MAGNITUDE", RANKING: "METRIC_SWITCH", TIME_ORDER: "ORDER_TO_CAUSE", AGE: "RELATIVE_TO_ABSOLUTE", CHANGE: "CHANGE_TO_CAUSE", SIZE: "ONE_DIMENSION_TO_TOTAL", MEASURED_QUALITY: "MEASURE_TO_GENERAL_QUALITY", FREQUENCY: "FREQUENCY_TO_ALWAYS",
 };
@@ -26,7 +41,7 @@ function make(kind: SifCp004ComparisonKind, rows: readonly Row[]): readonly SifS
       { id: "I", text: localized(follows), follows: true, strength: "CERTAIN", supportFactIds: ["F1"] },
       { id: "II", text: localized(doesNotFollow), follows: false, strength: "POSSIBLE_ONLY", supportFactIds: ["F1"], distractorType: "UNSUPPORTED_DETAIL" },
     ],
-    explanation: localized(explanation),
+    explanation: localized(resolvedExplanation(explanation)),
     identityGuard: guard,
   }));
 }
