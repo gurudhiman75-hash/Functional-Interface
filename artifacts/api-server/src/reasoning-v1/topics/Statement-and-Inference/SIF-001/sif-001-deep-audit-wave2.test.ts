@@ -20,12 +20,12 @@ function reasoningBurden(authority: SifScenarioAuthority, answer: string): numbe
   const factBurden = Math.min(3, authority.facts.length);
   const mechanismBurden = Math.min(3, authority.mechanisms.filter((m) => m !== "MIXED").length);
   const advancedBurden = authority.mechanisms.some((m) => ADVANCED_MECHANISMS.has(m)) ? 1 : 0;
-  const invalidCount = authority.candidates.filter((candidate) => !candidate.follows).length;
-  const contrastBurden = invalidCount === 1 ? 1 : invalidCount === 2 ? 2 : 0;
-  // "Either I or II follows" requires recognizing an exclusive unresolved
-  // alternative rather than simply rejecting two distractors independently.
-  const exclusiveAlternativeBurden = answer === "EITHER" ? 1 : 0;
-  return factBurden + mechanismBurden + advancedBurden + contrastBurden + exclusiveAlternativeBurden;
+  const decisionBurden =
+    answer === "BOTH" ? 2
+      : answer === "NEITHER" ? 2
+        : answer === "EITHER" ? 3
+          : 1;
+  return factBurden + mechanismBurden + advancedBurden + decisionBurden;
 }
 
 function assertExplanationSpecificity(authority: SifScenarioAuthority): void {
