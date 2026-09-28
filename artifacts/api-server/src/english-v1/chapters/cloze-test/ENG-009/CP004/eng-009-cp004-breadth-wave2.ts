@@ -25,6 +25,8 @@ If several firms use similar automated tools, prices may react rapidly to one an
 
 Businesses may also test different prices to learn how demand responds. Experiments should be controlled because large unexplained differences can frustrate customers. Careful testing keeps experimentation more __(4)__.
 
+Governance matters because pricing decisions can affect more than immediate revenue. A rule that works well in ordinary periods may look unfair during shortages or emergencies. Firms therefore need escalation rules for unusual conditions and a clear record of major pricing changes. This helps managers distinguish normal market response from cases that require extra judgment.
+
 The strongest systems combine data, constraints and judgment. Clear rules make pricing adaptive and __(5)__ while allowing managers to explain why a price changed. The goal is not maximum flexibility but useful flexibility. Without safeguards, dynamic pricing may make prices too __(6)__ and weaken long-term trust.`,blanks:[
 {id:"C14-B1",blankNo:1,difficulty:"hard",kind:"context",answer:"defensible",distractors:["visible","profitable","simple"],explanation:"Customers should be able to understand and justify the pricing rule. 'Defensible' fits.",clue:"rule behind it is ..."},
 {id:"C14-B2",blankNo:2,difficulty:"medium",kind:"vocabulary",answer:"controlled",distractors:["rapid","broad","automatic"],explanation:"Guardrails keep price changes under control.",clue:"system more ..."},
