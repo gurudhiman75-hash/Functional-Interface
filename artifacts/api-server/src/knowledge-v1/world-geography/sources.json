@@ -817,5 +817,68 @@
     "kind": "primary-educational",
     "consultedOn": "2026-09-28",
     "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-TRN-UNCTAD",
+    "title": "UNCTAD: Review of Maritime Transport 2024",
+    "url": "https://unctad.org/publication/review-maritime-transport-2024",
+    "section": "Maritime trade routes, shipping corridors and chokepoint disruption",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-TRN-SUEZ",
+    "title": "Suez Canal Authority: About the Suez Canal",
+    "url": "https://www.suezcanal.gov.eg/English/About/SuezCanal/Pages/AboutSuezCanal.aspx",
+    "section": "Suez Canal route linking the Mediterranean Sea and Red Sea",
+    "kind": "primary-authority",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-TRN-PANAMA",
+    "title": "Panama Canal Authority: Trade Routes",
+    "url": "https://pancanal.com/en/maritime-services/trade-routes/",
+    "section": "Panama Canal connectivity between Atlantic and Pacific shipping routes",
+    "kind": "primary-authority",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-TRN-EIA",
+    "title": "U.S. Energy Information Administration: World Oil Transit Chokepoints",
+    "url": "https://www.eia.gov/international/content/analysis/special_topics/World_Oil_Transit_Chokepoints/",
+    "section": "Location and ocean connections of Strait of Hormuz and Strait of Malacca",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-TRN-WB-CORRIDORS",
+    "title": "World Bank: Trade and Transport Corridor Management Toolkit and India Inland Waterway",
+    "url": "https://documents1.worldbank.org/curated/en/719971468325781473/pdf/Trade-and-transport-corridor-management-toolkit.pdf",
+    "section": "Port hinterlands, transport corridors and inland waterway freight; supplementary India case: https://www.worldbank.org/en/country/india/brief/developing-india-first-modern-inland-waterway",
+    "kind": "primary-methodology",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-REG-DENMARK-GREENLAND",
+    "title": "Danish Ministry of Foreign Affairs: Greenland and the Faroe Islands",
+    "url": "https://um.dk/en/foreign-policy/the-arctic/greenland-and-the-faroe-islands/",
+    "section": "Greenland's self-government status within the Kingdom of Denmark",
+    "kind": "primary-government",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "WGE-REC-EPA-GREAT-LAKES",
+    "title": "U.S. Environmental Protection Agency: Physical Features of the Great Lakes",
+    "url": "https://www.epa.gov/greatlakes/physical-features-great-lakes",
+    "section": "Surface area and physical measures for each of the five Great Lakes",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-28",
+    "retrievalStatus": "search-excerpt"
   }
 ]

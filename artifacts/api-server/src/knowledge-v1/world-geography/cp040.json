@@ -1,0 +1,270 @@
+[
+  {
+    "id": "WGE-001-CP040-Q001",
+    "cpId": "WGE-001-CP040",
+    "objective": "map-scale-distance",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-019B",
+      "WGE-TRN-WB-CORRIDORS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "On a map with scale 1:100,000, what ground distance does 2 cm represent?",
+        "options": [
+          "200 m",
+          "2 km",
+          "20 km",
+          "200 km"
+        ],
+        "explanation": "At 1:100,000, one map centimetre represents 100,000 ground centimetres, or 1 km; therefore 2 cm represents 2 km."
+      },
+      "hi": {
+        "stem": "१:१००,००० पैमाने वाले मानचित्र पर २ सेमी कितनी वास्तविक दूरी दर्शाते हैं?",
+        "options": [
+          "२०० मीटर",
+          "२ किलोमीटर",
+          "२० किलोमीटर",
+          "२०० किलोमीटर"
+        ],
+        "explanation": "१:१००,००० पर मानचित्र का १ सेमी जमीन पर १ किलोमीटर है; इसलिए २ सेमी, २ किलोमीटर दर्शाते हैं।"
+      },
+      "pa": {
+        "stem": "੧:੧੦੦,੦੦੦ ਪੈਮਾਨੇ ਵਾਲੇ ਨਕਸ਼ੇ ਉੱਤੇ ੨ ਸੈਂਟੀਮੀਟਰ ਜ਼ਮੀਨ ਉੱਤੇ ਕਿੰਨੀ ਦੂਰੀ ਦੱਸਦੇ ਹਨ?",
+        "options": [
+          "੨੦੦ ਮੀਟਰ",
+          "੨ ਕਿਲੋਮੀਟਰ",
+          "੨੦ ਕਿਲੋਮੀਟਰ",
+          "੨੦੦ ਕਿਲੋਮੀਟਰ"
+        ],
+        "explanation": "੧:੧੦੦,੦੦੦ ਉੱਤੇ ਨਕਸ਼ੇ ਦਾ ੧ ਸੈਂਟੀਮੀਟਰ ਜ਼ਮੀਨ ਉੱਤੇ ੧ ਕਿਲੋਮੀਟਰ ਹੁੰਦਾ ਹੈ; ਇਸ ਲਈ ੨ ਸੈਂਟੀਮੀਟਰ ੨ ਕਿਲੋਮੀਟਰ ਦੱਸਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP040-Q002",
+    "cpId": "WGE-001-CP040",
+    "objective": "map-projection-distortion",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-019B",
+      "WGE-TRN-WB-CORRIDORS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Why can the shape or area of a continent look different on two world maps?",
+        "options": [
+          "Continents move when a map is printed",
+          "All map scales are identical",
+          "Latitude lines are imaginary",
+          "Different map projections distort the curved Earth in different ways"
+        ],
+        "explanation": "A flat map projects Earth’s curved surface, and each projection changes some combination of area, shape, distance or direction."
+      },
+      "hi": {
+        "stem": "दो विश्व मानचित्रों पर किसी महाद्वीप का आकार या क्षेत्रफल अलग क्यों दिख सकता है?",
+        "options": [
+          "छपाई के समय महाद्वीप खिसक जाते हैं",
+          "सभी मानचित्रों का पैमाना एक जैसा होता है",
+          "अक्षांश रेखाएँ काल्पनिक होती हैं",
+          "अलग प्रक्षेप पृथ्वी की वक्र सतह को अलग-अलग विकृत करते हैं"
+        ],
+        "explanation": "समतल मानचित्र पृथ्वी की वक्र सतह का प्रक्षेपण है; हर प्रक्षेप क्षेत्रफल, आकार, दूरी या दिशा में कुछ विकृति लाता है।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਵਿਸ਼ਵ ਨਕਸ਼ਿਆਂ ਉੱਤੇ ਮਹਾਂਦੀਪ ਦਾ ਆਕਾਰ ਜਾਂ ਖੇਤਰਫਲ ਵੱਖਰਾ ਕਿਉਂ ਦਿਸ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਛਪਾਈ ਵੇਲੇ ਮਹਾਂਦੀਪ ਖਿਸਕ ਜਾਂਦੇ ਹਨ",
+          "ਸਾਰੇ ਨਕਸ਼ਿਆਂ ਦਾ ਪੈਮਾਨਾ ਇੱਕੋ ਹੁੰਦਾ ਹੈ",
+          "ਅਕਸ਼ਾਂਸ਼ ਰੇਖਾਵਾਂ ਕਲਪਿਤ ਹਨ",
+          "ਵੱਖ-ਵੱਖ ਨਕਸ਼ਾ-ਪ੍ਰੋਜੈਕਸ਼ਨ ਧਰਤੀ ਦੀ ਵਕਰੀ ਸਤਹ ਨੂੰ ਵੱਖਰੇ ਢੰਗ ਨਾਲ ਵਿਗਾੜਦੇ ਹਨ"
+        ],
+        "explanation": "ਸਮਤਲ ਨਕਸ਼ਾ ਧਰਤੀ ਦੀ ਵਕਰੀ ਸਤਹ ਦਾ ਪ੍ਰੋਜੈਕਸ਼ਨ ਹੈ; ਹਰ ਪ੍ਰੋਜੈਕਸ਼ਨ ਖੇਤਰਫਲ, ਆਕਾਰ, ਦੂਰੀ ਜਾਂ ਦਿਸ਼ਾ ਵਿੱਚ ਕੁਝ ਵਿਗਾੜ ਲਿਆਉਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP040-Q003",
+    "cpId": "WGE-001-CP040",
+    "objective": "drainage-divide-land-use",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-PHY-019B",
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A proposed road crosses a ridge separating two drainage basins. What map feature identifies that ridge?",
+        "options": [
+          "Watershed divide",
+          "River delta",
+          "Continental shelf",
+          "Floodplain"
+        ],
+        "explanation": "A watershed divide is the higher ground separating areas that drain to different river systems."
+      },
+      "hi": {
+        "stem": "दो अपवाह-बेसिनों को अलग करने वाली पर्वत-धार को मानचित्र पर क्या कहते हैं?",
+        "options": [
+          "जल-विभाजक",
+          "नदी डेल्टा",
+          "महाद्वीपीय मग्नतट",
+          "बाढ़ का मैदान"
+        ],
+        "explanation": "जल-विभाजक ऊँची भूमि है जो अलग-अलग नदी-तंत्रों की ओर बहने वाले क्षेत्रों को अलग करती है।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਜਲ-ਨਿਕਾਸ ਖੇਤਰਾਂ ਨੂੰ ਵੱਖ ਕਰਨ ਵਾਲੀ ਪਹਾੜੀ ਧਾਰ ਨੂੰ ਨਕਸ਼ੇ ਉੱਤੇ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਜਲ-ਵਿਭਾਜਕ",
+          "ਨਦੀ ਡੈਲਟਾ",
+          "ਮਹਾਂਦੀਪੀ ਸ਼ੈਲਫ਼",
+          "ਹੜ੍ਹ ਦਾ ਮੈਦਾਨ"
+        ],
+        "explanation": "ਜਲ-ਵਿਭਾਜਕ ਉੱਚੀ ਧਰਤੀ ਹੁੰਦੀ ਹੈ ਜੋ ਵੱਖ-ਵੱਖ ਨਦੀ-ਤੰਤਰਾਂ ਵੱਲ ਵਹਿਣ ਵਾਲੇ ਖੇਤਰਾਂ ਨੂੰ ਵੱਖ ਕਰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP040-Q004",
+    "cpId": "WGE-001-CP040",
+    "objective": "rain-shadow-integrated-explanation",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-ATM-013",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-PHY-018A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Moist air rises over a mountain range and descends on the far side. Why is the leeward slope often drier?",
+        "options": [
+          "Descending air always gains moisture from snow",
+          "The mountain blocks all sunlight",
+          "Rising air loses moisture on the windward side; descending air warms and dries",
+          "Ocean currents stop at the mountain"
+        ],
+        "explanation": "Air forced upward cools and may lose moisture as precipitation; descending air on the leeward side warms and becomes relatively drier."
+      },
+      "hi": {
+        "stem": "नम हवा पर्वतमाला पर उठकर दूसरी ओर उतरती है। पवन-विमुख ढाल प्रायः अधिक शुष्क क्यों होती है?",
+        "options": [
+          "उतरती हवा हमेशा हिम से नमी लेती है",
+          "पर्वत सारी धूप रोक देता है",
+          "हवा पवनाभिमुख ढाल पर नमी खोती है; उतरती हवा गर्म होकर शुष्क होती है",
+          "समुद्री धाराएँ पर्वत पर रुक जाती हैं"
+        ],
+        "explanation": "ऊपर उठती हवा ठंडी होकर वर्षा दे सकती है; पवन-विमुख ओर उतरती हवा गर्म और अपेक्षाकृत शुष्क हो जाती है।"
+      },
+      "pa": {
+        "stem": "ਨਮੀ ਵਾਲੀ ਹਵਾ ਪਹਾੜੀ ਲੜੀ ਉੱਤੇ ਚੜ੍ਹ ਕੇ ਦੂਜੇ ਪਾਸੇ ਥੱਲੇ ਉਤਰਦੀ ਹੈ। ਹਵਾ ਤੋਂ ਓਟ ਵਾਲੀ ਢਲਾਣ ਅਕਸਰ ਸੁੱਕੀ ਕਿਉਂ ਹੁੰਦੀ ਹੈ?",
+        "options": [
+          "ਥੱਲੇ ਉਤਰਦੀ ਹਵਾ ਹਮੇਸ਼ਾ ਬਰਫ਼ ਤੋਂ ਨਮੀ ਲੈਂਦੀ ਹੈ",
+          "ਪਹਾੜ ਸਾਰੀ ਧੁੱਪ ਰੋਕ ਦਿੰਦਾ ਹੈ",
+          "ਹਵਾ ਪਵਨ-ਮੁਖੀ ਢਲਾਣ ਉੱਤੇ ਨਮੀ ਗੁਆਉਂਦੀ ਹੈ; ਥੱਲੇ ਉਤਰਦੀ ਹਵਾ ਗਰਮ ਤੇ ਸੁੱਕੀ ਹੁੰਦੀ ਹੈ",
+          "ਸਮੁੰਦਰੀ ਧਾਰਾਵਾਂ ਪਹਾੜ ਉੱਤੇ ਰੁਕ ਜਾਂਦੀਆਂ ਹਨ"
+        ],
+        "explanation": "ਉੱਪਰ ਚੜ੍ਹਦੀ ਹਵਾ ਠੰਢੀ ਹੋ ਕੇ ਵਰਖਾ ਦੇ ਸਕਦੀ ਹੈ; ਹਵਾ ਤੋਂ ਓਟ ਵਾਲੇ ਪਾਸੇ ਥੱਲੇ ਉਤਰਦੀ ਹਵਾ ਗਰਮ ਅਤੇ ਵਧੇਰੇ ਸੁੱਕੀ ਹੋ ਜਾਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP040-Q005",
+    "cpId": "WGE-001-CP040",
+    "objective": "multi-factor-port-siting",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-TRN-WB-CORRIDORS",
+      "WGE-TRN-UNCTAD",
+      "WGE-REG-UN-MAPS"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A port has a large inland market, rail links and a deep sheltered harbour. Which conclusion is best supported?",
+        "options": [
+          "Its hinterland must be limited to the coastline",
+          "Several linked physical and transport advantages can support a major port",
+          "It must be the world’s busiest port",
+          "Rail links eliminate the need for shipping"
+        ],
+        "explanation": "A sheltered deep harbour, rail corridors and inland markets can reinforce one another, but do not alone prove a port’s rank or traffic volume."
+      },
+      "hi": {
+        "stem": "किसी बंदरगाह के पास बड़ा अंदरूनी बाजार, रेल संपर्क और गहरा सुरक्षित प्राकृतिक बंदरगाह है। कौन-सा निष्कर्ष उचित है?",
+        "options": [
+          "उसका पश्चप्रदेश केवल तट तक सीमित होगा",
+          "कई जुड़े भौतिक और परिवहन लाभ बड़े बंदरगाह को सहारा दे सकते हैं",
+          "वह दुनिया का सबसे व्यस्त बंदरगाह अवश्य होगा",
+          "रेल संपर्क से समुद्री जहाजों की जरूरत समाप्त हो जाती है"
+        ],
+        "explanation": "सुरक्षित गहरा बंदरगाह, रेल गलियारे और अंदरूनी बाजार एक-दूसरे को मजबूत कर सकते हैं, पर इनसे बंदरगाह की रैंक या माल-मात्रा सिद्ध नहीं होती।"
+      },
+      "pa": {
+        "stem": "ਕਿਸੇ ਬੰਦਰਗਾਹ ਕੋਲ ਵੱਡਾ ਅੰਦਰੂਨੀ ਬਾਜ਼ਾਰ, ਰੇਲ ਜੋੜ ਅਤੇ ਡੂੰਘੀ ਸੁਰੱਖਿਅਤ ਖਾੜੀ ਹੈ। ਕਿਹੜਾ ਨਤੀਜਾ ਠੀਕ ਹੈ?",
+        "options": [
+          "ਇਸ ਦਾ ਪਿਛਲਾ ਇਲਾਕਾ ਸਿਰਫ਼ ਤੱਟ ਤੱਕ ਸੀਮਿਤ ਹੋਵੇਗਾ",
+          "ਕਈ ਜੁੜੇ ਭੌਤਿਕ ਅਤੇ ਆਵਾਜਾਈ ਲਾਭ ਵੱਡੀ ਬੰਦਰਗਾਹ ਨੂੰ ਸਹਾਰਾ ਦੇ ਸਕਦੇ ਹਨ",
+          "ਇਹ ਦੁਨੀਆ ਦੀ ਸਭ ਤੋਂ ਰੁੱਝੀ ਬੰਦਰਗਾਹ ਲਾਜ਼ਮੀ ਹੈ",
+          "ਰੇਲ ਜੋੜ ਨਾਲ ਸਮੁੰਦਰੀ ਜਹਾਜ਼ਾਂ ਦੀ ਲੋੜ ਖ਼ਤਮ ਹੋ ਜਾਂਦੀ ਹੈ"
+        ],
+        "explanation": "ਸੁਰੱਖਿਅਤ ਡੂੰਘੀ ਖਾੜੀ, ਰੇਲ ਗਲਿਆਰੇ ਅਤੇ ਅੰਦਰੂਨੀ ਬਾਜ਼ਾਰ ਇਕ-ਦੂਜੇ ਨੂੰ ਮਜ਼ਬੂਤ ਕਰ ਸਕਦੇ ਹਨ, ਪਰ ਇਸ ਨਾਲ ਬੰਦਰਗਾਹ ਦੀ ਦਰਜਾਬੰਦੀ ਜਾਂ ਮਾਲ ਦੀ ਮਾਤਰਾ ਸਾਬਤ ਨਹੀਂ ਹੁੰਦੀ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP040-Q006",
+    "cpId": "WGE-001-CP040",
+    "objective": "hot-desert-solar-resource",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-RES-IEA-ENERGY",
+      "WGE-ATM-013",
+      "WGE-REG-PHYSICAL-WORLD"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A hot desert has intense sunshine, sparse settlement and long distances to cities. Which energy-planning inference is strongest?",
+        "options": [
+          "Solar plants need permanent snow cover",
+          "Desert heat guarantees year-round water for cooling",
+          "A desert location removes the need for transmission lines",
+          "High solar potential is an advantage, but water, ecology, settlement and grid access still matter"
+        ],
+        "explanation": "Strong sunlight can favour solar generation, but planners must also assess water use, ecosystems, local communities and transmission connections."
+      },
+      "hi": {
+        "stem": "एक गर्म मरुस्थल में तेज धूप, विरल आबादी और शहरों से लंबी दूरी है। ऊर्जा-योजना में कौन-सा निष्कर्ष सबसे मजबूत है?",
+        "options": [
+          "सौर संयंत्रों को स्थायी हिमावरण चाहिए",
+          "मरुस्थलीय गर्मी साल भर शीतलन के लिए पानी सुनिश्चित करती है",
+          "मरुस्थल में बिजली-पारेषण लाइनों की जरूरत नहीं होती",
+          "अधिक सौर क्षमता लाभ है, पर पानी, पारिस्थितिकी, बस्तियों और बिजली-जाल तक पहुँच भी देखनी होगी"
+        ],
+        "explanation": "तेज धूप सौर ऊर्जा उत्पादन के अनुकूल है, लेकिन पानी, पारिस्थितिकी, स्थानीय समुदायों और बिजली-जोड़ का आकलन भी जरूरी है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਗਰਮ ਮਾਰੂਥਲ ਵਿੱਚ ਤੇਜ਼ ਧੁੱਪ, ਘੱਟ ਵਸੋਂ ਅਤੇ ਸ਼ਹਿਰਾਂ ਤੋਂ ਲੰਮੀ ਦੂਰੀ ਹੈ। ਊਰਜਾ-ਯੋਜਨਾ ਲਈ ਸਭ ਤੋਂ ਮਜ਼ਬੂਤ ਨਤੀਜਾ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਸੂਰਜੀ ਪਲਾਂਟਾਂ ਨੂੰ ਸਦਾ ਬਰਫ਼ ਦੀ ਪਰਤ ਚਾਹੀਦੀ ਹੈ",
+          "ਮਾਰੂਥਲ ਦੀ ਗਰਮੀ ਸਾਲ ਭਰ ਠੰਢਕ ਲਈ ਪਾਣੀ ਯਕੀਨੀ ਬਣਾਉਂਦੀ ਹੈ",
+          "ਮਾਰੂਥਲ ਵਿੱਚ ਬਿਜਲੀ ਦੀਆਂ ਤਾਰਾਂ ਦੀ ਲੋੜ ਨਹੀਂ ਰਹਿੰਦੀ",
+          "ਵੱਧ ਸੂਰਜੀ ਸਮਰੱਥਾ ਲਾਭ ਹੈ, ਪਰ ਪਾਣੀ, ਕੁਦਰਤ, ਬਸਤੀਆਂ ਅਤੇ ਬਿਜਲੀ-ਜਾਲ ਤੱਕ ਪਹੁੰਚ ਵੀ ਦੇਖਣੀ ਪਵੇਗੀ"
+        ],
+        "explanation": "ਤੇਜ਼ ਧੁੱਪ ਸੂਰਜੀ ਬਿਜਲੀ ਲਈ ਲਾਭਦਾਇਕ ਹੈ, ਪਰ ਪਾਣੀ, ਕੁਦਰਤ, ਸਥਾਨਕ ਭਾਈਚਾਰਿਆਂ ਅਤੇ ਬਿਜਲੀ ਜੋੜ ਦਾ ਵੀ ਅੰਕਲਨ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ।"
+      }
+    }
+  }
+]

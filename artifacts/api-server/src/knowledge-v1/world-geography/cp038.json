@@ -1,0 +1,276 @@
+[
+  {
+    "id": "WGE-001-CP038-Q001",
+    "cpId": "WGE-001-CP038",
+    "objective": "latitude-order-tropics",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-016B",
+      "WGE-PHY-017A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which sequence runs from north to south?",
+        "options": [
+          "Equator, Tropic of Cancer, Tropic of Capricorn",
+          "Tropic of Cancer, Equator, Tropic of Capricorn",
+          "Tropic of Capricorn, Equator, Tropic of Cancer",
+          "Tropic of Cancer, Tropic of Capricorn, Equator"
+        ],
+        "explanation": "The Tropic of Cancer lies north of the Equator; the Tropic of Capricorn lies south of it."
+      },
+      "hi": {
+        "stem": "अक्षांश रेखाओं को उत्तर से दक्षिण रखने पर सही क्रम कौन-सा होगा?",
+        "options": [
+          "भूमध्य रेखा, कर्क रेखा, मकर रेखा",
+          "कर्क रेखा, भूमध्य रेखा, मकर रेखा",
+          "मकर रेखा, भूमध्य रेखा, कर्क रेखा",
+          "कर्क रेखा, मकर रेखा, भूमध्य रेखा"
+        ],
+        "explanation": "कर्क रेखा भूमध्य रेखा के उत्तर में और मकर रेखा उसके दक्षिण में स्थित है।"
+      },
+      "pa": {
+        "stem": "ਅਕਸ਼ਾਂਸ਼ ਰੇਖਾਵਾਂ ਨੂੰ ਉੱਤਰ ਤੋਂ ਦੱਖਣ ਰੱਖਣ ਤੇ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੋਵੇਗਾ?",
+        "options": [
+          "ਭੂ-ਮੱਧ ਰੇਖਾ, ਕਰਕ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ",
+          "ਕਰਕ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ",
+          "ਮਕਰ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਕਰਕ ਰੇਖਾ",
+          "ਕਰਕ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ"
+        ],
+        "explanation": "ਕਰਕ ਰੇਖਾ ਭੂ-ਮੱਧ ਰੇਖਾ ਦੇ ਉੱਤਰ ਅਤੇ ਮਕਰ ਰੇਖਾ ਇਸ ਦੇ ਦੱਖਣ ਵੱਲ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP038-Q002",
+    "cpId": "WGE-001-CP038",
+    "objective": "europe-asia-ural-boundary",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-016B",
+      "WGE-PHY-017A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which major landform is commonly used as part of the boundary between Europe and Asia?",
+        "options": [
+          "Atlas Mountains",
+          "Andes",
+          "Ural Mountains",
+          "Great Dividing Range"
+        ],
+        "explanation": "The Ural Mountains are a commonly used physical boundary between Europe and Asia, though regional boundary conventions include other features too."
+      },
+      "hi": {
+        "stem": "यूरोप और एशिया के बीच की सीमा के एक भाग के रूप में किस प्रमुख स्थलरूप का उपयोग किया जाता है?",
+        "options": [
+          "एटलस पर्वत",
+          "एंडीज़",
+          "यूराल पर्वत",
+          "ग्रेट डिवाइडिंग रेंज"
+        ],
+        "explanation": "यूराल पर्वत यूरोप और एशिया के बीच प्रचलित भौतिक सीमा का एक भाग हैं; क्षेत्रीय सीमा-निर्धारण में अन्य स्थलरूप भी शामिल होते हैं।"
+      },
+      "pa": {
+        "stem": "ਯੂਰਪ ਅਤੇ ਏਸ਼ੀਆ ਵਿਚਕਾਰ ਹੱਦ ਦੇ ਇੱਕ ਹਿੱਸੇ ਵਜੋਂ ਕਿਹੜੀ ਵੱਡੀ ਭੂ-ਆਕ੍ਰਿਤੀ ਵਰਤੀ ਜਾਂਦੀ ਹੈ?",
+        "options": [
+          "ਐਟਲਸ ਪਹਾੜ",
+          "ਐਂਡੀਜ਼",
+          "ਯੂਰਾਲ ਪਹਾੜ",
+          "ਗ੍ਰੇਟ ਡਿਵਾਈਡਿੰਗ ਰੇਂਜ"
+        ],
+        "explanation": "ਯੂਰਾਲ ਪਹਾੜ ਯੂਰਪ ਅਤੇ ਏਸ਼ੀਆ ਵਿਚਕਾਰ ਆਮ ਤੌਰ ਤੇ ਮੰਨੀ ਭੌਤਿਕ ਹੱਦ ਦਾ ਹਿੱਸਾ ਹਨ; ਖੇਤਰੀ ਹੱਦਬੰਦੀ ਵਿੱਚ ਹੋਰ ਭੂ-ਆਕ੍ਰਿਤੀਆਂ ਵੀ ਆਉਂਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP038-Q003",
+    "cpId": "WGE-001-CP038",
+    "objective": "equatorial-climate-biome-link",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-016B",
+      "WGE-PHY-017A"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A persistently hot, very wet equatorial climate most commonly supports which natural vegetation?",
+        "options": [
+          "Tundra",
+          "Temperate grassland",
+          "Mediterranean scrub",
+          "Tropical rainforest"
+        ],
+        "explanation": "High temperatures and abundant rainfall through much of the year support dense tropical rainforest near the Equator."
+      },
+      "hi": {
+        "stem": "भूमध्यरेखीय क्षेत्र की लगातार गर्म और बहुत आर्द्र जलवायु में सामान्यतः कौन-सी प्राकृतिक वनस्पति मिलती है?",
+        "options": [
+          "टुंड्रा",
+          "समशीतोष्ण घासभूमि",
+          "भूमध्यसागरीय झाड़ीदार वनस्पति",
+          "उष्णकटिबंधीय वर्षावन"
+        ],
+        "explanation": "भूमध्य रेखा के पास वर्ष के अधिकांश समय गर्मी और अधिक वर्षा घने उष्णकटिबंधीय वर्षावनों को सहारा देती है।"
+      },
+      "pa": {
+        "stem": "ਭੂ-ਮੱਧ ਰੇਖਾਈ ਖੇਤਰ ਦੀ ਲਗਾਤਾਰ ਗਰਮ ਅਤੇ ਬਹੁਤ ਨਮੀ ਵਾਲੀ ਜਲਵਾਯੂ ਵਿੱਚ ਆਮ ਤੌਰ ਤੇ ਕਿਹੜੀ ਕੁਦਰਤੀ ਬਨਸਪਤੀ ਮਿਲਦੀ ਹੈ?",
+        "options": [
+          "ਟੁੰਡਰਾ",
+          "ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਭੂਮੀ",
+          "ਭੂਮੱਧ-ਸਾਗਰੀ ਝਾੜੀਆਂ",
+          "ਗਰਮ-ਖੇਤਰੀ ਵਰਖਾ-ਜੰਗਲ"
+        ],
+        "explanation": "ਭੂ-ਮੱਧ ਰੇਖਾ ਨੇੜੇ ਸਾਲ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਗਰਮੀ ਅਤੇ ਵੱਧ ਵਰਖਾ ਸੰਘਣੇ ਗਰਮ-ਖੇਤਰੀ ਵਰਖਾ-ਜੰਗਲਾਂ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP038-Q004",
+    "cpId": "WGE-001-CP038",
+    "objective": "peru-current-coastal-aridity",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-PHY-016B",
+      "WGE-ATM-013"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "The arid coast of Peru is partly associated with which oceanographic influence?",
+        "options": [
+          "Cold Peru (Humboldt) Current and coastal upwelling",
+          "Warm Gulf Stream",
+          "Benguela Current on Africa’s west coast",
+          "North Atlantic Drift"
+        ],
+        "explanation": "The cold Peru Current and upwelling help cool and stabilize air along the coast; regional aridity also reflects broader atmospheric circulation."
+      },
+      "hi": {
+        "stem": "पेरू का शुष्क तट आंशिक रूप से किस महासागरीय प्रभाव से जुड़ा है?",
+        "options": [
+          "ठंडी पेरू (हम्बोल्ट) धारा और तटीय अपवेलिंग",
+          "गर्म गल्फ स्ट्रीम",
+          "अफ्रीका के पश्चिमी तट की बेंगुएला धारा",
+          "उत्तर अटलांटिक प्रवाह"
+        ],
+        "explanation": "ठंडी पेरू धारा और अपवेलिंग तट की हवा को ठंडा और स्थिर करने में मदद करते हैं; शुष्कता पर व्यापक वायुमंडलीय परिसंचरण का भी प्रभाव है।"
+      },
+      "pa": {
+        "stem": "ਪੇਰੂ ਦਾ ਸੁੱਕਾ ਤੱਟ ਅੰਸ਼ਕ ਤੌਰ ਤੇ ਕਿਸ ਸਮੁੰਦਰੀ ਪ੍ਰਭਾਵ ਨਾਲ ਜੁੜਿਆ ਹੈ?",
+        "options": [
+          "ਠੰਢੀ ਪੇਰੂ (ਹੰਬੋਲਟ) ਧਾਰਾ ਅਤੇ ਤੱਟੀ ਉੱਪਰਲਾ ਵਹਾਅ",
+          "ਗਰਮ ਗਲਫ਼ ਸਟ੍ਰੀਮ",
+          "ਅਫ਼ਰੀਕਾ ਦੇ ਪੱਛਮੀ ਤੱਟ ਦੀ ਬੇਂਗੁਏਲਾ ਧਾਰਾ",
+          "ਉੱਤਰੀ ਅਟਲਾਂਟਿਕ ਡ੍ਰਿਫ਼ਟ"
+        ],
+        "explanation": "ਠੰਢੀ ਪੇਰੂ ਧਾਰਾ ਅਤੇ ਉੱਪਰਲਾ ਵਹਾਅ ਤੱਟ ਦੀ ਹਵਾ ਨੂੰ ਠੰਢਾ ਤੇ ਸਥਿਰ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ; ਸੁੱਕੇਪਣ ਉੱਤੇ ਵੱਡੇ ਵਾਯੂ-ਚੱਕਰ ਦਾ ਵੀ ਅਸਰ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP038-Q005",
+    "cpId": "WGE-001-CP038",
+    "objective": "latitude-zone-order",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-016B",
+      "WGE-PHY-017A"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Which sequence lists latitude lines from north to south?",
+        "options": [
+          "Equator, Arctic Circle, Tropic of Cancer, Antarctic Circle",
+          "Tropic of Capricorn, Equator, Tropic of Cancer, Arctic Circle",
+          "Arctic Circle, Tropic of Cancer, Equator, Tropic of Capricorn",
+          "Tropic of Cancer, Tropic of Capricorn, Equator, Arctic Circle"
+        ],
+        "explanation": "The Arctic Circle is farthest north in this set, followed by the Tropic of Cancer, Equator and Tropic of Capricorn."
+      },
+      "hi": {
+        "stem": "अक्षांश रेखाओं का उत्तर से दक्षिण सही क्रम कौन-सा है?",
+        "options": [
+          "भूमध्य रेखा, आर्कटिक वृत्त, कर्क रेखा, अंटार्कटिक वृत्त",
+          "मकर रेखा, भूमध्य रेखा, कर्क रेखा, आर्कटिक वृत्त",
+          "आर्कटिक वृत्त, कर्क रेखा, भूमध्य रेखा, मकर रेखा",
+          "कर्क रेखा, मकर रेखा, भूमध्य रेखा, आर्कटिक वृत्त"
+        ],
+        "explanation": "इस सूची में आर्कटिक वृत्त सबसे उत्तर में है, फिर कर्क रेखा, भूमध्य रेखा और मकर रेखा आती हैं।"
+      },
+      "pa": {
+        "stem": "ਅਕਸ਼ਾਂਸ਼ ਰੇਖਾਵਾਂ ਦਾ ਉੱਤਰ ਤੋਂ ਦੱਖਣ ਵੱਲ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਭੂ-ਮੱਧ ਰੇਖਾ, ਆਰਕਟਿਕ ਚੱਕਰ, ਕਰਕ ਰੇਖਾ, ਅੰਟਾਰਕਟਿਕ ਚੱਕਰ",
+          "ਮਕਰ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਕਰਕ ਰੇਖਾ, ਆਰਕਟਿਕ ਚੱਕਰ",
+          "ਆਰਕਟਿਕ ਚੱਕਰ, ਕਰਕ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ",
+          "ਕਰਕ ਰੇਖਾ, ਮਕਰ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ, ਆਰਕਟਿਕ ਚੱਕਰ"
+        ],
+        "explanation": "ਇਸ ਸੂਚੀ ਵਿੱਚ ਆਰਕਟਿਕ ਚੱਕਰ ਸਭ ਤੋਂ ਉੱਤਰ ਹੈ, ਫਿਰ ਕਰਕ ਰੇਖਾ, ਭੂ-ਮੱਧ ਰੇਖਾ ਅਤੇ ਮਕਰ ਰੇਖਾ ਆਉਂਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP038-Q006",
+    "cpId": "WGE-001-CP038",
+    "objective": "alps-central-europe-shared-feature",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-REG-UN-MAPS",
+      "WGE-REG-PHYSICAL-WORLD",
+      "WGE-ATM-013",
+      "WGE-PHY-016B",
+      "WGE-PHY-017A"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A physical map shows the Alps at the meeting area of France, Switzerland, Italy and Austria. Which inference is best supported?",
+        "options": [
+          "The Alps lie wholly within one country",
+          "The Alps form a shared cross-border mountain region",
+          "The Alps separate Africa from Europe",
+          "The Alps are a river delta"
+        ],
+        "explanation": "The Alpine chain crosses several national territories in central Europe, so it is a transboundary physical region."
+      },
+      "hi": {
+        "stem": "मानचित्र में आल्प्स फ्रांस, स्विट्ज़रलैंड, इटली और ऑस्ट्रिया के मिलन-क्षेत्र में दिखते हैं। कौन-सा निष्कर्ष उचित है?",
+        "options": [
+          "आल्प्स पूरी तरह एक ही देश में हैं",
+          "आल्प्स कई देशों में फैला साझा पर्वतीय क्षेत्र हैं",
+          "आल्प्स अफ्रीका को यूरोप से अलग करते हैं",
+          "आल्प्स नदी का डेल्टा हैं"
+        ],
+        "explanation": "आल्प्स पर्वतमाला मध्य यूरोप के कई देशों में फैली है, इसलिए यह सीमापार भौतिक क्षेत्र है।"
+      },
+      "pa": {
+        "stem": "ਨਕਸ਼ੇ ਵਿੱਚ ਐਲਪਸ ਫ਼ਰਾਂਸ, ਸਵਿਟਜ਼ਰਲੈਂਡ, ਇਟਲੀ ਅਤੇ ਆਸਟਰੀਆ ਦੇ ਮਿਲਦੇ ਇਲਾਕੇ ਵਿੱਚ ਦਿਖਦੇ ਹਨ। ਕਿਹੜਾ ਨਤੀਜਾ ਠੀਕ ਹੈ?",
+        "options": [
+          "ਐਲਪਸ ਪੂਰੀ ਤਰ੍ਹਾਂ ਇੱਕੋ ਦੇਸ਼ ਵਿੱਚ ਹਨ",
+          "ਐਲਪਸ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚ ਫੈਲਿਆ ਸਾਂਝਾ ਪਹਾੜੀ ਖੇਤਰ ਹਨ",
+          "ਐਲਪਸ ਅਫ਼ਰੀਕਾ ਨੂੰ ਯੂਰਪ ਤੋਂ ਵੱਖ ਕਰਦੇ ਹਨ",
+          "ਐਲਪਸ ਨਦੀ ਦਾ ਡੈਲਟਾ ਹਨ"
+        ],
+        "explanation": "ਐਲਪਸ ਪਹਾੜੀ ਲੜੀ ਮੱਧ ਯੂਰਪ ਦੇ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚ ਫੈਲੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਸਰਹੱਦ-ਪਾਰ ਭੌਤਿਕ ਖੇਤਰ ਹੈ।"
+      }
+    }
+  }
+]
