@@ -42,7 +42,7 @@ All 24 canonical questions include English, Hindi and Punjabi stems, four locali
 | WGE-001-CP039-Q003 | elevation-vs-local-relief | 3 | 6,000 m and 4,000 m |
 | WGE-001-CP039-Q004 | antarctica-largest-desert-sahara-hot | 1 | Antarctica is largest overall; Sahara is the largest hot desert |
 | WGE-001-CP039-Q005 | river-length-source-dependent | 2 | Headwater choices and measurement methods can produce different totals |
-| WGE-001-CP039-Q006 | territory-country-capital-qualification | 0 | Nuuk is Greenland’s capital; Greenland is an autonomous territory within the Kingdom of Denmark |
+| WGE-001-CP039-Q006 | territory-country-capital-qualification | 0 | Nuuk is Greenland’s capital; Greenland is part of the Kingdom of Denmark with extensive self-government |
 
 ## CP040 answer audit
 
@@ -58,6 +58,7 @@ All 24 canonical questions include English, Hindi and Punjabi stems, four locali
 ## Review checks
 
 - Each checkpoint has two Easy, two Medium and two Hard questions.
-- Source IDs resolve against the source register; source-qualified claims avoid unqualified ranking assertions.
-- The adapter keeps CP037–CP040 marked `REVIEW_REQUIRED`; manual review and approval remain required.
+- Source IDs resolve against the source register; qualified claims avoid unqualified ranking assertions.
+- CP037’s hinterland wording identifies the port’s inland service area in each language.
+- CP037–CP040 remain marked `REVIEW_REQUIRED`; manual review and approval remain required.
 - The package stays in review-only mode. Student testing, publication and production release remain disabled.
