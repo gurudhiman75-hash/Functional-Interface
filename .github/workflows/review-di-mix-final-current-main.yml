@@ -1,0 +1,32 @@
+name: review-di-mix-final-current-main
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/export-di-mix-final-review.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: review-di-mix-final-current-main-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Generate final DI mix review
+        run: npx -y tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/DataInterpretation/export-di-mix-final-review.ts /tmp/DI-MIX-FINAL-REVIEW.html
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: di-mix-final-review
+          path: /tmp/DI-MIX-FINAL-REVIEW.html
+          if-no-files-found: error
+      - name: Patch hygiene
+        run: git diff --check
