@@ -5,6 +5,7 @@ import {
   SER_CP009_AUDITED_QL_IDS,
   SER_CP009_REJECTED_SOURCE_GAP,
   SER_CP009_MERGED_INTO_EXISTING_QLS,
+  SER_CP009_MERGED_WITHIN_CP009,
   assertSerCp009AuditedQlId,
   generateSerCp009AuditedNumberSeries,
   solveVisibleAuditedNumberSeries,
@@ -12,8 +13,8 @@ import {
 } from "./number-series-audited";
 import type { SerCp009Locale } from "./number-series";
 
-assert.equal(SER_CP009_AUDITED_QL_IDS.length, 10);
-assert.equal(SER_CP009_AUDITED_QL_AUTHORITIES.length, 10);
+assert.equal(SER_CP009_AUDITED_QL_IDS.length, 7);
+assert.equal(SER_CP009_AUDITED_QL_AUTHORITIES.length, 7);
 assert.equal(SER_CP009_REJECTED_SOURCE_GAP.qlId, "SER-QL-042");
 assert.equal(SER_CP009_REJECTED_SOURCE_GAP.auditDecision, "REJECT_WRONG_CHAPTER_OWNERSHIP");
 assert.equal(SER_CP009_REJECTED_SOURCE_GAP.permanentQlReserved, false);
@@ -30,17 +31,22 @@ for (const merged of SER_CP009_MERGED_INTO_EXISTING_QLS) {
   assert.equal((SER_CP009_AUDITED_QL_IDS as readonly string[]).includes(merged.qlId), false);
   assert.throws(() => assertSerCp009AuditedQlId(merged.qlId), /variant of SER-QL-/i);
 }
+assert.deepEqual(
+  SER_CP009_MERGED_WITHIN_CP009.map((entry) => [entry.qlId, entry.retainedQlId]),
+  [
+    ["SER-QL-030", "SER-QL-029"],
+    ["SER-QL-031", "SER-QL-029"],
+    ["SER-QL-037", "SER-QL-029"],
+  ],
+);
+for (const merged of SER_CP009_MERGED_WITHIN_CP009) {
+  assert.equal((SER_CP009_AUDITED_QL_IDS as readonly string[]).includes(merged.qlId), false);
+  assert.throws(() => assertSerCp009AuditedQlId(merged.qlId), /subtype of SER-QL-029/i);
+}
 assert.throws(() => assertSerCp009AuditedQlId("SER-QL-042"), /not a Series progression/i);
 
-// Recent SSC anchors remain covered by the final candidate.
-assert.equal(
-  solveVisibleAuditedNumberSeries("SER-QL-030", "Question\n382, 322, 272, 232, 202, ?"),
-  "182",
-);
-assert.equal(
-  solveVisibleAuditedNumberSeries("SER-QL-030", "Question\n232, 221, 199, ?, 122, 67"),
-  "166",
-);
+// Recent SSC difference-pattern anchors remain covered by the source grammars
+// merged under retained QL SER-QL-029.
 assert.equal(
   solveVisibleAuditedNumberSeries("SER-QL-035", "Question\n1, 3, 10, 41, ?, 1237"),
   "206",
@@ -130,7 +136,7 @@ for (const qlId of SER_CP009_AUDITED_QL_IDS) {
 }
 
 // Difficulty calibration must reflect inference structure, not numeric magnitude.
-for (const qlId of ["SER-QL-031", "SER-QL-033", "SER-QL-037"] as const) {
+for (const qlId of ["SER-QL-033"] as const) {
   for (let seed = 0; seed < 20; seed += 1) {
     assert.equal(generateSerCp009AuditedNumberSeries(qlId, seed).difficulty, "MEDIUM", `${qlId}:${seed}: under-rated structural burden`);
   }
@@ -152,7 +158,7 @@ const smallestHard = hardCandidates.map(({ seed, item }) => ({ seed, max: numeri
 assert.ok(largestEasy.max > smallestHard.max, `anti-magnitude witness missing: ${largestEasy.max} <= ${smallestHard.max}`);
 
 console.log(JSON.stringify({
-  status: "SER_CP009_AUDITED_10_NEW_QL_ANTI_INFLATION_PASS",
+  status: "SER_CP009_AUDITED_7_NEW_QL_DIFFERENCE_COMPRESSION_PASS",
   qlCount: SER_CP009_AUDITED_QL_IDS.length,
   rejectedWrongOwner: SER_CP009_REJECTED_SOURCE_GAP,
   seedsPerQl,

@@ -14,8 +14,39 @@ import {
 
 export type SerCp009AuditedQlId = Exclude<
   SerCp009QlId,
-  "SER-QL-034" | "SER-QL-039" | "SER-QL-041" | "SER-QL-042"
+  "SER-QL-030" | "SER-QL-031" | "SER-QL-034" | "SER-QL-037" | "SER-QL-039" | "SER-QL-041" | "SER-QL-042"
 >;
+
+export const SER_CP009_MERGED_WITHIN_CP009 = Object.freeze([
+  Object.freeze({
+    qlId: "SER-QL-030" as const,
+    retainedQlId: "SER-QL-029" as const,
+    subtype: "ARITHMETIC_FIRST_DIFFERENCE_PROGRESSION" as const,
+    decision: "MERGE_AS_SUBTYPE" as const,
+    reason:
+      "The learner computes consecutive first differences, recognizes how those differences progress, and extends the series. A constant second difference is a subtype of the same difference-pattern solve contract.",
+  }),
+  Object.freeze({
+    qlId: "SER-QL-031" as const,
+    retainedQlId: "SER-QL-029" as const,
+    subtype: "FIGURATE_FIRST_DIFFERENCE_PATTERN" as const,
+    decision: "MERGE_AS_SUBTYPE" as const,
+    reason:
+      "Square, cube and triangular differences change the grammar of the first-difference sequence, but the learner operation remains: derive differences, identify their rule, and extend the series.",
+  }),
+  Object.freeze({
+    qlId: "SER-QL-037" as const,
+    retainedQlId: "SER-QL-029" as const,
+    subtype: "PRIME_FIRST_DIFFERENCE_PATTERN" as const,
+    decision: "MERGE_AS_SUBTYPE" as const,
+    reason:
+      "Prime-number differences are another governed first-difference grammar under the same learner-visible difference-pattern solve contract.",
+  }),
+]);
+
+const CP009_MERGED_IDS = new Set<string>(
+  SER_CP009_MERGED_WITHIN_CP009.map((entry) => entry.qlId),
+);
 
 export const SER_CP009_MERGED_INTO_EXISTING_QLS = Object.freeze([
   Object.freeze({
@@ -63,15 +94,17 @@ export const SER_CP009_REJECTED_SOURCE_GAP = Object.freeze({
 
 export const SER_CP009_AUDITED_QL_IDS = Object.freeze(
   SOURCE_GAP_QL_IDS.filter(
-    (qlId): qlId is SerCp009AuditedQlId => qlId !== "SER-QL-042" && !MERGED_IDS.has(qlId),
+    (qlId): qlId is SerCp009AuditedQlId => qlId !== "SER-QL-042" && !MERGED_IDS.has(qlId) && !CP009_MERGED_IDS.has(qlId),
   ),
 );
 
 export const SER_CP009_AUDITED_QL_AUTHORITIES = Object.freeze(
-  SOURCE_GAP_AUTHORITIES.filter(([qlId]) => qlId !== "SER-QL-042" && !MERGED_IDS.has(qlId)),
+  SOURCE_GAP_AUTHORITIES.filter(
+    ([qlId]) => qlId !== "SER-QL-042" && !MERGED_IDS.has(qlId) && !CP009_MERGED_IDS.has(qlId),
+  ),
 );
 
-if (SER_CP009_AUDITED_QL_IDS.length !== 10) {
+if (SER_CP009_AUDITED_QL_IDS.length !== 7) {
   throw new Error(`SER-CP-009 audited QL count drifted: ${SER_CP009_AUDITED_QL_IDS.length}`);
 }
 if (SER_CP009_AUDITED_QL_IDS.includes("SER-QL-042" as SerCp009AuditedQlId)) {
@@ -193,6 +226,10 @@ function auditedDigitRotation(
 }
 
 export function assertSerCp009AuditedQlId(value: string): asserts value is SerCp009AuditedQlId {
+  const internalMerge = SER_CP009_MERGED_WITHIN_CP009.find((entry) => entry.qlId === value);
+  if (internalMerge) {
+    throw new Error(`${value} is not a separate Series QL; it is a subtype of ${internalMerge.retainedQlId}: ${internalMerge.reason}`);
+  }
   const merged = SER_CP009_MERGED_INTO_EXISTING_QLS.find((entry) => entry.qlId === value);
   if (merged) {
     throw new Error(`${value} is not a new Series QL; it is a variant of ${merged.existingPermanentQlId}: ${merged.reason}`);

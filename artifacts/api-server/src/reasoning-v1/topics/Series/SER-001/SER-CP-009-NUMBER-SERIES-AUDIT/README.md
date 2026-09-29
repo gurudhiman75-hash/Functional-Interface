@@ -43,6 +43,14 @@ It also does not move arithmetic-progression formula questions, sums of series, 
 
 ### Rejected source-gap prototype
 
+The remaining difference-family prototypes are also compressed internally under retained `SER-QL-029`:
+
+- `SER-QL-030` -> `SER-QL-029` as arithmetic/progressive first-difference subtype.
+- `SER-QL-031` -> `SER-QL-029` as figurate first-difference subtype.
+- `SER-QL-037` -> `SER-QL-029` as prime first-difference subtype.
+
+All four use the same learner operation: compute consecutive differences, identify the rule governing those differences, then extend the series. Fixed difference is simply the base subtype. Their source grammars remain available; only permanent-Ql inflation is removed.
+
 Three additional source-backed CP009 families are retained as content coverage but **not as new QLs**:
 
 - `SER-QL-034 / INTERLEAVED_DOUBLE_NUMBER_SERIES` -> existing `SER-QL-007` because the learner splits positional rows and continues the target row.
