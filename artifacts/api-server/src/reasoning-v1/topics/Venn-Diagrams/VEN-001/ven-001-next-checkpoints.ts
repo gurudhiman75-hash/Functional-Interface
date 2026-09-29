@@ -115,7 +115,13 @@ export function generateVen001NextCheckpointBatch(r:QuestionStudioGenerationRequ
  }
  const pool=C.filter(c=>c.family===family);
  if(count>pool.length)throw new Error(`${family} has ${pool.length} distinct candidates in this review pool`);
- const chosen=shuffle(pool,seed).slice(0,count);
+ const ranked=shuffle(pool,seed);
+ const topologyRepresentatives=family==="VEN-CP002"
+  ? [...new Set(ranked.map(c=>c.topology))].map(topology=>ranked.find(c=>c.topology===topology)!)
+  : [];
+ const chosen=family==="VEN-CP002"
+  ? [...topologyRepresentatives,...ranked.filter(c=>!topologyRepresentatives.some(rep=>rep.id===c.id))].slice(0,count)
+  : ranked.slice(0,count);
  const questions=chosen.map((c,i)=>{
   const all:VennTopologyId[]=c.family==="VEN-CP001"?["TWO_DISJOINT","TWO_PARTIAL_OVERLAP","TWO_CONTAINMENT"]:["THREE_NESTED","THREE_TWO_DISJOINT_SUBSETS","THREE_PARTIAL_OVERLAP_INSIDE_SUPERSET","THREE_PAIRWISE_OVERLAP_WITH_TRIPLE","THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE","THREE_TWO_OVERLAP_ONE_SEPARATE","THREE_ONE_NESTED_PAIR_ONE_SEPARATE","THREE_ALL_DISJOINT","THREE_NESTED_PAIR_CROSSED_BY_THIRD","THREE_TWO_DISJOINT_OVERLAP_THIRD","THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP"];
   const optionSpecs=c.family==="VEN-CP001"?shuffle([{topology:c.topology,order:[...c.order],key:c.topology},...all.filter(t=>t!==c.topology).map(t=>({topology:t,order:undefined as string[]|undefined,key:t})),{topology:"TWO_CONTAINMENT" as VennTopologyId,order:[...c.order].reverse(),key:"TWO_CONTAINMENT_REVERSED"}],`${seed}:${c.id}:${i}:options`):shuffle([{topology:c.topology,order:[...c.order],key:c.topology},...all.filter(t=>t!==c.topology).slice(0,3).map(t=>({topology:t,order:undefined as string[]|undefined,key:t}))],`${seed}:${c.id}:${i}:options`);
