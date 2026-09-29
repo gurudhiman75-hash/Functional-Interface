@@ -13,6 +13,7 @@ for(let i=0;i<320;i++){
   for(const p of set.radar.points){assert(radar.includes(p.category));assert(radar.includes(`data-value="${p.applications}"`));}
   for(const slice of set.pie.slices){assert(pie.includes(slice.category));assert(pie.includes(`>${slice.percent}%</text>`));}
   assert(pie.includes(String(set.pie.totalValue)));
+  assert(/applications and approvals/iu.test(set.radar.title),`${seed}: context does not match the application/approval labels`);
   contexts.add(set.radar.title.split(" — ")[0]!);
   for(const q of set.questions){questions++;tasks.add(q.kind);assert.equal(q.options.length,5);assert.equal(new Set(q.options).size,5);assert.equal(q.options[q.correctIndex],q.answer);assert(!/\d+\.\d+/u.test(q.answer));assert(q.explanation.steps.length>0);if(q.kind==="APPROVAL_RATE_DIFFERENCE"){assert(/percentage points/u.test(q.stem),`${seed}: rate difference lacks percentage-point wording`);assert(/percentage points$/u.test(q.answer),`${seed}: rate difference answer has the wrong unit`);}}
 }
