@@ -97,6 +97,16 @@ Source evidence alone is not enough to claim Series ownership. A candidate must 
 
 CP008 and CP009 retained identities remain provisional until source-coverage, collision and merge/split audits explicitly approve permanent identities.
 
+### CP009 factorial coverage remediation
+
+The final source-gap pass adds factorial/consecutive-multiplier coverage without changing the seven retained CP009 candidate identities.
+
+- `SER-QL-035` now includes adjustment-zero consecutive-multiplier/factorial completion as a bounded subtype.
+- `SER-QL-040` now includes factorial wrong-term diagnosis alongside its power-pattern diagnostic grammar.
+- explicit visible-state fixtures cover `1, 2, 6, 24, 120, ? -> 720` and `5040, 720, 120, 24, 4, 2 -> wrong term 4`.
+
+This is breadth expansion inside existing solve contracts, not a QL allocation event.
+
 ## Safety
 
 This forward port does not authorize promotion of any new Series candidate. It creates a current-main audit surface only. Any permanent QL allocation, shared Question Studio registration, Question Bank storage, test/mock eligibility or public release for the retained CP008/CP009 families requires a separate approval checkpoint.
