@@ -11,7 +11,6 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-006/**"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   workflow_dispatch:
 
 concurrency:
