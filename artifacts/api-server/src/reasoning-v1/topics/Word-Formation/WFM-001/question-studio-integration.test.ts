@@ -73,7 +73,7 @@ for (const qlId of WFM_001_QL_IDS) {
         assert.equal(options.length, expectedOptionCount);
         assert.equal(new Set(options).size, expectedOptionCount);
         assert.ok(Number.isInteger(question.correctIndex));
-        assert.ok((question.correctIndex as number) >= 0 && (question.correctIndex as number) < 4);
+        assert.ok((question.correctIndex as number) >= 0 && (question.correctIndex as number) < expectedOptionCount);
         assert.ok(String(question.stem).trim().length >= 20);
         assert.ok(String(question.explanation).trim().length >= 45);
 
