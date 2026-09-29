@@ -92,6 +92,11 @@ for (let seedIndex = 1; seedIndex <= 100; seedIndex += 1) {
       assert(question.optionMetadata[question.correctIndex]?.misconceptionId === "CORRECT", `${question.questionId} correct-index metadata binding failed.`);
       assert(question.optionMetadata.filter((option) => option.misconceptionId === "CORRECT").length === 1, `${question.questionId} has multiple correct metadata entries.`);
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId} answer does not match the correct option.`);
+      if (question.answer.endsWith("%")) {
+        assert(!/\d+\.\d+%/u.test([question.answer, ...question.options].join(" ")), `${question.questionId} exposes a decimal percentage.`);
+        assert(/approximately/iu.test(question.stem), `${question.questionId} rounds a percentage without signaling approximation.`);
+        assert(question.explanation.steps.join(" ").includes("≈"), `${question.questionId} explanation presents a rounded percentage as exact.`);
+      }
       assert(question.options.filter((option) => option === question.answer).length === 1, `${question.questionId} displays the answer more than once.`);
       assert(question.optionMetadata.every((option) => option.derivation.length >= 20), `${question.questionId} contains an under-explained option.`);
       assert(question.explanation.keyIdea.length >= 40, `${question.questionId} key idea is too thin.`);

@@ -18,7 +18,13 @@ function displayQuotient(numerator: number, denominator: number): string {
 }
 
 function percent(numerator: number, denominator: number): string {
-  return `${displayQuotient(numerator * 100, denominator)}%`;
+  if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || denominator <= 0) {
+    throw new Error("DI-008 independent verifier received an invalid percentage state.");
+  }
+  const n = BigInt(numerator);
+  const d = BigInt(denominator);
+  const roundedWholePercent = (n * 100n + d / 2n) / d;
+  return `${roundedWholePercent}%`;
 }
 
 function unitTotal(rows: readonly Di008Row[], indices: readonly number[], current: boolean): number {

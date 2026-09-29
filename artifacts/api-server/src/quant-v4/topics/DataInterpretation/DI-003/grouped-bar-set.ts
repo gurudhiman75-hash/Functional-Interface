@@ -47,14 +47,8 @@ function formatPercent(numerator: number, denominator: number): string {
   if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || numerator < 0 || denominator <= 0) {
     throw new Error("DI-003 received an invalid percentage fraction.");
   }
-  const n = BigInt(numerator);
-  const d = BigInt(denominator);
-  const hundredths = (n * 10_000n + d / 2n) / d;
-  const whole = hundredths / 100n;
-  const fraction = Number(hundredths % 100n);
-  if (fraction === 0) return `${whole}%`;
-  if (fraction % 10 === 0) return `${whole}.${fraction / 10}%`;
-  return `${whole}.${String(fraction).padStart(2, "0")}%`;
+  const rounded = (BigInt(numerator) * 100n + BigInt(denominator) / 2n) / BigInt(denominator);
+  return `${rounded}%`;
 }
 
 function buildStimulus(seed: string): Di003Stimulus {
@@ -98,6 +92,21 @@ function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidat
     derivation: "Exact recomputation from the shared DI-003 grouped-bar stimulus.",
   });
   candidates.forEach(add);
+
+  if (retained.length < optionCount && /^\d+%$/u.test(answer)) {
+    const correctValue = Number(answer.slice(0, -1));
+    for (let step = 1; retained.length < optionCount && step <= 100; step += 1) {
+      for (const value of [correctValue + 5 * step, correctValue - 5 * step]) {
+        if (value < 0) continue;
+        add({
+          text: `${value}%`,
+          misconceptionId: `NEARBY_ROUNDED_PERCENT_${step}_${value}`,
+          derivation: "A nearby whole-percentage result from a small calculation difference.",
+        });
+        if (retained.length >= optionCount) break;
+      }
+    }
+  }
 
   if (retained.length < optionCount) {
     throw new Error(`DI-003 could construct only ${retained.length} unique options; ${optionCount} are required.`);
@@ -215,7 +224,7 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
     {
       kind: "PERCENT_CHANGE_WITHIN_SERIES",
       difficulty: "Hard",
-      stem: `Product A sales in ${points[higherIndex]!.category} were what percentage higher than in ${points[lowerIndex]!.category}?`,
+      stem: `Product A sales in ${points[higherIndex]!.category} were approximately what percentage higher than in ${points[lowerIndex]!.category}?`,
       answer: percentChange,
       candidates: [
         { text: formatPercent(changeDifference, changeTo), misconceptionId: "USE_HIGHER_VALUE_AS_DENOMINATOR", derivation: "Divides the increase by the higher Product A value instead of the lower comparison base." },
@@ -229,7 +238,7 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
         keyIdea: "For 'what percentage higher', use the lower Product A value as the comparison base.",
         steps: [
           `Difference = ${changeTo} - ${changeFrom} = ${changeDifference}.`,
-          `Percentage higher = ${changeDifference}/${changeFrom} × 100 = ${percentChange}.`,
+          `Percentage higher = ${changeDifference}/${changeFrom} × 100 ≈ ${percentChange}.`,
         ],
         shortcut: "Identify the lower of the two named Product A bars first; that lower value is the denominator.",
         trap: "Do not switch to Product B or divide by the higher bar; both change the comparison being asked.",
@@ -239,7 +248,7 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
     {
       kind: "CATEGORY_SHARE_OF_SERIES_TOTAL",
       difficulty: "Medium",
-      stem: `Product B sales in ${sharePoint.category} formed what percentage of Product B's total sales over all five years?`,
+      stem: `Approximately what percentage of Product B's total sales over all five years came from ${sharePoint.category}?`,
       answer: shareAnswer,
       candidates: [
         { text: formatPercent(sharePoint.seriesA, totalA), misconceptionId: "USE_PRODUCT_A_SHARE", derivation: "Finds Product A's share of its own total instead of Product B's share." },
@@ -253,7 +262,7 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
         keyIdea: "Use the Product B bar for the named year as the part and the sum of all Product B bars as the whole.",
         steps: [
           `Product B five-year total = ${points.map((point) => point.seriesB).join(" + ")} = ${totalB}.`,
-          `Required percentage = ${sharePoint.seriesB}/${totalB} × 100 = ${shareAnswer}.`,
+          `Required percentage = ${sharePoint.seriesB}/${totalB} × 100 ≈ ${shareAnswer}.`,
         ],
         shortcut: "Keep numerator and denominator in the same series: one Product B bar over total Product B bars.",
         trap: "The nearby Product A bars are not part of the denominator when the question asks for Product B's own total.",
@@ -263,7 +272,7 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
     {
       kind: "TOTAL_SERIES_PERCENT_EXCESS",
       difficulty: "Hard",
-      stem: "By what percentage did the total sales of Product A over the five years exceed the total sales of Product B?",
+      stem: "By approximately what percentage did the total sales of Product A over the five years exceed the total sales of Product B?",
       answer: totalExcess,
       candidates: [
         { text: formatPercent(totalDifference, totalA), misconceptionId: "USE_LARGER_TOTAL_AS_DENOMINATOR", derivation: "Divides the excess by Product A total instead of using Product B as the comparison base." },
@@ -278,7 +287,7 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
         steps: [
           `Product A total = ${points.map((point) => point.seriesA).join(" + ")} = ${totalA}.`,
           `Product B total = ${points.map((point) => point.seriesB).join(" + ")} = ${totalB}.`,
-          `Excess = ${totalA} - ${totalB} = ${totalDifference}; percentage excess = ${totalDifference}/${totalB} × 100 = ${totalExcess}.`,
+          `Excess = ${totalA} - ${totalB} = ${totalDifference}; percentage excess = ${totalDifference}/${totalB} × 100 ≈ ${totalExcess}.`,
         ],
         shortcut: "Sum each series separately, then use (larger − smaller) / smaller for 'exceeds by what percent'.",
         trap: "Do not divide by Product A merely because it is larger; the wording 'A exceeds B' makes B the base.",

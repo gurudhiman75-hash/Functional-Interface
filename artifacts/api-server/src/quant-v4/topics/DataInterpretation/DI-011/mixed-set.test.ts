@@ -29,6 +29,16 @@ for(let i=0;i<300;i++){
     assert.equal(q.options[q.correctIndex],q.answer,`${seed}: answer/index drift`);
     assert(!/\.\d/u.test(q.answer),`${seed}: decimal answer leaked: ${q.answer}`);
     assert(q.explanation.steps.length>0);
+    if(a.stimulus.pairKind==="PIE_TABLE"){
+      assert.equal(a.stimulus.leftUnit,"%");
+      assert(!/combined value for .*two displays|difference between the two displayed values|average of/iu.test(q.stem),`${seed}: PIE_TABLE asks for an operation across incompatible units: ${q.stem}`);
+      if(q.kind==="SAME_CATEGORY_COMBINED_TOTAL") assert(/pie chart.*table/iu.test(q.stem),`${seed}: linked PIE_TABLE read is not explicit`);
+      if(q.kind==="SAME_CATEGORY_ABSOLUTE_DIFFERENCE") assert(/percentage points/iu.test(q.stem),`${seed}: pie-share difference is missing its unit`);
+      if(q.kind==="LEFT_TO_RIGHT_RATIO") assert(/pie-chart shares/iu.test(q.stem),`${seed}: ratio does not name the data source`);
+      if(q.kind==="TWO_CATEGORY_CROSS_SUM" || q.kind==="THREE_CATEGORY_CROSS_TOTAL") assert(/total under/iu.test(q.stem),`${seed}: count aggregation does not name the table`);
+      if(q.kind==="TWO_GROUP_CROSS_RATIO" || q.kind==="TWO_GROUP_COMBINED_DIFFERENCE") assert(/total .* for/iu.test(q.stem),`${seed}: grouped count operation does not name the table`);
+      if(q.kind==="HIGHEST_COMBINED_CATEGORY") assert(/table/iu.test(q.stem),`${seed}: maximum question does not name the table`);
+    }
   }
 }
 assert.deepEqual([...pairs].sort(),[...DI011_PAIR_KINDS].sort(),"Not all mixed representation pairs were exercised.");

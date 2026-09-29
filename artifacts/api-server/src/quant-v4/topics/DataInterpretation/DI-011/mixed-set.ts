@@ -56,7 +56,34 @@ function makeQuestion(task: Di011TaskKind, difficulty: Di011Difficulty, stimulus
   const c=rows[(rows.indexOf(b)+1)%rows.length]!;
   const d=rows[(rows.indexOf(c)+1)%rows.length]!;
   let stem="", answer="", options:string[]=[], steps:string[]=[];
-  if(task==="SAME_CATEGORY_COMBINED_TOTAL"){
+  if (stimulus.pairKind === "PIE_TABLE") {
+    if (task === "SAME_CATEGORY_COMBINED_TOTAL") {
+      const maxShare=Math.max(...rows.map((r)=>r.left));
+      const linked=rows.find((r)=>r.left===maxShare)!;
+      const v=linked.right;
+      stem=`The pie chart shows the largest share for ${linked.category}. What figure does the table show under ${stimulus.rightTitle} for this category?`;
+      answer=String(v);options=numericalOptions(v,seed);steps=[`${linked.category} has the largest pie-chart share at ${linked.left}%.`,`The table lists ${v} for ${linked.category}.`];
+    } else if (task === "SAME_CATEGORY_ABSOLUTE_DIFFERENCE") {
+      const ordered=[...rows].sort((x,y)=>y.left-x.left),high=ordered[0]!,low=ordered.at(-1)!;
+      const v=high.left-low.left;
+      stem=`By how many percentage points does the pie-chart share for ${high.category} exceed that for ${low.category}?`;
+      answer=String(v);options=numericalOptions(v,seed);steps=[`${high.category} share = ${high.left}%.`,`${low.category} share = ${low.left}%.`,`Difference = ${v} percentage points.`];
+    } else if (task === "LEFT_TO_RIGHT_RATIO") {
+      const v=ratio(a.left,b.left);stem=`What is the ratio of the pie-chart shares for ${a.category} and ${b.category}, in that order?`;answer=v;options=ratioOptions(v,a.left,b.left,seed);steps=[`Shares = ${a.left}%:${b.left}% = ${v}.`];
+    } else if (task === "TWO_CATEGORY_CROSS_SUM") {
+      const v=a.right+b.right;stem=`What is the total under ${stimulus.rightTitle} for ${a.category} and ${b.category}?`;answer=String(v);options=numericalOptions(v,seed);steps=[`${a.category} = ${a.right}.`,`${b.category} = ${b.right}.`,`Total = ${v}.`];
+    } else if (task === "HIGHEST_COMBINED_CATEGORY") {
+      const best=[...rows].sort((x,y)=>y.right-x.right)[0]!;stem=`Which category has the highest ${stimulus.rightTitle} figure in the table?`;answer=best.category;options=categoryOptions(rows.map((r)=>r.category),answer,seed);steps=rows.map((r)=>`${r.category}: ${r.right}`).concat([`The highest table value is for ${answer}.`]);
+    } else if (task === "TWO_GROUP_CROSS_RATIO") {
+      const x=a.right+b.right,y=c.right+d.right,v=ratio(x,y);stem=`What is the ratio of total ${stimulus.rightTitle} for ${a.category} and ${b.category} to total ${stimulus.rightTitle} for ${c.category} and ${d.category}?`;answer=v;options=ratioOptions(v,x,y,seed);steps=[`First total = ${a.right} + ${b.right} = ${x}.`,`Second total = ${c.right} + ${d.right} = ${y}.`,`Ratio = ${x}:${y} = ${v}.`];
+    } else if (task === "TWO_GROUP_COMBINED_DIFFERENCE") {
+      const x=a.right+b.right,y=c.right+d.right,v=Math.abs(x-y);stem=`Find the difference between the total ${stimulus.rightTitle} for ${a.category} and ${b.category} together and the total for ${c.category} and ${d.category} together.`;answer=String(v);options=numericalOptions(v,seed);steps=[`First total = ${a.right} + ${b.right} = ${x}.`,`Second total = ${c.right} + ${d.right} = ${y}.`,`Difference = |${x} − ${y}| = ${v}.`];
+    } else if (task === "THREE_CATEGORY_CROSS_TOTAL") {
+      const v=a.right+b.right+c.right;stem=`What is the total under ${stimulus.rightTitle} for ${a.category}, ${b.category} and ${c.category}?`;answer=String(v);options=numericalOptions(v,seed);steps=[`${a.right} + ${b.right} + ${c.right} = ${v}.`];
+    } else {
+      throw new Error(`DI-011 does not support ${task} for a pie-and-table stimulus.`);
+    }
+  } else if(task==="SAME_CATEGORY_COMBINED_TOTAL"){
     const v=a.left+a.right; stem=`What is the combined value for ${a.category} from the two displays?`; answer=String(v); options=numericalOptions(v,seed); steps=[`${a.left} + ${a.right} = ${v}.`];
   } else if(task==="SAME_CATEGORY_ABSOLUTE_DIFFERENCE"){
     const v=Math.abs(a.left-a.right); stem=`What is the difference between the two displayed values for ${a.category}?`; answer=String(v); options=numericalOptions(v,seed); steps=[`Difference = |${a.left} − ${a.right}| = ${v}.`];
