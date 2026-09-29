@@ -4,6 +4,7 @@ import{ENG011_ACTIVE_SETS_V2}from"../chapters/sentence-rearrangement/ENG-011/eng
 import{ENG011_PRODUCTION_EXPANSION_COUNTS_V2}from"../chapters/sentence-rearrangement/ENG-011/eng-011-production-expansion-v2";
 import{ENG011_SATURATION_COUNTS_V3}from"../chapters/sentence-rearrangement/ENG-011/eng-011-saturation-expansion-v3";
 import{generateEng011Cp005SetV1,generateEng011QuestionV1}from"../chapters/sentence-rearrangement/ENG-011/eng-011-v1";
+import{summarizeEng011AmbiguityV1}from"../chapters/sentence-rearrangement/ENG-011/eng-011-ambiguity-audit-v1";
 
 assert.equal(ENG011_ACTIVE_SETS_V2.length,990);
 assert.deepEqual(ENG011_PRODUCTION_EXPANSION_COUNTS_V2,{cp001:96,cp002:96,cp003:76,cp004:86,total:354});
@@ -44,6 +45,10 @@ for(const set of ENG011_ACTIVE_SETS_V2){
  const identity=Array.from({length:q.fragments.length},(_,i)=>String.fromCharCode(65+i)).join("-");
  assert.notEqual(q.metadata.correctOrder,identity,"Displayed ENG-011 question must not leak an identity answer order");
 }
+
+const ambiguity=summarizeEng011AmbiguityV1(ENG011_ACTIVE_SETS_V2);
+assert.equal(ambiguity.total,990);
+assert.equal(ambiguity.severeCount,0,"No ENG-011 set may contain duplicate logical fragments");
 
 for(const p of["ssc-standard","ssc-advanced","banking-prelims","banking-mains"]as const){
  const x=generateEng011Cp005SetV1(`composer:${p}`,p);
