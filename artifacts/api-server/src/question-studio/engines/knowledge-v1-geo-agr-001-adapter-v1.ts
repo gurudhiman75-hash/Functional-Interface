@@ -7,7 +7,7 @@ import type {
   QuestionStudioLanguage,
   QuestionStudioPackageDefinition,
 } from "../engine-types";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";\nimport { localizeIndianGeoQuestionV1 } from "../../knowledge-v1/indian-geography/indian-geo-localization-v1";
 
 export const GEO_AGR_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "GEO-AGR-001" as const;
 export const GEO_AGR_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
