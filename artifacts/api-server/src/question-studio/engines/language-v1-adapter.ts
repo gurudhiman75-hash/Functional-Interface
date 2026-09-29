@@ -48,6 +48,7 @@ import { isEng008QuestionStudioRequestV1, languageV1Eng008QuestionStudioAdapterV
 import { isEng009QuestionStudioRequestV1, languageV1Eng009QuestionStudioAdapterV1 } from "./language-v1-eng009-adapter-v1";
 import { isEng010QuestionStudioRequestV1, languageV1Eng010QuestionStudioAdapterV1 } from "./language-v1-eng010-adapter-v1";
 import { isEng011QuestionStudioRequestV1, languageV1Eng011QuestionStudioAdapterV1 } from "./language-v1-eng011-adapter-v1";
+import { isEng012QuestionStudioRequestV1, languageV1Eng012QuestionStudioAdapterV1 } from "./language-v1-eng012-adapter-v1";
 import { isPun001QuestionStudioRequestV1, languageV1Pun001QuestionStudioAdapterV1 } from "./language-v1-pun001-adapter-v1";
 
 function explicitSelectorValues(request: QuestionStudioGenerationRequest) {
@@ -93,6 +94,7 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...languageV1Eng009QuestionStudioAdapterV1.listPackages(),
       ...languageV1Eng010QuestionStudioAdapterV1.listPackages(),
       ...languageV1Eng011QuestionStudioAdapterV1.listPackages(),
+      ...languageV1Eng012QuestionStudioAdapterV1.listPackages(),
       ...languageV1Pun001QuestionStudioAdapterV1.listPackages(),
     ];
   },
@@ -106,6 +108,7 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (isEng009QuestionStudioRequestV1(request)) return languageV1Eng009QuestionStudioAdapterV1.generate(request);
     if (isEng010QuestionStudioRequestV1(request)) return languageV1Eng010QuestionStudioAdapterV1.generate(request);
     if (isEng011QuestionStudioRequestV1(request)) return languageV1Eng011QuestionStudioAdapterV1.generate(request);
+    if (isEng012QuestionStudioRequestV1(request)) return languageV1Eng012QuestionStudioAdapterV1.generate(request);
     // ENG-003 reuses the ENG-001/ENG-002 grammar rule IDs. Resolve its explicit checkpoint/package
     // before the shared GR-* fallback so ENG-003 requests cannot be stolen by ENG-002.
     const eng003CpSelector = explicitEng003CpSelector(request);
