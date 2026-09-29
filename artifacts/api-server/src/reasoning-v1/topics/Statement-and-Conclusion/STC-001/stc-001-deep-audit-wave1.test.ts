@@ -57,8 +57,9 @@ for (const qlId of STC_QL_IDS) {
         assert.match(q.explanation, /निष्कर्ष I/u);
         assert.match(q.explanation, /निष्कर्ष II/u);
       } else {
-        assert.match(q.explanation, /ਨਤੀਜਾ I/u);
-        assert.match(q.explanation, /ਨਤੀਜਾ II/u);
+        assert.match(q.explanation, /ਸਿੱਟਾ I/u);
+        assert.match(q.explanation, /ਸਿੱਟਾ II/u);
+        assert.doesNotMatch([q.explanation, ...q.options].join(" "), /ਅਨੁਸਰਣ/u);
       }
 
       stems.add(q.stem);
