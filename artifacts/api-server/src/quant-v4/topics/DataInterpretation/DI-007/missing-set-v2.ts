@@ -485,7 +485,7 @@ function missingPairedPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2)
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
     `For ${row.label}, the ${stimulus.seriesBLabel} figure is approximately what percentage of the ${stimulus.seriesALabel} figure?`,
-    `After finding the missing entry for ${row.label}, express the ${stimulus.seriesBLabel} figure as an approximate percentage of the ${stimulus.seriesALabel} figure.`,
+    `After finding the missing entry for ${row.label}, approximately what percentage of the ${stimulus.seriesALabel} figure is the ${stimulus.seriesBLabel} figure?`,
     `For ${row.label}, the ${stimulus.seriesBLabel} figure is approximately what percent of the ${stimulus.seriesALabel} figure?`,
   ] as const;
   return templates[variant];
