@@ -41,7 +41,7 @@ const R:readonly Eng013BreadthRecordV4[]=[
 ["restructuring","The parties agreed {x} a restructuring of the debt.",["on","to","with","for"],"Agree on a restructuring means reach agreement about it."],
 ["forbearance","The lender entered {x} a forbearance arrangement with the borrower.",["into","to","with into","on"],"Enter into an arrangement is the standard phrase."],
 ["workout","The bank transferred the stressed loan {x} its workout unit.",["to","for","with","on"],"A workout unit handles stressed or troubled exposures."],
-["recovery","The bank estimated recovery {x} defaulted exposures.",["from","to","with","on"],"Recovery from exposures means amounts regained after default."],
+["realization","The bank estimated realization {x} collateral after default.",["from","to","with","on"],"Realization from collateral means value actually obtained by selling or enforcing it."] ,
 ["loss","The model estimates loss {x} a severe scenario.",["under","to","with","on"],"Loss under a scenario is standard stress-testing language."],
 ["stress","The portfolio is tested {x} severe stress conditions.",["under","to","with","on"],"Tested under stress conditions is standard."],
 ["scenario","The result varies {x} the scenario assumptions.",["with","to","for","on"],"Varies with assumptions means changes as they change."],
