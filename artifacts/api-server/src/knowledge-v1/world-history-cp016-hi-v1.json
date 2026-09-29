@@ -1,0 +1,2445 @@
+Warning: truncated output (original token count: 26827)
+Total output lines: 2618
+
+[
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "अपने अभियानों से पहले सिकंदर किस राज्य का शासक था?",
+    "explanation": "सिकंदर मकदूनिया का राजा था। उसके अभियानों ने फ़ारसी साम्राज्य को हराया और मिस्र तथा एशिया के कुछ हिस्सों तक उसका शासन फैलाया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q001-HI",
+    "englishQuestionId": "WHI-CP016-Q001",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F001",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q007",
+    "originFactId": "WHI-CP001-F007",
+    "originSourceIds": [
+      "S4"
+    ],
+    "originQuestionFamily": "Leader and region",
+    "questionFamily": "व्यक्ति, भूमिकाएँ और विचार",
+    "options": [
+      {
+        "key": "A",
+        "text": "लिडिया"
+      },
+      {
+        "key": "B",
+        "text": "कार्थेज"
+      },
+      {
+        "key": "C",
+        "text": "मकदूनिया"
+      },
+      {
+        "key": "D",
+        "text": "स्पार्टा"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP001-S4"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "रोम के इन राजनीतिक बदलावों का सही कालक्रम चुनें।",
+    "explanation": "गणराज्य लगभग 509 ईसा पूर्व में शुरू हुआ, ऑगस्टस को 27 ईसा पूर्व में उपाधि मिली और कॉन्स्टेंटाइन ने 330 ईस्वी में राजधानी कॉन्स्टेंटिनोपल बनाई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q002-HI",
+    "englishQuestionId": "WHI-CP016-Q002",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F002",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q019",
+    "originFactId": "WHI-CP001-F019",
+    "originSourceIds": [
+      "S5",
+      "S6"
+    ],
+    "originQuestionFamily": "Roman chronology",
+    "questionFamily": "घटनाएँ, स्थान और संबंधित पक्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "गणराज्य की शुरुआत → कॉन्स्टेंटिनोपल राजधानी बना → ऑगस्टस की उपाधि"
+      },
+      {
+        "key": "B",
+        "text": "ऑगस्टस की उपाधि → गणराज्य की शुरुआत → कॉन्स्टेंटिनोपल राजधानी बना"
+      },
+      {
+        "key": "C",
+        "text": "कॉन्स्टेंटिनोपल राजधानी बना → गणराज्य की शुरुआत → ऑगस्टस की उपाधि"
+      },
+      {
+        "key": "D",
+        "text": "गणराज्य की शुरुआत → ऑगस्टस की उपाधि → कॉन्स्टेंटिनोपल राजधानी बना"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP001-S5",
+      "CP001-S6"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "मंगोलों के राजनीतिक एकीकरण से सिल्क रोड के व्यापार पर क्या असर पड़ा?",
+    "explanation": "मंगोल एकीकरण ने यूरेशिया के कुछ स्थल मार्गों की सुरक्षा में मदद की। इन मार्गों से दूर-दूर के बाज़ार जुड़े।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q003-HI",
+    "englishQuestionId": "WHI-CP016-Q003",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F003",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q026",
+    "originFactId": "WHI-CP001-F026",
+    "originSourceIds": [
+      "S14"
+    ],
+    "originQuestionFamily": "Mongol history",
+    "questionFamily": "तिथियाँ और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "चीन और पश्चिमी एशिया का सारा स्थल-व्यापार बंद हो गया"
+      },
+      {
+        "key": "B",
+        "text": "एकीकरण से सिल्क रोड के कुछ मार्ग सुरक्षित हुए और व्यापार को बढ़ावा मिला"
+      },
+      {
+        "key": "C",
+        "text": "मंगोल विस्तार यूरोप में ब्लैक डेथ के बाद शुरू हुआ"
+      },
+      {
+        "key": "D",
+        "text": "मंगोल शासकों का नियंत्रण केवल भूमध्यसागरीय तट तक था"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP001-S14"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "कॉर्पस ज्यूरिस सिविलिस के रूप में रोमन कानून किस बाइजेंटाइन सम्राट के समय संकलित हुआ?",
+    "explanation": "जस्टिनियन प्रथम 527 से 565 ईस्वी तक बाइजेंटाइन सम्राट था। उसके शासन में रोमन कानून का संकलन हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q004-HI",
+    "englishQuestionId": "WHI-CP016-Q004",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F004",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q034",
+    "originFactId": "WHI-CP001-F034",
+    "originSourceIds": [
+      "S20"
+    ],
+    "originQuestionFamily": "Byzantine ruler",
+    "questionFamily": "दस्तावेज़, संधियाँ और संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "हेराक्लियस"
+      },
+      {
+        "key": "B",
+        "text": "बासिल द्वितीय"
+      },
+      {
+        "key": "C",
+        "text": "जस्टिनियन प्रथम"
+      },
+      {
+        "key": "D",
+        "text": "कॉन्स्टेंटाइन प्रथम"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP001-S20"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1516 में प्रकाशित Utopia किसने लिखी?",
+    "explanation": "थॉमस मोर की Utopia में एक कल्पित समाज का वर्णन है। यह पुनर्जागरण मानववादी लेखन की प्रमुख कृति बनी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q005-HI",
+    "englishQuestionId": "WHI-CP016-Q005",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F005",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q007",
+    "originFactId": "WHI-CP002-F007",
+    "originSourceIds": [
+      "S2"
+    ],
+    "originQuestionFamily": "Person–work relationship",
+    "questionFamily": "दस्तावेज़, संधियाँ और संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "पेट्रार्क"
+      },
+      {
+        "key": "B",
+        "text": "इरास्मस"
+      },
+      {
+        "key": "C",
+        "text": "मैकियावेली"
+      },
+      {
+        "key": "D",
+        "text": "थॉमस मोर"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP002-S2"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "The Divine Comedy किसने लिखी?",
+    "explanation": "दांते ने चौदहवीं शताब्दी के आरंभ में The Divine Comedy लिखी। इतालवी भाषा के प्रयोग ने स्थानीय भाषा को उच्च साहित्य में प्रतिष्ठा दिलाई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q006-HI",
+    "englishQuestionId": "WHI-CP016-Q006",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F006",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q009",
+    "originFactId": "WHI-CP002-F009",
+    "originSourceIds": [
+      "S2"
+    ],
+    "originQuestionFamily": "Person–work relationship",
+    "questionFamily": "दस्तावेज़, संधियाँ और संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "पेट्रार्क"
+      },
+      {
+        "key": "B",
+        "text": "बोकाचियो"
+      },
+      {
+        "key": "C",
+        "text": "दांते अलीघिएरी"
+      },
+      {
+        "key": "D",
+        "text": "आरियोस्तो"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP002-S2"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1543 में ग्रह-व्यवस्था का सूर्यकेन्द्रित विवरण किसने प्रकाशित किया?",
+    "explanation": "कोपरनिकस की 1543 की पुस्तक ने सूर्य को ग्रह-व्यवस्था के केन्द्र में रखा और पृथ्वी को गतिशील ग्रह माना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q007-HI",
+    "englishQuestionId": "WHI-CP016-Q007",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F007",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q029",
+    "originFactId": "WHI-CP002-F029",
+    "originSourceIds": [
+      "S5"
+    ],
+    "originQuestionFamily": "Scientist–discovery",
+    "questionFamily": "दस्तावेज़, संधियाँ और संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "आइज़ैक न्यूटन"
+      },
+      {
+        "key": "B",
+        "text": "आंद्रेयास वेसालियस"
+      },
+      {
+        "key": "C",
+        "text": "विलियम हार्वे"
+      },
+      {
+        "key": "D",
+        "text": "निकोलस कोपरनिकस"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP002-S5"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1494 की Treaty of Tordesillas किन राज्यों के बीच हुई थी?",
+    "explanation": "समुद्रपार क्षेत्रों पर दावों की होड़ के बीच स्पेन और पुर्तगाल ने 1494 में यह संधि की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q008-HI",
+    "englishQuestionId": "WHI-CP016-Q008",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F008",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q043",
+    "originFactId": "WHI-CP002-F043",
+    "originSourceIds": [
+      "S10"
+    ],
+    "originQuestionFamily": "Treaty–event",
+    "questionFamily": "कारण, नीतियाँ और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "पुर्तगाल और नीदरलैंड"
+      },
+      {
+        "key": "B",
+        "text": "स्पेन और पुर्तगाल"
+      },
+      {
+        "key": "C",
+        "text": "इंग्लैंड और फ्रांस"
+      },
+      {
+        "key": "D",
+        "text": "स्पेन और ओटोमन साम्राज्य"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP002-S10"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "विधायी, कार्यकारी और न्यायिक शक्तियों को अलग रखने का तर्क किसने दिया?",
+    "explanation": "मोंतेस्क्यू ने माना कि राजनीतिक शक्तियों का बँटवारा निरंकुश शासन को रोकने में मदद करता है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q009-HI",
+    "englishQuestionId": "WHI-CP016-Q009",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F009",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q002",
+    "originFactId": "WHI-CP003-F002",
+    "originSourceIds": [
+      "S2"
+    ],
+    "originQuestionFamily": "Thinker–idea",
+    "questionFamily": "दस्तावेज़, संधियाँ और संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "वोल्तेयर"
+      },
+      {
+        "key": "B",
+        "text": "मोंतेस्क्यू"
+      },
+      {
+        "key": "C",
+        "text": "रूसो"
+      },
+      {
+        "key": "D",
+        "text": "डिडरो"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP003-S2"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1776 में अमेरिकी उपनिवेशों द्वारा स्वीकृत स्वतंत्रता की घोषणा में किस देश से अलग होने की घोषणा की गई थी?",
+    "explanation": "इस घोषणा में तेरह उपनिवेशों ने ब्रिटिश शासन से अलग होने की बात कही।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q010-HI",
+    "englishQuestionId": "WHI-CP016-Q010",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F010",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q005",
+    "originFactId": "WHI-CP003-F005",
+    "originSourceIds": [
+      "S4"
+    ],
+    "originQuestionFamily": "Document–event",
+    "questionFamily": "कारण, नीतियाँ और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्पेन"
+      },
+      {
+        "key": "B",
+        "text": "ग्रेट ब्रिटेन"
+      },
+      {
+        "key": "C",
+        "text": "पुर्तगाल"
+      },
+      {
+        "key": "D",
+        "text": "फ्रांस"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP003-S4"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "तूसां लूवर्त्यूर किस क्रांति के प्रमुख नेता बने?",
+    "explanation": "लूवर्त्यूर सेंट-डोमिंग में गुलाम बनाए गए लोगों के विद्रोह के प्रमुख नेता थे; हैती की स्वतंत्रता घोषित होने से पहले उनकी मृत्यु हो गई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q011-HI",
+    "englishQuestionId": "WHI-CP016-Q011",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F011",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q016",
+    "originFactId": "WHI-CP003-F016",
+    "originSourceIds": [
+      "S7"
+    ],
+    "originQuestionFamily": "Revolution–leader",
+    "questionFamily": "परिणाम और प्रभाव",
+    "options": [
+      {
+        "key": "A",
+        "text": "अमेरिकी क्रांति"
+      },
+      {
+        "key": "B",
+        "text": "फ्रांसीसी जुलाई क्रांति"
+      },
+      {
+        "key": "C",
+        "text": "यूनान का स्वतंत्रता युद्ध"
+      },
+      {
+        "key": "D",
+        "text": "हैती क्रांति"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP003-S7"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अमेरिकी क्रांतिकारी संघर्ष के लिए फ्रांस की सहायता क्यों महत्त्वपूर्ण थी?",
+    "explanation": "फ्रांसीसी सहायता से अमेरिकी युद्ध प्रयास मजबूत हुए और ब्रिटेन के लिए युद्ध जारी रखना कठिन हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q012-HI",
+    "englishQuestionId": "WHI-CP016-Q012",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F012",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q054",
+    "originFactId": "WHI-CP003-F054",
+    "originSourceIds": [
+      "S5",
+      "S18"
+    ],
+    "originQuestionFamily": "Cause–consequence",
+    "questionFamily": "आंदोलन, राज्य और राजनीतिक परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने तुरंत अमेरिकी संविधान का मसौदा तैयार किया।"
+      },
+      {
+        "key": "B",
+        "text": "इसने साराटोगा से पहले ही संघर्ष समाप्त कर दिया।"
+      },
+      {
+        "key": "C",
+        "text": "इसने ब्रिटेन के विरुद्ध सैन्य, नौसैनिक और कूटनीतिक सहायता दी।"
+      },
+      {
+        "key": "D",
+        "text": "इसने उपनिवेशों को ब्रिटिश शासन बहाल करने पर मजबूर किया।"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP003-S5",
+      "CP003-S18"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1799 के 18 ब्रूमेयर तख्तापलट में सत्ता किसने हथियाई?",
+    "explanation": "9–10 नवंबर 1799 को बोनापार्ट के तख्तापलट ने डायरेक्टरी समाप्त की और कौंसुलेट की शुरुआत की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q013-HI",
+    "englishQuestionId": "WHI-CP016-Q013",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F013",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q008",
+    "originFactId": "WHI-CP004-F008",
+    "originSourceIds": [
+      "S3"
+    ],
+    "originQuestionFamily": "Person–event",
+    "questionFamily": "दस्तावेज़, संधियाँ और संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "लुई अठारहवें"
+      },
+      {
+        "key": "B",
+        "text": "नेपोलियन बोनापार्ट"
+      },
+      {
+        "key": "C",
+        "text": "मेटरनिख"
+      },
+      {
+        "key": "D",
+        "text": "मैक्सिमिलियन रोबेस्पियर"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP004-S3"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1812 में रूस पर नेपोलियन के आक्रमण का अंत किस परिणाम के साथ हुआ?",
+    "explanation": "अभियान और वापसी में भारी नुकसान हुआ तथा नेपोलियन की सैन्य स्थिति कमजोर पड़ गई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q014-HI",
+    "englishQuestionId": "WHI-CP016-Q014",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F014",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q018",
+    "originFactId": "WHI-CP004-F018",
+    "originSourceIds": [
+      "S9"
+    ],
+    "originQuestionFamily": "Campaign–consequence",
+    "questionFamily": "तिथियाँ और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "विनाशकारी वापसी से ग्रांद आर्मी बहुत कमजोर हुई"
+      },
+      {
+        "key": "B",
+        "text": "1789 में फ्रांसीसी क्रांति समाप्त हुई"
+      },
+      {
+        "key": "C",
+        "text": "रूस का पूरा भूभाग स्थायी रूप से फ्रांस में मिला लिया गया"
+      },
+      {
+        "key": "D",
+        "text": "यूरोपीय संघ तुरंत बना"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP004-S9"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "निम्नलिखित कथनों पर विचार कीजिए:\n\n1. डायरेक्टरी क्रांति के उग्र दौर के बाद आई।  \n2. नेपोलियन के तख्तापलट ने डायरेक्टरी समाप्त की।  \n3. वियना कांग्रेस वाटरलू के युद्ध से पहले हुई।\n\nकौन-से कथन सही हैं?",
+    "explanation": "डायरेक्टरी उग्र दौर के बाद बनी, नेपोलियन के तख्तापलट ने इसे समाप्त किया और वियना कांग्रेस 1814 में शुरू हुई—वाटरलू के 1815 के युद्ध से पहले।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q015-HI",
+    "englishQuestionId": "WHI-CP016-Q015",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F015",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q024",
+    "originFactId": "WHI-CP004-F024",
+    "originSourceIds": [
+      "S3",
+      "S5"
+    ],
+    "originQuestionFamily": "Multi-statement",
+    "questionFamily": "गठबंधन, पक्ष और संघर्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "केवल 1 और 3"
+      },
+      {
+        "key": "B",
+        "text": "केवल 1 और 2"
+      },
+      {
+        "key": "C",
+        "text": "केवल 2 और 3"
+      },
+      {
+        "key": "D",
+        "text": "1, 2 और 3"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP004-S3",
+      "CP004-S5"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "नेपोलियन के शासन के अंत के बारे में कथनों पर विचार कीजिए:\n\n1. नेपोलियन ने 1814 में पहली बार त्यागपत्र दिया और उसे एल्बा निर्वासित किया गया।  \n2. 1815 में वाटरलू की हार से पहले वह सत्ता में लौट आया।  \n3. वाटरलू के बाद उसे सेंट हेलेना निर्वासित किया गया।\n\nकौन-से कथन सही हैं?",
+    "explanation": "पहले त्यागपत्र के बाद नेपोलियन को एल्बा भेजा गया; उसकी वापसी का अंत वाटरलू की हार और सेंट हेलेना के अंतिम निर्वासन से हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q016-HI",
+    "englishQuestionId": "WHI-CP016-Q016",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F016",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q060",
+    "originFactId": "WHI-CP004-F060",
+    "originSourceIds": [
+      "S4",
+      "S5"
+    ],
+    "originQuestionFamily": "Multi-statement synthesis",
+    "questionFamily": "गठबंधन, पक्ष और संघर्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "केवल 1 और 3"
+      },
+      {
+        "key": "B",
+        "text": "1, 2 और 3"
+      },
+      {
+        "key": "C",
+        "text": "केवल 1 और 2"
+      },
+      {
+        "key": "D",
+        "text": "केवल 2 और 3"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP004-S4",
+      "CP004-S5"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "उन्नीसवीं शताब्दी में कई औद्योगिक नगर तेज़ी से क्यों बढ़े?",
+    "explanation": "फ़ैक्टरियों और खानों में मजदूरी वाले काम लोगों को शहरों की ओर खींचते थे। नगरों की वृद्धि अक्सर आवास और सफ़ाई की व्यवस्था से तेज़ रही, जिससे भीड़ और अस्वास्थ्यकर हालात बने।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q017-HI",
+    "englishQuestionId": "WHI-CP016-Q017",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F017",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q013",
+    "originFactId": "WHI-CP005-F013",
+    "originSourceIds": [
+      "CP005-S22"
+    ],
+    "originQuestionFamily": "Urbanisation",
+    "questionFamily": "आंदोलन, राज्य और राजनीतिक परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "सरकारों ने सभी खेतों को शहरों में स्थानांतरित कर दिया"
+      },
+      {
+        "key": "B",
+        "text": "गाँवों में खनन और निर्माण पर रोक लगा दी गई"
+      },
+      {
+        "key": "C",
+        "text": "फ़ैक्टरियों के रोजगार ने ग्रामीण लोगों को आकर्षित किया"
+      },
+      {
+        "key": "D",
+        "text": "रेलमार्गों ने निर्मित वस्तुओं की माँग समाप्त कर दी"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP005-CP005-S22"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "बेल्जियम में औद्योगीकरण का शुरुआती केंद्र कौन-सा क्षेत्र बना?",
+    "explanation": "बेल्जियम का शुरुआती औद्योगिक विकास वालोनिया में कोयला खनन और लोहा उद्योग पर टिका था। लीज और शार्लरुआ इसके प्रमुख क्षेत्र थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q018-HI",
+    "englishQuestionId": "WHI-CP016-Q018",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F018",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q038",
+    "originFactId": "WHI-CP005-F038",
+    "originSourceIds": [
+      "CP005-S28"
+    ],
+    "originQuestionFamily": "Industrialisation beyond Britain",
+    "questionFamily": "व्यक्ति, भूमिकाएँ और विचार",
+    "options": [
+      {
+        "key": "A",
+        "text": "लीज और शार्लरुआ के आसपास के कोयला और लोहा क्षेत्र"
+      },
+      {
+        "key": "B",
+        "text": "ऊपरी सिलेसिया का कोयला क्षेत्र"
+      },
+      {
+        "key": "C",
+        "text": "सार का औद्योगिक क्षेत्र"
+      },
+      {
+        "key": "D",
+        "text": "रुहर का कोयला और इस्पात क्षेत्र"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP005-CP005-S28"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "यूरोपीय महाद्वीप में सबसे पहले किस देश में औद्योगीकरण हुआ?",
+    "explanation": "यूरोपीय महाद्वीप में बेल्जियम में सबसे पहले औद्योगीकरण हुआ। वहाँ कोयला खनन और लोहा उद्योग पहले से मौजूद थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q019-HI",
+    "englishQuestionId": "WHI-CP016-Q019",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F019",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q043",
+    "originFactId": "WHI-CP005-F043",
+    "originSourceIds": [
+      "CP005-S28"
+    ],
+    "originQuestionFamily": "Industrialisation beyond Britain",
+    "questionFamily": "व्यक्ति, भूमिकाएँ और विचार",
+    "options": [
+      {
+        "key": "A",
+        "text": "पुर्तगाल"
+      },
+      {
+        "key": "B",
+        "text": "नॉर्वे"
+      },
+      {
+        "key": "C",
+        "text": "बेल्जियम"
+      },
+      {
+        "key": "D",
+        "text": "यूनान"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP005-CP005-S28"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "ब्रिटेन के इन सुधारों को सही कालक्रम में रखने वाला विकल्प कौन-सा है?",
+    "explanation": "फ़ैक्टरी अधिनियम 1833 में बना। चार्टिस्ट आंदोलन और चार्टर 1830 के दशक के उत्तरार्ध में आए; याचिकाएँ 1839, 1842 और 1848 में दी गईं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q020-HI",
+    "englishQuestionId": "WHI-CP016-Q020",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F020",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q056",
+    "originFactId": "WHI-CP005-F056",
+    "originSourceIds": [
+      "CP005-S01",
+      "CP005-S06",
+      "CP005-S29"
+    ],
+    "originQuestionFamily": "Reform chronology",
+    "questionFamily": "घटनाएँ, स्थान और संबंधित पक्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "चार्टिस्ट आंदोलन → 1833 का फ़ैक्टरी अधिनियम → पीपल्स चार्टर"
+      },
+      {
+        "key": "B",
+        "text": "1833 का फ़ैक्टरी अधिनियम → चार्टिस्ट आंदोलन और पीपल्स चार्टर → 1839–1848 की याचिकाएँ"
+      },
+      {
+        "key": "C",
+        "text": "1833 का फ़ैक्टरी अधिनियम → पीपल्स चार्टर → चार्टिस्ट आंदोलन"
+      },
+      {
+        "key": "D",
+        "text": "पीपल्स चार्टर → 1833 का फ़ैक्टरी अधिनियम → चार्टिस्ट आंदोलन"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP005-CP005-S01",
+      "CP005-CP005-S06",
+      "CP005-CP005-S29"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "उन्नीसवीं शताब्दी में ज़ोलफ़राइन के गठन का नेतृत्व किस राज्य ने किया?",
+    "explanation": "सीमा-शुल्क संघ में प्रशिया ने अग्रणी भूमिका निभाई। ऑस्ट्रिया ज़ोलफ़राइन से बाहर रहा, जिससे जर्मन राज्यों में प्रशिया का आर्थिक प्रभाव बढ़ा।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q021-HI",
+    "englishQuestionId": "WHI-CP016-Q021",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F021",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q022",
+    "originFactId": "WHI-CP006-F022",
+    "originSourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "originQuestionFamily": "State and political base",
+    "questionFamily": "परिणाम और प्रभाव",
+    "options": [
+      {
+        "key": "A",
+        "text": "सैक्सनी"
+      },
+      {
+        "key": "B",
+        "text": "प्रशिया"
+      },
+      {
+        "key": "C",
+        "text": "ऑस्ट्रिया"
+      },
+      {
+        "key": "D",
+        "text": "बवेरिया"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP006-CP006-S01",
+      "CP006-CP006-S02"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1848 की फ़्रैंकफ़र्ट योजना और प्रशिया के नेतृत्व में जर्मनी के एकीकरण के बीच मुख्य अंतर क्या था?",
+    "explanation": "फ़्रैंकफ़र्ट सभा ने निर्वाचित प्रतिनिधियों के माध्यम से संवैधानिक राष्ट्र-राज्य बनाने का प्रयास किया। 1871 का जर्मन साम्राज्य प्रशिया के नेतृत्व में हुए युद्धों और राजनीतिक समझौतों से बना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q022-HI",
+    "englishQuestionId": "WHI-CP016-Q022",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F022",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q024",
+    "originFactId": "WHI-CP006-F024",
+    "originSourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "originQuestionFamily": "Movement comparison",
+    "questionFamily": "तुलना और भेद",
+    "options": [
+      {
+        "key": "A",
+        "text": "दोनों योजनाएँ उसी संसद ने पूरी कीं"
+      },
+      {
+        "key": "B",
+        "text": "फ़्रैंकफ़र्ट का नेतृत्व बिस्मार्क ने किया, जबकि बाद का साम्राज्य मैज़िनी ने बनाया"
+      },
+      {
+        "key": "C",
+        "text": "फ़्रैंकफ़र्ट सभा बिना संविधान के जर्मनी को ऑस्ट्रियाई शासन में एक करना चाहती थी"
+      },
+      {
+        "key": "D",
+        "text": "फ़्रैंकफ़र्ट में निर्वाचित सभा के माध्यम से संवैधानिक राष्ट्र-राज्य बनाने का प्रयास हुआ; बाद का एकीकरण प्रशियाई राज्य के नेतृत्व में हुआ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP006-CP006-S01",
+      "CP006-CP006-S02"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1848 के राष्ट्रीय आंदोलनों और ऑस्ट्रिया-हंगरी के समझौते के बारे में कौन-सा कथन सही है?",
+    "explanation": "1867 के समझौते ने ऑस्ट्रिया और हंगरी के संबंध तय किए, लेकिन साम्राज्य के सभी राष्ट्रीय समूहों की राजनीतिक आकांक्षाएँ पूरी नहीं हुईं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q023-HI",
+    "englishQuestionId": "WHI-CP016-Q023",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F023",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q035",
+    "originFactId": "WHI-CP006-F035",
+    "originSourceIds": [
+      "CP006-S06"
+    ],
+    "originQuestionFamily": "Movement comparison",
+    "questionFamily": "तुलना और भेद",
+    "options": [
+      {
+        "key": "A",
+        "text": "1848 के आंदोलनों का उद्देश्य ऑस्ट्रिया और हंगरी को विदेशी उपनिवेशों में बाँटना था"
+      },
+      {
+        "key": "B",
+        "text": "दोनों ने मध्य यूरोप के सभी लोगों के लिए तुरंत स्वतंत्र राज्य बना दिए"
+      },
+      {
+        "key": "C",
+        "text": "इस समझौते ने फ़्रैंकफ़र्ट सभा को फिर से स्थापित किया"
+      },
+      {
+        "key": "D",
+        "text": "इस समझौते ने एक ही राजतंत्र में ऑस्ट्रियाई और हंगेरियाई अभिजात वर्ग को जगह दी, जबकि कई अन्य राष्ट्रीय समूह असंतुष्ट रहे"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP006-CP006-S06"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "बाल्कन क्षेत्र के इन घटनाक्रमों का सही कालक्रम कौन-सा है?",
+    "explanation": "ऑस्ट्रिया-हंगरी का समझौता, सैन स्टेफ़ानो की संधि से पहले हुआ। 1878 में बर्लिन कांग्रेस ने बाद में उस समझौते में बदलाव किया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q024-HI",
+    "englishQuestionId": "WHI-CP016-Q024",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F024",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q045",
+    "originFactId": "WHI-CP006-F045",
+    "originSourceIds": [
+      "CP006-S05",
+      "CP006-S06",
+      "CP006-S08"
+    ],
+    "originQuestionFamily": "Chronology and sequence",
+    "questionFamily": "घटनाएँ, स्थान और संबंधित पक्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "1867 का समझौता → बर्लिन कांग्रेस (1878) → सैन स्टेफ़ानो की संधि (1878)"
+      },
+      {
+        "key": "B",
+        "text": "1867 का समझौता → सैन स्टेफ़ानो की संधि (1878) → बर्लिन कांग्रेस (1878)"
+      },
+      {
+        "key": "C",
+        "text": "सैन स्टेफ़ानो की संधि (1878) → 1867 का समझौता → बर्लिन कांग्रेस (1878)"
+      },
+      {
+        "key": "D",
+        "text": "बर्लिन कांग्रेस (1878) → सैन स्टेफ़ानो की संधि (1878) → 1867 का समझौता"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP006-CP006-S05",
+      "CP006-CP006-S06",
+      "CP006-CP006-S08"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "यूरोपीय शक्तियों ने कई उपनिवेशों में बंदरगाह और रेलमार्ग क्यों बनाए?",
+    "explanation": "उपनिवेशों में परिवहन के साधन प्रायः प्रशासन, सैनिक आवाजाही और वस्तुओं के दोहन या ढुलाई में काम आते थे। अलग-अलग क्षेत्रों में उनका उपयोग भिन्न हो सकता था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q025-HI",
+    "englishQuestionId": "WHI-CP016-Q025",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F025",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q005",
+    "originFactId": "WHI-CP007-F005",
+    "originSourceIds": [
+      "CP007-S05",
+      "CP007-S06"
+    ],
+    "originQuestionFamily": "Motive and method",
+    "questionFamily": "आंदोलन, राज्य और राजनीतिक परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "एक अखिल-अफ़्रीकी संसद बनाने के लिए"
+      },
+      {
+        "key": "B",
+        "text": "प्रशासन चलाने, सैनिकों की आवाजाही और वस्तुओं के दोहन या परिवहन में सहायता के लिए"
+      },
+      {
+        "key": "C",
+        "text": "खदानों और बागानों तक पहुँच रोकने के लिए"
+      },
+      {
+        "key": "D",
+        "text": "यूरोप के साथ सारा व्यापार समाप्त करने के लिए"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP007-CP007-S05",
+      "CP007-CP007-S06"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "उन्नीसवीं शताब्दी के अंत में कांगो फ़्री स्टेट और इथियोपिया के बीच कौन-सी तुलना सही है?",
+    "explanation": "लियोपोल्ड द्वितीय ने कांगो फ़्री स्टेट पर शासन किया, जबकि अदवा में इटली को हराकर इथियोपिया उस समय स्वतंत्र बना रहा।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q026-HI",
+    "englishQuestionId": "WHI-CP016-Q026",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F026",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q049",
+    "originFactId": "WHI-CP007-F049",
+    "originSourceIds": [
+      "CP007-S03",
+      "CP007-S09"
+    ],
+    "originQuestionFamily": "Comparison",
+    "questionFamily": "तुलना और भेद",
+    "options": [
+      {
+        "key": "A",
+        "text": "कांगो पर लियोपोल्ड द्वितीय का शासन था, जबकि इथियोपिया ने अदवा में इटली को हराकर स्वतंत्रता बनाए रखी"
+      },
+      {
+        "key": "B",
+        "text": "1908 में दोनों को बेल्जियम ने अपने उपनिवेश में मिला लिया"
+      },
+      {
+        "key": "C",
+        "text": "अदवा के बाद इथियोपिया जर्मनी का संरक्षित राज्य बन गया"
+      },
+      {
+        "key": "D",
+        "text": "दोनों पर लियोपोल्ड द्वितीय का शासन था"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP007-CP007-S03",
+      "CP007-CP007-S09"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "औपचारिक विलय और प्रभाव-क्षेत्र के बीच कौन-सा अंतर सही है?",
+    "explanation": "विलय में किसी क्षेत्र को सीधे शासन के अधीन कर लिया जाता है। प्रभाव-क्षेत्र में औपचारिक संप्रभुता बनी रह सकती है, लेकिन बाहरी शक्ति को विशेष अधिकार मिलते हैं। दोनों ही व्यवस्थाएँ स्थानीय संप्रभुता सीमित कर सकती थीं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q027-HI",
+    "englishQuestionId": "WHI-CP016-Q027",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F027",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q051",
+    "originFactId": "WHI-CP007-F051",
+    "originSourceIds": [
+      "CP007-S02",
+      "CP007-S11"
+    ],
+    "originQuestionFamily": "Comparison",
+    "questionFamily": "तुलना और भेद",
+    "options": [
+      {
+        "key": "A",
+        "text": "विलय में क्षेत्र सीधे शासन के अधीन आता है; प्रभाव-क्षेत्र में औपचारिक संप्रभुता रहते हुए भी विशेष अधिकार मिल सकते हैं"
+      },
+      {
+        "key": "B",
+        "text": "विलय केवल व्यापार से जुड़ा है, क्षेत्र से कभी नहीं"
+      },
+      {
+        "key": "C",
+        "text": "प्रभाव-क्षेत्र का नियंत्रण हमेशा विलय से अधिक प्रत्यक्ष होता है"
+      },
+      {
+        "key": "D",
+        "text": "दोनों से हमेशा पूरी तरह स्वतंत्र राज्य बनते हैं"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP007-CP007-S02",
+      "CP007-CP007-S11"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "अफ़्रीका और चीन में यूरोपीय साम्राज्यवाद की तुलना में कौन-सा कथन सबसे सटीक है?",
+    "explanation": "साम्राज्यवादी नियंत्रण के रूप अलग-अलग थे। अफ़्रीका में औपचारिक औपनिवेशिक शासन व्यापक था, जबकि चीन में विदेशी शक्तियों ने विशेष अधिकार और प्र…1827 tokens truncated…र ने 1918 में अलग शांति समझौता किया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q032-HI",
+    "englishQuestionId": "WHI-CP016-Q032",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F032",
+    "originCheckpointId": "WHI-001-CP008",
+    "originQuestionId": "WHI-CP008-Q058",
+    "originFactId": "WHI-CP008-F058",
+    "originSourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "originQuestionFamily": "Integrated synthesis",
+    "questionFamily": "गठबंधन, पक्ष और संघर्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "क्रांतियों ने 1917 में वर्साय की संधि बनाई"
+      },
+      {
+        "key": "B",
+        "text": "क्रांतियों ने तुरंत सभी लड़ाकू देशों का युद्ध समाप्त कर दिया"
+      },
+      {
+        "key": "C",
+        "text": "फ़रवरी क्रांति के कारण अमेरिका युद्ध में शामिल हुआ"
+      },
+      {
+        "key": "D",
+        "text": "क्रांतियों ने रूस की सरकार बदली और अंततः बोल्शेविकों को युद्ध से हटने की ओर ले गईं"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP008-CP008-S04",
+      "CP008-CP008-S05"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "जर्मनी में वाइमर गणराज्य की स्थापना किस संविधान से हुई?",
+    "explanation": "वाइमर संविधान 1919 में अपनाया गया और इसने युद्ध के बाद जर्मनी में गणराज्य की स्थापना की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q033-HI",
+    "englishQuestionId": "WHI-CP016-Q033",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F033",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q017",
+    "originFactId": "WHI-CP009-F017",
+    "originSourceIds": [
+      "CP009-S03"
+    ],
+    "originQuestionFamily": "Republic and institutions",
+    "questionFamily": "कारण, नीतियाँ और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "1871 का संविधान, जिसमें कोई बदलाव नहीं हुआ"
+      },
+      {
+        "key": "B",
+        "text": "रोम की संधि"
+      },
+      {
+        "key": "C",
+        "text": "1919 में अपनाया गया संविधान"
+      },
+      {
+        "key": "D",
+        "text": "1949 का जर्मन मूल कानून"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-CP009-S03"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "आनुपातिक प्रतिनिधित्व ने वाइमर गणराज्य की राजनीति को कैसे प्रभावित किया?",
+    "explanation": "आनुपातिक प्रतिनिधित्व से कई दलों को सीटें मिलीं और गठबंधन सरकारें बनीं। स्थिर बहुमत बनाना कठिन हो सकता था; यह राजनीतिक अस्थिरता का एक कारण था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q034-HI",
+    "englishQuestionId": "WHI-CP016-Q034",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F034",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q024",
+    "originFactId": "WHI-CP009-F024",
+    "originSourceIds": [
+      "CP009-S03"
+    ],
+    "originQuestionFamily": "Economic causes and effects",
+    "questionFamily": "तिथियाँ और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने लीग को राइखस्टाग नियुक्त करने का अधिकार दिया"
+      },
+      {
+        "key": "B",
+        "text": "इससे छोटे दलों को सीटें मिलीं और स्थिर संसदीय गठबंधन बनाना कठिन हो सकता था"
+      },
+      {
+        "key": "C",
+        "text": "इसने सोशल डेमोक्रेट्स को छोड़कर सभी दलों पर प्रतिबंध लगा दिया"
+      },
+      {
+        "key": "D",
+        "text": "इसने एक दल का स्थायी बहुमत सुनिश्चित किया"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-CP009-S03"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1929 के बाद अमेरिकी ऋण घटने पर जर्मनी विशेष रूप से संकट में क्यों आ गया?",
+    "explanation": "1920 के दशक के मध्य में जर्मनी की आर्थिक बहाली काफी हद तक विदेशी ऋण, जिसमें अमेरिकी कर्ज भी शामिल था, पर निर्भर थी। ऋण हटने से उसे बड़ा झटका लगा।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q035-HI",
+    "englishQuestionId": "WHI-CP016-Q035",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F035",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q026",
+    "originFactId": "WHI-CP009-F026",
+    "originSourceIds": [
+      "CP009-S03",
+      "CP009-S04"
+    ],
+    "originQuestionFamily": "Economic causes and effects",
+    "questionFamily": "आंदोलन, राज्य और राजनीतिक परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "उसकी कोई औद्योगिक अर्थव्यवस्था नहीं थी"
+      },
+      {
+        "key": "B",
+        "text": "वह पहले ही राष्ट्र संघ छोड़ चुका था"
+      },
+      {
+        "key": "C",
+        "text": "1920 के दशक में उसे कोई ऋण नहीं मिला था"
+      },
+      {
+        "key": "D",
+        "text": "उसकी आर्थिक बहाली विदेशी ऋण, जिसमें अमेरिकी कर्ज भी था, पर काफी निर्भर थी"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-CP009-S03",
+      "CP009-CP009-S04"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "महामंदी ने जर्मनी की राजनीति को कैसे प्रभावित किया?",
+    "explanation": "महामंदी ने आर्थिक कठिनाइयाँ बढ़ाईं और नाज़ी दल सहित उग्र दलों को समर्थन मिला। नाज़ियों के उभार का यह अकेला कारण नहीं था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q036-HI",
+    "englishQuestionId": "WHI-CP016-Q036",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F036",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q028",
+    "originFactId": "WHI-CP009-F028",
+    "originSourceIds": [
+      "CP009-S04",
+      "CP009-S05"
+    ],
+    "originQuestionFamily": "Economic causes and effects",
+    "questionFamily": "तिथियाँ और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "आर्थिक संकट ने नाज़ियों समेत उग्र दलों के समर्थन में बढ़ोतरी की"
+      },
+      {
+        "key": "B",
+        "text": "इसने सारी राजनीतिक हिंसा समाप्त कर दी"
+      },
+      {
+        "key": "C",
+        "text": "इसने तुरंत राजतंत्र बहाल कर दिया"
+      },
+      {
+        "key": "D",
+        "text": "इसने संविधान से राइखस्टाग को हटा दिया"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-CP009-S04",
+      "CP009-CP009-S05"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "स्टालिनग्राद में जर्मन बढ़त किस लड़ाई में रुकी और फ़रवरी 1943 में जर्मन सेनाओं के आत्मसमर्पण के साथ समाप्त हुई?",
+    "explanation": "जर्मन छठी सेना ने फ़रवरी 1943 में स्टालिनग्राद में आत्मसमर्पण किया। यह पूर्वी मोर्चे का एक बड़ा निर्णायक मोड़ बना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q037-HI",
+    "englishQuestionId": "WHI-CP016-Q037",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F037",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q013",
+    "originFactId": "WHI-CP010-F013",
+    "originSourceIds": [
+      "CP010-S02",
+      "CP010-S01"
+    ],
+    "originQuestionFamily": "European theatre",
+    "questionFamily": "कथन-आधारित प्रश्न",
+    "options": [
+      {
+        "key": "A",
+        "text": "अल अलामीन की लड़ाई"
+      },
+      {
+        "key": "B",
+        "text": "स्टालिनग्राद की लड़ाई"
+      },
+      {
+        "key": "C",
+        "text": "बल्ज की लड़ाई"
+      },
+      {
+        "key": "D",
+        "text": "ब्रिटेन की लड़ाई"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-CP010-S02",
+      "CP010-CP010-S01"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "पूर्वी मोर्चे पर किस लड़ाई को व्यापक रूप से एक बड़ा निर्णायक मोड़ माना जाता है?",
+    "explanation": "फ़रवरी 1943 में स्टालिनग्राद में जर्मन सेना का आत्मसमर्पण पूर्वी मोर्चे पर बड़ा उलटफेर था। इसके बाद सोवियत सेनाएँ धीरे-धीरे पश्चिम की ओर बढ़ीं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q038-HI",
+    "englishQuestionId": "WHI-CP016-Q038",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F038",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q026",
+    "originFactId": "WHI-CP010-F026",
+    "originSourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ],
+    "originQuestionFamily": "Turning points",
+    "questionFamily": "कथन-आधारित प्रश्न",
+    "options": [
+      {
+        "key": "A",
+        "text": "डनकर्क"
+      },
+      {
+        "key": "B",
+        "text": "ब्रिटेन की लड़ाई"
+      },
+      {
+        "key": "C",
+        "text": "स्टालिनग्राद"
+      },
+      {
+        "key": "D",
+        "text": "कोरल सागर की लड़ाई"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-CP010-S01",
+      "CP010-CP010-S02"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "यूरोप में द्वितीय विश्व युद्ध के बड़े मानवीय परिणाम को कौन-सा कथन बताता है?",
+    "explanation": "युद्ध और उत्पीड़न के कारण यूरोप में लाखों लोग विस्थापित हुए। संघर्ष के बाद कई जीवित बचे लोग अपने पुराने घरों में लौट नहीं सके या लौटे नहीं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q039-HI",
+    "englishQuestionId": "WHI-CP016-Q039",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F039",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q058",
+    "originFactId": "WHI-CP010-F058",
+    "originSourceIds": [
+      "CP010-S01",
+      "CP010-S10"
+    ],
+    "originQuestionFamily": "Consequences and synthesis",
+    "questionFamily": "गठबंधन, पक्ष और संघर्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "1945 में सभी नागरिक तुरंत अपने घर लौट गए"
+      },
+      {
+        "key": "B",
+        "text": "युद्ध के कारण लोगों का बड़े पैमाने पर विस्थापन नहीं हुआ"
+      },
+      {
+        "key": "C",
+        "text": "केवल सैनिक विस्थापित हुए"
+      },
+      {
+        "key": "D",
+        "text": "लाखों नागरिक अपने घरों से विस्थापित हुए"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-CP010-S01",
+      "CP010-CP010-S10"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "द्वितीय विश्व युद्ध के वैश्विक स्वरूप को कौन-सा कथन सबसे अच्छी तरह बताता है?",
+    "explanation": "युद्ध कई महाद्वीपों और महासागरों में फैले अभियानों से जुड़ा था। 1940 में फ़्रांस के साथ हुए युद्धविराम से व्यापक संघर्ष समाप्त नहीं हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q040-HI",
+    "englishQuestionId": "WHI-CP016-Q040",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F040",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q060",
+    "originFactId": "WHI-CP010-F060",
+    "originSourceIds": [
+      "CP010-S01",
+      "CP010-S02",
+      "CP010-S03"
+    ],
+    "originQuestionFamily": "Consequences and synthesis",
+    "questionFamily": "गठबंधन, पक्ष और संघर्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ़्रांस द्वारा 1940 में युद्धविराम पर हस्ताक्षर करते ही यह समाप्त हो गया"
+      },
+      {
+        "key": "B",
+        "text": "इसमें केवल यूरोपीय देश शामिल थे"
+      },
+      {
+        "key": "C",
+        "text": "यह केवल मध्य यूरोप तक सीमित था"
+      },
+      {
+        "key": "D",
+        "text": "यह यूरोप, उत्तर अफ़्रीका और एशिया-प्रशांत क्षेत्रों में लड़ा गया"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-CP010-S01",
+      "CP010-CP010-S02",
+      "CP010-CP010-S03"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "संयुक्त राष्ट्र चार्टर के अनुच्छेद 2 में कौन-सा सिद्धांत सदस्य देशों की संप्रभु समानता को मान्यता देता है?",
+    "explanation": "अनुच्छेद 2 सदस्य देशों की संप्रभु समानता का सिद्धांत रखता है। इससे संयुक्त राष्ट्र के हर अंग में सभी देशों की भूमिका समान नहीं हो जाती।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q041-HI",
+    "englishQuestionId": "WHI-CP016-Q041",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F041",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q007",
+    "originFactId": "WHI-CP011-F007",
+    "originSourceIds": [
+      "CP011-S01"
+    ],
+    "originQuestionFamily": "Charter principles and purposes",
+    "questionFamily": "कारण, नीतियाँ और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "हर सदस्य को सुरक्षा परिषद में स्थायी सीट मिलती है"
+      },
+      {
+        "key": "B",
+        "text": "सभी देशों का संविधान एक जैसा होना चाहिए"
+      },
+      {
+        "key": "C",
+        "text": "सुरक्षा परिषद के पास कोई विशेष अधिकार नहीं है"
+      },
+      {
+        "key": "D",
+        "text": "सभी सदस्य संप्रभु रूप से समान हैं"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP011-CP011-S01"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अंतरराष्ट्रीय विवाद सुलझाने के लिए संयुक्त राष्ट्र चार्टर किस तरीके को बढ़ावा देता है?",
+    "explanation": "चार्टर सदस्य देशों से विवादों को शांतिपूर्ण तरीकों से सुलझाने का आग्रह करता है। कौन-सा तरीका अपनाया जाए, यह विवाद और संबंधित पक्षों पर निर्भर करता है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q042-HI",
+    "englishQuestionId": "WHI-CP016-Q042",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F042",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q009",
+    "originFactId": "WHI-CP011-F009",
+    "originSourceIds": [
+      "CP011-S01"
+    ],
+    "originQuestionFamily": "Charter principles and purposes",
+    "questionFamily": "कारण, नीतियाँ और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्थायी आर्थिक नाकाबंदी"
+      },
+      {
+        "key": "B",
+        "text": "शांतिपूर्ण समाधान"
+      },
+      {
+        "key": "C",
+        "text": "एकतरफ़ा विलय"
+      },
+      {
+        "key": "D",
+        "text": "गुप्त सैन्य कब्ज़ा"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP011-CP011-S01"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "नूर्नबर्ग में अंतरराष्ट्रीय सैन्य न्यायाधिकरण किस समझौते से स्थापित हुआ?",
+    "explanation": "लंदन समझौते ने अंतरराष्ट्रीय सैन्य न्यायाधिकरण की स्थापना की और उसका चार्टर भी शामिल किया। युद्ध के बाद वरिष्ठ नाज़ी नेताओं पर मुकदमे चले।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q043-HI",
+    "englishQuestionId": "WHI-CP016-Q043",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F043",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q033",
+    "originFactId": "WHI-CP011-F033",
+    "originSourceIds": [
+      "CP011-S09"
+    ],
+    "originQuestionFamily": "Bretton Woods institutions",
+    "questionFamily": "कारण, नीतियाँ और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "8 अगस्त 1945 का लंदन समझौता"
+      },
+      {
+        "key": "B",
+        "text": "1919 की वर्साय संधि"
+      },
+      {
+        "key": "C",
+        "text": "1954 की जिनेवा घोषणा"
+      },
+      {
+        "key": "D",
+        "text": "26 जून 1945 का संयुक्त राष्ट्र चार्टर"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP011-CP011-S09"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "युद्ध के बाद जर्मनी के विभाजन के बारे में कौन-सा कथन सही है?",
+    "explanation": "जर्मनी की हार के बाद चार शक्तियों का कब्ज़ा शुरू हुआ। बाद में, 1949 में, जर्मनी का संघीय गणराज्य और जर्मन लोकतांत्रिक गणराज्य बने।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q044-HI",
+    "englishQuestionId": "WHI-CP016-Q044",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F044",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q059",
+    "originFactId": "WHI-CP011-F059",
+    "originSourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "originQuestionFamily": "Post-war order and synthesis",
+    "questionFamily": "गठबंधन, पक्ष और संघर्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "सुरक्षा परिषद ने 1949 में कब्ज़े वाले क्षेत्र बनाए"
+      },
+      {
+        "key": "B",
+        "text": "चार शक्तियों का कब्ज़ा पूर्वी और पश्चिमी जर्मन राज्यों के गठन से पहले हुआ"
+      },
+      {
+        "key": "C",
+        "text": "बर्लिन का प्रशासन केवल फ़्रांस करता था"
+      },
+      {
+        "key": "D",
+        "text": "जर्मनी के आत्मसमर्पण से पहले ही दोनों जर्मन राज्य बन गए"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP011-CP011-S11",
+      "CP011-CP011-S12"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "डचों के जकार्ता लौटने से पहले क्रांति के दौरान इंडोनेशियाई गणराज्य की राजधानी कौन-सा शहर था?",
+    "explanation": "स्वतंत्रता संघर्ष के दौरान योग्याकार्ता गणराज्य की राजधानी रहा।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q045-HI",
+    "englishQuestionId": "WHI-CP016-Q045",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F045",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q016",
+    "originFactId": "WHI-CP012-F016",
+    "originSourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "originQuestionFamily": "Indonesian independence",
+    "questionFamily": "व्यक्ति, भूमिकाएँ और विचार",
+    "options": [
+      {
+        "key": "A",
+        "text": "सुराबाया"
+      },
+      {
+        "key": "B",
+        "text": "योग्याकार्ता"
+      },
+      {
+        "key": "C",
+        "text": "मेदान"
+      },
+      {
+        "key": "D",
+        "text": "बांडुंग"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP012-CP012-S03",
+      "CP012-CP012-S01"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1954 की कौन-सी लड़ाई ने इंडोचीन में फ़्रांसीसी औपनिवेशिक शासन के अंत में मदद की?",
+    "explanation": "दिएन बिएन फू में फ़्रांस की हार के बाद इंडोचीन में उसका युद्ध समाप्त हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q046-HI",
+    "englishQuestionId": "WHI-CP016-Q046",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F046",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q020",
+    "originFactId": "WHI-CP012-F020",
+    "originSourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "originQuestionFamily": "Vietnam and the end of French Indochina",
+    "questionFamily": "कथन-आधारित प्रश्न",
+    "options": [
+      {
+        "key": "A",
+        "text": "दिएन बिएन फू"
+      },
+      {
+        "key": "B",
+        "text": "खे सान"
+      },
+      {
+        "key": "C",
+        "text": "तुएन क्वांग"
+      },
+      {
+        "key": "D",
+        "text": "ह्यू"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP012-CP012-S04",
+      "CP012-CP012-S05"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "संयुक्त राष्ट्र महासभा ने प्रस्ताव 181 कब अपनाया?",
+    "explanation": "महासभा ने प्रस्ताव 181 को 29 नवंबर 1947 को अपनाया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q047-HI",
+    "englishQuestionId": "WHI-CP016-Q047",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F047",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q045",
+    "originFactId": "WHI-CP012-F045",
+    "originSourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "originQuestionFamily": "Palestine under the British Mandate",
+    "questionFamily": "घटनाएँ, स्थान और संबंधित पक्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "14 मई 1948"
+      },
+      {
+        "key": "B",
+        "text": "10 दिसंबर 1948"
+      },
+      {
+        "key": "C",
+        "text": "29 नवंबर 1947"
+      },
+      {
+        "key": "D",
+        "text": "1 सितंबर 1939"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP012-CP012-S09",
+      "CP012-CP012-S10"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "स्वतंत्रता प्राप्त करने के रास्तों की कौन-सी तुलना सही है?",
+    "explanation": "इंडोनेशिया ने 1945 में स्वतंत्रता की घोषणा की, लेकिन डच संप्रभुता हस्तांतरण 1949 में हुआ। इन दोनों घटनाओं के बीच संघर्ष और बातचीत के कई वर्ष रहे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q048-HI",
+    "englishQuestionId": "WHI-CP016-Q048",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F048",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q055",
+    "originFactId": "WHI-CP012-F055",
+    "originSourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "originQuestionFamily": "Decolonization paths and regional comparison",
+    "questionFamily": "तुलना और भेद",
+    "options": [
+      {
+        "key": "A",
+        "text": "इंडोनेशिया ने 1945 में स्वतंत्रता घोषित की और 1949 में डच संप्रभुता हस्तांतरण हासिल किया"
+      },
+      {
+        "key": "B",
+        "text": "वियतनाम ने 1949 में ब्रिटेन से स्वतंत्रता पाई"
+      },
+      {
+        "key": "C",
+        "text": "मलाया ने 1948 में फ़्रांस से स्वतंत्रता पाई"
+      },
+      {
+        "key": "D",
+        "text": "बर्मा ने डच शासन के बाद 1957 में स्वतंत्रता घोषित की"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP012-CP012-S01",
+      "CP012-CP012-S12",
+      "CP012-CP012-S08"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1962 में स्वतंत्र होने से पहले अल्जीरिया पर किस यूरोपीय शक्ति का शासन था?",
+    "explanation": "स्वतंत्रता से पहले अल्जीरिया फ़्रांसीसी औपनिवेशिक शासन के अधीन था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q049-HI",
+    "englishQuestionId": "WHI-CP016-Q049",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F049",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q007",
+    "originFactId": "WHI-CP013-F007",
+    "originSourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "originQuestionFamily": "Algerian War and independence",
+    "questionFamily": "कथन-आधारित प्रश्न",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ़्रांस"
+      },
+      {
+        "key": "B",
+        "text": "ब्रिटेन"
+      },
+      {
+        "key": "C",
+        "text": "स्पेन"
+      },
+      {
+        "key": "D",
+        "text": "बेल्जियम"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP013-CP013-S01",
+      "CP013-CP013-S04"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1963 में ब्रिटेन से स्वतंत्र होकर केन्या नाम किस देश ने अपनाया?",
+    "explanation": "केन्या दिसंबर 1963 में स्वतंत्र हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q050-HI",
+    "englishQuestionId": "WHI-CP016-Q050",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F050",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q019",
+    "originFactId": "WHI-CP013-F019",
+    "originSourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "originQuestionFamily": "East and Central African independence",
+    "questionFamily": "परिणाम और प्रभाव",
+    "options": [
+      {
+        "key": "A",
+        "text": "ज़ाम्बिया"
+      },
+      {
+        "key": "B",
+        "text": "युगांडा"
+      },
+      {
+        "key": "C",
+        "text": "केन्या"
+      },
+      {
+        "key": "D",
+        "text": "मलावी"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP013-CP013-S13",
+      "CP013-CP013-S14"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1964 में मलावी के नाम से कौन-सा देश स्वतंत्र हुआ?",
+    "explanation": "ब्रिटिश संरक्षित क्षेत्र न्यासालैंड 1964 में मलावी बना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q051-HI",
+    "englishQuestionId": "WHI-CP016-Q051",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F051",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q022",
+    "originFactId": "WHI-CP013-F022",
+    "originSourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "originQuestionFamily": "East and Central African independence",
+    "questionFamily": "परिणाम और प्रभाव",
+    "options": [
+      {
+        "key": "A",
+        "text": "न्यासालैंड"
+      },
+      {
+        "key": "B",
+        "text": "नॉर्दर्न रोडेशिया"
+      },
+      {
+        "key": "C",
+        "text": "बासुटोलैंड"
+      },
+      {
+        "key": "D",
+        "text": "टांगानिका"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP013-CP013-S13",
+      "CP013-CP013-S14"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "कौन-सा कालक्रम सही है?",
+    "explanation": "इन तीन स्वतंत्रता तिथियों का क्रम 1957, 1960 और 1962 था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q052-HI",
+    "englishQuestionId": "WHI-CP016-Q052",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F052",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q058",
+    "originFactId": "WHI-CP013-F058",
+    "originSourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "originQuestionFamily": "Colonial borders and decolonization outcomes",
+    "questionFamily": "घटनाएँ, स्थान और संबंधित पक्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "घाना (1957), कांगो (1960), अल्जीरिया (1962)"
+      },
+      {
+        "key": "B",
+        "text": "कांगो (1948), घाना (1954), अल्जीरिया (1960)"
+      },
+      {
+        "key": "C",
+        "text": "अल्जीरिया (1957), घाना (1960), कांगो (1963)"
+      },
+      {
+        "key": "D",
+        "text": "घाना (1963), अल्जीरिया (1964), कांगो (1965)"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP013-CP013-S01",
+      "CP013-CP013-S02",
+      "CP013-CP013-S04",
+      "CP013-CP013-S05",
+      "CP013-CP013-S10"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1962 के संकट से पहले क्यूबा में परमाणु मिसाइलें किस देश ने तैनात की थीं?",
+    "explanation": "सोवियत संघ ने क्यूबा में मिसाइलें तैनात कीं, जिसके बाद अमेरिका के साथ टकराव हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q053-HI",
+    "englishQuestionId": "WHI-CP016-Q053",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F053",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q028",
+    "originFactId": "WHI-CP014-F028",
+    "originSourceIds": [
+      "CP014-S08"
+    ],
+    "originQuestionFamily": "Cuban Missile Crisis",
+    "questionFamily": "व्यक्ति, भूमिकाएँ और विचार",
+    "options": [
+      {
+        "key": "A",
+        "text": "ब्रिटेन"
+      },
+      {
+        "key": "B",
+        "text": "चीन"
+      },
+      {
+        "key": "C",
+        "text": "फ़्रांस"
+      },
+      {
+        "key": "D",
+        "text": "सोवियत संघ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP014-CP014-S08"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "क्यूबा मिसाइल संकट को शीत युद्ध का बड़ा निर्णायक मोड़ क्यों माना जाता है?",
+    "explanation": "इस संकट ने महाशक्तियों के सीधे टकराव का ख़तरा उजागर किया और संचार बेहतर बनाने के प्रयासों को बढ़ावा दिया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q054-HI",
+    "englishQuestionId": "WHI-CP016-Q054",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F054",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q030",
+    "originFactId": "WHI-CP014-F030",
+    "originSourceIds": [
+      "CP014-S08"
+    ],
+    "originQuestionFamily": "Cuban Missile Crisis",
+    "questionFamily": "आंदोलन, राज्य और राजनीतिक परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने नाटो और वारसा संधि दोनों को भंग कर दिया"
+      },
+      {
+        "key": "B",
+        "text": "इसने सारी वैचारिक प्रतिद्वंद्विता समाप्त कर दी"
+      },
+      {
+        "key": "C",
+        "text": "इसने महाशक्तियों को परमाणु संघर्ष के क़रीब ला दिया और संकट प्रबंधन के उपायों को बढ़ावा दिया"
+      },
+      {
+        "key": "D",
+        "text": "इसने जर्मनी का विभाजन कराया"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP014-CP014-S08"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1955 के बांडुंग सम्मेलन की मेज़बानी किस देश ने की?",
+    "explanation": "एशियाई-अफ़्रीकी सम्मेलन इंडोनेशिया के बांडुंग में हुआ था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q055-HI",
+    "englishQuestionId": "WHI-CP016-Q055",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F055",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q053",
+    "originFactId": "WHI-CP014-F053",
+    "originSourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "originQuestionFamily": "Non-Aligned Movement and Bandung",
+    "questionFamily": "व्यक्ति, भूमिकाएँ और विचार",
+    "options": [
+      {
+        "key": "A",
+        "text": "यूगोस्लाविया"
+      },
+      {
+        "key": "B",
+        "text": "मिस्र"
+      },
+      {
+        "key": "C",
+        "text": "भारत"
+      },
+      {
+        "key": "D",
+        "text": "इंडोनेशिया"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP014-CP014-S15",
+      "CP014-CP014-S16"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "इन घटनाओं का सही कालक्रम कौन-सा है?",
+    "explanation": "ये घटनाएँ क्रमशः 1947, 1948–49, 1962 और 1975 में हुईं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q056-HI",
+    "englishQuestionId": "WHI-CP016-Q056",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F056",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q055",
+    "originFactId": "WHI-CP014-F055",
+    "originSourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "originQuestionFamily": "Cold War chronology and distinctions",
+    "questionFamily": "घटनाएँ, स्थान और संबंधित पक्ष",
+    "options": [
+      {
+        "key": "A",
+        "text": "ट्रूमैन सिद्धांत → बर्लिन एयरलिफ्ट → क्यूबा मिसाइल संकट → हेलसिंकी अंतिम अधिनियम"
+      },
+      {
+        "key": "B",
+        "text": "हेलसिंकी अंतिम अधिनियम → ट्रूमैन सिद्धांत → बर्लिन एयरलिफ्ट → क्यूबा मिसाइल संकट"
+      },
+      {
+        "key": "C",
+        "text": "बर्लिन एयरलिफ्ट → ट्रूमैन सिद्धांत → हेलसिंकी अंतिम अधिनियम → क्यूबा मिसाइल संकट"
+      },
+      {
+        "key": "D",
+        "text": "क्यूबा मिसाइल संकट → बर्लिन एयरलिफ्ट → ट्रूमैन सिद्धांत → हेलसिंकी अंतिम अधिनियम"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP014-CP014-S01",
+      "CP014-CP014-S04",
+      "CP014-CP014-S08",
+      "CP014-CP014-S13",
+      "CP014-CP014-S14"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1980 के दशक में पोलैंड में किस आंदोलन ने कम्युनिस्ट शासन को चुनौती दी?",
+    "explanation": "सॉलिडैरिटी पोलैंड का एक ट्रेड यूनियन और सामाजिक आंदोलन था, जो सरकार के विरोध में एक बड़ी शक्ति बना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q057-HI",
+    "englishQuestionId": "WHI-CP016-Q057",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F057",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q007",
+    "originFactId": "WHI-CP015-F007",
+    "originSourceIds": [
+      "CP015-S02",
+      "CP015-S14"
+    ],
+    "originQuestionFamily": "Eastern European transitions, 1989",
+    "questionFamily": "परिणाम और प्रभाव",
+    "options": [
+      {
+        "key": "A",
+        "text": "एएनसी"
+      },
+      {
+        "key": "B",
+        "text": "एफ़एलएन"
+      },
+      {
+        "key": "C",
+        "text": "सॉलिडैरिटी"
+      },
+      {
+        "key": "D",
+        "text": "वियत मिन्ह"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP015-CP015-S02",
+      "CP015-CP015-S14"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "बर्लिन की दीवार खुलने की घटना किसका प्रतीक बनी?",
+    "explanation": "दीवार यूरोप के शीत युद्धकालीन विभाजन का प्रतीक थी। इसके खुलने से यह विभाजन तेज़ी से कमज़ोर पड़ने लगा।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q058-HI",
+    "englishQuestionId": "WHI-CP016-Q058",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F058",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q014",
+    "originFactId": "WHI-CP015-F014",
+    "originSourceIds": [
+      "CP015-S02",
+      "CP015-S05",
+      "CP015-S06",
+      "CP015-S12"
+    ],
+    "originQuestionFamily": "Berlin Wall and German reunification",
+    "questionFamily": "तिथियाँ और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "कोरियाई युद्ध की शुरुआत"
+      },
+      {
+        "key": "B",
+        "text": "नाटो का गठन"
+      },
+      {
+        "key": "C",
+        "text": "द्वितीय विश्व युद्ध का अंत"
+      },
+      {
+        "key": "D",
+        "text": "कम्युनिस्ट पूर्वी यूरोप और पश्चिम के बीच विभाजन का कमज़ोर पड़ना"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP015-CP015-S02",
+      "CP015-CP015-S05",
+      "CP015-CP015-S06",
+      "CP015-CP015-S12"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "अप्रैल 1991 में किस गणराज्य ने स्वतंत्रता बहाल करने की घोषणा की?",
+    "explanation": "जॉर्जिया ने 9 अप्रैल 1991 को स्वतंत्रता बहाल करने की घोषणा की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q059-HI",
+    "englishQuestionId": "WHI-CP016-Q059",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F059",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q029",
+    "originFactId": "WHI-CP015-F029",
+    "originSourceIds": [
+      "CP015-S03",
+      "CP015-S08"
+    ],
+    "originQuestionFamily": "Soviet republic independence",
+    "questionFamily": "परिणाम और प्रभाव",
+    "options": [
+      {
+        "key": "A",
+        "text": "ताजिकिस्तान"
+      },
+      {
+        "key": "B",
+        "text": "मोल्दोवा"
+      },
+      {
+        "key": "C",
+        "text": "जॉर्जिया"
+      },
+      {
+        "key": "D",
+        "text": "उज़्बेकिस्तान"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP015-CP015-S03",
+      "CP015-CP015-S08"
+    ]
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "असफल तख्तापलट का सोवियत केंद्रीय सरकार पर क्या असर पड़ा?",
+    "explanation": "तख्तापलट की विफलता से येल्तसिन मज़बूत हुए और सोवियत संघ की केंद्रीय संस्थाएँ कमज़ोर पड़ीं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q060-HI",
+    "englishQuestionId": "WHI-CP016-Q060",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F060",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q034",
+    "originFactId": "WHI-CP015-F034",
+    "originSourceIds": [
+      "CP015-S03"
+    ],
+    "originQuestionFamily": "August 1991 coup attempt",
+    "questionFamily": "तिथियाँ और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने गोर्बाचेव और येल्तसिन के बीच तनाव सुलझा दिया"
+      },
+      {
+        "key": "B",
+        "text": "इसने स्वतंत्रता आंदोलनों को समाप्त कर दिया"
+      },
+      {
+        "key": "C",
+        "text": "इसने गोर्बाचेव के अधिकार को कमज़ोर किया और विघटन के संकट को तेज़ किया"
+      },
+      {
+        "key": "D",
+        "text": "इसने गणराज्यों पर कम्युनिस्ट पार्टी का नियंत्रण बहाल कर दिया"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP015-CP015-S03"
+    ]
+  }
+]
