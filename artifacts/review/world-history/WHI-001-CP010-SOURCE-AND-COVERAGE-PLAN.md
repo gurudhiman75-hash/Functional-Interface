@@ -33,3 +33,18 @@ Source titles, URLs and IDs are in `WHI-001-CP010-CANONICAL-FACTS-Q001-060-V1.js
 - Localize into Hindi and Punjabi only after English factual and editorial approval.
 
 - **CP010-S11** U.S. Department of State, Office of the Historian — The Yalta Conference, 1945. https://history.state.gov/milestones/1937-1945/yalta-conf
+
+
+## Duplicate-cluster repair — review-only
+
+Four CP010 items were revised to reduce repeated Poland-opening and Normandy recall:
+
+- CP010 Q004 now tests Blitzkrieg tactics in Poland.
+- CP010 Q005 tests the early Western Front period known as the Phoney War.
+- CP010 Q006 tests Warsaw's surrender date during the Poland campaign.
+- CP010 Q028 replaces a second Normandy question with the Battle of Kursk, a distinct Eastern Front turning point.
+
+New source entries use focused sections. The 60-question pool, 18/30/12 difficulty split, 15-per-letter answer balance, family labels and review-only lifecycle are preserved.
+
+- **CP010-S12** U.S. Holocaust Memorial Museum — Invasion of Poland, Fall 1939. https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939
+- **CP010-S13** Imperial War Museums — Second World War galleries, large-print guide. https://www.iwm.org.uk/sites/default/files/files/2023-10/second_world_war_galleries_large_print.pdf
