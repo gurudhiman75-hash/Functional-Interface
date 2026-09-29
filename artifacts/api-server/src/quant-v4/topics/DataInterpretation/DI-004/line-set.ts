@@ -51,14 +51,8 @@ function formatPercent(numerator: number, denominator: number): string {
   if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || numerator < 0 || denominator <= 0) {
     throw new Error("DI-004 received an invalid percentage fraction.");
   }
-  const n = BigInt(numerator);
-  const d = BigInt(denominator);
-  const hundredths = (n * 10_000n + d / 2n) / d;
-  const whole = hundredths / 100n;
-  const fraction = Number(hundredths % 100n);
-  if (fraction === 0) return `${whole}%`;
-  if (fraction % 10 === 0) return `${whole}.${fraction / 10}%`;
-  return `${whole}.${String(fraction).padStart(2, "0")}%`;
+  const rounded = (BigInt(numerator) * 100n + BigInt(denominator) / 2n) / BigInt(denominator);
+  return `${rounded}%`;
 }
 
 function formatAverage(sum: number, count: number): string {
@@ -232,7 +226,7 @@ function buildDrafts(seed: string, stimulus: Di004Stimulus): Draft[] {
     {
       kind: "CONSECUTIVE_PERCENT_INCREASE_A",
       difficulty: "Hard",
-      stem: `By what percentage did Region A's online orders increase from ${points[increaseFromIndex]!.period} to ${points[increaseToIndex]!.period}?`,
+      stem: `By approximately what percentage did Region A's online orders increase from ${points[increaseFromIndex]!.period} to ${points[increaseToIndex]!.period}?`,
       answer: increaseAnswer,
       candidates: [
         { text: formatPercent(increaseDifference, increaseTo), misconceptionId: "USE_NEW_VALUE_AS_BASE", derivation: "Divides the increase by the later Region A value instead of the earlier value." },
@@ -246,7 +240,7 @@ function buildDrafts(seed: string, stimulus: Di004Stimulus): Draft[] {
         keyIdea: "For a consecutive-period percentage increase, the earlier Region A value is the comparison base.",
         steps: [
           `Increase = ${increaseTo} - ${increaseFrom} = ${increaseDifference}.`,
-          `Percentage increase = ${increaseDifference}/${increaseFrom} × 100 = ${increaseAnswer}.`,
+          `Percentage increase = ${increaseDifference}/${increaseFrom} × 100 ≈ ${increaseAnswer}.`,
         ],
         shortcut: "On a time line, identify old and new values first; 'from X to Y' makes X the denominator.",
         trap: "Do not divide by the later value or switch to the other line just because both quarters are shown together.",
@@ -280,7 +274,7 @@ function buildDrafts(seed: string, stimulus: Di004Stimulus): Draft[] {
     {
       kind: "B_RANGE_PERCENT_INCREASE",
       difficulty: "Hard",
-      stem: "Region B's highest quarterly orders were what percentage higher than its lowest quarterly orders?",
+      stem: "Region B's highest quarterly orders were approximately what percentage higher than its lowest quarterly orders?",
       answer: bRangeAnswer,
       candidates: [
         { text: formatPercent(bRange, bMax), misconceptionId: "USE_MAXIMUM_AS_BASE", derivation: "Divides the Region B range by the maximum instead of the minimum comparison value." },
@@ -294,7 +288,7 @@ function buildDrafts(seed: string, stimulus: Di004Stimulus): Draft[] {
         keyIdea: "For 'highest is what percent higher than lowest', subtract the lowest from the highest and divide by the lowest.",
         steps: [
           `Region B lowest = ${bMin}; highest = ${bMax}; difference = ${bRange}.`,
-          `Percentage higher = ${bRange}/${bMin} × 100 = ${bRangeAnswer}.`,
+          `Percentage higher = ${bRange}/${bMin} × 100 ≈ ${bRangeAnswer}.`,
         ],
         shortcut: "Identify the two vertical extremes of Region B first, then apply (high − low) / low.",
         trap: "The maximum is not the denominator for 'higher than the minimum'; the lower comparison value is the base.",
