@@ -116,6 +116,21 @@ function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidat
   });
   candidates.forEach(add);
 
+  if (retained.length < optionCount && /^\d+%$/u.test(answer)) {
+    const correctValue = Number(answer.slice(0, -1));
+    for (let step = 1; retained.length < optionCount && step <= 100; step += 1) {
+      for (const value of [correctValue + 5 * step, correctValue - 5 * step]) {
+        if (value < 0) continue;
+        add({
+          text: `${value}%`,
+          misconceptionId: `NEARBY_ROUNDED_PERCENT_${step}_${value}`,
+          derivation: "A nearby whole-percentage result from a small calculation difference.",
+        });
+        if (retained.length >= optionCount) break;
+      }
+    }
+  }
+
   if (retained.length < optionCount) {
     throw new Error(`DI-004 could construct only ${retained.length} unique options; ${optionCount} are required.`);
   }
