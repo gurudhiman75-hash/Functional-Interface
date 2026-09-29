@@ -17,7 +17,7 @@ export const GEO_HAZ_001_CHAPTER_CLOSE_AUTHORITY_ID_V1 = "GEO-HAZ-001-CHAPTER-CL
 export const GEO_HAZ_001_MASTERY_AUTHORITY_ID_V1 = "GEO-HAZ-001-CP006-APPROVED-V1" as const;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
-const supportedLanguages: QuestionStudioLanguage[] = ["en"];
+const supportedLanguages: QuestionStudioLanguage[] = ["en","hi","pa"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
 
 const closure = auditGeoHaz001ChapterClosureV1();
@@ -40,8 +40,9 @@ if (cpIds.length !== 4) throw new Error("GEO-HAZ-001 must expose 4 owning CPs");
 if (qlIds.length !== 20) throw new Error("GEO-HAZ-001 must expose 20 permanent semantic QLs");
 
 function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
-  if (!language || language === "en") return "en";
-  throw new Error("GEO-HAZ-001 currently supports English only");
+  if (!language) return "en";
+  if (language === "en" || language === "hi" || language === "pa") return language;
+  throw new Error("GEO-HAZ-001 language is not supported");
 }
 function normalizeCount(count: number | undefined) {
   if (count == null) return 5;
@@ -112,6 +113,9 @@ export const GEO_HAZ_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
     qlCount: qlIds.length,
     cpCount: cpIds.length,
     englishQuestionCount: GEO_HAZ_001_QUESTION_STUDIO_CORPUS_V1.length,
+    localizedVersionCount: (GEO_HAZ_001_QUESTION_STUDIO_CORPUS_V1.length) * 3,
+    localizationLanguages: ["en","hi","pa"],
+    localizationStatus: "REVIEW_REQUIRED",
     exhaustiveMasterQuestionCount: 20,
   },
 };
@@ -156,15 +160,15 @@ export const knowledgeV1GeoHaz001QuestionStudioAdapterV1: QuestionStudioEngineAd
       topic: "Indian Geography",
       subtopic: "Natural Hazards & Disaster Geography of India",
       language,
-      locale: "en-IN",
-      stem: q.stem,
-      text: q.stem,
-      options: [...q.options],
+      locale: ({en:"en-IN",hi:"hi-IN",pa:"pa-IN"} as const)[language],
+      stem: localizeIndianGeoQuestionV1(q, language, "GEO-HAZ-001").stem,
+      text: localizeIndianGeoQuestionV1(q, language, "GEO-HAZ-001").stem,
+      options: [...localizeIndianGeoQuestionV1(q, language, "GEO-HAZ-001").options],
       correctIndex: q.correctIndex,
       correct: q.correctIndex,
-      canonicalAnswer: q.canonicalAnswer,
-      answer: q.canonicalAnswer,
-      explanation: q.explanation,
+      canonicalAnswer: localizeIndianGeoQuestionV1(q, language, "GEO-HAZ-001").canonicalAnswer,
+      answer: localizeIndianGeoQuestionV1(q, language, "GEO-HAZ-001").canonicalAnswer,
+      explanation: localizeIndianGeoQuestionV1(q, language, "GEO-HAZ-001").explanation,
       difficulty: q.difficulty,
       difficultyLabel: q.difficulty,
       sourceIds: [...q.sourceIds],
