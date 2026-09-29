@@ -270,10 +270,7 @@ function optionShortage(language: WfmLanguage, sourceWord: string, candidateWord
       return `${letter}: ${values.needed} needed, ${values.available} available`;
     })
     .join("; ");
-  if (!detail) return "";
-  if (language === "hi-IN") return ` (${detail})`;
-  if (language === "pa-IN") return ` (${detail})`;
-  return ` (${detail})`;
+  return detail ? ` (${detail})` : "";
 }
 
 function directExplanation(language: WfmLanguage, task: WfmTask, sourceWord: string, options: readonly WfmOption[], answerId: WfmOption["id"]): string {
@@ -296,10 +293,10 @@ function directExplanation(language: WfmLanguage, task: WfmTask, sourceWord: str
     ? language === "hi-IN" ? "बनाया जा सकता है" : language === "pa-IN" ? "ਬਣਾਇਆ ਜਾ ਸਕਦਾ ਹੈ" : "can be formed"
     : language === "hi-IN" ? "नहीं बनाया जा सकता" : language === "pa-IN" ? "ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਦਾ" : "cannot be formed";
   const conclusion = language === "hi-IN"
-    ? `अतः विकल्प ${answer.id} (${answer.text}) ${answerStatus}; इसलिए विकल्प ${answer.id} सही है।`
+    ? `अतः विकल्प ${answer.id} (${answer.text}) ${answerStatus}। इसलिए विकल्प ${answer.id} सही है।`
     : language === "pa-IN"
-      ? `ਇਸ ਲਈ ਵਿਕਲਪ ${answer.id} (${answer.text}) ${answerStatus}; ਇਸ ਕਰਕੇ ਵਿਕਲਪ ${answer.id} ਸਹੀ ਹੈ।`
-      : `Hence, option ${answer.id} (${answer.text}) ${answerStatus}; therefore, option ${answer.id} is correct.`;
+      ? `ਇਸ ਲਈ ਵਿਕਲਪ ${answer.id} (${answer.text}) ${answerStatus}। ਇਸ ਕਰਕੇ ਵਿਕਲਪ ${answer.id} ਸਹੀ ਹੈ।`
+      : `Hence, option ${answer.id} (${answer.text}) ${answerStatus}. Therefore, option ${answer.id} is correct.`;
   return [intro, ...rows, conclusion].join("\n");
 }
 
