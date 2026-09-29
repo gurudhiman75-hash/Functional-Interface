@@ -2335,7 +2335,7 @@
         "CP005-S22"
       ],
       "normalizedSourceIds": [
-        "CP005-CP005-S22"
+        "CP005-S22"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "C",
@@ -2358,7 +2358,7 @@
         "CP005-S28"
       ],
       "normalizedSourceIds": [
-        "CP005-CP005-S28"
+        "CP005-S28"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "A",
@@ -2381,7 +2381,7 @@
         "CP005-S28"
       ],
       "normalizedSourceIds": [
-        "CP005-CP005-S28"
+        "CP005-S28"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "C",
@@ -2406,9 +2406,9 @@
         "CP005-S29"
       ],
       "normalizedSourceIds": [
-        "CP005-CP005-S01",
-        "CP005-CP005-S06",
-        "CP005-CP005-S29"
+        "CP005-S01",
+        "CP005-S06",
+        "CP005-S29"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "B",
@@ -2432,8 +2432,8 @@
         "CP006-S02"
       ],
       "normalizedSourceIds": [
-        "CP006-CP006-S01",
-        "CP006-CP006-S02"
+        "CP006-S01",
+        "CP006-S02"
       ],
       "originCorrectOption": "B",
       "renderedCorrectOption": "B",
@@ -2457,8 +2457,8 @@
         "CP006-S02"
       ],
       "normalizedSourceIds": [
-        "CP006-CP006-S01",
-        "CP006-CP006-S02"
+        "CP006-S01",
+        "CP006-S02"
       ],
       "originCorrectOption": "D",
       "renderedCorrectOption": "D",
@@ -2481,7 +2481,7 @@
         "CP006-S06"
       ],
       "normalizedSourceIds": [
-        "CP006-CP006-S06"
+        "CP006-S06"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "D",
@@ -2506,9 +2506,9 @@
         "CP006-S08"
       ],
       "normalizedSourceIds": [
-        "CP006-CP006-S05",
-        "CP006-CP006-S06",
-        "CP006-CP006-S08"
+        "CP006-S05",
+        "CP006-S06",
+        "CP006-S08"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "B",
@@ -2532,8 +2532,8 @@
         "CP007-S06"
       ],
       "normalizedSourceIds": [
-        "CP007-CP007-S05",
-        "CP007-CP007-S06"
+        "CP007-S05",
+        "CP007-S06"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "B",
@@ -2557,8 +2557,8 @@
         "CP007-S09"
       ],
       "normalizedSourceIds": [
-        "CP007-CP007-S03",
-        "CP007-CP007-S09"
+        "CP007-S03",
+        "CP007-S09"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "A",
@@ -2582,8 +2582,8 @@
         "CP007-S11"
       ],
       "normalizedSourceIds": [
-        "CP007-CP007-S02",
-        "CP007-CP007-S11"
+        "CP007-S02",
+        "CP007-S11"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "A",
@@ -2607,8 +2607,8 @@
         "CP007-S11"
       ],
       "normalizedSourceIds": [
-        "CP007-CP007-S05",
-        "CP007-CP007-S11"
+        "CP007-S05",
+        "CP007-S11"
       ],
       "originCorrectOption": "D",
       "renderedCorrectOption": "C",
@@ -2632,8 +2632,8 @@
         "CP008-S05"
       ],
       "normalizedSourceIds": [
-        "CP008-CP008-S01",
-        "CP008-CP008-S05"
+        "CP008-S01",
+        "CP008-S05"
       ],
       "originCorrectOption": "D",
       "renderedCorrectOption": "A",
@@ -2657,8 +2657,8 @@
         "CP008-S08"
       ],
       "normalizedSourceIds": [
-        "CP008-CP008-S02",
-        "CP008-CP008-S08"
+        "CP008-S02",
+        "CP008-S08"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "A",
@@ -2682,8 +2682,8 @@
         "CP008-S08"
       ],
       "normalizedSourceIds": [
-        "CP008-CP008-S05",
-        "CP008-CP008-S08"
+        "CP008-S05",
+        "CP008-S08"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "A",
@@ -2707,8 +2707,8 @@
         "CP008-S05"
       ],
       "normalizedSourceIds": [
-        "CP008-CP008-S04",
-        "CP008-CP008-S05"
+        "CP008-S04",
+        "CP008-S05"
       ],
       "originCorrectOption": "B",
       "renderedCorrectOption": "D",
@@ -2731,7 +2731,7 @@
         "CP009-S03"
       ],
       "normalizedSourceIds": [
-        "CP009-CP009-S03"
+        "CP009-S03"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "C",
@@ -2754,7 +2754,7 @@
         "CP009-S03"
       ],
       "normalizedSourceIds": [
-        "CP009-CP009-S03"
+        "CP009-S03"
       ],
       "originCorrectOption": "D",
       "renderedCorrectOption": "B",
@@ -2778,8 +2778,8 @@
         "CP009-S04"
       ],
       "normalizedSourceIds": [
-        "CP009-CP009-S03",
-        "CP009-CP009-S04"
+        "CP009-S03",
+        "CP009-S04"
       ],
       "originCorrectOption": "B",
       "renderedCorrectOption": "D",
@@ -2803,8 +2803,8 @@
         "CP009-S05"
       ],
       "normalizedSourceIds": [
-        "CP009-CP009-S04",
-        "CP009-CP009-S05"
+        "CP009-S04",
+        "CP009-S05"
       ],
       "originCorrectOption": "D",
       "renderedCorrectOption": "A",
@@ -2828,8 +2828,8 @@
         "CP010-S01"
       ],
       "normalizedSourceIds": [
-        "CP010-CP010-S02",
-        "CP010-CP010-S01"
+        "CP010-S02",
+        "CP010-S01"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "B",
@@ -2853,8 +2853,8 @@
         "CP010-S02"
       ],
       "normalizedSourceIds": [
-        "CP010-CP010-S01",
-        "CP010-CP010-S02"
+        "CP010-S01",
+        "CP010-S02"
       ],
       "originCorrectOption": "B",
       "renderedCorrectOption": "C",
@@ -2878,8 +2878,8 @@
         "CP010-S10"
       ],
       "normalizedSourceIds": [
-        "CP010-CP010-S01",
-        "CP010-CP010-S10"
+        "CP010-S01",
+        "CP010-S10"
       ],
       "originCorrectOption": "B",
       "renderedCorrectOption": "D",
@@ -2904,9 +2904,9 @@
         "CP010-S03"
       ],
       "normalizedSourceIds": [
-        "CP010-CP010-S01",
-        "CP010-CP010-S02",
-        "CP010-CP010-S03"
+        "CP010-S01",
+        "CP010-S02",
+        "CP010-S03"
       ],
       "originCorrectOption": "D",
       "renderedCorrectOption": "D",
@@ -2929,7 +2929,7 @@
         "CP011-S01"
       ],
       "normalizedSourceIds": [
-        "CP011-CP011-S01"
+        "CP011-S01"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "D",
@@ -2952,7 +2952,7 @@
         "CP011-S01"
       ],
       "normalizedSourceIds": [
-        "CP011-CP011-S01"
+        "CP011-S01"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "B",
@@ -2975,7 +2975,7 @@
         "CP011-S09"
       ],
       "normalizedSourceIds": [
-        "CP011-CP011-S09"
+        "CP011-S09"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "A",
@@ -2999,8 +2999,8 @@
         "CP011-S12"
       ],
       "normalizedSourceIds": [
-        "CP011-CP011-S11",
-        "CP011-CP011-S12"
+        "CP011-S11",
+        "CP011-S12"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "B",
@@ -3024,8 +3024,8 @@
         "CP012-S01"
       ],
       "normalizedSourceIds": [
-        "CP012-CP012-S03",
-        "CP012-CP012-S01"
+        "CP012-S03",
+        "CP012-S01"
       ],
       "originCorrectOption": "D",
       "renderedCorrectOption": "B",
@@ -3049,8 +3049,8 @@
         "CP012-S05"
       ],
       "normalizedSourceIds": [
-        "CP012-CP012-S04",
-        "CP012-CP012-S05"
+        "CP012-S04",
+        "CP012-S05"
       ],
       "originCorrectOption": "D",
       "renderedCorrectOption": "A",
@@ -3074,8 +3074,8 @@
         "CP012-S10"
       ],
       "normalizedSourceIds": [
-        "CP012-CP012-S09",
-        "CP012-CP012-S10"
+        "CP012-S09",
+        "CP012-S10"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "C",
@@ -3100,9 +3100,9 @@
         "CP012-S08"
       ],
       "normalizedSourceIds": [
-        "CP012-CP012-S01",
-        "CP012-CP012-S12",
-        "CP012-CP012-S08"
+        "CP012-S01",
+        "CP012-S12",
+        "CP012-S08"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "A",
@@ -3126,8 +3126,8 @@
         "CP013-S04"
       ],
       "normalizedSourceIds": [
-        "CP013-CP013-S01",
-        "CP013-CP013-S04"
+        "CP013-S01",
+        "CP013-S04"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "A",
@@ -3151,8 +3151,8 @@
         "CP013-S14"
       ],
       "normalizedSourceIds": [
-        "CP013-CP013-S13",
-        "CP013-CP013-S14"
+        "CP013-S13",
+        "CP013-S14"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "C",
@@ -3176,8 +3176,8 @@
         "CP013-S14"
       ],
       "normalizedSourceIds": [
-        "CP013-CP013-S13",
-        "CP013-CP013-S14"
+        "CP013-S13",
+        "CP013-S14"
       ],
       "originCorrectOption": "B",
       "renderedCorrectOption": "A",
@@ -3204,11 +3204,11 @@
         "CP013-S10"
       ],
       "normalizedSourceIds": [
-        "CP013-CP013-S01",
-        "CP013-CP013-S02",
-        "CP013-CP013-S04",
-        "CP013-CP013-S05",
-        "CP013-CP013-S10"
+        "CP013-S01",
+        "CP013-S02",
+        "CP013-S04",
+        "CP013-S05",
+        "CP013-S10"
       ],
       "originCorrectOption": "B",
       "renderedCorrectOption": "A",
@@ -3231,7 +3231,7 @@
         "CP014-S08"
       ],
       "normalizedSourceIds": [
-        "CP014-CP014-S08"
+        "CP014-S08"
       ],
       "originCorrectOption": "D",
       "renderedCorrectOption": "D",
@@ -3254,7 +3254,7 @@
         "CP014-S08"
       ],
       "normalizedSourceIds": [
-        "CP014-CP014-S08"
+        "CP014-S08"
       ],
       "originCorrectOption": "B",
       "renderedCorrectOption": "C",
@@ -3278,8 +3278,8 @@
         "CP014-S16"
       ],
       "normalizedSourceIds": [
-        "CP014-CP014-S15",
-        "CP014-CP014-S16"
+        "CP014-S15",
+        "CP014-S16"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "D",
@@ -3306,11 +3306,11 @@
         "CP014-S14"
       ],
       "normalizedSourceIds": [
-        "CP014-CP014-S01",
-        "CP014-CP014-S04",
-        "CP014-CP014-S08",
-        "CP014-CP014-S13",
-        "CP014-CP014-S14"
+        "CP014-S01",
+        "CP014-S04",
+        "CP014-S08",
+        "CP014-S13",
+        "CP014-S14"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "A",
@@ -3334,8 +3334,8 @@
         "CP015-S14"
       ],
       "normalizedSourceIds": [
-        "CP015-CP015-S02",
-        "CP015-CP015-S14"
+        "CP015-S02",
+        "CP015-S14"
       ],
       "originCorrectOption": "C",
       "renderedCorrectOption": "C",
@@ -3361,10 +3361,10 @@
         "CP015-S12"
       ],
       "normalizedSourceIds": [
-        "CP015-CP015-S02",
-        "CP015-CP015-S05",
-        "CP015-CP015-S06",
-        "CP015-CP015-S12"
+        "CP015-S02",
+        "CP015-S05",
+        "CP015-S06",
+        "CP015-S12"
       ],
       "originCorrectOption": "B",
       "renderedCorrectOption": "D",
@@ -3388,8 +3388,8 @@
         "CP015-S08"
       ],
       "normalizedSourceIds": [
-        "CP015-CP015-S03",
-        "CP015-CP015-S08"
+        "CP015-S03",
+        "CP015-S08"
       ],
       "originCorrectOption": "A",
       "renderedCorrectOption": "C",
@@ -3412,7 +3412,7 @@
         "CP015-S03"
       ],
       "normalizedSourceIds": [
-        "CP015-CP015-S03"
+        "CP015-S03"
       ],
       "originCorrectOption": "B",
       "renderedCorrectOption": "C",
