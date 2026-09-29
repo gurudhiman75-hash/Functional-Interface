@@ -5,7 +5,7 @@ export const SEA_001_LIFECYCLE: SeatingLifecycle = Object.freeze({
   solveInventoryStatus: "OPEN",
   queryMixStatus: "OPEN",
   englishFreezeStatus: "NOT_STARTED",
-  permanentQlCount: 0,
+  permanentQlCount: 9,
   questionStudioRegistered: false,
   questionBankWritable: false,
   testEligible: false,
