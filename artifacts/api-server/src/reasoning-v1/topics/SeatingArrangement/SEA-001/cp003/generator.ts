@@ -259,5 +259,5 @@ export function assertCircularCaseletIntegrity(caselet: CircularCaseletRecord): 
     if (child.text.includes("2 seats to the left")) throw new Error("Non-exam ordinal wording leaked into a question");
     if (child.explanation.includes("1 persons")) throw new Error("Singular/plural error leaked into an explanation");
   }
-  if (caselet.lifecycle.permanentQlCount !== 0 || caselet.lifecycle.questionBankWritable || caselet.lifecycle.testEligible || caselet.lifecycle.publiclyPublishable) throw new Error("Lifecycle lock violated");
+  if (caselet.lifecycle.permanentQlCount !== 9 || caselet.lifecycle.questionBankWritable || caselet.lifecycle.testEligible || caselet.lifecycle.publiclyPublishable) throw new Error("Lifecycle lock violated");
 }
