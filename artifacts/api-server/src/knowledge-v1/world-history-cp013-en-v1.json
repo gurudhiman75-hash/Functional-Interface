@@ -78,31 +78,30 @@
     "factId": "WHI-CP013-F003",
     "language": "en",
     "difficulty": "hard",
-    "questionFamily": "Ghana and early independence",
-    "stem": "Which European power had ruled the Gold Coast before Ghanaian independence?",
+    "questionFamily": "Nigerian independence",
+    "stem": "Which territory became independent as the Federation of Nigeria on 1 October 1960?",
     "options": [
       {
         "key": "A",
-        "text": "France"
+        "text": "The Gold Coast"
       },
       {
         "key": "B",
-        "text": "Belgium"
+        "text": "The Federation of Nigeria"
       },
       {
         "key": "C",
-        "text": "Britain"
+        "text": "Northern Rhodesia"
       },
       {
         "key": "D",
-        "text": "Portugal"
+        "text": "Tanganyika"
       }
     ],
-    "correctOption": "C",
-    "explanation": "The Gold Coast was a British colony before independence.",
+    "correctOption": "B",
+    "explanation": "Nigeria became independent on 1 October 1960 after British rule. The country was recognized as the Federation of Nigeria.",
     "sourceIds": [
-      "CP013-S01",
-      "CP013-S03"
+      "CP013-S15"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -114,31 +113,31 @@
     "factId": "WHI-CP013-F004",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Ghana and early independence",
-    "stem": "In what year did Ghana become independent?",
+    "questionFamily": "Portuguese decolonization",
+    "stem": "Which pair of former Portuguese territories became independent in 1975?",
     "options": [
       {
         "key": "A",
-        "text": "1945"
+        "text": "Angola and Mozambique"
       },
       {
         "key": "B",
-        "text": "1960"
+        "text": "Ghana and Nigeria"
       },
       {
         "key": "C",
-        "text": "1963"
+        "text": "Kenya and Tanzania"
       },
       {
         "key": "D",
-        "text": "1957"
+        "text": "Algeria and Morocco"
       }
     ],
-    "correctOption": "D",
-    "explanation": "Ghana became independent in 1957.",
+    "correctOption": "A",
+    "explanation": "Angola became independent on 11 November 1975, and Mozambique on 25 June 1975.",
     "sourceIds": [
-      "CP013-S01",
-      "CP013-S03"
+      "CP013-S16",
+      "CP013-S17"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -150,31 +149,30 @@
     "factId": "WHI-CP013-F005",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "Ghana and early independence",
-    "stem": "What was the Gold Coast renamed at independence?",
+    "questionFamily": "Zimbabwean independence",
+    "stem": "Which former British territory became independent as Zimbabwe in 1980?",
     "options": [
       {
         "key": "A",
-        "text": "Ghana"
+        "text": "Zambia"
       },
       {
         "key": "B",
-        "text": "Mali"
+        "text": "Zimbabwe"
       },
       {
         "key": "C",
-        "text": "Guinea"
+        "text": "Botswana"
       },
       {
         "key": "D",
-        "text": "Senegal"
+        "text": "Malawi"
       }
     ],
-    "correctOption": "A",
-    "explanation": "At independence in 1957, the Gold Coast took the name Ghana.",
+    "correctOption": "B",
+    "explanation": "Southern Rhodesia, previously under British sovereignty, attained independence as Zimbabwe in 1980.",
     "sourceIds": [
-      "CP013-S01",
-      "CP013-S03"
+      "CP013-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -186,31 +184,30 @@
     "factId": "WHI-CP013-F006",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Ghana and early independence",
-    "stem": "Why is Ghana’s independence often treated as a milestone in African decolonization?",
+    "questionFamily": "Namibian independence",
+    "stem": "Which United Nations operation supervised elections during Namibia’s transition to independence?",
     "options": [
       {
         "key": "A",
-        "text": "It was the first African territory to enter the UN in 1945"
+        "text": "ONUC"
       },
       {
         "key": "B",
-        "text": "It was the first sub-Saharan African colony to achieve independence in the postwar wave"
+        "text": "UNTAG"
       },
       {
         "key": "C",
-        "text": "It ended French rule in North Africa"
+        "text": "UNEF"
       },
       {
         "key": "D",
-        "text": "It established the OAU in 1957"
+        "text": "UNMOGIP"
       }
     ],
     "correctOption": "B",
-    "explanation": "Ghana’s 1957 independence became an influential precedent for movements elsewhere in Africa.",
+    "explanation": "The United Nations Transition Assistance Group (UNTAG) oversaw elections in the transition process before Namibia became independent in 1990.",
     "sourceIds": [
-      "CP013-S01",
-      "CP013-S03"
+      "CP013-S19"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1814,32 +1811,30 @@
     "factId": "WHI-CP013-F051",
     "language": "en",
     "difficulty": "hard",
-    "questionFamily": "Independence versus majority rule",
-    "stem": "Which event ended apartheid government through a national election?",
+    "questionFamily": "Angolan independence",
+    "stem": "Which agreement provided for a transitional government and Angola’s independence from Portugal?",
     "options": [
       {
         "key": "A",
-        "text": "The 1960 Sharpeville protest"
+        "text": "The Évian Accords"
       },
       {
         "key": "B",
-        "text": "The 1963 OAU founding"
+        "text": "The Alvor Accords"
       },
       {
         "key": "C",
-        "text": "The 1994 election"
+        "text": "The Lancaster House Agreement"
       },
       {
         "key": "D",
-        "text": "The 1976 Soweto uprising"
+        "text": "The Lusaka Protocol"
       }
     ],
-    "correctOption": "C",
-    "explanation": "The 1994 election brought a democratic government to power.",
+    "correctOption": "B",
+    "explanation": "The Alvor Accords arranged for a transitional government and Angola’s independence from Portugal in 1975.",
     "sourceIds": [
-      "CP013-S07",
-      "CP013-S08",
-      "CP013-S10"
+      "CP013-S16"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1888,32 +1883,30 @@
     "factId": "WHI-CP013-F053",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "Independence versus majority rule",
-    "stem": "Which example shows that independence did not ensure equal political rights?",
+    "questionFamily": "Namibian independence",
+    "stem": "Which liberation movement did the United Nations recognize in 1976 as the sole and authentic representative of the Namibian people?",
     "options": [
       {
         "key": "A",
-        "text": "South Africa under apartheid"
+        "text": "FRELIMO"
       },
       {
         "key": "B",
-        "text": "Ghana after 1957 as a colonial territory"
+        "text": "SWAPO"
       },
       {
         "key": "C",
-        "text": "Algeria under French rule after 1962"
+        "text": "MPLA"
       },
       {
         "key": "D",
-        "text": "The Congo under Belgian rule before 1960"
+        "text": "ZANU"
       }
     ],
-    "correctOption": "A",
-    "explanation": "Apartheid persisted in sovereign South Africa until its political transition.",
+    "correctOption": "B",
+    "explanation": "The United Nations recognized SWAPO as the sole and authentic representative of the Namibian people.",
     "sourceIds": [
-      "CP013-S07",
-      "CP013-S08",
-      "CP013-S10"
+      "CP013-S19"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1925,32 +1918,30 @@
     "factId": "WHI-CP013-F054",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Independence versus majority rule",
-    "stem": "What changed in South Africa in 1994?",
+    "questionFamily": "Namibian independence",
+    "stem": "On which date did Namibia become independent?",
     "options": [
       {
         "key": "A",
-        "text": "South Africa became independent from Britain for the first time"
+        "text": "1 April 1989"
       },
       {
         "key": "B",
-        "text": "The electorate expanded to include citizens across racial groups"
+        "text": "18 April 1980"
       },
       {
         "key": "C",
-        "text": "The country joined the French Union"
+        "text": "21 March 1990"
       },
       {
         "key": "D",
-        "text": "All provincial borders were abolished"
+        "text": "11 November 1975"
       }
     ],
-    "correctOption": "B",
-    "explanation": "The 1994 election enfranchised South Africans across racial categories.",
+    "correctOption": "C",
+    "explanation": "Namibia became independent on 21 March 1990, after the UN-supervised transition and elections.",
     "sourceIds": [
-      "CP013-S07",
-      "CP013-S08",
-      "CP013-S10"
+      "CP013-S19"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
