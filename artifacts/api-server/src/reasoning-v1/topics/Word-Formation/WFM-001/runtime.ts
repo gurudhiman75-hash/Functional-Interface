@@ -101,13 +101,6 @@ function letterCounts(word: string): Record<string, number> {
   return out;
 }
 
-function countSummary(word: string): string {
-  return Object.entries(letterCounts(word))
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([letter, count]) => `${letter}×${count}`)
-    .join(", ");
-}
-
 function deficitSummary(language: WfmLanguage, sourceWord: string, candidateWord: string): string {
   const analysis = analyseCandidate(sourceWord, candidateWord);
   return Object.entries(analysis.deficits)
