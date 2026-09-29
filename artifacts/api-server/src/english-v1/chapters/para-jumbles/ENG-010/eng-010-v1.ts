@@ -31,7 +31,7 @@ function chooseSet(input:Eng010QuestionInputV1){
  if(!pool.length)throw new Error("No ENG-010 authority set matches the requested filters");
  return pick(pool,input.seed??"eng010-default");
 }
-function friendlyExplanation(set:Eng010SetV1){
+const EXPLANATION_EMPHASIS_CUES=["introduces the topic","introduces the main idea","starts the process","explains the benefit","gives the benefit","adds the benefit","gives the contrast","adds the contrast","shows the problem","shows the result","gives the result","gives the solution","provides the solution","draws the conclusion","gives the conclusion","concludes the paragraph","closes the paragraph","final conclusion"] as const;\nfunction explanationEmphasis(text:string){return EXPLANATION_EMPHASIS_CUES.filter(cue=>text.toLowerCase().includes(cue));}\nfunction friendlyExplanation(set:Eng010SetV1){
  const correct=orderText(set.order);
  if(set.explanation.startsWith("The correct order is"))return set.explanation;
  return `The correct order is ${correct}. Start with the sentence that introduces the main idea. Then follow the linking words, references and cause-effect flow. In this set, ${set.explanation} Reading the sentences in this order gives one clear, complete paragraph.`;
@@ -45,7 +45,7 @@ export function generateEng010QuestionV1(input:Eng010QuestionInputV1={}){
   prompt:"Choose the correct sequence.",
   options:opts,
   correctOptionIndex:opts.indexOf(correct),
-  explanation:friendlyExplanation(set),
+  explanation:friendlyExplanation(set),\n  explanationEmphasis:explanationEmphasis(friendlyExplanation(set)),
   metadata:{chapterId:"ENG-010",cpId:set.cpId,setId:set.id,difficulty:set.difficulty,topic:set.topic,correctOrder:correct,reviewOnly:true}
  };
 }
