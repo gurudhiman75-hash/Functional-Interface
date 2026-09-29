@@ -86,4 +86,39 @@ assert.ok(
   ),
 );
 
+
+const expandedAuthorityIds = [
+  "VEN-AUTH-023-ELECTRIC-CAR-ROAD-VEHICLE",
+  "VEN-AUTH-024-SCREWDRIVER-HAND-TOOL-TOOL",
+  "VEN-AUTH-025-RIGHT-TRIANGLE-POLYGON",
+  "VEN-AUTH-026-ADULT-WOMEN-PEOPLE",
+  "VEN-AUTH-027-MULTIPLES-18-6-INTEGERS",
+  "VEN-AUTH-028-PLANETS-DWARF-PLANETS-SS-BODIES",
+  "VEN-AUTH-029-VOWEL-CONSONANT-ENGLISH-LETTERS",
+  "VEN-AUTH-030-METAL-NONMETAL-CHEMICAL-ELEMENTS",
+  "VEN-AUTH-031-RIGHT-SCALENE-TRIANGLES",
+  "VEN-AUTH-032-ODD-SQUARE-NATURAL",
+  "VEN-AUTH-033-EVEN-SQUARE-NATURAL",
+  "VEN-AUTH-034-TRIANGLES-REGULAR-POLYGONS",
+] as const;
+assert.ok(
+  expandedAuthorityIds.every((id) =>
+    VEN_001_SCENARIO_AUTHORITIES.some((entry) => entry.authorityId === id),
+  ),
+  "all twelve CP003 expansion authorities must remain in the pool",
+);
+const expandedTopologyCounts = VEN_001_SCENARIO_AUTHORITIES.reduce<Record<string, number>>(
+  (counts, entry) => {
+    counts[entry.topologyId] = (counts[entry.topologyId] ?? 0) + 1;
+    return counts;
+  },
+  {},
+);
+assert.deepEqual(expandedTopologyCounts, {
+  THREE_NESTED: 10,
+  THREE_TWO_DISJOINT_SUBSETS: 12,
+  THREE_PARTIAL_OVERLAP_INSIDE_SUPERSET: 11,
+  THREE_ONE_NESTED_PAIR_ONE_SEPARATE: 1,
+});
+
 console.log("PASS_VEN_001_AUTHORITY_TOPOLOGY_PROOF");
