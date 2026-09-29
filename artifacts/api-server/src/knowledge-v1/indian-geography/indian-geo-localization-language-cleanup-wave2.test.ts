@@ -76,3 +76,18 @@ const kikkar=q(
   "Acacia is a common thorn-forest tree.",
 );
 assert.equal(localizeIndianGeoQuestionV1(kikkar,"pa","GEO-VEG-001").canonicalAnswer,"ਕਿੱਕਰ");
+
+
+const nativeGeoTerms = [
+  ["Wildlife sanctuary","ਜੰਗਲੀ ਜੀਵ ਰੱਖ"],
+  ["National park","ਰਾਸ਼ਟਰੀ ਪਾਰਕ"],
+  ["Biodiversity","ਜੈਵਿਕ ਵਿਭਿੰਨਤਾ"],
+  ["Forest cover","ਜੰਗਲਾਂ ਹੇਠਲਾ ਰਕਬਾ"],
+  ["Multipurpose project","ਬਹੁ-ਮੰਤਵੀ ਪ੍ਰਾਜੈਕਟ"],
+  ["River-valley project","ਨਦੀ-ਘਾਟੀ ਪ੍ਰਾਜੈਕਟ"],
+] as const;
+
+for (const [english,punjabi] of nativeGeoTerms) {
+  const x=q("Which option is correct?",english,["Forest","River","Soil"],english+" is correct.");
+  assert.equal(localizeIndianGeoQuestionV1(x,"pa","GEO-VEG-001").canonicalAnswer,punjabi);
+}
