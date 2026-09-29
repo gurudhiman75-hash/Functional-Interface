@@ -1,0 +1,71 @@
+name: Validate WFM-001 Question Studio governance
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/REASONING-V1-TAXONOMY-AMENDMENT-WFM-001.md"
+      - "artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Word-Formation/WFM-001/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wfm-001-question-studio-governance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-wfm-governance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Run WFM-001 V2 content gate
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Word-Formation/WFM-001
+          OUT=dist/reasoning-v1/wfm-001-governance
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/wfm-001.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/wfm-001.test.mjs"
+          (cd artifacts/api-server && node "$OUT/wfm-001.test.mjs")
+
+      - name: Run shared Question Studio governance gate
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Word-Formation/WFM-001
+          OUT=dist/reasoning-v1/wfm-001-governance
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/question-studio-review.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/question-studio-review.test.mjs"
+          (cd artifacts/api-server && node "$OUT/question-studio-review.test.mjs")
+
+      - name: Prove taxonomy authority exists
+        run: |
+          set -euo pipefail
+          grep -q '`REAS-WFM` | Word Formation' artifacts/api-server/src/reasoning-v1/REASONING-V1-TAXONOMY-AMENDMENT-WFM-001.md
+          grep -q 'No `WFM-QL-005` is reserved' artifacts/api-server/src/reasoning-v1/REASONING-V1-TAXONOMY-AMENDMENT-WFM-001.md
+          grep -q 'generic Question Studio persistence: throws' artifacts/api-server/src/reasoning-v1/topics/Word-Formation/WFM-001/WFM-001-QUESTION-STUDIO-PROMOTION-V1.md
