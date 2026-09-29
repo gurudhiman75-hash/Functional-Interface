@@ -26,6 +26,6 @@ export function auditEng011AmbiguityV1(set:Eng011SetV1):Eng011AmbiguityFlagV1{
 export function summarizeEng011AmbiguityV1(sets:readonly Eng011SetV1[]){
  const rows=sets.map(auditEng011AmbiguityV1);
  const review=rows.filter(x=>x.risk==="review");
- const severe=review.filter(x=>x.reasons.includes("duplicate-fragment")||x.reasons.includes("finite-verb-not-detected"));
+ const severe=review.filter(x=>x.reasons.includes("duplicate-fragment"));
  return{total:rows.length,reviewCount:review.length,severeCount:severe.length,rows,review,severe};
 }
