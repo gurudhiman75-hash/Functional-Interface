@@ -214,11 +214,11 @@ function labelAnchors(
     case "THREE_ALL_DISJOINT":
       return [{ x: 66, y: 91 }, { x: 125, y: 91 }, { x: 184, y: 91 }];
     case "THREE_NESTED_PAIR_CROSSED_BY_THIRD":
-      return [{ x: 110, y: 24 }, { x: 78, y: 91 }, { x: 181, y: 91 }];
+      return [{ x: 110, y: 34 }, { x: 78, y: 91 }, { x: 181, y: 91 }];
     case "THREE_TWO_DISJOINT_OVERLAP_THIRD":
-      return [{ x: 72, y: 91 }, { x: 178, y: 91 }, { x: 125, y: 28 }];
+      return [{ x: 72, y: 91 }, { x: 178, y: 91 }, { x: 125, y: 43 }];
     case "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP":
-      return [{ x: 120, y: 18 }, { x: 80, y: 91 }, { x: 202, y: 91 }];
+      return [{ x: 120, y: 28 }, { x: 80, y: 91 }, { x: 202, y: 91 }];
   }
 }
 
