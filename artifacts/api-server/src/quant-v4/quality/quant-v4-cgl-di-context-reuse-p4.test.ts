@@ -1,17 +1,9 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 
-import {
-  runQuantV4CglTier1ShadowSimulationAudit,
-} from "./quant-v4-cgl-tier1-shadow-simulation-p3";
 
 const auditSnapshotPath = "dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-simulation-p3.audit.json";
-const audit = existsSync(auditSnapshotPath)
-  ? JSON.parse(readFileSync(auditSnapshotPath, "utf8"))
-  : await runQuantV4CglTier1ShadowSimulationAudit({
-      sections: 20,
-      seedPrefix: "QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-CI",
-    });
+const audit = JSON.parse(readFileSync(auditSnapshotPath, "utf8"));
 
 assert.equal(audit.recordsGenerated, 500);
 assert.equal(audit.runtimeGeneratedCount, 500);
