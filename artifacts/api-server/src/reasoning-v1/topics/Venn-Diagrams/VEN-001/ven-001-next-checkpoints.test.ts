@@ -85,19 +85,19 @@ assert.throws(
   () =>
     generateVen001NextCheckpointBatch({
       patternId: "VEN-CP002",
-      count: 21,
+      count: 51,
       language: "en",
     } as QuestionStudioGenerationRequest),
-  /has 20 distinct candidates/,
+  /between 1 and 50/,
 );
 assert.throws(
   () =>
     generateVen001NextCheckpointBatch({
       patternId: "VEN-CP001",
-      count: 13,
+      count: 51,
       language: "en",
     } as QuestionStudioGenerationRequest),
-  /has 12 distinct candidates/,
+  /between 1 and 50/,
 );
 assert.throws(
   () =>
