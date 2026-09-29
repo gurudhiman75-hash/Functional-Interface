@@ -43,40 +43,37 @@ Which country entered eastern Poland on 17 September 1939?
 
 ### WHI-CP010-Q004 · Easy · Outbreak and chronology
 
-Which territory did Germany invade on 1 September 1939?
+Which term describes Germany’s fast-moving assault using armoured units and air power in Poland in 1939?
 
-- **A.** Denmark
-- **B.** Norway
-- **C.** Belgium
-- **D.** Poland
+- **A.** The Phoney War
+- **B.** The Atlantic Charter
+- **C.** Scorched-earth policy
+- **D.** Blitzkrieg
 **Answer:** D
-**Explanation:** The invasion of Poland marked the start of war in Europe. Germany attacked from the west while the Soviet Union later entered eastern Poland under the secret protocol.
-**Sources:** CP010-S01, CP010-S02
-
+**Explanation:** Blitzkrieg, or “lightning war,” combined rapid armoured advances with concentrated air power.
+**Sources:** CP010-S12
 ### WHI-CP010-Q005 · Easy · Outbreak and chronology
 
-When did Britain and France declare war on Germany?
+What name was given to the period of limited fighting on the Western Front after Britain and France declared war in 1939?
 
-- **A.** 3 September 1939
-- **B.** 1 September 1939
-- **C.** 22 June 1941
-- **D.** 7 December 1941
+- **A.** The Phoney War
+- **B.** The Battle of Britain
+- **C.** The Winter War
+- **D.** The Blitz
 **Answer:** A
-**Explanation:** Britain and France declared war on 3 September, after Germany invaded Poland on 1 September. Their declaration did not immediately stop the German campaign.
-**Sources:** CP010-S01
-
+**Explanation:** Although Britain and France had declared war, there was little action on the Western Front for several months. This period became known as the Phoney War.
+**Sources:** CP010-S13
 ### WHI-CP010-Q006 · Hard · Outbreak and chronology
 
-Which sequence is correct for the opening of the war in Europe?
+On what date did besieged Warsaw surrender to German forces?
 
-- **A.** Japan attacks Pearl Harbor → Germany invades Poland
-- **B.** Germany invades Poland → Britain and France declare war
-- **C.** Britain and France declare war → Germany invades Poland
-- **D.** Germany invades the Soviet Union → Germany invades Poland
+- **A.** 17 September 1939
+- **B.** 28 September 1939
+- **C.** 3 September 1939
+- **D.** 6 October 1939
 **Answer:** B
-**Explanation:** Germany invaded Poland first, on 1 September 1939. Britain and France declared war on 3 September.
-**Sources:** CP010-S01, CP010-S02
-
+**Explanation:** Warsaw surrendered on 28 September 1939 after heavy shelling and bombing during the German siege.
+**Sources:** CP010-S12
 ### WHI-CP010-Q007 · Easy · Axis expansion and occupation
 
 Which countries formed the Axis alliance during the Second World War?
@@ -331,16 +328,15 @@ What was the significance of the Battle of Midway for the Pacific war?
 
 ### WHI-CP010-Q028 · Medium · Turning points
 
-What did the Allied landings in Normandy achieve in 1944?
+Which 1943 battle marked the failure of Germany’s last major offensive on the Eastern Front?
 
-- **A.** They ended the war with Japan
-- **B.** They captured Stalingrad
-- **C.** They forced Italy to join the Axis
-- **D.** They opened a western front in occupied France
+- **A.** The Battle of the Bulge
+- **B.** The Battle of Midway
+- **C.** The Second Battle of El Alamein
+- **D.** The Battle of Kursk
 **Answer:** D
-**Explanation:** The Normandy landings opened a large Allied front in western Europe. They placed pressure on German forces from the west while Soviet forces advanced from the east.
-**Sources:** CP010-S05, CP010-S02
-
+**Explanation:** The German offensive at Kursk failed in July 1943. Soviet forces then kept the initiative on the Eastern Front.
+**Sources:** CP010-S02
 ### WHI-CP010-Q029 · Medium · Turning points
 
 Which event forced Germany to fight major land campaigns on both eastern and western fronts in 1944?

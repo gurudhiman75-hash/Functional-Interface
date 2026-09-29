@@ -83,4 +83,6 @@ This is a semantic review list, not an instruction to remove every related quest
 ## Follow-up implementation log
 
 - **CP013 coverage rebalance:** merged in [PR #2622](https://github.com/gurudhiman75-hash/Functional-Interface/pull/2622). Seven repeated items were replaced with source-backed coverage for Nigeria, Angola/Mozambique, Zimbabwe and Namibia. The full Hindi/Punjabi localization gate remains open.
-- **CP012/CP014 overlap cluster:** under review in a follow-up change. CP014 is being shifted toward distinct Cold War consequences and regional participation while CP012 retains decolonization facts.
+- **CP012/CP014 overlap cluster:** merged in [PR #2627](https://github.com/gurudhiman75-hash/Functional-Interface/pull/2627). Three direct-recall duplicates were replaced with distinct Korean War, SEATO and Bandung convening facts.
+
+- **CP010 opening/turning-point overlap:** proposed in [PR #2636](https://github.com/gurudhiman75-hash/Functional-Interface/pull/2636). Four repeat items were replaced with source-backed Blitzkrieg, Phoney War, Warsaw surrender and Kursk coverage. English review materials and canonical locators are aligned; localization remains open.
