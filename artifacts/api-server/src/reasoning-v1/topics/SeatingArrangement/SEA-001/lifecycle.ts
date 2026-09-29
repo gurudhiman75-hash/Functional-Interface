@@ -4,7 +4,7 @@ export const SEA_001_LIFECYCLE: SeatingLifecycle = Object.freeze({
   discoveryStatus: "EXECUTABLE_FOUNDATION",
   solveInventoryStatus: "FROZEN",
   queryMixStatus: "FROZEN",
-  englishFreezeStatus: "IN_REVIEW",
+  englishFreezeStatus: "FROZEN",
   permanentQlCount: 9,
   questionStudioRegistered: false,
   questionBankWritable: false,
@@ -13,5 +13,5 @@ export const SEA_001_LIFECYCLE: SeatingLifecycle = Object.freeze({
 });
 
 export function assertSea001ActivationAllowed(): never {
-  throw new Error("SEA-001 has a review-only permanent QL allocation; English freeze, Question Studio registration, Question Bank writes, tests, mocks and public delivery remain locked.");
+  throw new Error("SEA-001 English is frozen; multilingual freeze, Question Studio registration, Question Bank writes, tests, mocks and public delivery remain locked.");
 }
