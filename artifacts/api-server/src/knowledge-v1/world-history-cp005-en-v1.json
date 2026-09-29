@@ -1,0 +1,707 @@
+[
+  {
+    "questionId": "WHI-CP005-Q001",
+    "englishQuestionId": "WHI-CP005-Q001",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Industrialisation–region",
+    "stem": "Which country was the first to undergo large-scale industrialisation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "France"
+      },
+      {
+        "key": "B",
+        "text": "Britain"
+      },
+      {
+        "key": "C",
+        "text": "Russia"
+      },
+      {
+        "key": "D",
+        "text": "Spain"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Large-scale mechanised industry developed first in Britain in the late eighteenth century. Its coal, capital, labour, transport and markets worked together; no single factor explains the change.  \n**Sources:** CP005-S23",
+    "sourceIds": [
+      "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q002",
+    "englishQuestionId": "WHI-CP005-Q002",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F002",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Invention–inventor",
+    "stem": "Who invented the spinning jenny?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Richard Arkwright"
+      },
+      {
+        "key": "B",
+        "text": "Edmund Cartwright"
+      },
+      {
+        "key": "C",
+        "text": "James Watt"
+      },
+      {
+        "key": "D",
+        "text": "James Hargreaves"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Hargreaves patented the spinning jenny in 1770. It allowed one worker to spin several threads at once.  \n**Sources:** CP005-S11",
+    "sourceIds": [
+      "CP005-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q003",
+    "englishQuestionId": "WHI-CP005-Q003",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F003",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Railway–route",
+    "stem": "Which transport development linked Manchester’s textile industry with the port of Liverpool by rail in 1830?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Liverpool and Manchester Railway"
+      },
+      {
+        "key": "B",
+        "text": "Stockton and Darlington Railway"
+      },
+      {
+        "key": "C",
+        "text": "Great Western Railway"
+      },
+      {
+        "key": "D",
+        "text": "London and Birmingham Railway"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Liverpool and Manchester Railway opened in 1830. It carried both goods and passengers between the port and the manufacturing city.  \n**Sources:** CP005-S17",
+    "sourceIds": [
+      "CP005-S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q004",
+    "englishQuestionId": "WHI-CP005-Q004",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F004",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Law–provision",
+    "stem": "What minimum age for factory employment did the British Factory Act of 1833 establish?",
+    "options": [
+      {
+        "key": "A",
+        "text": "7 years"
+      },
+      {
+        "key": "B",
+        "text": "8 years"
+      },
+      {
+        "key": "C",
+        "text": "9 years"
+      },
+      {
+        "key": "D",
+        "text": "12 years"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The 1833 Act prohibited factory employment for children under nine and created a small inspectorate to enforce the rules.  \n**Sources:** CP005-S01, CP005-S03",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q005",
+    "englishQuestionId": "WHI-CP005-Q005",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F005",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "Who wrote *The Wealth of Nations*, published in 1776?",
+    "options": [
+      {
+        "key": "A",
+        "text": "David Ricardo"
+      },
+      {
+        "key": "B",
+        "text": "Adam Smith"
+      },
+      {
+        "key": "C",
+        "text": "Thomas Malthus"
+      },
+      {
+        "key": "D",
+        "text": "Robert Owen"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Adam Smith’s 1776 work examined political economy and the operation of markets. It is often treated as a foundational text of classical economics.  \n**Sources:** CP005-S16",
+    "sourceIds": [
+      "CP005-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q006",
+    "englishQuestionId": "WHI-CP005-Q006",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F006",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement–programme",
+    "stem": "The People’s Charter was the principal programme of which British movement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Chartism"
+      },
+      {
+        "key": "B",
+        "text": "Fabianism"
+      },
+      {
+        "key": "C",
+        "text": "Ludditism"
+      },
+      {
+        "key": "D",
+        "text": "Toryism"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Chartists organised petitions and campaigns for political reforms set out in the People’s Charter, including wider male suffrage.  \n**Sources:** CP005-S06",
+    "sourceIds": [
+      "CP005-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q007",
+    "englishQuestionId": "WHI-CP005-Q007",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F007",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Machine–function",
+    "stem": "Which machine used water power to drive spinning machinery and was developed by Richard Arkwright?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Spinning jenny"
+      },
+      {
+        "key": "B",
+        "text": "Power loom"
+      },
+      {
+        "key": "C",
+        "text": "Flying shuttle"
+      },
+      {
+        "key": "D",
+        "text": "Water frame"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Arkwright’s water frame used water power and encouraged production in mills located near a reliable supply of moving water.  \n**Sources:** CP005-S12",
+    "sourceIds": [
+      "CP005-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q008",
+    "englishQuestionId": "WHI-CP005-Q008",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F008",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Invention–improvement",
+    "stem": "What key improvement did James Watt make to the steam engine?",
+    "options": [
+      {
+        "key": "A",
+        "text": "He invented the first railway locomotive"
+      },
+      {
+        "key": "B",
+        "text": "He replaced coal with petroleum"
+      },
+      {
+        "key": "C",
+        "text": "He added a separate condenser"
+      },
+      {
+        "key": "D",
+        "text": "He designed the power loom"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Watt’s separate condenser reduced repeated heating and cooling of the main cylinder, making the engine more fuel-efficient. He improved an existing engine design rather than inventing steam power from nothing.  \n**Sources:** CP005-S13",
+    "sourceIds": [
+      "CP005-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q009",
+    "englishQuestionId": "WHI-CP005-Q009",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F009",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Iron–fuel",
+    "stem": "Which fuel did Abraham Darby use at Coalbrookdale to smelt iron on a commercial scale?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Coke made from coal"
+      },
+      {
+        "key": "B",
+        "text": "Charcoal made from peat"
+      },
+      {
+        "key": "C",
+        "text": "Refined petroleum"
+      },
+      {
+        "key": "D",
+        "text": "Natural gas"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Darby’s use of coke in iron smelting helped reduce dependence on charcoal and supported larger-scale iron production.  \n**Sources:** CP005-S14",
+    "sourceIds": [
+      "CP005-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q010",
+    "englishQuestionId": "WHI-CP005-Q010",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F010",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Invention–inventor",
+    "stem": "Who developed the power loom that mechanised weaving?",
+    "options": [
+      {
+        "key": "A",
+        "text": "James Hargreaves"
+      },
+      {
+        "key": "B",
+        "text": "Samuel Crompton"
+      },
+      {
+        "key": "C",
+        "text": "Richard Trevithick"
+      },
+      {
+        "key": "D",
+        "text": "Edmund Cartwright"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Cartwright patented a power loom in 1785. It mechanised weaving, complementing machines that had already increased the supply of spun thread.  \n**Sources:** CP005-S15",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q011",
+    "englishQuestionId": "WHI-CP005-Q011",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F011",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Railway–engineer",
+    "stem": "Which engineer is most closely associated with the *Rocket*, the locomotive that won the 1829 Rainhill Trials?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Isambard Kingdom Brunel"
+      },
+      {
+        "key": "B",
+        "text": "George Stephenson"
+      },
+      {
+        "key": "C",
+        "text": "Richard Arkwright"
+      },
+      {
+        "key": "D",
+        "text": "Thomas Telford"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "George Stephenson and his son Robert designed the *Rocket*, which won the Rainhill Trials held to select locomotives for the Liverpool and Manchester Railway.  \n**Sources:** CP005-S18",
+    "sourceIds": [
+      "CP005-S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q012",
+    "englishQuestionId": "WHI-CP005-Q012",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F012",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Production–organisation",
+    "stem": "What most clearly distinguished the factory system from the putting-out system?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Production was limited to farming households"
+      },
+      {
+        "key": "B",
+        "text": "Goods were made only for local use"
+      },
+      {
+        "key": "C",
+        "text": "Workers and machinery were concentrated in one workplace"
+      },
+      {
+        "key": "D",
+        "text": "Merchants stopped supplying raw materials"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Factories brought workers and powered machinery together under one roof and under an employer’s supervision. In the putting-out system, merchants supplied materials for work done in separate homes.  \n**Sources:** CP005-S05",
+    "sourceIds": [
+      "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q013",
+    "englishQuestionId": "WHI-CP005-Q013",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F013",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Urbanisation",
+    "stem": "Why did many industrial towns grow rapidly during the nineteenth century?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Factory employment drew people from rural areas"
+      },
+      {
+        "key": "B",
+        "text": "Governments moved all farms into cities"
+      },
+      {
+        "key": "C",
+        "text": "Railways ended the demand for manufactured goods"
+      },
+      {
+        "key": "D",
+        "text": "Mining and manufacturing were banned in villages"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Factory and mine jobs attracted people seeking wages. Town growth often outpaced housing and sanitation, creating crowded and unhealthy conditions.  \n**Sources:** CP005-S22",
+    "sourceIds": [
+      "CP005-S22"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q014",
+    "englishQuestionId": "WHI-CP005-Q014",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F014",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Protest–movement",
+    "stem": "What was a central feature of Luddite protests in early nineteenth-century Britain?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Workers campaigned to restore the Roman Empire"
+      },
+      {
+        "key": "B",
+        "text": "Factory owners demanded universal adult suffrage"
+      },
+      {
+        "key": "C",
+        "text": "Workers attacked some machines they believed threatened their livelihoods"
+      },
+      {
+        "key": "D",
+        "text": "Miners opposed the use of coal in steam engines"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Luddite actions targeted particular machines and employers amid wage cuts, unemployment and harsh working conditions. They were not simply opposition to all technology.  \n**Sources:** CP005-S19",
+    "sourceIds": [
+      "CP005-S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q015",
+    "englishQuestionId": "WHI-CP005-Q015",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F015",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Law–trade unions",
+    "stem": "What did the repeal of Britain’s Combination Acts in 1824 make easier for workers?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Voting in every parliamentary election"
+      },
+      {
+        "key": "B",
+        "text": "Forming trade unions"
+      },
+      {
+        "key": "C",
+        "text": "Owning coal mines without a licence"
+      },
+      {
+        "key": "D",
+        "text": "Replacing Parliament with factory councils"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The 1824 repeal removed the earlier legal ban on worker combinations; a 1825 Act soon restricted union activity again. The repeal did not grant voting rights.  \n**Sources:** CP005-S20",
+    "sourceIds": [
+      "CP005-S20"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q016",
+    "englishQuestionId": "WHI-CP005-Q016",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F016",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Work–authors",
+    "stem": "Who wrote *The Communist Manifesto*, published in 1848?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Adam Smith and David Ricardo"
+      },
+      {
+        "key": "B",
+        "text": "Robert Owen and Charles Fourier"
+      },
+      {
+        "key": "C",
+        "text": "Thomas Malthus and John Stuart Mill"
+      },
+      {
+        "key": "D",
+        "text": "Karl Marx and Friedrich Engels"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Marx and Engels published *The Communist Manifesto* in 1848. It presented their account of class conflict and called for political action by workers.  \n**Sources:** CP005-S21",
+    "sourceIds": [
+      "CP005-S21"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q017",
+    "englishQuestionId": "WHI-CP005-Q017",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F017",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "Arrange the inventions in the order in which they appeared: spinning jenny, water frame, power loom.",
+    "options": [
+      {
+        "key": "A",
+        "text": "Water frame → spinning jenny → power loom"
+      },
+      {
+        "key": "B",
+        "text": "Power loom → water frame → spinning jenny"
+      },
+      {
+        "key": "C",
+        "text": "Spinning jenny → water frame → power loom"
+      },
+      {
+        "key": "D",
+        "text": "Spinning jenny → power loom → water frame"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The spinning jenny appeared in the 1760s, Arkwright’s water frame followed in the same decade, and Cartwright patented the power loom in 1785. The dates overlap for the first two, but the spinning jenny preceded the water frame.  \n**Sources:** CP005-S11, CP005-S12, CP005-S15",
+    "sourceIds": [
+      "CP005-S11",
+      "CP005-S12",
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q018",
+    "englishQuestionId": "WHI-CP005-Q018",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F018",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Law–provision",
+    "stem": "Which statement about the British Factory Act of 1833 is correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It barred factory work for children under nine and created a factory inspectorate"
+      },
+      {
+        "key": "B",
+        "text": "It applied only to mines and created no inspectors"
+      },
+      {
+        "key": "C",
+        "text": "It gave every worker the vote"
+      },
+      {
+        "key": "D",
+        "text": "It immediately ended child labour in all industries"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Act set limits for child and young workers in factories and created inspectors. Its enforcement was limited, and it did not end child labour in every industry.  \n**Sources:** CP005-S01, CP005-S03",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q019",
+    "englishQuestionId": "WHI-CP005-Q019",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F019",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation–spread",
+    "stem": "Which statement best describes the early industrialisation of the United States?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It began only after the First World War"
+      },
+      {
+        "key": "B",
+        "text": "It relied entirely on steamships imported from Japan"
+      },
+      {
+        "key": "C",
+        "text": "It was confined to plantation agriculture"
+      },
+      {
+        "key": "D",
+        "text": "It began with textile mills and the transfer of British manufacturing knowledge"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Samuel Slater brought knowledge of British textile machinery to the United States, where early mills developed in New England. This was one early phase, not the whole later industrial story.  \n**Sources:** CP005-S07, CP005-S08",
+    "sourceIds": [
+      "CP005-S07",
+      "CP005-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q020",
+    "englishQuestionId": "WHI-CP005-Q020",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F020",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation–causes",
+    "stem": "Which explanation best accounts for Britain’s early industrialisation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "One invention alone transformed the economy"
+      },
+      {
+        "key": "B",
+        "text": "Coal, capital, labour, agricultural change, transport and markets combined to support industrial growth"
+      },
+      {
+        "key": "C",
+        "text": "Parliament ordered every household to move into factories"
+      },
+      {
+        "key": "D",
+        "text": "Industrialisation began because Britain had no overseas trade"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Britain’s early industrialisation grew from several interacting conditions. Inventions mattered, but they became productive at scale because energy, workers, investment, transport and demand were available.  \n**Sources:** CP005-S23",
+    "sourceIds": [
+      "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
