@@ -9,6 +9,7 @@ import type {
   QuestionStudioPackageDefinition,
 } from "../engine-types";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { auditGeoReferenceLocalizationV1, localizeGeoReferenceQuestionV1 } from "../../knowledge-v1/indian-geography/geo-reference-localization-v1";
 
 export const GEO_LAK_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "GEO-LAK-001" as const;
 export const GEO_LAK_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -17,7 +18,7 @@ export const GEO_LAK_001_CHAPTER_CLOSE_AUTHORITY_ID_V1 = "GEO-LAK-001-CHAPTER-CL
 export const GEO_LAK_001_MASTERY_AUTHORITY_ID_V1 = "GEO-LAK-001-CP005-APPROVED-V1" as const;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
-const supportedLanguages: QuestionStudioLanguage[] = ["en"];
+const supportedLanguages: QuestionStudioLanguage[] = ["en","hi","pa"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
 
 const closure = auditGeoLak001ChapterClosureV1();
@@ -38,10 +39,13 @@ const cpIds = Object.freeze([...new Set(GEO_LAK_001_QUESTION_STUDIO_CORPUS_V1.ma
 const qlIds = Object.freeze([...new Set(GEO_LAK_001_QUESTION_STUDIO_CORPUS_V1.map((q) => q.qlId))].sort());
 if (cpIds.length !== 3) throw new Error("GEO-LAK-001 must expose 3 owning CPs");
 if (qlIds.length !== 15) throw new Error("GEO-LAK-001 must expose 15 permanent semantic QLs");
+const localizationAudit = auditGeoReferenceLocalizationV1(GEO_LAK_001_QUESTION_STUDIO_CORPUS_V1);
+if (!localizationAudit.valid) throw new Error("GEO-LAK-001 localization audit failed: " + localizationAudit.issues.join(" | "));
 
 function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
-  if (!language || language === "en") return "en";
-  throw new Error("GEO-LAK-001 currently supports English only");
+  if (!language) return "en";
+  if (language === "en" || language === "hi" || language === "pa") return language;
+  throw new Error("GEO-LAK-001 language is not supported");
 }
 function normalizeCount(count: number | undefined) {
   if (count == null) return 5;
@@ -112,6 +116,9 @@ export const GEO_LAK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
     qlCount: qlIds.length,
     cpCount: cpIds.length,
     englishQuestionCount: GEO_LAK_001_QUESTION_STUDIO_CORPUS_V1.length,
+    localizedVersionCount: GEO_LAK_001_QUESTION_STUDIO_CORPUS_V1.length * 3,
+    localizationLanguages: ["en","hi","pa"],
+    localizationStatus: "REVIEW_REQUIRED",
     exhaustiveMasterQuestionCount: 15,
   },
 };
@@ -144,7 +151,10 @@ export const knowledgeV1GeoLak001QuestionStudioAdapterV1: QuestionStudioEngineAd
     if (!candidates.length) throw new Error("GEO-LAK-001 selectors produced no questions");
     if (count > candidates.length) throw new Error("GEO-LAK-001 cannot fill requested count without repeats");
     const selected = deterministicShuffle(candidates, seed + ":" + (cpId ?? "ALL") + ":" + (qlId ?? "ALL") + ":" + difficulty).slice(0, count);
-    const questions = selected.map((q) => ({
+    const locales = { en:"en-IN", hi:"hi-IN", pa:"pa-IN" } as const;
+    const questions = selected.map((q) => {
+      const localized = localizeGeoReferenceQuestionV1(q, language);
+      return ({
       ...lifecycle,
       id: q.questionId,
       questionId: q.questionId,
@@ -156,15 +166,15 @@ export const knowledgeV1GeoLak001QuestionStudioAdapterV1: QuestionStudioEngineAd
       topic: "Indian Geography",
       subtopic: "Lakes, Lagoons & Waterfalls of India",
       language,
-      locale: "en-IN",
-      stem: q.stem,
-      text: q.stem,
-      options: [...q.options],
+      locale: locales[language],
+      stem: localized.stem,
+      text: localized.stem,
+      options: [...localized.options],
       correctIndex: q.correctIndex,
       correct: q.correctIndex,
-      canonicalAnswer: q.canonicalAnswer,
-      answer: q.canonicalAnswer,
-      explanation: q.explanation,
+      canonicalAnswer: localized.canonicalAnswer,
+      answer: localized.canonicalAnswer,
+      explanation: localized.explanation,
       difficulty: q.difficulty,
       difficultyLabel: q.difficulty,
       sourceIds: [...q.sourceIds],
@@ -177,7 +187,10 @@ export const knowledgeV1GeoLak001QuestionStudioAdapterV1: QuestionStudioEngineAd
       runtimeRegistered: true,
       readOnly: true,
       productionReleased: false,
-    }));
+      sourceQuestionId: q.questionId,
+      localizationStatus: language === "en" ? "SOURCE_APPROVED" : "REVIEW_REQUIRED",
+      revisionPolicy: "REVISE_CANONICAL_AND_RELOCALIZE_ALL_LANGUAGES",
+    });});
     return { questions, generationContext: {
       ...lifecycle,
       engineId: "knowledge-v1",
@@ -188,6 +201,8 @@ export const knowledgeV1GeoLak001QuestionStudioAdapterV1: QuestionStudioEngineAd
       chapterCloseAuthorityId: GEO_LAK_001_CHAPTER_CLOSE_AUTHORITY_ID_V1,
       masteryAuthorityId: GEO_LAK_001_MASTERY_AUTHORITY_ID_V1,
       language,
+      locale: ({en:"en-IN",hi:"hi-IN",pa:"pa-IN"} as const)[language],
+      localizationStatus: language === "en" ? "SOURCE_APPROVED" : "REVIEW_REQUIRED",
       requestedDifficulty: difficulty,
       qlSelection: qlId ?? "DETERMINISTIC_ACROSS_PERMANENT_QLS",
       cpSelection: cpId ?? "DETERMINISTIC_ACROSS_CLOSED_CPS",
