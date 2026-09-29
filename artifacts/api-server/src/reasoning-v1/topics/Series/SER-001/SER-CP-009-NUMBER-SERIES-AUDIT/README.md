@@ -63,6 +63,17 @@ These families should broaden the corresponding existing QLs rather than inflate
 
 The identity is not reserved, is not promotion-eligible, and remains unavailable to Question Studio, Question Bank, tests, mocks and public release.
 
+## Coverage-gap remediation — factorial series
+
+The final coverage pass found a recurring SSC factorial/consecutive-multiplier family that was not explicitly generated.
+
+This is absorbed without allocating another QL:
+
+- factorial completion such as `1, 2, 6, 24, 120, ?` is a subtype of retained `SER-QL-035 / PROGRESSIVE_MULTIPLIER_ADJUSTMENT_SERIES` with adjustment `0` and multiplier step `+1`;
+- factorial wrong-term questions are a subtype of retained `SER-QL-040`, whose wrong-term diagnostic surface now accepts both power-pattern and factorial-pattern instances.
+
+The independent visible solver proves both forms directly from learner-visible terms. No new permanent identity is justified by factorial notation alone.
+
 ## Guardrails
 
 1. No arbitrary random formula composition. Every retained authority is a bounded source-backed grammar.
