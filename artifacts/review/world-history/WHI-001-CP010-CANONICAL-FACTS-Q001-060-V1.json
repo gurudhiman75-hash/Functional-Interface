@@ -58,6 +58,16 @@
       "sourceId": "CP010-S11",
       "title": "U.S. Department of State, Office of the Historian — The Yalta Conference, 1945",
       "url": "https://history.state.gov/milestones/1937-1945/yalta-conf"
+    },
+    {
+      "sourceId": "CP010-S12",
+      "title": "U.S. Holocaust Memorial Museum — Invasion of Poland, Fall 1939",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939"
+    },
+    {
+      "sourceId": "CP010-S13",
+      "title": "Imperial War Museums — Second World War galleries, large-print guide",
+      "url": "https://www.iwm.org.uk/sites/default/files/files/2023-10/second_world_war_galleries_large_print.pdf"
     }
   ],
   "facts": [
@@ -96,35 +106,33 @@
     },
     {
       "factId": "WHI-CP010-F004",
-      "claim": "The invasion of Poland marked the start of war in Europe. Germany attacked from the west while the Soviet Union later entered eastern Poland under the secret protocol.",
+      "claim": "The German invasion of Poland used Blitzkrieg tactics combining fast-moving armoured units with air power.",
       "sourceIds": [
-        "CP010-S01",
-        "CP010-S02"
+        "CP010-S12"
       ],
-      "sourceLocator": "Outbreak and chronology",
+      "sourceLocator": "Section “Invasion and Partition of Poland,” description of Blitzkrieg tactics",
       "relationshipType": "outbreak-chronology",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F005",
-      "claim": "Britain and France declared war on 3 September, after Germany invaded Poland on 1 September. Their declaration did not immediately stop the German campaign.",
+      "claim": "The early period of limited fighting on the Western Front after the September 1939 declarations became known as the Phoney War.",
       "sourceIds": [
-        "CP010-S01"
+        "CP010-S13"
       ],
-      "sourceLocator": "Outbreak and chronology",
+      "sourceLocator": "Second World War galleries, section “How did the war spread across Europe?”",
       "relationshipType": "outbreak-chronology",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F006",
-      "claim": "Germany invaded Poland first, on 1 September 1939. Britain and France declared war on 3 September.",
+      "claim": "Warsaw surrendered to German forces on 28 September 1939 after heavy shelling and bombing.",
       "sourceIds": [
-        "CP010-S01",
-        "CP010-S02"
+        "CP010-S12"
       ],
-      "sourceLocator": "Outbreak and chronology",
+      "sourceLocator": "Section “Invasion and Partition of Poland,” paragraph on the siege and surrender of Warsaw",
       "relationshipType": "outbreak-chronology",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F007",
@@ -345,14 +353,13 @@
     },
     {
       "factId": "WHI-CP010-F028",
-      "claim": "The Normandy landings opened a large Allied front in western Europe. They placed pressure on German forces from the west while Soviet forces advanced from the east.",
+      "claim": "The German offensive at Kursk in July 1943 failed, after which Soviet forces retained the initiative on the Eastern Front.",
       "sourceIds": [
-        "CP010-S05",
         "CP010-S02"
       ],
-      "sourceLocator": "Turning points",
+      "sourceLocator": "Section “World War II in Europe,” Eastern Front discussion of July 1943",
       "relationshipType": "turning-points",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F029",
