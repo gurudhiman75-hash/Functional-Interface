@@ -214,6 +214,7 @@ for (const qlId of WFM_001_QL_IDS) assert(markdown.includes(qlId));
 assert(markdown.includes("SELECTED_POSITION_COUNT"));
 assert(markdown.includes("JUMBLED_WORD") || markdown.includes("NUMBERED_SEQUENCE"));
 assert(!markdown.includes("Option A is wrong"));
+assert(markdown.includes("**Explanation:**\n- Let's check each option against the letters in"));
 
 console.log(JSON.stringify({
   status: "WFM-001 V2 REVIEW GATE PASSED",
