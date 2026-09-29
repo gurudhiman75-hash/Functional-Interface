@@ -1,4 +1,6 @@
 import{ENG012_AUTHORITIES_V1,type Eng012AuthorityV1,type Eng012CpId,type Eng012Difficulty}from"./eng-012-authorities-v1";
+import{ENG012_BANKING_AUTHORITIES_V1}from"./eng-012-banking-authorities-v1";
+const ENG012_ALL_AUTHORITIES_V1:readonly Eng012AuthorityV1[]=[...ENG012_AUTHORITIES_V1,...ENG012_BANKING_AUTHORITIES_V1];
 
 export type Eng012QuestionInputV1={seed?:string;cpId?:Eng012CpId;difficulty?:Eng012Difficulty;authorityId?:string};
 
@@ -22,8 +24,8 @@ function options(correct:string,seed:string){
  return chosen.map((x,i)=>({x,k:hash(`${seed}:o:${x}:${i}`)})).sort((a,b)=>a.k-b.k).map(x=>x.x);
 }
 function choose(input:Eng012QuestionInputV1){
- if(input.authorityId){const x=ENG012_AUTHORITIES_V1.find(a=>a.id===input.authorityId);if(!x)throw new Error(`Unknown ENG-012 authority ${input.authorityId}`);return x;}
- let pool=ENG012_AUTHORITIES_V1;
+ if(input.authorityId){const x=ENG012_ALL_AUTHORITIES_V1.find(a=>a.id===input.authorityId);if(!x)throw new Error(`Unknown ENG-012 authority ${input.authorityId}`);return x;}
+ let pool=ENG012_ALL_AUTHORITIES_V1;
  if(input.cpId)pool=pool.filter(x=>x.cpId===input.cpId);
  if(input.difficulty)pool=pool.filter(x=>x.difficulty===input.difficulty);
  if(!pool.length)throw new Error("No ENG-012 authority matches the requested filters");
@@ -50,4 +52,11 @@ export function generateEng012QuestionV1(input:Eng012QuestionInputV1={}){
   explanationEmphasis:explanationEmphasis(explanation),
   metadata:{chapterId:"ENG-012",cpId:authority.cpId,authorityId:authority.id,difficulty:authority.difficulty,topic:authority.topic,correctSwap:correct,correctedSentence:corrected,reviewOnly:true}
  };
+}
+
+export function generateEng012Cp005SetV1(seed:string,profile?:"ssc-standard"|"ssc-advanced"|"banking-prelims"|"banking-mains"){
+ const map={"ssc-standard":"ENG-012-CP001","ssc-advanced":"ENG-012-CP002","banking-prelims":"ENG-012-CP003","banking-mains":"ENG-012-CP004"}as const;
+ const profiles=Object.keys(map)as(keyof typeof map)[];
+ const selected=profile??profiles[hash(`${seed}:profile`)%profiles.length]!;
+ return{profile:selected,sourceCpId:map[selected],question:generateEng012QuestionV1({seed,cpId:map[selected]})};
 }
