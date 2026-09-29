@@ -585,17 +585,18 @@ async function repairExactStemDuplicates(
     if(!mode) throw new Error(`DI novelty mix cannot resolve source mode '${question.noveltySourceMode}' for duplicate repair.`);
     let replacement:any|undefined;
     for(let attempt=1;attempt<=12;attempt+=1){
-      const result=await mode.generate({
-        canonicalProblemId:mode.canonicalProblemId,
-        difficulty:normalizeDifficultyBand(question.difficultyLabel??question.difficulty??difficulty)?.toLowerCase(),
-        language:"en",
-        seed:`${seed}:dedupe:${mode.id}:${index}:${attempt}`,
-        count:1,
-        examProfile:examProfileForSource(profile),
-      });
+      const band=normalizeDifficultyBand(question.difficultyLabel??question.difficulty??difficulty)??"Medium";
+      const result=await generateModeQuestions(
+        mode,
+        question.noveltyTier,
+        band,
+        1,
+        profile,
+        `${seed}:dedupe:${mode.id}:${index}:${attempt}`,
+      );
       sourcePackages.push(...(result.questionPackages??[]));
       const candidate=result.questions?.[0];
-      if(!candidate) continue;
+      if(!candidate||!isMainsHardTaskAllowed(mode,profile,band,candidate)) continue;
       const candidateKey=normalizedStem(candidate);
       if(seen.has(candidateKey)) continue;
       replacement=decorateNoveltyQuestion(candidate,question.noveltyTier,mode);
