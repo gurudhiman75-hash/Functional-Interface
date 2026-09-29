@@ -8,6 +8,10 @@ import {
   type WfmSelectedLetterFixture,
 } from "./authorities";
 import {
+  generateWfmBankingOrderedExtraction,
+  generateWfmBankingUniqueWordOutput,
+} from "./banking-runtime";
+import {
   WFM_CANDIDATE_WORDS,
   WFM_EXAM_COMMON_WORD_SET,
   WFM_SOURCE_WORDS,
@@ -534,11 +538,46 @@ export function generateWfm001Question(input: {
     difficulty: input.difficulty,
   };
   validateProfile(base.examProfile);
+
+  if (input.qlId === "WFM-QL-005") {
+    if (base.examProfile !== "BANKING_5") throw new Error("WFM-QL-005 is owned by the BANKING_5 profile");
+    return generateWfmBankingOrderedExtraction({
+      seed: input.seed,
+      language: base.language,
+      difficulty: targetDifficulty(input.seed, input.difficulty),
+    });
+  }
+  if (input.qlId === "WFM-QL-006") {
+    if (base.examProfile !== "BANKING_5") throw new Error("WFM-QL-006 is owned by the BANKING_5 profile");
+    return generateWfmBankingUniqueWordOutput({
+      seed: input.seed,
+      language: base.language,
+      difficulty: targetDifficulty(input.seed, input.difficulty),
+    });
+  }
+
+  if (base.examProfile === "BANKING_5" && input.qlId !== "WFM-QL-003") {
+    throw new Error(`${input.qlId} is not authorized for BANKING_5 delivery`);
+  }
+
   if (input.qlId === "WFM-QL-001" || input.qlId === "WFM-QL-002") return generateDirect(base, input.qlId);
   if (input.qlId === "WFM-QL-003") return generateSelectedCount(base);
   if (input.qlId === "WFM-QL-004") return generateRearrangement(base);
   throw new Error(`Unknown WFM-001 QL: ${String(input.qlId)}`);
 }
 
-export const WFM_001_QL_IDS: readonly WfmQlId[] = ["WFM-QL-001", "WFM-QL-002", "WFM-QL-003", "WFM-QL-004"];
-export const WFM_001_CHECKPOINT_IDS = ["WFM-CP-001", "WFM-CP-002", "WFM-CP-003"] as const;
+export const WFM_001_QL_IDS: readonly WfmQlId[] = [
+  "WFM-QL-001",
+  "WFM-QL-002",
+  "WFM-QL-003",
+  "WFM-QL-004",
+  "WFM-QL-005",
+  "WFM-QL-006",
+];
+export const WFM_001_CHECKPOINT_IDS = [
+  "WFM-CP-001",
+  "WFM-CP-002",
+  "WFM-CP-003",
+  "WFM-CP-004",
+  "WFM-CP-005",
+] as const;
