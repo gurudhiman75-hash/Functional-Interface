@@ -1,39 +1,28 @@
-# WHI-001-CP006 — Nationalism and Unification
+# WHI-001-CP006 — Source and coverage plan
 
-**Status:** Source and coverage plan; questions not yet registered
-**Target:** 60 questions in English, Hindi and Punjabi; 18 Easy, 30 Medium, 12 Hard
-**Question Studio:** Register only after the full corpus passes parity checks
-**Publication:** Review-only pending editorial and native-language review
+**Checkpoint:** Nationalism and Unification
+**Scope:** European revolutions of 1848 through Italian and German unification, the Austro-Hungarian Compromise, and the Eastern Question to the Congress of Berlin (1878).
+**Lifecycle:** Review-only. The source register and fact authority support English editorial review; no learner delivery or runtime registration.
 
-## Coverage map
+## Coverage ownership
 
-| Questions | Coverage | Exam facts and relationships |
+| Range | Coverage | Main relationships |
 |---|---|---|
-| Q001–Q006 | Nationalism and the revolutions of 1848 | Congress of Vienna settlement; national and liberal demands; Frankfurt Assembly; why early unification attempts failed |
-| Q007–Q018 | Italian unification | Mazzini and Young Italy; Cavour and Piedmont-Sardinia; Garibaldi and the Expedition of the Thousand; Victor Emmanuel II; 1861 kingdom; Veneto and Rome; chronology |
-| Q019–Q030 | German unification | Zollverein; Frankfurt Assembly; Prussian leadership; Bismarck; wars of 1864, 1866 and 1870–71; North German Confederation; Empire proclaimed in 1871 |
-| Q031–Q038 | Austria-Hungary and nationalities | Compromise of 1867; dual monarchy; shared and separate institutions; limits of the settlement for other nationalities |
-| Q039–Q050 | Balkan nationalism and state formation | Ottoman decline; Serbian, Bulgarian, Greek and Romanian developments; Congress of Berlin (1878); independence and territorial changes |
-| Q051–Q060 | Chronology and comparison | Italian and German paths; leaders and contributions; war, diplomacy and popular movements; map-change and sequence questions |
+| Q001–Q006 | German and European movements of 1848 | demands, assemblies, constitutional projects and limits |
+| Q007–Q018 | Italian unification | people, campaigns, diplomacy and incorporation of southern gains |
+| Q019–Q030 | German unification | Prussia, wars, confederation and 1871 settlement |
+| Q031–Q042 | Comparative people, state structures and sequence | roles, institutions, chronology and political outcomes |
+| Q043–Q054 | Austria-Hungary and national movements | Compromise, dual monarchy, national questions and limits |
+| Q055–Q060 | Eastern Question and Congress of Berlin | diplomacy, territorial changes and popular action |
 
 ## Source register
 
-| Source ID | Source | Use and cautions |
-|---|---|---|
-| CP006-S01 | [German History in Documents and Images — Creation of the German Empire, 1866–1871](https://germanhistorydocs.org/en/forging-an-empire-bismarckian-germany-1866-1890/creation-of-the-german-empire-1866-1871) | Staged German unification and territorial sequence; do not attribute the whole process to one person or one war. |
-| CP006-S02 | [German Historical Museum — From the French Revolution to the Second German Empire](https://www.dhm.de/en/exhibitions/permanent-exhibition/from-the-french-revolution-to-the-second-german-empire/) | 1848–49 Frankfurt Assembly and later Prussian-led unification; separate the failed assembly from the 1871 settlement. |
-| CP006-S03 | [National Museum of the Italian Risorgimento — Collections](https://www.museorisorgimentotorino.it/en/patrimonio-collezioni/) | Italian leaders, documents and national movement. |
-| CP006-S04 | [Central Museum of the Risorgimento — History](https://vive.cultura.gov.it/en/central-museum-of-the-risorgimento/history) | People, events and chronology of the Risorgimento. |
-| CP006-S05 | [U.S. Department of State — Treaty of Berlin documents, 1878](https://history.state.gov/historicaldocuments/frus1878/papers) | Balkan territorial and diplomatic outcomes; records show great-power agreements, not popular consent. |
-| CP006-S06 | [U.S. Department of State — Austro-Hungarian Compromise records](https://history.state.gov/historicaldocuments/frus1878/d39) | Dual structure and shared institutions after the 1867 Compromise. |
-| CP006-S07 | [MuseoTorino — Italian unification](https://www.museotorino.it/view/s/d4fbdea1f73644bcb084050b3cab4323) | Cavour, Garibaldi and the political sequence toward unification. |
-| CP006-S08 | [U.S. Department of State — Congress of Berlin, 1878: papers and treaty stipulations](https://history.state.gov/historicaldocuments/frus1878/d523) | Treaty context; corroborate exact borders and status changes against treaty articles and maps. |
+Canonical source IDs and URLs are maintained in `WHI-001-CP006-CANONICAL-FACTS-Q001-060-V1.json`. Each question's `sourceIds` must match the cited canonical fact. Current sources include the German History in Documents and Images archive, the German Historical Museum, the National Museum of the Italian Risorgimento, Italy's Central Museum of the Risorgimento, U.S. Department of State diplomatic records, and Napoleon.org.
 
-## Authoring and localization rules
+## Review checks
 
-- Use concise SSC/Banking-style stems: direct identification, sequence, person–contribution, event–outcome and short comparison.
-- Keep distractors within the same historical period and category. Do not use absurd options or ask the same fact twice in different wording.
-- Cite the narrowest source ID that supports each fact. Add a source before using a claim not covered here.
-- Keep stable English question and fact IDs, difficulty and correct-option position aligned in both localizations.
-- Write Punjabi as natural Punjabi in Gurmukhi; do not translate Hindi constructions word for word.
-- Keep all content unpublished and review-only until editorial checks and native-language review are complete.
+- Verify each question against its canonical fact and source locator.
+- Check the checkpoint seams so 1848, Italian unification, German unification, the 1867 Compromise and 1878 settlement are not conflated.
+- Review contested or regionally variable claims for appropriate qualification.
+- Confirm all 60 records retain stable fact IDs, four distinct keyed options and review-only flags.
+- Hindi and Punjabi localization, parity, deterministic adapter checks and Question Studio registration remain gated on English approval.
