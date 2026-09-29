@@ -43,7 +43,7 @@ function rangeSubject(stimulus: Di010Stimulus, lower: number, upper: number): st
   if (stimulus.title === "Heights in a sports group") return `players whose height was at least ${fmt(lower)} cm but less than ${fmt(upper)} cm`;
   if (stimulus.title === "Daily wages of workers") return `workers whose daily wage was at least ₹${fmt(lower)} but less than ₹${fmt(upper)}`;
   if (stimulus.title === "Ages of workers") return `workers aged at least ${fmt(lower)} but less than ${fmt(upper)} years`;
-  return `${stimulus.unit} in the range ${fmt(lower)}–${fmt(upper)}`;
+  return `observations with values from ${fmt(lower)} inclusive to ${fmt(upper)} exclusive`;
 }
 
 function classSubject(stimulus: Di010Stimulus, index: number) {

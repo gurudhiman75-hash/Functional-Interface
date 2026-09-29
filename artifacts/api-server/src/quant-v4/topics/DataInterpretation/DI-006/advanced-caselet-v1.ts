@@ -98,7 +98,7 @@ function makeQuestion(task:Di006AdvancedTask,difficulty:Di006AdvancedDifficulty,
   } else if(task==="CATEGORY_SHARE_OF_TOTAL"){
     const raw=values[i]!*100/total;
     const v=Math.round(raw);
-    stem=`${labels[i]} accounts for approximately what whole percent of the total?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[`Share = (${values[i]} ÷ ${total}) × 100 ≈ ${v}%.`];
+    stem=`Approximately what percentage of the total is represented by ${labels[i]}?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[`Share = (${values[i]} ÷ ${total}) × 100 ≈ ${v}%.`];
   } else if(task==="GROUP_TOTAL"){
     const v=values[i]!+values[j]!+values[k]!;stem=`What is the total for ${labels[i]}, ${labels[j]} and ${labels[k]} together?`;answer=String(v);options=numOptions(v,seed);steps=[`${values[i]} + ${values[j]} + ${values[k]} = ${v}.`];
   } else if(task==="GROUP_RATIO"){
@@ -107,7 +107,7 @@ function makeQuestion(task:Di006AdvancedTask,difficulty:Di006AdvancedDifficulty,
     let a=values[i]!,b=values[j]!,an=labels[i]!,bn=labels[j]!;
     if(a<b){[a,b]=[b,a];[an,bn]=[bn,an];}
     const raw=(a-b)*100/b, v=Math.round(raw);
-    stem=`${an} is approximately what whole percent more than ${bn}?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[`Difference = ${a-b}.`,`Percentage excess = (${a-b} ÷ ${b}) × 100 ≈ ${v}%.`];
+    stem=`By approximately what percentage does ${an} exceed ${bn}?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[`Difference = ${a-b}.`,`Percentage excess = (${a-b} ÷ ${b}) × 100 ≈ ${v}%.`];
   } else if(task==="THREE_CATEGORY_TOTAL"){
     const v=values[i]!+values[j]!+values[k]!;stem=`Find the total for ${labels[i]}, ${labels[j]} and ${labels[k]} after resolving all stated relations.`;answer=String(v);options=numOptions(v,seed);steps=[`${values[i]} + ${values[j]} + ${values[k]} = ${v}.`];
   } else {

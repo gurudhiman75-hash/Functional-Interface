@@ -39,7 +39,10 @@ function interval(bin: Di009HistogramBin) {
 }
 
 function rangeLabel(bins: readonly Di009HistogramBin[], start: number, end: number) {
-  return `${bins[start]!.lower}–${bins[end]!.upper}`;
+  const labels = bins.slice(start, end + 1).map(interval);
+  return labels.length === 2
+    ? labels.join(" and ")
+    : `${labels.slice(0, -1).join(", ")}, and ${labels.at(-1)}`;
 }
 
 function totalFrequency(bins: readonly Di009HistogramBin[]) {
@@ -180,10 +183,10 @@ function combinedRangeDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
   const end = Math.min(bins.length - 1, start + width - 1);
   const answer = sumRange(bins, start, end);
   const s = surface(seed, "COMBINED_RANGE_TOTAL", [
-    `How many ${stimulus.unit} lie in the range ${rangeLabel(bins, start, end)}?`,
-    `Find the combined frequency for the interval ${rangeLabel(bins, start, end)}.`,
-    `What is the total frequency of the classes from ${bins[start]!.lower} to ${bins[end]!.upper}?`,
-    `The classes covering ${rangeLabel(bins, start, end)} together contain how many ${stimulus.unit}?`,
+    `How many ${stimulus.unit} are in classes ${rangeLabel(bins, start, end)} altogether?`,
+    `Find the combined frequency of classes ${rangeLabel(bins, start, end)}.`,
+    `What is the total frequency for classes ${rangeLabel(bins, start, end)}?`,
+    `Classes ${rangeLabel(bins, start, end)} contain how many ${stimulus.unit} altogether?`,
   ]);
   return {
     kind: "COMBINED_RANGE_TOTAL",
@@ -198,8 +201,8 @@ function combinedRangeDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
       ...frequencyShiftCandidates(answer, 5),
     ],
     explanation: {
-      keyIdea: "Add the frequencies of every class whose base lies inside the stated range.",
-      steps: [`Required frequencies = ${bins.slice(start, end + 1).map((bin) => bin.frequency).join(" + ")} = ${answer}.`],
+      keyIdea: "Add the frequencies of the named class intervals.",
+      steps: [`Frequencies for classes ${rangeLabel(bins, start, end)} = ${bins.slice(start, end + 1).map((bin) => bin.frequency).join(" + ")} = ${answer}.`],
     },
     evidence: { startIndex: start, endIndex: end, surfaceId: s.index },
   };
@@ -276,9 +279,9 @@ function rangeRatioDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
   const right = sumRange(bins, rightStart, rightEnd);
   const answer = ratioDisplay(left, right);
   const s = surface(seed, "RANGE_RATIO", [
-    `What is the ratio of the frequency in ${rangeLabel(bins, leftStart, leftEnd)} to that in ${rangeLabel(bins, rightStart, rightEnd)}?`,
+    `What is the ratio of the total frequencies in classes ${rangeLabel(bins, leftStart, leftEnd)} and classes ${rangeLabel(bins, rightStart, rightEnd)}?`,
     `Find the ratio of the total frequency of the first ${split} classes to the remaining classes.`,
-    `The combined frequency from ${bins[leftStart]!.lower} to ${bins[leftEnd]!.upper} is in what ratio to the combined frequency from ${bins[rightStart]!.lower} to ${bins[rightEnd]!.upper}?`,
+    `Compare the combined frequencies of classes ${rangeLabel(bins, leftStart, leftEnd)} and classes ${rangeLabel(bins, rightStart, rightEnd)}. What is the ratio in that order?`,
   ]);
   const leftWithoutLast = sumRange(bins, leftStart, Math.max(leftStart, leftEnd - 1));
   const rightWithoutFirst = sumRange(bins, Math.min(rightEnd, rightStart + 1), rightEnd);

@@ -8,13 +8,9 @@ function percent(numerator: number, denominator: number): string {
   const sign = numerator < 0 ? -1n : 1n;
   const n = BigInt(Math.abs(numerator));
   const d = BigInt(denominator);
-  const hundredths = (n * 10_000n + d / 2n) / d;
-  const whole = hundredths / 100n;
-  const fraction = Number(hundredths % 100n);
+  const whole = (n * 100n + d / 2n) / d;
   const prefix = sign < 0n ? "-" : "";
-  if (fraction === 0) return `${prefix}${whole}%`;
-  if (fraction % 10 === 0) return `${prefix}${whole}.${fraction / 10}%`;
-  return `${prefix}${whole}.${String(fraction).padStart(2, "0")}%`;
+  return `${prefix}${whole}%`;
 }
 
 function reconstructBTotal(set: Di007V2QuestionSet): number {

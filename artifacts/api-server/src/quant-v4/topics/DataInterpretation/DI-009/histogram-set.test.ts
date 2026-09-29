@@ -132,6 +132,10 @@ for (const profile of profiles) {
 
     for (const question of first.questions) {
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${profile} ${seed} ${question.kind} has invalid options.`);
+      if (question.kind === "COMBINED_RANGE_TOTAL" || question.kind === "RANGE_RATIO") {
+        assert(/classes?/iu.test(question.stem), `${profile} ${seed} ${question.kind} does not identify the included class intervals.`);
+        assert(!/in the range|frequency from \d+ to \d+/iu.test(question.stem), `${profile} ${seed} ${question.kind} uses ambiguous range endpoints.`);
+      }
       assert(!/\d+\.\d+/u.test(questionLearnerText(question)), `${profile} ${seed} ${question.kind} exposes decimal learner-facing values.`);
       assert(!/\bassociated\b|\bshortcut\b|\bcommon trap\b|\btrap\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${profile} ${seed} ${question.kind} leaked machine-like filler.`);
       assert(!/\bbars?\b/iu.test(`${question.stem} ${question.explanation.keyIdea} ${question.explanation.steps.join(" ")}`), `${profile} ${seed} ${question.kind} uses unnecessary chart-shape wording instead of frequency language.`);
