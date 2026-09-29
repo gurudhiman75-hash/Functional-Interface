@@ -9,7 +9,7 @@ const locales = ["en", "hi", "pa"] as const;
 const families = [
   { id: "VEN-CP001", count: 12, operation: "RELATIONS_TO_DIAGRAM" },
   { id: "VEN-CP002", count: 20, operation: "RELATIONS_TO_DIAGRAM" },
-  { id: "VEN-CP004", count: 19, operation: "REGION_IDENTIFICATION" },
+  { id: "VEN-CP004", count: 21, operation: "REGION_IDENTIFICATION" },
 ] as const;
 
 for (const family of families) {
@@ -76,10 +76,10 @@ assert.throws(
   () =>
     generateVen001NextCheckpointBatch({
       patternId: "VEN-CP004",
-      count: 20,
+      count: 22,
       language: "en",
     } as QuestionStudioGenerationRequest),
-  /has 19 distinct region candidates/,
+  /has 21 distinct region candidates/,
 );
 assert.throws(
   () =>
