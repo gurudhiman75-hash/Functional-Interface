@@ -24,7 +24,7 @@ The review-only lifecycle remains in force: Question Bank writes, test/mock elig
 | Sampling theory | STAT-010 | Core designs, errors, sampling distribution, standard error, and a stated sample-size method are present. |
 | Statistical inference | STAT-011 | Foundation only. Broader estimator applications, confidence-interval construction, and test decisions are explicitly deferred. |
 | Analysis of variance | STAT-012 | Foundation only. Replicated two-way designs, interaction decomposition, post-hoc comparisons, assumptions, and diagnostics remain deferred. |
-| Time series | STAT-013 | Foundation only. Its design says trend coefficients are supplied, so fitting a trend from raw data and other listed extensions remain open. |
+| Time series | STAT-013 | Foundation only. Its design says trend coefficients are supplied, so fitting a trend from raw data and other listed extensions remain open. The registry labels a contract `LEAST_SQUARES_TREND`; confirm that label against the generator semantics, which currently apply a supplied fitted line. |
 | Index numbers | STAT-014 | Foundation only. Weighted average-of-relatives variants and broader multi-period basket/base/chain work remain open. |
 
 ## Review and validation notes
