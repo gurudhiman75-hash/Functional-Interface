@@ -423,7 +423,7 @@ export function assertMixedCircleCaseletIntegrity(
     }
   }
 
-  if (caselet.lifecycle.permanentQlCount !== 0
+  if (caselet.lifecycle.permanentQlCount !== 9
     || caselet.lifecycle.questionBankWritable
     || caselet.lifecycle.testEligible
     || caselet.lifecycle.publiclyPublishable) {
