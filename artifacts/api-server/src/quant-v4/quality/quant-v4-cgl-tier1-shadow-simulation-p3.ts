@@ -248,6 +248,10 @@ const ARITHMETIC_POOL = packagePool((pkg) => {
   return topic.includes("arithmetic")
     && !subtopic.includes("probability")
     && !subtopic.includes("simplification")
+    // PCT-ALL is a Question Studio convenience aggregator, not an independent
+    // exam-content package. Sampling it here duplicates PCT-001..PCT-007 and
+    // splits audit diversity state from the package that actually generated the item.
+    && id !== "PCT-ALL"
     && id !== "SAP";
 });
 
