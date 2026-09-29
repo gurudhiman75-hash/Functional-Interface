@@ -24,7 +24,7 @@ Numeric correctness alone is not sufficient. A chart/table/caselet must expose e
 | DI-010 | Frequency polygon | PASS_WITH_EXISTING_PROOF | The renderer selects an exact-frequency y-axis step; the regression requires every plotted frequency to be among the visible y-axis labels. |
 | DI-011 | Mixed / multi-chart | PASS_BY_CONTRACT | Each component exposes the values used by its linked question families. |
 | DI-012 | Advanced variable / multi-missing table | PASS_BY_CONTRACT | x/y and recovery conditions are learner-visible. |
-| DI-013 | Radar / web chart | PASS_BY_RENDERED-DATA CONTRACT | Exact 20-unit radial ticks and the five category axes are visible. |
+| DI-013 | Radar / web chart | PASS_BY_CONTRACT | Exact 20-unit radial ticks and the five category axes are visible. |
 | DI-014 | Radar + pie hybrid | PASS_BY_RENDERED-DATA CONTRACT | Radar points carry exact application labels; pie shares and the common category mapping are visible. |
 
 ## Permanent gate
@@ -41,7 +41,7 @@ Tables/caselets must not reference values that exist only in internal evidence/s
 
 ## Review boundary
 
-This is source and automated render-output verification of answerability. It does not certify screenshot-level typography, clipping or label-overlap review. Hindi/Punjabi coverage is separate: DI-001 through DI-010 have localization status records; DI-011 through DI-014 still require localization and review.
+This is source and automated render-output verification of answerability. A representative raster review caught the DI-014 top value/100-tick collision; the renderer and 320-set regression now keep those labels apart. This does not certify all dynamic text at every viewport or font. Hindi/Punjabi coverage is separate: DI-001 through DI-010 have localization status records; DI-011 through DI-014 still require localization and review.
 
 ## Release rule
 
