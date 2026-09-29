@@ -5,6 +5,7 @@ import type {
   CircularOption,
   CircularSemanticValue,
 } from "../cp003/types.ts";
+import { assessSea001DifficultyV1 } from "../difficulty-v1.ts";
 
 export interface SeatingStudioClueRecord {
   readonly clueId: string;
@@ -23,7 +24,8 @@ export interface SeatingStudioParentRecord {
   readonly locale: "en-IN" | "hi-IN" | "pa-IN";
   readonly setupText: string;
   readonly clueRecords: readonly SeatingStudioClueRecord[];
-  readonly diagramScene?: CircularDiagramScene;
+  readonly diagramPolicy: "EXPLANATION_ONLY";
+  readonly explanationDiagramScene?: CircularDiagramScene;
   readonly topologySnapshot: unknown;
   readonly hiddenStateFingerprint: string;
   readonly clueSetFingerprint: string;
@@ -68,8 +70,11 @@ export interface SeatingStudioChildRecord {
   readonly correctIndex: 0 | 1 | 2 | 3;
   readonly questionExplanation: string;
   readonly difficulty: {
-    readonly status: "UNASSESSED";
+    readonly status: "STRUCTURAL_AUDITED_V1";
+    readonly band: "Easy" | "Medium" | "Hard";
+    readonly score: number;
     readonly featureVector: Readonly<Record<string, number>>;
+    readonly reasons: readonly string[];
   };
   readonly reviewStatus: "DISCOVERY" | "APPROVED" | "REWRITE" | "REJECT";
 }
@@ -102,21 +107,37 @@ export function projectCircularCaseletToQuestionStudio(caselet: CircularCaseletR
   }));
 
   const childQuestionIds = caselet.children.map((child) => `${caselet.caseletId}-Q${child.questionOrder}`);
-  const children = caselet.children.map((child, index): SeatingStudioChildRecord => ({
-    questionId: childQuestionIds[index] as string,
-    caseletId: caselet.caseletId,
-    questionOrder: child.questionOrder,
-    queryContractId: child.queryContractId,
-    questionText: child.text,
-    answerType: child.answerType,
-    answerProjection: child.answer,
-    modelSetUsed: caselet.solverOracleAgreement.productionKeys,
-    options: child.options.map(projectOption),
-    correctIndex: child.answerIndex,
-    questionExplanation: child.explanation,
-    difficulty: { status: "UNASSESSED", featureVector: {} },
-    reviewStatus: "DISCOVERY",
-  }));
+  const children = caselet.children.map((child, index): SeatingStudioChildRecord => {
+    const assessed = assessSea001DifficultyV1({
+      checkpointId: "SEA-CP-003",
+      queryContractId: child.queryContractId,
+      seatCount: caselet.topologySnapshot.seatCount,
+      clueCount: caselet.constraints.length,
+      checkpointSkillCoverage: caselet.checkpointSkillCoverage,
+      answerType: child.answerType,
+    });
+    return {
+      questionId: childQuestionIds[index] as string,
+      caseletId: caselet.caseletId,
+      questionOrder: child.questionOrder,
+      queryContractId: child.queryContractId,
+      questionText: child.text,
+      answerType: child.answerType,
+      answerProjection: child.answer,
+      modelSetUsed: caselet.solverOracleAgreement.productionKeys,
+      options: child.options.map(projectOption),
+      correctIndex: child.answerIndex,
+      questionExplanation: child.explanation,
+      difficulty: {
+        status: "STRUCTURAL_AUDITED_V1",
+        band: assessed.band === "EASY" ? "Easy" : assessed.band === "HARD" ? "Hard" : "Medium",
+        score: assessed.score,
+        featureVector: assessed.featureVector,
+        reasons: assessed.reasons,
+      },
+      reviewStatus: "DISCOVERY",
+    };
+  });
 
   return {
     parent: {
@@ -129,7 +150,8 @@ export function projectCircularCaseletToQuestionStudio(caselet: CircularCaseletR
       locale: caselet.locale,
       setupText: caselet.setupText,
       clueRecords,
-      diagramScene: caselet.diagram,
+      diagramPolicy: "EXPLANATION_ONLY",
+      explanationDiagramScene: caselet.diagram,
       topologySnapshot: caselet.topologySnapshot,
       hiddenStateFingerprint: caselet.hiddenStateFingerprint,
       clueSetFingerprint: caselet.clueSetFingerprint,
@@ -143,7 +165,7 @@ export function projectCircularCaseletToQuestionStudio(caselet: CircularCaseletR
       queryFactFingerprints: caselet.queryFactFingerprints,
       checkpointSkillCoverage: caselet.checkpointSkillCoverage,
       crossQuestionLeakagePassed: caselet.crossQuestionLeakagePassed,
-      queryMixFreezeStatus: "OPEN",
+      queryMixFreezeStatus: "FROZEN",
       proofTrace: caselet.proofTrace,
       childQuestionIds,
       reviewStatus: "DISCOVERY",
