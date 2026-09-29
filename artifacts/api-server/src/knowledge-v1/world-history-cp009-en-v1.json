@@ -30,7 +30,8 @@
     "explanation": "The mandate system placed former German and Ottoman territories under administration by other powers, formally under League oversight.",
     "sourceIds": [
       "CP009-S01",
-      "CP009-S02"
+      "CP009-S02",
+      "CP009-S09"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -138,7 +139,8 @@
     "explanation": "Former Ottoman territories in the Middle East were assigned to British and French administration under the mandate system.",
     "sourceIds": [
       "CP009-S01",
-      "CP009-S02"
+      "CP009-S02",
+      "CP009-S09"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false

@@ -68,6 +68,16 @@
       "sourceId": "CP010-S13",
       "title": "Imperial War Museums — Second World War galleries, large-print guide",
       "url": "https://www.iwm.org.uk/sites/default/files/files/2023-10/second_world_war_galleries_large_print.pdf"
+    },
+    {
+      "sourceId": "CP010-S14",
+      "title": "United States Holocaust Memorial Museum — Axis Powers in World War II",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/axis-powers-in-world-war-ii"
+    },
+    {
+      "sourceId": "CP010-S15",
+      "title": "Royal Air Force Museum — Operation Sealion",
+      "url": "https://www.rafmuseum.org.uk/research/online-exhibitions/history-of-the-battle-of-britain/operation-sealion/"
     }
   ],
   "facts": [
@@ -138,12 +148,11 @@
       "factId": "WHI-CP010-F007",
       "claim": "Germany, Italy and Japan were the principal Axis powers. Their alliance did not mean that every campaign was planned or conducted jointly.",
       "sourceIds": [
-        "CP010-S01",
-        "CP010-S03"
+        "CP010-S14"
       ],
-      "sourceLocator": "Axis expansion and occupation",
+      "sourceLocator": "CP010-S14, opening paragraph and Key Facts item 1 identifying Germany, Italy and Japan as the three principal Axis partners.",
       "relationshipType": "axis-expansion-occupation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F008",
@@ -151,9 +160,9 @@
       "sourceIds": [
         "CP010-S02"
       ],
-      "sourceLocator": "Axis expansion and occupation",
+      "sourceLocator": "CP010-S02, section “1941,” paragraph describing the German invasion of the Soviet Union beginning June 22, 1941.",
       "relationshipType": "axis-expansion-occupation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F009",
@@ -161,9 +170,9 @@
       "sourceIds": [
         "CP010-S02"
       ],
-      "sourceLocator": "Axis expansion and occupation",
+      "sourceLocator": "CP010-S02, section “1940,” paragraph stating German forces invaded Denmark and Norway on April 9, 1940.",
       "relationshipType": "axis-expansion-occupation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F010",
@@ -171,9 +180,9 @@
       "sourceIds": [
         "CP010-S02"
       ],
-      "sourceLocator": "Axis expansion and occupation",
+      "sourceLocator": "CP010-S02, section “1940,” paragraph on the May 10 German assault on France and the neutral Low Countries.",
       "relationshipType": "axis-expansion-occupation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F011",
@@ -181,19 +190,20 @@
       "sourceIds": [
         "CP010-S02"
       ],
-      "sourceLocator": "Axis expansion and occupation",
+      "sourceLocator": "CP010-S02, section “1940,” paragraph stating that France signed an armistice with Germany on June 22, 1940.",
       "relationshipType": "axis-expansion-occupation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F012",
       "claim": "German air attacks sought to weaken Britain's air defenses and prepare conditions for a possible invasion. Britain remained in the war after the Luftwaffe failed to secure air superiority.",
       "sourceIds": [
-        "CP010-S02"
+        "CP010-S02",
+        "CP010-S15"
       ],
-      "sourceLocator": "Axis expansion and occupation",
+      "sourceLocator": "CP010-S15, section “Operation Sealion,” paragraphs on the Luftwaffe’s attempt to gain air control for an invasion and the postponement after it failed to achieve air supremacy.",
       "relationshipType": "axis-expansion-occupation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F013",

@@ -84,8 +84,7 @@ Which countries formed the Axis alliance during the Second World War?
 - **D.** Britain, France and the Soviet Union
 **Answer:** C
 **Explanation:** Germany, Italy and Japan were the principal Axis powers. Their alliance did not mean that every campaign was planned or conducted jointly.
-**Sources:** CP010-S01, CP010-S03
-
+**Sources:** CP010-S14
 ### WHI-CP010-Q008 · Easy · Axis expansion and occupation
 
 Which military operation began Germany's invasion of the Soviet Union in June 1941?
@@ -144,8 +143,7 @@ What was the principal German aim in the Battle of Britain in 1940?
 - **D.** To gain air superiority before a possible invasion of Britain
 **Answer:** D
 **Explanation:** German air attacks sought to weaken Britain's air defenses and prepare conditions for a possible invasion. Britain remained in the war after the Luftwaffe failed to secure air superiority.
-**Sources:** CP010-S02
-
+**Sources:** CP010-S02, CP010-S15
 ### WHI-CP010-Q013 · Easy · European theatre
 
 Which battle stopped the German advance at Stalingrad and ended with the surrender of German forces there in February 1943?
