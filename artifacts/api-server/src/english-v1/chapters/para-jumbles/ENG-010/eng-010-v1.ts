@@ -43,7 +43,8 @@ function chooseSet(input:Eng010QuestionInputV1){
  return pick(pool,input.seed??"eng010-default");
 }
 const EXPLANATION_EMPHASIS_CUES=["introduces the topic","introduces the main idea","starts the process","explains the benefit","gives the benefit","adds the benefit","gives the contrast","adds the contrast","shows the problem","shows the result","gives the result","gives the solution","provides the solution","draws the conclusion","gives the conclusion","concludes the paragraph","closes the paragraph","final conclusion"] as const;
-function explanationEmphasis(text:string){return EXPLANATION_EMPHASIS_CUES.filter(cue=>text.toLowerCase().includes(cue));}\nfunction cue(text:string,index:number,total:number){
+function explanationEmphasis(text:string){return EXPLANATION_EMPHASIS_CUES.filter(cue=>text.toLowerCase().includes(cue));}
+function cue(text:string,index:number,total:number){
  const t=text.toLowerCase();
  if(index===0)return "introduces the main idea";
  if(/however|yet|but|although/.test(t))return "gives the contrast";
