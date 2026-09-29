@@ -503,7 +503,7 @@ function runtimeRecord(input: {
     questionKey: String(input.question?.questionId ?? `${input.profile.id}:${input.sectionIndex}:${input.ordinal}`),
     stem: [text, input.learnerVisibleEvidenceContext].filter(Boolean).join("\n"),
     explanation,
-    answer: input.question?.answer ?? input.question?.canonicalAnswer?.display ?? input.question?.canonicalAnswer?.value,
+    answer: input.question?.answer ?? input.question?.canonicalAnswer?.display ?? input.question?.canonicalAnswer?.value ?? options[input.question?.correctIndex ?? -1],
     options,
   });
   const testEligible = lifecycleFlag(input.question, ["testEligible", "testEligibility"], ["INELIGIBLE", "NOT_ELIGIBLE", "LOCKED"]);
