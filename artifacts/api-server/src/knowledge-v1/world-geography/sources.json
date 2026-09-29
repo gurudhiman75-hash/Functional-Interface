@@ -961,5 +961,14 @@
     "kind": "primary-agency",
     "consultedOn": "2026-09-29",
     "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-001-PUNJABI-GEOGRAPHY-GLOSSARY",
+    "title": "Punjabi Pedia: Isthmus (Jugrafie da Vishay-Kosh, Punjabi University, Patiala)",
+    "url": "https://punjabipedia.org/topic.aspx?txt=%E0%A8%A4%E0%A9%B0%E0%A8%97++%E0%A8%A5%E0%A9%B1%E0%A8%B2+%E0%A8%AA%E0%A9%B1%E0%A8%9F%E0%A9%80%3B+%E0%A8%AD%E0%A9%82-%E0%A8%B8%E0%A9%B0%E0%A8%A7%E0%A9%80%3B+%E0%A8%A5%E0%A8%B2-%E0%A8%A1%E0%A8%AE%E0%A8%B0%E0%A9%82",
+    "section": "Punjabi equivalents and definition of isthmus",
+    "kind": "reference-dictionary",
+    "consultedOn": "2026-09-29",
+    "retrievalStatus": "page-read"
   }
 ]
