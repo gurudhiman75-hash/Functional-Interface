@@ -13,5 +13,5 @@ export const SEA_001_LIFECYCLE: SeatingLifecycle = Object.freeze({
 });
 
 export function assertSea001ActivationAllowed(): never {
-  throw new Error("SEA-001 is an executable discovery foundation only; permanent QLs, Question Bank writes, tests and public delivery remain locked.");
+  throw new Error("SEA-001 has a review-only permanent QL allocation; English freeze, Question Studio registration, Question Bank writes, tests, mocks and public delivery remain locked.");
 }
