@@ -20,6 +20,8 @@ for(let i=0;i<320;i++){
   for(const q of set.questions){
     questions++;tasks.add(q.kind);assert.equal(q.options.length,5);assert.equal(new Set(q.options).size,5,`${seed}: duplicate options`);
     assert.equal(q.options[q.correctIndex],q.answer);assert(!/\d+\.\d+/u.test(q.answer));assert(q.explanation.steps.length>0);
+    if(q.kind==="HIGHEST_VALUE_FOR_SERIES") assert(/highest value/u.test(q.stem),`${seed}: highest-value task produced a different question: ${q.stem}`);
+    if(q.kind==="NET_SERIES_ADVANTAGE") assert(/absolute difference/u.test(q.stem),`${seed}: net-advantage task produced a different question: ${q.stem}`);
   }
 }
 assert.deepEqual([...tasks].sort(),[...DI013_TASKS].sort());
