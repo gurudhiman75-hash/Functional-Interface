@@ -6,7 +6,7 @@ async function run() {
   const cpIds = Object.keys(WGE_CP_TITLES);
   assert.equal(WGE_CORPUS.length, 816);
   assert.equal(adapter.listPackages().length, 44);
-  assert.equal(new Set(adapter.listPackages().map(p => p.packageId)).size, 43);
+  assert.equal(new Set(adapter.listPackages().map(p => p.packageId)).size, 44);
   for (const p of adapter.listPackages()) {
     assert.equal(p.lifecycleStage, 'REVIEW_ONLY'); assert.equal(p.questionBankWritable, false);
     assert.equal(p.productionReleaseAuthorized, false); assert.deepEqual(p.supportedLanguages, ['en', 'hi', 'pa']);
