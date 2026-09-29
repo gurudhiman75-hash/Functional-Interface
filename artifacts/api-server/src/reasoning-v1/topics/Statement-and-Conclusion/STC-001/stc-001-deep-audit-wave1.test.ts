@@ -68,8 +68,14 @@ for (const qlId of STC_QL_IDS) {
     }
 
     assert.ok(stems.size >= 8, `${qlId}/${locale}: weak visible stem variation (${stems.size}/${seeds.length})`);
-    assert.equal(answerPositions.size, 4, `${qlId}/${locale}: all four answer positions should be reachable`);
+    assert.ok(answerPositions.size >= 3, `${qlId}/${locale}: weak answer-position movement in learner sample (${answerPositions.size}/4)`);
     assert.ok(archetypes.size >= 4, `${qlId}/${locale}: too few surface archetypes in audit sample (${archetypes.size})`);
+
+    const positionProbe = new Set<number>();
+    for (let seed = 0; seed < 64; seed += 1) {
+      positionProbe.add(previewStc001V22QuestionStudioReview({ qlId, locale, seed }).question.correctIndex);
+    }
+    assert.equal(positionProbe.size, 4, `${qlId}/${locale}: all four answer positions must be reachable in deterministic probe`);
   }
 }
 
