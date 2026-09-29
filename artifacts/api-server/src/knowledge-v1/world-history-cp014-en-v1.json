@@ -589,30 +589,29 @@
     "language": "en",
     "difficulty": "easy",
     "questionFamily": "Korean War and the Chinese Revolution",
-    "stem": "Who proclaimed the People’s Republic of China in 1949?",
+    "stem": "Which country intervened in the Korean War as United Nations forces advanced toward the Yalu River in 1950?",
     "options": [
       {
         "key": "A",
-        "text": "Mao Zedong"
+        "text": "China"
       },
       {
         "key": "B",
-        "text": "Chiang Kai-shek"
+        "text": "Japan"
       },
       {
         "key": "C",
-        "text": "Sun Yat-sen"
+        "text": "India"
       },
       {
         "key": "D",
-        "text": "Zhou Enlai"
+        "text": "Soviet Union"
       }
     ],
     "correctOption": "A",
-    "explanation": "Mao Zedong proclaimed the PRC on 1 October 1949 after Communist victory on the mainland.",
+    "explanation": "Chinese Communist forces entered North Korea as organized units while United Nations forces advanced toward the Yalu River.",
     "sourceIds": [
-      "CP014-S06",
-      "CP014-S07"
+      "CP014-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -841,30 +840,29 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Vietnam and Southeast Asian conflict",
-    "stem": "What was one outcome of the 1954 Geneva settlement for Vietnam?",
+    "stem": "Which regional organization did the United States use as a framework for its continued involvement in South Vietnam?",
     "options": [
       {
         "key": "A",
-        "text": "Permanent reunification under French rule"
+        "text": "ASEAN"
       },
       {
         "key": "B",
-        "text": "Membership in the Warsaw Pact"
+        "text": "NATO"
       },
       {
         "key": "C",
-        "text": "Partition into NATO and Soviet occupation zones"
+        "text": "CENTO"
       },
       {
         "key": "D",
-        "text": "A temporary division near the 17th parallel pending elections"
+        "text": "SEATO"
       }
     ],
     "correctOption": "D",
-    "explanation": "The Geneva settlement provisionally divided Vietnam and envisaged elections for reunification.",
+    "explanation": "The United States cited SEATO’s charter as a framework for continued involvement in South Vietnam.",
     "sourceIds": [
-      "CP014-S09",
-      "CP014-S10"
+      "CP014-S19"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1879,30 +1877,29 @@
     "language": "en",
     "difficulty": "easy",
     "questionFamily": "Non-Aligned Movement and Bandung",
-    "stem": "Which country hosted the 1955 Bandung Conference?",
+    "stem": "Which country was among the five governments that convened the 1955 Asian-African Conference at Bandung?",
     "options": [
       {
         "key": "A",
-        "text": "Indonesia"
-      },
-      {
-        "key": "B",
         "text": "India"
       },
       {
-        "key": "C",
+        "key": "B",
         "text": "Egypt"
       },
       {
-        "key": "D",
+        "key": "C",
         "text": "Yugoslavia"
+      },
+      {
+        "key": "D",
+        "text": "Japan"
       }
     ],
     "correctOption": "A",
-    "explanation": "The Asian-African Conference took place in Bandung, Indonesia.",
+    "explanation": "Burma, Ceylon, India, Indonesia and Pakistan convened the Asian-African Conference at Bandung.",
     "sourceIds": [
-      "CP014-S15",
-      "CP014-S16"
+      "CP014-S17"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false

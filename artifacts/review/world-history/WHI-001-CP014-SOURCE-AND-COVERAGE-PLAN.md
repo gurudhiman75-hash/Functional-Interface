@@ -33,3 +33,18 @@ Cold War: Rivalry, Alliances, and Crises follows the blueprint boundary and excl
 - Primary documents and official institutional or national archive histories are preferred; interpretations are narrowly worded and explained.
 - English-only review; Hindi/Punjabi localization and parity remain gated.
 - Review-only; no learner delivery or production registration.
+
+
+## Cross-checkpoint overlap repair — review-only
+
+The chapter audit flagged repeated direct-recall facts shared by CP012 and CP014. CP014 now retains Cold War applications while CP012 remains the direct home for the decolonization milestones:
+
+- Replaced CP014 Q017's repeated Mao/PRC proclamation recall with China's military intervention during the Korean War.
+- Replaced CP014 Q024's repeated 1954 Geneva settlement outcome with the distinct U.S. use of SEATO as a framework for continued involvement in South Vietnam.
+- Replaced CP014 Q053's repeated Bandung host-country recall with one of the five convening governments, supported by the conference report.
+
+Added three sources with focused locators. The pool remains 60 questions, 18/30/12 difficulty, 15 correct answers per letter, and review-only.
+
+- **CP014-S17** United Nations — Report of the Asian-African Conference, Bandung, 1955. https://digitallibrary.un.org/record/860963/files/1955-E.pdf
+- **CP014-S18** U.S. Department of State, Office of the Historian — Chinese Communist Intervention in Korea, 1950 (FRUS). https://history.state.gov/historicaldocuments/frus1950v07/d797
+- **CP014-S19** U.S. Department of State, Office of the Historian — Southeast Asia Treaty Organization, 1954. https://history.state.gov/milestones/1953-1960/seato

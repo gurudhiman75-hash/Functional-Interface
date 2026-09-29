@@ -78,3 +78,9 @@ This is a semantic review list, not an instruction to remove every related quest
 3. Normalize question-family IDs and rebalance pools based on coverage needs rather than preserving a fixed count for its own sake.
 4. Complete full-pool Hindi/Punjabi localization and parity review for CP006–CP015.
 5. Rerun the chapter close, source, chronology, duplicate, ambiguity, difficulty and Question Studio lifecycle audits before considering learner release.
+
+
+## Follow-up implementation log
+
+- **CP013 coverage rebalance:** merged in [PR #2622](https://github.com/gurudhiman75-hash/Functional-Interface/pull/2622). Seven repeated items were replaced with source-backed coverage for Nigeria, Angola/Mozambique, Zimbabwe and Namibia. The full Hindi/Punjabi localization gate remains open.
+- **CP012/CP014 overlap cluster:** under review in a follow-up change. CP014 is being shifted toward distinct Cold War consequences and regional participation while CP012 retains decolonization facts.
