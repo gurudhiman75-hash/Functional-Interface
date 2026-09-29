@@ -2,9 +2,9 @@
 
 ## Scope
 
-This controlled-review package covers scatter-diagram direction, Pearson correlation, covariance, simple regression lines and prediction, Spearman rank correlation with and without ties, Yule's coefficient of association, and three-variable partial and multiple correlation. It follows the SSC CGL JSO Paper-II syllabus boundary. Each paired-data calculation states the divisor convention; the displayed observations are treated as a population.
+This controlled-review package covers scatter-diagram direction, Pearson correlation, covariance, simple regression lines and prediction, Spearman rank correlation with and without ties, Yule's coefficient of association, three-variable partial and multiple correlation, and multiple linear regression. It follows the SSC CGL JSO Paper-II syllabus boundary. Each paired-data calculation states the divisor convention; the displayed observations are treated as a population.
 
-Fourteen permanent QLs reserve STAT-QL-070 through STAT-QL-083 for SSC CGL Tier II and JSO. STAT-007 is English-only controlled review. Question Bank writes, test/mock use, localization, public publication, and production release remain disabled.
+The original fourteen contracts retain STAT-QL-070 through STAT-QL-083. Five multiple-regression contracts add STAT-QL-176 through STAT-QL-180 for SSC CGL Tier II and JSO. STAT-007 is English-only controlled review. Question Bank writes, test/mock use, localization, public publication, and production release remain disabled.
 
 ## Conventions
 
@@ -16,4 +16,4 @@ Fourteen permanent QLs reserve STAT-QL-070 through STAT-QL-083 for SSC CGL Tier 
 
 ## Deferred depth
 
-This is an initial foundation checkpoint, not complete coverage of all JSO Paper-II correlation and regression material. Multiple regression and measures of association beyond Yule's Q remain future content review.
+This package now covers multiple regression form, partial-slope interpretation, prediction, coefficient calculation from centered cross-products, and residuals. Broader measures of association beyond Yule's Q remain future content review.
