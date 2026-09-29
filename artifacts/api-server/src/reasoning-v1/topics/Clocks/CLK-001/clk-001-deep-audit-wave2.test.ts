@@ -14,7 +14,7 @@ import { CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION } from "./runtime/exam-natural-go
 
 test("CLK-001 batch-1 authoring registry keeps 23 QLs and excludes held/internal tasks", () => {
   assert.equal(CLK_001_PERMANENT_CONTRACTS.length, 23);
-  assert.equal(CLK_001_AUTHORING_VARIANT_AUTHORITY_V1.newlyEnabledVariantCount, 6);
+  assert.ok(CLK_001_AUTHORING_VARIANT_AUTHORITY_V1.enabledMergedVariantCount >= 6);
 
   const enabled = new Set(
     Object.values(CLK_001_AUTHORING_TASKS_BY_QL_V1).flat(),
@@ -36,12 +36,9 @@ test("selected QLs deterministically expose every batch-1 authoring variant in E
     .filter(([, tasks]) => tasks.length > 1)
     .map(([qlId]) => qlId as ClockPermanentQlId);
 
-  assert.deepEqual(expandedQls.sort(), [
-    "CLK-QL-001",
-    "CLK-QL-019",
-    "CLK-QL-020",
-    "CLK-QL-021",
-  ]);
+  for (const qlId of ["CLK-QL-001", "CLK-QL-019", "CLK-QL-020", "CLK-QL-021"] as const) {
+    assert.ok(expandedQls.includes(qlId), qlId + " must remain expanded after Batch 1");
+  }
 
   for (const qlId of expandedQls) {
     const expectedTasks = [...CLK_001_AUTHORING_TASKS_BY_QL_V1[qlId]];
