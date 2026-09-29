@@ -96,7 +96,7 @@ for (let seedIndex = 1; seedIndex <= 100; seedIndex += 1) {
       assert(new Set(question.options).size === 5, `${question.questionId} has duplicate displayed options.`);
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId} correct option binding failed.`);
       if (question.answer.endsWith("%")) {
-        assert(!/\\d+\\.\\d+%/u.test([question.answer, ...question.options].join(" ")), `${question.questionId} exposes a decimal percentage.`);
+        assert(!/\d+\.\d+%/u.test([question.answer, ...question.options].join(" ")), `${question.questionId} exposes a decimal percentage.`);
         assert(/approximately|approximate/iu.test(question.stem), `${question.questionId} rounds a percentage without signaling approximation.`);
         assert(question.explanation.steps.join(" ").includes("≈"), `${question.questionId} explanation presents a rounded percentage as exact.`);
       }
