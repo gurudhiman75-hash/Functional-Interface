@@ -5,6 +5,10 @@ import { SIF_CP_IDS, type GeneratedSifQuestion, type SifCpId, type SifDifficulty
 import type { QuestionStudioGenerationRequest, QuestionStudioGenerationResult, QuestionStudioLanguage, QuestionStudioPackageDefinition } from "../../../../question-studio/engine-types.ts";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle.ts";
 import { SIF_001_QUESTION_STUDIO_PACKAGE_ID, SIF_001_QUESTION_STUDIO_REVIEW_AUTHORITY, SIF_001_QUESTION_STUDIO_REVIEW_STATUS } from "./question-studio-review.ts";
+import {
+  generateSifBankingThreeInferenceQuestion,
+  SIF_BANKING_THREE_INFERENCE_PROFILE_ID,
+} from "./banking-three-inference.ts";
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const cpIds = [...SIF_CP_IDS];
@@ -50,12 +54,23 @@ function isCpId(value: string): value is SifCpId {
   return SIF_CP_IDS.includes(value as SifCpId);
 }
 
+function isBankingThreeInferenceRequest(request: QuestionStudioGenerationRequest): boolean {
+  return [request.patternId, request.canonicalProblemId, request.questionLanguageId]
+    .map((value) => text(value).toUpperCase())
+    .includes(SIF_BANKING_THREE_INFERENCE_PROFILE_ID);
+}
+
 function requestedCpIds(request: QuestionStudioGenerationRequest): readonly SifCpId[] {
   const selectors = [request.patternId, request.canonicalProblemId, request.questionLanguageId]
     .map((value) => text(value).toUpperCase())
     .filter(Boolean);
   const matches = [...new Set(selectors.filter(isCpId))];
-  const allowed = new Set<string>([SIF_001_QUESTION_STUDIO_PACKAGE_ID, "SIF-001", ...SIF_CP_IDS]);
+  const allowed = new Set<string>([
+    SIF_001_QUESTION_STUDIO_PACKAGE_ID,
+    "SIF-001",
+    SIF_BANKING_THREE_INFERENCE_PROFILE_ID,
+    ...SIF_CP_IDS,
+  ]);
   const unknownSelector = selectors.find((selector) => selector.startsWith("SIF-") && !allowed.has(selector));
   if (unknownSelector) throw new Error(`Unknown SIF-001 content-pack selector ${unknownSelector}`);
   if (matches.length > 1) throw new Error(`Conflicting SIF-001 content-pack selectors ${matches.join(", ")}`);
@@ -248,6 +263,116 @@ export function generateSif001QuestionStudioBatch(
 
   const count = normalizeCount(request.count);
   const locale = normalizeLanguage(request.language);
+
+  if (isBankingThreeInferenceRequest(request)) {
+    if (count > 5) {
+      throw new Error("SIF Banking three-inference review batches currently support at most 5 distinct curated authorities");
+    }
+    const seedText = text(request.seed) || "sif-001-banking-three-inference-v1";
+    const baseSeed = stableHash(seedText);
+    const questions = Array.from({ length: count }, (_, index) => {
+      const question = generateSifBankingThreeInferenceQuestion({
+        locale,
+        seed: baseSeed + index,
+      });
+      const roman = ["I", "II", "III"];
+      const instruction = locale === "hi-IN"
+        ? "कथन और तीनों अनुमानों को ध्यान से पढ़िए। तय कीजिए कि कौन-सा/कौन-से अनुमान सही हैं।"
+        : locale === "pa-IN"
+          ? "ਕਥਨ ਅਤੇ ਤਿੰਨਾਂ ਅਨੁਮਾਨਾਂ ਨੂੰ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹੋ। ਦੱਸੋ ਕਿ ਕਿਹੜਾ/ਕਿਹੜੇ ਅਨੁਮਾਨ ਸਹੀ ਹਨ।"
+          : "Read the statement and the three inferences carefully. Decide which inference(s) follow.";
+      const stem = [
+        instruction,
+        "",
+        question.statement,
+        "",
+        ...question.inferences.map((value, inferenceIndex) => `${roman[inferenceIndex]}. ${value}`),
+      ].join("\n");
+      const difficulty = question.difficulty[0] + question.difficulty.slice(1).toLowerCase();
+      return {
+        ...lifecycle,
+        id: `${question.authorityId}:${baseSeed + index}:${locale}`,
+        questionId: `${question.authorityId}:${baseSeed + index}:${locale}`,
+        packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID,
+        patternId: SIF_BANKING_THREE_INFERENCE_PROFILE_ID,
+        canonicalProblemId: SIF_BANKING_THREE_INFERENCE_PROFILE_ID,
+        cpId: question.cpId,
+        checkpointId: question.cpId,
+        scenarioId: question.authorityId,
+        sourceAuthorityId: question.baseScenarioId,
+        sourceAuthorityVersion: SIF_001_CHAPTER_FREEZE_V1.freezeId,
+        subject: "Reasoning",
+        topic: "Statement & Inference",
+        subtopic: "Statement and Inference",
+        language: locale.slice(0, 2),
+        locale,
+        stem,
+        text: stem,
+        instruction,
+        statement: question.statement,
+        inferences: question.inferences,
+        options: question.options,
+        correctIndex: question.correctIndex,
+        correct: question.correctIndex,
+        canonicalAnswer: question.options[question.correctIndex],
+        explanation: question.explanation,
+        difficulty,
+        difficultyLabel: difficulty,
+        difficultyAuthority: question.difficulty,
+        format: "THREE_INFERENCES",
+        distractorTypes: question.distractorTypes,
+        registrationStatus: "REGISTERED_REVIEW_ONLY",
+        registrationAuthorityId: SIF_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
+        reviewStatus: SIF_001_QUESTION_STUDIO_REVIEW_STATUS,
+        releaseFreezeId: SIF_001_CHAPTER_FREEZE_V1.freezeId,
+        questionStudioDiscoverable: true,
+        questionStudioGenerationEnabled: true,
+        runtimeRegistered: true,
+        reviewOnly: true,
+        readOnly: true,
+        productionReleased: false,
+        generationSeed: baseSeed + index,
+        generationContext: {
+          engineId: "reasoning-v1",
+          packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID,
+          chapterId: "SIF-001",
+          presentationProfileId: SIF_BANKING_THREE_INFERENCE_PROFILE_ID,
+          locale,
+          freezeId: SIF_001_CHAPTER_FREEZE_V1.freezeId,
+          lifecycleId: lifecycle.lifecycleId,
+          stage: lifecycle.stage,
+          reviewRunPersistenceAllowed: lifecycle.reviewRunPersistenceAllowed,
+          canonicalQuestionPersistenceAllowed: lifecycle.canonicalQuestionPersistenceAllowed,
+          questionBankStatus: lifecycle.questionBankStatus,
+          questionBankWritable: false,
+          testEligible: false,
+          mockTestEligible: false,
+          publiclyPublishable: false,
+          automaticStudentPublication: false,
+          productionReleaseAuthorized: false,
+        },
+      };
+    });
+
+    return {
+      questions,
+      generationContext: {
+        ...lifecycle,
+        engineId: "reasoning-v1",
+        packageId: SIF_001_QUESTION_STUDIO_PACKAGE_ID,
+        chapterId: "SIF-001",
+        presentationProfileId: SIF_BANKING_THREE_INFERENCE_PROFILE_ID,
+        locale,
+        seed: seedText,
+        count,
+        questionBankWritable: false,
+        testEligible: false,
+        mockTestEligible: false,
+        publiclyPublishable: false,
+        automaticStudentPublication: false,
+      },
+    };
+  }
   const { selectedCps, difficulty, eligible } = requestedAuthorities(request);
   if (count > eligible.length) {
     throw new Error(`SIF-001 can provide only ${eligible.length} distinct authorities for this content-pack and difficulty selection`);

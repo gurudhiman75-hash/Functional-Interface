@@ -4,6 +4,21 @@ type Kind = "NOT_EVERY" | "ONLY_SCOPE" | "UNLESS_CONDITION" | "EXCEPT_SCOPE" | "
 type Row = readonly [string, SifContextDomain, SifDifficulty, L, L, L];
 const t = ([en, hi, pa]: L): SifLocalizedText => ({ "en-IN": en, "hi-IN": hi, "pa-IN": pa });
 const guard = { evaluatesSupport: true, assumptionQuestion: false, conclusionQuestion: false, argumentQuestion: false, causeEffectQuestion: false, courseOfActionQuestion: false } as const;
+
+function resolvedRuleExplanation(explanation: L): L {
+  const endings: L = [
+    " Therefore, Inference I follows and Inference II does not follow.",
+    " अतः अनुमान I सही है और अनुमान II सही नहीं है।",
+    " ਇਸ ਲਈ ਅਨੁਮਾਨ I ਸਹੀ ਹੈ ਅਤੇ ਅਨੁਮਾਨ II ਸਹੀ ਨਹੀਂ ਹੈ।",
+  ];
+  return explanation.map((text, index) => {
+    const alreadyResolves =
+      /Inference I|Inference II|only I|only II/i.test(text)
+      || /अनुमान I|अनुमान II|केवल I|केवल II/u.test(text)
+      || /ਅਨੁਮਾਨ I|ਅਨੁਮਾਨ II|ਕੇਵਲ I|ਕੇਵਲ II/u.test(text);
+    return alreadyResolves ? text : `${text}${endings[index]}`;
+  }) as unknown as L;
+}
 const familyRules: Readonly<Record<Kind, L>> = {
   NOT_EVERY: ["‘Not every’ establishes at least one exception; it does not mean that none qualify.", "‘सभी नहीं’ का अर्थ है कि कम से कम एक अपवाद है; इसका अर्थ ‘कोई भी नहीं’ नहीं है।", "‘ਸਾਰੇ ਨਹੀਂ’ ਦਾ ਮਤਲਬ ਹੈ ਕਿ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਅਪਵਾਦ ਹੈ; ਇਸਦਾ ਮਤਲਬ ‘ਕੋਈ ਵੀ ਨਹੀਂ’ ਨਹੀਂ ਹੁੰਦਾ।"],
   ONLY_SCOPE: ["‘Only’ sets a necessary restriction on who may act; it does not say that everyone in that group acted.", "‘केवल’ यह सीमा बताता है कि कौन काम कर सकता है; यह नहीं कहता कि उस समूह के सभी लोगों ने काम किया।", "‘ਕੇਵਲ’ ਇਹ ਹੱਦ ਦੱਸਦਾ ਹੈ ਕਿ ਕੌਣ ਕੰਮ ਕਰ ਸਕਦਾ ਹੈ; ਇਹ ਨਹੀਂ ਦੱਸਦਾ ਕਿ ਉਸ ਸਮੂਹ ਦੇ ਸਾਰੇ ਲੋਕਾਂ ਨੇ ਕੰਮ ਕੀਤਾ।"],
@@ -82,6 +97,6 @@ export const SIF_CP007_NEGATIVE_AUTHORITIES: readonly SifScenarioAuthority[] = k
   const supportedFirst = true;
   const supported = { id: supportedFirst ? "I" : "II", text: t(follows), follows: true, strength: "CERTAIN" as const, supportFactIds: facts.map((fact) => fact.id) };
   const unsupported = { id: supportedFirst ? "II" : "I", text: t(doesNotFollow), follows: false, strength: "UNSUPPORTED_OR_CONTRADICTED" as const, supportFactIds: facts.map((fact) => fact.id), distractorType: trapType[kind] };
-  return { id, cpId: "SIF-CP007" as const, difficulty, domain, mechanisms: ["NEGATIVE_RESTRICTION", kind === "NOT_EVERY" ? "QUANTIFIER" : "SCOPE_CONTROL"], statement: t(localizedStatements), facts, candidates: [supportedFirst ? supported : unsupported, supportedFirst ? unsupported : supported] as const, explanation: t(familyRules[kind]), identityGuard: guard };
+  return { id, cpId: "SIF-CP007" as const, difficulty, domain, mechanisms: ["NEGATIVE_RESTRICTION", kind === "NOT_EVERY" ? "QUANTIFIER" : "SCOPE_CONTROL"], statement: t(localizedStatements), facts, candidates: [supportedFirst ? supported : unsupported, supportedFirst ? unsupported : supported] as const, explanation: t(resolvedRuleExplanation(familyRules[kind])), identityGuard: guard };
 }));
 export const SIF_CP007_PROFILE_BY_AUTHORITY_ID: Readonly<Record<string, { readonly family: Kind }>> = Object.fromEntries(kindOrder.flatMap((family) => SIF_CP007_NEGATIVE_AUTHORITIES.filter((authority) => authority.id.startsWith(`SIF-CP007-${family}-`)).map((authority) => [authority.id, { family }] as const)));

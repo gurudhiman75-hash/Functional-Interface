@@ -278,8 +278,8 @@ assert.equal(cp011Review.questions.filter((entry) => entry.answerClass === "ONLY
 
 
 for (const [cpId, expectedDifficulty] of [
-  ["SIF-CP012", { EASY: 5, MEDIUM: 8, HARD: 7 }],
-  ["SIF-CP013", { EASY: 5, MEDIUM: 8, HARD: 7 }],
+  ["SIF-CP012", { EASY: 5, MEDIUM: 13, HARD: 2 }],
+  ["SIF-CP013", { EASY: 5, MEDIUM: 13, HARD: 2 }],
   ["SIF-CP014", { EASY: 0, MEDIUM: 12, HARD: 0 }],
 ] as const) {
   const completePool = listSifAuthorities(cpId);

@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { assertSifAuthority, solveSifScenario } from "./solver.ts";
 import type { GeneratedSifQuestion, SifLocale, SifScenarioAuthority, SifValidationGateResult } from "./types.ts";
 
-const GATES: readonly SifValidationGateResult["gate"][] = ["LOGICAL_VALIDITY", "UNIQUE_ANSWER", "NO_OUTSIDE_KNOWLEDGE", "INFERENCE_IDENTITY", "DISTRACTOR_PLAUSIBILITY", "LANGUAGE_QUALITY", "DIFFICULTY_MATCH", "EXPLANATION_QUALITY", "MULTILINGUAL_PARITY", "NOVELTY"];
+const GATES: readonly SifValidationGateResult["gate"][] = ["LOGICAL_VALIDITY", "UNIQUE_ANSWER", "NO_OUTSIDE_KNOWLEDGE", "INFERENCE_IDENTITY", "DISTRACTOR_PLAUSIBILITY", "LANGUAGE_QUALITY", "DIFFICULTY_MATCH", "EXPLANATION_QUALITY", "MULTILINGUAL_PARITY", "NOVELTY_READINESS"];
 
 export function fingerprintSifAuthority(authority: SifScenarioAuthority): string {
   return createHash("sha256").update(JSON.stringify({ cpId: authority.cpId, statement: authority.statement["en-IN"], candidates: authority.candidates.map((entry) => entry.text["en-IN"]), strengths: authority.candidates.map((entry) => entry.strength), follows: authority.candidates.map((entry) => entry.follows), mechanisms: authority.mechanisms })).digest("hex").slice(0, 20);
@@ -23,9 +23,9 @@ export function validateSifAuthority(authority: SifScenarioAuthority): readonly 
     DIFFICULTY_MATCH: [authority.difficulty === "EASY" ? authority.mechanisms.filter((mechanism) => mechanism !== "MIXED").length <= 2 : authority.mechanisms.filter((mechanism) => mechanism !== "MIXED").length <= 3, "Reasoning mechanisms remain within the difficulty ceiling."],
     EXPLANATION_QUALITY: [(["en-IN", "hi-IN", "pa-IN"] as const).every((locale) => authority.explanation[locale].length >= 45), "Explanation states the evidence, connection and result."],
     MULTILINGUAL_PARITY: [localized, `Answer class ${answer} is derived before language realization.`],
-    NOVELTY: [
+    NOVELTY_READINESS: [
       fingerprintSifAuthority(authority).length === 20,
-      "Semantic identity is fingerprinted for repetition checks. This gate means novelty-audit readiness only; it does not grant CONTROLLED_NOVEL provenance.",
+      "Semantic identity is fingerprinted for later repetition checks. Novelty itself remains deferred and no CONTROLLED_NOVEL provenance is granted.",
     ],
   };
   return GATES.map((gate) => ({ gate, passed: results[gate][0], detail: results[gate][1] }));
