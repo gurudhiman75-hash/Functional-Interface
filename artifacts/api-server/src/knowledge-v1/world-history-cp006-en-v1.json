@@ -1,0 +1,725 @@
+[
+  {
+    "questionId": "WHI-CP006-Q001",
+    "englishQuestionId": "WHI-CP006-Q001",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement and objective",
+    "stem": "Which pair of demands was raised in many European revolutions of 1848?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Liberal constitutional government and national self-determination"
+      },
+      {
+        "key": "B",
+        "text": "Restoration of the conservative order established after the Napoleonic Wars"
+      },
+      {
+        "key": "C",
+        "text": "Expansion of dynastic rule without representative institutions"
+      },
+      {
+        "key": "D",
+        "text": "Preservation of existing empires by rejecting national claims"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Many 1848 movements combined demands for constitutional or representative government with calls for national unity or self-rule. Their aims differed across regions.",
+    "sourceIds": [
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q002",
+    "englishQuestionId": "WHI-CP006-Q002",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F002",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "State and political base",
+    "stem": "Which city hosted the German National Assembly that met in 1848?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Berlin"
+      },
+      {
+        "key": "B",
+        "text": "Frankfurt"
+      },
+      {
+        "key": "C",
+        "text": "Munich"
+      },
+      {
+        "key": "D",
+        "text": "Vienna"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Delegates to the first German National Assembly met in Frankfurt in 1848 and worked on a constitution for a united Germany.",
+    "sourceIds": [
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q003",
+    "englishQuestionId": "WHI-CP006-Q003",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F003",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Constitutional and political structure",
+    "stem": "What was a central task undertaken by the Frankfurt Assembly in 1848–49?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Restoring the German Confederation created after the Congress of Vienna"
+      },
+      {
+        "key": "B",
+        "text": "Creating the Austro-Hungarian Dual Monarchy"
+      },
+      {
+        "key": "C",
+        "text": "Forming the North German Confederation under Prussian leadership"
+      },
+      {
+        "key": "D",
+        "text": "Establishing a constitution for a proposed German nation-state"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The assembly debated and drafted a constitution for a unified German state. Its project did not establish the empire later proclaimed in 1871.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q004",
+    "englishQuestionId": "WHI-CP006-Q004",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F004",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Movement comparison",
+    "stem": "Which statement best describes the relationship between nationalism and liberalism in many 1848 movements?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Nationalism always took priority over constitutional reform"
+      },
+      {
+        "key": "B",
+        "text": "Liberalism required the breakup of every multinational empire"
+      },
+      {
+        "key": "C",
+        "text": "Nationalist and liberal demands could overlap, but did not coincide in every movement"
+      },
+      {
+        "key": "D",
+        "text": "They could overlap, as activists sought both national unity and constitutional rights"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "In several regions, national unity and constitutional government were connected demands. The movements were diverse, so the two aims did not always coincide.",
+    "sourceIds": [
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q005",
+    "englishQuestionId": "WHI-CP006-Q005",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F005",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "Which event showed that the Frankfurt Assembly could not secure the proposed German crown through its own authority?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The assembly lacked its own army and depended on German rulers to enforce its decisions"
+      },
+      {
+        "key": "B",
+        "text": "The assembly excluded all Prussian delegates from its debates"
+      },
+      {
+        "key": "C",
+        "text": "The assembly transferred its constitutional project to the Congress of Berlin"
+      },
+      {
+        "key": "D",
+        "text": "The Prussian king declined the crown offered by the assembly"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The assembly lacked the power to impose its settlement on German rulers. Frederick William IV of Prussia rejected the imperial crown offered by the delegates in 1849.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q006",
+    "englishQuestionId": "WHI-CP006-Q006",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F006",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-stage synthesis",
+    "stem": "Which comparison between the 1848 Frankfurt project and German unification in 1871 is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both were completed by the same elected assembly"
+      },
+      {
+        "key": "B",
+        "text": "The 1871 empire included Austria as its leading state"
+      },
+      {
+        "key": "C",
+        "text": "The Frankfurt project relied on a popular parliament, while the 1871 state emerged under Prussian leadership after wars and political agreements"
+      },
+      {
+        "key": "D",
+        "text": "The Frankfurt Assembly created the 1871 empire before the Danish-Prussian War"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Frankfurt Assembly’s constitutional project failed. The later empire was created under Prussian hegemony, following wars against Denmark, Austria and France; Austria was outside the new German state.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q007",
+    "englishQuestionId": "WHI-CP006-Q007",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F007",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement and objective",
+    "stem": "Who founded the nationalist organisation Young Italy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Camillo Cavour"
+      },
+      {
+        "key": "B",
+        "text": "Giuseppe Mazzini"
+      },
+      {
+        "key": "C",
+        "text": "Giuseppe Garibaldi"
+      },
+      {
+        "key": "D",
+        "text": "Victor Emmanuel II"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Giuseppe Mazzini founded Young Italy, which promoted a united Italian nation and republican ideas.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q008",
+    "englishQuestionId": "WHI-CP006-Q008",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F008",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "State and political base",
+    "stem": "Which kingdom became the principal state base for the political unification of Italy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Kingdom of the Two Sicilies"
+      },
+      {
+        "key": "B",
+        "text": "Papal States"
+      },
+      {
+        "key": "C",
+        "text": "Kingdom of Piedmont-Sardinia"
+      },
+      {
+        "key": "D",
+        "text": "Kingdom of Lombardy-Venetia"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Piedmont-Sardinia, ruled by the House of Savoy, became the main state platform for the unification process.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q009",
+    "englishQuestionId": "WHI-CP006-Q009",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F009",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Person and contribution",
+    "stem": "What role did Camillo Cavour play in the Italian unification movement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "He led the Expedition of the Thousand to Sicily"
+      },
+      {
+        "key": "B",
+        "text": "He served as prime minister of Piedmont-Sardinia and used diplomacy to advance unification"
+      },
+      {
+        "key": "C",
+        "text": "He founded Young Italy as a republican organisation"
+      },
+      {
+        "key": "D",
+        "text": "He became the first king of unified Italy"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Cavour was a leading statesman of Piedmont-Sardinia. His diplomacy and political strategy helped expand the kingdom and advance unification.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q010",
+    "englishQuestionId": "WHI-CP006-Q010",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F010",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "What was the outcome of Garibaldi’s Expedition of the Thousand in 1860?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It restored Austrian control over Lombardy"
+      },
+      {
+        "key": "B",
+        "text": "It established the German Empire"
+      },
+      {
+        "key": "C",
+        "text": "It transferred Rome to the Kingdom of Italy"
+      },
+      {
+        "key": "D",
+        "text": "It helped overthrow Bourbon rule in Sicily and southern Italy"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Garibaldi’s volunteer force landed in Sicily and helped bring the Kingdom of the Two Sicilies under the unification movement. Rome joined Italy later.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q011",
+    "englishQuestionId": "WHI-CP006-Q011",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F011",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Person and contribution",
+    "stem": "Which leader is correctly matched with his role in the Italian unification movement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mazzini — led the Expedition of the Thousand"
+      },
+      {
+        "key": "B",
+        "text": "Garibaldi — founded Young Italy"
+      },
+      {
+        "key": "C",
+        "text": "Cavour — prime minister of Piedmont-Sardinia"
+      },
+      {
+        "key": "D",
+        "text": "Victor Emmanuel II — led the Frankfurt Assembly"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Cavour served as prime minister of Piedmont-Sardinia. Mazzini founded Young Italy, while Garibaldi led the Expedition of the Thousand.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q012",
+    "englishQuestionId": "WHI-CP006-Q012",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F012",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event and outcome",
+    "stem": "In which year was the Kingdom of Italy proclaimed?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1848"
+      },
+      {
+        "key": "B",
+        "text": "1859"
+      },
+      {
+        "key": "C",
+        "text": "1861"
+      },
+      {
+        "key": "D",
+        "text": "1871"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Kingdom of Italy was proclaimed on 17 March 1861, with Victor Emmanuel II as its king.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q013",
+    "englishQuestionId": "WHI-CP006-Q013",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F013",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Arrange these events in chronological order:",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 → 2 → 3"
+      },
+      {
+        "key": "B",
+        "text": "3 → 2 → 1"
+      },
+      {
+        "key": "C",
+        "text": "2 → 3 → 1"
+      },
+      {
+        "key": "D",
+        "text": "2 → 1 → 3"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Garibaldi’s expedition took place in 1860. The kingdom was proclaimed in 1861, and Rome was incorporated in 1870.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q014",
+    "englishQuestionId": "WHI-CP006-Q014",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F014",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Territory and completion",
+    "stem": "Which territory was incorporated into the Kingdom of Italy in 1870?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Sicily"
+      },
+      {
+        "key": "B",
+        "text": "Lombardy"
+      },
+      {
+        "key": "C",
+        "text": "Rome"
+      },
+      {
+        "key": "D",
+        "text": "Venetia"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Italian forces entered Rome in 1870, and the city became part of the Kingdom of Italy. The kingdom had been proclaimed in 1861.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q015",
+    "englishQuestionId": "WHI-CP006-Q015",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F015",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which sequence correctly traces key stages of Italian unification?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Kingdom proclaimed (1861) → Rome incorporated (1870) → Venetia incorporated (1866)"
+      },
+      {
+        "key": "B",
+        "text": "Garibaldi’s expedition (1860) → Kingdom proclaimed (1861) → Venetia incorporated (1866) → Rome incorporated (1870)"
+      },
+      {
+        "key": "C",
+        "text": "Rome incorporated (1861) → Venetia incorporated (1860) → Kingdom proclaimed (1870)"
+      },
+      {
+        "key": "D",
+        "text": "Young Italy founded (1861) → Kingdom proclaimed (1870) → Garibaldi’s expedition (1871)"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The expedition helped bring the south into the movement before the kingdom was proclaimed. Venetia joined in 1866, and Rome in 1870.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q016",
+    "englishQuestionId": "WHI-CP006-Q016",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F016",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person and contribution",
+    "stem": "Who became the first king of the Kingdom of Italy in 1861?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Victor Emmanuel II"
+      },
+      {
+        "key": "B",
+        "text": "Francis Joseph I"
+      },
+      {
+        "key": "C",
+        "text": "Frederick William IV"
+      },
+      {
+        "key": "D",
+        "text": "Napoleon III"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Victor Emmanuel II, formerly king of Piedmont-Sardinia, became king of Italy when the kingdom was proclaimed in 1861.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q017",
+    "englishQuestionId": "WHI-CP006-Q017",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F017",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Movement comparison",
+    "stem": "Which distinction between Mazzini and Cavour is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mazzini promoted a republican national movement; Cavour advanced unification through Piedmont-Sardinian statecraft and diplomacy"
+      },
+      {
+        "key": "B",
+        "text": "Mazzini founded Young Italy; Cavour led the Expedition of the Thousand"
+      },
+      {
+        "key": "C",
+        "text": "Mazzini served as prime minister of Piedmont-Sardinia; Cavour promoted a republican movement"
+      },
+      {
+        "key": "D",
+        "text": "Mazzini led the southern campaign; Cavour opposed the expansion of Piedmont-Sardinia"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Mazzini’s Young Italy promoted a republican vision. Cavour worked through the government of Piedmont-Sardinia and diplomatic alliances.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q018",
+    "englishQuestionId": "WHI-CP006-Q018",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F018",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Diplomacy and popular action",
+    "stem": "How did Garibaldi’s campaign in southern Italy relate to Cavour’s policy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Garibaldi’s military successes were incorporated into a wider state-led unification process"
+      },
+      {
+        "key": "B",
+        "text": "Garibaldi’s expedition permanently divided the peninsula into rival kingdoms"
+      },
+      {
+        "key": "C",
+        "text": "Cavour led the expedition and Garibaldi negotiated the 1861 proclamation"
+      },
+      {
+        "key": "D",
+        "text": "Both sought to place southern Italy under Austrian rule"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Garibaldi’s campaign changed control in the south, while Cavour’s government helped bring those gains into the expanding Kingdom of Italy. Their methods and political aims were not identical.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q019",
+    "englishQuestionId": "WHI-CP006-Q019",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F019",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which sequence correctly orders the wars that led to German unification and the proclamation of the empire?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Austro-Prussian War → Danish-Prussian War → Franco-Prussian War → empire proclaimed"
+      },
+      {
+        "key": "B",
+        "text": "Danish-Prussian War → Austro-Prussian War → Franco-Prussian War → empire proclaimed"
+      },
+      {
+        "key": "C",
+        "text": "Franco-Prussian War → Danish-Prussian War → Austro-Prussian War → empire proclaimed"
+      },
+      {
+        "key": "D",
+        "text": "Danish-Prussian War → Franco-Prussian War → Austro-Prussian War → empire proclaimed"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Prussia fought Denmark in 1864, Austria in 1866 and France in 1870–71. The German Empire was proclaimed in January 1871.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q020",
+    "englishQuestionId": "WHI-CP006-Q020",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "State and political base",
+    "stem": "What political organisation was formed under Prussian leadership after the Austro-Prussian War of 1866?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The North German Confederation"
+      },
+      {
+        "key": "B",
+        "text": "The German Confederation including Austria"
+      },
+      {
+        "key": "C",
+        "text": "The Austro-Hungarian Dual Monarchy"
+      },
+      {
+        "key": "D",
+        "text": "The Confederation of the Rhine"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "After defeating Austria in 1866, Prussia organised the northern German states in the North German Confederation. Austria remained outside it.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
