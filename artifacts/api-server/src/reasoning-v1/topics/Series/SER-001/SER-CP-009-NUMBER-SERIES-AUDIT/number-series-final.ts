@@ -85,6 +85,7 @@ function solveWrongTermFactorial(stem: string): string | null {
   const candidates: number[] = [];
   for (const direction of [1, -1] as const) {
     for (let start = 1; start <= 8; start += 1) {
+      if (start + direction * 5 < 1) continue;
       const expected = Array.from({ length: 6 }, (_, i) => factorial(start + direction * i));
       if (expected.some((value) => !Number.isFinite(value))) continue;
       const mismatches = values
