@@ -493,6 +493,7 @@ export function generateMensurationStudioBatchV2(input: {
   examProfile?: MensurationQuestionStudioExamProfile;
   seed?: string;
   count?: number;
+  auditExcludedPatternIds?: readonly string[];
 }) {
   const count = Math.max(1, Math.min(50, Math.floor(input.count ?? 5)));
   const seed = input.seed?.trim() || "mensuration-question-studio";
@@ -500,6 +501,18 @@ export function generateMensurationStudioBatchV2(input: {
   let eligible = MENSURATION_QUESTION_STUDIO_PATTERNS.filter((row) => !input.cpId || row.cpId === input.cpId);
   if (input.patternId) eligible = eligible.filter((row) => row.patternId === input.patternId);
   if (!eligible.length) throw new Error("No Mensuration patterns matched the requested filters.");
+
+  const excluded = new Set(
+    (input.auditExcludedPatternIds ?? []).map((patternId) => String(patternId).trim()).filter(Boolean),
+  );
+  if (!input.patternId && excluded.size) {
+    const unusedPositiveWeight = eligible.filter(
+      (row) =>
+        !excluded.has(row.patternId)
+        && getMensurationPatternRealismMetadataV2(row).profileWeights[examProfile] > 0,
+    );
+    if (unusedPositiveWeight.length) eligible = unusedPositiveWeight;
+  }
 
   const questions: MensurationQuestionStudioQuestionV2[] = [];
   const exactStates = new Set<string>();
