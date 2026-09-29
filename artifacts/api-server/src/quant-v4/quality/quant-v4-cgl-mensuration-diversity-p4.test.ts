@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   MENSURATION_QUESTION_STUDIO_REALISM_PATTERNS,
 } from "../topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-runtime-v2";
+import { generateQuestion as generateQuantQuestion } from "../question-studio-review-engine";
 import {
   generateQuantV4CglTier1ShadowSection,
 } from "./quant-v4-cgl-tier1-shadow-simulation-p3";
@@ -58,3 +59,34 @@ console.log("QUANT_V4_CGL_MENSURATION_DIVERSITY_P4", JSON.stringify({
   duplicatePatternItems: mensuration.length - new Set(patternIds).size,
   productionBehaviorChanged: false,
 }));
+
+
+const firstBatch = await generateQuantQuestion({
+  packageId: "MENSURATION",
+  language: "en",
+  examProfile: "SSC_CGL_TIER_I",
+  seed: "QUANT-V4-CGL-MENSURATION-EXCLUSION-E2E-P6:first",
+  count: 1,
+} as any);
+const firstQuestion = (firstBatch as any).questionPackages?.[0] ?? (firstBatch as any).questions?.[0];
+assert.ok(firstQuestion);
+const firstPatternId = String(firstQuestion.patternId ?? firstQuestion.questionLanguageId ?? "").trim();
+assert.ok(firstPatternId);
+
+const secondBatch = await generateQuantQuestion({
+  packageId: "MENSURATION",
+  language: "en",
+  examProfile: "SSC_CGL_TIER_I",
+  seed: "QUANT-V4-CGL-MENSURATION-EXCLUSION-E2E-P6:second",
+  count: 1,
+  auditExcludedPatternIds: [firstPatternId],
+} as any);
+const secondQuestion = (secondBatch as any).questionPackages?.[0] ?? (secondBatch as any).questions?.[0];
+assert.ok(secondQuestion);
+const secondPatternId = String(secondQuestion.patternId ?? secondQuestion.questionLanguageId ?? "").trim();
+assert.ok(secondPatternId);
+assert.notEqual(
+  secondPatternId,
+  firstPatternId,
+  "Mensuration exclusions must survive the full Question Studio review-engine path.",
+);
