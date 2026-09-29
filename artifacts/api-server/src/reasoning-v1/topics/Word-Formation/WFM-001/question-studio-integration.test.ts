@@ -39,7 +39,11 @@ for (const qlId of WFM_001_QL_IDS) {
           count: 1,
           seed,
           runtimeMode: "review-only",
-          exam: language === "pa" ? "Punjab Police" : "SSC CGL",
+          exam: qlId === "WFM-QL-005" || qlId === "WFM-QL-006"
+            ? "IBPS PO"
+            : language === "pa"
+              ? "Punjab Police"
+              : "SSC CGL",
         };
         const first = await reasoningV1QuestionStudioAdapter.generate(request);
         const replay = await reasoningV1QuestionStudioAdapter.generate(request);
@@ -65,8 +69,9 @@ for (const qlId of WFM_001_QL_IDS) {
         assert.equal(question.productionReleased, false);
 
         const options = question.options as readonly string[];
-        assert.equal(options.length, 4);
-        assert.equal(new Set(options).size, 4);
+        const expectedOptionCount = qlId === "WFM-QL-005" || qlId === "WFM-QL-006" ? 5 : 4;
+        assert.equal(options.length, expectedOptionCount);
+        assert.equal(new Set(options).size, expectedOptionCount);
         assert.ok(Number.isInteger(question.correctIndex));
         assert.ok((question.correctIndex as number) >= 0 && (question.correctIndex as number) < 4);
         assert.ok(String(question.stem).trim().length >= 20);
@@ -87,6 +92,8 @@ for (const [cpId, expectedQls] of [
   ["WFM-CP-001", ["WFM-QL-001", "WFM-QL-002"]],
   ["WFM-CP-002", ["WFM-QL-003"]],
   ["WFM-CP-003", ["WFM-QL-004"]],
+  ["WFM-CP-004", ["WFM-QL-005"]],
+  ["WFM-CP-005", ["WFM-QL-006"]],
 ] as const) {
   const result = await reasoningV1QuestionStudioAdapter.generate({
     packageId: WFM001_QUESTION_STUDIO_PACKAGE_ID_V1,
@@ -94,6 +101,7 @@ for (const [cpId, expectedQls] of [
     count: expectedQls.length,
     seed: `wfm-cp-scope:${cpId}`,
     language: "en",
+    exam: cpId === "WFM-CP-004" || cpId === "WFM-CP-005" ? "SBI Clerk" : "SSC CGL",
   });
   const qls = new Set(result.questions.map((question) => String(question.qlId)));
   for (const qlId of expectedQls) assert(qls.has(qlId), `${cpId} did not generate owned QL ${qlId}`);
@@ -108,14 +116,19 @@ await assert.rejects(
   /Unknown WFM-001 selector/i,
 );
 
-await assert.rejects(
-  () => reasoningV1QuestionStudioAdapter.generate({
-    packageId: WFM001_QUESTION_STUDIO_PACKAGE_ID_V1,
-    count: 1,
-    exam: "IBPS PO",
-  }),
-  /not Banking delivery/i,
-);
+const banking = await reasoningV1QuestionStudioAdapter.generate({
+  packageId: WFM001_QUESTION_STUDIO_PACKAGE_ID_V1,
+  count: 12,
+  exam: "IBPS PO",
+  language: "en",
+  seed: "wfm-banking-pool-proof",
+});
+assert.equal(banking.questions.length, 12);
+for (const question of banking.questions) {
+  assert.ok(["WFM-QL-003", "WFM-QL-005", "WFM-QL-006"].includes(String(question.qlId)));
+  assert.equal((question.options as readonly string[]).length, 5);
+  assert.equal(question.examProfile, "BANKING_5");
+}
 
 console.log(JSON.stringify({
   status: "PASS_WFM_001_NORMAL_QUESTION_STUDIO_INTEGRATION",
