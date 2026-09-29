@@ -16,7 +16,7 @@ const NAMES = ["A", "B", "C", "D", "E", "F", "G", "H"] as const;
 export const SEA_CP002_BLUEPRINTS: readonly MixedFacingBlueprintId[] = ["SEA-PBA-005", "SEA-PBA-006", "SEA-PBA-007", "SEA-PBA-008"];
 const LIFECYCLE = Object.freeze({
   discoveryStatus: "EXECUTABLE_FOUNDATION" as const,
-  permanentQlCount: 0 as const,
+  permanentQlCount: 9 as const,
   questionStudioRegistered: false as const,
   questionBankWritable: false as const,
   testEligible: false as const,
