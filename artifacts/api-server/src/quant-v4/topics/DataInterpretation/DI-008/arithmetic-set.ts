@@ -113,6 +113,20 @@ function buildOptions(seed: string, answer: string, candidates: readonly Candida
   };
   add({ text: answer, misconceptionId: "CORRECT", derivation: "Exact recomputation from the shared DI-008 arithmetic dataset." });
   candidates.forEach(add);
+  if (retained.length < 5 && /^\d+%$/u.test(answer)) {
+    const correctValue = Number(answer.slice(0, -1));
+    for (let step = 1; retained.length < 5 && step <= 100; step += 1) {
+      for (const value of [correctValue + 5 * step, correctValue - 5 * step]) {
+        if (value < 0) continue;
+        add({
+          text: `${value}%`,
+          misconceptionId: `NEARBY_ROUNDED_PERCENT_${step}_${value}`,
+          derivation: "A nearby whole-percentage result from a small calculation difference.",
+        });
+        if (retained.length >= 5) break;
+      }
+    }
+  }
   if (retained.length < 5) throw new Error(`DI-008 could construct only ${retained.length} unique options; 5 are required.`);
   const shuffled = shuffle(seededRandom(`${seed}:options`), retained.slice(0, 5));
   const correctIndex = shuffled.findIndex((option) => option.misconceptionId === "CORRECT");
