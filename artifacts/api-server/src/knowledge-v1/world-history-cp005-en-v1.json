@@ -6,8 +6,8 @@
     "factId": "WHI-CP005-F001",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "Industrialisation–region",
-    "stem": "Which country was the first to undergo large-scale industrialisation?",
+    "questionFamily": "Early industrialisation",
+    "stem": "Which country began industrialising first?",
     "options": [
       {
         "key": "A",
@@ -27,9 +27,9 @@
       }
     ],
     "correctOption": "B",
-    "explanation": "Large-scale mechanised industry developed first in Britain in the late eighteenth century. Its coal, capital, labour, transport and markets worked together; no single factor explains the change.  \n**Sources:** CP005-S23",
+    "explanation": "Mechanised industry developed first in Britain in the late eighteenth century. Its coal, capital, labour, transport and markets worked together; no single factor explains the change.<br>\n**Sources:** CP005-S23",
     "sourceIds": [
-      "CP005-S05"
+      "CP005-S23"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -41,7 +41,7 @@
     "factId": "WHI-CP005-F002",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "Invention–inventor",
+    "questionFamily": "Textile invention",
     "stem": "Who invented the spinning jenny?",
     "options": [
       {
@@ -62,7 +62,7 @@
       }
     ],
     "correctOption": "D",
-    "explanation": "Hargreaves patented the spinning jenny in 1770. It allowed one worker to spin several threads at once.  \n**Sources:** CP005-S11",
+    "explanation": "Hargreaves patented the spinning jenny in 1770. It allowed one worker to spin several threads at once.<br>\n**Sources:** CP005-S11",
     "sourceIds": [
       "CP005-S11"
     ],
@@ -76,7 +76,7 @@
     "factId": "WHI-CP005-F003",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "Railway–route",
+    "questionFamily": "Transport",
     "stem": "Which transport development linked Manchester’s textile industry with the port of Liverpool by rail in 1830?",
     "options": [
       {
@@ -97,7 +97,7 @@
       }
     ],
     "correctOption": "A",
-    "explanation": "The Liverpool and Manchester Railway opened in 1830. It carried both goods and passengers between the port and the manufacturing city.  \n**Sources:** CP005-S17",
+    "explanation": "The Liverpool and Manchester Railway opened in 1830. It carried both goods and passengers between the port and the manufacturing city.<br>\n**Sources:** CP005-S17",
     "sourceIds": [
       "CP005-S17"
     ],
@@ -111,7 +111,7 @@
     "factId": "WHI-CP005-F004",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "Law–provision",
+    "questionFamily": "Factory legislation",
     "stem": "What minimum age for factory employment did the British Factory Act of 1833 establish?",
     "options": [
       {
@@ -132,7 +132,7 @@
       }
     ],
     "correctOption": "C",
-    "explanation": "The 1833 Act prohibited factory employment for children under nine and created a small inspectorate to enforce the rules.  \n**Sources:** CP005-S01, CP005-S03",
+    "explanation": "The 1833 Act prohibited factory employment for children under nine and created a small inspectorate to enforce the rules.<br>\n**Sources:** CP005-S01, CP005-S03",
     "sourceIds": [
       "CP005-S01",
       "CP005-S03"
@@ -147,7 +147,7 @@
     "factId": "WHI-CP005-F005",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "Work–author",
+    "questionFamily": "Economic writing",
     "stem": "Who wrote *The Wealth of Nations*, published in 1776?",
     "options": [
       {
@@ -168,7 +168,7 @@
       }
     ],
     "correctOption": "B",
-    "explanation": "Adam Smith’s 1776 work examined political economy and the operation of markets. It is often treated as a foundational text of classical economics.  \n**Sources:** CP005-S16",
+    "explanation": "Adam Smith’s 1776 work examined political economy and the operation of markets. It is often treated as a foundational text of classical economics.<br>\n**Sources:** CP005-S16",
     "sourceIds": [
       "CP005-S16"
     ],
@@ -182,7 +182,7 @@
     "factId": "WHI-CP005-F006",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "Movement–programme",
+    "questionFamily": "Chartism",
     "stem": "The People’s Charter was the principal programme of which British movement?",
     "options": [
       {
@@ -203,7 +203,7 @@
       }
     ],
     "correctOption": "A",
-    "explanation": "Chartists organised petitions and campaigns for political reforms set out in the People’s Charter, including wider male suffrage.  \n**Sources:** CP005-S06",
+    "explanation": "Chartists organised petitions and campaigns for political reforms set out in the People’s Charter, including wider male suffrage.<br>\n**Sources:** CP005-S06",
     "sourceIds": [
       "CP005-S06"
     ],
@@ -217,7 +217,7 @@
     "factId": "WHI-CP005-F007",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Machine–function",
+    "questionFamily": "Textile technology",
     "stem": "Which machine used water power to drive spinning machinery and was developed by Richard Arkwright?",
     "options": [
       {
@@ -238,7 +238,7 @@
       }
     ],
     "correctOption": "D",
-    "explanation": "Arkwright’s water frame used water power and encouraged production in mills located near a reliable supply of moving water.  \n**Sources:** CP005-S12",
+    "explanation": "Arkwright’s water frame used water power and encouraged production in mills located near a reliable supply of moving water.<br>\n**Sources:** CP005-S12",
     "sourceIds": [
       "CP005-S12"
     ],
@@ -252,7 +252,7 @@
     "factId": "WHI-CP005-F008",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Invention–improvement",
+    "questionFamily": "Steam power",
     "stem": "What key improvement did James Watt make to the steam engine?",
     "options": [
       {
@@ -273,7 +273,7 @@
       }
     ],
     "correctOption": "C",
-    "explanation": "Watt’s separate condenser reduced repeated heating and cooling of the main cylinder, making the engine more fuel-efficient. He improved an existing engine design rather than inventing steam power from nothing.  \n**Sources:** CP005-S13",
+    "explanation": "Watt’s separate condenser reduced repeated heating and cooling of the main cylinder, making the engine more fuel-efficient. He improved an existing engine design rather than inventing steam power from nothing.<br>\n**Sources:** CP005-S13",
     "sourceIds": [
       "CP005-S13"
     ],
@@ -287,7 +287,7 @@
     "factId": "WHI-CP005-F009",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Iron–fuel",
+    "questionFamily": "Iron production",
     "stem": "Which fuel did Abraham Darby use at Coalbrookdale to smelt iron on a commercial scale?",
     "options": [
       {
@@ -308,7 +308,7 @@
       }
     ],
     "correctOption": "A",
-    "explanation": "Darby’s use of coke in iron smelting helped reduce dependence on charcoal and supported larger-scale iron production.  \n**Sources:** CP005-S14",
+    "explanation": "Darby’s use of coke in iron smelting helped reduce dependence on charcoal and supported larger-scale iron production.<br>\n**Sources:** CP005-S14",
     "sourceIds": [
       "CP005-S14"
     ],
@@ -322,7 +322,7 @@
     "factId": "WHI-CP005-F010",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Invention–inventor",
+    "questionFamily": "Power loom",
     "stem": "Who developed the power loom that mechanised weaving?",
     "options": [
       {
@@ -343,7 +343,7 @@
       }
     ],
     "correctOption": "D",
-    "explanation": "Cartwright patented a power loom in 1785. It mechanised weaving, complementing machines that had already increased the supply of spun thread.  \n**Sources:** CP005-S15",
+    "explanation": "Cartwright patented a power loom in 1785. It mechanised weaving, complementing machines that had already increased the supply of spun thread.<br>\n**Sources:** CP005-S15",
     "sourceIds": [
       "CP005-S15"
     ],
@@ -357,7 +357,7 @@
     "factId": "WHI-CP005-F011",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Railway–engineer",
+    "questionFamily": "Railways",
     "stem": "Which engineer is most closely associated with the *Rocket*, the locomotive that won the 1829 Rainhill Trials?",
     "options": [
       {
@@ -378,7 +378,7 @@
       }
     ],
     "correctOption": "B",
-    "explanation": "George Stephenson and his son Robert designed the *Rocket*, which won the Rainhill Trials held to select locomotives for the Liverpool and Manchester Railway.  \n**Sources:** CP005-S18",
+    "explanation": "George Stephenson and his son Robert designed the *Rocket*, which won the Rainhill Trials held to select locomotives for the Liverpool and Manchester Railway.<br>\n**Sources:** CP005-S18",
     "sourceIds": [
       "CP005-S18"
     ],
@@ -392,7 +392,7 @@
     "factId": "WHI-CP005-F012",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Production–organisation",
+    "questionFamily": "Factory system",
     "stem": "What most clearly distinguished the factory system from the putting-out system?",
     "options": [
       {
@@ -413,7 +413,7 @@
       }
     ],
     "correctOption": "C",
-    "explanation": "Factories brought workers and powered machinery together under one roof and under an employer’s supervision. In the putting-out system, merchants supplied materials for work done in separate homes.  \n**Sources:** CP005-S05",
+    "explanation": "Factories brought workers and powered machinery together under one roof and under an employer’s supervision. In the putting-out system, merchants supplied materials for work done in separate homes.<br>\n**Sources:** CP005-S05",
     "sourceIds": [
       "CP005-S05"
     ],
@@ -448,7 +448,7 @@
       }
     ],
     "correctOption": "A",
-    "explanation": "Factory and mine jobs attracted people seeking wages. Town growth often outpaced housing and sanitation, creating crowded and unhealthy conditions.  \n**Sources:** CP005-S22",
+    "explanation": "Factory and mine jobs attracted people seeking wages. Town growth often outpaced housing and sanitation, creating crowded and unhealthy conditions.<br>\n**Sources:** CP005-S22",
     "sourceIds": [
       "CP005-S22"
     ],
@@ -462,7 +462,7 @@
     "factId": "WHI-CP005-F014",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Protest–movement",
+    "questionFamily": "Luddite protests",
     "stem": "What was a central feature of Luddite protests in early nineteenth-century Britain?",
     "options": [
       {
@@ -483,7 +483,7 @@
       }
     ],
     "correctOption": "C",
-    "explanation": "Luddite actions targeted particular machines and employers amid wage cuts, unemployment and harsh working conditions. They were not simply opposition to all technology.  \n**Sources:** CP005-S19",
+    "explanation": "Luddite actions targeted particular machines and employers amid wage cuts, unemployment and harsh working conditions. They were not simply opposition to all technology.<br>\n**Sources:** CP005-S19",
     "sourceIds": [
       "CP005-S19"
     ],
@@ -497,7 +497,7 @@
     "factId": "WHI-CP005-F015",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Law–trade unions",
+    "questionFamily": "Trade unions",
     "stem": "What did the repeal of Britain’s Combination Acts in 1824 make easier for workers?",
     "options": [
       {
@@ -518,7 +518,7 @@
       }
     ],
     "correctOption": "B",
-    "explanation": "The 1824 repeal removed the earlier legal ban on worker combinations; a 1825 Act soon restricted union activity again. The repeal did not grant voting rights.  \n**Sources:** CP005-S20",
+    "explanation": "The 1824 repeal removed the earlier legal ban on worker combinations; a 1825 Act soon restricted union activity again. The repeal did not grant voting rights.<br>\n**Sources:** CP005-S20",
     "sourceIds": [
       "CP005-S20"
     ],
@@ -532,7 +532,7 @@
     "factId": "WHI-CP005-F016",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Work–authors",
+    "questionFamily": "Marx and Engels",
     "stem": "Who wrote *The Communist Manifesto*, published in 1848?",
     "options": [
       {
@@ -553,7 +553,7 @@
       }
     ],
     "correctOption": "D",
-    "explanation": "Marx and Engels published *The Communist Manifesto* in 1848. It presented their account of class conflict and called for political action by workers.  \n**Sources:** CP005-S21",
+    "explanation": "Marx and Engels published *The Communist Manifesto* in 1848. It presented their account of class conflict and called for political action by workers.<br>\n**Sources:** CP005-S21",
     "sourceIds": [
       "CP005-S21"
     ],
@@ -588,7 +588,7 @@
       }
     ],
     "correctOption": "C",
-    "explanation": "The spinning jenny appeared in the 1760s, Arkwright’s water frame followed in the same decade, and Cartwright patented the power loom in 1785. The dates overlap for the first two, but the spinning jenny preceded the water frame.  \n**Sources:** CP005-S11, CP005-S12, CP005-S15",
+    "explanation": "The spinning jenny appeared in the 1760s, Arkwright’s water frame followed in the same decade, and Cartwright patented the power loom in 1785. The dates overlap for the first two, but the spinning jenny preceded the water frame.<br>\n**Sources:** CP005-S11, CP005-S12, CP005-S15",
     "sourceIds": [
       "CP005-S11",
       "CP005-S12",
@@ -604,7 +604,7 @@
     "factId": "WHI-CP005-F018",
     "language": "en",
     "difficulty": "hard",
-    "questionFamily": "Law–provision",
+    "questionFamily": "Factory legislation",
     "stem": "Which statement about the British Factory Act of 1833 is correct?",
     "options": [
       {
@@ -625,7 +625,7 @@
       }
     ],
     "correctOption": "A",
-    "explanation": "The Act set limits for child and young workers in factories and created inspectors. Its enforcement was limited, and it did not end child labour in every industry.  \n**Sources:** CP005-S01, CP005-S03",
+    "explanation": "The Act set limits for child and young workers in factories and created inspectors. Its enforcement was limited, and it did not end child labour in every industry.<br>\n**Sources:** CP005-S01, CP005-S03",
     "sourceIds": [
       "CP005-S01",
       "CP005-S03"
@@ -640,7 +640,7 @@
     "factId": "WHI-CP005-F019",
     "language": "en",
     "difficulty": "hard",
-    "questionFamily": "Industrialisation–spread",
+    "questionFamily": "Industrialisation beyond Britain",
     "stem": "Which statement best describes the early industrialisation of the United States?",
     "options": [
       {
@@ -661,7 +661,7 @@
       }
     ],
     "correctOption": "D",
-    "explanation": "Samuel Slater brought knowledge of British textile machinery to the United States, where early mills developed in New England. This was one early phase, not the whole later industrial story.  \n**Sources:** CP005-S07, CP005-S08",
+    "explanation": "Samuel Slater brought knowledge of British textile machinery to the United States, where early mills developed in New England. This was one early phase, not the whole later industrial story.<br>\n**Sources:** CP005-S07, CP005-S08",
     "sourceIds": [
       "CP005-S07",
       "CP005-S08"
@@ -676,12 +676,12 @@
     "factId": "WHI-CP005-F020",
     "language": "en",
     "difficulty": "hard",
-    "questionFamily": "Industrialisation–causes",
+    "questionFamily": "Multiple causes",
     "stem": "Which explanation best accounts for Britain’s early industrialisation?",
     "options": [
       {
         "key": "A",
-        "text": "One invention alone transformed the economy"
+        "text": "Access to coal alone was enough to produce industrial growth"
       },
       {
         "key": "B",
@@ -689,17 +689,1441 @@
       },
       {
         "key": "C",
-        "text": "Parliament ordered every household to move into factories"
+        "text": "A larger labour force by itself explains the shift from farming to factory work"
       },
       {
         "key": "D",
-        "text": "Industrialisation began because Britain had no overseas trade"
+        "text": "Overseas trade alone explains the move to mechanised production"
       }
     ],
     "correctOption": "B",
-    "explanation": "Britain’s early industrialisation grew from several interacting conditions. Inventions mattered, but they became productive at scale because energy, workers, investment, transport and demand were available.  \n**Sources:** CP005-S23",
+    "explanation": "Britain’s early industrialisation grew from several interacting conditions. Inventions mattered, but they became productive at scale because energy, workers, investment, transport and demand were available.<br>\n**Sources:** CP005-S23",
+    "sourceIds": [
+      "CP005-S23"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q021",
+    "englishQuestionId": "WHI-CP005-Q021",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F021",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Textile invention",
+    "stem": "Who invented the spinning mule?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Edmund Cartwright"
+      },
+      {
+        "key": "B",
+        "text": "Richard Arkwright"
+      },
+      {
+        "key": "C",
+        "text": "James Watt"
+      },
+      {
+        "key": "D",
+        "text": "Samuel Crompton"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Crompton developed the spinning mule between 1772 and 1779. It combined features of earlier spinning machines.<br>\n**Sources:** CP005-S15",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q022",
+    "englishQuestionId": "WHI-CP005-Q022",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F022",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Canals and trade",
+    "stem": "Which goods were commonly carried on British canals during industrialisation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Coal, stone and timber"
+      },
+      {
+        "key": "B",
+        "text": "Mail and newspapers alone"
+      },
+      {
+        "key": "C",
+        "text": "Passengers only"
+      },
+      {
+        "key": "D",
+        "text": "Raw cotton alone"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Canals offered a practical route for heavy goods such as coal, stone, timber and manufactured products.<br>\n**Sources:** CP005-S25",
+    "sourceIds": [
+      "CP005-S25"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q023",
+    "englishQuestionId": "WHI-CP005-Q023",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F023",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Steam engine",
+    "stem": "What problem did Thomas Newcomen’s early steam engine help solve?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A shortage of cotton thread"
+      },
+      {
+        "key": "B",
+        "text": "Slow weaving on handlooms"
+      },
+      {
+        "key": "C",
+        "text": "Flooding in mines"
+      },
+      {
+        "key": "D",
+        "text": "Poor harvests"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Newcomen’s engine pumped water out of mines, allowing miners to work deeper seams.<br>\n**Sources:** CP005-S24",
+    "sourceIds": [
+      "CP005-S24"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q024",
+    "englishQuestionId": "WHI-CP005-Q024",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F024",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Railway technology",
+    "stem": "Which locomotive won the Rainhill Trials in 1829?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Novelty"
+      },
+      {
+        "key": "B",
+        "text": "Rocket"
+      },
+      {
+        "key": "C",
+        "text": "Sans Pareil"
+      },
+      {
+        "key": "D",
+        "text": "Perseverance"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "George and Robert Stephenson’s Rocket won the 1829 Rainhill Trials, a competition to select a locomotive for the Liverpool and Manchester Railway.<br>\n**Sources:** CP005-S18",
+    "sourceIds": [
+      "CP005-S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q025",
+    "englishQuestionId": "WHI-CP005-Q025",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F025",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Railway transport",
+    "stem": "What was a major feature of the Liverpool and Manchester Railway when it opened in 1830?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It linked Liverpool and Manchester for passenger and freight traffic"
+      },
+      {
+        "key": "B",
+        "text": "It carried coal between London and Edinburgh"
+      },
+      {
+        "key": "C",
+        "text": "It was a passenger line between Bristol and Bath"
+      },
+      {
+        "key": "D",
+        "text": "It served only the Liverpool docks"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The railway linked Manchester’s manufacturing district with Liverpool’s port and carried both passengers and freight.<br>\n**Sources:** CP005-S17",
+    "sourceIds": [
+      "CP005-S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q026",
+    "englishQuestionId": "WHI-CP005-Q026",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F026",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Putting-out system",
+    "stem": "How did the putting-out system usually organise textile production before factory mills became common?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mill owners employed all workers in one central building"
+      },
+      {
+        "key": "B",
+        "text": "Guilds assigned work through state-run workshops"
+      },
+      {
+        "key": "C",
+        "text": "Workers received finished cloth and sold it to merchants"
+      },
+      {
+        "key": "D",
+        "text": "Merchants supplied raw materials for spinning and weaving at home"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "In the putting-out system, merchants distributed raw materials to households and collected the finished goods.<br>\n**Sources:** CP005-S05",
     "sourceIds": [
       "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q027",
+    "englishQuestionId": "WHI-CP005-Q027",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F027",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation",
+    "stem": "Under the 1833 Factory Act, what was the maximum daily working time for children aged 9–13 in covered factories?",
+    "options": [
+      {
+        "key": "A",
+        "text": "6 hours"
+      },
+      {
+        "key": "B",
+        "text": "9 hours"
+      },
+      {
+        "key": "C",
+        "text": "8 hours"
+      },
+      {
+        "key": "D",
+        "text": "12 hours"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Act limited a child aged 9–13 to nine hours of work a day in the factories it covered.<br>\n**Sources:** CP005-S01, CP005-S29",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q028",
+    "englishQuestionId": "WHI-CP005-Q028",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F028",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Factory legislation",
+    "stem": "Which restriction did the 1833 Factory Act place on the employment of people under 18?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Factory work was prohibited for everyone under 18"
+      },
+      {
+        "key": "B",
+        "text": "Night work was permitted only for children"
+      },
+      {
+        "key": "C",
+        "text": "Night work was prohibited for children and young people"
+      },
+      {
+        "key": "D",
+        "text": "Young people could work only at night"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Act prohibited night work for children and young people in the factories covered by the law.<br>\n**Sources:** CP005-S01, CP005-S29",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q029",
+    "englishQuestionId": "WHI-CP005-Q029",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F029",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation",
+    "stem": "What new mechanism did the 1833 Factory Act create to check compliance?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Elected worker councils in every mill"
+      },
+      {
+        "key": "B",
+        "text": "A national trade-union parliament"
+      },
+      {
+        "key": "C",
+        "text": "A factory owners’ court"
+      },
+      {
+        "key": "D",
+        "text": "A factory inspectorate"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Act appointed inspectors to visit factories and enforce its rules, though their number and resources were limited.<br>\n**Sources:** CP005-S01, CP005-S03",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q030",
+    "englishQuestionId": "WHI-CP005-Q030",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F030",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "U.S. industrialisation",
+    "stem": "Who were the “mill girls” of Lowell, Massachusetts?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Women who worked in textile mills"
+      },
+      {
+        "key": "B",
+        "text": "Women employed in New England’s domestic service"
+      },
+      {
+        "key": "C",
+        "text": "Women who supervised boarding houses for mill workers"
+      },
+      {
+        "key": "D",
+        "text": "Women who operated the town’s textile businesses"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Lowell’s textile mills employed many young women, who also organised protests over wages and working conditions.<br>\n**Sources:** CP005-S08, CP005-S26",
+    "sourceIds": [
+      "CP005-S08",
+      "CP005-S26"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q031",
+    "englishQuestionId": "WHI-CP005-Q031",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F031",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Urban change",
+    "stem": "What often happened when industrial towns grew faster than housing and sanitation services?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Rural populations stopped migrating"
+      },
+      {
+        "key": "B",
+        "text": "Factory production immediately ended"
+      },
+      {
+        "key": "C",
+        "text": "Overcrowding and unhealthy living conditions increased"
+      },
+      {
+        "key": "D",
+        "text": "Every worker received a separate house"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "In many growing towns, housing and sanitation failed to keep pace with the arrival of workers.<br>\n**Sources:** CP005-S04, CP005-S22",
+    "sourceIds": [
+      "CP005-S04",
+      "CP005-S22"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q032",
+    "englishQuestionId": "WHI-CP005-Q032",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F032",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Social reform",
+    "stem": "Robert Owen is most closely associated with social reforms at which industrial community?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Lowell"
+      },
+      {
+        "key": "B",
+        "text": "New Lanark"
+      },
+      {
+        "key": "C",
+        "text": "Coalbrookdale"
+      },
+      {
+        "key": "D",
+        "text": "Cromford"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "At New Lanark, Owen supported improved workers’ housing and education alongside cotton-mill production.<br>\n**Sources:** CP005-S27",
+    "sourceIds": [
+      "CP005-S27"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q033",
+    "englishQuestionId": "WHI-CP005-Q033",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F033",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chartism",
+    "stem": "Which People’s Charter demand was intended to protect voter privacy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Secret ballots in parliamentary elections"
+      },
+      {
+        "key": "B",
+        "text": "Payment of Members of Parliament"
+      },
+      {
+        "key": "C",
+        "text": "Equal electoral districts"
+      },
+      {
+        "key": "D",
+        "text": "Annual parliamentary elections"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Charter called for reforms including the secret ballot, wider male suffrage and payment for Members of Parliament.<br>\n**Sources:** CP005-S06",
+    "sourceIds": [
+      "CP005-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q034",
+    "englishQuestionId": "WHI-CP005-Q034",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F034",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chartism",
+    "stem": "Which formal method did Chartists use to present their demands to Parliament?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A royal proclamation"
+      },
+      {
+        "key": "B",
+        "text": "A bill introduced by the government"
+      },
+      {
+        "key": "C",
+        "text": "An official treaty with the Crown"
+      },
+      {
+        "key": "D",
+        "text": "A formal petition signed by supporters"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Chartists organised mass petitions to Parliament in 1839, 1842 and 1848.<br>\n**Sources:** CP005-S06",
+    "sourceIds": [
+      "CP005-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q035",
+    "englishQuestionId": "WHI-CP005-Q035",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F035",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Trade unions",
+    "stem": "In which year were Britain’s Combination Acts repealed?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1799"
+      },
+      {
+        "key": "B",
+        "text": "1800"
+      },
+      {
+        "key": "C",
+        "text": "1824"
+      },
+      {
+        "key": "D",
+        "text": "1871"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Parliament repealed the Combination Acts in 1824; legislation in 1825 again restricted some union activities.<br>\n**Sources:** CP005-S20",
+    "sourceIds": [
+      "CP005-S20"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q036",
+    "englishQuestionId": "WHI-CP005-Q036",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F036",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Luddite protests",
+    "stem": "Which statement best describes Luddite machine-breaking?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It was a campaign against every new invention"
+      },
+      {
+        "key": "B",
+        "text": "It targeted particular machines amid disputes over wages and work"
+      },
+      {
+        "key": "C",
+        "text": "It was organised by factory owners to increase wages"
+      },
+      {
+        "key": "D",
+        "text": "It called for the return of feudal dues"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Luddite protests targeted selected machines and employers in specific trades; workers’ grievances included wages and working conditions.<br>\n**Sources:** CP005-S19",
+    "sourceIds": [
+      "CP005-S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q037",
+    "englishQuestionId": "WHI-CP005-Q037",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F037",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "Which sequence places these developments in chronological order?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Liverpool–Manchester Railway opens → Newcomen engine developed → Rainhill Trials"
+      },
+      {
+        "key": "B",
+        "text": "Rainhill Trials → Newcomen engine developed → Liverpool–Manchester Railway opens"
+      },
+      {
+        "key": "C",
+        "text": "Newcomen engine developed → Rainhill Trials → Liverpool–Manchester Railway opens"
+      },
+      {
+        "key": "D",
+        "text": "Newcomen engine developed → Liverpool–Manchester Railway opens → Rainhill Trials"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Newcomen’s engine was developed in the early 1700s; the Rainhill Trials took place in 1829, and the railway opened in 1830.<br>\n**Sources:** CP005-S17, CP005-S18, CP005-S24",
+    "sourceIds": [
+      "CP005-S17",
+      "CP005-S18",
+      "CP005-S24"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q038",
+    "englishQuestionId": "WHI-CP005-Q038",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F038",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "Which region became an early centre of industrialisation in Belgium?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The coal and iron districts around Liège and Charleroi"
+      },
+      {
+        "key": "B",
+        "text": "The Ruhr coal and steel region"
+      },
+      {
+        "key": "C",
+        "text": "The Saar industrial district"
+      },
+      {
+        "key": "D",
+        "text": "The Upper Silesian coalfield"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Belgium’s early industrial growth drew on coal mining and ironworking in Wallonia, including the Liège and Charleroi areas.<br>\n**Sources:** CP005-S28",
+    "sourceIds": [
+      "CP005-S28"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q039",
+    "englishQuestionId": "WHI-CP005-Q039",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F039",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Meiji Japan",
+    "stem": "What role did the Japanese government play in industrialisation during the Meiji period?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It prohibited all foreign technology"
+      },
+      {
+        "key": "B",
+        "text": "It established and supported some modern industries and factories"
+      },
+      {
+        "key": "C",
+        "text": "It closed every railway"
+      },
+      {
+        "key": "D",
+        "text": "It restored feudal domains as independent states"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Meiji state built and operated model factories in some sectors before transferring many to private owners.<br>\n**Sources:** CP005-S09, CP005-S10",
+    "sourceIds": [
+      "CP005-S09",
+      "CP005-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q040",
+    "englishQuestionId": "WHI-CP005-Q040",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F040",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation and social change",
+    "stem": "Which statement best explains why factory growth also changed the social structure of industrial towns?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It reduced the importance of independent artisans as factory wage labour expanded"
+      },
+      {
+        "key": "B",
+        "text": "It shifted economic influence from manufacturers back to landed elites"
+      },
+      {
+        "key": "C",
+        "text": "It ended class divisions by making every factory worker a shareholder"
+      },
+      {
+        "key": "D",
+        "text": "It brought together wage-earning workers and owners who invested in machinery and mills"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Factory production expanded wage labour and strengthened the position of industrial owners, while political rights changed more slowly.<br>\n**Sources:** CP005-S05, CP005-S23",
+    "sourceIds": [
+      "CP005-S05",
+      "CP005-S23"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q041",
+    "englishQuestionId": "WHI-CP005-Q041",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F041",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Textile machinery",
+    "stem": "What did the spinning mule enable textile mills to produce?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Iron rails for railway tracks"
+      },
+      {
+        "key": "B",
+        "text": "Fine cotton yarn suitable for weaving"
+      },
+      {
+        "key": "C",
+        "text": "Steam engines for mines"
+      },
+      {
+        "key": "D",
+        "text": "Printed cotton cloth without weaving"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Crompton’s mule spun fine yarn that could be used as weft in woven cloth.<br>\n**Sources:** CP005-S15",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q042",
+    "englishQuestionId": "WHI-CP005-Q042",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Textile machinery",
+    "stem": "Which stage of textile production did Cartwright’s power loom mechanise?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Cotton picking"
+      },
+      {
+        "key": "B",
+        "text": "Dyeing"
+      },
+      {
+        "key": "C",
+        "text": "Wool shearing"
+      },
+      {
+        "key": "D",
+        "text": "Weaving"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The power loom mechanised the weaving of cloth, following advances that increased the supply of spun thread.<br>\n**Sources:** CP005-S15",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q043",
+    "englishQuestionId": "WHI-CP005-Q043",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F043",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "Which country was the first on the European continent to industrialise?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Portugal"
+      },
+      {
+        "key": "B",
+        "text": "Greece"
+      },
+      {
+        "key": "C",
+        "text": "Belgium"
+      },
+      {
+        "key": "D",
+        "text": "Norway"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Belgium became the earliest industrialising country on the European continent, building on coal mining and ironworking.<br>\n**Sources:** CP005-S28",
+    "sourceIds": [
+      "CP005-S28"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q044",
+    "englishQuestionId": "WHI-CP005-Q044",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F044",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Factory system",
+    "stem": "Which change best distinguishes factory production from the putting-out system?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Workers and powered machines were brought together in one workplace"
+      },
+      {
+        "key": "B",
+        "text": "Merchants distributed work among household producers"
+      },
+      {
+        "key": "C",
+        "text": "Production depended entirely on seasonal farming"
+      },
+      {
+        "key": "D",
+        "text": "Goods were made only for local exchange"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Factory production concentrated machinery and wage-earning workers in a mill, unlike work distributed among households.<br>\n**Sources:** CP005-S05",
+    "sourceIds": [
+      "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q045",
+    "englishQuestionId": "WHI-CP005-Q045",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F045",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Meiji Japan",
+    "stem": "What happened to many government-operated factories after they had introduced modern industrial methods in Meiji Japan?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They were converted into feudal estates"
+      },
+      {
+        "key": "B",
+        "text": "They were all closed before workers could be trained"
+      },
+      {
+        "key": "C",
+        "text": "They were placed under foreign colonial rule"
+      },
+      {
+        "key": "D",
+        "text": "They were transferred to private owners"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The disposal of government control and the spread of skills from these factories helped wider industrial development.<br>\n**Sources:** CP005-S09, CP005-S10",
+    "sourceIds": [
+      "CP005-S09",
+      "CP005-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q046",
+    "englishQuestionId": "WHI-CP005-Q046",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation and schooling",
+    "stem": "What schooling provision did the 1833 Factory Act make for children employed in covered factories?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A full school day before every work shift"
+      },
+      {
+        "key": "B",
+        "text": "Two hours of instruction each working day"
+      },
+      {
+        "key": "C",
+        "text": "Compulsory boarding school for all children"
+      },
+      {
+        "key": "D",
+        "text": "No schooling requirement"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Act required children in covered factories to receive two hours of education each working day.<br>\n**Sources:** CP005-S01, CP005-S02",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q047",
+    "englishQuestionId": "WHI-CP005-Q047",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F047",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation",
+    "stem": "Which statement correctly distinguishes the 1833 Factory Act from a complete ban on child labour?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It stopped all children from working anywhere in Britain"
+      },
+      {
+        "key": "B",
+        "text": "It applied only to mines and ignored textile factories"
+      },
+      {
+        "key": "C",
+        "text": "It set age and hour limits in covered factories but did not regulate every industry"
+      },
+      {
+        "key": "D",
+        "text": "It introduced compulsory voting for factory workers"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Act restricted child and young workers’ hours in certain factories; its scope and enforcement left other work beyond its reach.<br>\n**Sources:** CP005-S01, CP005-S02, CP005-S29",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S02",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q048",
+    "englishQuestionId": "WHI-CP005-Q048",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F048",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Economic thought",
+    "stem": "Which idea is most closely associated with Adam Smith’s discussion of production in *The Wealth of Nations*?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Division of labour can raise productivity"
+      },
+      {
+        "key": "B",
+        "text": "All manufacturing should be forbidden"
+      },
+      {
+        "key": "C",
+        "text": "Trade must stop at national borders"
+      },
+      {
+        "key": "D",
+        "text": "Workers should return to feudal obligations"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Smith described how dividing production into specialised tasks could increase the amount workers produced.<br>\n**Sources:** CP005-S16",
+    "sourceIds": [
+      "CP005-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q049",
+    "englishQuestionId": "WHI-CP005-Q049",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F049",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Steam engine",
+    "stem": "In which year did Thomas Newcomen develop his mine-pumping steam engine?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1709"
+      },
+      {
+        "key": "B",
+        "text": "1712"
+      },
+      {
+        "key": "C",
+        "text": "1769"
+      },
+      {
+        "key": "D",
+        "text": "1785"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Newcomen’s engine was developed in 1712 to pump water from mines.<br>\n**Sources:** CP005-S24",
+    "sourceIds": [
+      "CP005-S24"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q050",
+    "englishQuestionId": "WHI-CP005-Q050",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F050",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "Which development linked the early U.S. textile industry to British industrial knowledge?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Abraham Darby built the first U.S. railway"
+      },
+      {
+        "key": "B",
+        "text": "James Watt founded Lowell’s mills"
+      },
+      {
+        "key": "C",
+        "text": "Robert Owen introduced the spinning jenny to Japan"
+      },
+      {
+        "key": "D",
+        "text": "Samuel Slater brought knowledge of British textile machinery to the United States"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Slater helped establish early U.S. cotton mills using knowledge of British textile machinery and factory methods.<br>\n**Sources:** CP005-S07",
+    "sourceIds": [
+      "CP005-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q051",
+    "englishQuestionId": "WHI-CP005-Q051",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F051",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Economic thought",
+    "stem": "According to Marx and Engels, what was the main conflict driving change in class society?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Conflict between religious communities"
+      },
+      {
+        "key": "B",
+        "text": "Competition between rival nations"
+      },
+      {
+        "key": "C",
+        "text": "Struggle between social classes"
+      },
+      {
+        "key": "D",
+        "text": "Conflict between town and countryside"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Marx and Engels argued that conflict between classes shaped historical change, and presented the struggle between bourgeoisie and proletariat as central to modern industrial society.<br>\n**Sources:** CP005-S21",
+    "sourceIds": [
+      "CP005-S21"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q052",
+    "englishQuestionId": "WHI-CP005-Q052",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F052",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Economic thought",
+    "stem": "In Marx and Engels’ terminology, who made up the proletariat in industrial society?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Workers who sold their labour for wages"
+      },
+      {
+        "key": "B",
+        "text": "Owners of large mills and factories"
+      },
+      {
+        "key": "C",
+        "text": "Members of the hereditary nobility"
+      },
+      {
+        "key": "D",
+        "text": "Merchants who controlled Parliament"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The proletariat referred to wage-earning workers who did not own the factories and machinery where they worked.<br>\n**Sources:** CP005-S21",
+    "sourceIds": [
+      "CP005-S21"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q053",
+    "englishQuestionId": "WHI-CP005-Q053",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F053",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "Which factor helped Belgium industrialise early in the nineteenth century?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A ban on mining and metalworking"
+      },
+      {
+        "key": "B",
+        "text": "The absence of towns and transport routes"
+      },
+      {
+        "key": "C",
+        "text": "Dependence on imported charcoal alone"
+      },
+      {
+        "key": "D",
+        "text": "Coal deposits and an established ironworking tradition"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Belgium’s coalfields and existing ironworking centres supported early mechanised industry.<br>\n**Sources:** CP005-S28",
+    "sourceIds": [
+      "CP005-S28"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q054",
+    "englishQuestionId": "WHI-CP005-Q054",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F054",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Social change",
+    "stem": "Which group expanded as industrial towns created more factory employment?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Feudal lords collecting labour dues"
+      },
+      {
+        "key": "B",
+        "text": "Wage-earning industrial workers"
+      },
+      {
+        "key": "C",
+        "text": "Royal officials appointed to every mill"
+      },
+      {
+        "key": "D",
+        "text": "Independent village guilds controlling all production"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Factory and mine employment expanded the number of people who depended on wages for their livelihood.<br>\n**Sources:** CP005-S05, CP005-S23",
+    "sourceIds": [
+      "CP005-S05",
+      "CP005-S23"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q055",
+    "englishQuestionId": "WHI-CP005-Q055",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F055",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Transport and markets",
+    "stem": "Which comparison between canals and railways during industrialisation is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Canals were useful for heavy bulk goods; railways later carried goods and passengers faster"
+      },
+      {
+        "key": "B",
+        "text": "Canals carried passengers only; railways carried coal only"
+      },
+      {
+        "key": "C",
+        "text": "Railways preceded canals and caused their construction"
+      },
+      {
+        "key": "D",
+        "text": "Both systems were designed only for military use"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Canals moved heavy materials efficiently, while railways offered faster routes for freight and passenger travel.<br>\n**Sources:** CP005-S17, CP005-S25",
+    "sourceIds": [
+      "CP005-S17",
+      "CP005-S25"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q056",
+    "englishQuestionId": "WHI-CP005-Q056",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F056",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Reform chronology",
+    "stem": "Which sequence correctly orders these British reform developments?",
+    "options": [
+      {
+        "key": "A",
+        "text": "People’s Charter → 1833 Factory Act → Chartist movement"
+      },
+      {
+        "key": "B",
+        "text": "Chartist movement → 1833 Factory Act → People’s Charter"
+      },
+      {
+        "key": "C",
+        "text": "Factory Act of 1833 → Chartist movement and People’s Charter → petitions of 1839–1848"
+      },
+      {
+        "key": "D",
+        "text": "1833 Factory Act → People’s Charter → Chartist movement"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Factory Act became law in 1833; Chartism and the Charter followed in the later 1830s, with petitions in 1839, 1842 and 1848.<br>\n**Sources:** CP005-S01, CP005-S06, CP005-S29",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S06",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q057",
+    "englishQuestionId": "WHI-CP005-Q057",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F057",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Workers’ movements",
+    "stem": "Which distinction between Chartism and Luddism is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Chartism defended factory owners; Luddism campaigned for secret ballots"
+      },
+      {
+        "key": "B",
+        "text": "Both movements sought to restore the Roman Empire"
+      },
+      {
+        "key": "C",
+        "text": "Luddism was a parliamentary party; Chartism was a railway company"
+      },
+      {
+        "key": "D",
+        "text": "Chartism pressed for political reforms; Luddite protests targeted selected machines and employers"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Chartists campaigned for political rights through the People’s Charter, while Luddite actions arose from disputes in particular trades and workplaces.<br>\n**Sources:** CP005-S06, CP005-S19",
+    "sourceIds": [
+      "CP005-S06",
+      "CP005-S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q058",
+    "englishQuestionId": "WHI-CP005-Q058",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F058",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Textile production",
+    "stem": "Why did improvements in spinning create pressure to mechanise weaving?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Spinning machines ended demand for cloth"
+      },
+      {
+        "key": "B",
+        "text": "More yarn became available, so weaving had to increase output to keep pace"
+      },
+      {
+        "key": "C",
+        "text": "Weaving was already fully mechanised before the spinning jenny"
+      },
+      {
+        "key": "D",
+        "text": "Cotton could no longer be spun by hand"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Faster spinning increased the supply of thread; powered weaving helped mills turn more of that thread into cloth.<br>\n**Sources:** CP005-S11, CP005-S12, CP005-S15",
+    "sourceIds": [
+      "CP005-S11",
+      "CP005-S12",
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q059",
+    "englishQuestionId": "WHI-CP005-Q059",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F059",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation and transport",
+    "stem": "Which explanation best connects canal building with the growth of industrial markets?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Canals linked mines, mills and ports, helping raw materials and finished goods reach customers"
+      },
+      {
+        "key": "B",
+        "text": "Canals replaced all factories with farms"
+      },
+      {
+        "key": "C",
+        "text": "Canals prevented merchants from transporting coal"
+      },
+      {
+        "key": "D",
+        "text": "Canals were built only after motor vehicles appeared"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Canal networks connected industrial areas with ports and markets, lowering the difficulty of moving heavy goods.<br>\n**Sources:** CP005-S05, CP005-S25",
+    "sourceIds": [
+      "CP005-S05",
+      "CP005-S25"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q060",
+    "englishQuestionId": "WHI-CP005-Q060",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F060",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation and social change",
+    "stem": "Which conclusion best reflects the different paths of industrialisation in the nineteenth century?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Every country industrialised at the same time and in the same way"
+      },
+      {
+        "key": "B",
+        "text": "Industrialisation occurred only in Britain"
+      },
+      {
+        "key": "C",
+        "text": "Britain industrialised first, while countries such as Belgium, the United States and Japan developed industry through different conditions and policies"
+      },
+      {
+        "key": "D",
+        "text": "Government policy had no role in any country’s industrial development"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Industrialisation spread beyond Britain, but local resources, markets and state policies shaped different national paths.<br>\n**Sources:** CP005-S07, CP005-S09, CP005-S23, CP005-S28",
+    "sourceIds": [
+      "CP005-S07",
+      "CP005-S09",
+      "CP005-S23",
+      "CP005-S28"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false

@@ -6,8 +6,8 @@
     "factId": "WHI-CP005-F001",
     "language": "pa",
     "difficulty": "easy",
-    "questionFamily": "Industrialisation–region",
-    "stem": "ਵੱਡੇ ਪੱਧਰ ਉੱਤੇ ਉਦਯੋਗੀਕਰਨ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੋਇਆ?",
+    "questionFamily": "Early industrialisation",
+    "stem": "ਉਦਯੋਗੀਕਰਨ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੋਇਆ?",
     "options": [
       {
         "key": "A",
@@ -29,7 +29,7 @@
     "correctOption": "B",
     "explanation": "ਅਠਾਰਵੀਂ ਸਦੀ ਦੇ ਅਖੀਰ ਵਿੱਚ ਮਸ਼ੀਨਾਂ ਨਾਲ ਚੱਲਣ ਵਾਲੇ ਵੱਡੇ ਉਦਯੋਗ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਬ੍ਰਿਟੇਨ ਵਿੱਚ ਵਿਕਸਿਤ ਹੋਏ। ਕੋਲਾ, ਪੂੰਜੀ, ਮਜ਼ਦੂਰੀ, ਆਵਾਜਾਈ ਅਤੇ ਬਾਜ਼ਾਰ—ਸਭ ਨੇ ਇਸ ਵਿੱਚ ਭੂਮਿਕਾ ਨਿਭਾਈ।",
     "sourceIds": [
-      "CP005-S05"
+      "CP005-S23"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -41,7 +41,7 @@
     "factId": "WHI-CP005-F002",
     "language": "pa",
     "difficulty": "easy",
-    "questionFamily": "Invention–inventor",
+    "questionFamily": "Textile invention",
     "stem": "ਸਪਿਨਿੰਗ ਜੈਨੀ ਦੀ ਕਾਢ ਕਿਸ ਨੇ ਕੱਢੀ ਸੀ?",
     "options": [
       {
@@ -76,7 +76,7 @@
     "factId": "WHI-CP005-F003",
     "language": "pa",
     "difficulty": "easy",
-    "questionFamily": "Railway–route",
+    "questionFamily": "Transport",
     "stem": "1830 ਵਿੱਚ ਕਿਹੜੀ ਰੇਲਵੇ ਨੇ ਮੈਨਚੈਸਟਰ ਦੇ ਕੱਪੜਾ ਉਦਯੋਗ ਨੂੰ ਲਿਵਰਪੂਲ ਦੀ ਬੰਦਰਗਾਹ ਨਾਲ ਜੋੜਿਆ?",
     "options": [
       {
@@ -111,7 +111,7 @@
     "factId": "WHI-CP005-F004",
     "language": "pa",
     "difficulty": "easy",
-    "questionFamily": "Law–provision",
+    "questionFamily": "Factory legislation",
     "stem": "ਬ੍ਰਿਟੇਨ ਦੇ 1833 ਦੇ ਫੈਕਟਰੀ ਕਾਨੂੰਨ ਨੇ ਕਾਰਖਾਨਿਆਂ ਵਿੱਚ ਕੰਮ ਕਰਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਉਮਰ ਕਿੰਨੀ ਰੱਖੀ?",
     "options": [
       {
@@ -147,7 +147,7 @@
     "factId": "WHI-CP005-F005",
     "language": "pa",
     "difficulty": "easy",
-    "questionFamily": "Work–author",
+    "questionFamily": "Economic writing",
     "stem": "1776 ਵਿੱਚ ਛਪੀ *ਦ ਵੈਲਥ ਆਫ਼ ਨੇਸ਼ਨਜ਼* ਕਿਸ ਨੇ ਲਿਖੀ ਸੀ?",
     "options": [
       {
@@ -182,7 +182,7 @@
     "factId": "WHI-CP005-F006",
     "language": "pa",
     "difficulty": "easy",
-    "questionFamily": "Movement–programme",
+    "questionFamily": "Chartism",
     "stem": "ਪੀਪਲਜ਼ ਚਾਰਟਰ ਕਿਹੜੀ ਬ੍ਰਿਟਿਸ਼ ਲਹਿਰ ਦਾ ਮੁੱਖ ਪ੍ਰੋਗਰਾਮ ਸੀ?",
     "options": [
       {
@@ -217,7 +217,7 @@
     "factId": "WHI-CP005-F007",
     "language": "pa",
     "difficulty": "medium",
-    "questionFamily": "Machine–function",
+    "questionFamily": "Textile technology",
     "stem": "ਰਿਚਰਡ ਆਰਕਰਾਈਟ ਵੱਲੋਂ ਬਣਾਈ ਕਿਹੜੀ ਮਸ਼ੀਨ ਕਤਾਈ ਲਈ ਪਾਣੀ ਦੀ ਤਾਕਤ ਵਰਤਦੀ ਸੀ?",
     "options": [
       {
@@ -252,7 +252,7 @@
     "factId": "WHI-CP005-F008",
     "language": "pa",
     "difficulty": "medium",
-    "questionFamily": "Invention–improvement",
+    "questionFamily": "Steam power",
     "stem": "ਜੇਮਜ਼ ਵਾਟ ਨੇ ਭਾਫ਼ ਦੇ ਇੰਜਣ ਵਿੱਚ ਕਿਹੜਾ ਅਹਿਮ ਸੁਧਾਰ ਕੀਤਾ?",
     "options": [
       {
@@ -287,7 +287,7 @@
     "factId": "WHI-CP005-F009",
     "language": "pa",
     "difficulty": "medium",
-    "questionFamily": "Iron–fuel",
+    "questionFamily": "Iron production",
     "stem": "ਕੋਲਬਰੁਕਡੇਲ ਵਿੱਚ ਅਬ੍ਰਾਹਮ ਡਾਰਬੀ ਨੇ ਵੱਡੇ ਪੱਧਰ ਉੱਤੇ ਲੋਹਾ ਗਲਾਉਣ ਲਈ ਕਿਹੜਾ ਬਾਲਣ ਵਰਤਿਆ?",
     "options": [
       {
@@ -322,7 +322,7 @@
     "factId": "WHI-CP005-F010",
     "language": "pa",
     "difficulty": "medium",
-    "questionFamily": "Invention–inventor",
+    "questionFamily": "Power loom",
     "stem": "ਬੁਣਾਈ ਨੂੰ ਮਸ਼ੀਨੀ ਬਣਾਉਣ ਵਾਲਾ ਪਾਵਰ ਲੂਮ ਕਿਸ ਨੇ ਵਿਕਸਿਤ ਕੀਤਾ?",
     "options": [
       {
@@ -357,7 +357,7 @@
     "factId": "WHI-CP005-F011",
     "language": "pa",
     "difficulty": "medium",
-    "questionFamily": "Railway–engineer",
+    "questionFamily": "Railways",
     "stem": "1829 ਦੀਆਂ ਰੇਨਹਿੱਲ ਟ੍ਰਾਇਲਜ਼ ਜਿੱਤਣ ਵਾਲੇ ਇੰਜਣ *ਰਾਕੇਟ* ਨਾਲ ਕਿਹੜਾ ਇੰਜੀਨੀਅਰ ਜੁੜਿਆ ਹੋਇਆ ਹੈ?",
     "options": [
       {
@@ -392,7 +392,7 @@
     "factId": "WHI-CP005-F012",
     "language": "pa",
     "difficulty": "medium",
-    "questionFamily": "Production–organisation",
+    "questionFamily": "Factory system",
     "stem": "ਫੈਕਟਰੀ ਪ੍ਰਣਾਲੀ ਅਤੇ ਘਰਾਂ ਵਿੱਚ ਕੰਮ ਵੰਡਣ ਵਾਲੀ ਪ੍ਰਣਾਲੀ ਵਿਚ ਸਭ ਤੋਂ ਸਪਸ਼ਟ ਫ਼ਰਕ ਕੀ ਸੀ?",
     "options": [
       {
@@ -462,7 +462,7 @@
     "factId": "WHI-CP005-F014",
     "language": "pa",
     "difficulty": "medium",
-    "questionFamily": "Protest–movement",
+    "questionFamily": "Luddite protests",
     "stem": "ਉੱਨੀਵੀਂ ਸਦੀ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਬ੍ਰਿਟੇਨ ਦੀ ਲੁਡਾਈਟ ਲਹਿਰ ਦੀ ਮੁੱਖ ਖਾਸੀਅਤ ਕੀ ਸੀ?",
     "options": [
       {
@@ -497,7 +497,7 @@
     "factId": "WHI-CP005-F015",
     "language": "pa",
     "difficulty": "medium",
-    "questionFamily": "Law–trade unions",
+    "questionFamily": "Trade unions",
     "stem": "1824 ਵਿੱਚ ਬ੍ਰਿਟੇਨ ਦੇ ਕੰਬੀਨੇਸ਼ਨ ਕਾਨੂੰਨ ਰੱਦ ਹੋਣ ਨਾਲ ਮਜ਼ਦੂਰਾਂ ਲਈ ਕੀ ਕਰਨਾ ਸੌਖਾ ਹੋਇਆ?",
     "options": [
       {
@@ -532,7 +532,7 @@
     "factId": "WHI-CP005-F016",
     "language": "pa",
     "difficulty": "medium",
-    "questionFamily": "Work–authors",
+    "questionFamily": "Marx and Engels",
     "stem": "1848 ਵਿੱਚ ਛਪਿਆ *ਕਮਿਊਨਿਸਟ ਮੈਨੀਫੈਸਟੋ* ਕਿਸ ਨੇ ਲਿਖਿਆ ਸੀ?",
     "options": [
       {
@@ -604,7 +604,7 @@
     "factId": "WHI-CP005-F018",
     "language": "pa",
     "difficulty": "hard",
-    "questionFamily": "Law–provision",
+    "questionFamily": "Factory legislation",
     "stem": "ਬ੍ਰਿਟੇਨ ਦੇ 1833 ਦੇ ਫੈਕਟਰੀ ਕਾਨੂੰਨ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
     "options": [
       {
@@ -640,7 +640,7 @@
     "factId": "WHI-CP005-F019",
     "language": "pa",
     "difficulty": "hard",
-    "questionFamily": "Industrialisation–spread",
+    "questionFamily": "Industrialisation beyond Britain",
     "stem": "ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਦੇ ਮੁੱਢਲੇ ਉਦਯੋਗੀਕਰਨ ਦਾ ਸਭ ਤੋਂ ਸਹੀ ਵਰਣਨ ਕਿਹੜਾ ਹੈ?",
     "options": [
       {
@@ -676,12 +676,12 @@
     "factId": "WHI-CP005-F020",
     "language": "pa",
     "difficulty": "hard",
-    "questionFamily": "Industrialisation–causes",
+    "questionFamily": "Multiple causes",
     "stem": "ਬ੍ਰਿਟੇਨ ਦੇ ਮੁੱਢਲੇ ਉਦਯੋਗੀਕਰਨ ਦੀ ਸਭ ਤੋਂ ਢੁੱਕਵੀਂ ਵਿਆਖਿਆ ਕਿਹੜੀ ਹੈ?",
     "options": [
       {
         "key": "A",
-        "text": "ਸਿਰਫ਼ ਇੱਕ ਕਾਢ ਨੇ ਅਰਥਵਿਵਸਥਾ ਬਦਲ ਦਿੱਤੀ"
+        "text": "ਸਿਰਫ਼ ਕੋਲੇ ਦੀ ਉਪਲਬਧਤਾ ਨਾਲ ਉਦਯੋਗੀ ਵਿਕਾਸ ਹੋ ਗਿਆ"
       },
       {
         "key": "B",
@@ -689,17 +689,1441 @@
       },
       {
         "key": "C",
-        "text": "ਸੰਸਦ ਨੇ ਹਰ ਘਰਾਣੇ ਨੂੰ ਫੈਕਟਰੀ ਵਿੱਚ ਰਹਿਣ ਦਾ ਹੁਕਮ ਦਿੱਤਾ"
+        "text": "ਸਿਰਫ਼ ਮਜ਼ਦੂਰਾਂ ਦੀ ਵਧਦੀ ਗਿਣਤੀ ਨਾਲ ਖੇਤੀ ਤੋਂ ਫੈਕਟਰੀਆਂ ਵੱਲ ਬਦਲਾਅ ਸਮਝਾਇਆ ਜਾ ਸਕਦਾ ਹੈ"
       },
       {
         "key": "D",
-        "text": "ਉਦਯੋਗੀਕਰਨ ਇਸ ਲਈ ਸ਼ੁਰੂ ਹੋਇਆ ਕਿਉਂਕਿ ਬ੍ਰਿਟੇਨ ਦਾ ਵਿਦੇਸ਼ੀ ਵਪਾਰ ਨਹੀਂ ਸੀ"
+        "text": "ਸਿਰਫ਼ ਵਿਦੇਸ਼ੀ ਵਪਾਰ ਨਾਲ ਮਸ਼ੀਨੀ ਉਤਪਾਦਨ ਦੀ ਸ਼ੁਰੂਆਤ ਸਮਝਾਈ ਜਾ ਸਕਦੀ ਹੈ"
       }
     ],
     "correctOption": "B",
     "explanation": "ਬ੍ਰਿਟੇਨ ਦਾ ਮੁੱਢਲਾ ਉਦਯੋਗੀਕਰਨ ਕਈ ਆਪਸ ਵਿੱਚ ਜੁੜੀਆਂ ਹਾਲਤਾਂ ਕਾਰਨ ਅੱਗੇ ਵਧਿਆ। ਕਾਢਾਂ ਮਹੱਤਵਪੂਰਨ ਸਨ, ਪਰ ਵੱਡੇ ਪੱਧਰ ਉੱਤੇ ਉਤਪਾਦਨ ਲਈ ਊਰਜਾ, ਮਜ਼ਦੂਰ, ਨਿਵੇਸ਼, ਆਵਾਜਾਈ ਅਤੇ ਮੰਗ ਵੀ ਲੋੜੀਂਦੇ ਸਨ।",
     "sourceIds": [
+      "CP005-S23"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q021-PA",
+    "englishQuestionId": "WHI-CP005-Q021",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F021",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Textile invention",
+    "stem": "ਸਪਿਨਿੰਗ ਮਿਊਲ ਦੀ ਕਾਢ ਕਿਸ ਨੇ ਕੱਢੀ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਐਡਮੰਡ ਕਾਰਟਰਾਈਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਿਚਰਡ ਆਰਕਰਾਈਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਜੇਮਜ਼ ਵਾਟ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੈਮੂਅਲ ਕ੍ਰੌਮਪਟਨ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਕ੍ਰੌਮਪਟਨ ਨੇ 1772 ਤੋਂ 1779 ਦਰਮਿਆਨ ਸਪਿਨਿੰਗ ਮਿਊਲ ਬਣਾਈ। ਇਸ ਵਿੱਚ ਪਹਿਲੀਆਂ ਕਤਾਈ ਮਸ਼ੀਨਾਂ ਦੀਆਂ ਕੁਝ ਖੂਬੀਆਂ ਜੋੜੀਆਂ ਗਈਆਂ ਸਨ।",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q022-PA",
+    "englishQuestionId": "WHI-CP005-Q022",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F022",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Canals and trade",
+    "stem": "ਉਦਯੋਗੀਕਰਨ ਦੌਰਾਨ ਬ੍ਰਿਟੇਨ ਦੀਆਂ ਨਹਿਰਾਂ ਰਾਹੀਂ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜਾ ਸਮਾਨ ਲਿਜਾਇਆ ਜਾਂਦਾ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੋਲਾ, ਪੱਥਰ ਅਤੇ ਲੱਕੜ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਿਰਫ਼ ਡਾਕ ਅਤੇ ਅਖ਼ਬਾਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਿਰਫ਼ ਯਾਤਰੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਿਰਫ਼ ਕੱਚੀ ਕਪਾਹ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਨਹਿਰਾਂ ਰਾਹੀਂ ਕੋਲਾ, ਪੱਥਰ, ਲੱਕੜ ਅਤੇ ਕਾਰਖਾਨਿਆਂ ਵਿੱਚ ਬਣਿਆ ਸਮਾਨ ਵਰਗੀਆਂ ਭਾਰੀ ਚੀਜ਼ਾਂ ਲਿਜਾਣੀਆਂ ਸੁਖਾਲੀਆਂ ਸਨ।",
+    "sourceIds": [
+      "CP005-S25"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q023-PA",
+    "englishQuestionId": "WHI-CP005-Q023",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F023",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Steam engine",
+    "stem": "ਥਾਮਸ ਨਿਊਕਾਮਨ ਦੇ ਸ਼ੁਰੂਆਤੀ ਭਾਫ਼ ਇੰਜਣ ਨੇ ਕਿਹੜੀ ਸਮੱਸਿਆ ਹੱਲ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੂਤੀ ਧਾਗੇ ਦੀ ਘਾਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੱਥ-ਖੱਡੀਆਂ ਉੱਤੇ ਹੌਲੀ ਬੁਣਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਖਾਣਾਂ ਵਿੱਚ ਪਾਣੀ ਭਰਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਾੜੀਆਂ ਫ਼ਸਲਾਂ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਨਿਊਕਾਮਨ ਦਾ ਇੰਜਣ ਖਾਣਾਂ ਵਿੱਚੋਂ ਪਾਣੀ ਕੱਢਦਾ ਸੀ। ਇਸ ਨਾਲ ਖਾਣ ਮਜ਼ਦੂਰ ਹੋਰ ਡੂੰਘੀਆਂ ਪਰਤਾਂ ਤੱਕ ਪਹੁੰਚ ਸਕੇ।",
+    "sourceIds": [
+      "CP005-S24"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q024-PA",
+    "englishQuestionId": "WHI-CP005-Q024",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F024",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Railway technology",
+    "stem": "1829 ਦੀ ਰੇਨਹਿਲ ਅਜ਼ਮਾਇਸ਼ ਵਿੱਚ ਕਿਹੜੇ ਰੇਲ ਇੰਜਣ ਨੇ ਜਿੱਤ ਹਾਸਲ ਕੀਤੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨੋਵਲਟੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਰੌਕਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਂਸ ਪਰੇਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਪਰਸੀਵਿਅਰੈਂਸ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਜਾਰਜ ਅਤੇ ਰਾਬਰਟ ਸਟੀਫਨਸਨ ਦੇ ਰੌਕਟ ਨੇ 1829 ਦੀ ਰੇਨਹਿਲ ਅਜ਼ਮਾਇਸ਼ ਜਿੱਤੀ। ਇਹ ਲਿਵਰਪੂਲ ਅਤੇ ਮੈਨਚੈਸਟਰ ਰੇਲਵੇ ਲਈ ਇੰਜਣ ਚੁਣਨ ਦੀ ਮੁਕਾਬਲਾ ਸੀ।",
+    "sourceIds": [
+      "CP005-S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q025-PA",
+    "englishQuestionId": "WHI-CP005-Q025",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F025",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Railway transport",
+    "stem": "1830 ਵਿੱਚ ਚੱਲੀ ਲਿਵਰਪੂਲ ਅਤੇ ਮੈਨਚੈਸਟਰ ਰੇਲਵੇ ਦੀ ਮੁੱਖ ਖਾਸੀਅਤ ਕੀ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਲਿਵਰਪੂਲ ਅਤੇ ਮੈਨਚੈਸਟਰ ਵਿਚਕਾਰ ਯਾਤਰੀਆਂ ਅਤੇ ਮਾਲ ਦੀ ਆਵਾਜਾਈ ਕੀਤੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਲੰਡਨ ਅਤੇ ਐਡਿਨਬਰਗ ਵਿਚਕਾਰ ਕੋਲਾ ਪਹੁੰਚਾਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ ਬ੍ਰਿਸਟਲ ਅਤੇ ਬਾਥ ਵਿਚਕਾਰ ਯਾਤਰੀ ਰੇਲ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਹ ਸਿਰਫ਼ ਲਿਵਰਪੂਲ ਦੀ ਬੰਦਰਗਾਹ ਤੱਕ ਸੀਮਤ ਸੀ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਇਸ ਰੇਲਵੇ ਨੇ ਮੈਨਚੈਸਟਰ ਦੇ ਉਤਪਾਦਨ ਕੇਂਦਰ ਨੂੰ ਲਿਵਰਪੂਲ ਦੀ ਬੰਦਰਗਾਹ ਨਾਲ ਜੋੜਿਆ ਅਤੇ ਯਾਤਰੀਆਂ ਤੇ ਮਾਲ ਦੋਵਾਂ ਨੂੰ ਲਿਜਾਇਆ।",
+    "sourceIds": [
+      "CP005-S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q026-PA",
+    "englishQuestionId": "WHI-CP005-Q026",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F026",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Putting-out system",
+    "stem": "ਫੈਕਟਰੀਆਂ ਆਮ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਘਰੇਲੂ ਪ੍ਰਬੰਧ ਵਿੱਚ ਕੱਪੜਾ ਕਿਵੇਂ ਤਿਆਰ ਹੁੰਦਾ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਿੱਲ ਮਾਲਕ ਸਾਰੇ ਮਜ਼ਦੂਰਾਂ ਨੂੰ ਇੱਕ ਇਮਾਰਤ ਵਿੱਚ ਕੰਮ ਦਿੰਦੇ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਗਿਲਡਾਂ ਸਰਕਾਰੀ ਕਾਰਖਾਨਿਆਂ ਵਿੱਚ ਕੰਮ ਵੰਡਦੀਆਂ ਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਜ਼ਦੂਰ ਤਿਆਰ ਕੱਪੜਾ ਲੈ ਕੇ ਵਪਾਰੀਆਂ ਨੂੰ ਵੇਚਦੇ ਸਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਪਾਰੀ ਘਰਾਂ ਵਿੱਚ ਕਤਾਈ ਅਤੇ ਬੁਣਾਈ ਲਈ ਕੱਚਾ ਮਾਲ ਦਿੰਦੇ ਸਨ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਇਸ ਪ੍ਰਬੰਧ ਵਿੱਚ ਵਪਾਰੀ ਕੱਚਾ ਮਾਲ ਘਰਾਂ ਤੱਕ ਪਹੁੰਚਾਉਂਦੇ ਅਤੇ ਤਿਆਰ ਸਮਾਨ ਵਾਪਸ ਲੈ ਜਾਂਦੇ ਸਨ।",
+    "sourceIds": [
       "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q027-PA",
+    "englishQuestionId": "WHI-CP005-Q027",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F027",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation",
+    "stem": "1833 ਦੇ ਫੈਕਟਰੀ ਕਾਨੂੰਨ ਅਨੁਸਾਰ 9–13 ਸਾਲ ਦੇ ਬੱਚੇ ਕਾਰਖਾਨੇ ਵਿੱਚ ਦਿਨ ਦੇ ਵੱਧ ਤੋਂ ਵੱਧ ਕਿੰਨੇ ਘੰਟੇ ਕੰਮ ਕਰ ਸਕਦੇ ਸਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "6 ਘੰਟੇ"
+      },
+      {
+        "key": "B",
+        "text": "9 ਘੰਟੇ"
+      },
+      {
+        "key": "C",
+        "text": "8 ਘੰਟੇ"
+      },
+      {
+        "key": "D",
+        "text": "12 ਘੰਟੇ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਕਾਨੂੰਨ ਦੇ ਦਾਇਰੇ ਵਾਲੇ ਕਾਰਖਾਨਿਆਂ ਵਿੱਚ 9–13 ਸਾਲ ਦੇ ਬੱਚਿਆਂ ਦਾ ਕੰਮ ਦਿਨ ਦੇ ਨੌਂ ਘੰਟਿਆਂ ਤੱਕ ਸੀਮਤ ਸੀ।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q028-PA",
+    "englishQuestionId": "WHI-CP005-Q028",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F028",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Factory legislation",
+    "stem": "1833 ਦੇ ਫੈਕਟਰੀ ਕਾਨੂੰਨ ਨੇ 18 ਸਾਲ ਤੋਂ ਘੱਟ ਉਮਰ ਦੇ ਲੋਕਾਂ ਦੇ ਕੰਮ ਉੱਤੇ ਕਿਹੜੀ ਰੋਕ ਲਾਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "18 ਸਾਲ ਤੋਂ ਘੱਟ ਹਰ ਵਿਅਕਤੀ ਦਾ ਫੈਕਟਰੀ ਵਿੱਚ ਕੰਮ ਕਰਨਾ ਮਨ੍ਹਾਂ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਿਰਫ਼ ਬੱਚਿਆਂ ਨੂੰ ਰਾਤ ਨੂੰ ਕੰਮ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੱਚਿਆਂ ਅਤੇ ਨੌਜਵਾਨਾਂ ਦੇ ਰਾਤ ਨੂੰ ਕੰਮ ਕਰਨ ਉੱਤੇ ਰੋਕ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੌਜਵਾਨ ਸਿਰਫ਼ ਰਾਤ ਨੂੰ ਕੰਮ ਕਰ ਸਕਦੇ ਸਨ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਇਸ ਕਾਨੂੰਨ ਨੇ ਆਪਣੇ ਦਾਇਰੇ ਵਾਲੇ ਕਾਰਖਾਨਿਆਂ ਵਿੱਚ ਬੱਚਿਆਂ ਅਤੇ ਨੌਜਵਾਨਾਂ ਦੇ ਰਾਤ ਨੂੰ ਕੰਮ ਕਰਨ ਉੱਤੇ ਰੋਕ ਲਾਈ।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q029-PA",
+    "englishQuestionId": "WHI-CP005-Q029",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F029",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation",
+    "stem": "ਨਿਯਮਾਂ ਦੀ ਪਾਲਣਾ ਜਾਂਚਣ ਲਈ 1833 ਦੇ ਫੈਕਟਰੀ ਕਾਨੂੰਨ ਨੇ ਕਿਹੜਾ ਨਵਾਂ ਪ੍ਰਬੰਧ ਬਣਾਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਰ ਮਿੱਲ ਵਿੱਚ ਚੁਣੀ ਹੋਈ ਮਜ਼ਦੂਰ ਕੌਂਸਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੌਮੀ ਟ੍ਰੇਡ ਯੂਨੀਅਨ ਸੰਸਦ"
+      },
+      {
+        "key": "C",
+        "text": "ਫੈਕਟਰੀ ਮਾਲਕਾਂ ਦੀ ਅਦਾਲਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਫੈਕਟਰੀ ਇੰਸਪੈਕਟਰਾਂ ਦੀ ਪ੍ਰਣਾਲੀ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਕਾਨੂੰਨ ਲਾਗੂ ਕਰਵਾਉਣ ਲਈ ਇੰਸਪੈਕਟਰਾਂ ਨੇ ਕਾਰਖਾਨਿਆਂ ਦਾ ਦੌਰਾ ਕਰਨਾ ਸੀ, ਪਰ ਉਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ ਅਤੇ ਸਾਧਨ ਘੱਟ ਸਨ।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q030-PA",
+    "englishQuestionId": "WHI-CP005-Q030",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F030",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "U.S. industrialisation",
+    "stem": "ਮੈਸਾਚੂਸੇਟਸ ਦੇ ਲੋਵਲ ਦੀਆਂ “ਮਿੱਲ ਗਰਲਜ਼” ਕੌਣ ਸਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੱਪੜਾ ਮਿੱਲਾਂ ਵਿੱਚ ਕੰਮ ਕਰਨ ਵਾਲੀਆਂ ਔਰਤਾਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਿਊ ਇੰਗਲੈਂਡ ਵਿੱਚ ਘਰੇਲੂ ਕੰਮ ਕਰਨ ਵਾਲੀਆਂ ਔਰਤਾਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਿੱਲ ਮਜ਼ਦੂਰਾਂ ਦੇ ਬੋਰਡਿੰਗ ਹਾਊਸ ਚਲਾਉਣ ਵਾਲੀਆਂ ਔਰਤਾਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਸ਼ਹਿਰ ਦੇ ਕੱਪੜਾ ਕਾਰੋਬਾਰ ਚਲਾਉਣ ਵਾਲੀਆਂ ਔਰਤਾਂ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਲੋਵਲ ਦੀਆਂ ਕੱਪੜਾ ਮਿੱਲਾਂ ਵਿੱਚ ਕਈ ਜਵਾਨ ਔਰਤਾਂ ਕੰਮ ਕਰਦੀਆਂ ਸਨ। ਉਨ੍ਹਾਂ ਨੇ ਤਨਖ਼ਾਹ ਅਤੇ ਕੰਮ ਦੀਆਂ ਹਾਲਤਾਂ ਬਾਰੇ ਵਿਰੋਧ ਵੀ ਕੀਤਾ।",
+    "sourceIds": [
+      "CP005-S08",
+      "CP005-S26"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q031-PA",
+    "englishQuestionId": "WHI-CP005-Q031",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F031",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Urban change",
+    "stem": "ਜਦੋਂ ਉਦਯੋਗਕ ਸ਼ਹਿਰਾਂ ਦੀ ਆਬਾਦੀ ਘਰਾਂ ਅਤੇ ਸਫ਼ਾਈ ਦੇ ਪ੍ਰਬੰਧਾਂ ਨਾਲੋਂ ਤੇਜ਼ੀ ਨਾਲ ਵਧੀ ਤਾਂ ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪਿੰਡਾਂ ਤੋਂ ਲੋਕਾਂ ਦਾ ਆਉਣਾ ਰੁਕ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਫੈਕਟਰੀਆਂ ਦਾ ਉਤਪਾਦਨ ਤੁਰੰਤ ਬੰਦ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਭੀੜ ਅਤੇ ਗ਼ੈਰ-ਸਿਹਤਮੰਦ ਰਹਿਣ-ਸਹਿਣ ਵਧਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਹਰ ਮਜ਼ਦੂਰ ਨੂੰ ਵੱਖਰਾ ਘਰ ਮਿਲਿਆ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਕਈ ਵਧਦੇ ਸ਼ਹਿਰਾਂ ਵਿੱਚ ਮਜ਼ਦੂਰਾਂ ਦੀ ਆਮਦ ਦੇ ਨਾਲ ਘਰਾਂ ਅਤੇ ਸਫ਼ਾਈ ਦੇ ਪ੍ਰਬੰਧ ਨਹੀਂ ਵਧੇ।",
+    "sourceIds": [
+      "CP005-S04",
+      "CP005-S22"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q032-PA",
+    "englishQuestionId": "WHI-CP005-Q032",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F032",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Social reform",
+    "stem": "ਰਾਬਰਟ ਓਵਨ ਕਿਹੜੀ ਉਦਯੋਗਕ ਬਸਤੀ ਵਿੱਚ ਸਮਾਜਕ ਸੁਧਾਰਾਂ ਨਾਲ ਜੁੜੇ ਸਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲੋਵਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਿਊ ਲੈਨਾਰਕ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੋਲਬਰੁਕਡੇਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਕ੍ਰੌਮਫ਼ਰਡ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਨਿਊ ਲੈਨਾਰਕ ਵਿੱਚ ਓਵਨ ਨੇ ਕੱਪੜਾ ਮਿੱਲਾਂ ਦੇ ਨਾਲ ਮਜ਼ਦੂਰਾਂ ਦੇ ਚੰਗੇ ਘਰਾਂ ਅਤੇ ਸਿੱਖਿਆ ਵੱਲ ਵੀ ਧਿਆਨ ਦਿੱਤਾ।",
+    "sourceIds": [
+      "CP005-S27"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q033-PA",
+    "englishQuestionId": "WHI-CP005-Q033",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F033",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chartism",
+    "stem": "ਵੋਟਰਾਂ ਦੀ ਗੁਪਤਤਾ ਬਚਾਉਣ ਲਈ ਪੀਪਲਜ਼ ਚਾਰਟਰ ਵਿੱਚ ਕਿਹੜੀ ਮੰਗ ਰੱਖੀ ਗਈ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੰਸਦੀ ਚੋਣਾਂ ਵਿੱਚ ਗੁਪਤ ਵੋਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਸਦ ਮੈਂਬਰਾਂ ਨੂੰ ਤਨਖ਼ਾਹ ਦੇਣੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਰਾਬਰ ਚੋਣ ਹਲਕੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਹਰ ਸਾਲ ਸੰਸਦੀ ਚੋਣਾਂ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਚਾਰਟਰ ਵਿੱਚ ਗੁਪਤ ਵੋਟ, ਮਰਦਾਂ ਦੇ ਵੋਟ ਦੇ ਹੱਕ ਦਾ ਵਾਧਾ ਅਤੇ ਸੰਸਦ ਮੈਂਬਰਾਂ ਨੂੰ ਤਨਖ਼ਾਹ ਦੇਣ ਵਰਗੀਆਂ ਮੰਗਾਂ ਸਨ।",
+    "sourceIds": [
+      "CP005-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q034-PA",
+    "englishQuestionId": "WHI-CP005-Q034",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F034",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chartism",
+    "stem": "ਚਾਰਟਿਸਟਾਂ ਨੇ ਆਪਣੀਆਂ ਮੰਗਾਂ ਸੰਸਦ ਤੱਕ ਪਹੁੰਚਾਉਣ ਲਈ ਕਿਹੜਾ ਰਸਮੀ ਤਰੀਕਾ ਵਰਤਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਜੇ ਵੱਲੋਂ ਜਾਰੀ ਐਲਾਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਜਤੰਤਰ ਮੁੜ ਕਾਇਮ ਕਰਨ ਦੀ ਮੁਹਿੰਮ"
+      },
+      {
+        "key": "C",
+        "text": "ਤਾਜ ਨਾਲ ਕੀਤੀ ਸਰਕਾਰੀ ਸੰਧੀ ਦੇਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਹਮਾਇਤੀਆਂ ਦੇ ਦਸਤਖ਼ਤਾਂ ਵਾਲੀ ਰਸਮੀ ਅਰਜ਼ੀ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਚਾਰਟਿਸਟਾਂ ਨੇ 1839, 1842 ਅਤੇ 1848 ਵਿੱਚ ਸੰਸਦ ਨੂੰ ਲੋਕਾਂ ਦੀਆਂ ਪਟੀਸ਼ਨਾਂ ਦਿੱਤੀਆਂ।",
+    "sourceIds": [
+      "CP005-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q035-PA",
+    "englishQuestionId": "WHI-CP005-Q035",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F035",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Trade unions",
+    "stem": "ਬ੍ਰਿਟੇਨ ਦੇ ਕੰਬੀਨੇਸ਼ਨ ਕਾਨੂੰਨ ਕਿਹੜੇ ਸਾਲ ਰੱਦ ਕੀਤੇ ਗਏ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1799"
+      },
+      {
+        "key": "B",
+        "text": "1800"
+      },
+      {
+        "key": "C",
+        "text": "1824"
+      },
+      {
+        "key": "D",
+        "text": "1871"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਸੰਸਦ ਨੇ 1824 ਵਿੱਚ ਕੰਬੀਨੇਸ਼ਨ ਕਾਨੂੰਨ ਰੱਦ ਕੀਤੇ। 1825 ਦੇ ਕਾਨੂੰਨ ਨੇ ਯੂਨੀਅਨ ਸਰਗਰਮੀਆਂ ਉੱਤੇ ਕੁਝ ਰੋਕਾਂ ਮੁੜ ਲਾ ਦਿੱਤੀਆਂ।",
+    "sourceIds": [
+      "CP005-S20"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q036-PA",
+    "englishQuestionId": "WHI-CP005-Q036",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F036",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Luddite protests",
+    "stem": "ਲੁਡਾਈਟਾਂ ਵੱਲੋਂ ਮਸ਼ੀਨਾਂ ਤੋੜਨ ਦੀ ਸਭ ਤੋਂ ਢੁੱਕਵੀਂ ਵਿਆਖਿਆ ਕਿਹੜੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਰ ਨਵੀਂ ਕਾਢ ਦਾ ਵਿਰੋਧ ਕੀਤਾ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਤਨਖ਼ਾਹ ਅਤੇ ਕੰਮ ਦੇ ਝਗੜਿਆਂ ਦੌਰਾਨ ਕੁਝ ਖਾਸ ਮਸ਼ੀਨਾਂ ਨੂੰ ਨਿਸ਼ਾਨਾ ਬਣਾਇਆ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਤਨਖ਼ਾਹ ਵਧਾਉਣ ਲਈ ਫੈਕਟਰੀ ਮਾਲਕਾਂ ਨੇ ਲਹਿਰ ਚਲਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਗੀਰਦਾਰੀ ਕਰ ਮੁੜ ਲਾਉਣ ਦੀ ਮੰਗ ਕੀਤੀ ਗਈ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਲੁਡਾਈਟਾਂ ਨੇ ਕੁਝ ਖਾਸ ਧੰਦਿਆਂ ਵਿੱਚ ਚੁਣੀਆਂ ਹੋਈਆਂ ਮਸ਼ੀਨਾਂ ਅਤੇ ਮਾਲਕਾਂ ਨੂੰ ਨਿਸ਼ਾਨਾ ਬਣਾਇਆ। ਮਜ਼ਦੂਰਾਂ ਦੀਆਂ ਸ਼ਿਕਾਇਤਾਂ ਵਿੱਚ ਤਨਖ਼ਾਹ ਅਤੇ ਕੰਮ ਦੀਆਂ ਹਾਲਤਾਂ ਸ਼ਾਮਲ ਸਨ।",
+    "sourceIds": [
+      "CP005-S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q037-PA",
+    "englishQuestionId": "WHI-CP005-Q037",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F037",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "ਇਹ ਘਟਨਾਵਾਂ ਸਹੀ ਸਮੇਂ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਕਿਹੜਾ ਵਿਕਲਪ ਰੱਖਦਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲਿਵਰਪੂਲ–ਮੈਨਚੈਸਟਰ ਰੇਲਵੇ ਖੁੱਲ੍ਹੀ → ਨਿਊਕਾਮਨ ਇੰਜਣ ਬਣਿਆ → ਰੇਨਹਿਲ ਅਜ਼ਮਾਇਸ਼ ਹੋਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਰੇਨਹਿਲ ਅਜ਼ਮਾਇਸ਼ ਹੋਈ → ਨਿਊਕਾਮਨ ਇੰਜਣ ਬਣਿਆ → ਲਿਵਰਪੂਲ–ਮੈਨਚੈਸਟਰ ਰੇਲਵੇ ਖੁੱਲ੍ਹੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਿਊਕਾਮਨ ਇੰਜਣ ਬਣਿਆ → ਰੇਨਹਿਲ ਅਜ਼ਮਾਇਸ਼ ਹੋਈ → ਲਿਵਰਪੂਲ–ਮੈਨਚੈਸਟਰ ਰੇਲਵੇ ਖੁੱਲ੍ਹੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਿਊਕਾਮਨ ਇੰਜਣ ਬਣਿਆ → ਲਿਵਰਪੂਲ–ਮੈਨਚੈਸਟਰ ਰੇਲਵੇ ਖੁੱਲ੍ਹੀ → ਰੇਨਹਿਲ ਅਜ਼ਮਾਇਸ਼ ਹੋਈ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਨਿਊਕਾਮਨ ਦਾ ਇੰਜਣ ਅਠਾਰ੍ਹਵੀਂ ਸਦੀ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਬਣਿਆ। ਰੇਨਹਿਲ ਅਜ਼ਮਾਇਸ਼ 1829 ਵਿੱਚ ਹੋਈ ਅਤੇ ਰੇਲਵੇ 1830 ਵਿੱਚ ਖੁੱਲ੍ਹੀ।",
+    "sourceIds": [
+      "CP005-S17",
+      "CP005-S18",
+      "CP005-S24"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q038-PA",
+    "englishQuestionId": "WHI-CP005-Q038",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F038",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "ਬੈਲਜੀਅਮ ਵਿੱਚ ਉਦਯੋਗੀਕਰਨ ਦਾ ਸ਼ੁਰੂਆਤੀ ਕੇਂਦਰ ਕਿਹੜਾ ਇਲਾਕਾ ਬਣਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲੀਏਜ ਅਤੇ ਸ਼ਾਰਲਰੋਆ ਨੇੜੇ ਕੋਲੇ ਅਤੇ ਲੋਹੇ ਵਾਲੇ ਇਲਾਕੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਰੂਹਰ ਦਾ ਕੋਲਾ ਅਤੇ ਲੋਹਾ ਖੇਤਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਰ ਦਾ ਉਦਯੋਗਕ ਇਲਾਕਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਉੱਪਰੀ ਸਿਲੇਸੀਆ ਦੀ ਕੋਲਾ ਪੱਟੀ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਬੈਲਜੀਅਮ ਦਾ ਸ਼ੁਰੂਆਤੀ ਉਦਯੋਗਕ ਵਿਕਾਸ ਵਾਲੋਨੀਆ ਵਿੱਚ ਕੋਲਾ ਖਾਣ ਅਤੇ ਲੋਹੇ ਦੇ ਕੰਮ ਉੱਤੇ ਨਿਰਭਰ ਸੀ। ਲੀਏਜ ਅਤੇ ਸ਼ਾਰਲਰੋਆ ਇਸ ਦੇ ਮੁੱਖ ਇਲਾਕੇ ਸਨ।",
+    "sourceIds": [
+      "CP005-S28"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q039-PA",
+    "englishQuestionId": "WHI-CP005-Q039",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F039",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Meiji Japan",
+    "stem": "ਮੇਈਜੀ ਦੌਰ ਵਿੱਚ ਜਪਾਨੀ ਸਰਕਾਰ ਨੇ ਉਦਯੋਗੀਕਰਨ ਵਿੱਚ ਕੀ ਭੂਮਿਕਾ ਨਿਭਾਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਸ ਨੇ ਉਦਯੋਗਾਂ ਦਾ ਵਿਕਾਸ ਪੂਰੀ ਤਰ੍ਹਾਂ ਵਿਦੇਸ਼ੀ ਕੰਪਨੀਆਂ ਉੱਤੇ ਛੱਡ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਸ ਨੇ ਕੁਝ ਆਧੁਨਿਕ ਉਦਯੋਗ ਅਤੇ ਕਾਰਖਾਨੇ ਬਣਾਏ ਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸਹਾਰਾ ਦਿੱਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਸ ਨੇ ਕੌਮੀ ਪੱਧਰ ਦੇ ਤਾਲਮੇਲ ਤੋਂ ਬਿਨਾਂ ਸਿਰਫ਼ ਸਥਾਨਕ ਉਦਯੋਗਾਂ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਸ ਨੇ ਕੇਂਦਰੀ ਹਕੂਮਤ ਅਤੇ ਆਧੁਨਿਕ ਉਦਯੋਗਾਂ ਦੀ ਥਾਂ ਪੁਰਾਣੇ ਜਗੀਰਦਾਰੀ ਇਲਾਕੇ ਕਾਇਮ ਰੱਖੇ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਮੇਈਜੀ ਸਰਕਾਰ ਨੇ ਕੁਝ ਖੇਤਰਾਂ ਵਿੱਚ ਨਮੂਨਾ ਕਾਰਖਾਨੇ ਬਣਾਏ ਅਤੇ ਚਲਾਏ। ਬਾਅਦ ਵਿੱਚ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਈ ਨਿੱਜੀ ਮਾਲਕਾਂ ਨੂੰ ਦੇ ਦਿੱਤੇ ਗਏ।",
+    "sourceIds": [
+      "CP005-S09",
+      "CP005-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q040-PA",
+    "englishQuestionId": "WHI-CP005-Q040",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F040",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation and social change",
+    "stem": "ਫੈਕਟਰੀਆਂ ਦੇ ਵਧਣ ਨਾਲ ਉਦਯੋਗਕ ਸ਼ਹਿਰਾਂ ਦਾ ਸਮਾਜਕ ਢਾਂਚਾ ਕਿਉਂ ਬਦਲਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫੈਕਟਰੀਆਂ ਵਿੱਚ ਤਨਖ਼ਾਹੀ ਕੰਮ ਵਧਣ ਨਾਲ ਖੁਦਮੁਖਤਿਆਰ ਕਾਰੀਗਰਾਂ ਦੀ ਭੂਮਿਕਾ ਘਟੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਰਥਿਕ ਅਸਰ ਨਿਰਮਾਤਾਵਾਂ ਤੋਂ ਮੁੜ ਜ਼ਮੀਨਦਾਰ ਉੱਚ ਵਰਗ ਕੋਲ ਚਲਾ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਫੈਕਟਰੀ ਮਜ਼ਦੂਰ ਹਿੱਸੇਦਾਰ ਬਣ ਗਿਆ ਅਤੇ ਵਰਗੀ ਫ਼ਰਕ ਮੁੱਕ ਗਏ"
+      },
+      {
+        "key": "D",
+        "text": "ਤਨਖ਼ਾਹ ਉੱਤੇ ਕੰਮ ਕਰਨ ਵਾਲੇ ਮਜ਼ਦੂਰ ਅਤੇ ਮਸ਼ੀਨਾਂ ਤੇ ਮਿੱਲਾਂ ਵਿੱਚ ਪੂੰਜੀ ਲਾਉਣ ਵਾਲੇ ਮਾਲਕ ਇਕੱਠੇ ਹੋਏ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਫੈਕਟਰੀਆਂ ਨੇ ਤਨਖ਼ਾਹ ਉੱਤੇ ਕੰਮ ਵਧਾਇਆ ਅਤੇ ਉਦਯੋਗਕ ਮਾਲਕਾਂ ਦੀ ਭੂਮਿਕਾ ਮਜ਼ਬੂਤ ਕੀਤੀ। ਰਾਜਨੀਤਿਕ ਹੱਕਾਂ ਵਿੱਚ ਤਬਦੀਲੀ ਇਸ ਨਾਲੋਂ ਹੌਲੀ ਆਈ।",
+    "sourceIds": [
+      "CP005-S05",
+      "CP005-S23"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q041-PA",
+    "englishQuestionId": "WHI-CP005-Q041",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F041",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Textile machinery",
+    "stem": "ਸਪਿਨਿੰਗ ਮਿਊਲ ਨਾਲ ਕੱਪੜਾ ਮਿੱਲਾਂ ਕੀ ਤਿਆਰ ਕਰ ਸਕਦੀਆਂ ਸਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰੇਲ ਦੀਆਂ ਪਟੜੀਆਂ ਲਈ ਲੋਹੇ ਦੀਆਂ ਸਲਾਖਾਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਬੁਣਾਈ ਲਈ ਢੁੱਕਵਾਂ ਬਰੀਕ ਸੂਤੀ ਧਾਗਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਖਾਣਾਂ ਲਈ ਭਾਫ਼ ਇੰਜਣ"
+      },
+      {
+        "key": "D",
+        "text": "ਬੁਣਾਈ ਤੋਂ ਬਿਨਾਂ ਛਪਿਆ ਸੂਤੀ ਕੱਪੜਾ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਕ੍ਰੌਮਪਟਨ ਦੀ ਮਿਊਲ ਨਾਲ ਬਰੀਕ ਧਾਗਾ ਕੱਤਿਆ ਜਾ ਸਕਦਾ ਸੀ, ਜੋ ਕੱਪੜਾ ਬੁਣਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਸੀ।",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q042-PA",
+    "englishQuestionId": "WHI-CP005-Q042",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F042",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Textile machinery",
+    "stem": "ਕਾਰਟਰਾਈਟ ਦੇ ਪਾਵਰ ਲੂਮ ਨੇ ਕੱਪੜਾ ਬਣਾਉਣ ਦੇ ਕਿਹੜੇ ਪੜਾਅ ਨੂੰ ਮਸ਼ੀਨੀ ਬਣਾਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਪਾਹ ਚੁਗਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਰੰਗਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਭੇਡਾਂ ਦੀ ਉੱਨ ਕੱਟਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਬੁਣਾਈ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਪਾਵਰ ਲੂਮ ਨੇ ਕੱਪੜਾ ਬੁਣਨ ਦਾ ਕੰਮ ਮਸ਼ੀਨੀ ਬਣਾਇਆ। ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਕਤਾਈ ਦੀਆਂ ਮਸ਼ੀਨਾਂ ਨੇ ਸੂਤ ਦੀ ਸਪਲਾਈ ਵਧਾਈ ਸੀ।",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q043-PA",
+    "englishQuestionId": "WHI-CP005-Q043",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F043",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "ਯੂਰਪੀ ਮਹਾਂਦੀਪ ਵਿੱਚ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਉਦਯੋਗੀਕਰਨ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੁਰਤਗਾਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਨਾਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੈਲਜੀਅਮ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਾਰਵੇ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਯੂਰਪੀ ਮਹਾਂਦੀਪ ਵਿੱਚ ਬੈਲਜੀਅਮ ਪਹਿਲਾ ਉਦਯੋਗਕ ਦੇਸ਼ ਬਣਿਆ। ਉੱਥੇ ਕੋਲੇ ਦੀਆਂ ਖਾਣਾਂ ਅਤੇ ਲੋਹੇ ਦਾ ਕੰਮ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਸੀ।",
+    "sourceIds": [
+      "CP005-S28"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q044-PA",
+    "englishQuestionId": "WHI-CP005-Q044",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F044",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Factory system",
+    "stem": "ਕਿਹੜੀ ਤਬਦੀਲੀ ਫੈਕਟਰੀ ਵਿੱਚ ਉਤਪਾਦਨ ਨੂੰ ਘਰੇਲੂ ਪ੍ਰਬੰਧ ਤੋਂ ਵੱਖ ਕਰਦੀ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਜ਼ਦੂਰਾਂ ਅਤੇ ਤਾਕਤ ਨਾਲ ਚੱਲਣ ਵਾਲੀਆਂ ਮਸ਼ੀਨਾਂ ਨੂੰ ਇੱਕ ਥਾਂ ਇਕੱਠਾ ਕੀਤਾ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਪਾਰੀ ਘਰਾਂ ਵਿੱਚ ਕੰਮ ਵੰਡਦੇ ਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਤਪਾਦਨ ਪੂਰੀ ਤਰ੍ਹਾਂ ਮੌਸਮੀ ਖੇਤੀ ਉੱਤੇ ਨਿਰਭਰ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਮਾਨ ਸਿਰਫ਼ ਸਥਾਨਕ ਲੈਣ-ਦੇਣ ਲਈ ਬਣਾਇਆ ਜਾਂਦਾ ਸੀ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਫੈਕਟਰੀਆਂ ਵਿੱਚ ਮਸ਼ੀਨਾਂ ਅਤੇ ਤਨਖ਼ਾਹ ਉੱਤੇ ਕੰਮ ਕਰਨ ਵਾਲੇ ਮਜ਼ਦੂਰ ਮਿੱਲਾਂ ਵਿੱਚ ਇਕੱਠੇ ਹੁੰਦੇ ਸਨ। ਘਰੇਲੂ ਪ੍ਰਬੰਧ ਵਿੱਚ ਕੰਮ ਵੱਖ-ਵੱਖ ਘਰਾਂ ਵਿੱਚ ਹੁੰਦਾ ਸੀ।",
+    "sourceIds": [
+      "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q045-PA",
+    "englishQuestionId": "WHI-CP005-Q045",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F045",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Meiji Japan",
+    "stem": "ਆਧੁਨਿਕ ਉਦਯੋਗਕ ਤਰੀਕੇ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਬਾਅਦ ਮੇਈਜੀ ਜਪਾਨ ਦੇ ਕਈ ਸਰਕਾਰੀ ਕਾਰਖਾਨਿਆਂ ਨਾਲ ਕੀ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਨ੍ਹਾਂ ਨੂੰ ਜਗੀਰਾਂ ਵਿੱਚ ਬਦਲ ਦਿੱਤਾ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਜ਼ਦੂਰਾਂ ਨੂੰ ਸਿਖਲਾਈ ਦੇਣ ਤੋਂ ਪਹਿਲਾਂ ਸਾਰੇ ਬੰਦ ਕਰ ਦਿੱਤੇ ਗਏ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਨ੍ਹਾਂ ਨੂੰ ਵਿਦੇਸ਼ੀ ਬਸਤੀਵਾਦੀ ਰਾਜ ਹੇਠ ਕਰ ਦਿੱਤਾ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਹ ਨਿੱਜੀ ਮਾਲਕਾਂ ਨੂੰ ਸੌਂਪ ਦਿੱਤੇ ਗਏ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਸਰਕਾਰੀ ਕਾਬੂ ਹਟਣ ਅਤੇ ਇਨ੍ਹਾਂ ਕਾਰਖਾਨਿਆਂ ਵਿੱਚ ਸਿੱਖੇ ਹੁਨਰ ਫੈਲਣ ਨਾਲ ਹੋਰ ਉਦਯੋਗਾਂ ਦੇ ਵਿਕਾਸ ਨੂੰ ਮਦਦ ਮਿਲੀ।",
+    "sourceIds": [
+      "CP005-S09",
+      "CP005-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q046-PA",
+    "englishQuestionId": "WHI-CP005-Q046",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F046",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation and schooling",
+    "stem": "1833 ਦੇ ਫੈਕਟਰੀ ਕਾਨੂੰਨ ਨੇ ਇਸ ਦੇ ਦਾਇਰੇ ਵਾਲੇ ਕਾਰਖਾਨਿਆਂ ਵਿੱਚ ਕੰਮ ਕਰਦੇ ਬੱਚਿਆਂ ਦੀ ਪੜ੍ਹਾਈ ਲਈ ਕੀ ਪ੍ਰਬੰਧ ਕੀਤਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਰ ਕੰਮ ਦੀ ਪਾਲੀ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰਾ ਦਿਨ ਸਕੂਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਹਰ ਕੰਮ ਵਾਲੇ ਦਿਨ ਦੋ ਘੰਟੇ ਦੀ ਪੜ੍ਹਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਰੇ ਬੱਚਿਆਂ ਲਈ ਲਾਜ਼ਮੀ ਰਿਹਾਇਸ਼ੀ ਸਕੂਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੜ੍ਹਾਈ ਦਾ ਕੋਈ ਪ੍ਰਬੰਧ ਨਹੀਂ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਕਾਨੂੰਨ ਅਨੁਸਾਰ ਇਸ ਦੇ ਦਾਇਰੇ ਵਾਲੇ ਕਾਰਖਾਨਿਆਂ ਵਿੱਚ ਕੰਮ ਕਰਦੇ ਬੱਚਿਆਂ ਨੂੰ ਹਰ ਕੰਮ ਵਾਲੇ ਦਿਨ ਦੋ ਘੰਟੇ ਪੜ੍ਹਨਾ ਲਾਜ਼ਮੀ ਸੀ।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q047-PA",
+    "englishQuestionId": "WHI-CP005-Q047",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F047",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation",
+    "stem": "1833 ਦੇ ਫੈਕਟਰੀ ਕਾਨੂੰਨ ਅਤੇ ਬਾਲ ਮਜ਼ਦੂਰੀ ਉੱਤੇ ਪੂਰੀ ਪਾਬੰਦੀ ਵਿਚਕਾਰ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਬ੍ਰਿਟੇਨ ਵਿੱਚ ਹਰ ਥਾਂ ਬੱਚਿਆਂ ਦਾ ਕੰਮ ਰੋਕ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਹ ਸਿਰਫ਼ ਖਾਣਾਂ ਉੱਤੇ ਲਾਗੂ ਸੀ, ਕੱਪੜਾ ਫੈਕਟਰੀਆਂ ਉੱਤੇ ਨਹੀਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਕੁਝ ਕਾਰਖਾਨਿਆਂ ਵਿੱਚ ਉਮਰ ਅਤੇ ਕੰਮ ਦੇ ਘੰਟੇ ਤੈਅ ਕੀਤੇ, ਪਰ ਹਰ ਉਦਯੋਗ ਨੂੰ ਨਿਯਮਤ ਨਹੀਂ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਫੈਕਟਰੀ ਮਜ਼ਦੂਰਾਂ ਲਈ ਲਾਜ਼ਮੀ ਵੋਟ ਸ਼ੁਰੂ ਕੀਤੀ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਕਾਨੂੰਨ ਨੇ ਕੁਝ ਕਾਰਖਾਨਿਆਂ ਵਿੱਚ ਬੱਚਿਆਂ ਅਤੇ ਨੌਜਵਾਨਾਂ ਦੇ ਕੰਮ ਦੇ ਘੰਟੇ ਘਟਾਏ। ਇਸ ਦਾ ਦਾਇਰਾ ਅਤੇ ਲਾਗੂ ਕਰਨ ਦੀ ਸਮਰੱਥਾ ਸੀਮਤ ਰਹੀ।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S02",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q048-PA",
+    "englishQuestionId": "WHI-CP005-Q048",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F048",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Economic thought",
+    "stem": "*ਦ ਵੈਲਥ ਆਫ਼ ਨੇਸ਼ਨਜ਼* ਵਿੱਚ ਉਤਪਾਦਨ ਬਾਰੇ ਐਡਮ ਸਮਿਥ ਦੀ ਚਰਚਾ ਨਾਲ ਕਿਹੜਾ ਵਿਚਾਰ ਜੁੜਿਆ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੰਮ ਦੀ ਵੰਡ ਨਾਲ ਉਤਪਾਦਕਤਾ ਵਧ ਸਕਦੀ ਹੈ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰਾ ਨਿਰਮਾਣ ਬੰਦ ਕਰ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਪਾਰ ਦੇਸ਼ ਦੀਆਂ ਹੱਦਾਂ ਉੱਤੇ ਰੁਕ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਜ਼ਦੂਰਾਂ ਨੂੰ ਜਗੀਰਦਾਰੀ ਫ਼ਰਜ਼ਾਂ ਵੱਲ ਮੁੜਨਾ ਚਾਹੀਦਾ ਹੈ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਸਮਿਥ ਨੇ ਸਮਝਾਇਆ ਕਿ ਉਤਪਾਦਨ ਨੂੰ ਵੱਖ-ਵੱਖ ਮਾਹਰ ਕੰਮਾਂ ਵਿੱਚ ਵੰਡਣ ਨਾਲ ਮਜ਼ਦੂਰ ਹੋਰ ਸਮਾਨ ਬਣਾ ਸਕਦੇ ਹਨ।",
+    "sourceIds": [
+      "CP005-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q049-PA",
+    "englishQuestionId": "WHI-CP005-Q049",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F049",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Steam engine",
+    "stem": "ਥਾਮਸ ਨਿਊਕਾਮਨ ਨੇ ਖਾਣਾਂ ਵਿੱਚੋਂ ਪਾਣੀ ਕੱਢਣ ਵਾਲਾ ਭਾਫ਼ ਇੰਜਣ ਕਿਹੜੇ ਸਾਲ ਬਣਾਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1709"
+      },
+      {
+        "key": "B",
+        "text": "1712"
+      },
+      {
+        "key": "C",
+        "text": "1769"
+      },
+      {
+        "key": "D",
+        "text": "1785"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਨਿਊਕਾਮਨ ਨੇ ਖਾਣਾਂ ਵਿੱਚੋਂ ਪਾਣੀ ਕੱਢਣ ਲਈ 1712 ਵਿੱਚ ਆਪਣਾ ਭਾਫ਼ ਇੰਜਣ ਬਣਾਇਆ।",
+    "sourceIds": [
+      "CP005-S24"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q050-PA",
+    "englishQuestionId": "WHI-CP005-Q050",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F050",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "ਕਿਹੜੇ ਵਿਕਾਸ ਨੇ ਸ਼ੁਰੂਆਤੀ ਅਮਰੀਕੀ ਕੱਪੜਾ ਉਦਯੋਗ ਨੂੰ ਬ੍ਰਿਟਿਸ਼ ਉਦਯੋਗਕ ਗਿਆਨ ਨਾਲ ਜੋੜਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਬ੍ਰਾਹਮ ਡਾਰਬੀ ਨੇ ਪਹਿਲੀ ਅਮਰੀਕੀ ਰੇਲਵੇ ਬਣਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਜੇਮਜ਼ ਵਾਟ ਨੇ ਲੋਵਲ ਦੀਆਂ ਮਿੱਲਾਂ ਬਣਾਈਆਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਰਾਬਰਟ ਓਵਨ ਨੇ ਜਪਾਨ ਵਿੱਚ ਸਪਿਨਿੰਗ ਜੈਨੀ ਸ਼ੁਰੂ ਕੀਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੈਮੂਅਲ ਸਲੇਟਰ ਬ੍ਰਿਟਿਸ਼ ਕੱਪੜਾ ਮਸ਼ੀਨਾਂ ਦਾ ਗਿਆਨ ਅਮਰੀਕਾ ਲੈ ਗਿਆ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਸਲੇਟਰ ਨੇ ਬ੍ਰਿਟਿਸ਼ ਕੱਪੜਾ ਮਸ਼ੀਨਾਂ ਅਤੇ ਫੈਕਟਰੀ ਢੰਗ ਦੇ ਗਿਆਨ ਨਾਲ ਸ਼ੁਰੂਆਤੀ ਅਮਰੀਕੀ ਸੂਤੀ ਮਿੱਲਾਂ ਕਾਇਮ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ।",
+    "sourceIds": [
+      "CP005-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q051-PA",
+    "englishQuestionId": "WHI-CP005-Q051",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F051",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Economic thought",
+    "stem": "ਮਾਰਕਸ ਅਤੇ ਐਂਗਲਜ਼ ਮੁਤਾਬਕ ਵਰਗੀ ਸਮਾਜ ਵਿੱਚ ਤਬਦੀਲੀ ਨੂੰ ਅੱਗੇ ਵਧਾਉਣ ਵਾਲਾ ਮੁੱਖ ਟਕਰਾਅ ਕਿਹੜਾ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਧਾਰਮਿਕ ਭਾਈਚਾਰਿਆਂ ਵਿਚਕਾਰ ਟਕਰਾਅ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਿਰੋਧੀ ਦੇਸ਼ਾਂ ਵਿਚਕਾਰ ਮੁਕਾਬਲਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਮਾਜਕ ਵਰਗਾਂ ਵਿਚਕਾਰ ਟਕਰਾਅ"
+      },
+      {
+        "key": "D",
+        "text": "ਸ਼ਹਿਰ ਅਤੇ ਪਿੰਡ ਵਿਚਕਾਰ ਟਕਰਾਅ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਮਾਰਕਸ ਅਤੇ ਐਂਗਲਜ਼ ਮੁਤਾਬਕ ਵਰਗਾਂ ਵਿਚਕਾਰ ਟਕਰਾਅ ਇਤਿਹਾਸਕ ਤਬਦੀਲੀ ਲਿਆਉਂਦਾ ਹੈ। ਉਨ੍ਹਾਂ ਨੇ ਆਧੁਨਿਕ ਉਦਯੋਗਕ ਸਮਾਜ ਵਿੱਚ ਬੁਰਜੂਆ ਅਤੇ ਮਜ਼ਦੂਰ ਵਰਗ ਦੇ ਟਕਰਾਅ ਨੂੰ ਮੁੱਖ ਮੰਨਿਆ।",
+    "sourceIds": [
+      "CP005-S21"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q052-PA",
+    "englishQuestionId": "WHI-CP005-Q052",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F052",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Economic thought",
+    "stem": "ਮਾਰਕਸ ਅਤੇ ਐਂਗਲਜ਼ ਦੀ ਸ਼ਬਦਾਵਲੀ ਵਿੱਚ ਉਦਯੋਗਕ ਸਮਾਜ ਦਾ ਸਰਮਾਏਦਾਰੀ ਮਜ਼ਦੂਰ ਵਰਗ ਕੌਣ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਹ ਮਜ਼ਦੂਰ ਜੋ ਤਨਖ਼ਾਹ ਲਈ ਆਪਣੀ ਮਿਹਨਤ ਦਿੰਦੇ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਵੱਡੀਆਂ ਮਿੱਲਾਂ ਅਤੇ ਕਾਰਖਾਨਿਆਂ ਦੇ ਮਾਲਕ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਰਾਸਤੀ ਉੱਚੇ ਘਰਾਣਿਆਂ ਦੇ ਮੈਂਬਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਸਦ ਨੂੰ ਕਾਬੂ ਕਰਨ ਵਾਲੇ ਵਪਾਰੀ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਸਰਮਾਏਦਾਰੀ ਮਜ਼ਦੂਰ ਵਰਗ ਵਿੱਚ ਉਹ ਤਨਖ਼ਾਹਦਾਰ ਮਜ਼ਦੂਰ ਆਉਂਦੇ ਸਨ ਜਿਨ੍ਹਾਂ ਕੋਲ ਉਨ੍ਹਾਂ ਦੀਆਂ ਮਿੱਲਾਂ ਅਤੇ ਮਸ਼ੀਨਾਂ ਦੀ ਮਲਕੀਅਤ ਨਹੀਂ ਸੀ।",
+    "sourceIds": [
+      "CP005-S21"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q053-PA",
+    "englishQuestionId": "WHI-CP005-Q053",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F053",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "ਉੱਨੀਵੀਂ ਸਦੀ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਬੈਲਜੀਅਮ ਦੇ ਉਦਯੋਗੀਕਰਨ ਵਿੱਚ ਕਿਹੜੇ ਕਾਰਕ ਨੇ ਮਦਦ ਕੀਤੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਖਾਣ ਅਤੇ ਧਾਤ ਦੇ ਕੰਮ ਉੱਤੇ ਪਾਬੰਦੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਸ਼ਹਿਰਾਂ ਅਤੇ ਆਵਾਜਾਈ ਦੇ ਰਸਤਿਆਂ ਦੀ ਘਾਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਿਰਫ਼ ਬਾਹਰੋਂ ਮੰਗਵਾਏ ਲੱਕੜੀ ਦੇ ਕੋਲੇ ਉੱਤੇ ਨਿਰਭਰਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੋਲੇ ਦੇ ਭੰਡਾਰ ਅਤੇ ਲੋਹੇ ਦੇ ਕੰਮ ਦੀ ਪੁਰਾਣੀ ਰਵਾਇਤ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਬੈਲਜੀਅਮ ਦੇ ਕੋਲਾ ਖੇਤਰਾਂ ਅਤੇ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਲੋਹੇ ਦੇ ਉਦਯੋਗਕ ਕੇਂਦਰਾਂ ਨੇ ਸ਼ੁਰੂਆਤੀ ਮਸ਼ੀਨੀ ਉਦਯੋਗ ਨੂੰ ਸਹਾਰਾ ਦਿੱਤਾ।",
+    "sourceIds": [
+      "CP005-S28"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q054-PA",
+    "englishQuestionId": "WHI-CP005-Q054",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F054",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Social change",
+    "stem": "ਫੈਕਟਰੀਆਂ ਵਿੱਚ ਰੁਜ਼ਗਾਰ ਵਧਣ ਨਾਲ ਉਦਯੋਗਕ ਸ਼ਹਿਰਾਂ ਵਿੱਚ ਕਿਹੜਾ ਵਰਗ ਵਧਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਜ਼ਦੂਰੀ ਦੇ ਬਦਲੇ ਸੇਵਾ ਲੈਣ ਵਾਲੇ ਜਗੀਰਦਾਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਤਨਖ਼ਾਹ ਉੱਤੇ ਕੰਮ ਕਰਨ ਵਾਲੇ ਉਦਯੋਗਕ ਮਜ਼ਦੂਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਮਿੱਲ ਵਿੱਚ ਨਿਯੁਕਤ ਸ਼ਾਹੀ ਅਧਿਕਾਰੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਾਰਾ ਉਤਪਾਦਨ ਕਾਬੂ ਕਰਨ ਵਾਲੀਆਂ ਪਿੰਡਾਂ ਦੀਆਂ ਗਿਲਡਾਂ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਫੈਕਟਰੀਆਂ ਅਤੇ ਖਾਣਾਂ ਵਿੱਚ ਕੰਮ ਵਧਣ ਨਾਲ ਰੋਜ਼ੀ ਲਈ ਤਨਖ਼ਾਹ ਉੱਤੇ ਨਿਰਭਰ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਵਧੀ।",
+    "sourceIds": [
+      "CP005-S05",
+      "CP005-S23"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q055-PA",
+    "englishQuestionId": "WHI-CP005-Q055",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F055",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Transport and markets",
+    "stem": "ਉਦਯੋਗੀਕਰਨ ਦੌਰਾਨ ਨਹਿਰਾਂ ਅਤੇ ਰੇਲਵੇ ਦੀ ਸਹੀ ਤੁਲਨਾ ਕਿਹੜੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਹਿਰਾਂ ਭਾਰੀ ਮਾਲ ਲਈ ਲਾਹੇਵੰਦ ਸਨ; ਬਾਅਦ ਵਿੱਚ ਰੇਲਵੇ ਨੇ ਮਾਲ ਅਤੇ ਯਾਤਰੀ ਤੇਜ਼ੀ ਨਾਲ ਲਿਜਾਏ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਹਿਰਾਂ ਸਿਰਫ਼ ਯਾਤਰੀ ਲਿਜਾਂਦੀਆਂ ਸਨ; ਰੇਲਵੇ ਸਿਰਫ਼ ਕੋਲਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੇਲਵੇ ਨਹਿਰਾਂ ਤੋਂ ਪਹਿਲਾਂ ਬਣੀਆਂ ਅਤੇ ਉਨ੍ਹਾਂ ਕਰਕੇ ਨਹਿਰਾਂ ਬਣੀਆਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੋਵੇਂ ਪ੍ਰਣਾਲੀਆਂ ਸਿਰਫ਼ ਫ਼ੌਜੀ ਵਰਤੋਂ ਲਈ ਬਣਾਈਆਂ ਗਈਆਂ ਸਨ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਨਹਿਰਾਂ ਰਾਹੀਂ ਭਾਰੀ ਸਮਾਨ ਲਿਜਾਣਾ ਸੁਖਾਲਾ ਸੀ, ਜਦਕਿ ਰੇਲਵੇ ਮਾਲ ਅਤੇ ਯਾਤਰੀਆਂ ਨੂੰ ਹੋਰ ਤੇਜ਼ੀ ਨਾਲ ਲਿਜਾ ਸਕਦੀ ਸੀ।",
+    "sourceIds": [
+      "CP005-S17",
+      "CP005-S25"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q056-PA",
+    "englishQuestionId": "WHI-CP005-Q056",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F056",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Reform chronology",
+    "stem": "ਬ੍ਰਿਟੇਨ ਦੇ ਇਨ੍ਹਾਂ ਸੁਧਾਰਾਂ ਨੂੰ ਸਹੀ ਸਮੇਂ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਕਿਹੜਾ ਵਿਕਲਪ ਰੱਖਦਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੀਪਲਜ਼ ਚਾਰਟਰ → 1833 ਦਾ ਫੈਕਟਰੀ ਕਾਨੂੰਨ → ਚਾਰਟਿਸਟ ਲਹਿਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਚਾਰਟਿਸਟ ਲਹਿਰ → 1833 ਦਾ ਫੈਕਟਰੀ ਕਾਨੂੰਨ → ਪੀਪਲਜ਼ ਚਾਰਟਰ"
+      },
+      {
+        "key": "C",
+        "text": "1833 ਦਾ ਫੈਕਟਰੀ ਕਾਨੂੰਨ → ਚਾਰਟਿਸਟ ਲਹਿਰ ਅਤੇ ਪੀਪਲਜ਼ ਚਾਰਟਰ → 1839–1848 ਦੀਆਂ ਪਟੀਸ਼ਨਾਂ"
+      },
+      {
+        "key": "D",
+        "text": "1833 ਦਾ ਫੈਕਟਰੀ ਕਾਨੂੰਨ → ਪੀਪਲਜ਼ ਚਾਰਟਰ → ਚਾਰਟਿਸਟ ਲਹਿਰ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਫੈਕਟਰੀ ਕਾਨੂੰਨ 1833 ਵਿੱਚ ਬਣਿਆ। ਚਾਰਟਿਸਟ ਲਹਿਰ ਅਤੇ ਚਾਰਟਰ 1830ਵਿਆਂ ਦੇ ਅਖੀਰ ਵਿੱਚ ਆਏ; ਪਟੀਸ਼ਨਾਂ 1839, 1842 ਅਤੇ 1848 ਵਿੱਚ ਦਿੱਤੀਆਂ ਗਈਆਂ।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S06",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q057-PA",
+    "englishQuestionId": "WHI-CP005-Q057",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F057",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Workers’ movements",
+    "stem": "ਚਾਰਟਿਸਟ ਲਹਿਰ ਅਤੇ ਲੁਡਾਈਟ ਲਹਿਰ ਵਿਚਕਾਰ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚਾਰਟਿਸਟਾਂ ਨੇ ਫੈਕਟਰੀ ਮਾਲਕਾਂ ਦਾ ਸਾਥ ਦਿੱਤਾ; ਲੁਡਾਈਟਾਂ ਨੇ ਗੁਪਤ ਵੋਟ ਮੰਗੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਦੋਵਾਂ ਨੇ ਰੋਮਨ ਸਾਮਰਾਜ ਮੁੜ ਕਾਇਮ ਕਰਨ ਦੀ ਮੰਗ ਕੀਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੁਡਾਈਟ ਸੰਸਦੀ ਪਾਰਟੀ ਸੀ; ਚਾਰਟਿਸਟ ਲਹਿਰ ਰੇਲਵੇ ਕੰਪਨੀ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਚਾਰਟਿਸਟਾਂ ਨੇ ਰਾਜਨੀਤਿਕ ਸੁਧਾਰ ਮੰਗੇ; ਲੁਡਾਈਟਾਂ ਨੇ ਕੁਝ ਮਸ਼ੀਨਾਂ ਅਤੇ ਮਾਲਕਾਂ ਨੂੰ ਨਿਸ਼ਾਨਾ ਬਣਾਇਆ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਚਾਰਟਿਸਟਾਂ ਨੇ ਪੀਪਲਜ਼ ਚਾਰਟਰ ਰਾਹੀਂ ਰਾਜਨੀਤਿਕ ਹੱਕਾਂ ਲਈ ਮੁਹਿੰਮ ਚਲਾਈ। ਲੁਡਾਈਟਾਂ ਦੀ ਕਾਰਵਾਈ ਕੁਝ ਖਾਸ ਧੰਦਿਆਂ ਅਤੇ ਕੰਮ ਵਾਲੀਆਂ ਥਾਵਾਂ ਦੇ ਝਗੜਿਆਂ ਨਾਲ ਜੁੜੀ ਸੀ।",
+    "sourceIds": [
+      "CP005-S06",
+      "CP005-S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q058-PA",
+    "englishQuestionId": "WHI-CP005-Q058",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F058",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Textile production",
+    "stem": "ਕਤਾਈ ਵਿੱਚ ਸੁਧਾਰ ਨਾਲ ਬੁਣਾਈ ਨੂੰ ਮਸ਼ੀਨੀ ਬਣਾਉਣ ਦੀ ਲੋੜ ਕਿਉਂ ਵਧੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਤਾਈ ਮਸ਼ੀਨਾਂ ਨੇ ਕੱਪੜੇ ਦੀ ਮੰਗ ਖ਼ਤਮ ਕਰ ਦਿੱਤੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੂਤ ਦੀ ਸਪਲਾਈ ਵਧੀ, ਇਸ ਲਈ ਬੁਣਾਈ ਨੂੰ ਵੀ ਉਤਪਾਦਨ ਵਧਾਉਣਾ ਪਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਪਿਨਿੰਗ ਜੈਨੀ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਬੁਣਾਈ ਪੂਰੀ ਤਰ੍ਹਾਂ ਮਸ਼ੀਨੀ ਹੋ ਚੁੱਕੀ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਪਾਹ ਨੂੰ ਹੱਥ ਨਾਲ ਕੱਤਣਾ ਸੰਭਵ ਨਹੀਂ ਰਿਹਾ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਤੇਜ਼ ਕਤਾਈ ਨਾਲ ਹੋਰ ਸੂਤ ਮਿਲਣ ਲੱਗਾ। ਮਸ਼ੀਨੀ ਬੁਣਾਈ ਨੇ ਮਿੱਲਾਂ ਨੂੰ ਉਸ ਸੂਤ ਤੋਂ ਹੋਰ ਕੱਪੜਾ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ।",
+    "sourceIds": [
+      "CP005-S11",
+      "CP005-S12",
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q059-PA",
+    "englishQuestionId": "WHI-CP005-Q059",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F059",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation and transport",
+    "stem": "ਨਹਿਰਾਂ ਦੇ ਨਿਰਮਾਣ ਅਤੇ ਉਦਯੋਗਕ ਬਾਜ਼ਾਰਾਂ ਦੇ ਵਾਧੇ ਵਿਚਕਾਰ ਸਬੰਧ ਦੀ ਸਭ ਤੋਂ ਚੰਗੀ ਵਿਆਖਿਆ ਕਿਹੜੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਹਿਰਾਂ ਨੇ ਖਾਣਾਂ, ਮਿੱਲਾਂ ਅਤੇ ਬੰਦਰਗਾਹਾਂ ਨੂੰ ਜੋੜਿਆ, ਜਿਸ ਨਾਲ ਕੱਚਾ ਮਾਲ ਅਤੇ ਤਿਆਰ ਸਮਾਨ ਗਾਹਕਾਂ ਤੱਕ ਪਹੁੰਚਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਹਿਰਾਂ ਨੇ ਸਾਰੀਆਂ ਫੈਕਟਰੀਆਂ ਦੀ ਥਾਂ ਖੇਤ ਬਣਾ ਦਿੱਤੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਹਿਰਾਂ ਨੇ ਵਪਾਰੀਆਂ ਨੂੰ ਕੋਲਾ ਲਿਜਾਣ ਤੋਂ ਰੋਕਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਹਿਰਾਂ ਮੋਟਰ ਗੱਡੀਆਂ ਆਉਣ ਤੋਂ ਬਾਅਦ ਹੀ ਬਣੀਆਂ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਨਹਿਰਾਂ ਨੇ ਉਦਯੋਗਕ ਇਲਾਕਿਆਂ ਨੂੰ ਬੰਦਰਗਾਹਾਂ ਅਤੇ ਬਾਜ਼ਾਰਾਂ ਨਾਲ ਜੋੜਿਆ। ਇਸ ਨਾਲ ਭਾਰੀ ਸਮਾਨ ਲਿਜਾਣਾ ਸੌਖਾ ਹੋਇਆ।",
+    "sourceIds": [
+      "CP005-S05",
+      "CP005-S25"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q060-PA",
+    "englishQuestionId": "WHI-CP005-Q060",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F060",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation and social change",
+    "stem": "ਉੱਨੀਵੀਂ ਸਦੀ ਵਿੱਚ ਉਦਯੋਗੀਕਰਨ ਦੇ ਵੱਖ-ਵੱਖ ਰਾਹਾਂ ਬਾਰੇ ਕਿਹੜਾ ਨਤੀਜਾ ਸਹੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਰ ਦੇਸ਼ ਵਿੱਚ ਇੱਕੋ ਸਮੇਂ ਅਤੇ ਇੱਕੋ ਢੰਗ ਨਾਲ ਉਦਯੋਗੀਕਰਨ ਹੋਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਦਯੋਗੀਕਰਨ ਸਿਰਫ਼ ਬ੍ਰਿਟੇਨ ਵਿੱਚ ਹੋਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰਿਟੇਨ ਵਿੱਚ ਉਦਯੋਗੀਕਰਨ ਪਹਿਲਾਂ ਹੋਇਆ; ਬੈਲਜੀਅਮ, ਅਮਰੀਕਾ ਅਤੇ ਜਪਾਨ ਵਿੱਚ ਵੱਖਰੀਆਂ ਹਾਲਤਾਂ ਅਤੇ ਨੀਤੀਆਂ ਅਨੁਸਾਰ ਉਦਯੋਗ ਵਧੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਿਸੇ ਵੀ ਦੇਸ਼ ਦੇ ਉਦਯੋਗਕ ਵਿਕਾਸ ਵਿੱਚ ਸਰਕਾਰ ਦੀ ਕੋਈ ਭੂਮਿਕਾ ਨਹੀਂ ਸੀ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਉਦਯੋਗੀਕਰਨ ਬ੍ਰਿਟੇਨ ਤੋਂ ਬਾਹਰ ਵੀ ਫੈਲਿਆ, ਪਰ ਸਥਾਨਕ ਸਰੋਤਾਂ, ਬਾਜ਼ਾਰਾਂ ਅਤੇ ਸਰਕਾਰੀ ਨੀਤੀਆਂ ਕਰਕੇ ਹਰ ਦੇਸ਼ ਦਾ ਰਾਹ ਵੱਖਰਾ ਸੀ।",
+    "sourceIds": [
+      "CP005-S07",
+      "CP005-S09",
+      "CP005-S23",
+      "CP005-S28"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
