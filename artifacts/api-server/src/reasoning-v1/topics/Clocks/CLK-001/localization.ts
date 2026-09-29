@@ -14,6 +14,19 @@ function scenarioValue(question: ClockQuestion, key: string): string {
 
 function translateDisplay(value: string, language: Exclude<ClockAuthoringLanguage, 'en'>): string {
   let out = value;
+  out = out.replace(
+    /\b(\d+(?:\s+\d+\/\d+)?)\s+minutes?\s+past\s+(1[0-2]|[1-9])(?:\s+([ap]\.m\.))?/gi,
+    (_match, rawMinutes: string, rawHour: string, meridiem?: string) => {
+      const suffix = meridiem
+        ? language === 'hi'
+          ? meridiem.toLowerCase().startsWith('a') ? ' पूर्वाह्न' : ' अपराह्न'
+          : meridiem.toLowerCase().startsWith('a') ? ' ਸਵੇਰੇ' : ' ਸ਼ਾਮ'
+        : '';
+      return language === 'hi'
+        ? rawHour + ' बजे के ' + rawMinutes + ' मिनट बाद' + suffix
+        : rawHour + ' ਵਜੇ ਤੋਂ ' + rawMinutes + ' ਮਿੰਟ ਬਾਅਦ' + suffix;
+    },
+  );
   const replacements: readonly [RegExp, string, string][] = [
     [/gain of /gi, 'बढ़त ', 'ਵਾਧਾ '],
     [/loss of /gi, 'कमी ', 'ਘਾਟਾ '],
@@ -378,8 +391,8 @@ function makeLocalizedSurface(
       );
     case 'CLASSIFY_EVENT_FROM_TIME':
       return surface(
-        s('time') + ' पर घंटे और मिनट की सुइयाँ मिली हुई, विपरीत, समकोण पर, या इनमें से किसी स्थिति में नहीं हैं?',
-        s('time') + ' ਉੱਤੇ ਘੰਟੇ ਅਤੇ ਮਿੰਟ ਵਾਲੀਆਂ ਸੂਈਆਂ ਮਿਲੀਆਂ ਹੋਈਆਂ, ਵਿਰੁੱਧ, ਸਮਕੋਣ ਉੱਤੇ, ਜਾਂ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਸਥਿਤੀ ਵਿੱਚ ਨਹੀਂ ਹਨ?',
+        translateDisplay(s('time'), language) + ' पर घंटे और मिनट की सुइयाँ मिली हुई, विपरीत, समकोण पर, या इनमें से किसी स्थिति में नहीं हैं?',
+        translateDisplay(s('time'), language) + ' ਉੱਤੇ ਘੰਟੇ ਅਤੇ ਮਿੰਟ ਵਾਲੀਆਂ ਸੂਈਆਂ ਮਿਲੀਆਂ ਹੋਈਆਂ, ਵਿਰੁੱਧ, ਸਮਕੋਣ ਉੱਤੇ, ਜਾਂ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਸਥਿਤੀ ਵਿੱਚ ਨਹੀਂ ਹਨ?',
         'सटीक छोटा कोण निकालें: 0° = मिली हुई, 90° = समकोण, 180° = विपरीत।',
         'ਸਹੀ ਛੋਟਾ ਕੋਣ ਕੱਢੋ: 0° = ਮਿਲੀਆਂ ਹੋਈਆਂ, 90° = ਸਮਕੋਣ, 180° = ਵਿਰੁੱਧ।',
         ['सुइयों का सटीक छोटा कोण निकालें।', 'वर्गीकरण = ' + a + '।'],
