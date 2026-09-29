@@ -1,6 +1,6 @@
-# VEN-001 CP003 Category-Set Candidate Pool V2
+# VEN-001 CP003 Category-Set Candidate Pool V3
 
-Status: **22 trilingual candidate authorities; every record remains pending human review**
+Status: **34 trilingual candidate authorities; every record remains pending human review**
 
 The pool is available through the shared Question Studio reasoning-v1 package for review-only generation. These records are candidate factual authorities, not approved answer keys. The Hindi and Punjabi text, domain facts, and exam suitability require human review before any freeze or permanent QL assignment.
 
@@ -8,11 +8,11 @@ The pool is available through the shared Question Studio reasoning-v1 package fo
 
 | Relation topology | Candidate count | Candidate examples |
 |---|---:|---|
-| Three nested classes | 5 | Sparrows / birds / animals; squares / rectangles / quadrilaterals; integers / rational numbers / real numbers; whole numbers / rational numbers / real numbers |
-| Two separate subsets in a common class | 9 | Snakes and lizards / reptiles; squares and circles / plane figures; spiders and insects / arthropods; prose and poetry / literature |
-| Two overlapping subsets in a common class | 7 | Prime and odd natural numbers; right and isosceles triangles; rectangles and rhombi / quadrilaterals; multiples of 4 and 6 / natural numbers |
+| Three nested classes | 10 | Sparrows / birds / animals; squares / rectangles / quadrilaterals; integers / rational numbers / real numbers; whole numbers / rational numbers / real numbers |
+| Two separate subsets in a common class | 12 | Snakes and lizards / reptiles; squares and circles / plane figures; spiders and insects / arthropods; prose and poetry / literature |
+| Two overlapping subsets in a common class | 11 | Prime and odd natural numbers; right and isosceles triangles; rectangles and rhombi / quadrilaterals; multiples of 4 and 6 / natural numbers |
 | One nested pair + one separate set | 1 | Cats / animals / boxes |
-| **Total** | **22** | Animal, astronomy, food, geometry, general classification, number, and literary categories |
+| **Total** | **34** | Animal, astronomy, food, geometry, general classification, language, number, and literary categories |
 
 The overlap candidates include explicit witnesses for the shared region and for both exclusive regions. For example, the prime / even natural number candidate uses 2 as a shared member, odd primes as a prime-only witness, and even composite natural numbers as an even-only witness.
 
@@ -27,6 +27,6 @@ The generator selects an operation deterministically from the request seed, or a
 
 Easy and Medium are provisional structure-based review labels. Hard is disabled. Every item is marked `PENDING_TRILINGUAL_HUMAN_REVIEW`; the chapter has no permanent QL allocation. Question Bank writes, tests, mock tests, publication, and production release remain disabled.
 
-## Boundaries still open
+## Chapter integration status
 
-This pool implements CP003 candidate generation only. CP001 standalone two-group question patterns and CP002 general three-group patterns require their own source-pattern validation and generator contracts. CP004 remains conditional on evidence for a recurring region/member operation distinct from the two CP003 directions above.
+CP001 two-group relationship selection, CP002 three-group topology selection, CP003 category-set identification, and CP004 numbered-region identification are integrated into the standard Question Studio workflow in review-only mode. Candidate authorities and translated wording remain pending human review. Quantitative set-count problems, syllogism conclusion evaluation, and data-interpretation caselets remain outside this logical-reasoning chapter.
