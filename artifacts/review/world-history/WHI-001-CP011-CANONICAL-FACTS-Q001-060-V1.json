@@ -1,0 +1,697 @@
+{
+  "schemaVersion": "1.0",
+  "chapterId": "WHI-001",
+  "checkpointId": "WHI-001-CP011",
+  "status": "full-source-backed-review-pool",
+  "sourceRegister": [
+    {
+      "sourceId": "CP011-S01",
+      "title": "United Nations — Charter of the United Nations, full text",
+      "url": "https://www.un.org/en/about-us/un-charter/full-text"
+    },
+    {
+      "sourceId": "CP011-S02",
+      "title": "United Nations — The San Francisco Conference",
+      "url": "https://www.un.org/en/node/130983"
+    },
+    {
+      "sourceId": "CP011-S03",
+      "title": "United Nations — Charter of the United Nations, Article 7",
+      "url": "https://legal.un.org/repertory/art7.shtml"
+    },
+    {
+      "sourceId": "CP011-S04",
+      "title": "United Nations — Security Council voting system and Charter Articles 23, 24 and 27",
+      "url": "https://main.un.org/securitycouncil/en/content/voting-system"
+    },
+    {
+      "sourceId": "CP011-S05",
+      "title": "International Court of Justice — The Court",
+      "url": "https://www.icj-cij.org/court"
+    },
+    {
+      "sourceId": "CP011-S06",
+      "title": "United Nations — International Trusteeship System",
+      "url": "https://www.un.org/dppa/decolonization/en/history/international-trusteeship-system-and-trust-territories"
+    },
+    {
+      "sourceId": "CP011-S07",
+      "title": "International Monetary Fund — The IMF and the World Bank",
+      "url": "https://www.imf.org/en/about/factsheets/sheets/2022/imf-world-bank-new"
+    },
+    {
+      "sourceId": "CP011-S08",
+      "title": "International Monetary Fund — The IMF and the World Bank: How Do They Differ?",
+      "url": "https://www.imf.org/external/pubs/ft/exrp/differ/differ.pdf"
+    },
+    {
+      "sourceId": "CP011-S09",
+      "title": "U.S. National Archives — Nuremberg Tribunal records",
+      "url": "https://www.archives.gov/research/captured-german-records/international-military-tribunal-nurnberg.html"
+    },
+    {
+      "sourceId": "CP011-S10",
+      "title": "U.S. National Archives — Records of War Crimes Trials in the Far East",
+      "url": "https://www.archives.gov/research/captured-german-records/war-crimes-trials-in-asia.html"
+    },
+    {
+      "sourceId": "CP011-S11",
+      "title": "U.S. Department of State, Office of the Historian — The Yalta Conference, 1945",
+      "url": "https://history.state.gov/milestones/1937-1945/yalta-conf"
+    },
+    {
+      "sourceId": "CP011-S12",
+      "title": "U.S. National Archives — Records of U.S. Occupation Headquarters, World War II",
+      "url": "https://www.archives.gov/research/guide-fed-records/groups/260.html"
+    }
+  ],
+  "facts": [
+    {
+      "factId": "WHI-CP011-F001",
+      "claim": "Delegates signed the Charter in San Francisco on 26 June 1945. The conference followed wartime planning for a new international organisation.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S02"
+      ],
+      "sourceLocator": "UN founding and chronology",
+      "relationshipType": "un-founding-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F002",
+      "claim": "The Charter entered into force on 24 October 1945 after the required ratifications. The date is observed as United Nations Day.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S02"
+      ],
+      "sourceLocator": "UN founding and chronology",
+      "relationshipType": "un-founding-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F003",
+      "claim": "The Charter established the United Nations as an international organisation. The League of Nations was its predecessor, not the body created in San Francisco.",
+      "sourceIds": [
+        "CP011-S01"
+      ],
+      "sourceLocator": "UN founding and chronology",
+      "relationshipType": "un-founding-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F004",
+      "claim": "The Dumbarton Oaks talks in 1944 produced proposals for a new international organisation. The San Francisco Conference later negotiated and adopted the Charter.",
+      "sourceIds": [
+        "CP011-S02"
+      ],
+      "sourceLocator": "UN founding and chronology",
+      "relationshipType": "un-founding-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F005",
+      "claim": "Proposals were developed at Dumbarton Oaks in 1944, the Charter was signed in June 1945 and it entered into force in October 1945.",
+      "sourceIds": [
+        "CP011-S02"
+      ],
+      "sourceLocator": "UN founding and chronology",
+      "relationshipType": "un-founding-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F006",
+      "claim": "The Charter identifies the maintenance of international peace and security as a central purpose. It also sets out cooperation and human-rights goals.",
+      "sourceIds": [
+        "CP011-S01"
+      ],
+      "sourceLocator": "UN founding and chronology",
+      "relationshipType": "un-founding-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F007",
+      "claim": "Article 2 states the principle of sovereign equality among members. It does not give every state identical roles in every UN organ.",
+      "sourceIds": [
+        "CP011-S01"
+      ],
+      "sourceLocator": "Charter principles and purposes",
+      "relationshipType": "charter-principles-purposes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F008",
+      "claim": "Article 2(4) prohibits the threat or use of force against another state's territorial integrity or political independence, subject to Charter provisions.",
+      "sourceIds": [
+        "CP011-S01"
+      ],
+      "sourceLocator": "Charter principles and purposes",
+      "relationshipType": "charter-principles-purposes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F009",
+      "claim": "The Charter calls on members to settle disputes by peaceful means. The specific method depends on the dispute and the parties involved.",
+      "sourceIds": [
+        "CP011-S01"
+      ],
+      "sourceLocator": "Charter principles and purposes",
+      "relationshipType": "charter-principles-purposes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F010",
+      "claim": "Article 2(7) limits UN intervention in domestic matters while preserving enforcement action under Chapter VII. It is not a blanket exemption from international obligations.",
+      "sourceIds": [
+        "CP011-S01"
+      ],
+      "sourceLocator": "Charter principles and purposes",
+      "relationshipType": "charter-principles-purposes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F011",
+      "claim": "The Charter combines peace and security with cooperation and friendly relations among nations. It does not establish a world government or universal domestic court system.",
+      "sourceIds": [
+        "CP011-S01"
+      ],
+      "sourceLocator": "Charter principles and purposes",
+      "relationshipType": "charter-principles-purposes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F012",
+      "claim": "The Charter established six principal organs. They are the General Assembly, Security Council, ECOSOC, Trusteeship Council, International Court of Justice and Secretariat.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S03"
+      ],
+      "sourceLocator": "Charter principles and purposes",
+      "relationshipType": "charter-principles-purposes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F013",
+      "claim": "The General Assembly is the UN's plenary organ, with each member state represented. Its powers differ from those of the Security Council.",
+      "sourceIds": [
+        "CP011-S03"
+      ],
+      "sourceLocator": "Principal organs and functions",
+      "relationshipType": "principal-organs-functions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F014",
+      "claim": "Article 24 gives the Security Council primary responsibility for international peace and security. The Charter assigns distinct functions to the other principal organs.",
+      "sourceIds": [
+        "CP011-S03"
+      ],
+      "sourceLocator": "Principal organs and functions",
+      "relationshipType": "principal-organs-functions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F015",
+      "claim": "The Economic and Social Council coordinates work in economic and social fields. It is a principal organ established by the Charter.",
+      "sourceIds": [
+        "CP011-S03"
+      ],
+      "sourceLocator": "Principal organs and functions",
+      "relationshipType": "principal-organs-functions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F016",
+      "claim": "The International Court of Justice is the UN's principal judicial organ. It hears cases between states and gives advisory opinions when authorised.",
+      "sourceIds": [
+        "CP011-S05"
+      ],
+      "sourceLocator": "Principal organs and functions",
+      "relationshipType": "principal-organs-functions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F017",
+      "claim": "The Secretariat carries out the UN's administrative work under the authority of the Secretary-General. It is one of the six principal organs.",
+      "sourceIds": [
+        "CP011-S03"
+      ],
+      "sourceLocator": "Principal organs and functions",
+      "relationshipType": "principal-organs-functions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F018",
+      "claim": "The Trusteeship Council supervised trust territories under the Charter system. It suspended operations after the last trust territory became independent.",
+      "sourceIds": [
+        "CP011-S06"
+      ],
+      "sourceLocator": "Principal organs and functions",
+      "relationshipType": "principal-organs-functions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F019",
+      "claim": "The General Assembly may discuss Charter matters and make recommendations, subject to Charter limits. It does not operate as a world parliament with direct authority over national governments.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S03"
+      ],
+      "sourceLocator": "Principal organs and functions",
+      "relationshipType": "principal-organs-functions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F020",
+      "claim": "Article 23 named China, France, the Soviet Union, the United Kingdom and the United States as permanent members. This is the original Charter wording for the post-war body.",
+      "sourceIds": [
+        "CP011-S04"
+      ],
+      "sourceLocator": "Principal organs and functions",
+      "relationshipType": "principal-organs-functions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F021",
+      "claim": "On substantive matters, a negative vote by a permanent member prevents adoption of a draft resolution. Procedural decisions are treated differently under Article 27.",
+      "sourceIds": [
+        "CP011-S04"
+      ],
+      "sourceLocator": "Security Council and decision-making",
+      "relationshipType": "security-council-decision-making",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F022",
+      "claim": "Article 27 distinguishes procedural decisions from other matters that require the concurring votes of permanent members. The veto applies to substantive decisions, not procedural votes.",
+      "sourceIds": [
+        "CP011-S04"
+      ],
+      "sourceLocator": "Security Council and decision-making",
+      "relationshipType": "security-council-decision-making",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F023",
+      "claim": "Article 24 gives the Security Council primary responsibility for maintaining international peace and security. Members agree that it acts on their behalf in carrying out that role.",
+      "sourceIds": [
+        "CP011-S04"
+      ],
+      "sourceLocator": "Security Council and decision-making",
+      "relationshipType": "security-council-decision-making",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F024",
+      "claim": "The original Charter provided for an eleven-member Security Council: five permanent members and six elected members. The Council was later enlarged to fifteen members in 1965.",
+      "sourceIds": [
+        "CP011-S04"
+      ],
+      "sourceLocator": "Security Council and decision-making",
+      "relationshipType": "security-council-decision-making",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F025",
+      "claim": "The veto is a special voting power of the permanent members on substantive questions. It does not apply in the same way to procedural matters.",
+      "sourceIds": [
+        "CP011-S04"
+      ],
+      "sourceLocator": "Security Council and decision-making",
+      "relationshipType": "security-council-decision-making",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F026",
+      "claim": "Under Article 4, admission is decided by the General Assembly upon the recommendation of the Security Council. Both steps are required.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S04"
+      ],
+      "sourceLocator": "Security Council and decision-making",
+      "relationshipType": "security-council-decision-making",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F027",
+      "claim": "Delegates met at Bretton Woods in July 1944 and formulated the agreements for the IMF and IBRD. Both institutions are commonly called Bretton Woods institutions.",
+      "sourceIds": [
+        "CP011-S07"
+      ],
+      "sourceLocator": "Security Council and decision-making",
+      "relationshipType": "security-council-decision-making",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F028",
+      "claim": "The IMF was designed to promote monetary cooperation and provide financial support for balance-of-payments needs. The World Bank has a different development and reconstruction focus.",
+      "sourceIds": [
+        "CP011-S07",
+        "CP011-S08"
+      ],
+      "sourceLocator": "Bretton Woods institutions",
+      "relationshipType": "bretton-woods-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F029",
+      "claim": "The World Bank began with the International Bank for Reconstruction and Development. Its original role included financing reconstruction and development.",
+      "sourceIds": [
+        "CP011-S08"
+      ],
+      "sourceLocator": "Bretton Woods institutions",
+      "relationshipType": "bretton-woods-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F030",
+      "claim": "The IBRD was assigned a role in reconstruction and development finance. The IMF focused more directly on monetary cooperation and financial stability.",
+      "sourceIds": [
+        "CP011-S08"
+      ],
+      "sourceLocator": "Bretton Woods institutions",
+      "relationshipType": "bretton-woods-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F031",
+      "claim": "The Bretton Woods Conference formulated the Articles of Agreement for the IMF and IBRD. The UN Charter was negotiated later at San Francisco.",
+      "sourceIds": [
+        "CP011-S07"
+      ],
+      "sourceLocator": "Bretton Woods institutions",
+      "relationshipType": "bretton-woods-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F032",
+      "claim": "The institutions share a post-war economic framework but have distinct roles. The IMF focuses on monetary cooperation, while the IBRD supports reconstruction and development.",
+      "sourceIds": [
+        "CP011-S07",
+        "CP011-S08"
+      ],
+      "sourceLocator": "Bretton Woods institutions",
+      "relationshipType": "bretton-woods-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F033",
+      "claim": "The London Agreement established the International Military Tribunal and included its Charter. The trials addressed senior Nazi leaders after the war.",
+      "sourceIds": [
+        "CP011-S09"
+      ],
+      "sourceLocator": "Bretton Woods institutions",
+      "relationshipType": "bretton-woods-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F034",
+      "claim": "The Tribunal's Charter included crimes against humanity, alongside crimes against peace and war crimes. The category became important in post-war international law.",
+      "sourceIds": [
+        "CP011-S09"
+      ],
+      "sourceLocator": "Nuremberg and Tokyo tribunals",
+      "relationshipType": "nuremberg-tokyo-tribunals",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F035",
+      "claim": "The Nuremberg Tribunal delivered its judgment on 1 October 1946. The proceedings had begun in November 1945.",
+      "sourceIds": [
+        "CP011-S09"
+      ],
+      "sourceLocator": "Nuremberg and Tokyo tribunals",
+      "relationshipType": "nuremberg-tokyo-tribunals",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F036",
+      "claim": "The International Military Tribunal for the Far East held the Tokyo war-crimes trials. It was distinct from the Nuremberg tribunal in Europe.",
+      "sourceIds": [
+        "CP011-S10"
+      ],
+      "sourceLocator": "Nuremberg and Tokyo tribunals",
+      "relationshipType": "nuremberg-tokyo-tribunals",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F037",
+      "claim": "The Tokyo tribunal began on 3 May 1946 and delivered its judgment in November 1948. Its proceedings concerned Japanese wartime leaders.",
+      "sourceIds": [
+        "CP011-S10"
+      ],
+      "sourceLocator": "Nuremberg and Tokyo tribunals",
+      "relationshipType": "nuremberg-tokyo-tribunals",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F038",
+      "claim": "Nuremberg and Tokyo were separate post-war tribunals for leaders of Germany and Japan. Neither was a principal organ of the United Nations.",
+      "sourceIds": [
+        "CP011-S09",
+        "CP011-S10"
+      ],
+      "sourceLocator": "Nuremberg and Tokyo tribunals",
+      "relationshipType": "nuremberg-tokyo-tribunals",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F039",
+      "claim": "Germany was occupied by the four principal Allied powers after its surrender. Each administered an occupation zone under the post-war arrangements.",
+      "sourceIds": [
+        "CP011-S11",
+        "CP011-S12"
+      ],
+      "sourceLocator": "Nuremberg and Tokyo tribunals",
+      "relationshipType": "nuremberg-tokyo-tribunals",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F040",
+      "claim": "Berlin was located within the Soviet occupation zone but was itself divided into sectors administered by the four Allied powers. This arrangement later became a source of conflict.",
+      "sourceIds": [
+        "CP011-S11",
+        "CP011-S12"
+      ],
+      "sourceLocator": "Occupation and division of Germany",
+      "relationshipType": "occupation-division-of-germany",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F041",
+      "claim": "The Allied Control Council was intended to coordinate the four powers' administration of Germany. Cooperation between the occupying governments later broke down.",
+      "sourceIds": [
+        "CP011-S12"
+      ],
+      "sourceLocator": "Occupation and division of Germany",
+      "relationshipType": "occupation-division-of-germany",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F042",
+      "claim": "In 1949, the western occupation zones became the Federal Republic of Germany and the Soviet zone became the German Democratic Republic. The division reflected the growing Cold War split.",
+      "sourceIds": [
+        "CP011-S12"
+      ],
+      "sourceLocator": "Occupation and division of Germany",
+      "relationshipType": "occupation-division-of-germany",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F043",
+      "claim": "Berlin was divided into four sectors under Allied administration even though it lay within the Soviet occupation zone. This special status shaped later crises.",
+      "sourceIds": [
+        "CP011-S12"
+      ],
+      "sourceLocator": "Occupation and division of Germany",
+      "relationshipType": "occupation-division-of-germany",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F044",
+      "claim": "After the German surrender, the Allies governed Germany through occupation zones. The two German states were founded in 1949, not immediately in 1945.",
+      "sourceIds": [
+        "CP011-S11",
+        "CP011-S12"
+      ],
+      "sourceLocator": "Occupation and division of Germany",
+      "relationshipType": "occupation-division-of-germany",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F045",
+      "claim": "The United Nations has broad purposes set out in its Charter. The IMF is a separate Bretton Woods institution focused on monetary cooperation.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S07"
+      ],
+      "sourceLocator": "Occupation and division of Germany",
+      "relationshipType": "occupation-division-of-germany",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F046",
+      "claim": "The ICJ hears legal disputes submitted by states and gives advisory opinions when authorised. It does not try individuals for criminal responsibility.",
+      "sourceIds": [
+        "CP011-S05"
+      ],
+      "sourceLocator": "Judicial and trusteeship roles",
+      "relationshipType": "judicial-trusteeship-roles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F047",
+      "claim": "The ICJ is the UN's principal judicial organ and deals primarily with disputes between states. Nuremberg was a separate tribunal that tried individuals for international crimes.",
+      "sourceIds": [
+        "CP011-S05",
+        "CP011-S09"
+      ],
+      "sourceLocator": "Judicial and trusteeship roles",
+      "relationshipType": "judicial-trusteeship-roles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F048",
+      "claim": "The Trusteeship System was intended to advance inhabitants and guide trust territories toward self-government or independence. It was a post-war international oversight arrangement.",
+      "sourceIds": [
+        "CP011-S06"
+      ],
+      "sourceLocator": "Judicial and trusteeship roles",
+      "relationshipType": "judicial-trusteeship-roles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F049",
+      "claim": "The Trusteeship Council suspended operations in 1994 after Palau became independent.",
+      "sourceIds": [
+        "CP011-S06"
+      ],
+      "sourceLocator": "Judicial and trusteeship roles",
+      "relationshipType": "judicial-trusteeship-roles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F050",
+      "claim": "The Charter gives the General Assembly and Security Council distinct functions. The legal effect of an action depends on the organ and the Charter provision used.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S03",
+        "CP011-S04"
+      ],
+      "sourceLocator": "Judicial and trusteeship roles",
+      "relationshipType": "judicial-trusteeship-roles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F051",
+      "claim": "The Bretton Woods Conference took place in July 1944. The UN Charter was signed in June 1945 and entered into force in October 1945.",
+      "sourceIds": [
+        "CP011-S02",
+        "CP011-S07"
+      ],
+      "sourceLocator": "Judicial and trusteeship roles",
+      "relationshipType": "judicial-trusteeship-roles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F052",
+      "claim": "The London Agreement was signed in August 1945, the Nuremberg judgment followed in October 1946, and the Tokyo judgment came in November 1948.",
+      "sourceIds": [
+        "CP011-S09",
+        "CP011-S10"
+      ],
+      "sourceLocator": "Institutional chronology",
+      "relationshipType": "institutional-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F053",
+      "claim": "The post-war order included the United Nations, Bretton Woods institutions and separate war-crimes tribunals. They had different mandates and legal bases.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S07",
+        "CP011-S09"
+      ],
+      "sourceLocator": "Institutional chronology",
+      "relationshipType": "institutional-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F054",
+      "claim": "The original Charter named the USSR as a permanent member. That wording records the institution's founding context in 1945.",
+      "sourceIds": [
+        "CP011-S04"
+      ],
+      "sourceLocator": "Institutional chronology",
+      "relationshipType": "institutional-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F055",
+      "claim": "The tribunals were created by separate agreements and occupation authorities. Article 7 lists six principal UN organs and does not include them.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S09",
+        "CP011-S10"
+      ],
+      "sourceLocator": "Institutional chronology",
+      "relationshipType": "institutional-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F056",
+      "claim": "The IMF and IBRD were created within the Bretton Woods framework but were assigned different roles. The IMF dealt with monetary cooperation and the IBRD with reconstruction and development finance.",
+      "sourceIds": [
+        "CP011-S07",
+        "CP011-S08"
+      ],
+      "sourceLocator": "Institutional chronology",
+      "relationshipType": "institutional-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F057",
+      "claim": "The ICJ's role is to hear cases between states and provide advisory opinions under its statute. The other bodies listed have different mandates.",
+      "sourceIds": [
+        "CP011-S03",
+        "CP011-S05"
+      ],
+      "sourceLocator": "Post-war order and synthesis",
+      "relationshipType": "post-war-order-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F058",
+      "claim": "Article 110 required ratification by the five permanent Security Council members and a majority of the other signatories. The Charter entered into force on 24 October 1945.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S02"
+      ],
+      "sourceLocator": "Post-war order and synthesis",
+      "relationshipType": "post-war-order-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F059",
+      "claim": "The four-power occupation began after Germany's defeat. The Federal Republic and German Democratic Republic were founded later, in 1949.",
+      "sourceIds": [
+        "CP011-S11",
+        "CP011-S12"
+      ],
+      "sourceLocator": "Post-war order and synthesis",
+      "relationshipType": "post-war-order-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP011-F060",
+      "claim": "The UN Charter and Bretton Woods agreements established organisations with different mandates. Their shared post-war setting does not make their roles interchangeable.",
+      "sourceIds": [
+        "CP011-S01",
+        "CP011-S07",
+        "CP011-S08"
+      ],
+      "sourceLocator": "Post-war order and synthesis",
+      "relationshipType": "post-war-order-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    }
+  ]
+}
