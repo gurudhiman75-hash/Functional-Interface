@@ -78,9 +78,9 @@
         "CP010-S01",
         "CP010-S02"
       ],
-      "sourceLocator": "Outbreak and chronology",
+      "sourceLocator": "CP010-S01, timeline entry “September 1, 1939”; CP010-S02, section “1939,” opening paragraph.",
       "relationshipType": "outbreak-chronology",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused timeline/section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F002",
@@ -89,9 +89,9 @@
         "CP010-S01",
         "CP010-S02"
       ],
-      "sourceLocator": "Outbreak and chronology",
+      "sourceLocator": "CP010-S01, timeline entry “September 3, 1939”; CP010-S02, section “1939,” opening paragraph.",
       "relationshipType": "outbreak-chronology",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused timeline/section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F003",
@@ -100,9 +100,9 @@
         "CP010-S01",
         "CP010-S02"
       ],
-      "sourceLocator": "Outbreak and chronology",
+      "sourceLocator": "CP010-S01, timeline entry “September 17, 1939,” stating the Soviet Union invaded Poland from the east; CP010-S02, section “1939,” paragraph on Poland’s defeat and partition.",
       "relationshipType": "outbreak-chronology",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused timeline/section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F004",

@@ -16,10 +16,10 @@ The source register and source IDs exist for both chapters. Most canonical facts
 
 | Checkpoint | Canonical facts | Family-level locators | Focused locators |
 |---|---:|---:|---:|
-| CP009 | 60 | 58 | 2 |
-| CP010 | 60 | 56 | 4 |
+| CP009 | 60 | 55 | 5 |
+| CP010 | 60 | 53 | 7 |
 
-The focused locators are the six facts revised in the recent overlap work: CP009 Q058–Q059 and CP010 Q004–Q006/Q028. The locator count does not claim the remaining source citations are factually wrong; it shows that those facts still need passage-level verification.
+The focused locators include the six facts revised in the overlap work (CP009 Q058–Q059; CP010 Q004–Q006/Q028) and the opening chronology facts now verified (CP009 Q055–Q057; CP010 Q001–Q003). The locator count does not claim the remaining source citations are factually wrong; it shows that those facts still need passage-level verification.
 
 ## Required sequence
 

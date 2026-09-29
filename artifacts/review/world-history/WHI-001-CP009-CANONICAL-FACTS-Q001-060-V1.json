@@ -680,9 +680,9 @@
       "sourceIds": [
         "CP009-S14"
       ],
-      "sourceLocator": "Interwar chronology and synthesis",
+      "sourceLocator": "Opening paragraph stating that the pact was signed by Nazi Germany and the Soviet Union on August 23, 1939; also the first paragraph under the article heading.",
       "relationshipType": "interwar-chronology-and-synthesis",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F056",
@@ -690,9 +690,9 @@
       "sourceIds": [
         "CP009-S14"
       ],
-      "sourceLocator": "Interwar chronology and synthesis",
+      "sourceLocator": "Paragraph describing the secret protocol and the agreed German and Soviet spheres of influence in eastern Europe, including the division of Poland.",
       "relationshipType": "interwar-chronology-and-synthesis",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F057",
@@ -701,9 +701,9 @@
         "CP009-S14",
         "CP009-S15"
       ],
-      "sourceLocator": "Interwar chronology and synthesis",
+      "sourceLocator": "CP009-S15, opening paragraph states Germany invaded Poland on September 1, 1939; CP009-S14, “The German-Soviet Pact in Action,” first paragraph.",
       "relationshipType": "interwar-chronology-and-synthesis",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F058",
