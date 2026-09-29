@@ -9,10 +9,10 @@ The pool is available through the shared Question Studio reasoning-v1 package fo
 | Relation topology | Candidate count | Candidate examples |
 |---|---:|---|
 | Three nested classes | 10 | Sparrows / birds / animals; squares / rectangles / quadrilaterals; integers / rational numbers / real numbers; whole numbers / rational numbers / real numbers |
-| Two separate subsets in a common class | 12 | Snakes and lizards / reptiles; squares and circles / plane figures; spiders and insects / arthropods; pentagons and hexagons / polygons |
+| Two separate subsets in a common class | 12 | Turtles and snakes / reptiles; squares and circles / plane figures; spiders and insects / arthropods; pentagons and hexagons / polygons |
 | Two overlapping subsets in a common class | 11 | Prime and odd natural numbers; right and isosceles triangles; rectangles and rhombi / quadrilaterals; multiples of 4 and 6 / natural numbers |
 | One nested pair + one separate set | 1 | Cats / animals / boxes |
-| **Total** | **34** | Animal, astronomy, food, geometry, general classification, language, number, and geometry categories |
+| **Total** | **34** | animal, astronomy, food, geometry, general classification, language and number categories |
 
 The overlap candidates include explicit witnesses for the shared region and for both exclusive regions. For example, the prime / even natural number candidate uses 2 as a shared member, odd primes as a prime-only witness, and even composite natural numbers as an even-only witness.
 
