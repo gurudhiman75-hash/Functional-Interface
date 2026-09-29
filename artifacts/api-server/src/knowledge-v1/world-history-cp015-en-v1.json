@@ -1,0 +1,2210 @@
+[
+  {
+    "questionId": "WHI-CP015-Q001",
+    "englishQuestionId": "WHI-CP015-Q001",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Gorbachev, glasnost and perestroika",
+    "stem": "When did Mikhail Gorbachev become General Secretary of the Soviet Communist Party?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1985"
+      },
+      {
+        "key": "B",
+        "text": "1979"
+      },
+      {
+        "key": "C",
+        "text": "1989"
+      },
+      {
+        "key": "D",
+        "text": "1991"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Gorbachev emerged as Soviet leader in March 1985.",
+    "sourceIds": [
+      "CP015-S01",
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q002",
+    "englishQuestionId": "WHI-CP015-Q002",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F002",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Gorbachev, glasnost and perestroika",
+    "stem": "What did perestroika refer to in Gorbachev’s reform program?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A policy of restoring Stalin-era controls"
+      },
+      {
+        "key": "B",
+        "text": "Restructuring of the Soviet economy and political system"
+      },
+      {
+        "key": "C",
+        "text": "A treaty to reunify Germany"
+      },
+      {
+        "key": "D",
+        "text": "The creation of the Warsaw Pact"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Perestroika means restructuring and referred to reforming Soviet institutions and the economy.",
+    "sourceIds": [
+      "CP015-S01",
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q003",
+    "englishQuestionId": "WHI-CP015-Q003",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F003",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Gorbachev, glasnost and perestroika",
+    "stem": "What did glasnost mean in Gorbachev’s reform vocabulary?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Collectivization of agriculture"
+      },
+      {
+        "key": "B",
+        "text": "Military containment"
+      },
+      {
+        "key": "C",
+        "text": "Openness and greater public discussion"
+      },
+      {
+        "key": "D",
+        "text": "The dissolution of the United Nations"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Glasnost promoted openness and a wider scope for public discussion.",
+    "sourceIds": [
+      "CP015-S01",
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q004",
+    "englishQuestionId": "WHI-CP015-Q004",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F004",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Gorbachev, glasnost and perestroika",
+    "stem": "Which Soviet leader introduced glasnost and perestroika?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Boris Yeltsin"
+      },
+      {
+        "key": "B",
+        "text": "Leonid Brezhnev"
+      },
+      {
+        "key": "C",
+        "text": "Nikita Khrushchev"
+      },
+      {
+        "key": "D",
+        "text": "Mikhail Gorbachev"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Gorbachev introduced the reform policies after becoming party leader in 1985.",
+    "sourceIds": [
+      "CP015-S01",
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q005",
+    "englishQuestionId": "WHI-CP015-Q005",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F005",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Gorbachev, glasnost and perestroika",
+    "stem": "What effect did Gorbachev’s changing policy have on Soviet control in Eastern Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It reduced the likelihood of Soviet military intervention to preserve communist governments"
+      },
+      {
+        "key": "B",
+        "text": "It brought Soviet troops into every Eastern European capital"
+      },
+      {
+        "key": "C",
+        "text": "It restored the Berlin Wall"
+      },
+      {
+        "key": "D",
+        "text": "It dissolved NATO immediately"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Gorbachev’s decision not to enforce Soviet control helped enable political change across Eastern Europe.",
+    "sourceIds": [
+      "CP015-S01",
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q006",
+    "englishQuestionId": "WHI-CP015-Q006",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F006",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Gorbachev, glasnost and perestroika",
+    "stem": "Which statement about Gorbachev’s reforms is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They were designed to restore the Russian Empire"
+      },
+      {
+        "key": "B",
+        "text": "They sought to reform the Soviet system but also opened space for challenges to its authority"
+      },
+      {
+        "key": "C",
+        "text": "They established the Commonwealth of Independent States in 1985"
+      },
+      {
+        "key": "D",
+        "text": "They ended the Cold War by a treaty in 1986"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The reforms were intended to renew the system but contributed to political change and weakening central authority.",
+    "sourceIds": [
+      "CP015-S01",
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q007",
+    "englishQuestionId": "WHI-CP015-Q007",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F007",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Eastern European transitions, 1989",
+    "stem": "Which movement challenged communist rule in Poland during the 1980s?",
+    "options": [
+      {
+        "key": "A",
+        "text": "FLN"
+      },
+      {
+        "key": "B",
+        "text": "ANC"
+      },
+      {
+        "key": "C",
+        "text": "Solidarity"
+      },
+      {
+        "key": "D",
+        "text": "Viet Minh"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Solidarity was a Polish trade union and social movement that became a major opposition force.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q008",
+    "englishQuestionId": "WHI-CP015-Q008",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F008",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Eastern European transitions, 1989",
+    "stem": "What did Poland’s 1989 Round Table talks lead to?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Soviet invasion of Poland"
+      },
+      {
+        "key": "B",
+        "text": "The restoration of the monarchy"
+      },
+      {
+        "key": "C",
+        "text": "Poland’s membership in the Warsaw Pact for the first time"
+      },
+      {
+        "key": "D",
+        "text": "An agreement for political reform and partially free elections"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The talks between the government and opposition opened a negotiated transition.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q009",
+    "englishQuestionId": "WHI-CP015-Q009",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F009",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Eastern European transitions, 1989",
+    "stem": "Which 1989 event took place in Hungary?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The country began dismantling border restrictions with Austria"
+      },
+      {
+        "key": "B",
+        "text": "The Berlin Blockade began"
+      },
+      {
+        "key": "C",
+        "text": "The August Coup was defeated"
+      },
+      {
+        "key": "D",
+        "text": "The Belavezha Agreement was signed"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Hungary’s opening of its border helped East Germans travel west and weakened the Iron Curtain.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q010",
+    "englishQuestionId": "WHI-CP015-Q010",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F010",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Eastern European transitions, 1989",
+    "stem": "Which description best fits the 1989 Velvet Revolution in Czechoslovakia?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A Soviet-led military invasion"
+      },
+      {
+        "key": "B",
+        "text": "A largely peaceful transition away from communist rule"
+      },
+      {
+        "key": "C",
+        "text": "A war to reunify Germany"
+      },
+      {
+        "key": "D",
+        "text": "A treaty creating the CIS"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Mass demonstrations and political negotiations brought a peaceful transition.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q011",
+    "englishQuestionId": "WHI-CP015-Q011",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F011",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Eastern European transitions, 1989",
+    "stem": "What broad political change took place across much of Eastern Europe in 1989–1990?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Warsaw Pact expanded to include Western Europe"
+      },
+      {
+        "key": "B",
+        "text": "All states became part of the Soviet Union"
+      },
+      {
+        "key": "C",
+        "text": "Communist governments fell and competitive elections were introduced"
+      },
+      {
+        "key": "D",
+        "text": "Colonial rule replaced communist governments"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Many communist regimes fell and new political systems emerged, though national paths differed.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q012",
+    "englishQuestionId": "WHI-CP015-Q012",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F012",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Eastern European transitions, 1989",
+    "stem": "Which statement avoids treating Eastern Europe’s 1989 transitions as identical?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Every communist government was removed by a Soviet invasion"
+      },
+      {
+        "key": "B",
+        "text": "All transitions occurred on the same date and by the same method"
+      },
+      {
+        "key": "C",
+        "text": "No state held elections until after 2000"
+      },
+      {
+        "key": "D",
+        "text": "Many transitions were largely peaceful, while Romania experienced violent upheaval"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The transitions differed; Romania saw violence unlike several negotiated or largely peaceful changes.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q013",
+    "englishQuestionId": "WHI-CP015-Q013",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F013",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Berlin Wall and German reunification",
+    "stem": "On what date did the Berlin Wall’s crossing points open in 1989?",
+    "options": [
+      {
+        "key": "A",
+        "text": "9 November"
+      },
+      {
+        "key": "B",
+        "text": "3 October"
+      },
+      {
+        "key": "C",
+        "text": "12 September"
+      },
+      {
+        "key": "D",
+        "text": "25 December"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "East German authorities announced travel changes on 9 November 1989, leading to the opening of crossings.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S05",
+      "CP015-S06",
+      "CP015-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q014",
+    "englishQuestionId": "WHI-CP015-Q014",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F014",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Berlin Wall and German reunification",
+    "stem": "What event did the opening of the Berlin Wall symbolize?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The start of the Korean War"
+      },
+      {
+        "key": "B",
+        "text": "The weakening of the division between communist Eastern Europe and the West"
+      },
+      {
+        "key": "C",
+        "text": "The creation of NATO"
+      },
+      {
+        "key": "D",
+        "text": "The end of the Second World War"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Wall had symbolized Europe’s Cold War division; its opening marked the rapid erosion of that division.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S05",
+      "CP015-S06",
+      "CP015-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q015",
+    "englishQuestionId": "WHI-CP015-Q015",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F015",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Berlin Wall and German reunification",
+    "stem": "When was Germany formally reunified?",
+    "options": [
+      {
+        "key": "A",
+        "text": "9 November 1989"
+      },
+      {
+        "key": "B",
+        "text": "12 September 1990"
+      },
+      {
+        "key": "C",
+        "text": "3 October 1990"
+      },
+      {
+        "key": "D",
+        "text": "26 December 1991"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "East Germany joined the Federal Republic of Germany on 3 October 1990.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S05",
+      "CP015-S06",
+      "CP015-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q016",
+    "englishQuestionId": "WHI-CP015-Q016",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F016",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Berlin Wall and German reunification",
+    "stem": "What did the “Two Plus Four” talks involve?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The four Soviet republics and two Baltic states"
+      },
+      {
+        "key": "B",
+        "text": "The two superpowers and four NATO members"
+      },
+      {
+        "key": "C",
+        "text": "The two Koreas and four UN agencies"
+      },
+      {
+        "key": "D",
+        "text": "The two German states and the four Allied powers from the Second World War"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The participants were East and West Germany plus the United States, Soviet Union, Britain and France.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S05",
+      "CP015-S06",
+      "CP015-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q017",
+    "englishQuestionId": "WHI-CP015-Q017",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F017",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Berlin Wall and German reunification",
+    "stem": "What was the purpose of the 1990 Treaty on the Final Settlement with Respect to Germany?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Settle the external aspects of German reunification and restore full German sovereignty"
+      },
+      {
+        "key": "B",
+        "text": "Create the Berlin Airlift"
+      },
+      {
+        "key": "C",
+        "text": "Divide Germany into four new states"
+      },
+      {
+        "key": "D",
+        "text": "Establish the European Union"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Two Plus Four treaty settled the international terms of reunification.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S05",
+      "CP015-S06",
+      "CP015-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q018",
+    "englishQuestionId": "WHI-CP015-Q018",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F018",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Berlin Wall and German reunification",
+    "stem": "Which statement correctly orders the Berlin Wall’s opening and German reunification?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Germany reunified before the Wall opened"
+      },
+      {
+        "key": "B",
+        "text": "The Wall opened in November 1989; Germany reunified in October 1990"
+      },
+      {
+        "key": "C",
+        "text": "Both occurred on 3 October 1990"
+      },
+      {
+        "key": "D",
+        "text": "The Wall opened after the Soviet Union dissolved"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The opening preceded reunification by nearly a year.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S05",
+      "CP015-S06",
+      "CP015-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q019",
+    "englishQuestionId": "WHI-CP015-Q019",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F019",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Baltic independence and Soviet sovereignty",
+    "stem": "Which Baltic republic declared restoration of independence in March 1990?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Latvia"
+      },
+      {
+        "key": "B",
+        "text": "Estonia"
+      },
+      {
+        "key": "C",
+        "text": "Lithuania"
+      },
+      {
+        "key": "D",
+        "text": "Belarus"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Lithuania declared restoration of independence on 11 March 1990.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S04",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q020",
+    "englishQuestionId": "WHI-CP015-Q020",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Baltic independence and Soviet sovereignty",
+    "stem": "Which three states are the Baltic republics?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Belarus, Ukraine and Moldova"
+      },
+      {
+        "key": "B",
+        "text": "Armenia, Georgia and Azerbaijan"
+      },
+      {
+        "key": "C",
+        "text": "Poland, Hungary and Romania"
+      },
+      {
+        "key": "D",
+        "text": "Estonia, Latvia and Lithuania"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Estonia, Latvia and Lithuania are the three Baltic states.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S04",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q021",
+    "englishQuestionId": "WHI-CP015-Q021",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F021",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Baltic independence and Soviet sovereignty",
+    "stem": "What happened to the Baltic states during the Soviet period beginning in 1940?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Soviet Union occupied and annexed them, a status the United States did not recognize"
+      },
+      {
+        "key": "B",
+        "text": "They voluntarily joined NATO"
+      },
+      {
+        "key": "C",
+        "text": "They became independent UN trust territories"
+      },
+      {
+        "key": "D",
+        "text": "They were annexed by Germany after 1945"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The U.S. did not recognize the forcible incorporation of the Baltic states into the USSR.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S04",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q022",
+    "englishQuestionId": "WHI-CP015-Q022",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F022",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Baltic independence and Soviet sovereignty",
+    "stem": "What did Lithuania’s 1990 declaration assert?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Membership in the Warsaw Pact"
+      },
+      {
+        "key": "B",
+        "text": "Restoration of Lithuanian independence from Soviet rule"
+      },
+      {
+        "key": "C",
+        "text": "Unification with Poland"
+      },
+      {
+        "key": "D",
+        "text": "Creation of the Soviet Union"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Lithuania declared restoration of its independence while the Soviet Union still existed.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S04",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q023",
+    "englishQuestionId": "WHI-CP015-Q023",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F023",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Baltic independence and Soviet sovereignty",
+    "stem": "Which event followed the failed August 1991 coup in Moscow?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Soviet Union regained control of all Eastern Europe"
+      },
+      {
+        "key": "B",
+        "text": "The Berlin Wall was built"
+      },
+      {
+        "key": "C",
+        "text": "Several Soviet republics moved rapidly toward independence"
+      },
+      {
+        "key": "D",
+        "text": "Germany was divided into occupation zones"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The failed coup weakened central authority and accelerated republic independence declarations.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S04",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q024",
+    "englishQuestionId": "WHI-CP015-Q024",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F024",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Baltic independence and Soviet sovereignty",
+    "stem": "Which statement best distinguishes Soviet republic independence from German reunification?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both events created a new single-party federation"
+      },
+      {
+        "key": "B",
+        "text": "German reunification dissolved the Soviet Union by treaty"
+      },
+      {
+        "key": "C",
+        "text": "Soviet republics joined the Federal Republic of Germany"
+      },
+      {
+        "key": "D",
+        "text": "The Soviet republics became separate sovereign states; East Germany joined an existing West German state"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Soviet republics left a union, while East Germany acceded to the Federal Republic.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S04",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q025",
+    "englishQuestionId": "WHI-CP015-Q025",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F025",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Soviet republic independence",
+    "stem": "Which Soviet republic declared independence on 24 August 1991?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ukraine"
+      },
+      {
+        "key": "B",
+        "text": "Belarus"
+      },
+      {
+        "key": "C",
+        "text": "Lithuania"
+      },
+      {
+        "key": "D",
+        "text": "Kazakhstan"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Ukraine’s parliament declared independence on 24 August 1991.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q026",
+    "englishQuestionId": "WHI-CP015-Q026",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F026",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Soviet republic independence",
+    "stem": "What did voters in Ukraine support in the 1 December 1991 referendum?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Rejoining the Warsaw Pact"
+      },
+      {
+        "key": "B",
+        "text": "Confirmation of independence from the Soviet Union"
+      },
+      {
+        "key": "C",
+        "text": "Unification with Poland"
+      },
+      {
+        "key": "D",
+        "text": "Restoring the Russian Empire"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "A large majority supported the declaration of independence in the referendum.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q027",
+    "englishQuestionId": "WHI-CP015-Q027",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F027",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Soviet republic independence",
+    "stem": "Which former Soviet republic became independent last in 1991?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Estonia"
+      },
+      {
+        "key": "B",
+        "text": "Ukraine"
+      },
+      {
+        "key": "C",
+        "text": "Kazakhstan"
+      },
+      {
+        "key": "D",
+        "text": "Belarus"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Kazakhstan declared independence on 16 December 1991, the last Soviet republic to do so.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q028",
+    "englishQuestionId": "WHI-CP015-Q028",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F028",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Soviet republic independence",
+    "stem": "Which declaration did Belarus make in August 1991 after the failed Moscow coup?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It joined NATO"
+      },
+      {
+        "key": "B",
+        "text": "It restored the Soviet Union"
+      },
+      {
+        "key": "C",
+        "text": "It united with Lithuania"
+      },
+      {
+        "key": "D",
+        "text": "It declared independence from the Soviet Union"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Belarus declared independence on 25 August 1991, days after the coup attempt failed.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q029",
+    "englishQuestionId": "WHI-CP015-Q029",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F029",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Soviet republic independence",
+    "stem": "Which republic declared restoration of independence in April 1991?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Georgia"
+      },
+      {
+        "key": "B",
+        "text": "Moldova"
+      },
+      {
+        "key": "C",
+        "text": "Uzbekistan"
+      },
+      {
+        "key": "D",
+        "text": "Tajikistan"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Georgia declared restoration of independence on 9 April 1991.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q030",
+    "englishQuestionId": "WHI-CP015-Q030",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F030",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Soviet republic independence",
+    "stem": "Which statement describes the Soviet republics in 1991?",
+    "options": [
+      {
+        "key": "A",
+        "text": "All republics left the Union on one day by a single vote"
+      },
+      {
+        "key": "B",
+        "text": "Republics declared independence at different points as central authority weakened"
+      },
+      {
+        "key": "C",
+        "text": "Only the Baltic republics had constitutional republican status"
+      },
+      {
+        "key": "D",
+        "text": "The republics became provinces of a reunified Germany"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Declarations and referendums took place at different times during the breakdown of central authority.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q031",
+    "englishQuestionId": "WHI-CP015-Q031",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F031",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "August 1991 coup attempt",
+    "stem": "Against whom was the August 1991 coup attempt directed?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Boris Yeltsin"
+      },
+      {
+        "key": "B",
+        "text": "Helmut Kohl"
+      },
+      {
+        "key": "C",
+        "text": "Mikhail Gorbachev"
+      },
+      {
+        "key": "D",
+        "text": "Lech Wałęsa"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Hard-line Communist officials detained Gorbachev and tried to halt his reforms.",
+    "sourceIds": [
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q032",
+    "englishQuestionId": "WHI-CP015-Q032",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F032",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "August 1991 coup attempt",
+    "stem": "Who became a prominent opponent of the coup in Moscow?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Erich Honecker"
+      },
+      {
+        "key": "B",
+        "text": "Nicolae Ceaușescu"
+      },
+      {
+        "key": "C",
+        "text": "Slobodan Milošević"
+      },
+      {
+        "key": "D",
+        "text": "Boris Yeltsin"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Russian president Boris Yeltsin publicly resisted the coup plotters.",
+    "sourceIds": [
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q033",
+    "englishQuestionId": "WHI-CP015-Q033",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F033",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "August 1991 coup attempt",
+    "stem": "What was the outcome of the August 1991 coup attempt?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It failed after several days"
+      },
+      {
+        "key": "B",
+        "text": "It restored one-party rule across Eastern Europe"
+      },
+      {
+        "key": "C",
+        "text": "It reunited Germany"
+      },
+      {
+        "key": "D",
+        "text": "It dissolved NATO"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The coup collapsed by 21 August 1991.",
+    "sourceIds": [
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q034",
+    "englishQuestionId": "WHI-CP015-Q034",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F034",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "August 1991 coup attempt",
+    "stem": "How did the failed coup affect the Soviet central government?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It restored the Communist Party’s control over the republics"
+      },
+      {
+        "key": "B",
+        "text": "It weakened Gorbachev’s authority and accelerated the dissolution crisis"
+      },
+      {
+        "key": "C",
+        "text": "It resolved tensions between Gorbachev and Yeltsin"
+      },
+      {
+        "key": "D",
+        "text": "It ended the independence movements"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The coup’s failure strengthened Yeltsin and undermined the union’s central institutions.",
+    "sourceIds": [
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q035",
+    "englishQuestionId": "WHI-CP015-Q035",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F035",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "August 1991 coup attempt",
+    "stem": "Which office did Gorbachev resign from on 25 December 1991?",
+    "options": [
+      {
+        "key": "A",
+        "text": "President of the Russian Federation"
+      },
+      {
+        "key": "B",
+        "text": "Secretary-General of the United Nations"
+      },
+      {
+        "key": "C",
+        "text": "President of the Soviet Union"
+      },
+      {
+        "key": "D",
+        "text": "President of Germany"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Gorbachev announced his resignation as Soviet president on 25 December.",
+    "sourceIds": [
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q036",
+    "englishQuestionId": "WHI-CP015-Q036",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F036",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "August 1991 coup attempt",
+    "stem": "Which sequence is correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Gorbachev resigns → failed coup"
+      },
+      {
+        "key": "B",
+        "text": "Berlin Wall opens → failed coup in 1989"
+      },
+      {
+        "key": "C",
+        "text": "Belavezha Agreement → August coup in 1992"
+      },
+      {
+        "key": "D",
+        "text": "Failed coup in August 1991 → Gorbachev resigns in December 1991"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The coup attempt preceded Gorbachev’s resignation by four months.",
+    "sourceIds": [
+      "CP015-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q037",
+    "englishQuestionId": "WHI-CP015-Q037",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F037",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Belavezha Agreement and CIS formation",
+    "stem": "Which three republic leaders signed the Belavezha Agreement in December 1991?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Russia, Ukraine and Belarus"
+      },
+      {
+        "key": "B",
+        "text": "Estonia, Latvia and Lithuania"
+      },
+      {
+        "key": "C",
+        "text": "Poland, Hungary and Czechoslovakia"
+      },
+      {
+        "key": "D",
+        "text": "Armenia, Georgia and Azerbaijan"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The leaders of Russia, Ukraine and Belarus signed the agreement on 8 December 1991.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S07",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q038",
+    "englishQuestionId": "WHI-CP015-Q038",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F038",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Belavezha Agreement and CIS formation",
+    "stem": "What did the Belavezha Agreement proclaim?",
+    "options": [
+      {
+        "key": "A",
+        "text": "That Germany would remain divided"
+      },
+      {
+        "key": "B",
+        "text": "That the Soviet Union had ceased to exist and that a Commonwealth of Independent States would be created"
+      },
+      {
+        "key": "C",
+        "text": "That the Warsaw Pact would be renewed"
+      },
+      {
+        "key": "D",
+        "text": "That the Baltic states would join Russia"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The agreement declared the USSR’s existence ended and established the CIS framework.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S07",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q039",
+    "englishQuestionId": "WHI-CP015-Q039",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F039",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Belavezha Agreement and CIS formation",
+    "stem": "When was the Belavezha Agreement signed?",
+    "options": [
+      {
+        "key": "A",
+        "text": "21 December 1991"
+      },
+      {
+        "key": "B",
+        "text": "25 December 1991"
+      },
+      {
+        "key": "C",
+        "text": "8 December 1991"
+      },
+      {
+        "key": "D",
+        "text": "26 December 1991"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Russia, Ukraine and Belarus signed it on 8 December 1991.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S07",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q040",
+    "englishQuestionId": "WHI-CP015-Q040",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Belavezha Agreement and CIS formation",
+    "stem": "What was the purpose of the Alma-Ata Declaration of December 1991?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Create the Warsaw Pact"
+      },
+      {
+        "key": "B",
+        "text": "Restore Soviet rule over the Baltic states"
+      },
+      {
+        "key": "C",
+        "text": "Unify East and West Germany"
+      },
+      {
+        "key": "D",
+        "text": "Expand the CIS framework and set out cooperation among former Soviet republics"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "At Alma-Ata, additional republics joined the CIS framework and affirmed cooperation among themselves.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S07",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q041",
+    "englishQuestionId": "WHI-CP015-Q041",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F041",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Belavezha Agreement and CIS formation",
+    "stem": "Which name was given to the new association formed by former Soviet republics?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Commonwealth of Independent States"
+      },
+      {
+        "key": "B",
+        "text": "Organization of African Unity"
+      },
+      {
+        "key": "C",
+        "text": "European Coal and Steel Community"
+      },
+      {
+        "key": "D",
+        "text": "Warsaw Treaty Organization"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Commonwealth of Independent States was formed as the USSR broke apart.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S07",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q042",
+    "englishQuestionId": "WHI-CP015-Q042",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Belavezha Agreement and CIS formation",
+    "stem": "Which statement about the CIS is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It was a new name for NATO"
+      },
+      {
+        "key": "B",
+        "text": "It was a cooperation framework among some former Soviet republics, not a re-created USSR"
+      },
+      {
+        "key": "C",
+        "text": "It included every European state"
+      },
+      {
+        "key": "D",
+        "text": "It was founded before the Soviet Union"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The CIS linked a number of former Soviet republics after the union dissolved; it was not the USSR under another name.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S07",
+      "CP015-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q043",
+    "englishQuestionId": "WHI-CP015-Q043",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F043",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Dissolution of the USSR and international status",
+    "stem": "On what date did Gorbachev resign as president of the Soviet Union?",
+    "options": [
+      {
+        "key": "A",
+        "text": "8 December 1991"
+      },
+      {
+        "key": "B",
+        "text": "21 December 1991"
+      },
+      {
+        "key": "C",
+        "text": "25 December 1991"
+      },
+      {
+        "key": "D",
+        "text": "3 October 1990"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Gorbachev resigned on 25 December after the union’s authority had largely collapsed.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08",
+      "CP015-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q044",
+    "englishQuestionId": "WHI-CP015-Q044",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F044",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Dissolution of the USSR and international status",
+    "stem": "When did the Soviet Union formally dissolve?",
+    "options": [
+      {
+        "key": "A",
+        "text": "9 November 1989"
+      },
+      {
+        "key": "B",
+        "text": "3 October 1990"
+      },
+      {
+        "key": "C",
+        "text": "1 January 1992"
+      },
+      {
+        "key": "D",
+        "text": "26 December 1991"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Soviet of the Republics declared the union ceased to exist on 26 December 1991.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08",
+      "CP015-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q045",
+    "englishQuestionId": "WHI-CP015-Q045",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F045",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Dissolution of the USSR and international status",
+    "stem": "Which country continued the Soviet Union’s UN membership after its dissolution?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Russian Federation"
+      },
+      {
+        "key": "B",
+        "text": "Ukraine"
+      },
+      {
+        "key": "C",
+        "text": "Belarus"
+      },
+      {
+        "key": "D",
+        "text": "Kazakhstan"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Russian Federation notified the UN that it would continue the USSR’s membership.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08",
+      "CP015-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q046",
+    "englishQuestionId": "WHI-CP015-Q046",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Dissolution of the USSR and international status",
+    "stem": "What did the 1991 UN Yearbook report about the Soviet republics?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They all voted to restore the Russian Empire"
+      },
+      {
+        "key": "B",
+        "text": "They broke away from the 1922 Union Treaty and declared independence during 1991"
+      },
+      {
+        "key": "C",
+        "text": "They joined the European Union in 1991"
+      },
+      {
+        "key": "D",
+        "text": "They remained under a single Soviet government until 1995"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The republics declared independence and ended the union established by the 1922 treaty.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08",
+      "CP015-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q047",
+    "englishQuestionId": "WHI-CP015-Q047",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F047",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Dissolution of the USSR and international status",
+    "stem": "Which event came last in this sequence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Belavezha Agreement on 8 December 1991"
+      },
+      {
+        "key": "B",
+        "text": "Alma-Ata Declaration on 21 December 1991"
+      },
+      {
+        "key": "C",
+        "text": "The Soviet Union’s formal dissolution on 26 December 1991"
+      },
+      {
+        "key": "D",
+        "text": "Gorbachev’s resignation on 25 December 1991"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The formal dissolution declaration followed the December agreements and Gorbachev’s resignation.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08",
+      "CP015-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q048",
+    "englishQuestionId": "WHI-CP015-Q048",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F048",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Dissolution of the USSR and international status",
+    "stem": "Which result changed the political map of Eurasia in 1991?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The restoration of the Austro-Hungarian Empire"
+      },
+      {
+        "key": "B",
+        "text": "The reunification of Korea"
+      },
+      {
+        "key": "C",
+        "text": "The creation of a single European federation"
+      },
+      {
+        "key": "D",
+        "text": "The emergence of independent states from the former Soviet republics"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The dissolution of the USSR produced multiple independent states across Eurasia.",
+    "sourceIds": [
+      "CP015-S03",
+      "CP015-S08",
+      "CP015-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q049",
+    "englishQuestionId": "WHI-CP015-Q049",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F049",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+    "stem": "Which two Yugoslav republics declared independence on 25 June 1991?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Slovenia and Croatia"
+      },
+      {
+        "key": "B",
+        "text": "Bosnia and Herzegovina and Macedonia"
+      },
+      {
+        "key": "C",
+        "text": "Serbia and Montenegro"
+      },
+      {
+        "key": "D",
+        "text": "Kosovo and Vojvodina"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Slovenia and Croatia declared independence on 25 June 1991.",
+    "sourceIds": [
+      "CP015-S09",
+      "CP015-S10",
+      "CP015-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q050",
+    "englishQuestionId": "WHI-CP015-Q050",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F050",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+    "stem": "What happened after Slovenia and Croatia declared independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Yugoslavia immediately joined NATO"
+      },
+      {
+        "key": "B",
+        "text": "Armed conflict followed, including a short conflict in Slovenia and a longer war in Croatia"
+      },
+      {
+        "key": "C",
+        "text": "The Soviet Union dissolved that same day"
+      },
+      {
+        "key": "D",
+        "text": "Germany was divided again"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The breakup led to fighting in Slovenia and Croatia and later to wars elsewhere in the federation.",
+    "sourceIds": [
+      "CP015-S09",
+      "CP015-S10",
+      "CP015-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q051",
+    "englishQuestionId": "WHI-CP015-Q051",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F051",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+    "stem": "Which pair later became independent amid the breakup of Yugoslavia?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Greece and Albania"
+      },
+      {
+        "key": "B",
+        "text": "Lithuania and Latvia"
+      },
+      {
+        "key": "C",
+        "text": "Bosnia and Herzegovina and Macedonia"
+      },
+      {
+        "key": "D",
+        "text": "Ukraine and Belarus"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Bosnia and Herzegovina and Macedonia also declared independence as Yugoslavia broke apart.",
+    "sourceIds": [
+      "CP015-S09",
+      "CP015-S10",
+      "CP015-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q052",
+    "englishQuestionId": "WHI-CP015-Q052",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F052",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+    "stem": "Which institution was established by the UN Security Council in 1993 to prosecute crimes committed in the former Yugoslavia?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The International Court of Justice"
+      },
+      {
+        "key": "B",
+        "text": "The European Court of Human Rights"
+      },
+      {
+        "key": "C",
+        "text": "The International Criminal Court"
+      },
+      {
+        "key": "D",
+        "text": "The International Criminal Tribunal for the former Yugoslavia"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Security Council Resolution 827 formally established the ICTY in 1993.",
+    "sourceIds": [
+      "CP015-S09",
+      "CP015-S10",
+      "CP015-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q053",
+    "englishQuestionId": "WHI-CP015-Q053",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F053",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+    "stem": "Which statement distinguishes the breakup of Yugoslavia from the dissolution of the Soviet Union?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They were separate federations that broke apart through distinct processes"
+      },
+      {
+        "key": "B",
+        "text": "Yugoslavia was a Soviet republic"
+      },
+      {
+        "key": "C",
+        "text": "The USSR was one of Yugoslavia’s six republics"
+      },
+      {
+        "key": "D",
+        "text": "Both ended through the Belavezha Agreement"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Yugoslavia and the USSR were separate multinational federations with different sequences and agreements.",
+    "sourceIds": [
+      "CP015-S09",
+      "CP015-S10",
+      "CP015-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q054",
+    "englishQuestionId": "WHI-CP015-Q054",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F054",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+    "stem": "What was one early sign that Yugoslavia’s federal unity was breaking down?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Gorbachev announced perestroika in 1985"
+      },
+      {
+        "key": "B",
+        "text": "Slovenia and Croatia declared independence in June 1991"
+      },
+      {
+        "key": "C",
+        "text": "The Warsaw Pact was signed in 1955"
+      },
+      {
+        "key": "D",
+        "text": "The Berlin Blockade ended in 1949"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The two republics’ declarations of independence challenged the authority of the Yugoslav federation.",
+    "sourceIds": [
+      "CP015-S09",
+      "CP015-S10",
+      "CP015-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q055",
+    "englishQuestionId": "WHI-CP015-Q055",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F055",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "End-of-Cold-War chronology and map changes",
+    "stem": "Which sequence is in chronological order?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Germany reunifies → Berlin Wall opens → USSR dissolves → Belavezha Agreement"
+      },
+      {
+        "key": "B",
+        "text": "Belavezha Agreement → Wall opens → Germany reunifies → USSR dissolves"
+      },
+      {
+        "key": "C",
+        "text": "Berlin Wall opens → Germany reunifies → Belavezha Agreement → USSR dissolves"
+      },
+      {
+        "key": "D",
+        "text": "USSR dissolves → Wall opens → Belavezha Agreement → Germany reunifies"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The events occurred in November 1989, October 1990, December 8 1991, and December 26 1991.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S03",
+      "CP015-S05",
+      "CP015-S07",
+      "CP015-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q056",
+    "englishQuestionId": "WHI-CP015-Q056",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F056",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "End-of-Cold-War chronology and map changes",
+    "stem": "Which pair is correctly matched?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Perestroika — collective defence"
+      },
+      {
+        "key": "B",
+        "text": "Belavezha Agreement — German reunification"
+      },
+      {
+        "key": "C",
+        "text": "Two Plus Four — founding of the CIS"
+      },
+      {
+        "key": "D",
+        "text": "Glasnost — openness"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Glasnost is commonly translated as openness; perestroika as restructuring.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S03",
+      "CP015-S05",
+      "CP015-S07",
+      "CP015-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q057",
+    "englishQuestionId": "WHI-CP015-Q057",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F057",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "End-of-Cold-War chronology and map changes",
+    "stem": "Which event belonged to the end of the Soviet Union rather than German reunification?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Belavezha Agreement"
+      },
+      {
+        "key": "B",
+        "text": "The Two Plus Four Treaty"
+      },
+      {
+        "key": "C",
+        "text": "East Germany joining the Federal Republic"
+      },
+      {
+        "key": "D",
+        "text": "The Berlin Wall opening"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Belavezha Agreement concerned the USSR and creation of the CIS framework.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S03",
+      "CP015-S05",
+      "CP015-S07",
+      "CP015-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q058",
+    "englishQuestionId": "WHI-CP015-Q058",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F058",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "End-of-Cold-War chronology and map changes",
+    "stem": "Which statement correctly compares the Soviet and Yugoslav breakups?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both ended with a single agreement signed at Alma-Ata"
+      },
+      {
+        "key": "B",
+        "text": "Both involved multinational federations, but the processes and conflicts were distinct"
+      },
+      {
+        "key": "C",
+        "text": "Yugoslavia dissolved before the Berlin Wall was built"
+      },
+      {
+        "key": "D",
+        "text": "The Soviet Union was a Yugoslav-led alliance"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The two breakups were separate historical processes and should not be merged into one chronology.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S03",
+      "CP015-S05",
+      "CP015-S07",
+      "CP015-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q059",
+    "englishQuestionId": "WHI-CP015-Q059",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F059",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "End-of-Cold-War chronology and map changes",
+    "stem": "Which state transition occurred on 3 October 1990?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Soviet Union dissolved"
+      },
+      {
+        "key": "B",
+        "text": "Yugoslavia’s six republics declared independence"
+      },
+      {
+        "key": "C",
+        "text": "East Germany joined the Federal Republic of Germany"
+      },
+      {
+        "key": "D",
+        "text": "The Warsaw Pact was founded"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "German reunification took effect on 3 October 1990.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S03",
+      "CP015-S05",
+      "CP015-S07",
+      "CP015-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP015-Q060",
+    "englishQuestionId": "WHI-CP015-Q060",
+    "checkpointId": "WHI-001-CP015",
+    "factId": "WHI-CP015-F060",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "End-of-Cold-War chronology and map changes",
+    "stem": "What broad map change resulted from the end of the Cold War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The United States and Soviet Union became one state"
+      },
+      {
+        "key": "B",
+        "text": "The Korean peninsula reunified"
+      },
+      {
+        "key": "C",
+        "text": "All European borders returned to those of 1914"
+      },
+      {
+        "key": "D",
+        "text": "Germany reunified and the Soviet Union dissolved into independent states"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The period brought German reunification and the emergence of states from the former USSR, among other changes.",
+    "sourceIds": [
+      "CP015-S02",
+      "CP015-S03",
+      "CP015-S05",
+      "CP015-S07",
+      "CP015-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
