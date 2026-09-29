@@ -6,12 +6,8 @@ function percent(numerator: number, denominator: number): string {
   }
   const n = BigInt(numerator);
   const d = BigInt(denominator);
-  const hundredths = (n * 10_000n + d / 2n) / d;
-  const whole = hundredths / 100n;
-  const fraction = Number(hundredths % 100n);
-  if (fraction === 0) return `${whole}%`;
-  if (fraction % 10 === 0) return `${whole}.${fraction / 10}%`;
-  return `${whole}.${String(fraction).padStart(2, "0")}%`;
+  const roundedWholePercent = (n * 100n + d / 2n) / d;
+  return `${roundedWholePercent}%`;
 }
 
 function average(sum: number, count: number): string {
