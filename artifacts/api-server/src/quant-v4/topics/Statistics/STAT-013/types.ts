@@ -1,0 +1,5 @@
+export const STAT013_CONTRACTS = ["COMPONENTS","TREND","SEASONAL","CYCLICAL","IRREGULAR","ADDITIVE_MODEL","MULTIPLICATIVE_MODEL","MOVING_AVERAGE","CENTERED_MOVING_AVERAGE","LEAST_SQUARES_TREND","FORECAST","SEASONAL_INDEX"] as const;
+export type Stat013ContractId = typeof STAT013_CONTRACTS[number];
+export type Stat013ExamProfile = "SSC_CGL_TIER_II" | "SSC_CGL_JSO";
+export type Stat013State = {kind:"CLASSIFY"; answer:string} | {kind:"NUMERIC"; answer:number} | {kind:"DECISION"; answer:string};
+export type Stat013Question = Readonly<{packageId:"STAT-013";questionId:string;qlId:string;contractId:Stat013ContractId;seed:string;examProfile:Stat013ExamProfile;stem:string;options:readonly[string,string,string,string];correctIndex:number;answer:string;explanation:string;state:Stat013State;questionBankWritable:false;testEligible:false;mockTestEligible:false;publiclyPublishable:false;automaticStudentPublication:false;productionReleaseAuthorized:false}>;
