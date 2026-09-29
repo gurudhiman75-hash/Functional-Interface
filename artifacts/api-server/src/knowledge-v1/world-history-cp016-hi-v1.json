@@ -718,7 +718,7 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP005-CP005-S22"
+      "CP005-S22"
     ]
   },
   {
@@ -760,7 +760,7 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP005-CP005-S28"
+      "CP005-S28"
     ]
   },
   {
@@ -802,7 +802,7 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP005-CP005-S28"
+      "CP005-S28"
     ]
   },
   {
@@ -846,9 +846,9 @@
     ],
     "correctOption": "B",
     "sourceIds": [
-      "CP005-CP005-S01",
-      "CP005-CP005-S06",
-      "CP005-CP005-S29"
+      "CP005-S01",
+      "CP005-S06",
+      "CP005-S29"
     ]
   },
   {
@@ -891,8 +891,8 @@
     ],
     "correctOption": "B",
     "sourceIds": [
-      "CP006-CP006-S01",
-      "CP006-CP006-S02"
+      "CP006-S01",
+      "CP006-S02"
     ]
   },
   {
@@ -935,8 +935,8 @@
     ],
     "correctOption": "D",
     "sourceIds": [
-      "CP006-CP006-S01",
-      "CP006-CP006-S02"
+      "CP006-S01",
+      "CP006-S02"
     ]
   },
   {
@@ -978,7 +978,7 @@
     ],
     "correctOption": "D",
     "sourceIds": [
-      "CP006-CP006-S06"
+      "CP006-S06"
     ]
   },
   {
@@ -1022,9 +1022,9 @@
     ],
     "correctOption": "B",
     "sourceIds": [
-      "CP006-CP006-S05",
-      "CP006-CP006-S06",
-      "CP006-CP006-S08"
+      "CP006-S05",
+      "CP006-S06",
+      "CP006-S08"
     ]
   },
   {
@@ -1067,8 +1067,8 @@
     ],
     "correctOption": "B",
     "sourceIds": [
-      "CP007-CP007-S05",
-      "CP007-CP007-S06"
+      "CP007-S05",
+      "CP007-S06"
     ]
   },
   {
@@ -1111,8 +1111,8 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP007-CP007-S03",
-      "CP007-CP007-S09"
+      "CP007-S03",
+      "CP007-S09"
     ]
   },
   {
@@ -1155,8 +1155,8 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP007-CP007-S02",
-      "CP007-CP007-S11"
+      "CP007-S02",
+      "CP007-S11"
     ]
   },
   {
@@ -1199,8 +1199,8 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP007-CP007-S05",
-      "CP007-CP007-S11"
+      "CP007-S05",
+      "CP007-S11"
     ]
   },
   {
@@ -1243,8 +1243,8 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP008-CP008-S01",
-      "CP008-CP008-S05"
+      "CP008-S01",
+      "CP008-S05"
     ]
   },
   {
@@ -1287,8 +1287,8 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP008-CP008-S02",
-      "CP008-CP008-S08"
+      "CP008-S02",
+      "CP008-S08"
     ]
   },
   {
@@ -1331,8 +1331,8 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP008-CP008-S05",
-      "CP008-CP008-S08"
+      "CP008-S05",
+      "CP008-S08"
     ]
   },
   {
@@ -1375,8 +1375,8 @@
     ],
     "correctOption": "D",
     "sourceIds": [
-      "CP008-CP008-S04",
-      "CP008-CP008-S05"
+      "CP008-S04",
+      "CP008-S05"
     ]
   },
   {
@@ -1418,7 +1418,7 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP009-CP009-S03"
+      "CP009-S03"
     ]
   },
   {
@@ -1460,7 +1460,7 @@
     ],
     "correctOption": "B",
     "sourceIds": [
-      "CP009-CP009-S03"
+      "CP009-S03"
     ]
   },
   {
@@ -1503,8 +1503,8 @@
     ],
     "correctOption": "D",
     "sourceIds": [
-      "CP009-CP009-S03",
-      "CP009-CP009-S04"
+      "CP009-S03",
+      "CP009-S04"
     ]
   },
   {
@@ -1547,8 +1547,8 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP009-CP009-S04",
-      "CP009-CP009-S05"
+      "CP009-S04",
+      "CP009-S05"
     ]
   },
   {
@@ -1591,8 +1591,8 @@
     ],
     "correctOption": "B",
     "sourceIds": [
-      "CP010-CP010-S02",
-      "CP010-CP010-S01"
+      "CP010-S02",
+      "CP010-S01"
     ]
   },
   {
@@ -1635,8 +1635,8 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP010-CP010-S01",
-      "CP010-CP010-S02"
+      "CP010-S01",
+      "CP010-S02"
     ]
   },
   {
@@ -1679,8 +1679,8 @@
     ],
     "correctOption": "D",
     "sourceIds": [
-      "CP010-CP010-S01",
-      "CP010-CP010-S10"
+      "CP010-S01",
+      "CP010-S10"
     ]
   },
   {
@@ -1724,9 +1724,9 @@
     ],
     "correctOption": "D",
     "sourceIds": [
-      "CP010-CP010-S01",
-      "CP010-CP010-S02",
-      "CP010-CP010-S03"
+      "CP010-S01",
+      "CP010-S02",
+      "CP010-S03"
     ]
   },
   {
@@ -1768,7 +1768,7 @@
     ],
     "correctOption": "D",
     "sourceIds": [
-      "CP011-CP011-S01"
+      "CP011-S01"
     ]
   },
   {
@@ -1810,7 +1810,7 @@
     ],
     "correctOption": "B",
     "sourceIds": [
-      "CP011-CP011-S01"
+      "CP011-S01"
     ]
   },
   {
@@ -1852,7 +1852,7 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP011-CP011-S09"
+      "CP011-S09"
     ]
   },
   {
@@ -1895,8 +1895,8 @@
     ],
     "correctOption": "B",
     "sourceIds": [
-      "CP011-CP011-S11",
-      "CP011-CP011-S12"
+      "CP011-S11",
+      "CP011-S12"
     ]
   },
   {
@@ -1939,8 +1939,8 @@
     ],
     "correctOption": "B",
     "sourceIds": [
-      "CP012-CP012-S03",
-      "CP012-CP012-S01"
+      "CP012-S03",
+      "CP012-S01"
     ]
   },
   {
@@ -1983,8 +1983,8 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP012-CP012-S04",
-      "CP012-CP012-S05"
+      "CP012-S04",
+      "CP012-S05"
     ]
   },
   {
@@ -2027,8 +2027,8 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP012-CP012-S09",
-      "CP012-CP012-S10"
+      "CP012-S09",
+      "CP012-S10"
     ]
   },
   {
@@ -2072,9 +2072,9 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP012-CP012-S01",
-      "CP012-CP012-S12",
-      "CP012-CP012-S08"
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
     ]
   },
   {
@@ -2117,8 +2117,8 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP013-CP013-S01",
-      "CP013-CP013-S04"
+      "CP013-S01",
+      "CP013-S04"
     ]
   },
   {
@@ -2161,8 +2161,8 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP013-CP013-S13",
-      "CP013-CP013-S14"
+      "CP013-S13",
+      "CP013-S14"
     ]
   },
   {
@@ -2205,8 +2205,8 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP013-CP013-S13",
-      "CP013-CP013-S14"
+      "CP013-S13",
+      "CP013-S14"
     ]
   },
   {
@@ -2252,11 +2252,11 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP013-CP013-S01",
-      "CP013-CP013-S02",
-      "CP013-CP013-S04",
-      "CP013-CP013-S05",
-      "CP013-CP013-S10"
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
     ]
   },
   {
@@ -2298,7 +2298,7 @@
     ],
     "correctOption": "D",
     "sourceIds": [
-      "CP014-CP014-S08"
+      "CP014-S08"
     ]
   },
   {
@@ -2340,7 +2340,7 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP014-CP014-S08"
+      "CP014-S08"
     ]
   },
   {
@@ -2383,8 +2383,8 @@
     ],
     "correctOption": "D",
     "sourceIds": [
-      "CP014-CP014-S15",
-      "CP014-CP014-S16"
+      "CP014-S15",
+      "CP014-S16"
     ]
   },
   {
@@ -2430,11 +2430,11 @@
     ],
     "correctOption": "A",
     "sourceIds": [
-      "CP014-CP014-S01",
-      "CP014-CP014-S04",
-      "CP014-CP014-S08",
-      "CP014-CP014-S13",
-      "CP014-CP014-S14"
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
     ]
   },
   {
@@ -2477,8 +2477,8 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP015-CP015-S02",
-      "CP015-CP015-S14"
+      "CP015-S02",
+      "CP015-S14"
     ]
   },
   {
@@ -2523,10 +2523,10 @@
     ],
     "correctOption": "D",
     "sourceIds": [
-      "CP015-CP015-S02",
-      "CP015-CP015-S05",
-      "CP015-CP015-S06",
-      "CP015-CP015-S12"
+      "CP015-S02",
+      "CP015-S05",
+      "CP015-S06",
+      "CP015-S12"
     ]
   },
   {
@@ -2569,8 +2569,8 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP015-CP015-S03",
-      "CP015-CP015-S08"
+      "CP015-S03",
+      "CP015-S08"
     ]
   },
   {
@@ -2612,7 +2612,7 @@
     ],
     "correctOption": "C",
     "sourceIds": [
-      "CP015-CP015-S03"
+      "CP015-S03"
     ]
   }
 ]
