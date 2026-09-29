@@ -74,6 +74,10 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
 
     for (const question of first.questions) {
       assert(DI001_V2_TASK_KINDS.includes(question.kind), `${question.questionId} has an unknown task family.`);
+      assert(!/nearest whole|round(?:ed)? to the nearest|give the nearest whole/iu.test(question.stem), `${question.questionId} contains an explicit rounding instruction.`);
+      if (["PERCENTAGE_SELECTED", "OVERALL_SELECTION_PERCENTAGE", "SELECTION_RATE_DIFFERENCE", "AVERAGE_SELECTED"].includes(question.kind)) {
+        assert(/approximately|approximate|about/iu.test(question.stem), `${question.questionId} has a rounded answer but does not signal approximation.`);
+      }
       assert(question.options.length === first.optionCount && new Set(question.options).size === first.optionCount, `${question.questionId} has invalid options.`);
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId} has incorrect answer-index binding.`);
       assert(!/\d+\.\d+/u.test(learnerText(question)), `${question.questionId} exposes decimal learner-facing values.`);
