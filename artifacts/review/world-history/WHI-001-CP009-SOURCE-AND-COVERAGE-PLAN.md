@@ -22,16 +22,15 @@
 
 | Source ID | Source | Use and cautions |
 |---|---|---|
-| CP009-S01 | [U.S. Department of State — League of Nations](https://history.state.gov/milestones/1914-1920/league) | Covenant and U.S. ratification dispute. |
-| CP009-S02 | [U.S. Department of State — Treaty of Versailles and Paris Peace Conference](https://history.state.gov/milestones/1914-1920/paris-peace) | Settlement backdrop; avoid duplicating CP008’s treaty basics. |
-| CP009-S03 | [U.S. Holocaust Memorial Museum — The Weimar Republic](https://encyclopedia.ushmm.org/content/en/article/the-weimar-republic) | Political structure, crises and recovery; the Republic’s fall was not inevitable. |
-| CP009-S04 | [U.S. Holocaust Memorial Museum — The Great Depression](https://encyclopedia.ushmm.org/content/en/article/the-great-depression) | Economic downturn and political consequences in Germany. |
-| CP009-S05 | [U.S. Holocaust Memorial Museum — Nazi rise to power](https://encyclopedia.ushmm.org/content/en/article/the-nazi-rise-to-power) | Hitler’s appointment and Nazi consolidation, 1918–1933. |
-| CP009-S06 | [U.S. Holocaust Memorial Museum — Hitler Comes to Power: key dates](https://encyclopedia.ushmm.org/content/en/article/hitler-comes-to-power) | Dated political chronology. |
-| CP009-S07 | [U.S. Holocaust Memorial Museum — German prewar expansion](https://encyclopedia.ushmm.org/content/en/article/german-prewar-expansion) | Rearmament, Rhineland, Anschluss, Sudetenland and appeasement. |
-| CP009-S08 | [UK Parliament — Neville Chamberlain and the Munich Agreement](https://www.parliament.uk/about/living-heritage/transformingsociety/private-lives/yourcountry/collections/collections-second-world-war/parliamentarians-and-people/neville-chamberlain/) | British policy and Munich, September 1938. |
-| CP009-S09 | [UK Parliament Hansard — Munich Agreement debate, October 1938](https://hansard.parliament.uk/Commons/1938-10-05/debates/25851755-dbcd-4704-9334-fdf2574d6453/PolicyOfHisMajestySGovernment) | Contemporary debate and stated rationale; treat as a primary source, not a neutral verdict. |
-
+| CP009-S01 | [U.S. Department of State — Paris Peace Conference and Treaty of Versailles](https://history.state.gov/milestones/1914-1920/paris-peace) | Settlement and mandate context; avoid duplicating CP008 treaty basics. |
+| CP009-S02 | [U.S. Department of State — League of Nations](https://history.state.gov/milestones/1914-1920/league) | League covenant, structure and U.S. non-membership. |
+| CP009-S03 | [U.S. Holocaust Memorial Museum — The Weimar Republic](https://encyclopedia.ushmm.org/content/en/article/the-weimar-republic) | Republic structure, crisis and recovery; do not treat collapse as inevitable. |
+| CP009-S04 | [U.S. Holocaust Memorial Museum — The Great Depression](https://encyclopedia.ushmm.org/content/en/article/the-great-depression) | Economic crisis and political effects; distinguish contributing factors. |
+| CP009-S05 | [U.S. Holocaust Memorial Museum — Nazi rise to power](https://encyclopedia.ushmm.org/content/en/article/the-nazi-rise-to-power) | Political appointment and consolidation, 1918–1933. |
+| CP009-S06 | [U.S. Holocaust Memorial Museum — Hitler Comes to Power: key dates](https://encyclopedia.ushmm.org/content/en/article/hitler-comes-to-power) | Political chronology of Nazi rule. |
+| CP009-S07 | [U.S. Holocaust Memorial Museum — German prewar expansion](https://encyclopedia.ushmm.org/content/en/article/german-prewar-expansion) | Rearmament, Rhineland, Anschluss, Sudetenland, Munich and later expansion. |
+| CP009-S08 | [UK Parliament — Neville Chamberlain and the Munich Agreement](https://www.parliament.uk/about/living-heritage/transformingsociety/private-lives/yourcountry/collections/collections-second-world-war/parliamentarians-and-people/neville-chamberlain/) | British appeasement policy and Munich, September 1938. |
+| CP009-S09 | [U.S. Department of State — League of Nations Covenant](https://history.state.gov/historicaldocuments/frus1919Parisv13/ch10subch1) | Covenant text and limits of collective security. |
 | CP009-S10 | [U.S. Department of State — The Mukden Incident of 1931](https://history.state.gov/milestones/1921-1936/mukden-incident) | Japanese expansion in Manchuria and international response. |
 | CP009-S11 | [U.S. Holocaust Memorial Museum — Benito Mussolini](https://encyclopedia.ushmm.org/content/en/article/benito-mussolini-1) | Mussolini, March on Rome and appointment as prime minister. |
 | CP009-S12 | [U.S. Department of State — Foreign Relations of the United States, 1935: Ethiopia crisis papers](https://history.state.gov/historicaldocuments/frus1935v01/ch26) | Italian invasion of Ethiopia and diplomatic/League responses; contemporary sources are interested accounts. |
@@ -39,7 +38,10 @@
 | CP009-S14 | [U.S. Holocaust Memorial Museum — German-Soviet Pact](https://encyclopedia.ushmm.org/content/en/article/german-soviet-pact) | Pact, secret protocol and the path to the invasion of Poland. |
 | CP009-S15 | [U.S. Holocaust Memorial Museum — Invasion of Poland, Fall 1939](https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939) | Invasion date and outbreak of the Second World War in Europe. |
 | CP009-S16 | [U.S. Department of State, Office of the Historian — Foreign Relations of the United States, 1939, General, Volume I, Document 236](https://history.state.gov/historicaldocuments/frus1939v01/d236) | British assurance to Poland, the reciprocal April communiqué, and the August Anglo-Polish mutual assistance agreement. |
-
+| CP009-S17 | [U.S. Department of State, Office of the Historian — The Dawes Plan, the Young Plan, German Reparations, and Inter-allied War Debts](https://history.state.gov/milestones/1921-1936/dawes) | The 1924 Dawes Plan, restructuring of German reparations, currency stabilization, and foreign/U.S. loans. |
+| CP009-S18 | [U.S. Holocaust Memorial Museum — Foundations of the Nazi State](https://encyclopedia.ushmm.org/content/en/article/foundations-of-the-nazi-state) | Reichstag Fire Decree, Enabling Act, Gleichschaltung and dismantling of democratic institutions. |
+| CP009-S19 | [U.S. Holocaust Memorial Museum — Axis Powers in World War II](https://encyclopedia.ushmm.org/content/en/article/axis-powers-in-world-war-ii) | Prewar Axis aggression chronology, including Japan in Manchuria and Italy’s invasion of Ethiopia. |
+| CP009-S20 | [U.S. Department of State, Office of the Historian — Foreign Relations of the United States, 1937, Volume I, Document 272](https://history.state.gov/historicaldocuments/frus1937v01/d272) | Contemporary report of German and Italian military participation and foreign volunteers on both sides of the Spanish Civil War. |
 
 ## Focused source additions
 

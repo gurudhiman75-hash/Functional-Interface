@@ -56,16 +56,15 @@ Which region included former Ottoman territories placed under British or French 
 **Sources:** CP009-S01, CP009-S02, CP009-S09
 ### WHI-CP009-Q005 · Medium · Treaty and settlement
 
-Why is it inaccurate to describe the postwar mandates as immediate independence for former colonies?
+Under Article 22 of the League of Nations Covenant, how could certain communities formerly part of the Ottoman Empire be treated?
 
-- **A.** They were administered by outside powers under League supervision rather than becoming sovereign states at once
-- **B.** The League abolished all colonial administrations in 1919
-- **C.** The territories became part of Germany again
-- **D.** They were governed by elected global assemblies with full sovereignty
+- **A.** Their existence as independent nations could be provisionally recognized, subject to a Mandatory’s advice and assistance
+- **B.** They became fully sovereign immediately, without League oversight
+- **C.** They were administered as Class C territories under direct mandatory control
+- **D.** They returned to Ottoman sovereignty until the League dissolved
 **Answer:** A
-**Explanation:** Mandates remained under external administration and did not grant immediate sovereign independence.
+**Explanation:** Article 22 allowed certain former Ottoman communities to be provisionally recognized as independent nations while receiving administrative advice and assistance until they could stand alone.
 **Sources:** CP009-S01, CP009-S09
-
 ### WHI-CP009-Q006 · Easy · Treaty and settlement
 
 Which statement about postwar territorial settlements is accurate?
