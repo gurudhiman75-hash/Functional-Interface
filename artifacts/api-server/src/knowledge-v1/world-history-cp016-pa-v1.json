@@ -1,0 +1,2512 @@
+Warning: truncated output (original token count: 26160)
+Total output lines: 2618
+
+[
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਆਪਣੀਆਂ ਮੁਹਿੰਮਾਂ ਤੋਂ ਪਹਿਲਾਂ ਸਿਕੰਦਰ ਕਿਹੜੇ ਰਾਜ ਦਾ ਹਾਕਮ ਸੀ?",
+    "explanation": "ਸਿਕੰਦਰ ਮਕਦੂਨੀਆ ਦਾ ਰਾਜਾ ਸੀ। ਉਸ ਦੀਆਂ ਮੁਹਿੰਮਾਂ ਨੇ ਫ਼ਾਰਸੀ ਸਾਮਰਾਜ ਨੂੰ ਹਰਾਇਆ ਅਤੇ ਮਿਸਰ ਤੇ ਏਸ਼ੀਆ ਦੇ ਕੁਝ ਹਿੱਸਿਆਂ ਤੱਕ ਉਸ ਦਾ ਰਾਜ ਫੈਲਾਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q001-PA",
+    "englishQuestionId": "WHI-CP016-Q001",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F001",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q007",
+    "originFactId": "WHI-CP001-F007",
+    "originSourceIds": [
+      "S4"
+    ],
+    "originQuestionFamily": "Leader and region",
+    "questionFamily": "ਵਿਅਕਤੀ, ਭੂਮਿਕਾਵਾਂ ਅਤੇ ਵਿਚਾਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲਿਡੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਾਰਥੇਜ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਕਦੂਨੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਪਾਰਟਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP001-S4"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਰੋਮ ਦੇ ਇਨ੍ਹਾਂ ਰਾਜਨੀਤਕ ਬਦਲਾਵਾਂ ਦਾ ਸਹੀ ਕਾਲਕ੍ਰਮ ਚੁਣੋ।",
+    "explanation": "ਗਣਰਾਜ ਲਗਭਗ 509 ਈਸਾ ਪੂਰਵ ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਇਆ, ਆਗਸਟਸ ਨੂੰ 27 ਈਸਾ ਪੂਰਵ ਵਿੱਚ ਉਪਾਧੀ ਮਿਲੀ ਅਤੇ ਕਾਂਸਟੈਂਟਾਈਨ ਨੇ 330 ਈਸਵੀ ਵਿੱਚ ਕਾਂਸਟੈਂਟੀਨੋਪਲ ਨੂੰ ਰਾਜਧਾਨੀ ਬਣਾਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q002-PA",
+    "englishQuestionId": "WHI-CP016-Q002",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F002",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q019",
+    "originFactId": "WHI-CP001-F019",
+    "originSourceIds": [
+      "S5",
+      "S6"
+    ],
+    "originQuestionFamily": "Roman chronology",
+    "questionFamily": "ਘਟਨਾਵਾਂ, ਥਾਵਾਂ ਅਤੇ ਸਬੰਧਤ ਧਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਗਣਰਾਜ ਦੀ ਸ਼ੁਰੂਆਤ → ਕਾਂਸਟੈਂਟੀਨੋਪਲ ਰਾਜਧਾਨੀ ਬਣਿਆ → ਆਗਸਟਸ ਦੀ ਉਪਾਧੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਗਸਟਸ ਦੀ ਉਪਾਧੀ → ਗਣਰਾਜ ਦੀ ਸ਼ੁਰੂਆਤ → ਕਾਂਸਟੈਂਟੀਨੋਪਲ ਰਾਜਧਾਨੀ ਬਣਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਕਾਂਸਟੈਂਟੀਨੋਪਲ ਰਾਜਧਾਨੀ ਬਣਿਆ → ਗਣਰਾਜ ਦੀ ਸ਼ੁਰੂਆਤ → ਆਗਸਟਸ ਦੀ ਉਪਾਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਗਣਰਾਜ ਦੀ ਸ਼ੁਰੂਆਤ → ਆਗਸਟਸ ਦੀ ਉਪਾਧੀ → ਕਾਂਸਟੈਂਟੀਨੋਪਲ ਰਾਜਧਾਨੀ ਬਣਿਆ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP001-S5",
+      "CP001-S6"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮੰਗੋਲਾਂ ਦੇ ਰਾਜਨੀਤਕ ਏਕੀਕਰਨ ਨਾਲ ਸਿਲਕ ਰੋਡ ਦੇ ਵਪਾਰ ਉੱਤੇ ਕੀ ਅਸਰ ਪਿਆ?",
+    "explanation": "ਮੰਗੋਲ ਏਕੀਕਰਨ ਨੇ ਯੂਰੇਸ਼ੀਆ ਦੇ ਕੁਝ ਜ਼ਮੀਨੀ ਰਸਤਿਆਂ ਦੀ ਸੁਰੱਖਿਆ ਵਿੱਚ ਮਦਦ ਕੀਤੀ। ਇਨ੍ਹਾਂ ਰਸਤਿਆਂ ਨਾਲ ਦੂਰ-ਦੂਰ ਦੇ ਬਾਜ਼ਾਰ ਜੁੜੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q003-PA",
+    "englishQuestionId": "WHI-CP016-Q003",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F003",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q026",
+    "originFactId": "WHI-CP001-F026",
+    "originSourceIds": [
+      "S14"
+    ],
+    "originQuestionFamily": "Mongol history",
+    "questionFamily": "ਤਾਰੀਖਾਂ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚੀਨ ਅਤੇ ਪੱਛਮੀ ਏਸ਼ੀਆ ਦਾ ਸਾਰਾ ਜ਼ਮੀਨੀ ਵਪਾਰ ਬੰਦ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਏਕੀਕਰਨ ਨਾਲ ਸਿਲਕ ਰੋਡ ਦੇ ਕੁਝ ਰਸਤੇ ਸੁਰੱਖਿਅਤ ਹੋਏ ਅਤੇ ਵਪਾਰ ਨੂੰ ਹੁਲਾਰਾ ਮਿਲਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੰਗੋਲ ਵਿਸਥਾਰ ਯੂਰਪ ਵਿੱਚ ਬਲੈਕ ਡੈਥ ਤੋਂ ਬਾਅਦ ਸ਼ੁਰੂ ਹੋਇਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਮੰਗੋਲ ਹਾਕਮਾਂ ਦਾ ਕਬਜ਼ਾ ਸਿਰਫ਼ ਭੂਮੱਧ ਸਾਗਰ ਦੇ ਤੱਟ ਤੱਕ ਸੀ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP001-S14"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "कॉਰਪਸ ਜੂਰੀਸ ਸਿਵਿਲਿਸ ਦੇ ਰੂਪ ਵਿੱਚ ਰੋਮਨ ਕਾਨੂੰਨ ਕਿਹੜੇ ਬਿਜ਼ੈਂਟੀਨ ਸਮਰਾਟ ਦੇ ਸਮੇਂ ਇਕੱਠਾ ਕੀਤਾ ਗਿਆ?",
+    "explanation": "ਜਸਟਿਨੀਅਨ ਪਹਿਲਾ 527 ਤੋਂ 565 ਈਸਵੀ ਤੱਕ ਬਿਜ਼ੈਂਟੀਨ ਸਮਰਾਟ ਸੀ। ਉਸ ਦੇ ਰਾਜ ਦੌਰਾਨ ਰੋਮਨ ਕਾਨੂੰਨ ਇਕੱਠਾ ਕੀਤਾ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q004-PA",
+    "englishQuestionId": "WHI-CP016-Q004",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F004",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q034",
+    "originFactId": "WHI-CP001-F034",
+    "originSourceIds": [
+      "S20"
+    ],
+    "originQuestionFamily": "Byzantine ruler",
+    "questionFamily": "ਦਸਤਾਵੇਜ਼, ਸੰਧੀਆਂ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹੇਰਾਕਲੀਅਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਾਸਿਲ ਦੂਜਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਸਟਿਨੀਅਨ ਪਹਿਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਾਂਸਟੈਂਟਾਈਨ ਪਹਿਲਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP001-S20"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1516 ਵਿੱਚ ਛਪੀ Utopia ਕਿਸ ਨੇ ਲਿਖੀ?",
+    "explanation": "ਥਾਮਸ ਮੋਰ ਦੀ Utopia ਵਿੱਚ ਇੱਕ ਕਲਪਿਤ ਸਮਾਜ ਦਾ ਵੇਰਵਾ ਹੈ। ਇਹ ਪੁਨਰਜਾਗਰਣੀ ਮਨੁੱਖਵਾਦੀ ਲਿਖਤਾਂ ਦੀ ਅਹਿਮ ਰਚਨਾ ਬਣੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q005-PA",
+    "englishQuestionId": "WHI-CP016-Q005",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F005",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q007",
+    "originFactId": "WHI-CP002-F007",
+    "originSourceIds": [
+      "S2"
+    ],
+    "originQuestionFamily": "Person–work relationship",
+    "questionFamily": "ਦਸਤਾਵੇਜ਼, ਸੰਧੀਆਂ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੇਤਰਾਰਕ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਰੈਸਮਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੈਕਿਆਵੇਲੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਥਾਮਸ ਮੋਰ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP002-S2"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "The Divine Comedy ਕਿਸ ਨੇ ਲਿਖੀ?",
+    "explanation": "ਦਾਂਤੇ ਨੇ ਚੌਦ੍ਹਵੀਂ ਸਦੀ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ The Divine Comedy ਲਿਖੀ। ਇਤਾਲਵੀ ਭਾਸ਼ਾ ਦੀ ਵਰਤੋਂ ਨੇ ਲੋਕ-ਭਾਸ਼ਾ ਨੂੰ ਵੱਡੇ ਸਾਹਿਤ ਵਿੱਚ ਥਾਂ ਦਿਵਾਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q006-PA",
+    "englishQuestionId": "WHI-CP016-Q006",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F006",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q009",
+    "originFactId": "WHI-CP002-F009",
+    "originSourceIds": [
+      "S2"
+    ],
+    "originQuestionFamily": "Person–work relationship",
+    "questionFamily": "ਦਸਤਾਵੇਜ਼, ਸੰਧੀਆਂ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੇਤਰਾਰਕ"
+      },
+      {
+        "key": "B",
+        "text": "ਬੋਕਾਚਿਓ"
+      },
+      {
+        "key": "C",
+        "text": "ਦਾਂਤੇ ਅਲੀਘੀਏਰੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਰੀਓਸਤੋ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP002-S2"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1543 ਵਿੱਚ ਗ੍ਰਹਿ-ਮੰਡਲ ਦਾ ਸੂਰਜ-ਕੇਂਦਰੀ ਵੇਰਵਾ ਕਿਸ ਨੇ ਛਾਪਿਆ?",
+    "explanation": "ਕੋਪਰਨਿਕਸ ਦੀ 1543 ਦੀ ਕਿਤਾਬ ਨੇ ਸੂਰਜ ਨੂੰ ਗ੍ਰਹਿ-ਮੰਡਲ ਦੇ ਕੇਂਦਰ ਵਿੱਚ ਰੱਖਿਆ ਅਤੇ ਧਰਤੀ ਨੂੰ ਚਲਦਾ ਗ੍ਰਹਿ ਦੱਸਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q007-PA",
+    "englishQuestionId": "WHI-CP016-Q007",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F007",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q029",
+    "originFactId": "WHI-CP002-F029",
+    "originSourceIds": [
+      "S5"
+    ],
+    "originQuestionFamily": "Scientist–discovery",
+    "questionFamily": "ਦਸਤਾਵੇਜ਼, ਸੰਧੀਆਂ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਇਜ਼ਕ ਨਿਊਟਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਆੰਦਰਿਆਸ ਵੇਸਾਲੀਅਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਲੀਅਮ ਹਾਰਵੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਿਕੋਲਸ ਕੋਪਰਨਿਕਸ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP002-S5"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1494 ਦੀ Treaty of Tordesillas ਕਿਹੜੇ ਰਾਜਾਂ ਵਿਚਕਾਰ ਹੋਈ ਸੀ?",
+    "explanation": "ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ ਨੇ ਸਮੁੰਦਰ-ਪਾਰ ਇਲਾਕਿਆਂ ਦੇ ਦਾਅਵਿਆਂ ਦੀ ਹੋੜ ਵਿਚਕਾਰ 1494 ਵਿੱਚ ਇਹ ਸੰਧੀ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q008-PA",
+    "englishQuestionId": "WHI-CP016-Q008",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F008",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q043",
+    "originFactId": "WHI-CP002-F043",
+    "originSourceIds": [
+      "S10"
+    ],
+    "originQuestionFamily": "Treaty–event",
+    "questionFamily": "ਕਾਰਨ, ਨੀਤੀਆਂ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੁਰਤਗਾਲ ਅਤੇ ਨੀਦਰਲੈਂਡ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਇੰਗਲੈਂਡ ਅਤੇ ਫਰਾਂਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਪੇਨ ਅਤੇ ਓਟੋਮਨ ਸਾਮਰਾਜ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP002-S10"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਵਿਧਾਨਕ, ਕਾਰਜਕਾਰੀ ਅਤੇ ਨਿਆਂਕਾਰੀ ਤਾਕਤਾਂ ਵੱਖ ਰੱਖਣ ਦੀ ਦਲੀਲ ਕਿਸ ਨੇ ਦਿੱਤੀ?",
+    "explanation": "ਮੋਂਤੇਸਕਿਊ ਦਾ ਮਤ ਸੀ ਕਿ ਰਾਜ ਦੀਆਂ ਤਾਕਤਾਂ ਦੀ ਵੰਡ ਤਾਨਾਸ਼ਾਹੀ ਨੂੰ ਰੋਕਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q009-PA",
+    "englishQuestionId": "WHI-CP016-Q009",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F009",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q002",
+    "originFactId": "WHI-CP003-F002",
+    "originSourceIds": [
+      "S2"
+    ],
+    "originQuestionFamily": "Thinker–idea",
+    "questionFamily": "ਦਸਤਾਵੇਜ਼, ਸੰਧੀਆਂ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵੋਲਤੇਅਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਮੋਂਤੇਸਕਿਊ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੂਸੋ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੀਦਰੋ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP003-S2"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1776 ਵਿੱਚ ਅਮਰੀਕੀ ਬਸਤੀਆਂ ਵੱਲੋਂ ਮਨਜ਼ੂਰ ਕੀਤੇ ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਵਿੱਚ ਕਿਹੜੇ ਦੇਸ਼ ਤੋਂ ਵੱਖ ਹੋਣ ਦੀ ਗੱਲ ਕਹੀ ਗਈ ਸੀ?",
+    "explanation": "ਇਸ ਐਲਾਨ ਵਿੱਚ ਤੇਰਾਂ ਬਸਤੀਆਂ ਨੇ ਬ੍ਰਿਟਿਸ਼ ਰਾਜ ਤੋਂ ਵੱਖ ਹੋਣ ਦਾ ਫ਼ੈਸਲਾ ਦੱਸਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q010-PA",
+    "englishQuestionId": "WHI-CP016-Q010",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F010",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q005",
+    "originFactId": "WHI-CP003-F005",
+    "originSourceIds": [
+      "S4"
+    ],
+    "originQuestionFamily": "Document–event",
+    "questionFamily": "ਕਾਰਨ, ਨੀਤੀਆਂ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਪੇਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਗ੍ਰੇਟ ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੁਰਤਗਾਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਰਾਂਸ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP003-S4"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਤੂਸਾਂ ਲੂਵਰਤਿਊਰ ਕਿਹੜੇ ਇਨਕਲਾਬ ਦੇ ਅਹਿਮ ਆਗੂ ਬਣੇ?",
+    "explanation": "ਲੂਵਰਤਿਊਰ ਸੇਂਟ-ਡੋਮਿੰਗ ਦੇ ਗੁਲਾਮ ਬਣਾਏ ਲੋਕਾਂ ਦੇ ਵਿਦਰੋਹ ਦੇ ਅਹਿਮ ਆਗੂ ਸਨ, ਪਰ ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਤੋਂ ਪਹਿਲਾਂ ਉਨ੍ਹਾਂ ਦੀ ਮੌਤ ਹੋ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q011-PA",
+    "englishQuestionId": "WHI-CP016-Q011",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F011",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q016",
+    "originFactId": "WHI-CP003-F016",
+    "originSourceIds": [
+      "S7"
+    ],
+    "originQuestionFamily": "Revolution–leader",
+    "questionFamily": "ਨਤੀਜੇ ਅਤੇ ਅਸਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਮਰੀਕੀ ਇਨਕਲਾਬ"
+      },
+      {
+        "key": "B",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਜੁਲਾਈ ਇਨਕਲਾਬ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੂਨਾਨ ਦੀ ਆਜ਼ਾਦੀ ਦੀ ਜੰਗ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੈਤੀ ਇਨਕਲਾਬ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP003-S7"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅਮਰੀਕੀ ਇਨਕਲਾਬੀ ਲਹਿਰ ਲਈ ਫ਼ਰਾਂਸ ਦੀ ਮਦਦ ਕਿਉਂ ਅਹਿਮ ਸੀ?",
+    "explanation": "ਫ਼ਰਾਂਸੀਸੀ ਮਦਦ ਨਾਲ ਅਮਰੀਕੀ ਜੰਗੀ ਯਤਨ ਮਜ਼ਬੂਤ ਹੋਏ ਅਤੇ ਬ੍ਰਿਟੇਨ ਲਈ ਜੰਗ ਜਾਰੀ ਰੱਖਣੀ ਔਖੀ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q012-PA",
+    "englishQuestionId": "WHI-CP016-Q012",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F012",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q054",
+    "originFactId": "WHI-CP003-F054",
+    "originSourceIds": [
+      "S5",
+      "S18"
+    ],
+    "originQuestionFamily": "Cause–consequence",
+    "questionFamily": "ਲਹਿਰਾਂ, ਰਾਜ ਅਤੇ ਸਿਆਸੀ ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਤੁਰੰਤ ਅਮਰੀਕੀ ਸੰਵਿਧਾਨ ਦਾ ਖ਼ਾਕਾ ਤਿਆਰ ਕੀਤਾ।"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਸਾਰਾਟੋਗਾ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਜੰਗ ਮੁਕਾ ਦਿੱਤੀ।"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਬ੍ਰਿਟੇਨ ਵਿਰੁੱਧ ਫ਼ੌਜੀ, ਜਲ-ਸੈਨਾ ਅਤੇ ਕੂਟਨੀਤਕ ਮਦਦ ਦਿੱਤੀ।"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਬਸਤੀਆਂ ਨੂੰ ਮੁੜ ਬ੍ਰਿਟਿਸ਼ ਰਾਜ ਮੰਨਣ ਲਈ ਮਜਬੂਰ ਕੀਤਾ।"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP003-S5",
+      "CP003-S18"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1799 ਦੇ 18 ਬਰੂਮੇਅਰ ਤਖ਼ਤਾ ਪਲਟ ਵਿੱਚ ਕਿਸ ਨੇ ਸੱਤਾ ਹਥਿਆਈ?",
+    "explanation": "9–10 ਨਵੰਬਰ 1799 ਨੂੰ ਬੋਨਾਪਾਰਟ ਦੇ ਤਖ਼ਤਾ ਪਲਟ ਨੇ ਡਾਇਰੈਕਟਰੀ ਖ਼ਤਮ ਕੀਤੀ ਅਤੇ ਕੌਂਸਲੇਟ ਦਾ ਦੌਰ ਸ਼ੁਰੂ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q013-PA",
+    "englishQuestionId": "WHI-CP016-Q013",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F013",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q008",
+    "originFactId": "WHI-CP004-F008",
+    "originSourceIds": [
+      "S3"
+    ],
+    "originQuestionFamily": "Person–event",
+    "questionFamily": "ਦਸਤਾਵੇਜ਼, ਸੰਧੀਆਂ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲੂਈ ਅਠਾਰਵਾਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੈਪੋਲੀਅਨ ਬੋਨਾਪਾਰਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੈਟਰਨਿਖ"
+      },
+      {
+        "key": "D",
+        "text": "ਮੈਕਸਿਮਿਲੀਅਨ ਰੋਬਸਪੀਅਰ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP004-S3"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1812 ਵਿੱਚ ਰੂਸ ਉੱਤੇ ਨੈਪੋਲੀਅਨ ਦੇ ਹਮਲੇ ਦਾ ਅੰਤ ਕਿਹੜੇ ਨਤੀਜੇ ਨਾਲ ਹੋਇਆ?",
+    "explanation": "ਮੁਹਿੰਮ ਅਤੇ ਵਾਪਸੀ ਵਿੱਚ ਭਾਰੀ ਜਾਨੀ ਤੇ ਫ਼ੌਜੀ ਨੁਕਸਾਨ ਹੋਇਆ ਅਤੇ ਨੈਪੋਲੀਅਨ ਦੀ ਫ਼ੌਜੀ ਸਥਿਤੀ ਕਮਜ਼ੋਰ ਪਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q014-PA",
+    "englishQuestionId": "WHI-CP016-Q014",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F014",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q018",
+    "originFactId": "WHI-CP004-F018",
+    "originSourceIds": [
+      "S9"
+    ],
+    "originQuestionFamily": "Campaign–consequence",
+    "questionFamily": "ਤਾਰੀਖਾਂ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਤਬਾਹਕੁਨ ਵਾਪਸੀ ਨਾਲ ਗ੍ਰਾਂਦ ਆਰਮੀ ਬੁਰੀ ਤਰ੍ਹਾਂ ਕਮਜ਼ੋਰ ਹੋਈ"
+      },
+      {
+        "key": "B",
+        "text": "1789 ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਇਨਕਲਾਬ ਖ਼ਤਮ ਹੋਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੂਸ ਦਾ ਸਾਰਾ ਇਲਾਕਾ ਪੱਕੇ ਤੌਰ 'ਤੇ ਫ਼ਰਾਂਸ ਵਿੱਚ ਮਿਲਾ ਲਿਆ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੂਰਪੀ ਸੰਘ ਤੁਰੰਤ ਬਣ ਗਿਆ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP004-S9"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ:\n\n1. ਡਾਇਰੈਕਟਰੀ ਇਨਕਲਾਬ ਦੇ ਕੱਟੜ ਪੜਾਅ ਤੋਂ ਬਾਅਦ ਆਈ।  \n2. ਨੈਪੋਲੀਅਨ ਦੇ ਤਖ਼ਤਾ ਪਲਟ ਨੇ ਡਾਇਰੈਕਟਰੀ ਮੁਕਾਈ।  \n3. ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਵਾਟਰਲੂ ਦੀ ਜੰਗ ਤੋਂ ਪਹਿਲਾਂ ਹੋਈ।\n\nਕਿਹੜੇ ਕਥਨ ਸਹੀ ਹਨ?",
+    "explanation": "ਡਾਇਰੈਕਟਰੀ ਕੱਟੜ ਪੜਾਅ ਮਗਰੋਂ ਆਈ, ਨੈਪੋਲੀਅਨ ਦੇ ਤਖ਼ਤਾ ਪਲਟ ਨੇ ਇਸ ਨੂੰ ਮੁਕਾਇਆ ਅਤੇ ਵਿਯੇਨਾ ਕਾਂਗਰਸ 1814 ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਈ, 1815 ਦੀ ਵਾਟਰਲੂ ਜੰਗ ਤੋਂ ਪਹਿਲਾਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q015-PA",
+    "englishQuestionId": "WHI-CP016-Q015",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F015",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q024",
+    "originFactId": "WHI-CP004-F024",
+    "originSourceIds": [
+      "S3",
+      "S5"
+    ],
+    "originQuestionFamily": "Multi-statement",
+    "questionFamily": "ਗੱਠਜੋੜ, ਧਿਰਾਂ ਅਤੇ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 3"
+      },
+      {
+        "key": "B",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 2"
+      },
+      {
+        "key": "C",
+        "text": "ਕੇਵਲ 2 ਅਤੇ 3"
+      },
+      {
+        "key": "D",
+        "text": "1, 2 ਅਤੇ 3"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP004-S3",
+      "CP004-S5"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਨੈਪੋਲੀਅਨ ਦੇ ਰਾਜ ਦੇ ਅੰਤ ਬਾਰੇ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ:\n\n1. ਨੈਪੋਲੀਅਨ ਨੇ 1814 ਵਿੱਚ ਪਹਿਲੀ ਵਾਰ ਤਖ਼ਤ ਛੱਡਿਆ ਅਤੇ ਉਸ ਨੂੰ ਐਲਬਾ ਭੇਜਿਆ ਗਿਆ।  \n2. 1815 ਵਿੱਚ ਵਾਟਰਲੂ ਦੀ ਹਾਰ ਤੋਂ ਪਹਿਲਾਂ ਉਹ ਮੁੜ ਸੱਤਾ ਵਿੱਚ ਆਇਆ।  \n3. ਵਾਟਰਲੂ ਮਗਰੋਂ ਉਸ ਨੂੰ ਸੇਂਟ ਹੇਲੇਨਾ ਜਲਾਵਤਨ ਕੀਤਾ ਗਿਆ।\n\nਕਿਹੜੇ ਕਥਨ ਸਹੀ ਹਨ?",
+    "explanation": "ਪਹਿਲੀ ਵਾਰ ਤਖ਼ਤ ਛੱਡਣ ਮਗਰੋਂ ਨੈਪੋਲੀਅਨ ਐਲਬਾ ਗਿਆ; ਵਾਪਸੀ ਦਾ ਅੰਤ ਵਾਟਰਲੂ ਦੀ ਹਾਰ ਅਤੇ ਸੇਂਟ ਹੇਲੇਨਾ ਵਿੱਚ ਆਖ਼ਰੀ ਜਲਾਵਤਨੀ ਨਾਲ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q016-PA",
+    "englishQuestionId": "WHI-CP016-Q016",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F016",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q060",
+    "originFactId": "WHI-CP004-F060",
+    "originSourceIds": [
+      "S4",
+      "S5"
+    ],
+    "originQuestionFamily": "Multi-statement synthesis",
+    "questionFamily": "ਗੱਠਜੋੜ, ਧਿਰਾਂ ਅਤੇ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 3"
+      },
+      {
+        "key": "B",
+        "text": "1, 2 ਅਤੇ 3"
+      },
+      {
+        "key": "C",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 2"
+      },
+      {
+        "key": "D",
+        "text": "ਕੇਵਲ 2 ਅਤੇ 3"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP004-S4",
+      "CP004-S5"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਉੱਨੀਵੀਂ ਸਦੀ ਦੌਰਾਨ ਕਈ ਉਦਯੋਗਕ ਸ਼ਹਿਰ ਤੇਜ਼ੀ ਨਾਲ ਕਿਉਂ ਵਧੇ?",
+    "explanation": "ਫੈਕਟਰੀਆਂ ਅਤੇ ਖਾਣਾਂ ਦੀ ਤਨਖ਼ਾਹ ਵਾਲੀ ਮਜ਼ਦੂਰੀ ਲੋਕਾਂ ਨੂੰ ਸ਼ਹਿਰਾਂ ਵੱਲ ਲੈ ਗਈ। ਸ਼ਹਿਰਾਂ ਦੀ ਵਧਦੀ ਆਬਾਦੀ ਦੇ ਮੁਕਾਬਲੇ ਘਰ ਅਤੇ ਸਫ਼ਾਈ ਦੇ ਪ੍ਰਬੰਧ ਪਿੱਛੇ ਰਹਿ ਗਏ, ਜਿਸ ਨਾਲ ਭੀੜ ਅਤੇ ਗੰਦੇ ਹਾਲਾਤ ਬਣੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q017-PA",
+    "englishQuestionId": "WHI-CP016-Q017",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F017",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q013",
+    "originFactId": "WHI-CP005-F013",
+    "originSourceIds": [
+      "CP005-S22"
+    ],
+    "originQuestionFamily": "Urbanisation",
+    "questionFamily": "ਲਹਿਰਾਂ, ਰਾਜ ਅਤੇ ਸਿਆਸੀ ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਰਕਾਰਾਂ ਨੇ ਸਾਰੇ ਖੇਤ ਸ਼ਹਿਰਾਂ ਵਿੱਚ ਲਿਆ ਦਿੱਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਪਿੰਡਾਂ ਵਿੱਚ ਖਾਣਾਂ ਅਤੇ ਉਤਪਾਦਨ ਉੱਤੇ ਪਾਬੰਦੀ ਲੱਗ ਗਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਫੈਕਟਰੀਆਂ ਦੇ ਰੁਜ਼ਗਾਰ ਨੇ ਪਿੰਡਾਂ ਦੇ ਲੋਕਾਂ ਨੂੰ ਖਿੱਚਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਰੇਲਵੇ ਨੇ ਬਣੀਆਂ ਚੀਜ਼ਾਂ ਦੀ ਮੰਗ ਖ਼ਤਮ ਕਰ ਦਿੱਤੀ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP005-CP005-S22"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਬੈਲਜੀਅਮ ਵਿੱਚ ਉਦਯੋਗੀਕਰਨ ਦਾ ਸ਼ੁਰੂਆਤੀ ਕੇਂਦਰ ਕਿਹੜਾ ਇਲਾਕਾ ਬਣਿਆ?",
+    "explanation": "ਬੈਲਜੀਅਮ ਦਾ ਸ਼ੁਰੂਆਤੀ ਉਦਯੋਗਕ ਵਿਕਾਸ ਵਾਲੋਨੀਆ ਵਿੱਚ ਕੋਲਾ ਖਾਣ ਅਤੇ ਲੋਹੇ ਦੇ ਕੰਮ ਉੱਤੇ ਨਿਰਭਰ ਸੀ। ਲੀਏਜ ਅਤੇ ਸ਼ਾਰਲਰੋਆ ਇਸ ਦੇ ਮੁੱਖ ਇਲਾਕੇ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q018-PA",
+    "englishQuestionId": "WHI-CP016-Q018",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F018",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q038",
+    "originFactId": "WHI-CP005-F038",
+    "originSourceIds": [
+      "CP005-S28"
+    ],
+    "originQuestionFamily": "Industrialisation beyond Britain",
+    "questionFamily": "ਵਿਅਕਤੀ, ਭੂਮਿਕਾਵਾਂ ਅਤੇ ਵਿਚਾਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲੀਏਜ ਅਤੇ ਸ਼ਾਰਲਰੋਆ ਨੇੜੇ ਕੋਲੇ ਅਤੇ ਲੋਹੇ ਵਾਲੇ ਇਲਾਕੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਉੱਪਰੀ ਸਿਲੇਸੀਆ ਦੀ ਕੋਲਾ ਪੱਟੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਰ ਦਾ ਉਦਯੋਗਕ ਇਲਾਕਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਰੂਹਰ ਦਾ ਕੋਲਾ ਅਤੇ ਲੋਹਾ ਖੇਤਰ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP005-CP005-S28"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਯੂਰਪੀ ਮਹਾਂਦੀਪ ਵਿੱਚ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਉਦਯੋਗੀਕਰਨ ਹੋਇਆ?",
+    "explanation": "ਯੂਰਪੀ ਮਹਾਂਦੀਪ ਵਿੱਚ ਬੈਲਜੀਅਮ ਪਹਿਲਾ ਉਦਯੋਗਕ ਦੇਸ਼ ਬਣਿਆ। ਉੱਥੇ ਕੋਲੇ ਦੀਆਂ ਖਾਣਾਂ ਅਤੇ ਲੋਹੇ ਦਾ ਕੰਮ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q019-PA",
+    "englishQuestionId": "WHI-CP016-Q019",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F019",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q043",
+    "originFactId": "WHI-CP005-F043",
+    "originSourceIds": [
+      "CP005-S28"
+    ],
+    "originQuestionFamily": "Industrialisation beyond Britain",
+    "questionFamily": "ਵਿਅਕਤੀ, ਭੂਮਿਕਾਵਾਂ ਅਤੇ ਵਿਚਾਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੁਰਤਗਾਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਾਰਵੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੈਲਜੀਅਮ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੂਨਾਨ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP005-CP005-S28"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਬ੍ਰਿਟੇਨ ਦੇ ਇਨ੍ਹਾਂ ਸੁਧਾਰਾਂ ਨੂੰ ਸਹੀ ਸਮੇਂ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਕਿਹੜਾ ਵਿਕਲਪ ਰੱਖਦਾ ਹੈ?",
+    "explanation": "ਫੈਕਟਰੀ ਕਾਨੂੰਨ 1833 ਵਿੱਚ ਬਣਿਆ। ਚਾਰਟਿਸਟ ਲਹਿਰ ਅਤੇ ਚਾਰਟਰ 1830ਵਿਆਂ ਦੇ ਅਖੀਰ ਵਿੱਚ ਆਏ; ਪਟੀਸ਼ਨਾਂ 1839, 1842 ਅਤੇ 1848 ਵਿੱਚ ਦਿੱਤੀਆਂ ਗਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q020-PA",
+    "englishQuestionId": "WHI-CP016-Q020",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F020",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q056",
+    "originFactId": "WHI-CP005-F056",
+    "originSourceIds": [
+      "CP005-S01",
+      "CP005-S06",
+      "CP005-S29"
+    ],
+    "originQuestionFamily": "Reform chronology",
+    "questionFamily": "ਘਟਨਾਵਾਂ, ਥਾਵਾਂ ਅਤੇ ਸਬੰਧਤ ਧਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚਾਰਟਿਸਟ ਲਹਿਰ → 1833 ਦਾ ਫੈਕਟਰੀ ਕਾਨੂੰਨ → ਪੀਪਲਜ਼ ਚਾਰਟਰ"
+      },
+      {
+        "key": "B",
+        "text": "1833 ਦਾ ਫੈਕਟਰੀ ਕਾਨੂੰਨ → ਚਾਰਟਿਸਟ ਲਹਿਰ ਅਤੇ ਪੀਪਲਜ਼ ਚਾਰਟਰ → 1839–1848 ਦੀਆਂ ਪਟੀਸ਼ਨਾਂ"
+      },
+      {
+        "key": "C",
+        "text": "1833 ਦਾ ਫੈਕਟਰੀ ਕਾਨੂੰਨ → ਪੀਪਲਜ਼ ਚਾਰਟਰ → ਚਾਰਟਿਸਟ ਲਹਿਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੀਪਲਜ਼ ਚਾਰਟਰ → 1833 ਦਾ ਫੈਕਟਰੀ ਕਾਨੂੰਨ → ਚਾਰਟਿਸਟ ਲਹਿਰ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP005-CP005-S01",
+      "CP005-CP005-S06",
+      "CP005-CP005-S29"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਉੱਨੀਵੀਂ ਸਦੀ ਵਿੱਚ ਜ਼ੋਲਫ਼ਰਾਈਨ ਦੀ ਸਥਾਪਨਾ ਦੀ ਅਗਵਾਈ ਕਿਸ ਰਾਜ ਨੇ ਕੀਤੀ?",
+    "explanation": "ਕਸਟਮ-ਯੂਨੀਅਨ ਵਿੱਚ ਪ੍ਰਸ਼ੀਆ ਨੇ ਅਗਵਾਈ ਕੀਤੀ। ਆਸਟ੍ਰੀਆ ਜ਼ੋਲਫ਼ਰਾਈਨ ਤੋਂ ਬਾਹਰ ਰਿਹਾ, ਜਿਸ ਨਾਲ ਜਰਮਨ ਰਾਜਾਂ ਵਿੱਚ ਪ੍ਰਸ਼ੀਆ ਦਾ ਆਰਥਿਕ ਪ੍ਰਭਾਵ ਵਧਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q021-PA",
+    "englishQuestionId": "WHI-CP016-Q021",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F021",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q022",
+    "originFactId": "WHI-CP006-F022",
+    "originSourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "originQuestionFamily": "State and political base",
+    "questionFamily": "ਨਤੀਜੇ ਅਤੇ ਅਸਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੈਕਸਨੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਪ੍ਰਸ਼ੀਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਸਟ੍ਰੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਵੇਰੀਆ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP006-CP006-S01",
+      "CP006-CP006-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1848 ਦੀ ਫ਼ਰੈਂਕਫ਼ਰਟ ਯੋਜਨਾ ਅਤੇ ਪ੍ਰਸ਼ੀਆ ਦੀ ਅਗਵਾਈ ਹੇਠ ਜਰਮਨੀ ਦੇ ਏਕੀਕਰਨ ਵਿੱਚ ਮੁੱਖ ਫ਼ਰਕ ਕੀ ਸੀ?",
+    "explanation": "ਫ਼ਰੈਂਕਫ਼ਰਟ ਸਭਾ ਨੇ ਚੁਣੇ ਹੋਏ ਨੁਮਾਇੰਦਿਆਂ ਰਾਹੀਂ ਸੰਵਿਧਾਨਕ ਕੌਮੀ ਰਾਜ ਬਣਾਉਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ। 1871 ਦਾ ਜਰਮਨ ਸਾਮਰਾਜ ਪ੍ਰਸ਼ੀਆ ਦੀ ਅਗਵਾਈ ਵਾਲੀਆਂ ਜੰਗਾਂ ਅਤੇ ਸਿਆਸੀ ਸਮਝੌਤਿਆਂ ਰਾਹੀਂ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q022-PA",
+    "englishQuestionId": "WHI-CP016-Q022",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F022",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q024",
+    "originFactId": "WHI-CP006-F024",
+    "originSourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "originQuestionFamily": "Movement comparison",
+    "questionFamily": "ਤੁਲਨਾ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਵੇਂ ਯੋਜਨਾਵਾਂ ਇੱਕੋ ਸੰਸਦ ਨੇ ਪੂਰੀਆਂ ਕੀਤੀਆਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਫ਼ਰੈਂਕਫ਼ਰਟ ਦੀ ਅਗਵਾਈ ਬਿਸਮਾਰਕ ਨੇ ਕੀਤੀ, ਜਦਕਿ ਬਾਅਦ ਵਾਲਾ ਸਾਮਰਾਜ ਮੈਜ਼ੀਨੀ ਨੇ ਬਣਾਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਫ਼ਰੈਂਕਫ਼ਰਟ ਸਭਾ ਬਿਨਾਂ ਸੰਵਿਧਾਨ ਦੇ ਜਰਮਨੀ ਨੂੰ ਆਸਟ੍ਰੀਆ ਦੇ ਰਾਜ ਹੇਠ ਇਕੱਠਾ ਕਰਨਾ ਚਾਹੁੰਦੀ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਰੈਂਕਫ਼ਰਟ ਵਿੱਚ ਚੁਣੀ ਸਭਾ ਰਾਹੀਂ ਸੰਵਿਧਾਨਕ ਕੌਮੀ ਰਾਜ ਬਣਾਉਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਹੋਈ; ਬਾਅਦ ਦਾ ਏਕੀਕਰਨ ਪ੍ਰਸ਼ੀਆਈ ਰਾਜ ਦੀ ਅਗਵਾਈ ਹੇਠ ਹੋਇਆ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP006-CP006-S01",
+      "CP006-CP006-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1848 ਦੀਆਂ ਕੌਮੀ ਲਹਿਰਾਂ ਅਤੇ ਆਸਟ੍ਰੀਆ-ਹੰਗਰੀ ਸਮਝੌਤੇ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?",
+    "explanation": "1867 ਦੇ ਸਮਝੌਤੇ ਨੇ ਆਸਟ੍ਰੀਆ ਅਤੇ ਹੰਗਰੀ ਦੇ ਰਿਸ਼ਤੇ ਤੈਅ ਕੀਤੇ, ਪਰ ਸਾਮਰਾਜ ਦੇ ਹੋਰ ਕਈ ਕੌਮੀ ਸਮੂਹਾਂ ਦੀਆਂ ਸਿਆਸੀ ਮੰਗਾਂ ਪੂਰੀਆਂ ਨਹੀਂ ਹੋਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q023-PA",
+    "englishQuestionId": "WHI-CP016-Q023",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F023",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q035",
+    "originFactId": "WHI-CP006-F035",
+    "originSourceIds": [
+      "CP006-S06"
+    ],
+    "originQuestionFamily": "Movement comparison",
+    "questionFamily": "ਤੁਲਨਾ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1848 ਦੀਆਂ ਲਹਿਰਾਂ ਦਾ ਮਕਸਦ ਆਸਟ੍ਰੀਆ ਅਤੇ ਹੰਗਰੀ ਨੂੰ ਵਿਦੇਸ਼ੀ ਬਸਤੀਆਂ ਵਿੱਚ ਵੰਡਣਾ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਦੋਵਾਂ ਨੇ ਮੱਧ ਯੂਰਪ ਦੇ ਸਾਰੇ ਲੋਕਾਂ ਲਈ ਤੁਰੰਤ ਆਜ਼ਾਦ ਰਾਜ ਬਣਾਏ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਸਮਝੌਤੇ ਨੇ ਫ਼ਰੈਂਕਫ਼ਰਟ ਸਭਾ ਮੁੜ ਕਾਇਮ ਕੀਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਸਮਝੌਤੇ ਨੇ ਇੱਕੋ ਰਾਜਤੰਤਰ ਵਿੱਚ ਆਸਟ੍ਰੀਆਈ ਅਤੇ ਹੰਗਰੀਆਈ ਉੱਚ ਵਰਗ ਨੂੰ ਥਾਂ ਦਿੱਤੀ, ਪਰ ਹੋਰ ਕਈ ਕੌਮੀ ਸਮੂਹ ਨਾਖੁਸ਼ ਰਹੇ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP006-CP006-S06"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਬਾਲਕਨ ਖੇਤਰ ਦੇ ਇਨ੍ਹਾਂ ਘਟਨਾਕ੍ਰਮਾਂ ਦਾ ਸਹੀ ਕਾਲਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਆਸਟ੍ਰੀਆ-ਹੰਗਰੀ ਸਮਝੌਤਾ ਸੈਨ ਸਟੇਫ਼ਾਨੋ ਦੀ ਸੰਧੀ ਤੋਂ ਪਹਿਲਾਂ ਹੋਇਆ। 1878 ਵਿੱਚ ਬਰਲਿਨ ਕਾਂਗਰਸ ਨੇ ਬਾਅਦ ਵਿੱਚ ਉਸ ਸਮਝੌਤੇ ਵਿੱਚ ਤਬਦੀਲੀ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q024-PA",
+    "englishQuestionId": "WHI-CP016-Q024",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F024",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q045",
+    "originFactId": "WHI-CP006-F045",
+    "originSourceIds": [
+      "CP006-S05",
+      "CP006-S06",
+      "CP006-S08"
+    ],
+    "originQuestionFamily": "Chronology and sequence",
+    "questionFamily": "ਘਟਨਾਵਾਂ, ਥਾਵਾਂ ਅਤੇ ਸਬੰਧਤ ਧਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1867 ਦਾ ਸਮਝੌਤਾ → ਬਰਲਿਨ ਕਾਂਗਰਸ (1878) → ਸੈਨ ਸਟੇਫ਼ਾਨੋ ਦੀ ਸੰਧੀ (1878)"
+      },
+      {
+        "key": "B",
+        "text": "1867 ਦਾ ਸਮਝੌਤਾ → ਸੈਨ ਸਟੇਫ਼ਾਨੋ ਦੀ ਸੰਧੀ (1878) → ਬਰਲਿਨ ਕਾਂਗਰਸ (1878)"
+      },
+      {
+        "key": "C",
+        "text": "ਸੈਨ ਸਟੇਫ਼ਾਨੋ ਦੀ ਸੰਧੀ (1878) → 1867 ਦਾ ਸਮਝੌਤਾ → ਬਰਲਿਨ ਕਾਂਗਰਸ (1878)"
+      },
+      {
+        "key": "D",
+        "text": "ਬਰਲਿਨ ਕਾਂਗਰਸ (1878) → ਸੈਨ ਸਟੇਫ਼ਾਨੋ ਦੀ ਸੰਧੀ (1878) → 1867 ਦਾ ਸਮਝੌਤਾ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP006-CP006-S05",
+      "CP006-CP006-S06",
+      "CP006-CP006-S08"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਯੂਰਪੀ ਤਾਕਤਾਂ ਨੇ ਕਈ ਬਸਤੀਆਂ ਵਿੱਚ ਬੰਦਰਗਾਹਾਂ ਅਤੇ ਰੇਲਵੇ ਕਿਉਂ ਬਣਾਏ?",
+    "explanation": "ਬਸਤੀਆਂ ਵਿੱਚ ਆਵਾਜਾਈ ਦੇ ਸਾਧਨ ਆਮ ਤੌਰ ’ਤੇ ਪ੍ਰਸ਼ਾਸਨ, ਫ਼ੌਜੀ ਆਵਾਜਾਈ ਅਤੇ ਵਸਤਾਂ ਕੱਢਣ ਜਾਂ ਲਿਜਾਣ ਲਈ ਵਰਤੇ ਜਾਂਦੇ ਸਨ। ਵੱਖ-ਵੱਖ ਖੇਤਰਾਂ ਵਿੱਚ ਇਨ੍ਹਾਂ ਦੀ ਵਰਤੋਂ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q025-PA",
+    "englishQuestionId": "WHI-CP016-Q025",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F025",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q005",
+    "originFactId": "WHI-CP007-F005",
+    "originSourceIds": [
+      "CP007-S05",
+      "CP007-S06"
+    ],
+    "originQuestionFamily": "Motive and method",
+    "questionFamily": "ਲਹਿਰਾਂ, ਰਾਜ ਅਤੇ ਸਿਆਸੀ ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇੱਕ ਸਾਂਝੀ ਅਫ਼ਰੀਕੀ ਸੰਸਦ ਬਣਾਉਣ ਲਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਪ੍ਰਸ਼ਾਸਨ, ਫ਼ੌਜੀ ਆਵਾਜਾਈ ਅਤੇ ਵਸਤਾਂ ਕੱਢਣ ਜਾਂ ਲਿਜਾਣ ਵਿੱਚ ਮਦਦ ਲਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਖਾਣਾਂ ਅਤੇ ਬਾਗ਼ਾਂ ਤੱਕ ਪਹੁੰਚ ਰੋਕਣ ਲਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੂਰਪ ਨਾਲ ਸਾਰਾ ਵਪਾਰ ਮੁਕਾਉਣ ਲਈ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP007-CP007-S05",
+      "CP007-CP007-S06"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਉੱਨੀਵੀਂ ਸਦੀ ਦੇ ਅਖ਼ੀਰ ਵਿੱਚ ਕਾਂਗੋ ਫ਼ਰੀ ਸਟੇਟ ਅਤੇ ਇਥੋਪੀਆ ਦੀ ਕਿਹੜੀ ਤੁਲਨਾ ਸਹੀ ਹੈ?",
+    "explanation": "ਲਿਓਪੋਲਡ ਦੂਜੇ ਨੇ ਕਾਂਗੋ ਫ਼ਰੀ ਸਟੇਟ ’ਤੇ ਰਾਜ ਕੀਤਾ, ਜਦਕਿ ਅਦਵਾ ਵਿੱਚ ਇਟਲੀ ਨੂੰ ਹਰਾਉਣ ਮਗਰੋਂ ਇਥੋਪੀਆ ਉਸ ਵੇਲੇ ਆਜ਼ਾਦ ਰਿਹਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q026-PA",
+    "englishQuestionId": "WHI-CP016-Q026",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F026",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q049",
+    "originFactId": "WHI-CP007-F049",
+    "originSourceIds": [
+      "CP007-S03",
+      "CP007-S09"
+    ],
+    "originQuestionFamily": "Comparison",
+    "questionFamily": "ਤੁਲਨਾ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਾਂਗੋ ’ਤੇ ਲਿਓਪੋਲਡ ਦੂਜੇ ਦਾ ਰਾਜ ਸੀ, ਜਦਕਿ ਇਥੋਪੀਆ ਨੇ ਅਦਵਾ ਵਿੱਚ ਇਟਲੀ ਨੂੰ ਹਰਾ ਕੇ ਆਜ਼ਾਦੀ ਕਾਇਮ ਰੱਖੀ"
+      },
+      {
+        "key": "B",
+        "text": "1908 ਵਿੱਚ ਬੈਲਜੀਅਮ ਨੇ ਦੋਵਾਂ ਨੂੰ ਆਪਣੇ ਨਾਲ ਮਿਲਾ ਲਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਦਵਾ ਮਗਰੋਂ ਇਥੋਪੀਆ ਜਰਮਨੀ ਦੀ ਸਰਪ੍ਰਸਤੀ ਹੇਠ ਆ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੋਵਾਂ ’ਤੇ ਲਿਓਪੋਲਡ ਦੂਜੇ ਦਾ ਰਾਜ ਸੀ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP007-CP007-S03",
+      "CP007-CP007-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਸਿੱਧੇ ਰਲੇਵੇਂ ਅਤੇ ਪ੍ਰਭਾਵ-ਖੇਤਰ ਵਿੱਚ ਕਿਹੜਾ ਫ਼ਰਕ ਸਹੀ ਹੈ?",
+    "explanation": "ਰਲੇਵੇਂ ਵਿੱਚ ਕਿਸੇ ਇਲਾਕੇ ਨੂੰ ਸਿੱਧੇ ਰਾਜ ਹੇਠ ਲਿਆ ਜਾਂਦਾ ਹੈ। ਪ੍ਰਭਾਵ-ਖੇਤਰ ਵਿੱਚ ਨਾਮਾਤਰ ਖ਼ੁਦਮੁਖ਼ਤਿਆਰੀ ਰਹਿ ਸਕਦੀ ਹੈ, ਪਰ ਬਾਹਰੀ ਤਾਕਤ ਨੂੰ ਖ਼ਾਸ ਹੱਕ ਮਿਲ ਜਾਂਦੇ ਹਨ। ਦੋਵੇਂ ਢੰਗ ਸਥਾਨਕ ਖ਼ੁਦਮੁਖ਼ਤਿਆਰੀ ਘਟਾ ਸਕਦੇ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q027-PA",
+    "englishQuestionId": "WHI-CP016-Q027",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F027",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q051",
+    "originFactId": "WHI-CP007-F051",
+    "originSourceIds": [
+      "CP007-S02",
+      "CP007-S11"
+    ],
+    "originQuestionFamily": "Comparison",
+    "questionFamily": "ਤੁਲਨਾ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਲੇਵੇਂ ਵਿੱਚ ਇਲਾਕਾ ਸਿੱਧੇ ਰਾਜ ਹੇਠ ਆ ਜਾਂਦਾ ਹੈ; ਪ੍ਰਭਾਵ-ਖੇਤਰ ਵਿੱਚ ਨਾਮਾਤਰ ਖ਼ੁਦਮੁਖ਼ਤਿਆਰੀ ਦੇ ਬਾਵਜੂਦ ਖ਼ਾਸ ਹੱਕ ਮਿਲ ਸਕਦੇ ਹਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਲੇਵਾਂ ਸਿਰਫ਼ ਵਪਾਰ ਨਾਲ ਸਬੰਧਤ ਹੈ, ਇਲਾਕੇ ਨਾਲ ਕਦੇ ਨਹੀਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਪ੍ਰਭਾਵ-ਖੇਤਰ ਦਾ ਕਾਬੂ ਹਮੇਸ਼ਾ ਰਲੇਵੇਂ ਨਾਲੋਂ ਵੱਧ ਸਿੱਧਾ ਹੁੰਦਾ ਹੈ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੋਵਾਂ ਨਾਲ ਹਮੇਸ਼ਾ ਪੂਰੀ ਤਰ੍ਹਾਂ ਆਜ਼ਾਦ ਰਾਜ ਬਣਦੇ ਹਨ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP007-CP007-S02",
+      "CP007-CP007-S11"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਅਫ਼ਰੀਕਾ ਅਤੇ ਚੀਨ ਵਿੱਚ ਯੂਰਪੀ ਸਾਮਰਾਜਵਾਦ ਦੀ ਤੁਲਨਾ ਕਿਹੜਾ ਬਿਆਨ ਸਭ ਤੋਂ ਸਹੀ ਕਰਦਾ ਹੈ?",
+    "explanation": "ਸਾਮਰਾਜੀ ਕਾਬੂ ਦੇ ਰੂਪ ਵੱਖਰੇ ਸਨ। ਅਫ਼ਰੀਕਾ ਦੇ ਕਈ ਇਲਾਕੇ ਸਿੱਧੇ ਬਸਤੀਵਾਦੀ ਰਾਜ ਹੇਠ ਆਏ, ਜਦਕਿ ਚੀਨ ਵਿੱਚ ਸਰਕਾਰ ਕਾਇਮ ਰਹੀ ਪਰ ਵਿਦੇਸ਼ੀ ਤਾਕਤਾਂ ਨੇ ਖ਼ਾਸ ਹੱਕ ਅਤੇ ਪ੍ਰਭਾਵ-ਖੇਤਰ ਬਣਾਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q028-PA",
+    "englishQuestionId": "WHI-CP016-Q028",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F028",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q052",
+    "originFactId": "WHI-CP007-F052",
+    "originSourceIds": [
+      "CP007-S05",
+      "CP007-S11"
+    ],
+    "originQuestionFamily": "Comparison",
+    "questionFamily": "ਤੁਲਨਾ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1900 ਮਗਰੋਂ ਹਰ ਅਫ਼ਰੀਕੀ ਇਲਾਕਾ ਆਜ਼ਾਦ ਰਿਹਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਚੀਨ ਵਿੱਚ ਯੂਰਪੀ ਤਾਕਤਾਂ ਦਾ ਕੋਈ ਪ੍ਰਭਾਵ ਨਹੀਂ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਫ਼ਰੀਕਾ ਦੇ ਕਈ ਇਲਾਕੇ ਸਿੱਧੇ ਬਸਤੀਵਾਦੀ ਰਾਜ ਹੇਠ ਆਏ, ਜਦਕਿ ਚੀਨ ਦੀ ਸਰਕਾਰ ਰਹੀ ਪਰ ਵਿਦੇਸ਼ੀ ਖ਼ਾਸ ਹੱਕ ਅਤੇ ਪ੍ਰਭਾਵ-ਖੇਤਰ ਕਾਇਮ ਰਹੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਚੀਨ ਨੂੰ ਵੀ ਅਫ਼ਰੀਕਾ ਵਾਂਗ ਉਨ੍ਹਾਂ ਹੀ ਸਿੱਧੀਆਂ ਬਸਤੀਆਂ ਵਿੱਚ ਵੰਡ ਦਿੱਤਾ ਗਿਆ"
+      }
+    ],
+    "correctOption": "C",
+    "so…1160 tokens truncated…08"
+    ],
+    "originQuestionFamily": "Fronts and battles",
+    "questionFamily": "ਬਿਆਨ-ਅਧਾਰਿਤ ਸਵਾਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਟੈਨਨਬਰਗ"
+      },
+      {
+        "key": "B",
+        "text": "ਪਾਸਚੈਂਡੇਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੋਮ"
+      },
+      {
+        "key": "D",
+        "text": "ਗੈਲੀਪੋਲੀ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP008-CP008-S05",
+      "CP008-CP008-S08"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਰੂਸੀ ਇਨਕਲਾਬਾਂ ਅਤੇ ਪਹਿਲੀ ਵਿਸ਼ਵ ਜੰਗ ਦਾ ਸਬੰਧ ਕਿਹੜਾ ਬਿਆਨ ਸਭ ਤੋਂ ਸਹੀ ਦੱਸਦਾ ਹੈ?",
+    "explanation": "1917 ਦੇ ਇਨਕਲਾਬਾਂ ਨੇ ਰੂਸ ਦੀ ਸਿਆਸਤ ਬਦਲ ਦਿੱਤੀ। ਬਾਅਦ ਵਿੱਚ ਬੋਲਸ਼ੇਵਿਕ ਸਰਕਾਰ ਨੇ 1918 ਵਿੱਚ ਵੱਖਰੀ ਸ਼ਾਂਤੀ ਸੰਧੀ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q032-PA",
+    "englishQuestionId": "WHI-CP016-Q032",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F032",
+    "originCheckpointId": "WHI-001-CP008",
+    "originQuestionId": "WHI-CP008-Q058",
+    "originFactId": "WHI-CP008-F058",
+    "originSourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "originQuestionFamily": "Integrated synthesis",
+    "questionFamily": "ਗੱਠਜੋੜ, ਧਿਰਾਂ ਅਤੇ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਨਕਲਾਬਾਂ ਨੇ 1917 ਵਿੱਚ ਵਰਸਾਈ ਦੀ ਸੰਧੀ ਬਣਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਨਕਲਾਬਾਂ ਨੇ ਤੁਰੰਤ ਸਾਰੇ ਜੰਗੀ ਧਿਰਾਂ ਦੀ ਜੰਗ ਮੁਕਾ ਦਿੱਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਫ਼ਰਵਰੀ ਇਨਕਲਾਬ ਨੇ ਅਮਰੀਕਾ ਨੂੰ ਜੰਗ ਵਿੱਚ ਲਿਆਂਦਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਨਕਲਾਬਾਂ ਨੇ ਰੂਸ ਦੀ ਸਰਕਾਰ ਬਦਲੀ ਅਤੇ ਆਖ਼ਰ ਬੋਲਸ਼ੇਵਿਕਾਂ ਨੂੰ ਜੰਗ ਤੋਂ ਬਾਹਰ ਹੋਣ ਵੱਲ ਲੈ ਗਈਆਂ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP008-CP008-S04",
+      "CP008-CP008-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਜਰਮਨੀ ਵਿੱਚ ਵਾਈਮਰ ਗਣਰਾਜ ਦੀ ਸਥਾਪਨਾ ਕਿਸ ਸੰਵਿਧਾਨ ਨਾਲ ਹੋਈ?",
+    "explanation": "ਵਾਈਮਰ ਸੰਵਿਧਾਨ 1919 ਵਿੱਚ ਅਪਣਾਇਆ ਗਿਆ ਅਤੇ ਇਸ ਨੇ ਜੰਗ ਮਗਰੋਂ ਜਰਮਨੀ ਵਿੱਚ ਗਣਰਾਜ ਕਾਇਮ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q033-PA",
+    "englishQuestionId": "WHI-CP016-Q033",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F033",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q017",
+    "originFactId": "WHI-CP009-F017",
+    "originSourceIds": [
+      "CP009-S03"
+    ],
+    "originQuestionFamily": "Republic and institutions",
+    "questionFamily": "ਕਾਰਨ, ਨੀਤੀਆਂ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1871 ਦਾ ਸੰਵਿਧਾਨ, ਬਿਨਾਂ ਕਿਸੇ ਤਬਦੀਲੀ ਦੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਰੋਮ ਦੀ ਸੰਧੀ"
+      },
+      {
+        "key": "C",
+        "text": "1919 ਵਿੱਚ ਅਪਣਾਇਆ ਗਿਆ ਸੰਵਿਧਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "1949 ਦਾ ਜਰਮਨ ਮੂਲ ਕਾਨੂੰਨ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-CP009-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਅਨੁਪਾਤਕ ਨੁਮਾਇੰਦਗੀ ਨੇ ਵਾਈਮਰ ਦੀ ਸਿਆਸਤ ਨੂੰ ਕਿਵੇਂ ਪ੍ਰਭਾਵਿਤ ਕੀਤਾ?",
+    "explanation": "ਅਨੁਪਾਤਕ ਨੁਮਾਇੰਦਗੀ ਨਾਲ ਕਈ ਪਾਰਟੀਆਂ ਨੂੰ ਸੀਟਾਂ ਮਿਲੀਆਂ ਅਤੇ ਗੱਠਜੋੜ ਸਰਕਾਰਾਂ ਬਣੀਆਂ। ਪੱਕਾ ਬਹੁਮਤ ਬਣਾਉਣਾ ਔਖਾ ਹੋ ਸਕਦਾ ਸੀ; ਇਹ ਸਿਆਸੀ ਅਸਥਿਰਤਾ ਦਾ ਇੱਕ ਕਾਰਨ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q034-PA",
+    "englishQuestionId": "WHI-CP016-Q034",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F034",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q024",
+    "originFactId": "WHI-CP009-F024",
+    "originSourceIds": [
+      "CP009-S03"
+    ],
+    "originQuestionFamily": "Economic causes and effects",
+    "questionFamily": "ਤਾਰੀਖਾਂ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਲੀਗ ਨੂੰ ਰਾਈਖਸਟਾਗ ਨਿਯੁਕਤ ਕਰਨ ਦਾ ਹੱਕ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨਾਲ ਛੋਟੀਆਂ ਪਾਰਟੀਆਂ ਨੂੰ ਸੀਟਾਂ ਮਿਲੀਆਂ ਅਤੇ ਸਥਿਰ ਸੰਸਦੀ ਗੱਠਜੋੜ ਬਣਾਉਣਾ ਔਖਾ ਹੋ ਸਕਦਾ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਸੋਸ਼ਲ ਡੈਮੋਕ੍ਰੈਟਾਂ ਤੋਂ ਬਿਨਾਂ ਸਾਰੀਆਂ ਪਾਰਟੀਆਂ ’ਤੇ ਪਾਬੰਦੀ ਲਾ ਦਿੱਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਇੱਕ ਪਾਰਟੀ ਦਾ ਪੱਕਾ ਬਹੁਮਤ ਯਕੀਨੀ ਬਣਾਇਆ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-CP009-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1929 ਮਗਰੋਂ ਅਮਰੀਕੀ ਕਰਜ਼ੇ ਘਟਣ ਨਾਲ ਜਰਮਨੀ ਖ਼ਾਸ ਤੌਰ ’ਤੇ ਸੰਕਟ ਵਿੱਚ ਕਿਉਂ ਆਇਆ?",
+    "explanation": "1920ਵਿਆਂ ਦੇ ਵਿਚਕਾਰ ਜਰਮਨੀ ਦੀ ਆਰਥਿਕ ਸੁਧਾਰ ਕਾਫ਼ੀ ਹੱਦ ਤੱਕ ਵਿਦੇਸ਼ੀ ਕਰਜ਼ੇ, ਜਿਸ ਵਿੱਚ ਅਮਰੀਕੀ ਕਰਜ਼ਾ ਵੀ ਸੀ, ’ਤੇ ਨਿਰਭਰ ਸੀ। ਕਰਜ਼ਾ ਵਾਪਸ ਖਿੱਚੇ ਜਾਣ ਨਾਲ ਉਸ ਨੂੰ ਵੱਡਾ ਝਟਕਾ ਲੱਗਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q035-PA",
+    "englishQuestionId": "WHI-CP016-Q035",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F035",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q026",
+    "originFactId": "WHI-CP009-F026",
+    "originSourceIds": [
+      "CP009-S03",
+      "CP009-S04"
+    ],
+    "originQuestionFamily": "Economic causes and effects",
+    "questionFamily": "ਲਹਿਰਾਂ, ਰਾਜ ਅਤੇ ਸਿਆਸੀ ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਸ ਕੋਲ ਉਦਯੋਗਿਕ ਅਰਥਚਾਰਾ ਹੀ ਨਹੀਂ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਹ ਪਹਿਲਾਂ ਹੀ ਰਾਸ਼ਟਰ ਸੰਘ ਛੱਡ ਚੁੱਕਾ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "1920ਵਿਆਂ ਵਿੱਚ ਉਸ ਨੂੰ ਕੋਈ ਕਰਜ਼ਾ ਨਹੀਂ ਮਿਲਿਆ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਸ ਦੀ ਆਰਥਿਕ ਸੁਧਾਰ ਵਿਦੇਸ਼ੀ ਕਰਜ਼ਿਆਂ, ਖ਼ਾਸ ਕਰਕੇ ਅਮਰੀਕੀ ਕਰਜ਼ੇ, ’ਤੇ ਕਾਫ਼ੀ ਨਿਰਭਰ ਸੀ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-CP009-S03",
+      "CP009-CP009-S04"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮਹਾਂਮੰਦੀ ਨੇ ਜਰਮਨੀ ਦੀ ਸਿਆਸਤ ’ਤੇ ਕੀ ਅਸਰ ਪਾਇਆ?",
+    "explanation": "ਮਹਾਂਮੰਦੀ ਨਾਲ ਆਰਥਿਕ ਤੰਗੀ ਵਧੀ ਅਤੇ ਨਾਜ਼ੀ ਪਾਰਟੀ ਸਮੇਤ ਕੱਟੜ ਪਾਰਟੀਆਂ ਨੂੰ ਵੱਧ ਸਮਰਥਨ ਮਿਲਿਆ। ਨਾਜ਼ੀਆਂ ਦੇ ਉਭਾਰ ਦਾ ਇਹ ਇਕੱਲਾ ਕਾਰਨ ਨਹੀਂ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q036-PA",
+    "englishQuestionId": "WHI-CP016-Q036",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F036",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q028",
+    "originFactId": "WHI-CP009-F028",
+    "originSourceIds": [
+      "CP009-S04",
+      "CP009-S05"
+    ],
+    "originQuestionFamily": "Economic causes and effects",
+    "questionFamily": "ਤਾਰੀਖਾਂ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਰਥਿਕ ਤੰਗੀ ਕਾਰਨ ਨਾਜ਼ੀਆਂ ਸਮੇਤ ਕੱਟੜ ਪਾਰਟੀਆਂ ਦਾ ਸਮਰਥਨ ਵਧਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਸਾਰੀ ਸਿਆਸੀ ਹਿੰਸਾ ਮੁਕਾ ਦਿੱਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਤੁਰੰਤ ਰਾਜਤੰਤਰ ਬਹਾਲ ਕਰ ਦਿੱਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਸੰਵਿਧਾਨ ਵਿੱਚੋਂ ਰਾਈਖਸਟਾਗ ਹਟਾ ਦਿੱਤਾ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-CP009-S04",
+      "CP009-CP009-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸਟਾਲਿਨਗਰਾਦ ਵਿੱਚ ਜਰਮਨ ਫ਼ੌਜ ਦੀ ਚੜ੍ਹਤ ਕਿਹੜੀ ਲੜਾਈ ਵਿੱਚ ਰੁਕੀ ਅਤੇ ਫ਼ਰਵਰੀ 1943 ਵਿੱਚ ਜਰਮਨ ਫ਼ੌਜਾਂ ਦੇ ਸਮਰਪਣ ਨਾਲ ਮੁੱਕੀ?",
+    "explanation": "ਜਰਮਨ ਛੇਵੀਂ ਫ਼ੌਜ ਨੇ ਫ਼ਰਵਰੀ 1943 ਵਿੱਚ ਸਟਾਲਿਨਗਰਾਦ ਵਿਖੇ ਸਮਰਪਣ ਕੀਤਾ। ਇਹ ਪੂਰਬੀ ਮੋਰਚੇ ਦਾ ਵੱਡਾ ਮੋੜ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q037-PA",
+    "englishQuestionId": "WHI-CP016-Q037",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F037",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q013",
+    "originFactId": "WHI-CP010-F013",
+    "originSourceIds": [
+      "CP010-S02",
+      "CP010-S01"
+    ],
+    "originQuestionFamily": "European theatre",
+    "questionFamily": "ਬਿਆਨ-ਅਧਾਰਿਤ ਸਵਾਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਲ ਅਲਾਮੇਨ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਟਾਲਿਨਗਰਾਦ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਲਜ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਿਟੇਨ ਦੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-CP010-S02",
+      "CP010-CP010-S01"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਪੂਰਬੀ ਮੋਰਚੇ ’ਤੇ ਕਿਹੜੀ ਲੜਾਈ ਨੂੰ ਵੱਡਾ ਮੋੜ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ?",
+    "explanation": "ਫ਼ਰਵਰੀ 1943 ਵਿੱਚ ਸਟਾਲਿਨਗਰਾਦ ਵਿਖੇ ਜਰਮਨ ਫ਼ੌਜ ਦੇ ਸਮਰਪਣ ਨਾਲ ਪੂਰਬੀ ਮੋਰਚੇ ’ਤੇ ਵੱਡਾ ਉਲਟਫੇਰ ਆਇਆ। ਇਸ ਤੋਂ ਬਾਅਦ ਸੋਵੀਅਤ ਫ਼ੌਜਾਂ ਹੌਲੀ-ਹੌਲੀ ਪੱਛਮ ਵੱਲ ਵਧੀਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q038-PA",
+    "englishQuestionId": "WHI-CP016-Q038",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F038",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q026",
+    "originFactId": "WHI-CP010-F026",
+    "originSourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ],
+    "originQuestionFamily": "Turning points",
+    "questionFamily": "ਬਿਆਨ-ਅਧਾਰਿਤ ਸਵਾਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਡੰਕਰਕ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਟਾਲਿਨਗਰਾਦ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੋਰਲ ਸਾਗਰ ਦੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-CP010-S01",
+      "CP010-CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਯੂਰਪ ਵਿੱਚ ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਦੇ ਵੱਡੇ ਮਨੁੱਖੀ ਨਤੀਜੇ ਨੂੰ ਕਿਹੜਾ ਬਿਆਨ ਦੱਸਦਾ ਹੈ?",
+    "explanation": "ਜੰਗ ਅਤੇ ਜ਼ੁਲਮ ਕਾਰਨ ਯੂਰਪ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕ ਬੇਘਰ ਹੋਏ। ਸੰਘਰਸ਼ ਮਗਰੋਂ ਕਈ ਲੋਕ ਆਪਣੇ ਪੁਰਾਣੇ ਘਰਾਂ ਨੂੰ ਪਰਤ ਨਹੀਂ ਸਕੇ ਜਾਂ ਪਰਤੇ ਨਹੀਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q039-PA",
+    "englishQuestionId": "WHI-CP016-Q039",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F039",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q058",
+    "originFactId": "WHI-CP010-F058",
+    "originSourceIds": [
+      "CP010-S01",
+      "CP010-S10"
+    ],
+    "originQuestionFamily": "Consequences and synthesis",
+    "questionFamily": "ਗੱਠਜੋੜ, ਧਿਰਾਂ ਅਤੇ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1945 ਵਿੱਚ ਸਾਰੇ ਆਮ ਲੋਕ ਤੁਰੰਤ ਘਰ ਪਰਤ ਗਏ"
+      },
+      {
+        "key": "B",
+        "text": "ਜੰਗ ਕਾਰਨ ਲੋਕਾਂ ਦੀ ਵੱਡੇ ਪੱਧਰ ’ਤੇ ਉਜਾੜ ਨਹੀਂ ਹੋਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਿਰਫ਼ ਫ਼ੌਜੀ ਹੀ ਉਜੜੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਲੱਖਾਂ ਆਮ ਲੋਕ ਆਪਣੇ ਘਰਾਂ ਤੋਂ ਉਜੜ ਗਏ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-CP010-S01",
+      "CP010-CP010-S10"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਦੇ ਵਿਸ਼ਵ-ਪੱਧਰੀ ਸਰੂਪ ਨੂੰ ਕਿਹੜਾ ਬਿਆਨ ਸਭ ਤੋਂ ਚੰਗੀ ਤਰ੍ਹਾਂ ਦੱਸਦਾ ਹੈ?",
+    "explanation": "ਇਹ ਜੰਗ ਕਈ ਮਹਾਂਦੀਪਾਂ ਅਤੇ ਸਮੁੰਦਰਾਂ ਵਿੱਚ ਚੱਲੀਆਂ ਮੁਹਿੰਮਾਂ ਨਾਲ ਜੁੜੀ ਸੀ। 1940 ਵਿੱਚ ਫ਼ਰਾਂਸ ਨਾਲ ਹੋਏ ਜੰਗਬੰਦੀ ਸਮਝੌਤੇ ਨਾਲ ਵੱਡੀ ਜੰਗ ਖ਼ਤਮ ਨਹੀਂ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q040-PA",
+    "englishQuestionId": "WHI-CP016-Q040",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F040",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q060",
+    "originFactId": "WHI-CP010-F060",
+    "originSourceIds": [
+      "CP010-S01",
+      "CP010-S02",
+      "CP010-S03"
+    ],
+    "originQuestionFamily": "Consequences and synthesis",
+    "questionFamily": "ਗੱਠਜੋੜ, ਧਿਰਾਂ ਅਤੇ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸ ਵੱਲੋਂ 1940 ਦੀ ਜੰਗਬੰਦੀ ’ਤੇ ਦਸਤਖ਼ਤ ਕਰਦੇ ਹੀ ਇਹ ਮੁੱਕ ਗਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਯੂਰਪੀ ਦੇਸ਼ ਸ਼ਾਮਲ ਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ ਸਿਰਫ਼ ਮੱਧ ਯੂਰਪ ਤੱਕ ਸੀਮਿਤ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਹ ਯੂਰਪ, ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਏਸ਼ੀਆ-ਪ੍ਰਸ਼ਾਂਤ ਖੇਤਰਾਂ ਵਿੱਚ ਲੜੀ ਗਈ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-CP010-S01",
+      "CP010-CP010-S02",
+      "CP010-CP010-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਦੇ ਆਰਟੀਕਲ 2 ਵਿੱਚ ਕਿਹੜਾ ਸਿਧਾਂਤ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਦੀ ਪ੍ਰਭੂਸੱਤਾ-ਬਰਾਬਰੀ ਨੂੰ ਮੰਨਦਾ ਹੈ?",
+    "explanation": "ਆਰਟੀਕਲ 2 ਮੈਂਬਰਾਂ ਦੀ ਪ੍ਰਭੂਸੱਤਾ-ਬਰਾਬਰੀ ਦਾ ਸਿਧਾਂਤ ਰੱਖਦਾ ਹੈ। ਇਸ ਦਾ ਮਤਲਬ ਇਹ ਨਹੀਂ ਕਿ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਹਰ ਸੰਸਥਾ ਵਿੱਚ ਸਭ ਦੇਸ਼ਾਂ ਦੀ ਭੂਮਿਕਾ ਇੱਕੋ ਜਿਹੀ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q041-PA",
+    "englishQuestionId": "WHI-CP016-Q041",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F041",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q007",
+    "originFactId": "WHI-CP011-F007",
+    "originSourceIds": [
+      "CP011-S01"
+    ],
+    "originQuestionFamily": "Charter principles and purposes",
+    "questionFamily": "ਕਾਰਨ, ਨੀਤੀਆਂ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਰ ਮੈਂਬਰ ਨੂੰ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਵਿੱਚ ਪੱਕੀ ਸੀਟ ਮਿਲਦੀ ਹੈ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰੇ ਦੇਸ਼ਾਂ ਦਾ ਸੰਵਿਧਾਨ ਇੱਕੋ ਜਿਹਾ ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਕੋਲ ਕੋਈ ਖ਼ਾਸ ਅਧਿਕਾਰ ਨਹੀਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਾਰੇ ਮੈਂਬਰ ਪ੍ਰਭੂਸੱਤਾ ਵਿੱਚ ਬਰਾਬਰ ਹਨ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP011-CP011-S01"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅੰਤਰਰਾਸ਼ਟਰੀ ਝਗੜੇ ਸੁਲਝਾਉਣ ਲਈ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਕਿਹੜੇ ਤਰੀਕੇ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰਦਾ ਹੈ?",
+    "explanation": "ਚਾਰਟਰ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਨੂੰ ਝਗੜੇ ਸ਼ਾਂਤਮਈ ਢੰਗ ਨਾਲ ਸੁਲਝਾਉਣ ਲਈ ਕਹਿੰਦਾ ਹੈ। ਕਿਹੜਾ ਤਰੀਕਾ ਵਰਤਣਾ ਹੈ, ਇਹ ਝਗੜੇ ਅਤੇ ਸਬੰਧਤ ਧਿਰਾਂ ’ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q042-PA",
+    "englishQuestionId": "WHI-CP016-Q042",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F042",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q009",
+    "originFactId": "WHI-CP011-F009",
+    "originSourceIds": [
+      "CP011-S01"
+    ],
+    "originQuestionFamily": "Charter principles and purposes",
+    "questionFamily": "ਕਾਰਨ, ਨੀਤੀਆਂ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੱਕੀ ਆਰਥਿਕ ਨਾਕਾਬੰਦੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਸ਼ਾਂਤਮਈ ਨਿਪਟਾਰਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਕ-ਪਾਸੜ ਰਲੇਵਾਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਗੁਪਤ ਫ਼ੌਜੀ ਕਬਜ਼ਾ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP011-CP011-S01"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਨਿਊਰੰਬਰਗ ਵਿੱਚ ਅੰਤਰਰਾਸ਼ਟਰੀ ਫ਼ੌਜੀ ਟ੍ਰਿਬਿਊਨਲ ਕਿਹੜੇ ਸਮਝੌਤੇ ਨਾਲ ਬਣਿਆ?",
+    "explanation": "ਲੰਡਨ ਸਮਝੌਤੇ ਨੇ ਅੰਤਰਰਾਸ਼ਟਰੀ ਫ਼ੌਜੀ ਟ੍ਰਿਬਿਊਨਲ ਬਣਾਇਆ ਅਤੇ ਇਸ ਦਾ ਚਾਰਟਰ ਵੀ ਸ਼ਾਮਲ ਕੀਤਾ। ਜੰਗ ਮਗਰੋਂ ਨਾਜ਼ੀ ਆਗੂਆਂ ’ਤੇ ਮੁਕੱਦਮੇ ਚਲਾਏ ਗਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q043-PA",
+    "englishQuestionId": "WHI-CP016-Q043",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F043",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q033",
+    "originFactId": "WHI-CP011-F033",
+    "originSourceIds": [
+      "CP011-S09"
+    ],
+    "originQuestionFamily": "Bretton Woods institutions",
+    "questionFamily": "ਕਾਰਨ, ਨੀਤੀਆਂ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "8 ਅਗਸਤ 1945 ਦਾ ਲੰਡਨ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "1919 ਦੀ ਵਰਸਾਈ ਸੰਧੀ"
+      },
+      {
+        "key": "C",
+        "text": "1954 ਦਾ ਜਨੀਵਾ ਐਲਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "26 ਜੂਨ 1945 ਦਾ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP011-CP011-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜੰਗ ਮਗਰੋਂ ਜਰਮਨੀ ਦੀ ਵੰਡ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਜਰਮਨੀ ਦੀ ਹਾਰ ਮਗਰੋਂ ਚਾਰ ਤਾਕਤਾਂ ਦਾ ਕਬਜ਼ਾ ਸ਼ੁਰੂ ਹੋਇਆ। ਬਾਅਦ ਵਿੱਚ 1949 ਵਿੱਚ ਪੱਛਮੀ ਜਰਮਨੀ ਦਾ ਸੰਘੀ ਗਣਰਾਜ ਅਤੇ ਪੂਰਬੀ ਜਰਮਨੀ ਦਾ ਲੋਕਤੰਤਰੀ ਗਣਰਾਜ ਬਣੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q044-PA",
+    "englishQuestionId": "WHI-CP016-Q044",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F044",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q059",
+    "originFactId": "WHI-CP011-F059",
+    "originSourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "originQuestionFamily": "Post-war order and synthesis",
+    "questionFamily": "ਗੱਠਜੋੜ, ਧਿਰਾਂ ਅਤੇ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਨੇ 1949 ਵਿੱਚ ਕਬਜ਼ੇ ਵਾਲੇ ਖੇਤਰ ਬਣਾਏ"
+      },
+      {
+        "key": "B",
+        "text": "ਚਾਰ ਤਾਕਤਾਂ ਦਾ ਕਬਜ਼ਾ ਪੂਰਬੀ ਅਤੇ ਪੱਛਮੀ ਜਰਮਨ ਰਾਜ ਬਣਨ ਤੋਂ ਪਹਿਲਾਂ ਹੋਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਰਲਿਨ ਦਾ ਪ੍ਰਬੰਧ ਸਿਰਫ਼ ਫ਼ਰਾਂਸ ਕਰਦਾ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਰਮਨੀ ਦੇ ਸਮਰਪਣ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਦੋਵੇਂ ਜਰਮਨ ਰਾਜ ਬਣ ਗਏ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP011-CP011-S11",
+      "CP011-CP011-S12"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਡੱਚਾਂ ਦੇ ਜਕਾਰਤਾ ਪਰਤਣ ਤੋਂ ਪਹਿਲਾਂ ਇਨਕਲਾਬ ਦੌਰਾਨ ਇੰਡੋਨੇਸ਼ੀਆਈ ਗਣਰਾਜ ਦੀ ਰਾਜਧਾਨੀ ਕਿਹੜਾ ਸ਼ਹਿਰ ਸੀ?",
+    "explanation": "ਆਜ਼ਾਦੀ ਦੇ ਸੰਘਰਸ਼ ਦੌਰਾਨ ਯੋਗਿਆਕਾਰਤਾ ਗਣਰਾਜ ਦੀ ਰਾਜਧਾਨੀ ਰਿਹਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q045-PA",
+    "englishQuestionId": "WHI-CP016-Q045",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F045",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q016",
+    "originFactId": "WHI-CP012-F016",
+    "originSourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "originQuestionFamily": "Indonesian independence",
+    "questionFamily": "ਵਿਅਕਤੀ, ਭੂਮਿਕਾਵਾਂ ਅਤੇ ਵਿਚਾਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੁਰਾਬਾਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੋਗਿਆਕਾਰਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੇਦਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਾਂਦੁੰਗ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP012-CP012-S03",
+      "CP012-CP012-S01"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1954 ਦੀ ਕਿਹੜੀ ਲੜਾਈ ਨੇ ਇੰਡੋਚੀਨ ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਬਸਤੀਵਾਦੀ ਰਾਜ ਦੇ ਅੰਤ ਵਿੱਚ ਮਦਦ ਕੀਤੀ?",
+    "explanation": "ਦਿਏਨ ਬਿਏਨ ਫੂ ਵਿੱਚ ਫ਼ਰਾਂਸ ਦੀ ਹਾਰ ਨਾਲ ਇੰਡੋਚੀਨ ਵਿੱਚ ਉਸ ਦੀ ਜੰਗ ਦਾ ਅੰਤ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q046-PA",
+    "englishQuestionId": "WHI-CP016-Q046",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F046",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q020",
+    "originFactId": "WHI-CP012-F020",
+    "originSourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "originQuestionFamily": "Vietnam and the end of French Indochina",
+    "questionFamily": "ਬਿਆਨ-ਅਧਾਰਿਤ ਸਵਾਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦਿਏਨ ਬਿਏਨ ਫੂ"
+      },
+      {
+        "key": "B",
+        "text": "ਖੇ ਸਾਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਤੁਯੇਨ ਕਵਾਂਗ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੂਏ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP012-CP012-S04",
+      "CP012-CP012-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਮਹਾਸਭਾ ਨੇ ਮਤਾ 181 ਕਦੋਂ ਅਪਣਾਇਆ?",
+    "explanation": "ਮਹਾਸਭਾ ਨੇ ਮਤਾ 181 ਨੂੰ 29 ਨਵੰਬਰ 1947 ਨੂੰ ਅਪਣਾਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q047-PA",
+    "englishQuestionId": "WHI-CP016-Q047",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F047",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q045",
+    "originFactId": "WHI-CP012-F045",
+    "originSourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "originQuestionFamily": "Palestine under the British Mandate",
+    "questionFamily": "ਘਟਨਾਵਾਂ, ਥਾਵਾਂ ਅਤੇ ਸਬੰਧਤ ਧਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "14 ਮਈ 1948"
+      },
+      {
+        "key": "B",
+        "text": "10 ਦਸੰਬਰ 1948"
+      },
+      {
+        "key": "C",
+        "text": "29 ਨਵੰਬਰ 1947"
+      },
+      {
+        "key": "D",
+        "text": "1 ਸਤੰਬਰ 1939"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP012-CP012-S09",
+      "CP012-CP012-S10"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਆਜ਼ਾਦੀ ਹਾਸਲ ਕਰਨ ਦੇ ਰਾਹਾਂ ਬਾਰੇ ਕਿਹੜੀ ਤੁਲਨਾ ਸਹੀ ਹੈ?",
+    "explanation": "ਇੰਡੋਨੇਸ਼ੀਆ ਨੇ 1945 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ, ਪਰ ਡੱਚਾਂ ਵੱਲੋਂ ਪ੍ਰਭੂਸੱਤਾ ਦਾ ਹਸਤਾਂਤਰਨ 1949 ਵਿੱਚ ਹੋਇਆ। ਇਨ੍ਹਾਂ ਦੋਹਾਂ ਘਟਨਾਵਾਂ ਵਿਚਕਾਰ ਕਈ ਸਾਲ ਸੰਘਰਸ਼ ਅਤੇ ਗੱਲਬਾਤ ਚੱਲੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q048-PA",
+    "englishQuestionId": "WHI-CP016-Q048",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F048",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q055",
+    "originFactId": "WHI-CP012-F055",
+    "originSourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "originQuestionFamily": "Decolonization paths and regional comparison",
+    "questionFamily": "ਤੁਲਨਾ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇੰਡੋਨੇਸ਼ੀਆ ਨੇ 1945 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ ਅਤੇ 1949 ਵਿੱਚ ਡੱਚ ਪ੍ਰਭੂਸੱਤਾ ਦਾ ਹਸਤਾਂਤਰਨ ਹਾਸਲ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਿਅਤਨਾਮ ਨੇ 1949 ਵਿੱਚ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦੀ ਲਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਲਾਇਆ ਨੇ 1948 ਵਿੱਚ ਫ਼ਰਾਂਸ ਤੋਂ ਆਜ਼ਾਦੀ ਲਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਰਮਾ ਨੇ ਡੱਚ ਰਾਜ ਮਗਰੋਂ 1957 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP012-CP012-S01",
+      "CP012-CP012-S12",
+      "CP012-CP012-S08"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1962 ਵਿੱਚ ਆਜ਼ਾਦੀ ਤੋਂ ਪਹਿਲਾਂ ਅਲਜੀਰੀਆ ’ਤੇ ਕਿਹੜੀ ਯੂਰਪੀ ਤਾਕਤ ਦਾ ਰਾਜ ਸੀ?",
+    "explanation": "ਆਜ਼ਾਦੀ ਤੋਂ ਪਹਿਲਾਂ ਅਲਜੀਰੀਆ ਫ਼ਰਾਂਸੀਸੀ ਬਸਤੀਵਾਦੀ ਰਾਜ ਹੇਠ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q049-PA",
+    "englishQuestionId": "WHI-CP016-Q049",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F049",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q007",
+    "originFactId": "WHI-CP013-F007",
+    "originSourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "originQuestionFamily": "Algerian War and independence",
+    "questionFamily": "ਬਿਆਨ-ਅਧਾਰਿਤ ਸਵਾਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਪੇਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਬੈਲਜੀਅਮ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP013-CP013-S01",
+      "CP013-CP013-S04"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1963 ਵਿੱਚ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦ ਹੋ ਕੇ ਕੀਨੀਆ ਨਾਮ ਕਿਸ ਦੇਸ਼ ਨੇ ਅਪਣਾਇਆ?",
+    "explanation": "ਕੀਨੀਆ ਦਸੰਬਰ 1963 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q050-PA",
+    "englishQuestionId": "WHI-CP016-Q050",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F050",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q019",
+    "originFactId": "WHI-CP013-F019",
+    "originSourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "originQuestionFamily": "East and Central African independence",
+    "questionFamily": "ਨਤੀਜੇ ਅਤੇ ਅਸਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜ਼ਾਂਬੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਗਾਂਡਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੀਨੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਲਾਵੀ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP013-CP013-S13",
+      "CP013-CP013-S14"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1964 ਵਿੱਚ ਮਲਾਵੀ ਦੇ ਨਾਂ ਨਾਲ ਕਿਹੜਾ ਦੇਸ਼ ਆਜ਼ਾਦ ਹੋਇਆ?",
+    "explanation": "ਬ੍ਰਿਟਿਸ਼ ਸਰਪ੍ਰਸਤੀ ਵਾਲਾ ਨਿਆਸਾਲੈਂਡ 1964 ਵਿੱਚ ਮਲਾਵੀ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q051-PA",
+    "englishQuestionId": "WHI-CP016-Q051",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F051",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q022",
+    "originFactId": "WHI-CP013-F022",
+    "originSourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "originQuestionFamily": "East and Central African independence",
+    "questionFamily": "ਨਤੀਜੇ ਅਤੇ ਅਸਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਿਆਸਾਲੈਂਡ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੌਰਦਰਨ ਰੋਡੇਸ਼ੀਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਾਸੂਟੋਲੈਂਡ"
+      },
+      {
+        "key": "D",
+        "text": "ਟਾਂਗਾਨਿਕਾ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP013-CP013-S13",
+      "CP013-CP013-S14"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਹੜਾ ਕਾਲਕ੍ਰਮ ਸਹੀ ਹੈ?",
+    "explanation": "ਇਨ੍ਹਾਂ ਤਿੰਨ ਆਜ਼ਾਦੀਆਂ ਦੀਆਂ ਤਾਰੀਖਾਂ ਦਾ ਕ੍ਰਮ 1957, 1960 ਅਤੇ 1962 ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q052-PA",
+    "englishQuestionId": "WHI-CP016-Q052",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F052",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q058",
+    "originFactId": "WHI-CP013-F058",
+    "originSourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "originQuestionFamily": "Colonial borders and decolonization outcomes",
+    "questionFamily": "ਘਟਨਾਵਾਂ, ਥਾਵਾਂ ਅਤੇ ਸਬੰਧਤ ਧਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਘਾਨਾ (1957), ਕਾਂਗੋ (1960), ਅਲਜੀਰੀਆ (1962) ਦੀ ਆਜ਼ਾਦੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਾਂਗੋ (1948), ਘਾਨਾ (1954), ਅਲਜੀਰੀਆ (1960) ਦੀ ਆਜ਼ਾਦੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਲਜੀਰੀਆ (1957), ਘਾਨਾ (1960), ਕਾਂਗੋ (1963) ਦੀ ਆਜ਼ਾਦੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਘਾਨਾ (1963), ਅਲਜੀਰੀਆ (1964), ਕਾਂਗੋ (1965) ਦੀ ਆਜ਼ਾਦੀ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP013-CP013-S01",
+      "CP013-CP013-S02",
+      "CP013-CP013-S04",
+      "CP013-CP013-S05",
+      "CP013-CP013-S10"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1962 ਦੇ ਸੰਕਟ ਤੋਂ ਪਹਿਲਾਂ ਕਿਊਬਾ ਵਿੱਚ ਪਰਮਾਣੂ ਮਿਜ਼ਾਈਲਾਂ ਕਿਸ ਦੇਸ਼ ਨੇ ਰੱਖੀਆਂ?",
+    "explanation": "ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਕਿਊਬਾ ਵਿੱਚ ਮਿਜ਼ਾਈਲਾਂ ਲਗਾਈਆਂ, ਜਿਸ ਨਾਲ ਅਮਰੀਕਾ ਨਾਲ ਟਕਰਾਅ ਪੈਦਾ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q053-PA",
+    "englishQuestionId": "WHI-CP016-Q053",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F053",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q028",
+    "originFactId": "WHI-CP014-F028",
+    "originSourceIds": [
+      "CP014-S08"
+    ],
+    "originQuestionFamily": "Cuban Missile Crisis",
+    "questionFamily": "ਵਿਅਕਤੀ, ਭੂਮਿਕਾਵਾਂ ਅਤੇ ਵਿਚਾਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਚੀਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਫ਼ਰਾਂਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP014-CP014-S08"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ ਨੂੰ ਸ਼ੀਤ ਯੁੱਧ ਦਾ ਵੱਡਾ ਮੋੜ ਕਿਉਂ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ?",
+    "explanation": "ਇਸ ਸੰਕਟ ਨੇ ਮਹਾਂਤਾਕਤਾਂ ਦੇ ਸਿੱਧੇ ਟਕਰਾਅ ਦਾ ਖ਼ਤਰਾ ਦਿਖਾਇਆ ਅਤੇ ਸੰਕਟ ਵੇਲੇ ਸੰਚਾਰ ਸੁਧਾਰਨ ਦੀਆਂ ਕੋਸ਼ਿਸ਼ਾਂ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q054-PA",
+    "englishQuestionId": "WHI-CP016-Q054",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F054",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q030",
+    "originFactId": "WHI-CP014-F030",
+    "originSourceIds": [
+      "CP014-S08"
+    ],
+    "originQuestionFamily": "Cuban Missile Crisis",
+    "questionFamily": "ਲਹਿਰਾਂ, ਰਾਜ ਅਤੇ ਸਿਆਸੀ ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਨਾਟੋ ਅਤੇ ਵਾਰਸਾ ਸੰਧੀ ਦੋਵੇਂ ਭੰਗ ਕਰ ਦਿੱਤੀਆਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਸਾਰੀ ਵਿਚਾਰਧਾਰਕ ਮੁਕਾਬਲੇਬਾਜ਼ੀ ਖ਼ਤਮ ਕਰ ਦਿੱਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਮਹਾਂਤਾਕਤਾਂ ਨੂੰ ਪਰਮਾਣੂ ਟਕਰਾਅ ਦੇ ਨੇੜੇ ਲਿਆਇਆ ਅਤੇ ਸੰਕਟ-ਪ੍ਰਬੰਧ ਦੇ ਕਦਮਾਂ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਜਰਮਨੀ ਦੀ ਵੰਡ ਕਰਾਈ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP014-CP014-S08"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1955 ਦੀ ਬਾਂਦੁੰਗ ਕਾਨਫ਼ਰੰਸ ਦੀ ਮੇਜ਼ਬਾਨੀ ਕਿਸ ਦੇਸ਼ ਨੇ ਕੀਤੀ?",
+    "explanation": "ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਕਾਨਫ਼ਰੰਸ ਇੰਡੋਨੇਸ਼ੀਆ ਦੇ ਬਾਂਦੁੰਗ ਵਿੱਚ ਹੋਈ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q055-PA",
+    "englishQuestionId": "WHI-CP016-Q055",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F055",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q053",
+    "originFactId": "WHI-CP014-F053",
+    "originSourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "originQuestionFamily": "Non-Aligned Movement and Bandung",
+    "questionFamily": "ਵਿਅਕਤੀ, ਭੂਮਿਕਾਵਾਂ ਅਤੇ ਵਿਚਾਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਯੂਗੋਸਲਾਵੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਿਸਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਭਾਰਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਇੰਡੋਨੇਸ਼ੀਆ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP014-CP014-S15",
+      "CP014-CP014-S16"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਇਨ੍ਹਾਂ ਘਟਨਾਵਾਂ ਦਾ ਸਹੀ ਕਾਲਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਇਹ ਘਟਨਾਵਾਂ ਕ੍ਰਮਵਾਰ 1947, 1948–49, 1962 ਅਤੇ 1975 ਵਿੱਚ ਹੋਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q056-PA",
+    "englishQuestionId": "WHI-CP016-Q056",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F056",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q055",
+    "originFactId": "WHI-CP014-F055",
+    "originSourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "originQuestionFamily": "Cold War chronology and distinctions",
+    "questionFamily": "ਘਟਨਾਵਾਂ, ਥਾਵਾਂ ਅਤੇ ਸਬੰਧਤ ਧਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਟਰੂਮੈਨ ਸਿਧਾਂਤ → ਬਰਲਿਨ ਏਅਰਲਿਫ਼ਟ → ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ → ਹੇਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੇਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ → ਟਰੂਮੈਨ ਸਿਧਾਂਤ → ਬਰਲਿਨ ਏਅਰਲਿਫ਼ਟ → ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਰਲਿਨ ਏਅਰਲਿਫ਼ਟ → ਟਰੂਮੈਨ ਸਿਧਾਂਤ → ਹੇਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ → ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ → ਬਰਲਿਨ ਏਅਰਲਿਫ਼ਟ → ਟਰੂਮੈਨ ਸਿਧਾਂਤ → ਹੇਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP014-CP014-S01",
+      "CP014-CP014-S04",
+      "CP014-CP014-S08",
+      "CP014-CP014-S13",
+      "CP014-CP014-S14"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1980ਵਿਆਂ ਵਿੱਚ ਪੋਲੈਂਡ ਵਿੱਚ ਕਿਸ ਲਹਿਰ ਨੇ ਕਮਿਊਨਿਸਟ ਰਾਜ ਨੂੰ ਚੁਣੌਤੀ ਦਿੱਤੀ?",
+    "explanation": "ਸੌਲਿਡੈਰਿਟੀ ਪੋਲੈਂਡ ਦੀ ਟਰੇਡ ਯੂਨੀਅਨ ਅਤੇ ਸਮਾਜਕ ਲਹਿਰ ਸੀ, ਜੋ ਸਰਕਾਰ ਦੇ ਵਿਰੋਧ ਦੀ ਵੱਡੀ ਤਾਕਤ ਬਣੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q057-PA",
+    "englishQuestionId": "WHI-CP016-Q057",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F057",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q007",
+    "originFactId": "WHI-CP015-F007",
+    "originSourceIds": [
+      "CP015-S02",
+      "CP015-S14"
+    ],
+    "originQuestionFamily": "Eastern European transitions, 1989",
+    "questionFamily": "ਨਤੀਜੇ ਅਤੇ ਅਸਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਏਐੱਨਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਐੱਫ਼ਐੱਲਐੱਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੌਲਿਡੈਰਿਟੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਿਅਤ ਮਿੰਹ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP015-CP015-S02",
+      "CP015-CP015-S14"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਬਰਲਿਨ ਦੀ ਕੰਧ ਖੁੱਲ੍ਹਣ ਦੀ ਘਟਨਾ ਕਿਸ ਗੱਲ ਦਾ ਪ੍ਰਤੀਕ ਸੀ?",
+    "explanation": "ਕੰਧ ਯੂਰਪ ਦੀ ਸ਼ੀਤ-ਯੁੱਧ ਵਾਲੀ ਵੰਡ ਦਾ ਪ੍ਰਤੀਕ ਸੀ। ਇਸ ਦਾ ਖੁੱਲ੍ਹਣਾ ਉਸ ਵੰਡ ਦੇ ਤੇਜ਼ੀ ਨਾਲ ਕਮਜ਼ੋਰ ਪੈਣ ਦੀ ਨਿਸ਼ਾਨੀ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q058-PA",
+    "englishQuestionId": "WHI-CP016-Q058",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F058",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q014",
+    "originFactId": "WHI-CP015-F014",
+    "originSourceIds": [
+      "CP015-S02",
+      "CP015-S05",
+      "CP015-S06",
+      "CP015-S12"
+    ],
+    "originQuestionFamily": "Berlin Wall and German reunification",
+    "questionFamily": "ਤਾਰੀਖਾਂ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੋਰੀਆਈ ਜੰਗ ਦੀ ਸ਼ੁਰੂਆਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਾਟੋ ਦੀ ਸਥਾਪਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਦਾ ਅੰਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਮਿਊਨਿਸਟ ਪੂਰਬੀ ਯੂਰਪ ਅਤੇ ਪੱਛਮ ਵਿਚਲੀ ਵੰਡ ਦਾ ਕਮਜ਼ੋਰ ਪੈਣਾ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP015-CP015-S02",
+      "CP015-CP015-S05",
+      "CP015-CP015-S06",
+      "CP015-CP015-S12"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਅਪ੍ਰੈਲ 1991 ਵਿੱਚ ਕਿਹੜੇ ਗਣਰਾਜ ਨੇ ਆਜ਼ਾਦੀ ਬਹਾਲ ਕਰਨ ਦਾ ਐਲਾਨ ਕੀਤਾ?",
+    "explanation": "ਜਾਰਜੀਆ ਨੇ 9 ਅਪ੍ਰੈਲ 1991 ਨੂੰ ਆਜ਼ਾਦੀ ਬਹਾਲ ਕਰਨ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q059-PA",
+    "englishQuestionId": "WHI-CP016-Q059",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F059",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q029",
+    "originFactId": "WHI-CP015-F029",
+    "originSourceIds": [
+      "CP015-S03",
+      "CP015-S08"
+    ],
+    "originQuestionFamily": "Soviet republic independence",
+    "questionFamily": "ਨਤੀਜੇ ਅਤੇ ਅਸਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਤਾਜਿਕਿਸਤਾਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਮੋਲਡੋਵਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਾਰਜੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਜ਼ਬੇਕਿਸਤਾਨ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP015-CP015-S03",
+      "CP015-CP015-S08"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨਾਕਾਮ ਤਖ਼ਤਾ-ਪਲਟ ਨੇ ਸੋਵੀਅਤ ਕੇਂਦਰੀ ਸਰਕਾਰ ’ਤੇ ਕੀ ਅਸਰ ਪਾਇਆ?",
+    "explanation": "ਤਖ਼ਤਾ-ਪਲਟ ਦੀ ਨਾਕਾਮੀ ਨਾਲ ਯੇਲਤਸਿਨ ਮਜ਼ਬੂਤ ਹੋਏ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ ਦੀਆਂ ਕੇਂਦਰੀ ਸੰਸਥਾਵਾਂ ਕਮਜ਼ੋਰ ਪਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q060-PA",
+    "englishQuestionId": "WHI-CP016-Q060",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F060",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q034",
+    "originFactId": "WHI-CP015-F034",
+    "originSourceIds": [
+      "CP015-S03"
+    ],
+    "originQuestionFamily": "August 1991 coup attempt",
+    "questionFamily": "ਤਾਰੀਖਾਂ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਗੋਰਬਾਚੋਵ ਅਤੇ ਯੇਲਤਸਿਨ ਵਿਚਲਾ ਤਣਾਅ ਸੁਲਝਾ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਆਜ਼ਾਦੀ ਦੀਆਂ ਲਹਿਰਾਂ ਖ਼ਤਮ ਕਰ ਦਿੱਤੀਆਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਗੋਰਬਾਚੋਵ ਦਾ ਅਧਿਕਾਰ ਕਮਜ਼ੋਰ ਕੀਤਾ ਅਤੇ ਵਿਘਟਨ ਦੇ ਸੰਕਟ ਨੂੰ ਤੇਜ਼ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਗਣਰਾਜਾਂ ’ਤੇ ਕਮਿਊਨਿਸਟ ਪਾਰਟੀ ਦਾ ਕਾਬੂ ਮੁੜ ਕਾਇਮ ਕਰ ਦਿੱਤਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP015-CP015-S03"
+    ]
+  }
+]
