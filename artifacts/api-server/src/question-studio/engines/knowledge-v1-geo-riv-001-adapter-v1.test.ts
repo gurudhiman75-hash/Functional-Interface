@@ -20,7 +20,7 @@ assert.equal(packageDef.lifecycleStage, "REVIEW_ONLY");
 assert.equal(packageDef.questionBankWritable, false);
 assert.equal(packageDef.testEligible, false);
 assert.equal(packageDef.mockTestEligible, false);
-assert.deepEqual(packageDef.supportedLanguages, ["en"]);
+assert.deepEqual(packageDef.supportedLanguages, ["en","hi","pa"]);
 assert.deepEqual(packageDef.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.deepEqual(packageDef.cpIds, expectedCpIds);
 assert.equal(packageDef.metadata?.cpCount, 14);
