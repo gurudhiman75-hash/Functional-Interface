@@ -31,7 +31,7 @@ function withNoCorrectionMix(xs:readonly Eng012AuthorityV1[]){
   const n=(seen.get(a.cpId)??0)+1;seen.set(a.cpId,n);
   const target=(a.cpId==="ENG-012-CP001"||a.cpId==="ENG-012-CP002")?12:(a.cpId==="ENG-012-CP003"?10:11);
   const total=a.cpId==="ENG-012-CP001"||a.cpId==="ENG-012-CP002"?120:(a.cpId==="ENG-012-CP003"?100:110);
-  const noCorrection=n<=target && n%Math.max(1,Math.floor(total/target))===0;
+  const noCorrection=n%Math.max(1,Math.floor(total/target))===0;
   return noCorrection?{...a,noCorrection:true}:a;
  });
 }
