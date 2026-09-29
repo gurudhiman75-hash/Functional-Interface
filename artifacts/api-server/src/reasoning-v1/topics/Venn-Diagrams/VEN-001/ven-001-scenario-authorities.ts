@@ -794,9 +794,9 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
     reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
     sets: [
-      { setId: "A", labels: { "en-IN": "Screwdrivers", "hi-IN": "Screwdrivers", "pa-IN": "Screwdrivers" } },
-      { setId: "B", labels: { "en-IN": "Hand tools", "hi-IN": "Hand tools", "pa-IN": "Hand tools" } },
-      { setId: "C", labels: { "en-IN": "Tools", "hi-IN": "Tools", "pa-IN": "Tools" } },
+      { setId: "A", labels: { "en-IN": "Screwdrivers", "hi-IN": "पेचकस", "pa-IN": "ਪੇਚਕੱਸ" } },
+      { setId: "B", labels: { "en-IN": "Hand tools", "hi-IN": "हाथ के औज़ार", "pa-IN": "ਹੱਥ ਦੇ ਔਜ਼ਾਰ" } },
+      { setId: "C", labels: { "en-IN": "Tools", "hi-IN": "औज़ार", "pa-IN": "ਔਜ਼ਾਰ" } },
     ],
     relations: [
       { left: "A", right: "B", relation: "LEFT_SUBSET_RIGHT" },
