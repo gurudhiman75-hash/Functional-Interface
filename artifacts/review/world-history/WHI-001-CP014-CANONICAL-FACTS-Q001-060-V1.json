@@ -83,6 +83,21 @@
       "sourceId": "CP014-S16",
       "title": "U.S. Department of State, Office of the Historian — Bandung Conference, 1955",
       "url": "https://history.state.gov/milestones/1953-1960/bandung-conf"
+    },
+    {
+      "sourceId": "CP014-S17",
+      "title": "United Nations — Report of the Asian-African Conference, Bandung, 1955",
+      "url": "https://digitallibrary.un.org/record/860963/files/1955-E.pdf"
+    },
+    {
+      "sourceId": "CP014-S18",
+      "title": "U.S. Department of State, Office of the Historian — Chinese Communist Intervention in Korea, 1950 (FRUS)",
+      "url": "https://history.state.gov/historicaldocuments/frus1950v07/d797"
+    },
+    {
+      "sourceId": "CP014-S19",
+      "title": "U.S. Department of State, Office of the Historian — Southeast Asia Treaty Organization, 1954",
+      "url": "https://history.state.gov/milestones/1953-1960/seato"
     }
   ],
   "facts": [
@@ -270,14 +285,13 @@
     },
     {
       "factId": "WHI-CP014-F017",
-      "claim": "Mao Zedong proclaimed the PRC on 1 October 1949 after Communist victory on the mainland.",
+      "claim": "Chinese Communist forces intervened in North Korea as organized units in November 1950, as UN forces advanced toward the Yalu River.",
       "sourceIds": [
-        "CP014-S06",
-        "CP014-S07"
+        "CP014-S18"
       ],
-      "sourceLocator": "Korean War and the Chinese Revolution",
+      "sourceLocator": "Memorandum, “Chinese Communist Intervention in Korea,” paragraphs 1–2",
       "relationshipType": "korean-war-and-the-chinese-revolution",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP014-F018",
@@ -347,14 +361,13 @@
     },
     {
       "factId": "WHI-CP014-F024",
-      "claim": "The Geneva settlement provisionally divided Vietnam and envisaged elections for reunification.",
+      "claim": "The United States used SEATO’s charter as a framework for its continued involvement in South Vietnam.",
       "sourceIds": [
-        "CP014-S09",
-        "CP014-S10"
+        "CP014-S19"
       ],
-      "sourceLocator": "Vietnam and Southeast Asian conflict",
+      "sourceLocator": "“Southeast Asia Treaty Organization,” paragraphs on Vietnam and U.S. involvement",
       "relationshipType": "vietnam-and-southeast-asian-conflict",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP014-F025",
@@ -660,14 +673,13 @@
     },
     {
       "factId": "WHI-CP014-F053",
-      "claim": "The Asian-African Conference took place in Bandung, Indonesia.",
+      "claim": "The governments of Burma, Ceylon, India, Indonesia and Pakistan convened the Asian-African Conference at Bandung in April 1955.",
       "sourceIds": [
-        "CP014-S15",
-        "CP014-S16"
+        "CP014-S17"
       ],
-      "sourceLocator": "Non-Aligned Movement and Bandung",
+      "sourceLocator": "Report of the Asian-African Conference, opening paragraph naming the five convening governments",
       "relationshipType": "non-aligned-movement-and-bandung",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP014-F054",
