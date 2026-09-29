@@ -174,7 +174,7 @@ export async function loadApprovedEnglishVocabularyQuestions(input: {
   if (input.topicId === "ENG-VOC-SYN" || input.topicId === "ENG-VOC-ANT") {
     result = await languageV1Eng004QuestionStudioAdapterV1.generate({
       ...baseRequest,
-      topic: "Synonyms & Antonyms",
+      topic: "Vocabulary",
       subtopic: "selector" in config ? config.selector : undefined,
       patternId: "selector" in config ? config.selector : undefined,
     });
