@@ -44,9 +44,9 @@ const R:readonly Eng013BreadthRecordV4[]=[
 ["levy","The annual levy applies {x} selected services.",["to","for","with","on"],"A levy applying to services means the charge affects those services."],
 ["certificate","The bank issued a certificate {x} the fixed deposit.",["for","to","with","on"],"A certificate for a deposit records or confirms it."],
 ["refinancing","The borrower applied {x} refinancing of the existing loan.",["for","to","with","on"],"Apply for refinancing means request replacement or restructuring of existing finance."],
-["ceiling","The bank imposed a ceiling {x} daily card spending.",["on","to","with","for"],"A ceiling on spending means a maximum permitted amount."],
+["cap","The bank imposed a cap {x} daily card spending.",["on","to","with","for"],"A cap on spending means a maximum permitted amount."],
 ["settlement","The bill was settled {x} mobile banking.",["through","to","with through","on"],"Settled through a channel means paid using that channel."],
-["remittance","The bank received a remittance {x} abroad.",["from","to","with","on"],"A remittance from abroad is standard."],
+["inflow","The bank recorded an inflow {x} abroad.",["from","to","with","on"],"An inflow from abroad is money entering from an external source."],
 ["security","The loan is secured {x} property.",["by","to","with by","on"],"Secured by property means backed by that asset."]
 ];
 export const ENG013_BREADTH3_BANKING_PRELIMS_B_V4=buildEng013BreadthAuthoritiesV4("WU-BR3-BPB","ENG-013-CP003",R);
