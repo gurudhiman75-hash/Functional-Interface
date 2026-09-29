@@ -1,0 +1,45 @@
+name: Quant V4 Statistics STAT-010 sampling theory
+
+on:
+  push:
+    branches:
+      - feature/statistics-sampling-theory-jso-v1
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-010/**"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-010/**"
+  workflow_dispatch:
+
+concurrency:
+  group: stat010-sampling-theory-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  statistics-sampling-theory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Package namespace and lifecycle guard
+        run: |
+          test -d artifacts/api-server/src/quant-v4/topics/Statistics/STAT-010
+          ! grep -R 'questionBankWritable: true\|testEligibility: "ELIGIBLE"\|testEligible: true\|mockTestEligible: true\|publiclyPublishable: true\|automaticStudentPublication: true\|productionReleaseAuthorized: true' artifacts/api-server/src/quant-v4/topics/Statistics/STAT-010
+      - name: Deterministic sampling theory proof
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-010/sampling-theory.test.ts
+      - name: Question Studio Quant V4 integration
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Statistics/STAT-010/question-studio-integration.test.ts
+      - name: Patch hygiene
+        run: git diff --check
