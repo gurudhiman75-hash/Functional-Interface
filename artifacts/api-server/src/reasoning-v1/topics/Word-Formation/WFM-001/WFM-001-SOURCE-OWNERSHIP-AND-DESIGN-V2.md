@@ -57,7 +57,7 @@ Quality rules:
 - Easy: ordinary absent-letter failures;
 - Medium: one close repeated-letter or one-letter-absence trap;
 - Hard: multiplicity is decisive and at least two close multiplicity traps are used for `CAN_FORM`;
-- explanations show only the decisive letter-count evidence, not boilerplate analysis of every option.
+- direct can/cannot explanations use a concise option-by-option letter check: each required letter occurrence is marked ✓ when available and ✗ when absent or over-used, followed by the option verdict and a final `Hence/अतः/ਇਸ ਲਈ option ... is correct` conclusion.
 
 ## 5. CP002 — selected-position meaningful-word count
 
