@@ -150,7 +150,7 @@ export interface SeatingLifecycle {
   readonly solveInventoryStatus: "OPEN";
   readonly queryMixStatus: "OPEN";
   readonly englishFreezeStatus: "NOT_STARTED";
-  readonly permanentQlCount: 0;
+  readonly permanentQlCount: 9;
   readonly questionStudioRegistered: false;
   readonly questionBankWritable: false;
   readonly testEligible: false;
