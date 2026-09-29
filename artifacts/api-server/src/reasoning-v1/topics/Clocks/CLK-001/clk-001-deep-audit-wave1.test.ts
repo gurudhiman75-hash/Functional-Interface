@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { CLK_001_PERMANENT_CONTRACTS } from "./permanent-contracts.ts";
-import { generateClk001QuestionStudioBatch } from "./question-studio-integration.ts";
+import { CLK_001_PERMANENT_CONTRACTS } from "./permanent-contracts";
+import { generateClk001QuestionStudioBatch } from "./question-studio-integration";
 
 let ownedTasks = 0;
 let mergedVariantOwnership = 0;
