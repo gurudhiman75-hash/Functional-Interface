@@ -16,7 +16,7 @@ const R:readonly Eng013BreadthRecordV4[]=[
 ["reminiscent","The new design is {x} the earlier model.",["reminiscent of","reminiscent to","reminiscent with","reminiscent on"],"Reminiscent of means tending to remind one of something."],
 ["synonymous","For many users, the brand became {x} reliability.",["synonymous with","synonymous to","synonymous of","synonymous on"],"Synonymous with can mean closely associated with a quality or idea."],
 ["tantamount","Ignoring the warning would be {x} accepting the risk.",["tantamount to","tantamount with","tantamount for","tantamount on"],"Tantamount to means equivalent in effect or meaning."],
-["averse","The witness appeared {x} giving a direct answer.",["averse to","averse from","averse on","averse for"],"Averse to is followed by a noun or -ing form."],
+["reluctant","The witness appeared {x} give a direct answer.",["reluctant to","reluctant from","reluctant with","reluctant on"],"Reluctant to means unwilling or hesitant to do something."],
 ["immune","No institution is completely {x} external shocks.",["immune to","immune from to","immune with","immune on"],"Immune to means protected from or unaffected by something."],
 ["partial","The panel must not be {x} either side.",["partial to","partial for","partial with","partial on"],"Partial to can mean showing favouritism toward someone or something."],
 ["vulnerable","Small firms may be especially {x} sudden cost increases.",["vulnerable to","vulnerable for","vulnerable with","vulnerable on"],"Vulnerable to means exposed to the possibility of harm."],
@@ -46,7 +46,7 @@ const R:readonly Eng013BreadthRecordV4[]=[
 ["resistant","The material is {x} moisture and heat.",["resistant to","resistant against to","resistant with","resistant on"],"Resistant to means not easily affected or damaged by something."],
 ["subservient","The procedure should not become {x} administrative convenience.",["subservient to","subservient with","subservient for","subservient on"],"Subservient to means less important than or excessively obedient to something."],
 ["sympathetic","The panel was {x} the concerns raised by residents.",["sympathetic to","sympathetic with to","sympathetic for","sympathetic on"],"Sympathetic to means showing understanding or support for an idea or concern."],
-["averse","Investors remained {x} taking on additional uncertainty.",["averse to","averse from","averse with","averse on"],"Averse to means unwilling or strongly opposed to something."],
+["disinclined","Investors remained {x} take on additional uncertainty.",["disinclined to","disinclined from","disinclined with","disinclined on"],"Disinclined to means unwilling or not disposed to do something."],
 ["amenable","The proposal is {x} further revision.",["amenable to","amenable for","amenable with","amenable on"],"Amenable to means capable of being affected by or open to something."]
 ];
 export const ENG013_BREADTH3_SSC_ADVANCED_A_V4=buildEng013BreadthAuthoritiesV4("WU-BR3-AA","ENG-013-CP002",R);
