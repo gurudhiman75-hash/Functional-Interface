@@ -30,6 +30,7 @@ assert.deepEqual(
   "batch answer positions must remain balanced",
 );
 assert.equal(new Set(questions.map((question) => question.stem.trim().toLowerCase())).size, questions.length, "question stems must be unique");
+assert.deepEqual(new Set(questions.map((question) => question.questionFamily)), families, "batch must exercise all ten approved QL families");
 
 for (const [index, question] of questions.entries()) {
   const id = `WHI-CP006-Q${String(index + 1).padStart(3, "0")}`;
