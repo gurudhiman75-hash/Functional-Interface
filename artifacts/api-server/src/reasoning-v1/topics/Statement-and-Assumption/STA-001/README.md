@@ -7,21 +7,30 @@ Family: `Reasoning V1 / Family C — Logic and deduction`
 ## Current status
 
 ```text
-permanent QL semantics:       FROZEN (4 QLs)
-English corpus/runtime:       FROZEN_V2
-QL001 Hindi/Punjabi:          FROZEN_V2
-QL002 Hindi/Punjabi:          FROZEN_V2
-QL003 Hindi/Punjabi:          FROZEN_V2
-QL004 Hindi/Punjabi:          REVIEW_LOCKED_V3
-exam presentation runtime:    TECHNICALLY_CERTIFIED_V1
-multilingual chapter freeze:  false
-Question Studio:              CLOSED
+permanent QL semantics:       FROZEN_V4_1 (6 QLs)
+multilingual chapter freeze:  TRUE
+languages:                    en / hi / pa
+presentation profiles:        9
+scenario authorities:         108 (18 per QL)
+Question Studio:              REGISTERED_REVIEW_ONLY
+Question Studio staging:      REVIEW_QUEUE_ENABLED
 Question Bank writes:         CLOSED
 mock/test eligibility:        CLOSED
 public publication:           CLOSED
 ```
 
-QL004 learner content is technically review-locked to the exact certified V3 artifact, but native/product approval has **not** been recorded. That approval is the only declared blocker in `multilingual-pre-freeze-manifest.ts`; downstream gates remain closed until it is resolved and the final multilingual freeze is created.
+The historical four-QL freeze remains preserved as immutable evidence, but it is no longer the current product authority. The approved V4.1 freeze added source-backed `STA-QL-005` and `STA-QL-006`, completed the six-QL multilingual freeze, and registered the V4.1 runtime in Question Studio for review only.
+
+Current frozen permanent QLs:
+
+- `STA-QL-001` — prerequisite / existence / availability / capability / feasibility dependency
+- `STA-QL-002` — recommendation / proposal / policy / decision with relevant need plus feasibility/efficacy
+- `STA-QL-003` — institutional notice / rule / service direction with audience relevance plus response capability
+- `STA-QL-004` — claim / prediction with explicit premise plus hidden causal/efficacy bridge
+- `STA-QL-005` — persuasive message / advertisement / appeal response dependency
+- `STA-QL-006` — comparison / measurement / representativeness / evidence-validity dependency
+
+V4.1 remains **review-only**. Question Bank, test, mock and public/student delivery still require a separate release approval.
 
 ## Certified authorities
 
