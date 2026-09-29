@@ -5,7 +5,7 @@ import{generateEng010Cp005SetV1,generateEng010QuestionV1}from"../chapters/para-j
 assert.equal(ENG010_SETS_V1.length,32);
 for(const cp of ENG010_CP_IDS_V1.slice(0,4)){
  const sets=ENG010_SETS_V1.filter(x=>x.cpId===cp);
- assert.equal(sets.length,8,`${cp} must have four authority sets in V1`);
+ assert.equal(sets.length,8,`${cp} must have eight authority sets in V1`);
 }
 assert.equal(new Set(ENG010_SETS_V1.map(x=>x.id)).size,32);
 for(const set of ENG010_SETS_V1){
@@ -17,7 +17,7 @@ for(const set of ENG010_SETS_V1){
  const q=generateEng010QuestionV1({seed:`audit:${set.id}`,setId:set.id});
  const z=generateEng010QuestionV1({seed:`audit:${set.id}`,setId:set.id});
  assert.deepEqual(q,z);
- assert.equal(q.options.length,8);
+ assert.equal(q.options.length,4);
  assert.equal(new Set(q.options).size,4);
  assert.equal(q.options[q.correctOptionIndex],q.metadata.correctOrder);
  assert.equal(q.sentences.length,set.sentences.length);
@@ -30,7 +30,7 @@ for(const p of["ssc-standard","ssc-advanced","banking-prelims","banking-mains"]a
 }
 for(let i=0;i<4000;i++){
  const q=generateEng010QuestionV1({seed:`soak:${i}`});
- assert.equal(q.options.length,8);
+ assert.equal(q.options.length,4);
  assert.equal(new Set(q.options).size,4);
  assert.ok(q.correctOptionIndex>=0&&q.correctOptionIndex<4);
 }
