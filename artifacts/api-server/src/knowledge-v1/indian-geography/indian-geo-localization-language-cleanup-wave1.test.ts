@@ -21,11 +21,11 @@ const riv = q(
 );
 assert.equal(
   localizeIndianGeoQuestionV1(riv,"hi","GEO-RIV-001").stem,
-  "नदी Tawa किस नदी की सहायक नदी है?",
+  "नदी तवा किस नदी की सहायक नदी है?",
 );
 assert.equal(
   localizeIndianGeoQuestionV1(riv,"pa","GEO-RIV-001").stem,
-  "ਨਦੀ Tawa ਕਿਹੜੀ ਨਦੀ ਦੀ ਸਹਾਇਕ ਨਦੀ ਹੈ?",
+  "ਨਦੀ ਤਵਾ ਕਿਹੜੀ ਨਦੀ ਦੀ ਸਹਾਇਕ ਨਦੀ ਹੈ?",
 );
 
 const cli = q(
@@ -51,9 +51,9 @@ const phy = q(
 );
 assert.equal(
   localizeIndianGeoQuestionV1(phy,"hi","GEO-PHY-001").stem,
-  "Guru Shikhar किस पर्वत श्रेणी की सबसे ऊँची चोटी है?",
+  "गुरु शिखर किस पर्वत श्रेणी की सबसे ऊँची चोटी है?",
 );
 assert.equal(
   localizeIndianGeoQuestionV1(phy,"pa","GEO-PHY-001").stem,
-  "Guru Shikhar ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਦੀ ਸਭ ਤੋਂ ਉੱਚੀ ਚੋਟੀ ਹੈ?",
+  "ਗੁਰੂ ਸ਼ਿਖਰ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਦੀ ਸਭ ਤੋਂ ਉੱਚੀ ਚੋਟੀ ਹੈ?",
 );
