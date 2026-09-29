@@ -222,3 +222,69 @@ D. 0.71
 - Confirm that the displayed data and working are sufficient to reproduce each answer.
 - This candidate does not authorize storage, tests, mocks, localization, publication, or production release.
 
+
+## STAT-QL-176 — Form of a multiple regression equation
+
+Which equation represents a linear regression model of response Y on two predictors X₁ and X₂?
+
+A. Ŷ = β₀ + β₁X₁ + β₂X₂
+B. Ŷ = β₀ + β₁X₁X₂
+C. Ŷ = β₀ + β₁Y + β₂X₁
+D. Ŷ = β₀ + β₁X₁ + β₂X₁
+
+**Answer:** A. Ŷ = β₀ + β₁X₁ + β₂X₂
+
+**Explanation:** A multiple linear regression model has an intercept and a separate coefficient for each predictor: Ŷ = β₀ + β₁X₁ + β₂X₂.
+
+## STAT-QL-177 — Interpret a partial regression coefficient
+
+In a fitted model Ŷ = β₀ + β₁X₁ + β₂X₂, the estimate of β₁ is 3. What does this coefficient represent, with X₂ held constant?
+
+A. With X₂ held fixed, a one-unit increase in X₁ is associated with an average increase of 3 units in predicted Y.
+B. Holding X₁ fixed, a one-unit increase in X₂ changes predicted Y by 3 units.
+C. A one-unit increase in X₁ changes predicted Y by 3%.
+D. When X₂ changes by one unit, X₁ must change by 3 units.
+
+**Answer:** A. With X₂ held fixed, a one-unit increase in X₁ is associated with an average increase of 3 units in predicted Y.
+
+**Explanation:** β₁ is the partial slope for X₁. Holding X₂ constant, a one-unit increase in X₁ changes the predicted response by 3 units on average.
+
+## STAT-QL-178 — Prediction from a multiple regression equation
+
+A fitted model is Ŷ = 5 + 2X₁ + 3X₂. Find the predicted value when X₁ = 4 and X₂ = 2.
+
+A. 21
+B. 19
+C. 17
+D. 23
+
+**Answer:** B. 19
+
+**Explanation:** Substitute both predictor values: Ŷ = 5 + 2(4) + 3(2) = 5 + 8 + 6 = 19.
+
+## STAT-QL-179 — Estimate a coefficient from centered cross-products
+
+For centered data, S₁₁ = 10, S₂₂ = 10, S₁₂ = 2, S₁Y = 26, and S₂Y = 34. Find the least-squares coefficient b₁ in the regression of Y on X₁ and X₂.
+
+A. 3
+B. 1
+C. 2
+D. 4
+
+**Answer:** C. 2
+
+**Explanation:** The determinant is D = S₁₁S₂₂ − S₁₂² = 10×10 − 2² = 96. Then b₁ = (S₁YS₂₂ − S₂YS₁₂)/D = (26×10 − 34×2)/96 = 192/96 = 2.
+
+## STAT-QL-180 — Residual from a multiple regression equation
+
+For Ŷ = 5 + 2X₁ + 3X₂, an observation has X₁ = 4, X₂ = 2, and Y = 25. Find its residual e = Y − Ŷ.
+
+A. 8
+B. 4
+C. 6
+D. 19
+
+**Answer:** C. 6
+
+**Explanation:** First find the fitted value: Ŷ = 5 + 2(4) + 3(2) = 19. The residual is observed minus fitted: e = 25 − 19 = 6.
+
