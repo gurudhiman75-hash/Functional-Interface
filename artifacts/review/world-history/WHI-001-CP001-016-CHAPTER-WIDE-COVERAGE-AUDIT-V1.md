@@ -28,7 +28,7 @@ These checks establish structural consistency; they do not establish that all 96
 ## Repairs made in this audit branch
 
 1. **CP016 source-ID normalization:** The 44 CP016 questions selected from CP005–CP015 had source IDs with duplicated checkpoint prefixes (for example, `CP006-CP006-S01`). Corrected the three language corpora, canonical-facts register and English review file to use `CP006-S01` form, while retaining the original values in `originSourceIds`. Extended the adapter contract test to reject invalid/doubled source IDs.
-2. **CP010 Q018 classification:** Midway was tagged as “European theatre” even though the stem, answer and source refer to the Pacific. Reclassified it as “Pacific theatre” in the pool, fact register and review artifacts; updated the map and coverage ranges. The resulting split is 5 European-theatre items and 7 Pacific-theatre items.
+2. **CP010 Q018 classification:** Midway was tagged as “European theatre” even though the stem, answer and source refer to the Pacific. Reclassified it as “Pacific theatre” in the pool, fact register and review artifacts; updated the map and coverage ranges. Q017 (Pearl Harbor/U.S. entry) is now classified under the Pacific theatre, giving 4 European-theatre and 8 Pacific-theatre items.
 
 ## Checkpoint coverage and quality findings
 

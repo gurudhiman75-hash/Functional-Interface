@@ -99,6 +99,12 @@
       "title": "U.S. Department of State, Office of the Historian — Foreign Relations of the United States, 1939, General, Volume I, Document 236",
       "url": "https://history.state.gov/historicaldocuments/frus1939v01/d236",
       "use": "British assurance to Poland, the reciprocal April communiqué, and the August Anglo-Polish mutual assistance agreement."
+    },
+    {
+      "sourceId": "CP009-S17",
+      "title": "U.S. Department of State, Office of the Historian — The Dawes Plan, the Young Plan, German Reparations, and Inter-allied War Debts",
+      "url": "https://history.state.gov/milestones/1921-1936/dawes",
+      "use": "The 1924 Dawes Plan, restructuring of German reparations, currency stabilization, and foreign/U.S. loans."
     }
   ],
   "facts": [
@@ -238,13 +244,13 @@
     },
     {
       "factId": "WHI-CP009-F013",
-      "claim": "Japan announced its withdrawal from the League after the organisation criticised its actions in Manchuria.",
+      "claim": "When the League ratified the Lytton Report in 1933, the Japanese delegation walked out and never returned to the League Council.",
       "sourceIds": [
         "CP009-S10"
       ],
-      "sourceLocator": "League limitations and response",
+      "sourceLocator": "CP009-S10, “Lytton Report” paragraph beginning “When the Lytton Report was ratified by the League in 1933”; the Japanese delegation walked out and never returned to the League Council.",
       "relationshipType": "league-limitations-and-response",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F014",
@@ -252,9 +258,9 @@
       "sourceIds": [
         "CP009-S10"
       ],
-      "sourceLocator": "League limitations and response",
+      "sourceLocator": "CP009-S10, “Lytton Report” paragraph: non-recognition of Manchukuo, the League’s 1933 ratification, and the truce that left Japan in control of Manchuria.",
       "relationshipType": "league-limitations-and-response",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F015",
@@ -262,9 +268,9 @@
       "sourceIds": [
         "CP009-S09"
       ],
-      "sourceLocator": "League limitations and response",
+      "sourceLocator": "CP009-S09, Covenant Article 10, opening sentence on respecting and preserving members’ territorial integrity and political independence.",
       "relationshipType": "league-limitations-and-response",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F016",
@@ -274,9 +280,9 @@
         "CP009-S09",
         "CP009-S10"
       ],
-      "sourceLocator": "League limitations and response",
+      "sourceLocator": "CP009-S02, League of Nations section on the Covenant and collective security; CP009-S09, Articles 10 and 16 on territorial integrity and member responses to aggression; CP009-S10, closing paragraph on the limited effect of the League response in Manchuria.",
       "relationshipType": "league-limitations-and-response",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F017",
@@ -284,9 +290,9 @@
       "sourceIds": [
         "CP009-S03"
       ],
-      "sourceLocator": "Republic and institutions",
+      "sourceLocator": "CP009-S03, section “Creating a New Constitution,” paragraph stating the constitution became law on August 11, 1919.",
       "relationshipType": "republic-and-institutions",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F018",
@@ -294,9 +300,9 @@
       "sourceIds": [
         "CP009-S03"
       ],
-      "sourceLocator": "Republic and institutions",
+      "sourceLocator": "CP009-S03, section “Creating a New Constitution,” paragraph describing the president, chancellor, and parliament or Reichstag.",
       "relationshipType": "republic-and-institutions",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F019",
@@ -305,9 +311,9 @@
         "CP009-S03",
         "CP009-S05"
       ],
-      "sourceLocator": "Republic and institutions",
+      "sourceLocator": "CP009-S03, section “Creating a New Constitution,” Article 48 paragraph on presidential emergency powers; CP009-S05, Article 48 discussion in the Nazi rise chronology.",
       "relationshipType": "republic-and-institutions",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F020",
@@ -316,19 +322,20 @@
         "CP009-S03",
         "CP009-S04"
       ],
-      "sourceLocator": "Republic and institutions",
+      "sourceLocator": "CP009-S03, section “Economic Burdens,” paragraph on reparations, printing money, and the November 1923 collapse in the mark’s exchange value; CP009-S04, Weimar Germany discussion of economic crisis.",
       "relationshipType": "republic-and-institutions",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F021",
       "claim": "The Dawes Plan of 1924 restructured reparations payments and helped stabilise the German economy, with reliance on U.S. loans.",
       "sourceIds": [
-        "CP009-S03"
+        "CP009-S03",
+        "CP009-S17"
       ],
-      "sourceLocator": "Republic and institutions",
+      "sourceLocator": "CP009-S17, section “The Dawes Plan,” paragraphs on the April 1924 proposal, reduced annual reparations, adoption of the Reichsmark, and foreign loans for economic stabilization.",
       "relationshipType": "republic-and-institutions",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F022",
@@ -336,9 +343,9 @@
       "sourceIds": [
         "CP009-S03"
       ],
-      "sourceLocator": "Republic and institutions",
+      "sourceLocator": "CP009-S03, opening overview paragraph (the Republic was not necessarily doomed from the start); “Economic Burdens,” paragraph on renegotiating debts and bringing the economy under control; “Cultural Changes,” paragraph on the 1920s recovery.",
       "relationshipType": "republic-and-institutions",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F023",
@@ -346,9 +353,9 @@
       "sourceIds": [
         "CP009-S03"
       ],
-      "sourceLocator": "Economic causes and effects",
+      "sourceLocator": "CP009-S03, section “Creating a New Constitution,” paragraph describing a president, chancellor, and popularly elected Reichstag.",
       "relationshipType": "economic-causes-and-effects",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F024",
@@ -356,9 +363,9 @@
       "sourceIds": [
         "CP009-S03"
       ],
-      "sourceLocator": "Economic causes and effects",
+      "sourceLocator": "CP009-S03, section “Creating a New Constitution,” paragraph on proportional seat distribution and the following paragraph on party proliferation and coalition formation.",
       "relationshipType": "economic-causes-and-effects",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F025",

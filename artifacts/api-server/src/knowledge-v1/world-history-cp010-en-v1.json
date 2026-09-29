@@ -573,7 +573,7 @@
     "factId": "WHI-CP010-F017",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "European theatre",
+    "questionFamily": "Pacific theatre",
     "stem": "What event brought the United States directly into the Second World War?",
     "options": [
       {
@@ -702,7 +702,8 @@
     "correctOption": "D",
     "explanation": "Allied forces captured selected islands and bypassed others to build forward bases. This strategy brought them closer to Japan while limiting some costly assaults.",
     "sourceIds": [
-      "CP010-S03"
+      "CP010-S03",
+      "CP010-S16"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -770,9 +771,9 @@
       }
     ],
     "correctOption": "B",
-    "explanation": "The Battle of the Coral Sea checked the Japanese operation against Port Moresby. It was a carrier battle in which opposing fleets did not directly sight one another.",
+    "explanation": "The Battle of the Coral Sea checked the Japanese operation against Port Moresby.",
     "sourceIds": [
-      "CP010-S03"
+      "CP010-S17"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false

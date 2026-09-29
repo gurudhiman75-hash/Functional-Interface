@@ -16,10 +16,10 @@ The source register and source IDs exist for both chapters. Most canonical facts
 
 | Checkpoint | Canonical facts | Family-level locators | Focused locators |
 |---|---:|---:|---:|
-| CP009 | 60 | 43 | 17 |
-| CP010 | 60 | 47 | 13 |
+| CP009 | 60 | 31 | 29 |
+| CP010 | 60 | 35 | 25 |
 
-The focused locators include the six facts revised in the overlap work (CP009 Q058–Q059; CP010 Q004–Q006/Q028) and the opening chronology facts now verified (CP009 Q055–Q057; CP010 Q001–Q003), CP009 League/mandate facts Q001–Q012, and CP010 early campaigns Q007–Q012. The locator count does not claim the remaining source citations are factually wrong; it shows that those facts still need passage-level verification.
+The focused locators include the six facts revised in the overlap work (CP009 Q058–Q059; CP010 Q004–Q006/Q028) and the opening chronology facts now verified (CP009 Q055–Q057; CP010 Q001–Q003), CP009 League/mandate facts Q001–Q012, and CP010 early campaigns Q007–Q012, European/Pacific theatre facts Q013–Q024; CP010 Q017 is now assigned to the Pacific family. New direct sources were added for the Dawes Plan (CP009-S17), island-hopping strategy (CP010-S16), and Coral Sea (CP010-S17). The locator count does not claim the remaining source citations are factually wrong; it shows that those facts still need passage-level verification.
 
 ## Required sequence
 

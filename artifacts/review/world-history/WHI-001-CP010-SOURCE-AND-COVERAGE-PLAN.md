@@ -54,3 +54,9 @@ New source entries use focused sections. The 60-question pool, 18/30/12 difficul
 
 - **CP010-S14** U.S. Holocaust Memorial Museum — Axis Powers in World War II. https://encyclopedia.ushmm.org/content/en/article/axis-powers-in-world-war-ii
 - **CP010-S15** Royal Air Force Museum — Operation Sealion. https://www.rafmuseum.org.uk/research/online-exhibitions/history-of-the-battle-of-britain/operation-sealion/
+
+
+## Focused source additions
+
+- **CP010-S16** U.S. Naval History and Heritage Command — [Securing New Guinea: Operations Reckless and Persecution](https://www.history.navy.mil/browse-by-topic/wars-conflicts-and-operations/world-war-ii/1944/reckless-and-persecution.html). Supports the bypass-and-isolate island-hopping strategy.
+- **CP010-S17** U.S. Naval History and Heritage Command — [Battle of the Coral Sea](https://www.history.navy.mil/research/library/online-reading-room/title-list-alphabetically/b/battle-of-the-coral-sea.html). Supports the 1942 operation against Port Moresby.

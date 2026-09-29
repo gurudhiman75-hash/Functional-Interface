@@ -152,14 +152,14 @@ Why did the League’s failure to include the United States matter?
 
 ### WHI-CP009-Q013 · Medium · League limitations and response
 
-What happened when Japan rejected the League’s criticism of its actions in Manchuria?
+How did Japan’s delegation respond when the League ratified the Lytton Report in 1933?
 
-- **A.** Japan withdrew from the League in 1933
+- **A.** It walked out and never returned to the League Council
 - **B.** Japan became a permanent League military commander
 - **C.** The League transferred Manchuria to Germany
 - **D.** China left the League and joined the Axis
 **Answer:** A
-**Explanation:** Japan announced its withdrawal from the League after the organisation criticised its actions in Manchuria.
+**Explanation:** When the League ratified the Lytton Report in 1933, the Japanese delegation walked out and never returned to the League Council.
 **Sources:** CP009-S10
 
 ### WHI-CP009-Q014 · Medium · League limitations and response
@@ -256,7 +256,7 @@ Which plan helped stabilise the German economy in the mid-1920s?
 - **D.** The Young Italy programme
 **Answer:** A
 **Explanation:** The Dawes Plan of 1924 restructured reparations payments and helped stabilise the German economy, with reliance on U.S. loans.
-**Sources:** CP009-S03
+**Sources:** CP009-S03, CP009-S17
 
 ### WHI-CP009-Q022 · Hard · Republic and institutions
 
