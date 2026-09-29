@@ -30,3 +30,22 @@ const veg=q(
 assert.equal(localizeIndianGeoQuestionV1(veg,"hi","GEO-VEG-001").stem,"कीकर, बबूल और कांटेदार झाड़ियाँ किस प्रकार की वनस्पति की विशेषता हैं?");
 assert.equal(localizeIndianGeoQuestionV1(veg,"pa","GEO-VEG-001").stem,"ਕੀਕਰ, ਬਬੂਲ ਅਤੇ ਕਾਂਟੇਦਾਰ ਝਾੜੀਆਂ ਕਿਹੜੀ ਕਿਸਮ ਦੀ ਬਨਸਪਤੀ ਦੀ ਵਿਸ਼ੇਸ਼ਤਾ ਹਨ?");
 assert.equal(localizeIndianGeoQuestionV1(veg,"pa","GEO-VEG-001").canonicalAnswer.includes("ਕਾਂਟੇਦਾਰ"),true);
+
+
+const cropNames=q(
+  "Which crop should be removed from groundnut, mustard, soybean and jute to leave an oilseed-only set?",
+  "Jute",["Groundnut","Mustard","Soybean"],
+  "Groundnut, mustard and soybean are oilseed crops, while jute is a fibre crop.",
+);
+const cropNamesPa=localizeIndianGeoQuestionV1(cropNames,"pa","GEO-AGR-001");
+assert.equal(cropNamesPa.stem.includes("ਮੂੰਗਫ਼ਲੀ"),true);
+assert.equal(cropNamesPa.stem.includes("ਸਰ੍ਹੋਂ"),true);
+assert.equal(cropNamesPa.stem.includes("ਸੋਇਆਬੀਨ"),true);
+
+const cropTermChecks = [
+  ["Rice","ਝੋਨਾ"],["Sugarcane","ਕਮਾਦ"],["Jowar","ਜੂਆਰ"],["Gram","ਛੋਲੇ"],
+] as const;
+for(const [english,punjabi] of cropTermChecks){
+  const x=q("Which crop is "+english+"?",english,["Wheat","Maize","Cotton"],english+" is the correct crop.");
+  assert.equal(localizeIndianGeoQuestionV1(x,"pa","GEO-AGR-001").canonicalAnswer,punjabi);
+}
