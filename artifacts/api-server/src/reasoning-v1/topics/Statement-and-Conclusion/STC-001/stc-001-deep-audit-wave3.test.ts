@@ -9,7 +9,9 @@ const seeds = [0, 7, 31, 63, 127, 255, 383, 511, 767, 1023, 1279, 1535, 1791, 20
 let checked = 0;
 
 function hasDevanagari(value: string): boolean {
-  return /[\u0900-\u097F]/u.test(value);
+  // U+0964/U+0965 are shared Indic danda punctuation and are valid on
+  // Punjabi learner surfaces; flag actual Devanagari letters/marks only.
+  return /[\u0900-\u0963\u0970-\u097F]/u.test(value);
 }
 function hasGurmukhi(value: string): boolean {
   return /[\u0A00-\u0A7F]/u.test(value);
