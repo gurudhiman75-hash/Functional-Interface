@@ -52,7 +52,7 @@ const EXPLANATION_EMPHASIS_CUES=["introduces the topic","introduces the main ide
  return "develops the idea further";
 }
 function friendlyExplanation(logical:readonly string[],correct:string){
- const steps=logical.map((text,i)=>`${String.fromCharCode(65+i)} in the logical flow ${cue(text,i,logical.length)}: "${text}"`);
+ const positions=["First","Second","Third","Fourth","Fifth","Sixth"];\n const steps=logical.map((text,i)=>`${positions[i]??`Step ${i+1}`} ${cue(text,i,logical.length)}: "${text}"`);
  return `The correct sequence is ${correct}. Start with the sentence that introduces the topic. Then follow references, contrast words and cause-result links. ${steps.join(" ")} Reading them in this order gives one clear paragraph.`;
 }
 export function generateEng010QuestionV1(input:Eng010QuestionInputV1={}){
