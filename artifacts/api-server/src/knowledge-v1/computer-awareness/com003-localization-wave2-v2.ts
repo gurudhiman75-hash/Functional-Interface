@@ -7,7 +7,7 @@ import type { Com003LocalizedQuestionV1 } from "./com003-localization-wave1-v1";
 
 const REPLACEMENTS = {
   hi: {
-    "column label": "Column label (स्तंभ लेबल)",
+    "column label": "Column label (कॉलम लेबल)",
     "row number": "Row number (पंक्ति संख्या)",
   },
   pa: {
