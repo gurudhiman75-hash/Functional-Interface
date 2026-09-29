@@ -3,6 +3,8 @@ export const STAT007_CONTRACTS = [
   "COVARIANCE_FROM_PAIRS", "REGRESSION_Y_ON_X", "REGRESSION_X_ON_Y", "REGRESSION_PREDICTION",
   "REGRESSION_COEFFICIENT_RELATION", "SPEARMAN_NO_TIES", "SPEARMAN_WITH_TIES", "YULE_ASSOCIATION",
   "PARTIAL_CORRELATION_THREE_VARIABLES", "MULTIPLE_CORRELATION_THREE_VARIABLES",
+  "MULTIPLE_REGRESSION_FORM", "MULTIPLE_REGRESSION_COEFFICIENT_INTERPRETATION", "MULTIPLE_REGRESSION_PREDICTION",
+  "MULTIPLE_REGRESSION_COEFFICIENTS_FROM_CROSS_PRODUCTS", "MULTIPLE_REGRESSION_RESIDUAL",
 ] as const;
 export type Stat007ContractId = typeof STAT007_CONTRACTS[number];
 export type Stat007ExamProfile = "SSC_CGL_TIER_II" | "SSC_CGL_JSO";
@@ -16,7 +18,10 @@ export type Stat007State =
   | { kind: "RANKS"; x: number[]; y: number[] }
   | { kind: "YULE"; a: number; b: number; c: number; d: number }
   | { kind: "PARTIAL"; r12: number; r13: number; r23: number }
-  | { kind: "MULTIPLE"; r12: number; r13: number; r23: number };
+  | { kind: "MULTIPLE"; r12: number; r13: number; r23: number }
+  | { kind: "MULTIPLE_PREDICT"; intercept: number; b1: number; b2: number; x1: number; x2: number }
+  | { kind: "MULTIPLE_CROSS_PRODUCTS"; s1y: number; s2y: number; s11: number; s22: number; s12: number; target: "b1" | "b2" }
+  | { kind: "RESIDUAL"; observed: number; predicted: number };
 export type Stat007Question = Readonly<{
   packageId: "STAT-007"; questionId: string; qlId: string; contractId: Stat007ContractId; seed: string;
   examProfile: Stat007ExamProfile; stem: string; options: readonly [string,string,string,string]; correctIndex: number;
