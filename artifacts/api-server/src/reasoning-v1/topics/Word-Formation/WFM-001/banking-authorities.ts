@@ -24,6 +24,17 @@ export interface WfmOrderedExtractionFixture {
   ];
 }
 
+const KNOWN_COMMON_EXTRACTIONS = new Set([
+  "WIND",
+  "PART",
+  "MATH",
+  "BODE",
+  "RAIN",
+  "GOLD",
+  "LOAD",
+  "INCH",
+]);
+
 function extract(option: WfmOrderedExtractionOptionAuthority): string {
   if (option.words.length === 1) {
     const word = option.words[0]!.toUpperCase();
@@ -119,6 +130,12 @@ for (const fixture of WFM_BANKING_ORDERED_EXTRACTION_FIXTURES) {
     const actual = extract(option);
     if (actual !== option.expectedExtraction) {
       throw new Error(`${fixture.id}: extraction drift ${actual} !== ${option.expectedExtraction}`);
+    }
+    if (option.meaningful && !KNOWN_COMMON_EXTRACTIONS.has(actual)) {
+      throw new Error(`${fixture.id}: meaningful extraction ${actual} is not in the governed common-word authority`);
+    }
+    if (!option.meaningful && KNOWN_COMMON_EXTRACTIONS.has(actual)) {
+      throw new Error(`${fixture.id}: non-answer extraction ${actual} is also a governed common word`);
     }
     if (option.words.length !== 1 && option.words.length !== option.positions.length) {
       throw new Error(`${fixture.id}: invalid word/position cardinality`);
