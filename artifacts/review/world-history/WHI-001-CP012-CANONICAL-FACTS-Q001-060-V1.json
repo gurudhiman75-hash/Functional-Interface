@@ -1,0 +1,730 @@
+{
+  "schemaVersion": "1.0",
+  "chapterId": "WHI-001",
+  "checkpointId": "WHI-001-CP012",
+  "status": "full-source-backed-review-pool",
+  "sourceRegister": [
+    {
+      "sourceId": "CP012-S01",
+      "title": "U.S. Department of State, Office of the Historian — Decolonization of Asia and Africa, 1945–1960",
+      "url": "https://history.state.gov/milestones/1945-1952/asia-and-africa"
+    },
+    {
+      "sourceId": "CP012-S02",
+      "title": "U.S. Department of State, Office of the Historian — Burma: Recognition of Independence, 1948",
+      "url": "https://history.state.gov/countries/burma"
+    },
+    {
+      "sourceId": "CP012-S03",
+      "title": "U.S. Department of State, Office of the Historian — FRUS: Indonesia and the transfer of sovereignty, 1949",
+      "url": "https://history.state.gov/historicaldocuments/frus1949v07p1/d409"
+    },
+    {
+      "sourceId": "CP012-S04",
+      "title": "U.S. Department of State, Office of the Historian — Dien Bien Phu and the Fall of French Indochina, 1954",
+      "url": "https://history.state.gov/milestones/1953-1960/dien-bien-phu"
+    },
+    {
+      "sourceId": "CP012-S05",
+      "title": "Avalon Project, Yale Law School — Geneva Accords on Indochina, 1954",
+      "url": "https://avalon.law.yale.edu/20th_century/inch005.asp"
+    },
+    {
+      "sourceId": "CP012-S06",
+      "title": "U.S. Department of State, Office of the Historian — Chinese Revolution, 1949",
+      "url": "https://history.state.gov/milestones/1945-1952/chinese-rev"
+    },
+    {
+      "sourceId": "CP012-S07",
+      "title": "U.S. Department of State, Office of the Historian — FRUS: Malayan independence agreement, 1957",
+      "url": "https://history.state.gov/historicaldocuments/frus1955-57v22/d452"
+    },
+    {
+      "sourceId": "CP012-S08",
+      "title": "United Nations — Declaration on the Granting of Independence to Colonial Countries and Peoples",
+      "url": "https://legal.un.org/avl/ha/dicc/dicc.html"
+    },
+    {
+      "sourceId": "CP012-S09",
+      "title": "United Nations — General Assembly Resolution 181 (II), 1947",
+      "url": "https://www.un.org/unispal/document/auto-insert-185393/"
+    },
+    {
+      "sourceId": "CP012-S10",
+      "title": "U.S. Department of State, Office of the Historian — Creation of Israel, 1948",
+      "url": "https://history.state.gov/milestones/1945-1952/creation-israel"
+    },
+    {
+      "sourceId": "CP012-S11",
+      "title": "U.S. Department of State, Office of the Historian — Arab-Israeli War of 1948",
+      "url": "https://history.state.gov/milestones/1945-1952/arab-israeli-war"
+    },
+    {
+      "sourceId": "CP012-S12",
+      "title": "U.S. Department of State, Office of the Historian — Bandung Conference, 1955",
+      "url": "https://history.state.gov/milestones/1953-1960/bandung-conf"
+    }
+  ],
+  "facts": [
+    {
+      "factId": "WHI-CP012-F001",
+      "claim": "The war weakened European imperial capacity while strengthening demands for self-government.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization pressures and frameworks",
+      "relationshipType": "decolonization-pressures-and-frameworks",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F002",
+      "claim": "The declaration called for an end to colonial rule and affirmed self-determination.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization pressures and frameworks",
+      "relationshipType": "decolonization-pressures-and-frameworks",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F003",
+      "claim": "Different territories reached independence through distinct political paths and conflicts.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization pressures and frameworks",
+      "relationshipType": "decolonization-pressures-and-frameworks",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F004",
+      "claim": "Wartime mobilization and postwar self-determination claims strengthened anticolonial politics.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization pressures and frameworks",
+      "relationshipType": "decolonization-pressures-and-frameworks",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F005",
+      "claim": "The UN gave anticolonial claims a diplomatic forum and adopted decolonization principles.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization pressures and frameworks",
+      "relationshipType": "decolonization-pressures-and-frameworks",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F006",
+      "claim": "Political independence did not automatically resolve institutional and economic challenges.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization pressures and frameworks",
+      "relationshipType": "decolonization-pressures-and-frameworks",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F007",
+      "claim": "Britain ended its rule over the Indian subcontinent in 1947.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "India and Pakistan independence",
+      "relationshipType": "india-and-pakistan-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F008",
+      "claim": "Partition established India and Pakistan as separate states in 1947.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "India and Pakistan independence",
+      "relationshipType": "india-and-pakistan-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F009",
+      "claim": "Partition caused mass population movements and severe violence.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "India and Pakistan independence",
+      "relationshipType": "india-and-pakistan-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F010",
+      "claim": "Pakistan marks independence on 14 August 1947; India followed on 15 August.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "India and Pakistan independence",
+      "relationshipType": "india-and-pakistan-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F011",
+      "claim": "The Act created the two independent dominions of India and Pakistan.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "India and Pakistan independence",
+      "relationshipType": "india-and-pakistan-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F012",
+      "claim": "Both India and Pakistan became independent as British rule ended in 1947.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S08"
+      ],
+      "sourceLocator": "India and Pakistan independence",
+      "relationshipType": "india-and-pakistan-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F013",
+      "claim": "Sukarno and Hatta proclaimed independence after Japan’s surrender.",
+      "sourceIds": [
+        "CP012-S03",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Indonesian independence",
+      "relationshipType": "indonesian-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F014",
+      "claim": "The Netherlands attempted to reassert rule over the former Dutch East Indies.",
+      "sourceIds": [
+        "CP012-S03",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Indonesian independence",
+      "relationshipType": "indonesian-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F015",
+      "claim": "The transfer of sovereignty followed the Round Table Conference settlement.",
+      "sourceIds": [
+        "CP012-S03",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Indonesian independence",
+      "relationshipType": "indonesian-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F016",
+      "claim": "Yogyakarta served as the republican capital during the independence struggle.",
+      "sourceIds": [
+        "CP012-S03",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Indonesian independence",
+      "relationshipType": "indonesian-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F017",
+      "claim": "Indonesian republicans fought to secure recognition of independence from Dutch rule.",
+      "sourceIds": [
+        "CP012-S03",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Indonesian independence",
+      "relationshipType": "indonesian-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F018",
+      "claim": "The Round Table Conference in 1949 produced the settlement preceding the sovereignty transfer.",
+      "sourceIds": [
+        "CP012-S03",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Indonesian independence",
+      "relationshipType": "indonesian-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F019",
+      "claim": "Ho Chi Minh declared the Democratic Republic of Vietnam in Hanoi in September 1945.",
+      "sourceIds": [
+        "CP012-S04",
+        "CP012-S05"
+      ],
+      "sourceLocator": "Vietnam and the end of French Indochina",
+      "relationshipType": "vietnam-and-the-end-of-french-indochina",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F020",
+      "claim": "The French defeat at Dien Bien Phu led to the end of France’s war in Indochina.",
+      "sourceIds": [
+        "CP012-S04",
+        "CP012-S05"
+      ],
+      "sourceLocator": "Vietnam and the end of French Indochina",
+      "relationshipType": "vietnam-and-the-end-of-french-indochina",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F021",
+      "claim": "The Geneva agreements set out a ceasefire and political arrangements for Indochina.",
+      "sourceIds": [
+        "CP012-S04",
+        "CP012-S05"
+      ],
+      "sourceLocator": "Vietnam and the end of French Indochina",
+      "relationshipType": "vietnam-and-the-end-of-french-indochina",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F022",
+      "claim": "The Geneva settlement provisionally divided Vietnam near the 17th parallel.",
+      "sourceIds": [
+        "CP012-S04",
+        "CP012-S05"
+      ],
+      "sourceLocator": "Vietnam and the end of French Indochina",
+      "relationshipType": "vietnam-and-the-end-of-french-indochina",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F023",
+      "claim": "French Indochina comprised Vietnam, Laos and Cambodia.",
+      "sourceIds": [
+        "CP012-S04",
+        "CP012-S05"
+      ],
+      "sourceLocator": "Vietnam and the end of French Indochina",
+      "relationshipType": "vietnam-and-the-end-of-french-indochina",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F024",
+      "claim": "The agreements envisaged elections to determine Vietnam’s political future and reunification.",
+      "sourceIds": [
+        "CP012-S04",
+        "CP012-S05"
+      ],
+      "sourceLocator": "Vietnam and the end of French Indochina",
+      "relationshipType": "vietnam-and-the-end-of-french-indochina",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F025",
+      "claim": "Burma became independent on 4 January 1948.",
+      "sourceIds": [
+        "CP012-S02",
+        "CP012-S07",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Burma and Malaya",
+      "relationshipType": "burma-and-malaya",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F026",
+      "claim": "The Federation of Malaya became independent on 31 August 1957.",
+      "sourceIds": [
+        "CP012-S02",
+        "CP012-S07",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Burma and Malaya",
+      "relationshipType": "burma-and-malaya",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F027",
+      "claim": "Tunku Abdul Rahman led the new Federation of Malaya as its first prime minister.",
+      "sourceIds": [
+        "CP012-S02",
+        "CP012-S07",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Burma and Malaya",
+      "relationshipType": "burma-and-malaya",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F028",
+      "claim": "Burmese political leaders negotiated with Britain on the route to independence.",
+      "sourceIds": [
+        "CP012-S02",
+        "CP012-S07",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Burma and Malaya",
+      "relationshipType": "burma-and-malaya",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F029",
+      "claim": "The Federation of Malaya’s independence came in 1957; Malaysia was formed in 1963.",
+      "sourceIds": [
+        "CP012-S02",
+        "CP012-S07",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Burma and Malaya",
+      "relationshipType": "burma-and-malaya",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F030",
+      "claim": "Burma had been part of the British Empire before independence.",
+      "sourceIds": [
+        "CP012-S02",
+        "CP012-S07",
+        "CP012-S01"
+      ],
+      "sourceLocator": "Burma and Malaya",
+      "relationshipType": "burma-and-malaya",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F031",
+      "claim": "Mao Zedong proclaimed the PRC in Beijing on 1 October 1949.",
+      "sourceIds": [
+        "CP012-S06"
+      ],
+      "sourceLocator": "Chinese Revolution and the PRC",
+      "relationshipType": "chinese-revolution-and-the-prc",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F032",
+      "claim": "The Nationalist government retreated to Taiwan as Communist forces took the mainland.",
+      "sourceIds": [
+        "CP012-S06"
+      ],
+      "sourceLocator": "Chinese Revolution and the PRC",
+      "relationshipType": "chinese-revolution-and-the-prc",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F033",
+      "claim": "Communist forces won on the mainland and established the PRC in 1949.",
+      "sourceIds": [
+        "CP012-S06"
+      ],
+      "sourceLocator": "Chinese Revolution and the PRC",
+      "relationshipType": "chinese-revolution-and-the-prc",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F034",
+      "claim": "The Chinese Communist Party formed the government of the new PRC.",
+      "sourceIds": [
+        "CP012-S06"
+      ],
+      "sourceLocator": "Chinese Revolution and the PRC",
+      "relationshipType": "chinese-revolution-and-the-prc",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F035",
+      "claim": "The new government was proclaimed in Beijing, which became the PRC’s capital.",
+      "sourceIds": [
+        "CP012-S06"
+      ],
+      "sourceLocator": "Chinese Revolution and the PRC",
+      "relationshipType": "chinese-revolution-and-the-prc",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F036",
+      "claim": "The Communist PRC controlled the mainland while the Nationalist ROC government remained on Taiwan.",
+      "sourceIds": [
+        "CP012-S06"
+      ],
+      "sourceLocator": "Chinese Revolution and the PRC",
+      "relationshipType": "chinese-revolution-and-the-prc",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F037",
+      "claim": "The conference met in Bandung, Indonesia.",
+      "sourceIds": [
+        "CP012-S12"
+      ],
+      "sourceLocator": "Bandung and Asian-African solidarity",
+      "relationshipType": "bandung-and-asian-african-solidarity",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F038",
+      "claim": "The meeting voiced Asian-African cooperation and opposition to colonialism.",
+      "sourceIds": [
+        "CP012-S12"
+      ],
+      "sourceLocator": "Bandung and Asian-African solidarity",
+      "relationshipType": "bandung-and-asian-african-solidarity",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F039",
+      "claim": "The Asian-African Conference convened in Bandung in April 1955.",
+      "sourceIds": [
+        "CP012-S12"
+      ],
+      "sourceLocator": "Bandung and Asian-African solidarity",
+      "relationshipType": "bandung-and-asian-african-solidarity",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F040",
+      "claim": "Many participants sought cooperation and autonomy without automatic alignment with either Cold War bloc.",
+      "sourceIds": [
+        "CP012-S12"
+      ],
+      "sourceLocator": "Bandung and Asian-African solidarity",
+      "relationshipType": "bandung-and-asian-african-solidarity",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F041",
+      "claim": "The conference brought together countries from Asia and Africa.",
+      "sourceIds": [
+        "CP012-S12"
+      ],
+      "sourceLocator": "Bandung and Asian-African solidarity",
+      "relationshipType": "bandung-and-asian-african-solidarity",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F042",
+      "claim": "Bandung helped shape later non-aligned and Afro-Asian diplomatic cooperation.",
+      "sourceIds": [
+        "CP012-S12"
+      ],
+      "sourceLocator": "Bandung and Asian-African solidarity",
+      "relationshipType": "bandung-and-asian-african-solidarity",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F043",
+      "claim": "Britain administered Palestine under the mandate system after the First World War.",
+      "sourceIds": [
+        "CP012-S09",
+        "CP012-S10"
+      ],
+      "sourceLocator": "Palestine under the British Mandate",
+      "relationshipType": "palestine-under-the-british-mandate",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F044",
+      "claim": "Resolution 181 recommended partition into Arab and Jewish states and an international status for Jerusalem.",
+      "sourceIds": [
+        "CP012-S09",
+        "CP012-S10"
+      ],
+      "sourceLocator": "Palestine under the British Mandate",
+      "relationshipType": "palestine-under-the-british-mandate",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F045",
+      "claim": "The General Assembly adopted Resolution 181 on 29 November 1947.",
+      "sourceIds": [
+        "CP012-S09",
+        "CP012-S10"
+      ],
+      "sourceLocator": "Palestine under the British Mandate",
+      "relationshipType": "palestine-under-the-british-mandate",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F046",
+      "claim": "The plan proposed international administration for Jerusalem as a separate entity.",
+      "sourceIds": [
+        "CP012-S09",
+        "CP012-S10"
+      ],
+      "sourceLocator": "Palestine under the British Mandate",
+      "relationshipType": "palestine-under-the-british-mandate",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F047",
+      "claim": "The British Mandate ended in May 1948.",
+      "sourceIds": [
+        "CP012-S09",
+        "CP012-S10"
+      ],
+      "sourceLocator": "Palestine under the British Mandate",
+      "relationshipType": "palestine-under-the-british-mandate",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F048",
+      "claim": "Resolution 181 was adopted by the General Assembly.",
+      "sourceIds": [
+        "CP012-S09",
+        "CP012-S10"
+      ],
+      "sourceLocator": "Palestine under the British Mandate",
+      "relationshipType": "palestine-under-the-british-mandate",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F049",
+      "claim": "Israel declared independence on 14 May 1948 as the British Mandate ended.",
+      "sourceIds": [
+        "CP012-S10",
+        "CP012-S11"
+      ],
+      "sourceLocator": "Israel, 1948 war and displacement",
+      "relationshipType": "israel-1948-war-and-displacement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F050",
+      "claim": "The 1948 war began amid the end of the Mandate and declaration of Israel.",
+      "sourceIds": [
+        "CP012-S10",
+        "CP012-S11"
+      ],
+      "sourceLocator": "Israel, 1948 war and displacement",
+      "relationshipType": "israel-1948-war-and-displacement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F051",
+      "claim": "The UN plan recommended partition; the state’s declaration followed in May 1948.",
+      "sourceIds": [
+        "CP012-S10",
+        "CP012-S11"
+      ],
+      "sourceLocator": "Israel, 1948 war and displacement",
+      "relationshipType": "israel-1948-war-and-displacement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F052",
+      "claim": "The conflict produced large-scale Palestinian displacement and a refugee crisis.",
+      "sourceIds": [
+        "CP012-S10",
+        "CP012-S11"
+      ],
+      "sourceLocator": "Israel, 1948 war and displacement",
+      "relationshipType": "israel-1948-war-and-displacement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F053",
+      "claim": "The British Mandate ended as Israel declared independence.",
+      "sourceIds": [
+        "CP012-S10",
+        "CP012-S11"
+      ],
+      "sourceLocator": "Israel, 1948 war and displacement",
+      "relationshipType": "israel-1948-war-and-displacement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F054",
+      "claim": "The war ended with armistice agreements; core political disputes remained unresolved.",
+      "sourceIds": [
+        "CP012-S10",
+        "CP012-S11"
+      ],
+      "sourceLocator": "Israel, 1948 war and displacement",
+      "relationshipType": "israel-1948-war-and-displacement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F055",
+      "claim": "Indonesia’s declaration and eventual sovereignty transfer were separated by years of conflict and negotiation.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S12",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization paths and regional comparison",
+      "relationshipType": "decolonization-paths-and-regional-comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F056",
+      "claim": "Burma became independent from Britain in 1948.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S12",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization paths and regional comparison",
+      "relationshipType": "decolonization-paths-and-regional-comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F057",
+      "claim": "Dien Bien Phu fell in 1954, followed by Geneva negotiations on Indochina.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S12",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization paths and regional comparison",
+      "relationshipType": "decolonization-paths-and-regional-comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F058",
+      "claim": "New states often faced continuing conflicts and the work of building political institutions.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S12",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization paths and regional comparison",
+      "relationshipType": "decolonization-paths-and-regional-comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F059",
+      "claim": "The three events occurred in 1947, 1948 and 1957 respectively.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S12",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization paths and regional comparison",
+      "relationshipType": "decolonization-paths-and-regional-comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP012-F060",
+      "claim": "Bandung brought Asian and African states together in 1955.",
+      "sourceIds": [
+        "CP012-S01",
+        "CP012-S12",
+        "CP012-S08"
+      ],
+      "sourceLocator": "Decolonization paths and regional comparison",
+      "relationshipType": "decolonization-paths-and-regional-comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    }
+  ]
+}
