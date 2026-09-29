@@ -22,8 +22,12 @@ function distractors(correct:readonly number[]){
 function presentation(set:Eng010SetV1,seed:string){
  const logical=set.order.map(n=>set.sentences[n-1]!);
  const keyed=logical.map((text,i)=>({text,logical:i+1,key:hash(`${seed}:present:${set.id}:${i}`)})).sort((a,b)=>a.key-b.key);
- const presented=keyed.map(x=>x.text);
- const correct=logical.map(text=>presented.indexOf(text)+1);
+ let presented=keyed.map(x=>x.text);
+ let correct=logical.map(text=>presented.indexOf(text)+1);
+ if(correct.every((n,i)=>n===i+1)){
+  presented=[...presented.slice(1),presented[0]!];
+  correct=logical.map(text=>presented.indexOf(text)+1);
+ }
  return{presented,correct};
 }
 function shuffledOptions(correctOrder:readonly number[],seed:string){
