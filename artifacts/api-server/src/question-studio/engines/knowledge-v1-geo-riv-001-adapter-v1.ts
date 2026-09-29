@@ -51,6 +51,7 @@ import type {
   QuestionStudioPackageDefinition,
 } from "../engine-types";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { localizeIndianGeoQuestionV1 } from "../../knowledge-v1/indian-geography/indian-geo-localization-v1";
 
 export const GEO_RIV_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "GEO-RIV-001" as const;
 export const GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -78,7 +79,7 @@ export const GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1 = semanticAuthorities
   .join("+");
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
-const supportedLanguages: QuestionStudioLanguage[] = ["en"];
+const supportedLanguages: QuestionStudioLanguage[] = ["en","hi","pa"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
 const cpIds = semanticAuthorities.map((authority) => authority.cpId);
 
@@ -112,8 +113,8 @@ function freezeAuthorityForCp(cpId: string) {
 
 function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
   if (!language) return "en";
-  if (language === "en") return language;
-  throw new Error(`GEO-RIV-001 currently supports English only; ${String(language)} is not frozen`);
+  if (language === "en" || language === "hi" || language === "pa") return language;
+  throw new Error("GEO-RIV-001 language is not supported");
 }
 
 function normalizeCount(count: number | undefined) {
@@ -204,6 +205,9 @@ export const GEO_RIV_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
     cpIds: [...cpIds],
     cpCount: cpIds.length,
     englishQuestionCount: frozenQuestions.length,
+    localizedVersionCount: (frozenQuestions.length) * 3,
+    localizationLanguages: ["en","hi","pa"],
+    localizationStatus: "REVIEW_REQUIRED",
     revisionPolicy: GEO_RIV_001_REVISION_POLICY_V1,
     difficultyFilterSupported: true,
     supportedDifficulties: [...supportedDifficulties],
@@ -281,15 +285,15 @@ export const knowledgeV1GeoRiv001QuestionStudioAdapterV1: QuestionStudioEngineAd
         topic: "Indian Geography",
         subtopic: "Indian Rivers & Drainage System",
         language,
-        locale: "en-IN",
-        stem: question.stem,
-        text: question.stem,
-        options: [...question.options],
-        correctIndex: question.correctIndex,
-        correct: question.correctIndex,
-        canonicalAnswer: question.canonicalAnswer,
-        answer: question.canonicalAnswer,
-        explanation: question.explanation,
+        locale: ({en:"en-IN",hi:"hi-IN",pa:"pa-IN"} as const)[language],
+      stem: localizeIndianGeoQuestionV1(question, language, "GEO-RIV-001").stem,
+      text: localizeIndianGeoQuestionV1(question, language, "GEO-RIV-001").stem,
+      options: [...localizeIndianGeoQuestionV1(question, language, "GEO-RIV-001").options],
+      correctIndex: question.correctIndex,
+      correct: question.correctIndex,
+      canonicalAnswer: localizeIndianGeoQuestionV1(question, language, "GEO-RIV-001").canonicalAnswer,
+      answer: localizeIndianGeoQuestionV1(question, language, "GEO-RIV-001").canonicalAnswer,
+      explanation: localizeIndianGeoQuestionV1(question, language, "GEO-RIV-001").explanation,
         difficulty: question.difficulty,
         difficultyLabel: question.difficulty,
         sourceIds: [...question.sourceIds],

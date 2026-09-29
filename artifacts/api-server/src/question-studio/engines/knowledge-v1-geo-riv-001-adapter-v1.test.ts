@@ -20,7 +20,7 @@ assert.equal(packageDef.lifecycleStage, "REVIEW_ONLY");
 assert.equal(packageDef.questionBankWritable, false);
 assert.equal(packageDef.testEligible, false);
 assert.equal(packageDef.mockTestEligible, false);
-assert.deepEqual(packageDef.supportedLanguages, ["en"]);
+assert.deepEqual(packageDef.supportedLanguages, ["en","hi","pa"]);
 assert.deepEqual(packageDef.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.deepEqual(packageDef.cpIds, expectedCpIds);
 assert.equal(packageDef.metadata?.cpCount, 14);
@@ -137,13 +137,14 @@ await assert.rejects(
   }),
   /Unknown GEO-RIV-001 selector/i,
 );
-await assert.rejects(
-  knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
-    ...baseRequest,
-    language: "hi",
-  }),
-  /currently supports English only/i,
-);
+const hindi = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({ ...baseRequest, language: "hi", count: 2 });
+assert.equal(hindi.questions.length, 2);
+assert.equal(hindi.questions.every((q) => q.language === "hi" && q.locale === "hi-IN"), true);
+assert.equal(hindi.questions.every((q) => /[\u0900-\u097F]/.test(String(q.stem))), true);
+const punjabi = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({ ...baseRequest, language: "pa", count: 2 });
+assert.equal(punjabi.questions.length, 2);
+assert.equal(punjabi.questions.every((q) => q.language === "pa" && q.locale === "pa-IN"), true);
+assert.equal(punjabi.questions.every((q) => /[\u0A00-\u0A7F]/.test(String(q.stem))), true);
 await assert.rejects(
   knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
     ...baseRequest,
