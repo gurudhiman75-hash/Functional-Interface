@@ -43,7 +43,8 @@ export type MixedFacingMisconceptionId =
   | "SEA-MC-MIX-SUBJECT_FACING_USED"
   | "SEA-MC-MIX-OFF_BY_ONE_SEAT"
   | "SEA-MC-MIX-ENDPOINT_INCLUDED"
-  | "SEA-MC-MIX-WRONG_NEIGHBOUR";
+  | "SEA-MC-MIX-WRONG_NEIGHBOUR"
+  | "SEA-MC-MIX-COUNTED_OUTSIDE_PAIR";
 
 export interface MixedFacingOption {
   readonly semanticValue: MixedFacingSemanticValue;
