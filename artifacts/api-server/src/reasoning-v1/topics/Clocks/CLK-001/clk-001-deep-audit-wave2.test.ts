@@ -4,13 +4,13 @@ import {
   CLK_001_AUTHORING_TASKS_BY_QL_V1,
   CLK_001_AUTHORING_VARIANT_AUTHORITY_V1,
   CLK_001_LOCALIZED_VARIANT_BATCH_1,
-} from "./authoring-variants-v1.ts";
+} from "./authoring-variants-v1";
 import {
   CLK_001_PERMANENT_CONTRACTS,
   type ClockPermanentQlId,
-} from "./permanent-contracts.ts";
-import { generateClk001QuestionStudioBatch } from "./question-studio-integration.ts";
-import { CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION } from "./runtime/exam-natural-governance.ts";
+} from "./permanent-contracts";
+import { generateClk001QuestionStudioBatch } from "./question-studio-integration";
+import { CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION } from "./runtime/exam-natural-governance";
 
 test("CLK-001 batch-1 authoring registry keeps 23 QLs and excludes held/internal tasks", () => {
   assert.equal(CLK_001_PERMANENT_CONTRACTS.length, 23);
