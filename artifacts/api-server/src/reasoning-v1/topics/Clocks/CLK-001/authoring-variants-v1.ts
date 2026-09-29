@@ -13,7 +13,23 @@ export const CLK_001_LOCALIZED_VARIANT_BATCH_1 = [
   "SELECT_DIAGRAM_FOR_TIME",
 ] as const satisfies readonly ClockTaskId[];
 
-const localizedBatch = new Set<ClockTaskId>(CLK_001_LOCALIZED_VARIANT_BATCH_1);
+export const CLK_001_LOCALIZED_VARIANT_BATCH_2 = [
+  "REFLEX_ANGLE_AT_TIME",
+  "OPPOSITION_IN_HOUR",
+  "RIGHT_ANGLE_TIMES_IN_HOUR",
+  "COUNT_OPPOSITIONS",
+  "COUNT_RIGHT_ANGLES",
+  "ACTUAL_FROM_DISPLAYED_ELAPSED",
+  "ACTUAL_DURATION_FROM_READING_CHANGE",
+  "LOSS_FROM_COINCIDENCE_INTERVAL",
+  "GAP_FROM_N_STRIKES",
+  "IDENTIFY_SMALLER_REFLEX_FROM_DIAGRAM",
+] as const satisfies readonly ClockTaskId[];
+
+const localizedBatch = new Set<ClockTaskId>([
+  ...CLK_001_LOCALIZED_VARIANT_BATCH_1,
+  ...CLK_001_LOCALIZED_VARIANT_BATCH_2,
+]);
 
 export const CLK_001_AUTHORING_TASKS_BY_QL_V1 = Object.freeze(Object.fromEntries(
   CLK_001_PERMANENT_CONTRACTS.map((contract) => {
@@ -39,10 +55,16 @@ export function selectClk001AuthoringTaskV1(
 
 export const CLK_001_AUTHORING_VARIANT_AUTHORITY_V1 = Object.freeze({
   authorityId: "CLK_001_AUTHORING_VARIANT_AUTHORITY_V1",
-  status: "BATCH_1_MULTILINGUAL_VARIANT_AUTHORING",
+  status: "BATCH_2_MULTILINGUAL_VARIANT_AUTHORING",
   permanentQlCount: CLK_001_PERMANENT_CONTRACTS.length,
-  newlyEnabledVariantCount: CLK_001_LOCALIZED_VARIANT_BATCH_1.length,
-  newlyEnabledVariantTaskIds: CLK_001_LOCALIZED_VARIANT_BATCH_1,
+  batch1VariantTaskIds: CLK_001_LOCALIZED_VARIANT_BATCH_1,
+  batch2VariantTaskIds: CLK_001_LOCALIZED_VARIANT_BATCH_2,
+  enabledMergedVariantCount:
+    CLK_001_LOCALIZED_VARIANT_BATCH_1.length + CLK_001_LOCALIZED_VARIANT_BATCH_2.length,
+  enabledMergedVariantTaskIds: Object.freeze([
+    ...CLK_001_LOCALIZED_VARIANT_BATCH_1,
+    ...CLK_001_LOCALIZED_VARIANT_BATCH_2,
+  ]),
   heldTasksExcluded: true,
   internalTasksExcluded: true,
   requiresEnHiPaLocalizationParity: true,
