@@ -4,6 +4,13 @@ function hash(s:string){let h=2166136261;for(let i=0;i<s.length;i++)h=Math.imul(
 function pick<T>(a:readonly T[],s:string){return a[hash(s)%a.length]!;}
 function shuffle<T>(a:readonly T[],s:string){const o=[...a];let x=hash(s)||1;for(let i=o.length-1;i>0;i--){x^=x<<13;x^=x>>>17;x^=x<<5;const j=(x>>>0)%(i+1);[o[i],o[j]]=[o[j]!,o[i]!];}return o;}
 function fmt(n:number){return String(Math.round((n+Number.EPSILON)*100)/100);}
+export function fitLeastSquaresTrend(times:readonly number[],values:readonly number[]){
+ if(times.length!==values.length||times.length<2)throw new Error("Least-squares trend requires matching time and observation arrays with at least two points.");
+ const meanT=times.reduce((a,b)=>a+b,0)/times.length,meanY=values.reduce((a,b)=>a+b,0)/values.length,den=times.reduce((s,t)=>s+(t-meanT)**2,0);
+ if(den===0)throw new Error("Least-squares trend requires at least two distinct time values.");
+ const slope=times.reduce((s,t,i)=>s+(t-meanT)*(values[i]!-meanY),0)/den,intercept=meanY-slope*meanT;
+ return{intercept,slope};
+}
 function solve(s:Stat013State):number|string{return s.kind==="NUMERIC"?s.answer:s.answer;}
 type Draft={state:Stat013State;stem:string;explanation:string;choices?:string[]};
 function draft(id:Stat013ContractId,seed:string):Draft{
@@ -19,7 +26,11 @@ function draft(id:Stat013ContractId,seed:string):Draft{
  if(C[id]){const [stem,explanation,choices]=C[id]!;return{state:{kind:"CLASSIFY",answer:choices[0]!},stem,explanation,choices};}
  if(id==="MOVING_AVERAGE")return{state:{kind:"NUMERIC",answer:10},stem:"Find the 3-period moving average for observations 8, 10, and 12.",explanation:"Moving average = (8 + 10 + 12)/3 = 10."};
  if(id==="CENTERED_MOVING_AVERAGE")return{state:{kind:"NUMERIC",answer:11},stem:"For an even 4-period window, two adjacent moving averages are 10 and 12. Find the centered moving average.",explanation:"Center by averaging the adjacent moving averages: (10 + 12)/2 = 11."};
- if(id==="LEAST_SQUARES_TREND"||id==="FORECAST"){const a=pick([20,24,30] as const,seed),b=pick([2,3,4] as const,seed+"b"),t=pick(id==="FORECAST"?[5,6,7] as const:[1,2,3] as const,seed+"t"),v=a+b*t;return{state:{kind:"NUMERIC",answer:v},stem:`A fitted trend is Ŷ = ${a} + ${b}t. ${id==="FORECAST"?"Forecast":"Find the fitted value"} at t = ${t}.`,explanation:`Substitute t = ${t}: Ŷ = ${a} + ${b}(${t}) = ${v}.`};}
+ if(id==="LEAST_SQUARES_TREND"){
+ const times=[-2,-1,0,1,2],intercept=pick([40,50,60] as const,seed),slope=pick([2,3,4] as const,seed+"b"),deviation=pick([-2,-1,1,2] as const,seed+"d"),errors=[deviation,-2*deviation,0,2*deviation,-deviation],values=times.map((t,i)=>intercept+slope*t+errors[i]!),fit=fitLeastSquaresTrend(times,values),at=3,value=fit.intercept+fit.slope*at,sumY=values.reduce((a,b)=>a+b,0),sumTY=times.reduce((s,t,i)=>s+t*values[i]!,0),sumT2=times.reduce((s,t)=>s+t*t,0);
+ return{state:{kind:"NUMERIC",answer:value},stem:`Observed values at coded times t = -2, -1, 0, 1, 2 are ${values.join(", ")}, respectively. Fit the straight-line trend Ŷ = a + bt by least squares and find the fitted value at t = 3.`,explanation:`The mean coded time is 0, so the intercept is the mean observation: a = ${sumY}/5 = ${fit.intercept}. The least-squares slope is b = Σ(tY)/Σt² = ${sumTY}/${sumT2} = ${fit.slope}. Thus the fitted trend is Ŷ = ${fit.intercept} + ${fit.slope}t. At t = 3, Ŷ = ${fit.intercept} + ${fit.slope}(3) = ${fmt(value)}.`};
+ }
+ if(id==="FORECAST"){const a=pick([20,24,30] as const,seed),b=pick([2,3,4] as const,seed+"b"),t=pick([5,6,7] as const,seed+"t"),v=a+b*t;return{state:{kind:"NUMERIC",answer:v},stem:`A fitted trend is Ŷ = ${a} + ${b}t. Forecast at t = ${t}.`,explanation:`Substitute t = ${t}: Ŷ = ${a} + ${b}(${t}) = ${v}.`};}
  if(id==="SEASONAL_INDEX"){const [current,base]=pick([[120,100],[135,120],[150,125]] as const,seed),v=current/base*100;return{state:{kind:"NUMERIC",answer:v},stem:`A season's average is ${current}; the overall average is ${base}. Find its seasonal index as a percent.`,explanation:`Index = (seasonal average / overall average) × 100 = (${current}/${base}) × 100 = ${fmt(v)}.`};}
  const [a,b]=pick([[14,9],[18,11],[20,13]] as const,seed);if(id==="SEASONAL"){return{state:{kind:"NUMERIC",answer:a-b},stem:`In an additive decomposition, observed value Y = ${a} and trend-cycle T = ${b}. Find the remainder Y − T.`,explanation:`Additive remainder = Y − T = ${a} − ${b} = ${a-b}.`};}
  return{state:{kind:"NUMERIC",answer:a+b},stem:`In an additive time-series model, trend is ${a} and seasonal effect is ${b}. Find their combined value.`,explanation:`The additive model sums components: ${a} + ${b} = ${a+b}.`};
