@@ -19,14 +19,13 @@ The source registers link every canonical fact to a registered source and focuse
 | CP009 | 60 | 0 | 60 |
 | CP010 | 60 | 0 | 60 |
 
-All 60 canonical facts in each checkpoint now have focused section, article, document or paragraph locators. The final pass covered CP009 Q049–Q060 (German expansion, appeasement, pact and road-to-war synthesis) and CP010 Q049–Q060 (resistance, Normandy/liberation, surrender chronology, atomic bombings, displacement, occupation and global scope). Earlier passes added focused sources for the League, Weimar and Depression, Nazi consolidation, Allied strategy, Holocaust, Pacific campaigns, and wartime home fronts. English editorial review remains open; localization and learner delivery remain gated.
+All 60 canonical facts in each checkpoint now have focused section, article, document or paragraph locators. The final pass covered CP009 Q049–Q060 (German expansion, appeasement, pact and road-to-war synthesis) and CP010 Q049–Q060 (resistance, Normandy/liberation, surrender chronology, atomic bombings, displacement, occupation and global scope). Earlier passes added focused sources for the League, Weimar and Depression, Nazi consolidation, Allied strategy, Holocaust, Pacific campaigns, and wartime home fronts. An English editorial first pass is complete and documented in `WHI-001-CP009-CP010-EN-EDITORIAL-REVIEW-V1.md`. Human English approval remains open; localization and learner delivery remain gated.
 
 ## Required sequence
 
-1. Verify the remaining English claims against the cited sources and record section, paragraph, document or table locators.
-2. Complete editorial review of the English question pools.
-3. Create Hindi and Punjabi review candidates with the same question IDs, keyed option order, correct answers, difficulty, family, fact IDs and source IDs.
-4. Run localization parity checks for record counts, scripts, dates/numbers, option integrity, answer keys, provenance and review-only lifecycle.
-5. Register through the shared Question Studio architecture only after English and both language reviews pass.
+1. Complete human English review and approve the factual and editorial candidate pools; the first-pass report is recorded in `WHI-001-CP009-CP010-EN-EDITORIAL-REVIEW-V1.md`.
+2. Create Hindi and Punjabi review candidates with the same question IDs, keyed option order, correct answers, difficulty, family, fact IDs and source IDs.
+3. Run localization parity checks for record counts, scripts, dates/numbers, option integrity, answer keys, provenance and review-only lifecycle.
+4. Register through the shared Question Studio architecture only after English and both language reviews pass.
 
 No localization or learner-delivery assets were added by this readiness review.

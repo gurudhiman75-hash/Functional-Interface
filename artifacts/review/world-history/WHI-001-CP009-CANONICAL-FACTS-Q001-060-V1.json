@@ -174,12 +174,12 @@
     },
     {
       "factId": "WHI-CP009-F005",
-      "claim": "Mandates remained under external administration and did not grant immediate sovereign independence.",
+      "claim": "Article 22 allowed certain former Ottoman communities to be provisionally recognized as independent nations while receiving administrative advice and assistance until they could stand alone.",
       "sourceIds": [
         "CP009-S01",
         "CP009-S09"
       ],
-      "sourceLocator": "CP009-S09, Article 22, paragraph 4; Treaty of Sèvres Article 94 quoted in the note, describing provisional independence subject to administrative advice and assistance.",
+      "sourceLocator": "CP009-S09, Article 22, paragraph 4; the provision describing former Ottoman communities whose independence could be provisionally recognized subject to a Mandatory’s advice and assistance.",
       "relationshipType": "treaty-and-settlement",
       "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
@@ -756,7 +756,7 @@
     },
     {
       "factId": "WHI-CP009-F059",
-      "claim": "Britain announced a unilateral assurance to Poland on 31 March 1939; an Anglo-Polish communiqué made it reciprocal on 6 April, and a permanent agreement of mutual assistance was signed on 25 August.",
+      "claim": "Neville Chamberlain announced a unilateral British assurance to Poland on 31 March. An Anglo-Polish communiqué made the assurance reciprocal on 6 April, and a permanent agreement of mutual assistance was signed on 25 August.",
       "sourceIds": [
         "CP009-S16"
       ],

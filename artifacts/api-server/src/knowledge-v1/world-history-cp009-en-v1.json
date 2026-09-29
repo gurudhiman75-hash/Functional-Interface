@@ -153,27 +153,27 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Treaty and settlement",
-    "stem": "Why is it inaccurate to describe the postwar mandates as immediate independence for former colonies?",
+    "stem": "Under Article 22 of the League of Nations Covenant, how could certain communities formerly part of the Ottoman Empire be treated?",
     "options": [
       {
         "key": "A",
-        "text": "They were administered by outside powers under League supervision rather than becoming sovereign states at once"
+        "text": "Their existence as independent nations could be provisionally recognized, subject to a Mandatory’s advice and assistance"
       },
       {
         "key": "B",
-        "text": "The League abolished all colonial administrations in 1919"
+        "text": "They became fully sovereign immediately, without League oversight"
       },
       {
         "key": "C",
-        "text": "The territories became part of Germany again"
+        "text": "They were administered as Class C territories under direct mandatory control"
       },
       {
         "key": "D",
-        "text": "They were governed by elected global assemblies with full sovereignty"
+        "text": "They returned to Ottoman sovereignty until the League dissolved"
       }
     ],
     "correctOption": "A",
-    "explanation": "Mandates remained under external administration and did not grant immediate sovereign independence.",
+    "explanation": "Article 22 allowed certain former Ottoman communities to be provisionally recognized as independent nations while receiving administrative advice and assistance until they could stand alone.",
     "sourceIds": [
       "CP009-S01",
       "CP009-S09"

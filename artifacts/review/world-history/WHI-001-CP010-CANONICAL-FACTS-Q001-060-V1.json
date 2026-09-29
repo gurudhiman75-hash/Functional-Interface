@@ -194,31 +194,31 @@
     },
     {
       "factId": "WHI-CP010-F004",
-      "claim": "The German invasion of Poland used Blitzkrieg tactics combining fast-moving armoured units with air power.",
+      "claim": "Blitzkrieg, or “lightning war,” combined rapid armoured advances with concentrated air power.",
       "sourceIds": [
         "CP010-S12"
       ],
-      "sourceLocator": "CP010-S12, section “Invasion and Partition of Poland,” description of Blitzkrieg tactics combining fast-moving armored units and air power.",
+      "sourceLocator": "CP010-S12, “Invasion and Partition of Poland,” paragraph describing the fast-moving armoured advances and air power used in the German invasion.",
       "relationshipType": "outbreak-chronology",
       "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F005",
-      "claim": "The early period of limited fighting on the Western Front after the September 1939 declarations became known as the Phoney War.",
+      "claim": "Although Britain and France had declared war, there was little action on the Western Front for several months. This period became known as the Phoney War.",
       "sourceIds": [
         "CP010-S13"
       ],
-      "sourceLocator": "CP010-S13, Second World War galleries, section “How did the war spread across Europe?”, on the Phoney War after the September 1939 declarations.",
+      "sourceLocator": "CP010-S13, section “How did the war spread across Europe?”, passage describing the period of limited Western Front fighting after the September 1939 declarations.",
       "relationshipType": "outbreak-chronology",
       "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F006",
-      "claim": "Warsaw surrendered to German forces on 28 September 1939 after heavy shelling and bombing.",
+      "claim": "Warsaw surrendered on 28 September 1939 after heavy shelling and bombing during the German siege.",
       "sourceIds": [
         "CP010-S12"
       ],
-      "sourceLocator": "CP010-S12, section “Invasion and Partition of Poland,” paragraph on the siege and surrender of Warsaw on September 28, 1939.",
+      "sourceLocator": "CP010-S12, “Invasion and Partition of Poland,” passage stating Warsaw surrendered on 28 September 1939 after heavy shelling and bombing.",
       "relationshipType": "outbreak-chronology",
       "reviewStatus": "source-linked with section locator; editorial review pending"
     },
@@ -442,11 +442,11 @@
     },
     {
       "factId": "WHI-CP010-F028",
-      "claim": "The German offensive at Kursk in July 1943 failed, after which Soviet forces retained the initiative on the Eastern Front.",
+      "claim": "The German offensive at Kursk failed in July 1943. Soviet forces then kept the initiative on the Eastern Front.",
       "sourceIds": [
         "CP010-S02"
       ],
-      "sourceLocator": "CP010-S02, section “World War II in Europe,” Eastern Front discussion of the German offensive at Kursk in July 1943.",
+      "sourceLocator": "CP010-S02, “World War II in Europe,” Eastern Front discussion of the failed July 1943 German offensive at Kursk and the Soviet initiative afterward.",
       "relationshipType": "turning-points",
       "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
