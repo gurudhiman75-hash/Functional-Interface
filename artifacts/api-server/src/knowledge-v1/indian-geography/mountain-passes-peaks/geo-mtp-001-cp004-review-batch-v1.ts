@@ -20,8 +20,8 @@ r("A peak near Mount Abu is the highest point of the Aravalli. Which one is it?"
 r("A peak near Ooty lies in the Nilgiri Hills. Which one is it?","Doddabetta","Kanchenjunga","Nanda Devi","Guru Shikhar","The Ooty-Nilgiri clue identifies Doddabetta.","MTP-INT-C4")
 ]),
 buildQl("INTEGRATED-MOUNTAIN-REASONING","Integrated pass/peak reasoning",[
-r("Which comparison is correct?","Nathu La and Jelep La are in Sikkim, while Shipki La is in Himachal Pradesh","All three are in Ladakh","Shipki La is in Sikkim","Nathu La is in Uttarakhand","The state distribution of these passes is distinct.","MTP-INT-R1"),
-r("Which comparison is correct?","Khardung La leads toward Nubra, while Chang La lies on the route toward Pangong","Both lead to Kashmir Valley","Both are in Sikkim","Both are in Himachal Pradesh","The passes serve different routes from Leh.","MTP-INT-R2"),
+r("Which comparison correctly contrasts Nathu La, Jelep La and Shipki La?","Nathu La and Jelep La are in Sikkim, while Shipki La is in Himachal Pradesh","All three are in Ladakh","Shipki La is in Sikkim","Nathu La is in Uttarakhand","The state distribution of these passes is distinct.","MTP-INT-R1"),
+r("Which comparison correctly contrasts Khardung La and Chang La?","Khardung La leads toward Nubra, while Chang La lies on the route toward Pangong","Both lead to Kashmir Valley","Both are in Sikkim","Both are in Himachal Pradesh","The passes serve different routes from Leh.","MTP-INT-R2"),
 r("Which combination correctly identifies southern peaks?","Anamudi—Kerala; Doddabetta—Tamil Nadu","Anamudi—Sikkim; Doddabetta—Uttarakhand","Both—Rajasthan","Both—Himachal Pradesh","The two peaks are in the southern Western Ghats-Nilgiri region.","MTP-INT-R3"),
 r("Which combination correctly identifies Himalayan peaks?","Kanchenjunga and Nanda Devi","Guru Shikhar and Doddabetta","Anamudi and Guru Shikhar","Doddabetta and Anamudi","Kanchenjunga and Nanda Devi are major Himalayan peaks.","MTP-INT-R4")
 ])
