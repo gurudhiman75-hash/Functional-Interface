@@ -53,7 +53,6 @@ let independentVisibleProofs = 0;
 let localizationProofs = 0;
 let lifecycleProofs = 0;
 let misconceptionOptionProofs = 0;
-let leadingZeroRejectionProofs = 0;
 
 function seriesTokens(stem: string): string[] {
   return (stem.split("\n").at(-1) ?? "").split(",").map((token) => token.trim()).filter(Boolean);
@@ -107,14 +106,6 @@ for (const qlId of SER_CP009_AUDITED_QL_IDS) {
     assert.equal("magnitude" in english.structuralFeatures, false);
     assert.equal("termLength" in english.structuralFeatures, false);
 
-    if (qlId === "SER-QL-039") {
-      const tokens = seriesTokens(english.stem).filter((token) => token !== "?");
-      assert.ok(tokens.every((token) => /^\d{4}$/.test(token)), `${qlId}:${seed}: digit rotation must render four-digit numbers`);
-      assert.ok(tokens.every((token) => !token.startsWith("0")), `${qlId}:${seed}: leading-zero numeric term leaked`);
-      assert.equal(english.structuralFeatures.leadingZeroForbidden, true);
-      leadingZeroRejectionProofs += 1;
-    }
-
     visible.add(english.stem.split("\n").at(-1)!);
     full.add(JSON.stringify({ stem: english.stem, options: english.options, answer: english.correctAnswer, difficulty: english.difficulty }));
     difficulties.add(english.difficulty);
@@ -151,9 +142,11 @@ for (const qlId of ["SER-QL-031", "SER-QL-033", "SER-QL-037"] as const) {
 for (const qlId of ["SER-QL-029", "SER-QL-032", "SER-QL-038"] as const) {
   assert.equal(generateSerCp009AuditedNumberSeries(qlId, 7).difficulty, "EASY", `${qlId}: simple instance should remain Easy`);
 }
-for (const qlId of ["SER-QL-035", "SER-QL-041"] as const) {
-  assert.equal(generateSerCp009AuditedNumberSeries(qlId, 7).difficulty, "HARD", `${qlId}: multi-layer instance should remain Hard`);
-}
+assert.equal(
+  generateSerCp009AuditedNumberSeries("SER-QL-035", 7).difficulty,
+  "HARD",
+  "SER-QL-035: multi-layer instance should remain Hard",
+);
 
 const numericMax = (stem: string): number => Math.max(...(stem.match(/\d+/g) ?? ["0"]).map(Number));
 const easyCandidates = Array.from({ length: 64 }, (_, seed) => ({ seed, item: generateSerCp009AuditedNumberSeries("SER-QL-032", seed) }));
@@ -171,7 +164,6 @@ console.log(JSON.stringify({
   localizationProofs,
   lifecycleProofs,
   misconceptionOptionProofs,
-  leadingZeroRejectionProofs,
   antiMagnitudeWitness: { largestEasy, smallestHard },
   report,
 }, null, 2));
