@@ -89,6 +89,38 @@ q("PROJECT-RIVER-STATE-INTEGRATION","Integrated dam-river-state reasoning",[
 {stem:"Which project is the correct match for Gujarat and the Narmada?",answer:"Sardar Sarovar",distractors:["Hirakud","Tehri","Koyna"],explanation:"Sardar Sarovar is located on the Narmada in Gujarat.",sourceFactId:"DAM-INT-4"},
 {stem:"Which project is the correct match for Uttarakhand and the Bhagirathi?",answer:"Tehri",distractors:["Bhakra","Tungabhadra","Mettur"],explanation:"Tehri Dam is in Uttarakhand on the Bhagirathi.",sourceFactId:"DAM-INT-5"},
 {stem:"A map marks Bhakra in the north-west, Hirakud in eastern India and Sardar Sarovar in western India. What is being tested?",answer:"Project-river-state geography",distractors:["Only population density","Only crop seasons","Only industrial ownership"],explanation:"Such a map integrates dam locations with rivers and states.",sourceFactId:"DAM-INT-6"}
+]),
+q("RIHAND","Rihand Dam project",[
+{stem:"Rihand Dam is built on which river?",answer:"Rihand",distractors:["Tapi","Mahanadi","Sutlej"],explanation:"Rihand Dam is built on the Rihand River in the Son-Ganga basin.",sourceFactId:"DAM-RIHAND-RIVER"},
+{stem:"Rihand Dam is located in which state?",answer:"Uttar Pradesh",distractors:["Gujarat","Kerala","Odisha"],explanation:"Rihand Dam is located in Sonbhadra district of Uttar Pradesh.",sourceFactId:"DAM-RIHAND-STATE"},
+{stem:"The Rihand River belongs to which larger basin?",answer:"Son-Ganga basin",distractors:["Tapi basin","Cauvery basin","Mahanadi basin"],explanation:"The Rihand is a tributary of the Son, which belongs to the Ganga system.",sourceFactId:"DAM-RIHAND-BASIN"},
+{stem:"Consider the statements: I. Rihand Dam is in Uttar Pradesh. II. It belongs to the Son-Ganga basin. Which is correct?",answer:"Both I and II are correct",distractors:["Only I is correct","Only II is correct","Neither I nor II is correct"],explanation:"Both location and basin relationships are correct.",sourceFactId:"DAM-RIHAND-STATEMENT"},
+{stem:"Which pair correctly identifies Rihand geography?",answer:"Rihand Dam — Uttar Pradesh",distractors:["Rihand Dam — Gujarat","Rihand Dam — Kerala","Rihand Dam — Punjab"],explanation:"Rihand Dam is in Uttar Pradesh.",sourceFactId:"DAM-RIHAND-MATCH"},
+{stem:"A major dam in Sonbhadra lies on a tributary of the Son River. Which dam is it?",answer:"Rihand",distractors:["Ukai","Idukki","Bhakra"],explanation:"The Sonbhadra and Son-basin clues identify Rihand Dam.",sourceFactId:"DAM-RIHAND-CLUE"}
+]),
+q("UKAI","Ukai project",[
+{stem:"Ukai Dam is built on which river?",answer:"Tapi",distractors:["Narmada","Sutlej","Mahanadi"],explanation:"Ukai Dam is a major multipurpose project on the Tapi River.",sourceFactId:"DAM-UKAI-RIVER"},
+{stem:"Ukai Dam is located in which state?",answer:"Gujarat",distractors:["Uttar Pradesh","Kerala","Odisha"],explanation:"Ukai Dam is located in Gujarat.",sourceFactId:"DAM-UKAI-STATE"},
+{stem:"Which river basin is linked with Ukai Dam?",answer:"Tapi basin",distractors:["Cauvery basin","Mahanadi basin","Ganga basin"],explanation:"Ukai is one of the major projects in the Tapi basin.",sourceFactId:"DAM-UKAI-BASIN"},
+{stem:"Consider the statements: I. Ukai is on the Tapi. II. It is in Gujarat. Which is correct?",answer:"Both I and II are correct",distractors:["Only I is correct","Only II is correct","Neither I nor II is correct"],explanation:"Both project-river and project-state relationships are correct.",sourceFactId:"DAM-UKAI-STATEMENT"},
+{stem:"Which pair correctly identifies Ukai geography?",answer:"Ukai — Tapi",distractors:["Ukai — Narmada","Ukai — Bhagirathi","Ukai — Mahanadi"],explanation:"Ukai Dam is built across the Tapi.",sourceFactId:"DAM-UKAI-MATCH"},
+{stem:"A multipurpose dam in Gujarat is built across the Tapi near Ukai village. Which project is it?",answer:"Ukai",distractors:["Hirakud","Tehri","Idukki"],explanation:"The Gujarat-Tapi combination identifies Ukai Dam.",sourceFactId:"DAM-UKAI-CLUE"}
+]),
+q("IDUKKI","Idukki project",[
+{stem:"Idukki Dam is built on which river?",answer:"Periyar",distractors:["Tapi","Sutlej","Mahanadi"],explanation:"Idukki Dam is part of the Periyar valley hydroelectric project in Kerala.",sourceFactId:"DAM-IDUKKI-RIVER"},
+{stem:"Idukki Dam is located in which state?",answer:"Kerala",distractors:["Gujarat","Odisha","Uttar Pradesh"],explanation:"Idukki Dam is located in Kerala.",sourceFactId:"DAM-IDUKKI-STATE"},
+{stem:"What type of dam is Idukki?",answer:"Arch dam",distractors:["Only an earth embankment","Barrage only","Canal weir only"],explanation:"Idukki is a major concrete arch dam across the Periyar.",sourceFactId:"DAM-IDUKKI-TYPE"},
+{stem:"Consider the statements: I. Idukki is on the Periyar. II. It is in Kerala. Which is correct?",answer:"Both I and II are correct",distractors:["Only I is correct","Only II is correct","Neither I nor II is correct"],explanation:"Both facts correctly identify Idukki.",sourceFactId:"DAM-IDUKKI-STATEMENT"},
+{stem:"Which pair correctly identifies Idukki geography?",answer:"Idukki — Periyar",distractors:["Idukki — Narmada","Idukki — Mahanadi","Idukki — Sutlej"],explanation:"Idukki Dam is built across the Periyar.",sourceFactId:"DAM-IDUKKI-MATCH"},
+{stem:"A major concrete arch dam in Kerala is built on the Periyar. Which dam is it?",answer:"Idukki",distractors:["Ukai","Rihand","Bhakra"],explanation:"The Kerala-Periyar-arch-dam combination identifies Idukki.",sourceFactId:"DAM-IDUKKI-CLUE"}
+]),
+q("INDIRA-SAGAR","Indira Sagar project",[
+{stem:"Indira Sagar Dam is built on which river?",answer:"Narmada",distractors:["Tapi","Mahanadi","Cauvery"],explanation:"Indira Sagar is a major multipurpose project on the Narmada River.",sourceFactId:"DAM-INDIRA-RIVER"},
+{stem:"Indira Sagar Dam is located in which state?",answer:"Madhya Pradesh",distractors:["Gujarat","Odisha","Kerala"],explanation:"Indira Sagar is located in Khandwa district of Madhya Pradesh.",sourceFactId:"DAM-INDIRA-STATE"},
+{stem:"Which river basin is linked with Indira Sagar?",answer:"Narmada basin",distractors:["Ganga basin","Mahanadi basin","Cauvery basin"],explanation:"Indira Sagar is part of the Narmada basin development system.",sourceFactId:"DAM-INDIRA-BASIN"},
+{stem:"Consider the statements: I. Indira Sagar is on the Narmada. II. It is in Madhya Pradesh. Which is correct?",answer:"Both I and II are correct",distractors:["Only I is correct","Only II is correct","Neither I nor II is correct"],explanation:"Both project-river and project-state relationships are correct.",sourceFactId:"DAM-INDIRA-STATEMENT"},
+{stem:"Which pair correctly identifies Indira Sagar geography?",answer:"Indira Sagar — Narmada",distractors:["Indira Sagar — Sutlej","Indira Sagar — Krishna","Indira Sagar — Mahanadi"],explanation:"Indira Sagar is located on the Narmada.",sourceFactId:"DAM-INDIRA-MATCH"},
+{stem:"A major multipurpose dam in Madhya Pradesh lies on the Narmada. Which project is it?",answer:"Indira Sagar",distractors:["Hirakud","Tehri","Ukai"],explanation:"The Madhya Pradesh-Narmada combination identifies Indira Sagar.",sourceFactId:"DAM-INDIRA-CLUE"}
 ])
 ]);
 export const GEO_WAT_001_CP002_REVIEW_BATCH_V1=finalizeGeoWatCp(2,QLS);
