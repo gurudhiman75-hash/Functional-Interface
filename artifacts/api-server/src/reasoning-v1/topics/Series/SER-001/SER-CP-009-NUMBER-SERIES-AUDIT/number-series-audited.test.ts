@@ -54,10 +54,6 @@ let localizationProofs = 0;
 let lifecycleProofs = 0;
 let misconceptionOptionProofs = 0;
 
-function seriesTokens(stem: string): string[] {
-  return (stem.split("\n").at(-1) ?? "").split(",").map((token) => token.trim()).filter(Boolean);
-}
-
 for (const qlId of SER_CP009_AUDITED_QL_IDS) {
   const answerPositions = [0, 0, 0, 0];
   const visible = new Set<string>();
