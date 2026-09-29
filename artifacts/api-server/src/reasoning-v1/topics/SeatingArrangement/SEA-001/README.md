@@ -128,8 +128,8 @@ Permanent QLs:
 
 The remaining work is now the **freeze/localization/integration audit**:
 
-- English manual review of the deterministic 324-item chapter pack and explicit freeze approval;
-- Hindi/Punjabi localization and semantic parity after English freeze;
+- English freeze authority: `SEA_001_ENGLISH_FREEZE_V1` over the approved deterministic 324-item pack;
+- Hindi/Punjabi localization and semantic parity from the frozen English semantic state;
 - Question Studio review-only integration after multilingual authority exists;
 - downstream Question Bank/test/mock/public gates only after separate approval.
 
@@ -141,7 +141,7 @@ Current English review authority:
 - permanent QLs represented: 9 / 9;
 - difficulty: structural `EASY / MEDIUM / HARD`, not seed- or magnitude-driven;
 - solved diagrams: `EXPLANATION_ONLY`;
-- review status: manual approval required.
+- review status: APPROVED AND FROZEN.
 
 SEA-002 and SEA-003 remain the owners for parallel rows, polygonal/multi-ring seating, attribute-linked seating, vacancies and other advanced families.
 
@@ -152,7 +152,7 @@ This package has a **review-only permanent QL allocation** but remains product-l
 ```text
 Permanent QLs:                9
 Permanent range:              SEA-QL-001..009
-English freeze:               IN_REVIEW
+English freeze:               FROZEN
 Hindi/Punjabi freeze:         not started
 Question Studio registered:   false
 Question Bank writes:         false
