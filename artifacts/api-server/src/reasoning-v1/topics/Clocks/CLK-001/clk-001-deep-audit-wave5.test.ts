@@ -3,40 +3,40 @@ import { test } from "node:test";
 import {
   CLK_001_AUTHORING_TASKS_BY_QL_V1,
   CLK_001_AUTHORING_VARIANT_AUTHORITY_V1,
-  CLK_001_LOCALIZED_VARIANT_BATCH_3,
+  CLK_001_LOCALIZED_VARIANT_BATCH_4,
 } from "./authoring-variants-v1";
 import { CLK_001_PERMANENT_CONTRACTS } from "./permanent-contracts";
 import { generateClk001QuestionStudioBatch } from "./question-studio-integration";
 import { CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION } from "./runtime/exam-natural-governance";
 
-test("CLK-001 Batch 3 expands multilingual authoring without taxonomy inflation", () => {
+test("CLK-001 final merged-variant saturation preserves 23 permanent QLs", () => {
   assert.equal(CLK_001_PERMANENT_CONTRACTS.length, 23);
-  assert.ok(CLK_001_AUTHORING_VARIANT_AUTHORITY_V1.enabledMergedVariantCount >= 31);
-  assert.equal(CLK_001_LOCALIZED_VARIANT_BATCH_3.length, 15);
+  assert.equal(CLK_001_AUTHORING_VARIANT_AUTHORITY_V1.enabledMergedVariantCount, 55);
+  assert.equal(CLK_001_LOCALIZED_VARIANT_BATCH_4.length, 24);
 
   const enabled = new Set(Object.values(CLK_001_AUTHORING_TASKS_BY_QL_V1).flat());
-  for (const taskId of CLK_001_LOCALIZED_VARIANT_BATCH_3) {
-    assert.ok(enabled.has(taskId), taskId + " must be authorable in Batch 3");
-  }
-
+  let effectiveAuthorable = 0;
+  let merged = 0;
   for (const [taskId, record] of Object.entries(CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION)) {
-    if (record.disposition === "HOLD_FOR_ADVANCED_SOURCE_CONFIRMATION" ||
-        record.disposition === "INTERNAL_VERIFICATION_ONLY") {
+    if (record.disposition === "PROVISIONAL_AUTHORITY_ANCHOR" ||
+        record.disposition === "MERGE_AS_QUERY_OR_RENDERER_VARIANT") {
+      effectiveAuthorable += 1;
+      if (record.disposition === "MERGE_AS_QUERY_OR_RENDERER_VARIANT") merged += 1;
+      assert.ok(enabled.has(taskId as any), taskId + " must be authorable after saturation");
+    } else {
       assert.equal(enabled.has(taskId as any), false, taskId + " must remain excluded");
     }
   }
+  assert.equal(merged, 55);
+  assert.equal(enabled.size, effectiveAuthorable);
 });
 
-test("all expanded QLs retain deterministic EN HI PA parity after Batch 3", async () => {
-  const expanded = CLK_001_PERMANENT_CONTRACTS.filter(
-    (contract) => CLK_001_AUTHORING_TASKS_BY_QL_V1[contract.qlId].length > 1,
-  );
-  assert.ok(expanded.length >= 14);
-
+test("every authorable Clock task is reachable with EN HI PA parity", async () => {
   const globallyObserved = new Set<string>();
 
-  for (const contract of expanded) {
+  for (const contract of CLK_001_PERMANENT_CONTRACTS) {
     const pool = [...CLK_001_AUTHORING_TASKS_BY_QL_V1[contract.qlId]];
+    assert.ok(pool.length >= 1);
     const count = pool.length * 2;
     const byLanguage = new Map<string, any[]>();
 
@@ -46,18 +46,19 @@ test("all expanded QLs retain deterministic EN HI PA parity after Batch 3", asyn
         canonicalProblemId: contract.qlId,
         language,
         count,
-        seed: "clk-wave4-batch3-" + contract.qlId,
+        seed: "clk-wave5-final-saturation-" + contract.qlId,
       });
       byLanguage.set(language, result.questions);
 
       const observed = new Set(result.questions.map((q) =>
         String((q.traceability as any).authoringTaskId),
       ));
-      assert.deepEqual([...observed].sort(), pool.sort());
+      assert.deepEqual([...observed].sort(), [...pool].sort());
 
       for (const question of result.questions) {
         const taskId = String((question.traceability as any).authoringTaskId);
         globallyObserved.add(taskId);
+        assert.equal(question.qlId, contract.qlId);
         assert.equal((question.options as string[]).length, 4);
         assert.equal(new Set(question.options as string[]).size, 4);
         assert.equal((question.validation as any).solverAgreement, true);
@@ -84,7 +85,6 @@ test("all expanded QLs retain deterministic EN HI PA parity after Batch 3", asyn
     }
   }
 
-  for (const taskId of CLK_001_LOCALIZED_VARIANT_BATCH_3) {
-    assert.ok(globallyObserved.has(taskId), taskId + " was not observed in multilingual generation");
-  }
+  const enabled = new Set(Object.values(CLK_001_AUTHORING_TASKS_BY_QL_V1).flat());
+  assert.deepEqual([...globallyObserved].sort(), [...enabled].sort());
 });
