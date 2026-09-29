@@ -89,6 +89,9 @@ jobs:
       - name: Run deep-audit Wave 1 learner-surface proof
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/stc-001-deep-audit-wave1.test.ts
 
+      - name: Run deep-audit Wave 2 difficulty-integrity proof
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/stc-001-deep-audit-wave2.test.ts
+
       - name: Preserve V2.1 anti-gaming/saturation-boundary audit snapshot
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-1-saturation-boundary-proof.test.ts
 
