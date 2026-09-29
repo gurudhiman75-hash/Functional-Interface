@@ -40,11 +40,74 @@ function solveGroupedMultiMissing(stem: string): string {
   return `${a1 + da}, ${b1 + db}`;
 }
 
+function solveProgressiveMultiplierFlexible(stem: string): string {
+  const tokens = parseSeries(stem);
+  if (tokens.length !== 6 || tokens.filter((token) => token === "?").length !== 1) {
+    throw new Error("QL035 needs exactly one missing term across six terms.");
+  }
+  const visible = tokens.map((token) => token === "?" ? null : Number(token));
+  if (visible.some((value) => value !== null && !Number.isFinite(value))) {
+    throw new Error("QL035 needs numeric anchors.");
+  }
+  const target = tokens.indexOf("?");
+  const answers = new Set<number>();
+  for (let firstMultiplier = 1; firstMultiplier <= 7; firstMultiplier += 1) {
+    for (let adjustment = -5; adjustment <= 5; adjustment += 1) {
+      const first = visible[0];
+      if (first === null) continue;
+      const built = [first];
+      for (let i = 1; i < 6; i += 1) {
+        built.push(built[i - 1]! * (firstMultiplier + i - 1) + adjustment);
+      }
+      if (built.every((value, i) => visible[i] === null || visible[i] === value)) {
+        answers.add(built[target]!);
+      }
+    }
+  }
+  if (answers.size !== 1) {
+    throw new Error(`QL035 visible state has ${answers.size} supported progressive-multiplier rules.`);
+  }
+  return String([...answers][0]);
+}
+
+function factorial(n: number): number {
+  let value = 1;
+  for (let i = 2; i <= n; i += 1) value *= i;
+  return value;
+}
+
+function solveWrongTermFactorial(stem: string): string | null {
+  const tokens = parseSeries(stem);
+  if (tokens.length !== 6 || tokens.some((token) => token === "?")) return null;
+  const values = tokens.map(Number);
+  if (values.some((value) => !Number.isFinite(value))) return null;
+
+  const candidates: number[] = [];
+  for (const direction of [1, -1] as const) {
+    for (let start = 1; start <= 8; start += 1) {
+      if (start + direction * 5 < 1) continue;
+      const expected = Array.from({ length: 6 }, (_, i) => factorial(start + direction * i));
+      if (expected.some((value) => !Number.isFinite(value))) continue;
+      const mismatches = values
+        .map((value, i) => value === expected[i] ? -1 : i)
+        .filter((i) => i >= 0);
+      if (mismatches.length === 1) candidates.push(values[mismatches[0]!]!);
+    }
+  }
+  const unique = [...new Set(candidates)];
+  return unique.length === 1 ? String(unique[0]) : null;
+}
+
 export function solveVisibleNumberSeries(
   qlId: SerCp009QlId,
   stem: string,
   options: readonly string[] = [],
 ): string {
+  if (qlId === "SER-QL-035") return solveProgressiveMultiplierFlexible(stem);
+  if (qlId === "SER-QL-040") {
+    const factorialWrong = solveWrongTermFactorial(stem);
+    if (factorialWrong !== null) return factorialWrong;
+  }
   if (qlId === "SER-QL-041") return solveGroupedMultiMissing(stem);
   return solveBase(qlId, stem, options);
 }
@@ -209,6 +272,63 @@ function diversifyProgressiveMultiplierMath(
   });
 }
 
+function diversifyFactorialProgression(
+  question: GeneratedSerCp009Question,
+  requestedSeed: number,
+  locale: SerCp009Locale,
+): GeneratedSerCp009Question {
+  if (question.qlId !== "SER-QL-035" || requestedSeed % 5 !== 0) return question;
+
+  const startN = 1 + stableIndex(requestedSeed, 71, 2);
+  const values = Array.from({ length: 6 }, (_, i) => factorial(startN + i));
+  const target = stableIndex(requestedSeed, 72, 2) === 0 ? 4 : 5;
+  const correct = values[target]!;
+  const visible = values.map((value, index) => index === target ? "?" : String(value));
+  const previous = values[target - 1]!;
+  const multiplier = startN + target;
+  const options: readonly SerCp009Option[] = Object.freeze([
+    { value: String(correct), errorLabel: null },
+    { value: String(previous * (multiplier - 1)), errorLabel: "REPEATED_PREVIOUS_MULTIPLIER" },
+    { value: String(previous * (multiplier + 1)), errorLabel: "SKIPPED_NEXT_MULTIPLIER" },
+    { value: String(correct + previous), errorLabel: "ADDED_PREVIOUS_TERM" },
+  ]);
+  const taskKind = target === 5 ? "NEXT_TERM" : "MISSING_TERM";
+  const prompt = taskKind === "NEXT_TERM"
+    ? local(locale, "Which number will replace the question mark in the following series?", "निम्नलिखित श्रृंखला में प्रश्नवाचक चिन्ह के स्थान पर कौन-सी संख्या आएगी?", "ਹੇਠਾਂ ਦਿੱਤੀ ਲੜੀ ਵਿੱਚ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਦੀ ਥਾਂ ਕਿਹੜੀ ਸੰਖਿਆ ਆਵੇਗੀ?")
+    : local(locale, "Find the missing number in the following series.", "निम्नलिखित श्रृंखला में लुप्त संख्या ज्ञात कीजिए।", "ਹੇਠਾਂ ਦਿੱਤੀ ਲੜੀ ਵਿੱਚ ਲੁਪਤ ਸੰਖਿਆ ਲੱਭੋ।");
+  const explanation = Object.freeze([
+    local(
+      locale,
+      "The multiplier increases by 1 at every step.",
+      "हर चरण में गुणक 1 बढ़ता है।",
+      "ਹਰ ਪੜਾਅ 'ਤੇ ਗੁਣਕ 1 ਵੱਧਦਾ ਹੈ।",
+    ),
+    values.slice(0, 5).map((value, i) => i === 0 ? String(value) : `×${startN + i} → ${value}`).join(" "),
+    local(locale, `Therefore the required number is ${correct}.`, `अतः आवश्यक संख्या ${correct} है।`, `ਇਸ ਲਈ ਲੋੜੀਂਦੀ ਸੰਖਿਆ ${correct} ਹੈ।`),
+  ]);
+
+  return Object.freeze({
+    ...question,
+    taskKind,
+    stem: `${prompt}\n${visible.join(", ")}`,
+    options,
+    correctIndex: 0,
+    correctAnswer: String(correct),
+    explanation,
+    difficulty: target === 5 ? "MEDIUM" : "HARD",
+    structuralFeatures: Object.freeze({
+      layers: 2,
+      channels: 1,
+      internalGap: target < 5,
+      firstMultiplier: startN + 1,
+      multiplierStep: 1,
+      adjustment: 0,
+      factorialSubtype: true,
+      reasoningLayers: 2,
+    }),
+  });
+}
+
 function diversifyProgressiveMultiplierShell(
   question: GeneratedSerCp009Question,
   requestedSeed: number,
@@ -296,6 +416,63 @@ function diversifyDirectPowerMath(
  * Fibonacci-like recurrence is also a narrow grammar. Broaden only the two
  * starting anchors; the second-order recurrence remains unchanged.
  */
+function diversifyWrongTermFactorial(
+  question: GeneratedSerCp009Question,
+  requestedSeed: number,
+  locale: SerCp009Locale,
+): GeneratedSerCp009Question {
+  if (question.qlId !== "SER-QL-040" || requestedSeed % 4 !== 0) return question;
+
+  const descending = stableIndex(requestedSeed, 81, 2) === 1;
+  const startN = descending ? 7 : 1;
+  const values = Array.from({ length: 6 }, (_, i) => factorial(descending ? startN - i : startN + i));
+  const wrongIndex = 2 + stableIndex(requestedSeed, 82, 3);
+  const shown = [...values];
+  shown[wrongIndex] = values[wrongIndex]! + (descending ? -2 : 2 + stableIndex(requestedSeed, 83, 5));
+  const wrongValue = shown[wrongIndex]!;
+  const distractors = shown
+    .filter((_, index) => index !== wrongIndex)
+    .slice(0, 3)
+    .map((value, index) => ({ value: String(value), errorLabel: `CHECKED_CORRECT_TERM_${index + 1}` }));
+  const options: readonly SerCp009Option[] = Object.freeze([
+    { value: String(wrongValue), errorLabel: null },
+    ...distractors,
+  ]);
+  const prompt = local(
+    locale,
+    "Which number is wrong in the following series?",
+    "निम्नलिखित श्रृंखला में कौन-सी संख्या गलत है?",
+    "ਹੇਠਾਂ ਦਿੱਤੀ ਲੜੀ ਵਿੱਚ ਕਿਹੜੀ ਸੰਖਿਆ ਗਲਤ ਹੈ?",
+  );
+  const rule = descending
+    ? local(locale, "The terms are consecutive factorials in descending order.", "पद क्रमिक फैक्टोरियल के घटते क्रम में हैं।", "ਪਦ ਲਗਾਤਾਰ ਫੈਕਟੋਰੀਅਲ ਦੇ ਘਟਦੇ ਕ੍ਰਮ ਵਿੱਚ ਹਨ।")
+    : local(locale, "The terms are consecutive factorials in ascending order.", "पद क्रमिक फैक्टोरियल के बढ़ते क्रम में हैं।", "ਪਦ ਲਗਾਤਾਰ ਫੈਕਟੋਰੀਅਲ ਦੇ ਵੱਧਦੇ ਕ੍ਰਮ ਵਿੱਚ ਹਨ।");
+  const explanation = Object.freeze([
+    rule,
+    values.map((value, i) => `${descending ? startN - i : startN + i}! = ${value}`).join("; "),
+    local(locale, `${wrongValue} is the only displayed term that breaks the pattern.`, `${wrongValue} ही एकमात्र प्रदर्शित पद है जो पैटर्न तोड़ता है।`, `${wrongValue} ਹੀ ਇਕੱਲਾ ਦਿੱਤਾ ਪਦ ਹੈ ਜੋ ਪੈਟਰਨ ਤੋੜਦਾ ਹੈ।`),
+  ]);
+
+  return Object.freeze({
+    ...question,
+    taskKind: "WRONG_TERM",
+    stem: `${prompt}\n${shown.join(", ")}`,
+    options,
+    correctIndex: 0,
+    correctAnswer: String(wrongValue),
+    explanation,
+    difficulty: "MEDIUM",
+    structuralFeatures: Object.freeze({
+      layers: 2,
+      channels: 1,
+      diagnostic: true,
+      factorialSubtype: true,
+      descending,
+      reasoningLayers: 2,
+    }),
+  });
+}
+
 function diversifyFibonacciAnchors(
   question: GeneratedSerCp009Question,
   requestedSeed: number,
@@ -352,9 +529,11 @@ export function generateSerCp009NumberSeries(
       const generated = generateBase(qlId, internalSeed, locale);
       const ratioDiversified = diversifyConstantRatio(generated, seed, locale);
       const multiplierMathDiversified = diversifyProgressiveMultiplierMath(ratioDiversified, seed, locale);
-      const multiplierDiversified = diversifyProgressiveMultiplierShell(multiplierMathDiversified, seed, locale);
+      const factorialDiversified = diversifyFactorialProgression(multiplierMathDiversified, seed, locale);
+      const multiplierDiversified = diversifyProgressiveMultiplierShell(factorialDiversified, seed, locale);
       const powerDiversified = diversifyDirectPowerMath(multiplierDiversified, seed, locale);
-      const diversified = diversifyFibonacciAnchors(powerDiversified, seed, locale);
+      const wrongTermDiversified = diversifyWrongTermFactorial(powerDiversified, seed, locale);
+      const diversified = diversifyFibonacciAnchors(wrongTermDiversified, seed, locale);
       const normalized = normalizeAnswerPosition(diversified, seed);
       const solved = solveVisibleNumberSeries(
         qlId,
