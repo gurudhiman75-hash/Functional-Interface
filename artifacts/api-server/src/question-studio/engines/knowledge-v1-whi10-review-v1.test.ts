@@ -18,3 +18,18 @@ for(const [i,q] of questions.entries()){
  assert.deepEqual(q.sourceIds,facts.get(q.factId)?.sourceIds);assert.ok(q.stem&&q.explanation&&!q.explanation.includes("CP010-S"));
 }
 console.log("[WHI-010] PASS 60 questions, canonical facts, exact source links, difficulty, balanced keys and review-only state");
+
+const distinctFacts=[
+ ["WHI-CP010-Q004","CP010-S12","Section “Invasion and Partition of Poland,” description of Blitzkrieg tactics"],
+ ["WHI-CP010-Q005","CP010-S13","Second World War galleries, section “How did the war spread across Europe?”"],
+ ["WHI-CP010-Q006","CP010-S12","Section “Invasion and Partition of Poland,” paragraph on the siege and surrender of Warsaw"],
+ ["WHI-CP010-Q028","CP010-S02","Section “World War II in Europe,” Eastern Front discussion of July 1943"],
+];
+for(const [questionId,sourceId,locator] of distinctFacts){
+ const q=questions.find((item)=>item.questionId===questionId);
+ const fact=facts.get(q.factId);
+ assert.ok(q.sourceIds.includes(sourceId),`${questionId} source link`);
+ assert.ok(sourceIds.has(sourceId),`${questionId} registered source`);
+ assert.equal(fact?.sourceLocator,locator,`${questionId} precise locator`);
+ assert.deepEqual(q.sourceIds,fact?.sourceIds,`${questionId} canonical source parity`);
+}
