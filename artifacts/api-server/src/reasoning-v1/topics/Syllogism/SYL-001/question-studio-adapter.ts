@@ -2,6 +2,9 @@ import type { SylDifficulty, SylLocale } from "./foundation/types";
 import { generateSylQuestionV5 } from "./runtime/generator-v5";
 import type { GeneratedSylQuestionV5 } from "./runtime/learner-v5-types";
 import type { SylQlId } from "./runtime/types";
+import {
+  SYL_LEGACY_QL_COMPATIBILITY_V2,
+} from "./source-authority/ql-archetype-consolidation-v2";
 
 export const SYL_001_QUESTION_STUDIO_PACKAGE_ID = "REASONING_V1_SYL_001" as const;
 export const SYL_001_QUESTION_STUDIO_RUNTIME_MODE = "SYL_001_GENERATOR_V5_STUDIO" as const;
@@ -13,6 +16,16 @@ export const SYL_001_QUESTION_STUDIO_QL_IDS = Array.from(
   { length: 18 },
   (_, index) => `SYL-QL-${String(index + 1).padStart(3, "0")}` as SylQlId,
 );
+
+const SYL_001_QL_REVIEW_ROLE_BY_ID = new Map(
+  SYL_LEGACY_QL_COMPATIBILITY_V2.map((entry) => [entry.qlId, entry] as const),
+);
+
+function reviewRoleFor(qlId: SylQlId) {
+  const role = SYL_001_QL_REVIEW_ROLE_BY_ID.get(qlId);
+  if (!role) throw new Error(`Missing Syllogism QL review-role metadata for ${qlId}`);
+  return role;
+}
 
 export type Syl001QuestionStudioLanguage = (typeof SYL_001_QUESTION_STUDIO_LANGUAGES)[number];
 export type Syl001QuestionStudioDifficulty = "Easy" | "Medium" | "Hard";
@@ -39,6 +52,20 @@ export const SYL_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   label: "Syllogism",
   generationDomain: "reasoning-v1",
   qlIds: [...SYL_001_QUESTION_STUDIO_QL_IDS],
+  qlReviewRoles: Object.freeze(
+    SYL_001_QUESTION_STUDIO_QL_IDS.map((qlId) => {
+      const role = reviewRoleFor(qlId);
+      return Object.freeze({
+        qlId,
+        canonicalArchetypeId: role.targetArchetypeId,
+        disposition: role.disposition,
+        lessonEligible: role.lessonEligible,
+        adaptivePracticeEligible: role.adaptivePracticeEligible,
+        legacyMockWeight: role.legacyMockWeight,
+        mockFrequencyDimension: role.legacyMockWeight > 0,
+      });
+    }),
+  ),
   supportedDifficulties: ["Easy", "Medium", "Hard"],
   supportedLanguages: [...SYL_001_QUESTION_STUDIO_LANGUAGES],
   enabled: true,
@@ -101,6 +128,7 @@ function generateMatchingQuestion(
 
 export function toSyl001QuestionStudioPreview(question: GeneratedSylQuestionV5) {
   const learner = question.learnerPresentationV5;
+  const reviewRole = reviewRoleFor(question.qlId);
   const identity = question.structuredProofV3.identity;
   const validationChecks = [
     {
@@ -138,6 +166,18 @@ export function toSyl001QuestionStudioPreview(question: GeneratedSylQuestionV5) 
     packageId: SYL_001_QUESTION_STUDIO_PACKAGE_ID,
     canonicalProblemId: "SYL-001",
     qlId: question.qlId,
+    qlReviewRole: {
+      canonicalArchetypeId: reviewRole.targetArchetypeId,
+      disposition: reviewRole.disposition,
+      lessonEligible: reviewRole.lessonEligible,
+      adaptivePracticeEligible: reviewRole.adaptivePracticeEligible,
+      legacyMockWeight: reviewRole.legacyMockWeight,
+      mockFrequencyDimension: reviewRole.legacyMockWeight > 0,
+      note:
+        reviewRole.legacyMockWeight > 0
+          ? "Canonical legacy mock archetype in the inactive source-profile model."
+          : "Review/practice compatibility surface only; do not treat this QL as an independent mock-frequency family.",
+    },
     questionId: identity.questionId,
     questionLanguageId: identity.questionLanguageId,
     language: question.locale === "hi-IN" ? "hi" : question.locale === "pa-IN" ? "pa" : "en",
