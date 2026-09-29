@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations
 
-Status: **all seven designed checkpoints implemented; permanent QL range `BLR-QL-001..035`; shared standard Question Studio review registration present for CP-001..007; every currently generated BLR review item remains Question-Bank/test/public-release locked; CP-007 records a separate future `releaseEligibleAfterApproval` capability**.
+Status: **all seven designed checkpoints implemented; permanent QL range `BLR-QL-001..035`; CP-001..006 multilingual approval/freeze completed; shared standard Question Studio review registration present for CP-001..007; every currently generated BLR review item remains Question-Bank/test/mock/public-release locked; CP-007 remains review-only with future release requiring a separate explicit promotion**.
 
 Student-facing chapter: **Blood Relations**  
 Reasoning V1 package: `BLR-001`  
@@ -19,13 +19,13 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 
 | Checkpoint | Ownership | Permanent QLs | Current state |
 |---|---|---|---|
-| `BLR-CP-001` | direct declarative named-person relations | `BLR-QL-001..007` | English review authority; standard Studio review available; Hindi/Punjabi not yet implemented |
-| `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | `BLR-QL-008` | English review authority; standard Studio review available; Hindi/Punjabi not yet implemented |
-| `BLR-CP-003` | shared family passages and shared graphs | `BLR-QL-009..012` | English discovery frozen; Hindi/Punjabi machine-proved review candidates complete and product-locked pending human language review |
-| `BLR-CP-004` | counts and family composition | `BLR-QL-013..017` | English discovery frozen; zero-count remediation applied; Hindi/Punjabi machine-proved review candidates complete and product-locked pending human language review |
-| `BLR-CP-005` | determinacy, possibility and uncertainty | `BLR-QL-018..025` | English discovery frozen; Hindi/Punjabi machine-proved review candidates complete and product-locked pending human language review |
-| `BLR-CP-006` | coded relation decoding | `BLR-QL-026..030` | English/Hindi/Punjabi frozen; standard Studio review available; product delivery locked |
-| `BLR-CP-007` | coded relation construction, completion and validation | `BLR-QL-031..035` | English/Hindi/Punjabi frozen; standard Studio review available; current records locked; future release after explicit approval/promotion only |
+| `BLR-CP-001` | direct declarative named-person relations | `BLR-QL-001..007` | English/Hindi/Punjabi multilingual frozen; standard Studio review available; product delivery locked |
+| `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | `BLR-QL-008` | English/Hindi/Punjabi multilingual frozen; standard Studio review available; product delivery locked |
+| `BLR-CP-003` | shared family passages and shared graphs | `BLR-QL-009..012` | English/Hindi/Punjabi multilingual frozen after product-owner approval; product delivery locked |
+| `BLR-CP-004` | counts and family composition | `BLR-QL-013..017` | zero-count remediation retained; English/Hindi/Punjabi multilingual frozen after product-owner approval; product delivery locked |
+| `BLR-CP-005` | determinacy, possibility and uncertainty | `BLR-QL-018..025` | English/Hindi/Punjabi multilingual frozen after product-owner approval; product delivery locked |
+| `BLR-CP-006` | coded relation decoding | `BLR-QL-026..030` | Editorial V3 English/Hindi/Punjabi multilingual frozen after product-owner approval; standard Studio review available; product delivery locked |
+| `BLR-CP-007` | coded relation construction, completion and validation | `BLR-QL-031..035` | multilingual frozen review authority; standard Studio review available; current records locked; future release requires separate explicit approval/promotion |
 
 The current design contains **seven checkpoints only**. There is no planned `BLR-CP-008` in the authoritative end-to-end design.
 
@@ -237,7 +237,26 @@ The chapter shares a typed family graph and relation ontology with:
 - `BLR-CP-006/README.md` for the current CP-006 multilingual frozen boundary
 - `BLR-CP-007/` frozen English, multilingual and production-lifecycle records
 
-## Release boundary
+## Current multilingual freeze authority
+
+Product-owner approval recorded on **2026-09-19** covers:
+
+- CP-001 through CP-005 Hindi/Punjabi review surfaces;
+- CP-006 Editorial V3 English/Hindi/Punjabi review surface.
+
+The approved frozen runtime uses `blr-001-multilingual-frozen-v2` and preserves semantic parity without changing the learner corpus during freeze.
+
+All frozen records remain:
+
+- review-only;
+- Question-Bank non-writable;
+- test/mock ineligible;
+- non-public;
+- automatic student publication disabled.
+
+The separate controlled-novelty discovery prototype remains inactive, allocates no permanent QL and is excluded from this chapter closure.
+
+## Release boundary## Release boundary
 
 Checkpoint implementation/freeze state and product delivery state are separate:
 
