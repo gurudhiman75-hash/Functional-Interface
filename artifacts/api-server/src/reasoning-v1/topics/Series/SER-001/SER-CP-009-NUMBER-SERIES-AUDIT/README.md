@@ -43,6 +43,14 @@ It also does not move arithmetic-progression formula questions, sums of series, 
 
 ### Rejected source-gap prototype
 
+Three additional source-backed CP009 families are retained as content coverage but **not as new QLs**:
+
+- `SER-QL-034 / INTERLEAVED_DOUBLE_NUMBER_SERIES` -> existing `SER-QL-007` because the learner splits positional rows and continues the target row.
+- `SER-QL-039 / DIGIT_ROTATION_NUMBER_SERIES` -> existing `SER-QL-011` because cyclic rotation is already an explicit position-permutation subtype.
+- `SER-QL-041 / GROUPED_MULTI_MISSING_NUMBER_SERIES` -> existing `SER-QL-010` because it is periodic block/gap completion with numeric tokens.
+
+These families should broaden the corresponding existing QLs rather than inflate the permanent Series registry.
+
 `SER-QL-042 / INTERNAL_DIGIT_RELATION_OPTION_SERIES` is **not part of the audited Series candidate**. It was source-backed but failed chapter ownership review: the displayed numbers do not form a cross-term progression; each number merely satisfies the same internal digit relation. That is number-relation/classification logic rather than Series.
 
 The identity is not reserved, is not promotion-eligible, and remains unavailable to Question Studio, Question Bank, tests, mocks and public release.
