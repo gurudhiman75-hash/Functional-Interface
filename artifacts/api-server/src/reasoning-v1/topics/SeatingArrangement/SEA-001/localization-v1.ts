@@ -50,6 +50,8 @@ function stemHi(text: string): string {
   if ((m = text.match(/^Who sits at the extreme (right|left) end and which direction does that person face\?$/))) return `सबसे ${m[1] === "right" ? "दाएँ" : "बाएँ"} छोर पर कौन बैठा है और उसका मुख किस दिशा में है?`;
   if ((m = text.match(/^If everyone changes their facing direction, who will sit second to the left of (.+)\?$/))) return `यदि सभी व्यक्ति अपने मुख की दिशा बदल लें, तो ${m[1]} के बाईं ओर दूसरे स्थान पर कौन बैठेगा?`;
   if ((m = text.match(/^How many persons sit (clockwise|anticlockwise) between (.+) and (.+)\?$/))) return `${m[2]} से ${m[3]} तक ${m[1] === "clockwise" ? "घड़ी की दिशा में" : "घड़ी की विपरीत दिशा में"} कितने व्यक्ति बीच में बैठे हैं?`;
+  if ((m = text.match(/^How many persons sit between (.+) and (.+) when counted clockwise from (.+)\?$/))) return `${m[3]} से घड़ी की दिशा में गिनने पर ${m[1]} और ${m[2]} के बीच कितने व्यक्ति बैठे हैं?`;
+  if ((m = text.match(/^Which sequence lists the next three persons clockwise from (.+)\?$/))) return `${m[1]} से घड़ी की दिशा में अगले तीन व्यक्तियों का सही क्रम कौन-सा है?`;
   return text
     .replace(/clockwise/gi, "घड़ी की दिशा में")
     .replace(/anticlockwise/gi, "घड़ी की विपरीत दिशा में");
@@ -70,6 +72,8 @@ function stemPa(text: string): string {
   if ((m = text.match(/^Who sits at the extreme (right|left) end and which direction does that person face\?$/))) return `ਸਭ ਤੋਂ ${m[1] === "right" ? "ਸੱਜੇ" : "ਖੱਬੇ"} ਸਿਰੇ 'ਤੇ ਕੌਣ ਬੈਠਾ ਹੈ ਅਤੇ ਉਸ ਦਾ ਮੂੰਹ ਕਿਸ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
   if ((m = text.match(/^If everyone changes their facing direction, who will sit second to the left of (.+)\?$/))) return `ਜੇ ਸਾਰੇ ਵਿਅਕਤੀ ਆਪਣੇ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਬਦਲ ਲੈਣ, ਤਾਂ ${m[1]} ਦੇ ਖੱਬੇ ਪਾਸੇ ਦੂਜੇ ਸਥਾਨ 'ਤੇ ਕੌਣ ਬੈਠੇਗਾ?`;
   if ((m = text.match(/^How many persons sit (clockwise|anticlockwise) between (.+) and (.+)\?$/))) return `${m[2]} ਤੋਂ ${m[3]} ਤੱਕ ${m[1] === "clockwise" ? "ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ" : "ਘੜੀ ਦੀ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ"} ਵਿਚਕਾਰ ਕਿੰਨੇ ਵਿਅਕਤੀ ਬੈਠੇ ਹਨ?`;
+  if ((m = text.match(/^How many persons sit between (.+) and (.+) when counted clockwise from (.+)\?$/))) return `${m[3]} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਗਿਣਣ 'ਤੇ ${m[1]} ਅਤੇ ${m[2]} ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਵਿਅਕਤੀ ਬੈਠੇ ਹਨ?`;
+  if ((m = text.match(/^Which sequence lists the next three persons clockwise from (.+)\?$/))) return `${m[1]} ਤੋਂ ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ ਅਗਲੇ ਤਿੰਨ ਵਿਅਕਤੀਆਂ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?`;
   return text
     .replace(/clockwise/gi, "ਘੜੀ ਦੀ ਦਿਸ਼ਾ ਵਿੱਚ")
     .replace(/anticlockwise/gi, "ਘੜੀ ਦੀ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ");
