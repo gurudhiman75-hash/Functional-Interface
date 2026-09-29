@@ -127,6 +127,11 @@ import {
   isStat010QuestionStudioRequest,
   stat010QuestionStudioPackageCard,
 } from "../../quant-v4/topics/Statistics/STAT-010/question-studio-adapter";
+import {
+  generateStat011QuestionStudioBatchForAdapter,
+  isStat011QuestionStudioRequest,
+  stat011QuestionStudioPackageCard,
+} from "../../quant-v4/topics/Statistics/STAT-011/question-studio-adapter";
 import type {
   QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
@@ -520,6 +525,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (!packages.some((pkg) => pkg.packageId === "STAT-010")) {
       packages.push(toSharedPackage(stat010QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
+    if (!packages.some((pkg) => pkg.packageId === "STAT-011")) {
+      packages.push(toSharedPackage(stat011QuestionStudioPackageCard() as unknown as Record<string, unknown>));
+    }
     return packages.sort((left, right) => left.packageId.localeCompare(right.packageId));
   },
 
@@ -600,6 +608,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
 
     const statRequest = toStatRequest(request);
+    if (isStat011QuestionStudioRequest(statRequest)) {
+      return generateStat011QuestionStudioBatchForAdapter(statRequest) as unknown as QuestionStudioGenerationResult;
+    }
     if (isStat010QuestionStudioRequest(statRequest)) {
       return generateStat010QuestionStudioBatchForAdapter(statRequest) as unknown as QuestionStudioGenerationResult;
     }
