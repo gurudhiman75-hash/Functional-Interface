@@ -1,8 +1,8 @@
-import type { ClockTaskId } from "./runtime/catalog.ts";
+import type { ClockTaskId } from "./runtime/catalog";
 import {
   CLK_001_PERMANENT_CONTRACTS,
   type ClockPermanentQlId,
-} from "./permanent-contracts.ts";
+} from "./permanent-contracts";
 
 export const CLK_001_LOCALIZED_VARIANT_BATCH_1 = [
   "HAND_MINUTE_ROTATION",
