@@ -4,15 +4,25 @@ import {
   SER_CP008_AUDITED_QL_AUTHORITIES,
   SER_CP008_AUDITED_QL_IDS,
   SER_CP008_REJECTED_SOURCE_GAPS,
+  SER_CP008_MERGED_INTO_EXISTING_QLS,
   assertSerCp008AuditedQlId,
   generateSerCp008Audited,
 } from "./audited-candidate";
 
-assert.equal(SER_CP008_AUDITED_QL_IDS.length, 13);
-assert.equal(SER_CP008_AUDITED_QL_AUTHORITIES.length, 13);
+assert.equal(SER_CP008_AUDITED_QL_IDS.length, 9);
+assert.equal(SER_CP008_AUDITED_QL_AUTHORITIES.length, 9);
 assert.deepEqual(
   SER_CP008_REJECTED_SOURCE_GAPS.map((entry) => entry.qlId),
   ["SER-QL-019", "SER-QL-020"],
+);
+assert.deepEqual(
+  SER_CP008_MERGED_INTO_EXISTING_QLS.map((entry) => [entry.qlId, entry.existingPermanentQlId]),
+  [
+    ["SER-QL-014", "SER-QL-003"],
+    ["SER-QL-015", "SER-QL-007"],
+    ["SER-QL-026", "SER-QL-011"],
+    ["SER-QL-028", "SER-QL-010"],
+  ],
 );
 assert.ok(
   SER_CP008_REJECTED_SOURCE_GAPS.every(
@@ -28,6 +38,10 @@ assert.ok(
 );
 assert.equal((SER_CP008_AUDITED_QL_IDS as readonly string[]).includes("SER-QL-019"), false);
 assert.equal((SER_CP008_AUDITED_QL_IDS as readonly string[]).includes("SER-QL-020"), false);
+for (const merged of SER_CP008_MERGED_INTO_EXISTING_QLS) {
+  assert.equal((SER_CP008_AUDITED_QL_IDS as readonly string[]).includes(merged.qlId), false);
+  assert.throws(() => assertSerCp008AuditedQlId(merged.qlId), /variant of SER-QL-/i);
+}
 assert.throws(() => assertSerCp008AuditedQlId("SER-QL-019"), /internal alphanumeric relation/i);
 assert.throws(() => assertSerCp008AuditedQlId("SER-QL-020"), /internal alphanumeric relation/i);
 
@@ -57,7 +71,7 @@ for (const qlId of SER_CP008_AUDITED_QL_IDS) {
 }
 
 console.log(JSON.stringify({
-  status: "SER_CP008_AUDITED_13_QL_OWNERSHIP_PASS",
+  status: "SER_CP008_AUDITED_9_NEW_QL_ANTI_INFLATION_PASS",
   auditedQlCount: SER_CP008_AUDITED_QL_IDS.length,
   rejectedWrongOwner: SER_CP008_REJECTED_SOURCE_GAPS,
   generatedProofs,

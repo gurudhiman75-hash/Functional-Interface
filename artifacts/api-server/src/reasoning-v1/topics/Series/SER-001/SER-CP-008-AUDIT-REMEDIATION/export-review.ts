@@ -1,6 +1,7 @@
 import {
   SER_CP008_AUDITED_QL_IDS,
   SER_CP008_REJECTED_SOURCE_GAPS,
+  SER_CP008_MERGED_INTO_EXISTING_QLS,
   generateSerCp008Audited,
 } from "./audited-candidate";
 import { serCp008AuthorityByQlId } from "./question-language";
@@ -13,9 +14,12 @@ const lines: string[] = [
   "",
   "## Final ownership decision",
   "",
-  "- Audited Series candidates: `SER-QL-014..018` and `SER-QL-021..028` (13 QLs).",
+  "- New audited Series candidates after anti-inflation: `SER-QL-016..018`, `SER-QL-021..025`, and `SER-QL-027` (9 QLs).",
   ...SER_CP008_REJECTED_SOURCE_GAPS.map(
     (entry) => `- \`${entry.qlId}\` is rejected and not reserved: ${entry.reason}`,
+  ),
+  ...SER_CP008_MERGED_INTO_EXISTING_QLS.map(
+    (entry) => `- \`${entry.qlId}\` is not a new QL; merge as a variant of \`${entry.existingPermanentQlId}\`: ${entry.reason}`,
   ),
   "- Rejected source prototypes remain only as provenance experiments and cannot be promoted from this checkpoint.",
   "",
