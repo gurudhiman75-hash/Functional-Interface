@@ -1,6 +1,6 @@
 # English Content — Whole-Chapter Closure Audit V2
 
-Status: `CONTENT_CLOSED_V2__ENG001_ENG013__QUESTION_STUDIO_REVIEW_ONLY__DOWNSTREAM_RELEASE_LOCKED`
+Status: `QUALITY_REMEDIATION_OPEN__ENG008__QUESTION_STUDIO_REVIEW_ONLY__DOWNSTREAM_RELEASE_LOCKED`
 
 Closure audit date: **2026-09-29**
 
@@ -17,7 +17,7 @@ This document supersedes `ENGLISH-CONTENT-CLOSURE-AUDIT-V1.md`, which predates t
 | ENG-005 | Idioms & Phrases | Human approved; Question Studio review-only |
 | ENG-006 | One-word Substitution | Human approved; Question Studio review-only |
 | ENG-007 | Spelling Correction | Frozen through CP007; Question Studio review-only |
-| ENG-008 | Reading Comprehension | Frozen through CP007; Question Studio review-only |
+| ENG-008 | Reading Comprehension | Coverage complete, but final quality remediation open for factory-built Waves 14–19; Question Studio review-only |
 | ENG-009 | Cloze Test | Content closed through CP006; Question Studio review-only |
 | ENG-010 | Para Jumbles | Approved saturation set; Question Studio review-only |
 | ENG-011 | Sentence Rearrangement | Approved saturation set; Question Studio review-only |
@@ -39,7 +39,7 @@ No new gap was found in this audit that requires reopening ENG-001 through ENG-0
 
 ## ENG-008 — Reading Comprehension
 
-Authoritative closure state: `FROZEN__QUESTION_STUDIO_REVIEW_ONLY`.
+Coverage state remains complete, but final quality state is now `QUALITY_REMEDIATION_REQUIRED__QUESTION_STUDIO_REVIEW_ONLY`.
 
 Implemented profiles:
 - SSC Foundation RC;
@@ -54,7 +54,7 @@ Current large-pool inventory reaches **632 core RC passages / 5,308 governed aut
 
 Banking Prelims linked sets support **8, 9 and 10 questions** using approved passage authorities. The previously demonstrated contextual word-fit gap is closed. Waves 17–19 alone added 120 passages / 1,008 governed authorities, taking the cumulative pool from 512 passages after Wave 16 to 632 after Wave 19.
 
-No CP008 is justified without new exam evidence or a separately demonstrated coverage gap.
+No CP008 is justified: this is not a coverage gap. The required work is one-for-one quality remediation of factory-built active passages in Waves 14–19.
 
 ## ENG-009 — Cloze Test
 
@@ -156,7 +156,7 @@ Question Studio remains the editorial / review surface.
 
 ## Final gap decision
 
-No material English content-family gap remains in the currently implemented ENG-001 through ENG-013 blueprint.
+No material English content-family gap remains in the currently implemented ENG-001 through ENG-013 blueprint. However, ENG-008 is not yet final-frozen because the final quality audit identified excessive shared surface scaffolding across 240 active RC passages in Waves 14–19.
 
 Do **not** add a new checkpoint or inflate existing pools solely to increase counts.
 
@@ -166,6 +166,8 @@ Reopen a chapter only for one of the following:
 3. a justified one-for-one quality replacement;
 4. an explicitly approved new learner-facing capability.
 
-Final state:
+Current state:
 
-`CONTENT_CLOSED_V2__ENG001_ENG013__QUESTION_STUDIO_REVIEW_ONLY__DOWNSTREAM_RELEASE_LOCKED`
+`QUALITY_REMEDIATION_OPEN__ENG008__QUESTION_STUDIO_REVIEW_ONLY__DOWNSTREAM_RELEASE_LOCKED`
+
+Return to whole-English content-frozen status only after ENG-008 factory-built Waves 14–19 are remediated and re-audited.
