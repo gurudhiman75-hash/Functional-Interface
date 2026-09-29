@@ -30,6 +30,7 @@ export const QUANT_V4_CGL_TIER1_SHADOW_SIMULATION_AUTHORITY =
   "QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-P3" as const;
 
 export const QUANT_V4_CGL_TIER1_SHADOW_SIMULATION_SECTIONS = 20 as const;
+// Combined post-PCT-002 + Mensuration P7 rerun marker; no runtime behavior change.
 
 export type QuantV4CglTier1ShadowSimulationStatus =
   | "SHADOW_SIMULATION_HOLD"
