@@ -113,8 +113,8 @@ r("A steep erosion-prone slope is kept under forest rather than intensive cultiv
 buildQl("INTEGRATED-LAND-REASONING","Integrated land-resource reasoning",[
 r("Which combination most likely causes land degradation?","Deforestation, overgrazing and erosion","Afforestation, terracing and contour farming","Recharge, shelterbelts and drainage","Watershed treatment and grass cover","The first combination removes protection and accelerates soil loss.","LND-INT-1"),
 r("Which combination best reduces dryland degradation?","Shelterbelts, controlled grazing and water conservation","Deforestation and overgrazing","Unlimited groundwater pumping","Bare soil and high runoff","Vegetation and careful water use reduce erosion and desertification.","LND-INT-2"),
-r("Which comparison is correct?","Net sown area is cultivated; current fallow is temporarily uncultivated","Both are forests","Both are permanently barren","Current fallow is urban land","The categories differ by whether cultivation occurs in the reference year.","LND-INT-3"),
-r("Which comparison is correct?","Waterlogging means excess water; salinity means excess salts","Both mean wind erosion","Both mean afforestation","Both mean urbanisation","The two problems can occur together but are distinct.","LND-INT-4"),
+r("Which comparison correctly distinguishes cultivated and fallow land?","Net sown area is cultivated; current fallow is temporarily uncultivated","Both are forests","Both are permanently barren","Current fallow is urban land","The categories differ by whether cultivation occurs in the reference year.","LND-INT-3"),
+r("Which comparison correctly distinguishes waterlogging and salinity?","Waterlogging means excess water; salinity means excess salts","Both mean wind erosion","Both mean afforestation","Both mean urbanisation","The two problems can occur together but are distinct.","LND-INT-4"),
 r("A region protects forests on steep slopes, farms gentler land and restores gullies. What approach is this?","Sustainable land management","Random land use","Maximum extraction","Unplanned expansion","Land use is being matched to capability and conservation needs.","LND-INT-5")
 ])
 ]);
