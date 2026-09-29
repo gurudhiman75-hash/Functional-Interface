@@ -154,9 +154,8 @@ console.log(JSON.stringify({
     count: 1,
     auditExcludedPatternIds: [first.patternId],
   }).questions[0]!;
-  assert.notEqual(
-    second.patternId,
-    first.patternId,
+  assert(
+    second.patternId !== first.patternId,
     "Live Mensuration selector must not reuse an explicitly excluded positive-weight pattern while unused patterns remain.",
   );
 }
