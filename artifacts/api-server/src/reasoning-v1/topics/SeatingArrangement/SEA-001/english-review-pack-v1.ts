@@ -66,6 +66,26 @@ function runtimeItems(caselet: any, seatCount: number): Sea001EnglishReviewPackI
   });
 }
 
+function extensionExplanation(extension: any): string {
+  if (extension.kind === "EXTREME_END_PAIR") {
+    const answer = Array.isArray(extension.answer) ? extension.answer.join(" and ") : String(extension.answer);
+    return `${answer} occupy the two extreme seats in the verified row. Hence, that pair is correct.`;
+  }
+  if (extension.kind === "RELATIVE_POSITION_DESCRIPTION") {
+    return `Trace the target person from the reference in the verified circular arrangement. The relation is ${String(extension.answer).toLowerCase()}. Hence, that option is correct.`;
+  }
+  if (extension.kind === "DEFINITELY_TRUE_RELATION_STATEMENT") {
+    return `Check each option against the verified arrangement. Only “${String(extension.answer)}” matches the actual positions, so it is definitely true.`;
+  }
+  if (extension.kind === "FACING_DIRECTION_COUNT") {
+    return `Count only the people facing the direction named in the question. The verified facing pattern gives ${String(extension.answer)}, so that is the correct answer.`;
+  }
+  if (extension.kind === "END_PERSON_AND_FACING") {
+    return `Read the requested extreme seat, then note that person's facing from the verified mixed-facing row. The correct person-direction pair is ${String(extension.answer)}.`;
+  }
+  throw new Error(`Unsupported SEA-001 review extension ${String(extension.kind)}`);
+}
+
 function extensionItem(input: {
   caselet: any;
   extension: any;
@@ -91,7 +111,7 @@ function extensionItem(input: {
     stem: input.extension.stem,
     options: input.extension.options,
     correctIndex: input.extension.correctIndex,
-    explanation: "Read the verified final arrangement and apply the relation asked in the question.",
+    explanation: extensionExplanation(input.extension),
     difficulty: difficulty.band,
     diagramPolicy: "EXPLANATION_ONLY",
     reviewStatus: "UNREVIEWED",
