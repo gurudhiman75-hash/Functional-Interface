@@ -49,3 +49,22 @@ for(const [english,punjabi] of cropTermChecks){
   const x=q("Which crop is "+english+"?",english,["Wheat","Maize","Cotton"],english+" is the correct crop.");
   assert.equal(localizeIndianGeoQuestionV1(x,"pa","GEO-AGR-001").canonicalAnswer,punjabi);
 }
+
+
+const verifiedPunjabiNames = [
+  ["Rice","ਝੋਨਾ"],
+  ["Sugarcane","ਕਮਾਦ"],
+  ["Groundnut","ਮੂੰਗਫ਼ਲੀ"],
+  ["Mustard","ਸਰ੍ਹੋਂ"],
+  ["Soybean","ਸੋਇਆਬੀਨ"],
+  ["Jowar","ਜੂਆਰ"],
+  ["Gram","ਛੋਲੇ"],
+  ["Tropical evergreen forest","ਉਸ਼ਣ ਸਦਾਬਹਾਰ ਵਣ"],
+  ["Tropical deciduous forest","ਊਸ਼ਣ-ਪੱਤਝੜੀ ਵਣ"],
+  ["Tropical thorn forest","ਉਸ਼ਣ ਕੰਡੇਦਾਰ ਵਣ"],
+] as const;
+
+for (const [english,punjabi] of verifiedPunjabiNames) {
+  const x=q("Which option is correct?",english,["Wheat","Maize","Cotton"],english+" is correct.");
+  assert.equal(localizeIndianGeoQuestionV1(x,"pa","GEO-AGR-001").canonicalAnswer,punjabi);
+}
