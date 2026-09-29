@@ -1,6 +1,6 @@
 # STC-001 — Statement & Conclusion — End-to-End Design
 
-Status: IMPLEMENTATION AUTHORITY V1
+Status: V2.2 GENERATION-READY REVIEW AUTHORITY — FROZEN
 Chapter code: REAS-STC
 Chapter ID: STC-001
 Target exams: SSC, Banking, Punjab state exams
@@ -97,4 +97,4 @@ Every CP must pass determinism, exactly-one-answer, solver/generator independenc
 
 ## 11. Freeze and release boundary
 
-A semantic freeze does not grant learner delivery. Question Studio registration is review-only until separately approved. Question Bank writes, tests, mocks, public publication and automatic publication remain closed until a later release authorization.
+A semantic freeze does not grant learner delivery. Question Studio is registered on the frozen V2.2 generation-ready review authority. Question Bank writes, tests, mocks, public publication and automatic publication remain closed until a later release authorization.
