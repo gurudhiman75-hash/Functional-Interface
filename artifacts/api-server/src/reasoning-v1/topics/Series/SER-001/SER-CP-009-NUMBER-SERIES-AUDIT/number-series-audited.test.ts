@@ -4,6 +4,7 @@ import {
   SER_CP009_AUDITED_QL_AUTHORITIES,
   SER_CP009_AUDITED_QL_IDS,
   SER_CP009_REJECTED_SOURCE_GAP,
+  SER_CP009_MERGED_INTO_EXISTING_QLS,
   assertSerCp009AuditedQlId,
   generateSerCp009AuditedNumberSeries,
   solveVisibleAuditedNumberSeries,
@@ -11,12 +12,24 @@ import {
 } from "./number-series-audited";
 import type { SerCp009Locale } from "./number-series";
 
-assert.equal(SER_CP009_AUDITED_QL_IDS.length, 13);
-assert.equal(SER_CP009_AUDITED_QL_AUTHORITIES.length, 13);
+assert.equal(SER_CP009_AUDITED_QL_IDS.length, 10);
+assert.equal(SER_CP009_AUDITED_QL_AUTHORITIES.length, 10);
 assert.equal(SER_CP009_REJECTED_SOURCE_GAP.qlId, "SER-QL-042");
 assert.equal(SER_CP009_REJECTED_SOURCE_GAP.auditDecision, "REJECT_WRONG_CHAPTER_OWNERSHIP");
 assert.equal(SER_CP009_REJECTED_SOURCE_GAP.permanentQlReserved, false);
 assert.equal((SER_CP009_AUDITED_QL_IDS as readonly string[]).includes("SER-QL-042"), false);
+assert.deepEqual(
+  SER_CP009_MERGED_INTO_EXISTING_QLS.map((entry) => [entry.qlId, entry.existingPermanentQlId]),
+  [
+    ["SER-QL-034", "SER-QL-007"],
+    ["SER-QL-039", "SER-QL-011"],
+    ["SER-QL-041", "SER-QL-010"],
+  ],
+);
+for (const merged of SER_CP009_MERGED_INTO_EXISTING_QLS) {
+  assert.equal((SER_CP009_AUDITED_QL_IDS as readonly string[]).includes(merged.qlId), false);
+  assert.throws(() => assertSerCp009AuditedQlId(merged.qlId), /variant of SER-QL-/i);
+}
 assert.throws(() => assertSerCp009AuditedQlId("SER-QL-042"), /not a Series progression/i);
 
 // Recent SSC anchors remain covered by the final candidate.
@@ -150,7 +163,7 @@ const smallestHard = hardCandidates.map(({ seed, item }) => ({ seed, max: numeri
 assert.ok(largestEasy.max > smallestHard.max, `anti-magnitude witness missing: ${largestEasy.max} <= ${smallestHard.max}`);
 
 console.log(JSON.stringify({
-  status: "SER_CP009_AUDITED_13_QL_PASS",
+  status: "SER_CP009_AUDITED_10_NEW_QL_ANTI_INFLATION_PASS",
   qlCount: SER_CP009_AUDITED_QL_IDS.length,
   rejectedWrongOwner: SER_CP009_REJECTED_SOURCE_GAP,
   seedsPerQl,
