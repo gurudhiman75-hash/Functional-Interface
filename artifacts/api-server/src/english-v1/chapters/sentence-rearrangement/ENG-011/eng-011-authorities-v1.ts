@@ -1,3 +1,5 @@
+import{ENG011_BREADTH_WAVE4_V1}from"./eng-011-breadth-wave4";
+import{ENG011_BREADTH_WAVE3_V1}from"./eng-011-breadth-wave3";
 import{ENG011_BREADTH_WAVE2_V1}from"./eng-011-breadth-wave2";
 import{ENG011_BREADTH_WAVE1_V1}from"./eng-011-breadth-wave1";
 export type Eng011CpId="ENG-011-CP001"|"ENG-011-CP002"|"ENG-011-CP003"|"ENG-011-CP004";
@@ -28,5 +30,9 @@ s("SR-BM-S04","ENG-011-CP004","hard","economic policy",["even if headline inflat
 ...ENG011_BREADTH_WAVE1_V1
 ,
 ...ENG011_BREADTH_WAVE2_V1
+,
+...ENG011_BREADTH_WAVE3_V1
+,
+...ENG011_BREADTH_WAVE4_V1
 ];
 export const ENG011_CP_IDS_V1=["ENG-011-CP001","ENG-011-CP002","ENG-011-CP003","ENG-011-CP004","ENG-011-CP005"] as const;
