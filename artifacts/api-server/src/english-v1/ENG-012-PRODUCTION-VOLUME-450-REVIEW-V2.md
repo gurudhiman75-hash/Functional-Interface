@@ -51,3 +51,20 @@ Source tests check:
 - 20,000-seed soak source.
 
 No CI/test execution is claimed by this review file.
+
+
+## No-correction mix
+
+ENG-012 now includes a controlled no-correction form.
+
+- **45 of 450 authorities** (~10%) are designated as already-correct questions.
+- Profile distribution: **12 SSC Standard / 12 SSC Advanced / 10 Banking Prelims / 11 Banking Mains**.
+- These questions display the natural sentence without swapping any marked words.
+- Their correct answer is **No correction required**.
+- Swap-required questions continue to have a genuine interchange pair as the correct answer.
+- The no-correction option is therefore semantically real, not a random decorative distractor.
+
+Source guards verify that:
+- no-correction items display exactly the corrected sentence;
+- swap-required items display a genuinely misplaced pair;
+- all four options remain unique.
