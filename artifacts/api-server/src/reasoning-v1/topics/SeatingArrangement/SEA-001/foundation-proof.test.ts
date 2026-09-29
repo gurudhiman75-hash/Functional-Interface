@@ -59,7 +59,7 @@ function generatedCaseletProof(): void {
       assert.equal(new Set(first.children.map((child) => child.queryContractId)).size, 3);
       assert.equal(new Set(first.queryFactFingerprints).size, first.children.length);
       assert.equal(first.crossQuestionLeakagePassed, true);
-      assert.equal(first.lifecycle.permanentQlCount, 0);
+      assert.equal(first.lifecycle.permanentQlCount, 9);
       assert.equal(first.lifecycle.questionBankWritable, false);
       for (const child of first.children) {
         assert.equal(child.options.length, 4);
@@ -75,7 +75,7 @@ function generatedCaseletProof(): void {
 
 function lifecycleProof(): void {
   assert.equal(SEA_001_AUTHORITY_DISCREPANCIES.length, 1);
-  assert.throws(() => assertSea001ActivationAllowed(), /discovery foundation only/);
+  assert.throws(() => assertSea001ActivationAllowed(), /review-only permanent QL allocation/);
 }
 
 topologyProof();
@@ -86,4 +86,4 @@ console.log("PASS_SEA_001_CP001_FOUNDATION");
 console.log("named blueprint authorities", SEA_001_BLUEPRINTS.length);
 console.log("generated deterministic caselets", SEA_001_BLUEPRINTS.length * 125);
 console.log("generated child questions", SEA_001_BLUEPRINTS.length * 125 * 3);
-console.log("permanent QLs", 0);
+console.log("permanent QLs", 9);
