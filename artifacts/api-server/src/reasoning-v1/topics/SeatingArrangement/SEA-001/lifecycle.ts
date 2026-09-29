@@ -2,8 +2,8 @@ import type { SeatingLifecycle } from "./types.ts";
 
 export const SEA_001_LIFECYCLE: SeatingLifecycle = Object.freeze({
   discoveryStatus: "EXECUTABLE_FOUNDATION",
-  solveInventoryStatus: "OPEN",
-  queryMixStatus: "OPEN",
+  solveInventoryStatus: "FROZEN",
+  queryMixStatus: "FROZEN",
   englishFreezeStatus: "NOT_STARTED",
   permanentQlCount: 9,
   questionStudioRegistered: false,
