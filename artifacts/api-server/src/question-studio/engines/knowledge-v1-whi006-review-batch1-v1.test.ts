@@ -1,36 +1,23 @@
 import { strict as assert } from "node:assert";
 import questions from "../../knowledge-v1/world-history-cp006-en-v1.json";
-import authority from "../../../../review/world-history/WHI-001-CP006-CANONICAL-FACTS-Q001-020-V1.json";
+import authority from "../../../../review/world-history/WHI-001-CP006-CANONICAL-FACTS-Q001-060-V1.json";
 
 const allowedSources = new Set(authority.sourceRegister.map((source) => source.sourceId));
 const facts = new Map(authority.facts.map((fact) => [fact.factId, fact]));
 const families = new Set([
-  "Movement and objective",
-  "Person and contribution",
-  "State and political base",
-  "Event and outcome",
-  "Chronology and sequence",
-  "Territory and completion",
-  "Constitutional and political structure",
-  "Movement comparison",
-  "Diplomacy and popular action",
-  "Cross-stage synthesis",
+  "Movement and objective", "Person and contribution", "State and political base",
+  "Event and outcome", "Chronology and sequence", "Territory and completion",
+  "Constitutional and political structure", "Movement comparison",
+  "Diplomacy and popular action", "Cross-stage synthesis",
 ]);
 
-assert.equal(questions.length, 20, "CP006 review batch 1 must contain Q001–Q020");
-assert.equal(authority.facts.length, questions.length, "each review question must have one canonical fact record");
-assert.deepEqual(
-  ["easy", "medium", "hard"].map((difficulty) => questions.filter((question) => question.difficulty === difficulty).length),
-  [6, 11, 3],
-  "batch difficulty totals must match the review artifact",
-);
-assert.deepEqual(
-  ["A", "B", "C", "D"].map((key) => questions.filter((question) => question.correctOption === key).length),
-  [5, 5, 5, 5],
-  "batch answer positions must remain balanced",
-);
-assert.equal(new Set(questions.map((question) => question.stem.trim().toLowerCase())).size, questions.length, "question stems must be unique");
-assert.deepEqual(new Set(questions.map((question) => question.questionFamily)), families, "batch must exercise all ten approved QL families");
+assert.equal(questions.length, 60);
+assert.equal(authority.facts.length, questions.length);
+assert.deepEqual(["easy", "medium", "hard"].map((d) => questions.filter((q) => q.difficulty === d).length), [18, 30, 12]);
+assert.deepEqual(["A", "B", "C", "D"].map((k) => questions.filter((q) => q.correctOption === k).length), [15, 15, 15, 15]);
+assert.deepEqual(new Set(questions.map((q) => q.questionFamily)), families);
+for (const family of families) assert.equal(questions.filter((q) => q.questionFamily === family).length, 6);
+assert.equal(new Set(questions.map((q) => q.stem.trim().toLowerCase())).size, 60);
 
 for (const [index, question] of questions.entries()) {
   const id = `WHI-CP006-Q${String(index + 1).padStart(3, "0")}`;
@@ -41,17 +28,16 @@ for (const [index, question] of questions.entries()) {
   assert.equal(question.language, "en");
   assert.equal(question.reviewOnly, true);
   assert.equal(question.runtimeRegistered, false);
-  assert.ok(families.has(question.questionFamily), `${id} has an unknown question family`);
+  assert.ok(families.has(question.questionFamily));
   assert.equal(question.options.length, 4);
-  assert.deepEqual(question.options.map((option) => option.key), ["A", "B", "C", "D"]);
-  assert.equal(new Set(question.options.map((option) => option.text)).size, 4);
-  assert.ok(question.options.some((option) => option.key === question.correctOption));
-  assert.ok(question.sourceIds.length > 0 && question.sourceIds.every((sourceId) => allowedSources.has(sourceId)));
+  assert.deepEqual(question.options.map((o) => o.key), ["A", "B", "C", "D"]);
+  assert.equal(new Set(question.options.map((o) => o.text)).size, 4);
+  assert.ok(question.options.some((o) => o.key === question.correctOption));
+  assert.ok(question.sourceIds.length > 0 && question.sourceIds.every((id) => allowedSources.has(id)));
   const fact = facts.get(question.factId);
   assert.ok(fact, `${id} has no canonical fact`);
-  assert.deepEqual(question.sourceIds, fact.sourceIds, `${id} question and fact provenance differ`);
+  assert.deepEqual(question.sourceIds, fact.sourceIds, `${id} question/fact provenance differs`);
   assert.ok(question.stem.length > 0 && question.explanation.length > 0);
-  assert.ok(!question.explanation.includes("CP006-S"), `${id} learner explanation must not expose source tags`);
+  assert.ok(!question.explanation.includes("CP006-S"));
 }
-
-console.log("[WHI-006 batch 1] PASS 20 questions, canonical facts, QL families, provenance, answer key and unpublished state");
+console.log("[WHI-006] PASS 60 questions, 60 facts, 10 families, 18/30/12 difficulty, balanced answer keys, provenance and review-only state");
