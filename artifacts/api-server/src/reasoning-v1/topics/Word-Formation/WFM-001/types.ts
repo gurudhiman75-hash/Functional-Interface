@@ -50,7 +50,12 @@ export interface WfmOption {
     | "COUNT_NEAR_MISS"
     | "EXACT_REARRANGEMENT"
     | "NEAR_REARRANGEMENT"
-    | "WRONG_INDEX_ORDER";
+    | "WRONG_INDEX_ORDER"
+    | "MEANINGFUL_ORDERED_EXTRACTION"
+    | "NONWORD_ORDERED_EXTRACTION"
+    | "UNIQUE_WORD_OUTPUT"
+    | "AMBIGUITY_SENTINEL"
+    | "OUTPUT_NEAR_MISS";
 }
 
 export interface WfmGeneratedQuestion {
