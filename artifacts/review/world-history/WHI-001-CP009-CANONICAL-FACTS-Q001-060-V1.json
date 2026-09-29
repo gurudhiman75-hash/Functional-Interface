@@ -373,9 +373,9 @@
       "sourceIds": [
         "CP009-S04"
       ],
-      "sourceLocator": "Economic causes and effects",
+      "sourceLocator": "CP009-S04, article introduction on the depression beginning in the United States in 1929; section “The Crash,” opening paragraph on the stock-market collapse.",
       "relationshipType": "economic-causes-and-effects",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F026",
@@ -384,9 +384,9 @@
         "CP009-S03",
         "CP009-S04"
       ],
-      "sourceLocator": "Economic causes and effects",
+      "sourceLocator": "CP009-S03, “Cultural Changes,” paragraph on Weimar’s recovery through the 1920s; CP009-S04, “The Global Great Depression” and Germany paragraphs on U.S. loan repayment and the fragile German economy.",
       "relationshipType": "economic-causes-and-effects",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F027",
@@ -395,9 +395,9 @@
         "CP009-S04",
         "CP009-S05"
       ],
-      "sourceLocator": "Economic causes and effects",
+      "sourceLocator": "CP009-S04, “The Global Great Depression,” Germany paragraph on bank failures and rising unemployment.",
       "relationshipType": "economic-causes-and-effects",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F028",
@@ -406,9 +406,9 @@
         "CP009-S04",
         "CP009-S05"
       ],
-      "sourceLocator": "Economic causes and effects",
+      "sourceLocator": "CP009-S04, “The Great Depression and the Rise of the Nazis,” paragraphs on hardship and the Depression’s contribution to Hitler gaining support.",
       "relationshipType": "economic-causes-and-effects",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F029",
@@ -417,9 +417,9 @@
         "CP009-S04",
         "CP009-S05"
       ],
-      "sourceLocator": "Economic causes and effects",
+      "sourceLocator": "CP009-S04, key fact on the Depression as a contributing factor; “The Great Depression and the Rise of the Nazis,” closing paragraph that says it was not solely responsible for Hitler’s rise.",
       "relationshipType": "economic-causes-and-effects",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F030",
@@ -427,9 +427,9 @@
       "sourceIds": [
         "CP009-S04"
       ],
-      "sourceLocator": "Economic causes and effects",
+      "sourceLocator": "CP009-S04, section “The Global Great Depression,” paragraphs on the crisis spreading internationally through U.S. lending and debt repayment, with effects in Europe and Germany.",
       "relationshipType": "economic-causes-and-effects",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F031",
@@ -437,9 +437,9 @@
       "sourceIds": [
         "CP009-S11"
       ],
-      "sourceLocator": "Person and movement",
+      "sourceLocator": "CP009-S11, section “Italian Fascism,” paragraph beginning “In 1919, Mussolini founded the Italian Fascist movement,” and opening summary identifying him as its leader.",
       "relationshipType": "person-and-movement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F032",
@@ -447,9 +447,9 @@
       "sourceIds": [
         "CP009-S11"
       ],
-      "sourceLocator": "Person and movement",
+      "sourceLocator": "CP009-S11, section “Italian Fascism,” paragraph on the March on Rome on 27–28 October 1922 and King Victor Emmanuel III inviting Mussolini to form a government.",
       "relationshipType": "person-and-movement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F033",
@@ -458,9 +458,9 @@
         "CP009-S05",
         "CP009-S06"
       ],
-      "sourceLocator": "Person and movement",
+      "sourceLocator": "CP009-S06, Hitler’s appointment entry for 30 January 1933; CP009-S05, section on Hitler becoming chancellor.",
       "relationshipType": "person-and-movement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F034",
@@ -468,9 +468,9 @@
       "sourceIds": [
         "CP009-S05"
       ],
-      "sourceLocator": "Person and movement",
+      "sourceLocator": "CP009-S05, opening paragraph identifying the Nazi Party as the political party led by Adolf Hitler.",
       "relationshipType": "person-and-movement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F035",
@@ -478,9 +478,9 @@
       "sourceIds": [
         "CP009-S11"
       ],
-      "sourceLocator": "Person and movement",
+      "sourceLocator": "CP009-S11, section “Italian Fascism,” opening paragraphs identifying Mussolini as a committed fascist and founder/leader of the Fascist movement.",
       "relationshipType": "person-and-movement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F036",
@@ -489,9 +489,9 @@
         "CP009-S05",
         "CP009-S06"
       ],
-      "sourceLocator": "Person and movement",
+      "sourceLocator": "CP009-S05, passages on Hitler’s appointment and Nazi consolidation through legislation, coercion, and propaganda; CP009-S06, 30 January 1933 key-date entry.",
       "relationshipType": "person-and-movement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F037",

@@ -44,3 +44,8 @@
 ## Focused source additions
 
 - **CP009-S17** U.S. Department of State, Office of the Historian — [The Dawes Plan, the Young Plan, German Reparations, and Inter-allied War Debts](https://history.state.gov/milestones/1921-1936/dawes). Supports the 1924 plan’s reparations restructuring, currency measures, and foreign lending.
+
+
+## Source-locator pass — Q025–Q036
+
+Passage-level locators for Q025–Q030 point to the Great Depression’s global impact and Weimar Germany sections; Q031–Q036 point to the USHMM Mussolini and Nazi rise articles and the dated Hitler appointment chronology. Existing source IDs were retained where the cited passages directly support the claim.

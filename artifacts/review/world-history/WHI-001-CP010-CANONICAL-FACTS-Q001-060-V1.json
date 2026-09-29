@@ -90,6 +90,24 @@
       "title": "U.S. Naval History and Heritage Command — Battle of the Coral Sea",
       "url": "https://www.history.navy.mil/research/library/online-reading-room/title-list-alphabetically/b/battle-of-the-coral-sea.html",
       "use": "May 1942 carrier battle and the Japanese operation against Port Moresby."
+    },
+    {
+      "sourceId": "CP010-S18",
+      "title": "U.S. Department of State, Office of the Historian — Wartime Conferences, 1941–1945",
+      "url": "https://history.state.gov/milestones/1937-1945/war-time-conferences",
+      "use": "Casablanca, Tehran and the Allied wartime conference sequence."
+    },
+    {
+      "sourceId": "CP010-S19",
+      "title": "U.S. Department of State, Office of the Historian — Lend-Lease and Military Aid to the Allies in the Early Years of World War II",
+      "url": "https://history.state.gov/milestones/1937-1945/lend-lease",
+      "use": "U.S. military supplies and Lend-Lease assistance before U.S. entry into the war."
+    },
+    {
+      "sourceId": "CP010-S20",
+      "title": "U.S. Department of State, Office of the Historian — The Potsdam Conference, 1945",
+      "url": "https://history.state.gov/milestones/1937-1945/potsdam-conf",
+      "use": "Dates, participants and postwar settlement at Potsdam after Germany’s surrender."
     }
   ],
   "facts": [
@@ -349,9 +367,9 @@
       "sourceIds": [
         "CP010-S01"
       ],
-      "sourceLocator": "Turning points",
+      "sourceLocator": "CP010-S01, timeline entries for the Second Battle of El Alamein in October–November 1942 and the Allied breakthrough in November 1942.",
       "relationshipType": "turning-points",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F026",
@@ -360,9 +378,9 @@
         "CP010-S01",
         "CP010-S02"
       ],
-      "sourceLocator": "Turning points",
+      "sourceLocator": "CP010-S01, Stalingrad entries for the Soviet counteroffensive and German Sixth Army surrender, ending 2 February 1943; CP010-S02, Eastern Front section on Stalingrad’s turning point.",
       "relationshipType": "turning-points",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F027",
@@ -370,9 +388,9 @@
       "sourceIds": [
         "CP010-S03"
       ],
-      "sourceLocator": "Turning points",
+      "sourceLocator": "CP010-S03, section “The Battle of Midway: The Turning Point in the Pacific,” paragraphs describing Japanese losses and the shift of initiative.",
       "relationshipType": "turning-points",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F028",
@@ -382,7 +400,7 @@
       ],
       "sourceLocator": "Section “World War II in Europe,” Eastern Front discussion of July 1943",
       "relationshipType": "turning-points",
-      "reviewStatus": "source-linked with section locator; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F029",
@@ -391,9 +409,9 @@
         "CP010-S02",
         "CP010-S05"
       ],
-      "sourceLocator": "Turning points",
+      "sourceLocator": "CP010-S02, Europe chronology paragraphs on D-Day in June 1944 and Soviet advances from the east; CP010-S05, D-Day account of the Normandy landings and opening of the western front.",
       "relationshipType": "turning-points",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F030",
@@ -402,9 +420,9 @@
         "CP010-S01",
         "CP010-S05"
       ],
-      "sourceLocator": "Turning points",
+      "sourceLocator": "CP010-S01, timeline entries for El Alamein (October–November 1942), the Stalingrad surrender (February 1943), and the Normandy landings (6 June 1944).",
       "relationshipType": "turning-points",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F031",
@@ -412,29 +430,29 @@
       "sourceIds": [
         "CP010-S07"
       ],
-      "sourceLocator": "Allied strategy and leaders",
+      "sourceLocator": "CP010-S07, Franklin D. Roosevelt Presidential Library, Atlantic Charter statement, opening section and the eight principles agreed by Roosevelt and Churchill in August 1941.",
       "relationshipType": "allied-strategy-leaders",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F032",
       "claim": "At Casablanca in January 1943, Roosevelt and Churchill announced the policy of unconditional surrender. The Soviet Union was not represented at that meeting.",
       "sourceIds": [
-        "CP010-S07"
+        "CP010-S18"
       ],
-      "sourceLocator": "Allied strategy and leaders",
+      "sourceLocator": "CP010-S18, “Wartime Conferences, 1941–1945,” Casablanca passage on the January 1943 agreement to seek unconditional surrender.",
       "relationshipType": "allied-strategy-leaders",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F033",
       "claim": "The Tehran Conference in late 1943 was the first wartime meeting of Roosevelt, Churchill and Stalin. They discussed coordination against Germany and the opening of a western front.",
       "sourceIds": [
-        "CP010-S07"
+        "CP010-S18"
       ],
-      "sourceLocator": "Allied strategy and leaders",
+      "sourceLocator": "CP010-S18, “Wartime Conferences, 1941–1945,” Tehran passage naming Roosevelt, Churchill, and Stalin and their late-1943 military discussions; section “The Tehran Conference, 1943.”",
       "relationshipType": "allied-strategy-leaders",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F034",
@@ -442,29 +460,30 @@
       "sourceIds": [
         "CP010-S11"
       ],
-      "sourceLocator": "Allied strategy and leaders",
+      "sourceLocator": "CP010-S11, “The Yalta Conference, 1945,” opening summary and section on discussion of Germany’s occupation and postwar settlement.",
       "relationshipType": "allied-strategy-leaders",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F035",
       "claim": "The Potsdam Conference met in July and August 1945 after Germany's surrender. The Allied leaders addressed occupation policy and post-war arrangements.",
       "sourceIds": [
-        "CP010-S07"
+        "CP010-S18",
+        "CP010-S20"
       ],
-      "sourceLocator": "Allied strategy and leaders",
+      "sourceLocator": "CP010-S20, “The Potsdam Conference, 1945,” opening paragraph on the 17 July–2 August meeting after Germany’s surrender and negotiation of war’s end; section on Potsdam decisions.",
       "relationshipType": "allied-strategy-leaders",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F036",
       "claim": "Lend-Lease enabled the United States to provide military supplies to countries whose defense it considered vital. It preceded U.S. entry into the war.",
       "sourceIds": [
-        "CP010-S07"
+        "CP010-S19"
       ],
-      "sourceLocator": "Allied strategy and leaders",
+      "sourceLocator": "CP010-S19, “Lend-Lease and Military Aid to the Allies in the Early Years of World War II,” opening paragraph on supplies to Allied nations before U.S. entry and the December 1940–March 1941 proposal and enactment.",
       "relationshipType": "allied-strategy-leaders",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F037",
