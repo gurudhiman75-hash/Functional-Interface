@@ -40,14 +40,32 @@ const mainsHardIneligible=new Set([
   "DI003_SINGLE_BAR",
   "DI004_SINGLE_LINE",
   "DI005_DONUT",
+  "DI003_STACKED_BAR",
+  "DI004_THREE_SERIES_LINE",
   "DI013_RADAR",
 ]);
+
+const mainsHardTaskDenylist=new Map<string,Set<string>>([
+  ["DI002_ADVANCED_TABLE",new Set(["RELATIVE_SELECTED_PERCENT_EXCESS","COMBINED_SELECTED_RATIO"])],
+  ["DI006_ADVANCED_CASELET",new Set(["REMAINDER_AFTER_GROUP"])],
+  ["DI014_RADAR_PIE",new Set(["TWO_CATEGORY_APPLICATION_TOTAL"])],
+]);
+function assertMainsHardTaskDepth(question:any,context:string){
+  if((question.difficultyLabel??question.difficulty)!=="Hard") return;
+  const denied=mainsHardTaskDenylist.get(question.noveltySourceMode);
+  const task=String(question.taskKind??question.kind??question.metadata?.taskKind??"");
+  assert(
+    !denied?.has(task),
+    `${context}: shallow Banking Mains Hard task ${task} came from ${question.noveltySourceMode}`,
+  );
+}
 for(const q of banking.questions as any[]){
   if((q.difficultyLabel??q.difficulty)==="Hard"){
     assert(
       !mainsHardIneligible.has(q.noveltySourceMode),
       `Banking Mains Hard slot used non-hard-capable source ${q.noveltySourceMode}`,
     );
+    assertMainsHardTaskDepth(q,"acceptance batch");
   }
 }
 const bankingHardSources=new Set(
@@ -136,6 +154,7 @@ assert(
   (hardOverride.questions as any[]).every(q=>!mainsHardIneligible.has(q.noveltySourceMode)),
   "Explicit Banking Mains Hard override must use only hard-capable source modes.",
 );
+for(const q of hardOverride.questions as any[]) assertMainsHardTaskDepth(q,"explicit Hard override");
 
 for(let i=0;i<20;i+=1){
   const result=await generateDiDeliveryNoveltyMix({
@@ -153,6 +172,7 @@ for(let i=0;i<20;i+=1){
       !mainsHardIneligible.has(q.noveltySourceMode),
       `Banking Mains Hard slot used excluded source ${q.noveltySourceMode} for seed ${i}`,
     );
+    assertMainsHardTaskDepth(q,`seed ${i}`);
     hardSourceCounts.set(q.noveltySourceMode,(hardSourceCounts.get(q.noveltySourceMode)??0)+1);
   }
   assert(
@@ -201,6 +221,7 @@ console.log("DI_DELIVERY_NOVELTY_MIX_V1",JSON.stringify({
   tierSpacing:true,
   mainsHardSourceGuard:true,
   mainsHardSourceDiversity:true,
+  mainsHardTaskDepth:true,
   bankingHardSources:[...bankingHardSources].sort(),
   higherNoveltySources:[...highNoveltySources].sort(),
   lifecycleLocked:true,

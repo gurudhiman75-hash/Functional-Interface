@@ -41,10 +41,14 @@ If the reviewer explicitly selects Easy, Medium or Hard, that explicit choice ov
 
 Novelty tier and difficulty are allocated independently: a fresh or higher-novelty question is not automatically treated as a hard question.
 
-For Banking Mains, Hard slots are further restricted to source modes with genuinely multi-step/advanced reasoning. Basic table, grouped/single bar, ordinary two-series/single line, ordinary pie/donut, base caselet, and plain radar remain available for representation breadth in Easy/Medium slots but are not allowed to satisfy Mains-Hard quota.
+For Banking Mains, Hard slots are restricted twice:
 
+1. the source mode must support genuine multi-step/advanced reasoning; and
+2. within partially mixed-depth sources, the selected Hard task family itself must pass a Mains-depth allowlist.
 
-For Banking Mains, Hard slots are additionally restricted to source modes with genuine Mains-hard reasoning depth. Single-series bar, single-series line, donut/ring and radar remain eligible for Banking Mains Easy/Medium slots, but are not used to satisfy the Hard quota.
+Basic/grouped/single charts, ordinary pie/donut, base caselet, standalone radar, stacked bar and three-series line remain available for representation breadth in Easy/Medium slots but do not satisfy the Mains-Hard quota in V1.
+
+Within otherwise Hard-capable sources, shallow families are also excluded from Mains-Hard delivery. Examples include DI-002 relative-selected-percent-excess / combined-selected-ratio, DI-006 advanced simple remainder-after-group, and DI-014 simple two-category application total.
 
 ## Tier meaning
 
@@ -88,7 +92,8 @@ Still exam-valid, but structurally less routine:
 - Exact normalized learner stems are de-duplicated across source modes within a delivered batch.
 - Fresh/familiar and higher-novelty questions are spaced through the batch instead of being allowed to cluster.
 - Higher-novelty source selection rotates deterministically across eligible modes over different batch seeds.
-- Banking Mains Hard slots are spread round-robin across hard-capable source modes; a 20-question default batch requires at least four distinct Hard sources and caps any one Hard source at two questions.
+- Banking Mains Hard slots are spread across hard-capable source modes; a 20-question default batch requires at least four distinct Hard sources and caps any one Hard source at two questions.
+- Banking Mains Hard task families are filtered by depth where a source contains both genuinely hard and merely aggregate/comparison-style "Hard" families.
 - Source package/CP metadata remains intact.
 - Each delivered question is tagged with:
   - `noveltyTier`
