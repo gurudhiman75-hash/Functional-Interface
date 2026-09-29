@@ -322,7 +322,7 @@ export function assertOutwardCaseletIntegrity(caselet: OutwardCaseletRecord): vo
       || caselet.children.some((child) => child.queryContractId === "SEA-QC-010"))) {
     throw new Error("Odd outward circle exposed an opposite relation");
   }
-  if (caselet.lifecycle.permanentQlCount !== 0
+  if (caselet.lifecycle.permanentQlCount !== 9
     || caselet.lifecycle.questionBankWritable
     || caselet.lifecycle.testEligible
     || caselet.lifecycle.publiclyPublishable) {
