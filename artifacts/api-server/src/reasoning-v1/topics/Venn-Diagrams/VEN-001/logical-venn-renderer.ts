@@ -8,7 +8,11 @@ export type VennTopologyId =
   | "THREE_PAIRWISE_OVERLAP_WITH_TRIPLE"
   | "THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE"
   | "THREE_TWO_OVERLAP_ONE_SEPARATE"
-  | "THREE_ONE_NESTED_PAIR_ONE_SEPARATE";
+  | "THREE_ONE_NESTED_PAIR_ONE_SEPARATE"
+  | "THREE_ALL_DISJOINT"
+  | "THREE_NESTED_PAIR_CROSSED_BY_THIRD"
+  | "THREE_TWO_DISJOINT_OVERLAP_THIRD"
+  | "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP";
 
 type Circle = Readonly<{ cx: number; cy: number; r: number }>;
 
@@ -115,6 +119,26 @@ const TOPOLOGY_SPECS: Readonly<Record<VennTopologyId, RenderSpec>> = {
     accessibleDescription:
       "A small circle lies inside a larger circle; the third circle is separate from both.",
   },
+  THREE_ALL_DISJOINT: {
+    circles: [{ cx: 66, cy: 86, r: 27 }, { cx: 125, cy: 86, r: 27 }, { cx: 184, cy: 86, r: 27 }],
+    accessibleName: "Three separate groups",
+    accessibleDescription: "Three circles are separate and have no shared regions.",
+  },
+  THREE_NESTED_PAIR_CROSSED_BY_THIRD: {
+    circles: [{ cx: 110, cy: 86, r: 67 }, { cx: 78, cy: 86, r: 22 }, { cx: 144, cy: 86, r: 48 }],
+    accessibleName: "A contained group crossed by a third group",
+    accessibleDescription: "A is inside B; C overlaps both A and B and extends outside B.",
+  },
+  THREE_TWO_DISJOINT_OVERLAP_THIRD: {
+    circles: [{ cx: 72, cy: 86, r: 28 }, { cx: 178, cy: 86, r: 28 }, { cx: 125, cy: 86, r: 65 }],
+    accessibleName: "Two separate groups each overlap a third group",
+    accessibleDescription: "A and B are separate; C overlaps A and B.",
+  },
+  THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP: {
+    circles: [{ cx: 120, cy: 86, r: 75 }, { cx: 80, cy: 86, r: 20 }, { cx: 175, cy: 86, r: 40 }],
+    accessibleName: "A nested pair with a third group overlapping only the larger group",
+    accessibleDescription: "A is inside B; C overlaps B but is separate from A.",
+  },
 };
 
 function escapeXml(value: string): string {
@@ -187,6 +211,14 @@ function labelAnchors(
         { x: 65, y: 91 },
         { x: 184, y: 91 },
       ];
+    case "THREE_ALL_DISJOINT":
+      return [{ x: 66, y: 91 }, { x: 125, y: 91 }, { x: 184, y: 91 }];
+    case "THREE_NESTED_PAIR_CROSSED_BY_THIRD":
+      return [{ x: 110, y: 24 }, { x: 78, y: 91 }, { x: 181, y: 91 }];
+    case "THREE_TWO_DISJOINT_OVERLAP_THIRD":
+      return [{ x: 72, y: 91 }, { x: 178, y: 91 }, { x: 125, y: 28 }];
+    case "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP":
+      return [{ x: 120, y: 18 }, { x: 80, y: 91 }, { x: 202, y: 91 }];
   }
 }
 
