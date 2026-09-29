@@ -15,13 +15,13 @@ r("Consider the statements: I. Shivanasamudra is on the Kaveri. II. Hogenakkal i
 ]),
 buildQl("CLUE-LAKES","Lake and waterfall clue identification",[
 r("A lake in Manipur contains floating phumdis. Which lake is it?","Loktak","Wular","Sambhar","Pulicat","Phumdis are the defining clue for Loktak.","LAK-INT-C1"),
-r("A brackish lagoon on the Odisha coast opens toward the Bay of Bengal. Which lake is it?","Chilika","Dal","Wular","Lonar","The Odisha coastal-lagoon clue identifies Chilika.","LAK-INT-C2"),
+r("Which Odisha lagoon is open toward the Bay of Bengal?","Chilika","Dal","Wular","Lonar","The Odisha coastal-lagoon clue identifies Chilika.","LAK-INT-C2"),
 r("A lake in Maharashtra occupies a meteorite-impact crater. Which one is it?","Lonar","Kolleru","Vembanad","Sambhar","The impact-crater clue identifies Lonar.","LAK-INT-C3"),
 r("A waterfall on the Narmada lies near Bhedaghat. Which one is it?","Dhuandhar","Jog","Chitrakote","Hundru","The Narmada-Bhedaghat clue identifies Dhuandhar.","LAK-INT-C4")
 ]),
 buildQl("INTEGRATED-LAKE-REASONING","Integrated lake/waterfall reasoning",[
-r("Which comparison is correct?","Chilika is a coastal lagoon, while Sambhar is an inland saline lake","Both are glacial lakes","Both are freshwater Himalayan lakes","Both are impact craters","The two lakes differ in setting and water type.","LAK-INT-R1"),
-r("Which comparison is correct?","Wular is linked with the Jhelum, while Kolleru lies between Krishna and Godavari deltas","Wular is in Rajasthan","Kolleru is in Ladakh","Both are coastal lagoons","The geographic relationships are distinct and correct.","LAK-INT-R2"),
+r("Which comparison correctly distinguishes Chilika and Sambhar?","Chilika is a coastal lagoon, while Sambhar is an inland saline lake","Both are glacial lakes","Both are freshwater Himalayan lakes","Both are impact craters","The two lakes differ in setting and water type.","LAK-INT-R1"),
+r("Which comparison correctly contrasts Wular and Kolleru?","Wular is linked with the Jhelum, while Kolleru lies between Krishna and Godavari deltas","Wular is in Rajasthan","Kolleru is in Ladakh","Both are coastal lagoons","The geographic relationships are distinct and correct.","LAK-INT-R2"),
 r("Which combination correctly identifies plateau-region waterfalls?","Hundru—Chota Nagpur; Chitrakote—Bastar","Hundru—Kashmir; Chitrakote—Konkan","Both—Aravalli","Both—Nilgiri","The waterfalls are tied to plateau river systems in eastern-central India.","LAK-INT-R3"),
 r("Which combination correctly identifies Kaveri waterfalls?","Shivanasamudra and Hogenakkal","Jog and Dhuandhar","Hundru and Chitrakote","Dudhsagar and Jog","Both Shivanasamudra and Hogenakkal are on the Kaveri.","LAK-INT-R4")
 ])
