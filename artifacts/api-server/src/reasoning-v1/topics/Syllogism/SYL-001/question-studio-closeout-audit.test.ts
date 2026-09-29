@@ -36,6 +36,23 @@ assert.equal(SYL_001_QUESTION_STUDIO_PACKAGE.mockTestEligible, false);
 assert.equal(SYL_001_QUESTION_STUDIO_PACKAGE.publiclyPublishable, false);
 assert.equal(SYL_001_QUESTION_STUDIO_QL_IDS.length, 18);
 assert.equal(new Set(SYL_001_QUESTION_STUDIO_QL_IDS).size, 18);
+assert.equal(SYL_001_QUESTION_STUDIO_PACKAGE.qlReviewRoles.length, 18);
+assert.equal(
+  SYL_001_QUESTION_STUDIO_PACKAGE.qlReviewRoles.filter((entry) => entry.mockFrequencyDimension).length,
+  4,
+);
+assert.deepEqual(
+  SYL_001_QUESTION_STUDIO_PACKAGE.qlReviewRoles
+    .filter((entry) => entry.mockFrequencyDimension)
+    .map((entry) => entry.qlId),
+  ["SYL-QL-001", "SYL-QL-003", "SYL-QL-004", "SYL-QL-008"],
+);
+assert.equal(
+  SYL_001_QUESTION_STUDIO_PACKAGE.qlReviewRoles
+    .filter((entry) => entry.disposition === "TRAINING_ONLY")
+    .every((entry) => entry.mockFrequencyDimension === false),
+  true,
+);
 
 const allPackages = listReasoningV1QuestionStudioReviewPackages();
 const enabledPackages = listEnabledReasoningV1QuestionStudioPackages();
@@ -59,6 +76,10 @@ for (const [languageIndex, language] of languages.entries()) {
     const question = result.questions[0]!;
     assert.equal(question.packageId, SYL_001_QUESTION_STUDIO_PACKAGE_ID);
     assert.equal(question.qlId, qlId);
+    assert.equal(question.qlReviewRole.mockFrequencyDimension, ["SYL-QL-001", "SYL-QL-003", "SYL-QL-004", "SYL-QL-008"].includes(qlId));
+    if (question.qlReviewRole.disposition !== "CANONICAL_RETAIN") {
+      assert.equal(question.qlReviewRole.mockFrequencyDimension, false);
+    }
     assert.equal(question.locale, locales[languageIndex]);
     assert.equal(question.validation.valid, true);
     assert.equal(question.safety.questionStudioVisible, true);
