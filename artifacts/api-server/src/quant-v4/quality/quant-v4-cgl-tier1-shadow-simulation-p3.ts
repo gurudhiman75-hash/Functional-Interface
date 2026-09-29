@@ -104,6 +104,7 @@ export interface QuantV4CglTier1ShadowSimulationAudit {
   readonly blockers: readonly string[];
   readonly productionPromotionAuthorized: false;
   readonly runtimeBlueprintMutationAuthorized: false;
+  readonly records?: readonly QuantV4CglTier1ShadowQuestionRecord[];
 }
 
 function hash(value: string): number {
@@ -592,6 +593,7 @@ export async function generateQuantV4CglTier1ShadowSection(input: {
 export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
   readonly sections?: number;
   readonly seedPrefix?: string;
+  readonly includeRecords?: boolean;
 } = {}): Promise<QuantV4CglTier1ShadowSimulationAudit> {
   const current = profile();
   const governance = buildQuantV4CglTier1ShadowFrequencyGovernance({ currentSlotPlan: current.slotPlan });
@@ -734,5 +736,6 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
     blockers: Object.freeze([...new Set(blockers)]),
     productionPromotionAuthorized: false,
     runtimeBlueprintMutationAuthorized: false,
+    ...(input.includeRecords ? { records: Object.freeze([...records]) } : {}),
   });
 }
