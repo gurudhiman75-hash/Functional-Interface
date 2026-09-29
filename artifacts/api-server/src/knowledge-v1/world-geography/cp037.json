@@ -2,176 +2,172 @@
   {
     "id": "WGE-001-CP037-Q001",
     "cpId": "WGE-001-CP037",
-    "objective": "suez-connects-seas",
+    "objective": "containerisation-intermodal-transfer",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-TRN-SUEZ",
-      "WGE-REG-UN-MAPS",
-      "WGE-REG-PHYSICAL-WORLD"
+      "WGE-TRN-UNCTAD",
+      "WGE-TRN-UNCTAD"
     ],
-    "correctIndex": 2,
+    "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "Which two seas are linked by the Suez Canal?",
+        "stem": "Why did standard shipping containers make international freight transfer more efficient?",
         "options": [
-          "Black Sea and Aegean Sea",
-          "Baltic Sea and North Sea",
-          "Mediterranean Sea and Red Sea",
-          "Arabian Sea and South China Sea"
+          "They removed the need for ports",
+          "The same sealed unit can move between ships, trains and trucks",
+          "They made all cargo weightless",
+          "They replaced every customs check"
         ],
-        "explanation": "The Suez Canal crosses Egypt and links the Mediterranean Sea with the Red Sea."
+        "explanation": "Standard containers can be transferred between ships and land transport without unpacking each item."
       },
       "hi": {
-        "stem": "स्वेज नहर किन दो समुद्रों को जोड़ती है?",
+        "stem": "मानकीकृत माल-पात्रों ने अंतरराष्ट्रीय माल-परिवहन को अधिक सुगम क्यों बनाया?",
         "options": [
-          "काला सागर और एजियन सागर",
-          "बाल्टिक सागर और उत्तरी सागर",
-          "भूमध्य सागर और लाल सागर",
-          "अरब सागर और दक्षिण चीन सागर"
+          "उन्होंने बंदरगाहों की आवश्यकता समाप्त कर दी",
+          "एक ही बंद पात्र जहाज, रेल और ट्रक के बीच बदला जा सकता है",
+          "उन्होंने सभी माल को भारहीन बना दिया",
+          "उन्होंने हर सीमा-जाँच का स्थान ले लिया"
         ],
-        "explanation": "स्वेज नहर मिस्र से होकर भूमध्य सागर को लाल सागर से जोड़ती है।"
+        "explanation": "मानकीकृत पात्रों को सामान अलग-अलग खोले बिना जहाज और स्थल-परिवहन के बीच बदला जा सकता है।"
       },
       "pa": {
-        "stem": "ਸੂਏਜ਼ ਨਹਿਰ ਕਿਹੜੇ ਦੋ ਸਮੁੰਦਰਾਂ ਨੂੰ ਜੋੜਦੀ ਹੈ?",
+        "stem": "ਮਿਆਰੀ ਮਾਲ-ਡੱਬਿਆਂ ਨੇ ਅੰਤਰਰਾਸ਼ਟਰੀ ਮਾਲ-ਢੁਆਈ ਨੂੰ ਹੋਰ ਸੁਗਮ ਕਿਉਂ ਬਣਾਇਆ?",
         "options": [
-          "ਕਾਲਾ ਸਾਗਰ ਅਤੇ ਏਜੀਅਨ ਸਾਗਰ",
-          "ਬਾਲਟਿਕ ਸਾਗਰ ਅਤੇ ਉੱਤਰੀ ਸਾਗਰ",
-          "ਭੂਮੱਧ ਸਾਗਰ ਅਤੇ ਲਾਲ ਸਾਗਰ",
-          "ਅਰਬ ਸਾਗਰ ਅਤੇ ਦੱਖਣੀ ਚੀਨ ਸਾਗਰ"
+          "ਉਨ੍ਹਾਂ ਨੇ ਬੰਦਰਗਾਹਾਂ ਦੀ ਲੋੜ ਮੁਕਾ ਦਿੱਤੀ",
+          "ਇੱਕੋ ਬੰਦ ਡੱਬਾ ਜਹਾਜ਼, ਰੇਲ ਅਤੇ ਟਰੱਕ ਵਿਚਕਾਰ ਬਦਲਿਆ ਜਾ ਸਕਦਾ ਹੈ",
+          "ਉਨ੍ਹਾਂ ਨੇ ਸਾਰੇ ਮਾਲ ਨੂੰ ਭਾਰ-ਰਹਿਤ ਕਰ ਦਿੱਤਾ",
+          "ਉਨ੍ਹਾਂ ਨੇ ਹਰ ਸਰਹੱਦੀ ਜਾਂਚ ਦੀ ਥਾਂ ਲੈ ਲਈ"
         ],
-        "explanation": "ਸੂਏਜ਼ ਨਹਿਰ ਮਿਸਰ ਵਿੱਚੋਂ ਲੰਘ ਕੇ ਭੂਮੱਧ ਸਾਗਰ ਨੂੰ ਲਾਲ ਸਾਗਰ ਨਾਲ ਜੋੜਦੀ ਹੈ।"
+        "explanation": "ਮਿਆਰੀ ਡੱਬਿਆਂ ਨੂੰ ਸਾਮਾਨ ਖੋਲ੍ਹੇ ਬਿਨਾਂ ਜਹਾਜ਼ ਅਤੇ ਧਰਤੀ ਦੀ ਆਵਾਜਾਈ ਵਿਚਕਾਰ ਬਦਲਿਆ ਜਾ ਸਕਦਾ ਹੈ।"
       }
     }
   },
   {
     "id": "WGE-001-CP037-Q002",
     "cpId": "WGE-001-CP037",
-    "objective": "panama-connects-oceans",
-    "difficulty": "Easy",
+    "objective": "rail-port-inland-corridor",
+    "difficulty": "Medium",
     "sourceIds": [
-      "WGE-TRN-PANAMA",
-      "WGE-REG-UN-MAPS",
-      "WGE-REG-PHYSICAL-WORLD"
+      "WGE-TRN-WB-CORRIDORS",
+      "WGE-TRN-UNCTAD"
     ],
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "The Panama Canal provides a ship route between the:",
+        "stem": "A landlocked mining region needs to send bulk ore to an overseas market. Which investment most directly links production to maritime shipping?",
         "options": [
-          "Atlantic and Pacific oceans",
-          "Indian and Arctic oceans",
-          "Pacific and Southern oceans",
-          "Atlantic and Indian oceans"
+          "A freight railway to a seaport",
+          "A passenger cable car to a mountain summit",
+          "A coastal ferry within another country",
+          "A city tram with no freight access"
         ],
-        "explanation": "The Panama Canal crosses the Central American isthmus and links Atlantic and Pacific routes."
+        "explanation": "A freight railway connecting the mine region to a seaport creates a direct inland-to-maritime cargo corridor."
       },
       "hi": {
-        "stem": "पनामा नहर जहाजों को किन महासागरों के बीच मार्ग देती है?",
+        "stem": "एक स्थलरुद्ध खनन क्षेत्र को भारी अयस्क विदेशी बाज़ार तक भेजना है। उत्पादन को समुद्री जहाजरानी से सीधे जोड़ने वाला निवेश कौन-सा है?",
         "options": [
-          "अटलांटिक और प्रशांत महासागर",
-          "हिंद और आर्कटिक महासागर",
-          "प्रशांत और दक्षिणी महासागर",
-          "अटलांटिक और हिंद महासागर"
+          "बंदरगाह तक मालगाड़ी रेलमार्ग",
+          "पर्वत-चोटी तक यात्री रोपवे",
+          "दूसरे देश के भीतर तटीय नौका",
+          "माल पहुँच से रहित नगर ट्राम"
         ],
-        "explanation": "पनामा नहर मध्य अमेरिकी स्थलडमरूमध्य को पार करके अटलांटिक और प्रशांत मार्गों को जोड़ती है।"
+        "explanation": "खनन क्षेत्र को बंदरगाह से जोड़ने वाला माल रेलमार्ग अंदरूनी क्षेत्र से समुद्री माल-ढुलाई तक सीधा गलियारा बनाता है।"
       },
       "pa": {
-        "stem": "ਪਨਾਮਾ ਨਹਿਰ ਜਹਾਜ਼ਾਂ ਨੂੰ ਕਿਹੜੇ ਮਹਾਂਸਾਗਰਾਂ ਵਿਚਕਾਰ ਰਸਤਾ ਦਿੰਦੀ ਹੈ?",
+        "stem": "ਇੱਕ ਥਲ-ਬੱਧ ਖਾਣੀ ਖੇਤਰ ਨੂੰ ਭਾਰੀ ਧਾਤੂ-ਅਯਸ ਵਿਦੇਸ਼ੀ ਬਾਜ਼ਾਰ ਤੱਕ ਭੇਜਣਾ ਹੈ। ਉਤਪਾਦਨ ਨੂੰ ਸਮੁੰਦਰੀ ਜਹਾਜ਼ਰਾਨੀ ਨਾਲ ਸਿੱਧਾ ਜੋੜਨ ਵਾਲਾ ਨਿਵੇਸ਼ ਕਿਹੜਾ ਹੈ?",
         "options": [
-          "ਅਟਲਾਂਟਿਕ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ",
-          "ਹਿੰਦ ਅਤੇ ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ",
-          "ਪ੍ਰਸ਼ਾਂਤ ਅਤੇ ਦੱਖਣੀ ਮਹਾਂਸਾਗਰ",
-          "ਅਟਲਾਂਟਿਕ ਅਤੇ ਹਿੰਦ ਮਹਾਂਸਾਗਰ"
+          "ਬੰਦਰਗਾਹ ਤੱਕ ਮਾਲ-ਰੇਲ ਮਾਰਗ",
+          "ਪਹਾੜੀ ਚੋਟੀ ਤੱਕ ਯਾਤਰੀ ਰੋਪਵੇ",
+          "ਕਿਸੇ ਹੋਰ ਦੇਸ਼ ਅੰਦਰ ਤਟਵਰਤੀ ਬੇੜੀ",
+          "ਮਾਲ-ਪਹੁੰਚ ਤੋਂ ਬਿਨਾਂ ਸ਼ਹਿਰੀ ਟਰਾਮ"
         ],
-        "explanation": "ਪਨਾਮਾ ਨਹਿਰ ਮੱਧ ਅਮਰੀਕਾ ਦੇ ਥਲ-ਜੋੜ ਨੂੰ ਪਾਰ ਕਰਕੇ ਅਟਲਾਂਟਿਕ ਅਤੇ ਪ੍ਰਸ਼ਾਂਤ ਰਸਤਿਆਂ ਨੂੰ ਜੋੜਦੀ ਹੈ।"
+        "explanation": "ਖਾਣੀ ਖੇਤਰ ਨੂੰ ਬੰਦਰਗਾਹ ਨਾਲ ਜੋੜਦੀ ਮਾਲ-ਰੇਲ ਅੰਦਰੂਨੀ ਇਲਾਕੇ ਤੋਂ ਸਮੁੰਦਰੀ ਮਾਲ-ਢੁਆਈ ਤੱਕ ਸਿੱਧਾ ਲਾਂਘਾ ਬਣਾਉਂਦੀ ਹੈ।"
       }
     }
   },
   {
     "id": "WGE-001-CP037-Q003",
     "cpId": "WGE-001-CP037",
-    "objective": "hormuz-connects-gulf",
+    "objective": "pipeline-suited-continuous-flow",
     "difficulty": "Medium",
     "sourceIds": [
       "WGE-TRN-EIA",
-      "WGE-REG-UN-MAPS",
-      "WGE-REG-PHYSICAL-WORLD"
+      "WGE-TRN-UNCTAD"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which passage links the Persian Gulf with the Gulf of Oman?",
+        "stem": "Which transport mode is especially suited to a steady, high-volume flow of crude oil between fixed terminals?",
         "options": [
-          "Bab el-Mandeb",
-          "Strait of Hormuz",
-          "Strait of Malacca",
-          "Dardanelles"
+          "Short-haul passenger aircraft",
+          "Mountain cableway",
+          "Pipeline",
+          "Urban bicycle lane"
         ],
-        "explanation": "The Strait of Hormuz lies at the entrance to the Persian Gulf, between Iran and the Arabian Peninsula."
+        "explanation": "Pipelines are designed for continuous movement of fluids such as crude oil between connected terminals."
       },
       "hi": {
-        "stem": "कौन-सा जलडमरूमध्य फारस की खाड़ी को ओमान की खाड़ी से जोड़ता है?",
+        "stem": "स्थिर टर्मिनलों के बीच कच्चे तेल के लगातार और बड़ी मात्रा वाले प्रवाह के लिए कौन-सा परिवहन साधन विशेष रूप से उपयुक्त है?",
         "options": [
-          "बाब-अल-मंदेब",
-          "होर्मुज़ जलडमरूमध्य",
-          "मलक्का जलडमरूमध्य",
-          "दार्दानेल्स"
+          "कम दूरी का यात्री विमान",
+          "पहाड़ी रोपमार्ग",
+          "पाइपलाइन",
+          "शहरी साइकिल मार्ग"
         ],
-        "explanation": "होर्मुज़ जलडमरूमध्य फारस की खाड़ी के मुहाने पर, ईरान और अरब प्रायद्वीप के बीच स्थित है।"
+        "explanation": "पाइपलाइन जुड़े हुए टर्मिनलों के बीच कच्चे तेल जैसे तरल पदार्थ लगातार पहुँचाने के लिए बनाई जाती हैं।"
       },
       "pa": {
-        "stem": "ਕਿਹੜੀ ਜਲਡਮਰੂਧੀ ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਨੂੰ ਓਮਾਨ ਦੀ ਖਾੜੀ ਨਾਲ ਜੋੜਦੀ ਹੈ?",
+        "stem": "ਪੱਕੇ ਟਰਮੀਨਲਾਂ ਵਿਚਕਾਰ ਕੱਚੇ ਤੇਲ ਦੇ ਲਗਾਤਾਰ ਅਤੇ ਵੱਡੀ ਮਾਤਰਾ ਵਾਲੇ ਵਹਾਅ ਲਈ ਕਿਹੜਾ ਆਵਾਜਾਈ ਸਾਧਨ ਖ਼ਾਸ ਤੌਰ ਉੱਤੇ ਢੁੱਕਵਾਂ ਹੈ?",
         "options": [
-          "ਬਾਬ-ਅਲ-ਮੰਦਬ",
-          "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂਧੀ",
-          "ਮਲਾਕਾ ਜਲਡਮਰੂਧੀ",
-          "ਦਾਰਦਾਨੇਲਜ਼"
+          "ਛੋਟੀ ਦੂਰੀ ਦਾ ਯਾਤਰੀ ਜਹਾਜ਼",
+          "ਪਹਾੜੀ ਰੋਪ-ਮਾਰਗ",
+          "ਪਾਈਪਲਾਈਨ",
+          "ਸ਼ਹਿਰੀ ਸਾਈਕਲ ਮਾਰਗ"
         ],
-        "explanation": "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂਧੀ ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਦੇ ਮੁਹਾਣੇ ਉੱਤੇ ਈਰਾਨ ਅਤੇ ਅਰਬੀ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+        "explanation": "ਪਾਈਪਲਾਈਨ ਜੁੜੇ ਟਰਮੀਨਲਾਂ ਵਿਚਕਾਰ ਕੱਚੇ ਤੇਲ ਵਰਗੇ ਤਰਲ ਪਦਾਰਥ ਲਗਾਤਾਰ ਲਿਜਾਣ ਲਈ ਬਣਾਈ ਜਾਂਦੀ ਹੈ।"
       }
     }
   },
   {
     "id": "WGE-001-CP037-Q004",
     "cpId": "WGE-001-CP037",
-    "objective": "malacca-route-oceans",
-    "difficulty": "Medium",
+    "objective": "air-freight-time-sensitive-goods",
+    "difficulty": "Hard",
     "sourceIds": [
-      "WGE-TRN-EIA",
-      "WGE-REG-UN-MAPS",
-      "WGE-REG-PHYSICAL-WORLD"
+      "WGE-TRN-UNCTAD",
+      "WGE-TRN-UNCTAD"
     ],
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "A vessel passing through the Strait of Malacca travels between the Indian Ocean region and the:",
+        "stem": "A firm must deliver a small, high-value component overseas within one day. Which mode best meets the time constraint, despite higher cost?",
         "options": [
-          "Mediterranean Sea",
-          "Arctic Ocean",
-          "Caribbean Sea",
-          "Pacific Ocean region"
+          "Bulk barge",
+          "Long-distance freight train",
+          "Oil pipeline",
+          "Air freight"
         ],
-        "explanation": "The Strait of Malacca is a key route between the Indian Ocean and the South China Sea and wider Pacific routes."
+        "explanation": "Air freight is generally faster for urgent, compact, high-value cargo, though it usually costs more per unit than surface or sea transport."
       },
       "hi": {
-        "stem": "मलक्का जलडमरूमध्य से गुजरने वाला जहाज हिंद महासागर क्षेत्र और किस क्षेत्र के बीच जाता है?",
+        "stem": "एक कंपनी को छोटा, मूल्यवान पुर्जा एक दिन में विदेश पहुँचाना है। अधिक लागत के बावजूद समय-सीमा के लिए कौन-सा साधन सबसे उपयुक्त है?",
         "options": [
-          "भूमध्य सागर",
-          "आर्कटिक महासागर",
-          "कैरेबियन सागर",
-          "प्रशांत महासागर क्षेत्र"
+          "भारी माल की नदी-नौका",
+          "लंबी दूरी की मालगाड़ी",
+          "तेल पाइपलाइन",
+          "हवाई माल-परिवहन"
         ],
-        "explanation": "मलक्का जलडमरूमध्य हिंद महासागर को दक्षिण चीन सागर और आगे के प्रशांत मार्गों से जोड़ने वाला अहम रास्ता है।"
+        "explanation": "तत्काल, छोटा और मूल्यवान माल पहुँचाने में हवाई माल-परिवहन सामान्यतः तेज़ होता है, पर प्रति इकाई इसकी लागत स्थल या समुद्री परिवहन से अधिक होती है।"
       },
       "pa": {
-        "stem": "ਮਲਾਕਾ ਜਲਡਮਰੂਧੀ ਰਾਹੀਂ ਲੰਘਦਾ ਜਹਾਜ਼ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਖੇਤਰ ਅਤੇ ਕਿਹੜੇ ਖੇਤਰ ਵਿਚਕਾਰ ਜਾਂਦਾ ਹੈ?",
+        "stem": "ਇੱਕ ਕੰਪਨੀ ਨੂੰ ਛੋਟਾ, ਕੀਮਤੀ ਪੁਰਜ਼ਾ ਇੱਕ ਦਿਨ ਵਿੱਚ ਵਿਦੇਸ਼ ਪਹੁੰਚਾਉਣਾ ਹੈ। ਵੱਧ ਲਾਗਤ ਦੇ ਬਾਵਜੂਦ ਸਮੇਂ ਦੀ ਸ਼ਰਤ ਲਈ ਕਿਹੜਾ ਸਾਧਨ ਸਭ ਤੋਂ ਢੁੱਕਵਾਂ ਹੈ?",
         "options": [
-          "ਭੂਮੱਧ ਸਾਗਰ",
-          "ਆਰਕਟਿਕ ਮਹਾਂਸਾਗਰ",
-          "ਕੈਰੇਬੀਅਨ ਸਾਗਰ",
-          "ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਖੇਤਰ"
+          "ਭਾਰੀ ਮਾਲ ਵਾਲੀ ਨਦੀ-ਬੇੜੀ",
+          "ਲੰਮੀ ਦੂਰੀ ਦੀ ਮਾਲ-ਰੇਲ",
+          "ਤੇਲ ਪਾਈਪਲਾਈਨ",
+          "ਹਵਾਈ ਮਾਲ-ਢੁਆਈ"
         ],
-        "explanation": "ਮਲਾਕਾ ਜਲਡਮਰੂਧੀ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਨੂੰ ਦੱਖਣੀ ਚੀਨ ਸਾਗਰ ਅਤੇ ਅੱਗੇ ਦੇ ਪ੍ਰਸ਼ਾਂਤੀ ਰਸਤਿਆਂ ਨਾਲ ਜੋੜਦਾ ਅਹਿਮ ਰਾਹ ਹੈ।"
+        "explanation": "ਤੁਰੰਤ, ਛੋਟਾ ਅਤੇ ਕੀਮਤੀ ਮਾਲ ਪਹੁੰਚਾਉਣ ਲਈ ਹਵਾਈ ਮਾਲ-ਢੁਆਈ ਆਮ ਤੌਰ ਉੱਤੇ ਤੇਜ਼ ਹੁੰਦੀ ਹੈ, ਪਰ ਪ੍ਰਤੀ ਇਕਾਈ ਇਸ ਦੀ ਲਾਗਤ ਧਰਤੀ ਜਾਂ ਸਮੁੰਦਰੀ ਆਵਾਜਾਈ ਨਾਲੋਂ ਵੱਧ ਹੁੰਦੀ ਹੈ।"
       }
     }
   },

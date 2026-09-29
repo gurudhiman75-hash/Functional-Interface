@@ -1,8 +1,16 @@
 # World Geography — Section A implementation
 
-Status: CP001–CP040 and editorial revisions are user approved. The complete integration remains review only. No student publication or production release is authorized.
+Status: CP001–CP036 and CP039–CP040 are user approved. Revised CP037–CP038 questions and new CP041–CP042 content are pending review. The complete integration remains review only; no student publication or production release is authorized.
 
-764 canonical questions; 2,292 localized versions across English, Hindi and Punjabi. CP001–CP008 account for 201 questions; approved CP009–CP011 add 78, CP012–CP015 add 101, CP016–CP019 add 78 and CP020–CP023 add 88 questions; approved CP024–CP028 add 96, CP029–CP032 add 50 questions in PR #2432, and CP033–CP036 add 48 questions in PR #2450; approved CP037–CP040 add 24 questions in PR #2468. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
+804 canonical questions; 2,412 localized versions across English, Hindi and Punjabi. CP001–CP040 contain 764 canonical questions; revised CP037–CP038 replace duplicate questions without increasing that count. CP041–CP042 add 40 questions for review. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
+
+## CP037–CP038 replacement pass — review required
+
+Replaced the repeated canal and strait recall in CP037 with items on containerisation, freight corridors, pipelines and time-sensitive air cargo. Replaced the six repeated CP038 objectives with map interpretation and river-basin application. The existing port hinterland item keeps its explicit inland-service-area translation. Revised CP037–CP038 questions require fresh editorial review; their earlier approval does not apply to the changed wording.
+
+## CP041–CP042 coverage expansion — review required
+
+Added twenty trilingual questions on human development, economic sectors, global value chains, trade, communication and settlement service challenges, plus twenty questions on the hydrological cycle, groundwater, runoff, river basins, ocean waves and water-map interpretation. These fill syllabus-aligned gaps identified in the coverage audit. CP032–CP036 remain the existing population, settlement, agriculture, resources and industry packages; the new questions add distinct indicators and applied relationships rather than copying those banks.
 
 ## CP009–CP011 exam-stem pass
 
@@ -32,9 +40,9 @@ Added South America (12), Australia, New Zealand and Pacific islands (13), Antar
 
 Added settlements and urban geography (12), world agriculture and livestock (12), minerals and energy resources (12), and industries and economic regions (12). All questions have English, Hindi and Punjabi versions, answer mappings, explanations, difficulty levels and source-register links. They are integrated in the WGE-001 corpus and standard Question Studio selector. The user approved this batch in PR #2450; the publication lock remains in place.
 
-## CP037–CP040 implementation — approved
+## CP037–CP040 implementation and revision
 
-Added 24 questions across transport and trade routes (6), spatial relationships (6), qualified geographic records (6), and advanced applications (6). Each has English, Hindi and Punjabi wording, answer mapping, explanation and source-register references. Source-qualified records distinguish lake area from volume, sea-level elevation from local relief, desert types and river-length conventions. The user approved these checkpoints in PR #2468; the publication lock remains in place.
+CP037–CP040 originally added 24 questions in PR #2468. CP039–CP040 retain that approval. CP037–CP038 have since been revised: repeated route facts and six repeated integrated-geography objectives were replaced with new transport and map-application questions. Those changed questions require renewed review; the former approval does not apply to them.
 
 ## Editorial revision 2
 
@@ -78,6 +86,12 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 | CP034 | 12 | user approved |
 | CP035 | 12 | user approved |
 | CP036 | 12 | user approved |
+| CP037 | 6 | replacement revision pending review |
+| CP038 | 6 | replacement revision pending review |
+| CP039 | 6 | user approved |
+| CP040 | 6 | user approved |
+| CP041 | 20 | review required |
+| CP042 | 20 | review required |
 
 ## Coverage ledger
 
@@ -119,17 +133,23 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 | CP034 | 12 | subsistence-commercial-farming, intensive-rice-farming, extensive-grain-farming, plantation-cash-crop-system, mediterranean-farming-crops, pastoral-nomadism, ranching-extensive-livestock, dairy-perishable-market, mixed-farming-system, intensive-extensive-inputs, wheat-growing-climate-region, agriculture-water-constraint |
 | CP035 | 12 | reserves-resources-distinction, bauxite-aluminium-ore, pilbara-iron-ore, copper-andes-chile, petroleum-persian-gulf-region, iron-ore-carajas, geothermal-volcanic-belt, solar-energy-high-insolation, wind-energy-coastal-setting, hydropower-site-factor, mineral-resource-location, renewable-nonrenewable-resource |
 | CP036 | 12 | steel-industry-location-factors, petrochemical-industry-feedstock, textile-industry-location, technology-industry-location, aluminium-smelting-energy-location, industrial-cluster-benefit, ruhr-industrial-region, port-oriented-industrial-location, industrial-location-shift, footloose-industry, industry-market-oriented, industrial-region-location-logic |
+| CP037 | 6 | containerisation-intermodal-transfer, rail-port-inland-corridor, pipeline-suited-continuous-flow, air-freight-time-sensitive-goods, port-hinterland-meaning, inland-waterway-bulk-cargo |
+| CP038 | 6 | contour-v-shape-upstream, contour-spacing-slope-steepness, watershed-upstream-land-use-downstream-risk, floodplain-zoning-exposure, closed-contours-hachures-depression, river-mouth-sediment-low-energy-delta |
+| CP039 | 6 | lake-superior-area-versus-volume, baikal-freshwater-volume, elevation-vs-local-relief, antarctica-largest-desert-sahara-hot, river-length-source-dependent, territory-country-capital-qualification |
+| CP040 | 6 | map-scale-distance, map-projection-distortion, drainage-divide-land-use, rain-shadow-integrated-explanation, multi-factor-port-siting, hot-desert-solar-resource |
+| CP041 | 20 | hdi-dimensions, hdi-average-limit, primary-sector-resource, secondary-sector-processing, tertiary-logistics-service, quaternary-research, sector-interdependence, global-value-chain, export-specialisation-risk, goods-trade-deficit, digital-access-divide, rural-service-catchment, settlement-basic-services, urban-transit-access, periurban-farmland-conflict, cluster-knowledge-labour, service-catchment-settlements, route-resilience-diversification, hdi-health-life-expectancy, hdi-education-years |
+| CP042 | 20 | solar-energy-evaporation, water-vapour-condensation, plant-transpiration-water-cycle, infiltration-groundwater-recharge, impervious-surface-runoff, snow-glacier-storage, groundwater-overuse-water-table, wetland-flood-storage, shared-river-basin-coordination, ocean-dominant-water-store, ocean-evaporation-land-rain, wind-fetch-wave-size, wave-energy-transfer, tsunami-generation-not-tide, bathymetric-contour-reading, isohyet-equal-rainfall, storm-hydrograph-urban-response, discharge-measurement, water-balance-surplus-deficit, rainfall-runoff-land-cover |
 
 ## Ownership and integration
 
-The owning corpus is WGE-001. CP001–CP036 are selectable aliases over the same records. CP009–CP019 teach global atmospheric, climatic, ecological and oceanic frameworks; existing Indian Geography packages retain India-specific climate facts, monsoon patterns and local winds (GEO-CLI-001), which are overlap references rather than copied banks. The questions emphasize global processes and examples. Later World Geography sections remain outside this change.
+The owning corpus is WGE-001. CP001–CP042 are selectable aliases over the same records. CP009–CP019 teach global atmospheric, climatic, ecological and oceanic frameworks; existing Indian Geography packages retain India-specific climate facts, monsoon patterns and local winds (GEO-CLI-001), which are overlap references rather than copied banks. The questions emphasize global processes and examples. CP041–CP042 add human-geography and water-systems coverage identified in the syllabus-alignment audit.
 
-The standard knowledge-v1 registry exposes a mixed package and thirty-six checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. CP001–CP036 are marked user approved. All outputs retain review-only lifecycle restrictions.
+The standard knowledge-v1 registry exposes a mixed package and forty-two checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. CP001–CP036 and CP039–CP040 are marked user approved. Revised CP037–CP038 and new CP041–CP042 are review required. All outputs retain review-only lifecycle restrictions.
 
 ## Verification
 
-The focused corpus/adapter test validates all 740 items, 4,440 filtered localized outputs, all single-item selectors, deterministic generation, cross-language parity, source links, answer mappings and invalid requests. The registry test covers thirty-seven package choices in three languages. A browser session and production deployment have not been tested.
+The focused corpus/adapter test validates all 804 items, 4,824 filtered localized outputs, all single-item selectors, deterministic generation, cross-language parity, source links, answer mappings and invalid requests. The registry test covers forty-three package choices in three languages. A browser session and production deployment have not been tested.
 
 ## Review gate
 
-User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. User approval of CP020–CP023, including their exam-stem revisions, was received on 27 September 2026. CP029–CP032 approval was received on 28 September 2026 and merged in PR #2432. CP033–CP036 approval was received on 28 September 2026 and merged in PR #2450. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.
+User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. User approval of CP020–CP023, including their exam-stem revisions, was received on 27 September 2026. CP037–CP040 were approved in PR #2468; CP037–CP038 have since been revised and are pending renewed review. CP029–CP032 approval was received on 28 September 2026 and merged in PR #2432. CP033–CP036 approval was received on 28 September 2026 and merged in PR #2450. CP041–CP042 are newly authored and pending user review. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.

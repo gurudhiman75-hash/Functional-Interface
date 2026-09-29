@@ -1,0 +1,848 @@
+[
+  {
+    "id": "WGE-001-CP041-Q001",
+    "cpId": "WGE-001-CP041",
+    "objective": "hdi-dimensions",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-HDI-UNDP"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which three dimensions are combined in the Human Development Index?",
+        "options": [
+          "Health, education and income",
+          "Rainfall, relief and soil",
+          "Exports, imports and tariffs",
+          "Population, area and density"
+        ],
+        "explanation": "HDI summarises achievements in health, knowledge and standard of living."
+      },
+      "hi": {
+        "stem": "मानव विकास सूचकांक में किन तीन आयामों को जोड़ा जाता है?",
+        "options": [
+          "स्वास्थ्य, शिक्षा और आय",
+          "वर्षा, उच्चावच और मिट्टी",
+          "निर्यात, आयात और शुल्क",
+          "जनसंख्या, क्षेत्रफल और घनत्व"
+        ],
+        "explanation": "मानव विकास सूचकांक स्वास्थ्य, ज्ञान और जीवन-स्तर की उपलब्धियों का सार देता है।"
+      },
+      "pa": {
+        "stem": "ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਵਿੱਚ ਕਿਹੜੇ ਤਿੰਨ ਪੱਖ ਜੋੜੇ ਜਾਂਦੇ ਹਨ?",
+        "options": [
+          "ਸਿਹਤ, ਸਿੱਖਿਆ ਅਤੇ ਆਮਦਨ",
+          "ਮੀਂਹ, ਧਰਾਤਲ ਅਤੇ ਮਿੱਟੀ",
+          "ਨਿਰਯਾਤ, ਆਯਾਤ ਅਤੇ ਕਰ",
+          "ਆਬਾਦੀ, ਖੇਤਰਫਲ ਅਤੇ ਘਣਤਾ"
+        ],
+        "explanation": "ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਸਿਹਤ, ਗਿਆਨ ਅਤੇ ਜੀਵਨ-ਮਿਆਰ ਦੀਆਂ ਪ੍ਰਾਪਤੀਆਂ ਦਾ ਸਾਰ ਦਿੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q002",
+    "cpId": "WGE-001-CP041",
+    "objective": "hdi-average-limit",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-HDI-UNDP"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Two countries have the same average HDI. What important difference could this average hide?",
+        "options": [
+          "Their coastlines have the same length",
+          "They use identical map projections",
+          "Development outcomes may be distributed unequally within each country",
+          "Their populations must be equal"
+        ],
+        "explanation": "A national average can conceal differences between regions and social groups."
+      },
+      "hi": {
+        "stem": "दो देशों का औसत मानव विकास सूचकांक समान है। यह औसत किस अंतर को छिपा सकता है?",
+        "options": [
+          "उनके तटों की लंबाई समान है",
+          "वे एक जैसे मानचित्र प्रक्षेप उपयोग करते हैं",
+          "हर देश के भीतर विकास के लाभ असमान बँटे हो सकते हैं",
+          "उनकी जनसंख्या अवश्य समान है"
+        ],
+        "explanation": "राष्ट्रीय औसत क्षेत्रों और सामाजिक समूहों के बीच अंतर छिपा सकता है।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਦੇਸ਼ਾਂ ਦਾ ਔਸਤ ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਇੱਕੋ ਹੈ। ਇਹ ਔਸਤ ਕਿਹੜਾ ਫ਼ਰਕ ਲੁਕਾ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਉਨ੍ਹਾਂ ਦੇ ਤਟਾਂ ਦੀ ਲੰਬਾਈ ਇੱਕੋ ਹੈ",
+          "ਉਹ ਇੱਕੋ ਜਿਹੇ ਨਕਸ਼ਾ-ਪ੍ਰক্ষেপ ਵਰਤਦੇ ਹਨ",
+          "ਹਰ ਦੇਸ਼ ਅੰਦਰ ਵਿਕਾਸ ਦੇ ਲਾਭ ਅਸਮਾਨ ਵੰਡੇ ਹੋ ਸਕਦੇ ਹਨ",
+          "ਉਨ੍ਹਾਂ ਦੀ ਆਬਾਦੀ ਲਾਜ਼ਮੀ ਬਰਾਬਰ ਹੈ"
+        ],
+        "explanation": "ਕੌਮੀ ਔਸਤ ਖੇਤਰਾਂ ਅਤੇ ਸਮਾਜਿਕ ਸਮੂਹਾਂ ਵਿਚਕਾਰ ਫ਼ਰਕ ਲੁਕਾ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q003",
+    "cpId": "WGE-001-CP041",
+    "objective": "primary-sector-resource",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-HDI-UNDP"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which activity belongs most directly to the primary economic sector?",
+        "options": [
+          "Harvesting fish from the sea",
+          "Assembling buses in a factory",
+          "Teaching in a school",
+          "Designing computer software"
+        ],
+        "explanation": "Primary activities obtain raw materials directly from nature, including fishing, farming and mining."
+      },
+      "hi": {
+        "stem": "कौन-सी गतिविधि सीधे प्राथमिक आर्थिक क्षेत्र में आती है?",
+        "options": [
+          "समुद्र से मछली पकड़ना",
+          "कारखाने में बसें जोड़ना",
+          "विद्यालय में पढ़ाना",
+          "कंप्यूटर सॉफ्टवेयर बनाना"
+        ],
+        "explanation": "प्राथमिक गतिविधियाँ मछली पकड़ने, खेती और खनन सहित प्रकृति से सीधे कच्चा माल प्राप्त करती हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਗਤੀਵਿਧੀ ਸਿੱਧੇ ਮੁੱਢਲੇ ਆਰਥਿਕ ਖੇਤਰ ਵਿੱਚ ਆਉਂਦੀ ਹੈ?",
+        "options": [
+          "ਸਮੁੰਦਰ ਤੋਂ ਮੱਛੀ ਫੜਨਾ",
+          "ਕਾਰਖ਼ਾਨੇ ਵਿੱਚ ਬੱਸਾਂ ਜੋੜਨਾ",
+          "ਸਕੂਲ ਵਿੱਚ ਪੜ੍ਹਾਉਣਾ",
+          "ਕੰਪਿਊਟਰ ਸਾਫਟਵੇਅਰ ਬਣਾਉਣਾ"
+        ],
+        "explanation": "ਮੁੱਢਲੀਆਂ ਗਤੀਵਿਧੀਆਂ ਮੱਛੀ-ਪਕੜ, ਖੇਤੀ ਅਤੇ ਖਾਣੀ ਸਮੇਤ ਕੁਦਰਤ ਤੋਂ ਸਿੱਧਾ ਕੱਚਾ ਮਾਲ ਲੈਂਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q004",
+    "cpId": "WGE-001-CP041",
+    "objective": "secondary-sector-processing",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-HUMGEO-NCERT-SYLLABUS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A factory turns iron ore into steel. Which economic sector performs this transformation?",
+        "options": [
+          "Primary",
+          "Tertiary",
+          "Quaternary",
+          "Secondary"
+        ],
+        "explanation": "The secondary sector processes raw materials and manufactures goods."
+      },
+      "hi": {
+        "stem": "कारखाना लौह-अयस्क को इस्पात में बदलता है। यह काम कौन-सा आर्थिक क्षेत्र करता है?",
+        "options": [
+          "प्राथमिक",
+          "तृतीयक",
+          "चतुर्थक",
+          "द्वितीयक"
+        ],
+        "explanation": "द्वितीयक क्षेत्र कच्चे माल का प्रसंस्करण और वस्तुओं का निर्माण करता है।"
+      },
+      "pa": {
+        "stem": "ਕਾਰਖ਼ਾਨਾ ਲੋਹੇ ਦੇ ਅਯਸ ਨੂੰ ਸਟੀਲ ਵਿੱਚ ਬਦਲਦਾ ਹੈ। ਇਹ ਕੰਮ ਕਿਹੜਾ ਆਰਥਿਕ ਖੇਤਰ ਕਰਦਾ ਹੈ?",
+        "options": [
+          "ਮੁੱਢਲਾ",
+          "ਤੀਜਾ",
+          "ਚੌਥਾ",
+          "ਦੂਜਾ"
+        ],
+        "explanation": "ਦੂਜਾ ਖੇਤਰ ਕੱਚੇ ਮਾਲ ਦੀ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਵਸਤਾਂ ਦਾ ਨਿਰਮਾਣ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q005",
+    "cpId": "WGE-001-CP041",
+    "objective": "tertiary-logistics-service",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-IND-UNIDO-IDR"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which activity is a tertiary service rather than the production of a physical good?",
+        "options": [
+          "Growing wheat",
+          "Operating a freight warehouse",
+          "Smelting copper ore",
+          "Quarrying stone"
+        ],
+        "explanation": "Warehousing and logistics are services for producers and consumers."
+      },
+      "hi": {
+        "stem": "कौन-सी गतिविधि भौतिक वस्तु बनाने के बजाय तृतीयक सेवा देती है?",
+        "options": [
+          "गेहूँ उगाना",
+          "माल-भंडार चलाना",
+          "ताँबे का अयस्क गलाना",
+          "पत्थर की खदान चलाना"
+        ],
+        "explanation": "भंडारण और माल-प्रबंधन उत्पादकों तथा उपभोक्ताओं को सेवाएँ देते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਗਤੀਵਿਧੀ ਭੌਤਿਕ ਵਸਤੂ ਬਣਾਉਣ ਦੀ ਥਾਂ ਤੀਜੇ ਖੇਤਰ ਦੀ ਸੇਵਾ ਦਿੰਦੀ ਹੈ?",
+        "options": [
+          "ਕਣਕ ਉਗਾਉਣਾ",
+          "ਮਾਲ-ਗੋਦਾਮ ਚਲਾਉਣਾ",
+          "ਤਾਂਬੇ ਦਾ ਅਯਸ ਪਿਘਲਾਉਣਾ",
+          "ਪੱਥਰ ਦੀ ਖਾਣ ਚਲਾਉਣਾ"
+        ],
+        "explanation": "ਗੋਦਾਮ ਅਤੇ ਮਾਲ-ਪ੍ਰਬੰਧ ਉਤਪਾਦਕਾਂ ਤੇ ਖਪਤਕਾਰਾਂ ਨੂੰ ਸੇਵਾਵਾਂ ਦਿੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q006",
+    "cpId": "WGE-001-CP041",
+    "objective": "quaternary-research",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-HUMGEO-NCERT-SYLLABUS"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "Which activity is a clear example of quaternary work?",
+        "options": [
+          "Developing a crop variety through research",
+          "Harvesting timber",
+          "Building a road",
+          "Selling vegetables"
+        ],
+        "explanation": "Quaternary work centres on information, research and knowledge creation."
+      },
+      "hi": {
+        "stem": "कौन-सी गतिविधि चतुर्थक कार्य का स्पष्ट उदाहरण है?",
+        "options": [
+          "अनुसंधान से फसल की नई किस्म विकसित करना",
+          "लकड़ी काटना",
+          "सड़क बनाना",
+          "सब्ज़ियाँ बेचना"
+        ],
+        "explanation": "चतुर्थक कार्य में सूचना, अनुसंधान और ज्ञान-सृजन प्रमुख होते हैं।"
+      },
+      "pa": {
+        "stem": "ਕਿਹੜੀ ਗਤੀਵਿਧੀ ਚੌਥੇ ਖੇਤਰ ਦੇ ਕੰਮ ਦੀ ਸਪਸ਼ਟ ਮਿਸਾਲ ਹੈ?",
+        "options": [
+          "ਖੋਜ ਰਾਹੀਂ ਫ਼ਸਲ ਦੀ ਨਵੀਂ ਕਿਸਮ ਤਿਆਰ ਕਰਨਾ",
+          "ਲੱਕੜ ਕੱਟਣਾ",
+          "ਸੜਕ ਬਣਾਉਣਾ",
+          "ਸਬਜ਼ੀਆਂ ਵੇਚਣਾ"
+        ],
+        "explanation": "ਚੌਥੇ ਖੇਤਰ ਦੇ ਕੰਮ ਵਿੱਚ ਜਾਣਕਾਰੀ, ਖੋਜ ਅਤੇ ਗਿਆਨ-ਸਿਰਜਣਾ ਮੁੱਖ ਹੁੰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q007",
+    "cpId": "WGE-001-CP041",
+    "objective": "sector-interdependence",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-IND-UNIDO-IDR"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A bread chain links wheat farms, mills, bakeries and shops. What does this show?",
+        "options": [
+          "Economic sectors operate independently",
+          "Only farming creates value",
+          "Different economic sectors depend on one another",
+          "Trade begins only at retail"
+        ],
+        "explanation": "The chain links primary production, secondary processing and tertiary distribution."
+      },
+      "hi": {
+        "stem": "रोटी की आपूर्ति-श्रृंखला खेतों, मिलों, बेकरी और दुकानों को जोड़ती है। यह क्या दर्शाती है?",
+        "options": [
+          "आर्थिक क्षेत्र स्वतंत्र चलते हैं",
+          "मूल्य केवल खेती बनाती है",
+          "अलग-अलग आर्थिक क्षेत्र एक-दूसरे पर निर्भर होते हैं",
+          "व्यापार केवल खुदरा बिक्री से शुरू होता है"
+        ],
+        "explanation": "यह श्रृंखला प्राथमिक उत्पादन, द्वितीयक प्रसंस्करण और तृतीयक वितरण को जोड़ती है।"
+      },
+      "pa": {
+        "stem": "ਰੋਟੀ ਦੀ ਲੜੀ ਖੇਤਾਂ, ਮਿੱਲਾਂ, ਬੇਕਰੀਆਂ ਅਤੇ ਦੁਕਾਨਾਂ ਨੂੰ ਜੋੜਦੀ ਹੈ। ਇਹ ਕੀ ਦਰਸਾਉਂਦੀ ਹੈ?",
+        "options": [
+          "ਆਰਥਿਕ ਖੇਤਰ ਅਲੱਗ ਚੱਲਦੇ ਹਨ",
+          "ਮੁੱਲ ਸਿਰਫ਼ ਖੇਤੀ ਬਣਾਉਂਦੀ ਹੈ",
+          "ਵੱਖਰੇ ਆਰਥਿਕ ਖੇਤਰ ਇੱਕ-ਦੂਜੇ ਉੱਤੇ ਨਿਰਭਰ ਹਨ",
+          "ਵਪਾਰ ਸਿਰਫ਼ ਖੁਦਰਾ ਵਿਕਰੀ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ"
+        ],
+        "explanation": "ਇਹ ਲੜੀ ਮੁੱਢਲੇ ਉਤਪਾਦਨ, ਦੂਜੀ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਤੀਜੀ ਵੰਡ ਨੂੰ ਜੋੜਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q008",
+    "cpId": "WGE-001-CP041",
+    "objective": "global-value-chain",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-IND-WB-GVC"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A device is designed in one country, uses parts from several countries and is assembled elsewhere. This is:",
+        "options": [
+          "A closed local economy",
+          "A geographically divided global value chain",
+          "A subsistence system",
+          "Single-site production"
+        ],
+        "explanation": "Trade and investment connect different locations that perform stages of one product's production."
+      },
+      "hi": {
+        "stem": "एक उपकरण का डिज़ाइन एक देश में, पुर्ज़े कई देशों से और संयोजन कहीं और होता है। यह क्या है?",
+        "options": [
+          "बंद स्थानीय अर्थव्यवस्था",
+          "भौगोलिक रूप से विभाजित वैश्विक मूल्य-श्रृंखला",
+          "निर्वाह प्रणाली",
+          "एक स्थान पर उत्पादन"
+        ],
+        "explanation": "व्यापार और निवेश किसी वस्तु के अलग-अलग उत्पादन चरण करने वाले स्थानों को जोड़ते हैं।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਯੰਤਰ ਦਾ ਡਿਜ਼ਾਇਨ ਇੱਕ ਦੇਸ਼ ਵਿੱਚ, ਪੁਰਜ਼ੇ ਕਈ ਦੇਸ਼ਾਂ ਤੋਂ ਅਤੇ ਜੋੜਾਈ ਕਿਸੇ ਹੋਰ ਥਾਂ ਹੁੰਦੀ ਹੈ। ਇਹ ਕੀ ਹੈ?",
+        "options": [
+          "ਬੰਦ ਸਥਾਨਕ ਅਰਥਵਿਵਸਥਾ",
+          "ਭੂਗੋਲਕ ਤੌਰ ਉੱਤੇ ਵੰਡੀ ਵਿਸ਼ਵ ਮੁੱਲ-ਲੜੀ",
+          "ਗੁਜ਼ਾਰਾ ਪ੍ਰਣਾਲੀ",
+          "ਇੱਕ ਥਾਂ ਉੱਤੇ ਉਤਪਾਦਨ"
+        ],
+        "explanation": "ਵਪਾਰ ਅਤੇ ਨਿਵੇਸ਼ ਇੱਕ ਵਸਤੂ ਦੇ ਵੱਖਰੇ ਉਤਪਾਦਨ ਪੜਾਅ ਕਰਨ ਵਾਲੀਆਂ ਥਾਵਾਂ ਨੂੰ ਜੋੜਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q009",
+    "cpId": "WGE-001-CP041",
+    "objective": "export-specialisation-risk",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-IND-WB-GVC"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A region relies on one export crop. A global price fall sharply reduces its income. Which risk is clearest?",
+        "options": [
+          "Guaranteed rise in rainfall",
+          "Decline in population density",
+          "Complete insulation from world markets",
+          "Vulnerability from narrow specialisation"
+        ],
+        "explanation": "Specialisation can support trade, but dependence on one export increases exposure to price shocks."
+      },
+      "hi": {
+        "stem": "एक क्षेत्र एक निर्यात फसल पर निर्भर है। विश्व बाज़ार में कीमत गिरने से आय घटती है। कौन-सा जोखिम स्पष्ट है?",
+        "options": [
+          "वर्षा में निश्चित वृद्धि",
+          "जनसंख्या घनत्व में गिरावट",
+          "विश्व बाज़ार से पूर्ण अलगाव",
+          "सीमित विशेषज्ञता से पैदा संवेदनशीलता"
+        ],
+        "explanation": "विशेषज्ञता व्यापार को सहारा दे सकती है, पर एक निर्यात पर निर्भरता कीमतों के झटकों का जोखिम बढ़ाती है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਖੇਤਰ ਇੱਕ ਨਿਰਯਾਤ ਫ਼ਸਲ ਉੱਤੇ ਨਿਰਭਰ ਹੈ। ਵਿਸ਼ਵ ਕੀਮਤ ਡਿੱਗਣ ਨਾਲ ਆਮਦਨ ਘਟਦੀ ਹੈ। ਕਿਹੜਾ ਜੋਖਮ ਸਪਸ਼ਟ ਹੈ?",
+        "options": [
+          "ਮੀਂਹ ਵਿੱਚ ਪੱਕਾ ਵਾਧਾ",
+          "ਆਬਾਦੀ ਘਣਤਾ ਵਿੱਚ ਕਮੀ",
+          "ਵਿਸ਼ਵ ਬਾਜ਼ਾਰ ਤੋਂ ਪੂਰੀ ਵੱਖਰਤਾ",
+          "ਸੀਮਤ ਵਿਸ਼ੇਸ਼ਤਾ ਕਾਰਨ ਨਾਜ਼ੁਕਤਾ"
+        ],
+        "explanation": "ਵਿਸ਼ੇਸ਼ਤਾ ਵਪਾਰ ਨੂੰ ਸਹਾਰਾ ਦੇ ਸਕਦੀ ਹੈ, ਪਰ ਇੱਕ ਨਿਰਯਾਤ ਉੱਤੇ ਨਿਰਭਰਤਾ ਕੀਮਤੀ ਝਟਕਿਆਂ ਦਾ ਜੋਖਮ ਵਧਾਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q010",
+    "cpId": "WGE-001-CP041",
+    "objective": "goods-trade-deficit",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-IND-WB-GVC"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A country's goods imports are worth more than its goods exports during a period. This indicates:",
+        "options": [
+          "A merchandise trade deficit",
+          "A merchandise trade surplus",
+          "Balanced goods trade",
+          "A fall in land area"
+        ],
+        "explanation": "When goods imports exceed goods exports in value over the stated period, the merchandise balance is in deficit."
+      },
+      "hi": {
+        "stem": "एक अवधि में देश के वस्तु-आयात का मूल्य वस्तु-निर्यात से अधिक है। यह क्या दर्शाता है?",
+        "options": [
+          "वस्तु-व्यापार घाटा",
+          "वस्तु-व्यापार अधिशेष",
+          "संतुलित वस्तु-व्यापार",
+          "भूमि क्षेत्र में कमी"
+        ],
+        "explanation": "दी गई अवधि में वस्तु-आयात का मूल्य निर्यात से अधिक हो तो वस्तु-व्यापार संतुलन घाटे में होता है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਅਰਸੇ ਵਿੱਚ ਦੇਸ਼ ਦੀਆਂ ਵਸਤਾਂ ਦੇ ਆਯਾਤ ਦਾ ਮੁੱਲ ਨਿਰਯਾਤ ਤੋਂ ਵੱਧ ਹੈ। ਇਹ ਕੀ ਦਰਸਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਵਸਤੂ-ਵਪਾਰ ਘਾਟਾ",
+          "ਵਸਤੂ-ਵਪਾਰ ਸਰਪਲੱਸ",
+          "ਸੰਤੁਲਿਤ ਵਸਤੂ-ਵਪਾਰ",
+          "ਧਰਤੀ ਖੇਤਰ ਵਿੱਚ ਕਮੀ"
+        ],
+        "explanation": "ਦਿੱਤੇ ਅਰਸੇ ਵਿੱਚ ਵਸਤਾਂ ਦੇ ਆਯਾਤ ਦਾ ਮੁੱਲ ਨਿਰਯਾਤ ਤੋਂ ਵੱਧ ਹੋਵੇ ਤਾਂ ਵਸਤੂ-ਵਪਾਰ ਸੰਤੁਲਨ ਘਾਟੇ ਵਿੱਚ ਹੁੰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q011",
+    "cpId": "WGE-001-CP041",
+    "objective": "digital-access-divide",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-TRN-UNCTAD"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A city has reliable broadband while nearby rural settlements have weak coverage and few affordable devices. This shows:",
+        "options": [
+          "A uniform communications network",
+          "A decline in urban services",
+          "A spatial digital divide",
+          "A physical trade barrier"
+        ],
+        "explanation": "Access to coverage, devices and skills differs by place, creating a spatial digital divide."
+      },
+      "hi": {
+        "stem": "नगर में अच्छा इंटरनेट है, जबकि पास की ग्रामीण बस्तियों में कमजोर संपर्क और कम वहनीय उपकरण हैं। यह क्या दिखाता है?",
+        "options": [
+          "समान संचार-जाल",
+          "शहरी सेवाओं में गिरावट",
+          "स्थानिक डिजिटल अंतर",
+          "भौतिक व्यापार बाधा"
+        ],
+        "explanation": "संपर्क, उपकरण और कौशल तक पहुँच स्थान के अनुसार अलग होती है और स्थानिक डिजिटल अंतर बनाती है।"
+      },
+      "pa": {
+        "stem": "ਸ਼ਹਿਰ ਵਿੱਚ ਚੰਗਾ ਇੰਟਰਨੈੱਟ ਹੈ, ਜਦਕਿ ਨੇੜਲੀਆਂ ਪੇਂਡੂ ਬਸਤੀਆਂ ਵਿੱਚ ਕਮਜ਼ੋਰ ਜੋੜ ਅਤੇ ਘੱਟ ਕਿਫ਼ਾਇਤੀ ਸਾਜ਼ ਹਨ। ਇਹ ਕੀ ਦਰਸਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਇਕਸਾਰ ਸੰਚਾਰ-ਜਾਲ",
+          "ਸ਼ਹਿਰੀ ਸੇਵਾਵਾਂ ਵਿੱਚ ਕਮੀ",
+          "ਥਾਂ ਅਨੁਸਾਰ ਡਿਜ਼ਿਟਲ ਪਾੜਾ",
+          "ਭੌਤਿਕ ਵਪਾਰ ਰੁਕਾਵਟ"
+        ],
+        "explanation": "ਜੋੜ, ਸਾਜ਼ਾਂ ਅਤੇ ਹੁਨਰ ਤੱਕ ਪਹੁੰਚ ਥਾਂ ਅਨੁਸਾਰ ਵੱਖਰੀ ਹੁੰਦੀ ਹੈ ਅਤੇ ਡਿਜ਼ਿਟਲ ਪਾੜਾ ਬਣਾਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q012",
+    "cpId": "WGE-001-CP041",
+    "objective": "rural-service-catchment",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-HUMGEO-NCERT-SYLLABUS"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Small settlements are far from hospitals and secondary schools. Which response can improve access when facilities cannot be placed everywhere?",
+        "options": [
+          "Close local roads",
+          "Coordinate transport links and mobile or shared services",
+          "Move every household to the largest city",
+          "Build only where services already exist"
+        ],
+        "explanation": "Transport links and mobile or shared services can reduce access gaps in dispersed populations."
+      },
+      "hi": {
+        "stem": "छोटी बस्तियाँ अस्पतालों और माध्यमिक विद्यालयों से दूर हैं। जब हर जगह सेवा बनाना संभव न हो तो पहुँच कैसे सुधरेगी?",
+        "options": [
+          "स्थानीय सड़कें बंद करना",
+          "परिवहन संपर्क और चलित या साझा सेवाओं का समन्वय",
+          "हर परिवार को बड़े नगर में भेजना",
+          "सेवाएँ केवल पहले से सुविधायुक्त जगह बनाना"
+        ],
+        "explanation": "बिखरी आबादी में परिवहन संपर्क और चलित या साझा सेवाएँ पहुँच की कमी घटा सकती हैं।"
+      },
+      "pa": {
+        "stem": "ਛੋਟੀਆਂ ਬਸਤੀਆਂ ਹਸਪਤਾਲਾਂ ਅਤੇ ਮਾਧਿਮਕ ਸਕੂਲਾਂ ਤੋਂ ਦੂਰ ਹਨ। ਜਦੋਂ ਹਰ ਥਾਂ ਸੇਵਾ ਬਣਾਉਣੀ ਸੰਭਵ ਨਾ ਹੋਵੇ ਤਾਂ ਪਹੁੰਚ ਕਿਵੇਂ ਸੁਧਰੇਗੀ?",
+        "options": [
+          "ਸਥਾਨਕ ਸੜਕਾਂ ਬੰਦ ਕਰਨਾ",
+          "ਆਵਾਜਾਈ ਜੋੜ ਅਤੇ ਚਲਦੀਆਂ ਜਾਂ ਸਾਂਝੀਆਂ ਸੇਵਾਵਾਂ ਦਾ ਤਾਲਮੇਲ",
+          "ਹਰ ਪਰਿਵਾਰ ਨੂੰ ਵੱਡੇ ਸ਼ਹਿਰ ਭੇਜਣਾ",
+          "ਸੇਵਾਵਾਂ ਸਿਰਫ਼ ਪਹਿਲਾਂ ਤੋਂ ਸਹੂਲਤ ਵਾਲੀ ਥਾਂ ਬਣਾਉਣਾ"
+        ],
+        "explanation": "ਖਿੰਡੀ ਆਬਾਦੀ ਵਿੱਚ ਆਵਾਜਾਈ ਜੋੜ ਅਤੇ ਚਲਦੀਆਂ ਜਾਂ ਸਾਂਝੀਆਂ ਸੇਵਾਵਾਂ ਪਹੁੰਚ ਦੀ ਘਾਟ ਘਟਾ ਸਕਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q013",
+    "cpId": "WGE-001-CP041",
+    "objective": "settlement-basic-services",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-SET-UNHABITAT"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "An unplanned settlement grows faster than water, sanitation and transport networks. What is the strongest immediate planning priority?",
+        "options": [
+          "Remove residents before assessing needs",
+          "Extend safe basic services and involve residents in upgrading",
+          "Block all road access",
+          "Ignore drainage because the settlement is new"
+        ],
+        "explanation": "Safe water, sanitation, access and resident participation address urgent needs and support planned upgrading."
+      },
+      "hi": {
+        "stem": "एक अनियोजित बस्ती जल, स्वच्छता और परिवहन-जाल से तेज़ बढ़ती है। सबसे उचित तात्कालिक प्राथमिकता क्या है?",
+        "options": [
+          "ज़रूरत जाँचे बिना निवासियों को हटाना",
+          "सुरक्षित मूल सेवाएँ बढ़ाना और सुधार में निवासियों को शामिल करना",
+          "सभी सड़क संपर्क रोकना",
+          "बस्ती नई है इसलिए जलनिकास अनदेखा करना"
+        ],
+        "explanation": "सुरक्षित जल, स्वच्छता, पहुँच और निवासी भागीदारी तात्कालिक ज़रूरतें पूरी कर नियोजित सुधार में सहायक हैं।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਬੇਯੋਜਨਾ ਬਸਤੀ ਪਾਣੀ, ਸਫ਼ਾਈ ਅਤੇ ਆਵਾਜਾਈ ਜਾਲ ਨਾਲੋਂ ਤੇਜ਼ ਵਧਦੀ ਹੈ। ਸਭ ਤੋਂ ਢੁੱਕਵੀਂ ਤੁਰੰਤ ਤਰਜੀਹ ਕੀ ਹੈ?",
+        "options": [
+          "ਲੋੜ ਜਾਣੇ ਬਿਨਾਂ ਵਸਨੀਕ ਹਟਾਉਣਾ",
+          "ਸੁਰੱਖਿਅਤ ਮੁੱਢਲੀਆਂ ਸੇਵਾਵਾਂ ਵਧਾਉਣਾ ਅਤੇ ਸੁਧਾਰ ਵਿੱਚ ਵਸਨੀਕਾਂ ਨੂੰ ਜੋੜਨਾ",
+          "ਸਾਰੇ ਸੜਕੀ ਜੋੜ ਰੋਕਣਾ",
+          "ਬਸਤੀ ਨਵੀਂ ਹੈ ਇਸ ਲਈ ਨਿਕਾਸੀ ਅਣਡਿੱਠੀ ਕਰਨੀ"
+        ],
+        "explanation": "ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸਫ਼ਾਈ, ਪਹੁੰਚ ਅਤੇ ਵਸਨੀਕਾਂ ਦੀ ਭਾਗੀਦਾਰੀ ਤੁਰੰਤ ਲੋੜਾਂ ਪੂਰੀਆਂ ਕਰਕੇ ਯੋਜਨਾਬੱਧ ਸੁਧਾਰ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q014",
+    "cpId": "WGE-001-CP041",
+    "objective": "urban-transit-access",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-HAB-SETTLEMENT-SERVICES"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A city wants to reduce car dependence for short journeys. Which combined strategy is most likely to help?",
+        "options": [
+          "Frequent public transport with safe walking and cycling routes",
+          "More parking at every destination",
+          "Separate homes from all shops",
+          "Remove footpaths near transit"
+        ],
+        "explanation": "Reliable transit and safe walking or cycling routes make short trips possible without a car."
+      },
+      "hi": {
+        "stem": "नगर छोटे सफ़रों के लिए कार पर निर्भरता घटाना चाहता है। कौन-सी संयुक्त रणनीति सहायक होगी?",
+        "options": [
+          "नियमित सार्वजनिक परिवहन और सुरक्षित पैदल तथा साइकिल मार्ग",
+          "हर जगह अधिक पार्किंग",
+          "घरों को सभी दुकानों से अलग करना",
+          "परिवहन के पास पैदल-पथ हटाना"
+        ],
+        "explanation": "भरोसेमंद परिवहन और सुरक्षित पैदल या साइकिल मार्ग छोटे सफ़र कार के बिना संभव बनाते हैं।"
+      },
+      "pa": {
+        "stem": "ਸ਼ਹਿਰ ਛੋਟੇ ਸਫ਼ਰਾਂ ਲਈ ਕਾਰ ਉੱਤੇ ਨਿਰਭਰਤਾ ਘਟਾਉਣਾ ਚਾਹੁੰਦਾ ਹੈ। ਕਿਹੜੀ ਸਾਂਝੀ ਰਣਨੀਤੀ ਮਦਦ ਕਰੇਗੀ?",
+        "options": [
+          "ਵਾਰ-ਵਾਰ ਜਨਤਕ ਆਵਾਜਾਈ ਅਤੇ ਸੁਰੱਖਿਅਤ ਪੈਦਲ ਤੇ ਸਾਈਕਲ ਰਾਹ",
+          "ਹਰ ਥਾਂ ਹੋਰ ਪਾਰਕਿੰਗ",
+          "ਘਰਾਂ ਨੂੰ ਸਾਰੀਆਂ ਦੁਕਾਨਾਂ ਤੋਂ ਵੱਖ ਕਰਨਾ",
+          "ਆਵਾਜਾਈ ਕੋਲ ਪੈਦਲ ਰਾਹ ਹਟਾਉਣਾ"
+        ],
+        "explanation": "ਭਰੋਸੇਯੋਗ ਆਵਾਜਾਈ ਅਤੇ ਸੁਰੱਖਿਅਤ ਪੈਦਲ ਜਾਂ ਸਾਈਕਲ ਰਾਹ ਛੋਟੇ ਸਫ਼ਰ ਕਾਰ ਤੋਂ ਬਿਨਾਂ ਸੰਭਵ ਬਣਾਉਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q015",
+    "cpId": "WGE-001-CP041",
+    "objective": "periurban-farmland-conflict",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-HUMGEO-NCERT-SYLLABUS",
+      "WGE-SET-UNHABITAT"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A city's edge expands over irrigated farmland. Which conflict may require land-use planning?",
+        "options": [
+          "Urban growth never changes land use",
+          "Housing and infrastructure compete with food-producing land",
+          "Farmland automatically becomes more fertile",
+          "The city loses all transport links"
+        ],
+        "explanation": "Peri-urban growth can convert productive farmland and create competition among housing, infrastructure and food production."
+      },
+      "hi": {
+        "stem": "नगर का फैलाव सिंचित कृषि भूमि पर होता है। किस टकराव के लिए भूमि-उपयोग नियोजन आवश्यक हो सकता है?",
+        "options": [
+          "शहरी विस्तार भूमि-उपयोग कभी नहीं बदलता",
+          "आवास और आधारभूत ढाँचा खाद्य भूमि से प्रतिस्पर्धा करते हैं",
+          "कृषि भूमि अपने-आप अधिक उपजाऊ हो जाती है",
+          "नगर के सभी परिवहन संपर्क समाप्त हो जाते हैं"
+        ],
+        "explanation": "नगर-सीमा का विस्तार उपजाऊ कृषि भूमि बदल सकता है और आवास, आधारभूत ढाँचे तथा खाद्य उत्पादन में प्रतिस्पर्धा पैदा कर सकता है।"
+      },
+      "pa": {
+        "stem": "ਸ਼ਹਿਰ ਦਾ ਫੈਲਾਅ ਸਿੰਜੀ ਖੇਤੀਬਾੜੀ ਧਰਤੀ ਉੱਤੇ ਹੁੰਦਾ ਹੈ। ਕਿਹੜੇ ਟਕਰਾਅ ਲਈ ਭੂ-ਵਰਤੋਂ ਯੋਜਨਾ ਚਾਹੀਦੀ ਹੋ ਸਕਦੀ ਹੈ?",
+        "options": [
+          "ਸ਼ਹਿਰੀ ਫੈਲਾਅ ਭੂ-ਵਰਤੋਂ ਕਦੇ ਨਹੀਂ ਬਦਲਦਾ",
+          "ਰਿਹਾਇਸ਼ ਅਤੇ ਬੁਨਿਆਦੀ ਢਾਂਚਾ ਅਨਾਜ ਵਾਲੀ ਧਰਤੀ ਨਾਲ ਮੁਕਾਬਲਾ ਕਰਦੇ ਹਨ",
+          "ਖੇਤੀ ਧਰਤੀ ਆਪਣੇ ਆਪ ਹੋਰ ਉਪਜਾਊ ਹੋ ਜਾਂਦੀ ਹੈ",
+          "ਸ਼ਹਿਰ ਦੇ ਸਾਰੇ ਆਵਾਜਾਈ ਜੋੜ ਮੁੱਕ ਜਾਂਦੇ ਹਨ"
+        ],
+        "explanation": "ਸ਼ਹਿਰ-ਕਿਨਾਰੇ ਦਾ ਫੈਲਾਅ ਉਪਜਾਊ ਖੇਤੀ ਧਰਤੀ ਬਦਲ ਸਕਦਾ ਹੈ ਅਤੇ ਰਿਹਾਇਸ਼, ਬੁਨਿਆਦੀ ਢਾਂਚੇ ਤੇ ਅਨਾਜ ਉਤਪਾਦਨ ਵਿਚਕਾਰ ਮੁਕਾਬਲਾ ਪੈਦਾ ਕਰ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q016",
+    "cpId": "WGE-001-CP041",
+    "objective": "cluster-knowledge-labour",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "WGE-URB-EPA"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Several firms locate near a research institute and skilled workers. Which advantage may explain this cluster?",
+        "options": [
+          "Shared knowledge, labour and collaboration",
+          "Greater distance from suppliers",
+          "No communications access",
+          "A guarantee that costs are zero"
+        ],
+        "explanation": "Related firms may cluster to access skilled workers, ideas and collaboration, though this does not guarantee zero costs."
+      },
+      "hi": {
+        "stem": "कई कंपनियाँ अनुसंधान संस्थान और कुशल श्रमिकों के पास स्थित हैं। कौन-सा लाभ इस समूह को समझा सकता है?",
+        "options": [
+          "साझा ज्ञान, श्रम और सहयोग",
+          "आपूर्तिकर्ताओं से अधिक दूरी",
+          "संचार पहुँच का अभाव",
+          "लागत शून्य होने की गारंटी"
+        ],
+        "explanation": "संबंधित कंपनियाँ कुशल श्रमिकों, विचारों और सहयोग के लिए समूह बना सकती हैं; इससे लागत शून्य होने की गारंटी नहीं होती।"
+      },
+      "pa": {
+        "stem": "ਕਈ ਕੰਪਨੀਆਂ ਖੋਜ ਸੰਸਥਾ ਅਤੇ ਹੁਨਰਮੰਦ ਕਾਮਿਆਂ ਕੋਲ ਵੱਸਦੀਆਂ ਹਨ। ਕਿਹੜਾ ਲਾਭ ਇਸ ਇਕੱਠ ਨੂੰ ਸਮਝਾ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਸਾਂਝਾ ਗਿਆਨ, ਕਾਮੇ ਅਤੇ ਸਹਿਯੋਗ",
+          "ਸਪਲਾਇਰਾਂ ਤੋਂ ਵੱਧ ਦੂਰੀ",
+          "ਸੰਚਾਰ ਪਹੁੰਚ ਦੀ ਘਾਟ",
+          "ਲਾਗਤ ਸਿਫ਼ਰ ਹੋਣ ਦੀ ਗਾਰੰਟੀ"
+        ],
+        "explanation": "ਸਬੰਧਤ ਕੰਪਨੀਆਂ ਹੁਨਰਮੰਦ ਕਾਮਿਆਂ, ਵਿਚਾਰਾਂ ਅਤੇ ਸਹਿਯੋਗ ਲਈ ਇਕੱਠੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ; ਇਸ ਨਾਲ ਲਾਗਤ ਸਿਫ਼ਰ ਹੋਣ ਦੀ ਗਾਰੰਟੀ ਨਹੀਂ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q017",
+    "cpId": "WGE-001-CP041",
+    "objective": "service-catchment-settlements",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-IND-UNIDO-IDR"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A regional hospital serves several small towns beyond its own settlement. This relationship is best called:",
+        "options": [
+          "A service catchment linking settlements",
+          "A natural increase rate",
+          "A closed economic system",
+          "A climate boundary"
+        ],
+        "explanation": "A service catchment draws users from surrounding settlements and creates functional links between places."
+      },
+      "hi": {
+        "stem": "एक क्षेत्रीय अस्पताल अपने नगर से बाहर कई छोटे नगरों की सेवा करता है। इस संबंध को क्या कहेंगे?",
+        "options": [
+          "बस्तियों को जोड़ने वाला सेवा-ग्रहण क्षेत्र",
+          "प्राकृतिक वृद्धि दर",
+          "बंद आर्थिक प्रणाली",
+          "जलवायु सीमा"
+        ],
+        "explanation": "सेवा-ग्रहण क्षेत्र आसपास की बस्तियों से लोगों को आकर्षित करता है और स्थानों में कार्यात्मक संबंध बनाता है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਖੇਤਰੀ ਹਸਪਤਾਲ ਆਪਣੇ ਸ਼ਹਿਰ ਤੋਂ ਬਾਹਰ ਕਈ ਕਸਬਿਆਂ ਦੀ ਸੇਵਾ ਕਰਦਾ ਹੈ। ਇਸ ਸੰਬੰਧ ਨੂੰ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
+        "options": [
+          "ਬਸਤੀਆਂ ਨੂੰ ਜੋੜਦਾ ਸੇਵਾ-ਖੇਤਰ",
+          "ਕੁਦਰਤੀ ਵਾਧਾ ਦਰ",
+          "ਬੰਦ ਆਰਥਿਕ ਪ੍ਰਣਾਲੀ",
+          "ਜਲਵਾਯੂ ਹੱਦ"
+        ],
+        "explanation": "ਸੇਵਾ-ਖੇਤਰ ਨੇੜਲੀਆਂ ਬਸਤੀਆਂ ਤੋਂ ਲੋਕਾਂ ਨੂੰ ਖਿੱਚਦਾ ਹੈ ਅਤੇ ਥਾਵਾਂ ਵਿਚਕਾਰ ਕਾਰਜਕਾਰੀ ਜੋੜ ਬਣਾਉਂਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q018",
+    "cpId": "WGE-001-CP041",
+    "objective": "route-resilience-diversification",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-SET-UNHABITAT"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A region depends on one border crossing for essential imports. Which strategy improves resilience to a route closure?",
+        "options": [
+          "Increase reliance on that crossing",
+          "Develop alternative routes and suppliers",
+          "Remove all storage capacity",
+          "Use one terminal only"
+        ],
+        "explanation": "Alternative routes, suppliers and suitable reserves reduce dependence on a single corridor."
+      },
+      "hi": {
+        "stem": "एक क्षेत्र आवश्यक आयात के लिए एक सीमा-पार मार्ग पर निर्भर है। मार्ग बंद होने पर सहनशीलता कैसे बढ़ेगी?",
+        "options": [
+          "उसी मार्ग पर निर्भरता बढ़ाना",
+          "वैकल्पिक मार्ग और आपूर्तिकर्ता विकसित करना",
+          "सभी भंडारण क्षमता हटाना",
+          "केवल एक टर्मिनल उपयोग करना"
+        ],
+        "explanation": "वैकल्पिक मार्ग, आपूर्तिकर्ता और उपयुक्त भंडार एक ही गलियारे पर निर्भरता घटाते हैं।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਖੇਤਰ ਜ਼ਰੂਰੀ ਆਯਾਤ ਲਈ ਇੱਕ ਸਰਹੱਦੀ ਰਸਤੇ ਉੱਤੇ ਨਿਰਭਰ ਹੈ। ਰਸਤਾ ਬੰਦ ਹੋਣ ਤੇ ਟਿਕਾਊਪਣ ਕਿਵੇਂ ਵਧੇਗਾ?",
+        "options": [
+          "ਉਸੇ ਰਸਤੇ ਉੱਤੇ ਨਿਰਭਰਤਾ ਵਧਾਉਣਾ",
+          "ਵਿਕਲਪਕ ਰਸਤੇ ਅਤੇ ਸਪਲਾਇਰ ਬਣਾਉਣਾ",
+          "ਸਾਰੀ ਭੰਡਾਰ ਸਮਰੱਥਾ ਹਟਾਉਣਾ",
+          "ਸਿਰਫ਼ ਇੱਕ ਟਰਮੀਨਲ ਵਰਤਣਾ"
+        ],
+        "explanation": "ਵਿਕਲਪਕ ਰਸਤੇ, ਸਪਲਾਇਰ ਅਤੇ ਢੁੱਕਵੇਂ ਭੰਡਾਰ ਇੱਕੋ ਲਾਂਘੇ ਉੱਤੇ ਨਿਰਭਰਤਾ ਘਟਾਉਂਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q019",
+    "cpId": "WGE-001-CP041",
+    "objective": "hdi-health-life-expectancy",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "WGE-HDI-UNDP"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which indicator is used for the health dimension of the standard Human Development Index?",
+        "options": [
+          "Life expectancy at birth",
+          "Annual exports",
+          "Population density",
+          "Average rainfall"
+        ],
+        "explanation": "Life expectancy at birth represents the longevity dimension in the standard HDI framework."
+      },
+      "hi": {
+        "stem": "मानव विकास सूचकांक के स्वास्थ्य आयाम के लिए कौन-सा संकेतक उपयोग होता है?",
+        "options": [
+          "जन्म के समय जीवन प्रत्याशा",
+          "वार्षिक निर्यात",
+          "जनसंख्या घनत्व",
+          "औसत वर्षा"
+        ],
+        "explanation": "मानक मानव विकास सूचकांक में जन्म के समय जीवन प्रत्याशा दीर्घायु आयाम दर्शाती है।"
+      },
+      "pa": {
+        "stem": "ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਦੇ ਸਿਹਤ ਪੱਖ ਲਈ ਕਿਹੜਾ ਸੰਕੇਤਕ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+        "options": [
+          "ਜਨਮ ਵੇਲੇ ਜੀਵਨ ਦੀ ਉਮੀਦ",
+          "ਸਾਲਾਨਾ ਨਿਰਯਾਤ",
+          "ਆਬਾਦੀ ਘਣਤਾ",
+          "ਔਸਤ ਮੀਂਹ"
+        ],
+        "explanation": "ਮਿਆਰੀ ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਵਿੱਚ ਜਨਮ ਵੇਲੇ ਜੀਵਨ ਦੀ ਉਮੀਦ ਲੰਮੀ ਉਮਰ ਵਾਲਾ ਪੱਖ ਦਰਸਾਉਂਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP041-Q020",
+    "cpId": "WGE-001-CP041",
+    "objective": "hdi-education-years",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "WGE-HDI-UNDP"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which pair of measures represents the education dimension in the current standard HDI method?",
+        "options": [
+          "Adult literacy and school enrolment only",
+          "Total school buildings and teachers",
+          "Years of schooling for children only",
+          "Mean years and expected years of schooling"
+        ],
+        "explanation": "The education dimension combines mean years of schooling among adults with expected years for children entering school."
+      },
+      "hi": {
+        "stem": "मानव विकास सूचकांक की मानक विधि में शिक्षा आयाम को कौन-से दो माप दर्शाते हैं?",
+        "options": [
+          "केवल वयस्क साक्षरता और विद्यालय नामांकन",
+          "कुल विद्यालय भवन और शिक्षक",
+          "केवल बच्चों के विद्यालयी वर्ष",
+          "शिक्षा के औसत वर्ष और अपेक्षित वर्ष"
+        ],
+        "explanation": "शिक्षा आयाम वयस्कों के शिक्षा के औसत वर्षों और विद्यालय में प्रवेश करने वाले बच्चों के अपेक्षित वर्षों को जोड़ता है।"
+      },
+      "pa": {
+        "stem": "ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਦੀ ਮਿਆਰੀ ਵਿਧੀ ਵਿੱਚ ਸਿੱਖਿਆ ਪੱਖ ਨੂੰ ਕਿਹੜੇ ਦੋ ਮਾਪ ਦਰਸਾਉਂਦੇ ਹਨ?",
+        "options": [
+          "ਸਿਰਫ਼ ਬਾਲਗ ਸਾਖਰਤਾ ਅਤੇ ਸਕੂਲ ਦਾਖ਼ਲਾ",
+          "ਕੁੱਲ ਸਕੂਲ ਇਮਾਰਤਾਂ ਅਤੇ ਅਧਿਆਪਕ",
+          "ਸਿਰਫ਼ ਬੱਚਿਆਂ ਦੇ ਪੜ੍ਹਾਈ ਸਾਲ",
+          "ਪੜ੍ਹਾਈ ਦੇ ਔਸਤ ਸਾਲ ਅਤੇ ਉਮੀਦ ਕੀਤੇ ਸਾਲ"
+        ],
+        "explanation": "ਸਿੱਖਿਆ ਪੱਖ ਬਾਲਗਾਂ ਦੇ ਪੜ੍ਹਾਈ ਦੇ ਔਸਤ ਸਾਲਾਂ ਨੂੰ ਸਕੂਲ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਣ ਵਾਲੇ ਬੱਚਿਆਂ ਦੇ ਉਮੀਦ ਕੀਤੇ ਸਾਲਾਂ ਨਾਲ ਜੋੜਦਾ ਹੈ।"
+      }
+    }
+  }
+]
