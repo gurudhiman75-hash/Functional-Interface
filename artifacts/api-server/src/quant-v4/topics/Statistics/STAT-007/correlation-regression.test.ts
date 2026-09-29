@@ -1,0 +1,10 @@
+import { generateStat007Question, generateStat007QuestionStudioBatch, solveStat007State } from "./correlation-regression";
+import { STAT007_CONTRACTS } from "./types";
+function assert(ok:unknown,msg:string):asserts ok{if(!ok)throw new Error(msg);}
+let generated=0;
+for(const profile of ["SSC_CGL_TIER_II","SSC_CGL_JSO"] as const)for(const contractId of STAT007_CONTRACTS)for(let i=0;i<25;i++){
+ const seed=`STAT007:${profile}:${contractId}:${i}`,q=generateStat007Question({seed,examProfile:profile,contractId}),replay=generateStat007Question({seed,examProfile:profile,contractId}),solved=solveStat007State(q.state);
+ assert(JSON.stringify(q)===JSON.stringify(replay),`Replay mismatch ${seed}`);assert(new Set(q.options).size===4,`Nonunique options ${seed}`);assert(q.options[q.correctIndex]===q.answer,`Answer key mismatch ${seed}`);assert((typeof solved==="number"?String(Math.round((solved+Number.EPSILON)*100)/100):solved)===q.answer,`Independent state mismatch ${seed}`);assert(q.questionBankWritable===false&&q.testEligible===false&&q.mockTestEligible===false&&q.publiclyPublishable===false&&q.automaticStudentPublication===false&&q.productionReleaseAuthorized===false,`Lifecycle lock failure ${seed}`);generated++;
+}
+const batch=generateStat007QuestionStudioBatch({packageId:"STAT-007",seed:"STAT007-BATCH",count:STAT007_CONTRACTS.length,examProfile:"SSC_CGL_JSO"});assert(batch.questions.length===STAT007_CONTRACTS.length,"Question Studio batch size");assert(new Set(batch.questions.map(q=>q.qlId)).size===STAT007_CONTRACTS.length,"Question Studio did not cover permanent QLs");assert(batch.generationContext.questionBankWritable===false&&batch.generationContext.manualApprovalRequired===true,"Question Studio lifecycle metadata");
+console.log(JSON.stringify({status:"PASS_STAT_007_CORRELATION_REGRESSION",contracts:STAT007_CONTRACTS.length,profiles:2,generated,replayChecks:generated,independentChecks:generated,qstudio:batch.questions.length,lifecycle:"CONTROLLED_REVIEW_ONLY"}));
