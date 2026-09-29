@@ -103,6 +103,11 @@ for (const qlId of WFM_001_QL_IDS) {
 
       if (qlId === "WFM-QL-001" || qlId === "WFM-QL-002") {
         assert(question.sourceWord);
+        for (const option of question.options) {
+          assert(question.explanation.includes(`${option.id}. ${option.text}:`), `${qlId}/${seed} explanation must inspect every option.`);
+        }
+        assert(/[✓✗]/u.test(question.explanation), `${qlId}/${seed} explanation must show per-letter availability marks.`);
+        assert(question.explanation.includes(`option ${question.correctOptionId} is correct`), `${qlId}/${seed} explanation must end with the correct option conclusion.`);
         sources.add(question.sourceWord!);
         sourcesByDifficulty[difficulty].add(question.sourceWord!);
         const correctLength = question.options[solved].text.length;
