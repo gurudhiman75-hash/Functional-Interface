@@ -1,11 +1,11 @@
 # CP037–CP040 Review Packet
 
-**Status:** CP037–CP038 have revised content pending review because duplicate questions were replaced. CP039–CP040 retain user approval from PR #2468. Every package remains review only and is not approved for student publication.
+**Status:** CP037–CP038 revised questions were approved after review in PR #2504; CP039–CP040 retain approval from PR #2468. Every package remains review only and is not approved for student publication.
 
 | Checkpoint | Focus | Questions | Status |
 |---|---|---:|---|
-| CP037 | Transport, Trade Routes and Ports | 6 | Revised; review required |
-| CP038 | Spatial Relationships and Integrated Geography | 6 | Revised; review required |
+| CP037 | Transport, Trade Routes and Ports | 6 | Revised; user approved |
+| CP038 | Spatial Relationships and Integrated Geography | 6 | Revised; user approved |
 | CP039 | Qualified Records and Common Confusions | 6 | User approved |
 | CP040 | Advanced Geographic Applications | 6 | User approved |
 
@@ -36,5 +36,5 @@
 ## Review checks
 
 - CP039–CP040 remain marked user approved.
-- CP037–CP038 replacements return to review required; their former approval does not apply to revised content.
+- CP037–CP038 revised content is user approved for authoring and localization.
 - All outputs remain review only. Student testing, publication and production release remain disabled.
