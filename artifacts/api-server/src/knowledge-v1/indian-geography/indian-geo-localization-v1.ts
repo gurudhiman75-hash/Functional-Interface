@@ -133,7 +133,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "flood":"ਹੜ੍ਹ","earthquake":"ਭੂਚਾਲ","landslide":"ਭੂਸਖਲਨ","tsunami":"ਸੁਨਾਮੀ","disaster management":"ਆਪਦਾ ਪ੍ਰਬੰਧਨ",
     "alluvial soil":"ਜਲੋੜ ਮਿੱਟੀ","black soil":"ਕਾਲੀ ਮਿੱਟੀ","red soil":"ਲਾਲ ਮਿੱਟੀ","laterite soil":"ਲੇਟਰਾਈਟ ਮਿੱਟੀ",
     "arid soil":"ਸੁੱਕੀ ਮਿੱਟੀ","forest soil":"ਜੰਗਲੀ ਮਿੱਟੀ","soil erosion":"ਮਿੱਟੀ ਕਟਾਅ","soil conservation":"ਮਿੱਟੀ ਸੰਭਾਲ",
-    "rice":"ਝੋਨਾ","wheat":"ਕਣਕ","maize":"ਮੱਕੀ","millets":"ਮੋਟੇ ਅਨਾਜ","cotton":"ਕਪਾਹ","jute":"ਜੂਟ","sugarcane":"ਕਮਾਦ","groundnut":"ਮੂੰਗਫ਼ਲੀ","mustard":"ਸਰ੍ਹੋਂ","soybean":"ਸੋਯਾਬੀਨ","jowar":"ਜੂਆਰ","bajra":"ਬਾਜਰਾ","gram":"ਛੋਲੇ",
+    "rice":"ਝੋਨਾ","wheat":"ਕਣਕ","maize":"ਮੱਕੀ","millets":"ਮੋਟੇ ਅਨਾਜ","cotton":"ਕਪਾਹ","jute":"ਜੂਟ","sugarcane":"ਕਮਾਦ","groundnut":"ਮੂੰਗਫ਼ਲੀ","mustard":"ਸਰ੍ਹੋਂ","soybean":"ਸੋਇਆਬੀਨ","jowar":"ਜੂਆਰ","bajra":"ਬਾਜਰਾ","gram":"ਛੋਲੇ",
     "tea":"ਚਾਹ","coffee":"ਕੌਫੀ","rubber":"ਰਬਰ","pulses":"ਦਾਲਾਂ","oilseeds":"ਤੇਲ ਬੀਜ ਫ਼ਸਲਾਂ","Kharif":"ਖਰੀਫ","Rabi":"ਰਬੀ","Zaid":"ਜ਼ਾਇਦ",
     "irrigation":"ਸਿੰਚਾਈ","groundwater":"ਭੂਜਲ","canal irrigation":"ਨਹਿਰੀ ਸਿੰਚਾਈ","tank irrigation":"ਟੈਂਕ ਸਿੰਚਾਈ",
     "drip irrigation":"ਡ੍ਰਿਪ ਸਿੰਚਾਈ","sprinkler irrigation":"ਸਪ੍ਰਿੰਕਲਰ ਸਿੰਚਾਈ","rainwater harvesting":"ਵਰਖਾ ਜਲ ਸੰਭਾਲ",
@@ -155,7 +155,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "neighbouring country":"ਪੜੋਸੀ ਦੇਸ਼","international boundary":"ਅੰਤਰਰਾਸ਼ਟਰੀ ਸਰਹੱਦ","coastline":"ਸਮੁੰਦਰੀ ਤਟਰੇਖਾ",
     "latitudinal extent":"ਅਕਸ਼ਾਂਸ਼ੀ ਫੈਲਾਅ","longitudinal extent":"ਦੇਸ਼ਾਂਤਰ ਫੈਲਾਅ","Standard Meridian":"ਮਿਆਰੀ ਮੱਧਿਆਹਨ ਰੇਖਾ",
     "Tropic of Cancer":"ਕਰਕ ਰੇਖਾ","Indian Standard Time":"ਭਾਰਤੀ ਮਿਆਰੀ ਸਮਾਂ",
-    "evergreen forest":"ਸਦਾਬਹਾਰ ਜੰਗਲ","deciduous forest":"ਪੱਤਝੜੀ ਜੰਗਲ","thorn forest":"ਕਾਂਟੇਦਾਰ ਜੰਗਲ","mangrove forest":"ਮੈਂਗਰੋਵ ਜੰਗਲ","tropical evergreen forest":"ਉਸ਼ਣਕਟੀਬੰਧੀ ਸਦਾਬਹਾਰ ਜੰਗਲ","tropical deciduous forest":"ਉਸ਼ਣਕਟੀਬੰਧੀ ਪੱਤਝੜੀ ਜੰਗਲ","tropical thorn forest":"ਉਸ਼ਣਕਟੀਬੰਧੀ ਕਾਂਟੇਦਾਰ ਜੰਗਲ","scrub":"ਝਾੜੀਦਾਰ ਬਨਸਪਤੀ","teak":"ਸਾਗਵਾਨ","sal":"ਸਾਲ","fir":"ਫਰ","spruce":"ਸਪ੍ਰੂਸ","acacia":"ਕੀਕਰ","babool":"ਬਬੂਲ","Nilgai":"ਨੀਲਗਾਇ","Gir Forest":"ਗਿਰ ਜੰਗਲ","Royal Bengal Tiger":"ਰੋਇਲ ਬੰਗਾਲ ਟਾਈਗਰ",
+    "evergreen forest":"ਸਦਾਬਹਾਰ ਜੰਗਲ","deciduous forest":"ਪੱਤਝੜੀ ਜੰਗਲ","thorn forest":"ਕਾਂਟੇਦਾਰ ਜੰਗਲ","mangrove forest":"ਮੈਂਗਰੋਵ ਜੰਗਲ","tropical evergreen forest":"ਉਸ਼ਣ ਸਦਾਬਹਾਰ ਵਣ","tropical deciduous forest":"ਊਸ਼ਣ-ਪੱਤਝੜੀ ਵਣ","tropical thorn forest":"ਉਸ਼ਣ ਕੰਡੇਦਾਰ ਵਣ","scrub":"ਝਾੜੀਦਾਰ ਬਨਸਪਤੀ","teak":"ਸਾਗਵਾਨ","sal":"ਸਾਲ","fir":"ਫਰ","spruce":"ਸਪ੍ਰੂਸ","acacia":"ਕੀਕਰ","babool":"ਬਬੂਲ","Nilgai":"ਨੀਲਗਾਇ","Gir Forest":"ਗਿਰ ਜੰਗਲ","Royal Bengal Tiger":"ਰੋਇਲ ਬੰਗਾਲ ਟਾਈਗਰ",
     "wildlife sanctuary":"ਜੰਗਲੀ ਜੀਵ ਅਭਿਆਰਣ","national park":"ਰਾਸ਼ਟਰੀ ਉਦਿਆਨ","biosphere reserve":"ਜੀਵਮੰਡਲ ਰਾਖਵਾਂ ਖੇਤਰ",
     "biodiversity":"ਜੈਵ ਵਿਭਿੰਨਤਾ","natural vegetation":"ਕੁਦਰਤੀ ਬਨਸਪਤੀ","forest":"ਜੰਗਲ","forests":"ਜੰਗਲ",
     "drainage basin":"ਨਿਕਾਸੀ ਬੇਸਿਨ","river basin":"ਨਦੀ ਬੇਸਿਨ","tributary":"ਸਹਾਇਕ ਨਦੀ","delta":"ਡੈਲਟਾ","estuary":"ਮੁਹਾਨਾ",
@@ -247,7 +247,7 @@ const WORDS: Record<"hi"|"pa", Record<string,string>> = {
 function replaceTerms(text: string, language: "hi"|"pa") {
   let out = text;
   for (const [from,to] of Object.entries(TERMS[language]).sort((a,b)=>b[0].length-a[0].length)) {
-    out = out.split(from).join(to);
+    out = out.replace(new RegExp(regexEscape(from), "gi"), to);
   }
   return out;
 }
