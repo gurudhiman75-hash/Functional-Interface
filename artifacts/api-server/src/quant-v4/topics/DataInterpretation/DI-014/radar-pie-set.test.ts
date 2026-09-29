@@ -14,7 +14,7 @@ for(let i=0;i<320;i++){
   for(const slice of set.pie.slices){assert(pie.includes(slice.category));assert(pie.includes(`>${slice.percent}%</text>`));}
   assert(pie.includes(String(set.pie.totalValue)));
   contexts.add(set.radar.title.split(" — ")[0]!);
-  for(const q of set.questions){questions++;tasks.add(q.kind);assert.equal(q.options.length,5);assert.equal(new Set(q.options).size,5);assert.equal(q.options[q.correctIndex],q.answer);assert(!/\d+\.\d+/u.test(q.answer));assert(q.explanation.steps.length>0);}
+  for(const q of set.questions){questions++;tasks.add(q.kind);assert.equal(q.options.length,5);assert.equal(new Set(q.options).size,5);assert.equal(q.options[q.correctIndex],q.answer);assert(!/\d+\.\d+/u.test(q.answer));assert(q.explanation.steps.length>0);if(q.kind==="APPROVAL_RATE_DIFFERENCE"){assert(/percentage points/u.test(q.stem),`${seed}: rate difference lacks percentage-point wording`);assert(/percentage points$/u.test(q.answer),`${seed}: rate difference answer has the wrong unit`);}}
 }
 assert.deepEqual([...tasks].sort(),[...DI014_TASKS].sort());
 assert(contexts.size>=3);
