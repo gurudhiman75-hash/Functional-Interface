@@ -1315,7 +1315,8 @@
     "explanation": "The decree suspended key civil liberties and enabled arrests and repression after the Reichstag fire.",
     "sourceIds": [
       "CP009-S05",
-      "CP009-S06"
+      "CP009-S06",
+      "CP009-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1351,7 +1352,8 @@
     "explanation": "The Enabling Act gave Hitler’s cabinet legislative power, undermining parliamentary government.",
     "sourceIds": [
       "CP009-S05",
-      "CP009-S06"
+      "CP009-S06",
+      "CP009-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1387,7 +1389,8 @@
     "explanation": "The Nazi regime combined legal changes with violence, propaganda and institutional control to destroy opposition.",
     "sourceIds": [
       "CP009-S05",
-      "CP009-S06"
+      "CP009-S06",
+      "CP009-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1423,7 +1426,8 @@
     "explanation": "Hitler’s appointment and subsequent consolidation involved several political and legal steps, supported by coercion and violence.",
     "sourceIds": [
       "CP009-S05",
-      "CP009-S06"
+      "CP009-S06",
+      "CP009-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1459,7 +1463,8 @@
     "explanation": "After January 1933, the Nazi government dismantled democratic institutions and consolidated dictatorial power.",
     "sourceIds": [
       "CP009-S05",
-      "CP009-S06"
+      "CP009-S06",
+      "CP009-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1495,7 +1500,8 @@
     "explanation": "The Nazi regime eliminated meaningful political competition and established a dictatorship.",
     "sourceIds": [
       "CP009-S05",
-      "CP009-S06"
+      "CP009-S06",
+      "CP009-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1530,7 +1536,8 @@
     "correctOption": "C",
     "explanation": "The Mukden Incident preceded Japan’s occupation and conquest of Manchuria.",
     "sourceIds": [
-      "CP009-S10"
+      "CP009-S10",
+      "CP009-S19"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1600,7 +1607,8 @@
     "correctOption": "A",
     "explanation": "Italy invaded Ethiopia in October 1935.",
     "sourceIds": [
-      "CP009-S12"
+      "CP009-S12",
+      "CP009-S19"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1635,7 +1643,9 @@
     "correctOption": "B",
     "explanation": "The League condemned the invasion and imposed sanctions, but these measures did not prevent Italy’s conquest.",
     "sourceIds": [
-      "CP009-S12"
+      "CP009-S09",
+      "CP009-S12",
+      "CP009-S19"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1670,7 +1680,8 @@
     "correctOption": "C",
     "explanation": "Foreign states and volunteers became involved on different sides; diplomatic efforts to limit intervention were contested and uneven.",
     "sourceIds": [
-      "CP009-S13"
+      "CP009-S13",
+      "CP009-S20"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1706,7 +1717,8 @@
     "explanation": "Japan’s expansion in Manchuria and Italy’s invasion of Ethiopia exposed the League’s inability to halt aggression.",
     "sourceIds": [
       "CP009-S10",
-      "CP009-S12"
+      "CP009-S12",
+      "CP009-S19"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false

@@ -108,6 +108,30 @@
       "title": "U.S. Department of State, Office of the Historian — The Potsdam Conference, 1945",
       "url": "https://history.state.gov/milestones/1937-1945/potsdam-conf",
       "use": "Dates, participants and postwar settlement at Potsdam after Germany’s surrender."
+    },
+    {
+      "sourceId": "CP010-S21",
+      "title": "U.S. Holocaust Memorial Museum — The Final Solution",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-final-solution",
+      "use": "The Holocaust’s definition, ghettos, killing centers, Auschwitz-Birkenau and the meaning of “Final Solution.”"
+    },
+    {
+      "sourceId": "CP010-S22",
+      "title": "U.S. Holocaust Memorial Museum — The Warsaw Polish Uprising",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-warsaw-polish-uprising",
+      "use": "The August 1944 Warsaw Uprising led by the Polish Home Army; distinguish it from the Warsaw Ghetto Uprising of 1943."
+    },
+    {
+      "sourceId": "CP010-S23",
+      "title": "Imperial War Museums — Spies, Saboteurs and D-Day",
+      "url": "https://www.iwm.org.uk/history/second-world-war/d-day/spies-saboteurs-and-d-day",
+      "use": "French Resistance intelligence and sabotage supporting Allied operations."
+    },
+    {
+      "sourceId": "CP010-S24",
+      "title": "GCHQ — How codebreakers helped fight the Battle of Britain",
+      "url": "https://www.gchq.gov.uk/information/how-codebreakers-helped-fight-battle-britain",
+      "use": "Bletchley Park decryption of German Enigma traffic and the intelligence it provided."
     }
   ],
   "facts": [
@@ -489,121 +513,134 @@
       "factId": "WHI-CP010-F037",
       "claim": "Stalin represented the Soviet Union at both conferences. Roosevelt represented the United States and Churchill represented Britain.",
       "sourceIds": [
-        "CP010-S07"
+        "CP010-S07",
+        "CP010-S11",
+        "CP010-S18"
       ],
-      "sourceLocator": "Allied strategy and leaders",
+      "sourceLocator": "CP010-S18, sections “Tehran Conference, 1943” and “Yalta Conference, 1945,” identifying Stalin as the Soviet leader at both; CP010-S11, “The Yalta Conference” section on the Big Three.",
       "relationshipType": "allied-strategy-leaders",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F038",
       "claim": "Nazi officials at Wannsee coordinated the implementation of the mass murder of European Jews. The genocide had already begun in occupied territories before the meeting.",
       "sourceIds": [
-        "CP010-S04"
+        "CP010-S04",
+        "CP010-S21"
       ],
-      "sourceLocator": "Holocaust and persecution",
+      "sourceLocator": "CP010-S21, “The Wannsee Conference” section: officials coordinated implementation of the Final Solution; the section chronology notes mass murder had already begun before January 1942.",
       "relationshipType": "holocaust-persecution",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F039",
       "claim": "The Holocaust was the systematic persecution and murder of six million European Jews by Nazi Germany and its collaborators. Other groups were also persecuted and murdered by the Nazi regime.",
       "sourceIds": [
-        "CP010-S04"
+        "CP010-S04",
+        "CP010-S21"
       ],
-      "sourceLocator": "Holocaust and persecution",
+      "sourceLocator": "CP010-S04, opening Holocaust definition; CP010-S21, opening paragraphs defining the systematic murder of European Jews and noting other groups targeted by Nazi persecution.",
       "relationshipType": "holocaust-persecution",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F040",
       "claim": "Nazi authorities forcibly concentrated Jewish residents in ghettos under conditions of deprivation and violence. Many people were later deported to killing centers or murdered locally.",
       "sourceIds": [
-        "CP010-S04"
+        "CP010-S04",
+        "CP010-S21"
       ],
-      "sourceLocator": "Holocaust and persecution",
+      "sourceLocator": "CP010-S21, section “Ghettos,” on forced concentration, deprivation and deportation of Jewish residents.",
       "relationshipType": "holocaust-persecution",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F041",
       "claim": "Auschwitz-Birkenau was a complex of concentration and killing camps in occupied Poland. It became one of the principal sites of the Holocaust.",
       "sourceIds": [
-        "CP010-S04"
+        "CP010-S04",
+        "CP010-S21"
       ],
-      "sourceLocator": "Holocaust and persecution",
+      "sourceLocator": "CP010-S21, section “Killing Centers,” entry on Auschwitz-Birkenau in occupied Poland.",
       "relationshipType": "holocaust-persecution",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F042",
       "claim": "Nazi officials used “Final Solution” as a euphemism for the genocide of Europe's Jews. The phrase concealed a policy of systematic mass murder.",
       "sourceIds": [
-        "CP010-S04"
+        "CP010-S04",
+        "CP010-S21"
       ],
-      "sourceLocator": "Holocaust and persecution",
+      "sourceLocator": "CP010-S21, opening section defining the Nazi euphemism “Final Solution to the Jewish Question” as the systematic mass murder of Europe’s Jews.",
       "relationshipType": "holocaust-persecution",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F043",
       "claim": "The Holocaust was a state-organised genocide during the Nazi era, carried out across Europe by Germany and collaborators. It unfolded through persecution, deportation, mass shootings and killing centers.",
       "sourceIds": [
-        "CP010-S04"
+        "CP010-S04",
+        "CP010-S21"
       ],
-      "sourceLocator": "Holocaust and persecution",
+      "sourceLocator": "CP010-S04, Holocaust definition and timeline; CP010-S21, sections on ghettos, mass shootings and killing centers as stages in Nazi Germany’s state-organized genocide.",
       "relationshipType": "holocaust-persecution",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F044",
       "claim": "Jewish resistance fighters began the Warsaw Ghetto Uprising in April 1943 when German forces moved to deport the remaining residents. German forces suppressed the revolt.",
       "sourceIds": [
-        "CP010-S10"
+        "CP010-S10",
+        "CP010-S21"
       ],
-      "sourceLocator": "Resistance and home fronts",
+      "sourceLocator": "CP010-S10, section on the Warsaw Ghetto Uprising, April–May 1943, following the German attempt to deport remaining residents.",
       "relationshipType": "resistance-home-fronts",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F045",
       "claim": "The Polish Home Army began the Warsaw Uprising in August 1944. It was a separate event from the 1943 Warsaw Ghetto Uprising.",
       "sourceIds": [
-        "CP010-S02"
+        "CP010-S02",
+        "CP010-S22"
       ],
-      "sourceLocator": "Resistance and home fronts",
+      "sourceLocator": "CP010-S22, opening section: the Polish Home Army began the Warsaw Uprising on August 1, 1944; separate it from the 1943 Warsaw Ghetto Uprising.",
       "relationshipType": "resistance-home-fronts",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F046",
       "claim": "Resistance groups in France gathered intelligence, circulated information and carried out sabotage. Their actions supported the Allied campaign but varied across networks and regions.",
       "sourceIds": [
-        "CP010-S02"
+        "CP010-S02",
+        "CP010-S23"
       ],
-      "sourceLocator": "Resistance and home fronts",
+      "sourceLocator": "CP010-S23, “Spies, Saboteurs and D-Day” section describing intelligence gathering and sabotage by the French Resistance in support of Allied operations.",
       "relationshipType": "resistance-home-fronts",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F047",
       "claim": "British codebreakers at Bletchley Park helped decipher German Enigma communications. This intelligence contributed to Allied planning and convoy protection.",
       "sourceIds": [
-        "CP010-S02"
+        "CP010-S02",
+        "CP010-S24"
       ],
-      "sourceLocator": "Resistance and home fronts",
+      "sourceLocator": "CP010-S24, section on Bletchley Park’s reading of German Luftwaffe Enigma messages from spring 1940 and the resulting intelligence for Fighter Command.",
       "relationshipType": "resistance-home-fronts",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F048",
       "claim": "Governments rationed food and other goods because wartime demand and disruption created shortages. The specific systems differed across countries.",
       "sourceIds": [
-        "CP010-S02"
+        "CP010-S02",
+        "CP010-S13"
       ],
-      "sourceLocator": "Resistance and home fronts",
+      "sourceLocator": "CP010-S13, “Rationing” section of the Second World War galleries guide: food and clothing shortages, ration books and the introduction of rationing in January 1940.",
       "relationshipType": "resistance-home-fronts",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F049",

@@ -448,7 +448,7 @@ What did the Reichstag Fire Decree of February 1933 enable the Nazi regime to do
 - **D.** Transfer Germany’s colonies to the League
 **Answer:** A
 **Explanation:** The decree suspended key civil liberties and enabled arrests and repression after the Reichstag fire.
-**Sources:** CP009-S05, CP009-S06
+**Sources:** CP009-S05, CP009-S06, CP009-S18
 
 ### WHI-CP009-Q038 · Medium · Policy and consolidation
 
@@ -460,7 +460,7 @@ What did the Enabling Act of March 1933 allow Hitler’s government to do?
 - **D.** End the Nazi government’s legislative authority
 **Answer:** B
 **Explanation:** The Enabling Act gave Hitler’s cabinet legislative power, undermining parliamentary government.
-**Sources:** CP009-S05, CP009-S06
+**Sources:** CP009-S05, CP009-S06, CP009-S18
 
 ### WHI-CP009-Q039 · Medium · Policy and consolidation
 
@@ -472,7 +472,7 @@ Which method did the Nazi regime use to consolidate control?
 - **D.** Transfer of government authority to the League of Nations
 **Answer:** C
 **Explanation:** The Nazi regime combined legal changes with violence, propaganda and institutional control to destroy opposition.
-**Sources:** CP009-S05, CP009-S06
+**Sources:** CP009-S05, CP009-S06, CP009-S18
 
 ### WHI-CP009-Q040 · Hard · Policy and consolidation
 
@@ -484,7 +484,7 @@ Which statement about the Nazi seizure of power is best supported?
 - **D.** A sequence of political appointments and legal changes helped dismantle democracy; it was not one single election result
 **Answer:** D
 **Explanation:** Hitler’s appointment and subsequent consolidation involved several political and legal steps, supported by coercion and violence.
-**Sources:** CP009-S05, CP009-S06
+**Sources:** CP009-S05, CP009-S06, CP009-S18
 
 ### WHI-CP009-Q041 · Hard · Policy and consolidation
 
@@ -496,7 +496,7 @@ Which development followed Hitler’s appointment as chancellor in 1933?
 - **D.** The German-Soviet Pact was signed that year
 **Answer:** A
 **Explanation:** After January 1933, the Nazi government dismantled democratic institutions and consolidated dictatorial power.
-**Sources:** CP009-S05, CP009-S06
+**Sources:** CP009-S05, CP009-S06, CP009-S18
 
 ### WHI-CP009-Q042 · Medium · Policy and consolidation
 
@@ -508,7 +508,7 @@ Which statement best describes the political outcome of Nazi consolidation?
 - **D.** Germany returned to the political system of 1871
 **Answer:** B
 **Explanation:** The Nazi regime eliminated meaningful political competition and established a dictatorship.
-**Sources:** CP009-S05, CP009-S06
+**Sources:** CP009-S05, CP009-S06, CP009-S18
 
 ### WHI-CP009-Q043 · Easy · Aggression and response
 
@@ -520,7 +520,7 @@ What did the Mukden Incident of 1931 precede?
 - **D.** The invasion of Poland
 **Answer:** C
 **Explanation:** The Mukden Incident preceded Japan’s occupation and conquest of Manchuria.
-**Sources:** CP009-S10
+**Sources:** CP009-S10, CP009-S19
 
 ### WHI-CP009-Q044 · Medium · League limitations and response
 
@@ -544,7 +544,7 @@ Which country did Fascist Italy invade in October 1935?
 - **D.** Poland
 **Answer:** A
 **Explanation:** Italy invaded Ethiopia in October 1935.
-**Sources:** CP009-S12
+**Sources:** CP009-S12, CP009-S19
 
 ### WHI-CP009-Q046 · Medium · League limitations and response
 
@@ -556,7 +556,7 @@ What was one consequence of Italy’s invasion of Ethiopia for the League of Nat
 - **D.** Ethiopia withdrew from the League before the invasion began
 **Answer:** B
 **Explanation:** The League condemned the invasion and imposed sanctions, but these measures did not prevent Italy’s conquest.
-**Sources:** CP009-S12
+**Sources:** CP009-S09, CP009-S12, CP009-S19
 
 ### WHI-CP009-Q047 · Hard · Aggression and response
 
@@ -568,7 +568,7 @@ Which statement about the Spanish Civil War is accurate?
 - **D.** No foreign government or volunteer took part
 **Answer:** C
 **Explanation:** Foreign states and volunteers became involved on different sides; diplomatic efforts to limit intervention were contested and uneven.
-**Sources:** CP009-S13
+**Sources:** CP009-S13, CP009-S20
 
 ### WHI-CP009-Q048 · Hard · Aggression and response
 
@@ -580,7 +580,7 @@ Which comparison between Manchuria and Ethiopia is accurate?
 - **D.** Japan occupied Manchuria after 1931, while Italy invaded Ethiopia in 1935; League responses failed to stop either expansion
 **Answer:** D
 **Explanation:** Japan’s expansion in Manchuria and Italy’s invasion of Ethiopia exposed the League’s inability to halt aggression.
-**Sources:** CP009-S10, CP009-S12
+**Sources:** CP009-S10, CP009-S12, CP009-S19
 
 ### WHI-CP009-Q049 · Easy · Diplomacy and appeasement
 

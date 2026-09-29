@@ -1303,7 +1303,9 @@
     "correctOption": "A",
     "explanation": "Stalin represented the Soviet Union at both conferences. Roosevelt represented the United States and Churchill represented Britain.",
     "sourceIds": [
-      "CP010-S07"
+      "CP010-S07",
+      "CP010-S11",
+      "CP010-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1338,7 +1340,8 @@
     "correctOption": "B",
     "explanation": "Nazi officials at Wannsee coordinated the implementation of the mass murder of European Jews. The genocide had already begun in occupied territories before the meeting.",
     "sourceIds": [
-      "CP010-S04"
+      "CP010-S04",
+      "CP010-S21"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1373,7 +1376,8 @@
     "correctOption": "C",
     "explanation": "The Holocaust was the systematic persecution and murder of six million European Jews by Nazi Germany and its collaborators. Other groups were also persecuted and murdered by the Nazi regime.",
     "sourceIds": [
-      "CP010-S04"
+      "CP010-S04",
+      "CP010-S21"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1408,7 +1412,8 @@
     "correctOption": "D",
     "explanation": "Nazi authorities forcibly concentrated Jewish residents in ghettos under conditions of deprivation and violence. Many people were later deported to killing centers or murdered locally.",
     "sourceIds": [
-      "CP010-S04"
+      "CP010-S04",
+      "CP010-S21"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1443,7 +1448,8 @@
     "correctOption": "A",
     "explanation": "Auschwitz-Birkenau was a complex of concentration and killing camps in occupied Poland. It became one of the principal sites of the Holocaust.",
     "sourceIds": [
-      "CP010-S04"
+      "CP010-S04",
+      "CP010-S21"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1478,7 +1484,8 @@
     "correctOption": "B",
     "explanation": "Nazi officials used “Final Solution” as a euphemism for the genocide of Europe's Jews. The phrase concealed a policy of systematic mass murder.",
     "sourceIds": [
-      "CP010-S04"
+      "CP010-S04",
+      "CP010-S21"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1513,7 +1520,8 @@
     "correctOption": "C",
     "explanation": "The Holocaust was a state-organised genocide during the Nazi era, carried out across Europe by Germany and collaborators. It unfolded through persecution, deportation, mass shootings and killing centers.",
     "sourceIds": [
-      "CP010-S04"
+      "CP010-S04",
+      "CP010-S21"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1548,7 +1556,8 @@
     "correctOption": "D",
     "explanation": "Jewish resistance fighters began the Warsaw Ghetto Uprising in April 1943 when German forces moved to deport the remaining residents. German forces suppressed the revolt.",
     "sourceIds": [
-      "CP010-S10"
+      "CP010-S10",
+      "CP010-S21"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1583,7 +1592,8 @@
     "correctOption": "A",
     "explanation": "The Polish Home Army began the Warsaw Uprising in August 1944. It was a separate event from the 1943 Warsaw Ghetto Uprising.",
     "sourceIds": [
-      "CP010-S02"
+      "CP010-S02",
+      "CP010-S22"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1618,7 +1628,8 @@
     "correctOption": "B",
     "explanation": "Resistance groups in France gathered intelligence, circulated information and carried out sabotage. Their actions supported the Allied campaign but varied across networks and regions.",
     "sourceIds": [
-      "CP010-S02"
+      "CP010-S02",
+      "CP010-S23"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1653,7 +1664,8 @@
     "correctOption": "C",
     "explanation": "British codebreakers at Bletchley Park helped decipher German Enigma communications. This intelligence contributed to Allied planning and convoy protection.",
     "sourceIds": [
-      "CP010-S02"
+      "CP010-S02",
+      "CP010-S24"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1688,7 +1700,8 @@
     "correctOption": "D",
     "explanation": "Governments rationed food and other goods because wartime demand and disruption created shortages. The specific systems differed across countries.",
     "sourceIds": [
-      "CP010-S02"
+      "CP010-S02",
+      "CP010-S13"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false

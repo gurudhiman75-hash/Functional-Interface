@@ -67,3 +67,15 @@ New source entries use focused sections. The 60-question pool, 18/30/12 difficul
 - **CP010-S18** U.S. Department of State, Office of the Historian — [Wartime Conferences, 1941–1945](https://history.state.gov/milestones/1937-1945/war-time-conferences). Covers Casablanca, Tehran, Yalta and Potsdam chronology.
 - **CP010-S19** U.S. Department of State, Office of the Historian — [Lend-Lease and Military Aid to the Allies in the Early Years of World War II](https://history.state.gov/milestones/1937-1945/lend-lease). Covers military assistance before U.S. entry and the purpose of Lend-Lease.
 - **CP010-S20** U.S. Department of State, Office of the Historian — [The Potsdam Conference, 1945](https://history.state.gov/milestones/1937-1945/potsdam-conf). Covers the July–August meeting after Germany’s surrender and its postwar agenda.
+
+
+## Focused source additions — Q037–Q048
+
+- **CP010-S21** U.S. Holocaust Memorial Museum — [The Final Solution](https://encyclopedia.ushmm.org/content/en/article/the-final-solution). Direct sections on the Holocaust, Wannsee, ghettos, killing centers and Auschwitz-Birkenau.
+- **CP010-S22** U.S. Holocaust Memorial Museum — [The Warsaw Polish Uprising](https://encyclopedia.ushmm.org/content/en/article/the-warsaw-polish-uprising). The Polish Home Army’s August 1944 uprising, distinct from the Warsaw Ghetto Uprising.
+- **CP010-S23** Imperial War Museums — [Spies, Saboteurs and D-Day](https://www.iwm.org.uk/history/second-world-war/d-day/spies-saboteurs-and-d-day). French Resistance intelligence and sabotage.
+- **CP010-S24** GCHQ — [How codebreakers helped fight the Battle of Britain](https://www.gchq.gov.uk/information/how-codebreakers-helped-fight-battle-britain). Bletchley Park’s Enigma decryption and resulting intelligence.
+
+## Source-locator pass — Q037–Q048
+
+Q037 points to the Tehran and Yalta conference sections; Q038–Q043 to direct Holocaust and Final Solution sections; Q044–Q045 distinguish the 1943 Warsaw Ghetto Uprising from the 1944 Polish Home Army uprising; Q046–Q047 use direct IWM/GCHQ evidence; Q048 uses the rationing section of the IWM galleries guide.

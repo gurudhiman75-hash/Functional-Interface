@@ -105,6 +105,24 @@
       "title": "U.S. Department of State, Office of the Historian — The Dawes Plan, the Young Plan, German Reparations, and Inter-allied War Debts",
       "url": "https://history.state.gov/milestones/1921-1936/dawes",
       "use": "The 1924 Dawes Plan, restructuring of German reparations, currency stabilization, and foreign/U.S. loans."
+    },
+    {
+      "sourceId": "CP009-S18",
+      "title": "U.S. Holocaust Memorial Museum — Foundations of the Nazi State",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/foundations-of-the-nazi-state",
+      "use": "Reichstag Fire Decree, Enabling Act, Gleichschaltung and dismantling of democratic institutions."
+    },
+    {
+      "sourceId": "CP009-S19",
+      "title": "U.S. Holocaust Memorial Museum — Axis Powers in World War II",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/axis-powers-in-world-war-ii",
+      "use": "Prewar Axis aggression chronology, including Japan in Manchuria and Italy’s invasion of Ethiopia."
+    },
+    {
+      "sourceId": "CP009-S20",
+      "title": "U.S. Department of State, Office of the Historian — Foreign Relations of the United States, 1937, Volume I, Document 272",
+      "url": "https://history.state.gov/historicaldocuments/frus1937v01/d272",
+      "use": "Contemporary report of German and Italian military participation and foreign volunteers on both sides of the Spanish Civil War."
     }
   ],
   "facts": [
@@ -498,76 +516,83 @@
       "claim": "The decree suspended key civil liberties and enabled arrests and repression after the Reichstag fire.",
       "sourceIds": [
         "CP009-S05",
-        "CP009-S06"
+        "CP009-S06",
+        "CP009-S18"
       ],
-      "sourceLocator": "Policy and consolidation",
+      "sourceLocator": "CP009-S18, section “Suspension of Civil Rights and the Reichstag Fire Decree,” paragraphs on the decree suspending civil liberties and enabling arrests.",
       "relationshipType": "policy-and-consolidation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F038",
       "claim": "The Enabling Act gave Hitler’s cabinet legislative power, undermining parliamentary government.",
       "sourceIds": [
         "CP009-S05",
-        "CP009-S06"
+        "CP009-S06",
+        "CP009-S18"
       ],
-      "sourceLocator": "Policy and consolidation",
+      "sourceLocator": "CP009-S18, section “Enabling Act and Hitler’s Rise as Führer,” paragraphs on the March 23, 1933 law transferring legislative power to Hitler’s cabinet.",
       "relationshipType": "policy-and-consolidation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F039",
       "claim": "The Nazi regime combined legal changes with violence, propaganda and institutional control to destroy opposition.",
       "sourceIds": [
         "CP009-S05",
-        "CP009-S06"
+        "CP009-S06",
+        "CP009-S18"
       ],
-      "sourceLocator": "Policy and consolidation",
+      "sourceLocator": "CP009-S18, “Gleichschaltung,” and “Enabling Act and Hitler’s Rise as Führer” sections on coordination of institutions, coercion and destruction of opposition.",
       "relationshipType": "policy-and-consolidation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F040",
       "claim": "Hitler’s appointment and subsequent consolidation involved several political and legal steps, supported by coercion and violence.",
       "sourceIds": [
         "CP009-S05",
-        "CP009-S06"
+        "CP009-S06",
+        "CP009-S18"
       ],
-      "sourceLocator": "Policy and consolidation",
+      "sourceLocator": "CP009-S06, 1933 chronology on Hitler’s appointment as chancellor; CP009-S18, sections on the Reichstag Fire Decree and Enabling Act as distinct steps in ending democracy.",
       "relationshipType": "policy-and-consolidation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F041",
       "claim": "After January 1933, the Nazi government dismantled democratic institutions and consolidated dictatorial power.",
       "sourceIds": [
         "CP009-S05",
-        "CP009-S06"
+        "CP009-S06",
+        "CP009-S18"
       ],
-      "sourceLocator": "Policy and consolidation",
+      "sourceLocator": "CP009-S18, section “Gleichschaltung,” on dismantling democratic institutions and bringing state institutions under Nazi control after January 1933.",
       "relationshipType": "policy-and-consolidation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F042",
       "claim": "The Nazi regime eliminated meaningful political competition and established a dictatorship.",
       "sourceIds": [
         "CP009-S05",
-        "CP009-S06"
+        "CP009-S06",
+        "CP009-S18"
       ],
-      "sourceLocator": "Policy and consolidation",
+      "sourceLocator": "CP009-S18, section “The Nazi Party Becomes the Only Political Party,” on the July 1933 law prohibiting other political parties and establishing one-party rule.",
       "relationshipType": "policy-and-consolidation",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F043",
       "claim": "The Mukden Incident preceded Japan’s occupation and conquest of Manchuria.",
       "sourceIds": [
-        "CP009-S10"
+        "CP009-S10",
+        "CP009-S19"
       ],
-      "sourceLocator": "Aggression and response",
+      "sourceLocator": "CP009-S10, “Japanese Expansion in Manchuria” and “The Mukden Incident” sections; CP009-S19, opening Axis aggression chronology noting Japan’s seizure of Manchuria in 1931.",
       "relationshipType": "aggression-and-response",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F044",
@@ -575,50 +600,55 @@
       "sourceIds": [
         "CP009-S10"
       ],
-      "sourceLocator": "League limitations and response",
+      "sourceLocator": "CP009-S10, “The Lytton Report” section, paragraphs on the League investigation, its findings and Japan’s refusal to accept the report.",
       "relationshipType": "league-limitations-and-response",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F045",
       "claim": "Italy invaded Ethiopia in October 1935.",
       "sourceIds": [
-        "CP009-S12"
+        "CP009-S12",
+        "CP009-S19"
       ],
-      "sourceLocator": "Aggression and response",
+      "sourceLocator": "CP009-S19, opening paragraph on Italy’s invasion of Ethiopia on October 3, 1935; CP009-S12, subsection II on the Italian invasion, October–December 1935.",
       "relationshipType": "aggression-and-response",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F046",
       "claim": "The League condemned the invasion and imposed sanctions, but these measures did not prevent Italy’s conquest.",
       "sourceIds": [
-        "CP009-S12"
+        "CP009-S09",
+        "CP009-S12",
+        "CP009-S19"
       ],
-      "sourceLocator": "League limitations and response",
+      "sourceLocator": "CP009-S09, Covenant Article 16 and following discussion of sanctions against Italy and their failure to prevent occupation; CP009-S12, Ethiopia section II, documents 543–593.",
       "relationshipType": "league-limitations-and-response",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F047",
       "claim": "Foreign states and volunteers became involved on different sides; diplomatic efforts to limit intervention were contested and uneven.",
       "sourceIds": [
-        "CP009-S13"
+        "CP009-S13",
+        "CP009-S20"
       ],
-      "sourceLocator": "Aggression and response",
+      "sourceLocator": "CP009-S20, document 272, opening paragraphs reporting German and Italian military participation and volunteers on both sides; CP009-S13, Spanish Civil War non-intervention papers.",
       "relationshipType": "aggression-and-response",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F048",
       "claim": "Japan’s expansion in Manchuria and Italy’s invasion of Ethiopia exposed the League’s inability to halt aggression.",
       "sourceIds": [
         "CP009-S10",
-        "CP009-S12"
+        "CP009-S12",
+        "CP009-S19"
       ],
-      "sourceLocator": "Aggression and response",
+      "sourceLocator": "CP009-S10, “Lytton Report” section on Japan’s continued control of Manchuria; CP009-S19, opening Axis aggression chronology on Italy’s invasion of Ethiopia; CP009-S09, Article 16 discussion of sanctions failing to prevent occupation.",
       "relationshipType": "aggression-and-response",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F049",

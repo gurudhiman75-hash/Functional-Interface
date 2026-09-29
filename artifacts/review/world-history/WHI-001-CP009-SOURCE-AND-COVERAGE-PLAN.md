@@ -49,3 +49,14 @@
 ## Source-locator pass — Q025–Q036
 
 Passage-level locators for Q025–Q030 point to the Great Depression’s global impact and Weimar Germany sections; Q031–Q036 point to the USHMM Mussolini and Nazi rise articles and the dated Hitler appointment chronology. Existing source IDs were retained where the cited passages directly support the claim.
+
+
+## Focused source additions — Q037–Q048
+
+- **CP009-S18** U.S. Holocaust Memorial Museum — [Foundations of the Nazi State](https://encyclopedia.ushmm.org/content/en/article/foundations-of-the-nazi-state). Direct sections on the Reichstag Fire Decree, Enabling Act, Gleichschaltung and one-party rule.
+- **CP009-S19** U.S. Holocaust Memorial Museum — [Axis Powers in World War II](https://encyclopedia.ushmm.org/content/en/article/axis-powers-in-world-war-ii). Direct chronology for Japanese expansion in Manchuria and Italy’s invasion of Ethiopia.
+- **CP009-S20** U.S. Department of State, Office of the Historian — [FRUS 1937, Volume I, Document 272](https://history.state.gov/historicaldocuments/frus1937v01/d272). Contemporary report naming German and Italian forces and volunteers on both sides in Spain.
+
+## Source-locator pass — Q037–Q048
+
+CP009 Q037–Q042 now point to the Reichstag Fire Decree, Enabling Act, Gleichschaltung and one-party rule sections; Q043–Q044 point to the Mukden/Lytton sections; Q045–Q046 to the Ethiopia invasion and League Article 16 response; and Q047–Q048 to focused Spanish Civil War and collective-security evidence.

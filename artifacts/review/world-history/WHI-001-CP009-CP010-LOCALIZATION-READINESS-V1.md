@@ -16,10 +16,10 @@ The source register and source IDs exist for both chapters. Most canonical facts
 
 | Checkpoint | Canonical facts | Family-level locators | Focused locators |
 |---|---:|---:|---:|
-| CP009 | 60 | 19 | 41 |
-| CP010 | 60 | 24 | 36 |
+| CP009 | 60 | 7 | 53 |
+| CP010 | 60 | 12 | 48 |
 
-The focused locators include the six facts revised in the overlap work (CP009 Q058–Q059; CP010 Q004–Q006/Q028) and the opening chronology facts now verified (CP009 Q055–Q057; CP010 Q001–Q003), CP009 League/mandate facts Q001–Q012, and CP010 early campaigns Q007–Q012, European/Pacific theatre facts Q013–Q024; CP010 Q017 is now assigned to the Pacific family. New direct sources were added for the Dawes Plan (CP009-S17), island-hopping strategy (CP010-S16), Coral Sea (CP010-S17), wartime conferences (CP010-S18), Lend-Lease (CP010-S19), and Potsdam (CP010-S20). The current pass verified CP009 Q025–Q036 and CP010 Q025–Q036. The locator count does not claim the remaining source citations are factually wrong; it shows that those facts still need passage-level verification.
+Focused CP009 locators cover Q001–Q048 and Q055–Q059, leaving Q049–Q054 and Q060 at family level; CP010 locators cover Q001–Q048, leaving Q049–Q060 at family level. This pass added passage-level references for CP009 Q037–Q048 (Nazi consolidation, Japanese and Italian aggression, League responses and Spanish Civil War intervention) and CP010 Q037–Q048 (Allied conferences, Holocaust terminology and sites, both Warsaw uprisings, French Resistance, Enigma and rationing). Earlier focused additions include the Dawes Plan (CP009-S17), island-hopping (CP010-S16), Coral Sea (CP010-S17), wartime conferences (CP010-S18), Lend-Lease (CP010-S19) and Potsdam (CP010-S20). CP010 Q017 remains correctly assigned to the Pacific family. The remaining 7 CP009 and 12 CP010 family-level locators still need passage verification; this count does not itself indicate that their source claims are incorrect.
 
 ## Required sequence
 
