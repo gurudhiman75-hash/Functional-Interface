@@ -20,7 +20,7 @@ function options(correct:string,seed:string,noCorrection:boolean){
 }
 function choose(input:Eng012QuestionInputV2){if(input.authorityId){const x=ENG012_ACTIVE_AUTHORITIES_V2.find(a=>a.id===input.authorityId);if(!x)throw new Error(`Unknown ENG-012 authority ${input.authorityId}`);return x;}let pool=ENG012_ACTIVE_AUTHORITIES_V2;if(input.cpId)pool=pool.filter(x=>x.cpId===input.cpId);if(input.difficulty)pool=pool.filter(x=>x.difficulty===input.difficulty);if(!pool.length)throw new Error("No ENG-012 authority matches the requested filters");return pick(pool,input.seed??"eng012-default");}
 function wordsFor(a:Eng012AuthorityV1,seed:string){const surfaces=[a.natural,...(a.variants??[])];return surfaces[hash(`${seed}:surface:${a.id}`)%surfaces.length]!;}
-const EMPHASIS=["correct swap","natural phrase","fits naturally","corrected sentence"]as const;
+const EMPHASIS=["correct swap","natural phrase","fits naturally","corrected sentence","no correction is required"]as const;
 function explanationEmphasis(text:string){return EMPHASIS.filter(x=>text.toLowerCase().includes(x));}
 
 export function generateEng012QuestionV2(input:Eng012QuestionInputV2={}){
