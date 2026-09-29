@@ -107,11 +107,12 @@
       "claim": "The mandate system placed former German and Ottoman territories under administration by other powers, formally under League oversight.",
       "sourceIds": [
         "CP009-S01",
-        "CP009-S02"
+        "CP009-S02",
+        "CP009-S09"
       ],
-      "sourceLocator": "Treaty and settlement",
+      "sourceLocator": "CP009-S09, Article 22, paragraphs 1 and 4, and the note to Article 22 on the territories subject to mandates.",
       "relationshipType": "treaty-and-settlement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F002",
@@ -120,9 +121,9 @@
         "CP009-S01",
         "CP009-S09"
       ],
-      "sourceLocator": "Treaty and settlement",
+      "sourceLocator": "CP009-S09, Article 22, paragraph 9, creating the permanent Commission to review mandatory reports and advise the League Council.",
       "relationshipType": "treaty-and-settlement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F003",
@@ -131,20 +132,21 @@
         "CP009-S01",
         "CP009-S09"
       ],
-      "sourceLocator": "Treaty and settlement",
+      "sourceLocator": "CP009-S09, Article 22, paragraphs 1–4 and the note identifying former Ottoman and German territories placed under mandates.",
       "relationshipType": "treaty-and-settlement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F004",
       "claim": "Former Ottoman territories in the Middle East were assigned to British and French administration under the mandate system.",
       "sourceIds": [
         "CP009-S01",
-        "CP009-S02"
+        "CP009-S02",
+        "CP009-S09"
       ],
-      "sourceLocator": "Treaty and settlement",
+      "sourceLocator": "CP009-S09, note to Article 22, paragraph on former Ottoman territories and the assignment of Syria to France and Mesopotamia and Palestine to Great Britain.",
       "relationshipType": "treaty-and-settlement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F005",
@@ -153,9 +155,9 @@
         "CP009-S01",
         "CP009-S09"
       ],
-      "sourceLocator": "Treaty and settlement",
+      "sourceLocator": "CP009-S09, Article 22, paragraph 4; Treaty of Sèvres Article 94 quoted in the note, describing provisional independence subject to administrative advice and assistance.",
       "relationshipType": "treaty-and-settlement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F006",
@@ -164,9 +166,9 @@
         "CP009-S01",
         "CP009-S02"
       ],
-      "sourceLocator": "Treaty and settlement",
+      "sourceLocator": "CP009-S02, section on the territorial terms of the Treaty of Versailles; CP009-S09, Article 22 and note on mandated territories.",
       "relationshipType": "treaty-and-settlement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F007",
@@ -175,9 +177,9 @@
         "CP009-S01",
         "CP009-S09"
       ],
-      "sourceLocator": "League and security",
+      "sourceLocator": "CP009-S01, opening paragraph on the League’s purpose and paragraph describing Wilson’s collective-security aims.",
       "relationshipType": "league-and-security",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F008",
@@ -186,9 +188,9 @@
         "CP009-S01",
         "CP009-S09"
       ],
-      "sourceLocator": "League and security",
+      "sourceLocator": "CP009-S01, paragraph on Senate opposition to ratification and concluding paragraph stating that the United States never joined the League.",
       "relationshipType": "league-and-security",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F009",
@@ -197,9 +199,9 @@
         "CP009-S01",
         "CP009-S09"
       ],
-      "sourceLocator": "League and security",
+      "sourceLocator": "CP009-S01, paragraph describing Wilson’s collective-security principles; CP009-S09, Articles 10 and 11 on territorial integrity and threats to peace.",
       "relationshipType": "league-and-security",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F010",
@@ -208,9 +210,9 @@
         "CP009-S01",
         "CP009-S09"
       ],
-      "sourceLocator": "League and security",
+      "sourceLocator": "CP009-S01, paragraph listing the League’s main organs; CP009-S09, Articles 3 and 4 on the Assembly and Council.",
       "relationshipType": "league-and-security",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F011",
@@ -219,9 +221,9 @@
         "CP009-S01",
         "CP009-S09"
       ],
-      "sourceLocator": "League and security",
+      "sourceLocator": "CP009-S09, Article 16, paragraphs 2–3; the Council recommends forces for member governments to contribute and members provide passage for cooperating forces.",
       "relationshipType": "league-and-security",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F012",
@@ -230,9 +232,9 @@
         "CP009-S01",
         "CP009-S09"
       ],
-      "sourceLocator": "League and security",
+      "sourceLocator": "CP009-S01, paragraphs on Senate opposition, the failed ratification vote, and the League’s reduced effectiveness without U.S. participation.",
       "relationshipType": "league-and-security",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F013",
