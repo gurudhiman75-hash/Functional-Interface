@@ -106,13 +106,23 @@ jobs:
 
   wave4-verification:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/wave4-verification-proof.test.ts
+      - name: Run Wave 4 and deep-audit regressions
+        run: |
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/wave4-verification-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/query-extensions-v1-audit.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/query-extensions-v2-audit.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/sea-001-ql-candidate-registry-v1-audit.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/ql-registry-audit.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/difficulty-v1-audit.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/verification/question-studio-schema-audit.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/english-review-v1-audit.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/english-review-pack-v1-audit.test.ts
 
   cp005-review-export:
     runs-on: ubuntu-latest
