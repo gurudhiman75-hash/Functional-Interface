@@ -80,7 +80,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "flood":"बाढ़","earthquake":"भूकंप","landslide":"भूस्खलन","tsunami":"सुनामी","disaster management":"आपदा प्रबंधन",
     "alluvial soil":"जलोढ़ मिट्टी","black soil":"काली मिट्टी","red soil":"लाल मिट्टी","laterite soil":"लेटराइट मिट्टी",
     "arid soil":"शुष्क मिट्टी","forest soil":"वन मिट्टी","soil erosion":"मृदा अपरदन","soil conservation":"मृदा संरक्षण",
-    "rice":"चावल","wheat":"गेहूँ","maize":"मक्का","millets":"मोटे अनाज","cotton":"कपास","jute":"जूट","sugarcane":"गन्ना",
+    "rice":"चावल","wheat":"गेहूँ","maize":"मक्का","millets":"मोटे अनाज","cotton":"कपास","jute":"जूट","sugarcane":"गन्ना","groundnut":"मूंगफली","mustard":"सरसों","soybean":"सोयाबीन","jowar":"ज्वार","bajra":"बाजरा","gram":"चना",
     "tea":"चाय","coffee":"कॉफी","rubber":"रबर","pulses":"दलहन","oilseeds":"तिलहन","Kharif":"खरीफ","Rabi":"रबी","Zaid":"जायद",
     "irrigation":"सिंचाई","groundwater":"भूजल","canal irrigation":"नहर सिंचाई","tank irrigation":"टैंक सिंचाई",
     "drip irrigation":"ड्रिप सिंचाई","sprinkler irrigation":"स्प्रिंकलर सिंचाई","rainwater harvesting":"वर्षा जल संचयन",
@@ -102,7 +102,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "neighbouring country":"पड़ोसी देश","international boundary":"अंतरराष्ट्रीय सीमा","coastline":"समुद्र तटरेखा",
     "latitudinal extent":"अक्षांशीय विस्तार","longitudinal extent":"देशांतर विस्तार","Standard Meridian":"मानक मध्याह्न रेखा",
     "Tropic of Cancer":"कर्क रेखा","Indian Standard Time":"भारतीय मानक समय",
-    "evergreen forest":"सदाबहार वन","deciduous forest":"पर्णपाती वन","thorn forest":"कांटेदार वन","mangrove forest":"मैंग्रोव वन",
+    "evergreen forest":"सदाबहार वन","deciduous forest":"पर्णपाती वन","thorn forest":"कांटेदार वन","mangrove forest":"मैंग्रोव वन","tropical evergreen forest":"उष्णकटिबंधीय सदाबहार वन","tropical deciduous forest":"उष्णकटिबंधीय पर्णपाती वन","tropical thorn forest":"उष्णकटिबंधीय कांटेदार वन","scrub":"झाड़ीदार वनस्पति","teak":"सागौन","sal":"साल","fir":"फर","spruce":"स्प्रूस","acacia":"बबूल","babool":"बबूल","Nilgai":"नीलगाय","Gir Forest":"गिर वन","Royal Bengal Tiger":"रॉयल बंगाल टाइगर",
     "wildlife sanctuary":"वन्यजीव अभयारण्य","national park":"राष्ट्रीय उद्यान","biosphere reserve":"जैवमंडल आरक्षित क्षेत्र",
     "biodiversity":"जैव विविधता","natural vegetation":"प्राकृतिक वनस्पति","forest":"वन","forests":"वन",
     "drainage basin":"अपवाह बेसिन","river basin":"नदी बेसिन","tributary":"सहायक नदी","delta":"डेल्टा","estuary":"मुहाना",
@@ -133,7 +133,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "flood":"ਹੜ੍ਹ","earthquake":"ਭੂਚਾਲ","landslide":"ਭੂਸਖਲਨ","tsunami":"ਸੁਨਾਮੀ","disaster management":"ਆਪਦਾ ਪ੍ਰਬੰਧਨ",
     "alluvial soil":"ਜਲੋੜ ਮਿੱਟੀ","black soil":"ਕਾਲੀ ਮਿੱਟੀ","red soil":"ਲਾਲ ਮਿੱਟੀ","laterite soil":"ਲੇਟਰਾਈਟ ਮਿੱਟੀ",
     "arid soil":"ਸੁੱਕੀ ਮਿੱਟੀ","forest soil":"ਜੰਗਲੀ ਮਿੱਟੀ","soil erosion":"ਮਿੱਟੀ ਕਟਾਅ","soil conservation":"ਮਿੱਟੀ ਸੰਭਾਲ",
-    "rice":"ਚੌਲ","wheat":"ਕਣਕ","maize":"ਮੱਕੀ","millets":"ਮੋਟੇ ਅਨਾਜ","cotton":"ਕਪਾਹ","jute":"ਜੂਟ","sugarcane":"ਗੰਨਾ",
+    "rice":"ਚੌਲ","wheat":"ਕਣਕ","maize":"ਮੱਕੀ","millets":"ਮੋਟੇ ਅਨਾਜ","cotton":"ਕਪਾਹ","jute":"ਜੂਟ","sugarcane":"ਗੰਨਾ","groundnut":"ਮੂੰਗਫਲੀ","mustard":"ਸਰੋਂ","soybean":"ਸੋਯਾਬੀਨ","jowar":"ਜਵਾਰ","bajra":"ਬਾਜਰਾ","gram":"ਚਣਾ",
     "tea":"ਚਾਹ","coffee":"ਕੌਫੀ","rubber":"ਰਬਰ","pulses":"ਦਾਲਾਂ","oilseeds":"ਤਿਲਹਨ","Kharif":"ਖਰੀਫ","Rabi":"ਰਬੀ","Zaid":"ਜ਼ਾਇਦ",
     "irrigation":"ਸਿੰਚਾਈ","groundwater":"ਭੂਜਲ","canal irrigation":"ਨਹਿਰੀ ਸਿੰਚਾਈ","tank irrigation":"ਟੈਂਕ ਸਿੰਚਾਈ",
     "drip irrigation":"ਡ੍ਰਿਪ ਸਿੰਚਾਈ","sprinkler irrigation":"ਸਪ੍ਰਿੰਕਲਰ ਸਿੰਚਾਈ","rainwater harvesting":"ਵਰਖਾ ਜਲ ਸੰਭਾਲ",
@@ -155,7 +155,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "neighbouring country":"ਪੜੋਸੀ ਦੇਸ਼","international boundary":"ਅੰਤਰਰਾਸ਼ਟਰੀ ਸਰਹੱਦ","coastline":"ਸਮੁੰਦਰੀ ਤਟਰੇਖਾ",
     "latitudinal extent":"ਅਕਸ਼ਾਂਸ਼ੀ ਫੈਲਾਅ","longitudinal extent":"ਦੇਸ਼ਾਂਤਰ ਫੈਲਾਅ","Standard Meridian":"ਮਿਆਰੀ ਮੱਧਿਆਹਨ ਰੇਖਾ",
     "Tropic of Cancer":"ਕਰਕ ਰੇਖਾ","Indian Standard Time":"ਭਾਰਤੀ ਮਿਆਰੀ ਸਮਾਂ",
-    "evergreen forest":"ਸਦਾਬਹਾਰ ਜੰਗਲ","deciduous forest":"ਪੱਤਝੜੀ ਜੰਗਲ","thorn forest":"ਕਾਂਟੇਦਾਰ ਜੰਗਲ","mangrove forest":"ਮੈਂਗਰੋਵ ਜੰਗਲ",
+    "evergreen forest":"ਸਦਾਬਹਾਰ ਜੰਗਲ","deciduous forest":"ਪੱਤਝੜੀ ਜੰਗਲ","thorn forest":"ਕਾਂਟੇਦਾਰ ਜੰਗਲ","mangrove forest":"ਮੈਂਗਰੋਵ ਜੰਗਲ","tropical evergreen forest":"ਉਸ਼ਣਕਟੀਬੰਧੀ ਸਦਾਬਹਾਰ ਜੰਗਲ","tropical deciduous forest":"ਉਸ਼ਣਕਟੀਬੰਧੀ ਪੱਤਝੜੀ ਜੰਗਲ","tropical thorn forest":"ਉਸ਼ਣਕਟੀਬੰਧੀ ਕਾਂਟੇਦਾਰ ਜੰਗਲ","scrub":"ਝਾੜੀਦਾਰ ਬਨਸਪਤੀ","teak":"ਸਾਗਵਾਨ","sal":"ਸਾਲ","fir":"ਫਰ","spruce":"ਸਪ੍ਰੂਸ","acacia":"ਕੀਕਰ","babool":"ਬਬੂਲ","Nilgai":"ਨੀਲਗਾਇ","Gir Forest":"ਗਿਰ ਜੰਗਲ","Royal Bengal Tiger":"ਰੋਇਲ ਬੰਗਾਲ ਟਾਈਗਰ",
     "wildlife sanctuary":"ਜੰਗਲੀ ਜੀਵ ਅਭਿਆਰਣ","national park":"ਰਾਸ਼ਟਰੀ ਉਦਿਆਨ","biosphere reserve":"ਜੀਵਮੰਡਲ ਰਾਖਵਾਂ ਖੇਤਰ",
     "biodiversity":"ਜੈਵ ਵਿਭਿੰਨਤਾ","natural vegetation":"ਕੁਦਰਤੀ ਬਨਸਪਤੀ","forest":"ਜੰਗਲ","forests":"ਜੰਗਲ",
     "drainage basin":"ਨਿਕਾਸੀ ਬੇਸਿਨ","river basin":"ਨਦੀ ਬੇਸਿਨ","tributary":"ਸਹਾਇਕ ਨਦੀ","delta":"ਡੈਲਟਾ","estuary":"ਮੁਹਾਨਾ",
@@ -343,6 +343,72 @@ function localizeNaturalStem(text: string, language: "hi"|"pa", packageId?: stri
 
     m = text.match(/^Western disturbances generally enter India from which side of the country\?$/);
     if (m) return hi ? "पश्चिमी विक्षोभ सामान्यतः भारत में किस दिशा से प्रवेश करते हैं?" : "ਪੱਛਮੀ ਵਿਘਨ ਆਮ ਤੌਰ ਤੇ ਭਾਰਤ ਵਿੱਚ ਕਿਹੜੀ ਦਿਸ਼ਾ ਤੋਂ ਦਾਖਲ ਹੁੰਦੇ ਹਨ?";
+  }
+
+  if (packageId === "GEO-SOI-001") {
+    let m = text.match(/^Which parent material is most closely linked with the formation of (.+?) in peninsular India\?$/);
+    if (m) return hi ? `प्रायद्वीपीय भारत में ${f(m[1])} के निर्माण से कौन-सा मूल पदार्थ सबसे अधिक जुड़ा है?` : `ਪ੍ਰਾਇਦੀਪੀ ਭਾਰਤ ਵਿੱਚ ${f(m[1])} ਦੇ ਬਣਨ ਨਾਲ ਕਿਹੜਾ ਮੂਲ ਪਦਾਰਥ ਸਭ ਤੋਂ ਵੱਧ ਜੁੜਿਆ ਹੈ?`;
+
+    m = text.match(/^A soil map shows a continuous belt across (.+?)\. Which soil is being shown\?$/);
+    if (m) return hi ? `${f(m[1])} में फैली लगातार पट्टी मानचित्र पर किस मिट्टी को दर्शाती है?` : `${f(m[1])} ਵਿੱਚ ਫੈਲੀ ਲਗਾਤਾਰ ਪੱਟੀ ਨਕਸ਼ੇ ਉੱਤੇ ਕਿਹੜੀ ਮਿੱਟੀ ਦਰਸਾਉਂਦੀ ਹੈ?`;
+
+    m = text.match(/^Which combination is most typical of (.+?) occurrence\?$/);
+    if (m) return hi ? `${f(m[1])} की उपस्थिति के लिए कौन-सा संयोजन सबसे सामान्य है?` : `${f(m[1])} ਦੀ ਮੌਜੂਦਗੀ ਲਈ ਕਿਹੜਾ ਜੋੜ ਸਭ ਤੋਂ ਆਮ ਹੈ?`;
+
+    m = text.match(/^Which statement best distinguishes soil erosion from soil formation\?$/);
+    if (m) return hi ? "मृदा अपरदन और मृदा निर्माण के बीच अंतर को कौन-सा कथन सबसे सही बताता है?" : "ਮਿੱਟੀ ਕਟਾਅ ਅਤੇ ਮਿੱਟੀ ਬਣਨ ਵਿਚਲਾ ਫਰਕ ਕਿਹੜਾ ਕਥਨ ਸਭ ਤੋਂ ਸਹੀ ਦੱਸਦਾ ਹੈ?";
+
+    m = text.match(/^Which set of soil-formation pairs is fully correct\?$/);
+    if (m) return hi ? "मिट्टी और उसके निर्माण की प्रक्रियाओं का कौन-सा समूह पूरी तरह सही है?" : "ਮਿੱਟੀ ਅਤੇ ਉਸਦੀ ਬਣਤਰ ਦੀਆਂ ਪ੍ਰਕਿਰਿਆਵਾਂ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸਹੀ ਹੈ?";
+  }
+
+  if (packageId === "GEO-AGR-001") {
+    let m = text.match(/^A crop is sown soon after monsoon rain arrives and harvested after the rainy season\. Which crop season does this describe\?$/);
+    if (m) return hi ? "मानसूनी वर्षा शुरू होने के बाद बोई और वर्षा ऋतु के बाद काटी जाने वाली फसल किस मौसम की होती है?" : "ਮਾਨਸੂਨੀ ਵਰਖਾ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਬੀਜੀ ਅਤੇ ਵਰਖਾ ਰੁੱਤ ਤੋਂ ਬਾਅਦ ਕੱਟੀ ਜਾਣ ਵਾਲੀ ਫਸਲ ਕਿਹੜੇ ਮੌਸਮ ਦੀ ਹੁੰਦੀ ਹੈ?";
+
+    m = text.match(/^Which rainfall condition naturally favours (.+?) without heavy irrigation support\?$/);
+    if (m) return hi ? `अधिक सिंचाई के बिना ${f(m[1])} की खेती के लिए कौन-सी वर्षा स्थिति स्वाभाविक रूप से अनुकूल है?` : `ਵੱਧ ਸਿੰਚਾਈ ਤੋਂ ਬਿਨਾਂ ${f(m[1])} ਦੀ ਖੇਤੀ ਲਈ ਕਿਹੜੀ ਵਰਖਾ ਸਥਿਤੀ ਕੁਦਰਤੀ ਤੌਰ ਤੇ ਅਨੁਕੂਲ ਹੈ?`;
+
+    m = text.match(/^Which crop should be removed from (.+?) to leave an oilseed-only set\?$/);
+    if (m) return hi ? `केवल तिलहन फसलें बचाने के लिए ${f(m[1])} में से किस फसल को हटाना होगा?` : `ਕੇਵਲ ਤਿਲਹਨ ਫਸਲਾਂ ਛੱਡਣ ਲਈ ${f(m[1])} ਵਿੱਚੋਂ ਕਿਹੜੀ ਫਸਲ ਹਟਾਉਣੀ ਹੋਵੇਗੀ?`;
+
+    m = text.match(/^Which irrigation source depends directly on groundwater stored below the surface\?$/);
+    if (m) return hi ? "भूमि के नीचे संग्रहित भूजल पर सीधे निर्भर सिंचाई स्रोत कौन-सा है?" : "ਜ਼ਮੀਨ ਹੇਠਾਂ ਇਕੱਠੇ ਭੂਜਲ ਉੱਤੇ ਸਿੱਧਾ ਨਿਰਭਰ ਸਿੰਚਾਈ ਸਰੋਤ ਕਿਹੜਾ ਹੈ?";
+
+    m = text.match(/^Which weather pattern would create the greatest stress for a (.+?) plantation\?$/);
+    if (m) return hi ? `${f(m[1])} के बागान के लिए कौन-सी मौसम स्थिति सबसे अधिक प्रतिकूल होगी?` : `${f(m[1])} ਦੇ ਬਾਗ ਲਈ ਕਿਹੜੀ ਮੌਸਮੀ ਸਥਿਤੀ ਸਭ ਤੋਂ ਵੱਧ ਪ੍ਰਤੀਕੂਲ ਹੋਵੇਗੀ?`;
+
+    m = text.match(/^Which crop change is most logical when a field shifts from reliable flooding to limited rain and no irrigation\?$/);
+    if (m) return hi ? "यदि खेत में नियमित जलभराव की जगह कम वर्षा हो और सिंचाई न हो, तो कौन-सा फसल परिवर्तन सबसे उचित है?" : "ਜੇ ਖੇਤ ਵਿੱਚ ਨਿਯਮਿਤ ਪਾਣੀ ਭਰਨ ਦੀ ਥਾਂ ਘੱਟ ਵਰਖਾ ਹੋਵੇ ਅਤੇ ਸਿੰਚਾਈ ਨਾ ਹੋਵੇ, ਤਾਂ ਕਿਹੜਾ ਫਸਲ ਬਦਲਾਅ ਸਭ ਤੋਂ ਉਚਿਤ ਹੈ?";
+
+    m = text.match(/^The zaid season falls between which two major crop seasons\?$/i);
+    if (m) return hi ? "जायद ऋतु किन दो प्रमुख फसल ऋतुओं के बीच आती है?" : "ਜ਼ਾਇਦ ਰੁੱਤ ਕਿਹੜੀਆਂ ਦੋ ਮੁੱਖ ਫਸਲੀ ਰੁੱਤਾਂ ਦੇ ਵਿਚਕਾਰ ਆਉਂਦੀ ਹੈ?";
+  }
+
+  if (packageId === "GEO-VEG-001") {
+    let m = text.match(/^Which feature most clearly separates natural vegetation from a cultivated plant community\?$/);
+    if (m) return hi ? "प्राकृतिक वनस्पति को मनुष्य द्वारा उगाई गई वनस्पति से सबसे स्पष्ट रूप से कौन-सी विशेषता अलग करती है?" : "ਕੁਦਰਤੀ ਬਨਸਪਤੀ ਨੂੰ ਮਨੁੱਖ ਵੱਲੋਂ ਉਗਾਈ ਬਨਸਪਤੀ ਤੋਂ ਸਭ ਤੋਂ ਸਪਸ਼ਟ ਤੌਰ ਤੇ ਕਿਹੜੀ ਵਿਸ਼ੇਸ਼ਤਾ ਵੱਖ ਕਰਦੀ ਹੈ?";
+
+    m = text.match(/^A warm region receives more than 200 cm of rain and has no long dry season\. Which natural vegetation is most likely\?$/);
+    if (m) return hi ? "किसी गर्म क्षेत्र में 200 सेमी से अधिक वर्षा होती है और लंबी शुष्क ऋतु नहीं होती। वहाँ कौन-सी प्राकृतिक वनस्पति सबसे अधिक संभावित है?" : "ਕਿਸੇ ਗਰਮ ਖੇਤਰ ਵਿੱਚ 200 ਸੈਂਟੀਮੀਟਰ ਤੋਂ ਵੱਧ ਵਰਖਾ ਹੁੰਦੀ ਹੈ ਅਤੇ ਲੰਬਾ ਸੁੱਕਾ ਮੌਸਮ ਨਹੀਂ ਹੁੰਦਾ। ਉੱਥੇ ਕਿਹੜੀ ਕੁਦਰਤੀ ਬਨਸਪਤੀ ਸਭ ਤੋਂ ਵੱਧ ਸੰਭਾਵੀ ਹੈ?";
+
+    m = text.match(/^Which adaptation helps deciduous trees survive seasonal water shortage\?$/);
+    if (m) return hi ? "मौसमी जल की कमी में पर्णपाती वृक्षों को जीवित रहने में कौन-सा अनुकूलन मदद करता है?" : "ਮੌਸਮੀ ਪਾਣੀ ਦੀ ਘਾਟ ਵਿੱਚ ਪੱਤਝੜੀ ਰੁੱਖਾਂ ਨੂੰ ਜੀਊਣ ਵਿੱਚ ਕਿਹੜਾ ਅਨੁਕੂਲਨ ਮਦਦ ਕਰਦਾ ਹੈ?";
+
+    m = text.match(/^Acacia, babool and thorny shrubs are characteristic of which vegetation type\?$/);
+    if (m) return hi ? "कीकर, बबूल और कांटेदार झाड़ियाँ किस प्रकार की वनस्पति की विशेषता हैं?" : "ਕੀਕਰ, ਬਬੂਲ ਅਤੇ ਕਾਂਟੇਦਾਰ ਝਾੜੀਆਂ ਕਿਹੜੀ ਕਿਸਮ ਦੀ ਬਨਸਪਤੀ ਦੀ ਵਿਸ਼ੇਸ਼ਤਾ ਹਨ?";
+
+    m = text.match(/^Which Indian forest is the natural home of the Asiatic lion\?$/);
+    if (m) return hi ? "एशियाई सिंह का प्राकृतिक आवास भारत का कौन-सा वन है?" : "ਏਸ਼ੀਆਈ ਸ਼ੇਰ ਦਾ ਕੁਦਰਤੀ ਆਵਾਸ ਭਾਰਤ ਦਾ ਕਿਹੜਾ ਜੰਗਲ ਹੈ?";
+
+    m = text.match(/^Which famous predator is strongly linked with the Sundarbans mangrove region\?$/);
+    if (m) return hi ? "सुंदरबन के मैंग्रोव क्षेत्र से कौन-सा प्रसिद्ध शिकारी जीव विशेष रूप से जुड़ा है?" : "ਸੁੰਦਰਬਨ ਦੇ ਮੈਂਗਰੋਵ ਖੇਤਰ ਨਾਲ ਕਿਹੜਾ ਮਸ਼ਹੂਰ ਸ਼ਿਕਾਰੀ ਜੀਵ ਖਾਸ ਤੌਰ ਤੇ ਜੁੜਿਆ ਹੈ?";
+
+    m = text.match(/^Which vegetation type is best suited to tidal mud and brackish water\?$/);
+    if (m) return hi ? "ज्वारीय कीचड़ और खारे-मीठे पानी के लिए कौन-सी वनस्पति सबसे उपयुक्त है?" : "ਜਵਾਰੀ ਕੀਚੜ ਅਤੇ ਖਾਰੇ-ਮਿੱਠੇ ਪਾਣੀ ਲਈ ਕਿਹੜੀ ਬਨਸਪਤੀ ਸਭ ਤੋਂ ਉਚਿਤ ਹੈ?";
+
+    m = text.match(/^Which root adaptation helps mangrove plants obtain oxygen from waterlogged soil\?$/);
+    if (m) return hi ? "जलभराव वाली मिट्टी से ऑक्सीजन लेने में मैंग्रोव पौधों की कौन-सी जड़ अनुकूलन मदद करती है?" : "ਪਾਣੀ ਨਾਲ ਭਰੀ ਮਿੱਟੀ ਵਿੱਚੋਂ ਆਕਸੀਜਨ ਲੈਣ ਲਈ ਮੈਂਗਰੋਵ ਪੌਦਿਆਂ ਦੀ ਕਿਹੜੀ ਜੜ ਅਨੁਕੂਲਤਾ ਮਦਦ ਕਰਦੀ ਹੈ?";
   }
 
   if (packageId === "GEO-PHY-001") {
