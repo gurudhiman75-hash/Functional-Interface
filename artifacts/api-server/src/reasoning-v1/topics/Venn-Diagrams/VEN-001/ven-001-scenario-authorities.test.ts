@@ -87,6 +87,16 @@ assert.ok(
 );
 
 
+const polygonAuthority = VEN_001_SCENARIO_AUTHORITIES.find(
+  (entry) => entry.authorityId === "VEN-AUTH-018-PENTAGON-HEXAGON-POLYGON",
+);
+assert.ok(polygonAuthority, "the corrected polygon authority must remain registered");
+assert.deepEqual(
+  polygonAuthority.relations.find((relation) => relation.left === "A" && relation.right === "B")?.relation,
+  "DISJOINT",
+  "pentagons and hexagons must remain separate classes",
+);
+
 const expandedAuthorityIds = [
   "VEN-AUTH-023-ELECTRIC-CAR-ROAD-VEHICLE",
   "VEN-AUTH-024-SCREWDRIVER-HAND-TOOL-TOOL",
