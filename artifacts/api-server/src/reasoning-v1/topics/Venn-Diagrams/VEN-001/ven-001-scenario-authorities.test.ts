@@ -106,6 +106,16 @@ assert.deepEqual(
   "pentagons and hexagons must remain separate classes",
 );
 
+const triangleAuthority = VEN_001_SCENARIO_AUTHORITIES.find(
+  (entry) => entry.authorityId === "VEN-AUTH-007-RIGHT-ISOSCELES-TRIANGLES",
+);
+assert.ok(triangleAuthority);
+assert.equal(
+  triangleAuthority.sets.find((set) => set.setId === "B")?.labels["pa-IN"],
+  "ਸਮਦੋਭੁਜ ਤਿਕੋਣ",
+  "Punjabi triangle labels must use the reviewed local terminology consistently",
+);
+
 const expandedAuthorityIds = [
   "VEN-AUTH-023-ELECTRIC-CAR-ROAD-VEHICLE",
   "VEN-AUTH-024-SCREWDRIVER-HAND-TOOL-TOOL",
