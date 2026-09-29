@@ -49,7 +49,8 @@ jobs:
             src/reasoning-v1/topics/Clocks/CLK-001/clk-001-deep-audit-wave2.test.ts \
             src/reasoning-v1/topics/Clocks/CLK-001/clk-001-deep-audit-wave3.test.ts \
             src/reasoning-v1/topics/Clocks/CLK-001/clk-001-deep-audit-wave4.test.ts \
-            src/reasoning-v1/topics/Clocks/CLK-001/clk-001-deep-audit-wave5.test.ts
+            src/reasoning-v1/topics/Clocks/CLK-001/clk-001-deep-audit-wave5.test.ts \
+            src/reasoning-v1/topics/Clocks/CLK-001/clk-001-deep-audit-wave6.test.ts
           do
             name="$(basename "$file" .ts)"
             pnpm --dir artifacts/api-server exec esbuild "$file" \
@@ -69,3 +70,4 @@ jobs:
           node dist/reasoning-v1/clock-final/clk-001-deep-audit-wave3.test.mjs
           node dist/reasoning-v1/clock-final/clk-001-deep-audit-wave4.test.mjs
           node dist/reasoning-v1/clock-final/clk-001-deep-audit-wave5.test.mjs
+          node dist/reasoning-v1/clock-final/clk-001-deep-audit-wave6.test.mjs
