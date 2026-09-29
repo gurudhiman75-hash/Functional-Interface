@@ -40,6 +40,7 @@ import cp039 from './cp039.json';
 import cp040 from './cp040.json';
 import cp041 from './cp041.json';
 import cp042 from './cp042.json';
+import cp043 from './cp043.json';
 import sources from './sources.json';
 import type { QuestionStudioDifficulty, QuestionStudioLanguage } from '../../question-studio/engine-types';
 
@@ -92,6 +93,7 @@ export const WGE_CP_TITLES = {
   'WGE-001-CP040': 'Advanced Geographic Applications',
   'WGE-001-CP041': 'Human Geography and Global Economic Activity',
   'WGE-001-CP042': 'Water Systems and Map Skills',
+  'WGE-001-CP043': 'Spatial Information Technology and Geospatial Analysis',
 } as const;
 export type WorldGeographyCpId = keyof typeof WGE_CP_TITLES;
 export const WGE_SOURCES = sources;
@@ -142,6 +144,6 @@ export function validateWorldGeographyCorpus(rows: readonly WorldGeographyQuesti
     }
   }
 }
-const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011, ...cp012, ...cp013, ...cp014, ...cp015, ...cp016, ...cp017, ...cp018, ...cp019, ...cp020, ...cp021, ...cp022, ...cp023, ...cp024, ...cp025, ...cp026, ...cp027, ...cp028, ...cp029, ...cp030, ...cp031, ...cp032, ...cp033, ...cp034, ...cp035, ...cp036, ...cp037, ...cp038, ...cp039, ...cp040, ...cp041, ...cp042] as WorldGeographyQuestion[];
+const authored = [...cp001, ...cp002, ...cp003, ...cp004, ...cp005, ...cp006, ...cp007, ...cp008, ...cp009, ...cp010, ...cp011, ...cp012, ...cp013, ...cp014, ...cp015, ...cp016, ...cp017, ...cp018, ...cp019, ...cp020, ...cp021, ...cp022, ...cp023, ...cp024, ...cp025, ...cp026, ...cp027, ...cp028, ...cp029, ...cp030, ...cp031, ...cp032, ...cp033, ...cp034, ...cp035, ...cp036, ...cp037, ...cp038, ...cp039, ...cp040, ...cp041, ...cp042, ...cp043] as WorldGeographyQuestion[];
 validateWorldGeographyCorpus(authored);
 export const WGE_CORPUS: readonly WorldGeographyQuestion[] = deepFreeze(authored);
