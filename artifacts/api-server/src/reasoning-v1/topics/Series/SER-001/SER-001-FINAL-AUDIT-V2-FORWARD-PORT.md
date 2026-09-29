@@ -26,7 +26,7 @@ The existing frozen corpus keeps the same questions and permanent identities. Di
 
 ### CP008 — single-letter and alphanumeric Series gaps
 
-The source-gap experiment spans `SER-QL-014..028`, but the **audited Series candidate retains only 13 identities: `SER-QL-014..018` and `SER-QL-021..028`**.
+The source-gap experiment spans `SER-QL-014..028`. After the anti-inflation pass, the **audited Series candidate retains only 9 genuinely new identities: `SER-QL-016..018`, `SER-QL-021..025`, and `SER-QL-027`**.
 
 Two source-backed experiments are explicitly rejected from Series ownership:
 
@@ -34,6 +34,15 @@ Two source-backed experiments are explicitly rejected from Series ownership:
 - `SER-QL-020 / ALPHANUMERIC_OUTER_LETTER_SUM_BINDING`: the answer is obtained only by adding the outer letter positions inside the target token; the preceding tokens are not required to form a progression.
 
 Both are internal alphanumeric-relation solve contracts rather than Series progressions. They remain in the source experiment only as provenance evidence, are **not reserved**, and cannot be promoted from this checkpoint.
+
+Four additional source-backed prototypes remain useful content, but are **not new QLs** because their learner solve contracts already exist in CP007:
+
+- `SER-QL-014 / SINGLE_LETTER_PROGRESSIVE_JUMP` -> existing `SER-QL-003` (progressive column-wise movement; one-letter tokens are the one-column renderer).
+- `SER-QL-015 / SINGLE_LETTER_INTERLEAVED_ROWS` -> existing `SER-QL-007` (interleaved rows; token width is not a new solve contract).
+- `SER-QL-026 / ALPHANUMERIC_TOKEN_ROTATION` -> existing `SER-QL-011` (rotation is already an explicit position-permutation subtype).
+- `SER-QL-028 / ALPHANUMERIC_NUMBER_LETTER_BLOCK_COMPLETION` -> existing `SER-QL-010` (periodic block/gap completion with a mixed-token renderer).
+
+These four IDs are therefore not promotion candidates. Their source evidence should be used to broaden the corresponding existing QL object/rendering coverage rather than inflate the permanent registry.
 
 The retained CP008 candidates cover source-backed learner-visible progression contracts including single-letter progressive/interleaved series, parallel/interleaved alphanumeric channels, progressive number/letter movement, square-coupled sequences, wrong-term progression, token rotation, opposing channels and number-letter block completion.
 
