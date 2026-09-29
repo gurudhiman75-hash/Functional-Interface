@@ -169,7 +169,7 @@ export function projectCircularCaseletToQuestionStudio(caselet: CircularCaseletR
       proofTrace: caselet.proofTrace,
       childQuestionIds,
       reviewStatus: "DISCOVERY",
-      englishFreezeStatus: "NOT_STARTED",
+      englishFreezeStatus: "IN_REVIEW",
       bankStatus: "LOCKED",
       testEligibility: caselet.lifecycle.testEligible,
       publiclyPublishable: caselet.lifecycle.publiclyPublishable,
