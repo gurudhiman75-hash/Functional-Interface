@@ -18,8 +18,7 @@ What was the League of Nations’ mandate system intended to do after the First 
 - **D.** Transfer all territories to the United States
 **Answer:** A
 **Explanation:** The mandate system placed former German and Ottoman territories under administration by other powers, formally under League oversight.
-**Sources:** CP009-S01, CP009-S02
-
+**Sources:** CP009-S01, CP009-S02, CP009-S09
 ### WHI-CP009-Q002 · Easy · Treaty and settlement
 
 Which organisation formally supervised the mandate system?
@@ -54,8 +53,7 @@ Which region included former Ottoman territories placed under British or French 
 - **D.** The Middle East
 **Answer:** D
 **Explanation:** Former Ottoman territories in the Middle East were assigned to British and French administration under the mandate system.
-**Sources:** CP009-S01, CP009-S02
-
+**Sources:** CP009-S01, CP009-S02, CP009-S09
 ### WHI-CP009-Q005 · Medium · Treaty and settlement
 
 Why is it inaccurate to describe the postwar mandates as immediate independence for former colonies?
