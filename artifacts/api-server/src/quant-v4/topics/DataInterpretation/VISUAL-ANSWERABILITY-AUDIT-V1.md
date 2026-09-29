@@ -25,7 +25,7 @@ Numeric correctness alone is not sufficient. A chart/table/caselet must expose e
 | DI-011 | Mixed / multi-chart | PASS_BY_CONTRACT | Each component exposes the values used by its linked question families. |
 | DI-012 | Advanced variable / multi-missing table | PASS_BY_CONTRACT | x/y and recovery conditions are learner-visible. |
 | DI-013 | Radar / web chart | PASS_BY_CONTRACT | Exact 20-unit radial ticks and the five category axes are visible. |
-| DI-014 | Radar + pie hybrid | PASS_BY_RENDERED-DATA CONTRACT | Radar points carry exact application labels; pie shares and the common category mapping are visible. |
+| DI-014 | Radar + pie hybrid | PASS_WITH_NEW_REGRESSION | The renderer positions the top application value left of the maximum radial tick; the stress regression verifies this across 320 generated sets. Pie shares and category mapping remain visible. |
 
 ## Permanent gate
 
