@@ -1,0 +1,2157 @@
+[
+  {
+    "questionId": "WHI-CP007-Q001",
+    "englishQuestionId": "WHI-CP007-Q001",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Motive and method",
+    "stem": "Which factor helped drive European imperial expansion in the late nineteenth century?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Competition for raw materials and markets"
+      },
+      {
+        "key": "B",
+        "text": "A plan to end overseas trade"
+      },
+      {
+        "key": "C",
+        "text": "A common decision to dissolve empires"
+      },
+      {
+        "key": "D",
+        "text": "A rejection of industrial production"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Industrial economies and strategic rivalry both shaped imperial expansion; no single motive explains every case.",
+    "sourceIds": [
+      "CP007-S02",
+      "CP007-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q002",
+    "englishQuestionId": "WHI-CP007-Q002",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F002",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Motive and method",
+    "stem": "Which statement best describes the motives for nineteenth-century imperialism?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They were identical in every empire and colony"
+      },
+      {
+        "key": "B",
+        "text": "They varied and could include strategic, economic, political and missionary aims"
+      },
+      {
+        "key": "C",
+        "text": "They were limited to scientific research"
+      },
+      {
+        "key": "D",
+        "text": "They aimed only to abolish international trade"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Imperial projects had multiple motives, and their relative importance varied by place and government.",
+    "sourceIds": [
+      "CP007-S02",
+      "CP007-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q003",
+    "englishQuestionId": "WHI-CP007-Q003",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F003",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Motive and method",
+    "stem": "What did a protectorate generally allow an imperial power to do?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Transfer all political authority to an elected colonial parliament"
+      },
+      {
+        "key": "B",
+        "text": "End its influence over foreign relations"
+      },
+      {
+        "key": "C",
+        "text": "Exercise substantial control over a territory while retaining a local ruler or government"
+      },
+      {
+        "key": "D",
+        "text": "Create an equal alliance between independent states"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "A protectorate often preserved a local authority formally while giving the imperial power decisive influence, especially over external affairs.",
+    "sourceIds": [
+      "CP007-S02",
+      "CP007-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q004",
+    "englishQuestionId": "WHI-CP007-Q004",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F004",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Motive and method",
+    "stem": "Which method was commonly used by European powers to claim authority in parts of Africa?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Elections supervised by the African Union"
+      },
+      {
+        "key": "B",
+        "text": "A continent-wide referendum organised by African states"
+      },
+      {
+        "key": "C",
+        "text": "A treaty signed by the League of Nations"
+      },
+      {
+        "key": "D",
+        "text": "Treaties negotiated with local rulers, later interpreted as claims of control"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "European powers often relied on treaties with African rulers, although the meanings and conditions of those agreements were frequently contested.",
+    "sourceIds": [
+      "CP007-S02",
+      "CP007-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q005",
+    "englishQuestionId": "WHI-CP007-Q005",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F005",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Motive and method",
+    "stem": "Why did European powers build ports and railways in many colonies?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To support administration, military movement and the extraction or transport of goods"
+      },
+      {
+        "key": "B",
+        "text": "To prevent access to mines and plantations"
+      },
+      {
+        "key": "C",
+        "text": "To end all trade with Europe"
+      },
+      {
+        "key": "D",
+        "text": "To create a single African parliament"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Colonial transport links commonly served administration and commercial extraction, though their uses varied by region.",
+    "sourceIds": [
+      "CP007-S05",
+      "CP007-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q006",
+    "englishQuestionId": "WHI-CP007-Q006",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F006",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Motive and method",
+    "stem": "Which distinction between a colony and a sphere of influence is most accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A sphere of influence always meant complete independence"
+      },
+      {
+        "key": "B",
+        "text": "A colony involved direct territorial rule; a sphere could involve strong influence without formal annexation"
+      },
+      {
+        "key": "C",
+        "text": "A colony was governed by the League of Nations"
+      },
+      {
+        "key": "D",
+        "text": "The terms had identical legal meanings"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Formal colonial rule and informal influence were different arrangements, though both could limit local sovereignty.",
+    "sourceIds": [
+      "CP007-S02",
+      "CP007-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q007",
+    "englishQuestionId": "WHI-CP007-Q007",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F007",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Conference and treaty",
+    "stem": "When and where did the West Africa Conference, commonly called the Berlin Conference, meet?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Paris, from 1870 to 1871"
+      },
+      {
+        "key": "B",
+        "text": "Vienna, from 1814 to 1815"
+      },
+      {
+        "key": "C",
+        "text": "Berlin, from 1884 to 1885"
+      },
+      {
+        "key": "D",
+        "text": "Brussels, from 1900 to 1901"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The conference met in Berlin from November 1884 to February 1885.",
+    "sourceIds": [
+      "CP007-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q008",
+    "englishQuestionId": "WHI-CP007-Q008",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F008",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Conference and treaty",
+    "stem": "Which German chancellor hosted the Berlin Conference?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Helmuth von Moltke"
+      },
+      {
+        "key": "B",
+        "text": "Wilhelm II"
+      },
+      {
+        "key": "C",
+        "text": "Friedrich Ebert"
+      },
+      {
+        "key": "D",
+        "text": "Otto von Bismarck"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Bismarck convened the conference as German chancellor.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q009",
+    "englishQuestionId": "WHI-CP007-Q009",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F009",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Conference and treaty",
+    "stem": "Which statement about African participation at the Berlin Conference is correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "African rulers and representatives were not invited as negotiating parties"
+      },
+      {
+        "key": "B",
+        "text": "African states chaired every session"
+      },
+      {
+        "key": "C",
+        "text": "The conference was an assembly elected across Africa"
+      },
+      {
+        "key": "D",
+        "text": "Only African rulers could sign the General Act"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The conference was conducted by foreign powers; African societies whose territories were affected had no representation as parties to its negotiations.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q010",
+    "englishQuestionId": "WHI-CP007-Q010",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F010",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Conference and treaty",
+    "stem": "What was one purpose of the General Act of the Berlin Conference?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Create a legislature for all African territories"
+      },
+      {
+        "key": "B",
+        "text": "Set rules among European powers concerning trade, navigation and claims in parts of Africa"
+      },
+      {
+        "key": "C",
+        "text": "Immediately draw every present-day African border"
+      },
+      {
+        "key": "D",
+        "text": "Grant independence to all African states"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Act addressed principles for European claims and navigation; it did not itself settle every later boundary.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q011",
+    "englishQuestionId": "WHI-CP007-Q011",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F011",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Conference and treaty",
+    "stem": "What did the General Act provide regarding navigation on the Congo River?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Exclusive control for Portugal"
+      },
+      {
+        "key": "B",
+        "text": "A ban on commercial vessels"
+      },
+      {
+        "key": "C",
+        "text": "Freedom of navigation for the contracting powers under the Act"
+      },
+      {
+        "key": "D",
+        "text": "Transfer of the river to the United States"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Act included provisions for free navigation on the Congo, alongside provisions for trade and the basin.",
+    "sourceIds": [
+      "CP007-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q012",
+    "englishQuestionId": "WHI-CP007-Q012",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F012",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Conference and treaty",
+    "stem": "What did the Berlin Act provide regarding the Niger River?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The river was closed to all foreign trade"
+      },
+      {
+        "key": "B",
+        "text": "The river was placed under Belgian rule"
+      },
+      {
+        "key": "C",
+        "text": "Its course became the border of every West African colony"
+      },
+      {
+        "key": "D",
+        "text": "Navigation was to be free for the contracting powers under the Act"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The General Act included a separate navigation regime for the Niger; it was not a map of all later colonial boundaries.",
+    "sourceIds": [
+      "CP007-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q013",
+    "englishQuestionId": "WHI-CP007-Q013",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F013",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "State and claimant",
+    "stem": "Who was recognised as sovereign of the Congo Free State in 1885?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Leopold II of Belgium"
+      },
+      {
+        "key": "B",
+        "text": "Napoleon III of France"
+      },
+      {
+        "key": "C",
+        "text": "Bismarck of Germany"
+      },
+      {
+        "key": "D",
+        "text": "Cecil Rhodes of Britain"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The International Association of the Congo transferred authority to Leopold II, who became sovereign of the Congo Free State.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q014",
+    "englishQuestionId": "WHI-CP007-Q014",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F014",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "State and claimant",
+    "stem": "Which organisation preceded recognition of the Congo Free State under Leopold II?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Young Italy"
+      },
+      {
+        "key": "B",
+        "text": "International Association of the Congo"
+      },
+      {
+        "key": "C",
+        "text": "German East Africa Company"
+      },
+      {
+        "key": "D",
+        "text": "League of Nations Secretariat"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The International Association of the Congo negotiated claims and treaties before the Congo Free State was recognised under Leopold II.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q015",
+    "englishQuestionId": "WHI-CP007-Q015",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F015",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "State and claimant",
+    "stem": "Which European power ruled German East Africa before the First World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Belgium"
+      },
+      {
+        "key": "B",
+        "text": "Italy"
+      },
+      {
+        "key": "C",
+        "text": "Germany"
+      },
+      {
+        "key": "D",
+        "text": "Portugal"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "German East Africa was a German colony before the First World War; after the war its territories were redistributed under mandates.",
+    "sourceIds": [
+      "CP007-S05",
+      "CP007-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q016",
+    "englishQuestionId": "WHI-CP007-Q016",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F016",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "State and claimant",
+    "stem": "Which pair of powers held major rival claims in the Congo basin during the Berlin Conference era?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Japan and the United States"
+      },
+      {
+        "key": "B",
+        "text": "Italy and Greece"
+      },
+      {
+        "key": "C",
+        "text": "Austria-Hungary and Serbia"
+      },
+      {
+        "key": "D",
+        "text": "France and the International Association of the Congo"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Diplomatic records from the period discuss the competing claims of France and the International Association of the Congo, alongside other European interests.",
+    "sourceIds": [
+      "CP007-S02",
+      "CP007-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q017",
+    "englishQuestionId": "WHI-CP007-Q017",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F017",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "State and claimant",
+    "stem": "What political status did the Congo territory receive in 1885 under Leopold II?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Congo Free State, ruled as Leopold II’s personal state"
+      },
+      {
+        "key": "B",
+        "text": "A Belgian parliamentary province from the outset"
+      },
+      {
+        "key": "C",
+        "text": "An independent republic elected by Congolese voters"
+      },
+      {
+        "key": "D",
+        "text": "A French protectorate"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "In 1885 the Congo Free State was recognised under Leopold II; Belgium annexed it as the Belgian Congo in 1908.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q018",
+    "englishQuestionId": "WHI-CP007-Q018",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F018",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "State and claimant",
+    "stem": "When did Belgium take direct control of the Congo from Leopold II?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1885"
+      },
+      {
+        "key": "B",
+        "text": "1908"
+      },
+      {
+        "key": "C",
+        "text": "1896"
+      },
+      {
+        "key": "D",
+        "text": "1919"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Belgium annexed the Congo Free State in 1908, ending Leopold II’s personal rule there.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q019",
+    "englishQuestionId": "WHI-CP007-Q019",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F019",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "What helped prompt international criticism of Leopold II’s rule in the Congo?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The creation of an elected Congolese parliament"
+      },
+      {
+        "key": "B",
+        "text": "The abolition of rubber production"
+      },
+      {
+        "key": "C",
+        "text": "Reports of coercive extraction and abuses under the concession system"
+      },
+      {
+        "key": "D",
+        "text": "The Congo’s refusal to trade with Europe"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Reports and investigations exposed severe abuses and coercive extraction, contributing to reform pressure and Belgium’s annexation of the territory.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S04",
+      "CP007-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q020",
+    "englishQuestionId": "WHI-CP007-Q020",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "Which resource became central to the Congo concession system during Leopold II’s rule?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Coal"
+      },
+      {
+        "key": "B",
+        "text": "Wool"
+      },
+      {
+        "key": "C",
+        "text": "Tea"
+      },
+      {
+        "key": "D",
+        "text": "Rubber"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Rubber extraction became a major feature of the Congo concession system, alongside ivory and other commercial interests.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q021",
+    "englishQuestionId": "WHI-CP007-Q021",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F021",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "Which statement best describes the Congo Reform movement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It campaigned against abuses in the Congo Free State and helped build pressure for change"
+      },
+      {
+        "key": "B",
+        "text": "It sought to restore the Berlin Conference"
+      },
+      {
+        "key": "C",
+        "text": "It created the Congo Free State under Leopold II"
+      },
+      {
+        "key": "D",
+        "text": "It promoted the annexation of Belgium by France"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The reform campaign publicised abuses in the Congo Free State and helped increase pressure for Belgian takeover.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q022",
+    "englishQuestionId": "WHI-CP007-Q022",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F022",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "Which change followed Belgium’s annexation of the Congo in 1908?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Congo became an independent republic immediately"
+      },
+      {
+        "key": "B",
+        "text": "The territory became the Belgian Congo under Belgian state rule"
+      },
+      {
+        "key": "C",
+        "text": "Leopold II resumed personal sovereignty"
+      },
+      {
+        "key": "D",
+        "text": "The territory joined German East Africa"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "After 1908 the Belgian state governed the colony as the Belgian Congo, replacing Leopold II’s personal state.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q023",
+    "englishQuestionId": "WHI-CP007-Q023",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F023",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "What did the Berlin Conference establish about claims along parts of the African coast?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Every African kingdom became a signatory"
+      },
+      {
+        "key": "B",
+        "text": "All coastal territories were declared independent"
+      },
+      {
+        "key": "C",
+        "text": "Powers were to notify other signatories of new coastal possessions or protectorates"
+      },
+      {
+        "key": "D",
+        "text": "The conference prohibited any future treaty with local rulers"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The General Act established notification procedures for new coastal possessions and protectorates among its signatories.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q024",
+    "englishQuestionId": "WHI-CP007-Q024",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F024",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Event and outcome",
+    "stem": "Which statement best distinguishes the Berlin Conference from the later Scramble for Africa?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The conference completed every conquest before it opened"
+      },
+      {
+        "key": "B",
+        "text": "The conference was an African independence congress"
+      },
+      {
+        "key": "C",
+        "text": "The conference ended European competition for overseas territories"
+      },
+      {
+        "key": "D",
+        "text": "The conference set diplomatic rules among powers; territorial occupations and agreements continued afterward"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The conference shaped rules used by European powers, but subsequent bilateral agreements and occupations continued the partition process.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S02",
+      "CP007-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q025",
+    "englishQuestionId": "WHI-CP007-Q025",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F025",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which event occurred first?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Berlin Conference opened in 1884"
+      },
+      {
+        "key": "B",
+        "text": "Congo Free State annexed by Belgium in 1908"
+      },
+      {
+        "key": "C",
+        "text": "Maji Maji uprising began in 1905"
+      },
+      {
+        "key": "D",
+        "text": "Battle of Adwa was fought in 1896"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Berlin Conference opened in 1884, before the other listed events.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S03",
+      "CP007-S08",
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q026",
+    "englishQuestionId": "WHI-CP007-Q026",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F026",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which sequence correctly orders these events?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Battle of Adwa → Berlin Conference → Maji Maji uprising"
+      },
+      {
+        "key": "B",
+        "text": "Berlin Conference (1884–85) → Battle of Adwa (1896) → Maji Maji uprising (1905–07)"
+      },
+      {
+        "key": "C",
+        "text": "Maji Maji uprising → Battle of Adwa → Berlin Conference"
+      },
+      {
+        "key": "D",
+        "text": "Battle of Adwa → Maji Maji uprising → Berlin Conference"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The conference preceded Adwa, and both occurred before the Maji Maji uprising.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S07",
+      "CP007-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q027",
+    "englishQuestionId": "WHI-CP007-Q027",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F027",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which event came immediately before Belgium annexed the Congo in 1908?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Berlin Conference in 1884–85"
+      },
+      {
+        "key": "B",
+        "text": "The Battle of Adwa in 1896"
+      },
+      {
+        "key": "C",
+        "text": "The Maji Maji uprising in German East Africa"
+      },
+      {
+        "key": "D",
+        "text": "The Boxer uprising in China in 1900"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Maji Maji uprising took place in 1905–07, shortly before Belgium annexed the Congo in 1908.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S08",
+      "CP007-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q028",
+    "englishQuestionId": "WHI-CP007-Q028",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F028",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "In which year did Ethiopian forces defeat Italy at Adwa?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1885"
+      },
+      {
+        "key": "B",
+        "text": "1905"
+      },
+      {
+        "key": "C",
+        "text": "1914"
+      },
+      {
+        "key": "D",
+        "text": "1896"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Battle of Adwa took place on 1 March 1896.",
+    "sourceIds": [
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q029",
+    "englishQuestionId": "WHI-CP007-Q029",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F029",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which event took place in German East Africa in 1905–07?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Maji Maji uprising"
+      },
+      {
+        "key": "B",
+        "text": "The Boxer uprising"
+      },
+      {
+        "key": "C",
+        "text": "The Battle of Adwa"
+      },
+      {
+        "key": "D",
+        "text": "The Berlin Conference"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Maji Maji uprising against German colonial rule took place from 1905 to 1907 in German East Africa.",
+    "sourceIds": [
+      "CP007-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q030",
+    "englishQuestionId": "WHI-CP007-Q030",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F030",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which sequence is correctly ordered?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Adwa → Congo Free State recognised → Maji Maji uprising"
+      },
+      {
+        "key": "B",
+        "text": "Congo Free State recognised (1885) → Adwa (1896) → Belgium annexes Congo (1908)"
+      },
+      {
+        "key": "C",
+        "text": "Maji Maji uprising → Adwa → Congo Free State recognised"
+      },
+      {
+        "key": "D",
+        "text": "Belgium annexes Congo → Adwa → Berlin Conference"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Congo Free State was recognised in 1885, Ethiopia defeated Italy at Adwa in 1896, and Belgium annexed the Congo in 1908.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S03",
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q031",
+    "englishQuestionId": "WHI-CP007-Q031",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F031",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Territory and control",
+    "stem": "Which country remained independent after defeating Italy at Adwa in 1896?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Eritrea"
+      },
+      {
+        "key": "B",
+        "text": "Somalia"
+      },
+      {
+        "key": "C",
+        "text": "Ethiopia"
+      },
+      {
+        "key": "D",
+        "text": "Libya"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Ethiopia’s victory at Adwa preserved its independence against Italy’s attempted conquest.",
+    "sourceIds": [
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q032",
+    "englishQuestionId": "WHI-CP007-Q032",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F032",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Territory and control",
+    "stem": "Which territory was recognised as a German colony in East Africa before 1914?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Belgian Congo"
+      },
+      {
+        "key": "B",
+        "text": "French West Africa"
+      },
+      {
+        "key": "C",
+        "text": "Italian Somaliland"
+      },
+      {
+        "key": "D",
+        "text": "German East Africa"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "German East Africa was a German colonial possession before the First World War.",
+    "sourceIds": [
+      "CP007-S05",
+      "CP007-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q033",
+    "englishQuestionId": "WHI-CP007-Q033",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F033",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Territory and control",
+    "stem": "Which state became a Belgian colony in 1908?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Congo"
+      },
+      {
+        "key": "B",
+        "text": "Ethiopia"
+      },
+      {
+        "key": "C",
+        "text": "Morocco"
+      },
+      {
+        "key": "D",
+        "text": "Egypt"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Belgium annexed the Congo Free State in 1908 and renamed it the Belgian Congo.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q034",
+    "englishQuestionId": "WHI-CP007-Q034",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F034",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Territory and control",
+    "stem": "Which description of European rule in Rwanda is accurate for the colonial period?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Italy ruled it continuously from 1885 to 1962"
+      },
+      {
+        "key": "B",
+        "text": "Germany ruled it before the First World War; Belgium administered it after the war"
+      },
+      {
+        "key": "C",
+        "text": "Portugal ruled it as part of Angola"
+      },
+      {
+        "key": "D",
+        "text": "France administered it under the League of Nations throughout the nineteenth century"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Rwanda was part of German East Africa before the First World War and was later administered by Belgium under the postwar mandate system.",
+    "sourceIds": [
+      "CP007-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q035",
+    "englishQuestionId": "WHI-CP007-Q035",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F035",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Territory and control",
+    "stem": "Which river basin was central to the General Act’s provisions on trade and navigation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Rhine basin"
+      },
+      {
+        "key": "B",
+        "text": "The Danube basin"
+      },
+      {
+        "key": "C",
+        "text": "The Congo basin"
+      },
+      {
+        "key": "D",
+        "text": "The Amazon basin"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Berlin Act included provisions concerning commerce and navigation in the Congo basin.",
+    "sourceIds": [
+      "CP007-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q036",
+    "englishQuestionId": "WHI-CP007-Q036",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F036",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Territory and control",
+    "stem": "What did a European “sphere of influence” in China usually indicate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "China had become a single European colony"
+      },
+      {
+        "key": "B",
+        "text": "The League of Nations governed the region"
+      },
+      {
+        "key": "C",
+        "text": "All foreign powers had equal military control"
+      },
+      {
+        "key": "D",
+        "text": "A power claimed special political or economic privileges in a region without necessarily annexing all of China"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "In China, spheres of influence referred to special interests or privileges claimed by foreign powers, not a complete partition into formal colonies.",
+    "sourceIds": [
+      "CP007-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q037",
+    "englishQuestionId": "WHI-CP007-Q037",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F037",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Resistance and response",
+    "stem": "Which African state defeated Italy at the Battle of Adwa?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ethiopia"
+      },
+      {
+        "key": "B",
+        "text": "Asante"
+      },
+      {
+        "key": "C",
+        "text": "Sokoto"
+      },
+      {
+        "key": "D",
+        "text": "Zulu Kingdom"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Ethiopian forces defeated the Italian army at Adwa in 1896.",
+    "sourceIds": [
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q038",
+    "englishQuestionId": "WHI-CP007-Q038",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F038",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Resistance and response",
+    "stem": "Which Ethiopian ruler led the country at the time of the Battle of Adwa?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Tewodros II"
+      },
+      {
+        "key": "B",
+        "text": "Menelik II"
+      },
+      {
+        "key": "C",
+        "text": "Haile Selassie"
+      },
+      {
+        "key": "D",
+        "text": "Yohannes IV"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Menelik II was emperor of Ethiopia at the time of the 1896 victory at Adwa.",
+    "sourceIds": [
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q039",
+    "englishQuestionId": "WHI-CP007-Q039",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F039",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Resistance and response",
+    "stem": "Against which colonial power was the Maji Maji uprising directed?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Belgium"
+      },
+      {
+        "key": "B",
+        "text": "Portugal"
+      },
+      {
+        "key": "C",
+        "text": "Germany"
+      },
+      {
+        "key": "D",
+        "text": "Italy"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Maji Maji uprising challenged German colonial rule in German East Africa.",
+    "sourceIds": [
+      "CP007-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q040",
+    "englishQuestionId": "WHI-CP007-Q040",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Resistance and response",
+    "stem": "Which description best fits the Maji Maji uprising?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A treaty conference in Berlin"
+      },
+      {
+        "key": "B",
+        "text": "A rebellion against Dutch rule in Indonesia"
+      },
+      {
+        "key": "C",
+        "text": "An Italian campaign against Ethiopia"
+      },
+      {
+        "key": "D",
+        "text": "A broad revolt against German colonial rule involving multiple communities in German East Africa"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The uprising brought together different groups in resistance to German colonial rule, though its causes and course varied locally.",
+    "sourceIds": [
+      "CP007-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q041",
+    "englishQuestionId": "WHI-CP007-Q041",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F041",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Resistance and response",
+    "stem": "What was the outcome of the Battle of Adwa?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ethiopia defeated Italy and preserved its independence"
+      },
+      {
+        "key": "B",
+        "text": "Italy annexed Ethiopia and ended its monarchy"
+      },
+      {
+        "key": "C",
+        "text": "Germany took control of Ethiopia"
+      },
+      {
+        "key": "D",
+        "text": "The battle created the Congo Free State"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Ethiopian victory at Adwa in 1896 halted Italy’s attempt to conquer the country at that time.",
+    "sourceIds": [
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q042",
+    "englishQuestionId": "WHI-CP007-Q042",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F042",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Resistance and response",
+    "stem": "Which statement best compares African responses to European expansion?",
+    "options": [
+      {
+        "key": "A",
+        "text": "All African rulers responded in the same way"
+      },
+      {
+        "key": "B",
+        "text": "Responses ranged from military resistance and diplomacy to negotiated arrangements; outcomes differed by region"
+      },
+      {
+        "key": "C",
+        "text": "Every state was conquered immediately after the Berlin Conference"
+      },
+      {
+        "key": "D",
+        "text": "African societies had no political institutions before European rule"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "African polities used different strategies and experienced different outcomes; the partition was not a single event or uniform process.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S07",
+      "CP007-S08",
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q043",
+    "englishQuestionId": "WHI-CP007-Q043",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F043",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Imperialism in Asia",
+    "stem": "Which event helped open several Chinese ports to foreign trade in the nineteenth century?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Austro-Prussian War"
+      },
+      {
+        "key": "B",
+        "text": "The Congress of Berlin"
+      },
+      {
+        "key": "C",
+        "text": "The Opium Wars and the treaties that followed"
+      },
+      {
+        "key": "D",
+        "text": "The Franco-Prussian War"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The treaties following the Opium Wars opened ports and granted foreign powers commercial privileges in China.",
+    "sourceIds": [
+      "CP007-S11",
+      "CP007-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q044",
+    "englishQuestionId": "WHI-CP007-Q044",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F044",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Imperialism in Asia",
+    "stem": "What was one purpose of the 1899–1900 Open Door Notes on China?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Transfer China to British colonial rule"
+      },
+      {
+        "key": "B",
+        "text": "End all foreign commerce in Chinese ports"
+      },
+      {
+        "key": "C",
+        "text": "Create a Chinese parliament under European control"
+      },
+      {
+        "key": "D",
+        "text": "Promote equal trading opportunity among foreign powers in China"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "John Hay’s Open Door Notes sought equal commercial access among powers operating in China while affirming its territorial integrity.",
+    "sourceIds": [
+      "CP007-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q045",
+    "englishQuestionId": "WHI-CP007-Q045",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F045",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Imperialism in Asia",
+    "stem": "Who issued the Open Door Notes concerning China in 1899?",
+    "options": [
+      {
+        "key": "A",
+        "text": "U.S. Secretary of State John Hay"
+      },
+      {
+        "key": "B",
+        "text": "British Prime Minister Benjamin Disraeli"
+      },
+      {
+        "key": "C",
+        "text": "German Chancellor Otto von Bismarck"
+      },
+      {
+        "key": "D",
+        "text": "French Emperor Napoleon III"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "John Hay sent the first Open Door Note in September 1899 to powers with interests in China.",
+    "sourceIds": [
+      "CP007-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q046",
+    "englishQuestionId": "WHI-CP007-Q046",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Imperialism in Asia",
+    "stem": "What was the Boxer uprising directed against in China?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The German Zollverein"
+      },
+      {
+        "key": "B",
+        "text": "Foreign influence and Christian missionary activity, among other targets"
+      },
+      {
+        "key": "C",
+        "text": "The Ottoman administration in the Balkans"
+      },
+      {
+        "key": "D",
+        "text": "The British government in India alone"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Boxer movement opposed foreign influence and missionary activity; its causes and participants were varied.",
+    "sourceIds": [
+      "CP007-S10",
+      "CP007-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q047",
+    "englishQuestionId": "WHI-CP007-Q047",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F047",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Imperialism in Asia",
+    "stem": "Which power ruled the Dutch East Indies during the imperial era?",
+    "options": [
+      {
+        "key": "A",
+        "text": "France"
+      },
+      {
+        "key": "B",
+        "text": "Belgium"
+      },
+      {
+        "key": "C",
+        "text": "The Netherlands"
+      },
+      {
+        "key": "D",
+        "text": "Germany"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Netherlands governed the Dutch East Indies, centred on the Indonesian archipelago.",
+    "sourceIds": [
+      "CP007-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q048",
+    "englishQuestionId": "WHI-CP007-Q048",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F048",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Imperialism in Asia",
+    "stem": "Which statement about the Open Door policy is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It immediately ended every foreign privilege in China"
+      },
+      {
+        "key": "B",
+        "text": "It made China a colony of the United States"
+      },
+      {
+        "key": "C",
+        "text": "It required China to join the German Empire"
+      },
+      {
+        "key": "D",
+        "text": "It sought equal commercial opportunity in China while foreign powers retained existing spheres and privileges"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The policy advocated equal trade access but did not immediately remove existing foreign spheres, leased territories or privileges.",
+    "sourceIds": [
+      "CP007-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q049",
+    "englishQuestionId": "WHI-CP007-Q049",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F049",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Comparison",
+    "stem": "Which comparison between the Congo Free State and Ethiopia in the late nineteenth century is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Congo came under Leopold II’s rule, while Ethiopia defeated Italy at Adwa and remained independent"
+      },
+      {
+        "key": "B",
+        "text": "Both were ruled by Leopold II"
+      },
+      {
+        "key": "C",
+        "text": "Both were annexed by Belgium in 1908"
+      },
+      {
+        "key": "D",
+        "text": "Ethiopia was a German protectorate after Adwa"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Leopold II ruled the Congo Free State, whereas Ethiopia’s victory over Italy at Adwa preserved its independence at that time.",
+    "sourceIds": [
+      "CP007-S03",
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q050",
+    "englishQuestionId": "WHI-CP007-Q050",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F050",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Comparison",
+    "stem": "Which comparison between the Berlin Conference and the Congress of Berlin is correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both meetings were held in 1878 to divide China"
+      },
+      {
+        "key": "B",
+        "text": "The 1884–85 conference set rules relating to African claims; the 1878 congress revised Balkan arrangements"
+      },
+      {
+        "key": "C",
+        "text": "Both were African independence congresses"
+      },
+      {
+        "key": "D",
+        "text": "The 1878 congress created the Congo Free State"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Berlin Conference of 1884–85 concerned Africa, while the Congress of Berlin of 1878 revised the postwar settlement in the Balkans.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q051",
+    "englishQuestionId": "WHI-CP007-Q051",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F051",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Comparison",
+    "stem": "Which comparison between formal annexation and a sphere of influence is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both always create fully independent states"
+      },
+      {
+        "key": "B",
+        "text": "A sphere of influence is always more direct than annexation"
+      },
+      {
+        "key": "C",
+        "text": "Annexation transfers territory to direct rule; a sphere of influence may leave formal sovereignty while granting special privileges"
+      },
+      {
+        "key": "D",
+        "text": "Annexation applies only to trade and never to territory"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Annexation and spheres of influence describe different forms of control, although both could constrain the affected society’s sovereignty.",
+    "sourceIds": [
+      "CP007-S02",
+      "CP007-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q052",
+    "englishQuestionId": "WHI-CP007-Q052",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F052",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "Which comparison between European imperialism in Africa and China is most accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "China was divided into the same formal colonies as Africa"
+      },
+      {
+        "key": "B",
+        "text": "European powers exercised no influence in China"
+      },
+      {
+        "key": "C",
+        "text": "Every African territory remained independent after 1900"
+      },
+      {
+        "key": "D",
+        "text": "Many African territories came under formal colonial rule, while China retained a government but faced foreign privileges and spheres of influence"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Imperial control took different forms: formal colonial rule was widespread in Africa, while foreign powers also claimed privileges and spheres in China.",
+    "sourceIds": [
+      "CP007-S05",
+      "CP007-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q053",
+    "englishQuestionId": "WHI-CP007-Q053",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F053",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "Which statement best compares the Berlin Act and the Open Door policy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Act regulated navigation and claims among signatories in parts of Africa; the Open Door Notes addressed equal commercial access in China"
+      },
+      {
+        "key": "B",
+        "text": "Both were treaties granting independence to all colonised peoples"
+      },
+      {
+        "key": "C",
+        "text": "The Act applied to China and the Open Door Notes to the Congo River"
+      },
+      {
+        "key": "D",
+        "text": "Both created the League of Nations"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Berlin Act addressed rules in the Congo and Niger regions; the Open Door Notes proposed equal trading opportunity in China.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q054",
+    "englishQuestionId": "WHI-CP007-Q054",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F054",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "Which comparison between Adwa and the Maji Maji uprising is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both were treaties signed at Berlin"
+      },
+      {
+        "key": "B",
+        "text": "Adwa was an Ethiopian victory over Italy; Maji Maji was a revolt against German colonial rule in East Africa"
+      },
+      {
+        "key": "C",
+        "text": "Adwa was a Chinese uprising and Maji Maji was an Italian conquest"
+      },
+      {
+        "key": "D",
+        "text": "Both resulted in the immediate end of European colonialism in Africa"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Adwa preserved Ethiopian independence after victory over Italy; Maji Maji resisted German colonial rule but was suppressed.",
+    "sourceIds": [
+      "CP007-S08",
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q055",
+    "englishQuestionId": "WHI-CP007-Q055",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F055",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Consequence and synthesis",
+    "stem": "What was one long-term effect of colonial boundaries drawn without local consent?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They ended all regional conflicts"
+      },
+      {
+        "key": "B",
+        "text": "They guaranteed equal political representation"
+      },
+      {
+        "key": "C",
+        "text": "They could divide communities or combine groups with different political histories"
+      },
+      {
+        "key": "D",
+        "text": "They prevented later nationalist movements"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Colonial boundary-making often disregarded existing political and social arrangements, contributing to later disputes and political challenges.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q056",
+    "englishQuestionId": "WHI-CP007-Q056",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F056",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Consequence and synthesis",
+    "stem": "Which change commonly accompanied colonial economic policies?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Colonies were barred from exporting raw materials"
+      },
+      {
+        "key": "B",
+        "text": "All local economies became industrialised at the same pace"
+      },
+      {
+        "key": "C",
+        "text": "Colonial governments ended all cash-crop production"
+      },
+      {
+        "key": "D",
+        "text": "Production and transport were often organised to serve imperial extraction and trade"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Colonial economies were frequently reorganised around extraction and export, though patterns differed by colony.",
+    "sourceIds": [
+      "CP007-S05",
+      "CP007-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q057",
+    "englishQuestionId": "WHI-CP007-Q057",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F057",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Consequence and synthesis",
+    "stem": "Which statement about the Berlin Conference’s role in African partition is most accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It set diplomatic rules, while conquest and boundary agreements continued afterward"
+      },
+      {
+        "key": "B",
+        "text": "It drew every modern African border in one session"
+      },
+      {
+        "key": "C",
+        "text": "It created independent African states under one constitution"
+      },
+      {
+        "key": "D",
+        "text": "It ended all European claims to Africa"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The conference did not complete the partition; powers continued to occupy territory and negotiate boundaries afterward.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q058",
+    "englishQuestionId": "WHI-CP007-Q058",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F058",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Consequence and synthesis",
+    "stem": "Which conclusion best reflects the varied effects of imperialism?",
+    "options": [
+      {
+        "key": "A",
+        "text": "All colonies experienced identical economic and political changes"
+      },
+      {
+        "key": "B",
+        "text": "Imperial rule reshaped political authority and economic systems, but effects differed among regions and societies"
+      },
+      {
+        "key": "C",
+        "text": "Imperial rule had no effect on local political institutions"
+      },
+      {
+        "key": "D",
+        "text": "Colonialism ended every form of local resistance"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Imperialism changed political and economic structures in diverse ways; local conditions and forms of resistance produced varied outcomes.",
+    "sourceIds": [
+      "CP007-S05",
+      "CP007-S06",
+      "CP007-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q059",
+    "englishQuestionId": "WHI-CP007-Q059",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F059",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Consequence and synthesis",
+    "stem": "Which relationship between African resistance and imperial rule is supported by the historical record?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Resistance was absent from all African regions"
+      },
+      {
+        "key": "B",
+        "text": "Every uprising immediately expelled the imperial power"
+      },
+      {
+        "key": "C",
+        "text": "Resistance took different forms and sometimes delayed or defeated conquest, as at Adwa"
+      },
+      {
+        "key": "D",
+        "text": "The Berlin Conference ended local political agency"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Adwa demonstrates that African resistance could defeat a colonial campaign; other struggles, such as Maji Maji, had different outcomes.",
+    "sourceIds": [
+      "CP007-S07",
+      "CP007-S08",
+      "CP007-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP007-Q060",
+    "englishQuestionId": "WHI-CP007-Q060",
+    "checkpointId": "WHI-001-CP007",
+    "factId": "WHI-CP007-F060",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Consequence and synthesis",
+    "stem": "Which summary best captures the Scramble for Africa and imperialism in Asia?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Berlin Conference alone created every empire and fixed all borders"
+      },
+      {
+        "key": "B",
+        "text": "European imperialism affected only Africa and had no Asian dimension"
+      },
+      {
+        "key": "C",
+        "text": "Every imperial power used identical methods and faced no resistance"
+      },
+      {
+        "key": "D",
+        "text": "European expansion used varied political and economic controls; local societies responded differently, and neither conference agreements nor colonial maps captured every local reality"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Imperial expansion varied by region and method; formal rule, spheres of influence, diplomacy, resistance and later boundary changes all shaped outcomes.",
+    "sourceIds": [
+      "CP007-S01",
+      "CP007-S05",
+      "CP007-S07",
+      "CP007-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
