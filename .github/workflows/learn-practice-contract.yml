@@ -34,7 +34,7 @@ jobs:
       - name: Run Learn practice contract
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/routes/learn-practice.test.ts \
-            --bundle --platform=node --format=esm \
+            --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/learn-practice.test.mjs
           node artifacts/api-server/dist/learn-practice.test.mjs
       - name: Build API
