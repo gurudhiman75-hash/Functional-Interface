@@ -111,4 +111,4 @@ console.log(`landmark-anchored caselets ${landmarkCaselets}`);
 console.log(`centre-rule reversal detector questions ${reversalDetectorQuestions}`);
 console.log(`displayed-clue necessity audits ${displayedClueNecessityAudits}`);
 console.log(`elapsed milliseconds ${Math.round(performance.now() - startedAt)}`);
-console.log("permanent QLs 0");
+console.log("permanent QLs 9");
