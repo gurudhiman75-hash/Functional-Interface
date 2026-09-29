@@ -1,6 +1,6 @@
 # World Geography CP043 — Spatial Information Technology and Geospatial Analysis
 
-**Status:** Authored and integrated in the review-only Question Studio selector. Authoring and localization approval is pending.
+**Status:** User approved for authoring and localization on 29 September 2026. Integrated in the review-only Question Studio selector.
 
 ## Scope and overlap check
 
