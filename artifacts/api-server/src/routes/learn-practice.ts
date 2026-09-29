@@ -5,6 +5,15 @@ import { authenticate } from "../middlewares/auth";
 import {
   knowledgeV1Pol001QuestionStudioAdapterV1,
 } from "../question-studio/engines/knowledge-v1-pol001-adapter-v1";
+import {
+  languageV1Eng004QuestionStudioAdapterV1,
+} from "../question-studio/engines/language-v1-eng004-adapter-v1";
+import {
+  languageV1Eng005QuestionStudioAdapterV1,
+} from "../question-studio/engines/language-v1-eng005-adapter-v1";
+import {
+  languageV1Eng006QuestionStudioAdapterV1,
+} from "../question-studio/engines/language-v1-eng006-adapter-v1";
 
 const router = Router();
 
@@ -120,6 +129,83 @@ export async function loadFrozenPolityQuestions(input: {
 }
 
 
+export const ENGLISH_VOCABULARY_LEARN_TOPICS = Object.freeze({
+  "ENG-VOC-SYN": {
+    packageId: "english-eng004-synonyms-antonyms-v1",
+    topic: "Synonyms",
+    selector: "synonym",
+  },
+  "ENG-VOC-ANT": {
+    packageId: "english-eng004-synonyms-antonyms-v1",
+    topic: "Antonyms",
+    selector: "antonym",
+  },
+  "ENG-VOC-IDIOM": {
+    packageId: "english-eng005-idioms-phrases-v1",
+    topic: "Idioms & Phrases",
+  },
+  "ENG-VOC-OWS": {
+    packageId: "english-eng006-one-word-substitution-v1",
+    topic: "One-word Substitution",
+  },
+} as const);
+
+export async function loadApprovedEnglishVocabularyQuestions(input: {
+  topicId: string;
+  limit: number;
+  fresh: boolean;
+}) {
+  const config = ENGLISH_VOCABULARY_LEARN_TOPICS[
+    input.topicId as keyof typeof ENGLISH_VOCABULARY_LEARN_TOPICS
+  ];
+  if (!config) return null;
+
+  const seed = `learn:${input.topicId}:${input.fresh ? Date.now().toString() : "stable"}`;
+  const baseRequest = {
+    packageId: config.packageId,
+    language: "en" as const,
+    count: input.limit,
+    difficulty: "Mixed",
+    runtimeMode: "review-only" as const,
+    seed,
+  };
+
+  let result;
+  if (input.topicId === "ENG-VOC-SYN" || input.topicId === "ENG-VOC-ANT") {
+    result = await languageV1Eng004QuestionStudioAdapterV1.generate({
+      ...baseRequest,
+      topic: "Synonyms & Antonyms",
+      subtopic: config.selector,
+      patternId: config.selector,
+    });
+  } else if (input.topicId === "ENG-VOC-IDIOM") {
+    result = await languageV1Eng005QuestionStudioAdapterV1.generate({
+      ...baseRequest,
+      topic: "Idioms & Phrases",
+      subtopic: "Vocabulary",
+    });
+  } else {
+    result = await languageV1Eng006QuestionStudioAdapterV1.generate({
+      ...baseRequest,
+      topic: "One-word Substitution",
+      subtopic: "Vocabulary",
+    });
+  }
+
+  return result.questions.slice(0, input.limit).map((question: any) => ({
+    id: String(question.questionId ?? question.id ?? ""),
+    topicId: input.topicId,
+    text: String(question.stem ?? question.text ?? ""),
+    options: Array.isArray(question.options) ? question.options.map(String) : [],
+    correctOptionIndex: Number(question.correctIndex ?? question.correct ?? 0),
+    explanation: String(question.explanation ?? ""),
+    cpId: String(question.cpId ?? ""),
+    difficulty: String(question.difficulty ?? ""),
+    source: `${config.packageId}:HUMAN_APPROVED_LEARN_ONLY`,
+  }));
+}
+
+
 function slug(value: unknown): string {
   return String(value ?? "")
     .trim()
@@ -176,6 +262,23 @@ router.get(
           count: frozenPolity.length,
           source: "POL-001_FROZEN_APPROVED",
           questions: frozenPolity,
+        });
+        return;
+      }
+
+      const englishVocabulary = await loadApprovedEnglishVocabularyQuestions({
+        topicId,
+        limit,
+        fresh,
+      });
+      if (englishVocabulary != null) {
+        res.json({
+          topicId,
+          language: "en",
+          requested: limit,
+          count: englishVocabulary.length,
+          source: "ENGLISH_VOCABULARY_HUMAN_APPROVED_LEARN_ONLY",
+          questions: englishVocabulary,
         });
         return;
       }
