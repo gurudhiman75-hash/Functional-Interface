@@ -40,6 +40,7 @@ for (const language of expectedLanguages) {
     assert.ok(question.sourceIds.length > 0);
     assert.ok(question.sourceIds.every((sourceId) => validSources.has(sourceId)), `${id} has an unknown source ID`);
     assert.ok(question.stem.trim().length > 0 && question.explanation.trim().length > 0);
+    assert.ok(!question.explanation.includes("**Sources:") && !question.explanation.includes("CP005-S"), `${question.questionId} explanation must not include source markup`);
     if (language !== "en") {
       const source = english.get(question.englishQuestionId);
       assert.ok(source, `${question.questionId} has no English counterpart`);
