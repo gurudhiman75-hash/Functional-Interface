@@ -1,3 +1,5 @@
+import { GEO_REFERENCE_STEM_OVERRIDES_V1 } from "./geo-reference-localization-stems-v1";
+
 export type GeoReferenceLanguageV1="en"|"hi"|"pa";
 type CanonicalQuestion=Readonly<{questionId:string;stem:string;options:readonly string[];correctIndex:number;canonicalAnswer:string;explanation:string;qlId:string;sourceFactIds:readonly string[]}>;
 export type LocalizedGeoReferenceQuestionV1=Readonly<{stem:string;options:readonly string[];canonicalAnswer:string;explanation:string}>;
@@ -41,7 +43,8 @@ hi:{
 "Meteorite-impact crater":"उल्कापिंड प्रभाव से बना क्रेटर","River meander cutoff":"नदी के विसर्प के कटने से बनी झील","Coastal lagoon formation":"तटीय लैगून निर्माण","Glacial erosion":"हिमानी अपरदन",
 "High-altitude endorheic lake":"ऊँचाई पर स्थित अंतःप्रवाही झील","Desert salt pan at sea level":"समुद्र तल पर मरुस्थलीय लवण क्षेत्र","River delta lake":"नदी डेल्टा झील",
 "Tibet":"तिब्बत","India-China frontier":"भारत-चीन सीमा","India-China boundary":"भारत-चीन सीमा","Kailash-Mansarovar route":"कैलाश-मानसरोवर मार्ग",
-"Srinagar-Leh route":"श्रीनगर-लेह मार्ग","Leh-Nubra":"लेह-नुब्रा","Leh-Pangong":"लेह-पैंगोंग","Gaddi":"गद्दी"
+"Srinagar-Leh route":"श्रीनगर-लेह मार्ग","Leh-Nubra":"लेह-नुब्रा","Leh-Pangong":"लेह-पैंगोंग","Gaddi":"गद्दी","Artificial canal reservoir":"कृत्रिम नहर जलाशय","Artificial reservoir only":"केवल कृत्रिम जलाशय","Athirappilly Falls":"अथिराप्पिल्ली जलप्रपात","Bastar":"बस्तर","Bhedaghat":"भेड़ाघाट","Black Sea":"काला सागर","Brahmaputra floodplain":"ब्रह्मपुत्र बाढ़ मैदान","Desert salt pan":"मरुस्थलीय लवण क्षेत्र","Freshwater mountain tarn":"मीठे पानी की पर्वतीय झील","Gangtok":"गंगटोक","Kerala backwaters":"केरल बैकवाटर","Konkan":"कोंकण","Malwa":"मालवा","Mediterranean Sea":"भूमध्य सागर","Puri":"पुरी","Salt pan":"लवण क्षेत्र","Salt pan in a desert":"मरुस्थल का लवण क्षेत्र","Thar Desert":"थार मरुस्थल","Dudhsagar Falls":"दूधसागर जलप्रपात","Deccan Plateau only":"केवल दक्कन का पठार","Malwa Plateau only":"केवल मालवा पठार","Andhra Pradesh and Tamil Nadu":"आंध्र प्रदेश और तमिलनाडु","Kerala and Karnataka":"केरल और कर्नाटक","Odisha and West Bengal":"ओडिशा और पश्चिम बंगाल","Gujarat and Maharashtra":"गुजरात और महाराष्ट्र","Krishna and Godavari":"कृष्णा और गोदावरी","Ganga and Brahmaputra":"गंगा और ब्रह्मपुत्र","Narmada and Tapi":"नर्मदा और ताप्ती","Mahanadi and Brahmani":"महानदी और ब्राह्मणी",
+"Amarnath route":"अमरनाथ मार्ग","Anaimalai-High Ranges region":"अनामलाई-हाई रेंज क्षेत्र","Bangladesh delta":"बांग्लादेश डेल्टा","Bhutan and Bangladesh":"भूटान और बांग्लादेश","Brahmaputra Valley":"ब्रह्मपुत्र घाटी","Chennai-Bengaluru route":"चेन्नई-बेंगलुरु मार्ग","Coastal gap":"तटीय दर्रा","Darjeeling":"दार्जिलिंग","Delhi-Jaipur route":"दिल्ली-जयपुर मार्ग","Desert plain crossing":"मरुस्थलीय मैदानी मार्ग","Doon Valley":"दून घाटी","High-altitude Ladakh mountain pass":"लद्दाख का ऊँचाई वाला पर्वतीय दर्रा","Jagannath route":"जगन्नाथ मार्ग","Kumaon Himalaya":"कुमाऊँ हिमालय","Ladakh region of the Himalaya-Karakoram system":"हिमालय-काराकोरम प्रणाली का लद्दाख क्षेत्र","Maldives":"मालदीव","Malwa Plateau":"मालवा पठार","Mumbai-Pune route":"मुंबई-पुणे मार्ग","Myanmar and China":"म्यांमार और चीन","Narmada Valley":"नर्मदा घाटी","Nilgiri":"नीलगिरि","Pakistan and Afghanistan":"पाकिस्तान और अफगानिस्तान","River delta route":"नदी डेल्टा मार्ग","Sabarimala route":"सबरीमला मार्ग","Satpura":"सतपुड़ा","Shimla":"शिमला","Western Arunachal Himalaya":"पश्चिमी अरुणाचल हिमालय","China and Nepal":"चीन और नेपाल"
 },
 pa:{
 "Jammu and Kashmir":"ਜੰਮੂ ਅਤੇ ਕਸ਼ਮੀਰ","Ladakh":"ਲੱਦਾਖ","Delhi":"ਦਿੱਲੀ","Puducherry":"ਪੁਡੁਚੇਰੀ","Chandigarh":"ਚੰਡੀਗੜ੍ਹ",
@@ -81,7 +84,8 @@ pa:{
 "Meteorite-impact crater":"ਉਲਕਾਪਿੰਡ ਟੱਕਰ ਨਾਲ ਬਣਿਆ ਕ੍ਰੇਟਰ","River meander cutoff":"ਨਦੀ ਦੇ ਮੋੜ ਦੇ ਕੱਟਣ ਨਾਲ ਬਣੀ ਝੀਲ","Coastal lagoon formation":"ਤਟੀ ਲੈਗੂਨ ਬਣਤਰ","Glacial erosion":"ਹਿਮਾਨੀ ਕਟਾਅ",
 "High-altitude endorheic lake":"ਉੱਚਾਈ ਵਾਲੀ ਅੰਦਰੂਨੀ ਨਿਕਾਸੀ ਝੀਲ","Desert salt pan at sea level":"ਸਮੁੰਦਰ ਤਲ ਉੱਤੇ ਮਾਰੂਥਲੀ ਲੂਣ ਖੇਤਰ","River delta lake":"ਨਦੀ ਡੈਲਟਾ ਝੀਲ",
 "Tibet":"ਤਿਬੱਤ","India-China frontier":"ਭਾਰਤ-ਚੀਨ ਸਰਹੱਦ","India-China boundary":"ਭਾਰਤ-ਚੀਨ ਸਰਹੱਦ","Kailash-Mansarovar route":"ਕੈਲਾਸ਼-ਮਾਨਸਰੋਵਰ ਰਸਤਾ",
-"Srinagar-Leh route":"ਸ੍ਰੀਨਗਰ-ਲੇਹ ਰਸਤਾ","Leh-Nubra":"ਲੇਹ-ਨੁਬਰਾ","Leh-Pangong":"ਲੇਹ-ਪੈਂਗੋਂਗ","Gaddi":"ਗੱਦੀ"
+"Srinagar-Leh route":"ਸ੍ਰੀਨਗਰ-ਲੇਹ ਰਸਤਾ","Leh-Nubra":"ਲੇਹ-ਨੁਬਰਾ","Leh-Pangong":"ਲੇਹ-ਪੈਂਗੋਂਗ","Gaddi":"ਗੱਦੀ","Artificial canal reservoir":"ਕ੍ਰਿਤ੍ਰਿਮ ਨਹਿਰੀ ਜਲਾਸ਼ਯ","Artificial reservoir only":"ਕੇਵਲ ਕ੍ਰਿਤ੍ਰਿਮ ਜਲਾਸ਼ਯ","Athirappilly Falls":"ਅਥਿਰਾਪੱਲੀ ਝਰਨਾ","Bastar":"ਬਸਤਰ","Bhedaghat":"ਭੇੜਾਘਾਟ","Black Sea":"ਕਾਲਾ ਸਾਗਰ","Brahmaputra floodplain":"ਬ੍ਰਹਮਪੁਤ੍ਰ ਬਾੜ ਮੈਦਾਨ","Desert salt pan":"ਮਾਰੂਥਲੀ ਲੂਣ ਖੇਤਰ","Freshwater mountain tarn":"ਮਿੱਠੇ ਪਾਣੀ ਦੀ ਪਹਾੜੀ ਝੀਲ","Gangtok":"ਗੈਂਗਟੋਕ","Kerala backwaters":"ਕੇਰਲ ਦੇ ਬੈਕਵਾਟਰ","Konkan":"ਕੋਂਕਣ","Malwa":"ਮਾਲਵਾ","Mediterranean Sea":"ਭੂ-ਮੱਧ ਸਾਗਰ","Puri":"ਪੁਰੀ","Salt pan":"ਲੂਣ ਖੇਤਰ","Salt pan in a desert":"ਮਾਰੂਥਲ ਦਾ ਲੂਣ ਖੇਤਰ","Thar Desert":"ਥਾਰ ਮਾਰੂਥਲ","Dudhsagar Falls":"ਦੂਧਸਾਗਰ ਝਰਨਾ","Deccan Plateau only":"ਕੇਵਲ ਦੱਖਣ ਦਾ ਪਠਾਰ","Malwa Plateau only":"ਕੇਵਲ ਮਾਲਵਾ ਪਠਾਰ","Andhra Pradesh and Tamil Nadu":"ਆਂਧਰਾ ਪ੍ਰਦੇਸ਼ ਅਤੇ ਤਾਮਿਲਨਾਡੂ","Kerala and Karnataka":"ਕੇਰਲ ਅਤੇ ਕਰਨਾਟਕ","Odisha and West Bengal":"ਓਡੀਸ਼ਾ ਅਤੇ ਪੱਛਮੀ ਬੰਗਾਲ","Gujarat and Maharashtra":"ਗੁਜਰਾਤ ਅਤੇ ਮਹਾਰਾਸ਼ਟਰ","Krishna and Godavari":"ਕ੍ਰਿਸ਼ਨਾ ਅਤੇ ਗੋਦਾਵਰੀ","Ganga and Brahmaputra":"ਗੰਗਾ ਅਤੇ ਬ੍ਰਹਮਪੁਤ੍ਰ","Narmada and Tapi":"ਨਰਮਦਾ ਅਤੇ ਤਾਪਤੀ","Mahanadi and Brahmani":"ਮਹਾਨਦੀ ਅਤੇ ਬ੍ਰਾਹਮਣੀ",
+"Amarnath route":"ਅਮਰਨਾਥ ਰਸਤਾ","Anaimalai-High Ranges region":"ਅਨਾਮਲਾਈ-ਹਾਈ ਰੇਂਜ ਖੇਤਰ","Bangladesh delta":"ਬੰਗਲਾਦੇਸ਼ ਡੈਲਟਾ","Bhutan and Bangladesh":"ਭੂਟਾਨ ਅਤੇ ਬੰਗਲਾਦੇਸ਼","Brahmaputra Valley":"ਬ੍ਰਹਮਪੁਤ੍ਰ ਘਾਟੀ","Chennai-Bengaluru route":"ਚੇਨਈ-ਬੈਂਗਲੁਰੂ ਰਸਤਾ","Coastal gap":"ਤਟੀ ਦਰਰਾ","Darjeeling":"ਦਾਰਜਿਲਿੰਗ","Delhi-Jaipur route":"ਦਿੱਲੀ-ਜੈਪੁਰ ਰਸਤਾ","Desert plain crossing":"ਮਾਰੂਥਲੀ ਮੈਦਾਨੀ ਰਸਤਾ","Doon Valley":"ਦੂਨ ਘਾਟੀ","High-altitude Ladakh mountain pass":"ਲੱਦਾਖ ਦਾ ਉੱਚਾਈ ਵਾਲਾ ਪਹਾੜੀ ਦਰਰਾ","Jagannath route":"ਜਗੰਨਾਥ ਰਸਤਾ","Kumaon Himalaya":"ਕੁਮਾਊਂ ਹਿਮਾਲਿਆ","Ladakh region of the Himalaya-Karakoram system":"ਹਿਮਾਲਿਆ-ਕਾਰਾਕੋਰਮ ਪ੍ਰਣਾਲੀ ਦਾ ਲੱਦਾਖ ਖੇਤਰ","Maldives":"ਮਾਲਦੀਵ","Malwa Plateau":"ਮਾਲਵਾ ਪਠਾਰ","Mumbai-Pune route":"ਮੁੰਬਈ-ਪੁਣੇ ਰਸਤਾ","Myanmar and China":"ਮਿਆਂਮਾਰ ਅਤੇ ਚੀਨ","Narmada Valley":"ਨਰਮਦਾ ਘਾਟੀ","Nilgiri":"ਨੀਲਗਿਰੀ","Pakistan and Afghanistan":"ਪਾਕਿਸਤਾਨ ਅਤੇ ਅਫਗਾਨਿਸਤਾਨ","River delta route":"ਨਦੀ ਡੈਲਟਾ ਰਸਤਾ","Sabarimala route":"ਸਬਰੀਮਲਾ ਰਸਤਾ","Satpura":"ਸਤਪੁੜਾ","Shimla":"ਸ਼ਿਮਲਾ","Western Arunachal Himalaya":"ਪੱਛਮੀ ਅਰੁਣਾਚਲ ਹਿਮਾਲਿਆ","China and Nepal":"ਚੀਨ ਅਤੇ ਨੇਪਾਲ"
 }};
 
 const EXACT:Record<"hi"|"pa",Record<string,string>>={
@@ -148,7 +152,7 @@ export function localizeGeoReferenceQuestionV1(question:CanonicalQuestion,langua
  if(language==="en")return Object.freeze({stem:question.stem,options:Object.freeze([...question.options]),canonicalAnswer:question.canonicalAnswer,explanation:question.explanation});
  const options=Object.freeze(question.options.map(o=>localizeText(o,language)));
  const canonicalAnswer=options[question.correctIndex]!;
- const stem=localizeText(question.stem,language);
+ const stem=GEO_REFERENCE_STEM_OVERRIDES_V1[question.stem]?.[language] ?? localizeText(question.stem,language);
  const translatedExplanation=localizeText(question.explanation,language);
  const latinResidue=/\b(?:is|are|which|what|the|and|with|in|on|from|near|lies|located|formed|major|river|state|region|correct|lake|falls|pass|peak)\b/i.test(translatedExplanation);
  const explanation=latinResidue?genericExplanation(canonicalAnswer,language,question.qlId):translatedExplanation;
@@ -163,6 +167,9 @@ export function auditGeoReferenceLocalizationV1(questions:readonly CanonicalQues
   if(l.options[q.correctIndex]!==l.canonicalAnswer)issues.push(`${q.questionId}:${language}:ANSWER`);
   if(language==="hi"&&!/[\u0900-\u097F]/.test(l.stem))issues.push(`${q.questionId}:hi:NO_DEVANAGARI`);
   if(language==="pa"&&!/[\u0A00-\u0A7F]/.test(l.stem))issues.push(`${q.questionId}:pa:NO_GURMUKHI`);
+  const residue=/\b(?:the|and|or|only|route|valley|plateau|coast|lake|falls|pass|peak|river|state|region|national|park|desert|freshwater|saline|coastal|glacial|mountain|himalaya)\b/i;
+  if(residue.test(l.stem))issues.push(`${q.questionId}:${language}:STEM_ENGLISH_RESIDUE`);
+  for(const option of l.options)if(residue.test(option))issues.push(`${q.questionId}:${language}:OPTION_ENGLISH_RESIDUE:${option}`);
  }
  return Object.freeze({valid:issues.length===0,issues:Object.freeze(issues),canonicalQuestionCount:questions.length,localizedVersionCount:questions.length*3});
 }
