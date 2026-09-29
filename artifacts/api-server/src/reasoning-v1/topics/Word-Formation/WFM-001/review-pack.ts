@@ -36,7 +36,9 @@ export function renderWfm001ReviewMarkdown(questions: readonly WfmGeneratedQuest
     if (question.sourceWord) lines.push(`**Source:** ${question.sourceWord}`, "");
     lines.push(question.stem, "");
     for (const option of question.options) lines.push(`${option.id}. ${option.text}`);
-    lines.push("", `**Answer:** ${question.correctOptionId}`, "", `**Explanation:** ${question.explanation}`, "");
+    lines.push("", `**Answer:** ${question.correctOptionId}`, "", "**Explanation:**");
+    for (const step of question.explanation.split("\n")) lines.push(`- ${step}`);
+    lines.push("");
     lines.push(`_Seed ${question.seed}; profile ${question.examProfile}; difficulty basis ${question.metadata.difficultyBasis}._`, "");
   });
 
