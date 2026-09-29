@@ -175,8 +175,8 @@ export async function loadApprovedEnglishVocabularyQuestions(input: {
     result = await languageV1Eng004QuestionStudioAdapterV1.generate({
       ...baseRequest,
       topic: "Synonyms & Antonyms",
-      subtopic: config.selector,
-      patternId: config.selector,
+      subtopic: "selector" in config ? config.selector : undefined,
+      patternId: "selector" in config ? config.selector : undefined,
     });
   } else if (input.topicId === "ENG-VOC-IDIOM") {
     result = await languageV1Eng005QuestionStudioAdapterV1.generate({
