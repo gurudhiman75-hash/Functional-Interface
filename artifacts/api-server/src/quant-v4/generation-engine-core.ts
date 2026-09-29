@@ -91,6 +91,8 @@ export type QuantV4GenerationRequest = {
   seed?: string;
   count?: number;
   auditDiversityOrdinalByCanonicalProblemId?: Readonly<Record<string, number>>;
+  /** Audit-only pattern exclusions used by full-chapter generators such as Mensuration. */
+  auditExcludedPatternIds?: readonly string[];
 };
 
 export interface QuantV4PackageDefinition {
