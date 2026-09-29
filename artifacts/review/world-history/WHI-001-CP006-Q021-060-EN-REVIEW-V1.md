@@ -190,7 +190,7 @@ Which comparison between the 1848 national movements and the Austro-Hungarian Co
 
 ### WHI-CP006-Q036 · Easy · Person and contribution
 
-Who was the Habsburg monarch associated with the Austro-Hungarian Compromise of 1867?
+Which Habsburg monarch remained ruler after the Austro-Hungarian Compromise of 1867?
 
 - **A.** Frederick William IV
 - **B.** Victor Emmanuel II
@@ -454,15 +454,15 @@ Which city became part of the Kingdom of Italy in 1870?
 
 ### WHI-CP006-Q058 · Medium · Diplomacy and popular action
 
-How did Garibaldi’s campaign in southern Italy relate to Cavour’s policy?
+What did Cavour and Napoleon III discuss at their secret meeting at Plombières in 1858?
 
-- **A.** Garibaldi ended Cavour’s government and restored Austrian control
-- **B.** The campaign’s gains were brought into a wider state-led process of unification
-- **C.** Cavour personally led the volunteers to Sicily
-- **D.** The campaign created a separate German state
+- **A.** An alliance between Austria and Piedmont against France
+- **B.** A possible Franco-Piedmontese alliance against Austria
+- **C.** The restoration of the Holy Roman Empire
+- **D.** A plan to transfer Sicily to the Kingdom of Prussia
 **Answer:** B
-**Explanation:** Garibaldi’s military campaign changed control in the south; the Piedmont-Sardinian government then incorporated these gains into the expanding Italian kingdom.
-**Sources:** CP006-S03, CP006-S04, CP006-S07
+**Explanation:** At Plombières, Cavour and Napoleon III prepared a secret Franco-Piedmontese alliance in case Austria went to war. The agreement shaped the conflict that began in 1859.
+**Sources:** CP006-S09
 
 ### WHI-CP006-Q059 · Hard · Movement comparison
 
