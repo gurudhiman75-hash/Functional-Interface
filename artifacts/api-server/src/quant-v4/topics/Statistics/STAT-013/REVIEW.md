@@ -122,16 +122,16 @@ D. 9
 
 ## STAT-QL-161 — Least-squares trend line
 
-A fitted trend is Ŷ = 20 + 2t. Find the fitted value at t = 2.
+Observed values at coded times t = -2, -1, 0, 1, 2 are 37, 36, 40, 44, 43, respectively. Fit the straight-line trend Ŷ = a + bt by least squares and find the fitted value at t = 3.
 
-A. 28
-B. 24
-C. 26
-D. 22
+A. 48
+B. 46
+C. 44
+D. 42
 
-**Answer:** B. 24
+**Answer:** B. 46
 
-**Explanation:** Substitute t = 2: Ŷ = 20 + 2(2) = 24.
+**Explanation:** The mean coded time is 0, so a = (37 + 36 + 40 + 44 + 43)/5 = 40. The least-squares slope is b = Σ(tY)/Σt² = 20/10 = 2. Thus Ŷ = 40 + 2t; at t = 3, the fitted value is 40 + 2(3) = 46.
 
 ## STAT-QL-162 — Trend forecast
 
