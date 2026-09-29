@@ -87,6 +87,15 @@ assert.ok(
 );
 
 
+const turtleAuthority = VEN_001_SCENARIO_AUTHORITIES.find(
+  (entry) => entry.authorityId === "VEN-AUTH-002-TURTLE-SNAKE-REPTILE",
+);
+assert.ok(turtleAuthority, "the unambiguous reptile authority must remain registered");
+assert.equal(
+  turtleAuthority.relations.find((relation) => relation.left === "A" && relation.right === "B")?.relation,
+  "DISJOINT",
+  "turtles and snakes must remain separate reptile classes",
+);
 const polygonAuthority = VEN_001_SCENARIO_AUTHORITIES.find(
   (entry) => entry.authorityId === "VEN-AUTH-018-PENTAGON-HEXAGON-POLYGON",
 );
