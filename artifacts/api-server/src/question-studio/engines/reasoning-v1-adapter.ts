@@ -29,6 +29,11 @@ import {
   isDir001QuestionStudioRequest,
 } from "../../reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-question-studio-integration";
 import {
+  RNK001_STANDARD_REVIEW_ONLY_PACKAGE_V2,
+  generateRnk001QuestionStudioBatch,
+  isRnk001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-question-studio-integration-v2";
+import {
   CLK_001_QUESTION_STUDIO_PACKAGE,
   generateClk001QuestionStudioBatch,
   isClk001QuestionStudioRequest,
@@ -294,6 +299,9 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isDir001QuestionStudioRequest(request)) {
       return generateDir001QuestionStudioBatch(request);
+    }
+    if (isRnk001QuestionStudioRequest(request)) {
+      return generateRnk001QuestionStudioBatch(request);
     }
     if (isCoaCp012ApprovedQuestionStudioRequest(request as Readonly<Record<string, unknown>>)) {
       return generateCoaCp012ApprovedQuestionStudioBatch(request);

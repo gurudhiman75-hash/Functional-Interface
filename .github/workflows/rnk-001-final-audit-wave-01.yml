@@ -1,0 +1,275 @@
+name: Reasoning RNK-001 Final Audit Wave 01
+# CI-FANOUT-ALLOW: non-main-base
+
+on:
+  pull_request:
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**
+      - artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-001-final-audit-wave-01-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rnk-001-wave-01:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: corepack enable
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle RNK-001 current integration boundary
+        working-directory: artifacts/api-server
+        run: |
+          # The recovered RNK subtree predates current strict TypeScript settings
+          # and retains historical type debt in frozen runtimes. Closure therefore
+          # validates the current integration boundary by bundling/import resolution,
+          # then proves behavior with the executable Wave tests below.
+          mkdir -p dist/reasoning-v1/rnk-final-audit
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-question-studio-integration-v2.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/integration.mjs
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-question-studio-difficulty-v2.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/difficulty.mjs
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-explanation-declutter-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/declutter.mjs
+
+      - name: Bundle RNK Wave 01 proof
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-01.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+
+      - name: Prove RNK Wave 01 English QL 001-007
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 1 7); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 English QL 008-014
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 8 14); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 English QL 015-021
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 15 21); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 English QL 022-028
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 22 28); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 English QL 029-035
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 29 35); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 English QL 036-042
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 36 42); do
+            echo "RNK Wave 01 English: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=en RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Hindi QL 001-007
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 1 7); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Hindi QL 008-014
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 8 14); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Hindi QL 015-021
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 15 21); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Hindi QL 022-028
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 22 28); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Hindi QL 029-035
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 29 35); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Hindi QL 036-042
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 36 42); do
+            echo "RNK Wave 01 Hindi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=hi RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Punjabi QL 001-007
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 1 7); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Punjabi QL 008-014
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 8 14); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Punjabi QL 015-021
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 15 21); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Punjabi QL 022-028
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 22 28); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Punjabi QL 029-035
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 29 35); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 01 Punjabi QL 036-042
+        working-directory: artifacts/api-server
+        run: |
+          for ql in $(seq 36 42); do
+            echo "RNK Wave 01 Punjabi: testing QL $(printf '%03d' "$ql")"
+            RNK_WAVE01_LANGUAGE=pa RNK_WAVE01_QL="$ql" timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-01.mjs
+          done
+
+      - name: Prove RNK Wave 02 solve-relevant presentation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-02.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-02.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-02.mjs
+
+      - name: Prove RNK Wave 03 explanation hygiene
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-03.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-03.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-03.mjs
+
+      - name: Prove RNK Wave 04 stem and distractor quality
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-04.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-04.mjs
+          timeout 600s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-04.mjs
+
+      - name: Prove RNK Wave 05 generated-instance difficulty
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-05.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-05.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-05.mjs
+
+      - name: Prove RNK Wave 06 native learner surface
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-06.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-06.mjs
+          timeout 900s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-06.mjs
+
+      - name: Prove RNK Wave 07 current-main closure
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-final-audit-wave-07.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-07.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-final-audit-wave-07.mjs
+
+      - name: Re-prove recovered RNK multilingual freeze
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-multilingual-freeze-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/rnk-final-audit/rnk-001-multilingual-freeze-v1.mjs
+          timeout 180s node dist/reasoning-v1/rnk-final-audit/rnk-001-multilingual-freeze-v1.mjs
+
+      - name: Confirm RNK integration boundary remains bundle-clean
+        working-directory: artifacts/api-server
+        run: |
+          test -s dist/reasoning-v1/rnk-final-audit/integration.mjs
+          test -s dist/reasoning-v1/rnk-final-audit/difficulty.mjs
+          test -s dist/reasoning-v1/rnk-final-audit/declutter.mjs
