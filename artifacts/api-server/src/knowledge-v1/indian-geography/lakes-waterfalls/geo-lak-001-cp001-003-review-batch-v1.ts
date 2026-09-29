@@ -106,7 +106,7 @@ r("A waterfall on the Narmada near Bhedaghat is called what?","Dhuandhar Falls",
 buildQl("HUNDRU-FALLS","Hundru Falls",[
 r("Hundru Falls is located in which state?","Jharkhand","Rajasthan","Goa","Tamil Nadu","Hundru is one of Jharkhand's well-known waterfalls.","LAK-HUN-1"),
 r("Hundru Falls is formed by which river?","Subarnarekha","Kaveri","Sharavathi","Mandovi","Hundru Falls is on the Subarnarekha River.","LAK-HUN-2"),
-r("Which plateau region is associated with Hundru Falls?","Chota Nagpur Plateau","Deccan Plateau only","Shillong Plateau","Ladakh Plateau","The Subarnarekha descends across the Chota Nagpur Plateau.","LAK-HUN-3"),
+r("Which plateau region contains Hundru Falls?","Chota Nagpur Plateau","Deccan Plateau only","Shillong Plateau","Ladakh Plateau","The Subarnarekha descends across the Chota Nagpur Plateau.","LAK-HUN-3"),
 r("Consider the statements: I. Hundru is in Jharkhand. II. It is on the Subarnarekha. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Both are correct.","LAK-HUN-4"),
 r("A waterfall in Jharkhand is formed by the Subarnarekha. Which one is it?","Hundru Falls","Dhuandhar Falls","Jog Falls","Chitrakote Falls","The river-state clue identifies Hundru.","LAK-HUN-5")
 ]),
