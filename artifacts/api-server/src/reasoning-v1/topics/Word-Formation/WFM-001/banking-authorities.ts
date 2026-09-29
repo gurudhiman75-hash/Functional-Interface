@@ -78,7 +78,7 @@ export const WFM_BANKING_ORDERED_EXTRACTION_FIXTURES: readonly WfmOrderedExtract
     difficulty: "HARD",
     options: [
       { words: ["CABIN", "STONE", "DELTA", "GLOVE"], positions: [3, 3, 1, 5], expectedExtraction: "BODE", meaningful: true },
-      { words: ["TIGER", "PLANT", "CLOUD", "BEACH"], positions: [2, 4, 1, 5], expectedExtraction: "INCH", meaningful: false },
+      { words: ["TIGER", "PLANT", "CLOUD", "BEACH"], positions: [2, 4, 1, 4], expectedExtraction: "INCC", meaningful: false },
       { words: ["HOUSE", "BRICK", "MANGO", "WATER"], positions: [3, 2, 4, 1], expectedExtraction: "URGW", meaningful: false },
       { words: ["LIGHT", "STONE", "PAPER", "CLOUD"], positions: [1, 3, 2, 4], expectedExtraction: "LOAU", meaningful: false },
       { words: ["GREEN", "TABLE", "SNAKE", "PEARL"], positions: [4, 2, 5, 1], expectedExtraction: "EAEP", meaningful: false },
