@@ -649,22 +649,22 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
       "The prime number 2 is even; other primes are odd and other even natural numbers are composite.",
   },
   {
-    authorityId: "VEN-AUTH-018-PROSE-POETRY-LITERATURE",
-    domain: "LANGUAGE_CLASSIFICATION",
+    authorityId: "VEN-AUTH-018-PENTAGON-HEXAGON-POLYGON",
+    domain: "GEOMETRY",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
     reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
     sets: [
       {
         setId: "A",
-        labels: { "en-IN": "Prose", "hi-IN": "गद्य", "pa-IN": "ਵਾਰਤਕ" },
+        labels: { "en-IN": "Pentagons", "hi-IN": "पंचभुज", "pa-IN": "ਪੰਜਭੁਜ" },
       },
       {
         setId: "B",
-        labels: { "en-IN": "Poetry", "hi-IN": "कविता", "pa-IN": "ਕਵਿਤਾ" },
+        labels: { "en-IN": "Hexagons", "hi-IN": "षट्भुज", "pa-IN": "ਛੇਭੁਜ" },
       },
       {
         setId: "C",
-        labels: { "en-IN": "Literature", "hi-IN": "साहित्य", "pa-IN": "ਸਾਹਿਤ" },
+        labels: { "en-IN": "Polygons", "hi-IN": "बहुभुज", "pa-IN": "ਬਹੁਭੁਜ" },
       },
     ],
     relations: [
@@ -674,7 +674,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     ],
     topologyId: "THREE_TWO_DISJOINT_SUBSETS",
     rationale:
-      "Prose and poetry are distinct literary forms, each within literature.",
+      "Pentagons and hexagons are disjoint classes of polygons; each has members in the broader class of polygons.",
   },
   {
     authorityId: "VEN-AUTH-019-WHOLE-RATIONAL-REAL",
