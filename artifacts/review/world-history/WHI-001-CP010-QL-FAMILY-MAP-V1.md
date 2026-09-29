@@ -5,11 +5,11 @@
 
 | Family | Coverage role | Questions | Count |
 |---|---|---|---:|
-| Outbreak and chronology | Causes, invasion of Poland, declarations and the opening sequence. | Q001, Q002, Q003, Q004, Q005, Q006 | 6 |
+| Outbreak and chronology | Causes, invasion of Poland, early campaigns and the opening phase. | Q001, Q002, Q003, Q004, Q005, Q006 | 6 |
 | Axis expansion and occupation | Axis powers, early campaigns and the occupation of western Europe. | Q007, Q008, Q009, Q010, Q011, Q012 | 6 |
 | European theatre | Major European campaigns, fronts and advances. | Q013, Q014, Q015, Q016, Q017 | 5 |
 | Pacific theatre | Pacific campaigns, naval battles and Allied advance. | Q018, Q019, Q020, Q021, Q022, Q023, Q024 | 7 |
-| Turning points | Events that shifted the balance across major theatres. | Q025, Q026, Q027, Q028, Q029, Q030 | 6 |
+| Turning points | Events that shifted the balance across major theatres, including the Eastern Front. | Q025, Q026, Q027, Q028, Q029, Q030 | 6 |
 | Allied strategy and leaders | Wartime declarations, conferences, supply and coalition decisions. | Q031, Q032, Q033, Q034, Q035, Q036, Q037 | 7 |
 | Holocaust and persecution | Nazi persecution and genocide, with historically precise framing. | Q038, Q039, Q040, Q041, Q042, Q043 | 6 |
 | Resistance and home fronts | Resistance, civilian life, codebreaking and liberation. | Q044, Q045, Q046, Q047, Q048, Q049, Q050 | 7 |
