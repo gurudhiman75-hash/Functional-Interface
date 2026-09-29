@@ -47,7 +47,11 @@ function formatQuotient(numerator: number, denominator: number): string {
 }
 
 function formatPercent(numerator: number, denominator: number): string {
-  return `${formatQuotient(numerator * 100, denominator)}%`;
+  if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || denominator <= 0) {
+    throw new Error("DI-008 received an invalid percentage fraction.");
+  }
+  const rounded = (BigInt(numerator) * 100n + BigInt(denominator) / 2n) / BigInt(denominator);
+  return `${rounded}%`;
 }
 
 function buildStimulus(seed: string): Di008Stimulus {
@@ -164,8 +168,8 @@ function buildDrafts(seed: string, profile: Di008ExamProfile, stimulus: Di008Sti
       kind: "UNITS_PERCENT_CHANGE",
       difficulty: profile === "BANKING_PRELIMS" ? "Medium" : "Hard",
       stem: profile === "BANKING_PRELIMS"
-        ? `By what percentage did the units sold of ${names(rows, changeIndices)} increase from the previous period to the current period?`
-        : `The combined units sold of ${names(rows, changeIndices)} increased by what percentage from the previous period to the current period?`,
+        ? `By approximately what percentage did the units sold of ${names(rows, changeIndices)} increase from the previous period to the current period?`
+        : `The combined units sold of ${names(rows, changeIndices)} increased by approximately what percentage from the previous period to the current period?`,
       answer: changeAnswer,
       candidates: [
         { text: `${unitDiff}%`, misconceptionId: "TREAT_ABSOLUTE_CHANGE_AS_PERCENT", derivation: "Uses the numerical increase in units as a percentage without dividing by the previous-period base." },
@@ -176,7 +180,7 @@ function buildDrafts(seed: string, profile: Di008ExamProfile, stimulus: Di008Sti
       ],
       explanation: {
         keyIdea: "Percentage increase always compares the increase with the original, previous-period quantity; for a Mains combination, aggregate the selected products first.",
-        steps: [`Previous-period units = ${oldUnits}; current-period units = ${newUnits}.`, `Increase = ${newUnits} - ${oldUnits} = ${unitDiff}; percentage increase = ${unitDiff}/${oldUnits} × 100 = ${changeAnswer}.`],
+        steps: [`Previous-period units = ${oldUnits}; current-period units = ${newUnits}.`, `Increase = ${newUnits} - ${oldUnits} = ${unitDiff}; percentage increase = ${unitDiff}/${oldUnits} × 100 ≈ ${changeAnswer}.`],
         shortcut: "For combined products, add the old values and new values separately before taking the percentage change; do not average individual growth rates.",
         trap: "Using the current value as denominator gives percentage decrease relative to the new base, not the requested percentage increase.",
       },
@@ -208,7 +212,7 @@ function buildDrafts(seed: string, profile: Di008ExamProfile, stimulus: Di008Sti
     {
       kind: "PROFIT_PERCENT",
       difficulty: profile === "BANKING_PRELIMS" ? "Medium" : "Hard",
-      stem: `What is the profit percentage on total cost for ${names(rows, profitIndices)} in the current period?`,
+      stem: `What is the approximate profit percentage on total cost for ${names(rows, profitIndices)} in the current period?`,
       answer: profitAnswer,
       candidates: [
         { text: formatPercent(aggregateProfit, aggregateRevenue), misconceptionId: "USE_REVENUE_AS_PROFIT_BASE", derivation: "Calculates profit margin on revenue instead of profit percentage on cost." },
@@ -219,7 +223,7 @@ function buildDrafts(seed: string, profile: Di008ExamProfile, stimulus: Di008Sti
       ],
       explanation: {
         keyIdea: "Profit percentage is profit divided by cost, not profit divided by revenue. For multiple products, combine rupee cost and revenue before computing the rate.",
-        steps: [`Total cost = ₹${aggregateCost}; total revenue = ₹${aggregateRevenue}; profit = ₹${aggregateProfit}.`, `Profit percentage = ${aggregateProfit}/${aggregateCost} × 100 = ${profitAnswer}.`],
+        steps: [`Total cost = ₹${aggregateCost}; total revenue = ₹${aggregateRevenue}; profit = ₹${aggregateProfit}.`, `Profit percentage = ${aggregateProfit}/${aggregateCost} × 100 ≈ ${profitAnswer}.`],
         shortcut: "For a combined group, sum money values first; a simple average of individual profit rates is wrong unless their cost weights are equal.",
         trap: "Profit ÷ revenue gives margin, which is a different percentage from profit ÷ cost.",
       },
@@ -248,7 +252,7 @@ function buildDrafts(seed: string, profile: Di008ExamProfile, stimulus: Di008Sti
     {
       kind: "REVENUE_SHARE_OF_TOTAL",
       difficulty: profile === "BANKING_PRELIMS" ? "Medium" : "Hard",
-      stem: `Current-period revenue from ${names(rows, shareIndices)} is what percentage of the total current-period revenue from all five products?`,
+      stem: `Approximately what percentage of the total current-period revenue came from ${names(rows, shareIndices)}?`,
       answer: shareAnswer,
       candidates: [
         { text: formatPercent(selectedUnits, allUnits), misconceptionId: "USE_UNIT_SHARE_INSTEAD_OF_REVENUE_SHARE", derivation: "Uses units sold as the share base and ignores different selling prices." },
@@ -259,7 +263,7 @@ function buildDrafts(seed: string, profile: Di008ExamProfile, stimulus: Di008Sti
       ],
       explanation: {
         keyIdea: "A revenue contribution question uses selected current revenue over total current revenue; units and costs are not interchangeable with revenue.",
-        steps: [`Selected revenue = ₹${selectedRevenue}; total revenue = ₹${allRevenue}.`, `Revenue share = ${selectedRevenue}/${allRevenue} × 100 = ${shareAnswer}.`],
+        steps: [`Selected revenue = ₹${selectedRevenue}; total revenue = ₹${allRevenue}.`, `Revenue share = ${selectedRevenue}/${allRevenue} × 100 ≈ ${shareAnswer}.`],
         shortcut: "Compute only the selected revenue and the all-product revenue totals; there is no need to calculate profit for this task.",
         trap: "A product can have a small unit share but a larger revenue share if its selling price per unit is higher.",
       },
