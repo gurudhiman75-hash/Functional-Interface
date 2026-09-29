@@ -1265,7 +1265,7 @@
     "language": "en",
     "difficulty": "easy",
     "questionFamily": "Person and contribution",
-    "stem": "Who was the Habsburg monarch associated with the Austro-Hungarian Compromise of 1867?",
+    "stem": "Which Habsburg monarch remained ruler after the Austro-Hungarian Compromise of 1867?",
     "options": [
       {
         "key": "A",
@@ -2059,31 +2059,29 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Diplomacy and popular action",
-    "stem": "How did Garibaldi’s campaign in southern Italy relate to Cavour’s policy?",
+    "stem": "What did Cavour and Napoleon III discuss at their secret meeting at Plombières in 1858?",
     "options": [
       {
         "key": "A",
-        "text": "Garibaldi ended Cavour’s government and restored Austrian control"
+        "text": "An alliance between Austria and Piedmont against France"
       },
       {
         "key": "B",
-        "text": "The campaign’s gains were brought into a wider state-led process of unification"
+        "text": "A possible Franco-Piedmontese alliance against Austria"
       },
       {
         "key": "C",
-        "text": "Cavour personally led the volunteers to Sicily"
+        "text": "The restoration of the Holy Roman Empire"
       },
       {
         "key": "D",
-        "text": "The campaign created a separate German state"
+        "text": "A plan to transfer Sicily to the Kingdom of Prussia"
       }
     ],
     "correctOption": "B",
-    "explanation": "Garibaldi’s military campaign changed control in the south; the Piedmont-Sardinian government then incorporated these gains into the expanding Italian kingdom.",
+    "explanation": "At Plombières, Cavour and Napoleon III prepared a secret Franco-Piedmontese alliance in case Austria went to war. The agreement shaped the conflict that began in 1859.",
     "sourceIds": [
-      "CP006-S03",
-      "CP006-S04",
-      "CP006-S07"
+      "CP006-S09"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
