@@ -7,7 +7,7 @@
     "language": "en",
     "difficulty": "easy",
     "questionFamily": "Ghana and early independence",
-    "stem": "Which sub-Saharan African country became independent in 1957 as Ghana?",
+    "stem": "Which former British colony gained independence in 1957 and adopted the name Ghana?",
     "options": [
       {
         "key": "A",
@@ -78,7 +78,7 @@
     "factId": "WHI-CP013-F003",
     "language": "en",
     "difficulty": "hard",
-    "questionFamily": "Nigerian independence",
+    "questionFamily": "Colonial borders and decolonization outcomes",
     "stem": "Which territory became independent as the Federation of Nigeria on 1 October 1960?",
     "options": [
       {
@@ -113,7 +113,7 @@
     "factId": "WHI-CP013-F004",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Portuguese decolonization",
+    "questionFamily": "Colonial borders and decolonization outcomes",
     "stem": "Which pair of former Portuguese territories became independent in 1975?",
     "options": [
       {
@@ -149,7 +149,7 @@
     "factId": "WHI-CP013-F005",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "Zimbabwean independence",
+    "questionFamily": "Colonial borders and decolonization outcomes",
     "stem": "Which former British territory became independent as Zimbabwe in 1980?",
     "options": [
       {
@@ -184,7 +184,7 @@
     "factId": "WHI-CP013-F006",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Namibian independence",
+    "questionFamily": "Colonial borders and decolonization outcomes",
     "stem": "Which United Nations operation supervised elections during Namibia’s transition to independence?",
     "options": [
       {
@@ -1811,7 +1811,7 @@
     "factId": "WHI-CP013-F051",
     "language": "en",
     "difficulty": "hard",
-    "questionFamily": "Angolan independence",
+    "questionFamily": "Colonial borders and decolonization outcomes",
     "stem": "Which agreement provided for a transitional government and Angola’s independence from Portugal?",
     "options": [
       {
@@ -1883,7 +1883,7 @@
     "factId": "WHI-CP013-F053",
     "language": "en",
     "difficulty": "easy",
-    "questionFamily": "Namibian independence",
+    "questionFamily": "Anti-apartheid resistance and repression",
     "stem": "Which liberation movement did the United Nations recognize in 1976 as the sole and authentic representative of the Namibian people?",
     "options": [
       {
@@ -1918,7 +1918,7 @@
     "factId": "WHI-CP013-F054",
     "language": "en",
     "difficulty": "medium",
-    "questionFamily": "Namibian independence",
+    "questionFamily": "Colonial borders and decolonization outcomes",
     "stem": "On which date did Namibia become independent?",
     "options": [
       {
