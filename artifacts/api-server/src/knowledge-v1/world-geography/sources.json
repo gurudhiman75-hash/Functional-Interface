@@ -943,5 +943,23 @@
     "kind": "primary-agency",
     "consultedOn": "2026-09-28",
     "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "NCERT-GEOT-TECH",
+    "title": "CBSE/NCERT: Geospatial Technology, Class XII",
+    "url": "https://cbseacademic.nic.in/web_material/doc/2014/7_Geospatial%20Technology%20Text%20Book%20%28Class-XII%29.pdf",
+    "section": "Remote sensing; geographic information systems; raster and vector data; overlay and buffer operations; satellite positioning",
+    "kind": "primary-educational",
+    "consultedOn": "2026-09-29",
+    "retrievalStatus": "search-excerpt"
+  },
+  {
+    "id": "ISRO-NRSC",
+    "title": "ISRO: National Remote Sensing Centre",
+    "url": "https://www.isro.gov.in/NRSC.html",
+    "section": "Satellite and aerial remote sensing data acquisition and processing; digital mapping; GIS applications",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-29",
+    "retrievalStatus": "page-read"
   }
 ]
