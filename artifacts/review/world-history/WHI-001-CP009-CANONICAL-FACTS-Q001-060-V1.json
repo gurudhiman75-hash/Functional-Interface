@@ -93,6 +93,12 @@
       "title": "U.S. Holocaust Memorial Museum — Invasion of Poland, Fall 1939",
       "url": "https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939",
       "use": "Invasion date and outbreak of the Second World War in Europe."
+    },
+    {
+      "sourceId": "CP009-S16",
+      "title": "U.S. Department of State, Office of the Historian — Foreign Relations of the United States, 1939, General, Volume I, Document 236",
+      "url": "https://history.state.gov/historicaldocuments/frus1939v01/d236",
+      "use": "British assurance to Poland, the reciprocal April communiqué, and the August Anglo-Polish mutual assistance agreement."
     }
   ],
   "facts": [
@@ -701,24 +707,23 @@
     },
     {
       "factId": "WHI-CP009-F058",
-      "claim": "Britain and France declared war on Germany on 3 September 1939, after the invasion of Poland.",
+      "claim": "The United Kingdom and Poland signed a permanent agreement of mutual assistance in London on 25 August 1939.",
       "sourceIds": [
-        "CP009-S15"
+        "CP009-S16"
       ],
-      "sourceLocator": "Interwar chronology and synthesis",
+      "sourceLocator": "U.S. Department of State, FRUS 1939, General, Volume I, footnote 3 to document 749; sentence on the permanent agreement signed at London on August 25, 1939.",
       "relationshipType": "interwar-chronology-and-synthesis",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with paragraph locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F059",
-      "claim": "The pact was signed in August 1939, Germany invaded Poland on 1 September, and Britain and France declared war on 3 September.",
+      "claim": "Britain announced a unilateral assurance to Poland on 31 March 1939; an Anglo-Polish communiqué made it reciprocal on 6 April, and a permanent agreement of mutual assistance was signed on 25 August.",
       "sourceIds": [
-        "CP009-S14",
-        "CP009-S15"
+        "CP009-S16"
       ],
-      "sourceLocator": "Interwar chronology and synthesis",
+      "sourceLocator": "U.S. Department of State, FRUS 1939, General, Volume I, footnote 3 to document 749; sentences on the March 31 statement, April 6 communiqué, and August 25 agreement.",
       "relationshipType": "interwar-chronology-and-synthesis",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with paragraph locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F060",

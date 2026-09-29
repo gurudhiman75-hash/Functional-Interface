@@ -16,7 +16,7 @@
 | Q033–Q042 | Authoritarian movements | Fascism in Italy; Mussolini; Nazism in Germany; Hitler’s appointment; consolidation through law, coercion and propaganda |
 | Q043–Q048 | Aggression beyond Europe | Japanese expansion in Manchuria; League response; Italian invasion of Ethiopia; Spanish Civil War as international involvement |
 | Q049–Q054 | German revision and appeasement | Rearmament; Rhineland; Anschluss; Sudetenland; Munich Agreement; state each event’s sequence and effect accurately |
-| Q055–Q060 | Road to war | Occupation of the rest of Czechoslovakia; Nazi–Soviet Pact; invasion of Poland on 1 September 1939; British and French declarations; keep WWII battles in CP010 |
+| Q055–Q060 | Road to war | Nazi–Soviet Pact and secret protocol; British assurances and mutual assistance to Poland; invasion of Poland on 1 September 1939; keep declarations and WWII campaigns in CP010 |
 
 ## Sources
 
@@ -32,4 +32,10 @@
 | CP009-S08 | [UK Parliament — Neville Chamberlain and the Munich Agreement](https://www.parliament.uk/about/living-heritage/transformingsociety/private-lives/yourcountry/collections/collections-second-world-war/parliamentarians-and-people/neville-chamberlain/) | British policy and Munich, September 1938. |
 | CP009-S09 | [UK Parliament Hansard — Munich Agreement debate, October 1938](https://hansard.parliament.uk/Commons/1938-10-05/debates/25851755-dbcd-4704-9334-fdf2574d6453/PolicyOfHisMajestySGovernment) | Contemporary debate and stated rationale; treat as a primary source, not a neutral verdict. |
 
-Add reliable sources for Italian Fascism, Manchuria, Ethiopia, the Spanish Civil War and the 1939 outbreak before writing those items.
+| CP009-S10 | [U.S. Department of State — The Mukden Incident of 1931](https://history.state.gov/milestones/1921-1936/mukden-incident) | Japanese expansion in Manchuria and international response. |
+| CP009-S11 | [U.S. Holocaust Memorial Museum — Benito Mussolini](https://encyclopedia.ushmm.org/content/en/article/benito-mussolini-1) | Mussolini, March on Rome and appointment as prime minister. |
+| CP009-S12 | [U.S. Department of State — Foreign Relations of the United States, 1935: Ethiopia crisis papers](https://history.state.gov/historicaldocuments/frus1935v01/ch26) | Italian invasion of Ethiopia and diplomatic/League responses; contemporary sources are interested accounts. |
+| CP009-S13 | [U.S. Department of State — Foreign Relations of the United States, 1936: Spanish Civil War papers](https://history.state.gov/historicaldocuments/frus1936v02/toc-papers) | International diplomacy and non-intervention during the Spanish Civil War. |
+| CP009-S14 | [U.S. Holocaust Memorial Museum — German-Soviet Pact](https://encyclopedia.ushmm.org/content/en/article/german-soviet-pact) | Pact, secret protocol and the path to the invasion of Poland. |
+| CP009-S15 | [U.S. Holocaust Memorial Museum — Invasion of Poland, Fall 1939](https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939) | Invasion date and outbreak of the Second World War in Europe. |
+| CP009-S16 | [U.S. Department of State, Office of the Historian — Foreign Relations of the United States, 1939, General, Volume I, Document 236](https://history.state.gov/historicaldocuments/frus1939v01/d236) | British assurance to Poland, the reciprocal April communiqué, and the August Anglo-Polish mutual assistance agreement. |

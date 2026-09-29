@@ -17,7 +17,7 @@ The family map reuses the shared World History `knowledge-v1` concept of explici
 | Policy and consolidation | Legislative, coercive and institutional methods used to establish dictatorship. | Q037, Q038, Q039, Q040, Q041, Q042 | 6 |
 | Aggression and response | Expansion in Manchuria, Ethiopia and Spain, with international responses. | Q043, Q045, Q047, Q048 | 4 |
 | Diplomacy and appeasement | Rhineland, Anschluss, Munich, appeasement and German expansion. | Q049, Q050, Q051, Q052, Q053, Q054 | 6 |
-| Interwar chronology and synthesis | Pacts, invasion and declarations that led to war, linked to wider interwar pressures. | Q055, Q056, Q057, Q058, Q059, Q060 | 6 |
+| Interwar chronology and synthesis | The German-Soviet pact, diplomatic assurances to Poland, the invasion trigger and a synthesis of wider interwar pressures. | Q055, Q056, Q057, Q058, Q059, Q060 | 6 |
 
 ## Shared architecture reuse
 

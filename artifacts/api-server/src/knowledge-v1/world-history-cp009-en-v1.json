@@ -2035,29 +2035,29 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Interwar chronology and synthesis",
-    "stem": "When did Britain and France declare war on Germany after the invasion of Poland?",
+    "stem": "What did the United Kingdom and Poland formalize in their agreement signed in London on 25 August 1939?",
     "options": [
       {
         "key": "A",
-        "text": "1 September 1939"
+        "text": "A joint military occupation of Germany"
       },
       {
         "key": "B",
-        "text": "3 September 1939"
+        "text": "An agreement of mutual assistance"
       },
       {
         "key": "C",
-        "text": "23 August 1939"
+        "text": "A non-aggression pact with the Soviet Union"
       },
       {
         "key": "D",
-        "text": "30 January 1933"
+        "text": "A naval disarmament treaty"
       }
     ],
     "correctOption": "B",
-    "explanation": "Britain and France declared war on Germany on 3 September 1939, after the invasion of Poland.",
+    "explanation": "The United Kingdom and Poland signed a permanent agreement of mutual assistance in London on 25 August 1939.",
     "sourceIds": [
-      "CP009-S15"
+      "CP009-S16"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -2070,30 +2070,29 @@
     "language": "en",
     "difficulty": "hard",
     "questionFamily": "Interwar chronology and synthesis",
-    "stem": "Which sequence correctly orders the events that began the Second World War in Europe?",
+    "stem": "Which sequence correctly describes Britain’s commitments to Poland in 1939?",
     "options": [
       {
         "key": "A",
-        "text": "Invasion of Poland → German-Soviet Pact → declarations of war"
+        "text": "Permanent agreement → reciprocal communiqué → unilateral assurance"
       },
       {
         "key": "B",
-        "text": "Declarations of war → Pact → invasion of Poland"
+        "text": "Reciprocal communiqué → unilateral assurance → permanent agreement"
       },
       {
         "key": "C",
-        "text": "German-Soviet Pact → German invasion of Poland → British and French declarations of war"
+        "text": "Unilateral assurance → reciprocal communiqué → permanent agreement"
       },
       {
         "key": "D",
-        "text": "Pact → declarations of war → invasion of Poland"
+        "text": "Unilateral assurance → permanent agreement → reciprocal communiqué"
       }
     ],
     "correctOption": "C",
-    "explanation": "The pact was signed in August 1939, Germany invaded Poland on 1 September, and Britain and France declared war on 3 September.",
+    "explanation": "Neville Chamberlain announced a unilateral British assurance to Poland on 31 March. An Anglo-Polish communiqué made the assurance reciprocal on 6 April, and a permanent agreement of mutual assistance was signed on 25 August.",
     "sourceIds": [
-      "CP009-S14",
-      "CP009-S15"
+      "CP009-S16"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
