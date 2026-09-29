@@ -25,7 +25,7 @@ All 60 canonical facts in each checkpoint now have focused section, article, doc
 
 1. Complete human English review and approve the factual and editorial candidate pools; the first-pass report is recorded in `WHI-001-CP009-CP010-EN-EDITORIAL-REVIEW-V1.md`.
 2. Create Hindi and Punjabi review candidates with the same question IDs, keyed option order, correct answers, difficulty, family, fact IDs and source IDs.
-4. Run localization parity checks for record counts, scripts, dates/numbers, option integrity, answer keys, provenance and review-only lifecycle.
-5. Register through the shared Question Studio architecture only after English and both language reviews pass.
+3. Run localization parity checks for record counts, scripts, dates/numbers, option integrity, answer keys, provenance and review-only lifecycle.
+4. Register through the shared Question Studio architecture only after English and both language reviews pass.
 
 No localization or learner-delivery assets were added by this readiness review.
