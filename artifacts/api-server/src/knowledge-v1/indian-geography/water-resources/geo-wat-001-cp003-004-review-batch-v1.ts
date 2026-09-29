@@ -13,7 +13,7 @@ buildQl("HIRAKUD","Hirakud project",[
 r("Hirakud Dam is built on which river?","Mahanadi","Sutlej","Bhagirathi","Narmada","Hirakud is a major multipurpose dam on the Mahanadi in Odisha.","WAT-HIRAKUD-1"),
 r("Hirakud Dam is located in which state?","Odisha","Punjab","Uttarakhand","Gujarat","Hirakud lies in Odisha on the Mahanadi.","WAT-HIRAKUD-2"),
 r("Which is a major function of the Hirakud project?","Flood control, irrigation and power","Only sea transport","Only drinking water for one village","Only railway supply","The project combines flood moderation with irrigation and hydroelectricity.","WAT-HIRAKUD-3"),
-r("Consider the statements: I. Hirakud is on the Mahanadi. II. It is a multipurpose project. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Both statements are correct.","WAT-HIRAKUD-4"),
+r("Consider the statements: I. Hirakud is on the Mahanadi. II. It is a multipurpose project. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Hirakud is on the Mahanadi in Odisha and combines several water-management and power functions.","WAT-HIRAKUD-4"),
 r("A dam in Odisha is built across the Mahanadi. Which one is it?","Hirakud","Bhakra","Tehri","Sardar Sarovar","The river-state combination identifies Hirakud.","WAT-HIRAKUD-5")
 ]),
 buildQl("DAMODAR-VALLEY","Damodar Valley Project",[
@@ -34,7 +34,7 @@ buildQl("SARDAR-SAROVAR","Sardar Sarovar project",[
 r("Sardar Sarovar Dam is built on which river?","Narmada","Mahanadi","Sutlej","Krishna","Sardar Sarovar is a major dam on the Narmada.","WAT-SSP-1"),
 r("Which state contains the Sardar Sarovar Dam site?","Gujarat","Punjab","Odisha","Uttarakhand","The dam is located in Gujarat on the Narmada.","WAT-SSP-2"),
 r("Which function is important in the Sardar Sarovar project?","Irrigation and water supply","Only sea navigation","Only coal transport","Only railway power","The project distributes Narmada water for irrigation and other uses.","WAT-SSP-3"),
-r("Consider the statements: I. Sardar Sarovar is on the Narmada. II. It serves western India. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Both statements are correct.","WAT-SSP-4"),
+r("Consider the statements: I. Sardar Sarovar is on the Narmada. II. It serves western India. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","The dam is on the Narmada in Gujarat, and the wider project distributes water across western India.","WAT-SSP-4"),
 r("A major multipurpose dam in Gujarat lies on the Narmada. Which project is it?","Sardar Sarovar","Hirakud","Bhakra-Nangal","Tehri","The Gujarat-Narmada clue identifies Sardar Sarovar.","WAT-SSP-5")
 ])
 ]);
