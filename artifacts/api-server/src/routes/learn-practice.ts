@@ -170,29 +170,58 @@ export async function loadApprovedEnglishVocabularyQuestions(input: {
     seed,
   };
 
-  let result;
+  let rawQuestions: Record<string, unknown>[] = [];
   if (input.topicId === "ENG-VOC-SYN" || input.topicId === "ENG-VOC-ANT") {
-    result = await languageV1Eng004QuestionStudioAdapterV1.generate({
-      ...baseRequest,
-      topic: "Vocabulary",
-      subtopic: "selector" in config ? config.selector : undefined,
-      patternId: "selector" in config ? config.selector : undefined,
-    });
+    const selector = "selector" in config ? config.selector : undefined;
+    const seen = new Set<string>();
+    const maxAttempts = input.limit * 80;
+
+    for (let attempt = 0; attempt < maxAttempts && rawQuestions.length < input.limit; attempt += 1) {
+      try {
+        const result = await languageV1Eng004QuestionStudioAdapterV1.generate({
+          ...baseRequest,
+          count: 1,
+          seed: `${seed}:relation:${attempt}`,
+          topic: "Vocabulary",
+          subtopic: selector,
+          patternId: selector,
+        });
+        const question = result.questions[0] as Record<string, unknown> | undefined;
+        const id = String(question?.questionId ?? question?.id ?? "");
+        if (question && id && !seen.has(id)) {
+          seen.add(id);
+          rawQuestions.push(question);
+        }
+      } catch (error) {
+        if (error instanceof Error && /has no approved (synonym|antonym)/i.test(error.message)) {
+          continue;
+        }
+        throw error;
+      }
+    }
+
+    if (rawQuestions.length < input.limit) {
+      throw new Error(
+        `Unable to assemble ${input.limit} approved ${selector ?? "vocabulary"} questions`,
+      );
+    }
   } else if (input.topicId === "ENG-VOC-IDIOM") {
-    result = await languageV1Eng005QuestionStudioAdapterV1.generate({
+    const result = await languageV1Eng005QuestionStudioAdapterV1.generate({
       ...baseRequest,
       topic: "Idioms & Phrases",
       subtopic: "Vocabulary",
     });
+    rawQuestions = result.questions;
   } else {
-    result = await languageV1Eng006QuestionStudioAdapterV1.generate({
+    const result = await languageV1Eng006QuestionStudioAdapterV1.generate({
       ...baseRequest,
       topic: "One-word Substitution",
       subtopic: "Vocabulary",
     });
+    rawQuestions = result.questions;
   }
 
-  return result.questions.slice(0, input.limit).map((question: any) => ({
+  return rawQuestions.slice(0, input.limit).map((question: any) => ({
     id: String(question.questionId ?? question.id ?? ""),
     topicId: input.topicId,
     text: String(question.stem ?? question.text ?? ""),
