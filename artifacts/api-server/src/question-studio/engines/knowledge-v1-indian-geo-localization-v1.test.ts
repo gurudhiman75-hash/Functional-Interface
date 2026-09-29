@@ -4,6 +4,7 @@ import { knowledgeV1GeoCli001QuestionStudioAdapterV1 } from "./knowledge-v1-geo-
 import { knowledgeV1GeoHaz001QuestionStudioAdapterV1 } from "./knowledge-v1-geo-haz-001-adapter-v1";
 import { knowledgeV1GeoInd001QuestionStudioAdapterV1 } from "./knowledge-v1-geo-ind-001-adapter-v1";
 import { knowledgeV1GeoLnd001QuestionStudioAdapterV1 } from "./knowledge-v1-geo-lnd-001-adapter-v1";
+import { knowledgeV1GeoMin001QuestionStudioAdapterV1 } from "./knowledge-v1-geo-min-001-adapter-v1";
 import { knowledgeV1GeoLoc001QuestionStudioAdapterV1 } from "./knowledge-v1-geo-loc-001-adapter-v1";
 import { knowledgeV1GeoPhy001QuestionStudioAdapterV1 } from "./knowledge-v1-geo-phy-001-adapter-v1";
 import { knowledgeV1GeoPln001QuestionStudioAdapterV1 } from "./knowledge-v1-geo-pln-001-adapter-v1";
@@ -20,6 +21,7 @@ const cases = [
   ["GEO-HAZ-001", knowledgeV1GeoHaz001QuestionStudioAdapterV1],
   ["GEO-IND-001", knowledgeV1GeoInd001QuestionStudioAdapterV1],
   ["GEO-LND-001", knowledgeV1GeoLnd001QuestionStudioAdapterV1],
+  ["GEO-MIN-001", knowledgeV1GeoMin001QuestionStudioAdapterV1],
   ["GEO-LOC-001", knowledgeV1GeoLoc001QuestionStudioAdapterV1],
   ["GEO-PHY-001", knowledgeV1GeoPhy001QuestionStudioAdapterV1],
   ["GEO-PLN-001", knowledgeV1GeoPln001QuestionStudioAdapterV1],
