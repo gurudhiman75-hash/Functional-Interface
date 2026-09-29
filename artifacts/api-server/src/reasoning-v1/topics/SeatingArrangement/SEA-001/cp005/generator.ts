@@ -29,7 +29,7 @@ export const SEA_CP005_BLUEPRINTS: readonly MixedCircleBlueprintId[] = [
 
 const LIFECYCLE = Object.freeze({
   discoveryStatus: "EXECUTABLE_FOUNDATION" as const,
-  permanentQlCount: 0 as const,
+  permanentQlCount: 9 as const,
   questionStudioRegistered: false as const,
   questionBankWritable: false as const,
   testEligible: false as const,
