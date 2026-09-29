@@ -143,12 +143,12 @@ console.log(JSON.stringify({
 
 
 {
-  const first = generateMensurationSelectionBatchV2({
+  const first = generateMensurationStudioBatchV2({
     seed: "MENSURATION-SELECTION-EXCLUSION-P6:first",
     examProfile: "SSC_CORE",
     count: 1,
   }).questions[0]!;
-  const second = generateMensurationSelectionBatchV2({
+  const second = generateMensurationStudioBatchV2({
     seed: "MENSURATION-SELECTION-EXCLUSION-P6:second",
     examProfile: "SSC_CORE",
     count: 1,
