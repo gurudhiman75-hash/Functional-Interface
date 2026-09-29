@@ -249,25 +249,76 @@ function directStem(language: WfmLanguage, task: WfmTask, sourceWord: string): s
     : `Which of the following words cannot be formed using the letters of ‘${sourceWord}’?`;
 }
 
-function directExplanation(language: WfmLanguage, task: WfmTask, sourceWord: string, options: readonly WfmOption[], answerId: WfmOption["id"]): string {
-  const answer = options.find((option) => option.id === answerId)!.text;
-  const trap = options.find((option) => option.id !== answerId && option.provenance === "IGNORED_REPEATED_LETTER_LIMIT");
+function optionLetterBreakdown(sourceWord: string, candidateWord: string): string {
+  const available = letterCounts(sourceWord);
+  const used: Record<string, number> = {};
+  return [...normalizeWfmWord(candidateWord)]
+    .map((letter) => {
+      used[letter] = (used[letter] ?? 0) + 1;
+      const present = used[letter] <= (available[letter] ?? 0);
+      return `${letter}${present ? "✓" : "✗"}`;
+    })
+    .join(" ");
+}
+
+function optionVerdict(language: WfmLanguage, sourceWord: string, candidateWord: string): string {
+  const analysis = analyseCandidate(sourceWord, candidateWord);
   if (language === "hi-IN") {
-    if (task === "CAN_FORM") {
-      return `किसी अक्षर को मूल शब्द में उपलब्ध संख्या से अधिक बार नहीं ले सकते। ${answer} के लिए ${countSummary(answer)} चाहिए और ये सभी अक्षर ${sourceWord} में पर्याप्त हैं।${trap ? ` ${trap.text} में ${deficitSummary(language, sourceWord, trap.text)}।` : ""} इसलिए सही उत्तर ${answer} है।`;
-    }
-    return `${answer} नहीं बन सकता क्योंकि ${deficitSummary(language, sourceWord, answer)}। इसलिए सही उत्तर ${answer} है।`;
+    return analysis.canForm
+      ? "बनाया जा सकता है"
+      : `नहीं बनाया जा सकता — ${deficitSummary(language, sourceWord, candidateWord)}`;
   }
   if (language === "pa-IN") {
-    if (task === "CAN_FORM") {
-      return `ਕਿਸੇ ਅੱਖਰ ਨੂੰ ਮੂਲ ਸ਼ਬਦ ਵਿੱਚ ਮੌਜੂਦ ਗਿਣਤੀ ਤੋਂ ਵੱਧ ਵਾਰ ਨਹੀਂ ਲਿਆ ਜਾ ਸਕਦਾ। ${answer} ਲਈ ${countSummary(answer)} ਦੀ ਲੋੜ ਹੈ ਅਤੇ ਇਹ ਸਾਰੇ ਅੱਖਰ ${sourceWord} ਵਿੱਚ ਕਾਫ਼ੀ ਹਨ।${trap ? ` ${trap.text} ਵਿੱਚ ${deficitSummary(language, sourceWord, trap.text)}।` : ""} ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।`;
-    }
-    return `${answer} ਨਹੀਂ ਬਣ ਸਕਦਾ ਕਿਉਂਕਿ ${deficitSummary(language, sourceWord, answer)}। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।`;
+    return analysis.canForm
+      ? "ਬਣਾਇਆ ਜਾ ਸਕਦਾ ਹੈ"
+      : `ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਦਾ — ${deficitSummary(language, sourceWord, candidateWord)}`;
   }
-  if (task === "CAN_FORM") {
-    return `A letter cannot be used more times than it appears in the source word. ${answer} needs ${countSummary(answer)}, all available in ${sourceWord}.${trap ? ` The close trap ${trap.text} fails because ${deficitSummary(language, sourceWord, trap.text)}.` : ""} Therefore, ${answer} can be formed.`;
+  return analysis.canForm
+    ? "can be formed"
+    : `cannot be formed — ${deficitSummary(language, sourceWord, candidateWord)}`;
+}
+
+function directExplanation(language: WfmLanguage, task: WfmTask, sourceWord: string, options: readonly WfmOption[], answerId: WfmOption["id"]): string {
+  const optionLines = options.map(
+    (option) => `${option.id}. ${option.text}: ${optionLetterBreakdown(sourceWord, option.text)} → ${optionVerdict(language, sourceWord, option.text)}`,
+  );
+
+  if (language === "hi-IN") {
+    const taskRule = task === "CAN_FORM"
+      ? "हमें वह विकल्प चुनना है जिसके सभी आवश्यक अक्षर मूल शब्द में पर्याप्त संख्या में मौजूद हों।"
+      : "हमें वह विकल्प चुनना है जिसके लिए कम-से-कम एक आवश्यक अक्षर मूल शब्द में पर्याप्त संख्या में मौजूद न हो।";
+    return [
+      "आइए विकल्पों को एक-एक करके जाँचते हैं।",
+      `मूल शब्द: ${sourceWord}. ✓ का अर्थ है कि आवश्यक अक्षर उपलब्ध है; ✗ का अर्थ है कि वह अक्षर उपलब्ध नहीं है या पर्याप्त बार उपलब्ध नहीं है।`,
+      taskRule,
+      ...optionLines,
+      `अतः विकल्प ${answerId} सही है।`,
+    ].join("\n");
   }
-  return `${answer} cannot be formed because ${deficitSummary(language, sourceWord, answer)}. Therefore, ${answer} is the correct answer.`;
+
+  if (language === "pa-IN") {
+    const taskRule = task === "CAN_FORM"
+      ? "ਸਾਨੂੰ ਉਹ ਵਿਕਲਪ ਚੁਣਨਾ ਹੈ ਜਿਸ ਦੇ ਸਾਰੇ ਲੋੜੀਂਦੇ ਅੱਖਰ ਮੂਲ ਸ਼ਬਦ ਵਿੱਚ ਕਾਫ਼ੀ ਗਿਣਤੀ ਵਿੱਚ ਮੌਜੂਦ ਹੋਣ।"
+      : "ਸਾਨੂੰ ਉਹ ਵਿਕਲਪ ਚੁਣਨਾ ਹੈ ਜਿਸ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਲੋੜੀਂਦਾ ਅੱਖਰ ਮੂਲ ਸ਼ਬਦ ਵਿੱਚ ਮੌਜੂਦ ਨਾ ਹੋਵੇ ਜਾਂ ਕਾਫ਼ੀ ਵਾਰ ਨਾ ਹੋਵੇ।";
+    return [
+      "ਆਓ ਵਿਕਲਪਾਂ ਨੂੰ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਜਾਂਚੀਏ।",
+      `ਮੂਲ ਸ਼ਬਦ: ${sourceWord}. ✓ ਦਾ ਮਤਲਬ ਲੋੜੀਂਦਾ ਅੱਖਰ ਉਪਲਬਧ ਹੈ; ✗ ਦਾ ਮਤਲਬ ਉਹ ਅੱਖਰ ਉਪਲਬਧ ਨਹੀਂ ਜਾਂ ਕਾਫ਼ੀ ਵਾਰ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।`,
+      taskRule,
+      ...optionLines,
+      `ਇਸ ਲਈ ਵਿਕਲਪ ${answerId} ਸਹੀ ਹੈ।`,
+    ].join("\n");
+  }
+
+  const taskRule = task === "CAN_FORM"
+    ? "We need the option whose required letters are all available in the source word in sufficient count."
+    : "We need the option for which at least one required letter is missing or is needed more times than it appears in the source word.";
+  return [
+    "Let’s break down the options.",
+    `Source word: ${sourceWord}. ✓ means the required occurrence is available; ✗ means it is missing or exceeds the available count.`,
+    taskRule,
+    ...optionLines,
+    `Hence, option ${answerId} is correct.`,
+  ].join("\n");
 }
 
 function generateDirect(input: BaseInput, qlId: "WFM-QL-001" | "WFM-QL-002"): WfmGeneratedQuestion {
