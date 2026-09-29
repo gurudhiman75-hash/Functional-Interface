@@ -1,4 +1,5 @@
-import{ENG010_SETS_V1,type Eng010CpId,type Eng010Difficulty,type Eng010SetV1}from"./eng-010-authorities-v1";
+import{type Eng010CpId,type Eng010Difficulty,type Eng010SetV1}from"./eng-010-authorities-v1";
+import{ENG010_ACTIVE_SETS_V2}from"./eng-010-active-v2";
 
 export type Eng010QuestionInputV1={seed?:string;cpId?:Eng010CpId;difficulty?:Eng010Difficulty;setId?:string};
 function hash(v:string){let h=0x811c9dc5;for(let i=0;i<v.length;i++){h^=v.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return h>>>0;}
@@ -23,12 +24,17 @@ function shuffledOptions(set:Eng010SetV1,seed:string){
  return raw.map((value,i)=>({value,key:hash(`${seed}:${value}:${i}`)})).sort((a,b)=>a.key-b.key).map(x=>x.value);
 }
 function chooseSet(input:Eng010QuestionInputV1){
- if(input.setId){const found=ENG010_SETS_V1.find(x=>x.id===input.setId);if(!found)throw new Error(`Unknown ENG-010 set ${input.setId}`);return found;}
- let pool=ENG010_SETS_V1;
+ if(input.setId){const found=ENG010_ACTIVE_SETS_V2.find(x=>x.id===input.setId);if(!found)throw new Error(`Unknown ENG-010 set ${input.setId}`);return found;}
+ let pool=ENG010_ACTIVE_SETS_V2;
  if(input.cpId)pool=pool.filter(x=>x.cpId===input.cpId);
  if(input.difficulty)pool=pool.filter(x=>x.difficulty===input.difficulty);
  if(!pool.length)throw new Error("No ENG-010 authority set matches the requested filters");
  return pick(pool,input.seed??"eng010-default");
+}
+function friendlyExplanation(set:Eng010SetV1){
+ const correct=orderText(set.order);
+ if(set.explanation.startsWith("The correct order is"))return set.explanation;
+ return `The correct order is ${correct}. Start with the sentence that introduces the main idea. Then follow the linking words, references and cause-effect flow. In this set, ${set.explanation} Reading the sentences in this order gives one clear, complete paragraph.`;
 }
 export function generateEng010QuestionV1(input:Eng010QuestionInputV1={}){
  const seed=input.seed??"eng010-default",set=chooseSet(input),opts=shuffledOptions(set,seed),correct=orderText(set.order);
@@ -39,7 +45,7 @@ export function generateEng010QuestionV1(input:Eng010QuestionInputV1={}){
   prompt:"Choose the correct sequence.",
   options:opts,
   correctOptionIndex:opts.indexOf(correct),
-  explanation:set.explanation,
+  explanation:friendlyExplanation(set),
   metadata:{chapterId:"ENG-010",cpId:set.cpId,setId:set.id,difficulty:set.difficulty,topic:set.topic,correctOrder:correct,reviewOnly:true}
  };
 }
