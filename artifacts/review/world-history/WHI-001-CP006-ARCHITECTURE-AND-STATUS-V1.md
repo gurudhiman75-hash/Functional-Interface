@@ -8,7 +8,7 @@
 
 CP006 follows the existing Static GK `knowledge-v1` architecture used by World History CP003–CP005. It adds checkpoint data to the existing contract rather than creating a second engine.
 
-1. **Authority:** source register `CP006-S01`–`CP006-S08`, including archival and museum records.
+1. **Authority:** source register `CP006-S01`–`CP006-S09`, including archival, museum, government and specialist records.
 2. **Canonical facts:** stable `WHI-CP006-F001`–`F060` claims with source IDs, locators and relationship types.
 3. **Question-family layer:** ten approved family values, six items per family, crosswalked in `WHI-001-CP006-QL-FAMILY-MAP-V1.md`.
 4. **Question layer:** shared record shape with stable IDs, fact links, language, difficulty, family, keyed options, a question-specific explanation, source IDs and review/runtime flags.
@@ -26,6 +26,6 @@ CP006 follows the existing Static GK `knowledge-v1` architecture used by World H
 
 - `WHI-001-CP006-Q001-020-EN-REVIEW-V1.md` — approved English batch 1.
 - `WHI-001-CP006-Q021-060-EN-REVIEW-V1.md` — English batch 2, now ready for human review.
-- `WHI-001-CP006-CANONICAL-FACTS-Q001-020-V1.json` — canonical source-backed facts for the full 60-question pool (filename retained for continuity; to be renamed in the consolidated checkpoint artifact).
+- `WHI-001-CP006-CANONICAL-FACTS-Q001-060-V1.json` — full canonical source-backed fact authority.
 - `world-history-cp006-en-v1.json` — shared English record shape, review-only and not runtime-registered.
 - `WHI-001-CP006-QL-FAMILY-MAP-V1.md` — full family-to-question crosswalk.
