@@ -1,30 +1,28 @@
 # WHI-001-CP006 — Question-family architecture
 
-**Status:** Proposed family contract for review; no permanent QL IDs allocated.
+**Status:** Full English family map; permanent QL IDs remain unallocated.
 **Checkpoint:** Nationalism and Unification.
-**Pool contract:** 60 questions, 10 distinct families, 6 questions per family; Easy 18, Medium 30, Hard 12.
+**Pool contract:** 60 questions; 10 distinct families, six questions per family; 18 Easy / 30 Medium / 12 Hard.
 
-This uses the existing `knowledge-v1` package contract. `questionFamily` carries the stable family value in each record and becomes the adapter's `patternId`, as in the existing World History CP003–CP005 adapter. Permanent QL allocation waits for the English pool review.
+CP006 reuses the existing `knowledge-v1` contract. `questionFamily` carries each stable family value; Question Studio registration remains gated on approved Hindi and Punjabi overlays.
 
-| Family value | What the family tests | CP006 evidence examples | Current batch |
-|---|---|---|---|
-| Movement and objective | A movement or organisation and its political aims | Young Italy; liberal-national demands of 1848 | Q001, Q007 |
-| Person and contribution | A named leader and a defensible role | Mazzini, Cavour, Garibaldi, Victor Emmanuel II | Q009, Q011, Q016 |
-| State and political base | The state or institution that carried a unification process | Frankfurt Assembly; Piedmont-Sardinia; North German Confederation | Q002, Q008, Q020 |
-| Event and outcome | A campaign, assembly, proclamation or refusal and its result | Expedition of the Thousand; 1861 proclamation; crown refusal | Q005, Q010, Q012 |
-| Chronology and sequence | Ordering dated stages without mixing national timelines | 1860, 1861, 1864, 1866, 1870–71 | Q013, Q015, Q019 |
-| Territory and completion | Which territories entered a state and when | Venetia and Rome joining Italy | Q014 |
-| Constitutional and political structure | A proposed constitution, state arrangement or institutional limit | Frankfurt constitution; 1871 empire | Q003, Q006 |
-| Movement comparison | Differences and overlap among political programmes | Nationalism and liberalism; Mazzini and Cavour | Q004, Q017 |
-| Diplomacy and popular action | How state diplomacy, war and popular campaigns interacted | Cavour's statecraft and Garibaldi's southern campaign | Q018 |
-| Cross-stage synthesis | Combine multiple leaders, events or dates to explain unification | The failed 1848 project and later Prussian-led empire | Q006 |
-
-The first 20 records are provisionally mapped above. For Q021–Q060, keep six questions in each family across the complete pool and use the approved coverage map; do not inflate a family by rewording the same fact. A cross-check will confirm the final six-per-family distribution before Question Studio registration.
+| Family value | What the family tests | Full-pool questions | Count |
+|---|---|---|---:|
+| Movement and objective | A national movement, organisation or coalition and its stated aims. | Q001, Q007, Q021, Q023, Q039, Q055 | 6 |
+| State and political base | The state, monarchy or institutional platform that carried a political process. | Q002, Q008, Q020, Q022, Q027, Q041 | 6 |
+| Constitutional and political structure | A constitution, dual monarchy or institutional arrangement and its limits. | Q003, Q028, Q031, Q032, Q033, Q034 | 6 |
+| Movement comparison | A meaningful difference or overlap among political programmes or methods. | Q004, Q017, Q024, Q035, Q048, Q059 | 6 |
+| Event and outcome | A campaign, settlement, assembly or proclamation and its outcome. | Q005, Q010, Q012, Q029, Q037, Q056 | 6 |
+| Cross-stage synthesis | A conclusion that connects multiple national processes, people or dates. | Q006, Q038, Q049, Q050, Q054, Q060 | 6 |
+| Person and contribution | A leader and a historically grounded role or contribution. | Q009, Q011, Q016, Q030, Q036, Q051 | 6 |
+| Chronology and sequence | Ordering dated stages without mixing national timelines. | Q013, Q015, Q019, Q025, Q026, Q045 | 6 |
+| Territory and completion | Territorial status, accession or state formation and its date. | Q014, Q042, Q043, Q044, Q046, Q057 | 6 |
+| Diplomacy and popular action | How diplomacy, warfare and popular campaigns interacted. | Q018, Q040, Q047, Q052, Q053, Q058 | 6 |
 
 ## Shared engine contract
 
-- Reuse the existing `knowledge-v1` engine and review-only lifecycle.
-- Extend the current grouped World History adapter configuration for package `WHI-006` after the full English/Hindi/Punjabi corpora exist.
-- Reuse its explicit package/CP/question selectors, difficulty filters, seeded `deterministicShuffle`, language parity checks and publication locks.
-- Preserve English question IDs, fact IDs, family, difficulty, review option order and keyed answer across locales.
-- Do not add a second question bank, generator framework, or engine.
+- Reuse the existing `knowledge-v1` engine and standard review-only lifecycle.
+- Register CP006 only after the 60-question English pool is approved and Hindi/Punjabi pass parity and native-language review.
+- Reuse the existing package, checkpoint, question and difficulty selectors, seeded deterministic shuffle, and lifecycle gates.
+- Preserve English IDs, fact IDs, family, difficulty, keyed option order and correct answer across translations.
+- Keep Question Bank writes, scoring, mock delivery and public publication disabled during review.
