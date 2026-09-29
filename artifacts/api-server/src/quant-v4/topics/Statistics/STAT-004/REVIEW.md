@@ -1,8 +1,10 @@
 # Statistics — Data Foundations Review V1
 
-**Scope:** SSC CGL JSO Paper II — data collection, classification, tabulation, and basic frequency-distribution construction  
-**Review status:** English representative review batch  
-**Package/QL numbering:** Not assigned. The semantic contracts below are working names only; permanent package and QL IDs must be checked out through the repository ownership process.
+**Scope:** SSC CGL Tier II and JSO Paper II — data collection, classification, tabulation, and basic frequency-distribution construction  
+**Review status:** English review approved for the registered STAT-004 contracts; localization has not started.  
+**Permanent QL ownership:** STAT-QL-021 through STAT-QL-035, as defined in `permanent-ql-registry.ts`.
+
+This document is the representative scope/review note. It is not the deterministic generated-question export; use the package review export when checking generated variants.
 
 ## 1. Ownership and exclusions
 
