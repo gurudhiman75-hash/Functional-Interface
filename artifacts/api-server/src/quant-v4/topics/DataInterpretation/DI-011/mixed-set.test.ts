@@ -35,8 +35,8 @@ for(let i=0;i<300;i++){
       if(q.kind==="SAME_CATEGORY_COMBINED_TOTAL") assert(/pie chart.*table/iu.test(q.stem),`${seed}: linked PIE_TABLE read is not explicit`);
       if(q.kind==="SAME_CATEGORY_ABSOLUTE_DIFFERENCE") assert(/percentage points/iu.test(q.stem),`${seed}: pie-share difference is missing its unit`);
       if(q.kind==="LEFT_TO_RIGHT_RATIO") assert(/pie-chart shares/iu.test(q.stem),`${seed}: ratio does not name the data source`);
-      if(q.kind==="TWO_CATEGORY_CROSS_SUM" || q.kind==="THREE_CATEGORY_CROSS_TOTAL") assert(/table values/iu.test(q.stem),`${seed}: count aggregation does not name the table`);
-      if(q.kind==="TWO_GROUP_CROSS_RATIO" || q.kind==="TWO_GROUP_COMBINED_DIFFERENCE") assert(/table-value totals/iu.test(q.stem),`${seed}: grouped count operation does not name the table`);
+      if(q.kind==="TWO_CATEGORY_CROSS_SUM" || q.kind==="THREE_CATEGORY_CROSS_TOTAL") assert(/total under/iu.test(q.stem),`${seed}: count aggregation does not name the table`);
+      if(q.kind==="TWO_GROUP_CROSS_RATIO" || q.kind==="TWO_GROUP_COMBINED_DIFFERENCE") assert(/total .* for/iu.test(q.stem),`${seed}: grouped count operation does not name the table`);
       if(q.kind==="HIGHEST_COMBINED_CATEGORY") assert(/table/iu.test(q.stem),`${seed}: maximum question does not name the table`);
     }
   }
