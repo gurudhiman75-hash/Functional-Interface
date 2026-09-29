@@ -2,18 +2,47 @@
 ## English review batch 1: Q001–Q020
 
 **Status:** Human review requested
-**Coverage:** 1848 national movements (Q001–Q006); Italian unification (Q007–Q020)
+**Coverage:** 1848 national movements (Q001–Q006); Italian unification (Q007–Q018); German unification (Q019–Q020)  
 **Question Studio:** Not registered
 **Publication:** Review-only; no student delivery
 **Target checkpoint:** 60 questions total, 18 Easy / 30 Medium / 12 Hard. This is the first 20-question review batch.
 
 Review this batch for factual framing, exam-standard stems, distractor plausibility, difficulty, and explanations. After the full English pool passes review, the workflow can proceed to Hindi/Punjabi localization.
 
+## Record crosswalk
+
+Each item uses the same canonical `factId`, `questionFamily`, and `sourceIds` fields as the existing World History `knowledge-v1` package.
+
+| Question | Fact ID | Question family |
+|---|---|---|
+| Q001 | WHI-CP006-F001 | Movement and objective |
+| Q002 | WHI-CP006-F002 | State and political base |
+| Q003 | WHI-CP006-F003 | Constitutional and political structure |
+| Q004 | WHI-CP006-F004 | Movement comparison |
+| Q005 | WHI-CP006-F005 | Event and outcome |
+| Q006 | WHI-CP006-F006 | Cross-stage synthesis |
+| Q007 | WHI-CP006-F007 | Movement and objective |
+| Q008 | WHI-CP006-F008 | State and political base |
+| Q009 | WHI-CP006-F009 | Person and contribution |
+| Q010 | WHI-CP006-F010 | Event and outcome |
+| Q011 | WHI-CP006-F011 | Person and contribution |
+| Q012 | WHI-CP006-F012 | Event and outcome |
+| Q013 | WHI-CP006-F013 | Chronology and sequence |
+| Q014 | WHI-CP006-F014 | Territory and completion |
+| Q015 | WHI-CP006-F015 | Chronology and sequence |
+| Q016 | WHI-CP006-F016 | Person and contribution |
+| Q017 | WHI-CP006-F017 | Movement comparison |
+| Q018 | WHI-CP006-F018 | Diplomacy and popular action |
+| Q019 | WHI-CP006-F019 | Chronology and sequence |
+| Q020 | WHI-CP006-F020 | State and political base |
+
+The blueprint's sequence is preserved: Q001–Q006 cover 1848; Q007–Q018 cover Italian unification; Q019–Q030 cover German unification. Q021–Q060 remain to be authored.
+
 ---
 
 ### WHI-CP006-Q001 · Easy · Revolutions of 1848
 
-Which political ideas were commonly linked with the European revolutions of 1848?
+Which pair of demands was raised in many European revolutions of 1848?
 
 - **A.** Liberal constitutional government and national self-determination
 - **B.** Restoration of the conservative order established after the Napoleonic Wars
@@ -109,7 +138,7 @@ Which kingdom became the principal state base for the political unification of I
 
 ### WHI-CP006-Q009 · Medium · Cavour
 
-Which role is most closely associated with Camillo Cavour in Italian unification?
+What role did Camillo Cavour play in the Italian unification movement?
 
 - **A.** He led the Expedition of the Thousand to Sicily
 - **B.** He served as prime minister of Piedmont-Sardinia and used diplomacy to advance unification
@@ -221,7 +250,7 @@ Which distinction between Mazzini and Cavour is accurate?
 
 ### WHI-CP006-Q018 · Medium · Garibaldi and Cavour
 
-What best describes the relationship between Garibaldi’s campaign in southern Italy and Cavour’s policy?
+How did Garibaldi’s campaign in southern Italy relate to Cavour’s policy?
 
 - **A.** Garibaldi’s military successes were incorporated into a wider state-led unification process
 - **B.** Garibaldi’s expedition permanently divided the peninsula into rival kingdoms
@@ -231,29 +260,29 @@ What best describes the relationship between Garibaldi’s campaign in southern 
 **Explanation:** Garibaldi’s campaign changed control in the south, while Cavour’s government helped bring those gains into the expanding Kingdom of Italy. Their methods and political aims were not identical.
 **Sources:** CP006-S03, CP006-S04, CP006-S07
 
-### WHI-CP006-Q019 · Hard · Incomplete unification
+### WHI-CP006-Q019 · Hard · German unification chronology
 
-Which statement about the proclamation of the Kingdom of Italy in 1861 is correct?
+Which sequence correctly orders the wars that led to German unification and the proclamation of the empire?
 
-- **A.** It immediately included Rome and Venetia
-- **B.** It marked a major stage of unification, but Rome and Venetia joined later
-- **C.** It followed the Congress of Berlin
-- **D.** It ended the role of Piedmont-Sardinia before a national state formed
+- **A.** Austro-Prussian War → Danish-Prussian War → Franco-Prussian War → empire proclaimed
+- **B.** Danish-Prussian War → Austro-Prussian War → Franco-Prussian War → empire proclaimed
+- **C.** Franco-Prussian War → Danish-Prussian War → Austro-Prussian War → empire proclaimed
+- **D.** Danish-Prussian War → Franco-Prussian War → Austro-Prussian War → empire proclaimed
 **Answer:** B
-**Explanation:** The 1861 kingdom did not yet include all territories later associated with Italy. Venetia joined in 1866 and Rome in 1870.
-**Sources:** CP006-S03, CP006-S04
+**Explanation:** Prussia fought Denmark in 1864, Austria in 1866 and France in 1870–71. The German Empire was proclaimed in January 1871.
+**Sources:** CP006-S01, CP006-S02
 
-### WHI-CP006-Q020 · Medium · Italian unification
+### WHI-CP006-Q020 · Medium · German state formation
 
-Which statement best explains why Italian unification is associated with more than one leader?
+What political organisation was formed under Prussian leadership after the Austro-Prussian War of 1866?
 
-- **A.** Mazzini, Cavour and Garibaldi contributed through different political, diplomatic and military approaches
-- **B.** Their political aims and methods were identical throughout the movement
-- **C.** Italian unification was achieved by a single leader without diplomacy or popular campaigns
-- **D.** The movement began only after the Kingdom of Italy was proclaimed
+- **A.** The North German Confederation
+- **B.** The German Confederation including Austria
+- **C.** The Austro-Hungarian Dual Monarchy
+- **D.** The Confederation of the Rhine
 **Answer:** A
-**Explanation:** Mazzini promoted national ideas, Cavour used state diplomacy, and Garibaldi led volunteer campaigns. Unification resulted from multiple actors and stages.
-**Sources:** CP006-S03, CP006-S04, CP006-S07
+**Explanation:** After defeating Austria in 1866, Prussia organised the northern German states in the North German Confederation. Austria remained outside it.
+**Sources:** CP006-S01, CP006-S02
 
 ---
 
@@ -262,7 +291,7 @@ Which statement best explains why Italian unification is associated with more th
 - Items: 20
 - Difficulty in this batch: 6 Easy, 11 Medium, 3 Hard
 - Correct-option positions: A5 / B5 / C5 / D5
-- Coverage: 1848 and Frankfurt Assembly (6); Italian unification (14)
+- Coverage: 1848 and Frankfurt Assembly (6); Italian unification (12); German unification (2)
 - All questions have one marked answer and a specific explanation.
 - No Hindi/Punjabi versions or Question Studio registration are included in this English review batch.
 
