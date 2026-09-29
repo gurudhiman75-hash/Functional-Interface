@@ -441,7 +441,7 @@ Which Allied leader represented the Soviet Union at the Tehran and Yalta confere
 - **D.** Charles de Gaulle
 **Answer:** A
 **Explanation:** Stalin represented the Soviet Union at both conferences. Roosevelt represented the United States and Churchill represented Britain.
-**Sources:** CP010-S07
+**Sources:** CP010-S07, CP010-S11, CP010-S18
 
 ### WHI-CP010-Q038 · Medium · Holocaust and persecution
 
@@ -453,7 +453,7 @@ What was the purpose of the 1942 Wannsee Conference?
 - **D.** To form the United Nations
 **Answer:** B
 **Explanation:** Nazi officials at Wannsee coordinated the implementation of the mass murder of European Jews. The genocide had already begun in occupied territories before the meeting.
-**Sources:** CP010-S04
+**Sources:** CP010-S04, CP010-S21
 
 ### WHI-CP010-Q039 · Medium · Holocaust and persecution
 
@@ -465,7 +465,7 @@ Which group did Nazi Germany and its collaborators target for systematic genocid
 - **D.** All European civilians equally
 **Answer:** C
 **Explanation:** The Holocaust was the systematic persecution and murder of six million European Jews by Nazi Germany and its collaborators. Other groups were also persecuted and murdered by the Nazi regime.
-**Sources:** CP010-S04
+**Sources:** CP010-S04, CP010-S21
 
 ### WHI-CP010-Q040 · Medium · Holocaust and persecution
 
@@ -477,7 +477,7 @@ What was the primary function of ghettos established by Nazi Germany in occupied
 - **D.** To confine and control Jewish communities under brutal conditions
 **Answer:** D
 **Explanation:** Nazi authorities forcibly concentrated Jewish residents in ghettos under conditions of deprivation and violence. Many people were later deported to killing centers or murdered locally.
-**Sources:** CP010-S04
+**Sources:** CP010-S04, CP010-S21
 
 ### WHI-CP010-Q041 · Medium · Holocaust and persecution
 
@@ -489,7 +489,7 @@ Which Nazi killing center was located in occupied Poland and became a major site
 - **D.** Ravensbrück
 **Answer:** A
 **Explanation:** Auschwitz-Birkenau was a complex of concentration and killing camps in occupied Poland. It became one of the principal sites of the Holocaust.
-**Sources:** CP010-S04
+**Sources:** CP010-S04, CP010-S21
 
 ### WHI-CP010-Q042 · Medium · Holocaust and persecution
 
@@ -501,7 +501,7 @@ What did Nazi authorities mean by the term “Final Solution”?
 - **D.** The evacuation of German troops from France
 **Answer:** B
 **Explanation:** Nazi officials used “Final Solution” as a euphemism for the genocide of Europe's Jews. The phrase concealed a policy of systematic mass murder.
-**Sources:** CP010-S04
+**Sources:** CP010-S04, CP010-S21
 
 ### WHI-CP010-Q043 · Hard · Holocaust and persecution
 
@@ -513,7 +513,7 @@ Which statement about the Holocaust is historically accurate?
 - **D.** It began only after Germany surrendered
 **Answer:** C
 **Explanation:** The Holocaust was a state-organised genocide during the Nazi era, carried out across Europe by Germany and collaborators. It unfolded through persecution, deportation, mass shootings and killing centers.
-**Sources:** CP010-S04
+**Sources:** CP010-S04, CP010-S21
 
 ### WHI-CP010-Q044 · Medium · Resistance and home fronts
 
@@ -525,7 +525,7 @@ Which uprising began in the Warsaw ghetto in April 1943?
 - **D.** The Warsaw Ghetto Uprising
 **Answer:** D
 **Explanation:** Jewish resistance fighters began the Warsaw Ghetto Uprising in April 1943 when German forces moved to deport the remaining residents. German forces suppressed the revolt.
-**Sources:** CP010-S10
+**Sources:** CP010-S10, CP010-S21
 
 ### WHI-CP010-Q045 · Medium · Resistance and home fronts
 
@@ -537,7 +537,7 @@ Which 1944 uprising in occupied Poland was organised by the Polish Home Army in 
 - **D.** The Easter Rising
 **Answer:** A
 **Explanation:** The Polish Home Army began the Warsaw Uprising in August 1944. It was a separate event from the 1943 Warsaw Ghetto Uprising.
-**Sources:** CP010-S02
+**Sources:** CP010-S02, CP010-S22
 
 ### WHI-CP010-Q046 · Medium · Resistance and home fronts
 
@@ -549,7 +549,7 @@ What was the principal role of the French Resistance during the German occupatio
 - **D.** To lead the German invasion of the Soviet Union
 **Answer:** B
 **Explanation:** Resistance groups in France gathered intelligence, circulated information and carried out sabotage. Their actions supported the Allied campaign but varied across networks and regions.
-**Sources:** CP010-S02
+**Sources:** CP010-S02, CP010-S23
 
 ### WHI-CP010-Q047 · Medium · Resistance and home fronts
 
@@ -561,7 +561,7 @@ Which codebreaking operation helped the Allies read some German military communi
 - **D.** Decoding the Japanese surrender instrument
 **Answer:** C
 **Explanation:** British codebreakers at Bletchley Park helped decipher German Enigma communications. This intelligence contributed to Allied planning and convoy protection.
-**Sources:** CP010-S02
+**Sources:** CP010-S02, CP010-S24
 
 ### WHI-CP010-Q048 · Medium · Resistance and home fronts
 
@@ -573,7 +573,7 @@ How did rationing affect civilian life in many countries during the war?
 - **D.** It limited access to scarce food and consumer goods
 **Answer:** D
 **Explanation:** Governments rationed food and other goods because wartime demand and disruption created shortages. The specific systems differed across countries.
-**Sources:** CP010-S02
+**Sources:** CP010-S02, CP010-S13
 
 ### WHI-CP010-Q049 · Medium · Resistance and home fronts
 
