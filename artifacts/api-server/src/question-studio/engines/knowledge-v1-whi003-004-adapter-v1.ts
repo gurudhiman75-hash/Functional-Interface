@@ -5,6 +5,9 @@ import cp003pa from "../../knowledge-v1/world-history-cp003-pa-v1.json";
 import cp004en from "../../knowledge-v1/world-history-cp004-en-v1.json";
 import cp004hi from "../../knowledge-v1/world-history-cp004-hi-v1.json";
 import cp004pa from "../../knowledge-v1/world-history-cp004-pa-v1.json";
+import cp005en from "../../knowledge-v1/world-history-cp005-en-v1.json";
+import cp005hi from "../../knowledge-v1/world-history-cp005-hi-v1.json";
+import cp005pa from "../../knowledge-v1/world-history-cp005-pa-v1.json";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -46,14 +49,16 @@ type Question = {
   sourceIds: string[];
 };
 type Config = {
-  cp: "CP003" | "CP004";
-  packageId: "WHI-003" | "WHI-004";
+  cp: "CP003" | "CP004" | "CP005";
+  packageId: "WHI-003" | "WHI-004" | "WHI-005";
   title: string;
   pools: Readonly<Record<QuestionStudioLanguage, readonly RawQuestion[]>>;
+  authoringReviewApproved: boolean;
 };
 const configs: readonly Config[] = [
-  { cp: "CP003", packageId: "WHI-003", title: "Enlightenment and Atlantic Revolutions", pools: { en: cp003en as RawQuestion[], hi: cp003hi as RawQuestion[], pa: cp003pa as RawQuestion[] } },
-  { cp: "CP004", packageId: "WHI-004", title: "French Revolution and Napoleonic Europe", pools: { en: cp004en as RawQuestion[], hi: cp004hi as RawQuestion[], pa: cp004pa as RawQuestion[] } },
+  { cp: "CP003", packageId: "WHI-003", title: "Enlightenment and Atlantic Revolutions", pools: { en: cp003en as RawQuestion[], hi: cp003hi as RawQuestion[], pa: cp003pa as RawQuestion[] }, authoringReviewApproved: true },
+  { cp: "CP004", packageId: "WHI-004", title: "French Revolution and Napoleonic Europe", pools: { en: cp004en as RawQuestion[], hi: cp004hi as RawQuestion[], pa: cp004pa as RawQuestion[] }, authoringReviewApproved: true },
+  { cp: "CP005", packageId: "WHI-005", title: "Industrial Revolution and Social Change", pools: { en: cp005en as RawQuestion[], hi: cp005hi as RawQuestion[], pa: cp005pa as RawQuestion[] }, authoringReviewApproved: false },
 ];
 const languages: readonly QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const difficulties = ["Easy", "Medium", "Hard"] as const;
@@ -111,9 +116,10 @@ const packages: readonly QuestionStudioPackageDefinition[] = configs.map((config
   productionReleaseAuthorized: lifecycle.productionReleaseAuthorized,
   metadata: {
     ...lifecycle, registrationAuthorityId: `WHI-001-${config.cp}-EN-HI-PA-REVIEW-CORPORA-V1`,
-    authoringReviewApproved: true, localizationStatus: "REVIEW_REQUIRED", reviewOnly: true, immutableCorpus: true,
+    authoringReviewApproved: config.authoringReviewApproved, localizationStatus: "REVIEW_REQUIRED", reviewOnly: true, immutableCorpus: true,
     questionCountPerLanguage: 60, supportedDifficulties: [...difficulties], nativeLanguageProofreadingRequired: true,
     correctIndexAndDifficultyParityRequired: true, permanentQlIdsAllocated: false, studentPublicationAuthorized: false,
+    corpusStatus: config.cp === "CP005" ? "COMPLETE_PENDING_EDITORIAL_AND_LOCALIZATION_REVIEW" : "REVIEW_READY",
   },
 }));
 
@@ -124,7 +130,7 @@ function selectedConfig(request: QuestionStudioGenerationRequest): Config | unde
     .map((value) => String(value ?? "").trim().toUpperCase()).filter(Boolean);
   return configs.find((config) => selectors.some((value) => value === `WHI-001-${config.cp}` || value.startsWith(`WHI-${config.cp}-Q`)));
 }
-export function isWhi003004QuestionStudioRequestV1(request: QuestionStudioGenerationRequest): boolean {
+export function isWhi003004005QuestionStudioRequestV1(request: QuestionStudioGenerationRequest): boolean {
   return selectedConfig(request) !== undefined;
 }
 
@@ -133,7 +139,7 @@ export const knowledgeV1Whi003004QuestionStudioAdapterV1: QuestionStudioEngineAd
   listPackages() { return [...packages]; },
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
     const config = selectedConfig(request);
-    if (!config) throw new Error("WHI-003 or WHI-004 package or checkpoint selector is required");
+    if (!config) throw new Error("WHI-003, WHI-004 or WHI-005 package or checkpoint selector is required");
     if (request.packageId && String(request.packageId).trim().toUpperCase() !== config.packageId) throw new Error(`${config.packageId} cannot generate the requested package`);
     if (request.runtimeMode && request.runtimeMode !== "review-only") throw new Error(`${config.packageId} only supports review-only runtime`);
     const language = request.language ?? "en";
@@ -160,15 +166,16 @@ export const knowledgeV1Whi003004QuestionStudioAdapterV1: QuestionStudioEngineAd
       correctIndex: q.correctIndex, correct: q.correctIndex, canonicalAnswer: q.canonicalAnswer, answer: q.canonicalAnswer,
       explanation: q.explanation, difficulty: q.difficulty, difficultyLabel: q.difficulty, questionFamily: q.questionFamily,
       sourceIds: [...q.sourceIds], factId: q.factId, registrationStatus: "REGISTERED_REVIEW_ONLY", registrationAuthorityId: authority,
-      authoringReviewApproved: true, localizationStatus: "REVIEW_REQUIRED", nativeLanguageProofreadingRequired: language !== "en",
+      authoringReviewApproved: config.authoringReviewApproved, localizationStatus: "REVIEW_REQUIRED", nativeLanguageProofreadingRequired: language !== "en",
       reviewOnly: true, runtimeRegistered: true, readOnly: true, productionReleased: false,
     }));
     return { questions, generationContext: {
       ...lifecycle, engineId: "knowledge-v1", packageId: config.packageId, runtimeMode: "review-only",
-      registrationStatus: "REGISTERED_REVIEW_ONLY", registrationAuthorityId: authority, authoringReviewApproved: true,
+      registrationStatus: "REGISTERED_REVIEW_ONLY", registrationAuthorityId: authority, authoringReviewApproved: config.authoringReviewApproved,
       localizationStatus: "REVIEW_REQUIRED", nativeLanguageProofreadingRequired: language !== "en", language, locale: locales[language],
       difficulty, cpId: `WHI-001-${config.cp}`, seed, requestedCount: count, candidateCount: candidates.length,
       corpusQuestionCount: corpus.length, studentPublicationAuthorized: false,
+      corpusStatus: config.cp === "CP005" ? "COMPLETE_PENDING_EDITORIAL_AND_LOCALIZATION_REVIEW" : "REVIEW_READY",
     } };
   },
 };

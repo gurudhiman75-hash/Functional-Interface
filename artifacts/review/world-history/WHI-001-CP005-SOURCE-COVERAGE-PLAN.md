@@ -1,8 +1,8 @@
 # WHI-001-CP005 — Industrial Revolution and Social Change
 
-**Status:** Rebuild in progress · planning only · not an approved question bank  
-**Question Studio status:** No CP005 package or corpus is registered yet  
-**Required final pool:** 60 English questions, each paired with Hindi and Punjabi; 18 Easy, 30 Medium, 12 Hard  
+**Status:** Complete 60-question review corpus · not approved for student publication
+**Question Studio status:** WHI-005 is registered in review-only mode; editorial review and native Hindi/Punjabi proofreading remain pending
+**Required final pool:** 60 English questions, each paired with Hindi and Punjabi; 18 Easy, 30 Medium, 12 Hard
 **Publication:** Review-only until source checks and Hindi/Punjabi proofreading are complete
 
 ## Coverage map for the rebuilt 60-question pool
@@ -47,6 +47,12 @@
 | CP005-S21 | [Marxists Internet Archive — Manifesto of the Communist Party](https://www.marxists.org/archive/marx/works/1848/communist-manifesto/) | Primary text by Marx and Engels; publication in 1848 |
 | CP005-S22 | [U.S. National Park Service — Lowell: Story of an Industrial City](https://www.nps.gov/articles/series.htm?id=34D8C1CD-1DD8-B71B-0BE30F1E73BE8B65) | Mill-town development and its workforce; contextualize urban change |
 | CP005-S23 | [Oxford University Press — Why the Industrial Revolution began in Britain](https://www.oup.com.au/__data/assets/pdf_file/0019/58231/Chapter-8-The-Industrial-Revolution.pdf) | Interacting factors behind Britain’s early industrialisation; avoid presenting one factor as a complete explanation |
+| CP005-S24 | [National Museums Scotland — The Newcomen engine and its role in Britain’s industrial revolution](https://www.nms.ac.uk/discover-catalogue/the-newcomen-engine-and-its-role-in-britains-industrial-revolution) | Newcomen engine, mine drainage and the need to pump water |
+| CP005-S25 | [Canal & River Trust — What is a canal?](https://canalrivertrust.org.uk/canals-and-rivers/what-is-a-canal) | Canal construction and the movement of coal, stone, timber and manufactured goods |
+| CP005-S26 | [U.S. National Park Service — The Mill Girls of Lowell](https://www.nps.gov/lowe/learn/historyculture/the-mill-girls-of-lowell.htm) | Women’s employment in Lowell textile mills and workers’ experiences |
+| CP005-S27 | [UNESCO — New Lanark](https://whc.unesco.org/en/list/429/) | Robert Owen, the cotton mills, workers’ housing and educational facilities |
+| CP005-S28 | [European Route of Industrial Heritage — Belgium](https://www.erih.net/how-it-started/industrial-history-of-european-countries/belgium) | Early industrialisation in Belgium and its coal, iron and textile regions |
+| CP005-S29 | [The National Archives — 1833 Factory Act](https://www.nationalarchives.gov.uk/education/resources/1833-factory-act/) | Child and young worker hours under the 1833 Act; distinguish legal limits from later practice |
 
 ## Authoring and localization rules
 

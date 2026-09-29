@@ -6,8 +6,8 @@
     "factId": "WHI-CP005-F001",
     "language": "hi",
     "difficulty": "easy",
-    "questionFamily": "Industrialisation–region",
-    "stem": "बड़े पैमाने पर औद्योगीकरण सबसे पहले किस देश में हुआ?",
+    "questionFamily": "Early industrialisation",
+    "stem": "औद्योगीकरण सबसे पहले किस देश में हुआ?",
     "options": [
       {
         "key": "A",
@@ -27,9 +27,9 @@
       }
     ],
     "correctOption": "B",
-    "explanation": "अठारहवीं शताब्दी के उत्तरार्ध में बड़े पैमाने पर मशीनी उद्योग सबसे पहले ब्रिटेन में विकसित हुआ। कोयला, पूँजी, श्रम, परिवहन और बाज़ार ने मिलकर इसमें योगदान दिया।",
+    "explanation": "अठारहवीं शताब्दी के उत्तरार्ध में मशीनी उद्योग सबसे पहले ब्रिटेन में विकसित हुआ। कोयला, पूँजी, श्रम, परिवहन और बाज़ार ने मिलकर इसमें योगदान दिया।<br>",
     "sourceIds": [
-      "CP005-S05"
+      "CP005-S23"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -41,7 +41,7 @@
     "factId": "WHI-CP005-F002",
     "language": "hi",
     "difficulty": "easy",
-    "questionFamily": "Invention–inventor",
+    "questionFamily": "Textile invention",
     "stem": "स्पिनिंग जेनी का आविष्कार किसने किया था?",
     "options": [
       {
@@ -76,7 +76,7 @@
     "factId": "WHI-CP005-F003",
     "language": "hi",
     "difficulty": "easy",
-    "questionFamily": "Railway–route",
+    "questionFamily": "Transport",
     "stem": "1830 में किस रेलमार्ग ने मैनचेस्टर के कपड़ा उद्योग को लिवरपूल बंदरगाह से जोड़ा?",
     "options": [
       {
@@ -111,7 +111,7 @@
     "factId": "WHI-CP005-F004",
     "language": "hi",
     "difficulty": "easy",
-    "questionFamily": "Law–provision",
+    "questionFamily": "Factory legislation",
     "stem": "ब्रिटेन के 1833 के फ़ैक्टरी अधिनियम ने कारखाने में काम करने की न्यूनतम आयु कितनी तय की?",
     "options": [
       {
@@ -147,7 +147,7 @@
     "factId": "WHI-CP005-F005",
     "language": "hi",
     "difficulty": "easy",
-    "questionFamily": "Work–author",
+    "questionFamily": "Economic writing",
     "stem": "1776 में प्रकाशित *द वेल्थ ऑफ़ नेशंस* किसने लिखी थी?",
     "options": [
       {
@@ -182,7 +182,7 @@
     "factId": "WHI-CP005-F006",
     "language": "hi",
     "difficulty": "easy",
-    "questionFamily": "Movement–programme",
+    "questionFamily": "Chartism",
     "stem": "पीपल्स चार्टर किस ब्रिटिश आंदोलन का प्रमुख कार्यक्रम था?",
     "options": [
       {
@@ -217,7 +217,7 @@
     "factId": "WHI-CP005-F007",
     "language": "hi",
     "difficulty": "medium",
-    "questionFamily": "Machine–function",
+    "questionFamily": "Textile technology",
     "stem": "रिचर्ड आर्कराइट द्वारा विकसित कौन-सी मशीन कताई के लिए जल-शक्ति का उपयोग करती थी?",
     "options": [
       {
@@ -252,7 +252,7 @@
     "factId": "WHI-CP005-F008",
     "language": "hi",
     "difficulty": "medium",
-    "questionFamily": "Invention–improvement",
+    "questionFamily": "Steam power",
     "stem": "जेम्स वाट ने भाप के इंजन में कौन-सा महत्त्वपूर्ण सुधार किया?",
     "options": [
       {
@@ -287,7 +287,7 @@
     "factId": "WHI-CP005-F009",
     "language": "hi",
     "difficulty": "medium",
-    "questionFamily": "Iron–fuel",
+    "questionFamily": "Iron production",
     "stem": "कोलब्रुकडेल में अब्राहम डार्बी ने बड़े पैमाने पर लोहा गलाने के लिए किस ईंधन का उपयोग किया?",
     "options": [
       {
@@ -322,7 +322,7 @@
     "factId": "WHI-CP005-F010",
     "language": "hi",
     "difficulty": "medium",
-    "questionFamily": "Invention–inventor",
+    "questionFamily": "Power loom",
     "stem": "बुनाई को मशीनी बनाने वाला पावर लूम किसने विकसित किया?",
     "options": [
       {
@@ -357,7 +357,7 @@
     "factId": "WHI-CP005-F011",
     "language": "hi",
     "difficulty": "medium",
-    "questionFamily": "Railway–engineer",
+    "questionFamily": "Railways",
     "stem": "1829 की रेनहिल ट्रायल्स जीतने वाले रेल इंजन *रॉकेट* का संबंध किस इंजीनियर से है?",
     "options": [
       {
@@ -392,7 +392,7 @@
     "factId": "WHI-CP005-F012",
     "language": "hi",
     "difficulty": "medium",
-    "questionFamily": "Production–organisation",
+    "questionFamily": "Factory system",
     "stem": "फ़ैक्टरी व्यवस्था और पुटिंग-आउट व्यवस्था में सबसे स्पष्ट अंतर क्या था?",
     "options": [
       {
@@ -462,7 +462,7 @@
     "factId": "WHI-CP005-F014",
     "language": "hi",
     "difficulty": "medium",
-    "questionFamily": "Protest–movement",
+    "questionFamily": "Luddite protests",
     "stem": "उन्नीसवीं शताब्दी के आरंभ में ब्रिटेन के लुडाइट विरोध की प्रमुख विशेषता क्या थी?",
     "options": [
       {
@@ -497,7 +497,7 @@
     "factId": "WHI-CP005-F015",
     "language": "hi",
     "difficulty": "medium",
-    "questionFamily": "Law–trade unions",
+    "questionFamily": "Trade unions",
     "stem": "1824 में ब्रिटेन के कॉम्बिनेशन एक्ट्स हटाए जाने से श्रमिकों के लिए क्या आसान हुआ?",
     "options": [
       {
@@ -532,7 +532,7 @@
     "factId": "WHI-CP005-F016",
     "language": "hi",
     "difficulty": "medium",
-    "questionFamily": "Work–authors",
+    "questionFamily": "Marx and Engels",
     "stem": "1848 में प्रकाशित *कम्युनिस्ट घोषणापत्र* किसने लिखा था?",
     "options": [
       {
@@ -604,7 +604,7 @@
     "factId": "WHI-CP005-F018",
     "language": "hi",
     "difficulty": "hard",
-    "questionFamily": "Law–provision",
+    "questionFamily": "Factory legislation",
     "stem": "ब्रिटेन के 1833 के फ़ैक्टरी अधिनियम के बारे में कौन-सा कथन सही है?",
     "options": [
       {
@@ -640,7 +640,7 @@
     "factId": "WHI-CP005-F019",
     "language": "hi",
     "difficulty": "hard",
-    "questionFamily": "Industrialisation–spread",
+    "questionFamily": "Industrialisation beyond Britain",
     "stem": "संयुक्त राज्य अमेरिका के शुरुआती औद्योगीकरण का सबसे सही वर्णन कौन-सा है?",
     "options": [
       {
@@ -676,12 +676,12 @@
     "factId": "WHI-CP005-F020",
     "language": "hi",
     "difficulty": "hard",
-    "questionFamily": "Industrialisation–causes",
+    "questionFamily": "Multiple causes",
     "stem": "ब्रिटेन के शुरुआती औद्योगीकरण की सबसे उपयुक्त व्याख्या कौन-सी है?",
     "options": [
       {
         "key": "A",
-        "text": "केवल एक आविष्कार ने अर्थव्यवस्था बदल दी"
+        "text": "केवल कोयले की उपलब्धता से औद्योगिक विकास हो गया"
       },
       {
         "key": "B",
@@ -689,17 +689,1441 @@
       },
       {
         "key": "C",
-        "text": "संसद ने हर परिवार को फ़ैक्टरी में रहने का आदेश दिया"
+        "text": "केवल श्रमिकों की बढ़ती संख्या से खेती से कारखानों की ओर बदलाव समझाया जा सकता है"
       },
       {
         "key": "D",
-        "text": "औद्योगीकरण इसलिए शुरू हुआ क्योंकि ब्रिटेन का विदेशी व्यापार नहीं था"
+        "text": "केवल विदेशी व्यापार से मशीनी उत्पादन की शुरुआत समझाई जा सकती है"
       }
     ],
     "correctOption": "B",
     "explanation": "ब्रिटेन का शुरुआती औद्योगीकरण कई परस्पर जुड़ी परिस्थितियों से बढ़ा। आविष्कार महत्त्वपूर्ण थे, पर बड़े पैमाने पर उत्पादन के लिए ऊर्जा, श्रमिक, निवेश, परिवहन और माँग भी ज़रूरी थे।",
     "sourceIds": [
+      "CP005-S23"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q021-HI",
+    "englishQuestionId": "WHI-CP005-Q021",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F021",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Textile invention",
+    "stem": "स्पिनिंग म्यूल का आविष्कार किसने किया था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "एडमंड कार्टराइट"
+      },
+      {
+        "key": "B",
+        "text": "रिचर्ड आर्कराइट"
+      },
+      {
+        "key": "C",
+        "text": "जेम्स वाट"
+      },
+      {
+        "key": "D",
+        "text": "सैमुअल क्रॉम्पटन"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "क्रॉम्पटन ने 1772 से 1779 के बीच स्पिनिंग म्यूल विकसित की। इसमें पहले की कताई मशीनों की कुछ विशेषताएँ जोड़ी गई थीं।",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q022-HI",
+    "englishQuestionId": "WHI-CP005-Q022",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F022",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Canals and trade",
+    "stem": "औद्योगीकरण के दौरान ब्रिटिश नहरों से आम तौर पर किस प्रकार का माल ढोया जाता था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कोयला, पत्थर और लकड़ी"
+      },
+      {
+        "key": "B",
+        "text": "केवल डाक और समाचार-पत्र"
+      },
+      {
+        "key": "C",
+        "text": "केवल यात्री"
+      },
+      {
+        "key": "D",
+        "text": "केवल कच्ची कपास"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "नहरों से कोयला, पत्थर, लकड़ी और कारखानों में बनी वस्तुओं जैसे भारी माल को ले जाना सुविधाजनक था।",
+    "sourceIds": [
+      "CP005-S25"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q023-HI",
+    "englishQuestionId": "WHI-CP005-Q023",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F023",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Steam engine",
+    "stem": "थॉमस न्यूकॉमन के शुरुआती भाप इंजन ने किस समस्या को हल करने में मदद की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "सूती धागे की कमी"
+      },
+      {
+        "key": "B",
+        "text": "हाथकरघों पर धीमी बुनाई"
+      },
+      {
+        "key": "C",
+        "text": "खानों में पानी भरना"
+      },
+      {
+        "key": "D",
+        "text": "खराब फसलें"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "न्यूकॉमन के इंजन से खानों का पानी बाहर निकाला जाता था। इससे खनिक गहरी परतों तक पहुँच सके।",
+    "sourceIds": [
+      "CP005-S24"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q024-HI",
+    "englishQuestionId": "WHI-CP005-Q024",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F024",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Railway technology",
+    "stem": "1829 की रेनहिल प्रतियोगिता में किस रेल इंजन ने जीत हासिल की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "नोवेल्टी"
+      },
+      {
+        "key": "B",
+        "text": "रॉकेट"
+      },
+      {
+        "key": "C",
+        "text": "सैंस परेइल"
+      },
+      {
+        "key": "D",
+        "text": "पर्सिवियरेंस"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "जॉर्ज और रॉबर्ट स्टीफेंसन के रॉकेट ने 1829 की रेनहिल प्रतियोगिता जीती। यह लिवरपूल और मैनचेस्टर रेलवे के लिए इंजन चुनने की प्रतियोगिता थी।",
+    "sourceIds": [
+      "CP005-S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q025-HI",
+    "englishQuestionId": "WHI-CP005-Q025",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F025",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Railway transport",
+    "stem": "1830 में खुली लिवरपूल और मैनचेस्टर रेलवे की प्रमुख विशेषता क्या थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने लिवरपूल और मैनचेस्टर के बीच यात्रियों और माल की आवाजाही कराई"
+      },
+      {
+        "key": "B",
+        "text": "इसने लंदन और एडिनबरा के बीच कोयला पहुँचाया"
+      },
+      {
+        "key": "C",
+        "text": "यह ब्रिस्टल और बाथ के बीच यात्री रेल थी"
+      },
+      {
+        "key": "D",
+        "text": "यह केवल लिवरपूल के बंदरगाह तक सीमित थी"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "इस रेलवे ने मैनचेस्टर के विनिर्माण क्षेत्र को लिवरपूल के बंदरगाह से जोड़ा और यात्रियों तथा माल दोनों को पहुँचाया।",
+    "sourceIds": [
+      "CP005-S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q026-HI",
+    "englishQuestionId": "WHI-CP005-Q026",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F026",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Putting-out system",
+    "stem": "कारखानों के आम होने से पहले घरेलू व्यवस्था में कपड़ा उत्पादन कैसे होता था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "मिल मालिक सभी श्रमिकों को एक ही इमारत में काम देते थे"
+      },
+      {
+        "key": "B",
+        "text": "गिल्ड राज्य के कारखानों में काम बाँटती थीं"
+      },
+      {
+        "key": "C",
+        "text": "श्रमिक तैयार कपड़ा लेकर व्यापारियों को बेचते थे"
+      },
+      {
+        "key": "D",
+        "text": "व्यापारी घरों में कताई और बुनाई के लिए कच्चा माल देते थे"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "इस व्यवस्था में व्यापारी कच्चा माल घरों तक पहुँचाते थे और तैयार वस्तुएँ वापस ले लेते थे।",
+    "sourceIds": [
       "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q027-HI",
+    "englishQuestionId": "WHI-CP005-Q027",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F027",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation",
+    "stem": "1833 के फ़ैक्टरी अधिनियम के तहत, 9–13 वर्ष के बच्चे कारखाने में दिन में अधिकतम कितने घंटे काम कर सकते थे?",
+    "options": [
+      {
+        "key": "A",
+        "text": "6 घंटे"
+      },
+      {
+        "key": "B",
+        "text": "9 घंटे"
+      },
+      {
+        "key": "C",
+        "text": "8 घंटे"
+      },
+      {
+        "key": "D",
+        "text": "12 घंटे"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "अधिनियम के दायरे में आने वाले कारखानों में 9–13 वर्ष के बच्चों का काम दिन में नौ घंटे तक सीमित था।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q028-HI",
+    "englishQuestionId": "WHI-CP005-Q028",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F028",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Factory legislation",
+    "stem": "1833 के फ़ैक्टरी अधिनियम ने 18 वर्ष से कम उम्र के लोगों के काम पर कौन-सी रोक लगाई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "18 वर्ष से कम सभी लोगों का कारखाने में काम करना मना था"
+      },
+      {
+        "key": "B",
+        "text": "केवल बच्चों को रात में काम करने की अनुमति थी"
+      },
+      {
+        "key": "C",
+        "text": "बच्चों और किशोरों के रात में काम करने पर रोक थी"
+      },
+      {
+        "key": "D",
+        "text": "किशोर केवल रात में काम कर सकते थे"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "इस अधिनियम ने अपने दायरे के कारखानों में बच्चों और किशोरों के रात में काम करने पर रोक लगाई।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q029-HI",
+    "englishQuestionId": "WHI-CP005-Q029",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F029",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation",
+    "stem": "नियमों के पालन की जाँच के लिए 1833 के फ़ैक्टरी अधिनियम ने कौन-सी नई व्यवस्था बनाई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "हर मिल में श्रमिकों की निर्वाचित परिषद"
+      },
+      {
+        "key": "B",
+        "text": "राष्ट्रीय ट्रेड यूनियन संसद"
+      },
+      {
+        "key": "C",
+        "text": "कारखाना मालिकों की अदालत"
+      },
+      {
+        "key": "D",
+        "text": "कारखाना निरीक्षकों की व्यवस्था"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "अधिनियम के नियम लागू कराने के लिए निरीक्षकों को कारखानों का दौरा करना था, हालाँकि उनकी संख्या और साधन सीमित थे।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q030-HI",
+    "englishQuestionId": "WHI-CP005-Q030",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F030",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "U.S. industrialisation",
+    "stem": "मैसाचुसेट्स के लोवेल की “मिल गर्ल्स” कौन थीं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कपड़ा मिलों में काम करने वाली महिलाएँ"
+      },
+      {
+        "key": "B",
+        "text": "न्यू इंग्लैंड में घरेलू काम करने वाली महिलाएँ"
+      },
+      {
+        "key": "C",
+        "text": "मिल मज़दूरों के बोर्डिंग हाउस चलाने वाली महिलाएँ"
+      },
+      {
+        "key": "D",
+        "text": "नगर के कपड़ा कारोबार चलाने वाली महिलाएँ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "लोवेल की कपड़ा मिलों में कई युवा महिलाएँ काम करती थीं। उन्होंने वेतन और कामकाजी हालात को लेकर विरोध भी किया।",
+    "sourceIds": [
+      "CP005-S08",
+      "CP005-S26"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q031-HI",
+    "englishQuestionId": "WHI-CP005-Q031",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F031",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Urban change",
+    "stem": "जब औद्योगिक नगरों की आबादी आवास और सफ़ाई की सुविधाओं से तेज़ी से बढ़ी, तो अक्सर क्या हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ग्रामीण लोगों का पलायन रुक गया"
+      },
+      {
+        "key": "B",
+        "text": "कारखानों का उत्पादन तुरंत बंद हो गया"
+      },
+      {
+        "key": "C",
+        "text": "भीड़ और अस्वास्थ्यकर रहने की स्थितियाँ बढ़ीं"
+      },
+      {
+        "key": "D",
+        "text": "हर श्रमिक को अलग घर मिला"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "कई बढ़ते नगरों में श्रमिकों की आमद के साथ आवास और सफ़ाई की सुविधाएँ नहीं बढ़ पाईं।",
+    "sourceIds": [
+      "CP005-S04",
+      "CP005-S22"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q032-HI",
+    "englishQuestionId": "WHI-CP005-Q032",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F032",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Social reform",
+    "stem": "रॉबर्ट ओवेन किस औद्योगिक बस्ती में सामाजिक सुधारों से जुड़े थे?",
+    "options": [
+      {
+        "key": "A",
+        "text": "लोवेल"
+      },
+      {
+        "key": "B",
+        "text": "न्यू लैनार्क"
+      },
+      {
+        "key": "C",
+        "text": "कोलब्रुकडेल"
+      },
+      {
+        "key": "D",
+        "text": "क्रॉमफोर्ड"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "न्यू लैनार्क में ओवेन ने कपड़ा मिलों के साथ श्रमिकों के बेहतर आवास और शिक्षा पर भी ध्यान दिया।",
+    "sourceIds": [
+      "CP005-S27"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q033-HI",
+    "englishQuestionId": "WHI-CP005-Q033",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F033",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chartism",
+    "stem": "मतदाताओं की गोपनीयता की रक्षा के लिए पीपल्स चार्टर में कौन-सी माँग रखी गई थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "संसदीय चुनावों में गुप्त मतदान"
+      },
+      {
+        "key": "B",
+        "text": "सांसदों को वेतन देना"
+      },
+      {
+        "key": "C",
+        "text": "समान निर्वाचन क्षेत्र"
+      },
+      {
+        "key": "D",
+        "text": "हर साल संसदीय चुनाव"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "चार्टर में गुप्त मतदान, पुरुषों के मताधिकार का विस्तार और सांसदों को वेतन देने जैसी माँगें थीं।",
+    "sourceIds": [
+      "CP005-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q034-HI",
+    "englishQuestionId": "WHI-CP005-Q034",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F034",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chartism",
+    "stem": "चार्टिस्टों ने अपनी माँगें संसद तक पहुँचाने के लिए कौन-सा औपचारिक तरीका अपनाया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "राजा की घोषणा"
+      },
+      {
+        "key": "B",
+        "text": "सरकार द्वारा पेश किया गया विधेयक"
+      },
+      {
+        "key": "C",
+        "text": "राजमुकुट के साथ आधिकारिक संधि देना"
+      },
+      {
+        "key": "D",
+        "text": "समर्थकों के हस्ताक्षर वाली औपचारिक याचिका"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "चार्टिस्टों ने 1839, 1842 और 1848 में संसद को जन-याचिकाएँ दीं।",
+    "sourceIds": [
+      "CP005-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q035-HI",
+    "englishQuestionId": "WHI-CP005-Q035",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F035",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Trade unions",
+    "stem": "ब्रिटेन के कॉम्बिनेशन एक्ट्स किस वर्ष रद्द किए गए?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1799"
+      },
+      {
+        "key": "B",
+        "text": "1800"
+      },
+      {
+        "key": "C",
+        "text": "1824"
+      },
+      {
+        "key": "D",
+        "text": "1871"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "संसद ने 1824 में कॉम्बिनेशन एक्ट्स रद्द किए। 1825 के कानून ने यूनियन गतिविधियों पर फिर कुछ रोक लगाई।",
+    "sourceIds": [
+      "CP005-S20"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q036-HI",
+    "englishQuestionId": "WHI-CP005-Q036",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F036",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Luddite protests",
+    "stem": "लुडाइटों द्वारा मशीनें तोड़ने का सबसे सही वर्णन कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "हर नए आविष्कार का विरोध किया गया"
+      },
+      {
+        "key": "B",
+        "text": "वेतन और काम को लेकर विवादों के बीच कुछ खास मशीनों को निशाना बनाया गया"
+      },
+      {
+        "key": "C",
+        "text": "वेतन बढ़ाने के लिए कारखाना मालिकों ने आंदोलन चलाया"
+      },
+      {
+        "key": "D",
+        "text": "सामंती कर फिर लागू करने की माँग की गई"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "लुडाइटों ने कुछ खास उद्योगों में चुनिंदा मशीनों और मालिकों को निशाना बनाया। श्रमिकों की शिकायतों में वेतन और कामकाजी हालात शामिल थे।",
+    "sourceIds": [
+      "CP005-S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q037-HI",
+    "englishQuestionId": "WHI-CP005-Q037",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F037",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "इन घटनाओं को सही कालक्रम में रखने वाला विकल्प कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "लिवरपूल–मैनचेस्टर रेलवे खुली → न्यूकॉमन इंजन बना → रेनहिल प्रतियोगिता हुई"
+      },
+      {
+        "key": "B",
+        "text": "रेनहिल प्रतियोगिता हुई → न्यूकॉमन इंजन बना → लिवरपूल–मैनचेस्टर रेलवे खुली"
+      },
+      {
+        "key": "C",
+        "text": "न्यूकॉमन इंजन बना → रेनहिल प्रतियोगिता हुई → लिवरपूल–मैनचेस्टर रेलवे खुली"
+      },
+      {
+        "key": "D",
+        "text": "न्यूकॉमन इंजन बना → लिवरपूल–मैनचेस्टर रेलवे खुली → रेनहिल प्रतियोगिता हुई"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "न्यूकॉमन का इंजन अठारहवीं शताब्दी की शुरुआत में बना। रेनहिल प्रतियोगिता 1829 में हुई और रेलवे 1830 में खुली।",
+    "sourceIds": [
+      "CP005-S17",
+      "CP005-S18",
+      "CP005-S24"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q038-HI",
+    "englishQuestionId": "WHI-CP005-Q038",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F038",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "बेल्जियम में औद्योगीकरण का शुरुआती केंद्र कौन-सा क्षेत्र बना?",
+    "options": [
+      {
+        "key": "A",
+        "text": "लीज और शार्लरुआ के आसपास के कोयला और लोहा क्षेत्र"
+      },
+      {
+        "key": "B",
+        "text": "रुहर का कोयला और इस्पात क्षेत्र"
+      },
+      {
+        "key": "C",
+        "text": "सार का औद्योगिक क्षेत्र"
+      },
+      {
+        "key": "D",
+        "text": "ऊपरी सिलेसिया का कोयला क्षेत्र"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "बेल्जियम का शुरुआती औद्योगिक विकास वालोनिया में कोयला खनन और लोहा उद्योग पर टिका था। लीज और शार्लरुआ इसके प्रमुख क्षेत्र थे।",
+    "sourceIds": [
+      "CP005-S28"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q039-HI",
+    "englishQuestionId": "WHI-CP005-Q039",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F039",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Meiji Japan",
+    "stem": "मेइजी काल में औद्योगीकरण में जापानी सरकार की क्या भूमिका थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "उसने उद्योगों का विकास पूरी तरह विदेशी कंपनियों पर छोड़ दिया"
+      },
+      {
+        "key": "B",
+        "text": "उसने कुछ आधुनिक उद्योग और कारखाने स्थापित किए तथा उनका समर्थन किया"
+      },
+      {
+        "key": "C",
+        "text": "उसने राष्ट्रीय स्तर पर समन्वय के बिना केवल स्थानीय उद्योगों को बढ़ावा दिया"
+      },
+      {
+        "key": "D",
+        "text": "उसने केंद्रीकृत शासन और आधुनिक उद्योगों के बजाय पुराने सामंती क्षेत्रों को बनाए रखा"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "मेइजी सरकार ने कुछ क्षेत्रों में आदर्श कारखाने बनाए और चलाए। बाद में इनमें से कई कारखाने निजी मालिकों को सौंपे गए।",
+    "sourceIds": [
+      "CP005-S09",
+      "CP005-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q040-HI",
+    "englishQuestionId": "WHI-CP005-Q040",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F040",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation and social change",
+    "stem": "कारखानों के बढ़ने से औद्योगिक नगरों की सामाजिक संरचना क्यों बदली?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कारखानों में मजदूरी पर काम बढ़ने से स्वतंत्र कारीगरों की भूमिका घटी"
+      },
+      {
+        "key": "B",
+        "text": "आर्थिक प्रभाव निर्माताओं से वापस ज़मींदार अभिजात वर्ग के पास चला गया"
+      },
+      {
+        "key": "C",
+        "text": "हर कारखाना श्रमिक के हिस्सेदार बनने से वर्ग भेद समाप्त हो गया"
+      },
+      {
+        "key": "D",
+        "text": "इससे मजदूरी पर काम करने वाले श्रमिक और मशीनों तथा मिलों में निवेश करने वाले मालिक एक साथ आए"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "कारखानों ने मजदूरी पर काम को बढ़ाया और औद्योगिक मालिकों की भूमिका मजबूत की। राजनीतिक अधिकारों में बदलाव इससे धीमी गति से हुआ।",
+    "sourceIds": [
+      "CP005-S05",
+      "CP005-S23"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q041-HI",
+    "englishQuestionId": "WHI-CP005-Q041",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F041",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Textile machinery",
+    "stem": "स्पिनिंग म्यूल से कपड़ा मिलें क्या बना सकती थीं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "रेलवे पटरियों के लिए लोहे की छड़ें"
+      },
+      {
+        "key": "B",
+        "text": "बुनाई के लिए उपयुक्त महीन सूती धागा"
+      },
+      {
+        "key": "C",
+        "text": "खानों के लिए भाप इंजन"
+      },
+      {
+        "key": "D",
+        "text": "बिना बुनाई का छपा हुआ सूती कपड़ा"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "क्रॉम्पटन की म्यूल से महीन धागा काता जा सकता था, जिसका उपयोग कपड़े की बुनाई में होता था।",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q042-HI",
+    "englishQuestionId": "WHI-CP005-Q042",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F042",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Textile machinery",
+    "stem": "कार्टराइट के पावर लूम ने कपड़ा उत्पादन के किस चरण को मशीनी बनाया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कपास चुनना"
+      },
+      {
+        "key": "B",
+        "text": "रंगाई"
+      },
+      {
+        "key": "C",
+        "text": "भेड़ों की ऊन काटना"
+      },
+      {
+        "key": "D",
+        "text": "बुनाई"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "पावर लूम ने कपड़े की बुनाई को मशीनी बनाया। इससे पहले कताई की मशीनों ने सूत की उपलब्धता बढ़ाई थी।",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q043-HI",
+    "englishQuestionId": "WHI-CP005-Q043",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F043",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "यूरोपीय महाद्वीप में सबसे पहले किस देश में औद्योगीकरण हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पुर्तगाल"
+      },
+      {
+        "key": "B",
+        "text": "यूनान"
+      },
+      {
+        "key": "C",
+        "text": "बेल्जियम"
+      },
+      {
+        "key": "D",
+        "text": "नॉर्वे"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "यूरोपीय महाद्वीप में बेल्जियम में सबसे पहले औद्योगीकरण हुआ। वहाँ कोयला खनन और लोहा उद्योग पहले से मौजूद थे।",
+    "sourceIds": [
+      "CP005-S28"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q044-HI",
+    "englishQuestionId": "WHI-CP005-Q044",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F044",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Factory system",
+    "stem": "कौन-सा बदलाव कारखाना उत्पादन को घरेलू व्यवस्था से अलग करता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "श्रमिकों और शक्ति से चलने वाली मशीनों को एक कार्यस्थल पर रखा गया"
+      },
+      {
+        "key": "B",
+        "text": "व्यापारी घरों में काम बाँटते थे"
+      },
+      {
+        "key": "C",
+        "text": "उत्पादन पूरी तरह मौसमी खेती पर निर्भर था"
+      },
+      {
+        "key": "D",
+        "text": "वस्तुएँ केवल स्थानीय विनिमय के लिए बनाई जाती थीं"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "कारखानों में मशीनें और मजदूरी पर काम करने वाले श्रमिक मिलों में एकत्र होते थे। घरेलू व्यवस्था में काम अलग-अलग घरों में होता था।",
+    "sourceIds": [
+      "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q045-HI",
+    "englishQuestionId": "WHI-CP005-Q045",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F045",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Meiji Japan",
+    "stem": "आधुनिक औद्योगिक तरीके शुरू करने के बाद मेइजी जापान के कई सरकारी कारखानों के साथ क्या हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "उन्हें सामंती जागीरों में बदल दिया गया"
+      },
+      {
+        "key": "B",
+        "text": "श्रमिकों को प्रशिक्षण देने से पहले सभी बंद कर दिए गए"
+      },
+      {
+        "key": "C",
+        "text": "उन्हें विदेशी औपनिवेशिक शासन के अधीन कर दिया गया"
+      },
+      {
+        "key": "D",
+        "text": "उन्हें निजी मालिकों को सौंप दिया गया"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "सरकारी नियंत्रण हटने और इन कारखानों में सीखे कौशल के फैलने से व्यापक औद्योगिक विकास को मदद मिली।",
+    "sourceIds": [
+      "CP005-S09",
+      "CP005-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q046-HI",
+    "englishQuestionId": "WHI-CP005-Q046",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F046",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation and schooling",
+    "stem": "1833 के फ़ैक्टरी अधिनियम ने इसके दायरे वाले कारखानों में काम करने वाले बच्चों की पढ़ाई के लिए क्या प्रावधान किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "हर काम की पाली से पहले पूरा दिन स्कूल"
+      },
+      {
+        "key": "B",
+        "text": "हर कार्य-दिवस में दो घंटे की पढ़ाई"
+      },
+      {
+        "key": "C",
+        "text": "सभी बच्चों के लिए अनिवार्य आवासीय विद्यालय"
+      },
+      {
+        "key": "D",
+        "text": "पढ़ाई का कोई प्रावधान नहीं"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "अधिनियम के अनुसार, इसके दायरे वाले कारखानों में काम करने वाले बच्चों को हर कार्य-दिवस दो घंटे पढ़ाई करनी थी।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q047-HI",
+    "englishQuestionId": "WHI-CP005-Q047",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F047",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Factory legislation",
+    "stem": "1833 के फ़ैक्टरी अधिनियम और बाल श्रम पर पूर्ण प्रतिबंध के बीच सही अंतर कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने ब्रिटेन में हर जगह बच्चों का काम रोक दिया"
+      },
+      {
+        "key": "B",
+        "text": "यह केवल खानों पर लागू था और कपड़ा कारखानों पर नहीं"
+      },
+      {
+        "key": "C",
+        "text": "इसने कुछ कारखानों में आयु और काम के घंटे तय किए, पर हर उद्योग को नियंत्रित नहीं किया"
+      },
+      {
+        "key": "D",
+        "text": "इसने कारखाना श्रमिकों के लिए अनिवार्य मतदान शुरू किया"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "अधिनियम ने कुछ कारखानों में बच्चों और किशोरों के काम के घंटे सीमित किए। इसका दायरा और लागू करने की क्षमता सीमित रही।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S02",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q048-HI",
+    "englishQuestionId": "WHI-CP005-Q048",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F048",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Economic thought",
+    "stem": "*द वेल्थ ऑफ़ नेशंस* में उत्पादन पर एडम स्मिथ की चर्चा से कौन-सा विचार जुड़ा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "श्रम-विभाजन से उत्पादकता बढ़ सकती है"
+      },
+      {
+        "key": "B",
+        "text": "सभी विनिर्माण पर रोक लगनी चाहिए"
+      },
+      {
+        "key": "C",
+        "text": "व्यापार राष्ट्रीय सीमाओं पर रुक जाना चाहिए"
+      },
+      {
+        "key": "D",
+        "text": "श्रमिकों को सामंती दायित्वों में लौटना चाहिए"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "स्मिथ ने बताया कि उत्पादन को अलग-अलग विशेष कामों में बाँटने से श्रमिक अधिक वस्तुएँ बना सकते हैं।",
+    "sourceIds": [
+      "CP005-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q049-HI",
+    "englishQuestionId": "WHI-CP005-Q049",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F049",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Steam engine",
+    "stem": "थॉमस न्यूकॉमन ने खानों से पानी निकालने वाला भाप इंजन किस वर्ष विकसित किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1709"
+      },
+      {
+        "key": "B",
+        "text": "1712"
+      },
+      {
+        "key": "C",
+        "text": "1769"
+      },
+      {
+        "key": "D",
+        "text": "1785"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "न्यूकॉमन ने खानों से पानी निकालने के लिए 1712 में अपना भाप इंजन विकसित किया।",
+    "sourceIds": [
+      "CP005-S24"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q050-HI",
+    "englishQuestionId": "WHI-CP005-Q050",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F050",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "किस घटना ने शुरुआती अमेरिकी कपड़ा उद्योग को ब्रिटिश औद्योगिक ज्ञान से जोड़ा?",
+    "options": [
+      {
+        "key": "A",
+        "text": "अब्राहम डार्बी ने पहली अमेरिकी रेलवे बनाई"
+      },
+      {
+        "key": "B",
+        "text": "जेम्स वाट ने लोवेल की मिलें स्थापित कीं"
+      },
+      {
+        "key": "C",
+        "text": "रॉबर्ट ओवेन ने जापान में स्पिनिंग जेनी शुरू की"
+      },
+      {
+        "key": "D",
+        "text": "सैमुअल स्लेटर ब्रिटिश कपड़ा मशीनों का ज्ञान अमेरिका ले गए"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "स्लेटर ने ब्रिटिश कपड़ा मशीनों और कारखाना पद्धतियों के ज्ञान से शुरुआती अमेरिकी सूती मिलें स्थापित करने में मदद की।",
+    "sourceIds": [
+      "CP005-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q051-HI",
+    "englishQuestionId": "WHI-CP005-Q051",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F051",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Economic thought",
+    "stem": "मार्क्स और एंगेल्स के अनुसार वर्ग-समाज में बदलाव को आगे बढ़ाने वाला मुख्य संघर्ष क्या था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "धार्मिक समुदायों के बीच संघर्ष"
+      },
+      {
+        "key": "B",
+        "text": "प्रतिद्वंद्वी देशों के बीच प्रतिस्पर्धा"
+      },
+      {
+        "key": "C",
+        "text": "सामाजिक वर्गों के बीच संघर्ष"
+      },
+      {
+        "key": "D",
+        "text": "शहर और गाँव के बीच संघर्ष"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "मार्क्स और एंगेल्स के अनुसार वर्गों के बीच संघर्ष इतिहास में बदलाव लाता है। उन्होंने आधुनिक औद्योगिक समाज में बुर्जुआ और सर्वहारा के संघर्ष को केंद्रीय माना।",
+    "sourceIds": [
+      "CP005-S21"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q052-HI",
+    "englishQuestionId": "WHI-CP005-Q052",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F052",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Economic thought",
+    "stem": "मार्क्स और एंगेल्स की शब्दावली में औद्योगिक समाज का सर्वहारा वर्ग कौन था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वे श्रमिक जो मजदूरी के बदले अपना श्रम बेचते थे"
+      },
+      {
+        "key": "B",
+        "text": "बड़ी मिलों और कारखानों के मालिक"
+      },
+      {
+        "key": "C",
+        "text": "वंशानुगत कुलीन वर्ग के सदस्य"
+      },
+      {
+        "key": "D",
+        "text": "संसद को नियंत्रित करने वाले व्यापारी"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "सर्वहारा वर्ग उन मजदूरी पाने वाले श्रमिकों का था जिनके पास उनके काम की मिलें और मशीनें नहीं थीं।",
+    "sourceIds": [
+      "CP005-S21"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q053-HI",
+    "englishQuestionId": "WHI-CP005-Q053",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F053",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Industrialisation beyond Britain",
+    "stem": "उन्नीसवीं शताब्दी की शुरुआत में बेल्जियम के औद्योगीकरण में किस कारक ने मदद की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "खनन और धातु-कर्म पर रोक"
+      },
+      {
+        "key": "B",
+        "text": "नगरों और परिवहन मार्गों का अभाव"
+      },
+      {
+        "key": "C",
+        "text": "केवल आयातित लकड़ी के कोयले पर निर्भरता"
+      },
+      {
+        "key": "D",
+        "text": "कोयले के भंडार और लोहा उद्योग की पुरानी परंपरा"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "बेल्जियम के कोयला क्षेत्रों और पहले से मौजूद लोहा उद्योग के केंद्रों ने शुरुआती मशीनी उद्योग को सहारा दिया।",
+    "sourceIds": [
+      "CP005-S28"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q054-HI",
+    "englishQuestionId": "WHI-CP005-Q054",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F054",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Social change",
+    "stem": "कारखानों में रोजगार बढ़ने से औद्योगिक नगरों में किस समूह का विस्तार हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "श्रम-कर वसूलने वाले सामंती प्रभु"
+      },
+      {
+        "key": "B",
+        "text": "मजदूरी पर काम करने वाले औद्योगिक श्रमिक"
+      },
+      {
+        "key": "C",
+        "text": "हर मिल में नियुक्त शाही अधिकारी"
+      },
+      {
+        "key": "D",
+        "text": "पूरे उत्पादन को नियंत्रित करने वाली स्वतंत्र ग्राम-गिल्डें"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "कारखानों और खानों में रोजगार बढ़ने से आजीविका के लिए मजदूरी पर निर्भर लोगों की संख्या बढ़ी।",
+    "sourceIds": [
+      "CP005-S05",
+      "CP005-S23"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q055-HI",
+    "englishQuestionId": "WHI-CP005-Q055",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F055",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Transport and markets",
+    "stem": "औद्योगीकरण के दौरान नहरों और रेलमार्गों की सही तुलना कौन-सी है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "नहरें भारी माल ढोने में उपयोगी थीं; बाद में रेलमार्गों ने माल और यात्रियों को तेज़ी से पहुँचाया"
+      },
+      {
+        "key": "B",
+        "text": "नहरें केवल यात्री ढोती थीं; रेलमार्ग केवल कोयला"
+      },
+      {
+        "key": "C",
+        "text": "रेलमार्ग नहरों से पहले बने और उन्हीं के कारण नहरें बनीं"
+      },
+      {
+        "key": "D",
+        "text": "दोनों प्रणालियाँ केवल सैन्य उपयोग के लिए बनाई गई थीं"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "नहरों से भारी सामग्री ले जाना सुविधाजनक था, जबकि रेलमार्ग माल और यात्रियों को अधिक तेजी से ले जा सकते थे।",
+    "sourceIds": [
+      "CP005-S17",
+      "CP005-S25"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q056-HI",
+    "englishQuestionId": "WHI-CP005-Q056",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F056",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Reform chronology",
+    "stem": "ब्रिटेन के इन सुधारों को सही कालक्रम में रखने वाला विकल्प कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पीपल्स चार्टर → 1833 का फ़ैक्टरी अधिनियम → चार्टिस्ट आंदोलन"
+      },
+      {
+        "key": "B",
+        "text": "चार्टिस्ट आंदोलन → 1833 का फ़ैक्टरी अधिनियम → पीपल्स चार्टर"
+      },
+      {
+        "key": "C",
+        "text": "1833 का फ़ैक्टरी अधिनियम → चार्टिस्ट आंदोलन और पीपल्स चार्टर → 1839–1848 की याचिकाएँ"
+      },
+      {
+        "key": "D",
+        "text": "1833 का फ़ैक्टरी अधिनियम → पीपल्स चार्टर → चार्टिस्ट आंदोलन"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "फ़ैक्टरी अधिनियम 1833 में बना। चार्टिस्ट आंदोलन और चार्टर 1830 के दशक के उत्तरार्ध में आए; याचिकाएँ 1839, 1842 और 1848 में दी गईं।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S06",
+      "CP005-S29"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q057-HI",
+    "englishQuestionId": "WHI-CP005-Q057",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F057",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Workers’ movements",
+    "stem": "चार्टिज़्म और लुडाइट आंदोलन के बीच सही अंतर कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "चार्टिस्टों ने कारखाना मालिकों का समर्थन किया; लुडाइटों ने गुप्त मतदान माँगा"
+      },
+      {
+        "key": "B",
+        "text": "दोनों आंदोलनों ने रोमन साम्राज्य बहाल करने की माँग की"
+      },
+      {
+        "key": "C",
+        "text": "लुडाइट संसदीय दल था; चार्टिज़्म रेलवे कंपनी थी"
+      },
+      {
+        "key": "D",
+        "text": "चार्टिस्टों ने राजनीतिक सुधार माँगे; लुडाइटों ने कुछ मशीनों और मालिकों को निशाना बनाया"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "चार्टिस्टों ने पीपल्स चार्टर के माध्यम से राजनीतिक अधिकारों के लिए अभियान चलाया। लुडाइट कार्रवाई कुछ खास उद्योगों और कार्यस्थलों के विवादों से जुड़ी थी।",
+    "sourceIds": [
+      "CP005-S06",
+      "CP005-S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q058-HI",
+    "englishQuestionId": "WHI-CP005-Q058",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F058",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Textile production",
+    "stem": "कताई में सुधार से बुनाई को मशीनी बनाने की आवश्यकता क्यों बढ़ी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कताई मशीनों ने कपड़े की माँग समाप्त कर दी"
+      },
+      {
+        "key": "B",
+        "text": "सूत की उपलब्धता बढ़ी, इसलिए बुनाई को भी उत्पादन बढ़ाना पड़ा"
+      },
+      {
+        "key": "C",
+        "text": "स्पिनिंग जेनी से पहले ही बुनाई पूरी तरह मशीनी हो चुकी थी"
+      },
+      {
+        "key": "D",
+        "text": "कपास को हाथ से कातना संभव नहीं रहा"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "तेज़ कताई से अधिक सूत मिलने लगा। बिजली से चलने वाली बुनाई मशीनों ने मिलों को उस सूत से अधिक कपड़ा बनाने में मदद की।",
+    "sourceIds": [
+      "CP005-S11",
+      "CP005-S12",
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q059-HI",
+    "englishQuestionId": "WHI-CP005-Q059",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F059",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation and transport",
+    "stem": "नहर निर्माण और औद्योगिक बाज़ारों की वृद्धि के बीच संबंध का सबसे अच्छा वर्णन कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "नहरों ने खानों, मिलों और बंदरगाहों को जोड़ा, जिससे कच्चा माल और तैयार वस्तुएँ ग्राहकों तक पहुँचीं"
+      },
+      {
+        "key": "B",
+        "text": "नहरों ने सभी कारखानों की जगह खेत बना दिए"
+      },
+      {
+        "key": "C",
+        "text": "नहरों ने व्यापारियों को कोयला ढोने से रोका"
+      },
+      {
+        "key": "D",
+        "text": "नहरें मोटर गाड़ियों के आने के बाद ही बनीं"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "नहरों ने औद्योगिक क्षेत्रों को बंदरगाहों और बाज़ारों से जोड़ा। इससे भारी माल ढोने की कठिनाई कम हुई।",
+    "sourceIds": [
+      "CP005-S05",
+      "CP005-S25"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q060-HI",
+    "englishQuestionId": "WHI-CP005-Q060",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F060",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation and social change",
+    "stem": "उन्नीसवीं शताब्दी में औद्योगीकरण के अलग-अलग रास्तों को कौन-सा निष्कर्ष सही ढंग से बताता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "हर देश में एक ही समय और एक ही तरीके से औद्योगीकरण हुआ"
+      },
+      {
+        "key": "B",
+        "text": "औद्योगीकरण केवल ब्रिटेन में हुआ"
+      },
+      {
+        "key": "C",
+        "text": "ब्रिटेन में पहले औद्योगीकरण हुआ; बेल्जियम, अमेरिका और जापान में अलग परिस्थितियों और नीतियों के अनुसार उद्योग विकसित हुए"
+      },
+      {
+        "key": "D",
+        "text": "किसी भी देश के औद्योगिक विकास में सरकार की कोई भूमिका नहीं थी"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "औद्योगीकरण ब्रिटेन से आगे फैला, लेकिन स्थानीय संसाधनों, बाज़ारों और सरकारी नीतियों के कारण हर देश का रास्ता अलग रहा।",
+    "sourceIds": [
+      "CP005-S07",
+      "CP005-S09",
+      "CP005-S23",
+      "CP005-S28"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false

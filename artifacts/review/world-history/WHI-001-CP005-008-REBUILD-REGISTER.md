@@ -1,8 +1,8 @@
 # World History CP005–CP008 rebuild register
 
-**Status:** Authoring basis for the next four checkpoint pools  
-**Target per checkpoint:** 60 questions in English, Hindi and Punjabi; 18 Easy, 30 Medium, 12 Hard  
-**Question Studio:** Keep unregistered until each checkpoint has a complete, parity-checked corpus and its route test  
+**Status:** Authoring basis for the next four checkpoint pools
+**Target per checkpoint:** 60 questions in English, Hindi and Punjabi; 18 Easy, 30 Medium, 12 Hard
+**Question Studio:** CP005 is registered in review-only mode. Keep CP006–CP008 unregistered until each has a complete, parity-checked corpus and route test
 **Publication:** Review-only; Punjabi requires native-language review
 
 ## Checkpoint ownership

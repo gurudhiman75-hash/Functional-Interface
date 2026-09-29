@@ -5,25 +5,25 @@ import pa from "../../knowledge-v1/world-history-cp005-pa-v1.json";
 
 const pools = { en, hi, pa } as const;
 const expectedLanguages = ["en", "hi", "pa"] as const;
-const validSources = new Set(Array.from({ length: 23 }, (_, index) => `CP005-S${String(index + 1).padStart(2, "0")}`));
+const validSources = new Set(Array.from({ length: 29 }, (_, index) => `CP005-S${String(index + 1).padStart(2, "0")}`));
 const english = new Map(en.map((question) => [question.questionId, question]));
 
-assert.equal(en.length, 20, "CP005 review draft must contain its current 20-question batch");
+assert.equal(en.length, 60, "CP005 review corpus must contain 60 questions");
 assert.equal(hi.length, en.length);
 assert.equal(pa.length, en.length);
 assert.deepEqual(
   ["easy", "medium", "hard"].map((difficulty) => en.filter((question) => question.difficulty === difficulty).length),
-  [6, 10, 4],
-  "the review batch difficulty mix must stay at 6/10/4",
+  [18, 30, 12],
+  "the complete CP005 difficulty mix must stay at 18/30/12",
 );
 
 for (const language of expectedLanguages) {
   const rows = pools[language];
-  assert.equal(new Set(rows.map((question) => question.questionId)).size, 20);
+  assert.equal(new Set(rows.map((question) => question.questionId)).size, 60);
   assert.deepEqual(
     ["A", "B", "C", "D"].map((key) => rows.filter((question) => question.correctOption === key).length),
-    [5, 5, 5, 5],
-    `${language} answer positions must be evenly distributed in this review batch`,
+    [15, 15, 15, 15],
+    `${language} answer positions must be evenly distributed in the 60-question corpus`,
   );
   for (const [index, question] of rows.entries()) {
     const id = `WHI-CP005-Q${String(index + 1).padStart(3, "0")}`;
@@ -49,4 +49,4 @@ for (const language of expectedLanguages) {
   }
 }
 
-console.log("[WHI-005] PASS 20-question trilingual review draft, answer/difficulty parity, sources and unpublished state");
+console.log("[WHI-005] PASS 60-question trilingual review corpus, answer/difficulty parity, sources and unpublished state");
