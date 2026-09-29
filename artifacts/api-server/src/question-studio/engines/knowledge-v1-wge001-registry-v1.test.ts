@@ -23,17 +23,11 @@ async function run() {
   assert.equal(approvedLatest.questions[0]!.authoringReviewApproved, true);
   assert.equal(approvedLatest.questions[0]!.localizationStatus, 'USER_APPROVED');
   assert.equal(approvedLatest.questions[0]!.reviewOnly, true);
-  for (const packageId of ['WGE-001-CP033','WGE-001-CP034','WGE-001-CP035','WGE-001-CP036','WGE-001-CP039','WGE-001-CP040']) {
+  for (const packageId of ['WGE-001-CP033','WGE-001-CP034','WGE-001-CP035','WGE-001-CP036','WGE-001-CP037','WGE-001-CP038','WGE-001-CP039','WGE-001-CP040','WGE-001-CP041','WGE-001-CP042']) {
     const approvedLatest = await generateQuestionStudioQuestions({packageId, language:'en', count:1});
     assert.equal(approvedLatest.questions[0]!.authoringReviewApproved, true);
     assert.equal(approvedLatest.questions[0]!.localizationStatus, 'USER_APPROVED');
     assert.equal(approvedLatest.questions[0]!.reviewOnly, true);
-  }
-  for (const packageId of ['WGE-001-CP037','WGE-001-CP038','WGE-001-CP041','WGE-001-CP042']) {
-    const pending = await generateQuestionStudioQuestions({packageId, language:'hi', count:1});
-    assert.equal(pending.questions[0]!.authoringReviewApproved, false);
-    assert.equal(pending.questions[0]!.localizationStatus, 'REVIEW_REQUIRED');
-    assert.equal(pending.questions[0]!.reviewOnly, true);
   }
   await assert.rejects(() => generateQuestionStudioQuestions({engineId: 'knowledge-v1',packageId:'WGE-001-CP043'}), /Unknown WGE/);
   console.log('PASS: WGE standard registry discovery and generation, 43 packages × 3 languages');
