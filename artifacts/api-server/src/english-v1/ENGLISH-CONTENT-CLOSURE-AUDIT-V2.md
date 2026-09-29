@@ -50,9 +50,9 @@ Implemented profiles:
 - governed full multi-question passage sets;
 - Banking Prelims contextual word-fit / filler gap closure.
 
-Current large-pool inventory reaches **132 core RC passages** across the governed profiles.
+Current large-pool inventory reaches **632 core RC passages / 5,308 governed authorities** across the governed profiles after Large-Pool Expansion Wave 19.
 
-Banking Prelims linked sets support **8, 9 and 10 questions** using approved passage authorities. The previously demonstrated contextual word-fit gap is closed.
+Banking Prelims linked sets support **8, 9 and 10 questions** using approved passage authorities. The previously demonstrated contextual word-fit gap is closed. Waves 17–19 alone added 120 passages / 1,008 governed authorities, taking the cumulative pool from 512 passages after Wave 16 to 632 after Wave 19.
 
 No CP008 is justified without new exam evidence or a separately demonstrated coverage gap.
 
