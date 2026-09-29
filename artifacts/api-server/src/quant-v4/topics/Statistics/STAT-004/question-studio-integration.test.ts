@@ -10,14 +10,16 @@ async function main() {
     && pkg.publiclyPublishable === false && pkg.automaticStudentPublication === false && pkg.productionReleaseAuthorized === false,
   "STAT-004 discovery metadata weakened a lifecycle lock.");
 
-  const result = await quantV4QuestionStudioAdapter.generate({ packageId: "STAT-004", language: "en", count: 15, seed: "STAT-004-QS-REGISTRY" });
-  assert(result.engineId === "quant-v4" && result.questions.length === 15, "STAT-004 did not generate through the Quant V4 adapter.");
+  const result = await quantV4QuestionStudioAdapter.generate({
+    packageId: "STAT-004", language: "en", count: 15, seed: "STAT-004-QS-REGISTRY", exam: "SSC_CGL_JSO",
+  });
+  assert(result.questions.length === 15, "STAT-004 did not generate fifteen questions through the Quant V4 adapter.");
   assert(new Set(result.questions.map((item) => String(item.questionLanguageId ?? ""))).size === 15,
     "Question Studio did not exercise all fifteen STAT-004 permanent QLs.");
-  assert(result.questions.every((item) => item.packageId === "STAT-004" && item.questionBankWritable === false
-    && item.testEligible === false && item.mockTestEligible === false && item.publiclyPublishable === false
-    && item.automaticStudentPublication === false && item.productionReleaseAuthorized === false),
-  "Generated Question Studio questions weakened a lifecycle lock.");
+  assert(result.questions.every((item) => item.packageId === "STAT-004" && item.examProfile === "SSC_CGL_JSO"
+    && item.questionBankWritable === false && item.testEligible === false && item.mockTestEligible === false
+    && item.publiclyPublishable === false && item.automaticStudentPublication === false && item.productionReleaseAuthorized === false),
+  "Generated Question Studio questions weakened a lifecycle lock or missed the JSO profile.");
   console.log(JSON.stringify({ status: "PASS_STAT_004_QUESTION_STUDIO_INTEGRATION", packageId: "STAT-004", generated: result.questions.length }));
 }
 
