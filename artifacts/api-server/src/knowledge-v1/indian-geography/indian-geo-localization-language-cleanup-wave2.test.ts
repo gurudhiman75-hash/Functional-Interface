@@ -68,3 +68,11 @@ for (const [english,punjabi] of verifiedPunjabiNames) {
   const x=q("Which option is correct?",english,["Wheat","Maize","Cotton"],english+" is correct.");
   assert.equal(localizeIndianGeoQuestionV1(x,"pa","GEO-AGR-001").canonicalAnswer,punjabi);
 }
+
+
+const kikkar=q(
+  "Acacia, babool and thorny shrubs are characteristic of which vegetation type?",
+  "Acacia",["Babool","Teak","Sal"],
+  "Acacia is a common thorn-forest tree.",
+);
+assert.equal(localizeIndianGeoQuestionV1(kikkar,"pa","GEO-VEG-001").canonicalAnswer,"ਕਿੱਕਰ");
