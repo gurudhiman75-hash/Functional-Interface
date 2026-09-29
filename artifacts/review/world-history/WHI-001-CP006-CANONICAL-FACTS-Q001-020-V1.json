@@ -48,7 +48,7 @@
   "facts": [
     {
       "factId": "WHI-CP006-F001",
-      "claim": "1848 movements commonly joined liberal or constitutional demands with national demands.",
+      "claim": "Many participants in the 1848 German national movement demanded representative government and national unity.",
       "sourceIds": [
         "CP006-S02"
       ],
@@ -79,7 +79,7 @@
     },
     {
       "factId": "WHI-CP006-F004",
-      "claim": "Nationalist and liberal demands overlapped in some 1848 movements, but they were not identical in every setting.",
+      "claim": "Nationalism and liberal ideas overlapped for some participants in the 1848 German movement, but their aims did not coincide for every group.",
       "sourceIds": [
         "CP006-S02"
       ],
