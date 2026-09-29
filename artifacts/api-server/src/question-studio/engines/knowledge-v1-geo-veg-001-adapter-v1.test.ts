@@ -115,7 +115,11 @@ await assert.rejects(
   knowledgeV1GeoVeg001QuestionStudioAdapterV1.generate({ ...baseRequest, canonicalProblemId: "GEO-VEG-001-CP013" }),
   /Unknown GEO-VEG-001 selector/i,
 );
-await assert.rejects(
-  knowledgeV1GeoVeg001QuestionStudioAdapterV1.generate({ ...baseRequest, language: "hi" }),
-  /currently supports English only/i,
-);
+const hindi = await knowledgeV1GeoVeg001QuestionStudioAdapterV1.generate({ ...baseRequest, language: "hi", count: 2 });
+assert.equal(hindi.questions.length, 2);
+assert.equal(hindi.questions.every((q) => q.language === "hi" && q.locale === "hi-IN"), true);
+assert.equal(hindi.questions.every((q) => /[\u0900-\u097F]/.test(String(q.stem))), true);
+const punjabi = await knowledgeV1GeoVeg001QuestionStudioAdapterV1.generate({ ...baseRequest, language: "pa", count: 2 });
+assert.equal(punjabi.questions.length, 2);
+assert.equal(punjabi.questions.every((q) => q.language === "pa" && q.locale === "pa-IN"), true);
+assert.equal(punjabi.questions.every((q) => /[\u0A00-\u0A7F]/.test(String(q.stem))), true);
