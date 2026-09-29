@@ -9,8 +9,8 @@ for(let i=0;i<320;i++){
   assert.deepEqual(set.questions.map(q=>q.difficulty),["Easy","Medium","Medium","Hard","Hard"]);
   const radar=renderDi014RadarSvg(set.radar),pie=renderDiPieSvg(set.pie);
   assert(radar.includes('data-radar-pie-radar="true"'));
-  const topValueLabel=radar.match(/<text data-application-value="0" x="([0-9.]+)" y="([0-9.]+)" text-anchor="([^"]+)"[^>]*>(\\d+)<\\/text>/u);
-  const topRadialLabel=radar.match(/<text data-radial-label="100" x="([0-9.]+)" y="([0-9.]+)"[^>]*>100<\\/text>/u);
+  const topValueLabel=radar.match(/<text data-application-value="0" x="([0-9.]+)" y="([0-9.]+)" text-anchor="([^"]+)"[^>]*>(\d+)<\/text>/u);
+  const topRadialLabel=radar.match(/<text data-radial-label="100" x="([0-9.]+)" y="([0-9.]+)"[^>]*>100<\/text>/u);
   assert(topValueLabel&&topRadialLabel, `${seed}: top radar point/ring labels are missing`);
   assert.equal(topValueLabel[3], "end", `${seed}: top application value must sit left of the radial scale label`);
   assert(Number(topValueLabel[1])<Number(topRadialLabel[1])-8, `${seed}: top application value overlaps the 100 radial tick label`);
