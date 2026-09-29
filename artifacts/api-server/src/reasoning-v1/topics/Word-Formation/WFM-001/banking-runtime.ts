@@ -229,9 +229,15 @@ function outputOptions(
   const letterPool = [...new Set([...selectedLetters, ...(uniqueWord ?? "")])]
     .filter((letter) => letter !== answer && letter !== "X" && letter !== "Y");
   const extras = shuffled(letterPool, seed).slice(0, sentinel ? 3 : 2);
-  while (extras.length < (sentinel ? 3 : 2)) {
-    const fallback = String.fromCharCode(65 + mod(seed + extras.length * 7, 26));
-    if (fallback !== answer && fallback !== "X" && fallback !== "Y" && !extras.includes(fallback)) extras.push(fallback);
+  const requiredExtras = sentinel ? 3 : 2;
+  for (let offset = 0; extras.length < requiredExtras && offset < 26; offset += 1) {
+    const fallback = String.fromCharCode(65 + mod(seed + offset * 7, 26));
+    if (fallback !== answer && fallback !== "X" && fallback !== "Y" && !extras.includes(fallback)) {
+      extras.push(fallback);
+    }
+  }
+  if (extras.length < requiredExtras) {
+    throw new Error("WFM Banking unique-word output could not build enough distinct fallback options");
   }
   const values = sentinel
     ? ["X", "Y", ...extras.slice(0, 3)]
