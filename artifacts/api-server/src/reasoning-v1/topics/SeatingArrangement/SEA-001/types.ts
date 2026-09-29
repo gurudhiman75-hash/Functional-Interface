@@ -147,8 +147,8 @@ export interface SeatingCaseletRecord {
 
 export interface SeatingLifecycle {
   readonly discoveryStatus: "EXECUTABLE_FOUNDATION";
-  readonly solveInventoryStatus: "OPEN";
-  readonly queryMixStatus: "OPEN";
+  readonly solveInventoryStatus: "FROZEN";
+  readonly queryMixStatus: "FROZEN";
   readonly englishFreezeStatus: "NOT_STARTED";
   readonly permanentQlCount: 9;
   readonly questionStudioRegistered: false;
