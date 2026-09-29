@@ -32,7 +32,7 @@ export const WFM_SELECTED_LETTER_FIXTURES: readonly WfmSelectedLetterFixture[] =
   { sourceWord: "WONDER", positions: [1, 2, 3], acceptedWords: ["NOW", "OWN", "WON"] },
   { sourceWord: "GODOWN", positions: [1, 2, 3], acceptedWords: ["DOG", "GOD"] },
   { sourceWord: "MARKET", positions: [2, 3, 4], acceptedWords: ["ARK"] },
-  { sourceWord: "RECOGNIZE", positions: [1, 3, 6, 7], acceptedWords: [] },
+  { sourceWord: "RECOGNIZE", positions: [1, 3, 6, 7], acceptedWords: ["CRIN"] },
   { sourceWord: "PLANET", positions: [1, 2, 3, 5], acceptedWords: ["LEAP", "PALE", "PLEA"] },
   { sourceWord: "ELEVATE", positions: [1, 2, 5, 6], acceptedWords: ["LATE", "TALE", "TEAL"] },
   { sourceWord: "REACTION", positions: [1, 2, 3, 4], acceptedWords: ["ACRE", "CARE", "RACE"] },
