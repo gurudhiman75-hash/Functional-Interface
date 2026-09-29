@@ -1,0 +1,2180 @@
+[
+  {
+    "questionId": "WHI-CP014-Q001",
+    "englishQuestionId": "WHI-CP014-Q001",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Origins and competing policies",
+    "stem": "Which policy did the Truman Doctrine announce in 1947?",
+    "options": [
+      {
+        "key": "A",
+        "text": "U.S. support for governments resisting coercion by armed minorities or outside pressure"
+      },
+      {
+        "key": "B",
+        "text": "Soviet aid to rebuild Western Europe"
+      },
+      {
+        "key": "C",
+        "text": "A treaty to dissolve NATO"
+      },
+      {
+        "key": "D",
+        "text": "A plan for German reunification"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Truman asked Congress to support Greece and Turkey and framed a broader U.S. policy of assistance.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q002",
+    "englishQuestionId": "WHI-CP014-Q002",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F002",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Origins and competing policies",
+    "stem": "Which two countries were the immediate focus of Truman’s 1947 request for aid?",
+    "options": [
+      {
+        "key": "A",
+        "text": "France and West Germany"
+      },
+      {
+        "key": "B",
+        "text": "Greece and Turkey"
+      },
+      {
+        "key": "C",
+        "text": "China and Japan"
+      },
+      {
+        "key": "D",
+        "text": "Poland and Hungary"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The speech followed Britain’s decision to end assistance to Greece and Turkey.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q003",
+    "englishQuestionId": "WHI-CP014-Q003",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F003",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Origins and competing policies",
+    "stem": "What was the main purpose of the Marshall Plan?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Create a military alliance against China"
+      },
+      {
+        "key": "B",
+        "text": "Divide Korea at the 38th parallel"
+      },
+      {
+        "key": "C",
+        "text": "Support European economic recovery after the Second World War"
+      },
+      {
+        "key": "D",
+        "text": "Establish the United Nations"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The European Recovery Program provided large-scale economic aid to rebuild Europe.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q004",
+    "englishQuestionId": "WHI-CP014-Q004",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F004",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Origins and competing policies",
+    "stem": "Who proposed the European Recovery Program later known as the Marshall Plan?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Harry S. Truman"
+      },
+      {
+        "key": "B",
+        "text": "Dean Acheson"
+      },
+      {
+        "key": "C",
+        "text": "Dwight D. Eisenhower"
+      },
+      {
+        "key": "D",
+        "text": "George C. Marshall"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Secretary of State George Marshall proposed the recovery program in 1947.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q005",
+    "englishQuestionId": "WHI-CP014-Q005",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F005",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Origins and competing policies",
+    "stem": "Which statement best distinguishes the Marshall Plan from the Truman Doctrine?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Marshall Plan centered on economic recovery; the Truman Doctrine announced a broader policy of political and material support"
+      },
+      {
+        "key": "B",
+        "text": "The Marshall Plan created NATO; the Truman Doctrine created the UN"
+      },
+      {
+        "key": "C",
+        "text": "The Marshall Plan was a Soviet program; the Truman Doctrine was a British program"
+      },
+      {
+        "key": "D",
+        "text": "The two names refer to one treaty signed in 1955"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The programs were related to containment but had different forms and immediate purposes.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q006",
+    "englishQuestionId": "WHI-CP014-Q006",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F006",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Origins and competing policies",
+    "stem": "Why did the Cold War become a rivalry between blocs?",
+    "options": [
+      {
+        "key": "A",
+        "text": "All European states adopted one political system after 1945"
+      },
+      {
+        "key": "B",
+        "text": "The former wartime allies competed over political systems, security and influence"
+      },
+      {
+        "key": "C",
+        "text": "The UN Charter required countries to join rival alliances"
+      },
+      {
+        "key": "D",
+        "text": "The U.S. and Soviet Union fought a declared war against one another"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The rivalry grew from competing political and security aims without a direct declared war between the superpowers.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q007",
+    "englishQuestionId": "WHI-CP014-Q007",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F007",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Berlin Blockade, airlift and alliances",
+    "stem": "What action began the Berlin Blockade in June 1948?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The United States closed Berlin’s airports"
+      },
+      {
+        "key": "B",
+        "text": "France withdrew from West Berlin"
+      },
+      {
+        "key": "C",
+        "text": "The Soviet Union cut rail, road and water access to the Western sectors of Berlin"
+      },
+      {
+        "key": "D",
+        "text": "East Germany joined NATO"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Soviet forces blocked land and water access to Allied-controlled sectors of Berlin.",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q008",
+    "englishQuestionId": "WHI-CP014-Q008",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F008",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Berlin Blockade, airlift and alliances",
+    "stem": "How did the Western Allies respond to the Berlin Blockade?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They moved the city to Bonn"
+      },
+      {
+        "key": "B",
+        "text": "They launched a ground invasion of the Soviet zone"
+      },
+      {
+        "key": "C",
+        "text": "They abandoned all occupation zones in Germany"
+      },
+      {
+        "key": "D",
+        "text": "They supplied West Berlin by air"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The airlift supplied food, fuel and other essentials to West Berlin.",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q009",
+    "englishQuestionId": "WHI-CP014-Q009",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F009",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Berlin Blockade, airlift and alliances",
+    "stem": "In which year did the Berlin Blockade end?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1949"
+      },
+      {
+        "key": "B",
+        "text": "1945"
+      },
+      {
+        "key": "C",
+        "text": "1955"
+      },
+      {
+        "key": "D",
+        "text": "1961"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Soviet Union lifted the blockade in May 1949 after the sustained airlift.",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q010",
+    "englishQuestionId": "WHI-CP014-Q010",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F010",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Berlin Blockade, airlift and alliances",
+    "stem": "What did the North Atlantic Treaty establish in 1949?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A trade union for all European states"
+      },
+      {
+        "key": "B",
+        "text": "A collective-defence alliance among its signatories"
+      },
+      {
+        "key": "C",
+        "text": "A Soviet-led military alliance"
+      },
+      {
+        "key": "D",
+        "text": "A UN court for war crimes"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "NATO’s founding treaty committed members to collective defence under Article 5.",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q011",
+    "englishQuestionId": "WHI-CP014-Q011",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F011",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Berlin Blockade, airlift and alliances",
+    "stem": "Why was the Warsaw Treaty Organization formed in 1955?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To administer the Berlin Airlift"
+      },
+      {
+        "key": "B",
+        "text": "To replace the United Nations"
+      },
+      {
+        "key": "C",
+        "text": "As a Soviet-led military alliance in response to the Western alliance system, including West Germany’s NATO membership"
+      },
+      {
+        "key": "D",
+        "text": "To create the European Recovery Program"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Warsaw Pact formalized a Soviet-led alliance after West Germany joined NATO.",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q012",
+    "englishQuestionId": "WHI-CP014-Q012",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F012",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Berlin Blockade, airlift and alliances",
+    "stem": "Which distinction between NATO and the Warsaw Pact is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both were economic reconstruction programs"
+      },
+      {
+        "key": "B",
+        "text": "NATO was led by China; the Warsaw Pact by the United States"
+      },
+      {
+        "key": "C",
+        "text": "Both were UN organs"
+      },
+      {
+        "key": "D",
+        "text": "NATO was a Western alliance; the Warsaw Pact was led by the Soviet Union"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "They formed opposing military alliance systems during the Cold War.",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q013",
+    "englishQuestionId": "WHI-CP014-Q013",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F013",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Korean War and the Chinese Revolution",
+    "stem": "Which event began the Korean War in June 1950?",
+    "options": [
+      {
+        "key": "A",
+        "text": "North Korean forces crossed the 38th parallel and invaded South Korea"
+      },
+      {
+        "key": "B",
+        "text": "South Korean forces invaded Japan"
+      },
+      {
+        "key": "C",
+        "text": "China attacked Taiwan"
+      },
+      {
+        "key": "D",
+        "text": "The UN divided Vietnam"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The invasion of South Korea by North Korean forces began the war.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q014",
+    "englishQuestionId": "WHI-CP014-Q014",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F014",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Korean War and the Chinese Revolution",
+    "stem": "Which body authorized a UN-led military response after North Korea invaded the South?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The UN Trusteeship Council"
+      },
+      {
+        "key": "B",
+        "text": "The UN Security Council"
+      },
+      {
+        "key": "C",
+        "text": "The International Court of Justice"
+      },
+      {
+        "key": "D",
+        "text": "The IMF"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Security Council adopted resolutions calling for assistance to South Korea.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q015",
+    "englishQuestionId": "WHI-CP014-Q015",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F015",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Korean War and the Chinese Revolution",
+    "stem": "What did the Korean Armistice of 1953 do?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Unified North and South Korea"
+      },
+      {
+        "key": "B",
+        "text": "Transferred Korea to Japanese rule"
+      },
+      {
+        "key": "C",
+        "text": "Stopped the fighting without a final peace treaty"
+      },
+      {
+        "key": "D",
+        "text": "Made Korea a NATO member"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The armistice ended active fighting but did not create a formal peace treaty.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q016",
+    "englishQuestionId": "WHI-CP014-Q016",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F016",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Korean War and the Chinese Revolution",
+    "stem": "Near which line was the Korean peninsula divided after the 1953 armistice?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The 17th parallel"
+      },
+      {
+        "key": "B",
+        "text": "The 49th parallel"
+      },
+      {
+        "key": "C",
+        "text": "The 10th parallel"
+      },
+      {
+        "key": "D",
+        "text": "The 38th parallel"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The armistice established a demilitarized zone near the 38th parallel.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q017",
+    "englishQuestionId": "WHI-CP014-Q017",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F017",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Korean War and the Chinese Revolution",
+    "stem": "Who proclaimed the People’s Republic of China in 1949?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mao Zedong"
+      },
+      {
+        "key": "B",
+        "text": "Chiang Kai-shek"
+      },
+      {
+        "key": "C",
+        "text": "Sun Yat-sen"
+      },
+      {
+        "key": "D",
+        "text": "Zhou Enlai"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Mao Zedong proclaimed the PRC on 1 October 1949 after Communist victory on the mainland.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q018",
+    "englishQuestionId": "WHI-CP014-Q018",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F018",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Korean War and the Chinese Revolution",
+    "stem": "Which development followed the Communist victory on mainland China in 1949?",
+    "options": [
+      {
+        "key": "A",
+        "text": "China joined NATO"
+      },
+      {
+        "key": "B",
+        "text": "The Nationalist government retreated to Taiwan"
+      },
+      {
+        "key": "C",
+        "text": "The Qing dynasty was restored"
+      },
+      {
+        "key": "D",
+        "text": "The Korean War ended"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Chinese Communist Party established the PRC on the mainland while the Nationalist government remained in Taiwan.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q019",
+    "englishQuestionId": "WHI-CP014-Q019",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F019",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Vietnam and Southeast Asian conflict",
+    "stem": "What did the 1964 Gulf of Tonkin Resolution authorize President Lyndon Johnson to do?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Withdraw all U.S. forces from Asia"
+      },
+      {
+        "key": "B",
+        "text": "Declare Vietnam a UN trusteeship"
+      },
+      {
+        "key": "C",
+        "text": "Take measures to repel attacks and prevent further aggression in Southeast Asia"
+      },
+      {
+        "key": "D",
+        "text": "Begin peace negotiations with China only"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Congress adopted the resolution after reported attacks on U.S. destroyers; Johnson used it to expand U.S. action.",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q020",
+    "englishQuestionId": "WHI-CP014-Q020",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Vietnam and Southeast Asian conflict",
+    "stem": "Which event occurred during the Tet Offensive of 1968?",
+    "options": [
+      {
+        "key": "A",
+        "text": "France defeated the Viet Minh at Dien Bien Phu"
+      },
+      {
+        "key": "B",
+        "text": "North Korea invaded South Korea"
+      },
+      {
+        "key": "C",
+        "text": "China declared the PRC"
+      },
+      {
+        "key": "D",
+        "text": "Communist forces launched coordinated attacks across South Vietnam"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "North Vietnamese and Viet Cong forces attacked multiple targets during the Lunar New Year period.",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q021",
+    "englishQuestionId": "WHI-CP014-Q021",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F021",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Vietnam and Southeast Asian conflict",
+    "stem": "What political effect did the Tet Offensive have in the United States?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It weakened public confidence in official claims about progress in the war"
+      },
+      {
+        "key": "B",
+        "text": "It immediately ended the war"
+      },
+      {
+        "key": "C",
+        "text": "It caused the United States to join the Warsaw Pact"
+      },
+      {
+        "key": "D",
+        "text": "It led to the reunification of Germany"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Although the offensive was repelled militarily, it contributed to declining U.S. public support for the war.",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q022",
+    "englishQuestionId": "WHI-CP014-Q022",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F022",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Vietnam and Southeast Asian conflict",
+    "stem": "Which pair of events belongs to the U.S. escalation phase of the Vietnam War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Berlin Blockade and Marshall Plan"
+      },
+      {
+        "key": "B",
+        "text": "Gulf of Tonkin Resolution and Operation Rolling Thunder"
+      },
+      {
+        "key": "C",
+        "text": "Korean Armistice and Warsaw Pact"
+      },
+      {
+        "key": "D",
+        "text": "NPT and Helsinki Final Act"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The resolution in 1964 and U.S. bombing campaign in 1965 marked escalation.",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q023",
+    "englishQuestionId": "WHI-CP014-Q023",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F023",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Vietnam and Southeast Asian conflict",
+    "stem": "Which statement best describes the Cold War context of the Vietnam War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It was a direct declared war between the United States and the Soviet Union"
+      },
+      {
+        "key": "B",
+        "text": "It was fought to control West Berlin’s air corridors"
+      },
+      {
+        "key": "C",
+        "text": "It was a local conflict shaped by decolonization and international Cold War involvement"
+      },
+      {
+        "key": "D",
+        "text": "It began with the founding of NATO"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The conflict had Vietnamese origins and became increasingly internationalized amid Cold War competition.",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q024",
+    "englishQuestionId": "WHI-CP014-Q024",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F024",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Vietnam and Southeast Asian conflict",
+    "stem": "What was one outcome of the 1954 Geneva settlement for Vietnam?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Permanent reunification under French rule"
+      },
+      {
+        "key": "B",
+        "text": "Membership in the Warsaw Pact"
+      },
+      {
+        "key": "C",
+        "text": "Partition into NATO and Soviet occupation zones"
+      },
+      {
+        "key": "D",
+        "text": "A temporary division near the 17th parallel pending elections"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Geneva settlement provisionally divided Vietnam and envisaged elections for reunification.",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q025",
+    "englishQuestionId": "WHI-CP014-Q025",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F025",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Cuban Missile Crisis",
+    "stem": "What triggered the Cuban Missile Crisis in October 1962?",
+    "options": [
+      {
+        "key": "A",
+        "text": "U.S. discovery of Soviet missile sites being built in Cuba"
+      },
+      {
+        "key": "B",
+        "text": "A Soviet blockade of West Berlin"
+      },
+      {
+        "key": "C",
+        "text": "A U.S. invasion of North Korea"
+      },
+      {
+        "key": "D",
+        "text": "The signing of the Warsaw Pact"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "U.S. reconnaissance photographs revealed Soviet missile installations in Cuba.",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q026",
+    "englishQuestionId": "WHI-CP014-Q026",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F026",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cuban Missile Crisis",
+    "stem": "What term did President Kennedy use for the U.S. naval action around Cuba?",
+    "options": [
+      {
+        "key": "A",
+        "text": "An armistice"
+      },
+      {
+        "key": "B",
+        "text": "A quarantine"
+      },
+      {
+        "key": "C",
+        "text": "A trusteeship"
+      },
+      {
+        "key": "D",
+        "text": "A demilitarized zone"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Kennedy announced a naval quarantine to prevent additional Soviet offensive weapons from reaching Cuba.",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q027",
+    "englishQuestionId": "WHI-CP014-Q027",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F027",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cuban Missile Crisis",
+    "stem": "How long did the most acute phase of the Cuban Missile Crisis last?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Three weeks"
+      },
+      {
+        "key": "B",
+        "text": "One month"
+      },
+      {
+        "key": "C",
+        "text": "Thirteen days"
+      },
+      {
+        "key": "D",
+        "text": "One year"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The crisis lasted thirteen tense days in October 1962.",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q028",
+    "englishQuestionId": "WHI-CP014-Q028",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F028",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cuban Missile Crisis",
+    "stem": "Which country placed nuclear missiles in Cuba before the 1962 crisis?",
+    "options": [
+      {
+        "key": "A",
+        "text": "China"
+      },
+      {
+        "key": "B",
+        "text": "France"
+      },
+      {
+        "key": "C",
+        "text": "Britain"
+      },
+      {
+        "key": "D",
+        "text": "The Soviet Union"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Soviet Union installed missiles in Cuba, prompting the confrontation with the United States.",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q029",
+    "englishQuestionId": "WHI-CP014-Q029",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F029",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Cuban Missile Crisis",
+    "stem": "What immediate agreement helped resolve the Cuban Missile Crisis?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Soviet Union agreed to remove its missiles from Cuba, and the United States pledged not to invade Cuba"
+      },
+      {
+        "key": "B",
+        "text": "The United States agreed to join the Warsaw Pact"
+      },
+      {
+        "key": "C",
+        "text": "Cuba was transferred to UN administration"
+      },
+      {
+        "key": "D",
+        "text": "The Soviet Union ended the Korean War"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The public settlement included Soviet removal of missiles and a U.S. non-invasion pledge.",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q030",
+    "englishQuestionId": "WHI-CP014-Q030",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F030",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cuban Missile Crisis",
+    "stem": "Why is the Cuban Missile Crisis treated as a major Cold War turning point?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It ended all ideological rivalry"
+      },
+      {
+        "key": "B",
+        "text": "It brought the superpowers close to nuclear conflict and encouraged crisis-management measures"
+      },
+      {
+        "key": "C",
+        "text": "It dissolved NATO and the Warsaw Pact"
+      },
+      {
+        "key": "D",
+        "text": "It caused the division of Germany"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The crisis exposed the danger of direct superpower confrontation and led to efforts to improve communication.",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q031",
+    "englishQuestionId": "WHI-CP014-Q031",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F031",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Nuclear weapons, space race and arms control",
+    "stem": "Which event marked the Soviet Union’s entry into the space race with the first artificial satellite?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Apollo 11’s Moon landing in 1969"
+      },
+      {
+        "key": "B",
+        "text": "The launch of Explorer 1 in 1958"
+      },
+      {
+        "key": "C",
+        "text": "The launch of Sputnik in 1957"
+      },
+      {
+        "key": "D",
+        "text": "Yuri Gagarin’s flight in 1961"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Sputnik 1 became the first artificial satellite to orbit Earth in October 1957.",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q032",
+    "englishQuestionId": "WHI-CP014-Q032",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F032",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Nuclear weapons, space race and arms control",
+    "stem": "Which country sent the first human into space in 1961?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The United States"
+      },
+      {
+        "key": "B",
+        "text": "France"
+      },
+      {
+        "key": "C",
+        "text": "China"
+      },
+      {
+        "key": "D",
+        "text": "The Soviet Union"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Soviet cosmonaut Yuri Gagarin made the first human spaceflight in April 1961.",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q033",
+    "englishQuestionId": "WHI-CP014-Q033",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F033",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Nuclear weapons, space race and arms control",
+    "stem": "What was a central purpose of the 1968 Nuclear Non-Proliferation Treaty?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Limit the spread of nuclear weapons while supporting peaceful nuclear cooperation and disarmament efforts"
+      },
+      {
+        "key": "B",
+        "text": "Ban all conventional weapons"
+      },
+      {
+        "key": "C",
+        "text": "Create a joint U.S.–Soviet military command"
+      },
+      {
+        "key": "D",
+        "text": "End the Non-Aligned Movement"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The NPT sought to prevent proliferation while setting out obligations for nuclear and non-nuclear states.",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q034",
+    "englishQuestionId": "WHI-CP014-Q034",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F034",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Nuclear weapons, space race and arms control",
+    "stem": "What did the first SALT agreements of 1972 address?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The withdrawal of troops from Korea"
+      },
+      {
+        "key": "B",
+        "text": "Limits on strategic nuclear arms and anti-ballistic missile systems"
+      },
+      {
+        "key": "C",
+        "text": "The division of Berlin"
+      },
+      {
+        "key": "D",
+        "text": "The status of Vietnam’s elections"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "SALT I included the Interim Agreement on strategic offensive arms and the ABM Treaty.",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q035",
+    "englishQuestionId": "WHI-CP014-Q035",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F035",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Nuclear weapons, space race and arms control",
+    "stem": "What happened to SALT II after the Soviet invasion of Afghanistan in December 1979?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The U.S. and Soviet Union signed SALT II"
+      },
+      {
+        "key": "B",
+        "text": "NATO dissolved"
+      },
+      {
+        "key": "C",
+        "text": "President Carter asked the Senate not to consider ratification of SALT II"
+      },
+      {
+        "key": "D",
+        "text": "The Warsaw Pact became a UN agency"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The invasion intensified tensions; Carter asked the Senate to halt consideration of SALT II ratification.",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q036",
+    "englishQuestionId": "WHI-CP014-Q036",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F036",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Nuclear weapons, space race and arms control",
+    "stem": "Which achievement is most closely associated with the U.S.–Soviet space race?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The creation of the Warsaw Pact in 1955"
+      },
+      {
+        "key": "B",
+        "text": "The signing of the Geneva Accords in 1954"
+      },
+      {
+        "key": "C",
+        "text": "The founding of the Non-Aligned Movement"
+      },
+      {
+        "key": "D",
+        "text": "The U.S. Apollo 11 Moon landing in 1969"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Apollo 11 landed humans on the Moon in July 1969 during the space race.",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q037",
+    "englishQuestionId": "WHI-CP014-Q037",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F037",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Détente and European security",
+    "stem": "What does détente mean in the Cold War context?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A period of reduced tension and increased diplomatic engagement"
+      },
+      {
+        "key": "B",
+        "text": "The formal dissolution of the Soviet Union"
+      },
+      {
+        "key": "C",
+        "text": "The creation of a permanent world government"
+      },
+      {
+        "key": "D",
+        "text": "A military invasion by one bloc"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Détente describes a period when superpower tensions eased and negotiations expanded.",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q038",
+    "englishQuestionId": "WHI-CP014-Q038",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F038",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Détente and European security",
+    "stem": "Where was the Helsinki Final Act signed in 1975?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Geneva, Switzerland"
+      },
+      {
+        "key": "B",
+        "text": "Helsinki, Finland"
+      },
+      {
+        "key": "C",
+        "text": "Belgrade, Yugoslavia"
+      },
+      {
+        "key": "D",
+        "text": "Moscow, Soviet Union"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Conference on Security and Cooperation in Europe concluded with the Helsinki Final Act in 1975.",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q039",
+    "englishQuestionId": "WHI-CP014-Q039",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F039",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Détente and European security",
+    "stem": "Which issue did the Helsinki Final Act address alongside security and cooperation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The creation of a single European army"
+      },
+      {
+        "key": "B",
+        "text": "A new boundary between North and South Korea"
+      },
+      {
+        "key": "C",
+        "text": "Human rights and fundamental freedoms"
+      },
+      {
+        "key": "D",
+        "text": "The dissolution of NATO"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Act included commitments concerning human rights and fundamental freedoms.",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q040",
+    "englishQuestionId": "WHI-CP014-Q040",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Détente and European security",
+    "stem": "Which arms-control agreement was signed in 1972 during détente?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Treaty of Versailles"
+      },
+      {
+        "key": "B",
+        "text": "The NPT"
+      },
+      {
+        "key": "C",
+        "text": "The Treaty of Rome"
+      },
+      {
+        "key": "D",
+        "text": "SALT I"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "SALT I and the ABM Treaty were signed by the United States and Soviet Union in 1972.",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q041",
+    "englishQuestionId": "WHI-CP014-Q041",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F041",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Détente and European security",
+    "stem": "Which statement about détente is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It reduced some tensions but did not end superpower competition"
+      },
+      {
+        "key": "B",
+        "text": "It ended the Cold War in 1975"
+      },
+      {
+        "key": "C",
+        "text": "It required all states to become non-aligned"
+      },
+      {
+        "key": "D",
+        "text": "It brought immediate disarmament"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Competition continued during détente, including in regional conflicts and military spending.",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q042",
+    "englishQuestionId": "WHI-CP014-Q042",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Détente and European security",
+    "stem": "Which event helped end the period of détente by 1979?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The founding of NATO"
+      },
+      {
+        "key": "B",
+        "text": "The Soviet invasion of Afghanistan"
+      },
+      {
+        "key": "C",
+        "text": "The Truman Doctrine"
+      },
+      {
+        "key": "D",
+        "text": "The Korean Armistice"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The invasion of Afghanistan renewed U.S.–Soviet tensions and stalled SALT II ratification.",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q043",
+    "englishQuestionId": "WHI-CP014-Q043",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F043",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Proxy conflicts and Cold War interventions",
+    "stem": "Why is the Cold War often described as a period of indirect conflict between superpowers?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They fought one continuous declared war in Europe"
+      },
+      {
+        "key": "B",
+        "text": "They had no military conflicts outside their own territories"
+      },
+      {
+        "key": "C",
+        "text": "They supported opposing sides in regional conflicts while generally avoiding direct declared war against each other"
+      },
+      {
+        "key": "D",
+        "text": "They shared a single military command"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The rival powers competed through alliances and support for opposing forces in regional wars.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q044",
+    "englishQuestionId": "WHI-CP014-Q044",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F044",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Proxy conflicts and Cold War interventions",
+    "stem": "When did Soviet troops enter Afghanistan in a major military intervention?",
+    "options": [
+      {
+        "key": "A",
+        "text": "June 1950"
+      },
+      {
+        "key": "B",
+        "text": "October 1962"
+      },
+      {
+        "key": "C",
+        "text": "November 1989"
+      },
+      {
+        "key": "D",
+        "text": "December 1979"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Soviet Union sent troops into Afghanistan in late December 1979.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q045",
+    "englishQuestionId": "WHI-CP014-Q045",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F045",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Proxy conflicts and Cold War interventions",
+    "stem": "Which Cold War conflict began when North Korea invaded South Korea in 1950?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Korean War"
+      },
+      {
+        "key": "B",
+        "text": "The Vietnam War"
+      },
+      {
+        "key": "C",
+        "text": "The Soviet-Afghan War"
+      },
+      {
+        "key": "D",
+        "text": "The Cuban Missile Crisis"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Korean War involved opposing Korean governments and major outside intervention.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q046",
+    "englishQuestionId": "WHI-CP014-Q046",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Proxy conflicts and Cold War interventions",
+    "stem": "Which event directly preceded the U.S. request for expanded authority in Vietnam in 1964?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Soviet blockade of Berlin"
+      },
+      {
+        "key": "B",
+        "text": "Reported attacks on U.S. destroyers in the Gulf of Tonkin"
+      },
+      {
+        "key": "C",
+        "text": "The Soviet invasion of Afghanistan"
+      },
+      {
+        "key": "D",
+        "text": "The Warsaw Pact’s founding"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The reported Gulf of Tonkin incidents led Johnson to seek congressional authorization.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q047",
+    "englishQuestionId": "WHI-CP014-Q047",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F047",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Proxy conflicts and Cold War interventions",
+    "stem": "What did the Soviet invasion of Afghanistan do to U.S.–Soviet relations?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It ended the nuclear arms race"
+      },
+      {
+        "key": "B",
+        "text": "It led the Soviet Union to leave the Warsaw Pact"
+      },
+      {
+        "key": "C",
+        "text": "It increased tensions and reversed the cooperative momentum of détente"
+      },
+      {
+        "key": "D",
+        "text": "It settled the Vietnam conflict"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The invasion was widely condemned and contributed to renewed superpower confrontation.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q048",
+    "englishQuestionId": "WHI-CP014-Q048",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F048",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Proxy conflicts and Cold War interventions",
+    "stem": "Which set contains three Cold War regional flashpoints?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Waterloo, Sedan and Verdun"
+      },
+      {
+        "key": "B",
+        "text": "Berlin, Vienna and Versailles"
+      },
+      {
+        "key": "C",
+        "text": "Ghana, Algeria and Congo"
+      },
+      {
+        "key": "D",
+        "text": "Korea, Cuba and Afghanistan"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Korea, Cuba and Afghanistan each became major sites of Cold War confrontation.",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q049",
+    "englishQuestionId": "WHI-CP014-Q049",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F049",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Non-Aligned Movement and Bandung",
+    "stem": "Where was the first summit of the Non-Aligned Movement held in 1961?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Belgrade"
+      },
+      {
+        "key": "B",
+        "text": "Bandung"
+      },
+      {
+        "key": "C",
+        "text": "Accra"
+      },
+      {
+        "key": "D",
+        "text": "Cairo"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The first Non-Aligned Summit met in Belgrade in September 1961.",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q050",
+    "englishQuestionId": "WHI-CP014-Q050",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F050",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Non-Aligned Movement and Bandung",
+    "stem": "Which 1955 conference helped shape the ideas later associated with the Non-Aligned Movement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Yalta Conference"
+      },
+      {
+        "key": "B",
+        "text": "The Bandung Conference"
+      },
+      {
+        "key": "C",
+        "text": "The Bretton Woods Conference"
+      },
+      {
+        "key": "D",
+        "text": "The Geneva Conference on Indochina"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Bandung expressed Afro-Asian solidarity and principles of peaceful coexistence.",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q051",
+    "englishQuestionId": "WHI-CP014-Q051",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F051",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Non-Aligned Movement and Bandung",
+    "stem": "Which leaders were among the central figures associated with the early Non-Aligned Movement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Winston Churchill, Charles de Gaulle and Konrad Adenauer"
+      },
+      {
+        "key": "B",
+        "text": "Harry Truman, George Marshall and Dean Acheson"
+      },
+      {
+        "key": "C",
+        "text": "Jawaharlal Nehru, Josip Broz Tito and Gamal Abdel Nasser"
+      },
+      {
+        "key": "D",
+        "text": "Mao Zedong, Chiang Kai-shek and Douglas MacArthur"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Nehru, Tito and Nasser were among the leaders who advanced non-aligned cooperation.",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q052",
+    "englishQuestionId": "WHI-CP014-Q052",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F052",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Non-Aligned Movement and Bandung",
+    "stem": "What did non-alignment mean during the Cold War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A rule that states must avoid all diplomacy"
+      },
+      {
+        "key": "B",
+        "text": "Membership in the Warsaw Pact without military duties"
+      },
+      {
+        "key": "C",
+        "text": "A commitment to support every U.S. policy"
+      },
+      {
+        "key": "D",
+        "text": "An effort to preserve independent foreign-policy choices rather than join either bloc automatically"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Non-alignment was not isolation; it aimed to retain autonomy amid bloc rivalry.",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q053",
+    "englishQuestionId": "WHI-CP014-Q053",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F053",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Non-Aligned Movement and Bandung",
+    "stem": "Which country hosted the 1955 Bandung Conference?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Indonesia"
+      },
+      {
+        "key": "B",
+        "text": "India"
+      },
+      {
+        "key": "C",
+        "text": "Egypt"
+      },
+      {
+        "key": "D",
+        "text": "Yugoslavia"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Asian-African Conference took place in Bandung, Indonesia.",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q054",
+    "englishQuestionId": "WHI-CP014-Q054",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F054",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Non-Aligned Movement and Bandung",
+    "stem": "How should non-alignment be distinguished from neutrality?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Non-alignment meant having no foreign policy"
+      },
+      {
+        "key": "B",
+        "text": "Non-alignment was an active political movement and did not always mean equal distance from every issue"
+      },
+      {
+        "key": "C",
+        "text": "Neutrality and non-alignment were formal synonyms in every treaty"
+      },
+      {
+        "key": "D",
+        "text": "Non-aligned states had to leave the United Nations"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The movement sought strategic autonomy; member positions could vary by issue.",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q055",
+    "englishQuestionId": "WHI-CP014-Q055",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F055",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cold War chronology and distinctions",
+    "stem": "Which sequence is in chronological order?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Berlin Airlift → Truman Doctrine → Helsinki Final Act → Cuban Missile Crisis"
+      },
+      {
+        "key": "B",
+        "text": "Cuban Missile Crisis → Berlin Airlift → Truman Doctrine → Helsinki Final Act"
+      },
+      {
+        "key": "C",
+        "text": "Truman Doctrine → Berlin Airlift → Cuban Missile Crisis → Helsinki Final Act"
+      },
+      {
+        "key": "D",
+        "text": "Helsinki Final Act → Truman Doctrine → Berlin Airlift → Cuban Missile Crisis"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The events occurred in 1947, 1948–49, 1962 and 1975 respectively.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q056",
+    "englishQuestionId": "WHI-CP014-Q056",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F056",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cold War chronology and distinctions",
+    "stem": "Which pair is correctly matched?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Warsaw Pact — founded in 1949"
+      },
+      {
+        "key": "B",
+        "text": "NPT — signed in 1955"
+      },
+      {
+        "key": "C",
+        "text": "Helsinki Final Act — signed in 1962"
+      },
+      {
+        "key": "D",
+        "text": "NATO — founded in 1949"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "NATO was established in 1949; the Warsaw Pact followed in 1955.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q057",
+    "englishQuestionId": "WHI-CP014-Q057",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F057",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Cold War chronology and distinctions",
+    "stem": "Which event followed the Korean Armistice of 1953?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The first Non-Aligned Summit in Belgrade in 1961"
+      },
+      {
+        "key": "B",
+        "text": "The Truman Doctrine in 1947"
+      },
+      {
+        "key": "C",
+        "text": "The Berlin Blockade in 1948"
+      },
+      {
+        "key": "D",
+        "text": "Sputnik in 1957"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Belgrade summit took place in 1961, eight years after the armistice.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q058",
+    "englishQuestionId": "WHI-CP014-Q058",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F058",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cold War chronology and distinctions",
+    "stem": "Which statement distinguishes the Korean Armistice from a peace treaty?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It formally unified Korea under one government"
+      },
+      {
+        "key": "B",
+        "text": "It stopped active fighting but left the two Koreas without a final peace settlement"
+      },
+      {
+        "key": "C",
+        "text": "It transferred Korea to UN control permanently"
+      },
+      {
+        "key": "D",
+        "text": "It ended the Cold War"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "An armistice suspends fighting; the 1953 agreement did not conclude a formal peace treaty.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q059",
+    "englishQuestionId": "WHI-CP014-Q059",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F059",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Cold War chronology and distinctions",
+    "stem": "Which pair includes a direct nuclear confrontation and a later intervention that renewed superpower tension?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Marshall Plan and the founding of NATO"
+      },
+      {
+        "key": "B",
+        "text": "The Bandung Conference and the NPT"
+      },
+      {
+        "key": "C",
+        "text": "The Cuban Missile Crisis and the Soviet invasion of Afghanistan"
+      },
+      {
+        "key": "D",
+        "text": "The Berlin Airlift and the Korean Armistice"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Cuban crisis brought the superpowers close to nuclear war; Afghanistan renewed strategic tension.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP014-Q060",
+    "englishQuestionId": "WHI-CP014-Q060",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F060",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cold War chronology and distinctions",
+    "stem": "Which statement best summarizes Cold War competition?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It consisted only of diplomatic speeches in Europe"
+      },
+      {
+        "key": "B",
+        "text": "It ended with the Korean Armistice in 1953"
+      },
+      {
+        "key": "C",
+        "text": "It involved no competition outside Europe"
+      },
+      {
+        "key": "D",
+        "text": "It combined ideological rivalry, military alliances, arms competition and regional conflicts"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Cold War extended across political, military, technological and regional arenas.",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
