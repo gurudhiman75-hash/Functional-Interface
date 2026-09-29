@@ -28,7 +28,7 @@ const R:readonly Eng013BreadthRecordV4[]=[
 ["invest","The agency plans to {x} digital infrastructure.",["invest in","invest on","invest to","invest with"],"Invest in means put money or resources into something."],
 ["limit","The new rule {x} access to authorized personnel.",["limits","limits with","limits on to","limits for"],"Limit X to Y is the standard construction."],
 ["link","The report {x} poor maintenance to repeated failures.",["links","links with to","links on","links for"],"Link X to Y means connect one thing causally or conceptually to another."],
-["object","Residents may {x} the proposed land-use change.",["object to","object against","object with","object on"],"Object to means express opposition to something."],
+["protest","Residents may {x} the proposed land-use change.",["protest against","protest to","protest with","protest on"],"Protest against means express opposition to something."],
 ["provide","The scheme {x} financial assistance to eligible households.",["provides","provides with to","provides for to","provides on"],"Provide X to Y is correct when supplying something to someone."],
 ["recover","The department hopes to {x} the unpaid amount from the contractor.",["recover","recover of","recover with","recover to"],"Recover X from Y is the standard structure."],
 ["refer","The matter was {x} the legal section for advice.",["referred to","referred with","referred on","referred for to"],"Refer something to someone means send it for consideration or action."],
