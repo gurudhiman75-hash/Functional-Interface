@@ -7,9 +7,9 @@ import {
 
 const locales = ["en", "hi", "pa"] as const;
 const families = [
-  { id: "VEN-CP001", count: 4, operation: "RELATIONS_TO_DIAGRAM" },
-  { id: "VEN-CP002", count: 11, operation: "RELATIONS_TO_DIAGRAM" },
-  { id: "VEN-CP004", count: 11, operation: "REGION_IDENTIFICATION" },
+  { id: "VEN-CP001", count: 12, operation: "RELATIONS_TO_DIAGRAM" },
+  { id: "VEN-CP002", count: 19, operation: "RELATIONS_TO_DIAGRAM" },
+  { id: "VEN-CP004", count: 19, operation: "REGION_IDENTIFICATION" },
 ] as const;
 
 for (const family of families) {
@@ -76,28 +76,28 @@ assert.throws(
   () =>
     generateVen001NextCheckpointBatch({
       patternId: "VEN-CP004",
-      count: 12,
+      count: 20,
       language: "en",
     } as QuestionStudioGenerationRequest),
-  /has 11 distinct region candidates/,
+  /has 19 distinct region candidates/,
 );
 assert.throws(
   () =>
     generateVen001NextCheckpointBatch({
       patternId: "VEN-CP002",
-      count: 12,
+      count: 20,
       language: "en",
     } as QuestionStudioGenerationRequest),
-  /has 11 distinct candidates/,
+  /has 19 distinct candidates/,
 );
 assert.throws(
   () =>
     generateVen001NextCheckpointBatch({
       patternId: "VEN-CP001",
-      count: 5,
+      count: 13,
       language: "en",
     } as QuestionStudioGenerationRequest),
-  /has 4 distinct candidates/,
+  /has 12 distinct candidates/,
 );
 assert.throws(
   () =>
