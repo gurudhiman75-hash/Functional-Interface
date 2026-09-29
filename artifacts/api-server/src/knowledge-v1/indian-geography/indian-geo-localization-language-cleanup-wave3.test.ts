@@ -10,8 +10,8 @@ const ind=q(
   "Bauxite",["Hematite","Chromite","Mica"],
   "Bauxite is refined to alumina and then smelted to produce aluminium metal.",
 );
-assert.equal(localizeIndianGeoQuestionV1(ind,"hi","GEO-IND-001").stem,"अलuminium उत्पादन के लिए प्रमुख कच्चा माल कौन-सा अयस्क है?".replace("aluminium","एल्यूमिनियम"));
-assert.equal(localizeIndianGeoQuestionV1(ind,"pa","GEO-IND-001").stem.includes("ਕੱਚੀ ਧਾਤ"),true);
+assert.equal(localizeIndianGeoQuestionV1(ind,"hi","GEO-IND-001").stem,"एल्यूमिनियम उत्पादन के लिए प्रमुख कच्चा माल कौन-सा अयस्क है?");
+assert.equal(localizeIndianGeoQuestionV1(ind,"pa","GEO-IND-001").stem,"ਐਲੂਮੀਨੀਅਮ ਦੇ ਉਤਪਾਦਨ ਲਈ ਮੁੱਖ ਕੱਚਾ ਮਾਲ ਕਿਹੜੀ ਕੱਚੀ ਧਾਤ ਹੈ?");
 
 const trn=q(
   "What is a port hinterland?",
@@ -19,7 +19,7 @@ const trn=q(
   "A port's hinterland is the inland region served by the port.",
 );
 assert.equal(localizeIndianGeoQuestionV1(trn,"hi","GEO-TRN-001").stem,"बंदरगाह का पृष्ठप्रदेश क्या होता है?");
-assert.equal(localizeIndianGeoQuestionV1(trn,"pa","GEO-TRN-001").stem,"ਬੰਦਰਗਾਹ ਦਾ ਪਿਛਲਾ ਸੇਵਾ ਖੇਤਰ ਕੀ ਹੁੰਦਾ ਹੈ?");
+assert.equal(localizeIndianGeoQuestionV1(trn,"pa","GEO-TRN-001").stem,"ਬੰਦਰਗਾਹ ਦਾ ਪਛੋਕੜੀ ਖੇਤਰ ਕੀ ਹੁੰਦਾ ਹੈ?");
 
 const pop=q(
   "Which term describes the place from which a migrant moves?",
