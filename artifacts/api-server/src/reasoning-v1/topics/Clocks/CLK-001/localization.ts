@@ -40,6 +40,11 @@ function translateDisplay(value: string, language: Exclude<ClockAuthoringLanguag
     [/Yes/gi, 'हाँ', 'ਹਾਂ'],
     [/No/gi, 'नहीं', 'ਨਹੀਂ'],
     [/Diagram option/gi, 'चित्र विकल्प', 'ਚਿੱਤਰ ਵਿਕਲਪ'],
+    [/Clock A/gi, 'घड़ी A', 'ਘੜੀ A'],
+    [/Clock B/gi, 'घड़ी B', 'ਘੜੀ B'],
+    [/Both strike at the same speed/gi, 'दोनों समान गति से बजती हैं', 'ਦੋਵੇਂ ਇੱਕੋ ਗਤੀ ਨਾਲ ਵੱਜਦੀਆਂ ਹਨ'],
+    [/Cannot be determined/gi, 'निर्धारित नहीं किया जा सकता', 'ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ'],
+    [/straight line/gi, 'सीधी रेखा', 'ਸਿੱਧੀ ਰੇਖਾ'],
   ];
   for (const [pattern, hi, pa] of replacements) {
     out = out.replace(pattern, language === 'hi' ? hi : pa);
@@ -642,6 +647,27 @@ function makeLocalizedSurface(
         ['ਚਾਲ ਦਾ ਅਨੁਪਾਤ ਕੱਢ ਕੇ 24 ਘੰਟਿਆਂ ਦਾ ਵਾਧਾ/ਘਾਟਾ ਕੱਢੋ।', 'ਉੱਤਰ = ' + a + '।'],
       );
     }
+    case 'FIRST_LAST_INCLUSION': {
+      const includeStart = s('includeStart') === 'true';
+      const includeEnd = s('includeEnd') === 'true';
+      return surface(
+        'एक घड़ी हर ' + translateDisplay(s('gap'), language) + ' पर बजती है। ' + translateDisplay(s('duration'), language) + ' की अवधि में, शुरुआती घंटी को ' + (includeStart ? 'गिनते हुए' : 'न गिनते हुए') + ' और अंतिम क्षण की घंटी को ' + (includeEnd ? 'गिनते हुए' : 'न गिनते हुए') + ', कुल कितनी घंटियाँ सुनाई देंगी?',
+        'ਇੱਕ ਘੜੀ ਹਰ ' + translateDisplay(s('gap'), language) + ' ਉੱਤੇ ਵੱਜਦੀ ਹੈ। ' + translateDisplay(s('duration'), language) + ' ਦੀ ਮਿਆਦ ਵਿੱਚ, ਸ਼ੁਰੂਆਤੀ ਘੰਟੀ ਨੂੰ ' + (includeStart ? 'ਗਿਣਦੇ ਹੋਏ' : 'ਨਾ ਗਿਣਦੇ ਹੋਏ') + ' ਅਤੇ ਅੰਤਲੇ ਪਲ ਦੀ ਘੰਟੀ ਨੂੰ ' + (includeEnd ? 'ਗਿਣਦੇ ਹੋਏ' : 'ਨਾ ਗਿਣਦੇ ਹੋਏ') + ', ਕੁੱਲ ਕਿੰਨੀਆਂ ਘੰਟੀਆਂ ਸੁਣਾਈ ਦੇਣਗੀਆਂ?',
+        'समान अंतरालों के सभी घंटी-समय लिखें और शुरुआत/अंत की दोनों शर्तें अलग-अलग लागू करें।',
+        'ਬਰਾਬਰ ਅੰਤਰਾਲਾਂ ਦੇ ਸਾਰੇ ਘੰਟੀ-ਸਮੇਂ ਲਿਖੋ ਅਤੇ ਸ਼ੁਰੂ/ਅੰਤ ਦੀਆਂ ਦੋਵੇਂ ਸ਼ਰਤਾਂ ਵੱਖ-ਵੱਖ ਲਾਗੂ ਕਰੋ।',
+        ['पहले मूल strike timeline बनाएं।', 'स्वीकृत घंटियाँ = ' + a + '।'],
+        ['ਪਹਿਲਾਂ ਮੂਲ strike timeline ਬਣਾਓ।', 'ਮੰਨੀਆਂ ਘੰਟੀਆਂ = ' + a + '।'],
+      );
+    }
+    case 'COMPARE_STRIKING_SPEEDS':
+      return surface(
+        'घड़ी A पहली से 8वीं घंटी तक ' + translateDisplay(s('clockADuration'), language) + ' लेती है और घड़ी B ' + translateDisplay(s('clockBDuration'), language) + ' लेती है। कौन-सी घड़ी अधिक तेज़ी से बजती है?',
+        'ਘੜੀ A ਪਹਿਲੀ ਤੋਂ 8ਵੀਂ ਘੰਟੀ ਤੱਕ ' + translateDisplay(s('clockADuration'), language) + ' ਲੈਂਦੀ ਹੈ ਅਤੇ ਘੜੀ B ' + translateDisplay(s('clockBDuration'), language) + ' ਲੈਂਦੀ ਹੈ। ਕਿਹੜੀ ਘੜੀ ਵੱਧ ਤੇਜ਼ੀ ਨਾਲ ਵੱਜਦੀ ਹੈ?',
+        'दोनों में strike count समान है; पहली से 8वीं घंटी तक कम समय लेने वाली घड़ी का consecutive gap छोटा है और वही तेज़ है।',
+        'ਦੋਵੇਂ ਵਿੱਚ strike count ਇੱਕੋ ਹੈ; ਪਹਿਲੀ ਤੋਂ 8ਵੀਂ ਘੰਟੀ ਤੱਕ ਘੱਟ ਸਮਾਂ ਲੈਣ ਵਾਲੀ ਘੜੀ ਦਾ consecutive gap ਛੋਟਾ ਹੈ ਅਤੇ ਉਹੀ ਤੇਜ਼ ਹੈ।',
+        ['दोनों durations को 7 gaps पर बाँटकर तुलना करें।', 'तेज़ घड़ी = ' + a + '।'],
+        ['ਦੋਵੇਂ durations ਨੂੰ 7 gaps ਉੱਤੇ ਵੰਡ ਕੇ ਤੁਲਨਾ ਕਰੋ।', 'ਤੇਜ਼ ਘੜੀ = ' + a + '।'],
+      );
     case 'GAP_FROM_N_STRIKES':
       return surface(
         'एक घड़ी पहली घंटी से ' + s('strikes') + 'वीं घंटी तक ' + translateDisplay(s('firstToLastDuration'), language) + ' लेती है। लगातार दो घंटियों के बीच कितना अंतर है?',
