@@ -1,0 +1,2127 @@
+[
+  {
+    "questionId": "WHI-CP010-Q001",
+    "englishQuestionId": "WHI-CP010-Q001",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Outbreak and chronology",
+    "stem": "What event began the Second World War in Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Germany's invasion of Poland on 1 September 1939"
+      },
+      {
+        "key": "B",
+        "text": "Germany's invasion of the Soviet Union in 1941"
+      },
+      {
+        "key": "C",
+        "text": "Japan's attack on Pearl Harbor in 1941"
+      },
+      {
+        "key": "D",
+        "text": "Italy's invasion of Ethiopia in 1935"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "German forces invaded Poland on 1 September 1939. Britain and France declared war two days later.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q002",
+    "englishQuestionId": "WHI-CP010-Q002",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F002",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Outbreak and chronology",
+    "stem": "Which two countries declared war on Germany after its invasion of Poland?",
+    "options": [
+      {
+        "key": "A",
+        "text": "China and France"
+      },
+      {
+        "key": "B",
+        "text": "Britain and France"
+      },
+      {
+        "key": "C",
+        "text": "The United States and the Soviet Union"
+      },
+      {
+        "key": "D",
+        "text": "Italy and Japan"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Britain and France declared war on Germany on 3 September 1939. The United States and the Soviet Union entered the war later.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q003",
+    "englishQuestionId": "WHI-CP010-Q003",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F003",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Outbreak and chronology",
+    "stem": "Which country entered eastern Poland on 17 September 1939?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Hungary"
+      },
+      {
+        "key": "B",
+        "text": "Romania"
+      },
+      {
+        "key": "C",
+        "text": "The Soviet Union"
+      },
+      {
+        "key": "D",
+        "text": "Germany"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Soviet forces entered eastern Poland on 17 September 1939, after Germany had invaded from the west. This followed the secret protocol of the German-Soviet pact.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q004",
+    "englishQuestionId": "WHI-CP010-Q004",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F004",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Outbreak and chronology",
+    "stem": "Which territory did Germany invade on 1 September 1939?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Denmark"
+      },
+      {
+        "key": "B",
+        "text": "Norway"
+      },
+      {
+        "key": "C",
+        "text": "Belgium"
+      },
+      {
+        "key": "D",
+        "text": "Poland"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The invasion of Poland marked the start of war in Europe. Germany attacked from the west while the Soviet Union later entered eastern Poland under the secret protocol.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q005",
+    "englishQuestionId": "WHI-CP010-Q005",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F005",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Outbreak and chronology",
+    "stem": "When did Britain and France declare war on Germany?",
+    "options": [
+      {
+        "key": "A",
+        "text": "3 September 1939"
+      },
+      {
+        "key": "B",
+        "text": "1 September 1939"
+      },
+      {
+        "key": "C",
+        "text": "22 June 1941"
+      },
+      {
+        "key": "D",
+        "text": "7 December 1941"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Britain and France declared war on 3 September, after Germany invaded Poland on 1 September. Their declaration did not immediately stop the German campaign.",
+    "sourceIds": [
+      "CP010-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q006",
+    "englishQuestionId": "WHI-CP010-Q006",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F006",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Outbreak and chronology",
+    "stem": "Which sequence is correct for the opening of the war in Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Japan attacks Pearl Harbor → Germany invades Poland"
+      },
+      {
+        "key": "B",
+        "text": "Germany invades Poland → Britain and France declare war"
+      },
+      {
+        "key": "C",
+        "text": "Britain and France declare war → Germany invades Poland"
+      },
+      {
+        "key": "D",
+        "text": "Germany invades the Soviet Union → Germany invades Poland"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Germany invaded Poland first, on 1 September 1939. Britain and France declared war on 3 September.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q007",
+    "englishQuestionId": "WHI-CP010-Q007",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F007",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Axis expansion and occupation",
+    "stem": "Which countries formed the Axis alliance during the Second World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Germany, Britain and the United States"
+      },
+      {
+        "key": "B",
+        "text": "Japan, China and the Soviet Union"
+      },
+      {
+        "key": "C",
+        "text": "Germany, Italy and Japan"
+      },
+      {
+        "key": "D",
+        "text": "Britain, France and the Soviet Union"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Germany, Italy and Japan were the principal Axis powers. Their alliance did not mean that every campaign was planned or conducted jointly.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q008",
+    "englishQuestionId": "WHI-CP010-Q008",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F008",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Axis expansion and occupation",
+    "stem": "Which military operation began Germany's invasion of the Soviet Union in June 1941?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Operation Overlord"
+      },
+      {
+        "key": "B",
+        "text": "Operation Torch"
+      },
+      {
+        "key": "C",
+        "text": "Operation Market Garden"
+      },
+      {
+        "key": "D",
+        "text": "Operation Barbarossa"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Operation Barbarossa began on 22 June 1941. It opened the German-Soviet front and violated the 1939 non-aggression pact.",
+    "sourceIds": [
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q009",
+    "englishQuestionId": "WHI-CP010-Q009",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F009",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Axis expansion and occupation",
+    "stem": "Which country did Germany invade in April 1940 along with Denmark?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Norway"
+      },
+      {
+        "key": "B",
+        "text": "Sweden"
+      },
+      {
+        "key": "C",
+        "text": "Finland"
+      },
+      {
+        "key": "D",
+        "text": "Portugal"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Germany invaded Denmark and Norway in April 1940. The campaign secured routes and strategic positions in northern Europe.",
+    "sourceIds": [
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q010",
+    "englishQuestionId": "WHI-CP010-Q010",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F010",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Axis expansion and occupation",
+    "stem": "What followed Germany's invasion of the Low Countries in May 1940?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Japan surrendered"
+      },
+      {
+        "key": "B",
+        "text": "German forces advanced into France"
+      },
+      {
+        "key": "C",
+        "text": "The Soviet Union joined the Axis"
+      },
+      {
+        "key": "D",
+        "text": "The United States entered the war"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Germany attacked the Netherlands, Belgium and Luxembourg before advancing into France. France signed an armistice in June 1940.",
+    "sourceIds": [
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q011",
+    "englishQuestionId": "WHI-CP010-Q011",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F011",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Axis expansion and occupation",
+    "stem": "Which country signed an armistice with Germany in June 1940 after the German campaign in western Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Sweden"
+      },
+      {
+        "key": "B",
+        "text": "Greece"
+      },
+      {
+        "key": "C",
+        "text": "France"
+      },
+      {
+        "key": "D",
+        "text": "Spain"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "France signed an armistice with Germany in June 1940. The country was divided into occupied and nominally unoccupied zones under the settlement.",
+    "sourceIds": [
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q012",
+    "englishQuestionId": "WHI-CP010-Q012",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F012",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Axis expansion and occupation",
+    "stem": "What was the principal German aim in the Battle of Britain in 1940?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To capture the Soviet city of Stalingrad"
+      },
+      {
+        "key": "B",
+        "text": "To open an Allied front in Normandy"
+      },
+      {
+        "key": "C",
+        "text": "To force Japan to surrender"
+      },
+      {
+        "key": "D",
+        "text": "To gain air superiority before a possible invasion of Britain"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "German air attacks sought to weaken Britain's air defenses and prepare conditions for a possible invasion. Britain remained in the war after the Luftwaffe failed to secure air superiority.",
+    "sourceIds": [
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q013",
+    "englishQuestionId": "WHI-CP010-Q013",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F013",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "European theatre",
+    "stem": "Which battle stopped the German advance at Stalingrad and ended with the surrender of German forces there in February 1943?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Battle of Stalingrad"
+      },
+      {
+        "key": "B",
+        "text": "The Battle of Britain"
+      },
+      {
+        "key": "C",
+        "text": "The Battle of El Alamein"
+      },
+      {
+        "key": "D",
+        "text": "The Battle of the Bulge"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The German Sixth Army surrendered at Stalingrad in February 1943. The defeat became a major turning point on the Eastern Front.",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q014",
+    "englishQuestionId": "WHI-CP010-Q014",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F014",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "European theatre",
+    "stem": "What was the purpose of the Allied landings in Normandy on 6 June 1944?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To occupy neutral Switzerland"
+      },
+      {
+        "key": "B",
+        "text": "To open a major western front against German forces"
+      },
+      {
+        "key": "C",
+        "text": "To invade Japan through the Pacific islands"
+      },
+      {
+        "key": "D",
+        "text": "To relieve the German army at Stalingrad"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Normandy landings began Operation Overlord and opened a major western front in German-occupied France. Allied forces then advanced inland.",
+    "sourceIds": [
+      "CP010-S05",
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q015",
+    "englishQuestionId": "WHI-CP010-Q015",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F015",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "European theatre",
+    "stem": "Which German offensive in the Ardennes began in December 1944?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Operation Barbarossa"
+      },
+      {
+        "key": "B",
+        "text": "The Battle of El Alamein"
+      },
+      {
+        "key": "C",
+        "text": "The Battle of the Bulge"
+      },
+      {
+        "key": "D",
+        "text": "The Battle of Midway"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Battle of the Bulge was Germany's last major offensive on the Western Front. Allied forces eventually repelled it.",
+    "sourceIds": [
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q016",
+    "englishQuestionId": "WHI-CP010-Q016",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F016",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "European theatre",
+    "stem": "Which city did Soviet forces capture in May 1945 as the European war approached its end?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Rome"
+      },
+      {
+        "key": "B",
+        "text": "Paris"
+      },
+      {
+        "key": "C",
+        "text": "Warsaw"
+      },
+      {
+        "key": "D",
+        "text": "Berlin"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Soviet forces captured Berlin in the final phase of the European war. Germany's surrender followed in May 1945.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q017",
+    "englishQuestionId": "WHI-CP010-Q017",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F017",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "European theatre",
+    "stem": "What event brought the United States directly into the Second World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Japan's attack on Pearl Harbor"
+      },
+      {
+        "key": "B",
+        "text": "Germany's invasion of Poland"
+      },
+      {
+        "key": "C",
+        "text": "The Battle of Britain"
+      },
+      {
+        "key": "D",
+        "text": "The fall of France"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Japan attacked Pearl Harbor on 7 December 1941. The United States declared war on Japan the following day.",
+    "sourceIds": [
+      "CP010-S03",
+      "CP010-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q018",
+    "englishQuestionId": "WHI-CP010-Q018",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F018",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "European theatre",
+    "stem": "Which naval battle in June 1942 checked Japanese expansion in the central Pacific?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Battle of Okinawa"
+      },
+      {
+        "key": "B",
+        "text": "The Battle of Midway"
+      },
+      {
+        "key": "C",
+        "text": "The Battle of the Coral Sea"
+      },
+      {
+        "key": "D",
+        "text": "The Battle of Leyte Gulf"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "At Midway, U.S. forces inflicted major losses on Japan's carrier fleet. The battle shifted the initiative in the Pacific toward the Allies.",
+    "sourceIds": [
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q019",
+    "englishQuestionId": "WHI-CP010-Q019",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F019",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Pacific theatre",
+    "stem": "Which island campaign began with Allied landings in August 1942 and became a prolonged struggle against Japan?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Sicily"
+      },
+      {
+        "key": "B",
+        "text": "Iwo Jima"
+      },
+      {
+        "key": "C",
+        "text": "Guadalcanal"
+      },
+      {
+        "key": "D",
+        "text": "Crete"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Guadalcanal campaign began in August 1942. It was an early sustained Allied offensive in the Pacific.",
+    "sourceIds": [
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q020",
+    "englishQuestionId": "WHI-CP010-Q020",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F020",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Pacific theatre",
+    "stem": "Which strategy involved capturing selected islands to move Allied forces closer to Japan?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Blitzkrieg"
+      },
+      {
+        "key": "B",
+        "text": "Scorched-earth retreat"
+      },
+      {
+        "key": "C",
+        "text": "Strategic encirclement of Berlin"
+      },
+      {
+        "key": "D",
+        "text": "Island hopping"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Allied forces captured selected islands and bypassed others to build forward bases. This strategy brought them closer to Japan while limiting some costly assaults.",
+    "sourceIds": [
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q021",
+    "englishQuestionId": "WHI-CP010-Q021",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F021",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Pacific theatre",
+    "stem": "Which country was at war with Japan in China before the attack on Pearl Harbor?",
+    "options": [
+      {
+        "key": "A",
+        "text": "China"
+      },
+      {
+        "key": "B",
+        "text": "Australia"
+      },
+      {
+        "key": "C",
+        "text": "Canada"
+      },
+      {
+        "key": "D",
+        "text": "Brazil"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Japan had been at war in China since 1937. The Pacific war widened when Japan attacked Pearl Harbor in 1941.",
+    "sourceIds": [
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q022",
+    "englishQuestionId": "WHI-CP010-Q022",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F022",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Pacific theatre",
+    "stem": "Which U.S. naval victory in the Coral Sea in May 1942 helped prevent a Japanese landing at Port Moresby?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Battle of the Philippine Sea"
+      },
+      {
+        "key": "B",
+        "text": "The Battle of the Coral Sea"
+      },
+      {
+        "key": "C",
+        "text": "The Battle of Midway"
+      },
+      {
+        "key": "D",
+        "text": "The Battle of Okinawa"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Battle of the Coral Sea checked the Japanese operation against Port Moresby. It was a carrier battle in which opposing fleets did not directly sight one another.",
+    "sourceIds": [
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q023",
+    "englishQuestionId": "WHI-CP010-Q023",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F023",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Pacific theatre",
+    "stem": "Which island was the site of a major U.S.-Japanese battle in February and March 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Guadalcanal"
+      },
+      {
+        "key": "B",
+        "text": "Saipan"
+      },
+      {
+        "key": "C",
+        "text": "Iwo Jima"
+      },
+      {
+        "key": "D",
+        "text": "Crete"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "U.S. forces captured Iwo Jima after intense fighting in 1945. Its airfields were strategically valuable for operations nearer Japan.",
+    "sourceIds": [
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q024",
+    "englishQuestionId": "WHI-CP010-Q024",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F024",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Pacific theatre",
+    "stem": "Which sequence correctly orders these Pacific turning points?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Midway → Pearl Harbor → Iwo Jima"
+      },
+      {
+        "key": "B",
+        "text": "Iwo Jima → Pearl Harbor → Midway"
+      },
+      {
+        "key": "C",
+        "text": "Pearl Harbor → Iwo Jima → Midway"
+      },
+      {
+        "key": "D",
+        "text": "Pearl Harbor → Midway → Iwo Jima"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Japan attacked Pearl Harbor in December 1941, Midway was fought in June 1942, and Iwo Jima in 1945. The sequence shows the widening and later Allied advance of the Pacific war.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q025",
+    "englishQuestionId": "WHI-CP010-Q025",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F025",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Turning points",
+    "stem": "Which 1942 battle in North Africa halted the Axis advance toward Egypt and the Suez Canal?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Second Battle of El Alamein"
+      },
+      {
+        "key": "B",
+        "text": "The Battle of Stalingrad"
+      },
+      {
+        "key": "C",
+        "text": "The Battle of Midway"
+      },
+      {
+        "key": "D",
+        "text": "The Battle of the Bulge"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Allied victory at El Alamein in late 1942 halted the Axis advance in Egypt. It helped shift the balance in North Africa.",
+    "sourceIds": [
+      "CP010-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q026",
+    "englishQuestionId": "WHI-CP010-Q026",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F026",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Turning points",
+    "stem": "Which battle is widely treated as a major turning point on the Eastern Front?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Battle of the Coral Sea"
+      },
+      {
+        "key": "B",
+        "text": "Stalingrad"
+      },
+      {
+        "key": "C",
+        "text": "Dunkirk"
+      },
+      {
+        "key": "D",
+        "text": "The Battle of Britain"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The German surrender at Stalingrad in February 1943 marked a major reversal on the Eastern Front. Soviet forces thereafter advanced westward over time.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q027",
+    "englishQuestionId": "WHI-CP010-Q027",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F027",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Turning points",
+    "stem": "What was the significance of the Battle of Midway for the Pacific war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It opened the Normandy front"
+      },
+      {
+        "key": "B",
+        "text": "It forced Germany to surrender"
+      },
+      {
+        "key": "C",
+        "text": "It checked Japanese expansion and shifted the initiative toward the United States"
+      },
+      {
+        "key": "D",
+        "text": "It ended the war in Europe"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Midway inflicted heavy losses on Japan's carrier forces. It helped turn the Pacific conflict from Japanese expansion toward sustained Allied advances.",
+    "sourceIds": [
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q028",
+    "englishQuestionId": "WHI-CP010-Q028",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F028",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Turning points",
+    "stem": "What did the Allied landings in Normandy achieve in 1944?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They ended the war with Japan"
+      },
+      {
+        "key": "B",
+        "text": "They captured Stalingrad"
+      },
+      {
+        "key": "C",
+        "text": "They forced Italy to join the Axis"
+      },
+      {
+        "key": "D",
+        "text": "They opened a western front in occupied France"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Normandy landings opened a large Allied front in western Europe. They placed pressure on German forces from the west while Soviet forces advanced from the east.",
+    "sourceIds": [
+      "CP010-S05",
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q029",
+    "englishQuestionId": "WHI-CP010-Q029",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F029",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Turning points",
+    "stem": "Which event forced Germany to fight major land campaigns on both eastern and western fronts in 1944?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Allied landing in Normandy"
+      },
+      {
+        "key": "B",
+        "text": "The attack on Pearl Harbor"
+      },
+      {
+        "key": "C",
+        "text": "The signing of the Tripartite Pact"
+      },
+      {
+        "key": "D",
+        "text": "The Battle of Britain"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "After the Normandy landings, Germany faced a major Allied offensive in the west while Soviet forces advanced in the east. The two-front pressure narrowed Germany's room to maneuver.",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q030",
+    "englishQuestionId": "WHI-CP010-Q030",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F030",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Turning points",
+    "stem": "Which sequence correctly orders three major turning points?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Midway → El Alamein → Pearl Harbor"
+      },
+      {
+        "key": "B",
+        "text": "El Alamein → Stalingrad → Normandy landings"
+      },
+      {
+        "key": "C",
+        "text": "Normandy landings → El Alamein → Stalingrad"
+      },
+      {
+        "key": "D",
+        "text": "Stalingrad → Normandy landings → El Alamein"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "El Alamein was fought in 1942, Stalingrad ended in February 1943, and the Normandy landings began in June 1944. These events marked shifts in several theatres.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q031",
+    "englishQuestionId": "WHI-CP010-Q031",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F031",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Allied strategy and leaders",
+    "stem": "Which wartime statement set out a vision of post-war cooperation between the United States and Britain in 1941?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Treaty of Versailles"
+      },
+      {
+        "key": "B",
+        "text": "The Molotov-Ribbentrop Pact"
+      },
+      {
+        "key": "C",
+        "text": "The Atlantic Charter"
+      },
+      {
+        "key": "D",
+        "text": "The Munich Agreement"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Roosevelt and Churchill issued the Atlantic Charter in August 1941. It outlined broad principles for the post-war order, although it was not a treaty.",
+    "sourceIds": [
+      "CP010-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q032",
+    "englishQuestionId": "WHI-CP010-Q032",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F032",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Allied strategy and leaders",
+    "stem": "At which conference did Allied leaders agree to seek the unconditional surrender of the Axis powers in 1943?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Yalta Conference"
+      },
+      {
+        "key": "B",
+        "text": "Potsdam Conference"
+      },
+      {
+        "key": "C",
+        "text": "Bretton Woods Conference"
+      },
+      {
+        "key": "D",
+        "text": "Casablanca Conference"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "At Casablanca in January 1943, Roosevelt and Churchill announced the policy of unconditional surrender. The Soviet Union was not represented at that meeting.",
+    "sourceIds": [
+      "CP010-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q033",
+    "englishQuestionId": "WHI-CP010-Q033",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F033",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Allied strategy and leaders",
+    "stem": "Which conference in 1943 brought Roosevelt, Churchill and Stalin together for the first time during the war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Tehran Conference"
+      },
+      {
+        "key": "B",
+        "text": "Casablanca Conference"
+      },
+      {
+        "key": "C",
+        "text": "Potsdam Conference"
+      },
+      {
+        "key": "D",
+        "text": "San Francisco Conference"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Tehran Conference in late 1943 was the first wartime meeting of Roosevelt, Churchill and Stalin. They discussed coordination against Germany and the opening of a western front.",
+    "sourceIds": [
+      "CP010-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q034",
+    "englishQuestionId": "WHI-CP010-Q034",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F034",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Allied strategy and leaders",
+    "stem": "Which conference in February 1945 addressed the post-war occupation and reorganisation of Germany?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Locarno Conference"
+      },
+      {
+        "key": "B",
+        "text": "Yalta Conference"
+      },
+      {
+        "key": "C",
+        "text": "Munich Conference"
+      },
+      {
+        "key": "D",
+        "text": "Bretton Woods Conference"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "At Yalta, the Allied leaders discussed Germany's occupation and the emerging post-war settlement. The final division into occupation zones was implemented after Germany's defeat.",
+    "sourceIds": [
+      "CP010-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q035",
+    "englishQuestionId": "WHI-CP010-Q035",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F035",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Allied strategy and leaders",
+    "stem": "Which conference took place after Germany's surrender and discussed the administration of post-war Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Casablanca Conference"
+      },
+      {
+        "key": "B",
+        "text": "Atlantic City Conference"
+      },
+      {
+        "key": "C",
+        "text": "Potsdam Conference"
+      },
+      {
+        "key": "D",
+        "text": "Tehran Conference"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Potsdam Conference met in July and August 1945 after Germany's surrender. The Allied leaders addressed occupation policy and post-war arrangements.",
+    "sourceIds": [
+      "CP010-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q036",
+    "englishQuestionId": "WHI-CP010-Q036",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F036",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Allied strategy and leaders",
+    "stem": "What was the main purpose of the Lend-Lease Act of 1941?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To establish the United Nations"
+      },
+      {
+        "key": "B",
+        "text": "To divide Germany into occupation zones"
+      },
+      {
+        "key": "C",
+        "text": "To create the North Atlantic Treaty Organization"
+      },
+      {
+        "key": "D",
+        "text": "To supply Allied countries with U.S. war materials and assistance"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Lend-Lease enabled the United States to provide military supplies to countries whose defense it considered vital. It preceded U.S. entry into the war.",
+    "sourceIds": [
+      "CP010-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q037",
+    "englishQuestionId": "WHI-CP010-Q037",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F037",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Allied strategy and leaders",
+    "stem": "Which Allied leader represented the Soviet Union at the Tehran and Yalta conferences?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Joseph Stalin"
+      },
+      {
+        "key": "B",
+        "text": "Winston Churchill"
+      },
+      {
+        "key": "C",
+        "text": "Franklin D. Roosevelt"
+      },
+      {
+        "key": "D",
+        "text": "Charles de Gaulle"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Stalin represented the Soviet Union at both conferences. Roosevelt represented the United States and Churchill represented Britain.",
+    "sourceIds": [
+      "CP010-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q038",
+    "englishQuestionId": "WHI-CP010-Q038",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F038",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Holocaust and persecution",
+    "stem": "What was the purpose of the 1942 Wannsee Conference?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To plan the Allied invasion of Normandy"
+      },
+      {
+        "key": "B",
+        "text": "To coordinate the implementation of the Nazi plan to murder Europe's Jews"
+      },
+      {
+        "key": "C",
+        "text": "To negotiate Germany's surrender"
+      },
+      {
+        "key": "D",
+        "text": "To form the United Nations"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Nazi officials at Wannsee coordinated the implementation of the mass murder of European Jews. The genocide had already begun in occupied territories before the meeting.",
+    "sourceIds": [
+      "CP010-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q039",
+    "englishQuestionId": "WHI-CP010-Q039",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F039",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Holocaust and persecution",
+    "stem": "Which group did Nazi Germany and its collaborators target for systematic genocide in the Holocaust?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Only Allied soldiers"
+      },
+      {
+        "key": "B",
+        "text": "Only political leaders of Britain"
+      },
+      {
+        "key": "C",
+        "text": "Europe's Jewish population"
+      },
+      {
+        "key": "D",
+        "text": "All European civilians equally"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Holocaust was the systematic persecution and murder of six million European Jews by Nazi Germany and its collaborators. Other groups were also persecuted and murdered by the Nazi regime.",
+    "sourceIds": [
+      "CP010-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q040",
+    "englishQuestionId": "WHI-CP010-Q040",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Holocaust and persecution",
+    "stem": "What was the primary function of ghettos established by Nazi Germany in occupied eastern Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To provide safe passage to neutral countries"
+      },
+      {
+        "key": "B",
+        "text": "To train Allied resistance forces"
+      },
+      {
+        "key": "C",
+        "text": "To hold German prisoners of war"
+      },
+      {
+        "key": "D",
+        "text": "To confine and control Jewish communities under brutal conditions"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Nazi authorities forcibly concentrated Jewish residents in ghettos under conditions of deprivation and violence. Many people were later deported to killing centers or murdered locally.",
+    "sourceIds": [
+      "CP010-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q041",
+    "englishQuestionId": "WHI-CP010-Q041",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F041",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Holocaust and persecution",
+    "stem": "Which Nazi killing center was located in occupied Poland and became a major site of mass murder?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Auschwitz-Birkenau"
+      },
+      {
+        "key": "B",
+        "text": "Dachau"
+      },
+      {
+        "key": "C",
+        "text": "Bergen-Belsen"
+      },
+      {
+        "key": "D",
+        "text": "Ravensbrück"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Auschwitz-Birkenau was a complex of concentration and killing camps in occupied Poland. It became one of the principal sites of the Holocaust.",
+    "sourceIds": [
+      "CP010-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q042",
+    "englishQuestionId": "WHI-CP010-Q042",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Holocaust and persecution",
+    "stem": "What did Nazi authorities mean by the term “Final Solution”?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A peace proposal to the Soviet Union"
+      },
+      {
+        "key": "B",
+        "text": "The planned murder of Europe's Jewish population"
+      },
+      {
+        "key": "C",
+        "text": "The post-war division of Germany"
+      },
+      {
+        "key": "D",
+        "text": "The evacuation of German troops from France"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Nazi officials used “Final Solution” as a euphemism for the genocide of Europe's Jews. The phrase concealed a policy of systematic mass murder.",
+    "sourceIds": [
+      "CP010-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q043",
+    "englishQuestionId": "WHI-CP010-Q043",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F043",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Holocaust and persecution",
+    "stem": "Which statement about the Holocaust is historically accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It targeted only soldiers in combat"
+      },
+      {
+        "key": "B",
+        "text": "It was a single battle during the invasion of Poland"
+      },
+      {
+        "key": "C",
+        "text": "It was a state-organised genocide carried out by Nazi Germany and its collaborators"
+      },
+      {
+        "key": "D",
+        "text": "It began only after Germany surrendered"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Holocaust was a state-organised genocide during the Nazi era, carried out across Europe by Germany and collaborators. It unfolded through persecution, deportation, mass shootings and killing centers.",
+    "sourceIds": [
+      "CP010-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q044",
+    "englishQuestionId": "WHI-CP010-Q044",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F044",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Resistance and home fronts",
+    "stem": "Which uprising began in the Warsaw ghetto in April 1943?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Warsaw Uprising of August 1944"
+      },
+      {
+        "key": "B",
+        "text": "The Prague Spring"
+      },
+      {
+        "key": "C",
+        "text": "The Hungarian Revolution"
+      },
+      {
+        "key": "D",
+        "text": "The Warsaw Ghetto Uprising"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Jewish resistance fighters began the Warsaw Ghetto Uprising in April 1943 when German forces moved to deport the remaining residents. German forces suppressed the revolt.",
+    "sourceIds": [
+      "CP010-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q045",
+    "englishQuestionId": "WHI-CP010-Q045",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F045",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Resistance and home fronts",
+    "stem": "Which 1944 uprising in occupied Poland was organised by the Polish Home Army in the city of Warsaw?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Warsaw Uprising"
+      },
+      {
+        "key": "B",
+        "text": "The Warsaw Ghetto Uprising"
+      },
+      {
+        "key": "C",
+        "text": "The Slovak National Uprising"
+      },
+      {
+        "key": "D",
+        "text": "The Easter Rising"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Polish Home Army began the Warsaw Uprising in August 1944. It was a separate event from the 1943 Warsaw Ghetto Uprising.",
+    "sourceIds": [
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q046",
+    "englishQuestionId": "WHI-CP010-Q046",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Resistance and home fronts",
+    "stem": "What was the principal role of the French Resistance during the German occupation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To negotiate Japan's surrender"
+      },
+      {
+        "key": "B",
+        "text": "To oppose occupation through underground networks, intelligence and sabotage"
+      },
+      {
+        "key": "C",
+        "text": "To administer Vichy France on Germany's behalf"
+      },
+      {
+        "key": "D",
+        "text": "To lead the German invasion of the Soviet Union"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Resistance groups in France gathered intelligence, circulated information and carried out sabotage. Their actions supported the Allied campaign but varied across networks and regions.",
+    "sourceIds": [
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q047",
+    "englishQuestionId": "WHI-CP010-Q047",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F047",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Resistance and home fronts",
+    "stem": "Which codebreaking operation helped the Allies read some German military communications?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Translating the Atlantic Charter"
+      },
+      {
+        "key": "B",
+        "text": "Breaking the Soviet diplomatic code at Yalta"
+      },
+      {
+        "key": "C",
+        "text": "Breaking the Enigma cipher"
+      },
+      {
+        "key": "D",
+        "text": "Decoding the Japanese surrender instrument"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "British codebreakers at Bletchley Park helped decipher German Enigma communications. This intelligence contributed to Allied planning and convoy protection.",
+    "sourceIds": [
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q048",
+    "englishQuestionId": "WHI-CP010-Q048",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F048",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Resistance and home fronts",
+    "stem": "How did rationing affect civilian life in many countries during the war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It ended all industrial production"
+      },
+      {
+        "key": "B",
+        "text": "It required civilians to join the armed forces"
+      },
+      {
+        "key": "C",
+        "text": "It abolished government control over prices"
+      },
+      {
+        "key": "D",
+        "text": "It limited access to scarce food and consumer goods"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Governments rationed food and other goods because wartime demand and disruption created shortages. The specific systems differed across countries.",
+    "sourceIds": [
+      "CP010-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q049",
+    "englishQuestionId": "WHI-CP010-Q049",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F049",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Resistance and home fronts",
+    "stem": "Which statement best describes resistance under Nazi occupation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It included varied armed, political and civilian efforts across occupied countries"
+      },
+      {
+        "key": "B",
+        "text": "It was confined to one central organisation across Europe"
+      },
+      {
+        "key": "C",
+        "text": "It ended immediately after the fall of France"
+      },
+      {
+        "key": "D",
+        "text": "It was conducted only by Allied armies outside Europe"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Resistance took many forms, from armed struggle to intelligence and civilian support. Its organisation and influence differed by country and period.",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q050",
+    "englishQuestionId": "WHI-CP010-Q050",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F050",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Resistance and home fronts",
+    "stem": "Which sequence places the Allied liberation campaign in western Europe in the correct order?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Pearl Harbor → liberation of Paris → Battle of Britain"
+      },
+      {
+        "key": "B",
+        "text": "Normandy landings → liberation of Paris → advance into Germany"
+      },
+      {
+        "key": "C",
+        "text": "Liberation of Paris → Normandy landings → invasion of Poland"
+      },
+      {
+        "key": "D",
+        "text": "Advance into Germany → Normandy landings → liberation of Paris"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Allies landed in Normandy in June 1944 and liberated Paris in August. They continued their advance toward Germany afterward.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q051",
+    "englishQuestionId": "WHI-CP010-Q051",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F051",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Surrender and end of war",
+    "stem": "Where did Germany sign its first unconditional surrender instrument in May 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Tokyo"
+      },
+      {
+        "key": "B",
+        "text": "Casablanca"
+      },
+      {
+        "key": "C",
+        "text": "Reims"
+      },
+      {
+        "key": "D",
+        "text": "Yalta"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Germany signed an unconditional surrender at Reims on 7 May 1945. A further signing took place in Berlin the next day.",
+    "sourceIds": [
+      "CP010-S06",
+      "CP010-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q052",
+    "englishQuestionId": "WHI-CP010-Q052",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F052",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Surrender and end of war",
+    "stem": "On what date did Germany's surrender to the Western Allies take effect?",
+    "options": [
+      {
+        "key": "A",
+        "text": "7 May 1945"
+      },
+      {
+        "key": "B",
+        "text": "9 June 1944"
+      },
+      {
+        "key": "C",
+        "text": "2 September 1945"
+      },
+      {
+        "key": "D",
+        "text": "8 May 1945"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Germany's surrender took effect on 8 May 1945 in western Europe. The Soviet Union marked the end of the European war on 9 May because of the timing of the Berlin signing.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q053",
+    "englishQuestionId": "WHI-CP010-Q053",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F053",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Surrender and end of war",
+    "stem": "Which statement correctly distinguishes Germany's two surrender signings in May 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A surrender was signed at Reims and a further instrument in Berlin"
+      },
+      {
+        "key": "B",
+        "text": "The Reims signing ended the Pacific war and the Berlin signing began it"
+      },
+      {
+        "key": "C",
+        "text": "The Berlin signing preceded the Reims signing by a month"
+      },
+      {
+        "key": "D",
+        "text": "Both signings occurred after Japan's formal surrender"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Germany signed at Reims on 7 May and a further instrument in Berlin on 8 May 1945. Different surrender ceremonies reflected the Allied coalition and the Eastern Front.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q054",
+    "englishQuestionId": "WHI-CP010-Q054",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F054",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Surrender and end of war",
+    "stem": "Which Japanese city was struck by the first atomic bomb used in war on 6 August 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Osaka"
+      },
+      {
+        "key": "B",
+        "text": "Hiroshima"
+      },
+      {
+        "key": "C",
+        "text": "Nagasaki"
+      },
+      {
+        "key": "D",
+        "text": "Tokyo"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The United States dropped an atomic bomb on Hiroshima on 6 August 1945. Nagasaki was bombed three days later.",
+    "sourceIds": [
+      "CP010-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q055",
+    "englishQuestionId": "WHI-CP010-Q055",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F055",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Surrender and end of war",
+    "stem": "Which Japanese city was struck by the second U.S. atomic bomb on 9 August 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Kyoto"
+      },
+      {
+        "key": "B",
+        "text": "Yokohama"
+      },
+      {
+        "key": "C",
+        "text": "Nagasaki"
+      },
+      {
+        "key": "D",
+        "text": "Hiroshima"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The second atomic bomb was dropped on Nagasaki on 9 August 1945. Japan announced its acceptance of surrender terms later that month.",
+    "sourceIds": [
+      "CP010-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q056",
+    "englishQuestionId": "WHI-CP010-Q056",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F056",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Surrender and end of war",
+    "stem": "When did Japan formally sign the instrument of surrender, ending the Second World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "15 August 1945"
+      },
+      {
+        "key": "B",
+        "text": "8 May 1945"
+      },
+      {
+        "key": "C",
+        "text": "6 June 1944"
+      },
+      {
+        "key": "D",
+        "text": "2 September 1945"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Japan formally signed the surrender instrument on 2 September 1945 aboard the USS Missouri. The announcement of acceptance had been made in August.",
+    "sourceIds": [
+      "CP010-S06",
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q057",
+    "englishQuestionId": "WHI-CP010-Q057",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F057",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Consequences and synthesis",
+    "stem": "Which sequence correctly orders the final surrender milestones of the war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Germany surrenders → atomic bombs are dropped → Japan signs surrender"
+      },
+      {
+        "key": "B",
+        "text": "Japan signs surrender → Germany surrenders → atomic bombs are dropped"
+      },
+      {
+        "key": "C",
+        "text": "Atomic bombs are dropped → Germany invades Poland → Japan signs surrender"
+      },
+      {
+        "key": "D",
+        "text": "Germany surrenders → Japan signs surrender → D-Day"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Germany surrendered in May 1945, the atomic bombs were dropped in August, and Japan signed the surrender in September. The sequence distinguishes the end of the European war from the formal end of the global conflict.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q058",
+    "englishQuestionId": "WHI-CP010-Q058",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F058",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Consequences and synthesis",
+    "stem": "Which statement describes a major human consequence of the Second World War in Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The war caused no major population movements"
+      },
+      {
+        "key": "B",
+        "text": "Millions of civilians were displaced from their homes"
+      },
+      {
+        "key": "C",
+        "text": "All civilians returned home immediately in 1945"
+      },
+      {
+        "key": "D",
+        "text": "Only military personnel were displaced"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "War and persecution displaced millions of people across Europe. Many survivors could not or did not return to their former homes after the conflict.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q059",
+    "englishQuestionId": "WHI-CP010-Q059",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F059",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Consequences and synthesis",
+    "stem": "Which outcome followed the surrender of Nazi Germany in May 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Restoration of the German Empire under the Kaiser"
+      },
+      {
+        "key": "B",
+        "text": "Germany's admission to the Axis alliance"
+      },
+      {
+        "key": "C",
+        "text": "Allied occupation and administration of defeated Germany"
+      },
+      {
+        "key": "D",
+        "text": "Immediate reunification of Germany as a neutral republic"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "After Germany's defeat, Allied powers occupied and administered the country. The longer-term division and post-war institutions are covered in CP011.",
+    "sourceIds": [
+      "CP010-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP010-Q060",
+    "englishQuestionId": "WHI-CP010-Q060",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F060",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Consequences and synthesis",
+    "stem": "Which statement best describes the global character of the Second World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It was confined to central Europe"
+      },
+      {
+        "key": "B",
+        "text": "It involved only European states"
+      },
+      {
+        "key": "C",
+        "text": "It ended when France signed its 1940 armistice"
+      },
+      {
+        "key": "D",
+        "text": "It was fought across European, North African and Asia-Pacific theatres"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The war involved connected campaigns across several continents and oceans. Germany's 1940 armistice with France did not end the wider conflict.",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02",
+      "CP010-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
