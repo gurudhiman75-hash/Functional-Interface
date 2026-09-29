@@ -64,9 +64,7 @@ function displayDifficulty(value: WfmDifficulty): "Easy" | "Medium" | "Hard" {
 
 function resolveExamProfile(value: unknown): WfmExamProfile {
   const normalized = text(value).toLowerCase();
-  if (/bank|ibps|sbi|rrb officer|po\b/u.test(normalized)) {
-    throw new Error("WFM-001 current source authority supports SSC/Punjab four-option profiles, not Banking delivery");
-  }
+  if (/bank|ibps|sbi|rrb officer|po\b/u.test(normalized)) return "BANKING_5";
   if (/punjab|psssb|ppsc|patwari|pspcl|punjab police/u.test(normalized)) return "PUNJAB_4";
   return "SSC_CGL_4";
 }
@@ -82,13 +80,17 @@ function isCheckpointId(value: string): value is (typeof WFM_001_CHECKPOINT_IDS)
 function qlsForCheckpoint(cpId: (typeof WFM_001_CHECKPOINT_IDS)[number]): WfmQlId[] {
   if (cpId === "WFM-CP-001") return ["WFM-QL-001", "WFM-QL-002"];
   if (cpId === "WFM-CP-002") return ["WFM-QL-003"];
-  return ["WFM-QL-004"];
+  if (cpId === "WFM-CP-003") return ["WFM-QL-004"];
+  if (cpId === "WFM-CP-004") return ["WFM-QL-005"];
+  return ["WFM-QL-006"];
 }
 
 function checkpointForQl(qlId: WfmQlId): (typeof WFM_001_CHECKPOINT_IDS)[number] {
   if (qlId === "WFM-QL-001" || qlId === "WFM-QL-002") return "WFM-CP-001";
   if (qlId === "WFM-QL-003") return "WFM-CP-002";
-  return "WFM-CP-003";
+  if (qlId === "WFM-QL-004") return "WFM-CP-003";
+  if (qlId === "WFM-QL-005") return "WFM-CP-004";
+  return "WFM-CP-005";
 }
 
 function resolveQlPool(request: QuestionStudioGenerationRequest): WfmQlId[] {
@@ -157,11 +159,11 @@ export const WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefini
     registrationAuthorityId: WFM001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
     taxonomyAuthority: "REASONING-V1-TAXONOMY-AMENDMENT-WFM-001",
     permanentQlCount: qlIds.length,
-    permanentQlRange: "WFM-QL-001..WFM-QL-004",
+    permanentQlRange: "WFM-QL-001..WFM-QL-006",
     checkpointCount: cpIds.length,
     deterministicGeneration: true,
-    supportedExamProfiles: ["SSC_CGL_4", "PUNJAB_4"],
-    optionCount: 4,
+    supportedExamProfiles: ["SSC_CGL_4", "PUNJAB_4", "BANKING_5"],
+    optionCountPolicy: "SSC_PUNJAB_4__BANKING_5",
     difficultyCalibrationStatus: "GENERATED_INSTANCE_V2",
     multilingualParityStatus: "EN_HI_PA",
     reviewOnly: true,
@@ -179,7 +181,17 @@ export function generateWfm001QuestionStudioBatch(
   const { language, locale } = normalizeLanguage(request.language);
   const difficulty = normalizeDifficulty(request.difficulty);
   const examProfile = resolveExamProfile(request.exam);
-  const pool = resolveQlPool(request);
+  const requestedPool = resolveQlPool(request);
+  const bankingPool: readonly WfmQlId[] = ["WFM-QL-003", "WFM-QL-005", "WFM-QL-006"];
+  const pool = examProfile === "BANKING_5" && requestedPool.length === qlIds.length
+    ? [...bankingPool]
+    : requestedPool;
+  if (examProfile === "BANKING_5" && pool.some((qlId) => !bankingPool.includes(qlId))) {
+    throw new Error(`WFM-001 Banking profile supports only ${bankingPool.join(", ")}`);
+  }
+  if (examProfile !== "BANKING_5" && pool.some((qlId) => qlId === "WFM-QL-005" || qlId === "WFM-QL-006")) {
+    throw new Error("WFM-QL-005/006 require the BANKING_5 profile");
+  }
   const baseSeed = text(request.seed) || "wfm001-current-main-review-v1";
   const start = hash(`${baseSeed}:ql-start`) % pool.length;
   const questions: Record<string, unknown>[] = [];
