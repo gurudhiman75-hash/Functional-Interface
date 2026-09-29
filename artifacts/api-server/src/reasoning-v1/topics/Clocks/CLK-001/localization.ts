@@ -30,6 +30,13 @@ function translateDisplay(value: string, language: Exclude<ClockAuthoringLanguag
   const replacements: readonly [RegExp, string, string][] = [
     [/gain of /gi, 'बढ़त ', 'ਵਾਧਾ '],
     [/loss of /gi, 'कमी ', 'ਘਾਟਾ '],
+    [/ per actual hour/gi, ' प्रति वास्तविक घंटा', ' ਪ੍ਰਤੀ ਅਸਲ ਘੰਟਾ'],
+    [/ per actual day/gi, ' प्रति वास्तविक दिन', ' ਪ੍ਰਤੀ ਅਸਲ ਦਿਨ'],
+    [/ per actual minute/gi, ' प्रति वास्तविक मिनट', ' ਪ੍ਰਤੀ ਅਸਲ ਮਿੰਟ'],
+    [/ actual hours/gi, ' वास्तविक घंटे', ' ਅਸਲ ਘੰਟੇ'],
+    [/ actual hour/gi, ' वास्तविक घंटा', ' ਅਸਲ ਘੰਟਾ'],
+    [/ actual time/gi, ' वास्तविक समय', ' ਅਸਲ ਸਮਾਂ'],
+    [/ displayed time/gi, ' दिखाई गया समय', ' ਦਿਖਾਇਆ ਸਮਾਂ'],
     [/ per day/gi, ' प्रति दिन', ' ਪ੍ਰਤੀ ਦਿਨ'],
     [/minutes/gi, 'मिनट', 'ਮਿੰਟ'],
     [/minute/gi, 'मिनट', 'ਮਿੰਟ'],
