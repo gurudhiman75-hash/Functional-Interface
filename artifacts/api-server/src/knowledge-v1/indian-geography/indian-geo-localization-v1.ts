@@ -88,7 +88,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "hydroelectric power":"जलविद्युत","multipurpose project":"बहुउद्देशीय परियोजना","river-valley project":"नदी-घाटी परियोजना",
     "Bhakra-Nangal":"भाखड़ा-नांगल","Hirakud":"हीराकुंड","Tehri":"टिहरी","Sardar Sarovar":"सरदार सरोवर",
     "Nagarjuna Sagar":"नागार्जुन सागर","Damodar Valley Project":"दामोदर घाटी परियोजना",
-    "iron and steel industry":"लौह-इस्पात उद्योग","cotton textile industry":"सूती वस्त्र उद्योग","jute industry":"जूट उद्योग",
+    "aluminium":"एल्यूमिनियम","alumina":"एल्यूमिना","port hinterland":"बंदरगाह पृष्ठप्रदेश","iron and steel industry":"लौह-इस्पात उद्योग","cotton textile industry":"सूती वस्त्र उद्योग","jute industry":"जूट उद्योग",
     "sugar industry":"चीनी उद्योग","information technology":"सूचना प्रौद्योगिकी","petrochemical industry":"पेट्रो-रसायन उद्योग",
     "industrial location":"औद्योगिक अवस्थिति","raw material":"कच्चा माल","market":"बाजार","power supply":"ऊर्जा आपूर्ति",
     "railway":"रेलमार्ग","railways":"रेलमार्ग","road transport":"सड़क परिवहन","national highway":"राष्ट्रीय राजमार्ग",
@@ -141,7 +141,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "hydroelectric power":"ਜਲ-ਬਿਜਲੀ","multipurpose project":"ਬਹੁ-ਮੰਤਵੀ ਪ੍ਰਾਜੈਕਟ","river-valley project":"ਨਦੀ-ਘਾਟੀ ਪ੍ਰਾਜੈਕਟ",
     "Bhakra-Nangal":"ਭਾਖੜਾ-ਨੰਗਲ","Hirakud":"ਹੀਰਾਕੁਡ","Tehri":"ਟਿਹਰੀ","Sardar Sarovar":"ਸਰਦਾਰ ਸਰੋਵਰ",
     "Nagarjuna Sagar":"ਨਾਗਾਰਜੁਨ ਸਾਗਰ","Damodar Valley Project":"ਦਾਮੋਦਰ ਘਾਟੀ ਪ੍ਰਾਜੈਕਟ",
-    "iron and steel industry":"ਲੋਹਾ-ਇਸਪਾਤ ਉਦਯੋਗ","cotton textile industry":"ਸੂਤੀ ਕਪੜਾ ਉਦਯੋਗ","jute industry":"ਜੂਟ ਉਦਯੋਗ",
+    "aluminium":"ਐਲੂਮੀਨੀਅਮ","alumina":"ਐਲੂਮੀਨਾ","port hinterland":"ਪਛੋਕੜੀ ਖੇਤਰ","iron and steel industry":"ਲੋਹਾ-ਇਸਪਾਤ ਉਦਯੋਗ","cotton textile industry":"ਸੂਤੀ ਕਪੜਾ ਉਦਯੋਗ","jute industry":"ਜੂਟ ਉਦਯੋਗ",
     "sugar industry":"ਚੀਨੀ ਉਦਯੋਗ","information technology":"ਸੂਚਨਾ ਤਕਨਾਲੋਜੀ","petrochemical industry":"ਪੈਟਰੋ-ਰਸਾਇਣ ਉਦਯੋਗ",
     "industrial location":"ਉਦਯੋਗਿਕ ਟਿਕਾਣਾ","raw material":"ਕੱਚਾ ਮਾਲ","market":"ਬਾਜ਼ਾਰ","power supply":"ਬਿਜਲੀ ਸਪਲਾਈ",
     "railway":"ਰੇਲਮਾਰਗ","railways":"ਰੇਲਮਾਰਗ","road transport":"ਸੜਕ ਆਵਾਜਾਈ","national highway":"ਰਾਸ਼ਟਰੀ ਰਾਜਮਾਰਗ",
@@ -409,6 +409,90 @@ function localizeNaturalStem(text: string, language: "hi"|"pa", packageId?: stri
 
     m = text.match(/^Which root adaptation helps mangrove plants obtain oxygen from waterlogged soil\?$/);
     if (m) return hi ? "जलभराव वाली मिट्टी से ऑक्सीजन लेने में मैंग्रोव पौधों की कौन-सी जड़ अनुकूलन मदद करती है?" : "ਪਾਣੀ ਨਾਲ ਭਰੀ ਮਿੱਟੀ ਵਿੱਚੋਂ ਆਕਸੀਜਨ ਲੈਣ ਲਈ ਮੈਂਗਰੋਵ ਪੌਦਿਆਂ ਦੀ ਕਿਹੜੀ ਜੜ ਅਨੁਕੂਲਤਾ ਮਦਦ ਕਰਦੀ ਹੈ?";
+  }
+
+  if (packageId === "GEO-IND-001") {
+    let m = text.match(/^Which industry directly depends on large (.+?) deposits\?$/);
+    if (m) return hi ? `कौन-सा उद्योग ${f(m[1])} के बड़े भंडारों पर सीधे निर्भर है?` : `ਕਿਹੜਾ ਉਦਯੋਗ ${f(m[1])} ਦੇ ਵੱਡੇ ਭੰਡਾਰਾਂ ਉੱਤੇ ਸਿੱਧਾ ਨਿਰਭਰ ਹੈ?`;
+
+    m = text.match(/^Which ore is the principal raw material for (.+?) production\?$/);
+    if (m) return hi ? `${f(m[1])} उत्पादन के लिए प्रमुख कच्चा माल कौन-सा अयस्क है?` : `${f(m[1])} ਦੇ ਉਤਪਾਦਨ ਲਈ ਮੁੱਖ ਕੱਚਾ ਮਾਲ ਕਿਹੜੀ ਕੱਚੀ ਧਾਤ ਹੈ?`;
+
+    m = text.match(/^Which factor most directly explains the location of a (.+?) inside a (.+?)\?$/);
+    if (m) return hi ? `${f(m[2])} के भीतर ${f(m[1])} की अवस्थिति को कौन-सा कारक सबसे सीधे समझाता है?` : `${f(m[2])} ਦੇ ਅੰਦਰ ${f(m[1])} ਦੇ ਟਿਕਾਣੇ ਨੂੰ ਕਿਹੜਾ ਕਾਰਕ ਸਭ ਤੋਂ ਸਿੱਧੇ ਤੌਰ ਤੇ ਸਮਝਾਉਂਦਾ ਹੈ?`;
+
+    m = text.match(/^Which coastal steel plant has an important port-location advantage\?$/);
+    if (m) return hi ? "कौन-सा तटीय इस्पात संयंत्र बंदरगाह के निकट होने का महत्वपूर्ण लाभ प्राप्त करता है?" : "ਕਿਹੜੇ ਤਟੀ ਇਸਪਾਤ ਪਲਾਂਟ ਨੂੰ ਬੰਦਰਗਾਹ ਦੇ ਨੇੜੇ ਹੋਣ ਦਾ ਮਹੱਤਵਪੂਰਨ ਲਾਭ ਮਿਲਦਾ ਹੈ?";
+
+    m = text.match(/^Which state contains the (.+?) industrial region\?$/);
+    if (m) return hi ? `${f(m[1])} औद्योगिक क्षेत्र किस राज्य में स्थित है?` : `${f(m[1])} ਉਦਯੋਗਿਕ ਖੇਤਰ ਕਿਹੜੇ ਰਾਜ ਵਿੱਚ ਸਥਿਤ ਹੈ?`;
+
+    m = text.match(/^Which factors helped (.+?) become a major industrial region\?$/);
+    if (m) return hi ? `${f(m[1])} को प्रमुख औद्योगिक क्षेत्र बनने में किन कारकों ने सहायता की?` : `${f(m[1])} ਨੂੰ ਮੁੱਖ ਉਦਯੋਗਿਕ ਖੇਤਰ ਬਣਨ ਵਿੱਚ ਕਿਹੜੇ ਕਾਰਕਾਂ ਨੇ ਮਦਦ ਕੀਤੀ?`;
+
+    m = text.match(/^A plant receives crude oil, separates and converts it into fuels and petrochemical feedstocks\. Which industry is this\?$/);
+    if (m) return hi ? "एक संयंत्र कच्चे तेल को अलग-अलग ईंधनों और पेट्रो-रासायनिक कच्चे माल में बदलता है। यह कौन-सा उद्योग है?" : "ਇੱਕ ਪਲਾਂਟ ਕੱਚੇ ਤੇਲ ਨੂੰ ਵੱਖ-ਵੱਖ ਇੰਧਨਾਂ ਅਤੇ ਪੈਟਰੋ-ਰਸਾਇਣਕ ਕੱਚੇ ਮਾਲ ਵਿੱਚ ਬਦਲਦਾ ਹੈ। ਇਹ ਕਿਹੜਾ ਉਦਯੋਗ ਹੈ?";
+
+    m = text.match(/^Which measure most directly reduces particulate emissions from industrial exhaust\?$/);
+    if (m) return hi ? "औद्योगिक धुएँ से निकलने वाले सूक्ष्म कणों को कम करने का सबसे सीधा उपाय कौन-सा है?" : "ਉਦਯੋਗਿਕ ਧੂੰਏਂ ਵਿੱਚੋਂ ਨਿਕਲਣ ਵਾਲੇ ਬਰੀਕ ਕਣਾਂ ਨੂੰ ਘਟਾਉਣ ਦਾ ਸਭ ਤੋਂ ਸਿੱਧਾ ਉਪਾਅ ਕਿਹੜਾ ਹੈ?";
+  }
+
+  if (packageId === "GEO-TRN-001") {
+    let m = text.match(/^Which roads connect major cities, state capitals, ports and important economic centres across states\?$/);
+    if (m) return hi ? "राज्यों के बीच प्रमुख शहरों, राज्य राजधानियों, बंदरगाहों और महत्वपूर्ण आर्थिक केंद्रों को कौन-सी सड़कें जोड़ती हैं?" : "ਰਾਜਾਂ ਵਿਚਕਾਰ ਮੁੱਖ ਸ਼ਹਿਰਾਂ, ਰਾਜਧਾਨੀਆਂ, ਬੰਦਰਗਾਹਾਂ ਅਤੇ ਮਹੱਤਵਪੂਰਨ ਆਰਥਿਕ ਕੇਂਦਰਾਂ ਨੂੰ ਕਿਹੜੀਆਂ ਸੜਕਾਂ ਜੋੜਦੀਆਂ ਹਨ?";
+
+    m = text.match(/^Which roads primarily connect important places within a state\?$/);
+    if (m) return hi ? "किसी राज्य के भीतर महत्वपूर्ण स्थानों को मुख्य रूप से कौन-सी सड़कें जोड़ती हैं?" : "ਕਿਸੇ ਰਾਜ ਦੇ ਅੰਦਰ ਮਹੱਤਵਪੂਰਨ ਥਾਵਾਂ ਨੂੰ ਮੁੱਖ ਤੌਰ ਤੇ ਕਿਹੜੀਆਂ ਸੜਕਾਂ ਜੋੜਦੀਆਂ ਹਨ?";
+
+    m = text.match(/^Which transport mode is especially suitable for moving large volumes of passengers and bulk freight over long distances on land\?$/);
+    if (m) return hi ? "भूमि पर लंबी दूरी तक बड़ी संख्या में यात्रियों और भारी माल के परिवहन के लिए कौन-सा साधन विशेष रूप से उपयुक्त है?" : "ਜ਼ਮੀਨ ਉੱਤੇ ਲੰਬੀ ਦੂਰੀ ਤੱਕ ਵੱਡੀ ਗਿਣਤੀ ਵਿੱਚ ਯਾਤਰੀਆਂ ਅਤੇ ਭਾਰੀ ਮਾਲ ਦੀ ਆਵਾਜਾਈ ਲਈ ਕਿਹੜਾ ਸਾਧਨ ਖਾਸ ਤੌਰ ਤੇ ਉਚਿਤ ਹੈ?";
+
+    m = text.match(/^Why are railways important to India's economy\?$/);
+    if (m) return hi ? "भारत की अर्थव्यवस्था के लिए रेलमार्ग क्यों महत्वपूर्ण हैं?" : "ਭਾਰਤ ਦੀ ਅਰਥਵਿਵਸਥਾ ਲਈ ਰੇਲਵੇ ਕਿਉਂ ਮਹੱਤਵਪੂਰਨ ਹੈ?";
+
+    m = text.match(/^What is the main transport function of a seaport\?$/);
+    if (m) return hi ? "समुद्री बंदरगाह का मुख्य परिवहन कार्य क्या है?" : "ਸਮੁੰਦਰੀ ਬੰਦਰਗਾਹ ਦਾ ਮੁੱਖ ਆਵਾਜਾਈ ਕੰਮ ਕੀ ਹੈ?";
+
+    m = text.match(/^What is a port hinterland\?$/);
+    if (m) return hi ? "बंदरगाह का पृष्ठप्रदेश क्या होता है?" : "ਬੰਦਰਗਾਹ ਦਾ ਪਛੋਕੜੀ ਖੇਤਰ ਕੀ ਹੁੰਦਾ ਹੈ?";
+
+    m = text.match(/^What is the greatest transport advantage of air travel over long distances\?$/);
+    if (m) return hi ? "लंबी दूरी की यात्रा में हवाई परिवहन का सबसे बड़ा लाभ क्या है?" : "ਲੰਬੀ ਦੂਰੀ ਦੀ ਯਾਤਰਾ ਵਿੱਚ ਹਵਾਈ ਆਵਾਜਾਈ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਲਾਭ ਕੀ ਹੈ?";
+
+    m = text.match(/^Which type of cargo is especially suited to air transport\?$/);
+    if (m) return hi ? "किस प्रकार का माल हवाई परिवहन के लिए विशेष रूप से उपयुक्त है?" : "ਕਿਸ ਕਿਸਮ ਦਾ ਮਾਲ ਹਵਾਈ ਆਵਾਜਾਈ ਲਈ ਖਾਸ ਤੌਰ ਤੇ ਉਚਿਤ ਹੈ?";
+
+    m = text.match(/^What is the main purpose of a communication network\?$/);
+    if (m) return hi ? "संचार नेटवर्क का मुख्य उद्देश्य क्या है?" : "ਸੰਚਾਰ ਜਾਲ ਦਾ ਮੁੱਖ ਮਕਸਦ ਕੀ ਹੈ?";
+
+    m = text.match(/^Which system is used primarily to transmit information rather than transport physical cargo\?$/);
+    if (m) return hi ? "भौतिक माल ढोने के बजाय मुख्य रूप से सूचना भेजने के लिए किस प्रणाली का उपयोग होता है?" : "ਭੌਤਿਕ ਮਾਲ ਲਿਜਾਣ ਦੀ ਬਜਾਇ ਮੁੱਖ ਤੌਰ ਤੇ ਜਾਣਕਾਰੀ ਭੇਜਣ ਲਈ ਕਿਹੜੀ ਪ੍ਰਣਾਲੀ ਵਰਤੀ ਜਾਂਦੀ ਹੈ?";
+  }
+
+  if (packageId === "GEO-POP-001") {
+    let m = text.match(/^Which pair is correctly matched in population geography\?$/);
+    if (m) return hi ? "जनसंख्या भूगोल में कौन-सा युग्म सही सुमेलित है?" : "ਆਬਾਦੀ ਭੂਗੋਲ ਵਿੱਚ ਕਿਹੜੀ ਜੋੜੀ ਸਹੀ ਮਿਲਾਈ ਗਈ ਹੈ?";
+
+    m = text.match(/^Which pattern is most typical of India's population distribution\?$/);
+    if (m) return hi ? "भारत में जनसंख्या वितरण का सबसे सामान्य स्वरूप कौन-सा है?" : "ਭਾਰਤ ਵਿੱਚ ਆਬਾਦੀ ਦੀ ਵੰਡ ਦਾ ਸਭ ਤੋਂ ਆਮ ਰੂਪ ਕਿਹੜਾ ਹੈ?";
+
+    m = text.match(/^A map shows very high population concentration in some plains and cities but low concentration in mountains and deserts\. What does it show\?$/);
+    if (m) return hi ? "मानचित्र में कुछ मैदानों और शहरों में बहुत अधिक, जबकि पर्वतों और मरुस्थलों में कम जनसंख्या दिखाई गई है। यह क्या दर्शाता है?" : "ਨਕਸ਼ੇ ਵਿੱਚ ਕੁਝ ਮੈਦਾਨਾਂ ਅਤੇ ਸ਼ਹਿਰਾਂ ਵਿੱਚ ਬਹੁਤ ਵੱਧ, ਪਰ ਪਹਾੜਾਂ ਅਤੇ ਮਾਰੂਥਲਾਂ ਵਿੱਚ ਘੱਟ ਆਬਾਦੀ ਦਿਖਾਈ ਗਈ ਹੈ। ਇਹ ਕੀ ਦਰਸਾਉਂਦਾ ਹੈ?";
+
+    m = text.match(/^Which term describes the place from which a migrant moves\?$/);
+    if (m) return hi ? "जिस स्थान से कोई प्रवासी जाता है, उसे क्या कहा जाता है?" : "ਜਿਸ ਥਾਂ ਤੋਂ ਕੋਈ ਪਰਵਾਸੀ ਜਾਂਦਾ ਹੈ, ਉਸ ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?";
+
+    m = text.match(/^Which term describes the place to which a migrant moves\?$/);
+    if (m) return hi ? "जिस स्थान पर कोई प्रवासी पहुँचता है, उसे क्या कहा जाता है?" : "ਜਿਸ ਥਾਂ ਉੱਤੇ ਕੋਈ ਪਰਵਾਸੀ ਪਹੁੰਚਦਾ ਹੈ, ਉਸ ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?";
+
+    m = text.match(/^What distinguishes a settlement from an isolated agricultural field\?$/);
+    if (m) return hi ? "किस विशेषता से बस्ती को एक अलग-थलग कृषि खेत से पहचाना जा सकता है?" : "ਕਿਹੜੀ ਵਿਸ਼ੇਸ਼ਤਾ ਬਸਤੀ ਨੂੰ ਇਕੱਲੇ ਖੇਤੀਬਾੜੀ ਖੇਤ ਤੋਂ ਵੱਖ ਕਰਦੀ ਹੈ?";
+
+    m = text.match(/^Which change would directly raise work participation rate\?$/);
+    if (m) return hi ? "कौन-सा परिवर्तन कार्य भागीदारी दर को सीधे बढ़ाएगा?" : "ਕਿਹੜਾ ਬਦਲਾਅ ਕੰਮ ਵਿੱਚ ਭਾਗੀਦਾਰੀ ਦੀ ਦਰ ਨੂੰ ਸਿੱਧੇ ਤੌਰ ਤੇ ਵਧਾਏਗਾ?";
+
+    m = text.match(/^A district has many employed adults relative to its total population\. Which indicator is likely to be high\?$/);
+    if (m) return hi ? "किसी जिले की कुल जनसंख्या की तुलना में रोजगार प्राप्त वयस्कों की संख्या अधिक है। कौन-सा सूचक अधिक होने की संभावना है?" : "ਕਿਸੇ ਜ਼ਿਲ੍ਹੇ ਦੀ ਕੁੱਲ ਆਬਾਦੀ ਦੇ ਮੁਕਾਬਲੇ ਰੁਜ਼ਗਾਰਸ਼ੁਦਾ ਬਾਲਗਾਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਹੈ। ਕਿਹੜਾ ਸੂਚਕ ਵੱਧ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ?";
   }
 
   if (packageId === "GEO-PHY-001") {
