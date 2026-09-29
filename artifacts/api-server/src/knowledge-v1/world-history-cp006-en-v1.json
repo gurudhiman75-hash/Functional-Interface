@@ -7,7 +7,7 @@
     "language": "en",
     "difficulty": "easy",
     "questionFamily": "Movement and objective",
-    "stem": "Which pair of demands was raised in many European revolutions of 1848?",
+    "stem": "Which pair of demands featured in the 1848 German national movement?",
     "options": [
       {
         "key": "A",
@@ -15,19 +15,19 @@
       },
       {
         "key": "B",
-        "text": "Restoration of the conservative order established after the Napoleonic Wars"
+        "text": "Restoration of absolutist rule and dynastic privileges"
       },
       {
         "key": "C",
-        "text": "Expansion of dynastic rule without representative institutions"
+        "text": "Unification under Austrian leadership without constitutional reform"
       },
       {
         "key": "D",
-        "text": "Preservation of existing empires by rejecting national claims"
+        "text": "A German national parliament with no constitutional powers"
       }
     ],
     "correctOption": "A",
-    "explanation": "Many 1848 movements combined demands for constitutional or representative government with calls for national unity or self-rule. Their aims differed across regions.",
+    "explanation": "In the German movement, many participants sought representative government and national unity. Their goals varied.",
     "sourceIds": [
       "CP006-S02"
     ],
@@ -113,7 +113,7 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Movement comparison",
-    "stem": "Which statement best describes the relationship between nationalism and liberalism in many 1848 movements?",
+    "stem": "Which statement describes national and liberal aims in the German movement of 1848?",
     "options": [
       {
         "key": "A",
@@ -125,15 +125,15 @@
       },
       {
         "key": "C",
-        "text": "Nationalist and liberal demands could overlap, but did not coincide in every movement"
+        "text": "German nationalists uniformly rejected liberal rights and constitutions"
       },
       {
         "key": "D",
-        "text": "They could overlap, as activists sought both national unity and constitutional rights"
+        "text": "Their demands sometimes overlapped, but national and liberal aims did not always coincide"
       }
     ],
     "correctOption": "D",
-    "explanation": "In several regions, national unity and constitutional government were connected demands. The movements were diverse, so the two aims did not always coincide.",
+    "explanation": "Some German nationalists supported constitutional rights and unity together, while others favoured different political arrangements.",
     "sourceIds": [
       "CP006-S02"
     ],
@@ -148,27 +148,27 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Event and outcome",
-    "stem": "Which event showed that the Frankfurt Assembly could not secure the proposed German crown through its own authority?",
+    "stem": "What did Frederick William IV do when Frankfurt delegates offered him the German imperial crown in 1849?",
     "options": [
       {
         "key": "A",
-        "text": "The assembly lacked its own army and depended on German rulers to enforce its decisions"
+        "text": "He accepted the crown and moved the imperial seat to Berlin"
       },
       {
         "key": "B",
-        "text": "The assembly excluded all Prussian delegates from its debates"
+        "text": "He asked the delegates to offer it to the Austrian emperor"
       },
       {
         "key": "C",
-        "text": "The assembly transferred its constitutional project to the Congress of Berlin"
+        "text": "He referred the offer to the German rulers for another vote"
       },
       {
         "key": "D",
-        "text": "The Prussian king declined the crown offered by the assembly"
+        "text": "He declined the crown offered by the delegates"
       }
     ],
     "correctOption": "D",
-    "explanation": "The assembly lacked the power to impose its settlement on German rulers. Frederick William IV of Prussia rejected the imperial crown offered by the delegates in 1849.",
+    "explanation": "Frederick William IV declined the offer in 1849. The assembly could draft a constitution, but it could not compel German rulers to accept its settlement.",
     "sourceIds": [
       "CP006-S01",
       "CP006-S02"
@@ -438,7 +438,7 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Chronology and sequence",
-    "stem": "Arrange these events in chronological order:",
+    "stem": "Arrange these events in chronological order:\n\n1. Proclamation of the Kingdom of Italy\n2. Garibaldi’s Expedition of the Thousand\n3. Rome becomes part of the Kingdom of Italy",
     "options": [
       {
         "key": "A",
