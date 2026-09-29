@@ -1,8 +1,8 @@
 # WFM-001 — Source, ownership and review design V2
 
-Status: **IMPLEMENTED REVIEW CANDIDATE — TAXONOMY APPROVAL PENDING**
+Status: **CURRENT-MAIN GOVERNED REVIEW-ONLY — TAXONOMY APPROVED / QUESTION STUDIO REGISTERED**
 
-Proposed product code: `REAS-WFM`  
+Product code: `REAS-WFM`  
 Chapter ID: `WFM-001`  
 Student title: **Word Formation**
 
@@ -20,7 +20,7 @@ The numbered and plain-jumble arrangements are two renderers of the same rearran
 
 ## 2. Source-backed coverage decision
 
-The audit now recognises three checkpoints and four proposed QLs.
+The current-main audit recognises five checkpoints and six permanent QLs. The original SSC/Punjab surface remains intact, and two additional Banking solve contracts were added only after recurring source evidence established that they are materially different learner tasks.
 
 | Checkpoint | QL | Solve contract |
 |---|---|---|
@@ -28,8 +28,10 @@ The audit now recognises three checkpoints and four proposed QLs.
 | `WFM-CP-001` | `WFM-QL-002` | exactly one option **cannot** be formed from the full source word |
 | `WFM-CP-002` | `WFM-QL-003` | use explicitly selected source-word positions and count common meaningful words using every selected letter exactly once |
 | `WFM-CP-003` | `WFM-QL-004` | rearrange a supplied letter multiset into one meaningful word; plain-jumble and numbered-sequence presentations are renderer variants |
+| `WFM-CP-004` | `WFM-QL-005` | ordered extraction from one or more candidate source words using stated positions; no jumbling; choose the candidate that yields a meaningful word |
+| `WFM-CP-005` | `WFM-QL-006` | selected positions → determine whether zero/one/multiple governed words can be formed → return requested output letter or the stated X/Y sentinel |
 
-This closes the material ownership gap found in the earlier two-QL proposal while avoiding separate identities for superficial presentation changes.
+This closes the material ownership gaps found in the earlier four-QL candidate while still avoiding separate identities for superficial presentation changes. Banking five-option delivery is presentation policy, not a reason to duplicate an existing semantic QL.
 
 ## 3. Neighboring chapter boundaries
 
@@ -92,22 +94,51 @@ The learner sees uniquely lettered positions such as `1-G 2-A ...` and chooses t
 
 Difficulty is computed from completed instance features such as option multiset similarity, repeated-letter pressure, sequence proximity and number of positions. Length alone is not the authority.
 
-## 7. Localization
+## 7. Banking extensions
+
+### CP004 — ordered extraction without jumbling
+
+Recurring Banking Mains questions provide candidate word/position groups and require the learner to extract letters in the stated order. The answer depends on whether the ordered extraction itself is a meaningful word; rearrangement is forbidden.
+
+Two renderers share `WFM-QL-005`:
+
+- one source word + several stated positions;
+- several source words + one stated position per word.
+
+They are the same solve contract and therefore do not receive separate QLs.
+
+### CP005 — unique / multiple / none output
+
+Recurring Banking questions select letters from a source word, ask whether exactly one meaningful word can be formed, and then request a particular letter from that word. If zero or multiple words are possible, the stem supplies X/Y sentinel rules.
+
+`WFM-QL-006` owns this decision/output contract. Both historical X/Y conventions are supported only when the convention is stated explicitly in the stem.
+
+### Banking presentation policy
+
+- `WFM-QL-003` keeps the same count solve contract but uses five answer options under `BANKING_5`;
+- `WFM-QL-005` and `WFM-QL-006` are Banking-only in the current source authority;
+- `WFM-QL-001/002/004` remain SSC/Punjab four-option contracts and are not falsely relabelled as Banking.
+
+Transformation-before-word-formation and letter-arrangement puzzle hybrids remain source-watch / neighboring-family items; they are not promoted without stronger recurring ownership evidence.
+
+## 8. Localization
 
 English, Hindi and Punjabi instructional shells are provided. Source letters and answer words remain in Latin script because the operation is explicitly about English word formation.
 
 Native explanations remain simple and show the actual construction/count evidence. Internal QL/checkpoint IDs are never learner-facing.
 
-## 8. Lifecycle boundary
+## 9. Lifecycle boundary
 
-This package remains a governance candidate only:
+The raw runtime remains non-discoverable, but WFM-001 is now registered in the normal shared Reasoning V1 Question Studio engine under the standard review-only lifecycle:
 
-- master Reasoning taxonomy unchanged;
-- shared Question Studio registry unchanged;
-- `questionStudioVisible = false`;
+- taxonomy authority: `REASONING-V1-TAXONOMY-AMENDMENT-WFM-001`;
+- standard package discovery: enabled;
+- deterministic EN/HI/PA review generation: enabled;
+- QL/checkpoint/difficulty selection: enabled;
+- raw runtime `questionStudioVisible = false` remains a safety boundary;
 - Question Bank write disabled;
 - test/mock eligibility disabled;
 - public publication disabled;
 - automatic learner delivery disabled.
 
-If V2 is approved, the next step is an explicit taxonomy amendment plus a current shared Question Studio review integration. Approval of this review candidate must not silently activate learner delivery.
+Question Bank/test/mock/public/automatic learner delivery remain locked. Any later activation requires a separate explicit release authority and must not be inferred from Question Studio review registration.
