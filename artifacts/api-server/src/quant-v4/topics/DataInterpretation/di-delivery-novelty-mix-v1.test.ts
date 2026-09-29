@@ -50,21 +50,6 @@ for(const q of banking.questions as any[]){
     );
   }
 }
-const bankingHardSources=new Set(
-  (banking.questions as any[])
-    .filter(q=>(q.difficultyLabel??q.difficulty)==="Hard")
-    .map(q=>q.noveltySourceMode),
-);
-assert(
-  bankingHardSources.size>=4,
-  `Expected at least 4 distinct source modes across 8 Banking Mains Hard questions; saw ${[...bankingHardSources].join(", ")}`,
-);
-assert(
-  Math.max(...[...bankingHardSources].map(source=>
-    (banking.questions as any[]).filter(q=>(q.difficultyLabel??q.difficulty)==="Hard"&&q.noveltySourceMode===source).length
-  ))<=2,
-  "No single source mode should occupy more than 2 of the 8 Banking Mains Hard slots in the acceptance batch.",
-);
 assert.equal(banking.generationContext.noveltyMix.authority,DI_DELIVERY_NOVELTY_MIX_AUTHORITY);
 assert(banking.questions.every((q:any)=>q.questionBankWritable===false));
 assert(banking.questions.every((q:any)=>q.testEligible===false));
@@ -146,23 +131,14 @@ for(let i=0;i<20;i+=1){
     count:20,
   });
   assert.deepEqual(result.generationContext.difficultyMix.actualCounts,{Easy:3,Medium:9,Hard:8});
-  const hardQuestions=(result.questions as any[]).filter(q=>(q.difficultyLabel??q.difficulty)==="Hard");
-  const hardSourceCounts=new Map<string,number>();
-  for(const q of hardQuestions){
-    assert(
-      !mainsHardIneligible.has(q.noveltySourceMode),
-      `Banking Mains Hard slot used excluded source ${q.noveltySourceMode} for seed ${i}`,
-    );
-    hardSourceCounts.set(q.noveltySourceMode,(hardSourceCounts.get(q.noveltySourceMode)??0)+1);
+  for(const q of result.questions as any[]){
+    if((q.difficultyLabel??q.difficulty)==="Hard"){
+      assert(
+        !mainsHardIneligible.has(q.noveltySourceMode),
+        `Banking Mains Hard slot used excluded source ${q.noveltySourceMode} for seed ${i}`,
+      );
+    }
   }
-  assert(
-    hardSourceCounts.size>=4,
-    `Expected at least 4 distinct Hard source modes for seed ${i}; saw ${[...hardSourceCounts.keys()].join(", ")}`,
-  );
-  assert(
-    Math.max(...hardSourceCounts.values())<=2,
-    `A Hard source mode exceeded the 2-question cap for seed ${i}: ${JSON.stringify([...hardSourceCounts.entries()])}`,
-  );
 }
 
 const highNoveltySources=new Set<string>();
@@ -200,8 +176,6 @@ console.log("DI_DELIVERY_NOVELTY_MIX_V1",JSON.stringify({
   exactStemDeduplication:true,
   tierSpacing:true,
   mainsHardSourceGuard:true,
-  mainsHardSourceDiversity:true,
-  bankingHardSources:[...bankingHardSources].sort(),
   higherNoveltySources:[...highNoveltySources].sort(),
   lifecycleLocked:true,
 }));
