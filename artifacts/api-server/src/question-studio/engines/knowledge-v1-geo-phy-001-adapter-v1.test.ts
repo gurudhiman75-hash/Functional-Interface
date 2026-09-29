@@ -35,7 +35,7 @@ assert.equal(packageDef.testEligible, false);
 assert.equal(packageDef.mockTestEligible, false);
 assert.equal(packageDef.publiclyPublishable, false);
 assert.equal(packageDef.productionReleaseAuthorized, false);
-assert.deepEqual(packageDef.supportedLanguages, ["en"]);
+assert.deepEqual(packageDef.supportedLanguages, ["en","hi","pa"]);
 assert.deepEqual(packageDef.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.deepEqual(packageDef.cpIds, expectedCpIds);
 assert.equal(packageDef.metadata?.cpCount, 12);
