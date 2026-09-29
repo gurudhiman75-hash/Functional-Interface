@@ -36,6 +36,7 @@ async function run() {
       assert.equal(q.productionReleased, false);
       assert.equal(q.automaticStudentPublication, false);
       assert.ok(q.originQuestionId && q.originFactId && q.sourceIds);
+      assert.ok((q.sourceIds as string[]).every((id) => /^CP\\d{3}-S\\d+$/.test(id)), `${q.questionId}: source IDs must be checkpoint scoped without duplicate prefixes`);
     }
   }
   const selected = await knowledgeV1Whi016QuestionStudioAdapterV1.generate({
