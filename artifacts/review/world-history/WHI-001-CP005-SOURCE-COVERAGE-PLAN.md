@@ -34,6 +34,19 @@
 | CP005-S08 | [U.S. National Park Service — Lowell: Story of an Industrial City](https://www.nps.gov/articles/series.htm?id=34D8C1CD-1DD8-B71B-0BE30F1E73BE8B65) | Textile mills, planned industrial town and workforce |
 | CP005-S09 | [National Diet Library of Japan — Construction of large-scale government-operated factories](https://www.ndl.go.jp/france/en/part1/s2_1.html) | Meiji government’s industrial policy and state-operated factories |
 | CP005-S10 | [National Diet Library of Japan — Japanese industries in the Meiji period](https://www.ndl.go.jp/exposition/e/s3/index3.html) | Mechanisation and industrial development in Meiji Japan |
+| CP005-S11 | [Science Museum Group — Hargreaves’ Spinning Jenny replica](https://collection.sciencemuseumgroup.org.uk/objects/co8625497/) | Hargreaves and the spinning jenny; check that invention and patent dates are not conflated |
+| CP005-S12 | [Science Museum Group — Arkwright’s water frame, 1775](https://collection.sciencemuseumgroup.org.uk/objects/co44832/arkwrights-water-frame-1775) | Arkwright’s spinning machine and use of water power |
+| CP005-S13 | [Science Museum — James Watt and the separate condenser](https://blog.sciencemuseum.org.uk/james-watt-and-the-separate-condenser/) | Watt’s improvement to the Newcomen engine and fuel efficiency |
+| CP005-S14 | [Ironbridge Gorge Museums — Key figures in the history of Ironbridge Gorge](https://www.ironbridge.org.uk/about-us/key-figures-in-the-history-of-the-ironbridge-gorge/) | Abraham Darby and coke-fired iron smelting at Coalbrookdale |
+| CP005-S15 | [World History Encyclopedia — The Textile Industry in the British Industrial Revolution](https://www.worldhistory.org/article/2183/the-textile-industry-in-the-british-industrial-rev/) | Cross-check named textile inventions and dates; use a museum or patent record as final authority for precise claims |
+| CP005-S16 | [Library of Congress — The Wealth of Nations](https://www.loc.gov/item/2002564559/) | Primary text and bibliographic record for Adam Smith’s work |
+| CP005-S17 | [National Railway Museum — From working horses to iron horses](https://www.railwaymuseum.org.uk/objects-and-stories/working-horses-iron-horses-change-railways) | Liverpool and Manchester Railway opening in 1830 and its passenger/goods role |
+| CP005-S18 | [National Railway Museum — Stephenson’s Rocket, Rainhill and the rise of the locomotive](https://www.railwaymuseum.org.uk/objects-and-stories/stephensons-rocket-rainhill-and-rise-locomotive) | George Stephenson, Rocket and the 1829 Rainhill Trials |
+| CP005-S19 | [The National Archives — Why did the Luddites protest?](https://www.nationalarchives.gov.uk/education/teaching-resources/why-did-the-luddites-protest/) | Luddite protests, chronology and varied causes; do not portray the movement as simply opposition to all technology |
+| CP005-S20 | [Oxford Academic — Combination: 1824–1859](https://academic.oup.com/book/50239/chapter-abstract/422802368) | Repeal of the Combination Acts in 1824 and subsequent legal changes; do not imply lasting unrestricted union rights |
+| CP005-S21 | [Marxists Internet Archive — Manifesto of the Communist Party](https://www.marxists.org/archive/marx/works/1848/communist-manifesto/) | Primary text by Marx and Engels; publication in 1848 |
+| CP005-S22 | [U.S. National Park Service — Lowell: Story of an Industrial City](https://www.nps.gov/articles/series.htm?id=34D8C1CD-1DD8-B71B-0BE30F1E73BE8B65) | Mill-town development and its workforce; contextualize urban change |
+| CP005-S23 | [Oxford University Press — Why the Industrial Revolution began in Britain](https://www.oup.com.au/__data/assets/pdf_file/0019/58231/Chapter-8-The-Industrial-Revolution.pdf) | Interacting factors behind Britain’s early industrialisation; avoid presenting one factor as a complete explanation |
 
 ## Authoring and localization rules
 

@@ -1,0 +1,707 @@
+[
+  {
+    "questionId": "WHI-CP005-Q001-HI",
+    "englishQuestionId": "WHI-CP005-Q001",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F001",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Industrialisation–region",
+    "stem": "बड़े पैमाने पर औद्योगीकरण सबसे पहले किस देश में हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांस"
+      },
+      {
+        "key": "B",
+        "text": "ब्रिटेन"
+      },
+      {
+        "key": "C",
+        "text": "रूस"
+      },
+      {
+        "key": "D",
+        "text": "स्पेन"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "अठारहवीं शताब्दी के उत्तरार्ध में बड़े पैमाने पर मशीनी उद्योग सबसे पहले ब्रिटेन में विकसित हुआ। कोयला, पूँजी, श्रम, परिवहन और बाज़ार ने मिलकर इसमें योगदान दिया।",
+    "sourceIds": [
+      "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q002-HI",
+    "englishQuestionId": "WHI-CP005-Q002",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F002",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Invention–inventor",
+    "stem": "स्पिनिंग जेनी का आविष्कार किसने किया था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "रिचर्ड आर्कराइट"
+      },
+      {
+        "key": "B",
+        "text": "एडमंड कार्टराइट"
+      },
+      {
+        "key": "C",
+        "text": "जेम्स वाट"
+      },
+      {
+        "key": "D",
+        "text": "जेम्स हारग्रीव्स"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "हारग्रीव्स ने 1770 में स्पिनिंग जेनी का पेटेंट कराया। इससे एक व्यक्ति एक साथ कई धागे कात सकता था।",
+    "sourceIds": [
+      "CP005-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q003-HI",
+    "englishQuestionId": "WHI-CP005-Q003",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F003",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Railway–route",
+    "stem": "1830 में किस रेलमार्ग ने मैनचेस्टर के कपड़ा उद्योग को लिवरपूल बंदरगाह से जोड़ा?",
+    "options": [
+      {
+        "key": "A",
+        "text": "लिवरपूल और मैनचेस्टर रेलवे"
+      },
+      {
+        "key": "B",
+        "text": "स्टॉकटन और डार्लिंगटन रेलवे"
+      },
+      {
+        "key": "C",
+        "text": "ग्रेट वेस्टर्न रेलवे"
+      },
+      {
+        "key": "D",
+        "text": "लंदन और बर्मिंघम रेलवे"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "लिवरपूल और मैनचेस्टर रेलवे 1830 में खुला। इसने बंदरगाह और औद्योगिक नगर के बीच माल तथा यात्रियों को पहुँचाया।",
+    "sourceIds": [
+      "CP005-S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q004-HI",
+    "englishQuestionId": "WHI-CP005-Q004",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F004",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Law–provision",
+    "stem": "ब्रिटेन के 1833 के फ़ैक्टरी अधिनियम ने कारखाने में काम करने की न्यूनतम आयु कितनी तय की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "7 वर्ष"
+      },
+      {
+        "key": "B",
+        "text": "8 वर्ष"
+      },
+      {
+        "key": "C",
+        "text": "9 वर्ष"
+      },
+      {
+        "key": "D",
+        "text": "12 वर्ष"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "1833 के अधिनियम ने नौ वर्ष से कम उम्र के बच्चों को कारखानों में काम पर रखने से रोका। नियम लागू कराने के लिए निरीक्षकों की एक छोटी व्यवस्था भी बनाई गई।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q005-HI",
+    "englishQuestionId": "WHI-CP005-Q005",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F005",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "1776 में प्रकाशित *द वेल्थ ऑफ़ नेशंस* किसने लिखी थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "डेविड रिकार्डो"
+      },
+      {
+        "key": "B",
+        "text": "एडम स्मिथ"
+      },
+      {
+        "key": "C",
+        "text": "थॉमस माल्थस"
+      },
+      {
+        "key": "D",
+        "text": "रॉबर्ट ओवेन"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "एडम स्मिथ की 1776 की पुस्तक में राजनीतिक अर्थव्यवस्था और बाज़ारों के कामकाज पर चर्चा की गई। इसे शास्त्रीय अर्थशास्त्र की आधारभूत कृतियों में गिना जाता है।",
+    "sourceIds": [
+      "CP005-S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q006-HI",
+    "englishQuestionId": "WHI-CP005-Q006",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F006",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Movement–programme",
+    "stem": "पीपल्स चार्टर किस ब्रिटिश आंदोलन का प्रमुख कार्यक्रम था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "चार्टिस्ट आंदोलन"
+      },
+      {
+        "key": "B",
+        "text": "फ़ेबियन आंदोलन"
+      },
+      {
+        "key": "C",
+        "text": "लुडाइट आंदोलन"
+      },
+      {
+        "key": "D",
+        "text": "टोरी आंदोलन"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "चार्टिस्टों ने पीपल्स चार्टर में दी गई राजनीतिक माँगों के लिए याचिकाएँ और अभियान चलाए। इनमें पुरुषों के मताधिकार का विस्तार भी शामिल था।",
+    "sourceIds": [
+      "CP005-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q007-HI",
+    "englishQuestionId": "WHI-CP005-Q007",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F007",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Machine–function",
+    "stem": "रिचर्ड आर्कराइट द्वारा विकसित कौन-सी मशीन कताई के लिए जल-शक्ति का उपयोग करती थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्पिनिंग जेनी"
+      },
+      {
+        "key": "B",
+        "text": "पावर लूम"
+      },
+      {
+        "key": "C",
+        "text": "फ्लाइंग शटल"
+      },
+      {
+        "key": "D",
+        "text": "वाटर फ्रेम"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "आर्कराइट की वाटर फ्रेम जल-शक्ति से चलती थी। इसके कारण मिलें बहते पानी के भरोसेमंद स्रोतों के पास बनाई जाने लगीं।",
+    "sourceIds": [
+      "CP005-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q008-HI",
+    "englishQuestionId": "WHI-CP005-Q008",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F008",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Invention–improvement",
+    "stem": "जेम्स वाट ने भाप के इंजन में कौन-सा महत्त्वपूर्ण सुधार किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पहला रेल इंजन बनाया"
+      },
+      {
+        "key": "B",
+        "text": "कोयले की जगह पेट्रोलियम लगाया"
+      },
+      {
+        "key": "C",
+        "text": "अलग संघनित्र जोड़ा"
+      },
+      {
+        "key": "D",
+        "text": "पावर लूम बनाया"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "वाट के अलग संघनित्र से मुख्य सिलेंडर को बार-बार गर्म और ठंडा करने की आवश्यकता कम हुई, जिससे ईंधन की बचत हुई। उन्होंने पहले से मौजूद इंजन में सुधार किया था।",
+    "sourceIds": [
+      "CP005-S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q009-HI",
+    "englishQuestionId": "WHI-CP005-Q009",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F009",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Iron–fuel",
+    "stem": "कोलब्रुकडेल में अब्राहम डार्बी ने बड़े पैमाने पर लोहा गलाने के लिए किस ईंधन का उपयोग किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कोयले से बना कोक"
+      },
+      {
+        "key": "B",
+        "text": "पीट से बना चारकोल"
+      },
+      {
+        "key": "C",
+        "text": "परिष्कृत पेट्रोलियम"
+      },
+      {
+        "key": "D",
+        "text": "प्राकृतिक गैस"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "डार्बी द्वारा लोहा गलाने में कोक के उपयोग से लकड़ी के कोयले पर निर्भरता घटी और अधिक मात्रा में लोहा बनाना संभव हुआ।",
+    "sourceIds": [
+      "CP005-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q010-HI",
+    "englishQuestionId": "WHI-CP005-Q010",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F010",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Invention–inventor",
+    "stem": "बुनाई को मशीनी बनाने वाला पावर लूम किसने विकसित किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "जेम्स हारग्रीव्स"
+      },
+      {
+        "key": "B",
+        "text": "सैमुअल क्रॉम्पटन"
+      },
+      {
+        "key": "C",
+        "text": "रिचर्ड ट्रेविथिक"
+      },
+      {
+        "key": "D",
+        "text": "एडमंड कार्टराइट"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "कार्टराइट ने 1785 में पावर लूम का पेटेंट कराया। इससे बुनाई मशीनी हुई और पहले से अधिक सूत कातने वाली मशीनों को पूरक मिला।",
+    "sourceIds": [
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q011-HI",
+    "englishQuestionId": "WHI-CP005-Q011",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F011",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Railway–engineer",
+    "stem": "1829 की रेनहिल ट्रायल्स जीतने वाले रेल इंजन *रॉकेट* का संबंध किस इंजीनियर से है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसाम्बार्ड किंगडम ब्रुनेल"
+      },
+      {
+        "key": "B",
+        "text": "जॉर्ज स्टीफेंसन"
+      },
+      {
+        "key": "C",
+        "text": "रिचर्ड आर्कराइट"
+      },
+      {
+        "key": "D",
+        "text": "थॉमस टेलफोर्ड"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "जॉर्ज स्टीफेंसन और उनके पुत्र रॉबर्ट ने *रॉकेट* बनाया था। लिवरपूल और मैनचेस्टर रेलवे के लिए इंजन चुनने हेतु हुई रेनहिल ट्रायल्स में इसने जीत हासिल की।",
+    "sourceIds": [
+      "CP005-S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q012-HI",
+    "englishQuestionId": "WHI-CP005-Q012",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F012",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Production–organisation",
+    "stem": "फ़ैक्टरी व्यवस्था और पुटिंग-आउट व्यवस्था में सबसे स्पष्ट अंतर क्या था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "उत्पादन केवल किसान परिवारों तक सीमित था"
+      },
+      {
+        "key": "B",
+        "text": "वस्तुएँ केवल स्थानीय उपयोग के लिए बनती थीं"
+      },
+      {
+        "key": "C",
+        "text": "श्रमिकों और मशीनों को एक ही कार्यस्थल पर रखा गया"
+      },
+      {
+        "key": "D",
+        "text": "व्यापारियों ने कच्चा माल देना बंद कर दिया"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "फ़ैक्टरियों में श्रमिक और शक्ति से चलने वाली मशीनें एक ही जगह पर, मालिक की निगरानी में काम करती थीं। पुटिंग-आउट व्यवस्था में व्यापारी सामग्री देते थे और काम अलग-अलग घरों में होता था।",
+    "sourceIds": [
+      "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q013-HI",
+    "englishQuestionId": "WHI-CP005-Q013",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F013",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Urbanisation",
+    "stem": "उन्नीसवीं शताब्दी में कई औद्योगिक नगर तेज़ी से क्यों बढ़े?",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ़ैक्टरियों के रोजगार ने ग्रामीण लोगों को आकर्षित किया"
+      },
+      {
+        "key": "B",
+        "text": "सरकारों ने सभी खेतों को शहरों में स्थानांतरित कर दिया"
+      },
+      {
+        "key": "C",
+        "text": "रेलमार्गों ने निर्मित वस्तुओं की माँग समाप्त कर दी"
+      },
+      {
+        "key": "D",
+        "text": "गाँवों में खनन और निर्माण पर रोक लगा दी गई"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "फ़ैक्टरियों और खानों में मजदूरी वाले काम लोगों को शहरों की ओर खींचते थे। नगरों की वृद्धि अक्सर आवास और सफ़ाई की व्यवस्था से तेज़ रही, जिससे भीड़ और अस्वास्थ्यकर हालात बने।",
+    "sourceIds": [
+      "CP005-S22"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q014-HI",
+    "englishQuestionId": "WHI-CP005-Q014",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F014",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Protest–movement",
+    "stem": "उन्नीसवीं शताब्दी के आरंभ में ब्रिटेन के लुडाइट विरोध की प्रमुख विशेषता क्या थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "श्रमिकों ने रोमन साम्राज्य बहाल करने का अभियान चलाया"
+      },
+      {
+        "key": "B",
+        "text": "कारखाना मालिकों ने सभी वयस्कों के मताधिकार की माँग की"
+      },
+      {
+        "key": "C",
+        "text": "श्रमिकों ने उन कुछ मशीनों पर हमला किया जिन्हें वे अपनी आजीविका के लिए ख़तरा मानते थे"
+      },
+      {
+        "key": "D",
+        "text": "खनिकों ने भाप के इंजन में कोयले के उपयोग का विरोध किया"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "वेतन में कटौती, बेरोज़गारी और कठिन कामकाजी हालात के बीच लुडाइटों ने कुछ विशेष मशीनों और मालिकों को निशाना बनाया। उनका विरोध हर प्रकार की तकनीक के विरुद्ध नहीं था।",
+    "sourceIds": [
+      "CP005-S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q015-HI",
+    "englishQuestionId": "WHI-CP005-Q015",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F015",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Law–trade unions",
+    "stem": "1824 में ब्रिटेन के कॉम्बिनेशन एक्ट्स हटाए जाने से श्रमिकों के लिए क्या आसान हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "हर संसदीय चुनाव में मतदान करना"
+      },
+      {
+        "key": "B",
+        "text": "ट्रेड यूनियन बनाना"
+      },
+      {
+        "key": "C",
+        "text": "बिना अनुमति कोयला खदान का मालिक बनना"
+      },
+      {
+        "key": "D",
+        "text": "संसद के स्थान पर फ़ैक्टरी परिषद बनाना"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1824 में पहले वाली कानूनी रोक हटाई गई, लेकिन 1825 के अधिनियम ने यूनियन गतिविधियों पर फिर कुछ पाबंदियाँ लगाईं। इससे मताधिकार नहीं मिला।",
+    "sourceIds": [
+      "CP005-S20"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q016-HI",
+    "englishQuestionId": "WHI-CP005-Q016",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F016",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Work–authors",
+    "stem": "1848 में प्रकाशित *कम्युनिस्ट घोषणापत्र* किसने लिखा था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "एडम स्मिथ और डेविड रिकार्डो"
+      },
+      {
+        "key": "B",
+        "text": "रॉबर्ट ओवेन और चार्ल्स फ़ूरिये"
+      },
+      {
+        "key": "C",
+        "text": "थॉमस माल्थस और जॉन स्टुअर्ट मिल"
+      },
+      {
+        "key": "D",
+        "text": "कार्ल मार्क्स और फ़्रेडरिक एंगेल्स"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "मार्क्स और एंगेल्स ने 1848 में *कम्युनिस्ट घोषणापत्र* प्रकाशित किया। इसमें वर्ग-संघर्ष की उनकी व्याख्या दी गई और श्रमिकों से राजनीतिक कार्रवाई का आह्वान किया गया।",
+    "sourceIds": [
+      "CP005-S21"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q017-HI",
+    "englishQuestionId": "WHI-CP005-Q017",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F017",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "स्पिनिंग जेनी, वाटर फ्रेम और पावर लूम को उनके विकास के क्रम में लगाइए।",
+    "options": [
+      {
+        "key": "A",
+        "text": "वाटर फ्रेम → स्पिनिंग जेनी → पावर लूम"
+      },
+      {
+        "key": "B",
+        "text": "पावर लूम → वाटर फ्रेम → स्पिनिंग जेनी"
+      },
+      {
+        "key": "C",
+        "text": "स्पिनिंग जेनी → वाटर फ्रेम → पावर लूम"
+      },
+      {
+        "key": "D",
+        "text": "स्पिनिंग जेनी → पावर लूम → वाटर फ्रेम"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "स्पिनिंग जेनी 1760 के दशक में आई, आर्कराइट की वाटर फ्रेम उसी दशक में उसके बाद विकसित हुई और कार्टराइट ने 1785 में पावर लूम का पेटेंट कराया। पहले दो आविष्कारों के समय में कुछ निकटता थी, लेकिन स्पिनिंग जेनी पहले आई।",
+    "sourceIds": [
+      "CP005-S11",
+      "CP005-S12",
+      "CP005-S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q018-HI",
+    "englishQuestionId": "WHI-CP005-Q018",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F018",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Law–provision",
+    "stem": "ब्रिटेन के 1833 के फ़ैक्टरी अधिनियम के बारे में कौन-सा कथन सही है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने नौ वर्ष से कम आयु के बच्चों का फ़ैक्टरी में काम रोका और निरीक्षक व्यवस्था बनाई"
+      },
+      {
+        "key": "B",
+        "text": "यह केवल खानों पर लागू हुआ और इसमें निरीक्षक नहीं थे"
+      },
+      {
+        "key": "C",
+        "text": "इसने हर श्रमिक को मतदान का अधिकार दिया"
+      },
+      {
+        "key": "D",
+        "text": "इसने तुरंत सभी उद्योगों में बाल श्रम समाप्त कर दिया"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "अधिनियम ने फ़ैक्टरियों में बच्चों और किशोर श्रमिकों के काम पर सीमाएँ लगाईं और निरीक्षक नियुक्त किए। इसका पालन सीमित था और इससे हर उद्योग में बाल श्रम समाप्त नहीं हुआ।",
+    "sourceIds": [
+      "CP005-S01",
+      "CP005-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q019-HI",
+    "englishQuestionId": "WHI-CP005-Q019",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F019",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation–spread",
+    "stem": "संयुक्त राज्य अमेरिका के शुरुआती औद्योगीकरण का सबसे सही वर्णन कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसकी शुरुआत केवल प्रथम विश्व युद्ध के बाद हुई"
+      },
+      {
+        "key": "B",
+        "text": "यह पूरी तरह जापान से आयातित भाप के जहाज़ों पर निर्भर था"
+      },
+      {
+        "key": "C",
+        "text": "यह केवल बागान कृषि तक सीमित था"
+      },
+      {
+        "key": "D",
+        "text": "इसकी शुरुआत कपड़ा मिलों और ब्रिटिश विनिर्माण ज्ञान के हस्तांतरण से हुई"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "सैमुअल स्लेटर ब्रिटिश कपड़ा मशीनों का ज्ञान अमेरिका लाए। न्यू इंग्लैंड में शुरुआती मिलें विकसित हुईं। यह औद्योगीकरण का एक आरंभिक चरण था, पूरी बाद की कहानी नहीं।",
+    "sourceIds": [
+      "CP005-S07",
+      "CP005-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP005-Q020-HI",
+    "englishQuestionId": "WHI-CP005-Q020",
+    "checkpointId": "WHI-001-CP005",
+    "factId": "WHI-CP005-F020",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Industrialisation–causes",
+    "stem": "ब्रिटेन के शुरुआती औद्योगीकरण की सबसे उपयुक्त व्याख्या कौन-सी है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "केवल एक आविष्कार ने अर्थव्यवस्था बदल दी"
+      },
+      {
+        "key": "B",
+        "text": "कोयला, पूँजी, श्रम, कृषि परिवर्तन, परिवहन और बाज़ार ने मिलकर औद्योगिक विकास को सहारा दिया"
+      },
+      {
+        "key": "C",
+        "text": "संसद ने हर परिवार को फ़ैक्टरी में रहने का आदेश दिया"
+      },
+      {
+        "key": "D",
+        "text": "औद्योगीकरण इसलिए शुरू हुआ क्योंकि ब्रिटेन का विदेशी व्यापार नहीं था"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ब्रिटेन का शुरुआती औद्योगीकरण कई परस्पर जुड़ी परिस्थितियों से बढ़ा। आविष्कार महत्त्वपूर्ण थे, पर बड़े पैमाने पर उत्पादन के लिए ऊर्जा, श्रमिक, निवेश, परिवहन और माँग भी ज़रूरी थे।",
+    "sourceIds": [
+      "CP005-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
