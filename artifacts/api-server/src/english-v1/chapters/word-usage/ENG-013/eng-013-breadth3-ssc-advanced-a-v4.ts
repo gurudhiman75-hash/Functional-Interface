@@ -32,7 +32,7 @@ const R:readonly Eng013BreadthRecordV4[]=[
 ["intrinsic","The uncertainty is {x} the forecasting process.",["intrinsic to","intrinsic with","intrinsic for","intrinsic on"],"Intrinsic to means belonging naturally or essentially to something."],
 ["proportionate","The response should be {x} the seriousness of the problem.",["proportionate to","proportionate with","proportionate for","proportionate on"],"Proportionate to means corresponding in size or degree."],
 ["relevant","The example is directly {x} the issue being discussed.",["relevant to","relevant for to","relevant with","relevant on"],"Relevant to means directly connected with a matter."],
-["prone","The result may be {x} misinterpretation.",["prone to","prone for","prone with","prone on"],"Prone to means likely to suffer from or be affected by something."],
+["subject","The result may be {x} misinterpretation.",["subject to","subject for","subject with","subject on"],"Subject to can mean liable or vulnerable to a particular effect or condition."],
 ["analogous","The present case is {x} the earlier dispute.",["analogous to","analogous with","analogous for","analogous on"],"Analogous to means comparable in certain important respects."],
 ["attuned","The policy is not sufficiently {x} local conditions.",["attuned to","attuned with","attuned for","attuned on"],"Attuned to means sensitive or responsive to something."],
 ["cognizant","Decision-makers should remain {x} the possible risks.",["cognizant of","cognizant to","cognizant with","cognizant on"],"Cognizant of means aware of something."],
