@@ -57,21 +57,21 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     rationale: "Every sparrow is a bird, and every bird is an animal.",
   },
   {
-    authorityId: "VEN-AUTH-002-SNAKE-LIZARD-REPTILE",
+    authorityId: "VEN-AUTH-002-TURTLE-SNAKE-REPTILE",
     domain: "ANIMAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
     reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
     sets: [
       {
         setId: "A",
-        labels: { "en-IN": "Snakes", "hi-IN": "साँप", "pa-IN": "ਸੱਪ" },
+        labels: { "en-IN": "Turtles", "hi-IN": "कछुए", "pa-IN": "ਕੱਛੂਏ" },
       },
       {
         setId: "B",
         labels: {
-          "en-IN": "Lizards",
-          "hi-IN": "छिपकलियाँ",
-          "pa-IN": "ਕਿਰਲੀਆਂ",
+          "en-IN": "Snakes",
+          "hi-IN": "साँप",
+          "pa-IN": "ਸੱਪ",
         },
       },
       {
@@ -90,7 +90,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     ],
     topologyId: "THREE_TWO_DISJOINT_SUBSETS",
     rationale:
-      "Snakes and lizards are separate reptile groups in the conventional school-level classification used by exam questions.",
+      "Turtles and lizards are separate reptile groups in the conventional school-level classification used by exam questions.",
   },
   {
     authorityId: "VEN-AUTH-003-SQUARE-RECTANGLE-QUADRILATERAL",
