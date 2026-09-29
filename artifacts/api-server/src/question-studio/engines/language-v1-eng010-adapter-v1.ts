@@ -35,7 +35,7 @@ function studioQuestion(q:any,cp:string,seed:string,extra:Record<string,unknown>
   patternId:cp,cpId:cp,subject:"English",topic:"Para Jumbles",subtopic:cp,language:"en",locale:"en-IN",
   stem:q.stem,sentences:q.sentences,prompt:q.prompt,
   text:[q.stem,sentenceText,q.prompt,...q.options.map((o:string,i:number)=>`${String.fromCharCode(65+i)}. ${o}`)].join("\n"),
-  options:[...q.options],correctIndex:q.correctOptionIndex,correct:q.correctOptionIndex,explanation:q.explanation,
+  options:[...q.options],correctIndex:q.correctOptionIndex,correct:q.correctOptionIndex,explanation:q.explanation,explanationEmphasis:q.explanationEmphasis,
   difficulty:difficultyLabel,difficultyLabel,setId:q.metadata.setId,topicLabel:q.metadata.topic,correctOrder:q.metadata.correctOrder,
   registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:"ENG-010-IMPLEMENTATION-V1",
   humanReviewApproved:false,authoringReviewApproved:false,reviewOnly:true,questionStudioDiscoverable:true,
