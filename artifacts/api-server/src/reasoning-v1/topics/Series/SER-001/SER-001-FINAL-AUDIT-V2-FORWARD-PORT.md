@@ -58,7 +58,9 @@ Lifecycle remains:
 
 ### CP009 — SSC Reasoning number series
 
-After anti-inflation, the **audited Series candidate retains 10 genuinely new provisional identities: `SER-QL-029..033`, `SER-QL-035..038`, and `SER-QL-040`**. CP009 owns only SSC-style four-option Reasoning number-series questions.
+After merge/split compression, the **audited Series candidate retains 7 genuinely new provisional identities: `SER-QL-029`, `SER-QL-032`, `SER-QL-033`, `SER-QL-035`, `SER-QL-036`, `SER-QL-038`, and `SER-QL-040`**. CP009 owns only SSC-style four-option Reasoning number-series questions.
+
+Within CP009, `SER-QL-030`, `SER-QL-031`, and `SER-QL-037` are no longer separate permanent candidates. They merge into retained `SER-QL-029` as arithmetic/progressive, figurate, and prime first-difference subtypes respectively. The learner-visible solve contract is the same: derive consecutive differences, infer the governing pattern, and extend the series.
 
 Three source-backed numeric families remain valid Series content but merge into existing permanent learner solve contracts:
 
