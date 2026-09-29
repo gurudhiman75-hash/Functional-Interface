@@ -1,20 +1,15 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
 import { listPct001CuratedDefaultQlIds } from "../topics/Arithmetic/subtopics/Percentage/PCT-001/pipeline";
 import { listRap001CuratedDefaultQlIds } from "../topics/Arithmetic/subtopics/RatioAndProportion/RAP-001/pipeline";
-import { generateQuantV4CglTier1ShadowSection } from "./quant-v4-cgl-tier1-shadow-simulation-p3";
+import type { QuantV4CglTier1ShadowQuestionRecord } from "./quant-v4-cgl-tier1-shadow-simulation-p3";
 
-const coreDiversityState = new Map<string, Map<string, number>>();
-const records = [];
-
-for (let sectionIndex = 1; sectionIndex <= 20; sectionIndex += 1) {
-  const section = await generateQuantV4CglTier1ShadowSection({
-    sectionIndex,
-    seed: `QUANT-V4-CGL-CORE-DIVERSITY-P4:shadow:${sectionIndex}`,
-    coreDiversityState,
-  });
-  records.push(...section.records);
-}
+const snapshotPath = "dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-simulation-p3.audit.json";
+const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8")) as {
+  records?: QuantV4CglTier1ShadowQuestionRecord[];
+};
+const records = snapshot.records ?? [];
 
 const targets = records.filter((record) =>
   record.sourceKind === "RUNTIME_GENERATED"
@@ -64,11 +59,6 @@ for (const [key, group] of [...groups.entries()].sort()) {
 console.log("QUANT_V4_CGL_CORE_DIVERSITY_STATE_P4", JSON.stringify({
   targetRecords: targets.length,
   groups: diagnostics,
-  state: Object.fromEntries(
-    [...coreDiversityState.entries()].map(([packageId, byCp]) => [
-      packageId,
-      Object.fromEntries(byCp),
-    ]),
-  ),
+  source: "AUTHORITATIVE_SHADOW_SNAPSHOT",
   productionBehaviorChanged: false,
 }));
