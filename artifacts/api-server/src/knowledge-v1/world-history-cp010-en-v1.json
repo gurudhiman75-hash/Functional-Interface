@@ -242,8 +242,7 @@
     "correctOption": "C",
     "explanation": "Germany, Italy and Japan were the principal Axis powers. Their alliance did not mean that every campaign was planned or conducted jointly.",
     "sourceIds": [
-      "CP010-S01",
-      "CP010-S03"
+      "CP010-S14"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -418,7 +417,8 @@
     "correctOption": "D",
     "explanation": "German air attacks sought to weaken Britain's air defenses and prepare conditions for a possible invasion. Britain remained in the war after the Luftwaffe failed to secure air superiority.",
     "sourceIds": [
-      "CP010-S02"
+      "CP010-S02",
+      "CP010-S15"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
