@@ -76,11 +76,10 @@ function resolveQlId(request: QuestionStudioGenerationRequest): ClockPermanentQl
   return qls[0] as ClockPermanentQlId | undefined;
 }
 
-function shuffledQls(seed: string, difficulty?: 'Easy' | 'Medium' | 'Hard'): ClockPermanentQlId[] {
+function shuffledQls(seed: string): ClockPermanentQlId[] {
   const values = CLK_001_PERMANENT_CONTRACTS
-    .filter((entry) => !difficulty || publicDifficulty(entry.defaultDifficulty) === difficulty)
     .map((entry) => entry.qlId);
-  if (values.length === 0) throw new Error('No CLK-001 QLs match the requested difficulty.');
+  if (values.length === 0) throw new Error('CLK-001 has no permanent QLs.');
   let state = hash(seed) || 1;
   for (let index = values.length - 1; index > 0; index -= 1) {
     state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
@@ -152,26 +151,21 @@ export async function generateClk001QuestionStudioBatch(
   const language = normalizeLanguage(request.language);
   const requestedDifficulty = normalizeDifficulty(request.difficulty);
   const requestedQl = resolveQlId(request);
-  if (requestedQl && requestedDifficulty) {
-    const natural = publicDifficulty(getClockPermanentContract(requestedQl).defaultDifficulty);
-    if (natural !== requestedDifficulty) {
-      throw new Error(requestedQl + ' is naturally calibrated as ' + natural + ', not ' + requestedDifficulty + '.');
-    }
-  }
-
   const baseSeed = String(request.seed ?? '').trim() || 'clk001-question-studio-v1';
   const pool = requestedQl
     ? [requestedQl]
-    : shuffledQls(baseSeed + ':ql-order', requestedDifficulty);
+    : shuffledQls(baseSeed + ':ql-order');
   const questions: Record<string, unknown>[] = [];
+  const maxCandidates = requestedDifficulty ? Math.max(400, count * 120) : count;
+  let candidateIndex = 0;
 
-  for (let index = 0; index < count; index += 1) {
-    const qlId = pool[index % pool.length]!;
+  while (questions.length < count && candidateIndex < maxCandidates) {
+    const qlId = pool[candidateIndex % pool.length]!;
     const contract = getClockPermanentContract(qlId);
-    const itemSeed = baseSeed + ':' + qlId + ':' + index;
+    const itemSeed = baseSeed + ':' + qlId + ':' + candidateIndex;
     const authoringTaskId = selectClk001AuthoringTaskV1(
       qlId,
-      index + hash(baseSeed + ':' + qlId + ':variant-offset'),
+      candidateIndex + hash(baseSeed + ':' + qlId + ':variant-offset'),
     );
     const english = generateClockQuestion({
       taskId: authoringTaskId,
@@ -182,7 +176,11 @@ export async function generateClk001QuestionStudioBatch(
     const localized = localizeClockAnchorQuestion(english, language);
     const options = localized.options.map((option) => option.display);
     const correctIndex = localized.correctOptionIndex;
-    const difficulty = publicDifficulty(contract.defaultDifficulty);
+    const difficulty = publicDifficulty(english.difficulty);
+    candidateIndex += 1;
+    if (requestedDifficulty && difficulty !== requestedDifficulty) {
+      continue;
+    }
     const questionId = 'CLK-001:' + qlId + ':' + language + ':' + hash(itemSeed);
     const explanation = [
       localized.explanation.given,
@@ -242,6 +240,10 @@ export async function generateClk001QuestionStudioBatch(
         freezeVersion: CLK_001_PERMANENT_FREEZE_VERSION,
         semanticFingerprint: english.fingerprint,
         solverProofLevel: english.solveTrace.proofLevel,
+        difficultyAuthority: 'ITEM_LEVEL_V1',
+        difficultyBaselineScore: english.discoveryAudit.difficultyBaselineScore,
+        difficultyItemScore: english.discoveryAudit.difficultyItemScore,
+        difficultyFactors: [...english.discoveryAudit.difficultyFactors],
       },
       validation: {
         fourOptions: options.length === 4,
@@ -253,6 +255,13 @@ export async function generateClk001QuestionStudioBatch(
         sourceSaturationComplete: true,
       },
     });
+  }
+
+  if (questions.length !== count) {
+    throw new Error(
+      'Unable to generate ' + count + ' CLK-001 questions matching ' +
+      String(requestedDifficulty ?? 'Mixed') + ' within deterministic candidate budget.'
+    );
   }
 
   return {
