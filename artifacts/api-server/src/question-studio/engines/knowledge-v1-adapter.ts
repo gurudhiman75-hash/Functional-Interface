@@ -107,6 +107,14 @@ import {
   knowledgeV1GeoPln001QuestionStudioAdapterV1,
 } from "./knowledge-v1-geo-pln-001-adapter-v1";
 import {
+  isGeoLak001QuestionStudioRequestV1,
+  knowledgeV1GeoLak001QuestionStudioAdapterV1,
+} from "./knowledge-v1-geo-lak-001-adapter-v1";
+import {
+  isGeoMtp001QuestionStudioRequestV1,
+  knowledgeV1GeoMtp001QuestionStudioAdapterV1,
+} from "./knowledge-v1-geo-mtp-001-adapter-v1";
+import {
   isPgk001QuestionStudioRequestV1,
   knowledgeV1Pgk001QuestionStudioAdapterV1,
 } from "./knowledge-v1-pgk001-adapter-v1";
@@ -168,6 +176,8 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1GeoHaz001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoLnd001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1GeoPln001QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1GeoLak001QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1GeoMtp001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Pgk001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1His001QuestionStudioAdapterV1.listPackages(),
@@ -241,6 +251,12 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isGeoPln001QuestionStudioRequestV1(request)) {
       return knowledgeV1GeoPln001QuestionStudioAdapterV1.generate(request);
+    }
+    if (isGeoLak001QuestionStudioRequestV1(request)) {
+      return knowledgeV1GeoLak001QuestionStudioAdapterV1.generate(request);
+    }
+    if (isGeoMtp001QuestionStudioRequestV1(request)) {
+      return knowledgeV1GeoMtp001QuestionStudioAdapterV1.generate(request);
     }
     if (isPgk001MatchFollowingQuestionStudioRequestV1(request)) {
       return knowledgeV1Pgk001MatchFollowingQuestionStudioAdapterV1.generate(request);
