@@ -2,7 +2,7 @@
 ## English review batch 1: Q001–Q020
 
 **Status:** Human review requested
-**Coverage:** 1848 national movements (Q001–Q006); Italian unification (Q007–Q018); German unification (Q019–Q020)  
+**Coverage:** 1848 national movements (Q001–Q006); Italian unification (Q007–Q018); German unification (Q019–Q020)
 **Question Studio:** Not registered
 **Publication:** Review-only; no student delivery
 **Target checkpoint:** 60 questions total, 18 Easy / 30 Medium / 12 Hard. This is the first 20-question review batch.
@@ -42,14 +42,14 @@ The blueprint's sequence is preserved: Q001–Q006 cover 1848; Q007–Q018 cover
 
 ### WHI-CP006-Q001 · Easy · Revolutions of 1848
 
-Which pair of demands was raised in many European revolutions of 1848?
+Which pair of demands featured in the 1848 German national movement?
 
 - **A.** Liberal constitutional government and national self-determination
-- **B.** Restoration of the conservative order established after the Napoleonic Wars
-- **C.** Expansion of dynastic rule without representative institutions
-- **D.** Preservation of existing empires by rejecting national claims
+- **B.** Restoration of absolutist rule and dynastic privileges
+- **C.** Unification under Austrian leadership without constitutional reform
+- **D.** A German national parliament with no constitutional powers
 **Answer:** A
-**Explanation:** Many 1848 movements combined demands for constitutional or representative government with calls for national unity or self-rule. Their aims differed across regions.
+**Explanation:** In the German movement, many participants sought representative government and national unity. Their goals varied.
 **Source:** CP006-S02
 
 ### WHI-CP006-Q002 · Easy · German national movement
@@ -78,26 +78,26 @@ What was a central task undertaken by the Frankfurt Assembly in 1848–49?
 
 ### WHI-CP006-Q004 · Medium · Nationalism and liberalism
 
-Which statement best describes the relationship between nationalism and liberalism in many 1848 movements?
+Which statement describes national and liberal aims in the German movement of 1848?
 
 - **A.** Nationalism always took priority over constitutional reform
 - **B.** Liberalism required the breakup of every multinational empire
-- **C.** Nationalist and liberal demands could overlap, but did not coincide in every movement
-- **D.** They could overlap, as activists sought both national unity and constitutional rights
+- **C.** German nationalists uniformly rejected liberal rights and constitutions
+- **D.** Their demands sometimes overlapped, but national and liberal aims did not always coincide
 **Answer:** D
-**Explanation:** In several regions, national unity and constitutional government were connected demands. The movements were diverse, so the two aims did not always coincide.
+**Explanation:** Some German nationalists supported constitutional rights and unity together, while others favoured different political arrangements.
 **Source:** CP006-S02
 
 ### WHI-CP006-Q005 · Medium · Limits of the Frankfurt project
 
-Which event showed that the Frankfurt Assembly could not secure the proposed German crown through its own authority?
+What did Frederick William IV do when Frankfurt delegates offered him the German imperial crown in 1849?
 
-- **A.** The assembly lacked its own army and depended on German rulers to enforce its decisions
-- **B.** The assembly excluded all Prussian delegates from its debates
-- **C.** The assembly transferred its constitutional project to the Congress of Berlin
-- **D.** The Prussian king declined the crown offered by the assembly
+- **A.** He accepted the crown and moved the imperial seat to Berlin
+- **B.** He asked the delegates to offer it to the Austrian emperor
+- **C.** He referred the offer to the German rulers for another vote
+- **D.** He declined the crown offered by the delegates
 **Answer:** D
-**Explanation:** The assembly lacked the power to impose its settlement on German rulers. Frederick William IV of Prussia rejected the imperial crown offered by the delegates in 1849.
+**Explanation:** Frederick William IV declined the offer in 1849. The assembly could draft a constitution, but it could not compel German rulers to accept its settlement.
 **Sources:** CP006-S01, CP006-S02
 
 ### WHI-CP006-Q006 · Hard · Comparing routes to unification
