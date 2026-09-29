@@ -26,18 +26,18 @@ function mixedFacings(caselet: MixedFacingCaseletRecord) {
   return { order, facings: facings as Readonly<Record<string, "NORTH" | "SOUTH">> };
 }
 
-export interface Sea001FacingCountExtensionV2
+export interface Sea001FacingStateExtensionV2
   extends Omit<Sea001QueryExtensionV1, "authority" | "kind" | "checkpointId" | "answerType" | "answer"> {
   authority: "SEA_001_QUERY_EXTENSION_V2";
   kind: "FACING_DIRECTION_COUNT" | "END_PERSON_AND_FACING";
   checkpointId: "SEA-CP-002";
-  answerType: "COUNT";
-  answer: number;
+  answerType: "COUNT" | "RELATION";
+  answer: number | string;
 }
 
 export function buildMixedFacingCountExtensionV2(
   caselet: MixedFacingCaseletRecord,
-): Sea001FacingCountExtensionV2 {
+): Sea001FacingStateExtensionV2 {
   const { order, facings } = mixedFacings(caselet);
   const northCount = order.filter((personId) => facings[personId] === "NORTH").length;
   const southCount = order.length - northCount;
@@ -72,7 +72,7 @@ export function buildMixedFacingCountExtensionV2(
 
 export function buildMixedFacingEndAndFacingExtensionV2(
   caselet: MixedFacingCaseletRecord,
-): Sea001FacingCountExtensionV2 {
+): Sea001FacingStateExtensionV2 {
   const { order, facings } = mixedFacings(caselet);
   const preferRight = answerIndex(caselet.caseletId + ":END_SIDE") % 2 === 1;
   const personId = preferRight ? order[order.length - 1]! : order[0]!;
@@ -94,11 +94,11 @@ export function buildMixedFacingEndAndFacingExtensionV2(
     kind: "END_PERSON_AND_FACING",
     checkpointId: "SEA-CP-002",
     sourceCaseletId: caselet.caseletId,
-    answerType: "COUNT",
+    answerType: "RELATION",
     stem: `Who sits at the ${preferRight ? "extreme right" : "extreme left"} end and which direction does that person face?`,
     options: options as [string, string, string, string],
     correctIndex,
-    answer: correct as unknown as number,
+    answer: correct,
     sourceBackedGap: true,
     permanentQlAllocated: false,
     reviewOnly: true,
