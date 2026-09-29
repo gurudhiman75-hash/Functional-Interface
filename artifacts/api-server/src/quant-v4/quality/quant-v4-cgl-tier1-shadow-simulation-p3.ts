@@ -148,20 +148,41 @@ function metadataValue(question: any, key: string): string | undefined {
 }
 
 function explanationText(question: any): string {
-  if (typeof question?.explanation === "string") return question.explanation.trim();
-  if (Array.isArray(question?.explanation?.visibleLines)) return question.explanation.visibleLines.join("\n\n").trim();
-  if (Array.isArray(question?.explanation?.lines)) return question.explanation.lines.join("\n\n").trim();
+  if (typeof question?.explanation === "string" && question.explanation.trim()) {
+    return question.explanation.trim();
+  }
+  if (Array.isArray(question?.explanation?.visibleLines)) {
+    const text = question.explanation.visibleLines.join("\n\n").trim();
+    if (text) return text;
+  }
+  if (Array.isArray(question?.explanation?.lines)) {
+    const text = question.explanation.lines.join("\n\n").trim();
+    if (text) return text;
+  }
   if (Array.isArray(question?.explanation?.steps)) {
-    return [
+    const text = [
       question.explanation.keyIdea,
       ...question.explanation.steps,
       question.explanation.shortcut,
       question.explanation.trap,
     ].filter(Boolean).join("\n\n").trim();
+    if (text) return text;
   }
-  if (typeof question?.learnerExplanation === "string") return question.learnerExplanation.trim();
-  if (Array.isArray(question?.learnerExplanation?.lines)) return question.learnerExplanation.lines.join("\n\n").trim();
-  if (Array.isArray(question?.packageExplanation?.lines)) return question.packageExplanation.lines.join("\n\n").trim();
+  if (typeof question?.learnerExplanation === "string" && question.learnerExplanation.trim()) {
+    return question.learnerExplanation.trim();
+  }
+  if (Array.isArray(question?.learnerExplanation?.lines)) {
+    const text = question.learnerExplanation.lines.join("\n\n").trim();
+    if (text) return text;
+  }
+  if (Array.isArray(question?.packageExplanation?.visibleLines)) {
+    const text = question.packageExplanation.visibleLines.join("\n\n").trim();
+    if (text) return text;
+  }
+  if (Array.isArray(question?.packageExplanation?.lines)) {
+    const text = question.packageExplanation.lines.join("\n\n").trim();
+    if (text) return text;
+  }
   return "";
 }
 
