@@ -6,7 +6,6 @@ on:
       - feature/statistics-moments-skewness-kurtosis-jso-v1
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-006/**"
-      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
   pull_request:
     branches:
       - New-main
