@@ -15,6 +15,11 @@ import {
 } from './permanent-contracts';
 import { CLK_001_AUTHORING_COMPLETION_AUTHORITY_V1 } from './final-freeze-authority';
 import { localizeClockAnchorQuestion, type ClockAuthoringLanguage } from './localization';
+import {
+  CLK_001_AUTHORING_VARIANT_AUTHORITY_V1,
+  clk001AuthoringTasksForQlV1,
+  selectClk001AuthoringTaskV1,
+} from './authoring-variants-v1';
 
 export const CLK_001_PACKAGE_ID = 'CLK-001' as const;
 export const CLK_001_RUNTIME_MODE = 'review-only' as const;
@@ -119,6 +124,8 @@ export const CLK_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = 
     sourceSaturationComplete: true,
     deterministicGeneration: true,
     multilingualAnchorParity: true,
+    multilingualVariantBatch1Parity: true,
+    authoringVariantAuthorityId: CLK_001_AUTHORING_VARIANT_AUTHORITY_V1.authorityId,
     advancedHeldCandidatesExcluded: true,
     reviewOnly: true,
   },
@@ -161,8 +168,12 @@ export async function generateClk001QuestionStudioBatch(
     const qlId = pool[index % pool.length]!;
     const contract = getClockPermanentContract(qlId);
     const itemSeed = baseSeed + ':' + qlId + ':' + index;
+    const authoringTaskId = selectClk001AuthoringTaskV1(
+      qlId,
+      index + hash(baseSeed + ':' + qlId + ':variant-offset'),
+    );
     const english = generateClockQuestion({
-      taskId: contract.anchorTaskId,
+      taskId: authoringTaskId,
       seed: itemSeed,
       locale: 'en-IN',
       correctOptionIndex: (hash(itemSeed + ':option') % 4) as 0 | 1 | 2 | 3,
@@ -221,6 +232,9 @@ export async function generateClk001QuestionStudioBatch(
         qlId,
         checkpointId: contract.checkpointCode,
         anchorTaskId: contract.anchorTaskId,
+        authoringTaskId,
+        authoringTaskPool: [...clk001AuthoringTasksForQlV1(qlId)],
+        authoringVariantAuthorityId: CLK_001_AUTHORING_VARIANT_AUTHORITY_V1.authorityId,
         authorityCluster: contract.cluster,
         ownedDiscoveryTaskIds: [...contract.ownedTaskIds],
         sourceEvidenceRefs: [...contract.sourceEvidenceRefs],
