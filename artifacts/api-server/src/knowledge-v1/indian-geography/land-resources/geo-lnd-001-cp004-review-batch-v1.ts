@@ -22,7 +22,7 @@ r("A steep slope is kept under forest rather than intensive farming. What planni
 buildQl("INTEGRATED-LAND","Integrated land management reasoning",[
 r("Which combination best restores degraded dryland?","Controlled grazing, vegetation recovery and water conservation","Overgrazing, deforestation and bare soil","Unlimited pumping and no recharge","Mining without reclamation","Restoring cover and conserving water reduce erosion and desertification.","LND-INT-R1"),
 r("Which combination best prevents soil loss on slopes?","Terracing, contour cultivation and vegetation cover","Down-slope ploughing and deforestation","Overgrazing and bare soil","Uncontrolled runoff","All three measures slow runoff and protect soil.","LND-INT-R2"),
-r("Which comparison is correct?","Current fallow is temporary; barren land is generally not suitable for cultivation","Both are identical","Barren land is always cropped","Current fallow is always forest","The categories differ in potential and current use.","LND-INT-R3"),
+r("Which comparison correctly distinguishes current fallow and barren land?","Current fallow is temporary; barren land is generally not suitable for cultivation","Both are identical","Barren land is always cropped","Current fallow is always forest","The categories differ in potential and current use.","LND-INT-R3"),
 r("Which approach is most sustainable for finite land resources?","Match land use to capability and conserve soil","Use every slope intensively","Ignore degradation","Maximise extraction regardless of future productivity","Sustainable land use protects long-term productive capacity.","LND-INT-R4")
 ])
 ]);
