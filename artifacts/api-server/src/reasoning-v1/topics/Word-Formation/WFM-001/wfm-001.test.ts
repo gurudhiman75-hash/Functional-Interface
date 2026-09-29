@@ -105,6 +105,11 @@ for (const qlId of WFM_001_QL_IDS) {
         assert(question.sourceWord);
         sources.add(question.sourceWord!);
         sourcesByDifficulty[difficulty].add(question.sourceWord!);
+        assert(question.explanation.includes("✓") && question.explanation.includes("✗"), `${qlId}/${seed} must show letter-level presence marks for options.`);
+        for (const option of question.options) {
+          assert(question.explanation.includes(`${option.id}. ${option.text} —`), `${qlId}/${seed} explanation omits option ${option.id}.`);
+          assert(question.explanation.includes(`option ${question.correctOptionId} is correct`), `${qlId}/${seed} explanation must conclude with the correct option.`);
+        }
         const correctLength = question.options[solved].text.length;
         assert(
           question.options.every((option) => Math.abs(option.text.length - correctLength) <= 2),
