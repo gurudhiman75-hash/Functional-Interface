@@ -47,6 +47,6 @@ const R:readonly Eng013BreadthRecordV4[]=[
 ["cap","The bank imposed a cap {x} daily card spending.",["on","to","with","for"],"A cap on spending means a maximum permitted amount."],
 ["settlement","The bill was settled {x} mobile banking.",["through","to","with through","on"],"Settled through a channel means paid using that channel."],
 ["inflow","The bank recorded an inflow {x} abroad.",["from","to","with","on"],"An inflow from abroad is money entering from an external source."],
-["security","The loan is secured {x} property.",["by","to","with by","on"],"Secured by property means backed by that asset."]
+["backing","The loan is supported {x} property backing.",["by","to","with by","on"],"Supported by property backing means the loan has asset support."],
 ];
 export const ENG013_BREADTH3_BANKING_PRELIMS_B_V4=buildEng013BreadthAuthoritiesV4("WU-BR3-BPB","ENG-013-CP003",R);
