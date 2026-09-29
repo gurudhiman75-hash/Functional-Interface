@@ -64,6 +64,9 @@ for (const profile of profiles) {
     classCounts.add(first.stimulus.classes.length);
     orderSignatures.add(first.questions.map((question) => question.kind).join("|"));
     first.questions.forEach((question) => {
+      assert(!/nearest whole|round(?:ed)? to the nearest|give the nearest whole/iu.test(question.stem), `${question.questionId}: explicit rounding instruction leaked into the stem.`);
+      if (question.kind === "CLASS_SHARE_OF_TOTAL") assert(/approximately|approximate|about/iu.test(question.stem), `${question.questionId}: rounded percentage answer is not signalled as approximate.`);
+      if (question.kind === "GROUPED_MEAN_FROM_POLYGON") assert(/approximate|estimate/iu.test(question.stem), `${question.questionId}: grouped estimate is not signalled as approximate.`);
       questions += 1;
       taskCounts.set(question.kind, (taskCounts.get(question.kind) ?? 0) + 1);
       answerPositions.get(question.kind)!.add(question.correctIndex);
