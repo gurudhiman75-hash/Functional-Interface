@@ -105,6 +105,8 @@ function makeLocalizedSurface(
   const a = translateDisplay(question.answer.display, language);
   const s = (key: string) => scenarioValue(question, key);
   const task = question.taskId;
+  const handHi = (hand: string) => hand === 'HOUR' ? 'घंटे की सुई' : hand === 'MINUTE' ? 'मिनट की सुई' : 'सेकंड की सुई';
+  const handPa = (hand: string) => hand === 'HOUR' ? 'ਘੰਟੇ ਵਾਲੀ ਸੂਈ' : hand === 'MINUTE' ? 'ਮਿੰਟ ਵਾਲੀ ਸੂਈ' : 'ਸਕਿੰਟ ਵਾਲੀ ਸੂਈ';
 
   const surface = (
     stemHi: string,
@@ -173,6 +175,15 @@ function makeLocalizedSurface(
         ['ਪਹਿਲਾਂ ਕੁੱਲ ਘੁੰਮਾਵ ਕੱਢੋ, ਫਿਰ 360° ਨਾਲ ਭਾਗ ਦਿਓ।', 'ਚੱਕਰ = ' + a + '।'],
       );
     }
+    case 'COMPARE_HAND_MOTION':
+      return surface(
+        s('durationMinutes') + ' मिनट में ' + handHi(s('leftHand')) + ' और ' + handHi(s('rightHand')) + ' के कुल घुमाव में कितने अंश का अंतर है?',
+        s('durationMinutes') + ' ਮਿੰਟਾਂ ਵਿੱਚ ' + handPa(s('leftHand')) + ' ਅਤੇ ' + handPa(s('rightHand')) + ' ਦੇ ਕੁੱਲ ਘੁੰਮਾਵ ਵਿੱਚ ਕਿੰਨੇ ਡਿਗਰੀ ਦਾ ਫ਼ਰਕ ਹੈ?',
+        'दोनों सुइयों का कुल घुमाव अलग-अलग निकालकर उनका निरपेक्ष अंतर लें।',
+        'ਦੋਵੇਂ ਸੂਈਆਂ ਦਾ ਕੁੱਲ ਘੁੰਮਾਵ ਵੱਖ-ਵੱਖ ਕੱਢ ਕੇ ਉਹਨਾਂ ਦਾ ਪਰਮ ਫ਼ਰਕ ਲਓ।',
+        ['हर सुई के लिए चाल × समय करें।', 'अंतर = ' + a + '।'],
+        ['ਹਰ ਸੂਈ ਲਈ ਚਾਲ × ਸਮਾਂ ਕਰੋ।', 'ਫ਼ਰਕ = ' + a + '।'],
+      );
     case 'MINUTE_SPACES_TO_ANGLE':
       return surface(
         'घड़ी के डायल पर ' + s('minuteSpaces') + ' मिनट-खानों के बीच कितने अंश का कोण होगा?',
@@ -190,6 +201,30 @@ function makeLocalizedSurface(
         'ਮਿੰਟ ਵਾਲੀ ਸੂਈ 6° ਪ੍ਰਤੀ ਮਿੰਟ ਅਤੇ ਘੰਟੇ ਵਾਲੀ ਸੂਈ 0.5° ਪ੍ਰਤੀ ਮਿੰਟ ਅੱਗੇ ਵਧਦੀ ਹੈ।',
         ['दोनों सुइयों की सही स्थिति निकालकर छोटा अंतर लें।', 'उत्तर = ' + a + '।'],
         ['ਦੋਵੇਂ ਸੂਈਆਂ ਦੀ ਸਹੀ ਸਥਿਤੀ ਕੱਢ ਕੇ ਛੋਟਾ ਅੰਤਰ ਲਓ।', 'ਉੱਤਰ = ' + a + '।'],
+      );
+    case 'ANGLE_AFTER_BEFORE_SHIFT': {
+      const match = question.stem.match(/(\d+) minutes (after|before) ([0-9:]+)/i);
+      if (!match) throw new Error('CLK-001 shifted-angle localization stem drift');
+      const amount = match[1];
+      const after = match[2].toLowerCase() === 'after';
+      const base = match[3];
+      return surface(
+        base + ' से ' + amount + ' मिनट ' + (after ? 'बाद' : 'पहले') + ' सुइयों के बीच छोटा कोण कितना है?',
+        base + ' ਤੋਂ ' + amount + ' ਮਿੰਟ ' + (after ? 'ਬਾਅਦ' : 'ਪਹਿਲਾਂ') + ' ਸੂਈਆਂ ਵਿਚਕਾਰ ਛੋਟਾ ਕੋਣ ਕਿੰਨਾ ਹੈ?',
+        'पहले पूछा गया नया समय निकालें, फिर उसी समय दोनों सुइयों की लगातार स्थिति से छोटा कोण लें।',
+        'ਪਹਿਲਾਂ ਪੁੱਛਿਆ ਨਵਾਂ ਸਮਾਂ ਕੱਢੋ, ਫਿਰ ਉਸੇ ਸਮੇਂ ਦੋਵੇਂ ਸੂਈਆਂ ਦੀ ਲਗਾਤਾਰ ਸਥਿਤੀ ਤੋਂ ਛੋਟਾ ਕੋਣ ਲਓ।',
+        ['समय को सही दिशा में खिसकाएँ।', 'आवश्यक कोण = ' + a + '।'],
+        ['ਸਮੇਂ ਨੂੰ ਸਹੀ ਦਿਸ਼ਾ ਵਿੱਚ ਖਿਸਕਾਓ।', 'ਲੋੜੀਂਦਾ ਕੋਣ = ' + a + '।'],
+      );
+    }
+    case 'COMPARE_ANGLES_AT_TWO_TIMES':
+      return surface(
+        s('firstTime') + ' और ' + s('secondTime') + ' पर बनने वाले छोटे कोणों का निरपेक्ष अंतर कितना है?',
+        s('firstTime') + ' ਅਤੇ ' + s('secondTime') + ' ਉੱਤੇ ਬਣਦੇ ਛੋਟੇ ਕੋਣਾਂ ਦਾ ਪਰਮ ਫ਼ਰਕ ਕਿੰਨਾ ਹੈ?',
+        'दोनों समयों पर छोटा कोण अलग-अलग निकालें और उनका निरपेक्ष अंतर लें।',
+        'ਦੋਵੇਂ ਸਮਿਆਂ ਉੱਤੇ ਛੋਟਾ ਕੋਣ ਵੱਖ-ਵੱਖ ਕੱਢੋ ਅਤੇ ਉਹਨਾਂ ਦਾ ਪਰਮ ਫ਼ਰਕ ਲਓ।',
+        ['पहला कोण निकालें, फिर दूसरा।', 'अंतर = ' + a + '।'],
+        ['ਪਹਿਲਾ ਕੋਣ ਕੱਢੋ, ਫਿਰ ਦੂਜਾ।', 'ਫ਼ਰਕ = ' + a + '।'],
       );
     case 'ANGLE_AT_TIME_WITH_SECONDS':
       return surface(
@@ -237,6 +272,49 @@ function makeLocalizedSurface(
         'ਸਾਪੇਖ ਚਾਲ 5.5° ਪ੍ਰਤੀ ਮਿੰਟ ਲੈ ਕੇ ਕੋਣ ਦਾ ਸਮੀਕਰਨ ਹੱਲ ਕਰੋ।',
         ['दोनों संभव कोण-शाखाओं की जाँच करें।', 'सही समय = ' + a + '।'],
         ['ਦੋਵੇਂ ਸੰਭਵ ਕੋਣ-ਸ਼ਾਖਾਵਾਂ ਦੀ ਜਾਂਚ ਕਰੋ।', 'ਸਹੀ ਸਮਾਂ = ' + a + '।'],
+      );
+    case 'FIRST_TIME_AFTER_ANCHOR_FOR_ANGLE': {
+      const match = question.stem.match(/first time after ([0-9:]+)/i);
+      if (!match) throw new Error('CLK-001 first-after localization stem drift');
+      return surface(
+        match[1] + ' के बाद पहली बार सुइयों के बीच छोटा कोण ' + s('targetAngleDeg') + '° कब होगा?',
+        match[1] + ' ਤੋਂ ਬਾਅਦ ਪਹਿਲੀ ਵਾਰ ਸੂਈਆਂ ਵਿਚਕਾਰ ਛੋਟਾ ਕੋਣ ' + s('targetAngleDeg') + '° ਕਦੋਂ ਹੋਵੇਗਾ?',
+        '± कोण की दोनों शाखाएँ हल करें और दिए समय के बाद आने वाला पहला वैध मूल चुनें।',
+        '± ਕੋਣ ਦੀਆਂ ਦੋਵੇਂ ਸ਼ਾਖਾਵਾਂ ਹੱਲ ਕਰੋ ਅਤੇ ਦਿੱਤੇ ਸਮੇਂ ਤੋਂ ਬਾਅਦ ਆਉਣ ਵਾਲਾ ਪਹਿਲਾ ਵੈਧ ਮੂਲ ਚੁਣੋ।',
+        ['सभी वैध मूल निकालें।', 'पहला सही समय = ' + a + '।'],
+        ['ਸਾਰੇ ਵੈਧ ਮੂਲ ਕੱਢੋ।', 'ਪਹਿਲਾ ਸਹੀ ਸਮਾਂ = ' + a + '।'],
+      );
+    }
+    case 'NEXT_PREVIOUS_ANGLE_EVENT': {
+      const next = s('rootContract') === 'NEXT_AFTER_GIVEN_TIME';
+      const match = question.stem.match(/(?:after|before) ([0-9:]+)/i);
+      if (!match) throw new Error('CLK-001 next/previous localization stem drift');
+      return surface(
+        'सुइयों के बीच छोटा कोण ' + s('targetAngleDeg') + '° कई बार बनता है। ' + match[1] + ' के ' + (next ? 'बाद अगला' : 'पहले पिछला') + ' ऐसा समय कौन-सा है?',
+        'ਸੂਈਆਂ ਵਿਚਕਾਰ ਛੋਟਾ ਕੋਣ ' + s('targetAngleDeg') + '° ਕਈ ਵਾਰ ਬਣਦਾ ਹੈ। ' + match[1] + ' ਦੇ ' + (next ? 'ਬਾਅਦ ਅਗਲਾ' : 'ਪਹਿਲਾਂ ਪਿਛਲਾ') + ' ਅਜਿਹਾ ਸਮਾਂ ਕਿਹੜਾ ਹੈ?',
+        'दोनों सटीक शाखाओं के मूल क्रम में रखें और प्रश्न के अनुसार अगला/पिछला वैध मूल चुनें।',
+        'ਦੋਵੇਂ ਸਹੀ ਸ਼ਾਖਾਵਾਂ ਦੇ ਮੂਲ ਕ੍ਰਮ ਵਿੱਚ ਰੱਖੋ ਅਤੇ ਸਵਾਲ ਅਨੁਸਾਰ ਅਗਲਾ/ਪਿਛਲਾ ਵੈਧ ਮੂਲ ਚੁਣੋ।',
+        ['सभी वैध समय क्रम में रखें।', 'उत्तर = ' + a + '।'],
+        ['ਸਾਰੇ ਵੈਧ ਸਮੇਂ ਕ੍ਰਮ ਵਿੱਚ ਰੱਖੋ।', 'ਉੱਤਰ = ' + a + '।'],
+      );
+    }
+    case 'EXACT_FRACTIONAL_MINUTE_EVENT':
+      return surface(
+        s('hour') + ':00 और ' + (Number(s('hour')) + 1) + ':00 के बीच वह पहले का सटीक समय बताइए, भिन्नात्मक सेकंड सहित, जब छोटा कोण ' + s('targetAngleDeg') + '° हो।',
+        s('hour') + ':00 ਅਤੇ ' + (Number(s('hour')) + 1) + ':00 ਦੇ ਵਿਚਕਾਰ ਪਹਿਲਾ ਸਹੀ ਸਮਾਂ ਦੱਸੋ, ਭਿੰਨਾਤਮਕ ਸਕਿੰਟ ਸਮੇਤ, ਜਦੋਂ ਛੋਟਾ ਕੋਣ ' + s('targetAngleDeg') + '° ਹੋਵੇ।',
+        'समीकरण को सटीक भिन्न में हल करें; समय को समय से पहले पूर्ण सेकंड में न बदलें।',
+        'ਸਮੀਕਰਨ ਨੂੰ ਸਹੀ ਭਿੰਨ ਵਿੱਚ ਹੱਲ ਕਰੋ; ਸਮੇਂ ਨੂੰ ਪਹਿਲਾਂ ਹੀ ਪੂਰੇ ਸਕਿੰਟਾਂ ਵਿੱਚ ਨਾ ਬਦਲੋ।',
+        ['दोनों शाखाएँ सटीक हल करें।', 'पहला सटीक समय = ' + a + '।'],
+        ['ਦੋਵੇਂ ਸ਼ਾਖਾਵਾਂ ਸਹੀ ਹੱਲ ਕਰੋ।', 'ਪਹਿਲਾ ਸਹੀ ਸਮਾਂ = ' + a + '।'],
+      );
+    case 'ROUNDED_ANGLE_EVENT':
+      return surface(
+        'निकटतम सेकंड तक, ' + s('hour') + ':00 और ' + (Number(s('hour')) + 1) + ':00 के बीच पहला समय क्या है जब छोटा कोण ' + s('targetAngleDeg') + '° हो?',
+        'ਸਭ ਤੋਂ ਨੇੜਲੇ ਸਕਿੰਟ ਤੱਕ, ' + s('hour') + ':00 ਅਤੇ ' + (Number(s('hour')) + 1) + ':00 ਦੇ ਵਿਚਕਾਰ ਪਹਿਲਾ ਸਮਾਂ ਕੀ ਹੈ ਜਦੋਂ ਛੋਟਾ ਕੋਣ ' + s('targetAngleDeg') + '° ਹੋਵੇ?',
+        'पहले सटीक मूल निकालें और अंत में ही निकटतम सेकंड तक गोल करें।',
+        'ਪਹਿਲਾਂ ਸਹੀ ਮੂਲ ਕੱਢੋ ਅਤੇ ਅਖੀਰ ਵਿੱਚ ਹੀ ਸਭ ਤੋਂ ਨੇੜਲੇ ਸਕਿੰਟ ਤੱਕ ਗੋਲ ਕਰੋ।',
+        ['सटीक समय निकालें।', 'गोल किया उत्तर = ' + a + '।'],
+        ['ਸਹੀ ਸਮਾਂ ਕੱਢੋ।', 'ਗੋਲ ਕੀਤਾ ਉੱਤਰ = ' + a + '।'],
       );
     case 'ALL_TIMES_FOR_ANGLE_IN_HOUR':
       return surface(
