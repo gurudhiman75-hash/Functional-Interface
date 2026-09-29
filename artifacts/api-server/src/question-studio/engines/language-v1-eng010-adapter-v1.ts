@@ -56,7 +56,7 @@ export const languageV1Eng010QuestionStudioAdapterV1:QuestionStudioEngineAdapter
   reviewSurfaceRequired:true,manualApprovalRequired:true,questionBankStatus:lifecycle.questionBankStatus,questionBankWritable:false,
   testEligibility:lifecycle.testEligibility,testEligible:false,mockTestEligible:false,publiclyPublishable:false,
   automaticStudentPublication:false,productionReleaseAuthorized:false,
-  metadata:{registrationStatus:"REGISTERED_REVIEW_ONLY",authoritySets:48,composerCpId:"ENG-010-CP005",humanApprovalPending:true}
+  metadata:{registrationStatus:"REGISTERED_REVIEW_ONLY",authoritySets:96,composerCpId:"ENG-010-CP005",humanApprovalPending:true}
  }];},
  async generate(r):Promise<QuestionStudioGenerationResult>{
   if(!isEng010QuestionStudioRequestV1(r))throw new Error("language-v1 ENG-010 adapter requires ENG-010 package or CP selector");
