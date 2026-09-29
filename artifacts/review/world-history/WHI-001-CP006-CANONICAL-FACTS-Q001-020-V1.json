@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0",
+  "chapterId": "WHI-001",
+  "checkpointId": "WHI-001-CP006",
+  "status": "partial-source-backed-review-layer",
+  "sourceRegister": [
+    {
+      "sourceId": "CP006-S01",
+      "title": "German History in Documents and Images — Creation of the German Empire, 1866–1871",
+      "url": "https://germanhistorydocs.org/en/forging-an-empire-bismarckian-germany-1866-1890/creation-of-the-german-empire-1866-1871"
+    },
+    {
+      "sourceId": "CP006-S02",
+      "title": "Deutsches Historisches Museum — From the French Revolution to the Second German Empire",
+      "url": "https://www.dhm.de/en/exhibitions/permanent-exhibition/from-the-french-revolution-to-the-second-german-empire/"
+    },
+    {
+      "sourceId": "CP006-S03",
+      "title": "National Museum of the Italian Risorgimento — Collections",
+      "url": "https://www.museorisorgimentotorino.it/en/patrimonio-collezioni/"
+    },
+    {
+      "sourceId": "CP006-S04",
+      "title": "Central Museum of the Risorgimento — History",
+      "url": "https://vive.cultura.gov.it/en/central-museum-of-the-risorgimento/history"
+    },
+    {
+      "sourceId": "CP006-S05",
+      "title": "U.S. Department of State — Treaty of Berlin documents, 1878",
+      "url": "https://history.state.gov/historicaldocuments/frus1878/papers"
+    },
+    {
+      "sourceId": "CP006-S06",
+      "title": "U.S. Department of State — Austro-Hungarian Compromise records",
+      "url": "https://history.state.gov/historicaldocuments/frus1878/d39"
+    },
+    {
+      "sourceId": "CP006-S07",
+      "title": "MuseoTorino — Italian unification",
+      "url": "https://www.museotorino.it/view/s/d4fbdea1f73644bcb084050b3cab4323"
+    },
+    {
+      "sourceId": "CP006-S08",
+      "title": "U.S. Department of State — Congress of Berlin, 1878: papers and treaty stipulations",
+      "url": "https://history.state.gov/historicaldocuments/frus1878/d523"
+    }
+  ],
+  "facts": [
+    {
+      "factId": "WHI-CP006-F001",
+      "claim": "1848 movements commonly joined liberal or constitutional demands with national demands.",
+      "sourceIds": [
+        "CP006-S02"
+      ],
+      "sourceLocator": "1848–49 revolutions overview",
+      "relationshipType": "movement–objective",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F002",
+      "claim": "The German National Assembly met in Frankfurt in 1848.",
+      "sourceIds": [
+        "CP006-S02"
+      ],
+      "sourceLocator": "Frankfurt National Assembly",
+      "relationshipType": "event–place",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F003",
+      "claim": "The Frankfurt Assembly worked out a constitution for a proposed German nation-state.",
+      "sourceIds": [
+        "CP006-S01",
+        "CP006-S02"
+      ],
+      "sourceLocator": "Frankfurt Assembly and constitutional work",
+      "relationshipType": "institution–task",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F004",
+      "claim": "Nationalist and liberal demands overlapped in some 1848 movements, but they were not identical in every setting.",
+      "sourceIds": [
+        "CP006-S02"
+      ],
+      "sourceLocator": "1848–49 movements",
+      "relationshipType": "movement–ideology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F005",
+      "claim": "Frederick William IV of Prussia declined the imperial crown offered by the Frankfurt delegates in 1849.",
+      "sourceIds": [
+        "CP006-S01",
+        "CP006-S02"
+      ],
+      "sourceLocator": "Frankfurt Assembly and crown offer",
+      "relationshipType": "person–decision",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F006",
+      "claim": "The Frankfurt constitutional project failed; the German Empire was founded in 1871 under Prussian hegemony after wars against Denmark, Austria and France, with Austria outside the empire.",
+      "sourceIds": [
+        "CP006-S01",
+        "CP006-S02"
+      ],
+      "sourceLocator": "German unification, 1864–1871",
+      "relationshipType": "chronology–political outcome",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F007",
+      "claim": "Giuseppe Mazzini founded Young Italy, a nationalist organisation that promoted a united Italian nation and republican ideas.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S04"
+      ],
+      "sourceLocator": "Young Italy and Mazzini",
+      "relationshipType": "person–organisation–aim",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F008",
+      "claim": "Piedmont-Sardinia under the House of Savoy became the principal state base for Italian unification.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S07"
+      ],
+      "sourceLocator": "Piedmont-Sardinia and unification",
+      "relationshipType": "state–political role",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F009",
+      "claim": "Camillo Cavour served as prime minister of Piedmont-Sardinia and used diplomacy and state policy to advance unification.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S07"
+      ],
+      "sourceLocator": "Cavour and unification",
+      "relationshipType": "person–role",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F010",
+      "claim": "Garibaldi’s 1860 Expedition of the Thousand helped overthrow Bourbon rule in Sicily and southern Italy.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S04",
+        "CP006-S07"
+      ],
+      "sourceLocator": "Expedition of the Thousand",
+      "relationshipType": "event–outcome",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F011",
+      "claim": "Mazzini founded Young Italy, Cavour led Piedmont-Sardinian statecraft, and Garibaldi led the Expedition of the Thousand.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S04",
+        "CP006-S07"
+      ],
+      "sourceLocator": "Italian unification leaders",
+      "relationshipType": "person–contribution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F012",
+      "claim": "The Kingdom of Italy was proclaimed on 17 March 1861, with Victor Emmanuel II as king.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S04"
+      ],
+      "sourceLocator": "Kingdom of Italy proclamation",
+      "relationshipType": "event–date–leader",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F013",
+      "claim": "Garibaldi’s expedition took place in 1860; the Kingdom of Italy was proclaimed in 1861; Rome joined in 1870.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S04",
+        "CP006-S07"
+      ],
+      "sourceLocator": "Italian unification chronology",
+      "relationshipType": "chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F014",
+      "claim": "Rome became part of the Kingdom of Italy in 1870.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S04"
+      ],
+      "sourceLocator": "Rome and completion of unification",
+      "relationshipType": "territory–state–date",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F015",
+      "claim": "Italian sequence: Expedition of the Thousand (1860), Kingdom proclaimed (1861), Venetia incorporated (1866), Rome incorporated (1870).",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S04",
+        "CP006-S07"
+      ],
+      "sourceLocator": "Italian unification chronology",
+      "relationshipType": "chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F016",
+      "claim": "Victor Emmanuel II, previously king of Piedmont-Sardinia, became the first king of Italy in 1861.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S04"
+      ],
+      "sourceLocator": "Victor Emmanuel II and the 1861 proclamation",
+      "relationshipType": "person–office",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F017",
+      "claim": "Mazzini promoted a republican national movement; Cavour advanced unification through Piedmont-Sardinian statecraft and diplomacy.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S04",
+        "CP006-S07"
+      ],
+      "sourceLocator": "Mazzini and Cavour",
+      "relationshipType": "leader comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F018",
+      "claim": "Garibaldi’s southern campaign was incorporated into the wider state-led unification process pursued by Cavour’s government; their methods and political aims differed.",
+      "sourceIds": [
+        "CP006-S03",
+        "CP006-S04",
+        "CP006-S07"
+      ],
+      "sourceLocator": "Garibaldi and Cavour",
+      "relationshipType": "popular action–state policy",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F019",
+      "claim": "Prussia fought Denmark in 1864, Austria in 1866 and France in 1870–71; the German Empire was proclaimed in January 1871.",
+      "sourceIds": [
+        "CP006-S01",
+        "CP006-S02"
+      ],
+      "sourceLocator": "German unification wars and 1871 proclamation",
+      "relationshipType": "chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP006-F020",
+      "claim": "After the Austro-Prussian War of 1866, Prussia organised the northern German states in the North German Confederation; Austria remained outside it.",
+      "sourceIds": [
+        "CP006-S01",
+        "CP006-S02"
+      ],
+      "sourceLocator": "North German Confederation after 1866",
+      "relationshipType": "war–state formation",
+      "reviewStatus": "source-linked; editorial review pending"
+    }
+  ]
+}
