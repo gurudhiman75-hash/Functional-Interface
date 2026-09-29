@@ -132,6 +132,30 @@
       "title": "GCHQ — How codebreakers helped fight the Battle of Britain",
       "url": "https://www.gchq.gov.uk/information/how-codebreakers-helped-fight-battle-britain",
       "use": "Bletchley Park decryption of German Enigma traffic and the intelligence it provided."
+    },
+    {
+      "sourceId": "CP010-S25",
+      "title": "U.S. National Archives — Surrender of Germany",
+      "url": "https://www.archives.gov/milestone-documents/surrender-of-germany",
+      "use": "The Reims surrender instrument signed May 7, 1945; includes the text of the surrender document."
+    },
+    {
+      "sourceId": "CP010-S26",
+      "title": "U.S. Holocaust Memorial Museum — Displaced Persons",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/displaced-persons",
+      "use": "Postwar displacement, survivors unable or unwilling to return home, and displaced-persons camps."
+    },
+    {
+      "sourceId": "CP010-S27",
+      "title": "U.S. Holocaust Memorial Museum — The Soviet Union and Europe after 1945",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-soviet-union-and-europe-after-1945",
+      "use": "Allied occupation zones in Germany and Austria after Germany’s surrender."
+    },
+    {
+      "sourceId": "CP010-S28",
+      "title": "U.S. Holocaust Memorial Museum — The United States and the Holocaust, 1942–45",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-united-states-and-the-holocaust-1942-45",
+      "use": "European civilian displacement at the end of the war and Allied displaced-persons camps for Holocaust survivors and other DPs."
     }
   ],
   "facts": [
@@ -174,7 +198,7 @@
       "sourceIds": [
         "CP010-S12"
       ],
-      "sourceLocator": "Section “Invasion and Partition of Poland,” description of Blitzkrieg tactics",
+      "sourceLocator": "CP010-S12, section “Invasion and Partition of Poland,” description of Blitzkrieg tactics combining fast-moving armored units and air power.",
       "relationshipType": "outbreak-chronology",
       "reviewStatus": "source-linked with section locator; editorial review pending"
     },
@@ -184,7 +208,7 @@
       "sourceIds": [
         "CP010-S13"
       ],
-      "sourceLocator": "Second World War galleries, section “How did the war spread across Europe?”",
+      "sourceLocator": "CP010-S13, Second World War galleries, section “How did the war spread across Europe?”, on the Phoney War after the September 1939 declarations.",
       "relationshipType": "outbreak-chronology",
       "reviewStatus": "source-linked with section locator; editorial review pending"
     },
@@ -194,7 +218,7 @@
       "sourceIds": [
         "CP010-S12"
       ],
-      "sourceLocator": "Section “Invasion and Partition of Poland,” paragraph on the siege and surrender of Warsaw",
+      "sourceLocator": "CP010-S12, section “Invasion and Partition of Poland,” paragraph on the siege and surrender of Warsaw on September 28, 1939.",
       "relationshipType": "outbreak-chronology",
       "reviewStatus": "source-linked with section locator; editorial review pending"
     },
@@ -422,7 +446,7 @@
       "sourceIds": [
         "CP010-S02"
       ],
-      "sourceLocator": "Section “World War II in Europe,” Eastern Front discussion of July 1943",
+      "sourceLocator": "CP010-S02, section “World War II in Europe,” Eastern Front discussion of the German offensive at Kursk in July 1943.",
       "relationshipType": "turning-points",
       "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
@@ -647,11 +671,14 @@
       "claim": "Resistance took many forms, from armed struggle to intelligence and civilian support. Its organisation and influence differed by country and period.",
       "sourceIds": [
         "CP010-S02",
-        "CP010-S10"
+        "CP010-S10",
+        "CP010-S22",
+        "CP010-S23",
+        "CP010-S24"
       ],
-      "sourceLocator": "Resistance and home fronts",
+      "sourceLocator": "CP010-S02, “Resistance in Europe” section on resistance networks in occupied countries; CP010-S10 and CP010-S22 on Jewish armed resistance in Warsaw; CP010-S23 on French intelligence and sabotage; CP010-S24 on Bletchley Park codebreaking.",
       "relationshipType": "resistance-home-fronts",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F050",
@@ -660,105 +687,112 @@
         "CP010-S01",
         "CP010-S05"
       ],
-      "sourceLocator": "Resistance and home fronts",
+      "sourceLocator": "CP010-S05, sections on the Normandy landings and liberation of Paris; CP010-S02, “The Allies Advance” and liberation of Paris sections, June–August 1944.",
       "relationshipType": "resistance-home-fronts",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F051",
       "claim": "Germany signed an unconditional surrender at Reims on 7 May 1945. A further signing took place in Berlin the next day.",
       "sourceIds": [
-        "CP010-S06",
-        "CP010-S01"
+        "CP010-S01",
+        "CP010-S04",
+        "CP010-S25"
       ],
-      "sourceLocator": "Surrender and end of war",
+      "sourceLocator": "CP010-S25, introduction and document description: unconditional German surrender signed at Reims on May 7, 1945; CP010-S04, May 7–8 entry specifying the second surrender document signed in Berlin on May 8.",
       "relationshipType": "surrender-end-of-war",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F052",
       "claim": "Germany's surrender took effect on 8 May 1945 in western Europe. The Soviet Union marked the end of the European war on 9 May because of the timing of the Berlin signing.",
       "sourceIds": [
         "CP010-S01",
-        "CP010-S06"
+        "CP010-S04",
+        "CP010-S25"
       ],
-      "sourceLocator": "Surrender and end of war",
+      "sourceLocator": "CP010-S01, “German Surrender” entry: surrender effective May 8 and Soviet observance on May 9 because of the time difference; CP010-S04, May 7–8, 1945 entry; CP010-S25, Reims instrument.",
       "relationshipType": "surrender-end-of-war",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F053",
       "claim": "Germany signed at Reims on 7 May and a further instrument in Berlin on 8 May 1945. Different surrender ceremonies reflected the Allied coalition and the Eastern Front.",
       "sourceIds": [
         "CP010-S01",
-        "CP010-S06"
+        "CP010-S04",
+        "CP010-S25"
       ],
-      "sourceLocator": "Surrender and end of war",
+      "sourceLocator": "CP010-S25, Reims surrender instrument dated May 7; CP010-S01 and CP010-S04, German surrender timeline distinguishing Reims, Berlin and the different observance dates.",
       "relationshipType": "surrender-end-of-war",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F054",
       "claim": "The United States dropped an atomic bomb on Hiroshima on 6 August 1945. Nagasaki was bombed three days later.",
       "sourceIds": [
-        "CP010-S06"
+        "CP010-S03"
       ],
-      "sourceLocator": "Surrender and end of war",
+      "sourceLocator": "CP010-S03, Pacific theater chronology entries for Hiroshima on August 6 and Nagasaki on August 9, 1945.",
       "relationshipType": "surrender-end-of-war",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F055",
       "claim": "The second atomic bomb was dropped on Nagasaki on 9 August 1945. Japan announced its acceptance of surrender terms later that month.",
       "sourceIds": [
+        "CP010-S03",
         "CP010-S06"
       ],
-      "sourceLocator": "Surrender and end of war",
+      "sourceLocator": "CP010-S03, Pacific chronology entry for the Nagasaki bombing on August 9 and Japan’s August 14 surrender acceptance; CP010-S06, opening context distinguishing acceptance from the formal signing.",
       "relationshipType": "surrender-end-of-war",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F056",
       "claim": "Japan formally signed the surrender instrument on 2 September 1945 aboard the USS Missouri. The announcement of acceptance had been made in August.",
       "sourceIds": [
-        "CP010-S06",
-        "CP010-S03"
+        "CP010-S06"
       ],
-      "sourceLocator": "Surrender and end of war",
+      "sourceLocator": "CP010-S06, surrender document heading and introductory paragraph: Japan’s formal surrender aboard USS Missouri on September 2, 1945.",
       "relationshipType": "surrender-end-of-war",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F057",
       "claim": "Germany surrendered in May 1945, the atomic bombs were dropped in August, and Japan signed the surrender in September. The sequence distinguishes the end of the European war from the formal end of the global conflict.",
       "sourceIds": [
         "CP010-S01",
-        "CP010-S06"
+        "CP010-S03",
+        "CP010-S06",
+        "CP010-S25"
       ],
-      "sourceLocator": "Consequences and synthesis",
+      "sourceLocator": "CP010-S01, Germany’s May surrender chronology; CP010-S03, August atomic bombings; CP010-S06, September 2 Japanese surrender instrument; CP010-S25, Reims surrender document.",
       "relationshipType": "consequences-synthesis",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F058",
       "claim": "War and persecution displaced millions of people across Europe. Many survivors could not or did not return to their former homes after the conflict.",
       "sourceIds": [
         "CP010-S01",
-        "CP010-S10"
+        "CP010-S26",
+        "CP010-S28"
       ],
-      "sourceLocator": "Consequences and synthesis",
+      "sourceLocator": "CP010-S28, section on the end of the war in Europe, reporting more than two million displaced Europeans and DP camps for survivors and other displaced people; CP010-S26, paragraphs on survivors unable or unwilling to return and displaced-persons camps.",
       "relationshipType": "consequences-synthesis",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F059",
       "claim": "After Germany's defeat, Allied powers occupied and administered the country. The longer-term division and post-war institutions are covered in CP011.",
       "sourceIds": [
-        "CP010-S06"
+        "CP010-S06",
+        "CP010-S27"
       ],
-      "sourceLocator": "Consequences and synthesis",
+      "sourceLocator": "CP010-S27, section “Allied Occupation of Germany and Austria,” opening paragraphs on the four occupation zones after Germany’s surrender; CP010-S06, surrender chronology.",
       "relationshipType": "consequences-synthesis",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F060",
@@ -768,9 +802,9 @@
         "CP010-S02",
         "CP010-S03"
       ],
-      "sourceLocator": "Consequences and synthesis",
+      "sourceLocator": "CP010-S02, sections on the war in Europe and the June 1940 French armistice; CP010-S03, Pacific and global war chronology, showing the conflict continued across multiple theatres after France’s armistice.",
       "relationshipType": "consequences-synthesis",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     }
   ]
 }

@@ -656,9 +656,9 @@
       "sourceIds": [
         "CP009-S07"
       ],
-      "sourceLocator": "Diplomacy and appeasement",
+      "sourceLocator": "CP009-S07, section “The Remilitarization of the Rhineland,” paragraph dated March 7, 1936, on German troops entering the demilitarized zone.",
       "relationshipType": "diplomacy-and-appeasement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F050",
@@ -666,9 +666,9 @@
       "sourceIds": [
         "CP009-S07"
       ],
-      "sourceLocator": "Diplomacy and appeasement",
+      "sourceLocator": "CP009-S07, section “The Anschluss,” paragraphs on German troops entering Austria on March 12 and annexation on March 13, 1938.",
       "relationshipType": "diplomacy-and-appeasement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F051",
@@ -677,9 +677,9 @@
         "CP009-S07",
         "CP009-S08"
       ],
-      "sourceLocator": "Diplomacy and appeasement",
+      "sourceLocator": "CP009-S07, section “The Sudetenland and the Munich Agreement,” paragraphs on the September 29–30 agreement and Germany’s annexation of the Sudetenland; CP009-S08, “Munich Agreement” section.",
       "relationshipType": "diplomacy-and-appeasement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F052",
@@ -688,9 +688,9 @@
         "CP009-S07",
         "CP009-S08"
       ],
-      "sourceLocator": "Diplomacy and appeasement",
+      "sourceLocator": "CP009-S08, “Munich Agreement” and Chamberlain’s September 30, 1938 statement, on concessions made in the hope of preserving peace; CP009-S07, section on German expansion into Czech lands in March 1939.",
       "relationshipType": "diplomacy-and-appeasement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F053",
@@ -698,9 +698,9 @@
       "sourceIds": [
         "CP009-S07"
       ],
-      "sourceLocator": "Diplomacy and appeasement",
+      "sourceLocator": "CP009-S07, section “The End of the Munich Agreement,” paragraphs on Germany’s occupation of the Czech lands in March 1939.",
       "relationshipType": "diplomacy-and-appeasement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F054",
@@ -709,9 +709,9 @@
         "CP009-S07",
         "CP009-S08"
       ],
-      "sourceLocator": "Diplomacy and appeasement",
+      "sourceLocator": "CP009-S07, sections “The Remilitarization of the Rhineland,” “The Anschluss,” “The Sudetenland and the Munich Agreement,” and “The End of the Munich Agreement,” for the 1936–1939 sequence; CP009-S08, Munich section.",
       "relationshipType": "diplomacy-and-appeasement",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article/document locator; editorial review pending"
     },
     {
       "factId": "WHI-CP009-F055",
@@ -719,7 +719,7 @@
       "sourceIds": [
         "CP009-S14"
       ],
-      "sourceLocator": "Opening paragraph stating that the pact was signed by Nazi Germany and the Soviet Union on August 23, 1939; also the first paragraph under the article heading.",
+      "sourceLocator": "CP009-S14, opening paragraph under the article heading identifying the August 23, 1939 non-aggression pact signed by Nazi Germany and the Soviet Union.",
       "relationshipType": "interwar-chronology-and-synthesis",
       "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
@@ -729,7 +729,7 @@
       "sourceIds": [
         "CP009-S14"
       ],
-      "sourceLocator": "Paragraph describing the secret protocol and the agreed German and Soviet spheres of influence in eastern Europe, including the division of Poland.",
+      "sourceLocator": "CP009-S14, section on the secret protocol and paragraphs identifying German and Soviet spheres of influence in Eastern Europe, including Poland.",
       "relationshipType": "interwar-chronology-and-synthesis",
       "reviewStatus": "source-linked with focused section locator; editorial review pending"
     },
@@ -750,7 +750,7 @@
       "sourceIds": [
         "CP009-S16"
       ],
-      "sourceLocator": "U.S. Department of State, FRUS 1939, General, Volume I, footnote 3 to document 749; sentence on the permanent agreement signed at London on August 25, 1939.",
+      "sourceLocator": "CP009-S16, footnote 3 to document 749, sentence on the permanent agreement signed in London on August 25, 1939.",
       "relationshipType": "interwar-chronology-and-synthesis",
       "reviewStatus": "source-linked with paragraph locator; editorial review pending"
     },
@@ -760,7 +760,7 @@
       "sourceIds": [
         "CP009-S16"
       ],
-      "sourceLocator": "U.S. Department of State, FRUS 1939, General, Volume I, footnote 3 to document 749; sentences on the March 31 statement, April 6 communiqué, and August 25 agreement.",
+      "sourceLocator": "CP009-S16, footnote 3 to document 749, sentences on the March 31 assurance, April 6 reciprocal communiqué and August 25 permanent mutual assistance agreement.",
       "relationshipType": "interwar-chronology-and-synthesis",
       "reviewStatus": "source-linked with paragraph locator; editorial review pending"
     },
@@ -775,7 +775,7 @@
         "CP009-S10",
         "CP009-S14"
       ],
-      "sourceLocator": "Interwar chronology and synthesis",
+      "sourceLocator": "CP009-S04, discussion of the Depression’s political effects; CP009-S05, paragraphs on Nazi political rise and consolidation; CP009-S07, sections on German territorial expansion; CP009-S10, “Lytton Report” section on League response; CP009-S14, secret protocol and invasion of Poland.",
       "relationshipType": "interwar-chronology-and-synthesis",
       "reviewStatus": "source-linked; editorial review pending"
     }

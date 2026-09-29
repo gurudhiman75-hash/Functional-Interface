@@ -60,3 +60,8 @@ Passage-level locators for Q025–Q030 point to the Great Depression’s global 
 ## Source-locator pass — Q037–Q048
 
 CP009 Q037–Q042 now point to the Reichstag Fire Decree, Enabling Act, Gleichschaltung and one-party rule sections; Q043–Q044 point to the Mukden/Lytton sections; Q045–Q046 to the Ethiopia invasion and League Article 16 response; and Q047–Q048 to focused Spanish Civil War and collective-security evidence.
+
+
+## Source-locator pass — Q049–Q060
+
+CP009 Q049–Q054 now point to the USHMM Rhineland, Anschluss, Munich and Czech lands sections, with the UK Parliament record supporting the Munich policy and rationale. Q055–Q059 already have focused locators for the German-Soviet Pact, invasion of Poland and British-Polish assurances. Q060 cites the specific articles and chronology sections behind the combined interwar-cause synthesis. All 60 canonical facts now have focused locators.
