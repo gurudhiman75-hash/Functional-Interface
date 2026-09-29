@@ -1,3 +1,4 @@
+import{ENG011_BREADTH_WAVE2_V1}from"./eng-011-breadth-wave2";
 import{ENG011_BREADTH_WAVE1_V1}from"./eng-011-breadth-wave1";
 export type Eng011CpId="ENG-011-CP001"|"ENG-011-CP002"|"ENG-011-CP003"|"ENG-011-CP004";
 export type Eng011Difficulty="easy"|"medium"|"hard";
@@ -25,5 +26,7 @@ s("SR-BM-S03","ENG-011-CP004","medium","data governance",["before sensitive data
 s("SR-BM-S04","ENG-011-CP004","hard","economic policy",["even if headline inflation falls","household budgets may remain under pressure","when essential goods","continue to cost more","than they did a year earlier"],[1,2,3,4,5],"The concessive clause comes first, followed by the main clause and the time/condition clause explaining continued pressure.")
 ,
 ...ENG011_BREADTH_WAVE1_V1
+,
+...ENG011_BREADTH_WAVE2_V1
 ];
 export const ENG011_CP_IDS_V1=["ENG-011-CP001","ENG-011-CP002","ENG-011-CP003","ENG-011-CP004","ENG-011-CP005"] as const;
