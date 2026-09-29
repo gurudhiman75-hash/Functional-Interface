@@ -16,7 +16,7 @@ const CONTEXTS=[
   {title:"Applications and approvals across five branches",cats:["Branch A","Branch B","Branch C","Branch D","Branch E"]},
   {title:"Applications and approvals across five regions",cats:["North","South","East","West","Central"]},
   {title:"Applications and approvals across five centres",cats:["Centre A","Centre B","Centre C","Centre D","Centre E"]},
-  {title:"Loan applications and sanctions across five zones",cats:["Zone A","Zone B","Zone C","Zone D","Zone E"]},
+  {title:"Loan applications and approvals across five zones",cats:["Zone A","Zone B","Zone C","Zone D","Zone E"]},
   {title:"Applications and approvals across five departments",cats:["Department A","Department B","Department C","Department D","Department E"]},
   {title:"Applications and approvals across five courses",cats:["Course A","Course B","Course C","Course D","Course E"]},
   {title:"Applications and approvals across five service units",cats:["Unit A","Unit B","Unit C","Unit D","Unit E"]},
