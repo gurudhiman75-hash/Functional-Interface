@@ -1,0 +1,768 @@
+{
+  "schemaVersion": "1.0",
+  "chapterId": "WHI-001",
+  "checkpointId": "WHI-001-CP014",
+  "status": "full-source-backed-review-pool",
+  "sourceRegister": [
+    {
+      "sourceId": "CP014-S01",
+      "title": "U.S. Department of State, Office of the Historian — The Truman Doctrine, 1947",
+      "url": "https://history.state.gov/milestones/1945-1952/truman-doctrine"
+    },
+    {
+      "sourceId": "CP014-S02",
+      "title": "U.S. Department of State, Office of the Historian — Marshall Plan, 1948",
+      "url": "https://history.state.gov/milestones/1945-1952/marshall-plan"
+    },
+    {
+      "sourceId": "CP014-S03",
+      "title": "U.S. Department of State, Office of the Historian — North Atlantic Treaty Organization, 1949",
+      "url": "https://history.state.gov/milestones/1945-1952/nato"
+    },
+    {
+      "sourceId": "CP014-S04",
+      "title": "U.S. Department of State, Office of the Historian — The Berlin Airlift, 1948–1949",
+      "url": "https://history.state.gov/milestones/1945-1952/berlin-airlift"
+    },
+    {
+      "sourceId": "CP014-S05",
+      "title": "U.S. Department of State, Office of the Historian — The Warsaw Treaty Organization, 1955",
+      "url": "https://history.state.gov/milestones/1953-1960/warsaw-treaty"
+    },
+    {
+      "sourceId": "CP014-S06",
+      "title": "U.S. Department of State, Office of the Historian — The Korean War and Japan’s Recovery",
+      "url": "https://history.state.gov/milestones/1945-1952/korean-war"
+    },
+    {
+      "sourceId": "CP014-S07",
+      "title": "U.S. Department of State, Office of the Historian — The Chinese Revolution of 1949",
+      "url": "https://history.state.gov/milestones/1945-1952/chinese-rev"
+    },
+    {
+      "sourceId": "CP014-S08",
+      "title": "U.S. Department of State, Office of the Historian — The Cuban Missile Crisis, 1962",
+      "url": "https://history.state.gov/milestones/1961-1968/cuban-missile-crisis"
+    },
+    {
+      "sourceId": "CP014-S09",
+      "title": "U.S. Department of State, Office of the Historian — Gulf of Tonkin and escalation in Vietnam, 1964",
+      "url": "https://history.state.gov/milestones/1961-1968/gulf-of-tonkin"
+    },
+    {
+      "sourceId": "CP014-S10",
+      "title": "U.S. Department of State, Office of the Historian — Tet Offensive, 1968",
+      "url": "https://history.state.gov/milestones/1961-1968/tet"
+    },
+    {
+      "sourceId": "CP014-S11",
+      "title": "U.S. Department of State, Office of the Historian — Nuclear Non-Proliferation Treaty, 1968",
+      "url": "https://history.state.gov/milestones/1961-1968/npt"
+    },
+    {
+      "sourceId": "CP014-S12",
+      "title": "U.S. Department of State, Office of the Historian — Strategic Arms Limitation Talks, 1969–1979",
+      "url": "https://history.state.gov/milestones/1969-1976/salt"
+    },
+    {
+      "sourceId": "CP014-S13",
+      "title": "U.S. Department of State, Office of the Historian — Détente and the Helsinki Final Act",
+      "url": "https://history.state.gov/milestones/1969-1976/detente"
+    },
+    {
+      "sourceId": "CP014-S14",
+      "title": "U.S. Department of State, Office of the Historian — Soviet invasion of Afghanistan, 1979",
+      "url": "https://history.state.gov/milestones/1977-1980/soviet-invasion-afghanistan"
+    },
+    {
+      "sourceId": "CP014-S15",
+      "title": "Government of Uganda — Non-Aligned Movement history",
+      "url": "https://nam.go.ug/history"
+    },
+    {
+      "sourceId": "CP014-S16",
+      "title": "U.S. Department of State, Office of the Historian — Bandung Conference, 1955",
+      "url": "https://history.state.gov/milestones/1953-1960/bandung-conf"
+    }
+  ],
+  "facts": [
+    {
+      "factId": "WHI-CP014-F001",
+      "claim": "Truman asked Congress to support Greece and Turkey and framed a broader U.S. policy of assistance.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S02"
+      ],
+      "sourceLocator": "Origins and competing policies",
+      "relationshipType": "origins-and-competing-policies",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F002",
+      "claim": "The speech followed Britain’s decision to end assistance to Greece and Turkey.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S02"
+      ],
+      "sourceLocator": "Origins and competing policies",
+      "relationshipType": "origins-and-competing-policies",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F003",
+      "claim": "The European Recovery Program provided large-scale economic aid to rebuild Europe.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S02"
+      ],
+      "sourceLocator": "Origins and competing policies",
+      "relationshipType": "origins-and-competing-policies",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F004",
+      "claim": "Secretary of State George Marshall proposed the recovery program in 1947.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S02"
+      ],
+      "sourceLocator": "Origins and competing policies",
+      "relationshipType": "origins-and-competing-policies",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F005",
+      "claim": "The programs were related to containment but had different forms and immediate purposes.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S02"
+      ],
+      "sourceLocator": "Origins and competing policies",
+      "relationshipType": "origins-and-competing-policies",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F006",
+      "claim": "The rivalry grew from competing political and security aims without a direct declared war between the superpowers.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S02"
+      ],
+      "sourceLocator": "Origins and competing policies",
+      "relationshipType": "origins-and-competing-policies",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F007",
+      "claim": "Soviet forces blocked land and water access to Allied-controlled sectors of Berlin.",
+      "sourceIds": [
+        "CP014-S03",
+        "CP014-S04",
+        "CP014-S05"
+      ],
+      "sourceLocator": "Berlin Blockade, airlift and alliances",
+      "relationshipType": "berlin-blockade-airlift-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F008",
+      "claim": "The airlift supplied food, fuel and other essentials to West Berlin.",
+      "sourceIds": [
+        "CP014-S03",
+        "CP014-S04",
+        "CP014-S05"
+      ],
+      "sourceLocator": "Berlin Blockade, airlift and alliances",
+      "relationshipType": "berlin-blockade-airlift-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F009",
+      "claim": "The Soviet Union lifted the blockade in May 1949 after the sustained airlift.",
+      "sourceIds": [
+        "CP014-S03",
+        "CP014-S04",
+        "CP014-S05"
+      ],
+      "sourceLocator": "Berlin Blockade, airlift and alliances",
+      "relationshipType": "berlin-blockade-airlift-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F010",
+      "claim": "NATO’s founding treaty committed members to collective defence under Article 5.",
+      "sourceIds": [
+        "CP014-S03",
+        "CP014-S04",
+        "CP014-S05"
+      ],
+      "sourceLocator": "Berlin Blockade, airlift and alliances",
+      "relationshipType": "berlin-blockade-airlift-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F011",
+      "claim": "The Warsaw Pact formalized a Soviet-led alliance after West Germany joined NATO.",
+      "sourceIds": [
+        "CP014-S03",
+        "CP014-S04",
+        "CP014-S05"
+      ],
+      "sourceLocator": "Berlin Blockade, airlift and alliances",
+      "relationshipType": "berlin-blockade-airlift-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F012",
+      "claim": "They formed opposing military alliance systems during the Cold War.",
+      "sourceIds": [
+        "CP014-S03",
+        "CP014-S04",
+        "CP014-S05"
+      ],
+      "sourceLocator": "Berlin Blockade, airlift and alliances",
+      "relationshipType": "berlin-blockade-airlift-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F013",
+      "claim": "The invasion of South Korea by North Korean forces began the war.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S07"
+      ],
+      "sourceLocator": "Korean War and the Chinese Revolution",
+      "relationshipType": "korean-war-and-the-chinese-revolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F014",
+      "claim": "The Security Council adopted resolutions calling for assistance to South Korea.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S07"
+      ],
+      "sourceLocator": "Korean War and the Chinese Revolution",
+      "relationshipType": "korean-war-and-the-chinese-revolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F015",
+      "claim": "The armistice ended active fighting but did not create a formal peace treaty.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S07"
+      ],
+      "sourceLocator": "Korean War and the Chinese Revolution",
+      "relationshipType": "korean-war-and-the-chinese-revolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F016",
+      "claim": "The armistice established a demilitarized zone near the 38th parallel.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S07"
+      ],
+      "sourceLocator": "Korean War and the Chinese Revolution",
+      "relationshipType": "korean-war-and-the-chinese-revolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F017",
+      "claim": "Mao Zedong proclaimed the PRC on 1 October 1949 after Communist victory on the mainland.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S07"
+      ],
+      "sourceLocator": "Korean War and the Chinese Revolution",
+      "relationshipType": "korean-war-and-the-chinese-revolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F018",
+      "claim": "The Chinese Communist Party established the PRC on the mainland while the Nationalist government remained in Taiwan.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S07"
+      ],
+      "sourceLocator": "Korean War and the Chinese Revolution",
+      "relationshipType": "korean-war-and-the-chinese-revolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F019",
+      "claim": "Congress adopted the resolution after reported attacks on U.S. destroyers; Johnson used it to expand U.S. action.",
+      "sourceIds": [
+        "CP014-S09",
+        "CP014-S10"
+      ],
+      "sourceLocator": "Vietnam and Southeast Asian conflict",
+      "relationshipType": "vietnam-and-southeast-asian-conflict",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F020",
+      "claim": "North Vietnamese and Viet Cong forces attacked multiple targets during the Lunar New Year period.",
+      "sourceIds": [
+        "CP014-S09",
+        "CP014-S10"
+      ],
+      "sourceLocator": "Vietnam and Southeast Asian conflict",
+      "relationshipType": "vietnam-and-southeast-asian-conflict",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F021",
+      "claim": "Although the offensive was repelled militarily, it contributed to declining U.S. public support for the war.",
+      "sourceIds": [
+        "CP014-S09",
+        "CP014-S10"
+      ],
+      "sourceLocator": "Vietnam and Southeast Asian conflict",
+      "relationshipType": "vietnam-and-southeast-asian-conflict",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F022",
+      "claim": "The resolution in 1964 and U.S. bombing campaign in 1965 marked escalation.",
+      "sourceIds": [
+        "CP014-S09",
+        "CP014-S10"
+      ],
+      "sourceLocator": "Vietnam and Southeast Asian conflict",
+      "relationshipType": "vietnam-and-southeast-asian-conflict",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F023",
+      "claim": "The conflict had Vietnamese origins and became increasingly internationalized amid Cold War competition.",
+      "sourceIds": [
+        "CP014-S09",
+        "CP014-S10"
+      ],
+      "sourceLocator": "Vietnam and Southeast Asian conflict",
+      "relationshipType": "vietnam-and-southeast-asian-conflict",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F024",
+      "claim": "The Geneva settlement provisionally divided Vietnam and envisaged elections for reunification.",
+      "sourceIds": [
+        "CP014-S09",
+        "CP014-S10"
+      ],
+      "sourceLocator": "Vietnam and Southeast Asian conflict",
+      "relationshipType": "vietnam-and-southeast-asian-conflict",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F025",
+      "claim": "U.S. reconnaissance photographs revealed Soviet missile installations in Cuba.",
+      "sourceIds": [
+        "CP014-S08"
+      ],
+      "sourceLocator": "Cuban Missile Crisis",
+      "relationshipType": "cuban-missile-crisis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F026",
+      "claim": "Kennedy announced a naval quarantine to prevent additional Soviet offensive weapons from reaching Cuba.",
+      "sourceIds": [
+        "CP014-S08"
+      ],
+      "sourceLocator": "Cuban Missile Crisis",
+      "relationshipType": "cuban-missile-crisis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F027",
+      "claim": "The crisis lasted thirteen tense days in October 1962.",
+      "sourceIds": [
+        "CP014-S08"
+      ],
+      "sourceLocator": "Cuban Missile Crisis",
+      "relationshipType": "cuban-missile-crisis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F028",
+      "claim": "The Soviet Union installed missiles in Cuba, prompting the confrontation with the United States.",
+      "sourceIds": [
+        "CP014-S08"
+      ],
+      "sourceLocator": "Cuban Missile Crisis",
+      "relationshipType": "cuban-missile-crisis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F029",
+      "claim": "The public settlement included Soviet removal of missiles and a U.S. non-invasion pledge.",
+      "sourceIds": [
+        "CP014-S08"
+      ],
+      "sourceLocator": "Cuban Missile Crisis",
+      "relationshipType": "cuban-missile-crisis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F030",
+      "claim": "The crisis exposed the danger of direct superpower confrontation and led to efforts to improve communication.",
+      "sourceIds": [
+        "CP014-S08"
+      ],
+      "sourceLocator": "Cuban Missile Crisis",
+      "relationshipType": "cuban-missile-crisis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F031",
+      "claim": "Sputnik 1 became the first artificial satellite to orbit Earth in October 1957.",
+      "sourceIds": [
+        "CP014-S11",
+        "CP014-S12"
+      ],
+      "sourceLocator": "Nuclear weapons, space race and arms control",
+      "relationshipType": "nuclear-weapons-space-race-and-arms-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F032",
+      "claim": "Soviet cosmonaut Yuri Gagarin made the first human spaceflight in April 1961.",
+      "sourceIds": [
+        "CP014-S11",
+        "CP014-S12"
+      ],
+      "sourceLocator": "Nuclear weapons, space race and arms control",
+      "relationshipType": "nuclear-weapons-space-race-and-arms-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F033",
+      "claim": "The NPT sought to prevent proliferation while setting out obligations for nuclear and non-nuclear states.",
+      "sourceIds": [
+        "CP014-S11",
+        "CP014-S12"
+      ],
+      "sourceLocator": "Nuclear weapons, space race and arms control",
+      "relationshipType": "nuclear-weapons-space-race-and-arms-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F034",
+      "claim": "SALT I included the Interim Agreement on strategic offensive arms and the ABM Treaty.",
+      "sourceIds": [
+        "CP014-S11",
+        "CP014-S12"
+      ],
+      "sourceLocator": "Nuclear weapons, space race and arms control",
+      "relationshipType": "nuclear-weapons-space-race-and-arms-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F035",
+      "claim": "The invasion intensified tensions; Carter asked the Senate to halt consideration of SALT II ratification.",
+      "sourceIds": [
+        "CP014-S11",
+        "CP014-S12"
+      ],
+      "sourceLocator": "Nuclear weapons, space race and arms control",
+      "relationshipType": "nuclear-weapons-space-race-and-arms-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F036",
+      "claim": "Apollo 11 landed humans on the Moon in July 1969 during the space race.",
+      "sourceIds": [
+        "CP014-S11",
+        "CP014-S12"
+      ],
+      "sourceLocator": "Nuclear weapons, space race and arms control",
+      "relationshipType": "nuclear-weapons-space-race-and-arms-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F037",
+      "claim": "Détente describes a period when superpower tensions eased and negotiations expanded.",
+      "sourceIds": [
+        "CP014-S12",
+        "CP014-S13"
+      ],
+      "sourceLocator": "Détente and European security",
+      "relationshipType": "d-tente-and-european-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F038",
+      "claim": "The Conference on Security and Cooperation in Europe concluded with the Helsinki Final Act in 1975.",
+      "sourceIds": [
+        "CP014-S12",
+        "CP014-S13"
+      ],
+      "sourceLocator": "Détente and European security",
+      "relationshipType": "d-tente-and-european-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F039",
+      "claim": "The Act included commitments concerning human rights and fundamental freedoms.",
+      "sourceIds": [
+        "CP014-S12",
+        "CP014-S13"
+      ],
+      "sourceLocator": "Détente and European security",
+      "relationshipType": "d-tente-and-european-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F040",
+      "claim": "SALT I and the ABM Treaty were signed by the United States and Soviet Union in 1972.",
+      "sourceIds": [
+        "CP014-S12",
+        "CP014-S13"
+      ],
+      "sourceLocator": "Détente and European security",
+      "relationshipType": "d-tente-and-european-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F041",
+      "claim": "Competition continued during détente, including in regional conflicts and military spending.",
+      "sourceIds": [
+        "CP014-S12",
+        "CP014-S13"
+      ],
+      "sourceLocator": "Détente and European security",
+      "relationshipType": "d-tente-and-european-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F042",
+      "claim": "The invasion of Afghanistan renewed U.S.–Soviet tensions and stalled SALT II ratification.",
+      "sourceIds": [
+        "CP014-S12",
+        "CP014-S13"
+      ],
+      "sourceLocator": "Détente and European security",
+      "relationshipType": "d-tente-and-european-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F043",
+      "claim": "The rival powers competed through alliances and support for opposing forces in regional wars.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Proxy conflicts and Cold War interventions",
+      "relationshipType": "proxy-conflicts-and-cold-war-interventions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F044",
+      "claim": "The Soviet Union sent troops into Afghanistan in late December 1979.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Proxy conflicts and Cold War interventions",
+      "relationshipType": "proxy-conflicts-and-cold-war-interventions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F045",
+      "claim": "The Korean War involved opposing Korean governments and major outside intervention.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Proxy conflicts and Cold War interventions",
+      "relationshipType": "proxy-conflicts-and-cold-war-interventions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F046",
+      "claim": "The reported Gulf of Tonkin incidents led Johnson to seek congressional authorization.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Proxy conflicts and Cold War interventions",
+      "relationshipType": "proxy-conflicts-and-cold-war-interventions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F047",
+      "claim": "The invasion was widely condemned and contributed to renewed superpower confrontation.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Proxy conflicts and Cold War interventions",
+      "relationshipType": "proxy-conflicts-and-cold-war-interventions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F048",
+      "claim": "Korea, Cuba and Afghanistan each became major sites of Cold War confrontation.",
+      "sourceIds": [
+        "CP014-S06",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Proxy conflicts and Cold War interventions",
+      "relationshipType": "proxy-conflicts-and-cold-war-interventions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F049",
+      "claim": "The first Non-Aligned Summit met in Belgrade in September 1961.",
+      "sourceIds": [
+        "CP014-S15",
+        "CP014-S16"
+      ],
+      "sourceLocator": "Non-Aligned Movement and Bandung",
+      "relationshipType": "non-aligned-movement-and-bandung",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F050",
+      "claim": "Bandung expressed Afro-Asian solidarity and principles of peaceful coexistence.",
+      "sourceIds": [
+        "CP014-S15",
+        "CP014-S16"
+      ],
+      "sourceLocator": "Non-Aligned Movement and Bandung",
+      "relationshipType": "non-aligned-movement-and-bandung",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F051",
+      "claim": "Nehru, Tito and Nasser were among the leaders who advanced non-aligned cooperation.",
+      "sourceIds": [
+        "CP014-S15",
+        "CP014-S16"
+      ],
+      "sourceLocator": "Non-Aligned Movement and Bandung",
+      "relationshipType": "non-aligned-movement-and-bandung",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F052",
+      "claim": "Non-alignment was not isolation; it aimed to retain autonomy amid bloc rivalry.",
+      "sourceIds": [
+        "CP014-S15",
+        "CP014-S16"
+      ],
+      "sourceLocator": "Non-Aligned Movement and Bandung",
+      "relationshipType": "non-aligned-movement-and-bandung",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F053",
+      "claim": "The Asian-African Conference took place in Bandung, Indonesia.",
+      "sourceIds": [
+        "CP014-S15",
+        "CP014-S16"
+      ],
+      "sourceLocator": "Non-Aligned Movement and Bandung",
+      "relationshipType": "non-aligned-movement-and-bandung",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F054",
+      "claim": "The movement sought strategic autonomy; member positions could vary by issue.",
+      "sourceIds": [
+        "CP014-S15",
+        "CP014-S16"
+      ],
+      "sourceLocator": "Non-Aligned Movement and Bandung",
+      "relationshipType": "non-aligned-movement-and-bandung",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F055",
+      "claim": "The events occurred in 1947, 1948–49, 1962 and 1975 respectively.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S04",
+        "CP014-S08",
+        "CP014-S13",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Cold War chronology and distinctions",
+      "relationshipType": "cold-war-chronology-and-distinctions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F056",
+      "claim": "NATO was established in 1949; the Warsaw Pact followed in 1955.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S04",
+        "CP014-S08",
+        "CP014-S13",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Cold War chronology and distinctions",
+      "relationshipType": "cold-war-chronology-and-distinctions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F057",
+      "claim": "The Belgrade summit took place in 1961, eight years after the armistice.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S04",
+        "CP014-S08",
+        "CP014-S13",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Cold War chronology and distinctions",
+      "relationshipType": "cold-war-chronology-and-distinctions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F058",
+      "claim": "An armistice suspends fighting; the 1953 agreement did not conclude a formal peace treaty.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S04",
+        "CP014-S08",
+        "CP014-S13",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Cold War chronology and distinctions",
+      "relationshipType": "cold-war-chronology-and-distinctions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F059",
+      "claim": "The Cuban crisis brought the superpowers close to nuclear war; Afghanistan renewed strategic tension.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S04",
+        "CP014-S08",
+        "CP014-S13",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Cold War chronology and distinctions",
+      "relationshipType": "cold-war-chronology-and-distinctions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP014-F060",
+      "claim": "The Cold War extended across political, military, technological and regional arenas.",
+      "sourceIds": [
+        "CP014-S01",
+        "CP014-S04",
+        "CP014-S08",
+        "CP014-S13",
+        "CP014-S14"
+      ],
+      "sourceLocator": "Cold War chronology and distinctions",
+      "relationshipType": "cold-war-chronology-and-distinctions",
+      "reviewStatus": "source-linked; editorial review pending"
+    }
+  ]
+}
