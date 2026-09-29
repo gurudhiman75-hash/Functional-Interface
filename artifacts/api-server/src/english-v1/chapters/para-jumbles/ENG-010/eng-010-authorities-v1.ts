@@ -1,3 +1,4 @@
+import{ENG010_BREADTH_WAVE2_V1}from"./eng-010-breadth-wave2";
 import{ENG010_BREADTH_WAVE1_V1}from"./eng-010-breadth-wave1";
 export type Eng010CpId="ENG-010-CP001"|"ENG-010-CP002"|"ENG-010-CP003"|"ENG-010-CP004";
 export type Eng010Difficulty="easy"|"medium"|"hard";
@@ -129,5 +130,7 @@ s("PJ-BM-S04","ENG-010-CP004","hard","data governance",[
 ],[2,4,1,3,5,6],"Sentence 2 introduces the value of data, 4 adds the governance condition, 1 presents the risk, 3 gives the principle, 5 adds auditability, and 6 concludes.")
 ,
 ...ENG010_BREADTH_WAVE1_V1
+,
+...ENG010_BREADTH_WAVE2_V1
 ];
 export const ENG010_CP_IDS_V1=["ENG-010-CP001","ENG-010-CP002","ENG-010-CP003","ENG-010-CP004","ENG-010-CP005"] as const;
