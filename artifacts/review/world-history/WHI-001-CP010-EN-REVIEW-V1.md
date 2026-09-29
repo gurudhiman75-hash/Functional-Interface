@@ -192,7 +192,7 @@ Which city did Soviet forces capture in May 1945 as the European war approached 
 **Explanation:** Soviet forces captured Berlin in the final phase of the European war. Germany's surrender followed in May 1945.
 **Sources:** CP010-S01, CP010-S02
 
-### WHI-CP010-Q017 · Easy · European theatre
+### WHI-CP010-Q017 · Easy · Pacific theatre
 
 What event brought the United States directly into the Second World War?
 
@@ -238,7 +238,7 @@ Which strategy involved capturing selected islands to move Allied forces closer 
 - **D.** Island hopping
 **Answer:** D
 **Explanation:** Allied forces captured selected islands and bypassed others to build forward bases. This strategy brought them closer to Japan while limiting some costly assaults.
-**Sources:** CP010-S03
+**Sources:** CP010-S03, CP010-S16
 
 ### WHI-CP010-Q021 · Medium · Pacific theatre
 
@@ -261,8 +261,8 @@ Which U.S. naval victory in the Coral Sea in May 1942 helped prevent a Japanese 
 - **C.** The Battle of Midway
 - **D.** The Battle of Okinawa
 **Answer:** B
-**Explanation:** The Battle of the Coral Sea checked the Japanese operation against Port Moresby. It was a carrier battle in which opposing fleets did not directly sight one another.
-**Sources:** CP010-S03
+**Explanation:** The Battle of the Coral Sea checked the Japanese operation against Port Moresby.
+**Sources:** CP010-S17
 
 ### WHI-CP010-Q023 · Easy · Pacific theatre
 

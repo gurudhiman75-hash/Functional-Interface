@@ -39,3 +39,8 @@
 | CP009-S14 | [U.S. Holocaust Memorial Museum — German-Soviet Pact](https://encyclopedia.ushmm.org/content/en/article/german-soviet-pact) | Pact, secret protocol and the path to the invasion of Poland. |
 | CP009-S15 | [U.S. Holocaust Memorial Museum — Invasion of Poland, Fall 1939](https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939) | Invasion date and outbreak of the Second World War in Europe. |
 | CP009-S16 | [U.S. Department of State, Office of the Historian — Foreign Relations of the United States, 1939, General, Volume I, Document 236](https://history.state.gov/historicaldocuments/frus1939v01/d236) | British assurance to Poland, the reciprocal April communiqué, and the August Anglo-Polish mutual assistance agreement. |
+
+
+## Focused source additions
+
+- **CP009-S17** U.S. Department of State, Office of the Historian — [The Dawes Plan, the Young Plan, German Reparations, and Inter-allied War Debts](https://history.state.gov/milestones/1921-1936/dawes). Supports the 1924 plan’s reparations restructuring, currency measures, and foreign lending.

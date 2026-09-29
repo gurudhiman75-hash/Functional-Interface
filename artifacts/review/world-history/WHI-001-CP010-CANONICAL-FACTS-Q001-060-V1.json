@@ -78,6 +78,18 @@
       "sourceId": "CP010-S15",
       "title": "Royal Air Force Museum — Operation Sealion",
       "url": "https://www.rafmuseum.org.uk/research/online-exhibitions/history-of-the-battle-of-britain/operation-sealion/"
+    },
+    {
+      "sourceId": "CP010-S16",
+      "title": "U.S. Naval History and Heritage Command — Securing New Guinea: Operations Reckless and Persecution",
+      "url": "https://www.history.navy.mil/browse-by-topic/wars-conflicts-and-operations/world-war-ii/1944/reckless-and-persecution.html",
+      "use": "Island-hopping strategy: bypassing and isolating fortified Japanese bases."
+    },
+    {
+      "sourceId": "CP010-S17",
+      "title": "U.S. Naval History and Heritage Command — Battle of the Coral Sea",
+      "url": "https://www.history.navy.mil/research/library/online-reading-room/title-list-alphabetically/b/battle-of-the-coral-sea.html",
+      "use": "May 1942 carrier battle and the Japanese operation against Port Moresby."
     }
   ],
   "facts": [
@@ -212,9 +224,9 @@
         "CP010-S02",
         "CP010-S01"
       ],
-      "sourceLocator": "European theatre",
+      "sourceLocator": "CP010-S02, “World War II in Europe,” paragraph on the Eastern Front and the decisive turning point at Stalingrad; CP010-S01, timeline entry ending 2 February 1943 on the German Sixth Army’s surrender.",
       "relationshipType": "european-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F014",
@@ -223,9 +235,9 @@
         "CP010-S05",
         "CP010-S02"
       ],
-      "sourceLocator": "European theatre",
+      "sourceLocator": "CP010-S05, D-Day/Operation Overlord account of the Normandy landings; CP010-S02, “World War II in Europe,” paragraph beginning “In the west, Allied soldiers landed on June 6, 1944,” including the western-front advance.",
       "relationshipType": "european-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F015",
@@ -233,9 +245,9 @@
       "sourceIds": [
         "CP010-S02"
       ],
-      "sourceLocator": "European theatre",
+      "sourceLocator": "CP010-S02, “World War II in Europe,” paragraph describing the unsuccessful German counterattack in Belgium and northern France; CP010-S01, timeline entry for 16 December 1944, the final German offensive in the west.",
       "relationshipType": "european-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F016",
@@ -244,9 +256,9 @@
         "CP010-S01",
         "CP010-S02"
       ],
-      "sourceLocator": "European theatre",
+      "sourceLocator": "CP010-S02, “World War II in Europe,” paragraph stating Soviet forces entered Berlin in April 1945; CP010-S01, April 1945 timeline entries for the Soviet offensive and capture of Berlin.",
       "relationshipType": "european-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F017",
@@ -255,9 +267,9 @@
         "CP010-S03",
         "CP010-S01"
       ],
-      "sourceLocator": "European theatre",
-      "relationshipType": "european-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "sourceLocator": "CP010-S03, section “Imperial Japan Attacks Pearl Harbor and the United States Enters World War II,” paragraphs on the 7 December attack and 8 December U.S. declaration of war; timeline entries for 7–8 December 1941.",
+      "relationshipType": "pacific-theatre",
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F018",
@@ -265,9 +277,9 @@
       "sourceIds": [
         "CP010-S03"
       ],
-      "sourceLocator": "Pacific theatre",
+      "sourceLocator": "CP010-S03, section “The Battle of Midway: The Turning Point in the Pacific,” paragraphs on 4–7 June 1942, Japanese losses, and the changed course of the Pacific war.",
       "relationshipType": "pacific-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F019",
@@ -275,19 +287,20 @@
       "sourceIds": [
         "CP010-S03"
       ],
-      "sourceLocator": "Pacific theatre",
+      "sourceLocator": "CP010-S03, paragraph beginning “In August 1942, US forces attacked the Japanese in the Solomon Islands,” and timeline entries for the August 1942 landings and February 1943 Japanese withdrawal from Guadalcanal.",
       "relationshipType": "pacific-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F020",
       "claim": "Allied forces captured selected islands and bypassed others to build forward bases. This strategy brought them closer to Japan while limiting some costly assaults.",
       "sourceIds": [
-        "CP010-S03"
+        "CP010-S03",
+        "CP010-S16"
       ],
-      "sourceLocator": "Pacific theatre",
+      "sourceLocator": "CP010-S16, “Securing New Guinea: Operations Reckless and Persecution,” paragraph describing island-hopping as operating past fortified bases to bypass and isolate them.",
       "relationshipType": "pacific-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F021",
@@ -295,19 +308,19 @@
       "sourceIds": [
         "CP010-S03"
       ],
-      "sourceLocator": "Pacific theatre",
+      "sourceLocator": "CP010-S03, “Key Dates and Events During World War II in the Pacific Theater,” July 1937 entry on Japan’s invasion of China and the start of the Second Sino-Japanese War.",
       "relationshipType": "pacific-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F022",
-      "claim": "The Battle of the Coral Sea checked the Japanese operation against Port Moresby. It was a carrier battle in which opposing fleets did not directly sight one another.",
+      "claim": "The Battle of the Coral Sea checked the Japanese operation against Port Moresby.",
       "sourceIds": [
-        "CP010-S03"
+        "CP010-S17"
       ],
-      "sourceLocator": "Pacific theatre",
+      "sourceLocator": "CP010-S17, “Battle of the Coral Sea,” account of the May 1942 naval battle and the halted Japanese push toward Port Moresby.",
       "relationshipType": "pacific-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F023",
@@ -315,9 +328,9 @@
       "sourceIds": [
         "CP010-S03"
       ],
-      "sourceLocator": "Pacific theatre",
+      "sourceLocator": "CP010-S03, paragraph on the early-1945 U.S. invasions of Iwo Jima and Okinawa; “Key Dates and Events During World War II in the Pacific Theater,” early 1945 entry.",
       "relationshipType": "pacific-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F024",
@@ -326,9 +339,9 @@
         "CP010-S01",
         "CP010-S03"
       ],
-      "sourceLocator": "Pacific theatre",
+      "sourceLocator": "CP010-S03, Pacific-theater key-date entries for 7 December 1941 (Pearl Harbor), 4–7 June 1942 (Midway), and early 1945 (Iwo Jima); CP010-S01, corresponding timeline entries.",
       "relationshipType": "pacific-theatre",
-      "reviewStatus": "source-linked; editorial review pending"
+      "reviewStatus": "source-linked with focused section/article locator; editorial review pending"
     },
     {
       "factId": "WHI-CP010-F025",

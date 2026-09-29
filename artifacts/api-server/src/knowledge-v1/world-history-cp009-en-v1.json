@@ -441,11 +441,11 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "League limitations and response",
-    "stem": "What happened when Japan rejected the League’s criticism of its actions in Manchuria?",
+    "stem": "How did Japan’s delegation respond when the League ratified the Lytton Report in 1933?",
     "options": [
       {
         "key": "A",
-        "text": "Japan withdrew from the League in 1933"
+        "text": "It walked out and never returned to the League Council"
       },
       {
         "key": "B",
@@ -461,7 +461,7 @@
       }
     ],
     "correctOption": "A",
-    "explanation": "Japan announced its withdrawal from the League after the organisation criticised its actions in Manchuria.",
+    "explanation": "When the League ratified the Lytton Report in 1933, the Japanese delegation walked out and never returned to the League Council.",
     "sourceIds": [
       "CP009-S10"
     ],
@@ -747,7 +747,8 @@
     "correctOption": "A",
     "explanation": "The Dawes Plan of 1924 restructured reparations payments and helped stabilise the German economy, with reliance on U.S. loans.",
     "sourceIds": [
-      "CP009-S03"
+      "CP009-S03",
+      "CP009-S17"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
