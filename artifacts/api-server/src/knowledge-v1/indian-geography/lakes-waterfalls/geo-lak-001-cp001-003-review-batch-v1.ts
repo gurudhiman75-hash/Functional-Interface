@@ -60,7 +60,7 @@ buildQl("KOLLERU-LAKE","Kolleru Lake",[
 r("Kolleru Lake is located in which state?","Andhra Pradesh","Rajasthan","Jammu and Kashmir","Manipur","Kolleru is a freshwater lake in Andhra Pradesh.","LAK-KOL-1"),
 r("Kolleru lies between the deltas of which two rivers?","Krishna and Godavari","Ganga and Brahmaputra","Narmada and Tapi","Mahanadi and Brahmani","Kolleru lies in the lowland between the Krishna and Godavari deltas.","LAK-KOL-2"),
 r("What type of lake is Kolleru?","Freshwater lake","Desert salt lake","High-altitude glacial lake","Coastal coral lagoon","Kolleru is a shallow freshwater lake.","LAK-KOL-3"),
-r("Consider the statements: I. Kolleru is in Andhra Pradesh. II. It lies between Krishna and Godavari delta regions. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Both are correct.","LAK-KOL-4"),
+r("Consider the statements: I. Kolleru is in Andhra Pradesh. II. It lies between Krishna and Godavari delta regions. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Kolleru is an Andhra Pradesh freshwater lake in the lowland between the Krishna and Godavari deltas, so both location statements are correct.","LAK-KOL-4"),
 r("A freshwater lake lies between the Krishna and Godavari deltas. Which lake is it?","Kolleru","Sambhar","Wular","Dal","The delta-location clue identifies Kolleru.","LAK-KOL-5")
 ]),
 buildQl("LONAR-LAKE","Lonar Lake",[
@@ -74,7 +74,7 @@ buildQl("PANGONG-TSO","Pangong Tso",[
 r("Pangong Tso is located in which Union Territory of India?","Ladakh","Jammu and Kashmir","Delhi","Chandigarh","The Indian portion of Pangong Tso lies in Ladakh.","LAK-PAN-1"),
 r("Pangong Tso is a transboundary lake shared by India and which country?","China","Nepal","Bhutan","Myanmar","The lake extends eastward from Ladakh into the Tibetan region of China.","LAK-PAN-2"),
 r("Which broad setting describes Pangong Tso?","High-altitude endorheic lake","Coastal lagoon","Desert salt pan at sea level","River delta lake","Pangong lies in a high-altitude closed-drainage basin.","LAK-PAN-3"),
-r("Consider the statements: I. Pangong Tso is in Ladakh. II. It is transboundary. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Both statements are correct.","LAK-PAN-4"),
+r("Consider the statements: I. Pangong Tso is in Ladakh. II. It is transboundary. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","The lake's western portion lies in Ladakh and it extends eastward into China, making it a transboundary lake; both statements are correct.","LAK-PAN-4"),
 r("A high-altitude lake in Ladakh extends across the India-China boundary. Which lake is it?","Pangong Tso","Loktak","Chilika","Sambhar","The Ladakh transboundary clue identifies Pangong Tso.","LAK-PAN-5")
 ])
 ]);
@@ -86,28 +86,28 @@ buildQl("JOG-FALLS","Jog Falls",[
 r("Jog Falls is located in which state?","Karnataka","Odisha","Rajasthan","Jharkhand","Jog Falls is a major waterfall in Karnataka.","LAK-JOG-1"),
 r("Jog Falls is formed by which river?","Sharavathi","Narmada","Indravati","Subarnarekha","The Sharavathi plunges over the Western Ghats to form Jog Falls.","LAK-JOG-2"),
 r("Which mountain region is closely linked with Jog Falls?","Western Ghats","Aravalli","Shivalik","Eastern Himalaya","Jog lies in Karnataka's Western Ghats.","LAK-JOG-3"),
-r("Consider the statements: I. Jog Falls is in Karnataka. II. It is on the Sharavathi. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Both are correct.","LAK-JOG-4"),
+r("Consider the statements: I. Jog Falls is in Karnataka. II. It is on the Sharavathi. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Jog Falls lies in Karnataka's Western Ghats, where the Sharavathi River plunges over the escarpment. This confirms both statements.","LAK-JOG-4"),
 r("A major waterfall in Karnataka is formed by the Sharavathi. Which one is it?","Jog Falls","Dhuandhar","Hundru","Chitrakote","The Sharavathi clue identifies Jog Falls.","LAK-JOG-5")
 ]),
 buildQl("CHITRAKOTE-FALLS","Chitrakote Falls",[
 r("Chitrakote Falls is located in which state?","Chhattisgarh","Karnataka","Kerala","Gujarat","Chitrakote is a major waterfall in Bastar, Chhattisgarh.","LAK-CHI-1"),
 r("Chitrakote Falls is formed by which river?","Indravati","Sharavathi","Narmada","Kaveri","The Indravati forms Chitrakote Falls in Chhattisgarh.","LAK-CHI-2"),
 r("Which region is closely linked with Chitrakote Falls?","Bastar","Malwa","Konkan","Kashmir Valley","Chitrakote lies in the Bastar region.","LAK-CHI-3"),
-r("Consider the statements: I. Chitrakote is in Chhattisgarh. II. It is on the Indravati. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Both are correct.","LAK-CHI-4"),
+r("Consider the statements: I. Chitrakote is in Chhattisgarh. II. It is on the Indravati. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Chitrakote Falls is in the Bastar region of Chhattisgarh and is formed by the Indravati River, so both location and river statements are accurate.","LAK-CHI-4"),
 r("A broad waterfall in Bastar is formed by the Indravati. Which one is it?","Chitrakote Falls","Jog Falls","Dudhsagar Falls","Hundru Falls","The Bastar-Indravati clue identifies Chitrakote.","LAK-CHI-5")
 ]),
 buildQl("DHUANDHAR-FALLS","Dhuandhar Falls",[
 r("Dhuandhar Falls is located in which state?","Madhya Pradesh","Kerala","Odisha","Sikkim","Dhuandhar lies near Bhedaghat in Madhya Pradesh.","LAK-DHU-1"),
 r("Dhuandhar Falls is formed by which river?","Narmada","Godavari","Mahanadi","Teesta","The Narmada forms Dhuandhar near Bhedaghat.","LAK-DHU-2"),
 r("Which place is closely linked with Dhuandhar Falls?","Bhedaghat","Srinagar","Puri","Gangtok","Bhedaghat's marble gorge and Dhuandhar Falls are on the Narmada.","LAK-DHU-3"),
-r("Consider the statements: I. Dhuandhar is on the Narmada. II. It is in Madhya Pradesh. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Both statements are correct.","LAK-DHU-4"),
+r("Consider the statements: I. Dhuandhar is on the Narmada. II. It is in Madhya Pradesh. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Near Bhedaghat in Madhya Pradesh, the Narmada narrows through marble rock and forms Dhuandhar Falls. Both statements describe the site correctly.","LAK-DHU-4"),
 r("A waterfall on the Narmada near Bhedaghat is called what?","Dhuandhar Falls","Jog Falls","Athirappilly Falls","Dudhsagar Falls","The Narmada-Bhedaghat clue identifies Dhuandhar.","LAK-DHU-5")
 ]),
 buildQl("HUNDRU-FALLS","Hundru Falls",[
 r("Hundru Falls is located in which state?","Jharkhand","Rajasthan","Goa","Tamil Nadu","Hundru is one of Jharkhand's well-known waterfalls.","LAK-HUN-1"),
 r("Hundru Falls is formed by which river?","Subarnarekha","Kaveri","Sharavathi","Mandovi","Hundru Falls is on the Subarnarekha River.","LAK-HUN-2"),
 r("Which plateau region contains Hundru Falls?","Chota Nagpur Plateau","Deccan Plateau only","Shillong Plateau","Ladakh Plateau","The Subarnarekha descends across the Chota Nagpur Plateau.","LAK-HUN-3"),
-r("Consider the statements: I. Hundru is in Jharkhand. II. It is on the Subarnarekha. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Both are correct.","LAK-HUN-4"),
+r("Consider the statements: I. Hundru is in Jharkhand. II. It is on the Subarnarekha. Which is correct?","Both I and II are correct","Only I is correct","Only II is correct","Neither I nor II is correct","Hundru Falls is in Jharkhand, where the Subarnarekha descends across the Chota Nagpur Plateau. The state and river links are both correct.","LAK-HUN-4"),
 r("A waterfall in Jharkhand is formed by the Subarnarekha. Which one is it?","Hundru Falls","Dhuandhar Falls","Jog Falls","Chitrakote Falls","The river-state clue identifies Hundru.","LAK-HUN-5")
 ]),
 buildQl("KAVERI-WATERFALLS","Shivanasamudra and Hogenakkal",[
