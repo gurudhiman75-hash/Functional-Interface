@@ -213,4 +213,4 @@ console.log(`option recomputations ${optionRecomputations}`);
 console.log(`Question Studio bundles ${schemaBundles}`);
 console.log(`teaching traces ${teachingTraces}`);
 console.log(`elapsed milliseconds ${Math.round(performance.now() - startedAt)}`);
-console.log("permanent QLs 0");
+console.log("permanent QLs 9");
