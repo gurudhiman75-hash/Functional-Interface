@@ -11,7 +11,7 @@ const R:readonly Eng013BreadthRecordV4[]=[
 ["diversification","The fund seeks diversification {x} sectors and asset classes.",["across","to","with","on"],"Diversification across categories is natural usage."],
 ["concentration","The portfolio shows concentration {x} a small number of borrowers.",["in","to","with","on"],"Concentration in an area or group is standard."],
 ["liquidity","The bank relies {x} liquid assets to meet short-term outflows.",["on","to","with","for"],"Rely on means depend on something."],
-["fundingbase","The institution draws on a broad funding base {x} several wholesale markets.",["across","to","with","on"],"A funding base across markets describes diversified sources of funds."],
+["borrowings","The institution obtains borrowings {x} several wholesale markets.",["from","to","with","on"],"Borrowings from markets are funds raised from those sources."],
 ["tenor","The bank monitors mismatches {x} asset and liability tenors.",["between","to","with","on"],"Tenor describes the remaining term or life of a financial obligation or instrument."],
 ["duration","The bond's duration is sensitive {x} changes in interest rates.",["to","for","with","on"],"Sensitive to means responsive to changes."],
 ["convexity","Convexity is considered {x} duration when assessing bond-price sensitivity.",["alongside","to","with on","for"],"Alongside duration means considered together with it."],
