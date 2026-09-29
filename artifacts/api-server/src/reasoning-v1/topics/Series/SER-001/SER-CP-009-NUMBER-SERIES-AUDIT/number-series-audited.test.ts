@@ -51,6 +51,33 @@ assert.equal(
   solveVisibleAuditedNumberSeries("SER-QL-035", "Question\n1, 3, 10, 41, ?, 1237"),
   "206",
 );
+assert.equal(
+  solveVisibleAuditedNumberSeries("SER-QL-035", "Question\n1, 2, 6, 24, 120, ?"),
+  "720",
+  "factorial completion must remain covered under progressive multiplier",
+);
+assert.equal(
+  solveVisibleAuditedNumberSeries("SER-QL-040", "Question\n5040, 720, 120, 24, 4, 2"),
+  "4",
+  "factorial wrong-term diagnosis must remain covered under wrong-term number series",
+);
+
+for (const seed of [0, 5, 10, 15, 20]) {
+  const item = generateSerCp009AuditedNumberSeries("SER-QL-035", seed, "en-IN");
+  assert.equal(item.structuralFeatures.factorialSubtype, true, `SER-QL-035:${seed}: factorial subtype missing`);
+  assert.equal(
+    solveVisibleAuditedNumberSeries("SER-QL-035", item.stem, item.options.map((option) => option.value)),
+    item.correctAnswer,
+  );
+}
+for (const seed of [0, 4, 8, 12, 16]) {
+  const item = generateSerCp009AuditedNumberSeries("SER-QL-040", seed, "en-IN");
+  assert.equal(item.structuralFeatures.factorialSubtype, true, `SER-QL-040:${seed}: factorial wrong-term subtype missing`);
+  assert.equal(
+    solveVisibleAuditedNumberSeries("SER-QL-040", item.stem, item.options.map((option) => option.value)),
+    item.correctAnswer,
+  );
+}
 
 const locales: readonly SerCp009Locale[] = ["en-IN", "hi-IN", "pa-IN"];
 const seedsPerQl = 120;
