@@ -35,7 +35,7 @@ assert.deepEqual(WFM_001_QL_IDS, [
 ]);
 assert.equal(WFM_SELECTED_LETTER_FIXTURES.length >= 12, true);
 assert.equal(WFM_REARRANGEMENT_FIXTURES.length >= 15, true);
-assert.equal(WFM_BANKING_ORDERED_EXTRACTION_FIXTURES.length >= 6, true);
+assert.equal(WFM_BANKING_ORDERED_EXTRACTION_FIXTURES.length >= 12, true);
 
 for (const difficulty of DIFFICULTIES) {
   assert(WFM_SELECTED_LETTER_FIXTURES.some((fixture) => selectedFixtureDifficulty(fixture) === difficulty), `Selected-letter authority misses ${difficulty}.`);
@@ -267,7 +267,7 @@ for (const qlId of BANKING_QLS) {
   assert(answerPositions.every((count) => count >= 20), `${qlId} Banking answer positions are too skewed: ${answerPositions.join("/")}.`);
   assert(visible.size >= 40, `${qlId} Banking visible diversity is too low: ${visible.size}.`);
   if (qlId === "WFM-QL-005") {
-    assert(sourceKeys.size >= 6);
+    assert(sourceKeys.size >= 12);
     assert(renderers.has("BANKING_SINGLE_WORD_POSITION_OPTION"));
     assert(renderers.has("BANKING_MULTI_WORD_POSITION_OPTION"));
   }
