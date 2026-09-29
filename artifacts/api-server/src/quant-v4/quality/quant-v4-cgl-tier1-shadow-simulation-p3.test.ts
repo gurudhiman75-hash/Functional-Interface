@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname } from "node:path";
 
 import { QUANT_V4_REAL_EXAM_PROFILES } from "./quant-v4-real-exam-simulation-p2";
 import {
@@ -70,8 +72,13 @@ assert.equal(probe.records.filter((record) => record.slotKind === "PROBABILITY")
 const audit = await runQuantV4CglTier1ShadowSimulationAudit({
   sections: 20,
   seedPrefix: "QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-CI",
+  includeRecords: true,
 });
-console.log("SHADOW_ADVANCED_MATH_AUDIT", JSON.stringify(audit));
+const { records: auditRecords = [], ...auditSummary } = audit;
+console.log("SHADOW_ADVANCED_MATH_AUDIT", JSON.stringify(auditSummary));
+const auditSnapshotPath = "dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-simulation-p3.audit.json";
+mkdirSync(dirname(auditSnapshotPath), { recursive: true });
+writeFileSync(auditSnapshotPath, JSON.stringify(audit), "utf8");
 
 // Advanced Mathematics adapters now close the former Algebra/Trigonometry
 // generation gaps, and Probability selection must choose only entries that are

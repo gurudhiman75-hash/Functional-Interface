@@ -786,13 +786,14 @@ function extractExplanationBlock(line: string): {
 }
 
 function formatExplanationForQuestionStudio(explanation: unknown) {
-  const lines = Array.isArray((explanation as { lines?: unknown[] })?.lines)
-    ? ((explanation as { lines: unknown[] }).lines.map((line) =>
-        String(line ?? ""),
-      ) as string[])
-    : typeof explanation === "string"
-      ? explanation.split(/\r?\n/)
-      : [];
+  const record = explanation as { lines?: unknown[]; visibleLines?: unknown[] } | null;
+  const lines = Array.isArray(record?.lines)
+    ? record.lines.map((line) => String(line ?? ""))
+    : Array.isArray(record?.visibleLines)
+      ? record.visibleLines.map((line) => String(line ?? ""))
+      : typeof explanation === "string"
+        ? explanation.split(/\r?\n/)
+        : [];
 
   const formatted: string[] = [];
   for (let index = 0; index < lines.length; index++) {
@@ -872,7 +873,9 @@ function buildQuestionStudioResult(
   const taskKind = traceability.taskKind ?? parameters.taskKind;
   const explanationLines = Array.isArray(questionPackage.explanation?.lines)
     ? questionPackage.explanation.lines
-    : [];
+    : Array.isArray(questionPackage.explanation?.visibleLines)
+      ? questionPackage.explanation.visibleLines
+      : [];
 
   console.info("[quant-v4:batch-item]", {
     index: context.questionIndex,
@@ -913,7 +916,9 @@ export function toQuestionStudioPreview(
 ) {
   const explanationLines = Array.isArray(pkg.explanation?.lines)
     ? pkg.explanation.lines
-    : [];
+    : Array.isArray(pkg.explanation?.visibleLines)
+      ? pkg.explanation.visibleLines
+      : [];
   const packageDefinition =
     context.packageDefinition ??
     RUNTIME_PACKAGES.find((entry) => entry.packageId === pkg.archetypeId);

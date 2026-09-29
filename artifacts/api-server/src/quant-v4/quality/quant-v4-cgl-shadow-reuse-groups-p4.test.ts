@@ -1,47 +1,13 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
-import {
-  generateQuantV4CglTier1ShadowSection,
-} from "./quant-v4-cgl-tier1-shadow-simulation-p3";
-import {
-  quantV4AdvancedMathDifficultyForSeed,
-  quantV4TrigonometryPackageForSeed,
-  type QuantV4AdvancedMathDifficulty,
-} from "./quant-v4-real-exam-advanced-math-adapters-p2";
+import type { QuantV4CglTier1ShadowQuestionRecord } from "./quant-v4-cgl-tier1-shadow-simulation-p3";
 
-const sections = [];
-const coreDiversityState = new Map<string, Map<string, number>>();
-const packageDiversityState = new Map<string, number>();
-const mensurationUsedPatternIds = new Set<string>();
-const trigonometryDiversityCursor: Record<QuantV4AdvancedMathDifficulty, number> = {
-  Easy: 0,
-  Medium: 0,
-  Hard: 0,
+const snapshotPath = "dist/quant-v4/quality/quant-v4-cgl-tier1-shadow-simulation-p3.audit.json";
+const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8")) as {
+  records?: QuantV4CglTier1ShadowQuestionRecord[];
 };
-
-for (let sectionIndex = 1; sectionIndex <= 20; sectionIndex += 1) {
-  const shadowSeed = `QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-CI:shadow:${sectionIndex}`;
-  const trigonometryDiversityOrdinals = Array.from({ length: 3 }, (_, slotIndex) => {
-    const slotSeed = `${shadowSeed}:TRIGONOMETRY:${slotIndex}`;
-    const family = quantV4TrigonometryPackageForSeed("SSC_CGL_TIER_I", slotSeed);
-    if (family !== "TRG-001") return undefined;
-    const difficulty = quantV4AdvancedMathDifficultyForSeed(slotSeed);
-    return trigonometryDiversityCursor[difficulty]++;
-  });
-
-  sections.push(await generateQuantV4CglTier1ShadowSection({
-    sectionIndex,
-    seed: shadowSeed,
-    trigonometryDiversityOrdinals,
-    coreDiversityState,
-    packageDiversityState,
-    mensurationUsedPatternIds,
-  }));
-}
-
-const records = sections
-  .flatMap((section) => section.records)
-  .filter((record) => record.sourceKind === "RUNTIME_GENERATED");
+const records = (snapshot.records ?? []).filter((record) => record.sourceKind === "RUNTIME_GENERATED");
 
 assert.equal(records.length, 500);
 
@@ -93,23 +59,18 @@ for (const group of repeated) {
 assert.equal(
   byPackage.get("GEO-001")?.repeatedItems ?? 0,
   0,
-  "Stateful exact-reuse diagnostic must preserve the authoritative GEO no-reuse result.",
+  "Snapshot reuse diagnostic must preserve the authoritative GEO no-reuse result.",
 );
 
 console.log("QUANT_V4_CGL_SHADOW_REUSE_GROUPS_P4", JSON.stringify({
-  sections: sections.length,
+  sections: 20,
   records: records.length,
   repeatedGroupCount: repeated.length,
   byPackage: Object.fromEntries(
     [...byPackage.entries()].sort((a,b) => b[1].repeatedItems - a[1].repeatedItems || a[0].localeCompare(b[0])),
   ),
   highestRepeatedGroups: repeated.slice(0, 40),
-  carriedState: {
-    corePackages: [...coreDiversityState.keys()].sort(),
-    packageDiversityState: Object.fromEntries([...packageDiversityState.entries()].sort()),
-    mensurationUsedPatternCount: mensurationUsedPatternIds.size,
-    trigonometryDiversityCursor,
-  },
+  source: "AUTHORITATIVE_SHADOW_SNAPSHOT",
   productionPromotionAuthorized: false,
   runtimeBlueprintMutationAuthorized: false,
 }));

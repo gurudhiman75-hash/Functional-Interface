@@ -30,6 +30,7 @@ export const QUANT_V4_CGL_TIER1_SHADOW_SIMULATION_AUTHORITY =
   "QUANT-V4-CGL-TIER1-SHADOW-SIMULATION-P3" as const;
 
 export const QUANT_V4_CGL_TIER1_SHADOW_SIMULATION_SECTIONS = 20 as const;
+// Post-build-fix P8 shadow rerun marker; no runtime behavior change.
 
 export type QuantV4CglTier1ShadowSimulationStatus =
   | "SHADOW_SIMULATION_HOLD"
@@ -103,6 +104,7 @@ export interface QuantV4CglTier1ShadowSimulationAudit {
   readonly blockers: readonly string[];
   readonly productionPromotionAuthorized: false;
   readonly runtimeBlueprintMutationAuthorized: false;
+  readonly records?: readonly QuantV4CglTier1ShadowQuestionRecord[];
 }
 
 function hash(value: string): number {
@@ -146,19 +148,41 @@ function metadataValue(question: any, key: string): string | undefined {
 }
 
 function explanationText(question: any): string {
-  if (typeof question?.explanation === "string") return question.explanation.trim();
-  if (Array.isArray(question?.explanation?.lines)) return question.explanation.lines.join("\n\n").trim();
+  if (typeof question?.explanation === "string" && question.explanation.trim()) {
+    return question.explanation.trim();
+  }
+  if (Array.isArray(question?.explanation?.visibleLines)) {
+    const text = question.explanation.visibleLines.join("\n\n").trim();
+    if (text) return text;
+  }
+  if (Array.isArray(question?.explanation?.lines)) {
+    const text = question.explanation.lines.join("\n\n").trim();
+    if (text) return text;
+  }
   if (Array.isArray(question?.explanation?.steps)) {
-    return [
+    const text = [
       question.explanation.keyIdea,
       ...question.explanation.steps,
       question.explanation.shortcut,
       question.explanation.trap,
     ].filter(Boolean).join("\n\n").trim();
+    if (text) return text;
   }
-  if (typeof question?.learnerExplanation === "string") return question.learnerExplanation.trim();
-  if (Array.isArray(question?.learnerExplanation?.lines)) return question.learnerExplanation.lines.join("\n\n").trim();
-  if (Array.isArray(question?.packageExplanation?.lines)) return question.packageExplanation.lines.join("\n\n").trim();
+  if (typeof question?.learnerExplanation === "string" && question.learnerExplanation.trim()) {
+    return question.learnerExplanation.trim();
+  }
+  if (Array.isArray(question?.learnerExplanation?.lines)) {
+    const text = question.learnerExplanation.lines.join("\n\n").trim();
+    if (text) return text;
+  }
+  if (Array.isArray(question?.packageExplanation?.visibleLines)) {
+    const text = question.packageExplanation.visibleLines.join("\n\n").trim();
+    if (text) return text;
+  }
+  if (Array.isArray(question?.packageExplanation?.lines)) {
+    const text = question.packageExplanation.lines.join("\n\n").trim();
+    if (text) return text;
+  }
   return "";
 }
 
@@ -247,6 +271,10 @@ const ARITHMETIC_POOL = packagePool((pkg) => {
   return topic.includes("arithmetic")
     && !subtopic.includes("probability")
     && !subtopic.includes("simplification")
+    // PCT-ALL is a Question Studio convenience aggregator, not an independent
+    // exam-content package. Sampling it here duplicates PCT-001..PCT-007 and
+    // splits audit diversity state from the package that actually generated the item.
+    && id !== "PCT-ALL"
     && id !== "SAP";
 });
 
@@ -587,6 +615,7 @@ export async function generateQuantV4CglTier1ShadowSection(input: {
 export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
   readonly sections?: number;
   readonly seedPrefix?: string;
+  readonly includeRecords?: boolean;
 } = {}): Promise<QuantV4CglTier1ShadowSimulationAudit> {
   const current = profile();
   const governance = buildQuantV4CglTier1ShadowFrequencyGovernance({ currentSlotPlan: current.slotPlan });
@@ -729,5 +758,6 @@ export async function runQuantV4CglTier1ShadowSimulationAudit(input: {
     blockers: Object.freeze([...new Set(blockers)]),
     productionPromotionAuthorized: false,
     runtimeBlueprintMutationAuthorized: false,
+    ...(input.includeRecords ? { records: Object.freeze([...records]) } : {}),
   });
 }
