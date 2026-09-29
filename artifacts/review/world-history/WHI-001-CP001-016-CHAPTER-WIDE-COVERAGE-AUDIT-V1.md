@@ -86,3 +86,6 @@ This is a semantic review list, not an instruction to remove every related quest
 - **CP012/CP014 overlap cluster:** merged in [PR #2627](https://github.com/gurudhiman75-hash/Functional-Interface/pull/2627). Three direct-recall duplicates were replaced with distinct Korean War, SEATO and Bandung convening facts.
 
 - **CP010 opening/turning-point overlap:** merged in [PR #2636](https://github.com/gurudhiman75-hash/Functional-Interface/pull/2636). Four repeat items were replaced with source-backed Blitzkrieg, Phoney War, Warsaw surrender and Kursk coverage. English review materials and canonical locators are aligned; localization remains open.
+
+
+- **CP009/CP010 opening overlap:** follow-up branch replaces CP009’s repeated war-declaration date and outbreak sequence with the March assurance and August UK-Poland mutual assistance agreement, preserving the invasion date as CP009’s single endpoint. Source-backed candidate pending PR review.
