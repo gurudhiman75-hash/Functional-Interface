@@ -249,25 +249,58 @@ function directStem(language: WfmLanguage, task: WfmTask, sourceWord: string): s
     : `Which of the following words cannot be formed using the letters of ‘${sourceWord}’?`;
 }
 
+function optionLetterAudit(language: WfmLanguage, sourceWord: string, candidateWord: string): string {
+  const sourceCounts = letterCounts(sourceWord);
+  const usedCounts: Record<string, number> = {};
+  return [...normalizeWfmWord(candidateWord)]
+    .map((letter) => {
+      usedCounts[letter] = (usedCounts[letter] ?? 0) + 1;
+      const available = sourceCounts[letter] ?? 0;
+      return `${letter}${usedCounts[letter] <= available ? "✓" : "✗"}`;
+    })
+    .join(" · ");
+}
+
+function optionShortage(language: WfmLanguage, sourceWord: string, candidateWord: string): string {
+  const deficits = analyseCandidate(sourceWord, candidateWord).deficits;
+  const detail = Object.entries(deficits)
+    .map(([letter, values]) => {
+      if (language === "hi-IN") return `${letter}: ${values.needed} चाहिए, मूल शब्द में ${values.available} हैं`;
+      if (language === "pa-IN") return `${letter}: ${values.needed} ਦੀ ਲੋੜ, ਮੂਲ ਸ਼ਬਦ ਵਿੱਚ ${values.available} ਮੌਜੂਦ`;
+      return `${letter}: ${values.needed} needed, ${values.available} available`;
+    })
+    .join("; ");
+  if (!detail) return "";
+  if (language === "hi-IN") return ` (${detail})`;
+  if (language === "pa-IN") return ` (${detail})`;
+  return ` (${detail})`;
+}
+
 function directExplanation(language: WfmLanguage, task: WfmTask, sourceWord: string, options: readonly WfmOption[], answerId: WfmOption["id"]): string {
-  const answer = options.find((option) => option.id === answerId)!.text;
-  const trap = options.find((option) => option.id !== answerId && option.provenance === "IGNORED_REPEATED_LETTER_LIMIT");
-  if (language === "hi-IN") {
-    if (task === "CAN_FORM") {
-      return `किसी अक्षर को मूल शब्द में उपलब्ध संख्या से अधिक बार नहीं ले सकते। ${answer} के लिए ${countSummary(answer)} चाहिए और ये सभी अक्षर ${sourceWord} में पर्याप्त हैं।${trap ? ` ${trap.text} में ${deficitSummary(language, sourceWord, trap.text)}।` : ""} इसलिए सही उत्तर ${answer} है।`;
-    }
-    return `${answer} नहीं बन सकता क्योंकि ${deficitSummary(language, sourceWord, answer)}। इसलिए सही उत्तर ${answer} है।`;
-  }
-  if (language === "pa-IN") {
-    if (task === "CAN_FORM") {
-      return `ਕਿਸੇ ਅੱਖਰ ਨੂੰ ਮੂਲ ਸ਼ਬਦ ਵਿੱਚ ਮੌਜੂਦ ਗਿਣਤੀ ਤੋਂ ਵੱਧ ਵਾਰ ਨਹੀਂ ਲਿਆ ਜਾ ਸਕਦਾ। ${answer} ਲਈ ${countSummary(answer)} ਦੀ ਲੋੜ ਹੈ ਅਤੇ ਇਹ ਸਾਰੇ ਅੱਖਰ ${sourceWord} ਵਿੱਚ ਕਾਫ਼ੀ ਹਨ।${trap ? ` ${trap.text} ਵਿੱਚ ${deficitSummary(language, sourceWord, trap.text)}।` : ""} ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।`;
-    }
-    return `${answer} ਨਹੀਂ ਬਣ ਸਕਦਾ ਕਿਉਂਕਿ ${deficitSummary(language, sourceWord, answer)}। ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${answer} ਹੈ।`;
-  }
-  if (task === "CAN_FORM") {
-    return `A letter cannot be used more times than it appears in the source word. ${answer} needs ${countSummary(answer)}, all available in ${sourceWord}.${trap ? ` The close trap ${trap.text} fails because ${deficitSummary(language, sourceWord, trap.text)}.` : ""} Therefore, ${answer} can be formed.`;
-  }
-  return `${answer} cannot be formed because ${deficitSummary(language, sourceWord, answer)}. Therefore, ${answer} is the correct answer.`;
+  const intro = language === "hi-IN"
+    ? `आइए, प्रत्येक विकल्प के अक्षरों का मूल शब्द ‘${sourceWord}’ से मिलान करें:`
+    : language === "pa-IN"
+      ? `ਆਓ, ਹਰ ਵਿਕਲਪ ਦੇ ਅੱਖਰਾਂ ਨੂੰ ਮੂਲ ਸ਼ਬਦ ‘${sourceWord}’ ਨਾਲ ਮਿਲਾਈਏ:`
+      : `Let's check each option against the letters in ‘${sourceWord}’:`;
+  const rows = options.map((option) => {
+    const canForm = analyseCandidate(sourceWord, option.text).canForm;
+    const status = language === "hi-IN"
+      ? canForm ? "बन सकता है" : "नहीं बन सकता"
+      : language === "pa-IN"
+        ? canForm ? "ਬਣ ਸਕਦਾ ਹੈ" : "ਨਹੀਂ ਬਣ ਸਕਦਾ"
+        : canForm ? "can be formed" : "cannot be formed";
+    return `${option.id}. ${option.text} — ${optionLetterAudit(language, sourceWord, option.text)}${optionShortage(language, sourceWord, option.text)} — ${status}।`;
+  });
+  const answer = options.find((option) => option.id === answerId)!;
+  const answerStatus = task === "CAN_FORM"
+    ? language === "hi-IN" ? "बनाया जा सकता है" : language === "pa-IN" ? "ਬਣਾਇਆ ਜਾ ਸਕਦਾ ਹੈ" : "can be formed"
+    : language === "hi-IN" ? "नहीं बनाया जा सकता" : language === "pa-IN" ? "ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਦਾ" : "cannot be formed";
+  const conclusion = language === "hi-IN"
+    ? `अतः विकल्प ${answer.id} (${answer.text}) ${answerStatus}; इसलिए विकल्प ${answer.id} सही है।`
+    : language === "pa-IN"
+      ? `ਇਸ ਲਈ ਵਿਕਲਪ ${answer.id} (${answer.text}) ${answerStatus}; ਇਸ ਕਰਕੇ ਵਿਕਲਪ ${answer.id} ਸਹੀ ਹੈ।`
+      : `Hence, option ${answer.id} (${answer.text}) ${answerStatus}; therefore, option ${answer.id} is correct.`;
+  return [intro, ...rows, conclusion].join("\\n");
 }
 
 function generateDirect(input: BaseInput, qlId: "WFM-QL-001" | "WFM-QL-002"): WfmGeneratedQuestion {
