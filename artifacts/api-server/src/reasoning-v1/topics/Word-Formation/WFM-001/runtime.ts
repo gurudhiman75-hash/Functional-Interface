@@ -249,7 +249,7 @@ function directStem(language: WfmLanguage, task: WfmTask, sourceWord: string): s
     : `Which of the following words cannot be formed using the letters of ‘${sourceWord}’?`;
 }
 
-function optionLetterAudit(language: WfmLanguage, sourceWord: string, candidateWord: string): string {
+function optionLetterAudit(sourceWord: string, candidateWord: string): string {
   const sourceCounts = letterCounts(sourceWord);
   const usedCounts: Record<string, number> = {};
   return [...normalizeWfmWord(candidateWord)]
@@ -289,7 +289,7 @@ function directExplanation(language: WfmLanguage, task: WfmTask, sourceWord: str
       : language === "pa-IN"
         ? canForm ? "ਬਣ ਸਕਦਾ ਹੈ" : "ਨਹੀਂ ਬਣ ਸਕਦਾ"
         : canForm ? "can be formed" : "cannot be formed";
-    return `${option.id}. ${option.text} — ${optionLetterAudit(language, sourceWord, option.text)}${optionShortage(language, sourceWord, option.text)} — ${status}।`;
+    return `${option.id}. ${option.text} — ${optionLetterAudit(sourceWord, option.text)}${optionShortage(language, sourceWord, option.text)} — ${status}${language === "en-IN" ? "." : "।"}`;
   });
   const answer = options.find((option) => option.id === answerId)!;
   const answerStatus = task === "CAN_FORM"
@@ -300,7 +300,7 @@ function directExplanation(language: WfmLanguage, task: WfmTask, sourceWord: str
     : language === "pa-IN"
       ? `ਇਸ ਲਈ ਵਿਕਲਪ ${answer.id} (${answer.text}) ${answerStatus}; ਇਸ ਕਰਕੇ ਵਿਕਲਪ ${answer.id} ਸਹੀ ਹੈ।`
       : `Hence, option ${answer.id} (${answer.text}) ${answerStatus}; therefore, option ${answer.id} is correct.`;
-  return [intro, ...rows, conclusion].join("\\n");
+  return [intro, ...rows, conclusion].join("\n");
 }
 
 function generateDirect(input: BaseInput, qlId: "WFM-QL-001" | "WFM-QL-002"): WfmGeneratedQuestion {
