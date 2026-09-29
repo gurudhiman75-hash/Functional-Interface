@@ -276,8 +276,13 @@ export function generateSif001QuestionStudioBatch(
         seed: baseSeed + index,
       });
       const roman = ["I", "II", "III"];
+      const instruction = locale === "hi-IN"
+        ? "कथन और तीनों अनुमानों को ध्यान से पढ़िए। तय कीजिए कि कौन-सा/कौन-से अनुमान सही हैं।"
+        : locale === "pa-IN"
+          ? "ਕਥਨ ਅਤੇ ਤਿੰਨਾਂ ਅਨੁਮਾਨਾਂ ਨੂੰ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹੋ। ਦੱਸੋ ਕਿ ਕਿਹੜਾ/ਕਿਹੜੇ ਅਨੁਮਾਨ ਸਹੀ ਹਨ।"
+          : "Read the statement and the three inferences carefully. Decide which inference(s) follow.";
       const stem = [
-        "Read the statement and the three inferences carefully. Decide which inference(s) follow.",
+        instruction,
         "",
         question.statement,
         "",
@@ -303,6 +308,7 @@ export function generateSif001QuestionStudioBatch(
         locale,
         stem,
         text: stem,
+        instruction,
         statement: question.statement,
         inferences: question.inferences,
         options: question.options,
