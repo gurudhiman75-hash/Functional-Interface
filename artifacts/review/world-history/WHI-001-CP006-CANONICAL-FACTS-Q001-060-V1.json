@@ -43,6 +43,11 @@
       "sourceId": "CP006-S08",
       "title": "U.S. Department of State — Congress of Berlin, 1878: papers and treaty stipulations",
       "url": "https://history.state.gov/historicaldocuments/frus1878/d523"
+    },
+    {
+      "sourceId": "CP006-S09",
+      "title": "Napoleon.org — The Battles of Magenta and Solferino, 1859",
+      "url": "https://www.napoleon.org/en/history-of-the-two-empires/timelines/the-battles-of-magenta-and-solferino-1859/"
     }
   ],
   "facts": [
@@ -675,11 +680,9 @@
     },
     {
       "factId": "WHI-CP006-F058",
-      "claim": "Garibaldi’s military campaign changed control in the south; the Piedmont-Sardinian government then incorporated these gains into the expanding Italian kingdom.",
+      "claim": "At Plombières in 1858, Cavour and Napoleon III prepared a secret Franco-Piedmontese alliance in case Austria went to war.",
       "sourceIds": [
-        "CP006-S03",
-        "CP006-S04",
-        "CP006-S07"
+        "CP006-S09"
       ],
       "sourceLocator": "Diplomacy and popular action",
       "relationshipType": "diplomacy-and-popular-action",
