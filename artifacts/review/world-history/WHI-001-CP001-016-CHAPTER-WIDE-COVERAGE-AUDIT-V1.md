@@ -89,3 +89,6 @@ This is a semantic review list, not an instruction to remove every related quest
 
 
 - **CP009/CP010 opening overlap:** merged in [PR #2640](https://github.com/gurudhiman75-hash/Functional-Interface/pull/2640). CP009’s repeated war-declaration date and outbreak sequence are replaced with the March assurance and August UK-Poland mutual assistance agreement; the invasion date remains CP009’s single endpoint.
+
+
+- **CP009/CP010 localization readiness:** baseline recorded in `WHI-001-CP009-CP010-LOCALIZATION-READINESS-V1.md`. No Hindi or Punjabi pools/review files are present; 58/60 CP009 and 56/60 CP010 canonical facts still have family-level rather than passage-level locators. Verify sources and complete English review before localization, then run language parity checks.
