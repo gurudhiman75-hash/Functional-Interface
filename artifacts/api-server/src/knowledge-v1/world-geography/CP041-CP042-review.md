@@ -1,11 +1,11 @@
 # CP041–CP042 Review Packet
 
-**Status:** New questions pending user review. Both checkpoints are integrated in the standard Question Studio selector as review required. No student publication, testing eligibility or production release is authorized.
+**Status:** The user approved these questions after reviewing this packet. Both checkpoints remain integrated in the review-only Question Studio selector; question bank writes, testing eligibility, student publication and production release remain disabled.
 
 | Checkpoint | Focus | Questions | Status |
 |---|---|---:|---|
-| CP041 | Human Geography and Global Economic Activity | 20 | Review required |
-| CP042 | Water Systems and Map Skills | 20 | Review required |
+| CP041 | Human Geography and Global Economic Activity | 20 | User approved for authoring and localization |
+| CP042 | Water Systems and Map Skills | 20 | User approved for authoring and localization |
 
 The packet presents each English, Hindi and Punjabi stem, option set and explanation. Answer indices are zero-based; source references resolve through `sources.json`.
 
