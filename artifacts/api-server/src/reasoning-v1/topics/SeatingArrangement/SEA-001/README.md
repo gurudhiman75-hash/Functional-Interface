@@ -59,6 +59,20 @@ Named authorities:
 - `SEA-PBA-015` — outward gap and neighbour mix;
 - `SEA-PBA-016` — outward external-landmark anchor and reversal.
 
+### `SEA-CP-005` — Circular, mixed facing
+
+- deterministic 6–7 person circular arrangements with centre/outward mixed facings;
+- known-facing, inferred-facing, opposite/gap and conditional-orientation blueprint families;
+- complete solution state includes both clockwise order and person facing;
+- reference-person-facing left/right semantics;
+- independent production solver and oracle;
+- every displayed clue is sensitivity-bearing;
+- four-child caselets with distinct answer-determining facts;
+- wrong-facing counterfactual metadata for misconception validation;
+- 48-caselet English review export.
+
+Named authorities: `SEA-PBA-017` through `SEA-PBA-020`.
+
 ## Wave 4 verification hardening
 
 Completed verification contracts include:
@@ -94,11 +108,21 @@ SEA_CP004_REVIEW_OUTPUT_DIR=./dist/sea-cp004-review \
   node --experimental-strip-types cp004-review-export.ts
 ```
 
-## Remaining Wave 5 implementation
+## Current audit frontier
 
-`SEA-CP-005 — Circular, Mixed Facing` is the only unfinished SEA-001 checkpoint.
+All five SEA-001 topology checkpoints are now executable.
 
-Full saturation, manual English review, merge/split/inverse/gap audits, permanent allocation and English freeze remain later Wave 5 gates after CP-005 is implemented.
+The remaining work is **not another SEA-001 topology implementation**. It is the saturation and freeze audit:
+
+- source/topology saturation;
+- merge/split and inverse-query audit;
+- permanent learner-contract QL allocation;
+- query-mix audit;
+- English manual review/freeze;
+- Hindi/Punjabi localization and parity;
+- Question Studio integration only after those gates close.
+
+SEA-002 and SEA-003 remain the owners for parallel rows, polygonal/multi-ring seating, attribute-linked seating, vacancies and other advanced families.
 
 ## Lifecycle
 
