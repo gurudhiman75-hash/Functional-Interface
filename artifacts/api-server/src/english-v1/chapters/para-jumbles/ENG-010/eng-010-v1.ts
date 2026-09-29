@@ -42,7 +42,8 @@ function chooseSet(input:Eng010QuestionInputV1){
  if(!pool.length)throw new Error("No ENG-010 authority set matches the requested filters");
  return pick(pool,input.seed??"eng010-default");
 }
-const EXPLANATION_EMPHASIS_CUES=["introduces the topic","introduces the main idea","starts the process","explains the benefit","gives the benefit","adds the benefit","gives the contrast","adds the contrast","shows the problem","shows the result","gives the result","gives the solution","provides the solution","draws the conclusion","gives the conclusion","concludes the paragraph","closes the paragraph","final conclusion"] as const;\nfunction explanationEmphasis(text:string){return EXPLANATION_EMPHASIS_CUES.filter(cue=>text.toLowerCase().includes(cue));}\nfunction cue(text:string,index:number,total:number){
+const EXPLANATION_EMPHASIS_CUES=["introduces the topic","introduces the main idea","starts the process","explains the benefit","gives the benefit","adds the benefit","gives the contrast","adds the contrast","shows the problem","shows the result","gives the result","gives the solution","provides the solution","draws the conclusion","gives the conclusion","concludes the paragraph","closes the paragraph","final conclusion"] as const;
+function explanationEmphasis(text:string){return EXPLANATION_EMPHASIS_CUES.filter(cue=>text.toLowerCase().includes(cue));}\nfunction cue(text:string,index:number,total:number){
  const t=text.toLowerCase();
  if(index===0)return "introduces the main idea";
  if(/however|yet|but|although/.test(t))return "gives the contrast";
@@ -52,7 +53,8 @@ const EXPLANATION_EMPHASIS_CUES=["introduces the topic","introduces the main ide
  return "develops the idea further";
 }
 function friendlyExplanation(logical:readonly string[],correct:string){
- const positions=["First","Second","Third","Fourth","Fifth","Sixth"];\n const steps=logical.map((text,i)=>`${positions[i]??`Step ${i+1}`} ${cue(text,i,logical.length)}: "${text}"`);
+ const positions=["First","Second","Third","Fourth","Fifth","Sixth"];
+ const steps=logical.map((text,i)=>`${positions[i]??`Step ${i+1}`} ${cue(text,i,logical.length)}: "${text}"`);
  return `The correct sequence is ${correct}. Start with the sentence that introduces the topic. Then follow references, contrast words and cause-result links. ${steps.join(" ")} Reading them in this order gives one clear paragraph.`;
 }
 export function generateEng010QuestionV1(input:Eng010QuestionInputV1={}){
@@ -64,7 +66,8 @@ export function generateEng010QuestionV1(input:Eng010QuestionInputV1={}){
   prompt:"Choose the correct sequence.",
   options:opts,
   correctOptionIndex:opts.indexOf(correct),
-  explanation:friendlyExplanation(logical,correct),\n  explanationEmphasis:explanationEmphasis(friendlyExplanation(logical,correct)),
+  explanation:friendlyExplanation(logical,correct),
+  explanationEmphasis:explanationEmphasis(friendlyExplanation(logical,correct)),
   metadata:{chapterId:"ENG-010",cpId:set.cpId,setId:set.id,difficulty:set.difficulty,topic:set.topic,correctOrder:correct,reviewOnly:true}
  };
 }
