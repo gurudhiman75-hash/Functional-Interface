@@ -19,8 +19,19 @@ function distractors(correct:readonly number[]){
  let i=2;while(out.length<3){add(rotate(correct,i++));}
  return out.slice(0,3);
 }
-function shuffledOptions(set:Eng010SetV1,seed:string){
- const correct=orderText(set.order),raw=[correct,...distractors(set.order).map(orderText)];
+function presentation(set:Eng010SetV1,seed:string){
+ const logical=set.order.map(n=>set.sentences[n-1]!);
+ const keyed=logical.map((text,i)=>({text,logical:i+1,key:hash(`${seed}:present:${set.id}:${i}`)})).sort((a,b)=>a.key-b.key);
+ let presented=keyed.map(x=>x.text);
+ let correct=logical.map(text=>presented.indexOf(text)+1);
+ if(correct.every((n,i)=>n===i+1)){
+  presented=[...presented.slice(1),presented[0]!];
+  correct=logical.map(text=>presented.indexOf(text)+1);
+ }
+ return{presented,correct};
+}
+function shuffledOptions(correctOrder:readonly number[],seed:string){
+ const correct=orderText(correctOrder),raw=[correct,...distractors(correctOrder).map(orderText)];
  return raw.map((value,i)=>({value,key:hash(`${seed}:${value}:${i}`)})).sort((a,b)=>a.key-b.key).map(x=>x.value);
 }
 function chooseSet(input:Eng010QuestionInputV1){
@@ -31,21 +42,29 @@ function chooseSet(input:Eng010QuestionInputV1){
  if(!pool.length)throw new Error("No ENG-010 authority set matches the requested filters");
  return pick(pool,input.seed??"eng010-default");
 }
-const EXPLANATION_EMPHASIS_CUES=["introduces the topic","introduces the main idea","starts the process","explains the benefit","gives the benefit","adds the benefit","gives the contrast","adds the contrast","shows the problem","shows the result","gives the result","gives the solution","provides the solution","draws the conclusion","gives the conclusion","concludes the paragraph","closes the paragraph","final conclusion"] as const;\nfunction explanationEmphasis(text:string){return EXPLANATION_EMPHASIS_CUES.filter(cue=>text.toLowerCase().includes(cue));}\nfunction friendlyExplanation(set:Eng010SetV1){
- const correct=orderText(set.order);
- if(set.explanation.startsWith("The correct order is"))return set.explanation;
- return `The correct order is ${correct}. Start with the sentence that introduces the main idea. Then follow the linking words, references and cause-effect flow. In this set, ${set.explanation} Reading the sentences in this order gives one clear, complete paragraph.`;
+const EXPLANATION_EMPHASIS_CUES=["introduces the topic","introduces the main idea","starts the process","explains the benefit","gives the benefit","adds the benefit","gives the contrast","adds the contrast","shows the problem","shows the result","gives the result","gives the solution","provides the solution","draws the conclusion","gives the conclusion","concludes the paragraph","closes the paragraph","final conclusion"] as const;\nfunction explanationEmphasis(text:string){return EXPLANATION_EMPHASIS_CUES.filter(cue=>text.toLowerCase().includes(cue));}\nfunction cue(text:string,index:number,total:number){
+ const t=text.toLowerCase();
+ if(index===0)return "introduces the main idea";
+ if(/however|yet|but|although/.test(t))return "gives the contrast";
+ if(/therefore|thus|as a result|for this reason/.test(t))return "shows the result";
+ if(/this|these|such|it |they /.test(t))return "links back to the previous idea";
+ if(index===total-1)return "concludes the paragraph";
+ return "develops the idea further";
+}
+function friendlyExplanation(logical:readonly string[],correct:string){
+ const positions=["First","Second","Third","Fourth","Fifth","Sixth"];\n const steps=logical.map((text,i)=>`${positions[i]??`Step ${i+1}`} ${cue(text,i,logical.length)}: "${text}"`);
+ return `The correct sequence is ${correct}. Start with the sentence that introduces the topic. Then follow references, contrast words and cause-result links. ${steps.join(" ")} Reading them in this order gives one clear paragraph.`;
 }
 export function generateEng010QuestionV1(input:Eng010QuestionInputV1={}){
- const seed=input.seed??"eng010-default",set=chooseSet(input),opts=shuffledOptions(set,seed),correct=orderText(set.order);
+ const seed=input.seed??"eng010-default",set=chooseSet(input),p=presentation(set,seed),correct=orderText(p.correct),opts=shuffledOptions(p.correct,seed),logical=set.order.map(n=>set.sentences[n-1]!);
  return{
   questionId:`ENG010:${set.id}:${hash(seed).toString(16)}`,
   stem:"Arrange the following sentences to form a coherent paragraph.",
-  sentences:set.sentences.map((text,i)=>({label:labels(set.sentences.length)[i],text})),
+  sentences:p.presented.map((text,i)=>({label:labels(p.presented.length)[i],text})),
   prompt:"Choose the correct sequence.",
   options:opts,
   correctOptionIndex:opts.indexOf(correct),
-  explanation:friendlyExplanation(set),\n  explanationEmphasis:explanationEmphasis(friendlyExplanation(set)),
+  explanation:friendlyExplanation(logical,correct),\n  explanationEmphasis:explanationEmphasis(friendlyExplanation(logical,correct)),
   metadata:{chapterId:"ENG-010",cpId:set.cpId,setId:set.id,difficulty:set.difficulty,topic:set.topic,correctOrder:correct,reviewOnly:true}
  };
 }
