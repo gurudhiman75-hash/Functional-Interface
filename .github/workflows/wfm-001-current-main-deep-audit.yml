@@ -32,10 +32,26 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Run WFM core and source-gap audit
-        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Word-Formation/WFM-001/wfm-001.test.ts
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Word-Formation/WFM-001/wfm-001.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/wfm-001-current-main-audit.mjs
+          node dist/wfm-001-current-main-audit.mjs
 
       - name: Run WFM normal Question Studio integration audit
-        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Word-Formation/WFM-001/question-studio-integration.test.ts
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Word-Formation/WFM-001/question-studio-integration.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/wfm-001-question-studio-integration.mjs
+          node dist/wfm-001-question-studio-integration.mjs
 
       - name: Build production API
         working-directory: artifacts/api-server
