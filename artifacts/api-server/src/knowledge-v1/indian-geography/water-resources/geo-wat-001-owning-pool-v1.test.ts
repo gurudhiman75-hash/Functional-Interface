@@ -1,0 +1,12 @@
+import assert from "node:assert/strict";
+import { GEO_WAT_001_OWNING_POOL_V1, auditGeoWat001OwningPoolV1 } from "./geo-wat-001-owning-pool-v1";
+import { GEO_WAT_001_CP005_REVIEW_BATCH_V1, auditGeoWat001Cp005ReviewBatchV1 } from "./geo-wat-001-cp005-review-batch-v1";
+const owning=auditGeoWat001OwningPoolV1(), integrated=auditGeoWat001Cp005ReviewBatchV1();
+assert.equal(owning.valid,true,owning.issues.join("\n"));
+assert.equal(owning.questionCount,100);
+assert.equal(owning.permanentQlCount,20);
+assert.equal(owning.stemCount,100);
+assert.equal(owning.explanationCount,100);
+assert.equal(integrated.valid,true,integrated.issues.join("\n"));
+assert.equal(GEO_WAT_001_CP005_REVIEW_BATCH_V1.length,25);
+assert.equal(GEO_WAT_001_OWNING_POOL_V1.every(q=>q.reviewOnly&&!q.runtimeRegistered),true);
