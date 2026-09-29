@@ -694,28 +694,26 @@ On what date did Germany invade Poland in 1939?
 
 ### WHI-CP009-Q058 · Medium · Interwar chronology and synthesis
 
-When did Britain and France declare war on Germany after the invasion of Poland?
+What did the United Kingdom and Poland formalize in their agreement signed in London on 25 August 1939?
 
-- **A.** 1 September 1939
-- **B.** 3 September 1939
-- **C.** 23 August 1939
-- **D.** 30 January 1933
+- **A.** A joint military occupation of Germany
+- **B.** An agreement of mutual assistance
+- **C.** A non-aggression pact with the Soviet Union
+- **D.** A naval disarmament treaty
 **Answer:** B
-**Explanation:** Britain and France declared war on Germany on 3 September 1939, after the invasion of Poland.
-**Sources:** CP009-S15
-
+**Explanation:** The United Kingdom and Poland signed a permanent agreement of mutual assistance in London on 25 August 1939.
+**Sources:** CP009-S16
 ### WHI-CP009-Q059 · Hard · Interwar chronology and synthesis
 
-Which sequence correctly orders the events that began the Second World War in Europe?
+Which sequence correctly describes Britain’s commitments to Poland in 1939?
 
-- **A.** Invasion of Poland → German-Soviet Pact → declarations of war
-- **B.** Declarations of war → Pact → invasion of Poland
-- **C.** German-Soviet Pact → German invasion of Poland → British and French declarations of war
-- **D.** Pact → declarations of war → invasion of Poland
+- **A.** Permanent agreement → reciprocal communiqué → unilateral assurance
+- **B.** Reciprocal communiqué → unilateral assurance → permanent agreement
+- **C.** Unilateral assurance → reciprocal communiqué → permanent agreement
+- **D.** Unilateral assurance → permanent agreement → reciprocal communiqué
 **Answer:** C
-**Explanation:** The pact was signed in August 1939, Germany invaded Poland on 1 September, and Britain and France declared war on 3 September.
-**Sources:** CP009-S14, CP009-S15
-
+**Explanation:** Neville Chamberlain announced a unilateral British assurance to Poland on 31 March. An Anglo-Polish communiqué made the assurance reciprocal on 6 April, and a permanent agreement of mutual assistance was signed on 25 August.
+**Sources:** CP009-S16
 ### WHI-CP009-Q060 · Hard · Interwar chronology and synthesis
 
 Which conclusion best connects the interwar crises to the outbreak of the Second World War?
