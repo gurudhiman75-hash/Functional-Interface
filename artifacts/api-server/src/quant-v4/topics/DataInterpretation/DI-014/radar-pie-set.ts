@@ -17,10 +17,10 @@ const CONTEXTS=[
   {title:"Applications and approvals across five regions",cats:["North","South","East","West","Central"]},
   {title:"Applications and approvals across five centres",cats:["Centre A","Centre B","Centre C","Centre D","Centre E"]},
   {title:"Loan applications and sanctions across five zones",cats:["Zone A","Zone B","Zone C","Zone D","Zone E"]},
-  {title:"Claims received and settled across five teams",cats:["Team A","Team B","Team C","Team D","Team E"]},
-  {title:"Admissions received and confirmed across five courses",cats:["Course A","Course B","Course C","Course D","Course E"]},
-  {title:"Orders received and fulfilled across five segments",cats:["Segment A","Segment B","Segment C","Segment D","Segment E"]},
-  {title:"Requests received and resolved across five units",cats:["Unit A","Unit B","Unit C","Unit D","Unit E"]},
+  {title:"Applications and approvals across five departments",cats:["Department A","Department B","Department C","Department D","Department E"]},
+  {title:"Applications and approvals across five courses",cats:["Course A","Course B","Course C","Course D","Course E"]},
+  {title:"Applications and approvals across five service units",cats:["Unit A","Unit B","Unit C","Unit D","Unit E"]},
+  {title:"Applications and approvals across five programmes",cats:["Programme A","Programme B","Programme C","Programme D","Programme E"]},
 ] as const;
 const EASY:readonly Di014Task[]=["DIRECT_APPLICATIONS","APPROVED_COUNT_FROM_PIE"];
 const MEDIUM:readonly Di014Task[]=["CATEGORY_GAP","CATEGORY_APPROVAL_RATE","APPLICATION_TO_APPROVAL_RATIO","TWO_CATEGORY_APPROVED_TOTAL","REJECTED_TO_APPROVED_RATIO","TWO_CATEGORY_REJECTED_TOTAL"];
