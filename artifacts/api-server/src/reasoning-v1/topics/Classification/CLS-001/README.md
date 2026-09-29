@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_TO_CP007_ENGLISH_FROZEN__CP008_ZERO_QL_CLOSED`
+Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_CP004_CP007_MULTILINGUAL_REVIEW_FROZEN__CP005_CP006_MULTILINGUAL_RUNTIME_FROZEN__CP008_ZERO_QL_CLOSED`
 
 ## Product identity
 
@@ -29,15 +29,15 @@ Every admitted question must define a bounded rule universe, construct a valid s
 | `CLS-QL-002` | `CLS-CP-001` | Select another member of the shared semantic class | Frozen multilingual runtime proof |
 | `CLS-QL-003` | `CLS-CP-001` | Select the only internally coherent semantic word-group | Frozen multilingual runtime proof |
 | `CLS-QL-004` | `CLS-CP-002` | Find the word-pair whose internal semantic relationship differs from the others | Frozen multilingual runtime proof |
-| `CLS-QL-005` | `CLS-CP-003` | Find the word whose visible spelling or structural property differs | Frozen English runtime proof |
-| `CLS-QL-006` | `CLS-CP-003` | Resolve controlled jumbles, then find the semantic outlier | Frozen English runtime proof |
-| `CLS-QL-007` | `CLS-CP-004` | Find the number whose conventional arithmetic or digit property differs | Frozen English runtime proof |
-| `CLS-QL-008` | `CLS-CP-005` | Find the pair, triple or four-number tuple whose internal rule differs | Frozen English runtime proof |
-| `CLS-QL-009` | `CLS-CP-005` | Select the number tuple following the same internal rule as a reference tuple | Frozen English runtime proof |
-| `CLS-QL-010` | `CLS-CP-006` | Find the single letter whose bounded alphabet property differs | Frozen English runtime proof |
-| `CLS-QL-011` | `CLS-CP-006` | Find the complete ordered letter-pair whose internal alphabet relation differs | Frozen English runtime proof |
-| `CLS-QL-012` | `CLS-CP-007` | Find the complete three-, four- or five-letter cluster whose internal alphabet structure differs | Frozen English runtime proof |
-| `CLS-QL-013` | `CLS-CP-007` | Find the complete letter-cluster pair whose position-wise transformation differs | Frozen English runtime proof |
+| `CLS-QL-005` | `CLS-CP-003` | Find the word whose visible spelling or structural property differs | Approved multilingual review freeze |
+| `CLS-QL-006` | `CLS-CP-003` | Resolve controlled jumbles, then find the semantic outlier | Approved multilingual review freeze |
+| `CLS-QL-007` | `CLS-CP-004` | Find the number whose conventional arithmetic or digit property differs | Approved multilingual review freeze |
+| `CLS-QL-008` | `CLS-CP-005` | Find the pair, triple or four-number tuple whose internal rule differs | Frozen multilingual runtime proof |
+| `CLS-QL-009` | `CLS-CP-005` | Select the number tuple following the same internal rule as a reference tuple | Frozen multilingual runtime proof |
+| `CLS-QL-010` | `CLS-CP-006` | Find the single letter whose bounded alphabet property differs | Frozen multilingual runtime proof |
+| `CLS-QL-011` | `CLS-CP-006` | Find the complete ordered letter-pair whose internal alphabet relation differs | Frozen multilingual runtime proof |
+| `CLS-QL-012` | `CLS-CP-007` | Find the complete three-, four- or five-letter cluster whose internal alphabet structure differs | Approved multilingual review freeze |
+| `CLS-QL-013` | `CLS-CP-007` | Find the complete letter-cluster pair whose position-wise transformation differs | Approved multilingual review freeze |
 
 `CLS-CP-008` allocated zero new QLs. No later `CLS-QL-*` identity is reserved.
 
@@ -47,11 +47,11 @@ Every admitted question must define a bounded rule universe, construct a valid s
 |---|---|---|
 | `CLS-CP-001` | Semantic word and entity classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
 | `CLS-CP-002` | Semantic pair and relationship classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
-| `CLS-CP-003` | Lexical, spelling and word-structure classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
-| `CLS-CP-004` | Number-property classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
-| `CLS-CP-005` | Number-pair, triple and set classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
-| `CLS-CP-006` | Alphabet, letter-pair and letter-class classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
-| `CLS-CP-007` | Letter-cluster and complete cluster-pair classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
+| `CLS-CP-003` | Lexical, spelling and word-structure classification | `MULTILINGUAL_REVIEW_FROZEN` |
+| `CLS-CP-004` | Number-property classification | `MULTILINGUAL_REVIEW_FROZEN` |
+| `CLS-CP-005` | Number-pair, triple and set classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
+| `CLS-CP-006` | Alphabet, letter-pair and letter-class classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
+| `CLS-CP-007` | Letter-cluster and complete cluster-pair classification | `MULTILINGUAL_REVIEW_FROZEN` |
 | `CLS-CP-008` | Mixed-token and bounded-synthesis ownership audit | `CLOSED_ZERO_NEW_QL` |
 
 ## Frozen foundation summary
@@ -271,4 +271,12 @@ It excludes:
 
 ## Release locks
 
-CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003 through CP-007 are frozen English review-only proofs. CP-008 is a closed zero-allocation ownership checkpoint. None are wired to Question Studio, Question Bank, tests or public publication. Hindi and Punjabi localisation for CP-003 through CP-007 require separate explicit phases.
+All implemented Classification QLs now have approved multilingual authority:
+
+- CP-001 and CP-002: frozen multilingual runtime/review proofs;
+- CP-003 and CP-004: approved multilingual review freezes;
+- CP-005 and CP-006: frozen multilingual runtime proofs;
+- CP-007: approved multilingual review freeze;
+- CP-008: closed zero-allocation ownership checkpoint.
+
+None are wired to Question Studio, Question Bank, tests, mocks or public publication. Multilingual approval/freeze does not itself grant product activation.
