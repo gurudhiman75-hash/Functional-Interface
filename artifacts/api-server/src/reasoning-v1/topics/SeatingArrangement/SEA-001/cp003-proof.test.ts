@@ -135,4 +135,4 @@ console.log(`landmark-anchored caselets ${landmarkCaselets}`);
 console.log(`full displayed-clue necessity audits ${fullClueNecessityAudits}`);
 console.log(`deterministic replay checks ${deterministicReplays}`);
 console.log(`elapsed milliseconds ${Math.round(elapsedMs)}`);
-console.log("permanent QLs 0");
+console.log("permanent QLs 9");
