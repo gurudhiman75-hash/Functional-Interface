@@ -18,7 +18,7 @@ function studioQuestion(q:any,cp:string,seed:string,extra:Record<string,unknown>
  const fragText=q.fragments.map((s:any)=>`${s.label}. ${s.text}`).join("\n");
  return{...lifecycle,id:q.questionId,questionId:q.questionId,packageId:ENG011_QUESTION_STUDIO_PACKAGE_ID_V1,patternId:cp,cpId:cp,subject:"English",topic:"Sentence Rearrangement",subtopic:cp,language:"en",locale:"en-IN",
  stem:q.stem,fragments:q.fragments,prompt:q.prompt,text:[q.stem,fragText,q.prompt,...q.options.map((o:string,i:number)=>`${String.fromCharCode(65+i)}. ${o}`)].join("\n"),
- options:[...q.options],correctIndex:q.correctOptionIndex,correct:q.correctOptionIndex,explanation:q.explanation,difficulty:difficultyLabel,difficultyLabel,setId:q.metadata.setId,correctOrder:q.metadata.correctOrder,
+ options:[...q.options],correctIndex:q.correctOptionIndex,correct:q.correctOptionIndex,explanation:q.explanation,explanationEmphasis:q.explanationEmphasis,difficulty:difficultyLabel,difficultyLabel,setId:q.metadata.setId,correctOrder:q.metadata.correctOrder,
  registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:"ENG-011-IMPLEMENTATION-V1",humanReviewApproved:false,authoringReviewApproved:false,reviewOnly:true,questionStudioDiscoverable:true,questionStudioGenerationEnabled:true,runtimeRegistered:true,readOnly:true,revisionPolicy:"SOURCE_GENERATOR_ONLY",productionReleased:false,generationSeed:seed,...extra};
 }
 export function isEng011QuestionStudioRequestV1(r:QuestionStudioGenerationRequest){if(text(r.packageId).toLowerCase()===ENG011_QUESTION_STUDIO_PACKAGE_ID_V1)return true;return Boolean(explicitCp(r));}
