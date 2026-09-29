@@ -22,7 +22,7 @@ for(const set of ENG010_ACTIVE_SETS_V2){
  assert.equal(new Set(q.options).size,4);
  assert.equal(q.options[q.correctOptionIndex],q.metadata.correctOrder);
  assert.equal(q.sentences.length,set.sentences.length);
- assert.equal(q.metadata.reviewOnly,true);
+ assert.equal(q.metadata.reviewOnly,true);\n assert.ok(q.explanation.length>140,"ENG-010 generated explanations should be simple and sufficiently detailed");
 }
 for(const p of["ssc-standard","ssc-advanced","banking-prelims","banking-mains"]as const){
  const c=generateEng010Cp005SetV1(`composer:${p}`,p);
