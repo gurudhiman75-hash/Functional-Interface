@@ -88,7 +88,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "hydroelectric power":"जलविद्युत","multipurpose project":"बहुउद्देशीय परियोजना","river-valley project":"नदी-घाटी परियोजना",
     "Bhakra-Nangal":"भाखड़ा-नांगल","Hirakud":"हीराकुंड","Tehri":"टिहरी","Sardar Sarovar":"सरदार सरोवर",
     "Nagarjuna Sagar":"नागार्जुन सागर","Damodar Valley Project":"दामोदर घाटी परियोजना",
-    "iron and steel industry":"लौह-इस्पात उद्योग","cotton textile industry":"सूती वस्त्र उद्योग","jute industry":"जूट उद्योग",
+    "aluminium":"एल्यूमिनियम","alumina":"एल्यूमिना","port hinterland":"बंदरगाह पृष्ठप्रदेश","iron and steel industry":"लौह-इस्पात उद्योग","cotton textile industry":"सूती वस्त्र उद्योग","jute industry":"जूट उद्योग",
     "sugar industry":"चीनी उद्योग","information technology":"सूचना प्रौद्योगिकी","petrochemical industry":"पेट्रो-रसायन उद्योग",
     "industrial location":"औद्योगिक अवस्थिति","raw material":"कच्चा माल","market":"बाजार","power supply":"ऊर्जा आपूर्ति",
     "railway":"रेलमार्ग","railways":"रेलमार्ग","road transport":"सड़क परिवहन","national highway":"राष्ट्रीय राजमार्ग",
@@ -141,7 +141,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "hydroelectric power":"ਜਲ-ਬਿਜਲੀ","multipurpose project":"ਬਹੁ-ਮੰਤਵੀ ਪ੍ਰਾਜੈਕਟ","river-valley project":"ਨਦੀ-ਘਾਟੀ ਪ੍ਰਾਜੈਕਟ",
     "Bhakra-Nangal":"ਭਾਖੜਾ-ਨੰਗਲ","Hirakud":"ਹੀਰਾਕੁਡ","Tehri":"ਟਿਹਰੀ","Sardar Sarovar":"ਸਰਦਾਰ ਸਰੋਵਰ",
     "Nagarjuna Sagar":"ਨਾਗਾਰਜੁਨ ਸਾਗਰ","Damodar Valley Project":"ਦਾਮੋਦਰ ਘਾਟੀ ਪ੍ਰਾਜੈਕਟ",
-    "iron and steel industry":"ਲੋਹਾ-ਇਸਪਾਤ ਉਦਯੋਗ","cotton textile industry":"ਸੂਤੀ ਕਪੜਾ ਉਦਯੋਗ","jute industry":"ਜੂਟ ਉਦਯੋਗ",
+    "aluminium":"ਐਲੂਮੀਨੀਅਮ","alumina":"ਐਲੂਮੀਨਾ","port hinterland":"ਪਛੋਕੜੀ ਖੇਤਰ","iron and steel industry":"ਲੋਹਾ-ਇਸਪਾਤ ਉਦਯੋਗ","cotton textile industry":"ਸੂਤੀ ਕਪੜਾ ਉਦਯੋਗ","jute industry":"ਜੂਟ ਉਦਯੋਗ",
     "sugar industry":"ਚੀਨੀ ਉਦਯੋਗ","information technology":"ਸੂਚਨਾ ਤਕਨਾਲੋਜੀ","petrochemical industry":"ਪੈਟਰੋ-ਰਸਾਇਣ ਉਦਯੋਗ",
     "industrial location":"ਉਦਯੋਗਿਕ ਟਿਕਾਣਾ","raw material":"ਕੱਚਾ ਮਾਲ","market":"ਬਾਜ਼ਾਰ","power supply":"ਬਿਜਲੀ ਸਪਲਾਈ",
     "railway":"ਰੇਲਮਾਰਗ","railways":"ਰੇਲਮਾਰਗ","road transport":"ਸੜਕ ਆਵਾਜਾਈ","national highway":"ਰਾਸ਼ਟਰੀ ਰਾਜਮਾਰਗ",
@@ -454,7 +454,7 @@ function localizeNaturalStem(text: string, language: "hi"|"pa", packageId?: stri
     if (m) return hi ? "समुद्री बंदरगाह का मुख्य परिवहन कार्य क्या है?" : "ਸਮੁੰਦਰੀ ਬੰਦਰਗਾਹ ਦਾ ਮੁੱਖ ਆਵਾਜਾਈ ਕੰਮ ਕੀ ਹੈ?";
 
     m = text.match(/^What is a port hinterland\?$/);
-    if (m) return hi ? "बंदरगाह का पृष्ठप्रदेश क्या होता है?" : "ਬੰਦਰਗਾਹ ਦਾ ਪਿਛਲਾ ਸੇਵਾ ਖੇਤਰ ਕੀ ਹੁੰਦਾ ਹੈ?";
+    if (m) return hi ? "बंदरगाह का पृष्ठप्रदेश क्या होता है?" : "ਬੰਦਰਗਾਹ ਦਾ ਪਛੋਕੜੀ ਖੇਤਰ ਕੀ ਹੁੰਦਾ ਹੈ?";
 
     m = text.match(/^What is the greatest transport advantage of air travel over long distances\?$/);
     if (m) return hi ? "लंबी दूरी की यात्रा में हवाई परिवहन का सबसे बड़ा लाभ क्या है?" : "ਲੰਬੀ ਦੂਰੀ ਦੀ ਯਾਤਰਾ ਵਿੱਚ ਹਵਾਈ ਆਵਾਜਾਈ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਲਾਭ ਕੀ ਹੈ?";
