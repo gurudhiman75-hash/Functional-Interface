@@ -14,6 +14,35 @@ const ADVANCED_MECHANISMS = new Set([
   "MIXED",
 ]);
 
+function visiblePresentationBurden(authority: SifScenarioAuthority): number {
+  const statement = authority.statement["en-IN"];
+  const wordCount = statement.trim().split(/\s+/u).length;
+  const sentenceCount = Math.max(1, (statement.match(/[.!?]/gu) ?? []).length);
+  const qualifierCount = (
+    statement.match(/\b(but|while|provided|if|only|unless|before|after|until|however|without|not|no|yet|although|whereas|pending|except|despite|whether)\b/giu) ?? []
+  ).length;
+
+  if (
+    authority.mechanisms.includes("STATED_POSITION")
+    && wordCount >= 20
+    && qualifierCount >= 1
+  ) return 2;
+
+  if (
+    authority.mechanisms.includes("ADVANCED_PARAGRAPH")
+    && wordCount >= 30
+    && sentenceCount >= 3
+  ) return 2;
+
+  if (
+    authority.mechanisms.includes("MIXED")
+    && wordCount >= 29
+    && sentenceCount >= 3
+  ) return 2;
+
+  return 0;
+}
+
 function reasoningBurden(authority: SifScenarioAuthority, answer: string): number {
   const factBurden = Math.min(3, authority.facts.length);
   const mechanismBurden = Math.min(3, authority.mechanisms.filter((m) => m !== "MIXED").length);
@@ -23,7 +52,7 @@ function reasoningBurden(authority: SifScenarioAuthority, answer: string): numbe
       : answer === "NEITHER" ? 2
         : answer === "EITHER" ? 3
           : 1;
-  return factBurden + mechanismBurden + advancedBurden + decisionBurden;
+  return factBurden + mechanismBurden + advancedBurden + decisionBurden + visiblePresentationBurden(authority);
 }
 
 function assertExplanationSpecificity(authority: SifScenarioAuthority, answer: string): void {
