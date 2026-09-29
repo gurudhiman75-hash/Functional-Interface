@@ -209,7 +209,7 @@ What event brought the United States directly into the Second World War?
 **Explanation:** Japan attacked Pearl Harbor on 7 December 1941. The United States declared war on Japan the following day.
 **Sources:** CP010-S03, CP010-S01
 
-### WHI-CP010-Q018 · Easy · European theatre
+### WHI-CP010-Q018 · Easy · Pacific theatre
 
 Which naval battle in June 1942 checked Japanese expansion in the central Pacific?
 

@@ -11,7 +11,7 @@
 
 ## Remaining before learner release
 
-1. Audit the full CP001–CP016 pool against required exam facts and topic coverage; record missing or thin areas.
+1. Resolve the coverage gaps, duplicate clusters and source issues recorded in [the chapter-wide audit](./WHI-001-CP001-016-CHAPTER-WIDE-COVERAGE-AUDIT-V1.md).
 2. Verify unresolved source locators against original material; do not infer page/section references.
 3. Complete chapter-wide chronology, semantic duplication, factual accuracy, ambiguity and difficulty review.
-4. Revisit the Question Studio route if the final chapter audit changes facts or localization.
+4. Complete full Hindi/Punjabi localization and parity review for CP006–CP015; CP016 currently localizes only four selected questions per origin checkpoint.

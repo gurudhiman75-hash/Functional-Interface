@@ -23,6 +23,6 @@
 
 ## Remaining chapter gates
 
-- Audit the full CP001–CP016 pool against required exam facts and topic coverage; identify absent or thin areas.
+- Completed the chapter-wide structural and coverage issue-finding audit; resolve the gaps and overlaps recorded in [WHI-001 CP001–CP016 Chapter-Wide Coverage Audit V1](./WHI-001-CP001-016-CHAPTER-WIDE-COVERAGE-AUDIT-V1.md).
 - Complete source locator verification and the separate chronology, duplicate, accuracy, ambiguity and difficulty review.
 - Keep Question Bank persistence and learner delivery disabled until chapter-level gates are completed.

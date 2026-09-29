@@ -235,7 +235,7 @@ Why did many industrial towns grow rapidly during the nineteenth century?
 - **D.** Railways ended the demand for manufactured goods
 **Answer:** C. Factory employment drew people from rural areas
 **Explanation:** Factory and mine jobs attracted people seeking wages. Town growth often outpaced housing and sanitation, creating crowded and unhealthy conditions.<br>
-**Sources:** CP005-CP005-S22
+**Sources:** CP005-S22
 **Origin:** WHI-001-CP005 · WHI-CP005-Q013 · WHI-CP005-F013
 
 ## WHI-CP016-Q018 · Medium · Events, places, and actors
@@ -248,7 +248,7 @@ Which region became an early centre of industrialisation in Belgium?
 - **D.** The Ruhr coal and steel region
 **Answer:** A. The coal and iron districts around Liège and Charleroi
 **Explanation:** Belgium’s early industrial growth drew on coal mining and ironworking in Wallonia, including the Liège and Charleroi areas.<br>
-**Sources:** CP005-CP005-S28
+**Sources:** CP005-S28
 **Origin:** WHI-001-CP005 · WHI-CP005-Q038 · WHI-CP005-F038
 
 ## WHI-CP016-Q019 · Easy · Events, places, and actors
@@ -261,7 +261,7 @@ Which country was the first on the European continent to industrialise?
 - **D.** Greece
 **Answer:** C. Belgium
 **Explanation:** Belgium became the earliest industrialising country on the European continent, building on coal mining and ironworking.<br>
-**Sources:** CP005-CP005-S28
+**Sources:** CP005-S28
 **Origin:** WHI-001-CP005 · WHI-CP005-Q043 · WHI-CP005-F043
 
 ## WHI-CP016-Q020 · Hard · Dates and chronology
@@ -274,7 +274,7 @@ Which sequence correctly orders these British reform developments?
 - **D.** People’s Charter → 1833 Factory Act → Chartist movement
 **Answer:** B. Factory Act of 1833 → Chartist movement and People’s Charter → petitions of 1839–1848
 **Explanation:** The Factory Act became law in 1833; Chartism and the Charter followed in the later 1830s, with petitions in 1839, 1842 and 1848.<br>
-**Sources:** CP005-CP005-S01, CP005-CP005-S06, CP005-CP005-S29
+**Sources:** CP005-S01, CP005-S06, CP005-S29
 **Origin:** WHI-001-CP005 · WHI-CP005-Q056 · WHI-CP005-F056
 
 ## WHI-CP016-Q021 · Easy · Movements, states, and political change
@@ -287,7 +287,7 @@ Which state led the formation of the Zollverein in the nineteenth century?
 - **D.** Bavaria
 **Answer:** B. Prussia
 **Explanation:** Prussia took the leading role in the customs union. Austria remained outside the Zollverein, strengthening Prussia’s economic influence among German states.
-**Sources:** CP006-CP006-S01, CP006-CP006-S02
+**Sources:** CP006-S01, CP006-S02
 **Origin:** WHI-001-CP006 · WHI-CP006-Q022 · WHI-CP006-F022
 
 ## WHI-CP016-Q022 · Medium · Comparisons and distinctions
@@ -300,7 +300,7 @@ Which statement best distinguishes the 1848 Frankfurt project from the Prussian-
 - **D.** Frankfurt sought a constitutional nation-state through an elected assembly; later unification proceeded under Prussian state leadership
 **Answer:** D. Frankfurt sought a constitutional nation-state through an elected assembly; later unification proceeded under Prussian state leadership
 **Explanation:** The Frankfurt Assembly attempted a parliamentary and constitutional solution. The 1871 empire emerged through Prussian-led wars and political agreements.
-**Sources:** CP006-CP006-S01, CP006-CP006-S02
+**Sources:** CP006-S01, CP006-S02
 **Origin:** WHI-001-CP006 · WHI-CP006-Q024 · WHI-CP006-F024
 
 ## WHI-CP016-Q023 · Medium · Comparisons and distinctions
@@ -313,7 +313,7 @@ Which comparison between the 1848 national movements and the Austro-Hungarian Co
 - **D.** The Compromise accommodated Austrian and Hungarian elites within one monarchy, while many other national groups remained dissatisfied
 **Answer:** D. The Compromise accommodated Austrian and Hungarian elites within one monarchy, while many other national groups remained dissatisfied
 **Explanation:** The 1867 settlement addressed the relationship between Austria and Hungary, but it did not satisfy the political aspirations of every nationality in the empire.
-**Sources:** CP006-CP006-S06
+**Sources:** CP006-S06
 **Origin:** WHI-001-CP006 · WHI-CP006-Q035 · WHI-CP006-F035
 
 ## WHI-CP016-Q024 · Hard · Dates and chronology
@@ -326,7 +326,7 @@ Which sequence correctly orders these Balkan developments?
 - **D.** Congress of Berlin (1878) → Treaty of San Stefano (1878) → Compromise of 1867
 **Answer:** B. Compromise of 1867 → Treaty of San Stefano (1878) → Congress of Berlin (1878)
 **Explanation:** The Austro-Hungarian Compromise preceded the Russo-Ottoman war settlement at San Stefano; the Congress of Berlin later revised that settlement in 1878.
-**Sources:** CP006-CP006-S05, CP006-CP006-S06, CP006-CP006-S08
+**Sources:** CP006-S05, CP006-S06, CP006-S08
 **Origin:** WHI-001-CP006 · WHI-CP006-Q045 · WHI-CP006-F045
 
 ## WHI-CP016-Q025 · Easy · Causes, policies, and purposes
@@ -339,7 +339,7 @@ Why did European powers build ports and railways in many colonies?
 - **D.** To end all trade with Europe
 **Answer:** B. To support administration, military movement and the extraction or transport of goods
 **Explanation:** Colonial transport links commonly served administration and commercial extraction, though their uses varied by region.
-**Sources:** CP007-CP007-S05, CP007-CP007-S06
+**Sources:** CP007-S05, CP007-S06
 **Origin:** WHI-001-CP007 · WHI-CP007-Q005 · WHI-CP007-F005
 
 ## WHI-CP016-Q026 · Medium · Comparisons and distinctions
@@ -352,7 +352,7 @@ Which comparison between the Congo Free State and Ethiopia in the late nineteent
 - **D.** Both were ruled by Leopold II
 **Answer:** A. The Congo came under Leopold II’s rule, while Ethiopia defeated Italy at Adwa and remained independent
 **Explanation:** Leopold II ruled the Congo Free State, whereas Ethiopia’s victory over Italy at Adwa preserved its independence at that time.
-**Sources:** CP007-CP007-S03, CP007-CP007-S09
+**Sources:** CP007-S03, CP007-S09
 **Origin:** WHI-001-CP007 · WHI-CP007-Q049 · WHI-CP007-F049
 
 ## WHI-CP016-Q027 · Medium · Comparisons and distinctions
@@ -365,7 +365,7 @@ Which comparison between formal annexation and a sphere of influence is accurate
 - **D.** Both always create fully independent states
 **Answer:** A. Annexation transfers territory to direct rule; a sphere of influence may leave formal sovereignty while granting special privileges
 **Explanation:** Annexation and spheres of influence describe different forms of control, although both could constrain the affected society’s sovereignty.
-**Sources:** CP007-CP007-S02, CP007-CP007-S11
+**Sources:** CP007-S02, CP007-S11
 **Origin:** WHI-001-CP007 · WHI-CP007-Q051 · WHI-CP007-F051
 
 ## WHI-CP016-Q028 · Hard · Comparisons and distinctions
@@ -378,7 +378,7 @@ Which comparison between European imperialism in Africa and China is most accura
 - **D.** China was divided into the same formal colonies as Africa
 **Answer:** C. Many African territories came under formal colonial rule, while China retained a government but faced foreign privileges and spheres of influence
 **Explanation:** Imperial control took different forms: formal colonial rule was widespread in Africa, while foreign powers also claimed privileges and spheres in China.
-**Sources:** CP007-CP007-S05, CP007-CP007-S11
+**Sources:** CP007-S05, CP007-S11
 **Origin:** WHI-001-CP007 · WHI-CP007-Q052 · WHI-CP007-F052
 
 ## WHI-CP016-Q029 · Medium · Causes, policies, and purposes
@@ -391,7 +391,7 @@ Why did the alliance system contribute to the widening of the 1914 crisis?
 - **D.** It replaced national armies with one European force
 **Answer:** A. It could draw additional powers into a conflict between Austria-Hungary and Serbia
 **Explanation:** Alliance commitments and strategic calculations helped widen the conflict, though they did not make war automatic.
-**Sources:** CP008-CP008-S01, CP008-CP008-S05
+**Sources:** CP008-S01, CP008-S05
 **Origin:** WHI-001-CP008 · WHI-CP008-Q004 · WHI-CP008-F004
 
 ## WHI-CP016-Q030 · Easy · Alliances, sides, and conflicts
@@ -404,7 +404,7 @@ On which front was the trench warfare of the Western Front concentrated?
 - **D.** Along the Pacific coast of China
 **Answer:** A. In Belgium and northern France
 **Explanation:** The Western Front ran principally through Belgium and northern France and became associated with entrenched warfare.
-**Sources:** CP008-CP008-S02, CP008-CP008-S08
+**Sources:** CP008-S02, CP008-S08
 **Origin:** WHI-001-CP008 · WHI-CP008-Q017 · WHI-CP008-F017
 
 ## WHI-CP016-Q031 · Medium · Alliances, sides, and conflicts
@@ -417,7 +417,7 @@ Which battle took place on the Eastern Front in 1914 and became an early German 
 - **D.** Gallipoli
 **Answer:** A. Tannenberg
 **Explanation:** German forces defeated Russian armies at Tannenberg in August 1914.
-**Sources:** CP008-CP008-S05, CP008-CP008-S08
+**Sources:** CP008-S05, CP008-S08
 **Origin:** WHI-001-CP008 · WHI-CP008-Q021 · WHI-CP008-F021
 
 ## WHI-CP016-Q032 · Hard · Statements and synthesis
@@ -430,7 +430,7 @@ Which statement best connects the Russian Revolutions to the First World War?
 - **D.** The revolutions changed Russia’s government and ultimately led the Bolsheviks to withdraw from the war
 **Answer:** D. The revolutions changed Russia’s government and ultimately led the Bolsheviks to withdraw from the war
 **Explanation:** The 1917 revolutions transformed Russian politics; the Bolshevik government later signed a separate peace in 1918.
-**Sources:** CP008-CP008-S04, CP008-CP008-S05
+**Sources:** CP008-S04, CP008-S05
 **Origin:** WHI-001-CP008 · WHI-CP008-Q058 · WHI-CP008-F058
 
 ## WHI-CP016-Q033 · Easy · Documents, treaties, and institutions
@@ -443,7 +443,7 @@ Which constitution established the Weimar Republic in Germany?
 - **D.** The German Basic Law of 1949
 **Answer:** C. The constitution adopted in 1919
 **Explanation:** The Weimar Constitution was adopted in 1919 and established Germany’s postwar republic.
-**Sources:** CP009-CP009-S03
+**Sources:** CP009-S03
 **Origin:** WHI-001-CP009 · WHI-CP009-Q017 · WHI-CP009-F017
 
 ## WHI-CP016-Q034 · Hard · Consequences and outcomes
@@ -456,7 +456,7 @@ How did proportional representation affect Weimar politics?
 - **D.** It ensured a permanent majority for one party
 **Answer:** B. It allowed smaller parties to gain seats and could make stable parliamentary coalitions difficult
 **Explanation:** Proportional representation allowed a range of parties to win seats, contributing to coalition politics; it was one factor among several in political instability.
-**Sources:** CP009-CP009-S03
+**Sources:** CP009-S03
 **Origin:** WHI-001-CP009 · WHI-CP009-Q024 · WHI-CP009-F024
 
 ## WHI-CP016-Q035 · Medium · Causes, policies, and purposes
@@ -469,7 +469,7 @@ Why was Germany especially vulnerable when U.S. lending contracted after 1929?
 - **D.** Its recovery had depended heavily on foreign loans, including American credit
 **Answer:** D. Its recovery had depended heavily on foreign loans, including American credit
 **Explanation:** Germany’s mid-1920s recovery relied significantly on foreign credit, making the withdrawal of U.S. loans damaging.
-**Sources:** CP009-CP009-S03, CP009-CP009-S04
+**Sources:** CP009-S03, CP009-S04
 **Origin:** WHI-001-CP009 · WHI-CP009-Q026 · WHI-CP009-F026
 
 ## WHI-CP016-Q036 · Medium · Consequences and outcomes
@@ -482,7 +482,7 @@ How did the Great Depression affect politics in Germany?
 - **D.** It removed the Reichstag from the constitution
 **Answer:** A. Economic hardship helped increase support for radical parties, including the Nazis
 **Explanation:** The Depression intensified hardship and helped radical parties gain support, though it was not the only cause of Nazi growth.
-**Sources:** CP009-CP009-S04, CP009-CP009-S05
+**Sources:** CP009-S04, CP009-S05
 **Origin:** WHI-001-CP009 · WHI-CP009-Q028 · WHI-CP009-F028
 
 ## WHI-CP016-Q037 · Easy · Alliances, sides, and conflicts
@@ -495,7 +495,7 @@ Which battle stopped the German advance at Stalingrad and ended with the surrend
 - **D.** The Battle of Britain
 **Answer:** B. The Battle of Stalingrad
 **Explanation:** The German Sixth Army surrendered at Stalingrad in February 1943. The defeat became a major turning point on the Eastern Front.
-**Sources:** CP010-CP010-S02, CP010-CP010-S01
+**Sources:** CP010-S02, CP010-S01
 **Origin:** WHI-001-CP010 · WHI-CP010-Q013 · WHI-CP010-F013
 
 ## WHI-CP016-Q038 · Medium · Alliances, sides, and conflicts
@@ -508,7 +508,7 @@ Which battle is widely treated as a major turning point on the Eastern Front?
 - **D.** The Battle of the Coral Sea
 **Answer:** C. Stalingrad
 **Explanation:** The German surrender at Stalingrad in February 1943 marked a major reversal on the Eastern Front. Soviet forces thereafter advanced westward over time.
-**Sources:** CP010-CP010-S01, CP010-CP010-S02
+**Sources:** CP010-S01, CP010-S02
 **Origin:** WHI-001-CP010 · WHI-CP010-Q026 · WHI-CP010-F026
 
 ## WHI-CP016-Q039 · Medium · Statements and synthesis
@@ -521,7 +521,7 @@ Which statement describes a major human consequence of the Second World War in E
 - **D.** Millions of civilians were displaced from their homes
 **Answer:** D. Millions of civilians were displaced from their homes
 **Explanation:** War and persecution displaced millions of people across Europe. Many survivors could not or did not return to their former homes after the conflict.
-**Sources:** CP010-CP010-S01, CP010-CP010-S10
+**Sources:** CP010-S01, CP010-S10
 **Origin:** WHI-001-CP010 · WHI-CP010-Q058 · WHI-CP010-F058
 
 ## WHI-CP016-Q040 · Hard · Statements and synthesis
@@ -534,7 +534,7 @@ Which statement best describes the global character of the Second World War?
 - **D.** It was fought across European, North African and Asia-Pacific theatres
 **Answer:** D. It was fought across European, North African and Asia-Pacific theatres
 **Explanation:** The war involved connected campaigns across several continents and oceans. Germany's 1940 armistice with France did not end the wider conflict.
-**Sources:** CP010-CP010-S01, CP010-CP010-S02, CP010-CP010-S03
+**Sources:** CP010-S01, CP010-S02, CP010-S03
 **Origin:** WHI-001-CP010 · WHI-CP010-Q060 · WHI-CP010-F060
 
 ## WHI-CP016-Q041 · Easy · Documents, treaties, and institutions
@@ -547,7 +547,7 @@ Which principle in Article 2 of the UN Charter recognises the sovereign equality
 - **D.** All members are sovereign equals
 **Answer:** D. All members are sovereign equals
 **Explanation:** Article 2 states the principle of sovereign equality among members. It does not give every state identical roles in every UN organ.
-**Sources:** CP011-CP011-S01
+**Sources:** CP011-S01
 **Origin:** WHI-001-CP011 · WHI-CP011-Q007 · WHI-CP011-F007
 
 ## WHI-CP016-Q042 · Medium · Documents, treaties, and institutions
@@ -560,7 +560,7 @@ Which method does the UN Charter encourage for resolving international disputes?
 - **D.** Secret military occupation
 **Answer:** B. Peaceful settlement
 **Explanation:** The Charter calls on members to settle disputes by peaceful means. The specific method depends on the dispute and the parties involved.
-**Sources:** CP011-CP011-S01
+**Sources:** CP011-S01
 **Origin:** WHI-001-CP011 · WHI-CP011-Q009 · WHI-CP011-F009
 
 ## WHI-CP016-Q043 · Hard · Documents, treaties, and institutions
@@ -573,7 +573,7 @@ Which agreement established the International Military Tribunal at Nuremberg?
 - **D.** The UN Charter of 26 June 1945
 **Answer:** A. The London Agreement of 8 August 1945
 **Explanation:** The London Agreement established the International Military Tribunal and included its Charter. The trials addressed senior Nazi leaders after the war.
-**Sources:** CP011-CP011-S09
+**Sources:** CP011-S09
 **Origin:** WHI-001-CP011 · WHI-CP011-Q033 · WHI-CP011-F033
 
 ## WHI-CP016-Q044 · Medium · Statements and synthesis
@@ -586,7 +586,7 @@ Which statement about the post-war division of Germany is accurate?
 - **D.** The two German states were established before Germany surrendered
 **Answer:** B. Four-power occupation preceded the creation of East and West German states
 **Explanation:** The four-power occupation began after Germany's defeat. The Federal Republic and German Democratic Republic were founded later, in 1949.
-**Sources:** CP011-CP011-S11, CP011-CP011-S12
+**Sources:** CP011-S11, CP011-S12
 **Origin:** WHI-001-CP011 · WHI-CP011-Q059 · WHI-CP011-F059
 
 ## WHI-CP016-Q045 · Medium · Events, places, and actors
@@ -599,7 +599,7 @@ Which city was the capital of the Indonesian Republic during the revolution befo
 - **D.** Bandung
 **Answer:** B. Yogyakarta
 **Explanation:** Yogyakarta served as the republican capital during the independence struggle.
-**Sources:** CP012-CP012-S03, CP012-CP012-S01
+**Sources:** CP012-S03, CP012-S01
 **Origin:** WHI-001-CP012 · WHI-CP012-Q016 · WHI-CP012-F016
 
 ## WHI-CP016-Q046 · Medium · Alliances, sides, and conflicts
@@ -612,7 +612,7 @@ Which battle in 1954 helped end French colonial rule in Indochina?
 - **D.** Hue
 **Answer:** A. Dien Bien Phu
 **Explanation:** The French defeat at Dien Bien Phu led to the end of France’s war in Indochina.
-**Sources:** CP012-CP012-S04, CP012-CP012-S05
+**Sources:** CP012-S04, CP012-S05
 **Origin:** WHI-001-CP012 · WHI-CP012-Q020 · WHI-CP012-F020
 
 ## WHI-CP016-Q047 · Easy · Dates and chronology
@@ -625,7 +625,7 @@ When did the UN General Assembly adopt Resolution 181?
 - **D.** 1 September 1939
 **Answer:** C. 29 November 1947
 **Explanation:** The General Assembly adopted Resolution 181 on 29 November 1947.
-**Sources:** CP012-CP012-S09, CP012-CP012-S10
+**Sources:** CP012-S09, CP012-S10
 **Origin:** WHI-001-CP012 · WHI-CP012-Q045 · WHI-CP012-F045
 
 ## WHI-CP016-Q048 · Hard · Comparisons and distinctions
@@ -638,7 +638,7 @@ Which comparison of independence paths is accurate?
 - **D.** Burma declared independence in 1957 after Dutch rule
 **Answer:** A. Indonesia declared independence in 1945 and secured Dutch sovereignty transfer in 1949
 **Explanation:** Indonesia’s declaration and eventual sovereignty transfer were separated by years of conflict and negotiation.
-**Sources:** CP012-CP012-S01, CP012-CP012-S12, CP012-CP012-S08
+**Sources:** CP012-S01, CP012-S12, CP012-S08
 **Origin:** WHI-001-CP012 · WHI-CP012-Q055 · WHI-CP012-F055
 
 ## WHI-CP016-Q049 · Hard · Alliances, sides, and conflicts
@@ -651,7 +651,7 @@ Which European power ruled Algeria before its independence in 1962?
 - **D.** Belgium
 **Answer:** A. France
 **Explanation:** Algeria was under French colonial rule before independence.
-**Sources:** CP013-CP013-S01, CP013-CP013-S04
+**Sources:** CP013-S01, CP013-S04
 **Origin:** WHI-001-CP013 · WHI-CP013-Q007 · WHI-CP013-F007
 
 ## WHI-CP016-Q050 · Easy · Movements, states, and political change
@@ -664,7 +664,7 @@ Which country became independent from Britain in 1963 under the name Kenya?
 - **D.** Malawi
 **Answer:** C. Kenya
 **Explanation:** Kenya became independent in December 1963.
-**Sources:** CP013-CP013-S13, CP013-CP013-S14
+**Sources:** CP013-S13, CP013-S14
 **Origin:** WHI-001-CP013 · WHI-CP013-Q019 · WHI-CP013-F019
 
 ## WHI-CP016-Q051 · Medium · Movements, states, and political change
@@ -677,7 +677,7 @@ Which country became independent as Malawi in 1964?
 - **D.** Tanganyika
 **Answer:** A. Nyasaland
 **Explanation:** The British protectorate of Nyasaland became Malawi in 1964.
-**Sources:** CP013-CP013-S13, CP013-CP013-S14
+**Sources:** CP013-S13, CP013-S14
 **Origin:** WHI-001-CP013 · WHI-CP013-Q022 · WHI-CP013-F022
 
 ## WHI-CP016-Q052 · Medium · Dates and chronology
@@ -690,7 +690,7 @@ Which sequence is chronologically correct?
 - **D.** Ghana independence (1963), Algeria independence (1964), Congo independence (1965)
 **Answer:** A. Ghana independence (1957), Congo independence (1960), Algeria independence (1962)
 **Explanation:** The three independence dates were 1957, 1960 and 1962 in that order.
-**Sources:** CP013-CP013-S01, CP013-CP013-S02, CP013-CP013-S04, CP013-CP013-S05, CP013-CP013-S10
+**Sources:** CP013-S01, CP013-S02, CP013-S04, CP013-S05, CP013-S10
 **Origin:** WHI-001-CP013 · WHI-CP013-Q058 · WHI-CP013-F058
 
 ## WHI-CP016-Q053 · Medium · Events, places, and actors
@@ -703,7 +703,7 @@ Which country placed nuclear missiles in Cuba before the 1962 crisis?
 - **D.** The Soviet Union
 **Answer:** D. The Soviet Union
 **Explanation:** The Soviet Union installed missiles in Cuba, prompting the confrontation with the United States.
-**Sources:** CP014-CP014-S08
+**Sources:** CP014-S08
 **Origin:** WHI-001-CP014 · WHI-CP014-Q028 · WHI-CP014-F028
 
 ## WHI-CP016-Q054 · Medium · Causes, policies, and purposes
@@ -716,7 +716,7 @@ Why is the Cuban Missile Crisis treated as a major Cold War turning point?
 - **D.** It caused the division of Germany
 **Answer:** C. It brought the superpowers close to nuclear conflict and encouraged crisis-management measures
 **Explanation:** The crisis exposed the danger of direct superpower confrontation and led to efforts to improve communication.
-**Sources:** CP014-CP014-S08
+**Sources:** CP014-S08
 **Origin:** WHI-001-CP014 · WHI-CP014-Q030 · WHI-CP014-F030
 
 ## WHI-CP016-Q055 · Easy · Events, places, and actors
@@ -729,7 +729,7 @@ Which country hosted the 1955 Bandung Conference?
 - **D.** Indonesia
 **Answer:** D. Indonesia
 **Explanation:** The Asian-African Conference took place in Bandung, Indonesia.
-**Sources:** CP014-CP014-S15, CP014-CP014-S16
+**Sources:** CP014-S15, CP014-S16
 **Origin:** WHI-001-CP014 · WHI-CP014-Q053 · WHI-CP014-F053
 
 ## WHI-CP016-Q056 · Hard · Dates and chronology
@@ -742,7 +742,7 @@ Which sequence is in chronological order?
 - **D.** Cuban Missile Crisis → Berlin Airlift → Truman Doctrine → Helsinki Final Act
 **Answer:** A. Truman Doctrine → Berlin Airlift → Cuban Missile Crisis → Helsinki Final Act
 **Explanation:** The events occurred in 1947, 1948–49, 1962 and 1975 respectively.
-**Sources:** CP014-CP014-S01, CP014-CP014-S04, CP014-CP014-S08, CP014-CP014-S13, CP014-CP014-S14
+**Sources:** CP014-S01, CP014-S04, CP014-S08, CP014-S13, CP014-S14
 **Origin:** WHI-001-CP014 · WHI-CP014-Q055 · WHI-CP014-F055
 
 ## WHI-CP016-Q057 · Hard · Movements, states, and political change
@@ -755,7 +755,7 @@ Which movement challenged communist rule in Poland during the 1980s?
 - **D.** Viet Minh
 **Answer:** C. Solidarity
 **Explanation:** Solidarity was a Polish trade union and social movement that became a major opposition force.
-**Sources:** CP015-CP015-S02, CP015-CP015-S14
+**Sources:** CP015-S02, CP015-S14
 **Origin:** WHI-001-CP015 · WHI-CP015-Q007 · WHI-CP015-F007
 
 ## WHI-CP016-Q058 · Medium · Consequences and outcomes
@@ -768,7 +768,7 @@ What event did the opening of the Berlin Wall symbolize?
 - **D.** The weakening of the division between communist Eastern Europe and the West
 **Answer:** D. The weakening of the division between communist Eastern Europe and the West
 **Explanation:** The Wall had symbolized Europe’s Cold War division; its opening marked the rapid erosion of that division.
-**Sources:** CP015-CP015-S02, CP015-CP015-S05, CP015-CP015-S06, CP015-CP015-S12
+**Sources:** CP015-S02, CP015-S05, CP015-S06, CP015-S12
 **Origin:** WHI-001-CP015 · WHI-CP015-Q014 · WHI-CP015-F014
 
 ## WHI-CP016-Q059 · Easy · Movements, states, and political change
@@ -781,7 +781,7 @@ Which republic declared restoration of independence in April 1991?
 - **D.** Uzbekistan
 **Answer:** C. Georgia
 **Explanation:** Georgia declared restoration of independence on 9 April 1991.
-**Sources:** CP015-CP015-S03, CP015-CP015-S08
+**Sources:** CP015-S03, CP015-S08
 **Origin:** WHI-001-CP015 · WHI-CP015-Q029 · WHI-CP015-F029
 
 ## WHI-CP016-Q060 · Medium · Consequences and outcomes
@@ -794,7 +794,7 @@ How did the failed coup affect the Soviet central government?
 - **D.** It restored the Communist Party’s control over the republics
 **Answer:** C. It weakened Gorbachev’s authority and accelerated the dissolution crisis
 **Explanation:** The coup’s failure strengthened Yeltsin and undermined the union’s central institutions.
-**Sources:** CP015-CP015-S03
+**Sources:** CP015-S03
 **Origin:** WHI-001-CP015 · WHI-CP015-Q034 · WHI-CP015-F034
 
 ## Pool audit
