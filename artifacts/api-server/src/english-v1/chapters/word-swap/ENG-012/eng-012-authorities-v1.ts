@@ -1,4 +1,4 @@
-export type Eng012CpId="ENG-012-CP001"|"ENG-012-CP002";
+export type Eng012CpId="ENG-012-CP001"|"ENG-012-CP002"|"ENG-012-CP003"|"ENG-012-CP004";
 export type Eng012Difficulty="easy"|"medium"|"hard";
 export type Eng012Pair=readonly[1|2|3|4,1|2|3|4];
 
