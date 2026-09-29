@@ -9,6 +9,12 @@ for(let i=0;i<320;i++){
   assert.deepEqual(set.questions.map(q=>q.difficulty),["Easy","Medium","Medium","Hard","Hard"]);
   const radar=renderDi014RadarSvg(set.radar),pie=renderDiPieSvg(set.pie);
   assert(radar.includes('data-radar-pie-radar="true"'));
+  const topValueLabel=radar.match(/<text data-application-value="0" x="([0-9.]+)" y="([0-9.]+)" text-anchor="([^"]+)"[^>]*>(\d+)<\/text>/u);
+  const maxTick=Math.max(...set.radar.radialTicks);
+  const topRadialLabel=radar.match(new RegExp(`<text data-radial-label="${maxTick}" x="([0-9.]+)" y="([0-9.]+)"[^>]*>${maxTick}</text>`, "u"));
+  assert(topValueLabel&&topRadialLabel, `${seed}: top radar point/ring labels are missing`);
+  assert.equal(topValueLabel[3], "end", `${seed}: top application value must sit left of the radial scale label`);
+  assert(Number(topValueLabel[1])<Number(topRadialLabel[1])-8, `${seed}: top application value overlaps the maximum radial tick label`);
   assert(!pie.includes(">?</text>"));
   for(const p of set.radar.points){assert(radar.includes(p.category));assert(radar.includes(`data-value="${p.applications}"`));}
   for(const slice of set.pie.slices){assert(pie.includes(slice.category));assert(pie.includes(`>${slice.percent}%</text>`));}
