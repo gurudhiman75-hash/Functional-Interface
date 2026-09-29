@@ -15,11 +15,16 @@ function chooseSet(input:Eng011QuestionInputV1){
  let pool=ENG011_SETS_V1;if(input.cpId)pool=pool.filter(x=>x.cpId===input.cpId);if(input.difficulty)pool=pool.filter(x=>x.difficulty===input.difficulty);
  if(!pool.length)throw new Error("No ENG-011 authority set matches requested filters");return pick(pool,input.seed??"eng011-default");
 }
+function friendlyExplanation(set:Eng011SetV1){
+ const correct=orderText(set.order);
+ const sentence=set.order.map(n=>set.fragments[n-1]!).join(" ");
+ return `The correct order is ${correct}. First find the main grammatical link, such as the subject with its verb or a clause with the words that complete it. Then place time, reason, contrast or purpose phrases where they fit naturally. In this set, ${set.explanation} The complete sentence reads: "${sentence}."`;
+}
 export function generateEng011QuestionV1(input:Eng011QuestionInputV1={}){
  const seed=input.seed??"eng011-default",set=chooseSet(input),correct=orderText(set.order),raw=[correct,...distractors(set.order).map(orderText)];
  const options=raw.map((v,i)=>({v,k:hash(`${seed}:${v}:${i}`)})).sort((a,b)=>a.k-b.k).map(x=>x.v);
  return{questionId:`ENG011:${set.id}:${hash(seed).toString(16)}`,stem:"Arrange the following parts to form a meaningful sentence.",
- fragments:set.fragments.map((text,i)=>({label:String.fromCharCode(65+i),text})),prompt:"Choose the correct sequence.",options,correctOptionIndex:options.indexOf(correct),explanation:set.explanation,
+ fragments:set.fragments.map((text,i)=>({label:String.fromCharCode(65+i),text})),prompt:"Choose the correct sequence.",options,correctOptionIndex:options.indexOf(correct),explanation:friendlyExplanation(set),
  metadata:{chapterId:"ENG-011",cpId:set.cpId,setId:set.id,difficulty:set.difficulty,topic:set.topic,correctOrder:correct,reviewOnly:true}};
 }
 export function generateEng011Cp005SetV1(seed:string,profile?:"ssc-standard"|"ssc-advanced"|"banking-prelims"|"banking-mains"){
