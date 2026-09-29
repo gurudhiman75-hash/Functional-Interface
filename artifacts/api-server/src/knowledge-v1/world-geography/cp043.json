@@ -1,0 +1,509 @@
+[
+  {
+    "id": "WGE-001-CP043-Q001",
+    "cpId": "WGE-001-CP043",
+    "objective": "remote-sensing-definition",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-GEOT-TECH",
+      "ISRO-NRSC"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "Which method gathers information about Earth’s surface from a distance, without direct physical contact?",
+        "options": [
+          "Field surveying",
+          "Remote sensing",
+          "Census enumeration",
+          "Laboratory sampling"
+        ],
+        "explanation": "Remote sensing gathers information by measuring energy reflected or emitted from a place. The sensor does not need to touch the surface."
+      },
+      "hi": {
+        "stem": "पृथ्वी की सतह की जानकारी बिना सीधे संपर्क के दूर से जुटाने की विधि कौन-सी है?",
+        "options": [
+          "स्थलीय सर्वेक्षण",
+          "सुदूर संवेदन",
+          "जनगणना",
+          "प्रयोगशाला में नमूना लेना"
+        ],
+        "explanation": "सुदूर संवेदन में किसी स्थान से परावर्तित या उत्सर्जित ऊर्जा मापकर जानकारी ली जाती है। उपकरण को सतह छूने की जरूरत नहीं होती।"
+      },
+      "pa": {
+        "stem": "ਧਰਤੀ ਦੀ ਸਤਹ ਬਾਰੇ ਸਿੱਧੇ ਸੰਪਰਕ ਤੋਂ ਬਿਨਾਂ ਦੂਰੋਂ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਵਿਧੀ ਕਿਹੜੀ ਹੈ?",
+        "options": [
+          "ਜ਼ਮੀਨੀ ਸਰਵੇਖਣ",
+          "ਦੂਰ-ਸੰਵੇਦਨ",
+          "ਜਨਗਣਨਾ",
+          "ਪ੍ਰਯੋਗਸ਼ਾਲਾ ਵਿੱਚ ਨਮੂਨਾ ਲੈਣਾ"
+        ],
+        "explanation": "ਦੂਰ-ਸੰਵੇਦਨ ਵਿੱਚ ਕਿਸੇ ਥਾਂ ਤੋਂ ਪਰਾਵਰਤਿਤ ਜਾਂ ਨਿਕਲੀ ਊਰਜਾ ਮਾਪ ਕੇ ਜਾਣਕਾਰੀ ਲਈ ਜਾਂਦੀ ਹੈ। ਸੈਂਸਰ ਨੂੰ ਸਤਹ ਛੂਹਣ ਦੀ ਲੋੜ ਨਹੀਂ ਹੁੰਦੀ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q002",
+    "cpId": "WGE-001-CP043",
+    "objective": "active-radar-sensor",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-GEOT-TECH"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "A radar instrument sends out a microwave pulse and measures its return. How should it be classified?",
+        "options": [
+          "An active remote-sensing instrument",
+          "A passive remote-sensing instrument",
+          "A raster data layer",
+          "A satellite-positioning receiver"
+        ],
+        "explanation": "An active sensor sends out its own energy and measures what returns. A passive sensor records energy that is already present."
+      },
+      "hi": {
+        "stem": "एक रडार यंत्र सूक्ष्मतरंग संकेत भेजता है और लौटे संकेत को मापता है। इसे किस रूप में वर्गीकृत किया जाएगा?",
+        "options": [
+          "सक्रिय सुदूर-संवेदन यंत्र",
+          "निष्क्रिय सुदूर-संवेदन यंत्र",
+          "रास्टर आँकड़ा-परत",
+          "उपग्रह-आधारित स्थिति-निर्धारण यंत्र"
+        ],
+        "explanation": "सक्रिय संवेदक अपनी ऊर्जा भेजता है और लौटे संकेत को मापता है। निष्क्रिय संवेदक पहले से मौजूद ऊर्जा दर्ज करता है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਰਡਾਰ ਯੰਤਰ ਮਾਈਕ੍ਰੋਵੇਵ ਸੰਕੇਤ ਭੇਜਦਾ ਹੈ ਅਤੇ ਵਾਪਸ ਆਏ ਸੰਕੇਤ ਨੂੰ ਮਾਪਦਾ ਹੈ। ਇਸ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕੀਤਾ ਜਾਵੇਗਾ?",
+        "options": [
+          "ਸਰਗਰਮ ਦੂਰ-ਸੰਵੇਦਨ ਯੰਤਰ",
+          "ਨਿਸ਼ਕਿਰਿਆ ਦੂਰ-ਸੰਵੇਦਨ ਯੰਤਰ",
+          "ਰਾਸਟਰ ਡਾਟਾ ਪਰਤ",
+          "ਉਪਗ੍ਰਹਿ-ਆਧਾਰਿਤ ਸਥਿਤੀ-ਨਿਰਧਾਰਣ ਯੰਤਰ"
+        ],
+        "explanation": "ਸਰਗਰਮ ਸੈਂਸਰ ਆਪਣੀ ਊਰਜਾ ਭੇਜਦਾ ਹੈ ਅਤੇ ਵਾਪਸ ਆਏ ਸੰਕੇਤ ਨੂੰ ਮਾਪਦਾ ਹੈ। ਨਿਸ਼ਕਿਰਿਆ ਸੈਂਸਰ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਊਰਜਾ ਦਰਜ ਕਰਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q003",
+    "cpId": "WGE-001-CP043",
+    "objective": "gis-purpose",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-GEOT-TECH",
+      "ISRO-NRSC"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "What is the main purpose of a geographic information system (GIS)?",
+        "options": [
+          "To organise and analyse information linked to places",
+          "To measure air pressure at one station",
+          "To record only country names",
+          "To replace every field observation"
+        ],
+        "explanation": "A GIS stores location-linked data in layers and helps users display and analyse spatial relationships."
+      },
+      "hi": {
+        "stem": "भौगोलिक सूचना प्रणाली का मुख्य काम क्या है?",
+        "options": [
+          "स्थानों से जुड़ी जानकारी को व्यवस्थित करना और उसका विश्लेषण करना",
+          "एक स्थान पर वायुदाब मापना",
+          "केवल देशों के नाम दर्ज करना",
+          "हर मैदानी निरीक्षण की जगह लेना"
+        ],
+        "explanation": "भौगोलिक सूचना प्रणाली स्थान से जुड़ा आँकड़ा परतों में रखती है और स्थानिक संबंध दिखाने तथा जाँचने में मदद करती है।"
+      },
+      "pa": {
+        "stem": "ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਦਾ ਮੁੱਖ ਕੰਮ ਕੀ ਹੈ?",
+        "options": [
+          "ਥਾਵਾਂ ਨਾਲ ਜੁੜੀ ਜਾਣਕਾਰੀ ਨੂੰ ਵਿਵਸਥਿਤ ਕਰਨਾ ਅਤੇ ਉਸ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਨਾ",
+          "ਇੱਕ ਥਾਂ ਉੱਤੇ ਹਵਾ ਦਾ ਦਬਾਅ ਮਾਪਣਾ",
+          "ਸਿਰਫ਼ ਦੇਸ਼ਾਂ ਦੇ ਨਾਂ ਦਰਜ ਕਰਨਾ",
+          "ਹਰ ਜ਼ਮੀਨੀ ਨਿਰੀਖਣ ਦੀ ਥਾਂ ਲੈਣਾ"
+        ],
+        "explanation": "ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਸਥਿਤੀ ਨਾਲ ਜੁੜਿਆ ਡਾਟਾ ਪਰਤਾਂ ਵਿੱਚ ਰੱਖਦੀ ਹੈ ਅਤੇ ਸਥਾਨਕ ਸੰਬੰਧ ਦਿਖਾਉਣ ਤੇ ਪਰਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q004",
+    "cpId": "WGE-001-CP043",
+    "objective": "vector-road-line",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-GEOT-TECH"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "Which vector form is best suited to showing a road on a digital map?",
+        "options": [
+          "A grid of elevation cells",
+          "A shaded image pixel",
+          "A table with no coordinates",
+          "A line tracing the road’s route"
+        ],
+        "explanation": "Vector data represent features as points, lines or polygons. A road is naturally represented by a line."
+      },
+      "hi": {
+        "stem": "डिजिटल मानचित्र पर सड़क दिखाने के लिए कौन-सा वेक्टर रूप सबसे उपयुक्त है?",
+        "options": [
+          "ऊँचाई वाली कोशिकाओं का जाल",
+          "चित्र का छायांकित पिक्सेल",
+          "निर्देशांकों के बिना तालिका",
+          "सड़क के मार्ग को दर्शाती रेखा"
+        ],
+        "explanation": "वेक्टर आँकड़े वस्तुओं को बिंदु, रेखा या बहुभुज के रूप में दिखाते हैं। सड़क को रेखा से दिखाना स्वाभाविक है।"
+      },
+      "pa": {
+        "stem": "ਡਿਜ਼ੀਟਲ ਨਕਸ਼ੇ ਉੱਤੇ ਸੜਕ ਦਿਖਾਉਣ ਲਈ ਕਿਹੜਾ ਵੈਕਟਰ ਰੂਪ ਸਭ ਤੋਂ ਢੁਕਵਾਂ ਹੈ?",
+        "options": [
+          "ਉਚਾਈ ਵਾਲੇ ਖਾਨਿਆਂ ਦਾ ਜਾਲ",
+          "ਚਿੱਤਰ ਦਾ ਛਾਂਦਾਰ ਪਿਕਸਲ",
+          "ਕੋਆਰਡੀਨੇਟਾਂ ਤੋਂ ਬਿਨਾਂ ਸਾਰਣੀ",
+          "ਸੜਕ ਦੇ ਰਸਤੇ ਨੂੰ ਦਰਸਾਉਂਦੀ ਰੇਖਾ"
+        ],
+        "explanation": "ਵੈਕਟਰ ਡਾਟਾ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਬਿੰਦੂ, ਰੇਖਾ ਜਾਂ ਬਹੁਭੁਜ ਵਜੋਂ ਦਰਸਾਉਂਦਾ ਹੈ। ਸੜਕ ਨੂੰ ਰੇਖਾ ਵਜੋਂ ਦਿਖਾਉਣਾ ਸੁਭਾਵਿਕ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q005",
+    "cpId": "WGE-001-CP043",
+    "objective": "raster-elevation",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-GEOT-TECH"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "How does raster data commonly represent a continuous surface such as elevation?",
+        "options": [
+          "As a list of place names",
+          "As a grid of cells, each storing a value",
+          "As a single route line",
+          "As a set of country capitals"
+        ],
+        "explanation": "Raster data divide space into cells. A value in each cell can represent elevation or another continuous measurement."
+      },
+      "hi": {
+        "stem": "ऊँचाई जैसी सतत सतह को रास्टर आँकड़े आम तौर पर कैसे दिखाते हैं?",
+        "options": [
+          "स्थान-नामों की सूची के रूप में",
+          "कोशिकाओं के जाल के रूप में, जिनमें हर कोशिका एक मान रखती है",
+          "एक मार्ग-रेखा के रूप में",
+          "देशों की राजधानियों के समूह के रूप में"
+        ],
+        "explanation": "रास्टर आँकड़े स्थान को कोशिकाओं में बाँटते हैं। हर कोशिका का मान ऊँचाई या किसी अन्य सतत माप को दिखा सकता है।"
+      },
+      "pa": {
+        "stem": "ਉਚਾਈ ਵਰਗੀ ਲਗਾਤਾਰ ਸਤਹ ਨੂੰ ਰਾਸਟਰ ਡਾਟਾ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਵੇਂ ਦਿਖਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਥਾਵਾਂ ਦੇ ਨਾਂਵਾਂ ਦੀ ਸੂਚੀ ਵਜੋਂ",
+          "ਖਾਨਿਆਂ ਦੇ ਜਾਲ ਵਜੋਂ, ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਹਰ ਖਾਨਾ ਇੱਕ ਮੁੱਲ ਰੱਖਦਾ ਹੈ",
+          "ਇੱਕ ਰਸਤਾ-ਰੇਖਾ ਵਜੋਂ",
+          "ਦੇਸ਼ਾਂ ਦੀਆਂ ਰਾਜਧਾਨੀਆਂ ਦੇ ਸਮੂਹ ਵਜੋਂ"
+        ],
+        "explanation": "ਰਾਸਟਰ ਡਾਟਾ ਥਾਂ ਨੂੰ ਖਾਨਿਆਂ ਵਿੱਚ ਵੰਡਦਾ ਹੈ। ਹਰ ਖਾਨੇ ਦਾ ਮੁੱਲ ਉਚਾਈ ਜਾਂ ਕਿਸੇ ਹੋਰ ਲਗਾਤਾਰ ਮਾਪ ਨੂੰ ਦਰਸਾ ਸਕਦਾ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q006",
+    "cpId": "WGE-001-CP043",
+    "objective": "attribute-table",
+    "difficulty": "Easy",
+    "sourceIds": [
+      "NCERT-GEOT-TECH"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "In a GIS layer of lakes, which entry is an attribute rather than a location shape?",
+        "options": [
+          "The lake outline",
+          "The shoreline coordinates",
+          "The lake’s name and water type",
+          "The line joining nearby lakes"
+        ],
+        "explanation": "Geometry describes where a feature is and what shape it has. Attributes store descriptive facts linked to it, such as name or type."
+      },
+      "hi": {
+        "stem": "झीलों की भौगोलिक सूचना प्रणाली परत में कौन-सी प्रविष्टि स्थानिक आकृति के बजाय विशेषता है?",
+        "options": [
+          "झील की सीमा",
+          "तट के निर्देशांक",
+          "झील का नाम और जल का प्रकार",
+          "पास की झीलों को जोड़ती रेखा"
+        ],
+        "explanation": "ज्यामिति बताती है कि वस्तु कहाँ है और उसका आकार क्या है। विशेषताएँ उससे जुड़ी जानकारी, जैसे नाम या प्रकार, रखती हैं।"
+      },
+      "pa": {
+        "stem": "ਝੀਲਾਂ ਦੀ ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਪਰਤ ਵਿੱਚ ਕਿਹੜੀ ਐਂਟਰੀ ਸਥਿਤੀ ਦੇ ਆਕਾਰ ਦੀ ਬਜਾਏ ਵਿਸ਼ੇਸ਼ਤਾ ਹੈ?",
+        "options": [
+          "ਝੀਲ ਦੀ ਹੱਦ",
+          "ਕੰਢੇ ਦੇ ਕੋਆਰਡੀਨੇਟ",
+          "ਝੀਲ ਦਾ ਨਾਂ ਅਤੇ ਪਾਣੀ ਦੀ ਕਿਸਮ",
+          "ਨੇੜਲੀਆਂ ਝੀਲਾਂ ਨੂੰ ਜੋੜਦੀ ਰੇਖਾ"
+        ],
+        "explanation": "ਜਿਆਮਿਤੀ ਦੱਸਦੀ ਹੈ ਕਿ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿੱਥੇ ਹੈ ਅਤੇ ਉਸ ਦਾ ਆਕਾਰ ਕੀ ਹੈ। ਗੁਣ-ਜਾਣਕਾਰੀ ਇਸ ਨਾਲ ਜੁੜੇ ਵੇਰਵੇ, ਜਿਵੇਂ ਨਾਂ ਜਾਂ ਕਿਸਮ, ਸੰਭਾਲਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q007",
+    "cpId": "WGE-001-CP043",
+    "objective": "gis-overlay-hazard",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-GEOT-TECH"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A planner overlays flood zones with settlement locations. Which question can this analysis answer most directly?",
+        "options": [
+          "Which settlements lie inside the mapped flood zones?",
+          "Which settlements have the greatest population density?",
+          "Which settlements changed land cover between two image dates?",
+          "Which settlements lie beyond a chosen distance from a river?"
+        ],
+        "explanation": "Overlay analysis compares features from different layers. It can identify settlements that intersect a mapped hazard zone."
+      },
+      "hi": {
+        "stem": "एक योजनाकार बाढ़-क्षेत्रों को बस्तियों के स्थानों पर अध्यारोपित करता है। यह विश्लेषण किस प्रश्न का सबसे सीधा उत्तर दे सकता है?",
+        "options": [
+          "कौन-सी बस्तियाँ मानचित्रित बाढ़-क्षेत्रों के भीतर हैं?",
+          "किन बस्तियों का जनसंख्या घनत्व सबसे अधिक है?",
+          "दो चित्रों की तिथियों के बीच किन बस्तियों का भूमि-आवरण बदला?",
+          "कौन-सी बस्तियाँ नदी से चुनी गई दूरी से बाहर हैं?"
+        ],
+        "explanation": "अध्यारोपण विश्लेषण अलग-अलग परतों की वस्तुओं के स्थानों की तुलना करता है। इससे बाढ़-क्षेत्र में आने वाली बस्तियाँ पहचानी जा सकती हैं।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਯੋਜਨਾਕਾਰ ਹੜ੍ਹ-ਖੇਤਰਾਂ ਨੂੰ ਬਸਤੀਆਂ ਦੀਆਂ ਸਥਿਤੀਆਂ ਉੱਤੇ ਰੱਖ ਕੇ ਵੇਖਦਾ ਹੈ। ਇਹ ਵਿਸ਼ਲੇਸ਼ਣ ਕਿਹੜੇ ਸਵਾਲ ਦਾ ਸਿੱਧਾ ਜਵਾਬ ਦੇ ਸਕਦਾ ਹੈ?",
+        "options": [
+          "ਕਿਹੜੀਆਂ ਬਸਤੀਆਂ ਨਕਸ਼ੇ ਉੱਤੇ ਦਰਸਾਏ ਹੜ੍ਹ-ਖੇਤਰਾਂ ਦੇ ਅੰਦਰ ਹਨ?",
+          "ਕਿਹੜੀਆਂ ਬਸਤੀਆਂ ਦੀ ਆਬਾਦੀ ਘਣਤਾ ਸਭ ਤੋਂ ਵੱਧ ਹੈ?",
+          "ਦੋ ਚਿੱਤਰਾਂ ਦੀਆਂ ਤਰੀਕਾਂ ਵਿਚਕਾਰ ਕਿਹੜੀਆਂ ਬਸਤੀਆਂ ਦਾ ਭੂਮੀ-ਢੱਕਣ ਬਦਲਿਆ?",
+          "ਕਿਹੜੀਆਂ ਬਸਤੀਆਂ ਦਰਿਆ ਤੋਂ ਚੁਣੀ ਦੂਰੀ ਤੋਂ ਬਾਹਰ ਹਨ?"
+        ],
+        "explanation": "ਪਰਤਾਂ ਨੂੰ ਇਕੱਠੇ ਰੱਖ ਕੇ ਵਿਸ਼ਲੇਸ਼ਣ ਵੱਖ-ਵੱਖ ਪਰਤਾਂ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਦੀਆਂ ਸਥਿਤੀਆਂ ਦੀ ਤੁਲਨਾ ਕਰਦਾ ਹੈ। ਇਸ ਨਾਲ ਹੜ੍ਹ-ਖੇਤਰ ਵਿੱਚ ਆਉਣ ਵਾਲੀਆਂ ਬਸਤੀਆਂ ਪਛਾਣੀਆਂ ਜਾ ਸਕਦੀਆਂ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q008",
+    "cpId": "WGE-001-CP043",
+    "objective": "buffer-analysis",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-GEOT-TECH"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A team needs to identify all land within a fixed distance of a wildlife corridor. Which GIS operation fits the task?",
+        "options": [
+          "Change the map projection",
+          "Sort places by name",
+          "Convert every feature to a point",
+          "Create a buffer around the corridor"
+        ],
+        "explanation": "A buffer creates a zone at a chosen distance around a feature. That zone can then be compared with other map layers."
+      },
+      "hi": {
+        "stem": "एक दल वन्यजीव गलियारे से निश्चित दूरी के भीतर की भूमि पहचानना चाहता है। कौन-सी भौगोलिक सूचना प्रणाली क्रिया उपयुक्त है?",
+        "options": [
+          "मानचित्र प्रक्षेप बदलना",
+          "स्थान-नामों को क्रम में रखना",
+          "हर वस्तु को बिंदु में बदलना",
+          "गलियारे के चारों ओर दूरी-क्षेत्र बनाना"
+        ],
+        "explanation": "दूरी-क्षेत्र किसी वस्तु के चारों ओर चुनी गई दूरी का क्षेत्र बनाता है। फिर उसकी तुलना अन्य मानचित्र परतों से की जा सकती है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਟੀਮ ਜੰਗਲੀ ਜੀਵ ਗਲਿਆਰੇ ਤੋਂ ਨਿਰਧਾਰਤ ਦੂਰੀ ਅੰਦਰਲੀ ਜ਼ਮੀਨ ਪਛਾਣਨਾ ਚਾਹੁੰਦੀ ਹੈ। ਕਿਹੜੀ ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਕਿਰਿਆ ਢੁਕਵੀਂ ਹੈ?",
+        "options": [
+          "ਨਕਸ਼ਾ ਪ੍ਰক্ষেপ ਬਦਲਣਾ",
+          "ਥਾਵਾਂ ਦੇ ਨਾਂ ਕ੍ਰਮ ਵਿੱਚ ਰੱਖਣਾ",
+          "ਹਰ ਵਿਸ਼ੇਸ਼ਤਾ ਨੂੰ ਬਿੰਦੂ ਬਣਾਉਣਾ",
+          "ਗਲਿਆਰੇ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਦੂਰੀ ਵਾਲਾ ਖੇਤਰ ਬਣਾਉਣਾ"
+        ],
+        "explanation": "ਦੂਰੀ ਵਾਲਾ ਖੇਤਰ ਕਿਸੇ ਵਿਸ਼ੇਸ਼ਤਾ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਚੁਣੀ ਦੂਰੀ ਦਾ ਖੇਤਰ ਬਣਾਉਂਦਾ ਹੈ। ਫਿਰ ਇਸ ਦੀ ਤੁਲਨਾ ਹੋਰ ਨਕਸ਼ਾ ਪਰਤਾਂ ਨਾਲ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q009",
+    "cpId": "WGE-001-CP043",
+    "objective": "spatial-resolution",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-GEOT-TECH"
+    ],
+    "correctIndex": 2,
+    "locales": {
+      "en": {
+        "stem": "Two satellite images cover the same area. Which one has finer spatial resolution?",
+        "options": [
+          "The one that revisits the area more often",
+          "The one that records more wavelength bands",
+          "The one that can distinguish smaller ground features",
+          "The one that stores more place names"
+        ],
+        "explanation": "Spatial resolution concerns the size of the smallest ground features an image can distinguish. Finer resolution reveals smaller details."
+      },
+      "hi": {
+        "stem": "दो उपग्रह चित्र एक ही क्षेत्र दिखाते हैं। किसकी स्थानिक विभेदन क्षमता अधिक सूक्ष्म है?",
+        "options": [
+          "जो क्षेत्र पर अधिक बार लौटता है",
+          "जो अधिक तरंगदैर्घ्य पट्टियाँ दर्ज करता है",
+          "जो धरातल की छोटी वस्तुओं को अलग पहचान सकता है",
+          "जो अधिक स्थान-नाम रखता है"
+        ],
+        "explanation": "स्थानिक विभेदन बताता है कि चित्र धरातल की कितनी छोटी वस्तु अलग पहचान सकता है। अधिक सूक्ष्म विभेदन में छोटे विवरण दिखते हैं।"
+      },
+      "pa": {
+        "stem": "ਦੋ ਉਪਗ੍ਰਹਿ ਚਿੱਤਰ ਇੱਕੋ ਖੇਤਰ ਦਿਖਾਉਂਦੇ ਹਨ। ਕਿਸ ਦਾ ਸਥਾਨਕ ਵਿਭੇਦਨ ਵਧੇਰੇ ਬਰੀਕ ਹੈ?",
+        "options": [
+          "ਜੋ ਖੇਤਰ ਉੱਤੇ ਵਧੇਰੇ ਵਾਰ ਮੁੜ ਆਉਂਦਾ ਹੈ",
+          "ਜੋ ਵਧੇਰੇ ਤਰੰਗ-ਲੰਬਾਈ ਪੱਟੀਆਂ ਦਰਜ ਕਰਦਾ ਹੈ",
+          "ਜੋ ਧਰਤੀ ਉੱਤੇ ਛੋਟੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਵੱਖਰਾ ਪਛਾਣ ਸਕਦਾ ਹੈ",
+          "ਜੋ ਵਧੇਰੇ ਥਾਂਵਾਂ ਦੇ ਨਾਂ ਸੰਭਾਲਦਾ ਹੈ"
+        ],
+        "explanation": "ਸਥਾਨਕ ਵਿਭੇਦਨ ਦੱਸਦਾ ਹੈ ਕਿ ਚਿੱਤਰ ਧਰਤੀ ਉੱਤੇ ਕਿੰਨੀ ਛੋਟੀ ਵਿਸ਼ੇਸ਼ਤਾ ਨੂੰ ਵੱਖਰਾ ਪਛਾਣ ਸਕਦਾ ਹੈ। ਬਰੀਕ ਵਿਭੇਦਨ ਨਾਲ ਛੋਟੇ ਵੇਰਵੇ ਦਿਸਦੇ ਹਨ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q010",
+    "cpId": "WGE-001-CP043",
+    "objective": "temporal-resolution",
+    "difficulty": "Medium",
+    "sourceIds": [
+      "NCERT-GEOT-TECH"
+    ],
+    "correctIndex": 1,
+    "locales": {
+      "en": {
+        "stem": "A satellite records the same region every few days. Which image property does this repeat schedule describe?",
+        "options": [
+          "Spatial resolution",
+          "Temporal resolution",
+          "Map scale",
+          "Spectral resolution"
+        ],
+        "explanation": "Temporal resolution describes how often a sensor can observe the same area. Frequent revisits help track change over time."
+      },
+      "hi": {
+        "stem": "एक उपग्रह हर कुछ दिनों में उसी क्षेत्र का चित्र लेता है। यह दोहराव किस चित्र-गुण को दर्शाता है?",
+        "options": [
+          "स्थानिक विभेदन",
+          "कालिक विभेदन",
+          "मानचित्र मापनी",
+          "वर्णक्रमीय विभेदन"
+        ],
+        "explanation": "कालिक विभेदन बताता है कि संवेदक उसी क्षेत्र को कितनी बार देख सकता है। बार-बार चित्र मिलने से समय के साथ बदलाव पहचाना जा सकता है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਉਪਗ੍ਰਹਿ ਹਰ ਕੁਝ ਦਿਨਾਂ ਬਾਅਦ ਉਸੇ ਖੇਤਰ ਦਾ ਚਿੱਤਰ ਲੈਂਦਾ ਹੈ। ਇਹ ਦੁਹਰਾਇਆ ਸਮਾਂ-ਕ੍ਰਮ ਚਿੱਤਰ ਦੇ ਕਿਹੜੇ ਗੁਣ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?",
+        "options": [
+          "ਸਥਾਨਕ ਵਿਭੇਦਨ",
+          "ਸਮੇਂ-ਸਬੰਧੀ ਵਿਭੇਦਨ",
+          "ਨਕਸ਼ੇ ਦਾ ਮਾਪ",
+          "ਵਰਣਕ੍ਰਮੀ ਵਿਭੇਦਨ"
+        ],
+        "explanation": "ਸਮੇਂ-ਸਬੰਧੀ ਵਿਭੇਦਨ ਦੱਸਦਾ ਹੈ ਕਿ ਸੈਂਸਰ ਇੱਕੋ ਖੇਤਰ ਨੂੰ ਕਿੰਨੀ ਵਾਰ ਵੇਖ ਸਕਦਾ ਹੈ। ਵਾਰ-ਵਾਰ ਚਿੱਤਰ ਮਿਲਣ ਨਾਲ ਸਮੇਂ ਦੇ ਨਾਲ ਤਬਦੀਲੀ ਪਤਾ ਲੱਗਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q011",
+    "cpId": "WGE-001-CP043",
+    "objective": "satellite-positioning-versus-gis",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-GEOT-TECH"
+    ],
+    "correctIndex": 3,
+    "locales": {
+      "en": {
+        "stem": "A navigation receiver estimates a team’s position from satellite signals, and GIS compares it with mapped roads. Which statement correctly describes the two tools?",
+        "options": [
+          "GIS receives navigation signals; the receiver stores thematic map layers",
+          "Remote sensing calculates the team’s coordinates; GIS emits radar pulses",
+          "A map projection locates the receiver; the navigation system stores road attributes",
+          "The receiver estimates location; GIS stores and analyses it with road data"
+        ],
+        "explanation": "Satellite positioning estimates the receiver’s location from navigation signals. GIS can then compare those coordinates with mapped road layers."
+      },
+      "hi": {
+        "stem": "एक नौवहन यंत्र उपग्रह संकेतों से दल की स्थिति निकालता है और भौगोलिक सूचना प्रणाली उसकी तुलना मानचित्रित सड़कों से करती है। दोनों साधनों का सही वर्णन कौन-सा है?",
+        "options": [
+          "भौगोलिक सूचना प्रणाली नौवहन संकेत लेती है; स्थिति-निर्धारण यंत्र विषयगत परतें रखता है",
+          "सुदूर संवेदन दल के निर्देशांक निकालता है; भौगोलिक सूचना प्रणाली रडार संकेत भेजती है",
+          "मानचित्र प्रक्षेप यंत्र का स्थान बताता है; नौवहन प्रणाली सड़क की विशेषताएँ रखती है",
+          "स्थिति-निर्धारण यंत्र स्थान निकालता है; भौगोलिक सूचना प्रणाली उसे सड़क आँकड़ों के साथ रखकर जाँचती है"
+        ],
+        "explanation": "उपग्रह-आधारित स्थिति-निर्धारण यंत्र नौवहन संकेतों से अपना स्थान निकालता है। फिर भौगोलिक सूचना प्रणाली इन निर्देशांकों की तुलना मानचित्रित सड़क-परत से कर सकती है।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਨੈਵੀਗੇਸ਼ਨ ਯੰਤਰ ਉਪਗ੍ਰਹਿ ਸੰਕੇਤਾਂ ਤੋਂ ਟੀਮ ਦੀ ਸਥਿਤੀ ਲੱਭਦਾ ਹੈ ਅਤੇ ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਇਸ ਦੀ ਤੁਲਨਾ ਨਕਸ਼ੇ ਵਾਲੀਆਂ ਸੜਕਾਂ ਨਾਲ ਕਰਦੀ ਹੈ। ਦੋਵਾਂ ਸਾਧਨਾਂ ਦਾ ਠੀਕ ਵਰਣਨ ਕਿਹੜਾ ਹੈ?",
+        "options": [
+          "ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਨੈਵੀਗੇਸ਼ਨ ਸੰਕੇਤ ਲੈਂਦੀ ਹੈ; ਸਥਿਤੀ-ਨਿਰਧਾਰਣ ਯੰਤਰ ਵਿਸ਼ਾ-ਪਰਤਾਂ ਸੰਭਾਲਦਾ ਹੈ",
+          "ਦੂਰ-ਸੰਵੇਦਨ ਟੀਮ ਦੇ ਕੋਆਰਡੀਨੇਟ ਕੱਢਦਾ ਹੈ; ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਰਡਾਰ ਸੰਕੇਤ ਭੇਜਦੀ ਹੈ",
+          "ਨਕਸ਼ਾ ਪ੍ਰক্ষেপ ਯੰਤਰ ਦੀ ਸਥਿਤੀ ਦੱਸਦਾ ਹੈ; ਨੈਵੀਗੇਸ਼ਨ ਪ੍ਰਣਾਲੀ ਸੜਕਾਂ ਦੇ ਵੇਰਵੇ ਸੰਭਾਲਦੀ ਹੈ",
+          "ਸਥਿਤੀ-ਨਿਰਧਾਰਣ ਯੰਤਰ ਥਾਂ ਲੱਭਦਾ ਹੈ; ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਇਸ ਨੂੰ ਸੜਕ ਡਾਟਾ ਨਾਲ ਰੱਖ ਕੇ ਪਰਖਦੀ ਹੈ"
+        ],
+        "explanation": "ਉਪਗ੍ਰਹਿ-ਆਧਾਰਿਤ ਸਥਿਤੀ-ਨਿਰਧਾਰਣ ਯੰਤਰ ਨੈਵੀਗੇਸ਼ਨ ਸੰਕੇਤਾਂ ਤੋਂ ਆਪਣੀ ਸਥਿਤੀ ਲੱਭਦਾ ਹੈ। ਫਿਰ ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਇਨ੍ਹਾਂ ਕੋਆਰਡੀਨੇਟਾਂ ਦੀ ਤੁਲਨਾ ਨਕਸ਼ੇ ਵਾਲੀ ਸੜਕ ਪਰਤ ਨਾਲ ਕਰ ਸਕਦੀ ਹੈ।"
+      }
+    }
+  },
+  {
+    "id": "WGE-001-CP043-Q012",
+    "cpId": "WGE-001-CP043",
+    "objective": "site-suitability-overlay",
+    "difficulty": "Hard",
+    "sourceIds": [
+      "NCERT-GEOT-TECH",
+      "ISRO-NRSC"
+    ],
+    "correctIndex": 0,
+    "locales": {
+      "en": {
+        "stem": "A city is comparing sites for an emergency centre. It must be outside mapped flood zones, near main roads and within reach of dense settlements. Which approach best supports the decision?",
+        "options": [
+          "Combine compatible GIS layers and apply all three location conditions",
+          "Choose the site nearest a dense settlement, even if it lies in a flood zone",
+          "Rank sites only by distance to a main road",
+          "Select the highest site without checking access to settlements"
+        ],
+        "explanation": "GIS can compare several location layers at once. Applying the stated conditions identifies sites that meet all the requirements."
+      },
+      "hi": {
+        "stem": "एक शहर आपात केंद्र के स्थलों की तुलना कर रहा है। केंद्र बाढ़-क्षेत्र से बाहर, मुख्य सड़कों के पास और घनी बस्तियों की पहुँच में होना चाहिए। कौन-सा तरीका निर्णय में सबसे अधिक मदद करेगा?",
+        "options": [
+          "संगत भौगोलिक सूचना प्रणाली परतें मिलाकर तीनों स्थान-शर्तें लागू करें",
+          "बाढ़-क्षेत्र में होने पर भी घनी बस्ती के सबसे पास का स्थल चुनें",
+          "स्थलों को केवल मुख्य सड़क से दूरी के आधार पर क्रम दें",
+          "बस्तियों तक पहुँच जाँचे बिना सबसे ऊँचा स्थल चुनें"
+        ],
+        "explanation": "भौगोलिक सूचना प्रणाली कई स्थानिक परतों की एक साथ तुलना कर सकती है। दी गई शर्तें लागू करने से सभी जरूरतें पूरी करने वाले स्थल मिलते हैं।"
+      },
+      "pa": {
+        "stem": "ਇੱਕ ਸ਼ਹਿਰ ਐਮਰਜੈਂਸੀ ਕੇਂਦਰ ਲਈ ਥਾਵਾਂ ਦੀ ਤੁਲਨਾ ਕਰ ਰਿਹਾ ਹੈ। ਕੇਂਦਰ ਹੜ੍ਹ-ਖੇਤਰ ਤੋਂ ਬਾਹਰ, ਮੁੱਖ ਸੜਕਾਂ ਦੇ ਨੇੜੇ ਅਤੇ ਸੰਘਣੀਆਂ ਬਸਤੀਆਂ ਦੀ ਪਹੁੰਚ ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। ਕਿਹੜਾ ਤਰੀਕਾ ਫੈਸਲੇ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਮਦਦ ਕਰੇਗਾ?",
+        "options": [
+          "ਮੇਲ ਖਾਂਦੀਆਂ ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਪਰਤਾਂ ਮਿਲਾ ਕੇ ਤਿੰਨੇ ਸਥਾਨ ਮਾਪਦੰਡ ਲਾਗੂ ਕਰੋ",
+          "ਹੜ੍ਹ-ਖੇਤਰ ਵਿੱਚ ਹੋਣ ਦੇ ਬਾਵਜੂਦ ਸੰਘਣੀ ਬਸਤੀ ਦੇ ਸਭ ਤੋਂ ਨੇੜੇ ਵਾਲੀ ਥਾਂ ਚੁਣੋ",
+          "ਥਾਵਾਂ ਦਾ ਕ੍ਰਮ ਸਿਰਫ਼ ਮੁੱਖ ਸੜਕ ਤੋਂ ਦੂਰੀ ਦੇ ਆਧਾਰ ਉੱਤੇ ਬਣਾਓ",
+          "ਬਸਤੀਆਂ ਤੱਕ ਪਹੁੰਚ ਜਾਂਚੇ ਬਿਨਾਂ ਸਭ ਤੋਂ ਉੱਚੀ ਥਾਂ ਚੁਣੋ"
+        ],
+        "explanation": "ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਕਈ ਸਥਾਨਕ ਪਰਤਾਂ ਦੀ ਇੱਕੋ ਵੇਲੇ ਤੁਲਨਾ ਕਰ ਸਕਦੀ ਹੈ। ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਲਾਗੂ ਕਰਨ ਨਾਲ ਉਹ ਥਾਵਾਂ ਮਿਲਦੀਆਂ ਹਨ ਜੋ ਸਾਰੀਆਂ ਲੋੜਾਂ ਪੂਰੀਆਂ ਕਰਦੀਆਂ ਹਨ।"
+      }
+    }
+  }
+]
