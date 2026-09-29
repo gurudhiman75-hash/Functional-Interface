@@ -105,3 +105,16 @@ for (const [english,punjabi] of audit3Terms) {
   const x=q("Which option is correct?",english,["Forest","River","Soil"],english+" is correct.");
   assert.equal(localizeIndianGeoQuestionV1(x,"pa","GEO-PLN-001").canonicalAnswer,punjabi);
 }
+
+
+const audit4Terms = [
+  ["Standard Meridian","ਮਿਆਰੀ ਦੇਸ਼ਾਂਤਰ ਰੇਖਾ"],
+  ["Drainage basin","ਜਲ-ਨਿਕਾਸ ਖੇਤਰ"],
+  ["Disaster management","ਆਫ਼ਤ ਪ੍ਰਬੰਧਨ"],
+  ["Population density","ਆਬਾਦੀ ਦੀ ਘਣਤਾ"],
+] as const;
+
+for (const [english,punjabi] of audit4Terms) {
+  const x=q("Which option is correct?",english,["Forest","River","Soil"],english+" is correct.");
+  assert.equal(localizeIndianGeoQuestionV1(x,"pa","GEO-LOC-001").canonicalAnswer,punjabi);
+}
