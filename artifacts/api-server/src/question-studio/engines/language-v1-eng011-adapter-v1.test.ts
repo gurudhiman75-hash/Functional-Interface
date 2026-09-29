@@ -6,7 +6,7 @@ const base={packageId:ENG011_QUESTION_STUDIO_PACKAGE_ID_V1,subject:"English",top
 const pkg=languageV1QuestionStudioAdapter.listPackages().find(x=>x.packageId===ENG011_QUESTION_STUDIO_PACKAGE_ID_V1);
 assert.ok(pkg);
 assert.deepEqual(pkg.cpIds,["ENG-011-CP001","ENG-011-CP002","ENG-011-CP003","ENG-011-CP004","ENG-011-CP005"]);
-assert.equal((pkg.metadata as any)?.authoritySets,450);
+assert.equal((pkg.metadata as any)?.authoritySets,990);
 assert.equal(pkg.questionBankWritable,false);
 assert.equal(pkg.testEligible,false);
 assert.equal(pkg.mockTestEligible,false);
