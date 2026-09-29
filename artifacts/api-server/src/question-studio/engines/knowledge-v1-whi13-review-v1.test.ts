@@ -11,7 +11,7 @@ console.log("[WHI-013] PASS 60 questions, canonical facts, exact source links, d
 
 const rebalanceCases=[
  ["WHI-CP013-Q003","CP013-S15","Recognition — U.S. Recognition of Nigerian Independence, 1960"],
- ["WHI-CP013-Q004","CP013-S16","Angola: Recognition — U.S. Response to Angolan Independence, 1975"],
+ ["WHI-CP013-Q004","CP013-S16","Angola: Recognition — U.S. Response to Angolan Independence, 1975; Mozambique: Recognition — U.S. Recognition of Mozambique, 1975"],
  ["WHI-CP013-Q005","CP013-S18","Recognition — U.S. Recognition of Zimbabwe’s Independence, 1980"],
  ["WHI-CP013-Q006","CP013-S19","Paragraph beginning “On 1 April 1989”"],
  ["WHI-CP013-Q051","CP013-S16","Summary paragraph on the 1974 coup and Alvor Accords"],
