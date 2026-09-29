@@ -263,7 +263,7 @@ export function generateWfm001QuestionStudioBatch(
         sourceEvidenceStatus: generated.metadata.sourceEvidenceStatus,
         difficultyDerivedFromGeneratedInstance: generated.metadata.difficultyBasis === "GENERATED_INSTANCE",
         rawRuntimeQuestionStudioVisible: generated.metadata.questionStudioVisible,
-        optionCountVerified: generated.options.length === 4,
+        optionCountVerified: generated.options.length === generated.metadata.optionCount,
       },
       traceability: {
         packageId: WFM001_QUESTION_STUDIO_PACKAGE_ID_V1,
