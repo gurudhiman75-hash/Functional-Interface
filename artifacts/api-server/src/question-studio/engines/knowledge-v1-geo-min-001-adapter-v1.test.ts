@@ -14,6 +14,9 @@ assert.equal(GEO_MIN_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.questionBankWritable, f
 assert.equal(GEO_MIN_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.testEligible, false);
 assert.equal(GEO_MIN_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.mockTestEligible, false);
 assert.equal(GEO_MIN_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.publiclyPublishable, false);
+assert.deepEqual(GEO_MIN_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.supportedLanguages, ["en","hi","pa"]);
+assert.equal(GEO_MIN_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.metadata?.localizedVersionCount, 2196);
+assert.equal(GEO_MIN_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.metadata?.localizationStatus, "REVIEW_REQUIRED");
 assert.equal(isGeoMin001QuestionStudioRequestV1({ packageId: "GEO-MIN-001" }), true);
 
 const req = { packageId: "GEO-MIN-001", language: "en" as const, count: 8, seed: "geo-min-001-test" };
@@ -36,4 +39,14 @@ const cp = await knowledgeV1GeoMin001QuestionStudioAdapterV1.generate({ ...req, 
 assert.equal(cp.questions.every(q => q.cpId === first.cpId), true);
 const hard = await knowledgeV1GeoMin001QuestionStudioAdapterV1.generate({ ...req, difficulty: "Hard", count: 4 });
 assert.equal(hard.questions.every(q => q.difficulty === "Hard"), true);
-await assert.rejects(knowledgeV1GeoMin001QuestionStudioAdapterV1.generate({ ...req, language: "hi" }), /English only/i);
+const hi = await knowledgeV1GeoMin001QuestionStudioAdapterV1.generate({ ...req, language: "hi", count: 4 });
+assert.equal(hi.questions.length, 4);
+assert.equal(hi.questions.every(q => q.language === "hi" && q.locale === "hi-IN"), true);
+assert.equal(hi.questions.every(q => /[\u0900-\u097F]/.test(String(q.stem))), true);
+assert.equal(hi.questions.every(q => q.options[q.correctIndex] === q.canonicalAnswer), true);
+
+const pa = await knowledgeV1GeoMin001QuestionStudioAdapterV1.generate({ ...req, language: "pa", count: 4 });
+assert.equal(pa.questions.length, 4);
+assert.equal(pa.questions.every(q => q.language === "pa" && q.locale === "pa-IN"), true);
+assert.equal(pa.questions.every(q => /[\u0A00-\u0A7F]/.test(String(q.stem))), true);
+assert.equal(pa.questions.every(q => q.options[q.correctIndex] === q.canonicalAnswer), true);
