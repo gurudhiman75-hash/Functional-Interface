@@ -64,6 +64,12 @@ async function oneCandidate(
   language: ReasoningNoveltyReviewLanguageV1,
 ): Promise<Record<string, unknown>> {
   switch (providerId) {
+    case "LP-001-POST-SOLUTION-SWAP": {
+      const module = await import(
+        "../topics/Logic-Puzzles/LP-001/lp-001-controlled-novelty-discovery-v1"
+      );
+      return module.generateLpControlledNovelPostSolutionSwapCandidateV1(seed) as unknown as Record<string, unknown>;
+    }
     case "OPS-001-INFER-THEN-FILL": {
       const module = await import(
         "../topics/Mathematical-Operations/OPS-001/ops-001-controlled-novelty-discovery-v1"

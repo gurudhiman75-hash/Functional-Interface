@@ -143,13 +143,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Logic-Puzzles',
     chapterId: 'LP-001',
-    status: 'DIVERSITY_PROVEN_NOVELTY_NOT_YET_PROVEN',
+    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
     evidence: [
-      'Unique-solution generation, clue-necessity checks and independent re-solving are already audited.',
-      'Scenario/object-pool breadth alone does not qualify as controlled novelty.',
+      'The frozen LP-011 mixed box/attribute stack is independently re-solved to one base arrangement before any novelty transform is applied.',
+      'Two named boxes then interchange positions while retaining their own attributes, creating a post-solution perturbation rather than another clue or scenario resample.',
+      'The adjacency query is accepted only when the perturbation changes the answer relative to the solved base state.',
+      'LP-QL-048 remains unallocated and Question Studio novelty mixing remains disabled.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Define puzzle-structure novelty axes such as constraint topology and query interaction.',
+    nextGate: 'Human-review post-solution swap learner surfaces before chapter-mix activation.',
   },
   {
     topicDirectory: 'Mathematical-Operations',

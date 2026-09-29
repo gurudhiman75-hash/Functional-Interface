@@ -12,6 +12,7 @@ test("shared novelty review runtime samples every discovery provider without act
     { providerId: "BLR-001-CODED-FILTERED-COUNT", language: "en" as const },
     { providerId: "CAL-001-IMPLICIT-RANGE-FREQUENCY", language: "en" as const },
     { providerId: "OPS-001-INFER-THEN-FILL", language: "en" as const },
+    { providerId: "LP-001-POST-SOLUTION-SWAP", language: "en" as const },
   ];
 
   for (let index = 0; index < requests.length; index += 1) {
