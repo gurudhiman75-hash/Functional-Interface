@@ -1,6 +1,6 @@
 # SYL-001 — Syllogism
 
-Status: **all seven checkpoints implemented as a pedagogy-remodelled English/Hindi/Punjabi review runtime**.
+Status: **closed for multilingual Question Studio generation; downstream delivery remains locked**.
 
 ## Inventory
 
@@ -43,4 +43,15 @@ Status: **all seven checkpoints implemented as a pedagogy-remodelled English/Hin
 
 ## Release state
 
-Question Studio, Question Bank, mock tests and public publication remain disabled pending manual multilingual editorial approval and explicit freeze.
+Current live chapter authority is `SYL_001_QUESTION_STUDIO_CLOSEOUT_V1`.
+
+- multilingual learner/editorial approval: **approved**;
+- human viewport approval: **approved**;
+- Question Studio visibility: **enabled**;
+- Question Studio candidate generation: **enabled**;
+- Question Studio persistence/write: **disabled**;
+- Question Bank: **locked**;
+- test/mock eligibility: **locked**;
+- public/student publication: **locked**.
+
+The unresolved work is not learner-content approval. It is the separate source-profile / mock-archetype freeze: exact historical weighting is still unfrozen, the Banking modal candidate family remains inactive pending its own review/source-profile gate, and difficulty calibration remains non-production until learner evidence exists.
