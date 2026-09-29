@@ -128,6 +128,11 @@ import {
   stat010QuestionStudioPackageCard,
 } from "../../quant-v4/topics/Statistics/STAT-010/question-studio-adapter";
 import {
+  generateStat014QuestionStudioBatchForAdapter,
+  isStat014QuestionStudioRequest,
+  stat014QuestionStudioPackageCard,
+} from "../../quant-v4/topics/Statistics/STAT-014/question-studio-adapter";
+import {
   generateStat013QuestionStudioBatchForAdapter,
   isStat013QuestionStudioRequest,
   stat013QuestionStudioPackageCard,
@@ -544,6 +549,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (!packages.some((pkg) => pkg.packageId === "STAT-013")) {
       packages.push(toSharedPackage(stat013QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
+    if (!packages.some((pkg) => pkg.packageId === "STAT-014")) {
+      packages.push(toSharedPackage(stat014QuestionStudioPackageCard() as unknown as Record<string, unknown>));
+    }
     return packages.sort((left, right) => left.packageId.localeCompare(right.packageId));
   },
 
@@ -624,6 +632,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
 
     const statRequest = toStatRequest(request);
+    if (isStat014QuestionStudioRequest(statRequest)) {
+      return generateStat014QuestionStudioBatchForAdapter(statRequest) as unknown as QuestionStudioGenerationResult;
+    }
     if (isStat013QuestionStudioRequest(statRequest)) {
       return generateStat013QuestionStudioBatchForAdapter(statRequest) as unknown as QuestionStudioGenerationResult;
     }
