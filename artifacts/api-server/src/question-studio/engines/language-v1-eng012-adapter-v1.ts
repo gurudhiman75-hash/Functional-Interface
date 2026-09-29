@@ -1,5 +1,5 @@
 import{ENG012_CP_IDS_V1}from"../../english-v1/chapters/word-swap/ENG-012/eng-012-authorities-v1";
-import{generateEng012QuestionV1}from"../../english-v1/chapters/word-swap/ENG-012/eng-012-v1";
+import{generateEng012Cp005SetV1,generateEng012QuestionV1}from"../../english-v1/chapters/word-swap/ENG-012/eng-012-v1";
 import type{QuestionStudioEngineAdapter,QuestionStudioGenerationRequest,QuestionStudioGenerationResult,QuestionStudioLanguage}from"../engine-types";
 import{QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1}from"../standard-lifecycle";
 
@@ -23,13 +23,12 @@ export function isEng012QuestionStudioRequestV1(r:QuestionStudioGenerationReques
 }
 export const languageV1Eng012QuestionStudioAdapterV1:QuestionStudioEngineAdapter={
  engineId:"language-v1",
- listPackages(){return[{engineId:"language-v1",packageId:ENG012_QUESTION_STUDIO_PACKAGE_ID_V1,subject:"English",topic:"Word Swap",subtopic:"Misplaced Words",label:"ENG-012 Word Swap",enabled:true,cpIds:[...ENG012_CP_IDS_V1],supportedLanguages:["en"],supportedDifficulties:["Easy","Medium","Hard"],difficultyFilterSupported:true,runtimeMode:"review-only",supportedRuntimeModes:["review-only"],lifecycleId:lifecycle.lifecycleId,lifecycleStage:"REVIEW_ONLY",reviewSurfaceRequired:true,manualApprovalRequired:true,questionBankStatus:lifecycle.questionBankStatus,questionBankWritable:false,testEligibility:lifecycle.testEligibility,testEligible:false,mockTestEligible:false,publiclyPublishable:false,automaticStudentPublication:false,productionReleaseAuthorized:false,metadata:{registrationStatus:"REGISTERED_REVIEW_ONLY",implementedCpIds:["ENG-012-CP001","ENG-012-CP002"],authorityPatterns:48,generatedSurfaces:144,composerPending:true,humanApprovalPending:true}}];},
+ listPackages(){return[{engineId:"language-v1",packageId:ENG012_QUESTION_STUDIO_PACKAGE_ID_V1,subject:"English",topic:"Word Swap",subtopic:"Misplaced Words",label:"ENG-012 Word Swap",enabled:true,cpIds:[...ENG012_CP_IDS_V1],supportedLanguages:["en"],supportedDifficulties:["Easy","Medium","Hard"],difficultyFilterSupported:true,runtimeMode:"review-only",supportedRuntimeModes:["review-only"],lifecycleId:lifecycle.lifecycleId,lifecycleStage:"REVIEW_ONLY",reviewSurfaceRequired:true,manualApprovalRequired:true,questionBankStatus:lifecycle.questionBankStatus,questionBankWritable:false,testEligibility:lifecycle.testEligibility,testEligible:false,mockTestEligible:false,publiclyPublishable:false,automaticStudentPublication:false,productionReleaseAuthorized:false,metadata:{registrationStatus:"REGISTERED_REVIEW_ONLY",implementedCpIds:["ENG-012-CP001","ENG-012-CP002","ENG-012-CP003","ENG-012-CP004","ENG-012-CP005"],authorityPatterns:96,generatedSurfaces:288,composerPending:false,humanApprovalPending:true}}];},
  async generate(r):Promise<QuestionStudioGenerationResult>{
   if(!isEng012QuestionStudioRequestV1(r))throw new Error("language-v1 ENG-012 adapter requires ENG-012 package or CP selector");
   if(r.runtimeMode&&r.runtimeMode!=="review-only")throw new Error("ENG-012 only supports review-only runtime");
   const outputLanguage=language(r.language),total=count(r.count),baseSeed=text(r.seed)||"eng012-question-studio-v1",forced=explicitCp(r),questions:Record<string,unknown>[]=[];
-  if(forced==="ENG-012-CP003"||forced==="ENG-012-CP004"||forced==="ENG-012-CP005")throw new Error(`${forced} is not implemented yet`);
-  for(let i=0;i<total;i++){const seed=`${baseSeed}:${i}`;const cp=(forced??(i%2===0?"ENG-012-CP001":"ENG-012-CP002"))as any;questions.push(studioQuestion(generateEng012QuestionV1({seed,cpId:cp,difficulty:difficulty(r)}),seed));}
-  return{questions,generationContext:{...lifecycle,engineId:"language-v1",packageId:ENG012_QUESTION_STUDIO_PACKAGE_ID_V1,cpSelection:forced??"DETERMINISTIC_CP001_CP002",runtimeMode:"review-only",humanReviewApproved:false,reviewOnly:true,language:outputLanguage,seed:baseSeed,count:total}};
+  for(let i=0;i<total;i++){const seed=`${baseSeed}:${i}`;if(forced==="ENG-012-CP005"){const composed=generateEng012Cp005SetV1(seed);const sq=studioQuestion(composed.question,seed);questions.push({...sq,cpId:"ENG-012-CP005",patternId:"ENG-012-CP005",sourceCpId:composed.sourceCpId,composerProfile:composed.profile});}else{const cp=(forced??(["ENG-012-CP001","ENG-012-CP002","ENG-012-CP003","ENG-012-CP004"]as const)[i%4]!)as any;questions.push(studioQuestion(generateEng012QuestionV1({seed,cpId:cp,difficulty:difficulty(r)}),seed));}}
+  return{questions,generationContext:{...lifecycle,engineId:"language-v1",packageId:ENG012_QUESTION_STUDIO_PACKAGE_ID_V1,cpSelection:forced??"DETERMINISTIC_CP001_CP004",runtimeMode:"review-only",humanReviewApproved:false,reviewOnly:true,language:outputLanguage,seed:baseSeed,count:total}};
  }
 };
