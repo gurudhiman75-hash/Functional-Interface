@@ -103,7 +103,7 @@ export interface MixedFacingCaseletRecord {
   readonly children: readonly MixedFacingChildQuestion[];
   readonly lifecycle: {
     readonly discoveryStatus: "EXECUTABLE_FOUNDATION";
-    readonly permanentQlCount: 0;
+    readonly permanentQlCount: 9;
     readonly questionStudioRegistered: false;
     readonly questionBankWritable: false;
     readonly testEligible: false;

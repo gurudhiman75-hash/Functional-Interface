@@ -112,28 +112,42 @@ SEA_CP004_REVIEW_OUTPUT_DIR=./dist/sea-cp004-review \
 
 All five SEA-001 topology checkpoints are now executable.
 
-The remaining work is **not another SEA-001 topology implementation**. It is the saturation and freeze audit:
+The topology, source-gap query breadth and merge/split audit are now complete enough to allocate the permanent learner taxonomy.
 
-- source/topology saturation;
-- merge/split and inverse-query audit;
-- permanent learner-contract QL allocation;
-- query-mix audit;
-- English manual review/freeze;
-- Hindi/Punjabi localization and parity;
-- Question Studio integration only after those gates close.
+Permanent QLs:
+
+- `SEA-QL-001` — endpoint identification;
+- `SEA-QL-002` — person at relative position;
+- `SEA-QL-003` — describe relative position / definitely-true relation shell;
+- `SEA-QL-004` — immediate-neighbour pair;
+- `SEA-QL-005` — linear number-between;
+- `SEA-QL-006` — directional circular number-between;
+- `SEA-QL-007` — opposite person;
+- `SEA-QL-008` — directional sequence;
+- `SEA-QL-009` — facing-state resolution.
+
+The remaining work is now the **freeze/localization/integration audit**:
+
+- English manual review and freeze;
+- Hindi/Punjabi localization and semantic parity;
+- Question Studio review-only integration;
+- downstream Question Bank/test/mock/public gates only after separate approval.
 
 SEA-002 and SEA-003 remain the owners for parallel rows, polygonal/multi-ring seating, attribute-linked seating, vacancies and other advanced families.
 
 ## Lifecycle
 
-This package remains internal executable discovery only:
+This package has a **review-only permanent QL allocation** but remains product-locked:
 
 ```text
-Permanent QLs:                0
-Question Studio public view:  false
+Permanent QLs:                9
+Permanent range:              SEA-QL-001..009
+English freeze:               not started
+Hindi/Punjabi freeze:         not started
+Question Studio registered:   false
 Question Bank writes:         false
-Mock-test eligibility:        false
+Test/mock eligibility:        false
 Public publication:           false
 ```
 
-Do not bypass `assertSea001ActivationAllowed`. Remaining SEA-001 work, source and gap audits, manual freezes and product approvals remain mandatory.
+Do not bypass `assertSea001ActivationAllowed`. QL allocation does not authorize Question Studio registration, Question Bank writes, tests, mocks or public/student delivery.

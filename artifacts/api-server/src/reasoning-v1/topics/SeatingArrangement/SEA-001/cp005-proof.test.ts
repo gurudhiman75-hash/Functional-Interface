@@ -81,4 +81,4 @@ console.log(`generated child questions ${generatedQuestions}`);
 console.log(`facing-counterfactual questions ${facingCounterfactualQuestions}`);
 console.log(`displayed-clue necessity audits ${displayedClueNecessityAudits}`);
 console.log(`elapsed milliseconds ${Math.round(performance.now() - startedAt)}`);
-console.log("permanent QLs 0");
+console.log("permanent QLs 9");

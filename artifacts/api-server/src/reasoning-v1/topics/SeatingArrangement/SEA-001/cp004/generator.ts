@@ -26,7 +26,7 @@ export const SEA_CP004_BLUEPRINTS: readonly OutwardBlueprintId[] = [
 
 const LIFECYCLE = Object.freeze({
   discoveryStatus: "EXECUTABLE_FOUNDATION" as const,
-  permanentQlCount: 0 as const,
+  permanentQlCount: 9 as const,
   questionStudioRegistered: false as const,
   questionBankWritable: false as const,
   testEligible: false as const,
@@ -322,7 +322,7 @@ export function assertOutwardCaseletIntegrity(caselet: OutwardCaseletRecord): vo
       || caselet.children.some((child) => child.queryContractId === "SEA-QC-010"))) {
     throw new Error("Odd outward circle exposed an opposite relation");
   }
-  if (caselet.lifecycle.permanentQlCount !== 0
+  if (caselet.lifecycle.permanentQlCount !== 9
     || caselet.lifecycle.questionBankWritable
     || caselet.lifecycle.testEligible
     || caselet.lifecycle.publiclyPublishable) {

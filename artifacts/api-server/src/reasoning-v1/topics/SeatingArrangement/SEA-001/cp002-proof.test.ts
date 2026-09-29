@@ -75,4 +75,4 @@ console.log(`generated deterministic caselets ${generated}`);
 console.log(`generated child questions ${childQuestions}`);
 console.log(`displayed-clue necessity audits ${necessityAudits}`);
 console.log(`elapsed milliseconds ${Math.round(performance.now() - start)}`);
-console.log("permanent QLs 0");
+console.log("permanent QLs 9");

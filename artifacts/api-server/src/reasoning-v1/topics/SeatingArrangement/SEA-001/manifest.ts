@@ -66,5 +66,5 @@ export const SEA_FAMILY_MANIFEST = Object.freeze({
   activeRoadmapWave: "WAVE-6-SATURATION-AND-FREEZE-AUDIT" as const,
   completedWave5Checkpoints: ["SEA-CP-002", "SEA-CP-004", "SEA-CP-005"] as const,
   nextCheckpointSequence: [] as const,
-  permanentQlCount: 0 as const,
+  permanentQlCount: 9 as const,
 });

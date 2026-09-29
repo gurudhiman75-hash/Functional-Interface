@@ -16,7 +16,7 @@ const NAMES = ["A", "B", "C", "D", "E", "F", "G", "H"] as const;
 export const SEA_CP002_BLUEPRINTS: readonly MixedFacingBlueprintId[] = ["SEA-PBA-005", "SEA-PBA-006", "SEA-PBA-007", "SEA-PBA-008"];
 const LIFECYCLE = Object.freeze({
   discoveryStatus: "EXECUTABLE_FOUNDATION" as const,
-  permanentQlCount: 0 as const,
+  permanentQlCount: 9 as const,
   questionStudioRegistered: false as const,
   questionBankWritable: false as const,
   testEligible: false as const,
@@ -224,5 +224,5 @@ export function assertMixedFacingCaseletIntegrity(caselet: MixedFacingCaseletRec
     if (child.options.length !== 4 || child.options.filter((option) => option.isCorrect).length !== 1 || new Set(child.options.map((option) => option.semanticFingerprint)).size !== 4 || !child.options[child.answerIndex]?.isCorrect) throw new Error("CP-002 option integrity failed");
     if ((child.queryContractId === "SEA-QC-003" || child.queryContractId === "SEA-QC-005") && !/faces (north|south)/i.test(child.explanation)) throw new Error("Facing-dependent explanation did not resolve the reference facing");
   }
-  if (caselet.lifecycle.permanentQlCount !== 0 || caselet.lifecycle.questionBankWritable || caselet.lifecycle.testEligible || caselet.lifecycle.publiclyPublishable) throw new Error("CP-002 lifecycle lock violated");
+  if (caselet.lifecycle.permanentQlCount !== 9 || caselet.lifecycle.questionBankWritable || caselet.lifecycle.testEligible || caselet.lifecycle.publiclyPublishable) throw new Error("CP-002 lifecycle lock violated");
 }

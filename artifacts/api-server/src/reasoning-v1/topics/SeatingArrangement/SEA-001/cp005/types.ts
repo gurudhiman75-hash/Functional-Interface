@@ -81,7 +81,7 @@ export interface MixedCircleCaseletRecord {
   readonly sharedExplanation: string;
   readonly lifecycle: {
     readonly discoveryStatus: "EXECUTABLE_FOUNDATION";
-    readonly permanentQlCount: 0;
+    readonly permanentQlCount: 9;
     readonly questionStudioRegistered: false;
     readonly questionBankWritable: false;
     readonly testEligible: false;
