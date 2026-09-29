@@ -73,6 +73,31 @@
       "sourceId": "CP013-S14",
       "title": "GOV.UK — Timeline of country name changes: Malawi, Zambia, Tanganyika and Congo",
       "url": "https://www.gov.uk/government/publications/country-names/timeline-of-country-name-changes-in-hmg-use"
+    },
+    {
+      "sourceId": "CP013-S15",
+      "title": "U.S. Department of State, Office of the Historian — Nigeria, Recognition of Independence, 1960",
+      "url": "https://history.state.gov/countries/nigeria"
+    },
+    {
+      "sourceId": "CP013-S16",
+      "title": "U.S. Department of State, Office of the Historian — Angola, Alvor Accords and Independence, 1975",
+      "url": "https://history.state.gov/countries/angola"
+    },
+    {
+      "sourceId": "CP013-S17",
+      "title": "U.S. Department of State, Office of the Historian — Mozambique, Recognition of Independence, 1975",
+      "url": "https://history.state.gov/countries/mozambique"
+    },
+    {
+      "sourceId": "CP013-S18",
+      "title": "U.S. Department of State, Office of the Historian — Zimbabwe, Recognition of Independence, 1980",
+      "url": "https://history.state.gov/countries/zimbabwe"
+    },
+    {
+      "sourceId": "CP013-S19",
+      "title": "United Nations in Namibia — The UN’s role in Namibian Independence",
+      "url": "https://namibia.un.org/en/175155-uns-role-namibian-independence"
     }
   ],
   "facts": [
@@ -100,47 +125,44 @@
     },
     {
       "factId": "WHI-CP013-F003",
-      "claim": "The Gold Coast was a British colony before independence.",
+      "claim": "The Federation of Nigeria became independent on 1 October 1960 after British sovereignty.",
       "sourceIds": [
-        "CP013-S01",
-        "CP013-S03"
+        "CP013-S15"
       ],
-      "sourceLocator": "Ghana and early independence",
-      "relationshipType": "ghana-and-early-independence",
-      "reviewStatus": "source-linked; editorial review pending"
+      "sourceLocator": "Recognition — U.S. Recognition of Nigerian Independence, 1960",
+      "relationshipType": "nigerian-independence",
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP013-F004",
-      "claim": "Ghana became independent in 1957.",
+      "claim": "Angola and Mozambique, both former Portuguese territories, became independent in 1975.",
       "sourceIds": [
-        "CP013-S01",
-        "CP013-S03"
+        "CP013-S16",
+        "CP013-S17"
       ],
-      "sourceLocator": "Ghana and early independence",
-      "relationshipType": "ghana-and-early-independence",
-      "reviewStatus": "source-linked; editorial review pending"
+      "sourceLocator": "Angola: Recognition — U.S. Response to Angolan Independence, 1975; Mozambique: Recognition — U.S. Recognition of Mozambique, 1975",
+      "relationshipType": "portuguese-decolonization",
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP013-F005",
-      "claim": "At independence in 1957, the Gold Coast took the name Ghana.",
+      "claim": "The former British territory of Southern Rhodesia attained independence as Zimbabwe in 1980.",
       "sourceIds": [
-        "CP013-S01",
-        "CP013-S03"
+        "CP013-S18"
       ],
-      "sourceLocator": "Ghana and early independence",
-      "relationshipType": "ghana-and-early-independence",
-      "reviewStatus": "source-linked; editorial review pending"
+      "sourceLocator": "Recognition — U.S. Recognition of Zimbabwe’s Independence, 1980",
+      "relationshipType": "zimbabwean-independence",
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP013-F006",
-      "claim": "Ghana’s 1957 independence became an influential precedent for movements elsewhere in Africa.",
+      "claim": "UNTAG oversaw UN-supervised elections during Namibia’s 1989 transition to independence.",
       "sourceIds": [
-        "CP013-S01",
-        "CP013-S03"
+        "CP013-S19"
       ],
-      "sourceLocator": "Ghana and early independence",
-      "relationshipType": "ghana-and-early-independence",
-      "reviewStatus": "source-linked; editorial review pending"
+      "sourceLocator": "Paragraph beginning “On 1 April 1989”",
+      "relationshipType": "namibian-independence",
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP013-F007",
@@ -636,15 +658,13 @@
     },
     {
       "factId": "WHI-CP013-F051",
-      "claim": "The 1994 election brought a democratic government to power.",
+      "claim": "The Alvor Accords provided for Angola’s transition from Portuguese rule and independence in 1975.",
       "sourceIds": [
-        "CP013-S07",
-        "CP013-S08",
-        "CP013-S10"
+        "CP013-S16"
       ],
-      "sourceLocator": "Independence versus majority rule",
-      "relationshipType": "independence-versus-majority-rule",
-      "reviewStatus": "source-linked; editorial review pending"
+      "sourceLocator": "Summary paragraph on the 1974 coup and Alvor Accords",
+      "relationshipType": "angolan-independence",
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP013-F052",
@@ -660,27 +680,23 @@
     },
     {
       "factId": "WHI-CP013-F053",
-      "claim": "Apartheid persisted in sovereign South Africa until its political transition.",
+      "claim": "In 1976, the United Nations General Assembly confirmed SWAPO as the sole and authentic representative of the Namibian people.",
       "sourceIds": [
-        "CP013-S07",
-        "CP013-S08",
-        "CP013-S10"
+        "CP013-S19"
       ],
-      "sourceLocator": "Independence versus majority rule",
-      "relationshipType": "independence-versus-majority-rule",
-      "reviewStatus": "source-linked; editorial review pending"
+      "sourceLocator": "Paragraph on the 1976 UN General Assembly confirmation",
+      "relationshipType": "namibian-independence",
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP013-F054",
-      "claim": "The 1994 election enfranchised South Africans across racial categories.",
+      "claim": "Namibia became independent on 21 March 1990.",
       "sourceIds": [
-        "CP013-S07",
-        "CP013-S08",
-        "CP013-S10"
+        "CP013-S19"
       ],
-      "sourceLocator": "Independence versus majority rule",
-      "relationshipType": "independence-versus-majority-rule",
-      "reviewStatus": "source-linked; editorial review pending"
+      "sourceLocator": "Paragraph beginning “On 21 March 1990”",
+      "relationshipType": "namibian-independence",
+      "reviewStatus": "source-linked with section locator; editorial review pending"
     },
     {
       "factId": "WHI-CP013-F055",
