@@ -1,0 +1,61 @@
+name: Validate VEN-001 topology foundation
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ven-001-topology-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  topology-proof:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle topology proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/logical-venn-topology.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-topology.test.mjs
+      - name: Run topology proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-topology.test.mjs
+      - name: Bundle renderer proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/logical-venn-renderer.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-renderer.test.mjs
+      - name: Run renderer proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-renderer.test.mjs
+      - name: Bundle scenario authority proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-scenario-authorities.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-authorities.test.mjs
+      - name: Run scenario authority proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-authorities.test.mjs
+      - name: Bundle Question Studio integration proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-question-studio.test.mjs
+      - name: Run Question Studio integration proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-question-studio.test.mjs
+
+      - name: Check patch whitespace
+        run: git diff --check
