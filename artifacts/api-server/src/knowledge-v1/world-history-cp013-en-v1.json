@@ -87,18 +87,18 @@
       },
       {
         "key": "B",
-        "text": "The Federation of Nigeria"
+        "text": "Northern Rhodesia"
       },
       {
         "key": "C",
-        "text": "Northern Rhodesia"
+        "text": "The Federation of Nigeria"
       },
       {
         "key": "D",
         "text": "Tanganyika"
       }
     ],
-    "correctOption": "B",
+    "correctOption": "C",
     "explanation": "Nigeria became independent on 1 October 1960 after British rule. The country was recognized as the Federation of Nigeria.",
     "sourceIds": [
       "CP013-S15"
@@ -118,22 +118,22 @@
     "options": [
       {
         "key": "A",
-        "text": "Angola and Mozambique"
-      },
-      {
-        "key": "B",
         "text": "Ghana and Nigeria"
       },
       {
-        "key": "C",
+        "key": "B",
         "text": "Kenya and Tanzania"
       },
       {
-        "key": "D",
+        "key": "C",
         "text": "Algeria and Morocco"
+      },
+      {
+        "key": "D",
+        "text": "Angola and Mozambique"
       }
     ],
-    "correctOption": "A",
+    "correctOption": "D",
     "explanation": "Angola became independent on 11 November 1975, and Mozambique on 25 June 1975.",
     "sourceIds": [
       "CP013-S16",
@@ -154,11 +154,11 @@
     "options": [
       {
         "key": "A",
-        "text": "Zambia"
+        "text": "Zimbabwe"
       },
       {
         "key": "B",
-        "text": "Zimbabwe"
+        "text": "Zambia"
       },
       {
         "key": "C",
@@ -169,7 +169,7 @@
         "text": "Malawi"
       }
     ],
-    "correctOption": "B",
+    "correctOption": "A",
     "explanation": "Southern Rhodesia, previously under British sovereignty, attained independence as Zimbabwe in 1980.",
     "sourceIds": [
       "CP013-S18"
@@ -1820,18 +1820,18 @@
       },
       {
         "key": "B",
-        "text": "The Alvor Accords"
+        "text": "The Lancaster House Agreement"
       },
       {
         "key": "C",
-        "text": "The Lancaster House Agreement"
+        "text": "The Alvor Accords"
       },
       {
         "key": "D",
         "text": "The Lusaka Protocol"
       }
     ],
-    "correctOption": "B",
+    "correctOption": "C",
     "explanation": "The Alvor Accords arranged for a transitional government and Angola’s independence from Portugal in 1975.",
     "sourceIds": [
       "CP013-S16"
@@ -1888,11 +1888,11 @@
     "options": [
       {
         "key": "A",
-        "text": "FRELIMO"
+        "text": "SWAPO"
       },
       {
         "key": "B",
-        "text": "SWAPO"
+        "text": "FRELIMO"
       },
       {
         "key": "C",
@@ -1903,7 +1903,7 @@
         "text": "ZANU"
       }
     ],
-    "correctOption": "B",
+    "correctOption": "A",
     "explanation": "The United Nations recognized SWAPO as the sole and authentic representative of the Namibian people.",
     "sourceIds": [
       "CP013-S19"
@@ -1927,18 +1927,18 @@
       },
       {
         "key": "B",
-        "text": "18 April 1980"
+        "text": "21 March 1990"
       },
       {
         "key": "C",
-        "text": "21 March 1990"
+        "text": "18 April 1980"
       },
       {
         "key": "D",
         "text": "11 November 1975"
       }
     ],
-    "correctOption": "C",
+    "correctOption": "B",
     "explanation": "Namibia became independent on 21 March 1990, after the UN-supervised transition and elections.",
     "sourceIds": [
       "CP013-S19"
