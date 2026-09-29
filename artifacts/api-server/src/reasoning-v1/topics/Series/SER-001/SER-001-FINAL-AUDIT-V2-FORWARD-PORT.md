@@ -58,7 +58,15 @@ Lifecycle remains:
 
 ### CP009 — SSC Reasoning number series
 
-The **audited Series candidate is `SER-QL-029..041` (13 provisional identities)**. CP009 owns only SSC-style four-option Reasoning number-series questions.
+After anti-inflation, the **audited Series candidate retains 10 genuinely new provisional identities: `SER-QL-029..033`, `SER-QL-035..038`, and `SER-QL-040`**. CP009 owns only SSC-style four-option Reasoning number-series questions.
+
+Three source-backed numeric families remain valid Series content but merge into existing permanent learner solve contracts:
+
+- `SER-QL-034` -> `SER-QL-007` (interleaved rows).
+- `SER-QL-039` -> `SER-QL-011` (position permutation / rotation).
+- `SER-QL-041` -> `SER-QL-010` (periodic block and gap completion).
+
+Their numeric object modes should expand those existing QLs rather than create new permanent identities.
 
 The source-gap experiment originally included `SER-QL-042 / INTERNAL_DIGIT_RELATION_OPTION_SERIES`. Final ownership review rejects it because its values do not form a cross-term progression; each value merely obeys the same internal digit relation. That is number-relation/classification logic, not Series. `SER-QL-042` is therefore not reserved and cannot be promoted from this checkpoint.
 
