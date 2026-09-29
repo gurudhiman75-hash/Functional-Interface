@@ -41,7 +41,7 @@ export const WFM_BANKING_ORDERED_EXTRACTION_FIXTURES: readonly WfmOrderedExtract
     mode: "SINGLE_WORD_POSITIONS",
     difficulty: "MEDIUM",
     options: [
-      { words: ["EDUCATION"], positions: [1, 3, 5, 8], expectedExtraction: "EUTO", meaningful: false },
+      { words: ["EDUCATION"], positions: [1, 3, 5, 8], expectedExtraction: "EUAO", meaningful: false },
       { words: ["HOSPITAL"], positions: [2, 4, 6, 8], expectedExtraction: "OPTL", meaningful: false },
       { words: ["NOTEBOOK"], positions: [1, 3, 5, 8], expectedExtraction: "NTBK", meaningful: false },
       { words: ["NOTWITHSTANDING"], positions: [4, 5, 11, 12], expectedExtraction: "WIND", meaningful: true },
@@ -78,9 +78,9 @@ export const WFM_BANKING_ORDERED_EXTRACTION_FIXTURES: readonly WfmOrderedExtract
     difficulty: "HARD",
     options: [
       { words: ["CABIN", "STONE", "DELTA", "GLOVE"], positions: [3, 3, 1, 5], expectedExtraction: "BODE", meaningful: true },
-      { words: ["TIGER", "PLANT", "CLOUD", "BEACH"], positions: [2, 4, 1, 5], expectedExtraction: "INC H".replace(" ", ""), meaningful: false },
-      { words: ["HOUSE", "BRICK", "MANGO", "WATER"], positions: [3, 2, 4, 1], expectedExtraction: "URIW", meaningful: false },
-      { words: ["LIGHT", "STONE", "PAPER", "CLOUD"], positions: [1, 3, 2, 5], expectedExtraction: "LOAL", meaningful: false },
+      { words: ["TIGER", "PLANT", "CLOUD", "BEACH"], positions: [2, 4, 1, 5], expectedExtraction: "INCH", meaningful: false },
+      { words: ["HOUSE", "BRICK", "MANGO", "WATER"], positions: [3, 2, 4, 1], expectedExtraction: "URGW", meaningful: false },
+      { words: ["LIGHT", "STONE", "PAPER", "CLOUD"], positions: [1, 3, 2, 5], expectedExtraction: "LOAD", meaningful: false },
       { words: ["GREEN", "TABLE", "SNAKE", "PEARL"], positions: [4, 2, 5, 1], expectedExtraction: "EAEP", meaningful: false },
     ],
   },
@@ -90,9 +90,9 @@ export const WFM_BANKING_ORDERED_EXTRACTION_FIXTURES: readonly WfmOrderedExtract
     difficulty: "MEDIUM",
     options: [
       { words: ["BRAVE", "CABLE", "TIGER", "SNAKE"], positions: [2, 2, 2, 2], expectedExtraction: "RAIN", meaningful: true },
-      { words: ["PLANT", "HOUSE", "BRICK", "WATER"], positions: [2, 2, 2, 2], expectedExtraction: "LOAR", meaningful: false },
+      { words: ["PLANT", "HOUSE", "BRICK", "WATER"], positions: [2, 2, 2, 2], expectedExtraction: "LORA", meaningful: false },
       { words: ["MANGO", "GREEN", "CLOUD", "PEARL"], positions: [2, 2, 2, 2], expectedExtraction: "ARLE", meaningful: false },
-      { words: ["STONE", "TABLE", "LIGHT", "CHAIR"], positions: [2, 2, 2, 2], expectedExtraction: "TAAA", meaningful: false },
+      { words: ["STONE", "TABLE", "LIGHT", "CHAIR"], positions: [2, 2, 2, 2], expectedExtraction: "TAIH", meaningful: false },
       { words: ["ROBIN", "SNAKE", "PAPER", "GLOVE"], positions: [2, 2, 2, 2], expectedExtraction: "ONAL", meaningful: false },
     ],
   },
@@ -102,10 +102,10 @@ export const WFM_BANKING_ORDERED_EXTRACTION_FIXTURES: readonly WfmOrderedExtract
     difficulty: "HARD",
     options: [
       { words: ["MANGO", "STONE", "ALERT", "CLOUD"], positions: [4, 3, 2, 5], expectedExtraction: "GOLD", meaningful: true },
-      { words: ["BRICK", "HOUSE", "PLANT", "WATER"], positions: [2, 4, 1, 5], expectedExtraction: "RSP R".replace(" ", ""), meaningful: false },
-      { words: ["TIGER", "CABLE", "ROBIN", "PEARL"], positions: [3, 5, 2, 1], expectedExtraction: "GBOP", meaningful: false },
-      { words: ["LIGHT", "GREEN", "STONE", "MANGO"], positions: [4, 2, 5, 1], expectedExtraction: "HER M".replace(" ", ""), meaningful: false },
-      { words: ["SNAKE", "PAPER", "GLOVE", "BRICK"], positions: [5, 1, 3, 2], expectedExtraction: "EAVR", meaningful: false },
+      { words: ["BRICK", "HOUSE", "PLANT", "WATER"], positions: [2, 4, 1, 5], expectedExtraction: "RSPR", meaningful: false },
+      { words: ["TIGER", "CABLE", "ROBIN", "PEARL"], positions: [3, 5, 2, 1], expectedExtraction: "GEOP", meaningful: false },
+      { words: ["LIGHT", "GREEN", "STONE", "MANGO"], positions: [4, 2, 5, 1], expectedExtraction: "HREM", meaningful: false },
+      { words: ["SNAKE", "PAPER", "GLOVE", "BRICK"], positions: [5, 1, 3, 2], expectedExtraction: "EPOR", meaningful: false },
     ],
   },
 ] as const;
