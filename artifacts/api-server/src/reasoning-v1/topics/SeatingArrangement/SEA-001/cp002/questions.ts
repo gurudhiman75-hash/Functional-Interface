@@ -189,6 +189,8 @@ function countBetweenQuestion(seed: string, model: MixedFacingModel, rng: Determ
     { value: answer + 1, misconceptionId: "SEA-MC-MIX-ENDPOINT_INCLUDED", recomputation: { includedOneEndpoint: true }, explanation: "This includes one endpoint in the count." },
     { value: answer + 2, misconceptionId: "SEA-MC-MIX-ENDPOINT_INCLUDED", recomputation: { includedBothEndpoints: true }, explanation: "This includes both named persons." },
     { value: Math.max(0, answer - 1), misconceptionId: "SEA-MC-MIX-OFF_BY_ONE_SEAT", recomputation: { stoppedEarly: true }, explanation: "This misses one person between the endpoints." },
+    { value: firstIndex, misconceptionId: "SEA-MC-MIX-COUNTED_OUTSIDE_PAIR", recomputation: { countedPeopleLeftOfPair: true }, explanation: "This counts the people to the left of the pair instead of the people between them." },
+    { value: model.seatOrder.length - secondIndex - 1, misconceptionId: "SEA-MC-MIX-COUNTED_OUTSIDE_PAIR", recomputation: { countedPeopleRightOfPair: true }, explanation: "This counts the people to the right of the pair instead of the people between them." },
   ];
   const traps = countTraps.filter((trap) => typeof trap.value === "number" && trap.value >= 0 && trap.value <= maximumValidCount);
   return {
