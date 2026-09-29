@@ -140,3 +140,23 @@ console.log(JSON.stringify({
   profileCounts,
   cp013ShortBatchDistinctFirstFour: new Set(cp013Batch.questions.slice(0, 4).map((question) => question.realism.numericalStateSignature)).size,
 }, null, 2));
+
+
+{
+  const first = generateMensurationSelectionBatchV2({
+    seed: "MENSURATION-SELECTION-EXCLUSION-P6:first",
+    examProfile: "SSC_CORE",
+    count: 1,
+  }).questions[0]!;
+  const second = generateMensurationSelectionBatchV2({
+    seed: "MENSURATION-SELECTION-EXCLUSION-P6:second",
+    examProfile: "SSC_CORE",
+    count: 1,
+    auditExcludedPatternIds: [first.patternId],
+  }).questions[0]!;
+  assert.notEqual(
+    second.patternId,
+    first.patternId,
+    "Live Mensuration selector must not reuse an explicitly excluded positive-weight pattern while unused patterns remain.",
+  );
+}
