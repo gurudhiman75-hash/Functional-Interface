@@ -88,4 +88,4 @@ This is a semantic review list, not an instruction to remove every related quest
 - **CP010 opening/turning-point overlap:** merged in [PR #2636](https://github.com/gurudhiman75-hash/Functional-Interface/pull/2636). Four repeat items were replaced with source-backed Blitzkrieg, Phoney War, Warsaw surrender and Kursk coverage. English review materials and canonical locators are aligned; localization remains open.
 
 
-- **CP009/CP010 opening overlap:** proposed in [PR #2640](https://github.com/gurudhiman75-hash/Functional-Interface/pull/2640). CP009’s repeated war-declaration date and outbreak sequence are replaced with the March assurance and August UK-Poland mutual assistance agreement; the invasion date remains CP009’s single endpoint.
+- **CP009/CP010 opening overlap:** merged in [PR #2640](https://github.com/gurudhiman75-hash/Functional-Interface/pull/2640). CP009’s repeated war-declaration date and outbreak sequence are replaced with the March assurance and August UK-Poland mutual assistance agreement; the invasion date remains CP009’s single endpoint.
