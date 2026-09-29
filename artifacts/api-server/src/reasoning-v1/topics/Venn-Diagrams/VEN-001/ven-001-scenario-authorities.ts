@@ -884,7 +884,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
     reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
     sets: [
-      { setId: "A", labels: { "en-IN": "The five vowel letters A, E, I, O and U", "hi-IN": "अंग्रेज़ी के पाँच स्वर अक्षर A, E, I और O तथा U", "pa-IN": "ਅੰਗਰੇਜ਼ੀ ਦੇ ਪੰਜ ਸਵਰ ਅੱਖਰ A, E, I, O ਅਤੇ U" } },
+      { setId: "A", labels: { "en-IN": "The five vowel letters A, E, I, O and U", "hi-IN": "अंग्रेज़ी के पाँच स्वर अक्षर A, E, I, O और U", "pa-IN": "ਅੰਗਰੇਜ਼ੀ ਦੇ ਪੰਜ ਸਵਰ ਅੱਖਰ A, E, I, O ਅਤੇ U" } },
       { setId: "B", labels: { "en-IN": "Consonant letters", "hi-IN": "व्यंजन अक्षर", "pa-IN": "ਵਿਅੰਜਨ ਅੱਖਰ" } },
       { setId: "C", labels: { "en-IN": "Letters of the English alphabet", "hi-IN": "अंग्रेज़ी वर्णमाला के अक्षर", "pa-IN": "ਅੰਗਰੇਜ਼ੀ ਵਰਣਮਾਲਾ ਦੇ ਅੱਖਰ" } },
     ],
