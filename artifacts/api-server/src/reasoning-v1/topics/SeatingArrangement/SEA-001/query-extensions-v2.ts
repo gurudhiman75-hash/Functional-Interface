@@ -29,7 +29,7 @@ function mixedFacings(caselet: MixedFacingCaseletRecord) {
 export interface Sea001FacingCountExtensionV2
   extends Omit<Sea001QueryExtensionV1, "authority" | "kind" | "checkpointId" | "answerType" | "answer"> {
   authority: "SEA_001_QUERY_EXTENSION_V2";
-  kind: "FACING_DIRECTION_COUNT";
+  kind: "FACING_DIRECTION_COUNT" | "END_PERSON_AND_FACING";
   checkpointId: "SEA-CP-002";
   answerType: "COUNT";
   answer: number;
@@ -69,10 +69,46 @@ export function buildMixedFacingCountExtensionV2(
   };
 }
 
+
+export function buildMixedFacingEndAndFacingExtensionV2(
+  caselet: MixedFacingCaseletRecord,
+): Sea001FacingCountExtensionV2 {
+  const { order, facings } = mixedFacings(caselet);
+  const preferRight = answerIndex(caselet.caseletId + ":END_SIDE") % 2 === 1;
+  const personId = preferRight ? order[order.length - 1]! : order[0]!;
+  const facing = facings[personId]!;
+  const correct = `${personId} - ${facing === "NORTH" ? "North" : "South"}`;
+  const candidates = [
+    `${personId} - ${facing === "NORTH" ? "South" : "North"}`,
+    `${preferRight ? order[0]! : order[order.length - 1]!} - ${facing === "NORTH" ? "North" : "South"}`,
+    `${order[1]!} - ${facings[order[1]!] === "NORTH" ? "North" : "South"}`,
+    `${order[order.length - 2]!} - ${facings[order[order.length - 2]!] === "NORTH" ? "North" : "South"}`,
+  ].filter((value, index, values) => value !== correct && values.indexOf(value) === index);
+  if (candidates.length < 3) throw new Error("SEA-001 end/facing extension needs three distinct distractors");
+  const correctIndex = answerIndex(caselet.caseletId + ":END_FACING");
+  const options = candidates.slice(0, 3);
+  options.splice(correctIndex, 0, correct);
+
+  return {
+    authority: "SEA_001_QUERY_EXTENSION_V2",
+    kind: "END_PERSON_AND_FACING",
+    checkpointId: "SEA-CP-002",
+    sourceCaseletId: caselet.caseletId,
+    answerType: "COUNT",
+    stem: `Who sits at the ${preferRight ? "extreme right" : "extreme left"} end and which direction does that person face?`,
+    options: options as [string, string, string, string],
+    correctIndex,
+    answer: correct as unknown as number,
+    sourceBackedGap: true,
+    permanentQlAllocated: false,
+    reviewOnly: true,
+  };
+}
+
 export const SEA_001_QUERY_EXTENSION_AUTHORITY_V2 = Object.freeze({
   authorityId: "SEA_001_QUERY_EXTENSION_V2",
   supersedesForAudit: SEA_001_QUERY_EXTENSION_AUTHORITY_V1.authorityId,
-  addedGap: "FACING_DIRECTION_COUNT",
+  addedGaps: ["FACING_DIRECTION_COUNT", "END_PERSON_AND_FACING"] as const,
   sourceState: "VERIFIED_CP002_MIXED_FACING_MODEL",
   permanentQlAllocated: false,
   questionStudioRegistered: false,
