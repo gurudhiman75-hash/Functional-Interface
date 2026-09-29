@@ -15,7 +15,7 @@ Question count: 12 (Easy 6, Medium 4, Hard 2). Each question has English, Hindi 
 | Question | Objective | Difficulty | Key | Correct answer |
 |---|---|---|---:|---|
 | WGE-001-CP043-Q001 | remote-sensing-definition | Easy | 1 | Remote sensing |
-| WGE-001-CP043-Q002 | active-radar-sensor | Easy | 2 | A raster data layer |
+| WGE-001-CP043-Q002 | active-radar-sensor | Easy | 2 | An active remote-sensing instrument |
 | WGE-001-CP043-Q003 | gis-purpose | Easy | 0 | To organise and analyse information linked to places |
 | WGE-001-CP043-Q004 | vector-road-line | Easy | 3 | A line tracing the road’s route |
 | WGE-001-CP043-Q005 | raster-elevation | Easy | 1 | As a grid of cells, each storing a value |
@@ -60,27 +60,27 @@ D. ਪ੍ਰਯੋਗਸ਼ਾਲਾ ਵਿੱਚ ਨਮੂਨਾ ਲੈਣਾ
 ### WGE-001-CP043-Q002 — active-radar-sensor (Easy)
 
 **EN** — A radar instrument sends out a microwave pulse and measures its return. How should it be classified?
-A. An active remote-sensing instrument
+A. A satellite-positioning receiver
 B. A passive remote-sensing instrument
-C. A raster data layer
-D. A satellite-positioning receiver
-**Answer:** C. A raster data layer
+C. An active remote-sensing instrument
+D. A raster data layer
+**Answer:** C. An active remote-sensing instrument
 An active sensor sends out its own energy and measures what returns. A passive sensor records energy that is already present.
 
 **HI** — एक रडार यंत्र सूक्ष्मतरंग संकेत भेजता है और लौटे संकेत को मापता है। इसे किस रूप में वर्गीकृत किया जाएगा?
-A. सक्रिय सुदूर-संवेदन यंत्र
+A. उपग्रह-आधारित स्थिति-निर्धारण यंत्र
 B. निष्क्रिय सुदूर-संवेदन यंत्र
-C. रास्टर आँकड़ा-परत
-D. उपग्रह-आधारित स्थिति-निर्धारण यंत्र
-**उत्तर:** C. रास्टर आँकड़ा-परत
+C. सक्रिय सुदूर-संवेदन यंत्र
+D. रास्टर आँकड़ा-परत
+**उत्तर:** C. सक्रिय सुदूर-संवेदन यंत्र
 सक्रिय संवेदक अपनी ऊर्जा भेजता है और लौटे संकेत को मापता है। निष्क्रिय संवेदक पहले से मौजूद ऊर्जा दर्ज करता है।
 
 **PA** — ਇੱਕ ਰਡਾਰ ਯੰਤਰ ਮਾਈਕ੍ਰੋਵੇਵ ਸੰਕੇਤ ਭੇਜਦਾ ਹੈ ਅਤੇ ਵਾਪਸ ਆਏ ਸੰਕੇਤ ਨੂੰ ਮਾਪਦਾ ਹੈ। ਇਸ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕੀਤਾ ਜਾਵੇਗਾ?
-A. ਸਰਗਰਮ ਦੂਰ-ਸੰਵੇਦਨ ਯੰਤਰ
+A. ਉਪਗ੍ਰਹਿ-ਆਧਾਰਿਤ ਸਥਿਤੀ-ਨਿਰਧਾਰਣ ਯੰਤਰ
 B. ਨਿਸ਼ਕਿਰਿਆ ਦੂਰ-ਸੰਵੇਦਨ ਯੰਤਰ
-C. ਰਾਸਟਰ ਡਾਟਾ ਪਰਤ
-D. ਉਪਗ੍ਰਹਿ-ਆਧਾਰਿਤ ਸਥਿਤੀ-ਨਿਰਧਾਰਣ ਯੰਤਰ
-**ਜਵਾਬ:** C. ਰਾਸਟਰ ਡਾਟਾ ਪਰਤ
+C. ਸਰਗਰਮ ਦੂਰ-ਸੰਵੇਦਨ ਯੰਤਰ
+D. ਰਾਸਟਰ ਡਾਟਾ ਪਰਤ
+**ਜਵਾਬ:** C. ਸਰਗਰਮ ਦੂਰ-ਸੰਵੇਦਨ ਯੰਤਰ
 ਸਰਗਰਮ ਸੈਂਸਰ ਆਪਣੀ ਊਰਜਾ ਭੇਜਦਾ ਹੈ ਅਤੇ ਵਾਪਸ ਆਏ ਸੰਕੇਤ ਨੂੰ ਮਾਪਦਾ ਹੈ। ਨਿਸ਼ਕਿਰਿਆ ਸੈਂਸਰ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਊਰਜਾ ਦਰਜ ਕਰਦਾ ਹੈ।
 
 **Sources:** NCERT-GEOT-TECH
