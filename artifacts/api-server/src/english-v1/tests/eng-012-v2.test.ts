@@ -5,6 +5,7 @@ import{generateEng012Cp005SetV2,generateEng012QuestionV2}from"../chapters/word-s
 assert.deepEqual(ENG012_ACTIVE_COUNTS_V2,{cp001:120,cp002:120,cp003:100,cp004:110,total:450,surfaces:1350});
 assert.equal(ENG012_ACTIVE_AUTHORITIES_V2.length,450);
 assert.equal(new Set(ENG012_ACTIVE_AUTHORITIES_V2.map(x=>x.id)).size,450);
+assert.equal(ENG012_ACTIVE_AUTHORITIES_V2.filter(x=>x.noCorrection).length,45);
 
 const expected=new Map([
  ["ENG-012-CP001",120],
@@ -30,7 +31,12 @@ for(const a of ENG012_ACTIVE_AUTHORITIES_V2){
  assert.ok(q.explanationEmphasis.length>0);
  const displayed=q.sentence.replace(/\([A-D]\)\s*/g,"").replace(/[.]/g,"").trim();
  const corrected=q.metadata.correctedSentence.replace(/[.]/g,"").trim();
- assert.notEqual(displayed,corrected,"Displayed sentence must actually contain a misplaced pair");
+ if(a.noCorrection){
+  assert.equal(q.metadata.correctSwap,"No correction required");
+  assert.equal(displayed,corrected,"No-correction items must already be correct");
+ }else{
+  assert.notEqual(displayed,corrected,"Swap-required items must contain a misplaced pair");
+ }
 }
 for(const p of["ssc-standard","ssc-advanced","banking-prelims","banking-mains"]as const){
  const x=generateEng012Cp005SetV2(`composer:${p}`,p);
@@ -43,4 +49,4 @@ for(let i=0;i<20000;i++){
  assert.equal(new Set(q.options).size,4);
  assert.ok(q.correctOptionIndex>=0&&q.correctOptionIndex<4);
 }
-console.log("ENG-012 production V2 audit source passed.",{authorities:450,surfaces:1350,soak:20000});
+console.log("ENG-012 production V2 audit source passed.",{authorities:450,surfaces:1350,noCorrection:45,soak:20000});
