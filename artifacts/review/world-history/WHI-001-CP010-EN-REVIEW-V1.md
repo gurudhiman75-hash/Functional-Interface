@@ -381,7 +381,7 @@ At which conference did Allied leaders agree to seek the unconditional surrender
 - **D.** Casablanca Conference
 **Answer:** D
 **Explanation:** At Casablanca in January 1943, Roosevelt and Churchill announced the policy of unconditional surrender. The Soviet Union was not represented at that meeting.
-**Sources:** CP010-S07
+**Sources:** CP010-S18
 
 ### WHI-CP010-Q033 · Medium · Allied strategy and leaders
 
@@ -393,7 +393,7 @@ Which conference in 1943 brought Roosevelt, Churchill and Stalin together for th
 - **D.** San Francisco Conference
 **Answer:** A
 **Explanation:** The Tehran Conference in late 1943 was the first wartime meeting of Roosevelt, Churchill and Stalin. They discussed coordination against Germany and the opening of a western front.
-**Sources:** CP010-S07
+**Sources:** CP010-S18
 
 ### WHI-CP010-Q034 · Hard · Allied strategy and leaders
 
@@ -417,7 +417,7 @@ Which conference took place after Germany's surrender and discussed the administ
 - **D.** Tehran Conference
 **Answer:** C
 **Explanation:** The Potsdam Conference met in July and August 1945 after Germany's surrender. The Allied leaders addressed occupation policy and post-war arrangements.
-**Sources:** CP010-S07
+**Sources:** CP010-S18, CP010-S20
 
 ### WHI-CP010-Q036 · Medium · Allied strategy and leaders
 
@@ -429,7 +429,7 @@ What was the main purpose of the Lend-Lease Act of 1941?
 - **D.** To supply Allied countries with U.S. war materials and assistance
 **Answer:** D
 **Explanation:** Lend-Lease enabled the United States to provide military supplies to countries whose defense it considered vital. It preceded U.S. entry into the war.
-**Sources:** CP010-S07
+**Sources:** CP010-S19
 
 ### WHI-CP010-Q037 · Hard · Allied strategy and leaders
 

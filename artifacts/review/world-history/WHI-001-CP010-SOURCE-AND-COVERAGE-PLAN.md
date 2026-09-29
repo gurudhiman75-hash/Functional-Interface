@@ -60,3 +60,10 @@ New source entries use focused sections. The 60-question pool, 18/30/12 difficul
 
 - **CP010-S16** U.S. Naval History and Heritage Command — [Securing New Guinea: Operations Reckless and Persecution](https://www.history.navy.mil/browse-by-topic/wars-conflicts-and-operations/world-war-ii/1944/reckless-and-persecution.html). Supports the bypass-and-isolate island-hopping strategy.
 - **CP010-S17** U.S. Naval History and Heritage Command — [Battle of the Coral Sea](https://www.history.navy.mil/research/library/online-reading-room/title-list-alphabetically/b/battle-of-the-coral-sea.html). Supports the 1942 operation against Port Moresby.
+
+
+## Focused source additions — Allied strategy
+
+- **CP010-S18** U.S. Department of State, Office of the Historian — [Wartime Conferences, 1941–1945](https://history.state.gov/milestones/1937-1945/war-time-conferences). Covers Casablanca, Tehran, Yalta and Potsdam chronology.
+- **CP010-S19** U.S. Department of State, Office of the Historian — [Lend-Lease and Military Aid to the Allies in the Early Years of World War II](https://history.state.gov/milestones/1937-1945/lend-lease). Covers military assistance before U.S. entry and the purpose of Lend-Lease.
+- **CP010-S20** U.S. Department of State, Office of the Historian — [The Potsdam Conference, 1945](https://history.state.gov/milestones/1937-1945/potsdam-conf). Covers the July–August meeting after Germany’s surrender and its postwar agenda.

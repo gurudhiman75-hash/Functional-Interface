@@ -1127,7 +1127,7 @@
     "correctOption": "D",
     "explanation": "At Casablanca in January 1943, Roosevelt and Churchill announced the policy of unconditional surrender. The Soviet Union was not represented at that meeting.",
     "sourceIds": [
-      "CP010-S07"
+      "CP010-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1162,7 +1162,7 @@
     "correctOption": "A",
     "explanation": "The Tehran Conference in late 1943 was the first wartime meeting of Roosevelt, Churchill and Stalin. They discussed coordination against Germany and the opening of a western front.",
     "sourceIds": [
-      "CP010-S07"
+      "CP010-S18"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1232,7 +1232,8 @@
     "correctOption": "C",
     "explanation": "The Potsdam Conference met in July and August 1945 after Germany's surrender. The Allied leaders addressed occupation policy and post-war arrangements.",
     "sourceIds": [
-      "CP010-S07"
+      "CP010-S18",
+      "CP010-S20"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1267,7 +1268,7 @@
     "correctOption": "D",
     "explanation": "Lend-Lease enabled the United States to provide military supplies to countries whose defense it considered vital. It preceded U.S. entry into the war.",
     "sourceIds": [
-      "CP010-S07"
+      "CP010-S19"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
