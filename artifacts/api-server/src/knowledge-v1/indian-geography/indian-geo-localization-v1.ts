@@ -280,9 +280,13 @@ function residueCount(text: string) {
   return (text.match(COMMON_ENGLISH) ?? []).length;
 }
 
+function needsGenericExplanationFallback(source: string, language: "hi"|"pa") {
+  return residueCount(localizeText(source, language)) > 3;
+}
+
 function cleanExplanation(source: string, answer: string, language: "hi"|"pa") {
   const translated = localizeText(source, language);
-  if (residueCount(translated) <= 3) return translated;
+  if (!needsGenericExplanationFallback(source, language)) return translated;
   return language === "hi"
     ? `सही उत्तर ${answer} है। यह भारतीय भूगोल के संबंधित तथ्य को सही रूप से बताता है।`
     : `ਸਹੀ ਉੱਤਰ ${answer} ਹੈ। ਇਹ ਭਾਰਤੀ ਭੂਗੋਲ ਦੇ ਸੰਬੰਧਿਤ ਤੱਥ ਨੂੰ ਸਹੀ ਤਰ੍ਹਾਂ ਦਰਸਾਉਂਦਾ ਹੈ।`;
@@ -326,8 +330,13 @@ export function auditIndianGeoLocalizationV1(
   packageId?: string,
 ) {
   const issues: string[] = [];
-  let hindiResidueCount = 0;
-  let punjabiResidueCount = 0;
+  let hindiStemResidueCount = 0;
+  let punjabiStemResidueCount = 0;
+  let hindiOptionResidueCount = 0;
+  let punjabiOptionResidueCount = 0;
+  let genericExplanationFallbackCount = 0;
+  let mixedScriptCount = 0;
+
   for (const q of questions) {
     for (const language of ["hi","pa"] as const) {
       const localized = localizeIndianGeoQuestionV1(q, language, packageId);
@@ -336,18 +345,50 @@ export function auditIndianGeoLocalizationV1(
       if (localized.options[q.correctIndex] !== localized.canonicalAnswer) issues.push(`${q.questionId}:${language}:ANSWER`);
       if (language === "hi" && !/[\u0900-\u097F]/.test(localized.stem)) issues.push(`${q.questionId}:hi:NO_DEVANAGARI`);
       if (language === "pa" && !/[\u0A00-\u0A7F]/.test(localized.stem)) issues.push(`${q.questionId}:pa:NO_GURMUKHI`);
-      const residue = residueCount(localized.stem);
-      if (language === "hi") hindiResidueCount += residue;
-      else punjabiResidueCount += residue;
+
+      const stemResidue = residueCount(localized.stem);
+      const optionResidue = localized.options.reduce((sum, option) => sum + residueCount(option), 0);
+      if (language === "hi") {
+        hindiStemResidueCount += stemResidue;
+        hindiOptionResidueCount += optionResidue;
+        if (/[\u0A00-\u0A7F]/.test(localized.stem + " " + localized.options.join(" ") + " " + localized.explanation)) mixedScriptCount += 1;
+      } else {
+        punjabiStemResidueCount += stemResidue;
+        punjabiOptionResidueCount += optionResidue;
+        if (/[\u0900-\u097F]/.test(localized.stem + " " + localized.options.join(" ") + " " + localized.explanation)) mixedScriptCount += 1;
+      }
+
+      if (packageId !== "GEO-WAT-001" || !WATER_CP001_EXACT[language].has(q.questionId)) {
+        if (needsGenericExplanationFallback(q.explanation, language)) genericExplanationFallbackCount += 1;
+      }
     }
   }
+
+  const structuralValid = issues.length === 0;
+  const qualityReadyForFreeze =
+    structuralValid &&
+    hindiStemResidueCount === 0 &&
+    punjabiStemResidueCount === 0 &&
+    hindiOptionResidueCount === 0 &&
+    punjabiOptionResidueCount === 0 &&
+    genericExplanationFallbackCount === 0 &&
+    mixedScriptCount === 0;
+
   return Object.freeze({
-    valid: issues.length === 0,
+    valid: structuralValid,
+    structuralValid,
+    qualityReadyForFreeze,
     issues: Object.freeze(issues),
     canonicalQuestionCount: questions.length,
     localizedVersionCount: questions.length * 3,
-    hindiResidueCount,
-    punjabiResidueCount,
-    reviewRequired: true,
+    hindiResidueCount: hindiStemResidueCount,
+    punjabiResidueCount: punjabiStemResidueCount,
+    hindiStemResidueCount,
+    punjabiStemResidueCount,
+    hindiOptionResidueCount,
+    punjabiOptionResidueCount,
+    genericExplanationFallbackCount,
+    mixedScriptCount,
+    reviewRequired: !qualityReadyForFreeze,
   });
 }
