@@ -90,7 +90,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     ],
     topologyId: "THREE_TWO_DISJOINT_SUBSETS",
     rationale:
-      "Turtles and lizards are separate reptile groups in the conventional school-level classification used by exam questions.",
+      "Turtles and snakes are separate groups within reptiles.",
   },
   {
     authorityId: "VEN-AUTH-003-SQUARE-RECTANGLE-QUADRILATERAL",
