@@ -6,8 +6,8 @@ export type Eng013QuestionInputV3={seed?:string;cpId?:Eng013CpId;difficulty?:Eng
 function hash(v:string){let h=0x811c9dc5;for(let i=0;i<v.length;i++){h^=v.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return h>>>0;}
 function pick<T>(xs:readonly T[],seed:string){return xs[hash(seed)%xs.length]!;}
 function choose(input:Eng013QuestionInputV3){
- if(input.authorityId){const x=ENG013_ACTIVE_AUTHORITIES_V2.find(a=>a.id===input.authorityId);if(!x)throw new Error(`Unknown ENG-013 authority ${input.authorityId}`);return x;}
- let pool=ENG013_ACTIVE_AUTHORITIES_V2;
+ if(input.authorityId){const x=ENG013_ACTIVE_AUTHORITIES_V3.find(a=>a.id===input.authorityId);if(!x)throw new Error(`Unknown ENG-013 authority ${input.authorityId}`);return x;}
+ let pool=ENG013_ACTIVE_AUTHORITIES_V3;
  if(input.cpId)pool=pool.filter(x=>x.cpId===input.cpId);
  if(input.difficulty)pool=pool.filter(x=>x.difficulty===input.difficulty);
  if(input.mode)pool=pool.filter(x=>x.mode===input.mode);
