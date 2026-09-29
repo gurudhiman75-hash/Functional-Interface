@@ -1,0 +1,34 @@
+import assert from"node:assert/strict";
+import{languageV1QuestionStudioAdapter}from"./language-v1-adapter";
+import{ENG011_QUESTION_STUDIO_PACKAGE_ID_V1,languageV1Eng011QuestionStudioAdapterV1}from"./language-v1-eng011-adapter-v1";
+
+const base={packageId:ENG011_QUESTION_STUDIO_PACKAGE_ID_V1,subject:"English",topic:"Sentence Rearrangement",language:"en" as const,runtimeMode:"review-only"};
+const pkg=languageV1QuestionStudioAdapter.listPackages().find(x=>x.packageId===ENG011_QUESTION_STUDIO_PACKAGE_ID_V1);
+assert.ok(pkg);
+assert.deepEqual(pkg.cpIds,["ENG-011-CP001","ENG-011-CP002","ENG-011-CP003","ENG-011-CP004","ENG-011-CP005"]);
+assert.equal((pkg.metadata as any)?.authoritySets,450);
+assert.equal(pkg.questionBankWritable,false);
+assert.equal(pkg.testEligible,false);
+assert.equal(pkg.mockTestEligible,false);
+assert.equal(pkg.publiclyPublishable,false);
+
+for(const cp of["ENG-011-CP001","ENG-011-CP002","ENG-011-CP003","ENG-011-CP004"]as const){
+ const r=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:cp,count:4,seed:`studio:${cp}`});
+ assert.equal(r.questions.length,4);
+ for(const q of r.questions){
+  assert.equal(q.cpId,cp);
+  assert.equal(q.reviewOnly,true);
+  assert.equal((q.options as unknown[]).length,4);
+  assert.ok(Array.isArray(q.fragments));
+ }
+}
+const c=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-011-CP005",subtopic:"banking-mains",count:4,seed:"studio:composer"});
+assert.equal(c.questions.length,4);
+for(const q of c.questions){
+ assert.equal(q.cpId,"ENG-011-CP005");
+ assert.equal(q.sourceCpId,"ENG-011-CP004");
+ assert.equal(q.composerProfile,"banking-mains");
+}
+await assert.rejects(()=>languageV1Eng011QuestionStudioAdapterV1.generate({...base,language:"hi",count:1}),/English only/i);
+await assert.rejects(()=>languageV1Eng011QuestionStudioAdapterV1.generate({...base,runtimeMode:"production",count:1}),/review-only/i);
+console.log("ENG-011 Question Studio integration audit passed.");
