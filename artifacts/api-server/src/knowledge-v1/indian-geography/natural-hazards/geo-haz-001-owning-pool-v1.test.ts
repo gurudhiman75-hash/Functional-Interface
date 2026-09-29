@@ -1,0 +1,12 @@
+import assert from "node:assert/strict";
+import { GEO_HAZ_001_OWNING_POOL_V1, auditGeoHaz001OwningPoolV1 } from "./geo-haz-001-owning-pool-v1";
+import { GEO_HAZ_001_CP005_REVIEW_BATCH_V1, auditGeoHaz001Cp005ReviewBatchV1 } from "./geo-haz-001-cp005-review-batch-v1";
+const owning=auditGeoHaz001OwningPoolV1(), integrated=auditGeoHaz001Cp005ReviewBatchV1();
+assert.equal(owning.valid,true,owning.issues.join("\n"));
+assert.equal(owning.questionCount,100);
+assert.equal(owning.permanentQlCount,20);
+assert.equal(owning.stemCount,100);
+assert.equal(owning.explanationCount,100);
+assert.equal(integrated.valid,true,integrated.issues.join("\n"));
+assert.equal(GEO_HAZ_001_CP005_REVIEW_BATCH_V1.length,25);
+assert.equal(GEO_HAZ_001_OWNING_POOL_V1.every(q=>q.reviewOnly&&!q.runtimeRegistered),true);
