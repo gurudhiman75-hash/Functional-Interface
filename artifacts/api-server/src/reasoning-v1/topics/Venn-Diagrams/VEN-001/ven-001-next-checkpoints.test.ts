@@ -8,7 +8,7 @@ import {
 const locales = ["en", "hi", "pa"] as const;
 const families = [
   { id: "VEN-CP001", count: 4, operation: "RELATIONS_TO_DIAGRAM" },
-  { id: "VEN-CP002", count: 5, operation: "RELATIONS_TO_DIAGRAM" },
+  { id: "VEN-CP002", count: 11, operation: "RELATIONS_TO_DIAGRAM" },
   { id: "VEN-CP004", count: 3, operation: "REGION_IDENTIFICATION" },
 ] as const;
 
@@ -52,6 +52,17 @@ for (const family of families) {
       }
     }
     assert.equal(keys.size, family.count);
+    if (family.id === "VEN-CP002") {
+      const keyedTopologies = new Set(result.questions.map((item) => item.semanticMetadata.topologyId));
+      for (const topology of [
+        "THREE_NESTED", "THREE_TWO_DISJOINT_SUBSETS",
+        "THREE_PARTIAL_OVERLAP_INSIDE_SUPERSET", "THREE_PAIRWISE_OVERLAP_WITH_TRIPLE",
+        "THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE", "THREE_TWO_OVERLAP_ONE_SEPARATE",
+        "THREE_ONE_NESTED_PAIR_ONE_SEPARATE", "THREE_ALL_DISJOINT",
+        "THREE_NESTED_PAIR_CROSSED_BY_THIRD", "THREE_TWO_DISJOINT_OVERLAP_THIRD",
+        "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP",
+      ]) assert.ok(keyedTopologies.has(topology), `missing keyed topology: ${topology}`);
+    }
   }
 }
 
@@ -63,6 +74,15 @@ assert.throws(
       language: "en",
     } as QuestionStudioGenerationRequest),
   /has 3 distinct region candidates/,
+);
+assert.throws(
+  () =>
+    generateVen001NextCheckpointBatch({
+      patternId: "VEN-CP002",
+      count: 12,
+      language: "en",
+    } as QuestionStudioGenerationRequest),
+  /has 11 distinct candidates/,
 );
 assert.throws(
   () =>
