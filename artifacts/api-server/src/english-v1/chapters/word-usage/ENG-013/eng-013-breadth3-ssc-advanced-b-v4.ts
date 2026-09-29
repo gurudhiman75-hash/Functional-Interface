@@ -46,7 +46,6 @@ const R:readonly Eng013BreadthRecordV4[]=[
 ["indigenous","The programme draws on {x} knowledge.",["indigenous","indigenous to","indigenous with","indigenous on"],"Indigenous directly modifies a noun to mean originating naturally in a place or community."],
 ["inelastic","Demand for the service appears relatively {x} price changes.",["inelastic to","inelastic with","inelastic for","inelastic on"],"Inelastic to means not very responsive to changes in a factor."],
 ["interdependent","The two systems are highly {x}.",["interdependent","interdependent to","interdependent with","interdependent on"],"Interdependent means mutually dependent on one another."],
-["marginal","The policy had only a {x} effect on overall demand.",["marginal","marginal to","marginal with","marginal on"],"Marginal means small or limited in extent."],
 ["normative","The statement is {x} rather than purely descriptive.",["normative","normative to","normative with","normative on"],"Normative means expressing a value judgment about what ought to be."],
 ["parsimonious","The simpler model is more {x} without sacrificing accuracy.",["parsimonious","parsimonious to","parsimonious with","parsimonious on"],"Parsimonious means economical or simple while explaining adequately."]
 ];
