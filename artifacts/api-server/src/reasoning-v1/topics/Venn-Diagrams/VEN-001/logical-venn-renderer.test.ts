@@ -16,6 +16,10 @@ const ids: readonly VennTopologyId[] = [
   "THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE",
   "THREE_TWO_OVERLAP_ONE_SEPARATE",
   "THREE_ONE_NESTED_PAIR_ONE_SEPARATE",
+  "THREE_ALL_DISJOINT",
+  "THREE_NESTED_PAIR_CROSSED_BY_THIRD",
+  "THREE_TWO_DISJOINT_OVERLAP_THIRD",
+  "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP",
 ];
 
 const diagrams = ids.map((id) => renderVennTopologySvg(id));
@@ -111,4 +115,22 @@ const nestedAndSeparate = circleGeometry(renderVennTopologySvg("THREE_ONE_NESTED
 assert.ok(nestedAndSeparate[0]!.r > nestedAndSeparate[1]!.r);
 assert.equal(distance(nestedAndSeparate[0]!, nestedAndSeparate[1]!), 0);
 assert.ok(distance(nestedAndSeparate[0]!, nestedAndSeparate[2]!) > nestedAndSeparate[0]!.r + nestedAndSeparate[2]!.r);
+const allSeparate = circleGeometry(renderVennTopologySvg("THREE_ALL_DISJOINT"));
+for (let i = 0; i < 3; i += 1) for (let j = i + 1; j < 3; j += 1) {
+  assert.ok(distance(allSeparate[i]!, allSeparate[j]!) > allSeparate[i]!.r + allSeparate[j]!.r);
+}
+const crossedNested = circleGeometry(renderVennTopologySvg("THREE_NESTED_PAIR_CROSSED_BY_THIRD"));
+assert.ok(distance(crossedNested[0]!, crossedNested[1]!) + crossedNested[1]!.r < crossedNested[0]!.r);
+for (const i of [1, 2]) {
+  assert.ok(distance(crossedNested[0]!, crossedNested[i]!) < crossedNested[0]!.r + crossedNested[i]!.r);
+}
+assert.ok(distance(crossedNested[1]!, crossedNested[2]!) < crossedNested[1]!.r + crossedNested[2]!.r);
+assert.ok(distance(crossedNested[0]!, crossedNested[2]!) + crossedNested[2]!.r > crossedNested[0]!.r);
+const twoSeparateCrossed = circleGeometry(renderVennTopologySvg("THREE_TWO_DISJOINT_OVERLAP_THIRD"));
+assert.ok(distance(twoSeparateCrossed[0]!, twoSeparateCrossed[1]!) > twoSeparateCrossed[0]!.r + twoSeparateCrossed[1]!.r);
+for (const i of [0, 1]) assert.ok(distance(twoSeparateCrossed[i]!, twoSeparateCrossed[2]!) < twoSeparateCrossed[i]!.r + twoSeparateCrossed[2]!.r);
+const outerOnly = circleGeometry(renderVennTopologySvg("THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP"));
+assert.ok(distance(outerOnly[0]!, outerOnly[1]!) + outerOnly[1]!.r < outerOnly[0]!.r);
+assert.ok(distance(outerOnly[0]!, outerOnly[2]!) < outerOnly[0]!.r + outerOnly[2]!.r);
+assert.ok(distance(outerOnly[1]!, outerOnly[2]!) > outerOnly[1]!.r + outerOnly[2]!.r);
 console.log("PASS_VEN_001_ACCESSIBLE_TOPOLOGY_RENDERER");
