@@ -3,20 +3,20 @@ import { test } from "node:test";
 import {
   CLK_001_AUTHORING_TASKS_BY_QL_V1,
   CLK_001_AUTHORING_VARIANT_AUTHORITY_V1,
-  CLK_001_LOCALIZED_VARIANT_BATCH_2,
+  CLK_001_LOCALIZED_VARIANT_BATCH_3,
 } from "./authoring-variants-v1";
 import { CLK_001_PERMANENT_CONTRACTS } from "./permanent-contracts";
 import { generateClk001QuestionStudioBatch } from "./question-studio-integration";
 import { CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION } from "./runtime/exam-natural-governance";
 
-test("CLK-001 Batch 2 expands multilingual authoring without changing permanent QLs", () => {
+test("CLK-001 Batch 3 expands multilingual authoring without taxonomy inflation", () => {
   assert.equal(CLK_001_PERMANENT_CONTRACTS.length, 23);
-  assert.ok(CLK_001_AUTHORING_VARIANT_AUTHORITY_V1.enabledMergedVariantCount >= 16);
-  assert.equal(CLK_001_LOCALIZED_VARIANT_BATCH_2.length, 10);
+  assert.equal(CLK_001_AUTHORING_VARIANT_AUTHORITY_V1.enabledMergedVariantCount, 31);
+  assert.equal(CLK_001_LOCALIZED_VARIANT_BATCH_3.length, 15);
 
   const enabled = new Set(Object.values(CLK_001_AUTHORING_TASKS_BY_QL_V1).flat());
-  for (const taskId of CLK_001_LOCALIZED_VARIANT_BATCH_2) {
-    assert.ok(enabled.has(taskId), taskId + " must be authorable in Batch 2");
+  for (const taskId of CLK_001_LOCALIZED_VARIANT_BATCH_3) {
+    assert.ok(enabled.has(taskId), taskId + " must be authorable in Batch 3");
   }
 
   for (const [taskId, record] of Object.entries(CLOCK_EFFECTIVE_CANDIDATE_DISPOSITION)) {
@@ -27,11 +27,11 @@ test("CLK-001 Batch 2 expands multilingual authoring without changing permanent 
   }
 });
 
-test("every expanded QL preserves EN HI PA task/index/fingerprint parity", async () => {
+test("all expanded QLs retain deterministic EN HI PA parity after Batch 3", async () => {
   const expanded = CLK_001_PERMANENT_CONTRACTS.filter(
     (contract) => CLK_001_AUTHORING_TASKS_BY_QL_V1[contract.qlId].length > 1,
   );
-  assert.ok(expanded.length >= 12);
+  assert.equal(expanded.length, 14);
 
   const globallyObserved = new Set<string>();
 
@@ -46,7 +46,7 @@ test("every expanded QL preserves EN HI PA task/index/fingerprint parity", async
         canonicalProblemId: contract.qlId,
         language,
         count,
-        seed: "clk-wave3-batch2-" + contract.qlId,
+        seed: "clk-wave4-batch3-" + contract.qlId,
       });
       byLanguage.set(language, result.questions);
 
@@ -84,7 +84,7 @@ test("every expanded QL preserves EN HI PA task/index/fingerprint parity", async
     }
   }
 
-  for (const taskId of CLK_001_LOCALIZED_VARIANT_BATCH_2) {
+  for (const taskId of CLK_001_LOCALIZED_VARIANT_BATCH_3) {
     assert.ok(globallyObserved.has(taskId), taskId + " was not observed in multilingual generation");
   }
 });
