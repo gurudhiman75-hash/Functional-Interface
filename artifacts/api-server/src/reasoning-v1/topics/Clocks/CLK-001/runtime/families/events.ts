@@ -538,52 +538,67 @@ function solveCp003(input: ClockFamilySolverInput): SolvedClockPrototype {
 function solveCp004(input: ClockFamilySolverInput): SolvedClockPrototype {
   if (input.taskId === "GAP_BETWEEN_SPECIAL_EVENTS") {
     const interval = exactTimeInterval({ startSeconds: 0, endSeconds: 43_200, includeStart: true, includeEnd: false });
+    const targetEvent = input.rng.pick(["RIGHT_ANGLE", "OPPOSITION", "COINCIDENCE"] as const);
+    const targetAngleDeg = targetEvent === "RIGHT_ANGLE" ? 90 : targetEvent === "OPPOSITION" ? 180 : 360;
     const coincidences = standardRoots("COINCIDENCE", interval);
-    const oppositions = standardRoots("OPPOSITION", interval);
+    const targets = standardRoots(targetEvent, interval);
     const independentCoincidences = standardRoots("COINCIDENCE", interval, true);
-    const independentOppositions = standardRoots("OPPOSITION", interval, true);
+    const independentTargets = standardRoots(targetEvent, interval, true);
     const start = coincidences[0]!;
-    const finish = oppositions.find((root) => compareRationals(root.timeSeconds, start.timeSeconds) > 0)!;
+    const finish = targets.find((root) => compareRationals(root.timeSeconds, start.timeSeconds) > 0)!;
     const independentStart = independentCoincidences[0]!;
-    const independentFinish = independentOppositions.find((root) => compareRationals(root.timeSeconds, independentStart.timeSeconds) > 0)!;
+    const independentFinish = independentTargets.find((root) => compareRationals(root.timeSeconds, independentStart.timeSeconds) > 0)!;
     const duration = subtractRationals(finish.timeSeconds, start.timeSeconds);
     const verifierDuration = subtractRationals(independentFinish.timeSeconds, independentStart.timeSeconds);
     const answer = rationalAnswer("DURATION", duration, formatDurationSeconds(duration));
     const verifierAnswer = rationalAnswer("DURATION", verifierDuration, formatDurationSeconds(verifierDuration));
+    const targetPhrase = targetEvent === "RIGHT_ANGLE"
+      ? "form a right angle"
+      : targetEvent === "OPPOSITION"
+        ? "be opposite to each other"
+        : "coincide again";
     return {
       taskId: input.taskId,
-      stem: "Starting from the 12:00 coincidence, how much time elapses before the hands are next opposite to each other?",
-      scenario: { startEvent: "COINCIDENCE", endEvent: "OPPOSITION", anchor: "12:00" },
+      stem: `Starting from the 12:00 coincidence, how much time elapses before the hands next ${targetPhrase}?`,
+      scenario: {
+        startEvent: "COINCIDENCE",
+        targetEvent,
+        targetAngleDeg,
+        anchor: "12:00",
+      },
       answer,
       verifierAnswer,
       distractors: [
         {
           answer: rationalAnswer("DURATION", multiplyRationals(duration, 2), formatDurationSeconds(multiplyRationals(duration, 2))),
-          reasonCode: "FULL_RELATIVE_CYCLE_USED",
-          reason: "This uses the full coincidence-to-coincidence cycle instead of the half-cycle to opposition.",
+          reasonCode: "DOUBLE_REQUIRED_GAP",
+          reason: "This uses twice the relative-angle movement required for the stated next event.",
         },
         {
           answer: rationalAnswer("DURATION", subtractRationals(duration, 60), formatDurationSeconds(subtractRationals(duration, 60))),
           reasonCode: "ONE_MINUTE_EARLY",
-          reason: "This rounds the exact opposition event one minute too early.",
+          reason: "This shifts the exact event one minute too early instead of preserving the fractional-minute value.",
         },
         {
           answer: rationalAnswer("DURATION", addRationals(duration, 60), formatDurationSeconds(addRationals(duration, 60))),
           reasonCode: "ONE_MINUTE_LATE",
-          reason: "This rounds the exact opposition event one minute too late.",
+          reason: "This shifts the exact event one minute too late instead of preserving the fractional-minute value.",
         },
       ],
       explanation: {
-        given: "The hands coincide at 12:00; find the next opposition.",
-        rule: "Opposition is reached after 180° of relative motion at 11/120° per second.",
-        working: [`Elapsed time = 180 ÷ (11/120) = ${answer.display}.`],
-        validityCheck: "Independent event enumeration locates the same first opposition after 12:00.",
-        closestTrap: "Using the complete 360° relative cycle gives the next coincidence, not the next opposition.",
+        given: `The hands coincide at 12:00; find the next ${eventLabel(targetEvent)} event.`,
+        rule: `The target is reached after ${targetAngleDeg}° of relative motion at 11/120° per second.`,
+        working: [`Elapsed time = ${targetAngleDeg} ÷ (11/120) = ${answer.display}.`],
+        validityCheck: "Independent exact event enumeration locates the same first target event after 12:00.",
+        closestTrap: "Use the relative angle for the stated next event; do not automatically use a full 360° cycle.",
         answer: answer.display,
       },
       canonicalTrace: [`start=${start.timeSeconds.numerator}/${start.timeSeconds.denominator}`, `finish=${finish.timeSeconds.numerator}/${finish.timeSeconds.denominator}`],
       verifierTrace: [`start=${independentStart.timeSeconds.numerator}/${independentStart.timeSeconds.denominator}`, `finish=${independentFinish.timeSeconds.numerator}/${independentFinish.timeSeconds.denominator}`],
-      contractEvidence: contract("DURATION", "CP004_EVENT_TO_EVENT_GAP_ORACLE", ["12:00", "coincidence", "opposite"]),
+      solveTraceExtras: {
+        eventRoots: [`${finish.timeSeconds.numerator}/${finish.timeSeconds.denominator}`],
+      },
+      contractEvidence: contract("DURATION", "CP004_EVENT_TO_EVENT_GAP_ORACLE", ["12:00", "coincidence", targetPhrase]),
     };
   }
 

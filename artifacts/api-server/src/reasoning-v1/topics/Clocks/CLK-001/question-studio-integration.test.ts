@@ -3,17 +3,22 @@ import { test } from 'node:test';
 import {
   CLK_001_PERMANENT_CONTRACTS,
   CLK_001_PERMANENT_QL_IDS,
+  CLK_001_DESIGN_ONLY_REPRESENTATION_QL_IDS,
+  CLK_001_EXTERNALLY_EVIDENCED_QL_IDS,
 } from './permanent-contracts';
 import {
   CLK_001_QUESTION_STUDIO_PACKAGE,
   generateClk001QuestionStudioBatch,
 } from './question-studio-integration';
 import { reasoningV1QuestionStudioAdapter } from '../../../../question-studio/engines/reasoning-v1-adapter';
+import { CLOCK_CHECKPOINTS } from './runtime/catalog';
 
 test('CLK-001 freezes exactly 23 permanent semantic authorities', () => {
   assert.equal(CLK_001_PERMANENT_QL_IDS.length, 23);
   assert.equal(new Set(CLK_001_PERMANENT_QL_IDS).size, 23);
   assert.equal(new Set(CLK_001_PERMANENT_CONTRACTS.map((entry) => entry.cluster)).size, 23);
+  assert.equal(CLK_001_EXTERNALLY_EVIDENCED_QL_IDS.length, 22);
+  assert.deepEqual(CLK_001_DESIGN_ONLY_REPRESENTATION_QL_IDS, ['CLK-QL-021']);
   assert.equal(CLK_001_QUESTION_STUDIO_PACKAGE.enabled, true);
 });
 
@@ -35,9 +40,29 @@ test('CLK-001 generates all permanent QLs in English Hindi and Punjabi with pari
       assert.equal(new Set(question.options as string[]).size, 4);
       assert.equal(question.validation && (question.validation as any).solverAgreement, true);
       const stem = String(question.stem ?? '');
+      const explanation = String(question.explanation ?? '');
+      const visible = [
+        stem,
+        ...(question.options as string[]),
+        explanation,
+      ].join('\n');
       assert.equal(/Solve this clock question about|[A-Z]{3,}_[A-Z_]+/.test(stem), false);
-      if (language === 'hi') assert.match(stem, /[\u0900-\u097F]/u);
-      if (language === 'pa') assert.match(stem, /[\u0A00-\u0A7F]/u);
+      assert.doesNotMatch(
+        visible,
+        /\b(?:associated|best describes|canonical|prototype|authority|fingerprint|source audit|review metadata|undefined|NaN)\b/iu,
+      );
+      if (language === 'hi') {
+        assert.match(stem, /[\u0900-\u097F]/u);
+        assert.doesNotMatch(visible, /[\u0A05-\u0A39\u0A59-\u0A5E]/u);
+        assert.doesNotMatch(explanation, /दिए गए मानों को ध्यान से पढ़ें|उत्तर को स्वतंत्र गणना से भी मिलाया गया है/u);
+        assert.doesNotMatch(visible.replace(/\b(?:AM|PM)\b/gu, ''), /[A-Za-z]{2,}/u);
+      }
+      if (language === 'pa') {
+        assert.match(stem, /[\u0A00-\u0A7F]/u);
+        assert.doesNotMatch(visible, /[\u0904-\u0939\u0958-\u0961]/u);
+        assert.doesNotMatch(explanation, /ਦਿੱਤੇ ਹੋਏ ਮਾਨ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹੋ|ਉੱਤਰ ਨੂੰ ਵੱਖਰੀ ਗਣਨਾ ਨਾਲ ਵੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ/u);
+        assert.doesNotMatch(visible.replace(/\b(?:AM|PM)\b/gu, ''), /[A-Za-z]{2,}/u);
+      }
       byLanguage.push(question);
     }
     assert.equal(byLanguage[0]!.correctIndex, byLanguage[1]!.correctIndex);
@@ -71,8 +96,12 @@ test('reasoning-v1 adapter exposes and routes CLK-001', async () => {
     .find((candidate) => candidate.packageId === 'CLK-001');
   assert.ok(pkg);
   assert.equal(pkg?.engineId, 'reasoning-v1');
-  assert.equal(pkg?.cpIds.length, 23);
+  assert.equal(pkg?.cpIds.length, 14);
+  assert.deepEqual(pkg?.cpIds, CLOCK_CHECKPOINTS.map((checkpoint) => checkpoint.code));
   assert.deepEqual(pkg?.supportedLanguages, ['en', 'hi', 'pa']);
+  assert.equal((pkg?.metadata as any)?.difficultyCalibrationStatus, 'GENERATED_INSTANCE_AUDITED_V1');
+  assert.equal((pkg?.metadata as any)?.externallyEvidencedPermanentQlCount, 22);
+  assert.deepEqual((pkg?.metadata as any)?.designOnlyRepresentationQlIds, ['CLK-QL-021']);
 
   const generated = await reasoningV1QuestionStudioAdapter.generate({
     engineId: 'reasoning-v1',
@@ -85,4 +114,198 @@ test('reasoning-v1 adapter exposes and routes CLK-001', async () => {
   assert.equal(generated.questions.length, 1);
   assert.equal(generated.questions[0]?.packageId, 'CLK-001');
   assert.equal(generated.questions[0]?.qlId, 'CLK-QL-001');
+});
+
+
+test('CLK-001 routes real checkpoint IDs and keeps CP014 explicitly non-authoring', async () => {
+  const cp1 = await generateClk001QuestionStudioBatch({
+    packageId: 'CLK-001',
+    canonicalProblemId: 'CLK-CP-001',
+    language: 'en',
+    count: 4,
+    seed: 'clk-wave01-cp001',
+  });
+  assert.equal(cp1.questions.length, 4);
+  assert.ok(cp1.questions.every((question) => question.checkpointId === 'CLK-CP-001'));
+  assert.ok(cp1.questions.every((question) => String(question.qlId).startsWith('CLK-QL-')));
+
+  await assert.rejects(
+    () => generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      canonicalProblemId: 'CLK-CP-014',
+      language: 'en',
+      count: 1,
+      seed: 'clk-wave01-cp014',
+    }),
+    /owns no permanent learner QL/u,
+  );
+});
+
+test('CLK-001 uses generated-item difficulty and satisfies requested bands without relabelling', async () => {
+  for (const difficulty of ['Easy', 'Medium', 'Hard'] as const) {
+    const result = await generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      language: 'en',
+      difficulty,
+      count: 3,
+      seed: 'clk-wave01-difficulty-' + difficulty,
+    });
+    assert.equal(result.questions.length, 3);
+    for (const question of result.questions) {
+      assert.equal(question.difficulty, difficulty);
+      assert.equal(question.difficultyLabel, difficulty);
+      assert.equal(question.difficultyCalibrationStatus, 'GENERATED_INSTANCE_AUDITED_V1');
+      assert.equal((question.validation as any).difficultyDerivedFromGeneratedItem, true);
+      assert.equal((question.validation as any).requestedDifficultySatisfied, true);
+      assert.equal(typeof question.difficultyScore, 'number');
+      assert.ok(Array.isArray(question.difficultyFactors));
+    }
+  }
+});
+
+test('CLK-001 item-difficulty generation remains deterministic', async () => {
+  const request = {
+    packageId: 'CLK-001',
+    language: 'pa' as const,
+    difficulty: 'Medium',
+    count: 3,
+    seed: 'clk-wave01-deterministic-medium',
+  };
+  const left = await generateClk001QuestionStudioBatch(request);
+  const right = await generateClk001QuestionStudioBatch(request);
+  assert.deepEqual(right, left);
+});
+
+
+test('CLK-001 banking profile delivers five options without moving the canonical answer', async () => {
+  for (const language of ['en', 'hi', 'pa'] as const) {
+    const result = await generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      canonicalProblemId: 'CLK-QL-003',
+      language,
+      exam: 'IBPS PO Prelims',
+      count: 1,
+      seed: 'clk-wave02-banking-' + language,
+    });
+    const question = result.questions[0]!;
+    assert.equal((question.options as string[]).length, 5);
+    assert.ok(Number(question.correctIndex) >= 0 && Number(question.correctIndex) < 4);
+    assert.equal(question.optionCountProfileApplied, true);
+    assert.equal(question.examProfile, 'BANKING');
+    assert.equal(question.examProfileContentWeightingApplied, false);
+    assert.equal((question.bankingFiveOptionDelivery as any)?.correctAnswerMoved, false);
+    assert.equal((question.bankingFiveOptionDelivery as any)?.canonicalOptionsMutated, false);
+    const expectedNone = language === 'hi'
+      ? 'इनमें से कोई नहीं'
+      : language === 'pa'
+        ? 'ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ'
+        : 'None of these';
+    assert.equal((question.options as string[])[4], expectedNone);
+  }
+});
+
+test('CLK-001 SSC and Punjab delivery keep the canonical four-option surface', async () => {
+  for (const exam of ['SSC CGL Tier 1', 'PSSSB Clerk']) {
+    const result = await generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      canonicalProblemId: 'CLK-QL-003',
+      language: 'en',
+      exam,
+      count: 1,
+      seed: 'clk-wave02-profile-' + exam,
+    });
+    const question = result.questions[0]!;
+    assert.equal((question.options as string[]).length, 4);
+    assert.equal(question.optionCountProfileApplied, false);
+    assert.equal(question.bankingFiveOptionDelivery, null);
+  }
+});
+
+
+test('CLK-001 permanent QLs either vary meaningfully or declare a narrow fixed source authority', async () => {
+  const diversity = new Map<string, Set<string>>();
+  const narrowFixedQlIds = new Set(['CLK-QL-023']);
+  for (const qlId of CLK_001_PERMANENT_QL_IDS) {
+    const surfaces = new Set<string>();
+    for (let round = 0; round < 6; round += 1) {
+      const result = await generateClk001QuestionStudioBatch({
+        packageId: 'CLK-001',
+        canonicalProblemId: qlId,
+        language: 'en',
+        count: 1,
+        seed: 'clk-wave03-diversity-' + qlId + '-' + round,
+      });
+      const question = result.questions[0] as Record<string, any>;
+      const media = question.media as Record<string, any> | null | undefined;
+      const promptKey = String(media?.prompt?.semanticKey ?? '');
+      const optionKeys = Array.isArray(media?.options)
+        ? media.options.map((entry: Record<string, any>) => String(entry?.semanticKey ?? entry?.asset?.semanticKey ?? '')).join('|')
+        : '';
+      const surfaceSignature = [
+        String(question.stem ?? '').trim(),
+        promptKey,
+        optionKeys,
+      ].join('||');
+      surfaces.add(surfaceSignature);
+    }
+    diversity.set(qlId, surfaces);
+    if (narrowFixedQlIds.has(qlId)) {
+      assert.equal(
+        surfaces.size,
+        1,
+        qlId + ' is expected to remain a fixed source-natural theorem surface in the current runtime',
+      );
+    } else {
+      assert.ok(
+        surfaces.size >= 2,
+        qlId + ' generated six times without any learner-surface variation',
+      );
+    }
+  }
+
+  assert.equal(diversity.size, 23);
+});
+
+
+test('CLK-QL-019 exposes its safe owned strike-total variants without changing QL ownership', async () => {
+  const generatedTaskIds = new Set<string>();
+  for (let round = 0; round < 30; round += 1) {
+    const result = await generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      canonicalProblemId: 'CLK-QL-019',
+      language: round % 3 === 0 ? 'hi' : round % 3 === 1 ? 'pa' : 'en',
+      count: 1,
+      seed: 'clk-wave03-ql019-owned-variant-' + round,
+    });
+    const question = result.questions[0]!;
+    assert.equal(question.qlId, 'CLK-QL-019');
+    assert.equal(question.checkpointId, 'CLK-CP-010');
+    generatedTaskIds.add(String((question.traceability as any).generatedTaskId));
+  }
+  assert.deepEqual(
+    [...generatedTaskIds].sort(),
+    ['TOTAL_STRIKES_12_HOURS', 'TOTAL_STRIKES_24_HOURS', 'TOTAL_STRIKES_INCLUSIVE_RANGE'].sort(),
+  );
+});
+
+
+test('CLK-QL-017 exposes both direct source-backed gain and loss recurrence forms', async () => {
+  const generatedTaskIds = new Set<string>();
+  for (let round = 0; round < 20; round += 1) {
+    const result = await generateClk001QuestionStudioBatch({
+      packageId: 'CLK-001',
+      canonicalProblemId: 'CLK-QL-017',
+      language: round % 2 === 0 ? 'hi' : 'pa',
+      count: 1,
+      seed: 'clk-wave03-ql017-owned-variant-' + round,
+    });
+    const question = result.questions[0]!;
+    assert.equal(question.qlId, 'CLK-QL-017');
+    assert.equal(question.checkpointId, 'CLK-CP-008');
+    generatedTaskIds.add(String((question.traceability as any).generatedTaskId));
+  }
+  assert.deepEqual(
+    [...generatedTaskIds].sort(),
+    ['GAIN_FROM_COINCIDENCE_INTERVAL', 'LOSS_FROM_COINCIDENCE_INTERVAL'].sort(),
+  );
 });
