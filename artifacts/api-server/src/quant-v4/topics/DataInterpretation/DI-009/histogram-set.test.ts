@@ -131,6 +131,16 @@ for (const profile of profiles) {
     sequenceCoverage.get(profile)!.add(sequence);
 
     for (const question of first.questions) {
+      assert(!/nearest whole|round(?:ed)? to the nearest|give the nearest whole/iu.test(question.stem), `${profile} ${seed} ${question.kind} contains an explicit rounding instruction.`);
+      if (question.kind === "TOTAL_FREQUENCY") {
+        const expectedTotal = first.stimulus.bins.reduce((sum, bin) => sum + bin.frequency, 0);
+        assert(question.answer === String(expectedTotal), `${profile} ${seed} total-frequency answer does not equal the sum of all class frequencies.`);
+        assert(/histogram|observations/iu.test(question.stem) && /all|altogether|across|total|add/iu.test(question.stem), `${profile} ${seed} total-frequency stem does not clearly request the overall count.`);
+      }
+      if (question.kind === "CLASS_SHARE_OF_TOTAL") assert(/approximately|approximate|about/iu.test(question.stem), `${profile} ${seed} percentage answer is not signalled as approximate.`);
+      if (question.kind === "APPROX_GROUPED_MEAN_FROM_HISTOGRAM" || question.kind === "APPROX_GROUPED_MODE_FROM_HISTOGRAM") {
+        assert(/approximate|estimate/iu.test(question.stem), `${profile} ${seed} grouped estimate is not signalled as approximate.`);
+      }
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${profile} ${seed} ${question.kind} has invalid options.`);
       if (question.kind === "COMBINED_RANGE_TOTAL" || question.kind === "RANGE_RATIO") {
         assert(/classes?/iu.test(question.stem), `${profile} ${seed} ${question.kind} does not identify the included class intervals.`);
