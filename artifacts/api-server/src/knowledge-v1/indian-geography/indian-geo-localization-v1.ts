@@ -106,7 +106,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "wildlife sanctuary":"वन्यजीव अभयारण्य","national park":"राष्ट्रीय उद्यान","biosphere reserve":"जैवमंडल आरक्षित क्षेत्र",
     "biodiversity":"जैव विविधता","natural vegetation":"प्राकृतिक वनस्पति","forest":"वन","forests":"वन",
     "drainage basin":"अपवाह बेसिन","river basin":"नदी बेसिन","tributary":"सहायक नदी","delta":"डेल्टा","estuary":"मुहाना",
-    "perennial river":"बारहमासी नदी","peninsular river":"प्रायद्वीपीय नदी","Himalayan river":"हिमालयी नदी",
+    "perennial river":"बारहमासी नदी","peninsular river":"प्रायद्वीपीय नदी","Himalayan river":"हिमालयी नदी","Tawa":"तवा","Guru Shikhar":"गुरु शिखर",
     "mineral":"खनिज","minerals":"खनिज","ore":"अयस्क","ores":"अयस्क","iron ore":"लौह अयस्क","manganese":"मैंगनीज","bauxite":"बॉक्साइट","mica":"अभ्रक","limestone":"चूना पत्थर","chromite":"क्रोमाइट","copper":"तांबा","lead":"सीसा","zinc":"जस्ता","gold":"सोना","silver":"चांदी","coal":"कोयला","lignite":"लिग्नाइट","petroleum":"पेट्रोलियम","natural gas":"प्राकृतिक गैस","uranium":"यूरेनियम","thorium":"थोरियम","atomic mineral":"परमाणु खनिज","metallic mineral":"धात्विक खनिज","non-metallic mineral":"अधात्विक खनिज","ferrous mineral":"लौह खनिज","non-ferrous mineral":"अलौह खनिज","energy resource":"ऊर्जा संसाधन","energy resources":"ऊर्जा संसाधन","conventional energy":"परंपरागत ऊर्जा","non-conventional energy":"गैर-परंपरागत ऊर्जा","renewable energy":"नवीकरणीय ऊर्जा","solar energy":"सौर ऊर्जा","wind energy":"पवन ऊर्जा","thermal power":"ताप विद्युत","nuclear power":"परमाणु ऊर्जा","hydel power":"जलविद्युत","coalfield":"कोयला क्षेत्र","coalfields":"कोयला क्षेत्र","oilfield":"तेल क्षेत्र","oil fields":"तेल क्षेत्र","refinery":"रिफाइनरी","refineries":"रिफाइनरियाँ","mining":"खनन","mine":"खदान","mines":"खदानें","reserve":"भंडार","reserves":"भंडार","deposit":"निक्षेप","deposits":"निक्षेप","belt":"पट्टी","mineral belt":"खनिज पट्टी","Gondwana coal":"गोंडवाना कोयला","Tertiary coal":"टर्शियरी कोयला","Jharia":"झरिया","Raniganj":"रानीगंज","Bokaro":"बोकारो","Korba":"कोरबा","Talcher":"तालचर","Singrauli":"सिंगरौली","Digboi":"डिगबोई","Mumbai High":"मुंबई हाई","Ankleshwar":"अंकलेश्वर","Neyveli":"नेवेली","Kudremukh":"कुद्रेमुख","Bailadila":"बैलाडीला","Singhbhum":"सिंहभूम","Sukinda":"सुकिंदा","Khetri":"खेतड़ी","Kolar":"कोलार","Hutti":"हुट्टी","Monazite":"मोनाज़ाइट","monazite":"मोनाज़ाइट","Ilmenite":"इल्मेनाइट","ilmenite":"इल्मेनाइट","beach sands":"तटीय बालू","mineral sands":"खनिज बालू",
   },
   pa: {
@@ -159,7 +159,7 @@ const TERMS: Record<"hi"|"pa", Record<string,string>> = {
     "wildlife sanctuary":"ਜੰਗਲੀ ਜੀਵ ਅਭਿਆਰਣ","national park":"ਰਾਸ਼ਟਰੀ ਉਦਿਆਨ","biosphere reserve":"ਜੀਵਮੰਡਲ ਰਾਖਵਾਂ ਖੇਤਰ",
     "biodiversity":"ਜੈਵ ਵਿਭਿੰਨਤਾ","natural vegetation":"ਕੁਦਰਤੀ ਬਨਸਪਤੀ","forest":"ਜੰਗਲ","forests":"ਜੰਗਲ",
     "drainage basin":"ਨਿਕਾਸੀ ਬੇਸਿਨ","river basin":"ਨਦੀ ਬੇਸਿਨ","tributary":"ਸਹਾਇਕ ਨਦੀ","delta":"ਡੈਲਟਾ","estuary":"ਮੁਹਾਨਾ",
-    "perennial river":"ਸਦਾ ਵਗਣ ਵਾਲੀ ਨਦੀ","peninsular river":"ਪ੍ਰਾਇਦੀਪੀ ਨਦੀ","Himalayan river":"ਹਿਮਾਲਈ ਨਦੀ",
+    "perennial river":"ਸਦਾ ਵਗਣ ਵਾਲੀ ਨਦੀ","peninsular river":"ਪ੍ਰਾਇਦੀਪੀ ਨਦੀ","Himalayan river":"ਹਿਮਾਲਈ ਨਦੀ","Tawa":"ਤਵਾ","Guru Shikhar":"ਗੁਰੂ ਸ਼ਿਖਰ",
     "mineral":"ਖਣਿਜ","minerals":"ਖਣਿਜ","ore":"ਕੱਚੀ ਧਾਤ","ores":"ਕੱਚੀਆਂ ਧਾਤਾਂ","iron ore":"ਲੋਹੇ ਦੀ ਕੱਚੀ ਧਾਤ","manganese":"ਮੈਂਗਨੀਜ਼","bauxite":"ਬਾਕਸਾਈਟ","mica":"ਅਭਰਕ","limestone":"ਚੂਨਾ ਪੱਥਰ","chromite":"ਕ੍ਰੋਮਾਈਟ","copper":"ਤਾਂਬਾ","lead":"ਸੀਸਾ","zinc":"ਜ਼ਿੰਕ","gold":"ਸੋਨਾ","silver":"ਚਾਂਦੀ","coal":"ਕੋਇਲਾ","lignite":"ਲਿਗਨਾਈਟ","petroleum":"ਪੈਟਰੋਲਿਅਮ","natural gas":"ਕੁਦਰਤੀ ਗੈਸ","uranium":"ਯੂਰੇਨੀਅਮ","thorium":"ਥੋਰੀਅਮ","atomic mineral":"ਪਰਮਾਣੂ ਖਣਿਜ","metallic mineral":"ਧਾਤੂ ਖਣਿਜ","non-metallic mineral":"ਗੈਰ-ਧਾਤੂ ਖਣਿਜ","ferrous mineral":"ਲੋਹ-ਧਾਤੂ ਖਣਿਜ","non-ferrous mineral":"ਗੈਰ-ਲੋਹ ਧਾਤੂ ਖਣਿਜ","energy resource":"ਊਰਜਾ ਸਰੋਤ","energy resources":"ਊਰਜਾ ਸਰੋਤ","conventional energy":"ਪਰੰਪਰਾਗਤ ਊਰਜਾ","non-conventional energy":"ਗੈਰ-ਪਰੰਪਰਾਗਤ ਊਰਜਾ","renewable energy":"ਨਵੀਕਰਣਯੋਗ ਊਰਜਾ","solar energy":"ਸੂਰਜੀ ਊਰਜਾ","wind energy":"ਪਵਨ ਊਰਜਾ","thermal power":"ਤਾਪ ਬਿਜਲੀ","nuclear power":"ਪਰਮਾਣੂ ਊਰਜਾ","hydel power":"ਜਲ-ਬਿਜਲੀ","coalfield":"ਕੋਇਲਾ ਖੇਤਰ","coalfields":"ਕੋਇਲਾ ਖੇਤਰ","oilfield":"ਤੇਲ ਖੇਤਰ","oil fields":"ਤੇਲ ਖੇਤਰ","refinery":"ਰਿਫਾਇਨਰੀ","refineries":"ਰਿਫਾਇਨਰੀਆਂ","mining":"ਖਣਨ","mine":"ਖਾਣ","mines":"ਖਾਣਾਂ","reserve":"ਭੰਡਾਰ","reserves":"ਭੰਡਾਰ","deposit":"ਭੰਡਾਰ","deposits":"ਭੰਡਾਰ","belt":"ਪੱਟੀ","mineral belt":"ਖਣਿਜ ਪੱਟੀ","Gondwana coal":"ਗੋਂਡਵਾਨਾ ਕੋਇਲਾ","Tertiary coal":"ਟਰਸ਼ੀਅਰੀ ਕੋਇਲਾ","Jharia":"ਝਾਰੀਆ","Raniganj":"ਰਾਨੀਗੰਜ","Bokaro":"ਬੋਕਾਰੋ","Korba":"ਕੋਰਬਾ","Talcher":"ਤਾਲਚੇਰ","Singrauli":"ਸਿੰਗਰੌਲੀ","Digboi":"ਡਿਗਬੋਈ","Mumbai High":"ਮੁੰਬਈ ਹਾਈ","Ankleshwar":"ਅੰਕਲੇਸ਼ਵਰ","Neyveli":"ਨੇਵੈਲੀ","Kudremukh":"ਕੁਦਰੇਮੁਖ","Bailadila":"ਬੈਲਾਡੀਲਾ","Singhbhum":"ਸਿੰਘਭੂਮ","Sukinda":"ਸੁਕਿੰਦਾ","Khetri":"ਖੇਤੜੀ","Kolar":"ਕੋਲਾਰ","Hutti":"ਹੁੱਟੀ","Monazite":"ਮੋਨਾਜ਼ਾਈਟ","monazite":"ਮੋਨਾਜ਼ਾਈਟ","Ilmenite":"ਇਲਮੇਨਾਈਟ","ilmenite":"ਇਲਮੇਨਾਈਟ","beach sands":"ਤਟੀ ਰੇਤ","mineral sands":"ਖਣਿਜ ਰੇਤ",
   },
 };
@@ -274,6 +274,109 @@ function localizeText(text: string, language: "hi"|"pa") {
   return out.replace(/\s+/g," ").replace(/\s+([,.;:?])/g,"$1").trim();
 }
 
+function localizeFragment(text: string, language: "hi"|"pa") {
+  return replaceWords(replaceTerms(text, language), language)
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function localizeNaturalStem(text: string, language: "hi"|"pa", packageId?: string) {
+  const f = (value: string) => localizeFragment(value, language);
+  const hi = language === "hi";
+
+  if (packageId === "GEO-RIV-001") {
+    let m = text.match(/^River (.+?) rises near which of the following places\?$/);
+    if (m) return hi ? `नदी ${f(m[1])} का उद्गम निम्नलिखित में से किस स्थान के निकट है?` : `ਨਦੀ ${f(m[1])} ਦਾ ਉਦਗਮ ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜੇ ਸਥਾਨ ਦੇ ਨੇੜੇ ਹੈ?`;
+
+    m = text.match(/^Which west-flowing river originates near (.+?) in the (.+?)\?$/);
+    if (m) return hi ? `${f(m[1])} के निकट ${f(m[2])} में किस पश्चिमवाहिनी नदी का उद्गम होता है?` : `${f(m[2])} ਵਿੱਚ ${f(m[1])} ਦੇ ਨੇੜੇ ਕਿਹੜੀ ਪੱਛਮ ਵੱਲ ਵਗਣ ਵਾਲੀ ਨਦੀ ਦਾ ਉਦਗਮ ਹੁੰਦਾ ਹੈ?`;
+
+    m = text.match(/^River (.+?) is a tributary of which river\?$/);
+    if (m) return hi ? `नदी ${f(m[1])} किस नदी की सहायक नदी है?` : `ਨਦੀ ${f(m[1])} ਕਿਹੜੀ ਨਦੀ ਦੀ ਸਹਾਇਕ ਨਦੀ ਹੈ?`;
+
+    m = text.match(/^Which of the following cities is situated on (River .+?)\?$/);
+    if (m) return hi ? `निम्नलिखित में से कौन-सा शहर ${f(m[1])} के तट पर स्थित है?` : `ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਸ਼ਹਿਰ ${f(m[1])} ਦੇ ਕੰਢੇ ਸਥਿਤ ਹੈ?`;
+
+    m = text.match(/^Which river is associated with (.+?)\?$/);
+    if (m) return hi ? `${f(m[1])} किस नदी के तट पर स्थित है?` : `${f(m[1])} ਕਿਹੜੀ ਨਦੀ ਦੇ ਕੰਢੇ ਸਥਿਤ ਹੈ?`;
+
+    m = text.match(/^Which pair of cities is correctly associated with (River .+?)\?$/);
+    if (m) return hi ? `शहरों का कौन-सा युग्म ${f(m[1])} से सही रूप से जुड़ा है?` : `ਸ਼ਹਿਰਾਂ ਦੀ ਕਿਹੜੀ ਜੋੜੀ ${f(m[1])} ਨਾਲ ਸਹੀ ਤਰ੍ਹਾਂ ਜੁੜੀ ਹੈ?`;
+
+    m = text.match(/^Which river has its Indian main course through the following state set: (.+?)\?$/);
+    if (m) return hi ? `कौन-सी नदी भारत में मुख्यतः इन राज्यों से होकर बहती है: ${f(m[1])}?` : `ਕਿਹੜੀ ਨਦੀ ਭਾਰਤ ਵਿੱਚ ਮੁੱਖ ਤੌਰ ਤੇ ਇਨ੍ਹਾਂ ਰਾਜਾਂ ਵਿੱਚੋਂ ਵਗਦੀ ਹੈ: ${f(m[1])}?`;
+
+    m = text.match(/^Which river's course in India passes through only the following states: (.+?)\?$/);
+    if (m) return hi ? `भारत में कौन-सी नदी केवल इन राज्यों से होकर बहती है: ${f(m[1])}?` : `ਭਾਰਤ ਵਿੱਚ ਕਿਹੜੀ ਨਦੀ ਕੇਵਲ ਇਨ੍ਹਾਂ ਰਾਜਾਂ ਵਿੱਚੋਂ ਵਗਦੀ ਹੈ: ${f(m[1])}?`;
+
+    m = text.match(/^The (.+?) (?:rises|originates) in which state\?$/);
+    if (m) return hi ? `${f(m[1])} का उद्गम किस राज्य में होता है?` : `${f(m[1])} ਦਾ ਉਦਗਮ ਕਿਹੜੇ ਰਾਜ ਵਿੱਚ ਹੁੰਦਾ ਹੈ?`;
+  }
+
+  if (packageId === "GEO-CLI-001") {
+    let m = text.match(/^What is a key feature of India's monsoon climate\?$/);
+    if (m) return hi ? "भारत की मानसूनी जलवायु की प्रमुख विशेषता क्या है?" : "ਭਾਰਤ ਦੀ ਮਾਨਸੂਨੀ ਜਲਵਾਯੂ ਦੀ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾ ਕੀ ਹੈ?";
+
+    m = text.match(/^Which pair correctly links a climate control with its main effect in India\?$/);
+    if (m) return hi ? "कौन-सा युग्म भारत में किसी जलवायु नियंत्रक कारक को उसके प्रमुख प्रभाव से सही रूप से जोड़ता है?" : "ਕਿਹੜੀ ਜੋੜੀ ਭਾਰਤ ਵਿੱਚ ਕਿਸੇ ਜਲਵਾਯੂ ਨਿਯੰਤਰਕ ਕਾਰਕ ਨੂੰ ਉਸਦੇ ਮੁੱਖ ਪ੍ਰਭਾਵ ਨਾਲ ਸਹੀ ਤਰ੍ਹਾਂ ਜੋੜਦੀ ਹੈ?";
+
+    m = text.match(/^A place is very hot in May, receives sudden heavy rain in June, and becomes drier by October\. Which sequence fits this change\?$/);
+    if (m) return hi ? "किसी स्थान पर मई में बहुत गर्मी, जून में अचानक भारी वर्षा और अक्टूबर तक शुष्कता बढ़ती है। यह परिवर्तन किस मौसमी क्रम को दर्शाता है?" : "ਕਿਸੇ ਥਾਂ ਮਈ ਵਿੱਚ ਬਹੁਤ ਗਰਮੀ, ਜੂਨ ਵਿੱਚ ਅਚਾਨਕ ਭਾਰੀ ਵਰਖਾ ਅਤੇ ਅਕਤੂਬਰ ਤੱਕ ਸੁੱਕਾਪਣ ਵਧਦਾ ਹੈ। ਇਹ ਬਦਲਾਅ ਕਿਹੜੇ ਮੌਸਮੀ ਕ੍ਰਮ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?";
+
+    m = text.match(/^Which combination best supports the onset of the southwest monsoon over India\?$/);
+    if (m) return hi ? "भारत में दक्षिण-पश्चिम मानसून के आगमन के लिए कौन-सा संयोजन सबसे अधिक अनुकूल है?" : "ਭਾਰਤ ਵਿੱਚ ਦੱਖਣ-ਪੱਛਮੀ ਮਾਨਸੂਨ ਦੇ ਆਗਮਨ ਲਈ ਕਿਹੜਾ ਜੋੜ ਸਭ ਤੋਂ ਵੱਧ ਅਨੁਕੂਲ ਹੈ?";
+
+    m = text.match(/^Which region is most likely to receive heavy monsoon rain because moist winds rise against the Western Ghats\?$/);
+    if (m) return hi ? "पश्चिमी घाट से टकराकर नम हवाओं के ऊपर उठने के कारण किस क्षेत्र में भारी मानसूनी वर्षा होने की संभावना सबसे अधिक है?" : "ਪੱਛਮੀ ਘਾਟ ਨਾਲ ਟਕਰਾ ਕੇ ਨਮੀ ਵਾਲੀਆਂ ਹਵਾਵਾਂ ਦੇ ਉੱਪਰ ਚੜ੍ਹਨ ਕਾਰਨ ਕਿਹੜੇ ਖੇਤਰ ਵਿੱਚ ਭਾਰੀ ਮਾਨਸੂਨੀ ਵਰਖਾ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਸਭ ਤੋਂ ਵੱਧ ਹੈ?";
+
+    m = text.match(/^Which pairing correctly links a weather system with its main Indian climate effect\?$/);
+    if (m) return hi ? "कौन-सा युग्म किसी मौसम प्रणाली को भारत पर उसके प्रमुख जलवायु प्रभाव से सही रूप से जोड़ता है?" : "ਕਿਹੜੀ ਜੋੜੀ ਕਿਸੇ ਮੌਸਮੀ ਪ੍ਰਣਾਲੀ ਨੂੰ ਭਾਰਤ ਉੱਤੇ ਉਸਦੇ ਮੁੱਖ ਜਲਵਾਯੂ ਪ੍ਰਭਾਵ ਨਾਲ ਸਹੀ ਤਰ੍ਹਾਂ ਜੋੜਦੀ ਹੈ?";
+
+    m = text.match(/^Which set of region–climate links is correctly matched\?$/);
+    if (m) return hi ? "क्षेत्र और जलवायु संबंधों का कौन-सा समूह सही सुमेलित है?" : "ਖੇਤਰ ਅਤੇ ਜਲਵਾਯੂ ਸੰਬੰਧਾਂ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
+
+    m = text.match(/^Which cause–effect pair correctly explains a common Indian climate pattern\?$/);
+    if (m) return hi ? "कौन-सा कारण–प्रभाव युग्म भारत की एक सामान्य जलवायु विशेषता को सही रूप से समझाता है?" : "ਕਿਹੜੀ ਕਾਰਨ–ਪ੍ਰਭਾਵ ਜੋੜੀ ਭਾਰਤ ਦੀ ਇੱਕ ਆਮ ਜਲਵਾਯੂ ਵਿਸ਼ੇਸ਼ਤਾ ਨੂੰ ਸਹੀ ਤਰ੍ਹਾਂ ਸਮਝਾਉਂਦੀ ਹੈ?";
+
+    m = text.match(/^Which route best describes western disturbances before they reach northwestern India\?$/);
+    if (m) return hi ? "उत्तर-पश्चिम भारत पहुँचने से पहले पश्चिमी विक्षोभों का मार्ग कौन-सा है?" : "ਉੱਤਰ-ਪੱਛਮੀ ਭਾਰਤ ਪਹੁੰਚਣ ਤੋਂ ਪਹਿਲਾਂ ਪੱਛਮੀ ਵਿਘਨਾਂ ਦਾ ਰਸਤਾ ਕਿਹੜਾ ਹੈ?";
+
+    m = text.match(/^Western disturbances generally enter India from which side of the country\?$/);
+    if (m) return hi ? "पश्चिमी विक्षोभ सामान्यतः भारत में किस दिशा से प्रवेश करते हैं?" : "ਪੱਛਮੀ ਵਿਘਨ ਆਮ ਤੌਰ ਤੇ ਭਾਰਤ ਵਿੱਚ ਕਿਹੜੀ ਦਿਸ਼ਾ ਤੋਂ ਦਾਖਲ ਹੁੰਦੇ ਹਨ?";
+  }
+
+  if (packageId === "GEO-PHY-001") {
+    let m = text.match(/^Which range extends from (.+?) towards (.+?) in a (.+?) direction\?$/);
+    if (m) return hi ? `कौन-सी पर्वत श्रेणी ${f(m[1])} से ${f(m[2])} की ओर ${f(m[3])} दिशा में फैली है?` : `ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ${f(m[1])} ਤੋਂ ${f(m[2])} ਵੱਲ ${f(m[3])} ਦਿਸ਼ਾ ਵਿੱਚ ਫੈਲੀ ਹੈ?`;
+
+    m = text.match(/^Which range is known for (.+?)\?$/);
+    if (m) return hi ? `कौन-सी पर्वत श्रेणी ${f(m[1])} के लिए जानी जाती है?` : `ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ${f(m[1])} ਲਈ ਜਾਣੀ ਜਾਂਦੀ ਹੈ?`;
+
+    m = text.match(/^(.+?) is the highest peak of which range\?$/);
+    if (m) return hi ? `${f(m[1])} किस पर्वत श्रेणी की सबसे ऊँची चोटी है?` : `${f(m[1])} ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਦੀ ਸਭ ਤੋਂ ਉੱਚੀ ਚੋਟੀ ਹੈ?`;
+
+    m = text.match(/^(.+?) is located in which state\?$/);
+    if (m) return hi ? `${f(m[1])} किस राज्य में स्थित है?` : `${f(m[1])} ਕਿਹੜੇ ਰਾਜ ਵਿੱਚ ਸਥਿਤ ਹੈ?`;
+
+    m = text.match(/^Which peak is associated with the (.+?) area\?$/);
+    if (m) return hi ? `${f(m[1])} क्षेत्र से कौन-सी चोटी जुड़ी है?` : `${f(m[1])} ਖੇਤਰ ਨਾਲ ਕਿਹੜੀ ਚੋਟੀ ਜੁੜੀ ਹੈ?`;
+
+    m = text.match(/^Which region is (.+?)\?$/);
+    if (m) return hi ? `कौन-सा क्षेत्र ${f(m[1])}?` : `ਕਿਹੜਾ ਖੇਤਰ ${f(m[1])}?`;
+
+    m = text.match(/^Which coastal plain lies along the (.+?)\?$/);
+    if (m) return hi ? `${f(m[1])} के किनारे कौन-सा तटीय मैदान स्थित है?` : `${f(m[1])} ਦੇ ਨਾਲ ਕਿਹੜਾ ਤਟੀ ਮੈਦਾਨ ਸਥਿਤ ਹੈ?`;
+
+    m = text.match(/^Which island group lies in the (.+?) near the (.+?)\?$/);
+    if (m) return hi ? `${f(m[2])} के निकट ${f(m[1])} में कौन-सा द्वीप समूह स्थित है?` : `${f(m[2])} ਦੇ ਨੇੜੇ ${f(m[1])} ਵਿੱਚ ਕਿਹੜਾ ਟਾਪੂ ਸਮੂਹ ਸਥਿਤ ਹੈ?`;
+
+    m = text.match(/^Which statement correctly compares the (.+?) and (.+?)\?$/);
+    if (m) return hi ? `${f(m[1])} और ${f(m[2])} की सही तुलना कौन-सा कथन करता है?` : `${f(m[1])} ਅਤੇ ${f(m[2])} ਦੀ ਸਹੀ ਤੁਲਨਾ ਕਿਹੜਾ ਕਥਨ ਕਰਦਾ ਹੈ?`;
+  }
+
+  return null;
+}
+
 const COMMON_ENGLISH = /\b(?:which|what|why|where|when|how|the|and|or|is|are|was|were|does|do|did|can|could|would|should|has|have|had|with|from|into|for|of|to|in|on|at|by|as|than|that|this|these|those|most|main|major|only|correct|statement|following)\b/gi;
 
 function residueCount(text: string) {
@@ -320,7 +423,7 @@ export function localizeIndianGeoQuestionV1(
 
   const options = Object.freeze(question.options.map((option) => localizeText(option, language)));
   const canonicalAnswer = options[question.correctIndex]!;
-  const stem = localizeText(question.stem, language);
+  const stem = localizeNaturalStem(question.stem, language, packageId) ?? localizeText(question.stem, language);
   const explanation = cleanExplanation(question.explanation, canonicalAnswer, language);
   return Object.freeze({ stem, options, canonicalAnswer, explanation });
 }
