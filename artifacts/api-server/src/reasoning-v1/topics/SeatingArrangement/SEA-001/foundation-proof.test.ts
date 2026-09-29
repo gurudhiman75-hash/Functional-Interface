@@ -75,7 +75,7 @@ function generatedCaseletProof(): void {
 
 function lifecycleProof(): void {
   assert.equal(SEA_001_AUTHORITY_DISCREPANCIES.length, 1);
-  assert.throws(() => assertSea001ActivationAllowed(), /review-only permanent QL allocation/);
+  assert.throws(() => assertSea001ActivationAllowed(), /English is frozen/);
 }
 
 topologyProof();
