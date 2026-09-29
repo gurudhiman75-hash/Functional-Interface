@@ -7,11 +7,11 @@
 
 | Range | Coverage |
 |---|---|
-| Q001–Q006 | Outbreak and chronology: Causes, invasion of Poland, declarations and the opening sequence. |
+| Q001–Q006 | Outbreak and chronology: Causes, invasion of Poland, early campaigns and the opening phase. |
 | Q007–Q012 | Axis expansion and occupation: Axis powers, early campaigns and the occupation of western Europe. |
 | Q013–Q017 | European theatre: Major European campaigns, fronts and advances. |
 | Q018–Q024 | Pacific theatre: Pacific campaigns, naval battles and Allied advance. |
-| Q025–Q030 | Turning points: Events that shifted the balance across major theatres. |
+| Q025–Q030 | Turning points: Events that shifted the balance across major theatres, including the Eastern Front. |
 | Q031–Q037 | Allied strategy and leaders: Wartime declarations, conferences, supply and coalition decisions. |
 | Q038–Q043 | Holocaust and persecution: Nazi persecution and genocide, with historically precise framing. |
 | Q044–Q050 | Resistance and home fronts: Resistance, civilian life, codebreaking and liberation. |
