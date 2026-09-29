@@ -1,0 +1,2137 @@
+[
+  {
+    "questionId": "WHI-CP003-Q001-HI",
+    "englishQuestionId": "WHI-CP003-Q001",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F001",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Thinker–idea",
+    "stem": "किस प्रबोधनकालीन चिंतक ने कहा कि शासन जनता की सहमति पर आधारित होना चाहिए और प्राकृतिक अधिकारों की रक्षा करनी चाहिए?",
+    "options": [
+      {
+        "key": "A",
+        "text": "थॉमस हॉब्स"
+      },
+      {
+        "key": "B",
+        "text": "रॉबर्ट फ़िल्मर"
+      },
+      {
+        "key": "C",
+        "text": "जॉन लॉक"
+      },
+      {
+        "key": "D",
+        "text": "ज्याँ बोदाँ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "लॉक के अनुसार वैध शासन जनता की सहमति से बनता है और उसे जीवन, स्वतंत्रता तथा संपत्ति की रक्षा करनी चाहिए।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q002-HI",
+    "englishQuestionId": "WHI-CP003-Q002",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F002",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Thinker–idea",
+    "stem": "विधायी, कार्यकारी और न्यायिक शक्तियों को अलग रखने का तर्क किसने दिया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वोल्तेयर"
+      },
+      {
+        "key": "B",
+        "text": "डिडरो"
+      },
+      {
+        "key": "C",
+        "text": "रूसो"
+      },
+      {
+        "key": "D",
+        "text": "मोंतेस्क्यू"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "मोंतेस्क्यू ने माना कि राजनीतिक शक्तियों का बँटवारा निरंकुश शासन को रोकने में मदद करता है।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q003-HI",
+    "englishQuestionId": "WHI-CP003-Q003",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F003",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "1762 में प्रकाशित *द सोशल कॉन्ट्रैक्ट* के लेखक कौन थे?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ज्याँ-जाक रूसो"
+      },
+      {
+        "key": "B",
+        "text": "थॉमस पेन"
+      },
+      {
+        "key": "C",
+        "text": "जॉन लॉक"
+      },
+      {
+        "key": "D",
+        "text": "बैरन द मोंतेस्क्यू"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "रूसो की 1762 की इस रचना में राजनीतिक सत्ता और सामाजिक अनुबंध की अवधारणा पर विचार किया गया।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q004-HI",
+    "englishQuestionId": "WHI-CP003-Q004",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F004",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Idea identification",
+    "stem": "किस विचार के अनुसार राजनीतिक सत्ता का अंतिम स्रोत जनता या राष्ट्र होता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "जनसत्ता"
+      },
+      {
+        "key": "B",
+        "text": "राजाओं का दैवी अधिकार"
+      },
+      {
+        "key": "C",
+        "text": "सामंती दायित्व"
+      },
+      {
+        "key": "D",
+        "text": "वणिकवाद"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "जनसत्ता के सिद्धांत में राजनीतिक अधिकार का स्रोत जनता है, न कि राजा का वंशानुगत या दैवी दावा।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q005-HI",
+    "englishQuestionId": "WHI-CP003-Q005",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F005",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Document–event",
+    "stem": "1776 में अमेरिकी उपनिवेशों द्वारा स्वीकृत स्वतंत्रता की घोषणा में किस देश से अलग होने की घोषणा की गई थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ग्रेट ब्रिटेन"
+      },
+      {
+        "key": "B",
+        "text": "स्पेन"
+      },
+      {
+        "key": "C",
+        "text": "पुर्तगाल"
+      },
+      {
+        "key": "D",
+        "text": "फ्रांस"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "इस घोषणा में तेरह उपनिवेशों ने ब्रिटिश शासन से अलग होने की बात कही।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q006-HI",
+    "englishQuestionId": "WHI-CP003-Q006",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F006",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Date–document",
+    "stem": "4 जुलाई 1776 को स्वीकृत किस दस्तावेज़ में अमेरिकी उपनिवेशों ने स्वतंत्रता के पक्ष में अपना तर्क रखा?",
+    "options": [
+      {
+        "key": "A",
+        "text": "अधिकार विधेयक"
+      },
+      {
+        "key": "B",
+        "text": "स्वतंत्रता की घोषणा"
+      },
+      {
+        "key": "C",
+        "text": "पेरिस की संधि"
+      },
+      {
+        "key": "D",
+        "text": "परिसंघ के अनुच्छेद"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "महाद्वीपीय कांग्रेस ने 1776 में स्वतंत्रता की घोषणा स्वीकृत की, जिसमें स्वतंत्रता का कारण बताया और उसे घोषित किया गया।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q007-HI",
+    "englishQuestionId": "WHI-CP003-Q007",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F007",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–outcome",
+    "stem": "1777 में साराटोगा में अमेरिकी विजय का एक महत्त्व यह था कि इससे किस शक्ति के युद्ध में अमेरिकी पक्ष का सहयोगी बनकर शामिल होने का मार्ग खुला?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पुर्तगाल"
+      },
+      {
+        "key": "B",
+        "text": "फ्रांस"
+      },
+      {
+        "key": "C",
+        "text": "रूस"
+      },
+      {
+        "key": "D",
+        "text": "प्रशा"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "साराटोगा की जीत से फ्रांस का अमेरिकी पक्ष पर भरोसा बढ़ा और उसकी सैन्य सहायता मिलने में मदद मिली।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q008-HI",
+    "englishQuestionId": "WHI-CP003-Q008",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F008",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Treaty–outcome",
+    "stem": "1783 में किस संधि ने अमेरिकी स्वतंत्रता युद्ध को औपचारिक रूप से समाप्त किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वर्साय की संधि"
+      },
+      {
+        "key": "B",
+        "text": "पेरिस की संधि"
+      },
+      {
+        "key": "C",
+        "text": "घेंट की संधि"
+      },
+      {
+        "key": "D",
+        "text": "यूट्रेक्ट की संधि"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1783 की पेरिस संधि ने युद्ध समाप्त किया और अमेरिकी स्वतंत्रता को मान्यता दी।",
+    "sourceIds": [
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q009-HI",
+    "englishQuestionId": "WHI-CP003-Q009",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F009",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Revolution–place",
+    "stem": "हैती क्रांति फ्रांसीसी उपनिवेश सेंट-डोमिंग में शुरू हुई थी। यह उपनिवेश किस द्वीप पर स्थित था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "क्यूबा"
+      },
+      {
+        "key": "B",
+        "text": "मार्टीनिक"
+      },
+      {
+        "key": "C",
+        "text": "हिस्पानिओला"
+      },
+      {
+        "key": "D",
+        "text": "जमैका"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "सेंट-डोमिंग हिस्पानिओला द्वीप के पश्चिमी भाग में था; क्रांति के बाद वहीं हैती बना।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q010-HI",
+    "englishQuestionId": "WHI-CP003-Q010",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F010",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Thinker–idea",
+    "stem": "कौन-सा युग्म सही है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "रूसो — वंशानुगत राजतंत्र का दैवी अधिकार"
+      },
+      {
+        "key": "B",
+        "text": "वोल्तेयर — धार्मिक सहिष्णुता का विरोध"
+      },
+      {
+        "key": "C",
+        "text": "मोंतेस्क्यू — शासन की शक्तियों का विभाजन"
+      },
+      {
+        "key": "D",
+        "text": "लॉक — शक्तियों का पृथक्करण उनका मुख्य प्रस्ताव"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "मोंतेस्क्यू के राजनीतिक विचार विशेष रूप से विधायी, कार्यकारी और न्यायिक सत्ता को अलग रखने से जुड़े हैं।",
+    "sourceIds": [
+      "S1",
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q011-HI",
+    "englishQuestionId": "WHI-CP003-Q011",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F011",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Concept distinction",
+    "stem": "एक संविधान शासन की सत्ता अलग-अलग अंगों में बाँटता है, ताकि कोई एक अंग असीमित शक्ति न रखे। यह किस प्रबोधनकालीन विचार को सीधे दर्शाता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "दैवी अधिकार"
+      },
+      {
+        "key": "B",
+        "text": "व्यापार संतुलन"
+      },
+      {
+        "key": "C",
+        "text": "वणिकवाद"
+      },
+      {
+        "key": "D",
+        "text": "शक्तियों का पृथक्करण"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "शासन की सत्ता को अलग-अलग अंगों में बाँटना मोंतेस्क्यू के विचार से जुड़ा संस्थागत उपाय है।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q012-HI",
+    "englishQuestionId": "WHI-CP003-Q012",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F012",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Cause–event",
+    "stem": "1775 में उपनिवेशों का ब्रिटिश नीतियों के विरोध से सशस्त्र संघर्ष तक पहुँचना किस घटना से सबसे सीधे जुड़ा था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पेरिस की संधि पर हस्ताक्षर"
+      },
+      {
+        "key": "B",
+        "text": "लेक्सिंगटन और कॉनकॉर्ड की लड़ाइयाँ"
+      },
+      {
+        "key": "C",
+        "text": "1783 में बोस्टन से ब्रिटिश सेना की वापसी"
+      },
+      {
+        "key": "D",
+        "text": "संविधान का अनुमोदन"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "अप्रैल 1775 में लेक्सिंगटन और कॉनकॉर्ड में अमेरिकी स्वतंत्रता युद्ध की पहली गोलियाँ चलीं।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q013-HI",
+    "englishQuestionId": "WHI-CP003-Q013",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F013",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chronology",
+    "stem": "अमेरिकी क्रांति की इन प्रमुख घटनाओं का सही क्रम चुनिए।",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्वतंत्रता की घोषणा → साराटोगा → यॉर्कटाउन → पेरिस की संधि"
+      },
+      {
+        "key": "B",
+        "text": "साराटोगा → पेरिस की संधि → यॉर्कटाउन → स्वतंत्रता की घोषणा"
+      },
+      {
+        "key": "C",
+        "text": "यॉर्कटाउन → स्वतंत्रता की घोषणा → साराटोगा → पेरिस की संधि"
+      },
+      {
+        "key": "D",
+        "text": "पेरिस की संधि → साराटोगा → स्वतंत्रता की घोषणा → यॉर्कटाउन"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "1776 में स्वतंत्रता की घोषणा, 1777 में साराटोगा, 1781 में यॉर्कटाउन और 1783 में शांति संधि हुई।",
+    "sourceIds": [
+      "S5",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q014-HI",
+    "englishQuestionId": "WHI-CP003-Q014",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F014",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Document–purpose",
+    "stem": "परिसंघ के अनुच्छेदों का मुख्य उद्देश्य क्या था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांसीसी डायरेक्टरी की स्थापना करना"
+      },
+      {
+        "key": "B",
+        "text": "संयुक्त राज्य अमेरिका के पहले राष्ट्रीय शासन-ढाँचे के रूप में काम करना"
+      },
+      {
+        "key": "C",
+        "text": "राष्ट्र संघ बनाना"
+      },
+      {
+        "key": "D",
+        "text": "पूरे अमेरिकी महाद्वीप में दासता समाप्त करना"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1781 से 1789 तक लागू परिसंघ के अनुच्छेद संयुक्त राज्य अमेरिका का पहला संविधान थे।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q015-HI",
+    "englishQuestionId": "WHI-CP003-Q015",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F015",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Document–sequence",
+    "stem": "संयुक्त राज्य अमेरिका के शुरुआती प्रमुख दस्तावेज़ों का सही कालक्रम कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्वतंत्रता की घोषणा (1776) → संविधान (1787) → अधिकार विधेयक (1791)"
+      },
+      {
+        "key": "B",
+        "text": "अधिकार विधेयक (1791) → संविधान (1787) → स्वतंत्रता की घोषणा (1776)"
+      },
+      {
+        "key": "C",
+        "text": "संविधान (1787) → स्वतंत्रता की घोषणा (1776) → अधिकार विधेयक (1791)"
+      },
+      {
+        "key": "D",
+        "text": "स्वतंत्रता की घोषणा (1776) → अधिकार विधेयक (1777) → संविधान (1783)"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "स्वतंत्रता की घोषणा ने अलगाव घोषित किया; संविधान ने संघीय शासन-ढाँचा बनाया और बाद में पहले दस संशोधनों को अधिकार विधेयक कहा गया।",
+    "sourceIds": [
+      "S4",
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q016-HI",
+    "englishQuestionId": "WHI-CP003-Q016",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F016",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Revolution–leader",
+    "stem": "तूसां लूवर्त्यूर किस क्रांति के प्रमुख नेता बने?",
+    "options": [
+      {
+        "key": "A",
+        "text": "अमेरिकी क्रांति"
+      },
+      {
+        "key": "B",
+        "text": "यूनान का स्वतंत्रता युद्ध"
+      },
+      {
+        "key": "C",
+        "text": "हैती क्रांति"
+      },
+      {
+        "key": "D",
+        "text": "फ्रांसीसी जुलाई क्रांति"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "लूवर्त्यूर सेंट-डोमिंग में गुलाम बनाए गए लोगों के विद्रोह के प्रमुख नेता थे; हैती की स्वतंत्रता घोषित होने से पहले उनकी मृत्यु हो गई।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q017-HI",
+    "englishQuestionId": "WHI-CP003-Q017",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F017",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Chronology",
+    "stem": "इनमें से कौन-सी घटना सबसे पहले हुई?",
+    "options": [
+      {
+        "key": "A",
+        "text": "अमेरिकी स्वतंत्रता की घोषणा स्वीकृत हुई"
+      },
+      {
+        "key": "B",
+        "text": "संयुक्त राज्य अमेरिका ने अधिकार विधेयक का अनुमोदन किया"
+      },
+      {
+        "key": "C",
+        "text": "बोलीवार की पनामा कांग्रेस हुई"
+      },
+      {
+        "key": "D",
+        "text": "हैती ने स्वतंत्रता घोषित की"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "स्वतंत्रता की घोषणा 1776 की है; अधिकार विधेयक 1791 में अनुमोदित हुआ, हैती ने 1804 में स्वतंत्रता घोषित की और पनामा कांग्रेस 1826 में हुई।",
+    "sourceIds": [
+      "S4",
+      "S7",
+      "S9",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q018-HI",
+    "englishQuestionId": "WHI-CP003-Q018",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F018",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Revolution–outcome",
+    "stem": "हैती के बारे में कौन-सा कथन सही है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांसीसी औपनिवेशिक शासन के विरुद्ध क्रांति के बाद 1804 में यह स्वतंत्र हुआ।"
+      },
+      {
+        "key": "B",
+        "text": "वियना कांग्रेस ने इसकी स्थापना की।"
+      },
+      {
+        "key": "C",
+        "text": "यह 1776 में स्पेन से स्वतंत्र हुआ।"
+      },
+      {
+        "key": "D",
+        "text": "1804 के बाद भी यह ब्रिटिश उपनिवेश बना रहा।"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "पूर्व सेंट-डोमिंग में हुई क्रांति के बाद 1804 में हैती की स्वतंत्रता घोषित हुई।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q019-HI",
+    "englishQuestionId": "WHI-CP003-Q019",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F019",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Cause–context",
+    "stem": "उन्नीसवीं सदी के आरंभ में यूरोप की किस घटना ने स्पेनिश अमेरिका के स्वतंत्रता आंदोलनों के लिए राजनीतिक अवसर पैदा करने में मदद की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "बर्लिन कांग्रेस"
+      },
+      {
+        "key": "B",
+        "text": "स्पेन पर नेपोलियन का आक्रमण और स्पेनिश राजतंत्र का संकट"
+      },
+      {
+        "key": "C",
+        "text": "कॉन्स्टेंटिनोपल का पतन"
+      },
+      {
+        "key": "D",
+        "text": "टॉर्डेसिलास की संधि"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1808 में स्पेन के राजसत्तात्मक अधिकार के कमजोर पड़ने से राजनीतिक संकट तेज हुआ और स्पेनिश अमेरिका में स्वतंत्रता आंदोलन आगे बढ़े।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q020-HI",
+    "englishQuestionId": "WHI-CP003-Q020",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F020",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Person–region",
+    "stem": "सिमोन बोलीवार के अभियान अमेरिका के किस भाग के स्वतंत्रता आंदोलनों में केंद्रीय भूमिका निभाते थे?",
+    "options": [
+      {
+        "key": "A",
+        "text": "मध्य यूरोप"
+      },
+      {
+        "key": "B",
+        "text": "ब्रिटिश द्वीपसमूह"
+      },
+      {
+        "key": "C",
+        "text": "उत्तरी दक्षिण अमेरिका"
+      },
+      {
+        "key": "D",
+        "text": "दक्षिणी अफ्रीका"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "बोलीवार के अभियानों ने वेनेज़ुएला, न्यू ग्रेनाडा और क्विटो सहित क्षेत्रों को स्पेनिश शासन से मुक्त कराने में मदद की।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q021-HI",
+    "englishQuestionId": "WHI-CP003-Q021",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F021",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Person–region",
+    "stem": "सैन मार्तिन ने अर्जेंटीना, चिली और पेरू में स्वतंत्रता अभियानों का नेतृत्व किया। ये अभियान किस महाद्वीप में हुए?",
+    "options": [
+      {
+        "key": "A",
+        "text": "दक्षिण अमेरिका का दक्षिणी भाग"
+      },
+      {
+        "key": "B",
+        "text": "उत्तरी अफ्रीका"
+      },
+      {
+        "key": "C",
+        "text": "डेनिश शासन वाले कैरेबियाई द्वीप"
+      },
+      {
+        "key": "D",
+        "text": "नीदरलैंड"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "सैन मार्तिन ने अर्जेंटीना, चिली और पेरू को स्वतंत्र कराने में प्रमुख भूमिका निभाई।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q022-HI",
+    "englishQuestionId": "WHI-CP003-Q022",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F022",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Relationship",
+    "stem": "कौन-सा दस्तावेज़ और उसकी भूमिका का युग्म सही है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "अधिकार विधेयक — हैती को स्वतंत्र घोषित किया"
+      },
+      {
+        "key": "B",
+        "text": "परिसंघ के अनुच्छेद — नेपोलियन युद्ध समाप्त किए"
+      },
+      {
+        "key": "C",
+        "text": "स्वतंत्रता की घोषणा — ब्रिटेन से अलगाव घोषित किया"
+      },
+      {
+        "key": "D",
+        "text": "पेरिस की संधि (1783) — फ्रांसीसी डायरेक्टरी स्थापित की"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "स्वतंत्रता की घोषणा में उपनिवेशों ने अलग होने की बात कही; बाद में पेरिस संधि ने युद्ध समाप्त किया। अन्य दस्तावेज़ों की भूमिकाएँ अलग थीं।",
+    "sourceIds": [
+      "S4",
+      "S6",
+      "S8",
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q023-HI",
+    "englishQuestionId": "WHI-CP003-Q023",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F023",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Incorrect statement",
+    "stem": "प्रबोधनकालीन राजनीतिक विचारों के बारे में कौन-सा कथन गलत है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने विरासत में मिलने वाली राजनीतिक सत्ता पर सवाल उठाए।"
+      },
+      {
+        "key": "B",
+        "text": "इसने पूरी तरह निरंकुश वंशानुगत शासन को ही एकमात्र वैध व्यवस्था माना।"
+      },
+      {
+        "key": "C",
+        "text": "इसमें प्राकृतिक अधिकारों के पक्ष में तर्क दिए गए।"
+      },
+      {
+        "key": "D",
+        "text": "इसने जन-सहमति को वैध शासन का एक आधार माना।"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "प्रबोधनकालीन विचारकों के मत अलग-अलग थे, लेकिन कई प्रभावशाली लेखकों ने निरंकुशता को चुनौती दी और अधिकार, सहमति तथा शासन-व्यवस्था पर नए तर्क दिए।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q024-HI",
+    "englishQuestionId": "WHI-CP003-Q024",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F024",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Multi-statement",
+    "stem": "अमेरिकी क्रांति के बारे में निम्नलिखित कथनों पर विचार कीजिए:\n\n1. युद्ध के दौरान फ्रांस अमेरिकी पक्ष का सहयोगी बना।  \n2. पेरिस संधि पर 1783 में हस्ताक्षर हुए।  \n3. स्वतंत्रता की घोषणा पेरिस संधि के बाद स्वीकृत हुई।\n\nकौन-से कथन सही हैं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1, 2 और 3"
+      },
+      {
+        "key": "B",
+        "text": "केवल 1 और 3"
+      },
+      {
+        "key": "C",
+        "text": "केवल 2 और 3"
+      },
+      {
+        "key": "D",
+        "text": "केवल 1 और 2"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "फ्रांस ने अमेरिकियों का साथ दिया और 1783 की संधि ने युद्ध समाप्त किया। स्वतंत्रता की घोषणा इससे पहले, 1776 में स्वीकृत हुई थी।",
+    "sourceIds": [
+      "S4",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q025-HI",
+    "englishQuestionId": "WHI-CP003-Q025",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F025",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "अमेरिकी और हैती क्रांतियों में अंतर बताने वाला सबसे उपयुक्त कथन कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "हैती क्रांति ब्रिटेन की मध्यस्थता से हुआ शांतिपूर्ण सत्ता-हस्तांतरण था।"
+      },
+      {
+        "key": "B",
+        "text": "अमेरिकी क्रांति हिस्पानिओला के एक फ्रांसीसी उपनिवेश में हुई।"
+      },
+      {
+        "key": "C",
+        "text": "दोनों स्वतंत्रता आंदोलन थे, लेकिन हैती क्रांति ने गुलामी पर आधारित औपनिवेशिक व्यवस्था को भी सीधे उखाड़ा।"
+      },
+      {
+        "key": "D",
+        "text": "अमेरिकी क्रांति ने पूरे अमेरिका से गुलामी समाप्त कर दी, जबकि हैती में फ्रांसीसी शासन बना रहा।"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "हैती की क्रांति सेंट-डोमिंग में गुलामी और औपनिवेशिक शासन से प्रभावित थी; अमेरिकी उपनिवेशों के संघर्ष की सामाजिक और राजनीतिक परिस्थितियाँ अलग थीं।",
+    "sourceIds": [
+      "S4",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q026-HI",
+    "englishQuestionId": "WHI-CP003-Q026",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F026",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "सही क्रम चुनिए।",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्पेनिश-अमेरिकी स्वतंत्रता आंदोलन → हैती की स्वतंत्रता → अमेरिकी स्वतंत्रता → पनामा कांग्रेस"
+      },
+      {
+        "key": "B",
+        "text": "पनामा कांग्रेस → अमेरिकी स्वतंत्रता → हैती की स्वतंत्रता → स्पेनिश-अमेरिकी स्वतंत्रता आंदोलन"
+      },
+      {
+        "key": "C",
+        "text": "अमेरिकी स्वतंत्रता → हैती की स्वतंत्रता → स्पेनिश-अमेरिकी स्वतंत्रता आंदोलन → पनामा कांग्रेस"
+      },
+      {
+        "key": "D",
+        "text": "हैती की स्वतंत्रता → अमेरिकी स्वतंत्रता → पनामा कांग्रेस → स्पेनिश-अमेरिकी स्वतंत्रता आंदोलन"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "अमेरिकी स्वतंत्रता पहले आई; हैती ने 1804 में स्वतंत्रता घोषित की; उन्नीसवीं सदी के आरंभ में स्पेनिश-अमेरिकी आंदोलन आगे बढ़े और 1826 में बोलीवार की कांग्रेस हुई।",
+    "sourceIds": [
+      "S4",
+      "S7",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q027-HI",
+    "englishQuestionId": "WHI-CP003-Q027",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F027",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Inference",
+    "stem": "शक्तियों के इस पृथक्करण में किस प्रबोधनकालीन चिंतक के विचार दिखाई देते हैं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "वंशानुगत विशेषाधिकार के पक्ष में वोल्तेयर का विचार"
+      },
+      {
+        "key": "B",
+        "text": "राजनीतिक शक्तियों के पृथक्करण का मोंतेस्क्यू का तर्क"
+      },
+      {
+        "key": "C",
+        "text": "निरंकुश राजतंत्र के पक्ष में लॉक का बचाव"
+      },
+      {
+        "key": "D",
+        "text": "सभी राजनीतिक समुदायों को नकारने का रूसो का विचार"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "विधायी, कार्यकारी और न्यायिक शक्तियों का संस्थागत विभाजन मोंतेस्क्यू के प्रभावशाली प्रस्ताव को दर्शाता है।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q028-HI",
+    "englishQuestionId": "WHI-CP003-Q028",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F028",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Claim qualification",
+    "stem": "स्वतंत्रता की घोषणा के बारे में कौन-सा कथन ऐतिहासिक सावधानी बरतता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने तुरंत उपनिवेशों के हर व्यक्ति को समान राजनीतिक अधिकार दे दिए।"
+      },
+      {
+        "key": "B",
+        "text": "इसी वर्ष इसने संयुक्त राज्य अमेरिका का संविधान बनाया।"
+      },
+      {
+        "key": "C",
+        "text": "इसमें समानता और अधिकारों के सिद्धांत रखे गए, पर व्यवहार में राजनीतिक अधिकार और गुलामी विवादित बने रहे।"
+      },
+      {
+        "key": "D",
+        "text": "इसने 1776 में पूरे संयुक्त राज्य अमेरिका से गुलामी समाप्त कर दी।"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "स्वतंत्रता की घोषणा ने प्रभावशाली सिद्धांत रखे, लेकिन उन्हें अपनाने वाले समाज में ये आदर्श सभी पर पूरी तरह लागू नहीं हुए।",
+    "sourceIds": [
+      "S4",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q029-HI",
+    "englishQuestionId": "WHI-CP003-Q029",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F029",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement",
+    "stem": "अमेरिकी महाद्वीप के स्वतंत्रता आंदोलनों के बारे में कथनों पर विचार कीजिए:\n\n1. सभी आंदोलनों के सामाजिक उद्देश्य और परिणाम एक जैसे थे।  \n2. बोलीवार और सैन मार्तिन स्पेनिश-अमेरिकी संघर्षों के महत्त्वपूर्ण नेता थे।  \n3. हैती की क्रांति में गुलामी के विरुद्ध व्यापक विद्रोह शामिल था।\n\nकौन-से कथन सही हैं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "केवल 2 और 3"
+      },
+      {
+        "key": "B",
+        "text": "केवल 1 और 2"
+      },
+      {
+        "key": "C",
+        "text": "1, 2 और 3"
+      },
+      {
+        "key": "D",
+        "text": "केवल 1"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "बोलीवार और सैन मार्तिन प्रमुख नेता थे तथा हैती का विद्रोह गुलामी को चुनौती देता था। इन क्रांतियों के उद्देश्य, भागीदार और परिणाम एक जैसे नहीं थे।",
+    "sourceIds": [
+      "S7",
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q030-HI",
+    "englishQuestionId": "WHI-CP003-Q030",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F030",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "1781 में यॉर्कटाउन की अमेरिकी जीत को निर्णायक मोड़ माना जाता है, लेकिन युद्ध का औपचारिक अंत क्यों नहीं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने फ्रांसीसी क्रांति समाप्त की।"
+      },
+      {
+        "key": "B",
+        "text": "इससे शांति वार्ता का रास्ता खुला, जबकि औपचारिक शांति 1783 की पेरिस संधि से हुई।"
+      },
+      {
+        "key": "C",
+        "text": "इसने तुरंत अधिकार विधेयक बना दिया।"
+      },
+      {
+        "key": "D",
+        "text": "इसी दिन स्वतंत्रता की घोषणा स्वीकृत हुई।"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "कॉर्नवालिस के आत्मसमर्पण से ब्रिटेन की स्थिति कमजोर हुई, लेकिन युद्ध 1783 में पेरिस संधि के साथ औपचारिक रूप से समाप्त हुआ।",
+    "sourceIds": [
+      "S5",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q031-HI",
+    "englishQuestionId": "WHI-CP003-Q031",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F031",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Thinker–principle",
+    "stem": "किस प्रबोधनकालीन लेखक को आमतौर पर धार्मिक सहिष्णुता के समर्थन और असहिष्णुता की आलोचना से जोड़ा जाता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "एडमंड बर्क"
+      },
+      {
+        "key": "B",
+        "text": "वोल्तेयर"
+      },
+      {
+        "key": "C",
+        "text": "जेम्स प्रथम"
+      },
+      {
+        "key": "D",
+        "text": "रॉबर्ट फ़िल्मर"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "वोल्तेयर की रचनाओं ने धार्मिक असहिष्णुता और मनमानी सत्ता की आलोचना की, हालाँकि प्रबोधनकालीन विचारकों का कोई एक समान राजनीतिक कार्यक्रम नहीं था।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q032-HI",
+    "englishQuestionId": "WHI-CP003-Q032",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F032",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "*टू ट्रीटीज़ेज़ ऑफ़ गवर्नमेंट* किसने लिखी थी? इस रचना में निरंकुश राजतंत्र का विरोध और प्राकृतिक अधिकारों का समर्थन किया गया।",
+    "options": [
+      {
+        "key": "A",
+        "text": "ज्याँ बोदाँ"
+      },
+      {
+        "key": "B",
+        "text": "जॉन लॉक"
+      },
+      {
+        "key": "C",
+        "text": "जोसेफ़ द मैस्त्र"
+      },
+      {
+        "key": "D",
+        "text": "थॉमस हॉब्स"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "लॉक की राजनीतिक रचनाओं में प्राकृतिक अधिकारों और सहमति पर आधारित शासन का समर्थन किया गया।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q033-HI",
+    "englishQuestionId": "WHI-CP003-Q033",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F033",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "1776 में प्रकाशित प्रभावशाली पुस्तिका *कॉमन सेंस* किसने लिखी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "बेंजामिन फ्रैंकलिन"
+      },
+      {
+        "key": "B",
+        "text": "थॉमस जेफ़रसन"
+      },
+      {
+        "key": "C",
+        "text": "जॉर्ज वॉशिंगटन"
+      },
+      {
+        "key": "D",
+        "text": "थॉमस पेन"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "पेन की पुस्तिका ने ब्रिटेन से स्वतंत्रता का समर्थन किया और गणतांत्रिक विचार को लोकप्रिय बनाने में मदद की।",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q034-HI",
+    "englishQuestionId": "WHI-CP003-Q034",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F034",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "बोस्टन टी पार्टी किस वर्ष हुई थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1783"
+      },
+      {
+        "key": "B",
+        "text": "1763"
+      },
+      {
+        "key": "C",
+        "text": "1776"
+      },
+      {
+        "key": "D",
+        "text": "1773"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "दिसंबर 1773 में उपनिवेशवासियों ने बोस्टन बंदरगाह में चाय की खेप नष्ट करके ब्रिटिश चाय नीति का विरोध किया।",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q035-HI",
+    "englishQuestionId": "WHI-CP003-Q035",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F035",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Revolution–ally",
+    "stem": "अमेरिकी स्वतंत्रता युद्ध के दौरान कौन-सी यूरोपीय शक्ति संयुक्त राज्य अमेरिका की औपचारिक सहयोगी बनी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ऑस्ट्रिया"
+      },
+      {
+        "key": "B",
+        "text": "स्वीडन"
+      },
+      {
+        "key": "C",
+        "text": "रूस"
+      },
+      {
+        "key": "D",
+        "text": "फ्रांस"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "फ्रांस ने 1778 में संयुक्त राज्य अमेरिका के साथ औपचारिक गठबंधन किया और सैन्य तथा नौसैनिक सहायता दी।",
+    "sourceIds": [
+      "S5",
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q036-HI",
+    "englishQuestionId": "WHI-CP003-Q036",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F036",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Document–date",
+    "stem": "परिसंघ के अनुच्छेद किस वर्ष लागू हुए?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1776"
+      },
+      {
+        "key": "B",
+        "text": "1777"
+      },
+      {
+        "key": "C",
+        "text": "1781"
+      },
+      {
+        "key": "D",
+        "text": "1789"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "कांग्रेस ने 1777 में परिसंघ के अनुच्छेद अपनाए; राज्यों की मंजूरी के बाद वे 1781 में लागू हुए।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q037-HI",
+    "englishQuestionId": "WHI-CP003-Q037",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F037",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "अमेरिकी संविधान का मसौदा तैयार करने वाला संवैधानिक सम्मेलन 1787 में किस शहर में हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ़िलाडेल्फ़िया"
+      },
+      {
+        "key": "B",
+        "text": "चार्ल्सटन"
+      },
+      {
+        "key": "C",
+        "text": "बोस्टन"
+      },
+      {
+        "key": "D",
+        "text": "न्यूयॉर्क"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "प्रतिनिधि 1787 में फ़िलाडेल्फ़िया में मिले। उनका उद्देश्य परिसंघ के अनुच्छेदों में सुधार करना था, लेकिन उन्होंने नया संविधान तैयार किया।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q038-HI",
+    "englishQuestionId": "WHI-CP003-Q038",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F038",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Document–content",
+    "stem": "अमेरिकी संविधान का कौन-सा भाग अधिकार विधेयक कहलाता है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "पहले दस अनुच्छेद"
+      },
+      {
+        "key": "B",
+        "text": "स्वतंत्रता की घोषणा के शुरुआती अनुच्छेद"
+      },
+      {
+        "key": "C",
+        "text": "परिसंघ के अनुच्छेद"
+      },
+      {
+        "key": "D",
+        "text": "पहले दस संशोधन"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "1789 में प्रस्तावित बारह संशोधनों में से दस को 1791 में मंजूरी मिली; इन्हीं को अधिकार विधेयक कहा गया।",
+    "sourceIds": [
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q039-HI",
+    "englishQuestionId": "WHI-CP003-Q039",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F039",
+    "language": "hi",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "हैती क्रांति की शुरुआत करने वाला गुलाम बनाए गए लोगों का बड़ा विद्रोह किस वर्ष शुरू हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1791"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1776"
+      },
+      {
+        "key": "D",
+        "text": "1804"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "सेंट-डोमिंग में 1791 में संगठित विद्रोह शुरू हुआ और आगे चलकर गुलामी तथा औपनिवेशिक शासन के विरुद्ध लंबी क्रांति बना।",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q040-HI",
+    "englishQuestionId": "WHI-CP003-Q040",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F040",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Law–outcome",
+    "stem": "फ्रांसीसी राष्ट्रीय सम्मेलन ने 1794 में कौन-सा आदेश दिया, जिसने हैती क्रांति की दिशा को प्रभावित किया?",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांसीसी उपनिवेशों में गुलामी समाप्त करने का"
+      },
+      {
+        "key": "B",
+        "text": "सेंट-डोमिंग में गुलामी फिर लागू करने का"
+      },
+      {
+        "key": "C",
+        "text": "सभी स्पेनिश-अमेरिकी उपनिवेशों को स्वतंत्र करने का"
+      },
+      {
+        "key": "D",
+        "text": "पनामा कांग्रेस बनाने का"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "1794 के आदेश से फ्रांसीसी उपनिवेशों में गुलामी समाप्त की गई; इसके बाद तूसां लूवर्त्यूर ने स्पेन के विरुद्ध फ्रांसीसी सेना का साथ दिया।",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q041-HI",
+    "englishQuestionId": "WHI-CP003-Q041",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F041",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Person–event",
+    "stem": "1802 में फ्रांसीसी सेना के सेंट-डोमिंग पहुँचने के बाद तूसां लूवर्त्यूर के साथ क्या हुआ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "उन्हें गिरफ्तार कर फ्रांस भेज दिया गया।"
+      },
+      {
+        "key": "B",
+        "text": "उन्होंने पनामा कांग्रेस का नेतृत्व किया।"
+      },
+      {
+        "key": "C",
+        "text": "वे संयुक्त राज्य अमेरिका के राष्ट्रपति बने।"
+      },
+      {
+        "key": "D",
+        "text": "उन्होंने अमेरिकी युद्ध समाप्त करने वाली पेरिस संधि पर हस्ताक्षर किए।"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "1802 में फ्रांसीसी सेना ने लूवर्त्यूर को पकड़ लिया। हैती की स्वतंत्रता से पहले, अगले वर्ष फ्रांसीसी जेल में उनकी मृत्यु हो गई।",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q042-HI",
+    "englishQuestionId": "WHI-CP003-Q042",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F042",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Leader–outcome",
+    "stem": "1 जनवरी 1804 को हैती की स्वतंत्रता की घोषणा किसने की?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ज्याँ-जाक देसालिन"
+      },
+      {
+        "key": "B",
+        "text": "हेनरी क्रिस्टोफ़"
+      },
+      {
+        "key": "C",
+        "text": "अलेक्ज़ांद्र पेतियोँ"
+      },
+      {
+        "key": "D",
+        "text": "तूसां लूवर्त्यूर"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "देसालिन ने संघर्ष के अंतिम चरण का नेतृत्व किया और फ्रांसीसी सेना की हार के बाद हैती को स्वतंत्र घोषित किया।",
+    "sourceIds": [
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q043-HI",
+    "englishQuestionId": "WHI-CP003-Q043",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F043",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Movement–date",
+    "stem": "1810 में मिगेल इदाल्गो का विद्रोह का आह्वान किस देश के स्वतंत्रता संघर्ष की शुरुआत से जुड़ा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "चिली"
+      },
+      {
+        "key": "B",
+        "text": "हैती"
+      },
+      {
+        "key": "C",
+        "text": "मेक्सिको"
+      },
+      {
+        "key": "D",
+        "text": "ब्राज़ील"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "1810 में दोलोरेस से इदाल्गो के आह्वान ने मेक्सिको के स्वतंत्रता संघर्ष का एक बड़ा चरण शुरू किया; स्वतंत्रता बाद में मिली।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q044-HI",
+    "englishQuestionId": "WHI-CP003-Q044",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F044",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Country–date",
+    "stem": "मेक्सिको को स्पेन से किस वर्ष स्वतंत्रता मिली?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1826"
+      },
+      {
+        "key": "B",
+        "text": "1804"
+      },
+      {
+        "key": "C",
+        "text": "1821"
+      },
+      {
+        "key": "D",
+        "text": "1810"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "इदाल्गो का विद्रोह 1810 में शुरू हुआ, लेकिन लंबे और बदलते संघर्ष के बाद मेक्सिको 1821 में स्वतंत्र हुआ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q045-HI",
+    "englishQuestionId": "WHI-CP003-Q045",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F045",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Person–battle",
+    "stem": "1819 में बोयाका की विजय किसके नेतृत्व वाले अभियानों का निर्णायक मोड़ थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "बर्नार्डो ओ’हिगिन्स"
+      },
+      {
+        "key": "B",
+        "text": "जोस दे सैन मार्तिन"
+      },
+      {
+        "key": "C",
+        "text": "मिगेल इदाल्गो"
+      },
+      {
+        "key": "D",
+        "text": "सिमोन बोलीवार"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "बोलीवार की बोयाका विजय ने न्यू ग्रेनाडा पर नियंत्रण मजबूत किया और उत्तरी दक्षिण अमेरिका की स्वतंत्रता को आगे बढ़ाया।",
+    "sourceIds": [
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q046-HI",
+    "englishQuestionId": "WHI-CP003-Q046",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F046",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Event–purpose",
+    "stem": "बोलीवार ने 1826 में पनामा कांग्रेस किस मुख्य उद्देश्य से बुलाई थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्पेनिश औपनिवेशिक शासन बहाल करना"
+      },
+      {
+        "key": "B",
+        "text": "फ्रांसीसी राजतंत्र बनाना"
+      },
+      {
+        "key": "C",
+        "text": "अमेरिकी स्वतंत्रता युद्ध समाप्त करना"
+      },
+      {
+        "key": "D",
+        "text": "नवस्वतंत्र अमेरिकी राज्यों में सहयोग और साझा सुरक्षा को बढ़ावा देना"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "बोलीवार ऐसा संघ बनाना चाहते थे जो नए गणराज्यों की रक्षा करे और उनकी नीतियों में तालमेल बढ़ाए।",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q047-HI",
+    "englishQuestionId": "WHI-CP003-Q047",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F047",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Person–region",
+    "stem": "जोस दे सैन मार्तिन के स्वतंत्रता अभियानों का संबंध अर्जेंटीना और चिली के साथ किस अन्य देश से भी था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "कनाडा"
+      },
+      {
+        "key": "B",
+        "text": "मेक्सिको"
+      },
+      {
+        "key": "C",
+        "text": "क्यूबा"
+      },
+      {
+        "key": "D",
+        "text": "पेरू"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "सैन मार्तिन ने अर्जेंटीना और चिली को स्वतंत्र कराने में मदद की और पेरू तक अभियान चलाया; बाद में ग्वायाकिल में उनकी बोलीवार से भेंट हुई।",
+    "sourceIds": [
+      "S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q048-HI",
+    "englishQuestionId": "WHI-CP003-Q048",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F048",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Cause–context",
+    "stem": "1808 के बाद स्पेनिश शाही सत्ता को किस घटना ने कमजोर किया और स्पेनिश अमेरिका में स्थानीय शासन-परिषदों तथा स्वतंत्रता आंदोलनों का रास्ता खोला?",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्पेनिश साम्राज्य समाप्त करने का वियना कांग्रेस का निर्णय"
+      },
+      {
+        "key": "B",
+        "text": "बर्लिन डिक्री"
+      },
+      {
+        "key": "C",
+        "text": "1783 की पेरिस संधि"
+      },
+      {
+        "key": "D",
+        "text": "स्पेन पर नेपोलियन का कब्ज़ा और स्पेन के राजा को हटाया जाना"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "स्पेन के राजतंत्र के संकट ने उपनिवेशों में वैध सत्ता को लेकर अनिश्चितता पैदा की और स्थानीय राजनीतिक आंदोलनों को तेज किया।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q049-HI",
+    "englishQuestionId": "WHI-CP003-Q049",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F049",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Social group",
+    "stem": "स्पेनिश अमेरिका की औपनिवेशिक सामाजिक व्यवस्था में *क्रिओल* शब्द आमतौर पर किस समूह के लिए इस्तेमाल होता था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "एज़्टेक साम्राज्य के मूल निवासी शासक"
+      },
+      {
+        "key": "B",
+        "text": "अमेरिका में जन्मे यूरोपीय वंश के लोग"
+      },
+      {
+        "key": "C",
+        "text": "केवल स्पेन में जन्मे अधिकारी"
+      },
+      {
+        "key": "D",
+        "text": "अफ्रीका से लाए गए गुलाम बनाए लोग"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "क्रिओल अमेरिका में जन्मे यूरोपीय वंश के लोग थे; उनमें से कई उच्च औपनिवेशिक पदों तक पहुँच पर लगी रोक से असंतुष्ट थे।",
+    "sourceIds": [
+      "S20"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q050-HI",
+    "englishQuestionId": "WHI-CP003-Q050",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F050",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Movement–outcome",
+    "stem": "लैटिन अमेरिकी स्वतंत्रता आंदोलनों के परिणामों का सबसे सही वर्णन कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्वतंत्रता से क्षेत्र के सभी संघर्ष समाप्त हो गए।"
+      },
+      {
+        "key": "B",
+        "text": "स्पेन ने 1900 तक मुख्यभूमि के सभी उपनिवेशों पर सीधा शासन रखा।"
+      },
+      {
+        "key": "C",
+        "text": "हर नए राज्य ने तुरंत एक ही संविधान अपनाया।"
+      },
+      {
+        "key": "D",
+        "text": "राजनीतिक स्वतंत्रता से सामाजिक असमानता अपने-आप समाप्त नहीं हुई और सभी गणराज्य एक जैसे नहीं बने।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "अलग-अलग संघर्षों के जरिए नए राज्यों ने राजनीतिक स्वतंत्रता हासिल की, लेकिन सामाजिक ऊँच-नीच और राजनीतिक टकराव अक्सर जारी रहे।",
+    "sourceIds": [
+      "S10",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q051-HI",
+    "englishQuestionId": "WHI-CP003-Q051",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F051",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "हैती क्रांति की प्रमुख घटनाओं का सही क्रम चुनिए।",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांसीसी आदेश से गुलामी समाप्त → हैती स्वतंत्र हुआ → विद्रोह शुरू → लूवर्त्यूर पकड़े गए"
+      },
+      {
+        "key": "B",
+        "text": "हैती स्वतंत्र हुआ → विद्रोह शुरू → लूवर्त्यूर पकड़े गए → गुलामी समाप्त करने का आदेश"
+      },
+      {
+        "key": "C",
+        "text": "लूवर्त्यूर पकड़े गए → हैती स्वतंत्र हुआ → विद्रोह शुरू → गुलामी समाप्त करने का आदेश"
+      },
+      {
+        "key": "D",
+        "text": "विद्रोह शुरू → फ्रांसीसी आदेश से गुलामी समाप्त → लूवर्त्यूर पकड़े गए → हैती स्वतंत्र हुआ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "विद्रोह 1791 में शुरू हुआ; फ्रांस ने 1794 में गुलामी समाप्त की; लूवर्त्यूर 1802 में पकड़े गए और 1804 में स्वतंत्रता घोषित हुई।",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q052-HI",
+    "englishQuestionId": "WHI-CP003-Q052",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F052",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Grievance–event",
+    "stem": "“प्रतिनिधित्व के बिना कर नहीं” नारे में कौन-सी औपनिवेशिक शिकायत व्यक्त हुई थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांस ने उपनिवेशों से सात वर्षीय युद्ध का खर्च माँगा।"
+      },
+      {
+        "key": "B",
+        "text": "उपनिवेशवासी हर तरह की स्थानीय सरकार के विरोधी थे।"
+      },
+      {
+        "key": "C",
+        "text": "ब्रिटिश व्यापारियों ने चाय पर कर दोगुना करने की माँग की।"
+      },
+      {
+        "key": "D",
+        "text": "उपनिवेशों ने संसद में अपने निर्वाचित प्रतिनिधियों के बिना लगाए गए करों का विरोध किया।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "इस नारे ने उस संसद द्वारा कर लगाने के विरोध को व्यक्त किया जिसमें उपनिवेशों के निर्वाचित प्रतिनिधि नहीं थे।",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q053-HI",
+    "englishQuestionId": "WHI-CP003-Q053",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F053",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Event–grievance",
+    "stem": "बोस्टन टी पार्टी में किस वस्तु पर ब्रिटिश नीति का विरोध किया गया था?",
+    "options": [
+      {
+        "key": "A",
+        "text": "चाय"
+      },
+      {
+        "key": "B",
+        "text": "कपास"
+      },
+      {
+        "key": "C",
+        "text": "तंबाकू"
+      },
+      {
+        "key": "D",
+        "text": "चीनी"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "प्रदर्शनकारियों ने चाय अधिनियम और साम्राज्यवादी करों को लेकर बढ़ते विवाद के विरोध में बोस्टन बंदरगाह में चाय फेंक दी।",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q054-HI",
+    "englishQuestionId": "WHI-CP003-Q054",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F054",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Cause–consequence",
+    "stem": "अमेरिकी क्रांतिकारी संघर्ष के लिए फ्रांस की सहायता क्यों महत्त्वपूर्ण थी?",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने तुरंत अमेरिकी संविधान का मसौदा तैयार किया।"
+      },
+      {
+        "key": "B",
+        "text": "इसने उपनिवेशों को ब्रिटिश शासन बहाल करने पर मजबूर किया।"
+      },
+      {
+        "key": "C",
+        "text": "इसने ब्रिटेन के विरुद्ध सैन्य, नौसैनिक और कूटनीतिक सहायता दी।"
+      },
+      {
+        "key": "D",
+        "text": "इसने साराटोगा से पहले ही संघर्ष समाप्त कर दिया।"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "फ्रांसीसी सहायता से अमेरिकी युद्ध प्रयास मजबूत हुए और ब्रिटेन के लिए युद्ध जारी रखना कठिन हुआ।",
+    "sourceIds": [
+      "S5",
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q055-HI",
+    "englishQuestionId": "WHI-CP003-Q055",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F055",
+    "language": "hi",
+    "difficulty": "medium",
+    "questionFamily": "Correctly matched pairs",
+    "stem": "कौन-सा समूह सही सुमेलित है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "रूसो — *कॉमन सेंस*; सैन मार्तिन — पेरिस संधि; लॉक — हैती की स्वतंत्रता"
+      },
+      {
+        "key": "B",
+        "text": "पेन — *कॉमन सेंस*; बोलीवार — पनामा कांग्रेस; देसालिन — हैती की स्वतंत्रता"
+      },
+      {
+        "key": "C",
+        "text": "मोंतेस्क्यू — पनामा कांग्रेस; लूवर्त्यूर — अमेरिकी संविधान; जेफ़रसन — *द सोशल कॉन्ट्रैक्ट*"
+      },
+      {
+        "key": "D",
+        "text": "वोल्तेयर — बोयाका; इदाल्गो — अधिकार विधेयक; पेन — *टू ट्रीटीज़ेज़*"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "विकल्प B में हर व्यक्ति को उसकी रचना, राजनीतिक पहल या स्वतंत्रता आंदोलन से सही जोड़ा गया है।",
+    "sourceIds": [
+      "S3",
+      "S12",
+      "S17",
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q056-HI",
+    "englishQuestionId": "WHI-CP003-Q056",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F056",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Document sequence",
+    "stem": "अमेरिका की शुरुआती संवैधानिक व्यवस्था का सही क्रम कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "संविधान पर हस्ताक्षर → परिसंघ के अनुच्छेद लागू → स्वतंत्रता की घोषणा"
+      },
+      {
+        "key": "B",
+        "text": "पेरिस संधि → अधिकार विधेयक → स्वतंत्रता की घोषणा"
+      },
+      {
+        "key": "C",
+        "text": "परिसंघ के अनुच्छेद लागू → संविधान का मसौदा और हस्ताक्षर → अधिकार विधेयक की पुष्टि"
+      },
+      {
+        "key": "D",
+        "text": "अधिकार विधेयक की पुष्टि → स्वतंत्रता की घोषणा → परिसंघ के अनुच्छेद लागू"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "परिसंघ के अनुच्छेद 1781 में लागू हुए, संविधान पर 1787 में हस्ताक्षर हुए और अधिकार विधेयक की 1791 में पुष्टि हुई।",
+    "sourceIds": [
+      "S8",
+      "S13",
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q057-HI",
+    "englishQuestionId": "WHI-CP003-Q057",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F057",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Claim distinction",
+    "stem": "स्वतंत्रता की घोषणा और पेरिस संधि में सही अंतर कौन-सा है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "घोषणा ने 1783 में युद्ध समाप्त किया; संधि ने 1776 में स्वतंत्रता घोषित की।"
+      },
+      {
+        "key": "B",
+        "text": "घोषणा ने 1776 में अलगाव घोषित किया; संधि ने 1783 में युद्ध औपचारिक रूप से समाप्त कर स्वतंत्रता को मान्यता दी।"
+      },
+      {
+        "key": "C",
+        "text": "घोषणा ने 1781 में परिसंघ के अनुच्छेद बनाए।"
+      },
+      {
+        "key": "D",
+        "text": "दोनों पर 1791 में अधिकार विधेयक बनाने के लिए हस्ताक्षर हुए।"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "स्वतंत्रता की घोषणा ने राजनीतिक अलगाव घोषित किया; सैन्य संघर्ष के बाद हुई पेरिस संधि ने शांति को औपचारिक रूप दिया।",
+    "sourceIds": [
+      "S4",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q058-HI",
+    "englishQuestionId": "WHI-CP003-Q058",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F058",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement",
+    "stem": "हैती क्रांति के बारे में कथनों पर विचार कीजिए:\n\n1. यह फ्रांसीसी उपनिवेश सेंट-डोमिंग में शुरू हुई।  \n2. तूसां लूवर्त्यूर ने 1804 में स्वतंत्रता घोषित की।  \n3. ज्याँ-जाक देसालिन ने हैती की स्वतंत्रता घोषित की।\n\nकौन-से कथन सही हैं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "केवल 2 और 3"
+      },
+      {
+        "key": "B",
+        "text": "केवल 1 और 2"
+      },
+      {
+        "key": "C",
+        "text": "1, 2 और 3"
+      },
+      {
+        "key": "D",
+        "text": "केवल 1 और 3"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "क्रांति सेंट-डोमिंग में शुरू हुई और देसालिन ने स्वतंत्रता घोषित की। लूवर्त्यूर को पकड़ लिया गया था और 1804 से पहले उनकी मृत्यु हो गई।",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q059-HI",
+    "englishQuestionId": "WHI-CP003-Q059",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F059",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "अमेरिकी और लैटिन अमेरिकी स्वतंत्रता संघर्षों की कौन-सी तुलना सबसे सटीक है?",
+    "options": [
+      {
+        "key": "A",
+        "text": "अमेरिकी उपनिवेशों ने स्पेन से, जबकि स्पेनिश अमेरिका ने केवल फ्रांस से लड़ाई की।"
+      },
+      {
+        "key": "B",
+        "text": "दोनों ने यूरोपीय साम्राज्यवादी शासन को चुनौती दी, लेकिन उनकी औपनिवेशिक व्यवस्थाएँ, नेता और राजनीतिक परिणाम अलग थे।"
+      },
+      {
+        "key": "C",
+        "text": "दोनों का नेतृत्व उन्हीं सेनापतियों ने किया और दोनों 1776 में समाप्त हुए।"
+      },
+      {
+        "key": "D",
+        "text": "लैटिन अमेरिकी स्वतंत्रता केवल पनामा कांग्रेस के बाद शुरू हुई।"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "दोनों आंदोलनों ने साम्राज्यवादी सत्ता को चुनौती दी, लेकिन उनका समय, सामाजिक ढाँचा और परिणाम एक जैसे नहीं थे।",
+    "sourceIds": [
+      "S5",
+      "S10",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q060-HI",
+    "englishQuestionId": "WHI-CP003-Q060",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F060",
+    "language": "hi",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement synthesis",
+    "stem": "कथनों पर विचार कीजिए:\n\n1. अधिकार और सहमति पर प्रबोधनकालीन तर्कों ने क्रांतिकारी राजनीतिक भाषा को प्रभावित किया।  \n2. राजनीतिक स्वतंत्रता से हर समूह को हमेशा समान अधिकार मिले।  \n3. हैती क्रांति ने अमेरिकी स्वतंत्रता आंदोलन से अलग तरीके से गुलामी को सीधे चुनौती दी।\n\nकौन-से कथन सही हैं?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1, 2 और 3"
+      },
+      {
+        "key": "B",
+        "text": "केवल 2 और 3"
+      },
+      {
+        "key": "C",
+        "text": "केवल 1 और 3"
+      },
+      {
+        "key": "D",
+        "text": "केवल 1 और 2"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "अधिकारों की भाषा ने क्रांतिकारी दावों को प्रभावित किया, लेकिन व्यवहार में समानता पूरी तरह नहीं मिली। हैती क्रांति ने गुलामी पर आधारित औपनिवेशिक व्यवस्था को सीधे उखाड़ा।",
+    "sourceIds": [
+      "S1",
+      "S4",
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]

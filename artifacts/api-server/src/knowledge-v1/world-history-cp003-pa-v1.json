@@ -1,0 +1,2137 @@
+[
+  {
+    "questionId": "WHI-CP003-Q001-PA",
+    "englishQuestionId": "WHI-CP003-Q001",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F001",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Thinker–idea",
+    "stem": "ਕਿਹੜੇ ਗਿਆਨ-ਚਾਨਣ ਯੁੱਗ ਦੇ ਵਿਚਾਰਕ ਨੇ ਕਿਹਾ ਕਿ ਸਰਕਾਰ ਲੋਕਾਂ ਦੀ ਸਹਿਮਤੀ ਨਾਲ ਬਣੇ ਅਤੇ ਕੁਦਰਤੀ ਹੱਕਾਂ ਦੀ ਰਾਖੀ ਕਰੇ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਥਾਮਸ ਹੌਬਜ਼"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਬਰਟ ਫ਼ਿਲਮਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਜੌਨ ਲੌਕ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਾਂ ਬੋਦੈਂ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਲੌਕ ਅਨੁਸਾਰ ਜਾਇਜ਼ ਸਰਕਾਰ ਲੋਕਾਂ ਦੀ ਸਹਿਮਤੀ ਉੱਤੇ ਟਿਕੀ ਹੁੰਦੀ ਹੈ ਅਤੇ ਉਸ ਨੂੰ ਜੀਵਨ, ਆਜ਼ਾਦੀ ਤੇ ਜਾਇਦਾਦ ਦੀ ਰਾਖੀ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q002-PA",
+    "englishQuestionId": "WHI-CP003-Q002",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F002",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Thinker–idea",
+    "stem": "ਵਿਧਾਨਕ, ਕਾਰਜਕਾਰੀ ਅਤੇ ਨਿਆਂਕਾਰੀ ਤਾਕਤਾਂ ਵੱਖ ਰੱਖਣ ਦੀ ਦਲੀਲ ਕਿਸ ਨੇ ਦਿੱਤੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵੋਲਤੇਅਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਦੀਦਰੋ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੂਸੋ"
+      },
+      {
+        "key": "D",
+        "text": "ਮੋਂਤੇਸਕਿਊ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਮੋਂਤੇਸਕਿਊ ਦਾ ਮਤ ਸੀ ਕਿ ਰਾਜ ਦੀਆਂ ਤਾਕਤਾਂ ਦੀ ਵੰਡ ਤਾਨਾਸ਼ਾਹੀ ਨੂੰ ਰੋਕਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q003-PA",
+    "englishQuestionId": "WHI-CP003-Q003",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F003",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "1762 ਵਿੱਚ ਛਪੀ *ਦ ਸੋਸ਼ਲ ਕੰਟਰੈਕਟ* ਕਿਤਾਬ ਕਿਸ ਨੇ ਲਿਖੀ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਾਂ-ਜਾਕ ਰੂਸੋ"
+      },
+      {
+        "key": "B",
+        "text": "ਥਾਮਸ ਪੇਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਜੌਨ ਲੌਕ"
+      },
+      {
+        "key": "D",
+        "text": "ਬੈਰਨ ਦ ਮੋਂਤੇਸਕਿਊ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਰੂਸੋ ਦੀ 1762 ਦੀ ਇਸ ਲਿਖਤ ਵਿੱਚ ਰਾਜਨੀਤਿਕ ਅਧਿਕਾਰ ਅਤੇ ਸਮਾਜਕ ਇਕਰਾਰਨਾਮੇ ਦੇ ਵਿਚਾਰ ਦੀ ਚਰਚਾ ਕੀਤੀ ਗਈ।",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q004-PA",
+    "englishQuestionId": "WHI-CP003-Q004",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F004",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Idea identification",
+    "stem": "ਕਿਹੜੇ ਵਿਚਾਰ ਮੁਤਾਬਕ ਰਾਜਨੀਤਿਕ ਤਾਕਤ ਦਾ ਅਸਲ ਸਰੋਤ ਲੋਕ ਜਾਂ ਕੌਮ ਹੁੰਦੇ ਹਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲੋਕ-ਸਰਬਸੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਜਿਆਂ ਦਾ ਰੱਬੀ ਹੱਕ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਗੀਰਦਾਰੀ ਫ਼ਰਜ਼"
+      },
+      {
+        "key": "D",
+        "text": "ਵਣਜਵਾਦ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਲੋਕ-ਸਰਬਸੱਤਾ ਵਿੱਚ ਰਾਜਨੀਤਿਕ ਅਧਿਕਾਰ ਲੋਕਾਂ ਤੋਂ ਆਉਂਦਾ ਹੈ, ਰਾਜੇ ਦੇ ਵੰਸ਼ ਜਾਂ ਰੱਬੀ ਹੱਕ ਤੋਂ ਨਹੀਂ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q005-PA",
+    "englishQuestionId": "WHI-CP003-Q005",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F005",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Document–event",
+    "stem": "1776 ਵਿੱਚ ਅਮਰੀਕੀ ਬਸਤੀਆਂ ਵੱਲੋਂ ਮਨਜ਼ੂਰ ਕੀਤੇ ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਵਿੱਚ ਕਿਹੜੇ ਦੇਸ਼ ਤੋਂ ਵੱਖ ਹੋਣ ਦੀ ਗੱਲ ਕਹੀ ਗਈ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਗ੍ਰੇਟ ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਪੇਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੁਰਤਗਾਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਰਾਂਸ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਇਸ ਐਲਾਨ ਵਿੱਚ ਤੇਰਾਂ ਬਸਤੀਆਂ ਨੇ ਬ੍ਰਿਟਿਸ਼ ਰਾਜ ਤੋਂ ਵੱਖ ਹੋਣ ਦਾ ਫ਼ੈਸਲਾ ਦੱਸਿਆ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q006-PA",
+    "englishQuestionId": "WHI-CP003-Q006",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F006",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Date–document",
+    "stem": "4 ਜੁਲਾਈ 1776 ਨੂੰ ਮਨਜ਼ੂਰ ਹੋਏ ਕਿਹੜੇ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਅਮਰੀਕੀ ਬਸਤੀਆਂ ਨੇ ਆਜ਼ਾਦੀ ਲਈ ਆਪਣਾ ਪੱਖ ਰੱਖਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹੱਕਾਂ ਦਾ ਬਿੱਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੈਰਿਸ ਦੀ ਸੰਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਘ ਦੇ ਲੇਖ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਕਾਂਟੀਨੈਂਟਲ ਕਾਂਗਰਸ ਨੇ 1776 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਮਨਜ਼ੂਰ ਕੀਤਾ, ਜਿਸ ਵਿੱਚ ਬਸਤੀਆਂ ਦੀ ਆਜ਼ਾਦੀ ਦਾ ਕਾਰਨ ਦੱਸਿਆ ਅਤੇ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ ਗਿਆ।",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q007-PA",
+    "englishQuestionId": "WHI-CP003-Q007",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F007",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–outcome",
+    "stem": "1777 ਵਿੱਚ ਸਾਰਾਟੋਗਾ ਵਿਖੇ ਅਮਰੀਕੀ ਜਿੱਤ ਦੀ ਇੱਕ ਅਹਿਮੀਅਤ ਇਹ ਸੀ ਕਿ ਇਸ ਨਾਲ ਕਿਹੜੀ ਤਾਕਤ ਅਮਰੀਕੀਆਂ ਦੀ ਸਾਥੀ ਬਣ ਕੇ ਜੰਗ ਵਿੱਚ ਆਉਣ ਲਈ ਰਾਜ਼ੀ ਹੋਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੁਰਤਗਾਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਫ਼ਰਾਂਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੂਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਪ੍ਰਸ਼ੀਆ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਸਾਰਾਟੋਗਾ ਦੀ ਜਿੱਤ ਨੇ ਅਮਰੀਕੀ ਸੰਘਰਸ਼ ਬਾਰੇ ਫ਼ਰਾਂਸ ਦਾ ਭਰੋਸਾ ਵਧਾਇਆ ਅਤੇ ਉਸ ਦੀ ਫ਼ੌਜੀ ਮਦਦ ਹਾਸਲ ਕਰਨ ਵਿੱਚ ਸਹਾਇਤਾ ਕੀਤੀ।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q008-PA",
+    "englishQuestionId": "WHI-CP003-Q008",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F008",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Treaty–outcome",
+    "stem": "1783 ਵਿੱਚ ਕਿਹੜੀ ਸੰਧੀ ਨੇ ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਦੀ ਜੰਗ ਨੂੰ ਰਸਮੀ ਤੌਰ 'ਤੇ ਖ਼ਤਮ ਕੀਤਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਰਸਾਈ ਦੀ ਸੰਧੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੈਰਿਸ ਦੀ ਸੰਧੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਘੈਂਟ ਦੀ ਸੰਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੂਟ੍ਰੇਖਟ ਦੀ ਸੰਧੀ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1783 ਦੀ ਪੈਰਿਸ ਸੰਧੀ ਨੇ ਜੰਗ ਖ਼ਤਮ ਕੀਤੀ ਅਤੇ ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਨੂੰ ਮਾਨਤਾ ਦਿੱਤੀ।",
+    "sourceIds": [
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q009-PA",
+    "englishQuestionId": "WHI-CP003-Q009",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F009",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Revolution–place",
+    "stem": "ਹੈਤੀ ਇਨਕਲਾਬ ਫ਼ਰਾਂਸੀਸੀ ਬਸਤੀ ਸੇਂਟ-ਡੋਮਿੰਗ ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਇਆ ਸੀ। ਇਹ ਬਸਤੀ ਕਿਹੜੇ ਟਾਪੂ ਉੱਤੇ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਿਊਬਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਾਰਟੀਨਿਕ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਿਸਪਾਨਿਓਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਮੈਕਾ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਸੇਂਟ-ਡੋਮਿੰਗ ਹਿਸਪਾਨਿਓਲਾ ਟਾਪੂ ਦੇ ਪੱਛਮੀ ਹਿੱਸੇ ਵਿੱਚ ਸੀ; ਇਨਕਲਾਬ ਤੋਂ ਬਾਅਦ ਉੱਥੇ ਹੈਤੀ ਕਾਇਮ ਹੋਇਆ।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q010-PA",
+    "englishQuestionId": "WHI-CP003-Q010",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F010",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Thinker–idea",
+    "stem": "ਕਿਹੜੀ ਜੋੜੀ ਸਹੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰੂਸੋ — ਵੰਸ਼ਾਨੁਗਤ ਰਾਜਤੰਤਰ ਦਾ ਰੱਬੀ ਹੱਕ"
+      },
+      {
+        "key": "B",
+        "text": "ਵੋਲਤੇਅਰ — ਧਾਰਮਿਕ ਸਹਿਣਸ਼ੀਲਤਾ ਦਾ ਵਿਰੋਧ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੋਂਤੇਸਕਿਊ — ਸਰਕਾਰ ਦੀਆਂ ਤਾਕਤਾਂ ਦੀ ਵੰਡ"
+      },
+      {
+        "key": "D",
+        "text": "ਲੌਕ — ਤਾਕਤਾਂ ਦੀ ਵੰਡ ਉਸ ਦਾ ਮੁੱਖ ਪ੍ਰਸਤਾਵ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਮੋਂਤੇਸਕਿਊ ਦੇ ਰਾਜਨੀਤਿਕ ਵਿਚਾਰ ਖ਼ਾਸ ਕਰਕੇ ਵਿਧਾਨਕ, ਕਾਰਜਕਾਰੀ ਅਤੇ ਨਿਆਂਕਾਰੀ ਅਧਿਕਾਰਾਂ ਨੂੰ ਵੱਖ ਰੱਖਣ ਨਾਲ ਜੁੜੇ ਹਨ।",
+    "sourceIds": [
+      "S1",
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q011-PA",
+    "englishQuestionId": "WHI-CP003-Q011",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F011",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Concept distinction",
+    "stem": "ਸੰਵਿਧਾਨ ਰਾਜ ਦੀ ਤਾਕਤ ਨੂੰ ਵੱਖ-ਵੱਖ ਅੰਗਾਂ ਵਿੱਚ ਵੰਡਦਾ ਹੈ ਤਾਂ ਜੋ ਕਿਸੇ ਇੱਕ ਅੰਗ ਕੋਲ ਬੇਲਗਾਮ ਤਾਕਤ ਨਾ ਹੋਵੇ। ਇਹ ਸਿੱਧੇ ਤੌਰ 'ਤੇ ਗਿਆਨ-ਚਾਨਣ ਯੁੱਗ ਦੇ ਕਿਹੜੇ ਵਿਚਾਰ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰੱਬੀ ਹੱਕ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਪਾਰ ਦਾ ਸੰਤੁਲਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਣਜਵਾਦ"
+      },
+      {
+        "key": "D",
+        "text": "ਤਾਕਤਾਂ ਦੀ ਵੰਡ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਸਰਕਾਰ ਦੀ ਤਾਕਤ ਨੂੰ ਵੱਖਰੇ ਅੰਗਾਂ ਵਿੱਚ ਵੰਡਣਾ ਮੋਂਤੇਸਕਿਊ ਦੇ ਵਿਚਾਰ ਨਾਲ ਜੁੜਿਆ ਸੰਸਥਾਗਤ ਉਪਾਅ ਹੈ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q012-PA",
+    "englishQuestionId": "WHI-CP003-Q012",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F012",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Cause–event",
+    "stem": "1775 ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਨੀਤੀਆਂ ਵਿਰੁੱਧ ਬਸਤੀਵਾਸੀਆਂ ਦਾ ਵਿਰੋਧ ਹਥਿਆਰਬੰਦ ਟਕਰਾਅ ਵਿੱਚ ਬਦਲਣ ਪਿੱਛੇ ਕਿਹੜੀ ਘਟਨਾ ਦੀ ਸਿੱਧੀ ਭੂਮਿਕਾ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੈਰਿਸ ਦੀ ਸੰਧੀ ਉੱਤੇ ਦਸਤਖ਼ਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਲੈਕਸਿੰਗਟਨ ਅਤੇ ਕੌਨਕੌਰਡ ਦੀਆਂ ਲੜਾਈਆਂ"
+      },
+      {
+        "key": "C",
+        "text": "1783 ਵਿੱਚ ਬੋਸਟਨ ਤੋਂ ਬ੍ਰਿਟਿਸ਼ ਫ਼ੌਜ ਦੀ ਵਾਪਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਵਿਧਾਨ ਦੀ ਪੁਸ਼ਟੀ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਅਪ੍ਰੈਲ 1775 ਵਿੱਚ ਲੈਕਸਿੰਗਟਨ ਅਤੇ ਕੌਨਕੌਰਡ ਵਿਖੇ ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਦੀ ਜੰਗ ਦੀਆਂ ਪਹਿਲੀਆਂ ਗੋਲੀਆਂ ਚੱਲੀਆਂ।",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q013-PA",
+    "englishQuestionId": "WHI-CP003-Q013",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F013",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chronology",
+    "stem": "ਅਮਰੀਕੀ ਇਨਕਲਾਬ ਦੀਆਂ ਮੁੱਖ ਘਟਨਾਵਾਂ ਦਾ ਸਹੀ ਕ੍ਰਮ ਚੁਣੋ।",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ → ਸਾਰਾਟੋਗਾ → ਯਾਰਕਟਾਊਨ → ਪੈਰਿਸ ਦੀ ਸੰਧੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰਾਟੋਗਾ → ਪੈਰਿਸ ਦੀ ਸੰਧੀ → ਯਾਰਕਟਾਊਨ → ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਯਾਰਕਟਾਊਨ → ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ → ਸਾਰਾਟੋਗਾ → ਪੈਰਿਸ ਦੀ ਸੰਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੈਰਿਸ ਦੀ ਸੰਧੀ → ਸਾਰਾਟੋਗਾ → ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ → ਯਾਰਕਟਾਊਨ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ 1776 ਵਿੱਚ, ਸਾਰਾਟੋਗਾ ਦੀ ਜਿੱਤ 1777 ਵਿੱਚ, ਯਾਰਕਟਾਊਨ ਦੀ ਜਿੱਤ 1781 ਵਿੱਚ ਅਤੇ ਸ਼ਾਂਤੀ ਸੰਧੀ 1783 ਵਿੱਚ ਹੋਈ।",
+    "sourceIds": [
+      "S5",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q014-PA",
+    "englishQuestionId": "WHI-CP003-Q014",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F014",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Document–purpose",
+    "stem": "ਸੰਘ ਦੇ ਲੇਖਾਂ ਦਾ ਮੁੱਖ ਮਕਸਦ ਕੀ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਡਾਇਰੈਕਟਰੀ ਕਾਇਮ ਕਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਦੇ ਪਹਿਲੇ ਕੌਮੀ ਸ਼ਾਸਕੀ ਢਾਂਚੇ ਵਜੋਂ ਕੰਮ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੀਗ ਆਫ਼ ਨੇਸ਼ਨਜ਼ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੂਰੇ ਅਮਰੀਕਾ ਵਿੱਚ ਗੁਲਾਮੀ ਖ਼ਤਮ ਕਰਨਾ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1781 ਤੋਂ 1789 ਤੱਕ ਲਾਗੂ ਰਹੇ ਸੰਘ ਦੇ ਲੇਖ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਦਾ ਪਹਿਲਾ ਸੰਵਿਧਾਨ ਸਨ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q015-PA",
+    "englishQuestionId": "WHI-CP003-Q015",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F015",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Document–sequence",
+    "stem": "ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਦੇ ਸ਼ੁਰੂਆਤੀ ਅਹਿਮ ਦਸਤਾਵੇਜ਼ਾਂ ਦਾ ਸਹੀ ਕਾਲਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ (1776) → ਸੰਵਿਧਾਨ (1787) → ਹੱਕਾਂ ਦਾ ਬਿੱਲ (1791)"
+      },
+      {
+        "key": "B",
+        "text": "ਹੱਕਾਂ ਦਾ ਬਿੱਲ (1791) → ਸੰਵਿਧਾਨ (1787) → ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ (1776)"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਵਿਧਾਨ (1787) → ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ (1776) → ਹੱਕਾਂ ਦਾ ਬਿੱਲ (1791)"
+      },
+      {
+        "key": "D",
+        "text": "ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ (1776) → ਹੱਕਾਂ ਦਾ ਬਿੱਲ (1777) → ਸੰਵਿਧਾਨ (1783)"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਨੇ ਵੱਖ ਹੋਣ ਦੀ ਗੱਲ ਕੀਤੀ; ਸੰਵਿਧਾਨ ਨੇ ਸੰਘੀ ਸ਼ਾਸਨ-ਢਾਂਚਾ ਬਣਾਇਆ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਪਹਿਲੀਆਂ ਦਸ ਸੋਧਾਂ ਹੱਕਾਂ ਦੇ ਬਿੱਲ ਵਜੋਂ ਜੋੜੀਆਂ ਗਈਆਂ।",
+    "sourceIds": [
+      "S4",
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q016-PA",
+    "englishQuestionId": "WHI-CP003-Q016",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F016",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Revolution–leader",
+    "stem": "ਤੂਸਾਂ ਲੂਵਰਤਿਊਰ ਕਿਹੜੇ ਇਨਕਲਾਬ ਦੇ ਅਹਿਮ ਆਗੂ ਬਣੇ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਮਰੀਕੀ ਇਨਕਲਾਬ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਨਾਨ ਦੀ ਆਜ਼ਾਦੀ ਦੀ ਜੰਗ"
+      },
+      {
+        "key": "C",
+        "text": "ਹੈਤੀ ਇਨਕਲਾਬ"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਜੁਲਾਈ ਇਨਕਲਾਬ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਲੂਵਰਤਿਊਰ ਸੇਂਟ-ਡੋਮਿੰਗ ਦੇ ਗੁਲਾਮ ਬਣਾਏ ਲੋਕਾਂ ਦੇ ਵਿਦਰੋਹ ਦੇ ਅਹਿਮ ਆਗੂ ਸਨ, ਪਰ ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਤੋਂ ਪਹਿਲਾਂ ਉਨ੍ਹਾਂ ਦੀ ਮੌਤ ਹੋ ਗਈ।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q017-PA",
+    "englishQuestionId": "WHI-CP003-Q017",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F017",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Chronology",
+    "stem": "ਹੇਠ ਲਿਖੀਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ ਘਟਨਾ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਹੋਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਮਨਜ਼ੂਰ ਹੋਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਯੁਕਤ ਰਾਜ ਨੇ ਹੱਕਾਂ ਦੇ ਬਿੱਲ ਦੀ ਪੁਸ਼ਟੀ ਕੀਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੋਲੀਵਾਰ ਦੀ ਪਨਾਮਾ ਕਾਂਗਰਸ ਹੋਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੈਤੀ ਨੇ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ 1776 ਦਾ ਹੈ; ਹੱਕਾਂ ਦੇ ਬਿੱਲ ਦੀ ਪੁਸ਼ਟੀ 1791 ਵਿੱਚ ਹੋਈ, ਹੈਤੀ ਨੇ 1804 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ ਅਤੇ ਪਨਾਮਾ ਕਾਂਗਰਸ 1826 ਵਿੱਚ ਹੋਈ।",
+    "sourceIds": [
+      "S4",
+      "S7",
+      "S9",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q018-PA",
+    "englishQuestionId": "WHI-CP003-Q018",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F018",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Revolution–outcome",
+    "stem": "ਹੈਤੀ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਬਸਤੀਵਾਦੀ ਰਾਜ ਵਿਰੁੱਧ ਇਨਕਲਾਬ ਤੋਂ ਬਾਅਦ ਇਹ 1804 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਇਆ।"
+      },
+      {
+        "key": "B",
+        "text": "ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਨੇ ਇਸ ਦੀ ਸਥਾਪਨਾ ਕੀਤੀ।"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ 1776 ਵਿੱਚ ਸਪੇਨ ਤੋਂ ਆਜ਼ਾਦ ਹੋਇਆ।"
+      },
+      {
+        "key": "D",
+        "text": "1804 ਤੋਂ ਬਾਅਦ ਵੀ ਇਹ ਬ੍ਰਿਟਿਸ਼ ਬਸਤੀ ਰਿਹਾ।"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਪੁਰਾਣੀ ਸੇਂਟ-ਡੋਮਿੰਗ ਬਸਤੀ ਵਿੱਚ ਹੋਏ ਇਨਕਲਾਬ ਤੋਂ ਬਾਅਦ 1804 ਵਿੱਚ ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਹੋਇਆ।",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q019-PA",
+    "englishQuestionId": "WHI-CP003-Q019",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F019",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Cause–context",
+    "stem": "ਉੱਨੀਵੀਂ ਸਦੀ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਯੂਰਪ ਦੀ ਕਿਹੜੀ ਘਟਨਾ ਨੇ ਸਪੇਨੀ ਅਮਰੀਕਾ ਦੇ ਆਜ਼ਾਦੀ ਅੰਦੋਲਨਾਂ ਲਈ ਰਾਜਨੀਤਿਕ ਮੌਕਾ ਪੈਦਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਰਲਿਨ ਕਾਂਗਰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਪੇਨ ਉੱਤੇ ਨੈਪੋਲੀਅਨ ਦਾ ਹਮਲਾ ਅਤੇ ਸਪੇਨੀ ਰਾਜਤੰਤਰ ਦਾ ਸੰਕਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੁਸਤੁੰਤੁਨੀਆ ਦਾ ਪਤਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਟੋਰਡੇਸੀਲਾਸ ਦੀ ਸੰਧੀ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "1808 ਵਿੱਚ ਸਪੇਨੀ ਰਾਜਸੱਤਾ ਕਮਜ਼ੋਰ ਹੋਣ ਨਾਲ ਰਾਜਨੀਤਿਕ ਸੰਕਟ ਵਧਿਆ ਅਤੇ ਸਪੇਨੀ ਅਮਰੀਕਾ ਵਿੱਚ ਆਜ਼ਾਦੀ ਅੰਦੋਲਨਾਂ ਨੂੰ ਹੁਲਾਰਾ ਮਿਲਿਆ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q020-PA",
+    "englishQuestionId": "WHI-CP003-Q020",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F020",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Person–region",
+    "stem": "ਸਿਮੋਨ ਬੋਲੀਵਾਰ ਦੀਆਂ ਮੁਹਿੰਮਾਂ ਅਮਰੀਕਾ ਦੇ ਕਿਹੜੇ ਹਿੱਸੇ ਦੇ ਆਜ਼ਾਦੀ ਅੰਦੋਲਨਾਂ ਲਈ ਅਹਿਮ ਸਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮੱਧ ਯੂਰਪ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟਿਸ਼ ਟਾਪੂ"
+      },
+      {
+        "key": "C",
+        "text": "ਉੱਤਰੀ ਦੱਖਣੀ ਅਮਰੀਕਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਬੋਲੀਵਾਰ ਦੀਆਂ ਮੁਹਿੰਮਾਂ ਨੇ ਵੈਨੇਜ਼ੁਏਲਾ, ਨਿਊ ਗ੍ਰੇਨਾਡਾ ਅਤੇ ਕਿਊਟੋ ਸਮੇਤ ਇਲਾਕਿਆਂ ਨੂੰ ਸਪੇਨੀ ਰਾਜ ਤੋਂ ਆਜ਼ਾਦ ਕਰਾਉਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q021-PA",
+    "englishQuestionId": "WHI-CP003-Q021",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F021",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Person–region",
+    "stem": "ਸਾਨ ਮਾਰਤਿਨ ਨੇ ਅਰਜਨਟੀਨਾ, ਚਿਲੀ ਅਤੇ ਪੇਰੂ ਵਿੱਚ ਆਜ਼ਾਦੀ ਦੀਆਂ ਮੁਹਿੰਮਾਂ ਚਲਾਈਆਂ। ਇਹ ਮੁਹਿੰਮਾਂ ਕਿਹੜੇ ਮਹਾਂਦੀਪ ਵਿੱਚ ਹੋਈਆਂ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੱਖਣੀ ਅਮਰੀਕਾ ਦਾ ਦੱਖਣੀ ਹਿੱਸਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਡੈਨਮਾਰਕ ਦੇ ਰਾਜ ਹੇਠਲੇ ਕੈਰੇਬੀਆਈ ਟਾਪੂ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੀਦਰਲੈਂਡ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਸਾਨ ਮਾਰਤਿਨ ਨੇ ਅਰਜਨਟੀਨਾ, ਚਿਲੀ ਅਤੇ ਪੇਰੂ ਨੂੰ ਆਜ਼ਾਦ ਕਰਾਉਣ ਵਿੱਚ ਅਹਿਮ ਅਗਵਾਈ ਕੀਤੀ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q022-PA",
+    "englishQuestionId": "WHI-CP003-Q022",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F022",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Relationship",
+    "stem": "ਕਿਹੜੀ ਜੋੜੀ ਦਸਤਾਵੇਜ਼ ਅਤੇ ਉਸ ਦੇ ਕੰਮ ਨੂੰ ਸਹੀ ਤਰ੍ਹਾਂ ਮਿਲਾਉਂਦੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹੱਕਾਂ ਦਾ ਬਿੱਲ — ਹੈਤੀ ਨੂੰ ਆਜ਼ਾਦ ਐਲਾਨਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਘ ਦੇ ਲੇਖ — ਨੈਪੋਲੀਅਨ ਦੀਆਂ ਜੰਗਾਂ ਖ਼ਤਮ ਕੀਤੀਆਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ — ਬ੍ਰਿਟੇਨ ਤੋਂ ਵੱਖ ਹੋਣ ਦੀ ਗੱਲ ਕੀਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੈਰਿਸ ਦੀ ਸੰਧੀ (1783) — ਫ਼ਰਾਂਸੀਸੀ ਡਾਇਰੈਕਟਰੀ ਬਣਾਈ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਵਿੱਚ ਬਸਤੀਆਂ ਨੇ ਵੱਖ ਹੋਣ ਦੀ ਗੱਲ ਕੀਤੀ; ਪੈਰਿਸ ਦੀ ਸੰਧੀ ਨੇ ਬਾਅਦ ਵਿੱਚ ਜੰਗ ਮੁਕਾਈ। ਬਾਕੀ ਦਸਤਾਵੇਜ਼ਾਂ ਦੇ ਕੰਮ ਹੋਰ ਸਨ।",
+    "sourceIds": [
+      "S4",
+      "S6",
+      "S8",
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q023-PA",
+    "englishQuestionId": "WHI-CP003-Q023",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F023",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Incorrect statement",
+    "stem": "ਗਿਆਨ-ਚਾਨਣ ਯੁੱਗ ਦੇ ਰਾਜਨੀਤਿਕ ਵਿਚਾਰਾਂ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਗ਼ਲਤ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਵਿਰਸੇ ਵਿੱਚ ਮਿਲਦੀ ਰਾਜਨੀਤਿਕ ਤਾਕਤ ਉੱਤੇ ਸਵਾਲ ਚੁੱਕੇ।"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਹਰ ਹਾਲਤ ਵਿੱਚ ਨਿਰੰਕੁਸ਼ ਵੰਸ਼ਾਨੁਗਤ ਰਾਜ ਨੂੰ ਹੀ ਇਕੱਲਾ ਜਾਇਜ਼ ਪ੍ਰਬੰਧ ਮੰਨਿਆ।"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਵਿੱਚ ਕੁਦਰਤੀ ਹੱਕਾਂ ਦੇ ਹੱਕ ਵਿੱਚ ਦਲੀਲਾਂ ਦਿੱਤੀਆਂ ਗਈਆਂ।"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਲੋਕਾਂ ਦੀ ਸਹਿਮਤੀ ਨੂੰ ਜਾਇਜ਼ ਸਰਕਾਰ ਦਾ ਇੱਕ ਆਧਾਰ ਮੰਨਿਆ।"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਗਿਆਨ-ਚਾਨਣ ਯੁੱਗ ਦੇ ਵਿਚਾਰਕਾਂ ਦੇ ਮਤ ਵੱਖਰੇ ਸਨ, ਪਰ ਕਈ ਪ੍ਰਭਾਵਸ਼ਾਲੀ ਲੇਖਕਾਂ ਨੇ ਨਿਰੰਕੁਸ਼ਤਾ ਨੂੰ ਚੁਣੌਤੀ ਦਿੱਤੀ ਅਤੇ ਹੱਕਾਂ, ਸਹਿਮਤੀ ਤੇ ਸ਼ਾਸਨ ਬਾਰੇ ਨਵੇਂ ਵਿਚਾਰ ਦਿੱਤੇ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q024-PA",
+    "englishQuestionId": "WHI-CP003-Q024",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F024",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Multi-statement",
+    "stem": "ਅਮਰੀਕੀ ਇਨਕਲਾਬ ਬਾਰੇ ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ:\n\n1. ਜੰਗ ਦੌਰਾਨ ਫ਼ਰਾਂਸ ਅਮਰੀਕੀ ਪੱਖ ਦਾ ਸਾਥੀ ਬਣਿਆ।  \n2. ਪੈਰਿਸ ਦੀ ਸੰਧੀ ਉੱਤੇ 1783 ਵਿੱਚ ਦਸਤਖ਼ਤ ਹੋਏ।  \n3. ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਪੈਰਿਸ ਦੀ ਸੰਧੀ ਤੋਂ ਬਾਅਦ ਮਨਜ਼ੂਰ ਹੋਇਆ।\n\nਕਿਹੜੇ ਕਥਨ ਸਹੀ ਹਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1, 2 ਅਤੇ 3"
+      },
+      {
+        "key": "B",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 3"
+      },
+      {
+        "key": "C",
+        "text": "ਕੇਵਲ 2 ਅਤੇ 3"
+      },
+      {
+        "key": "D",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 2"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਫ਼ਰਾਂਸ ਨੇ ਅਮਰੀਕੀਆਂ ਦਾ ਸਾਥ ਦਿੱਤਾ ਅਤੇ 1783 ਦੀ ਸੰਧੀ ਨਾਲ ਜੰਗ ਮੁੱਕੀ। ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਇਸ ਤੋਂ ਪਹਿਲਾਂ, 1776 ਵਿੱਚ ਮਨਜ਼ੂਰ ਹੋਇਆ ਸੀ।",
+    "sourceIds": [
+      "S4",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q025-PA",
+    "englishQuestionId": "WHI-CP003-Q025",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F025",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "ਅਮਰੀਕੀ ਅਤੇ ਹੈਤੀ ਇਨਕਲਾਬਾਂ ਦਾ ਫ਼ਰਕ ਸਮਝਾਉਣ ਵਾਲਾ ਸਭ ਤੋਂ ਢੁੱਕਵਾਂ ਕਥਨ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹੈਤੀ ਇਨਕਲਾਬ ਬ੍ਰਿਟੇਨ ਦੀ ਵਿਚੋਲਗੀ ਨਾਲ ਹੋਇਆ ਸ਼ਾਂਤਮਈ ਸੱਤਾ-ਬਦਲਾਅ ਸੀ।"
+      },
+      {
+        "key": "B",
+        "text": "ਅਮਰੀਕੀ ਇਨਕਲਾਬ ਹਿਸਪਾਨਿਓਲਾ ਉੱਤੇ ਫ਼ਰਾਂਸੀਸੀ ਬਸਤੀ ਵਿੱਚ ਹੋਇਆ।"
+      },
+      {
+        "key": "C",
+        "text": "ਦੋਵੇਂ ਆਜ਼ਾਦੀ ਦੀਆਂ ਲਹਿਰਾਂ ਸਨ, ਪਰ ਹੈਤੀ ਇਨਕਲਾਬ ਨੇ ਗੁਲਾਮੀ ਉੱਤੇ ਟਿਕੇ ਬਸਤੀਵਾਦੀ ਪ੍ਰਬੰਧ ਨੂੰ ਵੀ ਸਿੱਧੀ ਚੁਣੌਤੀ ਦਿੱਤੀ।"
+      },
+      {
+        "key": "D",
+        "text": "ਅਮਰੀਕੀ ਇਨਕਲਾਬ ਨੇ ਪੂਰੇ ਅਮਰੀਕਾ ਵਿੱਚ ਗੁਲਾਮੀ ਮੁਕਾਈ, ਜਦਕਿ ਹੈਤੀ ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਰਾਜ ਕਾਇਮ ਰਿਹਾ।"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਹੈਤੀ ਇਨਕਲਾਬ ਸੇਂਟ-ਡੋਮਿੰਗ ਦੀ ਗੁਲਾਮੀ ਅਤੇ ਬਸਤੀਵਾਦੀ ਰਾਜ ਨਾਲ ਜੁੜਿਆ ਸੀ; ਅਮਰੀਕੀ ਬਸਤੀਆਂ ਦੇ ਸੰਘਰਸ਼ ਦੇ ਸਮਾਜਕ ਤੇ ਰਾਜਨੀਤਿਕ ਹਾਲਾਤ ਵੱਖਰੇ ਸਨ।",
+    "sourceIds": [
+      "S4",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q026-PA",
+    "englishQuestionId": "WHI-CP003-Q026",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F026",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "ਸਹੀ ਕ੍ਰਮ ਚੁਣੋ।",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਪੇਨੀ-ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਲਹਿਰਾਂ → ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ → ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ → ਪਨਾਮਾ ਕਾਂਗਰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਪਨਾਮਾ ਕਾਂਗਰਸ → ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ → ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ → ਸਪੇਨੀ-ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਲਹਿਰਾਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ → ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ → ਸਪੇਨੀ-ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਲਹਿਰਾਂ → ਪਨਾਮਾ ਕਾਂਗਰਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ → ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ → ਪਨਾਮਾ ਕਾਂਗਰਸ → ਸਪੇਨੀ-ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਲਹਿਰਾਂ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਪਹਿਲਾਂ ਹੋਈ; ਹੈਤੀ ਨੇ 1804 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ; ਉੱਨੀਵੀਂ ਸਦੀ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਸਪੇਨੀ-ਅਮਰੀਕੀ ਲਹਿਰਾਂ ਅੱਗੇ ਵਧੀਆਂ ਅਤੇ 1826 ਵਿੱਚ ਬੋਲੀਵਾਰ ਦੀ ਕਾਂਗਰਸ ਹੋਈ।",
+    "sourceIds": [
+      "S4",
+      "S7",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q027-PA",
+    "englishQuestionId": "WHI-CP003-Q027",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F027",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Inference",
+    "stem": "ਤਾਕਤਾਂ ਦੀ ਇਸ ਵੰਡ ਵਿੱਚ ਕਿਹੜੇ ਗਿਆਨ-ਚਾਨਣ ਯੁੱਗ ਦੇ ਵਿਚਾਰਕ ਦੇ ਵਿਚਾਰ ਦਿਖਾਈ ਦਿੰਦੇ ਹਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਰਸੇ ਦੇ ਹੱਕ ਵਿੱਚ ਵੋਲਤੇਅਰ ਦਾ ਵਿਚਾਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਜਨੀਤਿਕ ਤਾਕਤਾਂ ਦੀ ਵੰਡ ਬਾਰੇ ਮੋਂਤੇਸਕਿਊ ਦੀ ਦਲੀਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਿਰੰਕੁਸ਼ ਰਾਜ ਦਾ ਲੌਕ ਵੱਲੋਂ ਪੱਖ"
+      },
+      {
+        "key": "D",
+        "text": "ਹਰ ਰਾਜਨੀਤਿਕ ਭਾਈਚਾਰੇ ਨੂੰ ਨਕਾਰਨ ਵਾਲਾ ਰੂਸੋ ਦਾ ਵਿਚਾਰ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਵਿਧਾਨਕ, ਕਾਰਜਕਾਰੀ ਅਤੇ ਨਿਆਂਕਾਰੀ ਤਾਕਤਾਂ ਨੂੰ ਸੰਸਥਾਵਾਂ ਵਿੱਚ ਵੱਖ ਕਰਨਾ ਮੋਂਤੇਸਕਿਊ ਦੇ ਪ੍ਰਭਾਵਸ਼ਾਲੀ ਸੁਝਾਅ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q028-PA",
+    "englishQuestionId": "WHI-CP003-Q028",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F028",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Claim qualification",
+    "stem": "ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਇਤਿਹਾਸਕ ਸਾਵਧਾਨੀ ਨਾਲ ਲਿਖਿਆ ਗਿਆ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਬਸਤੀਆਂ ਦੇ ਹਰ ਵਿਅਕਤੀ ਨੂੰ ਤੁਰੰਤ ਬਰਾਬਰ ਰਾਜਨੀਤਿਕ ਹੱਕ ਦੇ ਦਿੱਤੇ।"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸੇ ਸਾਲ ਇਸ ਨੇ ਸੰਯੁਕਤ ਰਾਜ ਦਾ ਸੰਵਿਧਾਨ ਬਣਾਇਆ।"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਦੇ ਸ਼ਬਦਾਂ ਵਿੱਚ ਬਰਾਬਰੀ ਅਤੇ ਹੱਕਾਂ ਦੇ ਸਿਧਾਂਤ ਸਨ, ਪਰ ਅਮਲ ਵਿੱਚ ਰਾਜਨੀਤਿਕ ਹੱਕ ਅਤੇ ਗੁਲਾਮੀ ਬਾਰੇ ਗੰਭੀਰ ਵਿਰੋਧ ਜਾਰੀ ਰਿਹਾ।"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ 1776 ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਜ ਵਿੱਚੋਂ ਗੁਲਾਮੀ ਮੁਕਾ ਦਿੱਤੀ।"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਨੇ ਅਹਿਮ ਸਿਧਾਂਤ ਦਿੱਤੇ, ਪਰ ਜਿਨ੍ਹਾਂ ਨੇ ਇਸ ਨੂੰ ਮਨਜ਼ੂਰ ਕੀਤਾ ਉਸ ਸਮਾਜ ਵਿੱਚ ਇਹ ਆਦਰਸ਼ ਸਾਰਿਆਂ ਉੱਤੇ ਪੂਰੀ ਤਰ੍ਹਾਂ ਲਾਗੂ ਨਹੀਂ ਹੋਏ।",
+    "sourceIds": [
+      "S4",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q029-PA",
+    "englishQuestionId": "WHI-CP003-Q029",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F029",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement",
+    "stem": "ਅਮਰੀਕਾ ਦੇ ਆਜ਼ਾਦੀ ਅੰਦੋਲਨਾਂ ਬਾਰੇ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ:\n\n1. ਸਾਰੇ ਅੰਦੋਲਨਾਂ ਦੇ ਸਮਾਜਕ ਮਕਸਦ ਅਤੇ ਨਤੀਜੇ ਇੱਕੋ ਜਿਹੇ ਸਨ।  \n2. ਬੋਲੀਵਾਰ ਅਤੇ ਸਾਨ ਮਾਰਤਿਨ ਸਪੇਨੀ-ਅਮਰੀਕੀ ਸੰਘਰਸ਼ਾਂ ਦੇ ਅਹਿਮ ਆਗੂ ਸਨ।  \n3. ਹੈਤੀ ਦੇ ਇਨਕਲਾਬ ਵਿੱਚ ਗੁਲਾਮੀ ਵਿਰੁੱਧ ਲੋਕਾਂ ਦਾ ਵੱਡਾ ਉਭਾਰ ਸ਼ਾਮਲ ਸੀ।\n\nਕਿਹੜੇ ਕਥਨ ਸਹੀ ਹਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੇਵਲ 2 ਅਤੇ 3"
+      },
+      {
+        "key": "B",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 2"
+      },
+      {
+        "key": "C",
+        "text": "1, 2 ਅਤੇ 3"
+      },
+      {
+        "key": "D",
+        "text": "ਕੇਵਲ 1"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਬੋਲੀਵਾਰ ਅਤੇ ਸਾਨ ਮਾਰਤਿਨ ਅਹਿਮ ਆਗੂ ਸਨ ਅਤੇ ਹੈਤੀ ਦੇ ਉਭਾਰ ਨੇ ਗੁਲਾਮੀ ਨੂੰ ਚੁਣੌਤੀ ਦਿੱਤੀ। ਇਨ੍ਹਾਂ ਇਨਕਲਾਬਾਂ ਦੇ ਮਕਸਦ, ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਲੋਕ ਅਤੇ ਨਤੀਜੇ ਵੱਖਰੇ ਸਨ।",
+    "sourceIds": [
+      "S7",
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q030-PA",
+    "englishQuestionId": "WHI-CP003-Q030",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F030",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Cause and consequence",
+    "stem": "1781 ਦੀ ਯਾਰਕਟਾਊਨ ਵਿੱਚ ਅਮਰੀਕੀ ਜਿੱਤ ਨੂੰ ਫ਼ੈਸਲਾਕੁਨ ਮੋੜ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ, ਪਰ ਜੰਗ ਦਾ ਰਸਮੀ ਅੰਤ ਕਿਉਂ ਨਹੀਂ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨਾਲ ਫ਼ਰਾਂਸੀਸੀ ਇਨਕਲਾਬ ਮੁੱਕ ਗਿਆ।"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਤੋਂ ਗੱਲਬਾਤ ਦਾ ਰਾਹ ਖੁੱਲ੍ਹਿਆ, ਪਰ ਰਸਮੀ ਸ਼ਾਂਤੀ 1783 ਦੀ ਪੈਰਿਸ ਸੰਧੀ ਨਾਲ ਹੋਈ।"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨਾਲ ਤੁਰੰਤ ਹੱਕਾਂ ਦਾ ਬਿੱਲ ਬਣਿਆ।"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸੇ ਦਿਨ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਮਨਜ਼ੂਰ ਹੋਇਆ।"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਕੌਰਨਵਾਲਿਸ ਦੇ ਸਮਰਪਣ ਨਾਲ ਬ੍ਰਿਟੇਨ ਦੀ ਸਥਿਤੀ ਕਮਜ਼ੋਰ ਹੋਈ, ਪਰ ਜੰਗ ਰਸਮੀ ਤੌਰ 'ਤੇ 1783 ਦੀ ਪੈਰਿਸ ਸੰਧੀ ਨਾਲ ਖ਼ਤਮ ਹੋਈ।",
+    "sourceIds": [
+      "S5",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q031-PA",
+    "englishQuestionId": "WHI-CP003-Q031",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F031",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Thinker–principle",
+    "stem": "ਕਿਸ ਗਿਆਨ-ਚਾਨਣ ਯੁੱਗ ਦੇ ਲੇਖਕ ਨੂੰ ਆਮ ਤੌਰ 'ਤੇ ਧਾਰਮਿਕ ਸਹਿਣਸ਼ੀਲਤਾ ਦੇ ਹੱਕ ਅਤੇ ਅਸਹਿਣਸ਼ੀਲਤਾ ਦੀ ਆਲੋਚਨਾ ਨਾਲ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਐਡਮੰਡ ਬਰਕ"
+      },
+      {
+        "key": "B",
+        "text": "ਵੋਲਤੇਅਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਜੇਮਜ਼ ਪਹਿਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਰਾਬਰਟ ਫ਼ਿਲਮਰ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਵੋਲਤੇਅਰ ਦੀਆਂ ਲਿਖਤਾਂ ਨੇ ਧਾਰਮਿਕ ਅਸਹਿਣਸ਼ੀਲਤਾ ਅਤੇ ਮਨਮਾਨੀ ਤਾਕਤ ਦੀ ਆਲੋਚਨਾ ਕੀਤੀ, ਭਾਵੇਂ ਸਾਰੇ ਗਿਆਨ-ਚਾਨਣ ਵਿਚਾਰਕਾਂ ਦਾ ਇੱਕੋ ਰਾਜਨੀਤਿਕ ਪ੍ਰੋਗਰਾਮ ਨਹੀਂ ਸੀ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q032-PA",
+    "englishQuestionId": "WHI-CP003-Q032",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F032",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "*ਟੂ ਟ੍ਰੀਟੀਜ਼ਜ਼ ਆਫ਼ ਗਵਰਨਮੈਂਟ* ਕਿਤਾਬ ਕਿਸ ਨੇ ਲਿਖੀ ਸੀ? ਇਸ ਵਿੱਚ ਨਿਰੰਕੁਸ਼ ਰਾਜ ਦਾ ਵਿਰੋਧ ਅਤੇ ਕੁਦਰਤੀ ਹੱਕਾਂ ਦੀ ਹਮਾਇਤ ਕੀਤੀ ਗਈ।",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਾਂ ਬੋਦੈਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਜੌਨ ਲੌਕ"
+      },
+      {
+        "key": "C",
+        "text": "ਜੋਜ਼ਫ਼ ਦ ਮੈਸਤ੍ਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਥਾਮਸ ਹੌਬਜ਼"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਲੌਕ ਦੀਆਂ ਰਾਜਨੀਤਿਕ ਲਿਖਤਾਂ ਵਿੱਚ ਕੁਦਰਤੀ ਹੱਕਾਂ ਅਤੇ ਲੋਕਾਂ ਦੀ ਸਹਿਮਤੀ ਵਾਲੀ ਸਰਕਾਰ ਦੀ ਹਮਾਇਤ ਕੀਤੀ ਗਈ।",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q033-PA",
+    "englishQuestionId": "WHI-CP003-Q033",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F033",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Work–author",
+    "stem": "1776 ਵਿੱਚ ਛਪੀ ਪ੍ਰਸਿੱਧ ਪਰਚੀ *ਕਾਮਨ ਸੈਂਸ* ਕਿਸ ਨੇ ਲਿਖੀ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬੈਂਜਾਮਿਨ ਫ਼ਰੈਂਕਲਿਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਥਾਮਸ ਜੈਫ਼ਰਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਜੌਰਜ ਵਾਸ਼ਿੰਗਟਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਥਾਮਸ ਪੇਨ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਪੇਨ ਦੀ ਪਰਚੀ ਨੇ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦੀ ਦੀ ਹਮਾਇਤ ਕੀਤੀ ਅਤੇ ਗਣਰਾਜੀ ਵਿਚਾਰ ਨੂੰ ਲੋਕਾਂ ਵਿੱਚ ਪ੍ਰਚਲਿਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ।",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q034-PA",
+    "englishQuestionId": "WHI-CP003-Q034",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F034",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "ਬੋਸਟਨ ਟੀ ਪਾਰਟੀ ਕਿਹੜੇ ਸਾਲ ਹੋਈ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1783"
+      },
+      {
+        "key": "B",
+        "text": "1763"
+      },
+      {
+        "key": "C",
+        "text": "1776"
+      },
+      {
+        "key": "D",
+        "text": "1773"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਦਸੰਬਰ 1773 ਵਿੱਚ ਬਸਤੀਵਾਸੀਆਂ ਨੇ ਬੋਸਟਨ ਬੰਦਰਗਾਹ ਵਿੱਚ ਚਾਹ ਦੀ ਖੇਪ ਨਸ਼ਟ ਕਰਕੇ ਬ੍ਰਿਟਿਸ਼ ਚਾਹ ਨੀਤੀ ਦਾ ਵਿਰੋਧ ਕੀਤਾ।",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q035-PA",
+    "englishQuestionId": "WHI-CP003-Q035",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F035",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Revolution–ally",
+    "stem": "ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਦੀ ਜੰਗ ਦੌਰਾਨ ਕਿਹੜੀ ਯੂਰਪੀ ਤਾਕਤ ਸੰਯੁਕਤ ਰਾਜ ਦੀ ਰਸਮੀ ਸਾਥੀ ਬਣੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਸਟ੍ਰੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਵੀਡਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੂਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਰਾਂਸ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਫ਼ਰਾਂਸ ਨੇ 1778 ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਜ ਨਾਲ ਰਸਮੀ ਗੱਠਜੋੜ ਕੀਤਾ ਅਤੇ ਫ਼ੌਜੀ ਤੇ ਜਲ-ਸੈਨਾ ਦੀ ਮਦਦ ਦਿੱਤੀ।",
+    "sourceIds": [
+      "S5",
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q036-PA",
+    "englishQuestionId": "WHI-CP003-Q036",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F036",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Document–date",
+    "stem": "ਸੰਘ ਦੇ ਲੇਖ ਕਿਹੜੇ ਸਾਲ ਤੋਂ ਲਾਗੂ ਹੋਏ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1776"
+      },
+      {
+        "key": "B",
+        "text": "1777"
+      },
+      {
+        "key": "C",
+        "text": "1781"
+      },
+      {
+        "key": "D",
+        "text": "1789"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਕਾਂਗਰਸ ਨੇ 1777 ਵਿੱਚ ਸੰਘ ਦੇ ਲੇਖ ਮਨਜ਼ੂਰ ਕੀਤੇ; ਰਾਜਾਂ ਦੀ ਪੁਸ਼ਟੀ ਤੋਂ ਬਾਅਦ ਇਹ 1781 ਵਿੱਚ ਲਾਗੂ ਹੋਏ।",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q037-PA",
+    "englishQuestionId": "WHI-CP003-Q037",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F037",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "ਸੰਯੁਕਤ ਰਾਜ ਦੇ ਸੰਵਿਧਾਨ ਦਾ ਖ਼ਾਕਾ ਤਿਆਰ ਕਰਨ ਵਾਲੀ ਸੰਵਿਧਾਨਕ ਕਨਵੈਨਸ਼ਨ 1787 ਵਿੱਚ ਕਿਹੜੇ ਸ਼ਹਿਰ ਵਿੱਚ ਹੋਈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਿਲਾਡੈਲਫ਼ੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਚਾਰਲਸਟਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੋਸਟਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਿਊਯਾਰਕ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਨੁਮਾਇੰਦੇ 1787 ਵਿੱਚ ਫ਼ਿਲਾਡੈਲਫ਼ੀਆ ਵਿੱਚ ਮਿਲੇ। ਉਨ੍ਹਾਂ ਦਾ ਮਕਸਦ ਸੰਘ ਦੇ ਲੇਖਾਂ ਵਿੱਚ ਸੋਧ ਕਰਨਾ ਸੀ, ਪਰ ਉਨ੍ਹਾਂ ਨੇ ਨਵਾਂ ਸੰਵਿਧਾਨ ਤਿਆਰ ਕੀਤਾ।",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q038-PA",
+    "englishQuestionId": "WHI-CP003-Q038",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F038",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Document–content",
+    "stem": "ਅਮਰੀਕੀ ਸੰਵਿਧਾਨ ਦਾ ਕਿਹੜਾ ਹਿੱਸਾ ਹੱਕਾਂ ਦਾ ਬਿੱਲ ਕਹਾਉਂਦਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪਹਿਲੇ ਦਸ ਲੇਖ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਦੇ ਸ਼ੁਰੂਆਤੀ ਪੈਰੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਘ ਦੇ ਲੇਖ"
+      },
+      {
+        "key": "D",
+        "text": "ਪਹਿਲੀਆਂ ਦਸ ਸੋਧਾਂ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "1789 ਵਿੱਚ ਪੇਸ਼ ਕੀਤੀਆਂ ਬਾਰਾਂ ਸੋਧਾਂ ਵਿੱਚੋਂ ਦਸ ਨੂੰ 1791 ਵਿੱਚ ਮਨਜ਼ੂਰੀ ਮਿਲੀ ਅਤੇ ਇਹ ਹੱਕਾਂ ਦਾ ਬਿੱਲ ਬਣੀਆਂ।",
+    "sourceIds": [
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q039-PA",
+    "englishQuestionId": "WHI-CP003-Q039",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F039",
+    "language": "pa",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "ਹੈਤੀ ਇਨਕਲਾਬ ਦੀ ਸ਼ੁਰੂਆਤ ਕਰਨ ਵਾਲਾ ਗੁਲਾਮ ਬਣਾਏ ਲੋਕਾਂ ਦਾ ਵੱਡਾ ਵਿਦਰੋਹ ਕਿਹੜੇ ਸਾਲ ਸ਼ੁਰੂ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1791"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1776"
+      },
+      {
+        "key": "D",
+        "text": "1804"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਸੇਂਟ-ਡੋਮਿੰਗ ਵਿੱਚ 1791 ਵਿੱਚ ਸੰਗਠਿਤ ਵਿਦਰੋਹ ਸ਼ੁਰੂ ਹੋਇਆ ਅਤੇ ਗੁਲਾਮੀ ਤੇ ਬਸਤੀਵਾਦੀ ਰਾਜ ਵਿਰੁੱਧ ਲੰਮਾ ਇਨਕਲਾਬ ਬਣ ਗਿਆ।",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q040-PA",
+    "englishQuestionId": "WHI-CP003-Q040",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F040",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Law–outcome",
+    "stem": "ਫ਼ਰਾਂਸੀਸੀ ਕੌਮੀ ਕਨਵੈਨਸ਼ਨ ਨੇ 1794 ਵਿੱਚ ਕਿਹੜਾ ਹੁਕਮ ਜਾਰੀ ਕੀਤਾ ਜਿਸ ਨਾਲ ਹੈਤੀ ਇਨਕਲਾਬ ਦਾ ਰੁਖ਼ ਪ੍ਰਭਾਵਿਤ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਬਸਤੀਆਂ ਵਿੱਚ ਗੁਲਾਮੀ ਖ਼ਤਮ ਕਰਨ ਦਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੇਂਟ-ਡੋਮਿੰਗ ਵਿੱਚ ਗੁਲਾਮੀ ਮੁੜ ਲਾਗੂ ਕਰਨ ਦਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਰੀਆਂ ਸਪੇਨੀ-ਅਮਰੀਕੀ ਬਸਤੀਆਂ ਨੂੰ ਆਜ਼ਾਦ ਕਰਨ ਦਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਪਨਾਮਾ ਕਾਂਗਰਸ ਬਣਾਉਣ ਦਾ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "1794 ਦੇ ਹੁਕਮ ਨਾਲ ਫ਼ਰਾਂਸੀਸੀ ਬਸਤੀਆਂ ਵਿੱਚ ਗੁਲਾਮੀ ਖ਼ਤਮ ਕੀਤੀ ਗਈ; ਇਸ ਤੋਂ ਬਾਅਦ ਤੂਸਾਂ ਲੂਵਰਤਿਊਰ ਨੇ ਸਪੇਨ ਵਿਰੁੱਧ ਫ਼ਰਾਂਸੀਸੀ ਫ਼ੌਜ ਦਾ ਸਾਥ ਦਿੱਤਾ।",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q041-PA",
+    "englishQuestionId": "WHI-CP003-Q041",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F041",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Person–event",
+    "stem": "1802 ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਮੁਹਿੰਮ ਦੇ ਸੇਂਟ-ਡੋਮਿੰਗ ਪਹੁੰਚਣ ਮਗਰੋਂ ਤੂਸਾਂ ਲੂਵਰਤਿਊਰ ਨਾਲ ਕੀ ਹੋਇਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਨ੍ਹਾਂ ਨੂੰ ਗ੍ਰਿਫ਼ਤਾਰ ਕਰਕੇ ਫ਼ਰਾਂਸ ਭੇਜ ਦਿੱਤਾ ਗਿਆ।"
+      },
+      {
+        "key": "B",
+        "text": "ਉਨ੍ਹਾਂ ਨੇ ਪਨਾਮਾ ਕਾਂਗਰਸ ਦੀ ਅਗਵਾਈ ਕੀਤੀ।"
+      },
+      {
+        "key": "C",
+        "text": "ਉਹ ਸੰਯੁਕਤ ਰਾਜ ਦੇ ਰਾਸ਼ਟਰਪਤੀ ਬਣੇ।"
+      },
+      {
+        "key": "D",
+        "text": "ਉਨ੍ਹਾਂ ਨੇ ਅਮਰੀਕੀ ਜੰਗ ਖ਼ਤਮ ਕਰਨ ਵਾਲੀ ਪੈਰਿਸ ਸੰਧੀ ਉੱਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ।"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਫ਼ਰਾਂਸੀਸੀ ਫ਼ੌਜ ਨੇ 1802 ਵਿੱਚ ਲੂਵਰਤਿਊਰ ਨੂੰ ਫੜ ਲਿਆ। ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ ਤੋਂ ਪਹਿਲਾਂ ਅਗਲੇ ਸਾਲ ਫ਼ਰਾਂਸ ਦੀ ਜੇਲ੍ਹ ਵਿੱਚ ਉਨ੍ਹਾਂ ਦੀ ਮੌਤ ਹੋ ਗਈ।",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q042-PA",
+    "englishQuestionId": "WHI-CP003-Q042",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F042",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Leader–outcome",
+    "stem": "1 ਜਨਵਰੀ 1804 ਨੂੰ ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕਿਸ ਨੇ ਕੀਤਾ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਾਂ-ਜਾਕ ਦੇਸਾਲੀਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੈਨਰੀ ਕ੍ਰਿਸਟੋਫ਼"
+      },
+      {
+        "key": "C",
+        "text": "ਅਲੈਕਜ਼ਾਂਦਰ ਪੇਤਿਓਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਤੂਸਾਂ ਲੂਵਰਤਿਊਰ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਦੇਸਾਲੀਨ ਨੇ ਸੰਘਰਸ਼ ਦੇ ਆਖ਼ਰੀ ਪੜਾਅ ਦੀ ਅਗਵਾਈ ਕੀਤੀ ਅਤੇ ਫ਼ਰਾਂਸੀਸੀ ਫ਼ੌਜ ਦੀ ਹਾਰ ਮਗਰੋਂ ਹੈਤੀ ਨੂੰ ਆਜ਼ਾਦ ਐਲਾਨਿਆ।",
+    "sourceIds": [
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q043-PA",
+    "englishQuestionId": "WHI-CP003-Q043",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F043",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Movement–date",
+    "stem": "1810 ਵਿੱਚ ਮਿਗੇਲ ਇਦਾਲਗੋ ਦਾ ਬਗ਼ਾਵਤ ਲਈ ਸੱਦਾ ਕਿਹੜੇ ਦੇਸ਼ ਦੀ ਆਜ਼ਾਦੀ ਦੀ ਲੜਾਈ ਦੀ ਸ਼ੁਰੂਆਤ ਨਾਲ ਜੁੜਿਆ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚਿਲੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੈਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੈਕਸੀਕੋ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਾਜ਼ੀਲ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "1810 ਵਿੱਚ ਦੋਲੋਰੇਸ ਤੋਂ ਇਦਾਲਗੋ ਦੇ ਸੱਦੇ ਨਾਲ ਮੈਕਸੀਕੋ ਦੀ ਆਜ਼ਾਦੀ ਦੀ ਲੜਾਈ ਦਾ ਇੱਕ ਵੱਡਾ ਪੜਾਅ ਸ਼ੁਰੂ ਹੋਇਆ; ਆਜ਼ਾਦੀ ਬਾਅਦ ਵਿੱਚ ਮਿਲੀ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q044-PA",
+    "englishQuestionId": "WHI-CP003-Q044",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F044",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Country–date",
+    "stem": "ਮੈਕਸੀਕੋ ਨੂੰ ਸਪੇਨ ਤੋਂ ਕਿਹੜੇ ਸਾਲ ਆਜ਼ਾਦੀ ਮਿਲੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1826"
+      },
+      {
+        "key": "B",
+        "text": "1804"
+      },
+      {
+        "key": "C",
+        "text": "1821"
+      },
+      {
+        "key": "D",
+        "text": "1810"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਇਦਾਲਗੋ ਦੀ ਬਗ਼ਾਵਤ 1810 ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਈ, ਪਰ ਲੰਮੇ ਅਤੇ ਬਦਲਦੇ ਸੰਘਰਸ਼ ਮਗਰੋਂ ਮੈਕਸੀਕੋ 1821 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q045-PA",
+    "englishQuestionId": "WHI-CP003-Q045",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F045",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Person–battle",
+    "stem": "1819 ਦੀ ਬੋਯਾਕਾ ਦੀ ਜਿੱਤ ਕਿਸ ਦੀ ਅਗਵਾਈ ਹੇਠਲੀਆਂ ਮੁਹਿੰਮਾਂ ਲਈ ਫ਼ੈਸਲਾਕੁਨ ਮੋੜ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਰਨਾਰਡੋ ਓ’ਹਿਗਿਨਜ਼"
+      },
+      {
+        "key": "B",
+        "text": "ਹੋਸੇ ਦੇ ਸਾਨ ਮਾਰਤਿਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਿਗੇਲ ਇਦਾਲਗੋ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਿਮੋਨ ਬੋਲੀਵਾਰ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਬੋਲੀਵਾਰ ਦੀ ਬੋਯਾਕਾ ਜਿੱਤ ਨੇ ਨਿਊ ਗ੍ਰੇਨਾਡਾ ਉੱਤੇ ਕਬਜ਼ਾ ਪੱਕਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ ਅਤੇ ਉੱਤਰੀ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੀ ਆਜ਼ਾਦੀ ਨੂੰ ਅੱਗੇ ਵਧਾਇਆ।",
+    "sourceIds": [
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q046-PA",
+    "englishQuestionId": "WHI-CP003-Q046",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F046",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Event–purpose",
+    "stem": "ਬੋਲੀਵਾਰ ਨੇ 1826 ਵਿੱਚ ਪਨਾਮਾ ਕਾਂਗਰਸ ਕਿਹੜੇ ਮੁੱਖ ਮਕਸਦ ਨਾਲ ਸੱਦੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਪੇਨੀ ਬਸਤੀਵਾਦੀ ਰਾਜ ਮੁੜ ਕਾਇਮ ਕਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਰਾਜਤੰਤਰ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਦੀ ਜੰਗ ਮੁਕਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਵੇਂ ਆਜ਼ਾਦ ਹੋਏ ਅਮਰੀਕੀ ਦੇਸ਼ਾਂ ਵਿੱਚ ਸਾਂਝ ਅਤੇ ਸੁਰੱਖਿਆ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰਨਾ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਬੋਲੀਵਾਰ ਅਜਿਹਾ ਸੰਘ ਬਣਾਉਣਾ ਚਾਹੁੰਦੇ ਸਨ ਜੋ ਨਵੇਂ ਗਣਰਾਜਾਂ ਦੀ ਰਾਖੀ ਕਰੇ ਅਤੇ ਨੀਤੀਆਂ ਵਿੱਚ ਤਾਲਮੇਲ ਬਣਾਏ।",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q047-PA",
+    "englishQuestionId": "WHI-CP003-Q047",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F047",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Person–region",
+    "stem": "ਹੋਸੇ ਦੇ ਸਾਨ ਮਾਰਤਿਨ ਦੀਆਂ ਆਜ਼ਾਦੀ ਮੁਹਿੰਮਾਂ ਦਾ ਅਰਜਨਟੀਨਾ ਤੇ ਚਿਲੀ ਦੇ ਨਾਲ ਹੋਰ ਕਿਹੜੇ ਦੇਸ਼ ਨਾਲ ਖ਼ਾਸ ਸਬੰਧ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੈਨੇਡਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮੈਕਸੀਕੋ"
+      },
+      {
+        "key": "C",
+        "text": "ਕਿਊਬਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੇਰੂ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਸਾਨ ਮਾਰਤਿਨ ਨੇ ਅਰਜਨਟੀਨਾ ਤੇ ਚਿਲੀ ਨੂੰ ਆਜ਼ਾਦ ਕਰਾਉਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ ਅਤੇ ਪੇਰੂ ਤੱਕ ਫ਼ੌਜੀ ਮੁਹਿੰਮ ਚਲਾਈ; ਬਾਅਦ ਵਿੱਚ ਗੁਆਇਆਕਿਲ ਵਿੱਚ ਉਨ੍ਹਾਂ ਦੀ ਬੋਲੀਵਾਰ ਨਾਲ ਮੁਲਾਕਾਤ ਹੋਈ।",
+    "sourceIds": [
+      "S19"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q048-PA",
+    "englishQuestionId": "WHI-CP003-Q048",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F048",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Cause–context",
+    "stem": "1808 ਤੋਂ ਬਾਅਦ ਕਿਹੜੀ ਘਟਨਾ ਨੇ ਸਪੇਨੀ ਰਾਜਸੱਤਾ ਨੂੰ ਕਮਜ਼ੋਰ ਕੀਤਾ ਅਤੇ ਸਪੇਨੀ ਅਮਰੀਕਾ ਵਿੱਚ ਸਥਾਨਕ ਕੌਂਸਲਾਂ ਤੇ ਆਜ਼ਾਦੀ ਲਹਿਰਾਂ ਲਈ ਰਾਹ ਖੋਲ੍ਹਿਆ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਪੇਨੀ ਸਾਮਰਾਜ ਖ਼ਤਮ ਕਰਨ ਦਾ ਵਿਯੇਨਾ ਕਾਂਗਰਸ ਦਾ ਫ਼ੈਸਲਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਰਲਿਨ ਫ਼ਰਮਾਨ"
+      },
+      {
+        "key": "C",
+        "text": "1783 ਦੀ ਪੈਰਿਸ ਸੰਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਪੇਨ ਉੱਤੇ ਨੈਪੋਲੀਅਨ ਦਾ ਕਬਜ਼ਾ ਅਤੇ ਸਪੇਨੀ ਰਾਜੇ ਨੂੰ ਹਟਾਇਆ ਜਾਣਾ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਸਪੇਨੀ ਰਾਜਤੰਤਰ ਦੇ ਸੰਕਟ ਨਾਲ ਬਸਤੀਆਂ ਵਿੱਚ ਜਾਇਜ਼ ਹਕੂਮਤ ਬਾਰੇ ਅਨਿਸ਼ਚਿਤਤਾ ਪੈਦਾ ਹੋਈ ਅਤੇ ਸਥਾਨਕ ਰਾਜਨੀਤਿਕ ਲਹਿਰਾਂ ਤੇਜ਼ ਹੋਈਆਂ।",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q049-PA",
+    "englishQuestionId": "WHI-CP003-Q049",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F049",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Social group",
+    "stem": "ਸਪੇਨੀ ਅਮਰੀਕਾ ਦੇ ਬਸਤੀਵਾਦੀ ਸਮਾਜ ਵਿੱਚ *ਕ੍ਰਿਓਲ* ਸ਼ਬਦ ਆਮ ਤੌਰ 'ਤੇ ਕਿਹੜੇ ਲੋਕਾਂ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਐਜ਼ਟੈਕ ਸਾਮਰਾਜ ਦੇ ਮੂਲ ਨਿਵਾਸੀ ਹਾਕਮ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਮਰੀਕਾ ਵਿੱਚ ਜੰਮੇ ਯੂਰਪੀ ਵੰਸ਼ ਦੇ ਲੋਕ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਿਰਫ਼ ਸਪੇਨ ਵਿੱਚ ਜੰਮੇ ਅਧਿਕਾਰੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਫ਼ਰੀਕਾ ਤੋਂ ਲਿਆਂਦੇ ਗ਼ੁਲਾਮ ਲੋਕ"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਕ੍ਰਿਓਲ ਅਮਰੀਕਾ ਵਿੱਚ ਜੰਮੇ ਯੂਰਪੀ ਵੰਸ਼ ਦੇ ਲੋਕ ਸਨ; ਕਈ ਉੱਚੇ ਬਸਤੀਵਾਦੀ ਅਹੁਦਿਆਂ ਤੱਕ ਪਹੁੰਚ ਉੱਤੇ ਲੱਗੀਆਂ ਰੋਕਾਂ ਤੋਂ ਨਾਰਾਜ਼ ਸਨ।",
+    "sourceIds": [
+      "S20"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q050-PA",
+    "englishQuestionId": "WHI-CP003-Q050",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F050",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Movement–outcome",
+    "stem": "ਲਾਤੀਨੀ ਅਮਰੀਕਾ ਦੀਆਂ ਆਜ਼ਾਦੀ ਲਹਿਰਾਂ ਦੇ ਨਤੀਜਿਆਂ ਦਾ ਸਭ ਤੋਂ ਸਹੀ ਵੇਰਵਾ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਜ਼ਾਦੀ ਨਾਲ ਖੇਤਰ ਦੇ ਸਾਰੇ ਟਕਰਾਅ ਖ਼ਤਮ ਹੋ ਗਏ।"
+      },
+      {
+        "key": "B",
+        "text": "1900 ਤੱਕ ਸਪੇਨ ਨੇ ਮੁੱਖ ਭੂਮੀ ਦੀਆਂ ਸਾਰੀਆਂ ਬਸਤੀਆਂ ਉੱਤੇ ਸਿੱਧਾ ਰਾਜ ਕੀਤਾ।"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਨਵੇਂ ਦੇਸ਼ ਨੇ ਤੁਰੰਤ ਇੱਕੋ ਸੰਵਿਧਾਨ ਅਪਣਾ ਲਿਆ।"
+      },
+      {
+        "key": "D",
+        "text": "ਰਾਜਨੀਤਿਕ ਆਜ਼ਾਦੀ ਨਾਲ ਸਮਾਜਕ ਨਾ-ਬਰਾਬਰੀ ਆਪਣੇ ਆਪ ਖ਼ਤਮ ਨਹੀਂ ਹੋਈ ਅਤੇ ਸਾਰੇ ਗਣਰਾਜ ਇੱਕੋ ਜਿਹੇ ਨਹੀਂ ਬਣੇ।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਵੱਖ-ਵੱਖ ਸੰਘਰਸ਼ਾਂ ਰਾਹੀਂ ਨਵੇਂ ਦੇਸ਼ਾਂ ਨੇ ਰਾਜਨੀਤਿਕ ਆਜ਼ਾਦੀ ਲਈ, ਪਰ ਸਮਾਜਕ ਦਰਜੇਬੰਦੀ ਅਤੇ ਰਾਜਨੀਤਿਕ ਟਕਰਾਅ ਅਕਸਰ ਜਾਰੀ ਰਹੇ।",
+    "sourceIds": [
+      "S10",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q051-PA",
+    "englishQuestionId": "WHI-CP003-Q051",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F051",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "ਹੈਤੀ ਇਨਕਲਾਬ ਦੀਆਂ ਅਹਿਮ ਘਟਨਾਵਾਂ ਦਾ ਸਹੀ ਕ੍ਰਮ ਚੁਣੋ।",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਹੁਕਮ ਨਾਲ ਗੁਲਾਮੀ ਖ਼ਤਮ → ਹੈਤੀ ਨੇ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ → ਬਗ਼ਾਵਤ ਸ਼ੁਰੂ → ਲੂਵਰਤਿਊਰ ਫੜੇ ਗਏ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੈਤੀ ਆਜ਼ਾਦ ਹੋਇਆ → ਬਗ਼ਾਵਤ ਸ਼ੁਰੂ → ਲੂਵਰਤਿਊਰ ਫੜੇ ਗਏ → ਗੁਲਾਮੀ ਮੁਕਾਉਣ ਦਾ ਹੁਕਮ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੂਵਰਤਿਊਰ ਫੜੇ ਗਏ → ਹੈਤੀ ਆਜ਼ਾਦ ਹੋਇਆ → ਬਗ਼ਾਵਤ ਸ਼ੁਰੂ → ਗੁਲਾਮੀ ਮੁਕਾਉਣ ਦਾ ਹੁਕਮ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਗ਼ਾਵਤ ਸ਼ੁਰੂ → ਫ਼ਰਾਂਸੀਸੀ ਹੁਕਮ ਨਾਲ ਗੁਲਾਮੀ ਖ਼ਤਮ → ਲੂਵਰਤਿਊਰ ਫੜੇ ਗਏ → ਹੈਤੀ ਆਜ਼ਾਦ ਹੋਇਆ"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਬਗ਼ਾਵਤ 1791 ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਈ; ਫ਼ਰਾਂਸ ਨੇ 1794 ਵਿੱਚ ਗੁਲਾਮੀ ਮੁਕਾਈ; ਲੂਵਰਤਿਊਰ 1802 ਵਿੱਚ ਫੜੇ ਗਏ ਅਤੇ 1804 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਹੋਇਆ।",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q052-PA",
+    "englishQuestionId": "WHI-CP003-Q052",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F052",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Grievance–event",
+    "stem": "“ਨੁਮਾਇੰਦਗੀ ਤੋਂ ਬਿਨਾਂ ਕਰ ਨਹੀਂ” ਨਾਅਰੇ ਵਿੱਚ ਕਿਹੜੀ ਬਸਤੀਵਾਦੀ ਸ਼ਿਕਾਇਤ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸ ਨੇ ਬਸਤੀਆਂ ਤੋਂ ਸੱਤ ਸਾਲਾ ਜੰਗ ਦਾ ਖ਼ਰਚਾ ਮੰਗਿਆ।"
+      },
+      {
+        "key": "B",
+        "text": "ਬਸਤੀਵਾਸੀ ਹਰ ਕਿਸਮ ਦੀ ਸਥਾਨਕ ਸਰਕਾਰ ਦੇ ਖ਼ਿਲਾਫ਼ ਸਨ।"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰਿਟਿਸ਼ ਵਪਾਰੀ ਚਾਹ ਉੱਤੇ ਕਰ ਦੁੱਗਣਾ ਕਰਨ ਦੀ ਮੰਗ ਕਰ ਰਹੇ ਸਨ।"
+      },
+      {
+        "key": "D",
+        "text": "ਬਸਤੀਆਂ ਨੇ ਸੰਸਦ ਵਿੱਚ ਆਪਣੇ ਚੁਣੇ ਨੁਮਾਇੰਦਿਆਂ ਤੋਂ ਬਿਨਾਂ ਲਾਏ ਕਰਾਂ ਦਾ ਵਿਰੋਧ ਕੀਤਾ।"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਇਸ ਨਾਅਰੇ ਨੇ ਉਸ ਸੰਸਦ ਵੱਲੋਂ ਕਰ ਲਾਉਣ ਦਾ ਵਿਰੋਧ ਦਰਸਾਇਆ ਜਿਸ ਵਿੱਚ ਬਸਤੀਆਂ ਦੇ ਚੁਣੇ ਹੋਏ ਨੁਮਾਇੰਦੇ ਨਹੀਂ ਸਨ।",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q053-PA",
+    "englishQuestionId": "WHI-CP003-Q053",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F053",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Event–grievance",
+    "stem": "ਬੋਸਟਨ ਟੀ ਪਾਰਟੀ ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਨੀਤੀ ਦਾ ਵਿਰੋਧ ਕਿਹੜੀ ਚੀਜ਼ ਬਾਰੇ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚਾਹ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਪਾਹ"
+      },
+      {
+        "key": "C",
+        "text": "ਤੰਬਾਕੂ"
+      },
+      {
+        "key": "D",
+        "text": "ਖੰਡ"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "ਲੋਕਾਂ ਨੇ ਚਾਹ ਦੇ ਕਾਨੂੰਨ ਅਤੇ ਸਾਮਰਾਜੀ ਕਰਾਂ ਬਾਰੇ ਵਧਦੇ ਟਕਰਾਅ ਦੇ ਵਿਰੋਧ ਵਿੱਚ ਬੋਸਟਨ ਬੰਦਰਗਾਹ ਵਿੱਚ ਚਾਹ ਸੁੱਟ ਦਿੱਤੀ।",
+    "sourceIds": [
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q054-PA",
+    "englishQuestionId": "WHI-CP003-Q054",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F054",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Cause–consequence",
+    "stem": "ਅਮਰੀਕੀ ਇਨਕਲਾਬੀ ਲਹਿਰ ਲਈ ਫ਼ਰਾਂਸ ਦੀ ਮਦਦ ਕਿਉਂ ਅਹਿਮ ਸੀ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਤੁਰੰਤ ਅਮਰੀਕੀ ਸੰਵਿਧਾਨ ਦਾ ਖ਼ਾਕਾ ਤਿਆਰ ਕੀਤਾ।"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਬਸਤੀਆਂ ਨੂੰ ਮੁੜ ਬ੍ਰਿਟਿਸ਼ ਰਾਜ ਮੰਨਣ ਲਈ ਮਜਬੂਰ ਕੀਤਾ।"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਬ੍ਰਿਟੇਨ ਵਿਰੁੱਧ ਫ਼ੌਜੀ, ਜਲ-ਸੈਨਾ ਅਤੇ ਕੂਟਨੀਤਕ ਮਦਦ ਦਿੱਤੀ।"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਸਾਰਾਟੋਗਾ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਜੰਗ ਮੁਕਾ ਦਿੱਤੀ।"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਫ਼ਰਾਂਸੀਸੀ ਮਦਦ ਨਾਲ ਅਮਰੀਕੀ ਜੰਗੀ ਯਤਨ ਮਜ਼ਬੂਤ ਹੋਏ ਅਤੇ ਬ੍ਰਿਟੇਨ ਲਈ ਜੰਗ ਜਾਰੀ ਰੱਖਣੀ ਔਖੀ ਹੋਈ।",
+    "sourceIds": [
+      "S5",
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q055-PA",
+    "englishQuestionId": "WHI-CP003-Q055",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F055",
+    "language": "pa",
+    "difficulty": "medium",
+    "questionFamily": "Correctly matched pairs",
+    "stem": "ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਤਰ੍ਹਾਂ ਮੇਲ ਖਾਂਦਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰੂਸੋ — *ਕਾਮਨ ਸੈਂਸ*; ਸਾਨ ਮਾਰਤਿਨ — ਪੈਰਿਸ ਸੰਧੀ; ਲੌਕ — ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੇਨ — *ਕਾਮਨ ਸੈਂਸ*; ਬੋਲੀਵਾਰ — ਪਨਾਮਾ ਕਾਂਗਰਸ; ਦੇਸਾਲੀਨ — ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੋਂਤੇਸਕਿਊ — ਪਨਾਮਾ ਕਾਂਗਰਸ; ਲੂਵਰਤਿਊਰ — ਅਮਰੀਕੀ ਸੰਵਿਧਾਨ; ਜੈਫ਼ਰਸਨ — *ਦ ਸੋਸ਼ਲ ਕੰਟਰੈਕਟ*"
+      },
+      {
+        "key": "D",
+        "text": "ਵੋਲਤੇਅਰ — ਬੋਯਾਕਾ; ਇਦਾਲਗੋ — ਹੱਕਾਂ ਦਾ ਬਿੱਲ; ਪੇਨ — *ਟੂ ਟ੍ਰੀਟੀਜ਼ਜ਼*"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਵਿਕਲਪ B ਵਿੱਚ ਹਰ ਵਿਅਕਤੀ ਨੂੰ ਉਸ ਦੀ ਲਿਖਤ, ਰਾਜਨੀਤਿਕ ਪਹਿਲ ਜਾਂ ਆਜ਼ਾਦੀ ਲਹਿਰ ਨਾਲ ਸਹੀ ਜੋੜਿਆ ਗਿਆ ਹੈ।",
+    "sourceIds": [
+      "S3",
+      "S12",
+      "S17",
+      "S18"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q056-PA",
+    "englishQuestionId": "WHI-CP003-Q056",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F056",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Document sequence",
+    "stem": "ਅਮਰੀਕਾ ਦੀ ਸ਼ੁਰੂਆਤੀ ਸੰਵਿਧਾਨਕ ਪ੍ਰਬੰਧ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੰਵਿਧਾਨ ਉੱਤੇ ਦਸਤਖ਼ਤ → ਸੰਘ ਦੇ ਲੇਖ ਲਾਗੂ → ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੈਰਿਸ ਸੰਧੀ → ਹੱਕਾਂ ਦਾ ਬਿੱਲ → ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਘ ਦੇ ਲੇਖ ਲਾਗੂ → ਸੰਵਿਧਾਨ ਤਿਆਰ ਅਤੇ ਦਸਤਖ਼ਤ → ਹੱਕਾਂ ਦੇ ਬਿੱਲ ਦੀ ਪੁਸ਼ਟੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੱਕਾਂ ਦੇ ਬਿੱਲ ਦੀ ਪੁਸ਼ਟੀ → ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ → ਸੰਘ ਦੇ ਲੇਖ ਲਾਗੂ"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਸੰਘ ਦੇ ਲੇਖ 1781 ਵਿੱਚ ਲਾਗੂ ਹੋਏ, ਸੰਵਿਧਾਨ ਉੱਤੇ 1787 ਵਿੱਚ ਦਸਤਖ਼ਤ ਹੋਏ ਅਤੇ ਹੱਕਾਂ ਦੇ ਬਿੱਲ ਦੀ ਪੁਸ਼ਟੀ 1791 ਵਿੱਚ ਹੋਈ।",
+    "sourceIds": [
+      "S8",
+      "S13",
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q057-PA",
+    "englishQuestionId": "WHI-CP003-Q057",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F057",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Claim distinction",
+    "stem": "ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਅਤੇ ਪੈਰਿਸ ਸੰਧੀ ਵਿਚਕਾਰ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਐਲਾਨ ਨੇ 1783 ਵਿੱਚ ਜੰਗ ਮੁਕਾਈ; ਸੰਧੀ ਨੇ 1776 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ।"
+      },
+      {
+        "key": "B",
+        "text": "ਐਲਾਨ ਨੇ 1776 ਵਿੱਚ ਵੱਖ ਹੋਣ ਦੀ ਗੱਲ ਕੀਤੀ; ਸੰਧੀ ਨੇ 1783 ਵਿੱਚ ਜੰਗ ਰਸਮੀ ਤੌਰ 'ਤੇ ਮੁਕਾ ਕੇ ਆਜ਼ਾਦੀ ਨੂੰ ਮਾਨਤਾ ਦਿੱਤੀ।"
+      },
+      {
+        "key": "C",
+        "text": "ਐਲਾਨ ਨੇ 1781 ਵਿੱਚ ਸੰਘ ਦੇ ਲੇਖ ਬਣਾਏ।"
+      },
+      {
+        "key": "D",
+        "text": "ਦੋਵਾਂ ਉੱਤੇ 1791 ਵਿੱਚ ਹੱਕਾਂ ਦਾ ਬਿੱਲ ਬਣਾਉਣ ਲਈ ਦਸਤਖ਼ਤ ਹੋਏ।"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਨੇ ਰਾਜਨੀਤਿਕ ਤੌਰ 'ਤੇ ਵੱਖ ਹੋਣ ਦੀ ਗੱਲ ਕੀਤੀ; ਫ਼ੌਜੀ ਟਕਰਾਅ ਮਗਰੋਂ ਪੈਰਿਸ ਸੰਧੀ ਨੇ ਸ਼ਾਂਤੀ ਨੂੰ ਰਸਮੀ ਰੂਪ ਦਿੱਤਾ।",
+    "sourceIds": [
+      "S4",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q058-PA",
+    "englishQuestionId": "WHI-CP003-Q058",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F058",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement",
+    "stem": "ਹੈਤੀ ਇਨਕਲਾਬ ਬਾਰੇ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ:\n\n1. ਇਹ ਫ਼ਰਾਂਸੀਸੀ ਬਸਤੀ ਸੇਂਟ-ਡੋਮਿੰਗ ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਇਆ।  \n2. ਤੂਸਾਂ ਲੂਵਰਤਿਊਰ ਨੇ 1804 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ।  \n3. ਜਾਂ-ਜਾਕ ਦੇਸਾਲੀਨ ਨੇ ਹੈਤੀ ਦੀ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ।\n\nਕਿਹੜੇ ਕਥਨ ਸਹੀ ਹਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੇਵਲ 2 ਅਤੇ 3"
+      },
+      {
+        "key": "B",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 2"
+      },
+      {
+        "key": "C",
+        "text": "1, 2 ਅਤੇ 3"
+      },
+      {
+        "key": "D",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 3"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "ਇਨਕਲਾਬ ਸੇਂਟ-ਡੋਮਿੰਗ ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਇਆ ਅਤੇ ਦੇਸਾਲੀਨ ਨੇ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ। ਲੂਵਰਤਿਊਰ ਨੂੰ ਫੜ ਲਿਆ ਗਿਆ ਸੀ ਅਤੇ 1804 ਤੋਂ ਪਹਿਲਾਂ ਉਨ੍ਹਾਂ ਦੀ ਮੌਤ ਹੋ ਗਈ।",
+    "sourceIds": [
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q059-PA",
+    "englishQuestionId": "WHI-CP003-Q059",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F059",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "ਅਮਰੀਕੀ ਅਤੇ ਲਾਤੀਨੀ ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਸੰਘਰਸ਼ਾਂ ਦੀ ਸਭ ਤੋਂ ਸਹੀ ਤੁਲਨਾ ਕਿਹੜੀ ਹੈ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਮਰੀਕੀ ਬਸਤੀਆਂ ਸਪੇਨ ਨਾਲ ਲੜੀਆਂ, ਜਦਕਿ ਸਪੇਨੀ ਅਮਰੀਕਾ ਸਿਰਫ਼ ਫ਼ਰਾਂਸ ਨਾਲ ਲੜਿਆ।"
+      },
+      {
+        "key": "B",
+        "text": "ਦੋਵਾਂ ਨੇ ਯੂਰਪੀ ਸਾਮਰਾਜੀ ਰਾਜ ਨੂੰ ਚੁਣੌਤੀ ਦਿੱਤੀ, ਪਰ ਉਨ੍ਹਾਂ ਦੀਆਂ ਬਸਤੀਵਾਦੀ ਵਿਵਸਥਾਵਾਂ, ਆਗੂ ਅਤੇ ਰਾਜਨੀਤਿਕ ਨਤੀਜੇ ਵੱਖਰੇ ਸਨ।"
+      },
+      {
+        "key": "C",
+        "text": "ਦੋਵਾਂ ਦੀ ਅਗਵਾਈ ਇੱਕੋ ਜਰਨੈਲਾਂ ਨੇ ਕੀਤੀ ਅਤੇ ਦੋਵੇਂ 1776 ਵਿੱਚ ਮੁੱਕੇ।"
+      },
+      {
+        "key": "D",
+        "text": "ਲਾਤੀਨੀ ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਪਨਾਮਾ ਕਾਂਗਰਸ ਤੋਂ ਬਾਅਦ ਹੀ ਸ਼ੁਰੂ ਹੋਈ।"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "ਦੋਵਾਂ ਲਹਿਰਾਂ ਨੇ ਸਾਮਰਾਜੀ ਹਕੂਮਤ ਨੂੰ ਚੁਣੌਤੀ ਦਿੱਤੀ, ਪਰ ਉਨ੍ਹਾਂ ਦਾ ਸਮਾਂ, ਸਮਾਜਕ ਬਣਤਰ ਅਤੇ ਨਤੀਜੇ ਇੱਕੋ ਜਿਹੇ ਨਹੀਂ ਸਨ।",
+    "sourceIds": [
+      "S5",
+      "S10",
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP003-Q060-PA",
+    "englishQuestionId": "WHI-CP003-Q060",
+    "checkpointId": "WHI-001-CP003",
+    "factId": "WHI-CP003-F060",
+    "language": "pa",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement synthesis",
+    "stem": "ਹੇਠ ਲਿਖੇ ਕਥਨਾਂ ਉੱਤੇ ਵਿਚਾਰ ਕਰੋ:\n\n1. ਹੱਕਾਂ ਅਤੇ ਲੋਕ-ਸਹਿਮਤੀ ਬਾਰੇ ਗਿਆਨ-ਚਾਨਣ ਯੁੱਗ ਦੇ ਤਰਕਾਂ ਨੇ ਇਨਕਲਾਬੀ ਰਾਜਨੀਤਿਕ ਬੋਲੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕੀਤਾ।  \n2. ਰਾਜਨੀਤਿਕ ਆਜ਼ਾਦੀ ਨਾਲ ਹਰ ਸਮੂਹ ਨੂੰ ਹਮੇਸ਼ਾ ਬਰਾਬਰ ਹੱਕ ਮਿਲੇ।  \n3. ਹੈਤੀ ਇਨਕਲਾਬ ਨੇ ਅਮਰੀਕੀ ਆਜ਼ਾਦੀ ਲਹਿਰ ਤੋਂ ਵੱਖਰੇ ਢੰਗ ਨਾਲ ਗੁਲਾਮੀ ਨੂੰ ਸਿੱਧੀ ਚੁਣੌਤੀ ਦਿੱਤੀ।\n\nਕਿਹੜੇ ਕਥਨ ਸਹੀ ਹਨ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1, 2 ਅਤੇ 3"
+      },
+      {
+        "key": "B",
+        "text": "ਕੇਵਲ 2 ਅਤੇ 3"
+      },
+      {
+        "key": "C",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 3"
+      },
+      {
+        "key": "D",
+        "text": "ਕੇਵਲ 1 ਅਤੇ 2"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ਹੱਕਾਂ ਬਾਰੇ ਵਿਚਾਰਾਂ ਨੇ ਇਨਕਲਾਬੀ ਦਾਅਵਿਆਂ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕੀਤਾ, ਪਰ ਅਮਲ ਵਿੱਚ ਬਰਾਬਰੀ ਪੂਰੀ ਤਰ੍ਹਾਂ ਨਹੀਂ ਆਈ। ਹੈਤੀ ਦੇ ਇਨਕਲਾਬ ਨੇ ਗੁਲਾਮੀ ਉੱਤੇ ਟਿਕੇ ਬਸਤੀਵਾਦੀ ਪ੍ਰਬੰਧ ਨੂੰ ਸਿੱਧਾ ਉਖਾੜਿਆ।",
+    "sourceIds": [
+      "S1",
+      "S4",
+      "S16",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]

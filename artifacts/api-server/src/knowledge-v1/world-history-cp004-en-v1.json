@@ -1,0 +1,2124 @@
+[
+  {
+    "questionId": "WHI-CP004-Q001",
+    "englishQuestionId": "WHI-CP004-Q001",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "In which year did the French Revolution begin?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1776"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1815"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The revolution began in 1789 amid political, fiscal and social conflict.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q002",
+    "englishQuestionId": "WHI-CP004-Q002",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F002",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "The Estates-General convened in 1789 at which place?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Leipzig"
+      },
+      {
+        "key": "B",
+        "text": "Waterloo"
+      },
+      {
+        "key": "C",
+        "text": "Versailles"
+      },
+      {
+        "key": "D",
+        "text": "Vienna"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Louis XVI summoned the Estates-General to Versailles in May 1789.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q003",
+    "englishQuestionId": "WHI-CP004-Q003",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F003",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "The storming of the Bastille took place on which date?",
+    "options": [
+      {
+        "key": "A",
+        "text": "4 August 1789"
+      },
+      {
+        "key": "B",
+        "text": "14 July 1789"
+      },
+      {
+        "key": "C",
+        "text": "21 January 1793"
+      },
+      {
+        "key": "D",
+        "text": "26 August 1789"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Bastille was stormed in Paris on 14 July 1789, a major early revolutionary event.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q004",
+    "englishQuestionId": "WHI-CP004-Q004",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F004",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Document–principle",
+    "stem": "The Declaration of the Rights of Man and of the Citizen of 1789 asserted which principle?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Equality of rights under the law"
+      },
+      {
+        "key": "B",
+        "text": "Restoration of feudal dues"
+      },
+      {
+        "key": "C",
+        "text": "Permanent hereditary privilege for the First Estate"
+      },
+      {
+        "key": "D",
+        "text": "Rule by foreign armies"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The declaration affirmed liberty and equality in rights, challenging the legal privileges of the Old Regime.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q005",
+    "englishQuestionId": "WHI-CP004-Q005",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F005",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Regime–institution",
+    "stem": "Which body governed France during the Directory period?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A hereditary senate led by Louis XVI"
+      },
+      {
+        "key": "B",
+        "text": "The Committee of Union and Progress"
+      },
+      {
+        "key": "C",
+        "text": "A five-member executive"
+      },
+      {
+        "key": "D",
+        "text": "The Estates-General"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Under the Constitution of Year III, executive authority was held by five directors.",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q006",
+    "englishQuestionId": "WHI-CP004-Q006",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F006",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Chronology",
+    "stem": "Which event occurred first?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Congress of Vienna"
+      },
+      {
+        "key": "B",
+        "text": "Storming of the Bastille"
+      },
+      {
+        "key": "C",
+        "text": "Napoleon’s coup of 18 Brumaire"
+      },
+      {
+        "key": "D",
+        "text": "Battle of Waterloo"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Bastille fell in 1789; the coup followed in 1799, the Congress of Vienna met in 1814–15, and Waterloo was fought in 1815.",
+    "sourceIds": [
+      "S1",
+      "S3",
+      "S4",
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q007",
+    "englishQuestionId": "WHI-CP004-Q007",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F007",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–outcome",
+    "stem": "What did the Tennis Court Oath of June 1789 commit its participants to do?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Declare war on Austria"
+      },
+      {
+        "key": "B",
+        "text": "Abolish the Directory"
+      },
+      {
+        "key": "C",
+        "text": "Remain assembled until France had a constitution"
+      },
+      {
+        "key": "D",
+        "text": "Restore Napoleon to the throne"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The deputies pledged not to separate until they had established a constitution for France.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q008",
+    "englishQuestionId": "WHI-CP004-Q008",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F008",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person–event",
+    "stem": "Who seized power in the coup of 18 Brumaire in 1799?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Maximilien Robespierre"
+      },
+      {
+        "key": "B",
+        "text": "Louis XVIII"
+      },
+      {
+        "key": "C",
+        "text": "Metternich"
+      },
+      {
+        "key": "D",
+        "text": "Napoleon Bonaparte"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Bonaparte’s coup on 9–10 November 1799 ended the Directory and began the Consulate.",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q009",
+    "englishQuestionId": "WHI-CP004-Q009",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F009",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "The Battle of Waterloo in 1815 was fought in the territory of present-day which country?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Belgium"
+      },
+      {
+        "key": "B",
+        "text": "Italy"
+      },
+      {
+        "key": "C",
+        "text": "Austria"
+      },
+      {
+        "key": "D",
+        "text": "Spain"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Waterloo lies in present-day Belgium, south of Brussels.",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q010",
+    "englishQuestionId": "WHI-CP004-Q010",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F010",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cause–context",
+    "stem": "Why did the financial crisis of the French monarchy become a constitutional crisis in 1789?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Congress of Vienna removed the king."
+      },
+      {
+        "key": "B",
+        "text": "The Directory had already governed France for ten years."
+      },
+      {
+        "key": "C",
+        "text": "Napoleon dissolved the United Nations."
+      },
+      {
+        "key": "D",
+        "text": "The monarchy summoned the Estates-General, where disputes over representation and voting sharpened."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The fiscal emergency brought the Estates-General together; disagreement over how the estates should vote helped trigger a struggle over political authority.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q011",
+    "englishQuestionId": "WHI-CP004-Q011",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F011",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Institution–sequence",
+    "stem": "The deputies of the Third Estate declared themselves the National Assembly before taking which pledge?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Act of Supremacy"
+      },
+      {
+        "key": "B",
+        "text": "Holy Alliance"
+      },
+      {
+        "key": "C",
+        "text": "Tennis Court Oath"
+      },
+      {
+        "key": "D",
+        "text": "Oath of the Horatii"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "After declaring themselves the National Assembly, the deputies swore at the tennis court not to separate until France had a constitution.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q012",
+    "englishQuestionId": "WHI-CP004-Q012",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F012",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Document–date",
+    "stem": "The Declaration of the Rights of Man and of the Citizen was adopted in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1795"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1804"
+      },
+      {
+        "key": "D",
+        "text": "1776"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Constituent Assembly adopted the declaration in August 1789.",
+    "sourceIds": [
+      "S2"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q013",
+    "englishQuestionId": "WHI-CP004-Q013",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F013",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Phase–event",
+    "stem": "The Reign of Terror took place during which period of the French Revolution?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1814–1815"
+      },
+      {
+        "key": "B",
+        "text": "1793–1794"
+      },
+      {
+        "key": "C",
+        "text": "1787–1788"
+      },
+      {
+        "key": "D",
+        "text": "1804–1805"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Terror is commonly associated with the radical phase of 1793–94, amid civil conflict and foreign war.",
+    "sourceIds": [
+      "S1",
+      "S6"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q014",
+    "englishQuestionId": "WHI-CP004-Q014",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F014",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Regime–date",
+    "stem": "The Directory governed France from 1795 until which event in 1799?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The storming of the Bastille"
+      },
+      {
+        "key": "B",
+        "text": "The Congress of Vienna"
+      },
+      {
+        "key": "C",
+        "text": "The execution of Louis XVI"
+      },
+      {
+        "key": "D",
+        "text": "Napoleon’s coup of 18 Brumaire"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The coup of 9 November 1799 ended the Directory and opened the Consulate period.",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q015",
+    "englishQuestionId": "WHI-CP004-Q015",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F015",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology",
+    "stem": "Choose the correct sequence.",
+    "options": [
+      {
+        "key": "A",
+        "text": "Directory → Bastille → coup of 18 Brumaire → Declaration of Rights"
+      },
+      {
+        "key": "B",
+        "text": "Declaration of Rights → coup of 18 Brumaire → Bastille → Directory"
+      },
+      {
+        "key": "C",
+        "text": "Bastille → Declaration of Rights → Directory → coup of 18 Brumaire"
+      },
+      {
+        "key": "D",
+        "text": "Coup of 18 Brumaire → Bastille → Directory → Declaration of Rights"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Bastille fell in July 1789, the declaration followed in August, the Directory began in 1795, and Napoleon’s coup came in 1799.",
+    "sourceIds": [
+      "S1",
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q016",
+    "englishQuestionId": "WHI-CP004-Q016",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F016",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Policy–purpose",
+    "stem": "Napoleon’s Continental System was intended chiefly to weaken which rival through economic pressure?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Britain"
+      },
+      {
+        "key": "B",
+        "text": "The Ottoman Empire"
+      },
+      {
+        "key": "C",
+        "text": "Portugal"
+      },
+      {
+        "key": "D",
+        "text": "Russia"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The system sought to block British trade with continental Europe, though enforcement was difficult and costly.",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q017",
+    "englishQuestionId": "WHI-CP004-Q017",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F017",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "War–region",
+    "stem": "The Peninsular War was fought mainly in which region?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Spain and Portugal"
+      },
+      {
+        "key": "B",
+        "text": "The Low Countries only"
+      },
+      {
+        "key": "C",
+        "text": "The Balkans"
+      },
+      {
+        "key": "D",
+        "text": "Scandinavia"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Napoleon’s intervention in Iberia led to a prolonged conflict involving Spanish and Portuguese resistance and British forces.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q018",
+    "englishQuestionId": "WHI-CP004-Q018",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F018",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Campaign–consequence",
+    "stem": "Napoleon’s invasion of Russia in 1812 ended with what result?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The end of the French Revolution in 1789"
+      },
+      {
+        "key": "B",
+        "text": "The immediate creation of the European Union"
+      },
+      {
+        "key": "C",
+        "text": "A disastrous retreat that severely weakened the Grande Armée"
+      },
+      {
+        "key": "D",
+        "text": "The permanent annexation of all Russian territory"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The campaign and retreat caused enormous losses and weakened Napoleon’s military position.",
+    "sourceIds": [
+      "S9"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q019",
+    "englishQuestionId": "WHI-CP004-Q019",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F019",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Battle–outcome",
+    "stem": "Napoleon’s defeat at Waterloo led to which immediate result?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The adoption of the Declaration of Rights"
+      },
+      {
+        "key": "B",
+        "text": "The start of the Directory"
+      },
+      {
+        "key": "C",
+        "text": "His final abdication and exile to Saint Helena"
+      },
+      {
+        "key": "D",
+        "text": "His coronation as Holy Roman Emperor"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "After the defeat in June 1815, Napoleon abdicated and was sent into exile on Saint Helena.",
+    "sourceIds": [
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q020",
+    "englishQuestionId": "WHI-CP004-Q020",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Conference–purpose",
+    "stem": "What was a central aim of the Congress of Vienna after Napoleon’s defeat?",
+    "options": [
+      {
+        "key": "A",
+        "text": "End the American Revolutionary War"
+      },
+      {
+        "key": "B",
+        "text": "Reorganize Europe and restore a balance of power"
+      },
+      {
+        "key": "C",
+        "text": "Establish French rule over the Americas"
+      },
+      {
+        "key": "D",
+        "text": "Create the Directory"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The powers at Vienna sought to redraw the European order and contain the possibility of renewed French expansion.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q021",
+    "englishQuestionId": "WHI-CP004-Q021",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F021",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Legal reform",
+    "stem": "Napoleon’s Civil Code of 1804 is also known by which name?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Twelve Tables"
+      },
+      {
+        "key": "B",
+        "text": "Napoleonic Code (Civil Code)"
+      },
+      {
+        "key": "C",
+        "text": "Code of Hammurabi"
+      },
+      {
+        "key": "D",
+        "text": "Justinian Code"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Civil Code of 1804 consolidated civil law and spread through territories influenced or controlled by France.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q022",
+    "englishQuestionId": "WHI-CP004-Q022",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F022",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Relationship",
+    "stem": "Which statement best describes one lasting effect of Napoleonic rule in parts of Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Holy Roman Empire was strengthened and expanded."
+      },
+      {
+        "key": "B",
+        "text": "The Congress of Vienna introduced the Reign of Terror."
+      },
+      {
+        "key": "C",
+        "text": "Feudal privileges were restored everywhere Napoleon ruled."
+      },
+      {
+        "key": "D",
+        "text": "Legal and administrative reforms spread alongside French military domination."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "French rule carried reforms such as legal equality for men and more centralized administration, while also imposing occupation and political control.",
+    "sourceIds": [
+      "S10",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q023",
+    "englishQuestionId": "WHI-CP004-Q023",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F023",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Incorrect match",
+    "stem": "Which pairing is incorrect?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Waterloo — Napoleon’s final defeat in 1815"
+      },
+      {
+        "key": "B",
+        "text": "Directory — five-member executive"
+      },
+      {
+        "key": "C",
+        "text": "Congress of Vienna — declaration of American independence"
+      },
+      {
+        "key": "D",
+        "text": "Continental System — economic pressure on Britain"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Congress of Vienna reorganized Europe after Napoleon; American independence had been declared in 1776.",
+    "sourceIds": [
+      "S3",
+      "S5",
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q024",
+    "englishQuestionId": "WHI-CP004-Q024",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F024",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Multi-statement",
+    "stem": "Consider the following statements:\n\n1. The Directory followed the radical phase of the Revolution.  \n2. Napoleon’s coup ended the Directory.  \n3. The Congress of Vienna met before the Battle of Waterloo.\n\nWhich are correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 and 2 only"
+      },
+      {
+        "key": "B",
+        "text": "1 and 3 only"
+      },
+      {
+        "key": "C",
+        "text": "2 and 3 only"
+      },
+      {
+        "key": "D",
+        "text": "1, 2 and 3"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Directory followed the radical phase, Napoleon’s coup ended it, and the Congress of Vienna began in 1814 before Waterloo in 1815.",
+    "sourceIds": [
+      "S3",
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q025",
+    "englishQuestionId": "WHI-CP004-Q025",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F025",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "Which sequence is correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "18 Brumaire coup → Napoleonic Empire → Russian campaign → Waterloo"
+      },
+      {
+        "key": "B",
+        "text": "Napoleonic Empire → Waterloo → Russian campaign → 18 Brumaire coup"
+      },
+      {
+        "key": "C",
+        "text": "Russian campaign → 18 Brumaire coup → Waterloo → Napoleonic Empire"
+      },
+      {
+        "key": "D",
+        "text": "Waterloo → Napoleonic Empire → 18 Brumaire coup → Russian campaign"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Napoleon took power in 1799, became emperor in 1804, invaded Russia in 1812, and was defeated at Waterloo in 1815.",
+    "sourceIds": [
+      "S3",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q026",
+    "englishQuestionId": "WHI-CP004-Q026",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F026",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cause versus trigger",
+    "stem": "Which statement best distinguishes a long-term cause from an immediate event in the French Revolution?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Fiscal strain and social privilege were long-term pressures; the 1789 political conflict over representation accelerated the crisis."
+      },
+      {
+        "key": "B",
+        "text": "Waterloo was a long-term cause of the 1789 revolution."
+      },
+      {
+        "key": "C",
+        "text": "Napoleon’s 1799 coup caused the Estates-General to meet in May 1789."
+      },
+      {
+        "key": "D",
+        "text": "The Congress of Vienna caused the Bastille to be stormed."
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The revolution grew from structural fiscal and social problems that became an immediate political confrontation in 1789.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q027",
+    "englishQuestionId": "WHI-CP004-Q027",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F027",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Policy consequence",
+    "stem": "Why did the Continental System prove difficult to enforce?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Britain controlled every French port directly."
+      },
+      {
+        "key": "B",
+        "text": "It prohibited all trade within France but left British trade untouched."
+      },
+      {
+        "key": "C",
+        "text": "It was a treaty signed after Waterloo."
+      },
+      {
+        "key": "D",
+        "text": "It depended on continental states restricting trade with Britain, while evasion and conflicting interests undermined the blockade."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Napoleon’s embargo required cooperation across a large and politically diverse area; smuggling and resistance weakened it.",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q028",
+    "englishQuestionId": "WHI-CP004-Q028",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F028",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Comparison",
+    "stem": "Which statement best distinguishes the Congress of Vienna’s settlement from the ideals proclaimed in 1789?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both documents were identical declarations of universal suffrage."
+      },
+      {
+        "key": "B",
+        "text": "Vienna prioritized dynastic restoration and balance among powers, while 1789’s declaration articulated individual rights and national sovereignty."
+      },
+      {
+        "key": "C",
+        "text": "The 1789 declaration restored Napoleon to power."
+      },
+      {
+        "key": "D",
+        "text": "Vienna abolished every monarchy in Europe."
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The two belong to different political moments: revolutionary rights claims and a post-Napoleonic effort to restore stability among states.",
+    "sourceIds": [
+      "S2",
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q029",
+    "englishQuestionId": "WHI-CP004-Q029",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F029",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement",
+    "stem": "Consider these statements about Napoleon:\n\n1. His rule spread some legal reforms beyond France.  \n2. His military expansion also provoked resistance and coalition warfare.  \n3. The Russian campaign strengthened his army permanently.\n\nWhich are correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 and 3 only"
+      },
+      {
+        "key": "B",
+        "text": "2 and 3 only"
+      },
+      {
+        "key": "C",
+        "text": "1 and 2 only"
+      },
+      {
+        "key": "D",
+        "text": "1, 2 and 3"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Napoleon’s reforms traveled with his armies, but expansion generated resistance; the Russian campaign devastated rather than permanently strengthened his forces.",
+    "sourceIds": [
+      "S9",
+      "S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q030",
+    "englishQuestionId": "WHI-CP004-Q030",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F030",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Phase–event synthesis",
+    "stem": "Which sequence correctly traces the transition from revolutionary government to Napoleon’s rule?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Directory → Estates-General → Bastille → Consulate → National Assembly"
+      },
+      {
+        "key": "B",
+        "text": "National Assembly → republic and radical phase → Directory → coup of 18 Brumaire → Consulate"
+      },
+      {
+        "key": "C",
+        "text": "Consulate → Estates-General → Terror → Directory → Bastille"
+      },
+      {
+        "key": "D",
+        "text": "Bastille → Congress of Vienna → National Assembly → Directory → Consulate"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Revolutionary institutions changed through successive phases; Bonaparte’s coup ended the Directory and established the Consulate.",
+    "sourceIds": [
+      "S1",
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q031",
+    "englishQuestionId": "WHI-CP004-Q031",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F031",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "On what date did the Third Estate deputies proclaim themselves the National Assembly?",
+    "options": [
+      {
+        "key": "A",
+        "text": "4 August 1789"
+      },
+      {
+        "key": "B",
+        "text": "17 June 1789"
+      },
+      {
+        "key": "C",
+        "text": "26 August 1789"
+      },
+      {
+        "key": "D",
+        "text": "14 July 1789"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "On 17 June, Third Estate deputies declared themselves the National Assembly, claiming to represent the nation.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q032",
+    "englishQuestionId": "WHI-CP004-Q032",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F032",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–purpose",
+    "stem": "What did the deputies promise in the Tennis Court Oath?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Not to separate until France had a constitution"
+      },
+      {
+        "key": "B",
+        "text": "To declare war on Britain"
+      },
+      {
+        "key": "C",
+        "text": "To make Napoleon emperor"
+      },
+      {
+        "key": "D",
+        "text": "To restore all feudal privileges"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The oath was a commitment to remain assembled until a constitution had been established.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q033",
+    "englishQuestionId": "WHI-CP004-Q033",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F033",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Reform–date",
+    "stem": "The National Assembly voted to abolish many feudal privileges during the night of 4 August in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1791"
+      },
+      {
+        "key": "B",
+        "text": "1799"
+      },
+      {
+        "key": "C",
+        "text": "1789"
+      },
+      {
+        "key": "D",
+        "text": "1795"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "On 4 August 1789, the Assembly voted to end many privileges associated with the Old Regime.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q034",
+    "englishQuestionId": "WHI-CP004-Q034",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F034",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Constitution–regime",
+    "stem": "What form of government did the Constitution of 1791 establish in France?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Directory"
+      },
+      {
+        "key": "B",
+        "text": "Constitutional monarchy"
+      },
+      {
+        "key": "C",
+        "text": "Federal republic"
+      },
+      {
+        "key": "D",
+        "text": "Military dictatorship"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Constitution of 1791 retained the king but limited royal authority within a constitutional framework.",
+    "sourceIds": [
+      "S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q035",
+    "englishQuestionId": "WHI-CP004-Q035",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F035",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–place",
+    "stem": "Louis XVI and his family were arrested during their attempted flight at which town in 1791?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Waterloo"
+      },
+      {
+        "key": "B",
+        "text": "Varennes"
+      },
+      {
+        "key": "C",
+        "text": "Vienna"
+      },
+      {
+        "key": "D",
+        "text": "Leipzig"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The royal family was stopped at Varennes while attempting to leave Paris, damaging trust in the king.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q036",
+    "englishQuestionId": "WHI-CP004-Q036",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F036",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "When did the National Convention abolish the monarchy and proclaim France a republic?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1804"
+      },
+      {
+        "key": "B",
+        "text": "1799"
+      },
+      {
+        "key": "C",
+        "text": "1789"
+      },
+      {
+        "key": "D",
+        "text": "1792"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Convention abolished the monarchy in September 1792 and established the First French Republic.",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q037",
+    "englishQuestionId": "WHI-CP004-Q037",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F037",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–date",
+    "stem": "Louis XVI was executed in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1795"
+      },
+      {
+        "key": "B",
+        "text": "1789"
+      },
+      {
+        "key": "C",
+        "text": "1815"
+      },
+      {
+        "key": "D",
+        "text": "1793"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The former king was executed on 21 January 1793 after being tried by the Convention.",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q038",
+    "englishQuestionId": "WHI-CP004-Q038",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F038",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event–leader",
+    "stem": "Which British commander led the coalition army at Waterloo alongside Prussian forces under Blücher?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Duke of Wellington"
+      },
+      {
+        "key": "B",
+        "text": "Arthur Wellesley, Duke of Marlborough"
+      },
+      {
+        "key": "C",
+        "text": "William Pitt"
+      },
+      {
+        "key": "D",
+        "text": "Horatio Nelson"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Wellington commanded the allied army at Waterloo; Prussian forces under Blücher arrived during the battle.",
+    "sourceIds": [
+      "S5",
+      "S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q039",
+    "englishQuestionId": "WHI-CP004-Q039",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F039",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Law–date",
+    "stem": "The Civil Code commonly called the Napoleonic Code was enacted in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1815"
+      },
+      {
+        "key": "B",
+        "text": "1804"
+      },
+      {
+        "key": "C",
+        "text": "1791"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "France’s Civil Code was enacted in 1804 and consolidated civil law under Napoleon’s government.",
+    "sourceIds": [
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q040",
+    "englishQuestionId": "WHI-CP004-Q040",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event–sequence",
+    "stem": "Which event preceded the storming of the Bastille?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Third Estate declared itself the National Assembly."
+      },
+      {
+        "key": "B",
+        "text": "Napoleon invaded Russia."
+      },
+      {
+        "key": "C",
+        "text": "The Directory took power."
+      },
+      {
+        "key": "D",
+        "text": "The Congress of Vienna met."
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The National Assembly was proclaimed in June 1789; the Bastille was stormed the following month.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q041",
+    "englishQuestionId": "WHI-CP004-Q041",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F041",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event–consequence",
+    "stem": "Why did the royal family’s flight to Varennes in 1791 deepen the political crisis?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It brought the Directory to power."
+      },
+      {
+        "key": "B",
+        "text": "It immediately ended the Napoleonic Empire."
+      },
+      {
+        "key": "C",
+        "text": "It restored feudal dues across France."
+      },
+      {
+        "key": "D",
+        "text": "It weakened confidence that Louis XVI accepted the constitutional settlement."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The attempted escape made many revolutionaries doubt the king’s commitment to the constitutional monarchy.",
+    "sourceIds": [
+      "S1"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q042",
+    "englishQuestionId": "WHI-CP004-Q042",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event–sequence",
+    "stem": "Which development followed the abolition of the monarchy in 1792?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Directory was established."
+      },
+      {
+        "key": "B",
+        "text": "Napoleon became emperor."
+      },
+      {
+        "key": "C",
+        "text": "The Congress of Vienna began."
+      },
+      {
+        "key": "D",
+        "text": "France became a republic."
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Convention abolished the monarchy and proclaimed the republic in September 1792.",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q043",
+    "englishQuestionId": "WHI-CP004-Q043",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F043",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Government–institution",
+    "stem": "The Committee of Public Safety became a powerful governing body during which period?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Estates-General of 1789"
+      },
+      {
+        "key": "B",
+        "text": "The radical phase of the Revolution and the Terror"
+      },
+      {
+        "key": "C",
+        "text": "The Congress of Vienna"
+      },
+      {
+        "key": "D",
+        "text": "The Bourbon Restoration"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Convention created the Committee of Public Safety in 1793 as France faced internal rebellion and foreign war.",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q044",
+    "englishQuestionId": "WHI-CP004-Q044",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F044",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event–consequence",
+    "stem": "What was one result of Robespierre’s fall in July 1794?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The end of the most radical phase of the Terror"
+      },
+      {
+        "key": "B",
+        "text": "The adoption of the Napoleonic Code"
+      },
+      {
+        "key": "C",
+        "text": "The start of the American Revolution"
+      },
+      {
+        "key": "D",
+        "text": "The beginning of the First World War"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Robespierre’s overthrow on 9 Thermidor (July 1794) marked a turn away from the Jacobin-led radical phase.",
+    "sourceIds": [
+      "S13"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q045",
+    "englishQuestionId": "WHI-CP004-Q045",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F045",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Constitution–institution",
+    "stem": "The Constitution of Year III (1795) created which executive arrangement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A hereditary Bourbon monarchy"
+      },
+      {
+        "key": "B",
+        "text": "A single emperor"
+      },
+      {
+        "key": "C",
+        "text": "A council of three estates"
+      },
+      {
+        "key": "D",
+        "text": "A five-member Directory"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Constitution of Year III established a five-person executive known as the Directory.",
+    "sourceIds": [
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q046",
+    "englishQuestionId": "WHI-CP004-Q046",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event–date",
+    "stem": "Napoleon’s coup of 18 Brumaire took place in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1794"
+      },
+      {
+        "key": "B",
+        "text": "1804"
+      },
+      {
+        "key": "C",
+        "text": "1789"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The coup on 9–10 November 1799 ended the Directory and began the Consulate.",
+    "sourceIds": [
+      "S3"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q047",
+    "englishQuestionId": "WHI-CP004-Q047",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F047",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Policy–purpose",
+    "stem": "What did the Concordat of 1801 seek to do?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Establish the Congress of Vienna"
+      },
+      {
+        "key": "B",
+        "text": "Reconcile the French state with the Catholic Church after revolutionary conflict"
+      },
+      {
+        "key": "C",
+        "text": "Create a military alliance with Russia"
+      },
+      {
+        "key": "D",
+        "text": "End the American Revolutionary War"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Napoleon’s government reached an agreement with the papacy to restore public religious practice while keeping the Church under state arrangements.",
+    "sourceIds": [
+      "S8"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q048",
+    "englishQuestionId": "WHI-CP004-Q048",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F048",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event–date",
+    "stem": "Napoleon crowned himself Emperor of the French in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1801"
+      },
+      {
+        "key": "B",
+        "text": "1812"
+      },
+      {
+        "key": "C",
+        "text": "1804"
+      },
+      {
+        "key": "D",
+        "text": "1799"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Consulate gave way to the hereditary Empire in 1804, when Napoleon was crowned emperor.",
+    "sourceIds": [
+      "S8",
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q049",
+    "englishQuestionId": "WHI-CP004-Q049",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F049",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Battle–outcome",
+    "stem": "The Battle of Austerlitz in 1805 was a major victory for Napoleon over forces of which powers?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Austria and Russia"
+      },
+      {
+        "key": "B",
+        "text": "Prussia and the Ottoman Empire"
+      },
+      {
+        "key": "C",
+        "text": "Portugal and Sweden"
+      },
+      {
+        "key": "D",
+        "text": "Britain and Spain"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "At Austerlitz, Napoleon defeated the combined Austrian and Russian armies of the Third Coalition.",
+    "sourceIds": [
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q050",
+    "englishQuestionId": "WHI-CP004-Q050",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F050",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Decree–purpose",
+    "stem": "Napoleon’s Berlin Decree of 1806 was part of which policy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Continental System against British trade"
+      },
+      {
+        "key": "B",
+        "text": "The abolition of the Directory"
+      },
+      {
+        "key": "C",
+        "text": "The Congress of Vienna settlement"
+      },
+      {
+        "key": "D",
+        "text": "The French Declaration of Rights"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Berlin Decree sought to exclude British goods from territories under French influence.",
+    "sourceIds": [
+      "S7"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q051",
+    "englishQuestionId": "WHI-CP004-Q051",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F051",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "War–region",
+    "stem": "The Peninsular War involved French forces fighting in which region?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Crimean Peninsula"
+      },
+      {
+        "key": "B",
+        "text": "The Italian Peninsula only"
+      },
+      {
+        "key": "C",
+        "text": "The Scandinavian Peninsula"
+      },
+      {
+        "key": "D",
+        "text": "The Iberian Peninsula"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The war involved French intervention in Spain and Portugal and resistance supported by British forces.",
+    "sourceIds": [
+      "S16"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q052",
+    "englishQuestionId": "WHI-CP004-Q052",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F052",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Campaign–consequence",
+    "stem": "Which combination contributed to the disastrous outcome of Napoleon’s 1812 invasion of Russia?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Long supply lines, Russian resistance, shortages and severe weather"
+      },
+      {
+        "key": "B",
+        "text": "A British victory at Waterloo before the invasion"
+      },
+      {
+        "key": "C",
+        "text": "A French naval blockade of Moscow"
+      },
+      {
+        "key": "D",
+        "text": "The dissolution of the Directory"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Grande Armée advanced deep into Russia but faced supply problems, resistance and harsh conditions during its retreat.",
+    "sourceIds": [
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q053",
+    "englishQuestionId": "WHI-CP004-Q053",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F053",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Battle–date",
+    "stem": "The Battle of Leipzig, often called the Battle of the Nations, was fought in which year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1805"
+      },
+      {
+        "key": "B",
+        "text": "1812"
+      },
+      {
+        "key": "C",
+        "text": "1813"
+      },
+      {
+        "key": "D",
+        "text": "1815"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The coalition victory at Leipzig in 1813 forced Napoleon’s armies to retreat westward.",
+    "sourceIds": [
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q054",
+    "englishQuestionId": "WHI-CP004-Q054",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F054",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event–outcome",
+    "stem": "After Napoleon’s first abdication in 1814, where was he exiled?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Malta"
+      },
+      {
+        "key": "B",
+        "text": "Corsica"
+      },
+      {
+        "key": "C",
+        "text": "Saint Helena"
+      },
+      {
+        "key": "D",
+        "text": "Elba"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The 1814 settlement sent Napoleon to Elba; after returning to power in 1815 and losing at Waterloo, he was exiled to Saint Helena.",
+    "sourceIds": [
+      "S4",
+      "S15"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q055",
+    "englishQuestionId": "WHI-CP004-Q055",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F055",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Conference–period",
+    "stem": "The Congress of Vienna met mainly during which period?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1795–1799"
+      },
+      {
+        "key": "B",
+        "text": "1789–1790"
+      },
+      {
+        "key": "C",
+        "text": "1806–1807"
+      },
+      {
+        "key": "D",
+        "text": "1814–1815"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "European powers negotiated the post-Napoleonic settlement at Vienna from 1814 into 1815.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q056",
+    "englishQuestionId": "WHI-CP004-Q056",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F056",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology",
+    "stem": "Choose the correct sequence.",
+    "options": [
+      {
+        "key": "A",
+        "text": "Constitution of 1791 → abolition of monarchy → execution of Louis XVI → Directory"
+      },
+      {
+        "key": "B",
+        "text": "Directory → Constitution of 1791 → Bastille → execution of Louis XVI"
+      },
+      {
+        "key": "C",
+        "text": "Execution of Louis XVI → Constitution of 1791 → Directory → Bastille"
+      },
+      {
+        "key": "D",
+        "text": "Abolition of monarchy → Bastille → Directory → Constitution of 1791"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The constitutional monarchy began in 1791; the monarchy ended in 1792; Louis XVI was executed in 1793; and the Directory followed in 1795.",
+    "sourceIds": [
+      "S1",
+      "S13",
+      "S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q057",
+    "englishQuestionId": "WHI-CP004-Q057",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F057",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Political contrast",
+    "stem": "Which statement best contrasts revolutionary France with Napoleon’s later political system?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Napoleon abolished all centralized administration."
+      },
+      {
+        "key": "B",
+        "text": "The Directory concentrated all power in a hereditary emperor."
+      },
+      {
+        "key": "C",
+        "text": "Revolutionary rights language expanded, while Napoleon later concentrated executive authority despite retaining some legal reforms."
+      },
+      {
+        "key": "D",
+        "text": "Napoleon restored the Estates-General as the sole lawmaking body."
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Napoleon preserved and spread some reforms, but the Consulate and Empire concentrated political power in the executive.",
+    "sourceIds": [
+      "S3",
+      "S8",
+      "S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q058",
+    "englishQuestionId": "WHI-CP004-Q058",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F058",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Treaty settlement",
+    "stem": "What did the Congress of Vienna seek to achieve in Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Restoring dynasties and maintaining a balance of power in Europe"
+      },
+      {
+        "key": "B",
+        "text": "Extending the American Constitution to Europe"
+      },
+      {
+        "key": "C",
+        "text": "Establishing universal national self-determination in all colonies"
+      },
+      {
+        "key": "D",
+        "text": "Abolishing every European monarchy"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The settlement sought stability through restoration and a balance among the major powers, rather than universal democracy or self-determination.",
+    "sourceIds": [
+      "S4"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q059",
+    "englishQuestionId": "WHI-CP004-Q059",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F059",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cause–consequence",
+    "stem": "How did the Continental System contribute to tensions that preceded Napoleon’s 1812 invasion of Russia?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Russia had already defeated Napoleon at Waterloo."
+      },
+      {
+        "key": "B",
+        "text": "The blockade made Britain an ally of Napoleon."
+      },
+      {
+        "key": "C",
+        "text": "Russian withdrawal from cooperation with the blockade added to the conflict between Napoleon and Tsar Alexander I."
+      },
+      {
+        "key": "D",
+        "text": "The policy required France to end all trade with Russia in 1791."
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Disputes over the Continental System and trade formed part of the strained relations that led to the invasion; they were not its only cause.",
+    "sourceIds": [
+      "S7",
+      "S17"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP004-Q060",
+    "englishQuestionId": "WHI-CP004-Q060",
+    "checkpointId": "WHI-001-CP004",
+    "factId": "WHI-CP004-F060",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Multi-statement synthesis",
+    "stem": "Consider these statements about the end of Napoleon’s rule:\n\n1. Napoleon first abdicated in 1814 and was exiled to Elba.  \n2. He returned to power before his defeat at Waterloo in 1815.  \n3. Waterloo was followed by his exile to Saint Helena.\n\nWhich are correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 and 2 only"
+      },
+      {
+        "key": "B",
+        "text": "1 and 3 only"
+      },
+      {
+        "key": "C",
+        "text": "1, 2 and 3"
+      },
+      {
+        "key": "D",
+        "text": "2 and 3 only"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Napoleon’s first abdication led to exile on Elba; his return ended with Waterloo and a final exile to Saint Helena.",
+    "sourceIds": [
+      "S4",
+      "S5"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
