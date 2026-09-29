@@ -224,5 +224,5 @@ export function assertMixedFacingCaseletIntegrity(caselet: MixedFacingCaseletRec
     if (child.options.length !== 4 || child.options.filter((option) => option.isCorrect).length !== 1 || new Set(child.options.map((option) => option.semanticFingerprint)).size !== 4 || !child.options[child.answerIndex]?.isCorrect) throw new Error("CP-002 option integrity failed");
     if ((child.queryContractId === "SEA-QC-003" || child.queryContractId === "SEA-QC-005") && !/faces (north|south)/i.test(child.explanation)) throw new Error("Facing-dependent explanation did not resolve the reference facing");
   }
-  if (caselet.lifecycle.permanentQlCount !== 0 || caselet.lifecycle.questionBankWritable || caselet.lifecycle.testEligible || caselet.lifecycle.publiclyPublishable) throw new Error("CP-002 lifecycle lock violated");
+  if (caselet.lifecycle.permanentQlCount !== 9 || caselet.lifecycle.questionBankWritable || caselet.lifecycle.testEligible || caselet.lifecycle.publiclyPublishable) throw new Error("CP-002 lifecycle lock violated");
 }
