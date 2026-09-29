@@ -30,3 +30,21 @@ Decolonization in Africa is limited to the assigned World History blueprint segm
 - Questions test chronology, actors, policies, agreements and outcomes with concise stems and explanatory answers.
 - Review pool uses the chapter knowledge-v1 record shape; no runtime registration or learner delivery.
 - Historical interpretation is framed within the cited fact and avoids present-day office-holder or membership facts.
+
+
+## Coverage rebalance revision — review-only
+
+Seven repetitive items were rewritten to add supported country and movement coverage: Nigeria, Portuguese decolonization in Angola and Mozambique, Zimbabwe, and Namibia. The replacements keep the same question IDs, difficulty slots and four-option structure. The new source records point to specific recognition/chronology sections or the relevant UN paragraph; all questions remain review-only and unregistered.
+
+### Added sources
+
+- **CP013-S15** U.S. Department of State, Office of the Historian — Nigeria, Recognition of Independence, 1960. https://history.state.gov/countries/nigeria
+- **CP013-S16** U.S. Department of State, Office of the Historian — Angola, Alvor Accords and Independence, 1975. https://history.state.gov/countries/angola
+- **CP013-S17** U.S. Department of State, Office of the Historian — Mozambique, Recognition of Independence, 1975. https://history.state.gov/countries/mozambique
+- **CP013-S18** U.S. Department of State, Office of the Historian — Zimbabwe, Recognition of Independence, 1980. https://history.state.gov/countries/zimbabwe
+- **CP013-S19** United Nations in Namibia — The UN’s role in Namibian Independence. https://namibia.un.org/en/175155-uns-role-namibian-independence
+
+### Replaced clusters
+
+- Ghana independence: retained Q001 and the distinct leadership item Q002; replaced Q003–Q006.
+- Repeated apartheid/transition summaries: replaced Q051, Q053 and Q054 with Angola and Namibia facts.
