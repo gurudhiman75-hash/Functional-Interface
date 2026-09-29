@@ -88,7 +88,7 @@ for (let seedIndex = 1; seedIndex <= 100; seedIndex += 1) {
       assert(question.optionMetadata.filter((option) => option.misconceptionId === "CORRECT").length === 1, `${question.questionId} has multiple correct metadata entries.`);
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId} answer does not match the correct option.`);
       if (question.answer.endsWith("%")) {
-        assert(!/\\d+\\.\\d+%/u.test([question.answer, ...question.options].join(" ")), `${question.questionId} exposes a decimal percentage.`);
+        assert(!/\d+\.\d+%/u.test([question.answer, ...question.options].join(" ")), `${question.questionId} exposes a decimal percentage.`);
         assert(/approximately/iu.test(question.stem), `${question.questionId} rounds a percentage without signaling approximation.`);
         assert(question.explanation.steps.join(" ").includes("≈"), `${question.questionId} explanation presents a rounded percentage as exact.`);
       }
