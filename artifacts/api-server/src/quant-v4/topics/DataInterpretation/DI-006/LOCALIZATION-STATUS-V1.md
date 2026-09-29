@@ -32,6 +32,6 @@ Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 The localization uses common exam-facing language rather than literal translation. Generic English-coded labels such as Course A–E, Product P–T and Category A–E are rendered as numbered native labels while preserving exact one-to-one semantic mapping.
 
-## Next gate
+## Gate status
 
-Human editorial review of the generated Hindi/Punjabi pack is required before localization can become HI_PA_FROZEN and Hindi/Punjabi can be enabled in Question Studio CONTROLLED_REVIEW.
+Hindi/Punjabi editorial review and the localization freeze are complete for controlled Question Studio review. Question Bank, tests, mocks, public/student publication and production release remain closed.
