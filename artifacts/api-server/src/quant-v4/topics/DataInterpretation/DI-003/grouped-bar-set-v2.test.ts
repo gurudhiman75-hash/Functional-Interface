@@ -97,6 +97,10 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
     assert(first.traceability.publiclyPublishable === false && first.traceability.automaticStudentPublication === false && first.traceability.productionReleaseAuthorized === false, `${profile} ${seed} leaked publication authority.`);
 
     for (const question of first.questions) {
+      assert(!/nearest whole|round(?:ed)? to the nearest|give the nearest whole/iu.test(question.stem), `${question.questionId} contains an explicit rounding instruction.`);
+      if (["PERCENT_CHANGE_WITHIN_SERIES", "CATEGORY_SHARE_OF_SERIES_TOTAL", "TOTAL_SERIES_PERCENT_EXCESS"].includes(question.kind)) {
+        assert(/approximately|approximate|about/iu.test(question.stem), `${question.questionId} has a rounded percentage answer but does not signal approximation.`);
+      }
       assert(question.options.length === first.optionCount, `${question.questionId} has the wrong option count.`);
       assert(question.optionMetadata.length === first.optionCount, `${question.questionId} option metadata count drifted.`);
       assert(new Set(question.options).size === first.optionCount, `${question.questionId} has duplicate options.`);
