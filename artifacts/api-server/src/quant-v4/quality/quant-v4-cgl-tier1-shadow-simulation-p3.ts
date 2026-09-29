@@ -149,6 +149,7 @@ function metadataValue(question: any, key: string): string | undefined {
 
 function explanationText(question: any): string {
   if (typeof question?.explanation === "string") return question.explanation.trim();
+  if (Array.isArray(question?.explanation?.visibleLines)) return question.explanation.visibleLines.join("\n\n").trim();
   if (Array.isArray(question?.explanation?.lines)) return question.explanation.lines.join("\n\n").trim();
   if (Array.isArray(question?.explanation?.steps)) {
     return [
