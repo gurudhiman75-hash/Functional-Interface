@@ -48,3 +48,9 @@ New source entries use focused sections. The 60-question pool, 18/30/12 difficul
 
 - **CP010-S12** U.S. Holocaust Memorial Museum — Invasion of Poland, Fall 1939. https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939
 - **CP010-S13** Imperial War Museums — Second World War galleries, large-print guide. https://www.iwm.org.uk/sites/default/files/files/2023-10/second_world_war_galleries_large_print.pdf
+
+
+## Focused source additions
+
+- **CP010-S14** U.S. Holocaust Memorial Museum — Axis Powers in World War II. https://encyclopedia.ushmm.org/content/en/article/axis-powers-in-world-war-ii
+- **CP010-S15** Royal Air Force Museum — Operation Sealion. https://www.rafmuseum.org.uk/research/online-exhibitions/history-of-the-battle-of-britain/operation-sealion/
