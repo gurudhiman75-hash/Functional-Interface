@@ -1,0 +1,2192 @@
+[
+  {
+    "questionId": "WHI-CP013-Q001",
+    "englishQuestionId": "WHI-CP013-Q001",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Ghana and early independence",
+    "stem": "Which sub-Saharan African country became independent in 1957 as Ghana?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Gold Coast"
+      },
+      {
+        "key": "B",
+        "text": "Tanganyika"
+      },
+      {
+        "key": "C",
+        "text": "Nigeria"
+      },
+      {
+        "key": "D",
+        "text": "Kenya"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The former British Gold Coast became independent Ghana on 6 March 1957.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q002",
+    "englishQuestionId": "WHI-CP013-Q002",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F002",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Ghana and early independence",
+    "stem": "Who led Ghana’s independence movement and became its first prime minister?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Jomo Kenyatta"
+      },
+      {
+        "key": "B",
+        "text": "Kwame Nkrumah"
+      },
+      {
+        "key": "C",
+        "text": "Patrice Lumumba"
+      },
+      {
+        "key": "D",
+        "text": "Ahmed Ben Bella"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Kwame Nkrumah led the Gold Coast independence movement and headed independent Ghana.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q003",
+    "englishQuestionId": "WHI-CP013-Q003",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F003",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Ghana and early independence",
+    "stem": "Which European power had ruled the Gold Coast before Ghanaian independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "France"
+      },
+      {
+        "key": "B",
+        "text": "Belgium"
+      },
+      {
+        "key": "C",
+        "text": "Britain"
+      },
+      {
+        "key": "D",
+        "text": "Portugal"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Gold Coast was a British colony before independence.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q004",
+    "englishQuestionId": "WHI-CP013-Q004",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F004",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Ghana and early independence",
+    "stem": "In what year did Ghana become independent?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1945"
+      },
+      {
+        "key": "B",
+        "text": "1960"
+      },
+      {
+        "key": "C",
+        "text": "1963"
+      },
+      {
+        "key": "D",
+        "text": "1957"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Ghana became independent in 1957.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q005",
+    "englishQuestionId": "WHI-CP013-Q005",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F005",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Ghana and early independence",
+    "stem": "What was the Gold Coast renamed at independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ghana"
+      },
+      {
+        "key": "B",
+        "text": "Mali"
+      },
+      {
+        "key": "C",
+        "text": "Guinea"
+      },
+      {
+        "key": "D",
+        "text": "Senegal"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "At independence in 1957, the Gold Coast took the name Ghana.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q006",
+    "englishQuestionId": "WHI-CP013-Q006",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F006",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Ghana and early independence",
+    "stem": "Why is Ghana’s independence often treated as a milestone in African decolonization?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It was the first African territory to enter the UN in 1945"
+      },
+      {
+        "key": "B",
+        "text": "It was the first sub-Saharan African colony to achieve independence in the postwar wave"
+      },
+      {
+        "key": "C",
+        "text": "It ended French rule in North Africa"
+      },
+      {
+        "key": "D",
+        "text": "It established the OAU in 1957"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Ghana’s 1957 independence became an influential precedent for movements elsewhere in Africa.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q007",
+    "englishQuestionId": "WHI-CP013-Q007",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F007",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Algerian War and independence",
+    "stem": "Which European power ruled Algeria before its independence in 1962?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Britain"
+      },
+      {
+        "key": "B",
+        "text": "Belgium"
+      },
+      {
+        "key": "C",
+        "text": "France"
+      },
+      {
+        "key": "D",
+        "text": "Spain"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Algeria was under French colonial rule before independence.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q008",
+    "englishQuestionId": "WHI-CP013-Q008",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F008",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Algerian War and independence",
+    "stem": "Which organization led the Algerian struggle for independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The African National Congress (ANC)"
+      },
+      {
+        "key": "B",
+        "text": "The OAU Secretariat"
+      },
+      {
+        "key": "C",
+        "text": "The Mau Mau Central Committee"
+      },
+      {
+        "key": "D",
+        "text": "The National Liberation Front (FLN)"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The FLN led the armed struggle against French rule.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q009",
+    "englishQuestionId": "WHI-CP013-Q009",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F009",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Algerian War and independence",
+    "stem": "Which 1962 agreement helped end the Algerian War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Évian Accords"
+      },
+      {
+        "key": "B",
+        "text": "The Geneva Accords"
+      },
+      {
+        "key": "C",
+        "text": "The Lancaster House Agreement"
+      },
+      {
+        "key": "D",
+        "text": "The Simla Agreement"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Évian Accords established arrangements leading to Algerian independence.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q010",
+    "englishQuestionId": "WHI-CP013-Q010",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F010",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Algerian War and independence",
+    "stem": "In what year did Algeria become independent?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1954"
+      },
+      {
+        "key": "B",
+        "text": "1962"
+      },
+      {
+        "key": "C",
+        "text": "1957"
+      },
+      {
+        "key": "D",
+        "text": "1975"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Algeria became independent in 1962 after the long war against French rule.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q011",
+    "englishQuestionId": "WHI-CP013-Q011",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F011",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Algerian War and independence",
+    "stem": "What began the Algerian War of independence in 1954?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A UN referendum in the Sahara"
+      },
+      {
+        "key": "B",
+        "text": "A coup against Kwame Nkrumah"
+      },
+      {
+        "key": "C",
+        "text": "A coordinated FLN uprising against French rule"
+      },
+      {
+        "key": "D",
+        "text": "An invasion by the Netherlands"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The FLN launched attacks on 1 November 1954, beginning the war.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q012",
+    "englishQuestionId": "WHI-CP013-Q012",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F012",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Algerian War and independence",
+    "stem": "Which feature distinguished the Algerian struggle from Ghana’s path to independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It was negotiated entirely without armed conflict"
+      },
+      {
+        "key": "B",
+        "text": "It resulted from a transfer of Dutch sovereignty"
+      },
+      {
+        "key": "C",
+        "text": "It followed a UN partition of the territory"
+      },
+      {
+        "key": "D",
+        "text": "It involved a prolonged and violent war against French rule"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Algeria’s independence followed a major armed conflict; Ghana’s transfer followed a different route.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q013",
+    "englishQuestionId": "WHI-CP013-Q013",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F013",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Congo independence and crisis",
+    "stem": "From which European power did the Congo gain independence in 1960?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Belgium"
+      },
+      {
+        "key": "B",
+        "text": "France"
+      },
+      {
+        "key": "C",
+        "text": "Portugal"
+      },
+      {
+        "key": "D",
+        "text": "Britain"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Belgian Congo became independent on 30 June 1960.",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q014",
+    "englishQuestionId": "WHI-CP013-Q014",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F014",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Congo independence and crisis",
+    "stem": "Who became the first prime minister of the independent Republic of the Congo in 1960?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mobutu Sese Seko"
+      },
+      {
+        "key": "B",
+        "text": "Patrice Lumumba"
+      },
+      {
+        "key": "C",
+        "text": "Jomo Kenyatta"
+      },
+      {
+        "key": "D",
+        "text": "Kwame Nkrumah"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Patrice Lumumba became the first prime minister after independence.",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q015",
+    "englishQuestionId": "WHI-CP013-Q015",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F015",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Congo independence and crisis",
+    "stem": "What was ONUC?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The FLN’s political wing in Algeria"
+      },
+      {
+        "key": "B",
+        "text": "A British administration in Ghana"
+      },
+      {
+        "key": "C",
+        "text": "A United Nations operation in the Congo during the crisis"
+      },
+      {
+        "key": "D",
+        "text": "The OAU’s first peacekeeping force in South Africa"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "ONUC was the UN Operation in the Congo, established during the crisis.",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q016",
+    "englishQuestionId": "WHI-CP013-Q016",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F016",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Congo independence and crisis",
+    "stem": "What crisis followed Congolese independence in 1960?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A war between Ghana and Nigeria"
+      },
+      {
+        "key": "B",
+        "text": "A peaceful merger with French Equatorial Africa"
+      },
+      {
+        "key": "C",
+        "text": "The transfer of the Congo to Portuguese rule"
+      },
+      {
+        "key": "D",
+        "text": "Mutiny, secession and political conflict that drew in international actors"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Congo Crisis involved mutiny, secession attempts and international involvement.",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q017",
+    "englishQuestionId": "WHI-CP013-Q017",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F017",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Congo independence and crisis",
+    "stem": "Which mineral-rich province declared secession soon after Congo’s independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Katanga"
+      },
+      {
+        "key": "B",
+        "text": "Lagos"
+      },
+      {
+        "key": "C",
+        "text": "Casablanca"
+      },
+      {
+        "key": "D",
+        "text": "Dakar"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Katanga declared secession in July 1960, soon after independence.",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q018",
+    "englishQuestionId": "WHI-CP013-Q018",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F018",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Congo independence and crisis",
+    "stem": "What did the Congo Crisis reveal about decolonization?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Colonial rule always ended with stable institutions in place"
+      },
+      {
+        "key": "B",
+        "text": "Independence could be followed by severe internal conflict and external intervention"
+      },
+      {
+        "key": "C",
+        "text": "New African states could not join the UN"
+      },
+      {
+        "key": "D",
+        "text": "European empires withdrew without contest"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Congo Crisis showed that formal independence did not prevent internal crisis or outside involvement.",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q019",
+    "englishQuestionId": "WHI-CP013-Q019",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F019",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "East and Central African independence",
+    "stem": "Which country became independent from Britain in 1963 under the name Kenya?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Uganda"
+      },
+      {
+        "key": "B",
+        "text": "Zambia"
+      },
+      {
+        "key": "C",
+        "text": "Kenya"
+      },
+      {
+        "key": "D",
+        "text": "Malawi"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Kenya became independent in December 1963.",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q020",
+    "englishQuestionId": "WHI-CP013-Q020",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "East and Central African independence",
+    "stem": "Who became the first prime minister of independent Kenya?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Julius Nyerere"
+      },
+      {
+        "key": "B",
+        "text": "Kenneth Kaunda"
+      },
+      {
+        "key": "C",
+        "text": "Haile Selassie"
+      },
+      {
+        "key": "D",
+        "text": "Jomo Kenyatta"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Jomo Kenyatta led Kenya at independence.",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q021",
+    "englishQuestionId": "WHI-CP013-Q021",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F021",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "East and Central African independence",
+    "stem": "Which country became independent from Britain in 1964 and later took the name Zambia?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Northern Rhodesia"
+      },
+      {
+        "key": "B",
+        "text": "Nyasaland"
+      },
+      {
+        "key": "C",
+        "text": "Tanganyika"
+      },
+      {
+        "key": "D",
+        "text": "Bechuanaland"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Northern Rhodesia became independent Zambia in 1964.",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q022",
+    "englishQuestionId": "WHI-CP013-Q022",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F022",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "East and Central African independence",
+    "stem": "Which country became independent as Malawi in 1964?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Northern Rhodesia"
+      },
+      {
+        "key": "B",
+        "text": "Nyasaland"
+      },
+      {
+        "key": "C",
+        "text": "Tanganyika"
+      },
+      {
+        "key": "D",
+        "text": "Basutoland"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The British protectorate of Nyasaland became Malawi in 1964.",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q023",
+    "englishQuestionId": "WHI-CP013-Q023",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F023",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "East and Central African independence",
+    "stem": "Which mainland territory became independent as Tanganyika in 1961?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Zanzibar"
+      },
+      {
+        "key": "B",
+        "text": "Kenya"
+      },
+      {
+        "key": "C",
+        "text": "Tanganyika"
+      },
+      {
+        "key": "D",
+        "text": "Uganda"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Tanganyika gained independence in 1961.",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q024",
+    "englishQuestionId": "WHI-CP013-Q024",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F024",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "East and Central African independence",
+    "stem": "Which leader became the first president of independent Tanzania after Tanganyika and Zanzibar united?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Jomo Kenyatta"
+      },
+      {
+        "key": "B",
+        "text": "Kwame Nkrumah"
+      },
+      {
+        "key": "C",
+        "text": "Patrice Lumumba"
+      },
+      {
+        "key": "D",
+        "text": "Julius Nyerere"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Julius Nyerere led Tanganyika and later the United Republic of Tanzania.",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q025",
+    "englishQuestionId": "WHI-CP013-Q025",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F025",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "OAU and Pan-African cooperation",
+    "stem": "Where was the Organization of African Unity founded in 1963?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Addis Ababa, Ethiopia"
+      },
+      {
+        "key": "B",
+        "text": "Accra, Ghana"
+      },
+      {
+        "key": "C",
+        "text": "Lagos, Nigeria"
+      },
+      {
+        "key": "D",
+        "text": "Algiers, Algeria"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "African leaders founded the OAU in Addis Ababa on 25 May 1963.",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q026",
+    "englishQuestionId": "WHI-CP013-Q026",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F026",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "OAU and Pan-African cooperation",
+    "stem": "What was a central purpose of the OAU Charter?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Create a single African colonial administration"
+      },
+      {
+        "key": "B",
+        "text": "Promote African unity and defend member states’ independence and territorial integrity"
+      },
+      {
+        "key": "C",
+        "text": "Place new states under UN trusteeship"
+      },
+      {
+        "key": "D",
+        "text": "Form a military alliance with Europe"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Charter called for unity, cooperation, sovereignty and the eradication of colonialism.",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q027",
+    "englishQuestionId": "WHI-CP013-Q027",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F027",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "OAU and Pan-African cooperation",
+    "stem": "How many independent African states attended the OAU founding in 1963?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Twelve"
+      },
+      {
+        "key": "B",
+        "text": "Fifty-four"
+      },
+      {
+        "key": "C",
+        "text": "Thirty-two"
+      },
+      {
+        "key": "D",
+        "text": "Seven"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Thirty-two independent African states agreed to establish the OAU in 1963.",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q028",
+    "englishQuestionId": "WHI-CP013-Q028",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F028",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "OAU and Pan-African cooperation",
+    "stem": "What did the OAU Charter commit member states to oppose?",
+    "options": [
+      {
+        "key": "A",
+        "text": "All national borders within Africa"
+      },
+      {
+        "key": "B",
+        "text": "Participation in the United Nations"
+      },
+      {
+        "key": "C",
+        "text": "Trade between African states"
+      },
+      {
+        "key": "D",
+        "text": "Colonialism and threats to African sovereignty"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Charter supported eradicating colonialism and defending sovereignty.",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q029",
+    "englishQuestionId": "WHI-CP013-Q029",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F029",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "OAU and Pan-African cooperation",
+    "stem": "Which city hosted the 1963 OAU founding conference?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Addis Ababa"
+      },
+      {
+        "key": "B",
+        "text": "Nairobi"
+      },
+      {
+        "key": "C",
+        "text": "Cairo"
+      },
+      {
+        "key": "D",
+        "text": "Dakar"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Addis Ababa was the site where the OAU Charter was adopted.",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q030",
+    "englishQuestionId": "WHI-CP013-Q030",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F030",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "OAU and Pan-African cooperation",
+    "stem": "Which earlier political trend did the OAU institutionalize?",
+    "options": [
+      {
+        "key": "A",
+        "text": "European federal rule over Africa"
+      },
+      {
+        "key": "B",
+        "text": "Pan-African cooperation among independent states"
+      },
+      {
+        "key": "C",
+        "text": "A return to the Berlin Conference system"
+      },
+      {
+        "key": "D",
+        "text": "A continent-wide colonial mandate"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The OAU built a continental institution around aspirations for African solidarity and cooperation.",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q031",
+    "englishQuestionId": "WHI-CP013-Q031",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F031",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Apartheid system and state policy",
+    "stem": "What did apartheid legally enforce in South Africa?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A federation of equal sovereign states"
+      },
+      {
+        "key": "B",
+        "text": "British colonial administration after 1948"
+      },
+      {
+        "key": "C",
+        "text": "Racial segregation and white minority rule"
+      },
+      {
+        "key": "D",
+        "text": "A system of universal adult suffrage"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Apartheid institutionalized racial segregation and white minority rule.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q032",
+    "englishQuestionId": "WHI-CP013-Q032",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F032",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Apartheid system and state policy",
+    "stem": "Which party came to power in South Africa in 1948 and formalized apartheid policy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The African National Congress"
+      },
+      {
+        "key": "B",
+        "text": "The Pan Africanist Congress"
+      },
+      {
+        "key": "C",
+        "text": "The Labour Party"
+      },
+      {
+        "key": "D",
+        "text": "The National Party"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The National Party won the 1948 election and made apartheid central government policy.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q033",
+    "englishQuestionId": "WHI-CP013-Q033",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F033",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Apartheid system and state policy",
+    "stem": "Which law required racial classification under apartheid?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Population Registration Act"
+      },
+      {
+        "key": "B",
+        "text": "The Group Areas Act"
+      },
+      {
+        "key": "C",
+        "text": "The Land Act of 1913"
+      },
+      {
+        "key": "D",
+        "text": "The Suppression of Communism Act"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Population Registration Act classified South Africans by racial category.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q034",
+    "englishQuestionId": "WHI-CP013-Q034",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F034",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Apartheid system and state policy",
+    "stem": "What did the Group Areas Act do?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Granted independence to Namibia"
+      },
+      {
+        "key": "B",
+        "text": "Assigned residential and business areas by race"
+      },
+      {
+        "key": "C",
+        "text": "Created the OAU"
+      },
+      {
+        "key": "D",
+        "text": "Established universal voting rights"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Group Areas Act enforced residential segregation and forced removals.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q035",
+    "englishQuestionId": "WHI-CP013-Q035",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F035",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Apartheid system and state policy",
+    "stem": "Which institution was a central instrument of apartheid governance?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A universal franchise commission"
+      },
+      {
+        "key": "B",
+        "text": "The OAU Assembly"
+      },
+      {
+        "key": "C",
+        "text": "Pass laws controlling movement"
+      },
+      {
+        "key": "D",
+        "text": "A UN trusteeship authority"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Pass laws restricted the movement of Black South Africans.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q036",
+    "englishQuestionId": "WHI-CP013-Q036",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F036",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Apartheid system and state policy",
+    "stem": "Which statement about apartheid and colonialism is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Apartheid was a French colonial administration in Algeria"
+      },
+      {
+        "key": "B",
+        "text": "Apartheid began with Ghana’s independence"
+      },
+      {
+        "key": "C",
+        "text": "Apartheid was a UN mandate system"
+      },
+      {
+        "key": "D",
+        "text": "Apartheid persisted after South Africa became a sovereign state"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Apartheid was a state-enforced racial order within an independent South Africa.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q037",
+    "englishQuestionId": "WHI-CP013-Q037",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F037",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Anti-apartheid resistance and repression",
+    "stem": "Which organization was a major movement against apartheid?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The African National Congress (ANC)"
+      },
+      {
+        "key": "B",
+        "text": "The National Liberation Front (FLN)"
+      },
+      {
+        "key": "C",
+        "text": "The Organization of African Unity alone"
+      },
+      {
+        "key": "D",
+        "text": "The Kuomintang"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The ANC became a leading organization in the struggle against apartheid.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q038",
+    "englishQuestionId": "WHI-CP013-Q038",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F038",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Anti-apartheid resistance and repression",
+    "stem": "What happened at Sharpeville in 1960?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The OAU Charter was signed"
+      },
+      {
+        "key": "B",
+        "text": "Police killed protesters during a demonstration against pass laws"
+      },
+      {
+        "key": "C",
+        "text": "South Africa held its first universal election"
+      },
+      {
+        "key": "D",
+        "text": "Nelson Mandela became president"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Police opened fire on demonstrators at Sharpeville in March 1960.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q039",
+    "englishQuestionId": "WHI-CP013-Q039",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F039",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Anti-apartheid resistance and repression",
+    "stem": "What was the significance of the 1976 Soweto uprising?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It marked Ghana’s independence"
+      },
+      {
+        "key": "B",
+        "text": "It ended the Algerian War"
+      },
+      {
+        "key": "C",
+        "text": "Students protested the apartheid education system and Afrikaans instruction"
+      },
+      {
+        "key": "D",
+        "text": "It established the Republic of the Congo"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Soweto uprising began in protest against apartheid schooling policies, including Afrikaans as a medium of instruction.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q040",
+    "englishQuestionId": "WHI-CP013-Q040",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Anti-apartheid resistance and repression",
+    "stem": "Which law restricted Black South Africans’ movement through internal documents?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Geneva Accords"
+      },
+      {
+        "key": "B",
+        "text": "The OAU Charter"
+      },
+      {
+        "key": "C",
+        "text": "The Évian Accords"
+      },
+      {
+        "key": "D",
+        "text": "The pass laws"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Pass laws required Black South Africans to carry documents governing where they could travel and work.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q041",
+    "englishQuestionId": "WHI-CP013-Q041",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F041",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Anti-apartheid resistance and repression",
+    "stem": "What did the South African government do to the ANC in 1960?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Banned it"
+      },
+      {
+        "key": "B",
+        "text": "Made it the ruling party"
+      },
+      {
+        "key": "C",
+        "text": "Merged it into the National Party"
+      },
+      {
+        "key": "D",
+        "text": "Transferred its leadership to the UN"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The ANC was banned in 1960 as the government intensified repression.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q042",
+    "englishQuestionId": "WHI-CP013-Q042",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Anti-apartheid resistance and repression",
+    "stem": "Which broader effect did apartheid repression have on opposition?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It ended opposition to racial rule"
+      },
+      {
+        "key": "B",
+        "text": "It drove resistance underground and widened domestic and international opposition"
+      },
+      {
+        "key": "C",
+        "text": "It led the UN to recognize apartheid as a permanent settlement"
+      },
+      {
+        "key": "D",
+        "text": "It ended sanctions discussions"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Repression did not end resistance; it intensified domestic resistance and international condemnation.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q043",
+    "englishQuestionId": "WHI-CP013-Q043",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F043",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Mandela, negotiations and transition",
+    "stem": "When was Nelson Mandela released from prison?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1976"
+      },
+      {
+        "key": "B",
+        "text": "1985"
+      },
+      {
+        "key": "C",
+        "text": "1990"
+      },
+      {
+        "key": "D",
+        "text": "1994"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Mandela was released on 11 February 1990.",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q044",
+    "englishQuestionId": "WHI-CP013-Q044",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F044",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Mandela, negotiations and transition",
+    "stem": "Which South African president announced the unbanning of the ANC and Mandela’s release?",
+    "options": [
+      {
+        "key": "A",
+        "text": "P. W. Botha"
+      },
+      {
+        "key": "B",
+        "text": "Hendrik Verwoerd"
+      },
+      {
+        "key": "C",
+        "text": "Thabo Mbeki"
+      },
+      {
+        "key": "D",
+        "text": "F. W. de Klerk"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "De Klerk announced the unbanning of the ANC and other organizations in February 1990.",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q045",
+    "englishQuestionId": "WHI-CP013-Q045",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F045",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Mandela, negotiations and transition",
+    "stem": "In what year did South Africa hold its first national election under universal adult suffrage?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1994"
+      },
+      {
+        "key": "B",
+        "text": "1960"
+      },
+      {
+        "key": "C",
+        "text": "1976"
+      },
+      {
+        "key": "D",
+        "text": "1989"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "South Africa held its first all-race democratic election in April 1994.",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q046",
+    "englishQuestionId": "WHI-CP013-Q046",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Mandela, negotiations and transition",
+    "stem": "Who became president of South Africa after the 1994 election?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Oliver Tambo"
+      },
+      {
+        "key": "B",
+        "text": "Nelson Mandela"
+      },
+      {
+        "key": "C",
+        "text": "Desmond Tutu"
+      },
+      {
+        "key": "D",
+        "text": "F. W. de Klerk"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Mandela became president after the ANC won the 1994 election.",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q047",
+    "englishQuestionId": "WHI-CP013-Q047",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F047",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Mandela, negotiations and transition",
+    "stem": "What did the 1994 South African election mark?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The beginning of British colonial rule"
+      },
+      {
+        "key": "B",
+        "text": "The independence of Ghana"
+      },
+      {
+        "key": "C",
+        "text": "The end of apartheid rule and transition to a democratic government"
+      },
+      {
+        "key": "D",
+        "text": "The founding of the OAU"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The 1994 election marked the end of apartheid and a transition to democratic government.",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q048",
+    "englishQuestionId": "WHI-CP013-Q048",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F048",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Mandela, negotiations and transition",
+    "stem": "Which pair led key parts of South Africa’s negotiated transition?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Patrice Lumumba and Joseph Kasavubu"
+      },
+      {
+        "key": "B",
+        "text": "Kwame Nkrumah and Jomo Kenyatta"
+      },
+      {
+        "key": "C",
+        "text": "Ho Chi Minh and Bao Dai"
+      },
+      {
+        "key": "D",
+        "text": "Nelson Mandela and F. W. de Klerk"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Mandela and de Klerk were central figures in negotiations ending apartheid rule.",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q049",
+    "englishQuestionId": "WHI-CP013-Q049",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F049",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Independence versus majority rule",
+    "stem": "Which statement best distinguishes political independence from majority rule?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A sovereign state can still deny political power to most of its population"
+      },
+      {
+        "key": "B",
+        "text": "Independence automatically guarantees universal suffrage"
+      },
+      {
+        "key": "C",
+        "text": "Majority rule means continued colonial administration"
+      },
+      {
+        "key": "D",
+        "text": "Only colonies can hold discriminatory laws"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Formal sovereignty and democratic inclusion are distinct; apartheid South Africa demonstrates this difference.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q050",
+    "englishQuestionId": "WHI-CP013-Q050",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F050",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Independence versus majority rule",
+    "stem": "Was South Africa a sovereign state during apartheid?",
+    "options": [
+      {
+        "key": "A",
+        "text": "No; it was governed as a UN colony until 1994"
+      },
+      {
+        "key": "B",
+        "text": "Yes; it was sovereign, while its government denied the majority equal political rights"
+      },
+      {
+        "key": "C",
+        "text": "No; it remained a French protectorate"
+      },
+      {
+        "key": "D",
+        "text": "Yes; but it was administered by the OAU"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Apartheid operated within a sovereign state that excluded most citizens from political power.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q051",
+    "englishQuestionId": "WHI-CP013-Q051",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F051",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Independence versus majority rule",
+    "stem": "Which event ended apartheid government through a national election?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The 1960 Sharpeville protest"
+      },
+      {
+        "key": "B",
+        "text": "The 1963 OAU founding"
+      },
+      {
+        "key": "C",
+        "text": "The 1994 election"
+      },
+      {
+        "key": "D",
+        "text": "The 1976 Soweto uprising"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The 1994 election brought a democratic government to power.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q052",
+    "englishQuestionId": "WHI-CP013-Q052",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F052",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Independence versus majority rule",
+    "stem": "Which principle did the 1960 UN decolonization declaration affirm?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The permanent sovereignty of colonial empires"
+      },
+      {
+        "key": "B",
+        "text": "The right to deny citizenship based on race"
+      },
+      {
+        "key": "C",
+        "text": "The abolition of all state borders"
+      },
+      {
+        "key": "D",
+        "text": "The right of peoples to self-determination"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The UN declaration affirmed self-determination and independence for colonial peoples.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q053",
+    "englishQuestionId": "WHI-CP013-Q053",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F053",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Independence versus majority rule",
+    "stem": "Which example shows that independence did not ensure equal political rights?",
+    "options": [
+      {
+        "key": "A",
+        "text": "South Africa under apartheid"
+      },
+      {
+        "key": "B",
+        "text": "Ghana after 1957 as a colonial territory"
+      },
+      {
+        "key": "C",
+        "text": "Algeria under French rule after 1962"
+      },
+      {
+        "key": "D",
+        "text": "The Congo under Belgian rule before 1960"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Apartheid persisted in sovereign South Africa until its political transition.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q054",
+    "englishQuestionId": "WHI-CP013-Q054",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F054",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Independence versus majority rule",
+    "stem": "What changed in South Africa in 1994?",
+    "options": [
+      {
+        "key": "A",
+        "text": "South Africa became independent from Britain for the first time"
+      },
+      {
+        "key": "B",
+        "text": "The electorate expanded to include citizens across racial groups"
+      },
+      {
+        "key": "C",
+        "text": "The country joined the French Union"
+      },
+      {
+        "key": "D",
+        "text": "All provincial borders were abolished"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The 1994 election enfranchised South Africans across racial categories.",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q055",
+    "englishQuestionId": "WHI-CP013-Q055",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F055",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Colonial borders and decolonization outcomes",
+    "stem": "What principle did many African leaders defend in the OAU Charter regarding borders and territory?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Abolition of every inherited boundary by force"
+      },
+      {
+        "key": "B",
+        "text": "Restoration of European imperial borders"
+      },
+      {
+        "key": "C",
+        "text": "Respect for territorial integrity and state sovereignty"
+      },
+      {
+        "key": "D",
+        "text": "Transfer of disputed territories to France"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The OAU Charter committed member states to protect territorial integrity and sovereignty.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q056",
+    "englishQuestionId": "WHI-CP013-Q056",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F056",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Colonial borders and decolonization outcomes",
+    "stem": "Why did colonial borders remain important after African independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "All leaders agreed to redraw them immediately"
+      },
+      {
+        "key": "B",
+        "text": "The UN prohibited states from defining borders"
+      },
+      {
+        "key": "C",
+        "text": "They were replaced with language boundaries"
+      },
+      {
+        "key": "D",
+        "text": "New states inherited them and faced challenges of national integration"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Most new states inherited colonial-era boundaries and had to govern within them.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q057",
+    "englishQuestionId": "WHI-CP013-Q057",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F057",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Colonial borders and decolonization outcomes",
+    "stem": "Which statement about decolonization and borders is sound?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Independence changed sovereignty but did not automatically remove inherited borders"
+      },
+      {
+        "key": "B",
+        "text": "Independence always restored precolonial states exactly"
+      },
+      {
+        "key": "C",
+        "text": "The OAU immediately dissolved all national boundaries"
+      },
+      {
+        "key": "D",
+        "text": "Borders were set only by the UN after 1963"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The transfer of sovereignty generally left inherited territorial boundaries in place.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q058",
+    "englishQuestionId": "WHI-CP013-Q058",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F058",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Colonial borders and decolonization outcomes",
+    "stem": "Which sequence is chronologically correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Algeria independence (1957), Ghana independence (1960), Congo independence (1963)"
+      },
+      {
+        "key": "B",
+        "text": "Ghana independence (1957), Congo independence (1960), Algeria independence (1962)"
+      },
+      {
+        "key": "C",
+        "text": "Congo independence (1948), Ghana independence (1954), Algeria independence (1960)"
+      },
+      {
+        "key": "D",
+        "text": "Ghana independence (1963), Algeria independence (1964), Congo independence (1965)"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The three independence dates were 1957, 1960 and 1962 in that order.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q059",
+    "englishQuestionId": "WHI-CP013-Q059",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F059",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Colonial borders and decolonization outcomes",
+    "stem": "Which pair is correctly matched?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ghana — independence from Belgium in 1960"
+      },
+      {
+        "key": "B",
+        "text": "Congo — independence from Portugal in 1957"
+      },
+      {
+        "key": "C",
+        "text": "Algeria — independence from France in 1962"
+      },
+      {
+        "key": "D",
+        "text": "Kenya — independence from France in 1963"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Algeria gained independence from France in 1962.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP013-Q060",
+    "englishQuestionId": "WHI-CP013-Q060",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F060",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Colonial borders and decolonization outcomes",
+    "stem": "Which broader outcome followed the postwar wave of African decolonization?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Colonial rule continued unchanged across the continent"
+      },
+      {
+        "key": "B",
+        "text": "All new states merged into one government"
+      },
+      {
+        "key": "C",
+        "text": "Apartheid ended immediately in every country"
+      },
+      {
+        "key": "D",
+        "text": "New sovereign states joined international institutions while facing nation-building challenges"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The postwar independence wave created sovereign states, while political and economic challenges continued.",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
