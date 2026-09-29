@@ -106,6 +106,8 @@ for (const question of bankingThreeInference.questions) {
   assert.equal(question.format, "THREE_INFERENCES");
   assert.equal(question.language, "pa");
   assert.equal(question.locale, "pa-IN");
+  assert.match(String(question.instruction), /ਤਿੰਨਾਂ ਅਨੁਮਾਨਾਂ/u);
+  assert.doesNotMatch(String(question.instruction), /Read the statement/i);
   assert.equal(question.options.length, 5);
   assert.equal(question.inferences.length, 3);
   assert.equal(question.reviewOnly, true);
