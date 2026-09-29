@@ -1,0 +1,3433 @@
+{
+  "schemaVersion": "1.0",
+  "chapterId": "WHI-001",
+  "checkpointId": "WHI-001-CP016",
+  "status": "cumulative-review-source-register",
+  "reviewOnly": true,
+  "runtimeRegistered": false,
+  "sourceRegister": [
+    {
+      "sourceId": "CP001-S14",
+      "originCheckpointId": "WHI-001-CP001",
+      "originSourceId": "S14",
+      "title": "UNESCO Silk Roads Programme, “The Mongols and their State in the Twelfth to the Thirteenth Century.”",
+      "url": "https://en.unesco.org/silkroad/knowledge-bank/mongols-and-their-state-twelfth-thirteenth-century",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP001-S20",
+      "originCheckpointId": "WHI-001-CP001",
+      "originSourceId": "S20",
+      "title": "The Metropolitan Museum of Art, “The Byzantine State under Justinian I (Justinian the Great).”",
+      "url": "https://www.metmuseum.org/essays/the-byzantine-state-under-justinian-i-justinian-the-great",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP001-S4",
+      "originCheckpointId": "WHI-001-CP001",
+      "originSourceId": "S4",
+      "title": "The Metropolitan Museum of Art, “The Rise of Macedonia and the Conquests of Alexander the Great.”",
+      "url": "https://www.metmuseum.org/essays/the-rise-of-macedonia-and-the-conquests-of-alexander-the-great",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP001-S5",
+      "originCheckpointId": "WHI-001-CP001",
+      "originSourceId": "S5",
+      "title": "The Metropolitan Museum of Art, “The Roman Republic.”",
+      "url": "https://www.metmuseum.org/essays/the-roman-republic",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP001-S6",
+      "originCheckpointId": "WHI-001-CP001",
+      "originSourceId": "S6",
+      "title": "The Metropolitan Museum of Art, “The Roman Empire (27 B.C.–393 A.D.).”",
+      "url": "https://www.metmuseum.org/essays/the-roman-empire-27-b-c-393-a-d",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP002-S10",
+      "originCheckpointId": "WHI-001-CP002",
+      "originSourceId": "S10",
+      "title": "Library of Congress — Nautical Atlas of the World",
+      "url": "https://www.loc.gov/item/2021668720/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP002-S2",
+      "originCheckpointId": "WHI-001-CP002",
+      "originSourceId": "S2",
+      "title": "The Metropolitan Museum of Art — Renaissance educator resources",
+      "url": "https://resources.metmuseum.org/resources/metpublications/pdf/The_Art_of_Renaissance_Europe_A_Resource_for_Educators.pdf",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP002-S5",
+      "originCheckpointId": "WHI-001-CP002",
+      "originSourceId": "S5",
+      "title": "Library of Congress — Copernicus, *De revolutionibus*",
+      "url": "https://www.loc.gov/item/46031925/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP003-S18",
+      "originCheckpointId": "WHI-001-CP003",
+      "originSourceId": "S18",
+      "title": "Library of Congress, American Revolution timeline and colonial resistance",
+      "url": "https://www.loc.gov/classroom-materials/united-states-history-primary-source-timeline/american-revolution-1763-1783/overview/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP003-S2",
+      "originCheckpointId": "WHI-001-CP003",
+      "originSourceId": "S2",
+      "title": "Stanford Encyclopedia of Philosophy, “Montesquieu”",
+      "url": "https://plato.stanford.edu/entries/montesquieu/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP003-S4",
+      "originCheckpointId": "WHI-001-CP003",
+      "originSourceId": "S4",
+      "title": "U.S. National Archives, Declaration of Independence",
+      "url": "https://www.archives.gov/founding-docs/declaration",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP003-S5",
+      "originCheckpointId": "WHI-001-CP003",
+      "originSourceId": "S5",
+      "title": "Library of Congress, American Revolution timeline",
+      "url": "https://www.loc.gov/classroom-materials/united-states-history-primary-source-timeline/american-revolution-1763-1783/overview/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP003-S7",
+      "originCheckpointId": "WHI-001-CP003",
+      "originSourceId": "S7",
+      "title": "U.S. Department of State, “Haitian Revolution”",
+      "url": "https://history.state.gov/milestones/1784-1800/haitian-rev",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP004-S3",
+      "originCheckpointId": "WHI-001-CP004",
+      "originSourceId": "S3",
+      "title": "French National Assembly, Directory and coup of 18 Brumaire",
+      "url": "https://www.assemblee-nationale.fr/dyn/langues/welcome-to-the-english-website-of-the-french-national-assembly/history-and-heritage",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP004-S4",
+      "originCheckpointId": "WHI-001-CP004",
+      "originSourceId": "S4",
+      "title": "Napoleon.org, Congress of Vienna",
+      "url": "https://www.napoleon.org/histoire-des-2-empires/articles/le-congres-de-vienne-et-le-nouveau-visage-de-leurope-apres-napoleon-ier/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP004-S5",
+      "originCheckpointId": "WHI-001-CP004",
+      "originSourceId": "S5",
+      "title": "Napoleon.org, Waterloo campaign",
+      "url": "https://www.napoleon.org/en/history-of-the-two-empires/close-up/a-close-up-on-blucher-and-the-waterloo-campaign/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP004-S9",
+      "originCheckpointId": "WHI-001-CP004",
+      "originSourceId": "S9",
+      "title": "National Army Museum, “The Emperor’s samovars”",
+      "url": "https://www.nam.ac.uk/explore/emperors-samovars",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP005-CP005-S01",
+      "originCheckpointId": "WHI-001-CP005",
+      "originSourceId": "CP005-S01",
+      "title": "UK Parliament — The 1833 Factory Act",
+      "url": "https://www.parliament.uk/about/living-heritage/transformingsociety/livinglearning/19thcentury/overview/factoryact/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP005-CP005-S06",
+      "originCheckpointId": "WHI-001-CP005",
+      "originSourceId": "CP005-S06",
+      "title": "The National Archives — What was Chartism?",
+      "url": "https://www.nationalarchives.gov.uk/education/teaching-resources/what-was-chartism/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP005-CP005-S22",
+      "originCheckpointId": "WHI-001-CP005",
+      "originSourceId": "CP005-S22",
+      "title": "U.S. National Park Service — Lowell: Story of an Industrial City",
+      "url": "https://www.nps.gov/articles/series.htm?id=34D8C1CD-1DD8-B71B-0BE30F1E73BE8B65",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP005-CP005-S28",
+      "originCheckpointId": "WHI-001-CP005",
+      "originSourceId": "CP005-S28",
+      "title": "European Route of Industrial Heritage — Belgium",
+      "url": "https://www.erih.net/how-it-started/industrial-history-of-european-countries/belgium",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP005-CP005-S29",
+      "originCheckpointId": "WHI-001-CP005",
+      "originSourceId": "CP005-S29",
+      "title": "The National Archives — 1833 Factory Act",
+      "url": "https://www.nationalarchives.gov.uk/education/resources/1833-factory-act/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP006-CP006-S01",
+      "originCheckpointId": "WHI-001-CP006",
+      "originSourceId": "CP006-S01",
+      "title": "German History in Documents and Images — Creation of the German Empire, 1866–1871",
+      "url": "https://germanhistorydocs.org/en/forging-an-empire-bismarckian-germany-1866-1890/creation-of-the-german-empire-1866-1871",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP006-CP006-S02",
+      "originCheckpointId": "WHI-001-CP006",
+      "originSourceId": "CP006-S02",
+      "title": "Deutsches Historisches Museum — From the French Revolution to the Second German Empire",
+      "url": "https://www.dhm.de/en/exhibitions/permanent-exhibition/from-the-french-revolution-to-the-second-german-empire/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP006-CP006-S05",
+      "originCheckpointId": "WHI-001-CP006",
+      "originSourceId": "CP006-S05",
+      "title": "U.S. Department of State — Treaty of Berlin documents, 1878",
+      "url": "https://history.state.gov/historicaldocuments/frus1878/papers",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP006-CP006-S06",
+      "originCheckpointId": "WHI-001-CP006",
+      "originSourceId": "CP006-S06",
+      "title": "U.S. Department of State — Austro-Hungarian Compromise records",
+      "url": "https://history.state.gov/historicaldocuments/frus1878/d39",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP006-CP006-S08",
+      "originCheckpointId": "WHI-001-CP006",
+      "originSourceId": "CP006-S08",
+      "title": "U.S. Department of State — Congress of Berlin, 1878: papers and treaty stipulations",
+      "url": "https://history.state.gov/historicaldocuments/frus1878/d523",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP007-CP007-S02",
+      "originCheckpointId": "WHI-001-CP007",
+      "originSourceId": "CP007-S02",
+      "title": "U.S. Department of State — Foreign Relations of the United States, 1885: Berlin Conference papers",
+      "url": "https://history.state.gov/historicaldocuments/frus1885/papers",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP007-CP007-S03",
+      "originCheckpointId": "WHI-001-CP007",
+      "originSourceId": "CP007-S03",
+      "title": "U.S. Department of State — Congo Free State documents, 1885",
+      "url": "https://history.state.gov/historicaldocuments/frus1885/d38",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP007-CP007-S05",
+      "originCheckpointId": "WHI-001-CP007",
+      "originSourceId": "CP007-S05",
+      "title": "European Route of Industrial Heritage — Belgium",
+      "url": "https://www.erih.net/how-it-started/industrial-history-of-european-countries/belgium",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP007-CP007-S06",
+      "originCheckpointId": "WHI-001-CP007",
+      "originSourceId": "CP007-S06",
+      "title": "United Nations — Historical background on Rwanda",
+      "url": "https://www.un.org/en/preventgenocide/rwanda/historical-background.shtml",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP007-CP007-S09",
+      "originCheckpointId": "WHI-001-CP007",
+      "originSourceId": "CP007-S09",
+      "title": "Adwa Victory Memorial — Heritage and History",
+      "url": "https://adwavictorymemorial.gov.et/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP007-CP007-S11",
+      "originCheckpointId": "WHI-001-CP007",
+      "originSourceId": "CP007-S11",
+      "title": "U.S. Department of State — John Hay and the Open Door in China, 1899–1900",
+      "url": "https://history.state.gov/milestones/1899-1913/hay-and-china",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP008-CP008-S01",
+      "originCheckpointId": "WHI-001-CP008",
+      "originSourceId": "CP008-S01",
+      "title": "U.S. Department of State — World War I",
+      "url": "https://history.state.gov/milestones/1914-1920/wwi",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP008-CP008-S02",
+      "originCheckpointId": "WHI-001-CP008",
+      "originSourceId": "CP008-S02",
+      "title": "Library of Congress — World War I declarations guide",
+      "url": "https://guides.loc.gov/chronicling-america-wwi-declarations",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP008-CP008-S04",
+      "originCheckpointId": "WHI-001-CP008",
+      "originSourceId": "CP008-S04",
+      "title": "Library of Congress — Russian Revolution and Civil War collection",
+      "url": "https://www.loc.gov/item/2021666632/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP008-CP008-S05",
+      "originCheckpointId": "WHI-001-CP008",
+      "originSourceId": "CP008-S05",
+      "title": "Library of Congress — World War I timeline, 1914–1921",
+      "url": "https://www.loc.gov/collections/stars-and-stripes/articles-and-essays/a-world-at-war/timeline-1914-1921/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP008-CP008-S08",
+      "originCheckpointId": "WHI-001-CP008",
+      "originSourceId": "CP008-S08",
+      "title": "Imperial War Museums — Key battles of the First World War",
+      "url": "https://www.iwm.org.uk/history/first-world-war/key-battles",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP009-CP009-S03",
+      "originCheckpointId": "WHI-001-CP009",
+      "originSourceId": "CP009-S03",
+      "title": "U.S. Holocaust Memorial Museum — The Weimar Republic",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-weimar-republic",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP009-CP009-S04",
+      "originCheckpointId": "WHI-001-CP009",
+      "originSourceId": "CP009-S04",
+      "title": "U.S. Holocaust Memorial Museum — The Great Depression",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-great-depression",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP009-CP009-S05",
+      "originCheckpointId": "WHI-001-CP009",
+      "originSourceId": "CP009-S05",
+      "title": "U.S. Holocaust Memorial Museum — Nazi rise to power",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-nazi-rise-to-power",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP010-CP010-S01",
+      "originCheckpointId": "WHI-001-CP010",
+      "originSourceId": "CP010-S01",
+      "title": "United States Holocaust Memorial Museum — World War II: Key Dates",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/world-war-ii-key-dates",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP010-CP010-S02",
+      "originCheckpointId": "WHI-001-CP010",
+      "originSourceId": "CP010-S02",
+      "title": "United States Holocaust Memorial Museum — World War II in Europe",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/world-war-ii-in-europe",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP010-CP010-S03",
+      "originCheckpointId": "WHI-001-CP010",
+      "originSourceId": "CP010-S03",
+      "title": "United States Holocaust Memorial Museum — World War II in the Pacific",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/world-war-ii-in-the-pacific",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP010-CP010-S10",
+      "originCheckpointId": "WHI-001-CP010",
+      "originSourceId": "CP010-S10",
+      "title": "U.S. Holocaust Memorial Museum — Warsaw Ghetto Uprising",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/warsaw-ghetto-uprising",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP011-CP011-S01",
+      "originCheckpointId": "WHI-001-CP011",
+      "originSourceId": "CP011-S01",
+      "title": "United Nations — Charter of the United Nations, full text",
+      "url": "https://www.un.org/en/about-us/un-charter/full-text",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP011-CP011-S09",
+      "originCheckpointId": "WHI-001-CP011",
+      "originSourceId": "CP011-S09",
+      "title": "U.S. National Archives — Nuremberg Tribunal records",
+      "url": "https://www.archives.gov/research/captured-german-records/international-military-tribunal-nurnberg.html",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP011-CP011-S11",
+      "originCheckpointId": "WHI-001-CP011",
+      "originSourceId": "CP011-S11",
+      "title": "U.S. Department of State, Office of the Historian — The Yalta Conference, 1945",
+      "url": "https://history.state.gov/milestones/1937-1945/yalta-conf",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP011-CP011-S12",
+      "originCheckpointId": "WHI-001-CP011",
+      "originSourceId": "CP011-S12",
+      "title": "U.S. National Archives — Records of U.S. Occupation Headquarters, World War II",
+      "url": "https://www.archives.gov/research/guide-fed-records/groups/260.html",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP012-CP012-S01",
+      "originCheckpointId": "WHI-001-CP012",
+      "originSourceId": "CP012-S01",
+      "title": "U.S. Department of State, Office of the Historian — Decolonization of Asia and Africa, 1945–1960",
+      "url": "https://history.state.gov/milestones/1945-1952/asia-and-africa",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP012-CP012-S03",
+      "originCheckpointId": "WHI-001-CP012",
+      "originSourceId": "CP012-S03",
+      "title": "U.S. Department of State, Office of the Historian — FRUS: Indonesia and the transfer of sovereignty, 1949",
+      "url": "https://history.state.gov/historicaldocuments/frus1949v07p1/d409",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP012-CP012-S04",
+      "originCheckpointId": "WHI-001-CP012",
+      "originSourceId": "CP012-S04",
+      "title": "U.S. Department of State, Office of the Historian — Dien Bien Phu and the Fall of French Indochina, 1954",
+      "url": "https://history.state.gov/milestones/1953-1960/dien-bien-phu",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP012-CP012-S05",
+      "originCheckpointId": "WHI-001-CP012",
+      "originSourceId": "CP012-S05",
+      "title": "Avalon Project, Yale Law School — Geneva Accords on Indochina, 1954",
+      "url": "https://avalon.law.yale.edu/20th_century/inch005.asp",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP012-CP012-S08",
+      "originCheckpointId": "WHI-001-CP012",
+      "originSourceId": "CP012-S08",
+      "title": "United Nations — Declaration on the Granting of Independence to Colonial Countries and Peoples",
+      "url": "https://legal.un.org/avl/ha/dicc/dicc.html",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP012-CP012-S09",
+      "originCheckpointId": "WHI-001-CP012",
+      "originSourceId": "CP012-S09",
+      "title": "United Nations — General Assembly Resolution 181 (II), 1947",
+      "url": "https://www.un.org/unispal/document/auto-insert-185393/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP012-CP012-S10",
+      "originCheckpointId": "WHI-001-CP012",
+      "originSourceId": "CP012-S10",
+      "title": "U.S. Department of State, Office of the Historian — Creation of Israel, 1948",
+      "url": "https://history.state.gov/milestones/1945-1952/creation-israel",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP012-CP012-S12",
+      "originCheckpointId": "WHI-001-CP012",
+      "originSourceId": "CP012-S12",
+      "title": "U.S. Department of State, Office of the Historian — Bandung Conference, 1955",
+      "url": "https://history.state.gov/milestones/1953-1960/bandung-conf",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP013-CP013-S01",
+      "originCheckpointId": "WHI-001-CP013",
+      "originSourceId": "CP013-S01",
+      "title": "U.S. Department of State, Office of the Historian — Decolonization of Asia and Africa, 1945–1960",
+      "url": "https://history.state.gov/milestones/1945-1952/asia-and-africa",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP013-CP013-S02",
+      "originCheckpointId": "WHI-001-CP013",
+      "originSourceId": "CP013-S02",
+      "title": "African Union — Organization of African Unity Charter, 1963",
+      "url": "https://au.int/web/sites/default/files/treaties/7759-treaty-0011_-_oau_charter_e.pdf",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP013-CP013-S04",
+      "originCheckpointId": "WHI-001-CP013",
+      "originSourceId": "CP013-S04",
+      "title": "U.S. Department of State, Office of the Historian — Algeria country history and recognition of independence",
+      "url": "https://history.state.gov/countries/algeria",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP013-CP013-S05",
+      "originCheckpointId": "WHI-001-CP013",
+      "originSourceId": "CP013-S05",
+      "title": "International Court of Justice — Western Sahara Advisory Opinion, 1975",
+      "url": "https://www.icj-cij.org/case/61",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP013-CP013-S10",
+      "originCheckpointId": "WHI-001-CP013",
+      "originSourceId": "CP013-S10",
+      "title": "United Nations — Declaration on the Granting of Independence to Colonial Countries and Peoples",
+      "url": "https://legal.un.org/avl/ha/dicc/dicc.html",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP013-CP013-S13",
+      "originCheckpointId": "WHI-001-CP013",
+      "originSourceId": "CP013-S13",
+      "title": "The National Archives (UK) — Kenya independence and postwar Commonwealth migration",
+      "url": "https://www.nationalarchives.gov.uk/education/resources/commonwealth-migration-since-1945/immigration-act-1968/",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP013-CP013-S14",
+      "originCheckpointId": "WHI-001-CP013",
+      "originSourceId": "CP013-S14",
+      "title": "GOV.UK — Timeline of country name changes: Malawi, Zambia, Tanganyika and Congo",
+      "url": "https://www.gov.uk/government/publications/country-names/timeline-of-country-name-changes-in-hmg-use",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP014-CP014-S01",
+      "originCheckpointId": "WHI-001-CP014",
+      "originSourceId": "CP014-S01",
+      "title": "U.S. Department of State, Office of the Historian — The Truman Doctrine, 1947",
+      "url": "https://history.state.gov/milestones/1945-1952/truman-doctrine",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP014-CP014-S04",
+      "originCheckpointId": "WHI-001-CP014",
+      "originSourceId": "CP014-S04",
+      "title": "U.S. Department of State, Office of the Historian — The Berlin Airlift, 1948–1949",
+      "url": "https://history.state.gov/milestones/1945-1952/berlin-airlift",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP014-CP014-S08",
+      "originCheckpointId": "WHI-001-CP014",
+      "originSourceId": "CP014-S08",
+      "title": "U.S. Department of State, Office of the Historian — The Cuban Missile Crisis, 1962",
+      "url": "https://history.state.gov/milestones/1961-1968/cuban-missile-crisis",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP014-CP014-S13",
+      "originCheckpointId": "WHI-001-CP014",
+      "originSourceId": "CP014-S13",
+      "title": "U.S. Department of State, Office of the Historian — Détente and the Helsinki Final Act",
+      "url": "https://history.state.gov/milestones/1969-1976/detente",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP014-CP014-S14",
+      "originCheckpointId": "WHI-001-CP014",
+      "originSourceId": "CP014-S14",
+      "title": "U.S. Department of State, Office of the Historian — Soviet invasion of Afghanistan, 1979",
+      "url": "https://history.state.gov/milestones/1977-1980/soviet-invasion-afghanistan",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP014-CP014-S15",
+      "originCheckpointId": "WHI-001-CP014",
+      "originSourceId": "CP014-S15",
+      "title": "Government of Uganda — Non-Aligned Movement history",
+      "url": "https://nam.go.ug/history",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP014-CP014-S16",
+      "originCheckpointId": "WHI-001-CP014",
+      "originSourceId": "CP014-S16",
+      "title": "U.S. Department of State, Office of the Historian — Bandung Conference, 1955",
+      "url": "https://history.state.gov/milestones/1953-1960/bandung-conf",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP015-CP015-S02",
+      "originCheckpointId": "WHI-001-CP015",
+      "originSourceId": "CP015-S02",
+      "title": "U.S. Department of State, Office of the Historian — Fall of Communism in Eastern Europe, 1989",
+      "url": "https://history.state.gov/milestones/1989-1992/fall-of-communism",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP015-CP015-S03",
+      "originCheckpointId": "WHI-001-CP015",
+      "originSourceId": "CP015-S03",
+      "title": "U.S. Department of State, Office of the Historian — Collapse of the Soviet Union",
+      "url": "https://history.state.gov/milestones/1989-1992/collapse-soviet-union",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP015-CP015-S05",
+      "originCheckpointId": "WHI-001-CP015",
+      "originSourceId": "CP015-S05",
+      "title": "U.S. Department of State — “2+4” Talks and the Reunification of Germany, 1990",
+      "url": "https://2001-2009.state.gov/r/pa/ho/time/pcw/108224.htm",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP015-CP015-S06",
+      "originCheckpointId": "WHI-001-CP015",
+      "originSourceId": "CP015-S06",
+      "title": "U.S. National Archives — German reunification, October 1990",
+      "url": "https://www.archives.gov/exhibits/eyewitness/html.php?section=10",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP015-CP015-S08",
+      "originCheckpointId": "WHI-001-CP015",
+      "originSourceId": "CP015-S08",
+      "title": "United Nations Yearbook 1991 — dissolution of the USSR and republic independence",
+      "url": "https://digitallibrary.un.org/record/858827/files/1121535-EN.pdf",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP015-CP015-S12",
+      "originCheckpointId": "WHI-001-CP015",
+      "originSourceId": "CP015-S12",
+      "title": "U.S. Department of State, Office of the Historian — The Berlin Wall Falls and the USSR Dissolves",
+      "url": "https://history.state.gov/departmenthistory/short-history/berlinwall",
+      "locator": null,
+      "aliasOf": null
+    },
+    {
+      "sourceId": "CP015-CP015-S14",
+      "originCheckpointId": "WHI-001-CP015",
+      "originSourceId": "CP015-S14",
+      "title": "Institute of National Remembrance (Poland) — Brief History of Poland, 1980–1989",
+      "url": "https://eng.ipn.gov.pl/en/brief-history-of-poland",
+      "locator": null,
+      "aliasOf": null
+    }
+  ],
+  "facts": [
+    {
+      "factId": "WHI-CP016-F001",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP001",
+      "claim": "Which kingdom did Alexander rule before his campaigns?",
+      "normalizedAnswer": "Macedon",
+      "relationshipType": "Leader and region",
+      "sourceIds": [
+        "CP001-S4"
+      ],
+      "originCheckpointId": "WHI-001-CP001",
+      "originQuestionId": "WHI-CP001-Q007",
+      "originFactId": "WHI-CP001-F007",
+      "originSourceIds": [
+        "S4"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Events, places, and actors"
+    },
+    {
+      "factId": "WHI-CP016-F002",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP001",
+      "claim": "Put these Roman political changes in chronological order.",
+      "normalizedAnswer": "Republic begins → Augustus receives title → Constantinople becomes capital",
+      "relationshipType": "Roman chronology",
+      "sourceIds": [
+        "CP001-S5",
+        "CP001-S6"
+      ],
+      "originCheckpointId": "WHI-001-CP001",
+      "originQuestionId": "WHI-CP001-Q019",
+      "originFactId": "WHI-CP001-F019",
+      "originSourceIds": [
+        "S5",
+        "S6"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Dates and chronology"
+    },
+    {
+      "factId": "WHI-CP016-F003",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP001",
+      "claim": "How did Mongol political unification affect trade along parts of the Silk Roads?",
+      "normalizedAnswer": "Mongol political unification helped protect Silk Road routes and facilitate trade.",
+      "relationshipType": "Mongol history",
+      "sourceIds": [
+        "CP001-S14"
+      ],
+      "originCheckpointId": "WHI-001-CP001",
+      "originQuestionId": "WHI-CP001-Q026",
+      "originFactId": "WHI-CP001-F026",
+      "originSourceIds": [
+        "S14"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Consequences and outcomes"
+    },
+    {
+      "factId": "WHI-CP016-F004",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP001",
+      "claim": "Who was the Byzantine emperor when Roman law was compiled in the Corpus Juris Civilis?",
+      "normalizedAnswer": "Justinian I",
+      "relationshipType": "Byzantine ruler",
+      "sourceIds": [
+        "CP001-S20"
+      ],
+      "originCheckpointId": "WHI-001-CP001",
+      "originQuestionId": "WHI-CP001-Q034",
+      "originFactId": "WHI-CP001-F034",
+      "originSourceIds": [
+        "S20"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "People, roles, and ideas"
+    },
+    {
+      "factId": "WHI-CP016-F005",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP002",
+      "claim": "Who wrote Utopia, published in 1516?",
+      "normalizedAnswer": "Thomas More",
+      "relationshipType": "Person–work relationship",
+      "sourceIds": [
+        "CP002-S2"
+      ],
+      "originCheckpointId": "WHI-001-CP002",
+      "originQuestionId": "WHI-CP002-Q007",
+      "originFactId": "WHI-CP002-F007",
+      "originSourceIds": [
+        "S2"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "People, roles, and ideas"
+    },
+    {
+      "factId": "WHI-CP016-F006",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP002",
+      "claim": "Who wrote The Divine Comedy?",
+      "normalizedAnswer": "Dante Alighieri",
+      "relationshipType": "Person–work relationship",
+      "sourceIds": [
+        "CP002-S2"
+      ],
+      "originCheckpointId": "WHI-001-CP002",
+      "originQuestionId": "WHI-CP002-Q009",
+      "originFactId": "WHI-CP002-F009",
+      "originSourceIds": [
+        "S2"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "People, roles, and ideas"
+    },
+    {
+      "factId": "WHI-CP016-F007",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP002",
+      "claim": "Who published a heliocentric account of the planetary system in 1543?",
+      "normalizedAnswer": "Nicolaus Copernicus",
+      "relationshipType": "Scientist–discovery",
+      "sourceIds": [
+        "CP002-S5"
+      ],
+      "originCheckpointId": "WHI-001-CP002",
+      "originQuestionId": "WHI-CP002-Q029",
+      "originFactId": "WHI-CP002-F029",
+      "originSourceIds": [
+        "S5"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "People, roles, and ideas"
+    },
+    {
+      "factId": "WHI-CP016-F008",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP002",
+      "claim": "The 1494 Treaty of Tordesillas was agreed between which kingdoms?",
+      "normalizedAnswer": "Spain and Portugal",
+      "relationshipType": "Treaty–event",
+      "sourceIds": [
+        "CP002-S10"
+      ],
+      "originCheckpointId": "WHI-001-CP002",
+      "originQuestionId": "WHI-CP002-Q043",
+      "originFactId": "WHI-CP002-F043",
+      "originSourceIds": [
+        "S10"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Documents, treaties, and institutions"
+    },
+    {
+      "factId": "WHI-CP016-F009",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP003",
+      "claim": "Who argued for separating legislative, executive and judicial powers?",
+      "normalizedAnswer": "Montesquieu",
+      "relationshipType": "Thinker–idea",
+      "sourceIds": [
+        "CP003-S2"
+      ],
+      "originCheckpointId": "WHI-001-CP003",
+      "originQuestionId": "WHI-CP003-Q002",
+      "originFactId": "WHI-CP003-F002",
+      "originSourceIds": [
+        "S2"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "People, roles, and ideas"
+    },
+    {
+      "factId": "WHI-CP016-F010",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP003",
+      "claim": "The Declaration of Independence adopted by the American colonies in 1776 announced separation from which country?",
+      "normalizedAnswer": "Great Britain",
+      "relationshipType": "Document–event",
+      "sourceIds": [
+        "CP003-S4"
+      ],
+      "originCheckpointId": "WHI-001-CP003",
+      "originQuestionId": "WHI-CP003-Q005",
+      "originFactId": "WHI-CP003-F005",
+      "originSourceIds": [
+        "S4"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Documents, treaties, and institutions"
+    },
+    {
+      "factId": "WHI-CP016-F011",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP003",
+      "claim": "Toussaint Louverture became a leading figure in which revolution?",
+      "normalizedAnswer": "Haitian Revolution",
+      "relationshipType": "Revolution–leader",
+      "sourceIds": [
+        "CP003-S7"
+      ],
+      "originCheckpointId": "WHI-001-CP003",
+      "originQuestionId": "WHI-CP003-Q016",
+      "originFactId": "WHI-CP003-F016",
+      "originSourceIds": [
+        "S7"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Movements, states, and political change"
+    },
+    {
+      "factId": "WHI-CP016-F012",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP003",
+      "claim": "Why did French support matter to the American revolutionary cause?",
+      "normalizedAnswer": "It added military, naval and diplomatic support against Britain.",
+      "relationshipType": "Cause–consequence",
+      "sourceIds": [
+        "CP003-S5",
+        "CP003-S18"
+      ],
+      "originCheckpointId": "WHI-001-CP003",
+      "originQuestionId": "WHI-CP003-Q054",
+      "originFactId": "WHI-CP003-F054",
+      "originSourceIds": [
+        "S5",
+        "S18"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Causes, policies, and purposes"
+    },
+    {
+      "factId": "WHI-CP016-F013",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP004",
+      "claim": "Who seized power in the coup of 18 Brumaire in 1799?",
+      "normalizedAnswer": "Napoleon Bonaparte",
+      "relationshipType": "Person–event",
+      "sourceIds": [
+        "CP004-S3"
+      ],
+      "originCheckpointId": "WHI-001-CP004",
+      "originQuestionId": "WHI-CP004-Q008",
+      "originFactId": "WHI-CP004-F008",
+      "originSourceIds": [
+        "S3"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "People, roles, and ideas"
+    },
+    {
+      "factId": "WHI-CP016-F014",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP004",
+      "claim": "Napoleon’s invasion of Russia in 1812 ended with what result?",
+      "normalizedAnswer": "A disastrous retreat that severely weakened the Grande Armée",
+      "relationshipType": "Campaign–consequence",
+      "sourceIds": [
+        "CP004-S9"
+      ],
+      "originCheckpointId": "WHI-001-CP004",
+      "originQuestionId": "WHI-CP004-Q018",
+      "originFactId": "WHI-CP004-F018",
+      "originSourceIds": [
+        "S9"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Consequences and outcomes"
+    },
+    {
+      "factId": "WHI-CP016-F015",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP004",
+      "claim": "Consider the following statements:\n\n1. The Directory followed the radical phase of the Revolution.  \n2. Napoleon’s coup ended the Directory.  \n3. The Congress of Vienna met before the Battle of Waterloo.\n\nWhich are correct?",
+      "normalizedAnswer": "1, 2 and 3",
+      "relationshipType": "Multi-statement",
+      "sourceIds": [
+        "CP004-S3",
+        "CP004-S5"
+      ],
+      "originCheckpointId": "WHI-001-CP004",
+      "originQuestionId": "WHI-CP004-Q024",
+      "originFactId": "WHI-CP004-F024",
+      "originSourceIds": [
+        "S3",
+        "S5"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Statements and synthesis"
+    },
+    {
+      "factId": "WHI-CP016-F016",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP004",
+      "claim": "Consider these statements about the end of Napoleon’s rule:\n\n1. Napoleon first abdicated in 1814 and was exiled to Elba.  \n2. He returned to power before his defeat at Waterloo in 1815.  \n3. Waterloo was followed by his exile to Saint Helena.\n\nWhich are correct?",
+      "normalizedAnswer": "1, 2 and 3",
+      "relationshipType": "Multi-statement synthesis",
+      "sourceIds": [
+        "CP004-S4",
+        "CP004-S5"
+      ],
+      "originCheckpointId": "WHI-001-CP004",
+      "originQuestionId": "WHI-CP004-Q060",
+      "originFactId": "WHI-CP004-F060",
+      "originSourceIds": [
+        "S4",
+        "S5"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Statements and synthesis"
+    },
+    {
+      "factId": "WHI-CP016-F017",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP005",
+      "claim": "Why did many industrial towns grow rapidly during the nineteenth century?",
+      "normalizedAnswer": "Factory employment drew people from rural areas",
+      "relationshipType": "Urbanisation",
+      "sourceIds": [
+        "CP005-CP005-S22"
+      ],
+      "originCheckpointId": "WHI-001-CP005",
+      "originQuestionId": "WHI-CP005-Q013",
+      "originFactId": "WHI-CP005-F013",
+      "originSourceIds": [
+        "CP005-S22"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Causes, policies, and purposes"
+    },
+    {
+      "factId": "WHI-CP016-F018",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP005",
+      "claim": "Which region became an early centre of industrialisation in Belgium?",
+      "normalizedAnswer": "The coal and iron districts around Liège and Charleroi",
+      "relationshipType": "Industrialisation beyond Britain",
+      "sourceIds": [
+        "CP005-CP005-S28"
+      ],
+      "originCheckpointId": "WHI-001-CP005",
+      "originQuestionId": "WHI-CP005-Q038",
+      "originFactId": "WHI-CP005-F038",
+      "originSourceIds": [
+        "CP005-S28"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Events, places, and actors"
+    },
+    {
+      "factId": "WHI-CP016-F019",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP005",
+      "claim": "Which country was the first on the European continent to industrialise?",
+      "normalizedAnswer": "Belgium",
+      "relationshipType": "Industrialisation beyond Britain",
+      "sourceIds": [
+        "CP005-CP005-S28"
+      ],
+      "originCheckpointId": "WHI-001-CP005",
+      "originQuestionId": "WHI-CP005-Q043",
+      "originFactId": "WHI-CP005-F043",
+      "originSourceIds": [
+        "CP005-S28"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Events, places, and actors"
+    },
+    {
+      "factId": "WHI-CP016-F020",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP005",
+      "claim": "Which sequence correctly orders these British reform developments?",
+      "normalizedAnswer": "Factory Act of 1833 → Chartist movement and People’s Charter → petitions of 1839–1848",
+      "relationshipType": "Reform chronology",
+      "sourceIds": [
+        "CP005-CP005-S01",
+        "CP005-CP005-S06",
+        "CP005-CP005-S29"
+      ],
+      "originCheckpointId": "WHI-001-CP005",
+      "originQuestionId": "WHI-CP005-Q056",
+      "originFactId": "WHI-CP005-F056",
+      "originSourceIds": [
+        "CP005-S01",
+        "CP005-S06",
+        "CP005-S29"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Dates and chronology"
+    },
+    {
+      "factId": "WHI-CP016-F021",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP006",
+      "claim": "Which state led the formation of the Zollverein in the nineteenth century?",
+      "normalizedAnswer": "Prussia",
+      "relationshipType": "State and political base",
+      "sourceIds": [
+        "CP006-CP006-S01",
+        "CP006-CP006-S02"
+      ],
+      "originCheckpointId": "WHI-001-CP006",
+      "originQuestionId": "WHI-CP006-Q022",
+      "originFactId": "WHI-CP006-F022",
+      "originSourceIds": [
+        "CP006-S01",
+        "CP006-S02"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Movements, states, and political change"
+    },
+    {
+      "factId": "WHI-CP016-F022",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP006",
+      "claim": "Which statement best distinguishes the 1848 Frankfurt project from the Prussian-led unification of Germany?",
+      "normalizedAnswer": "Frankfurt sought a constitutional nation-state through an elected assembly; later unification proceeded under Prussian state leadership",
+      "relationshipType": "Movement comparison",
+      "sourceIds": [
+        "CP006-CP006-S01",
+        "CP006-CP006-S02"
+      ],
+      "originCheckpointId": "WHI-001-CP006",
+      "originQuestionId": "WHI-CP006-Q024",
+      "originFactId": "WHI-CP006-F024",
+      "originSourceIds": [
+        "CP006-S01",
+        "CP006-S02"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Comparisons and distinctions"
+    },
+    {
+      "factId": "WHI-CP016-F023",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP006",
+      "claim": "Which comparison between the 1848 national movements and the Austro-Hungarian Compromise is accurate?",
+      "normalizedAnswer": "The Compromise accommodated Austrian and Hungarian elites within one monarchy, while many other national groups remained dissatisfied",
+      "relationshipType": "Movement comparison",
+      "sourceIds": [
+        "CP006-CP006-S06"
+      ],
+      "originCheckpointId": "WHI-001-CP006",
+      "originQuestionId": "WHI-CP006-Q035",
+      "originFactId": "WHI-CP006-F035",
+      "originSourceIds": [
+        "CP006-S06"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Comparisons and distinctions"
+    },
+    {
+      "factId": "WHI-CP016-F024",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP006",
+      "claim": "Which sequence correctly orders these Balkan developments?",
+      "normalizedAnswer": "Compromise of 1867 → Treaty of San Stefano (1878) → Congress of Berlin (1878)",
+      "relationshipType": "Chronology and sequence",
+      "sourceIds": [
+        "CP006-CP006-S05",
+        "CP006-CP006-S06",
+        "CP006-CP006-S08"
+      ],
+      "originCheckpointId": "WHI-001-CP006",
+      "originQuestionId": "WHI-CP006-Q045",
+      "originFactId": "WHI-CP006-F045",
+      "originSourceIds": [
+        "CP006-S05",
+        "CP006-S06",
+        "CP006-S08"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Dates and chronology"
+    },
+    {
+      "factId": "WHI-CP016-F025",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP007",
+      "claim": "Why did European powers build ports and railways in many colonies?",
+      "normalizedAnswer": "To support administration, military movement and the extraction or transport of goods",
+      "relationshipType": "Motive and method",
+      "sourceIds": [
+        "CP007-CP007-S05",
+        "CP007-CP007-S06"
+      ],
+      "originCheckpointId": "WHI-001-CP007",
+      "originQuestionId": "WHI-CP007-Q005",
+      "originFactId": "WHI-CP007-F005",
+      "originSourceIds": [
+        "CP007-S05",
+        "CP007-S06"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Causes, policies, and purposes"
+    },
+    {
+      "factId": "WHI-CP016-F026",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP007",
+      "claim": "Which comparison between the Congo Free State and Ethiopia in the late nineteenth century is accurate?",
+      "normalizedAnswer": "The Congo came under Leopold II’s rule, while Ethiopia defeated Italy at Adwa and remained independent",
+      "relationshipType": "Comparison",
+      "sourceIds": [
+        "CP007-CP007-S03",
+        "CP007-CP007-S09"
+      ],
+      "originCheckpointId": "WHI-001-CP007",
+      "originQuestionId": "WHI-CP007-Q049",
+      "originFactId": "WHI-CP007-F049",
+      "originSourceIds": [
+        "CP007-S03",
+        "CP007-S09"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Comparisons and distinctions"
+    },
+    {
+      "factId": "WHI-CP016-F027",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP007",
+      "claim": "Which comparison between formal annexation and a sphere of influence is accurate?",
+      "normalizedAnswer": "Annexation transfers territory to direct rule; a sphere of influence may leave formal sovereignty while granting special privileges",
+      "relationshipType": "Comparison",
+      "sourceIds": [
+        "CP007-CP007-S02",
+        "CP007-CP007-S11"
+      ],
+      "originCheckpointId": "WHI-001-CP007",
+      "originQuestionId": "WHI-CP007-Q051",
+      "originFactId": "WHI-CP007-F051",
+      "originSourceIds": [
+        "CP007-S02",
+        "CP007-S11"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Comparisons and distinctions"
+    },
+    {
+      "factId": "WHI-CP016-F028",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP007",
+      "claim": "Which comparison between European imperialism in Africa and China is most accurate?",
+      "normalizedAnswer": "Many African territories came under formal colonial rule, while China retained a government but faced foreign privileges and spheres of influence",
+      "relationshipType": "Comparison",
+      "sourceIds": [
+        "CP007-CP007-S05",
+        "CP007-CP007-S11"
+      ],
+      "originCheckpointId": "WHI-001-CP007",
+      "originQuestionId": "WHI-CP007-Q052",
+      "originFactId": "WHI-CP007-F052",
+      "originSourceIds": [
+        "CP007-S05",
+        "CP007-S11"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Comparisons and distinctions"
+    },
+    {
+      "factId": "WHI-CP016-F029",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP008",
+      "claim": "Why did the alliance system contribute to the widening of the 1914 crisis?",
+      "normalizedAnswer": "It could draw additional powers into a conflict between Austria-Hungary and Serbia",
+      "relationshipType": "Causes and alliances",
+      "sourceIds": [
+        "CP008-CP008-S01",
+        "CP008-CP008-S05"
+      ],
+      "originCheckpointId": "WHI-001-CP008",
+      "originQuestionId": "WHI-CP008-Q004",
+      "originFactId": "WHI-CP008-F004",
+      "originSourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Causes, policies, and purposes"
+    },
+    {
+      "factId": "WHI-CP016-F030",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP008",
+      "claim": "On which front was the trench warfare of the Western Front concentrated?",
+      "normalizedAnswer": "In Belgium and northern France",
+      "relationshipType": "Fronts and battles",
+      "sourceIds": [
+        "CP008-CP008-S02",
+        "CP008-CP008-S08"
+      ],
+      "originCheckpointId": "WHI-001-CP008",
+      "originQuestionId": "WHI-CP008-Q017",
+      "originFactId": "WHI-CP008-F017",
+      "originSourceIds": [
+        "CP008-S02",
+        "CP008-S08"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Alliances, sides, and conflicts"
+    },
+    {
+      "factId": "WHI-CP016-F031",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP008",
+      "claim": "Which battle took place on the Eastern Front in 1914 and became an early German victory over Russia?",
+      "normalizedAnswer": "Tannenberg",
+      "relationshipType": "Fronts and battles",
+      "sourceIds": [
+        "CP008-CP008-S05",
+        "CP008-CP008-S08"
+      ],
+      "originCheckpointId": "WHI-001-CP008",
+      "originQuestionId": "WHI-CP008-Q021",
+      "originFactId": "WHI-CP008-F021",
+      "originSourceIds": [
+        "CP008-S05",
+        "CP008-S08"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Alliances, sides, and conflicts"
+    },
+    {
+      "factId": "WHI-CP016-F032",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP008",
+      "claim": "Which statement best connects the Russian Revolutions to the First World War?",
+      "normalizedAnswer": "The revolutions changed Russia’s government and ultimately led the Bolsheviks to withdraw from the war",
+      "relationshipType": "Integrated synthesis",
+      "sourceIds": [
+        "CP008-CP008-S04",
+        "CP008-CP008-S05"
+      ],
+      "originCheckpointId": "WHI-001-CP008",
+      "originQuestionId": "WHI-CP008-Q058",
+      "originFactId": "WHI-CP008-F058",
+      "originSourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Statements and synthesis"
+    },
+    {
+      "factId": "WHI-CP016-F033",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP009",
+      "claim": "Which constitution established the Weimar Republic in Germany?",
+      "normalizedAnswer": "The constitution adopted in 1919",
+      "relationshipType": "Republic and institutions",
+      "sourceIds": [
+        "CP009-CP009-S03"
+      ],
+      "originCheckpointId": "WHI-001-CP009",
+      "originQuestionId": "WHI-CP009-Q017",
+      "originFactId": "WHI-CP009-F017",
+      "originSourceIds": [
+        "CP009-S03"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Documents, treaties, and institutions"
+    },
+    {
+      "factId": "WHI-CP016-F034",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP009",
+      "claim": "How did proportional representation affect Weimar politics?",
+      "normalizedAnswer": "It allowed smaller parties to gain seats and could make stable parliamentary coalitions difficult",
+      "relationshipType": "Economic causes and effects",
+      "sourceIds": [
+        "CP009-CP009-S03"
+      ],
+      "originCheckpointId": "WHI-001-CP009",
+      "originQuestionId": "WHI-CP009-Q024",
+      "originFactId": "WHI-CP009-F024",
+      "originSourceIds": [
+        "CP009-S03"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Consequences and outcomes"
+    },
+    {
+      "factId": "WHI-CP016-F035",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP009",
+      "claim": "Why was Germany especially vulnerable when U.S. lending contracted after 1929?",
+      "normalizedAnswer": "Its recovery had depended heavily on foreign loans, including American credit",
+      "relationshipType": "Economic causes and effects",
+      "sourceIds": [
+        "CP009-CP009-S03",
+        "CP009-CP009-S04"
+      ],
+      "originCheckpointId": "WHI-001-CP009",
+      "originQuestionId": "WHI-CP009-Q026",
+      "originFactId": "WHI-CP009-F026",
+      "originSourceIds": [
+        "CP009-S03",
+        "CP009-S04"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Causes, policies, and purposes"
+    },
+    {
+      "factId": "WHI-CP016-F036",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP009",
+      "claim": "How did the Great Depression affect politics in Germany?",
+      "normalizedAnswer": "Economic hardship helped increase support for radical parties, including the Nazis",
+      "relationshipType": "Economic causes and effects",
+      "sourceIds": [
+        "CP009-CP009-S04",
+        "CP009-CP009-S05"
+      ],
+      "originCheckpointId": "WHI-001-CP009",
+      "originQuestionId": "WHI-CP009-Q028",
+      "originFactId": "WHI-CP009-F028",
+      "originSourceIds": [
+        "CP009-S04",
+        "CP009-S05"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Consequences and outcomes"
+    },
+    {
+      "factId": "WHI-CP016-F037",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP010",
+      "claim": "Which battle stopped the German advance at Stalingrad and ended with the surrender of German forces there in February 1943?",
+      "normalizedAnswer": "The Battle of Stalingrad",
+      "relationshipType": "European theatre",
+      "sourceIds": [
+        "CP010-CP010-S02",
+        "CP010-CP010-S01"
+      ],
+      "originCheckpointId": "WHI-001-CP010",
+      "originQuestionId": "WHI-CP010-Q013",
+      "originFactId": "WHI-CP010-F013",
+      "originSourceIds": [
+        "CP010-S02",
+        "CP010-S01"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Alliances, sides, and conflicts"
+    },
+    {
+      "factId": "WHI-CP016-F038",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP010",
+      "claim": "Which battle is widely treated as a major turning point on the Eastern Front?",
+      "normalizedAnswer": "Stalingrad",
+      "relationshipType": "Turning points",
+      "sourceIds": [
+        "CP010-CP010-S01",
+        "CP010-CP010-S02"
+      ],
+      "originCheckpointId": "WHI-001-CP010",
+      "originQuestionId": "WHI-CP010-Q026",
+      "originFactId": "WHI-CP010-F026",
+      "originSourceIds": [
+        "CP010-S01",
+        "CP010-S02"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Alliances, sides, and conflicts"
+    },
+    {
+      "factId": "WHI-CP016-F039",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP010",
+      "claim": "Which statement describes a major human consequence of the Second World War in Europe?",
+      "normalizedAnswer": "Millions of civilians were displaced from their homes",
+      "relationshipType": "Consequences and synthesis",
+      "sourceIds": [
+        "CP010-CP010-S01",
+        "CP010-CP010-S10"
+      ],
+      "originCheckpointId": "WHI-001-CP010",
+      "originQuestionId": "WHI-CP010-Q058",
+      "originFactId": "WHI-CP010-F058",
+      "originSourceIds": [
+        "CP010-S01",
+        "CP010-S10"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Statements and synthesis"
+    },
+    {
+      "factId": "WHI-CP016-F040",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP010",
+      "claim": "Which statement best describes the global character of the Second World War?",
+      "normalizedAnswer": "It was fought across European, North African and Asia-Pacific theatres",
+      "relationshipType": "Consequences and synthesis",
+      "sourceIds": [
+        "CP010-CP010-S01",
+        "CP010-CP010-S02",
+        "CP010-CP010-S03"
+      ],
+      "originCheckpointId": "WHI-001-CP010",
+      "originQuestionId": "WHI-CP010-Q060",
+      "originFactId": "WHI-CP010-F060",
+      "originSourceIds": [
+        "CP010-S01",
+        "CP010-S02",
+        "CP010-S03"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Statements and synthesis"
+    },
+    {
+      "factId": "WHI-CP016-F041",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP011",
+      "claim": "Which principle in Article 2 of the UN Charter recognises the sovereign equality of member states?",
+      "normalizedAnswer": "All members are sovereign equals",
+      "relationshipType": "Charter principles and purposes",
+      "sourceIds": [
+        "CP011-CP011-S01"
+      ],
+      "originCheckpointId": "WHI-001-CP011",
+      "originQuestionId": "WHI-CP011-Q007",
+      "originFactId": "WHI-CP011-F007",
+      "originSourceIds": [
+        "CP011-S01"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Documents, treaties, and institutions"
+    },
+    {
+      "factId": "WHI-CP016-F042",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP011",
+      "claim": "Which method does the UN Charter encourage for resolving international disputes?",
+      "normalizedAnswer": "Peaceful settlement",
+      "relationshipType": "Charter principles and purposes",
+      "sourceIds": [
+        "CP011-CP011-S01"
+      ],
+      "originCheckpointId": "WHI-001-CP011",
+      "originQuestionId": "WHI-CP011-Q009",
+      "originFactId": "WHI-CP011-F009",
+      "originSourceIds": [
+        "CP011-S01"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Documents, treaties, and institutions"
+    },
+    {
+      "factId": "WHI-CP016-F043",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP011",
+      "claim": "Which agreement established the International Military Tribunal at Nuremberg?",
+      "normalizedAnswer": "The London Agreement of 8 August 1945",
+      "relationshipType": "Bretton Woods institutions",
+      "sourceIds": [
+        "CP011-CP011-S09"
+      ],
+      "originCheckpointId": "WHI-001-CP011",
+      "originQuestionId": "WHI-CP011-Q033",
+      "originFactId": "WHI-CP011-F033",
+      "originSourceIds": [
+        "CP011-S09"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Documents, treaties, and institutions"
+    },
+    {
+      "factId": "WHI-CP016-F044",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP011",
+      "claim": "Which statement about the post-war division of Germany is accurate?",
+      "normalizedAnswer": "Four-power occupation preceded the creation of East and West German states",
+      "relationshipType": "Post-war order and synthesis",
+      "sourceIds": [
+        "CP011-CP011-S11",
+        "CP011-CP011-S12"
+      ],
+      "originCheckpointId": "WHI-001-CP011",
+      "originQuestionId": "WHI-CP011-Q059",
+      "originFactId": "WHI-CP011-F059",
+      "originSourceIds": [
+        "CP011-S11",
+        "CP011-S12"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Statements and synthesis"
+    },
+    {
+      "factId": "WHI-CP016-F045",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP012",
+      "claim": "Which city was the capital of the Indonesian Republic during the revolution before the Dutch returned to Jakarta?",
+      "normalizedAnswer": "Yogyakarta",
+      "relationshipType": "Indonesian independence",
+      "sourceIds": [
+        "CP012-CP012-S03",
+        "CP012-CP012-S01"
+      ],
+      "originCheckpointId": "WHI-001-CP012",
+      "originQuestionId": "WHI-CP012-Q016",
+      "originFactId": "WHI-CP012-F016",
+      "originSourceIds": [
+        "CP012-S03",
+        "CP012-S01"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Events, places, and actors"
+    },
+    {
+      "factId": "WHI-CP016-F046",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP012",
+      "claim": "Which battle in 1954 helped end French colonial rule in Indochina?",
+      "normalizedAnswer": "Dien Bien Phu",
+      "relationshipType": "Vietnam and the end of French Indochina",
+      "sourceIds": [
+        "CP012-CP012-S04",
+        "CP012-CP012-S05"
+      ],
+      "originCheckpointId": "WHI-001-CP012",
+      "originQuestionId": "WHI-CP012-Q020",
+      "originFactId": "WHI-CP012-F020",
+      "originSourceIds": [
+        "CP012-S04",
+        "CP012-S05"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Alliances, sides, and conflicts"
+    },
+    {
+      "factId": "WHI-CP016-F047",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP012",
+      "claim": "When did the UN General Assembly adopt Resolution 181?",
+      "normalizedAnswer": "29 November 1947",
+      "relationshipType": "Palestine under the British Mandate",
+      "sourceIds": [
+        "CP012-CP012-S09",
+        "CP012-CP012-S10"
+      ],
+      "originCheckpointId": "WHI-001-CP012",
+      "originQuestionId": "WHI-CP012-Q045",
+      "originFactId": "WHI-CP012-F045",
+      "originSourceIds": [
+        "CP012-S09",
+        "CP012-S10"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Dates and chronology"
+    },
+    {
+      "factId": "WHI-CP016-F048",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP012",
+      "claim": "Which comparison of independence paths is accurate?",
+      "normalizedAnswer": "Indonesia declared independence in 1945 and secured Dutch sovereignty transfer in 1949",
+      "relationshipType": "Decolonization paths and regional comparison",
+      "sourceIds": [
+        "CP012-CP012-S01",
+        "CP012-CP012-S12",
+        "CP012-CP012-S08"
+      ],
+      "originCheckpointId": "WHI-001-CP012",
+      "originQuestionId": "WHI-CP012-Q055",
+      "originFactId": "WHI-CP012-F055",
+      "originSourceIds": [
+        "CP012-S01",
+        "CP012-S12",
+        "CP012-S08"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Comparisons and distinctions"
+    },
+    {
+      "factId": "WHI-CP016-F049",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP013",
+      "claim": "Which European power ruled Algeria before its independence in 1962?",
+      "normalizedAnswer": "France",
+      "relationshipType": "Algerian War and independence",
+      "sourceIds": [
+        "CP013-CP013-S01",
+        "CP013-CP013-S04"
+      ],
+      "originCheckpointId": "WHI-001-CP013",
+      "originQuestionId": "WHI-CP013-Q007",
+      "originFactId": "WHI-CP013-F007",
+      "originSourceIds": [
+        "CP013-S01",
+        "CP013-S04"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Alliances, sides, and conflicts"
+    },
+    {
+      "factId": "WHI-CP016-F050",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP013",
+      "claim": "Which country became independent from Britain in 1963 under the name Kenya?",
+      "normalizedAnswer": "Kenya",
+      "relationshipType": "East and Central African independence",
+      "sourceIds": [
+        "CP013-CP013-S13",
+        "CP013-CP013-S14"
+      ],
+      "originCheckpointId": "WHI-001-CP013",
+      "originQuestionId": "WHI-CP013-Q019",
+      "originFactId": "WHI-CP013-F019",
+      "originSourceIds": [
+        "CP013-S13",
+        "CP013-S14"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Movements, states, and political change"
+    },
+    {
+      "factId": "WHI-CP016-F051",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP013",
+      "claim": "Which country became independent as Malawi in 1964?",
+      "normalizedAnswer": "Nyasaland",
+      "relationshipType": "East and Central African independence",
+      "sourceIds": [
+        "CP013-CP013-S13",
+        "CP013-CP013-S14"
+      ],
+      "originCheckpointId": "WHI-001-CP013",
+      "originQuestionId": "WHI-CP013-Q022",
+      "originFactId": "WHI-CP013-F022",
+      "originSourceIds": [
+        "CP013-S13",
+        "CP013-S14"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Movements, states, and political change"
+    },
+    {
+      "factId": "WHI-CP016-F052",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP013",
+      "claim": "Which sequence is chronologically correct?",
+      "normalizedAnswer": "Ghana independence (1957), Congo independence (1960), Algeria independence (1962)",
+      "relationshipType": "Colonial borders and decolonization outcomes",
+      "sourceIds": [
+        "CP013-CP013-S01",
+        "CP013-CP013-S02",
+        "CP013-CP013-S04",
+        "CP013-CP013-S05",
+        "CP013-CP013-S10"
+      ],
+      "originCheckpointId": "WHI-001-CP013",
+      "originQuestionId": "WHI-CP013-Q058",
+      "originFactId": "WHI-CP013-F058",
+      "originSourceIds": [
+        "CP013-S01",
+        "CP013-S02",
+        "CP013-S04",
+        "CP013-S05",
+        "CP013-S10"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Dates and chronology"
+    },
+    {
+      "factId": "WHI-CP016-F053",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP014",
+      "claim": "Which country placed nuclear missiles in Cuba before the 1962 crisis?",
+      "normalizedAnswer": "The Soviet Union",
+      "relationshipType": "Cuban Missile Crisis",
+      "sourceIds": [
+        "CP014-CP014-S08"
+      ],
+      "originCheckpointId": "WHI-001-CP014",
+      "originQuestionId": "WHI-CP014-Q028",
+      "originFactId": "WHI-CP014-F028",
+      "originSourceIds": [
+        "CP014-S08"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Events, places, and actors"
+    },
+    {
+      "factId": "WHI-CP016-F054",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP014",
+      "claim": "Why is the Cuban Missile Crisis treated as a major Cold War turning point?",
+      "normalizedAnswer": "It brought the superpowers close to nuclear conflict and encouraged crisis-management measures",
+      "relationshipType": "Cuban Missile Crisis",
+      "sourceIds": [
+        "CP014-CP014-S08"
+      ],
+      "originCheckpointId": "WHI-001-CP014",
+      "originQuestionId": "WHI-CP014-Q030",
+      "originFactId": "WHI-CP014-F030",
+      "originSourceIds": [
+        "CP014-S08"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Causes, policies, and purposes"
+    },
+    {
+      "factId": "WHI-CP016-F055",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP014",
+      "claim": "Which country hosted the 1955 Bandung Conference?",
+      "normalizedAnswer": "Indonesia",
+      "relationshipType": "Non-Aligned Movement and Bandung",
+      "sourceIds": [
+        "CP014-CP014-S15",
+        "CP014-CP014-S16"
+      ],
+      "originCheckpointId": "WHI-001-CP014",
+      "originQuestionId": "WHI-CP014-Q053",
+      "originFactId": "WHI-CP014-F053",
+      "originSourceIds": [
+        "CP014-S15",
+        "CP014-S16"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Events, places, and actors"
+    },
+    {
+      "factId": "WHI-CP016-F056",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP014",
+      "claim": "Which sequence is in chronological order?",
+      "normalizedAnswer": "Truman Doctrine → Berlin Airlift → Cuban Missile Crisis → Helsinki Final Act",
+      "relationshipType": "Cold War chronology and distinctions",
+      "sourceIds": [
+        "CP014-CP014-S01",
+        "CP014-CP014-S04",
+        "CP014-CP014-S08",
+        "CP014-CP014-S13",
+        "CP014-CP014-S14"
+      ],
+      "originCheckpointId": "WHI-001-CP014",
+      "originQuestionId": "WHI-CP014-Q055",
+      "originFactId": "WHI-CP014-F055",
+      "originSourceIds": [
+        "CP014-S01",
+        "CP014-S04",
+        "CP014-S08",
+        "CP014-S13",
+        "CP014-S14"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Dates and chronology"
+    },
+    {
+      "factId": "WHI-CP016-F057",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP015",
+      "claim": "Which movement challenged communist rule in Poland during the 1980s?",
+      "normalizedAnswer": "Solidarity",
+      "relationshipType": "Eastern European transitions, 1989",
+      "sourceIds": [
+        "CP015-CP015-S02",
+        "CP015-CP015-S14"
+      ],
+      "originCheckpointId": "WHI-001-CP015",
+      "originQuestionId": "WHI-CP015-Q007",
+      "originFactId": "WHI-CP015-F007",
+      "originSourceIds": [
+        "CP015-S02",
+        "CP015-S14"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Movements, states, and political change"
+    },
+    {
+      "factId": "WHI-CP016-F058",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP015",
+      "claim": "What event did the opening of the Berlin Wall symbolize?",
+      "normalizedAnswer": "The weakening of the division between communist Eastern Europe and the West",
+      "relationshipType": "Berlin Wall and German reunification",
+      "sourceIds": [
+        "CP015-CP015-S02",
+        "CP015-CP015-S05",
+        "CP015-CP015-S06",
+        "CP015-CP015-S12"
+      ],
+      "originCheckpointId": "WHI-001-CP015",
+      "originQuestionId": "WHI-CP015-Q014",
+      "originFactId": "WHI-CP015-F014",
+      "originSourceIds": [
+        "CP015-S02",
+        "CP015-S05",
+        "CP015-S06",
+        "CP015-S12"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Consequences and outcomes"
+    },
+    {
+      "factId": "WHI-CP016-F059",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP015",
+      "claim": "Which republic declared restoration of independence in April 1991?",
+      "normalizedAnswer": "Georgia",
+      "relationshipType": "Soviet republic independence",
+      "sourceIds": [
+        "CP015-CP015-S03",
+        "CP015-CP015-S08"
+      ],
+      "originCheckpointId": "WHI-001-CP015",
+      "originQuestionId": "WHI-CP015-Q029",
+      "originFactId": "WHI-CP015-F029",
+      "originSourceIds": [
+        "CP015-S03",
+        "CP015-S08"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Movements, states, and political change"
+    },
+    {
+      "factId": "WHI-CP016-F060",
+      "checkpointId": "WHI-001-CP016",
+      "topic": "CP015",
+      "claim": "How did the failed coup affect the Soviet central government?",
+      "normalizedAnswer": "It weakened Gorbachev’s authority and accelerated the dissolution crisis",
+      "relationshipType": "August 1991 coup attempt",
+      "sourceIds": [
+        "CP015-CP015-S03"
+      ],
+      "originCheckpointId": "WHI-001-CP015",
+      "originQuestionId": "WHI-CP015-Q034",
+      "originFactId": "WHI-CP015-F034",
+      "originSourceIds": [
+        "CP015-S03"
+      ],
+      "claimStatus": "inherited-from-approved-origin-pool",
+      "questionFamily": "Consequences and outcomes"
+    }
+  ],
+  "originQuestionCrosswalk": [
+    {
+      "questionId": "WHI-CP016-Q001",
+      "factId": "WHI-CP016-F001",
+      "originCheckpointId": "WHI-001-CP001",
+      "originQuestionId": "WHI-CP001-Q007",
+      "originFactId": "WHI-CP001-F007",
+      "originQuestionFamily": "Leader and region",
+      "originSourceIds": [
+        "S4"
+      ],
+      "normalizedSourceIds": [
+        "CP001-S4"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP001-Q007|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q002",
+      "factId": "WHI-CP016-F002",
+      "originCheckpointId": "WHI-001-CP001",
+      "originQuestionId": "WHI-CP001-Q019",
+      "originFactId": "WHI-CP001-F019",
+      "originQuestionFamily": "Roman chronology",
+      "originSourceIds": [
+        "S5",
+        "S6"
+      ],
+      "normalizedSourceIds": [
+        "CP001-S5",
+        "CP001-S6"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP001-Q019|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q003",
+      "factId": "WHI-CP016-F003",
+      "originCheckpointId": "WHI-001-CP001",
+      "originQuestionId": "WHI-CP001-Q026",
+      "originFactId": "WHI-CP001-F026",
+      "originQuestionFamily": "Mongol history",
+      "originSourceIds": [
+        "S14"
+      ],
+      "normalizedSourceIds": [
+        "CP001-S14"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP001-Q026|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q004",
+      "factId": "WHI-CP016-F004",
+      "originCheckpointId": "WHI-001-CP001",
+      "originQuestionId": "WHI-CP001-Q034",
+      "originFactId": "WHI-CP001-F034",
+      "originQuestionFamily": "Byzantine ruler",
+      "originSourceIds": [
+        "S20"
+      ],
+      "normalizedSourceIds": [
+        "CP001-S20"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP001-Q034|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q005",
+      "factId": "WHI-CP016-F005",
+      "originCheckpointId": "WHI-001-CP002",
+      "originQuestionId": "WHI-CP002-Q007",
+      "originFactId": "WHI-CP002-F007",
+      "originQuestionFamily": "Person–work relationship",
+      "originSourceIds": [
+        "S2"
+      ],
+      "normalizedSourceIds": [
+        "CP002-S2"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP002-Q007|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q006",
+      "factId": "WHI-CP016-F006",
+      "originCheckpointId": "WHI-001-CP002",
+      "originQuestionId": "WHI-CP002-Q009",
+      "originFactId": "WHI-CP002-F009",
+      "originQuestionFamily": "Person–work relationship",
+      "originSourceIds": [
+        "S2"
+      ],
+      "normalizedSourceIds": [
+        "CP002-S2"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP002-Q009|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q007",
+      "factId": "WHI-CP016-F007",
+      "originCheckpointId": "WHI-001-CP002",
+      "originQuestionId": "WHI-CP002-Q029",
+      "originFactId": "WHI-CP002-F029",
+      "originQuestionFamily": "Scientist–discovery",
+      "originSourceIds": [
+        "S5"
+      ],
+      "normalizedSourceIds": [
+        "CP002-S5"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP002-Q029|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q008",
+      "factId": "WHI-CP016-F008",
+      "originCheckpointId": "WHI-001-CP002",
+      "originQuestionId": "WHI-CP002-Q043",
+      "originFactId": "WHI-CP002-F043",
+      "originQuestionFamily": "Treaty–event",
+      "originSourceIds": [
+        "S10"
+      ],
+      "normalizedSourceIds": [
+        "CP002-S10"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP002-Q043|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q009",
+      "factId": "WHI-CP016-F009",
+      "originCheckpointId": "WHI-001-CP003",
+      "originQuestionId": "WHI-CP003-Q002",
+      "originFactId": "WHI-CP003-F002",
+      "originQuestionFamily": "Thinker–idea",
+      "originSourceIds": [
+        "S2"
+      ],
+      "normalizedSourceIds": [
+        "CP003-S2"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP003-Q002|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q010",
+      "factId": "WHI-CP016-F010",
+      "originCheckpointId": "WHI-001-CP003",
+      "originQuestionId": "WHI-CP003-Q005",
+      "originFactId": "WHI-CP003-F005",
+      "originQuestionFamily": "Document–event",
+      "originSourceIds": [
+        "S4"
+      ],
+      "normalizedSourceIds": [
+        "CP003-S4"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP003-Q005|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q011",
+      "factId": "WHI-CP016-F011",
+      "originCheckpointId": "WHI-001-CP003",
+      "originQuestionId": "WHI-CP003-Q016",
+      "originFactId": "WHI-CP003-F016",
+      "originQuestionFamily": "Revolution–leader",
+      "originSourceIds": [
+        "S7"
+      ],
+      "normalizedSourceIds": [
+        "CP003-S7"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP003-Q016|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q012",
+      "factId": "WHI-CP016-F012",
+      "originCheckpointId": "WHI-001-CP003",
+      "originQuestionId": "WHI-CP003-Q054",
+      "originFactId": "WHI-CP003-F054",
+      "originQuestionFamily": "Cause–consequence",
+      "originSourceIds": [
+        "S5",
+        "S18"
+      ],
+      "normalizedSourceIds": [
+        "CP003-S5",
+        "CP003-S18"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP003-Q054|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q013",
+      "factId": "WHI-CP016-F013",
+      "originCheckpointId": "WHI-001-CP004",
+      "originQuestionId": "WHI-CP004-Q008",
+      "originFactId": "WHI-CP004-F008",
+      "originQuestionFamily": "Person–event",
+      "originSourceIds": [
+        "S3"
+      ],
+      "normalizedSourceIds": [
+        "CP004-S3"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP004-Q008|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q014",
+      "factId": "WHI-CP016-F014",
+      "originCheckpointId": "WHI-001-CP004",
+      "originQuestionId": "WHI-CP004-Q018",
+      "originFactId": "WHI-CP004-F018",
+      "originQuestionFamily": "Campaign–consequence",
+      "originSourceIds": [
+        "S9"
+      ],
+      "normalizedSourceIds": [
+        "CP004-S9"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP004-Q018|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q015",
+      "factId": "WHI-CP016-F015",
+      "originCheckpointId": "WHI-001-CP004",
+      "originQuestionId": "WHI-CP004-Q024",
+      "originFactId": "WHI-CP004-F024",
+      "originQuestionFamily": "Multi-statement",
+      "originSourceIds": [
+        "S3",
+        "S5"
+      ],
+      "normalizedSourceIds": [
+        "CP004-S3",
+        "CP004-S5"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP004-Q024|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q016",
+      "factId": "WHI-CP016-F016",
+      "originCheckpointId": "WHI-001-CP004",
+      "originQuestionId": "WHI-CP004-Q060",
+      "originFactId": "WHI-CP004-F060",
+      "originQuestionFamily": "Multi-statement synthesis",
+      "originSourceIds": [
+        "S4",
+        "S5"
+      ],
+      "normalizedSourceIds": [
+        "CP004-S4",
+        "CP004-S5"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP004-Q060|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q017",
+      "factId": "WHI-CP016-F017",
+      "originCheckpointId": "WHI-001-CP005",
+      "originQuestionId": "WHI-CP005-Q013",
+      "originFactId": "WHI-CP005-F013",
+      "originQuestionFamily": "Urbanisation",
+      "originSourceIds": [
+        "CP005-S22"
+      ],
+      "normalizedSourceIds": [
+        "CP005-CP005-S22"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP005-Q013|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q018",
+      "factId": "WHI-CP016-F018",
+      "originCheckpointId": "WHI-001-CP005",
+      "originQuestionId": "WHI-CP005-Q038",
+      "originFactId": "WHI-CP005-F038",
+      "originQuestionFamily": "Industrialisation beyond Britain",
+      "originSourceIds": [
+        "CP005-S28"
+      ],
+      "normalizedSourceIds": [
+        "CP005-CP005-S28"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP005-Q038|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q019",
+      "factId": "WHI-CP016-F019",
+      "originCheckpointId": "WHI-001-CP005",
+      "originQuestionId": "WHI-CP005-Q043",
+      "originFactId": "WHI-CP005-F043",
+      "originQuestionFamily": "Industrialisation beyond Britain",
+      "originSourceIds": [
+        "CP005-S28"
+      ],
+      "normalizedSourceIds": [
+        "CP005-CP005-S28"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP005-Q043|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q020",
+      "factId": "WHI-CP016-F020",
+      "originCheckpointId": "WHI-001-CP005",
+      "originQuestionId": "WHI-CP005-Q056",
+      "originFactId": "WHI-CP005-F056",
+      "originQuestionFamily": "Reform chronology",
+      "originSourceIds": [
+        "CP005-S01",
+        "CP005-S06",
+        "CP005-S29"
+      ],
+      "normalizedSourceIds": [
+        "CP005-CP005-S01",
+        "CP005-CP005-S06",
+        "CP005-CP005-S29"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP005-Q056|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q021",
+      "factId": "WHI-CP016-F021",
+      "originCheckpointId": "WHI-001-CP006",
+      "originQuestionId": "WHI-CP006-Q022",
+      "originFactId": "WHI-CP006-F022",
+      "originQuestionFamily": "State and political base",
+      "originSourceIds": [
+        "CP006-S01",
+        "CP006-S02"
+      ],
+      "normalizedSourceIds": [
+        "CP006-CP006-S01",
+        "CP006-CP006-S02"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP006-Q022|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q022",
+      "factId": "WHI-CP016-F022",
+      "originCheckpointId": "WHI-001-CP006",
+      "originQuestionId": "WHI-CP006-Q024",
+      "originFactId": "WHI-CP006-F024",
+      "originQuestionFamily": "Movement comparison",
+      "originSourceIds": [
+        "CP006-S01",
+        "CP006-S02"
+      ],
+      "normalizedSourceIds": [
+        "CP006-CP006-S01",
+        "CP006-CP006-S02"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP006-Q024|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q023",
+      "factId": "WHI-CP016-F023",
+      "originCheckpointId": "WHI-001-CP006",
+      "originQuestionId": "WHI-CP006-Q035",
+      "originFactId": "WHI-CP006-F035",
+      "originQuestionFamily": "Movement comparison",
+      "originSourceIds": [
+        "CP006-S06"
+      ],
+      "normalizedSourceIds": [
+        "CP006-CP006-S06"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP006-Q035|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q024",
+      "factId": "WHI-CP016-F024",
+      "originCheckpointId": "WHI-001-CP006",
+      "originQuestionId": "WHI-CP006-Q045",
+      "originFactId": "WHI-CP006-F045",
+      "originQuestionFamily": "Chronology and sequence",
+      "originSourceIds": [
+        "CP006-S05",
+        "CP006-S06",
+        "CP006-S08"
+      ],
+      "normalizedSourceIds": [
+        "CP006-CP006-S05",
+        "CP006-CP006-S06",
+        "CP006-CP006-S08"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP006-Q045|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q025",
+      "factId": "WHI-CP016-F025",
+      "originCheckpointId": "WHI-001-CP007",
+      "originQuestionId": "WHI-CP007-Q005",
+      "originFactId": "WHI-CP007-F005",
+      "originQuestionFamily": "Motive and method",
+      "originSourceIds": [
+        "CP007-S05",
+        "CP007-S06"
+      ],
+      "normalizedSourceIds": [
+        "CP007-CP007-S05",
+        "CP007-CP007-S06"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP007-Q005|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q026",
+      "factId": "WHI-CP016-F026",
+      "originCheckpointId": "WHI-001-CP007",
+      "originQuestionId": "WHI-CP007-Q049",
+      "originFactId": "WHI-CP007-F049",
+      "originQuestionFamily": "Comparison",
+      "originSourceIds": [
+        "CP007-S03",
+        "CP007-S09"
+      ],
+      "normalizedSourceIds": [
+        "CP007-CP007-S03",
+        "CP007-CP007-S09"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP007-Q049|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q027",
+      "factId": "WHI-CP016-F027",
+      "originCheckpointId": "WHI-001-CP007",
+      "originQuestionId": "WHI-CP007-Q051",
+      "originFactId": "WHI-CP007-F051",
+      "originQuestionFamily": "Comparison",
+      "originSourceIds": [
+        "CP007-S02",
+        "CP007-S11"
+      ],
+      "normalizedSourceIds": [
+        "CP007-CP007-S02",
+        "CP007-CP007-S11"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP007-Q051|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q028",
+      "factId": "WHI-CP016-F028",
+      "originCheckpointId": "WHI-001-CP007",
+      "originQuestionId": "WHI-CP007-Q052",
+      "originFactId": "WHI-CP007-F052",
+      "originQuestionFamily": "Comparison",
+      "originSourceIds": [
+        "CP007-S05",
+        "CP007-S11"
+      ],
+      "normalizedSourceIds": [
+        "CP007-CP007-S05",
+        "CP007-CP007-S11"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP007-Q052|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q029",
+      "factId": "WHI-CP016-F029",
+      "originCheckpointId": "WHI-001-CP008",
+      "originQuestionId": "WHI-CP008-Q004",
+      "originFactId": "WHI-CP008-F004",
+      "originQuestionFamily": "Causes and alliances",
+      "originSourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "normalizedSourceIds": [
+        "CP008-CP008-S01",
+        "CP008-CP008-S05"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP008-Q004|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q030",
+      "factId": "WHI-CP016-F030",
+      "originCheckpointId": "WHI-001-CP008",
+      "originQuestionId": "WHI-CP008-Q017",
+      "originFactId": "WHI-CP008-F017",
+      "originQuestionFamily": "Fronts and battles",
+      "originSourceIds": [
+        "CP008-S02",
+        "CP008-S08"
+      ],
+      "normalizedSourceIds": [
+        "CP008-CP008-S02",
+        "CP008-CP008-S08"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP008-Q017|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q031",
+      "factId": "WHI-CP016-F031",
+      "originCheckpointId": "WHI-001-CP008",
+      "originQuestionId": "WHI-CP008-Q021",
+      "originFactId": "WHI-CP008-F021",
+      "originQuestionFamily": "Fronts and battles",
+      "originSourceIds": [
+        "CP008-S05",
+        "CP008-S08"
+      ],
+      "normalizedSourceIds": [
+        "CP008-CP008-S05",
+        "CP008-CP008-S08"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP008-Q021|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q032",
+      "factId": "WHI-CP016-F032",
+      "originCheckpointId": "WHI-001-CP008",
+      "originQuestionId": "WHI-CP008-Q058",
+      "originFactId": "WHI-CP008-F058",
+      "originQuestionFamily": "Integrated synthesis",
+      "originSourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "normalizedSourceIds": [
+        "CP008-CP008-S04",
+        "CP008-CP008-S05"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP008-Q058|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q033",
+      "factId": "WHI-CP016-F033",
+      "originCheckpointId": "WHI-001-CP009",
+      "originQuestionId": "WHI-CP009-Q017",
+      "originFactId": "WHI-CP009-F017",
+      "originQuestionFamily": "Republic and institutions",
+      "originSourceIds": [
+        "CP009-S03"
+      ],
+      "normalizedSourceIds": [
+        "CP009-CP009-S03"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP009-Q017|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q034",
+      "factId": "WHI-CP016-F034",
+      "originCheckpointId": "WHI-001-CP009",
+      "originQuestionId": "WHI-CP009-Q024",
+      "originFactId": "WHI-CP009-F024",
+      "originQuestionFamily": "Economic causes and effects",
+      "originSourceIds": [
+        "CP009-S03"
+      ],
+      "normalizedSourceIds": [
+        "CP009-CP009-S03"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP009-Q024|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q035",
+      "factId": "WHI-CP016-F035",
+      "originCheckpointId": "WHI-001-CP009",
+      "originQuestionId": "WHI-CP009-Q026",
+      "originFactId": "WHI-CP009-F026",
+      "originQuestionFamily": "Economic causes and effects",
+      "originSourceIds": [
+        "CP009-S03",
+        "CP009-S04"
+      ],
+      "normalizedSourceIds": [
+        "CP009-CP009-S03",
+        "CP009-CP009-S04"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP009-Q026|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q036",
+      "factId": "WHI-CP016-F036",
+      "originCheckpointId": "WHI-001-CP009",
+      "originQuestionId": "WHI-CP009-Q028",
+      "originFactId": "WHI-CP009-F028",
+      "originQuestionFamily": "Economic causes and effects",
+      "originSourceIds": [
+        "CP009-S04",
+        "CP009-S05"
+      ],
+      "normalizedSourceIds": [
+        "CP009-CP009-S04",
+        "CP009-CP009-S05"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP009-Q028|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q037",
+      "factId": "WHI-CP016-F037",
+      "originCheckpointId": "WHI-001-CP010",
+      "originQuestionId": "WHI-CP010-Q013",
+      "originFactId": "WHI-CP010-F013",
+      "originQuestionFamily": "European theatre",
+      "originSourceIds": [
+        "CP010-S02",
+        "CP010-S01"
+      ],
+      "normalizedSourceIds": [
+        "CP010-CP010-S02",
+        "CP010-CP010-S01"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP010-Q013|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q038",
+      "factId": "WHI-CP016-F038",
+      "originCheckpointId": "WHI-001-CP010",
+      "originQuestionId": "WHI-CP010-Q026",
+      "originFactId": "WHI-CP010-F026",
+      "originQuestionFamily": "Turning points",
+      "originSourceIds": [
+        "CP010-S01",
+        "CP010-S02"
+      ],
+      "normalizedSourceIds": [
+        "CP010-CP010-S01",
+        "CP010-CP010-S02"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP010-Q026|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q039",
+      "factId": "WHI-CP016-F039",
+      "originCheckpointId": "WHI-001-CP010",
+      "originQuestionId": "WHI-CP010-Q058",
+      "originFactId": "WHI-CP010-F058",
+      "originQuestionFamily": "Consequences and synthesis",
+      "originSourceIds": [
+        "CP010-S01",
+        "CP010-S10"
+      ],
+      "normalizedSourceIds": [
+        "CP010-CP010-S01",
+        "CP010-CP010-S10"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP010-Q058|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q040",
+      "factId": "WHI-CP016-F040",
+      "originCheckpointId": "WHI-001-CP010",
+      "originQuestionId": "WHI-CP010-Q060",
+      "originFactId": "WHI-CP010-F060",
+      "originQuestionFamily": "Consequences and synthesis",
+      "originSourceIds": [
+        "CP010-S01",
+        "CP010-S02",
+        "CP010-S03"
+      ],
+      "normalizedSourceIds": [
+        "CP010-CP010-S01",
+        "CP010-CP010-S02",
+        "CP010-CP010-S03"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP010-Q060|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q041",
+      "factId": "WHI-CP016-F041",
+      "originCheckpointId": "WHI-001-CP011",
+      "originQuestionId": "WHI-CP011-Q007",
+      "originFactId": "WHI-CP011-F007",
+      "originQuestionFamily": "Charter principles and purposes",
+      "originSourceIds": [
+        "CP011-S01"
+      ],
+      "normalizedSourceIds": [
+        "CP011-CP011-S01"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP011-Q007|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q042",
+      "factId": "WHI-CP016-F042",
+      "originCheckpointId": "WHI-001-CP011",
+      "originQuestionId": "WHI-CP011-Q009",
+      "originFactId": "WHI-CP011-F009",
+      "originQuestionFamily": "Charter principles and purposes",
+      "originSourceIds": [
+        "CP011-S01"
+      ],
+      "normalizedSourceIds": [
+        "CP011-CP011-S01"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP011-Q009|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q043",
+      "factId": "WHI-CP016-F043",
+      "originCheckpointId": "WHI-001-CP011",
+      "originQuestionId": "WHI-CP011-Q033",
+      "originFactId": "WHI-CP011-F033",
+      "originQuestionFamily": "Bretton Woods institutions",
+      "originSourceIds": [
+        "CP011-S09"
+      ],
+      "normalizedSourceIds": [
+        "CP011-CP011-S09"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP011-Q033|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q044",
+      "factId": "WHI-CP016-F044",
+      "originCheckpointId": "WHI-001-CP011",
+      "originQuestionId": "WHI-CP011-Q059",
+      "originFactId": "WHI-CP011-F059",
+      "originQuestionFamily": "Post-war order and synthesis",
+      "originSourceIds": [
+        "CP011-S11",
+        "CP011-S12"
+      ],
+      "normalizedSourceIds": [
+        "CP011-CP011-S11",
+        "CP011-CP011-S12"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP011-Q059|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q045",
+      "factId": "WHI-CP016-F045",
+      "originCheckpointId": "WHI-001-CP012",
+      "originQuestionId": "WHI-CP012-Q016",
+      "originFactId": "WHI-CP012-F016",
+      "originQuestionFamily": "Indonesian independence",
+      "originSourceIds": [
+        "CP012-S03",
+        "CP012-S01"
+      ],
+      "normalizedSourceIds": [
+        "CP012-CP012-S03",
+        "CP012-CP012-S01"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "B",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP012-Q016|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q046",
+      "factId": "WHI-CP016-F046",
+      "originCheckpointId": "WHI-001-CP012",
+      "originQuestionId": "WHI-CP012-Q020",
+      "originFactId": "WHI-CP012-F020",
+      "originQuestionFamily": "Vietnam and the end of French Indochina",
+      "originSourceIds": [
+        "CP012-S04",
+        "CP012-S05"
+      ],
+      "normalizedSourceIds": [
+        "CP012-CP012-S04",
+        "CP012-CP012-S05"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP012-Q020|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q047",
+      "factId": "WHI-CP016-F047",
+      "originCheckpointId": "WHI-001-CP012",
+      "originQuestionId": "WHI-CP012-Q045",
+      "originFactId": "WHI-CP012-F045",
+      "originQuestionFamily": "Palestine under the British Mandate",
+      "originSourceIds": [
+        "CP012-S09",
+        "CP012-S10"
+      ],
+      "normalizedSourceIds": [
+        "CP012-CP012-S09",
+        "CP012-CP012-S10"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP012-Q045|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q048",
+      "factId": "WHI-CP016-F048",
+      "originCheckpointId": "WHI-001-CP012",
+      "originQuestionId": "WHI-CP012-Q055",
+      "originFactId": "WHI-CP012-F055",
+      "originQuestionFamily": "Decolonization paths and regional comparison",
+      "originSourceIds": [
+        "CP012-S01",
+        "CP012-S12",
+        "CP012-S08"
+      ],
+      "normalizedSourceIds": [
+        "CP012-CP012-S01",
+        "CP012-CP012-S12",
+        "CP012-CP012-S08"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP012-Q055|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q049",
+      "factId": "WHI-CP016-F049",
+      "originCheckpointId": "WHI-001-CP013",
+      "originQuestionId": "WHI-CP013-Q007",
+      "originFactId": "WHI-CP013-F007",
+      "originQuestionFamily": "Algerian War and independence",
+      "originSourceIds": [
+        "CP013-S01",
+        "CP013-S04"
+      ],
+      "normalizedSourceIds": [
+        "CP013-CP013-S01",
+        "CP013-CP013-S04"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP013-Q007|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q050",
+      "factId": "WHI-CP016-F050",
+      "originCheckpointId": "WHI-001-CP013",
+      "originQuestionId": "WHI-CP013-Q019",
+      "originFactId": "WHI-CP013-F019",
+      "originQuestionFamily": "East and Central African independence",
+      "originSourceIds": [
+        "CP013-S13",
+        "CP013-S14"
+      ],
+      "normalizedSourceIds": [
+        "CP013-CP013-S13",
+        "CP013-CP013-S14"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP013-Q019|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q051",
+      "factId": "WHI-CP016-F051",
+      "originCheckpointId": "WHI-001-CP013",
+      "originQuestionId": "WHI-CP013-Q022",
+      "originFactId": "WHI-CP013-F022",
+      "originQuestionFamily": "East and Central African independence",
+      "originSourceIds": [
+        "CP013-S13",
+        "CP013-S14"
+      ],
+      "normalizedSourceIds": [
+        "CP013-CP013-S13",
+        "CP013-CP013-S14"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP013-Q022|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q052",
+      "factId": "WHI-CP016-F052",
+      "originCheckpointId": "WHI-001-CP013",
+      "originQuestionId": "WHI-CP013-Q058",
+      "originFactId": "WHI-CP013-F058",
+      "originQuestionFamily": "Colonial borders and decolonization outcomes",
+      "originSourceIds": [
+        "CP013-S01",
+        "CP013-S02",
+        "CP013-S04",
+        "CP013-S05",
+        "CP013-S10"
+      ],
+      "normalizedSourceIds": [
+        "CP013-CP013-S01",
+        "CP013-CP013-S02",
+        "CP013-CP013-S04",
+        "CP013-CP013-S05",
+        "CP013-CP013-S10"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP013-Q058|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q053",
+      "factId": "WHI-CP016-F053",
+      "originCheckpointId": "WHI-001-CP014",
+      "originQuestionId": "WHI-CP014-Q028",
+      "originFactId": "WHI-CP014-F028",
+      "originQuestionFamily": "Cuban Missile Crisis",
+      "originSourceIds": [
+        "CP014-S08"
+      ],
+      "normalizedSourceIds": [
+        "CP014-CP014-S08"
+      ],
+      "originCorrectOption": "D",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP014-Q028|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q054",
+      "factId": "WHI-CP016-F054",
+      "originCheckpointId": "WHI-001-CP014",
+      "originQuestionId": "WHI-CP014-Q030",
+      "originFactId": "WHI-CP014-F030",
+      "originQuestionFamily": "Cuban Missile Crisis",
+      "originSourceIds": [
+        "CP014-S08"
+      ],
+      "normalizedSourceIds": [
+        "CP014-CP014-S08"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP014-Q030|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q055",
+      "factId": "WHI-CP016-F055",
+      "originCheckpointId": "WHI-001-CP014",
+      "originQuestionId": "WHI-CP014-Q053",
+      "originFactId": "WHI-CP014-F053",
+      "originQuestionFamily": "Non-Aligned Movement and Bandung",
+      "originSourceIds": [
+        "CP014-S15",
+        "CP014-S16"
+      ],
+      "normalizedSourceIds": [
+        "CP014-CP014-S15",
+        "CP014-CP014-S16"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP014-Q053|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q056",
+      "factId": "WHI-CP016-F056",
+      "originCheckpointId": "WHI-001-CP014",
+      "originQuestionId": "WHI-CP014-Q055",
+      "originFactId": "WHI-CP014-F055",
+      "originQuestionFamily": "Cold War chronology and distinctions",
+      "originSourceIds": [
+        "CP014-S01",
+        "CP014-S04",
+        "CP014-S08",
+        "CP014-S13",
+        "CP014-S14"
+      ],
+      "normalizedSourceIds": [
+        "CP014-CP014-S01",
+        "CP014-CP014-S04",
+        "CP014-CP014-S08",
+        "CP014-CP014-S13",
+        "CP014-CP014-S14"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "A",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP014-Q055|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q057",
+      "factId": "WHI-CP016-F057",
+      "originCheckpointId": "WHI-001-CP015",
+      "originQuestionId": "WHI-CP015-Q007",
+      "originFactId": "WHI-CP015-F007",
+      "originQuestionFamily": "Eastern European transitions, 1989",
+      "originSourceIds": [
+        "CP015-S02",
+        "CP015-S14"
+      ],
+      "normalizedSourceIds": [
+        "CP015-CP015-S02",
+        "CP015-CP015-S14"
+      ],
+      "originCorrectOption": "C",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP015-Q007|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q058",
+      "factId": "WHI-CP016-F058",
+      "originCheckpointId": "WHI-001-CP015",
+      "originQuestionId": "WHI-CP015-Q014",
+      "originFactId": "WHI-CP015-F014",
+      "originQuestionFamily": "Berlin Wall and German reunification",
+      "originSourceIds": [
+        "CP015-S02",
+        "CP015-S05",
+        "CP015-S06",
+        "CP015-S12"
+      ],
+      "normalizedSourceIds": [
+        "CP015-CP015-S02",
+        "CP015-CP015-S05",
+        "CP015-CP015-S06",
+        "CP015-CP015-S12"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "D",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP015-Q014|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q059",
+      "factId": "WHI-CP016-F059",
+      "originCheckpointId": "WHI-001-CP015",
+      "originQuestionId": "WHI-CP015-Q029",
+      "originFactId": "WHI-CP015-F029",
+      "originQuestionFamily": "Soviet republic independence",
+      "originSourceIds": [
+        "CP015-S03",
+        "CP015-S08"
+      ],
+      "normalizedSourceIds": [
+        "CP015-CP015-S03",
+        "CP015-CP015-S08"
+      ],
+      "originCorrectOption": "A",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP015-Q029|option-order-v1"
+    },
+    {
+      "questionId": "WHI-CP016-Q060",
+      "factId": "WHI-CP016-F060",
+      "originCheckpointId": "WHI-001-CP015",
+      "originQuestionId": "WHI-CP015-Q034",
+      "originFactId": "WHI-CP015-F034",
+      "originQuestionFamily": "August 1991 coup attempt",
+      "originSourceIds": [
+        "CP015-S03"
+      ],
+      "normalizedSourceIds": [
+        "CP015-CP015-S03"
+      ],
+      "originCorrectOption": "B",
+      "renderedCorrectOption": "C",
+      "originOptionOrder": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "optionOrderSeed": "WHI-001-CP016|WHI-CP015-Q034|option-order-v1"
+    }
+  ],
+  "generator": {
+    "version": "knowledge-v1-cumulative-1",
+    "selectionSeed": "WHI-001-CP016-v1",
+    "optionOrderRule": "Deterministic by origin question ID; correct positions balanced to 15 each."
+  }
+}
