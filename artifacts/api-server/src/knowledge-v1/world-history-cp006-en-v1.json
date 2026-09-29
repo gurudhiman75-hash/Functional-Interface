@@ -1,0 +1,2164 @@
+[
+  {
+    "questionId": "WHI-CP006-Q001",
+    "englishQuestionId": "WHI-CP006-Q001",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement and objective",
+    "stem": "Which pair of demands featured in the 1848 German national movement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Liberal constitutional government and national self-determination"
+      },
+      {
+        "key": "B",
+        "text": "Restoration of absolutist rule and dynastic privileges"
+      },
+      {
+        "key": "C",
+        "text": "Unification under Austrian leadership without constitutional reform"
+      },
+      {
+        "key": "D",
+        "text": "A German national parliament with no constitutional powers"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "In the German movement, many participants sought representative government and national unity. Their goals varied.",
+    "sourceIds": [
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q002",
+    "englishQuestionId": "WHI-CP006-Q002",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F002",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "State and political base",
+    "stem": "Which city hosted the German National Assembly that met in 1848?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Berlin"
+      },
+      {
+        "key": "B",
+        "text": "Frankfurt"
+      },
+      {
+        "key": "C",
+        "text": "Munich"
+      },
+      {
+        "key": "D",
+        "text": "Vienna"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Delegates to the first German National Assembly met in Frankfurt in 1848 and worked on a constitution for a united Germany.",
+    "sourceIds": [
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q003",
+    "englishQuestionId": "WHI-CP006-Q003",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F003",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Constitutional and political structure",
+    "stem": "What was a central task undertaken by the Frankfurt Assembly in 1848–49?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Restoring the German Confederation created after the Congress of Vienna"
+      },
+      {
+        "key": "B",
+        "text": "Creating the Austro-Hungarian Dual Monarchy"
+      },
+      {
+        "key": "C",
+        "text": "Forming the North German Confederation under Prussian leadership"
+      },
+      {
+        "key": "D",
+        "text": "Establishing a constitution for a proposed German nation-state"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The assembly debated and drafted a constitution for a unified German state. Its project did not establish the empire later proclaimed in 1871.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q004",
+    "englishQuestionId": "WHI-CP006-Q004",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F004",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Movement comparison",
+    "stem": "Which statement describes national and liberal aims in the German movement of 1848?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Nationalism always took priority over constitutional reform"
+      },
+      {
+        "key": "B",
+        "text": "Liberalism required the breakup of every multinational empire"
+      },
+      {
+        "key": "C",
+        "text": "German nationalists uniformly rejected liberal rights and constitutions"
+      },
+      {
+        "key": "D",
+        "text": "Their demands sometimes overlapped, but national and liberal aims did not always coincide"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Some German nationalists supported constitutional rights and unity together, while others favoured different political arrangements.",
+    "sourceIds": [
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q005",
+    "englishQuestionId": "WHI-CP006-Q005",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F005",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "What did Frederick William IV do when Frankfurt delegates offered him the German imperial crown in 1849?",
+    "options": [
+      {
+        "key": "A",
+        "text": "He accepted the crown and moved the imperial seat to Berlin"
+      },
+      {
+        "key": "B",
+        "text": "He asked the delegates to offer it to the Austrian emperor"
+      },
+      {
+        "key": "C",
+        "text": "He referred the offer to the German rulers for another vote"
+      },
+      {
+        "key": "D",
+        "text": "He declined the crown offered by the delegates"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Frederick William IV declined the offer in 1849. The assembly could draft a constitution, but it could not compel German rulers to accept its settlement.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q006",
+    "englishQuestionId": "WHI-CP006-Q006",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F006",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-stage synthesis",
+    "stem": "Which comparison between the 1848 Frankfurt project and German unification in 1871 is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both were completed by the same elected assembly"
+      },
+      {
+        "key": "B",
+        "text": "The 1871 empire included Austria as its leading state"
+      },
+      {
+        "key": "C",
+        "text": "The Frankfurt project relied on a popular parliament, while the 1871 state emerged under Prussian leadership after wars and political agreements"
+      },
+      {
+        "key": "D",
+        "text": "The Frankfurt Assembly created the 1871 empire before the Danish-Prussian War"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Frankfurt Assembly’s constitutional project failed. The later empire was created under Prussian hegemony, following wars against Denmark, Austria and France; Austria was outside the new German state.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q007",
+    "englishQuestionId": "WHI-CP006-Q007",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F007",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement and objective",
+    "stem": "Who founded the nationalist organisation Young Italy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Camillo Cavour"
+      },
+      {
+        "key": "B",
+        "text": "Giuseppe Mazzini"
+      },
+      {
+        "key": "C",
+        "text": "Giuseppe Garibaldi"
+      },
+      {
+        "key": "D",
+        "text": "Victor Emmanuel II"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Giuseppe Mazzini founded Young Italy, which promoted a united Italian nation and republican ideas.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q008",
+    "englishQuestionId": "WHI-CP006-Q008",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F008",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "State and political base",
+    "stem": "Which kingdom became the principal state base for the political unification of Italy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Kingdom of the Two Sicilies"
+      },
+      {
+        "key": "B",
+        "text": "Papal States"
+      },
+      {
+        "key": "C",
+        "text": "Kingdom of Piedmont-Sardinia"
+      },
+      {
+        "key": "D",
+        "text": "Kingdom of Lombardy-Venetia"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Piedmont-Sardinia, ruled by the House of Savoy, became the main state platform for the unification process.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q009",
+    "englishQuestionId": "WHI-CP006-Q009",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F009",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Person and contribution",
+    "stem": "What role did Camillo Cavour play in the Italian unification movement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "He led the Expedition of the Thousand to Sicily"
+      },
+      {
+        "key": "B",
+        "text": "He served as prime minister of Piedmont-Sardinia and used diplomacy to advance unification"
+      },
+      {
+        "key": "C",
+        "text": "He founded Young Italy as a republican organisation"
+      },
+      {
+        "key": "D",
+        "text": "He became the first king of unified Italy"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Cavour was a leading statesman of Piedmont-Sardinia. His diplomacy and political strategy helped expand the kingdom and advance unification.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q010",
+    "englishQuestionId": "WHI-CP006-Q010",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F010",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "What was the outcome of Garibaldi’s Expedition of the Thousand in 1860?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It restored Austrian control over Lombardy"
+      },
+      {
+        "key": "B",
+        "text": "It established the German Empire"
+      },
+      {
+        "key": "C",
+        "text": "It transferred Rome to the Kingdom of Italy"
+      },
+      {
+        "key": "D",
+        "text": "It helped overthrow Bourbon rule in Sicily and southern Italy"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Garibaldi’s volunteer force landed in Sicily and helped bring the Kingdom of the Two Sicilies under the unification movement. Rome joined Italy later.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q011",
+    "englishQuestionId": "WHI-CP006-Q011",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F011",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Person and contribution",
+    "stem": "Which leader is correctly matched with his role in the Italian unification movement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mazzini — led the Expedition of the Thousand"
+      },
+      {
+        "key": "B",
+        "text": "Garibaldi — founded Young Italy"
+      },
+      {
+        "key": "C",
+        "text": "Cavour — prime minister of Piedmont-Sardinia"
+      },
+      {
+        "key": "D",
+        "text": "Victor Emmanuel II — led the Frankfurt Assembly"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Cavour served as prime minister of Piedmont-Sardinia. Mazzini founded Young Italy, while Garibaldi led the Expedition of the Thousand.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q012",
+    "englishQuestionId": "WHI-CP006-Q012",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F012",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Event and outcome",
+    "stem": "In which year was the Kingdom of Italy proclaimed?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1848"
+      },
+      {
+        "key": "B",
+        "text": "1859"
+      },
+      {
+        "key": "C",
+        "text": "1861"
+      },
+      {
+        "key": "D",
+        "text": "1871"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Kingdom of Italy was proclaimed on 17 March 1861, with Victor Emmanuel II as its king.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q013",
+    "englishQuestionId": "WHI-CP006-Q013",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F013",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Arrange these events in chronological order:\n\n1. Proclamation of the Kingdom of Italy\n2. Garibaldi’s Expedition of the Thousand\n3. Rome becomes part of the Kingdom of Italy",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 → 2 → 3"
+      },
+      {
+        "key": "B",
+        "text": "3 → 2 → 1"
+      },
+      {
+        "key": "C",
+        "text": "2 → 3 → 1"
+      },
+      {
+        "key": "D",
+        "text": "2 → 1 → 3"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Garibaldi’s expedition took place in 1860. The kingdom was proclaimed in 1861, and Rome was incorporated in 1870.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q014",
+    "englishQuestionId": "WHI-CP006-Q014",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F014",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Territory and completion",
+    "stem": "Which territory was incorporated into the Kingdom of Italy in 1870?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Sicily"
+      },
+      {
+        "key": "B",
+        "text": "Lombardy"
+      },
+      {
+        "key": "C",
+        "text": "Rome"
+      },
+      {
+        "key": "D",
+        "text": "Venetia"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Italian forces entered Rome in 1870, and the city became part of the Kingdom of Italy. The kingdom had been proclaimed in 1861.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q015",
+    "englishQuestionId": "WHI-CP006-Q015",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F015",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which sequence correctly traces key stages of Italian unification?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Kingdom proclaimed (1861) → Rome incorporated (1870) → Venetia incorporated (1866)"
+      },
+      {
+        "key": "B",
+        "text": "Garibaldi’s expedition (1860) → Kingdom proclaimed (1861) → Venetia incorporated (1866) → Rome incorporated (1870)"
+      },
+      {
+        "key": "C",
+        "text": "Rome incorporated (1861) → Venetia incorporated (1860) → Kingdom proclaimed (1870)"
+      },
+      {
+        "key": "D",
+        "text": "Young Italy founded (1861) → Kingdom proclaimed (1870) → Garibaldi’s expedition (1871)"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The expedition helped bring the south into the movement before the kingdom was proclaimed. Venetia joined in 1866, and Rome in 1870.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q016",
+    "englishQuestionId": "WHI-CP006-Q016",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F016",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person and contribution",
+    "stem": "Who became the first king of the Kingdom of Italy in 1861?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Victor Emmanuel II"
+      },
+      {
+        "key": "B",
+        "text": "Francis Joseph I"
+      },
+      {
+        "key": "C",
+        "text": "Frederick William IV"
+      },
+      {
+        "key": "D",
+        "text": "Napoleon III"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Victor Emmanuel II, formerly king of Piedmont-Sardinia, became king of Italy when the kingdom was proclaimed in 1861.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q017",
+    "englishQuestionId": "WHI-CP006-Q017",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F017",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Movement comparison",
+    "stem": "Which distinction between Mazzini and Cavour is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mazzini promoted a republican national movement; Cavour advanced unification through Piedmont-Sardinian statecraft and diplomacy"
+      },
+      {
+        "key": "B",
+        "text": "Mazzini founded Young Italy; Cavour led the Expedition of the Thousand"
+      },
+      {
+        "key": "C",
+        "text": "Mazzini served as prime minister of Piedmont-Sardinia; Cavour promoted a republican movement"
+      },
+      {
+        "key": "D",
+        "text": "Mazzini led the southern campaign; Cavour opposed the expansion of Piedmont-Sardinia"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Mazzini’s Young Italy promoted a republican vision. Cavour worked through the government of Piedmont-Sardinia and diplomatic alliances.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q018",
+    "englishQuestionId": "WHI-CP006-Q018",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F018",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Diplomacy and popular action",
+    "stem": "How did Garibaldi’s campaign in southern Italy relate to Cavour’s policy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Garibaldi’s military successes were incorporated into a wider state-led unification process"
+      },
+      {
+        "key": "B",
+        "text": "Garibaldi’s expedition permanently divided the peninsula into rival kingdoms"
+      },
+      {
+        "key": "C",
+        "text": "Cavour led the expedition and Garibaldi negotiated the 1861 proclamation"
+      },
+      {
+        "key": "D",
+        "text": "Both sought to place southern Italy under Austrian rule"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Garibaldi’s campaign changed control in the south, while Cavour’s government helped bring those gains into the expanding Kingdom of Italy. Their methods and political aims were not identical.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q019",
+    "englishQuestionId": "WHI-CP006-Q019",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F019",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which sequence correctly orders the wars that led to German unification and the proclamation of the empire?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Austro-Prussian War → Danish-Prussian War → Franco-Prussian War → empire proclaimed"
+      },
+      {
+        "key": "B",
+        "text": "Danish-Prussian War → Austro-Prussian War → Franco-Prussian War → empire proclaimed"
+      },
+      {
+        "key": "C",
+        "text": "Franco-Prussian War → Danish-Prussian War → Austro-Prussian War → empire proclaimed"
+      },
+      {
+        "key": "D",
+        "text": "Danish-Prussian War → Franco-Prussian War → Austro-Prussian War → empire proclaimed"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Prussia fought Denmark in 1864, Austria in 1866 and France in 1870–71. The German Empire was proclaimed in January 1871.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q020",
+    "englishQuestionId": "WHI-CP006-Q020",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "State and political base",
+    "stem": "What political organisation was formed under Prussian leadership after the Austro-Prussian War of 1866?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The North German Confederation"
+      },
+      {
+        "key": "B",
+        "text": "The German Confederation including Austria"
+      },
+      {
+        "key": "C",
+        "text": "The Austro-Hungarian Dual Monarchy"
+      },
+      {
+        "key": "D",
+        "text": "The Confederation of the Rhine"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "After defeating Austria in 1866, Prussia organised the northern German states in the North German Confederation. Austria remained outside it.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q021",
+    "englishQuestionId": "WHI-CP006-Q021",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F021",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement and objective",
+    "stem": "Which economic arrangement helped link many German states before political unification?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A customs union that reduced internal trade barriers"
+      },
+      {
+        "key": "B",
+        "text": "A dynastic union that abolished all local governments"
+      },
+      {
+        "key": "C",
+        "text": "A military alliance that included every European power"
+      },
+      {
+        "key": "D",
+        "text": "A colonial federation centred on overseas territories"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Zollverein encouraged economic cooperation by reducing customs barriers among participating German states; it did not itself create a single German nation-state.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q022",
+    "englishQuestionId": "WHI-CP006-Q022",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F022",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "State and political base",
+    "stem": "Which state led the formation of the Zollverein in the nineteenth century?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Austria"
+      },
+      {
+        "key": "B",
+        "text": "Prussia"
+      },
+      {
+        "key": "C",
+        "text": "Bavaria"
+      },
+      {
+        "key": "D",
+        "text": "Saxony"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Prussia took the leading role in the customs union. Austria remained outside the Zollverein, strengthening Prussia’s economic influence among German states.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q023",
+    "englishQuestionId": "WHI-CP006-Q023",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F023",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Movement and objective",
+    "stem": "Why did the Zollverein matter to the later unification of Germany?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It placed every German state under an elected national parliament"
+      },
+      {
+        "key": "B",
+        "text": "It ended all rivalry between Prussia and Austria"
+      },
+      {
+        "key": "C",
+        "text": "It encouraged economic integration under Prussian influence"
+      },
+      {
+        "key": "D",
+        "text": "It immediately proclaimed the German Empire"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Zollverein linked many German states economically and increased Prussia’s influence, but political unification came later.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q024",
+    "englishQuestionId": "WHI-CP006-Q024",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F024",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Movement comparison",
+    "stem": "Which statement best distinguishes the 1848 Frankfurt project from the Prussian-led unification of Germany?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Frankfurt was led by Bismarck, while the later empire was created by Mazzini"
+      },
+      {
+        "key": "B",
+        "text": "Both projects were completed by the same parliament"
+      },
+      {
+        "key": "C",
+        "text": "The Frankfurt Assembly sought to unite Germany under Austrian rule without a constitution"
+      },
+      {
+        "key": "D",
+        "text": "Frankfurt sought a constitutional nation-state through an elected assembly; later unification proceeded under Prussian state leadership"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Frankfurt Assembly attempted a parliamentary and constitutional solution. The 1871 empire emerged through Prussian-led wars and political agreements.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q025",
+    "englishQuestionId": "WHI-CP006-Q025",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F025",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which sequence correctly links three stages of German unification?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Danish-Prussian War (1864) → Austro-Prussian War (1866) → German Empire (1871)"
+      },
+      {
+        "key": "B",
+        "text": "North German Confederation (1864) → Austro-Prussian War (1870) → German Empire (1871)"
+      },
+      {
+        "key": "C",
+        "text": "Austro-Prussian War (1864) → North German Confederation (1866) → German Empire (1870)"
+      },
+      {
+        "key": "D",
+        "text": "German Empire (1866) → Danish-Prussian War (1870) → North German Confederation (1871)"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Prussia and Austria defeated Denmark in 1864; Prussia defeated Austria in 1866 and formed the North German Confederation; the empire was proclaimed in 1871 after the war with France.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q026",
+    "englishQuestionId": "WHI-CP006-Q026",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F026",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which war came immediately before the German Empire was proclaimed in 1871?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Austro-Prussian War"
+      },
+      {
+        "key": "B",
+        "text": "The Franco-Prussian War"
+      },
+      {
+        "key": "C",
+        "text": "The Danish-Prussian War"
+      },
+      {
+        "key": "D",
+        "text": "The Crimean War"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Franco-Prussian War of 1870–71 preceded the proclamation of the German Empire at Versailles in January 1871.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q027",
+    "englishQuestionId": "WHI-CP006-Q027",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F027",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "State and political base",
+    "stem": "Which confederation did Prussia organise after its victory over Austria in 1866?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The German Confederation including Austria"
+      },
+      {
+        "key": "B",
+        "text": "The Confederation of the Rhine"
+      },
+      {
+        "key": "C",
+        "text": "The North German Confederation"
+      },
+      {
+        "key": "D",
+        "text": "The Austrian Empire"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "After 1866, Prussia organised the North German Confederation. Austria was excluded from this Prussian-led arrangement.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q028",
+    "englishQuestionId": "WHI-CP006-Q028",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F028",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Constitutional and political structure",
+    "stem": "Which major German state was outside the empire proclaimed in 1871?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Prussia"
+      },
+      {
+        "key": "B",
+        "text": "Bavaria"
+      },
+      {
+        "key": "C",
+        "text": "Württemberg"
+      },
+      {
+        "key": "D",
+        "text": "Austria"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The new German Empire was organised under Prussian leadership and did not include Austria.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q029",
+    "englishQuestionId": "WHI-CP006-Q029",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F029",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "What was the political result of Prussia’s victory over Austria in 1866?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The North German Confederation was formed under Prussian leadership"
+      },
+      {
+        "key": "B",
+        "text": "Austria took leadership of a unified German Empire"
+      },
+      {
+        "key": "C",
+        "text": "The Frankfurt Assembly regained power"
+      },
+      {
+        "key": "D",
+        "text": "The Zollverein was dissolved and replaced by the Austrian Empire"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Prussia’s victory ended Austria’s leading role in German affairs and was followed by the North German Confederation.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q030",
+    "englishQuestionId": "WHI-CP006-Q030",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F030",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Person and contribution",
+    "stem": "What role did Otto von Bismarck play in German unification?",
+    "options": [
+      {
+        "key": "A",
+        "text": "He led the Frankfurt Assembly’s constitutional campaign"
+      },
+      {
+        "key": "B",
+        "text": "As Prussian minister-president, he directed policy that advanced unification under Prussian leadership"
+      },
+      {
+        "key": "C",
+        "text": "He founded the Italian organisation Young Italy"
+      },
+      {
+        "key": "D",
+        "text": "He became emperor of Austria-Hungary in 1867"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Bismarck was Prussia’s minister-president and a central political strategist in the process that produced the Prussian-led German Empire.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q031",
+    "englishQuestionId": "WHI-CP006-Q031",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F031",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Constitutional and political structure",
+    "stem": "What political arrangement was created by the Austro-Hungarian Compromise of 1867?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A single parliament governing all Central Europe"
+      },
+      {
+        "key": "B",
+        "text": "A republic replacing both the Habsburg and Hungarian monarchies"
+      },
+      {
+        "key": "C",
+        "text": "A dual monarchy linking Austria and Hungary under one monarch"
+      },
+      {
+        "key": "D",
+        "text": "A federation that made every nationality an independent state"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Compromise created the Austro-Hungarian Dual Monarchy, with Austria and Hungary retaining separate governments in important domestic matters under the same monarch.",
+    "sourceIds": [
+      "CP006-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q032",
+    "englishQuestionId": "WHI-CP006-Q032",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F032",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Constitutional and political structure",
+    "stem": "Which title did the ruler hold after the 1867 Compromise?",
+    "options": [
+      {
+        "key": "A",
+        "text": "King of Austria and emperor of Hungary"
+      },
+      {
+        "key": "B",
+        "text": "President of Austria-Hungary"
+      },
+      {
+        "key": "C",
+        "text": "King of Bohemia and president of Hungary"
+      },
+      {
+        "key": "D",
+        "text": "Emperor of Austria and Apostolic King of Hungary"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Habsburg ruler was emperor of Austria and king of Hungary, reflecting the monarchy’s dual structure.",
+    "sourceIds": [
+      "CP006-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q033",
+    "englishQuestionId": "WHI-CP006-Q033",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F033",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Constitutional and political structure",
+    "stem": "Which area was managed through common Austro-Hungarian institutions after 1867?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Foreign affairs and common military matters"
+      },
+      {
+        "key": "B",
+        "text": "Every local school and municipal council"
+      },
+      {
+        "key": "C",
+        "text": "All domestic taxation in both halves through one parliament"
+      },
+      {
+        "key": "D",
+        "text": "The election of separate monarchs for Austria and Hungary"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Foreign affairs and common military affairs were shared responsibilities, while Austria and Hungary retained separate institutions for many internal matters.",
+    "sourceIds": [
+      "CP006-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q034",
+    "englishQuestionId": "WHI-CP006-Q034",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F034",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Constitutional and political structure",
+    "stem": "Which statement best describes the limits of the 1867 Austro-Hungarian settlement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It gave every nationality within the empire an independent state"
+      },
+      {
+        "key": "B",
+        "text": "It created a dual structure for Austria and Hungary but did not resolve every national group’s demands"
+      },
+      {
+        "key": "C",
+        "text": "It abolished the Habsburg monarchy"
+      },
+      {
+        "key": "D",
+        "text": "It made Hungary a province governed directly by Vienna"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Compromise accommodated Hungarian demands through a dual monarchy, but other nationalities within the empire did not all receive equivalent self-government.",
+    "sourceIds": [
+      "CP006-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q035",
+    "englishQuestionId": "WHI-CP006-Q035",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F035",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Movement comparison",
+    "stem": "Which comparison between the 1848 national movements and the Austro-Hungarian Compromise is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both immediately created independent states for all Central European peoples"
+      },
+      {
+        "key": "B",
+        "text": "The Compromise restored the Frankfurt Assembly"
+      },
+      {
+        "key": "C",
+        "text": "The Compromise accommodated Austrian and Hungarian elites within one monarchy, while many other national groups remained dissatisfied"
+      },
+      {
+        "key": "D",
+        "text": "The 1848 movements sought to divide Austria and Hungary into overseas colonies"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The 1867 settlement addressed the relationship between Austria and Hungary, but it did not satisfy the political aspirations of every nationality in the empire.",
+    "sourceIds": [
+      "CP006-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q036",
+    "englishQuestionId": "WHI-CP006-Q036",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F036",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person and contribution",
+    "stem": "Which Habsburg monarch remained ruler after the Austro-Hungarian Compromise of 1867?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Frederick William IV"
+      },
+      {
+        "key": "B",
+        "text": "Victor Emmanuel II"
+      },
+      {
+        "key": "C",
+        "text": "Leopold II"
+      },
+      {
+        "key": "D",
+        "text": "Francis Joseph I"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Francis Joseph I remained the common monarch after the Compromise, ruling as emperor of Austria and king of Hungary.",
+    "sourceIds": [
+      "CP006-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q037",
+    "englishQuestionId": "WHI-CP006-Q037",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F037",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "What did the 1867 Compromise establish between Austria and Hungary?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A shared ruler and common affairs alongside separate Austrian and Hungarian institutions"
+      },
+      {
+        "key": "B",
+        "text": "A customs union led by Prussia"
+      },
+      {
+        "key": "C",
+        "text": "A single elected parliament for all nationalities"
+      },
+      {
+        "key": "D",
+        "text": "The dissolution of the Habsburg lands into independent republics"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The settlement joined Austria and Hungary under one monarch and shared selected responsibilities, while leaving separate political institutions in each half.",
+    "sourceIds": [
+      "CP006-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q038",
+    "englishQuestionId": "WHI-CP006-Q038",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F038",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-stage synthesis",
+    "stem": "Which conclusion best explains why the Dual Monarchy was not a complete solution to nationalism in Central Europe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It abolished all national identities"
+      },
+      {
+        "key": "B",
+        "text": "It recognised only the Austrian and Hungarian partnership, while other national communities continued to press their claims"
+      },
+      {
+        "key": "C",
+        "text": "It gave the Balkans a common elected government"
+      },
+      {
+        "key": "D",
+        "text": "It united all German-speaking lands with Austria"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The compromise reorganised the Habsburg monarchy around Austria and Hungary; it did not grant equivalent political arrangements to all its national communities.",
+    "sourceIds": [
+      "CP006-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q039",
+    "englishQuestionId": "WHI-CP006-Q039",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F039",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement and objective",
+    "stem": "What political goal did many Balkan national movements pursue as Ottoman authority weakened?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A single Balkan province ruled from Berlin"
+      },
+      {
+        "key": "B",
+        "text": "The permanent restoration of Ottoman rule across Europe"
+      },
+      {
+        "key": "C",
+        "text": "Greater autonomy or independent statehood for their communities"
+      },
+      {
+        "key": "D",
+        "text": "The abolition of all national governments"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "As Ottoman authority weakened in parts of southeastern Europe, different national movements sought greater autonomy or independent statehood. Their aims and outcomes varied.",
+    "sourceIds": [
+      "CP006-S05",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q040",
+    "englishQuestionId": "WHI-CP006-Q040",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Diplomacy and popular action",
+    "stem": "Which development helped strengthen Balkan nationalism during the nineteenth century?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The permanent expansion of Ottoman control across all of Europe"
+      },
+      {
+        "key": "B",
+        "text": "The abolition of all European diplomacy"
+      },
+      {
+        "key": "C",
+        "text": "The formation of a single Balkan empire under Prussia"
+      },
+      {
+        "key": "D",
+        "text": "The growth of national movements seeking autonomy or independence from Ottoman rule"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "As Ottoman authority weakened in parts of southeastern Europe, national movements sought greater autonomy or independent statehood.",
+    "sourceIds": [
+      "CP006-S05",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q041",
+    "englishQuestionId": "WHI-CP006-Q041",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F041",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "State and political base",
+    "stem": "Which state’s independence was recognised at the Congress of Berlin in 1878?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Serbia"
+      },
+      {
+        "key": "B",
+        "text": "Bavaria"
+      },
+      {
+        "key": "C",
+        "text": "Saxony"
+      },
+      {
+        "key": "D",
+        "text": "Lombardy"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The 1878 Treaty of Berlin recognised Serbia’s independence, while also revising territorial arrangements in the Balkans.",
+    "sourceIds": [
+      "CP006-S05",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q042",
+    "englishQuestionId": "WHI-CP006-Q042",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Territory and completion",
+    "stem": "Which pair of states had their independence recognised in the 1878 Treaty of Berlin?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Bavaria and Saxony"
+      },
+      {
+        "key": "B",
+        "text": "Serbia and Romania"
+      },
+      {
+        "key": "C",
+        "text": "Prussia and Austria"
+      },
+      {
+        "key": "D",
+        "text": "Greece and Italy"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Treaty of Berlin recognised the independence of Serbia and Romania, among other changes to the region’s political map.",
+    "sourceIds": [
+      "CP006-S05",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q043",
+    "englishQuestionId": "WHI-CP006-Q043",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F043",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Territory and completion",
+    "stem": "Which power was authorised to occupy Bosnia and Herzegovina under the 1878 Treaty of Berlin?",
+    "options": [
+      {
+        "key": "A",
+        "text": "France"
+      },
+      {
+        "key": "B",
+        "text": "Italy"
+      },
+      {
+        "key": "C",
+        "text": "Austria-Hungary"
+      },
+      {
+        "key": "D",
+        "text": "Germany"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The treaty authorised Austria-Hungary to occupy and administer Bosnia and Herzegovina, even though the territory formally remained under Ottoman sovereignty at that time.",
+    "sourceIds": [
+      "CP006-S05",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q044",
+    "englishQuestionId": "WHI-CP006-Q044",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F044",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Territory and completion",
+    "stem": "Which outcome for Bulgaria followed the Congress of Berlin in 1878?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Bulgaria became a unified independent kingdom stretching to the Aegean"
+      },
+      {
+        "key": "B",
+        "text": "Bulgaria was incorporated into the German Empire"
+      },
+      {
+        "key": "C",
+        "text": "Bulgaria became a province of Austria-Hungary"
+      },
+      {
+        "key": "D",
+        "text": "Bulgaria was reduced in territory and divided into distinct political arrangements"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Congress revised the larger Bulgarian settlement proposed earlier: a smaller autonomous principality was created north of the Balkans, while Eastern Rumelia had a separate status under Ottoman sovereignty.",
+    "sourceIds": [
+      "CP006-S05",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q045",
+    "englishQuestionId": "WHI-CP006-Q045",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F045",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chronology and sequence",
+    "stem": "Which sequence correctly orders these Balkan developments?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Compromise of 1867 → Treaty of San Stefano (1878) → Congress of Berlin (1878)"
+      },
+      {
+        "key": "B",
+        "text": "Congress of Berlin (1878) → Treaty of San Stefano (1878) → Compromise of 1867"
+      },
+      {
+        "key": "C",
+        "text": "Treaty of San Stefano (1878) → Compromise of 1867 → Congress of Berlin (1878)"
+      },
+      {
+        "key": "D",
+        "text": "Compromise of 1867 → Congress of Berlin (1878) → Treaty of San Stefano (1878)"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Austro-Hungarian Compromise preceded the Russo-Ottoman war settlement at San Stefano; the Congress of Berlin later revised that settlement in 1878.",
+    "sourceIds": [
+      "CP006-S05",
+      "CP006-S06",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q046",
+    "englishQuestionId": "WHI-CP006-Q046",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Territory and completion",
+    "stem": "Which state gained territory in the Dobruja region under the 1878 Treaty of Berlin?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Serbia"
+      },
+      {
+        "key": "B",
+        "text": "Romania"
+      },
+      {
+        "key": "C",
+        "text": "Montenegro"
+      },
+      {
+        "key": "D",
+        "text": "Greece"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The treaty recognised Romania’s independence and assigned it territory in Dobruja while also addressing Bessarabia’s transfer to Russia.",
+    "sourceIds": [
+      "CP006-S05",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q047",
+    "englishQuestionId": "WHI-CP006-Q047",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F047",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Diplomacy and popular action",
+    "stem": "What was one major effect of the Congress of Berlin in 1878?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It restored the Frankfurt Assembly and unified Germany"
+      },
+      {
+        "key": "B",
+        "text": "It proclaimed the Kingdom of Italy"
+      },
+      {
+        "key": "C",
+        "text": "It revised the settlement of the Russo-Ottoman War and changed Balkan state boundaries and statuses"
+      },
+      {
+        "key": "D",
+        "text": "It created the Austro-Hungarian Dual Monarchy"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Congress revised the San Stefano settlement and set new arrangements for Bulgaria, Serbia, Romania, Montenegro, and Bosnia-Herzegovina.",
+    "sourceIds": [
+      "CP006-S05",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q048",
+    "englishQuestionId": "WHI-CP006-Q048",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F048",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Movement comparison",
+    "stem": "Which statement about the 1878 Congress of Berlin is most accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It was an elected assembly representing all Balkan populations equally"
+      },
+      {
+        "key": "B",
+        "text": "It was a meeting of Italian nationalists to proclaim Rome the capital"
+      },
+      {
+        "key": "C",
+        "text": "It ended every dispute in southeastern Europe"
+      },
+      {
+        "key": "D",
+        "text": "It settled Balkan issues through negotiations among European powers, while local national aspirations were not its only consideration"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The congress was a great-power diplomatic meeting. Its decisions affected Balkan populations and borders but did not mean every local national demand had been settled.",
+    "sourceIds": [
+      "CP006-S05",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q049",
+    "englishQuestionId": "WHI-CP006-Q049",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F049",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Cross-stage synthesis",
+    "stem": "Which comparison between German unification and Balkan state formation in the late nineteenth century is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "German unification centred on Prussian state leadership, while Balkan changes involved national movements and great-power diplomacy around Ottoman lands"
+      },
+      {
+        "key": "B",
+        "text": "Both followed one identical process directed by a single elected assembly"
+      },
+      {
+        "key": "C",
+        "text": "The Balkans were unified as part of the German Empire"
+      },
+      {
+        "key": "D",
+        "text": "Balkan independence was granted by the Frankfurt Assembly"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The German Empire was formed under Prussian leadership; Balkan political changes followed different national struggles and diplomatic settlements involving European powers.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S05",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q050",
+    "englishQuestionId": "WHI-CP006-Q050",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F050",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-stage synthesis",
+    "stem": "Which sequence correctly orders these political developments?",
+    "options": [
+      {
+        "key": "A",
+        "text": "German Empire proclaimed (1871) → Austro-Hungarian Compromise (1867) → Congress of Berlin (1878)"
+      },
+      {
+        "key": "B",
+        "text": "Austro-Hungarian Compromise (1867) → German Empire proclaimed (1871) → Congress of Berlin (1878)"
+      },
+      {
+        "key": "C",
+        "text": "Congress of Berlin (1878) → German Empire proclaimed (1871) → Austro-Hungarian Compromise (1867)"
+      },
+      {
+        "key": "D",
+        "text": "Austro-Hungarian Compromise (1878) → German Empire proclaimed (1871) → Congress of Berlin (1867)"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Compromise created the Dual Monarchy in 1867; the German Empire was proclaimed in 1871; the Congress of Berlin met in 1878.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S05",
+      "CP006-S06",
+      "CP006-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q051",
+    "englishQuestionId": "WHI-CP006-Q051",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F051",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Person and contribution",
+    "stem": "Which leader founded Young Italy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Camillo Cavour"
+      },
+      {
+        "key": "B",
+        "text": "Giuseppe Garibaldi"
+      },
+      {
+        "key": "C",
+        "text": "Giuseppe Mazzini"
+      },
+      {
+        "key": "D",
+        "text": "Otto von Bismarck"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Mazzini founded Young Italy and promoted a united Italy with a republican form of government.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q052",
+    "englishQuestionId": "WHI-CP006-Q052",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F052",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Diplomacy and popular action",
+    "stem": "What was a major political result of Garibaldi’s Expedition of the Thousand?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It placed the Italian peninsula under Austrian rule"
+      },
+      {
+        "key": "B",
+        "text": "It created the North German Confederation"
+      },
+      {
+        "key": "C",
+        "text": "It established the Austro-Hungarian Dual Monarchy"
+      },
+      {
+        "key": "D",
+        "text": "It helped bring Sicily and southern Italy into the unification process"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Garibaldi’s campaign helped overthrow Bourbon rule in Sicily and southern Italy; those gains were then incorporated into the expanding Kingdom of Italy.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q053",
+    "englishQuestionId": "WHI-CP006-Q053",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F053",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Diplomacy and popular action",
+    "stem": "Which leader served as prime minister of Piedmont-Sardinia and advanced unification through diplomacy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Camillo Cavour"
+      },
+      {
+        "key": "B",
+        "text": "Giuseppe Mazzini"
+      },
+      {
+        "key": "C",
+        "text": "Giuseppe Garibaldi"
+      },
+      {
+        "key": "D",
+        "text": "Victor Emmanuel III"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Cavour used the resources and diplomacy of Piedmont-Sardinia to advance Italian unification.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q054",
+    "englishQuestionId": "WHI-CP006-Q054",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F054",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Cross-stage synthesis",
+    "stem": "Who became king when the Kingdom of Italy was proclaimed in 1861, before Rome joined in 1870?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Francis Joseph I"
+      },
+      {
+        "key": "B",
+        "text": "Victor Emmanuel II"
+      },
+      {
+        "key": "C",
+        "text": "Otto von Bismarck"
+      },
+      {
+        "key": "D",
+        "text": "Leopold II"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Victor Emmanuel II became king when the Kingdom of Italy was proclaimed in 1861. Rome joined the kingdom in 1870, completing a later stage of unification.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q055",
+    "englishQuestionId": "WHI-CP006-Q055",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F055",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Movement and objective",
+    "stem": "Which political aim was promoted by Mazzini’s Young Italy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A German Empire under Austrian leadership"
+      },
+      {
+        "key": "B",
+        "text": "The restoration of the Holy Roman Empire"
+      },
+      {
+        "key": "C",
+        "text": "A united Italy founded on republican principles"
+      },
+      {
+        "key": "D",
+        "text": "A permanent division of the Italian peninsula"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Young Italy promoted national unity and republican ideas; its programme differed from Cavour’s state-centred strategy.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q056",
+    "englishQuestionId": "WHI-CP006-Q056",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F056",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Event and outcome",
+    "stem": "What was proclaimed in 1861 after the unification campaigns in Italy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The German Empire"
+      },
+      {
+        "key": "B",
+        "text": "The North German Confederation"
+      },
+      {
+        "key": "C",
+        "text": "The Austro-Hungarian Dual Monarchy"
+      },
+      {
+        "key": "D",
+        "text": "The Kingdom of Italy"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Kingdom of Italy was proclaimed in 1861 under Victor Emmanuel II; Rome and Venetia joined later.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q057",
+    "englishQuestionId": "WHI-CP006-Q057",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F057",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Territory and completion",
+    "stem": "Which city became part of the Kingdom of Italy in 1870?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Rome"
+      },
+      {
+        "key": "B",
+        "text": "Vienna"
+      },
+      {
+        "key": "C",
+        "text": "Frankfurt"
+      },
+      {
+        "key": "D",
+        "text": "Berlin"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Rome was incorporated into the Kingdom of Italy in 1870, completing a major stage of the unification process.",
+    "sourceIds": [
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q058",
+    "englishQuestionId": "WHI-CP006-Q058",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F058",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Diplomacy and popular action",
+    "stem": "What did Cavour and Napoleon III discuss at their secret meeting at Plombières in 1858?",
+    "options": [
+      {
+        "key": "A",
+        "text": "An alliance between Austria and Piedmont against France"
+      },
+      {
+        "key": "B",
+        "text": "A possible Franco-Piedmontese alliance against Austria"
+      },
+      {
+        "key": "C",
+        "text": "The restoration of the Holy Roman Empire"
+      },
+      {
+        "key": "D",
+        "text": "A plan to transfer Sicily to the Kingdom of Prussia"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "At Plombières, Cavour and Napoleon III prepared a secret Franco-Piedmontese alliance in case Austria went to war. The agreement shaped the conflict that began in 1859.",
+    "sourceIds": [
+      "CP006-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q059",
+    "englishQuestionId": "WHI-CP006-Q059",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F059",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Movement comparison",
+    "stem": "Which statement best compares the paths to Italian and German unification?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both were completed solely by popular assemblies without wars or diplomacy"
+      },
+      {
+        "key": "B",
+        "text": "Italian unification was led by Austria, while German unification was led by the Kingdom of the Two Sicilies"
+      },
+      {
+        "key": "C",
+        "text": "Italian unification combined popular campaigns with Piedmont-Sardinian statecraft, while German unification proceeded under Prussian leadership through wars and political agreements"
+      },
+      {
+        "key": "D",
+        "text": "Both processes ended with Austria included in a single national state"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Italian process combined Mazzini’s and Garibaldi’s popular movements with Cavour’s statecraft; German unification followed a Prussian-led path involving wars and agreements.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S03",
+      "CP006-S04",
+      "CP006-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP006-Q060",
+    "englishQuestionId": "WHI-CP006-Q060",
+    "checkpointId": "WHI-001-CP006",
+    "factId": "WHI-CP006-F060",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Cross-stage synthesis",
+    "stem": "Which sequence correctly orders these unification milestones?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Kingdom of Italy proclaimed (1861) → North German Confederation (1866) → German Empire proclaimed (1871) → Rome incorporated into Italy (1870)"
+      },
+      {
+        "key": "B",
+        "text": "North German Confederation (1866) → Kingdom of Italy proclaimed (1861) → Rome incorporated (1870) → German Empire (1871)"
+      },
+      {
+        "key": "C",
+        "text": "German Empire proclaimed (1871) → Kingdom of Italy proclaimed (1861) → North German Confederation (1866) → Rome incorporated (1870)"
+      },
+      {
+        "key": "D",
+        "text": "Kingdom of Italy proclaimed (1861) → North German Confederation (1866) → Rome incorporated into Italy (1870) → German Empire proclaimed (1871)"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Italy was proclaimed in 1861, the North German Confederation followed the 1866 war, Rome joined Italy in 1870, and the German Empire was proclaimed in 1871.",
+    "sourceIds": [
+      "CP006-S01",
+      "CP006-S03",
+      "CP006-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]

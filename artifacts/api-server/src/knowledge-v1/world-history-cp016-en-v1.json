@@ -1,0 +1,2618 @@
+[
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Which kingdom did Alexander rule before his campaigns?",
+    "explanation": "Alexander ruled Macedon and led campaigns that defeated the Persian Empire and extended his power across Egypt and parts of Asia.  ",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q001",
+    "englishQuestionId": "WHI-CP016-Q001",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F001",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q007",
+    "originFactId": "WHI-CP001-F007",
+    "originSourceIds": [
+      "S4"
+    ],
+    "originQuestionFamily": "Leader and region",
+    "questionFamily": "Events, places, and actors",
+    "options": [
+      {
+        "key": "A",
+        "text": "Lydia"
+      },
+      {
+        "key": "B",
+        "text": "Carthage"
+      },
+      {
+        "key": "C",
+        "text": "Macedon"
+      },
+      {
+        "key": "D",
+        "text": "Sparta"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP001-S4"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Put these Roman political changes in chronological order.",
+    "explanation": "The Republic began around 509 BCE; Augustus received his title in 27 BCE; Constantine moved the imperial capital to Constantinople in 330 CE.  ",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q002",
+    "englishQuestionId": "WHI-CP016-Q002",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F002",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q019",
+    "originFactId": "WHI-CP001-F019",
+    "originSourceIds": [
+      "S5",
+      "S6"
+    ],
+    "originQuestionFamily": "Roman chronology",
+    "questionFamily": "Dates and chronology",
+    "options": [
+      {
+        "key": "A",
+        "text": "Republic begins → Constantinople becomes capital → Augustus receives title"
+      },
+      {
+        "key": "B",
+        "text": "Augustus receives title → Republic begins → Constantinople becomes capital"
+      },
+      {
+        "key": "C",
+        "text": "Constantinople becomes capital → Republic begins → Augustus receives title"
+      },
+      {
+        "key": "D",
+        "text": "Republic begins → Augustus receives title → Constantinople becomes capital"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP001-S5",
+      "CP001-S6"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "How did Mongol political unification affect trade along parts of the Silk Roads?",
+    "explanation": "Mongol political unification helped protect overland Silk Road routes and support trade. The routes connected markets across Eurasia.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q003",
+    "englishQuestionId": "WHI-CP016-Q003",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F003",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q026",
+    "originFactId": "WHI-CP001-F026",
+    "originSourceIds": [
+      "S14"
+    ],
+    "originQuestionFamily": "Mongol history",
+    "questionFamily": "Consequences and outcomes",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mongol rule ended all overland trade between China and western Asia."
+      },
+      {
+        "key": "B",
+        "text": "Mongol political unification helped protect Silk Road routes and facilitate trade."
+      },
+      {
+        "key": "C",
+        "text": "Mongol expansion began after the Black Death reached Europe."
+      },
+      {
+        "key": "D",
+        "text": "Mongol rulers controlled only the Mediterranean coastline."
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP001-S14"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Who was the Byzantine emperor when Roman law was compiled in the Corpus Juris Civilis?",
+    "explanation": "Justinian I ruled the Byzantine Empire from 527 to 565 CE. His government compiled Roman law in the Corpus Juris Civilis.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q004",
+    "englishQuestionId": "WHI-CP016-Q004",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F004",
+    "originCheckpointId": "WHI-001-CP001",
+    "originQuestionId": "WHI-CP001-Q034",
+    "originFactId": "WHI-CP001-F034",
+    "originSourceIds": [
+      "S20"
+    ],
+    "originQuestionFamily": "Byzantine ruler",
+    "questionFamily": "People, roles, and ideas",
+    "options": [
+      {
+        "key": "A",
+        "text": "Heraclius"
+      },
+      {
+        "key": "B",
+        "text": "Basil II"
+      },
+      {
+        "key": "C",
+        "text": "Justinian I"
+      },
+      {
+        "key": "D",
+        "text": "Constantine I"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP001-S20"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Who wrote Utopia, published in 1516?",
+    "explanation": "Thomas More’s Utopia described an imagined society and became a major work of Renaissance humanist writing.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q005",
+    "englishQuestionId": "WHI-CP016-Q005",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F005",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q007",
+    "originFactId": "WHI-CP002-F007",
+    "originSourceIds": [
+      "S2"
+    ],
+    "originQuestionFamily": "Person–work relationship",
+    "questionFamily": "People, roles, and ideas",
+    "options": [
+      {
+        "key": "A",
+        "text": "Petrarch"
+      },
+      {
+        "key": "B",
+        "text": "Erasmus"
+      },
+      {
+        "key": "C",
+        "text": "Machiavelli"
+      },
+      {
+        "key": "D",
+        "text": "Thomas More"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP002-S2"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Who wrote The Divine Comedy?",
+    "explanation": "Dante wrote The Divine Comedy in the early fourteenth century. Its use of Italian helped establish the vernacular as a language of major literature.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q006",
+    "englishQuestionId": "WHI-CP016-Q006",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F006",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q009",
+    "originFactId": "WHI-CP002-F009",
+    "originSourceIds": [
+      "S2"
+    ],
+    "originQuestionFamily": "Person–work relationship",
+    "questionFamily": "People, roles, and ideas",
+    "options": [
+      {
+        "key": "A",
+        "text": "Petrarch"
+      },
+      {
+        "key": "B",
+        "text": "Boccaccio"
+      },
+      {
+        "key": "C",
+        "text": "Dante Alighieri"
+      },
+      {
+        "key": "D",
+        "text": "Ariosto"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP002-S2"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Who published a heliocentric account of the planetary system in 1543?",
+    "explanation": "Copernicus’s 1543 work placed the Sun at the centre of the planetary system and treated Earth as a moving planet.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q007",
+    "englishQuestionId": "WHI-CP016-Q007",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F007",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q029",
+    "originFactId": "WHI-CP002-F029",
+    "originSourceIds": [
+      "S5"
+    ],
+    "originQuestionFamily": "Scientist–discovery",
+    "questionFamily": "People, roles, and ideas",
+    "options": [
+      {
+        "key": "A",
+        "text": "Isaac Newton"
+      },
+      {
+        "key": "B",
+        "text": "Andreas Vesalius"
+      },
+      {
+        "key": "C",
+        "text": "William Harvey"
+      },
+      {
+        "key": "D",
+        "text": "Nicolaus Copernicus"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP002-S5"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "The 1494 Treaty of Tordesillas was agreed between which kingdoms?",
+    "explanation": "Spain and Portugal agreed to the Treaty of Tordesillas in 1494 amid competition over overseas claims.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q008",
+    "englishQuestionId": "WHI-CP016-Q008",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F008",
+    "originCheckpointId": "WHI-001-CP002",
+    "originQuestionId": "WHI-CP002-Q043",
+    "originFactId": "WHI-CP002-F043",
+    "originSourceIds": [
+      "S10"
+    ],
+    "originQuestionFamily": "Treaty–event",
+    "questionFamily": "Documents, treaties, and institutions",
+    "options": [
+      {
+        "key": "A",
+        "text": "Portugal and the Netherlands"
+      },
+      {
+        "key": "B",
+        "text": "Spain and Portugal"
+      },
+      {
+        "key": "C",
+        "text": "England and France"
+      },
+      {
+        "key": "D",
+        "text": "Spain and the Ottoman Empire"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP002-S10"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Who argued for separating legislative, executive and judicial powers?",
+    "explanation": "Montesquieu argued that dividing political powers helps prevent despotism.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q009",
+    "englishQuestionId": "WHI-CP016-Q009",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F009",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q002",
+    "originFactId": "WHI-CP003-F002",
+    "originSourceIds": [
+      "S2"
+    ],
+    "originQuestionFamily": "Thinker–idea",
+    "questionFamily": "People, roles, and ideas",
+    "options": [
+      {
+        "key": "A",
+        "text": "Voltaire"
+      },
+      {
+        "key": "B",
+        "text": "Montesquieu"
+      },
+      {
+        "key": "C",
+        "text": "Rousseau"
+      },
+      {
+        "key": "D",
+        "text": "Diderot"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP003-S2"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "The Declaration of Independence adopted by the American colonies in 1776 announced separation from which country?",
+    "explanation": "The Declaration stated that the thirteen colonies were separating from British rule.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q010",
+    "englishQuestionId": "WHI-CP016-Q010",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F010",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q005",
+    "originFactId": "WHI-CP003-F005",
+    "originSourceIds": [
+      "S4"
+    ],
+    "originQuestionFamily": "Document–event",
+    "questionFamily": "Documents, treaties, and institutions",
+    "options": [
+      {
+        "key": "A",
+        "text": "Spain"
+      },
+      {
+        "key": "B",
+        "text": "Great Britain"
+      },
+      {
+        "key": "C",
+        "text": "Portugal"
+      },
+      {
+        "key": "D",
+        "text": "France"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP003-S4"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Toussaint Louverture became a leading figure in which revolution?",
+    "explanation": "Louverture was a major leader in the revolt of enslaved people in Saint-Domingue, though he died before Haitian independence was declared.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q011",
+    "englishQuestionId": "WHI-CP016-Q011",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F011",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q016",
+    "originFactId": "WHI-CP003-F016",
+    "originSourceIds": [
+      "S7"
+    ],
+    "originQuestionFamily": "Revolution–leader",
+    "questionFamily": "Movements, states, and political change",
+    "options": [
+      {
+        "key": "A",
+        "text": "American Revolution"
+      },
+      {
+        "key": "B",
+        "text": "French July Revolution"
+      },
+      {
+        "key": "C",
+        "text": "Greek War of Independence"
+      },
+      {
+        "key": "D",
+        "text": "Haitian Revolution"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP003-S7"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Why did French support matter to the American revolutionary cause?",
+    "explanation": "French aid strengthened the American war effort and helped make the British position harder to sustain.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q012",
+    "englishQuestionId": "WHI-CP016-Q012",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F012",
+    "originCheckpointId": "WHI-001-CP003",
+    "originQuestionId": "WHI-CP003-Q054",
+    "originFactId": "WHI-CP003-F054",
+    "originSourceIds": [
+      "S5",
+      "S18"
+    ],
+    "originQuestionFamily": "Cause–consequence",
+    "questionFamily": "Causes, policies, and purposes",
+    "options": [
+      {
+        "key": "A",
+        "text": "It immediately drafted the U.S. Constitution."
+      },
+      {
+        "key": "B",
+        "text": "It ended the conflict before Saratoga."
+      },
+      {
+        "key": "C",
+        "text": "It added military, naval and diplomatic support against Britain."
+      },
+      {
+        "key": "D",
+        "text": "It forced the colonies to restore British rule."
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP003-S5",
+      "CP003-S18"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Who seized power in the coup of 18 Brumaire in 1799?",
+    "explanation": "Bonaparte’s coup on 9–10 November 1799 ended the Directory and began the Consulate.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q013",
+    "englishQuestionId": "WHI-CP016-Q013",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F013",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q008",
+    "originFactId": "WHI-CP004-F008",
+    "originSourceIds": [
+      "S3"
+    ],
+    "originQuestionFamily": "Person–event",
+    "questionFamily": "People, roles, and ideas",
+    "options": [
+      {
+        "key": "A",
+        "text": "Louis XVIII"
+      },
+      {
+        "key": "B",
+        "text": "Napoleon Bonaparte"
+      },
+      {
+        "key": "C",
+        "text": "Metternich"
+      },
+      {
+        "key": "D",
+        "text": "Maximilien Robespierre"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP004-S3"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Napoleon’s invasion of Russia in 1812 ended with what result?",
+    "explanation": "The campaign and retreat caused enormous losses and weakened Napoleon’s military position.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q014",
+    "englishQuestionId": "WHI-CP016-Q014",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F014",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q018",
+    "originFactId": "WHI-CP004-F018",
+    "originSourceIds": [
+      "S9"
+    ],
+    "originQuestionFamily": "Campaign–consequence",
+    "questionFamily": "Consequences and outcomes",
+    "options": [
+      {
+        "key": "A",
+        "text": "A disastrous retreat that severely weakened the Grande Armée"
+      },
+      {
+        "key": "B",
+        "text": "The end of the French Revolution in 1789"
+      },
+      {
+        "key": "C",
+        "text": "The permanent annexation of all Russian territory"
+      },
+      {
+        "key": "D",
+        "text": "The immediate creation of the European Union"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP004-S9"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Consider the following statements:\n\n1. The Directory followed the radical phase of the Revolution.  \n2. Napoleon’s coup ended the Directory.  \n3. The Congress of Vienna met before the Battle of Waterloo.\n\nWhich are correct?",
+    "explanation": "The Directory followed the radical phase, Napoleon’s coup ended it, and the Congress of Vienna began in 1814 before Waterloo in 1815.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q015",
+    "englishQuestionId": "WHI-CP016-Q015",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F015",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q024",
+    "originFactId": "WHI-CP004-F024",
+    "originSourceIds": [
+      "S3",
+      "S5"
+    ],
+    "originQuestionFamily": "Multi-statement",
+    "questionFamily": "Statements and synthesis",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 and 3 only"
+      },
+      {
+        "key": "B",
+        "text": "1 and 2 only"
+      },
+      {
+        "key": "C",
+        "text": "2 and 3 only"
+      },
+      {
+        "key": "D",
+        "text": "1, 2 and 3"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP004-S3",
+      "CP004-S5"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Consider these statements about the end of Napoleon’s rule:\n\n1. Napoleon first abdicated in 1814 and was exiled to Elba.  \n2. He returned to power before his defeat at Waterloo in 1815.  \n3. Waterloo was followed by his exile to Saint Helena.\n\nWhich are correct?",
+    "explanation": "Napoleon’s first abdication led to exile on Elba; his return ended with Waterloo and a final exile to Saint Helena.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q016",
+    "englishQuestionId": "WHI-CP016-Q016",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F016",
+    "originCheckpointId": "WHI-001-CP004",
+    "originQuestionId": "WHI-CP004-Q060",
+    "originFactId": "WHI-CP004-F060",
+    "originSourceIds": [
+      "S4",
+      "S5"
+    ],
+    "originQuestionFamily": "Multi-statement synthesis",
+    "questionFamily": "Statements and synthesis",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 and 3 only"
+      },
+      {
+        "key": "B",
+        "text": "1, 2 and 3"
+      },
+      {
+        "key": "C",
+        "text": "1 and 2 only"
+      },
+      {
+        "key": "D",
+        "text": "2 and 3 only"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP004-S4",
+      "CP004-S5"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Why did many industrial towns grow rapidly during the nineteenth century?",
+    "explanation": "Factory and mine jobs attracted people seeking wages. Town growth often outpaced housing and sanitation, creating crowded and unhealthy conditions.<br>",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q017",
+    "englishQuestionId": "WHI-CP016-Q017",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F017",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q013",
+    "originFactId": "WHI-CP005-F013",
+    "originSourceIds": [
+      "CP005-S22"
+    ],
+    "originQuestionFamily": "Urbanisation",
+    "questionFamily": "Causes, policies, and purposes",
+    "options": [
+      {
+        "key": "A",
+        "text": "Governments moved all farms into cities"
+      },
+      {
+        "key": "B",
+        "text": "Mining and manufacturing were banned in villages"
+      },
+      {
+        "key": "C",
+        "text": "Factory employment drew people from rural areas"
+      },
+      {
+        "key": "D",
+        "text": "Railways ended the demand for manufactured goods"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP005-CP005-S22"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which region became an early centre of industrialisation in Belgium?",
+    "explanation": "Belgium’s early industrial growth drew on coal mining and ironworking in Wallonia, including the Liège and Charleroi areas.<br>",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q018",
+    "englishQuestionId": "WHI-CP016-Q018",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F018",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q038",
+    "originFactId": "WHI-CP005-F038",
+    "originSourceIds": [
+      "CP005-S28"
+    ],
+    "originQuestionFamily": "Industrialisation beyond Britain",
+    "questionFamily": "Events, places, and actors",
+    "options": [
+      {
+        "key": "A",
+        "text": "The coal and iron districts around Liège and Charleroi"
+      },
+      {
+        "key": "B",
+        "text": "The Upper Silesian coalfield"
+      },
+      {
+        "key": "C",
+        "text": "The Saar industrial district"
+      },
+      {
+        "key": "D",
+        "text": "The Ruhr coal and steel region"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP005-CP005-S28"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Which country was the first on the European continent to industrialise?",
+    "explanation": "Belgium became the earliest industrialising country on the European continent, building on coal mining and ironworking.<br>",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q019",
+    "englishQuestionId": "WHI-CP016-Q019",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F019",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q043",
+    "originFactId": "WHI-CP005-F043",
+    "originSourceIds": [
+      "CP005-S28"
+    ],
+    "originQuestionFamily": "Industrialisation beyond Britain",
+    "questionFamily": "Events, places, and actors",
+    "options": [
+      {
+        "key": "A",
+        "text": "Portugal"
+      },
+      {
+        "key": "B",
+        "text": "Norway"
+      },
+      {
+        "key": "C",
+        "text": "Belgium"
+      },
+      {
+        "key": "D",
+        "text": "Greece"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP005-CP005-S28"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Which sequence correctly orders these British reform developments?",
+    "explanation": "The Factory Act became law in 1833; Chartism and the Charter followed in the later 1830s, with petitions in 1839, 1842 and 1848.<br>",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q020",
+    "englishQuestionId": "WHI-CP016-Q020",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F020",
+    "originCheckpointId": "WHI-001-CP005",
+    "originQuestionId": "WHI-CP005-Q056",
+    "originFactId": "WHI-CP005-F056",
+    "originSourceIds": [
+      "CP005-S01",
+      "CP005-S06",
+      "CP005-S29"
+    ],
+    "originQuestionFamily": "Reform chronology",
+    "questionFamily": "Dates and chronology",
+    "options": [
+      {
+        "key": "A",
+        "text": "Chartist movement → 1833 Factory Act → People’s Charter"
+      },
+      {
+        "key": "B",
+        "text": "Factory Act of 1833 → Chartist movement and People’s Charter → petitions of 1839–1848"
+      },
+      {
+        "key": "C",
+        "text": "1833 Factory Act → People’s Charter → Chartist movement"
+      },
+      {
+        "key": "D",
+        "text": "People’s Charter → 1833 Factory Act → Chartist movement"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP005-CP005-S01",
+      "CP005-CP005-S06",
+      "CP005-CP005-S29"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Which state led the formation of the Zollverein in the nineteenth century?",
+    "explanation": "Prussia took the leading role in the customs union. Austria remained outside the Zollverein, strengthening Prussia’s economic influence among German states.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q021",
+    "englishQuestionId": "WHI-CP016-Q021",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F021",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q022",
+    "originFactId": "WHI-CP006-F022",
+    "originSourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "originQuestionFamily": "State and political base",
+    "questionFamily": "Movements, states, and political change",
+    "options": [
+      {
+        "key": "A",
+        "text": "Saxony"
+      },
+      {
+        "key": "B",
+        "text": "Prussia"
+      },
+      {
+        "key": "C",
+        "text": "Austria"
+      },
+      {
+        "key": "D",
+        "text": "Bavaria"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP006-CP006-S01",
+      "CP006-CP006-S02"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which statement best distinguishes the 1848 Frankfurt project from the Prussian-led unification of Germany?",
+    "explanation": "The Frankfurt Assembly attempted a parliamentary and constitutional solution. The 1871 empire emerged through Prussian-led wars and political agreements.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q022",
+    "englishQuestionId": "WHI-CP016-Q022",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F022",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q024",
+    "originFactId": "WHI-CP006-F024",
+    "originSourceIds": [
+      "CP006-S01",
+      "CP006-S02"
+    ],
+    "originQuestionFamily": "Movement comparison",
+    "questionFamily": "Comparisons and distinctions",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both projects were completed by the same parliament"
+      },
+      {
+        "key": "B",
+        "text": "Frankfurt was led by Bismarck, while the later empire was created by Mazzini"
+      },
+      {
+        "key": "C",
+        "text": "The Frankfurt Assembly sought to unite Germany under Austrian rule without a constitution"
+      },
+      {
+        "key": "D",
+        "text": "Frankfurt sought a constitutional nation-state through an elected assembly; later unification proceeded under Prussian state leadership"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP006-CP006-S01",
+      "CP006-CP006-S02"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which comparison between the 1848 national movements and the Austro-Hungarian Compromise is accurate?",
+    "explanation": "The 1867 settlement addressed the relationship between Austria and Hungary, but it did not satisfy the political aspirations of every nationality in the empire.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q023",
+    "englishQuestionId": "WHI-CP016-Q023",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F023",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q035",
+    "originFactId": "WHI-CP006-F035",
+    "originSourceIds": [
+      "CP006-S06"
+    ],
+    "originQuestionFamily": "Movement comparison",
+    "questionFamily": "Comparisons and distinctions",
+    "options": [
+      {
+        "key": "A",
+        "text": "The 1848 movements sought to divide Austria and Hungary into overseas colonies"
+      },
+      {
+        "key": "B",
+        "text": "Both immediately created independent states for all Central European peoples"
+      },
+      {
+        "key": "C",
+        "text": "The Compromise restored the Frankfurt Assembly"
+      },
+      {
+        "key": "D",
+        "text": "The Compromise accommodated Austrian and Hungarian elites within one monarchy, while many other national groups remained dissatisfied"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP006-CP006-S06"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Which sequence correctly orders these Balkan developments?",
+    "explanation": "The Austro-Hungarian Compromise preceded the Russo-Ottoman war settlement at San Stefano; the Congress of Berlin later revised that settlement in 1878.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q024",
+    "englishQuestionId": "WHI-CP016-Q024",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F024",
+    "originCheckpointId": "WHI-001-CP006",
+    "originQuestionId": "WHI-CP006-Q045",
+    "originFactId": "WHI-CP006-F045",
+    "originSourceIds": [
+      "CP006-S05",
+      "CP006-S06",
+      "CP006-S08"
+    ],
+    "originQuestionFamily": "Chronology and sequence",
+    "questionFamily": "Dates and chronology",
+    "options": [
+      {
+        "key": "A",
+        "text": "Compromise of 1867 → Congress of Berlin (1878) → Treaty of San Stefano (1878)"
+      },
+      {
+        "key": "B",
+        "text": "Compromise of 1867 → Treaty of San Stefano (1878) → Congress of Berlin (1878)"
+      },
+      {
+        "key": "C",
+        "text": "Treaty of San Stefano (1878) → Compromise of 1867 → Congress of Berlin (1878)"
+      },
+      {
+        "key": "D",
+        "text": "Congress of Berlin (1878) → Treaty of San Stefano (1878) → Compromise of 1867"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP006-CP006-S05",
+      "CP006-CP006-S06",
+      "CP006-CP006-S08"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Why did European powers build ports and railways in many colonies?",
+    "explanation": "Colonial transport links commonly served administration and commercial extraction, though their uses varied by region.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q025",
+    "englishQuestionId": "WHI-CP016-Q025",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F025",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q005",
+    "originFactId": "WHI-CP007-F005",
+    "originSourceIds": [
+      "CP007-S05",
+      "CP007-S06"
+    ],
+    "originQuestionFamily": "Motive and method",
+    "questionFamily": "Causes, policies, and purposes",
+    "options": [
+      {
+        "key": "A",
+        "text": "To create a single African parliament"
+      },
+      {
+        "key": "B",
+        "text": "To support administration, military movement and the extraction or transport of goods"
+      },
+      {
+        "key": "C",
+        "text": "To prevent access to mines and plantations"
+      },
+      {
+        "key": "D",
+        "text": "To end all trade with Europe"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP007-CP007-S05",
+      "CP007-CP007-S06"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which comparison between the Congo Free State and Ethiopia in the late nineteenth century is accurate?",
+    "explanation": "Leopold II ruled the Congo Free State, whereas Ethiopia’s victory over Italy at Adwa preserved its independence at that time.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q026",
+    "englishQuestionId": "WHI-CP016-Q026",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F026",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q049",
+    "originFactId": "WHI-CP007-F049",
+    "originSourceIds": [
+      "CP007-S03",
+      "CP007-S09"
+    ],
+    "originQuestionFamily": "Comparison",
+    "questionFamily": "Comparisons and distinctions",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Congo came under Leopold II’s rule, while Ethiopia defeated Italy at Adwa and remained independent"
+      },
+      {
+        "key": "B",
+        "text": "Both were annexed by Belgium in 1908"
+      },
+      {
+        "key": "C",
+        "text": "Ethiopia was a German protectorate after Adwa"
+      },
+      {
+        "key": "D",
+        "text": "Both were ruled by Leopold II"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP007-CP007-S03",
+      "CP007-CP007-S09"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which comparison between formal annexation and a sphere of influence is accurate?",
+    "explanation": "Annexation and spheres of influence describe different forms of control, although both could constrain the affected society’s sovereignty.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q027",
+    "englishQuestionId": "WHI-CP016-Q027",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F027",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q051",
+    "originFactId": "WHI-CP007-F051",
+    "originSourceIds": [
+      "CP007-S02",
+      "CP007-S11"
+    ],
+    "originQuestionFamily": "Comparison",
+    "questionFamily": "Comparisons and distinctions",
+    "options": [
+      {
+        "key": "A",
+        "text": "Annexation transfers territory to direct rule; a sphere of influence may leave formal sovereignty while granting special privileges"
+      },
+      {
+        "key": "B",
+        "text": "Annexation applies only to trade and never to territory"
+      },
+      {
+        "key": "C",
+        "text": "A sphere of influence is always more direct than annexation"
+      },
+      {
+        "key": "D",
+        "text": "Both always create fully independent states"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP007-CP007-S02",
+      "CP007-CP007-S11"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Which comparison between European imperialism in Africa and China is most accurate?",
+    "explanation": "Imperial control took different forms: formal colonial rule was widespread in Africa, while foreign powers also claimed privileges and spheres in China.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q028",
+    "englishQuestionId": "WHI-CP016-Q028",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F028",
+    "originCheckpointId": "WHI-001-CP007",
+    "originQuestionId": "WHI-CP007-Q052",
+    "originFactId": "WHI-CP007-F052",
+    "originSourceIds": [
+      "CP007-S05",
+      "CP007-S11"
+    ],
+    "originQuestionFamily": "Comparison",
+    "questionFamily": "Comparisons and distinctions",
+    "options": [
+      {
+        "key": "A",
+        "text": "Every African territory remained independent after 1900"
+      },
+      {
+        "key": "B",
+        "text": "European powers exercised no influence in China"
+      },
+      {
+        "key": "C",
+        "text": "Many African territories came under formal colonial rule, while China retained a government but faced foreign privileges and spheres of influence"
+      },
+      {
+        "key": "D",
+        "text": "China was divided into the same formal colonies as Africa"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP007-CP007-S05",
+      "CP007-CP007-S11"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Why did the alliance system contribute to the widening of the 1914 crisis?",
+    "explanation": "Alliance commitments and strategic calculations helped widen the conflict, though they did not make war automatic.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q029",
+    "englishQuestionId": "WHI-CP016-Q029",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F029",
+    "originCheckpointId": "WHI-001-CP008",
+    "originQuestionId": "WHI-CP008-Q004",
+    "originFactId": "WHI-CP008-F004",
+    "originSourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "originQuestionFamily": "Causes and alliances",
+    "questionFamily": "Causes, policies, and purposes",
+    "options": [
+      {
+        "key": "A",
+        "text": "It could draw additional powers into a conflict between Austria-Hungary and Serbia"
+      },
+      {
+        "key": "B",
+        "text": "It required every country to remain neutral"
+      },
+      {
+        "key": "C",
+        "text": "It prevented mobilisation by member states"
+      },
+      {
+        "key": "D",
+        "text": "It replaced national armies with one European force"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP008-CP008-S01",
+      "CP008-CP008-S05"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "On which front was the trench warfare of the Western Front concentrated?",
+    "explanation": "The Western Front ran principally through Belgium and northern France and became associated with entrenched warfare.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q030",
+    "englishQuestionId": "WHI-CP016-Q030",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F030",
+    "originCheckpointId": "WHI-001-CP008",
+    "originQuestionId": "WHI-CP008-Q017",
+    "originFactId": "WHI-CP008-F017",
+    "originSourceIds": [
+      "CP008-S02",
+      "CP008-S08"
+    ],
+    "originQuestionFamily": "Fronts and battles",
+    "questionFamily": "Alliances, sides, and conflicts",
+    "options": [
+      {
+        "key": "A",
+        "text": "In Belgium and northern France"
+      },
+      {
+        "key": "B",
+        "text": "In the Alps between Italy and Switzerland only"
+      },
+      {
+        "key": "C",
+        "text": "In Siberia and Mongolia"
+      },
+      {
+        "key": "D",
+        "text": "Along the Pacific coast of China"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP008-CP008-S02",
+      "CP008-CP008-S08"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which battle took place on the Eastern Front in 1914 and became an early German victory over Russia?",
+    "explanation": "German forces defeated Russian armies at Tannenberg in August 1914.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q031",
+    "englishQuestionId": "WHI-CP016-Q031",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F031",
+    "originCheckpointId": "WHI-001-CP008",
+    "originQuestionId": "WHI-CP008-Q021",
+    "originFactId": "WHI-CP008-F021",
+    "originSourceIds": [
+      "CP008-S05",
+      "CP008-S08"
+    ],
+    "originQuestionFamily": "Fronts and battles",
+    "questionFamily": "Alliances, sides, and conflicts",
+    "options": [
+      {
+        "key": "A",
+        "text": "Tannenberg"
+      },
+      {
+        "key": "B",
+        "text": "Passchendaele"
+      },
+      {
+        "key": "C",
+        "text": "The Somme"
+      },
+      {
+        "key": "D",
+        "text": "Gallipoli"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP008-CP008-S05",
+      "CP008-CP008-S08"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Which statement best connects the Russian Revolutions to the First World War?",
+    "explanation": "The 1917 revolutions transformed Russian politics; the Bolshevik government later signed a separate peace in 1918.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q032",
+    "englishQuestionId": "WHI-CP016-Q032",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F032",
+    "originCheckpointId": "WHI-001-CP008",
+    "originQuestionId": "WHI-CP008-Q058",
+    "originFactId": "WHI-CP008-F058",
+    "originSourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "originQuestionFamily": "Integrated synthesis",
+    "questionFamily": "Statements and synthesis",
+    "options": [
+      {
+        "key": "A",
+        "text": "The revolutions created the Treaty of Versailles in 1917"
+      },
+      {
+        "key": "B",
+        "text": "The revolutions immediately ended the war for all combatants"
+      },
+      {
+        "key": "C",
+        "text": "The February Revolution brought the United States into the war"
+      },
+      {
+        "key": "D",
+        "text": "The revolutions changed Russia’s government and ultimately led the Bolsheviks to withdraw from the war"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP008-CP008-S04",
+      "CP008-CP008-S05"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Which constitution established the Weimar Republic in Germany?",
+    "explanation": "The Weimar Constitution was adopted in 1919 and established Germany’s postwar republic.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q033",
+    "englishQuestionId": "WHI-CP016-Q033",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F033",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q017",
+    "originFactId": "WHI-CP009-F017",
+    "originSourceIds": [
+      "CP009-S03"
+    ],
+    "originQuestionFamily": "Republic and institutions",
+    "questionFamily": "Documents, treaties, and institutions",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Constitution of 1871 unchanged"
+      },
+      {
+        "key": "B",
+        "text": "The Treaty of Rome"
+      },
+      {
+        "key": "C",
+        "text": "The constitution adopted in 1919"
+      },
+      {
+        "key": "D",
+        "text": "The German Basic Law of 1949"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-CP009-S03"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "How did proportional representation affect Weimar politics?",
+    "explanation": "Proportional representation allowed a range of parties to win seats, contributing to coalition politics; it was one factor among several in political instability.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q034",
+    "englishQuestionId": "WHI-CP016-Q034",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F034",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q024",
+    "originFactId": "WHI-CP009-F024",
+    "originSourceIds": [
+      "CP009-S03"
+    ],
+    "originQuestionFamily": "Economic causes and effects",
+    "questionFamily": "Consequences and outcomes",
+    "options": [
+      {
+        "key": "A",
+        "text": "It gave the League the right to appoint the Reichstag"
+      },
+      {
+        "key": "B",
+        "text": "It allowed smaller parties to gain seats and could make stable parliamentary coalitions difficult"
+      },
+      {
+        "key": "C",
+        "text": "It banned all parties except the Social Democrats"
+      },
+      {
+        "key": "D",
+        "text": "It ensured a permanent majority for one party"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-CP009-S03"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Why was Germany especially vulnerable when U.S. lending contracted after 1929?",
+    "explanation": "Germany’s mid-1920s recovery relied significantly on foreign credit, making the withdrawal of U.S. loans damaging.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q035",
+    "englishQuestionId": "WHI-CP016-Q035",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F035",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q026",
+    "originFactId": "WHI-CP009-F026",
+    "originSourceIds": [
+      "CP009-S03",
+      "CP009-S04"
+    ],
+    "originQuestionFamily": "Economic causes and effects",
+    "questionFamily": "Causes, policies, and purposes",
+    "options": [
+      {
+        "key": "A",
+        "text": "It had no industrial economy"
+      },
+      {
+        "key": "B",
+        "text": "It had already left the League of Nations"
+      },
+      {
+        "key": "C",
+        "text": "It received no loans during the 1920s"
+      },
+      {
+        "key": "D",
+        "text": "Its recovery had depended heavily on foreign loans, including American credit"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-CP009-S03",
+      "CP009-CP009-S04"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "How did the Great Depression affect politics in Germany?",
+    "explanation": "The Depression intensified hardship and helped radical parties gain support, though it was not the only cause of Nazi growth.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q036",
+    "englishQuestionId": "WHI-CP016-Q036",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F036",
+    "originCheckpointId": "WHI-001-CP009",
+    "originQuestionId": "WHI-CP009-Q028",
+    "originFactId": "WHI-CP009-F028",
+    "originSourceIds": [
+      "CP009-S04",
+      "CP009-S05"
+    ],
+    "originQuestionFamily": "Economic causes and effects",
+    "questionFamily": "Consequences and outcomes",
+    "options": [
+      {
+        "key": "A",
+        "text": "Economic hardship helped increase support for radical parties, including the Nazis"
+      },
+      {
+        "key": "B",
+        "text": "It ended all political violence"
+      },
+      {
+        "key": "C",
+        "text": "It immediately restored the monarchy"
+      },
+      {
+        "key": "D",
+        "text": "It removed the Reichstag from the constitution"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-CP009-S04",
+      "CP009-CP009-S05"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Which battle stopped the German advance at Stalingrad and ended with the surrender of German forces there in February 1943?",
+    "explanation": "The German Sixth Army surrendered at Stalingrad in February 1943. The defeat became a major turning point on the Eastern Front.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q037",
+    "englishQuestionId": "WHI-CP016-Q037",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F037",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q013",
+    "originFactId": "WHI-CP010-F013",
+    "originSourceIds": [
+      "CP010-S02",
+      "CP010-S01"
+    ],
+    "originQuestionFamily": "European theatre",
+    "questionFamily": "Alliances, sides, and conflicts",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Battle of El Alamein"
+      },
+      {
+        "key": "B",
+        "text": "The Battle of Stalingrad"
+      },
+      {
+        "key": "C",
+        "text": "The Battle of the Bulge"
+      },
+      {
+        "key": "D",
+        "text": "The Battle of Britain"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-CP010-S02",
+      "CP010-CP010-S01"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which battle is widely treated as a major turning point on the Eastern Front?",
+    "explanation": "The German surrender at Stalingrad in February 1943 marked a major reversal on the Eastern Front. Soviet forces thereafter advanced westward over time.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q038",
+    "englishQuestionId": "WHI-CP016-Q038",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F038",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q026",
+    "originFactId": "WHI-CP010-F026",
+    "originSourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ],
+    "originQuestionFamily": "Turning points",
+    "questionFamily": "Alliances, sides, and conflicts",
+    "options": [
+      {
+        "key": "A",
+        "text": "Dunkirk"
+      },
+      {
+        "key": "B",
+        "text": "The Battle of Britain"
+      },
+      {
+        "key": "C",
+        "text": "Stalingrad"
+      },
+      {
+        "key": "D",
+        "text": "The Battle of the Coral Sea"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-CP010-S01",
+      "CP010-CP010-S02"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which statement describes a major human consequence of the Second World War in Europe?",
+    "explanation": "War and persecution displaced millions of people across Europe. Many survivors could not or did not return to their former homes after the conflict.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q039",
+    "englishQuestionId": "WHI-CP016-Q039",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F039",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q058",
+    "originFactId": "WHI-CP010-F058",
+    "originSourceIds": [
+      "CP010-S01",
+      "CP010-S10"
+    ],
+    "originQuestionFamily": "Consequences and synthesis",
+    "questionFamily": "Statements and synthesis",
+    "options": [
+      {
+        "key": "A",
+        "text": "All civilians returned home immediately in 1945"
+      },
+      {
+        "key": "B",
+        "text": "The war caused no major population movements"
+      },
+      {
+        "key": "C",
+        "text": "Only military personnel were displaced"
+      },
+      {
+        "key": "D",
+        "text": "Millions of civilians were displaced from their homes"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-CP010-S01",
+      "CP010-CP010-S10"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Which statement best describes the global character of the Second World War?",
+    "explanation": "The war involved connected campaigns across several continents and oceans. Germany's 1940 armistice with France did not end the wider conflict.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q040",
+    "englishQuestionId": "WHI-CP016-Q040",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F040",
+    "originCheckpointId": "WHI-001-CP010",
+    "originQuestionId": "WHI-CP010-Q060",
+    "originFactId": "WHI-CP010-F060",
+    "originSourceIds": [
+      "CP010-S01",
+      "CP010-S02",
+      "CP010-S03"
+    ],
+    "originQuestionFamily": "Consequences and synthesis",
+    "questionFamily": "Statements and synthesis",
+    "options": [
+      {
+        "key": "A",
+        "text": "It ended when France signed its 1940 armistice"
+      },
+      {
+        "key": "B",
+        "text": "It involved only European states"
+      },
+      {
+        "key": "C",
+        "text": "It was confined to central Europe"
+      },
+      {
+        "key": "D",
+        "text": "It was fought across European, North African and Asia-Pacific theatres"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-CP010-S01",
+      "CP010-CP010-S02",
+      "CP010-CP010-S03"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Which principle in Article 2 of the UN Charter recognises the sovereign equality of member states?",
+    "explanation": "Article 2 states the principle of sovereign equality among members. It does not give every state identical roles in every UN organ.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q041",
+    "englishQuestionId": "WHI-CP016-Q041",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F041",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q007",
+    "originFactId": "WHI-CP011-F007",
+    "originSourceIds": [
+      "CP011-S01"
+    ],
+    "originQuestionFamily": "Charter principles and purposes",
+    "questionFamily": "Documents, treaties, and institutions",
+    "options": [
+      {
+        "key": "A",
+        "text": "Every member has a permanent Security Council seat"
+      },
+      {
+        "key": "B",
+        "text": "All states must use the same constitution"
+      },
+      {
+        "key": "C",
+        "text": "The Security Council has no special powers"
+      },
+      {
+        "key": "D",
+        "text": "All members are sovereign equals"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP011-CP011-S01"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which method does the UN Charter encourage for resolving international disputes?",
+    "explanation": "The Charter calls on members to settle disputes by peaceful means. The specific method depends on the dispute and the parties involved.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q042",
+    "englishQuestionId": "WHI-CP016-Q042",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F042",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q009",
+    "originFactId": "WHI-CP011-F009",
+    "originSourceIds": [
+      "CP011-S01"
+    ],
+    "originQuestionFamily": "Charter principles and purposes",
+    "questionFamily": "Documents, treaties, and institutions",
+    "options": [
+      {
+        "key": "A",
+        "text": "Permanent economic blockade"
+      },
+      {
+        "key": "B",
+        "text": "Peaceful settlement"
+      },
+      {
+        "key": "C",
+        "text": "Unilateral annexation"
+      },
+      {
+        "key": "D",
+        "text": "Secret military occupation"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP011-CP011-S01"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Which agreement established the International Military Tribunal at Nuremberg?",
+    "explanation": "The London Agreement established the International Military Tribunal and included its Charter. The trials addressed senior Nazi leaders after the war.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q043",
+    "englishQuestionId": "WHI-CP016-Q043",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F043",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q033",
+    "originFactId": "WHI-CP011-F033",
+    "originSourceIds": [
+      "CP011-S09"
+    ],
+    "originQuestionFamily": "Bretton Woods institutions",
+    "questionFamily": "Documents, treaties, and institutions",
+    "options": [
+      {
+        "key": "A",
+        "text": "The London Agreement of 8 August 1945"
+      },
+      {
+        "key": "B",
+        "text": "The Treaty of Versailles of 1919"
+      },
+      {
+        "key": "C",
+        "text": "The Geneva Declaration of 1954"
+      },
+      {
+        "key": "D",
+        "text": "The UN Charter of 26 June 1945"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP011-CP011-S09"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which statement about the post-war division of Germany is accurate?",
+    "explanation": "The four-power occupation began after Germany's defeat. The Federal Republic and German Democratic Republic were founded later, in 1949.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q044",
+    "englishQuestionId": "WHI-CP016-Q044",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F044",
+    "originCheckpointId": "WHI-001-CP011",
+    "originQuestionId": "WHI-CP011-Q059",
+    "originFactId": "WHI-CP011-F059",
+    "originSourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "originQuestionFamily": "Post-war order and synthesis",
+    "questionFamily": "Statements and synthesis",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Security Council created the occupation zones in 1949"
+      },
+      {
+        "key": "B",
+        "text": "Four-power occupation preceded the creation of East and West German states"
+      },
+      {
+        "key": "C",
+        "text": "Berlin was administered only by France"
+      },
+      {
+        "key": "D",
+        "text": "The two German states were established before Germany surrendered"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP011-CP011-S11",
+      "CP011-CP011-S12"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which city was the capital of the Indonesian Republic during the revolution before the Dutch returned to Jakarta?",
+    "explanation": "Yogyakarta served as the republican capital during the independence struggle.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q045",
+    "englishQuestionId": "WHI-CP016-Q045",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F045",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q016",
+    "originFactId": "WHI-CP012-F016",
+    "originSourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "originQuestionFamily": "Indonesian independence",
+    "questionFamily": "Events, places, and actors",
+    "options": [
+      {
+        "key": "A",
+        "text": "Surabaya"
+      },
+      {
+        "key": "B",
+        "text": "Yogyakarta"
+      },
+      {
+        "key": "C",
+        "text": "Medan"
+      },
+      {
+        "key": "D",
+        "text": "Bandung"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP012-CP012-S03",
+      "CP012-CP012-S01"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which battle in 1954 helped end French colonial rule in Indochina?",
+    "explanation": "The French defeat at Dien Bien Phu led to the end of France’s war in Indochina.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q046",
+    "englishQuestionId": "WHI-CP016-Q046",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F046",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q020",
+    "originFactId": "WHI-CP012-F020",
+    "originSourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "originQuestionFamily": "Vietnam and the end of French Indochina",
+    "questionFamily": "Alliances, sides, and conflicts",
+    "options": [
+      {
+        "key": "A",
+        "text": "Dien Bien Phu"
+      },
+      {
+        "key": "B",
+        "text": "Khe Sanh"
+      },
+      {
+        "key": "C",
+        "text": "Tuyen Quang"
+      },
+      {
+        "key": "D",
+        "text": "Hue"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP012-CP012-S04",
+      "CP012-CP012-S05"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "When did the UN General Assembly adopt Resolution 181?",
+    "explanation": "The General Assembly adopted Resolution 181 on 29 November 1947.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q047",
+    "englishQuestionId": "WHI-CP016-Q047",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F047",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q045",
+    "originFactId": "WHI-CP012-F045",
+    "originSourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "originQuestionFamily": "Palestine under the British Mandate",
+    "questionFamily": "Dates and chronology",
+    "options": [
+      {
+        "key": "A",
+        "text": "14 May 1948"
+      },
+      {
+        "key": "B",
+        "text": "10 December 1948"
+      },
+      {
+        "key": "C",
+        "text": "29 November 1947"
+      },
+      {
+        "key": "D",
+        "text": "1 September 1939"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP012-CP012-S09",
+      "CP012-CP012-S10"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Which comparison of independence paths is accurate?",
+    "explanation": "Indonesia’s declaration and eventual sovereignty transfer were separated by years of conflict and negotiation.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q048",
+    "englishQuestionId": "WHI-CP016-Q048",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F048",
+    "originCheckpointId": "WHI-001-CP012",
+    "originQuestionId": "WHI-CP012-Q055",
+    "originFactId": "WHI-CP012-F055",
+    "originSourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "originQuestionFamily": "Decolonization paths and regional comparison",
+    "questionFamily": "Comparisons and distinctions",
+    "options": [
+      {
+        "key": "A",
+        "text": "Indonesia declared independence in 1945 and secured Dutch sovereignty transfer in 1949"
+      },
+      {
+        "key": "B",
+        "text": "Vietnam gained independence from Britain in 1949"
+      },
+      {
+        "key": "C",
+        "text": "Malaya won independence from France in 1948"
+      },
+      {
+        "key": "D",
+        "text": "Burma declared independence in 1957 after Dutch rule"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP012-CP012-S01",
+      "CP012-CP012-S12",
+      "CP012-CP012-S08"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Which European power ruled Algeria before its independence in 1962?",
+    "explanation": "Algeria was under French colonial rule before independence.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q049",
+    "englishQuestionId": "WHI-CP016-Q049",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F049",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q007",
+    "originFactId": "WHI-CP013-F007",
+    "originSourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "originQuestionFamily": "Algerian War and independence",
+    "questionFamily": "Alliances, sides, and conflicts",
+    "options": [
+      {
+        "key": "A",
+        "text": "France"
+      },
+      {
+        "key": "B",
+        "text": "Britain"
+      },
+      {
+        "key": "C",
+        "text": "Spain"
+      },
+      {
+        "key": "D",
+        "text": "Belgium"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP013-CP013-S01",
+      "CP013-CP013-S04"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Which country became independent from Britain in 1963 under the name Kenya?",
+    "explanation": "Kenya became independent in December 1963.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q050",
+    "englishQuestionId": "WHI-CP016-Q050",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F050",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q019",
+    "originFactId": "WHI-CP013-F019",
+    "originSourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "originQuestionFamily": "East and Central African independence",
+    "questionFamily": "Movements, states, and political change",
+    "options": [
+      {
+        "key": "A",
+        "text": "Zambia"
+      },
+      {
+        "key": "B",
+        "text": "Uganda"
+      },
+      {
+        "key": "C",
+        "text": "Kenya"
+      },
+      {
+        "key": "D",
+        "text": "Malawi"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP013-CP013-S13",
+      "CP013-CP013-S14"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which country became independent as Malawi in 1964?",
+    "explanation": "The British protectorate of Nyasaland became Malawi in 1964.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q051",
+    "englishQuestionId": "WHI-CP016-Q051",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F051",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q022",
+    "originFactId": "WHI-CP013-F022",
+    "originSourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "originQuestionFamily": "East and Central African independence",
+    "questionFamily": "Movements, states, and political change",
+    "options": [
+      {
+        "key": "A",
+        "text": "Nyasaland"
+      },
+      {
+        "key": "B",
+        "text": "Northern Rhodesia"
+      },
+      {
+        "key": "C",
+        "text": "Basutoland"
+      },
+      {
+        "key": "D",
+        "text": "Tanganyika"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP013-CP013-S13",
+      "CP013-CP013-S14"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which sequence is chronologically correct?",
+    "explanation": "The three independence dates were 1957, 1960 and 1962 in that order.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q052",
+    "englishQuestionId": "WHI-CP016-Q052",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F052",
+    "originCheckpointId": "WHI-001-CP013",
+    "originQuestionId": "WHI-CP013-Q058",
+    "originFactId": "WHI-CP013-F058",
+    "originSourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "originQuestionFamily": "Colonial borders and decolonization outcomes",
+    "questionFamily": "Dates and chronology",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ghana independence (1957), Congo independence (1960), Algeria independence (1962)"
+      },
+      {
+        "key": "B",
+        "text": "Congo independence (1948), Ghana independence (1954), Algeria independence (1960)"
+      },
+      {
+        "key": "C",
+        "text": "Algeria independence (1957), Ghana independence (1960), Congo independence (1963)"
+      },
+      {
+        "key": "D",
+        "text": "Ghana independence (1963), Algeria independence (1964), Congo independence (1965)"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP013-CP013-S01",
+      "CP013-CP013-S02",
+      "CP013-CP013-S04",
+      "CP013-CP013-S05",
+      "CP013-CP013-S10"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Which country placed nuclear missiles in Cuba before the 1962 crisis?",
+    "explanation": "The Soviet Union installed missiles in Cuba, prompting the confrontation with the United States.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q053",
+    "englishQuestionId": "WHI-CP016-Q053",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F053",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q028",
+    "originFactId": "WHI-CP014-F028",
+    "originSourceIds": [
+      "CP014-S08"
+    ],
+    "originQuestionFamily": "Cuban Missile Crisis",
+    "questionFamily": "Events, places, and actors",
+    "options": [
+      {
+        "key": "A",
+        "text": "Britain"
+      },
+      {
+        "key": "B",
+        "text": "China"
+      },
+      {
+        "key": "C",
+        "text": "France"
+      },
+      {
+        "key": "D",
+        "text": "The Soviet Union"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP014-CP014-S08"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "Why is the Cuban Missile Crisis treated as a major Cold War turning point?",
+    "explanation": "The crisis exposed the danger of direct superpower confrontation and led to efforts to improve communication.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q054",
+    "englishQuestionId": "WHI-CP016-Q054",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F054",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q030",
+    "originFactId": "WHI-CP014-F030",
+    "originSourceIds": [
+      "CP014-S08"
+    ],
+    "originQuestionFamily": "Cuban Missile Crisis",
+    "questionFamily": "Causes, policies, and purposes",
+    "options": [
+      {
+        "key": "A",
+        "text": "It dissolved NATO and the Warsaw Pact"
+      },
+      {
+        "key": "B",
+        "text": "It ended all ideological rivalry"
+      },
+      {
+        "key": "C",
+        "text": "It brought the superpowers close to nuclear conflict and encouraged crisis-management measures"
+      },
+      {
+        "key": "D",
+        "text": "It caused the division of Germany"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP014-CP014-S08"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Which country hosted the 1955 Bandung Conference?",
+    "explanation": "The Asian-African Conference took place in Bandung, Indonesia.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q055",
+    "englishQuestionId": "WHI-CP016-Q055",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F055",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q053",
+    "originFactId": "WHI-CP014-F053",
+    "originSourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "originQuestionFamily": "Non-Aligned Movement and Bandung",
+    "questionFamily": "Events, places, and actors",
+    "options": [
+      {
+        "key": "A",
+        "text": "Yugoslavia"
+      },
+      {
+        "key": "B",
+        "text": "Egypt"
+      },
+      {
+        "key": "C",
+        "text": "India"
+      },
+      {
+        "key": "D",
+        "text": "Indonesia"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP014-CP014-S15",
+      "CP014-CP014-S16"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Which sequence is in chronological order?",
+    "explanation": "The events occurred in 1947, 1948–49, 1962 and 1975 respectively.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q056",
+    "englishQuestionId": "WHI-CP016-Q056",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F056",
+    "originCheckpointId": "WHI-001-CP014",
+    "originQuestionId": "WHI-CP014-Q055",
+    "originFactId": "WHI-CP014-F055",
+    "originSourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "originQuestionFamily": "Cold War chronology and distinctions",
+    "questionFamily": "Dates and chronology",
+    "options": [
+      {
+        "key": "A",
+        "text": "Truman Doctrine → Berlin Airlift → Cuban Missile Crisis → Helsinki Final Act"
+      },
+      {
+        "key": "B",
+        "text": "Helsinki Final Act → Truman Doctrine → Berlin Airlift → Cuban Missile Crisis"
+      },
+      {
+        "key": "C",
+        "text": "Berlin Airlift → Truman Doctrine → Helsinki Final Act → Cuban Missile Crisis"
+      },
+      {
+        "key": "D",
+        "text": "Cuban Missile Crisis → Berlin Airlift → Truman Doctrine → Helsinki Final Act"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP014-CP014-S01",
+      "CP014-CP014-S04",
+      "CP014-CP014-S08",
+      "CP014-CP014-S13",
+      "CP014-CP014-S14"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "hard",
+    "stem": "Which movement challenged communist rule in Poland during the 1980s?",
+    "explanation": "Solidarity was a Polish trade union and social movement that became a major opposition force.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q057",
+    "englishQuestionId": "WHI-CP016-Q057",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F057",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q007",
+    "originFactId": "WHI-CP015-F007",
+    "originSourceIds": [
+      "CP015-S02",
+      "CP015-S14"
+    ],
+    "originQuestionFamily": "Eastern European transitions, 1989",
+    "questionFamily": "Movements, states, and political change",
+    "options": [
+      {
+        "key": "A",
+        "text": "ANC"
+      },
+      {
+        "key": "B",
+        "text": "FLN"
+      },
+      {
+        "key": "C",
+        "text": "Solidarity"
+      },
+      {
+        "key": "D",
+        "text": "Viet Minh"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP015-CP015-S02",
+      "CP015-CP015-S14"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "What event did the opening of the Berlin Wall symbolize?",
+    "explanation": "The Wall had symbolized Europe’s Cold War division; its opening marked the rapid erosion of that division.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q058",
+    "englishQuestionId": "WHI-CP016-Q058",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F058",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q014",
+    "originFactId": "WHI-CP015-F014",
+    "originSourceIds": [
+      "CP015-S02",
+      "CP015-S05",
+      "CP015-S06",
+      "CP015-S12"
+    ],
+    "originQuestionFamily": "Berlin Wall and German reunification",
+    "questionFamily": "Consequences and outcomes",
+    "options": [
+      {
+        "key": "A",
+        "text": "The start of the Korean War"
+      },
+      {
+        "key": "B",
+        "text": "The creation of NATO"
+      },
+      {
+        "key": "C",
+        "text": "The end of the Second World War"
+      },
+      {
+        "key": "D",
+        "text": "The weakening of the division between communist Eastern Europe and the West"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP015-CP015-S02",
+      "CP015-CP015-S05",
+      "CP015-CP015-S06",
+      "CP015-CP015-S12"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "easy",
+    "stem": "Which republic declared restoration of independence in April 1991?",
+    "explanation": "Georgia declared restoration of independence on 9 April 1991.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q059",
+    "englishQuestionId": "WHI-CP016-Q059",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F059",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q029",
+    "originFactId": "WHI-CP015-F029",
+    "originSourceIds": [
+      "CP015-S03",
+      "CP015-S08"
+    ],
+    "originQuestionFamily": "Soviet republic independence",
+    "questionFamily": "Movements, states, and political change",
+    "options": [
+      {
+        "key": "A",
+        "text": "Tajikistan"
+      },
+      {
+        "key": "B",
+        "text": "Moldova"
+      },
+      {
+        "key": "C",
+        "text": "Georgia"
+      },
+      {
+        "key": "D",
+        "text": "Uzbekistan"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP015-CP015-S03",
+      "CP015-CP015-S08"
+    ]
+  },
+  {
+    "language": "en",
+    "difficulty": "medium",
+    "stem": "How did the failed coup affect the Soviet central government?",
+    "explanation": "The coup’s failure strengthened Yeltsin and undermined the union’s central institutions.",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP016-Q060",
+    "englishQuestionId": "WHI-CP016-Q060",
+    "checkpointId": "WHI-001-CP016",
+    "factId": "WHI-CP016-F060",
+    "originCheckpointId": "WHI-001-CP015",
+    "originQuestionId": "WHI-CP015-Q034",
+    "originFactId": "WHI-CP015-F034",
+    "originSourceIds": [
+      "CP015-S03"
+    ],
+    "originQuestionFamily": "August 1991 coup attempt",
+    "questionFamily": "Consequences and outcomes",
+    "options": [
+      {
+        "key": "A",
+        "text": "It resolved tensions between Gorbachev and Yeltsin"
+      },
+      {
+        "key": "B",
+        "text": "It ended the independence movements"
+      },
+      {
+        "key": "C",
+        "text": "It weakened Gorbachev’s authority and accelerated the dissolution crisis"
+      },
+      {
+        "key": "D",
+        "text": "It restored the Communist Party’s control over the republics"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP015-CP015-S03"
+    ]
+  }
+]

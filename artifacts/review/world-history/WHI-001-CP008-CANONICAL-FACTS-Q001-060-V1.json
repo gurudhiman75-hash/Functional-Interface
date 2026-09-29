@@ -1,0 +1,715 @@
+{
+  "schemaVersion": "1.0",
+  "chapterId": "WHI-001",
+  "checkpointId": "WHI-001-CP008",
+  "status": "full-source-backed-review-pool",
+  "sourceRegister": [
+    {
+      "sourceId": "CP008-S01",
+      "title": "U.S. Department of State — World War I",
+      "url": "https://history.state.gov/milestones/1914-1920/wwi",
+      "use": "U.S. entry, diplomacy and war chronology; avoid reducing entry to one factor."
+    },
+    {
+      "sourceId": "CP008-S02",
+      "title": "Library of Congress — World War I declarations guide",
+      "url": "https://guides.loc.gov/chronicling-america-wwi-declarations",
+      "use": "Dated sources on declarations and the July 1914 crisis."
+    },
+    {
+      "sourceId": "CP008-S03",
+      "title": "Library of Congress — World War I armistice guide",
+      "url": "https://guides.loc.gov/chronicling-america-wwi-armistice",
+      "use": "Armistice date and contemporaneous records."
+    },
+    {
+      "sourceId": "CP008-S04",
+      "title": "Library of Congress — Russian Revolution and Civil War collection",
+      "url": "https://www.loc.gov/item/2021666632/",
+      "use": "Primary-source collection; corroborate individual claims and calendar conventions."
+    },
+    {
+      "sourceId": "CP008-S05",
+      "title": "Library of Congress — World War I timeline, 1914–1921",
+      "url": "https://www.loc.gov/collections/stars-and-stripes/articles-and-essays/a-world-at-war/timeline-1914-1921/",
+      "use": "Broad war chronology, Russian exit and armistice."
+    },
+    {
+      "sourceId": "CP008-S06",
+      "title": "U.S. Department of State — Wilson’s Fourteen Points",
+      "url": "https://history.state.gov/milestones/1914-1920/fourteen-points",
+      "use": "January 1918 peace programme."
+    },
+    {
+      "sourceId": "CP008-S07",
+      "title": "U.S. Department of State — Paris Peace Conference and Treaty of Versailles",
+      "url": "https://history.state.gov/milestones/1914-1920/paris-peace",
+      "use": "Treaty date and postwar settlement; CP009 owns interwar consequences."
+    },
+    {
+      "sourceId": "CP008-S08",
+      "title": "Imperial War Museums — Key battles of the First World War",
+      "url": "https://www.iwm.org.uk/history/first-world-war/key-battles",
+      "use": "Gallipoli, Somme and major battle chronology."
+    },
+    {
+      "sourceId": "CP008-S09",
+      "title": "Imperial War Museums — The Battle of Verdun",
+      "url": "https://www.iwm.org.uk/history/first-world-war/western-front/verdun",
+      "use": "Verdun dates and Western Front context."
+    }
+  ],
+  "facts": [
+    {
+      "factId": "WHI-CP008-F001",
+      "claim": "Imperial rivalry contributed to tensions, alongside militarism, alliance systems and nationalism; historians do not treat one factor as the sole cause.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Causes and alliances",
+      "relationshipType": "causes-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F002",
+      "claim": "The Triple Entente linked Britain, France and Russia before the war.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Causes and alliances",
+      "relationshipType": "causes-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F003",
+      "claim": "The prewar Triple Alliance comprised Germany, Austria-Hungary and Italy; Italy later joined the Allies in 1915.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Causes and alliances",
+      "relationshipType": "causes-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F004",
+      "claim": "Alliance commitments and strategic calculations helped widen the conflict, though they did not make war automatic.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Causes and alliances",
+      "relationshipType": "causes-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F005",
+      "claim": "Military planning and an arms race contributed to tension, particularly among the great powers.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Causes and alliances",
+      "relationshipType": "causes-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F006",
+      "claim": "Nationalism affected both great-power rivalry and movements within multiethnic empires; it interacted with other causes.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Causes and alliances",
+      "relationshipType": "causes-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F007",
+      "claim": "Alliance rivalry and militarism are two of the long-term factors commonly discussed alongside imperialism and nationalism.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Causes and alliances",
+      "relationshipType": "causes-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F008",
+      "claim": "The war grew from interacting long-term tensions and a specific diplomatic crisis; reducing it to one cause oversimplifies the evidence.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Causes and alliances",
+      "relationshipType": "causes-and-alliances",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F009",
+      "claim": "Archduke Franz Ferdinand, heir to the Austro-Hungarian throne, was assassinated in Sarajevo on 28 June 1914.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S02"
+      ],
+      "sourceLocator": "Crisis and outbreak",
+      "relationshipType": "crisis-and-outbreak",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F010",
+      "claim": "Princip was associated with Young Bosnia, a revolutionary nationalist movement in Bosnia.",
+      "sourceIds": [
+        "CP008-S02"
+      ],
+      "sourceLocator": "Crisis and outbreak",
+      "relationshipType": "crisis-and-outbreak",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F011",
+      "claim": "Austria-Hungary declared war on Serbia on 28 July 1914, one month after the assassination.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S02"
+      ],
+      "sourceLocator": "Crisis and outbreak",
+      "relationshipType": "crisis-and-outbreak",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F012",
+      "claim": "Austria-Hungary delivered an ultimatum to Serbia on 23 July; the response and subsequent decisions formed part of the July Crisis.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S02"
+      ],
+      "sourceLocator": "Crisis and outbreak",
+      "relationshipType": "crisis-and-outbreak",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F013",
+      "claim": "Germany declared war on Russia on 1 August 1914, followed by declarations on France and Belgium’s invasion.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Crisis and outbreak",
+      "relationshipType": "crisis-and-outbreak",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F014",
+      "claim": "Germany invaded Belgium on 4 August; Britain declared war later that day, with strategic and treaty considerations involved.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Crisis and outbreak",
+      "relationshipType": "crisis-and-outbreak",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F015",
+      "claim": "The assassination occurred on 28 June, the ultimatum was delivered on 23 July, and Austria-Hungary declared war on 28 July 1914.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S02"
+      ],
+      "sourceLocator": "Crisis and outbreak",
+      "relationshipType": "crisis-and-outbreak",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F016",
+      "claim": "Mobilisation and a chain of diplomatic and military decisions widened the crisis; the process was not simply an automatic treaty mechanism.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Crisis and outbreak",
+      "relationshipType": "crisis-and-outbreak",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F017",
+      "claim": "The Western Front ran principally through Belgium and northern France and became associated with entrenched warfare.",
+      "sourceIds": [
+        "CP008-S02",
+        "CP008-S08"
+      ],
+      "sourceLocator": "Fronts and battles",
+      "relationshipType": "fronts-and-battles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F018",
+      "claim": "The Battle of Verdun began in February 1916 and continued until December.",
+      "sourceIds": [
+        "CP008-S08",
+        "CP008-S09"
+      ],
+      "sourceLocator": "Fronts and battles",
+      "relationshipType": "fronts-and-battles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F019",
+      "claim": "The Somme offensive began on 1 July 1916 on the Western Front.",
+      "sourceIds": [
+        "CP008-S08"
+      ],
+      "sourceLocator": "Fronts and battles",
+      "relationshipType": "fronts-and-battles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F020",
+      "claim": "The campaign aimed to force the Dardanelles, threaten Constantinople and open a supply route to Russia.",
+      "sourceIds": [
+        "CP008-S08"
+      ],
+      "sourceLocator": "Fronts and battles",
+      "relationshipType": "fronts-and-battles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F021",
+      "claim": "German forces defeated Russian armies at Tannenberg in August 1914.",
+      "sourceIds": [
+        "CP008-S05",
+        "CP008-S08"
+      ],
+      "sourceLocator": "Fronts and battles",
+      "relationshipType": "fronts-and-battles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F022",
+      "claim": "The Battle of Jutland took place in the North Sea in 1916 between the main British and German fleets.",
+      "sourceIds": [
+        "CP008-S05",
+        "CP008-S08"
+      ],
+      "sourceLocator": "Fronts and battles",
+      "relationshipType": "fronts-and-battles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F023",
+      "claim": "Long trench systems and repeated offensives marked much of the Western Front, though tactics and front conditions changed over time.",
+      "sourceIds": [
+        "CP008-S08"
+      ],
+      "sourceLocator": "Fronts and battles",
+      "relationshipType": "fronts-and-battles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F024",
+      "claim": "The Gallipoli campaign began in 1915, followed by Verdun in February 1916 and the Somme in July 1916.",
+      "sourceIds": [
+        "CP008-S08",
+        "CP008-S09"
+      ],
+      "sourceLocator": "Fronts and battles",
+      "relationshipType": "fronts-and-battles",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F025",
+      "claim": "Machine guns, artillery and barbed wire made attacks across exposed ground especially dangerous.",
+      "sourceIds": [
+        "CP008-S08"
+      ],
+      "sourceLocator": "Warfare and turning points",
+      "relationshipType": "warfare-and-turning-points",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F026",
+      "claim": "Germany resumed unrestricted submarine warfare in 1917, increasing risks to neutral and Allied shipping.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Warfare and turning points",
+      "relationshipType": "warfare-and-turning-points",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F027",
+      "claim": "British tanks were first used in battle during the Somme campaign in September 1916.",
+      "sourceIds": [
+        "CP008-S08"
+      ],
+      "sourceLocator": "Warfare and turning points",
+      "relationshipType": "warfare-and-turning-points",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F028",
+      "claim": "Verdun began in February 1916; the Somme began in July. Both became major and costly Western Front battles.",
+      "sourceIds": [
+        "CP008-S08",
+        "CP008-S09"
+      ],
+      "sourceLocator": "Warfare and turning points",
+      "relationshipType": "warfare-and-turning-points",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F029",
+      "claim": "The Ottoman Empire entered the war on the side of the Central Powers in 1914.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Global participation and home fronts",
+      "relationshipType": "global-participation-and-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F030",
+      "claim": "The United States declared war on Germany in April 1917.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Global participation and home fronts",
+      "relationshipType": "global-participation-and-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F031",
+      "claim": "Unrestricted submarine warfare was a major factor; the Zimmermann Telegram and other considerations also shaped U.S. policy.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Global participation and home fronts",
+      "relationshipType": "global-participation-and-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F032",
+      "claim": "Wartime governments mobilised industry, labour and resources on a large scale; experiences differed by country.",
+      "sourceIds": [
+        "CP008-S05",
+        "CP008-S08"
+      ],
+      "sourceLocator": "Global participation and home fronts",
+      "relationshipType": "global-participation-and-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F033",
+      "claim": "People from imperial territories served as soldiers and labourers across several fronts and theatres.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Global participation and home fronts",
+      "relationshipType": "global-participation-and-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F034",
+      "claim": "The Mesopotamian campaign was one of the war’s Middle Eastern theatres.",
+      "sourceIds": [
+        "CP008-S05"
+      ],
+      "sourceLocator": "Global participation and home fronts",
+      "relationshipType": "global-participation-and-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F035",
+      "claim": "The conflict extended beyond Europe through imperial forces, overseas campaigns, naval operations and global economic mobilisation.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Global participation and home fronts",
+      "relationshipType": "global-participation-and-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F036",
+      "claim": "The United States entered the war in 1917; the armistice followed in 1918 and the Treaty of Versailles in 1919.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S05",
+        "CP008-S07"
+      ],
+      "sourceLocator": "Global participation and home fronts",
+      "relationshipType": "global-participation-and-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F037",
+      "claim": "The armistice took effect on 11 November 1918.",
+      "sourceIds": [
+        "CP008-S03",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Turning points and armistice",
+      "relationshipType": "turning-points-and-armistice",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F038",
+      "claim": "The Bolshevik government negotiated a separate peace with Germany at Brest-Litovsk in March 1918.",
+      "sourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Turning points and armistice",
+      "relationshipType": "turning-points-and-armistice",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F039",
+      "claim": "The Treaty of Versailles was signed on 28 June 1919, months after the armistice ended the fighting.",
+      "sourceIds": [
+        "CP008-S07"
+      ],
+      "sourceLocator": "Treaty and settlement",
+      "relationshipType": "treaty-and-settlement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F040",
+      "claim": "The 11 November 1918 armistice ended active fighting; the 1919 peace treaties established formal settlements.",
+      "sourceIds": [
+        "CP008-S03",
+        "CP008-S07"
+      ],
+      "sourceLocator": "Treaty and settlement",
+      "relationshipType": "treaty-and-settlement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F041",
+      "claim": "The United States entered the war in 1917, while revolution in Russia led to a later withdrawal from the conflict.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S04"
+      ],
+      "sourceLocator": "Turning points and armistice",
+      "relationshipType": "turning-points-and-armistice",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F042",
+      "claim": "Germany began its major Spring Offensive in March 1918 after Russia’s withdrawal enabled the transfer of forces west.",
+      "sourceIds": [
+        "CP008-S05"
+      ],
+      "sourceLocator": "Turning points and armistice",
+      "relationshipType": "turning-points-and-armistice",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F043",
+      "claim": "Russia’s separate peace came in March 1918, the armistice in November 1918, and the Versailles treaty in June 1919.",
+      "sourceIds": [
+        "CP008-S03",
+        "CP008-S05",
+        "CP008-S07"
+      ],
+      "sourceLocator": "Treaty and settlement",
+      "relationshipType": "treaty-and-settlement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F044",
+      "claim": "The armistice stopped fighting in November 1918; the Versailles treaty established terms with Germany in June 1919.",
+      "sourceIds": [
+        "CP008-S03",
+        "CP008-S07"
+      ],
+      "sourceLocator": "Treaty and settlement",
+      "relationshipType": "treaty-and-settlement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F045",
+      "claim": "Nicholas II abdicated in March 1917 by the Gregorian calendar, during the revolution known in Russia as the February Revolution under the Julian calendar.",
+      "sourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Russian Revolution chronology",
+      "relationshipType": "russian-revolution-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F046",
+      "claim": "The Provisional Government assumed authority after Nicholas II’s abdication, alongside the growing influence of the soviets.",
+      "sourceIds": [
+        "CP008-S04"
+      ],
+      "sourceLocator": "Russian Revolution chronology",
+      "relationshipType": "russian-revolution-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F047",
+      "claim": "The February Revolution’s dates are often given in both styles: February in the Julian calendar and March in the Gregorian calendar.",
+      "sourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Russian Revolution chronology",
+      "relationshipType": "russian-revolution-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F048",
+      "claim": "The Provisional Government and the Petrograd Soviet were competing centres of authority after the February Revolution.",
+      "sourceIds": [
+        "CP008-S04"
+      ],
+      "sourceLocator": "Russian Revolution chronology",
+      "relationshipType": "russian-revolution-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F049",
+      "claim": "Bolshevik forces overthrew the Provisional Government in Petrograd in November 1917 by the Gregorian calendar.",
+      "sourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Russian Revolution chronology",
+      "relationshipType": "russian-revolution-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F050",
+      "claim": "The February Revolution came first in 1917, the Bolsheviks seized power later that year, and the treaty was signed in March 1918.",
+      "sourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Russian Revolution chronology",
+      "relationshipType": "russian-revolution-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F051",
+      "claim": "Bolshevik slogans addressed demands for peace, land and relief from shortages; wording and emphasis varied across campaigns.",
+      "sourceIds": [
+        "CP008-S04"
+      ],
+      "sourceLocator": "Bolshevik policy and institutions",
+      "relationshipType": "bolshevik-policy-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F052",
+      "claim": "The new Bolshevik government issued a Decree on Peace calling for an end to the war and negotiations.",
+      "sourceIds": [
+        "CP008-S04"
+      ],
+      "sourceLocator": "Bolshevik policy and institutions",
+      "relationshipType": "bolshevik-policy-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F053",
+      "claim": "The Decree on Land endorsed redistribution and the seizure of landed estates, reflecting peasant demands.",
+      "sourceIds": [
+        "CP008-S04"
+      ],
+      "sourceLocator": "Bolshevik policy and institutions",
+      "relationshipType": "bolshevik-policy-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F054",
+      "claim": "The treaty ended Russia’s war with the Central Powers but required substantial territorial concessions.",
+      "sourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Bolshevik policy and institutions",
+      "relationshipType": "bolshevik-policy-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F055",
+      "claim": "Germany signed the treaty with Soviet Russia on 3 March 1918.",
+      "sourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Bolshevik policy and institutions",
+      "relationshipType": "bolshevik-policy-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F056",
+      "claim": "Russia’s exit freed German forces for the Western Front, but fighting continued until the November 1918 armistice.",
+      "sourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Bolshevik policy and institutions",
+      "relationshipType": "bolshevik-policy-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F057",
+      "claim": "The assassination triggered the July Crisis in 1914; the United States entered in 1917; the armistice took effect in 1918.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S02",
+        "CP008-S03"
+      ],
+      "sourceLocator": "Integrated synthesis",
+      "relationshipType": "integrated-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F058",
+      "claim": "The 1917 revolutions transformed Russian politics; the Bolshevik government later signed a separate peace in 1918.",
+      "sourceIds": [
+        "CP008-S04",
+        "CP008-S05"
+      ],
+      "sourceLocator": "Integrated synthesis",
+      "relationshipType": "integrated-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F059",
+      "claim": "The armistice stopped active fighting in November 1918; formal peace settlements followed, beginning with Versailles in 1919.",
+      "sourceIds": [
+        "CP008-S03",
+        "CP008-S07"
+      ],
+      "sourceLocator": "Integrated synthesis",
+      "relationshipType": "integrated-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP008-F060",
+      "claim": "Multiple tensions and diplomatic decisions led to a global conflict; military and political outcomes unfolded in stages.",
+      "sourceIds": [
+        "CP008-S01",
+        "CP008-S04",
+        "CP008-S05",
+        "CP008-S07"
+      ],
+      "sourceLocator": "Integrated synthesis",
+      "relationshipType": "integrated-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    }
+  ]
+}

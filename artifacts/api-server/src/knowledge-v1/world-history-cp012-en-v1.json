@@ -1,0 +1,2162 @@
+[
+  {
+    "questionId": "WHI-CP012-Q001",
+    "englishQuestionId": "WHI-CP012-Q001",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Decolonization pressures and frameworks",
+    "stem": "Which postwar change accelerated the weakening of European colonial empires?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The economic and political strains of the Second World War"
+      },
+      {
+        "key": "B",
+        "text": "The end of all nationalist movements"
+      },
+      {
+        "key": "C",
+        "text": "A treaty restoring every prewar empire"
+      },
+      {
+        "key": "D",
+        "text": "The dissolution of the United Nations"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The war weakened European imperial capacity while strengthening demands for self-government.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q002",
+    "englishQuestionId": "WHI-CP012-Q002",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F002",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Decolonization pressures and frameworks",
+    "stem": "What did the 1960 UN Declaration on decolonization affirm?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A permanent right of empires to govern colonies"
+      },
+      {
+        "key": "B",
+        "text": "The right of peoples to self-determination and independence"
+      },
+      {
+        "key": "C",
+        "text": "A plan to divide every colony between superpowers"
+      },
+      {
+        "key": "D",
+        "text": "A ban on new states joining the UN"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The declaration called for an end to colonial rule and affirmed self-determination.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q003",
+    "englishQuestionId": "WHI-CP012-Q003",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F003",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Decolonization pressures and frameworks",
+    "stem": "Which pattern best describes decolonization after 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It followed one uniform timetable imposed by the UN"
+      },
+      {
+        "key": "B",
+        "text": "It occurred only in territories defeated in the war"
+      },
+      {
+        "key": "C",
+        "text": "It proceeded through varied negotiated and armed struggles"
+      },
+      {
+        "key": "D",
+        "text": "It ended all outside influence immediately"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Different territories reached independence through distinct political paths and conflicts.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q004",
+    "englishQuestionId": "WHI-CP012-Q004",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F004",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Decolonization pressures and frameworks",
+    "stem": "Why did nationalist movements gain greater influence after 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "European states had abolished all colonial administrations during the war"
+      },
+      {
+        "key": "B",
+        "text": "The UN directly governed all colonies after 1945"
+      },
+      {
+        "key": "C",
+        "text": "Colonial borders were universally rejected by every movement"
+      },
+      {
+        "key": "D",
+        "text": "They could draw on mass political participation and wartime promises of freedom"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Wartime mobilization and postwar self-determination claims strengthened anticolonial politics.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q005",
+    "englishQuestionId": "WHI-CP012-Q005",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F005",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Decolonization pressures and frameworks",
+    "stem": "Which statement correctly describes the UN’s role in decolonization?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It provided a forum and adopted principles supporting self-determination"
+      },
+      {
+        "key": "B",
+        "text": "It directly commanded every independence army"
+      },
+      {
+        "key": "C",
+        "text": "It transferred all colonies to trusteeship automatically"
+      },
+      {
+        "key": "D",
+        "text": "It replaced national independence negotiations with a single global vote"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The UN gave anticolonial claims a diplomatic forum and adopted decolonization principles.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q006",
+    "englishQuestionId": "WHI-CP012-Q006",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F006",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Decolonization pressures and frameworks",
+    "stem": "Which was a common challenge faced by new states after independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Restoring the authority of a European governor"
+      },
+      {
+        "key": "B",
+        "text": "Building institutions and economies shaped by colonial rule"
+      },
+      {
+        "key": "C",
+        "text": "Joining a single continental federation by requirement"
+      },
+      {
+        "key": "D",
+        "text": "Removing all borders before establishing a government"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Political independence did not automatically resolve institutional and economic challenges.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q007",
+    "englishQuestionId": "WHI-CP012-Q007",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F007",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "India and Pakistan independence",
+    "stem": "Which empire transferred power as British India became independent in 1947?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The French Empire"
+      },
+      {
+        "key": "B",
+        "text": "The Dutch Empire"
+      },
+      {
+        "key": "C",
+        "text": "The British Empire"
+      },
+      {
+        "key": "D",
+        "text": "The Portuguese Empire"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Britain ended its rule over the Indian subcontinent in 1947.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q008",
+    "englishQuestionId": "WHI-CP012-Q008",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F008",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "India and Pakistan independence",
+    "stem": "What two states emerged from the 1947 partition of British India?",
+    "options": [
+      {
+        "key": "A",
+        "text": "India and Bangladesh"
+      },
+      {
+        "key": "B",
+        "text": "Pakistan and Burma"
+      },
+      {
+        "key": "C",
+        "text": "Ceylon and Nepal"
+      },
+      {
+        "key": "D",
+        "text": "India and Pakistan"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Partition established India and Pakistan as separate states in 1947.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q009",
+    "englishQuestionId": "WHI-CP012-Q009",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F009",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "India and Pakistan independence",
+    "stem": "What was one immediate consequence of the 1947 partition?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Large-scale migration and communal violence"
+      },
+      {
+        "key": "B",
+        "text": "The end of British rule in all of Southeast Asia"
+      },
+      {
+        "key": "C",
+        "text": "The creation of the OAU"
+      },
+      {
+        "key": "D",
+        "text": "The reunification of India and Burma"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Partition caused mass population movements and severe violence.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q010",
+    "englishQuestionId": "WHI-CP012-Q010",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F010",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "India and Pakistan independence",
+    "stem": "Which date is associated with Pakistan’s independence in 1947?",
+    "options": [
+      {
+        "key": "A",
+        "text": "15 August"
+      },
+      {
+        "key": "B",
+        "text": "14 August"
+      },
+      {
+        "key": "C",
+        "text": "26 January"
+      },
+      {
+        "key": "D",
+        "text": "4 February"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Pakistan marks independence on 14 August 1947; India followed on 15 August.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q011",
+    "englishQuestionId": "WHI-CP012-Q011",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F011",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "India and Pakistan independence",
+    "stem": "What did the Indian Independence Act of 1947 provide for?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A federation joining India with Burma"
+      },
+      {
+        "key": "B",
+        "text": "A UN mandate over the subcontinent"
+      },
+      {
+        "key": "C",
+        "text": "The creation of independent India and Pakistan"
+      },
+      {
+        "key": "D",
+        "text": "A return to direct rule by the East India Company"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Act created the two independent dominions of India and Pakistan.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q012",
+    "englishQuestionId": "WHI-CP012-Q012",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F012",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "India and Pakistan independence",
+    "stem": "Which pair correctly matches a new state to its 1947 status?",
+    "options": [
+      {
+        "key": "A",
+        "text": "India — a French protectorate"
+      },
+      {
+        "key": "B",
+        "text": "Pakistan — a Dutch colony"
+      },
+      {
+        "key": "C",
+        "text": "Pakistan — a UN trusteeship"
+      },
+      {
+        "key": "D",
+        "text": "India — independent from British rule"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Both India and Pakistan became independent as British rule ended in 1947.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q013",
+    "englishQuestionId": "WHI-CP012-Q013",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F013",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Indonesian independence",
+    "stem": "Who proclaimed Indonesian independence on 17 August 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Sukarno and Mohammad Hatta"
+      },
+      {
+        "key": "B",
+        "text": "Ho Chi Minh and Vo Nguyen Giap"
+      },
+      {
+        "key": "C",
+        "text": "Aung San and U Nu"
+      },
+      {
+        "key": "D",
+        "text": "Jawaharlal Nehru and Muhammad Ali Jinnah"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Sukarno and Hatta proclaimed independence after Japan’s surrender.",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q014",
+    "englishQuestionId": "WHI-CP012-Q014",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F014",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Indonesian independence",
+    "stem": "Which European power sought to restore colonial control in Indonesia after 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Britain"
+      },
+      {
+        "key": "B",
+        "text": "The Netherlands"
+      },
+      {
+        "key": "C",
+        "text": "France"
+      },
+      {
+        "key": "D",
+        "text": "Portugal"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Netherlands attempted to reassert rule over the former Dutch East Indies.",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q015",
+    "englishQuestionId": "WHI-CP012-Q015",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F015",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Indonesian independence",
+    "stem": "What did the Netherlands transfer to Indonesia on 27 December 1949?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The island of Java to British administration"
+      },
+      {
+        "key": "B",
+        "text": "A UN mandate over the whole archipelago"
+      },
+      {
+        "key": "C",
+        "text": "Sovereignty after the Dutch-Indonesian negotiations"
+      },
+      {
+        "key": "D",
+        "text": "Control of Indonesia to France"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The transfer of sovereignty followed the Round Table Conference settlement.",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q016",
+    "englishQuestionId": "WHI-CP012-Q016",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F016",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Indonesian independence",
+    "stem": "Which city was the capital of the Indonesian Republic during the revolution before the Dutch returned to Jakarta?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Bandung"
+      },
+      {
+        "key": "B",
+        "text": "Surabaya"
+      },
+      {
+        "key": "C",
+        "text": "Medan"
+      },
+      {
+        "key": "D",
+        "text": "Yogyakarta"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Yogyakarta served as the republican capital during the independence struggle.",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q017",
+    "englishQuestionId": "WHI-CP012-Q017",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F017",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Indonesian independence",
+    "stem": "What was the central dispute in the Indonesian Revolution?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Whether the Netherlands would recognize Indonesian sovereignty"
+      },
+      {
+        "key": "B",
+        "text": "Whether Britain would annex Sumatra"
+      },
+      {
+        "key": "C",
+        "text": "Whether France would govern Java under a UN mandate"
+      },
+      {
+        "key": "D",
+        "text": "Whether Indonesia would join Malaya"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Indonesian republicans fought to secure recognition of independence from Dutch rule.",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q018",
+    "englishQuestionId": "WHI-CP012-Q018",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F018",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Indonesian independence",
+    "stem": "Which agreement preceded the 1949 transfer of sovereignty to Indonesia?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Geneva Accords on Indochina"
+      },
+      {
+        "key": "B",
+        "text": "The Round Table Conference agreements"
+      },
+      {
+        "key": "C",
+        "text": "The Simla Agreement"
+      },
+      {
+        "key": "D",
+        "text": "The Treaty of Versailles"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Round Table Conference in 1949 produced the settlement preceding the sovereignty transfer.",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q019",
+    "englishQuestionId": "WHI-CP012-Q019",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F019",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Vietnam and the end of French Indochina",
+    "stem": "Which Vietnamese leader proclaimed the Democratic Republic of Vietnam in 1945?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ngo Dinh Diem"
+      },
+      {
+        "key": "B",
+        "text": "Bao Dai"
+      },
+      {
+        "key": "C",
+        "text": "Ho Chi Minh"
+      },
+      {
+        "key": "D",
+        "text": "Norodom Sihanouk"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Ho Chi Minh declared the Democratic Republic of Vietnam in Hanoi in September 1945.",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q020",
+    "englishQuestionId": "WHI-CP012-Q020",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Vietnam and the end of French Indochina",
+    "stem": "Which battle in 1954 helped end French colonial rule in Indochina?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Khe Sanh"
+      },
+      {
+        "key": "B",
+        "text": "Hue"
+      },
+      {
+        "key": "C",
+        "text": "Tuyen Quang"
+      },
+      {
+        "key": "D",
+        "text": "Dien Bien Phu"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The French defeat at Dien Bien Phu led to the end of France’s war in Indochina.",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q021",
+    "englishQuestionId": "WHI-CP012-Q021",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F021",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Vietnam and the end of French Indochina",
+    "stem": "Which agreement addressed Indochina after the 1954 Geneva Conference?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Geneva Accords"
+      },
+      {
+        "key": "B",
+        "text": "The Treaty of San Francisco"
+      },
+      {
+        "key": "C",
+        "text": "The Bandung Declaration"
+      },
+      {
+        "key": "D",
+        "text": "The Camp David Accords"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Geneva agreements set out a ceasefire and political arrangements for Indochina.",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q022",
+    "englishQuestionId": "WHI-CP012-Q022",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F022",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Vietnam and the end of French Indochina",
+    "stem": "What temporary dividing line was set for Vietnam by the 1954 Geneva settlement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The 38th parallel"
+      },
+      {
+        "key": "B",
+        "text": "The 17th parallel"
+      },
+      {
+        "key": "C",
+        "text": "The 49th parallel"
+      },
+      {
+        "key": "D",
+        "text": "The 10th parallel"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Geneva settlement provisionally divided Vietnam near the 17th parallel.",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q023",
+    "englishQuestionId": "WHI-CP012-Q023",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F023",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Vietnam and the end of French Indochina",
+    "stem": "Which three territories had formed French Indochina?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Vietnam, Burma and Thailand"
+      },
+      {
+        "key": "B",
+        "text": "Cambodia, Malaya and Indonesia"
+      },
+      {
+        "key": "C",
+        "text": "Vietnam, Laos and Cambodia"
+      },
+      {
+        "key": "D",
+        "text": "Laos, China and the Philippines"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "French Indochina comprised Vietnam, Laos and Cambodia.",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q024",
+    "englishQuestionId": "WHI-CP012-Q024",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F024",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Vietnam and the end of French Indochina",
+    "stem": "What did the 1954 Geneva settlement call for regarding Vietnam’s political future?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Permanent French rule north of the 17th parallel"
+      },
+      {
+        "key": "B",
+        "text": "A division of Vietnam between Britain and China"
+      },
+      {
+        "key": "C",
+        "text": "Immediate annexation by the People’s Republic of China"
+      },
+      {
+        "key": "D",
+        "text": "Nationwide elections intended to reunify Vietnam"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The agreements envisaged elections to determine Vietnam’s political future and reunification.",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q025",
+    "englishQuestionId": "WHI-CP012-Q025",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F025",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Burma and Malaya",
+    "stem": "In what year did Burma (now Myanmar) become independent from Britain?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1948"
+      },
+      {
+        "key": "B",
+        "text": "1945"
+      },
+      {
+        "key": "C",
+        "text": "1957"
+      },
+      {
+        "key": "D",
+        "text": "1963"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Burma became independent on 4 January 1948.",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q026",
+    "englishQuestionId": "WHI-CP012-Q026",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F026",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Burma and Malaya",
+    "stem": "Which country gained independence from Britain in 1957 as the Federation of Malaya?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Burma"
+      },
+      {
+        "key": "B",
+        "text": "Malaya"
+      },
+      {
+        "key": "C",
+        "text": "Singapore"
+      },
+      {
+        "key": "D",
+        "text": "Brunei"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Federation of Malaya became independent on 31 August 1957.",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q027",
+    "englishQuestionId": "WHI-CP012-Q027",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F027",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Burma and Malaya",
+    "stem": "Who became the first prime minister of independent Malaya?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Aung San"
+      },
+      {
+        "key": "B",
+        "text": "Lee Kuan Yew"
+      },
+      {
+        "key": "C",
+        "text": "Tunku Abdul Rahman"
+      },
+      {
+        "key": "D",
+        "text": "Sukarno"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Tunku Abdul Rahman led the new Federation of Malaya as its first prime minister.",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q028",
+    "englishQuestionId": "WHI-CP012-Q028",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F028",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Burma and Malaya",
+    "stem": "Which process preceded Burma’s independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A French referendum in Indochina"
+      },
+      {
+        "key": "B",
+        "text": "A Dutch transfer of sovereignty at Amsterdam"
+      },
+      {
+        "key": "C",
+        "text": "A UN partition plan"
+      },
+      {
+        "key": "D",
+        "text": "Negotiations between Burmese leaders and the British government"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Burmese political leaders negotiated with Britain on the route to independence.",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q029",
+    "englishQuestionId": "WHI-CP012-Q029",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F029",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Burma and Malaya",
+    "stem": "Which statement distinguishes Malaya in 1957 from Malaysia in 1963?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Malaya became independent in 1957; Malaysia was formed later in 1963"
+      },
+      {
+        "key": "B",
+        "text": "Malaysia became independent in 1948; Malaya formed in 1965"
+      },
+      {
+        "key": "C",
+        "text": "Malaya was a republic in 1945; Malaysia a colony after 1957"
+      },
+      {
+        "key": "D",
+        "text": "They were two names for the same state from 1945"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Federation of Malaya’s independence came in 1957; Malaysia was formed in 1963.",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q030",
+    "englishQuestionId": "WHI-CP012-Q030",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F030",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Burma and Malaya",
+    "stem": "Which European power ruled Burma before its independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Netherlands"
+      },
+      {
+        "key": "B",
+        "text": "Britain"
+      },
+      {
+        "key": "C",
+        "text": "France"
+      },
+      {
+        "key": "D",
+        "text": "Spain"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Burma had been part of the British Empire before independence.",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q031",
+    "englishQuestionId": "WHI-CP012-Q031",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F031",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chinese Revolution and the PRC",
+    "stem": "Who proclaimed the People’s Republic of China on 1 October 1949?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Chiang Kai-shek"
+      },
+      {
+        "key": "B",
+        "text": "Sun Yat-sen"
+      },
+      {
+        "key": "C",
+        "text": "Mao Zedong"
+      },
+      {
+        "key": "D",
+        "text": "Zhou Enlai"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Mao Zedong proclaimed the PRC in Beijing on 1 October 1949.",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q032",
+    "englishQuestionId": "WHI-CP012-Q032",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F032",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chinese Revolution and the PRC",
+    "stem": "Which government retreated to Taiwan after losing control of mainland China in 1949?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The People’s Republic of China government"
+      },
+      {
+        "key": "B",
+        "text": "The Qing dynasty"
+      },
+      {
+        "key": "C",
+        "text": "The Japanese occupation administration"
+      },
+      {
+        "key": "D",
+        "text": "The Republic of China government led by the Nationalists"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Nationalist government retreated to Taiwan as Communist forces took the mainland.",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q033",
+    "englishQuestionId": "WHI-CP012-Q033",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F033",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Chinese Revolution and the PRC",
+    "stem": "What was the outcome of the Chinese Civil War on the mainland in 1949?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Communist victory and establishment of the PRC"
+      },
+      {
+        "key": "B",
+        "text": "Restoration of the Qing dynasty"
+      },
+      {
+        "key": "C",
+        "text": "Partition into French and British zones"
+      },
+      {
+        "key": "D",
+        "text": "Return of Japanese imperial rule"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Communist forces won on the mainland and established the PRC in 1949.",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q034",
+    "englishQuestionId": "WHI-CP012-Q034",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F034",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chinese Revolution and the PRC",
+    "stem": "Which political movement led the new People’s Republic of China?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Kuomintang government in Taiwan"
+      },
+      {
+        "key": "B",
+        "text": "The Chinese Communist Party"
+      },
+      {
+        "key": "C",
+        "text": "The Chinese Labour Corps"
+      },
+      {
+        "key": "D",
+        "text": "The Beiyang government"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Chinese Communist Party formed the government of the new PRC.",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q035",
+    "englishQuestionId": "WHI-CP012-Q035",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F035",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Chinese Revolution and the PRC",
+    "stem": "Which city became the capital of the People’s Republic of China in 1949?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Nanjing"
+      },
+      {
+        "key": "B",
+        "text": "Shanghai"
+      },
+      {
+        "key": "C",
+        "text": "Beijing"
+      },
+      {
+        "key": "D",
+        "text": "Guangzhou"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The new government was proclaimed in Beijing, which became the PRC’s capital.",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q036",
+    "englishQuestionId": "WHI-CP012-Q036",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F036",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Chinese Revolution and the PRC",
+    "stem": "Which pair correctly distinguishes the governments after 1949?",
+    "options": [
+      {
+        "key": "A",
+        "text": "PRC on Taiwan; Republic of China in Beijing"
+      },
+      {
+        "key": "B",
+        "text": "Both governments ruled jointly from Nanjing"
+      },
+      {
+        "key": "C",
+        "text": "The Republic of China governed all China under a UN mandate"
+      },
+      {
+        "key": "D",
+        "text": "PRC on the mainland; Republic of China on Taiwan"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Communist PRC controlled the mainland while the Nationalist ROC government remained on Taiwan.",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q037",
+    "englishQuestionId": "WHI-CP012-Q037",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F037",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Bandung and Asian-African solidarity",
+    "stem": "Where was the 1955 Asian-African Conference, known as Bandung, held?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Indonesia"
+      },
+      {
+        "key": "B",
+        "text": "India"
+      },
+      {
+        "key": "C",
+        "text": "Egypt"
+      },
+      {
+        "key": "D",
+        "text": "Ghana"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The conference met in Bandung, Indonesia.",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q038",
+    "englishQuestionId": "WHI-CP012-Q038",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F038",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Bandung and Asian-African solidarity",
+    "stem": "Which broad aim did the Bandung Conference express?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A plan to restore European colonial empires"
+      },
+      {
+        "key": "B",
+        "text": "Cooperation among Asian and African states amid decolonization"
+      },
+      {
+        "key": "C",
+        "text": "Formation of a military alliance with NATO"
+      },
+      {
+        "key": "D",
+        "text": "Division of Africa among Asian governments"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The meeting voiced Asian-African cooperation and opposition to colonialism.",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q039",
+    "englishQuestionId": "WHI-CP012-Q039",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F039",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Bandung and Asian-African solidarity",
+    "stem": "Which year did the Bandung Conference take place?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1945"
+      },
+      {
+        "key": "B",
+        "text": "1960"
+      },
+      {
+        "key": "C",
+        "text": "1955"
+      },
+      {
+        "key": "D",
+        "text": "1963"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Asian-African Conference convened in Bandung in April 1955.",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q040",
+    "englishQuestionId": "WHI-CP012-Q040",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Bandung and Asian-African solidarity",
+    "stem": "What did many Bandung participants seek to preserve in international affairs?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The restoration of formal imperial rule"
+      },
+      {
+        "key": "B",
+        "text": "A shared colonial administration"
+      },
+      {
+        "key": "C",
+        "text": "A single-party government for every new state"
+      },
+      {
+        "key": "D",
+        "text": "Independent decision-making amid Cold War rivalry"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Many participants sought cooperation and autonomy without automatic alignment with either Cold War bloc.",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q041",
+    "englishQuestionId": "WHI-CP012-Q041",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F041",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Bandung and Asian-African solidarity",
+    "stem": "Which pair best describes the states represented at Bandung?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Asian and African countries"
+      },
+      {
+        "key": "B",
+        "text": "Only European empires"
+      },
+      {
+        "key": "C",
+        "text": "Only Latin American republics"
+      },
+      {
+        "key": "D",
+        "text": "North Atlantic military allies"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The conference brought together countries from Asia and Africa.",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q042",
+    "englishQuestionId": "WHI-CP012-Q042",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Bandung and Asian-African solidarity",
+    "stem": "Which later diplomatic idea is associated with Bandung’s legacy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Warsaw Pact"
+      },
+      {
+        "key": "B",
+        "text": "Non-alignment and Afro-Asian cooperation"
+      },
+      {
+        "key": "C",
+        "text": "The Monroe Doctrine"
+      },
+      {
+        "key": "D",
+        "text": "The Concert of Europe"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Bandung helped shape later non-aligned and Afro-Asian diplomatic cooperation.",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q043",
+    "englishQuestionId": "WHI-CP012-Q043",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F043",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Palestine under the British Mandate",
+    "stem": "Which European power administered Palestine under a League of Nations mandate before 1948?",
+    "options": [
+      {
+        "key": "A",
+        "text": "France"
+      },
+      {
+        "key": "B",
+        "text": "Italy"
+      },
+      {
+        "key": "C",
+        "text": "Britain"
+      },
+      {
+        "key": "D",
+        "text": "The Netherlands"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Britain administered Palestine under the mandate system after the First World War.",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q044",
+    "englishQuestionId": "WHI-CP012-Q044",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F044",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Palestine under the British Mandate",
+    "stem": "What did UN General Assembly Resolution 181 recommend in 1947?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A single state governed by Britain indefinitely"
+      },
+      {
+        "key": "B",
+        "text": "Annexation of Palestine by Egypt and Jordan"
+      },
+      {
+        "key": "C",
+        "text": "A French trusteeship over Jerusalem only"
+      },
+      {
+        "key": "D",
+        "text": "Partition of the British Mandate into Arab and Jewish states"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Resolution 181 recommended partition into Arab and Jewish states and an international status for Jerusalem.",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q045",
+    "englishQuestionId": "WHI-CP012-Q045",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F045",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Palestine under the British Mandate",
+    "stem": "When did the UN General Assembly adopt Resolution 181?",
+    "options": [
+      {
+        "key": "A",
+        "text": "29 November 1947"
+      },
+      {
+        "key": "B",
+        "text": "14 May 1948"
+      },
+      {
+        "key": "C",
+        "text": "10 December 1948"
+      },
+      {
+        "key": "D",
+        "text": "1 September 1939"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The General Assembly adopted Resolution 181 on 29 November 1947.",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q046",
+    "englishQuestionId": "WHI-CP012-Q046",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F046",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Palestine under the British Mandate",
+    "stem": "What international arrangement did Resolution 181 propose for Jerusalem?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Immediate annexation by the British Empire"
+      },
+      {
+        "key": "B",
+        "text": "A special international regime"
+      },
+      {
+        "key": "C",
+        "text": "A permanent capital for the Arab state alone"
+      },
+      {
+        "key": "D",
+        "text": "A demilitarized city administered by France"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The plan proposed international administration for Jerusalem as a separate entity.",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q047",
+    "englishQuestionId": "WHI-CP012-Q047",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F047",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Palestine under the British Mandate",
+    "stem": "What happened to the British Mandate in Palestine in May 1948?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It was renewed for another century"
+      },
+      {
+        "key": "B",
+        "text": "It was transferred to France"
+      },
+      {
+        "key": "C",
+        "text": "It ended"
+      },
+      {
+        "key": "D",
+        "text": "It became a UN trusteeship administered by the Soviet Union"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The British Mandate ended in May 1948.",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q048",
+    "englishQuestionId": "WHI-CP012-Q048",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F048",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Palestine under the British Mandate",
+    "stem": "Which institution adopted the 1947 partition recommendation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The UN Security Council"
+      },
+      {
+        "key": "B",
+        "text": "The League of Nations Council"
+      },
+      {
+        "key": "C",
+        "text": "The International Court of Justice"
+      },
+      {
+        "key": "D",
+        "text": "The UN General Assembly"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Resolution 181 was adopted by the General Assembly.",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q049",
+    "englishQuestionId": "WHI-CP012-Q049",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F049",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Israel, 1948 war and displacement",
+    "stem": "When did Israel declare independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "14 May 1948"
+      },
+      {
+        "key": "B",
+        "text": "29 November 1947"
+      },
+      {
+        "key": "C",
+        "text": "15 May 1949"
+      },
+      {
+        "key": "D",
+        "text": "6 March 1957"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Israel declared independence on 14 May 1948 as the British Mandate ended.",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q050",
+    "englishQuestionId": "WHI-CP012-Q050",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F050",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Israel, 1948 war and displacement",
+    "stem": "What conflict followed the end of the British Mandate and Israel’s declaration of independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Suez Crisis of 1956"
+      },
+      {
+        "key": "B",
+        "text": "The 1948 Arab-Israeli war"
+      },
+      {
+        "key": "C",
+        "text": "The Six-Day War of 1967"
+      },
+      {
+        "key": "D",
+        "text": "The Yom Kippur War of 1973"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The 1948 war began amid the end of the Mandate and declaration of Israel.",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q051",
+    "englishQuestionId": "WHI-CP012-Q051",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F051",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Israel, 1948 war and displacement",
+    "stem": "Which statement accurately describes UN Resolution 181 and Israel’s 1948 independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Resolution 181 itself created Israel as a UN member state"
+      },
+      {
+        "key": "B",
+        "text": "Resolution 181 declared Palestine independent in 1947"
+      },
+      {
+        "key": "C",
+        "text": "Resolution 181 recommended partition; Israel later declared independence in 1948"
+      },
+      {
+        "key": "D",
+        "text": "Resolution 181 established a British protectorate over Israel"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The UN plan recommended partition; the state’s declaration followed in May 1948.",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q052",
+    "englishQuestionId": "WHI-CP012-Q052",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F052",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Israel, 1948 war and displacement",
+    "stem": "What major humanitarian consequence accompanied the 1948 war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The forced migration of all Europeans from Asia"
+      },
+      {
+        "key": "B",
+        "text": "The evacuation of the entire population of Egypt"
+      },
+      {
+        "key": "C",
+        "text": "The end of all refugee movements in the region"
+      },
+      {
+        "key": "D",
+        "text": "Large-scale displacement of Palestinians"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The conflict produced large-scale Palestinian displacement and a refugee crisis.",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q053",
+    "englishQuestionId": "WHI-CP012-Q053",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F053",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Israel, 1948 war and displacement",
+    "stem": "Which event immediately preceded the declaration of Israel in May 1948?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The end of the British Mandate in Palestine"
+      },
+      {
+        "key": "B",
+        "text": "The Bandung Conference"
+      },
+      {
+        "key": "C",
+        "text": "The 1954 Geneva Accords"
+      },
+      {
+        "key": "D",
+        "text": "The establishment of the OAU"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The British Mandate ended as Israel declared independence.",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q054",
+    "englishQuestionId": "WHI-CP012-Q054",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F054",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Israel, 1948 war and displacement",
+    "stem": "Which outcome followed the 1948 Arab-Israeli war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A comprehensive peace treaty resolved all claims"
+      },
+      {
+        "key": "B",
+        "text": "Armistice agreements established ceasefire lines, not a final regional peace settlement"
+      },
+      {
+        "key": "C",
+        "text": "The UN administered every territory in the region permanently"
+      },
+      {
+        "key": "D",
+        "text": "The British Mandate was restored"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The war ended with armistice agreements; core political disputes remained unresolved.",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q055",
+    "englishQuestionId": "WHI-CP012-Q055",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F055",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Decolonization paths and regional comparison",
+    "stem": "Which comparison of independence paths is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Burma declared independence in 1957 after Dutch rule"
+      },
+      {
+        "key": "B",
+        "text": "Malaya won independence from France in 1948"
+      },
+      {
+        "key": "C",
+        "text": "Indonesia declared independence in 1945 and secured Dutch sovereignty transfer in 1949"
+      },
+      {
+        "key": "D",
+        "text": "Vietnam gained independence from Britain in 1949"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Indonesia’s declaration and eventual sovereignty transfer were separated by years of conflict and negotiation.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q056",
+    "englishQuestionId": "WHI-CP012-Q056",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F056",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Decolonization paths and regional comparison",
+    "stem": "Which pair is correctly matched?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Malaya — independence from the Netherlands in 1949"
+      },
+      {
+        "key": "B",
+        "text": "Indonesia — independence from France in 1954"
+      },
+      {
+        "key": "C",
+        "text": "Vietnam — independence from Britain in 1957"
+      },
+      {
+        "key": "D",
+        "text": "Burma — independence from Britain in 1948"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Burma became independent from Britain in 1948.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q057",
+    "englishQuestionId": "WHI-CP012-Q057",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F057",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Decolonization paths and regional comparison",
+    "stem": "Which event took place in 1954?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The French defeat at Dien Bien Phu and Geneva negotiations on Indochina"
+      },
+      {
+        "key": "B",
+        "text": "The proclamation of the PRC"
+      },
+      {
+        "key": "C",
+        "text": "The declaration of Indonesian independence"
+      },
+      {
+        "key": "D",
+        "text": "The adoption of UN Resolution 181"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Dien Bien Phu fell in 1954, followed by Geneva negotiations on Indochina.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q058",
+    "englishQuestionId": "WHI-CP012-Q058",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F058",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Decolonization paths and regional comparison",
+    "stem": "Which statement about independence and state-building is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "All postwar Asian states immediately became politically stable"
+      },
+      {
+        "key": "B",
+        "text": "Formal independence did not by itself settle internal or regional conflicts"
+      },
+      {
+        "key": "C",
+        "text": "Independence automatically eliminated colonial economic structures"
+      },
+      {
+        "key": "D",
+        "text": "Every new state adopted the same constitution"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "New states often faced continuing conflicts and the work of building political institutions.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q059",
+    "englishQuestionId": "WHI-CP012-Q059",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F059",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Decolonization paths and regional comparison",
+    "stem": "Which chronology is correct?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Burma in 1945; India in 1957; Malaya in 1963"
+      },
+      {
+        "key": "B",
+        "text": "Malaya in 1947; Indonesia in 1957; India in 1949"
+      },
+      {
+        "key": "C",
+        "text": "India and Pakistan became independent in 1947; Burma in 1948; Malaya in 1957"
+      },
+      {
+        "key": "D",
+        "text": "Pakistan in 1945; Burma in 1949; Malaya in 1954"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The three events occurred in 1947, 1948 and 1957 respectively.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP012-Q060",
+    "englishQuestionId": "WHI-CP012-Q060",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F060",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Decolonization paths and regional comparison",
+    "stem": "Which 1955 meeting linked the politics of Asian and African independence?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Geneva Conference on Indochina"
+      },
+      {
+        "key": "B",
+        "text": "The San Francisco Conference"
+      },
+      {
+        "key": "C",
+        "text": "The Bretton Woods Conference"
+      },
+      {
+        "key": "D",
+        "text": "The Bandung Conference"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Bandung brought Asian and African states together in 1955.",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]

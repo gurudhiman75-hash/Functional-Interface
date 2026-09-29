@@ -1,0 +1,788 @@
+{
+  "schemaVersion": "1.0",
+  "chapterId": "WHI-001",
+  "checkpointId": "WHI-001-CP015",
+  "status": "full-source-backed-review-pool",
+  "sourceRegister": [
+    {
+      "sourceId": "CP015-S01",
+      "title": "U.S. Department of State, Office of the Historian — Gorbachev and Perestroika",
+      "url": "https://history.state.gov/departmenthistory/short-history/gorbachev"
+    },
+    {
+      "sourceId": "CP015-S02",
+      "title": "U.S. Department of State, Office of the Historian — Fall of Communism in Eastern Europe, 1989",
+      "url": "https://history.state.gov/milestones/1989-1992/fall-of-communism"
+    },
+    {
+      "sourceId": "CP015-S03",
+      "title": "U.S. Department of State, Office of the Historian — Collapse of the Soviet Union",
+      "url": "https://history.state.gov/milestones/1989-1992/collapse-soviet-union"
+    },
+    {
+      "sourceId": "CP015-S04",
+      "title": "U.S. Department of State, Office of the Historian — Lithuania: restoration of independence",
+      "url": "https://history.state.gov/countries/lithuania"
+    },
+    {
+      "sourceId": "CP015-S05",
+      "title": "U.S. Department of State — “2+4” Talks and the Reunification of Germany, 1990",
+      "url": "https://2001-2009.state.gov/r/pa/ho/time/pcw/108224.htm"
+    },
+    {
+      "sourceId": "CP015-S06",
+      "title": "U.S. National Archives — German reunification, October 1990",
+      "url": "https://www.archives.gov/exhibits/eyewitness/html.php?section=10"
+    },
+    {
+      "sourceId": "CP015-S07",
+      "title": "United Nations Digital Library — Agreement establishing the Commonwealth of Independent States, 1991",
+      "url": "https://digitallibrary.un.org/record/134322"
+    },
+    {
+      "sourceId": "CP015-S08",
+      "title": "United Nations Yearbook 1991 — dissolution of the USSR and republic independence",
+      "url": "https://digitallibrary.un.org/record/858827/files/1121535-EN.pdf"
+    },
+    {
+      "sourceId": "CP015-S09",
+      "title": "United Nations — Yugoslavia and successor states",
+      "url": "https://www.un.org/en/node/123222"
+    },
+    {
+      "sourceId": "CP015-S10",
+      "title": "U.S. Department of State, Office of the Historian — Breakup of Yugoslavia, 1990–1992",
+      "url": "https://history.state.gov/milestones/1989-1992/breakup-yugoslavia"
+    },
+    {
+      "sourceId": "CP015-S11",
+      "title": "International Criminal Tribunal for the former Yugoslavia — What was the former Yugoslavia?",
+      "url": "https://www.icty.org/sid/321"
+    },
+    {
+      "sourceId": "CP015-S12",
+      "title": "U.S. Department of State, Office of the Historian — The Berlin Wall Falls and the USSR Dissolves",
+      "url": "https://history.state.gov/departmenthistory/short-history/berlinwall"
+    },
+    {
+      "sourceId": "CP015-S13",
+      "title": "United Nations Digital Library — Soviet membership in the UN continued by the Russian Federation",
+      "url": "https://digitallibrary.un.org/record/866631"
+    },
+    {
+      "sourceId": "CP015-S14",
+      "title": "Institute of National Remembrance (Poland) — Brief History of Poland, 1980–1989",
+      "url": "https://eng.ipn.gov.pl/en/brief-history-of-poland"
+    }
+  ],
+  "facts": [
+    {
+      "factId": "WHI-CP015-F001",
+      "claim": "Gorbachev emerged as Soviet leader in March 1985.",
+      "sourceIds": [
+        "CP015-S01",
+        "CP015-S03"
+      ],
+      "sourceLocator": "Gorbachev, glasnost and perestroika",
+      "relationshipType": "gorbachev-glasnost-and-perestroika",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F002",
+      "claim": "Perestroika means restructuring and referred to reforming Soviet institutions and the economy.",
+      "sourceIds": [
+        "CP015-S01",
+        "CP015-S03"
+      ],
+      "sourceLocator": "Gorbachev, glasnost and perestroika",
+      "relationshipType": "gorbachev-glasnost-and-perestroika",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F003",
+      "claim": "Glasnost promoted openness and a wider scope for public discussion.",
+      "sourceIds": [
+        "CP015-S01",
+        "CP015-S03"
+      ],
+      "sourceLocator": "Gorbachev, glasnost and perestroika",
+      "relationshipType": "gorbachev-glasnost-and-perestroika",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F004",
+      "claim": "Gorbachev introduced the reform policies after becoming party leader in 1985.",
+      "sourceIds": [
+        "CP015-S01",
+        "CP015-S03"
+      ],
+      "sourceLocator": "Gorbachev, glasnost and perestroika",
+      "relationshipType": "gorbachev-glasnost-and-perestroika",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F005",
+      "claim": "Gorbachev’s decision not to enforce Soviet control helped enable political change across Eastern Europe.",
+      "sourceIds": [
+        "CP015-S01",
+        "CP015-S03"
+      ],
+      "sourceLocator": "Gorbachev, glasnost and perestroika",
+      "relationshipType": "gorbachev-glasnost-and-perestroika",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F006",
+      "claim": "The reforms were intended to renew the system but contributed to political change and weakening central authority.",
+      "sourceIds": [
+        "CP015-S01",
+        "CP015-S03"
+      ],
+      "sourceLocator": "Gorbachev, glasnost and perestroika",
+      "relationshipType": "gorbachev-glasnost-and-perestroika",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F007",
+      "claim": "Solidarity was a Polish trade union and social movement that became a major opposition force.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S14"
+      ],
+      "sourceLocator": "Eastern European transitions, 1989",
+      "relationshipType": "eastern-european-transitions-1989",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F008",
+      "claim": "The talks between the government and opposition opened a negotiated transition.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S14"
+      ],
+      "sourceLocator": "Eastern European transitions, 1989",
+      "relationshipType": "eastern-european-transitions-1989",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F009",
+      "claim": "Hungary’s opening of its border helped East Germans travel west and weakened the Iron Curtain.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S14"
+      ],
+      "sourceLocator": "Eastern European transitions, 1989",
+      "relationshipType": "eastern-european-transitions-1989",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F010",
+      "claim": "Mass demonstrations and political negotiations brought a peaceful transition.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S14"
+      ],
+      "sourceLocator": "Eastern European transitions, 1989",
+      "relationshipType": "eastern-european-transitions-1989",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F011",
+      "claim": "Many communist regimes fell and new political systems emerged, though national paths differed.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S14"
+      ],
+      "sourceLocator": "Eastern European transitions, 1989",
+      "relationshipType": "eastern-european-transitions-1989",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F012",
+      "claim": "The transitions differed; Romania saw violence unlike several negotiated or largely peaceful changes.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S14"
+      ],
+      "sourceLocator": "Eastern European transitions, 1989",
+      "relationshipType": "eastern-european-transitions-1989",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F013",
+      "claim": "East German authorities announced travel changes on 9 November 1989, leading to the opening of crossings.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S05",
+        "CP015-S06",
+        "CP015-S12"
+      ],
+      "sourceLocator": "Berlin Wall and German reunification",
+      "relationshipType": "berlin-wall-and-german-reunification",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F014",
+      "claim": "The Wall had symbolized Europe’s Cold War division; its opening marked the rapid erosion of that division.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S05",
+        "CP015-S06",
+        "CP015-S12"
+      ],
+      "sourceLocator": "Berlin Wall and German reunification",
+      "relationshipType": "berlin-wall-and-german-reunification",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F015",
+      "claim": "East Germany joined the Federal Republic of Germany on 3 October 1990.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S05",
+        "CP015-S06",
+        "CP015-S12"
+      ],
+      "sourceLocator": "Berlin Wall and German reunification",
+      "relationshipType": "berlin-wall-and-german-reunification",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F016",
+      "claim": "The participants were East and West Germany plus the United States, Soviet Union, Britain and France.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S05",
+        "CP015-S06",
+        "CP015-S12"
+      ],
+      "sourceLocator": "Berlin Wall and German reunification",
+      "relationshipType": "berlin-wall-and-german-reunification",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F017",
+      "claim": "The Two Plus Four treaty settled the international terms of reunification.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S05",
+        "CP015-S06",
+        "CP015-S12"
+      ],
+      "sourceLocator": "Berlin Wall and German reunification",
+      "relationshipType": "berlin-wall-and-german-reunification",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F018",
+      "claim": "The opening preceded reunification by nearly a year.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S05",
+        "CP015-S06",
+        "CP015-S12"
+      ],
+      "sourceLocator": "Berlin Wall and German reunification",
+      "relationshipType": "berlin-wall-and-german-reunification",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F019",
+      "claim": "Lithuania declared restoration of independence on 11 March 1990.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S04",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Baltic independence and Soviet sovereignty",
+      "relationshipType": "baltic-independence-and-soviet-sovereignty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F020",
+      "claim": "Estonia, Latvia and Lithuania are the three Baltic states.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S04",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Baltic independence and Soviet sovereignty",
+      "relationshipType": "baltic-independence-and-soviet-sovereignty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F021",
+      "claim": "The U.S. did not recognize the forcible incorporation of the Baltic states into the USSR.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S04",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Baltic independence and Soviet sovereignty",
+      "relationshipType": "baltic-independence-and-soviet-sovereignty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F022",
+      "claim": "Lithuania declared restoration of its independence while the Soviet Union still existed.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S04",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Baltic independence and Soviet sovereignty",
+      "relationshipType": "baltic-independence-and-soviet-sovereignty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F023",
+      "claim": "The failed coup weakened central authority and accelerated republic independence declarations.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S04",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Baltic independence and Soviet sovereignty",
+      "relationshipType": "baltic-independence-and-soviet-sovereignty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F024",
+      "claim": "The Soviet republics left a union, while East Germany acceded to the Federal Republic.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S04",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Baltic independence and Soviet sovereignty",
+      "relationshipType": "baltic-independence-and-soviet-sovereignty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F025",
+      "claim": "Ukraine’s parliament declared independence on 24 August 1991.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Soviet republic independence",
+      "relationshipType": "soviet-republic-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F026",
+      "claim": "A large majority supported the declaration of independence in the referendum.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Soviet republic independence",
+      "relationshipType": "soviet-republic-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F027",
+      "claim": "Kazakhstan declared independence on 16 December 1991, the last Soviet republic to do so.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Soviet republic independence",
+      "relationshipType": "soviet-republic-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F028",
+      "claim": "Belarus declared independence on 25 August 1991, days after the coup attempt failed.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Soviet republic independence",
+      "relationshipType": "soviet-republic-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F029",
+      "claim": "Georgia declared restoration of independence on 9 April 1991.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Soviet republic independence",
+      "relationshipType": "soviet-republic-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F030",
+      "claim": "Declarations and referendums took place at different times during the breakdown of central authority.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Soviet republic independence",
+      "relationshipType": "soviet-republic-independence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F031",
+      "claim": "Hard-line Communist officials detained Gorbachev and tried to halt his reforms.",
+      "sourceIds": [
+        "CP015-S03"
+      ],
+      "sourceLocator": "August 1991 coup attempt",
+      "relationshipType": "august-1991-coup-attempt",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F032",
+      "claim": "Russian president Boris Yeltsin publicly resisted the coup plotters.",
+      "sourceIds": [
+        "CP015-S03"
+      ],
+      "sourceLocator": "August 1991 coup attempt",
+      "relationshipType": "august-1991-coup-attempt",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F033",
+      "claim": "The coup collapsed by 21 August 1991.",
+      "sourceIds": [
+        "CP015-S03"
+      ],
+      "sourceLocator": "August 1991 coup attempt",
+      "relationshipType": "august-1991-coup-attempt",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F034",
+      "claim": "The coup’s failure strengthened Yeltsin and undermined the union’s central institutions.",
+      "sourceIds": [
+        "CP015-S03"
+      ],
+      "sourceLocator": "August 1991 coup attempt",
+      "relationshipType": "august-1991-coup-attempt",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F035",
+      "claim": "Gorbachev announced his resignation as Soviet president on 25 December.",
+      "sourceIds": [
+        "CP015-S03"
+      ],
+      "sourceLocator": "August 1991 coup attempt",
+      "relationshipType": "august-1991-coup-attempt",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F036",
+      "claim": "The coup attempt preceded Gorbachev’s resignation by four months.",
+      "sourceIds": [
+        "CP015-S03"
+      ],
+      "sourceLocator": "August 1991 coup attempt",
+      "relationshipType": "august-1991-coup-attempt",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F037",
+      "claim": "The leaders of Russia, Ukraine and Belarus signed the agreement on 8 December 1991.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S07",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Belavezha Agreement and CIS formation",
+      "relationshipType": "belavezha-agreement-and-cis-formation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F038",
+      "claim": "The agreement declared the USSR’s existence ended and established the CIS framework.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S07",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Belavezha Agreement and CIS formation",
+      "relationshipType": "belavezha-agreement-and-cis-formation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F039",
+      "claim": "Russia, Ukraine and Belarus signed it on 8 December 1991.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S07",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Belavezha Agreement and CIS formation",
+      "relationshipType": "belavezha-agreement-and-cis-formation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F040",
+      "claim": "At Alma-Ata, additional republics joined the CIS framework and affirmed cooperation among themselves.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S07",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Belavezha Agreement and CIS formation",
+      "relationshipType": "belavezha-agreement-and-cis-formation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F041",
+      "claim": "The Commonwealth of Independent States was formed as the USSR broke apart.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S07",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Belavezha Agreement and CIS formation",
+      "relationshipType": "belavezha-agreement-and-cis-formation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F042",
+      "claim": "The CIS linked a number of former Soviet republics after the union dissolved; it was not the USSR under another name.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S07",
+        "CP015-S08"
+      ],
+      "sourceLocator": "Belavezha Agreement and CIS formation",
+      "relationshipType": "belavezha-agreement-and-cis-formation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F043",
+      "claim": "Gorbachev resigned on 25 December after the union’s authority had largely collapsed.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08",
+        "CP015-S13"
+      ],
+      "sourceLocator": "Dissolution of the USSR and international status",
+      "relationshipType": "dissolution-of-the-ussr-and-international-status",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F044",
+      "claim": "The Soviet of the Republics declared the union ceased to exist on 26 December 1991.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08",
+        "CP015-S13"
+      ],
+      "sourceLocator": "Dissolution of the USSR and international status",
+      "relationshipType": "dissolution-of-the-ussr-and-international-status",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F045",
+      "claim": "The Russian Federation notified the UN that it would continue the USSR’s membership.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08",
+        "CP015-S13"
+      ],
+      "sourceLocator": "Dissolution of the USSR and international status",
+      "relationshipType": "dissolution-of-the-ussr-and-international-status",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F046",
+      "claim": "The republics declared independence and ended the union established by the 1922 treaty.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08",
+        "CP015-S13"
+      ],
+      "sourceLocator": "Dissolution of the USSR and international status",
+      "relationshipType": "dissolution-of-the-ussr-and-international-status",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F047",
+      "claim": "The formal dissolution declaration followed the December agreements and Gorbachev’s resignation.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08",
+        "CP015-S13"
+      ],
+      "sourceLocator": "Dissolution of the USSR and international status",
+      "relationshipType": "dissolution-of-the-ussr-and-international-status",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F048",
+      "claim": "The dissolution of the USSR produced multiple independent states across Eurasia.",
+      "sourceIds": [
+        "CP015-S03",
+        "CP015-S08",
+        "CP015-S13"
+      ],
+      "sourceLocator": "Dissolution of the USSR and international status",
+      "relationshipType": "dissolution-of-the-ussr-and-international-status",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F049",
+      "claim": "Slovenia and Croatia declared independence on 25 June 1991.",
+      "sourceIds": [
+        "CP015-S09",
+        "CP015-S10",
+        "CP015-S11"
+      ],
+      "sourceLocator": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+      "relationshipType": "yugoslavia-breakup-kept-distinct-from-soviet-dissolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F050",
+      "claim": "The breakup led to fighting in Slovenia and Croatia and later to wars elsewhere in the federation.",
+      "sourceIds": [
+        "CP015-S09",
+        "CP015-S10",
+        "CP015-S11"
+      ],
+      "sourceLocator": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+      "relationshipType": "yugoslavia-breakup-kept-distinct-from-soviet-dissolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F051",
+      "claim": "Bosnia and Herzegovina and Macedonia also declared independence as Yugoslavia broke apart.",
+      "sourceIds": [
+        "CP015-S09",
+        "CP015-S10",
+        "CP015-S11"
+      ],
+      "sourceLocator": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+      "relationshipType": "yugoslavia-breakup-kept-distinct-from-soviet-dissolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F052",
+      "claim": "Security Council Resolution 827 formally established the ICTY in 1993.",
+      "sourceIds": [
+        "CP015-S09",
+        "CP015-S10",
+        "CP015-S11"
+      ],
+      "sourceLocator": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+      "relationshipType": "yugoslavia-breakup-kept-distinct-from-soviet-dissolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F053",
+      "claim": "Yugoslavia and the USSR were separate multinational federations with different sequences and agreements.",
+      "sourceIds": [
+        "CP015-S09",
+        "CP015-S10",
+        "CP015-S11"
+      ],
+      "sourceLocator": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+      "relationshipType": "yugoslavia-breakup-kept-distinct-from-soviet-dissolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F054",
+      "claim": "The two republics’ declarations of independence challenged the authority of the Yugoslav federation.",
+      "sourceIds": [
+        "CP015-S09",
+        "CP015-S10",
+        "CP015-S11"
+      ],
+      "sourceLocator": "Yugoslavia breakup, kept distinct from Soviet dissolution",
+      "relationshipType": "yugoslavia-breakup-kept-distinct-from-soviet-dissolution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F055",
+      "claim": "The events occurred in November 1989, October 1990, December 8 1991, and December 26 1991.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S03",
+        "CP015-S05",
+        "CP015-S07",
+        "CP015-S09"
+      ],
+      "sourceLocator": "End-of-Cold-War chronology and map changes",
+      "relationshipType": "end-of-cold-war-chronology-and-map-changes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F056",
+      "claim": "Glasnost is commonly translated as openness; perestroika as restructuring.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S03",
+        "CP015-S05",
+        "CP015-S07",
+        "CP015-S09"
+      ],
+      "sourceLocator": "End-of-Cold-War chronology and map changes",
+      "relationshipType": "end-of-cold-war-chronology-and-map-changes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F057",
+      "claim": "The Belavezha Agreement concerned the USSR and creation of the CIS framework.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S03",
+        "CP015-S05",
+        "CP015-S07",
+        "CP015-S09"
+      ],
+      "sourceLocator": "End-of-Cold-War chronology and map changes",
+      "relationshipType": "end-of-cold-war-chronology-and-map-changes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F058",
+      "claim": "The two breakups were separate historical processes and should not be merged into one chronology.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S03",
+        "CP015-S05",
+        "CP015-S07",
+        "CP015-S09"
+      ],
+      "sourceLocator": "End-of-Cold-War chronology and map changes",
+      "relationshipType": "end-of-cold-war-chronology-and-map-changes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F059",
+      "claim": "German reunification took effect on 3 October 1990.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S03",
+        "CP015-S05",
+        "CP015-S07",
+        "CP015-S09"
+      ],
+      "sourceLocator": "End-of-Cold-War chronology and map changes",
+      "relationshipType": "end-of-cold-war-chronology-and-map-changes",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP015-F060",
+      "claim": "The period brought German reunification and the emergence of states from the former USSR, among other changes.",
+      "sourceIds": [
+        "CP015-S02",
+        "CP015-S03",
+        "CP015-S05",
+        "CP015-S07",
+        "CP015-S09"
+      ],
+      "sourceLocator": "End-of-Cold-War chronology and map changes",
+      "relationshipType": "end-of-cold-war-chronology-and-map-changes",
+      "reviewStatus": "source-linked; editorial review pending"
+    }
+  ]
+}

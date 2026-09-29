@@ -1,0 +1,739 @@
+{
+  "schemaVersion": "1.0",
+  "chapterId": "WHI-001",
+  "checkpointId": "WHI-001-CP009",
+  "status": "full-source-backed-review-pool",
+  "sourceRegister": [
+    {
+      "sourceId": "CP009-S01",
+      "title": "U.S. Department of State — Paris Peace Conference and Treaty of Versailles",
+      "url": "https://history.state.gov/milestones/1914-1920/paris-peace",
+      "use": "Settlement and mandate context; avoid duplicating CP008 treaty basics."
+    },
+    {
+      "sourceId": "CP009-S02",
+      "title": "U.S. Department of State — League of Nations",
+      "url": "https://history.state.gov/milestones/1914-1920/league",
+      "use": "League covenant, structure and U.S. non-membership."
+    },
+    {
+      "sourceId": "CP009-S03",
+      "title": "U.S. Holocaust Memorial Museum — The Weimar Republic",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-weimar-republic",
+      "use": "Republic structure, crisis and recovery; do not treat collapse as inevitable."
+    },
+    {
+      "sourceId": "CP009-S04",
+      "title": "U.S. Holocaust Memorial Museum — The Great Depression",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-great-depression",
+      "use": "Economic crisis and political effects; distinguish contributing factors."
+    },
+    {
+      "sourceId": "CP009-S05",
+      "title": "U.S. Holocaust Memorial Museum — Nazi rise to power",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-nazi-rise-to-power",
+      "use": "Political appointment and consolidation, 1918–1933."
+    },
+    {
+      "sourceId": "CP009-S06",
+      "title": "U.S. Holocaust Memorial Museum — Hitler Comes to Power: key dates",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/hitler-comes-to-power",
+      "use": "Political chronology of Nazi rule."
+    },
+    {
+      "sourceId": "CP009-S07",
+      "title": "U.S. Holocaust Memorial Museum — German prewar expansion",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/german-prewar-expansion",
+      "use": "Rearmament, Rhineland, Anschluss, Sudetenland, Munich and later expansion."
+    },
+    {
+      "sourceId": "CP009-S08",
+      "title": "UK Parliament — Neville Chamberlain and the Munich Agreement",
+      "url": "https://www.parliament.uk/about/living-heritage/transformingsociety/private-lives/yourcountry/collections/collections-second-world-war/parliamentarians-and-people/neville-chamberlain/",
+      "use": "British appeasement policy and Munich, September 1938."
+    },
+    {
+      "sourceId": "CP009-S09",
+      "title": "U.S. Department of State — League of Nations Covenant",
+      "url": "https://history.state.gov/historicaldocuments/frus1919Parisv13/ch10subch1",
+      "use": "Covenant text and limits of collective security."
+    },
+    {
+      "sourceId": "CP009-S10",
+      "title": "U.S. Department of State — The Mukden Incident of 1931",
+      "url": "https://history.state.gov/milestones/1921-1936/mukden-incident",
+      "use": "Japanese expansion in Manchuria and international response."
+    },
+    {
+      "sourceId": "CP009-S11",
+      "title": "U.S. Holocaust Memorial Museum — Benito Mussolini",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/benito-mussolini-1",
+      "use": "Mussolini, March on Rome and appointment as prime minister."
+    },
+    {
+      "sourceId": "CP009-S12",
+      "title": "U.S. Department of State — Foreign Relations of the United States, 1935: Ethiopia crisis papers",
+      "url": "https://history.state.gov/historicaldocuments/frus1935v01/ch26",
+      "use": "Italian invasion of Ethiopia and diplomatic/League responses; contemporary sources are interested accounts."
+    },
+    {
+      "sourceId": "CP009-S13",
+      "title": "U.S. Department of State — Foreign Relations of the United States, 1936: Spanish Civil War papers",
+      "url": "https://history.state.gov/historicaldocuments/frus1936v02/toc-papers",
+      "use": "International diplomacy and non-intervention during the Spanish Civil War."
+    },
+    {
+      "sourceId": "CP009-S14",
+      "title": "U.S. Holocaust Memorial Museum — German-Soviet Pact",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/german-soviet-pact",
+      "use": "Pact, secret protocol and the path to the invasion of Poland."
+    },
+    {
+      "sourceId": "CP009-S15",
+      "title": "U.S. Holocaust Memorial Museum — Invasion of Poland, Fall 1939",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/invasion-of-poland-fall-1939",
+      "use": "Invasion date and outbreak of the Second World War in Europe."
+    }
+  ],
+  "facts": [
+    {
+      "factId": "WHI-CP009-F001",
+      "claim": "The mandate system placed former German and Ottoman territories under administration by other powers, formally under League oversight.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S02"
+      ],
+      "sourceLocator": "Treaty and settlement",
+      "relationshipType": "treaty-and-settlement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F002",
+      "claim": "The League of Nations was responsible for supervising the mandate system established after the war.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S09"
+      ],
+      "sourceLocator": "Treaty and settlement",
+      "relationshipType": "treaty-and-settlement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F003",
+      "claim": "The League’s mandate system placed territories under administering powers while claiming international oversight; the path to self-government varied.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S09"
+      ],
+      "sourceLocator": "Treaty and settlement",
+      "relationshipType": "treaty-and-settlement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F004",
+      "claim": "Former Ottoman territories in the Middle East were assigned to British and French administration under the mandate system.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S02"
+      ],
+      "sourceLocator": "Treaty and settlement",
+      "relationshipType": "treaty-and-settlement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F005",
+      "claim": "Mandates remained under external administration and did not grant immediate sovereign independence.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S09"
+      ],
+      "sourceLocator": "Treaty and settlement",
+      "relationshipType": "treaty-and-settlement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F006",
+      "claim": "The postwar settlement redrew borders and created mandates, but it did not resolve every national or territorial dispute.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S02"
+      ],
+      "sourceLocator": "Treaty and settlement",
+      "relationshipType": "treaty-and-settlement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F007",
+      "claim": "The League was intended to provide a forum for cooperation and collective security after the war.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S09"
+      ],
+      "sourceLocator": "League and security",
+      "relationshipType": "league-and-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F008",
+      "claim": "The U.S. Senate did not ratify the Treaty of Versailles, and the United States never joined the League.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S09"
+      ],
+      "sourceLocator": "League and security",
+      "relationshipType": "league-and-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F009",
+      "claim": "Collective security relied on members acting together against threats to peace, but the League lacked reliable enforcement power.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S09"
+      ],
+      "sourceLocator": "League and security",
+      "relationshipType": "league-and-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F010",
+      "claim": "The League’s structure included an Assembly and a Council, along with a permanent Secretariat.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S09"
+      ],
+      "sourceLocator": "League and security",
+      "relationshipType": "league-and-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F011",
+      "claim": "The League relied on its members for sanctions and enforcement and had no independent military force.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S09"
+      ],
+      "sourceLocator": "League and security",
+      "relationshipType": "league-and-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F012",
+      "claim": "U.S. non-membership weakened the League’s political weight and limited the collective security framework.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S09"
+      ],
+      "sourceLocator": "League and security",
+      "relationshipType": "league-and-security",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F013",
+      "claim": "Japan announced its withdrawal from the League after the organisation criticised its actions in Manchuria.",
+      "sourceIds": [
+        "CP009-S10"
+      ],
+      "sourceLocator": "League limitations and response",
+      "relationshipType": "league-limitations-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F014",
+      "claim": "The League condemned Japanese actions, but could not compel Japan to withdraw from Manchuria.",
+      "sourceIds": [
+        "CP009-S10"
+      ],
+      "sourceLocator": "League limitations and response",
+      "relationshipType": "league-limitations-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F015",
+      "claim": "The Covenant included commitments concerning members’ territorial integrity and political independence.",
+      "sourceIds": [
+        "CP009-S09"
+      ],
+      "sourceLocator": "League limitations and response",
+      "relationshipType": "league-limitations-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F016",
+      "claim": "The League developed institutions and rules, but political divisions and reliance on member action limited its effectiveness.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S09",
+        "CP009-S10"
+      ],
+      "sourceLocator": "League limitations and response",
+      "relationshipType": "league-limitations-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F017",
+      "claim": "The Weimar Constitution was adopted in 1919 and established Germany’s postwar republic.",
+      "sourceIds": [
+        "CP009-S03"
+      ],
+      "sourceLocator": "Republic and institutions",
+      "relationshipType": "republic-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F018",
+      "claim": "The Reichstag was the elected national parliament of the Weimar Republic.",
+      "sourceIds": [
+        "CP009-S03"
+      ],
+      "sourceLocator": "Republic and institutions",
+      "relationshipType": "republic-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F019",
+      "claim": "Article 48 allowed the president to take emergency measures under specified conditions; its use became politically significant.",
+      "sourceIds": [
+        "CP009-S03",
+        "CP009-S05"
+      ],
+      "sourceLocator": "Republic and institutions",
+      "relationshipType": "republic-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F020",
+      "claim": "Germany experienced severe hyperinflation in 1923, eroding the value of the mark and savings.",
+      "sourceIds": [
+        "CP009-S03",
+        "CP009-S04"
+      ],
+      "sourceLocator": "Republic and institutions",
+      "relationshipType": "republic-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F021",
+      "claim": "The Dawes Plan of 1924 restructured reparations payments and helped stabilise the German economy, with reliance on U.S. loans.",
+      "sourceIds": [
+        "CP009-S03"
+      ],
+      "sourceLocator": "Republic and institutions",
+      "relationshipType": "republic-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F022",
+      "claim": "Weimar Germany faced major crises and also achieved periods of recovery; historians do not treat its collapse as inevitable.",
+      "sourceIds": [
+        "CP009-S03"
+      ],
+      "sourceLocator": "Republic and institutions",
+      "relationshipType": "republic-and-institutions",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F023",
+      "claim": "The 1919 constitution established a republic with parliamentary institutions and an elected president.",
+      "sourceIds": [
+        "CP009-S03"
+      ],
+      "sourceLocator": "Economic causes and effects",
+      "relationshipType": "economic-causes-and-effects",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F024",
+      "claim": "Proportional representation allowed a range of parties to win seats, contributing to coalition politics; it was one factor among several in political instability.",
+      "sourceIds": [
+        "CP009-S03"
+      ],
+      "sourceLocator": "Economic causes and effects",
+      "relationshipType": "economic-causes-and-effects",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F025",
+      "claim": "The global economic downturn began after the 1929 crash and spread internationally.",
+      "sourceIds": [
+        "CP009-S04"
+      ],
+      "sourceLocator": "Economic causes and effects",
+      "relationshipType": "economic-causes-and-effects",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F026",
+      "claim": "Germany’s mid-1920s recovery relied significantly on foreign credit, making the withdrawal of U.S. loans damaging.",
+      "sourceIds": [
+        "CP009-S03",
+        "CP009-S04"
+      ],
+      "sourceLocator": "Economic causes and effects",
+      "relationshipType": "economic-causes-and-effects",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F027",
+      "claim": "The Depression brought mass unemployment and economic hardship to Germany.",
+      "sourceIds": [
+        "CP009-S04",
+        "CP009-S05"
+      ],
+      "sourceLocator": "Economic causes and effects",
+      "relationshipType": "economic-causes-and-effects",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F028",
+      "claim": "The Depression intensified hardship and helped radical parties gain support, though it was not the only cause of Nazi growth.",
+      "sourceIds": [
+        "CP009-S04",
+        "CP009-S05"
+      ],
+      "sourceLocator": "Economic causes and effects",
+      "relationshipType": "economic-causes-and-effects",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F029",
+      "claim": "The Depression was an important contributing factor, but Nazi growth also reflected earlier developments and political choices.",
+      "sourceIds": [
+        "CP009-S04",
+        "CP009-S05"
+      ],
+      "sourceLocator": "Economic causes and effects",
+      "relationshipType": "economic-causes-and-effects",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F030",
+      "claim": "The downturn spread through international finance and trade, with effects that varied among countries.",
+      "sourceIds": [
+        "CP009-S04"
+      ],
+      "sourceLocator": "Economic causes and effects",
+      "relationshipType": "economic-causes-and-effects",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F031",
+      "claim": "Mussolini founded the Fascist movement and was appointed prime minister in October 1922.",
+      "sourceIds": [
+        "CP009-S11"
+      ],
+      "sourceLocator": "Person and movement",
+      "relationshipType": "person-and-movement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F032",
+      "claim": "The Fascist March on Rome took place in October 1922; King Victor Emmanuel III then appointed Mussolini prime minister.",
+      "sourceIds": [
+        "CP009-S11"
+      ],
+      "sourceLocator": "Person and movement",
+      "relationshipType": "person-and-movement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F033",
+      "claim": "Hindenburg appointed Hitler chancellor on 30 January 1933.",
+      "sourceIds": [
+        "CP009-S05",
+        "CP009-S06"
+      ],
+      "sourceLocator": "Person and movement",
+      "relationshipType": "person-and-movement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F034",
+      "claim": "Hitler led the Nazi Party, which gained support in the political crises of the Weimar era.",
+      "sourceIds": [
+        "CP009-S05"
+      ],
+      "sourceLocator": "Person and movement",
+      "relationshipType": "person-and-movement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F035",
+      "claim": "Mussolini was the leading figure of Italian Fascism, an authoritarian nationalist movement.",
+      "sourceIds": [
+        "CP009-S11"
+      ],
+      "sourceLocator": "Person and movement",
+      "relationshipType": "person-and-movement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F036",
+      "claim": "Hitler was appointed chancellor by Hindenburg; the Nazis then consolidated power through political manoeuvres, legislation, coercion and propaganda.",
+      "sourceIds": [
+        "CP009-S05",
+        "CP009-S06"
+      ],
+      "sourceLocator": "Person and movement",
+      "relationshipType": "person-and-movement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F037",
+      "claim": "The decree suspended key civil liberties and enabled arrests and repression after the Reichstag fire.",
+      "sourceIds": [
+        "CP009-S05",
+        "CP009-S06"
+      ],
+      "sourceLocator": "Policy and consolidation",
+      "relationshipType": "policy-and-consolidation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F038",
+      "claim": "The Enabling Act gave Hitler’s cabinet legislative power, undermining parliamentary government.",
+      "sourceIds": [
+        "CP009-S05",
+        "CP009-S06"
+      ],
+      "sourceLocator": "Policy and consolidation",
+      "relationshipType": "policy-and-consolidation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F039",
+      "claim": "The Nazi regime combined legal changes with violence, propaganda and institutional control to destroy opposition.",
+      "sourceIds": [
+        "CP009-S05",
+        "CP009-S06"
+      ],
+      "sourceLocator": "Policy and consolidation",
+      "relationshipType": "policy-and-consolidation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F040",
+      "claim": "Hitler’s appointment and subsequent consolidation involved several political and legal steps, supported by coercion and violence.",
+      "sourceIds": [
+        "CP009-S05",
+        "CP009-S06"
+      ],
+      "sourceLocator": "Policy and consolidation",
+      "relationshipType": "policy-and-consolidation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F041",
+      "claim": "After January 1933, the Nazi government dismantled democratic institutions and consolidated dictatorial power.",
+      "sourceIds": [
+        "CP009-S05",
+        "CP009-S06"
+      ],
+      "sourceLocator": "Policy and consolidation",
+      "relationshipType": "policy-and-consolidation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F042",
+      "claim": "The Nazi regime eliminated meaningful political competition and established a dictatorship.",
+      "sourceIds": [
+        "CP009-S05",
+        "CP009-S06"
+      ],
+      "sourceLocator": "Policy and consolidation",
+      "relationshipType": "policy-and-consolidation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F043",
+      "claim": "The Mukden Incident preceded Japan’s occupation and conquest of Manchuria.",
+      "sourceIds": [
+        "CP009-S10"
+      ],
+      "sourceLocator": "Aggression and response",
+      "relationshipType": "aggression-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F044",
+      "claim": "The League investigated the crisis and criticised Japan, but lacked the means and unity to reverse the occupation.",
+      "sourceIds": [
+        "CP009-S10"
+      ],
+      "sourceLocator": "League limitations and response",
+      "relationshipType": "league-limitations-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F045",
+      "claim": "Italy invaded Ethiopia in October 1935.",
+      "sourceIds": [
+        "CP009-S12"
+      ],
+      "sourceLocator": "Aggression and response",
+      "relationshipType": "aggression-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F046",
+      "claim": "The League condemned the invasion and imposed sanctions, but these measures did not prevent Italy’s conquest.",
+      "sourceIds": [
+        "CP009-S12"
+      ],
+      "sourceLocator": "League limitations and response",
+      "relationshipType": "league-limitations-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F047",
+      "claim": "Foreign states and volunteers became involved on different sides; diplomatic efforts to limit intervention were contested and uneven.",
+      "sourceIds": [
+        "CP009-S13"
+      ],
+      "sourceLocator": "Aggression and response",
+      "relationshipType": "aggression-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F048",
+      "claim": "Japan’s expansion in Manchuria and Italy’s invasion of Ethiopia exposed the League’s inability to halt aggression.",
+      "sourceIds": [
+        "CP009-S10",
+        "CP009-S12"
+      ],
+      "sourceLocator": "Aggression and response",
+      "relationshipType": "aggression-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F049",
+      "claim": "German troops re-entered the demilitarised Rhineland in March 1936.",
+      "sourceIds": [
+        "CP009-S07"
+      ],
+      "sourceLocator": "Diplomacy and appeasement",
+      "relationshipType": "diplomacy-and-appeasement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F050",
+      "claim": "The Anschluss was the annexation of Austria by Nazi Germany in March 1938.",
+      "sourceIds": [
+        "CP009-S07"
+      ],
+      "sourceLocator": "Diplomacy and appeasement",
+      "relationshipType": "diplomacy-and-appeasement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F051",
+      "claim": "The Munich Agreement of September 1938 allowed Germany to annex the Sudetenland.",
+      "sourceIds": [
+        "CP009-S07",
+        "CP009-S08"
+      ],
+      "sourceLocator": "Diplomacy and appeasement",
+      "relationshipType": "diplomacy-and-appeasement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F052",
+      "claim": "British and French leaders made concessions to Hitler’s demands, hoping to preserve peace; the policy did not prevent further expansion.",
+      "sourceIds": [
+        "CP009-S07",
+        "CP009-S08"
+      ],
+      "sourceLocator": "Diplomacy and appeasement",
+      "relationshipType": "diplomacy-and-appeasement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F053",
+      "claim": "Germany occupied the rest of the Czech lands in March 1939, showing that the Munich settlement did not end expansion.",
+      "sourceIds": [
+        "CP009-S07"
+      ],
+      "sourceLocator": "Diplomacy and appeasement",
+      "relationshipType": "diplomacy-and-appeasement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F054",
+      "claim": "Germany remilitarised the Rhineland in 1936, annexed Austria in 1938, gained the Sudetenland at Munich, and occupied the rest of the Czech lands in 1939.",
+      "sourceIds": [
+        "CP009-S07",
+        "CP009-S08"
+      ],
+      "sourceLocator": "Diplomacy and appeasement",
+      "relationshipType": "diplomacy-and-appeasement",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F055",
+      "claim": "Germany and the Soviet Union signed the pact in August 1939.",
+      "sourceIds": [
+        "CP009-S14"
+      ],
+      "sourceLocator": "Interwar chronology and synthesis",
+      "relationshipType": "interwar-chronology-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F056",
+      "claim": "The secret protocol divided spheres of influence in Eastern Europe, including provisions concerning Poland.",
+      "sourceIds": [
+        "CP009-S14"
+      ],
+      "sourceLocator": "Interwar chronology and synthesis",
+      "relationshipType": "interwar-chronology-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F057",
+      "claim": "German forces invaded Poland on 1 September 1939.",
+      "sourceIds": [
+        "CP009-S14",
+        "CP009-S15"
+      ],
+      "sourceLocator": "Interwar chronology and synthesis",
+      "relationshipType": "interwar-chronology-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F058",
+      "claim": "Britain and France declared war on Germany on 3 September 1939, after the invasion of Poland.",
+      "sourceIds": [
+        "CP009-S15"
+      ],
+      "sourceLocator": "Interwar chronology and synthesis",
+      "relationshipType": "interwar-chronology-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F059",
+      "claim": "The pact was signed in August 1939, Germany invaded Poland on 1 September, and Britain and France declared war on 3 September.",
+      "sourceIds": [
+        "CP009-S14",
+        "CP009-S15"
+      ],
+      "sourceLocator": "Interwar chronology and synthesis",
+      "relationshipType": "interwar-chronology-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP009-F060",
+      "claim": "Interwar economic crises, authoritarian politics, aggression and weak collective responses combined in the path to war; the process cannot be reduced to one cause.",
+      "sourceIds": [
+        "CP009-S01",
+        "CP009-S04",
+        "CP009-S05",
+        "CP009-S07",
+        "CP009-S10",
+        "CP009-S14"
+      ],
+      "sourceLocator": "Interwar chronology and synthesis",
+      "relationshipType": "interwar-chronology-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    }
+  ]
+}

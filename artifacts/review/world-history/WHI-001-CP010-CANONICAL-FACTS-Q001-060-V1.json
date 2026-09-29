@@ -1,0 +1,690 @@
+{
+  "schemaVersion": "1.0",
+  "chapterId": "WHI-001",
+  "checkpointId": "WHI-001-CP010",
+  "status": "full-source-backed-review-pool",
+  "sourceRegister": [
+    {
+      "sourceId": "CP010-S01",
+      "title": "United States Holocaust Memorial Museum — World War II: Key Dates",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/world-war-ii-key-dates"
+    },
+    {
+      "sourceId": "CP010-S02",
+      "title": "United States Holocaust Memorial Museum — World War II in Europe",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/world-war-ii-in-europe"
+    },
+    {
+      "sourceId": "CP010-S03",
+      "title": "United States Holocaust Memorial Museum — World War II in the Pacific",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/world-war-ii-in-the-pacific"
+    },
+    {
+      "sourceId": "CP010-S04",
+      "title": "United States Holocaust Memorial Museum — The Holocaust and World War II: Key Dates",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/the-holocaust-and-world-war-ii-key-dates"
+    },
+    {
+      "sourceId": "CP010-S05",
+      "title": "Imperial War Museums — D-Day",
+      "url": "https://www.iwm.org.uk/history/what-was-d-day"
+    },
+    {
+      "sourceId": "CP010-S06",
+      "title": "U.S. National Archives — Surrender of Japan",
+      "url": "https://www.archives.gov/milestone-documents/surrender-of-japan"
+    },
+    {
+      "sourceId": "CP010-S07",
+      "title": "Franklin D. Roosevelt Presidential Library — The Atlantic Charter",
+      "url": "https://www.fdrlibrary.org/atlantic-charter"
+    },
+    {
+      "sourceId": "CP010-S08",
+      "title": "U.S. National Archives — World War II: Key Documents",
+      "url": "https://www.archives.gov/milestone-documents"
+    },
+    {
+      "sourceId": "CP010-S09",
+      "title": "U.S. Holocaust Memorial Museum — Holocaust Timeline",
+      "url": "https://encyclopedia.ushmm.org/content/en/timeline/holocaust"
+    },
+    {
+      "sourceId": "CP010-S10",
+      "title": "U.S. Holocaust Memorial Museum — Warsaw Ghetto Uprising",
+      "url": "https://encyclopedia.ushmm.org/content/en/article/warsaw-ghetto-uprising"
+    },
+    {
+      "sourceId": "CP010-S11",
+      "title": "U.S. Department of State, Office of the Historian — The Yalta Conference, 1945",
+      "url": "https://history.state.gov/milestones/1937-1945/yalta-conf"
+    }
+  ],
+  "facts": [
+    {
+      "factId": "WHI-CP010-F001",
+      "claim": "German forces invaded Poland on 1 September 1939. Britain and France declared war two days later.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S02"
+      ],
+      "sourceLocator": "Outbreak and chronology",
+      "relationshipType": "outbreak-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F002",
+      "claim": "Britain and France declared war on Germany on 3 September 1939. The United States and the Soviet Union entered the war later.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S02"
+      ],
+      "sourceLocator": "Outbreak and chronology",
+      "relationshipType": "outbreak-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F003",
+      "claim": "Soviet forces entered eastern Poland on 17 September 1939, after Germany had invaded from the west. This followed the secret protocol of the German-Soviet pact.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S02"
+      ],
+      "sourceLocator": "Outbreak and chronology",
+      "relationshipType": "outbreak-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F004",
+      "claim": "The invasion of Poland marked the start of war in Europe. Germany attacked from the west while the Soviet Union later entered eastern Poland under the secret protocol.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S02"
+      ],
+      "sourceLocator": "Outbreak and chronology",
+      "relationshipType": "outbreak-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F005",
+      "claim": "Britain and France declared war on 3 September, after Germany invaded Poland on 1 September. Their declaration did not immediately stop the German campaign.",
+      "sourceIds": [
+        "CP010-S01"
+      ],
+      "sourceLocator": "Outbreak and chronology",
+      "relationshipType": "outbreak-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F006",
+      "claim": "Germany invaded Poland first, on 1 September 1939. Britain and France declared war on 3 September.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S02"
+      ],
+      "sourceLocator": "Outbreak and chronology",
+      "relationshipType": "outbreak-chronology",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F007",
+      "claim": "Germany, Italy and Japan were the principal Axis powers. Their alliance did not mean that every campaign was planned or conducted jointly.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S03"
+      ],
+      "sourceLocator": "Axis expansion and occupation",
+      "relationshipType": "axis-expansion-occupation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F008",
+      "claim": "Operation Barbarossa began on 22 June 1941. It opened the German-Soviet front and violated the 1939 non-aggression pact.",
+      "sourceIds": [
+        "CP010-S02"
+      ],
+      "sourceLocator": "Axis expansion and occupation",
+      "relationshipType": "axis-expansion-occupation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F009",
+      "claim": "Germany invaded Denmark and Norway in April 1940. The campaign secured routes and strategic positions in northern Europe.",
+      "sourceIds": [
+        "CP010-S02"
+      ],
+      "sourceLocator": "Axis expansion and occupation",
+      "relationshipType": "axis-expansion-occupation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F010",
+      "claim": "Germany attacked the Netherlands, Belgium and Luxembourg before advancing into France. France signed an armistice in June 1940.",
+      "sourceIds": [
+        "CP010-S02"
+      ],
+      "sourceLocator": "Axis expansion and occupation",
+      "relationshipType": "axis-expansion-occupation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F011",
+      "claim": "France signed an armistice with Germany in June 1940. The country was divided into occupied and nominally unoccupied zones under the settlement.",
+      "sourceIds": [
+        "CP010-S02"
+      ],
+      "sourceLocator": "Axis expansion and occupation",
+      "relationshipType": "axis-expansion-occupation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F012",
+      "claim": "German air attacks sought to weaken Britain's air defenses and prepare conditions for a possible invasion. Britain remained in the war after the Luftwaffe failed to secure air superiority.",
+      "sourceIds": [
+        "CP010-S02"
+      ],
+      "sourceLocator": "Axis expansion and occupation",
+      "relationshipType": "axis-expansion-occupation",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F013",
+      "claim": "The German Sixth Army surrendered at Stalingrad in February 1943. The defeat became a major turning point on the Eastern Front.",
+      "sourceIds": [
+        "CP010-S02",
+        "CP010-S01"
+      ],
+      "sourceLocator": "European theatre",
+      "relationshipType": "european-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F014",
+      "claim": "The Normandy landings began Operation Overlord and opened a major western front in German-occupied France. Allied forces then advanced inland.",
+      "sourceIds": [
+        "CP010-S05",
+        "CP010-S02"
+      ],
+      "sourceLocator": "European theatre",
+      "relationshipType": "european-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F015",
+      "claim": "The Battle of the Bulge was Germany's last major offensive on the Western Front. Allied forces eventually repelled it.",
+      "sourceIds": [
+        "CP010-S02"
+      ],
+      "sourceLocator": "European theatre",
+      "relationshipType": "european-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F016",
+      "claim": "Soviet forces captured Berlin in the final phase of the European war. Germany's surrender followed in May 1945.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S02"
+      ],
+      "sourceLocator": "European theatre",
+      "relationshipType": "european-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F017",
+      "claim": "Japan attacked Pearl Harbor on 7 December 1941. The United States declared war on Japan the following day.",
+      "sourceIds": [
+        "CP010-S03",
+        "CP010-S01"
+      ],
+      "sourceLocator": "European theatre",
+      "relationshipType": "european-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F018",
+      "claim": "At Midway, U.S. forces inflicted major losses on Japan's carrier fleet. The battle shifted the initiative in the Pacific toward the Allies.",
+      "sourceIds": [
+        "CP010-S03"
+      ],
+      "sourceLocator": "European theatre",
+      "relationshipType": "european-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F019",
+      "claim": "The Guadalcanal campaign began in August 1942. It was an early sustained Allied offensive in the Pacific.",
+      "sourceIds": [
+        "CP010-S03"
+      ],
+      "sourceLocator": "Pacific theatre",
+      "relationshipType": "pacific-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F020",
+      "claim": "Allied forces captured selected islands and bypassed others to build forward bases. This strategy brought them closer to Japan while limiting some costly assaults.",
+      "sourceIds": [
+        "CP010-S03"
+      ],
+      "sourceLocator": "Pacific theatre",
+      "relationshipType": "pacific-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F021",
+      "claim": "Japan had been at war in China since 1937. The Pacific war widened when Japan attacked Pearl Harbor in 1941.",
+      "sourceIds": [
+        "CP010-S03"
+      ],
+      "sourceLocator": "Pacific theatre",
+      "relationshipType": "pacific-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F022",
+      "claim": "The Battle of the Coral Sea checked the Japanese operation against Port Moresby. It was a carrier battle in which opposing fleets did not directly sight one another.",
+      "sourceIds": [
+        "CP010-S03"
+      ],
+      "sourceLocator": "Pacific theatre",
+      "relationshipType": "pacific-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F023",
+      "claim": "U.S. forces captured Iwo Jima after intense fighting in 1945. Its airfields were strategically valuable for operations nearer Japan.",
+      "sourceIds": [
+        "CP010-S03"
+      ],
+      "sourceLocator": "Pacific theatre",
+      "relationshipType": "pacific-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F024",
+      "claim": "Japan attacked Pearl Harbor in December 1941, Midway was fought in June 1942, and Iwo Jima in 1945. The sequence shows the widening and later Allied advance of the Pacific war.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S03"
+      ],
+      "sourceLocator": "Pacific theatre",
+      "relationshipType": "pacific-theatre",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F025",
+      "claim": "The Allied victory at El Alamein in late 1942 halted the Axis advance in Egypt. It helped shift the balance in North Africa.",
+      "sourceIds": [
+        "CP010-S01"
+      ],
+      "sourceLocator": "Turning points",
+      "relationshipType": "turning-points",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F026",
+      "claim": "The German surrender at Stalingrad in February 1943 marked a major reversal on the Eastern Front. Soviet forces thereafter advanced westward over time.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S02"
+      ],
+      "sourceLocator": "Turning points",
+      "relationshipType": "turning-points",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F027",
+      "claim": "Midway inflicted heavy losses on Japan's carrier forces. It helped turn the Pacific conflict from Japanese expansion toward sustained Allied advances.",
+      "sourceIds": [
+        "CP010-S03"
+      ],
+      "sourceLocator": "Turning points",
+      "relationshipType": "turning-points",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F028",
+      "claim": "The Normandy landings opened a large Allied front in western Europe. They placed pressure on German forces from the west while Soviet forces advanced from the east.",
+      "sourceIds": [
+        "CP010-S05",
+        "CP010-S02"
+      ],
+      "sourceLocator": "Turning points",
+      "relationshipType": "turning-points",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F029",
+      "claim": "After the Normandy landings, Germany faced a major Allied offensive in the west while Soviet forces advanced in the east. The two-front pressure narrowed Germany's room to maneuver.",
+      "sourceIds": [
+        "CP010-S02",
+        "CP010-S05"
+      ],
+      "sourceLocator": "Turning points",
+      "relationshipType": "turning-points",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F030",
+      "claim": "El Alamein was fought in 1942, Stalingrad ended in February 1943, and the Normandy landings began in June 1944. These events marked shifts in several theatres.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S05"
+      ],
+      "sourceLocator": "Turning points",
+      "relationshipType": "turning-points",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F031",
+      "claim": "Roosevelt and Churchill issued the Atlantic Charter in August 1941. It outlined broad principles for the post-war order, although it was not a treaty.",
+      "sourceIds": [
+        "CP010-S07"
+      ],
+      "sourceLocator": "Allied strategy and leaders",
+      "relationshipType": "allied-strategy-leaders",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F032",
+      "claim": "At Casablanca in January 1943, Roosevelt and Churchill announced the policy of unconditional surrender. The Soviet Union was not represented at that meeting.",
+      "sourceIds": [
+        "CP010-S07"
+      ],
+      "sourceLocator": "Allied strategy and leaders",
+      "relationshipType": "allied-strategy-leaders",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F033",
+      "claim": "The Tehran Conference in late 1943 was the first wartime meeting of Roosevelt, Churchill and Stalin. They discussed coordination against Germany and the opening of a western front.",
+      "sourceIds": [
+        "CP010-S07"
+      ],
+      "sourceLocator": "Allied strategy and leaders",
+      "relationshipType": "allied-strategy-leaders",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F034",
+      "claim": "At Yalta, the Allied leaders discussed Germany's occupation and the emerging post-war settlement. The final division into occupation zones was implemented after Germany's defeat.",
+      "sourceIds": [
+        "CP010-S11"
+      ],
+      "sourceLocator": "Allied strategy and leaders",
+      "relationshipType": "allied-strategy-leaders",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F035",
+      "claim": "The Potsdam Conference met in July and August 1945 after Germany's surrender. The Allied leaders addressed occupation policy and post-war arrangements.",
+      "sourceIds": [
+        "CP010-S07"
+      ],
+      "sourceLocator": "Allied strategy and leaders",
+      "relationshipType": "allied-strategy-leaders",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F036",
+      "claim": "Lend-Lease enabled the United States to provide military supplies to countries whose defense it considered vital. It preceded U.S. entry into the war.",
+      "sourceIds": [
+        "CP010-S07"
+      ],
+      "sourceLocator": "Allied strategy and leaders",
+      "relationshipType": "allied-strategy-leaders",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F037",
+      "claim": "Stalin represented the Soviet Union at both conferences. Roosevelt represented the United States and Churchill represented Britain.",
+      "sourceIds": [
+        "CP010-S07"
+      ],
+      "sourceLocator": "Allied strategy and leaders",
+      "relationshipType": "allied-strategy-leaders",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F038",
+      "claim": "Nazi officials at Wannsee coordinated the implementation of the mass murder of European Jews. The genocide had already begun in occupied territories before the meeting.",
+      "sourceIds": [
+        "CP010-S04"
+      ],
+      "sourceLocator": "Holocaust and persecution",
+      "relationshipType": "holocaust-persecution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F039",
+      "claim": "The Holocaust was the systematic persecution and murder of six million European Jews by Nazi Germany and its collaborators. Other groups were also persecuted and murdered by the Nazi regime.",
+      "sourceIds": [
+        "CP010-S04"
+      ],
+      "sourceLocator": "Holocaust and persecution",
+      "relationshipType": "holocaust-persecution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F040",
+      "claim": "Nazi authorities forcibly concentrated Jewish residents in ghettos under conditions of deprivation and violence. Many people were later deported to killing centers or murdered locally.",
+      "sourceIds": [
+        "CP010-S04"
+      ],
+      "sourceLocator": "Holocaust and persecution",
+      "relationshipType": "holocaust-persecution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F041",
+      "claim": "Auschwitz-Birkenau was a complex of concentration and killing camps in occupied Poland. It became one of the principal sites of the Holocaust.",
+      "sourceIds": [
+        "CP010-S04"
+      ],
+      "sourceLocator": "Holocaust and persecution",
+      "relationshipType": "holocaust-persecution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F042",
+      "claim": "Nazi officials used “Final Solution” as a euphemism for the genocide of Europe's Jews. The phrase concealed a policy of systematic mass murder.",
+      "sourceIds": [
+        "CP010-S04"
+      ],
+      "sourceLocator": "Holocaust and persecution",
+      "relationshipType": "holocaust-persecution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F043",
+      "claim": "The Holocaust was a state-organised genocide during the Nazi era, carried out across Europe by Germany and collaborators. It unfolded through persecution, deportation, mass shootings and killing centers.",
+      "sourceIds": [
+        "CP010-S04"
+      ],
+      "sourceLocator": "Holocaust and persecution",
+      "relationshipType": "holocaust-persecution",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F044",
+      "claim": "Jewish resistance fighters began the Warsaw Ghetto Uprising in April 1943 when German forces moved to deport the remaining residents. German forces suppressed the revolt.",
+      "sourceIds": [
+        "CP010-S10"
+      ],
+      "sourceLocator": "Resistance and home fronts",
+      "relationshipType": "resistance-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F045",
+      "claim": "The Polish Home Army began the Warsaw Uprising in August 1944. It was a separate event from the 1943 Warsaw Ghetto Uprising.",
+      "sourceIds": [
+        "CP010-S02"
+      ],
+      "sourceLocator": "Resistance and home fronts",
+      "relationshipType": "resistance-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F046",
+      "claim": "Resistance groups in France gathered intelligence, circulated information and carried out sabotage. Their actions supported the Allied campaign but varied across networks and regions.",
+      "sourceIds": [
+        "CP010-S02"
+      ],
+      "sourceLocator": "Resistance and home fronts",
+      "relationshipType": "resistance-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F047",
+      "claim": "British codebreakers at Bletchley Park helped decipher German Enigma communications. This intelligence contributed to Allied planning and convoy protection.",
+      "sourceIds": [
+        "CP010-S02"
+      ],
+      "sourceLocator": "Resistance and home fronts",
+      "relationshipType": "resistance-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F048",
+      "claim": "Governments rationed food and other goods because wartime demand and disruption created shortages. The specific systems differed across countries.",
+      "sourceIds": [
+        "CP010-S02"
+      ],
+      "sourceLocator": "Resistance and home fronts",
+      "relationshipType": "resistance-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F049",
+      "claim": "Resistance took many forms, from armed struggle to intelligence and civilian support. Its organisation and influence differed by country and period.",
+      "sourceIds": [
+        "CP010-S02",
+        "CP010-S10"
+      ],
+      "sourceLocator": "Resistance and home fronts",
+      "relationshipType": "resistance-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F050",
+      "claim": "The Allies landed in Normandy in June 1944 and liberated Paris in August. They continued their advance toward Germany afterward.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S05"
+      ],
+      "sourceLocator": "Resistance and home fronts",
+      "relationshipType": "resistance-home-fronts",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F051",
+      "claim": "Germany signed an unconditional surrender at Reims on 7 May 1945. A further signing took place in Berlin the next day.",
+      "sourceIds": [
+        "CP010-S06",
+        "CP010-S01"
+      ],
+      "sourceLocator": "Surrender and end of war",
+      "relationshipType": "surrender-end-of-war",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F052",
+      "claim": "Germany's surrender took effect on 8 May 1945 in western Europe. The Soviet Union marked the end of the European war on 9 May because of the timing of the Berlin signing.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S06"
+      ],
+      "sourceLocator": "Surrender and end of war",
+      "relationshipType": "surrender-end-of-war",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F053",
+      "claim": "Germany signed at Reims on 7 May and a further instrument in Berlin on 8 May 1945. Different surrender ceremonies reflected the Allied coalition and the Eastern Front.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S06"
+      ],
+      "sourceLocator": "Surrender and end of war",
+      "relationshipType": "surrender-end-of-war",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F054",
+      "claim": "The United States dropped an atomic bomb on Hiroshima on 6 August 1945. Nagasaki was bombed three days later.",
+      "sourceIds": [
+        "CP010-S06"
+      ],
+      "sourceLocator": "Surrender and end of war",
+      "relationshipType": "surrender-end-of-war",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F055",
+      "claim": "The second atomic bomb was dropped on Nagasaki on 9 August 1945. Japan announced its acceptance of surrender terms later that month.",
+      "sourceIds": [
+        "CP010-S06"
+      ],
+      "sourceLocator": "Surrender and end of war",
+      "relationshipType": "surrender-end-of-war",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F056",
+      "claim": "Japan formally signed the surrender instrument on 2 September 1945 aboard the USS Missouri. The announcement of acceptance had been made in August.",
+      "sourceIds": [
+        "CP010-S06",
+        "CP010-S03"
+      ],
+      "sourceLocator": "Surrender and end of war",
+      "relationshipType": "surrender-end-of-war",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F057",
+      "claim": "Germany surrendered in May 1945, the atomic bombs were dropped in August, and Japan signed the surrender in September. The sequence distinguishes the end of the European war from the formal end of the global conflict.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S06"
+      ],
+      "sourceLocator": "Consequences and synthesis",
+      "relationshipType": "consequences-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F058",
+      "claim": "War and persecution displaced millions of people across Europe. Many survivors could not or did not return to their former homes after the conflict.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S10"
+      ],
+      "sourceLocator": "Consequences and synthesis",
+      "relationshipType": "consequences-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F059",
+      "claim": "After Germany's defeat, Allied powers occupied and administered the country. The longer-term division and post-war institutions are covered in CP011.",
+      "sourceIds": [
+        "CP010-S06"
+      ],
+      "sourceLocator": "Consequences and synthesis",
+      "relationshipType": "consequences-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP010-F060",
+      "claim": "The war involved connected campaigns across several continents and oceans. Germany's 1940 armistice with France did not end the wider conflict.",
+      "sourceIds": [
+        "CP010-S01",
+        "CP010-S02",
+        "CP010-S03"
+      ],
+      "sourceLocator": "Consequences and synthesis",
+      "relationshipType": "consequences-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    }
+  ]
+}

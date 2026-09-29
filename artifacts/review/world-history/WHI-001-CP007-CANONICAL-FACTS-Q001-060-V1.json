@@ -1,0 +1,743 @@
+{
+  "schemaVersion": "1.0",
+  "chapterId": "WHI-001",
+  "checkpointId": "WHI-001-CP007",
+  "status": "full-source-backed-review-pool",
+  "sourceRegister": [
+    {
+      "sourceId": "CP007-S01",
+      "title": "Federal Foreign Office — General Act of the Berlin West Africa Conference, 26 February 1885",
+      "url": "https://archiv.diplo.de/arc-en/the-political-archive/general-act-2684414",
+      "use": "Treaty text and context; distinguish its navigation/claim rules from later boundary-making."
+    },
+    {
+      "sourceId": "CP007-S02",
+      "title": "U.S. Department of State — Foreign Relations of the United States, 1885: Berlin Conference papers",
+      "url": "https://history.state.gov/historicaldocuments/frus1885/papers",
+      "use": "Contemporary diplomatic records; claims must be read as interested government statements."
+    },
+    {
+      "sourceId": "CP007-S03",
+      "title": "U.S. Department of State — Congo Free State documents, 1885",
+      "url": "https://history.state.gov/historicaldocuments/frus1885/d38",
+      "use": "Leopold II, recognition and status of the Congo Free State."
+    },
+    {
+      "sourceId": "CP007-S04",
+      "title": "U.S. Department of State — Berlin Conference records on Congo claims",
+      "url": "https://history.state.gov/historicaldocuments/frus1885/d225",
+      "use": "Congo basin claims and contemporary trade arguments; corroborate claims about coercion."
+    },
+    {
+      "sourceId": "CP007-S05",
+      "title": "European Route of Industrial Heritage — Belgium",
+      "url": "https://www.erih.net/how-it-started/industrial-history-of-european-countries/belgium",
+      "use": "Belgian industrial and colonial context; do not use for unsupported casualty claims."
+    },
+    {
+      "sourceId": "CP007-S06",
+      "title": "United Nations — Historical background on Rwanda",
+      "url": "https://www.un.org/en/preventgenocide/rwanda/historical-background.shtml",
+      "use": "German colonial rule and subsequent Belgian administration in Rwanda."
+    },
+    {
+      "sourceId": "CP007-S07",
+      "title": "UNESCO — General History of Africa, Volume VII: Africa under Colonial Domination, 1880–1935",
+      "url": "https://unesdoc.unesco.org/ark:/48223/pf0000184296",
+      "use": "African political agency, resistance and colonial rule across regions."
+    },
+    {
+      "sourceId": "CP007-S08",
+      "title": "Deutsches Historisches Museum — Maji-Maji War",
+      "url": "https://www.dhm.de/lemo/kapitel/kaiserreich/aussenpolitik/maji-maji-krieg",
+      "use": "Maji Maji uprising chronology and opposition to German colonial rule."
+    },
+    {
+      "sourceId": "CP007-S09",
+      "title": "Adwa Victory Memorial — Heritage and History",
+      "url": "https://adwavictorymemorial.gov.et/",
+      "use": "Battle of Adwa, 1 March 1896, and Ethiopia’s victory over Italy."
+    },
+    {
+      "sourceId": "CP007-S10",
+      "title": "Australian War Memorial — China (Boxer Rebellion), 1900–01",
+      "url": "https://www.awm.gov.au/articles/atwar/boxer",
+      "use": "Boxer uprising and foreign intervention; avoid treating participants as a single uniform group."
+    },
+    {
+      "sourceId": "CP007-S11",
+      "title": "U.S. Department of State — John Hay and the Open Door in China, 1899–1900",
+      "url": "https://history.state.gov/milestones/1899-1913/hay-and-china",
+      "use": "Open Door Notes and foreign commercial privileges/spheres in China."
+    },
+    {
+      "sourceId": "CP007-S12",
+      "title": "U.S. Department of State — China and the unequal treaties",
+      "url": "https://history.state.gov/milestones/1830-1860/china-1",
+      "use": "Opium Wars, treaty ports and unequal treaty privileges."
+    },
+    {
+      "sourceId": "CP007-S13",
+      "title": "National Archives of the Netherlands — Indonesia, 1602–1962",
+      "url": "https://www.nationaalarchief.nl/onderzoeken/zoekhulpen/indonesie-1602-1962",
+      "use": "Archival guide for Dutch colonial history in Indonesia; use with local historical sources for specific claims."
+    }
+  ],
+  "facts": [
+    {
+      "factId": "WHI-CP007-F001",
+      "claim": "Industrial economies and strategic rivalry both shaped imperial expansion; no single motive explains every case.",
+      "sourceIds": [
+        "CP007-S02",
+        "CP007-S05"
+      ],
+      "sourceLocator": "Motive and method",
+      "relationshipType": "motive-and-method",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F002",
+      "claim": "Imperial projects had multiple motives, and their relative importance varied by place and government.",
+      "sourceIds": [
+        "CP007-S02",
+        "CP007-S05"
+      ],
+      "sourceLocator": "Motive and method",
+      "relationshipType": "motive-and-method",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F003",
+      "claim": "A protectorate often preserved a local authority formally while giving the imperial power decisive influence, especially over external affairs.",
+      "sourceIds": [
+        "CP007-S02",
+        "CP007-S03"
+      ],
+      "sourceLocator": "Motive and method",
+      "relationshipType": "motive-and-method",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F004",
+      "claim": "European powers often relied on treaties with African rulers, although the meanings and conditions of those agreements were frequently contested.",
+      "sourceIds": [
+        "CP007-S02",
+        "CP007-S04"
+      ],
+      "sourceLocator": "Motive and method",
+      "relationshipType": "motive-and-method",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F005",
+      "claim": "Colonial transport links commonly served administration and commercial extraction, though their uses varied by region.",
+      "sourceIds": [
+        "CP007-S05",
+        "CP007-S06"
+      ],
+      "sourceLocator": "Motive and method",
+      "relationshipType": "motive-and-method",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F006",
+      "claim": "Formal colonial rule and informal influence were different arrangements, though both could limit local sovereignty.",
+      "sourceIds": [
+        "CP007-S02",
+        "CP007-S04"
+      ],
+      "sourceLocator": "Motive and method",
+      "relationshipType": "motive-and-method",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F007",
+      "claim": "The conference met in Berlin from November 1884 to February 1885.",
+      "sourceIds": [
+        "CP007-S01"
+      ],
+      "sourceLocator": "Conference and treaty",
+      "relationshipType": "conference-and-treaty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F008",
+      "claim": "Bismarck convened the conference as German chancellor.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S02"
+      ],
+      "sourceLocator": "Conference and treaty",
+      "relationshipType": "conference-and-treaty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F009",
+      "claim": "The conference was conducted by foreign powers; African societies whose territories were affected had no representation as parties to its negotiations.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S07"
+      ],
+      "sourceLocator": "Conference and treaty",
+      "relationshipType": "conference-and-treaty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F010",
+      "claim": "The Act addressed principles for European claims and navigation; it did not itself settle every later boundary.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S02"
+      ],
+      "sourceLocator": "Conference and treaty",
+      "relationshipType": "conference-and-treaty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F011",
+      "claim": "The Act included provisions for free navigation on the Congo, alongside provisions for trade and the basin.",
+      "sourceIds": [
+        "CP007-S01"
+      ],
+      "sourceLocator": "Conference and treaty",
+      "relationshipType": "conference-and-treaty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F012",
+      "claim": "The General Act included a separate navigation regime for the Niger; it was not a map of all later colonial boundaries.",
+      "sourceIds": [
+        "CP007-S01"
+      ],
+      "sourceLocator": "Conference and treaty",
+      "relationshipType": "conference-and-treaty",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F013",
+      "claim": "The International Association of the Congo transferred authority to Leopold II, who became sovereign of the Congo Free State.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S04"
+      ],
+      "sourceLocator": "State and claimant",
+      "relationshipType": "state-and-claimant",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F014",
+      "claim": "The International Association of the Congo negotiated claims and treaties before the Congo Free State was recognised under Leopold II.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S04"
+      ],
+      "sourceLocator": "State and claimant",
+      "relationshipType": "state-and-claimant",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F015",
+      "claim": "German East Africa was a German colony before the First World War; after the war its territories were redistributed under mandates.",
+      "sourceIds": [
+        "CP007-S05",
+        "CP007-S06"
+      ],
+      "sourceLocator": "State and claimant",
+      "relationshipType": "state-and-claimant",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F016",
+      "claim": "Diplomatic records from the period discuss the competing claims of France and the International Association of the Congo, alongside other European interests.",
+      "sourceIds": [
+        "CP007-S02",
+        "CP007-S04"
+      ],
+      "sourceLocator": "State and claimant",
+      "relationshipType": "state-and-claimant",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F017",
+      "claim": "In 1885 the Congo Free State was recognised under Leopold II; Belgium annexed it as the Belgian Congo in 1908.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S04"
+      ],
+      "sourceLocator": "State and claimant",
+      "relationshipType": "state-and-claimant",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F018",
+      "claim": "Belgium annexed the Congo Free State in 1908, ending Leopold II’s personal rule there.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S05"
+      ],
+      "sourceLocator": "State and claimant",
+      "relationshipType": "state-and-claimant",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F019",
+      "claim": "Reports and investigations exposed severe abuses and coercive extraction, contributing to reform pressure and Belgium’s annexation of the territory.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S04",
+        "CP007-S05"
+      ],
+      "sourceLocator": "Event and outcome",
+      "relationshipType": "event-and-outcome",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F020",
+      "claim": "Rubber extraction became a major feature of the Congo concession system, alongside ivory and other commercial interests.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S04"
+      ],
+      "sourceLocator": "Event and outcome",
+      "relationshipType": "event-and-outcome",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F021",
+      "claim": "The reform campaign publicised abuses in the Congo Free State and helped increase pressure for Belgian takeover.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S05"
+      ],
+      "sourceLocator": "Event and outcome",
+      "relationshipType": "event-and-outcome",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F022",
+      "claim": "After 1908 the Belgian state governed the colony as the Belgian Congo, replacing Leopold II’s personal state.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S05"
+      ],
+      "sourceLocator": "Event and outcome",
+      "relationshipType": "event-and-outcome",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F023",
+      "claim": "The General Act established notification procedures for new coastal possessions and protectorates among its signatories.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S02"
+      ],
+      "sourceLocator": "Event and outcome",
+      "relationshipType": "event-and-outcome",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F024",
+      "claim": "The conference shaped rules used by European powers, but subsequent bilateral agreements and occupations continued the partition process.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S02",
+        "CP007-S07"
+      ],
+      "sourceLocator": "Event and outcome",
+      "relationshipType": "event-and-outcome",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F025",
+      "claim": "The Berlin Conference opened in 1884, before the other listed events.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S03",
+        "CP007-S08",
+        "CP007-S09"
+      ],
+      "sourceLocator": "Chronology and sequence",
+      "relationshipType": "chronology-and-sequence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F026",
+      "claim": "The conference preceded Adwa, and both occurred before the Maji Maji uprising.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S07",
+        "CP007-S08"
+      ],
+      "sourceLocator": "Chronology and sequence",
+      "relationshipType": "chronology-and-sequence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F027",
+      "claim": "The Maji Maji uprising took place in 1905–07, shortly before Belgium annexed the Congo in 1908.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S08",
+        "CP007-S10"
+      ],
+      "sourceLocator": "Chronology and sequence",
+      "relationshipType": "chronology-and-sequence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F028",
+      "claim": "The Battle of Adwa took place on 1 March 1896.",
+      "sourceIds": [
+        "CP007-S09"
+      ],
+      "sourceLocator": "Chronology and sequence",
+      "relationshipType": "chronology-and-sequence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F029",
+      "claim": "The Maji Maji uprising against German colonial rule took place from 1905 to 1907 in German East Africa.",
+      "sourceIds": [
+        "CP007-S08"
+      ],
+      "sourceLocator": "Chronology and sequence",
+      "relationshipType": "chronology-and-sequence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F030",
+      "claim": "The Congo Free State was recognised in 1885, Ethiopia defeated Italy at Adwa in 1896, and Belgium annexed the Congo in 1908.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S03",
+        "CP007-S09"
+      ],
+      "sourceLocator": "Chronology and sequence",
+      "relationshipType": "chronology-and-sequence",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F031",
+      "claim": "Ethiopia’s victory at Adwa preserved its independence against Italy’s attempted conquest.",
+      "sourceIds": [
+        "CP007-S09"
+      ],
+      "sourceLocator": "Territory and control",
+      "relationshipType": "territory-and-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F032",
+      "claim": "German East Africa was a German colonial possession before the First World War.",
+      "sourceIds": [
+        "CP007-S05",
+        "CP007-S06"
+      ],
+      "sourceLocator": "Territory and control",
+      "relationshipType": "territory-and-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F033",
+      "claim": "Belgium annexed the Congo Free State in 1908 and renamed it the Belgian Congo.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S05"
+      ],
+      "sourceLocator": "Territory and control",
+      "relationshipType": "territory-and-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F034",
+      "claim": "Rwanda was part of German East Africa before the First World War and was later administered by Belgium under the postwar mandate system.",
+      "sourceIds": [
+        "CP007-S06"
+      ],
+      "sourceLocator": "Territory and control",
+      "relationshipType": "territory-and-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F035",
+      "claim": "The Berlin Act included provisions concerning commerce and navigation in the Congo basin.",
+      "sourceIds": [
+        "CP007-S01"
+      ],
+      "sourceLocator": "Territory and control",
+      "relationshipType": "territory-and-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F036",
+      "claim": "In China, spheres of influence referred to special interests or privileges claimed by foreign powers, not a complete partition into formal colonies.",
+      "sourceIds": [
+        "CP007-S11"
+      ],
+      "sourceLocator": "Territory and control",
+      "relationshipType": "territory-and-control",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F037",
+      "claim": "Ethiopian forces defeated the Italian army at Adwa in 1896.",
+      "sourceIds": [
+        "CP007-S09"
+      ],
+      "sourceLocator": "Resistance and response",
+      "relationshipType": "resistance-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F038",
+      "claim": "Menelik II was emperor of Ethiopia at the time of the 1896 victory at Adwa.",
+      "sourceIds": [
+        "CP007-S09"
+      ],
+      "sourceLocator": "Resistance and response",
+      "relationshipType": "resistance-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F039",
+      "claim": "The Maji Maji uprising challenged German colonial rule in German East Africa.",
+      "sourceIds": [
+        "CP007-S08"
+      ],
+      "sourceLocator": "Resistance and response",
+      "relationshipType": "resistance-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F040",
+      "claim": "The uprising brought together different groups in resistance to German colonial rule, though its causes and course varied locally.",
+      "sourceIds": [
+        "CP007-S08"
+      ],
+      "sourceLocator": "Resistance and response",
+      "relationshipType": "resistance-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F041",
+      "claim": "The Ethiopian victory at Adwa in 1896 halted Italy’s attempt to conquer the country at that time.",
+      "sourceIds": [
+        "CP007-S09"
+      ],
+      "sourceLocator": "Resistance and response",
+      "relationshipType": "resistance-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F042",
+      "claim": "African polities used different strategies and experienced different outcomes; the partition was not a single event or uniform process.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S07",
+        "CP007-S08",
+        "CP007-S09"
+      ],
+      "sourceLocator": "Resistance and response",
+      "relationshipType": "resistance-and-response",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F043",
+      "claim": "The treaties following the Opium Wars opened ports and granted foreign powers commercial privileges in China.",
+      "sourceIds": [
+        "CP007-S11",
+        "CP007-S12"
+      ],
+      "sourceLocator": "Imperialism in Asia",
+      "relationshipType": "imperialism-in-asia",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F044",
+      "claim": "John Hay’s Open Door Notes sought equal commercial access among powers operating in China while affirming its territorial integrity.",
+      "sourceIds": [
+        "CP007-S11"
+      ],
+      "sourceLocator": "Imperialism in Asia",
+      "relationshipType": "imperialism-in-asia",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F045",
+      "claim": "John Hay sent the first Open Door Note in September 1899 to powers with interests in China.",
+      "sourceIds": [
+        "CP007-S11"
+      ],
+      "sourceLocator": "Imperialism in Asia",
+      "relationshipType": "imperialism-in-asia",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F046",
+      "claim": "The Boxer movement opposed foreign influence and missionary activity; its causes and participants were varied.",
+      "sourceIds": [
+        "CP007-S10",
+        "CP007-S11"
+      ],
+      "sourceLocator": "Imperialism in Asia",
+      "relationshipType": "imperialism-in-asia",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F047",
+      "claim": "The Netherlands governed the Dutch East Indies, centred on the Indonesian archipelago.",
+      "sourceIds": [
+        "CP007-S13"
+      ],
+      "sourceLocator": "Imperialism in Asia",
+      "relationshipType": "imperialism-in-asia",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F048",
+      "claim": "The policy advocated equal trade access but did not immediately remove existing foreign spheres, leased territories or privileges.",
+      "sourceIds": [
+        "CP007-S11"
+      ],
+      "sourceLocator": "Imperialism in Asia",
+      "relationshipType": "imperialism-in-asia",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F049",
+      "claim": "Leopold II ruled the Congo Free State, whereas Ethiopia’s victory over Italy at Adwa preserved its independence at that time.",
+      "sourceIds": [
+        "CP007-S03",
+        "CP007-S09"
+      ],
+      "sourceLocator": "Comparison",
+      "relationshipType": "comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F050",
+      "claim": "The Berlin Conference of 1884–85 concerned Africa, while the Congress of Berlin of 1878 revised the postwar settlement in the Balkans.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S02"
+      ],
+      "sourceLocator": "Comparison",
+      "relationshipType": "comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F051",
+      "claim": "Annexation and spheres of influence describe different forms of control, although both could constrain the affected society’s sovereignty.",
+      "sourceIds": [
+        "CP007-S02",
+        "CP007-S11"
+      ],
+      "sourceLocator": "Comparison",
+      "relationshipType": "comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F052",
+      "claim": "Imperial control took different forms: formal colonial rule was widespread in Africa, while foreign powers also claimed privileges and spheres in China.",
+      "sourceIds": [
+        "CP007-S05",
+        "CP007-S11"
+      ],
+      "sourceLocator": "Comparison",
+      "relationshipType": "comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F053",
+      "claim": "The Berlin Act addressed rules in the Congo and Niger regions; the Open Door Notes proposed equal trading opportunity in China.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S11"
+      ],
+      "sourceLocator": "Comparison",
+      "relationshipType": "comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F054",
+      "claim": "Adwa preserved Ethiopian independence after victory over Italy; Maji Maji resisted German colonial rule but was suppressed.",
+      "sourceIds": [
+        "CP007-S08",
+        "CP007-S09"
+      ],
+      "sourceLocator": "Comparison",
+      "relationshipType": "comparison",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F055",
+      "claim": "Colonial boundary-making often disregarded existing political and social arrangements, contributing to later disputes and political challenges.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S07"
+      ],
+      "sourceLocator": "Consequence and synthesis",
+      "relationshipType": "consequence-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F056",
+      "claim": "Colonial economies were frequently reorganised around extraction and export, though patterns differed by colony.",
+      "sourceIds": [
+        "CP007-S05",
+        "CP007-S06"
+      ],
+      "sourceLocator": "Consequence and synthesis",
+      "relationshipType": "consequence-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F057",
+      "claim": "The conference did not complete the partition; powers continued to occupy territory and negotiate boundaries afterward.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S02"
+      ],
+      "sourceLocator": "Consequence and synthesis",
+      "relationshipType": "consequence-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F058",
+      "claim": "Imperialism changed political and economic structures in diverse ways; local conditions and forms of resistance produced varied outcomes.",
+      "sourceIds": [
+        "CP007-S05",
+        "CP007-S06",
+        "CP007-S07"
+      ],
+      "sourceLocator": "Consequence and synthesis",
+      "relationshipType": "consequence-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F059",
+      "claim": "Adwa demonstrates that African resistance could defeat a colonial campaign; other struggles, such as Maji Maji, had different outcomes.",
+      "sourceIds": [
+        "CP007-S07",
+        "CP007-S08",
+        "CP007-S09"
+      ],
+      "sourceLocator": "Consequence and synthesis",
+      "relationshipType": "consequence-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    },
+    {
+      "factId": "WHI-CP007-F060",
+      "claim": "Imperial expansion varied by region and method; formal rule, spheres of influence, diplomacy, resistance and later boundary changes all shaped outcomes.",
+      "sourceIds": [
+        "CP007-S01",
+        "CP007-S05",
+        "CP007-S07",
+        "CP007-S11"
+      ],
+      "sourceLocator": "Consequence and synthesis",
+      "relationshipType": "consequence-and-synthesis",
+      "reviewStatus": "source-linked; editorial review pending"
+    }
+  ]
+}

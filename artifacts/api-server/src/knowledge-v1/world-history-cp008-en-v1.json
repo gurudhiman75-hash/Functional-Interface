@@ -1,0 +1,2153 @@
+[
+  {
+    "questionId": "WHI-CP008-Q001",
+    "englishQuestionId": "WHI-CP008-Q001",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F001",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Causes and alliances",
+    "stem": "Which long-term factor contributed to tensions before the First World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Rivalry among European powers over empire and influence"
+      },
+      {
+        "key": "B",
+        "text": "The creation of the United Nations"
+      },
+      {
+        "key": "C",
+        "text": "The dissolution of the Ottoman Empire after 1945"
+      },
+      {
+        "key": "D",
+        "text": "The end of industrial competition"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Imperial rivalry contributed to tensions, alongside militarism, alliance systems and nationalism; historians do not treat one factor as the sole cause.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q002",
+    "englishQuestionId": "WHI-CP008-Q002",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F002",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Causes and alliances",
+    "stem": "Which countries formed the Triple Entente before the First World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Germany, Italy and Austria-Hungary"
+      },
+      {
+        "key": "B",
+        "text": "Britain, France and Russia"
+      },
+      {
+        "key": "C",
+        "text": "Britain, Germany and the Ottoman Empire"
+      },
+      {
+        "key": "D",
+        "text": "France, Italy and Serbia"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Triple Entente linked Britain, France and Russia before the war.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q003",
+    "englishQuestionId": "WHI-CP008-Q003",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F003",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Causes and alliances",
+    "stem": "Which states were members of the Triple Alliance before the war began?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Britain, France and Russia"
+      },
+      {
+        "key": "B",
+        "text": "Germany, Russia and Serbia"
+      },
+      {
+        "key": "C",
+        "text": "Germany, Austria-Hungary and Italy"
+      },
+      {
+        "key": "D",
+        "text": "France, Italy and Belgium"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The prewar Triple Alliance comprised Germany, Austria-Hungary and Italy; Italy later joined the Allies in 1915.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q004",
+    "englishQuestionId": "WHI-CP008-Q004",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F004",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Causes and alliances",
+    "stem": "Why did the alliance system contribute to the widening of the 1914 crisis?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It required every country to remain neutral"
+      },
+      {
+        "key": "B",
+        "text": "It prevented mobilisation by member states"
+      },
+      {
+        "key": "C",
+        "text": "It replaced national armies with one European force"
+      },
+      {
+        "key": "D",
+        "text": "It could draw additional powers into a conflict between Austria-Hungary and Serbia"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Alliance commitments and strategic calculations helped widen the conflict, though they did not make war automatic.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q005",
+    "englishQuestionId": "WHI-CP008-Q005",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F005",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Causes and alliances",
+    "stem": "Which statement about militarism before 1914 is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Military planning and arms competition formed part of the broader climate of tension"
+      },
+      {
+        "key": "B",
+        "text": "It meant European states had abolished their armies"
+      },
+      {
+        "key": "C",
+        "text": "It was a policy adopted only after the 1918 armistice"
+      },
+      {
+        "key": "D",
+        "text": "It required Britain and Germany to share one navy"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Military planning and an arms race contributed to tension, particularly among the great powers.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q006",
+    "englishQuestionId": "WHI-CP008-Q006",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F006",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Causes and alliances",
+    "stem": "Which statement best explains the role of nationalism before 1914?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Nationalism had disappeared from European politics"
+      },
+      {
+        "key": "B",
+        "text": "Nationalist demands and rivalries affected several regions and could intensify international tensions"
+      },
+      {
+        "key": "C",
+        "text": "It applied only to overseas colonies"
+      },
+      {
+        "key": "D",
+        "text": "It made the alliance system irrelevant"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Nationalism affected both great-power rivalry and movements within multiethnic empires; it interacted with other causes.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q007",
+    "englishQuestionId": "WHI-CP008-Q007",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F007",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Causes and alliances",
+    "stem": "Which pair names two long-term causes often used to explain the outbreak of the First World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Marshall Plan and NATO"
+      },
+      {
+        "key": "B",
+        "text": "The Berlin blockade and decolonisation"
+      },
+      {
+        "key": "C",
+        "text": "Alliance rivalry and militarism"
+      },
+      {
+        "key": "D",
+        "text": "The Treaty of Rome and the Cold War"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Alliance rivalry and militarism are two of the long-term factors commonly discussed alongside imperialism and nationalism.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q008",
+    "englishQuestionId": "WHI-CP008-Q008",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F008",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Causes and alliances",
+    "stem": "Which conclusion about the causes of the First World War is best supported?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The assassination alone explains every cause of the war"
+      },
+      {
+        "key": "B",
+        "text": "A treaty signed in 1919 caused the war in 1914"
+      },
+      {
+        "key": "C",
+        "text": "The war began because all European states belonged to one alliance"
+      },
+      {
+        "key": "D",
+        "text": "Several long-term tensions interacted with the July Crisis; no single cause alone explains the outbreak"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The war grew from interacting long-term tensions and a specific diplomatic crisis; reducing it to one cause oversimplifies the evidence.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q009",
+    "englishQuestionId": "WHI-CP008-Q009",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F009",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Crisis and outbreak",
+    "stem": "Who was assassinated at Sarajevo on 28 June 1914?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Archduke Franz Ferdinand of Austria-Hungary"
+      },
+      {
+        "key": "B",
+        "text": "Kaiser Wilhelm II of Germany"
+      },
+      {
+        "key": "C",
+        "text": "Tsar Nicholas II of Russia"
+      },
+      {
+        "key": "D",
+        "text": "King George V of Britain"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Archduke Franz Ferdinand, heir to the Austro-Hungarian throne, was assassinated in Sarajevo on 28 June 1914.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q010",
+    "englishQuestionId": "WHI-CP008-Q010",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F010",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Crisis and outbreak",
+    "stem": "Which organisation did Gavrilo Princip belong to?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Young Italy"
+      },
+      {
+        "key": "B",
+        "text": "Young Bosnia"
+      },
+      {
+        "key": "C",
+        "text": "The Bolshevik Party"
+      },
+      {
+        "key": "D",
+        "text": "The League of Nations"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Princip was associated with Young Bosnia, a revolutionary nationalist movement in Bosnia.",
+    "sourceIds": [
+      "CP008-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q011",
+    "englishQuestionId": "WHI-CP008-Q011",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F011",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Crisis and outbreak",
+    "stem": "When did Austria-Hungary declare war on Serbia in 1914?",
+    "options": [
+      {
+        "key": "A",
+        "text": "28 June"
+      },
+      {
+        "key": "B",
+        "text": "1 August"
+      },
+      {
+        "key": "C",
+        "text": "28 July"
+      },
+      {
+        "key": "D",
+        "text": "11 November"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Austria-Hungary declared war on Serbia on 28 July 1914, one month after the assassination.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q012",
+    "englishQuestionId": "WHI-CP008-Q012",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F012",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Crisis and outbreak",
+    "stem": "What did Austria-Hungary send to Serbia on 23 July 1914?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A treaty of alliance"
+      },
+      {
+        "key": "B",
+        "text": "An armistice proposal"
+      },
+      {
+        "key": "C",
+        "text": "A declaration of neutrality"
+      },
+      {
+        "key": "D",
+        "text": "An ultimatum with extensive demands"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Austria-Hungary delivered an ultimatum to Serbia on 23 July; the response and subsequent decisions formed part of the July Crisis.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q013",
+    "englishQuestionId": "WHI-CP008-Q013",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F013",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Crisis and outbreak",
+    "stem": "Which state did Germany declare war on first in August 1914?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Russia"
+      },
+      {
+        "key": "B",
+        "text": "Britain"
+      },
+      {
+        "key": "C",
+        "text": "Italy"
+      },
+      {
+        "key": "D",
+        "text": "The Ottoman Empire"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Germany declared war on Russia on 1 August 1914, followed by declarations on France and Belgium’s invasion.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q014",
+    "englishQuestionId": "WHI-CP008-Q014",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F014",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Crisis and outbreak",
+    "stem": "Why did Britain enter the war against Germany in August 1914?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Germany had invaded Canada"
+      },
+      {
+        "key": "B",
+        "text": "Germany’s invasion of Belgium was a central immediate factor in Britain’s declaration"
+      },
+      {
+        "key": "C",
+        "text": "Britain had signed the Treaty of Versailles"
+      },
+      {
+        "key": "D",
+        "text": "The United States requested it to join"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Germany invaded Belgium on 4 August; Britain declared war later that day, with strategic and treaty considerations involved.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q015",
+    "englishQuestionId": "WHI-CP008-Q015",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F015",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Crisis and outbreak",
+    "stem": "Which sequence correctly orders the opening of the July Crisis?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ultimatum → assassination → declaration of war"
+      },
+      {
+        "key": "B",
+        "text": "Declaration of war → assassination → ultimatum"
+      },
+      {
+        "key": "C",
+        "text": "Assassination at Sarajevo → Austro-Hungarian ultimatum to Serbia → Austria-Hungary declares war on Serbia"
+      },
+      {
+        "key": "D",
+        "text": "Assassination → declaration of war → ultimatum"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The assassination occurred on 28 June, the ultimatum was delivered on 23 July, and Austria-Hungary declared war on 28 July 1914.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S02"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q016",
+    "englishQuestionId": "WHI-CP008-Q016",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F016",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Crisis and outbreak",
+    "stem": "What turned the conflict between Austria-Hungary and Serbia into a wider European war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A unanimous vote of the League of Nations"
+      },
+      {
+        "key": "B",
+        "text": "The signing of the Treaty of Versailles"
+      },
+      {
+        "key": "C",
+        "text": "The withdrawal of all great powers from Europe"
+      },
+      {
+        "key": "D",
+        "text": "Mobilisation, declarations of war and alliance decisions involving other powers"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Mobilisation and a chain of diplomatic and military decisions widened the crisis; the process was not simply an automatic treaty mechanism.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q017",
+    "englishQuestionId": "WHI-CP008-Q017",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F017",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Fronts and battles",
+    "stem": "On which front was the trench warfare of the Western Front concentrated?",
+    "options": [
+      {
+        "key": "A",
+        "text": "In Belgium and northern France"
+      },
+      {
+        "key": "B",
+        "text": "In Siberia and Mongolia"
+      },
+      {
+        "key": "C",
+        "text": "Along the Pacific coast of China"
+      },
+      {
+        "key": "D",
+        "text": "In the Alps between Italy and Switzerland only"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Western Front ran principally through Belgium and northern France and became associated with entrenched warfare.",
+    "sourceIds": [
+      "CP008-S02",
+      "CP008-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q018",
+    "englishQuestionId": "WHI-CP008-Q018",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F018",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Fronts and battles",
+    "stem": "Which battle on the Western Front began in February 1916?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Gallipoli"
+      },
+      {
+        "key": "B",
+        "text": "Verdun"
+      },
+      {
+        "key": "C",
+        "text": "Tannenberg"
+      },
+      {
+        "key": "D",
+        "text": "Jutland"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Battle of Verdun began in February 1916 and continued until December.",
+    "sourceIds": [
+      "CP008-S08",
+      "CP008-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q019",
+    "englishQuestionId": "WHI-CP008-Q019",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F019",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Fronts and battles",
+    "stem": "When did the Battle of the Somme begin?",
+    "options": [
+      {
+        "key": "A",
+        "text": "28 June 1914"
+      },
+      {
+        "key": "B",
+        "text": "11 November 1918"
+      },
+      {
+        "key": "C",
+        "text": "1 July 1916"
+      },
+      {
+        "key": "D",
+        "text": "3 March 1918"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Somme offensive began on 1 July 1916 on the Western Front.",
+    "sourceIds": [
+      "CP008-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q020",
+    "englishQuestionId": "WHI-CP008-Q020",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F020",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Fronts and battles",
+    "stem": "What was the main strategic aim of the Allied Gallipoli campaign?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Capture Berlin from the west"
+      },
+      {
+        "key": "B",
+        "text": "Reach the Russian capital by land from France"
+      },
+      {
+        "key": "C",
+        "text": "Protect the Suez Canal from an Italian invasion"
+      },
+      {
+        "key": "D",
+        "text": "Open a sea route through the Dardanelles and pressure the Ottoman Empire"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The campaign aimed to force the Dardanelles, threaten Constantinople and open a supply route to Russia.",
+    "sourceIds": [
+      "CP008-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q021",
+    "englishQuestionId": "WHI-CP008-Q021",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F021",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Fronts and battles",
+    "stem": "Which battle took place on the Eastern Front in 1914 and became an early German victory over Russia?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Tannenberg"
+      },
+      {
+        "key": "B",
+        "text": "The Somme"
+      },
+      {
+        "key": "C",
+        "text": "Gallipoli"
+      },
+      {
+        "key": "D",
+        "text": "Passchendaele"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "German forces defeated Russian armies at Tannenberg in August 1914.",
+    "sourceIds": [
+      "CP008-S05",
+      "CP008-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q022",
+    "englishQuestionId": "WHI-CP008-Q022",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F022",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Fronts and battles",
+    "stem": "Which naval battle in 1916 was fought between the British and German fleets?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Verdun"
+      },
+      {
+        "key": "B",
+        "text": "Jutland"
+      },
+      {
+        "key": "C",
+        "text": "Tannenberg"
+      },
+      {
+        "key": "D",
+        "text": "Gallipoli"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Battle of Jutland took place in the North Sea in 1916 between the main British and German fleets.",
+    "sourceIds": [
+      "CP008-S05",
+      "CP008-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q023",
+    "englishQuestionId": "WHI-CP008-Q023",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F023",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Fronts and battles",
+    "stem": "What characterised much of the Western Front between 1914 and 1918?",
+    "options": [
+      {
+        "key": "A",
+        "text": "A continuous mobile advance across the entire front"
+      },
+      {
+        "key": "B",
+        "text": "A ceasefire that lasted from 1914 to 1918"
+      },
+      {
+        "key": "C",
+        "text": "Trench lines and repeated offensives with heavy losses"
+      },
+      {
+        "key": "D",
+        "text": "Naval blockades without land fighting"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Long trench systems and repeated offensives marked much of the Western Front, though tactics and front conditions changed over time.",
+    "sourceIds": [
+      "CP008-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q024",
+    "englishQuestionId": "WHI-CP008-Q024",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F024",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Fronts and battles",
+    "stem": "Which sequence correctly orders the opening of three major battles?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Somme → Gallipoli → Verdun"
+      },
+      {
+        "key": "B",
+        "text": "Verdun → Somme → Gallipoli"
+      },
+      {
+        "key": "C",
+        "text": "Gallipoli → Somme → Verdun"
+      },
+      {
+        "key": "D",
+        "text": "Gallipoli (1915) → Verdun (February 1916) → Somme (July 1916)"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Gallipoli campaign began in 1915, followed by Verdun in February 1916 and the Somme in July 1916.",
+    "sourceIds": [
+      "CP008-S08",
+      "CP008-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q025",
+    "englishQuestionId": "WHI-CP008-Q025",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F025",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Warfare and turning points",
+    "stem": "Which automatic weapon made exposed infantry especially vulnerable during trench warfare?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The machine gun"
+      },
+      {
+        "key": "B",
+        "text": "The longbow"
+      },
+      {
+        "key": "C",
+        "text": "The crossbow"
+      },
+      {
+        "key": "D",
+        "text": "The bronze chariot"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Machine guns, artillery and barbed wire made attacks across exposed ground especially dangerous.",
+    "sourceIds": [
+      "CP008-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q026",
+    "englishQuestionId": "WHI-CP008-Q026",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F026",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Warfare and turning points",
+    "stem": "What was the purpose of unrestricted submarine warfare announced by Germany in 1917?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To protect all neutral merchant ships"
+      },
+      {
+        "key": "B",
+        "text": "To attack shipping without the earlier restrictions on warning or targeting"
+      },
+      {
+        "key": "C",
+        "text": "To end the naval blockade of Germany"
+      },
+      {
+        "key": "D",
+        "text": "To transfer the German fleet to the United States"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Germany resumed unrestricted submarine warfare in 1917, increasing risks to neutral and Allied shipping.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q027",
+    "englishQuestionId": "WHI-CP008-Q027",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F027",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Warfare and turning points",
+    "stem": "When were tanks first used by British forces in battle during the war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "At Verdun in February 1916"
+      },
+      {
+        "key": "B",
+        "text": "At Gallipoli in April 1915"
+      },
+      {
+        "key": "C",
+        "text": "At the Somme in September 1916"
+      },
+      {
+        "key": "D",
+        "text": "At the armistice in November 1918"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "British tanks were first used in battle during the Somme campaign in September 1916.",
+    "sourceIds": [
+      "CP008-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q028",
+    "englishQuestionId": "WHI-CP008-Q028",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F028",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Warfare and turning points",
+    "stem": "Which comparison between Verdun and the Somme is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both were fought against the Ottoman Empire at sea"
+      },
+      {
+        "key": "B",
+        "text": "Verdun took place after the 1918 armistice"
+      },
+      {
+        "key": "C",
+        "text": "The Somme preceded the assassination at Sarajevo"
+      },
+      {
+        "key": "D",
+        "text": "Both were major Western Front battles in 1916, but they began at different times and had distinct operational aims"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Verdun began in February 1916; the Somme began in July. Both became major and costly Western Front battles.",
+    "sourceIds": [
+      "CP008-S08",
+      "CP008-S09"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q029",
+    "englishQuestionId": "WHI-CP008-Q029",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F029",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Global participation and home fronts",
+    "stem": "Which empire joined the Central Powers during the First World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ottoman Empire"
+      },
+      {
+        "key": "B",
+        "text": "Mughal Empire"
+      },
+      {
+        "key": "C",
+        "text": "Mali Empire"
+      },
+      {
+        "key": "D",
+        "text": "Austro-Hungarian Empire’s former ally Italy"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Ottoman Empire entered the war on the side of the Central Powers in 1914.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q030",
+    "englishQuestionId": "WHI-CP008-Q030",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F030",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Global participation and home fronts",
+    "stem": "When did the United States declare war on Germany?",
+    "options": [
+      {
+        "key": "A",
+        "text": "August 1914"
+      },
+      {
+        "key": "B",
+        "text": "April 1917"
+      },
+      {
+        "key": "C",
+        "text": "November 1918"
+      },
+      {
+        "key": "D",
+        "text": "June 1919"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The United States declared war on Germany in April 1917.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q031",
+    "englishQuestionId": "WHI-CP008-Q031",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F031",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Global participation and home fronts",
+    "stem": "Which development was one factor in the United States’ 1917 decision to enter the war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The signing of the Treaty of Versailles"
+      },
+      {
+        "key": "B",
+        "text": "The outbreak of the Russian Civil War in 1918"
+      },
+      {
+        "key": "C",
+        "text": "Germany’s resumption of unrestricted submarine warfare"
+      },
+      {
+        "key": "D",
+        "text": "The creation of the League of Nations"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Unrestricted submarine warfare was a major factor; the Zimmermann Telegram and other considerations also shaped U.S. policy.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q032",
+    "englishQuestionId": "WHI-CP008-Q032",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F032",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Global participation and home fronts",
+    "stem": "What did wartime mobilisation mean for many civilian economies?",
+    "options": [
+      {
+        "key": "A",
+        "text": "All factories closed for the duration"
+      },
+      {
+        "key": "B",
+        "text": "International trade ended completely"
+      },
+      {
+        "key": "C",
+        "text": "Women were excluded from every wartime job"
+      },
+      {
+        "key": "D",
+        "text": "Governments redirected labour and production toward the war effort"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Wartime governments mobilised industry, labour and resources on a large scale; experiences differed by country.",
+    "sourceIds": [
+      "CP008-S05",
+      "CP008-S08"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q033",
+    "englishQuestionId": "WHI-CP008-Q033",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F033",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Global participation and home fronts",
+    "stem": "Which statement about colonial troops in the First World War is accurate?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Soldiers and labourers from European empires served in multiple theatres"
+      },
+      {
+        "key": "B",
+        "text": "They served only after the war ended"
+      },
+      {
+        "key": "C",
+        "text": "They fought exclusively on the Western Front"
+      },
+      {
+        "key": "D",
+        "text": "No colonial subjects took part in the war"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "People from imperial territories served as soldiers and labourers across several fronts and theatres.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q034",
+    "englishQuestionId": "WHI-CP008-Q034",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F034",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Global participation and home fronts",
+    "stem": "Which region was part of the Middle Eastern theatre of the war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Manchuria"
+      },
+      {
+        "key": "B",
+        "text": "Mesopotamia"
+      },
+      {
+        "key": "C",
+        "text": "Siberia only"
+      },
+      {
+        "key": "D",
+        "text": "The Rhine valley"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Mesopotamian campaign was one of the war’s Middle Eastern theatres.",
+    "sourceIds": [
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q035",
+    "englishQuestionId": "WHI-CP008-Q035",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F035",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Global participation and home fronts",
+    "stem": "Which statement best captures the global character of the First World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It was fought only between France and Germany"
+      },
+      {
+        "key": "B",
+        "text": "It involved no naval or overseas campaigns"
+      },
+      {
+        "key": "C",
+        "text": "It involved empires, colonies, overseas theatres and economic mobilisation beyond Europe"
+      },
+      {
+        "key": "D",
+        "text": "It ended before the Ottoman Empire joined"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The conflict extended beyond Europe through imperial forces, overseas campaigns, naval operations and global economic mobilisation.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q036",
+    "englishQuestionId": "WHI-CP008-Q036",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F036",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Global participation and home fronts",
+    "stem": "Which pair correctly matches a development with its year?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Armistice — 1916"
+      },
+      {
+        "key": "B",
+        "text": "Treaty of Versailles — 1918"
+      },
+      {
+        "key": "C",
+        "text": "Bolshevik seizure of power — 1914"
+      },
+      {
+        "key": "D",
+        "text": "U.S. entry into the war — 1917"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The United States entered the war in 1917; the armistice followed in 1918 and the Treaty of Versailles in 1919.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S05",
+      "CP008-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q037",
+    "englishQuestionId": "WHI-CP008-Q037",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F037",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Turning points and armistice",
+    "stem": "On what date did the armistice ending the fighting on the Western Front take effect?",
+    "options": [
+      {
+        "key": "A",
+        "text": "11 November 1918"
+      },
+      {
+        "key": "B",
+        "text": "28 June 1919"
+      },
+      {
+        "key": "C",
+        "text": "1 July 1916"
+      },
+      {
+        "key": "D",
+        "text": "3 March 1918"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The armistice took effect on 11 November 1918.",
+    "sourceIds": [
+      "CP008-S03",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q038",
+    "englishQuestionId": "WHI-CP008-Q038",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F038",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Turning points and armistice",
+    "stem": "Which event led Russia to leave the First World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The February Revolution restored Nicholas II"
+      },
+      {
+        "key": "B",
+        "text": "The Bolshevik government signed the Treaty of Brest-Litovsk"
+      },
+      {
+        "key": "C",
+        "text": "The Treaty of Versailles was signed"
+      },
+      {
+        "key": "D",
+        "text": "The United States entered the war"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Bolshevik government negotiated a separate peace with Germany at Brest-Litovsk in March 1918.",
+    "sourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q039",
+    "englishQuestionId": "WHI-CP008-Q039",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F039",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Treaty and settlement",
+    "stem": "What was the date of the Treaty of Versailles with Germany?",
+    "options": [
+      {
+        "key": "A",
+        "text": "11 November 1918"
+      },
+      {
+        "key": "B",
+        "text": "3 March 1918"
+      },
+      {
+        "key": "C",
+        "text": "28 June 1919"
+      },
+      {
+        "key": "D",
+        "text": "28 July 1914"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The Treaty of Versailles was signed on 28 June 1919, months after the armistice ended the fighting.",
+    "sourceIds": [
+      "CP008-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q040",
+    "englishQuestionId": "WHI-CP008-Q040",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F040",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Treaty and settlement",
+    "stem": "Which statement distinguishes an armistice from a peace treaty?",
+    "options": [
+      {
+        "key": "A",
+        "text": "An armistice creates a new empire; a peace treaty declares war"
+      },
+      {
+        "key": "B",
+        "text": "Both terms mean the same thing"
+      },
+      {
+        "key": "C",
+        "text": "A peace treaty must be signed before fighting begins"
+      },
+      {
+        "key": "D",
+        "text": "An armistice stops fighting; a peace treaty sets formal postwar terms"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The 11 November 1918 armistice ended active fighting; the 1919 peace treaties established formal settlements.",
+    "sourceIds": [
+      "CP008-S03",
+      "CP008-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q041",
+    "englishQuestionId": "WHI-CP008-Q041",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F041",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Turning points and armistice",
+    "stem": "Which event took place in 1917 and helped alter the military balance of the war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The United States entered the war while Russia underwent revolution"
+      },
+      {
+        "key": "B",
+        "text": "The Treaty of Versailles was signed"
+      },
+      {
+        "key": "C",
+        "text": "The armistice ended the war"
+      },
+      {
+        "key": "D",
+        "text": "Germany invaded Poland"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The United States entered the war in 1917, while revolution in Russia led to a later withdrawal from the conflict.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q042",
+    "englishQuestionId": "WHI-CP008-Q042",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F042",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Turning points and armistice",
+    "stem": "When did the German Spring Offensive begin?",
+    "options": [
+      {
+        "key": "A",
+        "text": "June 1914"
+      },
+      {
+        "key": "B",
+        "text": "March 1918"
+      },
+      {
+        "key": "C",
+        "text": "February 1916"
+      },
+      {
+        "key": "D",
+        "text": "November 1918"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "Germany began its major Spring Offensive in March 1918 after Russia’s withdrawal enabled the transfer of forces west.",
+    "sourceIds": [
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q043",
+    "englishQuestionId": "WHI-CP008-Q043",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F043",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Treaty and settlement",
+    "stem": "Which sequence correctly orders the end of the war and the peace settlement with Germany?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Treaty of Versailles → Brest-Litovsk → armistice"
+      },
+      {
+        "key": "B",
+        "text": "Armistice → Treaty of Versailles → Brest-Litovsk"
+      },
+      {
+        "key": "C",
+        "text": "Brest-Litovsk (March 1918) → armistice (November 1918) → Treaty of Versailles (June 1919)"
+      },
+      {
+        "key": "D",
+        "text": "Brest-Litovsk → Treaty of Versailles → armistice"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Russia’s separate peace came in March 1918, the armistice in November 1918, and the Versailles treaty in June 1919.",
+    "sourceIds": [
+      "CP008-S03",
+      "CP008-S05",
+      "CP008-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q044",
+    "englishQuestionId": "WHI-CP008-Q044",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F044",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Treaty and settlement",
+    "stem": "Why should the armistice and the Treaty of Versailles not be treated as the same event?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Treaty ended the war before the armistice began"
+      },
+      {
+        "key": "B",
+        "text": "The armistice applied only to Russia and Versailles only to Italy"
+      },
+      {
+        "key": "C",
+        "text": "Both were signed in 1914"
+      },
+      {
+        "key": "D",
+        "text": "They occurred on different dates and served different purposes: one stopped fighting, the other set peace terms"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The armistice stopped fighting in November 1918; the Versailles treaty established terms with Germany in June 1919.",
+    "sourceIds": [
+      "CP008-S03",
+      "CP008-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q045",
+    "englishQuestionId": "WHI-CP008-Q045",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F045",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Russian Revolution chronology",
+    "stem": "Which Russian ruler abdicated during the February Revolution of 1917?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Nicholas II"
+      },
+      {
+        "key": "B",
+        "text": "Alexander II"
+      },
+      {
+        "key": "C",
+        "text": "Peter the Great"
+      },
+      {
+        "key": "D",
+        "text": "Nicholas I"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Nicholas II abdicated in March 1917 by the Gregorian calendar, during the revolution known in Russia as the February Revolution under the Julian calendar.",
+    "sourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q046",
+    "englishQuestionId": "WHI-CP008-Q046",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F046",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Russian Revolution chronology",
+    "stem": "Which government replaced the tsarist monarchy after the February Revolution?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The German Empire"
+      },
+      {
+        "key": "B",
+        "text": "The Provisional Government"
+      },
+      {
+        "key": "C",
+        "text": "The North German Confederation"
+      },
+      {
+        "key": "D",
+        "text": "The League of Nations"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The Provisional Government assumed authority after Nicholas II’s abdication, alongside the growing influence of the soviets.",
+    "sourceIds": [
+      "CP008-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q047",
+    "englishQuestionId": "WHI-CP008-Q047",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F047",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Russian Revolution chronology",
+    "stem": "Why is the February Revolution also dated to March 1917 in many accounts?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The revolution lasted until March 1918"
+      },
+      {
+        "key": "B",
+        "text": "The event occurred in two different Russian capitals"
+      },
+      {
+        "key": "C",
+        "text": "Russia then used the Julian calendar, which was 13 days behind the Gregorian calendar"
+      },
+      {
+        "key": "D",
+        "text": "All European countries used the Julian calendar"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The February Revolution’s dates are often given in both styles: February in the Julian calendar and March in the Gregorian calendar.",
+    "sourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q048",
+    "englishQuestionId": "WHI-CP008-Q048",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F048",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Russian Revolution chronology",
+    "stem": "What political arrangement is often called “dual power” in Russia in 1917?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The tsar and the German emperor ruled jointly"
+      },
+      {
+        "key": "B",
+        "text": "Two monarchs governed Moscow and Petrograd"
+      },
+      {
+        "key": "C",
+        "text": "The League of Nations shared authority with the Bolsheviks"
+      },
+      {
+        "key": "D",
+        "text": "The Provisional Government and the Petrograd Soviet both claimed political authority"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The Provisional Government and the Petrograd Soviet were competing centres of authority after the February Revolution.",
+    "sourceIds": [
+      "CP008-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q049",
+    "englishQuestionId": "WHI-CP008-Q049",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F049",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Russian Revolution chronology",
+    "stem": "Which group seized power in Petrograd during the October Revolution?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Bolsheviks"
+      },
+      {
+        "key": "B",
+        "text": "The Mensheviks alone"
+      },
+      {
+        "key": "C",
+        "text": "The White Army"
+      },
+      {
+        "key": "D",
+        "text": "The Provisional Government"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "Bolshevik forces overthrew the Provisional Government in Petrograd in November 1917 by the Gregorian calendar.",
+    "sourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q050",
+    "englishQuestionId": "WHI-CP008-Q050",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F050",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Russian Revolution chronology",
+    "stem": "Which sequence correctly orders the Russian Revolutions and Russia’s exit from the war?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Brest-Litovsk → February Revolution → Bolshevik seizure of power"
+      },
+      {
+        "key": "B",
+        "text": "February Revolution → Bolshevik seizure of power → Treaty of Brest-Litovsk"
+      },
+      {
+        "key": "C",
+        "text": "Bolshevik seizure of power → Treaty of Brest-Litovsk → February Revolution"
+      },
+      {
+        "key": "D",
+        "text": "February Revolution → Brest-Litovsk → Bolshevik seizure of power"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The February Revolution came first in 1917, the Bolsheviks seized power later that year, and the treaty was signed in March 1918.",
+    "sourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q051",
+    "englishQuestionId": "WHI-CP008-Q051",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F051",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Bolshevik policy and institutions",
+    "stem": "Which slogan summarised Bolshevik demands in 1917?",
+    "options": [
+      {
+        "key": "A",
+        "text": "“Blood, Toil, Tears and Sweat”"
+      },
+      {
+        "key": "B",
+        "text": "“Liberty, Equality, Fraternity”"
+      },
+      {
+        "key": "C",
+        "text": "“Peace, Land and Bread”"
+      },
+      {
+        "key": "D",
+        "text": "“Workers of the world, go home”"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Bolshevik slogans addressed demands for peace, land and relief from shortages; wording and emphasis varied across campaigns.",
+    "sourceIds": [
+      "CP008-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q052",
+    "englishQuestionId": "WHI-CP008-Q052",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F052",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Bolshevik policy and institutions",
+    "stem": "Which decree did the Bolsheviks issue soon after taking power in 1917?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Edict of Nantes"
+      },
+      {
+        "key": "B",
+        "text": "Corn Laws"
+      },
+      {
+        "key": "C",
+        "text": "Navigation Act"
+      },
+      {
+        "key": "D",
+        "text": "Decree on Peace"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "The new Bolshevik government issued a Decree on Peace calling for an end to the war and negotiations.",
+    "sourceIds": [
+      "CP008-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q053",
+    "englishQuestionId": "WHI-CP008-Q053",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F053",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Bolshevik policy and institutions",
+    "stem": "What did the Bolshevik Decree on Land address?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The transfer of land from large estates to peasant control"
+      },
+      {
+        "key": "B",
+        "text": "The restoration of serfdom"
+      },
+      {
+        "key": "C",
+        "text": "The creation of German colonies"
+      },
+      {
+        "key": "D",
+        "text": "The division of the Ottoman Empire"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The Decree on Land endorsed redistribution and the seizure of landed estates, reflecting peasant demands.",
+    "sourceIds": [
+      "CP008-S04"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q054",
+    "englishQuestionId": "WHI-CP008-Q054",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F054",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Bolshevik policy and institutions",
+    "stem": "What was the main consequence of the Treaty of Brest-Litovsk for Russia?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It brought Russia into the war against Germany"
+      },
+      {
+        "key": "B",
+        "text": "It ended Russia’s participation in the First World War at a high territorial cost"
+      },
+      {
+        "key": "C",
+        "text": "It established the League of Nations"
+      },
+      {
+        "key": "D",
+        "text": "It united Russia with Austria-Hungary"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The treaty ended Russia’s war with the Central Powers but required substantial territorial concessions.",
+    "sourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q055",
+    "englishQuestionId": "WHI-CP008-Q055",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F055",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Bolshevik policy and institutions",
+    "stem": "Which power signed the Treaty of Brest-Litovsk with Soviet Russia in March 1918?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Britain"
+      },
+      {
+        "key": "B",
+        "text": "France"
+      },
+      {
+        "key": "C",
+        "text": "Germany"
+      },
+      {
+        "key": "D",
+        "text": "Italy"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "Germany signed the treaty with Soviet Russia on 3 March 1918.",
+    "sourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q056",
+    "englishQuestionId": "WHI-CP008-Q056",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F056",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Bolshevik policy and institutions",
+    "stem": "Which event followed Russia’s withdrawal from the First World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The armistice immediately ended fighting on every front"
+      },
+      {
+        "key": "B",
+        "text": "The United States left the war"
+      },
+      {
+        "key": "C",
+        "text": "The Treaty of Versailles was signed the next day"
+      },
+      {
+        "key": "D",
+        "text": "Germany could transfer forces from the Eastern Front, although the war continued elsewhere"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Russia’s exit freed German forces for the Western Front, but fighting continued until the November 1918 armistice.",
+    "sourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q057",
+    "englishQuestionId": "WHI-CP008-Q057",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F057",
+    "language": "en",
+    "difficulty": "medium",
+    "questionFamily": "Integrated synthesis",
+    "stem": "Which sequence correctly places the assassination, the United States’ entry and the armistice?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Sarajevo assassination (1914) → U.S. entry (1917) → armistice (1918)"
+      },
+      {
+        "key": "B",
+        "text": "U.S. entry → Sarajevo assassination → armistice"
+      },
+      {
+        "key": "C",
+        "text": "Armistice → Sarajevo assassination → U.S. entry"
+      },
+      {
+        "key": "D",
+        "text": "Sarajevo assassination → armistice → U.S. entry"
+      }
+    ],
+    "correctOption": "A",
+    "explanation": "The assassination triggered the July Crisis in 1914; the United States entered in 1917; the armistice took effect in 1918.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S02",
+      "CP008-S03"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q058",
+    "englishQuestionId": "WHI-CP008-Q058",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F058",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Integrated synthesis",
+    "stem": "Which statement best connects the Russian Revolutions to the First World War?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The revolutions immediately ended the war for all combatants"
+      },
+      {
+        "key": "B",
+        "text": "The revolutions changed Russia’s government and ultimately led the Bolsheviks to withdraw from the war"
+      },
+      {
+        "key": "C",
+        "text": "The February Revolution brought the United States into the war"
+      },
+      {
+        "key": "D",
+        "text": "The revolutions created the Treaty of Versailles in 1917"
+      }
+    ],
+    "correctOption": "B",
+    "explanation": "The 1917 revolutions transformed Russian politics; the Bolshevik government later signed a separate peace in 1918.",
+    "sourceIds": [
+      "CP008-S04",
+      "CP008-S05"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q059",
+    "englishQuestionId": "WHI-CP008-Q059",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F059",
+    "language": "en",
+    "difficulty": "easy",
+    "questionFamily": "Integrated synthesis",
+    "stem": "Which statement best summarises the war’s ending?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The Treaty of Versailles ended fighting in 1914"
+      },
+      {
+        "key": "B",
+        "text": "The Russian treaty of 1918 ended every front in Europe"
+      },
+      {
+        "key": "C",
+        "text": "An armistice stopped the fighting in 1918, while peace treaties followed in 1919 and after"
+      },
+      {
+        "key": "D",
+        "text": "The war ended when the United States entered in 1917"
+      }
+    ],
+    "correctOption": "C",
+    "explanation": "The armistice stopped active fighting in November 1918; formal peace settlements followed, beginning with Versailles in 1919.",
+    "sourceIds": [
+      "CP008-S03",
+      "CP008-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  },
+  {
+    "questionId": "WHI-CP008-Q060",
+    "englishQuestionId": "WHI-CP008-Q060",
+    "checkpointId": "WHI-001-CP008",
+    "factId": "WHI-CP008-F060",
+    "language": "en",
+    "difficulty": "hard",
+    "questionFamily": "Integrated synthesis",
+    "stem": "Which summary best describes the First World War’s causes and course?",
+    "options": [
+      {
+        "key": "A",
+        "text": "One alliance automatically caused war and ended it in 1916"
+      },
+      {
+        "key": "B",
+        "text": "The conflict was confined to one trench line in France"
+      },
+      {
+        "key": "C",
+        "text": "The Russian Revolution preceded all prewar tensions"
+      },
+      {
+        "key": "D",
+        "text": "Long-term rivalries interacted with a diplomatic crisis, and warfare spread across fronts and empires before separate armistice and peace-settlement stages"
+      }
+    ],
+    "correctOption": "D",
+    "explanation": "Multiple tensions and diplomatic decisions led to a global conflict; military and political outcomes unfolded in stages.",
+    "sourceIds": [
+      "CP008-S01",
+      "CP008-S04",
+      "CP008-S05",
+      "CP008-S07"
+    ],
+    "reviewOnly": true,
+    "runtimeRegistered": false
+  }
+]
