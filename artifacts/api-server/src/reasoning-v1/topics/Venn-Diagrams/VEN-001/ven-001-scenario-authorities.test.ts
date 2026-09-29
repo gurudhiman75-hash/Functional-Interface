@@ -5,10 +5,10 @@ import {
   validateVennTopology,
 } from "./logical-venn-topology.ts";
 
-assert.equal(VEN_001_SCENARIO_AUTHORITIES.length, 22);
+assert.equal(VEN_001_SCENARIO_AUTHORITIES.length, 34);
 assert.equal(
   new Set(VEN_001_SCENARIO_AUTHORITIES.map((entry) => entry.authorityId)).size,
-  22,
+  34,
 );
 
 for (const authority of VEN_001_SCENARIO_AUTHORITIES) {
