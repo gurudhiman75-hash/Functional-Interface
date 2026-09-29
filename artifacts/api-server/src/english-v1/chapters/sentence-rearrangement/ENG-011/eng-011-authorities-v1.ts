@@ -1,3 +1,7 @@
+import{ENG011_BREADTH_WAVE4_V1}from"./eng-011-breadth-wave4";
+import{ENG011_BREADTH_WAVE3_V1}from"./eng-011-breadth-wave3";
+import{ENG011_BREADTH_WAVE2_V1}from"./eng-011-breadth-wave2";
+import{ENG011_BREADTH_WAVE1_V1}from"./eng-011-breadth-wave1";
 export type Eng011CpId="ENG-011-CP001"|"ENG-011-CP002"|"ENG-011-CP003"|"ENG-011-CP004";
 export type Eng011Difficulty="easy"|"medium"|"hard";
 export interface Eng011SetV1{ id:string;cpId:Eng011CpId;difficulty:Eng011Difficulty;topic:string;fragments:readonly string[];order:readonly number[];explanation:string; }
@@ -22,5 +26,13 @@ s("SR-BM-S01","ENG-011-CP004","hard","risk management",["although diversificatio
 s("SR-BM-S02","ENG-011-CP004","hard","credit policy",["because repayment capacity","can change over time","lenders should review","both current cash flow","and future financial obligations"],[1,2,3,4,5],"The reason clause comes first. The main clause then states what lenders should review, with two coordinated objects."),
 s("SR-BM-S03","ENG-011-CP004","medium","data governance",["before sensitive data is shared","organisations should verify","whether the recipient","has a legitimate need","to access the information"],[1,2,3,4,5],"The time condition is followed by the main verb 'should verify' and the embedded whether-clause."),
 s("SR-BM-S04","ENG-011-CP004","hard","economic policy",["even if headline inflation falls","household budgets may remain under pressure","when essential goods","continue to cost more","than they did a year earlier"],[1,2,3,4,5],"The concessive clause comes first, followed by the main clause and the time/condition clause explaining continued pressure.")
+,
+...ENG011_BREADTH_WAVE1_V1
+,
+...ENG011_BREADTH_WAVE2_V1
+,
+...ENG011_BREADTH_WAVE3_V1
+,
+...ENG011_BREADTH_WAVE4_V1
 ];
 export const ENG011_CP_IDS_V1=["ENG-011-CP001","ENG-011-CP002","ENG-011-CP003","ENG-011-CP004","ENG-011-CP005"] as const;
