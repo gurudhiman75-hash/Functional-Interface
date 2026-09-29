@@ -1737,7 +1737,10 @@
     "explanation": "Resistance took many forms, from armed struggle to intelligence and civilian support. Its organisation and influence differed by country and period.",
     "sourceIds": [
       "CP010-S02",
-      "CP010-S10"
+      "CP010-S10",
+      "CP010-S22",
+      "CP010-S23",
+      "CP010-S24"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1808,8 +1811,9 @@
     "correctOption": "C",
     "explanation": "Germany signed an unconditional surrender at Reims on 7 May 1945. A further signing took place in Berlin the next day.",
     "sourceIds": [
-      "CP010-S06",
-      "CP010-S01"
+      "CP010-S01",
+      "CP010-S04",
+      "CP010-S25"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1845,7 +1849,8 @@
     "explanation": "Germany's surrender took effect on 8 May 1945 in western Europe. The Soviet Union marked the end of the European war on 9 May because of the timing of the Berlin signing.",
     "sourceIds": [
       "CP010-S01",
-      "CP010-S06"
+      "CP010-S04",
+      "CP010-S25"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1881,7 +1886,8 @@
     "explanation": "Germany signed at Reims on 7 May and a further instrument in Berlin on 8 May 1945. Different surrender ceremonies reflected the Allied coalition and the Eastern Front.",
     "sourceIds": [
       "CP010-S01",
-      "CP010-S06"
+      "CP010-S04",
+      "CP010-S25"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1916,7 +1922,7 @@
     "correctOption": "B",
     "explanation": "The United States dropped an atomic bomb on Hiroshima on 6 August 1945. Nagasaki was bombed three days later.",
     "sourceIds": [
-      "CP010-S06"
+      "CP010-S03"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -1951,6 +1957,7 @@
     "correctOption": "C",
     "explanation": "The second atomic bomb was dropped on Nagasaki on 9 August 1945. Japan announced its acceptance of surrender terms later that month.",
     "sourceIds": [
+      "CP010-S03",
       "CP010-S06"
     ],
     "reviewOnly": true,
@@ -1986,8 +1993,7 @@
     "correctOption": "D",
     "explanation": "Japan formally signed the surrender instrument on 2 September 1945 aboard the USS Missouri. The announcement of acceptance had been made in August.",
     "sourceIds": [
-      "CP010-S06",
-      "CP010-S03"
+      "CP010-S06"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -2023,7 +2029,9 @@
     "explanation": "Germany surrendered in May 1945, the atomic bombs were dropped in August, and Japan signed the surrender in September. The sequence distinguishes the end of the European war from the formal end of the global conflict.",
     "sourceIds": [
       "CP010-S01",
-      "CP010-S06"
+      "CP010-S03",
+      "CP010-S06",
+      "CP010-S25"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -2059,7 +2067,8 @@
     "explanation": "War and persecution displaced millions of people across Europe. Many survivors could not or did not return to their former homes after the conflict.",
     "sourceIds": [
       "CP010-S01",
-      "CP010-S10"
+      "CP010-S26",
+      "CP010-S28"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false
@@ -2094,7 +2103,8 @@
     "correctOption": "C",
     "explanation": "After Germany's defeat, Allied powers occupied and administered the country. The longer-term division and post-war institutions are covered in CP011.",
     "sourceIds": [
-      "CP010-S06"
+      "CP010-S06",
+      "CP010-S27"
     ],
     "reviewOnly": true,
     "runtimeRegistered": false

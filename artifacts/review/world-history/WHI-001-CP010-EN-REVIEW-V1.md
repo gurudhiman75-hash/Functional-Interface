@@ -585,7 +585,7 @@ Which statement best describes resistance under Nazi occupation?
 - **D.** It was conducted only by Allied armies outside Europe
 **Answer:** A
 **Explanation:** Resistance took many forms, from armed struggle to intelligence and civilian support. Its organisation and influence differed by country and period.
-**Sources:** CP010-S02, CP010-S10
+**Sources:** CP010-S02, CP010-S10, CP010-S22, CP010-S23, CP010-S24
 
 ### WHI-CP010-Q050 · Hard · Resistance and home fronts
 
@@ -609,7 +609,7 @@ Where did Germany sign its first unconditional surrender instrument in May 1945?
 - **D.** Yalta
 **Answer:** C
 **Explanation:** Germany signed an unconditional surrender at Reims on 7 May 1945. A further signing took place in Berlin the next day.
-**Sources:** CP010-S06, CP010-S01
+**Sources:** CP010-S01, CP010-S04, CP010-S25
 
 ### WHI-CP010-Q052 · Medium · Surrender and end of war
 
@@ -621,7 +621,7 @@ On what date did Germany's surrender to the Western Allies take effect?
 - **D.** 8 May 1945
 **Answer:** D
 **Explanation:** Germany's surrender took effect on 8 May 1945 in western Europe. The Soviet Union marked the end of the European war on 9 May because of the timing of the Berlin signing.
-**Sources:** CP010-S01, CP010-S06
+**Sources:** CP010-S01, CP010-S04, CP010-S25
 
 ### WHI-CP010-Q053 · Hard · Surrender and end of war
 
@@ -633,7 +633,7 @@ Which statement correctly distinguishes Germany's two surrender signings in May 
 - **D.** Both signings occurred after Japan's formal surrender
 **Answer:** A
 **Explanation:** Germany signed at Reims on 7 May and a further instrument in Berlin on 8 May 1945. Different surrender ceremonies reflected the Allied coalition and the Eastern Front.
-**Sources:** CP010-S01, CP010-S06
+**Sources:** CP010-S01, CP010-S04, CP010-S25
 
 ### WHI-CP010-Q054 · Medium · Surrender and end of war
 
@@ -645,7 +645,7 @@ Which Japanese city was struck by the first atomic bomb used in war on 6 August 
 - **D.** Tokyo
 **Answer:** B
 **Explanation:** The United States dropped an atomic bomb on Hiroshima on 6 August 1945. Nagasaki was bombed three days later.
-**Sources:** CP010-S06
+**Sources:** CP010-S03
 
 ### WHI-CP010-Q055 · Medium · Surrender and end of war
 
@@ -657,7 +657,7 @@ Which Japanese city was struck by the second U.S. atomic bomb on 9 August 1945?
 - **D.** Hiroshima
 **Answer:** C
 **Explanation:** The second atomic bomb was dropped on Nagasaki on 9 August 1945. Japan announced its acceptance of surrender terms later that month.
-**Sources:** CP010-S06
+**Sources:** CP010-S03, CP010-S06
 
 ### WHI-CP010-Q056 · Medium · Surrender and end of war
 
@@ -669,7 +669,7 @@ When did Japan formally sign the instrument of surrender, ending the Second Worl
 - **D.** 2 September 1945
 **Answer:** D
 **Explanation:** Japan formally signed the surrender instrument on 2 September 1945 aboard the USS Missouri. The announcement of acceptance had been made in August.
-**Sources:** CP010-S06, CP010-S03
+**Sources:** CP010-S06
 
 ### WHI-CP010-Q057 · Hard · Consequences and synthesis
 
@@ -681,7 +681,7 @@ Which sequence correctly orders the final surrender milestones of the war?
 - **D.** Germany surrenders → Japan signs surrender → D-Day
 **Answer:** A
 **Explanation:** Germany surrendered in May 1945, the atomic bombs were dropped in August, and Japan signed the surrender in September. The sequence distinguishes the end of the European war from the formal end of the global conflict.
-**Sources:** CP010-S01, CP010-S06
+**Sources:** CP010-S01, CP010-S03, CP010-S06, CP010-S25
 
 ### WHI-CP010-Q058 · Medium · Consequences and synthesis
 
@@ -693,7 +693,7 @@ Which statement describes a major human consequence of the Second World War in E
 - **D.** Only military personnel were displaced
 **Answer:** B
 **Explanation:** War and persecution displaced millions of people across Europe. Many survivors could not or did not return to their former homes after the conflict.
-**Sources:** CP010-S01, CP010-S10
+**Sources:** CP010-S01, CP010-S26, CP010-S28
 
 ### WHI-CP010-Q059 · Hard · Consequences and synthesis
 
@@ -705,7 +705,7 @@ Which outcome followed the surrender of Nazi Germany in May 1945?
 - **D.** Immediate reunification of Germany as a neutral republic
 **Answer:** C
 **Explanation:** After Germany's defeat, Allied powers occupied and administered the country. The longer-term division and post-war institutions are covered in CP011.
-**Sources:** CP010-S06
+**Sources:** CP010-S06, CP010-S27
 
 ### WHI-CP010-Q060 · Hard · Consequences and synthesis
 

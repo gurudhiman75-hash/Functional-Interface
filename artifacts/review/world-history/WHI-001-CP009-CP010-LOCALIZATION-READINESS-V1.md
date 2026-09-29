@@ -12,14 +12,14 @@
 
 ## Canonical source-locator coverage
 
-The source register and source IDs exist for both chapters. Most canonical facts still use the question-family name as their locator rather than a focused passage reference.
+The source registers link every canonical fact to a registered source and focused passage locator.
 
 | Checkpoint | Canonical facts | Family-level locators | Focused locators |
 |---|---:|---:|---:|
-| CP009 | 60 | 7 | 53 |
-| CP010 | 60 | 12 | 48 |
+| CP009 | 60 | 0 | 60 |
+| CP010 | 60 | 0 | 60 |
 
-Focused CP009 locators cover Q001–Q048 and Q055–Q059, leaving Q049–Q054 and Q060 at family level; CP010 locators cover Q001–Q048, leaving Q049–Q060 at family level. This pass added passage-level references for CP009 Q037–Q048 (Nazi consolidation, Japanese and Italian aggression, League responses and Spanish Civil War intervention) and CP010 Q037–Q048 (Allied conferences, Holocaust terminology and sites, both Warsaw uprisings, French Resistance, Enigma and rationing). Earlier focused additions include the Dawes Plan (CP009-S17), island-hopping (CP010-S16), Coral Sea (CP010-S17), wartime conferences (CP010-S18), Lend-Lease (CP010-S19) and Potsdam (CP010-S20). CP010 Q017 remains correctly assigned to the Pacific family. The remaining 7 CP009 and 12 CP010 family-level locators still need passage verification; this count does not itself indicate that their source claims are incorrect.
+All 60 canonical facts in each checkpoint now have focused section, article, document or paragraph locators. The final pass covered CP009 Q049–Q060 (German expansion, appeasement, pact and road-to-war synthesis) and CP010 Q049–Q060 (resistance, Normandy/liberation, surrender chronology, atomic bombings, displacement, occupation and global scope). Earlier passes added focused sources for the League, Weimar and Depression, Nazi consolidation, Allied strategy, Holocaust, Pacific campaigns, and wartime home fronts. English editorial review remains open; localization and learner delivery remain gated.
 
 ## Required sequence
 

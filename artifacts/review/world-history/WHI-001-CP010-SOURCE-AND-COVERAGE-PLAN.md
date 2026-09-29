@@ -79,3 +79,15 @@ New source entries use focused sections. The 60-question pool, 18/30/12 difficul
 ## Source-locator pass — Q037–Q048
 
 Q037 points to the Tehran and Yalta conference sections; Q038–Q043 to direct Holocaust and Final Solution sections; Q044–Q045 distinguish the 1943 Warsaw Ghetto Uprising from the 1944 Polish Home Army uprising; Q046–Q047 use direct IWM/GCHQ evidence; Q048 uses the rationing section of the IWM galleries guide.
+
+
+## Focused source additions — Q049–Q060
+
+- **CP010-S25** U.S. National Archives — [Surrender of Germany](https://www.archives.gov/milestone-documents/surrender-of-germany). Direct Reims surrender instrument and date, May 7, 1945.
+- **CP010-S26** U.S. Holocaust Memorial Museum — [Displaced Persons](https://encyclopedia.ushmm.org/content/en/article/displaced-persons). Postwar displacement and survivors’ inability or unwillingness to return home.
+- **CP010-S27** U.S. Holocaust Memorial Museum — [The Soviet Union and Europe after 1945](https://encyclopedia.ushmm.org/content/en/article/the-soviet-union-and-europe-after-1945). Direct section on Allied occupation zones in Germany and Austria.
+- **CP010-S28** U.S. Holocaust Memorial Museum — [The United States and the Holocaust, 1942–45](https://encyclopedia.ushmm.org/content/en/article/the-united-states-and-the-holocaust-1942-45). Reports more than two million displaced Europeans at the end of the war and camps for survivors and other displaced people.
+
+## Source-locator pass — Q049–Q060
+
+Q049–Q050 now point to resistance and Normandy/liberation sections; Q051–Q053 distinguish the Reims signing, Berlin signing, effective date and Soviet observance; Q054–Q057 locate the Pacific bombings and formal Japanese surrender; Q058–Q059 cover displacement and Allied occupation; Q060 connects the European and Pacific sources to the war’s global scope. All 60 canonical facts now have focused locators.
