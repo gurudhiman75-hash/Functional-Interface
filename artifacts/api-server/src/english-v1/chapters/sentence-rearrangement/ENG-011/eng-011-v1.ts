@@ -1,4 +1,5 @@
-import{ENG011_SETS_V1,type Eng011CpId,type Eng011Difficulty,type Eng011SetV1}from"./eng-011-authorities-v1";
+import{type Eng011CpId,type Eng011Difficulty,type Eng011SetV1}from"./eng-011-authorities-v1";
+import{ENG011_ACTIVE_SETS_V2}from"./eng-011-active-v2";
 export type Eng011QuestionInputV1={seed?:string;cpId?:Eng011CpId;difficulty?:Eng011Difficulty;setId?:string};
 function hash(v:string){let h=0x811c9dc5;for(let i=0;i<v.length;i++){h^=v.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return h>>>0;}
 function pick<T>(xs:readonly T[],seed:string){return xs[hash(seed)%xs.length]!;}
@@ -10,21 +11,33 @@ function distractors(correct:readonly number[]){
  const b=[...correct];[b[b.length-2],b[b.length-1]]=[b[b.length-1]!,b[b.length-2]!];add(b);
  add(rotate(correct,1));add(rotate(correct,2));return out.slice(0,3);
 }
+function presentation(set:Eng011SetV1,seed:string){
+ const logical=set.order.map(n=>set.fragments[n-1]!);
+ const keyed=logical.map((text,i)=>({text,key:hash(`${seed}:present:${set.id}:${i}`)})).sort((a,b)=>a.key-b.key);
+ let presented=keyed.map(x=>x.text);
+ let correct=logical.map(text=>presented.indexOf(text)+1);
+ if(correct.every((n,i)=>n===i+1)){presented=[...presented.slice(1),presented[0]!];correct=logical.map(text=>presented.indexOf(text)+1);}
+ return{logical,presented,correct};
+}
 function chooseSet(input:Eng011QuestionInputV1){
- if(input.setId){const x=ENG011_SETS_V1.find(s=>s.id===input.setId);if(!x)throw new Error(`Unknown ENG-011 set ${input.setId}`);return x;}
- let pool=ENG011_SETS_V1;if(input.cpId)pool=pool.filter(x=>x.cpId===input.cpId);if(input.difficulty)pool=pool.filter(x=>x.difficulty===input.difficulty);
+ if(input.setId){const x=ENG011_ACTIVE_SETS_V2.find(s=>s.id===input.setId);if(!x)throw new Error(`Unknown ENG-011 set ${input.setId}`);return x;}
+ let pool=ENG011_ACTIVE_SETS_V2;if(input.cpId)pool=pool.filter(x=>x.cpId===input.cpId);if(input.difficulty)pool=pool.filter(x=>x.difficulty===input.difficulty);
  if(!pool.length)throw new Error("No ENG-011 authority set matches requested filters");return pick(pool,input.seed??"eng011-default");
 }
-const EXPLANATION_EMPHASIS_CUES=["main grammatical link","subject with its verb","time phrase","reason phrase","contrast phrase","purpose phrase","complete sentence","comes first","follows naturally","completes the clause"] as const;\nfunction explanationEmphasis(text:string){return EXPLANATION_EMPHASIS_CUES.filter(cue=>text.toLowerCase().includes(cue));}\nfunction friendlyExplanation(set:Eng011SetV1){
- const correct=orderText(set.order);
- const sentence=set.order.map(n=>set.fragments[n-1]!).join(" ");
- return `The correct order is ${correct}. First find the main grammatical link, such as the subject with its verb or a clause with the words that complete it. Then place time, reason, contrast or purpose phrases where they fit naturally. In this set, ${set.explanation} The complete sentence reads: "${sentence}."`;
+const EXPLANATION_EMPHASIS_CUES=["main grammatical link","subject with its verb","time phrase","reason phrase","contrast phrase","purpose phrase","complete sentence","comes first","follows naturally","completes the clause"] as const;
+function explanationEmphasis(text:string){return EXPLANATION_EMPHASIS_CUES.filter(cue=>text.toLowerCase().includes(cue));}
+function friendlyExplanation(logical:readonly string[],correct:string){
+ const sentence=logical.join(" ");
+ const names=["First","Second","Third","Fourth","Fifth","Sixth"];
+ const steps=logical.map((part,i)=>`${names[i]??`Step ${i+1}`} place "${part}" because it completes the grammar and meaning of the sentence at that point.`);
+ return `The correct order is ${correct}. First find the main subject and verb. Then attach the object and place time, reason, condition, contrast or purpose phrases where they fit naturally. ${steps.join(" ")} The complete sentence reads: "${sentence}."`;
 }
 export function generateEng011QuestionV1(input:Eng011QuestionInputV1={}){
- const seed=input.seed??"eng011-default",set=chooseSet(input),correct=orderText(set.order),raw=[correct,...distractors(set.order).map(orderText)];
+ const seed=input.seed??"eng011-default",set=chooseSet(input),p=presentation(set,seed),correct=orderText(p.correct),raw=[correct,...distractors(p.correct).map(orderText)];
  const options=raw.map((v,i)=>({v,k:hash(`${seed}:${v}:${i}`)})).sort((a,b)=>a.k-b.k).map(x=>x.v);
+ const explanation=friendlyExplanation(p.logical,correct);
  return{questionId:`ENG011:${set.id}:${hash(seed).toString(16)}`,stem:"Arrange the following parts to form a meaningful sentence.",
- fragments:set.fragments.map((text,i)=>({label:String.fromCharCode(65+i),text})),prompt:"Choose the correct sequence.",options,correctOptionIndex:options.indexOf(correct),explanation:friendlyExplanation(set),explanationEmphasis:explanationEmphasis(friendlyExplanation(set)),
+ fragments:p.presented.map((text,i)=>({label:String.fromCharCode(65+i),text})),prompt:"Choose the correct sequence.",options,correctOptionIndex:options.indexOf(correct),explanation,explanationEmphasis:explanationEmphasis(explanation),
  metadata:{chapterId:"ENG-011",cpId:set.cpId,setId:set.id,difficulty:set.difficulty,topic:set.topic,correctOrder:correct,reviewOnly:true}};
 }
 export function generateEng011Cp005SetV1(seed:string,profile?:"ssc-standard"|"ssc-advanced"|"banking-prelims"|"banking-mains"){
