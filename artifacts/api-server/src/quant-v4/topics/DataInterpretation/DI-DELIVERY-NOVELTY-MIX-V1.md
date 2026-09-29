@@ -50,9 +50,6 @@ Basic/grouped/single charts, ordinary pie/donut, base caselet, standalone radar,
 
 Within otherwise Hard-capable sources, shallow families are also excluded from Mains-Hard delivery. Examples include DI-002 relative-selected-percent-excess / combined-selected-ratio, DI-006 advanced simple remainder-after-group, and DI-014 simple two-category application total.
 
-
-For Banking Mains, Hard slots are additionally restricted to source modes with genuine Mains-hard reasoning depth. Single-series bar, single-series line, donut/ring and radar remain eligible for Banking Mains Easy/Medium slots, but are not used to satisfy the Hard quota.
-
 ## Tier meaning
 
 ### STANDARD
