@@ -1,6 +1,6 @@
 # Data Interpretation Visual Answerability Audit V1
 
-Status: REMEDIATION_CANDIDATE
+Status: CURRENT_RENDERER_ANSWERABILITY_CHECKS_PASS
 
 ## Audit question
 
@@ -10,18 +10,22 @@ Numeric correctness alone is not sufficient. A chart/table/caselet must expose e
 
 ## CP classification
 
-| CP | Representation | Visual-answerability status | Reason |
+| CP | Representation | Visual-answerability status | Evidence |
 |---|---|---|---|
 | DI-001 | Table | PASS_BY_CONTRACT | Source values are printed in the learner table. |
-| DI-002 | Advanced table with one recoverable missing cell | PASS_BY_CONTRACT | Visible selected count + selection rate reconstruct the one missing Applicants value. |
-| DI-003 | Grouped bar | PASS_WITH_EXISTING_PROOF | Stress test already requires every generated bar value to appear as an explicit y-axis label. |
-| DI-004 | Two-series line graph | FIXED_ON_DI004_REVIEW_BRANCH | Exact plotted values are exposed at each point because generator granularity is finer than practical axis ticks. |
+| DI-002 | Advanced table with one recoverable missing cell | PASS_BY_CONTRACT | Visible selected count and selection rate reconstruct the one missing Applicants value. |
+| DI-003 | Grouped bar | PASS_WITH_EXISTING_PROOF | Stress tests require every generated bar value to appear as an explicit label. |
+| DI-004 | Two-series line graph | PASS_WITH_EXISTING_PROOF | The shared renderer labels both series at every plotted point; the visual-answerability regression checks 240 generated sets. |
 | DI-005 | Pie chart | PASS_WITH_STRENGTHENED_PROOF | Five sector labels are visible, exactly one intentional percentage may be hidden, and the total is printed for count tasks. |
 | DI-006 | Caselet/prose | PASS_BY_CONTRACT | Questions derive from learner-facing stated values and relations, not a graphical scale. |
 | DI-007 | Missing-value table | PASS_BY_CONTRACT | The missing value is recoverable from the learner-facing aggregate condition. |
 | DI-008 | Arithmetic table | PASS_BY_CONTRACT | All row inputs used by arithmetic tasks are printed in the table. |
-| DI-009 | Histogram | REMEDIATED_IN_THIS_BRANCH | Frequencies are generated in 5/10-unit granularity; renderer now selects a y-axis step that explicitly labels every generated frequency. |
-| DI-010 | Frequency polygon | REMEDIATED_IN_THIS_BRANCH | Frequencies are generated in 5/10-unit granularity; renderer now selects a y-axis step that explicitly labels every plotted frequency. |
+| DI-009 | Histogram | PASS_WITH_EXISTING_PROOF | The renderer selects an exact-frequency y-axis step; the regression requires every generated frequency to be among the visible y-axis labels. |
+| DI-010 | Frequency polygon | PASS_WITH_EXISTING_PROOF | The renderer selects an exact-frequency y-axis step; the regression requires every plotted frequency to be among the visible y-axis labels. |
+| DI-011 | Mixed / multi-chart | PASS_BY_RENDERED-DATA CONTRACT | Each component exposes the values used by its linked question families. |
+| DI-012 | Advanced variable / multi-missing table | PASS_BY_CONTRACT | x/y and recovery conditions are learner-visible. |
+| DI-013 | Radar / web chart | PASS_BY_RENDERED-DATA CONTRACT | Exact 20-unit radial ticks and the five category axes are visible. |
+| DI-014 | Radar + pie hybrid | PASS_BY_RENDERED-DATA CONTRACT | Radar points carry exact application labels; pie shares and the common category mapping are visible. |
 
 ## Permanent gate
 
@@ -34,6 +38,10 @@ For bar, histogram and polygon representations that do not print values directly
 Pie charts must visibly expose every non-hidden share plus the total required for count conversion. Hidden values are permitted only when the learner-facing chart contains enough visible information to reconstruct them.
 
 Tables/caselets must not reference values that exist only in internal evidence/semantic state.
+
+## Review boundary
+
+This is source and automated render-output verification of answerability. It does not certify screenshot-level typography, clipping or label-overlap review. Hindi/Punjabi coverage is separate: DI-001 through DI-010 have localization status records; DI-011 through DI-014 still require localization and review.
 
 ## Release rule
 
