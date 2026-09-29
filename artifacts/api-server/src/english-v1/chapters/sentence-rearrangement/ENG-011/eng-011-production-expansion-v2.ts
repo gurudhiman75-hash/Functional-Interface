@@ -1,8 +1,8 @@
 import type{Eng011SetV1,Eng011CpId,Eng011Difficulty}from"./eng-011-authorities-v1";
 
-type Theme={topic:string;subject:string;verb:string;object:string;purpose:string;time:string;reason:string;condition:string;place:string;contrast:string};
+export type Eng011ProductionTheme={topic:string;subject:string;verb:string;object:string;purpose:string;time:string;reason:string;condition:string;place:string;contrast:string};
 
-const std:Theme[]=[
+export const ENG011_STD_THEMES_V2:Eng011ProductionTheme[]=[
 {topic:"school attendance",subject:"regular attendance",verb:"helps students follow",object:"the sequence of classroom lessons",purpose:"without unnecessary learning gaps",time:"throughout the school term",reason:"because later lessons often build on earlier ones",condition:"when the timetable moves to a new topic",place:"across different subjects",contrast:"although occasional absence may be unavoidable"},
 {topic:"public cleanliness",subject:"timely waste collection",verb:"keeps",object:"streets and shared spaces cleaner",purpose:"for residents and visitors",time:"during the regular collection cycle",reason:"because exposed rubbish can spread quickly",condition:"when households follow the pickup schedule",place:"in crowded neighbourhoods",contrast:"although bins alone cannot solve every problem"},
 {topic:"road safety",subject:"clear pedestrian crossings",verb:"help drivers notice",object:"people who are about to cross the road",purpose:"before vehicles reach the crossing",time:"during busy traffic periods",reason:"because visibility affects reaction time",condition:"when signs and markings are easy to see",place:"near markets and schools",contrast:"although pedestrians must still cross carefully"},
@@ -21,7 +21,7 @@ const std:Theme[]=[
 {topic:"school laboratories",subject:"clear practical instructions",verb:"help students use",object:"laboratory equipment more safely",purpose:"while focusing on the scientific observation",time:"before an experiment begins",reason:"because confusion can lead to avoidable mistakes",condition:"when several materials are used together",place:"during practical science lessons",contrast:"although supervision is still necessary"}
 ];
 
-const adv:Theme[]=[
+export const ENG011_ADV_THEMES_V2:Eng011ProductionTheme[]=[
 {topic:"evidence quality",subject:"a careful reader",verb:"should examine",object:"whether evidence actually supports the stated claim",purpose:"before accepting the conclusion",time:"when reviewing an argument",reason:"because accurate facts can still be irrelevant",condition:"when several pieces of information are presented",place:"in reports and analytical writing",contrast:"although the argument may sound convincing"},
 {topic:"measurement bias",subject:"a performance review",verb:"should consider",object:"more than one indicator of success",purpose:"to avoid rewarding the number instead of the goal",time:"when results are compared over time",reason:"because narrow targets can distort behaviour",condition:"when employees know exactly what is measured",place:"across complex organisations",contrast:"although a single metric is easier to track"},
 {topic:"risk communication",subject:"public guidance",verb:"should explain",object:"both the size of a risk and its context",purpose:"so that people can interpret the message properly",time:"when unfamiliar probabilities are discussed",reason:"because raw percentages can be misunderstood",condition:"when decisions depend on the information",place:"in health and safety communication",contrast:"although technical detail may be accurate"},
@@ -40,7 +40,7 @@ const adv:Theme[]=[
 {topic:"urban planning",subject:"planners",verb:"should compare",object:"the trade-offs among movement access cost and public space",purpose:"before judging one design measure in isolation",time:"when major street changes are proposed",reason:"because improving one objective can weaken another",condition:"when limited space must serve many users",place:"in dense urban areas",contrast:"although a single change may have an obvious benefit"}
 ];
 
-const bp:Theme[]=[
+export const ENG011_BP_THEMES_V2:Eng011ProductionTheme[]=[
 {topic:"savings accounts",subject:"customers",verb:"should compare",object:"interest access and balance conditions before choosing a savings account",purpose:"to match the account with their actual needs",time:"before opening the account",reason:"because convenience and return can differ across products",condition:"when several accounts appear similar",place:"in routine retail banking",contrast:"although all savings accounts provide basic access"},
 {topic:"term deposits",subject:"depositors",verb:"should choose",object:"a maturity period that fits their likely cash needs",purpose:"to reduce the chance of unnecessary early withdrawal",time:"when opening a term deposit",reason:"because premature withdrawal can reduce the return",condition:"when money may be needed before maturity",place:"in personal savings planning",contrast:"although longer terms may offer attractive rates"},
 {topic:"credit cards",subject:"cardholders",verb:"should repay",object:"the full statement balance on time where possible",purpose:"to avoid unnecessary finance charges",time:"after each billing cycle",reason:"because unpaid balances can attract costly interest",condition:"when sufficient funds are available",place:"in routine credit-card use",contrast:"although minimum payments may keep the account current"},
@@ -56,7 +56,7 @@ const bp:Theme[]=[
 {topic:"loan prepayment",subject:"borrowers",verb:"should compare",object:"the benefit of early loan repayment with other uses of available cash",purpose:"before making a large prepayment",time:"when surplus funds become available",reason:"because prepayment may reduce interest but also reduce liquidity",condition:"when the loan permits early repayment",place:"in personal debt planning",contrast:"although reducing debt can feel automatically beneficial"}
 ];
 
-const bm:Theme[]=[
+export const ENG011_BM_THEMES_V2:Eng011ProductionTheme[]=[
 {topic:"bank liquidity",subject:"banks",verb:"must maintain",object:"enough liquid resources to meet unexpected cash outflows",purpose:"without relying on forced asset sales",time:"during periods of funding stress",reason:"because deposits can leave faster than long-term loans are repaid",condition:"when withdrawal pressure rises suddenly",place:"across the balance sheet",contrast:"although excess liquidity can reduce returns"},
 {topic:"capital adequacy",subject:"banks",verb:"are required to hold",object:"capital that can absorb losses from risky exposures",purpose:"before losses threaten creditors more directly",time:"throughout the business cycle",reason:"because higher-risk assets can create larger potential losses",condition:"when balance-sheet risk increases",place:"within prudential regulation",contrast:"although capital cannot eliminate risk"},
 {topic:"stress testing",subject:"risk teams",verb:"use",object:"severe but plausible scenarios to test financial resilience",purpose:"before actual stress exposes the same weaknesses",time:"during periodic risk reviews",reason:"because normal averages may hide extreme interactions",condition:"when several risks could occur together",place:"across credit market and funding exposures",contrast:"although no scenario can predict the future exactly"},
@@ -103,10 +103,10 @@ function make(theme:Theme,cpId:Eng011CpId,difficulty:Eng011Difficulty,prefix:str
  return source.map((fragments,v)=>({id:`${prefix}-${String(index+1).padStart(2,"0")}-${v+1}`,cpId,difficulty,topic:theme.topic,fragments,order:Array.from({length:fragments.length},(_,i)=>i+1),explanation:"Find the main subject and verb first. Then attach the object and place the time reason condition contrast or purpose phrase where it completes the sentence naturally."}));
 }
 
-const stdSets=std.flatMap((t,i)=>make(t,"ENG-011-CP001",i%3===0?"easy":"medium","SR-PROD-S",i,4));
-const advSets=adv.flatMap((t,i)=>make(t,"ENG-011-CP002",i%3===0?"medium":"hard","SR-PROD-A",i,5));
-const bpSets=bp.flatMap((t,i)=>make(t,"ENG-011-CP003",i%3===0?"medium":"hard","SR-PROD-BP",i,5)).slice(0,76);
-const bmSets=bm.flatMap((t,i)=>make(t,"ENG-011-CP004",i%4===0?"medium":"hard","SR-PROD-BM",i,6)).slice(0,86);
+const stdSets=ENG011_STD_THEMES_V2.flatMap((t,i)=>make(t,"ENG-011-CP001",i%3===0?"easy":"medium","SR-PROD-S",i,4));
+const advSets=ENG011_ADV_THEMES_V2.flatMap((t,i)=>make(t,"ENG-011-CP002",i%3===0?"medium":"hard","SR-PROD-A",i,5));
+const bpSets=ENG011_BP_THEMES_V2.flatMap((t,i)=>make(t,"ENG-011-CP003",i%3===0?"medium":"hard","SR-PROD-BP",i,5)).slice(0,76);
+const bmSets=ENG011_BM_THEMES_V2.flatMap((t,i)=>make(t,"ENG-011-CP004",i%4===0?"medium":"hard","SR-PROD-BM",i,6)).slice(0,86);
 
 export const ENG011_PRODUCTION_EXPANSION_V2:readonly Eng011SetV1[]=[...stdSets,...advSets,...bpSets,...bmSets];
 export const ENG011_PRODUCTION_EXPANSION_COUNTS_V2={cp001:stdSets.length,cp002:advSets.length,cp003:bpSets.length,cp004:bmSets.length,total:stdSets.length+advSets.length+bpSets.length+bmSets.length}as const;
