@@ -87,6 +87,35 @@ assert.ok(
 );
 
 
+const turtleAuthority = VEN_001_SCENARIO_AUTHORITIES.find(
+  (entry) => entry.authorityId === "VEN-AUTH-002-TURTLE-SNAKE-REPTILE",
+);
+assert.ok(turtleAuthority, "the unambiguous reptile authority must remain registered");
+assert.equal(
+  turtleAuthority.relations.find((relation) => relation.left === "A" && relation.right === "B")?.relation,
+  "DISJOINT",
+  "turtles and snakes must remain separate reptile classes",
+);
+const polygonAuthority = VEN_001_SCENARIO_AUTHORITIES.find(
+  (entry) => entry.authorityId === "VEN-AUTH-018-PENTAGON-HEXAGON-POLYGON",
+);
+assert.ok(polygonAuthority, "the corrected polygon authority must remain registered");
+assert.deepEqual(
+  polygonAuthority.relations.find((relation) => relation.left === "A" && relation.right === "B")?.relation,
+  "DISJOINT",
+  "pentagons and hexagons must remain separate classes",
+);
+
+const triangleAuthority = VEN_001_SCENARIO_AUTHORITIES.find(
+  (entry) => entry.authorityId === "VEN-AUTH-007-RIGHT-ISOSCELES-TRIANGLES",
+);
+assert.ok(triangleAuthority);
+assert.equal(
+  triangleAuthority.sets.find((set) => set.setId === "B")?.labels["pa-IN"],
+  "ਸਮਦੋਭੁਜ ਤਿਕੋਣ",
+  "Punjabi triangle labels must use the reviewed local terminology consistently",
+);
+
 const expandedAuthorityIds = [
   "VEN-AUTH-023-ELECTRIC-CAR-ROAD-VEHICLE",
   "VEN-AUTH-024-SCREWDRIVER-HAND-TOOL-TOOL",
