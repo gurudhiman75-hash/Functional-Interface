@@ -12,7 +12,41 @@ import {
   type SerCp009QlId,
 } from "./number-series";
 
-export type SerCp009AuditedQlId = Exclude<SerCp009QlId, "SER-QL-042">;
+export type SerCp009AuditedQlId = Exclude<
+  SerCp009QlId,
+  "SER-QL-034" | "SER-QL-039" | "SER-QL-041" | "SER-QL-042"
+>;
+
+export const SER_CP009_MERGED_INTO_EXISTING_QLS = Object.freeze([
+  Object.freeze({
+    qlId: "SER-QL-034" as const,
+    authorityId: "INTERLEAVED_DOUBLE_NUMBER_SERIES" as const,
+    existingPermanentQlId: "SER-QL-007" as const,
+    decision: "MERGE_AS_EXISTING_QL_VARIANT" as const,
+    reason:
+      "The learner splits the visible sequence into positional rows and continues the target row, which is exactly the permanent interleaved-row solve contract. Numeric tokens are an object-mode variant, not a new QL.",
+  }),
+  Object.freeze({
+    qlId: "SER-QL-039" as const,
+    authorityId: "DIGIT_ROTATION_NUMBER_SERIES" as const,
+    existingPermanentQlId: "SER-QL-011" as const,
+    decision: "MERGE_AS_EXISTING_QL_VARIANT" as const,
+    reason:
+      "The rule is a cyclic positional permutation of token members. Rotation is already an explicit subtype of permanent SER-QL-011; digits instead of letters do not create a new solve contract.",
+  }),
+  Object.freeze({
+    qlId: "SER-QL-041" as const,
+    authorityId: "GROUPED_MULTI_MISSING_NUMBER_SERIES" as const,
+    existingPermanentQlId: "SER-QL-010" as const,
+    decision: "MERGE_AS_EXISTING_QL_VARIANT" as const,
+    reason:
+      "The learner reconstructs a repeated three-position block with progressing rows and fills multiple gaps in order, which is the same periodic block/gap-completion contract as SER-QL-010.",
+  }),
+]);
+
+const MERGED_IDS = new Set<string>(
+  SER_CP009_MERGED_INTO_EXISTING_QLS.map((entry) => entry.qlId),
+);
 
 export const SER_CP009_REJECTED_SOURCE_GAP = Object.freeze({
   qlId: "SER-QL-042" as const,
@@ -28,14 +62,16 @@ export const SER_CP009_REJECTED_SOURCE_GAP = Object.freeze({
 });
 
 export const SER_CP009_AUDITED_QL_IDS = Object.freeze(
-  SOURCE_GAP_QL_IDS.filter((qlId): qlId is SerCp009AuditedQlId => qlId !== "SER-QL-042"),
+  SOURCE_GAP_QL_IDS.filter(
+    (qlId): qlId is SerCp009AuditedQlId => qlId !== "SER-QL-042" && !MERGED_IDS.has(qlId),
+  ),
 );
 
 export const SER_CP009_AUDITED_QL_AUTHORITIES = Object.freeze(
-  SOURCE_GAP_AUTHORITIES.filter(([qlId]) => qlId !== "SER-QL-042"),
+  SOURCE_GAP_AUTHORITIES.filter(([qlId]) => qlId !== "SER-QL-042" && !MERGED_IDS.has(qlId)),
 );
 
-if (SER_CP009_AUDITED_QL_IDS.length !== 13) {
+if (SER_CP009_AUDITED_QL_IDS.length !== 10) {
   throw new Error(`SER-CP-009 audited QL count drifted: ${SER_CP009_AUDITED_QL_IDS.length}`);
 }
 if (SER_CP009_AUDITED_QL_IDS.includes("SER-QL-042" as SerCp009AuditedQlId)) {
@@ -157,6 +193,10 @@ function auditedDigitRotation(
 }
 
 export function assertSerCp009AuditedQlId(value: string): asserts value is SerCp009AuditedQlId {
+  const merged = SER_CP009_MERGED_INTO_EXISTING_QLS.find((entry) => entry.qlId === value);
+  if (merged) {
+    throw new Error(`${value} is not a new Series QL; it is a variant of ${merged.existingPermanentQlId}: ${merged.reason}`);
+  }
   if (value === "SER-QL-042") {
     throw new Error("SER-QL-042 was rejected by the final audit because internal digit relation is not a Series progression.");
   }
