@@ -91,3 +91,17 @@ for (const [english,punjabi] of nativeGeoTerms) {
   const x=q("Which option is correct?",english,["Forest","River","Soil"],english+" is correct.");
   assert.equal(localizeIndianGeoQuestionV1(x,"pa","GEO-VEG-001").canonicalAnswer,punjabi);
 }
+
+
+const audit3Terms = [
+  ["Migration","ਪਰਵਾਸ"],
+  ["Regional planning","ਖੇਤਰੀ ਯੋਜਨਾਬੰਦੀ"],
+  ["Planning region","ਯੋਜਨਾਬੰਦੀ ਖੇਤਰ"],
+  ["Resource planning","ਸੰਸਾਧਨਾਂ ਦੀ ਯੋਜਨਾਬੰਦੀ"],
+  ["Rainwater harvesting","ਮੀਂਹ ਦੇ ਪਾਣੀ ਦੀ ਸੰਭਾਲ"],
+] as const;
+
+for (const [english,punjabi] of audit3Terms) {
+  const x=q("Which option is correct?",english,["Forest","River","Soil"],english+" is correct.");
+  assert.equal(localizeIndianGeoQuestionV1(x,"pa","GEO-PLN-001").canonicalAnswer,punjabi);
+}
