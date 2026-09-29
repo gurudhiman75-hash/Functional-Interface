@@ -9,7 +9,7 @@ const locales = ["en", "hi", "pa"] as const;
 const families = [
   { id: "VEN-CP001", count: 4, operation: "RELATIONS_TO_DIAGRAM" },
   { id: "VEN-CP002", count: 11, operation: "RELATIONS_TO_DIAGRAM" },
-  { id: "VEN-CP004", count: 3, operation: "REGION_IDENTIFICATION" },
+  { id: "VEN-CP004", count: 11, operation: "REGION_IDENTIFICATION" },
 ] as const;
 
 for (const family of families) {
@@ -52,6 +52,12 @@ for (const family of families) {
       }
     }
     assert.equal(keys.size, family.count);
+    if (family.id === "VEN-CP004") {
+      const representedRegions = new Set(result.questions.map((item) => item.semanticMetadata.numberedRegionAnswer));
+      for (const region of ["0", "1", "2", "3", "4", "5", "6", "7"]) {
+        assert.ok(representedRegions.has(region), `missing reviewed region target: ${region}`);
+      }
+    }
     if (family.id === "VEN-CP002") {
       const keyedTopologies = new Set(result.questions.map((item) => item.semanticMetadata.topologyId));
       for (const topology of [
@@ -70,10 +76,10 @@ assert.throws(
   () =>
     generateVen001NextCheckpointBatch({
       patternId: "VEN-CP004",
-      count: 4,
+      count: 12,
       language: "en",
     } as QuestionStudioGenerationRequest),
-  /has 3 distinct region candidates/,
+  /has 11 distinct region candidates/,
 );
 assert.throws(
   () =>
