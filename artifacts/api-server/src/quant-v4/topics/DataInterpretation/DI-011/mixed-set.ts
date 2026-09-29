@@ -73,7 +73,7 @@ function makeQuestion(task: Di011TaskKind, difficulty: Di011Difficulty, stimulus
     } else if (task === "TWO_CATEGORY_CROSS_SUM") {
       const v=a.right+b.right;stem=`What is the total under ${stimulus.rightTitle} for ${a.category} and ${b.category}?`;answer=String(v);options=numericalOptions(v,seed);steps=[`${a.category} = ${a.right}.`,`${b.category} = ${b.right}.`,`Total = ${v}.`];
     } else if (task === "HIGHEST_COMBINED_CATEGORY") {
-      const best=[...rows].sort((x,y)=>y.right-x.right)[0]!;stem="Which category has the highest ${stimulus.rightTitle} figure in the table?";answer=best.category;options=categoryOptions(rows.map((r)=>r.category),answer,seed);steps=rows.map((r)=>`${r.category}: ${r.right}`).concat([`The highest table value is for ${answer}.`]);
+      const best=[...rows].sort((x,y)=>y.right-x.right)[0]!;stem=`Which category has the highest ${stimulus.rightTitle} figure in the table?`;answer=best.category;options=categoryOptions(rows.map((r)=>r.category),answer,seed);steps=rows.map((r)=>`${r.category}: ${r.right}`).concat([`The highest table value is for ${answer}.`]);
     } else if (task === "TWO_GROUP_CROSS_RATIO") {
       const x=a.right+b.right,y=c.right+d.right,v=ratio(x,y);stem=`What is the ratio of total ${stimulus.rightTitle} for ${a.category} and ${b.category} to total ${stimulus.rightTitle} for ${c.category} and ${d.category}?`;answer=v;options=ratioOptions(v,x,y,seed);steps=[`First total = ${a.right} + ${b.right} = ${x}.`,`Second total = ${c.right} + ${d.right} = ${y}.`,`Ratio = ${x}:${y} = ${v}.`];
     } else if (task === "TWO_GROUP_COMBINED_DIFFERENCE") {
