@@ -55,30 +55,30 @@
       "en": {
         "stem": "A radar instrument sends out a microwave pulse and measures its return. How should it be classified?",
         "options": [
-          "An active remote-sensing instrument",
+          "A satellite-positioning receiver",
           "A passive remote-sensing instrument",
-          "A raster data layer",
-          "A satellite-positioning receiver"
+          "An active remote-sensing instrument",
+          "A raster data layer"
         ],
         "explanation": "An active sensor sends out its own energy and measures what returns. A passive sensor records energy that is already present."
       },
       "hi": {
         "stem": "एक रडार यंत्र सूक्ष्मतरंग संकेत भेजता है और लौटे संकेत को मापता है। इसे किस रूप में वर्गीकृत किया जाएगा?",
         "options": [
-          "सक्रिय सुदूर-संवेदन यंत्र",
+          "उपग्रह-आधारित स्थिति-निर्धारण यंत्र",
           "निष्क्रिय सुदूर-संवेदन यंत्र",
-          "रास्टर आँकड़ा-परत",
-          "उपग्रह-आधारित स्थिति-निर्धारण यंत्र"
+          "सक्रिय सुदूर-संवेदन यंत्र",
+          "रास्टर आँकड़ा-परत"
         ],
         "explanation": "सक्रिय संवेदक अपनी ऊर्जा भेजता है और लौटे संकेत को मापता है। निष्क्रिय संवेदक पहले से मौजूद ऊर्जा दर्ज करता है।"
       },
       "pa": {
         "stem": "ਇੱਕ ਰਡਾਰ ਯੰਤਰ ਮਾਈਕ੍ਰੋਵੇਵ ਸੰਕੇਤ ਭੇਜਦਾ ਹੈ ਅਤੇ ਵਾਪਸ ਆਏ ਸੰਕੇਤ ਨੂੰ ਮਾਪਦਾ ਹੈ। ਇਸ ਨੂੰ ਕਿਵੇਂ ਵਰਗੀਕ੍ਰਿਤ ਕੀਤਾ ਜਾਵੇਗਾ?",
         "options": [
-          "ਸਰਗਰਮ ਦੂਰ-ਸੰਵੇਦਨ ਯੰਤਰ",
+          "ਉਪਗ੍ਰਹਿ-ਆਧਾਰਿਤ ਸਥਿਤੀ-ਨਿਰਧਾਰਣ ਯੰਤਰ",
           "ਨਿਸ਼ਕਿਰਿਆ ਦੂਰ-ਸੰਵੇਦਨ ਯੰਤਰ",
-          "ਰਾਸਟਰ ਡਾਟਾ ਪਰਤ",
-          "ਉਪਗ੍ਰਹਿ-ਆਧਾਰਿਤ ਸਥਿਤੀ-ਨਿਰਧਾਰਣ ਯੰਤਰ"
+          "ਸਰਗਰਮ ਦੂਰ-ਸੰਵੇਦਨ ਯੰਤਰ",
+          "ਰਾਸਟਰ ਡਾਟਾ ਪਰਤ"
         ],
         "explanation": "ਸਰਗਰਮ ਸੈਂਸਰ ਆਪਣੀ ਊਰਜਾ ਭੇਜਦਾ ਹੈ ਅਤੇ ਵਾਪਸ ਆਏ ਸੰਕੇਤ ਨੂੰ ਮਾਪਦਾ ਹੈ। ਨਿਸ਼ਕਿਰਿਆ ਸੈਂਸਰ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਊਰਜਾ ਦਰਜ ਕਰਦਾ ਹੈ।"
       }
