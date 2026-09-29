@@ -10,8 +10,8 @@ const packageIds = new Set([packageId, ...cpIds]);
 const locales = { en: 'en-IN', hi: 'hi-IN', pa: 'pa-IN' };
 const registrationAuthorityId = 'WGE-001-WORLD-GEOGRAPHY-AUTHORED-REVIEW-V1';
 const normalize = (v: string | undefined) => (v ?? '').trim().toUpperCase();
-// CP037–CP038 were revised after approval; their replacement wording returns to review.
-const isAuthoringApproved = (cp: string) => { const n = Number(cp.slice(-3)); return n <= 36 || (n >= 39 && n <= 40); };
+// All authored and localized checkpoints through CP042 have explicit user approval.
+const isAuthoringApproved = (cp: string) => Number(cp.slice(-3)) <= 42;
 
 function definition(cp?: WorldGeographyCpId): QuestionStudioPackageDefinition {
   const rows = WGE_CORPUS.filter(q => !cp || q.cpId === cp);

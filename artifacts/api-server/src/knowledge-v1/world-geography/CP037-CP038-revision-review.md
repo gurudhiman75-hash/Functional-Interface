@@ -1,11 +1,11 @@
 # CP037–CP038 Replacement Review Packet
 
-**Status:** The prior CP037–CP038 versions were user approved. These revised questions replace duplicate material and return to review; they remain review only. CP039–CP040 retain their prior approval. No student publication or production release is authorized.
+**Status:** The user approved these revised CP037–CP038 questions after reviewing this packet. CP039–CP040 retain their prior approval. All remain in the review-only lifecycle; no student publication or production release is authorized.
 
 | Checkpoint | Focus | Questions | Status |
 |---|---|---:|---|
-| CP037 | Transport, Trade Routes and Ports | 6 | Revised questions pending review |
-| CP038 | Spatial Relationships and Integrated Geography | 6 | Revised questions pending review |
+| CP037 | Transport, Trade Routes and Ports | 6 | User approved for authoring and localization |
+| CP038 | Spatial Relationships and Integrated Geography | 6 | User approved for authoring and localization |
 
 Each entry below shows all three localized stems, options and explanations. Answer indices are zero-based.
 

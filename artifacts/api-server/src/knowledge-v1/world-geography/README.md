@@ -1,16 +1,16 @@
 # World Geography — Section A implementation
 
-Status: CP001–CP036 and CP039–CP040 are user approved. Revised CP037–CP038 questions and new CP041–CP042 content are pending review. The complete integration remains review only; no student publication or production release is authorized.
+Status: CP001–CP042 are user approved for authoring and localization. The complete integration remains review only; no student publication or production release is authorized.
 
 804 canonical questions; 2,412 localized versions across English, Hindi and Punjabi. CP001–CP040 contain 764 canonical questions; revised CP037–CP038 replace duplicate questions without increasing that count. CP041–CP042 add 40 questions for review. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
 
-## CP037–CP038 replacement pass — review required
+## CP037–CP038 replacement pass — approved
 
-Replaced the repeated canal and strait recall in CP037 with items on containerisation, freight corridors, pipelines and time-sensitive air cargo. Replaced the six repeated CP038 objectives with map interpretation and river-basin application. The existing port hinterland item keeps its explicit inland-service-area translation. Revised CP037–CP038 questions require fresh editorial review; their earlier approval does not apply to the changed wording.
+Replaced the repeated canal and strait recall in CP037 with items on containerisation, freight corridors, pipelines and time-sensitive air cargo. Replaced the six repeated CP038 objectives with map interpretation and river-basin application. The existing port hinterland item keeps its explicit inland-service-area translation. The user approved these revised questions after reviewing the replacement packet; they remain review-only.
 
-## CP041–CP042 coverage expansion — review required
+## CP041–CP042 coverage expansion — approved
 
-Added twenty trilingual questions on human development, economic sectors, global value chains, trade, communication and settlement service challenges, plus twenty questions on the hydrological cycle, groundwater, runoff, river basins, ocean waves and water-map interpretation. These fill syllabus-aligned gaps identified in the coverage audit. CP032–CP036 remain the existing population, settlement, agriculture, resources and industry packages; the new questions add distinct indicators and applied relationships rather than copying those banks.
+Added twenty trilingual questions on human development, economic sectors, global value chains, trade, communication and settlement service challenges, plus twenty questions on the hydrological cycle, groundwater, runoff, river basins, ocean waves and water-map interpretation. These fill syllabus-aligned gaps identified in the coverage audit. CP032–CP036 remain the existing population, settlement, agriculture, resources and industry packages; the new questions add distinct indicators and applied relationships rather than copying those banks. The user approved this batch after review; it remains review-only.
 
 ## CP009–CP011 exam-stem pass
 
@@ -42,7 +42,7 @@ Added settlements and urban geography (12), world agriculture and livestock (12)
 
 ## CP037–CP040 implementation and revision
 
-CP037–CP040 originally added 24 questions in PR #2468. CP039–CP040 retain that approval. CP037–CP038 have since been revised: repeated route facts and six repeated integrated-geography objectives were replaced with new transport and map-application questions. Those changed questions require renewed review; the former approval does not apply to them.
+CP037–CP040 originally added 24 questions in PR #2468. CP039–CP040 retain that approval. CP037–CP038 were revised to replace repeated route facts and six repeated integrated-geography objectives with new transport and map-application questions; the user approved the revisions after review of PR #2504.
 
 ## Editorial revision 2
 
@@ -86,12 +86,12 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 | CP034 | 12 | user approved |
 | CP035 | 12 | user approved |
 | CP036 | 12 | user approved |
-| CP037 | 6 | replacement revision pending review |
-| CP038 | 6 | replacement revision pending review |
+| CP037 | 6 | user approved revised questions |
+| CP038 | 6 | user approved revised questions |
 | CP039 | 6 | user approved |
 | CP040 | 6 | user approved |
-| CP041 | 20 | review required |
-| CP042 | 20 | review required |
+| CP041 | 20 | user approved |
+| CP042 | 20 | user approved |
 
 ## Coverage ledger
 
