@@ -1,0 +1,47 @@
+name: Validate WFM-001 Current-Main Deep Audit
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Word-Formation/WFM-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/REASONING-V1-TAXONOMY-AMENDMENT-WFM-001.md'
+      - 'artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts'
+      - '.github/workflows/wfm-001-current-main-deep-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wfm-001-current-main-deep-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  wfm-current-main:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Run WFM core and source-gap audit
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Word-Formation/WFM-001/wfm-001.test.ts
+
+      - name: Run WFM normal Question Studio integration audit
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Word-Formation/WFM-001/question-studio-integration.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Preserve review-only lifecycle
+        run: |
+          echo 'WFM-001 current-main taxonomy and Question Studio review registration validated.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
