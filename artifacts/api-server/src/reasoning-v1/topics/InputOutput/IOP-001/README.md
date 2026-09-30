@@ -1,6 +1,6 @@
 # IOP-001 — Machine Input–Output & Sequential Rearrangement
 
-Status: **ENGLISH_FROZEN — human-approved, source-family saturated, 8 permanent QLs, 19 source-whitelisted English modes**.
+Status: **MULTILINGUAL_FROZEN — 8 permanent QLs, 19 source-whitelisted modes, EN/HI/PA frozen, standard Question Studio review-only integration active**.
 
 `IOP-001` is the Reasoning V1 implementation package for student-facing **Input–Output** (`REAS-INP`). It uses explicit sequence-of-states engines, independent oracles and rule-identifiability gates rather than static rearrangement templates.
 
@@ -129,7 +129,7 @@ If learner content changes, this proof fails and a new review/approval is requir
 ## Current chapter lifecycle
 
 ```text
-maturity:                     ENGLISH_FROZEN
+maturity:                     MULTILINGUAL_FROZEN
 sourceFamilySaturation:       PASS_V1
 permanentQlCount:             8
 whitelistedSourceModeCount:   19
@@ -138,17 +138,17 @@ English audit pack:           PASS
 English artifact audit:       PASS
 English human approval:       APPROVED_2026_08_18
 English freeze:               true
-Question Studio:              false
+Question Studio:              REGISTERED_STANDARD_REVIEW_ONLY
 Question Bank writes:         false
 test eligibility:             false
 public publication:           false
-Hindi/Punjabi:                NOT_STARTED
+Hindi/Punjabi:                FROZEN_V1
 ```
 
 `IOP_001_LIFECYCLE` remains the discovery-caselet lifecycle for regression isolation. `IOP_001_CHAPTER_LIFECYCLE` is the current chapter-level authority.
 
 ## Next gate
 
-The next content phase is **Hindi/Punjabi localization over the frozen English QLs**, followed by semantic-parity proof and human language review/freeze.
+The next content phase is **content deep-audit closure**, after verifying current Question Studio semantics, generated-surface quality and governance state.
 
-English approval does **not** authorize Question Studio, Question Bank, test/mock delivery, public publication, PR merge or automatic activation. Those remain separate gates.
+English approval alone did **not** authorize Question Studio. The later human-approved multilingual freeze now authorizes the current standard Question Studio review-only integration. Question Bank writes, test/mock delivery, public publication and automatic activation remain separate locked gates.
