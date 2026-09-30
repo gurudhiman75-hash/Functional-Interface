@@ -1653,6 +1653,104 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਕਿਸੇ ਵਸਤ ਨੂੰ ਖਰੀਦ ਮੁੱਲ 'ਤੇ {profitPercent}% ਲਾਭ ਨਾਲ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਲਾਭ ਵਿਕਰੀ ਮੁੱਲ ਦਾ ਕਿਹੜਾ ਅੰਸ਼ ਹੈ?",
       "ਲਾਭ ਖਰੀਦ ਮੁੱਲ ਦਾ {profitPercent}% ਹੈ। ਲਾਭ ਨੂੰ ਵਿਕਰੀ ਮੁੱਲ ਦੇ ਅੰਸ਼ ਵਜੋਂ ਦਰਸਾਓ।"
     ]
+  },
+  "PNL-QL-029": {
+    "en": [
+      "An item is sold at {lossPercent}% loss on cost price. What fraction of the selling price is the loss?",
+      "Loss is {lossPercent}% of CP. Express the loss as a fraction of SP."
+    ],
+    "hi": [
+      "किसी वस्तु को क्रय मूल्य पर {lossPercent}% हानि से बेचा जाता है। हानि विक्रय मूल्य का कौन-सा अंश है?",
+      "हानि क्रय मूल्य का {lossPercent}% है। हानि को विक्रय मूल्य के अंश के रूप में व्यक्त कीजिए।"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਨੂੰ ਖਰੀਦ ਮੁੱਲ 'ਤੇ {lossPercent}% ਘਾਟੇ ਨਾਲ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਘਾਟਾ ਵਿਕਰੀ ਮੁੱਲ ਦਾ ਕਿਹੜਾ ਅੰਸ਼ ਹੈ?",
+      "ਘਾਟਾ ਖਰੀਦ ਮੁੱਲ ਦਾ {lossPercent}% ਹੈ। ਘਾਟੇ ਨੂੰ ਵਿਕਰੀ ਮੁੱਲ ਦੇ ਅੰਸ਼ ਵਜੋਂ ਦਰਸਾਓ।"
+    ]
+  },
+  "PNL-QL-030": {
+    "en": [
+      "An item costing ₹{costPrice} can be sold at {firstRatePercent}% or {secondRatePercent}% profit. Find the difference between the two selling prices.",
+      "For cost price ₹{costPrice}, compare selling prices at {firstRatePercent}% and {secondRatePercent}% profit. What is their difference?"
+    ],
+    "hi": [
+      "₹{costPrice} लागत वाली वस्तु को {firstRatePercent}% या {secondRatePercent}% लाभ पर बेचा जा सकता है। दोनों विक्रय मूल्यों का अंतर ज्ञात कीजिए।",
+      "क्रय मूल्य ₹{costPrice} के लिए {firstRatePercent}% और {secondRatePercent}% लाभ पर विक्रय मूल्यों की तुलना कीजिए। उनका अंतर कितना है?"
+    ],
+    "pa": [
+      "₹{costPrice} ਲਾਗਤ ਵਾਲੀ ਵਸਤ ਨੂੰ {firstRatePercent}% ਜਾਂ {secondRatePercent}% ਲਾਭ 'ਤੇ ਵੇਚਿਆ ਜਾ ਸਕਦਾ ਹੈ। ਦੋਵੇਂ ਵਿਕਰੀ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+      "ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਲਈ {firstRatePercent}% ਅਤੇ {secondRatePercent}% ਲਾਭ 'ਤੇ ਵਿਕਰੀ ਮੁੱਲਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ। ਉਨ੍ਹਾਂ ਦਾ ਅੰਤਰ ਕਿੰਨਾ ਹੈ?"
+    ]
+  },
+  "PNL-QL-031": {
+    "en": [
+      "An item costs ₹{costPrice}. One selling price gives {profitPercent}% profit and another gives {lossPercent}% loss. Find the difference between the two selling prices.",
+      "For a cost price of ₹{costPrice}, compare a sale at {profitPercent}% profit with one at {lossPercent}% loss. What is the selling-price difference?"
+    ],
+    "hi": [
+      "किसी वस्तु का क्रय मूल्य ₹{costPrice} है। एक विक्रय मूल्य पर {profitPercent}% लाभ और दूसरे पर {lossPercent}% हानि होती है। दोनों विक्रय मूल्यों का अंतर ज्ञात कीजिए।",
+      "₹{costPrice} के क्रय मूल्य पर {profitPercent}% लाभ वाली बिक्री और {lossPercent}% हानि वाली बिक्री की तुलना कीजिए। विक्रय मूल्यों का अंतर कितना है?"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਹੈ। ਇੱਕ ਵਿਕਰੀ ਮੁੱਲ 'ਤੇ {profitPercent}% ਲਾਭ ਅਤੇ ਦੂਜੇ 'ਤੇ {lossPercent}% ਘਾਟਾ ਹੁੰਦਾ ਹੈ। ਦੋਵੇਂ ਵਿਕਰੀ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+      "₹{costPrice} ਦੇ ਖਰੀਦ ਮੁੱਲ 'ਤੇ {profitPercent}% ਲਾਭ ਵਾਲੀ ਵਿਕਰੀ ਅਤੇ {lossPercent}% ਘਾਟੇ ਵਾਲੀ ਵਿਕਰੀ ਦੀ ਤੁਲਨਾ ਕਰੋ। ਵਿਕਰੀ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਕਿੰਨਾ ਹੈ?"
+    ]
+  },
+  "PNL-QL-032": {
+    "en": [
+      "The selling prices at {firstRatePercent}% and {secondRatePercent}% profit differ by ₹{sellingPriceDifference}. Find the cost price.",
+      "Two profit rates, {firstRatePercent}% and {secondRatePercent}%, produce selling prices differing by ₹{sellingPriceDifference}. What is the original cost price?"
+    ],
+    "hi": [
+      "{firstRatePercent}% और {secondRatePercent}% लाभ पर विक्रय मूल्यों का अंतर ₹{sellingPriceDifference} है। क्रय मूल्य ज्ञात कीजिए।",
+      "{firstRatePercent}% और {secondRatePercent}% के दो लाभ प्रतिशतों से मिलने वाले विक्रय मूल्यों में ₹{sellingPriceDifference} का अंतर है। मूल क्रय मूल्य क्या है?"
+    ],
+    "pa": [
+      "{firstRatePercent}% ਅਤੇ {secondRatePercent}% ਲਾਭ 'ਤੇ ਵਿਕਰੀ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ₹{sellingPriceDifference} ਹੈ। ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "{firstRatePercent}% ਅਤੇ {secondRatePercent}% ਦੇ ਦੋ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤਾਂ ਨਾਲ ਮਿਲਣ ਵਾਲੇ ਵਿਕਰੀ ਮੁੱਲਾਂ ਵਿੱਚ ₹{sellingPriceDifference} ਦਾ ਅੰਤਰ ਹੈ। ਮੂਲ ਖਰੀਦ ਮੁੱਲ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-033": {
+    "en": [
+      "An item is sold for ₹{firstSellingPrice} at {firstRatePercent}% profit. If it is instead sold for ₹{secondSellingPrice}, find the new profit or loss percentage.",
+      "Selling at ₹{firstSellingPrice} gives {firstRatePercent}% profit. What percentage gain or loss results if the selling price changes to ₹{secondSellingPrice}?"
+    ],
+    "hi": [
+      "किसी वस्तु को ₹{firstSellingPrice} में बेचने पर {firstRatePercent}% लाभ होता है। यदि उसे ₹{secondSellingPrice} में बेचा जाए, तो नया लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "₹{firstSellingPrice} में बिक्री पर {firstRatePercent}% लाभ होता है। विक्रय मूल्य ₹{secondSellingPrice} होने पर प्रतिशत लाभ या हानि क्या होगी?"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਨੂੰ ₹{firstSellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ {firstRatePercent}% ਲਾਭ ਹੁੰਦਾ ਹੈ। ਜੇ ਇਸਨੂੰ ₹{secondSellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਵੇ, ਤਾਂ ਨਵਾਂ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "₹{firstSellingPrice} ਵਿੱਚ ਵਿਕਰੀ 'ਤੇ {firstRatePercent}% ਲਾਭ ਹੁੰਦਾ ਹੈ। ਵਿਕਰੀ ਮੁੱਲ ₹{secondSellingPrice} ਹੋਣ 'ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਜਾਂ ਘਾਟਾ ਕੀ ਹੋਵੇਗਾ?"
+    ]
+  },
+  "PNL-QL-034": {
+    "en": [
+      "An item is sold for ₹{firstSellingPrice} at {firstRatePercent}% loss. If it is instead sold for ₹{secondSellingPrice}, find the new gain or loss percentage.",
+      "Selling at ₹{firstSellingPrice} causes {firstRatePercent}% loss. What percentage result follows if the selling price is ₹{secondSellingPrice}?"
+    ],
+    "hi": [
+      "किसी वस्तु को ₹{firstSellingPrice} में बेचने पर {firstRatePercent}% हानि होती है। यदि उसे ₹{secondSellingPrice} में बेचा जाए, तो नया लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "₹{firstSellingPrice} में बिक्री पर {firstRatePercent}% हानि होती है। विक्रय मूल्य ₹{secondSellingPrice} होने पर प्रतिशत परिणाम क्या होगा?"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਨੂੰ ₹{firstSellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ {firstRatePercent}% ਘਾਟਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਇਸਨੂੰ ₹{secondSellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਵੇ, ਤਾਂ ਨਵਾਂ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "₹{firstSellingPrice} ਵਿੱਚ ਵਿਕਰੀ 'ਤੇ {firstRatePercent}% ਘਾਟਾ ਹੁੰਦਾ ਹੈ। ਵਿਕਰੀ ਮੁੱਲ ₹{secondSellingPrice} ਹੋਣ 'ਤੇ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਕੀ ਹੋਵੇਗਾ?"
+    ]
+  },
+  "PNL-QL-035": {
+    "en": [
+      "An item is bought for ₹{costPrice} and sold for ₹{sellingPrice}. Find the profit or loss percentage.",
+      "The cost price is ₹{costPrice} and the selling price is ₹{sellingPrice}. Determine the percentage gain, loss, or no change."
+    ],
+    "hi": [
+      "किसी वस्तु को ₹{costPrice} में खरीदा और ₹{sellingPrice} में बेचा जाता है। लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "क्रय मूल्य ₹{costPrice} और विक्रय मूल्य ₹{sellingPrice} है। प्रतिशत लाभ, हानि या कोई परिवर्तन न होने की स्थिति ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਨੂੰ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPrice} ਹੈ। ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ, ਘਾਟਾ ਜਾਂ ਕੋਈ ਬਦਲਾਅ ਨਾ ਹੋਣ ਦੀ ਸਥਿਤੀ ਪਤਾ ਕਰੋ।"
+    ]
   }
 };
 
