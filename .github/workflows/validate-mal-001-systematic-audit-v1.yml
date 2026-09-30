@@ -1,0 +1,52 @@
+name: Validate MAL-001 Systematic Audit V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/**"
+
+concurrency:
+  group: mal-001-systematic-audit-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle MAL-001 systematic audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-systematic-audit-v1.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/.mal-001-systematic-audit-v1.mjs
+
+      - name: Run full MAL-001 trilingual chapter audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/.mal-001-systematic-audit-v1.mjs \
+            2>&1 | tee -a mal-001-systematic-audit-v1.log
+          grep -q "PASS_MAL_001_SYSTEMATIC_AUDIT_V1_CORE_INTEGRITY" mal-001-systematic-audit-v1.log
+
+      - name: Upload MAL-001 audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-001-systematic-audit-v1
+          path: mal-001-systematic-audit-v1.log
