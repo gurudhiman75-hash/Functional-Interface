@@ -139,3 +139,32 @@ The adapter now derives composed-set human/authoring approval from the existing 
 
 
 **Inventory reconciliation required:** The older ENG-009 chapter closure record enumerates 48 passages / 268 blanks, but the current CP001–CP005 regression inventories declare 20/100, 20/100, 20/120, 20/120 and 18/108 respectively: **98 currently registered passages and 548 blanks** if those active exports match their tests. The historical closure totals are therefore not appropriate current scale figures. Confirm against active runtime exports and reconcile the authoritative inventory document in the separate content-quality remediation before claiming current whole-chapter inventory certification.
+
+
+## Phase 11 — ENG-009 CP005 can-fit single-answer remediation V2
+
+The CP005 ambiguity identified in Phase 10 is remediated at source level.
+
+For every `can-fit` authority, the authored model already stores three accepted words and one rejected word. Instead of rendering several accepted words as separate options while keying only one, V2 now asks:
+
+`Which group contains only words that can appropriately fill blank number N?`
+
+The keyed option contains the three governed accepted words. Each of the three distractor groups contains the governed rejected word. This preserves the original accepted/rejected authority and makes the keyed response uniquely defensible without inventing new vocabulary.
+
+Additional controls:
+- changed can-fit learner surfaces use `ENG-009-CP005-V2` question IDs;
+- cannot-fit and phrasal-word rendering remain unchanged;
+- the 108-authority CP005 audit explicitly checks the single-answer contract;
+- CP005 direct Question Studio surfaces and CP006 `banking-new-pattern` composed sets are marked human-review pending for this revision;
+- all other ENG-009 profiles retain their previous approval state;
+- the full CP005 review exporter now covers the live 18 passages / 108 blanks and emits `ENG-009-CP005-FULL-REVIEW-V2.md`.
+
+Current active regression inventories across CP001–CP005 are:
+- CP001: 20 passages / 100 blanks
+- CP002: 20 / 100
+- CP003: 20 / 120
+- CP004: 20 / 120
+- CP005: 18 / 108
+- **Total: 98 passages / 548 governed blanks**
+
+These current totals supersede the older 48 / 268 scale figure for present inventory reporting. Final CP005 V2 human approval is still required before the revision-pending flags can be cleared.
