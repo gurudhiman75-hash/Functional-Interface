@@ -21,6 +21,9 @@ import { localizeGeoPop001ExactCp002PartA } from "./population-settlements/geo-p
 import { localizeGeoPop001ExactCp002PartB } from "./population-settlements/geo-pop-001-localization-cp002-part-b-v1";
 import { localizeGeoPop001ExactCp002PartC } from "./population-settlements/geo-pop-001-localization-cp002-part-c-v1";
 import { localizeGeoPop001ExactCp002PartD } from "./population-settlements/geo-pop-001-localization-cp002-part-d-v1";
+import { localizeGeoPop001ExactCp003PartA } from "./population-settlements/geo-pop-001-localization-cp003-part-a-v1";
+import { localizeGeoPop001ExactCp003PartB } from "./population-settlements/geo-pop-001-localization-cp003-part-b-v1";
+import { localizeGeoPop001ExactCp003PartC } from "./population-settlements/geo-pop-001-localization-cp003-part-c-v1";
 
 export type IndianGeoLocalizationLanguageV1 = "en" | "hi" | "pa";
 type CanonicalQuestion = Readonly<{
@@ -771,7 +774,10 @@ export function localizeIndianGeoQuestionV1(
       localizeGeoPop001ExactCp002PartA(question, language) ??
       localizeGeoPop001ExactCp002PartB(question, language) ??
       localizeGeoPop001ExactCp002PartC(question, language) ??
-      localizeGeoPop001ExactCp002PartD(question, language);
+      localizeGeoPop001ExactCp002PartD(question, language) ??
+      localizeGeoPop001ExactCp003PartA(question, language) ??
+      localizeGeoPop001ExactCp003PartB(question, language) ??
+      localizeGeoPop001ExactCp003PartC(question, language);
     if (approved) return approved;
   }
 
