@@ -138,7 +138,7 @@ D. 0.1
 
 **Answer:** B. 0.45
 
-**Explanation:** r² = bYX × bXY and the sign of r is the common sign of the regression coefficients. Both are positive, so r = +√(0.5 × 0.4) = 0.45.
+**Explanation:** r² = bYX × bXY and the sign of r is the common sign of the regression coefficients. Both are positive, so r = +√(0.5 × 0.4) ≈ 0.45.
 
 ## STAT-QL-079 — Spearman rank correlation without ties
 
