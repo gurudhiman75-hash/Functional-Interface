@@ -852,6 +852,427 @@
         "acidVolume",
         "waterVolume"
       ]
+    },
+    "RAP-QL-108": {
+      "cpId": "RAP-CP-002",
+      "taskKind": "shareDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalAmount",
+        "personA",
+        "personB",
+        "personC",
+        "ratioA",
+        "ratioB",
+        "ratioC"
+      ]
+    },
+    "RAP-QL-208": {
+      "cpId": "RAP-CP-002",
+      "taskKind": "shareDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalAmount",
+        "personA",
+        "personB",
+        "personC",
+        "ratioA",
+        "ratioB",
+        "ratioC"
+      ]
+    },
+    "RAP-QL-109": {
+      "cpId": "RAP-CP-002",
+      "taskKind": "reversePartition",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA",
+        "ratioB",
+        "ratioC",
+        "shareDifference"
+      ]
+    },
+    "RAP-QL-209": {
+      "cpId": "RAP-CP-002",
+      "taskKind": "reversePartition",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA",
+        "ratioB",
+        "ratioC",
+        "shareDifference"
+      ]
+    },
+    "RAP-QL-111": {
+      "cpId": "RAP-CP-002",
+      "taskKind": "salaryDistribution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "personA",
+        "ratioExp",
+        "ratioSav",
+        "totalSalary"
+      ]
+    },
+    "RAP-QL-211": {
+      "cpId": "RAP-CP-002",
+      "taskKind": "salaryDistribution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "personA",
+        "ratioExp",
+        "ratioSav",
+        "totalSalary"
+      ]
+    },
+    "RAP-QL-207": {
+      "cpId": "RAP-CP-002",
+      "taskKind": "basicPartition",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalAmount",
+        "personA",
+        "personB",
+        "personC",
+        "ratioA",
+        "ratioB",
+        "ratioC",
+        "targetPerson"
+      ]
+    },
+    "RAP-QL-307": {
+      "cpId": "RAP-CP-002",
+      "taskKind": "basicPartition",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalAmount",
+        "personA",
+        "personB",
+        "personC",
+        "ratioA",
+        "ratioB",
+        "ratioC",
+        "targetPerson"
+      ]
+    },
+    "RAP-QL-112": {
+      "cpId": "RAP-CP-003",
+      "taskKind": "twoStateAddition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "contextName",
+        "groupA",
+        "groupB",
+        "ratioA",
+        "ratioB",
+        "addedCount",
+        "finalRatioA",
+        "finalRatioB"
+      ]
+    },
+    "RAP-QL-212": {
+      "cpId": "RAP-CP-003",
+      "taskKind": "twoStateAddition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "contextName",
+        "groupA",
+        "groupB",
+        "ratioA",
+        "ratioB",
+        "addedCount",
+        "finalRatioA",
+        "finalRatioB"
+      ]
+    },
+    "RAP-QL-213": {
+      "cpId": "RAP-CP-003",
+      "taskKind": "twoStateSubtraction",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "contextName",
+        "groupA",
+        "groupB",
+        "ratioA",
+        "ratioB",
+        "removedCount",
+        "finalRatioA",
+        "finalRatioB"
+      ]
+    },
+    "RAP-QL-114": {
+      "cpId": "RAP-CP-003",
+      "taskKind": "twoStateTransfer",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB",
+        "transferredCount",
+        "finalRatioA",
+        "finalRatioB"
+      ]
+    },
+    "RAP-QL-115": {
+      "cpId": "RAP-CP-003",
+      "taskKind": "incomeExpenditureSystem",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "incomeRatioA",
+        "incomeRatioB",
+        "expRatioA",
+        "expRatioB",
+        "savingsAmount"
+      ]
+    },
+    "RAP-QL-117": {
+      "cpId": "RAP-CP-004",
+      "taskKind": "meanProportional",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "numA",
+        "numB"
+      ]
+    },
+    "RAP-QL-118": {
+      "cpId": "RAP-CP-004",
+      "taskKind": "thirdProportional",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "numA",
+        "numB"
+      ]
+    },
+    "RAP-QL-119": {
+      "cpId": "RAP-CP-004",
+      "taskKind": "fourthProportional",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "numA",
+        "numB",
+        "numC"
+      ]
+    },
+    "RAP-QL-120": {
+      "cpId": "RAP-CP-004",
+      "taskKind": "directVariation",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "varX",
+        "varY",
+        "varX1",
+        "varY1",
+        "varX2"
+      ]
+    },
+    "RAP-QL-121": {
+      "cpId": "RAP-CP-004",
+      "taskKind": "inverseVariation",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "varX",
+        "varY",
+        "varX1",
+        "varY1",
+        "varX2"
+      ]
+    },
+    "RAP-QL-122": {
+      "cpId": "RAP-CP-005",
+      "taskKind": "coinCounting",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "denom1",
+        "denom2",
+        "denom3",
+        "ratio1",
+        "ratio2",
+        "ratio3",
+        "totalValue",
+        "targetDenom"
+      ]
+    },
+    "RAP-QL-222": {
+      "cpId": "RAP-CP-005",
+      "taskKind": "coinCounting",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "denom1",
+        "denom2",
+        "denom3",
+        "ratio1",
+        "ratio2",
+        "ratio3",
+        "totalValue",
+        "targetDenom"
+      ]
+    },
+    "RAP-QL-123": {
+      "cpId": "RAP-CP-005",
+      "taskKind": "multiDenominationMapping",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalCoins",
+        "denom1",
+        "denom2",
+        "denom3",
+        "denom4",
+        "valRatio1",
+        "valRatio2",
+        "valRatio3",
+        "valRatio4",
+        "targetDenom"
+      ]
+    },
+    "RAP-QL-223": {
+      "cpId": "RAP-CP-005",
+      "taskKind": "multiDenominationMapping",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalCoins",
+        "denom1",
+        "denom2",
+        "denom3",
+        "denom4",
+        "valRatio1",
+        "valRatio2",
+        "valRatio3",
+        "valRatio4",
+        "targetDenom"
+      ]
+    },
+    "RAP-QL-124": {
+      "cpId": "RAP-CP-005",
+      "taskKind": "weightedMapping",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "itemA",
+        "itemB",
+        "itemC",
+        "ratioA",
+        "ratioB",
+        "ratioC",
+        "countA",
+        "countB",
+        "countC",
+        "totalWeight"
+      ]
+    },
+    "RAP-QL-224": {
+      "cpId": "RAP-CP-005",
+      "taskKind": "weightedMapping",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "itemA",
+        "itemB",
+        "itemC",
+        "ratioA",
+        "ratioB",
+        "ratioC",
+        "countA",
+        "countB",
+        "countC",
+        "totalWeight"
+      ]
+    },
+    "RAP-QL-126": {
+      "cpId": "RAP-CP-005",
+      "taskKind": "weightedMarks",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "sub1",
+        "sub2",
+        "sub3",
+        "ratio1",
+        "ratio2",
+        "ratio3",
+        "w1",
+        "w2",
+        "w3",
+        "totalScore"
+      ]
+    },
+    "RAP-QL-226": {
+      "cpId": "RAP-CP-005",
+      "taskKind": "weightedMarks",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "sub1",
+        "sub2",
+        "sub3",
+        "ratio1",
+        "ratio2",
+        "ratio3",
+        "w1",
+        "w2",
+        "w3",
+        "totalScore"
+      ]
+    },
+    "RAP-QL-127": {
+      "cpId": "RAP-CP-006",
+      "taskKind": "binaryMixture",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "liquid1",
+        "liquid2",
+        "ratio1",
+        "ratio2",
+        "addedAmount",
+        "finalRatio1",
+        "finalRatio2"
+      ]
+    },
+    "RAP-QL-128": {
+      "cpId": "RAP-CP-006",
+      "taskKind": "mixtureComponentFinding",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalVolume",
+        "liquid1",
+        "liquid2",
+        "ratio1",
+        "ratio2",
+        "finalRatio1",
+        "finalRatio2"
+      ]
+    },
+    "RAP-QL-129": {
+      "cpId": "RAP-CP-006",
+      "taskKind": "threeComponentMixture",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "mixtureType",
+        "liquid1",
+        "liquid2",
+        "liquid3",
+        "ratio1",
+        "ratio2",
+        "ratio3",
+        "addedAmount",
+        "finalRatio1",
+        "finalRatio2",
+        "finalRatio3"
+      ]
+    },
+    "RAP-QL-130": {
+      "cpId": "RAP-CP-006",
+      "taskKind": "variableReplacementRatio",
+      "answerType": "RATIO",
+      "requiredVariables": [
+        "initialVolume",
+        "liquidA",
+        "removedVolume1",
+        "liquidB",
+        "removedVolume2"
+      ]
     }
   }
 }
