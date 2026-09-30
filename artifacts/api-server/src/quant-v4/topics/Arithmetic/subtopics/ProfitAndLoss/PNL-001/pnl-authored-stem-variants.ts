@@ -869,6 +869,118 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਕੱਪੜਾ ਵਪਾਰੀ {trueQuantity} ਸੈਂਟੀਮੀਟਰ ਦੀ ਕੀਮਤ ਲੈਂਦਾ ਹੈ, ਪਰ ਇੱਕ ਮੀਟਰ ਦੱਸੀ ਮਾਪ-ਛੜੀ ਸਿਰਫ਼ {deliveredQuantity} ਸੈਂਟੀਮੀਟਰ ਲੰਬੀ ਹੈ। ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਵਸੂਲੀ ਪਤਾ ਕਰੋ।",
       "ਗਾਹਕ {trueQuantity} ਸੈਂਟੀਮੀਟਰ ਕੱਪੜੇ ਦਾ ਭੁਗਤਾਨ ਕਰਦਾ ਹੈ, ਜਦਕਿ ਵਿਕਰੇਤਾ ਦੀ 'ਮੀਟਰ' ਮਾਪ ਅਸਲ ਵਿੱਚ {deliveredQuantity} ਸੈਂਟੀਮੀਟਰ ਹੈ। ਗਾਹਕ ਤੋਂ ਪ੍ਰਭਾਵੀ ਤੌਰ 'ਤੇ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਲਿਆ ਗਿਆ?"
     ]
+  },
+  "PNL-QL-150": {
+    "en": [
+      "A workshop buys a machine for ₹{purchasePrice} and additionally spends ₹{repairExpense} on repairs, ₹{transportExpense} on transport, and ₹{installationExpense} on installation. Find the effective cost.",
+      "A machine is purchased for ₹{purchasePrice}. Repair, transport and installation expenses are ₹{repairExpense}, ₹{transportExpense} and ₹{installationExpense}. What is its total effective cost?"
+    ],
+    "hi": [
+      "एक कार्यशाला मशीन ₹{purchasePrice} में खरीदती है और मरम्मत पर ₹{repairExpense}, परिवहन पर ₹{transportExpense} तथा स्थापना पर ₹{installationExpense} खर्च करती है। प्रभावी लागत ज्ञात कीजिए।",
+      "मशीन का क्रय मूल्य ₹{purchasePrice} है। मरम्मत, परिवहन और स्थापना खर्च क्रमशः ₹{repairExpense}, ₹{transportExpense} और ₹{installationExpense} हैं। कुल प्रभावी लागत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਰਕਸ਼ਾਪ ਮਸ਼ੀਨ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦੀ ਹੈ ਅਤੇ ਮੁਰੰਮਤ 'ਤੇ ₹{repairExpense}, ਆਵਾਜਾਈ 'ਤੇ ₹{transportExpense} ਅਤੇ ਇੰਸਟਾਲੇਸ਼ਨ 'ਤੇ ₹{installationExpense} ਖਰਚਦੀ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "ਮਸ਼ੀਨ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{purchasePrice} ਹੈ। ਮੁਰੰਮਤ, ਆਵਾਜਾਈ ਅਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਖਰਚ ਕ੍ਰਮਵਾਰ ₹{repairExpense}, ₹{transportExpense} ਅਤੇ ₹{installationExpense} ਹਨ। ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-151": {
+    "en": [
+      "Display equipment costs ₹{purchasePrice}. Setup expenses are {overheadPercent}% of the purchase price. Find the effective cost.",
+      "A retailer buys display equipment for ₹{purchasePrice} and incurs setup overhead equal to {overheadPercent}% of purchase price. What is the total effective cost?"
+    ],
+    "hi": [
+      "डिस्प्ले उपकरण का क्रय मूल्य ₹{purchasePrice} है। सेटअप खर्च क्रय मूल्य का {overheadPercent}% है। प्रभावी लागत ज्ञात कीजिए।",
+      "एक खुदरा विक्रेता डिस्प्ले उपकरण ₹{purchasePrice} में खरीदता है और सेटअप ओवरहेड क्रय मूल्य का {overheadPercent}% है। कुल प्रभावी लागत क्या है?"
+    ],
+    "pa": [
+      "ਡਿਸਪਲੇ ਉਪਕਰਣ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{purchasePrice} ਹੈ। ਸੈਟਅੱਪ ਖਰਚ ਖਰੀਦ ਮੁੱਲ ਦਾ {overheadPercent}% ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਰਿਟੇਲਰ ਡਿਸਪਲੇ ਉਪਕਰਣ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ ਅਤੇ ਸੈਟਅੱਪ ਓਵਰਹੈੱਡ ਖਰੀਦ ਮੁੱਲ ਦਾ {overheadPercent}% ਹੈ। ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-152": {
+    "en": [
+      "Used equipment is bought for ₹{purchasePrice} and ₹{expenses} is spent to make it sale-ready. At what price should it be sold for {profitPercent}% profit on effective cost?",
+      "A dealer's effective cost includes ₹{purchasePrice} purchase price plus ₹{expenses} preparation expenses. Find the selling price required for {profitPercent}% profit."
+    ],
+    "hi": [
+      "पुराना उपकरण ₹{purchasePrice} में खरीदा जाता है और उसे बिक्री योग्य बनाने पर ₹{expenses} खर्च होते हैं। प्रभावी लागत पर {profitPercent}% लाभ के लिए विक्रय मूल्य ज्ञात कीजिए।",
+      "डीलर की प्रभावी लागत में ₹{purchasePrice} का क्रय मूल्य और ₹{expenses} की तैयारी लागत शामिल है। {profitPercent}% लाभ के लिए आवश्यक विक्रय मूल्य ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਪੁਰਾਣਾ ਉਪਕਰਣ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਇਸਨੂੰ ਵਿਕਰੀ ਲਈ ਤਿਆਰ ਕਰਨ 'ਤੇ ₹{expenses} ਖਰਚ ਹੁੰਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {profitPercent}% ਲਾਭ ਲਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਡੀਲਰ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਵਿੱਚ ₹{purchasePrice} ਦਾ ਖਰੀਦ ਮੁੱਲ ਅਤੇ ₹{expenses} ਦੀ ਤਿਆਰੀ ਲਾਗਤ ਸ਼ਾਮਲ ਹੈ। {profitPercent}% ਲਾਭ ਲਈ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-153": {
+    "en": [
+      "A damaged appliance is bought for ₹{purchasePrice} and restored at a cost of ₹{expenses}. What selling price gives a {lossPercent}% loss on effective cost?",
+      "A trader spends ₹{purchasePrice} to buy a damaged appliance and ₹{expenses} to restore it. Find the selling price corresponding to {lossPercent}% loss on total effective cost."
+    ],
+    "hi": [
+      "एक खराब उपकरण ₹{purchasePrice} में खरीदा जाता है और उसकी मरम्मत पर ₹{expenses} खर्च होते हैं। प्रभावी लागत पर {lossPercent}% हानि के लिए विक्रय मूल्य ज्ञात कीजिए।",
+      "व्यापारी खराब उपकरण ₹{purchasePrice} में खरीदता है और उसे ठीक करने पर ₹{expenses} खर्च करता है। कुल प्रभावी लागत पर {lossPercent}% हानि के अनुरूप विक्रय मूल्य ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਖਰਾਬ ਉਪਕਰਣ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਇਸਦੀ ਮੁਰੰਮਤ 'ਤੇ ₹{expenses} ਖਰਚ ਹੁੰਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {lossPercent}% ਘਾਟੇ ਲਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਵਪਾਰੀ ਖਰਾਬ ਉਪਕਰਣ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ ਅਤੇ ਇਸਨੂੰ ਠੀਕ ਕਰਨ 'ਤੇ ₹{expenses} ਖਰਚਦਾ ਹੈ। ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {lossPercent}% ਘਾਟੇ ਦੇ ਅਨੁਸਾਰ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-154": {
+    "en": [
+      "An antique desk is bought for ₹{purchasePrice}, restored for ₹{expenses}, and sold for ₹{sellingPrice}. Find the percentage gain or loss on effective cost.",
+      "A desk costs ₹{purchasePrice} initially and needs ₹{expenses} restoration expense before being sold for ₹{sellingPrice}. Calculate the profit or loss percentage on total effective cost."
+    ],
+    "hi": [
+      "एक पुरानी मेज ₹{purchasePrice} में खरीदी जाती है, उसकी बहाली पर ₹{expenses} खर्च होते हैं और उसे ₹{sellingPrice} में बेचा जाता है। प्रभावी लागत पर लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "मेज की प्रारंभिक लागत ₹{purchasePrice} है और बहाली खर्च ₹{expenses} है। इसे ₹{sellingPrice} में बेचने पर कुल प्रभावी लागत पर लाभ या हानि प्रतिशत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਪੁਰਾਣੀ ਮੇਜ਼ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਜਾਂਦੀ ਹੈ, ਇਸਦੀ ਮੁਰੰਮਤ 'ਤੇ ₹{expenses} ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਇਸਨੂੰ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਮੇਜ਼ ਦੀ ਸ਼ੁਰੂਆਤੀ ਲਾਗਤ ₹{purchasePrice} ਹੈ ਅਤੇ ਮੁਰੰਮਤ ਖਰਚ ₹{expenses} ਹੈ। ਇਸਨੂੰ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-155": {
+    "en": [
+      "A vehicle is bought for ₹{purchasePrice} and is expected to sell for ₹{sellingPrice}. What is the maximum additional expense allowed if the final result must be {targetRatePercent}% {targetDirection} on effective cost?",
+      "A dealer pays ₹{purchasePrice} for a vehicle and plans to sell it for ₹{sellingPrice}. Find the greatest extra expense that still allows {targetRatePercent}% {targetDirection} on total effective cost."
+    ],
+    "hi": [
+      "एक वाहन ₹{purchasePrice} में खरीदा जाता है और ₹{sellingPrice} में बेचा जाना है। यदि प्रभावी लागत पर अंतिम परिणाम {targetRatePercent}% {targetDirection} होना चाहिए, तो अधिकतम अतिरिक्त खर्च कितना हो सकता है?",
+      "डीलर वाहन के लिए ₹{purchasePrice} देता है और उसे ₹{sellingPrice} में बेचने की योजना है। कुल प्रभावी लागत पर {targetRatePercent}% {targetDirection} बनाए रखने के लिए अधिकतम अतिरिक्त खर्च ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਾਹਨ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਣਾ ਹੈ। ਜੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ ਅੰਤਿਮ ਨਤੀਜਾ {targetRatePercent}% {targetDirection} ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ, ਤਾਂ ਵੱਧ ਤੋਂ ਵੱਧ ਵਾਧੂ ਖਰਚ ਕਿੰਨਾ ਹੋ ਸਕਦਾ ਹੈ?",
+      "ਡੀਲਰ ਵਾਹਨ ਲਈ ₹{purchasePrice} ਦਿੰਦਾ ਹੈ ਅਤੇ ਇਸਨੂੰ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਣ ਦੀ ਯੋਜਨਾ ਹੈ। ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {targetRatePercent}% {targetDirection} ਬਣਾਈ ਰੱਖਣ ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਵਾਧੂ ਖਰਚ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-156": {
+    "en": [
+      "A bakery spends ₹{totalInputCost} to produce {inputQuantity} units, but {wastedQuantity} units are lost during preparation. Find the effective cost per usable unit.",
+      "Ingredients cost ₹{totalInputCost} for {inputQuantity} units of planned output. If {wastedQuantity} units are wasted, what is the effective cost of each usable unit?"
+    ],
+    "hi": [
+      "एक बेकरी {inputQuantity} इकाइयों के लिए ₹{totalInputCost} खर्च करती है, लेकिन तैयारी में {wastedQuantity} इकाइयाँ खराब हो जाती हैं। प्रति उपयोगी इकाई प्रभावी लागत ज्ञात कीजिए।",
+      "{inputQuantity} इकाइयों के नियोजित उत्पादन के लिए सामग्री की लागत ₹{totalInputCost} है। यदि {wastedQuantity} इकाइयाँ नष्ट हो जाएँ, तो प्रत्येक उपयोगी इकाई की प्रभावी लागत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਬੇਕਰੀ {inputQuantity} ਇਕਾਈਆਂ ਲਈ ₹{totalInputCost} ਖਰਚਦੀ ਹੈ, ਪਰ ਤਿਆਰੀ ਦੌਰਾਨ {wastedQuantity} ਇਕਾਈਆਂ ਖਰਾਬ ਹੋ ਜਾਂਦੀਆਂ ਹਨ। ਪ੍ਰਤੀ ਵਰਤਣਯੋਗ ਇਕਾਈ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "{inputQuantity} ਇਕਾਈਆਂ ਦੇ ਯੋਜਿਤ ਉਤਪਾਦਨ ਲਈ ਸਮੱਗਰੀ ਦੀ ਲਾਗਤ ₹{totalInputCost} ਹੈ। ਜੇ {wastedQuantity} ਇਕਾਈਆਂ ਨਸ਼ਟ ਹੋ ਜਾਣ, ਤਾਂ ਹਰ ਵਰਤਣਯੋਗ ਇਕਾਈ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-157": {
+    "en": [
+      "A food-processing batch costs ₹{totalInputCost} for {inputQuantity} input units. After {wastedQuantity} units are lost, at what price should each usable unit be sold for {targetRatePercent}% {targetDirection}?",
+      "A batch has total input cost ₹{totalInputCost} and starts with {inputQuantity} units; {wastedQuantity} are lost. Find the selling price per usable unit required for {targetRatePercent}% overall {targetDirection}."
+    ],
+    "hi": [
+      "खाद्य-प्रसंस्करण बैच की लागत ₹{totalInputCost} है और प्रारंभिक मात्रा {inputQuantity} इकाइयाँ है। {wastedQuantity} इकाइयाँ नष्ट हो जाती हैं। {targetRatePercent}% {targetDirection} के लिए प्रति उपयोगी इकाई विक्रय मूल्य ज्ञात कीजिए।",
+      "बैच की कुल इनपुट लागत ₹{totalInputCost} है और शुरुआत में {inputQuantity} इकाइयाँ हैं; {wastedQuantity} इकाइयाँ नष्ट हो जाती हैं। कुल {targetRatePercent}% {targetDirection} के लिए प्रति उपयोगी इकाई आवश्यक विक्रय मूल्य ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਖਾਦ-ਪ੍ਰੋਸੈਸਿੰਗ ਬੈਚ ਦੀ ਲਾਗਤ ₹{totalInputCost} ਹੈ ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਮਾਤਰਾ {inputQuantity} ਇਕਾਈਆਂ ਹੈ। {wastedQuantity} ਇਕਾਈਆਂ ਨਸ਼ਟ ਹੋ ਜਾਂਦੀਆਂ ਹਨ। {targetRatePercent}% {targetDirection} ਲਈ ਪ੍ਰਤੀ ਵਰਤਣਯੋਗ ਇਕਾਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਬੈਚ ਦੀ ਕੁੱਲ ਇਨਪੁੱਟ ਲਾਗਤ ₹{totalInputCost} ਹੈ ਅਤੇ ਸ਼ੁਰੂ ਵਿੱਚ {inputQuantity} ਇਕਾਈਆਂ ਹਨ; {wastedQuantity} ਇਕਾਈਆਂ ਨਸ਼ਟ ਹੋ ਜਾਂਦੀਆਂ ਹਨ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਪ੍ਰਤੀ ਵਰਤਣਯੋਗ ਇਕਾਈ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
+    ]
   }
 };
 
