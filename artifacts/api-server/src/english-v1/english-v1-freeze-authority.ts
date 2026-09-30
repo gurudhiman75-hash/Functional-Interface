@@ -1,0 +1,40 @@
+export const ENGLISH_V1_FREEZE_AUTHORITY=Object.freeze({
+ authorityId:"ENGLISH-ENG001-ENG013-FREEZE-V1",
+ scope:"ENG-001_THROUGH_ENG-013",
+ approvalStatus:"HUMAN_PRODUCT_OWNER_APPROVED",
+ approvalDate:"2026-09-30",
+ closureAuthority:"ENGLISH-CONTENT-CLOSURE-AUDIT-V4",
+ finalRevalidationAuthority:"ENGLISH-FINAL-QUALITY-REVALIDATION-V1",
+ status:"ENGLISH_FROZEN",
+ englishFreeze:true,
+ learnerContentChangeAllowedWithoutNewApproval:false,
+ volumeExpansionAllowedWithoutNewEvidence:false,
+ questionStudioReviewOnly:true,
+ questionBankWritable:false,
+ testEligible:false,
+ mockTestEligible:false,
+ publiclyPublishable:false,
+ automaticStudentPublication:false,
+ productionReleaseAuthorized:false,
+ reopenCriteria:[
+  "NEW_EXAM_OR_SOURCE_EVIDENCE_SHOWS_A_MEANINGFUL_MISSING_FAMILY",
+  "CONCRETE_EDITORIAL_AMBIGUITY_ANSWER_KEY_GENERATOR_OR_ROUTING_DEFECT",
+  "JUSTIFIED_ONE_FOR_ONE_QUALITY_REPLACEMENT",
+  "EXPLICITLY_APPROVED_LEARNER_FACING_LIFECYCLE_WORK"
+ ] as const,
+ certifiedInventories:{
+  eng001:{cpCount:13,grammarRules:131},
+  eng002:{cpCount:13,grammarRules:131},
+  eng003:{cpCount:13,grammarRules:131},
+  eng004:{headwords:2100,senses:2400},
+  eng005:{authorities:840},
+  eng006:{authorities:1400},
+  eng007:{uniqueSpellings:1445},
+  eng008:{passages:632,governedAuthorities:5308},
+  eng009:{passages:98,governedBlanks:548},
+  eng010:{authoritySets:450},
+  eng011:{authoritySets:990},
+  eng012:{authorities:450,lexicalSurfaces:1350},
+  eng013:{authorities:768}
+ } as const
+});

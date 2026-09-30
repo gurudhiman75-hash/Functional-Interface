@@ -88,6 +88,19 @@ English should remain closed unless one of the following is demonstrated:
 3. a justified one-for-one quality replacement;
 4. explicitly approved learner-facing lifecycle work.
 
+## Freeze authority
+
+Owner freeze approved on **2026-09-30**.
+
+Current freeze authority: `ENGLISH-ENG001-ENG013-FREEZE-V1`.
+
+Frozen behavior:
+- learner-facing English content may not change without a new approval;
+- volume may not be expanded merely to increase counts;
+- Question Studio remains review-only;
+- Question Bank/test/mock/public/automatic learner/production release remain locked;
+- reopening is allowed only under the four V4 reopen criteria.
+
 Final whole-English state:
 
-`CONTENT_CLOSED_V4__ENG001_ENG013__FINAL_REVALIDATION_COMPLETE__QUESTION_STUDIO_REVIEW_ONLY__DOWNSTREAM_RELEASE_LOCKED`
+`ENGLISH_FROZEN_V1__ENG001_ENG013__CONTENT_CLOSED_V4__QUESTION_STUDIO_REVIEW_ONLY__DOWNSTREAM_RELEASE_LOCKED`
