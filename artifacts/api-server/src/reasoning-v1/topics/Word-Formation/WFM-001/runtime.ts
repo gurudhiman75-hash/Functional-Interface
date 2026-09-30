@@ -8,6 +8,10 @@ import {
   type WfmSelectedLetterFixture,
 } from "./authorities";
 import {
+  generateWfmBankingOrderedExtraction,
+  generateWfmBankingUniqueWordOutput,
+} from "./banking-runtime";
+import {
   WFM_CANDIDATE_WORDS,
   WFM_EXAM_COMMON_WORD_SET,
   WFM_SOURCE_WORDS,
@@ -24,7 +28,7 @@ import type {
   WfmTask,
 } from "./types";
 
-const OPTION_IDS = ["A", "B", "C", "D"] as const;
+const OPTION_IDS = ["A", "B", "C", "D", "E"] as const;
 const DIFFICULTIES: readonly WfmDifficulty[] = ["EASY", "MEDIUM", "HARD"];
 
 function mod(value: number, base: number): number {
@@ -58,11 +62,11 @@ function takeDistinct(values: readonly string[], count: number, seed: number): s
   return picked;
 }
 
-function lifecycleMetadata() {
+function lifecycleMetadata(optionCount: 4 | 5 = 4) {
   return {
     runtimeVersion: "WFM-001-RUNTIME-V2-REVIEW" as const,
-    optionCount: 4 as const,
-    sourceEvidenceStatus: "SOURCE_BACKED_SSC_WORD_FORMATION" as const,
+    optionCount,
+    sourceEvidenceStatus: "SOURCE_BACKED_WORD_FORMATION" as const,
     lifecycle: "REVIEW_ONLY" as const,
     questionStudioVisible: false as const,
     questionBankStored: false as const,
@@ -70,12 +74,12 @@ function lifecycleMetadata() {
     mockTestEligible: false as const,
     publiclyPublishable: false as const,
     difficultyBasis: "GENERATED_INSTANCE" as const,
-    ownershipDecision: "PROPOSED_REAS_WFM" as const,
+    ownershipDecision: "APPROVED_REAS_WFM" as const,
   };
 }
 
 function validateProfile(profile: WfmExamProfile): void {
-  if (profile !== "SSC_CGL_4" && profile !== "PUNJAB_4") {
+  if (profile !== "SSC_CGL_4" && profile !== "PUNJAB_4" && profile !== "BANKING_5") {
     throw new Error(`WFM-001 does not support exam profile: ${String(profile)}`);
   }
 }
@@ -338,7 +342,7 @@ function generateDirect(input: BaseInput, qlId: "WFM-QL-001" | "WFM-QL-002"): Wf
     options,
     correctOptionId: answerId,
     explanation: directExplanation(input.language, task, sourceWord, options, answerId),
-    metadata: lifecycleMetadata(),
+    metadata: lifecycleMetadata(input.examProfile === "BANKING_5" ? 5 : 4),
   };
 }
 
@@ -399,9 +403,12 @@ function generateSelectedCount(input: BaseInput): WfmGeneratedQuestion {
   const difficulty = targetDifficulty(input.seed, input.difficulty);
   const fixture = chooseSelectedFixture(input.seed, difficulty);
   const count = fixture.acceptedWords.length;
-  const numberOptions = shuffled([0, 1, 2, 3], input.seed ^ 0x11223344);
+  const numberOptions = shuffled(
+    input.examProfile === "BANKING_5" ? [0, 1, 2, 3, 4] : [0, 1, 2, 3],
+    input.seed ^ 0x11223344,
+  );
   const options: readonly WfmOption[] = numberOptions.map((value, index) => ({
-    id: OPTION_IDS[index],
+    id: OPTION_IDS[index]!,
     text: String(value),
     provenance: value === count ? "CORRECT_WORD_COUNT" : "COUNT_NEAR_MISS",
   }));
@@ -426,7 +433,7 @@ function generateSelectedCount(input: BaseInput): WfmGeneratedQuestion {
     options,
     correctOptionId: correctId(options, (option) => option.text === String(count)),
     explanation: selectedExplanation(input.language, fixture),
-    metadata: lifecycleMetadata(),
+    metadata: lifecycleMetadata(input.examProfile === "BANKING_5" ? 5 : 4),
   };
 }
 
@@ -575,11 +582,46 @@ export function generateWfm001Question(input: {
     difficulty: input.difficulty,
   };
   validateProfile(base.examProfile);
+
+  if (input.qlId === "WFM-QL-005") {
+    if (base.examProfile !== "BANKING_5") throw new Error("WFM-QL-005 is owned by the BANKING_5 profile");
+    return generateWfmBankingOrderedExtraction({
+      seed: input.seed,
+      language: base.language,
+      difficulty: targetDifficulty(input.seed, input.difficulty),
+    });
+  }
+  if (input.qlId === "WFM-QL-006") {
+    if (base.examProfile !== "BANKING_5") throw new Error("WFM-QL-006 is owned by the BANKING_5 profile");
+    return generateWfmBankingUniqueWordOutput({
+      seed: input.seed,
+      language: base.language,
+      difficulty: targetDifficulty(input.seed, input.difficulty),
+    });
+  }
+
+  if (base.examProfile === "BANKING_5" && input.qlId !== "WFM-QL-003") {
+    throw new Error(`${input.qlId} is not authorized for BANKING_5 delivery`);
+  }
+
   if (input.qlId === "WFM-QL-001" || input.qlId === "WFM-QL-002") return generateDirect(base, input.qlId);
   if (input.qlId === "WFM-QL-003") return generateSelectedCount(base);
   if (input.qlId === "WFM-QL-004") return generateRearrangement(base);
   throw new Error(`Unknown WFM-001 QL: ${String(input.qlId)}`);
 }
 
-export const WFM_001_QL_IDS: readonly WfmQlId[] = ["WFM-QL-001", "WFM-QL-002", "WFM-QL-003", "WFM-QL-004"];
-export const WFM_001_CHECKPOINT_IDS = ["WFM-CP-001", "WFM-CP-002", "WFM-CP-003"] as const;
+export const WFM_001_QL_IDS: readonly WfmQlId[] = [
+  "WFM-QL-001",
+  "WFM-QL-002",
+  "WFM-QL-003",
+  "WFM-QL-004",
+  "WFM-QL-005",
+  "WFM-QL-006",
+];
+export const WFM_001_CHECKPOINT_IDS = [
+  "WFM-CP-001",
+  "WFM-CP-002",
+  "WFM-CP-003",
+  "WFM-CP-004",
+  "WFM-CP-005",
+] as const;

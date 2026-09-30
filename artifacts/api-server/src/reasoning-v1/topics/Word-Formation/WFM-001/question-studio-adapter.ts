@@ -13,8 +13,10 @@ function mod(value: number, base: number): number {
   return ((value % base) + base) % base;
 }
 
+const LEGACY_DEFAULT_QLS: readonly WfmQlId[] = ["WFM-QL-001", "WFM-QL-002", "WFM-QL-003", "WFM-QL-004"];
+
 function qlForSeed(seed: number): WfmQlId {
-  return WFM_001_QL_IDS[mod(seed * 5 + 1, WFM_001_QL_IDS.length)];
+  return LEGACY_DEFAULT_QLS[mod(seed * 5 + 1, LEGACY_DEFAULT_QLS.length)]!;
 }
 
 function generate(request: WfmQuestionStudioRequest): WfmGeneratedQuestion {
@@ -37,8 +39,8 @@ export const WFM_001_QUESTION_STUDIO_ADAPTER = Object.freeze({
   checkpointIds: WFM_001_CHECKPOINT_IDS,
   qlIds: WFM_001_QL_IDS,
   supportedLanguages: ["en-IN", "hi-IN", "pa-IN"] as const,
-  supportedExamProfiles: ["SSC_CGL_4", "PUNJAB_4"] as const,
-  optionCount: 4 as const,
+  supportedExamProfiles: ["SSC_CGL_4", "PUNJAB_4", "BANKING_5"] as const,
+  optionCountPolicy: "SSC_PUNJAB_4__BANKING_5" as const,
   lifecycle: "REVIEW_ONLY" as const,
   questionStudioVisible: false as const,
   questionBankStored: false as const,
