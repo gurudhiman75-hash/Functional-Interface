@@ -164,7 +164,7 @@ const MISSING_RATE_SCENARIOS = Object.freeze([
   deepFreeze({ knownScheme: scheme("SIMPLE", 25n, 1), missingMethod: "COMPOUND" as const, missingYears: 1 }),
   deepFreeze({ knownScheme: scheme("COMPOUND", 8n, 2), missingMethod: "SIMPLE" as const, missingYears: 2 }),
   deepFreeze({ knownScheme: scheme("COMPOUND", 15n, 2), missingMethod: "SIMPLE" as const, missingYears: 2 }),
-  deepFreeze({ knownScheme: scheme("COMPOUND", 10n, 3), missingMethod: "SIMPLE" as const, missingYears: 3 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 10n, 3), missingMethod: "SIMPLE" as const, missingYears: 2 }),
   deepFreeze({ knownScheme: scheme("COMPOUND", 12n, 2), missingMethod: "SIMPLE" as const, missingYears: 1 }),
   deepFreeze({ knownScheme: scheme("COMPOUND", 5n, 2), missingMethod: "SIMPLE" as const, missingYears: 2 }),
   deepFreeze({ knownScheme: scheme("COMPOUND", 25n, 2, 2n), missingMethod: "SIMPLE" as const, missingYears: 2 }),
