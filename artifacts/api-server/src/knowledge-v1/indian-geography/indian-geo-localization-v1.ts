@@ -495,6 +495,97 @@ function localizeNaturalStem(text: string, language: "hi"|"pa", packageId?: stri
     if (m) return hi ? "किसी जिले की कुल जनसंख्या की तुलना में रोजगार प्राप्त वयस्कों की संख्या अधिक है। कौन-सा सूचक अधिक होने की संभावना है?" : "ਕਿਸੇ ਜ਼ਿਲ੍ਹੇ ਦੀ ਕੁੱਲ ਆਬਾਦੀ ਦੇ ਮੁਕਾਬਲੇ ਰੁਜ਼ਗਾਰਸ਼ੁਦਾ ਬਾਲਗਾਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਹੈ। ਕਿਹੜਾ ਸੂਚਕ ਵੱਧ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ?";
   }
 
+  if (packageId === "GEO-WAT-001") {
+    let m = text.match(/^Which factor can make water availability seasonal\?$/);
+    if (m) return hi ? "जल उपलब्धता को मौसमी बनाने वाला प्रमुख कारक कौन-सा है?" : "ਪਾਣੀ ਦੀ ਉਪਲਬਧਤਾ ਨੂੰ ਮੌਸਮੀ ਬਣਾਉਣ ਵਾਲਾ ਮੁੱਖ ਕਾਰਕ ਕਿਹੜਾ ਹੈ?";
+
+    m = text.match(/^A district receives little rainfall and has no perennial river\. What problem is most likely\?$/);
+    if (m) return hi ? "किसी जिले में कम वर्षा होती है और कोई बारहमासी नदी नहीं है। वहाँ सबसे संभावित समस्या क्या होगी?" : "ਕਿਸੇ ਜ਼ਿਲ੍ਹੇ ਵਿੱਚ ਘੱਟ ਵਰਖਾ ਹੁੰਦੀ ਹੈ ਅਤੇ ਕੋਈ ਸਦਾ ਵਗਣ ਵਾਲੀ ਨਦੀ ਨਹੀਂ ਹੈ। ਉੱਥੇ ਸਭ ਤੋਂ ਸੰਭਾਵੀ ਸਮੱਸਿਆ ਕੀ ਹੋਵੇਗੀ?";
+
+    m = text.match(/^Which states are strongly linked with the Bhakra-Nangal irrigation-power system\?$/);
+    if (m) return hi ? "भाखड़ा-नांगल सिंचाई और विद्युत प्रणाली से कौन-से राज्य प्रमुख रूप से जुड़े हैं?" : "ਭਾਖੜਾ-ਨੰਗਲ ਸਿੰਚਾਈ ਅਤੇ ਬਿਜਲੀ ਪ੍ਰਣਾਲੀ ਨਾਲ ਕਿਹੜੇ ਰਾਜ ਮੁੱਖ ਤੌਰ ਤੇ ਜੁੜੇ ਹਨ?";
+
+    m = text.match(/^Which function is important at Bhakra-Nangal\?$/);
+    if (m) return hi ? "भाखड़ा-नांगल परियोजना का कौन-सा कार्य महत्वपूर्ण है?" : "ਭਾਖੜਾ-ਨੰਗਲ ਪ੍ਰਾਜੈਕਟ ਦਾ ਕਿਹੜਾ ਕੰਮ ਮਹੱਤਵਪੂਰਨ ਹੈ?";
+
+    m = text.match(/^Which set correctly matches irrigation methods\?$/);
+    if (m) return hi ? "सिंचाई विधियों का कौन-सा समूह सही सुमेलित है?" : "ਸਿੰਚਾਈ ਦੇ ਢੰਗਾਂ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
+
+    m = text.match(/^Which set correctly matches conservation measures\?$/);
+    if (m) return hi ? "जल-संरक्षण उपायों का कौन-सा समूह सही सुमेलित है?" : "ਪਾਣੀ ਸੰਭਾਲ ਦੇ ਉਪਾਵਾਂ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
+  }
+
+  if (packageId === "GEO-LND-001") {
+    let m = text.match(/^A region faces rising demand for farms, housing and roads on the same finite area\. What issue does this illustrate\?$/);
+    if (m) return hi ? "एक सीमित भू-क्षेत्र पर खेती, आवास और सड़कों की बढ़ती मांग किस समस्या को दर्शाती है?" : "ਇੱਕ ਸੀਮਿਤ ਜ਼ਮੀਨੀ ਖੇਤਰ ਉੱਤੇ ਖੇਤੀ, ਰਿਹਾਇਸ਼ ਅਤੇ ਸੜਕਾਂ ਦੀ ਵੱਧਦੀ ਮੰਗ ਕਿਹੜੀ ਸਮੱਸਿਆ ਦਰਸਾਉਂਦੀ ਹੈ?";
+
+    m = text.match(/^Which pair correctly identifies a land resource function\?$/);
+    if (m) return hi ? "भूमि संसाधन के उपयोग का कौन-सा युग्म सही है?" : "ਜ਼ਮੀਨੀ ਸਰੋਤ ਦੀ ਵਰਤੋਂ ਵਾਲੀ ਕਿਹੜੀ ਜੋੜੀ ਸਹੀ ਹੈ?";
+
+    m = text.match(/^Which set correctly matches degradation and cause\?$/);
+    if (m) return hi ? "भूमि क्षरण और उसके कारणों का कौन-सा समूह सही सुमेलित है?" : "ਜ਼ਮੀਨ ਦੇ ਖ਼ਰਾਬ ਹੋਣ ਅਤੇ ਉਸਦੇ ਕਾਰਨਾਂ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
+
+    m = text.match(/^Which set correctly matches land concepts\?$/);
+    if (m) return hi ? "भूमि संबंधी अवधारणाओं का कौन-सा समूह सही सुमेलित है?" : "ਜ਼ਮੀਨ ਨਾਲ ਸੰਬੰਧਿਤ ਧਾਰਣਾਵਾਂ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
+  }
+
+  if (packageId === "GEO-LOC-001") {
+    let m = text.match(/^India lies in which two hemispheres\?$/);
+    if (m) return hi ? "भारत किन दो गोलार्धों में स्थित है?" : "ਭਾਰਤ ਕਿਹੜੇ ਦੋ ਗੋਲਾਰਧਾਂ ਵਿੱਚ ਸਥਿਤ ਹੈ?";
+
+    m = text.match(/^Which value is a longitude used for national time rather than a latitude\?$/);
+    if (m) return hi ? "निम्न में से कौन-सा मान अक्षांश नहीं बल्कि राष्ट्रीय समय के लिए प्रयुक्त देशांतर है?" : "ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਮਾਨ ਅਕਸ਼ਾਂਸ਼ ਨਹੀਂ, ਸਗੋਂ ਰਾਸ਼ਟਰੀ ਸਮੇਂ ਲਈ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਦੇਸ਼ਾਂਤਰ ਹੈ?";
+
+    m = text.match(/^Which group contains only India's land neighbours\?$/);
+    if (m) return hi ? "कौन-सा समूह केवल भारत के स्थलीय पड़ोसी देशों का है?" : "ਕਿਹੜੇ ਸਮੂਹ ਵਿੱਚ ਕੇਵਲ ਭਾਰਤ ਦੇ ਜ਼ਮੀਨੀ ਪੜੋਸੀ ਦੇਸ਼ ਹਨ?";
+
+    m = text.match(/^Which pair contains one land neighbour and one maritime neighbour of India\?$/);
+    if (m) return hi ? "कौन-से युग्म में भारत का एक स्थलीय और एक समुद्री पड़ोसी देश है?" : "ਕਿਹੜੀ ਜੋੜੀ ਵਿੱਚ ਭਾਰਤ ਦਾ ਇੱਕ ਜ਼ਮੀਨੀ ਅਤੇ ਇੱਕ ਸਮੁੰਦਰੀ ਪੜੋਸੀ ਦੇਸ਼ ਹੈ?";
+
+    m = text.match(/^Which state is crossed by the Tropic of Cancer\?$/);
+    if (m) return hi ? "कर्क रेखा किस राज्य से होकर गुजरती है?" : "ਕਰਕ ਰੇਖਾ ਕਿਹੜੇ ਰਾਜ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ?";
+
+    m = text.match(/^Which north-to-south order is correct for (.+?)\?$/);
+    if (m) return hi ? `${f(m[1])} का उत्तर से दक्षिण सही क्रम कौन-सा है?` : `${f(m[1])} ਦਾ ਉੱਤਰ ਤੋਂ ਦੱਖਣ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?`;
+  }
+
+  if (packageId === "GEO-PLN-001") {
+    let m = text.match(/^What is target-area planning\?$/);
+    if (m) return hi ? "लक्षित-क्षेत्र नियोजन क्या है?" : "ਟੀਚਾ-ਖੇਤਰ ਯੋਜਨਾਬੰਦੀ ਕੀ ਹੈ?";
+
+    m = text.match(/^Which is an example of target-area planning\?$/);
+    if (m) return hi ? "लक्षित-क्षेत्र नियोजन का उदाहरण कौन-सा है?" : "ਟੀਚਾ-ਖੇਤਰ ਯੋਜਨਾਬੰਦੀ ਦੀ ਉਦਾਹਰਨ ਕਿਹੜੀ ਹੈ?";
+
+    m = text.match(/^Why are hill-area programmes examples of target-area planning\?$/);
+    if (m) return hi ? "पर्वतीय क्षेत्र कार्यक्रम लक्षित-क्षेत्र नियोजन के उदाहरण क्यों हैं?" : "ਪਹਾੜੀ ਖੇਤਰਾਂ ਦੇ ਪ੍ਰੋਗਰਾਮ ਟੀਚਾ-ਖੇਤਰ ਯੋਜਨਾਬੰਦੀ ਦੀਆਂ ਉਦਾਹਰਨਾਂ ਕਿਉਂ ਹਨ?";
+
+    m = text.match(/^Which set correctly matches regional cases\?$/);
+    if (m) return hi ? "क्षेत्रीय नियोजन के उदाहरणों का कौन-सा समूह सही सुमेलित है?" : "ਖੇਤਰੀ ਯੋਜਨਾਬੰਦੀ ਦੇ ਉਦਾਹਰਣਾਂ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
+
+    m = text.match(/^Which set correctly matches planning issues\?$/);
+    if (m) return hi ? "नियोजन समस्याओं का कौन-सा समूह सही सुमेलित है?" : "ਯੋਜਨਾਬੰਦੀ ਦੀਆਂ ਸਮੱਸਿਆਵਾਂ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
+  }
+
+  if (packageId === "GEO-HAZ-001") {
+    let m = text.match(/^Why is the Himalayan region earthquake-prone\?$/);
+    if (m) return hi ? "हिमालयी क्षेत्र में भूकंप का खतरा अधिक क्यों है?" : "ਹਿਮਾਲਈ ਖੇਤਰ ਵਿੱਚ ਭੂਚਾਲ ਦਾ ਖ਼ਤਰਾ ਵੱਧ ਕਿਉਂ ਹੈ?";
+
+    m = text.match(/^Which other Indian region has significant seismic risk\?$/);
+    if (m) return hi ? "भारत का कौन-सा अन्य क्षेत्र महत्वपूर्ण भूकंपीय जोखिम वाला है?" : "ਭਾਰਤ ਦਾ ਕਿਹੜਾ ਹੋਰ ਖੇਤਰ ਮਹੱਤਵਪੂਰਨ ਭੂਚਾਲੀ ਖ਼ਤਰੇ ਵਾਲਾ ਹੈ?";
+
+    m = text.match(/^Which Indian region is highly vulnerable to landslides\?$/);
+    if (m) return hi ? "भारत का कौन-सा क्षेत्र भूस्खलन के प्रति अत्यधिक संवेदनशील है?" : "ਭਾਰਤ ਦਾ ਕਿਹੜਾ ਖੇਤਰ ਭੂਸਖਲਨ ਲਈ ਬਹੁਤ ਜ਼ਿਆਦਾ ਸੰਵੇਦਨਸ਼ੀਲ ਹੈ?";
+
+    m = text.match(/^A steep Himalayan slope fails after days of heavy monsoon rain\. Which hazard occurred\?$/);
+    if (m) return hi ? "कई दिनों की भारी मानसूनी वर्षा के बाद हिमालयी ढाल खिसक गई। यह कौन-सी आपदा है?" : "ਕਈ ਦਿਨਾਂ ਦੀ ਭਾਰੀ ਮਾਨਸੂਨੀ ਵਰਖਾ ਤੋਂ ਬਾਅਦ ਹਿਮਾਲਈ ਢਲਾਣ ਖਿਸਕ ਗਈ। ਇਹ ਕਿਹੜੀ ਆਫ਼ਤ ਹੈ?";
+
+    m = text.match(/^Which set correctly matches hazard and vulnerable region\?$/);
+    if (m) return hi ? "आपदा और संवेदनशील क्षेत्र का कौन-सा समूह सही सुमेलित है?" : "ਆਫ਼ਤ ਅਤੇ ਸੰਵੇਦਨਸ਼ੀਲ ਖੇਤਰ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
+
+    m = text.match(/^Which set correctly matches mitigation measures\?$/);
+    if (m) return hi ? "आपदा-न्यूनीकरण उपायों का कौन-सा समूह सही सुमेलित है?" : "ਆਫ਼ਤ ਘਟਾਉਣ ਦੇ ਉਪਾਵਾਂ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
+  }
+
   if (packageId === "GEO-PHY-001") {
     let m = text.match(/^Which range extends from (.+?) towards (.+?) in a (.+?) direction\?$/);
     if (m) return hi ? `कौन-सी पर्वत श्रेणी ${f(m[1])} से ${f(m[2])} की ओर ${f(m[3])} दिशा में फैली है?` : `ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ${f(m[1])} ਤੋਂ ${f(m[2])} ਵੱਲ ${f(m[3])} ਦਿਸ਼ਾ ਵਿੱਚ ਫੈਲੀ ਹੈ?`;
