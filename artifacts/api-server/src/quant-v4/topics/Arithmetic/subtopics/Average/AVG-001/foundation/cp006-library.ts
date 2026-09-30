@@ -1,6 +1,6 @@
 import type { Avg001Difficulty, Avg001QuestionLanguageEntry, Avg001SolveMode } from "./types";
 
-type UnitKind = "marks" | "currency" | "years" | "units" | "runs" | "none";
+type UnitKind = "marks" | "currency" | "years" | "units" | "runs" | "kg" | "none";
 type Context = { domain: string; variant: string; lower: string; upper: string; measure: string; unitKind: UnitKind; finalContext: string };
 
 const contexts: Context[] = [
@@ -10,6 +10,10 @@ const contexts: Context[] = [
   { domain: "Factory", variant: "factoryUnits", lower: "production units", upper: "factory", measure: "daily output", unitKind: "units", finalContext: "factory average output" },
   { domain: "Sports", variant: "tournamentTeams", lower: "teams", upper: "tournament", measure: "runs", unitKind: "runs", finalContext: "tournament batting average" },
   { domain: "Community", variant: "villageGroups", lower: "groups", upper: "village", measure: "age", unitKind: "years", finalContext: "overall average age" },
+  { domain: "Logistics", variant: "warehouseBatches", lower: "batches", upper: "warehouse", measure: "weight", unitKind: "kg", finalContext: "warehouse average load" },
+  { domain: "Agriculture", variant: "districtFarmClusters", lower: "farm clusters", upper: "district", measure: "yield", unitKind: "units", finalContext: "district average yield" },
+  { domain: "Healthcare", variant: "hospitalWards", lower: "wards", upper: "hospital", measure: "age", unitKind: "years", finalContext: "hospital average age" },
+  { domain: "Transport", variant: "depotRoutes", lower: "routes", upper: "depot", measure: "passenger count", unitKind: "none", finalContext: "depot average passengers" },
 ];
 
 const families: Array<{ mode: Avg001SolveMode; count: number; answerType: Avg001QuestionLanguageEntry["answerType"]; strategies: string[] }> = [
@@ -35,6 +39,7 @@ function shown(kind: UnitKind, token: string) {
   if (kind === "years") return `${token} years`;
   if (kind === "units") return `${token} units`;
   if (kind === "runs") return `${token} runs`;
+  if (kind === "kg") return `${token} kg`;
   return token;
 }
 
