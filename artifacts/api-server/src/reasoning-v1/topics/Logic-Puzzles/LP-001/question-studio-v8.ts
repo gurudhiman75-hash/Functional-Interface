@@ -52,6 +52,14 @@ export function isLogicPuzzleQuestionStudioRequestV8(request: LogicPuzzleQuestio
 
 export function listLogicPuzzleQuestionStudioPackagesV8() {
   return listLogicPuzzleQuestionStudioPackagesV7().map((pkg: any) => {
+    if (pkg.id === "LP-006-PROJECTION") {
+      return {
+        ...pkg,
+        packageId: "LP-006-PROJECTION",
+        basePackageId: "LP-006",
+        extensionId: "LP-006-PROJECTION",
+      };
+    }
     if (pkg.id !== "LP-CP04-COUNTERFACTUAL") return pkg;
     return {
       ...pkg,
