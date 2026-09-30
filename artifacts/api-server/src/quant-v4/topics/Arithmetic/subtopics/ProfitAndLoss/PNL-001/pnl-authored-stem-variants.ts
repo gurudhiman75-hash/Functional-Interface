@@ -981,6 +981,132 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਖਾਦ-ਪ੍ਰੋਸੈਸਿੰਗ ਬੈਚ ਦੀ ਲਾਗਤ ₹{totalInputCost} ਹੈ ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਮਾਤਰਾ {inputQuantity} ਇਕਾਈਆਂ ਹੈ। {wastedQuantity} ਇਕਾਈਆਂ ਨਸ਼ਟ ਹੋ ਜਾਂਦੀਆਂ ਹਨ। {targetRatePercent}% {targetDirection} ਲਈ ਪ੍ਰਤੀ ਵਰਤਣਯੋਗ ਇਕਾਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
       "ਬੈਚ ਦੀ ਕੁੱਲ ਇਨਪੁੱਟ ਲਾਗਤ ₹{totalInputCost} ਹੈ ਅਤੇ ਸ਼ੁਰੂ ਵਿੱਚ {inputQuantity} ਇਕਾਈਆਂ ਹਨ; {wastedQuantity} ਇਕਾਈਆਂ ਨਸ਼ਟ ਹੋ ਜਾਂਦੀਆਂ ਹਨ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਪ੍ਰਤੀ ਵਰਤਣਯੋਗ ਇਕਾਈ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
     ]
+  },
+  "PNL-QL-158": {
+    "en": [
+      "A factory has fixed cost ₹{fixedCost}, variable cost ₹{variableCostPerUnit} per unit, and selling price ₹{sellingPricePerUnit} per unit. Find the minimum break-even quantity.",
+      "With fixed cost ₹{fixedCost}, variable cost ₹{variableCostPerUnit} and unit selling price ₹{sellingPricePerUnit}, how many units must be sold to break even?"
+    ],
+    "hi": [
+      "एक कारखाने की स्थिर लागत ₹{fixedCost}, प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} और विक्रय मूल्य ₹{sellingPricePerUnit} है। न्यूनतम ब्रेक-ईवन मात्रा ज्ञात कीजिए।",
+      "स्थिर लागत ₹{fixedCost}, परिवर्ती लागत ₹{variableCostPerUnit} और प्रति इकाई विक्रय मूल्य ₹{sellingPricePerUnit} होने पर ब्रेक-ईवन के लिए कितनी इकाइयाँ बेचनी होंगी?"
+    ],
+    "pa": [
+      "ਇੱਕ ਫੈਕਟਰੀ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost}, ਪ੍ਰਤੀ ਇਕਾਈ ਬਦਲਦੀ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPricePerUnit} ਹੈ। ਘੱਟੋ-ਘੱਟ ਬ੍ਰੇਕ-ਈਵਨ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।",
+      "ਸਥਿਰ ਲਾਗਤ ₹{fixedCost}, ਬਦਲਦੀ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਪ੍ਰਤੀ ਇਕਾਈ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPricePerUnit} ਹੋਣ 'ਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਕਿੰਨੀਆਂ ਇਕਾਈਆਂ ਵੇਚਣੀਆਂ ਪੈਣਗੀਆਂ?"
+    ]
+  },
+  "PNL-QL-159": {
+    "en": [
+      "A printing press has fixed cost ₹{fixedCost}. Each booklet costs ₹{variableCostPerUnit} to print and sells for ₹{sellingPricePerUnit}. How many must be sold to earn at least ₹{targetProfit}?",
+      "Booklets sell for ₹{sellingPricePerUnit} each and cost ₹{variableCostPerUnit} each to print, while fixed cost is ₹{fixedCost}. Find the minimum sales quantity for a profit of ₹{targetProfit}."
+    ],
+    "hi": [
+      "एक प्रिंटिंग प्रेस की स्थिर लागत ₹{fixedCost} है। प्रत्येक पुस्तिका की परिवर्ती लागत ₹{variableCostPerUnit} और विक्रय मूल्य ₹{sellingPricePerUnit} है। कम से कम ₹{targetProfit} लाभ के लिए कितनी पुस्तिकाएँ बेचनी होंगी?",
+      "प्रत्येक पुस्तिका ₹{sellingPricePerUnit} में बिकती है और छपाई लागत ₹{variableCostPerUnit} है, जबकि स्थिर लागत ₹{fixedCost} है। ₹{targetProfit} लाभ के लिए न्यूनतम बिक्री मात्रा ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਪ੍ਰਿੰਟਿੰਗ ਪ੍ਰੈੱਸ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ। ਹਰ ਪੁਸਤਿਕਾ ਦੀ ਬਦਲਦੀ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPricePerUnit} ਹੈ। ਘੱਟੋ-ਘੱਟ ₹{targetProfit} ਲਾਭ ਲਈ ਕਿੰਨੀਆਂ ਪੁਸਤਿਕਾਵਾਂ ਵੇਚਣੀਆਂ ਪੈਣਗੀਆਂ?",
+      "ਹਰ ਪੁਸਤਿਕਾ ₹{sellingPricePerUnit} ਵਿੱਚ ਵਿਕਦੀ ਹੈ ਅਤੇ ਛਪਾਈ ਲਾਗਤ ₹{variableCostPerUnit} ਹੈ, ਜਦਕਿ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ। ₹{targetProfit} ਲਾਭ ਲਈ ਘੱਟੋ-ਘੱਟ ਵਿਕਰੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-160": {
+    "en": [
+      "A workshop has fixed cost ₹{fixedCost} and variable cost ₹{variableCostPerUnit} per unit. If {quantity} units are produced and sold, find the break-even selling price per unit.",
+      "For an output of {quantity} units, fixed cost is ₹{fixedCost} and variable cost is ₹{variableCostPerUnit} per unit. What unit selling price gives break even?"
+    ],
+    "hi": [
+      "एक कार्यशाला की स्थिर लागत ₹{fixedCost} और प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} है। यदि {quantity} इकाइयाँ बनाई और बेची जाएँ, तो ब्रेक-ईवन विक्रय मूल्य प्रति इकाई ज्ञात कीजिए।",
+      "{quantity} इकाइयों के उत्पादन पर स्थिर लागत ₹{fixedCost} और प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} है। ब्रेक-ईवन के लिए प्रति इकाई विक्रय मूल्य क्या होगा?"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਰਕਸ਼ਾਪ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਪ੍ਰਤੀ ਇਕਾਈ ਬਦਲਦੀ ਲਾਗਤ ₹{variableCostPerUnit} ਹੈ। ਜੇ {quantity} ਇਕਾਈਆਂ ਬਣਾਈਆਂ ਅਤੇ ਵੇਚੀਆਂ ਜਾਣ, ਤਾਂ ਬ੍ਰੇਕ-ਈਵਨ ਵਿਕਰੀ ਮੁੱਲ ਪ੍ਰਤੀ ਇਕਾਈ ਪਤਾ ਕਰੋ।",
+      "{quantity} ਇਕਾਈਆਂ ਦੇ ਉਤਪਾਦਨ 'ਤੇ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਪ੍ਰਤੀ ਇਕਾਈ ਬਦਲਦੀ ਲਾਗਤ ₹{variableCostPerUnit} ਹੈ। ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਪ੍ਰਤੀ ਇਕਾਈ ਵਿਕਰੀ ਮੁੱਲ ਕੀ ਹੋਵੇਗਾ?"
+    ]
+  },
+  "PNL-QL-161": {
+    "en": [
+      "A trader buys one asset for ₹{firstCostPrice} and sells it for ₹{firstSellingPrice}, making a loss. He buys a second asset for ₹{secondCostPrice}. At what price should the second asset be sold so that both transactions together break even?",
+      "The first asset costs ₹{firstCostPrice} and is sold for ₹{firstSellingPrice}. A second asset costs ₹{secondCostPrice}. Find its required selling price to recover the first loss and break even overall."
+    ],
+    "hi": [
+      "एक व्यापारी पहली संपत्ति ₹{firstCostPrice} में खरीदकर ₹{firstSellingPrice} में बेचता है और हानि होती है। दूसरी संपत्ति का क्रय मूल्य ₹{secondCostPrice} है। दोनों लेन-देन मिलाकर ब्रेक-ईवन के लिए दूसरी संपत्ति का विक्रय मूल्य ज्ञात कीजिए।",
+      "पहली संपत्ति की लागत ₹{firstCostPrice} और विक्रय मूल्य ₹{firstSellingPrice} है। दूसरी संपत्ति की लागत ₹{secondCostPrice} है। पहली हानि की भरपाई कर कुल ब्रेक-ईवन के लिए आवश्यक विक्रय मूल्य ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਪਾਰੀ ਪਹਿਲੀ ਸੰਪਤੀ ₹{firstCostPrice} ਵਿੱਚ ਖਰੀਦ ਕੇ ₹{firstSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ ਅਤੇ ਘਾਟਾ ਹੁੰਦਾ ਹੈ। ਦੂਜੀ ਸੰਪਤੀ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{secondCostPrice} ਹੈ। ਦੋਵੇਂ ਲੈਣ-ਦੇਣ ਮਿਲਾ ਕੇ ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਦੂਜੀ ਸੰਪਤੀ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਪਹਿਲੀ ਸੰਪਤੀ ਦੀ ਲਾਗਤ ₹{firstCostPrice} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{firstSellingPrice} ਹੈ। ਦੂਜੀ ਸੰਪਤੀ ਦੀ ਲਾਗਤ ₹{secondCostPrice} ਹੈ। ਪਹਿਲੇ ਘਾਟੇ ਦੀ ਭਰਪਾਈ ਕਰਕੇ ਕੁੱਲ ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-162": {
+    "en": [
+      "A trader buys one item for ₹{firstCostPrice} and sells it for ₹{firstSellingPrice}. A second item costs ₹{secondCostPrice}. Find the selling price of the second item needed for an overall {targetRatePercent}% {targetDirection}.",
+      "The first transaction is ₹{firstCostPrice} cost and ₹{firstSellingPrice} sale; another item costs ₹{secondCostPrice}. What second selling price will make the combined result {targetRatePercent}% {targetDirection}?"
+    ],
+    "hi": [
+      "एक व्यापारी पहली वस्तु ₹{firstCostPrice} में खरीदकर ₹{firstSellingPrice} में बेचता है। दूसरी वस्तु की लागत ₹{secondCostPrice} है। कुल {targetRatePercent}% {targetDirection} के लिए दूसरी वस्तु का आवश्यक विक्रय मूल्य ज्ञात कीजिए।",
+      "पहले लेन-देन में लागत ₹{firstCostPrice} और बिक्री ₹{firstSellingPrice} है; दूसरी वस्तु की लागत ₹{secondCostPrice} है। संयुक्त परिणाम {targetRatePercent}% {targetDirection} करने के लिए दूसरी बिक्री कितनी होनी चाहिए?"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਪਾਰੀ ਪਹਿਲੀ ਵਸਤ ₹{firstCostPrice} ਵਿੱਚ ਖਰੀਦ ਕੇ ₹{firstSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ। ਦੂਜੀ ਵਸਤ ਦੀ ਲਾਗਤ ₹{secondCostPrice} ਹੈ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਦੂਜੀ ਵਸਤ ਦਾ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਪਹਿਲੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਲਾਗਤ ₹{firstCostPrice} ਅਤੇ ਵਿਕਰੀ ₹{firstSellingPrice} ਹੈ; ਦੂਜੀ ਵਸਤ ਦੀ ਲਾਗਤ ₹{secondCostPrice} ਹੈ। ਮਿਲਿਆ-ਜੁਲਿਆ ਨਤੀਜਾ {targetRatePercent}% {targetDirection} ਕਰਨ ਲਈ ਦੂਜੀ ਵਿਕਰੀ ਕਿੰਨੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-163": {
+    "en": [
+      "A transaction recovers ₹{totalRecovery}, which represents {ratePercent}% {direction} on effective cost. Find the effective cost.",
+      "The total recovery is ₹{totalRecovery} at {ratePercent}% {direction} relative to effective cost. What was the effective cost?"
+    ],
+    "hi": [
+      "एक लेन-देन में ₹{totalRecovery} की वसूली होती है, जो प्रभावी लागत पर {ratePercent}% {direction} दर्शाती है। प्रभावी लागत ज्ञात कीजिए।",
+      "कुल वसूली ₹{totalRecovery} है और यह प्रभावी लागत के सापेक्ष {ratePercent}% {direction} है। प्रभावी लागत क्या थी?"
+    ],
+    "pa": [
+      "ਇੱਕ ਲੈਣ-ਦੇਣ ਵਿੱਚ ₹{totalRecovery} ਦੀ ਵਸੂਲੀ ਹੁੰਦੀ ਹੈ, ਜੋ ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {ratePercent}% {direction} ਦਰਸਾਉਂਦੀ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "ਕੁੱਲ ਵਸੂਲੀ ₹{totalRecovery} ਹੈ ਅਤੇ ਇਹ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਦੇ ਮੁਕਾਬਲੇ {ratePercent}% {direction} ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਕੀ ਸੀ?"
+    ]
+  },
+  "PNL-QL-164": {
+    "en": [
+      "Solar equipment is bought for ₹{purchasePrice}. Flat expenses are {flatExpenses}, followed by {overheadPercent}% overhead on {overheadBase}. Find the effective cost.",
+      "A solar installation starts with purchase price ₹{purchasePrice}, adds flat expenses {flatExpenses}, then applies {overheadPercent}% overhead on {overheadBase}. What is the final effective cost?"
+    ],
+    "hi": [
+      "सौर उपकरण ₹{purchasePrice} में खरीदा जाता है। फ्लैट खर्च {flatExpenses} हैं और इसके बाद {overheadBase} पर {overheadPercent}% ओवरहेड लगता है। प्रभावी लागत ज्ञात कीजिए।",
+      "सौर स्थापना की खरीद कीमत ₹{purchasePrice} है, फ्लैट खर्च {flatExpenses} जोड़े जाते हैं और फिर {overheadBase} पर {overheadPercent}% ओवरहेड लगाया जाता है। अंतिम प्रभावी लागत क्या है?"
+    ],
+    "pa": [
+      "ਸੋਲਰ ਉਪਕਰਣ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਿਆ ਜਾਂਦਾ ਹੈ। ਫਲੈਟ ਖਰਚ {flatExpenses} ਹਨ ਅਤੇ ਇਸ ਤੋਂ ਬਾਅਦ {overheadBase} 'ਤੇ {overheadPercent}% ਓਵਰਹੈੱਡ ਲੱਗਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "ਸੋਲਰ ਇੰਸਟਾਲੇਸ਼ਨ ਦੀ ਖਰੀਦ ਕੀਮਤ ₹{purchasePrice} ਹੈ, ਫਲੈਟ ਖਰਚ {flatExpenses} ਜੋੜੇ ਜਾਂਦੇ ਹਨ ਅਤੇ ਫਿਰ {overheadBase} 'ਤੇ {overheadPercent}% ਓਵਰਹੈੱਡ ਲਾਇਆ ਜਾਂਦਾ ਹੈ। ਅੰਤਿਮ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-165": {
+    "en": [
+      "An asset is purchased for ₹{purchasePrice} and its final effective cost is ₹{effectiveCost}. Find the total additional expense.",
+      "The purchase price is ₹{purchasePrice}, while effective cost after all expenses is ₹{effectiveCost}. How much extra cost was added?"
+    ],
+    "hi": [
+      "एक संपत्ति ₹{purchasePrice} में खरीदी जाती है और उसकी अंतिम प्रभावी लागत ₹{effectiveCost} है। कुल अतिरिक्त खर्च ज्ञात कीजिए।",
+      "क्रय मूल्य ₹{purchasePrice} है, जबकि सभी खर्चों के बाद प्रभावी लागत ₹{effectiveCost} है। कितनी अतिरिक्त लागत जुड़ी?"
+    ],
+    "pa": [
+      "ਇੱਕ ਸੰਪਤੀ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਜਾਂਦੀ ਹੈ ਅਤੇ ਇਸਦੀ ਅੰਤਿਮ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ। ਕੁੱਲ ਵਾਧੂ ਖਰਚ ਪਤਾ ਕਰੋ।",
+      "ਖਰੀਦ ਮੁੱਲ ₹{purchasePrice} ਹੈ, ਜਦਕਿ ਸਾਰੇ ਖਰਚਾਂ ਤੋਂ ਬਾਅਦ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ। ਕਿੰਨੀ ਵਾਧੂ ਲਾਗਤ ਜੁੜੀ?"
+    ]
+  },
+  "PNL-QL-166": {
+    "en": [
+      "A warehouse unit costs ₹{purchasePrice}, has flat expenses {flatExpenses}, and ends with effective cost ₹{effectiveCost}. If the remaining overhead is calculated on {overheadBase}, find the overhead percentage.",
+      "A warehouse purchase of ₹{purchasePrice} plus flat expenses {flatExpenses} becomes ₹{effectiveCost} after overhead. The overhead base is {overheadBase}. Determine the overhead rate."
+    ],
+    "hi": [
+      "गोदाम इकाई का क्रय मूल्य ₹{purchasePrice}, फ्लैट खर्च {flatExpenses} और अंतिम प्रभावी लागत ₹{effectiveCost} है। शेष ओवरहेड {overheadBase} पर लगाया जाता है। ओवरहेड प्रतिशत ज्ञात कीजिए।",
+      "गोदाम की खरीद ₹{purchasePrice} और फ्लैट खर्च {flatExpenses} मिलकर ओवरहेड के बाद ₹{effectiveCost} हो जाते हैं। ओवरहेड आधार {overheadBase} है। ओवरहेड दर ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਗੋਦਾਮ ਇਕਾਈ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{purchasePrice}, ਫਲੈਟ ਖਰਚ {flatExpenses} ਅਤੇ ਅੰਤਿਮ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ। ਬਾਕੀ ਓਵਰਹੈੱਡ {overheadBase} 'ਤੇ ਲਾਇਆ ਜਾਂਦਾ ਹੈ। ਓਵਰਹੈੱਡ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਗੋਦਾਮ ਦੀ ਖਰੀਦ ₹{purchasePrice} ਅਤੇ ਫਲੈਟ ਖਰਚ {flatExpenses} ਮਿਲ ਕੇ ਓਵਰਹੈੱਡ ਤੋਂ ਬਾਅਦ ₹{effectiveCost} ਹੋ ਜਾਂਦੇ ਹਨ। ਓਵਰਹੈੱਡ ਆਧਾਰ {overheadBase} ਹੈ। ਓਵਰਹੈੱਡ ਦਰ ਪਤਾ ਕਰੋ।"
+    ]
   }
 };
 
