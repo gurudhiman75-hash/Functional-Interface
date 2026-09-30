@@ -1,0 +1,39 @@
+name: Validate English Final Closure V4
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/engines/language-v1-adapter.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng0**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: english-final-closure-v4-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-final-closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install dependencies
+        timeout-minutes: 10
+        run: pnpm install --frozen-lockfile
+      - name: Compile whole-English closure regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/english-final-closure-v4.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/english-final-closure-v4.test.mjs
+      - name: Run whole-English closure regression
+        run: node artifacts/api-server/dist/english-v1/english-final-closure-v4.test.mjs
