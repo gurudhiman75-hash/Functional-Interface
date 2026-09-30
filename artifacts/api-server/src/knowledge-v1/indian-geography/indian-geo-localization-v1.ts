@@ -27,7 +27,9 @@ import { localizeGeoPop001ExactCp003PartC } from "./population-settlements/geo-p
 import { localizeGeoPop001ExactCp004PartA } from "./population-settlements/geo-pop-001-localization-cp004-part-a-v1";
 import { localizeGeoPop001ExactCp004PartB } from "./population-settlements/geo-pop-001-localization-cp004-part-b-v1";
 import { localizeGeoPop001ExactCp004PartC } from "./population-settlements/geo-pop-001-localization-cp004-part-c-v1";
-import { GEO_POP_001_CP005_EXACT_STEMS_V1 } from "./population-settlements/geo-pop-001-localization-cp005-stems-v1";
+import { localizeGeoPop001ExactCp005PartA } from "./population-settlements/geo-pop-001-localization-cp005-part-a-v1";
+import { localizeGeoPop001ExactCp005PartB } from "./population-settlements/geo-pop-001-localization-cp005-part-b-v1";
+import { localizeGeoPop001ExactCp005PartC } from "./population-settlements/geo-pop-001-localization-cp005-part-c-v1";
 
 export type IndianGeoLocalizationLanguageV1 = "en" | "hi" | "pa";
 type CanonicalQuestion = Readonly<{
@@ -784,18 +786,11 @@ export function localizeIndianGeoQuestionV1(
       localizeGeoPop001ExactCp003PartC(question, language) ??
       localizeGeoPop001ExactCp004PartA(question, language) ??
       localizeGeoPop001ExactCp004PartB(question, language) ??
-      localizeGeoPop001ExactCp004PartC(question, language);
+      localizeGeoPop001ExactCp004PartC(question, language) ??
+      localizeGeoPop001ExactCp005PartA(question, language) ??
+      localizeGeoPop001ExactCp005PartB(question, language) ??
+      localizeGeoPop001ExactCp005PartC(question, language);
     if (approved) return approved;
-    const cp005Stem = GEO_POP_001_CP005_EXACT_STEMS_V1[question.questionId];
-    if (cp005Stem) {
-      const options = Object.freeze(question.options.map((option) => localizeText(option, language)));
-      return Object.freeze({
-        stem: cp005Stem[language],
-        options,
-        canonicalAnswer: options[question.correctIndex]!,
-        explanation: localizeText(question.explanation, language),
-      });
-    }
   }
 
   const options = Object.freeze(question.options.map((option) => localizeText(option, language)));
