@@ -524,11 +524,6 @@ function localizeNaturalStem(text: string, language: "hi"|"pa", packageId?: stri
     if (m) return hi ? "किसी जिले की कुल जनसंख्या की तुलना में रोजगार प्राप्त वयस्कों की संख्या अधिक है। कौन-सा सूचक अधिक होने की संभावना है?" : "ਕਿਸੇ ਜ਼ਿਲ੍ਹੇ ਦੀ ਕੁੱਲ ਆਬਾਦੀ ਦੇ ਮੁਕਾਬਲੇ ਰੁਜ਼ਗਾਰਸ਼ੁਦਾ ਬਾਲਗਾਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਹੈ। ਕਿਹੜਾ ਸੂਚਕ ਵੱਧ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ?";
   }
 
-  if (packageId === "GEO-SOI-001") {
-    const approved = localizeGeoSoi001ExactCp001PartA(question, language);
-    if (approved) return approved;
-  }
-
   if (packageId === "GEO-WAT-001") {
     let m = text.match(/^Which factor can make water availability seasonal\?$/);
     if (m) return hi ? "जल उपलब्धता को मौसमी बनाने वाला प्रमुख कारक कौन-सा है?" : "ਪਾਣੀ ਦੀ ਉਪਲਬਧਤਾ ਨੂੰ ਮੌਸਮੀ ਬਣਾਉਣ ਵਾਲਾ ਮੁੱਖ ਕਾਰਕ ਕਿਹੜਾ ਹੈ?";
@@ -735,6 +730,11 @@ export function localizeIndianGeoQuestionV1(
       canonicalAnswer: question.canonicalAnswer,
       explanation: question.explanation,
     });
+  }
+
+  if (packageId === "GEO-SOI-001") {
+    const approved = localizeGeoSoi001ExactCp001PartA(question, language);
+    if (approved) return approved;
   }
 
   if (packageId === "GEO-WAT-001") {
