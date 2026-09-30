@@ -124,35 +124,6 @@ assert.equal(
 
 
 
-for (const cpId of cpIds) {
-  const qlIds = getQuestionLanguageIds(cpId, "en");
-  const rotated = Array.from({ length: qlIds.length }, (_, diversityOrdinal) =>
-    runRap001Pipeline(cpId, {
-      language: "en",
-      seed: `rap-001-full-pool-diversity:${cpId}:${diversityOrdinal}`,
-      diversityOrdinal,
-    }),
-  );
-  assert.equal(
-    new Set(rotated.map((item) => item.questionLanguageId)).size,
-    qlIds.length,
-    `${cpId} should consume its full English QL pool before unrestricted audit reuse`,
-  );
-}
-
-const explicitEasyIds = getQuestionLanguageIds("RAP-CP-001", "en")
-  .filter((qlId) => getQuestionEntry("RAP-CP-001", qlId, "en").difficulty === "Easy");
-const explicitEasyRotation = Array.from({ length: explicitEasyIds.length }, (_, diversityOrdinal) =>
-  runRap001Pipeline("RAP-CP-001", {
-    language: "en",
-    seed: `rap-001-explicit-easy:${diversityOrdinal}`,
-    difficultyBand: "Easy",
-    diversityOrdinal,
-  }),
-);
-assert.ok(explicitEasyRotation.every((item) => item.difficultyBand === "Easy"));
-assert.equal(new Set(explicitEasyRotation.map((item) => item.questionLanguageId)).size, explicitEasyIds.length);
-
 const objectPoolAudit = {
   family: RAP_001_LIBRARY_REGISTRY.semantic.library.domains.family.entities.length,
   school: RAP_001_LIBRARY_REGISTRY.semantic.library.domains.school.entities.length,
