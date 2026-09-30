@@ -726,6 +726,108 @@ function cleanExplanation(source: string, answer: string, language: "hi"|"pa") {
     : `ਸਹੀ ਉੱਤਰ ${answer} ਹੈ। ਇਹ ਭਾਰਤੀ ਭੂਗੋਲ ਦੇ ਸੰਬੰਧਿਤ ਤੱਥ ਨੂੰ ਸਹੀ ਤਰ੍ਹਾਂ ਦਰਸਾਉਂਦਾ ਹੈ।`;
 }
 
+
+function polishGeoSoiBulkTextV1(text:string, language:"hi"|"pa") {
+  const hi:[string,string][] = [
+    ["red and yellow soil","लाल और पीली मिट्टी"],["red soil","लाल मिट्टी"],["yellow soil","पीली मिट्टी"],
+    ["laterite soil","लैटेराइट मिट्टी"],["arid soil","शुष्क मिट्टी"],["forest and mountain soil","वन और पर्वतीय मिट्टी"],
+    ["forest soil","वन मिट्टी"],["mountain soil","पर्वतीय मिट्टी"],["alluvial soil","जलोढ़ मिट्टी"],["black soil","काली मिट्टी"],
+    ["crystalline igneous rocks","स्फटिकीय आग्नेय चट्टानें"],["crystalline igneous rock","स्फटिकीय आग्नेय चट्टान"],
+    ["igneous rocks","आग्नेय चट्टानें"],["parent rock","मूल चट्टान"],["parent material","मूल पदार्थ"],
+    ["low rainfall","कम वर्षा"],["heavy rainfall","भारी वर्षा"],["high temperature","उच्च तापमान"],
+    ["iron compounds","लौह यौगिक"],["iron diffusion","लौह का प्रसार"],["hydration","जलयोजन"],
+    ["red colour","लाल रंग"],["yellow colour","पीला रंग"],["soil colour","मिट्टी का रंग"],
+    ["eastern and southern Deccan","पूर्वी और दक्षिणी दक्कन"],["Deccan plateau","दक्कन का पठार"],
+    ["middle Ganga plain","मध्य गंगा मैदान"],["Western Ghats","पश्चिमी घाट"],["piedmont","पर्वतपदीय क्षेत्र"],
+    ["red loamy soil","लाल दोमट मिट्टी"],["loamy soil","दोमट मिट्टी"],["loamy","दोमट"],["silty","गादयुक्त"],
+    ["intense leaching","तीव्र निक्षालन"],["leaching","निक्षालन"],["humus","ह्यूमस"],["fertility","उर्वरता"],
+    ["soil improvement","मिट्टी सुधार"],["fertiliser","उर्वरक"],["fertilizers","उर्वरक"],["manure","खाद"],
+    ["tea","चाय"],["coffee","कॉफी"],["cashew","काजू"],["sandy texture","रेतीली बनावट"],["sandy","रेतीली"],
+    ["salinity","लवणता"],["common salt","साधारण नमक"],["rapid evaporation","तेज वाष्पीकरण"],["evaporation","वाष्पीकरण"],
+    ["low moisture","कम नमी"],["kankar layer","कंकड़ परत"],["kankar","कंकड़"],["calcium","कैल्शियम"],
+    ["lower horizons","निचले मृदा-क्षितिज"],["infiltration","जल-प्रवेश"],["restricted infiltration","सीमित जल-प्रवेश"],
+    ["irrigation","सिंचाई"],["cultivable","खेती योग्य"],["cultivation","खेती"],["cultivability","खेती योग्यता"],
+    ["mountain environment","पर्वतीय पर्यावरण"],["mountain slopes","पर्वतीय ढालें"],["upper slopes","ऊपरी ढालें"],
+    ["coarse-grained","मोटे कणों वाली"],["denudation","अनाच्छादन"],["snow-covered","हिमाच्छादित"],["acidic","अम्लीय"],
+    ["lower valleys","निचली घाटियाँ"],["terraces","सीढ़ीनुमा सतहें"],["alluvial fans","जलोढ़ पंख"],
+    ["distribution","वितरण"],["northern plains","उत्तरी मैदान"],["western corridor","पश्चिमी पट्टी"],
+    ["eastern coastal deltas","पूर्वी तटीय डेल्टा"],["coastal deltas","तटीय डेल्टा"],
+    ["Godavari-Krishna valleys","गोदावरी-कृष्णा घाटियाँ"],["western and central Deccan","पश्चिमी और मध्य दक्कन"],
+    ["western India","पश्चिमी भारत"],["forest setting","वन क्षेत्र"],["soil profile","मृदा-प्रोफ़ाइल"],["soil distribution","मिट्टी का वितरण"],
+    ["Odisha","ओडिशा"],["Chhattisgarh","छत्तीसगढ़"],["Karnataka","कर्नाटक"],["Kerala","केरल"],["Tamil Nadu","तमिलनाडु"],
+    ["Madhya Pradesh","मध्य प्रदेश"],["Assam","असम"],["Rajasthan","राजस्थान"],["Gujarat","गुजरात"],["Punjab","पंजाब"],["Haryana","हरियाणा"],
+    ["formation","निर्माण"],["formed","बनी"],["developed","विकसित"],["develops","विकसित होती है"],["weathering","अपक्षय"],
+    ["rainfall","वर्षा"],["temperature","तापमान"],["moisture","नमी"],["texture","बनावट"],["colour","रंग"],["color","रंग"],
+    ["region","क्षेत्र"],["areas","क्षेत्र"],["area","क्षेत्र"],["soil","मिट्टी"],["rocks","चट्टानें"],["rock","चट्टान"],
+    ["iron","लोहा"],["water","पानी"],["high","उच्च"],["low","कम"],["deep","गहरी"],["upper","ऊपरी"],["lower","निचली"],
+    ["dry","शुष्क"],["wet","गीली"],["fine","महीन"],["coarse","मोटा"],["fertile","उपजाऊ"],["poor","कम"],["rich","समृद्ध"],
+    ["Which","कौन-सा"],["which","कौन-सा"],["What","क्या"],["what","क्या"],["Why","क्यों"],["why","क्यों"],["Where","कहाँ"],["where","कहाँ"],
+    ["How","कैसे"],["how","कैसे"],["When","कब"],["when","कब"],["the",""],["and","और"],["or","या"],["is","है"],["are","हैं"],
+    ["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],["can","सकता है"],["could","सकता था"],
+    ["with","के साथ"],["from","से"],["into","में"],["for","के लिए"],["of","का"],["to","को"],["in","में"],["on","पर"],["at","पर"],
+    ["by","द्वारा"],["as","के रूप में"],["than","की तुलना में"],["that","कि"],["this","यह"],["these","ये"],["those","वे"],
+    ["most","सबसे"],["main","मुख्य"],["major","प्रमुख"],["only","केवल"],["correct","सही"],["statement","कथन"],["following","निम्नलिखित"]
+  ];
+  const pa:[string,string][] = [
+    ["red and yellow soil","ਲਾਲ ਅਤੇ ਪੀਲੀ ਮਿੱਟੀ"],["red soil","ਲਾਲ ਮਿੱਟੀ"],["yellow soil","ਪੀਲੀ ਮਿੱਟੀ"],
+    ["laterite soil","ਲੈਟਰਾਈਟ ਮਿੱਟੀ"],["arid soil","ਸੁੱਕੀ ਮਿੱਟੀ"],["forest and mountain soil","ਜੰਗਲੀ ਅਤੇ ਪਹਾੜੀ ਮਿੱਟੀ"],
+    ["forest soil","ਜੰਗਲੀ ਮਿੱਟੀ"],["mountain soil","ਪਹਾੜੀ ਮਿੱਟੀ"],["alluvial soil","ਜਲੋਢ ਮਿੱਟੀ"],["black soil","ਕਾਲੀ ਮਿੱਟੀ"],
+    ["crystalline igneous rocks","ਸਫ਼ਟਿਕੀ ਆਗਨੇਯ ਚੱਟਾਨਾਂ"],["crystalline igneous rock","ਸਫ਼ਟਿਕੀ ਆਗਨੇਯ ਚੱਟਾਨ"],
+    ["igneous rocks","ਆਗਨੇਯ ਚੱਟਾਨਾਂ"],["parent rock","ਮੂਲ ਚੱਟਾਨ"],["parent material","ਮੂਲ ਪਦਾਰਥ"],
+    ["low rainfall","ਘੱਟ ਵਰਖਾ"],["heavy rainfall","ਭਾਰੀ ਵਰਖਾ"],["high temperature","ਉੱਚ ਤਾਪਮਾਨ"],
+    ["iron compounds","ਲੋਹੇ ਦੇ ਯੋਗਿਕ"],["iron diffusion","ਲੋਹੇ ਦਾ ਫੈਲਾਅ"],["hydration","ਜਲਯੋਜਨ"],
+    ["red colour","ਲਾਲ ਰੰਗ"],["yellow colour","ਪੀਲਾ ਰੰਗ"],["soil colour","ਮਿੱਟੀ ਦਾ ਰੰਗ"],
+    ["eastern and southern Deccan","ਪੂਰਬੀ ਅਤੇ ਦੱਖਣੀ ਦੱਖਣ"],["Deccan plateau","ਦੱਖਣ ਦਾ ਪਠਾਰ"],
+    ["middle Ganga plain","ਮੱਧ ਗੰਗਾ ਮੈਦਾਨ"],["Western Ghats","ਪੱਛਮੀ ਘਾਟ"],["piedmont","ਪਹਾੜ-ਪੈਰ ਖੇਤਰ"],
+    ["red loamy soil","ਲਾਲ ਦੋਮਟ ਮਿੱਟੀ"],["loamy soil","ਦੋਮਟ ਮਿੱਟੀ"],["loamy","ਦੋਮਟ"],["silty","ਗਾਦ ਵਾਲੀ"],
+    ["intense leaching","ਤੀਬਰ ਧੁਲਾਈ"],["leaching","ਧੁਲਾਈ"],["humus","ਹਿਊਮਸ"],["fertility","ਉਪਜਾਊਪਣ"],
+    ["soil improvement","ਮਿੱਟੀ ਸੁਧਾਰ"],["fertiliser","ਖਾਦ"],["fertilizers","ਖਾਦਾਂ"],["manure","ਜੈਵਿਕ ਖਾਦ"],
+    ["tea","ਚਾਹ"],["coffee","ਕੌਫੀ"],["cashew","ਕਾਜੂ"],["sandy texture","ਰੇਤੀਲੀ ਬਣਤਰ"],["sandy","ਰੇਤੀਲੀ"],
+    ["salinity","ਲੂਣਾਪਣ"],["common salt","ਸਧਾਰਣ ਲੂਣ"],["rapid evaporation","ਤੇਜ਼ ਵਾਸਪੀਕਰਨ"],["evaporation","ਵਾਸਪੀਕਰਨ"],
+    ["low moisture","ਘੱਟ ਨਮੀ"],["kankar layer","ਕੰਕਰ ਪਰਤ"],["kankar","ਕੰਕਰ"],["calcium","ਕੈਲਸ਼ੀਅਮ"],
+    ["lower horizons","ਹੇਠਲੀਆਂ ਮਿੱਟੀ ਪਰਤਾਂ"],["infiltration","ਪਾਣੀ ਦਾ ਰਿਸਾਅ"],["restricted infiltration","ਸੀਮਿਤ ਪਾਣੀ ਰਿਸਾਅ"],
+    ["irrigation","ਸਿੰਚਾਈ"],["cultivable","ਖੇਤੀਯੋਗ"],["cultivation","ਖੇਤੀ"],["cultivability","ਖੇਤੀਯੋਗਤਾ"],
+    ["mountain environment","ਪਹਾੜੀ ਵਾਤਾਵਰਣ"],["mountain slopes","ਪਹਾੜੀ ਢਲਾਣਾਂ"],["upper slopes","ਉੱਪਰੀ ਢਲਾਣਾਂ"],
+    ["coarse-grained","ਮੋਟੇ ਕਣਾਂ ਵਾਲੀ"],["denudation","ਅਨਾਛਾਦਨ"],["snow-covered","ਬਰਫ਼-ਢੱਕਿਆ"],["acidic","ਅਮਲੀ"],
+    ["lower valleys","ਹੇਠਲੀਆਂ ਘਾਟੀਆਂ"],["terraces","ਛੱਜੀਆਂ"],["alluvial fans","ਜਲੋਢ ਪੱਖੇ"],
+    ["distribution","ਵੰਡ"],["northern plains","ਉੱਤਰੀ ਮੈਦਾਨ"],["western corridor","ਪੱਛਮੀ ਪੱਟੀ"],
+    ["eastern coastal deltas","ਪੂਰਬੀ ਤਟੀ ਡੈਲਟੇ"],["coastal deltas","ਤਟੀ ਡੈਲਟੇ"],
+    ["Godavari-Krishna valleys","ਗੋਦਾਵਰੀ-ਕ੍ਰਿਸ਼ਨਾ ਘਾਟੀਆਂ"],["western and central Deccan","ਪੱਛਮੀ ਅਤੇ ਮੱਧ ਦੱਖਣ"],
+    ["western India","ਪੱਛਮੀ ਭਾਰਤ"],["forest setting","ਜੰਗਲੀ ਖੇਤਰ"],["soil profile","ਮਿੱਟੀ-ਪ੍ਰੋਫ਼ਾਈਲ"],["soil distribution","ਮਿੱਟੀ ਦੀ ਵੰਡ"],
+    ["Odisha","ਓਡੀਸ਼ਾ"],["Chhattisgarh","ਛੱਤੀਸਗੜ੍ਹ"],["Karnataka","ਕਰਨਾਟਕ"],["Kerala","ਕੇਰਲ"],["Tamil Nadu","ਤਮਿਲਨਾਡੂ"],
+    ["Madhya Pradesh","ਮੱਧ ਪ੍ਰਦੇਸ਼"],["Assam","ਅਸਾਮ"],["Rajasthan","ਰਾਜਸਥਾਨ"],["Gujarat","ਗੁਜਰਾਤ"],["Punjab","ਪੰਜਾਬ"],["Haryana","ਹਰਿਆਣਾ"],
+    ["formation","ਬਣਤਰ"],["formed","ਬਣੀ"],["developed","ਵਿਕਸਿਤ"],["develops","ਵਿਕਸਿਤ ਹੁੰਦੀ ਹੈ"],["weathering","ਅਪਖੰਡਨ"],
+    ["rainfall","ਵਰਖਾ"],["temperature","ਤਾਪਮਾਨ"],["moisture","ਨਮੀ"],["texture","ਬਣਤਰ"],["colour","ਰੰਗ"],["color","ਰੰਗ"],
+    ["region","ਖੇਤਰ"],["areas","ਖੇਤਰ"],["area","ਖੇਤਰ"],["soil","ਮਿੱਟੀ"],["rocks","ਚੱਟਾਨਾਂ"],["rock","ਚੱਟਾਨ"],
+    ["iron","ਲੋਹਾ"],["water","ਪਾਣੀ"],["high","ਉੱਚ"],["low","ਘੱਟ"],["deep","ਡੂੰਘੀ"],["upper","ਉੱਪਰੀ"],["lower","ਹੇਠਲੀ"],
+    ["dry","ਸੁੱਕੀ"],["wet","ਗੀਲੀ"],["fine","ਬਰੀਕ"],["coarse","ਮੋਟਾ"],["fertile","ਉਪਜਾਊ"],["poor","ਘੱਟ"],["rich","ਭਰਪੂਰ"],
+    ["Which","ਕਿਹੜਾ"],["which","ਕਿਹੜਾ"],["What","ਕੀ"],["what","ਕੀ"],["Why","ਕਿਉਂ"],["why","ਕਿਉਂ"],["Where","ਕਿੱਥੇ"],["where","ਕਿੱਥੇ"],
+    ["How","ਕਿਵੇਂ"],["how","ਕਿਵੇਂ"],["When","ਕਦੋਂ"],["when","ਕਦੋਂ"],["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],["is","ਹੈ"],["are","ਹਨ"],
+    ["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],
+    ["with","ਨਾਲ"],["from","ਤੋਂ"],["into","ਵਿੱਚ"],["for","ਲਈ"],["of","ਦਾ"],["to","ਨੂੰ"],["in","ਵਿੱਚ"],["on","ਉੱਤੇ"],["at","ਉੱਤੇ"],
+    ["by","ਦੁਆਰਾ"],["as","ਵਜੋਂ"],["than","ਨਾਲੋਂ"],["that","ਕਿ"],["this","ਇਹ"],["these","ਇਹ"],["those","ਉਹ"],
+    ["most","ਸਭ ਤੋਂ"],["main","ਮੁੱਖ"],["major","ਮੁੱਖ"],["only","ਕੇਵਲ"],["correct","ਸਹੀ"],["statement","ਕਥਨ"],["following","ਹੇਠ ਲਿਖੇ"]
+  ];
+  let out=text;
+  const pairs=language==="hi"?hi:pa;
+  const esc=(s:string)=>s.replace(/[.*+?^$()|[\]\\{}]/g,"\\export function localizeIndianGeoQuestionV1(");
+  for (const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) {
+    out=out.replace(new RegExp("\\b"+esc(a)+"\\b","gi"),b);
+  }
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+
+function localizeGeoSoiBulkCp004Cp008V1(question:CanonicalQuestion, language:"hi"|"pa") {
+  if (!/^GEO-SOI-001-CP00[4-8]-Q/.test(question.questionId)) return null;
+  const local = (source:string) => polishGeoSoiBulkTextV1(localizeText(source, language), language);
+  const stemBase = localizeNaturalStem(question.stem, language, "GEO-SOI-001") ?? localizeText(question.stem, language);
+  const stem = polishGeoSoiBulkTextV1(stemBase, language);
+  const options = Object.freeze(question.options.map(local));
+  const canonicalAnswer = options[question.correctIndex]!;
+  const explanation = local(question.explanation);
+  return Object.freeze({stem, options, canonicalAnswer, explanation});
+}
+
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
   language: IndianGeoLocalizationLanguageV1,
@@ -752,6 +854,8 @@ export function localizeIndianGeoQuestionV1(
       localizeGeoSoi001ExactCp003PartB(question, language) ??
       localizeGeoSoi001ExactCp003PartC(question, language);
     if (approved) return approved;
+    const bulk = localizeGeoSoiBulkCp004Cp008V1(question, language);
+    if (bulk) return bulk;
   }
 
   if (packageId === "GEO-WAT-001") {
