@@ -1,4 +1,5 @@
 import { NUMERICAL_CP_IDS } from "./ven-001-numerical.ts";
+import { VEN_001_SHAPE_REGION_CP_ID } from "./ven-001-shape-regions.ts";
 import type {
   QuestionStudioGenerationRequest,
   QuestionStudioGenerationResult,
@@ -156,10 +157,17 @@ function relationExplanation(
 ): string {
   const facts = relationText(authority, locale).join(" ");
   if (locale === "hi-IN")
-    return reverse ? "यह विकल्प सही है क्योंकि चित्र में यही संबंध हैं: " + facts : facts;
+    return reverse
+      ? "यह विकल्प सही है क्योंकि चित्र में यही संबंध हैं: " + facts
+      : facts;
   if (locale === "pa-IN")
-    return reverse ? "ਇਹ ਵਿਕਲਪ ਸਹੀ ਹੈ ਕਿਉਂਕਿ ਚਿੱਤਰ ਵਿੱਚ ਇਹ ਸੰਬੰਧ ਦਿਖਾਏ ਗਏ ਹਨ: " + facts : facts;
-  return reverse ? "This option is correct because the diagram shows these relationships: " + facts : facts;
+    return reverse
+      ? "ਇਹ ਵਿਕਲਪ ਸਹੀ ਹੈ ਕਿਉਂਕਿ ਚਿੱਤਰ ਵਿੱਚ ਇਹ ਸੰਬੰਧ ਦਿਖਾਏ ਗਏ ਹਨ: " + facts
+      : facts;
+  return reverse
+    ? "This option is correct because the diagram shows these relationships: " +
+        facts
+    : facts;
 }
 
 function correctCircleLabelOrder(authority: VennScenarioAuthority): string[] {
@@ -176,17 +184,36 @@ function correctCircleLabelOrder(authority: VennScenarioAuthority): string[] {
   }
   if (authority.topologyId === "THREE_ONE_NESTED_PAIR_ONE_SEPARATE") {
     const containment = authority.relations.find(
-      (relation) => relation.relation === "LEFT_SUBSET_RIGHT" || relation.relation === "RIGHT_SUBSET_LEFT",
+      (relation) =>
+        relation.relation === "LEFT_SUBSET_RIGHT" ||
+        relation.relation === "RIGHT_SUBSET_LEFT",
     );
     if (!containment)
-      throw new Error(`VEN-001 cannot locate nested pair in ${authority.authorityId}`);
-    const inner = containment.relation === "LEFT_SUBSET_RIGHT" ? containment.left : containment.right;
-    const outer = containment.relation === "LEFT_SUBSET_RIGHT" ? containment.right : containment.left;
-    const separate = authority.sets.find((set) => set.setId !== inner && set.setId !== outer)?.setId;
-    if (!separate || authority.relations.some((relation) =>
-      (relation.left === separate || relation.right === separate) && relation.relation !== "DISJOINT"
-    ))
-      throw new Error(`VEN-001 expected one separate set in ${authority.authorityId}`);
+      throw new Error(
+        `VEN-001 cannot locate nested pair in ${authority.authorityId}`,
+      );
+    const inner =
+      containment.relation === "LEFT_SUBSET_RIGHT"
+        ? containment.left
+        : containment.right;
+    const outer =
+      containment.relation === "LEFT_SUBSET_RIGHT"
+        ? containment.right
+        : containment.left;
+    const separate = authority.sets.find(
+      (set) => set.setId !== inner && set.setId !== outer,
+    )?.setId;
+    if (
+      !separate ||
+      authority.relations.some(
+        (relation) =>
+          (relation.left === separate || relation.right === separate) &&
+          relation.relation !== "DISJOINT",
+      )
+    )
+      throw new Error(
+        `VEN-001 expected one separate set in ${authority.authorityId}`,
+      );
     return [outer, inner, separate];
   }
   if (
@@ -220,10 +247,17 @@ function stemFor(authority: VennScenarioAuthority, locale: VennLocale): string {
     .map((set) => set.setId + " = " + set.labels[locale])
     .join(", ");
   if (locale === "hi-IN")
-    return groups + "। A, B और C के बीच संबंध को कौन-सा वेन आरेख सही दर्शाता है?";
+    return (
+      groups + "। A, B और C के बीच संबंध को कौन-सा वेन आरेख सही दर्शाता है?"
+    );
   if (locale === "pa-IN")
-    return groups + "। A, B ਅਤੇ C ਦਾ ਆਪਸੀ ਸੰਬੰਧ ਕਿਹੜਾ ਵੇਨ ਚਿੱਤਰ ਸਹੀ ਦਰਸਾਉਂਦਾ ਹੈ?";
-  return groups + ". Which Venn diagram correctly represents the relationship among A, B and C?";
+    return (
+      groups + "। A, B ਅਤੇ C ਦਾ ਆਪਸੀ ਸੰਬੰਧ ਕਿਹੜਾ ਵੇਨ ਚਿੱਤਰ ਸਹੀ ਦਰਸਾਉਂਦਾ ਹੈ?"
+    );
+  return (
+    groups +
+    ". Which Venn diagram correctly represents the relationship among A, B and C?"
+  );
 }
 function stemForDiagram(locale: VennLocale): string {
   if (locale === "hi-IN")
@@ -246,7 +280,12 @@ function relationText(
       if (relation === "DISJOINT")
         return left + " और " + right + " का कोई साझा सदस्य नहीं है।";
       if (relation === "PARTIAL_OVERLAP")
-        return left + " और " + right + " में कुछ सदस्य समान हैं; फिर भी दोनों समूहों में ऐसे सदस्य हैं जो दूसरे समूह में नहीं हैं।";
+        return (
+          left +
+          " और " +
+          right +
+          " में कुछ सदस्य समान हैं; फिर भी दोनों समूहों में ऐसे सदस्य हैं जो दूसरे समूह में नहीं हैं।"
+        );
       return left + " और " + right + " में ठीक वही सदस्य हैं।";
     }
     if (locale === "pa-IN") {
@@ -257,7 +296,12 @@ function relationText(
       if (relation === "DISJOINT")
         return left + " ਅਤੇ " + right + " ਦਾ ਕੋਈ ਸਾਂਝਾ ਮੈਂਬਰ ਨਹੀਂ ਹੈ।";
       if (relation === "PARTIAL_OVERLAP")
-        return left + " ਅਤੇ " + right + " ਵਿੱਚ ਕੁਝ ਮੈਂਬਰ ਸਾਂਝੇ ਹਨ; ਫਿਰ ਵੀ ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਅਜਿਹੇ ਮੈਂਬਰ ਹਨ ਜੋ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਹਨ।";
+        return (
+          left +
+          " ਅਤੇ " +
+          right +
+          " ਵਿੱਚ ਕੁਝ ਮੈਂਬਰ ਸਾਂਝੇ ਹਨ; ਫਿਰ ਵੀ ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਅਜਿਹੇ ਮੈਂਬਰ ਹਨ ਜੋ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਹਨ।"
+        );
       return left + " ਅਤੇ " + right + " ਵਿੱਚ ਬਿਲਕੁਲ ਇੱਕੋ ਮੈਂਬਰ ਹਨ।";
     }
     if (relation === "LEFT_SUBSET_RIGHT")
@@ -267,7 +311,12 @@ function relationText(
     if (relation === "DISJOINT")
       return left + " and " + right + " have no members in common.";
     if (relation === "PARTIAL_OVERLAP")
-      return left + " and " + right + " share some members, but each also has members outside the other.";
+      return (
+        left +
+        " and " +
+        right +
+        " share some members, but each also has members outside the other."
+      );
     return left + " and " + right + " contain the same members.";
   });
 }
@@ -299,7 +348,14 @@ export const VEN_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition =
     subtopic: "Logical Venn Diagrams",
     label: "Reasoning · Logical Venn Diagrams — VEN-001",
     enabled: true,
-    cpIds: ["VEN-CP001", "VEN-CP002", "VEN-CP003", "VEN-CP004", ...NUMERICAL_CP_IDS],
+    cpIds: [
+      "VEN-CP001",
+      "VEN-CP002",
+      "VEN-CP003",
+      "VEN-CP004",
+      ...NUMERICAL_CP_IDS,
+      VEN_001_SHAPE_REGION_CP_ID,
+    ],
     supportedLanguages: ["en", "hi", "pa"],
     supportedDifficulties: ["Easy", "Medium", "Hard"],
     difficultyFilterSupported: true,
@@ -325,12 +381,18 @@ export const VEN_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition =
       registrationAuthorityId: VEN_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
       permanentQlIdsAllocated: false,
       numericalSupplementReviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
+      geometricRegionSupplementReviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
       supportedQuestionOperations: [
         "RELATIONS_TO_DIAGRAM",
         "CATEGORIES_TO_DIAGRAM",
         "DIAGRAM_TO_CATEGORIES",
         "REGION_IDENTIFICATION",
-        "SET_COUNT", "PERCENTAGE_RATIO", "SOLVE_UNKNOWN", "CASELET_COUNT", "OVERLAP_BOUNDS",
+        "SET_COUNT",
+        "PERCENTAGE_RATIO",
+        "SOLVE_UNKNOWN",
+        "CASELET_COUNT",
+        "OVERLAP_BOUNDS",
+        "GEOMETRIC_REGION_COUNT",
       ],
     },
   };
