@@ -107,7 +107,7 @@ function presentation(state: IntCp006State, seed: string): Readonly<{ markdown: 
     case "INT-QL-097": {
       const frames = [
         `Find the difference between compound interest and simple interest on ${money(state.principal)} for 3 years at ${percent(state.ratePercent)} per annum.`,
-        `${money(state.principal)} is invested for 3 years at ${percent(state.ratePercent)} per annum. How much more interest is earned under annual compounding than under simple interest?`,
+        `For a 3-year term, ${money(state.principal)} is placed at ${percent(state.ratePercent)} per annum. Find the excess interest due to annual compounding over simple interest.`,
         `At ${percent(state.ratePercent)} per annum for 3 years, by how much does CI exceed SI on ${money(state.principal)}?`,
         `The same principal of ${money(state.principal)} earns simple interest and annual compound interest at ${percent(state.ratePercent)} for 3 years. Find CI − SI.`,
         `A sum of ${money(state.principal)} is kept at ${percent(state.ratePercent)} per annum for 3 years. Find the extra interest obtained when interest is compounded annually instead of calculated simply.`,
