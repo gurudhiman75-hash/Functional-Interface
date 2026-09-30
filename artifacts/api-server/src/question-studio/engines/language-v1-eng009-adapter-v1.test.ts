@@ -41,7 +41,8 @@ assert.equal(new Set(ssc.questions.map(q=>q.setId)).size,2);
 assert.ok(ssc.questions.every(q=>q.sourceCpId==="ENG-009-CP001"));
 assert.ok(ssc.questions.every(q=>q.humanReviewApproved===true&&q.authoringReviewApproved===true&&q.productionReleased===false));assert.equal(ssc.generationContext.humanReviewApproved,true);
 
-const newPattern=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-009-CP006",subtopic:"banking-new-pattern",count:1,seed:"composer:new-pattern"});assert.ok(newPattern.questions.every(q=>q.sourceCpId==="ENG-009-CP005"&&q.humanReviewApproved===false&&q.revisionReviewPending===true));\nconst mains=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-009-CP006",subtopic:"banking-mains",count:2,seed:"composer:mains"});
+const newPattern=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-009-CP006",subtopic:"banking-new-pattern",count:1,seed:"composer:new-pattern"});assert.ok(newPattern.questions.every(q=>q.sourceCpId==="ENG-009-CP005"&&q.humanReviewApproved===false&&q.revisionReviewPending===true));
+const mains=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-009-CP006",subtopic:"banking-mains",count:2,seed:"composer:mains"});
 assert.equal(mains.questions.length,12);
 assert.equal(new Set(mains.questions.map(q=>q.setId)).size,2);
 assert.ok(mains.questions.every(q=>q.sourceCpId==="ENG-009-CP004"));assert.ok(mains.questions.every(q=>q.humanReviewApproved===true&&q.reviewOnly===true));
