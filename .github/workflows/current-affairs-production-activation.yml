@@ -1,4 +1,4 @@
-name: Validate Current Affairs Production Activation
+name: Validate Current Affairs Production Activationn
 
 on:
   pull_request:
