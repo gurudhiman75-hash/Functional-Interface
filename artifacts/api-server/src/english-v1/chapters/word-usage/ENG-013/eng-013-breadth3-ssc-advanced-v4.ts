@@ -1,10 +1,4 @@
-import type{Eng013AuthorityV1}from"./eng-013-authorities-v1";
-const a=(id:string,word:string):Eng013AuthorityV1=>({id,cpId:"ENG-013-CP002",difficulty:"hard",word,mode:"incorrect",sentences:[
-`The report described the relevant feature as ${word}.`,
-`During the review, the feature was described as ${word}.`,
-`In the final analysis, the same feature remained ${word}.`,
-`The committee ${word} the proposal before approval.`
-],answerIndex:3,explanation:`In options A, B and C, "${word}" is used in an adjective position to describe a feature. Option D incorrectly treats the adjective as a finite verb. Hence option D is the incorrect usage.`});
+import{buildSscAdvancedV4 as a}from"./eng-013-v4-editorial-builders";
 export const ENG013_BREADTH3_SSC_ADVANCED_V4:readonly Eng013AuthorityV1[]=[
 a("WU-BR3-A001","abrupt"),
 a("WU-BR3-A002","absolute"),
