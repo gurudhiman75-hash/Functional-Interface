@@ -1,0 +1,2149 @@
+[
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਯੂਰਪ ਵਿੱਚ ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਕਿਸ ਘਟਨਾ ਨਾਲ ਸ਼ੁਰੂ ਹੋਈ?",
+    "explanation": "ਜਰਮਨ ਫੌਜਾਂ ਨੇ 1 ਸਤੰਬਰ 1939 ਨੂੰ ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ ਕੀਤਾ। ਦੋ ਦਿਨ ਬਾਅਦ ਬ੍ਰਿਟੇਨ ਅਤੇ ਫ਼ਰਾਂਸ ਨੇ ਜਰਮਨੀ ਵਿਰੁੱਧ ਜੰਗ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q001-PA",
+    "englishQuestionId": "WHI-CP010-Q001",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F001",
+    "questionFamily": "ਜੰਗ ਦੀ ਸ਼ੁਰੂਆਤ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 ਸਤੰਬਰ 1939 ਨੂੰ ਜਰਮਨੀ ਦਾ ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "B",
+        "text": "1941 ਵਿੱਚ ਜਰਮਨੀ ਦਾ ਸੋਵੀਅਤ ਸੰਘ ’ਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "C",
+        "text": "1941 ਵਿੱਚ ਜਪਾਨ ਦਾ ਪਰਲ ਹਾਰਬਰ ’ਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "1935 ਵਿੱਚ ਇਟਲੀ ਦਾ ਇਥੋਪੀਆ ’ਤੇ ਹਮਲਾ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਪੋਲੈਂਡ ’ਤੇ ਜਰਮਨ ਹਮਲੇ ਤੋਂ ਬਾਅਦ ਕਿਹੜੇ ਦੋ ਦੇਸ਼ਾਂ ਨੇ ਜਰਮਨੀ ਵਿਰੁੱਧ ਜੰਗ ਦਾ ਐਲਾਨ ਕੀਤਾ?",
+    "explanation": "ਬ੍ਰਿਟੇਨ ਅਤੇ ਫ਼ਰਾਂਸ ਨੇ 3 ਸਤੰਬਰ 1939 ਨੂੰ ਜਰਮਨੀ ਵਿਰੁੱਧ ਜੰਗ ਦਾ ਐਲਾਨ ਕੀਤਾ। ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ ਬਾਅਦ ਵਿੱਚ ਜੰਗ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q002-PA",
+    "englishQuestionId": "WHI-CP010-Q002",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F002",
+    "questionFamily": "ਜੰਗ ਦੀ ਸ਼ੁਰੂਆਤ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਰਮਨੀ ਅਤੇ ਇਟਲੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ ਅਤੇ ਫ਼ਰਾਂਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਪਾਨ ਅਤੇ ਚੀਨ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "17 ਸਤੰਬਰ 1939 ਨੂੰ ਕਿਹੜਾ ਦੇਸ਼ ਪੂਰਬੀ ਪੋਲੈਂਡ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਇਆ?",
+    "explanation": "ਜਰਮਨੀ ਵੱਲੋਂ ਪੱਛਮ ਤੋਂ ਹਮਲਾ ਕਰਨ ਤੋਂ ਬਾਅਦ 17 ਸਤੰਬਰ 1939 ਨੂੰ ਸੋਵੀਅਤ ਫੌਜ ਪੂਰਬੀ ਪੋਲੈਂਡ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਈ। ਇਹ ਜਰਮਨ-ਸੋਵੀਅਤ ਸੰਧੀ ਦੇ ਗੁਪਤ ਪ੍ਰੋਟੋਕੋਲ ਤੋਂ ਬਾਅਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q003-PA",
+    "englishQuestionId": "WHI-CP010-Q003",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F003",
+    "questionFamily": "ਜੰਗ ਦੀ ਸ਼ੁਰੂਆਤ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਟਲੀ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1939 ਵਿੱਚ ਪੋਲੈਂਡ ’ਤੇ ਜਰਮਨੀ ਦੇ ਤੇਜ਼ ਬਖ਼ਤਰਬੰਦ ਅਤੇ ਹਵਾਈ ਹਮਲੇ ਦੀ ਰਣਨੀਤੀ ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਸੀ?",
+    "explanation": "ਪੋਲੈਂਡ ’ਤੇ ਹਮਲੇ ਦੌਰਾਨ ਜਰਮਨੀ ਨੇ ਬਲਿਟਜ਼ਕ੍ਰੀਗ, ਯਾਨੀ ਬਿਜਲੀ ਦੀ ਤੇਜ਼ੀ ਨਾਲ ਕੀਤੇ ਹਮਲੇ ਦੀ ਰਣਨੀਤੀ ਵਰਤੀ। ਇਸ ਵਿੱਚ ਤੇਜ਼ੀ ਨਾਲ ਅੱਗੇ ਵਧਦੀਆਂ ਬਖ਼ਤਰਬੰਦ ਟੁਕੜੀਆਂ ਨਾਲ ਹਵਾਈ ਤਾਕਤ ਵੀ ਵਰਤੀ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q004-PA",
+    "englishQuestionId": "WHI-CP010-Q004",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F004",
+    "questionFamily": "ਜੰਗ ਦੀ ਸ਼ੁਰੂਆਤ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ੋਨੀ ਵਾਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਐਟਲਾਂਟਿਕ ਚਾਰਟਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾੜ ਕੇ ਖਾਲੀ ਕਰਨ ਦੀ ਨੀਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਲਿਟਜ਼ਕ੍ਰੀਗ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S12"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1939 ਵਿੱਚ ਬ੍ਰਿਟੇਨ ਅਤੇ ਫ਼ਰਾਂਸ ਵੱਲੋਂ ਜੰਗ ਦੇ ਐਲਾਨ ਤੋਂ ਬਾਅਦ ਪੱਛਮੀ ਮੋਰਚੇ ’ਤੇ ਘੱਟ ਲੜਾਈ ਵਾਲੇ ਦੌਰ ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਸੀ?",
+    "explanation": "ਬ੍ਰਿਟੇਨ ਅਤੇ ਫ਼ਰਾਂਸ ਨੇ ਜੰਗ ਦਾ ਐਲਾਨ ਤਾਂ ਕੀਤਾ ਸੀ, ਪਰ ਕਈ ਮਹੀਨਿਆਂ ਤੱਕ ਪੱਛਮੀ ਮੋਰਚੇ ’ਤੇ ਬਹੁਤ ਘੱਟ ਲੜਾਈ ਹੋਈ। ਇਸ ਦੌਰ ਨੂੰ ਫ਼ੋਨੀ ਵਾਰ ਕਿਹਾ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q005-PA",
+    "englishQuestionId": "WHI-CP010-Q005",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F005",
+    "questionFamily": "ਜੰਗ ਦੀ ਸ਼ੁਰੂਆਤ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ੋਨੀ ਵਾਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਰਦੀ ਦੀ ਜੰਗ"
+      },
+      {
+        "key": "D",
+        "text": "ਦ ਬਲਿਟਜ਼"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S13"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਘੇਰੇ ਤੋਂ ਬਾਅਦ ਵਾਰਸਾ ਨੇ ਜਰਮਨ ਫੌਜਾਂ ਅੱਗੇ ਕਿਸ ਤਾਰੀਖ਼ ਨੂੰ ਸਮਰਪਣ ਕੀਤਾ?",
+    "explanation": "ਭਾਰੀ ਗੋਲਾਬਾਰੀ ਅਤੇ ਬੰਬਾਰੀ ਤੋਂ ਬਾਅਦ ਵਾਰਸਾ ਨੇ 28 ਸਤੰਬਰ 1939 ਨੂੰ ਸਮਰਪਣ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q006-PA",
+    "englishQuestionId": "WHI-CP010-Q006",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F006",
+    "questionFamily": "ਜੰਗ ਦੀ ਸ਼ੁਰੂਆਤ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "17 ਸਤੰਬਰ 1939"
+      },
+      {
+        "key": "B",
+        "text": "28 ਸਤੰਬਰ 1939"
+      },
+      {
+        "key": "C",
+        "text": "3 ਸਤੰਬਰ 1939"
+      },
+      {
+        "key": "D",
+        "text": "6 ਅਕਤੂਬਰ 1939"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S12"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਦੌਰਾਨ ਧੁਰੀ ਗੱਠਜੋੜ ਕਿਹੜੇ ਦੇਸ਼ਾਂ ਨੇ ਬਣਾਇਆ?",
+    "explanation": "ਜਰਮਨੀ, ਇਟਲੀ ਅਤੇ ਜਪਾਨ ਮੁੱਖ ਧੁਰੀ ਤਾਕਤਾਂ ਸਨ। ਇਸ ਦਾ ਮਤਲਬ ਇਹ ਨਹੀਂ ਕਿ ਉਨ੍ਹਾਂ ਨੇ ਹਰ ਮੁਹਿੰਮ ਸਾਂਝੇ ਤੌਰ ’ਤੇ ਬਣਾਈ ਜਾਂ ਲੜੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q007-PA",
+    "englishQuestionId": "WHI-CP010-Q007",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F007",
+    "questionFamily": "ਧੁਰੀ ਤਾਕਤਾਂ ਦਾ ਵਿਸਥਾਰ ਅਤੇ ਕਬਜ਼ਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਰਮਨੀ, ਸੋਵੀਅਤ ਸੰਘ ਅਤੇ ਜਪਾਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ, ਫ਼ਰਾਂਸ ਅਤੇ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਰਮਨੀ, ਇਟਲੀ ਅਤੇ ਜਪਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਚੀਨ, ਫ਼ਰਾਂਸ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S14"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਜੂਨ 1941 ਵਿੱਚ ਸੋਵੀਅਤ ਸੰਘ ’ਤੇ ਜਰਮਨੀ ਦੇ ਹਮਲੇ ਦਾ ਨਾਂ ਕੀ ਸੀ?",
+    "explanation": "ਆਪਰੇਸ਼ਨ ਬਾਰਬਾਰੋਸਾ 22 ਜੂਨ 1941 ਨੂੰ ਸ਼ੁਰੂ ਹੋਇਆ। ਇਸ ਨਾਲ ਜਰਮਨ-ਸੋਵੀਅਤ ਮੋਰਚਾ ਖੁੱਲ੍ਹਿਆ ਅਤੇ 1939 ਦੀ ਗੈਰ-ਹਮਲਾ ਸੰਧੀ ਟੁੱਟ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q008-PA",
+    "englishQuestionId": "WHI-CP010-Q008",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F008",
+    "questionFamily": "ਧੁਰੀ ਤਾਕਤਾਂ ਦਾ ਵਿਸਥਾਰ ਅਤੇ ਕਬਜ਼ਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਪਰੇਸ਼ਨ ਸੀ ਲਾਇਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਪਰੇਸ਼ਨ ਬਾਰਬਾਰੋਸਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਪਰੇਸ਼ਨ ਓਵਰਲਾਰਡ"
+      },
+      {
+        "key": "D",
+        "text": "ਆਪਰੇਸ਼ਨ ਟਾਰਚ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਅਪ੍ਰੈਲ 1940 ਵਿੱਚ ਡੈਨਮਾਰਕ ਦੇ ਨਾਲ ਜਰਮਨੀ ਨੇ ਕਿਸ ਦੇਸ਼ ’ਤੇ ਹਮਲਾ ਕੀਤਾ?",
+    "explanation": "ਜਰਮਨੀ ਨੇ ਅਪ੍ਰੈਲ 1940 ਵਿੱਚ ਡੈਨਮਾਰਕ ਅਤੇ ਨਾਰਵੇ ’ਤੇ ਹਮਲਾ ਕੀਤਾ। ਇਸ ਮੁਹਿੰਮ ਦਾ ਮਕਸਦ ਉੱਤਰੀ ਯੂਰਪ ਦੇ ਰਸਤਿਆਂ ਅਤੇ ਰਣਨੀਤਕ ਥਾਵਾਂ ’ਤੇ ਕਾਬੂ ਪਾਉਣਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q009-PA",
+    "englishQuestionId": "WHI-CP010-Q009",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F009",
+    "questionFamily": "ਧੁਰੀ ਤਾਕਤਾਂ ਦਾ ਵਿਸਥਾਰ ਅਤੇ ਕਬਜ਼ਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਵੀਡਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਾਰਵੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਫਿਨਲੈਂਡ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੀਦਰਲੈਂਡ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਮਈ 1940 ਵਿੱਚ ਨੀਵੇਂ ਦੇਸ਼ਾਂ ’ਤੇ ਜਰਮਨ ਹਮਲੇ ਤੋਂ ਬਾਅਦ ਕੀ ਹੋਇਆ?",
+    "explanation": "ਜਰਮਨੀ ਨੇ ਨੀਦਰਲੈਂਡ, ਬੈਲਜੀਅਮ ਅਤੇ ਲਕਜ਼ਮਬਰਗ ’ਤੇ ਹਮਲਾ ਕਰਕੇ ਫ਼ਰਾਂਸ ਵੱਲ ਕੂਚ ਕੀਤਾ। ਫ਼ਰਾਂਸ ਨੇ ਜੂਨ 1940 ਵਿੱਚ ਜੰਗਬੰਦੀ ਸਮਝੌਤੇ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q010-PA",
+    "englishQuestionId": "WHI-CP010-Q010",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F010",
+    "questionFamily": "ਧੁਰੀ ਤਾਕਤਾਂ ਦਾ ਵਿਸਥਾਰ ਅਤੇ ਕਬਜ਼ਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਰਮਨੀ ਨੇ ਨੀਦਰਲੈਂਡ, ਬੈਲਜੀਅਮ ਅਤੇ ਲਕਜ਼ਮਬਰਗ ’ਤੇ ਹਮਲਾ ਕਰਕੇ ਫ਼ਰਾਂਸ ਵੱਲ ਕੂਚ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ ਨੇ ਜਰਮਨੀ ਵਿਰੁੱਧ ਜੰਗ ਦਾ ਐਲਾਨ ਕੀਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਬਰਲਿਨ ’ਤੇ ਕਬਜ਼ਾ ਕਰ ਲਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਟਲੀ ਨੇ ਜਪਾਨ ਵਿਰੁੱਧ ਜੰਗ ਸ਼ੁਰੂ ਕੀਤੀ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਜਰਮਨ ਮੁਹਿੰਮ ਤੋਂ ਬਾਅਦ ਜੂਨ 1940 ਵਿੱਚ ਕਿਹੜੇ ਦੇਸ਼ ਨੇ ਜਰਮਨੀ ਨਾਲ ਜੰਗਬੰਦੀ ਕੀਤੀ?",
+    "explanation": "ਫ਼ਰਾਂਸ ਨੇ ਜੂਨ 1940 ਵਿੱਚ ਜਰਮਨੀ ਨਾਲ ਜੰਗਬੰਦੀ ਕੀਤੀ। ਸਮਝੌਤੇ ਹੇਠ ਦੇਸ਼ ਨੂੰ ਕਬਜ਼ੇ ਵਾਲੇ ਅਤੇ ਨਾਮ-ਮਾਤਰ ਕਬਜ਼ਾ-ਰਹਿਤ ਇਲਾਕਿਆਂ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q011-PA",
+    "englishQuestionId": "WHI-CP010-Q011",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F011",
+    "questionFamily": "ਧੁਰੀ ਤਾਕਤਾਂ ਦਾ ਵਿਸਥਾਰ ਅਤੇ ਕਬਜ਼ਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬੈਲਜੀਅਮ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਾਰਵੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਫ਼ਰਾਂਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੀਦਰਲੈਂਡ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1940 ਦੀ ਬ੍ਰਿਟੇਨ ਦੀ ਲੜਾਈ ਵਿੱਚ ਜਰਮਨੀ ਦਾ ਮੁੱਖ ਮਕਸਦ ਕੀ ਸੀ?",
+    "explanation": "ਜਰਮਨ ਹਵਾਈ ਹਮਲਿਆਂ ਦਾ ਮਕਸਦ ਬ੍ਰਿਟੇਨ ਦੀ ਹਵਾਈ ਰੱਖਿਆ ਕਮਜ਼ੋਰ ਕਰਨਾ ਅਤੇ ਸੰਭਾਵੀ ਹਮਲੇ ਲਈ ਹਾਲਾਤ ਬਣਾਉਣਾ ਸੀ। ਜਰਮਨ ਹਵਾਈ ਫੌਜ ਹਵਾਈ ਬੜ੍ਹਤ ਹਾਸਲ ਨਾ ਕਰ ਸਕੀ ਅਤੇ ਬ੍ਰਿਟੇਨ ਜੰਗ ਵਿੱਚ ਬਣਿਆ ਰਿਹਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q012-PA",
+    "englishQuestionId": "WHI-CP010-Q012",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F012",
+    "questionFamily": "ਧੁਰੀ ਤਾਕਤਾਂ ਦਾ ਵਿਸਥਾਰ ਅਤੇ ਕਬਜ਼ਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਭੂਮੱਧ ਸਾਗਰ ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਜਲ-ਫੌਜ ਨੂੰ ਹਰਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ ਦੀ ਹਵਾਈ ਰੱਖਿਆ ਕਮਜ਼ੋਰ ਕਰਕੇ ਸੰਭਾਵੀ ਹਮਲੇ ਲਈ ਰਾਹ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਨੂੰ ਜਰਮਨੀ ਤੋਂ ਵੱਖ ਕਰਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦਾ ਕਬਜ਼ਾ ਖਤਮ ਕਰਨਾ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S15"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸਟਾਲਿਨਗਰਾਦ ਵਿੱਚ ਜਰਮਨ ਪੇਸ਼ਕਦਮੀ ਰੋਕਣ ਵਾਲੀ ਕਿਹੜੀ ਲੜਾਈ ਸੀ, ਜਿੱਥੇ ਫ਼ਰਵਰੀ 1943 ਵਿੱਚ ਜਰਮਨ ਫੌਜ ਨੇ ਸਮਰਪਣ ਕੀਤਾ?",
+    "explanation": "ਜਰਮਨ ਛੇਵੀਂ ਫੌਜ ਨੇ ਫ਼ਰਵਰੀ 1943 ਵਿੱਚ ਸਟਾਲਿਨਗਰਾਦ ਵਿਖੇ ਸਮਰਪਣ ਕੀਤਾ। ਇਹ ਪੂਰਬੀ ਮੋਰਚੇ ਦੀ ਜੰਗ ਦਾ ਵੱਡਾ ਨਿਰਣਾਇਕ ਮੋੜ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q013-PA",
+    "englishQuestionId": "WHI-CP010-Q013",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F013",
+    "questionFamily": "ਯੂਰਪੀ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਰਲਿਨ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੁਰਸਕ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਟਾਲਿਨਗਰਾਦ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਿਟੇਨ ਦੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S01"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "6 ਜੂਨ 1944 ਨੂੰ ਨੌਰਮੰਡੀ ਵਿੱਚ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਉਤਰਾਈ ਦਾ ਮਕਸਦ ਕੀ ਸੀ?",
+    "explanation": "ਨੌਰਮੰਡੀ ਉਤਰਾਈ ਨਾਲ ਆਪਰੇਸ਼ਨ ਓਵਰਲਾਰਡ ਸ਼ੁਰੂ ਹੋਇਆ ਅਤੇ ਜਰਮਨ ਕਬਜ਼ੇ ਵਾਲੇ ਫ਼ਰਾਂਸ ਵਿੱਚ ਪੱਛਮੀ ਮੋਰਚਾ ਖੁੱਲ੍ਹਿਆ। ਇਸ ਤੋਂ ਬਾਅਦ ਮਿੱਤਰ ਫੌਜਾਂ ਅੰਦਰ ਵੱਲ ਵਧੀਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q014-PA",
+    "englishQuestionId": "WHI-CP010-Q014",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F014",
+    "questionFamily": "ਯੂਰਪੀ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਪਾਨ ਵਿਰੁੱਧ ਪ੍ਰਸ਼ਾਂਤ ਮੋਰਚਾ ਖੋਲ੍ਹਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨ-ਸੋਵੀਅਤ ਸੰਧੀ ’ਤੇ ਦਸਤਖ਼ਤ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚੋਂ ਇਟਲੀ ਨੂੰ ਕੱਢਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਬਜ਼ੇ ਵਾਲੇ ਫ਼ਰਾਂਸ ਵਿੱਚ ਪੱਛਮੀ ਮੋਰਚਾ ਖੋਲ੍ਹਣਾ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S05",
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਦਸੰਬਰ 1944 ਵਿੱਚ ਆਰਡੇਨ ਖੇਤਰ ਵਿੱਚ ਜਰਮਨੀ ਨੇ ਕਿਹੜਾ ਵੱਡਾ ਹਮਲਾ ਕੀਤਾ?",
+    "explanation": "ਬਲਜ ਦੀ ਲੜਾਈ ਪੱਛਮੀ ਮੋਰਚੇ ’ਤੇ ਜਰਮਨੀ ਦਾ ਆਖਰੀ ਵੱਡਾ ਹਮਲਾ ਸੀ। ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਨੇ ਅਖ਼ੀਰ ਇਸ ਨੂੰ ਨਾਕਾਮ ਕਰ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q015-PA",
+    "englishQuestionId": "WHI-CP010-Q015",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F015",
+    "questionFamily": "ਯੂਰਪੀ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੁਰਸਕ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਲਜ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਿਡਵੇ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਲ ਅਲਾਮੇਨ ਦੀ ਦੂਜੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਯੂਰਪ ਵਿੱਚ ਜੰਗ ਦੇ ਆਖਰੀ ਪੜਾਅ ਦੌਰਾਨ ਸੋਵੀਅਤ ਫੌਜ ਨੇ ਮਈ 1945 ਵਿੱਚ ਕਿਹੜੇ ਸ਼ਹਿਰ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ?",
+    "explanation": "ਯੂਰਪ ਵਿੱਚ ਜੰਗ ਦੇ ਆਖਰੀ ਪੜਾਅ ਦੌਰਾਨ ਸੋਵੀਅਤ ਫੌਜ ਨੇ ਬਰਲਿਨ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ। ਇਸ ਤੋਂ ਬਾਅਦ ਮਈ 1945 ਵਿੱਚ ਜਰਮਨੀ ਨੇ ਸਮਰਪਣ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q016-PA",
+    "englishQuestionId": "WHI-CP010-Q016",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F016",
+    "questionFamily": "ਯੂਰਪੀ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰੋਮ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੈਰਿਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਾਰਸਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਰਲਿਨ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਕਿਹੜੀ ਘਟਨਾ ਤੋਂ ਬਾਅਦ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਸਿੱਧਾ ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਇਆ?",
+    "explanation": "ਜਪਾਨ ਨੇ 7 ਦਸੰਬਰ 1941 ਨੂੰ ਪਰਲ ਹਾਰਬਰ ’ਤੇ ਹਮਲਾ ਕੀਤਾ। ਅਗਲੇ ਦਿਨ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਨੇ ਜਪਾਨ ਵਿਰੁੱਧ ਜੰਗ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q017-PA",
+    "englishQuestionId": "WHI-CP010-Q017",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F017",
+    "questionFamily": "ਪ੍ਰਸ਼ਾਂਤ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਪਾਨ ਦਾ ਪਰਲ ਹਾਰਬਰ ’ਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੌਰਮੰਡੀ ਵਿੱਚ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਉਤਰਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰਿਟੇਨ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਰਮਨੀ ਦਾ ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S03",
+      "CP010-S01"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਜੂਨ 1942 ਵਿੱਚ ਕੇਂਦਰੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਜਪਾਨੀ ਵਿਸਥਾਰ ਨੂੰ ਕਿਹੜੀ ਜਲ-ਲੜਾਈ ਨੇ ਰੋਕਿਆ?",
+    "explanation": "ਮਿਡਵੇ ਵਿਖੇ ਅਮਰੀਕੀ ਫੌਜ ਨੇ ਜਪਾਨ ਦੇ ਜਹਾਜ਼-ਵਾਹਕ ਬੇੜੇ ਨੂੰ ਭਾਰੀ ਨੁਕਸਾਨ ਪਹੁੰਚਾਇਆ। ਇਸ ਲੜਾਈ ਤੋਂ ਬਾਅਦ ਪ੍ਰਸ਼ਾਂਤ ਜੰਗ ਦੀ ਪਹਿਲ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਵੱਲ ਮੁੜਨ ਲੱਗੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q018-PA",
+    "englishQuestionId": "WHI-CP010-Q018",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F018",
+    "questionFamily": "ਪ੍ਰਸ਼ਾਂਤ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੋਰਲ ਸਾਗਰ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਿਡਵੇ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੇਤੇ ਖਾੜੀ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਓਕੀਨਾਵਾ ਦੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਅਗਸਤ 1942 ਵਿੱਚ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਉਤਰਾਈ ਨਾਲ ਕਿਹੜੀ ਟਾਪੂ ਮੁਹਿੰਮ ਸ਼ੁਰੂ ਹੋਈ ਅਤੇ ਜਪਾਨ ਵਿਰੁੱਧ ਲੰਮਾ ਸੰਘਰਸ਼ ਬਣੀ?",
+    "explanation": "ਗੁਆਡਲਕੈਨਾਲ ਮੁਹਿੰਮ ਅਗਸਤ 1942 ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਈ। ਇਹ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਜਪਾਨ ਵਿਰੁੱਧ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀਆਂ ਪਹਿਲੀਆਂ ਲੰਬੀਆਂ ਮੁਹਿੰਮਾਂ ਵਿੱਚੋਂ ਇੱਕ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q019-PA",
+    "englishQuestionId": "WHI-CP010-Q019",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F019",
+    "questionFamily": "ਪ੍ਰਸ਼ਾਂਤ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਿਸਲੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਵੋ ਜੀਮਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਗੁਆਡਲਕੈਨਾਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਕ੍ਰੀਟ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਚੁਣੇ ਹੋਏ ਟਾਪੂਆਂ ’ਤੇ ਕਬਜ਼ਾ ਕਰਕੇ ਜਪਾਨ ਦੇ ਨੇੜੇ ਪਹੁੰਚਣ ਦੀ ਰਣਨੀਤੀ ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਸੀ?",
+    "explanation": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਨੇ ਅਗਲੇ ਫੌਜੀ ਅੱਡੇ ਬਣਾਉਣ ਲਈ ਕੁਝ ਟਾਪੂਆਂ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ ਅਤੇ ਹੋਰਾਂ ਨੂੰ ਛੱਡ ਦਿੱਤਾ। ਇਸ ਟਾਪੂ-ਦਰ-ਟਾਪੂ ਰਣਨੀਤੀ ਨਾਲ ਉਹ ਜਪਾਨ ਦੇ ਨੇੜੇ ਪਹੁੰਚੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q020-PA",
+    "englishQuestionId": "WHI-CP010-Q020",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F020",
+    "questionFamily": "ਪ੍ਰਸ਼ਾਂਤ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਲਿਟਜ਼ਕ੍ਰੀਗ"
+      },
+      {
+        "key": "B",
+        "text": "ਪਿੱਛੇ ਹਟਦਿਆਂ ਸਭ ਕੁਝ ਸਾੜ ਦੇਣ ਦੀ ਨੀਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਰਲਿਨ ਦੀ ਰਣਨੀਤਕ ਘੇਰਾਬੰਦੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਟਾਪੂ-ਦਰ-ਟਾਪੂ ਅੱਗੇ ਵਧਣ ਦੀ ਰਣਨੀਤੀ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S03",
+      "CP010-S16"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਪਰਲ ਹਾਰਬਰ ’ਤੇ ਹਮਲੇ ਤੋਂ ਪਹਿਲਾਂ ਚੀਨ ਵਿੱਚ ਜਪਾਨ ਨਾਲ ਕਿਹੜਾ ਦੇਸ਼ ਜੰਗ ਵਿੱਚ ਸੀ?",
+    "explanation": "ਜਪਾਨ 1937 ਤੋਂ ਚੀਨ ਵਿੱਚ ਜੰਗ ਲੜ ਰਿਹਾ ਸੀ। 1941 ਵਿੱਚ ਪਰਲ ਹਾਰਬਰ ’ਤੇ ਹਮਲੇ ਤੋਂ ਬਾਅਦ ਪ੍ਰਸ਼ਾਂਤ ਜੰਗ ਹੋਰ ਫੈਲ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q021-PA",
+    "englishQuestionId": "WHI-CP010-Q021",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F021",
+    "questionFamily": "ਪ੍ਰਸ਼ਾਂਤ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚੀਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਸਟ੍ਰੇਲੀਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੈਨੇਡਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਾਜ਼ੀਲ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਮਈ 1942 ਵਿੱਚ ਕੋਰਲ ਸਾਗਰ ਦੀ ਕਿਹੜੀ ਅਮਰੀਕੀ ਜਲ-ਜਿੱਤ ਨੇ ਪੋਰਟ ਮੋਰਸਬੀ ’ਤੇ ਜਪਾਨੀ ਉਤਰਾਈ ਰੋਕਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ?",
+    "explanation": "ਕੋਰਲ ਸਾਗਰ ਦੀ ਲੜਾਈ ਨੇ ਪੋਰਟ ਮੋਰਸਬੀ ਵੱਲ ਜਪਾਨੀ ਮੁਹਿੰਮ ਨੂੰ ਰੋਕ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q022-PA",
+    "englishQuestionId": "WHI-CP010-Q022",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F022",
+    "questionFamily": "ਪ੍ਰਸ਼ਾਂਤ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਿਲੀਪੀਨ ਸਾਗਰ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੋਰਲ ਸਾਗਰ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਿਡਵੇ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਓਕੀਨਾਵਾ ਦੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S17"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਫ਼ਰਵਰੀ ਅਤੇ ਮਾਰਚ 1945 ਵਿੱਚ ਅਮਰੀਕਾ ਅਤੇ ਜਪਾਨ ਵਿਚਕਾਰ ਵੱਡੀ ਲੜਾਈ ਕਿਹੜੇ ਟਾਪੂ ’ਤੇ ਹੋਈ?",
+    "explanation": "ਅਮਰੀਕੀ ਫੌਜ ਨੇ 1945 ਵਿੱਚ ਭਾਰੀ ਲੜਾਈ ਤੋਂ ਬਾਅਦ ਇਵੋ ਜੀਮਾ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ। ਇਸ ਦੇ ਹਵਾਈ ਅੱਡੇ ਜਪਾਨ ਨੇੜੇ ਮੁਹਿੰਮਾਂ ਲਈ ਰਣਨੀਤਕ ਤੌਰ ’ਤੇ ਅਹਿਮ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q023-PA",
+    "englishQuestionId": "WHI-CP010-Q023",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F023",
+    "questionFamily": "ਪ੍ਰਸ਼ਾਂਤ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਗੁਆਡਲਕੈਨਾਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਈਪਾਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਵੋ ਜੀਮਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕ੍ਰੀਟ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਪ੍ਰਸ਼ਾਂਤ ਜੰਗ ਦੀਆਂ ਇਨ੍ਹਾਂ ਨਿਰਣਾਇਕ ਘਟਨਾਵਾਂ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਜਪਾਨ ਨੇ ਦਸੰਬਰ 1941 ਵਿੱਚ ਪਰਲ ਹਾਰਬਰ ’ਤੇ ਹਮਲਾ ਕੀਤਾ, ਜੂਨ 1942 ਵਿੱਚ ਮਿਡਵੇ ਦੀ ਲੜਾਈ ਹੋਈ ਅਤੇ 1945 ਵਿੱਚ ਇਵੋ ਜੀਮਾ ’ਤੇ ਲੜਾਈ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q024-PA",
+    "englishQuestionId": "WHI-CP010-Q024",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F024",
+    "questionFamily": "ਪ੍ਰਸ਼ਾਂਤ ਮੋਰਚਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਿਡਵੇ → ਪਰਲ ਹਾਰਬਰ → ਇਵੋ ਜੀਮਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਵੋ ਜੀਮਾ → ਪਰਲ ਹਾਰਬਰ → ਮਿਡਵੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਪਰਲ ਹਾਰਬਰ → ਇਵੋ ਜੀਮਾ → ਮਿਡਵੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਪਰਲ ਹਾਰਬਰ → ਮਿਡਵੇ → ਇਵੋ ਜੀਮਾ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1942 ਵਿੱਚ ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਦੀ ਕਿਹੜੀ ਲੜਾਈ ਨੇ ਮਿਸਰ ਅਤੇ ਸੂਏਜ਼ ਨਹਿਰ ਵੱਲ ਧੁਰੀ ਤਾਕਤਾਂ ਦੀ ਪੇਸ਼ਕਦਮੀ ਰੋਕੀ?",
+    "explanation": "1942 ਦੇ ਅਖ਼ੀਰ ਵਿੱਚ ਅਲ ਅਲਾਮੇਨ ਵਿਖੇ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਜਿੱਤ ਨੇ ਮਿਸਰ ਵਿੱਚ ਧੁਰੀ ਤਾਕਤਾਂ ਦੀ ਪੇਸ਼ਕਦਮੀ ਰੋਕੀ ਅਤੇ ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਪਾਸਾ ਬਦਲਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q025-PA",
+    "englishQuestionId": "WHI-CP010-Q025",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F025",
+    "questionFamily": "ਜੰਗ ਦੇ ਨਿਰਣਾਇਕ ਮੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਲ ਅਲਾਮੇਨ ਦੀ ਦੂਜੀ ਲੜਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਟਾਲਿਨਗਰਾਦ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਿਡਵੇ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਲਜ ਦੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S01"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਪੂਰਬੀ ਮੋਰਚੇ ’ਤੇ ਕਿਹੜੀ ਲੜਾਈ ਨੂੰ ਵੱਡਾ ਨਿਰਣਾਇਕ ਮੋੜ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ?",
+    "explanation": "ਫ਼ਰਵਰੀ 1943 ਵਿੱਚ ਸਟਾਲਿਨਗਰਾਦ ਵਿਖੇ ਜਰਮਨ ਫੌਜ ਦੇ ਸਮਰਪਣ ਨਾਲ ਪੂਰਬੀ ਮੋਰਚੇ ’ਤੇ ਵੱਡਾ ਪਲਟਾਅ ਆਇਆ। ਇਸ ਤੋਂ ਬਾਅਦ ਸੋਵੀਅਤ ਫੌਜ ਹੌਲੀ-ਹੌਲੀ ਪੱਛਮ ਵੱਲ ਵਧੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q026-PA",
+    "englishQuestionId": "WHI-CP010-Q026",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F026",
+    "questionFamily": "ਜੰਗ ਦੇ ਨਿਰਣਾਇਕ ਮੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੋਰਲ ਸਾਗਰ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਟਾਲਿਨਗਰਾਦ"
+      },
+      {
+        "key": "C",
+        "text": "ਡੰਕਿਰਕ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਿਟੇਨ ਦੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਪ੍ਰਸ਼ਾਂਤ ਜੰਗ ਲਈ ਮਿਡਵੇ ਦੀ ਲੜਾਈ ਦੀ ਕੀ ਅਹਿਮੀਅਤ ਸੀ?",
+    "explanation": "ਮਿਡਵੇ ਵਿੱਚ ਜਪਾਨ ਦੇ ਜਹਾਜ਼-ਵਾਹਕ ਬੇੜੇ ਨੂੰ ਭਾਰੀ ਨੁਕਸਾਨ ਹੋਇਆ। ਇਸ ਨਾਲ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਜਪਾਨੀ ਵਿਸਥਾਰ ਦੀ ਥਾਂ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਨੂੰ ਪਹਿਲ ਮਿਲਣ ਲੱਗੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q027-PA",
+    "englishQuestionId": "WHI-CP010-Q027",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F027",
+    "questionFamily": "ਜੰਗ ਦੇ ਨਿਰਣਾਇਕ ਮੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨਾਲ ਨੌਰਮੰਡੀ ਮੋਰਚਾ ਖੁੱਲ੍ਹਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਜਰਮਨੀ ਨੂੰ ਸਮਰਪਣ ਲਈ ਮਜਬੂਰ ਕੀਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਜਪਾਨੀ ਵਿਸਥਾਰ ਰੋਕਿਆ ਅਤੇ ਪਹਿਲ ਸੰਯੁਕਤ ਰਾਜ ਵੱਲ ਮੋੜੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਯੂਰਪ ਦੀ ਜੰਗ ਖਤਮ ਕੀਤੀ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1943 ਦੀ ਕਿਹੜੀ ਲੜਾਈ ਵਿੱਚ ਪੂਰਬੀ ਮੋਰਚੇ ’ਤੇ ਜਰਮਨੀ ਦਾ ਆਖਰੀ ਵੱਡਾ ਹਮਲਾ ਨਾਕਾਮ ਹੋਇਆ?",
+    "explanation": "ਜੁਲਾਈ 1943 ਵਿੱਚ ਕੁਰਸਕ ’ਤੇ ਜਰਮਨ ਹਮਲਾ ਨਾਕਾਮ ਹੋਇਆ। ਇਸ ਤੋਂ ਬਾਅਦ ਪੂਰਬੀ ਮੋਰਚੇ ’ਤੇ ਸੋਵੀਅਤ ਫੌਜ ਨੇ ਪਹਿਲ ਬਣਾਈ ਰੱਖੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q028-PA",
+    "englishQuestionId": "WHI-CP010-Q028",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F028",
+    "questionFamily": "ਜੰਗ ਦੇ ਨਿਰਣਾਇਕ ਮੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਲਜ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਿਡਵੇ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਲ ਅਲਾਮੇਨ ਦੀ ਦੂਜੀ ਲੜਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੁਰਸਕ ਦੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1944 ਵਿੱਚ ਕਿਹੜੀ ਘਟਨਾ ਤੋਂ ਬਾਅਦ ਜਰਮਨੀ ਨੂੰ ਪੂਰਬੀ ਅਤੇ ਪੱਛਮੀ ਦੋਹਾਂ ਮੋਰਚਿਆਂ ’ਤੇ ਵੱਡੀਆਂ ਜ਼ਮੀਨੀ ਮੁਹਿੰਮਾਂ ਦਾ ਸਾਹਮਣਾ ਕਰਨਾ ਪਿਆ?",
+    "explanation": "ਨੌਰਮੰਡੀ ਉਤਰਾਈ ਤੋਂ ਬਾਅਦ ਪੱਛਮ ਵਿੱਚ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਵੱਡੀ ਮੁਹਿੰਮ ਸ਼ੁਰੂ ਹੋਈ, ਜਦਕਿ ਪੂਰਬ ਵਿੱਚ ਸੋਵੀਅਤ ਫੌਜ ਅੱਗੇ ਵਧ ਰਹੀ ਸੀ। ਜਰਮਨੀ ’ਤੇ ਦੋਹੀਂ ਪਾਸੀਂ ਦਬਾਅ ਵਧਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q029-PA",
+    "englishQuestionId": "WHI-CP010-Q029",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F029",
+    "questionFamily": "ਜੰਗ ਦੇ ਨਿਰਣਾਇਕ ਮੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਨੌਰਮੰਡੀ ਉਤਰਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਪਰਲ ਹਾਰਬਰ ’ਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਤ੍ਰਿਪੱਖੀ ਸੰਧੀ ’ਤੇ ਦਸਤਖ਼ਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਿਟੇਨ ਦੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਤਿੰਨ ਵੱਡੇ ਨਿਰਣਾਇਕ ਘਟਨਾਕ੍ਰਮਾਂ ਦਾ ਸਹੀ ਕਾਲਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਅਲ ਅਲਾਮੇਨ ਦੀ ਲੜਾਈ 1942 ਵਿੱਚ ਹੋਈ, ਸਟਾਲਿਨਗਰਾਦ ਦੀ ਲੜਾਈ ਫ਼ਰਵਰੀ 1943 ਵਿੱਚ ਮੁੱਕੀ ਅਤੇ ਨੌਰਮੰਡੀ ਉਤਰਾਈ ਜੂਨ 1944 ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q030-PA",
+    "englishQuestionId": "WHI-CP010-Q030",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F030",
+    "questionFamily": "ਜੰਗ ਦੇ ਨਿਰਣਾਇਕ ਮੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਿਡਵੇ → ਅਲ ਅਲਾਮੇਨ → ਪਰਲ ਹਾਰਬਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਲ ਅਲਾਮੇਨ → ਸਟਾਲਿਨਗਰਾਦ → ਨੌਰਮੰਡੀ ਉਤਰਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਨੌਰਮੰਡੀ ਉਤਰਾਈ → ਅਲ ਅਲਾਮੇਨ → ਸਟਾਲਿਨਗਰਾਦ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਟਾਲਿਨਗਰਾਦ → ਨੌਰਮੰਡੀ ਉਤਰਾਈ → ਅਲ ਅਲਾਮੇਨ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1941 ਦੇ ਕਿਹੜੇ ਜੰਗੀ ਬਿਆਨ ਨੇ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਅਤੇ ਬ੍ਰਿਟੇਨ ਵਿਚਕਾਰ ਜੰਗ ਤੋਂ ਬਾਅਦ ਦੇ ਸਹਿਯੋਗ ਦਾ ਖ਼ਾਕਾ ਦਿੱਤਾ?",
+    "explanation": "ਰੂਜ਼ਵੈਲਟ ਅਤੇ ਚਰਚਿਲ ਨੇ ਅਗਸਤ 1941 ਵਿੱਚ ਐਟਲਾਂਟਿਕ ਚਾਰਟਰ ਜਾਰੀ ਕੀਤਾ। ਇਸ ਵਿੱਚ ਜੰਗ ਤੋਂ ਬਾਅਦ ਦੀ ਵਿਵਸਥਾ ਲਈ ਵਿਆਪਕ ਅਸੂਲ ਸਨ, ਪਰ ਇਹ ਸੰਧੀ ਨਹੀਂ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q031-PA",
+    "englishQuestionId": "WHI-CP010-Q031",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F031",
+    "questionFamily": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਰਣਨੀਤੀ ਅਤੇ ਆਗੂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਰਸਾਈ ਸੰਧੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਮੋਲੋਟੋਵ-ਰਿਬੈਂਟਰੋਪ ਸੰਧੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਐਟਲਾਂਟਿਕ ਚਾਰਟਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਿਊਨਿਖ ਸਮਝੌਤਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S07"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1943 ਵਿੱਚ ਕਿਹੜੀ ਕਾਨਫ਼ਰੰਸ ਵਿੱਚ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੇ ਆਗੂ ਧੁਰੀ ਤਾਕਤਾਂ ਤੋਂ ਬਿਨਾਂ ਸ਼ਰਤ ਸਮਰਪਣ ਦੀ ਮੰਗ ਕਰਨ ’ਤੇ ਸਹਿਮਤ ਹੋਏ?",
+    "explanation": "ਜਨਵਰੀ 1943 ਦੀ ਕਾਸਾਬਲਾਂਕਾ ਕਾਨਫ਼ਰੰਸ ਵਿੱਚ ਰੂਜ਼ਵੈਲਟ ਅਤੇ ਚਰਚਿਲ ਨੇ ਬਿਨਾਂ ਸ਼ਰਤ ਸਮਰਪਣ ਦੀ ਨੀਤੀ ਦਾ ਐਲਾਨ ਕੀਤਾ। ਸੋਵੀਅਤ ਸੰਘ ਇਸ ਬੈਠਕ ਵਿੱਚ ਸ਼ਾਮਲ ਨਹੀਂ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q032-PA",
+    "englishQuestionId": "WHI-CP010-Q032",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F032",
+    "questionFamily": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਰਣਨੀਤੀ ਅਤੇ ਆਗੂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਯਾਲਟਾ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੌਟਸਡੈਮ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰੈਟਨ ਵੁਡਜ਼ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਾਸਾਬਲਾਂਕਾ ਕਾਨਫ਼ਰੰਸ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S18"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1943 ਦੀ ਕਿਹੜੀ ਕਾਨਫ਼ਰੰਸ ਨੇ ਜੰਗ ਦੌਰਾਨ ਪਹਿਲੀ ਵਾਰ ਰੂਜ਼ਵੈਲਟ, ਚਰਚਿਲ ਅਤੇ ਸਟਾਲਿਨ ਨੂੰ ਇਕੱਠੇ ਲਿਆਂਦਾ?",
+    "explanation": "1943 ਦੇ ਅਖ਼ੀਰ ਵਿੱਚ ਤੇਹਰਾਨ ਕਾਨਫ਼ਰੰਸ ਵਿੱਚ ਰੂਜ਼ਵੈਲਟ, ਚਰਚਿਲ ਅਤੇ ਸਟਾਲਿਨ ਪਹਿਲੀ ਵਾਰ ਜੰਗ ਦੌਰਾਨ ਮਿਲੇ। ਉਨ੍ਹਾਂ ਨੇ ਜਰਮਨੀ ਵਿਰੁੱਧ ਤਾਲਮੇਲ ਅਤੇ ਪੱਛਮੀ ਮੋਰਚਾ ਖੋਲ੍ਹਣ ਬਾਰੇ ਗੱਲ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q033-PA",
+    "englishQuestionId": "WHI-CP010-Q033",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F033",
+    "questionFamily": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਰਣਨੀਤੀ ਅਤੇ ਆਗੂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਤੇਹਰਾਨ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਾਸਾਬਲਾਂਕਾ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੌਟਸਡੈਮ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੈਨ ਫ਼ਰਾਂਸਿਸਕੋ ਕਾਨਫ਼ਰੰਸ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S18"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਫ਼ਰਵਰੀ 1945 ਵਿੱਚ ਜਰਮਨੀ ਦੇ ਜੰਗ ਤੋਂ ਬਾਅਦ ਦੇ ਕਬਜ਼ੇ ਅਤੇ ਪੁਨਰਗਠਨ ਬਾਰੇ ਕਿਹੜੀ ਕਾਨਫ਼ਰੰਸ ਵਿੱਚ ਗੱਲ ਹੋਈ?",
+    "explanation": "ਯਾਲਟਾ ਕਾਨਫ਼ਰੰਸ ਵਿੱਚ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੇ ਆਗੂਆਂ ਨੇ ਜਰਮਨੀ ਦੇ ਕਬਜ਼ੇ ਅਤੇ ਉਭਰਦੀ ਜੰਗ-ਬਾਅਦ ਵਿਵਸਥਾ ਬਾਰੇ ਗੱਲ ਕੀਤੀ। ਕਬਜ਼ੇ ਵਾਲੇ ਖੇਤਰਾਂ ਦੀ ਅੰਤਿਮ ਵੰਡ ਜਰਮਨੀ ਦੀ ਹਾਰ ਤੋਂ ਬਾਅਦ ਲਾਗੂ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q034-PA",
+    "englishQuestionId": "WHI-CP010-Q034",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F034",
+    "questionFamily": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਰਣਨੀਤੀ ਅਤੇ ਆਗੂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਲੋਕਾਰਨੋ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਯਾਲਟਾ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਿਊਨਿਖ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰੈਟਨ ਵੁਡਜ਼ ਕਾਨਫ਼ਰੰਸ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S11"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜਰਮਨੀ ਦੇ ਸਮਰਪਣ ਤੋਂ ਬਾਅਦ ਹੋਈ ਕਿਹੜੀ ਕਾਨਫ਼ਰੰਸ ਵਿੱਚ ਜੰਗ ਤੋਂ ਬਾਅਦ ਦੇ ਯੂਰਪ ਦੇ ਪ੍ਰਬੰਧ ਬਾਰੇ ਗੱਲ ਹੋਈ?",
+    "explanation": "ਪੌਟਸਡੈਮ ਕਾਨਫ਼ਰੰਸ ਜੁਲਾਈ ਅਤੇ ਅਗਸਤ 1945 ਵਿੱਚ ਜਰਮਨੀ ਦੇ ਸਮਰਪਣ ਤੋਂ ਬਾਅਦ ਹੋਈ। ਆਗੂਆਂ ਨੇ ਕਬਜ਼ੇ ਦੀ ਨੀਤੀ ਅਤੇ ਜੰਗ-ਬਾਅਦ ਪ੍ਰਬੰਧ ਬਾਰੇ ਵਿਚਾਰ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q035-PA",
+    "englishQuestionId": "WHI-CP010-Q035",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F035",
+    "questionFamily": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਰਣਨੀਤੀ ਅਤੇ ਆਗੂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਾਸਾਬਲਾਂਕਾ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਐਟਲਾਂਟਿਕ ਸਿਟੀ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੌਟਸਡੈਮ ਕਾਨਫ਼ਰੰਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਤੇਹਰਾਨ ਕਾਨਫ਼ਰੰਸ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S18",
+      "CP010-S20"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1941 ਦੇ ਲੈਂਡ-ਲੀਜ਼ ਕਾਨੂੰਨ ਦਾ ਮੁੱਖ ਮਕਸਦ ਕੀ ਸੀ?",
+    "explanation": "ਲੈਂਡ-ਲੀਜ਼ ਹੇਠ ਸੰਯੁਕਤ ਰਾਜ ਉਨ੍ਹਾਂ ਦੇਸ਼ਾਂ ਨੂੰ ਜੰਗੀ ਸਾਮਾਨ ਦੇ ਸਕਦਾ ਸੀ ਜਿਨ੍ਹਾਂ ਦੀ ਰੱਖਿਆ ਉਸ ਲਈ ਅਹਿਮ ਸੀ। ਇਹ ਅਮਰੀਕਾ ਦੇ ਜੰਗ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਸ਼ੁਰੂ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q036-PA",
+    "englishQuestionId": "WHI-CP010-Q036",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F036",
+    "questionFamily": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਰਣਨੀਤੀ ਅਤੇ ਆਗੂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਸਥਾਪਨਾ ਕਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨੀ ਨੂੰ ਕਬਜ਼ੇ ਵਾਲੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਸੰਧੀ ਸੰਗਠਨ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਨੂੰ ਅਮਰੀਕੀ ਜੰਗੀ ਸਾਮਾਨ ਅਤੇ ਮਦਦ ਦੇਣਾ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S19"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਤੇਹਰਾਨ ਅਤੇ ਯਾਲਟਾ ਕਾਨਫ਼ਰੰਸਾਂ ਵਿੱਚ ਸੋਵੀਅਤ ਸੰਘ ਦੀ ਨੁਮਾਇੰਦਗੀ ਕਿਸ ਮਿੱਤਰ ਆਗੂ ਨੇ ਕੀਤੀ?",
+    "explanation": "ਸਟਾਲਿਨ ਨੇ ਦੋਹਾਂ ਕਾਨਫ਼ਰੰਸਾਂ ਵਿੱਚ ਸੋਵੀਅਤ ਸੰਘ ਦੀ ਨੁਮਾਇੰਦਗੀ ਕੀਤੀ। ਰੂਜ਼ਵੈਲਟ ਸੰਯੁਕਤ ਰਾਜ ਅਤੇ ਚਰਚਿਲ ਬ੍ਰਿਟੇਨ ਵੱਲੋਂ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q037-PA",
+    "englishQuestionId": "WHI-CP010-Q037",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F037",
+    "questionFamily": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਰਣਨੀਤੀ ਅਤੇ ਆਗੂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜੋਸਫ਼ ਸਟਾਲਿਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਿੰਸਟਨ ਚਰਚਿਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਫ਼੍ਰੈਂਕਲਿਨ ਡੀ. ਰੂਜ਼ਵੈਲਟ"
+      },
+      {
+        "key": "D",
+        "text": "ਸ਼ਾਰਲ ਦ ਗੌਲ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S07",
+      "CP010-S11",
+      "CP010-S18"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1942 ਦੀ ਵਾਨਜ਼ੀ ਕਾਨਫ਼ਰੰਸ ਦਾ ਮਕਸਦ ਕੀ ਸੀ?",
+    "explanation": "ਵਾਨਜ਼ੀ ਵਿੱਚ ਨਾਜ਼ੀ ਅਧਿਕਾਰੀਆਂ ਨੇ ਯੂਰਪ ਦੇ ਯਹੂਦੀਆਂ ਦੇ ਕਤਲੇਆਮ ਦੀ ਯੋਜਨਾ ਲਾਗੂ ਕਰਨ ਦੇ ਤਰੀਕਿਆਂ ਵਿੱਚ ਤਾਲਮੇਲ ਕੀਤਾ। ਕਬਜ਼ੇ ਵਾਲੇ ਇਲਾਕਿਆਂ ਵਿੱਚ ਕਤਲੇਆਮ ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਸ਼ੁਰੂ ਹੋ ਚੁੱਕਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q038-PA",
+    "englishQuestionId": "WHI-CP010-Q038",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F038",
+    "questionFamily": "ਹੋਲੋਕਾਸਟ ਅਤੇ ਜ਼ੁਲਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨੌਰਮੰਡੀ ’ਤੇ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੇ ਹਮਲੇ ਦੀ ਯੋਜਨਾ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਰਪ ਦੇ ਯਹੂਦੀਆਂ ਦੀ ਹੱਤਿਆ ਦੀ ਨਾਜ਼ੀ ਯੋਜਨਾ ਲਾਗੂ ਕਰਨ ਲਈ ਤਾਲਮੇਲ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਰਮਨੀ ਦੇ ਸਮਰਪਣ ਬਾਰੇ ਗੱਲਬਾਤ ਕਰਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਬਣਾਉਣਾ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S04",
+      "CP010-S21"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਹੋਲੋਕਾਸਟ ਵਿੱਚ ਨਾਜ਼ੀ ਜਰਮਨੀ ਅਤੇ ਉਸ ਦੇ ਸਾਥੀਆਂ ਨੇ ਕਿਸ ਸਮੂਹ ਨੂੰ ਯੋਜਨਾਬੱਧ ਕਤਲੇਆਮ ਦਾ ਨਿਸ਼ਾਨਾ ਬਣਾਇਆ?",
+    "explanation": "ਹੋਲੋਕਾਸਟ ਨਾਜ਼ੀ ਜਰਮਨੀ ਅਤੇ ਉਸ ਦੇ ਸਾਥੀਆਂ ਵੱਲੋਂ ਛੇ ਮਿਲੀਅਨ ਯੂਰਪੀ ਯਹੂਦੀਆਂ ਦਾ ਯੋਜਨਾਬੱਧ ਜ਼ੁਲਮ ਅਤੇ ਕਤਲੇਆਮ ਸੀ। ਨਾਜ਼ੀ ਰਾਜ ਨੇ ਹੋਰ ਸਮੂਹਾਂ ਨੂੰ ਵੀ ਸਤਾਇਆ ਅਤੇ ਮਾਰਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q039-PA",
+    "englishQuestionId": "WHI-CP010-Q039",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F039",
+    "questionFamily": "ਹੋਲੋਕਾਸਟ ਅਤੇ ਜ਼ੁਲਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਿਰਫ਼ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੇ ਸਿਪਾਹੀਆਂ ਨੂੰ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਿਰਫ਼ ਬ੍ਰਿਟੇਨ ਦੇ ਸਿਆਸੀ ਆਗੂਆਂ ਨੂੰ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੂਰਪ ਦੇ ਯਹੂਦੀ ਲੋਕਾਂ ਨੂੰ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਾਰੇ ਯੂਰਪੀ ਨਾਗਰਿਕਾਂ ਨੂੰ ਇਕੋ ਜਿਹਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S04",
+      "CP010-S21"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਬਜ਼ੇ ਵਾਲੇ ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚ ਨਾਜ਼ੀਆਂ ਵੱਲੋਂ ਬਣਾਏ ਗਏ ਯਹੂਦੀ ਘੇਟੋਆਂ ਦਾ ਮੁੱਖ ਕੰਮ ਕੀ ਸੀ?",
+    "explanation": "ਨਾਜ਼ੀ ਅਧਿਕਾਰੀਆਂ ਨੇ ਯਹੂਦੀ ਭਾਈਚਾਰਿਆਂ ਨੂੰ ਜ਼ਬਰਦਸਤੀ ਘੇਟੋਆਂ ਵਿੱਚ ਬੰਦ ਕਰਕੇ ਸਖ਼ਤ ਅਤੇ ਹਿੰਸਕ ਹਾਲਾਤਾਂ ਹੇਠ ਕਾਬੂ ਵਿੱਚ ਰੱਖਿਆ। ਬਾਅਦ ਵਿੱਚ ਕਈਆਂ ਨੂੰ ਕਤਲਗਾਹਾਂ ਵਿੱਚ ਭੇਜਿਆ ਗਿਆ ਜਾਂ ਉੱਥੇ ਹੀ ਮਾਰ ਦਿੱਤਾ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q040-PA",
+    "englishQuestionId": "WHI-CP010-Q040",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F040",
+    "questionFamily": "ਹੋਲੋਕਾਸਟ ਅਤੇ ਜ਼ੁਲਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਿਰਪੱਖ ਦੇਸ਼ਾਂ ਤੱਕ ਸੁਰੱਖਿਅਤ ਰਸਤਾ ਦੇਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੇ ਵਿਰੋਧੀ ਦਸਤਿਆਂ ਨੂੰ ਸਿਖਲਾਈ ਦੇਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਰਮਨ ਜੰਗੀ ਕੈਦੀਆਂ ਨੂੰ ਰੱਖਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਯਹੂਦੀ ਭਾਈਚਾਰਿਆਂ ਨੂੰ ਬੰਦ ਕਰਕੇ ਕਾਬੂ ਵਿੱਚ ਰੱਖਣਾ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S04",
+      "CP010-S21"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਬਜ਼ੇ ਵਾਲੇ ਪੋਲੈਂਡ ਵਿੱਚ ਸਥਿਤ ਉਹ ਕਿਹੜਾ ਨਾਜ਼ੀ ਕਤਲ-ਕੇਂਦਰ ਸੀ, ਜਿੱਥੇ ਵੱਡੇ ਪੱਧਰ ’ਤੇ ਕਤਲੇਆਮ ਹੋਇਆ?",
+    "explanation": "ਆਸ਼ਵਿਟਜ਼-ਬਿਰਕੇਨਾਊ ਕਬਜ਼ੇ ਵਾਲੇ ਪੋਲੈਂਡ ਵਿੱਚ ਤਸ਼ੱਦਦ ਅਤੇ ਕਤਲ ਕੈਂਪਾਂ ਦਾ ਸਮੂਹ ਸੀ। ਇਹ ਹੋਲੋਕਾਸਟ ਦੇ ਮੁੱਖ ਕਤਲ-ਕੇਂਦਰਾਂ ਵਿੱਚੋਂ ਇੱਕ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q041-PA",
+    "englishQuestionId": "WHI-CP010-Q041",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F041",
+    "questionFamily": "ਹੋਲੋਕਾਸਟ ਅਤੇ ਜ਼ੁਲਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਸ਼ਵਿਟਜ਼-ਬਿਰਕੇਨਾਊ"
+      },
+      {
+        "key": "B",
+        "text": "ਡਾਖਾਊ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਰਗਨ-ਬੈਲਸਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਰਾਵੈਨਸਬ੍ਰੁੱਕ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S04",
+      "CP010-S21"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨਾਜ਼ੀ ਅਧਿਕਾਰੀਆਂ ਲਈ ‘ਅੰਤਿਮ ਹੱਲ’ ਸ਼ਬਦ ਦਾ ਕੀ ਮਤਲਬ ਸੀ?",
+    "explanation": "ਨਾਜ਼ੀ ਅਧਿਕਾਰੀ ‘ਅੰਤਿਮ ਹੱਲ’ ਸ਼ਬਦ ਯੂਰਪ ਦੇ ਯਹੂਦੀਆਂ ਦੇ ਨਸਲਕੁਸ਼ੀ ਕਤਲੇਆਮ ਨੂੰ ਲੁਕਾਉਣ ਲਈ ਵਰਤਦੇ ਸਨ। ਇਹ ਯੋਜਨਾਬੱਧ ਸਮੂਹਕ ਕਤਲ ਦੀ ਨੀਤੀ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q042-PA",
+    "englishQuestionId": "WHI-CP010-Q042",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F042",
+    "questionFamily": "ਹੋਲੋਕਾਸਟ ਅਤੇ ਜ਼ੁਲਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਨੂੰ ਦਿੱਤਾ ਸ਼ਾਂਤੀ ਪ੍ਰਸਤਾਵ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਰਪ ਦੇ ਯਹੂਦੀ ਲੋਕਾਂ ਨੂੰ ਮਾਰਨ ਦੀ ਯੋਜਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਰਮਨੀ ਦੀ ਜੰਗ ਤੋਂ ਬਾਅਦ ਵੰਡ"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਰਾਂਸ ਵਿੱਚੋਂ ਜਰਮਨ ਫੌਜਾਂ ਦੀ ਵਾਪਸੀ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S04",
+      "CP010-S21"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਹੋਲੋਕਾਸਟ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਇਤਿਹਾਸਕ ਤੌਰ ’ਤੇ ਸਹੀ ਹੈ?",
+    "explanation": "ਹੋਲੋਕਾਸਟ ਨਾਜ਼ੀ ਜਰਮਨੀ ਅਤੇ ਉਸ ਦੇ ਸਾਥੀਆਂ ਵੱਲੋਂ ਪੂਰੇ ਯੂਰਪ ਵਿੱਚ ਕੀਤਾ ਗਿਆ ਰਾਜ-ਸੰਗਠਿਤ ਨਸਲਕੁਸ਼ੀ ਕਤਲੇਆਮ ਸੀ। ਇਸ ਵਿੱਚ ਜ਼ੁਲਮ, ਜਬਰੀ ਭੇਜਣਾ, ਸਮੂਹਕ ਗੋਲੀਬਾਰੀ ਅਤੇ ਕਤਲ-ਕੇਂਦਰ ਸ਼ਾਮਲ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q043-PA",
+    "englishQuestionId": "WHI-CP010-Q043",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F043",
+    "questionFamily": "ਹੋਲੋਕਾਸਟ ਅਤੇ ਜ਼ੁਲਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਜੰਗ ਲੜਦੇ ਸਿਪਾਹੀਆਂ ਨੂੰ ਨਿਸ਼ਾਨਾ ਬਣਾਇਆ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਹ ਪੋਲੈਂਡ ’ਤੇ ਹਮਲੇ ਦੌਰਾਨ ਹੋਈ ਇੱਕ ਲੜਾਈ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ ਨਾਜ਼ੀ ਜਰਮਨੀ ਅਤੇ ਉਸ ਦੇ ਸਾਥੀਆਂ ਵੱਲੋਂ ਕੀਤਾ ਗਿਆ ਰਾਜ-ਸੰਗਠਿਤ ਨਸਲਕੁਸ਼ੀ ਕਤਲੇਆਮ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਹ ਜਰਮਨੀ ਦੇ ਸਮਰਪਣ ਤੋਂ ਬਾਅਦ ਹੀ ਸ਼ੁਰੂ ਹੋਇਆ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S04",
+      "CP010-S21"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅਪ੍ਰੈਲ 1943 ਵਿੱਚ ਵਾਰਸਾ ਦੇ ਯਹੂਦੀ ਘੇਟੋ ਵਿੱਚ ਕਿਹੜੀ ਬਗਾਵਤ ਸ਼ੁਰੂ ਹੋਈ?",
+    "explanation": "ਅਪ੍ਰੈਲ 1943 ਵਿੱਚ ਜਦੋਂ ਜਰਮਨ ਫੌਜ ਨੇ ਬਚੇ ਵਸਨੀਕਾਂ ਨੂੰ ਜਬਰੀ ਭੇਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ, ਤਾਂ ਯਹੂਦੀ ਵਿਰੋਧੀਆਂ ਨੇ ਵਾਰਸਾ ਘੇਟੋ ਬਗਾਵਤ ਸ਼ੁਰੂ ਕੀਤੀ। ਜਰਮਨ ਫੌਜ ਨੇ ਇਸ ਨੂੰ ਕੁਚਲ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q044-PA",
+    "englishQuestionId": "WHI-CP010-Q044",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F044",
+    "questionFamily": "ਵਿਰੋਧ ਅਤੇ ਘਰੇਲੂ ਮੋਰਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਗਸਤ 1944 ਦੀ ਵਾਰਸਾ ਬਗਾਵਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਪ੍ਰਾਗ ਬਸੰਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਹੰਗਰੀ ਦੀ ਕ੍ਰਾਂਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਾਰਸਾ ਘੇਟੋ ਬਗਾਵਤ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S10",
+      "CP010-S21"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1944 ਵਿੱਚ ਵਾਰਸਾ ਸ਼ਹਿਰ ਵਿੱਚ ਪੋਲਿਸ਼ ਹੋਮ ਆਰਮੀ ਨੇ ਕਿਹੜੀ ਬਗਾਵਤ ਦੀ ਅਗਵਾਈ ਕੀਤੀ?",
+    "explanation": "ਪੋਲਿਸ਼ ਹੋਮ ਆਰਮੀ ਨੇ ਅਗਸਤ 1944 ਵਿੱਚ ਵਾਰਸਾ ਬਗਾਵਤ ਸ਼ੁਰੂ ਕੀਤੀ। ਇਹ 1943 ਦੀ ਵਾਰਸਾ ਘੇਟੋ ਬਗਾਵਤ ਤੋਂ ਵੱਖਰੀ ਘਟਨਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q045-PA",
+    "englishQuestionId": "WHI-CP010-Q045",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F045",
+    "questionFamily": "ਵਿਰੋਧ ਅਤੇ ਘਰੇਲੂ ਮੋਰਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਾਰਸਾ ਬਗਾਵਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਾਰਸਾ ਘੇਟੋ ਬਗਾਵਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਲੋਵਾਕ ਕੌਮੀ ਬਗਾਵਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਈਸਟਰ ਬਗਾਵਤ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S22"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜਰਮਨ ਕਬਜ਼ੇ ਦੌਰਾਨ ਫ਼ਰਾਂਸੀਸੀ ਵਿਰੋਧ ਲਹਿਰ ਦੀ ਮੁੱਖ ਭੂਮਿਕਾ ਕੀ ਸੀ?",
+    "explanation": "ਫ਼ਰਾਂਸ ਦੇ ਵਿਰੋਧੀ ਗਰੁੱਪਾਂ ਨੇ ਖੁਫ਼ੀਆ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕੀਤੀ, ਸੁਨੇਹੇ ਪਹੁੰਚਾਏ ਅਤੇ ਭੰਨਤੋੜ ਕੀਤੀ। ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਨੇ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਮੁਹਿੰਮ ਵਿੱਚ ਮਦਦ ਕੀਤੀ, ਪਰ ਵੱਖ-ਵੱਖ ਗਰੁੱਪਾਂ ਦੇ ਕੰਮ ਵੱਖਰੇ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q046-PA",
+    "englishQuestionId": "WHI-CP010-Q046",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F046",
+    "questionFamily": "ਵਿਰੋਧ ਅਤੇ ਘਰੇਲੂ ਮੋਰਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਪਾਨ ਦੇ ਸਮਰਪਣ ਬਾਰੇ ਗੱਲਬਾਤ ਕਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਗੁਪਤ ਜਾਲਾਂ, ਖੁਫ਼ੀਆ ਜਾਣਕਾਰੀ ਅਤੇ ਭੰਨਤੋੜ ਰਾਹੀਂ ਕਬਜ਼ੇ ਦਾ ਵਿਰੋਧ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਰਮਨੀ ਵੱਲੋਂ ਵਿਚੀ ਫ਼ਰਾਂਸ ਦਾ ਪ੍ਰਸ਼ਾਸਨ ਚਲਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ’ਤੇ ਜਰਮਨ ਹਮਲੇ ਦੀ ਅਗਵਾਈ ਕਰਨਾ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S23"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਹੜੇ ਗੁਪਤ-ਸੰਦੇਸ਼ ਤੋੜਨ ਦੇ ਕੰਮ ਨੇ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਨੂੰ ਕੁਝ ਜਰਮਨ ਫੌਜੀ ਸੁਨੇਹੇ ਪੜ੍ਹਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ?",
+    "explanation": "ਬਲੈਚਲੀ ਪਾਰਕ ਦੇ ਬ੍ਰਿਟਿਸ਼ ਕੋਡ-ਤੋੜ ਮਾਹਿਰਾਂ ਨੇ ਐਨਿਗਮਾ ਦੇ ਕੁਝ ਸੁਨੇਹੇ ਪੜ੍ਹਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ। ਇਸ ਜਾਣਕਾਰੀ ਨੇ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਯੋਜਨਾ ਅਤੇ ਸਮੁੰਦਰੀ ਕਾਫ਼ਲਿਆਂ ਦੀ ਸੁਰੱਖਿਆ ਵਿੱਚ ਸਹਾਇਤਾ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q047-PA",
+    "englishQuestionId": "WHI-CP010-Q047",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F047",
+    "questionFamily": "ਵਿਰੋਧ ਅਤੇ ਘਰੇਲੂ ਮੋਰਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਐਟਲਾਂਟਿਕ ਚਾਰਟਰ ਦਾ ਅਨੁਵਾਦ ਕਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਯਾਲਟਾ ਵਿੱਚ ਸੋਵੀਅਤ ਕੂਟਨੀਤਕ ਕੋਡ ਤੋੜਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਐਨਿਗਮਾ ਕੋਡ ਤੋੜਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਪਾਨੀ ਸਮਰਪਣ ਦਸਤਾਵੇਜ਼ ਨੂੰ ਕੋਡ ਤੋਂ ਪੜ੍ਹਨਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S24"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜੰਗ ਦੌਰਾਨ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚ ਰਾਸ਼ਨ ਵੰਡ ਨੇ ਆਮ ਲੋਕਾਂ ਦੀ ਜ਼ਿੰਦਗੀ ’ਤੇ ਕੀ ਅਸਰ ਪਾਇਆ?",
+    "explanation": "ਜੰਗੀ ਲੋੜਾਂ ਅਤੇ ਸਪਲਾਈ ਵਿੱਚ ਰੁਕਾਵਟਾਂ ਕਾਰਨ ਖਾਣੇ ਅਤੇ ਹੋਰ ਚੀਜ਼ਾਂ ਦੀ ਘਾਟ ਹੋਈ, ਇਸ ਲਈ ਸਰਕਾਰਾਂ ਨੇ ਰਾਸ਼ਨ ਤੈਅ ਕੀਤਾ। ਵੱਖ-ਵੱਖ ਦੇਸ਼ਾਂ ਵਿੱਚ ਪ੍ਰਬੰਧ ਵੱਖਰੇ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q048-PA",
+    "englishQuestionId": "WHI-CP010-Q048",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F048",
+    "questionFamily": "ਵਿਰੋਧ ਅਤੇ ਘਰੇਲੂ ਮੋਰਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨਾਲ ਸਾਰਾ ਉਦਯੋਗਿਕ ਉਤਪਾਦਨ ਬੰਦ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਸਾਰੇ ਨਾਗਰਿਕਾਂ ਲਈ ਫੌਜ ਵਿੱਚ ਭਰਤੀ ਲਾਜ਼ਮੀ ਕਰ ਦਿੱਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਸਰਕਾਰ ਦਾ ਕੀਮਤਾਂ ’ਤੇ ਕਾਬੂ ਖਤਮ ਕਰ ਦਿੱਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨਾਲ ਘੱਟ ਉਪਲਬਧ ਖਾਣੇ ਅਤੇ ਖਪਤ ਵਾਲੀਆਂ ਚੀਜ਼ਾਂ ਤੱਕ ਪਹੁੰਚ ਸੀਮਤ ਹੋਈ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S13"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨਾਜ਼ੀ ਕਬਜ਼ੇ ਹੇਠ ਵਿਰੋਧ ਲਹਿਰਾਂ ਦਾ ਸਭ ਤੋਂ ਸਹੀ ਵੇਰਵਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਵਿਰੋਧ ਦੇ ਕਈ ਰੂਪ ਸਨ—ਹਥਿਆਰਬੰਦ ਸੰਘਰਸ਼ ਤੋਂ ਲੈ ਕੇ ਖੁਫ਼ੀਆ ਜਾਣਕਾਰੀ ਅਤੇ ਆਮ ਲੋਕਾਂ ਦੀ ਮਦਦ ਤੱਕ। ਵੱਖ-ਵੱਖ ਦੇਸ਼ਾਂ ਅਤੇ ਸਮਿਆਂ ਵਿੱਚ ਇਸ ਦੀ ਬਣਤਰ ਅਤੇ ਅਸਰ ਵੱਖਰੇ ਰਹੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q049-PA",
+    "englishQuestionId": "WHI-CP010-Q049",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F049",
+    "questionFamily": "ਵਿਰੋਧ ਅਤੇ ਘਰੇਲੂ ਮੋਰਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਵਿੱਚ ਕਬਜ਼ੇ ਵਾਲੇ ਦੇਸ਼ਾਂ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਹਥਿਆਰਬੰਦ, ਸਿਆਸੀ ਅਤੇ ਨਾਗਰਿਕ ਕੋਸ਼ਿਸ਼ਾਂ ਸ਼ਾਮਲ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੂਰੇ ਯੂਰਪ ਵਿੱਚ ਇਹ ਸਿਰਫ਼ ਇੱਕ ਕੇਂਦਰੀ ਸੰਸਥਾ ਰਾਹੀਂ ਚਲਦੀ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਫ਼ਰਾਂਸ ਦੇ ਡਿੱਗਣ ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ ਇਹ ਮੁੱਕ ਗਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਹ ਸਿਰਫ਼ ਯੂਰਪ ਤੋਂ ਬਾਹਰ ਦੀਆਂ ਮਿੱਤਰ ਫੌਜਾਂ ਨੇ ਚਲਾਈ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S02",
+      "CP010-S10",
+      "CP010-S22",
+      "CP010-S23",
+      "CP010-S24"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੀ ਮੁਕਤੀ ਮੁਹਿੰਮ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਮਿੱਤਰ ਦੇਸ਼ ਜੂਨ 1944 ਵਿੱਚ ਨੌਰਮੰਡੀ ਉਤਰੇ ਅਤੇ ਅਗਸਤ ਵਿੱਚ ਪੈਰਿਸ ਆਜ਼ਾਦ ਕਰਵਾਇਆ। ਇਸ ਤੋਂ ਬਾਅਦ ਉਹ ਜਰਮਨੀ ਵੱਲ ਵਧਦੇ ਰਹੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q050-PA",
+    "englishQuestionId": "WHI-CP010-Q050",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F050",
+    "questionFamily": "ਵਿਰੋਧ ਅਤੇ ਘਰੇਲੂ ਮੋਰਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪਰਲ ਹਾਰਬਰ → ਪੈਰਿਸ ਦੀ ਮੁਕਤੀ → ਬ੍ਰਿਟੇਨ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੌਰਮੰਡੀ ਉਤਰਾਈ → ਪੈਰਿਸ ਦੀ ਮੁਕਤੀ → ਜਰਮਨੀ ਵੱਲ ਅੱਗੇ ਵਧਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੈਰਿਸ ਦੀ ਮੁਕਤੀ → ਨੌਰਮੰਡੀ ਉਤਰਾਈ → ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਰਮਨੀ ਵੱਲ ਅੱਗੇ ਵਧਣਾ → ਨੌਰਮੰਡੀ ਉਤਰਾਈ → ਪੈਰਿਸ ਦੀ ਮੁਕਤੀ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮਈ 1945 ਵਿੱਚ ਜਰਮਨੀ ਨੇ ਆਪਣਾ ਪਹਿਲਾ ਬਿਨਾਂ ਸ਼ਰਤ ਸਮਰਪਣ ਦਸਤਾਵੇਜ਼ ਕਿੱਥੇ ਦਸਤਖ਼ਤ ਕੀਤਾ?",
+    "explanation": "ਜਰਮਨੀ ਨੇ 7 ਮਈ 1945 ਨੂੰ ਰੇਮਜ਼ ਵਿੱਚ ਬਿਨਾਂ ਸ਼ਰਤ ਸਮਰਪਣ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ। ਅਗਲੇ ਦਿਨ ਬਰਲਿਨ ਵਿੱਚ ਇੱਕ ਹੋਰ ਦਸਤਾਵੇਜ਼ ’ਤੇ ਦਸਤਖ਼ਤ ਹੋਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q051-PA",
+    "englishQuestionId": "WHI-CP010-Q051",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F051",
+    "questionFamily": "ਸਮਰਪਣ ਅਤੇ ਜੰਗ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਟੋਕਿਓ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਾਸਾਬਲਾਂਕਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੇਮਜ਼"
+      },
+      {
+        "key": "D",
+        "text": "ਯਾਲਟਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S04",
+      "CP010-S25"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਪੱਛਮੀ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਅੱਗੇ ਜਰਮਨੀ ਦਾ ਸਮਰਪਣ ਕਿਸ ਤਾਰੀਖ਼ ਤੋਂ ਲਾਗੂ ਹੋਇਆ?",
+    "explanation": "ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਜਰਮਨੀ ਦਾ ਸਮਰਪਣ 8 ਮਈ 1945 ਤੋਂ ਲਾਗੂ ਹੋਇਆ। ਬਰਲਿਨ ਵਿੱਚ ਦਸਤਖ਼ਤ ਦੇ ਸਮੇਂ ਦੇ ਫ਼ਰਕ ਕਾਰਨ ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਯੂਰਪ ਦੀ ਜੰਗ ਦਾ ਅੰਤ 9 ਮਈ ਨੂੰ ਮਨਾਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q052-PA",
+    "englishQuestionId": "WHI-CP010-Q052",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F052",
+    "questionFamily": "ਸਮਰਪਣ ਅਤੇ ਜੰਗ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "7 ਮਈ 1945"
+      },
+      {
+        "key": "B",
+        "text": "9 ਜੂਨ 1944"
+      },
+      {
+        "key": "C",
+        "text": "2 ਸਤੰਬਰ 1945"
+      },
+      {
+        "key": "D",
+        "text": "8 ਮਈ 1945"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S04",
+      "CP010-S25"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਮਈ 1945 ਵਿੱਚ ਜਰਮਨੀ ਦੇ ਸਮਰਪਣ ਵਾਲੇ ਦੋਵੇਂ ਦਸਤਖ਼ਤਾਂ ਵਿੱਚ ਕੀ ਫ਼ਰਕ ਸੀ?",
+    "explanation": "ਜਰਮਨੀ ਨੇ 7 ਮਈ ਨੂੰ ਰੇਮਜ਼ ਵਿੱਚ ਸਮਰਪਣ ਦਸਤਾਵੇਜ਼ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ ਅਤੇ 8 ਮਈ ਨੂੰ ਬਰਲਿਨ ਵਿੱਚ ਇੱਕ ਹੋਰ ਦਸਤਾਵੇਜ਼ ’ਤੇ। ਵੱਖਰੇ ਸਮਾਰੋਹ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੇ ਗੱਠਜੋੜ ਅਤੇ ਪੂਰਬੀ ਮੋਰਚੇ ਨਾਲ ਜੁੜੇ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q053-PA",
+    "englishQuestionId": "WHI-CP010-Q053",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F053",
+    "questionFamily": "ਸਮਰਪਣ ਅਤੇ ਜੰਗ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰੇਮਜ਼ ਵਿੱਚ ਸਮਰਪਣ ’ਤੇ ਦਸਤਖ਼ਤ ਹੋਏ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਬਰਲਿਨ ਵਿੱਚ ਇੱਕ ਹੋਰ ਦਸਤਾਵੇਜ਼ ’ਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਰੇਮਜ਼ ਦੇ ਦਸਤਖ਼ਤਾਂ ਨੇ ਪ੍ਰਸ਼ਾਂਤ ਜੰਗ ਖਤਮ ਕੀਤੀ ਅਤੇ ਬਰਲਿਨ ਦੇ ਦਸਤਖ਼ਤਾਂ ਨੇ ਉਹ ਸ਼ੁਰੂ ਕੀਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਰਲਿਨ ਦੇ ਦਸਤਖ਼ਤ ਰੇਮਜ਼ ਤੋਂ ਇੱਕ ਮਹੀਨਾ ਪਹਿਲਾਂ ਹੋਏ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੋਵੇਂ ਦਸਤਖ਼ਤ ਜਪਾਨ ਦੇ ਰਸਮੀ ਸਮਰਪਣ ਤੋਂ ਬਾਅਦ ਹੋਏ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S04",
+      "CP010-S25"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "6 ਅਗਸਤ 1945 ਨੂੰ ਜੰਗ ਵਿੱਚ ਵਰਤਿਆ ਗਿਆ ਪਹਿਲਾ ਪਰਮਾਣੂ ਬੰਬ ਜਪਾਨ ਦੇ ਕਿਹੜੇ ਸ਼ਹਿਰ ’ਤੇ ਸੁੱਟਿਆ ਗਿਆ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਜ ਨੇ 6 ਅਗਸਤ 1945 ਨੂੰ ਹੀਰੋਸ਼ੀਮਾ ’ਤੇ ਪਰਮਾਣੂ ਬੰਬ ਸੁੱਟਿਆ। ਤਿੰਨ ਦਿਨ ਬਾਅਦ ਨਾਗਾਸਾਕੀ ’ਤੇ ਦੂਜਾ ਬੰਬ ਸੁੱਟਿਆ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q054-PA",
+    "englishQuestionId": "WHI-CP010-Q054",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F054",
+    "questionFamily": "ਸਮਰਪਣ ਅਤੇ ਜੰਗ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਓਸਾਕਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੀਰੋਸ਼ੀਮਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਾਗਾਸਾਕੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਟੋਕਿਓ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "9 ਅਗਸਤ 1945 ਨੂੰ ਅਮਰੀਕਾ ਦਾ ਦੂਜਾ ਪਰਮਾਣੂ ਬੰਬ ਜਪਾਨ ਦੇ ਕਿਹੜੇ ਸ਼ਹਿਰ ’ਤੇ ਸੁੱਟਿਆ ਗਿਆ?",
+    "explanation": "9 ਅਗਸਤ 1945 ਨੂੰ ਨਾਗਾਸਾਕੀ ’ਤੇ ਦੂਜਾ ਪਰਮਾਣੂ ਬੰਬ ਸੁੱਟਿਆ ਗਿਆ। ਜਪਾਨ ਨੇ ਉਸੇ ਮਹੀਨੇ ਬਾਅਦ ਵਿੱਚ ਸਮਰਪਣ ਦੀਆਂ ਸ਼ਰਤਾਂ ਮੰਨਣ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q055-PA",
+    "englishQuestionId": "WHI-CP010-Q055",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F055",
+    "questionFamily": "ਸਮਰਪਣ ਅਤੇ ਜੰਗ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਿਓਟੋ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੋਕੋਹਾਮਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਾਗਾਸਾਕੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੀਰੋਸ਼ੀਮਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S03",
+      "CP010-S06"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਖਤਮ ਕਰਨ ਵਾਲੇ ਸਮਰਪਣ ਦਸਤਾਵੇਜ਼ ’ਤੇ ਜਪਾਨ ਨੇ ਰਸਮੀ ਤੌਰ ’ਤੇ ਕਦੋਂ ਦਸਤਖ਼ਤ ਕੀਤੇ?",
+    "explanation": "ਜਪਾਨ ਨੇ 2 ਸਤੰਬਰ 1945 ਨੂੰ ਯੂਐੱਸਐੱਸ ਮਿਸੂਰੀ ’ਤੇ ਸਮਰਪਣ ਦਸਤਾਵੇਜ਼ ’ਤੇ ਰਸਮੀ ਦਸਤਖ਼ਤ ਕੀਤੇ। ਸਮਰਪਣ ਮੰਨਣ ਦਾ ਐਲਾਨ ਅਗਸਤ ਵਿੱਚ ਹੋਇਆ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q056-PA",
+    "englishQuestionId": "WHI-CP010-Q056",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F056",
+    "questionFamily": "ਸਮਰਪਣ ਅਤੇ ਜੰਗ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "15 ਅਗਸਤ 1945"
+      },
+      {
+        "key": "B",
+        "text": "8 ਮਈ 1945"
+      },
+      {
+        "key": "C",
+        "text": "6 ਜੂਨ 1944"
+      },
+      {
+        "key": "D",
+        "text": "2 ਸਤੰਬਰ 1945"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S06"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਜੰਗ ਦੇ ਆਖਰੀ ਸਮਰਪਣ ਘਟਨਾਕ੍ਰਮਾਂ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਜਰਮਨੀ ਨੇ ਮਈ 1945 ਵਿੱਚ ਸਮਰਪਣ ਕੀਤਾ, ਅਗਸਤ ਵਿੱਚ ਪਰਮਾਣੂ ਬੰਬ ਸੁੱਟੇ ਗਏ ਅਤੇ ਸਤੰਬਰ ਵਿੱਚ ਜਪਾਨ ਨੇ ਸਮਰਪਣ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ। ਇਸ ਨਾਲ ਯੂਰਪ ਦੀ ਜੰਗ ਦੇ ਅੰਤ ਅਤੇ ਪੂਰੀ ਵਿਸ਼ਵ ਜੰਗ ਦੇ ਰਸਮੀ ਅੰਤ ਵਿਚਲਾ ਫ਼ਰਕ ਸਪਸ਼ਟ ਹੁੰਦਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q057-PA",
+    "englishQuestionId": "WHI-CP010-Q057",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F057",
+    "questionFamily": "ਨਤੀਜੇ ਅਤੇ ਸਮੁੱਚੀ ਸਮਝ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਰਮਨੀ ਦਾ ਸਮਰਪਣ → ਪਰਮਾਣੂ ਬੰਬ ਸੁੱਟੇ ਗਏ → ਜਪਾਨ ਨੇ ਸਮਰਪਣ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਪਾਨ ਨੇ ਸਮਰਪਣ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ → ਜਰਮਨੀ ਦਾ ਸਮਰਪਣ → ਪਰਮਾਣੂ ਬੰਬ ਸੁੱਟੇ ਗਏ"
+      },
+      {
+        "key": "C",
+        "text": "ਪਰਮਾਣੂ ਬੰਬ ਸੁੱਟੇ ਗਏ → ਜਰਮਨੀ ਨੇ ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ ਕੀਤਾ → ਜਪਾਨ ਨੇ ਸਮਰਪਣ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਰਮਨੀ ਦਾ ਸਮਰਪਣ → ਜਪਾਨ ਨੇ ਸਮਰਪਣ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ → ਡੀ-ਡੇ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S03",
+      "CP010-S06",
+      "CP010-S25"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਯੂਰਪ ਵਿੱਚ ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਦਾ ਇੱਕ ਵੱਡਾ ਮਨੁੱਖੀ ਨਤੀਜਾ ਕੀ ਸੀ?",
+    "explanation": "ਜੰਗ ਅਤੇ ਜ਼ੁਲਮ ਕਾਰਨ ਯੂਰਪ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕ ਆਪਣੇ ਘਰਾਂ ਤੋਂ ਉੱਜੜੇ। ਜੰਗ ਤੋਂ ਬਾਅਦ ਕਈ ਲੋਕ ਆਪਣੇ ਪੁਰਾਣੇ ਘਰਾਂ ਵਿੱਚ ਵਾਪਸ ਨਹੀਂ ਜਾ ਸਕੇ ਜਾਂ ਨਹੀਂ ਗਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q058-PA",
+    "englishQuestionId": "WHI-CP010-Q058",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F058",
+    "questionFamily": "ਨਤੀਜੇ ਅਤੇ ਸਮੁੱਚੀ ਸਮਝ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜੰਗ ਕਾਰਨ ਵੱਡੇ ਪੱਧਰ ’ਤੇ ਲੋਕ ਬੇਘਰ ਨਹੀਂ ਹੋਏ"
+      },
+      {
+        "key": "B",
+        "text": "ਲੱਖਾਂ ਨਾਗਰਿਕ ਆਪਣੇ ਘਰਾਂ ਤੋਂ ਉੱਜੜੇ"
+      },
+      {
+        "key": "C",
+        "text": "1945 ਵਿੱਚ ਸਾਰੇ ਨਾਗਰਿਕ ਤੁਰੰਤ ਘਰ ਪਰਤ ਗਏ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਿਰਫ਼ ਫੌਜੀ ਕਰਮਚਾਰੀ ਹੀ ਉੱਜੜੇ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S26",
+      "CP010-S28"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਮਈ 1945 ਵਿੱਚ ਨਾਜ਼ੀ ਜਰਮਨੀ ਦੇ ਸਮਰਪਣ ਤੋਂ ਬਾਅਦ ਕਿਹੜਾ ਨਤੀਜਾ ਨਿਕਲਿਆ?",
+    "explanation": "ਜਰਮਨੀ ਦੀ ਹਾਰ ਤੋਂ ਬਾਅਦ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਨੇ ਉਸ ’ਤੇ ਕਬਜ਼ਾ ਕਰਕੇ ਪ੍ਰਸ਼ਾਸਨ ਸੰਭਾਲਿਆ। ਦੇਸ਼ ਦੀ ਅਗਲੀ ਵੰਡ ਅਤੇ ਜੰਗ-ਬਾਅਦ ਦੀਆਂ ਸੰਸਥਾਵਾਂ CP011 ਵਿੱਚ ਹਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q059-PA",
+    "englishQuestionId": "WHI-CP010-Q059",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F059",
+    "questionFamily": "ਨਤੀਜੇ ਅਤੇ ਸਮੁੱਚੀ ਸਮਝ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੈਜ਼ਰ ਹੇਠ ਜਰਮਨ ਸਾਮਰਾਜ ਮੁੜ ਕਾਇਮ ਹੋਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨੀ ਧੁਰੀ ਗੱਠਜੋੜ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਾਰੇ ਹੋਏ ਜਰਮਨੀ ’ਤੇ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦਾ ਕਬਜ਼ਾ ਅਤੇ ਪ੍ਰਸ਼ਾਸਨ ਕਾਇਮ ਹੋਇਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਰਮਨੀ ਤੁਰੰਤ ਇੱਕ ਨਿਰਪੱਖ ਗਣਰਾਜ ਵਜੋਂ ਮੁੜ ਇਕੱਠਾ ਹੋ ਗਿਆ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP010-S06",
+      "CP010-S27"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਦੇ ਵਿਸ਼ਵ-ਪੱਧਰੀ ਸਰੂਪ ਦਾ ਸਭ ਤੋਂ ਸਹੀ ਵੇਰਵਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਜੰਗ ਯੂਰਪ, ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਏਸ਼ੀਆ-ਪ੍ਰਸ਼ਾਂਤ ਸਮੇਤ ਕਈ ਖੇਤਰਾਂ ਵਿੱਚ ਲੜੀ ਗਈ। 1940 ਵਿੱਚ ਫ਼ਰਾਂਸ ਨਾਲ ਜਰਮਨੀ ਦੀ ਜੰਗਬੰਦੀ ਨੇ ਵੱਡੀ ਜੰਗ ਖਤਮ ਨਹੀਂ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP010-Q060-PA",
+    "englishQuestionId": "WHI-CP010-Q060",
+    "checkpointId": "WHI-001-CP010",
+    "factId": "WHI-CP010-F060",
+    "questionFamily": "ਨਤੀਜੇ ਅਤੇ ਸਮੁੱਚੀ ਸਮਝ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਹ ਕੇਂਦਰੀ ਯੂਰਪ ਤੱਕ ਸੀਮਤ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਯੂਰਪੀ ਦੇਸ਼ ਸ਼ਾਮਲ ਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਫ਼ਰਾਂਸ ਨੇ 1940 ਵਿੱਚ ਜੰਗਬੰਦੀ ਕੀਤੀ ਤਾਂ ਇਹ ਖਤਮ ਹੋ ਗਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਹ ਯੂਰਪ, ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਏਸ਼ੀਆ-ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਮੋਰਚਿਆਂ ’ਤੇ ਲੜੀ ਗਈ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP010-S01",
+      "CP010-S02",
+      "CP010-S03"
+    ]
+  }
+]

@@ -16,7 +16,7 @@
 ## Current gate
 
 - English: 60 questions; 18 Easy / 30 Medium / 12 Hard; A15/B15/C15/D15.
-- Hindi and Punjabi are not yet authored.
+- Hindi and Punjabi 60-record review candidates are authored; native-language review is pending.
 - No runtime registration or learner delivery is enabled.
 
 ## Artifacts
@@ -27,3 +27,11 @@
 - `WHI-001-CP010-QL-FAMILY-MAP-V1.md`
 - `world-history-cp010-en-v1.json`
 - `knowledge-v1-whi010-review-v1.test.ts`
+
+
+## Localization update — 2026-09-30
+
+- English pool: human-approved.
+- Hindi and Punjabi: 60-record review candidates authored in the established shared `knowledge-v1` localization architecture; each is linked to the English question and canonical fact/source records.
+- Native-language review: pending. Learner delivery, runtime registration and publication remain disabled.
+- See `WHI-001-CP010-HI-LOCALIZATION-REVIEW-V1.md`, `WHI-001-CP010-PA-LOCALIZATION-REVIEW-V1.md`, and `WHI-001-CP009-CP010-HI-PA-CANDIDATE-STATUS-V1.md`.
