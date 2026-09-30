@@ -308,6 +308,13 @@ export function localizePnl001StandaloneChoice(
       ? `कूपन ${eligible ? "लागू होगा" : "लागू नहीं होगा"}; प्रभावी मूल्य ₹${match[2]}`
       : `ਕੂਪਨ ${eligible ? "ਲਾਗੂ ਹੋਵੇਗਾ" : "ਲਾਗੂ ਨਹੀਂ ਹੋਵੇਗਾ"}; ਅਸਲ ਕੀਮਤ ₹${match[2]}`;
   }
+  match = /^Coupon is (not )?eligible; both offers are equal$/u.exec(value);
+  if (match) {
+    const eligible = !match[1];
+    return language === "hi"
+      ? `कूपन ${eligible ? "पात्र है" : "पात्र नहीं है"}; दोनों प्रस्ताव समान हैं`
+      : `ਕੂਪਨ ${eligible ? "ਯੋਗ ਹੈ" : "ਯੋਗ ਨਹੀਂ ਹੈ"}; ਦੋਵੇਂ ਪੇਸ਼ਕਸ਼ਾਂ ਬਰਾਬਰ ਹਨ`;
+  }
   match = /^Coupon is (not )?eligible; (coupon|discount) offer is better by ₹(.+)$/u.exec(value);
   if (match) {
     const eligible = !match[1];
