@@ -26,6 +26,8 @@ Formula conventions are shown in the question whenever multiple textbook convent
 - Sampling theory is a later Statistics ownership group; this package only uses explicit rank conventions for partition values.
 - Moments, skewness, kurtosis, correlation, regression, probability, distributions, inference, ANOVA, time series and index numbers retain separate blueprint ownership.
 
+## Table stems render each frequency table once, with one Markdown header row.
+
 ## Proof requirements
 
 `partition-dispersion.test.ts` sweeps all 16 contracts, both supported profiles, and 25 deterministic seeds per contract/profile. It checks replay stability, unique options, answer-index consistency, independent recomputation from stored state, and lifecycle locks. The Question Studio integration proof checks all 16 permanent QLs under the JSO profile.

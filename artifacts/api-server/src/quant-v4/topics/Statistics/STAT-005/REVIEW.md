@@ -1,4 +1,4 @@
-# Statistics — STAT-005 Partition Values & Dispersion Review V1
+# Statistics — STAT-005 Partition Values & Dispersion Review V2
 
 **Review status:** English representative review candidate; awaiting content approval.
 **Profiles:** SSC CGL Tier II and JSO. **Lifecycle:** controlled review only.
@@ -55,7 +55,6 @@ D. 55
 **Semantic contract:** Locate a specified quartile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
 The following ordered frequency distribution has N = 23. Using the nearest-rank rule ceil(kN/m), find Q2.
-Value | Frequency
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -78,7 +77,6 @@ D. 41
 **Semantic contract:** Locate a specified decile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
 The following ordered frequency distribution has N = 23. Using the nearest-rank rule ceil(kN/m), find D8.
-Value | Frequency
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -101,7 +99,6 @@ D. 52
 **Semantic contract:** Locate a specified percentile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
 The following ordered frequency distribution has N = 23. Using the nearest-rank rule ceil(kN/m), find P75.
-Value | Frequency
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -124,7 +121,6 @@ D. 40
 **Semantic contract:** Interpolate a requested quartile in a grouped continuous frequency distribution from its quartile class, lower boundary, cumulative frequency, class frequency and width.
 
 Use the grouped interpolation rule at position kN/m to find Q1.
-Class interval | Frequency
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
@@ -147,7 +143,6 @@ D. 19.38
 **Semantic contract:** Interpolate a requested decile in a grouped continuous frequency distribution from its decile class and displayed frequency data.
 
 Use the grouped interpolation rule at position kN/m to find D4.
-Class interval | Frequency
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
@@ -170,7 +165,6 @@ D. 26.4
 **Semantic contract:** Interpolate a requested percentile in a grouped continuous frequency distribution from its percentile class and displayed frequency data.
 
 Use the grouped interpolation rule at position kN/m to find P25.
-Class interval | Frequency
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
@@ -294,6 +288,8 @@ D. 31
 **Explanation:** Coefficient of variation = standard deviation / mean × 100 = 9/30 × 100 ≈ 30%.
 
 ## Review checkpoints
+
+- Table presentation corrected after the STAT-005 review pass.
 
 - Confirm stems, data presentation, and explanations read like SSC CGL JSO Paper II questions.
 - Confirm the stated partition convention is acceptable for each intended format.
