@@ -150,7 +150,7 @@ for (const cp of ["DI-CP-004-SINGLE","DI-CP-004-MULTI"] as const) {
       assert(!/[A-Za-z]{3,}/u.test(question.stem),`${cp} stem leaks an English phrase: ${question.stem}`);
       assert(question.stem.endsWith("?"),`${cp} stem is not phrased as a direct exam question: ${question.stem}`);
       assert(!/(कुल योग|कुल जोड़|ਕੁੱਲ ਜੋੜ)/u.test(question.stem),`${cp} stem uses a redundant total-sum phrase: ${question.stem}`);
-      assert(!/(पहले|फिर|ज्ञात कीजिए|ज्ञात करें|निकालिए|जोड़िए|जोड़ो|ਕੱਢੋ|ਜੋੜੋ|ਪਹਿਲਾਂ|ਫਿਰ)/u.test(question.stem),`${cp} stem contains step-by-step directions: ${question.stem}`);
+      assert(!/(पहले(?! समूह)|फिर|ज्ञात कीजिए|ज्ञात करें|निकालिए|जोड़िए|जोड़ो|ਕੱਢੋ|ਜੋੜੋ|ਪਹਿਲਾਂ|ਫਿਰ)/u.test(question.stem),`${cp} stem contains step-by-step directions: ${question.stem}`);
       const rendered=question.stimulusSvgs.join(" ").replace(/<[^>]+>/gu," ");
       assert(/[\u0900-\u097F\u0A00-\u0A7F]/u.test(rendered),`${cp} chart is missing localized labels.`);
     }

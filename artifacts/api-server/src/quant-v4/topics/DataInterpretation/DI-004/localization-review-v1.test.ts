@@ -7,10 +7,14 @@ import {
 import {
   DI004_LOCALIZATION_CONTEXTS,
   generateDi004LocalizedReviewQuestion,
+  localizeDi004MultiSet,
   localizeDi004Period,
+  localizeDi004SingleSet,
   type Di004LocalizationLocale,
 } from "./localization-review-v1";
 import { DI004_PERMANENT_QLS } from "./permanent-ql-registry";
+import { generateDi004SingleLineSet } from "./single-line-v1";
+import { generateDi004MultiLineSet } from "./multi-line-v1";
 import { generateDi004PermanentQuestion } from "./permanent-question-generator";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -79,6 +83,18 @@ let categoricalChecks = 0;
 const surfaces = new Map<string, Set<string>>();
 
 for (const locale of locales) {
+  for (let sample = 0; sample < 80; sample += 1) {
+    const single=localizeDi004SingleSet(generateDi004SingleLineSet({seed:`DI004-GROUP-RATIO-SINGLE-${sample}`}),locale);
+    const multi=localizeDi004MultiSet(generateDi004MultiLineSet({seed:`DI004-GROUP-RATIO-MULTI-${sample}`}),locale);
+    for(const q of single.questions) if(q.kind==="TWO_PAIR_RATIO"){
+      const stemPattern=locale==="hi-IN"?/पहली जोड़ी .* के कुल मान और दूसरी जोड़ी .* के कुल मान का अनुपात क्या है\?$/u:/ਪਹਿਲੀ ਜੋੜੀ .* ਦੇ ਕੁੱਲ ਮੁੱਲ ਅਤੇ ਦੂਜੀ ਜੋੜੀ .* ਦੇ ਕੁੱਲ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ\?$/u;
+      assert(stemPattern.test(q.stem), `Unexpected DI-004 single-series group ratio: ${q.stem}`);
+    }
+    for(const q of multi.questions) if(q.kind==="TWO_SERIES_GROUP_RATIO"){
+      const stemPattern=locale==="hi-IN"?/पहले समूह .* में .* के कुल मान और दूसरे समूह .* में .* के कुल मान का अनुपात क्या है\?$/u:/ਪਹਿਲੇ ਸਮੂਹ .* ਵਿੱਚ .* ਦੇ ਕੁੱਲ ਮੁੱਲ ਅਤੇ ਦੂਜੇ ਸਮੂਹ .* ਵਿੱਚ .* ਦੇ ਕੁੱਲ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ\?$/u;
+      assert(stemPattern.test(q.stem), `Unexpected DI-004 three-series group ratio: ${q.stem}`);
+    }
+  }
   for (const descriptor of DI004_PERMANENT_QLS) {
     const key = `${locale}:${descriptor.qlId}`;
     surfaces.set(key, new Set<string>());
