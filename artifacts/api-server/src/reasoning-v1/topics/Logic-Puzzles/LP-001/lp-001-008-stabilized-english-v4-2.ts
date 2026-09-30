@@ -205,7 +205,7 @@ function buildExplanation(caselet: Caselet, bundles: readonly Lp001ClueBundle[])
 
     const lead = pending.length === 1
       ? `${step === 1 ? "Start with" : "Now use"} this clue — ${pending[0]!.text}`
-      : `Use these connected clues together — ${pending.map((item) => item.text.replace(/[.]$/u, "")).join("; then ")}.`;
+      : `Use these connected clues together:\n\n${pending.map((item) => `- ${item.text}`).join("\n")}`;
     let body = `${lead}\n\nThe table becomes:\n\n${afterTable}`;
 
     if (!caseShown && after.length === 2 && !isLast) {
