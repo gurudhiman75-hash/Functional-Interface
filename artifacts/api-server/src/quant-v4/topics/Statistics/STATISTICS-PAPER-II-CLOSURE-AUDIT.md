@@ -23,7 +23,7 @@ The review-only lifecycle remains in force: Question Bank writes, test/mock elig
 | Random variables and distributions | STAT-009 | Common named distributions and discrete joint-distribution foundations are present. |
 | Sampling theory | STAT-010 | Core designs, errors, sampling distribution, standard error, and a stated sample-size method are present. |
 | Statistical inference | STAT-011 | Point-estimation foundations now include known-σ mean and Wald proportion interval construction plus upper-tailed Z and chi-square critical-value decisions. Two-sample/small-sample intervals, p-values, broader test families, power, and sample-size planning remain deferred. |
-| Analysis of variance | STAT-012 | Foundation only. Replicated two-way designs, interaction decomposition, post-hoc comparisons, assumptions, and diagnostics remain deferred. |
+| Analysis of variance | STAT-012 | One-way foundation plus replicated 2×2 interaction sum-of-squares/F calculation, interaction interpretation, Tukey-style follow-up, and classical assumptions. Broader layouts, diagnostics, and robust alternatives remain open. |
 | Time series | STAT-013 | Trend can be fitted from raw coded-time observations by least squares (STAT-QL-161). Moving-average values are supplied; other advanced extensions remain open. |
 | Index numbers | STAT-014 | Foundation only. Weighted average-of-relatives variants and broader multi-period basket/base/chain work remain open. |
 
