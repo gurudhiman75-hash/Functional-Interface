@@ -665,6 +665,9 @@ function localizeNaturalStem(text: string, language: "hi"|"pa", packageId?: stri
   return null;
 }
 
+const DEVANAGARI_SCRIPT = /[\u0904-\u0963\u0966-\u097F]/;
+const GURMUKHI_SCRIPT = /[\u0A01-\u0A03\u0A05-\u0A0A\u0A0F-\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A3C-\u0A4C\u0A59-\u0A5E\u0A66-\u0A75]/;
+
 const COMMON_ENGLISH = /\b(?:which|what|why|where|when|how|the|and|or|is|are|was|were|does|do|did|can|could|would|should|has|have|had|with|from|into|for|of|to|in|on|at|by|as|than|that|this|these|those|most|main|major|only|correct|statement|following)\b/gi;
 
 function residueCount(text: string) {
