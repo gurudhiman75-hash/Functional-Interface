@@ -124,7 +124,7 @@ export function renderDi004V2ReviewMarkdown() {
   return [
     "# DI-004 Line Graph V2 — Editorial Review Pack",
     "",
-    "English is the approved permanent authority. Hindi/Punjabi below are HI_PA_REVIEW_CANDIDATE and remain Question Studio locked until human approval.",
+    "English remains the source authority. Hindi/Punjabi for DI-QL-109 through DI-QL-120 are approved for Question Studio controlled review.",
     "",
     "Learner-facing stems do not contain explicit rounding commands; approximate percentage/average wording is used where required. Question Bank, tests, mocks and public delivery remain unauthorized.",
     "",
