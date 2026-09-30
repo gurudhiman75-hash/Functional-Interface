@@ -18,6 +18,7 @@ import { localizeGeoPln001ExactCp003 } from "./regional-planning/geo-pln-001-loc
 import { localizeGeoPop001ExactCp001PartA } from "./population-settlements/geo-pop-001-localization-cp001-part-a-v1";
 import { localizeGeoPop001ExactCp001PartB } from "./population-settlements/geo-pop-001-localization-cp001-part-b-v1";
 import { localizeGeoPop001ExactCp002PartA } from "./population-settlements/geo-pop-001-localization-cp002-part-a-v1";
+import { localizeGeoPop001ExactCp002PartB } from "./population-settlements/geo-pop-001-localization-cp002-part-b-v1";
 
 export type IndianGeoLocalizationLanguageV1 = "en" | "hi" | "pa";
 type CanonicalQuestion = Readonly<{
@@ -765,7 +766,8 @@ export function localizeIndianGeoQuestionV1(
     const approved =
       localizeGeoPop001ExactCp001PartA(question, language) ??
       localizeGeoPop001ExactCp001PartB(question, language) ??
-      localizeGeoPop001ExactCp002PartA(question, language);
+      localizeGeoPop001ExactCp002PartA(question, language) ??
+      localizeGeoPop001ExactCp002PartB(question, language);
     if (approved) return approved;
   }
 
