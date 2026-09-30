@@ -32,6 +32,7 @@ import {
   localizePnl001StandaloneChoice,
   localizePnl001StandaloneContext,
 } from "./pnl-standalone-native-localizer-v2";
+import { selectPnlAuthoredStem } from "./pnl-authored-stem-variants";
 import {
   PNL_001_STANDALONE_DYNAMIC_LANGUAGES,
   type Pnl001NativeDynamicLanguage,
@@ -210,11 +211,19 @@ function buildNativePackage(
     englishContext,
     language,
   ) as Readonly<Record<string, unknown>>;
-  const stem = renderLocalizedStructuredStemMarkdown(
+  const canonicalStem = renderLocalizedStructuredStemMarkdown(
     nativeEntry.stem,
     language,
     nativeContext,
   );
+  const selectedStem = selectPnlAuthoredStem({
+    qlId,
+    seed: String(englishPackage.parameters.seed),
+    language,
+    variables: nativeContext,
+    canonicalStem,
+  });
+  const stem = selectedStem.stem;
   const nativeEditorialExplanation = renderLocalizedFriendlyExplanationMarkdown(
     nativeEntry.explanation,
     language,
@@ -287,6 +296,7 @@ function buildNativePackage(
       variables: nativeContext,
       sourceLanguage: "en",
       localizationAuthority: "PNL-001-WAVE03-STANDALONE-DYNAMIC",
+      authoredStemVariant: selectedStem.variant,
     },
     solver: {
       ...englishPackage.solver,
@@ -314,6 +324,7 @@ function buildNativePackage(
       language,
       sourceLanguage: "en",
       localizationAuthority: "PNL-001-WAVE03-STANDALONE-DYNAMIC",
+      authoredStemVariant: selectedStem.variant,
     },
     validation,
   };
@@ -341,6 +352,22 @@ export function runPnl001StandaloneDynamicPipeline(
     questionLanguageId: input.questionLanguageId,
     seed: input.seed,
   });
-  if (language === "en") return englishPackage;
+  if (language === "en") {
+    const selectedStem = selectPnlAuthoredStem({
+      qlId: englishPackage.questionLanguageId,
+      seed: String(englishPackage.parameters.seed),
+      language,
+      variables: englishPackage.parameters.variables,
+      canonicalStem: englishPackage.stem,
+    });
+    return selectedStem.variant === 0 ? englishPackage : {
+      ...englishPackage,
+      stem: selectedStem.stem,
+      traceability: {
+        ...englishPackage.traceability,
+        authoredStemVariant: selectedStem.variant,
+      },
+    };
+  }
   return buildNativePackage(englishPackage, language);
 }
