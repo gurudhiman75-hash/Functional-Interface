@@ -37,3 +37,11 @@ This blueprint addresses the numerical gap identified by the user. Mixed circle/
 ## Execution record
 
 Implemented and verified on 2026-09-30. The Question Studio pool now provides 48 seeded review questions per language (144 renderings total) across six new checkpoints and 20 scenario contexts. Twenty-three common query masks are represented across two- and three-set questions. Three-set pairwise counts explicitly include the centre. The review renderer shows solved diagrams only in explanations; maximum/minimum questions do not invent a unique hidden distribution. Human language approval remains pending. Exhaustiveness is bounded to the scope above; it does not claim every possible exam variation.
+
+## VEN-CP011: Geometric Shape Region Inspection
+
+Status: implemented as a Question Studio review candidate; human content and Hindi/Punjabi diagram review remain pending. Runtime stays review-only and does not write to the question bank.
+
+This checkpoint covers numerical Venn questions where three overlapping geometric shapes are labeled with real survey activities, each of the eight disjoint membership regions contains a count, and the learner must add only the region(s) matching a spoken condition. The rendered shapes are a circle, triangle, and rectangle. Query coverage includes each shape alone, each pair without the third, all three, exactly one shape, at least two shapes, and at least one shape. Eight context pools cover school activities, community services, training modules, media, health screenings, workplace tools, travel, and hobbies. The generated explanation names the exact region labels and uses the diagram's displayed values in the calculation.
+
+The layout uses fixed, checked sample points for all eight membership masks. Automated tests verify every number sits inside exactly the shapes described by its region mask with at least 32 pixels of boundary clearance, all eight regions appear, answer arithmetic matches the selected masks, options are unique, and the adapter exposes the checkpoint in English, Hindi, and Punjabi. Visual review is still required for label clearance, translation quality, and diagram readability before signoff.
