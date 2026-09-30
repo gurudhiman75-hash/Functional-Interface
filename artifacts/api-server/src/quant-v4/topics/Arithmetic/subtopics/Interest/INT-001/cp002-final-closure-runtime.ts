@@ -513,12 +513,24 @@ function buildCounterfactualOriginalDuration(seed: string): BuiltQuestion {
 
 function buildPartialRepaymentComparison(seed: string): BuiltQuestion {
   const { actor, institution } = context(seed);
-  const openingPrincipal = rational(pick([10000, 12000, 15000, 20000], seed, "opening"));
-  const repayment = multiplyRational(openingPrincipal, pick([rational(1, 5), rational(1, 4)], seed, "repayment-fraction"));
-  const rate = rational(pick([6, 8, 10, 12], seed, "rate"));
-  const earlyTime = rational(1);
-  const lateTime = rational(pick([2, 3], seed, "late-time"));
-  const horizon = addRational(lateTime, rational(1));
+  const openingPrincipal = rational(pick([12000, 18000, 24000, 30000, 36000], seed, "opening"));
+  const repayment = multiplyRational(
+    openingPrincipal,
+    pick([rational(1, 6), rational(1, 5), rational(1, 4), rational(1, 3)], seed, "repayment-fraction"),
+  );
+  const rate = rational(pick([5, 6, 8, 10, 12, 15], seed, "rate"));
+  const timing = pick([
+    { early: 1, late: 3 },
+    { early: 1, late: 4 },
+    { early: 2, late: 3 },
+    { early: 2, late: 5 },
+    { early: 3, late: 4 },
+    { early: 3, late: 5 },
+    { early: 4, late: 6 },
+  ] as const, seed, "repayment-timing");
+  const earlyTime = rational(timing.early);
+  const lateTime = rational(timing.late);
+  const horizon = addRational(lateTime, rational(pick([1, 2], seed, "horizon-tail")));
   const saving = simpleInterest(repayment, rate, subtractRational(lateTime, earlyTime));
   const fullHorizonSaving = simpleInterest(repayment, rate, horizon);
   const earlyDurationSaving = simpleInterest(repayment, rate, earlyTime);
@@ -627,9 +639,13 @@ function buildBorrowLendMissingDuration(seed: string): BuiltQuestion {
 
 function buildDayCountBasisComparison(seed: string): BuiltQuestion {
   const { actor, institution } = context(seed);
-  const days = rational(pick([72, 360], seed, "days"));
-  const principal = rational(pick([7300, 14600, 21900], seed, "principal"));
-  const rate = rational(pick([5, 10], seed, "rate"));
+  const days = rational(pick([30, 45, 60, 72, 73, 90, 120, 146, 180, 240, 300, 360], seed, "days"));
+  const principal = rational(pick(
+    [7200, 7300, 10800, 14400, 14600, 18000, 21600, 21900, 28800, 29200, 36000, 36500],
+    seed,
+    "principal",
+  ));
+  const rate = rational(pick([4, 5, 6, 8, 10, 12], seed, "rate"));
   const commercialInterest = simpleInterest(principal, rate, divideRational(days, rational(360)));
   const actualInterest = simpleInterest(principal, rate, divideRational(days, rational(365)));
   const difference = subtractRational(commercialInterest, actualInterest);
