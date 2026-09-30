@@ -153,5 +153,7 @@ assertVisible(reference.scenario, reference.groups.map((group: string) => refere
 const referenceExplanation = reference.children[0].explanation.lines.join("\n\n");
 const referenceDisplayed = reference.clues.map((clue: any) => clue.text);
 const referenceExplained = [...referenceDisplayed].sort((a, b) => referenceExplanation.indexOf(a) - referenceExplanation.indexOf(b));
-assert.notDeepEqual(referenceExplained, referenceDisplayed, "First LP-001 review case still follows displayed clue order mechanically.");
-console.log("LP-001 reference case: all people/groups explicit and explanation order is independently planned.");
+if (referenceDisplayed.length > 1) {
+  assert.notDeepEqual(referenceExplained, referenceDisplayed, "First LP-001 multi-clue review case still follows displayed clue order mechanically.");
+}
+console.log(`LP-001 reference case: all people/groups explicit; ${referenceDisplayed.length > 1 ? "multi-clue explanation order is independently planned" : "single-clue case requires no artificial reordering"}.`);
