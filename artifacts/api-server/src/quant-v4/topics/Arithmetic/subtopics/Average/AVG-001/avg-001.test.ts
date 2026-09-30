@@ -67,7 +67,9 @@ for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
     assert.ok(first.correctIndex >= 0 && first.correctIndex < first.options.length, `${questionLanguageId}: invalid correct option index`);
     assert.equal(first.options[first.correctIndex], first.answer, `${questionLanguageId}: answer/options mismatch`);
     assert.doesNotMatch(first.stem, /\{[A-Za-z0-9_]+\}/, `${questionLanguageId}: unresolved stem placeholder`);
-    assert.doesNotMatch(first.explanation.lines.join("\n"), /\{[A-Za-z0-9_]+\}/, `${questionLanguageId}: unresolved explanation placeholder`);
+    const entry = entries.find((candidate) => candidate.qlId === questionLanguageId)!;
+    const unresolvedTokens = entry.requiredVariables.filter((token) => first.explanation.lines.some((line) => new RegExp(`(^|[^A-Za-z\\\\])\\\\{${token}\\\\}`).test(line)));
+    assert.deepEqual(unresolvedTokens, [], `${questionLanguageId}: unresolved explanation variables`);
     assertMathJaxSafe(first.explanation.lines.join("\n"), `${questionLanguageId}:explanation`);
     assertMathJaxSafe(first.solver.equation ?? "", `${questionLanguageId}:solver`);
     generated += 1;
