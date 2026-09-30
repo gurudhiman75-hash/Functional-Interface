@@ -51,7 +51,7 @@ for(let i=0;i<24000;i++){
   const cp=i%4,difficulty=(["easy","medium","hard"]as const)[i%3],generator=generators[cp]!;
   const q:any=generator({seed:`eng005-final:${i}`,difficulty});
   seen.add(`${cp+1}:${q.metadata.entryId}`);positions[q.correctOptionIndex]++;
-  assert.equal(q.options.length,4);assert.equal(new Set(q.options.map((x:string)=>x.toLowerCase())).size,4);
+  assert.equal(q.options.length,4);assert.equal(new Set(q.options.map((x:string)=>x.toLowerCase())).size,4);assert.ok(q.explanation.length>=80,`Weak ENG-005 explanation: ${q.explanation}`);assert.ok(q.explanation.includes(q.metadata.phrase),`Explanation missing phrase: ${q.metadata.entryId}`);
 }
 assert.equal(seen.size,840);
 for(const n of positions)assert.ok(n>=5400&&n<=6600,`Final answer-position imbalance: ${positions.join(",")}`);

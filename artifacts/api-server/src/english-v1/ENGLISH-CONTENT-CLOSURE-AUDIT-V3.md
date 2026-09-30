@@ -97,6 +97,12 @@ The V2 closure decisions remain authoritative for the following inventories:
 
 ENG-001 through ENG-007 also retain their previously approved closed/frozen states.
 
+### Historical checkpoint status labels
+
+Some older checkpoint/source-audit artifacts intentionally preserve the lifecycle state that existed when those artifacts were authored, including labels such as `HUMAN_REVIEW_PENDING`, `FREEZE_CANDIDATE`, or pre-registration wording.
+
+Those historical status lines do **not** override later owner approvals, freeze records, chapter closure records, or this whole-English closure authority. For current lifecycle decisions, use the latest chapter-level approval/freeze/closure record rather than an older checkpoint header.
+
 ## Final gap decision
 
 No material English content-family gap remains in the implemented ENG-001 through ENG-013 blueprint.
