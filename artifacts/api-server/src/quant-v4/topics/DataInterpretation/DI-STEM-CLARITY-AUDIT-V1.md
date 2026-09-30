@@ -38,6 +38,16 @@ Review feedback found that removing procedural directions was not enough: many H
 
 The subsequent chapter scan found four English DI-012 stems that began with “After recovering…” or “After solving…”, and one DI-006 stem that appended “after resolving all stated relations.” These directions are now removed from the questions; the recovery work stays in the explanations. The DI-011 pie-chart/table prompt also no longer adds a stiff “according to the table” clause where the paired display already supplies that context. Regression checks cover these wording rules.
 
+## Exam-style spot check (2026-09-30)
+
+A limited comparison was made against publicly available SSC CGL and Banking DI materials:
+
+- SSC CGL Tier I, 20 July 2023 Shift 2, uses a separate direction to read the pie chart, followed by a direct question: “What is the difference between the funds … acquired by the school from donation and those from government agencies?” [Paper copy](https://cdn-images.prepp.in/public/image/SSC_CGL_2023_Tier_1_Shift_2_Question_Paper_with_Answer_Key_PDF_English_July_20_2023_1_46_3e1e8fbcff723636a6d459786209987b.pdf).
+- SSC CGL Tier II, 26 October 2023 Shift 1, asks directly for “the difference between the average production” for the named flavours and years. [Question record](https://prepp.in/question/a-toffee-company-prepares-toffee-of-two-different-65e05950d5a684356e94000a).
+- Banking-style DI sets also separate directions from the individual asks; examples use direct forms such as “Find the average…” and “What is the ratio…”. The available sample was a practice quiz, not an official SBI/IBPS paper. [SBI PO/Clerk practice quiz, 16 October 2023](https://www.bankersadda.com/quantitative-aptitude-quiz-for-sbi-po-clerk-prelims-2023-16th-october/).
+
+This spot check supports keeping data-set directions in the chart/table presentation and phrasing the question itself as a concise ask. It is a limited style comparison, not a representative linguistic study or proof of official authorship. It informed the DI-011 pie/table edits and the DI-012 direct variable-value wording in this revision.
+
 ## Audit boundary
 
-This pass checked generated wording and mathematical answerability in source and deterministic samples. It does not claim an independent human comparison against a representative bank of current SSC/Banking previous-year questions. Revised DI-004 single-/three-series and DI-011–DI-014 Hindi/Punjabi surfaces are review candidates and require another review before freeze.
+The wording checks and answerability checks cover deterministic source samples; the external comparison above is a limited spot check rather than a representative bank-wide comparison. Revised DI-004 single-/three-series and DI-011–DI-014 Hindi/Punjabi surfaces remain review candidates and require another review before freeze.
