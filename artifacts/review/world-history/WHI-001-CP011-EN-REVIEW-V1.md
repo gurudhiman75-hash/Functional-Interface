@@ -1,11 +1,9 @@
 # WHI-001-CP011 — United Nations and Post-war Institutions
 
-**English pool:** 60 questions; editorial review requested
-**Lifecycle:** Review-only; not registered in Question Studio; no learner delivery
+**Status:** English editorial first pass complete; human approval requested.
+**Lifecycle:** Review-only; not registered in Question Studio; no learner delivery.
 
-Review Charter wording, institutional functions, chronology, and the distinction between the UN, Bretton Woods institutions and separate war-crimes tribunals.
-
-### WHI-CP011-Q001 · Easy · UN founding and chronology
+### WHI-CP011-Q001 · easy · UN founding and chronology
 
 Where was the United Nations Charter signed in June 1945?
 
@@ -17,7 +15,7 @@ Where was the United Nations Charter signed in June 1945?
 **Explanation:** Delegates signed the Charter in San Francisco on 26 June 1945. The conference followed wartime planning for a new international organisation.
 **Sources:** CP011-S01, CP011-S02
 
-### WHI-CP011-Q002 · Easy · UN founding and chronology
+### WHI-CP011-Q002 · easy · UN founding and chronology
 
 On what date did the United Nations Charter enter into force?
 
@@ -29,7 +27,7 @@ On what date did the United Nations Charter enter into force?
 **Explanation:** The Charter entered into force on 24 October 1945 after the required ratifications. The date is observed as United Nations Day.
 **Sources:** CP011-S01, CP011-S02
 
-### WHI-CP011-Q003 · Easy · UN founding and chronology
+### WHI-CP011-Q003 · easy · UN founding and chronology
 
 Which international organisation was created by the Charter signed at the San Francisco Conference?
 
@@ -41,7 +39,7 @@ Which international organisation was created by the Charter signed at the San Fr
 **Explanation:** The Charter established the United Nations as an international organisation. The League of Nations was its predecessor, not the body created in San Francisco.
 **Sources:** CP011-S01
 
-### WHI-CP011-Q004 · Medium · UN founding and chronology
+### WHI-CP011-Q004 · medium · UN founding and chronology
 
 Which wartime conference agreed on a framework for a post-war international organisation before San Francisco?
 
@@ -53,7 +51,7 @@ Which wartime conference agreed on a framework for a post-war international orga
 **Explanation:** The Dumbarton Oaks talks in 1944 produced proposals for a new international organisation. The San Francisco Conference later negotiated and adopted the Charter.
 **Sources:** CP011-S02
 
-### WHI-CP011-Q005 · Medium · UN founding and chronology
+### WHI-CP011-Q005 · medium · UN founding and chronology
 
 Which sequence correctly orders the creation of the United Nations?
 
@@ -65,7 +63,7 @@ Which sequence correctly orders the creation of the United Nations?
 **Explanation:** Proposals were developed at Dumbarton Oaks in 1944, the Charter was signed in June 1945 and it entered into force in October 1945.
 **Sources:** CP011-S02
 
-### WHI-CP011-Q006 · Hard · UN founding and chronology
+### WHI-CP011-Q006 · hard · UN founding and chronology
 
 What central purpose is stated in the opening of the UN Charter?
 
@@ -77,7 +75,7 @@ What central purpose is stated in the opening of the UN Charter?
 **Explanation:** The Charter identifies the maintenance of international peace and security as a central purpose. It also sets out cooperation and human-rights goals.
 **Sources:** CP011-S01
 
-### WHI-CP011-Q007 · Easy · Charter principles and purposes
+### WHI-CP011-Q007 · easy · Charter principles and purposes
 
 Which principle in Article 2 of the UN Charter recognises the sovereign equality of member states?
 
@@ -89,7 +87,7 @@ Which principle in Article 2 of the UN Charter recognises the sovereign equality
 **Explanation:** Article 2 states the principle of sovereign equality among members. It does not give every state identical roles in every UN organ.
 **Sources:** CP011-S01
 
-### WHI-CP011-Q008 · Easy · Charter principles and purposes
+### WHI-CP011-Q008 · easy · Charter principles and purposes
 
 What does Article 2(4) of the UN Charter require states to refrain from doing?
 
@@ -101,7 +99,7 @@ What does Article 2(4) of the UN Charter require states to refrain from doing?
 **Explanation:** Article 2(4) prohibits the threat or use of force against another state's territorial integrity or political independence, subject to Charter provisions.
 **Sources:** CP011-S01
 
-### WHI-CP011-Q009 · Medium · Charter principles and purposes
+### WHI-CP011-Q009 · medium · Charter principles and purposes
 
 Which method does the UN Charter encourage for resolving international disputes?
 
@@ -113,9 +111,9 @@ Which method does the UN Charter encourage for resolving international disputes?
 **Explanation:** The Charter calls on members to settle disputes by peaceful means. The specific method depends on the dispute and the parties involved.
 **Sources:** CP011-S01
 
-### WHI-CP011-Q010 · Easy · Charter principles and purposes
+### WHI-CP011-Q010 · easy · Charter principles and purposes
 
-What does the Charter mean by the principle of non-intervention in domestic jurisdiction, subject to enforcement measures?
+Under Article 2(7), what limit does the UN Charter place on intervention in a state's domestic affairs?
 
 - **A.** States may ignore all treaty obligations
 - **B.** The UN generally should not intervene in matters essentially within a state's domestic jurisdiction
@@ -125,7 +123,7 @@ What does the Charter mean by the principle of non-intervention in domestic juri
 **Explanation:** Article 2(7) limits UN intervention in domestic matters while preserving enforcement action under Chapter VII. It is not a blanket exemption from international obligations.
 **Sources:** CP011-S01
 
-### WHI-CP011-Q011 · Medium · Charter principles and purposes
+### WHI-CP011-Q011 · medium · Charter principles and purposes
 
 Which statement best describes the purposes of the United Nations?
 
@@ -137,7 +135,7 @@ Which statement best describes the purposes of the United Nations?
 **Explanation:** The Charter combines peace and security with cooperation and friendly relations among nations. It does not establish a world government or universal domestic court system.
 **Sources:** CP011-S01
 
-### WHI-CP011-Q012 · Medium · Charter principles and purposes
+### WHI-CP011-Q012 · medium · Charter principles and purposes
 
 How many principal organs were established by the original UN Charter?
 
@@ -149,7 +147,7 @@ How many principal organs were established by the original UN Charter?
 **Explanation:** The Charter established six principal organs. They are the General Assembly, Security Council, ECOSOC, Trusteeship Council, International Court of Justice and Secretariat.
 **Sources:** CP011-S01, CP011-S03
 
-### WHI-CP011-Q013 · Easy · Principal organs and functions
+### WHI-CP011-Q013 · easy · Principal organs and functions
 
 Which principal UN organ includes all member states?
 
@@ -161,19 +159,19 @@ Which principal UN organ includes all member states?
 **Explanation:** The General Assembly is the UN's plenary organ, with each member state represented. Its powers differ from those of the Security Council.
 **Sources:** CP011-S03
 
-### WHI-CP011-Q014 · Easy · Principal organs and functions
+### WHI-CP011-Q014 · easy · Principal organs and functions
 
 Which UN organ has primary responsibility for maintaining international peace and security?
 
 - **A.** The International Court of Justice
 - **B.** The Security Council
 - **C.** The Economic and Social Council
-- **D.** The General Assembly Secretariat
+- **D.** The General Assembly
 **Answer:** B
 **Explanation:** Article 24 gives the Security Council primary responsibility for international peace and security. The Charter assigns distinct functions to the other principal organs.
 **Sources:** CP011-S03
 
-### WHI-CP011-Q015 · Easy · Principal organs and functions
+### WHI-CP011-Q015 · easy · Principal organs and functions
 
 Which UN organ coordinates work on economic, social and related international issues?
 
@@ -185,7 +183,7 @@ Which UN organ coordinates work on economic, social and related international is
 **Explanation:** The Economic and Social Council coordinates work in economic and social fields. It is a principal organ established by the Charter.
 **Sources:** CP011-S03
 
-### WHI-CP011-Q016 · Easy · Principal organs and functions
+### WHI-CP011-Q016 · easy · Principal organs and functions
 
 What is the principal judicial organ of the United Nations?
 
@@ -197,7 +195,7 @@ What is the principal judicial organ of the United Nations?
 **Explanation:** The International Court of Justice is the UN's principal judicial organ. It hears cases between states and gives advisory opinions when authorised.
 **Sources:** CP011-S05
 
-### WHI-CP011-Q017 · Medium · Principal organs and functions
+### WHI-CP011-Q017 · medium · Principal organs and functions
 
 Which principal UN organ carries out the organisation's day-to-day administrative work?
 
@@ -209,7 +207,7 @@ Which principal UN organ carries out the organisation's day-to-day administrativ
 **Explanation:** The Secretariat carries out the UN's administrative work under the authority of the Secretary-General. It is one of the six principal organs.
 **Sources:** CP011-S03
 
-### WHI-CP011-Q018 · Medium · Principal organs and functions
+### WHI-CP011-Q018 · medium · Principal organs and functions
 
 Which principal organ was established to supervise the international trusteeship system?
 
@@ -221,7 +219,7 @@ Which principal organ was established to supervise the international trusteeship
 **Explanation:** The Trusteeship Council supervised trust territories under the Charter system. It suspended operations after the last trust territory became independent.
 **Sources:** CP011-S06
 
-### WHI-CP011-Q019 · Medium · Principal organs and functions
+### WHI-CP011-Q019 · medium · Principal organs and functions
 
 What is the main role of the UN General Assembly under the Charter?
 
@@ -233,7 +231,7 @@ What is the main role of the UN General Assembly under the Charter?
 **Explanation:** The General Assembly may discuss Charter matters and make recommendations, subject to Charter limits. It does not operate as a world parliament with direct authority over national governments.
 **Sources:** CP011-S01, CP011-S03
 
-### WHI-CP011-Q020 · Medium · Principal organs and functions
+### WHI-CP011-Q020 · medium · Principal organs and functions
 
 Which group of states were named as permanent members of the Security Council in the original Charter?
 
@@ -245,7 +243,7 @@ Which group of states were named as permanent members of the Security Council in
 **Explanation:** Article 23 named China, France, the Soviet Union, the United Kingdom and the United States as permanent members. This is the original Charter wording for the post-war body.
 **Sources:** CP011-S04
 
-### WHI-CP011-Q021 · Easy · Security Council and decision-making
+### WHI-CP011-Q021 · easy · Security Council and decision-making
 
 What is the veto in the UN Security Council?
 
@@ -257,7 +255,7 @@ What is the veto in the UN Security Council?
 **Explanation:** On substantive matters, a negative vote by a permanent member prevents adoption of a draft resolution. Procedural decisions are treated differently under Article 27.
 **Sources:** CP011-S04
 
-### WHI-CP011-Q022 · Medium · Security Council and decision-making
+### WHI-CP011-Q022 · medium · Security Council and decision-making
 
 Which type of Security Council decision is not subject to the permanent-member veto under Article 27?
 
@@ -269,19 +267,19 @@ Which type of Security Council decision is not subject to the permanent-member v
 **Explanation:** Article 27 distinguishes procedural decisions from other matters that require the concurring votes of permanent members. The veto applies to substantive decisions, not procedural votes.
 **Sources:** CP011-S04
 
-### WHI-CP011-Q023 · Hard · Security Council and decision-making
+### WHI-CP011-Q023 · hard · Security Council and decision-making
 
-What responsibility does Article 24 assign to the Security Council?
+What do UN members agree about the Security Council under Article 24?
 
 - **A.** International monetary cooperation
 - **B.** Judicial review of national legislation
-- **C.** Primary responsibility for international peace and security
+- **C.** It acts on members' behalf in carrying out its peace-and-security responsibility
 - **D.** Administration of the UN Secretariat
 **Answer:** C
-**Explanation:** Article 24 gives the Security Council primary responsibility for maintaining international peace and security. Members agree that it acts on their behalf in carrying out that role.
+**Explanation:** Article 24 gives the Security Council primary responsibility for international peace and security. Members agree that it acts on their behalf in carrying out that role.
 **Sources:** CP011-S04
 
-### WHI-CP011-Q024 · Medium · Security Council and decision-making
+### WHI-CP011-Q024 · medium · Security Council and decision-making
 
 How many members did the Security Council have under the original 1945 Charter?
 
@@ -293,19 +291,19 @@ How many members did the Security Council have under the original 1945 Charter?
 **Explanation:** The original Charter provided for an eleven-member Security Council: five permanent members and six elected members. The Council was later enlarged to fifteen members in 1965.
 **Sources:** CP011-S04
 
-### WHI-CP011-Q025 · Easy · Security Council and decision-making
+### WHI-CP011-Q025 · easy · Security Council and decision-making
 
-Which statement best explains the Security Council veto?
+Which Security Council members hold the veto on substantive decisions?
 
-- **A.** It gives each permanent member a blocking vote on substantive decisions
-- **B.** It allows any member state to cancel a General Assembly resolution
-- **C.** It enables the Secretary-General to overturn court judgments
-- **D.** It prevents all procedural votes from being adopted
+- **A.** The five permanent members
+- **B.** All elected members
+- **C.** All UN member states
+- **D.** The Secretary-General
 **Answer:** A
-**Explanation:** The veto is a special voting power of the permanent members on substantive questions. It does not apply in the same way to procedural matters.
+**Explanation:** The veto is held by the five permanent members on substantive questions. It does not apply in the same way to procedural matters.
 **Sources:** CP011-S04
 
-### WHI-CP011-Q026 · Medium · Security Council and decision-making
+### WHI-CP011-Q026 · medium · Security Council and decision-making
 
 Which body may recommend a new state's admission to the United Nations before the General Assembly decides?
 
@@ -317,7 +315,7 @@ Which body may recommend a new state's admission to the United Nations before th
 **Explanation:** Under Article 4, admission is decided by the General Assembly upon the recommendation of the Security Council. Both steps are required.
 **Sources:** CP011-S01, CP011-S04
 
-### WHI-CP011-Q027 · Hard · Security Council and decision-making
+### WHI-CP011-Q027 · hard · Security Council and decision-making
 
 At which 1944 conference were the IMF and the International Bank for Reconstruction and Development designed?
 
@@ -329,7 +327,7 @@ At which 1944 conference were the IMF and the International Bank for Reconstruct
 **Explanation:** Delegates met at Bretton Woods in July 1944 and formulated the agreements for the IMF and IBRD. Both institutions are commonly called Bretton Woods institutions.
 **Sources:** CP011-S07
 
-### WHI-CP011-Q028 · Easy · Bretton Woods institutions
+### WHI-CP011-Q028 · easy · Bretton Woods institutions
 
 Which institution was created to support international monetary cooperation and address balance-of-payments problems?
 
@@ -341,7 +339,7 @@ Which institution was created to support international monetary cooperation and 
 **Explanation:** The IMF was designed to promote monetary cooperation and provide financial support for balance-of-payments needs. The World Bank has a different development and reconstruction focus.
 **Sources:** CP011-S07, CP011-S08
 
-### WHI-CP011-Q029 · Easy · Bretton Woods institutions
+### WHI-CP011-Q029 · easy · Bretton Woods institutions
 
 What was the institution now called the World Bank originally named?
 
@@ -353,7 +351,7 @@ What was the institution now called the World Bank originally named?
 **Explanation:** The World Bank began with the International Bank for Reconstruction and Development. Its original role included financing reconstruction and development.
 **Sources:** CP011-S08
 
-### WHI-CP011-Q030 · Easy · Bretton Woods institutions
+### WHI-CP011-Q030 · easy · Bretton Woods institutions
 
 Which post-war institution was primarily assigned financing for reconstruction and economic development?
 
@@ -365,7 +363,7 @@ Which post-war institution was primarily assigned financing for reconstruction a
 **Explanation:** The IBRD was assigned a role in reconstruction and development finance. The IMF focused more directly on monetary cooperation and financial stability.
 **Sources:** CP011-S08
 
-### WHI-CP011-Q031 · Medium · Bretton Woods institutions
+### WHI-CP011-Q031 · medium · Bretton Woods institutions
 
 Which agreement emerged from the Bretton Woods Conference in July 1944?
 
@@ -377,7 +375,7 @@ Which agreement emerged from the Bretton Woods Conference in July 1944?
 **Explanation:** The Bretton Woods Conference formulated the Articles of Agreement for the IMF and IBRD. The UN Charter was negotiated later at San Francisco.
 **Sources:** CP011-S07
 
-### WHI-CP011-Q032 · Medium · Bretton Woods institutions
+### WHI-CP011-Q032 · medium · Bretton Woods institutions
 
 Which comparison between the IMF and the World Bank is most accurate?
 
@@ -389,7 +387,7 @@ Which comparison between the IMF and the World Bank is most accurate?
 **Explanation:** The institutions share a post-war economic framework but have distinct roles. The IMF focuses on monetary cooperation, while the IBRD supports reconstruction and development.
 **Sources:** CP011-S07, CP011-S08
 
-### WHI-CP011-Q033 · Hard · Bretton Woods institutions
+### WHI-CP011-Q033 · hard · Bretton Woods institutions
 
 Which agreement established the International Military Tribunal at Nuremberg?
 
@@ -401,7 +399,7 @@ Which agreement established the International Military Tribunal at Nuremberg?
 **Explanation:** The London Agreement established the International Military Tribunal and included its Charter. The trials addressed senior Nazi leaders after the war.
 **Sources:** CP011-S09
 
-### WHI-CP011-Q034 · Medium · Nuremberg and Tokyo tribunals
+### WHI-CP011-Q034 · medium · Nuremberg and Tokyo tribunals
 
 Which category of crime was explicitly included in the Nuremberg Tribunal's jurisdiction?
 
@@ -413,7 +411,7 @@ Which category of crime was explicitly included in the Nuremberg Tribunal's juri
 **Explanation:** The Tribunal's Charter included crimes against humanity, alongside crimes against peace and war crimes. The category became important in post-war international law.
 **Sources:** CP011-S09
 
-### WHI-CP011-Q035 · Medium · Nuremberg and Tokyo tribunals
+### WHI-CP011-Q035 · medium · Nuremberg and Tokyo tribunals
 
 When did the International Military Tribunal at Nuremberg deliver its judgment?
 
@@ -425,7 +423,7 @@ When did the International Military Tribunal at Nuremberg deliver its judgment?
 **Explanation:** The Nuremberg Tribunal delivered its judgment on 1 October 1946. The proceedings had begun in November 1945.
 **Sources:** CP011-S09
 
-### WHI-CP011-Q036 · Hard · Nuremberg and Tokyo tribunals
+### WHI-CP011-Q036 · hard · Nuremberg and Tokyo tribunals
 
 Which tribunal tried leading Japanese wartime officials in Tokyo after the war?
 
@@ -437,7 +435,7 @@ Which tribunal tried leading Japanese wartime officials in Tokyo after the war?
 **Explanation:** The International Military Tribunal for the Far East held the Tokyo war-crimes trials. It was distinct from the Nuremberg tribunal in Europe.
 **Sources:** CP011-S10
 
-### WHI-CP011-Q037 · Easy · Nuremberg and Tokyo tribunals
+### WHI-CP011-Q037 · easy · Nuremberg and Tokyo tribunals
 
 When did the Tokyo war-crimes tribunal begin its proceedings?
 
@@ -449,7 +447,7 @@ When did the Tokyo war-crimes tribunal begin its proceedings?
 **Explanation:** The Tokyo tribunal began on 3 May 1946 and delivered its judgment in November 1948. Its proceedings concerned Japanese wartime leaders.
 **Sources:** CP011-S10
 
-### WHI-CP011-Q038 · Medium · Nuremberg and Tokyo tribunals
+### WHI-CP011-Q038 · medium · Nuremberg and Tokyo tribunals
 
 Which statement best compares the Nuremberg and Tokyo tribunals?
 
@@ -461,7 +459,7 @@ Which statement best compares the Nuremberg and Tokyo tribunals?
 **Explanation:** Nuremberg and Tokyo were separate post-war tribunals for leaders of Germany and Japan. Neither was a principal organ of the United Nations.
 **Sources:** CP011-S09, CP011-S10
 
-### WHI-CP011-Q039 · Hard · Nuremberg and Tokyo tribunals
+### WHI-CP011-Q039 · hard · Nuremberg and Tokyo tribunals
 
 Which Allied powers initially occupied Germany after its defeat in 1945?
 
@@ -473,7 +471,7 @@ Which Allied powers initially occupied Germany after its defeat in 1945?
 **Explanation:** Germany was occupied by the four principal Allied powers after its surrender. Each administered an occupation zone under the post-war arrangements.
 **Sources:** CP011-S11, CP011-S12
 
-### WHI-CP011-Q040 · Easy · Occupation and division of Germany
+### WHI-CP011-Q040 · easy · Occupation and division of Germany
 
 How was Berlin administered immediately after the Second World War?
 
@@ -485,7 +483,7 @@ How was Berlin administered immediately after the Second World War?
 **Explanation:** Berlin was located within the Soviet occupation zone but was itself divided into sectors administered by the four Allied powers. This arrangement later became a source of conflict.
 **Sources:** CP011-S11, CP011-S12
 
-### WHI-CP011-Q041 · Medium · Occupation and division of Germany
+### WHI-CP011-Q041 · medium · Occupation and division of Germany
 
 Which body coordinated the four-power administration of Germany after the war?
 
@@ -497,7 +495,7 @@ Which body coordinated the four-power administration of Germany after the war?
 **Explanation:** The Allied Control Council was intended to coordinate the four powers' administration of Germany. Cooperation between the occupying governments later broke down.
 **Sources:** CP011-S12
 
-### WHI-CP011-Q042 · Medium · Occupation and division of Germany
+### WHI-CP011-Q042 · medium · Occupation and division of Germany
 
 Which two German states were established in 1949 during the post-war division?
 
@@ -509,7 +507,7 @@ Which two German states were established in 1949 during the post-war division?
 **Explanation:** In 1949, the western occupation zones became the Federal Republic of Germany and the Soviet zone became the German Democratic Republic. The division reflected the growing Cold War split.
 **Sources:** CP011-S12
 
-### WHI-CP011-Q043 · Easy · Occupation and division of Germany
+### WHI-CP011-Q043 · easy · Occupation and division of Germany
 
 Which city was divided into occupation sectors despite lying inside the Soviet zone of Germany?
 
@@ -521,7 +519,7 @@ Which city was divided into occupation sectors despite lying inside the Soviet z
 **Explanation:** Berlin was divided into four sectors under Allied administration even though it lay within the Soviet occupation zone. This special status shaped later crises.
 **Sources:** CP011-S12
 
-### WHI-CP011-Q044 · Medium · Occupation and division of Germany
+### WHI-CP011-Q044 · medium · Occupation and division of Germany
 
 Which outcome best describes the post-war status of Germany before the two states were founded?
 
@@ -533,7 +531,7 @@ Which outcome best describes the post-war status of Germany before the two state
 **Explanation:** After the German surrender, the Allies governed Germany through occupation zones. The two German states were founded in 1949, not immediately in 1945.
 **Sources:** CP011-S11, CP011-S12
 
-### WHI-CP011-Q045 · Hard · Occupation and division of Germany
+### WHI-CP011-Q045 · hard · Occupation and division of Germany
 
 Which statement about the United Nations and the IMF is correct?
 
@@ -545,7 +543,7 @@ Which statement about the United Nations and the IMF is correct?
 **Explanation:** The United Nations has broad purposes set out in its Charter. The IMF is a separate Bretton Woods institution focused on monetary cooperation.
 **Sources:** CP011-S01, CP011-S07
 
-### WHI-CP011-Q046 · Medium · Judicial and trusteeship roles
+### WHI-CP011-Q046 · medium · Judicial and trusteeship roles
 
 Which institution hears contentious cases between states as its central judicial role?
 
@@ -557,7 +555,7 @@ Which institution hears contentious cases between states as its central judicial
 **Explanation:** The ICJ hears legal disputes submitted by states and gives advisory opinions when authorised. It does not try individuals for criminal responsibility.
 **Sources:** CP011-S05
 
-### WHI-CP011-Q047 · Medium · Judicial and trusteeship roles
+### WHI-CP011-Q047 · medium · Judicial and trusteeship roles
 
 Which statement distinguishes the International Court of Justice from the Nuremberg Tribunal?
 
@@ -569,7 +567,7 @@ Which statement distinguishes the International Court of Justice from the Nuremb
 **Explanation:** The ICJ is the UN's principal judicial organ and deals primarily with disputes between states. Nuremberg was a separate tribunal that tried individuals for international crimes.
 **Sources:** CP011-S05, CP011-S09
 
-### WHI-CP011-Q048 · Hard · Judicial and trusteeship roles
+### WHI-CP011-Q048 · hard · Judicial and trusteeship roles
 
 What was the purpose of the UN Trusteeship System?
 
@@ -581,7 +579,7 @@ What was the purpose of the UN Trusteeship System?
 **Explanation:** The Trusteeship System was intended to advance inhabitants and guide trust territories toward self-government or independence. It was a post-war international oversight arrangement.
 **Sources:** CP011-S06
 
-### WHI-CP011-Q049 · Medium · Judicial and trusteeship roles
+### WHI-CP011-Q049 · medium · Judicial and trusteeship roles
 
 What change did the Trusteeship Council make in 1994?
 
@@ -590,22 +588,22 @@ What change did the Trusteeship Council make in 1994?
 - **C.** It is the UN's principal judicial organ
 - **D.** It was dissolved before the UN Charter entered into force
 **Answer:** A
-**Explanation:** The Trusteeship Council suspended operations in 1994 after Palau became independent. 
+**Explanation:** The Trusteeship Council suspended operations in 1994 after Palau became independent.
 **Sources:** CP011-S06
 
-### WHI-CP011-Q050 · Medium · Judicial and trusteeship roles
+### WHI-CP011-Q050 · medium · Judicial and trusteeship roles
 
-Which statement best distinguishes a General Assembly recommendation from a Security Council decision?
+How does the UN Charter distinguish the General Assembly's recommendations from Security Council action?
 
 - **A.** The General Assembly has no role under the Charter
-- **B.** The Charter gives the two organs different powers and procedures
+- **B.** Their powers and the legal effect of their actions depend on the applicable Charter provisions
 - **C.** Every General Assembly recommendation is automatically a binding court judgment
 - **D.** The Security Council may act only after approval by the IMF
 **Answer:** B
-**Explanation:** The Charter gives the General Assembly and Security Council distinct functions. The legal effect of an action depends on the organ and the Charter provision used.
+**Explanation:** The Charter assigns distinct functions to the General Assembly and Security Council. The legal effect of each action depends on the organ and the Charter provision used.
 **Sources:** CP011-S01, CP011-S03, CP011-S04
 
-### WHI-CP011-Q051 · Hard · Judicial and trusteeship roles
+### WHI-CP011-Q051 · hard · Judicial and trusteeship roles
 
 Which sequence correctly orders Bretton Woods and the founding of the United Nations?
 
@@ -617,7 +615,7 @@ Which sequence correctly orders Bretton Woods and the founding of the United Nat
 **Explanation:** The Bretton Woods Conference took place in July 1944. The UN Charter was signed in June 1945 and entered into force in October 1945.
 **Sources:** CP011-S02, CP011-S07
 
-### WHI-CP011-Q052 · Medium · Institutional chronology
+### WHI-CP011-Q052 · medium · Institutional chronology
 
 Which sequence correctly orders key post-war institutional events?
 
@@ -629,7 +627,7 @@ Which sequence correctly orders key post-war institutional events?
 **Explanation:** The London Agreement was signed in August 1945, the Nuremberg judgment followed in October 1946, and the Tokyo judgment came in November 1948.
 **Sources:** CP011-S09, CP011-S10
 
-### WHI-CP011-Q053 · Hard · Institutional chronology
+### WHI-CP011-Q053 · hard · Institutional chronology
 
 Which statement best captures the post-war institutional order created in the 1940s?
 
@@ -641,7 +639,7 @@ Which statement best captures the post-war institutional order created in the 19
 **Explanation:** The post-war order included the United Nations, Bretton Woods institutions and separate war-crimes tribunals. They had different mandates and legal bases.
 **Sources:** CP011-S01, CP011-S07, CP011-S09
 
-### WHI-CP011-Q054 · Medium · Institutional chronology
+### WHI-CP011-Q054 · medium · Institutional chronology
 
 Which original permanent Security Council member was represented by the Soviet Union in the 1945 Charter?
 
@@ -653,7 +651,7 @@ Which original permanent Security Council member was represented by the Soviet U
 **Explanation:** The original Charter named the USSR as a permanent member. That wording records the institution's founding context in 1945.
 **Sources:** CP011-S04
 
-### WHI-CP011-Q055 · Medium · Institutional chronology
+### WHI-CP011-Q055 · medium · Institutional chronology
 
 Which statement correctly distinguishes the Nuremberg and Tokyo trials from the UN's principal organs?
 
@@ -665,7 +663,7 @@ Which statement correctly distinguishes the Nuremberg and Tokyo trials from the 
 **Explanation:** The tribunals were created by separate agreements and occupation authorities. Article 7 lists six principal UN organs and does not include them.
 **Sources:** CP011-S01, CP011-S09, CP011-S10
 
-### WHI-CP011-Q056 · Hard · Institutional chronology
+### WHI-CP011-Q056 · hard · Institutional chronology
 
 Which pairing is correct?
 
@@ -677,7 +675,7 @@ Which pairing is correct?
 **Explanation:** The IMF and IBRD were created within the Bretton Woods framework but were assigned different roles. The IMF dealt with monetary cooperation and the IBRD with reconstruction and development finance.
 **Sources:** CP011-S07, CP011-S08
 
-### WHI-CP011-Q057 · Medium · Post-war order and synthesis
+### WHI-CP011-Q057 · medium · Post-war order and synthesis
 
 Which combination correctly matches a post-war body with its function?
 
@@ -689,7 +687,7 @@ Which combination correctly matches a post-war body with its function?
 **Explanation:** The ICJ's role is to hear cases between states and provide advisory opinions under its statute. The other bodies listed have different mandates.
 **Sources:** CP011-S03, CP011-S05
 
-### WHI-CP011-Q058 · Medium · Post-war order and synthesis
+### WHI-CP011-Q058 · medium · Post-war order and synthesis
 
 Which requirement allowed the UN Charter to enter into force in October 1945?
 
@@ -701,7 +699,7 @@ Which requirement allowed the UN Charter to enter into force in October 1945?
 **Explanation:** Article 110 required ratification by the five permanent Security Council members and a majority of the other signatories. The Charter entered into force on 24 October 1945.
 **Sources:** CP011-S01, CP011-S02
 
-### WHI-CP011-Q059 · Medium · Post-war order and synthesis
+### WHI-CP011-Q059 · medium · Post-war order and synthesis
 
 Which statement about the post-war division of Germany is accurate?
 
@@ -713,7 +711,7 @@ Which statement about the post-war division of Germany is accurate?
 **Explanation:** The four-power occupation began after Germany's defeat. The Federal Republic and German Democratic Republic were founded later, in 1949.
 **Sources:** CP011-S11, CP011-S12
 
-### WHI-CP011-Q060 · Hard · Post-war order and synthesis
+### WHI-CP011-Q060 · hard · Post-war order and synthesis
 
 Which conclusion best explains why the UN, IMF and IBRD should not be treated as interchangeable organisations?
 
@@ -725,10 +723,3 @@ Which conclusion best explains why the UN, IMF and IBRD should not be treated as
 **Explanation:** The UN Charter and Bretton Woods agreements established organisations with different mandates. Their shared post-war setting does not make their roles interchangeable.
 **Sources:** CP011-S01, CP011-S07, CP011-S08
 
-## Pool audit
-
-- 60 questions and 60 linked canonical facts
-- 18 Easy / 30 Medium / 12 Hard
-- Correct-answer positions A15 / B15 / C15 / D15
-- Ten question-family values; family allocations follow the documented coverage map
-- All items are review-only and runtime-unregistered

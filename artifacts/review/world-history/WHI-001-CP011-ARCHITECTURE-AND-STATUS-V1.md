@@ -1,7 +1,7 @@
 # WHI-001-CP011 — Architecture and review status
 
 **Checkpoint:** United Nations and Post-war Institutions
-**Current state:** English pool complete (60/60); editorial review requested; not registered in Question Studio.
+**Current state:** English pool complete (60/60); first-pass editorial review complete; not registered in Question Studio.
 **Lifecycle:** Review-only; no learner delivery.
 
 ## Reused chapter architecture
@@ -14,8 +14,8 @@
 
 ## Current gate
 
-- English: 60 questions; 18 Easy / 30 Medium / 12 Hard; A15/B15/C15/D15.
-- Hindi and Punjabi are not yet authored.
+- English: 60 questions; 18 Easy / 30 Medium / 12 Hard; A15/B15/C15/D15. First-pass editorial corrections are documented; human approval requested.
+- Hindi and Punjabi remain gated pending human English approval.
 - No runtime registration or learner delivery is enabled.
 
 ## Artifacts
@@ -26,3 +26,8 @@
 - `WHI-001-CP011-QL-FAMILY-MAP-V1.md`
 - `world-history-cp011-en-v1.json`
 - `knowledge-v1-whi011-review-v1.test.ts`
+
+
+## Editorial update — 2026-09-30
+
+The English pool received a first-pass editorial review and focused corrections. Human English approval is requested; Hindi/Punjabi localization, Question Studio registration and learner delivery remain gated. See `WHI-001-CP011-CP014-EN-EDITORIAL-REVIEW-V1.md` and `WHI-001-CP011-CP014-EN-EDITORIAL-READINESS-V1.md`.

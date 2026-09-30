@@ -1409,7 +1409,7 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Détente and European security",
-    "stem": "Which arms-control agreement was signed in 1972 during détente?",
+    "stem": "Which treaty signed in 1972 limited anti-ballistic missile systems?",
     "options": [
       {
         "key": "A",
@@ -1425,11 +1425,11 @@
       },
       {
         "key": "D",
-        "text": "SALT I"
+        "text": "The Anti-Ballistic Missile (ABM) Treaty"
       }
     ],
     "correctOption": "D",
-    "explanation": "SALT I and the ABM Treaty were signed by the United States and Soviet Union in 1972.",
+    "explanation": "The ABM Treaty was signed alongside the SALT I Interim Agreement in 1972 and limited anti-ballistic missile systems.",
     "sourceIds": [
       "CP014-S12",
       "CP014-S13"
@@ -1589,27 +1589,27 @@
     "language": "en",
     "difficulty": "easy",
     "questionFamily": "Proxy conflicts and Cold War interventions",
-    "stem": "Which Cold War conflict began when North Korea invaded South Korea in 1950?",
+    "stem": "Which two governments fought in the Korean War that began in 1950?",
     "options": [
       {
         "key": "A",
-        "text": "The Korean War"
+        "text": "North Korea and South Korea"
       },
       {
         "key": "B",
-        "text": "The Vietnam War"
+        "text": "North Vietnam and South Vietnam"
       },
       {
         "key": "C",
-        "text": "The Soviet-Afghan War"
+        "text": "China and Taiwan"
       },
       {
         "key": "D",
-        "text": "The Cuban Missile Crisis"
+        "text": "East Germany and West Germany"
       }
     ],
     "correctOption": "A",
-    "explanation": "The Korean War involved opposing Korean governments and major outside intervention.",
+    "explanation": "The Korean War was fought between North and South Korea, with major outside intervention on both sides.",
     "sourceIds": [
       "CP014-S06",
       "CP014-S14"
