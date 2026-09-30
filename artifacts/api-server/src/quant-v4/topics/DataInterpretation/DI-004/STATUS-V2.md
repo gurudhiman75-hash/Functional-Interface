@@ -71,7 +71,7 @@ Each scenario family contains 12 neutral series pairs. Period schemes vary betwe
 
 DI-QL-109 through DI-QL-120 are reserved for the 12 V2 semantic families.
 
-The English QLs are approved for controlled review. Hindi/Punjabi for DI-QL-109 through DI-QL-120 are also approved for controlled review under localization release `DI-004-HI-PA-CONTROLLED-REVIEW-V1`. The single-series and three-series variants remain English-only.
+The English QLs are approved for controlled review. Hindi/Punjabi for DI-QL-109 through DI-QL-120 are also approved for controlled review under localization release `DI-004-HI-PA-CONTROLLED-REVIEW-V1`. Single-series and three-series variants now have Hindi/Punjabi Question Studio review candidates; they are not frozen.
 
 ## Verification gates
 
@@ -107,4 +107,4 @@ The V2 stress gate covers:
 - production release authorized: false
 - localization: HI_PA_FROZEN for permanent two-series QLs DI-QL-109 through DI-QL-120
 
-English and approved Hindi/Punjabi permanent two-series QLs are enabled for Question Studio controlled review. Question Bank, tests, mocks and public release remain locked.
+English and frozen Hindi/Punjabi permanent two-series QLs, plus single-/three-series Hindi/Punjabi review candidates, are enabled for Question Studio controlled review. Question Bank, tests, mocks and public release remain locked.

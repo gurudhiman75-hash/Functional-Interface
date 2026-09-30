@@ -41,7 +41,7 @@ Tables/caselets must not reference values that exist only in internal evidence/s
 
 ## Review boundary
 
-This is source and automated render-output verification of answerability. A representative raster review caught the DI-014 top value/maximum-tick collision; the renderer and 320-set regression now keep those labels apart. This does not certify all dynamic text at every viewport or font. Hindi/Punjabi coverage is separate: DI-001 through DI-010 have localization status records; DI-011 through DI-014 still require localization and review.
+This is source and automated render-output verification of answerability. A representative raster review caught the DI-014 top value/maximum-tick collision; the renderer and 320-set regression now keep those labels apart. This does not certify all dynamic text at every viewport or font. Hindi/Punjabi coverage is separate: DI-001 through DI-010 retain their recorded frozen scopes; DI-004 single-/three-series and DI-011 through DI-014 now expose Hindi/Punjabi review candidates that require native-language review.
 
 ## Release rule
 

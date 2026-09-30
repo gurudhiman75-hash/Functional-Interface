@@ -62,7 +62,7 @@ The V1 stress proof generates 300 deterministic sets / 1,500 linked questions an
 ## Lifecycle
 - Question Studio discoverable: true
 - Question Studio mode: CONTROLLED_REVIEW
-- English only in V1
+- English plus Hindi/Punjabi review candidates (hi-IN, pa-IN) in V1
 - Question Bank: NOT_STORED
 - writes disabled
 - tests/mocks: INELIGIBLE
@@ -70,4 +70,4 @@ The V1 stress proof generates 300 deterministic sets / 1,500 linked questions an
 - production release: not authorized
 - manual approval required
 
-Localization and production promotion are separate future gates.
+Hindi/Punjabi wording is a review candidate and requires native-language review before it can be frozen. Question Bank, test/mock, publication and production gates remain closed.

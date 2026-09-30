@@ -4,6 +4,8 @@ import {
   DI014_QUESTION_STUDIO_RUNTIME_MODE,
   generateDi014QuestionStudioBatch,
 } from "./question-studio-adapter";
+import { generateDi014RadarPieSet, DI014_TASKS } from "./radar-pie-set";
+import { localizeDi014Set } from "./localization-review-v1";
 
 const result=await generateDi014QuestionStudioBatch({
   canonicalProblemId:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
@@ -28,8 +30,39 @@ for(const q of result.questions){
   assert(q.stimulusSvgs[1].includes('data-pie-chart="true"'));
   assert(!q.stimulusSvgs[1].includes(">?</text>"));
 }
-await assert.rejects(
-  ()=>generateDi014QuestionStudioBatch({canonicalProblemId:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,language:"hi",count:1,seed:"blocked-hi"}),
-  /English review-only/u,
-);
-console.log("DI014_RADAR_PIE_QS_V1",JSON.stringify({questions:result.questions.length,lifecycleLocked:true}));
+for(const language of ["hi","pa"] as const){
+  const localized=await generateDi014QuestionStudioBatch({canonicalProblemId:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,examProfile:"BANKING_MAINS",language,count:30,seed:"DI-014-QS-INTEGRATION"});
+  assert.equal(localized.generationContext.reviewStatus,"HI_PA_REVIEW_CANDIDATE");
+  for(const q of localized.questions){
+    assert.equal(q.language,language);
+    assert.match(q.stem,language==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u);
+    assert.doesNotMatch(q.stem,/[A-Za-z]{3,}/u);
+    assert.equal(q.reviewStatus,"HI_PA_REVIEW_CANDIDATE");
+    assert.equal(q.options[q.correctIndex],q.answer);
+    assert.equal(q.questionBankWritable,false);
+    assert.equal(q.testEligible,false);
+    assert.equal(q.publiclyPublishable,false);
+    assert(q.stimulusSvgs[0].includes(q.stimulus.radar.title));
+    assert(q.stimulusSvgs[1].includes(q.stimulus.pie.title));
+  }
+  for(let i=0;i<result.questions.length;i++){
+    const original=result.questions[i]!,candidate=localized.questions[i]!;
+    const expected=original.answer.replace(/^(\d+) percentage points$/u,(_m:string,n:string)=>`${n} ${language==="hi"?"प्रतिशत-अंक":"ਪ੍ਰਤੀਸ਼ਤ-ਅੰਕ"}`);
+    assert.equal(candidate.answer,expected);
+  }
+}
+for(const locale of ["hi-IN","pa-IN"] as const){
+  const contexts=new Set<string>(),tasks=new Set<string>();
+  for(let i=0;i<320;i++){
+    const source=generateDi014RadarPieSet({seed:`DI014-LOCALIZATION-STRESS-${i}`}),localized=localizeDi014Set(source,locale);
+    contexts.add(source.radar.title.split(" — ")[0]!);
+    for(let n=0;n<source.questions.length;n++){
+      const a=source.questions[n]!,b=localized.questions[n]!;tasks.add(b.kind);
+      const expected=a.answer.replace(/^(\d+) percentage points$/u,(_m,n)=>`${n} ${locale==="hi-IN"?"प्रतिशत-अंक":"ਪ੍ਰਤੀਸ਼ਤ-ਅੰਕ"}`);
+      assert.equal(b.answer,expected);assert.equal(b.options[b.correctIndex],b.answer);assert.equal(b.correctIndex,a.correctIndex);
+      assert.doesNotMatch(b.stem,/[A-Za-z]{3,}/u);
+    }
+  }
+  assert.deepEqual([...tasks].sort(),[...DI014_TASKS].sort());assert.equal(contexts.size,8);
+}
+console.log("DI014_RADAR_PIE_QS_V1",JSON.stringify({questions:result.questions.length,bilingualCandidate:true,lifecycleLocked:true}));

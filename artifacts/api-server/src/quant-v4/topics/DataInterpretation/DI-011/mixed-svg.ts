@@ -10,8 +10,8 @@ function tablePanel(stimulus: Di011Stimulus, side:"left"|"right", x:number, y:nu
   const rowH=30;
   const lines=[`<text x="${x+10}" y="${y+22}" font-size="16" font-weight="700">${esc(title)} (${esc(unit)})</text>`,
     `<rect x="${x}" y="${y+34}" width="${w}" height="${Math.min(h-34,rowH*(rows.length+1))}" fill="white" stroke="#777"/>`,
-    `<text x="${x+12}" y="${y+56}" font-size="13" font-weight="700">Category</text>`,
-    `<text x="${x+w-70}" y="${y+56}" font-size="13" font-weight="700">Value</text>`];
+    `<text x="${x+12}" y="${y+56}" font-size="13" font-weight="700">${esc(stimulus.categoryHeader??"Category")}</text>`,
+    `<text x="${x+w-70}" y="${y+56}" font-size="13" font-weight="700">${esc(stimulus.valueHeader??"Value")}</text>`];
   rows.forEach((r,i)=>{ const yy=y+34+rowH*(i+1); lines.push(`<line x1="${x}" y1="${yy}" x2="${x+w}" y2="${yy}" stroke="#ddd"/>`); lines.push(`<text x="${x+12}" y="${yy+21}" font-size="13">${esc(r.category)}</text>`); lines.push(`<text x="${x+w-70}" y="${yy+21}" font-size="13" data-${side}-value="${side==="left"?r.left:r.right}">${side==="left"?r.left:r.right}</text>`); });
   return lines.join("");
 }

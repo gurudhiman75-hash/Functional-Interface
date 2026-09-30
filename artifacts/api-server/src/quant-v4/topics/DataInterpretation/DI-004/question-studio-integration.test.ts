@@ -1,5 +1,7 @@
 import { quantV4QuestionStudioAdapter } from "../../../../question-studio/engines/quant-v4-adapter";
 import { DI004_PERMANENT_QLS, DI004_PERMANENT_RELEASE_ID } from "./permanent-ql-registry";
+import { DI004_SINGLE_TASKS } from "./single-line-v1";
+import { DI004_MULTI_TASKS } from "./multi-line-v1";
 import {
   DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
   DI004_QUESTION_STUDIO_RUNTIME_MODE,
@@ -20,7 +22,7 @@ assert(card.questionBankStatus === "NOT_STORED" && card.questionBankWritable ===
 assert(card.testEligibility === "INELIGIBLE" && card.testEligible === false && card.mockTestEligible === false, "DI-004 must remain ineligible for tests and mocks.");
 assert(card.publiclyPublishable === false && card.automaticStudentPublication === false && card.productionReleaseAuthorized === false, "DI-004 publication locks drifted.");
 assert(JSON.stringify(card.supportedLanguages) === JSON.stringify(["en", "hi", "pa"]), "DI-004 package card must expose English, Hindi and Punjabi controlled-review languages.");
-assert(di004QuestionStudioPackageCard().localizationCoverage.status === "PARTIAL_HI_PA_FROZEN", "DI-004 must scope the Hindi/Punjabi freeze to the localized permanent two-series QLs.");
+assert(di004QuestionStudioPackageCard().localizationCoverage.status === "HI_PA_REVIEW_CANDIDATE_WITH_FROZEN_SCOPE", "DI-004 must distinguish the approved permanent QLs from the new single-/three-series candidates.");
 assert((card.metadata as any)?.localizationCoverage?.permanentQlCount === 12, "Shared Question Studio metadata must expose the partial localization scope.");
 
 const seen = new Set<string>();
@@ -130,13 +132,29 @@ for (const language of ["hi", "pa"] as const) {
   }
 }
 
-let otherLineVariantsRemainEnglishOnly = false;
-try {
-  await generateDi004QuestionStudioBatch({ packageId: "DI-004", canonicalProblemId: "DI-CP-004-SINGLE", language: "hi", count: 1, seed: "DI004-SINGLE-HI-LOCK" });
-} catch {
-  otherLineVariantsRemainEnglishOnly = true;
+for (const cp of ["DI-CP-004-SINGLE","DI-CP-004-MULTI"] as const) {
+  const seenLocalizedTasks = new Set<string>();
+  for (const language of ["hi","pa"] as const) {
+    const en=await generateDi004QuestionStudioBatch({packageId:"DI-004",canonicalProblemId:cp,language:"en",count:50,seed:`DI004-REMAINING-EN-${cp}`});
+    const localized=await generateDi004QuestionStudioBatch({packageId:"DI-004",canonicalProblemId:cp,language,count:50,seed:`DI004-REMAINING-EN-${cp}`});
+    assert(localized.generationContext.language===language,`${cp} lost the selected locale.`);
+    assert((localized.generationContext as any).localizationStatus==="HI_PA_REVIEW_CANDIDATE",`${cp} must remain a controlled-review candidate.`);
+    assert(localized.questions.length===50&&localized.questionPackages.length===50,`${cp} did not return complete localized batches.`);
+    assert(JSON.stringify(localized.questions.map((q:any)=>q.answer))===JSON.stringify(en.questions.map((q:any)=>q.answer)),`${cp} localized values or ratios drifted.`);
+    for(const question of localized.questions as Record<string,any>[]){
+      seenLocalizedTasks.add(question.taskKind);
+      assert(question.language===language&&question.reviewStatus==="HI_PA_REVIEW_CANDIDATE",`${cp} question lost candidate language status.`);
+      assert(question.options[question.correctIndex]===question.answer,`${cp} localized answer binding drifted.`);
+      assert(question.questionBankWritable===false&&question.testEligible===false&&question.mockTestEligible===false&&question.publiclyPublishable===false&&question.productionReleaseAuthorized===false,`${cp} widened lifecycle authority.`);
+      assert(/[\u0900-\u097F\u0A00-\u0A7F]/u.test(question.stem),`${cp} stem is missing localized script.`);
+      assert(!/[A-Za-z]{3,}/u.test(question.stem),`${cp} stem leaks an English phrase: ${question.stem}`);
+      const rendered=question.stimulusSvgs.join(" ").replace(/<[^>]+>/gu," ");
+      assert(/[\u0900-\u097F\u0A00-\u0A7F]/u.test(rendered),`${cp} chart is missing localized labels.`);
+    }
+  }
+  const expectedTasks = cp === "DI-CP-004-SINGLE" ? DI004_SINGLE_TASKS : DI004_MULTI_TASKS;
+  assert(expectedTasks.every((task) => seenLocalizedTasks.has(task)), `${cp} localized batches did not exercise every task family.`);
 }
-assert(otherLineVariantsRemainEnglishOnly, "DI-004 localization must not claim coverage for the single-series variant.");
 
 console.log(JSON.stringify({
   status: "PASS_DI_004_QUESTION_STUDIO_CONTROLLED_REVIEW",

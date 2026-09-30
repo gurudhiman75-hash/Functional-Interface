@@ -30,6 +30,8 @@ export type Di012Stimulus = Readonly<{
   instruction: string;
   columnA: string;
   columnB: string;
+  categoryHeader?: string;
+  conditionHeader?: string;
   rows: readonly Di012Row[];
   condition: string;
 }>;

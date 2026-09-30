@@ -8,4 +8,4 @@ Every semantic point lies on a visible labelled radial ring. The package covers 
 
 Profiles: Banking Prelims and Banking Mains.
 
-Lifecycle: Question Studio controlled review only; Question Bank writes, tests/mocks, public/student delivery and production release remain disabled. Localization has not started.
+Lifecycle: Question Studio controlled review only; Question Bank writes, tests/mocks, public/student delivery and production release remain disabled. Hindi/Punjabi wording is a review candidate and needs native-language review before it can be frozen.
