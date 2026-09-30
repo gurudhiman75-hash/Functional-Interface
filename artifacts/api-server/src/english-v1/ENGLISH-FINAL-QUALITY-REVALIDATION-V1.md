@@ -74,3 +74,16 @@ Remediation:
 - the final audit now guards against regression to the old `describes a person ...` phrasing.
 
 No breadth expansion was required.
+
+
+## Phase 5 — ENG-007 spelling explanation parity
+
+Review found that CP001 supplied trap guidance, while CP002–CP007 used answer-only explanations. Several older tests also enforced a 90-character limit and rejected explanatory hints, producing inconsistent learner-facing quality.
+
+Remediation:
+- CP002–CP007 now identify both the correct and governed misspelling and provide concise guidance informed by the source entry's trap classification.
+- Both correctly-spelt and misspelt-word question modes are preserved.
+- CP002–CP007 regression tests now require the source forms and trap guidance rather than prohibiting teaching hints.
+- The frozen 1,445-entry authority, canonical/misspelling forms, difficulty assignments, option-generation logic, source references and review-only lifecycle are unchanged.
+
+The guidance is intentionally conservative for broad classifications (for example, double-letter), rather than asserting an exact letter edit unless the classification safely supports it.

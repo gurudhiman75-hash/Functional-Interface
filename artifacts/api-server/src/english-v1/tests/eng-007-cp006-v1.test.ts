@@ -20,7 +20,9 @@ for(const e of ENG007_CP006_ENTRIES_V1){
     if(mode==="correct-spelling"){assert.equal(canonicalOptions,1);assert.equal(misspeltOptions,3);}
     else{assert.equal(canonicalOptions,3);assert.equal(misspeltOptions,1);}
     assert.ok(q.explanation.includes(e.correct));
-    assert.ok(q.explanation.length<=90);
+    assert.ok(q.explanation.includes(e.misspelling));
+    assert.match(q.explanation,/incorrect form|Pay attention|Check the/);
+    assert.ok(q.explanation.length<=180);
   }
 }
 const positions=[0,0,0,0],seen=new Set<string>();

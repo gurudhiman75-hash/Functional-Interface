@@ -21,7 +21,7 @@ for(const e of ENG007_CP004_ENTRIES_V1){
     assert.equal(canonicalOptions,3,"misspelt-word mode must retain three correctly spelt options");
     assert.equal(misspeltOptions,1,"misspelt-word mode must show exactly one misspelt keyed option");
   }
-  assert.ok(q.explanation.includes(e.correct));assert.ok(q.explanation.length<=90);assert.ok(!/pay attention|standard spelling|common-type|internal letter|doubled-letter|word ending/i.test(q.explanation));
+  assert.ok(q.explanation.includes(e.correct));assert.ok(q.explanation.length<=180);assert.ok(q.explanation.includes(e.misspelling));assert.match(q.explanation,/incorrect form|Pay attention|Check the/);
  }
 }
 const positions=[0,0,0,0],seen=new Set<string>();
