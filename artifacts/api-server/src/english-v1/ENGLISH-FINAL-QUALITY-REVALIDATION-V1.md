@@ -168,3 +168,5 @@ Current active regression inventories across CP001–CP005 are:
 - **Total: 98 passages / 548 governed blanks**
 
 These current totals supersede the older 48 / 268 scale figure for present inventory reporting. Final CP005 V2 human approval is still required before the revision-pending flags can be cleared.
+
+The same audit also reactivated the dormant passage-length guard. Five oversized base passages (C04–C08) were tightened to 338–381 words without changing their governed blanks, and C10 was restored from 292 to 303 words. All 18 active CP005 passages now satisfy the existing 300–540 word contract.
