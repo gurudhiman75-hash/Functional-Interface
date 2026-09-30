@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { generateDi014RadarPieSet, DI014_TASKS } from "./radar-pie-set";
+import { localizeDi014Set } from "./localization-review-v1";
 import { renderDi014RadarSvg } from "./radar-svg";
 import { renderDiPieSvg } from "../visuals/pie-svg";
 const tasks=new Set<string>(),contexts=new Set<string>();let questions=0;
@@ -25,4 +26,17 @@ for(let i=0;i<320;i++){
 }
 assert.deepEqual([...tasks].sort(),[...DI014_TASKS].sort());
 assert(contexts.size>=3);
+for(let i=0;i<80;i++){
+  const seed=`DI-014-LOCALIZED-STRESS-${i}`,base=generateDi014RadarPieSet({seed});
+  for(const [locale,groupStem,totalStem] of [
+    ["hi-IN","में कुल प्राप्त आवेदनों और कुल स्वीकृत आवेदनों का अनुपात क्या है?","सभी श्रेणियों में कुल प्राप्त आवेदनों और कुल स्वीकृत आवेदनों का अनुपात क्या है?"],
+    ["pa-IN","ਵਿੱਚ ਕੁੱਲ ਪ੍ਰਾਪਤ ਅਰਜ਼ੀਆਂ ਅਤੇ ਕੁੱਲ ਮਨਜ਼ੂਰ ਅਰਜ਼ੀਆਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?","ਸਾਰੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਵਿੱਚ ਕੁੱਲ ਪ੍ਰਾਪਤ ਅਰਜ਼ੀਆਂ ਅਤੇ ਕੁੱਲ ਮਨਜ਼ੂਰ ਅਰਜ਼ੀਆਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?"]
+  ] as const){
+    const localized=localizeDi014Set(base,locale);
+    for(const q of localized.questions){
+      if(q.kind==="GROUP_APPLICATION_TO_APPROVAL_RATIO") assert(q.stem.includes(groupStem),`${seed}/${locale}: grouped ratio stem is not concise and explicit`);
+      if(q.kind==="TOTAL_APPLICATION_TO_APPROVAL_RATIO") assert.equal(q.stem,totalStem,`${seed}/${locale}: all-category ratio stem drifted`);
+    }
+  }
+}
 console.log("DI014_RADAR_PIE_V1",JSON.stringify({sets:320,questions,tasks:[...tasks].sort(),contexts:contexts.size}));
