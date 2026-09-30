@@ -104,7 +104,7 @@ function classifyPropositions(caselet: Pick<Caselet, "people" | "groups" | "grou
   };
 }
 
-function choosePartialClues(caselet: Caselet, targetStateCount: number): { clues: Clue[]; states: Assignment[] } {
+function choosePartialClues(caselet: Caselet, targetStateCount: number, selectionKey: string): { clues: Clue[]; states: Assignment[] } {
   const clueCount = caselet.clues.length;
   const candidates: Array<{ clues: Clue[]; states: Assignment[]; score: number }> = [];
 
@@ -125,8 +125,11 @@ function choosePartialClues(caselet: Caselet, targetStateCount: number): { clues
     candidates.push({ clues, states, score: widthPenalty + cluePenalty });
   }
 
-  const selected = candidates.sort((left, right) => left.score - right.score)[0];
-  if (!selected) throw new Error(`Unable to derive a multi-state clue set from ${caselet.caseletId}.`);
+  const ordered = candidates.sort((left, right) => left.score - right.score);
+  const bestScore = ordered[0]?.score;
+  if (bestScore == null) throw new Error(`Unable to derive a multi-state clue set from ${caselet.caseletId}.`);
+  const equallyGood = ordered.filter((candidate) => candidate.score === bestScore);
+  const selected = equallyGood[stableHash(selectionKey) % equallyGood.length]!;
   return { clues: selected.clues, states: selected.states };
 }
 
@@ -241,7 +244,7 @@ export function generateLpCp03Caselet(seed = "lp-cp03-possibility-review", index
   for (let offset = 0; offset < sourceCandidates.length; offset += 1) {
     const candidate = sourceCandidates[(index + offset) % sourceCandidates.length]!;
     try {
-      const result = choosePartialClues(candidate, targetStateCount);
+      const result = choosePartialClues(candidate, targetStateCount, `${seed}:${index}:${offset}:${candidate.caseletId}`);
       source = candidate;
       partial = result;
       if (result.states.length === targetStateCount) break;
