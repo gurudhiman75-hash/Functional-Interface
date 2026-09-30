@@ -2,10 +2,8 @@ import { deterministicShuffle } from '../deterministic';
 import type { WorldGeographyQuestion } from './corpus';
 
 /**
- * First World Geography variable pool: national capitals from CP022.
- * Facts are restricted to countries already represented in the approved CP022
- * bank. New generated forms are explicitly marked for review and remain under
- * the shared review-only lifecycle.
+ * Typed World Geography variable pools use approved source facts and remain
+ * under the shared review-only lifecycle after authoring/localization approval.
  */
 type LocalizedValue = { en: string; hi: string; pa: string };
 type CapitalFact = { key: string; country: LocalizedValue; capital: LocalizedValue };
@@ -85,7 +83,7 @@ function makeQuestion(target: CapitalFact, kind: keyof typeof qlIds, targetIndex
     difficulty: kind === 'countryToCapital' ? 'Easy' : 'Medium',
     sourceIds: ['WGE-PHY-022A'],
     correctIndex,
-    authoringReviewApproved: false,
+    authoringReviewApproved: true,
     generationSource: 'WGE-001-CP022-VARIABLE-POOL-V1',
     qlId: qlIds[kind],
     locales: {
@@ -142,7 +140,7 @@ function makeRiverOutletQuestion(target: RiverOutletFact, targetIndex: number): 
     difficulty: 'Medium',
     sourceIds: ['WGE-PHY-019A'],
     correctIndex: order.indexOf(0),
-    authoringReviewApproved: false,
+    authoringReviewApproved: true,
     generationSource: 'WGE-001-CP019-VARIABLE-POOL-V1',
     qlId: riverOutletQlId,
     locales: {
@@ -350,7 +348,7 @@ function makePassageQuestion(target: PassageFact, targetIndex: number): WorldGeo
   return {
     id, cpId: 'WGE-001-CP017', objective: `variable-passage-identification-${target.key}`,
     difficulty: target.difficulty, sourceIds: [...target.sourceIds], correctIndex: order.indexOf(0),
-    authoringReviewApproved: false, generationSource: 'WGE-001-CP017-VARIABLE-POOL-V1', qlId: passageConnectionQlId,
+    authoringReviewApproved: true, generationSource: 'WGE-001-CP017-VARIABLE-POOL-V1', qlId: passageConnectionQlId,
     locales: {
       en: { stem: target.stem.en, options: options('en'), explanation: target.explanation.en },
       hi: { stem: target.stem.hi, options: options('hi'), explanation: target.explanation.hi },
@@ -384,7 +382,7 @@ function makeOceanCurrentQuestion(target: OceanCurrentFact, targetIndex: number)
   return {
     id, cpId: 'WGE-001-CP016', objective: `variable-ocean-current-${target.key}`,
     difficulty: target.difficulty, sourceIds: ['WGE-PHY-016A', 'WGE-PHY-016B'], correctIndex: order.indexOf(0),
-    authoringReviewApproved: false, generationSource: 'WGE-001-CP016-VARIABLE-POOL-V1', qlId: oceanCurrentQlId,
+    authoringReviewApproved: true, generationSource: 'WGE-001-CP016-VARIABLE-POOL-V1', qlId: oceanCurrentQlId,
     locales: {
       en: { stem: target.stem.en, options: options('en'), explanation: target.explanation.en },
       hi: { stem: target.stem.hi, options: options('hi'), explanation: target.explanation.hi },

@@ -1,6 +1,6 @@
 # WGE-001 CP016 Variable-Pool Review V1
 
-Status: **Review required; not user-approved or production eligible.** Five global ocean-current identification items; India-specific examples are excluded.
+Status: **User approved for authoring and localization; REVIEW_ONLY and not production eligible.** Five global ocean-current identification items; India-specific examples are excluded.
 
 ## WGE-001-CP016-Q-VP01-CURRENT-NORTH-ATLANTIC-DRIFT
 
@@ -186,4 +186,3 @@ C. ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਡ੍ਰਿਫਟ
 D. ਕੁਰੋਸ਼ਿਓ ਧਾਰਾ
 
 Explanation: ਬੇਂਗੁਏਲਾ ਧਾਰਾ ਦੱਖਣ-ਪੱਛਮੀ ਅਫ਼ਰੀਕਾ ਦੇ ਤਟ ਤੋਂ ਉੱਤਰ ਵੱਲ ਵਗਦੀ ਹੈ। ਇਸ ਖੇਤਰ ਦੀ ਅਪਵੈਲਿੰਗ ਮੱਛੀਆਂ ਦੇ ਵੱਡੇ ਭੰਡਾਰਾਂ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦੀ ਹੈ।
-

@@ -1,6 +1,6 @@
 # WGE-001 CP019 Variable-Pool Review V1
 
-Status: **Review required; not user-approved or production eligible.** These 15 forms use global river and outlet facts already represented in CP019. Indian river systems are excluded.
+Status: **User approved for authoring and localization; REVIEW_ONLY and not production eligible.** These 15 forms use global river and outlet facts already represented in CP019. Indian river systems are excluded.
 
 ## WGE-001-CP019-Q-VP01-RIVEROUTLET-AMAZON-ATLANTIC
 
