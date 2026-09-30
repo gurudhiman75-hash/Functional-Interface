@@ -109,3 +109,12 @@ The master audit and full closure soak now assert:
 - when A/B/C is keyed, the visible sentence must differ from the corrected sentence.
 
 This is an audit-only change. The 131-rule authority, source candidates, sentence surfaces, answers, explanations, four-option scheme and review-only lifecycle are unchanged.
+
+
+## Phase 8 — ENG-003 cross-checkpoint filler reconstruction
+
+ENG-003 remains content-closed through CP013 with 131 approved rule families. The individual later checkpoints already contain sentence reconstruction assertions, but there was no consistent post-closure check at the **cumulative Question Studio** level across every checkpoint.
+
+Added a separate chapter-wide regression: 468 seeded samples (13 checkpoints × 3 difficulties × 12 questions) verify that inserting the keyed filler into the one displayed blank reconstructs the reported corrected sentence. The test also checks four distinct answer options, no leaked `No improvement` option, that explanations include the chosen filler and complete corrected sentence, deterministic replay per checkpoint/difficulty, and locked review-only lifecycle.
+
+Added a dedicated pull-request workflow for this test. This is test-only: no approved question content, answer keys, source generators, permanent QLs, difficulty assignments or lifecycle flags change.
