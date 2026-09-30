@@ -152,8 +152,8 @@ const COMPARE_SCENARIOS = Object.freeze([
   deepFreeze({ principal: rat(100000n), schemeA: scheme("COMPOUND", 10n, 3), schemeB: scheme("SIMPLE", 11n, 3) }),
   deepFreeze({ principal: rat(36000n), schemeA: scheme("SIMPLE", 20n, 2), schemeB: scheme("COMPOUND", 18n, 2) }),
   deepFreeze({ principal: rat(48000n), schemeA: scheme("COMPOUND", 15n, 3), schemeB: scheme("SIMPLE", 17n, 3) }),
-  deepFreeze({ principal: rat(64000n), schemeA: scheme("SIMPLE", 6n, 4), schemeB: scheme("COMPOUND", 6n, 4) }),
-  deepFreeze({ principal: rat(72000n), schemeA: scheme("COMPOUND", 8n, 3), schemeB: scheme("SIMPLE", 9n, 3) }),
+  deepFreeze({ principal: rat(125000n), schemeA: scheme("SIMPLE", 6n, 4), schemeB: scheme("COMPOUND", 6n, 4) }),
+  deepFreeze({ principal: rat(70000n), schemeA: scheme("COMPOUND", 8n, 3), schemeB: scheme("SIMPLE", 9n, 3) }),
   deepFreeze({ principal: rat(96000n), schemeA: scheme("SIMPLE", 25n, 2, 2n), schemeB: scheme("COMPOUND", 12n, 2) }),
 ]);
 
