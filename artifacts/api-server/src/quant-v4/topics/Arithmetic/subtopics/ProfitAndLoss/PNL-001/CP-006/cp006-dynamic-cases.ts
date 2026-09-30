@@ -98,12 +98,22 @@ const MANUFACTURING_PRESETS = [
     scrap: 1000,
     output: 120n,
   },
+  { raw: 16000, labour: 8000, overhead: 15, packaging: 2400, scrap: 2000, output: 100n },
+  { raw: 20000, labour: 10000, overhead: 10, packaging: 3000, scrap: 1000, output: 100n },
+  { raw: 8000, labour: 12000, overhead: 20, packaging: 1000, scrap: 1000, output: 100n },
+  { raw: 24000, labour: 16000, overhead: 10, packaging: 6000, scrap: 2000, output: 120n },
+  { raw: 14000, labour: 6000, overhead: 15, packaging: 2000, scrap: 1000, output: 120n },
 ] as const;
 
 const WASTAGE_SCRAP_PRESETS = [
   { input: 100n, wasted: 20n, totalCost: 10000, scrap: 2000 },
   { input: 120n, wasted: 20n, totalCost: 17000, scrap: 5000 },
   { input: 100n, wasted: 10n, totalCost: 16500, scrap: 3000 },
+  { input: 150n, wasted: 30n, totalCost: 18000, scrap: 3000 },
+  { input: 200n, wasted: 40n, totalCost: 24000, scrap: 8000 },
+  { input: 120n, wasted: 30n, totalCost: 21000, scrap: 3000 },
+  { input: 90n, wasted: 15n, totalCost: 13500, scrap: 1500 },
+  { input: 160n, wasted: 40n, totalCost: 28000, scrap: 4000 },
 ] as const;
 
 const PRODUCT_MIX_PRESETS = [
@@ -128,6 +138,11 @@ const PRODUCT_MIX_PRESETS = [
       { units: 2n, sp: 100, vc: 50 },
     ],
   },
+  { fixedCost: 12000, products: [{ units: 2n, sp: 150, vc: 90 }, { units: 2n, sp: 110, vc: 70 }] },
+  { fixedCost: 18000, products: [{ units: 3n, sp: 180, vc: 100 }, { units: 2n, sp: 160, vc: 100 }] },
+  { fixedCost: 15000, products: [{ units: 2n, sp: 200, vc: 125 }, { units: 3n, sp: 140, vc: 90 }] },
+  { fixedCost: 8000, products: [{ units: 1n, sp: 180, vc: 100 }, { units: 2n, sp: 120, vc: 80 }] },
+  { fixedCost: 12400, products: [{ units: 3n, sp: 150, vc: 100 }, { units: 2n, sp: 180, vc: 100 }] },
 ] as const;
 
 const ADVANCED_MODES = new Set([
