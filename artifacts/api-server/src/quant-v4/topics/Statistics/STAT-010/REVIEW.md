@@ -1,6 +1,6 @@
 # Statistics — STAT-010 Sampling Theory Review V1
 
-**Status:** English review candidate; awaiting editorial approval.
+**Status:** English review approved on 2026-09-30.
 **Profiles:** SSC CGL Tier II and JSO. **Lifecycle:** controlled review only.
 
 ## STAT-QL-111 — Population and sample
@@ -173,6 +173,8 @@ D. 27
 **Explanation:** n ≥ (zσ/E)^2 = (1.96×10/4)² = 24.01. Round up to the next whole number: n = 25.
 
 ## Review checkpoints
+
+- Editorial approval recorded on 2026-09-30. Diversity and pool expansion are deferred to a later pass.
 
 - Verify the distinction between probability and non-probability sampling methods.
 - Check proportional allocation and the stated assumptions for standard error and sample size.
