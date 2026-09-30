@@ -532,6 +532,11 @@ function localizeNaturalStem(text: string, language: "hi"|"pa", packageId?: stri
     if (m) return hi ? "किसी जिले की कुल जनसंख्या की तुलना में रोजगार प्राप्त वयस्कों की संख्या अधिक है। कौन-सा सूचक अधिक होने की संभावना है?" : "ਕਿਸੇ ਜ਼ਿਲ੍ਹੇ ਦੀ ਕੁੱਲ ਆਬਾਦੀ ਦੇ ਮੁਕਾਬਲੇ ਰੁਜ਼ਗਾਰਸ਼ੁਦਾ ਬਾਲਗਾਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਹੈ। ਕਿਹੜਾ ਸੂਚਕ ਵੱਧ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ?";
   }
 
+  if (packageId === "GEO-TRN-001") {
+    const bulk = localizeGeoTrnBulkV1(question, language);
+    if (bulk) return bulk;
+  }
+
   if (packageId === "GEO-WAT-001") {
     let m = text.match(/^Which factor can make water availability seasonal\?$/);
     if (m) return hi ? "जल उपलब्धता को मौसमी बनाने वाला प्रमुख कारक कौन-सा है?" : "ਪਾਣੀ ਦੀ ਉਪਲਬਧਤਾ ਨੂੰ ਮੌਸਮੀ ਬਣਾਉਣ ਵਾਲਾ ਮੁੱਖ ਕਾਰਕ ਕਿਹੜਾ ਹੈ?";
@@ -860,7 +865,92 @@ function polishGeoSoiBulkTextV1(text:string, language:"hi"|"pa") {
   ];
   let out=text;
   const pairs=language==="hi"?hi:pa;
-  const esc=(s:string)=>s.replace(/[.*+?^$()|[\]\\{}]/g,"\\export function localizeIndianGeoQuestionV1(");
+  const esc=(s:string)=>s.replace(/[.*+?^$()|[\]\\{}]/g,"\\
+function polishGeoTrnBulkTextV1(text:string, language:"hi"|"pa") {
+  const hi:[string,string][] = [
+    ["National Highways","राष्ट्रीय राजमार्ग"],["National Highway","राष्ट्रीय राजमार्ग"],["State Highways","राज्य राजमार्ग"],["State Highway","राज्य राजमार्ग"],
+    ["rural roads","ग्रामीण सड़कें"],["rural road","ग्रामीण सड़क"],["expressways","एक्सप्रेसवे"],["expressway","एक्सप्रेसवे"],
+    ["access-controlled","नियंत्रित-प्रवेश"],["controlled access","नियंत्रित प्रवेश"],["road transport","सड़क परिवहन"],["road network","सड़क नेटवर्क"],
+    ["Border Roads Organisation","सीमा सड़क संगठन"],["strategic roads","सामरिक सड़कें"],["strategic road","सामरिक सड़क"],["last-mile connectivity","अंतिम-मील संपर्क"],
+    ["Golden Quadrilateral","स्वर्णिम चतुर्भुज"],["North-South Corridor","उत्तर-दक्षिण गलियारा"],["East-West Corridor","पूर्व-पश्चिम गलियारा"],
+    ["Bharatmala Pariyojana","भारतमाला परियोजना"],["economic corridors","आर्थिक गलियारे"],["feeder roads","फीडर सड़कें"],
+    ["railway network","रेल नेटवर्क"],["rail transport","रेल परिवहन"],["railways","रेलमार्ग"],["railway","रेलमार्ग"],["broad gauge","ब्रॉड गेज"],
+    ["railway electrification","रेल विद्युतीकरण"],["Dedicated Freight Corridors","समर्पित माल गलियारे"],["Dedicated Freight Corridor","समर्पित माल गलियारा"],
+    ["Eastern DFC","पूर्वी डीएफसी"],["Western DFC","पश्चिमी डीएफसी"],["Konkan Railway","कोंकण रेलवे"],["mountain railways","पर्वतीय रेलमार्ग"],
+    ["freight","माल ढुलाई"],["passenger","यात्री"],["traction","कर्षण"],["railway zones","रेलवे जोन"],["trunk routes","मुख्य रेल मार्ग"],
+    ["seaport","समुद्री बंदरगाह"],["port hinterland","बंदरगाह पृष्ठप्रदेश"],["ports","बंदरगाह"],["port","बंदरगाह"],["harbour","बंदरगाह"],
+    ["natural harbour","प्राकृतिक बंदरगाह"],["artificial harbour","कृत्रिम बंदरगाह"],["coastal shipping","तटीय नौवहन"],["inland water transport","अंतर्देशीय जल परिवहन"],
+    ["National Waterway","राष्ट्रीय जलमार्ग"],["waterway","जलमार्ग"],["Sagarmala","सागरमाला"],["port-led development","बंदरगाह-आधारित विकास"],
+    ["air transport","हवाई परिवहन"],["airport management","हवाईअड्डा प्रबंधन"],["airports","हवाईअड्डे"],["airport","हवाईअड्डा"],["AAI","एएआई"],
+    ["domestic air connectivity","घरेलू हवाई संपर्क"],["international air connectivity","अंतरराष्ट्रीय हवाई संपर्क"],["UDAN","उड़ान"],
+    ["pipeline transport","पाइपलाइन परिवहन"],["oil pipeline","तेल पाइपलाइन"],["natural gas pipeline","प्राकृतिक गैस पाइपलाइन"],["gas pipeline","गैस पाइपलाइन"],
+    ["multimodal transport","बहु-माध्यम परिवहन"],["logistics hubs","लॉजिस्टिक्स केंद्र"],["freight terminals","माल टर्मिनल"],["transfer points","स्थानांतरण केंद्र"],
+    ["communication networks","संचार नेटवर्क"],["communication network","संचार नेटवर्क"],["mobile communication","मोबाइल संचार"],["telephone","टेलीफोन"],
+    ["optical-fibre","ऑप्टिकल फाइबर"],["optical fibre","ऑप्टिकल फाइबर"],["internet","इंटरनेट"],["data connectivity","डेटा संपर्क"],["satellite communication","उपग्रह संचार"],
+    ["postal network","डाक नेटवर्क"],["postal communication","डाक संचार"],["mass communication","जनसंचार"],["broadcasting","प्रसारण"],
+    ["digital connectivity","डिजिटल संपर्क"],["network resilience","नेटवर्क लचीलापन"],["redundancy","वैकल्पिक व्यवस्था"],
+    ["connectivity","संपर्क"],["corridor","गलियारा"],["network","नेटवर्क"],["transport","परिवहन"],["communication","संचार"],
+    ["major cities","प्रमुख शहर"],["state capitals","राज्य राजधानियाँ"],["economic centres","आर्थिक केंद्र"],["border regions","सीमावर्ती क्षेत्र"],["remote regions","दूरस्थ क्षेत्र"],
+    ["markets","बाजार"],["market","बाजार"],["route","मार्ग"],["routes","मार्ग"],["movement","आवागमन"],["traffic","यातायात"],
+    ["high-speed","उच्च गति"],["high capacity","उच्च क्षमता"],["high-capacity","उच्च क्षमता"],["long-distance","लंबी दूरी"],["inter-state","अंतर्राज्यीय"],
+    ["which","कौन-सा"],["what","क्या"],["why","क्यों"],["where","कहाँ"],["when","कब"],["how","कैसे"],["the",""],["and","और"],["or","या"],
+    ["is","है"],["are","हैं"],["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],["can","सकता है"],["could","सकता था"],
+    ["would","होगा"],["should","चाहिए"],["has","है"],["have","हैं"],["had","था"],["with","के साथ"],["from","से"],["into","में"],["for","के लिए"],
+    ["of","का"],["to","को"],["in","में"],["on","पर"],["at","पर"],["by","द्वारा"],["as","के रूप में"],["than","की तुलना में"],["that","कि"],
+    ["this","यह"],["these","ये"],["those","वे"],["most","सबसे"],["main","मुख्य"],["major","प्रमुख"],["only","केवल"],["correct","सही"],
+    ["statement","कथन"],["following","निम्नलिखित"],["important","महत्वपूर्ण"],["connect","जोड़ना"],["connects","जोड़ता है"],["linked","जुड़ा"],["link","जोड़ना"]
+  ];
+  const pa:[string,string][] = [
+    ["National Highways","ਰਾਸ਼ਟਰੀ ਰਾਜਮਾਰਗ"],["National Highway","ਰਾਸ਼ਟਰੀ ਰਾਜਮਾਰਗ"],["State Highways","ਰਾਜ ਰਾਜਮਾਰਗ"],["State Highway","ਰਾਜ ਰਾਜਮਾਰਗ"],
+    ["rural roads","ਪੇਂਡੂ ਸੜਕਾਂ"],["rural road","ਪੇਂਡੂ ਸੜਕ"],["expressways","ਐਕਸਪ੍ਰੈਸਵੇ"],["expressway","ਐਕਸਪ੍ਰੈਸਵੇ"],
+    ["access-controlled","ਨਿਯੰਤਰਿਤ-ਪ੍ਰਵੇਸ਼"],["controlled access","ਨਿਯੰਤਰਿਤ ਪ੍ਰਵੇਸ਼"],["road transport","ਸੜਕ ਆਵਾਜਾਈ"],["road network","ਸੜਕ ਜਾਲ"],
+    ["Border Roads Organisation","ਸੀਮਾ ਸੜਕ ਸੰਗਠਨ"],["strategic roads","ਰਣਨੀਤਕ ਸੜਕਾਂ"],["strategic road","ਰਣਨੀਤਕ ਸੜਕ"],["last-mile connectivity","ਆਖਰੀ-ਮੀਲ ਜੋੜ"],
+    ["Golden Quadrilateral","ਸੁਵਰਨ ਚਤੁਰਭੁਜ"],["North-South Corridor","ਉੱਤਰ-ਦੱਖਣ ਗਲਿਆਰਾ"],["East-West Corridor","ਪੂਰਬ-ਪੱਛਮ ਗਲਿਆਰਾ"],
+    ["Bharatmala Pariyojana","ਭਾਰਤਮਾਲਾ ਪਰਿਯੋਜਨਾ"],["economic corridors","ਆਰਥਿਕ ਗਲਿਆਰੇ"],["feeder roads","ਫੀਡਰ ਸੜਕਾਂ"],
+    ["railway network","ਰੇਲ ਜਾਲ"],["rail transport","ਰੇਲ ਆਵਾਜਾਈ"],["railways","ਰੇਲਵੇ"],["railway","ਰੇਲਵੇ"],["broad gauge","ਬ੍ਰਾਡ ਗੇਜ"],
+    ["railway electrification","ਰੇਲ ਵਿਦਿਉਤੀਕਰਨ"],["Dedicated Freight Corridors","ਸਮਰਪਿਤ ਮਾਲ ਗਲਿਆਰੇ"],["Dedicated Freight Corridor","ਸਮਰਪਿਤ ਮਾਲ ਗਲਿਆਰਾ"],
+    ["Eastern DFC","ਪੂਰਬੀ ਡੀਐਫਸੀ"],["Western DFC","ਪੱਛਮੀ ਡੀਐਫਸੀ"],["Konkan Railway","ਕੋਂਕਣ ਰੇਲਵੇ"],["mountain railways","ਪਹਾੜੀ ਰੇਲਵੇ"],
+    ["freight","ਮਾਲ ਢੁਆਈ"],["passenger","ਯਾਤਰੀ"],["traction","ਕਰਸ਼ਣ"],["railway zones","ਰੇਲਵੇ ਜੋਨ"],["trunk routes","ਮੁੱਖ ਰੇਲ ਮਾਰਗ"],
+    ["seaport","ਸਮੁੰਦਰੀ ਬੰਦਰਗਾਹ"],["port hinterland","ਬੰਦਰਗਾਹ ਪਿਛਲਾ ਖੇਤਰ"],["ports","ਬੰਦਰਗਾਹ"],["port","ਬੰਦਰਗਾਹ"],["harbour","ਬੰਦਰਗਾਹ"],
+    ["natural harbour","ਕੁਦਰਤੀ ਬੰਦਰਗਾਹ"],["artificial harbour","ਕ੍ਰਿਤ੍ਰਿਮ ਬੰਦਰਗਾਹ"],["coastal shipping","ਤਟੀ ਜਹਾਜ਼ਰਾਨੀ"],["inland water transport","ਅੰਦਰੂਨੀ ਜਲ ਆਵਾਜਾਈ"],
+    ["National Waterway","ਰਾਸ਼ਟਰੀ ਜਲਮਾਰਗ"],["waterway","ਜਲਮਾਰਗ"],["Sagarmala","ਸਾਗਰਮਾਲਾ"],["port-led development","ਬੰਦਰਗਾਹ-ਅਧਾਰਿਤ ਵਿਕਾਸ"],
+    ["air transport","ਹਵਾਈ ਆਵਾਜਾਈ"],["airport management","ਹਵਾਈ ਅੱਡਾ ਪ੍ਰਬੰਧਨ"],["airports","ਹਵਾਈ ਅੱਡੇ"],["airport","ਹਵਾਈ ਅੱਡਾ"],["AAI","ਏਏਆਈ"],
+    ["domestic air connectivity","ਘਰੇਲੂ ਹਵਾਈ ਜੋੜ"],["international air connectivity","ਅੰਤਰਰਾਸ਼ਟਰੀ ਹਵਾਈ ਜੋੜ"],["UDAN","ਉਡਾਨ"],
+    ["pipeline transport","ਪਾਈਪਲਾਈਨ ਆਵਾਜਾਈ"],["oil pipeline","ਤੇਲ ਪਾਈਪਲਾਈਨ"],["natural gas pipeline","ਕੁਦਰਤੀ ਗੈਸ ਪਾਈਪਲਾਈਨ"],["gas pipeline","ਗੈਸ ਪਾਈਪਲਾਈਨ"],
+    ["multimodal transport","ਬਹੁ-ਮਾਧਿਅਮ ਆਵਾਜਾਈ"],["logistics hubs","ਲਾਜਿਸਟਿਕ ਕੇਂਦਰ"],["freight terminals","ਮਾਲ ਟਰਮੀਨਲ"],["transfer points","ਤਬਾਦਲਾ ਕੇਂਦਰ"],
+    ["communication networks","ਸੰਚਾਰ ਜਾਲ"],["communication network","ਸੰਚਾਰ ਜਾਲ"],["mobile communication","ਮੋਬਾਈਲ ਸੰਚਾਰ"],["telephone","ਟੈਲੀਫੋਨ"],
+    ["optical-fibre","ਆਪਟੀਕਲ ਫਾਈਬਰ"],["optical fibre","ਆਪਟੀਕਲ ਫਾਈਬਰ"],["internet","ਇੰਟਰਨੈੱਟ"],["data connectivity","ਡਾਟਾ ਜੋੜ"],["satellite communication","ਉਪਗ੍ਰਹਿ ਸੰਚਾਰ"],
+    ["postal network","ਡਾਕ ਜਾਲ"],["postal communication","ਡਾਕ ਸੰਚਾਰ"],["mass communication","ਜਨਸੰਚਾਰ"],["broadcasting","ਪ੍ਰਸਾਰਣ"],
+    ["digital connectivity","ਡਿਜਿਟਲ ਜੋੜ"],["network resilience","ਜਾਲ ਲਚੀਲਾਪਣ"],["redundancy","ਵਿਕਲਪਿਕ ਪ੍ਰਬੰਧ"],
+    ["connectivity","ਜੋੜ"],["corridor","ਗਲਿਆਰਾ"],["network","ਜਾਲ"],["transport","ਆਵਾਜਾਈ"],["communication","ਸੰਚਾਰ"],
+    ["major cities","ਮੁੱਖ ਸ਼ਹਿਰ"],["state capitals","ਰਾਜਧਾਨੀਆਂ"],["economic centres","ਆਰਥਿਕ ਕੇਂਦਰ"],["border regions","ਸਰਹੱਦੀ ਖੇਤਰ"],["remote regions","ਦੂਰਲੇ ਖੇਤਰ"],
+    ["markets","ਬਾਜ਼ਾਰ"],["market","ਬਾਜ਼ਾਰ"],["route","ਮਾਰਗ"],["routes","ਮਾਰਗ"],["movement","ਆਵਾਜਾਈ"],["traffic","ਆਵਾਜਾਈ"],
+    ["high-speed","ਉੱਚ ਗਤੀ"],["high capacity","ਉੱਚ ਸਮਰੱਥਾ"],["high-capacity","ਉੱਚ ਸਮਰੱਥਾ"],["long-distance","ਲੰਬੀ ਦੂਰੀ"],["inter-state","ਅੰਤਰ-ਰਾਜੀ"],
+    ["which","ਕਿਹੜਾ"],["what","ਕੀ"],["why","ਕਿਉਂ"],["where","ਕਿੱਥੇ"],["when","ਕਦੋਂ"],["how","ਕਿਵੇਂ"],["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],
+    ["is","ਹੈ"],["are","ਹਨ"],["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],
+    ["would","ਹੋਵੇਗਾ"],["should","ਚਾਹੀਦਾ ਹੈ"],["has","ਹੈ"],["have","ਹਨ"],["had","ਸੀ"],["with","ਨਾਲ"],["from","ਤੋਂ"],["into","ਵਿੱਚ"],["for","ਲਈ"],
+    ["of","ਦਾ"],["to","ਨੂੰ"],["in","ਵਿੱਚ"],["on","ਉੱਤੇ"],["at","ਉੱਤੇ"],["by","ਦੁਆਰਾ"],["as","ਵਜੋਂ"],["than","ਨਾਲੋਂ"],["that","ਕਿ"],
+    ["this","ਇਹ"],["these","ਇਹ"],["those","ਉਹ"],["most","ਸਭ ਤੋਂ"],["main","ਮੁੱਖ"],["major","ਮੁੱਖ"],["only","ਕੇਵਲ"],["correct","ਸਹੀ"],
+    ["statement","ਕਥਨ"],["following","ਹੇਠ ਲਿਖੇ"],["important","ਮਹੱਤਵਪੂਰਨ"],["connect","ਜੋੜਨਾ"],["connects","ਜੋੜਦਾ ਹੈ"],["linked","ਜੁੜਿਆ"],["link","ਜੋੜਨਾ"]
+  ];
+  let out=text;
+  const pairs=language==="hi"?hi:pa;
+  const esc=(s:string)=>s.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\export function localizeIndianGeoQuestionV1(");
+  for(const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) out=out.replace(new RegExp("\\b"+esc(a)+"\\b","gi"),b);
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+function localizeGeoTrnBulkV1(question:CanonicalQuestion,language:"hi"|"pa"){
+  if(!/^GEO-TRN-001-CP00[1-5]-Q/.test(question.questionId)) return null;
+  const local=(s:string)=>polishGeoTrnBulkTextV1(localizeText(s,language),language);
+  const stemBase=localizeNaturalStem(question.stem,language,"GEO-TRN-001") ?? localizeText(question.stem,language);
+  const stem=polishGeoTrnBulkTextV1(stemBase,language);
+  const options=Object.freeze(question.options.map(local));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=local(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
+export function localizeIndianGeoQuestionV1(");
   for (const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) {
     out=out.replace(new RegExp("\\b"+esc(a)+"\\b","gi"),b);
   }
