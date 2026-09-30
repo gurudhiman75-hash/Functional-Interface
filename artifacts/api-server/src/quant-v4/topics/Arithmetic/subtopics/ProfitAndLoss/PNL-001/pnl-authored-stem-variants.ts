@@ -659,6 +659,118 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਇੱਕ ਤੇਲ ਵਪਾਰੀ ਨਾਮਾਤਰ {nominalQuantity} ਲੀਟਰ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ {receivedQuantity} ਲੀਟਰ ਪ੍ਰਾਪਤ ਕਰਦਾ ਹੈ। ਉਹ ₹{sellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ ਅਤੇ {deliveredQuantity} ਲੀਟਰ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
       "ਤੇਲ ਵਪਾਰੀ ਖਰੀਦ ਵਿੱਚ ਵੱਧ ਮਾਤਰਾ ਲੈਂਦਾ ਅਤੇ ਵਿਕਰੀ ਵਿੱਚ ਘੱਟ ਦਿੰਦਾ ਹੈ: ਨਾਮਾਤਰ {nominalQuantity} ਲੀਟਰ ਲਈ ₹{purchasePricePerNominalQuantity}, ਅਸਲ ਪ੍ਰਾਪਤੀ {receivedQuantity} ਲੀਟਰ; ਵਿਕਰੀ ₹{sellingPricePerNominalQuantity} ਵਿੱਚ {deliveredQuantity} ਲੀਟਰ। ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਪਤਾ ਕਰੋ।"
     ]
+  },
+  "PNL-QL-129": {
+    "en": [
+      "Spices cost ₹{costPricePerTrueQuantity} per {trueQuantity} g. They are marked {markupPercent}% above cost, discounted by {discountPercent}%, and only {deliveredQuantity} g are supplied per pack. Find the actual profit or loss percentage.",
+      "A spice retailer marks goods costing ₹{costPricePerTrueQuantity} per {trueQuantity} g at {markupPercent}% above cost, allows {discountPercent}% discount, and short-delivers to {deliveredQuantity} g. What is the true percentage result?"
+    ],
+    "hi": [
+      "मसालों की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} ग्राम है। उन पर {markupPercent}% बढ़ाकर अंकित मूल्य रखा जाता है, {discountPercent}% छूट दी जाती है और केवल {deliveredQuantity} ग्राम दिया जाता है। वास्तविक लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "एक मसाला विक्रेता ₹{costPricePerTrueQuantity} प्रति {trueQuantity} ग्राम लागत पर {markupPercent}% बढ़ाकर मूल्य अंकित करता है, {discountPercent}% छूट देता है और केवल {deliveredQuantity} ग्राम देता है। वास्तविक प्रतिशत परिणाम क्या है?"
+    ],
+    "pa": [
+      "ਮਸਾਲਿਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਗ੍ਰਾਮ ਹੈ। ਉਨ੍ਹਾਂ 'ਤੇ {markupPercent}% ਵਧਾ ਕੇ ਅੰਕਿਤ ਮੁੱਲ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ, {discountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ ਅਤੇ ਸਿਰਫ਼ {deliveredQuantity} ਗ੍ਰਾਮ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਮਸਾਲਾ ਵਿਕਰੇਤਾ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਗ੍ਰਾਮ ਲਾਗਤ 'ਤੇ {markupPercent}% ਵਧਾ ਕੇ ਕੀਮਤ ਲਗਾਉਂਦਾ ਹੈ, {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ ਅਤੇ ਸਿਰਫ਼ {deliveredQuantity} ਗ੍ਰਾਮ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-130": {
+    "en": [
+      "Paint costs ₹{costPricePerTrueQuantity} for {trueQuantity} litres. A can contains only {deliveredQuantity} litres and gets {discountPercent}% discount. What markup is required for an actual {targetRatePercent}% {targetDirection}?",
+      "A dealer short-fills a paint can to {deliveredQuantity} litres instead of {trueQuantity}; true cost is ₹{costPricePerTrueQuantity} and discount is {discountPercent}%. Find the markup percentage needed for {targetRatePercent}% actual {targetDirection}."
+    ],
+    "hi": [
+      "पेंट की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} लीटर है। डिब्बे में केवल {deliveredQuantity} लीटर भरा जाता है और {discountPercent}% छूट दी जाती है। वास्तविक {targetRatePercent}% {targetDirection} के लिए कितना मार्कअप चाहिए?",
+      "एक डीलर {trueQuantity} लीटर की जगह केवल {deliveredQuantity} लीटर पेंट भरता है; वास्तविक लागत ₹{costPricePerTrueQuantity} है और छूट {discountPercent}% है। {targetRatePercent}% वास्तविक {targetDirection} के लिए आवश्यक मार्कअप प्रतिशत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਪੇਂਟ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਲੀਟਰ ਹੈ। ਡੱਬੇ ਵਿੱਚ ਸਿਰਫ਼ {deliveredQuantity} ਲੀਟਰ ਭਰਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਕਿੰਨਾ ਮਾਰਕਅੱਪ ਚਾਹੀਦਾ ਹੈ?",
+      "ਇੱਕ ਡੀਲਰ {trueQuantity} ਲੀਟਰ ਦੀ ਥਾਂ ਸਿਰਫ਼ {deliveredQuantity} ਲੀਟਰ ਪੇਂਟ ਭਰਦਾ ਹੈ; ਅਸਲ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ ਅਤੇ ਛੂਟ {discountPercent}% ਹੈ। {targetRatePercent}% ਅਸਲ {targetDirection} ਲਈ ਲੋੜੀਂਦਾ ਮਾਰਕਅੱਪ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-131": {
+    "en": [
+      "Cereal costing ₹{costPricePerTrueQuantity} per {trueQuantity} g is marked {markupPercent}% above cost, but each packet contains only {deliveredQuantity} g. What discount gives an actual {targetRatePercent}% {targetDirection}?",
+      "A cereal packet is short-filled to {deliveredQuantity} g instead of {trueQuantity}. The true cost is ₹{costPricePerTrueQuantity} and markup is {markupPercent}%. Find the discount needed for {targetRatePercent}% actual {targetDirection}."
+    ],
+    "hi": [
+      "सीरियल की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} ग्राम है और मूल्य {markupPercent}% बढ़ाकर अंकित किया गया है, लेकिन प्रत्येक पैकेट में केवल {deliveredQuantity} ग्राम है। वास्तविक {targetRatePercent}% {targetDirection} के लिए कितनी छूट चाहिए?",
+      "सीरियल पैकेट में {trueQuantity} ग्राम की जगह केवल {deliveredQuantity} ग्राम है। वास्तविक लागत ₹{costPricePerTrueQuantity} और मार्कअप {markupPercent}% है। {targetRatePercent}% वास्तविक {targetDirection} के लिए आवश्यक छूट ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਸੀਰੀਅਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਗ੍ਰਾਮ ਹੈ ਅਤੇ ਕੀਮਤ {markupPercent}% ਵਧਾ ਕੇ ਲਗਾਈ ਗਈ ਹੈ, ਪਰ ਹਰ ਪੈਕਟ ਵਿੱਚ ਸਿਰਫ਼ {deliveredQuantity} ਗ੍ਰਾਮ ਹੈ। ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਕਿੰਨੀ ਛੂਟ ਚਾਹੀਦੀ ਹੈ?",
+      "ਸੀਰੀਅਲ ਪੈਕਟ ਵਿੱਚ {trueQuantity} ਗ੍ਰਾਮ ਦੀ ਥਾਂ ਸਿਰਫ਼ {deliveredQuantity} ਗ੍ਰਾਮ ਹੈ। ਅਸਲ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਅਤੇ ਮਾਰਕਅੱਪ {markupPercent}% ਹੈ। {targetRatePercent}% ਅਸਲ {targetDirection} ਲਈ ਲੋੜੀਂਦੀ ਛੂਟ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-132": {
+    "en": [
+      "A cement bag costing ₹{costPricePerTrueQuantity} for {trueQuantity} kg has its quoted price changed by {priceChangePercent}% in the {priceDirection} direction, while quantity is reduced by {shortQuantityPercent}%. Find the actual profit percentage.",
+      "For cement costing ₹{costPricePerTrueQuantity} per {trueQuantity} kg, the seller changes price by {priceChangePercent}% in the {priceDirection} direction and gives {shortQuantityPercent}% less quantity. What is the true profit percentage?"
+    ],
+    "hi": [
+      "सीमेंट की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} किग्रा है। उद्धृत मूल्य में {priceChangePercent}% {priceDirection} परिवर्तन किया जाता है और मात्रा {shortQuantityPercent}% कम दी जाती है। वास्तविक लाभ प्रतिशत ज्ञात कीजिए।",
+      "₹{costPricePerTrueQuantity} प्रति {trueQuantity} किग्रा लागत वाले सीमेंट में विक्रेता मूल्य को {priceChangePercent}% {priceDirection} बदलता है और {shortQuantityPercent}% कम मात्रा देता है। वास्तविक लाभ प्रतिशत क्या है?"
+    ],
+    "pa": [
+      "ਸੀਮੈਂਟ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਹੈ। ਦੱਸੀ ਕੀਮਤ ਵਿੱਚ {priceChangePercent}% {priceDirection} ਬਦਲਾਅ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਮਾਤਰਾ {shortQuantityPercent}% ਘੱਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲਾਗਤ ਵਾਲੇ ਸੀਮੈਂਟ ਵਿੱਚ ਵਿਕਰੇਤਾ ਕੀਮਤ ਨੂੰ {priceChangePercent}% {priceDirection} ਬਦਲਦਾ ਹੈ ਅਤੇ {shortQuantityPercent}% ਘੱਟ ਮਾਤਰਾ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-133": {
+    "en": [
+      "Animal feed costs ₹{costPricePerTrueQuantity} per {trueQuantity} kg. The quoted price changes by {priceChangePercent}% in the {priceDirection} direction and delivery is short by {shortQuantityPercent}%. Find the actual percentage gain or loss.",
+      "A seller changes the price of feed costing ₹{costPricePerTrueQuantity} per {trueQuantity} kg by {priceChangePercent}% in the {priceDirection} direction and supplies {shortQuantityPercent}% less. Determine the true percentage result."
+    ],
+    "hi": [
+      "पशु-आहार की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} किग्रा है। उद्धृत मूल्य में {priceChangePercent}% {priceDirection} परिवर्तन होता है और {shortQuantityPercent}% कम मात्रा दी जाती है। वास्तविक लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "₹{costPricePerTrueQuantity} प्रति {trueQuantity} किग्रा लागत वाले पशु-आहार का मूल्य {priceChangePercent}% {priceDirection} बदला जाता है और {shortQuantityPercent}% कम दिया जाता है। वास्तविक प्रतिशत परिणाम ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਪਸ਼ੂ-ਚਾਰੇ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਹੈ। ਦੱਸੀ ਕੀਮਤ ਵਿੱਚ {priceChangePercent}% {priceDirection} ਬਦਲਾਅ ਹੁੰਦਾ ਹੈ ਅਤੇ {shortQuantityPercent}% ਘੱਟ ਮਾਤਰਾ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲਾਗਤ ਵਾਲੇ ਪਸ਼ੂ-ਚਾਰੇ ਦੀ ਕੀਮਤ {priceChangePercent}% {priceDirection} ਬਦਲੀ ਜਾਂਦੀ ਹੈ ਅਤੇ {shortQuantityPercent}% ਘੱਟ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-134": {
+    "en": [
+      "A customer is billed for {trueQuantity} units but receives only {deliveredQuantity}. By what percentage does the effective unit price exceed the fair unit price?",
+      "Payment is taken for {trueQuantity} units, while only {deliveredQuantity} units are supplied. Find the percentage increase in effective price per true unit."
+    ],
+    "hi": [
+      "ग्राहक से {trueQuantity} इकाइयों का मूल्य लिया जाता है, लेकिन उसे केवल {deliveredQuantity} इकाइयाँ मिलती हैं। प्रभावी प्रति-इकाई मूल्य उचित मूल्य से कितने प्रतिशत अधिक है?",
+      "भुगतान {trueQuantity} इकाइयों का लिया जाता है, जबकि केवल {deliveredQuantity} इकाइयाँ दी जाती हैं। प्रभावी प्रति-इकाई मूल्य में प्रतिशत वृद्धि ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਗਾਹਕ ਤੋਂ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲਈ ਜਾਂਦੀ ਹੈ, ਪਰ ਉਸਨੂੰ ਸਿਰਫ਼ {deliveredQuantity} ਇਕਾਈਆਂ ਮਿਲਦੀਆਂ ਹਨ। ਪ੍ਰਭਾਵੀ ਪ੍ਰਤੀ-ਇਕਾਈ ਕੀਮਤ ਸਹੀ ਕੀਮਤ ਤੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+      "ਭੁਗਤਾਨ {trueQuantity} ਇਕਾਈਆਂ ਦਾ ਲਿਆ ਜਾਂਦਾ ਹੈ, ਜਦਕਿ ਸਿਰਫ਼ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੱਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਪ੍ਰਭਾਵੀ ਪ੍ਰਤੀ-ਇਕਾਈ ਕੀਮਤ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-135": {
+    "en": [
+      "A dry-fruit seller quotes {declaredRatePercent}% {declaredDirection} on a {trueQuantity} g pack but wants the actual result to be {actualRatePercent}% {actualDirection}. What quantity should the pack really contain?",
+      "For a nominal {trueQuantity} g dry-fruit pack, the declared result is {declaredRatePercent}% {declaredDirection}. Find the actual pack weight needed to make the true result {actualRatePercent}% {actualDirection}."
+    ],
+    "hi": [
+      "एक सूखे-मेवे विक्रेता {trueQuantity} ग्राम पैक पर {declaredRatePercent}% {declaredDirection} बताता है, पर वास्तविक परिणाम {actualRatePercent}% {actualDirection} चाहता है। पैक में वास्तव में कितनी मात्रा होनी चाहिए?",
+      "नाममात्र {trueQuantity} ग्राम सूखे-मेवे के पैक पर घोषित परिणाम {declaredRatePercent}% {declaredDirection} है। वास्तविक {actualRatePercent}% {actualDirection} के लिए सही पैक वजन ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਸੁੱਕੇ ਮੇਵਿਆਂ ਦਾ ਵਿਕਰੇਤਾ {trueQuantity} ਗ੍ਰਾਮ ਪੈਕ 'ਤੇ {declaredRatePercent}% {declaredDirection} ਦੱਸਦਾ ਹੈ, ਪਰ ਅਸਲ ਨਤੀਜਾ {actualRatePercent}% {actualDirection} ਚਾਹੁੰਦਾ ਹੈ। ਪੈਕ ਵਿੱਚ ਅਸਲ ਵਿੱਚ ਕਿੰਨੀ ਮਾਤਰਾ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ?",
+      "ਨਾਮਾਤਰ {trueQuantity} ਗ੍ਰਾਮ ਸੁੱਕੇ ਮੇਵਿਆਂ ਦੇ ਪੈਕ 'ਤੇ ਦੱਸਿਆ ਨਤੀਜਾ {declaredRatePercent}% {declaredDirection} ਹੈ। ਅਸਲ {actualRatePercent}% {actualDirection} ਲਈ ਸਹੀ ਪੈਕ ਭਾਰ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-136": {
+    "en": [
+      "A seller charges for {trueQuantity} g of coffee but supplies {deliveredQuantity} g and actually earns {actualRatePercent}% {actualDirection}. Find the declared profit or loss percentage on the list price.",
+      "A coffee pack is billed as {trueQuantity} g but contains {deliveredQuantity} g. If the true result is {actualRatePercent}% {actualDirection}, what declared percentage must appear on the price list?"
+    ],
+    "hi": [
+      "विक्रेता {trueQuantity} ग्राम कॉफी का मूल्य लेता है, पर देता {deliveredQuantity} ग्राम है और वास्तविक परिणाम {actualRatePercent}% {actualDirection} है। सूची मूल्य पर घोषित लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "कॉफी पैक का बिल {trueQuantity} ग्राम का है, लेकिन उसमें {deliveredQuantity} ग्राम है। यदि वास्तविक परिणाम {actualRatePercent}% {actualDirection} है, तो मूल्य सूची पर घोषित प्रतिशत क्या होगा?"
+    ],
+    "pa": [
+      "ਵਿਕਰੇਤਾ {trueQuantity} ਗ੍ਰਾਮ ਕੌਫੀ ਦੀ ਕੀਮਤ ਲੈਂਦਾ ਹੈ, ਪਰ ਦਿੰਦਾ {deliveredQuantity} ਗ੍ਰਾਮ ਹੈ ਅਤੇ ਅਸਲ ਨਤੀਜਾ {actualRatePercent}% {actualDirection} ਹੈ। ਕੀਮਤ ਸੂਚੀ 'ਤੇ ਦੱਸਿਆ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਕੌਫੀ ਪੈਕ ਦਾ ਬਿੱਲ {trueQuantity} ਗ੍ਰਾਮ ਦਾ ਹੈ, ਪਰ ਇਸ ਵਿੱਚ {deliveredQuantity} ਗ੍ਰਾਮ ਹੈ। ਜੇ ਅਸਲ ਨਤੀਜਾ {actualRatePercent}% {actualDirection} ਹੈ, ਤਾਂ ਕੀਮਤ ਸੂਚੀ 'ਤੇ ਦੱਸਿਆ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੋਵੇਗਾ?"
+    ]
   }
 };
 
