@@ -1,0 +1,2162 @@
+[
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1945 के बाद किस बदलाव से यूरोपीय औपनिवेशिक साम्राज्य कमजोर होने की प्रक्रिया तेज हुई?",
+    "explanation": "द्वितीय विश्व युद्ध ने यूरोपीय शक्तियों की साम्राज्य चलाने की क्षमता कमजोर की और स्वशासन की मांग को बल दिया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q001-HI",
+    "englishQuestionId": "WHI-CP012-Q001",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F001",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के दबाव और रूपरेखाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "द्वितीय विश्व युद्ध का आर्थिक और राजनीतिक दबाव"
+      },
+      {
+        "key": "B",
+        "text": "सभी राष्ट्रवादी आंदोलनों का अंत"
+      },
+      {
+        "key": "C",
+        "text": "हर साम्राज्य को युद्ध-पूर्व रूप में बहाल करने वाली संधि"
+      },
+      {
+        "key": "D",
+        "text": "उपनिवेशों में राष्ट्र संघ का शासन"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1960 की उपनिवेशवाद समाप्ति संबंधी संयुक्त राष्ट्र घोषणा ने किस बात की पुष्टि की?",
+    "explanation": "घोषणा ने औपनिवेशिक शासन समाप्त करने की मांग की और लोगों के आत्मनिर्णय तथा स्वतंत्रता के अधिकार की पुष्टि की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q002-HI",
+    "englishQuestionId": "WHI-CP012-Q002",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F002",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के दबाव और रूपरेखाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "साम्राज्यों को उपनिवेश बनाए रखने का अधिकार"
+      },
+      {
+        "key": "B",
+        "text": "लोगों का आत्मनिर्णय और स्वतंत्रता का अधिकार"
+      },
+      {
+        "key": "C",
+        "text": "हर नए राज्य पर संयुक्त राष्ट्र का शासन"
+      },
+      {
+        "key": "D",
+        "text": "यूरोपीय शासन को स्थायी करने का अधिकार"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1945 के बाद उपनिवेश-मुक्ति की प्रक्रिया का सही वर्णन कौन-सा है?",
+    "explanation": "अलग-अलग क्षेत्रों ने बातचीत और सशस्त्र संघर्ष सहित भिन्न रास्तों से स्वतंत्रता पाई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q003-HI",
+    "englishQuestionId": "WHI-CP012-Q003",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F003",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के दबाव और रूपरेखाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "हर क्षेत्र तुरंत स्वतंत्र हुआ"
+      },
+      {
+        "key": "B",
+        "text": "प्रक्रिया केवल यूरोपीय संसदों के निर्णय से चली"
+      },
+      {
+        "key": "C",
+        "text": "इसमें बातचीत और सशस्त्र संघर्ष के अलग-अलग रास्ते अपनाए गए"
+      },
+      {
+        "key": "D",
+        "text": "सभी उपनिवेश एक ही दिन स्वतंत्र हुए"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1945 के बाद राष्ट्रवादी आंदोलनों का प्रभाव क्यों बढ़ा?",
+    "explanation": "युद्धकालीन जनभागीदारी और स्वतंत्रता के वादों ने युद्ध के बाद आत्मनिर्णय की मांग को मजबूत किया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q004-HI",
+    "englishQuestionId": "WHI-CP012-Q004",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F004",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के दबाव और रूपरेखाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "उन्हें हर जगह औपनिवेशिक शक्तियों का समर्थन मिला"
+      },
+      {
+        "key": "B",
+        "text": "उनके पास केवल सैनिक आंदोलन थे"
+      },
+      {
+        "key": "C",
+        "text": "युद्ध के बाद राजनीतिक भागीदारी समाप्त हो गई"
+      },
+      {
+        "key": "D",
+        "text": "वे जनभागीदारी और युद्धकालीन स्वतंत्रता के वादों का सहारा ले सके"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "उपनिवेश-मुक्ति में संयुक्त राष्ट्र की भूमिका का सही वर्णन कौन-सा है?",
+    "explanation": "संयुक्त राष्ट्र ने औपनिवेशिक मांगों को उठाने के लिए एक मंच दिया और आत्मनिर्णय के समर्थन में सिद्धांत अपनाए।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q005-HI",
+    "englishQuestionId": "WHI-CP012-Q005",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F005",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के दबाव और रूपरेखाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "उसने चर्चा का मंच दिया और आत्मनिर्णय के समर्थन में सिद्धांत अपनाए"
+      },
+      {
+        "key": "B",
+        "text": "उसने सभी नए देशों का प्रत्यक्ष शासन संभाला"
+      },
+      {
+        "key": "C",
+        "text": "उसने औपनिवेशिक शासन को अनिश्चितकाल तक जारी रखा"
+      },
+      {
+        "key": "D",
+        "text": "उसने हर स्वतंत्रता आंदोलन को सैन्य सहायता दी"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "स्वतंत्रता के बाद नए देशों के सामने कौन-सी आम चुनौती थी?",
+    "explanation": "राजनीतिक स्वतंत्रता मिलने से औपनिवेशिक शासन में बनी संस्थागत और आर्थिक चुनौतियाँ अपने आप समाप्त नहीं हुईं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q006-HI",
+    "englishQuestionId": "WHI-CP012-Q006",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F006",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के दबाव और रूपरेखाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "सभी सीमाओं और भाषाओं को समाप्त करना"
+      },
+      {
+        "key": "B",
+        "text": "औपनिवेशिक शासन से बनी संस्थाओं और अर्थव्यवस्थाओं को संभालना"
+      },
+      {
+        "key": "C",
+        "text": "स्वतंत्रता के बाद फिर से यूरोपीय उपनिवेश बनना"
+      },
+      {
+        "key": "D",
+        "text": "किसी भी सरकारी संस्था को न बनाना"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1947 में ब्रिटिश भारत के स्वतंत्र होने पर किस साम्राज्य का शासन समाप्त हुआ?",
+    "explanation": "1947 में ब्रिटेन ने भारतीय उपमहाद्वीप पर अपना शासन समाप्त किया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q007-HI",
+    "englishQuestionId": "WHI-CP012-Q007",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F007",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "भारत और पाकिस्तान की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांसीसी साम्राज्य"
+      },
+      {
+        "key": "B",
+        "text": "डच साम्राज्य"
+      },
+      {
+        "key": "C",
+        "text": "ब्रिटिश साम्राज्य"
+      },
+      {
+        "key": "D",
+        "text": "उस्मानी साम्राज्य"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1947 में ब्रिटिश भारत के विभाजन से कौन-से दो राज्य बने?",
+    "explanation": "1947 के विभाजन से भारत और पाकिस्तान अलग-अलग राज्य बने।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q008-HI",
+    "englishQuestionId": "WHI-CP012-Q008",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F008",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "भारत और पाकिस्तान की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "भारत और बर्मा"
+      },
+      {
+        "key": "B",
+        "text": "भारत और बांग्लादेश"
+      },
+      {
+        "key": "C",
+        "text": "पाकिस्तान और नेपाल"
+      },
+      {
+        "key": "D",
+        "text": "भारत और पाकिस्तान"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1947 के विभाजन का एक तात्कालिक परिणाम क्या था?",
+    "explanation": "विभाजन के साथ बड़े पैमाने पर लोगों का पलायन और गंभीर सांप्रदायिक हिंसा हुई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q009-HI",
+    "englishQuestionId": "WHI-CP012-Q009",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F009",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "भारत और पाकिस्तान की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "बड़े पैमाने पर पलायन और सांप्रदायिक हिंसा"
+      },
+      {
+        "key": "B",
+        "text": "सभी शरणार्थियों का तुरंत पुनर्वास"
+      },
+      {
+        "key": "C",
+        "text": "ब्रिटिश शासन की बहाली"
+      },
+      {
+        "key": "D",
+        "text": "भारत और पाकिस्तान का एक ही राज्य में विलय"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1947 में पाकिस्तान की स्वतंत्रता से कौन-सी तारीख जुड़ी है?",
+    "explanation": "पाकिस्तान 14 अगस्त 1947 को स्वतंत्र हुआ; भारत ने अगले दिन स्वतंत्रता प्राप्त की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q010-HI",
+    "englishQuestionId": "WHI-CP012-Q010",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F010",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "भारत और पाकिस्तान की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "15 अगस्त"
+      },
+      {
+        "key": "B",
+        "text": "14 अगस्त"
+      },
+      {
+        "key": "C",
+        "text": "26 जनवरी"
+      },
+      {
+        "key": "D",
+        "text": "1 जुलाई"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "भारतीय स्वतंत्रता अधिनियम, 1947 ने किसका प्रावधान किया?",
+    "explanation": "अधिनियम ने भारत और पाकिस्तान के दो स्वतंत्र डोमिनियन बनाए।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q011-HI",
+    "englishQuestionId": "WHI-CP012-Q011",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F011",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "भारत और पाकिस्तान की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "भारत और पाकिस्तान को ब्रिटिश उपनिवेश बनाए रखने का"
+      },
+      {
+        "key": "B",
+        "text": "भारतीय उपमहाद्वीप में फ्रांसीसी शासन स्थापित करने का"
+      },
+      {
+        "key": "C",
+        "text": "स्वतंत्र भारत और पाकिस्तान बनाने का"
+      },
+      {
+        "key": "D",
+        "text": "एकीकृत भारतीय साम्राज्य बनाने का"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1947 में नए राज्य के दर्जे से कौन-सा जोड़ा सही मेल खाता है?",
+    "explanation": "1947 में ब्रिटिश शासन समाप्त होने पर भारत और पाकिस्तान दोनों स्वतंत्र हुए।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q012-HI",
+    "englishQuestionId": "WHI-CP012-Q012",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F012",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "भारत और पाकिस्तान की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "भारत — फ्रांसीसी संरक्षित राज्य"
+      },
+      {
+        "key": "B",
+        "text": "पाकिस्तान — डच उपनिवेश"
+      },
+      {
+        "key": "C",
+        "text": "पाकिस्तान — संयुक्त राष्ट्र न्यास क्षेत्र"
+      },
+      {
+        "key": "D",
+        "text": "भारत — ब्रिटिश शासन से स्वतंत्र"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "17 अगस्त 1945 को इंडोनेशिया की स्वतंत्रता किसने घोषित की?",
+    "explanation": "जापान के आत्मसमर्पण के बाद सुकर्णो और मोहम्मद हट्टा ने इंडोनेशिया की स्वतंत्रता घोषित की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q013-HI",
+    "englishQuestionId": "WHI-CP012-Q013",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F013",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "इंडोनेशिया की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "सुकर्णो और मोहम्मद हट्टा"
+      },
+      {
+        "key": "B",
+        "text": "सुकर्णो और हो ची मिन्ह"
+      },
+      {
+        "key": "C",
+        "text": "मोहम्मद हट्टा और माओ ज़ेडोंग"
+      },
+      {
+        "key": "D",
+        "text": "जवाहरलाल नेहरू और सुकर्णो"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1945 के बाद इंडोनेशिया में किस यूरोपीय शक्ति ने औपनिवेशिक शासन फिर से स्थापित करने की कोशिश की?",
+    "explanation": "नीदरलैंड ने पूर्व डच ईस्ट इंडीज पर फिर से शासन कायम करने की कोशिश की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q014-HI",
+    "englishQuestionId": "WHI-CP012-Q014",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F014",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "इंडोनेशिया की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांस"
+      },
+      {
+        "key": "B",
+        "text": "नीदरलैंड"
+      },
+      {
+        "key": "C",
+        "text": "पुर्तगाल"
+      },
+      {
+        "key": "D",
+        "text": "ब्रिटेन"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "27 दिसंबर 1949 को नीदरलैंड ने इंडोनेशिया को क्या हस्तांतरित किया?",
+    "explanation": "राउंड टेबल सम्मेलन की व्यवस्था के बाद नीदरलैंड ने इंडोनेशिया को संप्रभुता हस्तांतरित की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q015-HI",
+    "englishQuestionId": "WHI-CP012-Q015",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F015",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "इंडोनेशिया की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "केवल आर्थिक सहायता"
+      },
+      {
+        "key": "B",
+        "text": "संयुक्त राष्ट्र न्यास शासन"
+      },
+      {
+        "key": "C",
+        "text": "संप्रभुता, डच-इंडोनेशियाई वार्ता के बाद"
+      },
+      {
+        "key": "D",
+        "text": "जावा द्वीप का प्रशासन"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "डच सेनाओं के जकार्ता लौटने से पहले इंडोनेशियाई गणराज्य की राजधानी कौन-सा शहर था?",
+    "explanation": "स्वतंत्रता संघर्ष के दौरान योग्याकार्ता इंडोनेशियाई गणराज्य की राजधानी बना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q016-HI",
+    "englishQuestionId": "WHI-CP012-Q016",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F016",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "इंडोनेशिया की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "बांडुंग"
+      },
+      {
+        "key": "B",
+        "text": "सुरबाया"
+      },
+      {
+        "key": "C",
+        "text": "मेदान"
+      },
+      {
+        "key": "D",
+        "text": "योग्याकार्ता"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "इंडोनेशियाई क्रांति का मुख्य विवाद क्या था?",
+    "explanation": "इंडोनेशियाई गणराज्य के समर्थक चाहते थे कि नीदरलैंड उनकी स्वतंत्रता और संप्रभुता को मान्यता दे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q017-HI",
+    "englishQuestionId": "WHI-CP012-Q017",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F017",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "इंडोनेशिया की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "क्या नीदरलैंड इंडोनेशियाई संप्रभुता को मान्यता देगा"
+      },
+      {
+        "key": "B",
+        "text": "क्या इंडोनेशिया संयुक्त राष्ट्र में शामिल होगा"
+      },
+      {
+        "key": "C",
+        "text": "क्या जापान फिर से शासन करेगा"
+      },
+      {
+        "key": "D",
+        "text": "क्या राजधानी बांडुंग में स्थानांतरित होगी"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1949 में इंडोनेशिया को संप्रभुता हस्तांतरित करने से पहले कौन-सा समझौता हुआ?",
+    "explanation": "1949 के राउंड टेबल सम्मेलन में बनी व्यवस्था ने संप्रभुता हस्तांतरण का रास्ता तैयार किया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q018-HI",
+    "englishQuestionId": "WHI-CP012-Q018",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F018",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "इंडोनेशिया की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "जिनेवा समझौते"
+      },
+      {
+        "key": "B",
+        "text": "राउंड टेबल सम्मेलन के समझौते"
+      },
+      {
+        "key": "C",
+        "text": "बांडुंग घोषणा"
+      },
+      {
+        "key": "D",
+        "text": "पॉट्सडैम समझौता"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1945 में डेमोक्रेटिक रिपब्लिक ऑफ वियतनाम की घोषणा किस नेता ने की?",
+    "explanation": "हो ची मिन्ह ने सितंबर 1945 में हनोई में डेमोक्रेटिक रिपब्लिक ऑफ वियतनाम की घोषणा की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q019-HI",
+    "englishQuestionId": "WHI-CP012-Q019",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F019",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "वियतनाम और फ्रांसीसी इंडोचीन का अंत",
+    "options": [
+      {
+        "key": "A",
+        "text": "सुकर्णो"
+      },
+      {
+        "key": "B",
+        "text": "ने विन"
+      },
+      {
+        "key": "C",
+        "text": "हो ची मिन्ह"
+      },
+      {
+        "key": "D",
+        "text": "माओ ज़ेडोंग"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1954 की किस लड़ाई ने इंडोचीन में फ्रांसीसी औपनिवेशिक शासन समाप्त करने में मदद की?",
+    "explanation": "डिएन बिएन फू में फ्रांस की हार के बाद इंडोचीन में उसका युद्ध समाप्त हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q020-HI",
+    "englishQuestionId": "WHI-CP012-Q020",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F020",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "वियतनाम और फ्रांसीसी इंडोचीन का अंत",
+    "options": [
+      {
+        "key": "A",
+        "text": "साइगॉन की लड़ाई"
+      },
+      {
+        "key": "B",
+        "text": "हुए की लड़ाई"
+      },
+      {
+        "key": "C",
+        "text": "इम्फाल की लड़ाई"
+      },
+      {
+        "key": "D",
+        "text": "डिएन बिएन फू की लड़ाई"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1954 के जिनेवा सम्मेलन के बाद इंडोचीन के बारे में कौन-सा समझौता हुआ?",
+    "explanation": "जिनेवा समझौतों में युद्धविराम और इंडोचीन के लिए राजनीतिक व्यवस्थाएँ तय की गईं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q021-HI",
+    "englishQuestionId": "WHI-CP012-Q021",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F021",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "वियतनाम और फ्रांसीसी इंडोचीन का अंत",
+    "options": [
+      {
+        "key": "A",
+        "text": "जिनेवा समझौते"
+      },
+      {
+        "key": "B",
+        "text": "राउंड टेबल समझौते"
+      },
+      {
+        "key": "C",
+        "text": "एवियन समझौते"
+      },
+      {
+        "key": "D",
+        "text": "लंदन समझौते"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1954 के जिनेवा समझौते ने वियतनाम के लिए कौन-सी अस्थायी विभाजन रेखा तय की?",
+    "explanation": "जिनेवा समझौते के तहत वियतनाम को अस्थायी रूप से 17वीं समानांतर रेखा के पास बाँटा गया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q022-HI",
+    "englishQuestionId": "WHI-CP012-Q022",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F022",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "वियतनाम और फ्रांसीसी इंडोचीन का अंत",
+    "options": [
+      {
+        "key": "A",
+        "text": "38वीं समानांतर रेखा"
+      },
+      {
+        "key": "B",
+        "text": "17वीं समानांतर रेखा"
+      },
+      {
+        "key": "C",
+        "text": "49वीं समानांतर रेखा"
+      },
+      {
+        "key": "D",
+        "text": "मेकांग नदी"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "फ्रांसीसी इंडोचीन में कौन-से तीन क्षेत्र शामिल थे?",
+    "explanation": "फ्रांसीसी इंडोचीन में वियतनाम, लाओस और कंबोडिया शामिल थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q023-HI",
+    "englishQuestionId": "WHI-CP012-Q023",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F023",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "वियतनाम और फ्रांसीसी इंडोचीन का अंत",
+    "options": [
+      {
+        "key": "A",
+        "text": "वियतनाम, थाईलैंड और बर्मा"
+      },
+      {
+        "key": "B",
+        "text": "लाओस, चीन और कंबोडिया"
+      },
+      {
+        "key": "C",
+        "text": "वियतनाम, लाओस और कंबोडिया"
+      },
+      {
+        "key": "D",
+        "text": "मलेया, लाओस और वियतनाम"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1954 के जिनेवा समझौते ने वियतनाम के राजनीतिक भविष्य के बारे में क्या तय किया?",
+    "explanation": "समझौते में वियतनाम के भविष्य का फैसला करने और देश को फिर से जोड़ने के लिए देशव्यापी चुनावों की कल्पना की गई थी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q024-HI",
+    "englishQuestionId": "WHI-CP012-Q024",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F024",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "वियतनाम और फ्रांसीसी इंडोचीन का अंत",
+    "options": [
+      {
+        "key": "A",
+        "text": "तुरंत स्थायी विभाजन"
+      },
+      {
+        "key": "B",
+        "text": "फ्रांस के शासन की बहाली"
+      },
+      {
+        "key": "C",
+        "text": "राजशाही की बहाली"
+      },
+      {
+        "key": "D",
+        "text": "देश को फिर से जोड़ने के उद्देश्य से देशव्यापी चुनाव"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "बर्मा (अब म्यांमार) किस वर्ष ब्रिटेन से स्वतंत्र हुआ?",
+    "explanation": "बर्मा 4 जनवरी 1948 को स्वतंत्र हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q025-HI",
+    "englishQuestionId": "WHI-CP012-Q025",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F025",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "बर्मा और मलाया",
+    "options": [
+      {
+        "key": "A",
+        "text": "1948"
+      },
+      {
+        "key": "B",
+        "text": "1947"
+      },
+      {
+        "key": "C",
+        "text": "1954"
+      },
+      {
+        "key": "D",
+        "text": "1957"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1957 में फेडरेशन ऑफ मलाया के रूप में किस देश को ब्रिटेन से स्वतंत्रता मिली?",
+    "explanation": "फेडरेशन ऑफ मलाया 31 अगस्त 1957 को स्वतंत्र हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q026-HI",
+    "englishQuestionId": "WHI-CP012-Q026",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F026",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "बर्मा और मलाया",
+    "options": [
+      {
+        "key": "A",
+        "text": "बर्मा"
+      },
+      {
+        "key": "B",
+        "text": "मलाया"
+      },
+      {
+        "key": "C",
+        "text": "सिंगापुर"
+      },
+      {
+        "key": "D",
+        "text": "ब्रुनेई"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "स्वतंत्र मलाया के पहले प्रधानमंत्री कौन बने?",
+    "explanation": "तुंकू अब्दुल रहमान स्वतंत्र फेडरेशन ऑफ मलाया के पहले प्रधानमंत्री बने।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q027-HI",
+    "englishQuestionId": "WHI-CP012-Q027",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F027",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "बर्मा और मलाया",
+    "options": [
+      {
+        "key": "A",
+        "text": "ने विन"
+      },
+      {
+        "key": "B",
+        "text": "सुकार्नो"
+      },
+      {
+        "key": "C",
+        "text": "तुंकू अब्दुल रहमान"
+      },
+      {
+        "key": "D",
+        "text": "ली कुआन यू"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "बर्मा की स्वतंत्रता से पहले कौन-सी प्रक्रिया हुई?",
+    "explanation": "बर्मी नेताओं ने स्वतंत्रता का रास्ता तय करने के लिए ब्रिटिश सरकार से बातचीत की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q028-HI",
+    "englishQuestionId": "WHI-CP012-Q028",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F028",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "बर्मा और मलाया",
+    "options": [
+      {
+        "key": "A",
+        "text": "जापानी प्रशासन की बहाली"
+      },
+      {
+        "key": "B",
+        "text": "भारत और पाकिस्तान का विभाजन"
+      },
+      {
+        "key": "C",
+        "text": "संयुक्त राष्ट्र न्यास शासन"
+      },
+      {
+        "key": "D",
+        "text": "बर्मी नेताओं और ब्रिटिश सरकार के बीच बातचीत"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1957 के मलाया और 1963 के मलेशिया में क्या अंतर था?",
+    "explanation": "फेडरेशन ऑफ मलाया 1957 में स्वतंत्र हुआ; मलेशिया का गठन बाद में 1963 में हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q029-HI",
+    "englishQuestionId": "WHI-CP012-Q029",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F029",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "बर्मा और मलाया",
+    "options": [
+      {
+        "key": "A",
+        "text": "मलाया 1957 में स्वतंत्र हुआ; मलेशिया 1963 में बना"
+      },
+      {
+        "key": "B",
+        "text": "मलेशिया 1957 में स्वतंत्र हुआ; मलाया 1963 में बना"
+      },
+      {
+        "key": "C",
+        "text": "दोनों नाम एक ही राज्य के लिए 1948 से इस्तेमाल हुए"
+      },
+      {
+        "key": "D",
+        "text": "मलाया 1963 में ब्रिटेन का उपनिवेश बना"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "स्वतंत्रता से पहले बर्मा पर किस यूरोपीय शक्ति का शासन था?",
+    "explanation": "स्वतंत्रता से पहले बर्मा ब्रिटिश साम्राज्य का हिस्सा था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q030-HI",
+    "englishQuestionId": "WHI-CP012-Q030",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F030",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "बर्मा और मलाया",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांस"
+      },
+      {
+        "key": "B",
+        "text": "ब्रिटेन"
+      },
+      {
+        "key": "C",
+        "text": "नीदरलैंड"
+      },
+      {
+        "key": "D",
+        "text": "पुर्तगाल"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1 अक्टूबर 1949 को पीपुल्स रिपब्लिक ऑफ चाइना की घोषणा किसने की?",
+    "explanation": "माओ ज़ेडोंग ने 1 अक्टूबर 1949 को बीजिंग में पीपुल्स रिपब्लिक ऑफ चाइना की घोषणा की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q031-HI",
+    "englishQuestionId": "WHI-CP012-Q031",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F031",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "चीनी क्रांति और जनवादी गणराज्य चीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "च्यांग काई-शेक"
+      },
+      {
+        "key": "B",
+        "text": "झोउ एनलाई"
+      },
+      {
+        "key": "C",
+        "text": "माओ ज़ेडोंग"
+      },
+      {
+        "key": "D",
+        "text": "सुन यात-सेन"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1949 में मुख्यभूमि चीन पर नियंत्रण खोने के बाद कौन-सी सरकार ताइवान चली गई?",
+    "explanation": "मुख्यभूमि पर कम्युनिस्ट विजय के बाद राष्ट्रवादी नेतृत्व वाली रिपब्लिक ऑफ चाइना सरकार ताइवान चली गई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q032-HI",
+    "englishQuestionId": "WHI-CP012-Q032",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F032",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "चीनी क्रांति और जनवादी गणराज्य चीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "पीपुल्स रिपब्लिक ऑफ चाइना की सरकार"
+      },
+      {
+        "key": "B",
+        "text": "मंगोलियाई सरकार"
+      },
+      {
+        "key": "C",
+        "text": "जापानी सरकार"
+      },
+      {
+        "key": "D",
+        "text": "राष्ट्रवादियों के नेतृत्व वाली रिपब्लिक ऑफ चाइना सरकार"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1949 में मुख्यभूमि चीन के गृहयुद्ध का परिणाम क्या हुआ?",
+    "explanation": "मुख्यभूमि पर कम्युनिस्ट सेनाएँ जीतीं और 1949 में पीपुल्स रिपब्लिक ऑफ चाइना की स्थापना हुई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q033-HI",
+    "englishQuestionId": "WHI-CP012-Q033",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F033",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "चीनी क्रांति और जनवादी गणराज्य चीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "कम्युनिस्ट विजय और पीपुल्स रिपब्लिक ऑफ चाइना की स्थापना"
+      },
+      {
+        "key": "B",
+        "text": "रिपब्लिक ऑफ चाइना का मुख्यभूमि पर शासन बहाल"
+      },
+      {
+        "key": "C",
+        "text": "चीन का ब्रिटेन और फ्रांस में विभाजन"
+      },
+      {
+        "key": "D",
+        "text": "राजशाही की बहाली"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "नई पीपुल्स रिपब्लिक ऑफ चाइना का नेतृत्व किस राजनीतिक दल ने किया?",
+    "explanation": "चीनी कम्युनिस्ट पार्टी ने नई पीपुल्स रिपब्लिक ऑफ चाइना की सरकार बनाई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q034-HI",
+    "englishQuestionId": "WHI-CP012-Q034",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F034",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "चीनी क्रांति और जनवादी गणराज्य चीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "कुओमिनतांग"
+      },
+      {
+        "key": "B",
+        "text": "चीनी कम्युनिस्ट पार्टी"
+      },
+      {
+        "key": "C",
+        "text": "डेमोक्रेटिक लीग"
+      },
+      {
+        "key": "D",
+        "text": "रिपब्लिकन पार्टी"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1949 में पीपुल्स रिपब्लिक ऑफ चाइना की राजधानी कौन-सा शहर बना?",
+    "explanation": "नई सरकार की घोषणा बीजिंग में हुई और यही शहर पीपुल्स रिपब्लिक ऑफ चाइना की राजधानी बना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q035-HI",
+    "englishQuestionId": "WHI-CP012-Q035",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F035",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "चीनी क्रांति और जनवादी गणराज्य चीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "शंघाई"
+      },
+      {
+        "key": "B",
+        "text": "नानजिंग"
+      },
+      {
+        "key": "C",
+        "text": "बीजिंग"
+      },
+      {
+        "key": "D",
+        "text": "ताइपे"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1949 के बाद दोनों चीनी सरकारों का सही अंतर कौन-सा है?",
+    "explanation": "कम्युनिस्ट पीपुल्स रिपब्लिक ऑफ चाइना ने मुख्यभूमि पर शासन किया, जबकि राष्ट्रवादी रिपब्लिक ऑफ चाइना सरकार ताइवान में रही।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q036-HI",
+    "englishQuestionId": "WHI-CP012-Q036",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F036",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "चीनी क्रांति और जनवादी गणराज्य चीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "मुख्यभूमि पर रिपब्लिक ऑफ चाइना; ताइवान पर PRC"
+      },
+      {
+        "key": "B",
+        "text": "1949 के बाद कोई अलग सरकार नहीं रही"
+      },
+      {
+        "key": "C",
+        "text": "दोनों सरकारें केवल ताइवान में रहीं"
+      },
+      {
+        "key": "D",
+        "text": "मुख्यभूमि पर PRC; ताइवान पर रिपब्लिक ऑफ चाइना"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1955 का एशियाई-अफ्रीकी सम्मेलन, जिसे बांडुंग सम्मेलन कहा जाता है, कहाँ हुआ?",
+    "explanation": "सम्मेलन इंडोनेशिया के बांडुंग शहर में हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q037-HI",
+    "englishQuestionId": "WHI-CP012-Q037",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F037",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "बांडुंग और एशियाई-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "इंडोनेशिया"
+      },
+      {
+        "key": "B",
+        "text": "मिस्र"
+      },
+      {
+        "key": "C",
+        "text": "भारत"
+      },
+      {
+        "key": "D",
+        "text": "बर्मा"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "बांडुंग सम्मेलन ने किस व्यापक उद्देश्य को सामने रखा?",
+    "explanation": "सम्मेलन ने उपनिवेशवाद के विरोध और एशियाई-अफ्रीकी देशों के बीच सहयोग पर जोर दिया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q038-HI",
+    "englishQuestionId": "WHI-CP012-Q038",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F038",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "बांडुंग और एशियाई-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "यूरोपीय शासन को फिर से स्थापित करना"
+      },
+      {
+        "key": "B",
+        "text": "एशियाई और अफ्रीकी देशों के बीच सहयोग और उपनिवेशवाद का विरोध"
+      },
+      {
+        "key": "C",
+        "text": "एक साझा सैन्य गठबंधन बनाना"
+      },
+      {
+        "key": "D",
+        "text": "हर देश को किसी एक शीत युद्ध गुट में शामिल करना"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "बांडुंग सम्मेलन किस वर्ष हुआ?",
+    "explanation": "एशियाई-अफ्रीकी सम्मेलन अप्रैल 1955 में बांडुंग में हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q039-HI",
+    "englishQuestionId": "WHI-CP012-Q039",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F039",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "बांडुंग और एशियाई-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "1949"
+      },
+      {
+        "key": "B",
+        "text": "1951"
+      },
+      {
+        "key": "C",
+        "text": "1955"
+      },
+      {
+        "key": "D",
+        "text": "1961"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "बांडुंग के कई प्रतिनिधि अंतरराष्ट्रीय मामलों में क्या बनाए रखना चाहते थे?",
+    "explanation": "कई प्रतिनिधि शीत युद्ध के दोनों गुटों में स्वतः शामिल हुए बिना सहयोग और स्वतंत्र फैसले लेने की गुंजाइश चाहते थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q040-HI",
+    "englishQuestionId": "WHI-CP012-Q040",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F040",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "बांडुंग और एशियाई-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "दोनों शीत युद्ध गुटों में शामिल होना"
+      },
+      {
+        "key": "B",
+        "text": "यूरोपीय शक्तियों का नियंत्रण लौटाना"
+      },
+      {
+        "key": "C",
+        "text": "संयुक्त राष्ट्र छोड़ना"
+      },
+      {
+        "key": "D",
+        "text": "गुटीय प्रतिस्पर्धा के बीच स्वतंत्र फैसला लेने की क्षमता"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "बांडुंग सम्मेलन में कौन-से देश शामिल थे?",
+    "explanation": "सम्मेलन में एशिया और अफ्रीका के देश शामिल हुए।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q041-HI",
+    "englishQuestionId": "WHI-CP012-Q041",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F041",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "बांडुंग और एशियाई-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "एशिया और अफ्रीका के देश"
+      },
+      {
+        "key": "B",
+        "text": "यूरोप और दक्षिण अमेरिका के देश"
+      },
+      {
+        "key": "C",
+        "text": "केवल अफ्रीका के देश"
+      },
+      {
+        "key": "D",
+        "text": "केवल एशिया के देश"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "बांडुंग सम्मेलन की विरासत से बाद में कौन-सा कूटनीतिक विचार जुड़ा?",
+    "explanation": "बांडुंग ने बाद के गुटनिरपेक्ष और एशियाई-अफ्रीकी कूटनीतिक सहयोग को आकार देने में मदद की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q042-HI",
+    "englishQuestionId": "WHI-CP012-Q042",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F042",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "बांडुंग और एशियाई-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "वारसा संधि"
+      },
+      {
+        "key": "B",
+        "text": "गुटनिरपेक्षता और एशियाई-अफ्रीकी सहयोग"
+      },
+      {
+        "key": "C",
+        "text": "यूरोपीय संघ"
+      },
+      {
+        "key": "D",
+        "text": "नाटो का विस्तार"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1948 से पहले लीग ऑफ नेशंस के मैंडेट के तहत फिलिस्तीन का प्रशासन किस यूरोपीय शक्ति ने किया?",
+    "explanation": "प्रथम विश्व युद्ध के बाद मैंडेट व्यवस्था के तहत ब्रिटेन ने फिलिस्तीन का प्रशासन संभाला।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q043-HI",
+    "englishQuestionId": "WHI-CP012-Q043",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F043",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ब्रिटिश मैंडेट के तहत फिलिस्तीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांस"
+      },
+      {
+        "key": "B",
+        "text": "नीदरलैंड"
+      },
+      {
+        "key": "C",
+        "text": "ब्रिटेन"
+      },
+      {
+        "key": "D",
+        "text": "इटली"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "संयुक्त राष्ट्र महासभा के प्रस्ताव 181 ने 1947 में क्या सिफारिश की?",
+    "explanation": "प्रस्ताव 181 ने ब्रिटिश मैंडेट को अरब और यहूदी राज्यों में बाँटने तथा यरूशलेम के लिए अंतरराष्ट्रीय दर्जा तय करने की सिफारिश की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q044-HI",
+    "englishQuestionId": "WHI-CP012-Q044",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F044",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ब्रिटिश मैंडेट के तहत फिलिस्तीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "पूरे मैंडेट को ब्रिटेन में मिलाने की"
+      },
+      {
+        "key": "B",
+        "text": "इसे फ्रांस और मिस्र में बाँटने की"
+      },
+      {
+        "key": "C",
+        "text": "फिलिस्तीन को संयुक्त राष्ट्र का स्थायी क्षेत्र बनाने की"
+      },
+      {
+        "key": "D",
+        "text": "अरब और यहूदी राज्यों में विभाजन की"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "संयुक्त राष्ट्र महासभा ने प्रस्ताव 181 कब अपनाया?",
+    "explanation": "महासभा ने प्रस्ताव 181 को 29 नवंबर 1947 को अपनाया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q045-HI",
+    "englishQuestionId": "WHI-CP012-Q045",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F045",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ब्रिटिश मैंडेट के तहत फिलिस्तीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "29 नवंबर 1947"
+      },
+      {
+        "key": "B",
+        "text": "14 मई 1948"
+      },
+      {
+        "key": "C",
+        "text": "1 अक्टूबर 1949"
+      },
+      {
+        "key": "D",
+        "text": "24 अक्टूबर 1945"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "प्रस्ताव 181 ने यरूशलेम के लिए कौन-सी अंतरराष्ट्रीय व्यवस्था सुझाई?",
+    "explanation": "योजना में यरूशलेम को अलग इकाई के रूप में अंतरराष्ट्रीय प्रशासन देने का प्रस्ताव था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q046-HI",
+    "englishQuestionId": "WHI-CP012-Q046",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F046",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ब्रिटिश मैंडेट के तहत फिलिस्तीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसे अरब राज्य की राजधानी बनाने का"
+      },
+      {
+        "key": "B",
+        "text": "एक विशेष अंतरराष्ट्रीय व्यवस्था का"
+      },
+      {
+        "key": "C",
+        "text": "इसे यहूदी राज्य की राजधानी बनाने का"
+      },
+      {
+        "key": "D",
+        "text": "इसे ब्रिटिश शासन के अधीन रखने का"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "मई 1948 में फिलिस्तीन के ब्रिटिश मैंडेट का क्या हुआ?",
+    "explanation": "मई 1948 में ब्रिटिश मैंडेट समाप्त हो गया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q047-HI",
+    "englishQuestionId": "WHI-CP012-Q047",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F047",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ब्रिटिश मैंडेट के तहत फिलिस्तीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसे अगले सौ वर्षों के लिए बढ़ा दिया गया"
+      },
+      {
+        "key": "B",
+        "text": "इसे फ्रांस को सौंप दिया गया"
+      },
+      {
+        "key": "C",
+        "text": "यह समाप्त हो गया"
+      },
+      {
+        "key": "D",
+        "text": "यह सोवियत संघ के अधीन संयुक्त राष्ट्र न्यास क्षेत्र बना"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1947 के विभाजन प्रस्ताव को किस संस्था ने अपनाया?",
+    "explanation": "प्रस्ताव 181 को संयुक्त राष्ट्र महासभा ने अपनाया था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q048-HI",
+    "englishQuestionId": "WHI-CP012-Q048",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F048",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ब्रिटिश मैंडेट के तहत फिलिस्तीन",
+    "options": [
+      {
+        "key": "A",
+        "text": "राष्ट्र संघ"
+      },
+      {
+        "key": "B",
+        "text": "अंतरराष्ट्रीय न्यायालय"
+      },
+      {
+        "key": "C",
+        "text": "सुरक्षा परिषद"
+      },
+      {
+        "key": "D",
+        "text": "संयुक्त राष्ट्र महासभा"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "इज़राइल ने अपनी स्वतंत्रता की घोषणा कब की?",
+    "explanation": "14 मई 1948 को ब्रिटिश मैंडेट समाप्त होते समय इज़राइल ने स्वतंत्रता की घोषणा की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q049-HI",
+    "englishQuestionId": "WHI-CP012-Q049",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F049",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "इज़राइल, 1948 का युद्ध और विस्थापन",
+    "options": [
+      {
+        "key": "A",
+        "text": "14 मई 1948"
+      },
+      {
+        "key": "B",
+        "text": "15 मई 1948"
+      },
+      {
+        "key": "C",
+        "text": "29 नवंबर 1947"
+      },
+      {
+        "key": "D",
+        "text": "1 जनवरी 1949"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "ब्रिटिश मैंडेट के अंत और इज़राइल की स्वतंत्रता घोषणा के बाद कौन-सा संघर्ष हुआ?",
+    "explanation": "मैंडेट के अंत और इज़राइल की घोषणा के बाद 1948 का अरब-इज़राइल युद्ध शुरू हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q050-HI",
+    "englishQuestionId": "WHI-CP012-Q050",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F050",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "इज़राइल, 1948 का युद्ध और विस्थापन",
+    "options": [
+      {
+        "key": "A",
+        "text": "छह-दिवसीय युद्ध"
+      },
+      {
+        "key": "B",
+        "text": "1948 का अरब-इज़राइल युद्ध"
+      },
+      {
+        "key": "C",
+        "text": "योम किप्पुर युद्ध"
+      },
+      {
+        "key": "D",
+        "text": "स्वेज संकट"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "संयुक्त राष्ट्र प्रस्ताव 181 और 1948 में इज़राइल की स्वतंत्रता के बीच सही अंतर क्या है?",
+    "explanation": "संयुक्त राष्ट्र योजना ने विभाजन की सिफारिश की थी; इज़राइल ने बाद में मई 1948 में स्वतंत्रता की घोषणा की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q051-HI",
+    "englishQuestionId": "WHI-CP012-Q051",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F051",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "इज़राइल, 1948 का युद्ध और विस्थापन",
+    "options": [
+      {
+        "key": "A",
+        "text": "इज़राइल की घोषणा के बाद प्रस्ताव 181 अपनाया गया"
+      },
+      {
+        "key": "B",
+        "text": "प्रस्ताव 181 ने इज़राइल को तुरंत स्वतंत्र कर दिया"
+      },
+      {
+        "key": "C",
+        "text": "प्रस्ताव 181 ने विभाजन की सिफारिश की; इज़राइल ने 1948 में बाद में स्वतंत्रता घोषित की"
+      },
+      {
+        "key": "D",
+        "text": "प्रस्ताव 181 ने ब्रिटिश मैंडेट को स्थायी कर दिया"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1948 के युद्ध के साथ कौन-सा बड़ा मानवीय परिणाम हुआ?",
+    "explanation": "संघर्ष के कारण बड़ी संख्या में फिलिस्तीनी विस्थापित हुए और शरणार्थी संकट पैदा हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q052-HI",
+    "englishQuestionId": "WHI-CP012-Q052",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F052",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "इज़राइल, 1948 का युद्ध और विस्थापन",
+    "options": [
+      {
+        "key": "A",
+        "text": "फिलिस्तीन का तत्काल एकीकरण"
+      },
+      {
+        "key": "B",
+        "text": "भारत का विभाजन"
+      },
+      {
+        "key": "C",
+        "text": "यूरोप में जर्मन पुनर्वास"
+      },
+      {
+        "key": "D",
+        "text": "बड़ी संख्या में फिलिस्तीनियों का विस्थापन"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "मई 1948 में इज़राइल की घोषणा से ठीक पहले कौन-सी घटना हुई?",
+    "explanation": "इज़राइल की स्वतंत्रता घोषणा के समय ब्रिटिश मैंडेट समाप्त हो गया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q053-HI",
+    "englishQuestionId": "WHI-CP012-Q053",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F053",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "इज़राइल, 1948 का युद्ध और विस्थापन",
+    "options": [
+      {
+        "key": "A",
+        "text": "फिलिस्तीन में ब्रिटिश मैंडेट का अंत"
+      },
+      {
+        "key": "B",
+        "text": "बांडुंग सम्मेलन"
+      },
+      {
+        "key": "C",
+        "text": "1954 के जिनेवा समझौते"
+      },
+      {
+        "key": "D",
+        "text": "अफ्रीकी एकता संगठन की स्थापना"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1948 के अरब-इज़राइल युद्ध के बाद क्या हुआ?",
+    "explanation": "युद्ध के बाद हुए युद्धविराम समझौतों ने संघर्ष-विराम रेखाएँ तय कीं, लेकिन क्षेत्रीय विवादों का अंतिम शांति समाधान नहीं किया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q054-HI",
+    "englishQuestionId": "WHI-CP012-Q054",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F054",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "इज़राइल, 1948 का युद्ध और विस्थापन",
+    "options": [
+      {
+        "key": "A",
+        "text": "एक अंतिम क्षेत्रीय शांति समझौता हुआ"
+      },
+      {
+        "key": "B",
+        "text": "युद्धविराम समझौतों ने संघर्ष-विराम रेखाएँ तय कीं, अंतिम शांति समझौता नहीं"
+      },
+      {
+        "key": "C",
+        "text": "ब्रिटिश मैंडेट बहाल हुआ"
+      },
+      {
+        "key": "D",
+        "text": "फिलिस्तीन संयुक्त राष्ट्र का सदस्य बना"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "स्वतंत्रता प्राप्ति के अलग-अलग रास्तों की तुलना में कौन-सा कथन सही है?",
+    "explanation": "इंडोनेशिया ने 1945 में स्वतंत्रता घोषित की, लेकिन नीदरलैंड से संप्रभुता हस्तांतरण 1949 में हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q055-HI",
+    "englishQuestionId": "WHI-CP012-Q055",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F055",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के रास्ते और क्षेत्रीय तुलना",
+    "options": [
+      {
+        "key": "A",
+        "text": "बर्मा ने 1945 में स्वतंत्रता घोषित की और 1949 में संप्रभुता पाई"
+      },
+      {
+        "key": "B",
+        "text": "मलाया ने 1948 में स्वतंत्रता घोषित की और 1957 में संप्रभुता पाई"
+      },
+      {
+        "key": "C",
+        "text": "इंडोनेशिया ने 1945 में स्वतंत्रता घोषित की और 1949 में डच संप्रभुता हस्तांतरण पाया"
+      },
+      {
+        "key": "D",
+        "text": "वियतनाम ने 1945 में स्वतंत्रता घोषित की और 1949 में संप्रभुता पाई"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "कौन-सा जोड़ा सही मेल खाता है?",
+    "explanation": "बर्मा 1948 में ब्रिटेन से स्वतंत्र हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q056-HI",
+    "englishQuestionId": "WHI-CP012-Q056",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F056",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के रास्ते और क्षेत्रीय तुलना",
+    "options": [
+      {
+        "key": "A",
+        "text": "मलाया — 1948 में ब्रिटेन से स्वतंत्रता"
+      },
+      {
+        "key": "B",
+        "text": "अल्जीरिया — 1948 में फ्रांस से स्वतंत्रता"
+      },
+      {
+        "key": "C",
+        "text": "इंडोनेशिया — 1948 में डच संप्रभुता हस्तांतरण"
+      },
+      {
+        "key": "D",
+        "text": "बर्मा — 1948 में ब्रिटेन से स्वतंत्रता"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1954 में कौन-सी घटना हुई?",
+    "explanation": "डिएन बिएन फू 1954 में गिरा और उसके बाद इंडोचीन पर जिनेवा वार्ता हुई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q057-HI",
+    "englishQuestionId": "WHI-CP012-Q057",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F057",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के रास्ते और क्षेत्रीय तुलना",
+    "options": [
+      {
+        "key": "A",
+        "text": "डिएन बिएन फू में फ्रांस की हार और इंडोचीन पर जिनेवा वार्ता"
+      },
+      {
+        "key": "B",
+        "text": "बांडुंग सम्मेलन"
+      },
+      {
+        "key": "C",
+        "text": "मलाया की स्वतंत्रता"
+      },
+      {
+        "key": "D",
+        "text": "पीपुल्स रिपब्लिक ऑफ चाइना की घोषणा"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "स्वतंत्रता और राज्य-निर्माण के बारे में कौन-सा कथन सही है?",
+    "explanation": "स्वतंत्रता मिलने से अंदरूनी या क्षेत्रीय संघर्ष अपने आप समाप्त नहीं हुए। नए देशों को राजनीतिक संस्थाएँ बनाने का काम भी करना पड़ा।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q058-HI",
+    "englishQuestionId": "WHI-CP012-Q058",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F058",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के रास्ते और क्षेत्रीय तुलना",
+    "options": [
+      {
+        "key": "A",
+        "text": "औपचारिक स्वतंत्रता से सभी आंतरिक और क्षेत्रीय संघर्ष तुरंत सुलझ गए"
+      },
+      {
+        "key": "B",
+        "text": "औपचारिक स्वतंत्रता से अंदरूनी या क्षेत्रीय संघर्ष अपने आप समाप्त नहीं हुए"
+      },
+      {
+        "key": "C",
+        "text": "नए देशों को राजनीतिक संस्थाओं की जरूरत नहीं थी"
+      },
+      {
+        "key": "D",
+        "text": "हर नवस्वतंत्र देश ने अपना पुराना संविधान बनाए रखा"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "कौन-सा कालक्रम सही है?",
+    "explanation": "भारत और पाकिस्तान 1947 में स्वतंत्र हुए, बर्मा 1948 में और मलाया 1957 में।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q059-HI",
+    "englishQuestionId": "WHI-CP012-Q059",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F059",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के रास्ते और क्षेत्रीय तुलना",
+    "options": [
+      {
+        "key": "A",
+        "text": "बर्मा (1947) → भारत-पाकिस्तान (1948) → मलाया (1957)"
+      },
+      {
+        "key": "B",
+        "text": "भारत-पाकिस्तान (1947) → मलाया (1948) → बर्मा (1957)"
+      },
+      {
+        "key": "C",
+        "text": "भारत-पाकिस्तान (1947) → बर्मा (1948) → मलाया (1957)"
+      },
+      {
+        "key": "D",
+        "text": "मलाया (1947) → बर्मा (1948) → भारत-पाकिस्तान (1957)"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1955 की किस बैठक ने एशिया और अफ्रीका की स्वतंत्रता की राजनीति को जोड़ा?",
+    "explanation": "बांडुंग सम्मेलन ने 1955 में एशियाई और अफ्रीकी देशों को एक साथ लाया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q060-HI",
+    "englishQuestionId": "WHI-CP012-Q060",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F060",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "उपनिवेश-मुक्ति के रास्ते और क्षेत्रीय तुलना",
+    "options": [
+      {
+        "key": "A",
+        "text": "जिनेवा सम्मेलन"
+      },
+      {
+        "key": "B",
+        "text": "डम्बर्टन ओक्स सम्मेलन"
+      },
+      {
+        "key": "C",
+        "text": "ब्रेटन वुड्स सम्मेलन"
+      },
+      {
+        "key": "D",
+        "text": "बांडुंग सम्मेलन"
+      }
+    ],
+    "correctOption": "D"
+  }
+]

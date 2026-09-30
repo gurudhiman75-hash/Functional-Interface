@@ -14,11 +14,19 @@
 
 ## Current gate
 
-- English: 60 questions; 18 Easy / 30 Medium / 12 Hard; A15/B15/C15/D15. First-pass editorial corrections are documented; human approval requested.
-- Hindi and Punjabi localization remains gated pending English approval.
+- English: 60 questions; 18 Easy / 30 Medium / 12 Hard; A15/B15/C15/D15. First-pass editorial corrections are documented; user approval received to proceed with localization.
+- Hindi and Punjabi review candidates are drafted; native-language review remains pending.
 - `reviewOnly: true`; `runtimeRegistered: false` for every item.
 
 
 ## Editorial update — 2026-09-30
 
-The English pool received a first-pass editorial review and focused corrections. Human English approval is requested; Hindi/Punjabi localization, Question Studio registration and learner delivery remain gated. See `WHI-001-CP011-CP014-EN-EDITORIAL-REVIEW-V1.md` and `WHI-001-CP011-CP014-EN-EDITORIAL-READINESS-V1.md`.
+The English pool received a first-pass editorial review and focused corrections. English editorial pool approved for localization; native-language review, Question Studio registration and learner delivery remain gated. See `WHI-001-CP011-CP014-EN-EDITORIAL-REVIEW-V1.md` and `WHI-001-CP011-CP014-EN-EDITORIAL-READINESS-V1.md`.
+
+
+## Localization update — 2026-09-30
+
+Hindi and Punjabi pools each contain 60 review-only records in the existing `knowledge-v1` architecture. Stable English question, checkpoint, fact and source references, option order, correct-answer keys, difficulty and source trail are preserved. Every localized record has `reviewOnly: true` and `runtimeRegistered: false`. Native-language review is pending; no learner delivery is enabled.
+
+- Hindi data: `world-history-cp013-hi-v1.json`; review: `WHI-001-CP013-HI-LOCALIZATION-REVIEW-V1.md`.
+- Punjabi data: `world-history-cp013-pa-v1.json`; review: `WHI-001-CP013-PA-LOCALIZATION-REVIEW-V1.md`.

@@ -1,0 +1,2177 @@
+[
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1947 ਵਿੱਚ ਟਰੂਮੈਨ ਸਿਧਾਂਤ ਨੇ ਕਿਹੜੀ ਨੀਤੀ ਦਾ ਐਲਾਨ ਕੀਤਾ?",
+    "explanation": "ਟਰੂਮੈਨ ਨੇ ਕਾਂਗਰਸ ਨੂੰ ਯੂਨਾਨ ਅਤੇ ਤੁਰਕੀ ਦੀ ਮਦਦ ਕਰਨ ਲਈ ਕਿਹਾ ਅਤੇ ਇਸ ਨੂੰ ਵਿਸ਼ਾਲ ਅਮਰੀਕੀ ਸਹਾਇਤਾ ਨੀਤੀ ਦਾ ਰੂਪ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q001-PA",
+    "englishQuestionId": "WHI-CP014-Q001",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F001",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "questionFamily": "ਸ਼ੁਰੂਆਤ ਅਤੇ ਆਪਸੀ ਵਿਰੋਧੀ ਨੀਤੀਆਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਥਿਆਰਬੰਦ ਘੱਟਗਿਣਤੀ ਜਾਂ ਬਾਹਰੀ ਦਬਾਅ ਦਾ ਵਿਰੋਧ ਕਰਨ ਵਾਲੀਆਂ ਸਰਕਾਰਾਂ ਨੂੰ ਅਮਰੀਕੀ ਹਮਾਇਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੱਛਮੀ ਯੂਰਪ ਦੇ ਮੁੜ-ਨਿਰਮਾਣ ਲਈ ਸੋਵੀਅਤ ਮਦਦ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਾਟੋ ਖ਼ਤਮ ਕਰਨ ਲਈ ਸੰਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਰਮਨੀ ਨੂੰ ਮੁੜ ਇਕੱਠਾ ਕਰਨ ਦੀ ਯੋਜਨਾ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1947 ਵਿੱਚ ਮਦਦ ਲਈ ਟਰੂਮੈਨ ਦੀ ਬੇਨਤੀ ਦਾ ਫੌਰੀ ਕੇਂਦਰ ਕਿਹੜੇ ਦੋ ਦੇਸ਼ ਸਨ?",
+    "explanation": "ਟਰੂਮੈਨ ਦਾ ਭਾਸ਼ਣ ਬ੍ਰਿਟੇਨ ਵੱਲੋਂ ਯੂਨਾਨ ਅਤੇ ਤੁਰਕੀ ਨੂੰ ਮਦਦ ਬੰਦ ਕਰਨ ਦੇ ਫ਼ੈਸਲੇ ਤੋਂ ਬਾਅਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q002-PA",
+    "englishQuestionId": "WHI-CP014-Q002",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F002",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "questionFamily": "ਸ਼ੁਰੂਆਤ ਅਤੇ ਆਪਸੀ ਵਿਰੋਧੀ ਨੀਤੀਆਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸ ਅਤੇ ਪੱਛਮੀ ਜਰਮਨੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਨਾਨ ਅਤੇ ਤੁਰਕੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਚੀਨ ਅਤੇ ਜਪਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੋਲੈਂਡ ਅਤੇ ਹੰਗਰੀ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਮਾਰਸ਼ਲ ਯੋਜਨਾ ਦਾ ਮੁੱਖ ਮਕਸਦ ਕੀ ਸੀ?",
+    "explanation": "ਯੂਰਪੀ ਮੁੜ-ਉਭਾਰ ਪ੍ਰੋਗਰਾਮ ਨੇ ਜੰਗ ਮਗਰੋਂ ਯੂਰਪ ਦੇ ਮੁੜ-ਨਿਰਮਾਣ ਲਈ ਵੱਡੀ ਆਰਥਿਕ ਮਦਦ ਦਿੱਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q003-PA",
+    "englishQuestionId": "WHI-CP014-Q003",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F003",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "questionFamily": "ਸ਼ੁਰੂਆਤ ਅਤੇ ਆਪਸੀ ਵਿਰੋਧੀ ਨੀਤੀਆਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚੀਨ ਵਿਰੁੱਧ ਫੌਜੀ ਗੱਠਜੋੜ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੋਰੀਆ ਨੂੰ 38ਵੇਂ ਸਮਾਨਾਂਤਰ ਉੱਤੇ ਵੰਡਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਦੂਜੇ ਵਿਸ਼ਵ ਯੁੱਧ ਮਗਰੋਂ ਯੂਰਪ ਦੀ ਆਰਥਿਕ ਬਹਾਲੀ ਵਿੱਚ ਮਦਦ ਕਰਨੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਸਥਾਪਨਾ ਕਰਨੀ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਯੂਰਪੀ ਮੁੜ-ਉਭਾਰ ਯੋਜਨਾ ਦਾ ਪ੍ਰਸਤਾਵ ਕਿਸਨੇ ਦਿੱਤਾ, ਜੋ ਬਾਅਦ ਵਿੱਚ ਮਾਰਸ਼ਲ ਯੋਜਨਾ ਕਹਾਈ?",
+    "explanation": "ਵਿਦੇਸ਼ ਮੰਤਰੀ ਜਾਰਜ ਮਾਰਸ਼ਲ ਨੇ 1947 ਵਿੱਚ ਮੁੜ-ਉਭਾਰ ਯੋਜਨਾ ਪੇਸ਼ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q004-PA",
+    "englishQuestionId": "WHI-CP014-Q004",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F004",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "questionFamily": "ਸ਼ੁਰੂਆਤ ਅਤੇ ਆਪਸੀ ਵਿਰੋਧੀ ਨੀਤੀਆਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹੈਰੀ ਐਸ. ਟਰੂਮੈਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਡੀਨ ਐਚਿਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਡਵਾਈਟ ਡੀ. ਆਈਜ਼ਨਹਾਵਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਾਰਜ ਸੀ. ਮਾਰਸ਼ਲ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਕਿਹੜਾ ਬਿਆਨ ਮਾਰਸ਼ਲ ਯੋਜਨਾ ਅਤੇ ਟਰੂਮੈਨ ਸਿਧਾਂਤ ਦਾ ਫ਼ਰਕ ਠੀਕ ਦੱਸਦਾ ਹੈ?",
+    "explanation": "ਦੋਵੇਂ ਕਮਿਊਨਿਜ਼ਮ ਦੇ ਫੈਲਾਅ ਨੂੰ ਰੋਕਣ ਨਾਲ ਜੁੜੇ ਸਨ, ਪਰ ਉਨ੍ਹਾਂ ਦੇ ਤਰੀਕੇ ਅਤੇ ਤੁਰੰਤ ਮਕਸਦ ਵੱਖਰੇ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q005-PA",
+    "englishQuestionId": "WHI-CP014-Q005",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F005",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "questionFamily": "ਸ਼ੁਰੂਆਤ ਅਤੇ ਆਪਸੀ ਵਿਰੋਧੀ ਨੀਤੀਆਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਾਰਸ਼ਲ ਯੋਜਨਾ ਆਰਥਿਕ ਬਹਾਲੀ ਉੱਤੇ ਕੇਂਦਰਿਤ ਸੀ; ਟਰੂਮੈਨ ਸਿਧਾਂਤ ਨੇ ਸਿਆਸੀ ਤੇ ਭੌਤਿਕ ਮਦਦ ਦੀ ਵਿਆਪਕ ਨੀਤੀ ਦਾ ਐਲਾਨ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਾਰਸ਼ਲ ਯੋਜਨਾ ਨੇ ਨਾਟੋ ਬਣਾਇਆ; ਟਰੂਮੈਨ ਸਿਧਾਂਤ ਨੇ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਬਣਾਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਾਰਸ਼ਲ ਯੋਜਨਾ ਸੋਵੀਅਤ ਪ੍ਰੋਗਰਾਮ ਸੀ; ਟਰੂਮੈਨ ਸਿਧਾਂਤ ਬ੍ਰਿਟਿਸ਼ ਪ੍ਰੋਗਰਾਮ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੋਵੇਂ ਨਾਂ 1955 ਵਿੱਚ ਹੋਈ ਇੱਕੋ ਸੰਧੀ ਦੇ ਹਨ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਸ਼ੀਤ ਯੁੱਧ ਦੋ ਧੜਿਆਂ ਦੀ ਖਿੱਚੋਤਾਣ ਕਿਉਂ ਬਣਿਆ?",
+    "explanation": "ਮਹਾਸ਼ਕਤੀਆਂ ਦੇ ਸਿਆਸੀ ਅਤੇ ਸੁਰੱਖਿਆ ਟੀਚੇ ਵੱਖਰੇ ਸਨ, ਪਰ ਉਨ੍ਹਾਂ ਨੇ ਇੱਕ-ਦੂਜੇ ਵਿਰੁੱਧ ਖੁੱਲ੍ਹਾ ਜੰਗੀ ਐਲਾਨ ਨਹੀਂ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q006-PA",
+    "englishQuestionId": "WHI-CP014-Q006",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F006",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S02"
+    ],
+    "questionFamily": "ਸ਼ੁਰੂਆਤ ਅਤੇ ਆਪਸੀ ਵਿਰੋਧੀ ਨੀਤੀਆਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1945 ਮਗਰੋਂ ਸਾਰੇ ਯੂਰਪੀ ਦੇਸ਼ਾਂ ਨੇ ਇੱਕੋ ਸਿਆਸੀ ਪ੍ਰਣਾਲੀ ਅਪਣਾ ਲਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਪਹਿਲਾਂ ਦੇ ਸਾਥੀ ਸਿਆਸੀ ਪ੍ਰਣਾਲੀਆਂ, ਸੁਰੱਖਿਆ ਅਤੇ ਅਸਰ-ਰਸੂਖ਼ ਲਈ ਮੁਕਾਬਲਾ ਕਰਨ ਲੱਗੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਚਾਰਟਰ ਨੇ ਦੇਸ਼ਾਂ ਨੂੰ ਵਿਰੋਧੀ ਫੌਜੀ ਗੱਠਜੋੜਾਂ ਵਿੱਚ ਜਾਣ ਲਈ ਕਿਹਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਮਰੀਕਾ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਇੱਕ-ਦੂਜੇ ਨਾਲ ਰਸਮੀ ਜੰਗ ਦਾ ਐਲਾਨ ਕੀਤਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਜੂਨ 1948 ਵਿੱਚ ਬਰਲਿਨ ਦੀ ਨਾਕਾਬੰਦੀ ਕਿਹੜੀ ਕਾਰਵਾਈ ਨਾਲ ਸ਼ੁਰੂ ਹੋਈ?",
+    "explanation": "ਸੋਵੀਅਤ ਫੌਜਾਂ ਨੇ ਬਰਲਿਨ ਦੇ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਦੇ ਕਬਜ਼ੇ ਵਾਲੇ ਇਲਾਕਿਆਂ ਤੱਕ ਜ਼ਮੀਨੀ ਅਤੇ ਜਲ-ਰਸਤੇ ਬੰਦ ਕਰ ਦਿੱਤੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q007-PA",
+    "englishQuestionId": "WHI-CP014-Q007",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F007",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "questionFamily": "ਬਰਲਿਨ ਨਾਕਾਬੰਦੀ, ਹਵਾਈ ਰਸਦ ਅਤੇ ਗੱਠਜੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਮਰੀਕਾ ਨੇ ਬਰਲਿਨ ਦੇ ਹਵਾਈ ਅੱਡੇ ਬੰਦ ਕੀਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਫ਼ਰਾਂਸ ਪੱਛਮੀ ਬਰਲਿਨ ਵਿੱਚੋਂ ਹਟ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਪੱਛਮੀ ਹਿੱਸਿਆਂ ਤੱਕ ਰੇਲ, ਸੜਕ ਅਤੇ ਜਲ-ਰਸਤਾ ਰੋਕ ਦਿੱਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੂਰਬੀ ਜਰਮਨੀ ਨਾਟੋ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਇਆ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਬਰਲਿਨ ਦੀ ਨਾਕਾਬੰਦੀ ਦਾ ਪੱਛਮੀ ਮਿੱਤਰ ਦੇਸ਼ਾਂ ਨੇ ਕੀ ਜਵਾਬ ਦਿੱਤਾ?",
+    "explanation": "ਹਵਾਈ ਰਸਦ ਰਾਹੀਂ ਪੱਛਮੀ ਬਰਲਿਨ ਵਿੱਚ ਖਾਣਾ, ਬਾਲਣ ਅਤੇ ਹੋਰ ਲੋੜੀਂਦਾ ਸਮਾਨ ਪਹੁੰਚਾਇਆ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q008-PA",
+    "englishQuestionId": "WHI-CP014-Q008",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F008",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "questionFamily": "ਬਰਲਿਨ ਨਾਕਾਬੰਦੀ, ਹਵਾਈ ਰਸਦ ਅਤੇ ਗੱਠਜੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਨ੍ਹਾਂ ਨੇ ਸ਼ਹਿਰ ਨੂੰ ਬੌਨ ਲਿਜਾ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਨ੍ਹਾਂ ਨੇ ਸੋਵੀਅਤ ਖੇਤਰ ਉੱਤੇ ਜ਼ਮੀਨੀ ਹਮਲਾ ਕੀਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਨ੍ਹਾਂ ਨੇ ਜਰਮਨੀ ਦੇ ਸਾਰੇ ਕਬਜ਼ੇ ਵਾਲੇ ਖੇਤਰ ਛੱਡ ਦਿੱਤੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਨ੍ਹਾਂ ਨੇ ਹਵਾਈ ਰਸਤੇ ਪੱਛਮੀ ਬਰਲਿਨ ਨੂੰ ਸਪਲਾਈ ਦਿੱਤੀ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਬਰਲਿਨ ਦੀ ਨਾਕਾਬੰਦੀ ਕਿਹੜੇ ਸਾਲ ਖ਼ਤਮ ਹੋਈ?",
+    "explanation": "ਲਗਾਤਾਰ ਹਵਾਈ ਸਪਲਾਈ ਮਗਰੋਂ ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਮਈ 1949 ਵਿੱਚ ਨਾਕਾਬੰਦੀ ਹਟਾ ਦਿੱਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q009-PA",
+    "englishQuestionId": "WHI-CP014-Q009",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F009",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "questionFamily": "ਬਰਲਿਨ ਨਾਕਾਬੰਦੀ, ਹਵਾਈ ਰਸਦ ਅਤੇ ਗੱਠਜੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1949"
+      },
+      {
+        "key": "B",
+        "text": "1945"
+      },
+      {
+        "key": "C",
+        "text": "1955"
+      },
+      {
+        "key": "D",
+        "text": "1961"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1949 ਦੀ ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਸੰਧੀ ਨੇ ਕੀ ਕਾਇਮ ਕੀਤਾ?",
+    "explanation": "ਨਾਟੋ ਦੀ ਬੁਨਿਆਦੀ ਸੰਧੀ ਦੇ ਆਰਟੀਕਲ 5 ਹੇਠ ਮੈਂਬਰਾਂ ਨੇ ਸਾਂਝੀ ਰੱਖਿਆ ਦਾ ਵਚਨ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q010-PA",
+    "englishQuestionId": "WHI-CP014-Q010",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F010",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "questionFamily": "ਬਰਲਿਨ ਨਾਕਾਬੰਦੀ, ਹਵਾਈ ਰਸਦ ਅਤੇ ਗੱਠਜੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਾਰੇ ਯੂਰਪੀ ਦੇਸ਼ਾਂ ਲਈ ਵਪਾਰਕ ਸੰਘ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਧੀ ਉੱਤੇ ਦਸਤਖ਼ਤ ਕਰਨ ਵਾਲੇ ਦੇਸ਼ਾਂ ਦਾ ਸਾਂਝੀ ਰੱਖਿਆ ਗੱਠਜੋੜ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੋਵੀਅਤ ਅਗਵਾਈ ਵਾਲਾ ਫੌਜੀ ਗੱਠਜੋੜ"
+      },
+      {
+        "key": "D",
+        "text": "ਜੰਗੀ ਜੁਰਮਾਂ ਲਈ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਅਦਾਲਤ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1955 ਵਿੱਚ ਵਾਰਸਾ ਸੰਧੀ ਸੰਗਠਨ ਕਿਉਂ ਬਣਾਇਆ ਗਿਆ?",
+    "explanation": "ਪੱਛਮੀ ਜਰਮਨੀ ਦੇ ਨਾਟੋ ਵਿੱਚ ਆਉਣ ਮਗਰੋਂ ਵਾਰਸਾ ਸੰਧੀ ਨੇ ਸੋਵੀਅਤ ਅਗਵਾਈ ਵਾਲੇ ਫੌਜੀ ਗੱਠਜੋੜ ਨੂੰ ਰਸਮੀ ਰੂਪ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q011-PA",
+    "englishQuestionId": "WHI-CP014-Q011",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F011",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "questionFamily": "ਬਰਲਿਨ ਨਾਕਾਬੰਦੀ, ਹਵਾਈ ਰਸਦ ਅਤੇ ਗੱਠਜੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਰਲਿਨ ਹਵਾਈ ਰਸਦ ਦਾ ਪ੍ਰਬੰਧ ਕਰਨ ਲਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਥਾਂ ਲੈਣ ਲਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੱਛਮੀ ਗੱਠਜੋੜ ਅਤੇ ਪੱਛਮੀ ਜਰਮਨੀ ਦੀ ਨਾਟੋ ਮੈਂਬਰਸ਼ਿਪ ਦੇ ਜਵਾਬ ਵਿੱਚ ਸੋਵੀਅਤ ਅਗਵਾਈ ਵਾਲਾ ਗੱਠਜੋੜ ਬਣਾਉਣ ਲਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੂਰਪੀ ਮੁੜ-ਉਭਾਰ ਪ੍ਰੋਗਰਾਮ ਬਣਾਉਣ ਲਈ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨਾਟੋ ਅਤੇ ਵਾਰਸਾ ਸੰਧੀ ਵਿਚਕਾਰ ਕਿਹੜਾ ਫ਼ਰਕ ਸਹੀ ਹੈ?",
+    "explanation": "ਸ਼ੀਤ ਯੁੱਧ ਦੌਰਾਨ ਇਹ ਦੋ ਵਿਰੋਧੀ ਫੌਜੀ ਗੱਠਜੋੜ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q012-PA",
+    "englishQuestionId": "WHI-CP014-Q012",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F012",
+    "sourceIds": [
+      "CP014-S03",
+      "CP014-S04",
+      "CP014-S05"
+    ],
+    "questionFamily": "ਬਰਲਿਨ ਨਾਕਾਬੰਦੀ, ਹਵਾਈ ਰਸਦ ਅਤੇ ਗੱਠਜੋੜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਵੇਂ ਆਰਥਿਕ ਮੁੜ-ਉਭਾਰ ਪ੍ਰੋਗਰਾਮ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਾਟੋ ਦੀ ਅਗਵਾਈ ਚੀਨ ਕਰਦਾ ਸੀ ਅਤੇ ਵਾਰਸਾ ਸੰਧੀ ਦੀ ਅਮਰੀਕਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਦੋਵੇਂ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਅੰਗ ਸਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਾਟੋ ਪੱਛਮੀ ਗੱਠਜੋੜ ਸੀ; ਵਾਰਸਾ ਸੰਧੀ ਦੀ ਅਗਵਾਈ ਸੋਵੀਅਤ ਸੰਘ ਕਰਦਾ ਸੀ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਜੂਨ 1950 ਵਿੱਚ ਕੋਰੀਆਈ ਜੰਗ ਕਿਹੜੀ ਘਟਨਾ ਨਾਲ ਸ਼ੁਰੂ ਹੋਈ?",
+    "explanation": "ਉੱਤਰੀ ਕੋਰੀਆ ਦੀਆਂ ਫੌਜਾਂ ਦੇ ਦੱਖਣੀ ਕੋਰੀਆ ਉੱਤੇ ਹਮਲੇ ਨਾਲ ਜੰਗ ਸ਼ੁਰੂ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q013-PA",
+    "englishQuestionId": "WHI-CP014-Q013",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F013",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "questionFamily": "ਕੋਰੀਆਈ ਜੰਗ ਅਤੇ ਚੀਨੀ ਇਨਕਲਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉੱਤਰੀ ਕੋਰੀਆ ਦੀਆਂ ਫੌਜਾਂ ਨੇ 38ਵਾਂ ਸਮਾਨਾਂਤਰ ਪਾਰ ਕਰਕੇ ਦੱਖਣੀ ਕੋਰੀਆ ਉੱਤੇ ਹਮਲਾ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਦੱਖਣੀ ਕੋਰੀਆ ਦੀਆਂ ਫੌਜਾਂ ਨੇ ਜਪਾਨ ਉੱਤੇ ਹਮਲਾ ਕੀਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਚੀਨ ਨੇ ਤਾਇਵਾਨ ਉੱਤੇ ਹਮਲਾ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੇ ਵੀਅਤਨਾਮ ਵੰਡਿਆ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਉੱਤਰੀ ਕੋਰੀਆ ਦੇ ਹਮਲੇ ਮਗਰੋਂ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਅਗਵਾਈ ਹੇਠ ਫੌਜੀ ਜਵਾਬ ਦੀ ਮਨਜ਼ੂਰੀ ਕਿਸ ਨੇ ਦਿੱਤੀ?",
+    "explanation": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਨੇ ਦੱਖਣੀ ਕੋਰੀਆ ਦੀ ਮਦਦ ਲਈ ਮਤੇ ਪਾਸ ਕੀਤੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q014-PA",
+    "englishQuestionId": "WHI-CP014-Q014",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F014",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "questionFamily": "ਕੋਰੀਆਈ ਜੰਗ ਅਤੇ ਚੀਨੀ ਇਨਕਲਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਨਿਆਸ ਕੌਂਸਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਸੁਰੱਖਿਆ ਕੌਂਸਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੌਮਾਂਤਰੀ ਨਿਆਂ ਅਦਾਲਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੌਮਾਂਤਰੀ ਮੁਦਰਾ ਕੋਸ਼"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1953 ਦੇ ਕੋਰੀਆਈ ਜੰਗਬੰਦੀ ਸਮਝੌਤੇ ਨੇ ਕੀ ਕੀਤਾ?",
+    "explanation": "ਜੰਗਬੰਦੀ ਨੇ ਲੜਾਈ ਰੋਕੀ ਪਰ ਰਸਮੀ ਅਮਨ ਸੰਧੀ ਨਹੀਂ ਬਣੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q015-PA",
+    "englishQuestionId": "WHI-CP014-Q015",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F015",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "questionFamily": "ਕੋਰੀਆਈ ਜੰਗ ਅਤੇ ਚੀਨੀ ਇਨਕਲਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਕੋਰੀਆ ਨੂੰ ਇਕੱਠਾ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੋਰੀਆ ਨੂੰ ਜਪਾਨੀ ਰਾਜ ਹੇਠ ਦਿੱਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੱਕੀ ਅਮਨ ਸੰਧੀ ਤੋਂ ਬਿਨਾਂ ਲੜਾਈ ਰੋਕੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੋਰੀਆ ਨੂੰ ਨਾਟੋ ਦਾ ਮੈਂਬਰ ਬਣਾਇਆ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1953 ਦੀ ਜੰਗਬੰਦੀ ਮਗਰੋਂ ਕੋਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਲਗਭਗ ਕਿਸ ਰੇਖਾ ਕੋਲ ਵੰਡਿਆ ਰਿਹਾ?",
+    "explanation": "ਜੰਗਬੰਦੀ ਨਾਲ 38ਵੇਂ ਸਮਾਨਾਂਤਰ ਨੇੜੇ ਫੌਜ-ਰਹਿਤ ਖੇਤਰ ਬਣਾਇਆ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q016-PA",
+    "englishQuestionId": "WHI-CP014-Q016",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F016",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "questionFamily": "ਕੋਰੀਆਈ ਜੰਗ ਅਤੇ ਚੀਨੀ ਇਨਕਲਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "17ਵਾਂ ਸਮਾਨਾਂਤਰ"
+      },
+      {
+        "key": "B",
+        "text": "49ਵਾਂ ਸਮਾਨਾਂਤਰ"
+      },
+      {
+        "key": "C",
+        "text": "10ਵਾਂ ਸਮਾਨਾਂਤਰ"
+      },
+      {
+        "key": "D",
+        "text": "38ਵਾਂ ਸਮਾਨਾਂਤਰ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1950 ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀਆਂ ਫੌਜਾਂ ਯਾਲੂ ਦਰਿਆ ਵੱਲ ਵਧੀਆਂ ਤਾਂ ਕੋਰੀਆਈ ਜੰਗ ਵਿੱਚ ਕਿਹੜਾ ਦੇਸ਼ ਸ਼ਾਮਲ ਹੋਇਆ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀਆਂ ਫੌਜਾਂ ਯਾਲੂ ਵੱਲ ਵਧਣ ਦੌਰਾਨ ਚੀਨੀ ਕਮਿਊਨਿਸਟ ਫੌਜਾਂ ਸੰਗਠਿਤ ਦਸਤਿਆਂ ਵਜੋਂ ਉੱਤਰੀ ਕੋਰੀਆ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q017-PA",
+    "englishQuestionId": "WHI-CP014-Q017",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F017",
+    "sourceIds": [
+      "CP014-S18"
+    ],
+    "questionFamily": "ਕੋਰੀਆਈ ਜੰਗ ਅਤੇ ਚੀਨੀ ਇਨਕਲਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚੀਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਪਾਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਭਾਰਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1949 ਵਿੱਚ ਚੀਨ ਦੀ ਮੁੱਖ ਧਰਤੀ ਉੱਤੇ ਕਮਿਊਨਿਸਟ ਜਿੱਤ ਮਗਰੋਂ ਕਿਹੜਾ ਬਦਲਾਅ ਆਇਆ?",
+    "explanation": "ਚੀਨੀ ਕਮਿਊਨਿਸਟ ਪਾਰਟੀ ਨੇ ਮੁੱਖ ਧਰਤੀ ਉੱਤੇ ਚੀਨ ਦਾ ਲੋਕ ਗਣਰਾਜ ਬਣਾਇਆ; ਕੌਮੀ ਸਰਕਾਰ ਤਾਇਵਾਨ ਵਿੱਚ ਰਹੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q018-PA",
+    "englishQuestionId": "WHI-CP014-Q018",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F018",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S07"
+    ],
+    "questionFamily": "ਕੋਰੀਆਈ ਜੰਗ ਅਤੇ ਚੀਨੀ ਇਨਕਲਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚੀਨ ਨਾਟੋ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੌਮੀ ਸਰਕਾਰ ਤਾਇਵਾਨ ਚਲੀ ਗਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਛਿੰਗ ਰਾਜਵੰਸ਼ ਮੁੜ ਕਾਇਮ ਹੋਇਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੋਰੀਆਈ ਜੰਗ ਖ਼ਤਮ ਹੋਈ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1964 ਦੇ ਟੋਂਕਿਨ ਖਾੜੀ ਮਤੇ ਨੇ ਰਾਸ਼ਟਰਪਤੀ ਲਿੰਡਨ ਜੌਨਸਨ ਨੂੰ ਕੀ ਕਰਨ ਦਾ ਅਧਿਕਾਰ ਦਿੱਤਾ?",
+    "explanation": "ਅਮਰੀਕੀ ਜੰਗੀ ਜਹਾਜ਼ਾਂ ਉੱਤੇ ਹਮਲਿਆਂ ਦੀਆਂ ਖ਼ਬਰਾਂ ਮਗਰੋਂ ਕਾਂਗਰਸ ਨੇ ਮਤਾ ਪਾਸ ਕੀਤਾ; ਜੌਨਸਨ ਨੇ ਅਮਰੀਕੀ ਕਾਰਵਾਈ ਵਧਾਉਣ ਲਈ ਇਸ ਦਾ ਸਹਾਰਾ ਲਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q019-PA",
+    "englishQuestionId": "WHI-CP014-Q019",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F019",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦਾ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਏਸ਼ੀਆ ਵਿੱਚੋਂ ਸਾਰੀਆਂ ਅਮਰੀਕੀ ਫੌਜਾਂ ਵਾਪਸ ਬੁਲਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਵੀਅਤਨਾਮ ਨੂੰ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਨਿਆਸ ਇਲਾਕਾ ਐਲਾਨਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਵਿੱਚ ਹਮਲੇ ਰੋਕਣ ਅਤੇ ਹੋਰ ਹਮਲਾਵਰ ਕਾਰਵਾਈ ਰੋਕਣ ਲਈ ਕਦਮ ਚੁੱਕਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਿਰਫ਼ ਚੀਨ ਨਾਲ ਅਮਨ ਵਾਰਤਾ ਸ਼ੁਰੂ ਕਰਨੀ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1968 ਦੇ ਟੈਟ ਹਮਲੇ ਦੌਰਾਨ ਕੀ ਹੋਇਆ?",
+    "explanation": "ਚੰਦਰ ਨਵੇਂ ਸਾਲ ਦੌਰਾਨ ਉੱਤਰੀ ਵੀਅਤਨਾਮੀ ਅਤੇ ਵੀਅਤਕਾਂਗ ਫੌਜਾਂ ਨੇ ਦੱਖਣੀ ਵੀਅਤਨਾਮ ਦੇ ਕਈ ਟਿਕਾਣਿਆਂ ਉੱਤੇ ਇਕੱਠੇ ਹਮਲੇ ਕੀਤੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q020-PA",
+    "englishQuestionId": "WHI-CP014-Q020",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F020",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦਾ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸ ਨੇ ਡੀਅਨ ਬੀਅਨ ਫੂ ਵਿੱਚ ਵੀਅਤ ਮਿੰਹ ਨੂੰ ਹਰਾਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਉੱਤਰੀ ਕੋਰੀਆ ਨੇ ਦੱਖਣੀ ਕੋਰੀਆ ਉੱਤੇ ਹਮਲਾ ਕੀਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਚੀਨ ਨੇ ਲੋਕ ਗਣਰਾਜ ਦਾ ਐਲਾਨ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਮਿਊਨਿਸਟ ਫੌਜਾਂ ਨੇ ਦੱਖਣੀ ਵੀਅਤਨਾਮ ਭਰ ਵਿੱਚ ਤਾਲਮੇਲ ਵਾਲੇ ਹਮਲੇ ਕੀਤੇ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਅਮਰੀਕਾ ਵਿੱਚ ਟੈਟ ਹਮਲੇ ਦਾ ਸਿਆਸੀ ਅਸਰ ਕੀ ਪਿਆ?",
+    "explanation": "ਫੌਜੀ ਤੌਰ ਉੱਤੇ ਹਮਲਾ ਰੋਕਿਆ ਗਿਆ, ਫਿਰ ਵੀ ਜੰਗ ਵਿੱਚ ਤਰੱਕੀ ਬਾਰੇ ਸਰਕਾਰੀ ਦਾਅਵਿਆਂ ਤੋਂ ਅਮਰੀਕੀ ਲੋਕਾਂ ਦਾ ਭਰੋਸਾ ਘਟਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q021-PA",
+    "englishQuestionId": "WHI-CP014-Q021",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F021",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦਾ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜੰਗ ਵਿੱਚ ਤਰੱਕੀ ਬਾਰੇ ਸਰਕਾਰੀ ਦਾਅਵਿਆਂ ਤੋਂ ਲੋਕਾਂ ਦਾ ਭਰੋਸਾ ਘਟਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਜੰਗ ਤੁਰੰਤ ਖ਼ਤਮ ਕਰ ਦਿੱਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨਾਲ ਅਮਰੀਕਾ ਵਾਰਸਾ ਸੰਧੀ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨਾਲ ਜਰਮਨੀ ਮੁੜ ਇਕੱਠਾ ਹੋ ਗਿਆ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਵੀਅਤਨਾਮ ਜੰਗ ਵਿੱਚ ਅਮਰੀਕੀ ਫੌਜੀ ਵਾਧੇ ਦੇ ਪੜਾਅ ਨਾਲ ਕਿਹੜੀਆਂ ਦੋ ਘਟਨਾਵਾਂ ਜੁੜੀਆਂ ਹਨ?",
+    "explanation": "1964 ਦਾ ਮਤਾ ਅਤੇ 1965 ਦੀ ਅਮਰੀਕੀ ਬੰਬਾਰੀ ਮੁਹਿੰਮ ਫੌਜੀ ਵਾਧੇ ਦੇ ਨਿਸ਼ਾਨ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q022-PA",
+    "englishQuestionId": "WHI-CP014-Q022",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F022",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦਾ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਰਲਿਨ ਨਾਕਾਬੰਦੀ ਅਤੇ ਮਾਰਸ਼ਲ ਯੋਜਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਟੋਂਕਿਨ ਖਾੜੀ ਮਤਾ ਅਤੇ ਓਪਰੇਸ਼ਨ ਰੋਲਿੰਗ ਥੰਡਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੋਰੀਆਈ ਜੰਗਬੰਦੀ ਅਤੇ ਵਾਰਸਾ ਸੰਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "NPT ਅਤੇ ਹੈਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਕਿਹੜਾ ਬਿਆਨ ਵੀਅਤਨਾਮ ਜੰਗ ਦੇ ਸ਼ੀਤ-ਯੁੱਧ ਸੰਦਰਭ ਨੂੰ ਠੀਕ ਦੱਸਦਾ ਹੈ?",
+    "explanation": "ਇਸ ਟਕਰਾਅ ਦੀਆਂ ਜੜ੍ਹਾਂ ਵੀਅਤਨਾਮ ਵਿੱਚ ਸਨ; ਸ਼ੀਤ-ਯੁੱਧ ਮੁਕਾਬਲੇ ਦੌਰਾਨ ਹੋਰ ਦੇਸ਼ ਵੀ ਇਸ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q023-PA",
+    "englishQuestionId": "WHI-CP014-Q023",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F023",
+    "sourceIds": [
+      "CP014-S09",
+      "CP014-S10"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦਾ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਹ ਅਮਰੀਕਾ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ ਵਿਚਕਾਰ ਸਿੱਧੀ ਐਲਾਨੀ ਜੰਗ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਹ ਪੱਛਮੀ ਬਰਲਿਨ ਦੇ ਹਵਾਈ ਰਸਤਿਆਂ ਦੇ ਕਬਜ਼ੇ ਲਈ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਨਾਲ ਜੁੜਿਆ ਸਥਾਨਕ ਟਕਰਾਅ ਸੀ, ਜਿਸ ਵਿੱਚ ਕੌਮਾਂਤਰੀ ਸ਼ੀਤ-ਯੁੱਧ ਦਖ਼ਲ ਵੀ ਹੋਇਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਹ ਨਾਟੋ ਦੀ ਸਥਾਪਨਾ ਨਾਲ ਸ਼ੁਰੂ ਹੋਇਆ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਦੱਖਣੀ ਵੀਅਤਨਾਮ ਵਿੱਚ ਆਪਣੀ ਲਗਾਤਾਰ ਭੂਮਿਕਾ ਲਈ ਅਮਰੀਕਾ ਨੇ ਕਿਹੜੇ ਖੇਤਰੀ ਸੰਗਠਨ ਦੇ ਢਾਂਚੇ ਦਾ ਸਹਾਰਾ ਲਿਆ?",
+    "explanation": "ਅਮਰੀਕਾ ਨੇ ਦੱਖਣੀ ਵੀਅਤਨਾਮ ਵਿੱਚ ਆਪਣੀ ਸ਼ਮੂਲੀਅਤ ਜਾਰੀ ਰੱਖਣ ਲਈ SEATO ਦੇ ਚਾਰਟਰ ਦਾ ਹਵਾਲਾ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q024-PA",
+    "englishQuestionId": "WHI-CP014-Q024",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F024",
+    "sourceIds": [
+      "CP014-S19"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦਾ ਟਕਰਾਅ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਸੀਆਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਾਟੋ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੈਂਟੋ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੀਟੋ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਅਕਤੂਬਰ 1962 ਵਿੱਚ ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ ਕਿਸ ਗੱਲ ਨਾਲ ਭੜਕਿਆ?",
+    "explanation": "ਅਮਰੀਕੀ ਜਾਸੂਸੀ ਤਸਵੀਰਾਂ ਨੇ ਕਿਊਬਾ ਵਿੱਚ ਸੋਵੀਅਤ ਮਿਜ਼ਾਈਲ ਟਿਕਾਣੇ ਦਿਖਾਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q025-PA",
+    "englishQuestionId": "WHI-CP014-Q025",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F025",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "questionFamily": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਿਊਬਾ ਵਿੱਚ ਸੋਵੀਅਤ ਮਿਜ਼ਾਈਲ ਟਿਕਾਣੇ ਬਣਦੇ ਹੋਏ ਅਮਰੀਕਾ ਨੂੰ ਮਿਲੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਪੱਛਮੀ ਬਰਲਿਨ ਦੀ ਨਾਕਾਬੰਦੀ ਕੀਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਮਰੀਕਾ ਨੇ ਉੱਤਰੀ ਕੋਰੀਆ ਉੱਤੇ ਹਮਲਾ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਾਰਸਾ ਸੰਧੀ ਉੱਤੇ ਦਸਤਖ਼ਤ ਹੋਏ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਊਬਾ ਦੇ ਨੇੜੇ ਅਮਰੀਕੀ ਜਲ-ਸੈਨਾ ਦੀ ਕਾਰਵਾਈ ਲਈ ਰਾਸ਼ਟਰਪਤੀ ਕੈਨੇਡੀ ਨੇ ਕਿਹੜਾ ਸ਼ਬਦ ਵਰਤਿਆ?",
+    "explanation": "ਕੈਨੇਡੀ ਨੇ ਕਿਊਬਾ ਵੱਲ ਸੋਵੀਅਤ ਹਮਲਾਵਰ ਹਥਿਆਰਾਂ ਦੀ ਹੋਰ ਖੇਪ ਰੋਕਣ ਲਈ ਜਲ-ਸੈਨਾ ਦੀ ਨਾਕਾਬੰਦੀ ਨੂੰ ‘ਕੁਆਰੰਟੀਨ’ ਕਿਹਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q026-PA",
+    "englishQuestionId": "WHI-CP014-Q026",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F026",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "questionFamily": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜੰਗਬੰਦੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੁਆਰੰਟੀਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਿਆਸ ਪ੍ਰਬੰਧ"
+      },
+      {
+        "key": "D",
+        "text": "ਫੌਜ-ਰਹਿਤ ਇਲਾਕਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ ਦਾ ਸਭ ਤੋਂ ਤਿੱਖਾ ਪੜਾਅ ਕਿੰਨਾ ਚਿਰ ਚੱਲਿਆ?",
+    "explanation": "ਅਕਤੂਬਰ 1962 ਵਿੱਚ ਸੰਕਟ ਦੇ ਤੇਰਾਂ ਦਿਨ ਬਹੁਤ ਤਣਾਅ ਭਰੇ ਰਹੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q027-PA",
+    "englishQuestionId": "WHI-CP014-Q027",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F027",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "questionFamily": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਤਿੰਨ ਹਫ਼ਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਇੱਕ ਮਹੀਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਤੇਰਾਂ ਦਿਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਇੱਕ ਸਾਲ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1962 ਦੇ ਸੰਕਟ ਤੋਂ ਪਹਿਲਾਂ ਕਿਊਬਾ ਵਿੱਚ ਪਰਮਾਣੂ ਮਿਜ਼ਾਈਲਾਂ ਕਿਸ ਦੇਸ਼ ਨੇ ਰੱਖੀਆਂ?",
+    "explanation": "ਅਮਰੀਕਾ ਨਾਲ ਟਕਰਾਅ ਦਾ ਕਾਰਨ ਕਿਊਬਾ ਵਿੱਚ ਸੋਵੀਅਤ ਸੰਘ ਵੱਲੋਂ ਮਿਜ਼ਾਈਲਾਂ ਲਗਾਉਣਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q028-PA",
+    "englishQuestionId": "WHI-CP014-Q028",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F028",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "questionFamily": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚੀਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਫ਼ਰਾਂਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ ਹੱਲ ਕਰਨ ਵਿੱਚ ਕਿਹੜੇ ਫੌਰੀ ਸਮਝੌਤੇ ਨੇ ਮਦਦ ਕੀਤੀ?",
+    "explanation": "ਖੁੱਲ੍ਹੇ ਸਮਝੌਤੇ ਵਿੱਚ ਸੋਵੀਅਤ ਮਿਜ਼ਾਈਲਾਂ ਹਟਾਉਣਾ ਅਤੇ ਅਮਰੀਕਾ ਵੱਲੋਂ ਕਿਊਬਾ ਉੱਤੇ ਹਮਲਾ ਨਾ ਕਰਨ ਦਾ ਵਚਨ ਸ਼ਾਮਲ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q029-PA",
+    "englishQuestionId": "WHI-CP014-Q029",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F029",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "questionFamily": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਮਿਜ਼ਾਈਲਾਂ ਹਟਾਉਣ ਲਈ ਰਾਜ਼ੀ ਹੋਇਆ ਅਤੇ ਅਮਰੀਕਾ ਨੇ ਕਿਊਬਾ ਉੱਤੇ ਹਮਲਾ ਨਾ ਕਰਨ ਦਾ ਵਚਨ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਮਰੀਕਾ ਵਾਰਸਾ ਸੰਧੀ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣ ਲਈ ਰਾਜ਼ੀ ਹੋਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਕਿਊਬਾ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਪ੍ਰਸ਼ਾਸਨ ਹੇਠ ਦੇ ਦਿੱਤਾ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਕੋਰੀਆਈ ਜੰਗ ਖ਼ਤਮ ਕੀਤੀ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ ਨੂੰ ਸ਼ੀਤ-ਯੁੱਧ ਦਾ ਵੱਡਾ ਮੋੜ ਕਿਉਂ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ?",
+    "explanation": "ਇਸ ਸੰਕਟ ਨੇ ਮਹਾਸ਼ਕਤੀਆਂ ਦੇ ਸਿੱਧੇ ਟਕਰਾਅ ਦਾ ਖ਼ਤਰਾ ਦਿਖਾਇਆ ਅਤੇ ਸੰਕਟ ਵੇਲੇ ਗੱਲਬਾਤ ਸੁਧਾਰਨ ਦੀਆਂ ਕੋਸ਼ਿਸ਼ਾਂ ਵਧਾਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q030-PA",
+    "englishQuestionId": "WHI-CP014-Q030",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F030",
+    "sourceIds": [
+      "CP014-S08"
+    ],
+    "questionFamily": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਵਿਚਾਰਧਾਰਕ ਮੁਕਾਬਲਾ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖ਼ਤਮ ਕਰ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਹਾਸ਼ਕਤੀਆਂ ਪਰਮਾਣੂ ਜੰਗ ਦੇ ਨੇੜੇ ਪਹੁੰਚੀਆਂ ਅਤੇ ਸੰਕਟ ਸੰਭਾਲਣ ਦੇ ਉਪਰਾਲੇ ਵਧੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਨਾਟੋ ਅਤੇ ਵਾਰਸਾ ਸੰਧੀ ਭੰਗ ਕਰ ਦਿੱਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨਾਲ ਜਰਮਨੀ ਦੀ ਵੰਡ ਹੋਈ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਪਹਿਲਾ ਨਕਲੀ ਉਪਗ੍ਰਹਿ ਛੱਡ ਕੇ ਸੋਵੀਅਤ ਸੰਘ ਦੀ ਪੁਲਾੜ ਦੌੜ ਵਿੱਚ ਦਾਖ਼ਲੇ ਨੂੰ ਕਿਹੜੀ ਘਟਨਾ ਨੇ ਦਰਸਾਇਆ?",
+    "explanation": "ਅਕਤੂਬਰ 1957 ਵਿੱਚ ਸਪੁਤਨਿਕ 1 ਧਰਤੀ ਦੇ ਚੱਕਰ ਲਾਉਣ ਵਾਲਾ ਪਹਿਲਾ ਨਕਲੀ ਉਪਗ੍ਰਹਿ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q031-PA",
+    "englishQuestionId": "WHI-CP014-Q031",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F031",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "questionFamily": "ਪਰਮਾਣੂ ਹਥਿਆਰ, ਪੁਲਾੜ ਦੌੜ ਅਤੇ ਹਥਿਆਰ ਕੰਟਰੋਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1969 ਵਿੱਚ ਅਪੋਲੋ 11 ਦਾ ਚੰਦ ਉੱਤੇ ਉਤਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "1958 ਵਿੱਚ ਐਕਸਪਲੋਰਰ 1 ਛੱਡਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "1957 ਵਿੱਚ ਸਪੁਤਨਿਕ ਛੱਡਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "1961 ਵਿੱਚ ਯੂਰੀ ਗਾਗਰਿਨ ਦੀ ਉਡਾਣ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1961 ਵਿੱਚ ਕਿਸ ਦੇਸ਼ ਨੇ ਪਹਿਲੇ ਮਨੁੱਖ ਨੂੰ ਪੁਲਾੜ ਵਿੱਚ ਭੇਜਿਆ?",
+    "explanation": "ਸੋਵੀਅਤ ਪੁਲਾੜ ਯਾਤਰੀ ਯੂਰੀ ਗਾਗਰਿਨ ਨੇ ਅਪ੍ਰੈਲ 1961 ਵਿੱਚ ਪਹਿਲੀ ਮਨੁੱਖੀ ਪੁਲਾੜ ਉਡਾਣ ਭਰੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q032-PA",
+    "englishQuestionId": "WHI-CP014-Q032",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F032",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "questionFamily": "ਪਰਮਾਣੂ ਹਥਿਆਰ, ਪੁਲਾੜ ਦੌੜ ਅਤੇ ਹਥਿਆਰ ਕੰਟਰੋਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਮਰੀਕਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਫ਼ਰਾਂਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਚੀਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1968 ਦੀ ਪਰਮਾਣੂ ਹਥਿਆਰ ਫੈਲਾਅ ਰੋਕੂ ਸੰਧੀ ਦਾ ਮੁੱਖ ਮਕਸਦ ਕੀ ਸੀ?",
+    "explanation": "NPT ਨੇ ਪਰਮਾਣੂ ਹਥਿਆਰਾਂ ਦੇ ਫੈਲਾਅ ਨੂੰ ਰੋਕਣ ਦੇ ਨਾਲ ਸ਼ਾਂਤੀਪੂਰਨ ਪਰਮਾਣੂ ਸਹਿਯੋਗ ਅਤੇ ਨਿਸ਼ਸਤਰੀਕਰਨ ਯਤਨਾਂ ਨੂੰ ਹਮਾਇਤ ਦੇਣ ਦਾ ਟੀਚਾ ਰੱਖਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q033-PA",
+    "englishQuestionId": "WHI-CP014-Q033",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F033",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "questionFamily": "ਪਰਮਾਣੂ ਹਥਿਆਰ, ਪੁਲਾੜ ਦੌੜ ਅਤੇ ਹਥਿਆਰ ਕੰਟਰੋਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪਰਮਾਣੂ ਹਥਿਆਰਾਂ ਦਾ ਫੈਲਾਅ ਰੋਕਣਾ ਅਤੇ ਸ਼ਾਂਤੀਪੂਰਨ ਪਰਮਾਣੂ ਸਹਿਯੋਗ ਤੇ ਨਿਸ਼ਸਤਰੀਕਰਨ ਨੂੰ ਹਮਾਇਤ ਦੇਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰੇ ਰਵਾਇਤੀ ਹਥਿਆਰਾਂ ਉੱਤੇ ਪਾਬੰਦੀ ਲਾਉਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਮਰੀਕਾ-ਸੋਵੀਅਤ ਸਾਂਝੀ ਫੌਜੀ ਕਮਾਨ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਖ਼ਤਮ ਕਰਨਾ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1972 ਦੇ ਪਹਿਲੇ SALT ਸਮਝੌਤਿਆਂ ਵਿੱਚ ਕਿਸ ਗੱਲ ਉੱਤੇ ਚਰਚਾ ਹੋਈ?",
+    "explanation": "SALT I ਵਿੱਚ ਰਣਨੀਤਕ ਹਮਲਾਵਰ ਹਥਿਆਰਾਂ ਬਾਰੇ ਅੰਤਰਿਮ ਸਮਝੌਤਾ ਅਤੇ ABM ਸੰਧੀ ਸ਼ਾਮਲ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q034-PA",
+    "englishQuestionId": "WHI-CP014-Q034",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F034",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "questionFamily": "ਪਰਮਾਣੂ ਹਥਿਆਰ, ਪੁਲਾੜ ਦੌੜ ਅਤੇ ਹਥਿਆਰ ਕੰਟਰੋਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੋਰੀਆ ਵਿੱਚੋਂ ਫੌਜਾਂ ਵਾਪਸ ਬੁਲਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਣਨੀਤਕ ਪਰਮਾਣੂ ਹਥਿਆਰਾਂ ਅਤੇ ਮਿਜ਼ਾਈਲ-ਰੋਕੂ ਪ੍ਰਣਾਲੀਆਂ ਉੱਤੇ ਹੱਦਾਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਰਲਿਨ ਦੀ ਵੰਡ"
+      },
+      {
+        "key": "D",
+        "text": "ਵੀਅਤਨਾਮ ਦੀਆਂ ਚੋਣਾਂ ਦੀ ਸਥਿਤੀ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਦਸੰਬਰ 1979 ਵਿੱਚ ਅਫ਼ਗਾਨਿਸਤਾਨ ਉੱਤੇ ਸੋਵੀਅਤ ਹਮਲੇ ਮਗਰੋਂ SALT II ਨਾਲ ਕੀ ਹੋਇਆ?",
+    "explanation": "ਹਮਲੇ ਨਾਲ ਤਣਾਅ ਵਧਿਆ; ਕਾਰਟਰ ਨੇ ਸੈਨੇਟ ਨੂੰ SALT II ਦੀ ਪੁਸ਼ਟੀ ਬਾਰੇ ਵਿਚਾਰ ਰੋਕਣ ਲਈ ਕਿਹਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q035-PA",
+    "englishQuestionId": "WHI-CP014-Q035",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F035",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "questionFamily": "ਪਰਮਾਣੂ ਹਥਿਆਰ, ਪੁਲਾੜ ਦੌੜ ਅਤੇ ਹਥਿਆਰ ਕੰਟਰੋਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਮਰੀਕਾ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ ਨੇ SALT II ਉੱਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਾਟੋ ਭੰਗ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਰਾਸ਼ਟਰਪਤੀ ਕਾਰਟਰ ਨੇ ਸੈਨੇਟ ਨੂੰ SALT II ਦੀ ਪੁਸ਼ਟੀ ਬਾਰੇ ਵਿਚਾਰ ਨਾ ਕਰਨ ਲਈ ਕਿਹਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਾਰਸਾ ਸੰਧੀ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਏਜੰਸੀ ਬਣੀ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅਮਰੀਕਾ-ਸੋਵੀਅਤ ਪੁਲਾੜ ਦੌੜ ਨਾਲ ਕਿਹੜੀ ਪ੍ਰਾਪਤੀ ਸਭ ਤੋਂ ਵੱਧ ਜੁੜੀ ਹੈ?",
+    "explanation": "ਜੁਲਾਈ 1969 ਵਿੱਚ ਅਪੋਲੋ 11 ਚੰਦ ਉੱਤੇ ਉਤਰਿਆ; ਇਹ ਪੁਲਾੜ ਦੌੜ ਦੀ ਅਹਿਮ ਪ੍ਰਾਪਤੀ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q036-PA",
+    "englishQuestionId": "WHI-CP014-Q036",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F036",
+    "sourceIds": [
+      "CP014-S11",
+      "CP014-S12"
+    ],
+    "questionFamily": "ਪਰਮਾਣੂ ਹਥਿਆਰ, ਪੁਲਾੜ ਦੌੜ ਅਤੇ ਹਥਿਆਰ ਕੰਟਰੋਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1955 ਵਿੱਚ ਵਾਰਸਾ ਸੰਧੀ ਦੀ ਸਥਾਪਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "1954 ਦੇ ਜਨੀਵਾ ਸਮਝੌਤਿਆਂ ਉੱਤੇ ਦਸਤਖ਼ਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਦੀ ਸਥਾਪਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "1969 ਵਿੱਚ ਅਮਰੀਕੀ ਅਪੋਲੋ 11 ਦਾ ਚੰਦ ਉੱਤੇ ਉਤਰਨਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸ਼ੀਤ ਯੁੱਧ ਵਿੱਚ ‘ਦੈਤਾਂਤ’ ਦਾ ਕੀ ਮਤਲਬ ਹੈ?",
+    "explanation": "ਦੈਤਾਂਤ ਉਹ ਦੌਰ ਸੀ ਜਦੋਂ ਮਹਾਸ਼ਕਤੀਆਂ ਦਾ ਤਣਾਅ ਘਟਿਆ ਅਤੇ ਗੱਲਬਾਤ ਵਧੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q037-PA",
+    "englishQuestionId": "WHI-CP014-Q037",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F037",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "questionFamily": "ਤਣਾਅ ਘਟਣ ਦਾ ਦੌਰ ਅਤੇ ਯੂਰਪੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਤਣਾਅ ਘਟਣ ਅਤੇ ਕੂਟਨੀਤਕ ਗੱਲਬਾਤ ਵਧਣ ਦਾ ਦੌਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਦਾ ਰਸਮੀ ਵਿਘਟਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਥਾਈ ਵਿਸ਼ਵ ਸਰਕਾਰ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇੱਕ ਧੜੇ ਵੱਲੋਂ ਦੂਜੇ ਉੱਤੇ ਫੌਜੀ ਹਮਲਾ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1975 ਵਿੱਚ ਹੈਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ ਉੱਤੇ ਦਸਤਖ਼ਤ ਕਿੱਥੇ ਹੋਏ?",
+    "explanation": "ਯੂਰਪ ਵਿੱਚ ਸੁਰੱਖਿਆ ਅਤੇ ਸਹਿਯੋਗ ਕਾਨਫਰੰਸ 1975 ਵਿੱਚ ਹੈਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ ਨਾਲ ਸਮਾਪਤ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q038-PA",
+    "englishQuestionId": "WHI-CP014-Q038",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F038",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "questionFamily": "ਤਣਾਅ ਘਟਣ ਦਾ ਦੌਰ ਅਤੇ ਯੂਰਪੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਨੀਵਾ, ਸਵਿਟਜ਼ਰਲੈਂਡ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੈਲਸਿੰਕੀ, ਫਿਨਲੈਂਡ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੈਲਗਰੇਡ, ਯੂਗੋਸਲਾਵੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਾਸਕੋ, ਸੋਵੀਅਤ ਸੰਘ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੁਰੱਖਿਆ ਅਤੇ ਸਹਿਯੋਗ ਦੇ ਨਾਲ ਹੈਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ ਨੇ ਕਿਹੜੇ ਮਸਲੇ ਬਾਰੇ ਵੀ ਗੱਲ ਕੀਤੀ?",
+    "explanation": "ਐਕਟ ਵਿੱਚ ਮਨੁੱਖੀ ਹੱਕਾਂ ਅਤੇ ਬੁਨਿਆਦੀ ਆਜ਼ਾਦੀਆਂ ਬਾਰੇ ਵਚਨਬੱਧਤਾਵਾਂ ਸ਼ਾਮਲ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q039-PA",
+    "englishQuestionId": "WHI-CP014-Q039",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F039",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "questionFamily": "ਤਣਾਅ ਘਟਣ ਦਾ ਦੌਰ ਅਤੇ ਯੂਰਪੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇੱਕ ਸਾਂਝੀ ਯੂਰਪੀ ਫੌਜ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਕੋਰੀਆ ਵਿਚਕਾਰ ਨਵੀਂ ਹੱਦ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਨੁੱਖੀ ਹੱਕ ਅਤੇ ਬੁਨਿਆਦੀ ਆਜ਼ਾਦੀਆਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਾਟੋ ਭੰਗ ਕਰਨਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1972 ਵਿੱਚ ਦਸਤਖ਼ਤ ਹੋਈ ਕਿਹੜੀ ਸੰਧੀ ਨੇ ਮਿਜ਼ਾਈਲ-ਰੋਕੂ ਪ੍ਰਣਾਲੀਆਂ ਉੱਤੇ ਹੱਦਾਂ ਲਾਈਆਂ?",
+    "explanation": "SALT I ਦੇ ਅੰਤਰਿਮ ਸਮਝੌਤੇ ਨਾਲ ABM ਸੰਧੀ ਉੱਤੇ ਦਸਤਖ਼ਤ ਹੋਏ ਅਤੇ ਮਿਜ਼ਾਈਲ-ਰੋਕੂ ਪ੍ਰਣਾਲੀਆਂ ਸੀਮਤ ਕੀਤੀਆਂ ਗਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q040-PA",
+    "englishQuestionId": "WHI-CP014-Q040",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F040",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "questionFamily": "ਤਣਾਅ ਘਟਣ ਦਾ ਦੌਰ ਅਤੇ ਯੂਰਪੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਰਸਾਈ ਦੀ ਸੰਧੀ"
+      },
+      {
+        "key": "B",
+        "text": "NPT"
+      },
+      {
+        "key": "C",
+        "text": "ਰੋਮ ਦੀ ਸੰਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਐਂਟੀ-ਬੈਲਿਸਟਿਕ ਮਿਜ਼ਾਈਲ (ABM) ਸੰਧੀ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਦੈਤਾਂਤ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਦੈਤਾਂਤ ਦੇ ਦੌਰ ਦੌਰਾਨ ਖੇਤਰੀ ਟਕਰਾਵਾਂ ਅਤੇ ਫੌਜੀ ਖਰਚ ਵਿੱਚ ਮੁਕਾਬਲਾ ਜਾਰੀ ਰਿਹਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q041-PA",
+    "englishQuestionId": "WHI-CP014-Q041",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F041",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "questionFamily": "ਤਣਾਅ ਘਟਣ ਦਾ ਦੌਰ ਅਤੇ ਯੂਰਪੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨਾਲ ਕੁਝ ਤਣਾਅ ਘਟਿਆ, ਪਰ ਮਹਾਸ਼ਕਤੀਆਂ ਦਾ ਮੁਕਾਬਲਾ ਖ਼ਤਮ ਨਹੀਂ ਹੋਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ 1975 ਵਿੱਚ ਸ਼ੀਤ ਯੁੱਧ ਖ਼ਤਮ ਕਰ ਦਿੱਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਸਾਰੇ ਦੇਸ਼ਾਂ ਨੂੰ ਗੁੱਟ-ਨਿਰਪੱਖ ਹੋਣ ਲਈ ਮਜਬੂਰ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨਾਲ ਤੁਰੰਤ ਨਿਸ਼ਸਤਰੀਕਰਨ ਹੋਇਆ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1979 ਤੱਕ ਦੈਤਾਂਤ ਦਾ ਦੌਰ ਮੁੱਕਣ ਵਿੱਚ ਕਿਹੜੀ ਘਟਨਾ ਨੇ ਹਿੱਸਾ ਪਾਇਆ?",
+    "explanation": "ਅਫ਼ਗਾਨਿਸਤਾਨ ਉੱਤੇ ਹਮਲੇ ਨੇ ਅਮਰੀਕਾ-ਸੋਵੀਅਤ ਤਣਾਅ ਮੁੜ ਵਧਾਇਆ ਅਤੇ SALT II ਦੀ ਪੁਸ਼ਟੀ ਰੁਕ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q042-PA",
+    "englishQuestionId": "WHI-CP014-Q042",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F042",
+    "sourceIds": [
+      "CP014-S12",
+      "CP014-S13"
+    ],
+    "questionFamily": "ਤਣਾਅ ਘਟਣ ਦਾ ਦੌਰ ਅਤੇ ਯੂਰਪੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਾਟੋ ਦੀ ਸਥਾਪਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਦਾ ਅਫ਼ਗਾਨਿਸਤਾਨ ਉੱਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਟਰੂਮੈਨ ਸਿਧਾਂਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੋਰੀਆਈ ਜੰਗਬੰਦੀ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਸ਼ੀਤ ਯੁੱਧ ਨੂੰ ਮਹਾਸ਼ਕਤੀਆਂ ਵਿਚਕਾਰ ਅਸਿੱਧੇ ਟਕਰਾਅ ਦਾ ਦੌਰ ਕਿਉਂ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?",
+    "explanation": "ਦੋਵੇਂ ਤਾਕਤਾਂ ਨੇ ਖੇਤਰੀ ਜੰਗਾਂ ਵਿੱਚ ਵਿਰੋਧੀ ਧਿਰਾਂ ਦੀ ਮਦਦ ਕੀਤੀ ਅਤੇ ਆਮ ਤੌਰ ਉੱਤੇ ਇੱਕ-ਦੂਜੇ ਨਾਲ ਸਿੱਧੀ ਰਸਮੀ ਜੰਗ ਤੋਂ ਬਚੀਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q043-PA",
+    "englishQuestionId": "WHI-CP014-Q043",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F043",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਅਸਿੱਧੇ ਟਕਰਾਅ ਅਤੇ ਸ਼ੀਤ ਯੁੱਧ ਦੇ ਦਖ਼ਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਨ੍ਹਾਂ ਨੇ ਯੂਰਪ ਵਿੱਚ ਲਗਾਤਾਰ ਐਲਾਨੀ ਜੰਗ ਲੜੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਪਣੇ ਇਲਾਕਿਆਂ ਤੋਂ ਬਾਹਰ ਉਨ੍ਹਾਂ ਦਾ ਕੋਈ ਫੌਜੀ ਟਕਰਾਅ ਨਹੀਂ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਨ੍ਹਾਂ ਨੇ ਖੇਤਰੀ ਟਕਰਾਵਾਂ ਵਿੱਚ ਵਿਰੋਧੀ ਧਿਰਾਂ ਦੀ ਮਦਦ ਕੀਤੀ, ਪਰ ਆਮ ਤੌਰ ਉੱਤੇ ਇੱਕ-ਦੂਜੇ ਨਾਲ ਸਿੱਧੀ ਜੰਗ ਤੋਂ ਬਚੀਆਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਨ੍ਹਾਂ ਦੀ ਇੱਕੋ ਸਾਂਝੀ ਫੌਜੀ ਕਮਾਨ ਸੀ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਸੋਵੀਅਤ ਫੌਜਾਂ ਵੱਡੇ ਫੌਜੀ ਦਖ਼ਲ ਦੇ ਹਿੱਸੇ ਵਜੋਂ ਅਫ਼ਗਾਨਿਸਤਾਨ ਵਿੱਚ ਕਦੋਂ ਦਾਖ਼ਲ ਹੋਈਆਂ?",
+    "explanation": "ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਦਸੰਬਰ 1979 ਦੇ ਅਖ਼ੀਰ ਵਿੱਚ ਅਫ਼ਗਾਨਿਸਤਾਨ ਵਿੱਚ ਫੌਜਾਂ ਭੇਜੀਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q044-PA",
+    "englishQuestionId": "WHI-CP014-Q044",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F044",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਅਸਿੱਧੇ ਟਕਰਾਅ ਅਤੇ ਸ਼ੀਤ ਯੁੱਧ ਦੇ ਦਖ਼ਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜੂਨ 1950"
+      },
+      {
+        "key": "B",
+        "text": "ਅਕਤੂਬਰ 1962"
+      },
+      {
+        "key": "C",
+        "text": "ਨਵੰਬਰ 1989"
+      },
+      {
+        "key": "D",
+        "text": "ਦਸੰਬਰ 1979"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1950 ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਈ ਕੋਰੀਆਈ ਜੰਗ ਵਿੱਚ ਕਿਹੜੀਆਂ ਦੋ ਸਰਕਾਰਾਂ ਲੜੀਆਂ?",
+    "explanation": "ਕੋਰੀਆਈ ਜੰਗ ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਕੋਰੀਆ ਵਿਚਕਾਰ ਸੀ; ਦੋਵਾਂ ਪਾਸਿਆਂ ਵੱਲੋਂ ਬਾਹਰੀ ਤਾਕਤਾਂ ਨੇ ਵੀ ਵੱਡਾ ਦਖ਼ਲ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q045-PA",
+    "englishQuestionId": "WHI-CP014-Q045",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F045",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਅਸਿੱਧੇ ਟਕਰਾਅ ਅਤੇ ਸ਼ੀਤ ਯੁੱਧ ਦੇ ਦਖ਼ਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉੱਤਰੀ ਕੋਰੀਆ ਅਤੇ ਦੱਖਣੀ ਕੋਰੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਉੱਤਰੀ ਵੀਅਤਨਾਮ ਅਤੇ ਦੱਖਣੀ ਵੀਅਤਨਾਮ"
+      },
+      {
+        "key": "C",
+        "text": "ਚੀਨ ਅਤੇ ਤਾਇਵਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੂਰਬੀ ਜਰਮਨੀ ਅਤੇ ਪੱਛਮੀ ਜਰਮਨੀ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1964 ਵਿੱਚ ਵੀਅਤਨਾਮ ਵਿੱਚ ਵਧੇਰੇ ਅਧਿਕਾਰ ਮੰਗਣ ਤੋਂ ਠੀਕ ਪਹਿਲਾਂ ਕੀ ਵਾਪਰਿਆ?",
+    "explanation": "ਟੋਂਕਿਨ ਖਾੜੀ ਵਿੱਚ ਅਮਰੀਕੀ ਜੰਗੀ ਜਹਾਜ਼ਾਂ ਉੱਤੇ ਹਮਲਿਆਂ ਦੀਆਂ ਖ਼ਬਰਾਂ ਮਗਰੋਂ ਜੌਨਸਨ ਨੇ ਕਾਂਗਰਸ ਤੋਂ ਵਧੇਰੇ ਅਧਿਕਾਰ ਮੰਗੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q046-PA",
+    "englishQuestionId": "WHI-CP014-Q046",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F046",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਅਸਿੱਧੇ ਟਕਰਾਅ ਅਤੇ ਸ਼ੀਤ ਯੁੱਧ ਦੇ ਦਖ਼ਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਵੱਲੋਂ ਬਰਲਿਨ ਦੀ ਨਾਕਾਬੰਦੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਟੋਂਕਿਨ ਖਾੜੀ ਵਿੱਚ ਅਮਰੀਕੀ ਜੰਗੀ ਜਹਾਜ਼ਾਂ ਉੱਤੇ ਕਥਿਤ ਹਮਲੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਦਾ ਅਫ਼ਗਾਨਿਸਤਾਨ ਉੱਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਾਰਸਾ ਸੰਧੀ ਦੀ ਸਥਾਪਨਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਅਫ਼ਗਾਨਿਸਤਾਨ ਉੱਤੇ ਸੋਵੀਅਤ ਹਮਲੇ ਦਾ ਅਮਰੀਕਾ-ਸੋਵੀਅਤ ਸਬੰਧਾਂ ਉੱਤੇ ਕੀ ਅਸਰ ਪਿਆ?",
+    "explanation": "ਹਮਲੇ ਦੀ ਵਿਆਪਕ ਨਿੰਦਾ ਹੋਈ ਅਤੇ ਮਹਾਸ਼ਕਤੀਆਂ ਦਾ ਟਕਰਾਅ ਮੁੜ ਵਧਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q047-PA",
+    "englishQuestionId": "WHI-CP014-Q047",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F047",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਅਸਿੱਧੇ ਟਕਰਾਅ ਅਤੇ ਸ਼ੀਤ ਯੁੱਧ ਦੇ ਦਖ਼ਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਪਰਮਾਣੂ ਹਥਿਆਰਾਂ ਦੀ ਦੌੜ ਖ਼ਤਮ ਕਰ ਦਿੱਤੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਮਗਰੋਂ ਸੋਵੀਅਤ ਸੰਘ ਵਾਰਸਾ ਸੰਧੀ ਵਿੱਚੋਂ ਨਿਕਲ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨਾਲ ਤਣਾਅ ਵਧਿਆ ਅਤੇ ਦੈਤਾਂਤ ਦੇ ਸਹਿਯੋਗ ਵਾਲੇ ਰੁਖ਼ ਨੂੰ ਉਲਟਾ ਦਿੱਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਵੀਅਤਨਾਮ ਦਾ ਟਕਰਾਅ ਸੁਲਝਾ ਦਿੱਤਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਹੜੇ ਸਮੂਹ ਵਿੱਚ ਸ਼ੀਤ ਯੁੱਧ ਦੇ ਤਿੰਨ ਖੇਤਰੀ ਟਕਰਾਅ ਵਾਲੇ ਕੇਂਦਰ ਹਨ?",
+    "explanation": "ਕੋਰੀਆ, ਕਿਊਬਾ ਅਤੇ ਅਫ਼ਗਾਨਿਸਤਾਨ ਸ਼ੀਤ ਯੁੱਧ ਦੇ ਵੱਡੇ ਟਕਰਾਅ-ਕੇਂਦਰ ਬਣੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q048-PA",
+    "englishQuestionId": "WHI-CP014-Q048",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F048",
+    "sourceIds": [
+      "CP014-S06",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਅਸਿੱਧੇ ਟਕਰਾਅ ਅਤੇ ਸ਼ੀਤ ਯੁੱਧ ਦੇ ਦਖ਼ਲ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਾਟਰਲੂ, ਸੇਦਾਂ ਅਤੇ ਵਰਦਾਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਰਲਿਨ, ਵਿਆਨਾ ਅਤੇ ਵਰਸਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਘਾਨਾ, ਅਲਜੀਰੀਆ ਅਤੇ ਕਾਂਗੋ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੋਰੀਆ, ਕਿਊਬਾ ਅਤੇ ਅਫ਼ਗਾਨਿਸਤਾਨ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1961 ਵਿੱਚ ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਦਾ ਪਹਿਲਾ ਸਿਖਰ ਸੰਮੇਲਨ ਕਿੱਥੇ ਹੋਇਆ?",
+    "explanation": "ਗੁੱਟ-ਨਿਰਪੱਖ ਦੇਸ਼ਾਂ ਦਾ ਪਹਿਲਾ ਸਿਖਰ ਸੰਮੇਲਨ ਸਤੰਬਰ 1961 ਵਿੱਚ ਬੈਲਗਰੇਡ ਵਿੱਚ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q049-PA",
+    "englishQuestionId": "WHI-CP014-Q049",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F049",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "questionFamily": "ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਅਤੇ ਬਾਂਡੁੰਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬੈਲਗਰੇਡ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਾਂਡੁੰਗ"
+      },
+      {
+        "key": "C",
+        "text": "ਅੱਕਰਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਾਹਿਰਾ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1955 ਦੀ ਕਿਹੜੀ ਕਾਨਫਰੰਸ ਨੇ ਬਾਅਦ ਵਿੱਚ ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਨਾਲ ਜੁੜੇ ਵਿਚਾਰਾਂ ਨੂੰ ਰੂਪ ਦੇਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ?",
+    "explanation": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ ਨੇ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਅਤੇ ਸ਼ਾਂਤੀਪੂਰਨ ਸਹਿ-ਹੋਂਦ ਦੇ ਅਸੂਲ ਪੇਸ਼ ਕੀਤੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q050-PA",
+    "englishQuestionId": "WHI-CP014-Q050",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F050",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "questionFamily": "ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਅਤੇ ਬਾਂਡੁੰਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਯਾਲਟਾ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰੈਟਨ ਵੁਡਜ਼ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਇੰਡੋਚੀਨ ਬਾਰੇ ਜਨੀਵਾ ਕਾਨਫਰੰਸ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਕਿਹੜੇ ਆਗੂ ਸ਼ੁਰੂਆਤੀ ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਦੀਆਂ ਮੁੱਖ ਹਸਤੀਆਂ ਵਿੱਚ ਸਨ?",
+    "explanation": "ਨੇਹਰੂ, ਟੀਟੋ ਅਤੇ ਨਾਸਿਰ ਨੇ ਗੁੱਟ-ਨਿਰਪੱਖ ਸਹਿਯੋਗ ਅੱਗੇ ਵਧਾਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q051-PA",
+    "englishQuestionId": "WHI-CP014-Q051",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F051",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "questionFamily": "ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਅਤੇ ਬਾਂਡੁੰਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿੰਸਟਨ ਚਰਚਿਲ, ਸ਼ਾਰਲ ਦ ਗੌਲ ਅਤੇ ਕੋਨਰਾਡ ਆਡੇਨਾਊਅਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੈਰੀ ਟਰੂਮੈਨ, ਜਾਰਜ ਮਾਰਸ਼ਲ ਅਤੇ ਡੀਨ ਐਚਿਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਵਾਹਰਲਾਲ ਨੇਹਰੂ, ਜੋਸਿਪ ਬ੍ਰੋਜ਼ ਟੀਟੋ ਅਤੇ ਗਮਾਲ ਅਬਦੇਲ ਨਾਸਿਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਾਓ ਜ਼ੇਦੋਂਗ, ਚਿਆਂਗ ਕਾਈ-ਸ਼ੇਕ ਅਤੇ ਡਗਲਸ ਮੈਕਆਰਥਰ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਸ਼ੀਤ ਯੁੱਧ ਦੌਰਾਨ ਗੁੱਟ-ਨਿਰਪੱਖਤਾ ਦਾ ਕੀ ਮਤਲਬ ਸੀ?",
+    "explanation": "ਇਸ ਦਾ ਮਤਲਬ ਅਲੱਗ-ਥਲੱਗ ਰਹਿਣਾ ਨਹੀਂ ਸੀ; ਇਸ ਦਾ ਟੀਚਾ ਦੋ ਧੜਿਆਂ ਦੇ ਮੁਕਾਬਲੇ ਵਿਚਕਾਰ ਆਪਣੀ ਆਜ਼ਾਦੀ ਕਾਇਮ ਰੱਖਣਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q052-PA",
+    "englishQuestionId": "WHI-CP014-Q052",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F052",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "questionFamily": "ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਅਤੇ ਬਾਂਡੁੰਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੇਸ਼ ਹਰ ਤਰ੍ਹਾਂ ਦੀ ਕੂਟਨੀਤੀ ਤੋਂ ਦੂਰ ਰਹਿਣ"
+      },
+      {
+        "key": "B",
+        "text": "ਫੌਜੀ ਜ਼ਿੰਮੇਵਾਰੀ ਤੋਂ ਬਿਨਾਂ ਵਾਰਸਾ ਸੰਧੀ ਦੀ ਮੈਂਬਰਸ਼ਿਪ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਅਮਰੀਕੀ ਨੀਤੀ ਦੀ ਹਮਾਇਤ ਕਰਨ ਦਾ ਵਚਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਿਸੇ ਧੜੇ ਵਿੱਚ ਆਪਣੇ-ਆਪ ਸ਼ਾਮਲ ਹੋਣ ਦੀ ਥਾਂ ਸੁਤੰਤਰ ਵਿਦੇਸ਼ ਨੀਤੀ ਦੇ ਬਦਲ ਖੁੱਲ੍ਹੇ ਰੱਖਣਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1955 ਦੀ ਬਾਂਡੁੰਗ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਕਾਨਫਰੰਸ ਬੁਲਾਉਣ ਵਾਲੀਆਂ ਪੰਜ ਸਰਕਾਰਾਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਦੇਸ਼ ਸੀ?",
+    "explanation": "ਬਰਮਾ, ਸੀਲੋਨ, ਭਾਰਤ, ਇੰਡੋਨੇਸ਼ੀਆ ਅਤੇ ਪਾਕਿਸਤਾਨ ਨੇ ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ ਬੁਲਾਈ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q053-PA",
+    "englishQuestionId": "WHI-CP014-Q053",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F053",
+    "sourceIds": [
+      "CP014-S17"
+    ],
+    "questionFamily": "ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਅਤੇ ਬਾਂਡੁੰਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਭਾਰਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਿਸਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੂਗੋਸਲਾਵੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਪਾਨ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਗੁੱਟ-ਨਿਰਪੱਖਤਾ ਨੂੰ ਤਟਸਥਤਾ ਤੋਂ ਕਿਵੇਂ ਵੱਖਰਾ ਸਮਝਣਾ ਚਾਹੀਦਾ ਹੈ?",
+    "explanation": "ਇਹ ਅੰਦੋਲਨ ਰਣਨੀਤਕ ਆਜ਼ਾਦੀ ਚਾਹੁੰਦਾ ਸੀ; ਮੈਂਬਰਾਂ ਲਈ ਹਰ ਮਸਲੇ ਉੱਤੇ ਦੋਵਾਂ ਪਾਸਿਆਂ ਤੋਂ ਬਰਾਬਰ ਦੂਰੀ ਰੱਖਣੀ ਲਾਜ਼ਮੀ ਨਹੀਂ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q054-PA",
+    "englishQuestionId": "WHI-CP014-Q054",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F054",
+    "sourceIds": [
+      "CP014-S15",
+      "CP014-S16"
+    ],
+    "questionFamily": "ਗੁੱਟ-ਨਿਰਪੱਖ ਅੰਦੋਲਨ ਅਤੇ ਬਾਂਡੁੰਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਗੁੱਟ-ਨਿਰਪੱਖਤਾ ਦਾ ਮਤਲਬ ਵਿਦੇਸ਼ ਨੀਤੀ ਨਾ ਹੋਣਾ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਗੁੱਟ-ਨਿਰਪੱਖਤਾ ਇੱਕ ਸਰਗਰਮ ਸਿਆਸੀ ਅੰਦੋਲਨ ਸੀ ਅਤੇ ਇਸ ਦਾ ਮਤਲਬ ਹਰ ਮਸਲੇ ਉੱਤੇ ਬਰਾਬਰ ਦੂਰੀ ਨਹੀਂ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਤਟਸਥਤਾ ਅਤੇ ਗੁੱਟ-ਨਿਰਪੱਖਤਾ ਹਰ ਸੰਧੀ ਵਿੱਚ ਇੱਕੋ ਰਸਮੀ ਸ਼ਬਦ ਸਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਗੁੱਟ-ਨਿਰਪੱਖ ਦੇਸ਼ਾਂ ਨੂੰ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਛੱਡਣਾ ਪੈਂਦਾ ਸੀ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਕਿਹੜਾ ਕ੍ਰਮ ਸਮੇਂ ਅਨੁਸਾਰ ਸਹੀ ਹੈ?",
+    "explanation": "ਇਹ ਘਟਨਾਵਾਂ ਕ੍ਰਮਵਾਰ 1947, 1948–49, 1962 ਅਤੇ 1975 ਵਿੱਚ ਹੋਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q055-PA",
+    "englishQuestionId": "WHI-CP014-Q055",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F055",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਸ਼ੀਤ ਯੁੱਧ ਦਾ ਕਾਲਕ੍ਰਮ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਰਲਿਨ ਹਵਾਈ ਰਸਦ → ਟਰੂਮੈਨ ਸਿਧਾਂਤ → ਹੈਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ → ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ → ਬਰਲਿਨ ਹਵਾਈ ਰਸਦ → ਟਰੂਮੈਨ ਸਿਧਾਂਤ → ਹੈਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਟਰੂਮੈਨ ਸਿਧਾਂਤ → ਬਰਲਿਨ ਹਵਾਈ ਰਸਦ → ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ → ਹੈਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ"
+      },
+      {
+        "key": "D",
+        "text": "ਹੈਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ → ਟਰੂਮੈਨ ਸਿਧਾਂਤ → ਬਰਲਿਨ ਹਵਾਈ ਰਸਦ → ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਹੜੀ ਜੋੜੀ ਠੀਕ ਮਿਲਾਈ ਗਈ ਹੈ?",
+    "explanation": "ਨਾਟੋ 1949 ਵਿੱਚ ਬਣਿਆ; ਵਾਰਸਾ ਸੰਧੀ 1955 ਵਿੱਚ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q056-PA",
+    "englishQuestionId": "WHI-CP014-Q056",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F056",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਸ਼ੀਤ ਯੁੱਧ ਦਾ ਕਾਲਕ੍ਰਮ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਾਰਸਾ ਸੰਧੀ — 1949 ਵਿੱਚ ਬਣੀ"
+      },
+      {
+        "key": "B",
+        "text": "NPT — 1955 ਵਿੱਚ ਦਸਤਖ਼ਤ ਹੋਏ"
+      },
+      {
+        "key": "C",
+        "text": "ਹੈਲਸਿੰਕੀ ਅੰਤਿਮ ਐਕਟ — 1962 ਵਿੱਚ ਦਸਤਖ਼ਤ ਹੋਏ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਾਟੋ — 1949 ਵਿੱਚ ਬਣਿਆ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1953 ਦੀ ਕੋਰੀਆਈ ਜੰਗਬੰਦੀ ਤੋਂ ਬਾਅਦ ਕਿਹੜੀ ਘਟਨਾ ਹੋਈ?",
+    "explanation": "ਬੈਲਗਰੇਡ ਸਿਖਰ ਸੰਮੇਲਨ ਜੰਗਬੰਦੀ ਤੋਂ ਅੱਠ ਸਾਲ ਬਾਅਦ 1961 ਵਿੱਚ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q057-PA",
+    "englishQuestionId": "WHI-CP014-Q057",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F057",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਸ਼ੀਤ ਯੁੱਧ ਦਾ ਕਾਲਕ੍ਰਮ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1961 ਵਿੱਚ ਬੈਲਗਰੇਡ ਵਿੱਚ ਪਹਿਲਾ ਗੁੱਟ-ਨਿਰਪੱਖ ਸਿਖਰ ਸੰਮੇਲਨ"
+      },
+      {
+        "key": "B",
+        "text": "1947 ਵਿੱਚ ਟਰੂਮੈਨ ਸਿਧਾਂਤ"
+      },
+      {
+        "key": "C",
+        "text": "1948 ਵਿੱਚ ਬਰਲਿਨ ਨਾਕਾਬੰਦੀ"
+      },
+      {
+        "key": "D",
+        "text": "1957 ਵਿੱਚ ਸਪੁਤਨਿਕ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕੋਰੀਆਈ ਜੰਗਬੰਦੀ ਅਤੇ ਅਮਨ ਸੰਧੀ ਵਿੱਚ ਕੀ ਫ਼ਰਕ ਹੈ?",
+    "explanation": "ਜੰਗਬੰਦੀ ਲੜਾਈ ਰੋਕਦੀ ਹੈ; 1953 ਦੇ ਸਮਝੌਤੇ ਨਾਲ ਰਸਮੀ ਅਮਨ ਸੰਧੀ ਨਹੀਂ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q058-PA",
+    "englishQuestionId": "WHI-CP014-Q058",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F058",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਸ਼ੀਤ ਯੁੱਧ ਦਾ ਕਾਲਕ੍ਰਮ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਕੋਰੀਆ ਨੂੰ ਰਸਮੀ ਤੌਰ ਉੱਤੇ ਇੱਕ ਸਰਕਾਰ ਹੇਠ ਇਕੱਠਾ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਸਰਗਰਮ ਲੜਾਈ ਰੋਕੀ ਪਰ ਦੋਵਾਂ ਕੋਰੀਆਈ ਦੇਸ਼ਾਂ ਵਿਚਕਾਰ ਪੱਕਾ ਅਮਨ ਸਮਝੌਤਾ ਨਹੀਂ ਹੋਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਕੋਰੀਆ ਨੂੰ ਪੱਕੇ ਤੌਰ ਉੱਤੇ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਕਬਜ਼ੇ ਹੇਠ ਦਿੱਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਸ਼ੀਤ ਯੁੱਧ ਖ਼ਤਮ ਕੀਤਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਕਿਹੜੀ ਜੋੜੀ ਵਿੱਚ ਸਿੱਧਾ ਪਰਮਾਣੂ ਟਕਰਾਅ ਅਤੇ ਬਾਅਦ ਦਾ ਉਹ ਦਖ਼ਲ ਹੈ ਜਿਸ ਨਾਲ ਮਹਾਸ਼ਕਤੀਆਂ ਦਾ ਤਣਾਅ ਮੁੜ ਵਧਿਆ?",
+    "explanation": "ਕਿਊਬਾ ਸੰਕਟ ਵਿੱਚ ਮਹਾਸ਼ਕਤੀਆਂ ਪਰਮਾਣੂ ਜੰਗ ਦੇ ਨੇੜੇ ਪਹੁੰਚੀਆਂ; ਅਫ਼ਗਾਨਿਸਤਾਨ ਨੇ ਰਣਨੀਤਕ ਤਣਾਅ ਫਿਰ ਵਧਾਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q059-PA",
+    "englishQuestionId": "WHI-CP014-Q059",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F059",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਸ਼ੀਤ ਯੁੱਧ ਦਾ ਕਾਲਕ੍ਰਮ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਾਰਸ਼ਲ ਯੋਜਨਾ ਅਤੇ ਨਾਟੋ ਦੀ ਸਥਾਪਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ ਅਤੇ NPT"
+      },
+      {
+        "key": "C",
+        "text": "ਕਿਊਬਾ ਮਿਜ਼ਾਈਲ ਸੰਕਟ ਅਤੇ ਅਫ਼ਗਾਨਿਸਤਾਨ ਉੱਤੇ ਸੋਵੀਅਤ ਹਮਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਰਲਿਨ ਹਵਾਈ ਰਸਦ ਅਤੇ ਕੋਰੀਆਈ ਜੰਗਬੰਦੀ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਹੜਾ ਬਿਆਨ ਸ਼ੀਤ ਯੁੱਧ ਦੇ ਮੁਕਾਬਲੇ ਦਾ ਸਭ ਤੋਂ ਚੰਗਾ ਸਾਰ ਦਿੰਦਾ ਹੈ?",
+    "explanation": "ਸ਼ੀਤ ਯੁੱਧ ਵਿੱਚ ਵਿਚਾਰਧਾਰਕ ਵਿਰੋਧ, ਫੌਜੀ ਗੱਠਜੋੜ, ਹਥਿਆਰਾਂ ਦੀ ਦੌੜ, ਤਕਨੀਕੀ ਮੁਕਾਬਲਾ ਅਤੇ ਖੇਤਰੀ ਟਕਰਾਅ ਸ਼ਾਮਲ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP014-Q060-PA",
+    "englishQuestionId": "WHI-CP014-Q060",
+    "checkpointId": "WHI-001-CP014",
+    "factId": "WHI-CP014-F060",
+    "sourceIds": [
+      "CP014-S01",
+      "CP014-S04",
+      "CP014-S08",
+      "CP014-S13",
+      "CP014-S14"
+    ],
+    "questionFamily": "ਸ਼ੀਤ ਯੁੱਧ ਦਾ ਕਾਲਕ੍ਰਮ ਅਤੇ ਫ਼ਰਕ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਵਿੱਚ ਸਿਰਫ਼ ਯੂਰਪ ਦੇ ਕੂਟਨੀਤਕ ਭਾਸ਼ਣ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਹ 1953 ਦੀ ਕੋਰੀਆਈ ਜੰਗਬੰਦੀ ਨਾਲ ਖ਼ਤਮ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੂਰਪ ਤੋਂ ਬਾਹਰ ਕੋਈ ਮੁਕਾਬਲਾ ਨਹੀਂ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਵਿੱਚ ਵਿਚਾਰਧਾਰਕ ਵਿਰੋਧ, ਫੌਜੀ ਗੱਠਜੋੜ, ਹਥਿਆਰਾਂ ਦਾ ਮੁਕਾਬਲਾ ਅਤੇ ਖੇਤਰੀ ਟਕਰਾਅ ਸ਼ਾਮਲ ਸਨ"
+      }
+    ],
+    "correctOption": "D"
+  }
+]

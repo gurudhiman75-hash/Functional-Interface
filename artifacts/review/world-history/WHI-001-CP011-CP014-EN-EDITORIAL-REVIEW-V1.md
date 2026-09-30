@@ -1,8 +1,8 @@
 # WHI-001-CP011–CP014 — English Editorial Review V1
 
-**Status:** First-pass editorial review complete; human English approval requested for all four pools.
+**Status:** First-pass editorial review complete; user approved the four English pools for localization.
 **Scope:** 240 English questions across United Nations and post-war institutions, decolonization in Asia and the Middle East, decolonization in Africa, and Cold War rivalry.
-**Lifecycle:** All records remain review-only. Localization, Question Studio registration and learner delivery stay gated pending English approval.
+**Lifecycle:** All records remain review-only. Hindi and Punjabi review candidates are now drafted. Native-language review remains pending; Question Studio registration and learner delivery stay gated.
 
 ## Review performed
 

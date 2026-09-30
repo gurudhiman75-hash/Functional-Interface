@@ -1,0 +1,2129 @@
+[
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "जून 1945 में संयुक्त राष्ट्र चार्टर पर कहाँ हस्ताक्षर हुए थे?",
+    "explanation": "प्रतिनिधियों ने 26 जून 1945 को सैन फ्रांसिस्को में चार्टर पर हस्ताक्षर किए। इससे पहले युद्ध के दौरान नई अंतरराष्ट्रीय संस्था की रूपरेखा पर चर्चा हुई थी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q001-HI",
+    "englishQuestionId": "WHI-CP011-Q001",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F001",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S02"
+    ],
+    "questionFamily": "संयुक्त राष्ट्र की स्थापना और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "सैन फ्रांसिस्को"
+      },
+      {
+        "key": "B",
+        "text": "जिनेवा"
+      },
+      {
+        "key": "C",
+        "text": "न्यूयॉर्क"
+      },
+      {
+        "key": "D",
+        "text": "ब्रेटन वुड्स"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "संयुक्त राष्ट्र चार्टर कब लागू हुआ?",
+    "explanation": "आवश्यक देशों द्वारा पुष्टि के बाद चार्टर 24 अक्टूबर 1945 को लागू हुआ। इस तारीख को संयुक्त राष्ट्र दिवस मनाया जाता है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q002-HI",
+    "englishQuestionId": "WHI-CP011-Q002",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F002",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S02"
+    ],
+    "questionFamily": "संयुक्त राष्ट्र की स्थापना और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "26 जून 1945"
+      },
+      {
+        "key": "B",
+        "text": "24 अक्टूबर 1945"
+      },
+      {
+        "key": "C",
+        "text": "10 जनवरी 1946"
+      },
+      {
+        "key": "D",
+        "text": "1 जनवरी 1947"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "सैन फ्रांसिस्को सम्मेलन में हस्ताक्षरित चार्टर से किस अंतरराष्ट्रीय संगठन की स्थापना हुई?",
+    "explanation": "चार्टर ने संयुक्त राष्ट्र की स्थापना की। राष्ट्र संघ उसका पूर्ववर्ती संगठन था, सैन फ्रांसिस्को में बना संगठन नहीं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q003-HI",
+    "englishQuestionId": "WHI-CP011-Q003",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F003",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "संयुक्त राष्ट्र की स्थापना और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "राष्ट्र संघ"
+      },
+      {
+        "key": "B",
+        "text": "विश्व बैंक"
+      },
+      {
+        "key": "C",
+        "text": "संयुक्त राष्ट्र"
+      },
+      {
+        "key": "D",
+        "text": "नाटो"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "सैन फ्रांसिस्को सम्मेलन से पहले किस युद्धकालीन सम्मेलन ने युद्धोत्तर अंतरराष्ट्रीय संगठन की रूपरेखा पर सहमति बनाई?",
+    "explanation": "1944 में डम्बर्टन ओक्स की बैठकों में नए अंतरराष्ट्रीय संगठन के प्रस्ताव तैयार हुए। बाद में सैन फ्रांसिस्को सम्मेलन ने चार्टर पर बातचीत की और उसे अपनाया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q004-HI",
+    "englishQuestionId": "WHI-CP011-Q004",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F004",
+    "sourceIds": [
+      "CP011-S02"
+    ],
+    "questionFamily": "संयुक्त राष्ट्र की स्थापना और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "याल्टा सम्मेलन"
+      },
+      {
+        "key": "B",
+        "text": "पॉट्सडैम सम्मेलन"
+      },
+      {
+        "key": "C",
+        "text": "ब्रेटन वुड्स सम्मेलन"
+      },
+      {
+        "key": "D",
+        "text": "डम्बर्टन ओक्स सम्मेलन"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "संयुक्त राष्ट्र की स्थापना का सही क्रम कौन-सा है?",
+    "explanation": "1944 में डम्बर्टन ओक्स में प्रस्ताव बने, जून 1945 में चार्टर पर हस्ताक्षर हुए और अक्टूबर 1945 में वह लागू हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q005-HI",
+    "englishQuestionId": "WHI-CP011-Q005",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F005",
+    "sourceIds": [
+      "CP011-S02"
+    ],
+    "questionFamily": "संयुक्त राष्ट्र की स्थापना और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "डम्बर्टन ओक्स के प्रस्ताव → सैन फ्रांसिस्को में हस्ताक्षर → चार्टर लागू"
+      },
+      {
+        "key": "B",
+        "text": "चार्टर लागू → डम्बर्टन ओक्स के प्रस्ताव → सैन फ्रांसिस्को में हस्ताक्षर"
+      },
+      {
+        "key": "C",
+        "text": "सैन फ्रांसिस्को में हस्ताक्षर → चार्टर लागू → डम्बर्टन ओक्स के प्रस्ताव"
+      },
+      {
+        "key": "D",
+        "text": "चार्टर लागू → सैन फ्रांसिस्को में हस्ताक्षर → डम्बर्टन ओक्स के प्रस्ताव"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "संयुक्त राष्ट्र चार्टर की प्रस्तावना में कौन-सा प्रमुख उद्देश्य दिया गया है?",
+    "explanation": "अंतरराष्ट्रीय शांति और सुरक्षा बनाए रखना चार्टर का प्रमुख उद्देश्य है। चार्टर सहयोग और मानवाधिकारों को बढ़ावा देने की बात भी करता है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q006-HI",
+    "englishQuestionId": "WHI-CP011-Q006",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F006",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "संयुक्त राष्ट्र की स्थापना और कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "विश्व सरकार बनाना"
+      },
+      {
+        "key": "B",
+        "text": "अंतरराष्ट्रीय शांति और सुरक्षा बनाए रखना"
+      },
+      {
+        "key": "C",
+        "text": "हर देश की सरकार बदलना"
+      },
+      {
+        "key": "D",
+        "text": "एक वैश्विक न्यायालय बनाना"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "संयुक्त राष्ट्र चार्टर का अनुच्छेद 2 सदस्य देशों के किस सिद्धांत को मान्यता देता है?",
+    "explanation": "अनुच्छेद 2 सदस्य देशों की संप्रभु समानता का सिद्धांत रखता है। इसका अर्थ यह नहीं कि संयुक्त राष्ट्र के हर अंग में सभी देशों की भूमिका एक जैसी है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q007-HI",
+    "englishQuestionId": "WHI-CP011-Q007",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F007",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "चार्टर के सिद्धांत और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "हर सदस्य सुरक्षा परिषद का स्थायी सदस्य है"
+      },
+      {
+        "key": "B",
+        "text": "सभी सदस्य देशों की सैन्य शक्ति समान है"
+      },
+      {
+        "key": "C",
+        "text": "सभी सदस्य संप्रभु रूप से समान हैं"
+      },
+      {
+        "key": "D",
+        "text": "सभी सदस्य एक ही मुद्रा अपनाते हैं"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "संयुक्त राष्ट्र चार्टर का अनुच्छेद 2(4) राज्यों को किससे विरत रहने को कहता है?",
+    "explanation": "अनुच्छेद 2(4) किसी राज्य की क्षेत्रीय अखंडता या राजनीतिक स्वतंत्रता के विरुद्ध बल प्रयोग या उसकी धमकी को प्रतिबंधित करता है, चार्टर के प्रावधानों के अधीन।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q008-HI",
+    "englishQuestionId": "WHI-CP011-Q008",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F008",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "चार्टर के सिद्धांत और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "व्यापार समझौते करने से"
+      },
+      {
+        "key": "B",
+        "text": "अपने घरेलू कानून बनाने से"
+      },
+      {
+        "key": "C",
+        "text": "संयुक्त राष्ट्र की बैठकों में भाग लेने से"
+      },
+      {
+        "key": "D",
+        "text": "दूसरे राज्य की क्षेत्रीय अखंडता या राजनीतिक स्वतंत्रता के विरुद्ध बल प्रयोग या उसकी धमकी से"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "संयुक्त राष्ट्र चार्टर विवादों के समाधान के लिए किस तरीके को प्रोत्साहित करता है?",
+    "explanation": "चार्टर सदस्य देशों से विवादों को शांतिपूर्ण तरीकों से सुलझाने का आग्रह करता है। किस तरीके का उपयोग होगा, यह विवाद और संबंधित पक्षों पर निर्भर करता है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q009-HI",
+    "englishQuestionId": "WHI-CP011-Q009",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F009",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "चार्टर के सिद्धांत और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "शांतिपूर्ण समाधान"
+      },
+      {
+        "key": "B",
+        "text": "बल प्रयोग"
+      },
+      {
+        "key": "C",
+        "text": "एकतरफा प्रतिबंध"
+      },
+      {
+        "key": "D",
+        "text": "न्यायालय में अपील"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "अनुच्छेद 2(7) के तहत संयुक्त राष्ट्र चार्टर घरेलू मामलों में हस्तक्षेप पर क्या सीमा लगाता है?",
+    "explanation": "अनुच्छेद 2(7) संयुक्त राष्ट्र को उन मामलों में हस्तक्षेप से रोकता है जो मूलतः किसी राज्य के घरेलू अधिकार-क्षेत्र में आते हैं। अध्याय VII की प्रवर्तन कार्रवाई पर यह रोक लागू नहीं होती।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q010-HI",
+    "englishQuestionId": "WHI-CP011-Q010",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F010",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "चार्टर के सिद्धांत और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "राज्य सभी संधि दायित्वों की अनदेखी कर सकते हैं"
+      },
+      {
+        "key": "B",
+        "text": "संयुक्त राष्ट्र को मूलतः घरेलू अधिकार-क्षेत्र के मामलों में सामान्यतः हस्तक्षेप नहीं करना चाहिए"
+      },
+      {
+        "key": "C",
+        "text": "सुरक्षा परिषद किसी संघर्ष पर विचार नहीं कर सकती"
+      },
+      {
+        "key": "D",
+        "text": "महासभा अंतरराष्ट्रीय मामलों पर चर्चा नहीं कर सकती"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "संयुक्त राष्ट्र के उद्देश्यों का सही वर्णन कौन-सा है?",
+    "explanation": "चार्टर शांति और सुरक्षा के साथ राष्ट्रों के बीच मैत्रीपूर्ण संबंध तथा अंतरराष्ट्रीय सहयोग को बढ़ावा देता है। यह विश्व सरकार स्थापित नहीं करता।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q011-HI",
+    "englishQuestionId": "WHI-CP011-Q011",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F011",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "चार्टर के सिद्धांत और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "हर देश पर सीधे शासन करना"
+      },
+      {
+        "key": "B",
+        "text": "सभी राष्ट्रीय सरकारों की जगह एक न्यायालय बनाना"
+      },
+      {
+        "key": "C",
+        "text": "शांति बनाए रखना, मैत्रीपूर्ण संबंध विकसित करना और अंतरराष्ट्रीय सहयोग बढ़ाना"
+      },
+      {
+        "key": "D",
+        "text": "हर देश में एक जैसी आर्थिक व्यवस्था लागू करना"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "मूल संयुक्त राष्ट्र चार्टर ने कितने प्रमुख अंग स्थापित किए थे?",
+    "explanation": "चार्टर ने छह प्रमुख अंग बनाए: महासभा, सुरक्षा परिषद, आर्थिक और सामाजिक परिषद, न्यास परिषद, अंतरराष्ट्रीय न्यायालय और सचिवालय।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q012-HI",
+    "englishQuestionId": "WHI-CP011-Q012",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F012",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S03"
+    ],
+    "questionFamily": "चार्टर के सिद्धांत और उद्देश्य",
+    "options": [
+      {
+        "key": "A",
+        "text": "चार"
+      },
+      {
+        "key": "B",
+        "text": "पाँच"
+      },
+      {
+        "key": "C",
+        "text": "सात"
+      },
+      {
+        "key": "D",
+        "text": "छह"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "संयुक्त राष्ट्र का कौन-सा प्रमुख अंग सभी सदस्य देशों को शामिल करता है?",
+    "explanation": "महासभा संयुक्त राष्ट्र का पूर्ण सदस्यता वाला अंग है, जहाँ हर सदस्य देश का प्रतिनिधित्व होता है। इसकी शक्तियाँ सुरक्षा परिषद से अलग हैं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q013-HI",
+    "englishQuestionId": "WHI-CP011-Q013",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F013",
+    "sourceIds": [
+      "CP011-S03"
+    ],
+    "questionFamily": "प्रमुख अंग और उनके काम",
+    "options": [
+      {
+        "key": "A",
+        "text": "महासभा"
+      },
+      {
+        "key": "B",
+        "text": "सुरक्षा परिषद"
+      },
+      {
+        "key": "C",
+        "text": "आर्थिक और सामाजिक परिषद"
+      },
+      {
+        "key": "D",
+        "text": "न्यास परिषद"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "अंतरराष्ट्रीय शांति और सुरक्षा बनाए रखने की प्राथमिक जिम्मेदारी संयुक्त राष्ट्र के किस अंग की है?",
+    "explanation": "चार्टर का अनुच्छेद 24 सुरक्षा परिषद को अंतरराष्ट्रीय शांति और सुरक्षा की प्राथमिक जिम्मेदारी देता है। दूसरे प्रमुख अंगों के अलग-अलग काम हैं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q014-HI",
+    "englishQuestionId": "WHI-CP011-Q014",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F014",
+    "sourceIds": [
+      "CP011-S03"
+    ],
+    "questionFamily": "प्रमुख अंग और उनके काम",
+    "options": [
+      {
+        "key": "A",
+        "text": "अंतरराष्ट्रीय न्यायालय"
+      },
+      {
+        "key": "B",
+        "text": "सुरक्षा परिषद"
+      },
+      {
+        "key": "C",
+        "text": "आर्थिक और सामाजिक परिषद"
+      },
+      {
+        "key": "D",
+        "text": "महासभा"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "संयुक्त राष्ट्र का कौन-सा अंग आर्थिक और सामाजिक मामलों में काम का समन्वय करता है?",
+    "explanation": "आर्थिक और सामाजिक परिषद आर्थिक, सामाजिक और उनसे जुड़े अंतरराष्ट्रीय मामलों में संयुक्त राष्ट्र के काम का समन्वय करती है। यह चार्टर का एक प्रमुख अंग है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q015-HI",
+    "englishQuestionId": "WHI-CP011-Q015",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F015",
+    "sourceIds": [
+      "CP011-S03"
+    ],
+    "questionFamily": "प्रमुख अंग और उनके काम",
+    "options": [
+      {
+        "key": "A",
+        "text": "सचिवालय"
+      },
+      {
+        "key": "B",
+        "text": "न्यास परिषद"
+      },
+      {
+        "key": "C",
+        "text": "आर्थिक और सामाजिक परिषद"
+      },
+      {
+        "key": "D",
+        "text": "अंतरराष्ट्रीय न्यायालय"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "संयुक्त राष्ट्र का प्रमुख न्यायिक अंग कौन-सा है?",
+    "explanation": "अंतरराष्ट्रीय न्यायालय संयुक्त राष्ट्र का प्रमुख न्यायिक अंग है। यह राज्यों के बीच मामलों की सुनवाई करता है और अधिकृत होने पर सलाहकारी राय देता है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q016-HI",
+    "englishQuestionId": "WHI-CP011-Q016",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F016",
+    "sourceIds": [
+      "CP011-S05"
+    ],
+    "questionFamily": "प्रमुख अंग और उनके काम",
+    "options": [
+      {
+        "key": "A",
+        "text": "अंतरराष्ट्रीय आपराधिक न्यायालय"
+      },
+      {
+        "key": "B",
+        "text": "सुरक्षा परिषद"
+      },
+      {
+        "key": "C",
+        "text": "न्याय परिषद"
+      },
+      {
+        "key": "D",
+        "text": "अंतरराष्ट्रीय न्यायालय"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "संयुक्त राष्ट्र का कौन-सा प्रमुख अंग रोज़मर्रा का प्रशासनिक काम करता है?",
+    "explanation": "सचिवालय संयुक्त राष्ट्र का प्रशासनिक काम करता है और महासचिव के अधिकार के तहत कार्य करता है। यह छह प्रमुख अंगों में से एक है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q017-HI",
+    "englishQuestionId": "WHI-CP011-Q017",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F017",
+    "sourceIds": [
+      "CP011-S03"
+    ],
+    "questionFamily": "प्रमुख अंग और उनके काम",
+    "options": [
+      {
+        "key": "A",
+        "text": "सचिवालय"
+      },
+      {
+        "key": "B",
+        "text": "महासभा"
+      },
+      {
+        "key": "C",
+        "text": "अंतरराष्ट्रीय न्यायालय"
+      },
+      {
+        "key": "D",
+        "text": "आर्थिक और सामाजिक परिषद"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "चार्टर के अंतर्गत अंतरराष्ट्रीय न्यास व्यवस्था की निगरानी के लिए कौन-सा प्रमुख अंग बनाया गया था?",
+    "explanation": "न्यास परिषद चार्टर के तहत न्यास क्षेत्रों की निगरानी करती थी। अंतिम न्यास क्षेत्र के स्वतंत्र होने के बाद इसने अपना काम स्थगित कर दिया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q018-HI",
+    "englishQuestionId": "WHI-CP011-Q018",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F018",
+    "sourceIds": [
+      "CP011-S06"
+    ],
+    "questionFamily": "प्रमुख अंग और उनके काम",
+    "options": [
+      {
+        "key": "A",
+        "text": "सुरक्षा परिषद"
+      },
+      {
+        "key": "B",
+        "text": "न्यास परिषद"
+      },
+      {
+        "key": "C",
+        "text": "सचिवालय"
+      },
+      {
+        "key": "D",
+        "text": "आर्थिक और सामाजिक परिषद"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "चार्टर के तहत संयुक्त राष्ट्र महासभा का मुख्य काम क्या है?",
+    "explanation": "महासभा चार्टर के दायरे के मामलों पर चर्चा कर सकती है और सिफारिशें दे सकती है। वह विश्व संसद की तरह राष्ट्रीय सरकारों पर सीधे शासन नहीं करती।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q019-HI",
+    "englishQuestionId": "WHI-CP011-Q019",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F019",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S03"
+    ],
+    "questionFamily": "प्रमुख अंग और उनके काम",
+    "options": [
+      {
+        "key": "A",
+        "text": "राष्ट्रीय सरकारों पर सीधे कानून लागू करना"
+      },
+      {
+        "key": "B",
+        "text": "अंतरराष्ट्रीय न्यायालय के सभी फैसले पलटना"
+      },
+      {
+        "key": "C",
+        "text": "चार्टर के विषयों पर चर्चा करना और सिफारिशें देना"
+      },
+      {
+        "key": "D",
+        "text": "सुरक्षा परिषद की जगह बाध्यकारी फैसले लेना"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1945 के मूल चार्टर में सुरक्षा परिषद के स्थायी सदस्य के रूप में किन देशों के नाम थे?",
+    "explanation": "अनुच्छेद 23 में चीन, फ्रांस, सोवियत संघ, यूनाइटेड किंगडम और संयुक्त राज्य अमेरिका को स्थायी सदस्य बताया गया था। यह 1945 के मूल चार्टर की भाषा है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q020-HI",
+    "englishQuestionId": "WHI-CP011-Q020",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F020",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "प्रमुख अंग और उनके काम",
+    "options": [
+      {
+        "key": "A",
+        "text": "चीन, भारत, सोवियत संघ, फ्रांस और संयुक्त राज्य अमेरिका"
+      },
+      {
+        "key": "B",
+        "text": "चीन, जापान, सोवियत संघ, यूनाइटेड किंगडम और संयुक्त राज्य अमेरिका"
+      },
+      {
+        "key": "C",
+        "text": "फ्रांस, जर्मनी, इटली, यूनाइटेड किंगडम और संयुक्त राज्य अमेरिका"
+      },
+      {
+        "key": "D",
+        "text": "चीन, फ्रांस, सोवियत संघ, यूनाइटेड किंगडम और संयुक्त राज्य अमेरिका"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "संयुक्त राष्ट्र सुरक्षा परिषद में वीटो का क्या अर्थ है?",
+    "explanation": "वास्तविक विषयों पर किसी स्थायी सदस्य का नकारात्मक मत प्रस्ताव को पारित होने से रोक देता है। प्रक्रियात्मक फैसलों पर अनुच्छेद 27 का नियम अलग है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q021-HI",
+    "englishQuestionId": "WHI-CP011-Q021",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F021",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "सुरक्षा परिषद और निर्णय प्रक्रिया",
+    "options": [
+      {
+        "key": "A",
+        "text": "किसी स्थायी सदस्य का नकारात्मक मत, जो वास्तविक विषय पर फैसला रोक दे"
+      },
+      {
+        "key": "B",
+        "text": "महासभा के किसी सदस्य द्वारा संधि अस्वीकार करना"
+      },
+      {
+        "key": "C",
+        "text": "अंतरराष्ट्रीय न्यायालय में न्यायिक अपील"
+      },
+      {
+        "key": "D",
+        "text": "सचिवालय की रिपोर्ट टालने का प्रक्रियात्मक प्रस्ताव"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अनुच्छेद 27 के तहत सुरक्षा परिषद का कौन-सा फैसला स्थायी सदस्यों के वीटो के अधीन नहीं है?",
+    "explanation": "अनुच्छेद 27 प्रक्रियात्मक और अन्य फैसलों में अंतर करता है। वीटो वास्तविक विषयों पर लागू होता है, प्रक्रियात्मक मतदान पर उसी तरह नहीं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q022-HI",
+    "englishQuestionId": "WHI-CP011-Q022",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F022",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "सुरक्षा परिषद और निर्णय प्रक्रिया",
+    "options": [
+      {
+        "key": "A",
+        "text": "नए सदस्य के प्रवेश की सिफारिश"
+      },
+      {
+        "key": "B",
+        "text": "प्रक्रियात्मक फैसला"
+      },
+      {
+        "key": "C",
+        "text": "प्रवर्तन कार्रवाई की अनुमति"
+      },
+      {
+        "key": "D",
+        "text": "प्रतिबंध लगाना"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "अनुच्छेद 24 के तहत संयुक्त राष्ट्र के सदस्य सुरक्षा परिषद के बारे में किस बात पर सहमत होते हैं?",
+    "explanation": "अनुच्छेद 24 सुरक्षा परिषद को अंतरराष्ट्रीय शांति और सुरक्षा की प्राथमिक जिम्मेदारी देता है। सदस्य मानते हैं कि परिषद यह जिम्मेदारी उनकी ओर से निभाती है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q023-HI",
+    "englishQuestionId": "WHI-CP011-Q023",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F023",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "सुरक्षा परिषद और निर्णय प्रक्रिया",
+    "options": [
+      {
+        "key": "A",
+        "text": "यह अंतरराष्ट्रीय मौद्रिक सहयोग करती है"
+      },
+      {
+        "key": "B",
+        "text": "यह राष्ट्रीय कानूनों की न्यायिक समीक्षा करती है"
+      },
+      {
+        "key": "C",
+        "text": "यह सदस्यों की ओर से शांति और सुरक्षा की जिम्मेदारी निभाती है"
+      },
+      {
+        "key": "D",
+        "text": "यह संयुक्त राष्ट्र सचिवालय चलाती है"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1945 के मूल चार्टर के तहत सुरक्षा परिषद में कितने सदस्य थे?",
+    "explanation": "मूल चार्टर में सुरक्षा परिषद के 11 सदस्य थे—पाँच स्थायी और छह निर्वाचित। 1965 में परिषद का विस्तार करके 15 सदस्य किए गए।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q024-HI",
+    "englishQuestionId": "WHI-CP011-Q024",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F024",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "सुरक्षा परिषद और निर्णय प्रक्रिया",
+    "options": [
+      {
+        "key": "A",
+        "text": "पाँच"
+      },
+      {
+        "key": "B",
+        "text": "दस"
+      },
+      {
+        "key": "C",
+        "text": "पंद्रह"
+      },
+      {
+        "key": "D",
+        "text": "ग्यारह"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "सुरक्षा परिषद के किन सदस्यों को वास्तविक विषयों पर वीटो का अधिकार है?",
+    "explanation": "वास्तविक विषयों पर वीटो का विशेष अधिकार पाँच स्थायी सदस्यों के पास है। प्रक्रियात्मक मामलों पर यह इसी तरह लागू नहीं होता।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q025-HI",
+    "englishQuestionId": "WHI-CP011-Q025",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F025",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "सुरक्षा परिषद और निर्णय प्रक्रिया",
+    "options": [
+      {
+        "key": "A",
+        "text": "पाँच स्थायी सदस्य"
+      },
+      {
+        "key": "B",
+        "text": "सभी निर्वाचित सदस्य"
+      },
+      {
+        "key": "C",
+        "text": "संयुक्त राष्ट्र के सभी सदस्य देश"
+      },
+      {
+        "key": "D",
+        "text": "महासचिव"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "महासभा की सिफारिश और सुरक्षा परिषद की कार्रवाई में अंतर कैसे निर्धारित होता है?",
+    "explanation": "चार्टर महासभा और सुरक्षा परिषद को अलग-अलग कार्य देता है। किसी कार्रवाई का कानूनी प्रभाव संबंधित अंग और लागू चार्टर प्रावधान पर निर्भर करता है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q026-HI",
+    "englishQuestionId": "WHI-CP011-Q026",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F026",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S04"
+    ],
+    "questionFamily": "सुरक्षा परिषद और निर्णय प्रक्रिया",
+    "options": [
+      {
+        "key": "A",
+        "text": "महासभा की चार्टर के तहत कोई भूमिका नहीं है"
+      },
+      {
+        "key": "B",
+        "text": "उनकी शक्तियाँ और कार्रवाई का कानूनी प्रभाव संबंधित चार्टर प्रावधानों पर निर्भर करता है"
+      },
+      {
+        "key": "C",
+        "text": "महासभा की हर सिफारिश अपने आप न्यायालय का बाध्यकारी फैसला बन जाती है"
+      },
+      {
+        "key": "D",
+        "text": "सुरक्षा परिषद केवल IMF की मंजूरी के बाद काम कर सकती है"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1944 के किस सम्मेलन में IMF और इंटरनेशनल बैंक फॉर रिकंस्ट्रक्शन एंड डेवलपमेंट की रूपरेखा तैयार हुई?",
+    "explanation": "जुलाई 1944 में ब्रेटन वुड्स में प्रतिनिधियों ने IMF और IBRD के समझौते तैयार किए। दोनों को आम तौर पर ब्रेटन वुड्स संस्थाएँ कहा जाता है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q027-HI",
+    "englishQuestionId": "WHI-CP011-Q027",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F027",
+    "sourceIds": [
+      "CP011-S07"
+    ],
+    "questionFamily": "सुरक्षा परिषद और निर्णय प्रक्रिया",
+    "options": [
+      {
+        "key": "A",
+        "text": "याल्टा सम्मेलन"
+      },
+      {
+        "key": "B",
+        "text": "सैन फ्रांसिस्को सम्मेलन"
+      },
+      {
+        "key": "C",
+        "text": "ब्रेटन वुड्स सम्मेलन"
+      },
+      {
+        "key": "D",
+        "text": "डम्बर्टन ओक्स सम्मेलन"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "कौन-सी संस्था अंतरराष्ट्रीय मौद्रिक सहयोग और भुगतान-संतुलन की समस्याओं में सहायता के लिए बनाई गई थी?",
+    "explanation": "IMF का उद्देश्य मौद्रिक सहयोग बढ़ाना और भुगतान-संतुलन की जरूरतों में वित्तीय मदद देना था। विश्व बैंक का मुख्य काम पुनर्निर्माण और विकास वित्त था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q028-HI",
+    "englishQuestionId": "WHI-CP011-Q028",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F028",
+    "sourceIds": [
+      "CP011-S07",
+      "CP011-S08"
+    ],
+    "questionFamily": "ब्रेटन वुड्स संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "इंटरनेशनल कोर्ट ऑफ जस्टिस"
+      },
+      {
+        "key": "B",
+        "text": "संयुक्त राष्ट्र विकास कार्यक्रम"
+      },
+      {
+        "key": "C",
+        "text": "इंटरनेशनल बैंक फॉर रिकंस्ट्रक्शन एंड डेवलपमेंट"
+      },
+      {
+        "key": "D",
+        "text": "अंतरराष्ट्रीय मुद्रा कोष (IMF)"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "आज विश्व बैंक कहलाने वाली संस्था का मूल नाम क्या था?",
+    "explanation": "विश्व बैंक की शुरुआत इंटरनेशनल बैंक फॉर रिकंस्ट्रक्शन एंड डेवलपमेंट के रूप में हुई थी। इसकी शुरुआती भूमिका में पुनर्निर्माण और विकास के लिए वित्त देना शामिल था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q029-HI",
+    "englishQuestionId": "WHI-CP011-Q029",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F029",
+    "sourceIds": [
+      "CP011-S08"
+    ],
+    "questionFamily": "ब्रेटन वुड्स संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "इंटरनेशनल बैंक फॉर रिकंस्ट्रक्शन एंड डेवलपमेंट"
+      },
+      {
+        "key": "B",
+        "text": "अंतरराष्ट्रीय मुद्रा कोष"
+      },
+      {
+        "key": "C",
+        "text": "यूरोपीय निवेश बैंक"
+      },
+      {
+        "key": "D",
+        "text": "अंतरराष्ट्रीय वित्त निगम"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "किस युद्धोत्तर संस्था को मुख्यतः पुनर्निर्माण और आर्थिक विकास के लिए वित्त देने का काम सौंपा गया था?",
+    "explanation": "IBRD को पुनर्निर्माण और विकास के लिए वित्त देने की जिम्मेदारी मिली। IMF का ध्यान मौद्रिक सहयोग और वित्तीय स्थिरता पर था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q030-HI",
+    "englishQuestionId": "WHI-CP011-Q030",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F030",
+    "sourceIds": [
+      "CP011-S08"
+    ],
+    "questionFamily": "ब्रेटन वुड्स संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "अंतरराष्ट्रीय मुद्रा कोष"
+      },
+      {
+        "key": "B",
+        "text": "इंटरनेशनल बैंक फॉर रिकंस्ट्रक्शन एंड डेवलपमेंट"
+      },
+      {
+        "key": "C",
+        "text": "विश्व व्यापार संगठन"
+      },
+      {
+        "key": "D",
+        "text": "अंतरराष्ट्रीय न्यायालय"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "जुलाई 1944 के ब्रेटन वुड्स सम्मेलन से कौन-सा समझौता निकला?",
+    "explanation": "ब्रेटन वुड्स सम्मेलन में IMF और IBRD के Articles of Agreement तैयार किए गए। संयुक्त राष्ट्र चार्टर पर बाद में सैन फ्रांसिस्को में बातचीत हुई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q031-HI",
+    "englishQuestionId": "WHI-CP011-Q031",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F031",
+    "sourceIds": [
+      "CP011-S07"
+    ],
+    "questionFamily": "ब्रेटन वुड्स संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "संयुक्त राष्ट्र चार्टर"
+      },
+      {
+        "key": "B",
+        "text": "नाटो संधि"
+      },
+      {
+        "key": "C",
+        "text": "IMF और IBRD के Articles of Agreement"
+      },
+      {
+        "key": "D",
+        "text": "वर्साय की संधि"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "IMF और विश्व बैंक के काम का सही अंतर कौन-सा है?",
+    "explanation": "दोनों संस्थाएँ युद्धोत्तर आर्थिक व्यवस्था का हिस्सा थीं, लेकिन उनके काम अलग थे। IMF मौद्रिक सहयोग पर केंद्रित था, जबकि IBRD पुनर्निर्माण और विकास के लिए वित्त देता था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q032-HI",
+    "englishQuestionId": "WHI-CP011-Q032",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F032",
+    "sourceIds": [
+      "CP011-S07",
+      "CP011-S08"
+    ],
+    "questionFamily": "ब्रेटन वुड्स संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "IMF पुनर्निर्माण करता है, जबकि विश्व बैंक महासभा चलाता है"
+      },
+      {
+        "key": "B",
+        "text": "दोनों का काम केवल सैन्य सुरक्षा है"
+      },
+      {
+        "key": "C",
+        "text": "IMF और IBRD एक ही संस्था के दो नाम हैं"
+      },
+      {
+        "key": "D",
+        "text": "IMF मौद्रिक स्थिरता पर ध्यान देता है, जबकि विश्व बैंक पुनर्निर्माण और विकास के लिए वित्त देता है"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "नूर्नबर्ग अंतरराष्ट्रीय सैन्य न्यायाधिकरण किस समझौते से स्थापित हुआ?",
+    "explanation": "8 अगस्त 1945 के लंदन समझौते ने अंतरराष्ट्रीय सैन्य न्यायाधिकरण और उसका चार्टर स्थापित किया। युद्ध के बाद नाजी नेताओं पर मुकदमे चले।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q033-HI",
+    "englishQuestionId": "WHI-CP011-Q033",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F033",
+    "sourceIds": [
+      "CP011-S09"
+    ],
+    "questionFamily": "ब्रेटन वुड्स संस्थाएँ",
+    "options": [
+      {
+        "key": "A",
+        "text": "8 अगस्त 1945 का लंदन समझौता"
+      },
+      {
+        "key": "B",
+        "text": "पॉट्सडैम समझौता"
+      },
+      {
+        "key": "C",
+        "text": "जिनेवा संधि"
+      },
+      {
+        "key": "D",
+        "text": "ब्रेटन वुड्स समझौता"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "नूर्नबर्ग न्यायाधिकरण के अधिकार-क्षेत्र में अपराध की कौन-सी श्रेणी शामिल थी?",
+    "explanation": "न्यायाधिकरण के चार्टर में मानवता के विरुद्ध अपराधों के साथ शांति के विरुद्ध अपराध और युद्ध अपराध भी शामिल थे। बाद में यह श्रेणी अंतरराष्ट्रीय कानून के विकास में महत्वपूर्ण बनी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q034-HI",
+    "englishQuestionId": "WHI-CP011-Q034",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F034",
+    "sourceIds": [
+      "CP011-S09"
+    ],
+    "questionFamily": "नूर्नबर्ग और टोक्यो न्यायाधिकरण",
+    "options": [
+      {
+        "key": "A",
+        "text": "कर चोरी"
+      },
+      {
+        "key": "B",
+        "text": "मानवता के विरुद्ध अपराध"
+      },
+      {
+        "key": "C",
+        "text": "संधि उल्लंघन का हर मामला"
+      },
+      {
+        "key": "D",
+        "text": "समुद्री व्यापार विवाद"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "नूर्नबर्ग अंतरराष्ट्रीय सैन्य न्यायाधिकरण ने कब फैसला सुनाया?",
+    "explanation": "नूर्नबर्ग न्यायाधिकरण ने 1 अक्टूबर 1946 को अपना फैसला सुनाया। मुकदमे नवंबर 1945 में शुरू हुए थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q035-HI",
+    "englishQuestionId": "WHI-CP011-Q035",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F035",
+    "sourceIds": [
+      "CP011-S09"
+    ],
+    "questionFamily": "नूर्नबर्ग और टोक्यो न्यायाधिकरण",
+    "options": [
+      {
+        "key": "A",
+        "text": "8 अगस्त 1945"
+      },
+      {
+        "key": "B",
+        "text": "20 नवंबर 1945"
+      },
+      {
+        "key": "C",
+        "text": "1 अक्टूबर 1946"
+      },
+      {
+        "key": "D",
+        "text": "11 नवंबर 1948"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "युद्ध के बाद टोक्यो में जापानी युद्धकालीन अधिकारियों पर किस न्यायाधिकरण ने मुकदमा चलाया?",
+    "explanation": "सुदूर पूर्व के लिए अंतरराष्ट्रीय सैन्य न्यायाधिकरण ने टोक्यो में युद्ध-अपराध मुकदमे चलाए। यह यूरोप के नूर्नबर्ग न्यायाधिकरण से अलग था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q036-HI",
+    "englishQuestionId": "WHI-CP011-Q036",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F036",
+    "sourceIds": [
+      "CP011-S10"
+    ],
+    "questionFamily": "नूर्नबर्ग और टोक्यो न्यायाधिकरण",
+    "options": [
+      {
+        "key": "A",
+        "text": "अंतरराष्ट्रीय न्यायालय"
+      },
+      {
+        "key": "B",
+        "text": "नूर्नबर्ग अंतरराष्ट्रीय सैन्य न्यायाधिकरण"
+      },
+      {
+        "key": "C",
+        "text": "संयुक्त राष्ट्र सुरक्षा परिषद"
+      },
+      {
+        "key": "D",
+        "text": "सुदूर पूर्व के लिए अंतरराष्ट्रीय सैन्य न्यायाधिकरण"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "टोक्यो युद्ध-अपराध न्यायाधिकरण की कार्यवाही कब शुरू हुई?",
+    "explanation": "टोक्यो न्यायाधिकरण की कार्यवाही 3 मई 1946 को शुरू हुई और नवंबर 1948 में फैसला आया। इसमें जापानी युद्धकालीन नेताओं से जुड़े मामले थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q037-HI",
+    "englishQuestionId": "WHI-CP011-Q037",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F037",
+    "sourceIds": [
+      "CP011-S10"
+    ],
+    "questionFamily": "नूर्नबर्ग और टोक्यो न्यायाधिकरण",
+    "options": [
+      {
+        "key": "A",
+        "text": "3 मई 1946"
+      },
+      {
+        "key": "B",
+        "text": "1 अक्टूबर 1946"
+      },
+      {
+        "key": "C",
+        "text": "8 अगस्त 1945"
+      },
+      {
+        "key": "D",
+        "text": "24 अक्टूबर 1945"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "नूर्नबर्ग और टोक्यो न्यायाधिकरणों की तुलना में कौन-सा कथन सही है?",
+    "explanation": "नूर्नबर्ग और टोक्यो में क्रमशः जर्मनी और जापान के नेताओं के लिए अलग-अलग युद्धोत्तर न्यायाधिकरण चले। दोनों संयुक्त राष्ट्र के प्रमुख अंग नहीं थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q038-HI",
+    "englishQuestionId": "WHI-CP011-Q038",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F038",
+    "sourceIds": [
+      "CP011-S09",
+      "CP011-S10"
+    ],
+    "questionFamily": "नूर्नबर्ग और टोक्यो न्यायाधिकरण",
+    "options": [
+      {
+        "key": "A",
+        "text": "दोनों संयुक्त राष्ट्र के प्रमुख अंग थे"
+      },
+      {
+        "key": "B",
+        "text": "वे पराजित जर्मनी और जापान के नेताओं पर मुकदमा चलाने वाले अलग-अलग युद्धोत्तर न्यायाधिकरण थे"
+      },
+      {
+        "key": "C",
+        "text": "दोनों ने केवल राज्यों के बीच सीमा विवाद सुने"
+      },
+      {
+        "key": "D",
+        "text": "टोक्यो न्यायाधिकरण ने नूर्नबर्ग न्यायाधिकरण की जगह ली"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1945 में जर्मनी की पराजय के बाद किन मित्र राष्ट्रों ने उस पर कब्ज़ा किया?",
+    "explanation": "जर्मनी के आत्मसमर्पण के बाद चार प्रमुख मित्र राष्ट्रों ने उस पर कब्ज़ा किया। प्रत्येक ने एक कब्ज़ा क्षेत्र का प्रशासन संभाला।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q039-HI",
+    "englishQuestionId": "WHI-CP011-Q039",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F039",
+    "sourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "questionFamily": "नूर्नबर्ग और टोक्यो न्यायाधिकरण",
+    "options": [
+      {
+        "key": "A",
+        "text": "ब्रिटेन, भारत, चीन और सोवियत संघ"
+      },
+      {
+        "key": "B",
+        "text": "अमेरिका, चीन, जापान और फ्रांस"
+      },
+      {
+        "key": "C",
+        "text": "अमेरिका, ब्रिटेन, फ्रांस और सोवियत संघ"
+      },
+      {
+        "key": "D",
+        "text": "फ्रांस, इटली, स्पेन और अमेरिका"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "द्वितीय विश्व युद्ध के तुरंत बाद बर्लिन का प्रशासन कैसे किया गया?",
+    "explanation": "बर्लिन सोवियत कब्ज़ा क्षेत्र के भीतर था, फिर भी शहर को चार मित्र राष्ट्रों के प्रशासन वाले क्षेत्रों में बाँटा गया था। बाद में यह व्यवस्था तनाव का कारण बनी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q040-HI",
+    "englishQuestionId": "WHI-CP011-Q040",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F040",
+    "sourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "questionFamily": "जर्मनी पर कब्ज़ा और विभाजन",
+    "options": [
+      {
+        "key": "A",
+        "text": "पूरे शहर का प्रशासन सोवियत संघ ने किया"
+      },
+      {
+        "key": "B",
+        "text": "शहर को पूर्वी और पश्चिमी जर्मनी के बीच बाँट दिया गया"
+      },
+      {
+        "key": "C",
+        "text": "शहर संयुक्त राष्ट्र को सौंप दिया गया"
+      },
+      {
+        "key": "D",
+        "text": "शहर चार कब्ज़ा क्षेत्रों में बाँटा गया, जिनका प्रशासन चार मित्र राष्ट्रों ने किया"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "युद्ध के बाद जर्मनी के चार-शक्ति प्रशासन का समन्वय कौन-सा निकाय करता था?",
+    "explanation": "मित्र राष्ट्र नियंत्रण परिषद का उद्देश्य जर्मनी के प्रशासन में चारों शक्तियों के काम का समन्वय करना था। बाद में कब्ज़ा करने वाली सरकारों के बीच सहयोग टूट गया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q041-HI",
+    "englishQuestionId": "WHI-CP011-Q041",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F041",
+    "sourceIds": [
+      "CP011-S12"
+    ],
+    "questionFamily": "जर्मनी पर कब्ज़ा और विभाजन",
+    "options": [
+      {
+        "key": "A",
+        "text": "मित्र राष्ट्र नियंत्रण परिषद"
+      },
+      {
+        "key": "B",
+        "text": "सुरक्षा परिषद"
+      },
+      {
+        "key": "C",
+        "text": "यूरोपीय परिषद"
+      },
+      {
+        "key": "D",
+        "text": "न्यास परिषद"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "युद्ध के बाद विभाजन के दौरान 1949 में कौन-से दो जर्मन राज्य बने?",
+    "explanation": "1949 में पश्चिमी कब्ज़ा क्षेत्रों से जर्मनी का संघीय गणराज्य और सोवियत क्षेत्र से जर्मन लोकतांत्रिक गणराज्य बना। यह बढ़ते शीत युद्ध विभाजन को दिखाता था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q042-HI",
+    "englishQuestionId": "WHI-CP011-Q042",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F042",
+    "sourceIds": [
+      "CP011-S12"
+    ],
+    "questionFamily": "जर्मनी पर कब्ज़ा और विभाजन",
+    "options": [
+      {
+        "key": "A",
+        "text": "ऑस्ट्रिया और हंगरी"
+      },
+      {
+        "key": "B",
+        "text": "जर्मनी का संघीय गणराज्य और जर्मन लोकतांत्रिक गणराज्य"
+      },
+      {
+        "key": "C",
+        "text": "पूर्वी जर्मनी और ऑस्ट्रिया"
+      },
+      {
+        "key": "D",
+        "text": "प्रशिया और बवेरिया"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "सोवियत कब्ज़ा क्षेत्र के भीतर होने के बावजूद किस शहर को चार क्षेत्रों में बाँटा गया था?",
+    "explanation": "बर्लिन सोवियत कब्ज़ा क्षेत्र के भीतर था, लेकिन शहर को मित्र राष्ट्रों के चार प्रशासनिक क्षेत्रों में बाँटा गया था। इस विशेष स्थिति से बाद में कई संकट जुड़े।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q043-HI",
+    "englishQuestionId": "WHI-CP011-Q043",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F043",
+    "sourceIds": [
+      "CP011-S12"
+    ],
+    "questionFamily": "जर्मनी पर कब्ज़ा और विभाजन",
+    "options": [
+      {
+        "key": "A",
+        "text": "हैम्बर्ग"
+      },
+      {
+        "key": "B",
+        "text": "म्यूनिख"
+      },
+      {
+        "key": "C",
+        "text": "बर्लिन"
+      },
+      {
+        "key": "D",
+        "text": "फ्रैंकफर्ट"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "दो जर्मन राज्यों के गठन से पहले जर्मनी की युद्धोत्तर स्थिति का सही वर्णन कौन-सा है?",
+    "explanation": "जर्मनी के आत्मसमर्पण के बाद मित्र राष्ट्रों ने अलग-अलग कब्ज़ा क्षेत्रों के माध्यम से शासन किया। दोनों जर्मन राज्य 1949 में बने, 1945 में तुरंत नहीं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q044-HI",
+    "englishQuestionId": "WHI-CP011-Q044",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F044",
+    "sourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "questionFamily": "जर्मनी पर कब्ज़ा और विभाजन",
+    "options": [
+      {
+        "key": "A",
+        "text": "उसे एक स्वतंत्र राज्य के रूप में बहाल कर दिया गया"
+      },
+      {
+        "key": "B",
+        "text": "वह तुरंत संयुक्त राष्ट्र का सदस्य बन गया"
+      },
+      {
+        "key": "C",
+        "text": "उसका प्रशासन पूरी तरह सोवियत संघ को दे दिया गया"
+      },
+      {
+        "key": "D",
+        "text": "उस पर चार कब्ज़ा शक्तियाँ अलग-अलग क्षेत्रों में शासन करती थीं"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "संयुक्त राष्ट्र और IMF के बारे में कौन-सा कथन सही है?",
+    "explanation": "संयुक्त राष्ट्र के चार्टर में व्यापक अंतरराष्ट्रीय उद्देश्य हैं। अलग ब्रेटन वुड्स संस्था IMF का मुख्य ध्यान मौद्रिक सहयोग है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q045-HI",
+    "englishQuestionId": "WHI-CP011-Q045",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F045",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S07"
+    ],
+    "questionFamily": "जर्मनी पर कब्ज़ा और विभाजन",
+    "options": [
+      {
+        "key": "A",
+        "text": "संयुक्त राष्ट्र व्यापक अंतरराष्ट्रीय सहयोग के लिए बना, जबकि IMF मौद्रिक सहयोग पर केंद्रित था"
+      },
+      {
+        "key": "B",
+        "text": "IMF संयुक्त राष्ट्र की महासभा का दूसरा नाम है"
+      },
+      {
+        "key": "C",
+        "text": "दोनों केवल यूरोप के पुनर्निर्माण के लिए बने थे"
+      },
+      {
+        "key": "D",
+        "text": "संयुक्त राष्ट्र केवल विनिमय दरों की निगरानी करता है"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "राज्यों के बीच विवादों की सुनवाई करना किस संस्था का मुख्य न्यायिक काम है?",
+    "explanation": "अंतरराष्ट्रीय न्यायालय राज्यों द्वारा उसके सामने लाए गए कानूनी विवाद सुनता है और अधिकृत होने पर सलाहकारी राय देता है। यह व्यक्तियों पर आपराधिक मुकदमा नहीं चलाता।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q046-HI",
+    "englishQuestionId": "WHI-CP011-Q046",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F046",
+    "sourceIds": [
+      "CP011-S05"
+    ],
+    "questionFamily": "न्यायिक भूमिका और न्यास व्यवस्था",
+    "options": [
+      {
+        "key": "A",
+        "text": "नूर्नबर्ग न्यायाधिकरण"
+      },
+      {
+        "key": "B",
+        "text": "अंतरराष्ट्रीय न्यायालय"
+      },
+      {
+        "key": "C",
+        "text": "आर्थिक और सामाजिक परिषद"
+      },
+      {
+        "key": "D",
+        "text": "टोक्यो न्यायाधिकरण"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अंतरराष्ट्रीय न्यायालय और नूर्नबर्ग न्यायाधिकरण में क्या अंतर है?",
+    "explanation": "अंतरराष्ट्रीय न्यायालय संयुक्त राष्ट्र का प्रमुख अंग है और मुख्यतः राज्यों के विवाद सुनता है। नूर्नबर्ग एक अलग न्यायाधिकरण था जिसने व्यक्तियों पर मुकदमा चलाया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q047-HI",
+    "englishQuestionId": "WHI-CP011-Q047",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F047",
+    "sourceIds": [
+      "CP011-S05",
+      "CP011-S09"
+    ],
+    "questionFamily": "न्यायिक भूमिका और न्यास व्यवस्था",
+    "options": [
+      {
+        "key": "A",
+        "text": "दोनों केवल व्यक्तियों के विरुद्ध युद्ध-अपराध मुकदमे चलाते थे"
+      },
+      {
+        "key": "B",
+        "text": "नूर्नबर्ग संयुक्त राष्ट्र की महासभा का हिस्सा था"
+      },
+      {
+        "key": "C",
+        "text": "अंतरराष्ट्रीय न्यायालय राज्यों के मामलों वाला संयुक्त राष्ट्र अंग है; नूर्नबर्ग ने नाजी नेताओं पर मुकदमा चलाया"
+      },
+      {
+        "key": "D",
+        "text": "अंतरराष्ट्रीय न्यायालय का काम जर्मनी का प्रशासन करना था"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "संयुक्त राष्ट्र न्यास व्यवस्था का उद्देश्य क्या था?",
+    "explanation": "न्यास व्यवस्था का लक्ष्य न्यास क्षेत्रों के निवासियों के विकास को बढ़ावा देना और उन्हें स्वशासन या स्वतंत्रता की ओर ले जाना था। यह युद्धोत्तर अंतरराष्ट्रीय निगरानी की व्यवस्था थी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q048-HI",
+    "englishQuestionId": "WHI-CP011-Q048",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F048",
+    "sourceIds": [
+      "CP011-S06"
+    ],
+    "questionFamily": "न्यायिक भूमिका और न्यास व्यवस्था",
+    "options": [
+      {
+        "key": "A",
+        "text": "उपनिवेशों को स्थायी रूप से विजेता देशों में बाँटना"
+      },
+      {
+        "key": "B",
+        "text": "नए देशों को अंतरराष्ट्रीय संधियों से रोकना"
+      },
+      {
+        "key": "C",
+        "text": "सभी न्यास क्षेत्रों को सुरक्षा परिषद का हिस्सा बनाना"
+      },
+      {
+        "key": "D",
+        "text": "न्यास क्षेत्रों का विकास करना और उन्हें स्वशासन या स्वतंत्रता की ओर ले जाना"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1994 में न्यास परिषद ने कौन-सा बदलाव किया?",
+    "explanation": "पालाऊ के स्वतंत्र होने के बाद 1994 में न्यास परिषद ने अपना काम स्थगित कर दिया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q049-HI",
+    "englishQuestionId": "WHI-CP011-Q049",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F049",
+    "sourceIds": [
+      "CP011-S06"
+    ],
+    "questionFamily": "न्यायिक भूमिका और न्यास व्यवस्था",
+    "options": [
+      {
+        "key": "A",
+        "text": "अंतिम न्यास क्षेत्र के स्वतंत्र होने के बाद उसने अपना काम स्थगित किया"
+      },
+      {
+        "key": "B",
+        "text": "उसने सुरक्षा परिषद की जगह ले ली"
+      },
+      {
+        "key": "C",
+        "text": "उसने सभी सदस्य देशों पर शासन शुरू किया"
+      },
+      {
+        "key": "D",
+        "text": "उसने अंतरराष्ट्रीय न्यायालय को समाप्त कर दिया"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "महासभा की सिफारिश और सुरक्षा परिषद के फैसले के कानूनी प्रभाव में अंतर किससे तय होता है?",
+    "explanation": "चार्टर दोनों अंगों को अलग-अलग कार्य और प्रक्रियाएँ देता है। किसी कार्रवाई का कानूनी प्रभाव इस बात पर निर्भर करता है कि कौन-सा अंग और कौन-सा चार्टर प्रावधान लागू है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q050-HI",
+    "englishQuestionId": "WHI-CP011-Q050",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F050",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S03",
+      "CP011-S04"
+    ],
+    "questionFamily": "न्यायिक भूमिका और न्यास व्यवस्था",
+    "options": [
+      {
+        "key": "A",
+        "text": "दोनों अंगों के हर फैसले का कानूनी प्रभाव एक जैसा होता है"
+      },
+      {
+        "key": "B",
+        "text": "उनके काम और कार्रवाई का प्रभाव लागू चार्टर प्रावधानों के अनुसार अलग होता है"
+      },
+      {
+        "key": "C",
+        "text": "महासभा का कोई अधिकार नहीं है"
+      },
+      {
+        "key": "D",
+        "text": "सुरक्षा परिषद केवल महासभा की अनुमति से कार्य कर सकती है"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "ब्रेटन वुड्स सम्मेलन और संयुक्त राष्ट्र की स्थापना का सही क्रम कौन-सा है?",
+    "explanation": "ब्रेटन वुड्स सम्मेलन जुलाई 1944 में हुआ। संयुक्त राष्ट्र चार्टर पर जून 1945 में हस्ताक्षर हुए और वह अक्टूबर 1945 में लागू हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q051-HI",
+    "englishQuestionId": "WHI-CP011-Q051",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F051",
+    "sourceIds": [
+      "CP011-S02",
+      "CP011-S07"
+    ],
+    "questionFamily": "न्यायिक भूमिका और न्यास व्यवस्था",
+    "options": [
+      {
+        "key": "A",
+        "text": "संयुक्त राष्ट्र चार्टर लागू → ब्रेटन वुड्स समझौते → चार्टर पर हस्ताक्षर"
+      },
+      {
+        "key": "B",
+        "text": "चार्टर पर हस्ताक्षर → ब्रेटन वुड्स समझौते → चार्टर लागू"
+      },
+      {
+        "key": "C",
+        "text": "ब्रेटन वुड्स समझौते → संयुक्त राष्ट्र चार्टर पर हस्ताक्षर → चार्टर लागू"
+      },
+      {
+        "key": "D",
+        "text": "ब्रेटन वुड्स समझौते → चार्टर लागू → चार्टर पर हस्ताक्षर"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "युद्धोत्तर संस्थाओं से जुड़ी घटनाओं का सही क्रम कौन-सा है?",
+    "explanation": "लंदन समझौता अगस्त 1945 में हुआ, नूर्नबर्ग का फैसला अक्टूबर 1946 में आया और टोक्यो न्यायाधिकरण का फैसला नवंबर 1948 में आया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q052-HI",
+    "englishQuestionId": "WHI-CP011-Q052",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F052",
+    "sourceIds": [
+      "CP011-S09",
+      "CP011-S10"
+    ],
+    "questionFamily": "संस्थागत कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "नूर्नबर्ग फैसला → लंदन समझौता → टोक्यो फैसला"
+      },
+      {
+        "key": "B",
+        "text": "टोक्यो फैसला → नूर्नबर्ग फैसला → लंदन समझौता"
+      },
+      {
+        "key": "C",
+        "text": "लंदन समझौता → टोक्यो फैसला → नूर्नबर्ग फैसला"
+      },
+      {
+        "key": "D",
+        "text": "लंदन समझौता → नूर्नबर्ग फैसला → टोक्यो फैसला"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1940 के दशक में बनी युद्धोत्तर संस्थागत व्यवस्था का प्रमुख स्वरूप क्या था?",
+    "explanation": "युद्धोत्तर व्यवस्था में संयुक्त राष्ट्र, ब्रेटन वुड्स संस्थाएँ और अलग युद्ध-अपराध न्यायाधिकरण शामिल थे। उनके उद्देश्य और कानूनी आधार अलग-अलग थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q053-HI",
+    "englishQuestionId": "WHI-CP011-Q053",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F053",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S07",
+      "CP011-S09"
+    ],
+    "questionFamily": "संस्थागत कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "एक सामान्य अंतरराष्ट्रीय संगठन, विशेष आर्थिक संस्थाएँ और युद्ध-अपराध न्यायाधिकरण"
+      },
+      {
+        "key": "B",
+        "text": "केवल सैन्य गठबंधन और कब्ज़ा परिषद"
+      },
+      {
+        "key": "C",
+        "text": "एक ही संस्था, जो शांति, मुद्रा और आपराधिक न्याय सभी चलाती थी"
+      },
+      {
+        "key": "D",
+        "text": "एक विश्व सरकार और एक ही न्यायालय"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1945 के चार्टर में सोवियत संघ को स्थायी सदस्य के रूप में किस नाम से लिखा गया था?",
+    "explanation": "मूल चार्टर में स्थायी सदस्य का नाम USSR यानी सोवियत समाजवादी गणराज्यों का संघ था। यह 1945 की संस्थापक व्यवस्था की शब्दावली है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q054-HI",
+    "englishQuestionId": "WHI-CP011-Q054",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F054",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "संस्थागत कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "रूसी संघ"
+      },
+      {
+        "key": "B",
+        "text": "सोवियत समाजवादी गणराज्यों का संघ"
+      },
+      {
+        "key": "C",
+        "text": "पूर्वी यूरोपीय संघ"
+      },
+      {
+        "key": "D",
+        "text": "सोवियत गणराज्यों का संगठन"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "कौन-सा कथन नूर्नबर्ग और टोक्यो मुकदमों को संयुक्त राष्ट्र के प्रमुख अंगों से सही ढंग से अलग करता है?",
+    "explanation": "दोनों न्यायाधिकरण अलग समझौतों और कब्ज़ा करने वाली शक्तियों के आदेश से बने थे। संयुक्त राष्ट्र चार्टर का अनुच्छेद 7 छह प्रमुख अंग बताता है, जिनमें ये शामिल नहीं हैं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q055-HI",
+    "englishQuestionId": "WHI-CP011-Q055",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F055",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S09",
+      "CP011-S10"
+    ],
+    "questionFamily": "संस्थागत कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "वे सुरक्षा परिषद की उपसमितियाँ थीं"
+      },
+      {
+        "key": "B",
+        "text": "वे संयुक्त राष्ट्र के दो प्रमुख अंग थे"
+      },
+      {
+        "key": "C",
+        "text": "वे अनुच्छेद 7 में सूचीबद्ध संयुक्त राष्ट्र के अंग नहीं, बल्कि अलग युद्धोत्तर न्यायाधिकरण थे"
+      },
+      {
+        "key": "D",
+        "text": "वे महासभा की स्थायी अदालतें थीं"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "कौन-सा जोड़ा सही है?",
+    "explanation": "IMF और IBRD ब्रेटन वुड्स व्यवस्था के तहत बने, लेकिन उनका काम अलग था। IMF मौद्रिक सहयोग और IBRD पुनर्निर्माण तथा विकास के वित्त पर केंद्रित था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q056-HI",
+    "englishQuestionId": "WHI-CP011-Q056",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F056",
+    "sourceIds": [
+      "CP011-S07",
+      "CP011-S08"
+    ],
+    "questionFamily": "संस्थागत कालक्रम",
+    "options": [
+      {
+        "key": "A",
+        "text": "IMF — युद्ध-अपराध मुकदमे; IBRD — राजनीतिक चुनाव"
+      },
+      {
+        "key": "B",
+        "text": "IMF — न्यास क्षेत्रों का प्रशासन; IBRD — महासभा की सिफारिशें"
+      },
+      {
+        "key": "C",
+        "text": "IMF — सैन्य गठबंधन; IBRD — संयुक्त राष्ट्र की न्यायिक शाखा"
+      },
+      {
+        "key": "D",
+        "text": "IMF — मौद्रिक सहयोग; IBRD — पुनर्निर्माण और विकास के लिए वित्त"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "युद्धोत्तर निकाय और उसके काम का सही मेल कौन-सा है?",
+    "explanation": "अंतरराष्ट्रीय न्यायालय राज्यों के बीच मामले सुनता है और अधिकृत होने पर सलाहकारी राय देता है। बाकी निकायों के काम अलग हैं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q057-HI",
+    "englishQuestionId": "WHI-CP011-Q057",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F057",
+    "sourceIds": [
+      "CP011-S03",
+      "CP011-S05"
+    ],
+    "questionFamily": "युद्धोत्तर व्यवस्था और समेकन",
+    "options": [
+      {
+        "key": "A",
+        "text": "अंतरराष्ट्रीय न्यायालय — राज्यों के बीच कानूनी विवाद"
+      },
+      {
+        "key": "B",
+        "text": "IMF — युद्ध-अपराध मुकदमे"
+      },
+      {
+        "key": "C",
+        "text": "नूर्नबर्ग न्यायाधिकरण — मुद्रा स्थिरता"
+      },
+      {
+        "key": "D",
+        "text": "न्यास परिषद — महासभा के चुनाव"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अक्टूबर 1945 में संयुक्त राष्ट्र चार्टर लागू होने के लिए कौन-सी पुष्टि आवश्यक थी?",
+    "explanation": "अनुच्छेद 110 के अनुसार पाँच स्थायी सुरक्षा परिषद सदस्यों और बाकी हस्ताक्षरकर्ता देशों के बहुमत द्वारा पुष्टि जरूरी थी। चार्टर 24 अक्टूबर 1945 को लागू हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q058-HI",
+    "englishQuestionId": "WHI-CP011-Q058",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F058",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S02"
+    ],
+    "questionFamily": "युद्धोत्तर व्यवस्था और समेकन",
+    "options": [
+      {
+        "key": "A",
+        "text": "केवल महासभा का साधारण बहुमत"
+      },
+      {
+        "key": "B",
+        "text": "पाँच स्थायी सुरक्षा परिषद सदस्यों और अन्य हस्ताक्षरकर्ताओं के बहुमत की पुष्टि"
+      },
+      {
+        "key": "C",
+        "text": "हर देश की सर्वसम्मति"
+      },
+      {
+        "key": "D",
+        "text": "सिर्फ ब्रिटेन और संयुक्त राज्य अमेरिका की पुष्टि"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "युद्ध के बाद जर्मनी के विभाजन के बारे में कौन-सा कथन सही है?",
+    "explanation": "जर्मनी की पराजय के बाद चार-शक्ति कब्ज़ा शुरू हुआ। संघीय गणराज्य और जर्मन लोकतांत्रिक गणराज्य बाद में, 1949 में बने।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q059-HI",
+    "englishQuestionId": "WHI-CP011-Q059",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F059",
+    "sourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "questionFamily": "युद्धोत्तर व्यवस्था और समेकन",
+    "options": [
+      {
+        "key": "A",
+        "text": "दो जर्मन राज्य 1945 में बने"
+      },
+      {
+        "key": "B",
+        "text": "बर्लिन युद्ध के तुरंत बाद पूरी तरह स्वतंत्र हुआ"
+      },
+      {
+        "key": "C",
+        "text": "पहले चार शक्तियों का कब्ज़ा हुआ, फिर पूर्वी और पश्चिमी जर्मन राज्य बने"
+      },
+      {
+        "key": "D",
+        "text": "जर्मनी का प्रशासन केवल संयुक्त राष्ट्र ने संभाला"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "संयुक्त राष्ट्र, IMF और IBRD को एक-दूसरे का विकल्प क्यों नहीं माना जा सकता?",
+    "explanation": "संयुक्त राष्ट्र चार्टर और ब्रेटन वुड्स समझौतों ने अलग-अलग जिम्मेदारियों वाली संस्थाएँ स्थापित कीं। युद्धोत्तर दौर में उनका बनना उन्हें एक ही काम वाली संस्था नहीं बनाता।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q060-HI",
+    "englishQuestionId": "WHI-CP011-Q060",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F060",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S07",
+      "CP011-S08"
+    ],
+    "questionFamily": "युद्धोत्तर व्यवस्था और समेकन",
+    "options": [
+      {
+        "key": "A",
+        "text": "वे सभी एक ही चार्टर से बने थे"
+      },
+      {
+        "key": "B",
+        "text": "तीनों का काम केवल सैन्य सुरक्षा था"
+      },
+      {
+        "key": "C",
+        "text": "तीनों का संचालन सुरक्षा परिषद करती थी"
+      },
+      {
+        "key": "D",
+        "text": "उनके संस्थापक समझौते और निर्धारित काम अलग-अलग थे"
+      }
+    ],
+    "correctOption": "D"
+  }
+]
