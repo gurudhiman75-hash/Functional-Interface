@@ -22,6 +22,10 @@ for(let i=0;i<80;i++){
       assert.match(candidate.stem,locale==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u);
       assert(candidate.stem.endsWith("?"),`DI-011 ${locale} stem is not a direct exam question: ${candidate.stem}`);
       assert.doesNotMatch(candidate.stem,/(पहले|फिर|ज्ञात कीजिए|निकालिए|जोड़िए|जोड़ो|ਪਹਿਲਾਂ|ਫਿਰ|ਕੱਢੋ|ਜੋੜੋ)/u);
+      if(candidate.taskKind==="TWO_GROUP_CROSS_RATIO"){
+        assert.match(candidate.stem,locale==="hi"?/समूह 1 .* में .* और समूह 2 .* में .* का अनुपात क्या है\?$/u:/ਸਮੂਹ 1 .* ਵਿੱਚ .* ਅਤੇ ਸਮੂਹ 2 .* ਵਿੱਚ .* ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ\?$/u);
+        assert.doesNotMatch(candidate.stem,/(के लिए .* कुल का अनुपात|ਲਈ .* ਕੁੱਲ ਦਾ ਅਨੁਪਾਤ)/u);
+      }
       if(candidate.taskKind==="SAME_CATEGORY_COMBINED_TOTAL"&&candidate.metadata.pairKind==="PIE_TABLE"){
         assert.match(candidate.stem,locale==="hi"?/पाई चार्ट/u:/ਪਾਈ ਚਾਰਟ/u);
         assert.doesNotMatch(candidate.stem,/(तालिका के अनुसार|सारणी के अनुसार|ਸਾਰਣੀ ਮੁਤਾਬਕ)/u);
