@@ -80,7 +80,7 @@ The trial showed that availability is not a single yes-or-no state. A slot can b
  id:"ENG008-BP-S15",title:"Shared Water Dispenser Maintenance",genre:"social",
  text:`A university hostel installed filtered-water dispensers on four floors. Each machine had a small light: green meant ready, amber meant the filter was approaching its service limit and red meant the machine should not be used until maintenance was completed.
 
-At first, students assumed an amber light meant the water was unsafe. Some stopped using the dispenser immediately, while others ignored the light entirely because the machine still worked. The hostel added a label explaining that amber was an advance maintenance warning, not a shutdown signal.
+At first, students assumed an amber light meant the water was unsafe. Some stopped using the dispenser immediately, while others ignored the light entirely because the machine still worked. The hostel added a clear label explaining that amber was an advance maintenance warning, not a shutdown signal.
 
 Maintenance staff used the warning to schedule filter replacement before the machine reached its red state. This reduced unexpected outages, but only when the warning was reported. One machine stayed amber for several days because students assumed staff could see the light remotely.
 
