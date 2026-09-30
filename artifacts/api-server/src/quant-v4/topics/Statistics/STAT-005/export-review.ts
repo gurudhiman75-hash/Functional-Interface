@@ -2,7 +2,7 @@ import { generateStat005Question } from "./partition-dispersion";
 import { STAT005_PERMANENT_QLS } from "./permanent-ql-registry";
 
 const lines = [
-  "# Statistics — STAT-005 Partition Values & Dispersion Review V1",
+  "# Statistics — STAT-005 Partition Values & Dispersion Review V2",
   "",
   "**Review status:** English representative review candidate; awaiting content approval.",
   "**Profiles:** SSC CGL Tier II and JSO. **Lifecycle:** controlled review only.",
