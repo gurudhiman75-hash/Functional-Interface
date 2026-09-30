@@ -5,15 +5,15 @@ import{
 }from"./eng-011-production-expansion-v2";
 
 const SATURATION_SUBJECT_CUES=[
- "In routine practice",
- "Under the revised approach",
- "During regular review",
- "For day-to-day use",
- "In ordinary conditions",
- "As part of routine planning",
- "During periodic checks",
- "Under normal operating conditions",
- "In practical terms"
+ "in routine practice",
+ "under the revised approach",
+ "during regular review",
+ "for day-to-day use",
+ "in ordinary conditions",
+ "as part of routine planning",
+ "during periodic checks",
+ "under normal operating conditions",
+ "in practical terms"
 ]as const;
 
 function build(theme:Eng011ProductionTheme,cpId:Eng011CpId,difficulty:Eng011Difficulty,prefix:string,index:number,profile:"standard"|"advanced"|"prelims"|"mains"):Eng011SetV1[]{
