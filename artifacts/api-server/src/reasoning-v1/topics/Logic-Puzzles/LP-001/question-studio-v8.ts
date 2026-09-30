@@ -214,13 +214,17 @@ export async function generateLogicPuzzleQuestionStudioBatchV8(request: LogicPuz
   const baseSeed = String(request.seed || "question-studio:logic-puzzles");
   const selectedGroups: any[][] = [];
   let generationContext: any = null;
+  // Several source generators assign structural difficulty by batch index.
+  // A request for one caselet must sample multiple candidate positions;
+  // retrying seeds at index zero alone can never reach some bands.
+  const candidateCount = Math.min(12, Math.max(6, requestedCaselets * 3));
 
   for (let attempt = 0; attempt < 36 && selectedGroups.length < requestedCaselets; attempt += 1) {
     const batch: any = await generateLogicPuzzleQuestionStudioBatchV8Core({
       ...request,
       difficulty: undefined,
       seed: `${baseSeed}:difficulty:${requestedDifficulty}:${attempt}`,
-      count: requestedCaselets,
+      count: candidateCount,
     });
     generationContext ??= batch.generationContext;
     for (const group of groupByCaselet(batch.questions ?? [])) {
