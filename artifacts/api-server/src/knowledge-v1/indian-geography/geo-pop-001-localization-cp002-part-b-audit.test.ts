@@ -1,0 +1,15 @@
+import assert from "node:assert/strict";
+import { auditIndianGeoLocalizationV1 } from "./indian-geo-localization-v1";
+import { GEO_POP_001_QUESTION_STUDIO_CORPUS_V1 } from "../../question-studio/engines/knowledge-v1-geo-pop-001-adapter-v1";
+const cp=GEO_POP_001_QUESTION_STUDIO_CORPUS_V1.filter(q=>q.cpId==="GEO-POP-001-CP002" && /^GEO-POP-001-CP002-Q(00[7-9]|01[0-2])$/.test(q.questionId));
+const audit=auditIndianGeoLocalizationV1(cp,"GEO-POP-001");
+console.log(JSON.stringify({section:"GEO-POP-001 CP002 growth phases",...audit},null,2));
+assert.equal(cp.length,6);
+assert.equal(audit.structuralValid,true);
+assert.equal(audit.hindiStemResidueCount,0);
+assert.equal(audit.punjabiStemResidueCount,0);
+assert.equal(audit.hindiOptionResidueCount,0);
+assert.equal(audit.punjabiOptionResidueCount,0);
+assert.equal(audit.genericExplanationFallbackCount,0);
+assert.equal(audit.mixedScriptCount,0);
+assert.equal(audit.qualityReadyForFreeze,true);
