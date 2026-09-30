@@ -346,7 +346,7 @@ function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyB
   }
 
   if (qlId === "RAP-QL-425") {
-    return { personA: "type A items", personB: "type B items", ratioA, ratioB, totalValue, valueRemoveB };
+    return { personA: entities[0]!, personB: entities[1]!, ratioA, ratioB, totalValue, valueRemoveB };
   }
 
   if (qlId === "RAP-QL-426") {
@@ -535,8 +535,8 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
 
   if (qlId === "RAP-QL-623") {
     return {
-      personA: "Machine group A",
-      personB: "Machine group B",
+      personA: workPair[0]!,
+      personB: workPair[1]!,
       machineRatioA: pick([2, 3, 4], `${seed}:machineA`),
       machineRatioB: pick([3, 4, 5], `${seed}:machineB`),
       hoursRatioA: pick([4, 5, 6], `${seed}:hoursA`),
