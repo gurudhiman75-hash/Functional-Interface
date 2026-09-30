@@ -24,6 +24,9 @@ for(let i=0;i<350;i++){
       assert.match(localized.stem,locale==="hi-IN"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u);
       assert(localized.stem.endsWith("?"),`DI-012 ${locale} stem is not a direct exam question: ${localized.stem}`);
       assert.doesNotMatch(localized.stem,/(पहले|फिर|ज्ञात करने के बाद|हल करने के बाद|ज्ञात कीजिए|निकालिए|जोड़िए|ਪਹਿਲਾਂ|ਫਿਰ|ਕੱਢੋ|ਜੋੜੋ)/u);
+      if(localized.kind==="RECOVER_X")assert.equal(localized.stem,locale==="hi-IN"?"x का मान क्या है?":"x ਦਾ ਮੁੱਲ ਕੀ ਹੈ?");
+      if(localized.kind==="RECOVER_Y")assert.equal(localized.stem,locale==="hi-IN"?"y का मान क्या है?":"y ਦਾ ਮੁੱਲ ਕੀ ਹੈ?");
+      assert.doesNotMatch(localized.stem,/(दी गई शर्त के अनुसार x का मान क्या होगा|ਦਿੱਤੀ ਸ਼ਰਤ ਅਨੁਸਾਰ x ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੋਵੇਗਾ|ਦੀ ਗਈ ਸ਼ਰਤ ਅਨੁਸਾਰ x)/u);
       assert.doesNotMatch(localized.stem,/[A-Za-z]{3,}/u);
       assert.equal(localized.options[localized.correctIndex],localized.answer);
       assert.equal(localized.answer,original.answer);
