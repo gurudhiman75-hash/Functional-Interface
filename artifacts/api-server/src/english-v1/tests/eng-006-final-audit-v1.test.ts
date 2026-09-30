@@ -33,6 +33,7 @@ for(let i=0;i<42000;i++){
   assert.ok(q.explanation.includes(`“${q.metadata.answer}”`));
   assert.ok(q.explanation.length>=20);
   assert.ok(!/one-word term for|precise term for/i.test(q.explanation));
+  assert.ok(!/describes a person who|describes a person whose|describes a person with/i.test(q.explanation));
 }
 assert.equal(seen.size,1400);
 for(const n of positions)assert.ok(n>=9500&&n<=11500,`Final answer-position imbalance: ${positions.join(",")}`);

@@ -61,3 +61,16 @@ That is now remediated without changing the 840-expression authority, answer key
 - the final ENG-005 audit now rejects explanations shorter than the new helpful-depth floor and requires the governed phrase to appear in the explanation.
 
 ENG-005 is therefore reopened only for this demonstrated explanation defect; no breadth expansion is introduced.
+
+
+## Phase 4 — ENG-006 explanation grammar remediation
+
+A post-closure review found a learner-facing wording weakness in the shared ENG-006 explanation helper. Person-based definitions such as `a person who ...`, `a person whose ...`, and `a person with ...` were rendered as `“X” describes a person ...`, which was understandable but less natural than a direct definition.
+
+Remediation:
+- person-based explanations now use direct forms such as `“X” is a person who ...`;
+- the change applies uniformly across ENG-006 CP001-CP006 through the shared explanation helper;
+- the 1,400 substitution authorities, definitions, categories, difficulty labels, option generation and answer keys are unchanged;
+- the final audit now guards against regression to the old `describes a person ...` phrasing.
+
+No breadth expansion was required.
