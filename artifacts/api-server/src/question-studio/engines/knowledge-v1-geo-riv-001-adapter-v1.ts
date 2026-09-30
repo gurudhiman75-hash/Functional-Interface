@@ -83,7 +83,7 @@ const supportedLanguages: QuestionStudioLanguage[] = ["en","hi","pa"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
 const cpIds = semanticAuthorities.map((authority) => authority.cpId);
 
-const frozenQuestions = [
+export const GEO_RIV_001_QUESTION_STUDIO_CORPUS_V1 = [
   ...GEO_RIV_001_CP001_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP002_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP003_FROZEN_QUESTIONS_V1,
@@ -100,7 +100,7 @@ const frozenQuestions = [
   ...GEO_RIV_001_CP014_FROZEN_QUESTIONS_V1,
 ] as readonly any[];
 
-const qlIds = [...new Set(frozenQuestions.map((question) => String(question.qlId)))];
+const qlIds = [...new Set(GEO_RIV_001_QUESTION_STUDIO_CORPUS_V1.map((question) => String(question.qlId)))];
 const authorityByCp = Object.fromEntries(
   semanticAuthorities.map((authority) => [authority.cpId, authority.authorityId]),
 ) as Record<string, string>;
@@ -153,7 +153,7 @@ function normalizeSelectors(request: QuestionStudioGenerationRequest) {
 
   const qlId = qlMatches[0];
   const explicitCpId = cpMatches[0];
-  const qlCpId = qlId ? String(frozenQuestions.find((question) => question.qlId === qlId)?.cpId ?? "") : undefined;
+  const qlCpId = qlId ? String(GEO_RIV_001_QUESTION_STUDIO_CORPUS_V1.find((question) => question.qlId === qlId)?.cpId ?? "") : undefined;
   if (explicitCpId && qlCpId && explicitCpId !== qlCpId) {
     throw new Error(`Conflicting GEO-RIV-001 CP/QL selectors ${explicitCpId} and ${qlId}`);
   }
@@ -204,8 +204,8 @@ export const GEO_RIV_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
     qlCount: qlIds.length,
     cpIds: [...cpIds],
     cpCount: cpIds.length,
-    englishQuestionCount: frozenQuestions.length,
-    localizedVersionCount: (frozenQuestions.length) * 3,
+    englishQuestionCount: GEO_RIV_001_QUESTION_STUDIO_CORPUS_V1.length,
+    localizedVersionCount: (GEO_RIV_001_QUESTION_STUDIO_CORPUS_V1.length) * 3,
     localizationLanguages: ["en","hi","pa"],
     localizationStatus: "REVIEW_REQUIRED",
     revisionPolicy: GEO_RIV_001_REVISION_POLICY_V1,
@@ -254,7 +254,7 @@ export const knowledgeV1GeoRiv001QuestionStudioAdapterV1: QuestionStudioEngineAd
     const { qlId, cpId } = normalizeSelectors(request);
     const seed = request.seed?.trim() || "geo-riv-001-question-studio-freeze-v1";
 
-    const candidates = frozenQuestions.filter(
+    const candidates = GEO_RIV_001_QUESTION_STUDIO_CORPUS_V1.filter(
       (question) =>
         (!cpId || question.cpId === cpId) &&
         (!qlId || question.qlId === qlId) &&
