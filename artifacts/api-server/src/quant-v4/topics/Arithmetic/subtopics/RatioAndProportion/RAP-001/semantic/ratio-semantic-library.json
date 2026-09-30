@@ -163,6 +163,42 @@
           "gender": "female",
           "numberType": "countable",
           "frequency": "uncommon"
+        },
+        {
+          "id": "grandfather",
+          "en": "grandfather",
+          "hi": "दादा",
+          "pa": "ਦਾਦਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "grandmother",
+          "en": "grandmother",
+          "hi": "दादी",
+          "pa": "ਦਾਦੀ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "uncle",
+          "en": "uncle",
+          "hi": "चाचा",
+          "pa": "ਚਾਚਾ",
+          "gender": "male",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "aunt",
+          "en": "aunt",
+          "hi": "बुआ",
+          "pa": "ਭੂਆ",
+          "gender": "female",
+          "numberType": "countable",
+          "frequency": "common"
         }
       ]
     },
@@ -563,6 +599,24 @@
           "en": "players",
           "hi": "खिलाड़ी",
           "pa": "ਖਿਡਾਰੀ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "doctors",
+          "en": "doctors",
+          "hi": "डॉक्टर",
+          "pa": "ਡਾਕਟਰ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
+        },
+        {
+          "id": "nurses",
+          "en": "nurses",
+          "hi": "नर्स",
+          "pa": "ਨਰਸ",
           "gender": "neutral",
           "numberType": "countable",
           "frequency": "common"
