@@ -539,7 +539,12 @@ function explanation(state: IntCp005State, solution: Rational, seed: string): In
   switch (state.qlId) {
     case "INT-QL-086": {
       keyIdea = variant === 0 ? "Apply each year's growth factor successively." : "Multiply the opening value by all yearly growth factors.";
-      steps.push(`\\(V=${math(state.initial)}\\times${state.rates.map((rate) => factor(rate)).join("\\times")}=${math(solution)}\\).`);
+      let running = state.initial;
+      state.rates.forEach((rate, index) => {
+        const next = mul(running, growthFactor(rate));
+        steps.push(`\\(V_{${index + 1}}=${math(running)}\\times${factor(rate)}=${math(next)}\\).`);
+        running = next;
+      });
       commonMistake = "Do not add the yearly rates and apply them once to the opening value.";
       break;
     }
@@ -553,7 +558,12 @@ function explanation(state: IntCp005State, solution: Rational, seed: string): In
     }
     case "INT-QL-088": {
       keyIdea = variant === 0 ? "Reverse every yearly growth factor." : "Divide the final value by the complete compound multiplier.";
-      steps.push(`\\(P=\\frac{${math(state.finalValue)}}{${state.rates.map((rate) => factor(rate)).join("\\times")}}=${math(solution)}\\).`);
+      let running = state.finalValue;
+      for (let index = state.rates.length - 1; index >= 0; index -= 1) {
+        const previous = div(running, growthFactor(state.rates[index]!));
+        steps.push(`\\(V_{${index}}=\\frac{${math(running)}}{${factor(state.rates[index]!)}}=${math(previous)}\\).`);
+        running = previous;
+      }
       commonMistake = "Subtracting the rates from the final value does not reverse compounding.";
       break;
     }
@@ -588,7 +598,8 @@ function explanation(state: IntCp005State, solution: Rational, seed: string): In
       const previous = mul(state.initial, pow(f, state.targetYear - 1));
       const current = mul(state.initial, pow(f, state.targetYear));
       keyIdea = variant === 0 ? "Check the first year in which the threshold condition becomes true." : "Verify both the year before crossing and the crossing year.";
-      steps.push(`\\(V_{${state.targetYear - 1}}=${math(previous)},\\quad V_{${state.targetYear}}=${math(current)}\\).`);
+      steps.push(`\\(V_{${state.targetYear - 1}}=${math(state.initial)}\\times${factor(state.rate, state.direction === "GROWTH" ? "+" : "-")}^{${state.targetYear - 1}}=${math(previous)}\\).`);
+      steps.push(`\\(V_{${state.targetYear}}=${math(state.initial)}\\times${factor(state.rate, state.direction === "GROWTH" ? "+" : "-")}^{${state.targetYear}}=${math(current)}\\).`);
       steps.push(state.direction === "GROWTH" ? `\\(V_{${state.targetYear - 1}}<${math(state.threshold)}\\le V_{${state.targetYear}}\\).` : `\\(V_{${state.targetYear - 1}}>${math(state.threshold)}\\ge V_{${state.targetYear}}\\).`);
       commonMistake = "The question asks for the first crossing year, not just any later year that satisfies the condition.";
       break;
