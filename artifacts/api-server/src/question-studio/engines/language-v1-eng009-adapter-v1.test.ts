@@ -24,7 +24,7 @@ assert.equal(pkg.questionBankWritable,false);
 assert.equal(pkg.testEligible,false);
 assert.equal(pkg.mockTestEligible,false);
 assert.equal(pkg.publiclyPublishable,false);
-assert.equal(pkg.productionReleaseAuthorized,false);assert.deepEqual(pkg.metadata?.revisionReviewPendingCpIds,["ENG-009-CP005"]);assert.deepEqual(pkg.metadata?.revisionReviewPendingProfiles,["banking-new-pattern"]);assert.equal(pkg.metadata?.composerApprovalPending,false);assert.ok((pkg.metadata?.approvedCpIds as string[]).includes("ENG-009-CP006"));
+assert.equal(pkg.productionReleaseAuthorized,false);assert.deepEqual(pkg.metadata?.revisionReviewPendingCpIds,[]);assert.deepEqual(pkg.metadata?.revisionReviewPendingProfiles,[]);assert.equal(pkg.metadata?.composerApprovalPending,false);assert.ok((pkg.metadata?.approvedCpIds as string[]).includes("ENG-009-CP006"));
 
 const base={packageId:ENG009_QUESTION_STUDIO_PACKAGE_ID_V1,subject:"English",topic:"Cloze Test",language:"en" as const,runtimeMode:"review-only"};
 for(const cp of["ENG-009-CP001","ENG-009-CP002","ENG-009-CP003","ENG-009-CP004","ENG-009-CP005"]as const){
@@ -41,7 +41,7 @@ assert.equal(new Set(ssc.questions.map(q=>q.setId)).size,2);
 assert.ok(ssc.questions.every(q=>q.sourceCpId==="ENG-009-CP001"));
 assert.ok(ssc.questions.every(q=>q.humanReviewApproved===true&&q.authoringReviewApproved===true&&q.productionReleased===false));assert.equal(ssc.generationContext.humanReviewApproved,true);
 
-const newPattern=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-009-CP006",subtopic:"banking-new-pattern",count:1,seed:"composer:new-pattern"});assert.ok(newPattern.questions.every(q=>q.sourceCpId==="ENG-009-CP005"&&q.humanReviewApproved===false&&q.revisionReviewPending===true));
+const newPattern=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-009-CP006",subtopic:"banking-new-pattern",count:1,seed:"composer:new-pattern"});assert.ok(newPattern.questions.every(q=>q.sourceCpId==="ENG-009-CP005"&&q.humanReviewApproved===true&&q.authoringReviewApproved===true&&q.reviewOnly===true&&q.productionReleased===false));
 const mains=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:"ENG-009-CP006",subtopic:"banking-mains",count:2,seed:"composer:mains"});
 assert.equal(mains.questions.length,12);
 assert.equal(new Set(mains.questions.map(q=>q.setId)).size,2);

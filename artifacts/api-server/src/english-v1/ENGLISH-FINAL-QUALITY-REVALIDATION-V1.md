@@ -170,3 +170,18 @@ Current active regression inventories across CP001–CP005 are:
 These current totals supersede the older 48 / 268 scale figure for present inventory reporting. Final CP005 V2 human approval is still required before the revision-pending flags can be cleared.
 
 The same audit also reactivated the dormant passage-length guard. Five oversized base passages (C04–C08) were tightened to 338–381 words without changing their governed blanks, and C10 was restored from 292 to 303 words. All 18 active CP005 passages now satisfy the existing 300–540 word contract.
+
+
+## Phase 12 — ENG-009 CP005 V2 human approval and re-closure
+
+The regenerated 108-question CP005 V2 review artifact was explicitly human-approved on 2026-09-30 after the single-answer can-fit remediation, passage-band corrections and post-review language-polish pass.
+
+Closure actions:
+- CP005 V2 direct Question Studio surfaces are human/editorial approved again;
+- CP006 `banking-new-pattern` composed sets sourced from CP005 are approved again;
+- package-level revision-review pending lists are cleared;
+- ENG-009 approval authority advances to `ENG-009-CP001-CP006-HUMAN-APPROVED-V2`;
+- current chapter inventory is certified at **98 passages / 548 governed blanks**;
+- Question Bank writes, test/mock eligibility, public publication, automatic learner publication and production release remain locked.
+
+ENG-009 is therefore content-closed again under Question Studio review-only lifecycle.

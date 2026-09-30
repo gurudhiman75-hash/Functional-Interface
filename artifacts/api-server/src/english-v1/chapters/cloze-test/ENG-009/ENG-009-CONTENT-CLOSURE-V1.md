@@ -11,7 +11,7 @@ Status: `CONTENT_CLOSED_V1__CP001_CP006_HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_O
 - CP005 — Mixed / New-pattern Banking Cloze
 - CP006 — Full-set Composer + Question Studio integration
 
-Authored content: **48 original passages / 268 governed blanks**.
+Authored content: **98 original passages / 548 governed blanks**.
 
 CP006 composes approved content into deterministic linked passage sets and adds no duplicate passage authority.
 
@@ -25,4 +25,4 @@ CP006 composes approved content into deterministic linked passage sets and adds 
 - Automatic learner publication: locked.
 - Production release: not authorised.
 
-ENG-009 content implementation is closed. Any later expansion should be treated as a new audited content wave, not as unfinished core scope.
+ENG-009 content implementation is closed after CP005 V2 re-review on 2026-09-30. Any later expansion should be treated as a new audited content wave, not as unfinished core scope.
