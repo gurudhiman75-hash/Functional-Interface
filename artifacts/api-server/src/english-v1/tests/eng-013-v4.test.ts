@@ -32,6 +32,29 @@ for(const a of ENG013_ACTIVE_AUTHORITIES_V4){
  assert.ok(q.explanation.length>120);
 }
 
+
+const oldStockFrames=[
+ "The report described the relevant feature as ",
+ "During the review, the feature was described as ",
+ "The customer asked the bank about the ",
+ "During the branch visit, the customer requested details about the ",
+ "The analyst discussed the ",
+ "The policy note explained the significance of the "
+];
+for(const a of ENG013_BREADTH3_AUTHORITIES_V4){
+ for(const s of a.sentences){
+  for(const old of oldStockFrames)assert.ok(!s.startsWith(old),`${a.id} still uses old V4 stock frame: ${old}`);
+ }
+ assert.ok(a.explanation.length>150,`${a.id} editorial explanation too thin`);
+}
+for(const cp of["ENG-013-CP001","ENG-013-CP002","ENG-013-CP003","ENG-013-CP004"]as const){
+ const xs=ENG013_BREADTH3_AUTHORITIES_V4.filter(x=>x.cpId===cp);
+ const normalized=new Set(xs.flatMap(a=>a.sentences.map(s=>s.toLowerCase().replaceAll(a.word.toLowerCase(),"<target>"))));
+ assert.ok(normalized.size>=20,`${cp} V4 surface diversity too low: ${normalized.size}`);
+ const wrongFrames=new Set(xs.map(a=>a.sentences[a.answerIndex]!.toLowerCase().replaceAll(a.word.toLowerCase(),"<target>")));
+ assert.ok(wrongFrames.size>=4,`${cp} incorrect-usage framing is too repetitive`);
+}
+
 for(const p of["ssc-standard","ssc-advanced","banking-prelims","banking-mains"]as const){
  const x=generateEng013Cp005SetV4(`composer:${p}`,p);
  assert.equal(x.profile,p);
