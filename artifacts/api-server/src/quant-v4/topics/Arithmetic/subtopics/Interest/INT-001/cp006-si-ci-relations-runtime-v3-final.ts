@@ -91,7 +91,9 @@ function selectWrong(state: IntCp006State, answer: Rational, pool: readonly Wron
 }
 
 function presentation(state: IntCp006State, seed: string): Readonly<{ markdown: string; prompt: string; representation: IntCp006Representation; stemFamilyId: string }> {
-  const template = hash(`${seed}:cp006:template`) % 3;
+  const template = state.qlId === "INT-QL-097"
+    ? hash(`${seed}:cp006:template`) % 6
+    : hash(`${seed}:cp006:template`) % 3;
   let markdown = "";
   let representation: IntCp006Representation = "STANDARD_PROSE";
   switch (state.qlId) {
@@ -105,9 +107,12 @@ function presentation(state: IntCp006State, seed: string): Readonly<{ markdown: 
     case "INT-QL-097": {
       const frames = [
         `Find the difference between compound interest and simple interest on ${money(state.principal)} for 3 years at ${percent(state.ratePercent)} per annum.`,
-        `${money(state.principal)} is kept for 3 years at ${percent(state.ratePercent)} per annum. Find the excess of annual compound interest over simple interest.`,
-        `For a principal of ${money(state.principal)} at ${percent(state.ratePercent)} per annum, how much greater is CI than SI after 3 years?`,
-      ]; markdown = frames[template]!; break;
+        `${money(state.principal)} is invested for 3 years at ${percent(state.ratePercent)} per annum. How much more interest is earned under annual compounding than under simple interest?`,
+        `At ${percent(state.ratePercent)} per annum for 3 years, by how much does CI exceed SI on ${money(state.principal)}?`,
+        `The same principal of ${money(state.principal)} earns simple interest and annual compound interest at ${percent(state.ratePercent)} for 3 years. Find CI − SI.`,
+        `A sum of ${money(state.principal)} is kept at ${percent(state.ratePercent)} per annum for 3 years. Find the extra interest obtained when interest is compounded annually instead of calculated simply.`,
+        `${table([["Principal", money(state.principal)], ["Annual rate", percent(state.ratePercent)], ["Time", "3 years"]])}\n\nFind the difference between annual compound interest and simple interest.`,
+      ]; markdown = frames[template]!; representation = template === 5 ? "COMPARISON_TABLE" : "STANDARD_PROSE"; break;
     }
     case "INT-QL-100": {
       const frames = [
