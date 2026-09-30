@@ -1,6 +1,6 @@
 # Statistics — STAT-008 Probability Theory Review V1
 
-**Status:** English review candidate; awaiting editorial approval.
+**Status:** English review approved on 2026-09-30.
 **Profiles:** SSC CGL Tier II and JSO. **Lifecycle:** controlled review only.
 
 ## STAT-QL-084 — Classical probability
@@ -160,6 +160,8 @@ D. 0.4
 **Explanation:** P(neither A nor B) = 1 − P(A∪B). First P(A∪B) = 0.45+0.35−0.15 = 0.65. Therefore the required probability is 0.35.
 
 ## Review checkpoints
+
+- Editorial approval recorded on 2026-09-30. Diversity and pool expansion are deferred to a later pass.
 
 - Check that event definitions and conditional notation are clear.
 - Confirm the total-probability and Bayes examples define exhaustive groups.
