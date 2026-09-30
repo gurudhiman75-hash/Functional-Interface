@@ -369,6 +369,15 @@
           "gender": "neutral",
           "numberType": "uncountable",
           "frequency": "uncommon"
+        },
+        {
+          "id": "computer_science",
+          "en": "Computer Science",
+          "hi": "कंप्यूटर विज्ञान",
+          "pa": "ਕੰਪਿਊਟਰ ਵਿਗਿਆਨ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "common"
         }
       ]
     },
@@ -557,6 +566,15 @@
           "gender": "neutral",
           "numberType": "countable",
           "frequency": "uncommon"
+        },
+        {
+          "id": "players",
+          "en": "players",
+          "hi": "खिलाड़ी",
+          "pa": "ਖਿਡਾਰੀ",
+          "gender": "neutral",
+          "numberType": "countable",
+          "frequency": "common"
         }
       ]
     },
@@ -675,6 +693,15 @@
           "en": "coconut oil",
           "hi": "नारियल का तेल",
           "pa": "ਨਾਰੀਅਲ ਦਾ ਤੇਲ",
+          "gender": "neutral",
+          "numberType": "uncountable",
+          "frequency": "uncommon"
+        },
+        {
+          "id": "honey",
+          "en": "honey",
+          "hi": "शहद",
+          "pa": "ਸ਼ਹਿਦ",
           "gender": "neutral",
           "numberType": "uncountable",
           "frequency": "uncommon"
