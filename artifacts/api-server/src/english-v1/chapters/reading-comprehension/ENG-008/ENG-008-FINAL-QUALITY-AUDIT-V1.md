@@ -1,8 +1,8 @@
 # ENG-008 — Final RC Quality Audit V1
 
-Status: `QUALITY_REMEDIATION_REQUIRED__REVIEW_ONLY`
+Status: `QUALITY_REMEDIATION_COMPLETE__FROZEN__QUESTION_STUDIO_REVIEW_ONLY`
 
-Audit date: **2026-09-29**
+Audit date: **2026-09-30**
 
 ## Scope
 
@@ -160,3 +160,55 @@ Current state:
 No learner/public release is authorised.
 
 The chapter may return to frozen status only after the factory-built active passages have been replaced with sufficiently independent authored surfaces and the final duplicate/template audit passes.
+
+
+## Post-remediation closure update
+
+The remediation required by this audit is now complete on `New-main`.
+
+All five active profile arrays route Waves 14–19 through profile-specific remediation layers:
+
+- CP001 SSC Foundation — 48 remediated passages / 288 governed authorities
+- CP002 SSC Editorial / Current-Affairs — 48 / 384
+- CP003 Banking Prelims — 48 / 432
+- CP004 Banking Mains — 48 / 480
+- CP005 Research / Survey / Report — 48 / 384
+
+Total remediated scope: **240 / 240 passages** and **1,968 governed question authorities**.
+
+The remediation preserves:
+- original passage IDs;
+- original authority IDs;
+- profile ownership;
+- governed question-family ownership;
+- deterministic selection and answer remapping;
+- Question Studio review-only lifecycle.
+
+The active authority arrays for CP001 through CP005 each reference remediated Wave 14, 15, 16, 17, 18 and 19 authorities.
+
+Validation completed successfully across:
+- CP001 through CP005 profile tests;
+- CP007 Banking Prelims word-fit validation;
+- Expansion Wave regression suites;
+- Question Studio integration;
+- general Question Studio engine adapters;
+- Render production build.
+
+During remediation, several stale validation defects were also corrected:
+- arbitrary minimum evidence-clue character limits;
+- one weak CP005 explanation;
+- two weak CP003 antonym explanations;
+- one 349-word Banking Prelims passage restored to the 350-word floor;
+- Banking Prelims paragraph validation recalibrated to the actual 4–7 paragraph authored range;
+- Question Studio whitespace word-count regex corrected;
+- CP007 word-fit masking validation changed to verify exactly one target occurrence is masked rather than requiring a clue string to disappear globally.
+
+### Final quality decision
+
+The original shared-factory quality defect is now considered remediated.
+
+ENG-008 returns to:
+
+`FROZEN__QUESTION_STUDIO_REVIEW_ONLY`
+
+No new RC checkpoint is justified. Future changes should be limited to demonstrated editorial defects, new exam evidence, or explicitly approved learner-facing lifecycle work.
