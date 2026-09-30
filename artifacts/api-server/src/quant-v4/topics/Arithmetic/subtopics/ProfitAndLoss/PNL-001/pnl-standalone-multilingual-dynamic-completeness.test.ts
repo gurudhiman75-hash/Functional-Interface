@@ -191,7 +191,7 @@ for (const qlId of qlIds) {
 }
 
 // Direct authored-language breadth: same seed selects the same semantic variant in all languages.
-for (const qlId of ["PNL-QL-001", "PNL-QL-002", "PNL-QL-005", "PNL-QL-006", "PNL-QL-037", "PNL-QL-038", "PNL-QL-039", "PNL-QL-040", "PNL-QL-075", "PNL-QL-082", "PNL-QL-083", "PNL-QL-084", "PNL-QL-094"]) {
+for (const qlId of ["PNL-QL-001", "PNL-QL-002", "PNL-QL-005", "PNL-QL-006", "PNL-QL-037", "PNL-QL-038", "PNL-QL-039", "PNL-QL-040", "PNL-QL-072", "PNL-QL-073", "PNL-QL-075", "PNL-QL-076", "PNL-QL-082", "PNL-QL-083", "PNL-QL-084", "PNL-QL-085", "PNL-QL-086", "PNL-QL-087", "PNL-QL-094"]) {
   const seen = new Map<string, Set<number>>(languages.map((language) => [language, new Set<number>()]));
   const stems = new Map<string, Set<string>>(languages.map((language) => [language, new Set<string>()]));
   for (let index = 0; index < 72; index += 1) {

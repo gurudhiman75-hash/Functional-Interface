@@ -183,6 +183,90 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਇੱਕ ਵੰਡਕਾਰ {totalQuantity} ਪੈਕ ₹{unitCostPrice} ਪ੍ਰਤੀ ਪੈਕ ਖਰੀਦਦਾ ਹੈ। {goodQuantity} ਚੰਗੇ ਪੈਕ ₹{goodUnitSellingPrice} ਪ੍ਰਤੀ ਪੈਕ ਵੇਚੇ ਜਾਂਦੇ ਹਨ ਅਤੇ {spoiledQuantity} ਖਰਾਬ ਹੋ ਜਾਂਦੇ ਹਨ। ਕੁੱਲ ਘਾਟੇ ਤੋਂ ਬਚਣ ਲਈ ਹਰ ਖਰਾਬ ਪੈਕ ਤੋਂ ਘੱਟੋ-ਘੱਟ ਕਿੰਨੀ ਵਸੂਲੀ ਚਾਹੀਦੀ ਹੈ?",
       "{totalQuantity} ਪੈਕ ₹{unitCostPrice} ਪ੍ਰਤੀ ਪੈਕ ਖਰੀਦੇ ਗਏ। {goodQuantity} ਪੈਕ ₹{goodUnitSellingPrice} ਪ੍ਰਤੀ ਪੈਕ ਵੇਚੇ ਜਾਂਦੇ ਹਨ ਅਤੇ {spoiledQuantity} ਆਮ ਤੌਰ 'ਤੇ ਨਹੀਂ ਵੇਚੇ ਜਾ ਸਕਦੇ। ਲੈਣ-ਦੇਣ ਨੂੰ ਬਰਾਬਰੀ 'ਤੇ ਲਿਆਉਣ ਲਈ ਹਰ ਖਰਾਬ ਪੈਕ ਤੋਂ ਘੱਟੋ-ਘੱਟ ਕਿੰਨੀ ਰਕਮ ਚਾਹੀਦੀ ਹੈ?"
     ]
+  },
+  "PNL-QL-072": {
+    "en": [
+      "Two fruit crates are sold for ₹{commonSellingPrice} each. The first sale gives {firstRatePercent}% {firstDirection} and the second {secondRatePercent}% {secondDirection}. Find the combined profit or loss percentage.",
+      "A merchant sells two crates at the same selling price of ₹{commonSellingPrice}. Their individual results are {firstRatePercent}% {firstDirection} and {secondRatePercent}% {secondDirection}. What is the overall percentage result?"
+    ],
+    "hi": [
+      "दो फल-क्रेट ₹{commonSellingPrice} प्रति क्रेट की समान कीमत पर बेचे जाते हैं। पहली बिक्री में {firstRatePercent}% {firstDirection} और दूसरी में {secondRatePercent}% {secondDirection} है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "एक व्यापारी दो क्रेट ₹{commonSellingPrice} की समान विक्रय कीमत पर बेचता है। अलग-अलग परिणाम {firstRatePercent}% {firstDirection} और {secondRatePercent}% {secondDirection} हैं। कुल प्रतिशत परिणाम क्या है?"
+    ],
+    "pa": [
+      "ਦੋ ਫਲਾਂ ਦੇ ਕਰੇਟ ₹{commonSellingPrice} ਪ੍ਰਤੀ ਕਰੇਟ ਇੱਕੋ ਵਿਕਰੀ ਮੁੱਲ 'ਤੇ ਵੇਚੇ ਜਾਂਦੇ ਹਨ। ਪਹਿਲੀ ਵਿਕਰੀ ਵਿੱਚ {firstRatePercent}% {firstDirection} ਅਤੇ ਦੂਜੀ ਵਿੱਚ {secondRatePercent}% {secondDirection} ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਵਪਾਰੀ ਦੋ ਕਰੇਟ ₹{commonSellingPrice} ਦੇ ਇੱਕੋ ਵਿਕਰੀ ਮੁੱਲ 'ਤੇ ਵੇਚਦਾ ਹੈ। ਵੱਖ-ਵੱਖ ਨਤੀਜੇ {firstRatePercent}% {firstDirection} ਅਤੇ {secondRatePercent}% {secondDirection} ਹਨ। ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-073": {
+    "en": [
+      "Two machines are bought for ₹{commonCostPrice} each. One is sold at {firstRatePercent}% {firstDirection} and the other at {secondRatePercent}% {secondDirection}. Find the overall profit or loss percentage.",
+      "An equipment dealer pays the same cost, ₹{commonCostPrice}, for each of two machines. Their sale results are {firstRatePercent}% {firstDirection} and {secondRatePercent}% {secondDirection}. Determine the combined percentage result."
+    ],
+    "hi": [
+      "दो मशीनें ₹{commonCostPrice} प्रति मशीन की समान लागत पर खरीदी जाती हैं। एक पर {firstRatePercent}% {firstDirection} और दूसरी पर {secondRatePercent}% {secondDirection} होता है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "एक उपकरण व्यापारी दो मशीनों के लिए समान क्रय मूल्य ₹{commonCostPrice} देता है। बिक्री परिणाम {firstRatePercent}% {firstDirection} और {secondRatePercent}% {secondDirection} हैं। संयुक्त प्रतिशत परिणाम ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਦੋ ਮਸ਼ੀਨਾਂ ₹{commonCostPrice} ਪ੍ਰਤੀ ਮਸ਼ੀਨ ਇੱਕੋ ਲਾਗਤ 'ਤੇ ਖਰੀਦੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਇੱਕ 'ਤੇ {firstRatePercent}% {firstDirection} ਅਤੇ ਦੂਜੀ 'ਤੇ {secondRatePercent}% {secondDirection} ਹੁੰਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਉਪਕਰਣ ਵਪਾਰੀ ਦੋ ਮਸ਼ੀਨਾਂ ਲਈ ਇੱਕੋ ਖਰੀਦ ਮੁੱਲ ₹{commonCostPrice} ਦਿੰਦਾ ਹੈ। ਵਿਕਰੀ ਨਤੀਜੇ {firstRatePercent}% {firstDirection} ਅਤੇ {secondRatePercent}% {secondDirection} ਹਨ। ਮਿਲਿਆ-ਜੁਲਿਆ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-076": {
+    "en": [
+      "A wholesaler pays for {paidQuantity} units at ₹{unitCostPrice} each and gets {freeQuantity} more units free. If every unit is sold for ₹{unitSellingPrice}, find the overall profit or loss percentage.",
+      "Under a promotional purchase, {paidQuantity} units cost ₹{unitCostPrice} each and {freeQuantity} additional units are free. All units are later sold at ₹{unitSellingPrice} each. Determine the overall percentage result."
+    ],
+    "hi": [
+      "एक थोक व्यापारी {paidQuantity} इकाइयों के लिए ₹{unitCostPrice} प्रति इकाई भुगतान करता है और {freeQuantity} अतिरिक्त इकाइयाँ मुफ्त मिलती हैं। सभी इकाइयाँ ₹{unitSellingPrice} प्रति इकाई बिकती हैं। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "एक प्रचार प्रस्ताव में {paidQuantity} इकाइयाँ ₹{unitCostPrice} प्रति इकाई खरीदी जाती हैं और {freeQuantity} इकाइयाँ मुफ्त मिलती हैं। सभी इकाइयाँ ₹{unitSellingPrice} में बेची जाती हैं। कुल प्रतिशत परिणाम ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਥੋਕ ਵਪਾਰੀ {paidQuantity} ਇਕਾਈਆਂ ਲਈ ₹{unitCostPrice} ਪ੍ਰਤੀ ਇਕਾਈ ਭੁਗਤਾਨ ਕਰਦਾ ਹੈ ਅਤੇ {freeQuantity} ਹੋਰ ਇਕਾਈਆਂ ਮੁਫ਼ਤ ਮਿਲਦੀਆਂ ਹਨ। ਸਾਰੀਆਂ ਇਕਾਈਆਂ ₹{unitSellingPrice} ਪ੍ਰਤੀ ਇਕਾਈ ਵੇਚੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਪ੍ਰਚਾਰਕ ਪੇਸ਼ਕਸ਼ ਵਿੱਚ {paidQuantity} ਇਕਾਈਆਂ ₹{unitCostPrice} ਪ੍ਰਤੀ ਇਕਾਈ ਖਰੀਦੀਆਂ ਜਾਂਦੀਆਂ ਹਨ ਅਤੇ {freeQuantity} ਇਕਾਈਆਂ ਮੁਫ਼ਤ ਮਿਲਦੀਆਂ ਹਨ। ਸਾਰੀਆਂ ਇਕਾਈਆਂ ₹{unitSellingPrice} ਵਿੱਚ ਵੇਚੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-085": {
+    "en": [
+      "A stock costs ₹{totalCostPrice} in total. If it is sold at {ratePercent}% {direction}, find the total selling price.",
+      "The total purchase cost of an inventory is ₹{totalCostPrice}. What total sale value corresponds to {ratePercent}% {direction}?"
+    ],
+    "hi": [
+      "किसी स्टॉक का कुल क्रय मूल्य ₹{totalCostPrice} है। इसे {ratePercent}% {direction} पर बेचने पर कुल विक्रय मूल्य ज्ञात कीजिए।",
+      "इन्वेंटरी की कुल लागत ₹{totalCostPrice} है। {ratePercent}% {direction} के लिए कुल बिक्री मूल्य क्या होगा?"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਸਟਾਕ ਦਾ ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ₹{totalCostPrice} ਹੈ। ਇਸਨੂੰ {ratePercent}% {direction} 'ਤੇ ਵੇਚਣ ਨਾਲ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਇਨਵੈਂਟਰੀ ਦੀ ਕੁੱਲ ਲਾਗਤ ₹{totalCostPrice} ਹੈ। {ratePercent}% {direction} ਲਈ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਕੀ ਹੋਵੇਗਾ?"
+    ]
+  },
+  "PNL-QL-086": {
+    "en": [
+      "A stock is sold for ₹{totalSellingPrice} in total at {ratePercent}% {direction}. Find its total cost price.",
+      "The total sale value of an inventory is ₹{totalSellingPrice}, representing {ratePercent}% {direction}. Determine the original total cost."
+    ],
+    "hi": [
+      "एक स्टॉक कुल ₹{totalSellingPrice} में {ratePercent}% {direction} पर बेचा जाता है। उसका कुल क्रय मूल्य ज्ञात कीजिए।",
+      "इन्वेंटरी का कुल विक्रय मूल्य ₹{totalSellingPrice} है और परिणाम {ratePercent}% {direction} है। मूल कुल लागत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਸਟਾਕ ਕੁੱਲ ₹{totalSellingPrice} ਵਿੱਚ {ratePercent}% {direction} 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਇਸਦਾ ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਇਨਵੈਂਟਰੀ ਦਾ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ₹{totalSellingPrice} ਹੈ ਅਤੇ ਨਤੀਜਾ {ratePercent}% {direction} ਹੈ। ਮੂਲ ਕੁੱਲ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-087": {
+    "en": [
+      "The total cost of a stock is ₹{totalCostPrice}, while the amount recovered is {recoveredFraction} of that cost. Find the overall profit or loss percentage.",
+      "A trader recovers {recoveredFraction} of the ₹{totalCostPrice} total stock cost. What is the overall percentage profit or loss?"
+    ],
+    "hi": [
+      "स्टॉक की कुल लागत ₹{totalCostPrice} है और वसूली उस लागत का {recoveredFraction} है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "एक व्यापारी ₹{totalCostPrice} की कुल स्टॉक लागत का {recoveredFraction} वसूल करता है। कुल प्रतिशत लाभ या हानि क्या है?"
+    ],
+    "pa": [
+      "ਸਟਾਕ ਦੀ ਕੁੱਲ ਲਾਗਤ ₹{totalCostPrice} ਹੈ ਅਤੇ ਵਸੂਲੀ ਉਸ ਲਾਗਤ ਦਾ {recoveredFraction} ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਵਪਾਰੀ ₹{totalCostPrice} ਦੀ ਕੁੱਲ ਸਟਾਕ ਲਾਗਤ ਦਾ {recoveredFraction} ਵਸੂਲ ਕਰਦਾ ਹੈ। ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਜਾਂ ਘਾਟਾ ਕੀ ਹੈ?"
+    ]
   }
 };
 
