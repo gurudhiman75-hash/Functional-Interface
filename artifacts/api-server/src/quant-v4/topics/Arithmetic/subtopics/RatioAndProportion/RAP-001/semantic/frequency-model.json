@@ -76,6 +76,12 @@
     "ink": "uncommon",
     "mustard_oil": "uncommon",
     "coconut_oil": "uncommon",
-    "honey": "uncommon"
+    "honey": "uncommon",
+    "grandfather": "common",
+    "grandmother": "common",
+    "uncle": "common",
+    "aunt": "common",
+    "doctors": "common",
+    "nurses": "common"
   }
 }
