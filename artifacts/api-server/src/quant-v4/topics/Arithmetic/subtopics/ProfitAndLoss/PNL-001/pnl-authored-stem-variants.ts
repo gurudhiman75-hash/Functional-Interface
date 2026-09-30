@@ -547,6 +547,118 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਨਿਰਮਾਣ ਸਮੱਗਰੀ ਦੀ ਖੇਪ {stages} ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ। ਲੈਣ-ਦੇਣ {firstStageNumber} ਅਤੇ {secondStageNumber} ਤੋਂ ਬਾਅਦ ਦੀਆਂ ਕੀਮਤਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
       "₹{initialCostPrice} ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ਨਿਰਮਾਣ ਸਮੱਗਰੀ ਦੀ ਖੇਪ {stages} ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ। ਪੜਾਅ {firstStageNumber} ਅਤੇ {secondStageNumber} ਤੋਂ ਬਾਅਦ ਦੀਆਂ ਕੀਮਤਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੈ?"
     ]
+  },
+  "PNL-QL-121": {
+    "en": [
+      "A grain merchant charges the cost price ₹{costPricePerTrueQuantity} for {trueQuantity} kg but actually gives only {deliveredQuantity} kg. Find the true profit percentage.",
+      "A seller claims no profit by charging ₹{costPricePerTrueQuantity} for {trueQuantity} kg, yet delivers only {deliveredQuantity} kg. What profit percentage does he actually earn?"
+    ],
+    "hi": [
+      "एक अनाज व्यापारी {trueQuantity} किग्रा के लिए क्रय मूल्य ₹{costPricePerTrueQuantity} ही लेता है, पर देता केवल {deliveredQuantity} किग्रा है। वास्तविक लाभ प्रतिशत ज्ञात कीजिए।",
+      "एक विक्रेता ₹{costPricePerTrueQuantity} में {trueQuantity} किग्रा देने का दावा करता है, लेकिन देता केवल {deliveredQuantity} किग्रा है। वास्तविक लाभ प्रतिशत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਅਨਾਜ ਵਪਾਰੀ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲਈ ਖਰੀਦ ਮੁੱਲ ₹{costPricePerTrueQuantity} ਹੀ ਲੈਂਦਾ ਹੈ, ਪਰ ਦਿੰਦਾ ਸਿਰਫ਼ {deliveredQuantity} ਕਿਲੋਗ੍ਰਾਮ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਵਿਕਰੇਤਾ ₹{costPricePerTrueQuantity} ਵਿੱਚ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਦੇਣ ਦਾ ਦਾਅਵਾ ਕਰਦਾ ਹੈ, ਪਰ ਦਿੰਦਾ ਸਿਰਫ਼ {deliveredQuantity} ਕਿਲੋਗ੍ਰਾਮ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-122": {
+    "en": [
+      "A rice pack truly costs ₹{costPricePerTrueQuantity} for {trueQuantity} kg. The shopkeeper charges ₹{quotedSellingPricePerNominalQuantity} but supplies only {deliveredQuantity} kg. Find the actual profit or loss amount and percentage.",
+      "For rice costing ₹{costPricePerTrueQuantity} per {trueQuantity} kg, a seller bills ₹{quotedSellingPricePerNominalQuantity} while delivering {deliveredQuantity} kg. Determine the actual amount and percentage result."
+    ],
+    "hi": [
+      "{trueQuantity} किग्रा चावल की वास्तविक लागत ₹{costPricePerTrueQuantity} है। दुकानदार ₹{quotedSellingPricePerNominalQuantity} लेता है लेकिन देता {deliveredQuantity} किग्रा है। वास्तविक लाभ या हानि की राशि और प्रतिशत ज्ञात कीजिए।",
+      "₹{costPricePerTrueQuantity} प्रति {trueQuantity} किग्रा लागत वाले चावल के लिए विक्रेता ₹{quotedSellingPricePerNominalQuantity} बिल करता है और {deliveredQuantity} किग्रा देता है। वास्तविक राशि और प्रतिशत परिणाम ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "{trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਚੌਲਾਂ ਦੀ ਅਸਲ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਦੁਕਾਨਦਾਰ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ ਪਰ ਦਿੰਦਾ {deliveredQuantity} ਕਿਲੋਗ੍ਰਾਮ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਰਕਮ ਅਤੇ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲਾਗਤ ਵਾਲੇ ਚੌਲਾਂ ਲਈ ਵਿਕਰੇਤਾ ₹{quotedSellingPricePerNominalQuantity} ਬਿੱਲ ਕਰਦਾ ਹੈ ਅਤੇ {deliveredQuantity} ਕਿਲੋਗ੍ਰਾਮ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਰਕਮ ਅਤੇ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-123": {
+    "en": [
+      "Fruit costs ₹{costPricePerTrueQuantity} per {trueQuantity} kg. A seller declares {declaredRatePercent}% {declaredDirection} but supplies only {deliveredQuantity} kg per billed lot. Find the actual percentage result.",
+      "A fruit seller quotes a {declaredRatePercent}% {declaredDirection} on goods costing ₹{costPricePerTrueQuantity} per {trueQuantity} kg, while delivering just {deliveredQuantity} kg. What is the real profit or loss percentage?"
+    ],
+    "hi": [
+      "फल की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} किग्रा है। विक्रेता {declaredRatePercent}% {declaredDirection} बताता है, लेकिन प्रत्येक बिल किए गए लॉट में केवल {deliveredQuantity} किग्रा देता है। वास्तविक प्रतिशत परिणाम ज्ञात कीजिए।",
+      "₹{costPricePerTrueQuantity} प्रति {trueQuantity} किग्रा लागत वाले फल पर विक्रेता {declaredRatePercent}% {declaredDirection} बताता है, पर देता केवल {deliveredQuantity} किग्रा है। वास्तविक लाभ या हानि प्रतिशत क्या है?"
+    ],
+    "pa": [
+      "ਫਲਾਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਹੈ। ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸਦਾ ਹੈ, ਪਰ ਹਰ ਬਿੱਲ ਕੀਤੇ ਲਾਟ ਵਿੱਚ ਸਿਰਫ਼ {deliveredQuantity} ਕਿਲੋਗ੍ਰਾਮ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਪਤਾ ਕਰੋ।",
+      "₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲਾਗਤ ਵਾਲੇ ਫਲਾਂ 'ਤੇ ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸਦਾ ਹੈ, ਪਰ ਦਿੰਦਾ ਸਿਰਫ਼ {deliveredQuantity} ਕਿਲੋਗ੍ਰਾਮ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-124": {
+    "en": [
+      "Cooking oil costs ₹{costPricePerTrueQuantity} for {trueQuantity} litres. A retailer claims {declaredRatePercent}% {declaredDirection} but gives only {deliveredQuantity} litres. Find the actual profit or loss percentage.",
+      "Oil costing ₹{costPricePerTrueQuantity} per {trueQuantity} litres is sold with a declared {declaredRatePercent}% {declaredDirection}; only {deliveredQuantity} litres are supplied. Determine the real percentage result."
+    ],
+    "hi": [
+      "खाना पकाने के तेल की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} लीटर है। खुदरा विक्रेता {declaredRatePercent}% {declaredDirection} बताता है लेकिन देता केवल {deliveredQuantity} लीटर है। वास्तविक लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "₹{costPricePerTrueQuantity} प्रति {trueQuantity} लीटर लागत वाला तेल {declaredRatePercent}% {declaredDirection} बताकर बेचा जाता है, पर केवल {deliveredQuantity} लीटर दिया जाता है। वास्तविक प्रतिशत परिणाम ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਖਾਣੇ ਵਾਲੇ ਤੇਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਲੀਟਰ ਹੈ। ਰਿਟੇਲਰ {declaredRatePercent}% {declaredDirection} ਦੱਸਦਾ ਹੈ ਪਰ ਦਿੰਦਾ ਸਿਰਫ਼ {deliveredQuantity} ਲੀਟਰ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਲੀਟਰ ਲਾਗਤ ਵਾਲਾ ਤੇਲ {declaredRatePercent}% {declaredDirection} ਦੱਸ ਕੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ, ਪਰ ਸਿਰਫ਼ {deliveredQuantity} ਲੀਟਰ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-125": {
+    "en": [
+      "Fertilizer costs ₹{costPricePerTrueQuantity} for {trueQuantity} kg and is billed at ₹{quotedSellingPricePerNominalQuantity} per bag. What actual bag weight will give {targetRatePercent}% {targetDirection}?",
+      "A fertilizer bag is priced at ₹{quotedSellingPricePerNominalQuantity}; the true cost is ₹{costPricePerTrueQuantity} per {trueQuantity} kg. Find the quantity per bag needed for an actual {targetRatePercent}% {targetDirection}."
+    ],
+    "hi": [
+      "उर्वरक की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} किग्रा है और प्रति बैग ₹{quotedSellingPricePerNominalQuantity} लिया जाता है। वास्तविक {targetRatePercent}% {targetDirection} के लिए बैग में कितनी मात्रा होनी चाहिए?",
+      "उर्वरक बैग की कीमत ₹{quotedSellingPricePerNominalQuantity} है और वास्तविक लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} किग्रा है। {targetRatePercent}% {targetDirection} के लिए प्रति बैग आवश्यक मात्रा ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਖਾਦ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਹੈ ਅਤੇ ਪ੍ਰਤੀ ਬੋਰੀ ₹{quotedSellingPricePerNominalQuantity} ਲਿਆ ਜਾਂਦਾ ਹੈ। ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਬੋਰੀ ਵਿੱਚ ਕਿੰਨੀ ਮਾਤਰਾ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ?",
+      "ਖਾਦ ਦੀ ਬੋਰੀ ਦੀ ਕੀਮਤ ₹{quotedSellingPricePerNominalQuantity} ਹੈ ਅਤੇ ਅਸਲ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਕਿਲੋਗ੍ਰਾਮ ਹੈ। {targetRatePercent}% {targetDirection} ਲਈ ਪ੍ਰਤੀ ਬੋਰੀ ਲੋੜੀਂਦੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-126": {
+    "en": [
+      "The cost of {trueQuantity} fasteners is ₹{costPricePerTrueQuantity}, but a nominal pack contains only {deliveredQuantity}. What price should be charged for {targetRatePercent}% {targetDirection}?",
+      "A seller packs only {deliveredQuantity} fasteners instead of {trueQuantity}; the true cost of {trueQuantity} is ₹{costPricePerTrueQuantity}. Find the selling price needed for an actual {targetRatePercent}% {targetDirection}."
+    ],
+    "hi": [
+      "{trueQuantity} फास्टनरों की लागत ₹{costPricePerTrueQuantity} है, पर नाममात्र पैक में केवल {deliveredQuantity} फास्टनर हैं। {targetRatePercent}% {targetDirection} के लिए कितना मूल्य लेना चाहिए?",
+      "विक्रेता {trueQuantity} की जगह केवल {deliveredQuantity} फास्टनर पैक करता है; {trueQuantity} की वास्तविक लागत ₹{costPricePerTrueQuantity} है। वास्तविक {targetRatePercent}% {targetDirection} के लिए विक्रय मूल्य ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "{trueQuantity} ਫਾਸਟਨਰਾਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ, ਪਰ ਨਾਮਾਤਰ ਪੈਕ ਵਿੱਚ ਸਿਰਫ਼ {deliveredQuantity} ਫਾਸਟਨਰ ਹਨ। {targetRatePercent}% {targetDirection} ਲਈ ਕਿੰਨੀ ਕੀਮਤ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ?",
+      "ਵਿਕਰੇਤਾ {trueQuantity} ਦੀ ਥਾਂ ਸਿਰਫ਼ {deliveredQuantity} ਫਾਸਟਨਰ ਪੈਕ ਕਰਦਾ ਹੈ; {trueQuantity} ਦੀ ਅਸਲ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-127": {
+    "en": [
+      "A sugar trader pays ₹{purchasePricePerNominalQuantity} for a nominal {nominalQuantity} kg but actually receives {receivedQuantity} kg. He charges ₹{sellingPricePerNominalQuantity} per nominal sale and delivers only {deliveredQuantity} kg. Find his actual profit percentage.",
+      "On purchase, a trader pays ₹{purchasePricePerNominalQuantity} for {nominalQuantity} kg but receives {receivedQuantity} kg; on sale, he charges ₹{sellingPricePerNominalQuantity} and gives {deliveredQuantity} kg. What is the true profit percentage?"
+    ],
+    "hi": [
+      "एक चीनी व्यापारी नाममात्र {nominalQuantity} किग्रा के लिए ₹{purchasePricePerNominalQuantity} देता है, पर वास्तव में {receivedQuantity} किग्रा प्राप्त करता है। बिक्री में ₹{sellingPricePerNominalQuantity} लेकर केवल {deliveredQuantity} किग्रा देता है। वास्तविक लाभ प्रतिशत ज्ञात कीजिए।",
+      "खरीद पर व्यापारी {nominalQuantity} किग्रा के लिए ₹{purchasePricePerNominalQuantity} देता है लेकिन {receivedQuantity} किग्रा पाता है; बिक्री पर ₹{sellingPricePerNominalQuantity} लेकर {deliveredQuantity} किग्रा देता है। वास्तविक लाभ प्रतिशत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਚੀਨੀ ਵਪਾਰੀ ਨਾਮਾਤਰ {nominalQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ ਅਸਲ ਵਿੱਚ {receivedQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲੈਂਦਾ ਹੈ। ਵਿਕਰੀ ਵੇਲੇ ₹{sellingPricePerNominalQuantity} ਲੈ ਕੇ ਸਿਰਫ਼ {deliveredQuantity} ਕਿਲੋਗ੍ਰਾਮ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਖਰੀਦ ਵੇਲੇ ਵਪਾਰੀ {nominalQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ ਪਰ {receivedQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲੈਂਦਾ ਹੈ; ਵਿਕਰੀ ਵੇਲੇ ₹{sellingPricePerNominalQuantity} ਲੈ ਕੇ {deliveredQuantity} ਕਿਲੋਗ੍ਰਾਮ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-128": {
+    "en": [
+      "An oil dealer pays ₹{purchasePricePerNominalQuantity} for a nominal {nominalQuantity} litres but receives {receivedQuantity} litres. He charges ₹{sellingPricePerNominalQuantity} and supplies {deliveredQuantity} litres. Find the actual percentage gain or loss.",
+      "A dealer gains quantity while buying oil and short-delivers while selling: purchase ₹{purchasePricePerNominalQuantity} for nominal {nominalQuantity} litres, actual receipt {receivedQuantity} litres; sale ₹{sellingPricePerNominalQuantity} with delivery {deliveredQuantity} litres. Determine the true percentage result."
+    ],
+    "hi": [
+      "एक तेल व्यापारी नाममात्र {nominalQuantity} लीटर के लिए ₹{purchasePricePerNominalQuantity} देता है, पर {receivedQuantity} लीटर प्राप्त करता है। वह ₹{sellingPricePerNominalQuantity} लेता है और {deliveredQuantity} लीटर देता है। वास्तविक लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "तेल व्यापारी खरीद में अधिक मात्रा पाता और बिक्री में कम देता है: नाममात्र {nominalQuantity} लीटर के लिए ₹{purchasePricePerNominalQuantity}, वास्तविक प्राप्ति {receivedQuantity} लीटर; बिक्री ₹{sellingPricePerNominalQuantity} में {deliveredQuantity} लीटर। वास्तविक प्रतिशत परिणाम ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਤੇਲ ਵਪਾਰੀ ਨਾਮਾਤਰ {nominalQuantity} ਲੀਟਰ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ {receivedQuantity} ਲੀਟਰ ਪ੍ਰਾਪਤ ਕਰਦਾ ਹੈ। ਉਹ ₹{sellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ ਅਤੇ {deliveredQuantity} ਲੀਟਰ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਤੇਲ ਵਪਾਰੀ ਖਰੀਦ ਵਿੱਚ ਵੱਧ ਮਾਤਰਾ ਲੈਂਦਾ ਅਤੇ ਵਿਕਰੀ ਵਿੱਚ ਘੱਟ ਦਿੰਦਾ ਹੈ: ਨਾਮਾਤਰ {nominalQuantity} ਲੀਟਰ ਲਈ ₹{purchasePricePerNominalQuantity}, ਅਸਲ ਪ੍ਰਾਪਤੀ {receivedQuantity} ਲੀਟਰ; ਵਿਕਰੀ ₹{sellingPricePerNominalQuantity} ਵਿੱਚ {deliveredQuantity} ਲੀਟਰ। ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਪਤਾ ਕਰੋ।"
+    ]
   }
 };
 
