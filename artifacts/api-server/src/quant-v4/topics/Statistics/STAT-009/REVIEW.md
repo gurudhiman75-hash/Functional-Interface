@@ -105,7 +105,7 @@ D. 0.0755
 
 **Answer:** A. 0.1255
 
-**Explanation:** P(X=3) = e^(−λ)λ^3/3! = e^(−1.5)(1.5)^3/3! = 0.1255.
+**Explanation:** P(X=3) = e^(−λ)λ^3/3! = e^(−1.5)(1.5)^3/3! ≈ 0.1255.
 
 ## STAT-QL-104 — Poisson mean and variance
 
@@ -144,7 +144,7 @@ D. 0.7065
 
 **Answer:** B. 0.6065
 
-**Explanation:** For an exponential variable, P(X>t) = e^(−λt) = e^(−0.25×2) = 0.6065.
+**Explanation:** For an exponential variable, P(X>t) = e^(−λt) = e^(−0.25×2) ≈ 0.6065.
 
 ## STAT-QL-107 — Marginal probability from a joint table
 
