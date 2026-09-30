@@ -95,6 +95,11 @@ const DAMAGED_PRESETS = [
   { total: 100n, damaged: 20n, cost: 100, recovery: 20, target: 10 },
   { total: 100n, damaged: 25n, cost: 120, recovery: 120, target: 10 },
   { total: 80n, damaged: 20n, cost: 150, recovery: 60, target: 20 },
+  { total: 120n, damaged: 20n, cost: 100, recovery: 40, target: 10 },
+  { total: 150n, damaged: 30n, cost: 80, recovery: 40, target: 20 },
+  { total: 200n, damaged: 40n, cost: 60, recovery: 30, target: 10 },
+  { total: 90n, damaged: 18n, cost: 200, recovery: 100, target: 10 },
+  { total: 160n, damaged: 40n, cost: 75, recovery: 30, target: 20 },
 ] as const;
 
 const UNSOLD_PRESETS = [
@@ -129,6 +134,11 @@ const SPOILED_PRESETS = [
     spoiledRecovery: 60,
     target: 0,
   },
+  { total: 120n, good: 90n, cost: 100, goodPrice: 120, spoiledRecovery: 40, target: 10 },
+  { total: 150n, good: 120n, cost: 80, goodPrice: 90, spoiledRecovery: 40, target: 10 },
+  { total: 200n, good: 160n, cost: 60, goodPrice: 70, spoiledRecovery: 20, target: 10 },
+  { total: 90n, good: 72n, cost: 200, goodPrice: 220, spoiledRecovery: 120, target: 10 },
+  { total: 160n, good: 120n, cost: 75, goodPrice: 90, spoiledRecovery: 30, target: 10 },
 ] as const;
 
 export function cp003PlainMoney(value: Money): string {
