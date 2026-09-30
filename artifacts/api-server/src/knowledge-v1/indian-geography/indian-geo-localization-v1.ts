@@ -1,3 +1,12 @@
+import { localizeGeoSoi001ExactCp001PartA } from "./soils/geo-soi-001-localization-cp001-part-a-v1";
+import { localizeGeoSoi001ExactCp001PartB } from "./soils/geo-soi-001-localization-cp001-part-b-v1";
+import { localizeGeoSoi001ExactCp001PartC } from "./soils/geo-soi-001-localization-cp001-part-c-v1";
+import { localizeGeoSoi001ExactCp002PartA } from "./soils/geo-soi-001-localization-cp002-part-a-v1";
+import { localizeGeoSoi001ExactCp002PartB } from "./soils/geo-soi-001-localization-cp002-part-b-v1";
+import { localizeGeoSoi001ExactCp002PartC } from "./soils/geo-soi-001-localization-cp002-part-c-v1";
+import { localizeGeoSoi001ExactCp003PartA } from "./soils/geo-soi-001-localization-cp003-part-a-v1";
+import { localizeGeoSoi001ExactCp003PartB } from "./soils/geo-soi-001-localization-cp003-part-b-v1";
+import { localizeGeoSoi001ExactCp003PartC } from "./soils/geo-soi-001-localization-cp003-part-c-v1";
 import {
   GEO_WAT_001_CP001_HINDI_LOCALIZATION_V1,
   GEO_WAT_001_CP001_PUNJABI_LOCALIZATION_V1,
@@ -729,6 +738,20 @@ export function localizeIndianGeoQuestionV1(
       canonicalAnswer: question.canonicalAnswer,
       explanation: question.explanation,
     });
+  }
+
+  if (packageId === "GEO-SOI-001") {
+    const approved =
+      localizeGeoSoi001ExactCp001PartA(question, language) ??
+      localizeGeoSoi001ExactCp001PartB(question, language) ??
+      localizeGeoSoi001ExactCp001PartC(question, language) ??
+      localizeGeoSoi001ExactCp002PartA(question, language) ??
+      localizeGeoSoi001ExactCp002PartB(question, language) ??
+      localizeGeoSoi001ExactCp002PartC(question, language) ??
+      localizeGeoSoi001ExactCp003PartA(question, language) ??
+      localizeGeoSoi001ExactCp003PartB(question, language) ??
+      localizeGeoSoi001ExactCp003PartC(question, language);
+    if (approved) return approved;
   }
 
   if (packageId === "GEO-WAT-001") {
