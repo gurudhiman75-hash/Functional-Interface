@@ -249,8 +249,22 @@ function cluesAreEssential(all: readonly SelectionAssignment[], clues: readonly 
 function chooseClues(candidates: readonly CandidateId[], hidden: SelectionAssignment, profile: Lp004Profile, difficultyBand: DifficultyBand, random: () => number): SelectionClue[] {
   const all = enumerateAssignments(candidates, 4); const available = buildCandidates(candidates, hidden, profile, random);
   const quotas: Array<readonly SelectionClue["kind"][]> = difficultyBand === "Hard"
-    ? [["TOGETHER", "EXACTLY_ONE", "IF_SELECTED", "NOT_TOGETHER", "MUST_SELECT"], ["EXACTLY_ONE", "TOGETHER", "MUST_NOT_SELECT", "IF_SELECTED", "NOT_TOGETHER"], ["IF_SELECTED", "EXACTLY_ONE", "NOT_TOGETHER", "TOGETHER", "MUST_NOT_SELECT"]]
-    : [["MUST_SELECT", "EXACTLY_ONE", "TOGETHER", "NOT_TOGETHER"], ["EXACTLY_ONE", "MUST_NOT_SELECT", "TOGETHER", "NOT_TOGETHER"], ["TOGETHER", "MUST_SELECT", "EXACTLY_ONE", "NOT_TOGETHER"]];
+    ? [
+        ["TOGETHER", "EXACTLY_ONE", "IF_SELECTED", "NOT_TOGETHER", "MUST_SELECT"],
+        ["EXACTLY_ONE", "TOGETHER", "MUST_NOT_SELECT", "IF_SELECTED", "NOT_TOGETHER"],
+        ["IF_SELECTED", "EXACTLY_ONE", "NOT_TOGETHER", "TOGETHER", "MUST_NOT_SELECT"],
+        ["NOT_TOGETHER", "IF_SELECTED", "TOGETHER", "EXACTLY_ONE", "MUST_SELECT"],
+        ["EXACTLY_ONE", "NOT_TOGETHER", "IF_SELECTED", "TOGETHER", "MUST_NOT_SELECT"],
+        ["IF_SELECTED", "TOGETHER", "NOT_TOGETHER", "MUST_SELECT", "EXACTLY_ONE"],
+      ]
+    : [
+        ["MUST_SELECT", "EXACTLY_ONE", "TOGETHER", "NOT_TOGETHER"],
+        ["EXACTLY_ONE", "MUST_NOT_SELECT", "TOGETHER", "NOT_TOGETHER"],
+        ["TOGETHER", "MUST_SELECT", "EXACTLY_ONE", "NOT_TOGETHER"],
+        ["NOT_TOGETHER", "EXACTLY_ONE", "TOGETHER", "MUST_SELECT"],
+        ["MUST_NOT_SELECT", "TOGETHER", "NOT_TOGETHER", "EXACTLY_ONE"],
+        ["EXACTLY_ONE", "IF_SELECTED", "NOT_TOGETHER", "TOGETHER"],
+      ];
   for (const quota of shuffle(quotas, random)) {
     let survivors = all; const chosen: SelectionClue[] = []; let failed = false;
     for (const kind of quota) { const selected = best(survivors, available, chosen, kind); if (!selected) { failed = true; break; } chosen.push(selected); survivors = survivors.filter((state) => satisfies(state, selected)); }
