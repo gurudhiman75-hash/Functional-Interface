@@ -221,3 +221,20 @@ Remediation:
 - a dedicated path-scoped workflow runs the complete 990-set structural/ambiguity audit, unique-signature checks, 20,000-seed soak and Question Studio integration test.
 
 No authority IDs, fragment surfaces, canonical orders, saturation counts, difficulty labels or production-release permissions are changed.
+
+
+## Phase 15 — ENG-012 Word Swap final quality revalidation
+
+The 450-authority / 1,350-surface ENG-012 bank remains structurally saturated and no additional volume is justified. Revalidation found two concrete post-closure defects in active Question Studio integration:
+
+1. **CP005 profile-routing bug.** A request for a specific composed profile such as `ssc-standard`, `ssc-advanced`, `banking-prelims` or `banking-mains` did not pass that profile into the CP005 composer. The composer therefore selected a profile deterministically from the seed and could return a source CP different from the one explicitly requested.
+2. **Stale Question Studio approval state.** Whole-English closure records the 450-authority production bank as approved, but the adapter still exposed `humanApprovalPending: true` and marked every generated question as unapproved.
+
+Remediation:
+- CP005 now parses the requested profile and passes it to `generateEng012Cp005SetV2`;
+- a dedicated Question Studio integration test covers all four CP005 profiles and asserts the correct source CP;
+- a dedicated `ENG-012-PRODUCTION-450-HUMAN-APPROVED-V1` authority records the approved CP001–CP005 / 450-authority / 1,350-surface review-only state;
+- Question Studio now exposes human/editorial approval while keeping Question Bank writes, test/mock eligibility, public publication and production release locked;
+- a dedicated path-scoped workflow runs the full 450-authority natural-surface/no-correction audit, 20,000-seed soak and Question Studio integration test.
+
+The earlier V2 natural-language remediation remains guarded: defective library, term-deposit and ATM variants stay explicitly forbidden. No authority IDs, swap pairs, lexical surface counts, no-correction distribution, difficulty labels or production-release permissions are changed.
