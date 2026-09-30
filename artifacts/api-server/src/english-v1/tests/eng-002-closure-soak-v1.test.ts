@@ -113,6 +113,16 @@ for (const [cpId, prefix, expectedRuleCount] of CPS) {
       assert.ok(stripTags(sentence).toLowerCase().includes(targetText.replace(/[,.;:!?]+$/, "").toLowerCase()), `${cellKey}/${index} target text is absent from learner sentence`);
       assert.equal(options.length, 4, `${cellKey}/${index} option count drifted`);
       assert.equal(options[3], "No improvement", `${cellKey}/${index} must keep No improvement as D`);
+
+      const visibleSentence = stripTags(sentence);
+      if (correctIndex === 3) {
+        assert.equal(visibleSentence, correctedSentence,
+          `${cellKey}/${index} keys No improvement but the visible sentence differs from the corrected sentence`);
+      } else {
+        assert.notEqual(visibleSentence, correctedSentence,
+          `${cellKey}/${index} requires improvement although the visible sentence is already correct`);
+      }
+
       assert.equal(new Set(options.map((option) => option.toLowerCase())).size, 4, `${cellKey}/${index} duplicate options`);
       assert.ok(Number.isInteger(correctIndex) && correctIndex >= 0 && correctIndex < 4, `${cellKey}/${index} invalid answer index`);
       assert.ok(correctedSentence.length >= 12, `${cellKey}/${index} corrected sentence too short`);
