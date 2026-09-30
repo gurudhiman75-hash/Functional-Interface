@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { materializeEng003Cp003AnswerV1 } from "../chapters/grammar-fillers/ENG-003/CP003/eng-003-cp003-v1";
 import { generateQuestionStudioQuestions, listQuestionStudioPackages } from "../../question-studio/engine-registry";
 
 const PACKAGE_ID = "english-eng003-grammar-fillers-v1";
@@ -46,7 +47,9 @@ for (const cpId of CPS) {
       assert.ok(Number.isInteger(correctIndex)&&correctIndex>=0&&correctIndex<4);
       assert.ok(!options.some(x=>/no improvement/i.test(x)),`${cpId} leaked Sentence Improvement mode`);
       const answer=options[correctIndex]!;
-      const reconstructed=normalize(sentence.replace("_____",answer));
+      const reconstructed=cpId==="ENG-003-CP003"
+        ? materializeEng003Cp003AnswerV1(sentence,answer)
+        : normalize(sentence.replace("_____",answer));
       assert.equal(reconstructed,normalize(correctedSentence),
         `${cpId}/${difficulty}/${index} correct filler does not reconstruct approved sentence`);
       assert.ok(explanation.includes(answer),`${cpId} explanation omits selected filler`);
