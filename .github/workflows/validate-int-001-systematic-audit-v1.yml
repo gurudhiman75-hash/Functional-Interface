@@ -2,10 +2,11 @@ name: Validate INT-001 Systematic Audit V1
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
-      - ".github/workflows/validate-int-001-systematic-audit-v1.yml"
   push:
     branches:
       - audit/int-001-systematic-audit-v1-20260930
@@ -13,6 +14,10 @@ on:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
       - ".github/workflows/validate-int-001-systematic-audit-v1.yml"
+
+concurrency:
+  group: int-001-systematic-audit-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
