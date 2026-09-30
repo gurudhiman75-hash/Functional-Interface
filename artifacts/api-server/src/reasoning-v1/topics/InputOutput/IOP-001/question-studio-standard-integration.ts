@@ -421,7 +421,9 @@ export function generateIop001StandardQuestionStudioBatch(
 
   for (let attempt = 0; questions.length < count && attempt < count * 12 + 64; attempt += 1) {
     const qlId = candidates[hashSeed(`${baseSeed}|QL|${attempt}`) % candidates.length]!;
-    const caseletSeed = `${baseSeed}|${language}|${qlId}|${attempt}`;
+    // Semantic generation must be language-neutral. Localization is a projection
+    // of the same frozen machine state, not a separately seeded question.
+    const caseletSeed = `${baseSeed}|${qlId}|${attempt}`;
     const mode = modeFor(qlId, caseletSeed, requestedMode, solveMode, difficulty);
     const caselet = sourceCaselet(caseletSeed, qlId, mode.sourceModeId, language);
     if (caseletUsesBlockedExamVocabulary(caselet)) continue;
