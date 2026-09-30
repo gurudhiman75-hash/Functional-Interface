@@ -40,7 +40,10 @@ for(const set of ENG011_ACTIVE_SETS_V2){
  assert.equal(q.options[q.correctOptionIndex],q.metadata.correctOrder);
  assert.equal(q.fragments.length,set.fragments.length);
  assert.equal(q.metadata.reviewOnly,true);
- assert.ok(q.explanation.length>180,"ENG-011 explanations should be simple and sufficiently detailed");
+ assert.ok(q.explanation.length>120,"ENG-011 explanations should be simple and sufficiently detailed");
+ assert.ok(q.explanation.includes(set.explanation.trim()),`${set.id} must preserve the authored structural explanation`);
+ const logicalSentence=set.order.map(n=>set.fragments[n-1]!).join(" ").replace(/\s+/g," ").trim();
+ assert.ok(q.explanation.includes(logicalSentence),`${set.id} explanation must reconstruct the complete sentence`);
  assert.ok(Array.isArray(q.explanationEmphasis)&&q.explanationEmphasis.length>0,"ENG-011 explanations should expose emphasis cues");
  const identity=Array.from({length:q.fragments.length},(_,i)=>String.fromCharCode(65+i)).join("-");
  assert.notEqual(q.metadata.correctOrder,identity,"Displayed ENG-011 question must not leak an identity answer order");
