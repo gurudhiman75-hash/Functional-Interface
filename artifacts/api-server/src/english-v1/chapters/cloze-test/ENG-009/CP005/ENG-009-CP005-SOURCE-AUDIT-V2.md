@@ -41,6 +41,9 @@ Post-remediation lengths:
 - C06: 352
 - C07: 365
 - C08: 381
+- C10: 303 (restored above the 300-word floor)
+
+All 18 active CP005 passages now satisfy the 300–540 word contract.
 
 ## Validation contract
 
