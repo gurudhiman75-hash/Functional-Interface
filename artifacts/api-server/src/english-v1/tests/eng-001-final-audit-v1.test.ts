@@ -144,12 +144,12 @@ for (const [cpId, cpLabel] of CPS) {
       // Question Studio has normalized the sentence segmentation.
       if (qlId !== "ENG-001-QL007") {
         const keyedLabel = String.fromCharCode(65 + correctIndex);
-        const mentionedParts = [...explanation.matchAll(/\\bPart ([A-D])\\b/g)].map((match) => match[1]);
+        const mentionedParts = [...explanation.matchAll(/\bPart ([A-D])\b/g)].map((match) => match[1]);
         assert.ok(mentionedParts.length > 0, `${cpId}/${qlId} explanation omits the error-bearing part`);
         assert.ok(mentionedParts.every((label) => label === keyedLabel),
           `${cpId}/${qlId} explanation identifies a part different from the displayed answer ${keyedLabel}`);
       } else {
-        assert.doesNotMatch(explanation, /\\bPart [A-D] (?:contains the error|is incorrect|has the error|needs correction)\\b/i,
+        assert.doesNotMatch(explanation, /\bPart [A-D] (?:contains the error|is incorrect|has the error|needs correction)\b/i,
           `${cpId} no-error explanation incorrectly identifies an error-bearing part`);
       }
 
