@@ -2,7 +2,7 @@ import { getAvg001QuestionEntry } from "./library";
 import type { Rational, Avg001QuestionPackage } from "./types";
 
 export type Avg001Cp006PilotLanguage = "hi" | "pa";
-type UnitKind = "marks" | "currency" | "years" | "units" | "runs" | "none";
+type UnitKind = "marks" | "currency" | "years" | "units" | "runs" | "kg" | "none";
 
 type ContextWords = {
   lowerPlural: string;
@@ -84,6 +84,7 @@ function display(value: string, kind: UnitKind, language: Avg001Cp006PilotLangua
   if (kind === "years") return `${value} ${language === "hi" ? "वर्ष" : "ਸਾਲ"}`;
   if (kind === "units") return `${value} ${language === "hi" ? "इकाइयाँ" : "ਇਕਾਈਆਂ"}`;
   if (kind === "runs") return `${value} ${language === "hi" ? "रन" : "ਦੌੜਾਂ"}`;
+  if (kind === "kg") return `${value} ${language === "hi" ? "किग्रा" : "ਕਿਲੋਗ੍ਰਾਮ"}`;
   return value;
 }
 
