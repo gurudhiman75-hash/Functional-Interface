@@ -76,12 +76,7 @@ function chooseFrequency(seed: string, qlId: IntCp004QlId): Cp004Frequency {
 }
 
 function inverseRatePool(frequency: Cp004Frequency): readonly Rational[] {
-  if (frequency === 2) {
-    return Object.freeze([
-      rat(4), rat(6), rat(8), rat(10), rat(12), rat(14), rat(16),
-      rat(18), rat(20), rat(22), rat(24), rat(26), rat(28), rat(30),
-    ]);
-  }
+  if (frequency === 2) return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24), rat(30)]);
   return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24)]);
 }
 
@@ -93,7 +88,11 @@ function nominalRatePoolFor(
 ): readonly Rational[] {
   if (["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072"].includes(qlId)) return inverseRatePool(frequency);
   if (qlId === "INT-QL-077") {
-    return frequency === 4 ? Object.freeze([rat(40)]) : inverseRatePool(frequency);
+    if (frequency === 4) return Object.freeze([rat(40)]);
+    return Object.freeze([
+      rat(4), rat(6), rat(8), rat(10), rat(12), rat(14), rat(16),
+      rat(18), rat(20), rat(22), rat(24), rat(26), rat(28), rat(30),
+    ]);
   }
   if (["INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(qlId)) return Object.freeze([rat(10), rat(20), rat(25)]);
   if (["INT-QL-084", "INT-QL-085"].includes(qlId)) return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24)]);
