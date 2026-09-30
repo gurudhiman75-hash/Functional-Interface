@@ -146,6 +146,31 @@ for (let index = 0; index < 40; index += 1) {
   }
 }
 
+for (const cpId of PCT_003_CP_IDS) {
+  const rotated = Array.from({ length: 15 }, (_, diversityOrdinal) =>
+    runPct003Pipeline(cpId, {
+      language: "en",
+      seed: `pct-003-diversity-ordinal:${cpId}:${diversityOrdinal}`,
+      diversityOrdinal,
+    }),
+  );
+  assert.equal(
+    new Set(rotated.map((item) => item.questionLanguageId)).size,
+    15,
+    `${cpId} should consume all 15 English QLs before audit reuse`,
+  );
+}
+
+const explicitEasyRotation = Array.from({ length: 6 }, (_, diversityOrdinal) =>
+  runPct003Pipeline("PCT-CP-001", {
+    language: "en",
+    seed: `pct-003-explicit-easy:${diversityOrdinal}`,
+    difficultyBand: "Easy",
+    diversityOrdinal,
+  }),
+);
+assert.ok(explicitEasyRotation.every((item) => item.difficultyBand === "Easy"));
+
 const hiPkg003 = runPct003Pipeline("PCT-CP-001", {
   language: "hi",
   questionLanguageId: "PCT-QL-001",
