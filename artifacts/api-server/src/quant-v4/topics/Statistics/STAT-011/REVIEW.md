@@ -53,7 +53,7 @@ D. 0.48
 
 **Answer:** B. 0.38
 
-**Explanation:** For Bernoulli data, both the sample proportion and the estimate from the first-moment equation are x̄ = 30/80 = 0.38.
+**Explanation:** For Bernoulli data, both the sample proportion and the estimate from the first-moment equation are x̄ = 30/80 ≈ 0.38 (rounded to two decimal places).
 
 ## STAT-QL-128 — Maximum likelihood estimate for Bernoulli probability
 
@@ -66,7 +66,7 @@ D. 0.43
 
 **Answer:** B. 0.38
 
-**Explanation:** For Bernoulli data, both the sample proportion and the estimate from the first-moment equation are x̄ = 30/80 = 0.38.
+**Explanation:** For Bernoulli data, both the sample proportion and the estimate from the first-moment equation are x̄ = 30/80 ≈ 0.38 (rounded to two decimal places).
 
 ## STAT-QL-129 — Least-squares slope
 
