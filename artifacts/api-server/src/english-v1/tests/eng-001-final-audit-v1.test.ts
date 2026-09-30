@@ -140,6 +140,19 @@ for (const [cpId, cpLabel] of CPS) {
       assert.doesNotMatch(`${stem}\n${explanation}`, /\b(?:candidateId|mutationId|generationSeed|review-only|Question Studio)\b/i);
       assert.doesNotMatch(explanation, /\bOption\s+[A-E]\b/i, `${cpId}/${qlId} contains option-by-option analysis`);
 
+      // Explanations must identify the final learner-facing answer part after
+      // Question Studio has normalized the sentence segmentation.
+      if (qlId !== "ENG-001-QL007") {
+        const keyedLabel = String.fromCharCode(65 + correctIndex);
+        const mentionedParts = [...explanation.matchAll(/\bPart ([A-D])\b/g)].map((match) => match[1]);
+        assert.ok(mentionedParts.length > 0, `${cpId}/${qlId} explanation omits the error-bearing part`);
+        assert.ok(mentionedParts.every((label) => label === keyedLabel),
+          `${cpId}/${qlId} explanation identifies a part different from the displayed answer ${keyedLabel}`);
+      } else {
+        assert.doesNotMatch(explanation, /\bPart [A-D] (?:contains the error|is incorrect|has the error|needs correction)\b/i,
+          `${cpId} no-error explanation incorrectly identifies an error-bearing part`);
+      }
+
       if (qlId === "ENG-001-QL001") {
         assert.equal(options.includes("No error"), false, `${cpId} QL001 unexpectedly exposes No error`);
       } else {
