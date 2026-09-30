@@ -207,8 +207,16 @@ for (const cpId of RAP_001_CP_IDS) {
       diversityOrdinal: index,
     });
     assert.equal(pkg.validation.valid, true);
-    assert.ok(typeof pkg.mathJax === "string" && pkg.mathJax.trim().length > 0, `${cpId} must expose MathJax`);
-    assert.equal((pkg.mathJax.match(/\\\(/g) ?? []).length, (pkg.mathJax.match(/\\\)/g) ?? []).length, `${cpId} MathJax delimiters must balance`);
+    const mathJaxValues = Object.values(pkg.mathJax ?? {});
+    assert.ok(mathJaxValues.length > 0, `${cpId} must expose MathJax expressions`);
+    for (const expression of mathJaxValues) {
+      assert.ok(typeof expression === "string" && expression.trim().length > 0, `${cpId} MathJax expression must be non-empty`);
+      assert.equal(
+        (expression.match(/\\\\\(/g) ?? []).length,
+        (expression.match(/\\\\\)/g) ?? []).length,
+        `${cpId} MathJax inline delimiters must balance`,
+      );
+    }
     for (const value of Object.values(pkg.parameters.variables)) {
       if (typeof value === "string" && /\{[^}]+\}/.test(value)) {
         assert.fail(`${cpId} leaked unresolved placeholder in expanded object pool`);
