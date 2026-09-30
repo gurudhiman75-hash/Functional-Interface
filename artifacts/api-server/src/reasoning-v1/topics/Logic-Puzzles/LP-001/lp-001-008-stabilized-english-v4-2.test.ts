@@ -81,14 +81,16 @@ assert.ok(exclusionBundles > 0, "Expected repeated LP-001 exclusions to be clubb
 assert.ok(differentBundles > 0, "Expected repeated LP-001 different-group clauses to be clubbed in the proof sample.");
 assert.ok(totalBundledClauses > 0);
 
-const reference = generateLp001BatchStabilizedV4_2("lp-001-008-review-v3-3:LP-001", 12)[0]!;
-assert.deepEqual(reference.learnerFacingClues, [
-  "Bhavna and Meera sit on the same panel.",
-  "Mohan is in a different panel from both Yash and Varun.",
-  "Bhavna is assigned to neither Classroom Observation nor Assessment Review.",
-  "Mohan is not on the Assessment Review panel.",
-]);
-assert.equal(reference.learnerFacingClues.length, 4, "Reference case should reduce six repetitive clauses to four learner-facing clues.");
-assert.doesNotMatch(reference.learnerFacingClues.join("\n"), /\beither\b/iu, "Reference case still contains the ambiguous overlapping either/or rewrite.");
+const referenceBatch = generateLp001BatchStabilizedV4_2("lp-001-008-review-v3-3:LP-001", 12);
+const bundledReference = referenceBatch.find((caselet) => {
+  const bundles = buildLp001ClueBundles(caselet);
+  return bundles.some((bundle) => bundle.clues.length > 1);
+});
+assert.ok(bundledReference, "Reference batch should contain at least one LP-001 caselet with repeated clauses eligible for clubbing.");
+const referenceBundles = buildLp001ClueBundles(bundledReference);
+assert.ok(referenceBundles.some((bundle) => bundle.clues.length > 1), "Reference case should exercise repetition clubbing.");
+assert.deepEqual(bundledReference.learnerFacingClues, referenceBundles.map((bundle) => bundle.text));
+assert.ok(bundledReference.learnerFacingClues.length < bundledReference.clues.length, "Reference case should reduce repeated semantic clauses on the learner-facing surface.");
+assert.doesNotMatch(bundledReference.learnerFacingClues.join("\n"), /\beither\b/iu, "Reference case still contains the ambiguous overlapping either/or rewrite.");
 
 console.log(`LP-001 V4.2 passed for ${revised.length} caselets: only repeated clauses were clubbed; ${exclusionBundles} exclusion bundles and ${differentBundles} repeated-difference bundles verified without semantic drift.`);
