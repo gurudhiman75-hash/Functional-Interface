@@ -374,6 +374,14 @@ const DESERT_STEMS: Readonly<Record<DesertFact['key'], LocalizedValue>> = {
   antarctic: { en: 'Which polar desert receives very little precipitation despite its extensive ice cover?', hi: 'बर्फ़ की विशाल परत के बावजूद किस ध्रुवीय मरुस्थल में बहुत कम वर्षण होता है?', pa: 'ਬਰਫ਼ ਦੀ ਵਿਸ਼ਾਲ ਪਰਤ ਦੇ ਬਾਵਜੂਦ ਕਿਹੜੇ ਧਰੁਵੀ ਰੇਗਿਸਤਾਨ ਵਿੱਚ ਬਹੁਤ ਘੱਟ ਵਰਖਾ ਹੁੰਦੀ ਹੈ?' },
   kalahari: { en: 'Which semi-arid basin covers Botswana and neighbouring parts of southern Africa?', hi: 'बोत्सवाना और दक्षिणी अफ्रीका के निकटवर्ती भागों में कौन-सा अर्ध-शुष्क बेसिन फैला है?', pa: 'ਬੋਤਸਵਾਨਾ ਅਤੇ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਦੇ ਨੇੜਲੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਕਿਹੜਾ ਅਰਧ-ਖੁਸ਼ਕ ਬੇਸਿਨ ਫੈਲਿਆ ਹੈ?' },
   patagonian: { en: 'Which desert lies east of the southern Andes in Argentina’s rain shadow?', hi: 'अर्जेंटीना में दक्षिणी एंडीज़ के पूर्व की वर्षा-छाया में कौन-सा मरुस्थल स्थित है?', pa: 'ਅਰਜਨਟੀਨਾ ਵਿੱਚ ਦੱਖਣੀ ਐਂਡੀਜ਼ ਦੇ ਪੂਰਬ ਵੱਲ ਵਰਖਾ-ਛਾਂ ਵਿੱਚ ਕਿਹੜਾ ਰੇਗਿਸਤਾਨ ਸਥਿਤ ਹੈ?' },
+
+  arabian: { en: 'Which broad hot-desert region occupies much of the Arabian Peninsula?', hi: 'अरब प्रायद्वीप के बड़े भाग में कौन-सा विस्तृत गर्म मरुस्थलीय क्षेत्र फैला है?', pa: 'ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਕਿਹੜਾ ਵਿਸ਼ਾਲ ਗਰਮ ਰੇਗਿਸਤਾਨੀ ਖੇਤਰ ਫੈਲਿਆ ਹੈ?' },
+  mojave: { en: 'Which desert lies mainly in California and Nevada in the south-western United States?', hi: 'दक्षिण-पश्चिमी संयुक्त राज्य अमेरिका में मुख्यतः कैलिफ़ोर्निया और नेवादा में कौन-सा मरुस्थल स्थित है?', pa: 'ਦੱਖਣ-ਪੱਛਮੀ ਸੰਯੁਕਤ ਰਾਜ ਵਿੱਚ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕੈਲੀਫ਼ੋਰਨੀਆ ਅਤੇ ਨੇਵਾਡਾ ਵਿੱਚ ਕਿਹੜਾ ਰੇਗਿਸਤਾਨ ਸਥਿਤ ਹੈ?' },
+  sonoran: { en: 'Which desert extends across north-western Mexico and the south-western United States?', hi: 'उत्तर-पश्चिमी मेक्सिको और दक्षिण-पश्चिमी संयुक्त राज्य अमेरिका में कौन-सा मरुस्थल फैला है?', pa: 'ਉੱਤਰ-ਪੱਛਮੀ ਮੈਕਸੀਕੋ ਅਤੇ ਦੱਖਣ-ਪੱਛਮੀ ਸੰਯੁਕਤ ਰਾਜ ਵਿੱਚ ਕਿਹੜਾ ਰੇਗਿਸਤਾਨ ਫੈਲਿਆ ਹੈ?' },
+  chihuahuan: { en: 'Which desert covers much of northern Mexico and extends into the southern United States?', hi: 'उत्तरी मेक्सिको के बड़े भाग में फैला और दक्षिणी संयुक्त राज्य अमेरिका तक जाने वाला मरुस्थल कौन-सा है?', pa: 'ਉੱਤਰੀ ਮੈਕਸੀਕੋ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਅਤੇ ਦੱਖਣੀ ਸੰਯੁਕਤ ਰਾਜ ਤੱਕ ਜਾਣ ਵਾਲਾ ਰੇਗਿਸਤਾਨ ਕਿਹੜਾ ਹੈ?' },
+  'great-victoria': { en: 'Which large desert lies in southern inland Australia?', hi: 'ऑस्ट्रेलिया के दक्षिणी आंतरिक भाग में कौन-सा बड़ा मरुस्थल स्थित है?', pa: 'ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਦੱਖਣੀ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਵਿੱਚ ਕਿਹੜਾ ਵੱਡਾ ਰੇਗਿਸਤਾਨ ਸਥਿਤ ਹੈ?' },
+  taklamakan: { en: 'Which desert occupies the Tarim Basin in western China?', hi: 'पश्चिमी चीन के तारिम बेसिन में कौन-सा मरुस्थल स्थित है?', pa: 'ਪੱਛਮੀ ਚੀਨ ਦੇ ਤਾਰਿਮ ਬੇਸਿਨ ਵਿੱਚ ਕਿਹੜਾ ਰੇਗਿਸਤਾਨ ਸਥਿਤ ਹੈ?' },
+  'rub-al-khali': { en: 'Which vast sand desert on the Arabian Peninsula is also called the Empty Quarter?', hi: 'अरब प्रायद्वीप का कौन-सा विशाल रेतीला मरुस्थल एम्प्टी क्वार्टर भी कहलाता है?', pa: 'ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਦਾ ਕਿਹੜਾ ਵਿਸ਼ਾਲ ਰੇਤਲਾ ਰੇਗਿਸਤਾਨ ਐਮਪਟੀ ਕਵਾਰਟਰ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?' },
 };
 
 function makeDesertQuestion(target: DesertFact, targetIndex: number): WorldGeographyQuestion {
