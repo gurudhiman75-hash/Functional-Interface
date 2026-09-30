@@ -3,6 +3,8 @@ import {
   GEO_WAT_001_CP001_PUNJABI_LOCALIZATION_V1,
 } from "./water-resources/geo-wat-001-localization-cp001-v1";
 import { localizeGeoWat001ExactCp002 } from "./water-resources/geo-wat-001-localization-cp002-v1";
+import { localizeGeoWat001ExactCp003 } from "./water-resources/geo-wat-001-localization-cp003-v1";
+import { localizeGeoWat001ExactCp004 } from "./water-resources/geo-wat-001-localization-cp004-v1";
 import { localizeGeoLnd001ExactCp001 } from "./land-resources/geo-lnd-001-localization-cp001-v1";
 import { localizeGeoLnd001ExactCp002 } from "./land-resources/geo-lnd-001-localization-cp002-v1";
 import { localizeGeoLnd001ExactCp003 } from "./land-resources/geo-lnd-001-localization-cp003-v1";
@@ -724,7 +726,10 @@ export function localizeIndianGeoQuestionV1(
         explanation: approvedCp001.explanation,
       });
     }
-    const approved = localizeGeoWat001ExactCp002(question, language);
+    const approved =
+      localizeGeoWat001ExactCp002(question, language) ??
+      localizeGeoWat001ExactCp003(question, language) ??
+      localizeGeoWat001ExactCp004(question, language);
     if (approved) return approved;
   }
 
