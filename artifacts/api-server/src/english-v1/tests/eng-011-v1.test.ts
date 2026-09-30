@@ -21,7 +21,7 @@ for(const cp of ENG011_CP_IDS_V1.slice(0,4)){
  assert.equal(sets.length,expected.get(cp),`${cp} active-set count`);
 }
 assert.equal(new Set(ENG011_ACTIVE_SETS_V2.map(x=>x.id)).size,990);
-assert.equal(new Set(ENG011_ACTIVE_SETS_V2.map(x=>x.fragments.join("\u241f"))).size,450,"Every fragment signature must be unique");
+assert.equal(new Set(ENG011_ACTIVE_SETS_V2.map(x=>x.fragments.join("\u241f"))).size,990,"Every active ENG-011 fragment signature must be unique");
 
 for(const set of ENG011_ACTIVE_SETS_V2){
  if(set.cpId==="ENG-011-CP001")assert.ok(set.fragments.length===4||set.fragments.length===5,"SSC Standard must use four or five fragments");
@@ -45,6 +45,11 @@ for(const set of ENG011_ACTIVE_SETS_V2){
  const identity=Array.from({length:q.fragments.length},(_,i)=>String.fromCharCode(65+i)).join("-");
  assert.notEqual(q.metadata.correctOrder,identity,"Displayed ENG-011 question must not leak an identity answer order");
 }
+
+const saturation=ENG011_ACTIVE_SETS_V2.filter(x=>x.id.startsWith("SR-SAT-"));
+assert.equal(saturation.length,540);
+const preSaturation=new Set(ENG011_ACTIVE_SETS_V2.filter(x=>!x.id.startsWith("SR-SAT-")).map(x=>x.fragments.join("\u241f")));
+assert.equal(saturation.filter(x=>preSaturation.has(x.fragments.join("\u241f"))).length,0,"No saturation set may duplicate a pre-saturation fragment signature");
 
 const ambiguity=summarizeEng011AmbiguityV1(ENG011_ACTIVE_SETS_V2);
 assert.equal(ambiguity.total,990);
