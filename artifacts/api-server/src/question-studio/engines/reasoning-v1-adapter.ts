@@ -1,3 +1,4 @@
+import { generateVen001NumericalBatch, isVen001NumericalRequest } from "../../reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-numerical.ts";
 import {
   OPS_QL_ENTRIES,
   OPS_QL_FREEZE_VERSION,
@@ -300,6 +301,9 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isVen001NumericalRequest(request)) {
+      return generateVen001NumericalBatch(request);
+    }
     if (isVen001NextCheckpointRequest(request)) {
       return generateVen001NextCheckpointBatch(request);
     }
