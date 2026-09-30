@@ -26,7 +26,8 @@ export function generateEng013QuestionV4(input:Eng013QuestionInputV4={}){
  const prompt=authority.mode==="correct"
   ? `In which of the following sentences is the word "${authority.word}" used correctly?`
   : `In which of the following sentences is the word "${authority.word}" used incorrectly?`;
- const explanation=`${authority.mode==="correct"?"The correct usage":"The incorrect usage"} is option ${String.fromCharCode(65+answer)}. ${authority.explanation} The intended meaning and context determine the answer.`;
+ const comparison=authority.mode==="correct"?`The other options do not use "${authority.word}" in a context that matches its normal meaning or grammatical role.`:`The remaining options use "${authority.word}" in contexts consistent with its normal meaning or grammatical role.`;
+ const explanation=`${authority.mode==="correct"?"The correct usage":"The incorrect usage"} is option ${String.fromCharCode(65+answer)}. ${authority.explanation} ${comparison} The intended meaning and context determine the answer.`;
  return{
   questionId:`ENG013:${authority.id}:${hash(seed).toString(16)}`,
   stem:prompt,targetWord:authority.word,options:ordered.map(x=>x.text),correctOptionIndex:answer,explanation,

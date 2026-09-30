@@ -30,6 +30,8 @@ for(const a of ENG013_ACTIVE_AUTHORITIES_V4){
  assert.ok(q.correctOptionIndex>=0&&q.correctOptionIndex<4);
  assert.equal(q.metadata.reviewOnly,true);
  assert.ok(q.explanation.length>120);
+ assert.ok(q.explanation.includes(a.explanation),`${a.id} generated explanation must preserve the authority-specific reasoning`);
+ assert.ok(q.explanation.includes(a.word),`${a.id} generated explanation must name the target word`);
 }
 
 

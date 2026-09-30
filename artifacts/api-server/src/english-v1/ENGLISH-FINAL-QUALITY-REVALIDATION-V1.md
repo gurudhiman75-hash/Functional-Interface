@@ -238,3 +238,23 @@ Remediation:
 - a dedicated path-scoped workflow runs the full 450-authority natural-surface/no-correction audit, 20,000-seed soak and Question Studio integration test.
 
 The earlier V2 natural-language remediation remains guarded: defective library, term-deposit and ATM variants stay explicitly forbidden. No authority IDs, swap pairs, lexical surface counts, no-correction distribution, difficulty labels or production-release permissions are changed.
+
+
+## Phase 16 — ENG-013 Word Usage final quality revalidation
+
+The 768-authority ENG-013 V4 bank remains structurally saturated; no additional volume is justified. Revalidation found two concrete post-closure defects in active Question Studio integration:
+
+1. **CP005 profile-routing bug.** Requests for a specific composed profile such as `ssc-standard`, `ssc-advanced`, `banking-prelims` or `banking-mains` did not pass the requested profile into `generateEng013Cp005SetV4`. The composer could therefore return a source CP different from the profile explicitly requested.
+2. **Stale Question Studio approval state.** The final V4 editorial remediation and whole-English closure mark the 768-authority bank as approved, but the live adapter still exposed `humanApprovalPending: true` and marked generated questions unapproved.
+3. **V4 lexical-breadth overstatement.** The V4 guard itself exposed 26 target words that already existed in the V3 bank. The affected IDs were retained, but 12 SSC Standard verbs and 14 SSC Advanced adjectives were replaced one-for-one with genuinely new targets. Matching subject/object contexts were updated so the revised surfaces remain natural.
+4. **Explanation-depth regression.** The full 768-authority run exposed older authorities whose rendered explanations fell below the chapter's own quality floor. The shared generator now preserves each authority-specific explanation and adds a concise mode-specific comparison explaining why the other options do or do not fit the target word.
+
+Remediation:
+- CP005 now parses and forwards the requested profile;
+- a dedicated Question Studio integration test covers all four CP005 profiles and verifies the expected source CP;
+- a dedicated `ENG-013-V4-HUMAN-APPROVED-V1` authority records the approved CP001–CP005 / 768-authority review-only lifecycle;
+- Question Studio exposes human/editorial approval while keeping Question Bank writes, test/mock eligibility, public publication and production release locked;
+- the V4 doubling wave is now verified at **384 distinct targets with zero exact overlap against V3**;
+- a dedicated path-scoped workflow runs the 768-authority V4 editorial/surface-diversity audit, 30,000-seed soak and Question Studio integration test.
+
+The earlier V4 editorial remediation remains fully guarded: 384 newly added target words remain distinct from V3, stock sentence frames remain forbidden, normalized surface breadth remains enforced, and incorrect-usage framing diversity remains required. No authority IDs, target words, answer indices, sentence surfaces, difficulty labels or release permissions are changed by this phase.

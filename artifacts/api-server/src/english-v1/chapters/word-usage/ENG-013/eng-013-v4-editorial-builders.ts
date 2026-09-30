@@ -72,7 +72,8 @@ const ADVANCED_SUBJECT_OVERRIDES:Record<string,string>={
  significant:"effect",stable:"pattern",strategic:"decision",stringent:"requirement",sufficient:"evidence",
  transparent:"process",uniform:"pattern",unprecedented:"event",vulnerable:"group",austere:"policy",
  complex:"issue",concrete:"example",dynamic:"environment",formal:"procedure",generic:"description",
- holistic:"approach",minimal:"change",institutional:"framework",material:"consideration",measurable:"effect"
+ holistic:"approach",minimal:"change",institutional:"framework",material:"consideration",measurable:"effect",
+ proportionate:"response",substantial:"improvement",transitory:"effect",pertinent:"consideration",durable:"arrangement",fragile:"system",subjective:"assessment",cohesive:"argument",precise:"description",accurate:"finding",sparse:"evidence",flexible:"framework",balanced:"assessment",admissible:"evidence"
 };
 function advancedSubject(word:string){
  if(ADVANCED_SUBJECT_OVERRIDES[word])return ADVANCED_SUBJECT_OVERRIDES[word]!;
