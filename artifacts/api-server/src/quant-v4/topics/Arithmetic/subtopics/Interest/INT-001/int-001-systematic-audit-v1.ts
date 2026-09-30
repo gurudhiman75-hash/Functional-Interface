@@ -119,6 +119,7 @@ const qlMetrics = new Map<string, {
   englishAnswers: Set<string>;
   englishAnswerShapes: Set<string>;
   explanationStructures: Set<string>;
+  stateFingerprints: Set<string>;
   machineStemHits: Set<string>;
   minExplanationLines: number;
   maxExplanationLines: number;
@@ -146,6 +147,7 @@ for (const qlId of qlIds) {
     englishAnswers: new Set<string>(),
     englishAnswerShapes: new Set<string>(),
     explanationStructures: new Set<string>(),
+    stateFingerprints: new Set<string>(),
     machineStemHits: new Set<string>(),
     minExplanationLines: Number.POSITIVE_INFINITY,
     maxExplanationLines: 0,
@@ -223,6 +225,7 @@ for (const qlId of qlIds) {
         metrics.englishAnswers.add(String(question.answer));
         metrics.englishAnswerShapes.add(answerShape(String(question.answer)));
         metrics.explanationStructures.add(normalizedExplanation(question.explanationLines.join(" ")));
+        metrics.stateFingerprints.add(stable(question.proceduralLogic ?? question.logic ?? {}));
         metrics.minExplanationLines = Math.min(metrics.minExplanationLines, question.explanationLines.length);
         metrics.maxExplanationLines = Math.max(metrics.maxExplanationLines, question.explanationLines.length);
         metrics.difficultyBands.add(String(question.difficultyBand));
@@ -270,6 +273,7 @@ const perQl = [...qlMetrics.entries()].map(([qlId, metrics]) => ({
   answerCount: metrics.englishAnswers.size,
   answerShapeCount: metrics.englishAnswerShapes.size,
   explanationStructureCount: metrics.explanationStructures.size,
+  mathematicalStateCount: metrics.stateFingerprints.size,
   difficultyBands: [...metrics.difficultyBands].sort(),
   minExplanationLines: Number.isFinite(metrics.minExplanationLines) ? metrics.minExplanationLines : 0,
   maxExplanationLines: metrics.maxExplanationLines,
@@ -281,6 +285,7 @@ const singleStructureQls = perQl.filter((item) => item.normalizedStemStructureCo
 const lowStructureQls = perQl.filter((item) => item.normalizedStemStructureCount < 3);
 const lowRawStemQls = perQl.filter((item) => item.rawStemCount < Math.min(6, SEEDS_PER_QL));
 const lowAnswerDiversityQls = perQl.filter((item) => item.answerCount < 4);
+const lowMathematicalStateQls = perQl.filter((item) => item.mathematicalStateCount < Math.min(6, SEEDS_PER_QL));
 const thinExplanationQls = perQl.filter((item) => item.minExplanationLines < 3);
 const machineStemQls = perQl.filter((item) => item.machineStemPatterns.length > 0);
 
@@ -303,6 +308,7 @@ const perCp = [...cpQlCounts.entries()]
       lowStructureQlCount: rows.filter((item) => item.normalizedStemStructureCount < 3).length,
       lowRawStemQlCount: rows.filter((item) => item.rawStemCount < Math.min(6, SEEDS_PER_QL)).length,
       lowAnswerDiversityQlCount: rows.filter((item) => item.answerCount < 4).length,
+      lowMathematicalStateQlCount: rows.filter((item) => item.mathematicalStateCount < Math.min(6, SEEDS_PER_QL)).length,
       thinExplanationQlCount: rows.filter((item) => item.minExplanationLines < 3).length,
       machineStemQlCount: rows.filter((item) => item.machineStemPatterns.length > 0).length,
     };
@@ -328,6 +334,7 @@ const summary = {
     lowStructureQlCount: lowStructureQls.length,
     lowRawStemQlCount: lowRawStemQls.length,
     lowAnswerDiversityQlCount: lowAnswerDiversityQls.length,
+    lowMathematicalStateQlCount: lowMathematicalStateQls.length,
     thinExplanationQlCount: thinExplanationQls.length,
     machineStemQlCount: machineStemQls.length,
     crossQlStemCollisionCount: crossQlCollisions.length,
@@ -336,6 +343,12 @@ const summary = {
   lowStructureQls: lowStructureQls.map((item) => item.qlId),
   lowRawStemQls: lowRawStemQls.map((item) => item.qlId),
   lowAnswerDiversityQls: lowAnswerDiversityQls.map((item) => item.qlId),
+  lowMathematicalStateQls: lowMathematicalStateQls.map((item) => ({
+    qlId: item.qlId,
+    cpId: item.cpId,
+    mathematicalStateCount: item.mathematicalStateCount,
+    sampleStems: item.sampleStems,
+  })),
   thinExplanationQls: thinExplanationQls.map((item) => item.qlId),
   machineStemQls: machineStemQls.map((item) => ({
     qlId: item.qlId,
