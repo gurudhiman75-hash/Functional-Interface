@@ -25,6 +25,7 @@ import {
   listPnlCp006DynamicQlIds,
   runPnlCp006DynamicPipeline,
 } from "./CP-006/cp006-dynamic-runtime";
+import { listPnlAuthoredStemVariantQlIds } from "./pnl-authored-stem-variants";
 
 type ReviewPackage = Readonly<{
   archetypeId: string;
@@ -286,6 +287,7 @@ const candidateDiversityByQl = new Map<
     exactCandidateStemCount: number;
     normalizedCandidateStemCount: number;
     candidateAnswerCount: number;
+    representations: readonly string[];
   }>
 >();
 
@@ -321,6 +323,13 @@ const generated = runtimes.flatMap((runtime) =>
       candidateAnswerCount: new Set(
         candidates.map((candidate) => candidate.pkg.answer),
       ).size,
+      representations: [
+        ...new Set(
+          candidates.map(
+            (candidate) => candidate.pkg.traceability.representation ?? "PARAGRAPH",
+          ),
+        ),
+      ].sort(),
     });
 
     const selected: Array<
@@ -760,15 +769,28 @@ const fatalCodeCounts = sortedCounts(
   countBy(fatalFindings, (finding) => finding.code),
 );
 
-// This inventory is distinct from editorial correctness: a clean fixed editorial
-// authority can still expose only one question skeleton across many seeds.
+// This inventory is distinct from editorial correctness: the frozen CP runtime
+// can expose one canonical skeleton while the Question Studio standalone runtime
+// deliberately rotates reviewed EN/HI/PA authored variants.
+const authoredStemVariantQlIds = new Set(listPnlAuthoredStemVariantQlIds());
 const structuralDiversityInventory = [...candidateDiversityByQl.values()]
-  .map((entry) => ({
-    ...entry,
-    singleSkeleton: entry.normalizedCandidateStemCount === 1,
-    lowExactVariety: entry.exactCandidateStemCount < 8,
-    fixedAnswer: fixedAnswerQls.includes(entry.qlId),
-  }))
+  .map((entry) => {
+    const singleSkeleton = entry.normalizedCandidateStemCount === 1;
+    const authoredRuntimeVariants = authoredStemVariantQlIds.has(entry.qlId);
+    const richRepresentation = entry.representations.some(
+      (representation) => representation !== "PARAGRAPH",
+    );
+    return {
+      ...entry,
+      singleSkeleton,
+      lowExactVariety: entry.exactCandidateStemCount < 8,
+      fixedAnswer: fixedAnswerQls.includes(entry.qlId),
+      authoredRuntimeVariants,
+      richRepresentation,
+      pendingStructuralReview:
+        singleSkeleton && !authoredRuntimeVariants && !richRepresentation,
+    };
+  })
   .sort((left, right) =>
     Number(right.singleSkeleton) - Number(left.singleSkeleton) ||
     left.exactCandidateStemCount - right.exactCandidateStemCount ||
@@ -782,6 +804,14 @@ const structuralDiversityByCp = runtimes.map(({ cpId }) => {
     singleSkeletonQlCount: group.filter((entry) => entry.singleSkeleton).length,
     lowExactVarietyQlCount: group.filter((entry) => entry.lowExactVariety).length,
     fixedAnswerQlCount: group.filter((entry) => entry.fixedAnswer).length,
+    authoredRuntimeVariantQlCount: group.filter(
+      (entry) => entry.authoredRuntimeVariants,
+    ).length,
+    richRepresentationQlCount: group.filter((entry) => entry.richRepresentation)
+      .length,
+    pendingStructuralReviewQlCount: group.filter(
+      (entry) => entry.pendingStructuralReview,
+    ).length,
   };
 });
 
@@ -810,7 +840,18 @@ const metrics = {
   structuralDiversityByCp,
   singleSkeletonQlCount: structuralDiversityInventory.filter((entry) => entry.singleSkeleton).length,
   lowExactVarietyQlCount: structuralDiversityInventory.filter((entry) => entry.lowExactVariety).length,
-  structuralDiversityRequiresSeparateRemediation: true,
+  authoredRuntimeVariantQlCount: structuralDiversityInventory.filter(
+    (entry) => entry.authoredRuntimeVariants,
+  ).length,
+  richRepresentationQlCount: structuralDiversityInventory.filter(
+    (entry) => entry.richRepresentation,
+  ).length,
+  pendingStructuralReviewQlCount: structuralDiversityInventory.filter(
+    (entry) => entry.pendingStructuralReview,
+  ).length,
+  structuralDiversityRequiresSeparateRemediation: structuralDiversityInventory.some(
+    (entry) => entry.pendingStructuralReview,
+  ),
   candidateDiversityByQl: [...candidateDiversityByQl.values()].sort(
     (left, right) => left.qlId.localeCompare(right.qlId),
   ),
@@ -1014,18 +1055,18 @@ const structuralDiversityMarkdown = [
   "",
   "> Diagnostic only. Editorial PASS verifies quality of authored content, not sufficient scenario or question-structure diversity.",
   "",
-  "| CP | QLs | Single normalized stem structure | Fewer than 8 exact stems | Fixed-answer contracts |",
-  "|---|---:|---:|---:|---:|",
+  "| CP | QLs | Single CP-runtime skeleton | Authored Question Studio variants | Rich representation | Pending structural review |",
+  "|---|---:|---:|---:|---:|---:|",
   ...structuralDiversityByCp.map((cp) =>
-    `| ${cp.cpId} | ${cp.qlCount} | ${cp.singleSkeletonQlCount} | ${cp.lowExactVarietyQlCount} | ${cp.fixedAnswerQlCount} |`,
+    `| ${cp.cpId} | ${cp.qlCount} | ${cp.singleSkeletonQlCount} | ${cp.authoredRuntimeVariantQlCount} | ${cp.richRepresentationQlCount} | ${cp.pendingStructuralReviewQlCount} |`,
   ),
   "",
   "## Per-QL diagnostic backlog",
   "",
-  "| QL | CP | Normalized stem structures | Exact stems | Answer variants | Fixed answer |",
-  "|---|---|---:|---:|---:|---|",
+  "| QL | CP | CP-runtime structures | Exact stems | Answer variants | Authored standalone variants | Rich representation | Pending review |",
+  "|---|---|---:|---:|---:|---|---|---|",
   ...structuralDiversityInventory.map((entry) =>
-    `| ${entry.qlId} | ${entry.cpId} | ${entry.normalizedCandidateStemCount} | ${entry.exactCandidateStemCount} | ${entry.candidateAnswerCount} | ${entry.fixedAnswer ? "Yes" : "No"} |`,
+    `| ${entry.qlId} | ${entry.cpId} | ${entry.normalizedCandidateStemCount} | ${entry.exactCandidateStemCount} | ${entry.candidateAnswerCount} | ${entry.authoredRuntimeVariants ? "Yes" : "No"} | ${entry.richRepresentation ? entry.representations.join("+") : "No"} | ${entry.pendingStructuralReview ? "Yes" : "No"} |`,
   ),
   "",
   "## Review rules",
@@ -1033,6 +1074,7 @@ const structuralDiversityMarkdown = [
   "- Inspect exam authenticity before adding any new stem skeleton. A direct formula QL may legitimately require one clear structure.",
   "- Distinguish object substitution, numerical variation, semantic problem topology, and authentic representation variation.",
   "- Expand weak QLs through authored EN/HI/PA variants; preserve mathematical meaning, localized parity, worked explanations, and MathJax.",
+  "- A single frozen CP-runtime skeleton is not an unresolved defect when the standalone Question Studio path has verified authored variants or the QL already uses a rich representation.",
   "- Keep seven documented fixed-answer tasks outside numeric-answer diversity targets.",
   "- Do not treat this diagnostic backlog as approval to auto-publish dynamic candidates.",
 ].join("\n");
