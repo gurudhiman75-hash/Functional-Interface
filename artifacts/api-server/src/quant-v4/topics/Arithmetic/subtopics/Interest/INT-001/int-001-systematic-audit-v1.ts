@@ -32,7 +32,9 @@ function unresolvedPlaceholders(value: string): readonly string[] {
     .replace(/\\\[[\s\S]*?\\\]/gu, "")
     .replace(/\\\([\s\S]*?\\\)/gu, "")
     .replace(/\$\$[\s\S]*?\$\$/gu, "")
-    .replace(/\$(?!\$)[^$\n]*\$(?!\$)/gu, "");
+    .replace(/\$(?!\$)[^$\n]*\$(?!\$)/gu, "")
+    .replace(/\^\{[^}]*\}/gu, "")
+    .replace(/\\[A-Za-z]+\{[^}]*\}/gu, "");
   return [
     ...new Set(
       [...proseOnly.matchAll(/\{([a-z][A-Za-z0-9_]*)\}/gu)]
