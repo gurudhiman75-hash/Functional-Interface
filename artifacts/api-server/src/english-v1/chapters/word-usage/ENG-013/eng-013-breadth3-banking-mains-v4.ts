@@ -1,10 +1,4 @@
-import type{Eng013AuthorityV1}from"./eng-013-authorities-v1";
-const a=(id:string,word:string):Eng013AuthorityV1=>({id,cpId:"ENG-013-CP004",difficulty:"hard",word,mode:"incorrect",sentences:[
-`The analyst discussed the ${word} in the bank's risk report.`,
-`The policy note explained the significance of the ${word}.`,
-`The committee reviewed how the ${word} could affect the institution.`,
-`The bank decided to ${word} the facility before the review.`
-],answerIndex:3,explanation:`In options A, B and C, "${word}" is used as a banking or financial noun phrase. Option D incorrectly treats the term as a verb. Hence option D is the incorrect usage.`});
+import{buildBankingMainsV4 as a}from"./eng-013-v4-editorial-builders";
 export const ENG013_BREADTH3_BANKING_MAINS_V4:readonly Eng013AuthorityV1[]=[
 a("WU-BR3-M001","repo rate"),
 a("WU-BR3-M002","reverse repo rate"),
