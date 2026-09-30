@@ -771,6 +771,104 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਵਿਕਰੇਤਾ {trueQuantity} ਗ੍ਰਾਮ ਕੌਫੀ ਦੀ ਕੀਮਤ ਲੈਂਦਾ ਹੈ, ਪਰ ਦਿੰਦਾ {deliveredQuantity} ਗ੍ਰਾਮ ਹੈ ਅਤੇ ਅਸਲ ਨਤੀਜਾ {actualRatePercent}% {actualDirection} ਹੈ। ਕੀਮਤ ਸੂਚੀ 'ਤੇ ਦੱਸਿਆ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
       "ਕੌਫੀ ਪੈਕ ਦਾ ਬਿੱਲ {trueQuantity} ਗ੍ਰਾਮ ਦਾ ਹੈ, ਪਰ ਇਸ ਵਿੱਚ {deliveredQuantity} ਗ੍ਰਾਮ ਹੈ। ਜੇ ਅਸਲ ਨਤੀਜਾ {actualRatePercent}% {actualDirection} ਹੈ, ਤਾਂ ਕੀਮਤ ਸੂਚੀ 'ਤੇ ਦੱਸਿਆ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੋਵੇਗਾ?"
     ]
+  },
+  "PNL-QL-137": {
+    "en": [
+      "A tea seller charges ₹{quotedSellingPricePerNominalQuantity} for {trueQuantity} g but supplies only {deliveredQuantity} g. If the actual result is {actualRatePercent}% {actualDirection}, find the true cost price per {trueQuantity} g.",
+      "A {trueQuantity} g tea pack is billed at ₹{quotedSellingPricePerNominalQuantity} but contains only {deliveredQuantity} g. Given an actual {actualRatePercent}% {actualDirection}, determine the true cost of {trueQuantity} g."
+    ],
+    "hi": [
+      "एक चाय विक्रेता {trueQuantity} ग्राम के लिए ₹{quotedSellingPricePerNominalQuantity} लेता है, लेकिन केवल {deliveredQuantity} ग्राम देता है। यदि वास्तविक परिणाम {actualRatePercent}% {actualDirection} है, तो {trueQuantity} ग्राम का वास्तविक क्रय मूल्य ज्ञात कीजिए।",
+      "{trueQuantity} ग्राम चाय के पैक का मूल्य ₹{quotedSellingPricePerNominalQuantity} लिया जाता है, लेकिन उसमें केवल {deliveredQuantity} ग्राम है। वास्तविक {actualRatePercent}% {actualDirection} होने पर {trueQuantity} ग्राम की वास्तविक लागत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਚਾਹ ਵਿਕਰੇਤਾ {trueQuantity} ਗ੍ਰਾਮ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ ਸਿਰਫ਼ {deliveredQuantity} ਗ੍ਰਾਮ ਦਿੰਦਾ ਹੈ। ਜੇ ਅਸਲ ਨਤੀਜਾ {actualRatePercent}% {actualDirection} ਹੈ, ਤਾਂ {trueQuantity} ਗ੍ਰਾਮ ਦਾ ਅਸਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "{trueQuantity} ਗ੍ਰਾਮ ਚਾਹ ਦੇ ਪੈਕ ਦੀ ਕੀਮਤ ₹{quotedSellingPricePerNominalQuantity} ਲਈ ਜਾਂਦੀ ਹੈ, ਪਰ ਇਸ ਵਿੱਚ ਸਿਰਫ਼ {deliveredQuantity} ਗ੍ਰਾਮ ਹੈ। ਅਸਲ {actualRatePercent}% {actualDirection} ਹੋਣ 'ਤੇ {trueQuantity} ਗ੍ਰਾਮ ਦੀ ਅਸਲ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-138": {
+    "en": [
+      "A retailer charges ₹{quotedSellingPricePerNominalQuantity} for {trueQuantity} g of nuts but supplies only {deliveredQuantity} g. The actual {actualDirection} is ₹{actualAmount}. Find the true cost price per {trueQuantity} g.",
+      "A nominal {trueQuantity} g pack of nuts is sold for ₹{quotedSellingPricePerNominalQuantity}, though only {deliveredQuantity} g are delivered. If the actual {actualDirection} amount is ₹{actualAmount}, determine the true cost of {trueQuantity} g."
+    ],
+    "hi": [
+      "एक विक्रेता {trueQuantity} ग्राम मेवों के लिए ₹{quotedSellingPricePerNominalQuantity} लेता है, लेकिन केवल {deliveredQuantity} ग्राम देता है। वास्तविक {actualDirection} ₹{actualAmount} है। {trueQuantity} ग्राम का वास्तविक क्रय मूल्य ज्ञात कीजिए।",
+      "नाममात्र {trueQuantity} ग्राम मेवों का पैक ₹{quotedSellingPricePerNominalQuantity} में बेचा जाता है, पर केवल {deliveredQuantity} ग्राम दिए जाते हैं। वास्तविक {actualDirection} राशि ₹{actualAmount} होने पर {trueQuantity} ग्राम की वास्तविक लागत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਿਕਰੇਤਾ {trueQuantity} ਗ੍ਰਾਮ ਮੇਵਿਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ ਸਿਰਫ਼ {deliveredQuantity} ਗ੍ਰਾਮ ਦਿੰਦਾ ਹੈ। ਅਸਲ {actualDirection} ₹{actualAmount} ਹੈ। {trueQuantity} ਗ੍ਰਾਮ ਦਾ ਅਸਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਨਾਮਾਤਰ {trueQuantity} ਗ੍ਰਾਮ ਮੇਵਿਆਂ ਦਾ ਪੈਕ ₹{quotedSellingPricePerNominalQuantity} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ, ਪਰ ਸਿਰਫ਼ {deliveredQuantity} ਗ੍ਰਾਮ ਦਿੱਤੇ ਜਾਂਦੇ ਹਨ। ਅਸਲ {actualDirection} ਰਕਮ ₹{actualAmount} ਹੋਣ 'ਤੇ {trueQuantity} ਗ੍ਰਾਮ ਦੀ ਅਸਲ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-139": {
+    "en": [
+      "A pulses trader pays ₹{purchasePricePerNominalQuantity} and receives {receivedQuantity} kg. He charges ₹{sellingPricePerNominalQuantity} per nominal sale. How much should he deliver to obtain {targetRatePercent}% actual {targetDirection}?",
+      "A trader buys pulses for ₹{purchasePricePerNominalQuantity} and actually receives {receivedQuantity} kg. If each nominal sale is billed at ₹{sellingPricePerNominalQuantity}, find the delivery quantity required for {targetRatePercent}% {targetDirection}."
+    ],
+    "hi": [
+      "एक दाल व्यापारी ₹{purchasePricePerNominalQuantity} देकर {receivedQuantity} किग्रा प्राप्त करता है। वह प्रति नाममात्र बिक्री ₹{sellingPricePerNominalQuantity} लेता है। वास्तविक {targetRatePercent}% {targetDirection} के लिए कितनी मात्रा देनी चाहिए?",
+      "एक व्यापारी दाल ₹{purchasePricePerNominalQuantity} में खरीदता है और वास्तव में {receivedQuantity} किग्रा पाता है। प्रत्येक बिक्री ₹{sellingPricePerNominalQuantity} में करने पर {targetRatePercent}% {targetDirection} के लिए आवश्यक वितरण मात्रा ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਦਾਲ ਵਪਾਰੀ ₹{purchasePricePerNominalQuantity} ਦੇ ਕੇ {receivedQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲੈਂਦਾ ਹੈ। ਉਹ ਹਰ ਨਾਮਾਤਰ ਵਿਕਰੀ ਲਈ ₹{sellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ। ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਕਿੰਨੀ ਮਾਤਰਾ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ?",
+      "ਇੱਕ ਵਪਾਰੀ ਦਾਲ ₹{purchasePricePerNominalQuantity} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ ਅਤੇ ਅਸਲ ਵਿੱਚ {receivedQuantity} ਕਿਲੋਗ੍ਰਾਮ ਲੈਂਦਾ ਹੈ। ਹਰ ਵਿਕਰੀ ₹{sellingPricePerNominalQuantity} ਵਿੱਚ ਕਰਨ 'ਤੇ {targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦੀ ਡਿਲਿਵਰੀ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-140": {
+    "en": [
+      "A flour trader pays ₹{purchasePricePerNominalQuantity} for a purchase lot and sells at ₹{sellingPricePerNominalQuantity} while delivering {deliveredQuantity} kg. How much flour must he receive in the purchase lot to make {targetRatePercent}% actual {targetDirection}?",
+      "A trader buys a flour lot for ₹{purchasePricePerNominalQuantity}, charges ₹{sellingPricePerNominalQuantity} per sale, and delivers {deliveredQuantity} kg. Find the purchase quantity needed for an actual {targetRatePercent}% {targetDirection}."
+    ],
+    "hi": [
+      "एक आटा व्यापारी खरीद लॉट के लिए ₹{purchasePricePerNominalQuantity} देता है और बिक्री में ₹{sellingPricePerNominalQuantity} लेकर {deliveredQuantity} किग्रा देता है। वास्तविक {targetRatePercent}% {targetDirection} के लिए खरीद में कितनी मात्रा मिलनी चाहिए?",
+      "एक व्यापारी आटे का लॉट ₹{purchasePricePerNominalQuantity} में खरीदता है, बिक्री में ₹{sellingPricePerNominalQuantity} लेता है और {deliveredQuantity} किग्रा देता है। वास्तविक {targetRatePercent}% {targetDirection} के लिए आवश्यक खरीद मात्रा ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਆਟਾ ਵਪਾਰੀ ਖਰੀਦ ਲਾਟ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ ਅਤੇ ਵਿਕਰੀ ਵਿੱਚ ₹{sellingPricePerNominalQuantity} ਲੈ ਕੇ {deliveredQuantity} ਕਿਲੋਗ੍ਰਾਮ ਦਿੰਦਾ ਹੈ। ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਖਰੀਦ ਵਿੱਚ ਕਿੰਨੀ ਮਾਤਰਾ ਮਿਲਣੀ ਚਾਹੀਦੀ ਹੈ?",
+      "ਇੱਕ ਵਪਾਰੀ ਆਟੇ ਦਾ ਲਾਟ ₹{purchasePricePerNominalQuantity} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, ਵਿਕਰੀ ਵਿੱਚ ₹{sellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ ਅਤੇ {deliveredQuantity} ਕਿਲੋਗ੍ਰਾਮ ਦਿੰਦਾ ਹੈ। ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦੀ ਖਰੀਦ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-141": {
+    "en": [
+      "A customer is charged ₹{quotedSellingPricePerNominalQuantity} for {trueQuantity} units but receives only {deliveredQuantity}. Find the effective price per true {trueQuantity} units.",
+      "A bill of ₹{quotedSellingPricePerNominalQuantity} is raised for {trueQuantity} units, though only {deliveredQuantity} units are supplied. What is the effective price for a true {trueQuantity}-unit quantity?"
+    ],
+    "hi": [
+      "ग्राहक से {trueQuantity} इकाइयों के लिए ₹{quotedSellingPricePerNominalQuantity} लिया जाता है, पर उसे केवल {deliveredQuantity} इकाइयाँ मिलती हैं। वास्तविक {trueQuantity} इकाइयों का प्रभावी मूल्य ज्ञात कीजिए।",
+      "{trueQuantity} इकाइयों के लिए ₹{quotedSellingPricePerNominalQuantity} का बिल बनाया जाता है, जबकि केवल {deliveredQuantity} इकाइयाँ दी जाती हैं। वास्तविक {trueQuantity} इकाइयों का प्रभावी मूल्य क्या है?"
+    ],
+    "pa": [
+      "ਗਾਹਕ ਤੋਂ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲਿਆ ਜਾਂਦਾ ਹੈ, ਪਰ ਉਸਨੂੰ ਸਿਰਫ਼ {deliveredQuantity} ਇਕਾਈਆਂ ਮਿਲਦੀਆਂ ਹਨ। ਅਸਲ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "{trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਦਾ ਬਿੱਲ ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ, ਜਦਕਿ ਸਿਰਫ਼ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੱਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਅਸਲ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-143": {
+    "en": [
+      "The true cost of {trueQuantity} packaged items is ₹{costPricePerTrueQuantity}. A seller charges ₹{quotedSellingPricePerNominalQuantity} for {trueQuantity} items but puts only {deliveredQuantity} in the carton. Find the actual profit percentage.",
+      "A carton is billed as {trueQuantity} items for ₹{quotedSellingPricePerNominalQuantity}, although it contains only {deliveredQuantity}. If {trueQuantity} items cost ₹{costPricePerTrueQuantity}, determine the real profit percentage."
+    ],
+    "hi": [
+      "{trueQuantity} पैक की गई वस्तुओं की वास्तविक लागत ₹{costPricePerTrueQuantity} है। विक्रेता {trueQuantity} वस्तुओं के लिए ₹{quotedSellingPricePerNominalQuantity} लेता है, लेकिन डिब्बे में केवल {deliveredQuantity} रखता है। वास्तविक लाभ प्रतिशत ज्ञात कीजिए।",
+      "कार्टन का बिल {trueQuantity} वस्तुओं के लिए ₹{quotedSellingPricePerNominalQuantity} बनाया जाता है, जबकि उसमें केवल {deliveredQuantity} वस्तुएँ हैं। यदि {trueQuantity} वस्तुओं की लागत ₹{costPricePerTrueQuantity} है, तो वास्तविक लाभ प्रतिशत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "{trueQuantity} ਪੈਕ ਕੀਤੀਆਂ ਵਸਤਾਂ ਦੀ ਅਸਲ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਵਸਤਾਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ ਡੱਬੇ ਵਿੱਚ ਸਿਰਫ਼ {deliveredQuantity} ਰੱਖਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਕਾਰਟਨ ਦਾ ਬਿੱਲ {trueQuantity} ਵਸਤਾਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ, ਜਦਕਿ ਇਸ ਵਿੱਚ ਸਿਰਫ਼ {deliveredQuantity} ਵਸਤਾਂ ਹਨ। ਜੇ {trueQuantity} ਵਸਤਾਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ, ਤਾਂ ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-144": {
+    "en": [
+      "A cloth merchant charges for {trueQuantity} cm, but the measuring rod marked as one metre is only {deliveredQuantity} cm long. Find the percentage overcharge.",
+      "A customer pays for {trueQuantity} cm of cloth while the seller's 'metre' measure is actually {deliveredQuantity} cm. By what percentage is the customer effectively overcharged?"
+    ],
+    "hi": [
+      "कपड़ा व्यापारी {trueQuantity} सेमी का मूल्य लेता है, लेकिन एक मीटर बताई गई माप-छड़ी केवल {deliveredQuantity} सेमी लंबी है। प्रतिशत अधिक वसूली ज्ञात कीजिए।",
+      "ग्राहक {trueQuantity} सेमी कपड़े का भुगतान करता है, जबकि विक्रेता की 'मीटर' माप वास्तव में {deliveredQuantity} सेमी है। ग्राहक से प्रभावी रूप से कितने प्रतिशत अधिक लिया गया?"
+    ],
+    "pa": [
+      "ਕੱਪੜਾ ਵਪਾਰੀ {trueQuantity} ਸੈਂਟੀਮੀਟਰ ਦੀ ਕੀਮਤ ਲੈਂਦਾ ਹੈ, ਪਰ ਇੱਕ ਮੀਟਰ ਦੱਸੀ ਮਾਪ-ਛੜੀ ਸਿਰਫ਼ {deliveredQuantity} ਸੈਂਟੀਮੀਟਰ ਲੰਬੀ ਹੈ। ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਵਸੂਲੀ ਪਤਾ ਕਰੋ।",
+      "ਗਾਹਕ {trueQuantity} ਸੈਂਟੀਮੀਟਰ ਕੱਪੜੇ ਦਾ ਭੁਗਤਾਨ ਕਰਦਾ ਹੈ, ਜਦਕਿ ਵਿਕਰੇਤਾ ਦੀ 'ਮੀਟਰ' ਮਾਪ ਅਸਲ ਵਿੱਚ {deliveredQuantity} ਸੈਂਟੀਮੀਟਰ ਹੈ। ਗਾਹਕ ਤੋਂ ਪ੍ਰਭਾਵੀ ਤੌਰ 'ਤੇ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਲਿਆ ਗਿਆ?"
+    ]
   }
 };
 
