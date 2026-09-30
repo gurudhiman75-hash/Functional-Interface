@@ -34,8 +34,8 @@ Several newly added Hindi/Punjabi candidate stems for DI-004 single-/three-serie
 
 ## Follow-up: stems still sounded templated
 
-Review feedback found that removing procedural directions was not enough: many Hindi/Punjabi stems still repeated literal, formula-like phrases. The revised DI-004 single-/three-series and DI-011–DI-014 templates use shorter question forms and more idiomatic wording for totals, comparisons, ratios, and chart references while preserving the data and requested operation. These revised stems remain candidates pending another user review. The already-frozen DI-004 permanent two-series release is unchanged.
+Review feedback found that removing procedural directions was not enough: many Hindi/Punjabi stems still repeated literal, formula-like phrases. The revised DI-004 single-/three-series and DI-011–DI-014 templates use shorter question forms and more idiomatic wording for totals, comparisons, ratios, and chart references while preserving the data and requested operation. The user approved the revised wording on 2026-09-30 after an exam-style cross-check. This records approval of the candidate wording; the existing publication and production gates remain closed. The already-frozen DI-004 permanent two-series release is unchanged.
 
 ## Audit boundary
 
-This pass checked generated wording and mathematical answerability in source and deterministic samples. It does not claim an independent human comparison against a representative bank of current SSC/Banking previous-year questions. Revised DI-004 single-/three-series and DI-011–DI-014 Hindi/Punjabi surfaces are review candidates and require another review before freeze.
+This pass checked generated wording and mathematical answerability in source and deterministic samples and cross-checked stem structure against SSC-style exam examples. Revised DI-004 single-/three-series and DI-011–DI-014 Hindi/Punjabi surfaces have user approval for wording. This approval does not authorize Question Bank, scored-test, mock, public/student publication, or production release.
