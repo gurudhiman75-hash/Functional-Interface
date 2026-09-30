@@ -79,7 +79,7 @@
     "language": "en",
     "difficulty": "hard",
     "questionFamily": "Colonial borders and decolonization outcomes",
-    "stem": "Which territory became independent as the Federation of Nigeria on 1 October 1960?",
+    "stem": "Which country became independent from Britain on 1 October 1960?",
     "options": [
       {
         "key": "A",
@@ -91,7 +91,7 @@
       },
       {
         "key": "C",
-        "text": "The Federation of Nigeria"
+        "text": "Nigeria"
       },
       {
         "key": "D",
@@ -154,7 +154,7 @@
     "options": [
       {
         "key": "A",
-        "text": "Zimbabwe"
+        "text": "Southern Rhodesia"
       },
       {
         "key": "B",
@@ -979,7 +979,7 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "OAU and Pan-African cooperation",
-    "stem": "What did the OAU Charter commit member states to oppose?",
+    "stem": "Which colonial system did the OAU Charter pledge to eradicate?",
     "options": [
       {
         "key": "A",
@@ -995,11 +995,11 @@
       },
       {
         "key": "D",
-        "text": "Colonialism and threats to African sovereignty"
+        "text": "Colonialism"
       }
     ],
     "correctOption": "D",
-    "explanation": "The Charter supported eradicating colonialism and defending sovereignty.",
+    "explanation": "The OAU Charter committed member states to work for the eradication of colonialism and to defend African sovereignty.",
     "sourceIds": [
       "CP013-S02",
       "CP013-S03",
@@ -1016,23 +1016,23 @@
     "language": "en",
     "difficulty": "easy",
     "questionFamily": "OAU and Pan-African cooperation",
-    "stem": "Which city hosted the 1963 OAU founding conference?",
+    "stem": "Which country hosted the 1963 OAU founding conference?",
     "options": [
       {
         "key": "A",
-        "text": "Addis Ababa"
+        "text": "Ethiopia"
       },
       {
         "key": "B",
-        "text": "Nairobi"
+        "text": "Ghana"
       },
       {
         "key": "C",
-        "text": "Cairo"
+        "text": "Nigeria"
       },
       {
         "key": "D",
-        "text": "Dakar"
+        "text": "Senegal"
       }
     ],
     "correctOption": "A",
@@ -1234,7 +1234,7 @@
     "language": "en",
     "difficulty": "hard",
     "questionFamily": "Apartheid system and state policy",
-    "stem": "Which institution was a central instrument of apartheid governance?",
+    "stem": "Which apartheid measure restricted the movement of Black South Africans?",
     "options": [
       {
         "key": "A",
@@ -1246,7 +1246,7 @@
       },
       {
         "key": "C",
-        "text": "Pass laws controlling movement"
+        "text": "Pass laws"
       },
       {
         "key": "D",
@@ -1414,7 +1414,7 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Anti-apartheid resistance and repression",
-    "stem": "Which law restricted Black South Africans’ movement through internal documents?",
+    "stem": "What did pass laws require Black South Africans to carry to control where they could travel and work?",
     "options": [
       {
         "key": "A",
@@ -1430,7 +1430,7 @@
       },
       {
         "key": "D",
-        "text": "The pass laws"
+        "text": "Internal reference documents"
       }
     ],
     "correctOption": "D",
@@ -1775,7 +1775,7 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Independence versus majority rule",
-    "stem": "Was South Africa a sovereign state during apartheid?",
+    "stem": "Which political condition persisted in South Africa despite its sovereignty during apartheid?",
     "options": [
       {
         "key": "A",
@@ -1783,7 +1783,7 @@
       },
       {
         "key": "B",
-        "text": "Yes; it was sovereign, while its government denied the majority equal political rights"
+        "text": "The majority was denied equal political rights"
       },
       {
         "key": "C",
@@ -1795,7 +1795,7 @@
       }
     ],
     "correctOption": "B",
-    "explanation": "Apartheid operated within a sovereign state that excluded most citizens from political power.",
+    "explanation": "South Africa was a sovereign state, but apartheid denied most citizens equal political rights and access to political power.",
     "sourceIds": [
       "CP013-S07",
       "CP013-S08",

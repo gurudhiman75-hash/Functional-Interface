@@ -324,7 +324,7 @@
     "language": "en",
     "difficulty": "easy",
     "questionFamily": "Charter principles and purposes",
-    "stem": "What does the Charter mean by the principle of non-intervention in domestic jurisdiction, subject to enforcement measures?",
+    "stem": "Under Article 2(7), what limit does the UN Charter place on intervention in a state's domestic affairs?",
     "options": [
       {
         "key": "A",
@@ -481,7 +481,7 @@
       },
       {
         "key": "D",
-        "text": "The General Assembly Secretariat"
+        "text": "The General Assembly"
       }
     ],
     "correctOption": "B",
@@ -781,7 +781,7 @@
     "language": "en",
     "difficulty": "hard",
     "questionFamily": "Security Council and decision-making",
-    "stem": "What responsibility does Article 24 assign to the Security Council?",
+    "stem": "What do UN members agree about the Security Council under Article 24?",
     "options": [
       {
         "key": "A",
@@ -793,7 +793,7 @@
       },
       {
         "key": "C",
-        "text": "Primary responsibility for international peace and security"
+        "text": "It acts on members' behalf in carrying out its peace-and-security responsibility"
       },
       {
         "key": "D",
@@ -801,7 +801,7 @@
       }
     ],
     "correctOption": "C",
-    "explanation": "Article 24 gives the Security Council primary responsibility for maintaining international peace and security. Members agree that it acts on their behalf in carrying out that role.",
+    "explanation": "Article 24 gives the Security Council primary responsibility for international peace and security. Members agree that it acts on their behalf in carrying out that role.",
     "sourceIds": [
       "CP011-S04"
     ],
@@ -851,27 +851,27 @@
     "language": "en",
     "difficulty": "easy",
     "questionFamily": "Security Council and decision-making",
-    "stem": "Which statement best explains the Security Council veto?",
+    "stem": "Which Security Council members hold the veto on substantive decisions?",
     "options": [
       {
         "key": "A",
-        "text": "It gives each permanent member a blocking vote on substantive decisions"
+        "text": "The five permanent members"
       },
       {
         "key": "B",
-        "text": "It allows any member state to cancel a General Assembly resolution"
+        "text": "All elected members"
       },
       {
         "key": "C",
-        "text": "It enables the Secretary-General to overturn court judgments"
+        "text": "All UN member states"
       },
       {
         "key": "D",
-        "text": "It prevents all procedural votes from being adopted"
+        "text": "The Secretary-General"
       }
     ],
     "correctOption": "A",
-    "explanation": "The veto is a special voting power of the permanent members on substantive questions. It does not apply in the same way to procedural matters.",
+    "explanation": "The veto is held by the five permanent members on substantive questions. It does not apply in the same way to procedural matters.",
     "sourceIds": [
       "CP011-S04"
     ],
@@ -1735,7 +1735,7 @@
     "language": "en",
     "difficulty": "medium",
     "questionFamily": "Judicial and trusteeship roles",
-    "stem": "Which statement best distinguishes a General Assembly recommendation from a Security Council decision?",
+    "stem": "How does the UN Charter distinguish the General Assembly's recommendations from Security Council action?",
     "options": [
       {
         "key": "A",
@@ -1743,7 +1743,7 @@
       },
       {
         "key": "B",
-        "text": "The Charter gives the two organs different powers and procedures"
+        "text": "Their powers and the legal effect of their actions depend on the applicable Charter provisions"
       },
       {
         "key": "C",
@@ -1755,7 +1755,7 @@
       }
     ],
     "correctOption": "B",
-    "explanation": "The Charter gives the General Assembly and Security Council distinct functions. The legal effect of an action depends on the organ and the Charter provision used.",
+    "explanation": "The Charter assigns distinct functions to the General Assembly and Security Council. The legal effect of each action depends on the organ and the Charter provision used.",
     "sourceIds": [
       "CP011-S01",
       "CP011-S03",

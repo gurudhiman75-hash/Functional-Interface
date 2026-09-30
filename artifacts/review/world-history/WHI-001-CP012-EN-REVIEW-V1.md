@@ -1,7 +1,7 @@
-# WHI-001-CP012 — English review pool v1
+# WHI-001-CP012 — Decolonization in Asia and the Middle East
 
-**Checkpoint:** Decolonization in Asia and the Middle East
-**Status:** Editorial review requested; review-only; runtime registration disabled.
+**Status:** English editorial first pass complete; human approval requested.
+**Lifecycle:** Review-only; not registered in Question Studio; no learner delivery.
 
 | ID | Difficulty | Family | Stem | A | B | C | D | Key | Explanation | Sources |
 |---|---|---|---|---|---|---|---|---|---|---|
