@@ -1,4 +1,8 @@
-import type { CanonicalQuestion } from "../indian-geo-localization-v1";
+type CanonicalQuestion = Readonly<{
+  questionId:string;
+  options:readonly string[];
+  correctIndex:number;
+}>;
 
 type Lang = "hi" | "pa";
 type ExactRecord = Readonly<{
