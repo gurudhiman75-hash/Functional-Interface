@@ -15,10 +15,9 @@
 ## Before / After Counts
 
 - English QL count: `50` -> `150`
-- Hindi QL count: `20` -> `20`
-- Punjabi QL count: `20` -> `20`
+- Hindi/Punjabi localized runtime coverage: `15` QLs per CP under the current language-coverage contract
 - English QLs per CP: `5` -> `15`
-- Shared/common QLs per CP: `2` -> `2`
+- Shared/common QLs per CP: `15` under the current executable tests
 
 ## New QL ID Ranges By CP
 
@@ -45,9 +44,9 @@
 ## English-vs-Common Runtime Behavior
 
 - English generation: all English QLs in `question-language.en.json`
-- Hindi/Punjabi generation: shared/common QLs only
-- `runPct004ForLanguages`: shared/common parity only
-- `getCommonQuestionLanguageIds`: unchanged and shared-only
+- Hindi/Punjabi generation: current localized/shared QL set
+- `runPct004ForLanguages`: shared/common parity across the currently localized set
+- `getCommonQuestionLanguageIds`: current executable test contract is 15 shared QLs per CP
 - Cross-language placeholder parity: shared/common QLs only
 
 ## Audit Results
@@ -78,8 +77,8 @@
 
 ## Known Caveats
 
-- Hindi and Punjabi were intentionally left unchanged in this task.
-- Cross-language parity remains limited to the shared/common subset, which is intentional and required by the repo state.
+- Stage-1 historical wording about only 2 shared QLs per CP is superseded by the current executable language-coverage contract.
+- Audit diversity rotation now traverses the full 15-QL CP pool before reuse when no explicit difficulty or QL is requested.
 
 ## Final Status
 

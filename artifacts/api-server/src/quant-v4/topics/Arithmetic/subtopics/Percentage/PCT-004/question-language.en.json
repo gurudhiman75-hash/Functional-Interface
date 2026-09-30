@@ -354,15 +354,15 @@
         "difficulty": "Medium"
       },
       "PCT-QL-104": {
-        "template": "If a {wholeLabel} is decreased successively by {rate1}% and {rate2}%, find the overall decrease percent.",
+        "template": "A {wholeLabel} is decreased successively by {rate1}% and {rate2}%. Find the equivalent single percentage decrease.",
         "difficulty": "Medium"
       },
       "PCT-QL-105": {
-        "template": "A {wholeLabel} goes down by {rate1}% and again by {rate2}%. By what percent has it decreased in all?",
+        "template": "A {wholeLabel} decreases by {rate1}% and then by {rate2}%. By what percentage has it decreased overall?",
         "difficulty": "Medium"
       },
       "PCT-QL-106": {
-        "template": "For a {wholeLabel}, the first decrease is {rate1}% and the second is {rate2}%. Find the net decrease percentage.",
+        "template": "A {wholeLabel} decreases by {rate1}% and then by {rate2}%. Find the net percentage decrease.",
         "difficulty": "Hard"
       },
       "PCT-QL-107": {
@@ -374,7 +374,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-109": {
-        "template": "A {wholeLabel} records percentage decreases of {rate1}% and {rate2}% one after another. Find the combined percentage decrease.",
+        "template": "A {wholeLabel} decreases by {rate1}% and then by {rate2}%. Find the combined percentage decrease.",
         "difficulty": "Hard"
       },
       "PCT-QL-110": {
@@ -494,7 +494,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-127": {
-        "template": "Out of a total of {totalValue} {wholeLabel}, {partRate}% belong to {partLabel}. If {partLabel} fall by {partDecreaseRate}% and {otherLabel} fall by {otherDecreaseRate}%, what is the revised percentage of {partLabel}?",
+        "template": "Out of {totalValue} {wholeLabel}, {partRate}% are {partLabel} and the rest are {otherLabel}. If the numbers of {partLabel} and {otherLabel} decrease by {partDecreaseRate}% and {otherDecreaseRate}% respectively, what is the revised percentage of {partLabel}?",
         "difficulty": "Hard"
       },
       "PCT-QL-128": {
@@ -502,7 +502,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-129": {
-        "template": "A population of {totalValue} {wholeLabel} includes {partRate}% {partLabel} and the remaining {otherLabel}. If the two groups decrease by {partDecreaseRate}% and {otherDecreaseRate}% respectively, find the fresh percentage of {partLabel}.",
+        "template": "A total of {totalValue} {wholeLabel} includes {partRate}% {partLabel} and the rest {otherLabel}. If the two groups decrease by {partDecreaseRate}% and {otherDecreaseRate}% respectively, find the new percentage of {partLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-130": {
@@ -538,11 +538,11 @@
         "difficulty": "Easy"
       },
       "PCT-QL-132": {
-        "template": "A {wholeLabel} of {valuePrefix}{currentValue} has to become {valuePrefix}{targetValue}. What percentage decrease is required?",
+        "template": "A {wholeLabel} is reduced from {valuePrefix}{currentValue} to {valuePrefix}{targetValue}. What percentage decrease is required?",
         "difficulty": "Easy"
       },
       "PCT-QL-133": {
-        "template": "The {wholeLabel} stands at {valuePrefix}{currentValue} and must be reduced to {valuePrefix}{targetValue}. Find the required percentage decrease.",
+        "template": "The {wholeLabel} is {valuePrefix}{currentValue} and must be reduced to {valuePrefix}{targetValue}. Find the required percentage decrease.",
         "difficulty": "Medium"
       },
       "PCT-QL-134": {
