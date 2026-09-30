@@ -57,6 +57,17 @@ export function itemStimulusSvgs(payload: Record<string, unknown> | null): strin
   return stringArray(payload?.stimulusSvgs).filter(Boolean);
 }
 
+export function itemExplanationSvgs(payload: Record<string, unknown> | null): string[] {
+  return stringArray(payload?.explanationSvgs).filter(Boolean);
+}
+
+export function itemFormulaLatex(payload: Record<string, unknown> | null): string {
+  const metadata = payload?.semanticMetadata;
+  return metadata && typeof metadata === 'object'
+    ? asText((metadata as Record<string, unknown>).formulaLatex)
+    : '';
+}
+
 export function itemOptionSvgs(payload: Record<string, unknown> | null): string[] {
   return stringArray(payload?.optionSvgs).filter(Boolean);
 }

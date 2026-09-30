@@ -1,3 +1,4 @@
+import { NUMERICAL_CP_IDS } from "./ven-001-numerical.ts";
 import type {
   QuestionStudioGenerationRequest,
   QuestionStudioGenerationResult,
@@ -298,9 +299,9 @@ export const VEN_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition =
     subtopic: "Logical Venn Diagrams",
     label: "Reasoning · Logical Venn Diagrams — VEN-001",
     enabled: true,
-    cpIds: ["VEN-CP001", "VEN-CP002", "VEN-CP003", "VEN-CP004"],
+    cpIds: ["VEN-CP001", "VEN-CP002", "VEN-CP003", "VEN-CP004", ...NUMERICAL_CP_IDS],
     supportedLanguages: ["en", "hi", "pa"],
-    supportedDifficulties: ["Easy", "Medium"],
+    supportedDifficulties: ["Easy", "Medium", "Hard"],
     difficultyFilterSupported: true,
     runtimeMode: "review-only",
     supportedRuntimeModes: ["review-only"],
@@ -323,11 +324,13 @@ export const VEN_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition =
       reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
       registrationAuthorityId: VEN_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
       permanentQlIdsAllocated: false,
+      numericalSupplementReviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
       supportedQuestionOperations: [
         "RELATIONS_TO_DIAGRAM",
         "CATEGORIES_TO_DIAGRAM",
         "DIAGRAM_TO_CATEGORIES",
         "REGION_IDENTIFICATION",
+        "SET_COUNT", "PERCENTAGE_RATIO", "SOLVE_UNKNOWN", "CASELET_COUNT", "OVERLAP_BOUNDS",
       ],
     },
   };
