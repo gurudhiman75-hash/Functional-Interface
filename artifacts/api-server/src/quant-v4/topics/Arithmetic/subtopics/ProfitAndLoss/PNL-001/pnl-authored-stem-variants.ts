@@ -463,6 +463,90 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਇੱਕ ਵਪਾਰੀ ਮਸ਼ੀਨਰੀ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, ਵਿਕਰੀ ਤੋਂ ਪਹਿਲਾਂ ₹{buyerExpense} ਖਰਚਦਾ ਹੈ ਅਤੇ ਇਸਨੂੰ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ। ਏਜੰਟ ਕੁੱਲ ਕੀਮਤ ਦਾ {commissionPercent}% ਰੱਖਦਾ ਹੈ। ਵਪਾਰੀ ਦਾ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
       "ਮਸ਼ੀਨਰੀ ਦੀ ਖਰੀਦ ₹{purchasePrice} ਅਤੇ ਤਿਆਰੀ ਖਰਚ ₹{buyerExpense} ਹੈ। ਇਸਨੂੰ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ {commissionPercent}% ਕਮਿਸ਼ਨ ਕੱਟਿਆ ਜਾਂਦਾ ਹੈ। ਵਪਾਰੀ ਦਾ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
     ]
+  },
+  "PNL-QL-105": {
+    "en": [
+      "A phone consignment bought for ₹{initialCostPrice} moves through the stages {stages}. Find the profit or loss amount in transaction {selectedStage}.",
+      "Starting with ₹{initialCostPrice}, a phone lot passes through {stages}. What is the absolute profit or loss amount at stage {selectedStage}?"
+    ],
+    "hi": [
+      "₹{initialCostPrice} में खरीदी गई फोन खेप इन चरणों से गुजरती है: {stages}। लेन-देन {selectedStage} में लाभ या हानि की राशि ज्ञात कीजिए।",
+      "₹{initialCostPrice} से शुरू होकर फोन की खेप {stages} चरणों से गुजरती है। चरण {selectedStage} में लाभ या हानि की राशि क्या है?"
+    ],
+    "pa": [
+      "₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਫੋਨ ਖੇਪ ਇਨ੍ਹਾਂ ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}। ਲੈਣ-ਦੇਣ {selectedStage} ਵਿੱਚ ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
+      "₹{initialCostPrice} ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ਫੋਨ ਦੀ ਖੇਪ {stages} ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ। ਪੜਾਅ {selectedStage} ਵਿੱਚ ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਰਕਮ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-106": {
+    "en": [
+      "A grain lot costing ₹{initialCostPrice} passes through the trading stages {stages}. Which transaction has the largest absolute profit or loss amount?",
+      "A grain consignment starts at ₹{initialCostPrice} and is traded through {stages}. Identify the stage with the greatest profit-or-loss amount in rupees."
+    ],
+    "hi": [
+      "₹{initialCostPrice} की अनाज खेप इन व्यापारिक चरणों से गुजरती है: {stages}। किस लेन-देन में लाभ या हानि की राशि सबसे अधिक है?",
+      "एक अनाज खेप ₹{initialCostPrice} से शुरू होकर {stages} चरणों से गुजरती है। रुपये में सबसे बड़ा लाभ या हानि किस चरण में है?"
+    ],
+    "pa": [
+      "₹{initialCostPrice} ਦੀ ਅਨਾਜ ਖੇਪ ਇਨ੍ਹਾਂ ਵਪਾਰਕ ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}। ਕਿਸ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਰਕਮ ਸਭ ਤੋਂ ਵੱਧ ਹੈ?",
+      "ਇੱਕ ਅਨਾਜ ਖੇਪ ₹{initialCostPrice} ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ {stages} ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ। ਰੁਪਏ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਡਾ ਲਾਭ ਜਾਂ ਘਾਟਾ ਕਿਸ ਪੜਾਅ ਵਿੱਚ ਹੈ?"
+    ]
+  },
+  "PNL-QL-111": {
+    "en": [
+      "An appliance lot bought for ₹{initialCostPrice} moves through the successive transfers {stages}. Find the profit or loss amount made by each trader.",
+      "Starting from ₹{initialCostPrice}, an appliance consignment is resold through {stages}. Calculate the rupee gain or loss at every transaction."
+    ],
+    "hi": [
+      "₹{initialCostPrice} में खरीदी गई उपकरण खेप क्रमिक चरणों {stages} से गुजरती है। प्रत्येक व्यापारी का लाभ या हानि राशि ज्ञात कीजिए।",
+      "₹{initialCostPrice} से शुरू होकर उपकरण की खेप {stages} चरणों में पुनः बेची जाती है। हर लेन-देन का रुपये में लाभ या हानि ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਉਪਕਰਣ ਖੇਪ ਲਗਾਤਾਰ ਪੜਾਅਾਂ {stages} ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ। ਹਰ ਵਪਾਰੀ ਦਾ ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
+      "₹{initialCostPrice} ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ਉਪਕਰਣ ਖੇਪ {stages} ਪੜਾਅਾਂ ਵਿੱਚ ਮੁੜ ਵੇਚੀ ਜਾਂਦੀ ਹੈ। ਹਰ ਲੈਣ-ਦੇਣ ਦਾ ਰੁਪਏ ਵਿੱਚ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-112": {
+    "en": [
+      "A handicraft consignment changes hands through {stages}. Find the overall percentage gain or loss from the artisan's original cost to the export buyer's final price.",
+      "For the resale chain {stages}, calculate the net profit or loss percentage between the first purchase and the final export sale."
+    ],
+    "hi": [
+      "हस्तशिल्प खेप {stages} चरणों से गुजरती है। कारीगर की मूल लागत से निर्यात खरीदार के अंतिम मूल्य तक कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "पुनर्विक्रय शृंखला {stages} के लिए पहली खरीद से अंतिम निर्यात बिक्री तक शुद्ध लाभ या हानि प्रतिशत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਹਸਤਕਲਾ ਖੇਪ {stages} ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ। ਕਾਰੀਗਰ ਦੀ ਮੂਲ ਲਾਗਤ ਤੋਂ ਨਿਰਯਾਤ ਖਰੀਦਦਾਰ ਦੀ ਅੰਤਿਮ ਕੀਮਤ ਤੱਕ ਕੁੱਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਮੁੜ-ਵਿਕਰੀ ਲੜੀ {stages} ਲਈ ਪਹਿਲੀ ਖਰੀਦ ਤੋਂ ਅੰਤਿਮ ਨਿਰਯਾਤ ਵਿਕਰੀ ਤੱਕ ਸ਼ੁੱਧ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-113": {
+    "en": [
+      "A laptop is resold through the mixed stages {stages}, and the final customer pays ₹{finalSellingPrice}. Find the first seller's original purchase price.",
+      "After the resale sequence {stages}, a laptop reaches the customer for ₹{finalSellingPrice}. What was its starting cost price?"
+    ],
+    "hi": [
+      "एक लैपटॉप मिश्रित पुनर्विक्रय चरणों {stages} से गुजरता है और अंतिम ग्राहक ₹{finalSellingPrice} देता है। पहले विक्रेता का मूल क्रय मूल्य ज्ञात कीजिए।",
+      "{stages} पुनर्विक्रय क्रम के बाद लैपटॉप ग्राहक तक ₹{finalSellingPrice} में पहुँचता है। उसका प्रारंभिक क्रय मूल्य क्या था?"
+    ],
+    "pa": [
+      "ਇੱਕ ਲੈਪਟਾਪ ਮਿਲੇ-ਜੁਲੇ ਮੁੜ-ਵਿਕਰੀ ਪੜਾਅਾਂ {stages} ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ ਅਤੇ ਅੰਤਿਮ ਗਾਹਕ ₹{finalSellingPrice} ਭਰਦਾ ਹੈ। ਪਹਿਲੇ ਵਿਕਰੇਤਾ ਦਾ ਮੂਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "{stages} ਮੁੜ-ਵਿਕਰੀ ਲੜੀ ਤੋਂ ਬਾਅਦ ਲੈਪਟਾਪ ਗਾਹਕ ਤੱਕ ₹{finalSellingPrice} ਵਿੱਚ ਪਹੁੰਚਦਾ ਹੈ। ਇਸਦਾ ਸ਼ੁਰੂਆਤੀ ਖਰੀਦ ਮੁੱਲ ਕੀ ਸੀ?"
+    ]
+  },
+  "PNL-QL-114": {
+    "en": [
+      "A construction-material consignment bought for ₹{initialCostPrice} passes through {stages}. Find the difference between the prices after transactions {firstStageNumber} and {secondStageNumber}.",
+      "Starting from ₹{initialCostPrice}, a construction-material lot moves through {stages}. By how much do the prices after stages {firstStageNumber} and {secondStageNumber} differ?"
+    ],
+    "hi": [
+      "₹{initialCostPrice} में खरीदी गई निर्माण-सामग्री खेप {stages} चरणों से गुजरती है। लेन-देन {firstStageNumber} और {secondStageNumber} के बाद की कीमतों का अंतर ज्ञात कीजिए।",
+      "₹{initialCostPrice} से शुरू होकर निर्माण सामग्री की खेप {stages} चरणों से गुजरती है। चरण {firstStageNumber} और {secondStageNumber} के बाद की कीमतों में कितना अंतर है?"
+    ],
+    "pa": [
+      "₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਨਿਰਮਾਣ ਸਮੱਗਰੀ ਦੀ ਖੇਪ {stages} ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ। ਲੈਣ-ਦੇਣ {firstStageNumber} ਅਤੇ {secondStageNumber} ਤੋਂ ਬਾਅਦ ਦੀਆਂ ਕੀਮਤਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+      "₹{initialCostPrice} ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ਨਿਰਮਾਣ ਸਮੱਗਰੀ ਦੀ ਖੇਪ {stages} ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ। ਪੜਾਅ {firstStageNumber} ਅਤੇ {secondStageNumber} ਤੋਂ ਬਾਅਦ ਦੀਆਂ ਕੀਮਤਾਂ ਵਿੱਚ ਕਿੰਨਾ ਅੰਤਰ ਹੈ?"
+    ]
   }
 };
 
