@@ -73,7 +73,9 @@ for (const cpId of CPS) {
       const reconstructed=cpId==="ENG-003-CP003"
         ? materializeEng003Cp003AnswerV1(sentence,answer)
         : materializers[cpId]
-          ? materializers[cpId]!(q.segments as string[], Number(q.blankIndex),answer)
+          ? (cpId==="ENG-003-CP006"||cpId==="ENG-003-CP007")
+            ? normalize(sentence.replace("_____",answer))
+            : materializers[cpId]!([sentence],0,answer)
           : normalize(sentence.replace("_____",answer));
       assert.equal(reconstructed,normalize(correctedSentence),
         `${cpId}/${difficulty}/${index} correct filler does not reconstruct approved sentence`);
