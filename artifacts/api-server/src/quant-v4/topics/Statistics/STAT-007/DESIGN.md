@@ -14,6 +14,10 @@ The original fourteen contracts retain STAT-QL-070 through STAT-QL-083. Five mul
 - Yule's Q is `(ad − bc)/(ad + bc)` for the displayed 2×2 table.
 - Partial and multiple correlation formulas explicitly refer to three variables.
 
+## Editorial status
+
+The English representative review was approved by the user on 2026-09-30. Question diversity and pool expansion are deferred to a later pass. Approval leaves Question Bank writes, test/mock use, localization, public publication, and production release disabled.
+
 ## Deferred depth
 
 This package now covers multiple regression form, partial-slope interpretation, prediction, coefficient calculation from centered cross-products, and residuals. Broader measures of association beyond Yule's Q remain future content review.
