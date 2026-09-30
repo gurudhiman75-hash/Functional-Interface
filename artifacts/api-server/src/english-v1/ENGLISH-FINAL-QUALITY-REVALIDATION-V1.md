@@ -118,3 +118,12 @@ ENG-003 remains content-closed through CP013 with 131 approved rule families. Th
 Added a separate chapter-wide regression: 468 seeded samples (13 checkpoints × 3 difficulties × 12 questions) verify that inserting the keyed filler into the one displayed blank reconstructs the reported corrected sentence. The test also checks four distinct answer options, no leaked `No improvement` option, that explanations include the chosen filler and complete corrected sentence, deterministic replay per checkpoint/difficulty, and locked review-only lifecycle.
 
 Added a dedicated pull-request workflow for this test. This is test-only: no approved question content, answer keys, source generators, permanent QLs, difficulty assignments or lifecycle flags change.
+
+
+## Phase 9 — ENG-008 linked RC set integrity
+
+The active RC bank remains frozen at 632 passages and 5,308 governed authorities, with Waves 14–19 previously remediated across all five profiles. Revalidation of the live CP006 set builder and CP007 contextual word-fit masking found an integration-coverage gap: the existing Question Studio tests sampled only one 10-question Banking Prelims set, rather than verifying the full active CP007 authority population.
+
+Added a focused test covering all **126 active BP-F10 word-fit authorities** by generating a complete 10-question linked Banking Prelims set for each passage. It checks exactly one masked blank, shared passage identity, ten unique governed families/authorities, one correct word-fit answer, deterministic replay on a rotating sample, and clean unmasked passage use in the approved shorter 8/9-question sets. The guard also samples all other CP006 exam profiles and supported set sizes.
+
+A dedicated path-scoped PR workflow runs this integration guard. This adds coverage only; approved passages, question authorities, options, explanations and review-only lifecycle remain unchanged. CI must complete before validation success is claimed.
