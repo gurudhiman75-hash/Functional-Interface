@@ -166,6 +166,22 @@ const duplicateRate = duplicateCount / 1000;
 assert.ok(duplicateRate < 0.8, `Duplicate rate too high: ${duplicateRate}`);
 
 
+const minimumSharedQlByCp: Record<string, number> = {
+  "RAP-CP-001": 30,
+  "RAP-CP-002": 12,
+  "RAP-CP-003": 12,
+  "RAP-CP-004": 12,
+  "RAP-CP-005": 12,
+  "RAP-CP-006": 12,
+};
+
+for (const cpId of RAP_001_CP_IDS) {
+  assert.ok(
+    getSelectableQuestionLanguageIds(cpId, "en").length >= minimumSharedQlByCp[cpId]!,
+    `${cpId} shared QL pool is too thin`,
+  );
+}
+
 const expectedSemanticBreadth = {
   family: 18,
   school: 10,
