@@ -6,7 +6,7 @@ Student-facing chapter: **Ranking and Order**
 Reasoning V1 package: `RNK-001`  
 Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/`
 
-This is an **English content freeze**, not a multilingual/product freeze. Hindi/Punjabi and all product lifecycle surfaces remain locked.
+This is an **English content freeze with technically complete Hindi/Punjabi review candidates**, not a multilingual/product freeze. Human language approval and all product lifecycle surfaces remain locked.
 
 ## Authority order
 
@@ -269,7 +269,7 @@ CP001..CP007 English frozen:         true
 CP008 adapter/caselet closure:       validated candidate
 chapter-wide English content freeze: true
 multilingual/product final freeze:   false
-Hindi/Punjabi:                       NOT_STARTED
+Hindi/Punjabi:                       CP001..CP007 TECHNICAL REVIEW CANDIDATES
 Question Studio:                     DISABLED / NOT REGISTERED
 persistence:                         DISABLED
 Question Bank:                       NOT_STORED
