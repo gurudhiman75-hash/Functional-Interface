@@ -49,3 +49,15 @@ The next revalidation phase should inspect active generators and representative 
 7. answer-position or deterministic-generation artifacts.
 
 Only concrete failures from that pass should modify frozen learner content.
+
+## Phase 2 — ENG-005 explanation remediation
+
+The active ENG-005 generators exposed a concrete quality defect: CP001–CP004 all reduced explanations to the same one-line definition pattern, `“phrase” means meaning.`.
+
+That is now remediated without changing the 840-expression authority, answer keys, distractor selection, difficulty, IDs or lifecycle state.
+
+- expression → meaning questions now state the meaning and explicitly connect it to the keyed option;
+- meaning → expression questions now explain that the supplied meaning is expressed by the keyed idiom/phrase;
+- the final ENG-005 audit now rejects explanations shorter than the new helpful-depth floor and requires the governed phrase to appear in the explanation.
+
+ENG-005 is therefore reopened only for this demonstrated explanation defect; no breadth expansion is introduced.
