@@ -14,16 +14,18 @@ Audit dimensions:
 
 ## Current content breadth
 
-English QL count by CP:
+Shared QL count by CP (English/Hindi/Punjabi parity):
 
 - `RAP-CP-001`: `37`
-- `RAP-CP-002`: `4`
-- `RAP-CP-003`: `7`
-- `RAP-CP-004`: `7`
-- `RAP-CP-005`: `4`
-- `RAP-CP-006`: `8`
+- `RAP-CP-002`: `12`
+- `RAP-CP-003`: `12`
+- `RAP-CP-004`: `12`
+- `RAP-CP-005`: `12`
+- `RAP-CP-006`: `12`
 
-Total English QLs: `67`.
+Total shared QLs: `97`.
+
+The audit added 30 multilingual exam-style stem variants to the previously thin CP-002 through CP-006 pools while preserving their existing solver/task contracts.
 
 Semantic object pools:
 
@@ -81,4 +83,4 @@ The older July reports remain historical snapshots; this completion audit supers
 
 ## Status
 
-RAP-001 completion patch is ready for CI verification.
+RAP-001 completion patch is ready for CI verification. Object/scenario breadth, QL breadth, full-pool rotation, multilingual parity, and MathJax safety are now explicit regression requirements.
