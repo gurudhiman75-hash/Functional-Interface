@@ -45,7 +45,7 @@ for (const [cpId, minimum] of Object.entries(minimumContextDomains)) {
 function assertMathJaxSafe(text: string, label: string) {
   assert.equal((text.match(/\$\$/g) ?? []).length % 2, 0, `${label}: unbalanced display-math delimiters`);
   assert.equal((text.match(/\\\\\(/g) ?? []).length, (text.match(/\\\\\)/g) ?? []).length, `${label}: unbalanced inline MathJax delimiters`);
-  assert.doesNotMatch(text, /\\text\{[^}]*\$[^}]*\}/, `${label}: currency symbol leaked inside \\text{}`);
+  assert.doesNotMatch(text, /\\text\{[^}]*₹[^}]*\}/, `${label}: raw currency symbol leaked inside \\text{}`);
   assert.doesNotMatch(text, /\\(?:frac|times|div|cdot)(?!\b|\{|\s)/, `${label}: malformed MathJax operator`);
 }
 
