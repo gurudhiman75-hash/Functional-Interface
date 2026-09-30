@@ -288,6 +288,11 @@ function sharedPrompt(caselet: SourceCaselet, language: Iop001QuestionStudioLang
   return `${caselet.directions}\n\n${illustration}\n\n${labels.newInput}: ${row(caselet.target.input)}`;
 }
 
+function canonicalCaseletId(caselet: SourceCaselet): string {
+  if (caselet.locale === "en-IN") return caselet.caseletId;
+  return caselet.caseletId.replace(/-(?:hi|pa)-IN$/, "");
+}
+
 function standardQuestion(
   caselet: SourceCaselet,
   child: SourceCaselet["children"][number],
@@ -296,7 +301,8 @@ function standardQuestion(
 ) {
   const authority = getIopPermanentAuthority(caselet.qlId);
   const prompt = sharedPrompt(caselet, language);
-  const questionId = `${caselet.caseletId}-Q${child.questionOrder}`;
+  const canonicalCaselet = canonicalCaseletId(caselet);
+  const questionId = `${canonicalCaselet}-Q${child.questionOrder}`;
   return {
     text: `${prompt}\n\n${child.text}`,
     stem: child.text,
@@ -332,9 +338,9 @@ function standardQuestion(
     debugSource: "reasoning-v1-iop-001-standard-question-studio",
     questionId,
     localizedQuestionId: `${questionId}:${language}`,
-    canonicalItemId: `${caselet.caseletId}:Q${child.questionOrder}`,
-    questionLanguageId: `${caselet.caseletId}:Q${child.questionOrder}:${language}`,
-    explanationId: `${caselet.caseletId}:Q${child.questionOrder}:EXPL:${language}`,
+    canonicalItemId: `${canonicalCaselet}:Q${child.questionOrder}`,
+    questionLanguageId: `${canonicalCaselet}:Q${child.questionOrder}:${language}`,
+    explanationId: `${canonicalCaselet}:Q${child.questionOrder}:EXPL:${language}`,
     seed: caselet.seed,
     sourceModeId: caselet.sourceModeId,
     sourceEvidenceIds: [...caselet.sourceEvidenceIds],
@@ -363,6 +369,7 @@ function standardQuestion(
       qlId: caselet.qlId,
       sourceModeId: caselet.sourceModeId,
       caseletId: caselet.caseletId,
+      canonicalCaseletId: canonicalCaselet,
       solveMode: child.kind,
       sourceEvidenceIds: [...caselet.sourceEvidenceIds],
       englishFreezeSha256: IOP_001_ENGLISH_FREEZE_AUTHORITY.approvedLearnerContentSha256,
