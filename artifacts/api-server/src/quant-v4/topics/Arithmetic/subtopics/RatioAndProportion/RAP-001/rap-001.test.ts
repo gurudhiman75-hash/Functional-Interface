@@ -14,7 +14,7 @@ import { getAnswerType, getQuestionEntry, getRequiredVariables, getTaskKind, RAP
 import { getRap001ActiveCanonicalProblemIds, getSelectableQuestionLanguageIds } from "./parameter-generator";
 import { runRap001Pipeline } from "./pipeline";
 import { solveRap001 } from "./solver";
-import { RAP_001_ARCHETYPE_ID, type Rap001CanonicalProblemId, type Rap001Parameters, type Rap001Variables } from "./types";
+import { RAP_001_ARCHETYPE_ID, RAP_001_CP_IDS, type Rap001CanonicalProblemId, type Rap001Parameters, type Rap001Variables } from "./types";
 
 const apiRoot = fs.existsSync(path.join(process.cwd(), "src/quant-v4"))
   ? process.cwd()
@@ -164,6 +164,65 @@ for (const difficulty of ["Easy", "Medium", "Hard"]) assert.equal(seenDifficulty
 const duplicateCount = [...seenQuestions.values()].reduce((sum, count) => sum + Math.max(0, count - 1), 0);
 const duplicateRate = duplicateCount / 1000;
 assert.ok(duplicateRate < 0.8, `Duplicate rate too high: ${duplicateRate}`);
+
+
+const expectedSemanticBreadth = {
+  family: 18,
+  school: 10,
+  marks: 12,
+  coins: 4,
+  workers: 17,
+  mixtures: 14,
+} as const;
+
+for (const [domainName, minimum] of Object.entries(expectedSemanticBreadth)) {
+  const domain = RAP_001_LIBRARY_REGISTRY.semantic.library.domains[
+    domainName as keyof typeof RAP_001_LIBRARY_REGISTRY.semantic.library.domains
+  ];
+  assert.ok(
+    domain.entities.length >= minimum,
+    `${domainName} object pool must expose at least ${minimum} entities`,
+  );
+}
+
+for (const cpId of RAP_001_CP_IDS) {
+  const qlCount = getSelectableQuestionLanguageIds(cpId, "en").length;
+  const rotated = Array.from({ length: qlCount }, (_, diversityOrdinal) =>
+    runRap001Pipeline(cpId, {
+      language: "en",
+      seed: `rap-001-full-pool:${cpId}:${diversityOrdinal}`,
+      diversityOrdinal,
+    }),
+  );
+  assert.equal(
+    new Set(rotated.map((item) => item.questionLanguageId)).size,
+    qlCount,
+    `${cpId} should consume its full English QL pool before unrestricted reuse`,
+  );
+
+  for (const pkg of rotated) {
+    const mathJax = pkg.mathJax ?? {};
+    const values = Object.values(mathJax).map((value) => String(value ?? ""));
+    assert.ok(values.length > 0, `${cpId} must expose MathJax output`);
+    for (const expression of values) {
+      assert.ok(expression.trim().length > 0, `${cpId} MathJax expression must be non-empty`);
+      assert.equal(
+        (expression.match(/\\\(/g) ?? []).length,
+        (expression.match(/\\\)/g) ?? []).length,
+        `${cpId} inline MathJax delimiters must balance`,
+      );
+      assert.equal(
+        (expression.match(/\\\[/g) ?? []).length,
+        (expression.match(/\\\]/g) ?? []).length,
+        `${cpId} display MathJax delimiters must balance`,
+      );
+      assert.ok(
+        !/\\begin\{equation\}|\\end\{equation\}/.test(expression),
+        `${cpId} should use Question Studio-safe MathJax fragments`,
+      );
+    }
+  }
+}
 
 const preFreeze = generateRap001CoverageAudit(500, "en");
 const maturity = generateRap001CoverageAudit(1000, "en");
