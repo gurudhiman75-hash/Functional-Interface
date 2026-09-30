@@ -754,7 +754,7 @@ function polishGeoSoiBulkTextV1(text:string, language:"hi"|"pa") {
     ["eastern coastal deltas","पूर्वी तटीय डेल्टा"],["coastal deltas","तटीय डेल्टा"],
     ["Godavari-Krishna valleys","गोदावरी-कृष्णा घाटियाँ"],["western and central Deccan","पश्चिमी और मध्य दक्कन"],
     ["western India","पश्चिमी भारत"],["forest setting","वन क्षेत्र"],["soil profile","मृदा-प्रोफ़ाइल"],["soil distribution","मिट्टी का वितरण"],
-    ["Odisha","ओडिशा"],["Chhattisgarh","छत्तीसगढ़"],["Karnataka","कर्नाटक"],["Kerala","केरल"],["Tamil Nadu","तमिलनाडु"],
+    ["soil erosion","मृदा अपरदन"],["gully erosion","अवनालिका अपरदन"],["sheet erosion","पर्त अपरदन"],["wind erosion","पवन अपरदन"],["contour ploughing","समोच्च जुताई"],["terrace cultivation","सीढ़ीदार खेती"],["strip cropping","पट्टीदार खेती"],["shelter belts","रक्षक वृक्ष-पट्टियाँ"],["shelter belt","रक्षक वृक्ष-पट्टी"],["dune stabilisation","बालू-टीला स्थिरीकरण"],["deforestation","वनों की कटाई"],["overgrazing","अतिचराई"],["ravines","बीहड़"],["crop suitability","फसल उपयुक्तता"],["sugarcane","गन्ना"],["paddy","धान"],["cereals","अनाज"],["moisture retention","नमी-धारण क्षमता"],["workability","कार्यशीलता"],["soil conservation","मृदा संरक्षण"],["erosion","अपरदन"],["Odisha","ओडिशा"],["Chhattisgarh","छत्तीसगढ़"],["Karnataka","कर्नाटक"],["Kerala","केरल"],["Tamil Nadu","तमिलनाडु"],
     ["Madhya Pradesh","मध्य प्रदेश"],["Assam","असम"],["Rajasthan","राजस्थान"],["Gujarat","गुजरात"],["Punjab","पंजाब"],["Haryana","हरियाणा"],
     ["formation","निर्माण"],["formed","बनी"],["developed","विकसित"],["develops","विकसित होती है"],["weathering","अपक्षय"],
     ["rainfall","वर्षा"],["temperature","तापमान"],["moisture","नमी"],["texture","बनावट"],["colour","रंग"],["color","रंग"],
@@ -819,7 +819,7 @@ function polishGeoSoiBulkTextV1(text:string, language:"hi"|"pa") {
     ["eastern coastal deltas","ਪੂਰਬੀ ਤਟੀ ਡੈਲਟੇ"],["coastal deltas","ਤਟੀ ਡੈਲਟੇ"],
     ["Godavari-Krishna valleys","ਗੋਦਾਵਰੀ-ਕ੍ਰਿਸ਼ਨਾ ਘਾਟੀਆਂ"],["western and central Deccan","ਪੱਛਮੀ ਅਤੇ ਮੱਧ ਦੱਖਣ"],
     ["western India","ਪੱਛਮੀ ਭਾਰਤ"],["forest setting","ਜੰਗਲੀ ਖੇਤਰ"],["soil profile","ਮਿੱਟੀ-ਪ੍ਰੋਫ਼ਾਈਲ"],["soil distribution","ਮਿੱਟੀ ਦੀ ਵੰਡ"],
-    ["Odisha","ਓਡੀਸ਼ਾ"],["Chhattisgarh","ਛੱਤੀਸਗੜ੍ਹ"],["Karnataka","ਕਰਨਾਟਕ"],["Kerala","ਕੇਰਲ"],["Tamil Nadu","ਤਮਿਲਨਾਡੂ"],
+    ["soil erosion","ਮਿੱਟੀ ਕਟਾਅ"],["gully erosion","ਖੱਡੀ ਕਟਾਅ"],["sheet erosion","ਪਰਤੀ ਕਟਾਅ"],["wind erosion","ਹਵਾ ਕਟਾਅ"],["contour ploughing","ਸਮੋਚ ਜੋਤਾਈ"],["terrace cultivation","ਪੌੜੀਦਾਰ ਖੇਤੀ"],["strip cropping","ਪੱਟੀਦਾਰ ਖੇਤੀ"],["shelter belts","ਰੱਖਿਆ ਰੁੱਖ-ਪੱਟੀਆਂ"],["shelter belt","ਰੱਖਿਆ ਰੁੱਖ-ਪੱਟੀ"],["dune stabilisation","ਰੇਤਲੇ ਟਿੱਬਿਆਂ ਦੀ ਸਥਿਰਤਾ"],["deforestation","ਜੰਗਲਾਂ ਦੀ ਕਟਾਈ"],["overgrazing","ਅਤਿ-ਚਰਾਈ"],["ravines","ਬੀਹੜ"],["crop suitability","ਫਸਲ ਉਚਿਤਤਾ"],["sugarcane","ਗੰਨਾ"],["paddy","ਧਾਨ"],["cereals","ਅਨਾਜ"],["moisture retention","ਨਮੀ-ਸੰਭਾਲ ਸਮਰੱਥਾ"],["workability","ਕੰਮਯੋਗਤਾ"],["soil conservation","ਮਿੱਟੀ ਸੰਰੱਖਣ"],["erosion","ਕਟਾਅ"],["Odisha","ਓਡੀਸ਼ਾ"],["Chhattisgarh","ਛੱਤੀਸਗੜ੍ਹ"],["Karnataka","ਕਰਨਾਟਕ"],["Kerala","ਕੇਰਲ"],["Tamil Nadu","ਤਮਿਲਨਾਡੂ"],
     ["Madhya Pradesh","ਮੱਧ ਪ੍ਰਦੇਸ਼"],["Assam","ਅਸਾਮ"],["Rajasthan","ਰਾਜਸਥਾਨ"],["Gujarat","ਗੁਜਰਾਤ"],["Punjab","ਪੰਜਾਬ"],["Haryana","ਹਰਿਆਣਾ"],
     ["formation","ਬਣਤਰ"],["formed","ਬਣੀ"],["developed","ਵਿਕਸਿਤ"],["develops","ਵਿਕਸਿਤ ਹੁੰਦੀ ਹੈ"],["weathering","ਅਪਖੰਡਨ"],
     ["rainfall","ਵਰਖਾ"],["temperature","ਤਾਪਮਾਨ"],["moisture","ਨਮੀ"],["texture","ਬਣਤਰ"],["colour","ਰੰਗ"],["color","ਰੰਗ"],
@@ -868,7 +868,7 @@ function polishGeoSoiBulkTextV1(text:string, language:"hi"|"pa") {
 }
 
 function localizeGeoSoiBulkCp004Cp008V1(question:CanonicalQuestion, language:"hi"|"pa") {
-  if (!/^GEO-SOI-001-CP00[4-8]-Q/.test(question.questionId)) return null;
+  if (!/^GEO-SOI-001-CP(?:00[4-9]|01[0-2])-Q/.test(question.questionId)) return null;
   const safe = (source:string) => {
     const exact=EXACT[language][source];
     if (exact) return exact;
