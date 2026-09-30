@@ -246,7 +246,7 @@ D. 38.5
 
 **Answer:** A. 37.5
 
-**Explanation:** Coefficient of quartile deviation = (Q3 − Q1)/(Q3 + Q1) × 100 = (44 − 20)/(44 + 20) × 100 = 37.5%.
+**Explanation:** Coefficient of quartile deviation = (Q3 − Q1)/(Q3 + Q1) × 100 = (44 − 20)/(44 + 20) × 100 ≈ 37.5%.
 
 ## STAT-QL-049 — Mean deviation about the arithmetic mean
 
@@ -291,7 +291,7 @@ D. 31
 
 **Answer:** C. 30
 
-**Explanation:** Coefficient of variation = standard deviation / mean × 100 = 9/30 × 100 = 30%.
+**Explanation:** Coefficient of variation = standard deviation / mean × 100 = 9/30 × 100 ≈ 30%.
 
 ## Review checkpoints
 
