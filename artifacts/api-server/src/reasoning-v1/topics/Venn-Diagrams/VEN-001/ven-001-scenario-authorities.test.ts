@@ -112,7 +112,7 @@ const triangleAuthority = VEN_001_SCENARIO_AUTHORITIES.find(
 assert.ok(triangleAuthority);
 assert.equal(
   triangleAuthority.sets.find((set) => set.setId === "B")?.labels["pa-IN"],
-  "ਸਮਦੋਭੁਜ ਤਿਕੋਣ",
+  "ਸਮਦੋਭੁਜੀ ਤਿਕੋਣ",
   "Punjabi triangle labels must use the reviewed local terminology consistently",
 );
 
