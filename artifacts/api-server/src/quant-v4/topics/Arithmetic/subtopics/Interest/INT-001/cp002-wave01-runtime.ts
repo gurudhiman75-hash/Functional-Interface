@@ -596,11 +596,17 @@ function buildDayCount(seed: string): BuildResult {
   const actualBasis = hash(`${seed}:basis`) % 2 === 0;
   const basis = actualBasis ? "ACTUAL_365" as const : "COMMERCIAL_360" as const;
   const denominator = actualBasis ? 365 : 360;
-  const days = actualBasis ? 73 : 72;
+  const days = pick(
+    actualBasis
+      ? [31, 60, 73, 91, 120, 146, 182, 219, 292]
+      : [30, 45, 60, 72, 90, 120, 180, 240, 300],
+    seed,
+    "days",
+  );
   const basePrincipal = actualBasis ? 7300 : 7200;
-  const multiplier = pick([1, 2, 3, 4], seed, "multiplier");
+  const multiplier = pick([1, 2, 3, 4, 5], seed, "multiplier");
   const principal = rational(basePrincipal * multiplier);
-  const rate = rational(pick([5, 10], seed, "rate"));
+  const rate = rational(pick([5, 10, 15], seed, "rate"));
   const duration = intCp002DaysToYears(days, basis);
   const solution = simpleInterest(principal, rate, duration);
   const wrongBasis = actualBasis ? 360 : 365;

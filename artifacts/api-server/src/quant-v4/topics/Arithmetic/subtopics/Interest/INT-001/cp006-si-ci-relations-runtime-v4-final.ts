@@ -156,7 +156,8 @@ function ql107Question(seed: string): IntCp006Question {
       keyIdea: "Check the SI–CI difference year by year and stop at the first complete year that reaches the target.",
       steps: Object.freeze([
         `After ${yearText(correctYear - 1)}, CI−SI = ${money(previous)}, which is below ${money(state.targetDifference)}.`,
-        `After ${yearText(correctYear)}, CI−SI = ${money(current)}, so this is the first crossing year.`,
+        `After ${yearText(correctYear)}, CI−SI = ${money(current)}, which reaches or exceeds ${money(state.targetDifference)}.`,
+        `Target = ${money(state.targetDifference)}; therefore ${money(previous)} < ${money(state.targetDifference)} ≤ ${money(current)}, so the first crossing is ${yearText(correctYear)}.`,
       ]),
       finalAnswer: yearText(correctYear),
       commonMistake: "Do not choose a later year merely because it also exceeds the target; the question asks for the first crossing.",

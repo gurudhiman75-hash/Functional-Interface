@@ -1,0 +1,71 @@
+name: Validate INT-001 Systematic Audit V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
+  push:
+    branches:
+      - audit/int-001-systematic-audit-v1-20260930
+    paths:
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
+      - ".github/workflows/validate-int-001-systematic-audit-v1.yml"
+
+concurrency:
+  group: int-001-systematic-audit-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-001-systematic-audit-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle INT-001 systematic audit
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-systematic-audit-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/.int-001-systematic-audit-v1.mjs \
+            2>&1 | tee int-001-systematic-audit-v1.log
+
+      - name: Run full INT-001 trilingual chapter audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/.int-001-systematic-audit-v1.mjs \
+            2>&1 | tee -a int-001-systematic-audit-v1.log
+          grep -q "PASS_INT_001_SYSTEMATIC_AUDIT_V1_CORE_INTEGRITY" int-001-systematic-audit-v1.log
+
+      - name: Upload INT-001 audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-001-systematic-audit-v1
+          path: int-001-systematic-audit-v1.log
+          if-no-files-found: error
+          retention-days: 14

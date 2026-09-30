@@ -513,12 +513,24 @@ function buildCounterfactualOriginalDuration(seed: string): BuiltQuestion {
 
 function buildPartialRepaymentComparison(seed: string): BuiltQuestion {
   const { actor, institution } = context(seed);
-  const openingPrincipal = rational(pick([10000, 12000, 15000, 20000], seed, "opening"));
-  const repayment = multiplyRational(openingPrincipal, pick([rational(1, 5), rational(1, 4)], seed, "repayment-fraction"));
-  const rate = rational(pick([6, 8, 10, 12], seed, "rate"));
-  const earlyTime = rational(1);
-  const lateTime = rational(pick([2, 3], seed, "late-time"));
-  const horizon = addRational(lateTime, rational(1));
+  const openingPrincipal = rational(pick([12000, 18000, 24000, 30000, 36000], seed, "opening"));
+  const repayment = multiplyRational(
+    openingPrincipal,
+    pick([rational(1, 6), rational(1, 5), rational(1, 4), rational(1, 3)], seed, "repayment-fraction"),
+  );
+  const rate = rational(pick([5, 6, 8, 10, 12, 15], seed, "rate"));
+  const timing = pick([
+    { early: 1, late: 3 },
+    { early: 1, late: 4 },
+    { early: 2, late: 3 },
+    { early: 2, late: 5 },
+    { early: 3, late: 4 },
+    { early: 3, late: 5 },
+    { early: 4, late: 6 },
+  ] as const, seed, "repayment-timing");
+  const earlyTime = rational(timing.early);
+  const lateTime = rational(timing.late);
+  const horizon = addRational(lateTime, rational(pick([1, 2], seed, "horizon-tail")));
   const saving = simpleInterest(repayment, rate, subtractRational(lateTime, earlyTime));
   const fullHorizonSaving = simpleInterest(repayment, rate, horizon);
   const earlyDurationSaving = simpleInterest(repayment, rate, earlyTime);
@@ -627,9 +639,23 @@ function buildBorrowLendMissingDuration(seed: string): BuiltQuestion {
 
 function buildDayCountBasisComparison(seed: string): BuiltQuestion {
   const { actor, institution } = context(seed);
-  const days = rational(pick([72, 360], seed, "days"));
-  const principal = rational(pick([7300, 14600, 21900], seed, "principal"));
-  const rate = rational(pick([5, 10], seed, "rate"));
+  const scenario = pick([
+    { principal: 7300, rate: 5, days: 72 },
+    { principal: 7300, rate: 6, days: 120 },
+    { principal: 7300, rate: 8, days: 180 },
+    { principal: 7300, rate: 10, days: 180 },
+    { principal: 7300, rate: 12, days: 240 },
+    { principal: 7300, rate: 15, days: 240 },
+    { principal: 14600, rate: 5, days: 180 },
+    { principal: 14600, rate: 6, days: 150 },
+    { principal: 21900, rate: 8, days: 90 },
+    { principal: 29200, rate: 10, days: 72 },
+    { principal: 36500, rate: 12, days: 60 },
+    { principal: 43800, rate: 15, days: 48 },
+  ] as const, seed, "basis-comparison-scenario");
+  const days = rational(scenario.days);
+  const principal = rational(scenario.principal);
+  const rate = rational(scenario.rate);
   const commercialInterest = simpleInterest(principal, rate, divideRational(days, rational(360)));
   const actualInterest = simpleInterest(principal, rate, divideRational(days, rational(365)));
   const difference = subtractRational(commercialInterest, actualInterest);

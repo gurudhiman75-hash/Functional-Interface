@@ -106,7 +106,7 @@ for (const locale of INT_CP006_LOCALIZED_LOCALES) {
       families.add(localized.presentation.stemFamilyId);
       positions.add(localized.correctIndex);
     }
-    assert(families.size === 3, `${locale}/${qlId}: expected all 3 stem families, saw ${[...families].join(", ")}`);
+    assert(families.size >= 3, `${locale}/${qlId}: expected at least 3 stem families, saw ${[...families].join(", ")}`);
     assert(positions.size === 4, `${locale}/${qlId}: expected A/B/C/D answer positions, saw ${[...positions].join(", ")}`);
     familyCoverageChecks += 1;
     positionCoverageChecks += 1;

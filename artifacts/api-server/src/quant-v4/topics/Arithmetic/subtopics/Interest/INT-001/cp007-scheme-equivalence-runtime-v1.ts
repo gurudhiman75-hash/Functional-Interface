@@ -146,6 +146,15 @@ const COMPARE_SCENARIOS = Object.freeze([
   deepFreeze({ principal: rat(40000n), schemeA: scheme("SIMPLE", 10n, 2), schemeB: scheme("COMPOUND", 10n, 2) }),
   deepFreeze({ principal: rat(50000n), schemeA: scheme("SIMPLE", 12n, 3), schemeB: scheme("COMPOUND", 10n, 3) }),
   deepFreeze({ principal: rat(80000n), schemeA: scheme("COMPOUND", 25n, 2), schemeB: scheme("SIMPLE", 30n, 2) }),
+  deepFreeze({ principal: rat(60000n), schemeA: scheme("SIMPLE", 8n, 3), schemeB: scheme("COMPOUND", 8n, 3) }),
+  deepFreeze({ principal: rat(75000n), schemeA: scheme("COMPOUND", 12n, 2), schemeB: scheme("SIMPLE", 15n, 2) }),
+  deepFreeze({ principal: rat(90000n), schemeA: scheme("SIMPLE", 15n, 2), schemeB: scheme("COMPOUND", 12n, 2) }),
+  deepFreeze({ principal: rat(100000n), schemeA: scheme("COMPOUND", 10n, 3), schemeB: scheme("SIMPLE", 11n, 3) }),
+  deepFreeze({ principal: rat(36000n), schemeA: scheme("SIMPLE", 20n, 2), schemeB: scheme("COMPOUND", 18n, 2) }),
+  deepFreeze({ principal: rat(48000n), schemeA: scheme("COMPOUND", 15n, 3), schemeB: scheme("SIMPLE", 17n, 3) }),
+  deepFreeze({ principal: rat(125000n), schemeA: scheme("SIMPLE", 6n, 4), schemeB: scheme("COMPOUND", 6n, 4) }),
+  deepFreeze({ principal: rat(70000n), schemeA: scheme("COMPOUND", 8n, 3), schemeB: scheme("SIMPLE", 9n, 3) }),
+  deepFreeze({ principal: rat(96000n), schemeA: scheme("SIMPLE", 25n, 2, 2n), schemeB: scheme("COMPOUND", 12n, 2) }),
 ]);
 
 const MISSING_RATE_SCENARIOS = Object.freeze([
@@ -153,6 +162,18 @@ const MISSING_RATE_SCENARIOS = Object.freeze([
   deepFreeze({ knownScheme: scheme("COMPOUND", 10n, 2), missingMethod: "SIMPLE" as const, missingYears: 1 }),
   deepFreeze({ knownScheme: scheme("COMPOUND", 20n, 2), missingMethod: "SIMPLE" as const, missingYears: 2 }),
   deepFreeze({ knownScheme: scheme("SIMPLE", 25n, 1), missingMethod: "COMPOUND" as const, missingYears: 1 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 8n, 2), missingMethod: "SIMPLE" as const, missingYears: 2 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 15n, 2), missingMethod: "SIMPLE" as const, missingYears: 2 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 10n, 3), missingMethod: "SIMPLE" as const, missingYears: 2 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 12n, 2), missingMethod: "SIMPLE" as const, missingYears: 1 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 5n, 2), missingMethod: "SIMPLE" as const, missingYears: 2 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 25n, 2, 2n), missingMethod: "SIMPLE" as const, missingYears: 2 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 6n, 2), missingMethod: "SIMPLE" as const, missingYears: 1 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 8n, 3), missingMethod: "SIMPLE" as const, missingYears: 2 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 10n, 4), missingMethod: "SIMPLE" as const, missingYears: 4 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 12n, 3), missingMethod: "SIMPLE" as const, missingYears: 2 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 15n, 3), missingMethod: "SIMPLE" as const, missingYears: 3 }),
+  deepFreeze({ knownScheme: scheme("COMPOUND", 20n, 3), missingMethod: "SIMPLE" as const, missingYears: 4 }),
 ]);
 
 const BORROW_LEND_SCENARIOS = Object.freeze([
@@ -177,12 +198,28 @@ const SPLIT_SCENARIOS = Object.freeze([
   deepFreeze({ totalPrincipal: rat(98000n), schemeA: scheme("SIMPLE", 10n, 2), schemeB: scheme("COMPOUND", 25n, 1) }),
   deepFreeze({ totalPrincipal: rat(100400n), schemeA: scheme("COMPOUND", 10n, 2), schemeB: scheme("SIMPLE", 10n, 3) }),
   deepFreeze({ totalPrincipal: rat(107600n), schemeA: scheme("SIMPLE", 25n, 2, 2n), schemeB: scheme("COMPOUND", 20n, 2) }),
+  deepFreeze({ totalPrincipal: rat(98000n), schemeA: scheme("SIMPLE", 8n, 3), schemeB: scheme("COMPOUND", 10n, 2) }),
+  deepFreeze({ totalPrincipal: rat(319300n), schemeA: scheme("COMPOUND", 12n, 2), schemeB: scheme("SIMPLE", 15n, 2) }),
+  deepFreeze({ totalPrincipal: rat(108900n), schemeA: scheme("SIMPLE", 20n, 2), schemeB: scheme("COMPOUND", 15n, 2) }),
+  deepFreeze({ totalPrincipal: rat(98600n), schemeA: scheme("COMPOUND", 8n, 2), schemeB: scheme("SIMPLE", 10n, 2) }),
+  deepFreeze({ totalPrincipal: rat(98000n), schemeA: scheme("SIMPLE", 6n, 4), schemeB: scheme("COMPOUND", 10n, 2) }),
+  deepFreeze({ totalPrincipal: rat(98000n), schemeA: scheme("COMPOUND", 20n, 2), schemeB: scheme("SIMPLE", 25n, 2) }),
+  deepFreeze({ totalPrincipal: rat(90500n), schemeA: scheme("COMPOUND", 5n, 2), schemeB: scheme("SIMPLE", 8n, 2) }),
+  deepFreeze({ totalPrincipal: rat(94800n), schemeA: scheme("SIMPLE", 10n, 4), schemeB: scheme("COMPOUND", 12n, 2) }),
+  deepFreeze({ totalPrincipal: rat(107300n), schemeA: scheme("COMPOUND", 15n, 2), schemeB: scheme("SIMPLE", 18n, 2) }),
 ]);
 
 const OVERTAKE_SCENARIOS = Object.freeze([
   deepFreeze({ initiallyHigherScheme: scheme("SIMPLE", 12n, 1), overtakingScheme: scheme("COMPOUND", 10n, 1), maximumYears: 6 }),
   deepFreeze({ initiallyHigherScheme: scheme("SIMPLE", 15n, 1), overtakingScheme: scheme("COMPOUND", 25n, 1, 2n), maximumYears: 6 }),
   deepFreeze({ initiallyHigherScheme: scheme("SIMPLE", 20n, 1), overtakingScheme: scheme("COMPOUND", 15n, 1), maximumYears: 6 }),
+  deepFreeze({ initiallyHigherScheme: scheme("SIMPLE", 8n, 1), overtakingScheme: scheme("COMPOUND", 6n, 1), maximumYears: 12 }),
+  deepFreeze({ initiallyHigherScheme: scheme("SIMPLE", 10n, 1), overtakingScheme: scheme("COMPOUND", 8n, 1), maximumYears: 8 }),
+  deepFreeze({ initiallyHigherScheme: scheme("SIMPLE", 18n, 1), overtakingScheme: scheme("COMPOUND", 14n, 1), maximumYears: 8 }),
+  deepFreeze({ initiallyHigherScheme: scheme("SIMPLE", 25n, 1), overtakingScheme: scheme("COMPOUND", 18n, 1), maximumYears: 8 }),
+  deepFreeze({ initiallyHigherScheme: scheme("SIMPLE", 14n, 1), overtakingScheme: scheme("COMPOUND", 11n, 1), maximumYears: 8 }),
+  deepFreeze({ initiallyHigherScheme: scheme("SIMPLE", 16n, 1), overtakingScheme: scheme("COMPOUND", 12n, 1), maximumYears: 8 }),
+  deepFreeze({ initiallyHigherScheme: scheme("SIMPLE", 30n, 1), overtakingScheme: scheme("COMPOUND", 20n, 1), maximumYears: 8 }),
 ]);
 
 function annualized(base: IntCp007Scheme, years: number): IntCp007Scheme {

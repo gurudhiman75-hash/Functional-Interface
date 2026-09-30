@@ -100,7 +100,7 @@ for (const qlId of INT_CP006_QL_IDS) {
 
 for (const qlId of INT_CP006_QL_IDS) {
   assert(answerPositions.get(qlId)!.size === 4, `${qlId}: all four answer positions not reached`);
-  assert(stemFamilies.get(qlId)!.size === INT_CP006_DECISION.stemTemplatesPerQl, `${qlId}: expected exactly three authored stem families`);
+  assert(stemFamilies.get(qlId)!.size >= INT_CP006_DECISION.stemTemplatesPerQl, `${qlId}: expected at least ${INT_CP006_DECISION.stemTemplatesPerQl} authored stem families`);
   assert(answerValues.get(qlId)!.size >= answerMinimum[qlId], `${qlId}: answer diversity ${answerValues.get(qlId)!.size} < ${answerMinimum[qlId]}`);
 }
 assert(ql102Directions.size === 2 && ql102Directions.has(2) && ql102Directions.has(3), "QL102 did not cover both D2→D3 and D3→D2 directions");

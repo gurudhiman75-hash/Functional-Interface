@@ -47,9 +47,33 @@ function scheme(method: "SIMPLE" | "COMPOUND", rateNumerator: bigint, years: num
 }
 
 const MISSING_PRINCIPAL_SCENARIOS = Object.freeze([
+  // Keep the original three approved states, then widen the object pool across
+  // method direction, duration and rate. Every state resolves to exact paise.
   deepFreeze({ knownPrincipal: rat(50000n), knownScheme: scheme("SIMPLE", 10n, 2), missingScheme: scheme("COMPOUND", 25n, 1) }),
   deepFreeze({ knownPrincipal: rat(52000n), knownScheme: scheme("COMPOUND", 10n, 2), missingScheme: scheme("SIMPLE", 10n, 3) }),
   deepFreeze({ knownPrincipal: rat(57600n), knownScheme: scheme("SIMPLE", 25n, 2, 2n), missingScheme: scheme("COMPOUND", 20n, 2) }),
+
+  deepFreeze({ knownPrincipal: rat(60000n), knownScheme: scheme("SIMPLE", 20n, 2), missingScheme: scheme("COMPOUND", 5n, 1) }),
+  deepFreeze({ knownPrincipal: rat(75000n), knownScheme: scheme("COMPOUND", 20n, 2), missingScheme: scheme("SIMPLE", 8n, 1) }),
+  deepFreeze({ knownPrincipal: rat(60000n), knownScheme: scheme("COMPOUND", 25n, 1), missingScheme: scheme("SIMPLE", 10n, 2) }),
+  deepFreeze({ knownPrincipal: rat(72000n), knownScheme: scheme("SIMPLE", 5n, 3), missingScheme: scheme("COMPOUND", 20n, 1) }),
+  deepFreeze({ knownPrincipal: rat(36000n), knownScheme: scheme("SIMPLE", 12n, 3), missingScheme: scheme("COMPOUND", 20n, 2) }),
+  deepFreeze({ knownPrincipal: rat(54000n), knownScheme: scheme("SIMPLE", 8n, 1), missingScheme: scheme("COMPOUND", 8n, 2) }),
+  deepFreeze({ knownPrincipal: rat(50000n), knownScheme: scheme("SIMPLE", 10n, 3), missingScheme: scheme("COMPOUND", 25n, 1) }),
+  deepFreeze({ knownPrincipal: rat(40000n), knownScheme: scheme("COMPOUND", 25n, 1, 2n), missingScheme: scheme("SIMPLE", 10n, 2) }),
+  deepFreeze({ knownPrincipal: rat(36000n), knownScheme: scheme("SIMPLE", 25n, 1, 2n), missingScheme: scheme("COMPOUND", 8n, 1) }),
+  deepFreeze({ knownPrincipal: rat(30000n), knownScheme: scheme("SIMPLE", 5n, 1), missingScheme: scheme("COMPOUND", 25n, 1, 2n) }),
+  deepFreeze({ knownPrincipal: rat(30000n), knownScheme: scheme("COMPOUND", 5n, 2), missingScheme: scheme("SIMPLE", 5n, 1) }),
+  deepFreeze({ knownPrincipal: rat(60000n), knownScheme: scheme("SIMPLE", 8n, 2), missingScheme: scheme("COMPOUND", 20n, 1) }),
+  deepFreeze({ knownPrincipal: rat(75000n), knownScheme: scheme("SIMPLE", 8n, 3), missingScheme: scheme("COMPOUND", 20n, 1) }),
+  deepFreeze({ knownPrincipal: rat(48000n), knownScheme: scheme("COMPOUND", 5n, 2), missingScheme: scheme("SIMPLE", 8n, 1) }),
+  deepFreeze({ knownPrincipal: rat(50000n), knownScheme: scheme("COMPOUND", 5n, 2), missingScheme: scheme("SIMPLE", 25n, 1, 2n) }),
+  deepFreeze({ knownPrincipal: rat(52000n), knownScheme: scheme("SIMPLE", 25n, 2, 2n), missingScheme: scheme("SIMPLE", 10n, 3) }),
+  deepFreeze({ knownPrincipal: rat(52000n), knownScheme: scheme("SIMPLE", 10n, 2), missingScheme: scheme("SIMPLE", 10n, 3) }),
+  deepFreeze({ knownPrincipal: rat(36000n), knownScheme: scheme("COMPOUND", 25n, 2, 2n), missingScheme: scheme("SIMPLE", 25n, 1, 2n) }),
+  deepFreeze({ knownPrincipal: rat(36000n), knownScheme: scheme("SIMPLE", 12n, 1), missingScheme: scheme("COMPOUND", 20n, 2) }),
+  deepFreeze({ knownPrincipal: rat(30000n), knownScheme: scheme("SIMPLE", 10n, 2), missingScheme: scheme("COMPOUND", 20n, 2) }),
+  deepFreeze({ knownPrincipal: rat(30000n), knownScheme: scheme("SIMPLE", 8n, 1), missingScheme: scheme("COMPOUND", 20n, 3) }),
 ]);
 
 export function constructIntCp007PrototypeStateV2(prototypeId: IntCp007PrototypeIdV2, seed: string): IntCp007PrototypeStateV2 {

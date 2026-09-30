@@ -5,27 +5,46 @@ import { INT_CP006_QL_IDS, generateIntCp006Question, type IntCp006Question, type
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 
 function pickReviewQuestions(qlId: IntCp006QlId): readonly IntCp006Question[] {
-  const desiredTemplates = [`${qlId}-T1`, `${qlId}-T2`, `${qlId}-T3`, `${qlId}-T1`];
-  const selected: IntCp006Question[] = [];
-  const fingerprints = new Set<string>();
+  const candidatesByPosition = new Map<number, Map<string, IntCp006Question>>();
   for (let correctIndex = 0; correctIndex < 4; correctIndex += 1) {
-    const wantedTemplate = desiredTemplates[correctIndex]!;
-    let found: IntCp006Question | undefined;
+    const byFamily = new Map<string, IntCp006Question>();
     for (let index = 0; index < 6000; index += 1) {
       const seed = `int-cp006-v1-review-${qlId}-${correctIndex}-${index}`;
       const question = generateIntCp006Question(qlId, seed);
       if (question.correctIndex !== correctIndex) continue;
-      if (question.presentation.stemFamilyId !== wantedTemplate) continue;
-      if (fingerprints.has(question.mathematicalFingerprint)) continue;
-      found = question;
-      break;
+      if (!byFamily.has(question.presentation.stemFamilyId)) {
+        byFamily.set(question.presentation.stemFamilyId, question);
+      }
     }
-    assert(found, `${qlId}: no review question for position ${correctIndex} / ${wantedTemplate}`);
-    fingerprints.add(found.mathematicalFingerprint);
-    selected.push(found);
+    assert(byFamily.size > 0, `${qlId}: no review question for answer position ${correctIndex}`);
+    candidatesByPosition.set(correctIndex, byFamily);
   }
-  assert(new Set(selected.map((question) => question.presentation.stemFamilyId)).size === 3, `${qlId}: review does not show all three stem families`);
-  return Object.freeze(selected);
+
+  let best: IntCp006Question[] | undefined;
+  let bestFamilyCount = -1;
+  const walk = (position: number, selected: IntCp006Question[], fingerprints: Set<string>): void => {
+    if (position === 4) {
+      const familyCount = new Set(selected.map((question) => question.presentation.stemFamilyId)).size;
+      if (familyCount > bestFamilyCount) {
+        bestFamilyCount = familyCount;
+        best = [...selected];
+      }
+      return;
+    }
+    for (const question of candidatesByPosition.get(position)!.values()) {
+      if (fingerprints.has(question.mathematicalFingerprint)) continue;
+      fingerprints.add(question.mathematicalFingerprint);
+      selected.push(question);
+      walk(position + 1, selected, fingerprints);
+      selected.pop();
+      fingerprints.delete(question.mathematicalFingerprint);
+    }
+  };
+  walk(0, [], new Set<string>());
+
+  assert(best?.length === 4, `${qlId}: could not construct a four-position review set`);
+  assert(bestFamilyCount >= 3, `${qlId}: review set covers only ${bestFamilyCount} stem families`);
+  return Object.freeze(best);
 }
 
 function renderQuestion(question: IntCp006Question, ordinal: number): string {
@@ -57,7 +76,7 @@ sections.push("# INT-CP-006 V1 — English Question Review");
 sections.push("");
 sections.push("Checkpoint: **Simple-versus-Compound Differences and Successive-Interest Relations**");
 sections.push("");
-sections.push("Review scope: 13 retained QLs × 4 questions = **52 learner-facing questions**. Every QL shows all three authored stem families and correct positions A/B/C/D exactly once.");
+sections.push("Review scope: 13 retained QLs × 4 questions = **52 learner-facing questions**. Every QL covers correct positions A/B/C/D exactly once and shows at least three authored stem families from the expanded runtime.");
 sections.push("");
 sections.push("Lifecycle: review-only. Question Studio activation, registration, Question Bank storage, test eligibility and public publication remain closed.");
 sections.push("");

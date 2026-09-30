@@ -64,16 +64,17 @@ function table(locale: IntCp006LocalizedLocale, rows: readonly (readonly [string
   const headers = locale === "hi-IN" ? ["विवरण", "मान"] : ["ਵੇਰਵਾ", "ਮੁੱਲ"];
   return `| ${headers[0]} | ${headers[1]} |\n|---|---:|\n${rows.map(([name, value]) => `| ${name} | ${value} |`).join("\n")}`;
 }
-function templateIndex(stemFamilyId: string): 0 | 1 | 2 {
-  const match = stemFamilyId.match(/-T([123])$/u);
+type LocalizedTemplateIndex = 0 | 1 | 2 | 3 | 4 | 5;
+function templateIndex(stemFamilyId: string): LocalizedTemplateIndex {
+  const match = stemFamilyId.match(/-T([1-6])$/u);
   if (!match) throw new Error(`CP006 localized invalid stem family ${stemFamilyId}`);
-  return (Number(match[1]) - 1) as 0 | 1 | 2;
+  return (Number(match[1]) - 1) as LocalizedTemplateIndex;
 }
 function rateFromConsecutive(earlier: Rational, later: Rational): Rational {
   return mul(sub(div(later, earlier), rat(1)), rat(100));
 }
 
-function localizedStem(qlId: IntCp006QlId, state: any, template: 0 | 1 | 2, locale: IntCp006LocalizedLocale): string {
+function localizedStem(qlId: IntCp006QlId, state: any, template: LocalizedTemplateIndex, locale: IntCp006LocalizedLocale): string {
   const hi = locale === "hi-IN";
   switch (qlId) {
     case "INT-QL-096": {
@@ -90,12 +91,18 @@ function localizedStem(qlId: IntCp006QlId, state: any, template: 0 | 1 | 2, loca
     case "INT-QL-097": {
       const frames = hi ? [
         `${money(state.principal)} पर ${percent(state.ratePercent)} वार्षिक दर से 3 वर्षों के लिए चक्रवृद्धि ब्याज और साधारण ब्याज का अंतर ज्ञात कीजिए।`,
-        `${money(state.principal)} को 3 वर्षों के लिए ${percent(state.ratePercent)} वार्षिक दर पर रखा गया है। चक्रवृद्धि ब्याज, साधारण ब्याज से कितना अधिक होगा?`,
-        `${money(state.principal)} के मूलधन पर ${percent(state.ratePercent)} वार्षिक दर से 3 वर्षों बाद CI, SI से कितने रुपये अधिक होगा?`,
+        `3 वर्षों की अवधि के लिए ${money(state.principal)} को ${percent(state.ratePercent)} वार्षिक दर पर लगाया गया है। साधारण ब्याज की तुलना में वार्षिक चक्रवृद्धि से मिलने वाला अतिरिक्त ब्याज ज्ञात कीजिए।`,
+        `${percent(state.ratePercent)} वार्षिक दर से 3 वर्षों के लिए ${money(state.principal)} पर CI, SI से कितना अधिक होगा?`,
+        `समान मूलधन ${money(state.principal)} पर ${percent(state.ratePercent)} की दर से 3 वर्षों के साधारण और वार्षिक चक्रवृद्धि ब्याज का अंतर ज्ञात कीजिए।`,
+        `${money(state.principal)} की राशि 3 वर्षों के लिए ${percent(state.ratePercent)} वार्षिक दर पर लगाई गई है। साधारण ब्याज के बजाय वार्षिक चक्रवृद्धि करने पर कितना अतिरिक्त ब्याज मिलेगा?`,
+        `${table(locale, [["मूलधन", money(state.principal)], ["वार्षिक दर", percent(state.ratePercent)], ["समय", "3 वर्ष"]])}\n\nवार्षिक चक्रवृद्धि ब्याज और साधारण ब्याज का अंतर ज्ञात कीजिए।`,
       ] : [
         `${money(state.principal)} ਉੱਤੇ ${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ ਨਾਲ 3 ਸਾਲਾਂ ਲਈ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਅਤੇ ਸਧਾਰਣ ਵਿਆਜ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।`,
-        `${money(state.principal)} ਨੂੰ 3 ਸਾਲਾਂ ਲਈ ${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ 'ਤੇ ਰੱਖਿਆ ਗਿਆ ਹੈ। ਚੱਕਰਵੱਧੀ ਵਿਆਜ, ਸਧਾਰਣ ਵਿਆਜ ਨਾਲੋਂ ਕਿੰਨਾ ਵੱਧ ਹੋਵੇਗਾ?`,
-        `${money(state.principal)} ਦੇ ਮੂਲਧਨ ਉੱਤੇ ${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ ਨਾਲ 3 ਸਾਲਾਂ ਬਾਅਦ CI, SI ਨਾਲੋਂ ਕਿੰਨਾ ਵੱਧ ਹੋਵੇਗਾ?`,
+        `3 ਸਾਲਾਂ ਦੀ ਮਿਆਦ ਲਈ ${money(state.principal)} ਨੂੰ ${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ 'ਤੇ ਲਗਾਇਆ ਗਿਆ ਹੈ। ਸਧਾਰਣ ਵਿਆਜ ਦੇ ਮੁਕਾਬਲੇ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਨਾਲ ਮਿਲਣ ਵਾਲਾ ਵਾਧੂ ਵਿਆਜ ਪਤਾ ਕਰੋ।`,
+        `${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ ਨਾਲ 3 ਸਾਲਾਂ ਲਈ ${money(state.principal)} ਉੱਤੇ CI, SI ਨਾਲੋਂ ਕਿੰਨਾ ਵੱਧ ਹੋਵੇਗਾ?`,
+        `ਇੱਕੋ ਮੂਲਧਨ ${money(state.principal)} ਉੱਤੇ ${percent(state.ratePercent)} ਦੀ ਦਰ ਨਾਲ 3 ਸਾਲਾਂ ਦੇ ਸਧਾਰਣ ਅਤੇ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।`,
+        `${money(state.principal)} ਦੀ ਰਕਮ 3 ਸਾਲਾਂ ਲਈ ${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ 'ਤੇ ਲਗਾਈ ਗਈ ਹੈ। ਸਧਾਰਣ ਵਿਆਜ ਦੀ ਥਾਂ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਕਰਨ ਨਾਲ ਕਿੰਨਾ ਵਾਧੂ ਵਿਆਜ ਮਿਲੇਗਾ?`,
+        `${table(locale, [["ਮੂਲਧਨ", money(state.principal)], ["ਸਾਲਾਨਾ ਦਰ", percent(state.ratePercent)], ["ਸਮਾਂ", "3 ਸਾਲ"]])}\n\nਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਅਤੇ ਸਧਾਰਣ ਵਿਆਜ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।`,
       ]; return frames[template]!;
     }
     case "INT-QL-098": {

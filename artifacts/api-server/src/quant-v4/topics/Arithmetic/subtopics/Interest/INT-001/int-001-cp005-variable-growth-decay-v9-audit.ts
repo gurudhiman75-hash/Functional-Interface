@@ -102,7 +102,9 @@ assert.equal(INT_CP005_QL_IDS.length, 10);
 for (const qlId of INT_CP005_QL_IDS) {
   const qlPositions = new Set<number>();
   positions.set(qlId, qlPositions);
-  for (let index = 0; index < 100; index += 1) {
+  // Later runtime expansion widened the reachable state space, so sample deeply enough
+  // for this historical V9 gate to measure the existing >=50 diversity floor reliably.
+  for (let index = 0; index < 160; index += 1) {
     const seed = `int-cp005-v9-audit-${qlId}-${index}`;
     const english = generateIntCp005QuestionV9(qlId, seed, "en-IN");
     assert.deepEqual(generateIntCp005QuestionV9(qlId, seed, "en-IN"), english, `${qlId}/${seed}: replay drift`);
