@@ -194,7 +194,7 @@ for (const qlId of qlIds) {
 
 // Direct authored-language breadth: same seed selects the same semantic variant in all languages.
 const authoredStemVariantQlIds = listPnlAuthoredStemVariantQlIds();
-assert.equal(authoredStemVariantQlIds.length, 125, "authored multilingual variant inventory size");
+assert.equal(authoredStemVariantQlIds.length, 133, "authored multilingual variant inventory size");
 for (const qlId of authoredStemVariantQlIds) {
   const seen = new Map<string, Set<number>>(languages.map((language) => [language, new Set<number>()]));
   const stems = new Map<string, Set<string>>(languages.map((language) => [language, new Set<string>()]));

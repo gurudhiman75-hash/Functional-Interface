@@ -1751,6 +1751,118 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਕਿਸੇ ਵਸਤ ਨੂੰ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
       "ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPrice} ਹੈ। ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ, ਘਾਟਾ ਜਾਂ ਕੋਈ ਬਦਲਾਅ ਨਾ ਹੋਣ ਦੀ ਸਥਿਤੀ ਪਤਾ ਕਰੋ।"
     ]
+  },
+  "PNL-QL-041": {
+    "en": [
+      "Successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}% are allowed. Find the single equivalent discount.",
+      "A shop gives two discounts, {firstDiscountPercent}% followed by {secondDiscountPercent}%. What single discount gives the same reduction?"
+    ],
+    "hi": [
+      "क्रमशः {firstDiscountPercent}% और {secondDiscountPercent}% की छूट दी जाती है। एकल समतुल्य छूट ज्ञात कीजिए।",
+      "एक दुकान पहले {firstDiscountPercent}% और फिर {secondDiscountPercent}% छूट देती है। समान कमी देने वाली एकल छूट कितनी है?"
+    ],
+    "pa": [
+      "ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਇਕੱਲੀ ਸਮਤੁੱਲ ਛੂਟ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਦੁਕਾਨ ਪਹਿਲਾਂ {firstDiscountPercent}% ਅਤੇ ਫਿਰ {secondDiscountPercent}% ਛੂਟ ਦਿੰਦੀ ਹੈ। ਇੱਕੋ ਜਿਹੀ ਕਮੀ ਦੇਣ ਵਾਲੀ ਇਕੱਲੀ ਛੂਟ ਕਿੰਨੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-042": {
+    "en": [
+      "An item marked at ₹{markedPrice} is sold at {discountPercent}% discount. Find the discount amount.",
+      "The marked price is ₹{markedPrice}. How many rupees are reduced when a {discountPercent}% discount is allowed?"
+    ],
+    "hi": [
+      "किसी वस्तु का अंकित मूल्य ₹{markedPrice} है और उस पर {discountPercent}% छूट दी जाती है। छूट की राशि ज्ञात कीजिए।",
+      "अंकित मूल्य ₹{markedPrice} है। {discountPercent}% छूट देने पर कितने रुपये कम किए जाते हैं?"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ ਅਤੇ ਇਸ 'ਤੇ {discountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਛੂਟ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
+      "ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ। {discountPercent}% ਛੂਟ ਦੇਣ 'ਤੇ ਕਿੰਨੇ ਰੁਪਏ ਘਟਾਏ ਜਾਂਦੇ ਹਨ?"
+    ]
+  },
+  "PNL-QL-043": {
+    "en": [
+      "An item marked at ₹{markedPrice} gets a discount of ₹{discountAmount}. Find the discount percentage.",
+      "A reduction of ₹{discountAmount} is allowed on a marked price of ₹{markedPrice}. What is the discount rate?"
+    ],
+    "hi": [
+      "किसी वस्तु का अंकित मूल्य ₹{markedPrice} है और ₹{discountAmount} की छूट दी जाती है। छूट प्रतिशत ज्ञात कीजिए।",
+      "₹{markedPrice} के अंकित मूल्य पर ₹{discountAmount} की कमी दी जाती है। छूट की दर क्या है?"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ ਅਤੇ ₹{discountAmount} ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "₹{markedPrice} ਦੇ ਅੰਕਿਤ ਮੁੱਲ 'ਤੇ ₹{discountAmount} ਦੀ ਕਮੀ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਛੂਟ ਦੀ ਦਰ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-044": {
+    "en": [
+      "The marked price is ₹{markedPrice} and a flat discount of ₹{discountAmount} is allowed. Find the selling price.",
+      "An item marked at ₹{markedPrice} is reduced by ₹{discountAmount}. What price does the customer pay?"
+    ],
+    "hi": [
+      "अंकित मूल्य ₹{markedPrice} है और ₹{discountAmount} की सीधी छूट दी जाती है। विक्रय मूल्य ज्ञात कीजिए।",
+      "₹{markedPrice} अंकित मूल्य वाली वस्तु पर ₹{discountAmount} की कमी की जाती है। ग्राहक कितना भुगतान करेगा?"
+    ],
+    "pa": [
+      "ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ ਅਤੇ ₹{discountAmount} ਦੀ ਸਿੱਧੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤ 'ਤੇ ₹{discountAmount} ਦੀ ਕਮੀ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਗਾਹਕ ਕਿੰਨਾ ਭੁਗਤਾਨ ਕਰੇਗਾ?"
+    ]
+  },
+  "PNL-QL-045": {
+    "en": [
+      "The first of two successive discounts is {knownDiscountPercent}%, and their equivalent discount is {equivalentDiscountPercent}%. Find the second discount.",
+      "Two successive discounts together equal {equivalentDiscountPercent}%. If one discount is {knownDiscountPercent}%, what is the other?"
+    ],
+    "hi": [
+      "दो क्रमिक छूटों में पहली छूट {knownDiscountPercent}% है और समतुल्य छूट {equivalentDiscountPercent}% है। दूसरी छूट ज्ञात कीजिए।",
+      "दो क्रमिक छूटों की संयुक्त समतुल्य छूट {equivalentDiscountPercent}% है। यदि एक छूट {knownDiscountPercent}% है, तो दूसरी कितनी है?"
+    ],
+    "pa": [
+      "ਦੋ ਲਗਾਤਾਰ ਛੂਟਾਂ ਵਿੱਚ ਪਹਿਲੀ ਛੂਟ {knownDiscountPercent}% ਹੈ ਅਤੇ ਸਮਤੁੱਲ ਛੂਟ {equivalentDiscountPercent}% ਹੈ। ਦੂਜੀ ਛੂਟ ਪਤਾ ਕਰੋ।",
+      "ਦੋ ਲਗਾਤਾਰ ਛੂਟਾਂ ਦੀ ਮਿਲੀ-ਜੁਲੀ ਸਮਤੁੱਲ ਛੂਟ {equivalentDiscountPercent}% ਹੈ। ਜੇ ਇੱਕ ਛੂਟ {knownDiscountPercent}% ਹੈ, ਤਾਂ ਦੂਜੀ ਕਿੰਨੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-046": {
+    "en": [
+      "An item marked at ₹{markedPrice} has two offers: {singleDiscountPercent}% off, or successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Which offer saves more, and by how much?",
+      "Compare a single {singleDiscountPercent}% discount with successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}% on marked price ₹{markedPrice}. Find the better offer and the saving difference."
+    ],
+    "hi": [
+      "₹{markedPrice} अंकित मूल्य वाली वस्तु पर दो ऑफर हैं: {singleDiscountPercent}% की एकल छूट, या क्रमशः {firstDiscountPercent}% और {secondDiscountPercent}% की छूट। कौन-सा ऑफर बेहतर है और कितने रुपये से?",
+      "₹{markedPrice} अंकित मूल्य पर {singleDiscountPercent}% की एकल छूट की तुलना {firstDiscountPercent}% और {secondDiscountPercent}% की क्रमिक छूटों से कीजिए। बेहतर ऑफर और बचत का अंतर ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤ 'ਤੇ ਦੋ ਆਫਰ ਹਨ: {singleDiscountPercent}% ਦੀ ਇਕੱਲੀ ਛੂਟ, ਜਾਂ ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਦੀਆਂ ਛੂਟਾਂ। ਕਿਹੜਾ ਆਫਰ ਵਧੀਆ ਹੈ ਅਤੇ ਕਿੰਨੇ ਰੁਪਏ ਨਾਲ?",
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ 'ਤੇ {singleDiscountPercent}% ਦੀ ਇਕੱਲੀ ਛੂਟ ਦੀ ਤੁਲਨਾ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਦੀਆਂ ਲਗਾਤਾਰ ਛੂਟਾਂ ਨਾਲ ਕਰੋ। ਵਧੀਆ ਆਫਰ ਅਤੇ ਬਚਤ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-047": {
+    "en": [
+      "An item costs ₹{costPrice}, is marked {markupPercent}% above cost, and sold after {discountPercent}% discount. Find the profit or loss percentage.",
+      "A shopkeeper marks an item costing ₹{costPrice} up by {markupPercent}% and then allows {discountPercent}% discount. What is the final percentage gain or loss?"
+    ],
+    "hi": [
+      "किसी वस्तु का क्रय मूल्य ₹{costPrice} है, उसे लागत से {markupPercent}% ऊपर अंकित किया जाता है और {discountPercent}% छूट पर बेचा जाता है। लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "दुकानदार ₹{costPrice} लागत वाली वस्तु का मूल्य {markupPercent}% बढ़ाकर अंकित करता है और फिर {discountPercent}% छूट देता है। अंतिम प्रतिशत लाभ या हानि क्या है?"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਹੈ, ਇਸਨੂੰ ਲਾਗਤ ਤੋਂ {markupPercent}% ਉੱਪਰ ਅੰਕਿਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਦੁਕਾਨਦਾਰ ₹{costPrice} ਲਾਗਤ ਵਾਲੀ ਵਸਤ ਦੀ ਕੀਮਤ {markupPercent}% ਵਧਾ ਕੇ ਲਗਾਉਂਦਾ ਹੈ ਅਤੇ ਫਿਰ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ। ਅੰਤਿਮ ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਜਾਂ ਘਾਟਾ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-048": {
+    "en": [
+      "An item costing ₹{costPrice} is marked {markupPercent}% above cost and sold after {discountPercent}% discount. Find the profit or loss amount.",
+      "A seller marks a ₹{costPrice} item up by {markupPercent}% and allows {discountPercent}% discount. How many rupees of profit or loss result?"
+    ],
+    "hi": [
+      "₹{costPrice} लागत वाली वस्तु को लागत से {markupPercent}% ऊपर अंकित किया जाता है और {discountPercent}% छूट पर बेचा जाता है। लाभ या हानि की राशि ज्ञात कीजिए।",
+      "विक्रेता ₹{costPrice} लागत वाली वस्तु का मूल्य {markupPercent}% बढ़ाकर अंकित करता है और {discountPercent}% छूट देता है। रुपये में लाभ या हानि कितनी है?"
+    ],
+    "pa": [
+      "₹{costPrice} ਲਾਗਤ ਵਾਲੀ ਵਸਤ ਨੂੰ ਲਾਗਤ ਤੋਂ {markupPercent}% ਉੱਪਰ ਅੰਕਿਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
+      "ਵਿਕਰੇਤਾ ₹{costPrice} ਲਾਗਤ ਵਾਲੀ ਵਸਤ ਦੀ ਕੀਮਤ {markupPercent}% ਵਧਾ ਕੇ ਲਗਾਉਂਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ। ਰੁਪਏ ਵਿੱਚ ਲਾਭ ਜਾਂ ਘਾਟਾ ਕਿੰਨਾ ਹੈ?"
+    ]
   }
 };
 
