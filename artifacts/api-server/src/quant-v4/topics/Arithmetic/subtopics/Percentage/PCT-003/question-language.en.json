@@ -230,7 +230,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-085": {
-        "template": "If the {wholeLabel} goes up by {increaseRate}%, find the factor of increase.",
+        "template": "If the {wholeLabel} increases by {increaseRate}%, what multiplier gives the new value from the original value?",
         "difficulty": "Medium"
       },
       "PCT-QL-086": {
@@ -274,7 +274,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-035": {
-        "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}% in January and by {rate2}% in February. Find the number after February.",
+        "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}% in January and by {rate2}% in February. Find its value at the end of February.",
         "difficulty": "Hard"
       },
       "PCT-QL-091": {
@@ -354,15 +354,15 @@
         "difficulty": "Medium"
       },
       "PCT-QL-104": {
-        "template": "If a {wholeLabel} is increased successively by {rate1}% and {rate2}%, find the overall increase percent.",
+        "template": "A {wholeLabel} is increased successively by {rate1}% and {rate2}%. Find the equivalent single percentage increase.",
         "difficulty": "Medium"
       },
       "PCT-QL-105": {
-        "template": "A {wholeLabel} goes up by {rate1}% and again by {rate2}%. By what percent has it increased in all?",
+        "template": "A {wholeLabel} increases by {rate1}% and then by {rate2}%. By what percentage has it increased overall?",
         "difficulty": "Medium"
       },
       "PCT-QL-106": {
-        "template": "For a {wholeLabel}, the first increase is {rate1}% and the second is {rate2}%. Find the net increase percentage.",
+        "template": "A {wholeLabel} increases by {rate1}% and then by {rate2}%. Find the net percentage increase.",
         "difficulty": "Hard"
       },
       "PCT-QL-107": {
@@ -374,7 +374,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-109": {
-        "template": "A {wholeLabel} records percentage increases of {rate1}% and {rate2}% one after another. Find the combined percentage increase.",
+        "template": "A {wholeLabel} increases by {rate1}% and then by {rate2}%. Find the combined percentage increase.",
         "difficulty": "Hard"
       },
       "PCT-QL-110": {
@@ -482,7 +482,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-124": {
-        "template": "A survey covers {totalValue} {wholeLabel}, of which {partRate}% are {partLabel}. If {partLabel} increase by {partIncreaseRate}% and {otherLabel} increase by {otherIncreaseRate}%, find the new share of {partLabel}.",
+        "template": "In a survey of {totalValue} {wholeLabel}, {partRate}% are {partLabel} and the rest are {otherLabel}. If the numbers of {partLabel} and {otherLabel} increase by {partIncreaseRate}% and {otherIncreaseRate}% respectively, find the new percentage of {partLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-125": {
@@ -494,15 +494,15 @@
         "difficulty": "Hard"
       },
       "PCT-QL-127": {
-        "template": "Out of a total of {totalValue} {wholeLabel}, {partRate}% belong to {partLabel}. If {partLabel} grow by {partIncreaseRate}% and {otherLabel} grow by {otherIncreaseRate}%, what is the revised percentage of {partLabel}?",
+        "template": "Out of {totalValue} {wholeLabel}, {partRate}% are {partLabel} and the rest are {otherLabel}. If the numbers of {partLabel} and {otherLabel} increase by {partIncreaseRate}% and {otherIncreaseRate}% respectively, what is the revised percentage of {partLabel}?",
         "difficulty": "Hard"
       },
       "PCT-QL-128": {
-        "template": "There are {totalValue} {wholeLabel} in all, with {partRate}% as {partLabel} and the rest as {otherLabel}. After percentage increases of {partIncreaseRate}% and {otherIncreaseRate}% in the two groups, find the new percentage of {partLabel}.",
+        "template": "Of {totalValue} {wholeLabel}, {partRate}% are {partLabel} and the rest are {otherLabel}. After the two groups increase by {partIncreaseRate}% and {otherIncreaseRate}% respectively, find the new percentage of {partLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-129": {
-        "template": "A population of {totalValue} {wholeLabel} includes {partRate}% {partLabel} and the remaining {otherLabel}. If the two groups increase by {partIncreaseRate}% and {otherIncreaseRate}% respectively, find the fresh percentage of {partLabel}.",
+        "template": "A total of {totalValue} {wholeLabel} includes {partRate}% {partLabel} and the rest {otherLabel}. If the two groups increase by {partIncreaseRate}% and {otherIncreaseRate}% respectively, find the new percentage of {partLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-130": {
@@ -538,11 +538,11 @@
         "difficulty": "Easy"
       },
       "PCT-QL-132": {
-        "template": "A {wholeLabel} of {valuePrefix}{currentValue} has to become {valuePrefix}{targetValue}. What percentage increase is required?",
+        "template": "A {wholeLabel} rises from {valuePrefix}{currentValue} to {valuePrefix}{targetValue}. What percentage increase is required?",
         "difficulty": "Easy"
       },
       "PCT-QL-133": {
-        "template": "The {wholeLabel} stands at {valuePrefix}{currentValue} and must reach {valuePrefix}{targetValue}. Find the required percentage increase.",
+        "template": "The {wholeLabel} is {valuePrefix}{currentValue} and must reach {valuePrefix}{targetValue}. Find the required percentage increase.",
         "difficulty": "Medium"
       },
       "PCT-QL-134": {
@@ -586,7 +586,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-048": {
-        "template": "The {wholeLabel} is {currentValue} and it grows by {growthRate}% every year. Find the number after {periodCount} years.",
+        "template": "The current {wholeLabel} is {currentValue}. If it grows by {growthRate}% every year, find the {wholeLabel} after {periodCount} years.",
         "difficulty": "Medium"
       },
       "PCT-QL-049": {
@@ -606,11 +606,11 @@
         "difficulty": "Medium"
       },
       "PCT-QL-143": {
-        "template": "A town has {currentValue} {wholeLabel}. Assuming a yearly growth of {growthRate}%, find the number after {periodCount} years.",
+        "template": "A town has {currentValue} {wholeLabel}. If this grows by {growthRate}% each year, find the {wholeLabel} after {periodCount} years.",
         "difficulty": "Medium"
       },
       "PCT-QL-144": {
-        "template": "A route serves {currentValue} {wholeLabel} now. If this grows by {growthRate}% each year, find the number after {periodCount} years.",
+        "template": "A route serves {currentValue} {wholeLabel} now. If the number grows by {growthRate}% each year, find the number of {wholeLabel} after {periodCount} years.",
         "difficulty": "Hard"
       },
       "PCT-QL-145": {
