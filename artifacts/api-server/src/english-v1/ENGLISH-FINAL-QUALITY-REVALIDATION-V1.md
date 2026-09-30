@@ -96,3 +96,16 @@ Review confirmed ENG-001 CP001–CP013 remain content-closed under the previousl
 A coverage weakness was identified in the 117-question chapter master audit: it checked explanation length and corrected-sentence inclusion, but did not explicitly assert that the explanation's Part A/B/C/D label matches the **final** learner-facing answer after Question Studio answer-position normalization.
 
 Remediation: the master audit now validates the final keyed part against every explicit Part reference in QL001/QL002 explanations, and guards QL007 no-error explanations against accidentally identifying an error-bearing part. This is a regression-only change. Approved stems, grammatical mutations, candidate pools, answer-position logic, frozen content and review-only lifecycle remain unchanged.
+
+
+## Phase 7 — ENG-002 no-improvement answer consistency
+
+The post-closure audit confirmed the existing approved ENG-002 inventory: CP001–CP013, 131 rules, a deterministic 117-question master review, and the 3,900-question closure soak. No justified grammar-content reopening was identified.
+
+A regression-coverage gap remained: tests verified that option D says `No improvement`, but did not verify that its answer key agrees with the learner-visible sentence and the source corrected sentence.
+
+The master audit and full closure soak now assert:
+- when D (`No improvement`) is keyed, the visible sentence equals the corrected sentence after underline markup is removed;
+- when A/B/C is keyed, the visible sentence must differ from the corrected sentence.
+
+This is an audit-only change. The 131-rule authority, source candidates, sentence surfaces, answers, explanations, four-option scheme and review-only lifecycle are unchanged.
