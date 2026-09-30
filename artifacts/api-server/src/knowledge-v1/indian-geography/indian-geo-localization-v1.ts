@@ -866,6 +866,48 @@ function polishGeoSoiBulkTextV1(text:string, language:"hi"|"pa") {
   let out=text;
   const pairs=language==="hi"?hi:pa;
   const esc=(s:string)=>s.replace(/[.*+?^$()|[\]\\{}]/g,"\\
+export function localizeIndianGeoQuestionV1(");
+  for(const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) out=out.replace(new RegExp("\\b"+esc(a)+"\\b","gi"),b);
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+function localizeGeoTrnBulkV1(question:CanonicalQuestion,language:"hi"|"pa"){
+  if(!/^GEO-TRN-001-CP00[1-5]-Q/.test(question.questionId)) return null;
+  const local=(s:string)=>polishGeoTrnBulkTextV1(localizeText(s,language),language);
+  const stemBase=localizeNaturalStem(question.stem,language,"GEO-TRN-001") ?? localizeText(question.stem,language);
+  const stem=polishGeoTrnBulkTextV1(stemBase,language);
+  const options=Object.freeze(question.options.map(local));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=local(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
+export function localizeIndianGeoQuestionV1(");
+  for (const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) {
+    out=out.replace(new RegExp("\\b"+esc(a)+"\\b","gi"),b);
+  }
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+
+function localizeGeoSoiBulkCp004Cp008V1(question:CanonicalQuestion, language:"hi"|"pa") {
+  if (!/^GEO-SOI-001-CP(?:00[4-9]|01[0-2])-Q/.test(question.questionId)) return null;
+  const safe = (source:string) => {
+    const exact=EXACT[language][source];
+    if (exact) return exact;
+    let out=source;
+    for (const [from,to] of PHRASES[language]) out=out.split(from).join(to);
+    for (const [from,to] of Object.entries(TERMS[language]).sort((a,b)=>b[0].length-a[0].length)) {
+      out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
+    }
+    out=replaceWords(out,language);
+    return polishGeoSoiBulkTextV1(out,language);
+  };
+  const stem=safe(question.stem);
+  const options=Object.freeze(question.options.map(safe));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=safe(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
 function polishGeoTrnBulkTextV1(text:string, language:"hi"|"pa") {
   const hi:[string,string][] = [
     ["National Highways","राष्ट्रीय राजमार्ग"],["National Highway","राष्ट्रीय राजमार्ग"],["State Highways","राज्य राजमार्ग"],["State Highway","राज्य राजमार्ग"],
@@ -935,47 +977,7 @@ function polishGeoTrnBulkTextV1(text:string, language:"hi"|"pa") {
   ];
   let out=text;
   const pairs=language==="hi"?hi:pa;
-  const esc=(s:string)=>s.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\export function localizeIndianGeoQuestionV1(");
-  for(const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) out=out.replace(new RegExp("\\b"+esc(a)+"\\b","gi"),b);
-  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
-}
-function localizeGeoTrnBulkV1(question:CanonicalQuestion,language:"hi"|"pa"){
-  if(!/^GEO-TRN-001-CP00[1-5]-Q/.test(question.questionId)) return null;
-  const local=(s:string)=>polishGeoTrnBulkTextV1(localizeText(s,language),language);
-  const stemBase=localizeNaturalStem(question.stem,language,"GEO-TRN-001") ?? localizeText(question.stem,language);
-  const stem=polishGeoTrnBulkTextV1(stemBase,language);
-  const options=Object.freeze(question.options.map(local));
-  const canonicalAnswer=options[question.correctIndex]!;
-  const explanation=local(question.explanation);
-  return Object.freeze({stem,options,canonicalAnswer,explanation});
-}
-
-export function localizeIndianGeoQuestionV1(");
-  for (const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) {
-    out=out.replace(new RegExp("\\b"+esc(a)+"\\b","gi"),b);
-  }
-  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
-}
-
-function localizeGeoSoiBulkCp004Cp008V1(question:CanonicalQuestion, language:"hi"|"pa") {
-  if (!/^GEO-SOI-001-CP(?:00[4-9]|01[0-2])-Q/.test(question.questionId)) return null;
-  const safe = (source:string) => {
-    const exact=EXACT[language][source];
-    if (exact) return exact;
-    let out=source;
-    for (const [from,to] of PHRASES[language]) out=out.split(from).join(to);
-    for (const [from,to] of Object.entries(TERMS[language]).sort((a,b)=>b[0].length-a[0].length)) {
-      out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
-    }
-    out=replaceWords(out,language);
-    return polishGeoSoiBulkTextV1(out,language);
-  };
-  const stem=safe(question.stem);
-  const options=Object.freeze(question.options.map(safe));
-  const canonicalAnswer=options[question.correctIndex]!;
-  const explanation=safe(question.explanation);
-  return Object.freeze({stem,options,canonicalAnswer,explanation});
-}
+  const esc=(s:string)=>s.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\
 
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
