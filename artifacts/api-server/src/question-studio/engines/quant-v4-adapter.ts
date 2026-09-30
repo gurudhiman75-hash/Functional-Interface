@@ -205,6 +205,7 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
     automaticStudentPublication: typeof pkg.automaticStudentPublication === "boolean" ? pkg.automaticStudentPublication : undefined,
     productionReleaseAuthorized: typeof pkg.productionReleaseAuthorized === "boolean" ? pkg.productionReleaseAuthorized : undefined,
     manualApprovalRequired: typeof pkg.manualApprovalRequired === "boolean" ? pkg.manualApprovalRequired : undefined,
+    metadata: typeof pkg.metadata === "object" && pkg.metadata !== null ? pkg.metadata as Record<string, unknown> : undefined,
   };
 }
 
