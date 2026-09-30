@@ -14,6 +14,7 @@ import{ENG010_HUMAN_APPROVAL_V1}from"../chapters/para-jumbles/ENG-010/eng-010-hu
 import{ENG011_HUMAN_APPROVAL_V1}from"../chapters/sentence-rearrangement/ENG-011/eng-011-human-approval-v1";
 import{ENG012_HUMAN_APPROVAL_V1}from"../chapters/word-swap/ENG-012/eng-012-human-approval-v1";
 import{ENG013_HUMAN_APPROVAL_V1}from"../chapters/word-usage/ENG-013/eng-013-human-approval-v1";
+import{ENGLISH_V1_FREEZE_AUTHORITY}from"../english-v1-freeze-authority";
 
 const packages=languageV1QuestionStudioAdapter.listPackages().filter(x=>x.subject==="English");
 assert.equal(packages.length,13,"Whole-English closure must expose exactly ENG-001 through ENG-013 packages");
@@ -59,6 +60,21 @@ for(const a of[ENG009_HUMAN_APPROVAL_V1,ENG010_HUMAN_APPROVAL_V1,ENG011_HUMAN_AP
  assert.equal(a.humanReviewApproved,true);
  assert.equal(a.productionReleaseAuthorized,false);
 }
+
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.englishFreeze,true);
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.approvalStatus,"HUMAN_PRODUCT_OWNER_APPROVED");
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.learnerContentChangeAllowedWithoutNewApproval,false);
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.volumeExpansionAllowedWithoutNewEvidence,false);
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.questionStudioReviewOnly,true);
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.questionBankWritable,false);
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.testEligible,false);
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.mockTestEligible,false);
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.publiclyPublishable,false);
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.automaticStudentPublication,false);
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.productionReleaseAuthorized,false);
+assert.equal(ENGLISH_V1_FREEZE_AUTHORITY.reopenCriteria.length,4);
+assert.deepEqual(ENGLISH_V1_FREEZE_AUTHORITY.certifiedInventories.eng009,{passages:98,governedBlanks:548});
+assert.deepEqual(ENGLISH_V1_FREEZE_AUTHORITY.certifiedInventories.eng013,{authorities:768});
 
 console.log("Whole-English final closure V4 regression passed.",{
  packages:packages.length,
