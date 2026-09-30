@@ -2,11 +2,11 @@
   "PCT-CP-001": {
     "families": {
       "PCT-QL-001": {
-        "template": "A {wholeLabel} was {originalValue}. It increased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "A {wholeLabel} was {valuePrefix}{originalValue}. It was increased successively by {rate1}% and {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {valuePrefix}{originalValue}. It was increased successively by {rate1}% and {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-021": {
@@ -14,7 +14,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-022": {
-        "template": "A company reported a {wholeLabel} of {originalValue}. If it increases by {rate1}% first and by {rate2}% next, find the final {wholeLabel}.",
+        "template": "A company reported {wholeLabel} of {originalValue}. If it increases by {rate1}% first and by {rate2}% next, find the final {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-023": {
@@ -22,7 +22,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-051": {
-        "template": "A {wholeLabel} of {valuePrefix}{originalValue} is increased by {rate1}% and then by {rate2}%. Find the revised {wholeLabel}.",
+        "template": "The {wholeLabel} of {valuePrefix}{originalValue} is increased by {rate1}% and then by {rate2}%. Find the revised {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-052": {
@@ -30,7 +30,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-053": {
-        "template": "An item has a {wholeLabel} of {valuePrefix}{originalValue}. If it rises by {rate1}% first and by {rate2}% thereafter, find the final {wholeLabel}.",
+        "template": "An item has {wholeLabel} {valuePrefix}{originalValue}. If it rises by {rate1}% first and by {rate2}% thereafter, find the final {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-054": {
@@ -38,7 +38,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-055": {
-        "template": "A {wholeLabel} of {valuePrefix}{originalValue} is revised upward in two stages by {rate1}% and {rate2}%. Find the resulting {wholeLabel}.",
+        "template": "The {wholeLabel} of {valuePrefix}{originalValue} is revised upward in two stages by {rate1}% and {rate2}%. Find the resulting {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-056": {
@@ -66,11 +66,11 @@
   "PCT-CP-002": {
     "families": {
       "PCT-QL-003": {
-        "template": "A {wholeLabel} was {originalValue}. It decreased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {originalValue}. It decreased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-004": {
-        "template": "A {wholeLabel} was {valuePrefix}{originalValue}. It decreased by {rate1}% first and by {rate2}% next. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {valuePrefix}{originalValue}. It decreased by {rate1}% first and by {rate2}% next. Find the final {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-024": {
@@ -78,7 +78,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-025": {
-        "template": "A {wholeLabel} of {originalValue} first decreased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} of {originalValue} first decreased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-026": {
@@ -86,7 +86,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-061": {
-        "template": "A {wholeLabel} of {valuePrefix}{originalValue} is reduced by {rate1}% and then by {rate2}%. Find the revised {wholeLabel}.",
+        "template": "The {wholeLabel} of {valuePrefix}{originalValue} is reduced by {rate1}% and then by {rate2}%. Find the revised {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-062": {
@@ -94,7 +94,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-063": {
-        "template": "A {wholeLabel} worth {valuePrefix}{originalValue} falls by {rate1}% first and by {rate2}% thereafter. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} worth {valuePrefix}{originalValue} falls by {rate1}% first and by {rate2}% thereafter. Find the final {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-064": {
@@ -102,7 +102,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-065": {
-        "template": "A {wholeLabel} of {valuePrefix}{originalValue} is revised downward by {rate1}% and then by {rate2}%. Find the resulting {wholeLabel}.",
+        "template": "The {wholeLabel} of {valuePrefix}{originalValue} is revised downward by {rate1}% and then by {rate2}%. Find the resulting {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-066": {
@@ -130,11 +130,11 @@
   "PCT-CP-003": {
     "families": {
       "PCT-QL-005": {
-        "template": "A {wholeLabel} was {originalValue}. It increased by {rate1}% and then decreased by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}% and then decreased by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-006": {
-        "template": "A {wholeLabel} was {originalValue}. It increased by {rate1}% first and then decreased by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}% first and then decreased by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-027": {
@@ -142,7 +142,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-028": {
-        "template": "A {wholeLabel} of {originalValue} first increased by {rate1}% and then decreased by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} of {originalValue} first increased by {rate1}% and then decreased by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-029": {
@@ -150,7 +150,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-071": {
-        "template": "A {wholeLabel} stands at {originalValue}. It is increased by {rate1}% and later reduced by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} is {originalValue}. It increases by {rate1}% and is then reduced by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-072": {
@@ -158,11 +158,11 @@
         "difficulty": "Medium"
       },
       "PCT-QL-073": {
-        "template": "An item has a {wholeLabel} of {originalValue}. If it rises by {rate1}% first and then falls by {rate2}%, find the final {wholeLabel}.",
+        "template": "An item has {wholeLabel} {originalValue}. If it rises by {rate1}% first and then falls by {rate2}%, find the final {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-074": {
-        "template": "A {wholeLabel} of {originalValue} is revised upward by {rate1}% and then downward by {rate2}%. Find the updated {wholeLabel}.",
+        "template": "The {wholeLabel} of {originalValue} is revised upward by {rate1}% and then downward by {rate2}%. Find the updated {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-075": {
@@ -194,11 +194,11 @@
   "PCT-CP-004": {
     "families": {
       "PCT-QL-007": {
-        "template": "A {wholeLabel} was {originalValue}. It decreased by {rate1}% and then increased by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {originalValue}. It decreased by {rate1}% and then increased by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-008": {
-        "template": "A {wholeLabel} was {originalValue}. It decreased by {rate1}% first and then increased by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {originalValue}. It decreased by {rate1}% first and then increased by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-030": {
@@ -206,7 +206,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-031": {
-        "template": "A {wholeLabel} of {originalValue} first decreased by {rate1}% and then increased by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} of {originalValue} first decreased by {rate1}% and then increased by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-032": {
@@ -214,7 +214,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-081": {
-        "template": "A {wholeLabel} stands at {originalValue}. It is reduced by {rate1}% and later increased by {rate2}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} is {originalValue}. It decreases by {rate1}% and is then increased by {rate2}%. Find the final {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-082": {
@@ -222,11 +222,11 @@
         "difficulty": "Medium"
       },
       "PCT-QL-083": {
-        "template": "An item has a {wholeLabel} of {originalValue}. If it falls by {rate1}% first and then rises by {rate2}%, find the final {wholeLabel}.",
+        "template": "An item has {wholeLabel} {originalValue}. If it falls by {rate1}% first and then rises by {rate2}%, find the final {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-084": {
-        "template": "A {wholeLabel} of {originalValue} is revised downward by {rate1}% and then upward by {rate2}%. Find the updated {wholeLabel}.",
+        "template": "The {wholeLabel} of {originalValue} is revised downward by {rate1}% and then upward by {rate2}%. Find the updated {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-085": {
@@ -258,11 +258,11 @@
   "PCT-CP-005": {
     "families": {
       "PCT-QL-009": {
-        "template": "A {wholeLabel} increased by {rate1}% and then by {rate2}%. Find the overall percentage change.",
+        "template": "The {wholeLabel} increased by {rate1}% and then by {rate2}%. Find the overall percentage change.",
         "difficulty": "Easy"
       },
       "PCT-QL-010": {
-        "template": "A {wholeLabel} increased by {rate1}% and then decreased by {rate2}%. Find the overall percentage change.",
+        "template": "The {wholeLabel} increased by {rate1}% and then decreased by {rate2}%. Find the overall percentage change.",
         "difficulty": "Easy"
       },
       "PCT-QL-033": {
@@ -278,7 +278,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-091": {
-        "template": "A {wholeLabel} grows by {rate1}% first and by {rate2}% next. Find the net percentage change.",
+        "template": "The {wholeLabel} grows by {rate1}% first and by {rate2}% next. Find the net percentage change.",
         "difficulty": "Easy"
       },
       "PCT-QL-092": {
@@ -286,7 +286,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-093": {
-        "template": "If a {wholeLabel} rises successively by {rate1}% and {rate2}%, what is the net percentage change?",
+        "template": "If the {wholeLabel} rises successively by {rate1}% and {rate2}%, what is the net percentage change?",
         "difficulty": "Medium"
       },
       "PCT-QL-094": {
@@ -294,11 +294,11 @@
         "difficulty": "Medium"
       },
       "PCT-QL-095": {
-        "template": "A {wholeLabel} rises by {rate1}% in one stage and by {rate2}% in the next stage. Find the net percentage change.",
+        "template": "The {wholeLabel} rises by {rate1}% in one stage and by {rate2}% in the next stage. Find the net percentage change.",
         "difficulty": "Hard"
       },
       "PCT-QL-096": {
-        "template": "A {wholeLabel} rises by {rate1}% and then falls by {rate2}%. Find the net percentage change.",
+        "template": "The {wholeLabel} rises by {rate1}% and then falls by {rate2}%. Find the net percentage change.",
         "difficulty": "Easy"
       },
       "PCT-QL-097": {
@@ -306,7 +306,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-098": {
-        "template": "If a {wholeLabel} goes up by {rate1}% and then down by {rate2}%, what is the net percentage change?",
+        "template": "If the {wholeLabel} goes up by {rate1}% and then down by {rate2}%, what is the net percentage change?",
         "difficulty": "Medium"
       },
       "PCT-QL-099": {
@@ -314,7 +314,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-100": {
-        "template": "A {wholeLabel} rises in the first stage by {rate1}% and falls in the next stage by {rate2}%. Find the net percentage change.",
+        "template": "The {wholeLabel} rises in the first stage by {rate1}% and falls in the next stage by {rate2}%. Find the net percentage change.",
         "difficulty": "Hard"
       }
     }
@@ -322,11 +322,11 @@
   "PCT-CP-006": {
     "families": {
       "PCT-QL-011": {
-        "template": "A {wholeLabel} increases by {rate1}% and then by {rate2}%. Find the equivalent single multiplier.",
+        "template": "The {wholeLabel} increases by {rate1}% and then by {rate2}%. Find the equivalent single multiplier.",
         "difficulty": "Medium"
       },
       "PCT-QL-012": {
-        "template": "A {wholeLabel} increases by {rate1}% and then decreases by {rate2}%. Find the equivalent single multiplier.",
+        "template": "The {wholeLabel} increases by {rate1}% and then decreases by {rate2}%. Find the equivalent single multiplier.",
         "difficulty": "Medium"
       },
       "PCT-QL-036": {
@@ -342,7 +342,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-101": {
-        "template": "If a {wholeLabel} rises successively by {rate1}% and {rate2}%, find the single multiplier for the combined change.",
+        "template": "If the {wholeLabel} rises successively by {rate1}% and {rate2}%, find the single multiplier for the combined change.",
         "difficulty": "Medium"
       },
       "PCT-QL-102": {
@@ -350,7 +350,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-103": {
-        "template": "A {wholeLabel} records two successive increases of {rate1}% and {rate2}%. What is the combined multiplier?",
+        "template": "The {wholeLabel} records two successive increases of {rate1}% and {rate2}%. What is the combined multiplier?",
         "difficulty": "Medium"
       },
       "PCT-QL-104": {
@@ -358,11 +358,11 @@
         "difficulty": "Hard"
       },
       "PCT-QL-105": {
-        "template": "Express successive increases of {rate1}% and {rate2}% in a {wholeLabel} as one multiplier.",
+        "template": "Express successive increases of {rate1}% and {rate2}% for the {wholeLabel} as one multiplier.",
         "difficulty": "Hard"
       },
       "PCT-QL-106": {
-        "template": "If a {wholeLabel} rises by {rate1}% and then falls by {rate2}%, find the single multiplier for the combined change.",
+        "template": "If the {wholeLabel} rises by {rate1}% and then falls by {rate2}%, find the single multiplier for the combined change.",
         "difficulty": "Medium"
       },
       "PCT-QL-107": {
@@ -370,7 +370,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-108": {
-        "template": "A {wholeLabel} records a {rate1}% increase followed by a {rate2}% decrease. What is the combined multiplier?",
+        "template": "The {wholeLabel} records a {rate1}% increase followed by a {rate2}% decrease. What is the combined multiplier?",
         "difficulty": "Medium"
       },
       "PCT-QL-109": {
@@ -378,7 +378,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-110": {
-        "template": "Express a {rate1}% rise and a {rate2}% fall in a {wholeLabel} as one multiplier.",
+        "template": "Express a {rate1}% rise and a {rate2}% fall for the {wholeLabel} as one multiplier.",
         "difficulty": "Hard"
       }
     }
@@ -398,7 +398,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-040": {
-        "template": "A {wholeLabel} becomes {finalValue} after a {rate1}% increase and then a {rate2}% decrease. Find the original {wholeLabel}.",
+        "template": "The {wholeLabel} becomes {finalValue} after a {rate1}% increase and then a {rate2}% decrease. Find the original {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-041": {
@@ -406,7 +406,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-111": {
-        "template": "A {wholeLabel} reaches {finalValue} after successive increases of {rate1}% and {rate2}%. Find the starting {wholeLabel}.",
+        "template": "The {wholeLabel} reaches {finalValue} after successive increases of {rate1}% and {rate2}%. Find the starting {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-112": {
@@ -414,11 +414,11 @@
         "difficulty": "Medium"
       },
       "PCT-QL-113": {
-        "template": "After two upward revisions of {rate1}% and {rate2}%, a {wholeLabel} becomes {finalValue}. Find its original value.",
+        "template": "After two upward revisions of {rate1}% and {rate2}%, the {wholeLabel} becomes {finalValue}. Find its original value.",
         "difficulty": "Medium"
       },
       "PCT-QL-114": {
-        "template": "A {wholeLabel} becomes {finalValue} after rising by {rate1}% in the first stage and by {rate2}% in the second stage. Find the initial {wholeLabel}.",
+        "template": "The {wholeLabel} becomes {finalValue} after rising by {rate1}% in the first stage and by {rate2}% in the second stage. Find the initial {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-115": {
@@ -426,7 +426,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-116": {
-        "template": "A {wholeLabel} reaches {finalValue} after an increase of {rate1}% and then a decrease of {rate2}%. Find the starting {wholeLabel}.",
+        "template": "The {wholeLabel} reaches {finalValue} after an increase of {rate1}% and then a decrease of {rate2}%. Find the starting {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-117": {
@@ -434,11 +434,11 @@
         "difficulty": "Medium"
       },
       "PCT-QL-118": {
-        "template": "After a rise of {rate1}% followed by a fall of {rate2}%, a {wholeLabel} becomes {finalValue}. Find its original value.",
+        "template": "After a rise of {rate1}% followed by a fall of {rate2}%, the {wholeLabel} becomes {finalValue}. Find its original value.",
         "difficulty": "Medium"
       },
       "PCT-QL-119": {
-        "template": "A {wholeLabel} becomes {finalValue} after going up by {rate1}% in the first stage and down by {rate2}% in the second stage. Find the initial {wholeLabel}.",
+        "template": "The {wholeLabel} becomes {finalValue} after going up by {rate1}% in the first stage and down by {rate2}% in the second stage. Find the initial {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-120": {
@@ -514,11 +514,11 @@
   "PCT-CP-009": {
     "families": {
       "PCT-QL-017": {
-        "template": "A {wholeLabel} was {originalValue}. It increased by {rate1}%, then by {rate2}%, and finally decreased by {rate3}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}%, then by {rate2}%, and finally decreased by {rate3}%. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-018": {
-        "template": "A {wholeLabel} was {originalValue}. It increased by {rate1}%, then by {rate2}%, then decreased by {rate3}%, and finally increased by {rate4}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}%, then by {rate2}%, then decreased by {rate3}%, and finally increased by {rate4}%. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-045": {
@@ -534,7 +534,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-131": {
-        "template": "A {wholeLabel} of {originalValue} is revised by +{rate1}%, +{rate2}%, and -{rate3}% in three successive stages. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} of {originalValue} is revised by +{rate1}%, +{rate2}%, and -{rate3}% in three successive stages. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-132": {
@@ -542,7 +542,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-133": {
-        "template": "A {wholeLabel} stands at {originalValue}. It first rises by {rate1}%, rises again by {rate2}%, and then falls by {rate3}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} is {originalValue}. It rises by {rate1}%, rises again by {rate2}%, and then falls by {rate3}%. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-134": {
@@ -550,11 +550,11 @@
         "difficulty": "Hard"
       },
       "PCT-QL-135": {
-        "template": "A {wholeLabel} of {originalValue} goes through three stages: +{rate1}%, +{rate2}%, and -{rate3}%. What is the final {wholeLabel}?",
+        "template": "The {wholeLabel} of {originalValue} goes through three stages: +{rate1}%, +{rate2}%, and -{rate3}%. What is the final {wholeLabel}?",
         "difficulty": "Hard"
       },
       "PCT-QL-136": {
-        "template": "A {wholeLabel} of {originalValue} is revised by +{rate1}%, +{rate2}%, -{rate3}%, and +{rate4}% in four successive stages. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} of {originalValue} is revised by +{rate1}%, +{rate2}%, -{rate3}%, and +{rate4}% in four successive stages. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-137": {
@@ -562,7 +562,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-138": {
-        "template": "A {wholeLabel} stands at {originalValue}. It first rises by {rate1}%, rises again by {rate2}%, falls by {rate3}%, and then rises by {rate4}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} is {originalValue}. It rises by {rate1}%, rises again by {rate2}%, falls by {rate3}%, and then rises by {rate4}%. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-139": {
@@ -570,7 +570,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-140": {
-        "template": "A {wholeLabel} of {originalValue} goes through four stages: +{rate1}%, +{rate2}%, -{rate3}%, and +{rate4}%. What is the final {wholeLabel}?",
+        "template": "The {wholeLabel} of {originalValue} goes through four stages: +{rate1}%, +{rate2}%, -{rate3}%, and +{rate4}%. What is the final {wholeLabel}?",
         "difficulty": "Hard"
       }
     }
@@ -578,11 +578,11 @@
   "PCT-CP-010": {
     "families": {
       "PCT-QL-019": {
-        "template": "A {wholeLabel} was {originalValue}. It increased by {rate1}%, then decreased by {rate2}%, and then increased by {rate3}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}%, then decreased by {rate2}%, and then increased by {rate3}%. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-020": {
-        "template": "A {wholeLabel} was {valuePrefix}{originalValue}. It increased by {rate1}%, then increased by {rate2}%, and finally decreased by {rate3}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} was {valuePrefix}{originalValue}. It increased by {rate1}%, then increased by {rate2}%, and finally decreased by {rate3}%. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-048": {
@@ -590,7 +590,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-049": {
-        "template": "A {wholeLabel} of {originalValue} changed successively by +{rate1}%, -{rate2}%, and +{rate3}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} of {originalValue} changed successively by +{rate1}%, -{rate2}%, and +{rate3}%. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-050": {
@@ -618,7 +618,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-146": {
-        "template": "A {wholeLabel} of {valuePrefix}{originalValue} is increased by {rate1}%, increased again by {rate2}%, and then decreased by {rate3}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} of {valuePrefix}{originalValue} is increased by {rate1}%, increased again by {rate2}%, and then decreased by {rate3}%. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-147": {
@@ -626,7 +626,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-148": {
-        "template": "A {wholeLabel} stands at {valuePrefix}{originalValue}. It first rises by {rate1}%, then by {rate2}%, and finally falls by {rate3}%. Find the final {wholeLabel}.",
+        "template": "The {wholeLabel} is {valuePrefix}{originalValue}. It rises by {rate1}%, then by {rate2}%, and finally falls by {rate3}%. Find the final {wholeLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-149": {
@@ -634,7 +634,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-150": {
-        "template": "A {wholeLabel} of {valuePrefix}{originalValue} goes through three stages: +{rate1}%, +{rate2}%, and -{rate3}%. What is the final {wholeLabel}?",
+        "template": "The {wholeLabel} of {valuePrefix}{originalValue} goes through three stages: +{rate1}%, +{rate2}%, and -{rate3}%. What is the final {wholeLabel}?",
         "difficulty": "Hard"
       }
     }

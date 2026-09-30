@@ -140,6 +140,41 @@ for (let index = 0; index < 80; index += 1) {
   assert.ok(!pkg.explanation.lines.join("\n").includes("School An attendance"));
 }
 
+for (const cpId of PCT_005_CP_IDS) {
+  const rotated = Array.from({ length: 15 }, (_, diversityOrdinal) =>
+    runPct005Pipeline(cpId, {
+      language: "en",
+      seed: `pct-005-diversity-ordinal:${cpId}:${diversityOrdinal}`,
+      diversityOrdinal,
+    }),
+  );
+  assert.equal(
+    new Set(rotated.map((item) => item.questionLanguageId)).size,
+    15,
+    `${cpId} should consume all 15 English QLs before audit reuse`,
+  );
+}
+
+const explicitEasyRotation = Array.from({ length: 6 }, (_, diversityOrdinal) =>
+  runPct005Pipeline("PCT-CP-001", {
+    language: "en",
+    seed: `pct-005-explicit-easy:${diversityOrdinal}`,
+    difficultyBand: "Easy",
+    diversityOrdinal,
+  }),
+);
+assert.ok(explicitEasyRotation.every((item) => item.difficultyBand === "Easy"));
+
+for (const cpId of PCT_005_CP_IDS) {
+  for (const qlId of getQuestionLanguageIds(cpId, "en")) {
+    const template = getQuestionEntry(cpId, qlId, "en").template;
+    assert.ok(
+      !/(^|\s)[Aa] \{wholeLabel\}|\ban \{wholeLabel\}|stands at/i.test(template),
+      `${qlId} still contains article-sensitive or awkward wholeLabel wording`,
+    );
+  }
+}
+
 const hiPkg005 = runPct005Pipeline("PCT-CP-001", {
   language: "hi",
   questionLanguageId: "PCT-QL-001",
