@@ -166,3 +166,83 @@ D. The null hypothesis is proven true
 - Check F-ratio arithmetic, critical-value comparison, and the omnibus interpretation.
 - This candidate does not authorize storage, tests, mocks, localization, publication, or production release.
 
+
+
+## STAT-QL-185 — Interaction degrees of freedom with replication
+
+A replicated two-way ANOVA has 2 levels of factor A and 2 levels of factor B, with observations in every cell. Find the interaction degrees of freedom.
+
+A. 1
+B. 2
+C. 4
+D. 6
+
+**Answer:** A. 1
+
+**Explanation:** For a two-way interaction, dfAB = (a−1)(b−1) = (2−1)(2−1) = 1.
+
+## STAT-QL-186 — Interaction sum of squares
+
+A balanced two-way ANOVA has two observations in each cell: A₁B₁ (10, 12), A₁B₂ (14, 16), A₂B₁ (20, 22), and A₂B₂ (28, 30). Find SSAB.
+
+A. 8
+B. 368
+C. 72
+D. 360
+
+**Answer:** A. 8
+
+**Explanation:** The grand mean is 19. SSA = 288 and SSB = 72. The between-cell sum of squares is 368, so SSAB = 368−288−72 = 8.
+
+## STAT-QL-187 — Interaction F statistic
+
+For replicated two-way data A₁B₁ (10, 12), A₁B₂ (14, 16), A₂B₁ (20, 22), and A₂B₂ (28, 30), SSAB = 8 and SSE = 8. Find the interaction F statistic.
+
+A. 4
+B. 2
+C. 8
+D. 1
+
+**Answer:** A. 4
+
+**Explanation:** dfAB = 1 and dfError = 2×2×(2−1) = 4. MSAB = 8/1 = 8 and MSE = 8/4 = 2, so F = 8/2 = 4.
+
+## STAT-QL-188 — Interpret a significant interaction
+
+In a two-way ANOVA, a significant interaction between factors A and B means what?
+
+A. The effect of one factor differs across levels of the other factor
+B. Both factors have no effect on the response
+C. Every pair of cell means differs significantly
+D. The two factors are statistically independent
+
+**Answer:** A. The effect of one factor differs across levels of the other factor
+
+**Explanation:** An interaction means the effect of factor A on the response is not the same at every level of factor B; equivalently, B's effect varies across levels of A.
+
+## STAT-QL-189 — Follow-up after a significant omnibus test
+
+A one-way ANOVA rejects the null hypothesis that all group means are equal. The study design and assumptions support pairwise comparisons. What is an appropriate next step to identify which means differ?
+
+A. Use a suitable multiple-comparison procedure, such as Tukey's HSD
+B. Conclude that every group mean differs from every other
+C. Repeat the same omnibus F test until a pair is identified
+D. Select the largest sample mean without further testing
+
+**Answer:** A. Use a suitable multiple-comparison procedure, such as Tukey's HSD
+
+**Explanation:** The omnibus F test shows that at least one mean differs but does not identify the pair. A family-wise multiple-comparison method such as Tukey's HSD can assess pairwise differences.
+
+## STAT-QL-190 — Classical one-way ANOVA assumptions
+
+Which set gives the usual assumptions for a classical one-way ANOVA F test?
+
+A. Independent errors, approximately normal errors within groups, and equal population variances
+B. Equal sample sizes, zero sample means, and no outliers
+C. Independent groups, equal sample medians, and a uniform response
+D. Normal predictors, correlated errors, and unequal variances
+
+**Answer:** A. Independent errors, approximately normal errors within groups, and equal population variances
+
+**Explanation:** The classical one-way ANOVA model assumes independent errors, approximately normal errors within each group, and a common population variance across groups.
+
