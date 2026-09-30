@@ -87,3 +87,12 @@ Remediation:
 - The frozen 1,445-entry authority, canonical/misspelling forms, difficulty assignments, option-generation logic, source references and review-only lifecycle are unchanged.
 
 The guidance is intentionally conservative for broad classifications (for example, double-letter), rather than asserting an exact letter edit unless the classification safely supports it.
+
+
+## Phase 6 — ENG-001 post-closure answer/explanation consistency
+
+Review confirmed ENG-001 CP001–CP013 remain content-closed under the previously validated 131-rule grammar authority. No new content family or substantive source defect was substantiated in this pass.
+
+A coverage weakness was identified in the 117-question chapter master audit: it checked explanation length and corrected-sentence inclusion, but did not explicitly assert that the explanation's Part A/B/C/D label matches the **final** learner-facing answer after Question Studio answer-position normalization.
+
+Remediation: the master audit now validates the final keyed part against every explicit Part reference in QL001/QL002 explanations, and guards QL007 no-error explanations against accidentally identifying an error-bearing part. This is a regression-only change. Approved stems, grammatical mutations, candidate pools, answer-position logic, frozen content and review-only lifecycle remain unchanged.
