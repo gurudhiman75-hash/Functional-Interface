@@ -2,6 +2,6 @@
 
 This controlled-review foundation covers point-estimate terminology, unbiasedness and consistency, method-of-moments and maximum-likelihood estimates for Bernoulli data, least-squares line coefficients, confidence-interval margin and interpretation, null/alternative hypotheses, Type I/II errors, test tails, and Z, t, chi-square, and F statistics.
 
-Sixteen permanent QLs reserve STAT-QL-124 through STAT-QL-139 for SSC CGL Tier II and JSO. Each test-statistic problem states the known values and formula convention needed to calculate the statistic. The package does not infer p-values or critical-value decisions.
+Twenty permanent QLs use STAT-QL-124 through STAT-QL-139 and STAT-QL-181 through STAT-QL-184 for SSC CGL Tier II and JSO. In addition to the foundation set, the package constructs known-standard-deviation mean intervals and Wald proportion intervals, and asks for decisions in a stated upper-tailed Z test and chi-square goodness-of-fit test using supplied critical values. It does not require p-value calculation.
 
-Question Bank, test/mock use, localization, public publication, and production release remain disabled. Estimation methods beyond Bernoulli, confidence-interval construction beyond the shown mean case, and broader hypothesis-test applications remain future review work.
+Question Bank, test/mock use, localization, public publication, and production release remain disabled. Estimation methods beyond Bernoulli, two-sample and small-sample interval construction, p-value calculation, broader test families, power, and sample-size planning remain future review work.
