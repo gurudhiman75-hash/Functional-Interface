@@ -64,6 +64,14 @@ function unresolvedPlaceholders(value: string): readonly string[] {
   ];
 }
 
+function assertMathJaxIntegrity(value: string, scope: string) {
+  assert.equal((value.match(/\\\[/g) ?? []).length, (value.match(/\\\]/g) ?? []).length, scope + ": unmatched display-math brackets");
+  assert.equal((value.match(/\\\(/g) ?? []).length, (value.match(/\\\)/g) ?? []).length, scope + ": unmatched inline-math delimiters");
+  assert.equal((value.match(/\$\$/g) ?? []).length % 2, 0, scope + ": unbalanced display-math dollar delimiters");
+  assert.doesNotMatch(value, /\\(?:frac|times|div|cdot)$/, scope + ": dangling LaTeX operator");
+  assert.doesNotMatch(value, /\\text\{[^}]*\$[^}]*\}/, scope + ": nested unescaped math delimiter inside MathJax text");
+}
+
 const failures: string[] = [];
 const generatedIds = new Set<string>();
 const cpCounts = new Map<string, number>();
@@ -123,6 +131,8 @@ for (const qlId of qlIds) {
         assert.equal(new Set(pkg.options).size, 4);
         assert.equal(pkg.options[pkg.correctIndex], pkg.answer);
         assert.equal(unresolvedPlaceholders(`${pkg.stem}\n${pkg.explanation.lines.join("\n")}`).length, 0);
+        assertMathJaxIntegrity(pkg.stem, `${qlId}/${seed}/${language}/stem`);
+        assertMathJaxIntegrity(pkg.explanation.lines.join("\n"), `${qlId}/${seed}/${language}/explanation`);
 
         const uniqueId = `${language}:${pkg.questionId}`;
         assert.equal(generatedIds.has(uniqueId), false, `duplicate generated ID ${uniqueId}`);
