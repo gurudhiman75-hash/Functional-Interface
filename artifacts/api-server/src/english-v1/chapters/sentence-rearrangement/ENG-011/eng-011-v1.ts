@@ -26,16 +26,15 @@ function chooseSet(input:Eng011QuestionInputV1){
 }
 const EXPLANATION_EMPHASIS_CUES=["main grammatical link","subject with its verb","time phrase","reason phrase","contrast phrase","purpose phrase","complete sentence","comes first","follows naturally","completes the clause"] as const;
 function explanationEmphasis(text:string){return EXPLANATION_EMPHASIS_CUES.filter(cue=>text.toLowerCase().includes(cue));}
-function friendlyExplanation(logical:readonly string[],correct:string){
- const sentence=logical.join(" ");
- const names=["First","Second","Third","Fourth","Fifth","Sixth"];
- const steps=logical.map((part,i)=>`${names[i]??`Step ${i+1}`} place "${part}" because it completes the grammar and meaning of the sentence at that point.`);
- return `The correct order is ${correct}. First find the main subject and verb. Then attach the object and place time, reason, condition, contrast or purpose phrases where they fit naturally. ${steps.join(" ")} The complete sentence reads: "${sentence}."`;
+function friendlyExplanation(logical:readonly string[],correct:string,authored:string){
+ const sentence=logical.join(" ").replace(/\s+/g," ").trim();
+ const guidance=authored.trim().replace(/\s+/g," ");
+ return `The correct order is ${correct}. ${guidance} The complete sentence reads: "${sentence}."`;
 }
 export function generateEng011QuestionV1(input:Eng011QuestionInputV1={}){
  const seed=input.seed??"eng011-default",set=chooseSet(input),p=presentation(set,seed),correct=orderText(p.correct),raw=[correct,...distractors(p.correct).map(orderText)];
  const options=raw.map((v,i)=>({v,k:hash(`${seed}:${v}:${i}`)})).sort((a,b)=>a.k-b.k).map(x=>x.v);
- const explanation=friendlyExplanation(p.logical,correct);
+ const explanation=friendlyExplanation(p.logical,correct,set.explanation);
  return{questionId:`ENG011:${set.id}:${hash(seed).toString(16)}`,stem:"Arrange the following parts to form a meaningful sentence.",
  fragments:p.presented.map((text,i)=>({label:String.fromCharCode(65+i),text})),prompt:"Choose the correct sequence.",options,correctOptionIndex:options.indexOf(correct),explanation,explanationEmphasis:explanationEmphasis(explanation),
  metadata:{chapterId:"ENG-011",cpId:set.cpId,setId:set.id,difficulty:set.difficulty,topic:set.topic,correctOrder:correct,reviewOnly:true}};
