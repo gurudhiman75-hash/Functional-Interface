@@ -1541,6 +1541,118 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਕੁਰਸੀ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਹੈ। ₹{profitAmount} ਲਾਭ ਕਮਾਉਣ ਲਈ ਇਸਨੂੰ ਕਿਸ ਕੀਮਤ 'ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?",
       "ਕੁਰਸੀ ਦੀ ਲਾਗਤ ₹{costPrice} ਹੈ। ₹{profitAmount} ਲਾਭ ਦੇਣ ਵਾਲਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
     ]
+  },
+  "PNL-QL-021": {
+    "en": [
+      "A machine costs ₹{costPrice} and is sold at a loss of ₹{lossAmount}. Find the selling price.",
+      "The cost price of a machine is ₹{costPrice}. If the seller accepts a loss of ₹{lossAmount}, what is the selling price?"
+    ],
+    "hi": [
+      "एक मशीन का क्रय मूल्य ₹{costPrice} है और उसे ₹{lossAmount} की हानि पर बेचा जाता है। विक्रय मूल्य ज्ञात कीजिए।",
+      "मशीन की लागत ₹{costPrice} है। यदि विक्रेता ₹{lossAmount} की हानि स्वीकार करता है, तो विक्रय मूल्य क्या होगा?"
+    ],
+    "pa": [
+      "ਇੱਕ ਮਸ਼ੀਨ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਹੈ ਅਤੇ ਇਸਨੂੰ ₹{lossAmount} ਦੇ ਘਾਟੇ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਮਸ਼ੀਨ ਦੀ ਲਾਗਤ ₹{costPrice} ਹੈ। ਜੇ ਵਿਕਰੇਤਾ ₹{lossAmount} ਦਾ ਘਾਟਾ ਮੰਨਦਾ ਹੈ, ਤਾਂ ਵਿਕਰੀ ਮੁੱਲ ਕੀ ਹੋਵੇਗਾ?"
+    ]
+  },
+  "PNL-QL-022": {
+    "en": [
+      "A watch is sold for ₹{sellingPrice} with a profit of ₹{profitAmount}. Find its cost price.",
+      "The selling price of a watch is ₹{sellingPrice}, including ₹{profitAmount} profit. What was the cost price?"
+    ],
+    "hi": [
+      "एक घड़ी ₹{sellingPrice} में बेची जाती है और ₹{profitAmount} लाभ होता है। उसका क्रय मूल्य ज्ञात कीजिए।",
+      "घड़ी का विक्रय मूल्य ₹{sellingPrice} है, जिसमें ₹{profitAmount} लाभ शामिल है। क्रय मूल्य क्या था?"
+    ],
+    "pa": [
+      "ਇੱਕ ਘੜੀ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਜਾਂਦੀ ਹੈ ਅਤੇ ₹{profitAmount} ਲਾਭ ਹੁੰਦਾ ਹੈ। ਇਸਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਘੜੀ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPrice} ਹੈ, ਜਿਸ ਵਿੱਚ ₹{profitAmount} ਲਾਭ ਸ਼ਾਮਲ ਹੈ। ਖਰੀਦ ਮੁੱਲ ਕੀ ਸੀ?"
+    ]
+  },
+  "PNL-QL-023": {
+    "en": [
+      "A cabinet is sold for ₹{sellingPrice} after a loss of ₹{lossAmount}. Find its cost price.",
+      "The selling price of a cabinet is ₹{sellingPrice}, which is ₹{lossAmount} below cost. What was the cost price?"
+    ],
+    "hi": [
+      "एक कैबिनेट ₹{sellingPrice} में ₹{lossAmount} की हानि पर बेची जाती है। उसका क्रय मूल्य ज्ञात कीजिए।",
+      "कैबिनेट का विक्रय मूल्य ₹{sellingPrice} है, जो लागत से ₹{lossAmount} कम है। क्रय मूल्य क्या था?"
+    ],
+    "pa": [
+      "ਇੱਕ ਕੈਬਿਨੇਟ ₹{sellingPrice} ਵਿੱਚ ₹{lossAmount} ਦੇ ਘਾਟੇ 'ਤੇ ਵੇਚੀ ਜਾਂਦੀ ਹੈ। ਇਸਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਕੈਬਿਨੇਟ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPrice} ਹੈ, ਜੋ ਲਾਗਤ ਤੋਂ ₹{lossAmount} ਘੱਟ ਹੈ। ਖਰੀਦ ਮੁੱਲ ਕੀ ਸੀ?"
+    ]
+  },
+  "PNL-QL-024": {
+    "en": [
+      "Profit is {fractionNumerator}/{fractionDenominator} of cost price. Find the profit percentage.",
+      "A seller earns a profit equal to {fractionNumerator}/{fractionDenominator} of CP. What is the profit rate?"
+    ],
+    "hi": [
+      "लाभ क्रय मूल्य का {fractionNumerator}/{fractionDenominator} है। लाभ प्रतिशत ज्ञात कीजिए।",
+      "विक्रेता का लाभ क्रय मूल्य के {fractionNumerator}/{fractionDenominator} के बराबर है। लाभ की दर क्या है?"
+    ],
+    "pa": [
+      "ਲਾਭ ਖਰੀਦ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ। ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਵਿਕਰੇਤਾ ਦਾ ਲਾਭ ਖਰੀਦ ਮੁੱਲ ਦੇ {fractionNumerator}/{fractionDenominator} ਦੇ ਬਰਾਬਰ ਹੈ। ਲਾਭ ਦੀ ਦਰ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-025": {
+    "en": [
+      "Loss is {fractionNumerator}/{fractionDenominator} of cost price. Find the loss percentage.",
+      "A seller incurs a loss equal to {fractionNumerator}/{fractionDenominator} of CP. What is the loss rate?"
+    ],
+    "hi": [
+      "हानि क्रय मूल्य का {fractionNumerator}/{fractionDenominator} है। हानि प्रतिशत ज्ञात कीजिए।",
+      "विक्रेता की हानि क्रय मूल्य के {fractionNumerator}/{fractionDenominator} के बराबर है। हानि की दर क्या है?"
+    ],
+    "pa": [
+      "ਘਾਟਾ ਖਰੀਦ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ। ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਵਿਕਰੇਤਾ ਦਾ ਘਾਟਾ ਖਰੀਦ ਮੁੱਲ ਦੇ {fractionNumerator}/{fractionDenominator} ਦੇ ਬਰਾਬਰ ਹੈ। ਘਾਟੇ ਦੀ ਦਰ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-026": {
+    "en": [
+      "Profit is {fractionNumerator}/{fractionDenominator} of the selling price. Find the profit percentage on cost price.",
+      "A seller's profit equals {fractionNumerator}/{fractionDenominator} of SP. Express it as a percentage of CP."
+    ],
+    "hi": [
+      "लाभ विक्रय मूल्य का {fractionNumerator}/{fractionDenominator} है। क्रय मूल्य पर लाभ प्रतिशत ज्ञात कीजिए।",
+      "विक्रेता का लाभ विक्रय मूल्य के {fractionNumerator}/{fractionDenominator} के बराबर है। इसे क्रय मूल्य के प्रतिशत के रूप में व्यक्त कीजिए।"
+    ],
+    "pa": [
+      "ਲਾਭ ਵਿਕਰੀ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ। ਖਰੀਦ ਮੁੱਲ 'ਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਵਿਕਰੇਤਾ ਦਾ ਲਾਭ ਵਿਕਰੀ ਮੁੱਲ ਦੇ {fractionNumerator}/{fractionDenominator} ਦੇ ਬਰਾਬਰ ਹੈ। ਇਸਨੂੰ ਖਰੀਦ ਮੁੱਲ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।"
+    ]
+  },
+  "PNL-QL-027": {
+    "en": [
+      "Loss is {fractionNumerator}/{fractionDenominator} of the selling price. Find the loss percentage on cost price.",
+      "A seller's loss equals {fractionNumerator}/{fractionDenominator} of SP. Express it as a percentage of CP."
+    ],
+    "hi": [
+      "हानि विक्रय मूल्य का {fractionNumerator}/{fractionDenominator} है। क्रय मूल्य पर हानि प्रतिशत ज्ञात कीजिए।",
+      "विक्रेता की हानि विक्रय मूल्य के {fractionNumerator}/{fractionDenominator} के बराबर है। इसे क्रय मूल्य के प्रतिशत के रूप में व्यक्त कीजिए।"
+    ],
+    "pa": [
+      "ਘਾਟਾ ਵਿਕਰੀ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ। ਖਰੀਦ ਮੁੱਲ 'ਤੇ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਵਿਕਰੇਤਾ ਦਾ ਘਾਟਾ ਵਿਕਰੀ ਮੁੱਲ ਦੇ {fractionNumerator}/{fractionDenominator} ਦੇ ਬਰਾਬਰ ਹੈ। ਇਸਨੂੰ ਖਰੀਦ ਮੁੱਲ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।"
+    ]
+  },
+  "PNL-QL-028": {
+    "en": [
+      "An item is sold at {profitPercent}% profit on cost price. What fraction of the selling price is the profit?",
+      "Profit is {profitPercent}% of CP. Express the profit as a fraction of SP."
+    ],
+    "hi": [
+      "किसी वस्तु को क्रय मूल्य पर {profitPercent}% लाभ से बेचा जाता है। लाभ विक्रय मूल्य का कौन-सा अंश है?",
+      "लाभ क्रय मूल्य का {profitPercent}% है। लाभ को विक्रय मूल्य के अंश के रूप में व्यक्त कीजिए।"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਨੂੰ ਖਰੀਦ ਮੁੱਲ 'ਤੇ {profitPercent}% ਲਾਭ ਨਾਲ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਲਾਭ ਵਿਕਰੀ ਮੁੱਲ ਦਾ ਕਿਹੜਾ ਅੰਸ਼ ਹੈ?",
+      "ਲਾਭ ਖਰੀਦ ਮੁੱਲ ਦਾ {profitPercent}% ਹੈ। ਲਾਭ ਨੂੰ ਵਿਕਰੀ ਮੁੱਲ ਦੇ ਅੰਸ਼ ਵਜੋਂ ਦਰਸਾਓ।"
+    ]
   }
 };
 
