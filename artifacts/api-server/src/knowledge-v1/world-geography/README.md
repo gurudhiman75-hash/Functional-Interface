@@ -6,7 +6,7 @@ Localization status: CLOSED for CP001–CP043 in English, Hindi and Punjabi. The
 
 ## Question Studio variable-pool conversion — review only
 
-CP022 exposes a typed capital-city variable pool with eight fact rows and three question families: country to capital, capital to country, and country–capital matching. CP019 exposes a river–outlet pool with fifteen global fact rows and a matching family. CP018 exposes eight global mountain ranges, CP020 nine lakes, CP021 seven non-Indian deserts, CP017 eight global straits and CP016 five global ocean currents in concise question families. Together these create 76 generated question forms across English, Hindi and Punjabi, with stable QL IDs, aligned correct answers, source references and deterministic options. They use the normal Question Studio CP and QL selectors without repeats. The original 816 approved items and their IDs remain intact. The user approved all seven variable pools (CP016–CP022) for authoring and localization. All seven pools stay in the review-only runtime, and nothing is student-published or production-released. Indian river systems, Palk Strait, the Thar Desert and India-specific regional mountain facts were excluded. Other checkpoints remain on the existing authored-bank path until their facts can be represented by safe, typed variable families.
+CP022 exposes a typed capital-city variable pool with 30 fact rows and three question families: country to capital, capital to country, and country–capital matching. CP019 exposes a river–outlet pool with 28 global fact rows and a matching family. CP018 exposes 18 global mountain/highland systems, CP020 16 lakes and inland waters, CP021 14 non-Indian desert facts, CP017 16 global straits/channels and CP016 12 global ocean currents in concise question families. Together these now create 194 generated question forms across English, Hindi and Punjabi, with stable QL IDs, aligned correct answers, source references and deterministic options. They use the normal Question Studio CP and QL selectors without repeats. The original 816 approved items and their IDs remain intact. The user approved all seven variable pools (CP016–CP022) for authoring and localization. All seven pools stay in the review-only runtime, and nothing is student-published or production-released. Indian river systems, Palk Strait, the Thar Desert and India-specific regional mountain facts were excluded. Other checkpoints remain on the existing authored-bank path until their facts can be represented by safe, typed variable families.
 
 ## CP037–CP038 replacement pass — approved
 
@@ -156,7 +156,7 @@ The standard knowledge-v1 registry exposes a mixed package and forty-three check
 
 ## Verification
 
-The focused corpus/adapter test validates all 816 authored items and 76 generated forms, 5,352 filtered localized outputs, all single-item selectors, deterministic generation, cross-language parity, source links, answer mappings and invalid requests. The registry test covers forty-four package choices in three languages. A browser session and production deployment have not been tested.
+The focused corpus/adapter test validates all 816 authored items and 194 generated forms, filtered localized outputs across all CP/difficulty/language combinations, all single-item selectors, deterministic generation, cross-language parity, source links, answer mappings and invalid requests. The registry test covers forty-four package choices in three languages. A browser session and production deployment have not been tested.
 
 ## Review gate
 
