@@ -20,6 +20,8 @@ for(let i=0;i<80;i++){
       assert.equal(candidate.mockTestEligible,false);
       assert.equal(candidate.publiclyPublishable,false);
       assert.match(candidate.stem,locale==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u);
+      assert(candidate.stem.endsWith("?"),`DI-011 ${locale} stem is not a direct exam question: ${candidate.stem}`);
+      assert.doesNotMatch(candidate.stem,/(पहले|फिर|ज्ञात कीजिए|निकालिए|जोड़िए|जोड़ो|ਪਹਿਲਾਂ|ਫਿਰ|ਕੱਢੋ|ਜੋੜੋ)/u);
       assert.doesNotMatch(candidate.stem,/[A-Za-z]{3,}/u);
       assert.doesNotMatch(candidate.explanation,/The |What |Find |Total =/u);
       assert.match(candidate.stimulus.instruction,locale==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u);
