@@ -15,6 +15,8 @@ import { localizeGeoHaz001ExactCp004 } from "./natural-hazards/geo-haz-001-local
 import { localizeGeoPln001ExactCp001 } from "./regional-planning/geo-pln-001-localization-cp001-v1";
 import { localizeGeoPln001ExactCp002 } from "./regional-planning/geo-pln-001-localization-cp002-v1";
 import { localizeGeoPln001ExactCp003 } from "./regional-planning/geo-pln-001-localization-cp003-v1";
+import { localizeGeoPop001ExactCp001PartA } from "./population-settlements/geo-pop-001-localization-cp001-part-a-v1";
+import { localizeGeoPop001ExactCp001PartB } from "./population-settlements/geo-pop-001-localization-cp001-part-b-v1";
 
 export type IndianGeoLocalizationLanguageV1 = "en" | "hi" | "pa";
 type CanonicalQuestion = Readonly<{
@@ -755,6 +757,13 @@ export function localizeIndianGeoQuestionV1(
       localizeGeoPln001ExactCp001(question, language) ??
       localizeGeoPln001ExactCp002(question, language) ??
       localizeGeoPln001ExactCp003(question, language);
+    if (approved) return approved;
+  }
+
+  if (packageId === "GEO-POP-001") {
+    const approved =
+      localizeGeoPop001ExactCp001PartA(question, language) ??
+      localizeGeoPop001ExactCp001PartB(question, language);
     if (approved) return approved;
   }
 
