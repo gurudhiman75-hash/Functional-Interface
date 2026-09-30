@@ -41,10 +41,23 @@ function distractors(entries:readonly Eng007SharedEntry[],target:Eng007SharedEnt
   }
   return shortlist.slice(0,3);
 }
+function trapGuidance(trap:string):string{
+  switch(trap){
+    case"omitted-letter":return"The incorrect form leaves out a letter.";
+    case"extra-letter":return"The incorrect form adds an extra letter.";
+    case"letter-order":return"The incorrect form changes the letter order.";
+    case"vowel-sequence":return"Pay attention to the vowel sequence.";
+    case"double-letter":return"Check the repeated letters and nearby vowels.";
+    case"ending-pattern":return"Pay attention to the word ending.";
+    case"internal-pattern":return"Check the letters in the middle of the word.";
+    default:return"Compare the letter sequence with the standard spelling.";
+  }
+}
 function explain(e:Eng007SharedEntry,m:Eng007SharedMode){
+  const guidance=trapGuidance(e.trap);
   return m==="correct-spelling"
-    ? `Correct spelling: “${e.correct}”.`
-    : `“${e.misspelling}” is misspelt. Correct spelling: “${e.correct}”.`;
+    ? `“${e.correct}” is correctly spelt; “${e.misspelling}” is not. ${guidance}`
+    : `“${e.misspelling}” is misspelt; the correct form is “${e.correct}”. ${guidance}`;
 }
 
 export function buildEng007SpellingQuestionV1(cpId:string,entries:readonly Eng007SharedEntry[],input:GenerateEng007SharedInput):Eng007SharedQuestion{
