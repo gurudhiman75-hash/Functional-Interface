@@ -129,7 +129,7 @@ DEVANAGARI_GLYPH_INTEGRITY      = PASS
 GURMUKHI_GLYPH_INTEGRITY        = PASS
 RESPONSIVE_REVIEW_SHELL         = PASS
 DEVICE_GLYPH_GATE               = PASS
-TARGETED_OPTION_MANUAL_REVIEW   = PENDING
+TARGETED_OPTION_MANUAL_REVIEW   = APPROVED_2026_07_27
 ```
 
-The device/glyph gate does not require a contract split. The remaining editorial blocker is manual confirmation of the corrected 30 localized option records.
+The device/glyph gate does not require a contract split. The focused 30-record correction was subsequently manually approved on 2026-07-27; the later 31-QL freeze supersedes this historical pending state.
