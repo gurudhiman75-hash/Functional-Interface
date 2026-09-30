@@ -11,7 +11,16 @@ export function fitLeastSquaresTrend(times:readonly number[],values:readonly num
  const slope=times.reduce((s,t,i)=>s+(t-meanT)*(values[i]!-meanY),0)/den,intercept=meanY-slope*meanT;
  return{intercept,slope};
 }
-function solve(s:Stat013State):number|string{if(s.kind==="CENTERED_MA"){const averages=Array.from({length:s.values.length-s.period+1},(_,i)=>s.values.slice(i,i+s.period).reduce((a,b)=>a+b,0)/s.period);return(averages[0]!+averages[1]!)/2;}if(s.kind==="ADJUSTED_INDEX")return s.indices[s.index]!*s.period*100/s.indices.reduce((a,b)=>a+b,0);if(s.kind==="SEASONAL_FORECAST")return s.model==="additive"?s.trend+s.seasonalEffect:s.trend*s.seasonalEffect;if(s.kind==="DESEASONALIZE")return s.observed/(s.seasonalIndex/100);return s.kind==="NUMERIC"?s.answer:s.answer;}
+function solve(s:Stat013State):number|string{if(s.kind==="SEASONAL_RATIOS"){
+ if(!s.observed.length||s.observed.length!==s.trendCycle.length||s.trendCycle.some(v=>v<=0))throw new Error("Seasonal ratios require matching nonempty arrays and positive trend-cycle values.");
+ return s.observed.reduce((sum,y,i)=>sum+y/s.trendCycle[i]!*100,0)/s.observed.length;
+ }if(s.kind==="ADDITIVE_ADJUST")return s.observed-s.seasonalEffect;
+ if(s.kind==="SEMI_AVERAGE"){
+ const n=s.values.length;
+ if(n<4||n%2!==0)throw new Error("This semi-average contract requires an even number of at least four observations.");
+ const half=n/2,first=s.values.slice(0,half).reduce((a,b)=>a+b,0)/half,second=s.values.slice(half).reduce((a,b)=>a+b,0)/half,firstTime=(half+1)/2,secondTime=firstTime+half,slope=(second-first)/(secondTime-firstTime);
+ return first+slope*(s.forecastTime-firstTime);
+ }if(s.kind==="CENTERED_MA"){const averages=Array.from({length:s.values.length-s.period+1},(_,i)=>s.values.slice(i,i+s.period).reduce((a,b)=>a+b,0)/s.period);return(averages[0]!+averages[1]!)/2;}if(s.kind==="ADJUSTED_INDEX")return s.indices[s.index]!*s.period*100/s.indices.reduce((a,b)=>a+b,0);if(s.kind==="SEASONAL_FORECAST")return s.model==="additive"?s.trend+s.seasonalEffect:s.trend*s.seasonalEffect;if(s.kind==="DESEASONALIZE")return s.observed/(s.seasonalIndex/100);return s.kind==="NUMERIC"?s.answer:s.answer;}
 type Draft={state:Stat013State;stem:string;explanation:string;choices?:string[]};
 function draft(id:Stat013ContractId,seed:string):Draft{
  const C:Partial<Record<Stat013ContractId,[string,string,string[]]>>={
@@ -33,11 +42,26 @@ function draft(id:Stat013ContractId,seed:string):Draft{
  if(id==="FORECAST"){const a=pick([20,24,30] as const,seed),b=pick([2,3,4] as const,seed+"b"),t=pick([5,6,7] as const,seed+"t"),v=a+b*t;return{state:{kind:"NUMERIC",answer:v},stem:`A fitted trend is Ŷ = ${a} + ${b}t. Forecast at t = ${t}.`,explanation:`Substitute t = ${t}: Ŷ = ${a} + ${b}(${t}) = ${v}.`};}
  if(id==="SEASONAL_INDEX"){const [current,base]=pick([[120,100],[135,120],[150,125]] as const,seed),v=current/base*100;return{state:{kind:"NUMERIC",answer:v},stem:`A season's average is ${current}; the overall average is ${base}. Find its seasonal index as a percent.`,explanation:`Index = (seasonal average / overall average) × 100 = (${current}/${base}) × 100 = ${fmt(v)}.`};}
  if(id==="CENTERED_MOVING_AVERAGE_FROM_RAW"){const values=[8,10,14,18,22],period=4,state:Stat013State={kind:"CENTERED_MA",values,period},answer=Number(solve(state));return{state,stem:"Quarterly observations over five consecutive quarters are 8, 10, 14, 18, and 22. Find the centered 4-quarter moving average at the middle quarter.",explanation:"The two adjacent 4-quarter averages are (8+10+14+18)/4 = 12.5 and (10+14+18+22)/4 = 16. Their average is the centered value: (12.5+16)/2 = 14.25.",choices:[fmt(answer),"12.5","16","14.5"]};}
- if(id==="ADJUSTED_SEASONAL_INDEX"){const indices=[80,110,130,90],period=4,index=2,state:Stat013State={kind:"ADJUSTED_INDEX",indices,period,index},answer=Number(solve(state));return{state,stem:"Unadjusted quarterly seasonal indices are 80, 110, 130, and 90. Adjust the third-quarter index so that the four indices sum to 400.",explanation:"The unadjusted indices sum to 410, but quarterly indices must sum to 400. Adjustment factor = 400/410. Adjusted third-quarter index = 130×400/410 = "+fmt(answer)+".",choices:[fmt(answer),"130","123.17","120"]};}
+ if(id==="ADJUSTED_SEASONAL_INDEX"){const indices=[80,110,130,90],period=4,index=2,state:Stat013State={kind:"ADJUSTED_INDEX",indices,period,index},answer=Number(solve(state));return{state,stem:"Unadjusted quarterly seasonal indices are 80, 110, 130, and 90. Adjust the third-quarter index so that the four indices sum to 400.",explanation:"The unadjusted indices sum to 410, but quarterly indices must sum to 400. Adjustment factor = 400/410. Adjusted third-quarter index = 130×400/410 ≈ "+fmt(answer)+".",choices:[fmt(answer),"130","123.17","120"]};}
  if(id==="ADDITIVE_SEASONAL_FORECAST"){const trend=120,seasonalEffect=-8,state:Stat013State={kind:"SEASONAL_FORECAST",trend,seasonalEffect,model:"additive"},answer=Number(solve(state));return{state,stem:"An additive time-series model gives a trend forecast of 120 for a quarter and a seasonal effect of −8 for that quarter. Find the forecast including seasonality.",explanation:"For an additive model, forecast = trend + seasonal effect = 120 + (−8) = "+fmt(answer)+".",choices:[fmt(answer),"128","112.8","120"]};}
  if(id==="MULTIPLICATIVE_DESEASONALIZATION"){const observed=132,seasonalIndex=110,state:Stat013State={kind:"DESEASONALIZE",observed,seasonalIndex},answer=Number(solve(state));return{state,stem:"An observed value is 132 and its seasonal index is 110. Find the deseasonalized value using the multiplicative model.",explanation:"Convert the index to a factor: 110/100 = 1.10. Deseasonalized value = observed/factor = 132/1.10 = "+fmt(answer)+".",choices:[fmt(answer),"145.2","22","125"]};}
- const [a,b]=pick([[14,9],[18,11],[20,13]] as const,seed);if(id==="SEASONAL"){return{state:{kind:"NUMERIC",answer:a-b},stem:`In an additive decomposition, observed value Y = ${a} and trend-cycle T = ${b}. Find the remainder Y − T.`,explanation:`Additive remainder = Y − T = ${a} − ${b} = ${a-b}.`};}
- return{state:{kind:"NUMERIC",answer:a+b},stem:`In an additive time-series model, trend is ${a} and seasonal effect is ${b}. Find their combined value.`,explanation:`The additive model sums components: ${a} + ${b} = ${a+b}.`};
+ if(id==="RATIO_TO_MOVING_AVERAGE"){
+ const state:Stat013State={kind:"SEASONAL_RATIOS",observed:[108,132],trendCycle:[90,120]};
+ return{state,stem:"For the same quarter in two years, the observed values are 108 and 132 and the corresponding centered moving averages are 90 and 120. Using the arithmetic mean of the ratios to moving average, find the unadjusted seasonal index for this quarter.",explanation:"The centered moving average estimates the trend-cycle. The two ratios are (108/90)×100 = 120 and (132/120)×100 = 110. Their arithmetic mean is (120+110)/2 = 115. This is the unadjusted estimate; the complete set of quarterly indices is then normalized to sum to 400.",choices:["115","120","110","114.29"]};
+ }
+ if(id==="MULTIPLICATIVE_SEASONAL_FORECAST"){
+ const state:Stat013State={kind:"SEASONAL_FORECAST",trend:160,seasonalEffect:1.15,model:"multiplicative"};
+ return{state,stem:"A quarterly forecast has trend-cycle value 160 and seasonal index 115. With the irregular factor set to 1, find the forecast using the multiplicative model.",explanation:"Convert the seasonal index to a factor: 115/100 = 1.15. The forecast is trend-cycle × seasonal factor = 160×1.15 = 184.",choices:["184","175","139.13","160"]};
+ }
+ if(id==="ADDITIVE_DESEASONALIZATION"){
+ const state:Stat013State={kind:"ADDITIVE_ADJUST",observed:142,seasonalEffect:-6};
+ return{state,stem:"An observed quarterly value is 142 and its additive seasonal effect is −6. Find the seasonally adjusted value.",explanation:"For additive adjustment, subtract the seasonal effect: adjusted value = 142−(−6) = 148. The negative seasonal effect had lowered the observed value by 6.",choices:["148","136","142","23.67"]};
+ }
+ if(id==="SEMI_AVERAGE_TREND"){
+ const state:Stat013State={kind:"SEMI_AVERAGE",values:[10,12,14,16,18,20],forecastTime:7};
+ return{state,stem:"Annual observations for years 1 to 6 are 10, 12, 14, 16, 18, and 20. Fit a straight-line trend by dividing the series into two equal halves and using the semi-average method. What is the fitted value for year 7?",explanation:"The first-half mean is (10+12+14)/3 = 12 at year 2. The second-half mean is (16+18+20)/3 = 18 at year 5. The slope is (18−12)/(5−2) = 2 per year. The fitted value at year 7 is 12+2(7−2) = 22.",choices:["22","20","24","26"]};
+ }
+ throw new Error(`Unknown time-series contract ${id}`);
 }
 function options(answer:string,seed:string,choices?:string[]):[string,string,string,string]{if(choices)return shuffle(choices,seed) as [string,string,string,string];const n=Number(answer),vals=[n,n+2,n-2,n+4].map(fmt);return shuffle([...new Set(vals)].slice(0,4),seed) as [string,string,string,string];}
 export function solveStat013State(s:Stat013State){return solve(s);}
