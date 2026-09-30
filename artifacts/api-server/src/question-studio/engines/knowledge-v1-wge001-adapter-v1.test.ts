@@ -1,16 +1,48 @@
 import { strict as assert } from 'node:assert';
 import { WGE_CORPUS, WGE_CP_TITLES, validateWorldGeographyCorpus } from '../../knowledge-v1/world-geography/corpus';
+import { WGE_VARIABLE_POOL_QUESTIONS_V1, WGE_VARIABLE_POOL_QL_IDS_V1 } from '../../knowledge-v1/world-geography/variable-pools-v1';
 import { knowledgeV1Wge001QuestionStudioAdapterV1 as adapter, isWge001QuestionStudioRequestV1 as owns } from './knowledge-v1-wge001-adapter-v1';
 
 async function run() {
   const cpIds = Object.keys(WGE_CP_TITLES);
   assert.equal(WGE_CORPUS.length, 816);
+  assert.equal(WGE_VARIABLE_POOL_QUESTIONS_V1.length, 76);
+  const generationPool = [...WGE_CORPUS, ...WGE_VARIABLE_POOL_QUESTIONS_V1];
+  validateWorldGeographyCorpus(generationPool);
   assert.equal(adapter.listPackages().length, 44);
   assert.equal(new Set(adapter.listPackages().map(p => p.packageId)).size, 44);
   for (const p of adapter.listPackages()) {
     assert.equal(p.lifecycleStage, 'REVIEW_ONLY'); assert.equal(p.questionBankWritable, false);
     assert.equal(p.productionReleaseAuthorized, false); assert.deepEqual(p.supportedLanguages, ['en', 'hi', 'pa']);
   }
+  const capitalPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP022')!;
+  assert.equal(capitalPackage.metadata.authoringReviewApproved, false);
+  assert.equal(capitalPackage.metadata.variablePoolQuestionCount, 24);
+  assert.equal(capitalPackage.metadata.variablePoolEnabled, true);
+  assert.deepEqual(capitalPackage.metadata.questionLanguageIds,
+    [...new Set(WGE_VARIABLE_POOL_QUESTIONS_V1.filter(q => q.cpId === 'WGE-001-CP022').map(q => q.qlId))]);
+  assert.equal(capitalPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
+  const riverPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP019')!;
+  assert.equal(riverPackage.metadata.authoringReviewApproved, false);
+  assert.equal(riverPackage.metadata.variablePoolQuestionCount, 15);
+  const landformsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP018')!;
+  assert.equal(landformsPackage.metadata.authoringReviewApproved, true);
+  assert.equal(landformsPackage.metadata.variablePoolQuestionCount, 8);
+  assert.equal(landformsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
+  const lakesPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP020')!;
+  assert.equal(lakesPackage.metadata.authoringReviewApproved, true);
+  assert.equal(lakesPackage.metadata.variablePoolQuestionCount, 9);
+  assert.equal(lakesPackage.metadata.variablePoolStatus, 'USER_APPROVED');
+  const desertsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP021')!;
+  assert.equal(desertsPackage.metadata.authoringReviewApproved, true);
+  assert.equal(desertsPackage.metadata.variablePoolQuestionCount, 7);
+  assert.equal(desertsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
+  const passagesPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP017')!;
+  assert.equal(passagesPackage.metadata.variablePoolQuestionCount, 8);
+  assert.equal(passagesPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
+  const currentsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP016')!;
+  assert.equal(currentsPackage.metadata.variablePoolQuestionCount, 5);
+  assert.equal(currentsPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
   let checked = 0;
   const newCheckpointAnswerKeyAudit: Record<string, readonly number[]> = {
     'WGE-001-CP012': [0,2,1,0,2,0,1,0,3,1,2,3,0,1,0,2,1,3,0,1,1,2,0,1,0],
@@ -53,7 +85,7 @@ async function run() {
   }
   for (const cp of cpIds) {
     for (const difficulty of ['Mixed', 'Easy', 'Medium', 'Hard']) {
-      const expected = WGE_CORPUS.filter(q => q.cpId === cp && (difficulty === 'Mixed' || q.difficulty === difficulty));
+      const expected = generationPool.filter(q => q.cpId === cp && (difficulty === 'Mixed' || q.difficulty === difficulty));
       const en = await adapter.generate({packageId: 'WGE-001', canonicalProblemId: cp, difficulty, count: expected.length, seed: 'audit'});
       for (const language of ['en', 'hi', 'pa'] as const) {
         const result = await adapter.generate({packageId: cp, language, difficulty, count: expected.length, seed: 'audit'});
@@ -61,13 +93,13 @@ async function run() {
         assert.deepEqual(result.questions.map(q => q.correctIndex), en.questions.map(q => q.correctIndex));
         assert.equal(new Set(result.questions.map(q => q.sourceQuestionId)).size, expected.length);
         for (const q of result.questions) {
-          const canonical = WGE_CORPUS.find(row => row.id === q.sourceQuestionId)!;
+          const canonical = generationPool.find(row => row.id === q.sourceQuestionId)!;
           assert.equal(q.cpId, cp); assert.equal(q.language, language);
           const options = q.options as string[];
           assert.equal(options.length, 4); assert.equal(new Set(options).size, 4);
           assert.equal(options[q.correctIndex as number], canonical.locales[language].options[canonical.correctIndex]);
           assert.equal(q.explanation, canonical.locales[language].explanation);
-          assert.equal(q.authoringReviewApproved, Number(cp.slice(-3)) <= 43); assert.equal(q.questionBankWritable, false);
+          assert.equal(q.authoringReviewApproved, canonical.authoringReviewApproved ?? (Number(cp.slice(-3)) <= 43)); assert.equal(q.questionBankWritable, false);
           assert.equal(q.testEligible, false); assert.equal(q.productionReleased, false);
           checked++;
         }
@@ -97,6 +129,22 @@ async function run() {
     const single = await adapter.generate({canonicalProblemId: q.id, count: 1});
     assert.equal(single.questions[0]!.sourceQuestionId, q.id);
   }
+  for (const q of WGE_VARIABLE_POOL_QUESTIONS_V1) {
+    const single = await adapter.generate({canonicalProblemId: q.id, count: 1, language: 'pa'});
+    assert.equal(single.questions[0]!.sourceQuestionId, q.id);
+    assert.equal(single.questions[0]!.authoringReviewApproved, q.authoringReviewApproved ?? (Number(q.cpId.slice(-3)) <= 43));
+    assert.equal(single.questions[0]!.localizationStatus, single.questions[0]!.authoringReviewApproved ? 'USER_APPROVED' : 'REVIEW_REQUIRED');
+    assert.equal(single.questions[0]!.productionReleased, false);
+  }
+  for (const qlId of WGE_VARIABLE_POOL_QL_IDS_V1) {
+    const expectedQlRows = WGE_VARIABLE_POOL_QUESTIONS_V1.filter(q => q.qlId === qlId);
+    const generated = await adapter.generate({packageId: expectedQlRows[0]!.cpId, patternId: qlId, count: expectedQlRows.length});
+    assert.equal(generated.questions.length, expectedQlRows.length);
+    assert.ok(generated.questions.every(q => q.patternId === qlId && q.cpId === expectedQlRows[0]!.cpId));
+    assert.equal(new Set(generated.questions.map(q => (q.options as string[]).join(' | '))).size, expectedQlRows.length);
+    assert.equal(generated.generationContext.authoringReviewApproved, expectedQlRows.every(q => q.authoringReviewApproved));
+    assert.equal(generated.generationContext.studentPublicationAuthorized, false);
+  }
   // Independent numeric oracle for date/time questions, not option-position snapshots.
   const find = (objective: string) => WGE_CORPUS.find(q => q.objective === objective)!.locales.en.options[0];
   assert.equal(find('solar-east-calculation'), `${12 + 45 / 15}:00`);
@@ -111,6 +159,7 @@ async function run() {
   assert.equal(owns({packageId: 'COM-001', topic: 'World Geography'}), false);
   assert.equal(owns({packageId: 'WGE-001-CP011'}), true);
   assert.equal(owns({topic: 'World Geography'}), true);
-  console.log(`PASS: ${WGE_CORPUS.length} questions, ${checked} filtered localized outputs, 43 CPs, all selectors and invariants`);
+  assert.equal(WGE_VARIABLE_POOL_QUESTIONS_V1.some(q => q.cpId === 'WGE-001-CP023'), false);
+  console.log(`PASS: ${WGE_CORPUS.length} authored questions + ${WGE_VARIABLE_POOL_QUESTIONS_V1.length} review-only variable-pool items, ${checked} filtered localized outputs, 43 CPs, all selectors and invariants`);
 }
 void run();

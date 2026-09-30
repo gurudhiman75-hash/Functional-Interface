@@ -47,6 +47,10 @@ import type { QuestionStudioDifficulty, QuestionStudioLanguage } from '../../que
 export type WorldGeographyQuestion = {
   id: string; cpId: string; objective: string; difficulty: QuestionStudioDifficulty;
   sourceIds: string[]; correctIndex: number;
+  /** Generated pool additions stay unapproved until a reviewer signs them off. */
+  authoringReviewApproved?: boolean;
+  generationSource?: string;
+  qlId?: string;
   locales: Record<QuestionStudioLanguage, { stem: string; options: string[]; explanation: string }>;
 };
 export const WGE_LANGUAGES = ['en', 'hi', 'pa'] as const;
@@ -110,7 +114,7 @@ function deepFreeze<T>(value: T): T {
 export function validateWorldGeographyCorpus(rows: readonly WorldGeographyQuestion[]): void {
   const ids = new Set<string>();
   const objectives = new Set<string>();
-  const stems = new Set<string>();
+  const stems = new Map<string, { generationSource?: string; qlId?: string }>();
   const sourceIds = new Set(WGE_SOURCES.map(s => s.id));
   for (const q of rows) {
     if (ids.has(q.id) || !q.id.startsWith(`${q.cpId}-Q`)) throw new Error(`Invalid or duplicate WGE identity: ${q.id}`);
@@ -132,8 +136,11 @@ export function validateWorldGeographyCorpus(rows: readonly WorldGeographyQuesti
       if (Number(q.cpId.slice(-3)) >= 24 && language === 'hi' && /[\u0A00-\u0A7F]/.test(text)) throw new Error(`Punjabi-script leakage: ${q.id}/${language}`);
       if (Number(q.cpId.slice(-3)) >= 24 && language === 'pa' && /[\u0900-\u097F]/.test(text.replace(/[।॥]/g, ''))) throw new Error(`Devanagari-script leakage: ${q.id}/${language}`);
       const stemKey = `${language}:${l.stem.normalize('NFC').trim().toLowerCase()}`;
-      if (stems.has(stemKey)) throw new Error(`Duplicate stem: ${q.id}/${language}`);
-      stems.add(stemKey);
+      const existingStem = stems.get(stemKey);
+      const sharedVariableFamilyStem = Boolean(q.generationSource && q.qlId &&
+        existingStem?.generationSource === q.generationSource && existingStem.qlId === q.qlId);
+      if (existingStem && !sharedVariableFamilyStem) throw new Error(`Duplicate stem: ${q.id}/${language}`);
+      if (!existingStem) stems.set(stemKey, { generationSource: q.generationSource, qlId: q.qlId });
     }
   }
   for (const cp of Object.keys(WGE_CP_TITLES)) {
