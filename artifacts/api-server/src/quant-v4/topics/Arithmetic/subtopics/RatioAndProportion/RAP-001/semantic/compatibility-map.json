@@ -6,12 +6,12 @@
       "daughter",
       "brother",
       "sister",
-      "grandfather_paternal",
-      "grandmother_paternal",
-      "uncle_paternal",
-      "aunt_paternal",
-      "uncle_maternal",
-      "aunt_maternal"
+      "grandfather",
+      "grandmother",
+      "uncle",
+      "aunt",
+      "husband",
+      "wife"
     ],
     "mother": [
       "father",
@@ -19,12 +19,12 @@
       "daughter",
       "brother",
       "sister",
-      "grandfather_paternal",
-      "grandmother_paternal",
-      "uncle_paternal",
-      "aunt_paternal",
-      "uncle_maternal",
-      "aunt_maternal"
+      "grandfather",
+      "grandmother",
+      "uncle",
+      "aunt",
+      "husband",
+      "wife"
     ],
     "son": [
       "father",
@@ -32,12 +32,12 @@
       "daughter",
       "brother",
       "sister",
-      "grandfather_paternal",
-      "grandmother_paternal",
-      "uncle_paternal",
-      "aunt_paternal",
-      "uncle_maternal",
-      "aunt_maternal"
+      "grandfather",
+      "grandmother",
+      "uncle",
+      "aunt",
+      "husband",
+      "wife"
     ],
     "daughter": [
       "father",
@@ -45,60 +45,75 @@
       "son",
       "brother",
       "sister",
-      "grandfather_paternal",
-      "grandmother_paternal",
-      "uncle_paternal",
-      "aunt_paternal",
-      "uncle_maternal",
-      "aunt_maternal"
+      "grandfather",
+      "grandmother",
+      "uncle",
+      "aunt",
+      "husband",
+      "wife"
     ],
     "boys": [
       "girls",
       "students",
       "teachers",
-      "staff",
+      "players",
       "candidates",
-      "children",
-      "other_students"
+      "members",
+      "children"
     ],
     "girls": [
       "boys",
       "students",
       "teachers",
-      "staff",
+      "players",
       "candidates",
-      "children",
-      "other_students"
+      "members",
+      "children"
     ],
     "teachers": [
       "boys",
       "girls",
       "students",
-      "staff",
+      "players",
       "candidates",
-      "children",
-      "other_students"
+      "members",
+      "children"
     ],
     "milk": [
       "water",
       "juice",
       "syrup",
+      "oil",
       "honey",
-      "vinegar"
+      "vinegar",
+      "petrol",
+      "diesel",
+      "kerosene",
+      "mustard_oil"
     ],
     "water": [
       "milk",
       "juice",
       "syrup",
+      "oil",
       "honey",
-      "vinegar"
+      "vinegar",
+      "petrol",
+      "diesel",
+      "kerosene",
+      "mustard_oil"
     ],
     "juice": [
       "milk",
       "water",
       "syrup",
+      "oil",
       "honey",
-      "vinegar"
+      "vinegar",
+      "petrol",
+      "diesel",
+      "kerosene",
+      "mustard_oil"
     ],
     "coin_1": [
       "coin_2",
@@ -126,12 +141,14 @@
       "women",
       "managers",
       "supervisors",
-      "engineers",
       "clerks",
+      "engineers",
       "drivers",
+      "doctors",
+      "nurses",
       "farmers",
-      "players",
-      "customers"
+      "shopkeepers",
+      "traders"
     ],
     "women": [
       "workers",
@@ -139,21 +156,23 @@
       "men",
       "managers",
       "supervisors",
-      "engineers",
       "clerks",
+      "engineers",
       "drivers",
+      "doctors",
+      "nurses",
       "farmers",
-      "players",
-      "customers"
+      "shopkeepers",
+      "traders"
     ],
     "students": [
       "boys",
       "girls",
       "teachers",
-      "staff",
+      "players",
       "candidates",
-      "children",
-      "other_students"
+      "members",
+      "children"
     ],
     "staff": [
       "boys",
@@ -169,18 +188,18 @@
       "girls",
       "students",
       "teachers",
-      "staff",
-      "children",
-      "other_students"
+      "players",
+      "members",
+      "children"
     ],
     "children": [
       "boys",
       "girls",
       "students",
       "teachers",
-      "staff",
+      "players",
       "candidates",
-      "other_students"
+      "members"
     ],
     "other_students": [
       "boys",
@@ -197,12 +216,14 @@
       "women",
       "managers",
       "supervisors",
-      "engineers",
       "clerks",
+      "engineers",
       "drivers",
+      "doctors",
+      "nurses",
       "farmers",
-      "players",
-      "customers"
+      "shopkeepers",
+      "traders"
     ],
     "employees": [
       "workers",
@@ -210,12 +231,14 @@
       "women",
       "managers",
       "supervisors",
-      "engineers",
       "clerks",
+      "engineers",
       "drivers",
+      "doctors",
+      "nurses",
       "farmers",
-      "players",
-      "customers"
+      "shopkeepers",
+      "traders"
     ],
     "managers": [
       "workers",
@@ -223,12 +246,14 @@
       "men",
       "women",
       "supervisors",
-      "engineers",
       "clerks",
+      "engineers",
       "drivers",
+      "doctors",
+      "nurses",
       "farmers",
-      "players",
-      "customers"
+      "shopkeepers",
+      "traders"
     ],
     "supervisors": [
       "workers",
@@ -236,12 +261,14 @@
       "men",
       "women",
       "managers",
-      "engineers",
       "clerks",
+      "engineers",
       "drivers",
+      "doctors",
+      "nurses",
       "farmers",
-      "players",
-      "customers"
+      "shopkeepers",
+      "traders"
     ],
     "engineers": [
       "workers",
@@ -252,9 +279,11 @@
       "supervisors",
       "clerks",
       "drivers",
+      "doctors",
+      "nurses",
       "farmers",
-      "players",
-      "customers"
+      "shopkeepers",
+      "traders"
     ],
     "clerks": [
       "workers",
@@ -265,9 +294,11 @@
       "supervisors",
       "engineers",
       "drivers",
+      "doctors",
+      "nurses",
       "farmers",
-      "players",
-      "customers"
+      "shopkeepers",
+      "traders"
     ],
     "drivers": [
       "workers",
@@ -276,11 +307,13 @@
       "women",
       "managers",
       "supervisors",
-      "engineers",
       "clerks",
+      "engineers",
+      "doctors",
+      "nurses",
       "farmers",
-      "players",
-      "customers"
+      "shopkeepers",
+      "traders"
     ],
     "farmers": [
       "workers",
@@ -289,24 +322,22 @@
       "women",
       "managers",
       "supervisors",
-      "engineers",
       "clerks",
+      "engineers",
       "drivers",
-      "players",
-      "customers"
+      "doctors",
+      "nurses",
+      "shopkeepers",
+      "traders"
     ],
     "players": [
-      "workers",
-      "employees",
-      "men",
-      "women",
-      "managers",
-      "supervisors",
-      "engineers",
-      "clerks",
-      "drivers",
-      "farmers",
-      "customers"
+      "boys",
+      "girls",
+      "students",
+      "teachers",
+      "candidates",
+      "members",
+      "children"
     ],
     "customers": [
       "workers",
@@ -325,42 +356,97 @@
       "milk",
       "water",
       "juice",
+      "oil",
       "honey",
-      "vinegar"
+      "vinegar",
+      "petrol",
+      "diesel",
+      "kerosene",
+      "mustard_oil"
     ],
     "honey": [
       "milk",
       "water",
       "juice",
       "syrup",
-      "vinegar"
+      "oil",
+      "vinegar",
+      "petrol",
+      "diesel",
+      "kerosene",
+      "mustard_oil"
     ],
     "vinegar": [
       "milk",
       "water",
       "juice",
       "syrup",
-      "honey"
+      "oil",
+      "honey",
+      "petrol",
+      "diesel",
+      "kerosene",
+      "mustard_oil"
     ],
     "petrol": [
+      "milk",
+      "water",
+      "juice",
+      "syrup",
+      "oil",
+      "honey",
+      "vinegar",
       "diesel",
-      "kerosene"
+      "kerosene",
+      "mustard_oil"
     ],
     "diesel": [
+      "milk",
+      "water",
+      "juice",
+      "syrup",
+      "oil",
+      "honey",
+      "vinegar",
       "petrol",
-      "kerosene"
+      "kerosene",
+      "mustard_oil"
     ],
     "kerosene": [
+      "milk",
+      "water",
+      "juice",
+      "syrup",
+      "oil",
+      "honey",
+      "vinegar",
       "petrol",
-      "diesel"
+      "diesel",
+      "mustard_oil"
     ],
     "oil": [
-      "mustard_oil",
-      "coconut_oil"
+      "milk",
+      "water",
+      "juice",
+      "syrup",
+      "honey",
+      "vinegar",
+      "petrol",
+      "diesel",
+      "kerosene",
+      "mustard_oil"
     ],
     "mustard_oil": [
+      "milk",
+      "water",
+      "juice",
+      "syrup",
       "oil",
-      "coconut_oil"
+      "honey",
+      "vinegar",
+      "petrol",
+      "diesel",
+      "kerosene"
     ],
     "coconut_oil": [
       "oil",
@@ -372,12 +458,12 @@
       "son",
       "daughter",
       "sister",
-      "grandfather_paternal",
-      "grandmother_paternal",
-      "uncle_paternal",
-      "aunt_paternal",
-      "uncle_maternal",
-      "aunt_maternal"
+      "grandfather",
+      "grandmother",
+      "uncle",
+      "aunt",
+      "husband",
+      "wife"
     ],
     "sister": [
       "father",
@@ -385,12 +471,12 @@
       "son",
       "daughter",
       "brother",
-      "grandfather_paternal",
-      "grandmother_paternal",
-      "uncle_paternal",
-      "aunt_paternal",
-      "uncle_maternal",
-      "aunt_maternal"
+      "grandfather",
+      "grandmother",
+      "uncle",
+      "aunt",
+      "husband",
+      "wife"
     ],
     "grandfather_paternal": [
       "father",
@@ -469,6 +555,153 @@
       "uncle_paternal",
       "aunt_paternal",
       "uncle_maternal"
+    ],
+    "grandfather": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandmother",
+      "uncle",
+      "aunt",
+      "husband",
+      "wife"
+    ],
+    "grandmother": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather",
+      "uncle",
+      "aunt",
+      "husband",
+      "wife"
+    ],
+    "uncle": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather",
+      "grandmother",
+      "aunt",
+      "husband",
+      "wife"
+    ],
+    "aunt": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather",
+      "grandmother",
+      "uncle",
+      "husband",
+      "wife"
+    ],
+    "husband": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather",
+      "grandmother",
+      "uncle",
+      "aunt",
+      "wife"
+    ],
+    "wife": [
+      "father",
+      "mother",
+      "son",
+      "daughter",
+      "brother",
+      "sister",
+      "grandfather",
+      "grandmother",
+      "uncle",
+      "aunt",
+      "husband"
+    ],
+    "members": [
+      "boys",
+      "girls",
+      "students",
+      "teachers",
+      "players",
+      "candidates",
+      "children"
+    ],
+    "doctors": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "clerks",
+      "engineers",
+      "drivers",
+      "nurses",
+      "farmers",
+      "shopkeepers",
+      "traders"
+    ],
+    "nurses": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "clerks",
+      "engineers",
+      "drivers",
+      "doctors",
+      "farmers",
+      "shopkeepers",
+      "traders"
+    ],
+    "shopkeepers": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "clerks",
+      "engineers",
+      "drivers",
+      "doctors",
+      "nurses",
+      "farmers",
+      "traders"
+    ],
+    "traders": [
+      "workers",
+      "employees",
+      "men",
+      "women",
+      "managers",
+      "supervisors",
+      "clerks",
+      "engineers",
+      "drivers",
+      "doctors",
+      "nurses",
+      "farmers",
+      "shopkeepers"
     ]
   }
 }
