@@ -127,6 +127,7 @@ import {
   knowledgeV1His001QuestionStudioAdapterV1,
 } from "./knowledge-v1-his001-adapter-v1";
 import { isWhi001QuestionStudioRequestV1, knowledgeV1Whi001QuestionStudioAdapterV1 } from "./knowledge-v1-whi001-adapter-v1";
+import { isWhi011014QuestionStudioRequestV1, knowledgeV1Whi011014QuestionStudioAdapterV1 } from "./knowledge-v1-whi011-014-adapter-v1";
 import { isWhi016QuestionStudioRequestV1, knowledgeV1Whi016QuestionStudioAdapterV1 } from "./knowledge-v1-whi016-adapter-v1";
 import { isWhi002QuestionStudioRequestV1, knowledgeV1Whi002QuestionStudioAdapterV1 } from "./knowledge-v1-whi002-adapter-v1";
 import { isWhi003004005QuestionStudioRequestV1, knowledgeV1Whi003004QuestionStudioAdapterV1 } from "./knowledge-v1-whi003-004-adapter-v1";
@@ -185,6 +186,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1Whi001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Whi002QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Whi003004QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1Whi011014QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Whi016QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Pol001QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Sci001QuestionStudioAdapterV1.listPackages(),
@@ -274,6 +276,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isWhi003004005QuestionStudioRequestV1(request)) {
       return knowledgeV1Whi003004QuestionStudioAdapterV1.generate(request);
+    }
+    if (isWhi011014QuestionStudioRequestV1(request)) {
+      return knowledgeV1Whi011014QuestionStudioAdapterV1.generate(request);
     }
     if (isWhi016QuestionStudioRequestV1(request)) {
       return knowledgeV1Whi016QuestionStudioAdapterV1.generate(request);
