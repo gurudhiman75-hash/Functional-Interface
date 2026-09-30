@@ -1,6 +1,6 @@
 # Statistics — STAT-012 Analysis of Variance Review V2
 
-**Status:** English review candidate; awaiting editorial approval.
+**Status:** Approved by Gurbaj Singh on 2026-09-30. Question pool expansion is deferred to a later pass.
 **Profiles:** SSC CGL Tier II and JSO. **Lifecycle:** controlled review only.
 
 ## STAT-QL-140 — Purpose of analysis of variance
