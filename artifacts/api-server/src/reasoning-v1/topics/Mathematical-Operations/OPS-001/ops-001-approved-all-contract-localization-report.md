@@ -1,6 +1,6 @@
 # ExamTree Reasoning V1 — OPS-001 Approved All-Contract Localization Report
 
-Status: **runtime and full review export passed; original manual review accepted; targeted distractor-option correction awaits focused confirmation.**
+Status: **multilingual runtime approved and frozen; targeted distractor-option correction manually confirmed; superseded by OPS_001_QL_FREEZE_V1.**
 
 ## Scope
 
@@ -134,11 +134,11 @@ FULL_MULTILINGUAL_REVIEW_EXPORT   = PASS
 ORIGINAL_MANUAL_HINDI_REVIEW      = PASS
 ORIGINAL_MANUAL_PUNJABI_REVIEW    = PASS
 TARGETED_OPTION_AUTOMATION        = PASS
-TARGETED_OPTION_MANUAL_CONFIRMATION = PENDING
+TARGETED_OPTION_MANUAL_CONFIRMATION = APPROVED_2026_07_27
 DEVICE_GLYPH_AUDIT                = PASS
 FINAL_SOURCE_RUNTIME_LEDGER       = PASS
-PERMANENT_QL_ALLOCATION           = BLOCKED_PENDING_TARGETED_CONFIRMATION
-PRODUCTION_WIRING                 = BLOCKED
+PERMANENT_QL_ALLOCATION           = COMPLETE__31_QLS_FROZEN
+INTERNAL_INTEGRATION              = COMPLETE__PUBLIC_RELEASE_LOCKED
 ```
 
-Permanent `OPS-QL-*` IDs must not be allocated until the focused 30-record option correction is manually confirmed.
+Historical note: the focused 30-record correction was subsequently manually confirmed on 2026-07-27. The later `OPS_001_QL_FREEZE_V1` and internal-integration authorities supersede this earlier pending gate.
