@@ -6,7 +6,7 @@
 
 ## Implemented foundation
 
-STAT-001 through STAT-014 are merged. The original permanent contracts cover STAT-QL-001 through STAT-QL-175; controlled-review depth additions now extend through STAT-QL-194 across STAT-007, STAT-011, STAT-012, and STAT-013. Package-level workflows for STAT-004 through STAT-014 passed. The STAT-001, STAT-002, and original STAT-003 package checks also passed.
+STAT-001 through STAT-014 are merged. The original permanent contracts cover STAT-QL-001 through STAT-QL-198; controlled-review depth additions now extend through STAT-QL-194 across STAT-007, STAT-011, STAT-012, and STAT-013. Package-level workflows for STAT-004 through STAT-014 passed. The STAT-001, STAT-002, and original STAT-003 package checks also passed.
 
 The review-only lifecycle remains in force: Question Bank writes, test/mock eligibility, localization, public publication, and production release are disabled.
 
@@ -25,13 +25,13 @@ The review-only lifecycle remains in force: Question Bank writes, test/mock elig
 | Statistical inference | STAT-011 | Point-estimation foundations now include known-σ mean and Wald proportion interval construction plus upper-tailed Z and chi-square critical-value decisions. Two-sample/small-sample intervals, p-values, broader test families, power, and sample-size planning remain deferred. |
 | Analysis of variance | STAT-012 | One-way foundation plus replicated 2×2 interaction sum-of-squares/F calculation, interaction interpretation, Tukey-style follow-up, and classical assumptions. Broader layouts, diagnostics, and robust alternatives remain open. |
 | Time series | STAT-013 | Trend can be fitted from raw coded-time observations by least squares; raw-data centered four-quarter moving averages, adjusted quarterly indices, additive seasonal forecasts, and multiplicative deseasonalization are also covered. Other decomposition and forecasting extensions remain open. |
-| Index numbers | STAT-014 | Foundation only. Weighted average-of-relatives variants and broader multi-period basket/base/chain work remain open. |
+| Index numbers | STAT-014 | Weighted price relatives, multi-period Laspeyres basket, three-link chain index, and rebasing a multi-period series now supplement the foundation; broader index families remain open. |
 
 ## Review and validation notes
 
 - STAT-004's registry marks its 15 English contracts as certified and English-review approved. Its representative `REVIEW.md` previously said permanent QL numbering was not assigned; that stale metadata is corrected in this change.
 - The representative review files for STAT-005 through STAT-014 are still marked as awaiting editorial approval. Structural checks found four options, a keyed answer, and an explanation for each listed question, with no duplicate stems within each file. This is not a substitute for editorial approval or full mathematical/content review.
-- The STAT-003 restoration workflow's deterministic proof passed, but its Question Studio integration step stopped at an unrelated GEO-IND-001 content-closure failure. STAT-007 multiple regression, STAT-011 inference depth, and STAT-012 replicated ANOVA updates passed the full 220-section Quant real-exam simulation and their package/profile/learner-surface checks. This STAT-013 update is undergoing the same checks. Unrelated failures in older audit runs should not be treated as current blockers.
+- The STAT-003 restoration workflow's deterministic proof passed, but its Question Studio integration step stopped at an unrelated GEO-IND-001 content-closure failure. STAT-007 multiple regression, STAT-011 inference depth, and STAT-012 replicated ANOVA updates passed the full 220-section Quant real-exam simulation and their package/profile/learner-surface checks. STAT-013's time-series extension and STAT-014's multi-period index extension are undergoing the same checks. Unrelated failures in older audit runs should not be treated as current blockers.
 
 ## Closure gates
 
