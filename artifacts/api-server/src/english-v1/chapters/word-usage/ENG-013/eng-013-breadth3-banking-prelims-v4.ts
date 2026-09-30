@@ -1,10 +1,4 @@
-import type{Eng013AuthorityV1}from"./eng-013-authorities-v1";
-const a=(id:string,word:string):Eng013AuthorityV1=>({id,cpId:"ENG-013-CP003",difficulty:"medium",word,mode:"incorrect",sentences:[
-`The customer asked the bank about the ${word}.`,
-`During the branch visit, the customer requested details about the ${word}.`,
-`The bank explained how the ${word} affects the customer's account or facility.`,
-`The customer decided to ${word} the application before submission.`
-],answerIndex:3,explanation:`In options A, B and C, "${word}" is used as a banking term or noun phrase. Option D incorrectly forces the term into a verb position. Hence option D is the incorrect usage.`});
+import{buildBankingPrelimsV4 as a}from"./eng-013-v4-editorial-builders";
 export const ENG013_BREADTH3_BANKING_PRELIMS_V4:readonly Eng013AuthorityV1[]=[
 a("WU-BR3-P001","savings account"),
 a("WU-BR3-P002","current account"),
