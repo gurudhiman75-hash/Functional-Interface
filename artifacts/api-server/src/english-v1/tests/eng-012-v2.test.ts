@@ -16,6 +16,21 @@ const expected=new Map([
 for(const [cp,count] of expected){
  assert.equal(ENG012_ACTIVE_AUTHORITIES_V2.filter(x=>x.cpId===cp).length,count);
 }
+const forbiddenNaturalPhrases=[
+ "restore them before the due deadline",
+ "issue books from the library",
+ "term investment for a fixed period",
+ "linked balance or mobile application",
+ "transaction has updated correctly"
+];
+for(const a of ENG012_ACTIVE_AUTHORITIES_V2){
+ const surfaces=[a.natural,...(a.variants??[])];
+ for(const words of surfaces){
+  const sentence=a.template.replace(/\{([1-4])\}/g,(_,n)=>words[Number(n)-1]??"");
+  for(const bad of forbiddenNaturalPhrases)assert.ok(!sentence.toLowerCase().includes(bad),`${a.id} contains defective natural surface: ${bad}`);
+ }
+}
+
 for(const a of ENG012_ACTIVE_AUTHORITIES_V2){
  assert.equal(a.natural.length,4);
  assert.equal(a.variants?.length,2);
