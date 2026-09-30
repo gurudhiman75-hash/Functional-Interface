@@ -1,0 +1,2155 @@
+[
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਪਹਿਲੀ ਵਿਸ਼ਵ ਜੰਗ ਤੋਂ ਬਾਅਦ ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਮੈਂਡੇਟ ਪ੍ਰਣਾਲੀ ਦਾ ਮਕਸਦ ਕੀ ਸੀ?",
+    "explanation": "ਇਸ ਪ੍ਰਣਾਲੀ ਹੇਠ ਜਰਮਨੀ ਅਤੇ ਉਸਮਾਨੀ ਸਾਮਰਾਜ ਦੇ ਕੁਝ ਪੁਰਾਣੇ ਇਲਾਕਿਆਂ ਦਾ ਪ੍ਰਸ਼ਾਸਨ ਨਿਰਧਾਰਤ ਤਾਕਤਾਂ ਨੂੰ ਸੌਂਪਿਆ ਗਿਆ। ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਨਿਗਰਾਨੀ ਹੇਠ ਇਨ੍ਹਾਂ ਨੂੰ ਅੱਗੇ ਸਵੈ-ਸ਼ਾਸਨ ਲਈ ਤਿਆਰ ਕਰਨਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q001-PA",
+    "englishQuestionId": "WHI-CP009-Q001",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F001",
+    "questionFamily": "ਸੰਧੀਆਂ ਅਤੇ ਜੰਗ-ਬਾਅਦ ਦੀ ਵਿਵਸਥਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਰਮਨੀ ਅਤੇ ਉਸਮਾਨੀ ਸਾਮਰਾਜ ਦੇ ਪੁਰਾਣੇ ਇਲਾਕਿਆਂ ਦਾ ਪ੍ਰਸ਼ਾਸਨ ਸਵੈ-ਸ਼ਾਸਨ ਦੀ ਤਿਆਰੀ ਤੱਕ ਕਿਸੇ ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਤਾਕਤ ਨੂੰ ਸੌਂਪਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨ ਬਸਤੀਆਂ ਸਿੱਧੀਆਂ ਜਰਮਨੀ ਨੂੰ ਵਾਪਸ ਕਰ ਦੇਣੀਆਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਪੁਰਾਣੇ ਸਾਮਰਾਜ ਵਿੱਚ ਤੁਰੰਤ ਆਜ਼ਾਦ ਰਾਜ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਾਰੇ ਇਲਾਕੇ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਨੂੰ ਸੌਂਪ ਦੇਣੇ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S02",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਮੈਂਡੇਟ ਪ੍ਰਣਾਲੀ ਦੀ ਰਸਮੀ ਨਿਗਰਾਨੀ ਕਿਹੜੀ ਸੰਸਥਾ ਕਰਦੀ ਸੀ?",
+    "explanation": "ਮੈਂਡੇਟ ਪ੍ਰਣਾਲੀ ਦੇ ਪ੍ਰਸ਼ਾਸਨ ਦੀ ਨਿਗਰਾਨੀ ਰਾਸ਼ਟਰ ਸੰਘ ਕਰਦਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q002-PA",
+    "englishQuestionId": "WHI-CP009-Q002",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F002",
+    "questionFamily": "ਸੰਧੀਆਂ ਅਤੇ ਜੰਗ-ਬਾਅਦ ਦੀ ਵਿਵਸਥਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਸੰਧੀ ਸੰਗਠਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੂਰਪੀ ਸੰਘ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਸੁਰੱਖਿਆ ਕੌਂਸਲ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮੈਂਡੇਟ ਪ੍ਰਣਾਲੀ ਦਾ ਸਹੀ ਵੇਰਵਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਨਿਗਰਾਨੀ ਹੇਠ ਕੁਝ ਪੁਰਾਣੇ ਸਾਮਰਾਜੀ ਇਲਾਕਿਆਂ ਦਾ ਪ੍ਰਸ਼ਾਸਨ ਹੋਰ ਤਾਕਤਾਂ ਨੂੰ ਦਿੱਤਾ ਗਿਆ ਸੀ। ਸਵੈ-ਸ਼ਾਸਨ ਤੱਕ ਪਹੁੰਚਣ ਦਾ ਰਾਹ ਹਰ ਇਲਾਕੇ ਵਿੱਚ ਇੱਕੋ ਜਿਹਾ ਨਹੀਂ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q003-PA",
+    "englishQuestionId": "WHI-CP009-Q003",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F003",
+    "questionFamily": "ਸੰਧੀਆਂ ਅਤੇ ਜੰਗ-ਬਾਅਦ ਦੀ ਵਿਵਸਥਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਰ ਮੈਂਡੇਟ ਇਲਾਕੇ ਨੂੰ ਸੰਯੁਕਤ ਰਾਜ ਦਾ ਸੂਬਾ ਬਣਾ ਦਿੱਤਾ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰੀਆਂ ਪੁਰਾਣੀਆਂ ਬਸਤੀਆਂ ਨੂੰ ਤੁਰੰਤ ਪੂਰੀ ਆਜ਼ਾਦੀ ਦੇ ਦਿੱਤੀ ਗਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੁਰਾਣੇ ਸਾਮਰਾਜੀ ਇਲਾਕਿਆਂ ਦਾ ਪ੍ਰਸ਼ਾਸਨ ਅੰਤਰਰਾਸ਼ਟਰੀ ਨਿਗਰਾਨੀ ਹੇਠ ਹੋਰ ਤਾਕਤਾਂ ਨੂੰ ਦਿੱਤਾ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਜੰਗ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲਾ ਜਰਮਨ ਬਸਤੀਵਾਦੀ ਸਾਮਰਾਜ ਮੁੜ ਕਾਇਮ ਕਰ ਦਿੱਤਾ ਗਿਆ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜੰਗ ਤੋਂ ਬਾਅਦ ਕਿਹੜੇ ਖੇਤਰ ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਜਾਂ ਫ਼ਰਾਂਸੀਸੀ ਮੈਂਡੇਟ ਹੇਠ ਪੁਰਾਣੇ ਉਸਮਾਨੀ ਇਲਾਕੇ ਸ਼ਾਮਲ ਸਨ?",
+    "explanation": "ਮੱਧ ਪੂਰਬ ਦੇ ਕੁਝ ਪੁਰਾਣੇ ਉਸਮਾਨੀ ਇਲਾਕੇ ਬ੍ਰਿਟੇਨ ਅਤੇ ਫ਼ਰਾਂਸ ਦੇ ਪ੍ਰਸ਼ਾਸਨ ਹੇਠ ਮੈਂਡੇਟ ਬਣੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q004-PA",
+    "englishQuestionId": "WHI-CP009-Q004",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F004",
+    "questionFamily": "ਸੰਧੀਆਂ ਅਤੇ ਜੰਗ-ਬਾਅਦ ਦੀ ਵਿਵਸਥਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਕੈਂਡੀਨੇਵੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੀਵੇਂ ਦੇਸ਼"
+      },
+      {
+        "key": "C",
+        "text": "ਕੈਰੇਬੀਅਨ ਖੇਤਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਮੱਧ ਪੂਰਬ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S02",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਸੰਧੀ ਦੇ ਆਰਟੀਕਲ 22 ਅਨੁਸਾਰ, ਉਸਮਾਨੀ ਸਾਮਰਾਜ ਦੇ ਕੁਝ ਪੁਰਾਣੇ ਭਾਈਚਾਰਿਆਂ ਨਾਲ ਕਿਵੇਂ ਸਲੂਕ ਕੀਤਾ ਜਾ ਸਕਦਾ ਸੀ?",
+    "explanation": "ਆਰਟੀਕਲ 22 ਹੇਠ ਕੁਝ ਪੁਰਾਣੇ ਉਸਮਾਨੀ ਭਾਈਚਾਰਿਆਂ ਨੂੰ ਆਜ਼ਾਦ ਕੌਮਾਂ ਵਜੋਂ ਅਸਥਾਈ ਮਾਨਤਾ ਦਿੱਤੀ ਜਾ ਸਕਦੀ ਸੀ। ਆਪਣੇ ਪੈਰਾਂ ’ਤੇ ਖੜ੍ਹੇ ਹੋਣ ਤੱਕ ਉਨ੍ਹਾਂ ਨੂੰ ਮੈਂਡੇਟ ਪ੍ਰਸ਼ਾਸਕ ਤੋਂ ਪ੍ਰਸ਼ਾਸਕੀ ਸਲਾਹ ਅਤੇ ਮਦਦ ਮਿਲਣੀ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q005-PA",
+    "englishQuestionId": "WHI-CP009-Q005",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F005",
+    "questionFamily": "ਸੰਧੀਆਂ ਅਤੇ ਜੰਗ-ਬਾਅਦ ਦੀ ਵਿਵਸਥਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਨ੍ਹਾਂ ਨੂੰ ਮੈਂਡੇਟ ਪ੍ਰਸ਼ਾਸਕ ਦੀ ਸਲਾਹ ਅਤੇ ਮਦਦ ਹੇਠ ਅਸਥਾਈ ਤੌਰ ’ਤੇ ਆਜ਼ਾਦ ਕੌਮਾਂ ਮੰਨਿਆ ਜਾ ਸਕਦਾ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਨ੍ਹਾਂ ਨੂੰ ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਨਿਗਰਾਨੀ ਤੋਂ ਬਿਨਾਂ ਤੁਰੰਤ ਪੂਰੀ ਪ੍ਰਭੂਸੱਤਾ ਦੇ ਦਿੱਤੀ ਗਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਨ੍ਹਾਂ ਨੂੰ ਸਿੱਧੇ ਮੈਂਡੇਟ ਪ੍ਰਸ਼ਾਸਕ ਦੇ ਕਬਜ਼ੇ ਹੇਠ ‘C’ ਸ਼੍ਰੇਣੀ ਦੇ ਇਲਾਕੇ ਬਣਾਇਆ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੇ ਭੰਗ ਹੋਣ ਤੱਕ ਉਨ੍ਹਾਂ ਨੂੰ ਉਸਮਾਨੀ ਰਾਜ ਵਿੱਚ ਵਾਪਸ ਕਰ ਦਿੱਤਾ ਗਿਆ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਜੰਗ ਤੋਂ ਬਾਅਦ ਹੋਏ ਖੇਤਰੀ ਸਮਝੌਤਿਆਂ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਜੰਗ ਤੋਂ ਬਾਅਦ ਸਰਹੱਦਾਂ ਬਦਲੀਆਂ ਗਈਆਂ ਅਤੇ ਕੁਝ ਪੁਰਾਣੇ ਸਾਮਰਾਜੀ ਇਲਾਕੇ ਮੈਂਡੇਟ ਬਣੇ। ਫਿਰ ਵੀ ਕੌਮੀ ਸਵੈ-ਨਿਰਣੇ ਨਾਲ ਜੁੜੇ ਸਾਰੇ ਝਗੜੇ ਹੱਲ ਨਹੀਂ ਹੋਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q006-PA",
+    "englishQuestionId": "WHI-CP009-Q006",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F006",
+    "questionFamily": "ਸੰਧੀਆਂ ਅਤੇ ਜੰਗ-ਬਾਅਦ ਦੀ ਵਿਵਸਥਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਯੂਰਪ ਦੀਆਂ ਸਾਰੀਆਂ ਸਰਹੱਦਾਂ 1914 ਵਰਗੀਆਂ ਕਰ ਦਿੱਤੀਆਂ ਗਈਆਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਰਹੱਦਾਂ ਬਦਲੀਆਂ ਅਤੇ ਕੁਝ ਪੁਰਾਣੇ ਸਾਮਰਾਜੀ ਇਲਾਕੇ ਮੈਂਡੇਟ ਬਣੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਰੇ ਪੁਰਾਣੇ ਉਸਮਾਨੀ ਇਲਾਕਿਆਂ ਨੂੰ ਜੋੜ ਕੇ ਇੱਕ ਰਾਜ ਬਣਾਇਆ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੌਮੀ ਸਵੈ-ਨਿਰਣੇ ਨਾਲ ਜੁੜੇ ਸਾਰੇ ਝਗੜੇ ਮੁੱਕ ਗਏ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S02"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਸਥਾਪਨਾ ਦਾ ਮੁੱਖ ਮਕਸਦ ਕੀ ਸੀ?",
+    "explanation": "ਜੰਗ ਤੋਂ ਬਾਅਦ ਰਾਸ਼ਟਰ ਸੰਘ ਦਾ ਮਕਸਦ ਦੇਸ਼ਾਂ ਵਿਚਕਾਰ ਸਹਿਯੋਗ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰਨਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q007-PA",
+    "englishQuestionId": "WHI-CP009-Q007",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F007",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਰਮਨ ਕਮਾਨ ਹੇਠ ਇੱਕ ਯੂਰਪੀ ਫੌਜ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੈਬਸਬਰਗ ਸਾਮਰਾਜ ਮੁੜ ਕਾਇਮ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਅੰਤਰਰਾਸ਼ਟਰੀ ਸਹਿਯੋਗ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਵਿਚਕਾਰ ਬਸਤੀਵਾਦੀ ਮੁਕਾਬਲਾ ਵਧਾਉਣਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਰਾਸ਼ਟਰਪਤੀ ਵਿਲਸਨ ਦੇ ਸਮਰਥਨ ਦੇ ਬਾਵਜੂਦ ਕਿਹੜੀ ਵੱਡੀ ਤਾਕਤ ਰਾਸ਼ਟਰ ਸੰਘ ਵਿੱਚ ਸ਼ਾਮਲ ਨਹੀਂ ਹੋਈ?",
+    "explanation": "ਅਮਰੀਕੀ ਸੈਨੇਟ ਨੇ ਵਰਸਾਈ ਸੰਧੀ ਨੂੰ ਮਨਜ਼ੂਰੀ ਨਹੀਂ ਦਿੱਤੀ, ਇਸ ਲਈ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਰਾਸ਼ਟਰ ਸੰਘ ਦਾ ਮੈਂਬਰ ਨਹੀਂ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q008-PA",
+    "englishQuestionId": "WHI-CP009-Q008",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F008",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਪਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੇ ਸਿਧਾਂਤ ਵਿੱਚ ਸਾਂਝੀ ਸੁਰੱਖਿਆ ਦਾ ਕੀ ਮਤਲਬ ਸੀ?",
+    "explanation": "ਸਾਂਝੀ ਸੁਰੱਖਿਆ ਹੇਠ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਤੋਂ ਉਮੀਦ ਸੀ ਕਿ ਉਹ ਹਮਲੇ ਦਾ ਜਵਾਬ ਦੇਣ ਅਤੇ ਅਮਨ ਕਾਇਮ ਰੱਖਣ ਲਈ ਮਿਲ ਕੇ ਕਦਮ ਚੁੱਕਣ। ਪਰ ਰਾਸ਼ਟਰ ਸੰਘ ਕੋਲ ਭਰੋਸੇਯੋਗ ਤਰੀਕੇ ਨਾਲ ਇਹ ਨਿਯਮ ਲਾਗੂ ਕਰਵਾਉਣ ਦੀ ਤਾਕਤ ਨਹੀਂ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q009-PA",
+    "englishQuestionId": "WHI-CP009-Q009",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F009",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮੈਂਬਰ ਹਮਲੇ ਦਾ ਜਵਾਬ ਦੇਣ ਅਤੇ ਅਮਨ ਬਚਾਉਣ ਲਈ ਮਿਲ ਕੇ ਕੰਮ ਕਰਨਗੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਹਰ ਦੇਸ਼ ਸਿਰਫ਼ ਬਸਤੀਆਂ ਰਾਹੀਂ ਆਪਣੀ ਸੁਰੱਖਿਆ ਕਰੇਗਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਹਰ ਮੈਂਬਰ ਨੂੰ ਜੰਗ ਜਿੱਤਣ ਦੀ ਗਾਰੰਟੀ ਦੇਵੇਗਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਮੈਂਬਰ ਦੇਸ਼ ਹਰ ਅੰਤਰਰਾਸ਼ਟਰੀ ਗੱਲਬਾਤ ਤੋਂ ਬਚਣਗੇ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਸੰਸਥਾਗਤ ਬਣਤਰ ਵਿੱਚ ਕਿਹੜੀ ਸੰਸਥਾ ਸ਼ਾਮਲ ਸੀ?",
+    "explanation": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਬਣਤਰ ਵਿੱਚ ਸਭਾ, ਕੌਂਸਲ ਅਤੇ ਸਥਾਈ ਸਕੱਤਰੇਤ ਸ਼ਾਮਲ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q010-PA",
+    "englishQuestionId": "WHI-CP009-Q010",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F010",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਯੂਰਪੀ ਸੰਸਦ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਭਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਸੁਰੱਖਿਆ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਾਰਸਾ ਸੰਧੀ ਸਕੱਤਰੇਤ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਹਮਲੇ ਰੋਕਣ ਦੀ ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਸਮਰੱਥਾ ਕਿਹੜੀ ਕਮੀ ਕਾਰਨ ਕਮਜ਼ੋਰ ਸੀ?",
+    "explanation": "ਰਾਸ਼ਟਰ ਸੰਘ ਕੋਲ ਆਪਣੀ ਸਥਾਈ ਫੌਜ ਨਹੀਂ ਸੀ। ਪਾਬੰਦੀਆਂ ਲਾਗੂ ਕਰਨ ਅਤੇ ਕਾਰਵਾਈ ਕਰਨ ਲਈ ਉਸ ਨੂੰ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ’ਤੇ ਨਿਰਭਰ ਰਹਿਣਾ ਪੈਂਦਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q011-PA",
+    "englishQuestionId": "WHI-CP009-Q011",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F011",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਸ ਦਾ ਹਰ ਕੌਮੀ ਫੌਜ ’ਤੇ ਕਾਬੂ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਹ ਸੰਯੁਕਤ ਰਾਜ ਨੂੰ ਮੈਂਬਰ ਬਣਨ ਲਈ ਮਜਬੂਰ ਕਰ ਸਕਦਾ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਸ ਕੋਲ ਸਥਾਈ ਫੌਜ ਨਹੀਂ ਸੀ ਅਤੇ ਉਹ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਦੀ ਕਾਰਵਾਈ ’ਤੇ ਨਿਰਭਰ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਹ ਸਾਰੇ ਬਸਤੀਵਾਦੀ ਪ੍ਰਸ਼ਾਸਨਾਂ ਨੂੰ ਸਿੱਧਾ ਚਲਾਉਂਦਾ ਸੀ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਰਾਸ਼ਟਰ ਸੰਘ ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਜ ਦੇ ਸ਼ਾਮਲ ਨਾ ਹੋਣ ਦੀ ਕੀ ਅਹਿਮੀਅਤ ਸੀ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਜ ਦੀ ਗੈਰ-ਮੌਜੂਦਗੀ ਨਾਲ ਰਾਸ਼ਟਰ ਸੰਘ ਦਾ ਸਿਆਸੀ ਪ੍ਰਭਾਵ ਅਤੇ ਵਿਲਸਨ ਵੱਲੋਂ ਉਤਸ਼ਾਹਿਤ ਸਾਂਝੀ ਸੁਰੱਖਿਆ ਦੀ ਵਿਵਸਥਾ ਕਮਜ਼ੋਰ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q012-PA",
+    "englishQuestionId": "WHI-CP009-Q012",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F012",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਕਰਕੇ ਫ਼ਰਾਂਸ ਅਤੇ ਬ੍ਰਿਟੇਨ ਰਾਸ਼ਟਰ ਸੰਘ ਵਿੱਚ ਸ਼ਾਮਲ ਨਾ ਹੋ ਸਕੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨਾਲ 1919 ਵਿੱਚ ਰਾਸ਼ਟਰ ਸੰਘ ਆਪਣੇ ਆਪ ਭੰਗ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨਾਲ ਮੈਂਡੇਟ ਪ੍ਰਣਾਲੀ ਗੈਰ-ਕਾਨੂੰਨੀ ਹੋ ਗਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨਾਲ ਸੰਸਥਾ ਦਾ ਪ੍ਰਭਾਵ ਅਤੇ ਵਿਲਸਨ ਦੀ ਸਾਂਝੀ ਸੁਰੱਖਿਆ ਵਾਲੀ ਵਿਵਸਥਾ ਕਮਜ਼ੋਰ ਹੋਈ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1933 ਵਿੱਚ ਰਾਸ਼ਟਰ ਸੰਘ ਵੱਲੋਂ ਲਿਟਨ ਰਿਪੋਰਟ ਮਨਜ਼ੂਰ ਕੀਤੇ ਜਾਣ ’ਤੇ ਜਪਾਨੀ ਨੁਮਾਇੰਦਿਆਂ ਨੇ ਕੀ ਕੀਤਾ?",
+    "explanation": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ 1933 ਵਿੱਚ ਲਿਟਨ ਰਿਪੋਰਟ ਮਨਜ਼ੂਰ ਕੀਤੀ ਤਾਂ ਜਪਾਨੀ ਵਫ਼ਦ ਬੈਠਕ ਛੱਡ ਕੇ ਚਲਾ ਗਿਆ ਅਤੇ ਮੁੜ ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਕੌਂਸਲ ਵਿੱਚ ਨਹੀਂ ਆਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q013-PA",
+    "englishQuestionId": "WHI-CP009-Q013",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F013",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀਆਂ ਸੀਮਾਵਾਂ ਅਤੇ ਜਵਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਪਾਨੀ ਵਫ਼ਦ ਬੈਠਕ ਛੱਡ ਕੇ ਚਲਾ ਗਿਆ ਅਤੇ ਮੁੜ ਕੌਂਸਲ ਵਿੱਚ ਨਹੀਂ ਆਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਪਾਨ ਰਾਸ਼ਟਰ ਸੰਘ ਦਾ ਸਥਾਈ ਫੌਜੀ ਕਮਾਂਡਰ ਬਣ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਮੰਚੂਰੀਆ ਜਰਮਨੀ ਨੂੰ ਸੌਂਪ ਦਿੱਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਚੀਨ ਰਾਸ਼ਟਰ ਸੰਘ ਛੱਡ ਕੇ ਧੁਰੀ ਤਾਕਤਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋ ਗਿਆ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S10"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1930ਵਿਆਂ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੀ ਕਿਹੜੀ ਘਟਨਾ ਨੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ ਦੀਆਂ ਹੱਦਾਂ ਦਿਖਾਈਆਂ?",
+    "explanation": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਜਪਾਨੀ ਕਾਰਵਾਈ ਦੀ ਨਿੰਦਾ ਕੀਤੀ, ਪਰ ਉਸ ਨੂੰ ਮੰਚੂਰੀਆ ਤੋਂ ਹਟਣ ਲਈ ਮਜਬੂਰ ਨਾ ਕਰ ਸਕਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q014-PA",
+    "englishQuestionId": "WHI-CP009-Q014",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F014",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀਆਂ ਸੀਮਾਵਾਂ ਅਤੇ ਜਵਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਜਪਾਨ ਨੂੰ ਸਫ਼ਲਤਾਪੂਰਵਕ ਨਿਹੱਥਾ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮੁਕਦਨ ਘਟਨਾ ਤੋਂ ਬਾਅਦ ਜਪਾਨ ਨੇ ਮੰਚੂਰੀਆ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ ਅਤੇ ਰਾਸ਼ਟਰ ਸੰਘ ਉਸ ਨੂੰ ਰੋਕ ਨਾ ਸਕਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਫੌਜ ਨੇ ਮੰਚੂਰੀਆ ਚੀਨ ਨੂੰ ਵਾਪਸ ਕਰ ਦਿੱਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "1931 ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਬਣਿਆ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S10"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਸੰਧੀ ਵਿੱਚ ਕਿਹੜੀ ਵਚਨਬੱਧਤਾ ਸ਼ਾਮਲ ਸੀ?",
+    "explanation": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਸੰਧੀ ਵਿੱਚ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਦੀ ਖੇਤਰੀ ਅਖੰਡਤਾ ਅਤੇ ਸਿਆਸੀ ਆਜ਼ਾਦੀ ਦਾ ਆਦਰ ਕਰਨ ਦੀ ਵਚਨਬੱਧਤਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q015-PA",
+    "englishQuestionId": "WHI-CP009-Q015",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F015",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀਆਂ ਸੀਮਾਵਾਂ ਅਤੇ ਜਵਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਾਰੇ ਮੈਂਬਰਾਂ ਨੂੰ ਆਪਣੀਆਂ ਸਰਕਾਰਾਂ ਖਤਮ ਕਰਣੀਆਂ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਹਰ ਝਗੜੇ ਦਾ ਫ਼ੈਸਲਾ ਅਮਰੀਕੀ ਕਾਂਗਰਸ ਨੇ ਕਰਨਾ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੈਂਬਰਾਂ ਨੂੰ ਇਕ-ਦੂਜੇ ਦੀ ਖੇਤਰੀ ਅਖੰਡਤਾ ਅਤੇ ਸਿਆਸੀ ਆਜ਼ਾਦੀ ਦਾ ਆਦਰ ਕਰਨਾ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਸਤੀਆਂ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਵਿੱਚ ਬਰਾਬਰ ਵੰਡਣੀਆਂ ਸਨ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S09"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਰਾਸ਼ਟਰ ਸੰਘ ਬਾਰੇ ਸਭ ਤੋਂ ਸਹੀ ਨਤੀਜਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਗੱਲਬਾਤ ਲਈ ਮੰਚ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ ਦੇ ਨਿਯਮ ਬਣਾਏ। ਪਰ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਵਿੱਚ ਏਕਤਾ ਅਤੇ ਆਪਣੇ ਤੌਰ ’ਤੇ ਨਿਯਮ ਲਾਗੂ ਕਰਵਾਉਣ ਦੀ ਤਾਕਤ ਨਾ ਹੋਣ ਕਰਕੇ ਉਹ ਪੱਕੇ ਇਰਾਦੇ ਵਾਲੇ ਹਮਲਾਵਰਾਂ ਨੂੰ ਰੋਕ ਨਾ ਸਕਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q016-PA",
+    "englishQuestionId": "WHI-CP009-Q016",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F016",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀਆਂ ਸੀਮਾਵਾਂ ਅਤੇ ਜਵਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਸ ਦੀ ਕੂਟਨੀਤੀ ਜਾਂ ਮੈਂਡੇਟ ਪ੍ਰਣਾਲੀ ਵਿੱਚ ਕੋਈ ਭੂਮਿਕਾ ਨਹੀਂ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਸ ਦੀ ਸਥਾਈ ਫੌਜ ਨੇ ਹਰ ਹਮਲਾਵਰ ਨੂੰ ਹਰਾ ਦਿੱਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਸ ਨੇ ਅੰਤਰ-ਯੁੱਧ ਕਾਲ ਦੇ ਸਾਰੇ ਟਕਰਾਅ ਖਤਮ ਕਰ ਦਿੱਤੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਸ ਨੇ ਮੰਚ ਅਤੇ ਨਿਯਮ ਬਣਾਏ, ਪਰ ਏਕਤਾ ਅਤੇ ਲਾਗੂ ਕਰਵਾਉਣ ਦੀ ਤਾਕਤ ਨਾ ਹੋਣ ਕਰਕੇ ਪੱਕੇ ਹਮਲਾਵਰਾਂ ਨੂੰ ਰੋਕ ਨਾ ਸਕਿਆ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S09",
+      "CP009-S10"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਜਰਮਨੀ ਵਿੱਚ ਵਾਈਮਰ ਗਣਰਾਜ ਦੀ ਸਥਾਪਨਾ ਕਿਹੜੇ ਸੰਵਿਧਾਨ ਨਾਲ ਹੋਈ?",
+    "explanation": "1919 ਵਿੱਚ ਅਪਣਾਏ ਗਏ ਵਾਈਮਰ ਸੰਵਿਧਾਨ ਨੇ ਜੰਗ ਤੋਂ ਬਾਅਦ ਜਰਮਨੀ ਵਿੱਚ ਗਣਰਾਜ ਕਾਇਮ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q017-PA",
+    "englishQuestionId": "WHI-CP009-Q017",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F017",
+    "questionFamily": "ਗਣਰਾਜ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1919 ਵਿੱਚ ਅਪਣਾਇਆ ਗਿਆ ਸੰਵਿਧਾਨ"
+      },
+      {
+        "key": "B",
+        "text": "1949 ਦਾ ਜਰਮਨ ਮੂਲ ਕਾਨੂੰਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਿਨਾਂ ਬਦਲਾਅ ਵਾਲਾ 1871 ਦਾ ਸੰਵਿਧਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਰੋਮ ਦੀ ਸੰਧੀ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਵਾਈਮਰ ਸੰਵਿਧਾਨ ਹੇਠ ਜਰਮਨੀ ਦੀ ਕੌਮੀ ਸੰਸਦ ਦਾ ਕੀ ਨਾਂ ਸੀ?",
+    "explanation": "ਰਾਈਖਸਟਾਗ ਵਾਈਮਰ ਗਣਰਾਜ ਦੀ ਚੁਣੀ ਹੋਈ ਕੌਮੀ ਸੰਸਦ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q018-PA",
+    "englishQuestionId": "WHI-CP009-Q018",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F018",
+    "questionFamily": "ਗਣਰਾਜ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬੁੰਡੇਸਟਾਗ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਈਖਸਟਾਗ"
+      },
+      {
+        "key": "C",
+        "text": "ਡੂਮਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਐਸਟੇਟਸ-ਜਨਰਲ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਵਾਈਮਰ ਸੰਵਿਧਾਨ ਦੀ ਕਿਹੜੀ ਧਾਰਾ ਨੇ ਰਾਸ਼ਟਰਪਤੀ ਨੂੰ ਐਮਰਜੈਂਸੀ ਤਾਕਤਾਂ ਦਿੱਤੀਆਂ?",
+    "explanation": "ਆਰਟੀਕਲ 48 ਹੇਠ ਨਿਰਧਾਰਤ ਹਾਲਾਤਾਂ ਵਿੱਚ ਰਾਸ਼ਟਰਪਤੀ ਐਮਰਜੈਂਸੀ ਕਦਮ ਚੁੱਕ ਸਕਦਾ ਸੀ। ਬਾਅਦ ਵਿੱਚ ਇਸ ਦੀ ਵਰਤੋਂ ਸਿਆਸੀ ਤੌਰ ’ਤੇ ਅਹਿਮ ਬਣ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q019-PA",
+    "englishQuestionId": "WHI-CP009-Q019",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F019",
+    "questionFamily": "ਗਣਰਾਜ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੇ ਕਵਨੈਂਟ ਦਾ ਆਰਟੀਕਲ 10"
+      },
+      {
+        "key": "B",
+        "text": "1933 ਦਾ ਸਮਰੱਥਾ ਕਾਨੂੰਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਰਟੀਕਲ 48"
+      },
+      {
+        "key": "D",
+        "text": "ਮਿਊਨਿਖ ਸਮਝੌਤਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S03",
+      "CP009-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1923 ਵਿੱਚ ਜਰਮਨੀ ਨੂੰ ਕਿਹੜੇ ਆਰਥਿਕ ਸੰਕਟ ਦਾ ਖ਼ਾਸ ਤੌਰ ’ਤੇ ਸਾਹਮਣਾ ਕਰਨਾ ਪਿਆ?",
+    "explanation": "1923 ਵਿੱਚ ਜਰਮਨੀ ਵਿੱਚ ਭਾਰੀ ਮਹਿੰਗਾਈ ਹੋਈ। ਇਸ ਨਾਲ ਮਾਰਕ ਦੀ ਕੀਮਤ ਅਤੇ ਲੋਕਾਂ ਦੀ ਬਚਤ ਤੇਜ਼ੀ ਨਾਲ ਘਟ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q020-PA",
+    "englishQuestionId": "WHI-CP009-Q020",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F020",
+    "questionFamily": "ਗਣਰਾਜ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਤੇਲ ਸੰਕਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਹਾਂ ਮੰਦੀ"
+      },
+      {
+        "key": "C",
+        "text": "2010 ਦਾ ਯੂਰਪੀ ਕਰਜ਼ਾ ਸੰਕਟ"
+      },
+      {
+        "key": "D",
+        "text": "ਬੇਹੱਦ ਤੇਜ਼ ਮਹਿੰਗਾਈ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S03",
+      "CP009-S04"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1920ਵਿਆਂ ਦੇ ਮੱਧ ਵਿੱਚ ਜਰਮਨੀ ਦੀ ਅਰਥਵਿਵਸਥਾ ਨੂੰ ਸਥਿਰ ਕਰਨ ਵਿੱਚ ਕਿਹੜੀ ਯੋਜਨਾ ਨੇ ਮਦਦ ਕੀਤੀ?",
+    "explanation": "1924 ਦੀ ਡਾਅਜ਼ ਯੋਜਨਾ ਨੇ ਜਰਮਨੀ ਦੇ ਮੁਆਵਜ਼ੇ ਦੇ ਭੁਗਤਾਨਾਂ ਦਾ ਪੁਨਰਗਠਨ ਕੀਤਾ ਅਤੇ ਅਰਥਵਿਵਸਥਾ ਨੂੰ ਸਥਿਰ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ। ਇਸ ਦੌਰਾਨ ਅਮਰੀਕੀ ਕਰਜ਼ਿਆਂ ’ਤੇ ਵੀ ਨਿਰਭਰਤਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q021-PA",
+    "englishQuestionId": "WHI-CP009-Q021",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F021",
+    "questionFamily": "ਗਣਰਾਜ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਡਾਅਜ਼ ਯੋਜਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸ਼ਲੀਫ਼ਨ ਯੋਜਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਾਰਸ਼ਲ ਯੋਜਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੰਗ ਇਟਲੀ ਪ੍ਰੋਗਰਾਮ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S03",
+      "CP009-S17"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਮਹਾਂ ਮੰਦੀ ਤੋਂ ਪਹਿਲਾਂ ਵਾਈਮਰ ਗਣਰਾਜ ਦੀ ਸਭ ਤੋਂ ਸਹੀ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜੀ ਸੀ?",
+    "explanation": "ਵਾਈਮਰ ਜਰਮਨੀ ਨੇ ਗੰਭੀਰ ਸੰਕਟਾਂ ਦੇ ਨਾਲ ਸੁਧਾਰ ਅਤੇ ਆਰਥਿਕ ਸੰਭਾਲ ਦੇ ਦੌਰ ਵੀ ਵੇਖੇ। ਇਸ ਦਾ ਪਤਨ ਪਹਿਲਾਂ ਤੋਂ ਤੈਅ ਨਹੀਂ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q022-PA",
+    "englishQuestionId": "WHI-CP009-Q022",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F022",
+    "questionFamily": "ਗਣਰਾਜ ਅਤੇ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉੱਥੇ ਕਦੇ ਚੁਣੀਆਂ ਹੋਈਆਂ ਸੰਸਥਾਵਾਂ ਨਹੀਂ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਗੰਭੀਰ ਸੰਕਟਾਂ ਦੇ ਨਾਲ ਕੁਝ ਸੁਧਾਰ ਦੇ ਦੌਰ ਵੀ ਆਏ; ਇਸ ਦਾ ਪਤਨ ਤੈਅ ਨਹੀਂ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ 1919 ਤੋਂ ਹੀ ਨਾਜ਼ੀ ਤਾਨਾਸ਼ਾਹੀ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "1920ਵਿਆਂ ਦੌਰਾਨ ਇਸ ਦੀ ਅਰਥਵਿਵਸਥਾ ਸਦਾ ਸਥਿਰ ਰਹੀ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਵਾਈਮਰ ਸੰਵਿਧਾਨ ਨੇ ਕਿਹੜੀ ਸਿਆਸੀ ਵਿਵਸਥਾ ਕਾਇਮ ਕੀਤੀ?",
+    "explanation": "1919 ਦੇ ਸੰਵਿਧਾਨ ਨੇ ਚੁਣੀ ਹੋਈ ਸੰਸਦ ਅਤੇ ਰਾਸ਼ਟਰਪਤੀ ਵਾਲਾ ਗਣਰਾਜ ਕਾਇਮ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q023-PA",
+    "englishQuestionId": "WHI-CP009-Q023",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F023",
+    "questionFamily": "ਆਰਥਿਕ ਕਾਰਨ ਅਤੇ ਪ੍ਰਭਾਵ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹੋਹੈਂਜ਼ੋਲਰਨ ਰਾਜਵੰਸ਼ ਹੇਠ ਨਿਰੰਕੁਸ਼ ਰਾਜਤੰਤਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੇ ਕਾਬੂ ਹੇਠ ਫੌਜੀ ਸਰਕਾਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਚੁਣੇ ਹੋਏ ਰਾਈਖਸਟਾਗ ਅਤੇ ਰਾਸ਼ਟਰਪਤੀ ਵਾਲਾ ਸੰਸਦੀ ਗਣਰਾਜ"
+      },
+      {
+        "key": "D",
+        "text": "ਆਸਟਰੀਆ ਵੱਲੋਂ ਚਲਾਇਆ ਜਾਂਦਾ ਸੰਘੀ ਸਾਮਰਾਜ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਅਨੁਪਾਤਕ ਨੁਮਾਇੰਦਗੀ ਨੇ ਵਾਈਮਰ ਦੀ ਰਾਜਨੀਤੀ ਨੂੰ ਕਿਵੇਂ ਪ੍ਰਭਾਵਿਤ ਕੀਤਾ?",
+    "explanation": "ਅਨੁਪਾਤਕ ਨੁਮਾਇੰਦਗੀ ਨਾਲ ਛੋਟੀਆਂ ਪਾਰਟੀਆਂ ਨੂੰ ਵੀ ਸੀਟਾਂ ਮਿਲੀਆਂ ਅਤੇ ਗੱਠਜੋੜ ਸਰਕਾਰ ਬਣਾਉਣਾ ਔਖਾ ਹੋ ਸਕਦਾ ਸੀ। ਇਹ ਸਿਆਸੀ ਅਸਥਿਰਤਾ ਦਾ ਇੱਕ ਕਾਰਨ ਸੀ, ਇਕੱਲਾ ਕਾਰਨ ਨਹੀਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q024-PA",
+    "englishQuestionId": "WHI-CP009-Q024",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F024",
+    "questionFamily": "ਆਰਥਿਕ ਕਾਰਨ ਅਤੇ ਪ੍ਰਭਾਵ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਸੋਸ਼ਲ ਡੈਮੋਕ੍ਰੈਟਾਂ ਤੋਂ ਬਿਨਾਂ ਸਾਰੀਆਂ ਪਾਰਟੀਆਂ ’ਤੇ ਪਾਬੰਦੀ ਲਾ ਦਿੱਤੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਰਾਸ਼ਟਰ ਸੰਘ ਨੂੰ ਰਾਈਖਸਟਾਗ ਨਿਯੁਕਤ ਕਰਨ ਦਾ ਹੱਕ ਦਿੱਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਇੱਕੋ ਪਾਰਟੀ ਦਾ ਪੱਕਾ ਬਹੁਮਤ ਯਕੀਨੀ ਬਣਾਇਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨਾਲ ਛੋਟੀਆਂ ਪਾਰਟੀਆਂ ਨੂੰ ਸੀਟਾਂ ਮਿਲੀਆਂ ਅਤੇ ਸਥਿਰ ਗੱਠਜੋੜ ਬਣਾਉਣਾ ਔਖਾ ਹੋ ਸਕਦਾ ਸੀ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S03"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਮਹਾਂ ਮੰਦੀ ਕਦੋਂ ਸ਼ੁਰੂ ਹੋਈ?",
+    "explanation": "1929 ਦੇ ਵਿੱਤੀ ਸੰਕਟ ਤੋਂ ਬਾਅਦ ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਆਰਥਿਕ ਮੰਦੀ ਸ਼ੁਰੂ ਹੋਈ ਅਤੇ ਹੋਰ ਦੇਸ਼ਾਂ ਤੱਕ ਫੈਲ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q025-PA",
+    "englishQuestionId": "WHI-CP009-Q025",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F025",
+    "questionFamily": "ਆਰਥਿਕ ਕਾਰਨ ਅਤੇ ਪ੍ਰਭਾਵ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1929 ਦੇ ਵਿੱਤੀ ਸੰਕਟ ਤੋਂ ਬਾਅਦ"
+      },
+      {
+        "key": "B",
+        "text": "1914 ਵਿੱਚ ਸਾਰਾਏਵੋ ਦੀ ਹੱਤਿਆ ਤੋਂ ਬਾਅਦ"
+      },
+      {
+        "key": "C",
+        "text": "1918 ਦੀ ਜੰਗਬੰਦੀ ਤੋਂ ਬਾਅਦ"
+      },
+      {
+        "key": "D",
+        "text": "1939 ਵਿੱਚ ਪੋਲੈਂਡ ’ਤੇ ਹਮਲੇ ਤੋਂ ਬਾਅਦ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S04"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1929 ਤੋਂ ਬਾਅਦ ਅਮਰੀਕੀ ਕਰਜ਼ੇ ਘਟਣ ਵੇਲੇ ਜਰਮਨੀ ਖ਼ਾਸ ਤੌਰ ’ਤੇ ਕਮਜ਼ੋਰ ਕਿਉਂ ਸੀ?",
+    "explanation": "1920ਵਿਆਂ ਦੇ ਮੱਧ ਵਿੱਚ ਜਰਮਨੀ ਦੀ ਆਰਥਿਕ ਸੰਭਾਲ ਵਿਦੇਸ਼ੀ ਕਰਜ਼ਿਆਂ, ਖ਼ਾਸ ਕਰਕੇ ਅਮਰੀਕੀ ਕਰਜ਼ਿਆਂ ’ਤੇ ਕਾਫ਼ੀ ਨਿਰਭਰ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q026-PA",
+    "englishQuestionId": "WHI-CP009-Q026",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F026",
+    "questionFamily": "ਆਰਥਿਕ ਕਾਰਨ ਅਤੇ ਪ੍ਰਭਾਵ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਸ ਕੋਲ ਕੋਈ ਉਦਯੋਗਿਕ ਅਰਥਵਿਵਸਥਾ ਨਹੀਂ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਸ ਦੀ ਆਰਥਿਕ ਸੰਭਾਲ ਵਿਦੇਸ਼ੀ ਕਰਜ਼ਿਆਂ, ਖ਼ਾਸ ਕਰਕੇ ਅਮਰੀਕੀ ਕਰਜ਼ਿਆਂ ’ਤੇ ਨਿਰਭਰ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਹ ਪਹਿਲਾਂ ਹੀ ਰਾਸ਼ਟਰ ਸੰਘ ਛੱਡ ਚੁੱਕਾ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "1920ਵਿਆਂ ਵਿੱਚ ਉਸ ਨੂੰ ਕੋਈ ਕਰਜ਼ਾ ਨਹੀਂ ਮਿਲਿਆ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S03",
+      "CP009-S04"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮਹਾਂ ਮੰਦੀ ਦੌਰਾਨ ਜਰਮਨੀ ਵਿੱਚ ਕਿਹੜੀ ਹਾਲਤ ਤੇਜ਼ੀ ਨਾਲ ਵਧੀ?",
+    "explanation": "ਮਹਾਂ ਮੰਦੀ ਕਾਰਨ ਜਰਮਨੀ ਵਿੱਚ ਵੱਡੇ ਪੱਧਰ ’ਤੇ ਬੇਰੁਜ਼ਗਾਰੀ ਅਤੇ ਆਰਥਿਕ ਤੰਗੀ ਆਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q027-PA",
+    "englishQuestionId": "WHI-CP009-Q027",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F027",
+    "questionFamily": "ਆਰਥਿਕ ਕਾਰਨ ਅਤੇ ਪ੍ਰਭਾਵ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਰਮਨੀ ਨੂੰ ਬਸਤੀਵਾਦੀ ਬਰਾਮਦ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਹਿੰਗਾਈ ਦੌਰਾਨ ਮਾਰਕ ਦੀ ਕੀਮਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੇਰੁਜ਼ਗਾਰੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਮੈਂਬਰਸ਼ਿਪ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S04",
+      "CP009-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮਹਾਂ ਮੰਦੀ ਨੇ ਜਰਮਨੀ ਦੀ ਰਾਜਨੀਤੀ ਨੂੰ ਕਿਵੇਂ ਪ੍ਰਭਾਵਿਤ ਕੀਤਾ?",
+    "explanation": "ਆਰਥਿਕ ਤੰਗੀ ਨੇ ਨਾਜ਼ੀਆਂ ਸਮੇਤ ਕੱਟੜਪੰਥੀ ਪਾਰਟੀਆਂ ਲਈ ਸਮਰਥਨ ਵਧਾਉਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ। ਨਾਜ਼ੀਆਂ ਦੇ ਉਭਾਰ ਦਾ ਇਹ ਇਕੱਲਾ ਕਾਰਨ ਨਹੀਂ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q028-PA",
+    "englishQuestionId": "WHI-CP009-Q028",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F028",
+    "questionFamily": "ਆਰਥਿਕ ਕਾਰਨ ਅਤੇ ਪ੍ਰਭਾਵ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਤੁਰੰਤ ਰਾਜਤੰਤਰ ਮੁੜ ਕਾਇਮ ਕਰ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਸਾਰੀ ਸਿਆਸੀ ਹਿੰਸਾ ਖਤਮ ਕਰ ਦਿੱਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਸੰਵਿਧਾਨ ਵਿੱਚੋਂ ਰਾਈਖਸਟਾਗ ਹਟਾ ਦਿੱਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਆਰਥਿਕ ਤੰਗੀ ਨੇ ਨਾਜ਼ੀਆਂ ਸਮੇਤ ਕੱਟੜਪੰਥੀ ਪਾਰਟੀਆਂ ਦਾ ਸਮਰਥਨ ਵਧਾਇਆ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S04",
+      "CP009-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮਹਾਂ ਮੰਦੀ ਅਤੇ ਨਾਜ਼ੀਆਂ ਦੇ ਸਮਰਥਨ ਦੇ ਰਿਸ਼ਤੇ ਦੀ ਸਭ ਤੋਂ ਸਹੀ ਵਿਆਖਿਆ ਕਿਹੜੀ ਹੈ?",
+    "explanation": "ਮਹਾਂ ਮੰਦੀ ਨੇ ਨਾਜ਼ੀਆਂ ਦੀ ਵਧਤ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਇਆ, ਪਰ ਪਹਿਲਾਂ ਦੇ ਸਿਆਸੀ, ਸਮਾਜਕ ਅਤੇ ਸੰਸਥਾਗਤ ਕਾਰਨ ਵੀ ਅਹਿਮ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q029-PA",
+    "englishQuestionId": "WHI-CP009-Q029",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F029",
+    "questionFamily": "ਆਰਥਿਕ ਕਾਰਨ ਅਤੇ ਪ੍ਰਭਾਵ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੰਕਟ ਨੇ ਨਾਜ਼ੀਆਂ ਦੀ ਵਧਤ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਇਆ, ਪਰ ਪਹਿਲਾਂ ਦੇ ਸਿਆਸੀ, ਸਮਾਜਕ ਅਤੇ ਸੰਸਥਾਗਤ ਕਾਰਨ ਵੀ ਅਹਿਮ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਹਾਂ ਮੰਦੀ ਨੇ ਇਕੱਲੇ ਹੀ 1929 ਵਿੱਚ ਨਾਜ਼ੀ ਪਾਰਟੀ ਬਣਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਹਾਂ ਮੰਦੀ ਦਾ ਜਰਮਨ ਰਾਜਨੀਤੀ ’ਤੇ ਕੋਈ ਅਸਰ ਨਹੀਂ ਪਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਕਟ ਦੌਰਾਨ ਨਾਜ਼ੀਆਂ ਨੇ ਆਪਣਾ ਸਾਰਾ ਸਮਰਥਨ ਗੁਆ ਲਿਆ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S04",
+      "CP009-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਮਹਾਂ ਮੰਦੀ ਦਾ ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਇੱਕ ਅਸਰ ਕੀ ਸੀ?",
+    "explanation": "ਕੌਮਾਂਤਰੀ ਵਿੱਤ ਅਤੇ ਵਪਾਰ ਵਿੱਚ ਗਿਰਾਵਟ ਨਾਲ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚ ਉਤਪਾਦਨ ਅਤੇ ਵਪਾਰ ਘਟੇ ਅਤੇ ਲੋਕਾਂ ਨੂੰ ਮੁਸ਼ਕਲਾਂ ਆਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q030-PA",
+    "englishQuestionId": "WHI-CP009-Q030",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F030",
+    "questionFamily": "ਆਰਥਿਕ ਕਾਰਨ ਅਤੇ ਪ੍ਰਭਾਵ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਾਰੇ ਦੇਸ਼ਾਂ ਨੇ ਕਰਾਂ ਹਟਾ ਕੇ ਪੂਰਾ ਰੁਜ਼ਗਾਰ ਹਾਸਲ ਕਰ ਲਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਪਾਰ ਅਤੇ ਉਤਪਾਦਨ ਘਟਣ ਨਾਲ ਕਈ ਦੇਸ਼ਾਂ ਵਿੱਚ ਮੁਸ਼ਕਲਾਂ ਫੈਲੀਆਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਕਟ ਸਿਰਫ਼ ਜਰਮਨੀ ਤੱਕ ਸੀਮਤ ਰਿਹਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਉਦਯੋਗਿਕ ਉਤਪਾਦਨ ਇੱਕੋ ਜਿਹਾ ਵਧਿਆ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S04"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਇਤਾਲਵੀ ਫਾਸ਼ੀਵਾਦੀ ਲਹਿਰ ਦੀ ਸ਼ੁਰੂਆਤ ਕਿਸ ਨੇ ਕੀਤੀ ਅਤੇ 1922 ਵਿੱਚ ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਕੌਣ ਬਣਿਆ?",
+    "explanation": "ਬੇਨੀਤੋ ਮੁਸੋਲਿਨੀ ਨੇ ਫਾਸ਼ੀਵਾਦੀ ਲਹਿਰ ਸ਼ੁਰੂ ਕੀਤੀ। ਅਕਤੂਬਰ 1922 ਵਿੱਚ ਉਸ ਨੂੰ ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਨਿਯੁਕਤ ਕੀਤਾ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q031-PA",
+    "englishQuestionId": "WHI-CP009-Q031",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F031",
+    "questionFamily": "ਵਿਅਕਤੀ ਅਤੇ ਲਹਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਡੋਲਫ਼ ਹਿਟਲਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਫਰਾਂਸਿਸਕੋ ਫ਼ਰਾਂਕੋ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੇਨੀਤੋ ਮੁਸੋਲਿਨੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਲਾਦੀਮੀਰ ਲੈਨਿਨ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S11"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1922 ਵਿੱਚ ਮੁਸੋਲਿਨੀ ਦੀ ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਵਜੋਂ ਨਿਯੁਕਤੀ ਤੋਂ ਠੀਕ ਪਹਿਲਾਂ ਕਿਹੜੀ ਘਟਨਾ ਹੋਈ?",
+    "explanation": "ਅਕਤੂਬਰ 1922 ਵਿੱਚ ਫਾਸ਼ੀਵਾਦੀਆਂ ਨੇ ਰੋਮ ਵੱਲ ਮਾਰਚ ਕੀਤਾ। ਇਸ ਤੋਂ ਬਾਅਦ ਰਾਜਾ ਵਿਕਟਰ ਇਮਾਨੂਏਲ ਤੀਜੇ ਨੇ ਮੁਸੋਲਿਨੀ ਨੂੰ ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਨਿਯੁਕਤ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q032-PA",
+    "englishQuestionId": "WHI-CP009-Q032",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F032",
+    "questionFamily": "ਵਿਅਕਤੀ ਅਤੇ ਲਹਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਿਊਨਿਖ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮੁਕਦੇਨ ਘਟਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "1923 ਦੀ ਬੀਅਰ ਹਾਲ ਬਗਾਵਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਰੋਮ ਵੱਲ ਮਾਰਚ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S11"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜਨਵਰੀ 1933 ਵਿੱਚ ਅਡੋਲਫ਼ ਹਿਟਲਰ ਨੂੰ ਜਰਮਨੀ ਦਾ ਚਾਂਸਲਰ ਕਿਸ ਨੇ ਨਿਯੁਕਤ ਕੀਤਾ?",
+    "explanation": "ਰਾਸ਼ਟਰਪਤੀ ਪੌਲ ਫ਼ੌਨ ਹਿੰਡਨਬਰਗ ਨੇ 30 ਜਨਵਰੀ 1933 ਨੂੰ ਹਿਟਲਰ ਨੂੰ ਚਾਂਸਲਰ ਨਿਯੁਕਤ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q033-PA",
+    "englishQuestionId": "WHI-CP009-Q033",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F033",
+    "questionFamily": "ਵਿਅਕਤੀ ਅਤੇ ਲਹਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਸ਼ਟਰਪਤੀ ਪੌਲ ਫ਼ੌਨ ਹਿੰਡਨਬਰਗ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੈਜ਼ਰ ਵਿਲਹੈਲਮ ਦੂਜਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੇਨੀਤੋ ਮੁਸੋਲਿਨੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਸਭਾ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S05",
+      "CP009-S06"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜਰਮਨੀ ਵਿੱਚ ਅਡੋਲਫ਼ ਹਿਟਲਰ ਕਿਹੜੀ ਪਾਰਟੀ ਦਾ ਆਗੂ ਸੀ?",
+    "explanation": "ਹਿਟਲਰ ਨੈਸ਼ਨਲ ਸੋਸ਼ਲਿਸਟ ਜਰਮਨ ਵਰਕਰਜ਼ ਪਾਰਟੀ, ਯਾਨੀ ਨਾਜ਼ੀ ਪਾਰਟੀ, ਦਾ ਆਗੂ ਸੀ। ਵਾਈਮਰ ਦੌਰ ਦੇ ਸਿਆਸੀ ਸੰਕਟਾਂ ਵਿੱਚ ਇਸ ਪਾਰਟੀ ਦਾ ਸਮਰਥਨ ਵਧਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q034-PA",
+    "englishQuestionId": "WHI-CP009-Q034",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F034",
+    "questionFamily": "ਵਿਅਕਤੀ ਅਤੇ ਲਹਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਤਾਲਵੀ ਸੋਸ਼ਲਿਸਟ ਪਾਰਟੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੈਸ਼ਨਲ ਸੋਸ਼ਲਿਸਟ ਜਰਮਨ ਵਰਕਰਜ਼ ਪਾਰਟੀ (ਨਾਜ਼ੀ ਪਾਰਟੀ)"
+      },
+      {
+        "key": "C",
+        "text": "ਜਰਮਨ ਸੈਂਟਰ ਪਾਰਟੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਪਾਰਟਾਕਸ ਲੀਗ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S05"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਇਟਲੀ ਵਿੱਚ ਮੁਸੋਲਿਨੀ ਨੇ ਕਿਹੜੀ ਵਿਚਾਰਧਾਰਾ ਦੀ ਅਗਵਾਈ ਕੀਤੀ?",
+    "explanation": "ਮੁਸੋਲਿਨੀ ਇਤਾਲਵੀ ਫਾਸ਼ੀਵਾਦ ਦਾ ਪ੍ਰਮੁੱਖ ਆਗੂ ਸੀ। ਇਹ ਤਾਨਾਸ਼ਾਹੀ ਅਤੇ ਕੌਮੀਵਾਦੀ ਲਹਿਰ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q035-PA",
+    "englishQuestionId": "WHI-CP009-Q035",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F035",
+    "questionFamily": "ਵਿਅਕਤੀ ਅਤੇ ਲਹਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬੋਲਸ਼ੇਵਿਜ਼ਮ"
+      },
+      {
+        "key": "B",
+        "text": "ਚਾਰਟਿਸਟ ਲਹਿਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਫਾਸ਼ੀਵਾਦ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਦਾਰਵਾਦੀ ਕੌਮਾਂਤਰੀਵਾਦ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S11"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਹਿਟਲਰ ਦੇ ਸੱਤਾ ਵਿੱਚ ਆਉਣ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਹਿੰਡਨਬਰਗ ਨੇ ਹਿਟਲਰ ਨੂੰ ਚਾਂਸਲਰ ਨਿਯੁਕਤ ਕੀਤਾ। ਇਸ ਤੋਂ ਬਾਅਦ ਨਾਜ਼ੀਆਂ ਨੇ ਸਿਆਸੀ ਫ਼ੈਸਲਿਆਂ, ਕਾਨੂੰਨਾਂ, ਦਬਾਅ ਅਤੇ ਪ੍ਰਚਾਰ ਰਾਹੀਂ ਸੱਤਾ ਮਜ਼ਬੂਤ ਕਰਕੇ ਲੋਕਤੰਤਰ ਖਤਮ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q036-PA",
+    "englishQuestionId": "WHI-CP009-Q036",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F036",
+    "questionFamily": "ਵਿਅਕਤੀ ਅਤੇ ਲਹਿਰਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਸ ਨੇ 1933 ਵਿੱਚ ਸਿੱਧੀ ਚੋਣ ਜਿੱਤ ਕੇ ਰਾਸ਼ਟਰਪਤੀ ਦਾ ਅਹੁਦਾ ਹਾਸਲ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਸ ਨੂੰ ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਨਿਯੁਕਤ ਕੀਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਾਜ਼ੀ ਪਾਰਟੀ ਬਣਨ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਉਹ ਚਾਂਸਲਰ ਬਣ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਸ ਨੂੰ ਸਿਆਸੀ ਫ਼ੈਸਲੇ ਰਾਹੀਂ ਚਾਂਸਲਰ ਨਿਯੁਕਤ ਕੀਤਾ ਗਿਆ ਅਤੇ ਫਿਰ ਉਸ ਨੇ ਸਰਕਾਰੀ ਤਾਕਤ ਨਾਲ ਲੋਕਤੰਤਰ ਖਤਮ ਕੀਤਾ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S05",
+      "CP009-S06"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਫ਼ਰਵਰੀ 1933 ਦੇ ਰਾਈਖਸਟਾਗ ਅੱਗ ਬਾਰੇ ਫ਼ਰਮਾਨ ਨੇ ਨਾਜ਼ੀ ਹਕੂਮਤ ਨੂੰ ਕੀ ਕਰਨ ਦਿੱਤਾ?",
+    "explanation": "ਇਸ ਫ਼ਰਮਾਨ ਨੇ ਨਾਗਰਿਕ ਆਜ਼ਾਦੀਆਂ ਮੁਅੱਤਲ ਕੀਤੀਆਂ ਅਤੇ ਸਿਆਸੀ ਵਿਰੋਧੀਆਂ ਦੀ ਗ੍ਰਿਫ਼ਤਾਰੀ ਤੇ ਦਬਾਅ ਦਾ ਰਾਹ ਖੋਲ੍ਹਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q037-PA",
+    "englishQuestionId": "WHI-CP009-Q037",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F037",
+    "questionFamily": "ਨੀਤੀ ਅਤੇ ਸੱਤਾ ਮਜ਼ਬੂਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਾਗਰਿਕ ਆਜ਼ਾਦੀਆਂ ਮੁਅੱਤਲ ਕਰਕੇ ਸਿਆਸੀ ਵਿਰੋਧੀਆਂ ਦਾ ਦਬਾਅ ਵਧਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਾਈਮਰ ਸੰਵਿਧਾਨ ਵਿੱਚ ਐਮਰਜੈਂਸੀ ਤਾਕਤਾਂ ’ਤੇ ਰੋਕ ਮੁੜ ਲਾਗੂ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੁਲਿਸ ’ਤੇ ਨਾਜ਼ੀ ਪਾਰਟੀ ਦਾ ਕਾਬੂ ਖਤਮ ਕਰਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਰਮਨੀ ਦੀਆਂ ਬਸਤੀਆਂ ਰਾਸ਼ਟਰ ਸੰਘ ਨੂੰ ਦੇਣਾ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S05",
+      "CP009-S06",
+      "CP009-S18"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮਾਰਚ 1933 ਦੇ ਸਮਰੱਥਾ ਕਾਨੂੰਨ ਨੇ ਹਿਟਲਰ ਦੀ ਸਰਕਾਰ ਨੂੰ ਕੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੱਤੀ?",
+    "explanation": "ਸਮਰੱਥਾ ਕਾਨੂੰਨ ਨੇ ਹਿਟਲਰ ਦੀ ਕੈਬਨਿਟ ਨੂੰ ਰਾਈਖਸਟਾਗ ਤੋਂ ਬਿਨਾਂ ਕਾਨੂੰਨ ਬਣਾਉਣ ਦਾ ਹੱਕ ਦਿੱਤਾ। ਇਸ ਨਾਲ ਸੰਸਦੀ ਰਾਜ ਕਮਜ਼ੋਰ ਹੋ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q038-PA",
+    "englishQuestionId": "WHI-CP009-Q038",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F038",
+    "questionFamily": "ਨੀਤੀ ਅਤੇ ਸੱਤਾ ਮਜ਼ਬੂਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਲਹੈਲਮ ਦੂਜੇ ਹੇਠ ਰਾਜਤੰਤਰ ਮੁੜ ਕਾਇਮ ਕਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਈਖਸਟਾਗ ਤੋਂ ਬਿਨਾਂ ਕਾਨੂੰਨ ਬਣਾਉਣਾ, ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਸੰਵਿਧਾਨ ਤੋਂ ਵੱਖਰੇ ਕਾਨੂੰਨ ਵੀ ਸ਼ਾਮਲ ਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਰਮਨ ਅਦਾਲਤਾਂ ਦਾ ਕਾਬੂ ਰਾਸ਼ਟਰ ਸੰਘ ਨੂੰ ਦੇਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਾਜ਼ੀ ਸਰਕਾਰ ਦੀ ਕਾਨੂੰਨ ਬਣਾਉਣ ਦੀ ਤਾਕਤ ਖਤਮ ਕਰਨਾ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S05",
+      "CP009-S06",
+      "CP009-S18"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨਾਜ਼ੀ ਹਕੂਮਤ ਨੇ ਆਪਣਾ ਕਾਬੂ ਮਜ਼ਬੂਤ ਕਰਨ ਲਈ ਕਿਹੜਾ ਤਰੀਕਾ ਵਰਤਿਆ?",
+    "explanation": "ਨਾਜ਼ੀਆਂ ਨੇ ਕਾਨੂੰਨੀ ਤਬਦੀਲੀਆਂ ਦੇ ਨਾਲ ਹਿੰਸਾ, ਪ੍ਰਚਾਰ ਅਤੇ ਸੰਸਥਾਵਾਂ ’ਤੇ ਕਾਬੂ ਵਰਤ ਕੇ ਵਿਰੋਧ ਨੂੰ ਕੁਚਲਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q039-PA",
+    "englishQuestionId": "WHI-CP009-Q039",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F039",
+    "questionFamily": "ਨੀਤੀ ਅਤੇ ਸੱਤਾ ਮਜ਼ਬੂਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਰੋਧੀ ਪਾਰਟੀਆਂ ਨੂੰ ਨਿਯਮਿਤ ਅਤੇ ਸ਼ਾਂਤੀਪੂਰਨ ਢੰਗ ਨਾਲ ਸੱਤਾ ਦੇਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੁਲਿਸ ਅਤੇ ਸੈਂਸਰਸ਼ਿਪ ਖਤਮ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਕਾਨੂੰਨ, ਦਬਾਅ, ਪ੍ਰਚਾਰ ਅਤੇ ਸੰਸਥਾਗਤ ਤਬਦੀਲੀਆਂ ਦਾ ਮਿਲਾਪ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਰਕਾਰੀ ਅਧਿਕਾਰ ਰਾਸ਼ਟਰ ਸੰਘ ਨੂੰ ਦੇਣਾ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S05",
+      "CP009-S06",
+      "CP009-S18"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਨਾਜ਼ੀਆਂ ਵੱਲੋਂ ਸੱਤਾ ਹਥਿਆਉਣ ਦਾ ਸਭ ਤੋਂ ਸਹੀ ਵੇਰਵਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਹਿਟਲਰ ਦੀ ਨਿਯੁਕਤੀ ਅਤੇ ਉਸ ਤੋਂ ਬਾਅਦ ਲੋਕਤੰਤਰ ਖਤਮ ਕਰਨ ਲਈ ਕਈ ਸਿਆਸੀ ਤੇ ਕਾਨੂੰਨੀ ਕਦਮ ਚੁੱਕੇ ਗਏ। ਇਹ ਕਿਸੇ ਇੱਕ ਚੋਣ ਦਾ ਨਤੀਜਾ ਨਹੀਂ ਸੀ; ਦਬਾਅ ਅਤੇ ਹਿੰਸਾ ਨੇ ਵੀ ਭੂਮਿਕਾ ਨਿਭਾਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q040-PA",
+    "englishQuestionId": "WHI-CP009-Q040",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F040",
+    "questionFamily": "ਨੀਤੀ ਅਤੇ ਸੱਤਾ ਮਜ਼ਬੂਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਿਟਲਰ ਨੇ ਰਾਸ਼ਟਰਪਤੀ ਚੋਣ ਵਿੱਚ ਪੂਰਾ ਬਹੁਮਤ ਜਿੱਤ ਕੇ ਤੁਰੰਤ ਹਰ ਕਾਨੂੰਨ ਖਤਮ ਕਰ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਹਿਟਲਰ ਨੂੰ ਜਰਮਨੀ ਦਾ ਆਗੂ ਨਿਯੁਕਤ ਕੀਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "1929 ਦੀ ਮਹਾਂ ਮੰਦੀ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਵਾਈਮਰ ਗਣਰਾਜ ਖਤਮ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਿਆਸੀ ਨਿਯੁਕਤੀਆਂ ਅਤੇ ਕਾਨੂੰਨੀ ਤਬਦੀਲੀਆਂ ਦੇ ਕਈ ਕਦਮਾਂ ਨੇ ਲੋਕਤੰਤਰ ਖਤਮ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ; ਇਹ ਕਿਸੇ ਇੱਕ ਚੋਣ ਦਾ ਨਤੀਜਾ ਨਹੀਂ ਸੀ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S05",
+      "CP009-S06",
+      "CP009-S18"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1933 ਵਿੱਚ ਹਿਟਲਰ ਨੂੰ ਚਾਂਸਲਰ ਨਿਯੁਕਤ ਕੀਤੇ ਜਾਣ ਤੋਂ ਬਾਅਦ ਕਿਹੜਾ ਘਟਨਾਕ੍ਰਮ ਵਾਪਰਿਆ?",
+    "explanation": "ਜਨਵਰੀ 1933 ਤੋਂ ਬਾਅਦ ਨਾਜ਼ੀ ਹਕੂਮਤ ਨੇ ਲੋਕਤੰਤਰੀ ਸੰਸਥਾਵਾਂ ਨੂੰ ਕਮਜ਼ੋਰ ਕਰਕੇ ਤਾਨਾਸ਼ਾਹੀ ਕਾਬੂ ਮਜ਼ਬੂਤ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q041-PA",
+    "englishQuestionId": "WHI-CP009-Q041",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F041",
+    "questionFamily": "ਨੀਤੀ ਅਤੇ ਸੱਤਾ ਮਜ਼ਬੂਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਾਜ਼ੀ ਹਕੂਮਤ ਨੇ ਵਿਰੋਧ ਦਬਾ ਕੇ ਤਾਨਾਸ਼ਾਹੀ ਕਾਇਮ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨੀ ਰਾਸ਼ਟਰ ਸੰਘ ਵਿੱਚ ਮੁੜ ਸ਼ਾਮਲ ਹੋਇਆ ਅਤੇ ਰਾਜਤੰਤਰ ਬਹਾਲ ਕੀਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਾਈਮਰ ਗਣਰਾਜ ਹੋਰ ਬਹੁਲਤਾਵਾਦੀ ਬਣ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਸੇ ਸਾਲ ਜਰਮਨ-ਸੋਵੀਅਤ ਸੰਧੀ ’ਤੇ ਦਸਤਖ਼ਤ ਹੋਏ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S05",
+      "CP009-S06",
+      "CP009-S18"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨਾਜ਼ੀਆਂ ਵੱਲੋਂ ਸੱਤਾ ਮਜ਼ਬੂਤ ਕਰਨ ਦਾ ਸਿਆਸੀ ਨਤੀਜਾ ਕੀ ਸੀ?",
+    "explanation": "ਨਾਜ਼ੀ ਹਕੂਮਤ ਨੇ ਅਸਲ ਸਿਆਸੀ ਮੁਕਾਬਲਾ ਖਤਮ ਕਰਕੇ ਤਾਨਾਸ਼ਾਹੀ ਕਾਇਮ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q042-PA",
+    "englishQuestionId": "WHI-CP009-Q042",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F042",
+    "questionFamily": "ਨੀਤੀ ਅਤੇ ਸੱਤਾ ਮਜ਼ਬੂਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਈਖਸਟਾਗ ਨੂੰ ਫੌਜ ਅਤੇ ਪੁਲਿਸ ’ਤੇ ਕਾਬੂ ਮਿਲ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨੀ ਇੱਕ-ਪਾਰਟੀ ਤਾਨਾਸ਼ਾਹੀ ਬਣਿਆ ਅਤੇ ਵਿਰੋਧ ਦਬਾਇਆ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਜਰਮਨੀ ਦਾ ਸਿੱਧਾ ਰਾਜ ਸੰਭਾਲ ਲਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਰਮਨੀ 1871 ਦੀ ਸਿਆਸੀ ਵਿਵਸਥਾ ਵਿੱਚ ਵਾਪਸ ਚਲਾ ਗਿਆ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S05",
+      "CP009-S06",
+      "CP009-S18"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1931 ਦੀ ਮੁਕਦੇਨ ਘਟਨਾ ਤੋਂ ਪਹਿਲਾਂ ਕੀ ਹੋਇਆ?",
+    "explanation": "ਮੁਕਦੇਨ ਘਟਨਾ ਤੋਂ ਬਾਅਦ ਜਪਾਨ ਨੇ ਮੰਚੂਰੀਆ ’ਤੇ ਕਬਜ਼ਾ ਕਰਕੇ ਉੱਥੇ ਆਪਣਾ ਕਾਬੂ ਕਾਇਮ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q043-PA",
+    "englishQuestionId": "WHI-CP009-Q043",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F043",
+    "questionFamily": "ਹਮਲਾ ਅਤੇ ਜਵਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਟਲੀ ਨੇ ਇਥੋਪੀਆ ’ਤੇ ਹਮਲਾ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨੀ ਨੇ ਆਸਟਰੀਆ ਆਪਣੇ ਨਾਲ ਮਿਲਾਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਪਾਨ ਨੇ ਮੰਚੂਰੀਆ ਵਿੱਚ ਆਪਣਾ ਵਿਸਥਾਰ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ ਹੋਇਆ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S10",
+      "CP009-S19"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮੰਚੂਰੀਆ ਵਿੱਚ ਜਪਾਨੀ ਕਾਰਵਾਈ ’ਤੇ ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਕੀ ਪ੍ਰਤੀਕਿਰਿਆ ਦਿੱਤੀ?",
+    "explanation": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਸੰਕਟ ਦੀ ਜਾਂਚ ਕਰਕੇ ਜਪਾਨ ਦੀ ਆਲੋਚਨਾ ਕੀਤੀ, ਪਰ ਉਸ ਕੋਲ ਕਬਜ਼ਾ ਰੋਕਣ ਦੀ ਸਮਰੱਥਾ ਅਤੇ ਏਕਤਾ ਨਹੀਂ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q044-PA",
+    "englishQuestionId": "WHI-CP009-Q044",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F044",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀਆਂ ਸੀਮਾਵਾਂ ਅਤੇ ਜਵਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਥਾਈ ਫੌਜ ਭੇਜ ਕੇ ਜਪਾਨ ਨੂੰ ਬਾਹਰ ਕੱਢ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮੰਚੂਰੀਆ ਇਟਲੀ ਨੂੰ ਦੇ ਦਿੱਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਪਾਨੀ ਸਰਕਾਰ ਤੁਰੰਤ ਭੰਗ ਕਰ ਦਿੱਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਾਂਚ ਕੀਤੀ ਅਤੇ ਜਪਾਨ ਦੀ ਆਲੋਚਨਾ ਕੀਤੀ, ਪਰ ਕਬਜ਼ਾ ਰੋਕ ਨਾ ਸਕਿਆ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S10"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਫਾਸ਼ੀਵਾਦੀ ਇਟਲੀ ਨੇ ਅਕਤੂਬਰ 1935 ਵਿੱਚ ਕਿਸ ਦੇਸ਼ ’ਤੇ ਹਮਲਾ ਕੀਤਾ?",
+    "explanation": "ਇਟਲੀ ਨੇ ਅਕਤੂਬਰ 1935 ਵਿੱਚ ਇਥੋਪੀਆ ’ਤੇ ਹਮਲਾ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q045-PA",
+    "englishQuestionId": "WHI-CP009-Q045",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F045",
+    "questionFamily": "ਹਮਲਾ ਅਤੇ ਜਵਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਥੋਪੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਸਟਰੀਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਚੈਕੋਸਲੋਵਾਕੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੋਲੈਂਡ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S12",
+      "CP009-S19"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਇਥੋਪੀਆ ’ਤੇ ਇਟਲੀ ਦੇ ਹਮਲੇ ਦਾ ਰਾਸ਼ਟਰ ਸੰਘ ’ਤੇ ਕੀ ਅਸਰ ਪਿਆ?",
+    "explanation": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਹਮਲੇ ਦੀ ਨਿੰਦਾ ਕਰਕੇ ਪਾਬੰਦੀਆਂ ਲਾਈਆਂ, ਪਰ ਉਹ ਇਟਲੀ ਦੀ ਜਿੱਤ ਨਾ ਰੋਕ ਸਕੀਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q046-PA",
+    "englishQuestionId": "WHI-CP009-Q046",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F046",
+    "questionFamily": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀਆਂ ਸੀਮਾਵਾਂ ਅਤੇ ਜਵਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਤੁਰੰਤ ਫੌਜੀ ਤੌਰ ’ਤੇ ਇਟਲੀ ਨੂੰ ਹਰਾ ਦਿੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਪਾਬੰਦੀਆਂ ਲਾਈਆਂ, ਪਰ ਜਿੱਤ ਨਾ ਰੋਕ ਸਕਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਟਲੀ ਨੂੰ ਰਾਸ਼ਟਰ ਸੰਘ ਦਾ ਸਥਾਈ ਕਾਬੂ ਦੇ ਦਿੱਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਹਮਲੇ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਇਥੋਪੀਆ ਰਾਸ਼ਟਰ ਸੰਘ ਵਿੱਚੋਂ ਨਿਕਲ ਗਿਆ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S09",
+      "CP009-S12",
+      "CP009-S19"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਸਪੇਨੀ ਘਰੇਲੂ ਜੰਗ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਵਿਦੇਸ਼ੀ ਦੇਸ਼ਾਂ ਅਤੇ ਵਲੰਟੀਅਰਾਂ ਨੇ ਵੱਖ-ਵੱਖ ਧਿਰਾਂ ਦਾ ਸਾਥ ਦਿੱਤਾ। ਦਖ਼ਲ ਰੋਕਣ ਦੀਆਂ ਕੂਟਨੀਤਕ ਕੋਸ਼ਿਸ਼ਾਂ ਵਿਵਾਦਪੂਰਨ ਅਤੇ ਅਸਮਾਨ ਰਹੀਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q047-PA",
+    "englishQuestionId": "WHI-CP009-Q047",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F047",
+    "questionFamily": "ਹਮਲਾ ਅਤੇ ਜਵਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਹ 1939 ਵਿੱਚ ਜਰਮਨੀ ਅਤੇ ਪੋਲੈਂਡ ਵਿਚਕਾਰ ਜੰਗ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਸਥਾਈ ਫੌਜ ਨੇ 1936 ਵਿੱਚ ਇਸ ਨੂੰ ਖਤਮ ਕਰ ਦਿੱਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ ਕੌਮਾਂਤਰੀ ਟਕਰਾਅ ਬਣ ਗਿਆ ਜਿਸ ਵਿੱਚ ਬਾਹਰੀ ਤਾਕਤਾਂ ਨੇ ਵਿਰੋਧੀ ਧਿਰਾਂ ਦੀ ਮਦਦ ਕੀਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਿਸੇ ਵਿਦੇਸ਼ੀ ਸਰਕਾਰ ਜਾਂ ਵਲੰਟੀਅਰ ਨੇ ਹਿੱਸਾ ਨਹੀਂ ਲਿਆ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S13",
+      "CP009-S20"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਮੰਚੂਰੀਆ ਅਤੇ ਇਥੋਪੀਆ ਦੀਆਂ ਘਟਨਾਵਾਂ ਦੀ ਸਹੀ ਤੁਲਨਾ ਕਿਹੜੀ ਹੈ?",
+    "explanation": "ਮੰਚੂਰੀਆ ਵਿੱਚ ਜਪਾਨੀ ਵਿਸਥਾਰ ਅਤੇ ਇਥੋਪੀਆ ’ਤੇ ਇਤਾਲਵੀ ਹਮਲੇ ਨੇ ਦਿਖਾਇਆ ਕਿ ਰਾਸ਼ਟਰ ਸੰਘ ਹਮਲਾਵਰ ਕਾਰਵਾਈ ਰੋਕਣ ਵਿੱਚ ਨਾਕਾਮ ਰਿਹਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q048-PA",
+    "englishQuestionId": "WHI-CP009-Q048",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F048",
+    "questionFamily": "ਹਮਲਾ ਅਤੇ ਜਵਾਬ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਵੇਂ ਇਲਾਕੇ 1938 ਵਿੱਚ ਜਰਮਨੀ ਨੇ ਆਪਣੇ ਨਾਲ ਮਿਲਾਏ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਦੋਵੇਂ ਹਮਲਾਵਰ ਤਾਕਤਾਂ ਨੂੰ ਫੌਜੀ ਤੌਰ ’ਤੇ ਹਰਾ ਦਿੱਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਟਲੀ ਨੇ ਮੰਚੂਰੀਆ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ ਅਤੇ ਜਪਾਨ ਨੇ ਇਥੋਪੀਆ ’ਤੇ ਹਮਲਾ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "1931 ਤੋਂ ਬਾਅਦ ਜਪਾਨ ਨੇ ਮੰਚੂਰੀਆ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ, ਜਦਕਿ ਇਟਲੀ ਨੇ 1935 ਵਿੱਚ ਇਥੋਪੀਆ ’ਤੇ ਹਮਲਾ ਕੀਤਾ; ਰਾਸ਼ਟਰ ਸੰਘ ਦੋਹਾਂ ਨੂੰ ਰੋਕ ਨਾ ਸਕਿਆ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S10",
+      "CP009-S12",
+      "CP009-S19"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1936 ਵਿੱਚ ਜੰਗ ਤੋਂ ਬਾਅਦ ਵਾਲੇ ਸਮਝੌਤੇ ਦੀ ਉਲੰਘਣਾ ਕਰਦਿਆਂ ਜਰਮਨੀ ਨੇ ਕੀ ਕੀਤਾ?",
+    "explanation": "ਮਾਰਚ 1936 ਵਿੱਚ ਜਰਮਨ ਫੌਜਾਂ ਮੁੜ ਫੌਜ-ਰਹਿਤ ਰਾਈਨਲੈਂਡ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q049-PA",
+    "englishQuestionId": "WHI-CP009-Q049",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F049",
+    "questionFamily": "ਕੂਟਨੀਤੀ ਅਤੇ ਤੁਸ਼्टीਕਰਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਈਨਲੈਂਡ ਦਾ ਮੁੜ ਫੌਜੀਕਰਨ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ ਕੀਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੂਡੇਟਨਲੈਂਡ ਆਪਣੇ ਨਾਲ ਮਿਲਾਇਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਰਸਾਈ ਸੰਧੀ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S07"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1938 ਦਾ ਆਨਸ਼ਲੁਸ ਕੀ ਸੀ?",
+    "explanation": "ਮਾਰਚ 1938 ਵਿੱਚ ਨਾਜ਼ੀ ਜਰਮਨੀ ਨੇ ਆਸਟਰੀਆ ਨੂੰ ਆਪਣੇ ਨਾਲ ਮਿਲਾ ਲਿਆ। ਇਸ ਘਟਨਾ ਨੂੰ ਆਨਸ਼ਲੁਸ ਕਿਹਾ ਜਾਂਦਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q050-PA",
+    "englishQuestionId": "WHI-CP009-Q050",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F050",
+    "questionFamily": "ਕੂਟਨੀਤੀ ਅਤੇ ਤੁਸ਼्टीਕਰਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਰਮਨੀ ਦਾ ਰਾਈਨਲੈਂਡ ’ਤੇ ਕਬਜ਼ਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨੀ ਵੱਲੋਂ ਆਸਟਰੀਆ ਨੂੰ ਆਪਣੇ ਨਾਲ ਮਿਲਾਉਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਟਲੀ ਦਾ ਇਥੋਪੀਆ ’ਤੇ ਹਮਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਦਾ ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S07"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮਿਊਨਿਖ ਸਮਝੌਤੇ ਹੇਠ ਚੈਕੋਸਲੋਵਾਕੀਆ ਦਾ ਕਿਹੜਾ ਇਲਾਕਾ ਜਰਮਨੀ ਨੂੰ ਦਿੱਤਾ ਗਿਆ?",
+    "explanation": "ਸਤੰਬਰ 1938 ਦੇ ਮਿਊਨਿਖ ਸਮਝੌਤੇ ਨੇ ਜਰਮਨੀ ਨੂੰ ਸੂਡੇਟਨਲੈਂਡ ’ਤੇ ਕਬਜ਼ਾ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿੱਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q051-PA",
+    "englishQuestionId": "WHI-CP009-Q051",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F051",
+    "questionFamily": "ਕੂਟਨੀਤੀ ਅਤੇ ਤੁਸ਼्टीਕਰਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਈਨਲੈਂਡ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਲਸਾਸ-ਲੋਰੇਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੂਡੇਟਨਲੈਂਡ"
+      },
+      {
+        "key": "D",
+        "text": "ਡਾਂਜ਼ਿਗ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S07",
+      "CP009-S08"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1930ਵਿਆਂ ਦੀ ਤੁਸ਼ਟੀਕਰਨ ਨੀਤੀ ਦਾ ਸਭ ਤੋਂ ਸਹੀ ਵੇਰਵਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਬ੍ਰਿਟੇਨ ਅਤੇ ਫ਼ਰਾਂਸ ਦੇ ਆਗੂਆਂ ਨੇ ਇੱਕ ਹੋਰ ਜੰਗ ਟਾਲਣ ਦੀ ਆਸ ਨਾਲ ਹਿਟਲਰ ਦੀਆਂ ਕੁਝ ਮੰਗਾਂ ਮੰਨ ਲਈਆਂ। ਮਿਊਨਿਖ ਸਮਝੌਤੇ ਦੇ ਬਾਵਜੂਦ ਜਰਮਨੀ ਦਾ ਵਿਸਥਾਰ ਜਾਰੀ ਰਿਹਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q052-PA",
+    "englishQuestionId": "WHI-CP009-Q052",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F052",
+    "questionFamily": "ਕੂਟਨੀਤੀ ਅਤੇ ਤੁਸ਼्टीਕਰਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਫੌਜੀ ਤਾਕਤ ਨਾਲ ਹਿਟਲਰ ਨੂੰ ਅਹੁਦੇ ਤੋਂ ਹਟਾਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨੀ ਨੇ 1938 ਵਿੱਚ ਪੂਰੀ ਤਰ੍ਹਾਂ ਨਿਹੱਥਾ ਹੋਣ ਲਈ ਸਹਿਮਤੀ ਦਿੱਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੀਤੀ ਹੇਠ ਫ਼ਰਾਂਸ ਨੂੰ ਧੁਰੀ ਤਾਕਤਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣਾ ਪਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਿਟੇਨ ਅਤੇ ਫ਼ਰਾਂਸ ਨੇ ਜੰਗ ਟਾਲਣ ਲਈ ਰਿਆਇਤਾਂ ਦਿੱਤੀਆਂ, ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਮਿਊਨਿਖ ਸਮਝੌਤਾ ਵੀ ਸੀ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S07",
+      "CP009-S08"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਸਤੰਬਰ 1938 ਦੇ ਮਿਊਨਿਖ ਸਮਝੌਤੇ ਤੋਂ ਬਾਅਦ ਕਿਹੜੀ ਘਟਨਾ ਹੋਈ?",
+    "explanation": "ਮਾਰਚ 1939 ਵਿੱਚ ਜਰਮਨੀ ਨੇ ਬਾਕੀ ਚੈਕ ਇਲਾਕਿਆਂ ’ਤੇ ਕਬਜ਼ਾ ਕਰ ਲਿਆ। ਇਸ ਨਾਲ ਸਾਫ਼ ਹੋਇਆ ਕਿ ਮਿਊਨਿਖ ਸਮਝੌਤਾ ਜਰਮਨ ਵਿਸਥਾਰ ਰੋਕ ਨਾ ਸਕਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q053-PA",
+    "englishQuestionId": "WHI-CP009-Q053",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F053",
+    "questionFamily": "ਕੂਟਨੀਤੀ ਅਤੇ ਤੁਸ਼्टीਕਰਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਾਰਚ 1939 ਵਿੱਚ ਜਰਮਨੀ ਨੇ ਬਾਕੀ ਚੈਕ ਇਲਾਕਿਆਂ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨੀ ਆਸਟਰੀਆ ਤੋਂ ਪਿੱਛੇ ਹਟ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਮੰਚੂਰੀਆ ਆਜ਼ਾਦ ਕਰਵਾਇਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਰਸਾਈ ਸੰਧੀ ’ਤੇ ਦਸਤਖ਼ਤ ਹੋਏ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S07"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਪੋਲੈਂਡ ’ਤੇ ਹਮਲੇ ਤੋਂ ਪਹਿਲਾਂ ਜਰਮਨੀ ਦੇ ਵਿਸਥਾਰ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਜਰਮਨੀ ਨੇ 1936 ਵਿੱਚ ਰਾਈਨਲੈਂਡ ਦਾ ਮੁੜ ਫੌਜੀਕਰਨ ਕੀਤਾ, 1938 ਵਿੱਚ ਆਸਟਰੀਆ ਨੂੰ ਆਪਣੇ ਨਾਲ ਮਿਲਾਇਆ, ਮਿਊਨਿਖ ਵਿੱਚ ਸੂਡੇਟਨਲੈਂਡ ਹਾਸਲ ਕੀਤਾ ਅਤੇ 1939 ਵਿੱਚ ਬਾਕੀ ਚੈਕ ਇਲਾਕਿਆਂ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q054-PA",
+    "englishQuestionId": "WHI-CP009-Q054",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F054",
+    "questionFamily": "ਕੂਟਨੀਤੀ ਅਤੇ ਤੁਸ਼्टीਕਰਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਿਊਨਿਖ ਸਮਝੌਤਾ → ਰਾਈਨਲੈਂਡ ਦਾ ਮੁੜ ਫੌਜੀਕਰਨ → ਆਨਸ਼ਲੁਸ → ਚੈਕ ਇਲਾਕਿਆਂ ’ਤੇ ਕਬਜ਼ਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਈਨਲੈਂਡ ਦਾ ਮੁੜ ਫੌਜੀਕਰਨ → ਆਨਸ਼ਲੁਸ → ਮਿਊਨਿਖ ਸਮਝੌਤਾ → ਬਾਕੀ ਚੈਕ ਇਲਾਕਿਆਂ ’ਤੇ ਕਬਜ਼ਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਨਸ਼ਲੁਸ → ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ → ਰਾਈਨਲੈਂਡ ਦਾ ਮੁੜ ਫੌਜੀਕਰਨ → ਮਿਊਨਿਖ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਚੈਕ ਇਲਾਕਿਆਂ ’ਤੇ ਕਬਜ਼ਾ → ਆਨਸ਼ਲੁਸ → ਰਾਈਨਲੈਂਡ ਦਾ ਮੁੜ ਫੌਜੀਕਰਨ → ਮਿਊਨਿਖ ਸਮਝੌਤਾ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S07",
+      "CP009-S08"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜਰਮਨੀ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਗੈਰ-ਹਮਲਾ ਸੰਧੀ ’ਤੇ ਕਦੋਂ ਦਸਤਖ਼ਤ ਕੀਤੇ?",
+    "explanation": "ਜਰਮਨੀ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ ਨੇ ਅਗਸਤ 1939 ਵਿੱਚ ਗੈਰ-ਹਮਲਾ ਸੰਧੀ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q055-PA",
+    "englishQuestionId": "WHI-CP009-Q055",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F055",
+    "questionFamily": "ਅੰਤਰ-ਯੁੱਧ ਕਾਲਕ੍ਰਮ ਅਤੇ ਸਮੁੱਚੀ ਸਮਝ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜੂਨ 1933"
+      },
+      {
+        "key": "B",
+        "text": "ਸਤੰਬਰ 1931"
+      },
+      {
+        "key": "C",
+        "text": "ਅਗਸਤ 1939"
+      },
+      {
+        "key": "D",
+        "text": "ਮਾਰਚ 1936"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S14"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜਰਮਨ-ਸੋਵੀਅਤ ਸੰਧੀ ਦੇ ਗੁਪਤ ਪ੍ਰੋਟੋਕੋਲ ਵਿੱਚ ਕਿਸ ਗੱਲ ਬਾਰੇ ਸੀ?",
+    "explanation": "ਗੁਪਤ ਪ੍ਰੋਟੋਕੋਲ ਵਿੱਚ ਪੂਰਬੀ ਯੂਰਪ ਦੇ ਪ੍ਰਭਾਵ-ਖੇਤਰ ਵੰਡੇ ਗਏ। ਇਸ ਵਿੱਚ ਪੋਲੈਂਡ ਨਾਲ ਜੁੜੀਆਂ ਗੱਲਾਂ ਵੀ ਸ਼ਾਮਲ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q056-PA",
+    "englishQuestionId": "WHI-CP009-Q056",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F056",
+    "questionFamily": "ਅੰਤਰ-ਯੁੱਧ ਕਾਲਕ੍ਰਮ ਅਤੇ ਸਮੁੱਚੀ ਸਮਝ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਦੀ ਸਥਾਪਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਥੋਪੀਆ ਇਟਲੀ ਨੂੰ ਸੌਂਪਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਰਾਈਨਲੈਂਡ ਨੂੰ ਨਿਹੱਥਾ ਕਰਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੂਰਬੀ ਯੂਰਪ ਦੇ ਪ੍ਰਭਾਵ-ਖੇਤਰਾਂ ਦੀ ਵੰਡ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S14"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1939 ਵਿੱਚ ਜਰਮਨੀ ਨੇ ਪੋਲੈਂਡ ’ਤੇ ਕਿਹੜੀ ਤਾਰੀਖ਼ ਨੂੰ ਹਮਲਾ ਕੀਤਾ?",
+    "explanation": "ਜਰਮਨ ਫੌਜਾਂ ਨੇ 1 ਸਤੰਬਰ 1939 ਨੂੰ ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q057-PA",
+    "englishQuestionId": "WHI-CP009-Q057",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F057",
+    "questionFamily": "ਅੰਤਰ-ਯੁੱਧ ਕਾਲਕ੍ਰਮ ਅਤੇ ਸਮੁੱਚੀ ਸਮਝ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 ਸਤੰਬਰ"
+      },
+      {
+        "key": "B",
+        "text": "23 ਅਗਸਤ"
+      },
+      {
+        "key": "C",
+        "text": "3 ਸਤੰਬਰ"
+      },
+      {
+        "key": "D",
+        "text": "11 ਨਵੰਬਰ"
+      }
+    ],
+    "correctOption": "A",
+    "sourceIds": [
+      "CP009-S14",
+      "CP009-S15"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "25 ਅਗਸਤ 1939 ਨੂੰ ਲੰਡਨ ਵਿੱਚ ਹੋਏ ਸਮਝੌਤੇ ਰਾਹੀਂ ਬ੍ਰਿਟੇਨ ਅਤੇ ਪੋਲੈਂਡ ਨੇ ਕੀ ਪੱਕਾ ਕੀਤਾ?",
+    "explanation": "ਬ੍ਰਿਟੇਨ ਅਤੇ ਪੋਲੈਂਡ ਨੇ 25 ਅਗਸਤ 1939 ਨੂੰ ਲੰਡਨ ਵਿੱਚ ਸਥਾਈ ਆਪਸੀ ਮਦਦ ਸਮਝੌਤੇ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q058-PA",
+    "englishQuestionId": "WHI-CP009-Q058",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F058",
+    "questionFamily": "ਅੰਤਰ-ਯੁੱਧ ਕਾਲਕ੍ਰਮ ਅਤੇ ਸਮੁੱਚੀ ਸਮਝ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਰਮਨੀ ’ਤੇ ਸਾਂਝਾ ਫੌਜੀ ਕਬਜ਼ਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਪਸੀ ਮਦਦ ਦਾ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੋਵੀਅਤ ਸੰਘ ਨਾਲ ਗੈਰ-ਹਮਲਾ ਸੰਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਲ-ਫੌਜੀ ਨਿਹੱਥੇਕਰਨ ਦੀ ਸੰਧੀ"
+      }
+    ],
+    "correctOption": "B",
+    "sourceIds": [
+      "CP009-S16"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1939 ਵਿੱਚ ਪੋਲੈਂਡ ਪ੍ਰਤੀ ਬ੍ਰਿਟੇਨ ਦੀਆਂ ਵਚਨਬੱਧਤਾਵਾਂ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਨੇਵਿਲ ਚੈਂਬਰਲੇਨ ਨੇ 31 ਮਾਰਚ ਨੂੰ ਬ੍ਰਿਟੇਨ ਵੱਲੋਂ ਇਕ-ਤਰਫ਼ਾ ਭਰੋਸਾ ਦਿੱਤਾ। 6 ਅਪ੍ਰੈਲ ਦੇ ਬ੍ਰਿਟੇਨ-ਪੋਲੈਂਡ ਸਾਂਝੇ ਬਿਆਨ ਨੇ ਇਸ ਨੂੰ ਆਪਸੀ ਬਣਾਇਆ। 25 ਅਗਸਤ ਨੂੰ ਸਥਾਈ ਆਪਸੀ ਮਦਦ ਸਮਝੌਤਾ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q059-PA",
+    "englishQuestionId": "WHI-CP009-Q059",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F059",
+    "questionFamily": "ਅੰਤਰ-ਯੁੱਧ ਕਾਲਕ੍ਰਮ ਅਤੇ ਸਮੁੱਚੀ ਸਮਝ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਥਾਈ ਸਮਝੌਤਾ → ਆਪਸੀ ਬਿਆਨ → ਇਕ-ਤਰਫ਼ਾ ਭਰੋਸਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਪਸੀ ਬਿਆਨ → ਇਕ-ਤਰਫ਼ਾ ਭਰੋਸਾ → ਸਥਾਈ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਕ-ਤਰਫ਼ਾ ਭਰੋਸਾ → ਆਪਸੀ ਬਿਆਨ → ਸਥਾਈ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਕ-ਤਰਫ਼ਾ ਭਰੋਸਾ → ਸਥਾਈ ਸਮਝੌਤਾ → ਆਪਸੀ ਬਿਆਨ"
+      }
+    ],
+    "correctOption": "C",
+    "sourceIds": [
+      "CP009-S16"
+    ]
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਦੋ ਜੰਗਾਂ ਦਰਮਿਆਨੇ ਸਮੇਂ ਦੇ ਕਾਲ ਦੇ ਸੰਕਟਾਂ ਅਤੇ ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਦੀ ਸ਼ੁਰੂਆਤ ਦਾ ਸਭ ਤੋਂ ਸਹੀ ਨਤੀਜਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਆਰਥਿਕ ਸੰਕਟ, ਤਾਨਾਸ਼ਾਹੀ ਰਾਜਨੀਤੀ, ਹਮਲਾਵਰ ਵਿਸਥਾਰ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ ਦੀ ਕਮਜ਼ੋਰ ਪ੍ਰਤੀਕਿਰਿਆ ਨੇ ਮਿਲ ਕੇ ਜੰਗ ਦਾ ਰਾਹ ਬਣਾਇਆ। ਇਸ ਨੂੰ ਕਿਸੇ ਇੱਕ ਕਾਰਨ ਨਾਲ ਨਹੀਂ ਸਮਝਾਇਆ ਜਾ ਸਕਦਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP009-Q060-PA",
+    "englishQuestionId": "WHI-CP009-Q060",
+    "checkpointId": "WHI-001-CP009",
+    "factId": "WHI-CP009-F060",
+    "questionFamily": "ਅੰਤਰ-ਯੁੱਧ ਕਾਲਕ੍ਰਮ ਅਤੇ ਸਮੁੱਚੀ ਸਮਝ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਹਾਂ ਮੰਦੀ ਇਕੱਲੀ ਯੂਰਪ ਦੀ ਹਰ ਜੰਗ ਦਾ ਕਾਰਨ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ ਨੇ ਪੋਲੈਂਡ ’ਤੇ ਹਮਲਾ ਕਰਕੇ ਜੰਗ ਸ਼ੁਰੂ ਕੀਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਿਊਨਿਖ ਸਮਝੌਤੇ ਨੇ ਪਹਿਲੀ ਵਿਸ਼ਵ ਜੰਗ ਸ਼ੁਰੂ ਕੀਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਆਰਥਿਕ ਤੇ ਸਿਆਸੀ ਅਸਥਿਰਤਾ, ਹਮਲਾਵਰ ਵਿਸਥਾਰ ਅਤੇ ਸਾਂਝੀ ਸੁਰੱਖਿਆ ਦੀ ਨਾਕਾਮੀ ਆਪਸ ਵਿੱਚ ਜੁੜੇ ਸਨ; ਕੋਈ ਇੱਕ ਘਟਨਾ ਪੂਰੇ ਸੰਕਟ ਦੀ ਵਿਆਖਿਆ ਨਹੀਂ ਕਰਦੀ"
+      }
+    ],
+    "correctOption": "D",
+    "sourceIds": [
+      "CP009-S01",
+      "CP009-S04",
+      "CP009-S05",
+      "CP009-S07",
+      "CP009-S10",
+      "CP009-S14"
+    ]
+  }
+]

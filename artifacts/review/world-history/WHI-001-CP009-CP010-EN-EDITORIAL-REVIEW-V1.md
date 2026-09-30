@@ -1,7 +1,7 @@
 # WHI-001-CP009/CP010 — English editorial review V1
 
-**Status:** Editorial first pass complete; human English approval remains open.
-**Lifecycle:** Review-only; Question Studio registration, localization and learner delivery remain gated.
+**Status:** English editorial review and human approval complete (2026-09-30).
+**Lifecycle:** English pools remain review-only. Hindi/Punjabi candidates are now prepared for native-language review; Question Studio registration and learner delivery remain gated.
 
 ## Scope and checks
 
@@ -24,5 +24,5 @@ The reviewed pools include nearby fact pairs that test different things: mandate
 - Four options per item, one keyed answer, explanation/source parity, and rendered stem parity.
 - Difficulty and answer-key allocations preserved.
 - All records remain reviewOnly true and runtimeRegistered false.
-- No Hindi/Punjabi records, Question Studio registration or learner delivery added.
-- Human English review and approval are still required before localization.
+- Human English approval is recorded. Four 60-record Hindi/Punjabi localization candidates preserve English fact/source and answer parity and remain review-only. Native-language review is pending.
+- See the localization readiness review and Hindi/Punjabi candidate status report for language-review gates.

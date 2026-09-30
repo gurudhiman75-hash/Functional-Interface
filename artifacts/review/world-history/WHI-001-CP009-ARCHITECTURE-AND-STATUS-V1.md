@@ -16,5 +16,13 @@
 ## Current gate
 
 - English: 60 records; 18 Easy / 30 Medium / 12 Hard; A15/B15/C15/D15.
-- Hindi/Punjabi not yet authored. Runtime registration and publication remain disabled.
+- Hindi and Punjabi 60-record review candidates are authored; native-language review is pending. Runtime registration and publication remain disabled.
 - Keep learner-bank writes, scoring and mocks disabled.
+
+
+## Localization update — 2026-09-30
+
+- English pool: human-approved.
+- Hindi and Punjabi: 60-record review candidates authored in the established shared `knowledge-v1` localization architecture; each is linked to the English question and canonical fact/source records.
+- Native-language review: pending. Learner delivery, runtime registration and publication remain disabled.
+- See `WHI-001-CP009-HI-LOCALIZATION-REVIEW-V1.md`, `WHI-001-CP009-PA-LOCALIZATION-REVIEW-V1.md`, and `WHI-001-CP009-CP010-HI-PA-CANDIDATE-STATUS-V1.md`.
