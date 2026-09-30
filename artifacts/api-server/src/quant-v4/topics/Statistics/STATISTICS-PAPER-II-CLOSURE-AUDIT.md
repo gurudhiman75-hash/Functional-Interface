@@ -30,13 +30,13 @@ The review-only lifecycle remains in force: Question Bank writes, test/mock elig
 ## Review and validation notes
 
 - STAT-004's registry marks its 15 English contracts as certified and English-review approved. Its representative `REVIEW.md` previously said permanent QL numbering was not assigned; that stale metadata is corrected in this change.
-- The user approved STAT-011 earlier and STAT-012, STAT-013, and STAT-007 representative reviews on 2026-09-30. The STAT-012 and STAT-013 candidates include QL201–208. STAT-007 and STAT-009 were approved on 2026-09-30. Question diversity and pool expansion are deferred by the user to a later pass. Remaining representative reviews for STAT-005, STAT-006, STAT-008, STAT-010, and STAT-014 await editorial approval. Structural checks found four options, a keyed answer, and an explanation for each listed question, with no duplicate stems within each file.
+- The user approved STAT-011 earlier and STAT-012, STAT-013, and STAT-007 representative reviews on 2026-09-30. The STAT-012 and STAT-013 candidates include QL201–208. STAT-007, STAT-009, and STAT-010 were approved on 2026-09-30. Question diversity and pool expansion are deferred by the user to a later pass. Remaining representative reviews for STAT-005, STAT-006, STAT-008, and STAT-014 await editorial approval. Structural checks found four options, a keyed answer, and an explanation for each listed question, with no duplicate stems within each file.
 - The STAT-003 restoration workflow's deterministic proof passed, but its Question Studio integration step stopped at an unrelated GEO-IND-001 content-closure failure. STAT-007 multiple regression, STAT-011 inference depth, STAT-012 replicated ANOVA, STAT-013 time-series depth, and STAT-014 multi-period index updates all passed their package checks, shared-profile and learner-surface checks, plus the 220-section Quant simulation. Unrelated failures in older audit runs should not be treated as current blockers.
 
 ## Closure gates
 
 1. Chart ownership is mapped to DI-001–005, DI-009–011; confirm the DI chapter's exhaustive audit remains aligned with this boundary and avoid duplicate STAT contracts.
 2. Continue depth review for remaining STAT-011 through STAT-014 gaps: broader inference families and diagnostics, advanced ANOVA layouts and alternatives, advanced time-series decomposition/forecasting, and additional index-number methods; document accepted scope limits.
-3. Complete editorial and mathematical review of the remaining representative generated questions and explanations; STAT-007 and STAT-009 are approved.
+3. Complete editorial and mathematical review of the remaining representative generated questions and explanations; STAT-007, STAT-009, and STAT-010 are approved.
 4. The latest Statistics depth wave passed its focused and Quant-wide integration checks; rerun them when further content changes are made.
 5. Keep learner-facing lifecycle paths locked until their separate approval and validation.
