@@ -23,7 +23,7 @@ for(const p of ENG009_CP005_PASSAGES_V1){
   assert.equal(q.options.length,4);
   assert.equal(new Set(q.options.map(x=>x.toLowerCase())).size,4);
   if(b.mode==="can-fit"){
-   assert.match(q.prompt,/Which group contains only words/i);
+   assert.match(q.prompt,/Which group contains only words/i);\n   assert.match(q.questionId,/ENG-009-CP005-V2:/);
    assert.ok(b.accepted.length>=3);
    const accepted=new Set(b.accepted.slice(0,3).map(x=>x.toLowerCase()));
    const rejected=b.rejected[0]!.toLowerCase();
