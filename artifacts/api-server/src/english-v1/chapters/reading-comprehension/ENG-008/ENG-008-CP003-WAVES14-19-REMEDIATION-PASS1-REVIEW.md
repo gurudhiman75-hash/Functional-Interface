@@ -1,6 +1,6 @@
 # ENG-008 CP003 — Waves 14–19 Remediation Pass 1
 
-Status: `REVIEW_READY__PASSAGE_SURFACE_REMEDIATED__QUESTIONS_PENDING_PASS2`
+Status: `REVIEW_READY__PASSAGE_AND_QUESTION_SURFACES_REMEDIATED`
 
 ## Scope
 
@@ -20,16 +20,19 @@ The original active passages were built through the shared ENG-008 expansion fac
 - Banking Prelims length remains **350–450 words**;
 - nine governed question families remain attached to every passage.
 
-## Why this is only Pass 1
+## Pass 2 — question-surface remediation
 
-This pass deliberately does **not** rewrite keyed questions at the same time as passage prose.
+The 432 governed question authorities attached to these 48 passages are now also remediated.
 
-The original Waves 14–19 question authorities still contain repetitive:
-- prompt ordering;
-- generic distractor sets;
-- explanation wording.
+Changes include:
+- four wording variants per governed question family;
+- passage-specific distractor construction using the owning scenario / subject;
+- passage-specific explanations that state the clue, contrast or inference chain;
+- passage-specific evidence fields;
+- removal of the old repeated Banking-Prelims distractor trio and stock explanation sentence;
+- unchanged correct answers, authority IDs, family IDs and deterministic option remapping.
 
-Those will be replaced in **Pass 2** while keeping the now-stable remediated passages fixed. Splitting the work keeps answer-key risk lower and makes editorial review easier.
+The remediation remains a one-for-one quality replacement. No new passage or authority volume is added.
 
 ## Source guards
 
@@ -46,12 +49,12 @@ The CP003 audit now checks:
 - four-option uniqueness;
 - 7,200-question soak source.
 
-## Next pass
+## Remaining ENG-008 remediation
 
-Pass 2 should replace the 432 question surfaces attached to these 48 passages with:
-- passage-specific distractors;
-- varied but exam-standard question wording;
-- passage-specific explanations identifying the actual clue or inference chain;
-- no change to family ownership or answer-key determinism.
+CP003 Waves 14–19 are now the first remediated block. The final audit still requires equivalent quality replacement for factory-built Waves 14–19 in:
+1. CP004 Banking Mains;
+2. CP002 SSC Editorial / Current-Affairs;
+3. CP001 SSC Foundation;
+4. CP005 Research / Survey / Report.
 
 Lifecycle remains `QUESTION_STUDIO_REVIEW_ONLY`.
