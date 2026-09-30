@@ -33,7 +33,7 @@ Companies can still try to retain customers. They may offer a cheaper plan, a pa
 
 Cancellation data can also be useful. If many customers leave for the same reason, the company may have a pricing, product or service problem. Exit surveys can help identify patterns, but they should remain short and optional. A customer who has already decided to leave is unlikely to appreciate a long questionnaire.
 
-Clear cancellation can even improve confidence before purchase. People may be more willing to start a subscription when they know they can leave without difficulty. This reduces the fear of being locked in and can make the initial decision more __(4)__.
+Clear cancellation can even improve confidence before purchase. People may be more willing to start a subscription when they know they can leave without difficulty. This reduces the fear of being locked in and can make customers more __(4)__ about the initial decision.
 
 The broader lesson is that customer retention works best when it is based on value rather than friction. A business should ask why people want to leave instead of relying on obstacles to keep them. High retention achieved through confusion may look good temporarily but hide dissatisfaction.
 
@@ -42,10 +42,10 @@ Regulators and payment providers may also require cancellation practices to be t
 A mature subscription business therefore treats cancellation as part of the customer experience, not as a failure state to be hidden. The process should protect against mistakes without making a deliberate choice unnecessarily hard. This makes the relationship more __(5)__.
 
 Customers may still leave, but a fair exit can preserve goodwill and make them more willing to return later. In that sense, cancellation is not only about ending a service. It is also a test of whether the company respects customer choice. A strong process makes that choice easy to understand and easy to __(6)__.`,blanks:[
-{id:"N14-B1",blankNo:1,difficulty:"hard",mode:"can-fit",accepted:["informed","clear","predictable"],rejected:["hidden"],explanation:"The customer should understand the result of cancelling.",clue:"decision more ..."},
+{id:"N14-B1",blankNo:1,difficulty:"hard",mode:"can-fit",accepted:["informed","clear","understandable"],rejected:["hidden"],explanation:"The customer should understand the result of cancelling, so the decision should be informed, clear and understandable.",clue:"decision more ..."},
 {id:"N14-B2",blankNo:2,difficulty:"medium",mode:"phrasal-word",accepted:["complete"],rejected:["hide","delay","scatter"],explanation:"A fair cancellation process should be easy to complete.",clue:"easy to ..."},
 {id:"N14-B3",blankNo:3,difficulty:"hard",mode:"cannot-fit",accepted:["ethical","transparent","voluntary"],rejected:["coercive"],explanation:"Retention should rely on choice, not pressure. 'Coercive' does not fit.",clue:"retention more ..."},
-{id:"N14-B4",blankNo:4,difficulty:"medium",mode:"can-fit",accepted:["comfortable","confident","straightforward"],rejected:["risky"],explanation:"A clear exit path can make joining feel easier and safer.",clue:"initial decision more ..."},
+{id:"N14-B4",blankNo:4,difficulty:"medium",mode:"can-fit",accepted:["comfortable","confident","certain"],rejected:["risky"],explanation:"A clear exit path can make customers feel more comfortable, confident and certain about joining.",clue:"customers more ... about the initial decision"},
 {id:"N14-B5",blankNo:5,difficulty:"hard",mode:"cannot-fit",accepted:["trustworthy","fair","credible"],rejected:["deceptive"],explanation:"A clear exit process improves trust. 'Deceptive' does not fit.",clue:"relationship more ..."},
 {id:"N14-B6",blankNo:6,difficulty:"medium",mode:"phrasal-word",accepted:["exercise"],rejected:["hide","avoid","erase"],explanation:"Customers should be able to exercise their choice easily.",clue:"easy to ..."}]}
 ];
