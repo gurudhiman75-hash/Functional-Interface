@@ -30,6 +30,16 @@ import { localizeGeoPop001ExactCp004PartC } from "./population-settlements/geo-p
 import { localizeGeoPop001ExactCp005PartA } from "./population-settlements/geo-pop-001-localization-cp005-part-a-v1";
 import { localizeGeoPop001ExactCp005PartB } from "./population-settlements/geo-pop-001-localization-cp005-part-b-v1";
 import { localizeGeoPop001ExactCp005PartC } from "./population-settlements/geo-pop-001-localization-cp005-part-c-v1";
+import { localizeGeoTrn001Cp001PartA } from "./transport-communication/geo-trn-001-localization-cp001-part-a-v1";
+import { localizeGeoTrn001Cp001PartB } from "./transport-communication/geo-trn-001-localization-cp001-part-b-v1";
+import { localizeGeoTrn001Cp002PartA } from "./transport-communication/geo-trn-001-localization-cp002-part-a-v1";
+import { localizeGeoTrn001Cp002PartB } from "./transport-communication/geo-trn-001-localization-cp002-part-b-v1";
+import { localizeGeoTrn001Cp003PartA } from "./transport-communication/geo-trn-001-localization-cp003-part-a-v1";
+import { localizeGeoTrn001Cp003PartB } from "./transport-communication/geo-trn-001-localization-cp003-part-b-v1";
+import { localizeGeoTrn001Cp004PartA } from "./transport-communication/geo-trn-001-localization-cp004-part-a-v1";
+import { localizeGeoTrn001Cp004PartB } from "./transport-communication/geo-trn-001-localization-cp004-part-b-v1";
+import { localizeGeoTrn001Cp005PartA } from "./transport-communication/geo-trn-001-localization-cp005-part-a-v1";
+import { localizeGeoTrn001Cp005PartB } from "./transport-communication/geo-trn-001-localization-cp005-part-b-v1";
 
 export type IndianGeoLocalizationLanguageV1 = "en" | "hi" | "pa";
 type CanonicalQuestion = Readonly<{
@@ -791,6 +801,30 @@ export function localizeIndianGeoQuestionV1(
       localizeGeoPop001ExactCp005PartB(question, language) ??
       localizeGeoPop001ExactCp005PartC(question, language);
     if (approved) return approved;
+  }
+
+  if (packageId === "GEO-TRN-001") {
+    const reviewed =
+      localizeGeoTrn001Cp001PartA(question.questionId, language) ??
+      localizeGeoTrn001Cp001PartB(question.questionId, language) ??
+      localizeGeoTrn001Cp002PartA(question.questionId, language) ??
+      localizeGeoTrn001Cp002PartB(question.questionId, language) ??
+      localizeGeoTrn001Cp003PartA(question.questionId, language) ??
+      localizeGeoTrn001Cp003PartB(question.questionId, language) ??
+      localizeGeoTrn001Cp004PartA(question.questionId, language) ??
+      localizeGeoTrn001Cp004PartB(question.questionId, language) ??
+      localizeGeoTrn001Cp005PartA(question.questionId, language) ??
+      localizeGeoTrn001Cp005PartB(question.questionId, language);
+    if (reviewed) {
+      const options = Object.freeze(question.options.map((option) => localizeText(option, language)));
+      const canonicalAnswer = options[question.correctIndex]!;
+      return Object.freeze({
+        stem: reviewed.stem,
+        options,
+        canonicalAnswer,
+        explanation: reviewed.explanation,
+      });
+    }
   }
 
   const options = Object.freeze(question.options.map((option) => localizeText(option, language)));

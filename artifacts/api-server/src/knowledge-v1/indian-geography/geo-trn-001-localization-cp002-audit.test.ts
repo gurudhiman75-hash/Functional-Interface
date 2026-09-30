@@ -1,0 +1,12 @@
+import assert from "node:assert/strict";
+import { auditIndianGeoLocalizationV1 } from "./indian-geo-localization-v1";
+import { GEO_TRN_001_QUESTION_STUDIO_CORPUS_V1 } from "../../question-studio/engines/knowledge-v1-geo-trn-001-adapter-v1";
+const cp=GEO_TRN_001_QUESTION_STUDIO_CORPUS_V1.filter(q=>q.cpId==="GEO-TRN-001-CP002");
+assert.equal(cp.length,66);
+const audit=auditIndianGeoLocalizationV1(cp,"GEO-TRN-001");
+console.log(JSON.stringify({cpId:"GEO-TRN-001-CP002",...audit},null,2));
+assert.equal(audit.structuralValid,true);
+assert.equal(audit.hindiStemResidueCount,0);
+assert.equal(audit.punjabiStemResidueCount,0);
+assert.equal(audit.genericExplanationFallbackCount,0);
+assert.equal(audit.mixedScriptCount,0);
