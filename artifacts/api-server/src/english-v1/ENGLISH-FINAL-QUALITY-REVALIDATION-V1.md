@@ -247,6 +247,7 @@ The 768-authority ENG-013 V4 bank remains structurally saturated; no additional 
 1. **CP005 profile-routing bug.** Requests for a specific composed profile such as `ssc-standard`, `ssc-advanced`, `banking-prelims` or `banking-mains` did not pass the requested profile into `generateEng013Cp005SetV4`. The composer could therefore return a source CP different from the profile explicitly requested.
 2. **Stale Question Studio approval state.** The final V4 editorial remediation and whole-English closure mark the 768-authority bank as approved, but the live adapter still exposed `humanApprovalPending: true` and marked generated questions unapproved.
 3. **V4 lexical-breadth overstatement.** The V4 guard itself exposed 26 target words that already existed in the V3 bank. The affected IDs were retained, but 12 SSC Standard verbs and 14 SSC Advanced adjectives were replaced one-for-one with genuinely new targets. Matching subject/object contexts were updated so the revised surfaces remain natural.
+4. **Explanation-depth regression.** The full 768-authority run exposed older authorities whose rendered explanations fell below the chapter's own quality floor. The shared generator now preserves each authority-specific explanation and adds a concise mode-specific comparison explaining why the other options do or do not fit the target word.
 
 Remediation:
 - CP005 now parses and forwards the requested profile;
