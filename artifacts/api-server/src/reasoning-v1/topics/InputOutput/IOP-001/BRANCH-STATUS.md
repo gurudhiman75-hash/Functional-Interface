@@ -1,8 +1,9 @@
-# IOP-001 English Frozen Branch Status
+# IOP-001 Current Chapter Status
 
-Branch: `feat/iop-001-foundation-cp001-cp004`  
-PR: `#840`  
-PR state: **draft / unmerged**
+Authority branch: `New-main`  
+Current status: **MULTILINGUAL_FROZEN / STANDARD_QUESTION_STUDIO_REVIEW_ONLY**
+
+Historical implementation branches/PRs are evidence only and do not define current lifecycle.
 
 ## Current maturity
 
