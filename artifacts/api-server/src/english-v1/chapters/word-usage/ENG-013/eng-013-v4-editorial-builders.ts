@@ -63,7 +63,19 @@ const TREND=new Set(["abrupt","gradual","incremental","recurrent","persistent","
 const STRUCTURE=new Set(["vertical","aggregate","concurrent","underlying"]);
 const JUDGMENT=new Set(["appropriate","arbitrary","impartial","rational","legitimate","ethical","valid","dubious","plausible","deliberate","intentional","selective","normative","neutral"]);
 const ARGUMENT=new Set(["abstract","ambiguous","coherent","compelling","concise","contentious","explicit","lucid","logical","relevant"]);
+const ADVANCED_SUBJECT_OVERRIDES:Record<string,string>={
+ absolute:"condition",acute:"problem",adaptive:"framework",adequate:"evidence",adverse:"effect",
+ consequential:"change",conventional:"approach",critical:"issue",decisive:"factor",deficient:"evidence",
+ detrimental:"effect",efficient:"system",elusive:"target",exceptional:"circumstance",excessive:"amount",
+ finite:"resource",fundamental:"principle",inevitable:"outcome",innovative:"approach",integral:"component",
+ marginal:"improvement",moderate:"change",notable:"improvement",preliminary:"finding",resilient:"system",
+ significant:"effect",stable:"pattern",strategic:"decision",stringent:"requirement",sufficient:"evidence",
+ transparent:"process",uniform:"pattern",unprecedented:"event",vulnerable:"group",austere:"policy",
+ complex:"issue",concrete:"example",dynamic:"environment",formal:"procedure",generic:"description",
+ holistic:"approach",minimal:"change",institutional:"framework",material:"consideration",measurable:"effect"
+};
 function advancedSubject(word:string){
+ if(ADVANCED_SUBJECT_OVERRIDES[word])return ADVANCED_SUBJECT_OVERRIDES[word]!;
  if(RELATION.has(word))return"relationship";
  if(TREND.has(word))return"pattern";
  if(STRUCTURE.has(word))return word==="vertical"?"structure":word==="aggregate"?"figure":word==="concurrent"?"events":"factor";
@@ -71,9 +83,6 @@ function advancedSubject(word:string){
  if(ARGUMENT.has(word))return"argument";
  if(word==="equitable")return"arrangement";
  if(word==="discerning")return"analysis";
- if(word==="institutional")return"framework";
- if(word==="material")return"consideration";
- if(word==="measurable")return"effect";
  return"feature";
 }
 export function buildSscAdvancedV4(id:string,word:string):Eng013AuthorityV1{
@@ -173,8 +182,13 @@ const prelimFrames:Record<PrelimCategory,readonly (readonly[string,string,string
  ]
 };
 const fill=(s:string,w:string)=>s.replaceAll("{w}",w);
+const PRELIM_SPECIAL:Record<string,readonly[string,string,string]>={
+ "cardholder":["The cardholder reported the disputed transaction to the bank.","The bank sent the cardholder a security alert after the transaction.","The cardholder was asked to verify the purchase before the block was removed."],
+ "MICR":["The cheque carried the MICR information required for clearing.","The branch explained how MICR is used in cheque processing.","The bank verified the MICR details printed on the cheque."],
+ "IFSC":["The customer entered the IFSC before initiating the transfer.","The branch confirmed the IFSC shown on the transfer form.","The beneficiary details included the correct IFSC for the branch."]
+};
 export function buildBankingPrelimsV4(id:string,word:string):Eng013AuthorityV1{
- const category=prelimCategory(word),good=pick(prelimFrames[category],id).map(x=>fill(x,word)) as unknown as readonly[string,string,string];
+ const category=prelimCategory(word),good=(PRELIM_SPECIAL[word]??pick(prelimFrames[category],id).map(x=>fill(x,word))) as readonly[string,string,string];
  const invalid=[
   `The customer decided to ${word} the application before submission.`,
   `The branch officer ${word} the form before sending it for review.`,
@@ -189,12 +203,12 @@ export function buildBankingPrelimsV4(id:string,word:string):Eng013AuthorityV1{
 type MainsCategory="policy-rate"|"risk"|"capital"|"instrument"|"market"|"derivative"|"liquidity"|"general";
 function mainsCategory(word:string):MainsCategory{
  const w=word.toLowerCase();
- if(/rate|basis point|policy corridor|term premium|credit spread|bid-ask spread/.test(w))return"policy-rate";
+ if(w!=="swap rate"&&/swap|forward rate agreement|derivatives|mark-to-market|margin|central counterparty|clearing house/.test(w))return"derivative";
  if(/risk|probability of default|exposure at default|loss given default|recovery rate|expected credit loss/.test(w))return"risk";
- if(/capital|leverage ratio|risk-weighted assets|buffer|provision coverage|npa ratio/.test(w))return"capital";
+ if(/capital|common equity tier 1|tier 1 capital|tier 2 capital|leverage ratio|risk-weighted assets|buffer|provision coverage|npa ratio/.test(w))return"capital";
+ if(/rate|basis point|policy corridor|term premium|credit spread|bid-ask spread/.test(w))return"policy-rate";
  if(/security|debenture|commercial paper|certificate of deposit|treasury bill|loan|gilt fund|tranche|subordinated debt|securitization|special purpose vehicle/.test(w))return"instrument";
  if(/market|book building|rights issue|bonus issue|share buyback|dividend payout|face value|issue price|market price|underwriting|loan syndication/.test(w))return"market";
- if(/swap|forward rate agreement|derivatives|mark-to-market|margin|counterparty|clearing house/.test(w))return"derivative";
  if(/liquidity|stable funding|asset-liability|duration gap|repricing gap|credit conversion factor/.test(w))return"liquidity";
  return"general";
 }
