@@ -126,6 +126,16 @@ for (const [cpId, cpLabel, prefix] of CPS) {
       assert.ok(stripTags(sentence).toLowerCase().includes(targetText.replace(/[,.;:!?]+$/, "").toLowerCase()), `${cpId}/${difficulty}/${sample} target text is not present in the learner sentence`);
       assert.equal(options.length, 4, `${cpId}/${difficulty}/${sample} must expose exactly four options`);
       assert.equal(options[3], "No improvement", `${cpId}/${difficulty}/${sample} must keep No improvement as option D`);
+
+      const visibleSentence = stripTags(sentence);
+      if (correctIndex === 3) {
+        assert.equal(visibleSentence, correctedSentence,
+          `${cpId}/${difficulty}/${sample} keys No improvement even though the visible sentence differs from the corrected sentence`);
+      } else {
+        assert.notEqual(visibleSentence, correctedSentence,
+          `${cpId}/${difficulty}/${sample} asks for improvement even though the visible sentence is already correct`);
+      }
+
       assert.equal(new Set(options.map((option) => option.toLowerCase())).size, 4, `${cpId}/${difficulty}/${sample} contains duplicate options`);
       assert.ok(Number.isInteger(correctIndex) && correctIndex >= 0 && correctIndex < 4, `${cpId}/${difficulty}/${sample} answer index is invalid`);
       assert.ok(correctedSentence.length >= 12, `${cpId}/${difficulty}/${sample} corrected sentence is too short`);
