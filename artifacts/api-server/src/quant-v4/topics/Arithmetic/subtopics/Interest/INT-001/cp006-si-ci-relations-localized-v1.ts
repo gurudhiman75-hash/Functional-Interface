@@ -91,14 +91,14 @@ function localizedStem(qlId: IntCp006QlId, state: any, template: LocalizedTempla
     case "INT-QL-097": {
       const frames = hi ? [
         `${money(state.principal)} पर ${percent(state.ratePercent)} वार्षिक दर से 3 वर्षों के लिए चक्रवृद्धि ब्याज और साधारण ब्याज का अंतर ज्ञात कीजिए।`,
-        `${money(state.principal)} को 3 वर्षों के लिए ${percent(state.ratePercent)} वार्षिक दर पर निवेश किया गया है। वार्षिक चक्रवृद्धि से साधारण ब्याज की तुलना में कितना अधिक ब्याज मिलेगा?`,
+        `3 वर्षों की अवधि के लिए ${money(state.principal)} को ${percent(state.ratePercent)} वार्षिक दर पर लगाया गया है। साधारण ब्याज की तुलना में वार्षिक चक्रवृद्धि से मिलने वाला अतिरिक्त ब्याज ज्ञात कीजिए।`,
         `${percent(state.ratePercent)} वार्षिक दर से 3 वर्षों के लिए ${money(state.principal)} पर CI, SI से कितना अधिक होगा?`,
         `समान मूलधन ${money(state.principal)} पर ${percent(state.ratePercent)} की दर से 3 वर्षों के साधारण और वार्षिक चक्रवृद्धि ब्याज का अंतर ज्ञात कीजिए।`,
         `${money(state.principal)} की राशि 3 वर्षों के लिए ${percent(state.ratePercent)} वार्षिक दर पर लगाई गई है। साधारण ब्याज के बजाय वार्षिक चक्रवृद्धि करने पर कितना अतिरिक्त ब्याज मिलेगा?`,
         `${table(locale, [["मूलधन", money(state.principal)], ["वार्षिक दर", percent(state.ratePercent)], ["समय", "3 वर्ष"]])}\n\nवार्षिक चक्रवृद्धि ब्याज और साधारण ब्याज का अंतर ज्ञात कीजिए।`,
       ] : [
         `${money(state.principal)} ਉੱਤੇ ${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ ਨਾਲ 3 ਸਾਲਾਂ ਲਈ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਅਤੇ ਸਧਾਰਣ ਵਿਆਜ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।`,
-        `${money(state.principal)} ਨੂੰ 3 ਸਾਲਾਂ ਲਈ ${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ 'ਤੇ ਲਗਾਇਆ ਗਿਆ ਹੈ। ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਨਾਲ ਸਧਾਰਣ ਵਿਆਜ ਦੇ ਮੁਕਾਬਲੇ ਕਿੰਨਾ ਵੱਧ ਵਿਆਜ ਮਿਲੇਗਾ?`,
+        `3 ਸਾਲਾਂ ਦੀ ਮਿਆਦ ਲਈ ${money(state.principal)} ਨੂੰ ${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ 'ਤੇ ਲਗਾਇਆ ਗਿਆ ਹੈ। ਸਧਾਰਣ ਵਿਆਜ ਦੇ ਮੁਕਾਬਲੇ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਨਾਲ ਮਿਲਣ ਵਾਲਾ ਵਾਧੂ ਵਿਆਜ ਪਤਾ ਕਰੋ।`,
         `${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ ਨਾਲ 3 ਸਾਲਾਂ ਲਈ ${money(state.principal)} ਉੱਤੇ CI, SI ਨਾਲੋਂ ਕਿੰਨਾ ਵੱਧ ਹੋਵੇਗਾ?`,
         `ਇੱਕੋ ਮੂਲਧਨ ${money(state.principal)} ਉੱਤੇ ${percent(state.ratePercent)} ਦੀ ਦਰ ਨਾਲ 3 ਸਾਲਾਂ ਦੇ ਸਧਾਰਣ ਅਤੇ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।`,
         `${money(state.principal)} ਦੀ ਰਕਮ 3 ਸਾਲਾਂ ਲਈ ${percent(state.ratePercent)} ਸਾਲਾਨਾ ਦਰ 'ਤੇ ਲਗਾਈ ਗਈ ਹੈ। ਸਧਾਰਣ ਵਿਆਜ ਦੀ ਥਾਂ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਕਰਨ ਨਾਲ ਕਿੰਨਾ ਵਾਧੂ ਵਿਆਜ ਮਿਲੇਗਾ?`,
