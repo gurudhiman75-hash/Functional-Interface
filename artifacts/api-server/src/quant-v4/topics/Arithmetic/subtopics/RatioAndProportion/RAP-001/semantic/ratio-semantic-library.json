@@ -371,10 +371,10 @@
           "frequency": "uncommon"
         },
         {
-          "id": "computer_science",
-          "en": "Computer Science",
-          "hi": "कंप्यूटर विज्ञान",
-          "pa": "ਕੰਪਿਊਟਰ ਵਿਗਿਆਨ",
+          "id": "it",
+          "en": "IT",
+          "hi": "आईटी",
+          "pa": "ਆਈਟੀ",
           "gender": "neutral",
           "numberType": "uncountable",
           "frequency": "common"
