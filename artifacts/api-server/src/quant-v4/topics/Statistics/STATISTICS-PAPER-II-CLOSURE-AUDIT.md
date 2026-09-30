@@ -6,7 +6,7 @@
 
 ## Implemented foundation
 
-STAT-001 through STAT-014 are merged. The original permanent contracts cover STAT-QL-001 through STAT-QL-175. Controlled-review depth additions extend STAT-QL-176 through STAT-QL-198 across STAT-007 and STAT-011 through STAT-014. Package-level workflows for STAT-004 through STAT-014 passed. The STAT-001, STAT-002, and original STAT-003 package checks also passed.
+STAT-001 through STAT-014 are merged. The original permanent contracts cover STAT-QL-001 through STAT-QL-175. Controlled-review depth additions extend STAT-QL-176 through STAT-QL-199 across STAT-007 and STAT-011 through STAT-014. Package-level workflows for STAT-004 through STAT-014 passed. The STAT-001, STAT-002, and original STAT-003 package checks also passed.
 
 The review-only lifecycle remains in force: Question Bank writes, test/mock eligibility, localization, public publication, and production release are disabled.
 
@@ -25,7 +25,7 @@ The review-only lifecycle remains in force: Question Bank writes, test/mock elig
 | Statistical inference | STAT-011 | Point-estimation foundations now include known-σ mean and Wald proportion interval construction plus upper-tailed Z and chi-square critical-value decisions. Two-sample/small-sample intervals, p-values, broader test families, power, and sample-size planning remain deferred. |
 | Analysis of variance | STAT-012 | One-way foundation plus replicated 2×2 interaction sum-of-squares/F calculation, interaction interpretation, Tukey-style follow-up, and classical assumptions. Broader layouts, diagnostics, and robust alternatives remain open. |
 | Time series | STAT-013 | Trend can be fitted from raw coded-time observations by least squares; raw-data centered four-quarter moving averages, adjusted quarterly indices, additive seasonal forecasts, and multiplicative deseasonalization are also covered. Other decomposition and forecasting extensions remain open. |
-| Index numbers | STAT-014 | Weighted price relatives, multi-period Laspeyres basket, three-link chain index, and rebasing a multi-period series now supplement the foundation; broader index families remain open. |
+| Index numbers | STAT-014 | Weighted price relatives, multi-period Laspeyres basket, three-link chain index, rebasing a multi-period series, and a Marshall-Edgeworth price index now supplement the foundation; broader index families remain open. |
 
 ## Review and validation notes
 

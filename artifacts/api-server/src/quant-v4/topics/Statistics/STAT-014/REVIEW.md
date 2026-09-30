@@ -219,3 +219,16 @@ D. 80
 
 **Explanation:** Rebased index = (old period 2 index / old period 4 index)×100 = (115/150)×100 = 76.67.
 
+
+## STAT-QL-199 — Marshall-Edgeworth price index
+
+For three commodities, current prices are (3, 5, 6), base prices are (2, 4, 5), base quantities are (10, 5, 4), and current quantities are (8, 6, 5). Find the Marshall-Edgeworth price index.
+
+A. 130.4
+B. 128.4
+C. 132.4
+D. 134.4
+
+**Answer:** A. 130.4
+
+**Explanation:** Use the sum of base and current quantities as weights: q₀+q₁ = (18, 11, 9). Thus ME = [Σp₁(q₀+q₁)/Σp₀(q₀+q₁)]×100 = [(3×18+5×11+6×9)/(2×18+4×11+5×9)]×100 = (163/125)×100 = 130.4.
