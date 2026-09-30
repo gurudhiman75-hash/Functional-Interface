@@ -272,3 +272,16 @@ D. The test must be two-tailed
 
 **Explanation:** Calculate χ² = Σ(O−E)²/E = 2. Reject H₀ when χ² exceeds 5.99. Since 2 ≤ 5.99, fail to reject H₀.
 
+
+## STAT-QL-200 — Decision from a supplied p-value
+
+A hypothesis test reports a p-value of 0.032. At significance level α = 0.05, what is the correct decision?
+
+A. The p-value is the probability that H₀ is true
+B. Accept H₀ as proven
+C. Reject H₀
+D. Fail to reject H₀
+
+**Answer:** C. Reject H₀
+
+**Explanation:** Compare the p-value with α: 0.032 < 0.05. The result is statistically significant at this level, so reject H₀. This does not prove H₁ or give the probability that H₀ is true.
