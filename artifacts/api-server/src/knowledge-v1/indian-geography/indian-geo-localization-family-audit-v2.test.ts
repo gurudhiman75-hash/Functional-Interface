@@ -3,6 +3,26 @@ import { auditIndianGeoLocalizationFamilyV2 } from "./indian-geo-localization-fa
 
 const audit = auditIndianGeoLocalizationFamilyV2();
 
+console.log(JSON.stringify({
+  authorityId: audit.authorityId,
+  structuralValid: audit.structuralValid,
+  qualityReadyForFreeze: audit.qualityReadyForFreeze,
+  reviewRequired: audit.reviewRequired,
+  totals: audit.totals,
+  packages: audit.packages.map((pkg) => ({
+    packageId: pkg.packageId,
+    canonicalQuestionCount: pkg.canonicalQuestionCount,
+    hindiStemResidueCount: pkg.hindiStemResidueCount,
+    punjabiStemResidueCount: pkg.punjabiStemResidueCount,
+    hindiOptionResidueCount: pkg.hindiOptionResidueCount,
+    punjabiOptionResidueCount: pkg.punjabiOptionResidueCount,
+    genericExplanationFallbackCount: pkg.genericExplanationFallbackCount,
+    mixedScriptCount: pkg.mixedScriptCount,
+    qualityReadyForFreeze: pkg.qualityReadyForFreeze,
+  })),
+}, null, 2));
+
+
 assert.equal(audit.authorityId, "INDIAN-GEO-LOCALIZATION-FAMILY-QA-V2");
 assert.equal(audit.packageCount, 15);
 assert.equal(audit.structuralValid, true);
@@ -22,21 +42,4 @@ assert.equal(
 assert.equal(audit.reviewRequired, !audit.qualityReadyForFreeze);
 
 
-console.log(JSON.stringify({
-  authorityId: audit.authorityId,
-  structuralValid: audit.structuralValid,
-  qualityReadyForFreeze: audit.qualityReadyForFreeze,
-  reviewRequired: audit.reviewRequired,
-  totals: audit.totals,
-  packages: audit.packages.map((pkg) => ({
-    packageId: pkg.packageId,
-    canonicalQuestionCount: pkg.canonicalQuestionCount,
-    hindiStemResidueCount: pkg.hindiStemResidueCount,
-    punjabiStemResidueCount: pkg.punjabiStemResidueCount,
-    hindiOptionResidueCount: pkg.hindiOptionResidueCount,
-    punjabiOptionResidueCount: pkg.punjabiOptionResidueCount,
-    genericExplanationFallbackCount: pkg.genericExplanationFallbackCount,
-    mixedScriptCount: pkg.mixedScriptCount,
-    qualityReadyForFreeze: pkg.qualityReadyForFreeze,
-  })),
-}, null, 2));
+// CI trigger probe: validates dedicated localization workflow scheduling.
