@@ -165,3 +165,57 @@ D. 118
 - Confirm moving-average arithmetic, trend forecasts, and seasonal index base.
 - This candidate does not authorize storage, tests, mocks, localization, publication, or production release.
 
+
+
+## STAT-QL-191 — Centered moving average from raw observations
+
+Quarterly observations over five consecutive quarters are 8, 10, 14, 18, and 22. Find the centered 4-quarter moving average at the middle quarter.
+
+A. 14.25
+B. 12.5
+C. 16
+D. 14.5
+
+**Answer:** A. 14.25
+
+**Explanation:** The adjacent 4-quarter averages are 12.5 and 16. Their average is the centered value: (12.5 + 16)/2 = 14.25.
+
+## STAT-QL-192 — Adjust a quarterly seasonal index
+
+Unadjusted quarterly seasonal indices are 80, 110, 130, and 90. Adjust the third-quarter index so the four indices sum to 400.
+
+A. 126.83
+B. 130
+C. 123.17
+D. 120
+
+**Answer:** A. 126.83
+
+**Explanation:** The indices sum to 410, but quarterly indices must sum to 400. Adjustment factor = 400/410. Adjusted third-quarter index = 130×400/410 = 126.83.
+
+## STAT-QL-193 — Forecast with an additive seasonal effect
+
+An additive time-series model gives a trend forecast of 120 for a quarter and a seasonal effect of −8 for that quarter. Find the forecast including seasonality.
+
+A. 112
+B. 128
+C. 112.8
+D. 120
+
+**Answer:** A. 112
+
+**Explanation:** For an additive model, forecast = trend + seasonal effect = 120 + (−8) = 112.
+
+## STAT-QL-194 — Multiplicative deseasonalization
+
+An observed value is 132 and its seasonal index is 110. Find the deseasonalized value using the multiplicative model.
+
+A. 120
+B. 145.2
+C. 22
+D. 132
+
+**Answer:** A. 120
+
+**Explanation:** Convert the index to a factor: 110/100 = 1.10. Deseasonalized value = 132/1.10 = 120.
+
