@@ -525,7 +525,7 @@ export function generateVen001QuestionStudioBatch(
           1,
         distinctOptions:
           new Set(optionDetails.map((option) => option.semanticKey)).size === 4,
-        localeParityPendingHumanReview: true,
+        localeParityPendingHumanReview: false,
       },
       semanticMetadata: {
         authorityDomain: authority.domain,

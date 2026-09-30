@@ -1,8 +1,8 @@
 # VEN-001 CP003 Category-Set Candidate Pool V3
 
-Status: **34 trilingual candidate authorities; every record remains pending human review**
+Status: **34 trilingual scenario authorities signed off by the user on 2026-09-30**
 
-The pool is available through the shared Question Studio reasoning-v1 package for review-only generation. These records are candidate factual authorities, not approved answer keys. The Hindi and Punjabi text, domain facts, and exam suitability require human review before any freeze or permanent QL assignment.
+The user signed off on all 34 reviewed authorities, including their English, Hindi and Punjabi labels, set relationships, and rationales. The pool remains in review-only Question Studio mode; this signoff does not allocate permanent QL IDs or authorize Question Bank writes, tests, mock tests, public publication, or production release.
 
 ## Coverage
 
@@ -25,8 +25,8 @@ The generator selects an operation deterministically from the request seed, or a
 
 ## Difficulty and lifecycle
 
-Easy and Medium are provisional structure-based review labels. Hard is disabled. Every item is marked `PENDING_TRILINGUAL_HUMAN_REVIEW`; the chapter has no permanent QL allocation. Question Bank writes, tests, mock tests, publication, and production release remain disabled.
+Easy and Medium remain provisional structure-based labels. Hard is disabled. All 34 CP003 authorities carry `USER_SIGNED_OFF_TRILINGUAL_REVIEW`; the chapter has no permanent QL allocation. Question Bank writes, tests, mock tests, publication, and production release remain disabled pending their separate workflow approvals.
 
 ## Chapter integration status
 
-CP001 two-group relationship selection, CP002 three-group topology selection, CP003 category-set identification, and CP004 numbered-region identification are integrated into the standard Question Studio workflow in review-only mode. Candidate authorities and translated wording remain pending human review. Quantitative set-count problems, syllogism conclusion evaluation, and data-interpretation caselets remain outside this logical-reasoning chapter.
+CP001 two-group relationship selection, CP002 three-group topology selection, CP003 category-set identification, and CP004 numbered-region identification are integrated into the standard Question Studio workflow in review-only mode. The CP003 trilingual authority set is signed off; the other checkpoints remain review-only. Quantitative set-count problems, syllogism conclusion evaluation, and data-interpretation caselets remain outside this logical-reasoning chapter.
