@@ -1,7 +1,21 @@
 import assert from"node:assert/strict";
 import{ENG008_CP001_PASSAGES_V1,ENG008_CP001_QUESTION_AUTHORITIES_V1}from"../chapters/reading-comprehension/ENG-008/CP001/eng-008-cp001-authorities-v1";
 import{ENG008_CP001_FAMILY_IDS_V1,generateEng008Cp001QuestionV1}from"../chapters/reading-comprehension/ENG-008/CP001/eng-008-cp001-v1";
+import{ENG008_CP001_REMEDIATED_WAVE14_V1,ENG008_CP001_REMEDIATED_WAVE15_V1,ENG008_CP001_REMEDIATED_WAVE16_V1,ENG008_CP001_REMEDIATED_WAVE17_V1,ENG008_CP001_REMEDIATED_WAVE18_V1,ENG008_CP001_REMEDIATED_WAVE19_V1}from"../chapters/reading-comprehension/ENG-008/CP001/eng-008-cp001-remediation-waves14-19-v1";
 
+const remediated=[...ENG008_CP001_REMEDIATED_WAVE14_V1,...ENG008_CP001_REMEDIATED_WAVE15_V1,...ENG008_CP001_REMEDIATED_WAVE16_V1,...ENG008_CP001_REMEDIATED_WAVE17_V1,...ENG008_CP001_REMEDIATED_WAVE18_V1,...ENG008_CP001_REMEDIATED_WAVE19_V1];
+assert.equal(remediated.length,48);assert.equal(new Set(remediated.map(x=>x.id)).size,48);
+for(const p of remediated){
+ const n=p.text.trim().split(/\s+/).length;
+ assert.ok(n>=180&&n<=250,`${p.id} remediation words=${n}`);
+ assert.ok(p.text.includes("\n\n"),`${p.id} remediation should remain multi-paragraph`);
+ assert.equal(p.questions.length,6);
+ for(const q of p.questions){
+  assert.ok(q.explanation.length>=80,`${q.id} remediation explanation too thin`);
+  assert.equal(new Set([q.correctAnswer,...q.distractors].map(x=>x.toLowerCase())).size,4,`${q.id} remediation option collision`);
+  assert.notEqual(q.explanation,"The passage states this fact directly before explaining how the confusion was resolved.");
+ }
+}
 assert.equal(ENG008_CP001_PASSAGES_V1.length,126);
 assert.equal(new Set(ENG008_CP001_PASSAGES_V1.map(x=>x.id)).size,126);
 assert.equal(ENG008_CP001_QUESTION_AUTHORITIES_V1.length,756);
@@ -44,4 +58,4 @@ for(const difficulty of["easy","medium","hard"]as const){
   assert.equal(q.metadata.reviewOnly,true);
  }
 }
-console.log("ENG-008 CP001 SSC foundation RC audit passed.",{passages:38,authorities:228,soak:6000});
+console.log("ENG-008 CP001 SSC foundation RC audit passed.",{passages:126,authorities:756,remediatedPassages:48,soak:6000});
