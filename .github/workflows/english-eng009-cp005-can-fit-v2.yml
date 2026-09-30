@@ -50,6 +50,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ENG-009-CP005-FULL-REVIEW-V2
-          path: artifacts/api-server/dist/english-v1/ENG-009-CP005-FULL-REVIEW-V2.md
+          path: dist/english-v1/ENG-009-CP005-FULL-REVIEW-V2.md
           if-no-files-found: error
           retention-days: 30
