@@ -1320,6 +1320,14 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
   }
 };
 
+export function listPnlAuthoredStemVariantQlIds(): readonly string[] {
+  return Object.keys(STEMS).sort();
+}
+
+export function hasPnlAuthoredStemVariants(qlId: string): boolean {
+  return Boolean(STEMS[qlId]);
+}
+
 function hash(value: string): number {
   let h = 2166136261;
   for (const character of value) {
