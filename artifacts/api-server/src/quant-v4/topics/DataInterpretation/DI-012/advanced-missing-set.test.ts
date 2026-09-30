@@ -67,6 +67,7 @@ for(let i=0;i<350;i++){
     assert.equal(new Set(q.options).size,5,`${seed}: duplicate options`);
     assert.equal(q.options[q.correctIndex],q.answer,`${seed}: answer/index drift`);
     assert(!/\.\d/u.test(q.answer),`${seed}: decimal answer leaked: ${q.answer}`);
+    assert.doesNotMatch(q.stem,/after recovering|after recovery|after solving|recover .* first/iu,`${seed}: solving directions leaked into the stem: ${q.stem}`);
     assert(q.explanation.steps.length>0);
   }
 }
