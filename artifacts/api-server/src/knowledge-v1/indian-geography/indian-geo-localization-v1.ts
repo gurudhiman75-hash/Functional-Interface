@@ -1,3 +1,4 @@
+import { localizeGeoSoi001ExactCp001PartA } from "./soils/geo-soi-001-localization-cp001-part-a-v1";
 import {
   GEO_WAT_001_CP001_HINDI_LOCALIZATION_V1,
   GEO_WAT_001_CP001_PUNJABI_LOCALIZATION_V1,
@@ -521,6 +522,11 @@ function localizeNaturalStem(text: string, language: "hi"|"pa", packageId?: stri
 
     m = text.match(/^A district has many employed adults relative to its total population\. Which indicator is likely to be high\?$/);
     if (m) return hi ? "किसी जिले की कुल जनसंख्या की तुलना में रोजगार प्राप्त वयस्कों की संख्या अधिक है। कौन-सा सूचक अधिक होने की संभावना है?" : "ਕਿਸੇ ਜ਼ਿਲ੍ਹੇ ਦੀ ਕੁੱਲ ਆਬਾਦੀ ਦੇ ਮੁਕਾਬਲੇ ਰੁਜ਼ਗਾਰਸ਼ੁਦਾ ਬਾਲਗਾਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਹੈ। ਕਿਹੜਾ ਸੂਚਕ ਵੱਧ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ?";
+  }
+
+  if (packageId === "GEO-SOI-001") {
+    const approved = localizeGeoSoi001ExactCp001PartA(question, language);
+    if (approved) return approved;
   }
 
   if (packageId === "GEO-WAT-001") {
