@@ -165,3 +165,57 @@ D. P₀₁ + Q₀₁ = V₀₁
 - Check Fisher rounding, chain-linking and base-shifting direction, inflation percentage, and test conditions.
 - This candidate does not authorize storage, tests, mocks, localization, publication, or production release.
 
+
+
+## STAT-QL-195 — Weighted average of price relatives
+
+Three commodities have price relatives 120, 110, and 130, with respective base-period value weights 5, 3, and 2. Find the weighted arithmetic mean.
+
+A. 119
+B. 120
+C. 118
+D. 121
+
+**Answer:** A. 119
+
+**Explanation:** Weighted average = Σ(wR)/Σw = (5×120 + 3×110 + 2×130)/(5+3+2) = 119.
+
+## STAT-QL-196 — Laspeyres index across multiple periods
+
+For three commodities, base-period prices are (10, 20, 5), current-period prices are (10, 22, 6), and base-period quantities are (2, 1, 4). Find the Laspeyres price index.
+
+A. 110
+B. 106.67
+C. 116.67
+D. 100
+
+**Answer:** A. 110
+
+**Explanation:** Σp₁q₀ = 10×2 + 22×1 + 6×4 = 66 and Σp₀q₀ = 10×2 + 20×1 + 5×4 = 60. Thus L = (66/60)×100 = 110.
+
+## STAT-QL-197 — Chain-linked index across multiple years
+
+A chain-linked index is 100 in year 0. Link relatives for years 1, 2, and 3 are 105, 110, and 95. Find the index for year 3.
+
+A. 109.73
+B. 109.5
+C. 110
+D. 104.5
+
+**Answer:** A. 109.73
+
+**Explanation:** Multiply the successive link relatives: 100×(105/100)×(110/100)×(95/100) = 109.725, or 109.73 to two decimals.
+
+## STAT-QL-198 — Rebase a multi-period index series
+
+A multi-period index series is 100, 115, 130, and 150 for periods 1 to 4 on the old base. Rebase to period 4 = 100. Find the rebased index for period 2.
+
+A. 76.67
+B. 82.61
+C. 115
+D. 80
+
+**Answer:** A. 76.67
+
+**Explanation:** Rebased index = (old period 2 index / old period 4 index)×100 = (115/150)×100 = 76.67.
+
