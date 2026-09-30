@@ -151,14 +151,14 @@ Simplification should still be evidence-based. Removing a step may save time, bu
 
 Every extra step should therefore have a reason. If a rule adds effort without reducing risk, it may deserve to be __(3)__. If it protects against a serious failure, it should remain even when it is inconvenient. This requires judgment rather than a simple preference for either more or fewer controls.
 
-Clear priorities also make compliance easier to __(4)__ over time because employees know which actions matter most. Training and monitoring can then focus on the highest-risk points. A simple rule can be powerful when it directs attention to the right action at the right time.
+Clear priorities also make compliant behaviour easier to __(4)__ over time because employees know which actions matter most. Training and monitoring can then focus on the highest-risk points. A simple rule can be powerful when it directs attention to the right action at the right time.
 
 The best procedures reduce cognitive load while preserving essential protections. That makes a system easier to follow and harder to __(5)__. Ultimately, a written rule works only if people can use it consistently. Good policy therefore considers human behaviour from the beginning rather than assuming instructions will automatically be __(6)__.`,
  blanks:[
  b("N08-B1",1,"hard","can-fit",["robust","reliable","effective"],["decorative"],"Good rules should still work under real pressure.","rules more ... in real conditions"),
  b("N08-B2",2,"medium","cannot-fit",["direct","usable","consistent"],["confusing"],"The path should become clearer, not confusing.","path ... more ..."),
  b("N08-B3",3,"hard","phrasal-word",["removed"],["painted","admired","celebrated"],"A useless rule may deserve to be removed.","deserve to be ..."),
- b("N08-B4",4,"medium","can-fit",["maintain","sustain","repeat"],["hide"],"Clear priorities make compliance easier to keep over time.","compliance becomes easier to ..."),
+ b("N08-B4",4,"medium","can-fit",["maintain","sustain","repeat"],["hide"],"Clear priorities make compliant behaviour easier to maintain, sustain or repeat over time.","compliant behaviour becomes easier to ..."),
  b("N08-B5",5,"hard","cannot-fit",["misuse","ignore","bypass"],["understand"],"A good system should be harder to misuse or bypass. 'Understand' is the opposite.","harder to ..."),
  b("N08-B6",6,"medium","phrasal-word",["followed"],["forgotten","hidden","broken"],"Written instructions matter only if people can follow them.","instructions will automatically be ...")
  ]
