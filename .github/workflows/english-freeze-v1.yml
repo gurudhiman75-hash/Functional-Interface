@@ -1,0 +1,39 @@
+name: Validate English Freeze V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/english-v1-freeze-authority.ts
+      - artifacts/api-server/src/english-v1/ENGLISH-CONTENT-CLOSURE-AUDIT-V4.md
+      - artifacts/api-server/src/english-v1/tests/english-final-closure-v4.test.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: english-freeze-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-english-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install dependencies
+        timeout-minutes: 10
+        run: pnpm install --frozen-lockfile
+      - name: Compile English freeze regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/english-final-closure-v4.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/english-freeze-v1.test.mjs
+      - name: Run English freeze regression
+        run: node artifacts/api-server/dist/english-v1/english-freeze-v1.test.mjs
