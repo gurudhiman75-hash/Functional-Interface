@@ -1,11 +1,4 @@
-import type{Eng013AuthorityV1}from"./eng-013-authorities-v1";
-const cap=(s:string)=>s.charAt(0).toUpperCase()+s.slice(1);
-const a=(id:string,word:string,object:string):Eng013AuthorityV1=>({id,cpId:"ENG-013-CP001",difficulty:"medium",word,mode:"incorrect",sentences:[
-`The committee may ${word} ${object} after a formal review.`,
-`Officials may ${word} ${object} when the rules permit it.`,
-`${cap("the department")} may ${word} ${object} before issuing its final decision.`,
-`The committee may ${word} to ${object} after a formal review.`
-],answerIndex:3,explanation:`In the first three sentences, "${word}" is used as a transitive verb and takes its object directly. In option D, "to" is inserted before the object, which makes the verb pattern incorrect. Hence option D is the incorrect usage.`});
+import{buildSscStandardV4 as a}from"./eng-013-v4-editorial-builders";
 export const ENG013_BREADTH3_SSC_STANDARD_V4:readonly Eng013AuthorityV1[]=[
 a("WU-BR3-S001","abolish","the outdated rule"),
 a("WU-BR3-S002","absorb","the additional cost"),
