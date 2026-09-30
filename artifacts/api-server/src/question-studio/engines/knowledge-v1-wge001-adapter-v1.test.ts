@@ -89,12 +89,17 @@ async function run() {
   for (const cp of cpIds) {
     for (const difficulty of ['Mixed', 'Easy', 'Medium', 'Hard']) {
       const expected = generationPool.filter(q => q.cpId === cp && (difficulty === 'Mixed' || q.difficulty === difficulty));
-      const en = await adapter.generate({packageId: 'WGE-001', canonicalProblemId: cp, difficulty, count: expected.length, seed: 'audit'});
+      // Runtime requests are intentionally capped at 50. Every corpus and
+      // variable-pool item is validated individually below, so this sweep
+      // checks filtering, no-repeat behaviour and cross-language parity on
+      // the largest supported request rather than exceeding the API limit.
+      const requestCount = Math.min(expected.length, 50);
+      const en = await adapter.generate({packageId: 'WGE-001', canonicalProblemId: cp, difficulty, count: requestCount, seed: 'audit'});
       for (const language of ['en', 'hi', 'pa'] as const) {
-        const result = await adapter.generate({packageId: cp, language, difficulty, count: expected.length, seed: 'audit'});
+        const result = await adapter.generate({packageId: cp, language, difficulty, count: requestCount, seed: 'audit'});
         assert.deepEqual(result.questions.map(q => q.sourceQuestionId), en.questions.map(q => q.sourceQuestionId));
         assert.deepEqual(result.questions.map(q => q.correctIndex), en.questions.map(q => q.correctIndex));
-        assert.equal(new Set(result.questions.map(q => q.sourceQuestionId)).size, expected.length);
+        assert.equal(new Set(result.questions.map(q => q.sourceQuestionId)).size, requestCount);
         for (const q of result.questions) {
           const canonical = generationPool.find(row => row.id === q.sourceQuestionId)!;
           assert.equal(q.cpId, cp); assert.equal(q.language, language);
