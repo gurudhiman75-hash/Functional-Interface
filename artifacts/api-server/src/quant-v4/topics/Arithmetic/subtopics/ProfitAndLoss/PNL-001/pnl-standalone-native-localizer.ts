@@ -51,6 +51,18 @@ const EXACT: Readonly<Record<string, NativePair>> = {
     "कैशबैक बिल की गई कीमत पर निकाला गया है",
     "ਕੈਸ਼ਬੈਕ ਬਿੱਲ ਕੀਤੀ ਕੀਮਤ ਉੱਤੇ ਕੱਢਿਆ ਗਿਆ ਹੈ",
   ),
+  "The cashback cap is ignored": pair(
+    "कैशबैक की अधिकतम सीमा की अनदेखी की गई है",
+    "ਕੈਸ਼ਬੈਕ ਦੀ ਵੱਧ ਤੋਂ ਵੱਧ ਹੱਦ ਨੂੰ ਅਣਡਿੱਠਾ ਕੀਤਾ ਗਿਆ ਹੈ",
+  ),
+  "The billed price equals the effective cost": pair(
+    "बिल की गई कीमत प्रभावी लागत के बराबर है",
+    "ਬਿੱਲ ਕੀਮਤ ਅਸਲ ਲਾਗਤ ਦੇ ਬਰਾਬਰ ਹੈ",
+  ),
+  "Eligibility cannot be determined": pair(
+    "पात्रता निर्धारित नहीं की जा सकती",
+    "ਯੋਗਤਾ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ",
+  ),
   "Either statement alone is sufficient": pair(
     "कोई भी एक कथन अकेला पर्याप्त है",
     "ਕੋਈ ਵੀ ਇੱਕ ਕਥਨ ਅਕੇਲਾ ਕਾਫ਼ੀ ਹੈ",
