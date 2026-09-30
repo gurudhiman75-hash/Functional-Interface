@@ -12,6 +12,26 @@ assert.equal((cp04 as any).testEligible, false);
 assert.equal((cp04 as any).publiclyPublishable, false);
 
 
+
+const projectionPkg = packages.find((pkg: any) => String(pkg.packageId ?? pkg.id) === "LP-006-PROJECTION");
+assert.ok(projectionPkg, "Global Question Studio must discover LP-006-PROJECTION");
+assert.deepEqual((projectionPkg as any).permanentQlIds, ["LP-QL-045", "LP-QL-046"]);
+assert.equal((projectionPkg as any).runtimeMode, "REVIEW_ONLY");
+assert.equal((projectionPkg as any).questionBankWritable, false);
+
+const projectionOnly: any = await generateQuestion({
+  packageId: "LP-006-PROJECTION",
+  language: "en",
+  seed: "LP-GLOBAL-PROJECTION-PACKAGE-ONLY",
+  count: 3,
+});
+assert.ok(projectionOnly.questions.length >= 3);
+assert.deepEqual(
+  new Set(projectionOnly.questions.map((question: any) => question.patternId)),
+  new Set(["LP-QL-045", "LP-QL-046"]),
+);
+assert.ok(projectionOnly.questions.every((question: any) => question.questionBankWritable === false));
+
 const packageOnly: any = await generateQuestion({
   packageId: "LP-CP04-COUNTERFACTUAL",
   language: "en",
