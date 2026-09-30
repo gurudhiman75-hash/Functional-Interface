@@ -17,6 +17,7 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v7.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio.ts"
       - "artifacts/api-server/src/question-studio/shared-generation-engine-logic-puzzles-v8.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v8-registry-consistency.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-review-export-v1.ts"
   workflow_dispatch:
 
@@ -45,6 +46,8 @@ jobs:
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v7.test.ts
       - name: Prove global Question Studio routes Logic Puzzles through V8
         run: npx --yes tsx artifacts/api-server/src/question-studio/shared-generation-engine-logic-puzzles-v8.test.ts
+      - name: Prove V8 live discovery exactly matches permanent 47-QL registry
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v8-registry-consistency.test.ts
       - name: Export frozen CP04 V3 human review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-review-export-v1.ts lp-cp04-human-review-v3 9 lp-cp04-counterfactual-review-v3.md > /dev/null
       - name: Upload frozen CP04 V3 review pack
