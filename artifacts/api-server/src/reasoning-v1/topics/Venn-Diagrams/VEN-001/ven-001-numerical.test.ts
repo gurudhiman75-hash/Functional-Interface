@@ -12,7 +12,8 @@ import { reasoningV1QuestionStudioAdapter } from "../../../../question-studio/en
 let validated = 0;
 for (let s = 0; s < 200; s++)
   for (const cp of NUMERICAL_CP_IDS) {
-    const batches = ["en", "hi", "pa"].map((language) =>
+    const languages = ["en", "hi", "pa"] as const;
+    const batches = languages.map((language) =>
       generateVen001NumericalBatch({
         packageId: "VEN-001",
         patternId: cp,
@@ -35,7 +36,42 @@ for (let s = 0; s < 200; s++)
       assert.equal(q.questionBankWritable, false);
       assert.equal(q.reviewStatus, "REVIEW_CANDIDATE_TRILINGUAL");
       assert.ok(q.stem && !q.stem.includes("undefined"));
+      assert.ok(
+        !/^A\s*=/.test(q.stem),
+        `${cp}/${meta.queryKey}: stem should open with varied survey wording, not an A/B/C legend`,
+      );
       assert.ok(q.explanation.length > 15);
+      for (let localeIndex = 0; localeIndex < batches.length; localeIndex++) {
+        const localized = batches[localeIndex].questions[i] as any;
+        const scenario = NUMERICAL_CONTEXTS.find(
+          (context) => context.id === localized.semanticMetadata.scenarioId,
+        );
+        assert.ok(
+          scenario?.names[languages[localeIndex]]
+            .split("|")
+            .some((name: string) => localized.explanation.includes(name)),
+          `${cp}/${localized.semanticMetadata.queryKey}/${languages[localeIndex]}: explanation must use this question's actual activity names`,
+        );
+      }
+      assert.ok(
+        !q.explanation.includes("Required count") &&
+          !q.explanation.includes("Required ratio"),
+        `${cp}/${meta.queryKey}: remove placeholder-style explanation labels`,
+      );
+      assert.ok(
+        q.explanation.trim().endsWith(`${q.canonicalAnswer}.`),
+        `${cp}/${meta.queryKey}: explanation must finish with the verified answer`,
+      );
+      if (
+        (cp === "VEN-CP006" || cp === "VEN-CP009") &&
+        meta.queryKey === "none"
+      )
+        assert.ok(
+          q.explanation.includes("pair counts include the centre") &&
+            q.explanation.includes("−") &&
+            q.explanation.includes("+"),
+          `${cp}/none: derive the union from the supplied inclusive counts`,
+        );
       if (r) {
         // Independently materialize each person by their membership rather than reuse the solver.
         const people = r.flatMap((count, mask) =>
