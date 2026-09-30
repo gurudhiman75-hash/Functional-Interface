@@ -148,6 +148,8 @@ for (const cp of ["DI-CP-004-SINGLE","DI-CP-004-MULTI"] as const) {
       assert(question.questionBankWritable===false&&question.testEligible===false&&question.mockTestEligible===false&&question.publiclyPublishable===false&&question.productionReleaseAuthorized===false,`${cp} widened lifecycle authority.`);
       assert(/[\u0900-\u097F\u0A00-\u0A7F]/u.test(question.stem),`${cp} stem is missing localized script.`);
       assert(!/[A-Za-z]{3,}/u.test(question.stem),`${cp} stem leaks an English phrase: ${question.stem}`);
+      assert(question.stem.endsWith("?"),`${cp} stem is not phrased as a direct exam question: ${question.stem}`);
+      assert(!/(पहले|फिर|ज्ञात कीजिए|ज्ञात करें|निकालिए|जोड़िए|जोड़ो|ਕੱਢੋ|ਜੋੜੋ|ਪਹਿਲਾਂ|ਫਿਰ)/u.test(question.stem),`${cp} stem contains step-by-step directions: ${question.stem}`);
       const rendered=question.stimulusSvgs.join(" ").replace(/<[^>]+>/gu," ");
       assert(/[\u0900-\u097F\u0A00-\u0A7F]/u.test(rendered),`${cp} chart is missing localized labels.`);
     }

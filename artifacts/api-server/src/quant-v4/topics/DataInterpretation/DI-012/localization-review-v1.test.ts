@@ -22,6 +22,8 @@ for(let i=0;i<350;i++){
     for(let q=0;q<candidate.questions.length;q++){
       const localized=candidate.questions[q]!,original=source.questions[q]!;tasks.add(localized.kind);
       assert.match(localized.stem,locale==="hi-IN"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u);
+      assert(localized.stem.endsWith("?"),`DI-012 ${locale} stem is not a direct exam question: ${localized.stem}`);
+      assert.doesNotMatch(localized.stem,/(पहले|फिर|ज्ञात करने के बाद|हल करने के बाद|ज्ञात कीजिए|निकालिए|जोड़िए|ਪਹਿਲਾਂ|ਫਿਰ|ਕੱਢੋ|ਜੋੜੋ)/u);
       assert.doesNotMatch(localized.stem,/[A-Za-z]{3,}/u);
       assert.equal(localized.options[localized.correctIndex],localized.answer);
       assert.equal(localized.answer,original.answer);

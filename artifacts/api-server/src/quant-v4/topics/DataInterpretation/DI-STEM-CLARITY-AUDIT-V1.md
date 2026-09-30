@@ -1,6 +1,6 @@
 # Data Interpretation Stem Clarity Audit V1
 
-Audit date: 2026-09-29
+Audit date: 2026-09-30
 
 Scope: learner-facing generated stems and explanations across DI-001–DI-014, with a focused regression pass on rounded answers and histogram total-frequency wording.
 
@@ -27,6 +27,10 @@ So the reviewer's answer and calculation are mathematically consistent. The form
 - Rounded percentage and grouped-statistic stems must signal approximation.
 - DI-009 checks the total-frequency answer against an independent sum of the visible class frequencies.
 - Existing answer-index, independent-verification, deterministic-replay, option and chart checks remain in place.
+
+## Finding: localized candidate stems included solving directions
+
+Several newly added Hindi/Punjabi candidate stems for DI-004 single-/three-series and DI-011 through DI-014 described steps such as finding a missing value first, adding selected values, or calculating an average. These are now phrased as direct questions. The stem tests require a question form and reject the procedural wording; working steps remain in the explanations.
 
 ## Audit boundary
 

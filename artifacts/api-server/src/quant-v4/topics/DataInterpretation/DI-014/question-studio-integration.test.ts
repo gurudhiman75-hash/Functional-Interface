@@ -36,6 +36,8 @@ for(const language of ["hi","pa"] as const){
   for(const q of localized.questions){
     assert.equal(q.language,language);
     assert.match(q.stem,language==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u);
+    assert(q.stem.endsWith("?"),`DI-014 ${language} stem is not a direct exam question: ${q.stem}`);
+    assert.doesNotMatch(q.stem,/(पहले|फिर|ज्ञात कीजिए|निकालिए|जोड़िए|जोड़ो|ਪਹਿਲਾਂ|ਫਿਰ|ਕੱਢੋ|ਜੋੜੋ)/u);
     assert.doesNotMatch(q.stem,/[A-Za-z]{3,}/u);
     assert.equal(q.reviewStatus,"HI_PA_REVIEW_CANDIDATE");
     assert.equal(q.options[q.correctIndex],q.answer);
