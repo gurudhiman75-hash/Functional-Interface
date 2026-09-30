@@ -17,10 +17,10 @@ Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## No-decimal contract
 
-- Selection percentages use nearest whole percent.
-- Average selected uses nearest whole number.
-- Overall selection percentage uses nearest whole percent.
-- Selection-rate difference uses nearest whole percentage point.
+- Selection-percentage stems ask for an approximate result; the generator continues to return integer values.
+- Average-selected stems ask for an approximate result; the generator continues to return integer values.
+- Overall selection-percentage stems ask for an approximate result; the generator continues to return integer values.
+- Selection-rate-difference stems ask for an approximate gap in percentage points; the generator continues to return integer values.
 - Learner-facing answers, options, explanations and working tables contain no decimal values.
 
 ## Safeguards
