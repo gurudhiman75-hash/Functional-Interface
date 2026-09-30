@@ -204,3 +204,20 @@ Remediation:
 - a dedicated path-scoped workflow runs the 450-set structural audit, 10,000-seed soak and Question Studio integration test.
 
 No authority sets, logical orders, paragraph signatures, difficulty labels or production-release permissions are changed.
+
+
+## Phase 14 — ENG-011 Sentence Rearrangement final quality revalidation
+
+The 990-set ENG-011 saturation bank remains structurally saturated; no additional volume is justified. Revalidation found two concrete post-closure defects in active generation/integration surfaces:
+
+1. **Authored explanation loss.** Every authority already contains a structure-specific explanation (for example, identifying the subject/verb core, a concessive opener, a reason clause, a condition or a purpose phrase), but the live generator discarded that authored reasoning and replaced every fragment with the same boilerplate sentence: `because it completes the grammar and meaning of the sentence at that point`.
+2. **Stale Question Studio approval state.** Whole-English closure records the 990-set saturation bank as approved, but the live adapter still marked all questions/package metadata as human-approval pending.
+
+Remediation:
+- the generator now preserves each authority's authored structural explanation and appends the fully reconstructed sentence;
+- the 990-set audit now requires the emitted explanation to contain both the authored reasoning and the exact reconstructed sentence;
+- a dedicated `ENG-011-SATURATION-HUMAN-APPROVED-V1` authority records the approved CP001–CP005 / 990-set review-only lifecycle;
+- Question Studio now exposes the approved human/editorial state while keeping Question Bank, test/mock, public and production release locked;
+- a dedicated path-scoped workflow runs the complete 990-set structural/ambiguity audit, unique-signature checks, 20,000-seed soak and Question Studio integration test.
+
+No authority IDs, fragment surfaces, canonical orders, saturation counts, difficulty labels or production-release permissions are changed.
