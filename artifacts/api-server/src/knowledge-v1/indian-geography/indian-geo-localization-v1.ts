@@ -30,6 +30,8 @@ import { localizeGeoPop001ExactCp004PartC } from "./population-settlements/geo-p
 import { localizeGeoPop001ExactCp005PartA } from "./population-settlements/geo-pop-001-localization-cp005-part-a-v1";
 import { localizeGeoPop001ExactCp005PartB } from "./population-settlements/geo-pop-001-localization-cp005-part-b-v1";
 import { localizeGeoPop001ExactCp005PartC } from "./population-settlements/geo-pop-001-localization-cp005-part-c-v1";
+import { localizeGeoTrn001Cp001PartA } from "./transport-communication/geo-trn-001-localization-cp001-part-a-v1";
+import { localizeGeoTrn001Cp001PartB } from "./transport-communication/geo-trn-001-localization-cp001-part-b-v1";
 
 export type IndianGeoLocalizationLanguageV1 = "en" | "hi" | "pa";
 type CanonicalQuestion = Readonly<{
@@ -791,6 +793,22 @@ export function localizeIndianGeoQuestionV1(
       localizeGeoPop001ExactCp005PartB(question, language) ??
       localizeGeoPop001ExactCp005PartC(question, language);
     if (approved) return approved;
+  }
+
+  if (packageId === "GEO-TRN-001") {
+    const reviewed =
+      localizeGeoTrn001Cp001PartA(question.questionId, language) ??
+      localizeGeoTrn001Cp001PartB(question.questionId, language);
+    if (reviewed) {
+      const options = Object.freeze(question.options.map((option) => localizeText(option, language)));
+      const canonicalAnswer = options[question.correctIndex]!;
+      return Object.freeze({
+        stem: reviewed.stem,
+        options,
+        canonicalAnswer,
+        explanation: reviewed.explanation,
+      });
+    }
   }
 
   const options = Object.freeze(question.options.map((option) => localizeText(option, language)));
