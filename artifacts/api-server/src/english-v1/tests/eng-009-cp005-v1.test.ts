@@ -6,6 +6,17 @@ assert.equal(ENG009_CP005_BLANKS_V1.length,108);
 assert.equal(new Set(ENG009_CP005_PASSAGES_V1.map(x=>x.id)).size,18);
 assert.equal(new Set(ENG009_CP005_BLANKS_V1.map(x=>x.blank.id)).size,108);
 const modes=new Set<string>(),diffs=new Set<string>();
+const byPassage=new Map(ENG009_CP005_PASSAGES_V1.map(p=>[p.id,p]));
+assert.match(byPassage.get("ENG009-NP-C08")!.template,/compliant behaviour easier to __\(4\)__/);
+assert.match(byPassage.get("ENG009-NP-C10")!.template,/fund's target __\(2\)__/);
+assert.match(byPassage.get("ENG009-NP-C11")!.template,/password practices more __\(4\)__/);
+assert.match(byPassage.get("ENG009-NP-C12")!.template,/repair decisions more __\(2\)__/);
+assert.deepEqual(byPassage.get("ENG009-NP-C14")!.blanks.find(b=>b.id==="N14-B1")!.accepted,["informed","clear","understandable"]);
+assert.match(byPassage.get("ENG009-NP-C14")!.template,/make customers more __\(4\)__ about the initial decision/);
+assert.deepEqual(byPassage.get("ENG009-NP-C14")!.blanks.find(b=>b.id==="N14-B4")!.accepted,["comfortable","confident","certain"]);
+assert.match(byPassage.get("ENG009-NP-C18")!.template,/resilience something that can be __\(3\)__ in practice/);
+assert.deepEqual(byPassage.get("ENG009-NP-C18")!.blanks.find(b=>b.id==="N18-B3")!.accepted,["demonstrated","verified","measured"]);
+
 for(const p of ENG009_CP005_PASSAGES_V1){
  assert.equal(p.blanks.length,6);
  assert.equal(new Set(p.blanks.map(x=>x.blankNo)).size,6);
