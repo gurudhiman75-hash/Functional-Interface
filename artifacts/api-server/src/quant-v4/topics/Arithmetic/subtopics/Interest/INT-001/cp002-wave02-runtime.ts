@@ -646,13 +646,19 @@ function buildOriginalRate(seed: string): BuiltQuestion {
 
 function buildRepaymentAmount(seed: string): BuiltQuestion {
   const { actor, institution } = context(seed);
-  const openingPrincipal = rational(pick([10000, 12000, 15000, 20000], seed, "opening"));
-  const repaymentFraction = pick([rational(1, 5), rational(1, 4)], seed, "fraction");
+  const openingPrincipal = rational(pick([12000, 18000, 24000, 30000, 36000], seed, "opening"));
+  const repaymentFraction = pick([rational(1, 6), rational(1, 5), rational(1, 4), rational(1, 3)], seed, "fraction");
   const repaymentAmount = multiplyRational(openingPrincipal, repaymentFraction);
   const remainingPrincipal = subtractRational(openingPrincipal, repaymentAmount);
-  const rate = rational(pick([6, 8, 10, 12], seed, "rate"));
-  const repaymentTime = rational(1);
-  const horizon = rational(3);
+  const rate = rational(pick([5, 6, 8, 10, 12, 15], seed, "rate"));
+  const repaymentYear = pick([1, 2, 3], seed, "repayment-year");
+  const remainingYears = pick(
+    repaymentYear === 1 ? [2, 3, 4] : repaymentYear === 2 ? [1, 3, 4] : [1, 2, 4],
+    seed,
+    "remaining-years",
+  );
+  const repaymentTime = rational(repaymentYear);
+  const horizon = rational(repaymentYear + remainingYears);
   const ledgerContributions = buildIntCp002OutstandingBalanceContributions({
     openingPrincipal,
     annualRatePercent: rate,
@@ -693,11 +699,23 @@ function buildRepaymentAmount(seed: string): BuiltQuestion {
 
 function buildRepaymentTime(seed: string): BuiltQuestion {
   const { actor, institution } = context(seed);
-  const openingPrincipal = rational(pick([10000, 12000, 15000, 20000], seed, "opening"));
-  const repaymentAmount = multiplyRational(openingPrincipal, pick([rational(1, 5), rational(1, 4)], seed, "fraction"));
-  const rate = rational(pick([6, 8, 10, 12], seed, "rate"));
-  const repaymentTime = rational(1);
-  const horizon = rational(3);
+  const openingPrincipal = rational(pick([12000, 18000, 24000, 30000, 36000], seed, "opening"));
+  const repaymentAmount = multiplyRational(
+    openingPrincipal,
+    pick([rational(1, 6), rational(1, 5), rational(1, 4), rational(1, 3)], seed, "fraction"),
+  );
+  const rate = rational(pick([5, 6, 8, 10, 12, 15], seed, "rate"));
+  const timing = pick([
+    { repaymentYear: 1, horizonYear: 3 },
+    { repaymentYear: 1, horizonYear: 4 },
+    { repaymentYear: 1, horizonYear: 5 },
+    { repaymentYear: 2, horizonYear: 5 },
+    { repaymentYear: 3, horizonYear: 5 },
+    { repaymentYear: 2, horizonYear: 6 },
+    { repaymentYear: 4, horizonYear: 6 },
+  ] as const, seed, "timing");
+  const repaymentTime = rational(timing.repaymentYear);
+  const horizon = rational(timing.horizonYear);
   const contributions = buildIntCp002OutstandingBalanceContributions({
     openingPrincipal,
     annualRatePercent: rate,
@@ -774,9 +792,15 @@ function buildDayCountMissingDays(seed: string): BuiltQuestion {
   const { actor, institution } = context(seed);
   const actualBasis = hash(`${seed}:basis`) % 2 === 0;
   const denominator = rational(actualBasis ? 365 : 360);
-  const days = rational(actualBasis ? 73 : 72);
-  const principal = rational((actualBasis ? 7300 : 7200) * pick([1, 2, 3], seed, "scale"));
-  const rate = rational(pick([5, 10], seed, "rate"));
+  const days = rational(pick(
+    actualBasis
+      ? [31, 60, 73, 91, 120, 146, 182, 219, 292]
+      : [30, 45, 60, 72, 90, 120, 180, 240, 300],
+    seed,
+    "days",
+  ));
+  const principal = rational((actualBasis ? 7300 : 7200) * pick([1, 2, 3, 4, 5], seed, "scale"));
+  const rate = rational(pick([4, 5, 6, 8, 10, 12], seed, "rate"));
   const interest = simpleInterest(principal, rate, divideRational(days, denominator));
   const wrongBasisDays = divideRational(
     multiplyRational(days, rational(actualBasis ? 360 : 365)),
