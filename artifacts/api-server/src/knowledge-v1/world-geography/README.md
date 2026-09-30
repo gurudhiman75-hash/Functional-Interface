@@ -1,6 +1,6 @@
 # World Geography — Section A implementation
 
-Status: CP001–CP043 are user approved for authoring and localization. The complete integration remains review only; no student publication or production release is authorized.
+Localization status: CLOSED for CP001–CP043 in English, Hindi and Punjabi. The complete Question Studio integration remains review only; no student publication or production release is authorized.
 
 816 canonical questions; 2,448 localized versions across English, Hindi and Punjabi. CP001–CP040 contain 764 canonical questions; revised CP037–CP038 replace duplicate questions without increasing that count. CP041–CP043 add 52 approved questions. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
 
@@ -157,3 +157,8 @@ The focused corpus/adapter test validates all 816 items, 4,896 filtered localize
 ## Review gate
 
 User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. User approval of CP020–CP023, including their exam-stem revisions, was received on 27 September 2026. CP037–CP040 were approved in PR #2468; CP037–CP038 have since been revised and are pending renewed review. CP029–CP032 approval was received on 28 September 2026 and merged in PR #2432. CP033–CP036 approval was received on 28 September 2026 and merged in PR #2450. CP041–CP042 were approved for authoring and localization in PR #2515. CP043 was approved for authoring and localization on 29 September 2026. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.
+
+
+## Localization closeout — PR #2699
+
+Completed the final Punjabi terminology consistency pass. CP007-Q020 uses a descriptive phrase for estuary; CP001-Q018/Q019, CP021-Q011 and CP028-Q012 consistently use `ਤੰਗ ਥਲ-ਪੱਟੀ` for isthmus, with `ਥਲ-ਡਮਰੂ` retained as a synonym in explanations. PR #2699 is merged. The World Geography localization work is closed; its existing Question Studio review-only and publication locks remain unchanged.
