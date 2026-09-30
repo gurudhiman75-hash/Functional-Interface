@@ -1,7 +1,7 @@
 # WHI-001-CP011 — Architecture and review status
 
 **Checkpoint:** United Nations and Post-war Institutions
-**Current state:** English pool complete (60/60); first-pass editorial review complete; not registered in Question Studio.
+**Current state:** English, Hindi and Punjabi pools complete (60/60 per language); approved for Question Studio review runs.
 **Lifecycle:** Review-only; no learner delivery.
 
 ## Reused chapter architecture
@@ -15,8 +15,9 @@
 ## Current gate
 
 - English: 60 questions; 18 Easy / 30 Medium / 12 Hard; A15/B15/C15/D15. First-pass editorial corrections are documented; user approval received to proceed with localization.
-- Hindi and Punjabi review candidates are drafted; native-language review remains pending.
-- No runtime registration or learner delivery is enabled.
+- Hindi and Punjabi localization review files were approved by the user on 2026-09-30.
+- Registered as a standard `knowledge-v1` Question Studio review-only package (`WHI-001-CP011`). The English/Hindi/Punjabi pools are selectable by package ID, checkpoint, question ID, or checkpoint subtopic.
+- The standard lifecycle remains in force: no Question Bank writes, test eligibility, mock-test eligibility, automatic student publication, or production release.
 
 ## Artifacts
 
@@ -35,7 +36,7 @@ The English pool received a first-pass editorial review and focused corrections.
 
 ## Localization update — 2026-09-30
 
-Hindi and Punjabi pools each contain 60 review-only records in the existing `knowledge-v1` architecture. Stable English question, checkpoint, fact and source references, option order, correct-answer keys, difficulty and source trail are preserved. Every localized record has `reviewOnly: true` and `runtimeRegistered: false`. Native-language review is pending; no learner delivery is enabled.
+Hindi and Punjabi pools each contain 60 review-only records in the existing `knowledge-v1` architecture. Stable English question, checkpoint, fact and source references, option order, correct-answer keys, difficulty and source trail are preserved. Native-language review was approved on 2026-09-30. The shared Question Studio adapter now exposes the approved pools for review runs. Source records remain `reviewOnly: true` and `runtimeRegistered: false`; the review-only lifecycle blocks Question Bank writes and learner delivery.
 
 - Hindi data: `world-history-cp011-hi-v1.json`; review: `WHI-001-CP011-HI-LOCALIZATION-REVIEW-V1.md`.
 - Punjabi data: `world-history-cp011-pa-v1.json`; review: `WHI-001-CP011-PA-LOCALIZATION-REVIEW-V1.md`.

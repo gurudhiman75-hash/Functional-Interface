@@ -1,7 +1,7 @@
 # WHI-001-CP013 — Decolonization in Africa
 
 **Status:** English editorial first pass complete; human approval requested.
-**Lifecycle:** Review-only; not registered in Question Studio; no learner delivery.
+**Lifecycle:** Registered as the `WHI-001-CP013` Question Studio review-only package; no learner delivery.
 
 | ID | Difficulty | Family | Stem | A | B | C | D | Key | Explanation | Sources |
 |---|---|---|---|---|---|---|---|---|---|---|

@@ -1,6 +1,6 @@
 # WHI-001-CP011–CP014 — English Editorial Readiness V1
 
-**Status:** Four English pools received a first-pass editorial review and focused corrections. The user approved localization. Hindi and Punjabi candidates are drafted in the shared World History format; native-language review remains pending.
+**Status:** Four English pools received a first-pass editorial review and focused corrections. The user approved the Hindi and Punjabi review files on 2026-09-30. All four trilingual pools are now exposed through the shared Question Studio review-only lifecycle.
 
 | Checkpoint | English pool | Review file | English records | Localized candidates | Lifecycle |
 |---|---|---|---:|---|---|
@@ -20,6 +20,6 @@ The first-pass findings and changes are recorded in `WHI-001-CP011-CP014-EN-EDIT
 - Review files render every question, option, answer, explanation and source reference.
 - Every record remains `reviewOnly: true` and `runtimeRegistered: false`.
 
-## Next gate
+## Current lifecycle
 
-Complete native Hindi and Punjabi review for CP011–CP014, including idiom, terminology and answer meaning. The 480 localized records are review-only, source-linked and aligned to the English keys. Keep Question Studio registration and learner delivery disabled until language review passes.
+Native-language review is approved, and Question Studio review runs are available for all four packages. The 480 localized records remain `reviewOnly: true` and `runtimeRegistered: false`; the shared lifecycle blocks Question Bank writes, test use and learner delivery. Chapter-wide source-locator, coverage, duplicate and factual-accuracy gates remain open in `WHI-001-CP001-016-CHAPTER-WIDE-COVERAGE-AUDIT-V1.md`.
