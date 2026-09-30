@@ -8,7 +8,7 @@ PR state: **draft / unmerged**
 
 ```text
 sourceFamilySaturation:       PASS_V1
-maturity:                     ENGLISH_FROZEN
+maturity:                     MULTILINGUAL_FROZEN
 permanentQlCount:             8
 whitelistedSourceModeCount:   19
 English automated proof:      PASS
@@ -16,11 +16,11 @@ English audit pack:           PASS
 English artifact audit:       PASS
 English human approval:       APPROVED_2026_08_18
 English freeze:               true
-Question Studio:              false
+Question Studio:              REGISTERED_STANDARD_REVIEW_ONLY
 Question Bank writes:         false
 test eligibility:             false
 public publication:           false
-Hindi/Punjabi:                NOT_STARTED
+Hindi/Punjabi:                FROZEN_V1
 ```
 
 ## Permanent QLs
@@ -134,8 +134,6 @@ REMAINING_STEP_COUNT     19
 
 ## Next gate
 
-**Hindi/Punjabi localization over the frozen English authority.**
+**Content deep-audit closure after current Question Studio parity and generated-surface verification.**
 
-Localization may now begin, but it must pass semantic parity and human-language review/freeze independently.
-
-Question Studio, Question Bank, test/mock delivery, public publication, PR merge and automatic activation remain outside this approval and stay locked.
+Hindi/Punjabi localization is already human-approved and frozen. Standard Question Studio review-only integration is active. Question Bank, test/mock delivery, public publication and automatic activation remain separately locked.
