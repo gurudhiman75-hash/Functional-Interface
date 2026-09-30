@@ -75,7 +75,13 @@ export function listLogicPuzzleQuestionStudioPackagesV8() {
 export async function generateLogicPuzzleQuestionStudioBatchV8(request: LogicPuzzleQuestionStudioRequest = {}) {
   if (!isCp04Request(request)) return generateLogicPuzzleQuestionStudioBatchV7(request);
   const language = normalizeLanguage(request.language);
-  if (language === "en") return generateLogicPuzzleQuestionStudioBatchV7({ ...request, language: "en" });
+  if (language === "en") {
+    return generateLogicPuzzleQuestionStudioBatchV7({
+      ...request,
+      language: "en",
+      canonicalProblemId: request.canonicalProblemId ?? "LP-QL-047",
+    });
+  }
 
   const count = Math.min(12, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
   const seed = String(request.seed || "question-studio:LP-QL-047");
