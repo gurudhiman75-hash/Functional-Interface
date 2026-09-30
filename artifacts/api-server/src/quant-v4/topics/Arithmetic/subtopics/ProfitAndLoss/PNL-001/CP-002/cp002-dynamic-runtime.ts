@@ -459,6 +459,10 @@ function generateCase(qlId: string, seed: string): GeneratedCase {
         { cost: 5000, marked: 7500, direction: "PROFIT" as const, target: 25 },
         { cost: 6000, marked: 8000, direction: "PROFIT" as const, target: 20 },
         { cost: 8000, marked: 10000, direction: "LOSS" as const, target: 10 },
+        { cost: 4500, marked: 6750, direction: "PROFIT" as const, target: 20 },
+        { cost: 7200, marked: 9000, direction: "PROFIT" as const, target: 10 },
+        { cost: 9000, marked: 12000, direction: "LOSS" as const, target: 20 },
+        { cost: 10000, marked: 14000, direction: "PROFIT" as const, target: 12 },
       ] as const;
       const scenario = pickSeeded(random, scenarios);
       const costPrice = rupees(scenario.cost);
@@ -509,6 +513,10 @@ function generateCase(qlId: string, seed: string): GeneratedCase {
         { cost: 5000, discount: 20, direction: "PROFIT" as const, target: 20 },
         { cost: 6000, discount: 25, direction: "PROFIT" as const, target: 25 },
         { cost: 8000, discount: 20, direction: "LOSS" as const, target: 10 },
+        { cost: 4500, discount: 10, direction: "PROFIT" as const, target: 20 },
+        { cost: 7200, discount: 20, direction: "PROFIT" as const, target: 10 },
+        { cost: 9000, discount: 25, direction: "LOSS" as const, target: 10 },
+        { cost: 10000, discount: 20, direction: "PROFIT" as const, target: 20 },
       ] as const;
       const scenario = pickSeeded(random, scenarios);
       const costPrice = rupees(scenario.cost);
