@@ -83,14 +83,14 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     const result = groupedPosition(classes, numerator, denominator);
     const state: Stat005State = { kind: "GROUPED_PARTITION", classes, numerator, denominator, convention: "K_N_OVER_M_INTERPOLATION" };
     const label = symbol === "Q" ? `Q${numerator}` : symbol === "D" ? `D${numerator}` : `P${numerator}`;
-    return { state, answer: result.value, stem: `Use the grouped interpolation rule at position kN/m to find ${label}.\nClass interval | Frequency\n${groupedTable(classes)}`, explanation: `N = ${result.total}, so the target position is ${numerator} × ${result.total} / ${denominator} = ${fmt(result.target)}. This lies in ${result.row.lower}–${result.row.upper}. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives ${result.row.lower} + [(${fmt(result.target)} − ${result.cumulativeBefore}) / ${result.row.frequency}] × 10 = ${fmt(result.value)}.` };
+    return { state, answer: result.value, stem: `Use the grouped interpolation rule at position kN/m to find ${label}.\nClass interval | Frequency\n${groupedTable(classes)}`, explanation: `N = ${result.total}, so the target position is ${numerator} × ${result.total} / ${denominator} = ${fmt(result.target)}. This lies in ${result.row.lower}–${result.row.upper}. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives ${result.row.lower} + [(${fmt(result.target)} − ${result.cumulativeBefore}) / ${result.row.frequency}] × 10 ≈ ${fmt(result.value)}.` };
   }
   if (contractId === "RANGE_OF_RAW_DATA" || contractId === "COEFFICIENT_OF_RANGE") {
     const values = rawValues(`${seed}:range`, 6); const min = Math.min(...values); const max = Math.max(...values);
     const state: Stat005State = { kind: "RAW_RANGE", values };
     const answer = contractId === "RANGE_OF_RAW_DATA" ? max - min : 100 * (max - min) / (max + min);
     const stem = contractId === "RANGE_OF_RAW_DATA" ? `Find the range of the observations ${rawTable(values)}.` : `The smallest and largest observations in a data set are ${min} and ${max}. Find the coefficient of range as a percentage.`;
-    const explanation = contractId === "RANGE_OF_RAW_DATA" ? `The largest value is ${max} and the smallest is ${min}. Range = ${max} − ${min} = ${fmt(answer)}.` : `Coefficient of range = (largest − smallest) / (largest + smallest) × 100 = (${max} − ${min}) / (${max} + ${min}) × 100 = ${fmt(answer)}%.`;
+    const explanation = contractId === "RANGE_OF_RAW_DATA" ? `The largest value is ${max} and the smallest is ${min}. Range = ${max} − ${min} = ${fmt(answer)}.` : `Coefficient of range = (largest − smallest) / (largest + smallest) × 100 = (${max} − ${min}) / (${max} + ${min}) × 100 ≈ ${fmt(answer)}%.`;
     return { state, answer, stem, explanation };
   }
   if (contractId === "QUARTILE_DEVIATION_OF_RAW_DATA") {
@@ -102,7 +102,7 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     const q1 = 10 + Math.floor(r() * 8) * 2; const q3 = q1 + 12 + Math.floor(r() * 7) * 2;
     const state: Stat005State = { kind: "COEFFICIENT_QUARTILE_DEVIATION", q1, q3 };
     const answer = 100 * (q3 - q1) / (q3 + q1);
-    return { state, answer, stem: `For a distribution, Q1 = ${q1} and Q3 = ${q3}. Find the coefficient of quartile deviation as a percentage.`, explanation: `Coefficient of quartile deviation = (Q3 − Q1)/(Q3 + Q1) × 100 = (${q3} − ${q1})/(${q3} + ${q1}) × 100 = ${fmt(answer)}%.` };
+    return { state, answer, stem: `For a distribution, Q1 = ${q1} and Q3 = ${q3}. Find the coefficient of quartile deviation as a percentage.`, explanation: `Coefficient of quartile deviation = (Q3 − Q1)/(Q3 + Q1) × 100 = (${q3} − ${q1})/(${q3} + ${q1}) × 100 ≈ ${fmt(answer)}%.` };
   }
   if (contractId === "MEAN_DEVIATION_ABOUT_MEAN" || contractId === "MEAN_DEVIATION_ABOUT_MEDIAN") {
     const center = 20 + Math.floor(r() * 5) * 4; const gaps = [0, 0, 4, 4, 8, 8];
@@ -117,7 +117,7 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
   const mean = 30 + Math.floor(r() * 5) * 10; const sd = 3 + Math.floor(r() * 5) * 3;
   const answer = sd / mean * 100;
   const state: Stat005State = { kind: "COEFFICIENT_OF_VARIATION", mean, populationStandardDeviation: sd };
-  return { state, answer, stem: `A distribution has arithmetic mean ${mean} and population standard deviation ${sd}. Find its coefficient of variation as a percentage.`, explanation: `Coefficient of variation = standard deviation / mean × 100 = ${sd}/${mean} × 100 = ${fmt(answer)}%.` };
+  return { state, answer, stem: `A distribution has arithmetic mean ${mean} and population standard deviation ${sd}. Find its coefficient of variation as a percentage.`, explanation: `Coefficient of variation = standard deviation / mean × 100 = ${sd}/${mean} × 100 ≈ ${fmt(answer)}%.` };
 }
 
 export function solveStat005State(state: Stat005State, contractId: Stat005ContractId) {
