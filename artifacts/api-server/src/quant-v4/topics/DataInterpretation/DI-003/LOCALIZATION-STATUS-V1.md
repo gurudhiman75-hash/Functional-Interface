@@ -18,9 +18,9 @@ Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 
 ## No-decimal contract
 
-- Percentage increase uses nearest whole percent.
-- Category share uses nearest whole percent.
-- Total-series percentage excess uses nearest whole percent.
+- Percentage-increase stems ask for an approximate result; the generator continues to return integer values.
+- Category-share stems ask for an approximate result; the generator continues to return integer values.
+- Total-series percentage-excess stems ask for an approximate result; the generator continues to return integer values.
 - Series average is exact for the certified source pools.
 - Learner-facing answers, options, explanations, working tables and visible chart labels contain no decimal values.
 

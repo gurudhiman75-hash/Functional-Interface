@@ -19,8 +19,8 @@ Status: HI_PA_FROZEN · CONTROLLED_QUESTION_STUDIO_REVIEW
 ## No-decimal contract
 
 - Class marks are integers.
-- Percentage questions ask for the nearest whole percent.
-- Grouped-mean questions ask for the nearest whole number.
+- Percentage stems ask for an approximate result; the generator continues to return integer values.
+- Grouped-mean stems ask for an approximate result; the generator continues to return integer values.
 - Median explanations use an integer observation position.
 - Visible polygon labels and localized explanation tables contain no decimal values.
 
