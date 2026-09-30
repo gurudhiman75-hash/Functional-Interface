@@ -77,8 +77,10 @@ export async function generateLogicPuzzleQuestionStudioBatchV7(request: LogicPuz
   const questions = caselets.map((caselet: any, questionIndex) => {
     const child = caselet.counterfactualChild;
     const parentTopology = caselet.parentTopology ?? "LP-001_GROUPING";
+    const clues = (caselet.clues ?? []).map((clue: any) => clue.text);
+    const text = `${caselet.scenario}\n\nClues:\n${clues.map((clue: string) => `- ${clue}`).join("\n")}\n\n${child.stem}`;
     return {
-      text: child.stem,
+      text,
       options: child.options,
       correct: child.correctIndex,
       correctIndex: child.correctIndex,

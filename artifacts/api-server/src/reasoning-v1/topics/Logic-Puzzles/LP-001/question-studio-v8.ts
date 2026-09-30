@@ -28,8 +28,11 @@ function selector(request: LogicPuzzleQuestionStudioRequest): string {
 }
 
 function isCp04Request(request: LogicPuzzleQuestionStudioRequest): boolean {
+  const packageId = normalize(request.packageId ?? request.archetypeId);
   const selected = selector(request);
-  return selected === "lp ql 047"
+  return packageId === "lp cp04 counterfactual"
+    || packageId === "lp cp 04 counterfactual"
+    || selected === "lp ql 047"
     || selected === "lp cp 012"
     || selected === "lp cp04 counterfactual"
     || selected === "lp cp04 counterfactual additional condition";
@@ -49,9 +52,18 @@ export function isLogicPuzzleQuestionStudioRequestV8(request: LogicPuzzleQuestio
 
 export function listLogicPuzzleQuestionStudioPackagesV8() {
   return listLogicPuzzleQuestionStudioPackagesV7().map((pkg: any) => {
+    if (pkg.id === "LP-006-PROJECTION") {
+      return {
+        ...pkg,
+        packageId: "LP-006-PROJECTION",
+        basePackageId: "LP-006",
+        extensionId: "LP-006-PROJECTION",
+      };
+    }
     if (pkg.id !== "LP-CP04-COUNTERFACTUAL") return pkg;
     return {
       ...pkg,
+      packageId: "LP-CP04-COUNTERFACTUAL",
       supportedLanguages: ["en", "hi", "pa"],
       localizationFreezeStatus: "FROZEN_V1",
       localizationAuthorityId: LP_CP04_HI_PA_LOCALIZATION_FREEZE_V1.authorityId,
@@ -63,15 +75,23 @@ export function listLogicPuzzleQuestionStudioPackagesV8() {
 export async function generateLogicPuzzleQuestionStudioBatchV8(request: LogicPuzzleQuestionStudioRequest = {}) {
   if (!isCp04Request(request)) return generateLogicPuzzleQuestionStudioBatchV7(request);
   const language = normalizeLanguage(request.language);
-  if (language === "en") return generateLogicPuzzleQuestionStudioBatchV7({ ...request, language: "en" });
+  if (language === "en") {
+    return generateLogicPuzzleQuestionStudioBatchV7({
+      ...request,
+      language: "en",
+      canonicalProblemId: request.canonicalProblemId ?? "LP-QL-047",
+    });
+  }
 
   const count = Math.min(12, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
   const seed = String(request.seed || "question-studio:LP-QL-047");
   const caselets = generateLpCp04LocalizedBatchV3(language, seed, count);
   const questions = caselets.map((caselet, questionIndex) => {
     const child = caselet.counterfactualChild;
+    const clueHeading = language === "hi" ? "शर्तें:" : "ਸ਼ਰਤਾਂ:";
+    const text = `${caselet.scenario}\n\n${clueHeading}\n${caselet.learnerFacingClues.map((clue) => `- ${clue}`).join("\n")}\n\n${child.stem}`;
     return {
-      text: child.stem,
+      text,
       options: child.options,
       correct: child.correctIndex,
       correctIndex: child.correctIndex,

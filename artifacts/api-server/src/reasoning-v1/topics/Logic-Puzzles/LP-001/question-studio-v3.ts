@@ -25,8 +25,12 @@ function isLp011Request(request: LogicPuzzleQuestionStudioRequest): boolean {
 }
 
 function isLp006ProjectionRequest(request: LogicPuzzleQuestionStudioRequest): boolean {
+  const pkg = normalize(request.packageId ?? request.archetypeId);
   const selected = selector(request);
-  return /^lp ql 04[5-6]$/u.test(selected) || selected === "lp cp 006 projection";
+  return pkg === "lp 006 projection"
+    || pkg === "lp cp 006 projection"
+    || /^lp ql 04[5-6]$/u.test(selected)
+    || selected === "lp cp 006 projection";
 }
 
 function requireEnglish(request: LogicPuzzleQuestionStudioRequest): "en" {
