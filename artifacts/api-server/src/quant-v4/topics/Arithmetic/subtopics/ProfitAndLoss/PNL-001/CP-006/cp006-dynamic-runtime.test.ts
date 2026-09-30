@@ -237,6 +237,21 @@ assert.throws(
   /Unknown CP-006 question-language ID/,
 );
 
+// Low-diversity preset families must expose substantially more than their old three-case pools.
+for (const qlId of ["PNL-QL-167","PNL-QL-168","PNL-QL-169","PNL-QL-175","PNL-QL-182","PNL-QL-183"]) {
+  const stems = new Set<string>();
+  const answers = new Set<string>();
+  for (let index = 0; index < 128; index += 1) {
+    const pkg = runPnlCp006DynamicPipeline({ questionLanguageId: qlId, language: "en", seed: `pnl-breadth-proof:${qlId}:${index}` });
+    assert.equal(pkg.validation.valid, true, `${qlId}: expanded preset produced an invalid package`);
+    assert.equal(pkg.options[pkg.correctIndex], pkg.answer);
+    stems.add(pkg.stem);
+    answers.add(pkg.answer);
+  }
+  assert.ok(stems.size >= 6, `${qlId}: expanded scenarios exposed only ${stems.size} stems`);
+  assert.ok(answers.size >= 5, `${qlId}: expanded scenarios exposed only ${answers.size} answers`);
+}
+
 console.log(
   JSON.stringify(
     {
