@@ -256,7 +256,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
         labels: {
           "en-IN": "Isosceles triangles",
           "hi-IN": "समद्विबाहु त्रिभुज",
-          "pa-IN": "ਸਮਦੋਭੁਜ ਤਿਕੋਣ",
+          "pa-IN": "ਸਮਦੋਭੁਜੀ ਤਿਕੋਣ",
         },
       },
       {
