@@ -14,7 +14,7 @@ D. 0.47
 
 **Answer:** A. 0.42
 
-**Explanation:** For equally likely outcomes, P(A) = favourable outcomes / total outcomes = 5/12 = 0.42.
+**Explanation:** For equally likely outcomes, P(A) = favourable outcomes / total outcomes = 5/12 ≈ 0.42.
 
 ## STAT-QL-085 — Empirical probability
 
