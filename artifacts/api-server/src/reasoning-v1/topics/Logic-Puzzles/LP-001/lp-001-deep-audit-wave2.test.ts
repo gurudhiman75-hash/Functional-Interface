@@ -98,7 +98,7 @@ for (const caselet of generateLp010Batch("LP-WAVE2-DIFF-LP010", 60)) {
   const relations = caselet.clues.filter((clue) =>
     ["BEFORE", "BETWEEN", "IMMEDIATE_BEFORE", "SAME_TIME", "SAME_DAY"].includes(clue.kind),
   ).length;
-  if (caselet.difficultyBand === "Easy") assert.ok(direct >= 5, caselet.caseletId + " Easy lacks direct anchors");
+  if (caselet.difficultyBand === "Easy") assert.equal(direct, 4, caselet.caseletId + " Easy must retain the four designed direct anchors");
   if (caselet.difficultyBand === "Medium") assert.ok(direct >= 1 && relations >= 1, caselet.caseletId + " Medium topology drift");
   if (caselet.difficultyBand === "Hard") {
     assert.ok(direct <= 1, caselet.caseletId + " Hard has too many direct anchors");
