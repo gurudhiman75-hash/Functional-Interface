@@ -2,6 +2,7 @@ import {
   GEO_WAT_001_CP001_HINDI_LOCALIZATION_V1,
   GEO_WAT_001_CP001_PUNJABI_LOCALIZATION_V1,
 } from "./water-resources/geo-wat-001-localization-cp001-v1";
+import { localizeGeoWat001ExactCp002 } from "./water-resources/geo-wat-001-localization-cp002-v1";
 import { localizeGeoLnd001ExactCp001 } from "./land-resources/geo-lnd-001-localization-cp001-v1";
 import { localizeGeoLnd001ExactCp002 } from "./land-resources/geo-lnd-001-localization-cp002-v1";
 import { localizeGeoLnd001ExactCp003 } from "./land-resources/geo-lnd-001-localization-cp003-v1";
@@ -714,15 +715,17 @@ export function localizeIndianGeoQuestionV1(
   }
 
   if (packageId === "GEO-WAT-001") {
-    const approved = WATER_CP001_EXACT[language].get(question.questionId);
-    if (approved) {
+    const approvedCp001 = WATER_CP001_EXACT[language].get(question.questionId);
+    if (approvedCp001) {
       return Object.freeze({
-        stem: approved.stem,
-        options: Object.freeze([...approved.options]),
-        canonicalAnswer: approved.canonicalAnswer,
-        explanation: approved.explanation,
+        stem: approvedCp001.stem,
+        options: Object.freeze([...approvedCp001.options]),
+        canonicalAnswer: approvedCp001.canonicalAnswer,
+        explanation: approvedCp001.explanation,
       });
     }
+    const approved = localizeGeoWat001ExactCp002(question, language);
+    if (approved) return approved;
   }
 
   if (packageId === "GEO-LND-001") {
