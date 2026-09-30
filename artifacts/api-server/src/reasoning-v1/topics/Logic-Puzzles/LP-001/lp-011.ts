@@ -262,11 +262,11 @@ function admissibleForDifficulty(clue: Lp011Clue, difficulty: Lp011Difficulty, d
   if (difficulty === "Medium" && clue.kind === "BOX_HAS_ATTRIBUTE" && directSeen >= 1) return false;
   return true;
 }
-function chooseClues(state: Lp011State, profile: Profile, difficulty: Lp011Difficulty, random: () => number): Lp011Clue[] | null {
+function chooseClues(state: Lp011State, profile: Profile, difficulty: Lp011Difficulty, random: () => number, hardFallback = false): Lp011Clue[] | null {
   let pool = shuffle(buildCandidateClues(state, profile, random), random);
   pool = pool.sort((left, right) => {
     const delta = clueStrength(right) - clueStrength(left);
-    return difficulty === "Easy" ? delta : difficulty === "Hard" ? -delta : 0;
+    return difficulty === "Easy" || (difficulty === "Hard" && hardFallback) ? delta : difficulty === "Hard" ? -delta : 0;
   });
   const chosen: Lp011Clue[] = [];
   let directSeen = 0;
@@ -448,7 +448,12 @@ export function generateLp011Batch(seed = "lp-011-review-v1", count = 8): Lp011C
       const random = rng(`${seed}:${index}:${attempt}`);
       const profile = PROFILES[Math.floor(random() * PROFILES.length)]!;
       const assignment = hiddenState(random);
-      const clues = chooseClues(assignment, profile, difficulty, random);
+      // Preserve the frozen weak-clue-first Hard surface whenever viable.
+      // If nine weak clauses cannot uniquely determine the assignment, retry
+      // the same hidden state with stronger *relational* clues (never direct
+      // BOX_HAS_ATTRIBUTE clues, which remain forbidden for Hard).
+      let clues = chooseClues(assignment, profile, difficulty, random);
+      if (!clues && difficulty === "Hard") clues = chooseClues(assignment, profile, difficulty, random, true);
       if (!clues || clues.length < 3 || clues.length > 9) continue;
       const solved = solveLp011(clues, 3);
       if (solved.length !== 1 || !stateEquals(solved[0]!, assignment)) continue;
