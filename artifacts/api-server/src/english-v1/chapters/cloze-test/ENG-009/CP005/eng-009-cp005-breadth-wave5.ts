@@ -35,7 +35,7 @@ Different data may need different retention periods. A daily working file, a fin
 
 Backups should also be separated from the live system. If an attacker can delete both production data and every backup using the same credentials, the backup strategy is weak. Strong systems therefore make some copies harder to __(2)__.
 
-Testing matters because a backup that cannot be restored is not useful. Organisations should regularly recover sample files or systems to confirm that the process works. This makes resilience more __(3)__ rather than assumed.
+Testing matters because a backup that cannot be restored is not useful. Organisations should regularly recover sample files or systems to confirm that the process works. This makes resilience something that can be __(3)__ in practice.
 
 Version history is also valuable. A file may be corrupted gradually, meaning the most recent backup already contains the problem. Several older versions can provide a clean recovery point. However, the number of versions should still follow a clear rule.
 
@@ -52,7 +52,7 @@ The goal is to preserve enough clean history to recover from realistic failures 
 Ultimately, a backup is valuable only when it can be found, trusted and restored at the moment it is needed. Clear retention rules make that outcome more __(6)__.`,blanks:[
 {id:"N18-B1",blankNo:1,difficulty:"hard",mode:"cannot-fit",accepted:["proportionate","sustainable","practical"],rejected:["unlimited"],explanation:"A retention policy should balance protection and cost. 'Unlimited' does not fit.",clue:"protection more ..."},
 {id:"N18-B2",blankNo:2,difficulty:"medium",mode:"phrasal-word",accepted:["erase"],rejected:["review","monitor","verify"],explanation:"Protected backup copies should be harder for an attacker to erase.",clue:"copies harder to ..."},
-{id:"N18-B3",blankNo:3,difficulty:"hard",mode:"can-fit",accepted:["demonstrable","verified","measurable"],rejected:["assumed"],explanation:"Restore tests turn resilience into something verified rather than assumed.",clue:"resilience more ... rather than assumed"},
+{id:"N18-B3",blankNo:3,difficulty:"hard",mode:"can-fit",accepted:["demonstrated","verified","measured"],rejected:["assumed"],explanation:"Restore tests make resilience something that can be demonstrated, verified and measured rather than merely assumed.",clue:"resilience can be ... in practice"},
 {id:"N18-B4",blankNo:4,difficulty:"medium",mode:"cannot-fit",accepted:["current","relevant","aligned"],rejected:["outdated"],explanation:"The policy should change with systems and obligations. 'Outdated' does not fit.",clue:"policy more ..."},
 {id:"N18-B5",blankNo:5,difficulty:"hard",mode:"can-fit",accepted:["disciplined","controlled","efficient"],rejected:["random"],explanation:"Clear rules make backup management disciplined and controlled.",clue:"management more ..."},
 {id:"N18-B6",blankNo:6,difficulty:"medium",mode:"phrasal-word",accepted:["reliable"],rejected:["uncertain","hidden","fragile"],explanation:"Clear retention rules make successful recovery more reliable.",clue:"outcome more ..."}]}

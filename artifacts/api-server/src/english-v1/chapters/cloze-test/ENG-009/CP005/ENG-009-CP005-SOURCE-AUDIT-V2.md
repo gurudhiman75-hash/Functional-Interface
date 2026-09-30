@@ -71,3 +71,17 @@ Full review artifact:
 `ENG-009-CP005-FULL-REVIEW-V2.md`
 
 Fresh human approval is required before the revision-pending flags are cleared.
+
+
+## Post-review language polish
+
+A full 108-question review of the generated V2 artifact identified several technically valid but unnatural collocations. These were corrected before human sign-off:
+
+- C08: `compliance easier to repeat` → `compliant behaviour easier to repeat`;
+- C10: blank 2 now modifies the `fund target`, allowing `appropriate / relevant / adequate` naturally;
+- C11: `password use more reliable` → `password practices more reliable`;
+- C12: `diagnosis more informed` → `repair decisions more informed`;
+- C14: the cancellation-decision options now use `informed / clear / understandable`, and the joining-confidence blank modifies customers rather than the decision itself;
+- C18: resilience is now `demonstrated / verified / measured` in practice rather than described with the awkward `more verified` construction.
+
+These are wording-quality changes within the already fresh-review-pending CP005 V2 boundary. No production release is implied.
