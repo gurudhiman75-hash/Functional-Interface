@@ -82,8 +82,9 @@ assert.deepEqual([...domains].sort(), [
 ]);
 assert.ok(
   VEN_001_SCENARIO_AUTHORITIES.every(
-    (entry) => entry.reviewStatus === "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    (entry) => entry.reviewStatus === "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
   ),
+  "all 34 CP003 scenario authorities must carry the user's trilingual signoff",
 );
 
 
