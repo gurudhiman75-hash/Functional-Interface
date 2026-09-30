@@ -43,8 +43,8 @@ for(const language of ["hi","pa"] as const){
     assert(q.stem.endsWith("?"),`DI-013 ${language} stem is not a direct exam question: ${q.stem}`);
     assert.doesNotMatch(q.stem,/(पहले|फिर|ज्ञात कीजिए|निकालिए|जोड़िए|जोड़ो|ਪਹਿਲਾਂ|ਫਿਰ|ਕੱਢੋ|ਜੋੜੋ)/u);
     assert.doesNotMatch(q.stem,/[A-Za-z]{3,}/u);
-    if(q.kind==="TWO_CATEGORY_GROUP_RATIO")assert.doesNotMatch(q.stem,/(इन श्रेणियों में|ਇਨ੍ਹਾਂ ਸ਼੍ਰੇਣੀਆਂ ਵਿੱਚ)/u);
-    if(q.kind==="CROSS_SERIES_CATEGORY_RATIO")assert.doesNotMatch(q.stem,/(के लिए|ਲਈ)/u);
+    if(q.kind==="TWO_CATEGORY_GROUP_RATIO")assert.match(q.stem,language==="hi"?/पहले समूह .* में .* कुल/u:/ਪਹਿਲੇ ਸਮੂਹ .* ਵਿੱਚ .* ਕੁੱਲ/u);
+    if(q.kind==="CROSS_SERIES_CATEGORY_RATIO")assert.match(q.stem,language==="hi"?/के मानों का अनुपात क्या है\?$/u:/ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ\?$/u);
     assert.match(q.stimulus.instruction,language==="hi"?/[\u0900-\u097F]/u:/[\u0A00-\u0A7F]/u);
     assert(q.stimulusSvgs[0].includes('data-radar-chart="true"'));
     assert(q.stimulusSvgs[0].includes(q.stimulus.title));
