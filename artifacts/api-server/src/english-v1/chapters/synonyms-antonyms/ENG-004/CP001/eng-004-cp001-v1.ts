@@ -96,7 +96,7 @@ export function generateEng004Cp001QuestionV2(input:GenerateEng004Cp001V2Input):
     : stems[deterministicIndex(`${input.seed}:eng004-cp001-v2-stem`,stems.length)]!(entry.word);
   const context=requiresContext?entry.example:undefined;
   const relationText=relationType==="synonym"?"has the closest meaning":"expresses the opposite meaning";
-  const explanation=`“${entry.word}” here means ${entry.meaning}. “${correct}” ${relationText} in this sense.`;
+  const explanation=requiresContext?`In this sentence, “${entry.word}” means ${entry.meaning}. “${correct}” ${relationText} in this sense.`:`“${entry.word}” means ${entry.meaning}. “${correct}” ${relationText}.`;
 
   return {
     questionId:`ENG-004-CP001-${entry.id}-${relationType.toUpperCase()}-${stableHash(input.seed).toString(16).padStart(8,"0")}`,
