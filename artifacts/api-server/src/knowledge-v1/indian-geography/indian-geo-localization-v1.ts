@@ -1,6 +1,7 @@
 import { localizeGeoSoi001ExactCp001PartA } from "./soils/geo-soi-001-localization-cp001-part-a-v1";
 import { localizeGeoSoi001ExactCp001PartB } from "./soils/geo-soi-001-localization-cp001-part-b-v1";
 import { localizeGeoSoi001ExactCp001PartC } from "./soils/geo-soi-001-localization-cp001-part-c-v1";
+import { localizeGeoSoi001ExactCp002PartA } from "./soils/geo-soi-001-localization-cp002-part-a-v1";
 import {
   GEO_WAT_001_CP001_HINDI_LOCALIZATION_V1,
   GEO_WAT_001_CP001_PUNJABI_LOCALIZATION_V1,
@@ -738,7 +739,8 @@ export function localizeIndianGeoQuestionV1(
     const approved =
       localizeGeoSoi001ExactCp001PartA(question, language) ??
       localizeGeoSoi001ExactCp001PartB(question, language) ??
-      localizeGeoSoi001ExactCp001PartC(question, language);
+      localizeGeoSoi001ExactCp001PartC(question, language) ??
+      localizeGeoSoi001ExactCp002PartA(question, language);
     if (approved) return approved;
   }
 
