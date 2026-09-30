@@ -3,6 +3,8 @@ import {
   GEO_WAT_001_CP001_PUNJABI_LOCALIZATION_V1,
 } from "./water-resources/geo-wat-001-localization-cp001-v1";
 import { localizeGeoLnd001ExactCp001 } from "./land-resources/geo-lnd-001-localization-cp001-v1";
+import { localizeGeoLnd001ExactCp002 } from "./land-resources/geo-lnd-001-localization-cp002-v1";
+import { localizeGeoLnd001ExactCp003 } from "./land-resources/geo-lnd-001-localization-cp003-v1";
 
 export type IndianGeoLocalizationLanguageV1 = "en" | "hi" | "pa";
 type CanonicalQuestion = Readonly<{
