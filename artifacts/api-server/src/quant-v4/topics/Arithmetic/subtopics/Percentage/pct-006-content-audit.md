@@ -97,3 +97,15 @@ Why:
 1. Move `PCT-006` to manual question-bank review.
 2. Ask reviewers to keep a light eye on the report-style shells in CP-007 to CP-010.
 3. Treat Hindi and Punjabi as structural placeholders until a language-authoring pass is scheduled.
+
+
+## 2026-09-30 Completion Audit Addendum
+
+- Current English library: `500` QLs across `10` CPs (`50` per CP).
+- Current 20-question Question Studio smoke: no weak options, invalid correct indices, placeholder leaks, duplicate stems, impossible percentages, or semantic-label mismatches.
+- Existing diversity regression proved deterministic rotation only inside an explicit Easy bucket.
+- Unrestricted audit generation previously assigned difficulty before applying `diversityOrdinal`, so it could reuse a difficulty subset before consuming the full CP pool.
+- Updated unrestricted audit selection to rotate across the full 50-QL CP pool first when no explicit difficulty or QL is requested.
+- Explicit difficulty selection remains constrained to its requested difficulty and deterministic.
+- Added regression coverage across all 10 CPs: 50 unrestricted ordinals must produce 50 distinct English QLs before reuse.
+- Added CP-001 explicit-Easy coverage: 30 ordinals must consume all 30 Easy QLs before reuse.
