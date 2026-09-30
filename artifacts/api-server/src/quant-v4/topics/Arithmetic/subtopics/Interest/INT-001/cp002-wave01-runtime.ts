@@ -606,7 +606,7 @@ function buildDayCount(seed: string): BuildResult {
   const basePrincipal = actualBasis ? 7300 : 7200;
   const multiplier = pick([1, 2, 3, 4, 5], seed, "multiplier");
   const principal = rational(basePrincipal * multiplier);
-  const rate = rational(pick([4, 5, 6, 8, 10, 12], seed, "rate"));
+  const rate = rational(pick([5, 10, 15], seed, "rate"));
   const duration = intCp002DaysToYears(days, basis);
   const solution = simpleInterest(principal, rate, duration);
   const wrongBasis = actualBasis ? 360 : 365;
