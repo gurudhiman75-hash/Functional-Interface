@@ -23,12 +23,12 @@ type RangeEntry = VariableRangeMap[string];
 const VARIABLE_SYMBOLS = ["x", "y", "z", "p", "q"];
 
 const CONTAINER_NOUNS: Record<string, string[]> = {
-  family: ["family", "household"],
-  school: ["school", "class"],
-  workers: ["factory", "office", "company"],
-  mixtures: ["vessel", "mixture", "container"],
-  coins: ["bag", "box", "purse"],
-  marks: ["examination", "test"]
+  family: ["family", "household", "home"],
+  school: ["school", "class", "college", "classroom"],
+  workers: ["factory", "office", "company", "warehouse", "workshop", "shop"],
+  mixtures: ["vessel", "mixture", "container", "drum", "pitcher", "solution"],
+  coins: ["bag", "box", "purse", "wallet", "cash box"],
+  marks: ["examination", "test", "exam"]
 };
 
 const CONTAINER_ENTITIES: Record<string, string[]> = {
@@ -102,6 +102,67 @@ const RAP_001_SHARED_ENTITY_REFERENCES: Record<string, EntityReference> = {
   examination: { categoryId: "education", entityId: "examination" },
   test: { categoryId: "education", entityId: "test" },
   solution: { categoryId: "container", entityId: "solution" },
+  home: { categoryId: "place", entityId: "home" },
+  college: { categoryId: "education", entityId: "edu_02" },
+  classroom: { categoryId: "education", entityId: "edu_14" },
+  warehouse: { categoryId: "place", entityId: "warehouse" },
+  workshop: { categoryId: "place", entityId: "workshop" },
+  shop: { categoryId: "place", entityId: "shop" },
+  drum: { categoryId: "container", entityId: "drum" },
+  pitcher: { categoryId: "container", entityId: "pitcher" },
+  wallet: { categoryId: "container", entityId: "wallet" },
+  "cash box": { categoryId: "container", entityId: "cash_box" },
+  exam: { categoryId: "education", entityId: "edu_04" },
+
+  grandfather_paternal: { categoryId: "relation", entityId: "rel_7" },
+  grandmother_paternal: { categoryId: "relation", entityId: "rel_8" },
+  grandfather_maternal: { categoryId: "relation", entityId: "rel_9" },
+  grandmother_maternal: { categoryId: "relation", entityId: "rel_10" },
+  uncle_paternal: { categoryId: "relation", entityId: "rel_13" },
+  aunt_paternal: { categoryId: "relation", entityId: "rel_14" },
+  uncle_maternal: { categoryId: "relation", entityId: "rel_15" },
+  aunt_maternal: { categoryId: "relation", entityId: "rel_16" },
+  husband: { categoryId: "relation", entityId: "rel_25" },
+  wife: { categoryId: "relation", entityId: "rel_26" },
+  grandson: { categoryId: "relation", entityId: "rel_39" },
+  granddaughter: { categoryId: "relation", entityId: "rel_40" },
+
+  staff: { categoryId: "group", entityId: "staff" },
+  children: { categoryId: "group", entityId: "children" },
+  candidates: { categoryId: "group", entityId: "candidates" },
+  members: { categoryId: "group", entityId: "members" },
+  players: { categoryId: "group", entityId: "players" },
+  other_students: { categoryId: "group", entityId: "other_students" },
+  managers: { categoryId: "group", entityId: "managers" },
+  supervisors: { categoryId: "group", entityId: "supervisors" },
+  clerks: { categoryId: "group", entityId: "clerks" },
+  engineers: { categoryId: "group", entityId: "engineers" },
+  drivers: { categoryId: "group", entityId: "drivers" },
+  shopkeepers: { categoryId: "group", entityId: "shopkeepers" },
+  traders: { categoryId: "group", entityId: "traders" },
+  vendors: { categoryId: "group", entityId: "vendors" },
+  farmers: { categoryId: "group", entityId: "farmers" },
+  customers: { categoryId: "group", entityId: "customers" },
+
+  hindi: { categoryId: "subject", entityId: "hindi" },
+  punjabi: { categoryId: "subject", entityId: "punjabi" },
+  geography: { categoryId: "subject", entityId: "geography" },
+  commerce: { categoryId: "subject", entityId: "commerce" },
+  accounting: { categoryId: "subject", entityId: "accounting" },
+  banking: { categoryId: "subject", entityId: "banking" },
+  it: { categoryId: "subject", entityId: "it" },
+  agriculture: { categoryId: "subject", entityId: "agriculture" },
+
+  petrol: { categoryId: "liquid", entityId: "petrol" },
+  diesel: { categoryId: "liquid", entityId: "diesel" },
+  kerosene: { categoryId: "liquid", entityId: "kerosene" },
+  oil: { categoryId: "liquid", entityId: "oil" },
+  syrup: { categoryId: "liquid", entityId: "syrup" },
+  vinegar: { categoryId: "liquid", entityId: "vinegar" },
+  paint: { categoryId: "liquid", entityId: "paint" },
+  ink: { categoryId: "liquid", entityId: "ink" },
+  mustard_oil: { categoryId: "liquid", entityId: "mustard_oil" },
+  coconut_oil: { categoryId: "liquid", entityId: "coconut_oil" },
 };
 
 function buildEntityReferences(variables: Rap001Variables) {
@@ -698,15 +759,26 @@ export function getSelectableQuestionLanguageIds(cpId: Rap001CanonicalProblemId,
   return getLocalizedQuestionLanguageIds("RAP-001", language, englishIds);
 }
 
-export function selectQuestionLanguageId(cpId: Rap001CanonicalProblemId, language: Rap001Language, seed: string, difficultyBand?: Rap001DifficultyBand) {
+export function selectQuestionLanguageId(
+  cpId: Rap001CanonicalProblemId,
+  language: Rap001Language,
+  seed: string,
+  difficultyBand?: Rap001DifficultyBand,
+  diversityOrdinal?: number,
+) {
   const ids = getSelectableQuestionLanguageIds(cpId, language);
   if (ids.length === 0) {
     throw new Error(`No localized question languages available for ${language}:${cpId} in RAP-001.`);
   }
 
-  const resolvedDifficulty = difficultyBand ?? chooseDifficulty(cpId, seed);
-  const matching = ids.filter((id) => getQuestionEntry(cpId, id, "en").difficulty === resolvedDifficulty);
-  return pick(matching.length ? matching : ids, `${seed}:${language}:ql`);
+  const matching = difficultyBand
+    ? ids.filter((id) => getQuestionEntry(cpId, id, "en").difficulty === difficultyBand)
+    : ids;
+  const source = matching.length ? matching : ids;
+  const selectedIndex = Number.isInteger(diversityOrdinal)
+    ? Math.max(0, Math.floor(Number(diversityOrdinal))) % source.length
+    : stableBucket(`${seed}:${language}:ql`, source.length);
+  return source[selectedIndex]!;
 }
 
 function selectSemanticContext(cpId: Rap001CanonicalProblemId, seed: string): Rap001SemanticContext {
@@ -758,11 +830,22 @@ export function generateRap001Parameters(cpId: Rap001CanonicalProblemId, input: 
     throw new Error(`Question language ${input.questionLanguageId} is not localized for ${language} in RAP-001.`);
   }
 
-  const difficultyBand = input.difficultyBand ?? chooseDifficulty(cpId, seed);
+  const auditRotatesFullPool =
+    !input.questionLanguageId
+    && input.difficultyBand === undefined
+    && Number.isInteger(input.diversityOrdinal);
+  const selectionDifficulty = input.difficultyBand
+    ?? (auditRotatesFullPool ? undefined : chooseDifficulty(cpId, seed));
   const questionLanguageId =
     input.questionLanguageId && selectableQuestionLanguageIds.includes(input.questionLanguageId)
       ? input.questionLanguageId
-      : selectQuestionLanguageId(cpId, language, `${seed}:ql`, difficultyBand);
+      : selectQuestionLanguageId(
+          cpId,
+          language,
+          `${seed}:ql`,
+          selectionDifficulty,
+          input.diversityOrdinal,
+        );
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const semanticContext = selectSemanticContext(cpId, seed);
