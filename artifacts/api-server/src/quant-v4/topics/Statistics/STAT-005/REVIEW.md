@@ -77,7 +77,6 @@ D. 41
 **Semantic contract:** Locate a specified decile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
 The following ordered frequency distribution has N = 23. Using the nearest-rank rule ceil(kN/m), find D8.
-Value | Frequency
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -100,7 +99,6 @@ D. 52
 **Semantic contract:** Locate a specified percentile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
 The following ordered frequency distribution has N = 23. Using the nearest-rank rule ceil(kN/m), find P75.
-Value | Frequency
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -145,7 +143,6 @@ D. 19.38
 **Semantic contract:** Interpolate a requested decile in a grouped continuous frequency distribution from its decile class and displayed frequency data.
 
 Use the grouped interpolation rule at position kN/m to find D4.
-Class interval | Frequency
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
@@ -168,7 +165,6 @@ D. 26.4
 **Semantic contract:** Interpolate a requested percentile in a grouped continuous frequency distribution from its percentile class and displayed frequency data.
 
 Use the grouped interpolation rule at position kN/m to find P25.
-Class interval | Frequency
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
