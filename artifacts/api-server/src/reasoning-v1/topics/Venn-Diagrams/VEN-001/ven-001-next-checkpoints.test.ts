@@ -32,6 +32,8 @@ for (const family of families) {
       assert.equal(item.questionOperation, family.operation);
       assert.equal(item.language, language);
       assert.equal(item.reviewOnly, true);
+      assert.equal(item.reviewStatus, "USER_SIGNED_OFF_TRILINGUAL_REVIEW");
+      assert.equal(item.validation.localeParityPendingHumanReview, false);
       assert.equal(item.questionBankWritable, false);
       assert.equal(item.productionReleaseAuthorized, false);
       assert.equal(item.validation.exactlyOneCorrect, true);

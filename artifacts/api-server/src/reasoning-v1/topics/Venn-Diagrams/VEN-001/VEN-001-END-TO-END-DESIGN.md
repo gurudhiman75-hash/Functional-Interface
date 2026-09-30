@@ -1,6 +1,6 @@
 # VEN-001 — Logical Venn Diagrams: End-to-End Design
 
-Status: **chapter blueprint for review; no permanent QLs or learner authority assigned**
+Status: **chapter content signed off by product owner on 2026-09-30; no permanent QLs or learner authority assigned yet**
 
 Product code: `REAS-VEN`  
 Chapter ID: `VEN-001`  
@@ -30,7 +30,7 @@ A Venn-shaped illustration inside a Syllogism solution does not count as a VEN-0
 
 ## 3. Candidate checkpoint structure
 
-Checkpoint and QL IDs below are **provisional**. Permanent IDs are assigned only after source-pattern review and product-owner approval.
+Checkpoint and QL IDs below are **provisional**. The product owner signed off on the chapter on 2026-09-30; permanent QL IDs now need to be registered against the approved checkpoint and topology map.
 
 ### CP001 — Two-group relationships
 
@@ -67,7 +67,7 @@ Given a labeled diagram and a category/member description, identify the correct 
 
 ## 4. Source and scenario authority
 
-Before permanent QL allocation:
+Remaining implementation work before permanent QL registration:
 
 1. Census SSC, Banking and Punjab-state exam patterns for two-group and three-group diagram questions.
 2. Record source, exam, year/session where available, stem operation, number of sets, topology, answer format and locale.
@@ -158,7 +158,7 @@ Before a chapter freeze:
 - review packs show full questions, options, diagrams, answers and explanations;
 - a separate product-owner approval records the content freeze.
 
-Initial release state: **review-only**. Question Bank persistence, tests, mocks, public learner delivery and automatic publication remain disabled until their own approval.
+Current release state: **review-only**. Chapter content and all four checkpoints are signed off. Question Bank persistence, tests, mocks, public learner delivery and automatic publication remain disabled until the permanent-QL release implementation is complete.
 
 ## 11. Question Studio integration
 
@@ -167,8 +167,8 @@ After the source census, executable prototype and proofs pass, register VEN-001 
 ## 12. First implementation sequence
 
 1. Complete the source-pattern census and confirm CP001–CP004 scope.
-2. Approve permanent QLs and topology signatures.
+2. Register permanent QLs and topology signatures against the approved checkpoint map.
 3. Implement typed authorities, solver, distractor generator and SVG renderer.
 4. Add topology and ambiguity proofs, then create a representative trilingual review pack.
 5. Integrate the proved package into normal Question Studio.
-6. Freeze only after editorial approval and all chapter gates pass.
+6. Editorial signoff is complete; finish permanent-QL registration and technical release gates before production use.

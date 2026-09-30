@@ -16,6 +16,10 @@ assert.deepEqual(packageDefinition.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(packageDefinition.questionBankWritable, false);
 assert.equal(packageDefinition.difficultyFilterSupported, true);
 assert.equal(packageDefinition.testEligible, false);
+assert.equal(
+  packageDefinition.metadata.reviewStatus,
+  "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
+);
 assert.equal(packageDefinition.mockTestEligible, false);
 assert.equal(packageDefinition.publiclyPublishable, false);
 
@@ -71,6 +75,8 @@ for (const language of ["en", "hi", "pa"] as const) {
     );
     assert.equal((item.validation as any).exactlyOneCorrect, true);
     assert.equal(item.reviewOnly, true);
+    assert.equal(item.reviewStatus, "USER_SIGNED_OFF_TRILINGUAL_REVIEW");
+    assert.equal(item.validation.localeParityPendingHumanReview, false);
     assert.equal(item.questionBankWritable, false);
     assert.equal(item.testEligible, false);
     assert.equal(item.mockTestEligible, false);

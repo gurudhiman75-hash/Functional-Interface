@@ -320,7 +320,7 @@ export const VEN_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition =
     productionReleaseAuthorized: false,
     metadata: {
       chapterId: "VEN-001",
-      reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+      reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
       registrationAuthorityId: VEN_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
       permanentQlIdsAllocated: false,
       supportedQuestionOperations: [
