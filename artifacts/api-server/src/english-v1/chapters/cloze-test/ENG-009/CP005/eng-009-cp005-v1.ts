@@ -19,17 +19,24 @@ export function generateEng009Cp005QuestionV1(input:GenerateEng009Cp005Input){
    correctOptionIndex=options.indexOf(correct);answer=correct;
    prompt=`Which option CANNOT appropriately fill blank number ${blank.blankNo}?`;
  }else if(blank.mode==="can-fit"){
-   const correct=blank.accepted[0]!,others=[...blank.accepted.slice(1),...blank.rejected].slice(0,3);
-   options=shuffle(`${input.seed}:options`,[correct,...others]);
+   if(blank.accepted.length<3||blank.rejected.length<1)throw new Error(`${blank.id} requires at least three accepted words and one rejected word for can-fit rendering`);
+   const accepted=blank.accepted.slice(0,3),rejected=blank.rejected[0]!;
+   const correct=accepted.join(", ");
+   const distractors=[
+     [accepted[0]!,accepted[1]!,rejected].join(", "),
+     [accepted[0]!,accepted[2]!,rejected].join(", "),
+     [accepted[1]!,accepted[2]!,rejected].join(", "),
+   ];
+   options=shuffle(`${input.seed}:options`,[correct,...distractors]);
    correctOptionIndex=options.indexOf(correct);answer=correct;
-   prompt=`Which option can appropriately fill blank number ${blank.blankNo}?`;
+   prompt=`Which group contains only words that can appropriately fill blank number ${blank.blankNo}?`;
  }else{
    const correct=blank.accepted[0]!,others=blank.rejected.slice(0,3);
    options=shuffle(`${input.seed}:options`,[correct,...others]);
    correctOptionIndex=options.indexOf(correct);answer=correct;
    prompt=`Select the most appropriate word or phrase for blank number ${blank.blankNo}.`;
  }
- return{questionId:`ENG-009-CP005-V1:${blank.id}:${hash(input.seed).toString(16)}`,stem:"Read the passage and answer the question based on the numbered blank.",passage:renderEng009Cp005Passage(passage.template),prompt,options,correctOptionIndex,explanation:`Answer: ${answer}. ${blank.explanation}`,metadata:{chapterId:"ENG-009",cpId:"ENG-009-CP005",passageId:passage.id,blankId:blank.id,blankNo:blank.blankNo,mode:blank.mode,difficulty:blank.difficulty,clue:blank.clue,seed:input.seed,reviewOnly:true as const}};
+ return{questionId:`ENG-009-CP005-${blank.mode==="can-fit"?"V2":"V1"}:${blank.id}:${hash(input.seed).toString(16)}`,stem:"Read the passage and answer the question based on the numbered blank.",passage:renderEng009Cp005Passage(passage.template),prompt,options,correctOptionIndex,explanation:`Answer: ${answer}. ${blank.explanation}`,metadata:{chapterId:"ENG-009",cpId:"ENG-009-CP005",passageId:passage.id,blankId:blank.id,blankNo:blank.blankNo,mode:blank.mode,difficulty:blank.difficulty,clue:blank.clue,seed:input.seed,reviewOnly:true as const}};
 }
 export function generateEng009Cp005SetV1(seed:string,passageId?:string){
  const passages=passageId?ENG009_CP005_PASSAGES_V1.filter(x=>x.id===passageId):ENG009_CP005_PASSAGES_V1;

@@ -22,6 +22,26 @@ for(const p of ENG009_CP005_PASSAGES_V1){
   assert.deepEqual(q,z);
   assert.equal(q.options.length,4);
   assert.equal(new Set(q.options.map(x=>x.toLowerCase())).size,4);
+  if(b.mode==="can-fit"){
+   assert.match(q.prompt,/Which group contains only words/i);
+   assert.match(q.questionId,/ENG-009-CP005-V2:/);
+   assert.ok(b.accepted.length>=3);
+   const accepted=new Set(b.accepted.slice(0,3).map(x=>x.toLowerCase()));
+   const rejected=b.rejected[0]!.toLowerCase();
+   const correct=q.options[q.correctOptionIndex]!;
+   const correctWords=correct.split(",").map(x=>x.trim().toLowerCase());
+   assert.deepEqual(new Set(correctWords),accepted,`${b.id} keyed group must contain the three approved fitting words`);
+   assert.ok(!correctWords.includes(rejected),`${b.id} keyed can-fit group contains rejected word`);
+   for(const [index,option] of q.options.entries()){
+    if(index===q.correctOptionIndex)continue;
+    const words=option.split(",").map(x=>x.trim().toLowerCase());
+    assert.ok(words.includes(rejected),`${b.id} distractor group must include the rejected word`);
+   }
+  }
+  if(b.mode==="cannot-fit"){
+   assert.equal(q.options[q.correctOptionIndex]!.toLowerCase(),b.rejected[0]!.toLowerCase());
+   assert.ok(q.options.filter((_,i)=>i!==q.correctOptionIndex).every(option=>b.accepted.map(x=>x.toLowerCase()).includes(option.toLowerCase())));
+  }
  }
  const set=generateEng009Cp005SetV1(`set:${p.id}`,p.id);
  assert.equal(set.questions.length,6);
