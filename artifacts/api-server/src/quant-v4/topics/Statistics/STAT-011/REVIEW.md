@@ -218,3 +218,57 @@ D. 7.61
 - Confirm test-statistic conventions, tails, and rounding.
 - This candidate does not authorize storage, tests, mocks, localization, publication, or production release.
 
+
+
+## STAT-QL-181 — Construct a confidence interval for a mean
+
+A sample of n = 100 has mean x̄ = 50. The population standard deviation is known to be σ = 10. Construct a 95% z confidence interval using z = 1.96.
+
+A. (48.04, 51.96)
+B. (48, 52)
+C. (46.04, 53.96)
+D. (49.8, 50.2)
+
+**Answer:** A. (48.04, 51.96)
+
+**Explanation:** The standard error is σ/√n = 10/√100 = 1. The interval is x̄ ± z(SE) = 50 ± 1.96(1), giving (48.04, 51.96).
+
+## STAT-QL-182 — Wald confidence interval for a proportion
+
+In a sample of 100 people, 60 support a proposal. Using the normal (Wald) method with z = 1.96, construct a 95% confidence interval for the population proportion.
+
+A. (0.504, 0.696)
+B. (0.500, 0.700)
+C. (0.550, 0.650)
+D. (0.400, 0.800)
+
+**Answer:** A. (0.504, 0.696)
+
+**Explanation:** The sample proportion is p̂ = 60/100 = 0.60. Its standard error is √[0.60×0.40/100] ≈ 0.049. Thus p̂ ± z(SE) = 0.60 ± 1.96(0.049), giving (0.504, 0.696).
+
+## STAT-QL-183 — Decision from a one-sample Z test
+
+A sample of n = 100 has mean x̄ = 56. Test H₀: μ = 50 against H₁: μ > 50, with known σ = 10. At α = 0.05, use critical value z = 1.645. What is the decision?
+
+A. Reject H₀
+B. Fail to reject H₀
+C. Accept H₁ as proven
+D. There is not enough information
+
+**Answer:** A. Reject H₀
+
+**Explanation:** The test statistic is z = (56−50)/(10/√100) = 6. For this upper-tailed test, reject H₀ when z > 1.645. Since 6 > 1.645, reject H₀.
+
+## STAT-QL-184 — Decision from a chi-square goodness-of-fit test
+
+A goodness-of-fit test has observed counts (20, 30, 50) and expected counts (25, 25, 50). Using critical value χ² = 5.99, decide whether to reject H₀.
+
+A. Reject H₀
+B. Fail to reject H₀
+C. Accept H₀ as proven
+D. The test must be two-tailed
+
+**Answer:** B. Fail to reject H₀
+
+**Explanation:** Calculate χ² = Σ(O−E)²/E = 2. Reject H₀ when χ² exceeds 5.99. Since 2 ≤ 5.99, fail to reject H₀.
+
