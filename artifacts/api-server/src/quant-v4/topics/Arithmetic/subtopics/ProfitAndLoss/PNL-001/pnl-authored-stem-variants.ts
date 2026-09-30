@@ -1317,6 +1317,118 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਕਿਸੇ ਵਸਤ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ ਅਤੇ ਨਿਲਾਮੀ ਪਲੇਟਫਾਰਮ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਦਾ {commissionPercent}% ਕੱਟਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦਾ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
       "ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} 'ਤੇ {targetRatePercent}% {targetDirection} ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਿਕਰੇਤਾ ਅਜਿਹਾ ਨਿਲਾਮੀ ਪਲੇਟਫਾਰਮ ਵਰਤਦਾ ਹੈ ਜੋ ਕੁੱਲ ਕੀਮਤ 'ਤੇ {commissionPercent}% ਕਮਿਸ਼ਨ ਲੈਂਦਾ ਹੈ। ਲੋੜੀਂਦਾ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਕੀ ਹੈ?"
     ]
+  },
+  "PNL-QL-003": {
+    "en": [
+      "A bicycle is bought for ₹{costPrice} and sold for ₹{sellingPrice}. Find the profit or loss percentage.",
+      "The cost price of a bicycle is ₹{costPrice} and its selling price is ₹{sellingPrice}. What is the percentage gain or loss?"
+    ],
+    "hi": [
+      "एक साइकिल ₹{costPrice} में खरीदी और ₹{sellingPrice} में बेची जाती है। लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "साइकिल का क्रय मूल्य ₹{costPrice} और विक्रय मूल्य ₹{sellingPrice} है। प्रतिशत लाभ या हानि ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਸਾਈਕਲ ₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਜਾਂਦੀ ਹੈ। ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਸਾਈਕਲ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPrice} ਹੈ। ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-004": {
+    "en": [
+      "A power tiller costs ₹{costPrice} and is sold for ₹{sellingPrice}. Calculate the percentage gain or loss.",
+      "An equipment trader pays ₹{costPrice} for a power tiller and receives ₹{sellingPrice} on sale. Find the profit or loss rate."
+    ],
+    "hi": [
+      "पावर टिलर का क्रय मूल्य ₹{costPrice} और विक्रय मूल्य ₹{sellingPrice} है। प्रतिशत लाभ या हानि ज्ञात कीजिए।",
+      "एक उपकरण व्यापारी पावर टिलर के लिए ₹{costPrice} देता है और बिक्री पर ₹{sellingPrice} प्राप्त करता है। लाभ या हानि की दर ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਪਾਵਰ ਟਿਲਰ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPrice} ਹੈ। ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਉਪਕਰਣ ਵਪਾਰੀ ਪਾਵਰ ਟਿਲਰ ਲਈ ₹{costPrice} ਦਿੰਦਾ ਹੈ ਅਤੇ ਵਿਕਰੀ 'ਤੇ ₹{sellingPrice} ਪ੍ਰਾਪਤ ਕਰਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਦਰ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-007": {
+    "en": [
+      "A refurbished laptop is sold for ₹{sellingPrice} at {profitPercent}% profit. Find its cost price.",
+      "The selling price of a refurbished laptop is ₹{sellingPrice}, which includes a profit of {profitPercent}%. What was the original cost price?"
+    ],
+    "hi": [
+      "एक रिफर्बिश्ड लैपटॉप ₹{sellingPrice} में {profitPercent}% लाभ पर बेचा जाता है। उसका क्रय मूल्य ज्ञात कीजिए।",
+      "रिफर्बिश्ड लैपटॉप का विक्रय मूल्य ₹{sellingPrice} है, जिसमें {profitPercent}% लाभ शामिल है। मूल क्रय मूल्य क्या था?"
+    ],
+    "pa": [
+      "ਇੱਕ ਰੀਫਰਬਿਸ਼ਡ ਲੈਪਟਾਪ ₹{sellingPrice} ਵਿੱਚ {profitPercent}% ਲਾਭ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਇਸਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਰੀਫਰਬਿਸ਼ਡ ਲੈਪਟਾਪ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPrice} ਹੈ, ਜਿਸ ਵਿੱਚ {profitPercent}% ਲਾਭ ਸ਼ਾਮਲ ਹੈ। ਮੂਲ ਖਰੀਦ ਮੁੱਲ ਕੀ ਸੀ?"
+    ]
+  },
+  "PNL-QL-008": {
+    "en": [
+      "A cupboard is sold for ₹{sellingPrice} at a loss of {lossPercent}%. Find its cost price.",
+      "After a {lossPercent}% loss, a cupboard sells for ₹{sellingPrice}. What was its original cost price?"
+    ],
+    "hi": [
+      "एक अलमारी ₹{sellingPrice} में {lossPercent}% हानि पर बेची जाती है। उसका क्रय मूल्य ज्ञात कीजिए।",
+      "{lossPercent}% हानि के बाद अलमारी ₹{sellingPrice} में बिकती है। उसका मूल क्रय मूल्य क्या था?"
+    ],
+    "pa": [
+      "ਇੱਕ ਅਲਮਾਰੀ ₹{sellingPrice} ਵਿੱਚ {lossPercent}% ਘਾਟੇ 'ਤੇ ਵੇਚੀ ਜਾਂਦੀ ਹੈ। ਇਸਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "{lossPercent}% ਘਾਟੇ ਤੋਂ ਬਾਅਦ ਅਲਮਾਰੀ ₹{sellingPrice} ਵਿੱਚ ਵਿਕਦੀ ਹੈ। ਇਸਦਾ ਮੂਲ ਖਰੀਦ ਮੁੱਲ ਕੀ ਸੀ?"
+    ]
+  },
+  "PNL-QL-009": {
+    "en": [
+      "A wholesaler earns ₹{profitAmount}, equal to {profitPercent}% of cost price. Find the cost price.",
+      "A profit of ₹{profitAmount} represents {profitPercent}% of the original cost. What is the cost price?"
+    ],
+    "hi": [
+      "एक थोक व्यापारी ₹{profitAmount} लाभ कमाता है, जो क्रय मूल्य का {profitPercent}% है। क्रय मूल्य ज्ञात कीजिए।",
+      "₹{profitAmount} का लाभ मूल लागत का {profitPercent}% है। क्रय मूल्य क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਥੋਕ ਵਪਾਰੀ ₹{profitAmount} ਲਾਭ ਕਮਾਉਂਦਾ ਹੈ, ਜੋ ਖਰੀਦ ਮੁੱਲ ਦਾ {profitPercent}% ਹੈ। ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "₹{profitAmount} ਦਾ ਲਾਭ ਮੂਲ ਲਾਗਤ ਦਾ {profitPercent}% ਹੈ। ਖਰੀਦ ਮੁੱਲ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-010": {
+    "en": [
+      "A spare-parts kit is sold at a loss of ₹{lossAmount}, which is {lossPercent}% of cost price. Find the cost price.",
+      "The loss on a spare-parts kit is ₹{lossAmount}, equal to {lossPercent}% of its original cost. What was the cost price?"
+    ],
+    "hi": [
+      "एक स्पेयर-पार्ट्स किट पर ₹{lossAmount} की हानि होती है, जो क्रय मूल्य का {lossPercent}% है। क्रय मूल्य ज्ञात कीजिए।",
+      "स्पेयर-पार्ट्स किट पर ₹{lossAmount} की हानि मूल लागत के {lossPercent}% के बराबर है। क्रय मूल्य क्या था?"
+    ],
+    "pa": [
+      "ਇੱਕ ਸਪੇਅਰ-ਪਾਰਟਸ ਕਿਟ 'ਤੇ ₹{lossAmount} ਦਾ ਘਾਟਾ ਹੁੰਦਾ ਹੈ, ਜੋ ਖਰੀਦ ਮੁੱਲ ਦਾ {lossPercent}% ਹੈ। ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਸਪੇਅਰ-ਪਾਰਟਸ ਕਿਟ 'ਤੇ ₹{lossAmount} ਦਾ ਘਾਟਾ ਮੂਲ ਲਾਗਤ ਦੇ {lossPercent}% ਦੇ ਬਰਾਬਰ ਹੈ। ਖਰੀਦ ਮੁੱਲ ਕੀ ਸੀ?"
+    ]
+  },
+  "PNL-QL-011": {
+    "en": [
+      "A cricket kit costs ₹{costPrice} and gives a profit of ₹{profitAmount}. Find the profit percentage.",
+      "The gain on a cricket kit is ₹{profitAmount} on a cost price of ₹{costPrice}. What is the profit rate?"
+    ],
+    "hi": [
+      "क्रिकेट किट का क्रय मूल्य ₹{costPrice} है और उस पर ₹{profitAmount} लाभ होता है। लाभ प्रतिशत ज्ञात कीजिए।",
+      "₹{costPrice} लागत वाली क्रिकेट किट पर ₹{profitAmount} का लाभ होता है। लाभ की दर क्या है?"
+    ],
+    "pa": [
+      "ਕ੍ਰਿਕਟ ਕਿਟ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਹੈ ਅਤੇ ਇਸ 'ਤੇ ₹{profitAmount} ਲਾਭ ਹੁੰਦਾ ਹੈ। ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "₹{costPrice} ਲਾਗਤ ਵਾਲੀ ਕ੍ਰਿਕਟ ਕਿਟ 'ਤੇ ₹{profitAmount} ਦਾ ਲਾਭ ਹੁੰਦਾ ਹੈ। ਲਾਭ ਦੀ ਦਰ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-012": {
+    "en": [
+      "A decorative lamp costs ₹{costPrice} and is sold at a loss of ₹{lossAmount}. Find the loss percentage.",
+      "On a lamp costing ₹{costPrice}, the seller loses ₹{lossAmount}. What is the percentage loss?"
+    ],
+    "hi": [
+      "एक सजावटी लैम्प का क्रय मूल्य ₹{costPrice} है और उस पर ₹{lossAmount} की हानि होती है। हानि प्रतिशत ज्ञात कीजिए।",
+      "₹{costPrice} लागत वाले लैम्प पर विक्रेता को ₹{lossAmount} की हानि होती है। हानि प्रतिशत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਸਜਾਵਟੀ ਲੈਂਪ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਹੈ ਅਤੇ ਇਸ 'ਤੇ ₹{lossAmount} ਦਾ ਘਾਟਾ ਹੁੰਦਾ ਹੈ। ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "₹{costPrice} ਲਾਗਤ ਵਾਲੇ ਲੈਂਪ 'ਤੇ ਵਿਕਰੇਤਾ ਨੂੰ ₹{lossAmount} ਦਾ ਘਾਟਾ ਹੁੰਦਾ ਹੈ। ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੈ?"
+    ]
   }
 };
 
