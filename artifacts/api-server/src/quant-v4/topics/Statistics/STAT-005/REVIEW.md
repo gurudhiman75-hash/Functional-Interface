@@ -3,13 +3,13 @@
 **Review status:** English representative review candidate; awaiting content approval.
 **Profiles:** SSC CGL Tier II and JSO. **Lifecycle:** controlled review only.
 
-Each example is generated deterministically from its permanent QL contract. The formula convention that controls the answer is stated in the stem.
+Each example is generated deterministically from its permanent QL contract. Formula conventions are stated where needed; stem wording has been revised to read as exam questions rather than procedural directions.
 
 ## STAT-QL-036 — Quartile from raw observations
 
 **Semantic contract:** Find a requested quartile in ordered raw observations using the explicitly stated (n+1) position convention and linear interpolation when required.
 
-The ordered observations are 21, 24, 25, 27, 30, 31, 33, 36, 37, 39, 42. Using the position rule k(n + 1)/m with linear interpolation when needed, what is Q3?
+For the ordered observations 21, 24, 25, 27, 30, 31, 33, 36, 37, 39, 42, quartiles are located at position k(n + 1)/4, with linear interpolation when required. The third quartile, Q3, is:
 
 A. 38
 B. 36
@@ -24,7 +24,7 @@ D. 39
 
 **Semantic contract:** Find a requested decile in ordered raw observations using the explicitly stated (n+1) position convention and linear interpolation when required.
 
-The ordered observations are 18, 21, 22, 24, 27, 28, 30, 33, 34. Using the position rule k(n + 1)/m with linear interpolation when needed, what is D3?
+For the ordered observations 18, 21, 22, 24, 27, 28, 30, 33, 34, deciles are located at position k(n + 1)/10, with linear interpolation when required. The third decile, D3, is:
 
 A. 23
 B. 24
@@ -39,7 +39,7 @@ D. 21
 
 **Semantic contract:** Find a requested percentile in ordered raw observations using the explicitly stated (n+1) position convention and linear interpolation when required.
 
-The ordered observations are 36, 40, 42, 45, 49, 51, 54, 58, 60. Using the position rule k(n + 1)/m with linear interpolation when needed, what is P75?
+For the ordered observations 36, 40, 42, 45, 49, 51, 54, 58, 60, percentiles are located at position k(n + 1)/100, with linear interpolation when required. The 75th percentile, P75, is:
 
 A. 58
 B. 57
@@ -54,7 +54,7 @@ D. 55
 
 **Semantic contract:** Locate a specified quartile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
-The following ordered frequency distribution has N = 23. Using the nearest-rank rule ceil(kN/m), find Q2.
+Under the nearest-rank convention r = ceil(kN/m), the second quartile, Q2, for the ordered frequency distribution below (N = 23) is:
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -76,7 +76,7 @@ D. 41
 
 **Semantic contract:** Locate a specified decile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
-The following ordered frequency distribution has N = 23. Using the nearest-rank rule ceil(kN/m), find D8.
+Under the nearest-rank convention r = ceil(kN/m), the eighth decile, D8, for the ordered frequency distribution below (N = 23) is:
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -98,7 +98,7 @@ D. 52
 
 **Semantic contract:** Locate a specified percentile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
-The following ordered frequency distribution has N = 23. Using the nearest-rank rule ceil(kN/m), find P75.
+Under the nearest-rank convention r = ceil(kN/m), the 75th percentile, P75, for the ordered frequency distribution below (N = 23) is:
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -120,7 +120,7 @@ D. 40
 
 **Semantic contract:** Interpolate a requested quartile in a grouped continuous frequency distribution from its quartile class, lower boundary, cumulative frequency, class frequency and width.
 
-Use the grouped interpolation rule at position kN/m to find Q1.
+For grouped data, Q1 is estimated by linear interpolation at position N/4. For the distribution below, Q1 is:
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
@@ -142,7 +142,7 @@ D. 19.38
 
 **Semantic contract:** Interpolate a requested decile in a grouped continuous frequency distribution from its decile class and displayed frequency data.
 
-Use the grouped interpolation rule at position kN/m to find D4.
+For grouped data, D4 is estimated by linear interpolation at position 4N/10. For the distribution below, D4 is:
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
@@ -164,7 +164,7 @@ D. 26.4
 
 **Semantic contract:** Interpolate a requested percentile in a grouped continuous frequency distribution from its percentile class and displayed frequency data.
 
-Use the grouped interpolation rule at position kN/m to find P25.
+For grouped data, P25 is estimated by linear interpolation at position 25N/100. For the distribution below, P25 is:
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
@@ -186,7 +186,7 @@ D. 19.38
 
 **Semantic contract:** Calculate the absolute range as the difference between the largest and smallest observations.
 
-Find the range of the observations 30, 35, 38, 42, 47, 50.
+The range of the observations 30, 35, 38, 42, 47, 50 is:
 
 A. 21
 B. 20
@@ -201,7 +201,7 @@ D. 19
 
 **Semantic contract:** Calculate the relative range (largest minus smallest) divided by (largest plus smallest), and express it as a percentage when requested.
 
-The smallest and largest observations in a data set are 18 and 28. Find the coefficient of range as a percentage.
+A data set has smallest observation 18 and largest observation 28. Its coefficient of range, expressed as a percentage, is:
 
 A. 22.74
 B. 20.74
@@ -216,7 +216,7 @@ D. 23.74
 
 **Semantic contract:** Find Q1 and Q3 with the stated (n+1) linear-interpolation convention and calculate half their difference.
 
-The ordered observations are 30, 34, 36, 39, 43, 45, 48, 52, 54, 57, 61. Use the k(n + 1)/4 position rule and linear interpolation to find the quartile deviation.
+For the ordered observations 30, 34, 36, 39, 43, 45, 48, 52, 54, 57, 61, quartiles are located at position k(n + 1)/4, with linear interpolation when required. The quartile deviation is:
 
 A. 8
 B. 9
@@ -231,7 +231,7 @@ D. 11
 
 **Semantic contract:** Calculate (Q3 minus Q1) divided by (Q3 plus Q1), using quartiles provided in the question.
 
-For a distribution, Q1 = 20 and Q3 = 44. Find the coefficient of quartile deviation as a percentage.
+For a distribution with Q1 = 20 and Q3 = 44, the coefficient of quartile deviation, expressed as a percentage, is:
 
 A. 37.5
 B. 36.5
@@ -246,7 +246,7 @@ D. 38.5
 
 **Semantic contract:** Calculate the arithmetic mean of absolute deviations from the mean for a small raw data set.
 
-Find the mean deviation about the mean for the observations 24, 28, 32, 32, 36, 40.
+The mean deviation about the arithmetic mean for the observations 24, 28, 32, 32, 36, 40 is:
 
 A. 5
 B. 3
@@ -261,7 +261,7 @@ D. 4
 
 **Semantic contract:** Calculate the arithmetic mean of absolute deviations from the median for a small raw data set.
 
-Find the mean deviation about the median for the observations 16, 20, 24, 24, 28, 32.
+The mean deviation about the median for the observations 16, 20, 24, 24, 28, 32 is:
 
 A. 5
 B. 6
@@ -276,7 +276,7 @@ D. 3
 
 **Semantic contract:** Calculate the coefficient of variation from a stated mean and population standard deviation, or compare relative consistency from given means and standard deviations.
 
-A distribution has arithmetic mean 30 and population standard deviation 9. Find its coefficient of variation as a percentage.
+A distribution has arithmetic mean 30 and population standard deviation 9. Its coefficient of variation, expressed as a percentage, is:
 
 A. 32
 B. 29
@@ -295,4 +295,5 @@ D. 31
 - Confirm the stated partition convention is acceptable for each intended format.
 - Confirm rounding, absolute-dispersion, and relative-dispersion treatment.
 - This review file does not authorize Question Bank storage, tests, mock tests, localization, publication, or production release.
+
 
