@@ -1,4 +1,4 @@
-# Statistics — STAT-013 Time Series Analysis Review V1
+# Statistics — STAT-013 Time Series Analysis Review V2
 
 **Status:** English review candidate; awaiting editorial approval.
 **Profiles:** SSC CGL Tier II and JSO. **Lifecycle:** controlled review only.
@@ -122,16 +122,16 @@ D. 9
 
 ## STAT-QL-161 — Least-squares trend line
 
-Observed values at coded times t = -2, -1, 0, 1, 2 are 37, 36, 40, 44, 43, respectively. Fit the straight-line trend Ŷ = a + bt by least squares and find the fitted value at t = 3.
+Observed values at coded times t = -2, -1, 0, 1, 2 are 38, 34, 40, 46, 42, respectively. Fit the straight-line trend Ŷ = a + bt by least squares and find the fitted value at t = 3.
 
-A. 48
+A. 50
 B. 46
-C. 44
-D. 42
+C. 48
+D. 44
 
 **Answer:** B. 46
 
-**Explanation:** The mean coded time is 0, so a = (37 + 36 + 40 + 44 + 43)/5 = 40. The least-squares slope is b = Σ(tY)/Σt² = 20/10 = 2. Thus Ŷ = 40 + 2t; at t = 3, the fitted value is 40 + 2(3) = 46.
+**Explanation:** The mean coded time is 0, so the intercept is the mean observation: a = 200/5 = 40. The least-squares slope is b = Σ(tY)/Σt² = 20/10 = 2. Thus the fitted trend is Ŷ = 40 + 2t. At t = 3, Ŷ = 40 + 2(3) = 46.
 
 ## STAT-QL-162 — Trend forecast
 
@@ -159,63 +159,114 @@ D. 118
 
 **Explanation:** Index = (seasonal average / overall average) × 100 = (150/125) × 100 = 120.
 
-## Review checkpoints
-
-- Verify component terminology and additive versus multiplicative conventions.
-- Confirm moving-average arithmetic, trend forecasts, and seasonal index base.
-- This candidate does not authorize storage, tests, mocks, localization, publication, or production release.
-
-
-
 ## STAT-QL-191 — Centered moving average from raw observations
 
 Quarterly observations over five consecutive quarters are 8, 10, 14, 18, and 22. Find the centered 4-quarter moving average at the middle quarter.
 
-A. 14.25
-B. 12.5
-C. 16
-D. 14.5
+A. 12.5
+B. 16
+C. 14.5
+D. 14.25
 
-**Answer:** A. 14.25
+**Answer:** D. 14.25
 
-**Explanation:** The adjacent 4-quarter averages are 12.5 and 16. Their average is the centered value: (12.5 + 16)/2 = 14.25.
+**Explanation:** The two adjacent 4-quarter averages are (8+10+14+18)/4 = 12.5 and (10+14+18+22)/4 = 16. Their average is the centered value: (12.5+16)/2 = 14.25.
 
-## STAT-QL-192 — Adjust a quarterly seasonal index
+## STAT-QL-192 — Adjusted quarterly seasonal index
 
-Unadjusted quarterly seasonal indices are 80, 110, 130, and 90. Adjust the third-quarter index so the four indices sum to 400.
+Unadjusted quarterly seasonal indices are 80, 110, 130, and 90. Adjust the third-quarter index so that the four indices sum to 400.
 
-A. 126.83
-B. 130
+A. 130
+B. 126.83
 C. 123.17
 D. 120
 
-**Answer:** A. 126.83
+**Answer:** B. 126.83
 
-**Explanation:** The indices sum to 410, but quarterly indices must sum to 400. Adjustment factor = 400/410. Adjusted third-quarter index = 130×400/410 = 126.83.
+**Explanation:** The unadjusted indices sum to 410, but quarterly indices must sum to 400. Adjustment factor = 400/410. Adjusted third-quarter index = 130×400/410 ≈ 126.83.
 
 ## STAT-QL-193 — Forecast with an additive seasonal effect
 
 An additive time-series model gives a trend forecast of 120 for a quarter and a seasonal effect of −8 for that quarter. Find the forecast including seasonality.
 
-A. 112
-B. 128
-C. 112.8
-D. 120
+A. 112.8
+B. 120
+C. 128
+D. 112
 
-**Answer:** A. 112
+**Answer:** D. 112
 
 **Explanation:** For an additive model, forecast = trend + seasonal effect = 120 + (−8) = 112.
 
-## STAT-QL-194 — Multiplicative deseasonalization
+## STAT-QL-194 — Deseasonalize a multiplicative observation
 
 An observed value is 132 and its seasonal index is 110. Find the deseasonalized value using the multiplicative model.
 
-A. 120
-B. 145.2
-C. 22
-D. 132
+A. 145.2
+B. 120
+C. 125
+D. 22
 
-**Answer:** A. 120
+**Answer:** B. 120
 
-**Explanation:** Convert the index to a factor: 110/100 = 1.10. Deseasonalized value = 132/1.10 = 120.
+**Explanation:** Convert the index to a factor: 110/100 = 1.10. Deseasonalized value = observed/factor = 132/1.10 = 120.
+
+## STAT-QL-205 — Seasonal estimate by ratio to moving average
+
+For the same quarter in two years, the observed values are 108 and 132 and the corresponding centered moving averages are 90 and 120. Using the arithmetic mean of the ratios to moving average, find the unadjusted seasonal index for this quarter.
+
+A. 110
+B. 120
+C. 115
+D. 114.29
+
+**Answer:** C. 115
+
+**Explanation:** The centered moving average estimates the trend-cycle. The two ratios are (108/90)×100 = 120 and (132/120)×100 = 110. Their arithmetic mean is (120+110)/2 = 115. This is the unadjusted estimate; the complete set of quarterly indices is then normalized to sum to 400.
+
+## STAT-QL-206 — Forecast with a multiplicative seasonal index
+
+A quarterly forecast has trend-cycle value 160 and seasonal index 115. With the irregular factor set to 1, find the forecast using the multiplicative model.
+
+A. 139.13
+B. 160
+C. 184
+D. 175
+
+**Answer:** C. 184
+
+**Explanation:** Convert the seasonal index to a factor: 115/100 = 1.15. The forecast is trend-cycle × seasonal factor = 160×1.15 = 184.
+
+## STAT-QL-207 — Remove an additive seasonal effect
+
+An observed quarterly value is 142 and its additive seasonal effect is −6. Find the seasonally adjusted value.
+
+A. 136
+B. 142
+C. 148
+D. 23.67
+
+**Answer:** C. 148
+
+**Explanation:** For additive adjustment, subtract the seasonal effect: adjusted value = 142−(−6) = 148. The negative seasonal effect had lowered the observed value by 6.
+
+## STAT-QL-208 — Trend by the semi-average method
+
+Annual observations for years 1 to 6 are 10, 12, 14, 16, 18, and 20. Fit a straight-line trend by dividing the series into two equal halves and using the semi-average method. What is the fitted value for year 7?
+
+A. 24
+B. 20
+C. 26
+D. 22
+
+**Answer:** D. 22
+
+**Explanation:** The first-half mean is (10+12+14)/3 = 12 at year 2. The second-half mean is (16+18+20)/3 = 18 at year 5. The slope is (18−12)/(5−2) = 2 per year. The fitted value at year 7 is 12+2(7−2) = 22.
+
+## Review checkpoints
+
+- Diversity and numerical pool expansion are deferred to a later pass.
+- Verify component terminology and additive versus multiplicative conventions.
+- Confirm moving-average arithmetic, trend forecasts, and seasonal index base.
+- This candidate does not authorize storage, tests, mocks, localization, publication, or production release.
 
