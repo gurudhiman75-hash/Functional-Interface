@@ -1,0 +1,39 @@
+name: Validate ENG-009 Composer Approval Reconciliation
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng009-adapter-v1.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng009-adapter-v1.test.ts
+      - artifacts/api-server/src/english-v1/chapters/cloze-test/ENG-009/eng-009-human-approval-v1.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eng009-composer-approval-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-composer-approval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install dependencies
+        timeout-minutes: 10
+        run: pnpm install --frozen-lockfile
+      - name: Compile ENG-009 Question Studio test
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng009-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-009-question-studio-approval-v1.test.mjs
+      - name: Run ENG-009 Question Studio test
+        run: node artifacts/api-server/dist/english-v1/eng-009-question-studio-approval-v1.test.mjs
