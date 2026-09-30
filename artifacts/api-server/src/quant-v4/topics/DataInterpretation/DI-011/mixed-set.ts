@@ -61,7 +61,15 @@ function makeQuestion(task: Di011TaskKind, difficulty: Di011Difficulty, stimulus
       const maxShare=Math.max(...rows.map((r)=>r.left));
       const linked=rows.find((r)=>r.left===maxShare)!;
       const v=linked.right;
-      stem=`The pie chart shows the largest share for ${linked.category}. What figure does the table show under ${stimulus.rightTitle} for this category?`;
+      const topShareStems:Record<string,string>={
+        "Regional loan applications and approvals":"For the region with the largest pie-chart share, how many applications were approved according to the table?",
+        "Product dispatch and returns":"For the product with the largest pie-chart share, how many units were returned according to the table?",
+        "Insurance policies and claims":"For the category with the largest pie-chart share, how many claims were recorded in the table?",
+        "Branch deposits and withdrawals":"For the branch with the largest pie-chart share, how much was withdrawn according to the table?",
+        "Training enrolment and completion":"For the batch with the largest pie-chart share, how many people completed the course according to the table?",
+        "Online orders and successful deliveries":"For the day with the largest pie-chart share, how many orders were delivered according to the table?",
+      };
+      stem=topShareStems[stimulus.title]??`What figure does the table show for ${linked.category}?`;
       answer=String(v);options=numericalOptions(v,seed);steps=[`${linked.category} has the largest pie-chart share at ${linked.left}%.`,`The table lists ${v} for ${linked.category}.`];
     } else if (task === "SAME_CATEGORY_ABSOLUTE_DIFFERENCE") {
       const ordered=[...rows].sort((x,y)=>y.left-x.left),high=ordered[0]!,low=ordered.at(-1)!;
