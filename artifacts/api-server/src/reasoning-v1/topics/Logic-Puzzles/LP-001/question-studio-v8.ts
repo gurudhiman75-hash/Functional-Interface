@@ -70,8 +70,9 @@ export async function generateLogicPuzzleQuestionStudioBatchV8(request: LogicPuz
   const caselets = generateLpCp04LocalizedBatchV3(language, seed, count);
   const questions = caselets.map((caselet, questionIndex) => {
     const child = caselet.counterfactualChild;
+    const text = `${caselet.scenario}\n\nClues:\n${caselet.learnerFacingClues.map((clue) => `- ${clue}`).join("\n")}\n\n${child.stem}`;
     return {
-      text: child.stem,
+      text,
       options: child.options,
       correct: child.correctIndex,
       correctIndex: child.correctIndex,
