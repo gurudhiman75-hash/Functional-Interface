@@ -96,6 +96,36 @@ assertFixed(
   "Riya is greater by 100 marks.",
 );
 
+for (const cpId of PCT_007_CP_IDS) {
+  const rotated = Array.from({ length: 50 }, (_, diversityOrdinal) =>
+    runPct007Pipeline(cpId, {
+      language: "en",
+      seed: `pct-007-full-pool-diversity:${cpId}:${diversityOrdinal}`,
+      diversityOrdinal,
+    }),
+  );
+  assert.equal(
+    new Set(rotated.map((item) => item.questionLanguageId)).size,
+    50,
+    `${cpId} should consume all 50 English QLs before unrestricted audit reuse`,
+  );
+}
+
+const explicitEasyRotation = Array.from({ length: 20 }, (_, diversityOrdinal) =>
+  runPct007Pipeline("PCT-CP-001", {
+    language: "en",
+    seed: `pct-007-explicit-easy:${diversityOrdinal}`,
+    difficultyBand: "Easy",
+    diversityOrdinal,
+  }),
+);
+assert.ok(explicitEasyRotation.every((item) => item.difficultyBand === "Easy"));
+assert.equal(
+  new Set(explicitEasyRotation.map((item) => item.questionLanguageId)).size,
+  20,
+  "PCT-007 CP001 should consume all 20 Easy QLs before explicit-difficulty reuse",
+);
+
 for (let index = 0; index < 40; index += 1) {
   const applicationPkg = runPct007Pipeline("PCT-CP-004", { language: "en", seed: `pct-007-application:${index}` });
   const unitLabel = String(applicationPkg.parameters.variables.unitLabel ?? "");

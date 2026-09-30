@@ -175,3 +175,15 @@ Proceed to SSC-realism editorial review. The local `artifacts/api-server/node_mo
 Publish-readiness call:
 
 `PCT-007 - Ready for SSC-realism editorial review`
+
+
+## 2026-09-30 Completion Audit Addendum
+
+- Confirmed current English library size: `500` QLs, `50` per canonical problem.
+- Prior editorial concerns in CP-004 and CP-008 are already resolved in the committed English library and the final realism-review section records a passing post-polish audit.
+- Current Question Studio option smoke remains clean on tracked option/placeholder/duplicate checks.
+- PCT-007 previously had no `diversityOrdinal` support at the package boundary, and Question Studio did not forward audit ordinals.
+- Added end-to-end audit diversity wiring.
+- Unrestricted audit selection now traverses all 50 QLs in a CP before reuse when no explicit difficulty or QL is requested.
+- Explicit difficulty selection remains constrained and deterministic.
+- Added all-CP regression coverage for 50/50 unrestricted QL consumption plus CP-001 Easy 20/20 consumption.
