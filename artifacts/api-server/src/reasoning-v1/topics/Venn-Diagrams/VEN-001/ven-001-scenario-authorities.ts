@@ -16,7 +16,7 @@ export type VennScenarioAuthority = Readonly<{
     | "NUMBER_CLASSIFICATION"
     | "LANGUAGE_CLASSIFICATION" | "GENERAL_CLASSIFICATION" | "ASTRONOMY_CLASSIFICATION" | "FOOD_CLASSIFICATION";
   sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE";
-  reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW";
+  reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW";
   sets: readonly VennCategorySet[];
   relations: readonly Readonly<{
     left: VennSetId;
@@ -33,7 +33,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-001-SPARROW-BIRD-ANIMAL",
     domain: "ANIMAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -60,7 +60,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-002-TURTLE-SNAKE-REPTILE",
     domain: "ANIMAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -96,7 +96,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-003-SQUARE-RECTANGLE-QUADRILATERAL",
     domain: "GEOMETRY",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -128,7 +128,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-004-SQUARE-CIRCLE-PLANE-FIGURE",
     domain: "GEOMETRY",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -160,7 +160,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-005-PRIME-ODD-NATURAL",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -201,7 +201,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-006-EVEN-ODD-INTEGERS",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -241,7 +241,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-007-RIGHT-ISOSCELES-TRIANGLES",
     domain: "GEOMETRY",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -278,7 +278,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-008-MULTIPLES-2-3-NATURAL",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -319,7 +319,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-009-INTEGER-RATIONAL-REAL",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -358,7 +358,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-010-WHOLE-INTEGER-RATIONAL",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -398,7 +398,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-011-RECTANGLE-RHOMBUS-QUADRILATERAL",
     domain: "GEOMETRY",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -435,7 +435,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-012-MULTIPLES-4-6-NATURAL",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -476,7 +476,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-013-SQUARE-EVEN-NATURAL",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -517,7 +517,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-014-BIRDS-MAMMALS-ANIMALS",
     domain: "ANIMAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -544,7 +544,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-015-SPIDERS-INSECTS-ARTHROPODS",
     domain: "ANIMAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -575,7 +575,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-016-FROGS-REPTILES-VERTEBRATES",
     domain: "ANIMAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -611,7 +611,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-017-PRIMES-EVEN-NATURAL",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -652,7 +652,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-018-PENTAGON-HEXAGON-POLYGON",
     domain: "GEOMETRY",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -680,7 +680,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-019-WHOLE-RATIONAL-REAL",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       {
         setId: "A",
@@ -720,7 +720,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-020-CATS-ANIMALS-BOXES",
     domain: "GENERAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Cats", "hi-IN": "बिल्लियाँ", "pa-IN": "ਬਿੱਲੀਆਂ" } },
       { setId: "B", labels: { "en-IN": "Animals", "hi-IN": "जानवर", "pa-IN": "ਜਾਨਵਰ" } },
@@ -738,7 +738,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-021-SUN-STARS-POLARIS",
     domain: "ASTRONOMY_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "The Sun", "hi-IN": "सूर्य", "pa-IN": "ਸੂਰਜ" } },
       { setId: "B", labels: { "en-IN": "Stars", "hi-IN": "तारे", "pa-IN": "ਤਾਰੇ" } },
@@ -756,7 +756,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-022-MANGO-FRUIT-BANANA",
     domain: "FOOD_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Mangoes", "hi-IN": "आम", "pa-IN": "ਅੰਬ" } },
       { setId: "B", labels: { "en-IN": "Fruits", "hi-IN": "फल", "pa-IN": "ਫਲ" } },
@@ -774,7 +774,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-023-ELECTRIC-CAR-ROAD-VEHICLE",
     domain: "GENERAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Electric cars", "hi-IN": "इलेक्ट्रिक कारें", "pa-IN": "ਇਲੈਕਟ੍ਰਿਕ ਕਾਰਾਂ" } },
       { setId: "B", labels: { "en-IN": "Cars", "hi-IN": "कारें", "pa-IN": "ਕਾਰਾਂ" } },
@@ -792,7 +792,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-024-SCREWDRIVER-HAND-TOOL-TOOL",
     domain: "GENERAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Screwdrivers", "hi-IN": "पेचकस", "pa-IN": "ਪੇਚਕੱਸ" } },
       { setId: "B", labels: { "en-IN": "Hand tools", "hi-IN": "हाथ के औज़ार", "pa-IN": "ਹੱਥ ਦੇ ਔਜ਼ਾਰ" } },
@@ -810,7 +810,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-025-RIGHT-TRIANGLE-POLYGON",
     domain: "GEOMETRY",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Right triangles", "hi-IN": "समकोण त्रिभुज", "pa-IN": "ਸਮਕੋਣ ਤਿਕੋਣ" } },
       { setId: "B", labels: { "en-IN": "Triangles", "hi-IN": "त्रिभुज", "pa-IN": "ਤਿਕੋਣ" } },
@@ -828,7 +828,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-026-ADULT-WOMEN-PEOPLE",
     domain: "GENERAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Adult women", "hi-IN": "वयस्क महिलाएँ", "pa-IN": "ਬਾਲਗ ਔਰਤਾਂ" } },
       { setId: "B", labels: { "en-IN": "Women", "hi-IN": "महिलाएँ", "pa-IN": "ਔਰਤਾਂ" } },
@@ -846,7 +846,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-027-MULTIPLES-18-6-INTEGERS",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Positive multiples of 18", "hi-IN": "18 के धनात्मक गुणज", "pa-IN": "18 ਦੇ ਧਨਾਤਮਕ ਗੁਣਜ" } },
       { setId: "B", labels: { "en-IN": "Positive multiples of 6", "hi-IN": "6 के धनात्मक गुणज", "pa-IN": "6 ਦੇ ਧਨਾਤਮਕ ਗੁਣਜ" } },
@@ -864,7 +864,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-028-PLANETS-DWARF-PLANETS-SS-BODIES",
     domain: "ASTRONOMY_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Planets of the Solar System", "hi-IN": "सौरमंडल के ग्रह", "pa-IN": "ਸੂਰਜੀ ਮੰਡਲ ਦੇ ਗ੍ਰਹਿ" } },
       { setId: "B", labels: { "en-IN": "Dwarf planets of the Solar System", "hi-IN": "सौरमंडल के बौने ग्रह", "pa-IN": "ਸੂਰਜੀ ਮੰਡਲ ਦੇ ਬੌਣੇ ਗ੍ਰਹਿ" } },
@@ -882,7 +882,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-029-VOWEL-CONSONANT-ENGLISH-LETTERS",
     domain: "LANGUAGE_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "The five vowel letters A, E, I, O and U", "hi-IN": "अंग्रेज़ी के पाँच स्वर अक्षर A, E, I, O और U", "pa-IN": "ਅੰਗਰੇਜ਼ੀ ਦੇ ਪੰਜ ਸਵਰ ਅੱਖਰ A, E, I, O ਅਤੇ U" } },
       { setId: "B", labels: { "en-IN": "Consonant letters", "hi-IN": "व्यंजन अक्षर", "pa-IN": "ਵਿਅੰਜਨ ਅੱਖਰ" } },
@@ -900,7 +900,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-030-METAL-NONMETAL-CHEMICAL-ELEMENTS",
     domain: "GENERAL_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Metallic elements", "hi-IN": "धात्विक तत्व", "pa-IN": "ਧਾਤੂ ਤੱਤ" } },
       { setId: "B", labels: { "en-IN": "Non-metallic elements", "hi-IN": "अधात्विक तत्व", "pa-IN": "ਅਧਾਤੂ ਤੱਤ" } },
@@ -918,7 +918,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-031-RIGHT-SCALENE-TRIANGLES",
     domain: "GEOMETRY",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Right triangles", "hi-IN": "समकोण त्रिभुज", "pa-IN": "ਸਮਕੋਣ ਤਿਕੋਣ" } },
       { setId: "B", labels: { "en-IN": "Scalene triangles", "hi-IN": "विषमबाहु त्रिभुज", "pa-IN": "ਵਿਸਮਬਾਹੂ ਤਿਕੋਣ" } },
@@ -937,7 +937,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-032-ODD-SQUARE-NATURAL",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Odd natural numbers", "hi-IN": "विषम प्राकृतिक संख्याएँ", "pa-IN": "ਟਾਂਕ ਕੁਦਰਤੀ ਸੰਖਿਆਵਾਂ" } },
       { setId: "B", labels: { "en-IN": "Perfect squares", "hi-IN": "पूर्ण वर्ग संख्याएँ", "pa-IN": "ਪੂਰਨ ਵਰਗ ਸੰਖਿਆਵਾਂ" } },
@@ -956,7 +956,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-033-EVEN-SQUARE-NATURAL",
     domain: "NUMBER_CLASSIFICATION",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Even natural numbers", "hi-IN": "सम प्राकृतिक संख्याएँ", "pa-IN": "ਸਮ ਕੁਦਰਤੀ ਸੰਖਿਆਵਾਂ" } },
       { setId: "B", labels: { "en-IN": "Perfect squares", "hi-IN": "पूर्ण वर्ग संख्याएँ", "pa-IN": "ਪੂਰਨ ਵਰਗ ਸੰਖਿਆਵਾਂ" } },
@@ -975,7 +975,7 @@ export const VEN_001_SCENARIO_AUTHORITIES: readonly VennScenarioAuthority[] = [
     authorityId: "VEN-AUTH-034-TRIANGLES-REGULAR-POLYGONS",
     domain: "GEOMETRY",
     sourceKind: "CURATED_CANONICAL_FACT_CANDIDATE",
-    reviewStatus: "PENDING_TRILINGUAL_HUMAN_REVIEW",
+    reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
     sets: [
       { setId: "A", labels: { "en-IN": "Triangles", "hi-IN": "त्रिभुज", "pa-IN": "ਤਿਕੋਣ" } },
       { setId: "B", labels: { "en-IN": "Regular polygons", "hi-IN": "समबहुभुज", "pa-IN": "ਸਮਬਹੁਭੁਜ" } },
