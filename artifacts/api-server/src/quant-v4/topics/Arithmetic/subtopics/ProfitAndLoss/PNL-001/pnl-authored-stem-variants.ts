@@ -267,6 +267,90 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਸਟਾਕ ਦੀ ਕੁੱਲ ਲਾਗਤ ₹{totalCostPrice} ਹੈ ਅਤੇ ਵਸੂਲੀ ਉਸ ਲਾਗਤ ਦਾ {recoveredFraction} ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
       "ਇੱਕ ਵਪਾਰੀ ₹{totalCostPrice} ਦੀ ਕੁੱਲ ਸਟਾਕ ਲਾਗਤ ਦਾ {recoveredFraction} ਵਸੂਲ ਕਰਦਾ ਹੈ। ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਜਾਂ ਘਾਟਾ ਕੀ ਹੈ?"
     ]
+  },
+  "PNL-QL-095": {
+    "en": [
+      "A wholesaler buys a fabric consignment for ₹{initialCostPrice}, sells it to a distributor at {firstRatePercent}% {firstDirection}, and the distributor sells it onward at {secondRatePercent}% {secondDirection}. Find the retailer's purchase price.",
+      "A fabric lot costing ₹{initialCostPrice} passes through two sales: {firstRatePercent}% {firstDirection} followed by {secondRatePercent}% {secondDirection}. What does the final retailer pay?"
+    ],
+    "hi": [
+      "एक थोक व्यापारी कपड़े की खेप ₹{initialCostPrice} में खरीदता है, उसे वितरक को {firstRatePercent}% {firstDirection} पर बेचता है और वितरक आगे {secondRatePercent}% {secondDirection} पर बेचता है। खुदरा विक्रेता द्वारा चुकाई गई कीमत ज्ञात कीजिए।",
+      "₹{initialCostPrice} लागत वाली कपड़े की खेप दो बिक्री चरणों से गुजरती है: पहले {firstRatePercent}% {firstDirection}, फिर {secondRatePercent}% {secondDirection}। अंतिम खुदरा विक्रेता कितना भुगतान करेगा?"
+    ],
+    "pa": [
+      "ਇੱਕ ਥੋਕ ਵਪਾਰੀ ਕੱਪੜੇ ਦੀ ਖੇਪ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, ਇਸਨੂੰ ਡਿਸਟ੍ਰੀਬਿਊਟਰ ਨੂੰ {firstRatePercent}% {firstDirection} 'ਤੇ ਵੇਚਦਾ ਹੈ ਅਤੇ ਡਿਸਟ੍ਰੀਬਿਊਟਰ ਅੱਗੇ {secondRatePercent}% {secondDirection} 'ਤੇ ਵੇਚਦਾ ਹੈ। ਰਿਟੇਲਰ ਵੱਲੋਂ ਦਿੱਤੀ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "₹{initialCostPrice} ਲਾਗਤ ਵਾਲੀ ਕੱਪੜੇ ਦੀ ਖੇਪ ਦੋ ਵਿਕਰੀ ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ: ਪਹਿਲਾਂ {firstRatePercent}% {firstDirection}, ਫਿਰ {secondRatePercent}% {secondDirection}। ਅੰਤਿਮ ਰਿਟੇਲਰ ਕਿੰਨਾ ਭੁਗਤਾਨ ਕਰੇਗਾ?"
+    ]
+  },
+  "PNL-QL-096": {
+    "en": [
+      "A shipment costing ₹{initialCostPrice} is sold successively at {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection}, and {thirdRatePercent}% {thirdDirection}. Find the final retailer's price.",
+      "An electronics shipment starts at ₹{initialCostPrice}. Three successive transfers give {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection}, and {thirdRatePercent}% {thirdDirection}. What is the final selling price?"
+    ],
+    "hi": [
+      "₹{initialCostPrice} की खेप को क्रमशः {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} और {thirdRatePercent}% {thirdDirection} पर बेचा जाता है। अंतिम खुदरा मूल्य ज्ञात कीजिए।",
+      "एक इलेक्ट्रॉनिक्स खेप की प्रारंभिक लागत ₹{initialCostPrice} है। तीन लगातार लेन-देन में {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} और {thirdRatePercent}% {thirdDirection} होता है। अंतिम विक्रय मूल्य क्या है?"
+    ],
+    "pa": [
+      "₹{initialCostPrice} ਦੀ ਖੇਪ ਨੂੰ ਲਗਾਤਾਰ {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} ਅਤੇ {thirdRatePercent}% {thirdDirection} 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਅੰਤਿਮ ਰਿਟੇਲ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਇਲੈਕਟ੍ਰਾਨਿਕਸ ਖੇਪ ਦੀ ਸ਼ੁਰੂਆਤੀ ਲਾਗਤ ₹{initialCostPrice} ਹੈ। ਤਿੰਨ ਲਗਾਤਾਰ ਲੈਣ-ਦੇਣਾਂ ਵਿੱਚ {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} ਅਤੇ {thirdRatePercent}% {thirdDirection} ਹੁੰਦਾ ਹੈ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-097": {
+    "en": [
+      "A book lot changes hands twice at {firstRatePercent}% {firstDirection} and {secondRatePercent}% {secondDirection}. The bookstore finally pays ₹{finalSellingPrice}. Find the publisher's original cost.",
+      "After two successive sales at {firstRatePercent}% {firstDirection} and {secondRatePercent}% {secondDirection}, a book lot reaches a bookstore for ₹{finalSellingPrice}. What was its initial cost price?"
+    ],
+    "hi": [
+      "एक पुस्तक खेप दो बार क्रमशः {firstRatePercent}% {firstDirection} और {secondRatePercent}% {secondDirection} पर बेची जाती है। अंत में पुस्तक विक्रेता ₹{finalSellingPrice} देता है। प्रकाशक की मूल लागत ज्ञात कीजिए।",
+      "{firstRatePercent}% {firstDirection} और {secondRatePercent}% {secondDirection} की दो लगातार बिक्री के बाद पुस्तक खेप ₹{finalSellingPrice} में पुस्तक विक्रेता तक पहुँचती है। प्रारंभिक क्रय मूल्य क्या था?"
+    ],
+    "pa": [
+      "ਇੱਕ ਕਿਤਾਬਾਂ ਦੀ ਖੇਪ ਦੋ ਵਾਰ ਲਗਾਤਾਰ {firstRatePercent}% {firstDirection} ਅਤੇ {secondRatePercent}% {secondDirection} 'ਤੇ ਵੇਚੀ ਜਾਂਦੀ ਹੈ। ਅੰਤ ਵਿੱਚ ਬੁੱਕਸਟੋਰ ₹{finalSellingPrice} ਭਰਦਾ ਹੈ। ਪ੍ਰਕਾਸ਼ਕ ਦੀ ਮੂਲ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "{firstRatePercent}% {firstDirection} ਅਤੇ {secondRatePercent}% {secondDirection} ਦੀਆਂ ਦੋ ਲਗਾਤਾਰ ਵਿਕਰੀਆਂ ਤੋਂ ਬਾਅਦ ਕਿਤਾਬਾਂ ਦੀ ਖੇਪ ₹{finalSellingPrice} ਵਿੱਚ ਬੁੱਕਸਟੋਰ ਤੱਕ ਪਹੁੰਚਦੀ ਹੈ। ਸ਼ੁਰੂਆਤੀ ਖਰੀਦ ਮੁੱਲ ਕੀ ਸੀ?"
+    ]
+  },
+  "PNL-QL-098": {
+    "en": [
+      "A used vehicle passes through three successive sales at {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection}, and {thirdRatePercent}% {thirdDirection}. The last buyer pays ₹{finalSellingPrice}. Find the first owner's cost price.",
+      "The final price of a used vehicle is ₹{finalSellingPrice} after three transfers at {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection}, and {thirdRatePercent}% {thirdDirection}. Determine the original purchase price."
+    ],
+    "hi": [
+      "एक पुराना वाहन तीन लगातार बिक्री चरणों से गुजरता है: {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} और {thirdRatePercent}% {thirdDirection}। अंतिम खरीदार ₹{finalSellingPrice} देता है। पहले मालिक का क्रय मूल्य ज्ञात कीजिए।",
+      "तीन लेन-देन—{firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection}, और {thirdRatePercent}% {thirdDirection}—के बाद पुराने वाहन की अंतिम कीमत ₹{finalSellingPrice} है। मूल क्रय मूल्य ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਪੁਰਾਣਾ ਵਾਹਨ ਤਿੰਨ ਲਗਾਤਾਰ ਵਿਕਰੀ ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ: {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} ਅਤੇ {thirdRatePercent}% {thirdDirection}। ਅੰਤਿਮ ਖਰੀਦਦਾਰ ₹{finalSellingPrice} ਭਰਦਾ ਹੈ। ਪਹਿਲੇ ਮਾਲਕ ਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਤਿੰਨ ਲੈਣ-ਦੇਣ—{firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} ਅਤੇ {thirdRatePercent}% {thirdDirection}—ਤੋਂ ਬਾਅਦ ਪੁਰਾਣੇ ਵਾਹਨ ਦੀ ਅੰਤਿਮ ਕੀਮਤ ₹{finalSellingPrice} ਹੈ। ਮੂਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-099": {
+    "en": [
+      "A farm-equipment unit costs ₹{initialCostPrice} initially and then goes through these resale stages: {stages}. Find its price immediately after stage {afterStage}.",
+      "Starting from ₹{initialCostPrice}, a farm machine is resold through the stages {stages}. What is its value just after transaction {afterStage}?"
+    ],
+    "hi": [
+      "कृषि उपकरण की प्रारंभिक लागत ₹{initialCostPrice} है और इसके बाद बिक्री चरण हैं: {stages}। चरण {afterStage} के तुरंत बाद की कीमत ज्ञात कीजिए।",
+      "₹{initialCostPrice} से शुरू होकर एक कृषि मशीन इन पुनर्विक्रय चरणों से गुजरती है: {stages}। लेन-देन {afterStage} के बाद उसका मूल्य क्या है?"
+    ],
+    "pa": [
+      "ਖੇਤੀਬਾੜੀ ਉਪਕਰਣ ਦੀ ਸ਼ੁਰੂਆਤੀ ਲਾਗਤ ₹{initialCostPrice} ਹੈ ਅਤੇ ਇਸ ਤੋਂ ਬਾਅਦ ਵਿਕਰੀ ਪੜਾਅ ਹਨ: {stages}। ਪੜਾਅ {afterStage} ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ ਦੀ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "₹{initialCostPrice} ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ਇੱਕ ਖੇਤੀ ਮਸ਼ੀਨ ਇਨ੍ਹਾਂ ਮੁੜ-ਵਿਕਰੀ ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}। ਲੈਣ-ਦੇਣ {afterStage} ਤੋਂ ਬਾਅਦ ਇਸਦੀ ਕੀਮਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-100": {
+    "en": [
+      "A furniture set passes through the resale stages {stages}. Find the overall percentage gain or loss from the first purchase to the last sale.",
+      "Consider the complete resale chain {stages} for a furniture set. What is the net profit or loss percentage over the entire chain?"
+    ],
+    "hi": [
+      "एक फर्नीचर सेट इन पुनर्विक्रय चरणों से गुजरता है: {stages}। पहली खरीद से अंतिम बिक्री तक कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "फर्नीचर सेट की पूरी बिक्री शृंखला {stages} है। पूरे क्रम में शुद्ध लाभ या हानि प्रतिशत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਫਰਨੀਚਰ ਸੈੱਟ ਇਨ੍ਹਾਂ ਮੁੜ-ਵਿਕਰੀ ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ: {stages}। ਪਹਿਲੀ ਖਰੀਦ ਤੋਂ ਅੰਤਿਮ ਵਿਕਰੀ ਤੱਕ ਕੁੱਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਫਰਨੀਚਰ ਸੈੱਟ ਦੀ ਪੂਰੀ ਵਿਕਰੀ ਲੜੀ {stages} ਹੈ। ਪੂਰੀ ਲੜੀ ਵਿੱਚ ਸ਼ੁੱਧ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੈ?"
+    ]
   }
 };
 
