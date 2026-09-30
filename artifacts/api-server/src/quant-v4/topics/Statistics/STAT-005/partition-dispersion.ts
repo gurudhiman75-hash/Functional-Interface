@@ -72,7 +72,7 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     const result = discretePosition(rows, numerator, denominator);
     const state: Stat005State = { kind: "DISCRETE_PARTITION", rows, numerator, denominator, convention: "CEILING_KN_OVER_M" };
     const label = symbol === "Q" ? `Q${numerator}` : symbol === "D" ? `D${numerator}` : `P${numerator}`;
-    return { state, answer: result.value, stem: `The following ordered frequency distribution has N = ${result.total}. Using the nearest-rank rule ceil(kN/m), find ${label}.\nValue | Frequency\n${freqTable(rows)}`, explanation: `The rank is ceil(${numerator} × ${result.total} / ${denominator}) = ${result.rank}. The cumulative frequencies are 2, 6, 11, 18 and 23, so rank ${result.rank} falls at value ${result.value}.` };
+    return { state, answer: result.value, stem: `The following ordered frequency distribution has N = ${result.total}. Using the nearest-rank rule ceil(kN/m), find ${label}.\n${freqTable(rows)}`, explanation: `The rank is ceil(${numerator} × ${result.total} / ${denominator}) = ${result.rank}. The cumulative frequencies are 2, 6, 11, 18 and 23, so rank ${result.rank} falls at value ${result.value}.` };
   }
   if (contractId.endsWith("FROM_GROUPED_DATA")) {
     const classes = [0, 10, 20, 30, 40].map((lower, i) => ({ lower, upper: lower + 10, frequency: [2, 4, 5, 7, 5][i]! }));
@@ -83,7 +83,7 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     const result = groupedPosition(classes, numerator, denominator);
     const state: Stat005State = { kind: "GROUPED_PARTITION", classes, numerator, denominator, convention: "K_N_OVER_M_INTERPOLATION" };
     const label = symbol === "Q" ? `Q${numerator}` : symbol === "D" ? `D${numerator}` : `P${numerator}`;
-    return { state, answer: result.value, stem: `Use the grouped interpolation rule at position kN/m to find ${label}.\nClass interval | Frequency\n${groupedTable(classes)}`, explanation: `N = ${result.total}, so the target position is ${numerator} × ${result.total} / ${denominator} = ${fmt(result.target)}. This lies in ${result.row.lower}–${result.row.upper}. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives ${result.row.lower} + [(${fmt(result.target)} − ${result.cumulativeBefore}) / ${result.row.frequency}] × 10 ≈ ${fmt(result.value)}.` };
+    return { state, answer: result.value, stem: `Use the grouped interpolation rule at position kN/m to find ${label}.\n${groupedTable(classes)}`, explanation: `N = ${result.total}, so the target position is ${numerator} × ${result.total} / ${denominator} = ${fmt(result.target)}. This lies in ${result.row.lower}–${result.row.upper}. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives ${result.row.lower} + [(${fmt(result.target)} − ${result.cumulativeBefore}) / ${result.row.frequency}] × 10 ≈ ${fmt(result.value)}.` };
   }
   if (contractId === "RANGE_OF_RAW_DATA" || contractId === "COEFFICIENT_OF_RANGE") {
     const values = rawValues(`${seed}:range`, 6); const min = Math.min(...values); const max = Math.max(...values);
