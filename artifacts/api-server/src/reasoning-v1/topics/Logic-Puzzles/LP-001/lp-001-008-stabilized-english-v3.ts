@@ -85,7 +85,7 @@ function buildSimpleExplanation<State, Clue>(input: {
       ? `Combining this with the earlier clues, we can now fix ${fixed.join(" ")}`
       : "This clue does not fix a complete entry by itself. Keep it with the earlier clues.";
 
-    if (casePlan && index === input.clues.length - 2) {
+    if (casePlan && index === Math.max(0, input.clues.length - 2)) {
       detail += `\n\nTwo cases are worth checking for ${casePlan.subject}:\n\n**Case 1:** ${casePlan.actual}\n\n**Case 2:** ${casePlan.alternate}`;
     }
     if (casePlan && index === input.clues.length - 1) {
