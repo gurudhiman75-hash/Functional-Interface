@@ -1,0 +1,2129 @@
+[
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਜੂਨ 1945 ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ’ਤੇ ਦਸਤਖ਼ਤ ਕਿੱਥੇ ਹੋਏ ਸਨ?",
+    "explanation": "ਨੁਮਾਇੰਦਿਆਂ ਨੇ 26 ਜੂਨ 1945 ਨੂੰ ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਵਿੱਚ ਚਾਰਟਰ ’ਤੇ ਦਸਤਖ਼ਤ ਕੀਤੇ। ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਜੰਗ ਦੌਰਾਨ ਨਵੀਂ ਕੌਮਾਂਤਰੀ ਸੰਸਥਾ ਦੀ ਰੂਪ-ਰੇਖਾ ਬਣਾਈ ਜਾ ਰਹੀ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q001-PA",
+    "englishQuestionId": "WHI-CP011-Q001",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F001",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S02"
+    ],
+    "questionFamily": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਸਥਾਪਨਾ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੈਨ ਫਰਾਂਸਿਸਕੋ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਨੀਵਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਿਊਯਾਰਕ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਕਦੋਂ ਲਾਗੂ ਹੋਇਆ?",
+    "explanation": "ਲੋੜੀਂਦੇ ਦੇਸ਼ਾਂ ਵੱਲੋਂ ਮਨਜ਼ੂਰੀ ਮਿਲਣ ਮਗਰੋਂ ਚਾਰਟਰ 24 ਅਕਤੂਬਰ 1945 ਨੂੰ ਲਾਗੂ ਹੋਇਆ। ਇਸ ਦਿਨ ਨੂੰ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਿਵਸ ਵਜੋਂ ਮਨਾਇਆ ਜਾਂਦਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q002-PA",
+    "englishQuestionId": "WHI-CP011-Q002",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F002",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S02"
+    ],
+    "questionFamily": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਸਥਾਪਨਾ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "26 ਜੂਨ 1945"
+      },
+      {
+        "key": "B",
+        "text": "24 ਅਕਤੂਬਰ 1945"
+      },
+      {
+        "key": "C",
+        "text": "10 ਜਨਵਰੀ 1946"
+      },
+      {
+        "key": "D",
+        "text": "1 ਜਨਵਰੀ 1947"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਕਾਨਫਰੰਸ ਵਿੱਚ ਦਸਤਖ਼ਤ ਕੀਤੇ ਚਾਰਟਰ ਨਾਲ ਕਿਹੜੀ ਕੌਮਾਂਤਰੀ ਸੰਸਥਾ ਬਣੀ?",
+    "explanation": "ਚਾਰਟਰ ਨਾਲ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਬਣਿਆ। ਰਾਸ਼ਟਰ ਸੰਘ ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਦੀ ਸੰਸਥਾ ਸੀ, ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਵਿੱਚ ਬਣੀ ਸੰਸਥਾ ਨਹੀਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q003-PA",
+    "englishQuestionId": "WHI-CP011-Q003",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F003",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਸਥਾਪਨਾ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਿਸ਼ਵ ਬੈਂਕ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਾਟੋ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਕਾਨਫਰੰਸ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੀ ਜੰਗਕਾਲੀ ਬੈਠਕ ਨੇ ਜੰਗ ਮਗਰੋਂ ਕੌਮਾਂਤਰੀ ਸੰਸਥਾ ਦੀ ਰੂਪ-ਰੇਖਾ ਤੈਅ ਕੀਤੀ ਸੀ?",
+    "explanation": "1944 ਵਿੱਚ ਡੰਬਰਟਨ ਓਕਸ ਦੀਆਂ ਬੈਠਕਾਂ ਵਿੱਚ ਨਵੀਂ ਕੌਮਾਂਤਰੀ ਸੰਸਥਾ ਲਈ ਤਜਵੀਜ਼ਾਂ ਬਣੀਆਂ। ਬਾਅਦ ਵਿੱਚ ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਕਾਨਫਰੰਸ ਨੇ ਚਾਰਟਰ ’ਤੇ ਗੱਲਬਾਤ ਕਰਕੇ ਇਸਨੂੰ ਮਨਜ਼ੂਰ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q004-PA",
+    "englishQuestionId": "WHI-CP011-Q004",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F004",
+    "sourceIds": [
+      "CP011-S02"
+    ],
+    "questionFamily": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਸਥਾਪਨਾ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਯਾਲਟਾ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੌਟਸਡੈਮ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਡੰਬਰਟਨ ਓਕਸ ਕਾਨਫਰੰਸ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਸਥਾਪਨਾ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "1944 ਵਿੱਚ ਡੰਬਰਟਨ ਓਕਸ ਵਿਖੇ ਤਜਵੀਜ਼ਾਂ ਬਣੀਆਂ, ਜੂਨ 1945 ਵਿੱਚ ਚਾਰਟਰ ’ਤੇ ਦਸਤਖ਼ਤ ਹੋਏ ਅਤੇ ਅਕਤੂਬਰ 1945 ਵਿੱਚ ਇਹ ਲਾਗੂ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q005-PA",
+    "englishQuestionId": "WHI-CP011-Q005",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F005",
+    "sourceIds": [
+      "CP011-S02"
+    ],
+    "questionFamily": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਸਥਾਪਨਾ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਡੰਬਰਟਨ ਓਕਸ ਦੀਆਂ ਤਜਵੀਜ਼ਾਂ → ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਵਿੱਚ ਦਸਤਖ਼ਤ → ਚਾਰਟਰ ਲਾਗੂ"
+      },
+      {
+        "key": "B",
+        "text": "ਚਾਰਟਰ ਲਾਗੂ → ਡੰਬਰਟਨ ਓਕਸ ਦੀਆਂ ਤਜਵੀਜ਼ਾਂ → ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਵਿੱਚ ਦਸਤਖ਼ਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਵਿੱਚ ਦਸਤਖ਼ਤ → ਚਾਰਟਰ ਲਾਗੂ → ਡੰਬਰਟਨ ਓਕਸ ਦੀਆਂ ਤਜਵੀਜ਼ਾਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਚਾਰਟਰ ਲਾਗੂ → ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਵਿੱਚ ਦਸਤਖ਼ਤ → ਡੰਬਰਟਨ ਓਕਸ ਦੀਆਂ ਤਜਵੀਜ਼ਾਂ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਦੀ ਸ਼ੁਰੂਆਤ ਵਿੱਚ ਕਿਹੜਾ ਮੁੱਖ ਮਕਸਦ ਦਰਜ ਹੈ?",
+    "explanation": "ਕੌਮਾਂਤਰੀ ਸ਼ਾਂਤੀ ਅਤੇ ਸੁਰੱਖਿਆ ਕਾਇਮ ਰੱਖਣਾ ਚਾਰਟਰ ਦਾ ਮੁੱਖ ਮਕਸਦ ਹੈ। ਚਾਰਟਰ ਸਹਿਯੋਗ ਅਤੇ ਮਨੁੱਖੀ ਹੱਕਾਂ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰਨ ਦੀ ਗੱਲ ਵੀ ਕਰਦਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q006-PA",
+    "englishQuestionId": "WHI-CP011-Q006",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F006",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਸਥਾਪਨਾ ਅਤੇ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਸ਼ਵ ਸਰਕਾਰ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੌਮਾਂਤਰੀ ਸ਼ਾਂਤੀ ਅਤੇ ਸੁਰੱਖਿਆ ਕਾਇਮ ਰੱਖਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਦੇਸ਼ ਦੀ ਸਰਕਾਰ ਬਦਲਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇੱਕ ਵਿਸ਼ਵ ਅਦਾਲਤ ਬਣਾਉਣਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਦਾ ਆਰਟੀਕਲ 2 ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਬਾਰੇ ਕਿਹੜੇ ਅਸੂਲ ਨੂੰ ਮੰਨਦਾ ਹੈ?",
+    "explanation": "ਆਰਟੀਕਲ 2 ਸਾਰੇ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਦੀ ਸਰਬਭੌਮ ਬਰਾਬਰੀ ਦਾ ਅਸੂਲ ਦਿੰਦਾ ਹੈ। ਇਸ ਦਾ ਇਹ ਮਤਲਬ ਨਹੀਂ ਕਿ ਹਰ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਅੰਗ ਵਿੱਚ ਸਾਰਿਆਂ ਦੀ ਭੂਮਿਕਾ ਇੱਕੋ ਜਿਹੀ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q007-PA",
+    "englishQuestionId": "WHI-CP011-Q007",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F007",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "ਚਾਰਟਰ ਦੇ ਅਸੂਲ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਰ ਮੈਂਬਰ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦਾ ਸਥਾਈ ਮੈਂਬਰ ਹੈ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰੇ ਮੈਂਬਰਾਂ ਦੀ ਫੌਜੀ ਤਾਕਤ ਬਰਾਬਰ ਹੈ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਰੇ ਮੈਂਬਰ ਸਰਬਭੌਮ ਤੌਰ ’ਤੇ ਬਰਾਬਰ ਹਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਾਰੇ ਮੈਂਬਰ ਇੱਕੋ ਮੁਦਰਾ ਵਰਤਦੇ ਹਨ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਦਾ ਆਰਟੀਕਲ 2(4) ਦੇਸ਼ਾਂ ਨੂੰ ਕਿਸ ਗੱਲ ਤੋਂ ਰੋਕਦਾ ਹੈ?",
+    "explanation": "ਆਰਟੀਕਲ 2(4) ਕਿਸੇ ਹੋਰ ਦੇਸ਼ ਦੀ ਖੇਤਰੀ ਅਖੰਡਤਾ ਜਾਂ ਸਿਆਸੀ ਆਜ਼ਾਦੀ ਵਿਰੁੱਧ ਤਾਕਤ ਵਰਤਣ ਜਾਂ ਇਸ ਦੀ ਧਮਕੀ ਦੇਣ ਤੋਂ ਰੋਕਦਾ ਹੈ; ਚਾਰਟਰ ਦੇ ਆਪਣੇ ਨਿਯਮ ਇਸ ਵਿੱਚ ਸ਼ਾਮਲ ਹਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q008-PA",
+    "englishQuestionId": "WHI-CP011-Q008",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F008",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "ਚਾਰਟਰ ਦੇ ਅਸੂਲ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਪਾਰਕ ਸਮਝੌਤੇ ਕਰਨ ਤੋਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਪਣੇ ਘਰੇਲੂ ਕਾਨੂੰਨ ਬਣਾਉਣ ਤੋਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀਆਂ ਬੈਠਕਾਂ ਵਿੱਚ ਜਾਣ ਤੋਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਿਸੇ ਹੋਰ ਦੇਸ਼ ਦੀ ਖੇਤਰੀ ਅਖੰਡਤਾ ਜਾਂ ਸਿਆਸੀ ਆਜ਼ਾਦੀ ਵਿਰੁੱਧ ਤਾਕਤ ਵਰਤਣ ਜਾਂ ਧਮਕੀ ਦੇਣ ਤੋਂ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਝਗੜਿਆਂ ਦੇ ਹੱਲ ਲਈ ਕਿਹੜਾ ਤਰੀਕਾ ਸੁਝਾਉਂਦਾ ਹੈ?",
+    "explanation": "ਚਾਰਟਰ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਨੂੰ ਝਗੜੇ ਸ਼ਾਂਤੀਪੂਰਨ ਢੰਗ ਨਾਲ ਸੁਲਝਾਉਣ ਲਈ ਕਹਿੰਦਾ ਹੈ। ਕਿਹੜਾ ਤਰੀਕਾ ਵਰਤਣਾ ਹੈ, ਇਹ ਝਗੜੇ ਅਤੇ ਸਬੰਧਤ ਧਿਰਾਂ ’ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q009-PA",
+    "englishQuestionId": "WHI-CP011-Q009",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F009",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "ਚਾਰਟਰ ਦੇ ਅਸੂਲ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸ਼ਾਂਤੀਪੂਰਨ ਹੱਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਫੌਜੀ ਤਾਕਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਕਤਰਫ਼ਾ ਪਾਬੰਦੀਆਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਦਾਲਤੀ ਅਪੀਲ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਦਾ ਆਰਟੀਕਲ 2(7) ਘਰੇਲੂ ਮਾਮਲਿਆਂ ਵਿੱਚ ਦਖ਼ਲ ’ਤੇ ਕੀ ਹੱਦ ਲਾਉਂਦਾ ਹੈ?",
+    "explanation": "ਆਰਟੀਕਲ 2(7) ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੂੰ ਉਹਨਾਂ ਮਾਮਲਿਆਂ ਵਿੱਚ ਦਖ਼ਲ ਦੇਣ ਤੋਂ ਰੋਕਦਾ ਹੈ ਜੋ ਮੁੱਖ ਤੌਰ ’ਤੇ ਕਿਸੇ ਦੇਸ਼ ਦੇ ਅੰਦਰੂਨੀ ਅਧਿਕਾਰ-ਖੇਤਰ ਵਿੱਚ ਆਉਂਦੇ ਹਨ। ਪਰ ਅਧਿਆਇ VII ਹੇਠ ਲਾਗੂ ਕੀਤੀ ਜਾਣ ਵਾਲੀ ਕਾਰਵਾਈ ਇਸ ਰੋਕ ਤੋਂ ਵੱਖਰੀ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q010-PA",
+    "englishQuestionId": "WHI-CP011-Q010",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F010",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "ਚਾਰਟਰ ਦੇ ਅਸੂਲ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੇਸ਼ ਸਾਰੀਆਂ ਸੰਧੀਆਂ ਨੂੰ ਅਣਡਿੱਠਾ ਕਰ ਸਕਦੇ ਹਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੂੰ ਆਮ ਤੌਰ ’ਤੇ ਕਿਸੇ ਦੇਸ਼ ਦੇ ਅੰਦਰੂਨੀ ਅਧਿਕਾਰ-ਖੇਤਰ ਵਾਲੇ ਮਾਮਲੇ ਵਿੱਚ ਦਖ਼ਲ ਨਹੀਂ ਦੇਣਾ ਚਾਹੀਦਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਕਿਸੇ ਵੀ ਟਕਰਾਅ ’ਤੇ ਗੱਲ ਨਹੀਂ ਕਰ ਸਕਦੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਹਾਂਸਭਾ ਕੌਮਾਂਤਰੀ ਮਾਮਲਿਆਂ ’ਤੇ ਚਰਚਾ ਨਹੀਂ ਕਰ ਸਕਦੀ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਮਕਸਦਾਂ ਦਾ ਸਹੀ ਵੇਰਵਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਚਾਰਟਰ ਸ਼ਾਂਤੀ ਅਤੇ ਸੁਰੱਖਿਆ ਦੇ ਨਾਲ ਦੇਸ਼ਾਂ ਦਰਮਿਆਨ ਦੋਸਤਾਨਾ ਰਿਸ਼ਤੇ ਅਤੇ ਕੌਮਾਂਤਰੀ ਸਹਿਯੋਗ ਵਧਾਉਣ ਦੀ ਗੱਲ ਕਰਦਾ ਹੈ। ਇਹ ਵਿਸ਼ਵ ਸਰਕਾਰ ਨਹੀਂ ਬਣਾਉਂਦਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q011-PA",
+    "englishQuestionId": "WHI-CP011-Q011",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F011",
+    "sourceIds": [
+      "CP011-S01"
+    ],
+    "questionFamily": "ਚਾਰਟਰ ਦੇ ਅਸੂਲ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਰ ਦੇਸ਼ ’ਤੇ ਸਿੱਧਾ ਰਾਜ ਕਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰੀਆਂ ਸਰਕਾਰਾਂ ਦੀ ਥਾਂ ਇੱਕ ਅਦਾਲਤ ਲਿਆਉਣੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਸ਼ਾਂਤੀ ਕਾਇਮ ਰੱਖਣੀ, ਦੋਸਤਾਨਾ ਰਿਸ਼ਤੇ ਬਣਾਉਣੇ ਅਤੇ ਕੌਮਾਂਤਰੀ ਸਹਿਯੋਗ ਵਧਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਹਰ ਦੇਸ਼ ਵਿੱਚ ਇੱਕੋ ਆਰਥਿਕ ਪ੍ਰਬੰਧ ਲਾਗੂ ਕਰਨਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮੂਲ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਨੇ ਕਿੰਨੇ ਮੁੱਖ ਅੰਗ ਬਣਾਏ ਸਨ?",
+    "explanation": "ਚਾਰਟਰ ਨੇ ਛੇ ਮੁੱਖ ਅੰਗ ਬਣਾਏ: ਮਹਾਂਸਭਾ, ਸੁਰੱਖਿਆ ਕੌਂਸਲ, ਆਰਥਿਕ ਅਤੇ ਸਮਾਜਿਕ ਕੌਂਸਲ, ਟਰੱਸਟੀਸ਼ਿਪ ਕੌਂਸਲ, ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਅਤੇ ਸਕੱਤਰੇਤ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q012-PA",
+    "englishQuestionId": "WHI-CP011-Q012",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F012",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S03"
+    ],
+    "questionFamily": "ਚਾਰਟਰ ਦੇ ਅਸੂਲ ਅਤੇ ਮਕਸਦ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚਾਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੰਜ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੱਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਛੇ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਕਿਹੜਾ ਮੁੱਖ ਅੰਗ ਸਾਰੇ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਨੂੰ ਸ਼ਾਮਲ ਕਰਦਾ ਹੈ?",
+    "explanation": "ਮਹਾਂਸਭਾ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਉਹ ਅੰਗ ਹੈ ਜਿਸ ਵਿੱਚ ਹਰ ਮੈਂਬਰ ਦੇਸ਼ ਦੀ ਨੁਮਾਇੰਦਗੀ ਹੁੰਦੀ ਹੈ। ਇਸ ਦੀਆਂ ਤਾਕਤਾਂ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਨਾਲੋਂ ਵੱਖਰੀਆਂ ਹਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q013-PA",
+    "englishQuestionId": "WHI-CP011-Q013",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F013",
+    "sourceIds": [
+      "CP011-S03"
+    ],
+    "questionFamily": "ਮੁੱਖ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਹਾਂਸਭਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਰਥਿਕ ਅਤੇ ਸਮਾਜਿਕ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਟਰੱਸਟੀਸ਼ਿਪ ਕੌਂਸਲ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਕੌਮਾਂਤਰੀ ਸ਼ਾਂਤੀ ਅਤੇ ਸੁਰੱਖਿਆ ਕਾਇਮ ਰੱਖਣ ਦੀ ਮੁੱਖ ਜ਼ਿੰਮੇਵਾਰੀ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਕਿਹੜੇ ਅੰਗ ਕੋਲ ਹੈ?",
+    "explanation": "ਚਾਰਟਰ ਦਾ ਆਰਟੀਕਲ 24 ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਨੂੰ ਕੌਮਾਂਤਰੀ ਸ਼ਾਂਤੀ ਅਤੇ ਸੁਰੱਖਿਆ ਦੀ ਮੁੱਖ ਜ਼ਿੰਮੇਵਾਰੀ ਦਿੰਦਾ ਹੈ। ਹੋਰ ਮੁੱਖ ਅੰਗਾਂ ਦੇ ਕੰਮ ਵੱਖਰੇ ਹਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q014-PA",
+    "englishQuestionId": "WHI-CP011-Q014",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F014",
+    "sourceIds": [
+      "CP011-S03"
+    ],
+    "questionFamily": "ਮੁੱਖ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਰਥਿਕ ਅਤੇ ਸਮਾਜਿਕ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਹਾਂਸਭਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਕਿਹੜਾ ਅੰਗ ਆਰਥਿਕ ਅਤੇ ਸਮਾਜਿਕ ਮਾਮਲਿਆਂ ਦੇ ਕੰਮ ਦਾ ਤਾਲਮੇਲ ਕਰਦਾ ਹੈ?",
+    "explanation": "ਆਰਥਿਕ ਅਤੇ ਸਮਾਜਿਕ ਕੌਂਸਲ ਆਰਥਿਕ, ਸਮਾਜਿਕ ਅਤੇ ਇਨ੍ਹਾਂ ਨਾਲ ਜੁੜੇ ਕੌਮਾਂਤਰੀ ਮਾਮਲਿਆਂ ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਕੰਮ ਦਾ ਤਾਲਮੇਲ ਕਰਦੀ ਹੈ। ਇਹ ਚਾਰਟਰ ਦਾ ਮੁੱਖ ਅੰਗ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q015-PA",
+    "englishQuestionId": "WHI-CP011-Q015",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F015",
+    "sourceIds": [
+      "CP011-S03"
+    ],
+    "questionFamily": "ਮੁੱਖ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਕੱਤਰੇਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਟਰੱਸਟੀਸ਼ਿਪ ਕੌਂਸਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਰਥਿਕ ਅਤੇ ਸਮਾਜਿਕ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਮੁੱਖ ਨਿਆਂਇਕ ਅੰਗ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਮੁੱਖ ਨਿਆਂਇਕ ਅੰਗ ਹੈ। ਇਹ ਦੇਸ਼ਾਂ ਦਰਮਿਆਨ ਕੇਸ ਸੁਣਦੀ ਹੈ ਅਤੇ ਇਜਾਜ਼ਤ ਮਿਲਣ ’ਤੇ ਸਲਾਹਕਾਰੀ ਰਾਇ ਦਿੰਦੀ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q016-PA",
+    "englishQuestionId": "WHI-CP011-Q016",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F016",
+    "sourceIds": [
+      "CP011-S05"
+    ],
+    "questionFamily": "ਮੁੱਖ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੌਮਾਂਤਰੀ ਫੌਜਦਾਰੀ ਅਦਾਲਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਿਆਂ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਕਿਹੜਾ ਮੁੱਖ ਅੰਗ ਰੋਜ਼ਾਨਾ ਦਾ ਪ੍ਰਸ਼ਾਸਕੀ ਕੰਮ ਕਰਦਾ ਹੈ?",
+    "explanation": "ਸਕੱਤਰੇਤ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਪ੍ਰਸ਼ਾਸਕੀ ਕੰਮ ਕਰਦਾ ਹੈ ਅਤੇ ਮਹਾਂਸਚਿਵ ਦੀ ਅਗਵਾਈ ਹੇਠ ਚੱਲਦਾ ਹੈ। ਇਹ ਛੇ ਮੁੱਖ ਅੰਗਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q017-PA",
+    "englishQuestionId": "WHI-CP011-Q017",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F017",
+    "sourceIds": [
+      "CP011-S03"
+    ],
+    "questionFamily": "ਮੁੱਖ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਕੱਤਰੇਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਹਾਂਸਭਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਆਰਥਿਕ ਅਤੇ ਸਮਾਜਿਕ ਕੌਂਸਲ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਚਾਰਟਰ ਹੇਠ ਕੌਮਾਂਤਰੀ ਟਰੱਸਟੀਸ਼ਿਪ ਪ੍ਰਬੰਧ ਦੀ ਨਿਗਰਾਨੀ ਲਈ ਕਿਹੜੀ ਮੁੱਖ ਕੌਂਸਲ ਬਣਾਈ ਗਈ ਸੀ?",
+    "explanation": "ਟਰੱਸਟੀਸ਼ਿਪ ਕੌਂਸਲ ਚਾਰਟਰ ਹੇਠ ਟਰੱਸਟ ਖੇਤਰਾਂ ਦੀ ਨਿਗਰਾਨੀ ਕਰਦੀ ਸੀ। ਆਖ਼ਰੀ ਟਰੱਸਟ ਖੇਤਰ ਦੇ ਆਜ਼ਾਦ ਹੋਣ ਮਗਰੋਂ ਇਸ ਨੇ ਕੰਮ ਰੋਕ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q018-PA",
+    "englishQuestionId": "WHI-CP011-Q018",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F018",
+    "sourceIds": [
+      "CP011-S06"
+    ],
+    "questionFamily": "ਮੁੱਖ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਟਰੱਸਟੀਸ਼ਿਪ ਕੌਂਸਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਕੱਤਰੇਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਆਰਥਿਕ ਅਤੇ ਸਮਾਜਿਕ ਕੌਂਸਲ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਚਾਰਟਰ ਹੇਠ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਮਹਾਂਸਭਾ ਦਾ ਮੁੱਖ ਕੰਮ ਕੀ ਹੈ?",
+    "explanation": "ਮਹਾਂਸਭਾ ਚਾਰਟਰ ਦੇ ਘੇਰੇ ਵਿੱਚ ਆਉਂਦੇ ਮਾਮਲਿਆਂ ’ਤੇ ਚਰਚਾ ਕਰ ਸਕਦੀ ਹੈ ਅਤੇ ਸਿਫ਼ਾਰਸ਼ਾਂ ਦੇ ਸਕਦੀ ਹੈ। ਇਹ ਵਿਸ਼ਵ ਸੰਸਦ ਵਾਂਗ ਦੇਸ਼ਾਂ ਦੀਆਂ ਸਰਕਾਰਾਂ ’ਤੇ ਸਿੱਧਾ ਰਾਜ ਨਹੀਂ ਕਰਦੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q019-PA",
+    "englishQuestionId": "WHI-CP011-Q019",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F019",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S03"
+    ],
+    "questionFamily": "ਮੁੱਖ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੌਮੀ ਸਰਕਾਰਾਂ ’ਤੇ ਸਿੱਧੇ ਕਾਨੂੰਨ ਲਾਗੂ ਕਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਦੇ ਸਾਰੇ ਫ਼ੈਸਲੇ ਬਦਲਣੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਚਾਰਟਰ ਨਾਲ ਜੁੜੇ ਮਾਮਲਿਆਂ ’ਤੇ ਚਰਚਾ ਕਰਕੇ ਸਿਫ਼ਾਰਸ਼ਾਂ ਦੇਣੀਆਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦੀ ਥਾਂ ਬੰਨ੍ਹਣਯੋਗ ਫ਼ੈਸਲੇ ਕਰਨੇ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1945 ਦੇ ਮੂਲ ਚਾਰਟਰ ਵਿੱਚ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦੇ ਸਥਾਈ ਮੈਂਬਰਾਂ ਵਜੋਂ ਕਿਹੜੇ ਦੇਸ਼ ਦਰਜ ਸਨ?",
+    "explanation": "ਆਰਟੀਕਲ 23 ਵਿੱਚ ਚੀਨ, ਫਰਾਂਸ, ਸੋਵੀਅਤ ਸੰਘ, ਯੂਨਾਈਟਿਡ ਕਿੰਗਡਮ ਅਤੇ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਨੂੰ ਸਥਾਈ ਮੈਂਬਰ ਦਰਜ ਕੀਤਾ ਗਿਆ ਸੀ। ਇਹ 1945 ਦੇ ਮੂਲ ਚਾਰਟਰ ਦੀ ਲਿਖਤ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q020-PA",
+    "englishQuestionId": "WHI-CP011-Q020",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F020",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "ਮੁੱਖ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚੀਨ, ਭਾਰਤ, ਸੋਵੀਅਤ ਸੰਘ, ਫਰਾਂਸ ਅਤੇ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਚੀਨ, ਜਪਾਨ, ਸੋਵੀਅਤ ਸੰਘ, ਯੂਨਾਈਟਿਡ ਕਿੰਗਡਮ ਅਤੇ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਫਰਾਂਸ, ਜਰਮਨੀ, ਇਟਲੀ, ਯੂਨਾਈਟਿਡ ਕਿੰਗਡਮ ਅਤੇ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਚੀਨ, ਫਰਾਂਸ, ਸੋਵੀਅਤ ਸੰਘ, ਯੂਨਾਈਟਿਡ ਕਿੰਗਡਮ ਅਤੇ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਵਿੱਚ ਵੀਟੋ ਦਾ ਕੀ ਮਤਲਬ ਹੈ?",
+    "explanation": "ਮੁੱਖ ਮਾਮਲੇ ’ਤੇ ਕਿਸੇ ਸਥਾਈ ਮੈਂਬਰ ਦਾ ਨਾਂਹ ਵਾਲਾ ਵੋਟ ਮਤੇ ਨੂੰ ਮਨਜ਼ੂਰ ਹੋਣ ਤੋਂ ਰੋਕ ਸਕਦਾ ਹੈ। ਕਾਰਜ-ਵਿਧੀ ਵਾਲੇ ਫ਼ੈਸਲਿਆਂ ਲਈ ਆਰਟੀਕਲ 27 ਦਾ ਨਿਯਮ ਵੱਖਰਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q021-PA",
+    "englishQuestionId": "WHI-CP011-Q021",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F021",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਅਤੇ ਫ਼ੈਸਲਾ ਪ੍ਰਕਿਰਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਿਸੇ ਸਥਾਈ ਮੈਂਬਰ ਦਾ ਨਾਂਹ ਵਾਲਾ ਵੋਟ ਜੋ ਮੁੱਖ ਫ਼ੈਸਲਾ ਰੋਕ ਦੇਵੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਹਾਂਸਭਾ ਦੇ ਕਿਸੇ ਮੈਂਬਰ ਵੱਲੋਂ ਸੰਧੀ ਰੱਦ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਵਿੱਚ ਨਿਆਂਇਕ ਅਪੀਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਕੱਤਰੇਤ ਦੀ ਰਿਪੋਰਟ ਟਾਲਣ ਦਾ ਕਾਰਜ-ਵਿਧੀ ਮਤਾ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਆਰਟੀਕਲ 27 ਹੇਠ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦਾ ਕਿਹੜਾ ਫ਼ੈਸਲਾ ਸਥਾਈ ਮੈਂਬਰਾਂ ਦੇ ਵੀਟੋ ਹੇਠ ਨਹੀਂ ਆਉਂਦਾ?",
+    "explanation": "ਆਰਟੀਕਲ 27 ਕਾਰਜ-ਵਿਧੀ ਵਾਲੇ ਫ਼ੈਸਲਿਆਂ ਨੂੰ ਹੋਰ ਮਾਮਲਿਆਂ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ। ਵੀਟੋ ਮੁੱਖ ਮਾਮਲਿਆਂ ’ਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ, ਕਾਰਜ-ਵਿਧੀ ਵਾਲੀਆਂ ਵੋਟਾਂ ’ਤੇ ਉਸੇ ਤਰ੍ਹਾਂ ਨਹੀਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q022-PA",
+    "englishQuestionId": "WHI-CP011-Q022",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F022",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਅਤੇ ਫ਼ੈਸਲਾ ਪ੍ਰਕਿਰਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਵੇਂ ਮੈਂਬਰ ਨੂੰ ਸ਼ਾਮਲ ਕਰਨ ਦੀ ਸਿਫ਼ਾਰਸ਼"
+      },
+      {
+        "key": "B",
+        "text": "ਕਾਰਜ-ਵਿਧੀ ਵਾਲਾ ਫ਼ੈਸਲਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਲਾਗੂਕਰਨ ਕਾਰਵਾਈ ਦੀ ਮਨਜ਼ੂਰੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਪਾਬੰਦੀਆਂ ਲਾਉਣ ਦਾ ਫ਼ੈਸਲਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਆਰਟੀਕਲ 24 ਹੇਠ ਮੈਂਬਰ ਦੇਸ਼ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਬਾਰੇ ਕਿਸ ਗੱਲ ’ਤੇ ਸਹਿਮਤ ਹੁੰਦੇ ਹਨ?",
+    "explanation": "ਆਰਟੀਕਲ 24 ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਨੂੰ ਕੌਮਾਂਤਰੀ ਸ਼ਾਂਤੀ ਅਤੇ ਸੁਰੱਖਿਆ ਦੀ ਮੁੱਖ ਜ਼ਿੰਮੇਵਾਰੀ ਦਿੰਦਾ ਹੈ। ਮੈਂਬਰ ਮੰਨਦੇ ਹਨ ਕਿ ਇਸ ਜ਼ਿੰਮੇਵਾਰੀ ਨੂੰ ਨਿਭਾਉਂਦਿਆਂ ਕੌਂਸਲ ਉਨ੍ਹਾਂ ਵੱਲੋਂ ਕੰਮ ਕਰਦੀ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q023-PA",
+    "englishQuestionId": "WHI-CP011-Q023",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F023",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਅਤੇ ਫ਼ੈਸਲਾ ਪ੍ਰਕਿਰਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਹ ਕੌਮਾਂਤਰੀ ਮੁਦਰਾ ਸਹਿਯੋਗ ਕਰਦੀ ਹੈ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਹ ਕੌਮੀ ਕਾਨੂੰਨਾਂ ਦੀ ਨਿਆਂਇਕ ਜਾਂਚ ਕਰਦੀ ਹੈ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ ਮੈਂਬਰਾਂ ਵੱਲੋਂ ਸ਼ਾਂਤੀ ਅਤੇ ਸੁਰੱਖਿਆ ਦੀ ਜ਼ਿੰਮੇਵਾਰੀ ਨਿਭਾਉਂਦੀ ਹੈ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਹ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਸਕੱਤਰੇਤ ਚਲਾਉਂਦੀ ਹੈ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1945 ਦੇ ਮੂਲ ਚਾਰਟਰ ਹੇਠ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਵਿੱਚ ਕਿੰਨੇ ਮੈਂਬਰ ਸਨ?",
+    "explanation": "ਮੂਲ ਚਾਰਟਰ ਵਿੱਚ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦੇ 11 ਮੈਂਬਰ ਸਨ—ਪੰਜ ਸਥਾਈ ਤੇ ਛੇ ਚੁਣੇ ਹੋਏ। 1965 ਵਿੱਚ ਇਸ ਦੀ ਗਿਣਤੀ ਵਧਾ ਕੇ 15 ਕਰ ਦਿੱਤੀ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q024-PA",
+    "englishQuestionId": "WHI-CP011-Q024",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F024",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਅਤੇ ਫ਼ੈਸਲਾ ਪ੍ਰਕਿਰਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੰਜ"
+      },
+      {
+        "key": "B",
+        "text": "ਦਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੰਦਰਾਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਗਿਆਰਾਂ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦੇ ਕਿਹੜੇ ਮੈਂਬਰਾਂ ਕੋਲ ਮੁੱਖ ਫ਼ੈਸਲਿਆਂ ’ਤੇ ਵੀਟੋ ਦਾ ਹੱਕ ਹੈ?",
+    "explanation": "ਮੁੱਖ ਮਾਮਲਿਆਂ ’ਤੇ ਵੀਟੋ ਦਾ ਖ਼ਾਸ ਹੱਕ ਪੰਜ ਸਥਾਈ ਮੈਂਬਰਾਂ ਕੋਲ ਹੈ। ਕਾਰਜ-ਵਿਧੀ ਵਾਲੇ ਮਾਮਲਿਆਂ ’ਤੇ ਇਹ ਨਿਯਮ ਉਸੇ ਤਰ੍ਹਾਂ ਲਾਗੂ ਨਹੀਂ ਹੁੰਦਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q025-PA",
+    "englishQuestionId": "WHI-CP011-Q025",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F025",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਅਤੇ ਫ਼ੈਸਲਾ ਪ੍ਰਕਿਰਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੰਜ ਸਥਾਈ ਮੈਂਬਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰੇ ਚੁਣੇ ਹੋਏ ਮੈਂਬਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਸਾਰੇ ਮੈਂਬਰ ਦੇਸ਼"
+      },
+      {
+        "key": "D",
+        "text": "ਮਹਾਂਸਚਿਵ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮਹਾਂਸਭਾ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਅਤੇ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦੀ ਕਾਰਵਾਈ ਵਿੱਚ ਫ਼ਰਕ ਕਿਸ ਤਰ੍ਹਾਂ ਤੈਅ ਹੁੰਦਾ ਹੈ?",
+    "explanation": "ਚਾਰਟਰ ਮਹਾਂਸਭਾ ਅਤੇ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਨੂੰ ਵੱਖਰੇ ਕੰਮ ਦਿੰਦਾ ਹੈ। ਕਿਸੇ ਕਾਰਵਾਈ ਦਾ ਕਾਨੂੰਨੀ ਅਸਰ ਸਬੰਧਤ ਅੰਗ ਅਤੇ ਲਾਗੂ ਚਾਰਟਰ ਨਿਯਮ ’ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q026-PA",
+    "englishQuestionId": "WHI-CP011-Q026",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F026",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S04"
+    ],
+    "questionFamily": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਅਤੇ ਫ਼ੈਸਲਾ ਪ੍ਰਕਿਰਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚਾਰਟਰ ਹੇਠ ਮਹਾਂਸਭਾ ਦੀ ਕੋਈ ਭੂਮਿਕਾ ਨਹੀਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਨ੍ਹਾਂ ਦੀਆਂ ਤਾਕਤਾਂ ਅਤੇ ਕਾਰਵਾਈ ਦਾ ਕਾਨੂੰਨੀ ਅਸਰ ਲਾਗੂ ਚਾਰਟਰ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਹਾਂਸਭਾ ਦੀ ਹਰ ਸਿਫ਼ਾਰਸ਼ ਆਪਣੇ ਆਪ ਅਦਾਲਤੀ ਹੁਕਮ ਬਣ ਜਾਂਦੀ ਹੈ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਸਿਰਫ਼ IMF ਦੀ ਮਨਜ਼ੂਰੀ ਮਗਰੋਂ ਕੰਮ ਕਰ ਸਕਦੀ ਹੈ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1944 ਦੀ ਕਿਹੜੀ ਕਾਨਫਰੰਸ ਵਿੱਚ IMF ਅਤੇ ਇੰਟਰਨੈਸ਼ਨਲ ਬੈਂਕ ਫਾਰ ਰੀਕੰਸਟਰਕਸ਼ਨ ਐਂਡ ਡਿਵੈਲਪਮੈਂਟ ਦੀ ਰੂਪ-ਰੇਖਾ ਬਣੀ?",
+    "explanation": "ਜੁਲਾਈ 1944 ਵਿੱਚ ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਵਿਖੇ ਨੁਮਾਇੰਦਿਆਂ ਨੇ IMF ਅਤੇ IBRD ਦੇ ਸਮਝੌਤੇ ਤਿਆਰ ਕੀਤੇ। ਦੋਹਾਂ ਨੂੰ ਆਮ ਤੌਰ ’ਤੇ ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਸੰਸਥਾਵਾਂ ਕਿਹਾ ਜਾਂਦਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q027-PA",
+    "englishQuestionId": "WHI-CP011-Q027",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F027",
+    "sourceIds": [
+      "CP011-S07"
+    ],
+    "questionFamily": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਅਤੇ ਫ਼ੈਸਲਾ ਪ੍ਰਕਿਰਿਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਯਾਲਟਾ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਡੰਬਰਟਨ ਓਕਸ ਕਾਨਫਰੰਸ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਕਿਹੜੀ ਸੰਸਥਾ ਕੌਮਾਂਤਰੀ ਮੁਦਰਾ ਸਹਿਯੋਗ ਅਤੇ ਭੁਗਤਾਨ-ਸੰਤੁਲਨ ਦੀਆਂ ਮੁਸ਼ਕਲਾਂ ਵਿੱਚ ਮਦਦ ਲਈ ਬਣਾਈ ਗਈ ਸੀ?",
+    "explanation": "IMF ਦਾ ਮਕਸਦ ਮੁਦਰਾ ਸਹਿਯੋਗ ਵਧਾਉਣਾ ਅਤੇ ਭੁਗਤਾਨ-ਸੰਤੁਲਨ ਦੀ ਲੋੜ ਵੇਲੇ ਵਿੱਤੀ ਸਹਾਇਤਾ ਦੇਣਾ ਸੀ। ਵਿਸ਼ਵ ਬੈਂਕ ਦਾ ਮੁੱਖ ਕੰਮ ਮੁੜ-ਉਸਾਰੀ ਅਤੇ ਵਿਕਾਸ ਲਈ ਪੈਸਾ ਦੇਣਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q028-PA",
+    "englishQuestionId": "WHI-CP011-Q028",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F028",
+    "sourceIds": [
+      "CP011-S07",
+      "CP011-S08"
+    ],
+    "questionFamily": "ਬ੍ਰੈਟਨ ਵੁਡਜ਼ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੌਮਾਂਤਰੀ ਨਿਆਂ ਅਦਾਲਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਵਿਕਾਸ ਪ੍ਰੋਗਰਾਮ"
+      },
+      {
+        "key": "C",
+        "text": "ਇੰਟਰਨੈਸ਼ਨਲ ਬੈਂਕ ਫਾਰ ਰੀਕੰਸਟਰਕਸ਼ਨ ਐਂਡ ਡਿਵੈਲਪਮੈਂਟ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੌਮਾਂਤਰੀ ਮੁਦਰਾ ਕੋਸ਼ (IMF)"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਅੱਜ ਵਿਸ਼ਵ ਬੈਂਕ ਵਜੋਂ ਜਾਣੀ ਜਾਂਦੀ ਸੰਸਥਾ ਦਾ ਪਹਿਲਾ ਨਾਂ ਕੀ ਸੀ?",
+    "explanation": "ਵਿਸ਼ਵ ਬੈਂਕ ਦੀ ਸ਼ੁਰੂਆਤ ਇੰਟਰਨੈਸ਼ਨਲ ਬੈਂਕ ਫਾਰ ਰੀਕੰਸਟਰਕਸ਼ਨ ਐਂਡ ਡਿਵੈਲਪਮੈਂਟ ਵਜੋਂ ਹੋਈ ਸੀ। ਇਸ ਦੇ ਪਹਿਲੇ ਕੰਮਾਂ ਵਿੱਚ ਮੁੜ-ਉਸਾਰੀ ਅਤੇ ਵਿਕਾਸ ਲਈ ਵਿੱਤ ਦੇਣਾ ਸ਼ਾਮਲ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q029-PA",
+    "englishQuestionId": "WHI-CP011-Q029",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F029",
+    "sourceIds": [
+      "CP011-S08"
+    ],
+    "questionFamily": "ਬ੍ਰੈਟਨ ਵੁਡਜ਼ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇੰਟਰਨੈਸ਼ਨਲ ਬੈਂਕ ਫਾਰ ਰੀਕੰਸਟਰਕਸ਼ਨ ਐਂਡ ਡਿਵੈਲਪਮੈਂਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੌਮਾਂਤਰੀ ਮੁਦਰਾ ਕੋਸ਼"
+      },
+      {
+        "key": "C",
+        "text": "ਯੂਰਪੀ ਨਿਵੇਸ਼ ਬੈਂਕ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੌਮਾਂਤਰੀ ਵਿੱਤ ਨਿਗਮ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਜੰਗ ਮਗਰੋਂ ਕਿਹੜੀ ਸੰਸਥਾ ਨੂੰ ਮੁੜ-ਉਸਾਰੀ ਅਤੇ ਆਰਥਿਕ ਵਿਕਾਸ ਲਈ ਵਿੱਤ ਦੇਣ ਦਾ ਮੁੱਖ ਕੰਮ ਮਿਲਿਆ?",
+    "explanation": "IBRD ਨੂੰ ਮੁੜ-ਉਸਾਰੀ ਅਤੇ ਵਿਕਾਸ ਲਈ ਵਿੱਤ ਦੇਣ ਦੀ ਜ਼ਿੰਮੇਵਾਰੀ ਮਿਲੀ। IMF ਦਾ ਧਿਆਨ ਮੁਦਰਾ ਸਹਿਯੋਗ ਅਤੇ ਵਿੱਤੀ ਸਥਿਰਤਾ ’ਤੇ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q030-PA",
+    "englishQuestionId": "WHI-CP011-Q030",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F030",
+    "sourceIds": [
+      "CP011-S08"
+    ],
+    "questionFamily": "ਬ੍ਰੈਟਨ ਵੁਡਜ਼ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੌਮਾਂਤਰੀ ਮੁਦਰਾ ਕੋਸ਼"
+      },
+      {
+        "key": "B",
+        "text": "ਇੰਟਰਨੈਸ਼ਨਲ ਬੈਂਕ ਫਾਰ ਰੀਕੰਸਟਰਕਸ਼ਨ ਐਂਡ ਡਿਵੈਲਪਮੈਂਟ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਸ਼ਵ ਵਪਾਰ ਸੰਸਥਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜੁਲਾਈ 1944 ਦੀ ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਕਾਨਫਰੰਸ ਤੋਂ ਕਿਹੜਾ ਸਮਝੌਤਾ ਬਣਿਆ?",
+    "explanation": "ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਕਾਨਫਰੰਸ ਵਿੱਚ IMF ਅਤੇ IBRD ਲਈ Articles of Agreement ਤਿਆਰ ਕੀਤੇ ਗਏ। ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ’ਤੇ ਬਾਅਦ ਵਿੱਚ ਸੈਨ ਫਰਾਂਸਿਸਕੋ ਵਿੱਚ ਗੱਲਬਾਤ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q031-PA",
+    "englishQuestionId": "WHI-CP011-Q031",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F031",
+    "sourceIds": [
+      "CP011-S07"
+    ],
+    "questionFamily": "ਬ੍ਰੈਟਨ ਵੁਡਜ਼ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਾਟੋ ਸੰਧੀ"
+      },
+      {
+        "key": "C",
+        "text": "IMF ਅਤੇ IBRD ਦੇ Articles of Agreement"
+      },
+      {
+        "key": "D",
+        "text": "ਵਰਸਾਈ ਦੀ ਸੰਧੀ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "IMF ਅਤੇ ਵਿਸ਼ਵ ਬੈਂਕ ਦੇ ਕੰਮਾਂ ਦਾ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਦੋਵੇਂ ਜੰਗ ਮਗਰੋਂ ਬਣੇ ਆਰਥਿਕ ਪ੍ਰਬੰਧ ਦਾ ਹਿੱਸਾ ਸਨ, ਪਰ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਵੱਖਰੇ ਸਨ। IMF ਮੁਦਰਾ ਸਹਿਯੋਗ ’ਤੇ ਅਤੇ IBRD ਮੁੜ-ਉਸਾਰੀ ਤੇ ਵਿਕਾਸ ਲਈ ਵਿੱਤ ਦੇਣ ’ਤੇ ਧਿਆਨ ਦਿੰਦਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q032-PA",
+    "englishQuestionId": "WHI-CP011-Q032",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F032",
+    "sourceIds": [
+      "CP011-S07",
+      "CP011-S08"
+    ],
+    "questionFamily": "ਬ੍ਰੈਟਨ ਵੁਡਜ਼ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "IMF ਮੁੜ-ਉਸਾਰੀ ਕਰਦਾ ਸੀ, ਵਿਸ਼ਵ ਬੈਂਕ ਮਹਾਂਸਭਾ ਚਲਾਉਂਦਾ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਦੋਹਾਂ ਦਾ ਕੰਮ ਸਿਰਫ਼ ਫੌਜੀ ਸੁਰੱਖਿਆ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "IMF ਅਤੇ IBRD ਇੱਕੋ ਸੰਸਥਾ ਦੇ ਦੋ ਨਾਂ ਹਨ"
+      },
+      {
+        "key": "D",
+        "text": "IMF ਮੁਦਰਾ ਸਥਿਰਤਾ ’ਤੇ, ਵਿਸ਼ਵ ਬੈਂਕ ਮੁੜ-ਉਸਾਰੀ ਤੇ ਵਿਕਾਸ ਦੇ ਵਿੱਤ ’ਤੇ ਧਿਆਨ ਦਿੰਦਾ ਸੀ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਨੂਰਨਬਰਗ ਕੌਮਾਂਤਰੀ ਫੌਜੀ ਟ੍ਰਿਬਿਊਨਲ ਕਿਸ ਸਮਝੌਤੇ ਨਾਲ ਬਣਿਆ ਸੀ?",
+    "explanation": "8 ਅਗਸਤ 1945 ਦੇ ਲੰਡਨ ਸਮਝੌਤੇ ਨੇ ਕੌਮਾਂਤਰੀ ਫੌਜੀ ਟ੍ਰਿਬਿਊਨਲ ਅਤੇ ਉਸ ਦਾ ਚਾਰਟਰ ਬਣਾਇਆ। ਜੰਗ ਮਗਰੋਂ ਨਾਜ਼ੀ ਆਗੂਆਂ ’ਤੇ ਮੁਕੱਦਮੇ ਚੱਲੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q033-PA",
+    "englishQuestionId": "WHI-CP011-Q033",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F033",
+    "sourceIds": [
+      "CP011-S09"
+    ],
+    "questionFamily": "ਬ੍ਰੈਟਨ ਵੁਡਜ਼ ਸੰਸਥਾਵਾਂ",
+    "options": [
+      {
+        "key": "A",
+        "text": "8 ਅਗਸਤ 1945 ਦਾ ਲੰਡਨ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੌਟਸਡੈਮ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਨੀਵਾ ਸੰਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਸਮਝੌਤਾ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨੂਰਨਬਰਗ ਟ੍ਰਿਬਿਊਨਲ ਦੇ ਅਧਿਕਾਰ-ਖੇਤਰ ਵਿੱਚ ਕਿਹੜੀ ਕਿਸਮ ਦਾ ਜੁਰਮ ਸ਼ਾਮਲ ਸੀ?",
+    "explanation": "ਟ੍ਰਿਬਿਊਨਲ ਦੇ ਚਾਰਟਰ ਵਿੱਚ ਮਨੁੱਖਤਾ ਵਿਰੁੱਧ ਜੁਰਮਾਂ ਦੇ ਨਾਲ ਸ਼ਾਂਤੀ ਵਿਰੁੱਧ ਜੁਰਮ ਅਤੇ ਜੰਗੀ ਜੁਰਮ ਵੀ ਸ਼ਾਮਲ ਸਨ। ਇਹ ਸ਼੍ਰੇਣੀ ਜੰਗ ਮਗਰੋਂ ਕੌਮਾਂਤਰੀ ਕਾਨੂੰਨ ਲਈ ਅਹਿਮ ਬਣੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q034-PA",
+    "englishQuestionId": "WHI-CP011-Q034",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F034",
+    "sourceIds": [
+      "CP011-S09"
+    ],
+    "questionFamily": "ਨਿਊਰਨਬਰਗ ਅਤੇ ਟੋਕੀਓ ਮੁਕੱਦਮੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਟੈਕਸ ਚੋਰੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਨੁੱਖਤਾ ਵਿਰੁੱਧ ਜੁਰਮ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਸੰਧੀ ਦੀ ਉਲੰਘਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਮੁੰਦਰੀ ਵਪਾਰ ਦਾ ਝਗੜਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨੂਰਨਬਰਗ ਕੌਮਾਂਤਰੀ ਫੌਜੀ ਟ੍ਰਿਬਿਊਨਲ ਨੇ ਫ਼ੈਸਲਾ ਕਦੋਂ ਸੁਣਾਇਆ?",
+    "explanation": "ਨੂਰਨਬਰਗ ਟ੍ਰਿਬਿਊਨਲ ਨੇ 1 ਅਕਤੂਬਰ 1946 ਨੂੰ ਫ਼ੈਸਲਾ ਸੁਣਾਇਆ। ਸੁਣਵਾਈ ਨਵੰਬਰ 1945 ਵਿੱਚ ਸ਼ੁਰੂ ਹੋਈ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q035-PA",
+    "englishQuestionId": "WHI-CP011-Q035",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F035",
+    "sourceIds": [
+      "CP011-S09"
+    ],
+    "questionFamily": "ਨਿਊਰਨਬਰਗ ਅਤੇ ਟੋਕੀਓ ਮੁਕੱਦਮੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "8 ਅਗਸਤ 1945"
+      },
+      {
+        "key": "B",
+        "text": "20 ਨਵੰਬਰ 1945"
+      },
+      {
+        "key": "C",
+        "text": "1 ਅਕਤੂਬਰ 1946"
+      },
+      {
+        "key": "D",
+        "text": "11 ਨਵੰਬਰ 1948"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਜੰਗ ਮਗਰੋਂ ਟੋਕੀਓ ਵਿੱਚ ਜਪਾਨੀ ਜੰਗਕਾਲੀ ਅਧਿਕਾਰੀਆਂ ’ਤੇ ਕਿਸ ਟ੍ਰਿਬਿਊਨਲ ਨੇ ਮੁਕੱਦਮੇ ਚਲਾਏ?",
+    "explanation": "ਦੂਰ ਪੂਰਬ ਲਈ ਕੌਮਾਂਤਰੀ ਫੌਜੀ ਟ੍ਰਿਬਿਊਨਲ ਨੇ ਟੋਕੀਓ ਵਿੱਚ ਜੰਗੀ ਜੁਰਮਾਂ ਦੇ ਮੁਕੱਦਮੇ ਚਲਾਏ। ਇਹ ਯੂਰਪ ਦੇ ਨੂਰਨਬਰਗ ਟ੍ਰਿਬਿਊਨਲ ਤੋਂ ਵੱਖਰਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q036-PA",
+    "englishQuestionId": "WHI-CP011-Q036",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F036",
+    "sourceIds": [
+      "CP011-S10"
+    ],
+    "questionFamily": "ਨਿਊਰਨਬਰਗ ਅਤੇ ਟੋਕੀਓ ਮੁਕੱਦਮੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੂਰਨਬਰਗ ਕੌਮਾਂਤਰੀ ਫੌਜੀ ਟ੍ਰਿਬਿਊਨਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਸੁਰੱਖਿਆ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੂਰ ਪੂਰਬ ਲਈ ਕੌਮਾਂਤਰੀ ਫੌਜੀ ਟ੍ਰਿਬਿਊਨਲ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਟੋਕੀਓ ਜੰਗੀ ਜੁਰਮ ਟ੍ਰਿਬਿਊਨਲ ਦੀ ਕਾਰਵਾਈ ਕਦੋਂ ਸ਼ੁਰੂ ਹੋਈ?",
+    "explanation": "ਟੋਕੀਓ ਟ੍ਰਿਬਿਊਨਲ ਦੀ ਕਾਰਵਾਈ 3 ਮਈ 1946 ਨੂੰ ਸ਼ੁਰੂ ਹੋਈ ਅਤੇ ਨਵੰਬਰ 1948 ਵਿੱਚ ਫ਼ੈਸਲਾ ਆਇਆ। ਇਸ ਨੇ ਜਪਾਨੀ ਜੰਗਕਾਲੀ ਆਗੂਆਂ ਨਾਲ ਜੁੜੇ ਮਾਮਲੇ ਸੁਣੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q037-PA",
+    "englishQuestionId": "WHI-CP011-Q037",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F037",
+    "sourceIds": [
+      "CP011-S10"
+    ],
+    "questionFamily": "ਨਿਊਰਨਬਰਗ ਅਤੇ ਟੋਕੀਓ ਮੁਕੱਦਮੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "3 ਮਈ 1946"
+      },
+      {
+        "key": "B",
+        "text": "1 ਅਕਤੂਬਰ 1946"
+      },
+      {
+        "key": "C",
+        "text": "8 ਅਗਸਤ 1945"
+      },
+      {
+        "key": "D",
+        "text": "24 ਅਕਤੂਬਰ 1945"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨੂਰਨਬਰਗ ਅਤੇ ਟੋਕੀਓ ਟ੍ਰਿਬਿਊਨਲਾਂ ਬਾਰੇ ਕਿਹੜਾ ਤੁਲਨਾਤਮਕ ਕਥਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਨੂਰਨਬਰਗ ਅਤੇ ਟੋਕੀਓ ਵਿੱਚ ਜਰਮਨੀ ਅਤੇ ਜਪਾਨ ਦੇ ਆਗੂਆਂ ਲਈ ਵੱਖ-ਵੱਖ ਜੰਗ ਮਗਰੋਂ ਟ੍ਰਿਬਿਊਨਲ ਬਣੇ। ਇਹ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਮੁੱਖ ਅੰਗ ਨਹੀਂ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q038-PA",
+    "englishQuestionId": "WHI-CP011-Q038",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F038",
+    "sourceIds": [
+      "CP011-S09",
+      "CP011-S10"
+    ],
+    "questionFamily": "ਨਿਊਰਨਬਰਗ ਅਤੇ ਟੋਕੀਓ ਮੁਕੱਦਮੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਵੇਂ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਮੁੱਖ ਅੰਗ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਹ ਹਾਰੇ ਹੋਏ ਜਰਮਨੀ ਅਤੇ ਜਪਾਨ ਦੇ ਆਗੂਆਂ ਦੇ ਮੁਕੱਦਮਿਆਂ ਲਈ ਵੱਖਰੇ ਟ੍ਰਿਬਿਊਨਲ ਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਦੋਹਾਂ ਨੇ ਸਿਰਫ਼ ਦੇਸ਼ਾਂ ਵਿਚਲੇ ਸਰਹੱਦੀ ਝਗੜੇ ਸੁਣੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਟੋਕੀਓ ਟ੍ਰਿਬਿਊਨਲ ਨੇ ਨੂਰਨਬਰਗ ਦੀ ਥਾਂ ਲੈ ਲਈ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1945 ਵਿੱਚ ਜਰਮਨੀ ਦੀ ਹਾਰ ਮਗਰੋਂ ਕਿਹੜੀਆਂ ਮਿੱਤਰ ਤਾਕਤਾਂ ਨੇ ਉਸ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ?",
+    "explanation": "ਜਰਮਨੀ ਦੇ ਆਤਮਸਮਰਪਣ ਮਗਰੋਂ ਚਾਰ ਮੁੱਖ ਮਿੱਤਰ ਤਾਕਤਾਂ ਨੇ ਉਸ ’ਤੇ ਕਬਜ਼ਾ ਕੀਤਾ। ਹਰ ਤਾਕਤ ਨੇ ਇੱਕ ਕਬਜ਼ਾ ਖੇਤਰ ਦਾ ਪ੍ਰਬੰਧ ਸੰਭਾਲਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q039-PA",
+    "englishQuestionId": "WHI-CP011-Q039",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F039",
+    "sourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "questionFamily": "ਨਿਊਰਨਬਰਗ ਅਤੇ ਟੋਕੀਓ ਮੁਕੱਦਮੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬ੍ਰਿਟੇਨ, ਭਾਰਤ, ਚੀਨ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ, ਚੀਨ, ਜਪਾਨ ਅਤੇ ਫਰਾਂਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ, ਬ੍ਰਿਟੇਨ, ਫਰਾਂਸ ਅਤੇ ਸੋਵੀਅਤ ਸੰਘ"
+      },
+      {
+        "key": "D",
+        "text": "ਫਰਾਂਸ, ਇਟਲੀ, ਸਪੇਨ ਅਤੇ ਅਮਰੀਕਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਤੋਂ ਤੁਰੰਤ ਮਗਰੋਂ ਬਰਲਿਨ ਦਾ ਪ੍ਰਬੰਧ ਕਿਵੇਂ ਕੀਤਾ ਗਿਆ?",
+    "explanation": "ਬਰਲਿਨ ਸੋਵੀਅਤ ਕਬਜ਼ੇ ਵਾਲੇ ਖੇਤਰ ਦੇ ਅੰਦਰ ਸੀ, ਫਿਰ ਵੀ ਸ਼ਹਿਰ ਨੂੰ ਚਾਰ ਮਿੱਤਰ ਤਾਕਤਾਂ ਦੇ ਪ੍ਰਸ਼ਾਸਨ ਹੇਠ ਚਾਰ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ। ਬਾਅਦ ਵਿੱਚ ਇਹ ਪ੍ਰਬੰਧ ਤਣਾਅ ਦਾ ਕਾਰਨ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q040-PA",
+    "englishQuestionId": "WHI-CP011-Q040",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F040",
+    "sourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "questionFamily": "ਜਰਮਨੀ ਉੱਤੇ ਕਬਜ਼ਾ ਅਤੇ ਵੰਡ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੂਰੇ ਸ਼ਹਿਰ ਦਾ ਪ੍ਰਬੰਧ ਸੋਵੀਅਤ ਸੰਘ ਕੋਲ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਸ਼ਹਿਰ ਪੂਰਬੀ ਤੇ ਪੱਛਮੀ ਜਰਮਨੀ ਵਿਚਕਾਰ ਵੰਡਿਆ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਸ਼ਹਿਰ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੂੰ ਦੇ ਦਿੱਤਾ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਸ਼ਹਿਰ ਚਾਰ ਕਬਜ਼ਾ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ, ਜਿਨ੍ਹਾਂ ਦਾ ਪ੍ਰਬੰਧ ਚਾਰ ਮਿੱਤਰ ਤਾਕਤਾਂ ਨੇ ਕੀਤਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜੰਗ ਮਗਰੋਂ ਜਰਮਨੀ ਦੇ ਚਾਰ-ਤਾਕਤੀ ਪ੍ਰਬੰਧ ਦਾ ਤਾਲਮੇਲ ਕਿਹੜੀ ਸੰਸਥਾ ਕਰਦੀ ਸੀ?",
+    "explanation": "ਮਿੱਤਰ ਤਾਕਤਾਂ ਦੀ ਕੰਟਰੋਲ ਕੌਂਸਲ ਦਾ ਮਕਸਦ ਜਰਮਨੀ ਦੇ ਪ੍ਰਬੰਧ ਵਿੱਚ ਚਾਰਾਂ ਤਾਕਤਾਂ ਦੇ ਕੰਮ ਦਾ ਤਾਲਮੇਲ ਕਰਨਾ ਸੀ। ਬਾਅਦ ਵਿੱਚ ਕਬਜ਼ੇ ਵਾਲੀਆਂ ਸਰਕਾਰਾਂ ਵਿੱਚ ਸਹਿਯੋਗ ਟੁੱਟ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q041-PA",
+    "englishQuestionId": "WHI-CP011-Q041",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F041",
+    "sourceIds": [
+      "CP011-S12"
+    ],
+    "questionFamily": "ਜਰਮਨੀ ਉੱਤੇ ਕਬਜ਼ਾ ਅਤੇ ਵੰਡ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਿੱਤਰ ਤਾਕਤਾਂ ਦੀ ਕੰਟਰੋਲ ਕੌਂਸਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੂਰਪੀ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਟਰੱਸਟੀਸ਼ਿਪ ਕੌਂਸਲ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜੰਗ ਮਗਰੋਂ ਜਰਮਨੀ ਦੇ ਵੰਡ ਦੌਰਾਨ 1949 ਵਿੱਚ ਕਿਹੜੇ ਦੋ ਜਰਮਨ ਰਾਜ ਬਣੇ?",
+    "explanation": "1949 ਵਿੱਚ ਪੱਛਮੀ ਕਬਜ਼ਾ ਖੇਤਰਾਂ ਤੋਂ ਜਰਮਨੀ ਦਾ ਸੰਘੀ ਗਣਰਾਜ ਅਤੇ ਸੋਵੀਅਤ ਖੇਤਰ ਤੋਂ ਜਰਮਨ ਲੋਕਤੰਤਰੀ ਗਣਰਾਜ ਬਣਿਆ। ਇਹ ਵਧ ਰਹੀ ਠੰਢੀ ਜੰਗ ਦੀ ਵੰਡ ਨੂੰ ਦਰਸਾਉਂਦਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q042-PA",
+    "englishQuestionId": "WHI-CP011-Q042",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F042",
+    "sourceIds": [
+      "CP011-S12"
+    ],
+    "questionFamily": "ਜਰਮਨੀ ਉੱਤੇ ਕਬਜ਼ਾ ਅਤੇ ਵੰਡ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਸਟਰੀਆ ਅਤੇ ਹੰਗਰੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਜਰਮਨੀ ਦਾ ਸੰਘੀ ਗਣਰਾਜ ਅਤੇ ਜਰਮਨ ਲੋਕਤੰਤਰੀ ਗਣਰਾਜ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੂਰਬੀ ਜਰਮਨੀ ਅਤੇ ਆਸਟਰੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਪਰਸ਼ੀਆ ਅਤੇ ਬਵੇਰੀਆ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੋਵੀਅਤ ਕਬਜ਼ੇ ਵਾਲੇ ਖੇਤਰ ਅੰਦਰ ਹੋਣ ਦੇ ਬਾਵਜੂਦ ਕਿਹੜੇ ਸ਼ਹਿਰ ਨੂੰ ਚਾਰ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਸੀ?",
+    "explanation": "ਬਰਲਿਨ ਸੋਵੀਅਤ ਕਬਜ਼ੇ ਵਾਲੇ ਖੇਤਰ ਦੇ ਅੰਦਰ ਸੀ, ਪਰ ਸ਼ਹਿਰ ਨੂੰ ਮਿੱਤਰ ਤਾਕਤਾਂ ਦੇ ਚਾਰ ਪ੍ਰਸ਼ਾਸਕੀ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਸੀ। ਇਸ ਖ਼ਾਸ ਦਰਜੇ ਕਾਰਨ ਬਾਅਦ ਵਿੱਚ ਕਈ ਸੰਕਟ ਬਣੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q043-PA",
+    "englishQuestionId": "WHI-CP011-Q043",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F043",
+    "sourceIds": [
+      "CP011-S12"
+    ],
+    "questionFamily": "ਜਰਮਨੀ ਉੱਤੇ ਕਬਜ਼ਾ ਅਤੇ ਵੰਡ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹੈਂਬਰਗ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਿਊਨਿਖ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਰਲਿਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਫਰੈਂਕਫਰਟ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਦੋ ਜਰਮਨ ਰਾਜ ਬਣਨ ਤੋਂ ਪਹਿਲਾਂ ਜਰਮਨੀ ਦੀ ਜੰਗ ਮਗਰੋਂ ਵਾਲੀ ਹਾਲਤ ਦਾ ਸਹੀ ਵੇਰਵਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਜਰਮਨੀ ਦੇ ਆਤਮਸਮਰਪਣ ਮਗਰੋਂ ਮਿੱਤਰ ਤਾਕਤਾਂ ਨੇ ਵੱਖ-ਵੱਖ ਕਬਜ਼ਾ ਖੇਤਰਾਂ ਰਾਹੀਂ ਰਾਜ ਕੀਤਾ। ਦੋਵੇਂ ਜਰਮਨ ਰਾਜ 1949 ਵਿੱਚ ਬਣੇ, 1945 ਵਿੱਚ ਤੁਰੰਤ ਨਹੀਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q044-PA",
+    "englishQuestionId": "WHI-CP011-Q044",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F044",
+    "sourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "questionFamily": "ਜਰਮਨੀ ਉੱਤੇ ਕਬਜ਼ਾ ਅਤੇ ਵੰਡ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਸਨੂੰ ਇੱਕ ਆਜ਼ਾਦ ਰਾਜ ਵਜੋਂ ਤੁਰੰਤ ਮੁੜ ਬਣਾਇਆ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਹ ਤੁਰੰਤ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਮੈਂਬਰ ਬਣਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਸ ਦਾ ਸਾਰਾ ਪ੍ਰਬੰਧ ਸੋਵੀਅਤ ਸੰਘ ਨੂੰ ਦੇ ਦਿੱਤਾ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਚਾਰ ਕਬਜ਼ਾ ਤਾਕਤਾਂ ਨੇ ਵੱਖਰੇ ਖੇਤਰਾਂ ਵਿੱਚ ਰਾਜ ਕੀਤਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਅਤੇ IMF ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਵਿੱਚ ਵਿਆਪਕ ਕੌਮਾਂਤਰੀ ਮਕਸਦ ਦਿੱਤੇ ਗਏ ਹਨ। ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਸੰਸਥਾ IMF ਦਾ ਮੁੱਖ ਧਿਆਨ ਮੁਦਰਾ ਸਹਿਯੋਗ ’ਤੇ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q045-PA",
+    "englishQuestionId": "WHI-CP011-Q045",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F045",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S07"
+    ],
+    "questionFamily": "ਜਰਮਨੀ ਉੱਤੇ ਕਬਜ਼ਾ ਅਤੇ ਵੰਡ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਵਿਆਪਕ ਕੌਮਾਂਤਰੀ ਸਹਿਯੋਗ ਲਈ ਬਣਿਆ, ਜਦਕਿ IMF ਮੁਦਰਾ ਸਹਿਯੋਗ ’ਤੇ ਕੇਂਦਰਿਤ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "IMF ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਮਹਾਂਸਭਾ ਦਾ ਦੂਜਾ ਨਾਂ ਹੈ"
+      },
+      {
+        "key": "C",
+        "text": "ਦੋਵੇਂ ਸਿਰਫ਼ ਯੂਰਪ ਦੀ ਮੁੜ-ਉਸਾਰੀ ਲਈ ਬਣੇ ਸਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਸਿਰਫ਼ ਵਟਾਂਦਰਾ ਦਰਾਂ ਦੀ ਨਿਗਰਾਨੀ ਕਰਦਾ ਹੈ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਦੇਸ਼ਾਂ ਵਿਚਾਲੇ ਝਗੜੇ ਸੁਣਨਾ ਕਿਹੜੀ ਸੰਸਥਾ ਦਾ ਮੁੱਖ ਨਿਆਂਇਕ ਕੰਮ ਹੈ?",
+    "explanation": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਦੇਸ਼ਾਂ ਵੱਲੋਂ ਲਿਆਂਦੇ ਕਾਨੂੰਨੀ ਝਗੜੇ ਸੁਣਦੀ ਹੈ ਅਤੇ ਇਜਾਜ਼ਤ ਮਿਲਣ ’ਤੇ ਸਲਾਹਕਾਰੀ ਰਾਇ ਦਿੰਦੀ ਹੈ। ਇਹ ਵਿਅਕਤੀਆਂ ’ਤੇ ਫੌਜਦਾਰੀ ਮੁਕੱਦਮੇ ਨਹੀਂ ਚਲਾਉਂਦੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q046-PA",
+    "englishQuestionId": "WHI-CP011-Q046",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F046",
+    "sourceIds": [
+      "CP011-S05"
+    ],
+    "questionFamily": "ਨਿਆਂਇਕ ਭੂਮਿਕਾ ਅਤੇ ਨਿਆਸ ਪ੍ਰਬੰਧ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨੂਰਨਬਰਗ ਟ੍ਰਿਬਿਊਨਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਰਥਿਕ ਅਤੇ ਸਮਾਜਿਕ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਟੋਕੀਓ ਟ੍ਰਿਬਿਊਨਲ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਅਤੇ ਨੂਰਨਬਰਗ ਟ੍ਰਿਬਿਊਨਲ ਵਿੱਚ ਕੀ ਫ਼ਰਕ ਹੈ?",
+    "explanation": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਮੁੱਖ ਅੰਗ ਹੈ ਅਤੇ ਮੁੱਖ ਤੌਰ ’ਤੇ ਦੇਸ਼ਾਂ ਦੇ ਝਗੜੇ ਸੁਣਦੀ ਹੈ। ਨੂਰਨਬਰਗ ਇੱਕ ਵੱਖਰਾ ਟ੍ਰਿਬਿਊਨਲ ਸੀ, ਜਿਸ ਨੇ ਵਿਅਕਤੀਆਂ ’ਤੇ ਮੁਕੱਦਮੇ ਚਲਾਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q047-PA",
+    "englishQuestionId": "WHI-CP011-Q047",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F047",
+    "sourceIds": [
+      "CP011-S05",
+      "CP011-S09"
+    ],
+    "questionFamily": "ਨਿਆਂਇਕ ਭੂਮਿਕਾ ਅਤੇ ਨਿਆਸ ਪ੍ਰਬੰਧ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਵੇਂ ਸਿਰਫ਼ ਵਿਅਕਤੀਆਂ ਦੇ ਜੰਗੀ ਜੁਰਮਾਂ ਦੇ ਮੁਕੱਦਮੇ ਚਲਾਉਂਦੇ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੂਰਨਬਰਗ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਮਹਾਂਸਭਾ ਦਾ ਹਿੱਸਾ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਦੇਸ਼ਾਂ ਦੇ ਕੇਸਾਂ ਵਾਲਾ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਅੰਗ ਹੈ; ਨੂਰਨਬਰਗ ਨੇ ਨਾਜ਼ੀ ਆਗੂਆਂ ’ਤੇ ਮੁਕੱਦਮਾ ਚਲਾਇਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਜਰਮਨੀ ਦਾ ਪ੍ਰਬੰਧ ਕਰਦੀ ਸੀ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਟਰੱਸਟੀਸ਼ਿਪ ਪ੍ਰਬੰਧ ਦਾ ਮਕਸਦ ਕੀ ਸੀ?",
+    "explanation": "ਟਰੱਸਟੀਸ਼ਿਪ ਪ੍ਰਬੰਧ ਦਾ ਮਕਸਦ ਟਰੱਸਟ ਖੇਤਰਾਂ ਦੇ ਲੋਕਾਂ ਦੀ ਤਰੱਕੀ ਕਰਨਾ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸਵੈ-ਸ਼ਾਸਨ ਜਾਂ ਆਜ਼ਾਦੀ ਵੱਲ ਲੈ ਜਾਣਾ ਸੀ। ਇਹ ਜੰਗ ਮਗਰੋਂ ਕੌਮਾਂਤਰੀ ਨਿਗਰਾਨੀ ਦਾ ਪ੍ਰਬੰਧ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q048-PA",
+    "englishQuestionId": "WHI-CP011-Q048",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F048",
+    "sourceIds": [
+      "CP011-S06"
+    ],
+    "questionFamily": "ਨਿਆਂਇਕ ਭੂਮਿਕਾ ਅਤੇ ਨਿਆਸ ਪ੍ਰਬੰਧ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਿੱਤਣ ਵਾਲੇ ਦੇਸ਼ਾਂ ਵਿੱਚ ਬਸਤੀਆਂ ਨੂੰ ਪੱਕੇ ਤੌਰ ’ਤੇ ਵੰਡਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਵੇਂ ਦੇਸ਼ਾਂ ਨੂੰ ਕੌਮਾਂਤਰੀ ਸਮਝੌਤਿਆਂ ਤੋਂ ਰੋਕਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਰੇ ਟਰੱਸਟ ਖੇਤਰਾਂ ਨੂੰ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦਾ ਹਿੱਸਾ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਟਰੱਸਟ ਖੇਤਰਾਂ ਦੀ ਤਰੱਕੀ ਕਰਨਾ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸਵੈ-ਸ਼ਾਸਨ ਜਾਂ ਆਜ਼ਾਦੀ ਵੱਲ ਲੈ ਜਾਣਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1994 ਵਿੱਚ ਟਰੱਸਟੀਸ਼ਿਪ ਕੌਂਸਲ ਨੇ ਕਿਹੜਾ ਬਦਲਾਅ ਕੀਤਾ?",
+    "explanation": "ਪਾਲਾਉ ਦੇ ਆਜ਼ਾਦ ਹੋਣ ਮਗਰੋਂ 1994 ਵਿੱਚ ਟਰੱਸਟੀਸ਼ਿਪ ਕੌਂਸਲ ਨੇ ਆਪਣਾ ਕੰਮ ਮੁਅੱਤਲ ਕਰ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q049-PA",
+    "englishQuestionId": "WHI-CP011-Q049",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F049",
+    "sourceIds": [
+      "CP011-S06"
+    ],
+    "questionFamily": "ਨਿਆਂਇਕ ਭੂਮਿਕਾ ਅਤੇ ਨਿਆਸ ਪ੍ਰਬੰਧ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਖ਼ਰੀ ਟਰੱਸਟ ਖੇਤਰ ਦੇ ਆਜ਼ਾਦ ਹੋਣ ਮਗਰੋਂ ਕੰਮ ਮੁਅੱਤਲ ਕੀਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦੀ ਥਾਂ ਲੈ ਲਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਰੇ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ’ਤੇ ਰਾਜ ਸ਼ੁਰੂ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਖ਼ਤਮ ਕਰ ਦਿੱਤੀ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮਹਾਂਸਭਾ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਅਤੇ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦੇ ਫ਼ੈਸਲੇ ਦਾ ਕਾਨੂੰਨੀ ਅਸਰ ਕਿਸ ਗੱਲ ’ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ?",
+    "explanation": "ਚਾਰਟਰ ਦੋਵੇਂ ਅੰਗਾਂ ਨੂੰ ਵੱਖਰੇ ਕੰਮ ਅਤੇ ਕਾਰਜ-ਵਿਧੀਆਂ ਦਿੰਦਾ ਹੈ। ਕਿਸੇ ਕਾਰਵਾਈ ਦਾ ਕਾਨੂੰਨੀ ਅਸਰ ਇਸ ਗੱਲ ’ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ ਕਿ ਕਿਹੜਾ ਅੰਗ ਅਤੇ ਕਿਹੜਾ ਚਾਰਟਰ ਨਿਯਮ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q050-PA",
+    "englishQuestionId": "WHI-CP011-Q050",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F050",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S03",
+      "CP011-S04"
+    ],
+    "questionFamily": "ਨਿਆਂਇਕ ਭੂਮਿਕਾ ਅਤੇ ਨਿਆਸ ਪ੍ਰਬੰਧ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਹਾਂ ਅੰਗਾਂ ਦੇ ਹਰ ਫ਼ੈਸਲੇ ਦਾ ਅਸਰ ਇੱਕੋ ਜਿਹਾ ਹੁੰਦਾ ਹੈ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਤੇ ਕਾਰਵਾਈ ਦਾ ਅਸਰ ਲਾਗੂ ਚਾਰਟਰ ਨਿਯਮਾਂ ਮੁਤਾਬਕ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਹਾਂਸਭਾ ਕੋਲ ਕੋਈ ਅਧਿਕਾਰ ਨਹੀਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਸਿਰਫ਼ ਮਹਾਂਸਭਾ ਦੀ ਮਨਜ਼ੂਰੀ ਮਗਰੋਂ ਕੰਮ ਕਰਦੀ ਹੈ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਕਾਨਫਰੰਸ ਅਤੇ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਸਥਾਪਨਾ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਕਾਨਫਰੰਸ ਜੁਲਾਈ 1944 ਵਿੱਚ ਹੋਈ। ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ’ਤੇ ਜੂਨ 1945 ਵਿੱਚ ਦਸਤਖ਼ਤ ਹੋਏ ਅਤੇ ਇਹ ਅਕਤੂਬਰ 1945 ਵਿੱਚ ਲਾਗੂ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q051-PA",
+    "englishQuestionId": "WHI-CP011-Q051",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F051",
+    "sourceIds": [
+      "CP011-S02",
+      "CP011-S07"
+    ],
+    "questionFamily": "ਨਿਆਂਇਕ ਭੂਮਿਕਾ ਅਤੇ ਨਿਆਸ ਪ੍ਰਬੰਧ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਲਾਗੂ → ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਸਮਝੌਤੇ → ਚਾਰਟਰ ’ਤੇ ਦਸਤਖ਼ਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਚਾਰਟਰ ’ਤੇ ਦਸਤਖ਼ਤ → ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਸਮਝੌਤੇ → ਚਾਰਟਰ ਲਾਗੂ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਸਮਝੌਤੇ → ਚਾਰਟਰ ’ਤੇ ਦਸਤਖ਼ਤ → ਚਾਰਟਰ ਲਾਗੂ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਸਮਝੌਤੇ → ਚਾਰਟਰ ਲਾਗੂ → ਚਾਰਟਰ ’ਤੇ ਦਸਤਖ਼ਤ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜੰਗ ਮਗਰੋਂ ਸੰਸਥਾਵਾਂ ਨਾਲ ਜੁੜੀਆਂ ਘਟਨਾਵਾਂ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਲੰਡਨ ਸਮਝੌਤਾ ਅਗਸਤ 1945 ਵਿੱਚ ਹੋਇਆ, ਨੂਰਨਬਰਗ ਦਾ ਫ਼ੈਸਲਾ ਅਕਤੂਬਰ 1946 ਵਿੱਚ ਆਇਆ ਅਤੇ ਟੋਕੀਓ ਦਾ ਫ਼ੈਸਲਾ ਨਵੰਬਰ 1948 ਵਿੱਚ ਆਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q052-PA",
+    "englishQuestionId": "WHI-CP011-Q052",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F052",
+    "sourceIds": [
+      "CP011-S09",
+      "CP011-S10"
+    ],
+    "questionFamily": "ਸੰਸਥਾਵਾਂ ਦਾ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨੂਰਨਬਰਗ ਫ਼ੈਸਲਾ → ਲੰਡਨ ਸਮਝੌਤਾ → ਟੋਕੀਓ ਫ਼ੈਸਲਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਟੋਕੀਓ ਫ਼ੈਸਲਾ → ਨੂਰਨਬਰਗ ਫ਼ੈਸਲਾ → ਲੰਡਨ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੰਡਨ ਸਮਝੌਤਾ → ਟੋਕੀਓ ਫ਼ੈਸਲਾ → ਨੂਰਨਬਰਗ ਫ਼ੈਸਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਲੰਡਨ ਸਮਝੌਤਾ → ਨੂਰਨਬਰਗ ਫ਼ੈਸਲਾ → ਟੋਕੀਓ ਫ਼ੈਸਲਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1940ਵਿਆਂ ਵਿੱਚ ਬਣੇ ਜੰਗ ਮਗਰੋਂ ਦੇ ਸੰਸਥਾਗਤ ਪ੍ਰਬੰਧ ਦੀ ਮੁੱਖ ਖ਼ਾਸੀਅਤ ਕੀ ਸੀ?",
+    "explanation": "ਜੰਗ ਮਗਰੋਂ ਦੇ ਪ੍ਰਬੰਧ ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ, ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਸੰਸਥਾਵਾਂ ਅਤੇ ਵੱਖਰੇ ਜੰਗੀ ਜੁਰਮਾਂ ਦੇ ਟ੍ਰਿਬਿਊਨਲ ਸ਼ਾਮਲ ਸਨ। ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਅਤੇ ਕਾਨੂੰਨੀ ਅਧਾਰ ਵੱਖਰੇ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q053-PA",
+    "englishQuestionId": "WHI-CP011-Q053",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F053",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S07",
+      "CP011-S09"
+    ],
+    "questionFamily": "ਸੰਸਥਾਵਾਂ ਦਾ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਮ ਕੌਮਾਂਤਰੀ ਸੰਸਥਾ, ਖ਼ਾਸ ਆਰਥਿਕ ਸੰਸਥਾਵਾਂ ਅਤੇ ਜੰਗੀ ਜੁਰਮਾਂ ਦੇ ਟ੍ਰਿਬਿਊਨਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਿਰਫ਼ ਫੌਜੀ ਗਠਜੋੜ ਅਤੇ ਕਬਜ਼ਾ ਕੌਂਸਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਇੱਕੋ ਸੰਸਥਾ ਜੋ ਸ਼ਾਂਤੀ, ਮੁਦਰਾ ਅਤੇ ਫੌਜਦਾਰੀ ਨਿਆਂ ਸਭ ਸੰਭਾਲਦੀ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇੱਕ ਵਿਸ਼ਵ ਸਰਕਾਰ ਅਤੇ ਇੱਕੋ ਅਦਾਲਤ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1945 ਦੇ ਚਾਰਟਰ ਵਿੱਚ ਸੋਵੀਅਤ ਸੰਘ ਨੂੰ ਸਥਾਈ ਮੈਂਬਰ ਵਜੋਂ ਕਿਹੜੇ ਨਾਂ ਨਾਲ ਲਿਖਿਆ ਗਿਆ ਸੀ?",
+    "explanation": "ਮੂਲ ਚਾਰਟਰ ਵਿੱਚ ਸਥਾਈ ਮੈਂਬਰ ਦਾ ਨਾਂ USSR, ਅਰਥਾਤ ਸੋਵੀਅਤ ਸਮਾਜਵਾਦੀ ਗਣਰਾਜਾਂ ਦਾ ਸੰਘ, ਸੀ। ਇਹ 1945 ਦੀ ਸਥਾਪਨਾ ਵੇਲੇ ਵਰਤੀ ਗਈ ਸ਼ਬਦਾਵਲੀ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q054-PA",
+    "englishQuestionId": "WHI-CP011-Q054",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F054",
+    "sourceIds": [
+      "CP011-S04"
+    ],
+    "questionFamily": "ਸੰਸਥਾਵਾਂ ਦਾ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰੂਸੀ ਸੰਘ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੋਵੀਅਤ ਸਮਾਜਵਾਦੀ ਗਣਰਾਜਾਂ ਦਾ ਸੰਘ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੂਰਬੀ ਯੂਰਪੀ ਸੰਘ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੋਵੀਅਤ ਗਣਰਾਜਾਂ ਦੀ ਸੰਸਥਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨੂਰਨਬਰਗ ਅਤੇ ਟੋਕੀਓ ਮੁਕੱਦਮਿਆਂ ਨੂੰ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਮੁੱਖ ਅੰਗਾਂ ਤੋਂ ਵੱਖ ਕਿਹੜਾ ਕਥਨ ਕਰਦਾ ਹੈ?",
+    "explanation": "ਦੋਵੇਂ ਟ੍ਰਿਬਿਊਨਲ ਵੱਖਰੇ ਸਮਝੌਤਿਆਂ ਅਤੇ ਕਬਜ਼ਾ ਤਾਕਤਾਂ ਦੇ ਹੁਕਮਾਂ ਹੇਠ ਬਣੇ ਸਨ। ਚਾਰਟਰ ਦਾ ਆਰਟੀਕਲ 7 ਛੇ ਮੁੱਖ ਅੰਗ ਦੱਸਦਾ ਹੈ, ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਇਹ ਟ੍ਰਿਬਿਊਨਲ ਸ਼ਾਮਲ ਨਹੀਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q055-PA",
+    "englishQuestionId": "WHI-CP011-Q055",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F055",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S09",
+      "CP011-S10"
+    ],
+    "questionFamily": "ਸੰਸਥਾਵਾਂ ਦਾ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਹ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦੀਆਂ ਉਪ-ਕਮੇਟੀਆਂ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਹ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਦੋ ਮੁੱਖ ਅੰਗ ਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਹ ਆਰਟੀਕਲ 7 ਵਿੱਚ ਦਰਜ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਅੰਗ ਨਹੀਂ, ਸਗੋਂ ਵੱਖਰੇ ਜੰਗ ਮਗਰੋਂ ਦੇ ਟ੍ਰਿਬਿਊਨਲ ਸਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਹ ਮਹਾਂਸਭਾ ਦੀਆਂ ਪੱਕੀਆਂ ਅਦਾਲਤਾਂ ਸਨ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਕਿਹੜਾ ਜੋੜਾ ਸਹੀ ਹੈ?",
+    "explanation": "IMF ਅਤੇ IBRD ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਪ੍ਰਬੰਧ ਹੇਠ ਬਣੇ, ਪਰ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਵੱਖਰੇ ਸਨ। IMF ਮੁਦਰਾ ਸਹਿਯੋਗ ਅਤੇ IBRD ਮੁੜ-ਉਸਾਰੀ ਤੇ ਵਿਕਾਸ ਲਈ ਵਿੱਤ ਦੇਣ ’ਤੇ ਕੇਂਦਰਿਤ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q056-PA",
+    "englishQuestionId": "WHI-CP011-Q056",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F056",
+    "sourceIds": [
+      "CP011-S07",
+      "CP011-S08"
+    ],
+    "questionFamily": "ਸੰਸਥਾਵਾਂ ਦਾ ਕਾਲਕ੍ਰਮ",
+    "options": [
+      {
+        "key": "A",
+        "text": "IMF — ਜੰਗੀ ਜੁਰਮਾਂ ਦੇ ਮੁਕੱਦਮੇ; IBRD — ਸਿਆਸੀ ਚੋਣਾਂ"
+      },
+      {
+        "key": "B",
+        "text": "IMF — ਟਰੱਸਟ ਖੇਤਰਾਂ ਦਾ ਪ੍ਰਬੰਧ; IBRD — ਮਹਾਂਸਭਾ ਦੀਆਂ ਸਿਫ਼ਾਰਸ਼ਾਂ"
+      },
+      {
+        "key": "C",
+        "text": "IMF — ਫੌਜੀ ਗਠਜੋੜ; IBRD — ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਨਿਆਂਇਕ ਸ਼ਾਖਾ"
+      },
+      {
+        "key": "D",
+        "text": "IMF — ਮੁਦਰਾ ਸਹਿਯੋਗ; IBRD — ਮੁੜ-ਉਸਾਰੀ ਅਤੇ ਵਿਕਾਸ ਲਈ ਵਿੱਤ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜੰਗ ਮਗਰੋਂ ਦੇ ਅੰਗ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਦਾ ਸਹੀ ਮੇਲ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ ਦੇਸ਼ਾਂ ਵਿਚਕਾਰ ਕੇਸ ਸੁਣਦੀ ਹੈ ਅਤੇ ਇਜਾਜ਼ਤ ਮਿਲਣ ’ਤੇ ਸਲਾਹਕਾਰੀ ਰਾਇ ਦਿੰਦੀ ਹੈ। ਹੋਰ ਅੰਗਾਂ ਦੇ ਕੰਮ ਵੱਖਰੇ ਹਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q057-PA",
+    "englishQuestionId": "WHI-CP011-Q057",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F057",
+    "sourceIds": [
+      "CP011-S03",
+      "CP011-S05"
+    ],
+    "questionFamily": "ਜੰਗ ਮਗਰੋਂ ਦੀ ਵਿਵਸਥਾ ਅਤੇ ਸਾਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ — ਦੇਸ਼ਾਂ ਵਿਚਕਾਰ ਕਾਨੂੰਨੀ ਝਗੜੇ"
+      },
+      {
+        "key": "B",
+        "text": "IMF — ਜੰਗੀ ਜੁਰਮਾਂ ਦੇ ਮੁਕੱਦਮੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਨੂਰਨਬਰਗ ਟ੍ਰਿਬਿਊਨਲ — ਮੁਦਰਾ ਸਥਿਰਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਟਰੱਸਟੀਸ਼ਿਪ ਕੌਂਸਲ — ਮਹਾਂਸਭਾ ਦੀਆਂ ਚੋਣਾਂ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅਕਤੂਬਰ 1945 ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਲਾਗੂ ਹੋਣ ਲਈ ਕਿਹੜੀ ਮਨਜ਼ੂਰੀ ਲੋੜੀਂਦੀ ਸੀ?",
+    "explanation": "ਆਰਟੀਕਲ 110 ਮੁਤਾਬਕ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਦੇ ਪੰਜ ਸਥਾਈ ਮੈਂਬਰਾਂ ਅਤੇ ਬਾਕੀ ਦਸਤਖ਼ਤ ਕਰਨ ਵਾਲੇ ਦੇਸ਼ਾਂ ਦੀ ਬਹੁਗਿਣਤੀ ਵੱਲੋਂ ਮਨਜ਼ੂਰੀ ਲੋੜੀਂਦੀ ਸੀ। ਚਾਰਟਰ 24 ਅਕਤੂਬਰ 1945 ਨੂੰ ਲਾਗੂ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q058-PA",
+    "englishQuestionId": "WHI-CP011-Q058",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F058",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S02"
+    ],
+    "questionFamily": "ਜੰਗ ਮਗਰੋਂ ਦੀ ਵਿਵਸਥਾ ਅਤੇ ਸਾਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਿਰਫ਼ ਮਹਾਂਸਭਾ ਦੀ ਸਧਾਰਨ ਬਹੁਗਿਣਤੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੰਜ ਸਥਾਈ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਮੈਂਬਰਾਂ ਅਤੇ ਹੋਰ ਦਸਤਖ਼ਤਕਰਤਾਵਾਂ ਦੀ ਬਹੁਗਿਣਤੀ ਦੀ ਮਨਜ਼ੂਰੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਦੇਸ਼ ਦੀ ਸਰਬਸੰਮਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਿਰਫ਼ ਬ੍ਰਿਟੇਨ ਅਤੇ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਦੀ ਮਨਜ਼ੂਰੀ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਜੰਗ ਮਗਰੋਂ ਜਰਮਨੀ ਦੀ ਵੰਡ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਜਰਮਨੀ ਦੀ ਹਾਰ ਮਗਰੋਂ ਚਾਰ ਤਾਕਤਾਂ ਦਾ ਕਬਜ਼ਾ ਸ਼ੁਰੂ ਹੋਇਆ। ਸੰਘੀ ਗਣਰਾਜ ਅਤੇ ਜਰਮਨ ਲੋਕਤੰਤਰੀ ਗਣਰਾਜ ਬਾਅਦ ਵਿੱਚ 1949 ਵਿੱਚ ਬਣੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q059-PA",
+    "englishQuestionId": "WHI-CP011-Q059",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F059",
+    "sourceIds": [
+      "CP011-S11",
+      "CP011-S12"
+    ],
+    "questionFamily": "ਜੰਗ ਮਗਰੋਂ ਦੀ ਵਿਵਸਥਾ ਅਤੇ ਸਾਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋ ਜਰਮਨ ਰਾਜ 1945 ਵਿੱਚ ਬਣ ਗਏ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਜੰਗ ਮਗਰੋਂ ਬਰਲਿਨ ਤੁਰੰਤ ਆਜ਼ਾਦ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਪਹਿਲਾਂ ਚਾਰ ਤਾਕਤਾਂ ਦਾ ਕਬਜ਼ਾ ਹੋਇਆ, ਫਿਰ ਪੂਰਬੀ ਅਤੇ ਪੱਛਮੀ ਜਰਮਨ ਰਾਜ ਬਣੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਰਮਨੀ ਦਾ ਪ੍ਰਬੰਧ ਸਿਰਫ਼ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੇ ਕੀਤਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ, IMF ਅਤੇ IBRD ਨੂੰ ਇੱਕ-ਦੂਜੇ ਦੀ ਥਾਂ ਕਿਉਂ ਨਹੀਂ ਰੱਖਿਆ ਜਾ ਸਕਦਾ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਚਾਰਟਰ ਅਤੇ ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਸਮਝੌਤਿਆਂ ਨੇ ਵੱਖਰੇ ਕੰਮਾਂ ਵਾਲੀਆਂ ਸੰਸਥਾਵਾਂ ਬਣਾਈਆਂ। ਇੱਕੋ ਜੰਗ ਮਗਰੋਂ ਦੇ ਦੌਰ ਵਿੱਚ ਬਣਨ ਨਾਲ ਉਨ੍ਹਾਂ ਦੇ ਕੰਮ ਇੱਕੋ ਨਹੀਂ ਹੋ ਜਾਂਦੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP011-Q060-PA",
+    "englishQuestionId": "WHI-CP011-Q060",
+    "checkpointId": "WHI-001-CP011",
+    "factId": "WHI-CP011-F060",
+    "sourceIds": [
+      "CP011-S01",
+      "CP011-S07",
+      "CP011-S08"
+    ],
+    "questionFamily": "ਜੰਗ ਮਗਰੋਂ ਦੀ ਵਿਵਸਥਾ ਅਤੇ ਸਾਰ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਹ ਸਾਰੇ ਇੱਕੋ ਚਾਰਟਰ ਨਾਲ ਬਣੇ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਤਿੰਨਾਂ ਦਾ ਕੰਮ ਸਿਰਫ਼ ਫੌਜੀ ਸੁਰੱਖਿਆ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਤਿੰਨਾਂ ਨੂੰ ਸੁਰੱਖਿਆ ਕੌਂਸਲ ਚਲਾਉਂਦੀ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਨ੍ਹਾਂ ਦੇ ਸਥਾਪਨਾ ਸਮਝੌਤੇ ਅਤੇ ਨਿਰਧਾਰਤ ਕੰਮ ਵੱਖਰੇ ਸਨ"
+      }
+    ],
+    "correctOption": "D"
+  }
+]

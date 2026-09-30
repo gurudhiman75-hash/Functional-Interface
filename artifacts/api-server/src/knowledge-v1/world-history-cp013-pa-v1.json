@@ -1,0 +1,2183 @@
+[
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1957 ਵਿੱਚ ਕਿਹੜੀ ਸਾਬਕਾ ਬ੍ਰਿਟਿਸ਼ ਬਸਤੀ ਆਜ਼ਾਦ ਹੋ ਕੇ ਘਾਨਾ ਬਣੀ?",
+    "explanation": "ਸਾਬਕਾ ਬ੍ਰਿਟਿਸ਼ ਗੋਲਡ ਕੋਸਟ 6 ਮਾਰਚ 1957 ਨੂੰ ਆਜ਼ਾਦ ਹੋ ਕੇ ਘਾਨਾ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q001-PA",
+    "englishQuestionId": "WHI-CP013-Q001",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F001",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S03"
+    ],
+    "questionFamily": "ਘਾਨਾ ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਗੋਲਡ ਕੋਸਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਟਾਂਗਾਨਿਕਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਾਈਜੀਰੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੀਨੀਆ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਘਾਨਾ ਦੀ ਆਜ਼ਾਦੀ ਲਹਿਰ ਦੀ ਅਗਵਾਈ ਕਿਸ ਨੇ ਕੀਤੀ ਅਤੇ ਉਹ ਪਹਿਲਾ ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਕੌਣ ਬਣਿਆ?",
+    "explanation": "ਕਵਾਮੇ ਨਕਰੂਮਾ ਨੇ ਗੋਲਡ ਕੋਸਟ ਦੀ ਆਜ਼ਾਦੀ ਲਹਿਰ ਦੀ ਅਗਵਾਈ ਕੀਤੀ ਅਤੇ ਆਜ਼ਾਦ ਘਾਨਾ ਦੀ ਸਰਕਾਰ ਦਾ ਮੁਖੀ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q002-PA",
+    "englishQuestionId": "WHI-CP013-Q002",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F002",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S03"
+    ],
+    "questionFamily": "ਘਾਨਾ ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜੋਮੋ ਕੇਨਿਆਟਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਵਾਮੇ ਨਕਰੂਮਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨੈਲਸਨ ਮੰਡੇਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਜੂਲੀਅਸ ਨਿਆਰੇਰੇ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1 ਅਕਤੂਬਰ 1960 ਨੂੰ ਕਿਹੜਾ ਦੇਸ਼ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦ ਹੋਇਆ?",
+    "explanation": "ਨਾਈਜੀਰੀਆ 1 ਅਕਤੂਬਰ 1960 ਨੂੰ ਬ੍ਰਿਟਿਸ਼ ਰਾਜ ਤੋਂ ਆਜ਼ਾਦ ਹੋਇਆ। ਉਸ ਵੇਲੇ ਇਸ ਦਾ ਅਧਿਕਾਰਕ ਨਾਂ ਫੈਡਰੇਸ਼ਨ ਆਫ਼ ਨਾਈਜੀਰੀਆ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q003-PA",
+    "englishQuestionId": "WHI-CP013-Q003",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F003",
+    "sourceIds": [
+      "CP013-S15"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਗੋਲਡ ਕੋਸਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਉੱਤਰੀ ਰੋਡੇਸ਼ੀਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਾਈਜੀਰੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਟਾਂਗਾਨਿਕਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1975 ਵਿੱਚ ਪੁਰਤਗਾਲ ਦੀਆਂ ਕਿਹੜੀਆਂ ਦੋ ਸਾਬਕਾ ਬਸਤੀਆਂ ਆਜ਼ਾਦ ਹੋਈਆਂ?",
+    "explanation": "ਅੰਗੋਲਾ 11 ਨਵੰਬਰ 1975 ਨੂੰ ਅਤੇ ਮੋਜ਼ਾਂਬੀਕ 25 ਜੂਨ 1975 ਨੂੰ ਆਜ਼ਾਦ ਹੋਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q004-PA",
+    "englishQuestionId": "WHI-CP013-Q004",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F004",
+    "sourceIds": [
+      "CP013-S16",
+      "CP013-S17"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੀਨੀਆ ਅਤੇ ਯੂਗਾਂਡਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਘਾਨਾ ਅਤੇ ਨਾਈਜੀਰੀਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਲਜੀਰੀਆ ਅਤੇ ਟਿਊਨੀਸ਼ੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਅੰਗੋਲਾ ਅਤੇ ਮੋਜ਼ਾਂਬੀਕ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਕਿਹੜਾ ਸਾਬਕਾ ਬ੍ਰਿਟਿਸ਼ ਇਲਾਕਾ 1980 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋ ਕੇ ਜ਼ਿੰਬਾਬਵੇ ਬਣਿਆ?",
+    "explanation": "ਦੱਖਣੀ ਰੋਡੇਸ਼ੀਆ ਨੇ 1980 ਵਿੱਚ ਜ਼ਿੰਬਾਬਵੇ ਵਜੋਂ ਆਜ਼ਾਦੀ ਹਾਸਲ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q005-PA",
+    "englishQuestionId": "WHI-CP013-Q005",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F005",
+    "sourceIds": [
+      "CP013-S18"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੱਖਣੀ ਰੋਡੇਸ਼ੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਜ਼ਾਮਬੀਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੋਤਸਵਾਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਲਾਵੀ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨਾਮੀਬੀਆ ਦੀ ਆਜ਼ਾਦੀ ਵੱਲ ਤਬਦੀਲੀ ਦੌਰਾਨ ਚੋਣਾਂ ਦੀ ਨਿਗਰਾਨੀ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਕਿਹੜੇ ਮਿਸ਼ਨ ਨੇ ਕੀਤੀ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਟ੍ਰਾਂਜ਼ਿਸ਼ਨ ਅਸਿਸਟੈਂਸ ਗਰੁੱਪ (UNTAG) ਨੇ ਉਸ ਤਬਦੀਲੀ ਦੌਰਾਨ ਚੋਣਾਂ ਦੀ ਦੇਖ-ਰੇਖ ਕੀਤੀ, ਜਿਸ ਮਗਰੋਂ ਨਾਮੀਬੀਆ 1990 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q006-PA",
+    "englishQuestionId": "WHI-CP013-Q006",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F006",
+    "sourceIds": [
+      "CP013-S19"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "UNEF"
+      },
+      {
+        "key": "B",
+        "text": "UNTAG"
+      },
+      {
+        "key": "C",
+        "text": "ONUC"
+      },
+      {
+        "key": "D",
+        "text": "UNPROFOR"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1962 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਅਲਜੀਰੀਆ ’ਤੇ ਕਿਹੜੀ ਯੂਰਪੀ ਤਾਕਤ ਦਾ ਰਾਜ ਸੀ?",
+    "explanation": "ਆਜ਼ਾਦੀ ਤੋਂ ਪਹਿਲਾਂ ਅਲਜੀਰੀਆ ਫਰਾਂਸੀਸੀ ਬਸਤੀਵਾਦੀ ਰਾਜ ਹੇਠ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q007-PA",
+    "englishQuestionId": "WHI-CP013-Q007",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F007",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "ਅਲਜੀਰੀਆ ਦੀ ਜੰਗ ਅਤੇ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਪੇਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਫਰਾਂਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੁਰਤਗਾਲ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅਲਜੀਰੀਆ ਦੀ ਆਜ਼ਾਦੀ ਦੀ ਲੜਾਈ ਦੀ ਅਗਵਾਈ ਕਿਹੜੀ ਜਥੇਬੰਦੀ ਨੇ ਕੀਤੀ?",
+    "explanation": "ਨੈਸ਼ਨਲ ਲਿਬਰੇਸ਼ਨ ਫਰੰਟ (FLN) ਨੇ ਫਰਾਂਸੀਸੀ ਰਾਜ ਵਿਰੁੱਧ ਹਥਿਆਰਬੰਦ ਲੜਾਈ ਦੀ ਅਗਵਾਈ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q008-PA",
+    "englishQuestionId": "WHI-CP013-Q008",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F008",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "ਅਲਜੀਰੀਆ ਦੀ ਜੰਗ ਅਤੇ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਫ਼ਰੀਕਨ ਨੈਸ਼ਨਲ ਕਾਂਗਰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਅੰਗੋਲਾ ਦੀ ਮੁਕਤੀ ਲਈ ਲੋਕ ਲਹਿਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਲਜੀਰੀਆਈ ਡੈਮੋਕ੍ਰੈਟਿਕ ਰੈਲੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੈਸ਼ਨਲ ਲਿਬਰੇਸ਼ਨ ਫਰੰਟ (FLN)"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1962 ਦੇ ਕਿਹੜੇ ਸਮਝੌਤੇ ਨੇ ਅਲਜੀਰੀਆ ਦੀ ਜੰਗ ਮੁਕਾਉਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ?",
+    "explanation": "ਐਵਿਆਂ ਸਮਝੌਤਿਆਂ ਨੇ ਅਜਿਹੇ ਪ੍ਰਬੰਧ ਕੀਤੇ ਜਿਨ੍ਹਾਂ ਨਾਲ ਅਲਜੀਰੀਆ ਦੀ ਆਜ਼ਾਦੀ ਦਾ ਰਾਹ ਖੁੱਲ੍ਹਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q009-PA",
+    "englishQuestionId": "WHI-CP013-Q009",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F009",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "ਅਲਜੀਰੀਆ ਦੀ ਜੰਗ ਅਤੇ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਐਵਿਆਂ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਲਵੋਰ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਨੀਵਾ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਲੁਸਾਕਾ ਸਮਝੌਤੇ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅਲਜੀਰੀਆ ਕਿਹੜੇ ਸਾਲ ਆਜ਼ਾਦ ਹੋਇਆ?",
+    "explanation": "ਫਰਾਂਸ ਵਿਰੁੱਧ ਲੰਮੀ ਜੰਗ ਮਗਰੋਂ ਅਲਜੀਰੀਆ 1962 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q010-PA",
+    "englishQuestionId": "WHI-CP013-Q010",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F010",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "ਅਲਜੀਰੀਆ ਦੀ ਜੰਗ ਅਤੇ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1957"
+      },
+      {
+        "key": "B",
+        "text": "1962"
+      },
+      {
+        "key": "C",
+        "text": "1960"
+      },
+      {
+        "key": "D",
+        "text": "1975"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1954 ਵਿੱਚ ਅਲਜੀਰੀਆ ਦੀ ਆਜ਼ਾਦੀ ਦੀ ਜੰਗ ਕਿਵੇਂ ਸ਼ੁਰੂ ਹੋਈ?",
+    "explanation": "FLN ਨੇ 1 ਨਵੰਬਰ 1954 ਨੂੰ ਇਕੱਠੇ ਹਮਲੇ ਕੀਤੇ, ਜਿਨ੍ਹਾਂ ਨਾਲ ਜੰਗ ਸ਼ੁਰੂ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q011-PA",
+    "englishQuestionId": "WHI-CP013-Q011",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F011",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "ਅਲਜੀਰੀਆ ਦੀ ਜੰਗ ਅਤੇ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫਰਾਂਸ ਅਤੇ ਬ੍ਰਿਟੇਨ ਦੀ ਸੰਧੀ ਨਾਲ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਲਜੀਰੀਆ ਵਿੱਚ ਆਮ ਚੋਣਾਂ ਨਾਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਫਰਾਂਸੀਸੀ ਰਾਜ ਵਿਰੁੱਧ FLN ਦੇ ਤਾਲਮੇਲ ਵਾਲੇ ਵਿਦਰੋਹ ਨਾਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਾਂਟੂ ਪ੍ਰਬੰਧ ਕਾਇਮ ਹੋਣ ਨਾਲ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅਲਜੀਰੀਆ ਦੀ ਆਜ਼ਾਦੀ ਦਾ ਰਾਹ ਘਾਨਾ ਦੇ ਰਾਹ ਤੋਂ ਕਿਵੇਂ ਵੱਖਰਾ ਸੀ?",
+    "explanation": "ਅਲਜੀਰੀਆ ਨੂੰ ਫਰਾਂਸੀਸੀ ਰਾਜ ਵਿਰੁੱਧ ਲੰਮੀ ਅਤੇ ਹਿੰਸਕ ਜੰਗ ਮਗਰੋਂ ਆਜ਼ਾਦੀ ਮਿਲੀ; ਘਾਨਾ ਦਾ ਸੱਤਾ-ਤਬਾਦਲਾ ਵੱਖਰੇ ਢੰਗ ਨਾਲ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q012-PA",
+    "englishQuestionId": "WHI-CP013-Q012",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F012",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "ਅਲਜੀਰੀਆ ਦੀ ਜੰਗ ਅਤੇ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਵੇਂ ਇੱਕੋ ਦਿਨ ਆਜ਼ਾਦ ਹੋਏ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਲਜੀਰੀਆ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਟਰੱਸਟ ਇਲਾਕਾ ਬਣਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਘਾਨਾ ਨੇ ਫਰਾਂਸ ਨਾਲ ਜੰਗ ਕੀਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਲਜੀਰੀਆ ਵਿੱਚ ਫਰਾਂਸੀਸੀ ਰਾਜ ਵਿਰੁੱਧ ਲੰਮੀ ਅਤੇ ਹਿੰਸਕ ਜੰਗ ਹੋਈ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1960 ਵਿੱਚ ਕਾਂਗੋ ਨੂੰ ਕਿਹੜੀ ਯੂਰਪੀ ਤਾਕਤ ਤੋਂ ਆਜ਼ਾਦੀ ਮਿਲੀ?",
+    "explanation": "ਬੈਲਜੀਅਨ ਕਾਂਗੋ 30 ਜੂਨ 1960 ਨੂੰ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q013-PA",
+    "englishQuestionId": "WHI-CP013-Q013",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F013",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ ਅਤੇ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬੈਲਜੀਅਮ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੁਰਤਗਾਲ"
+      },
+      {
+        "key": "C",
+        "text": "ਫਰਾਂਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1960 ਵਿੱਚ ਆਜ਼ਾਦ ਕਾਂਗੋ ਗਣਰਾਜ ਦਾ ਪਹਿਲਾ ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਕੌਣ ਬਣਿਆ?",
+    "explanation": "ਆਜ਼ਾਦੀ ਮਗਰੋਂ ਪੈਟ੍ਰਿਸ ਲੁਮੁੰਬਾ ਕਾਂਗੋ ਦਾ ਪਹਿਲਾ ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q014-PA",
+    "englishQuestionId": "WHI-CP013-Q014",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F014",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ ਅਤੇ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮੋਬੂਤੂ ਸੇਸੇ ਸੇਕੋ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੈਟ੍ਰਿਸ ਲੁਮੁੰਬਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਜੋਮੋ ਕੇਨਿਆਟਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਵਾਮੇ ਨਕਰੂਮਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ONUC ਕੀ ਸੀ?",
+    "explanation": "ਕਾਂਗੋ ਸੰਕਟ ਦੌਰਾਨ ਕਾਂਗੋ ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਮਿਸ਼ਨ ਬਣਾਇਆ ਗਿਆ ਸੀ, ਜਿਸਨੂੰ ONUC ਕਿਹਾ ਜਾਂਦਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q015-PA",
+    "englishQuestionId": "WHI-CP013-Q015",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F015",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ ਅਤੇ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਸਥਾ ਦੀ ਸਭਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਰਪੀ ਸੁਰੱਖਿਆ ਮਿਸ਼ਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਕਾਂਗੋ ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਮਿਸ਼ਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਬੈਲਜੀਅਨ ਬਸਤੀਵਾਦੀ ਕੌਂਸਲ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1960 ਵਿੱਚ ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ ਮਗਰੋਂ ਕਿਹੜਾ ਸੰਕਟ ਸ਼ੁਰੂ ਹੋਇਆ?",
+    "explanation": "ਕਾਂਗੋ ਸੰਕਟ ਵਿੱਚ ਫੌਜੀ ਬਗਾਵਤ, ਵੱਖ ਹੋਣ ਦੀਆਂ ਕੋਸ਼ਿਸ਼ਾਂ ਅਤੇ ਕੌਮਾਂਤਰੀ ਪੱਖਾਂ ਦੀ ਸ਼ਮੂਲੀਅਤ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q016-PA",
+    "englishQuestionId": "WHI-CP013-Q016",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F016",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ ਅਤੇ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੇਸ਼ ਦਾ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਟਰੱਸਟ ਇਲਾਕਾ ਬਣਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸ਼ਾਂਤੀ ਨਾਲ ਸੱਤਾ ਦਾ ਤਬਾਦਲਾ ਅਤੇ ਕੋਈ ਸਿਆਸੀ ਝਗੜਾ ਨਹੀਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਕਾਂਗੋ ਦਾ ਫਰਾਂਸੀਸੀ ਰਾਜ ਹੇਠ ਵਾਪਸ ਜਾਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਫੌਜੀ ਬਗਾਵਤ, ਵੱਖ ਹੋਣ ਦੀਆਂ ਕੋਸ਼ਿਸ਼ਾਂ ਅਤੇ ਬਾਹਰੀ ਦਖ਼ਲ ਵਾਲਾ ਸਿਆਸੀ ਟਕਰਾਅ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ ਮਗਰੋਂ ਕਿਹੜੇ ਖਣਿਜਾਂ ਨਾਲ ਭਰਪੂਰ ਸੂਬੇ ਨੇ ਵੱਖ ਹੋਣ ਦਾ ਐਲਾਨ ਕੀਤਾ?",
+    "explanation": "ਕਟਾਂਗਾ ਨੇ ਜੁਲਾਈ 1960 ਵਿੱਚ, ਆਜ਼ਾਦੀ ਤੋਂ ਥੋੜ੍ਹੇ ਸਮੇਂ ਬਾਅਦ, ਵੱਖ ਹੋਣ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q017-PA",
+    "englishQuestionId": "WHI-CP013-Q017",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F017",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ ਅਤੇ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਟਾਂਗਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਸਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੁਆਲਾਬਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਿਵੂ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਾਂਗੋ ਸੰਕਟ ਨੇ ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਬਾਰੇ ਕੀ ਦਿਖਾਇਆ?",
+    "explanation": "ਕਾਂਗੋ ਸੰਕਟ ਨੇ ਦਿਖਾਇਆ ਕਿ ਰਸਮੀ ਆਜ਼ਾਦੀ ਮਗਰੋਂ ਵੀ ਗੰਭੀਰ ਅੰਦਰੂਨੀ ਟਕਰਾਅ ਅਤੇ ਬਾਹਰੀ ਦਖ਼ਲ ਹੋ ਸਕਦਾ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q018-PA",
+    "englishQuestionId": "WHI-CP013-Q018",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F018",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ ਅਤੇ ਸੰਕਟ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਜ਼ਾਦੀ ਮਗਰੋਂ ਅੰਦਰੂਨੀ ਟਕਰਾਅ ਮੁੱਕ ਜਾਂਦੇ ਹਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਜ਼ਾਦੀ ਮਗਰੋਂ ਗੰਭੀਰ ਅੰਦਰੂਨੀ ਟਕਰਾਅ ਅਤੇ ਬਾਹਰੀ ਦਖ਼ਲ ਹੋ ਸਕਦਾ ਹੈ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਹਰ ਨਵੇਂ ਦੇਸ਼ ’ਤੇ ਰਾਜ ਕਰਦਾ ਹੈ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਤੁਰੰਤ ਮਿਟ ਜਾਂਦੀਆਂ ਹਨ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1963 ਵਿੱਚ ਕਿਹੜਾ ਦੇਸ਼ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦ ਹੋ ਕੇ ਕੀਨੀਆ ਬਣਿਆ?",
+    "explanation": "ਕੀਨੀਆ ਦਸੰਬਰ 1963 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q019-PA",
+    "englishQuestionId": "WHI-CP013-Q019",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F019",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "ਪੂਰਬੀ ਅਤੇ ਮੱਧ ਅਫ਼ਰੀਕਾ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਯੂਗਾਂਡਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਲਾਵੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੀਨੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਜ਼ਾਮਬੀਆ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਆਜ਼ਾਦ ਕੀਨੀਆ ਦਾ ਪਹਿਲਾ ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਕੌਣ ਬਣਿਆ?",
+    "explanation": "ਜੋਮੋ ਕੇਨਿਆਟਾ ਨੇ ਆਜ਼ਾਦੀ ਵੇਲੇ ਕੀਨੀਆ ਦੀ ਅਗਵਾਈ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q020-PA",
+    "englishQuestionId": "WHI-CP013-Q020",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F020",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "ਪੂਰਬੀ ਅਤੇ ਮੱਧ ਅਫ਼ਰੀਕਾ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਵਾਮੇ ਨਕਰੂਮਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੈਟ੍ਰਿਸ ਲੁਮੁੰਬਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨੈਲਸਨ ਮੰਡੇਲਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਜੋਮੋ ਕੇਨਿਆਟਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1964 ਵਿੱਚ ਕਿਹੜਾ ਦੇਸ਼ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦ ਹੋਇਆ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਜ਼ਾਂਬੀਆ ਦੇ ਨਾਂ ਨਾਲ ਜਾਣਿਆ ਗਿਆ?",
+    "explanation": "ਉੱਤਰੀ ਰੋਡੇਸ਼ੀਆ 1964 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋ ਕੇ ਜ਼ਾਂਬੀਆ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q021-PA",
+    "englishQuestionId": "WHI-CP013-Q021",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F021",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "ਪੂਰਬੀ ਅਤੇ ਮੱਧ ਅਫ਼ਰੀਕਾ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉੱਤਰੀ ਰੋਡੇਸ਼ੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਿਆਸਾਲੈਂਡ"
+      },
+      {
+        "key": "C",
+        "text": "ਟਾਂਗਾਨੀਕਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਬੇਚੁਆਨਾਲੈਂਡ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1964 ਵਿੱਚ ਕਿਹੜਾ ਦੇਸ਼ ਮਲਾਵੀ ਦੇ ਨਾਂ ਨਾਲ ਆਜ਼ਾਦ ਹੋਇਆ?",
+    "explanation": "ਬ੍ਰਿਟਿਸ਼ ਰੱਖਿਆ ਹੇਠਲਾ ਨਿਆਸਾਲੈਂਡ 1964 ਵਿੱਚ ਮਲਾਵੀ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q022-PA",
+    "englishQuestionId": "WHI-CP013-Q022",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F022",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "ਪੂਰਬੀ ਅਤੇ ਮੱਧ ਅਫ਼ਰੀਕਾ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉੱਤਰੀ ਰੋਡੇਸ਼ੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਿਆਸਾਲੈਂਡ"
+      },
+      {
+        "key": "C",
+        "text": "ਟਾਂਗਾਨੀਕਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਾਸੂਟੋਲੈਂਡ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਕਿਹੜਾ ਮੁੱਖ-ਭੂਮੀ ਇਲਾਕਾ 1961 ਵਿੱਚ ਟਾਂਗਾਨੀਕਾ ਦੇ ਨਾਂ ਨਾਲ ਆਜ਼ਾਦ ਹੋਇਆ?",
+    "explanation": "ਟਾਂਗਾਨੀਕਾ 1961 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q023-PA",
+    "englishQuestionId": "WHI-CP013-Q023",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F023",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "ਪੂਰਬੀ ਅਤੇ ਮੱਧ ਅਫ਼ਰੀਕਾ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜ਼ਾਂਜ਼ੀਬਾਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੀਨੀਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਟਾਂਗਾਨੀਕਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੂਗਾਂਡਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਟਾਂਗਾਨੀਕਾ ਅਤੇ ਜ਼ਾਂਜ਼ੀਬਾਰ ਦੇ ਇਕੱਠੇ ਹੋਣ ਮਗਰੋਂ ਆਜ਼ਾਦ ਤਨਜ਼ਾਨੀਆ ਦਾ ਪਹਿਲਾ ਰਾਸ਼ਟਰਪਤੀ ਕੌਣ ਬਣਿਆ?",
+    "explanation": "ਜੂਲੀਅਸ ਨਯੇਰੇਰੇ ਨੇ ਪਹਿਲਾਂ ਟਾਂਗਾਨੀਕਾ ਅਤੇ ਫਿਰ ਤਨਜ਼ਾਨੀਆ ਦੀ ਅਗਵਾਈ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q024-PA",
+    "englishQuestionId": "WHI-CP013-Q024",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F024",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "ਪੂਰਬੀ ਅਤੇ ਮੱਧ ਅਫ਼ਰੀਕਾ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜੋਮੋ ਕੇਨਿਆਟਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਵਾਮੇ ਨਕਰੂਮਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੈਟ੍ਰਿਸ ਲੁਮੁੰਬਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਜੂਲੀਅਸ ਨਯੇਰੇਰੇ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1963 ਵਿੱਚ ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਗਠਨ ਕਿੱਥੇ ਸਥਾਪਤ ਹੋਇਆ?",
+    "explanation": "ਅਫ਼ਰੀਕੀ ਆਗੂਆਂ ਨੇ 25 ਮਈ 1963 ਨੂੰ ਐਡਿਸ ਅਬਾਬਾ ਵਿੱਚ OAU ਬਣਾਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q025-PA",
+    "englishQuestionId": "WHI-CP013-Q025",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F025",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਗਠਨ ਅਤੇ ਪੈਨ-ਅਫ਼ਰੀਕੀ ਸਹਿਯੋਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਐਡਿਸ ਅਬਾਬਾ, ਇਥੋਪੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਅੱਕਰਾ, ਘਾਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਲਾਗੋਸ, ਨਾਈਜੀਰੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਲਜੀਅਰਜ਼, ਅਲਜੀਰੀਆ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਗਠਨ ਦੇ ਚਾਰਟਰ ਦਾ ਮੁੱਖ ਮਕਸਦ ਕੀ ਸੀ?",
+    "explanation": "ਚਾਰਟਰ ਨੇ ਏਕਤਾ, ਸਹਿਯੋਗ, ਪ੍ਰਭੂਸੱਤਾ ਅਤੇ ਬਸਤੀਵਾਦ ਦੇ ਖ਼ਾਤਮੇ ਉੱਤੇ ਜ਼ੋਰ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q026-PA",
+    "englishQuestionId": "WHI-CP013-Q026",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F026",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਗਠਨ ਅਤੇ ਪੈਨ-ਅਫ਼ਰੀਕੀ ਸਹਿਯੋਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇੱਕ ਸਾਂਝਾ ਅਫ਼ਰੀਕੀ ਬਸਤੀਵਾਦੀ ਪ੍ਰਸ਼ਾਸਨ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਨੂੰ ਵਧਾਉਣਾ ਅਤੇ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਦੀ ਆਜ਼ਾਦੀ ਤੇ ਖੇਤਰੀ ਅਖੰਡਤਾ ਦੀ ਰੱਖਿਆ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਵੇਂ ਦੇਸ਼ਾਂ ਨੂੰ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਨਿਆਸ-ਵਿਵਸਥਾ ਹੇਠ ਰੱਖਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੂਰਪ ਨਾਲ ਫੌਜੀ ਗੱਠਜੋੜ ਬਣਾਉਣਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1963 ਵਿੱਚ OAU ਦੀ ਸਥਾਪਨਾ ਵੇਲੇ ਕਿੰਨੇ ਆਜ਼ਾਦ ਅਫ਼ਰੀਕੀ ਦੇਸ਼ ਸ਼ਾਮਲ ਹੋਏ?",
+    "explanation": "1963 ਵਿੱਚ 32 ਆਜ਼ਾਦ ਅਫ਼ਰੀਕੀ ਦੇਸ਼ OAU ਬਣਾਉਣ ਲਈ ਸਹਿਮਤ ਹੋਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q027-PA",
+    "englishQuestionId": "WHI-CP013-Q027",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F027",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਗਠਨ ਅਤੇ ਪੈਨ-ਅਫ਼ਰੀਕੀ ਸਹਿਯੋਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਾਰਾਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਚੁਵੰਜਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੱਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੱਤ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "OAU ਚਾਰਟਰ ਨੇ ਕਿਹੜੀ ਪ੍ਰਣਾਲੀ ਨੂੰ ਖ਼ਤਮ ਕਰਨ ਦਾ ਵਾਅਦਾ ਕੀਤਾ?",
+    "explanation": "ਚਾਰਟਰ ਨੇ ਬਸਤੀਵਾਦ ਦੇ ਖ਼ਾਤਮੇ ਅਤੇ ਅਫ਼ਰੀਕੀ ਪ੍ਰਭੂਸੱਤਾ ਦੀ ਰੱਖਿਆ ਦਾ ਵਾਅਦਾ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q028-PA",
+    "englishQuestionId": "WHI-CP013-Q028",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F028",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਗਠਨ ਅਤੇ ਪੈਨ-ਅਫ਼ਰੀਕੀ ਸਹਿਯੋਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਫ਼ਰੀਕਾ ਦੀਆਂ ਸਾਰੀਆਂ ਕੌਮੀ ਹੱਦਾਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਵਿੱਚ ਸ਼ਮੂਲੀਅਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਫ਼ਰੀਕੀ ਦੇਸ਼ਾਂ ਵਿਚਕਾਰ ਵਪਾਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਸਤੀਵਾਦ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1963 ਦੀ OAU ਸਥਾਪਨਾ ਕਾਨਫਰੰਸ ਦੀ ਮੇਜ਼ਬਾਨੀ ਕਿਸ ਦੇਸ਼ ਨੇ ਕੀਤੀ?",
+    "explanation": "OAU ਚਾਰਟਰ ਐਡਿਸ ਅਬਾਬਾ ਵਿੱਚ ਅਪਣਾਇਆ ਗਿਆ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q029-PA",
+    "englishQuestionId": "WHI-CP013-Q029",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F029",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਗਠਨ ਅਤੇ ਪੈਨ-ਅਫ਼ਰੀਕੀ ਸਹਿਯੋਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਥੋਪੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਘਾਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਾਈਜੀਰੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੇਨੇਗਲ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "OAU ਨੇ ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਕਿਹੜੇ ਸਿਆਸੀ ਰੁਝਾਨ ਨੂੰ ਸੰਸਥਾਗਤ ਰੂਪ ਦਿੱਤਾ?",
+    "explanation": "OAU ਨੇ ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਅਤੇ ਸਹਿਯੋਗ ਦੀ ਇੱਛਾ ਨੂੰ ਮਹਾਂਦੀਪੀ ਸੰਸਥਾ ਦਾ ਰੂਪ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q030-PA",
+    "englishQuestionId": "WHI-CP013-Q030",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F030",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਗਠਨ ਅਤੇ ਪੈਨ-ਅਫ਼ਰੀਕੀ ਸਹਿਯੋਗ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਫ਼ਰੀਕਾ ਉੱਤੇ ਯੂਰਪੀ ਸੰਘੀ ਰਾਜ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਜ਼ਾਦ ਦੇਸ਼ਾਂ ਵਿਚਕਾਰ ਪੈਨ-ਅਫ਼ਰੀਕੀ ਸਹਿਯੋਗ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਰਲਿਨ ਕਾਨਫਰੰਸ ਵਾਲੀ ਪ੍ਰਣਾਲੀ ਦੀ ਵਾਪਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਹਾਂਦੀਪ-ਪੱਧਰੀ ਬਸਤੀਵਾਦੀ ਮੰਡੇਟ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਰੰਗਭੇਦ ਨੇ ਕਾਨੂੰਨੀ ਤੌਰ ਉੱਤੇ ਕੀ ਲਾਗੂ ਕੀਤਾ?",
+    "explanation": "ਰੰਗਭੇਦ ਨੇ ਨਸਲੀ ਵੱਖਰੇਪਣ ਅਤੇ ਗੋਰੇ ਘੱਟਗਿਣਤੀ ਰਾਜ ਨੂੰ ਸੰਸਥਾਗਤ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q031-PA",
+    "englishQuestionId": "WHI-CP013-Q031",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F031",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਪ੍ਰਣਾਲੀ ਅਤੇ ਸਰਕਾਰੀ ਨੀਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਰਾਬਰ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲੇ ਰਾਜਾਂ ਦੀ ਸੰਘ"
+      },
+      {
+        "key": "B",
+        "text": "1948 ਤੋਂ ਬਾਅਦ ਬ੍ਰਿਟਿਸ਼ ਬਸਤੀਵਾਦੀ ਪ੍ਰਸ਼ਾਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਸਲੀ ਵੱਖਰੇਪਣ ਅਤੇ ਗੋਰੇ ਘੱਟਗਿਣਤੀ ਦਾ ਰਾਜ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਾਰੇ ਬਾਲਗਾਂ ਲਈ ਵੋਟ ਦਾ ਹੱਕ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1948 ਵਿੱਚ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਕਿਹੜੀ ਪਾਰਟੀ ਸੱਤਾ ਵਿੱਚ ਆਈ ਅਤੇ ਰੰਗਭੇਦ ਨੀਤੀ ਨੂੰ ਪੱਕਾ ਕੀਤਾ?",
+    "explanation": "ਨੈਸ਼ਨਲ ਪਾਰਟੀ ਨੇ 1948 ਦੀ ਚੋਣ ਜਿੱਤੀ ਅਤੇ ਰੰਗਭੇਦ ਨੂੰ ਸਰਕਾਰੀ ਨੀਤੀ ਬਣਾਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q032-PA",
+    "englishQuestionId": "WHI-CP013-Q032",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F032",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਪ੍ਰਣਾਲੀ ਅਤੇ ਸਰਕਾਰੀ ਨੀਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਫ਼ਰੀਕਨ ਨੈਸ਼ਨਲ ਕਾਂਗਰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਪੈਨ ਅਫ਼ਰੀਕਨਿਸਟ ਕਾਂਗਰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਲੇਬਰ ਪਾਰਟੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੈਸ਼ਨਲ ਪਾਰਟੀ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਰੰਗਭੇਦ ਹੇਠ ਕਿਹੜੇ ਕਾਨੂੰਨ ਨੇ ਲੋਕਾਂ ਦੀ ਨਸਲੀ ਸ਼੍ਰੇਣੀ ਦਰਜ ਕਰਨੀ ਲਾਜ਼ਮੀ ਕੀਤੀ?",
+    "explanation": "ਪੌਪੂਲੇਸ਼ਨ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਐਕਟ ਨੇ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਦੇ ਲੋਕਾਂ ਨੂੰ ਨਸਲੀ ਸ਼੍ਰੇਣੀਆਂ ਵਿੱਚ ਵੰਡਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q033-PA",
+    "englishQuestionId": "WHI-CP013-Q033",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F033",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਪ੍ਰਣਾਲੀ ਅਤੇ ਸਰਕਾਰੀ ਨੀਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੌਪੂਲੇਸ਼ਨ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਐਕਟ"
+      },
+      {
+        "key": "B",
+        "text": "ਗਰੁੱਪ ਏਰੀਆਜ਼ ਐਕਟ"
+      },
+      {
+        "key": "C",
+        "text": "1913 ਦਾ ਲੈਂਡ ਐਕਟ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਮਿਊਨਿਜ਼ਮ ਦਮਨ ਐਕਟ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਗਰੁੱਪ ਏਰੀਆਜ਼ ਐਕਟ ਨੇ ਕੀ ਕੀਤਾ?",
+    "explanation": "ਇਸ ਕਾਨੂੰਨ ਨੇ ਰਿਹਾਇਸ਼ ਅਤੇ ਕਾਰੋਬਾਰ ਦੇ ਇਲਾਕੇ ਨਸਲ ਦੇ ਆਧਾਰ ਉੱਤੇ ਵੰਡੇ ਅਤੇ ਜ਼ਬਰਦਸਤੀ ਉਜਾੜੇ ਕਰਵਾਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q034-PA",
+    "englishQuestionId": "WHI-CP013-Q034",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F034",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਪ੍ਰਣਾਲੀ ਅਤੇ ਸਰਕਾਰੀ ਨੀਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਾਮੀਬੀਆ ਨੂੰ ਆਜ਼ਾਦੀ ਦਿੱਤੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਿਹਾਇਸ਼ੀ ਅਤੇ ਕਾਰੋਬਾਰੀ ਇਲਾਕੇ ਨਸਲ ਦੇ ਆਧਾਰ ਉੱਤੇ ਨਿਰਧਾਰਤ ਕੀਤੇ"
+      },
+      {
+        "key": "C",
+        "text": "OAU ਬਣਾਇਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਭ ਲਈ ਵੋਟ ਦਾ ਹੱਕ ਲਾਗੂ ਕੀਤਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਰੰਗਭੇਦ ਦੇ ਕਿਹੜੇ ਉਪਾਅ ਨੇ ਕਾਲੇ ਦੱਖਣੀ ਅਫ਼ਰੀਕੀ ਲੋਕਾਂ ਦੀ ਆਵਾਜਾਈ ਉੱਤੇ ਰੋਕ ਲਾਈ?",
+    "explanation": "ਪਾਸ ਕਾਨੂੰਨਾਂ ਨੇ ਕਾਲੇ ਦੱਖਣੀ ਅਫ਼ਰੀਕੀ ਲੋਕਾਂ ਦੀ ਆਵਾਜਾਈ ਸੀਮਤ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q035-PA",
+    "englishQuestionId": "WHI-CP013-Q035",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F035",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਪ੍ਰਣਾਲੀ ਅਤੇ ਸਰਕਾਰੀ ਨੀਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਭ ਲਈ ਵੋਟ ਦੀ ਕਮੇਟੀ"
+      },
+      {
+        "key": "B",
+        "text": "OAU ਸਭਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਪਾਸ ਕਾਨੂੰਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਨਿਆਸ-ਵਿਵਸਥਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਰੰਗਭੇਦ ਅਤੇ ਬਸਤੀਵਾਦ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਆਜ਼ਾਦ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਦੇ ਅੰਦਰ ਵੀ ਰਾਜ ਵੱਲੋਂ ਲਾਗੂ ਨਸਲੀ ਪ੍ਰਣਾਲੀ ਵਜੋਂ ਰੰਗਭੇਦ ਜਾਰੀ ਰਿਹਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q036-PA",
+    "englishQuestionId": "WHI-CP013-Q036",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F036",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਪ੍ਰਣਾਲੀ ਅਤੇ ਸਰਕਾਰੀ ਨੀਤੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰੰਗਭੇਦ ਅਲਜੀਰੀਆ ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਬਸਤੀਵਾਦੀ ਰਾਜ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਘਾਨਾ ਦੀ ਆਜ਼ਾਦੀ ਨਾਲ ਰੰਗਭੇਦ ਸ਼ੁਰੂ ਹੋਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੰਗਭੇਦ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਮੰਡੇਟ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਆਜ਼ਾਦ ਰਾਜ ਬਣਨ ਤੋਂ ਬਾਅਦ ਵੀ ਰੰਗਭੇਦ ਜਾਰੀ ਰਿਹਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਰੰਗਭੇਦ ਵਿਰੁੱਧ ਕਿਹੜੀ ਜਥੇਬੰਦੀ ਮੁੱਖ ਅੰਦੋਲਨ ਸੀ?",
+    "explanation": "ANC ਰੰਗਭੇਦ ਵਿਰੋਧੀ ਸੰਘਰਸ਼ ਦੀ ਅਗਵਾਈ ਕਰਨ ਵਾਲੀਆਂ ਮੁੱਖ ਜਥੇਬੰਦੀਆਂ ਵਿੱਚੋਂ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q037-PA",
+    "englishQuestionId": "WHI-CP013-Q037",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F037",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਵਿਰੋਧੀ ਸੰਘਰਸ਼ ਅਤੇ ਦਮਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਫ਼ਰੀਕਨ ਨੈਸ਼ਨਲ ਕਾਂਗਰਸ (ANC)"
+      },
+      {
+        "key": "B",
+        "text": "ਨੈਸ਼ਨਲ ਲਿਬਰੇਸ਼ਨ ਫਰੰਟ (FLN)"
+      },
+      {
+        "key": "C",
+        "text": "ਸਿਰਫ਼ ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਗਠਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੂਮਿੰਤਾਂਗ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1960 ਵਿੱਚ ਸ਼ਾਰਪਵਿਲ ਵਿੱਚ ਕੀ ਵਾਪਰਿਆ?",
+    "explanation": "ਮਾਰਚ 1960 ਵਿੱਚ ਪਾਸ ਕਾਨੂੰਨਾਂ ਵਿਰੁੱਧ ਪ੍ਰਦਰਸ਼ਨ ਕਰ ਰਹੇ ਲੋਕਾਂ ਉੱਤੇ ਪੁਲਿਸ ਨੇ ਗੋਲੀ ਚਲਾਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q038-PA",
+    "englishQuestionId": "WHI-CP013-Q038",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F038",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਵਿਰੋਧੀ ਸੰਘਰਸ਼ ਅਤੇ ਦਮਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "OAU ਚਾਰਟਰ ਉੱਤੇ ਦਸਤਖ਼ਤ ਹੋਏ"
+      },
+      {
+        "key": "B",
+        "text": "ਪਾਸ ਕਾਨੂੰਨਾਂ ਵਿਰੁੱਧ ਪ੍ਰਦਰਸ਼ਨ ਦੌਰਾਨ ਪੁਲਿਸ ਨੇ ਲੋਕਾਂ ਨੂੰ ਮਾਰਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਪਹਿਲੀ ਸਰਬਵਿਆਪੀ ਚੋਣ ਹੋਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੈਲਸਨ ਮੰਡੇਲਾ ਰਾਸ਼ਟਰਪਤੀ ਬਣੇ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1976 ਦੇ ਸੋਵੇਟੋ ਵਿਦਰੋਹ ਦੀ ਅਹਿਮੀਅਤ ਕੀ ਸੀ?",
+    "explanation": "ਵਿਦਿਆਰਥੀਆਂ ਨੇ ਰੰਗਭੇਦੀ ਸਿੱਖਿਆ ਨੀਤੀ ਅਤੇ ਪੜ੍ਹਾਈ ਵਿੱਚ ਅਫ਼ਰੀਕਾਨਸ ਲਾਜ਼ਮੀ ਕਰਨ ਦਾ ਵਿਰੋਧ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q039-PA",
+    "englishQuestionId": "WHI-CP013-Q039",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F039",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਵਿਰੋਧੀ ਸੰਘਰਸ਼ ਅਤੇ ਦਮਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਘਾਨਾ ਦੀ ਆਜ਼ਾਦੀ ਦਾ ਮੌਕਾ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਲਜੀਰੀਆ ਦੀ ਜੰਗ ਖ਼ਤਮ ਹੋਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਦਿਆਰਥੀਆਂ ਨੇ ਰੰਗਭੇਦੀ ਸਿੱਖਿਆ ਅਤੇ ਅਫ਼ਰੀਕਾਨਸ ਵਿੱਚ ਪੜ੍ਹਾਈ ਦਾ ਵਿਰੋਧ ਕੀਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕਾਂਗੋ ਗਣਰਾਜ ਸਥਾਪਤ ਹੋਇਆ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਆਵਾਜਾਈ ਅਤੇ ਕੰਮ ਦੀ ਥਾਂ ਕਾਬੂ ਕਰਨ ਲਈ ਪਾਸ ਕਾਨੂੰਨਾਂ ਹੇਠ ਕਾਲੇ ਦੱਖਣੀ ਅਫ਼ਰੀਕੀ ਲੋਕਾਂ ਨੂੰ ਕੀ ਨਾਲ ਰੱਖਣਾ ਪੈਂਦਾ ਸੀ?",
+    "explanation": "ਪਾਸ ਕਾਨੂੰਨਾਂ ਅਨੁਸਾਰ ਲੋਕਾਂ ਨੂੰ ਆਵਾਜਾਈ ਅਤੇ ਕੰਮ ਦੀ ਥਾਂ ਦਰਸਾਉਣ ਵਾਲੇ ਦਸਤਾਵੇਜ਼ ਨਾਲ ਰੱਖਣੇ ਪੈਂਦੇ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q040-PA",
+    "englishQuestionId": "WHI-CP013-Q040",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F040",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਵਿਰੋਧੀ ਸੰਘਰਸ਼ ਅਤੇ ਦਮਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਨੀਵਾ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "OAU ਚਾਰਟਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਏਵੀਅਨ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਅੰਦਰੂਨੀ ਪਛਾਣ ਦਸਤਾਵੇਜ਼"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1960 ਵਿੱਚ ਦੱਖਣੀ ਅਫ਼ਰੀਕੀ ਸਰਕਾਰ ਨੇ ANC ਨਾਲ ਕੀ ਕੀਤਾ?",
+    "explanation": "ਸਰਕਾਰ ਨੇ 1960 ਵਿੱਚ ANC ਉੱਤੇ ਪਾਬੰਦੀ ਲਾਈ ਅਤੇ ਦਮਨ ਵਧਾਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q041-PA",
+    "englishQuestionId": "WHI-CP013-Q041",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F041",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਵਿਰੋਧੀ ਸੰਘਰਸ਼ ਅਤੇ ਦਮਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਉੱਤੇ ਪਾਬੰਦੀ ਲਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੂੰ ਸੱਤਾਧਾਰੀ ਪਾਰਟੀ ਬਣਾਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੂੰ ਨੈਸ਼ਨਲ ਪਾਰਟੀ ਵਿੱਚ ਮਿਲਾ ਦਿੱਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਦੀ ਅਗਵਾਈ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੂੰ ਸੌਂਪ ਦਿੱਤੀ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਰੰਗਭੇਦ ਦੇ ਦਮਨ ਦਾ ਵਿਰੋਧੀ ਧਿਰ ਉੱਤੇ ਕੀ ਵੱਡਾ ਅਸਰ ਪਿਆ?",
+    "explanation": "ਦਮਨ ਨਾਲ ਵਿਰੋਧ ਖ਼ਤਮ ਨਹੀਂ ਹੋਇਆ; ਘਰੇਲੂ ਟਾਕਰਾ ਅਤੇ ਕੌਮਾਂਤਰੀ ਨਿੰਦਾ ਹੋਰ ਵਧੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q042-PA",
+    "englishQuestionId": "WHI-CP013-Q042",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F042",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਵਿਰੋਧੀ ਸੰਘਰਸ਼ ਅਤੇ ਦਮਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਸਲੀ ਰਾਜ ਵਿਰੁੱਧ ਵਿਰੋਧ ਖ਼ਤਮ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਵਿਰੋਧ ਭੂਮੀਗਤ ਹੋ ਗਿਆ ਅਤੇ ਦੇਸ਼ ਅੰਦਰ ਤੇ ਬਾਹਰ ਹੋਰ ਫੈਲਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੇ ਰੰਗਭੇਦ ਨੂੰ ਸਥਾਈ ਪ੍ਰਬੰਧ ਮੰਨ ਲਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਪਾਬੰਦੀਆਂ ਬਾਰੇ ਚਰਚਾ ਖ਼ਤਮ ਹੋ ਗਈ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਨੈਲਸਨ ਮੰਡੇਲਾ ਨੂੰ ਕਦੋਂ ਜੇਲ੍ਹ ਤੋਂ ਰਿਹਾਅ ਕੀਤਾ ਗਿਆ?",
+    "explanation": "ਮੰਡੇਲਾ 11 ਫ਼ਰਵਰੀ 1990 ਨੂੰ ਰਿਹਾਅ ਹੋਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q043-PA",
+    "englishQuestionId": "WHI-CP013-Q043",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F043",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "ਮੰਡੇਲਾ, ਗੱਲਬਾਤ ਅਤੇ ਸੱਤਾ-ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1976"
+      },
+      {
+        "key": "B",
+        "text": "1985"
+      },
+      {
+        "key": "C",
+        "text": "1990"
+      },
+      {
+        "key": "D",
+        "text": "1994"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਹੜੇ ਦੱਖਣੀ ਅਫ਼ਰੀਕੀ ਰਾਸ਼ਟਰਪਤੀ ਨੇ ANC ਉੱਤੇ ਪਾਬੰਦੀ ਹਟਾਉਣ ਅਤੇ ਮੰਡੇਲਾ ਦੀ ਰਿਹਾਈ ਦਾ ਐਲਾਨ ਕੀਤਾ?",
+    "explanation": "ਡੀ ਕਲਰਕ ਨੇ ਫ਼ਰਵਰੀ 1990 ਵਿੱਚ ANC ਅਤੇ ਹੋਰ ਜਥੇਬੰਦੀਆਂ ਉੱਤੇ ਲੱਗੀ ਪਾਬੰਦੀ ਹਟਾਉਣ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q044-PA",
+    "englishQuestionId": "WHI-CP013-Q044",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F044",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "ਮੰਡੇਲਾ, ਗੱਲਬਾਤ ਅਤੇ ਸੱਤਾ-ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੀ. ਡਬਲਿਊ. ਬੋਥਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੈਂਡਰਿਕ ਵਰਵੋਅਰਡ"
+      },
+      {
+        "key": "C",
+        "text": "ਥਾਬੋ ਮਬੇਕੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਐਫ਼. ਡਬਲਿਊ. ਡੀ ਕਲਰਕ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਸਰਬਵਿਆਪੀ ਬਾਲਗ ਵੋਟ ਦੇ ਹੱਕ ਹੇਠ ਪਹਿਲੀ ਕੌਮੀ ਚੋਣ ਕਿਹੜੇ ਸਾਲ ਹੋਈ?",
+    "explanation": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਅਪ੍ਰੈਲ 1994 ਵਿੱਚ ਪਹਿਲੀ ਸਭ-ਨਸਲੀ ਲੋਕਤੰਤਰੀ ਚੋਣ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q045-PA",
+    "englishQuestionId": "WHI-CP013-Q045",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F045",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "ਮੰਡੇਲਾ, ਗੱਲਬਾਤ ਅਤੇ ਸੱਤਾ-ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1994"
+      },
+      {
+        "key": "B",
+        "text": "1960"
+      },
+      {
+        "key": "C",
+        "text": "1976"
+      },
+      {
+        "key": "D",
+        "text": "1989"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1994 ਦੀ ਚੋਣ ਤੋਂ ਬਾਅਦ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਦਾ ਰਾਸ਼ਟਰਪਤੀ ਕੌਣ ਬਣਿਆ?",
+    "explanation": "ANC ਦੀ 1994 ਦੀ ਚੋਣ ਜਿੱਤ ਤੋਂ ਬਾਅਦ ਮੰਡੇਲਾ ਰਾਸ਼ਟਰਪਤੀ ਬਣੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q046-PA",
+    "englishQuestionId": "WHI-CP013-Q046",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F046",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "ਮੰਡੇਲਾ, ਗੱਲਬਾਤ ਅਤੇ ਸੱਤਾ-ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਓਲਿਵਰ ਟੈਂਬੋ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੈਲਸਨ ਮੰਡੇਲਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਡੈਜ਼ਮੰਡ ਟੂਟੂ"
+      },
+      {
+        "key": "D",
+        "text": "ਐਫ਼. ਡਬਲਿਊ. ਡੀ ਕਲਰਕ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1994 ਦੀ ਦੱਖਣੀ ਅਫ਼ਰੀਕੀ ਚੋਣ ਨੇ ਕੀ ਦਰਸਾਇਆ?",
+    "explanation": "1994 ਦੀ ਚੋਣ ਨੇ ਰੰਗਭੇਦੀ ਰਾਜ ਦਾ ਅੰਤ ਅਤੇ ਲੋਕਤੰਤਰੀ ਸਰਕਾਰ ਵੱਲ ਤਬਦੀਲੀ ਦਰਸਾਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q047-PA",
+    "englishQuestionId": "WHI-CP013-Q047",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F047",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "ਮੰਡੇਲਾ, ਗੱਲਬਾਤ ਅਤੇ ਸੱਤਾ-ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬ੍ਰਿਟਿਸ਼ ਬਸਤੀਵਾਦੀ ਰਾਜ ਦੀ ਸ਼ੁਰੂਆਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਘਾਨਾ ਦੀ ਆਜ਼ਾਦੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਰੰਗਭੇਦੀ ਰਾਜ ਦਾ ਅੰਤ ਅਤੇ ਲੋਕਤੰਤਰੀ ਸਰਕਾਰ ਵੱਲ ਤਬਦੀਲੀ"
+      },
+      {
+        "key": "D",
+        "text": "OAU ਦੀ ਸਥਾਪਨਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਦੀ ਗੱਲਬਾਤ ਰਾਹੀਂ ਹੋਈ ਤਬਦੀਲੀ ਵਿੱਚ ਕਿਹੜੀ ਜੋੜੀ ਦੇ ਆਗੂ ਅਹਿਮ ਸਨ?",
+    "explanation": "ਮੰਡੇਲਾ ਅਤੇ ਡੀ ਕਲਰਕ ਰੰਗਭੇਦੀ ਰਾਜ ਦੇ ਅੰਤ ਲਈ ਹੋਈ ਗੱਲਬਾਤ ਦੇ ਅਹਿਮ ਆਗੂ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q048-PA",
+    "englishQuestionId": "WHI-CP013-Q048",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F048",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "ਮੰਡੇਲਾ, ਗੱਲਬਾਤ ਅਤੇ ਸੱਤਾ-ਤਬਦੀਲੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੈਟ੍ਰਿਸ ਲੁਮੁੰਬਾ ਅਤੇ ਜੋਸਫ਼ ਕਸਾਵੂਬੂ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਵਾਮੇ ਨਕਰੂਮਾ ਅਤੇ ਜੋਮੋ ਕੇਨਿਆਟਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਹੋ ਚੀ ਮਿੰਹ ਅਤੇ ਬਾਓ ਦਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਨੈਲਸਨ ਮੰਡੇਲਾ ਅਤੇ ਐਫ਼. ਡਬਲਿਊ. ਡੀ ਕਲਰਕ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸਿਆਸੀ ਆਜ਼ਾਦੀ ਅਤੇ ਬਹੁਮਤ ਦੇ ਰਾਜ ਵਿੱਚ ਫ਼ਰਕ ਕਿਹੜਾ ਬਿਆਨ ਸਹੀ ਤਰ੍ਹਾਂ ਦੱਸਦਾ ਹੈ?",
+    "explanation": "ਰਸਮੀ ਪ੍ਰਭੂਸੱਤਾ ਅਤੇ ਲੋਕਤੰਤਰੀ ਹਿੱਸੇਦਾਰੀ ਵੱਖਰੀਆਂ ਗੱਲਾਂ ਹਨ; ਰੰਗਭੇਦ ਵਾਲਾ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਇਸ ਦੀ ਮਿਸਾਲ ਹੈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q049-PA",
+    "englishQuestionId": "WHI-CP013-Q049",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F049",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "questionFamily": "ਆਜ਼ਾਦੀ ਅਤੇ ਬਹੁਮਤ ਦਾ ਰਾਜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਰਾਜ ਵੀ ਆਪਣੀ ਵੱਡੀ ਆਬਾਦੀ ਨੂੰ ਸਿਆਸੀ ਤਾਕਤ ਤੋਂ ਵਾਂਝਾ ਰੱਖ ਸਕਦਾ ਹੈ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਜ਼ਾਦੀ ਨਾਲ ਸਰਬਵਿਆਪੀ ਵੋਟ ਦਾ ਹੱਕ ਆਪਣੇ ਆਪ ਮਿਲ ਜਾਂਦਾ ਹੈ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਹੁਮਤ ਦਾ ਰਾਜ ਮਤਲਬ ਬਸਤੀਵਾਦੀ ਪ੍ਰਸ਼ਾਸਨ ਜਾਰੀ ਰਹਿਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਿਤਕਰੇ ਵਾਲੇ ਕਾਨੂੰਨ ਸਿਰਫ਼ ਬਸਤੀਆਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਰੰਗਭੇਦ ਦੌਰਾਨ ਪ੍ਰਭੂਸੱਤਾ ਹੋਣ ਦੇ ਬਾਵਜੂਦ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਕਿਹੜੀ ਸਿਆਸੀ ਹਾਲਤ ਬਣੀ ਰਹੀ?",
+    "explanation": "ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਆਜ਼ਾਦ ਰਾਜ ਸੀ, ਪਰ ਰੰਗਭੇਦ ਨੇ ਬਹੁਤੇ ਨਾਗਰਿਕਾਂ ਨੂੰ ਬਰਾਬਰ ਹੱਕ ਅਤੇ ਸਿਆਸੀ ਤਾਕਤ ਤੋਂ ਵਾਂਝਾ ਰੱਖਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q050-PA",
+    "englishQuestionId": "WHI-CP013-Q050",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F050",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "questionFamily": "ਆਜ਼ਾਦੀ ਅਤੇ ਬਹੁਮਤ ਦਾ ਰਾਜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨਹੀਂ; 1994 ਤੱਕ ਇਹ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਬਸਤੀ ਸੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਹੁਗਿਣਤੀ ਨੂੰ ਬਰਾਬਰ ਸਿਆਸੀ ਹੱਕ ਨਹੀਂ ਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਹੀਂ; ਇਹ ਫ਼ਰਾਂਸੀਸੀ ਰੱਖਿਆ ਹੇਠਲਾ ਇਲਾਕਾ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਹਾਂ; ਪਰ ਇਸ ਦਾ ਪ੍ਰਸ਼ਾਸਨ OAU ਕਰਦਾ ਸੀ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਕਿਹੜੇ ਸਮਝੌਤੇ ਨੇ ਅੰਗੋਲਾ ਵਿੱਚ ਅੰਤਰਿਮ ਸਰਕਾਰ ਅਤੇ ਪੁਰਤਗਾਲ ਤੋਂ ਆਜ਼ਾਦੀ ਦਾ ਰਾਹ ਬਣਾਇਆ?",
+    "explanation": "ਅਲਵੋਰ ਸਮਝੌਤਿਆਂ ਨੇ ਅੰਤਰਿਮ ਸਰਕਾਰ ਅਤੇ 1975 ਵਿੱਚ ਅੰਗੋਲਾ ਦੀ ਆਜ਼ਾਦੀ ਦਾ ਪ੍ਰਬੰਧ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q051-PA",
+    "englishQuestionId": "WHI-CP013-Q051",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F051",
+    "sourceIds": [
+      "CP013-S16"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਏਵੀਅਨ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਲੈਂਕੈਸਟਰ ਹਾਊਸ ਸਮਝੌਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਲਵੋਰ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਲੁਸਾਕਾ ਪ੍ਰੋਟੋਕੋਲ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1960 ਦੇ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਉਪਨਿਵੇਸ਼-ਮੁਕਤੀ ਐਲਾਨ ਨੇ ਕਿਹੜਾ ਅਸੂਲ ਮੰਨਿਆ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਐਲਾਨ ਨੇ ਬਸਤੀਵਾਦੀ ਲੋਕਾਂ ਲਈ ਸਵੈ-ਨਿਰਣੇ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਹੱਕ ਦੀ ਪੁਸ਼ਟੀ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q052-PA",
+    "englishQuestionId": "WHI-CP013-Q052",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F052",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "questionFamily": "ਆਜ਼ਾਦੀ ਅਤੇ ਬਹੁਮਤ ਦਾ ਰਾਜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਸਤੀਵਾਦੀ ਸਾਮਰਾਜਾਂ ਦੀ ਸਥਾਈ ਪ੍ਰਭੂਸੱਤਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਸਲ ਦੇ ਆਧਾਰ ਉੱਤੇ ਨਾਗਰਿਕਤਾ ਤੋਂ ਇਨਕਾਰ ਕਰਨ ਦਾ ਹੱਕ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਰੀਆਂ ਰਾਜ-ਹੱਦਾਂ ਮਿਟਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਲੋਕਾਂ ਦਾ ਸਵੈ-ਨਿਰਣੇ ਦਾ ਹੱਕ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1976 ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੇ ਨਾਮੀਬੀਆ ਦੇ ਲੋਕਾਂ ਦੀ ਇਕੱਲੀ ਅਸਲ ਨੁਮਾਇੰਦਾ ਲਹਿਰ ਵਜੋਂ ਕਿਸ ਨੂੰ ਮਾਨਤਾ ਦਿੱਤੀ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੇ SWAPO ਨੂੰ ਨਾਮੀਬੀਆ ਦੇ ਲੋਕਾਂ ਦੀ ਇਕੱਲੀ ਅਸਲ ਨੁਮਾਇੰਦਾ ਮੰਨਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q053-PA",
+    "englishQuestionId": "WHI-CP013-Q053",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F053",
+    "sourceIds": [
+      "CP013-S19"
+    ],
+    "questionFamily": "ਰੰਗਭੇਦ ਵਿਰੋਧੀ ਸੰਘਰਸ਼ ਅਤੇ ਦਮਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "SWAPO"
+      },
+      {
+        "key": "B",
+        "text": "FRELIMO"
+      },
+      {
+        "key": "C",
+        "text": "MPLA"
+      },
+      {
+        "key": "D",
+        "text": "ZANU"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨਾਮੀਬੀਆ ਕਿਹੜੀ ਤਾਰੀਖ਼ ਨੂੰ ਆਜ਼ਾਦ ਹੋਇਆ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਨਿਗਰਾਨੀ ਹੇਠ ਤਬਦੀਲੀ ਅਤੇ ਚੋਣਾਂ ਮਗਰੋਂ ਨਾਮੀਬੀਆ 21 ਮਾਰਚ 1990 ਨੂੰ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q054-PA",
+    "englishQuestionId": "WHI-CP013-Q054",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F054",
+    "sourceIds": [
+      "CP013-S19"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 ਅਪ੍ਰੈਲ 1989"
+      },
+      {
+        "key": "B",
+        "text": "21 ਮਾਰਚ 1990"
+      },
+      {
+        "key": "C",
+        "text": "18 ਅਪ੍ਰੈਲ 1980"
+      },
+      {
+        "key": "D",
+        "text": "11 ਨਵੰਬਰ 1975"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "OAU ਚਾਰਟਰ ਵਿੱਚ ਅਫ਼ਰੀਕੀ ਆਗੂਆਂ ਨੇ ਹੱਦਾਂ ਅਤੇ ਇਲਾਕਿਆਂ ਬਾਰੇ ਕਿਹੜਾ ਅਸੂਲ ਕਾਇਮ ਰੱਖਿਆ?",
+    "explanation": "OAU ਚਾਰਟਰ ਨੇ ਮੈਂਬਰ ਦੇਸ਼ਾਂ ਨੂੰ ਖੇਤਰੀ ਅਖੰਡਤਾ ਅਤੇ ਪ੍ਰਭੂਸੱਤਾ ਦੀ ਰੱਖਿਆ ਲਈ ਵਚਨਬੱਧ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q055-PA",
+    "englishQuestionId": "WHI-CP013-Q055",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F055",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਰਾਸਤ ਵਿੱਚ ਮਿਲੀ ਹਰ ਹੱਦ ਨੂੰ ਜ਼ਬਰਦਸਤੀ ਮਿਟਾਉਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਰਪੀ ਸਾਮਰਾਜੀ ਹੱਦਾਂ ਮੁੜ ਲਾਗੂ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਖੇਤਰੀ ਅਖੰਡਤਾ ਅਤੇ ਰਾਜ ਦੀ ਪ੍ਰਭੂਸੱਤਾ ਦਾ ਸਤਿਕਾਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਿਵਾਦਤ ਇਲਾਕੇ ਫ਼ਰਾਂਸ ਨੂੰ ਸੌਂਪਣਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅਫ਼ਰੀਕੀ ਆਜ਼ਾਦੀ ਤੋਂ ਬਾਅਦ ਵੀ ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਕਿਉਂ ਅਹਿਮ ਰਹੀਆਂ?",
+    "explanation": "ਨਵੇਂ ਦੇਸ਼ਾਂ ਨੂੰ ਬਸਤੀਵਾਦੀ ਦੌਰ ਦੀਆਂ ਹੱਦਾਂ ਵਿਰਾਸਤ ਵਿੱਚ ਮਿਲੀਆਂ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਕੌਮੀ ਏਕਤਾ ਬਣਾਉਣ ਦੀਆਂ ਚੁਣੌਤੀਆਂ ਦਾ ਸਾਹਮਣਾ ਕਰਨਾ ਪਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q056-PA",
+    "englishQuestionId": "WHI-CP013-Q056",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F056",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਾਰੇ ਆਗੂ ਤੁਰੰਤ ਹੱਦਾਂ ਮੁੜ ਤੈਅ ਕਰਨ ਲਈ ਸਹਿਮਤ ਸਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੇ ਦੇਸ਼ਾਂ ਨੂੰ ਆਪਣੀਆਂ ਹੱਦਾਂ ਤੈਅ ਕਰਨ ਤੋਂ ਰੋਕਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਉਨ੍ਹਾਂ ਦੀ ਥਾਂ ਭਾਸ਼ਾਈ ਹੱਦਾਂ ਲਾਗੂ ਹੋਈਆਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਵੇਂ ਦੇਸ਼ਾਂ ਨੂੰ ਹੱਦਾਂ ਵਿਰਾਸਤ ਵਿੱਚ ਮਿਲੀਆਂ ਅਤੇ ਕੌਮੀ ਏਕਤਾ ਬਣਾਉਣ ਦੀਆਂ ਚੁਣੌਤੀਆਂ ਆਈਆਂ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਉਪਨਿਵੇਸ਼-ਮੁਕਤੀ ਅਤੇ ਹੱਦਾਂ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਠੀਕ ਹੈ?",
+    "explanation": "ਪ੍ਰਭੂਸੱਤਾ ਦਾ ਤਬਾਦਲਾ ਹੋਣ ਨਾਲ ਆਮ ਤੌਰ ਉੱਤੇ ਵਿਰਾਸਤੀ ਖੇਤਰੀ ਹੱਦਾਂ ਵੀ ਕਾਇਮ ਰਹੀਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q057-PA",
+    "englishQuestionId": "WHI-CP013-Q057",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F057",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਜ਼ਾਦੀ ਨਾਲ ਪ੍ਰਭੂਸੱਤਾ ਬਦਲੀ, ਪਰ ਵਿਰਾਸਤੀ ਹੱਦਾਂ ਆਪਣੇ ਆਪ ਨਹੀਂ ਮਿਟੀਆਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਆਜ਼ਾਦੀ ਨਾਲ ਹਰ ਵਾਰ ਪੂਰਵ-ਬਸਤੀਵਾਦੀ ਰਾਜ ਜਿਉਂ ਦੇ ਤਿਉਂ ਮੁੜ ਬਣੇ"
+      },
+      {
+        "key": "C",
+        "text": "OAU ਨੇ ਸਾਰੀਆਂ ਕੌਮੀ ਹੱਦਾਂ ਤੁਰੰਤ ਮਿਟਾ ਦਿੱਤੀਆਂ"
+      },
+      {
+        "key": "D",
+        "text": "1963 ਤੋਂ ਬਾਅਦ ਹੱਦਾਂ ਸਿਰਫ਼ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੇ ਬਣਾਈਆਂ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਹੜਾ ਕਾਲਕ੍ਰਮ ਸਹੀ ਹੈ?",
+    "explanation": "ਤਿੰਨਾਂ ਆਜ਼ਾਦੀਆਂ ਦੇ ਸਾਲ ਕ੍ਰਮਵਾਰ 1957, 1960 ਅਤੇ 1962 ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q058-PA",
+    "englishQuestionId": "WHI-CP013-Q058",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F058",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਅਲਜੀਰੀਆ ਦੀ ਆਜ਼ਾਦੀ (1957), ਘਾਨਾ ਦੀ ਆਜ਼ਾਦੀ (1960), ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ (1963)"
+      },
+      {
+        "key": "B",
+        "text": "ਘਾਨਾ ਦੀ ਆਜ਼ਾਦੀ (1957), ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ (1960), ਅਲਜੀਰੀਆ ਦੀ ਆਜ਼ਾਦੀ (1962)"
+      },
+      {
+        "key": "C",
+        "text": "ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ (1948), ਘਾਨਾ ਦੀ ਆਜ਼ਾਦੀ (1954), ਅਲਜੀਰੀਆ ਦੀ ਆਜ਼ਾਦੀ (1960)"
+      },
+      {
+        "key": "D",
+        "text": "ਘਾਨਾ ਦੀ ਆਜ਼ਾਦੀ (1963), ਅਲਜੀਰੀਆ ਦੀ ਆਜ਼ਾਦੀ (1964), ਕਾਂਗੋ ਦੀ ਆਜ਼ਾਦੀ (1965)"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਕਿਹੜੀ ਜੋੜੀ ਸਹੀ ਮਿਲਾਈ ਗਈ ਹੈ?",
+    "explanation": "ਅਲਜੀਰੀਆ 1962 ਵਿੱਚ ਫ਼ਰਾਂਸ ਤੋਂ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q059-PA",
+    "englishQuestionId": "WHI-CP013-Q059",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F059",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਘਾਨਾ — 1960 ਵਿੱਚ ਬੈਲਜੀਅਮ ਤੋਂ ਆਜ਼ਾਦ"
+      },
+      {
+        "key": "B",
+        "text": "ਕਾਂਗੋ — 1957 ਵਿੱਚ ਪੁਰਤਗਾਲ ਤੋਂ ਆਜ਼ਾਦ"
+      },
+      {
+        "key": "C",
+        "text": "ਅਲਜੀਰੀਆ — 1962 ਵਿੱਚ ਫ਼ਰਾਂਸ ਤੋਂ ਆਜ਼ਾਦ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੀਨੀਆ — 1963 ਵਿੱਚ ਫ਼ਰਾਂਸ ਤੋਂ ਆਜ਼ਾਦ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਜੰਗ ਮਗਰੋਂ ਉਪਨਿਵੇਸ਼-ਮੁਕਤੀ ਦੀ ਲਹਿਰ ਦਾ ਵੱਡਾ ਨਤੀਜਾ ਕੀ ਸੀ?",
+    "explanation": "ਆਜ਼ਾਦੀ ਦੀ ਲਹਿਰ ਨਾਲ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲੇ ਨਵੇਂ ਰਾਜ ਬਣੇ; ਨਾਲ ਹੀ ਕੌਮ-ਨਿਰਮਾਣ ਦੀਆਂ ਸਿਆਸੀ ਅਤੇ ਆਰਥਿਕ ਚੁਣੌਤੀਆਂ ਰਹੀਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q060-PA",
+    "englishQuestionId": "WHI-CP013-Q060",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F060",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦੀ ਹੱਦਾਂ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਨਤੀਜੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੂਰੇ ਮਹਾਂਦੀਪ ਵਿੱਚ ਬਸਤੀਵਾਦੀ ਰਾਜ ਬਿਨਾਂ ਬਦਲਾਅ ਜਾਰੀ ਰਿਹਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰੇ ਨਵੇਂ ਦੇਸ਼ ਇੱਕ ਸਰਕਾਰ ਵਿੱਚ ਰਲ ਗਏ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਦੇਸ਼ ਵਿੱਚ ਰੰਗਭੇਦ ਤੁਰੰਤ ਖ਼ਤਮ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਵੇਂ ਆਜ਼ਾਦ ਰਾਜ ਕੌਮਾਂਤਰੀ ਸੰਸਥਾਵਾਂ ਨਾਲ ਜੁੜੇ, ਪਰ ਕੌਮ-ਨਿਰਮਾਣ ਦੀਆਂ ਚੁਣੌਤੀਆਂ ਰਹੀਆਂ"
+      }
+    ],
+    "correctOption": "D"
+  }
+]

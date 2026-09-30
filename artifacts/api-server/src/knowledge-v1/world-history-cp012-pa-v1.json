@@ -1,0 +1,2162 @@
+[
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1945 ਮਗਰੋਂ ਕਿਹੜੀ ਤਬਦੀਲੀ ਨੇ ਯੂਰਪੀ ਬਸਤੀਵਾਦੀ ਸਾਮਰਾਜਾਂ ਦੇ ਕਮਜ਼ੋਰ ਹੋਣ ਦੀ ਰਫ਼ਤਾਰ ਤੇਜ਼ ਕੀਤੀ?",
+    "explanation": "ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਨੇ ਯੂਰਪੀ ਤਾਕਤਾਂ ਦੀ ਸਾਮਰਾਜ ਚਲਾਉਣ ਦੀ ਸਮਰੱਥਾ ਘਟਾਈ ਅਤੇ ਸਵੈ-ਰਾਜ ਦੀ ਮੰਗ ਨੂੰ ਬਲ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q001-PA",
+    "englishQuestionId": "WHI-CP012-Q001",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F001",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਦਬਾਅ ਅਤੇ ਢਾਂਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੂਜੀ ਵਿਸ਼ਵ ਜੰਗ ਦਾ ਆਰਥਿਕ ਅਤੇ ਸਿਆਸੀ ਬੋਝ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰੇ ਕੌਮੀ ਲਹਿਰਾਂ ਦਾ ਅੰਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਸਾਮਰਾਜ ਨੂੰ ਜੰਗ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲੇ ਰੂਪ ਵਿੱਚ ਲਿਆਉਣ ਵਾਲੀ ਸੰਧੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਸਤੀਆਂ ’ਤੇ ਰਾਸ਼ਟਰ ਸੰਘ ਦਾ ਰਾਜ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1960 ਦੇ ਬਸਤੀਵਾਦ ਦੇ ਅੰਤ ਬਾਰੇ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਐਲਾਨ ਨੇ ਕਿਸ ਗੱਲ ਦੀ ਪੁਸ਼ਟੀ ਕੀਤੀ?",
+    "explanation": "ਐਲਾਨ ਨੇ ਬਸਤੀਵਾਦੀ ਰਾਜ ਖ਼ਤਮ ਕਰਨ ਦੀ ਮੰਗ ਕੀਤੀ ਅਤੇ ਲੋਕਾਂ ਦੇ ਆਤਮ-ਨਿਰਣੇ ਤੇ ਆਜ਼ਾਦੀ ਦੇ ਹੱਕ ਦੀ ਪੁਸ਼ਟੀ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q002-PA",
+    "englishQuestionId": "WHI-CP012-Q002",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F002",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਦਬਾਅ ਅਤੇ ਢਾਂਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਾਮਰਾਜਾਂ ਨੂੰ ਬਸਤੀਆਂ ਰੱਖਣ ਦਾ ਹੱਕ"
+      },
+      {
+        "key": "B",
+        "text": "ਲੋਕਾਂ ਦਾ ਆਤਮ-ਨਿਰਣੇ ਅਤੇ ਆਜ਼ਾਦੀ ਦਾ ਹੱਕ"
+      },
+      {
+        "key": "C",
+        "text": "ਹਰ ਨਵੇਂ ਦੇਸ਼ ’ਤੇ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਰਾਜ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੂਰਪੀ ਰਾਜ ਨੂੰ ਪੱਕਾ ਕਰਨ ਦਾ ਹੱਕ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1945 ਮਗਰੋਂ ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੀ ਪ੍ਰਕਿਰਿਆ ਦਾ ਸਹੀ ਵੇਰਵਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਵੱਖ-ਵੱਖ ਇਲਾਕਿਆਂ ਨੇ ਗੱਲਬਾਤ ਅਤੇ ਹਥਿਆਰਬੰਦ ਸੰਘਰਸ਼ ਸਮੇਤ ਕਈ ਰਾਹਾਂ ਰਾਹੀਂ ਆਜ਼ਾਦੀ ਹਾਸਲ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q003-PA",
+    "englishQuestionId": "WHI-CP012-Q003",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F003",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਦਬਾਅ ਅਤੇ ਢਾਂਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਹਰ ਇਲਾਕਾ ਤੁਰੰਤ ਆਜ਼ਾਦ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਹ ਪ੍ਰਕਿਰਿਆ ਸਿਰਫ਼ ਯੂਰਪੀ ਸੰਸਦਾਂ ਦੇ ਫ਼ੈਸਲਿਆਂ ਨਾਲ ਚੱਲੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਵਿੱਚ ਗੱਲਬਾਤ ਅਤੇ ਹਥਿਆਰਬੰਦ ਸੰਘਰਸ਼ ਦੇ ਵੱਖਰੇ ਰਾਹ ਅਪਣਾਏ ਗਏ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਾਰੀਆਂ ਬਸਤੀਆਂ ਇੱਕੋ ਦਿਨ ਆਜ਼ਾਦ ਹੋਈਆਂ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1945 ਮਗਰੋਂ ਕੌਮੀ ਲਹਿਰਾਂ ਦਾ ਅਸਰ ਕਿਉਂ ਵਧਿਆ?",
+    "explanation": "ਜੰਗ ਦੌਰਾਨ ਲੋਕਾਂ ਦੀ ਵੱਡੀ ਸ਼ਮੂਲੀਅਤ ਅਤੇ ਆਜ਼ਾਦੀ ਦੇ ਵਾਅਦਿਆਂ ਨੇ ਜੰਗ ਮਗਰੋਂ ਆਤਮ-ਨਿਰਣੇ ਦੀ ਮੰਗ ਮਜ਼ਬੂਤ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q004-PA",
+    "englishQuestionId": "WHI-CP012-Q004",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F004",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਦਬਾਅ ਅਤੇ ਢਾਂਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਉਨ੍ਹਾਂ ਨੂੰ ਹਰ ਥਾਂ ਬਸਤੀਵਾਦੀ ਤਾਕਤਾਂ ਦਾ ਸਾਥ ਮਿਲਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਉਨ੍ਹਾਂ ਕੋਲ ਸਿਰਫ਼ ਫੌਜੀ ਲਹਿਰਾਂ ਸਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਜੰਗ ਮਗਰੋਂ ਸਿਆਸੀ ਸ਼ਮੂਲੀਅਤ ਮੁੱਕ ਗਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਹ ਲੋਕਾਂ ਦੀ ਸ਼ਮੂਲੀਅਤ ਅਤੇ ਜੰਗਕਾਲੀ ਆਜ਼ਾਦੀ ਦੇ ਵਾਅਦਿਆਂ ਦਾ ਸਹਾਰਾ ਲੈ ਸਕੀਆਂ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਵਿੱਚ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਭੂਮਿਕਾ ਦਾ ਸਹੀ ਵੇਰਵਾ ਕਿਹੜਾ ਹੈ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਨੇ ਬਸਤੀਵਾਦ ਵਿਰੋਧੀ ਮੰਗਾਂ ਲਈ ਮੰਚ ਦਿੱਤਾ ਅਤੇ ਆਤਮ-ਨਿਰਣੇ ਦੇ ਹੱਕ ਵਿੱਚ ਅਸੂਲ ਮੰਨੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q005-PA",
+    "englishQuestionId": "WHI-CP012-Q005",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F005",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਦਬਾਅ ਅਤੇ ਢਾਂਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸ ਨੇ ਨਵੇਂ ਦੇਸ਼ਾਂ ਦਾ ਸਿੱਧਾ ਰਾਜ ਸੰਭਾਲਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸ ਨੇ ਚਰਚਾ ਦਾ ਮੰਚ ਦਿੱਤਾ ਅਤੇ ਆਤਮ-ਨਿਰਣੇ ਦੇ ਹੱਕ ਵਿੱਚ ਅਸੂਲ ਮੰਨੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸ ਨੇ ਬਸਤੀਵਾਦੀ ਰਾਜ ਨੂੰ ਬੇਮਿਆਦੀ ਜਾਰੀ ਰੱਖਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸ ਨੇ ਹਰ ਆਜ਼ਾਦੀ ਲਹਿਰ ਨੂੰ ਫੌਜੀ ਮਦਦ ਦਿੱਤੀ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਆਜ਼ਾਦੀ ਮਗਰੋਂ ਨਵੇਂ ਦੇਸ਼ਾਂ ਨੂੰ ਕਿਹੜੀ ਸਾਂਝੀ ਮੁਸ਼ਕਲ ਆਈ?",
+    "explanation": "ਸਿਆਸੀ ਆਜ਼ਾਦੀ ਮਿਲਣ ਨਾਲ ਬਸਤੀਵਾਦੀ ਰਾਜ ਹੇਠ ਬਣੇ ਅਦਾਰਿਆਂ ਅਤੇ ਆਰਥਿਕ ਔਕੜਾਂ ਆਪਣੇ ਆਪ ਦੂਰ ਨਹੀਂ ਹੋਈਆਂ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q006-PA",
+    "englishQuestionId": "WHI-CP012-Q006",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F006",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਦਬਾਅ ਅਤੇ ਢਾਂਚੇ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਾਰੀਆਂ ਹੱਦਾਂ ਅਤੇ ਬੋਲੀਆਂ ਮੁਕਾਉਣੀਆਂ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਸਤੀਵਾਦੀ ਰਾਜ ਤੋਂ ਮਿਲੇ ਅਦਾਰਿਆਂ ਅਤੇ ਅਰਥਚਾਰਿਆਂ ਨੂੰ ਸੰਭਾਲਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਜ਼ਾਦੀ ਮਗਰੋਂ ਮੁੜ ਯੂਰਪੀ ਬਸਤੀ ਬਣਨਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੋਈ ਸਰਕਾਰੀ ਅਦਾਰਾ ਨਾ ਬਣਾਉਣਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1947 ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਭਾਰਤ ਦੇ ਆਜ਼ਾਦ ਹੋਣ ਨਾਲ ਕਿਸ ਸਾਮਰਾਜ ਦਾ ਰਾਜ ਮੁੱਕਿਆ?",
+    "explanation": "1947 ਵਿੱਚ ਬ੍ਰਿਟੇਨ ਨੇ ਭਾਰਤੀ ਉਪਮਹਾਂਦੀਪ ’ਤੇ ਆਪਣਾ ਰਾਜ ਖ਼ਤਮ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q007-PA",
+    "englishQuestionId": "WHI-CP012-Q007",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F007",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਸਾਮਰਾਜ"
+      },
+      {
+        "key": "B",
+        "text": "ਡੱਚ ਸਾਮਰਾਜ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰਿਟਿਸ਼ ਸਾਮਰਾਜ"
+      },
+      {
+        "key": "D",
+        "text": "ਉਸਮਾਨੀ ਸਾਮਰਾਜ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1947 ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਭਾਰਤ ਦੀ ਵੰਡ ਨਾਲ ਕਿਹੜੇ ਦੋ ਦੇਸ਼ ਬਣੇ?",
+    "explanation": "1947 ਦੀ ਵੰਡ ਨਾਲ ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਵੱਖਰੇ ਦੇਸ਼ ਬਣੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q008-PA",
+    "englishQuestionId": "WHI-CP012-Q008",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F008",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਭਾਰਤ ਅਤੇ ਬਰਮਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਭਾਰਤ ਅਤੇ ਬੰਗਲਾਦੇਸ਼"
+      },
+      {
+        "key": "C",
+        "text": "ਪਾਕਿਸਤਾਨ ਅਤੇ ਨੇਪਾਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1947 ਦੀ ਵੰਡ ਦਾ ਇੱਕ ਤੁਰੰਤ ਨਤੀਜਾ ਕੀ ਸੀ?",
+    "explanation": "ਵੰਡ ਦੌਰਾਨ ਵੱਡੇ ਪੱਧਰ ’ਤੇ ਲੋਕਾਂ ਨੇ ਘਰ ਛੱਡੇ ਅਤੇ ਫ਼ਿਰਕੂ ਹਿੰਸਾ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q009-PA",
+    "englishQuestionId": "WHI-CP012-Q009",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F009",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵੱਡੇ ਪੱਧਰ ’ਤੇ ਹਿਜਰਤ ਅਤੇ ਫ਼ਿਰਕੂ ਹਿੰਸਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸਾਰੇ ਸ਼ਰਨਾਰਥੀਆਂ ਦਾ ਤੁਰੰਤ ਮੁੜ ਵਸੇਬਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰਿਟਿਸ਼ ਰਾਜ ਮੁੜ ਕਾਇਮ ਹੋਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦਾ ਇੱਕ ਦੇਸ਼ ਬਣ ਜਾਣਾ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1947 ਵਿੱਚ ਪਾਕਿਸਤਾਨ ਦੀ ਆਜ਼ਾਦੀ ਨਾਲ ਕਿਹੜੀ ਤਾਰੀਖ਼ ਜੁੜੀ ਹੈ?",
+    "explanation": "ਪਾਕਿਸਤਾਨ 14 ਅਗਸਤ 1947 ਨੂੰ ਆਜ਼ਾਦ ਹੋਇਆ; ਭਾਰਤ ਅਗਲੇ ਦਿਨ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q010-PA",
+    "englishQuestionId": "WHI-CP012-Q010",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F010",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "15 ਅਗਸਤ"
+      },
+      {
+        "key": "B",
+        "text": "14 ਅਗਸਤ"
+      },
+      {
+        "key": "C",
+        "text": "26 ਜਨਵਰੀ"
+      },
+      {
+        "key": "D",
+        "text": "1 ਜੁਲਾਈ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਭਾਰਤੀ ਆਜ਼ਾਦੀ ਕਾਨੂੰਨ 1947 ਨੇ ਕਿਸ ਗੱਲ ਦਾ ਪ੍ਰਬੰਧ ਕੀਤਾ?",
+    "explanation": "ਕਾਨੂੰਨ ਨੇ ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੇ ਦੋ ਆਜ਼ਾਦ ਡੋਮੀਨੀਅਨ ਬਣਾਉਣ ਦਾ ਰਾਹ ਖੋਲ੍ਹਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q011-PA",
+    "englishQuestionId": "WHI-CP012-Q011",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F011",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਨੂੰ ਬ੍ਰਿਟਿਸ਼ ਬਸਤੀਆਂ ਰੱਖਣ ਦਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਭਾਰਤੀ ਉਪਮਹਾਂਦੀਪ ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਰਾਜ ਕਾਇਮ ਕਰਨ ਦਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਆਜ਼ਾਦ ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਬਣਾਉਣ ਦਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਇੱਕਜੁੱਟ ਭਾਰਤੀ ਸਾਮਰਾਜ ਬਣਾਉਣ ਦਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1947 ਵਿੱਚ ਨਵੇਂ ਦੇਸ਼ ਦੀ ਹਾਲਤ ਬਾਰੇ ਕਿਹੜਾ ਜੋੜਾ ਸਹੀ ਹੈ?",
+    "explanation": "1947 ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਰਾਜ ਮੁੱਕਣ ਨਾਲ ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੋਵੇਂ ਆਜ਼ਾਦ ਹੋਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q012-PA",
+    "englishQuestionId": "WHI-CP012-Q012",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F012",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਭਾਰਤ — ਫ਼ਰਾਂਸੀਸੀ ਸੁਰੱਖਿਅਤ ਰਾਜ"
+      },
+      {
+        "key": "B",
+        "text": "ਪਾਕਿਸਤਾਨ — ਡੱਚ ਬਸਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਪਾਕਿਸਤਾਨ — ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਟਰੱਸਟ ਇਲਾਕਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਭਾਰਤ — ਬ੍ਰਿਟਿਸ਼ ਰਾਜ ਤੋਂ ਆਜ਼ਾਦ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "17 ਅਗਸਤ 1945 ਨੂੰ ਇੰਡੋਨੇਸ਼ੀਆ ਦੀ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕਿਸ ਨੇ ਕੀਤਾ?",
+    "explanation": "ਜਪਾਨ ਦੇ ਆਤਮਸਮਰਪਣ ਮਗਰੋਂ ਸੁਕਾਰਨੋ ਅਤੇ ਮੁਹੰਮਦ ਹੱਟਾ ਨੇ ਇੰਡੋਨੇਸ਼ੀਆ ਦੀ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q013-PA",
+    "englishQuestionId": "WHI-CP012-Q013",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F013",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਇੰਡੋਨੇਸ਼ੀਆ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੁਕਾਰਨੋ ਅਤੇ ਮੁਹੰਮਦ ਹੱਟਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੁਕਾਰਨੋ ਅਤੇ ਹੋ ਚੀ ਮਿਨ੍ਹ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੁਹੰਮਦ ਹੱਟਾ ਅਤੇ ਮਾਓ ਜ਼ੇਦੋਂਗ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਵਾਹਰਲਾਲ ਨਹਿਰੂ ਅਤੇ ਸੁਕਾਰਨੋ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1945 ਮਗਰੋਂ ਇੰਡੋਨੇਸ਼ੀਆ ਵਿੱਚ ਕਿਹੜੀ ਯੂਰਪੀ ਤਾਕਤ ਨੇ ਬਸਤੀਵਾਦੀ ਰਾਜ ਮੁੜ ਕਾਇਮ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ?",
+    "explanation": "ਨੀਦਰਲੈਂਡ ਨੇ ਸਾਬਕਾ ਡੱਚ ਈਸਟ ਇੰਡੀਜ਼ ’ਤੇ ਮੁੜ ਰਾਜ ਕਾਇਮ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q014-PA",
+    "englishQuestionId": "WHI-CP012-Q014",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F014",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਇੰਡੋਨੇਸ਼ੀਆ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫਰਾਂਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੀਦਰਲੈਂਡ"
+      },
+      {
+        "key": "C",
+        "text": "ਪੁਰਤਗਾਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "27 ਦਸੰਬਰ 1949 ਨੂੰ ਨੀਦਰਲੈਂਡ ਨੇ ਇੰਡੋਨੇਸ਼ੀਆ ਨੂੰ ਕੀ ਸੌਂਪਿਆ?",
+    "explanation": "ਰਾਊਂਡ ਟੇਬਲ ਕਾਨਫਰੰਸ ਦੇ ਸਮਝੌਤੇ ਮਗਰੋਂ ਨੀਦਰਲੈਂਡ ਨੇ ਇੰਡੋਨੇਸ਼ੀਆ ਨੂੰ ਸਰਬਭੌਮਤਾ ਸੌਂਪੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q015-PA",
+    "englishQuestionId": "WHI-CP012-Q015",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F015",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਇੰਡੋਨੇਸ਼ੀਆ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਿਰਫ਼ ਆਰਥਿਕ ਮਦਦ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਟਰੱਸਟ ਰਾਜ"
+      },
+      {
+        "key": "C",
+        "text": "ਗੱਲਬਾਤ ਮਗਰੋਂ ਸਰਬਭੌਮਤਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਜਾਵਾ ਟਾਪੂ ਦਾ ਪ੍ਰਬੰਧ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਡੱਚ ਫੌਜਾਂ ਦੇ ਜਕਾਰਤਾ ਵਾਪਸ ਆਉਣ ਤੋਂ ਪਹਿਲਾਂ ਇੰਡੋਨੇਸ਼ੀਆਈ ਗਣਰਾਜ ਦੀ ਰਾਜਧਾਨੀ ਕਿਹੜਾ ਸ਼ਹਿਰ ਸੀ?",
+    "explanation": "ਆਜ਼ਾਦੀ ਦੇ ਸੰਘਰਸ਼ ਦੌਰਾਨ ਯੋਗਿਆਕਾਰਤਾ ਇੰਡੋਨੇਸ਼ੀਆਈ ਗਣਰਾਜ ਦੀ ਰਾਜਧਾਨੀ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q016-PA",
+    "englishQuestionId": "WHI-CP012-Q016",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F016",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਇੰਡੋਨੇਸ਼ੀਆ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਾਂਡੁੰਗ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੁਰਾਬਾਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਮੇਦਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਯੋਗਿਆਕਾਰਤਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਇੰਡੋਨੇਸ਼ੀਆਈ ਕ੍ਰਾਂਤੀ ਦਾ ਮੁੱਖ ਝਗੜਾ ਕੀ ਸੀ?",
+    "explanation": "ਇੰਡੋਨੇਸ਼ੀਆਈ ਗਣਰਾਜ ਦੇ ਹਮਾਇਤੀ ਚਾਹੁੰਦੇ ਸਨ ਕਿ ਨੀਦਰਲੈਂਡ ਉਨ੍ਹਾਂ ਦੀ ਆਜ਼ਾਦੀ ਅਤੇ ਸਰਬਭੌਮਤਾ ਮੰਨੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q017-PA",
+    "englishQuestionId": "WHI-CP012-Q017",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F017",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਇੰਡੋਨੇਸ਼ੀਆ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੀ ਨੀਦਰਲੈਂਡ ਇੰਡੋਨੇਸ਼ੀਆ ਦੀ ਸਰਬਭੌਮਤਾ ਮੰਨੇਗਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੀ ਇੰਡੋਨੇਸ਼ੀਆ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਵਿੱਚ ਜਾਵੇਗਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਕੀ ਜਪਾਨ ਮੁੜ ਰਾਜ ਕਰੇਗਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਕੀ ਰਾਜਧਾਨੀ ਬਾਂਡੁੰਗ ਲਿਜਾਈ ਜਾਵੇਗੀ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1949 ਵਿੱਚ ਇੰਡੋਨੇਸ਼ੀਆ ਨੂੰ ਸਰਬਭੌਮਤਾ ਸੌਂਪਣ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜਾ ਸਮਝੌਤਾ ਹੋਇਆ?",
+    "explanation": "1949 ਦੀ ਰਾਊਂਡ ਟੇਬਲ ਕਾਨਫਰੰਸ ਵਿੱਚ ਹੋਏ ਸਮਝੌਤੇ ਨੇ ਸਰਬਭੌਮਤਾ ਤਬਦੀਲ ਕਰਨ ਦਾ ਰਾਹ ਬਣਾਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q018-PA",
+    "englishQuestionId": "WHI-CP012-Q018",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F018",
+    "sourceIds": [
+      "CP012-S03",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਇੰਡੋਨੇਸ਼ੀਆ ਦੀ ਆਜ਼ਾਦੀ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਨੀਵਾ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਊਂਡ ਟੇਬਲ ਕਾਨਫਰੰਸ ਦੇ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਾਂਡੁੰਗ ਐਲਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੌਟਸਡੈਮ ਸਮਝੌਤਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1945 ਵਿੱਚ ਡੈਮੋਕ੍ਰੈਟਿਕ ਰਿਪਬਲਿਕ ਆਫ਼ ਵਿਅਤਨਾਮ ਦਾ ਐਲਾਨ ਕਿਸ ਆਗੂ ਨੇ ਕੀਤਾ?",
+    "explanation": "ਹੋ ਚੀ ਮਿਨ੍ਹ ਨੇ ਸਤੰਬਰ 1945 ਵਿੱਚ ਹਨੋਈ ਵਿਖੇ ਡੈਮੋਕ੍ਰੈਟਿਕ ਰਿਪਬਲਿਕ ਆਫ਼ ਵਿਅਤਨਾਮ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q019-PA",
+    "englishQuestionId": "WHI-CP012-Q019",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F019",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਫ਼ਰਾਂਸੀਸੀ ਇੰਡੋਚੀਨ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸੁਕਾਰਨੋ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੇ ਵਿਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਹੋ ਚੀ ਮਿਨ੍ਹ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਾਓ ਜ਼ੇਦੋਂਗ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1954 ਦੀ ਕਿਹੜੀ ਲੜਾਈ ਨੇ ਇੰਡੋਚੀਨ ਵਿੱਚ ਫ਼ਰਾਂਸੀਸੀ ਬਸਤੀਵਾਦੀ ਰਾਜ ਖ਼ਤਮ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕੀਤੀ?",
+    "explanation": "ਡਿਏਨ ਬਿਏਨ ਫੂ ਵਿੱਚ ਫਰਾਂਸ ਦੀ ਹਾਰ ਮਗਰੋਂ ਇੰਡੋਚੀਨ ਵਿੱਚ ਉਸ ਦੀ ਜੰਗ ਮੁੱਕ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q020-PA",
+    "englishQuestionId": "WHI-CP012-Q020",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F020",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਫ਼ਰਾਂਸੀਸੀ ਇੰਡੋਚੀਨ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਾਈਗਾਨ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਹੂਏ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਇੰਫਾਲ ਦੀ ਲੜਾਈ"
+      },
+      {
+        "key": "D",
+        "text": "ਡਿਏਨ ਬਿਏਨ ਫੂ ਦੀ ਲੜਾਈ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1954 ਦੀ ਜਨੀਵਾ ਕਾਨਫਰੰਸ ਮਗਰੋਂ ਇੰਡੋਚੀਨ ਬਾਰੇ ਕਿਹੜਾ ਸਮਝੌਤਾ ਹੋਇਆ?",
+    "explanation": "ਜਨੀਵਾ ਸਮਝੌਤਿਆਂ ਨੇ ਜੰਗਬੰਦੀ ਅਤੇ ਇੰਡੋਚੀਨ ਲਈ ਸਿਆਸੀ ਪ੍ਰਬੰਧ ਤੈਅ ਕੀਤੇ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q021-PA",
+    "englishQuestionId": "WHI-CP012-Q021",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F021",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਫ਼ਰਾਂਸੀਸੀ ਇੰਡੋਚੀਨ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਨੀਵਾ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਾਊਂਡ ਟੇਬਲ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਐਵਿਆਂ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਲੰਡਨ ਸਮਝੌਤੇ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1954 ਦੇ ਜਨੀਵਾ ਸਮਝੌਤੇ ਨੇ ਵਿਅਤਨਾਮ ਲਈ ਕਿਹੜੀ ਆਰਜ਼ੀ ਵੰਡ-ਰੇਖਾ ਤੈਅ ਕੀਤੀ?",
+    "explanation": "ਜਨੀਵਾ ਸਮਝੌਤੇ ਹੇਠ ਵਿਅਤਨਾਮ ਨੂੰ ਆਰਜ਼ੀ ਤੌਰ ’ਤੇ 17ਵੇਂ ਸਮਾਂਤਰ ਦੇ ਨੇੜੇ ਵੰਡਿਆ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q022-PA",
+    "englishQuestionId": "WHI-CP012-Q022",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F022",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਫ਼ਰਾਂਸੀਸੀ ਇੰਡੋਚੀਨ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "38ਵਾਂ ਸਮਾਂਤਰ"
+      },
+      {
+        "key": "B",
+        "text": "17ਵਾਂ ਸਮਾਂਤਰ"
+      },
+      {
+        "key": "C",
+        "text": "49ਵਾਂ ਸਮਾਂਤਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਮੇਕਾਂਗ ਦਰਿਆ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਫ਼ਰਾਂਸੀਸੀ ਇੰਡੋਚੀਨ ਵਿੱਚ ਕਿਹੜੇ ਤਿੰਨ ਇਲਾਕੇ ਸ਼ਾਮਲ ਸਨ?",
+    "explanation": "ਫ਼ਰਾਂਸੀਸੀ ਇੰਡੋਚੀਨ ਵਿੱਚ ਵਿਅਤਨਾਮ, ਲਾਓਸ ਅਤੇ ਕੰਬੋਡੀਆ ਸ਼ਾਮਲ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q023-PA",
+    "englishQuestionId": "WHI-CP012-Q023",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F023",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਫ਼ਰਾਂਸੀਸੀ ਇੰਡੋਚੀਨ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਿਅਤਨਾਮ, ਥਾਈਲੈਂਡ ਅਤੇ ਬਰਮਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਲਾਓਸ, ਚੀਨ ਅਤੇ ਕੰਬੋਡੀਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਵਿਅਤਨਾਮ, ਲਾਓਸ ਅਤੇ ਕੰਬੋਡੀਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਲਾਇਆ, ਲਾਓਸ ਅਤੇ ਵਿਅਤਨਾਮ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1954 ਦੇ ਜਨੀਵਾ ਸਮਝੌਤੇ ਨੇ ਵਿਅਤਨਾਮ ਦੇ ਸਿਆਸੀ ਭਵਿੱਖ ਬਾਰੇ ਕੀ ਕਿਹਾ?",
+    "explanation": "ਸਮਝੌਤਿਆਂ ਵਿੱਚ ਵਿਅਤਨਾਮ ਦੇ ਭਵਿੱਖ ਦਾ ਫ਼ੈਸਲਾ ਕਰਨ ਅਤੇ ਦੇਸ਼ ਨੂੰ ਮੁੜ ਜੋੜਨ ਲਈ ਦੇਸ਼-ਪੱਧਰੀ ਚੋਣਾਂ ਦੀ ਯੋਜਨਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q024-PA",
+    "englishQuestionId": "WHI-CP012-Q024",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F024",
+    "sourceIds": [
+      "CP012-S04",
+      "CP012-S05"
+    ],
+    "questionFamily": "ਵੀਅਤਨਾਮ ਅਤੇ ਫ਼ਰਾਂਸੀਸੀ ਇੰਡੋਚੀਨ ਦਾ ਅੰਤ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੱਕੀ ਵੰਡ ਤੁਰੰਤ ਕਰਨੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਫ਼ਰਾਂਸੀਸੀ ਰਾਜ ਮੁੜ ਕਾਇਮ ਕਰਨਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਬਾਦਸ਼ਾਹੀ ਵਾਪਸ ਲਿਆਉਣੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਦੇਸ਼ ਨੂੰ ਮੁੜ ਜੋੜਨ ਲਈ ਦੇਸ਼-ਪੱਧਰੀ ਚੋਣਾਂ ਕਰਵਾਉਣੀਆਂ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਬਰਮਾ (ਹੁਣ ਮਿਆਂਮਾਰ) ਕਿਹੜੇ ਸਾਲ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦ ਹੋਇਆ?",
+    "explanation": "ਬਰਮਾ 4 ਜਨਵਰੀ 1948 ਨੂੰ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q025-PA",
+    "englishQuestionId": "WHI-CP012-Q025",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F025",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਬਰਮਾ ਅਤੇ ਮਲਾਇਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1948"
+      },
+      {
+        "key": "B",
+        "text": "1947"
+      },
+      {
+        "key": "C",
+        "text": "1954"
+      },
+      {
+        "key": "D",
+        "text": "1957"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1957 ਵਿੱਚ ਫੈਡਰੇਸ਼ਨ ਆਫ਼ ਮਲਾਇਆ ਵਜੋਂ ਕਿਹੜੇ ਦੇਸ਼ ਨੂੰ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦੀ ਮਿਲੀ?",
+    "explanation": "ਫੈਡਰੇਸ਼ਨ ਆਫ਼ ਮਲਾਇਆ 31 ਅਗਸਤ 1957 ਨੂੰ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q026-PA",
+    "englishQuestionId": "WHI-CP012-Q026",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F026",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਬਰਮਾ ਅਤੇ ਮਲਾਇਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਰਮਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਲਾਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਿੰਗਾਪੁਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਰੂਨੇਈ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਆਜ਼ਾਦ ਮਲਾਇਆ ਦਾ ਪਹਿਲਾ ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਕੌਣ ਬਣਿਆ?",
+    "explanation": "ਤੁੰਕੂ ਅਬਦੁਲ ਰਹਿਮਾਨ ਨਵੇਂ ਫੈਡਰੇਸ਼ਨ ਆਫ਼ ਮਲਾਇਆ ਦਾ ਪਹਿਲਾ ਪ੍ਰਧਾਨ ਮੰਤਰੀ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q027-PA",
+    "englishQuestionId": "WHI-CP012-Q027",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F027",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਬਰਮਾ ਅਤੇ ਮਲਾਇਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਨੇ ਵਿਨ"
+      },
+      {
+        "key": "B",
+        "text": "ਸੁਕਾਰਨੋ"
+      },
+      {
+        "key": "C",
+        "text": "ਤੁੰਕੂ ਅਬਦੁਲ ਰਹਿਮਾਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਲੀ ਕੁਆਨ ਯੂ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਬਰਮਾ ਦੀ ਆਜ਼ਾਦੀ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਹੋਈ?",
+    "explanation": "ਬਰਮੀ ਆਗੂਆਂ ਨੇ ਆਜ਼ਾਦੀ ਦਾ ਰਾਹ ਬਣਾਉਣ ਲਈ ਬ੍ਰਿਟਿਸ਼ ਸਰਕਾਰ ਨਾਲ ਗੱਲਬਾਤ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q028-PA",
+    "englishQuestionId": "WHI-CP012-Q028",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F028",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਬਰਮਾ ਅਤੇ ਮਲਾਇਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਪਾਨੀ ਰਾਜ ਮੁੜ ਕਾਇਮ ਹੋਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੀ ਵੰਡ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਟਰੱਸਟ ਰਾਜ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਰਮੀ ਆਗੂਆਂ ਅਤੇ ਬ੍ਰਿਟਿਸ਼ ਸਰਕਾਰ ਵਿਚਕਾਰ ਗੱਲਬਾਤ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1957 ਦੇ ਮਲਾਇਆ ਅਤੇ 1963 ਦੇ ਮਲੇਸ਼ੀਆ ਵਿੱਚ ਕੀ ਫ਼ਰਕ ਸੀ?",
+    "explanation": "ਫੈਡਰੇਸ਼ਨ ਆਫ਼ ਮਲਾਇਆ 1957 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਇਆ; ਮਲੇਸ਼ੀਆ ਬਾਅਦ ਵਿੱਚ 1963 ਵਿੱਚ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q029-PA",
+    "englishQuestionId": "WHI-CP012-Q029",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F029",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਬਰਮਾ ਅਤੇ ਮਲਾਇਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਲਾਇਆ 1957 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਇਆ; ਮਲੇਸ਼ੀਆ 1963 ਵਿੱਚ ਬਣਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਲੇਸ਼ੀਆ 1957 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਇਆ; ਮਲਾਇਆ 1963 ਵਿੱਚ ਬਣਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਦੋਵੇਂ ਨਾਂ 1948 ਤੋਂ ਇੱਕੋ ਦੇਸ਼ ਲਈ ਵਰਤੇ ਜਾਂਦੇ ਸਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਲਾਇਆ 1963 ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਬਸਤੀ ਬਣਿਆ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਆਜ਼ਾਦੀ ਤੋਂ ਪਹਿਲਾਂ ਬਰਮਾ ’ਤੇ ਕਿਹੜੀ ਯੂਰਪੀ ਤਾਕਤ ਦਾ ਰਾਜ ਸੀ?",
+    "explanation": "ਆਜ਼ਾਦੀ ਤੋਂ ਪਹਿਲਾਂ ਬਰਮਾ ਬ੍ਰਿਟਿਸ਼ ਸਾਮਰਾਜ ਦਾ ਹਿੱਸਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q030-PA",
+    "englishQuestionId": "WHI-CP012-Q030",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F030",
+    "sourceIds": [
+      "CP012-S02",
+      "CP012-S07",
+      "CP012-S01"
+    ],
+    "questionFamily": "ਬਰਮਾ ਅਤੇ ਮਲਾਇਆ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫਰਾਂਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "C",
+        "text": "ਨੀਦਰਲੈਂਡ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੁਰਤਗਾਲ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1 ਅਕਤੂਬਰ 1949 ਨੂੰ ਪੀਪਲਜ਼ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਦਾ ਐਲਾਨ ਕਿਸ ਨੇ ਕੀਤਾ?",
+    "explanation": "ਮਾਓ ਜ਼ੇਦੋਂਗ ਨੇ 1 ਅਕਤੂਬਰ 1949 ਨੂੰ ਬੀਜਿੰਗ ਵਿੱਚ ਪੀਪਲਜ਼ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q031-PA",
+    "englishQuestionId": "WHI-CP012-Q031",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F031",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "ਚੀਨੀ ਇਨਕਲਾਬ ਅਤੇ ਚੀਨ ਦਾ ਲੋਕ ਗਣਰਾਜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਚਿਆਂਗ ਕਾਈ-ਸ਼ੇਕ"
+      },
+      {
+        "key": "B",
+        "text": "ਝੋਉ ਐਨਲਾਈ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਾਓ ਜ਼ੇਦੋਂਗ"
+      },
+      {
+        "key": "D",
+        "text": "ਸਨ ਯਾਤ-ਸੇਨ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1949 ਵਿੱਚ ਚੀਨ ਦੀ ਮੁੱਖ ਧਰਤੀ ’ਤੇ ਕਾਬੂ ਗੁਆਉਣ ਮਗਰੋਂ ਕਿਹੜੀ ਸਰਕਾਰ ਤਾਈਵਾਨ ਚਲੀ ਗਈ?",
+    "explanation": "ਮੁੱਖ ਧਰਤੀ ’ਤੇ ਕਮਿਊਨਿਸਟ ਜਿੱਤ ਮਗਰੋਂ ਰਾਸ਼ਟਰਵਾਦੀ ਆਗੂਆਂ ਵਾਲੀ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਸਰਕਾਰ ਤਾਈਵਾਨ ਚਲੀ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q032-PA",
+    "englishQuestionId": "WHI-CP012-Q032",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F032",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "ਚੀਨੀ ਇਨਕਲਾਬ ਅਤੇ ਚੀਨ ਦਾ ਲੋਕ ਗਣਰਾਜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਪੀਪਲਜ਼ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਦੀ ਸਰਕਾਰ"
+      },
+      {
+        "key": "B",
+        "text": "ਮੰਗੋਲੀਆਈ ਸਰਕਾਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਜਪਾਨੀ ਸਰਕਾਰ"
+      },
+      {
+        "key": "D",
+        "text": "ਰਾਸ਼ਟਰਵਾਦੀ ਆਗੂਆਂ ਵਾਲੀ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਸਰਕਾਰ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1949 ਵਿੱਚ ਚੀਨੀ ਘਰੇਲੂ ਜੰਗ ਦਾ ਮੁੱਖ ਧਰਤੀ ’ਤੇ ਕੀ ਨਤੀਜਾ ਨਿਕਲਿਆ?",
+    "explanation": "ਮੁੱਖ ਧਰਤੀ ’ਤੇ ਕਮਿਊਨਿਸਟ ਫੌਜਾਂ ਜਿੱਤੀਆਂ ਅਤੇ 1949 ਵਿੱਚ ਪੀਪਲਜ਼ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q033-PA",
+    "englishQuestionId": "WHI-CP012-Q033",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F033",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "ਚੀਨੀ ਇਨਕਲਾਬ ਅਤੇ ਚੀਨ ਦਾ ਲੋਕ ਗਣਰਾਜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕਮਿਊਨਿਸਟ ਜਿੱਤ ਅਤੇ ਪੀਪਲਜ਼ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਦੀ ਸਥਾਪਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਮੁੱਖ ਧਰਤੀ ’ਤੇ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਦਾ ਰਾਜ ਮੁੜ ਕਾਇਮ ਹੋਇਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਚੀਨ ਬ੍ਰਿਟੇਨ ਅਤੇ ਫਰਾਂਸ ਵਿਚਕਾਰ ਵੰਡਿਆ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਾਦਸ਼ਾਹੀ ਮੁੜ ਆ ਗਈ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਨਵੇਂ ਪੀਪਲਜ਼ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਦੀ ਅਗਵਾਈ ਕਿਹੜੀ ਪਾਰਟੀ ਨੇ ਕੀਤੀ?",
+    "explanation": "ਚੀਨੀ ਕਮਿਊਨਿਸਟ ਪਾਰਟੀ ਨੇ ਨਵੇਂ ਪੀਪਲਜ਼ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਦੀ ਸਰਕਾਰ ਬਣਾਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q034-PA",
+    "englishQuestionId": "WHI-CP012-Q034",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F034",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "ਚੀਨੀ ਇਨਕਲਾਬ ਅਤੇ ਚੀਨ ਦਾ ਲੋਕ ਗਣਰਾਜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਕੁਓਮਿੰਤਾਂਗ"
+      },
+      {
+        "key": "B",
+        "text": "ਚੀਨੀ ਕਮਿਊਨਿਸਟ ਪਾਰਟੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਡੈਮੋਕ੍ਰੈਟਿਕ ਲੀਗ"
+      },
+      {
+        "key": "D",
+        "text": "ਰਿਪਬਲਿਕਨ ਪਾਰਟੀ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1949 ਵਿੱਚ ਪੀਪਲਜ਼ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਦੀ ਰਾਜਧਾਨੀ ਕਿਹੜਾ ਸ਼ਹਿਰ ਬਣਿਆ?",
+    "explanation": "ਨਵੀਂ ਸਰਕਾਰ ਦਾ ਐਲਾਨ ਬੀਜਿੰਗ ਵਿੱਚ ਹੋਇਆ, ਜੋ PRC ਦੀ ਰਾਜਧਾਨੀ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q035-PA",
+    "englishQuestionId": "WHI-CP012-Q035",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F035",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "ਚੀਨੀ ਇਨਕਲਾਬ ਅਤੇ ਚੀਨ ਦਾ ਲੋਕ ਗਣਰਾਜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸ਼ੰਘਾਈ"
+      },
+      {
+        "key": "B",
+        "text": "ਨਾਨਜਿੰਗ"
+      },
+      {
+        "key": "C",
+        "text": "ਬੀਜਿੰਗ"
+      },
+      {
+        "key": "D",
+        "text": "ਤਾਈਪੇ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1949 ਮਗਰੋਂ ਦੋ ਚੀਨੀ ਸਰਕਾਰਾਂ ਵਿਚਕਾਰ ਸਹੀ ਫ਼ਰਕ ਕਿਹੜਾ ਸੀ?",
+    "explanation": "ਕਮਿਊਨਿਸਟ ਪੀਪਲਜ਼ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਨੇ ਮੁੱਖ ਧਰਤੀ ’ਤੇ ਰਾਜ ਕੀਤਾ, ਜਦਕਿ ਰਾਸ਼ਟਰਵਾਦੀ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਸਰਕਾਰ ਤਾਈਵਾਨ ਵਿੱਚ ਰਹੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q036-PA",
+    "englishQuestionId": "WHI-CP012-Q036",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F036",
+    "sourceIds": [
+      "CP012-S06"
+    ],
+    "questionFamily": "ਚੀਨੀ ਇਨਕਲਾਬ ਅਤੇ ਚੀਨ ਦਾ ਲੋਕ ਗਣਰਾਜ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮੁੱਖ ਧਰਤੀ ’ਤੇ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ; ਤਾਈਵਾਨ ’ਤੇ PRC"
+      },
+      {
+        "key": "B",
+        "text": "1949 ਮਗਰੋਂ ਕੋਈ ਵੱਖਰੀ ਸਰਕਾਰ ਨਹੀਂ ਸੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਦੋਵੇਂ ਸਰਕਾਰਾਂ ਸਿਰਫ਼ ਤਾਈਵਾਨ ਵਿੱਚ ਰਹੀਆਂ"
+      },
+      {
+        "key": "D",
+        "text": "ਮੁੱਖ ਧਰਤੀ ’ਤੇ PRC; ਤਾਈਵਾਨ ’ਤੇ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1955 ਦੀ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਕਾਨਫਰੰਸ, ਜਿਸਨੂੰ ਬਾਂਡੁੰਗ ਕਿਹਾ ਜਾਂਦਾ ਹੈ, ਕਿੱਥੇ ਹੋਈ?",
+    "explanation": "ਕਾਨਫਰੰਸ ਇੰਡੋਨੇਸ਼ੀਆ ਦੇ ਬਾਂਡੁੰਗ ਸ਼ਹਿਰ ਵਿੱਚ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q037-PA",
+    "englishQuestionId": "WHI-CP012-Q037",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F037",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "ਬਾਂਡੁੰਗ ਅਤੇ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਏਕਤਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇੰਡੋਨੇਸ਼ੀਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਿਸਰ"
+      },
+      {
+        "key": "C",
+        "text": "ਭਾਰਤ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਰਮਾ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ ਨੇ ਕਿਹੜਾ ਵੱਡਾ ਮਕਸਦ ਸਾਹਮਣੇ ਰੱਖਿਆ?",
+    "explanation": "ਕਾਨਫਰੰਸ ਨੇ ਬਸਤੀਵਾਦ ਦਾ ਵਿਰੋਧ ਅਤੇ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਦੇਸ਼ਾਂ ਵਿਚਕਾਰ ਸਹਿਯੋਗ ਉੱਤੇ ਜ਼ੋਰ ਦਿੱਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q038-PA",
+    "englishQuestionId": "WHI-CP012-Q038",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F038",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "ਬਾਂਡੁੰਗ ਅਤੇ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਏਕਤਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਯੂਰਪੀ ਰਾਜ ਮੁੜ ਕਾਇਮ ਕਰਨਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਏਸ਼ੀਆਈ ਅਤੇ ਅਫ਼ਰੀਕੀ ਦੇਸ਼ਾਂ ਦਾ ਸਹਿਯੋਗ ਅਤੇ ਬਸਤੀਵਾਦ ਦਾ ਵਿਰੋਧ"
+      },
+      {
+        "key": "C",
+        "text": "ਸਾਂਝਾ ਫੌਜੀ ਗਠਜੋੜ ਬਣਾਉਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਹਰੇਕ ਦੇਸ਼ ਨੂੰ ਕਿਸੇ ਇੱਕ ਠੰਢੀ ਜੰਗੀ ਧੜੇ ਨਾਲ ਜੋੜਨਾ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ ਕਿਹੜੇ ਸਾਲ ਹੋਈ?",
+    "explanation": "ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਕਾਨਫਰੰਸ ਅਪ੍ਰੈਲ 1955 ਵਿੱਚ ਬਾਂਡੁੰਗ ਵਿਖੇ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q039-PA",
+    "englishQuestionId": "WHI-CP012-Q039",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F039",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "ਬਾਂਡੁੰਗ ਅਤੇ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਏਕਤਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "1949"
+      },
+      {
+        "key": "B",
+        "text": "1951"
+      },
+      {
+        "key": "C",
+        "text": "1955"
+      },
+      {
+        "key": "D",
+        "text": "1961"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਬਾਂਡੁੰਗ ਦੇ ਕਈ ਨੁਮਾਇੰਦੇ ਕੌਮਾਂਤਰੀ ਮਾਮਲਿਆਂ ਵਿੱਚ ਕੀ ਕਾਇਮ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਸਨ?",
+    "explanation": "ਕਈ ਨੁਮਾਇੰਦੇ ਠੰਢੀ ਜੰਗ ਦੇ ਕਿਸੇ ਧੜੇ ਵਿੱਚ ਆਪਣੇ ਆਪ ਸ਼ਾਮਲ ਹੋਏ ਬਿਨਾਂ ਸਹਿਯੋਗ ਅਤੇ ਖੁਦਮੁਖਤਿਆਰ ਫ਼ੈਸਲੇ ਕਰਨ ਦੀ ਗੁੰਜਾਇਸ਼ ਚਾਹੁੰਦੇ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q040-PA",
+    "englishQuestionId": "WHI-CP012-Q040",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F040",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "ਬਾਂਡੁੰਗ ਅਤੇ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਏਕਤਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਦੋਹਾਂ ਠੰਢੀ ਜੰਗੀ ਧੜਿਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣਾ"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਰਪੀ ਤਾਕਤਾਂ ਦਾ ਕਾਬੂ ਵਾਪਸ ਲਿਆਉਣਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਛੱਡਣਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਧੜਿਆਂ ਦੀ ਖਿੱਚੋਤਾਣ ਵਿਚਕਾਰ ਆਪਣੀ ਮਰਜ਼ੀ ਨਾਲ ਫ਼ੈਸਲੇ ਕਰਨ ਦੀ ਸਮਰੱਥਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ ਵਿੱਚ ਕਿਹੜੇ ਦੇਸ਼ ਸ਼ਾਮਲ ਸਨ?",
+    "explanation": "ਕਾਨਫਰੰਸ ਵਿੱਚ ਏਸ਼ੀਆ ਅਤੇ ਅਫ਼ਰੀਕਾ ਦੇ ਦੇਸ਼ ਸ਼ਾਮਲ ਹੋਏ ਸਨ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q041-PA",
+    "englishQuestionId": "WHI-CP012-Q041",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F041",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "ਬਾਂਡੁੰਗ ਅਤੇ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਏਕਤਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਏਸ਼ੀਆ ਅਤੇ ਅਫ਼ਰੀਕਾ ਦੇ ਦੇਸ਼"
+      },
+      {
+        "key": "B",
+        "text": "ਯੂਰਪ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਦੇਸ਼"
+      },
+      {
+        "key": "C",
+        "text": "ਸਿਰਫ਼ ਅਫ਼ਰੀਕੀ ਦੇਸ਼"
+      },
+      {
+        "key": "D",
+        "text": "ਸਿਰਫ਼ ਏਸ਼ੀਆਈ ਦੇਸ਼"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ ਦੀ ਵਿਰਾਸਤ ਨਾਲ ਬਾਅਦ ਵਿੱਚ ਕਿਹੜਾ ਕੂਟਨੀਤਕ ਵਿਚਾਰ ਜੁੜਿਆ?",
+    "explanation": "ਬਾਂਡੁੰਗ ਨੇ ਬਾਅਦ ਦੇ ਗੁੱਟ-ਨਿਰਪੱਖ ਅਤੇ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਕੂਟਨੀਤਕ ਸਹਿਯੋਗ ਨੂੰ ਰੂਪ ਦੇਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q042-PA",
+    "englishQuestionId": "WHI-CP012-Q042",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F042",
+    "sourceIds": [
+      "CP012-S12"
+    ],
+    "questionFamily": "ਬਾਂਡੁੰਗ ਅਤੇ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਏਕਤਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਵਾਰਸਾ ਸੰਧੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਗੁੱਟ-ਨਿਰਪੱਖਤਾ ਅਤੇ ਏਸ਼ੀਆਈ-ਅਫ਼ਰੀਕੀ ਸਹਿਯੋਗ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੂਰਪੀ ਸੰਘ"
+      },
+      {
+        "key": "D",
+        "text": "ਨਾਟੋ ਦਾ ਫੈਲਾਅ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "1948 ਤੋਂ ਪਹਿਲਾਂ ਲੀਗ ਆਫ਼ ਨੇਸ਼ਨਜ਼ ਦੇ ਮੈਂਡੇਟ ਹੇਠ ਫ਼ਲਸਤੀਨ ਦਾ ਪ੍ਰਬੰਧ ਕਿਹੜੀ ਯੂਰਪੀ ਤਾਕਤ ਕਰਦੀ ਸੀ?",
+    "explanation": "ਪਹਿਲੀ ਵਿਸ਼ਵ ਜੰਗ ਮਗਰੋਂ ਮੈਂਡੇਟ ਪ੍ਰਬੰਧ ਹੇਠ ਬ੍ਰਿਟੇਨ ਨੇ ਫ਼ਲਸਤੀਨ ਦਾ ਪ੍ਰਬੰਧ ਸੰਭਾਲਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q043-PA",
+    "englishQuestionId": "WHI-CP012-Q043",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F043",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ਬ੍ਰਿਟਿਸ਼ ਮੰਡੇਟ ਹੇਠ ਫ਼ਲਸਤੀਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫਰਾਂਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਨੀਦਰਲੈਂਡ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰਿਟੇਨ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਟਲੀ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਮਹਾਂਸਭਾ ਦੇ ਮਤੇ 181 ਨੇ 1947 ਵਿੱਚ ਕੀ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀ?",
+    "explanation": "ਮਤੇ 181 ਨੇ ਬ੍ਰਿਟਿਸ਼ ਮੈਂਡੇਟ ਨੂੰ ਅਰਬ ਅਤੇ ਯਹੂਦੀ ਰਾਜਾਂ ਵਿੱਚ ਵੰਡਣ ਅਤੇ ਯਰੂਸ਼ਲਮ ਲਈ ਕੌਮਾਂਤਰੀ ਦਰਜਾ ਰੱਖਣ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q044-PA",
+    "englishQuestionId": "WHI-CP012-Q044",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F044",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ਬ੍ਰਿਟਿਸ਼ ਮੰਡੇਟ ਹੇਠ ਫ਼ਲਸਤੀਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਸਾਰੇ ਮੈਂਡੇਟ ਨੂੰ ਬ੍ਰਿਟੇਨ ਵਿੱਚ ਮਿਲਾਉਣ ਦੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸਨੂੰ ਫਰਾਂਸ ਅਤੇ ਮਿਸਰ ਵਿਚਕਾਰ ਵੰਡਣ ਦੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਫ਼ਲਸਤੀਨ ਨੂੰ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਪੱਕਾ ਇਲਾਕਾ ਬਣਾਉਣ ਦੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਰਬ ਅਤੇ ਯਹੂਦੀ ਰਾਜਾਂ ਵਿੱਚ ਵੰਡਣ ਦੀ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਮਹਾਂਸਭਾ ਨੇ ਮਤਾ 181 ਕਦੋਂ ਪਾਸ ਕੀਤਾ?",
+    "explanation": "ਮਹਾਂਸਭਾ ਨੇ ਮਤਾ 181 ਨੂੰ 29 ਨਵੰਬਰ 1947 ਨੂੰ ਪਾਸ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q045-PA",
+    "englishQuestionId": "WHI-CP012-Q045",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F045",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ਬ੍ਰਿਟਿਸ਼ ਮੰਡੇਟ ਹੇਠ ਫ਼ਲਸਤੀਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "29 ਨਵੰਬਰ 1947"
+      },
+      {
+        "key": "B",
+        "text": "14 ਮਈ 1948"
+      },
+      {
+        "key": "C",
+        "text": "1 ਅਕਤੂਬਰ 1949"
+      },
+      {
+        "key": "D",
+        "text": "24 ਅਕਤੂਬਰ 1945"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਮਤੇ 181 ਨੇ ਯਰੂਸ਼ਲਮ ਲਈ ਕਿਹੜਾ ਕੌਮਾਂਤਰੀ ਪ੍ਰਬੰਧ ਸੁਝਾਇਆ?",
+    "explanation": "ਯੋਜਨਾ ਵਿੱਚ ਯਰੂਸ਼ਲਮ ਨੂੰ ਵੱਖਰੀ ਇਕਾਈ ਵਜੋਂ ਕੌਮਾਂਤਰੀ ਪ੍ਰਬੰਧ ਹੇਠ ਰੱਖਣ ਦੀ ਤਜਵੀਜ਼ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q046-PA",
+    "englishQuestionId": "WHI-CP012-Q046",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F046",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ਬ੍ਰਿਟਿਸ਼ ਮੰਡੇਟ ਹੇਠ ਫ਼ਲਸਤੀਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸਨੂੰ ਅਰਬ ਰਾਜ ਦੀ ਰਾਜਧਾਨੀ ਬਣਾਉਣ ਦੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਖ਼ਾਸ ਕੌਮਾਂਤਰੀ ਪ੍ਰਬੰਧ ਦੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਸਨੂੰ ਯਹੂਦੀ ਰਾਜ ਦੀ ਰਾਜਧਾਨੀ ਬਣਾਉਣ ਦੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਸਨੂੰ ਬ੍ਰਿਟਿਸ਼ ਰਾਜ ਹੇਠ ਰੱਖਣ ਦੀ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਮਈ 1948 ਵਿੱਚ ਫ਼ਲਸਤੀਨ ਦੇ ਬ੍ਰਿਟਿਸ਼ ਮੈਂਡੇਟ ਨਾਲ ਕੀ ਹੋਇਆ?",
+    "explanation": "ਮਈ 1948 ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਮੈਂਡੇਟ ਖ਼ਤਮ ਹੋ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q047-PA",
+    "englishQuestionId": "WHI-CP012-Q047",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F047",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ਬ੍ਰਿਟਿਸ਼ ਮੰਡੇਟ ਹੇਠ ਫ਼ਲਸਤੀਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਸਨੂੰ ਹੋਰ ਸੌ ਸਾਲ ਲਈ ਵਧਾ ਦਿੱਤਾ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਇਸਨੂੰ ਫਰਾਂਸ ਦੇ ਹਵਾਲੇ ਕੀਤਾ ਗਿਆ"
+      },
+      {
+        "key": "C",
+        "text": "ਇਹ ਖ਼ਤਮ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਇਹ ਸੋਵੀਅਤ ਸੰਘ ਹੇਠ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਟਰੱਸਟ ਇਲਾਕਾ ਬਣ ਗਿਆ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1947 ਦੀ ਵੰਡ ਵਾਲੀ ਸਿਫ਼ਾਰਸ਼ ਕਿਹੜੀ ਸੰਸਥਾ ਨੇ ਪਾਸ ਕੀਤੀ?",
+    "explanation": "ਮਤਾ 181 ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਮਹਾਂਸਭਾ ਨੇ ਪਾਸ ਕੀਤਾ ਸੀ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q048-PA",
+    "englishQuestionId": "WHI-CP012-Q048",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F048",
+    "sourceIds": [
+      "CP012-S09",
+      "CP012-S10"
+    ],
+    "questionFamily": "ਬ੍ਰਿਟਿਸ਼ ਮੰਡੇਟ ਹੇਠ ਫ਼ਲਸਤੀਨ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਾਸ਼ਟਰ ਸੰਘ"
+      },
+      {
+        "key": "B",
+        "text": "ਕੌਮਾਂਤਰੀ ਅਦਾਲਤ"
+      },
+      {
+        "key": "C",
+        "text": "ਸੁਰੱਖਿਆ ਕੌਂਸਲ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਮਹਾਂਸਭਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਇਜ਼ਰਾਈਲ ਨੇ ਆਪਣੀ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕਦੋਂ ਕੀਤਾ?",
+    "explanation": "14 ਮਈ 1948 ਨੂੰ ਬ੍ਰਿਟਿਸ਼ ਮੈਂਡੇਟ ਦੇ ਅੰਤ ਵੇਲੇ ਇਜ਼ਰਾਈਲ ਨੇ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q049-PA",
+    "englishQuestionId": "WHI-CP012-Q049",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F049",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "ਇਜ਼ਰਾਈਲ, 1948 ਦੀ ਜੰਗ ਅਤੇ ਉਜਾੜਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "14 ਮਈ 1948"
+      },
+      {
+        "key": "B",
+        "text": "15 ਮਈ 1948"
+      },
+      {
+        "key": "C",
+        "text": "29 ਨਵੰਬਰ 1947"
+      },
+      {
+        "key": "D",
+        "text": "1 ਜਨਵਰੀ 1949"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਬ੍ਰਿਟਿਸ਼ ਮੈਂਡੇਟ ਦੇ ਅੰਤ ਅਤੇ ਇਜ਼ਰਾਈਲ ਦੇ ਆਜ਼ਾਦੀ ਐਲਾਨ ਮਗਰੋਂ ਕਿਹੜੀ ਜੰਗ ਹੋਈ?",
+    "explanation": "ਮੈਂਡੇਟ ਮੁੱਕਣ ਅਤੇ ਇਜ਼ਰਾਈਲ ਦੇ ਐਲਾਨ ਮਗਰੋਂ 1948 ਦੀ ਅਰਬ-ਇਜ਼ਰਾਈਲ ਜੰਗ ਸ਼ੁਰੂ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q050-PA",
+    "englishQuestionId": "WHI-CP012-Q050",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F050",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "ਇਜ਼ਰਾਈਲ, 1948 ਦੀ ਜੰਗ ਅਤੇ ਉਜਾੜਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਛੇ ਦਿਨਾਂ ਦੀ ਜੰਗ"
+      },
+      {
+        "key": "B",
+        "text": "1948 ਦੀ ਅਰਬ-ਇਜ਼ਰਾਈਲ ਜੰਗ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੋਮ ਕਿੱਪੁਰ ਜੰਗ"
+      },
+      {
+        "key": "D",
+        "text": "ਸੂਏਜ਼ ਸੰਕਟ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੇ ਮਤੇ 181 ਅਤੇ 1948 ਵਿੱਚ ਇਜ਼ਰਾਈਲ ਦੀ ਆਜ਼ਾਦੀ ਵਿੱਚ ਕੀ ਫ਼ਰਕ ਸੀ?",
+    "explanation": "ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦੀ ਯੋਜਨਾ ਨੇ ਵੰਡ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀ ਸੀ; ਇਜ਼ਰਾਈਲ ਨੇ ਬਾਅਦ ਵਿੱਚ ਮਈ 1948 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q051-PA",
+    "englishQuestionId": "WHI-CP012-Q051",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F051",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "ਇਜ਼ਰਾਈਲ, 1948 ਦੀ ਜੰਗ ਅਤੇ ਉਜਾੜਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਇਜ਼ਰਾਈਲ ਦੇ ਐਲਾਨ ਮਗਰੋਂ ਮਤਾ 181 ਪਾਸ ਹੋਇਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਤੇ 181 ਨੇ ਇਜ਼ਰਾਈਲ ਨੂੰ ਤੁਰੰਤ ਆਜ਼ਾਦ ਕਰ ਦਿੱਤਾ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਤੇ 181 ਨੇ ਵੰਡ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀ; ਇਜ਼ਰਾਈਲ ਨੇ ਬਾਅਦ ਵਿੱਚ 1948 ਵਿੱਚ ਆਜ਼ਾਦੀ ਐਲਾਨੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਮਤੇ 181 ਨੇ ਬ੍ਰਿਟਿਸ਼ ਮੈਂਡੇਟ ਨੂੰ ਪੱਕਾ ਕਰ ਦਿੱਤਾ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1948 ਦੀ ਜੰਗ ਨਾਲ ਕਿਹੜਾ ਵੱਡਾ ਮਨੁੱਖੀ ਨਤੀਜਾ ਜੁੜਿਆ ਸੀ?",
+    "explanation": "ਟਕਰਾਅ ਕਰਕੇ ਵੱਡੀ ਗਿਣਤੀ ਵਿੱਚ ਫ਼ਲਸਤੀਨੀ ਲੋਕਾਂ ਨੂੰ ਘਰ ਛੱਡਣੇ ਪਏ ਅਤੇ ਸ਼ਰਨਾਰਥੀ ਸੰਕਟ ਬਣਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q052-PA",
+    "englishQuestionId": "WHI-CP012-Q052",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F052",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "ਇਜ਼ਰਾਈਲ, 1948 ਦੀ ਜੰਗ ਅਤੇ ਉਜਾੜਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਲਸਤੀਨ ਦਾ ਤੁਰੰਤ ਇਕੱਠ"
+      },
+      {
+        "key": "B",
+        "text": "ਭਾਰਤ ਦੀ ਵੰਡ"
+      },
+      {
+        "key": "C",
+        "text": "ਯੂਰਪ ਵਿੱਚ ਜਰਮਨਾਂ ਦਾ ਮੁੜ ਵਸੇਬਾ"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਲਸਤੀਨੀਆਂ ਦਾ ਵੱਡੇ ਪੱਧਰ ’ਤੇ ਉਜਾੜਾ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਮਈ 1948 ਵਿੱਚ ਇਜ਼ਰਾਈਲ ਦੇ ਐਲਾਨ ਤੋਂ ਠੀਕ ਪਹਿਲਾਂ ਕਿਹੜੀ ਘਟਨਾ ਹੋਈ?",
+    "explanation": "ਇਜ਼ਰਾਈਲ ਦੀ ਆਜ਼ਾਦੀ ਦੇ ਐਲਾਨ ਵੇਲੇ ਬ੍ਰਿਟਿਸ਼ ਮੈਂਡੇਟ ਖ਼ਤਮ ਹੋ ਗਿਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q053-PA",
+    "englishQuestionId": "WHI-CP012-Q053",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F053",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "ਇਜ਼ਰਾਈਲ, 1948 ਦੀ ਜੰਗ ਅਤੇ ਉਜਾੜਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਫ਼ਲਸਤੀਨ ਵਿੱਚ ਬ੍ਰਿਟਿਸ਼ ਮੈਂਡੇਟ ਦਾ ਅੰਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "C",
+        "text": "1954 ਦੇ ਜਨੀਵਾ ਸਮਝੌਤੇ"
+      },
+      {
+        "key": "D",
+        "text": "ਅਫ਼ਰੀਕੀ ਏਕਤਾ ਸੰਸਥਾ ਦੀ ਸਥਾਪਨਾ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1948 ਦੀ ਅਰਬ-ਇਜ਼ਰਾਈਲ ਜੰਗ ਮਗਰੋਂ ਕੀ ਹੋਇਆ?",
+    "explanation": "ਜੰਗ ਮਗਰੋਂ ਹੋਏ ਜੰਗਬੰਦੀ ਸਮਝੌਤਿਆਂ ਨੇ ਲੜਾਈ ਰੋਕਣ ਵਾਲੀਆਂ ਰੇਖਾਵਾਂ ਤੈਅ ਕੀਤੀਆਂ, ਪਰ ਖੇਤਰੀ ਝਗੜਿਆਂ ਦਾ ਪੱਕਾ ਸ਼ਾਂਤੀ ਹੱਲ ਨਹੀਂ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q054-PA",
+    "englishQuestionId": "WHI-CP012-Q054",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F054",
+    "sourceIds": [
+      "CP012-S10",
+      "CP012-S11"
+    ],
+    "questionFamily": "ਇਜ਼ਰਾਈਲ, 1948 ਦੀ ਜੰਗ ਅਤੇ ਉਜਾੜਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਆਖ਼ਰੀ ਖੇਤਰੀ ਸ਼ਾਂਤੀ ਸਮਝੌਤਾ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "B",
+        "text": "ਜੰਗਬੰਦੀ ਸਮਝੌਤਿਆਂ ਨੇ ਲੜਾਈ ਰੋਕਣ ਦੀਆਂ ਰੇਖਾਵਾਂ ਬਣਾਈਆਂ, ਪੱਕੀ ਸ਼ਾਂਤੀ ਨਹੀਂ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰਿਟਿਸ਼ ਮੈਂਡੇਟ ਮੁੜ ਕਾਇਮ ਹੋ ਗਿਆ"
+      },
+      {
+        "key": "D",
+        "text": "ਫ਼ਲਸਤੀਨ ਸੰਯੁਕਤ ਰਾਸ਼ਟਰ ਦਾ ਮੈਂਬਰ ਬਣਿਆ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "hard",
+    "stem": "ਆਜ਼ਾਦੀ ਦੇ ਵੱਖ-ਵੱਖ ਰਾਹਾਂ ਬਾਰੇ ਕਿਹੜਾ ਤੁਲਨਾਤਮਕ ਕਥਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਇੰਡੋਨੇਸ਼ੀਆ ਨੇ 1945 ਵਿੱਚ ਆਜ਼ਾਦੀ ਦਾ ਐਲਾਨ ਕੀਤਾ, ਪਰ ਨੀਦਰਲੈਂਡ ਵੱਲੋਂ ਸਰਬਭੌਮਤਾ 1949 ਵਿੱਚ ਸੌਂਪੀ ਗਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q055-PA",
+    "englishQuestionId": "WHI-CP012-Q055",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F055",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਰਾਹ ਅਤੇ ਖੇਤਰੀ ਤੁਲਨਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਰਮਾ ਨੇ 1945 ਵਿੱਚ ਆਜ਼ਾਦੀ ਐਲਾਨੀ ਅਤੇ 1949 ਵਿੱਚ ਸਰਬਭੌਮਤਾ ਹਾਸਲ ਕੀਤੀ"
+      },
+      {
+        "key": "B",
+        "text": "ਮਲਾਇਆ ਨੇ 1948 ਵਿੱਚ ਆਜ਼ਾਦੀ ਐਲਾਨੀ ਅਤੇ 1957 ਵਿੱਚ ਸਰਬਭੌਮਤਾ ਹਾਸਲ ਕੀਤੀ"
+      },
+      {
+        "key": "C",
+        "text": "ਇੰਡੋਨੇਸ਼ੀਆ ਨੇ 1945 ਵਿੱਚ ਆਜ਼ਾਦੀ ਐਲਾਨੀ ਅਤੇ 1949 ਵਿੱਚ ਡੱਚ ਸਰਬਭੌਮਤਾ ਹਵਾਲਗੀ ਹਾਸਲ ਕੀਤੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਵਿਅਤਨਾਮ ਨੇ 1945 ਵਿੱਚ ਆਜ਼ਾਦੀ ਐਲਾਨੀ ਅਤੇ 1949 ਵਿੱਚ ਸਰਬਭੌਮਤਾ ਹਾਸਲ ਕੀਤੀ"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਕਿਹੜਾ ਜੋੜਾ ਸਹੀ ਹੈ?",
+    "explanation": "ਬਰਮਾ 1948 ਵਿੱਚ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦ ਹੋਇਆ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q056-PA",
+    "englishQuestionId": "WHI-CP012-Q056",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F056",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਰਾਹ ਅਤੇ ਖੇਤਰੀ ਤੁਲਨਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਮਲਾਇਆ — 1948 ਵਿੱਚ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦ"
+      },
+      {
+        "key": "B",
+        "text": "ਅਲਜੀਰੀਆ — 1948 ਵਿੱਚ ਫਰਾਂਸ ਤੋਂ ਆਜ਼ਾਦ"
+      },
+      {
+        "key": "C",
+        "text": "ਇੰਡੋਨੇਸ਼ੀਆ — 1948 ਵਿੱਚ ਡੱਚ ਸਰਬਭੌਮਤਾ ਦੀ ਹਵਾਲਗੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਰਮਾ — 1948 ਵਿੱਚ ਬ੍ਰਿਟੇਨ ਤੋਂ ਆਜ਼ਾਦ"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "1954 ਵਿੱਚ ਕਿਹੜੀ ਘਟਨਾ ਹੋਈ?",
+    "explanation": "ਡਿਏਨ ਬਿਏਨ ਫੂ 1954 ਵਿੱਚ ਡਿੱਗਿਆ ਅਤੇ ਇਸ ਮਗਰੋਂ ਇੰਡੋਚੀਨ ਬਾਰੇ ਜਨੀਵਾ ਗੱਲਬਾਤ ਹੋਈ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q057-PA",
+    "englishQuestionId": "WHI-CP012-Q057",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F057",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਰਾਹ ਅਤੇ ਖੇਤਰੀ ਤੁਲਨਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਡਿਏਨ ਬਿਏਨ ਫੂ ਵਿੱਚ ਫਰਾਂਸ ਦੀ ਹਾਰ ਅਤੇ ਇੰਡੋਚੀਨ ਬਾਰੇ ਜਨੀਵਾ ਗੱਲਬਾਤ"
+      },
+      {
+        "key": "B",
+        "text": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਮਲਾਇਆ ਦੀ ਆਜ਼ਾਦੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਪੀਪਲਜ਼ ਰਿਪਬਲਿਕ ਆਫ਼ ਚਾਈਨਾ ਦਾ ਐਲਾਨ"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "ਆਜ਼ਾਦੀ ਅਤੇ ਨਵੇਂ ਦੇਸ਼ ਬਣਾਉਣ ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+    "explanation": "ਆਜ਼ਾਦੀ ਮਿਲਣ ਨਾਲ ਅੰਦਰੂਨੀ ਜਾਂ ਖੇਤਰੀ ਝਗੜੇ ਆਪਣੇ ਆਪ ਖ਼ਤਮ ਨਹੀਂ ਹੋਏ। ਨਵੇਂ ਦੇਸ਼ਾਂ ਨੂੰ ਸਿਆਸੀ ਅਦਾਰੇ ਵੀ ਬਣਾਉਣੇ ਪਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q058-PA",
+    "englishQuestionId": "WHI-CP012-Q058",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F058",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਰਾਹ ਅਤੇ ਖੇਤਰੀ ਤੁਲਨਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਰਸਮੀ ਆਜ਼ਾਦੀ ਨਾਲ ਸਾਰੇ ਅੰਦਰੂਨੀ ਅਤੇ ਖੇਤਰੀ ਝਗੜੇ ਤੁਰੰਤ ਮੁੱਕ ਗਏ"
+      },
+      {
+        "key": "B",
+        "text": "ਰਸਮੀ ਆਜ਼ਾਦੀ ਨਾਲ ਅੰਦਰੂਨੀ ਜਾਂ ਖੇਤਰੀ ਝਗੜੇ ਆਪਣੇ ਆਪ ਨਹੀਂ ਮੁੱਕੇ"
+      },
+      {
+        "key": "C",
+        "text": "ਨਵੇਂ ਦੇਸ਼ਾਂ ਨੂੰ ਸਿਆਸੀ ਅਦਾਰਿਆਂ ਦੀ ਲੋੜ ਨਹੀਂ ਸੀ"
+      },
+      {
+        "key": "D",
+        "text": "ਹਰ ਨਵੇਂ ਦੇਸ਼ ਨੇ ਆਪਣਾ ਪੁਰਾਣਾ ਸੰਵਿਧਾਨ ਜਿਉਂ ਦਾ ਤਿਉਂ ਰੱਖਿਆ"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "pa",
+    "difficulty": "easy",
+    "stem": "ਕਿਹੜਾ ਕਾਲਕ੍ਰਮ ਸਹੀ ਹੈ?",
+    "explanation": "ਭਾਰਤ ਅਤੇ ਪਾਕਿਸਤਾਨ 1947 ਵਿੱਚ, ਬਰਮਾ 1948 ਵਿੱਚ ਅਤੇ ਮਲਾਇਆ 1957 ਵਿੱਚ ਆਜ਼ਾਦ ਹੋਏ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q059-PA",
+    "englishQuestionId": "WHI-CP012-Q059",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F059",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਰਾਹ ਅਤੇ ਖੇਤਰੀ ਤੁਲਨਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਬਰਮਾ (1947) → ਭਾਰਤ-ਪਾਕਿਸਤਾਨ (1948) → ਮਲਾਇਆ (1957)"
+      },
+      {
+        "key": "B",
+        "text": "ਭਾਰਤ-ਪਾਕਿਸਤਾਨ (1947) → ਮਲਾਇਆ (1948) → ਬਰਮਾ (1957)"
+      },
+      {
+        "key": "C",
+        "text": "ਭਾਰਤ-ਪਾਕਿਸਤਾਨ (1947) → ਬਰਮਾ (1948) → ਮਲਾਇਆ (1957)"
+      },
+      {
+        "key": "D",
+        "text": "ਮਲਾਇਆ (1947) → ਬਰਮਾ (1948) → ਭਾਰਤ-ਪਾਕਿਸਤਾਨ (1957)"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "pa",
+    "difficulty": "medium",
+    "stem": "1955 ਦੀ ਕਿਹੜੀ ਬੈਠਕ ਨੇ ਏਸ਼ੀਆ ਅਤੇ ਅਫ਼ਰੀਕਾ ਦੀ ਆਜ਼ਾਦੀ ਦੀ ਸਿਆਸਤ ਨੂੰ ਜੋੜਿਆ?",
+    "explanation": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ ਨੇ 1955 ਵਿੱਚ ਏਸ਼ੀਆਈ ਅਤੇ ਅਫ਼ਰੀਕੀ ਦੇਸ਼ਾਂ ਨੂੰ ਇਕੱਠਾ ਕੀਤਾ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP012-Q060-PA",
+    "englishQuestionId": "WHI-CP012-Q060",
+    "checkpointId": "WHI-001-CP012",
+    "factId": "WHI-CP012-F060",
+    "sourceIds": [
+      "CP012-S01",
+      "CP012-S12",
+      "CP012-S08"
+    ],
+    "questionFamily": "ਬਸਤੀਵਾਦ ਤੋਂ ਮੁਕਤੀ ਦੇ ਰਾਹ ਅਤੇ ਖੇਤਰੀ ਤੁਲਨਾ",
+    "options": [
+      {
+        "key": "A",
+        "text": "ਜਨੀਵਾ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "B",
+        "text": "ਡੰਬਰਟਨ ਓਕਸ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "C",
+        "text": "ਬ੍ਰੈਟਨ ਵੁੱਡਜ਼ ਕਾਨਫਰੰਸ"
+      },
+      {
+        "key": "D",
+        "text": "ਬਾਂਡੁੰਗ ਕਾਨਫਰੰਸ"
+      }
+    ],
+    "correctOption": "D"
+  }
+]

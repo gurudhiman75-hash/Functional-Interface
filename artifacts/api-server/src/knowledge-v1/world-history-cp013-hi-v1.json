@@ -1,0 +1,2183 @@
+[
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1957 में कौन-सी पूर्व ब्रिटिश बस्ती स्वतंत्र होकर घाना कहलाने लगी?",
+    "explanation": "पूर्व ब्रिटिश गोल्ड कोस्ट 6 मार्च 1957 को स्वतंत्र हुआ और घाना बना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q001-HI",
+    "englishQuestionId": "WHI-CP013-Q001",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F001",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S03"
+    ],
+    "questionFamily": "घाना और शुरुआती स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "गोल्ड कोस्ट"
+      },
+      {
+        "key": "B",
+        "text": "टांगानिका"
+      },
+      {
+        "key": "C",
+        "text": "नाइजीरिया"
+      },
+      {
+        "key": "D",
+        "text": "केन्या"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "घाना के स्वतंत्रता आंदोलन का नेतृत्व किसने किया और वह पहला प्रधानमंत्री बना?",
+    "explanation": "क्वामे नक्रूमा ने गोल्ड कोस्ट के स्वतंत्रता आंदोलन का नेतृत्व किया और स्वतंत्र घाना की सरकार का प्रमुख बना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q002-HI",
+    "englishQuestionId": "WHI-CP013-Q002",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F002",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S03"
+    ],
+    "questionFamily": "घाना और शुरुआती स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "जोमो केन्याटा"
+      },
+      {
+        "key": "B",
+        "text": "क्वामे नक्रूमा"
+      },
+      {
+        "key": "C",
+        "text": "नेल्सन मंडेला"
+      },
+      {
+        "key": "D",
+        "text": "जूलियस न्येरेरे"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1 अक्टूबर 1960 को कौन-सा देश ब्रिटेन से स्वतंत्र हुआ?",
+    "explanation": "नाइजीरिया 1 अक्टूबर 1960 को ब्रिटिश शासन से स्वतंत्र हुआ। उस समय उसका आधिकारिक नाम फेडरेशन ऑफ नाइजीरिया था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q003-HI",
+    "englishQuestionId": "WHI-CP013-Q003",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F003",
+    "sourceIds": [
+      "CP013-S15"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "गोल्ड कोस्ट"
+      },
+      {
+        "key": "B",
+        "text": "उत्तरी रोडेशिया"
+      },
+      {
+        "key": "C",
+        "text": "नाइजीरिया"
+      },
+      {
+        "key": "D",
+        "text": "टांगानिका"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1975 में पुर्तगाल के कौन-से दो पूर्व क्षेत्र स्वतंत्र हुए?",
+    "explanation": "अंगोला 11 नवंबर 1975 को और मोज़ाम्बिक 25 जून 1975 को स्वतंत्र हुए।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q004-HI",
+    "englishQuestionId": "WHI-CP013-Q004",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F004",
+    "sourceIds": [
+      "CP013-S16",
+      "CP013-S17"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "केन्या और युगांडा"
+      },
+      {
+        "key": "B",
+        "text": "घाना और नाइजीरिया"
+      },
+      {
+        "key": "C",
+        "text": "अल्जीरिया और ट्यूनीशिया"
+      },
+      {
+        "key": "D",
+        "text": "अंगोला और मोज़ाम्बिक"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "कौन-सा पूर्व ब्रिटिश क्षेत्र 1980 में स्वतंत्र होकर ज़िम्बाब्वे बना?",
+    "explanation": "दक्षिणी रोडेशिया ने 1980 में ज़िम्बाब्वे के रूप में स्वतंत्रता प्राप्त की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q005-HI",
+    "englishQuestionId": "WHI-CP013-Q005",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F005",
+    "sourceIds": [
+      "CP013-S18"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "दक्षिणी रोडेशिया"
+      },
+      {
+        "key": "B",
+        "text": "ज़ाम्बिया"
+      },
+      {
+        "key": "C",
+        "text": "बोत्सवाना"
+      },
+      {
+        "key": "D",
+        "text": "मलावी"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "नामीबिया की स्वतंत्रता के संक्रमण के दौरान चुनावों की निगरानी किस संयुक्त राष्ट्र अभियान ने की?",
+    "explanation": "संयुक्त राष्ट्र संक्रमण सहायता समूह (UNTAG) ने उस प्रक्रिया में चुनावों की निगरानी की जिसके बाद नामीबिया 1990 में स्वतंत्र हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q006-HI",
+    "englishQuestionId": "WHI-CP013-Q006",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F006",
+    "sourceIds": [
+      "CP013-S19"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "UNEF"
+      },
+      {
+        "key": "B",
+        "text": "UNTAG"
+      },
+      {
+        "key": "C",
+        "text": "ONUC"
+      },
+      {
+        "key": "D",
+        "text": "UNPROFOR"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1962 में स्वतंत्र होने से पहले अल्जीरिया पर किस यूरोपीय शक्ति का शासन था?",
+    "explanation": "स्वतंत्रता से पहले अल्जीरिया फ्रांसीसी औपनिवेशिक शासन के अधीन था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q007-HI",
+    "englishQuestionId": "WHI-CP013-Q007",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F007",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "अल्जीरियाई युद्ध और स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "ब्रिटेन"
+      },
+      {
+        "key": "B",
+        "text": "स्पेन"
+      },
+      {
+        "key": "C",
+        "text": "फ्रांस"
+      },
+      {
+        "key": "D",
+        "text": "पुर्तगाल"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अल्जीरिया के स्वतंत्रता संघर्ष का नेतृत्व किस संगठन ने किया?",
+    "explanation": "राष्ट्रीय मुक्ति मोर्चा (FLN) ने फ्रांसीसी शासन के विरुद्ध सशस्त्र संघर्ष का नेतृत्व किया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q008-HI",
+    "englishQuestionId": "WHI-CP013-Q008",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F008",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "अल्जीरियाई युद्ध और स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "अफ्रीकी राष्ट्रीय कांग्रेस"
+      },
+      {
+        "key": "B",
+        "text": "अंगोलन मुक्ति का जन आंदोलन"
+      },
+      {
+        "key": "C",
+        "text": "अल्जीरियाई लोकतांत्रिक सभा"
+      },
+      {
+        "key": "D",
+        "text": "राष्ट्रीय मुक्ति मोर्चा (FLN)"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1962 के किस समझौते ने अल्जीरियाई युद्ध समाप्त करने में मदद की?",
+    "explanation": "एवियन समझौतों ने ऐसी व्यवस्था बनाई जिससे अल्जीरिया की स्वतंत्रता का रास्ता खुला।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q009-HI",
+    "englishQuestionId": "WHI-CP013-Q009",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F009",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "अल्जीरियाई युद्ध और स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "एवियन समझौते"
+      },
+      {
+        "key": "B",
+        "text": "अल्वोर समझौते"
+      },
+      {
+        "key": "C",
+        "text": "जिनेवा समझौते"
+      },
+      {
+        "key": "D",
+        "text": "लुसाका समझौते"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अल्जीरिया किस वर्ष स्वतंत्र हुआ?",
+    "explanation": "फ्रांस के विरुद्ध लंबे युद्ध के बाद अल्जीरिया 1962 में स्वतंत्र हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q010-HI",
+    "englishQuestionId": "WHI-CP013-Q010",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F010",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "अल्जीरियाई युद्ध और स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "1957"
+      },
+      {
+        "key": "B",
+        "text": "1962"
+      },
+      {
+        "key": "C",
+        "text": "1960"
+      },
+      {
+        "key": "D",
+        "text": "1975"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1954 में अल्जीरियाई स्वतंत्रता युद्ध की शुरुआत किससे हुई?",
+    "explanation": "FLN ने 1 नवंबर 1954 को समन्वित हमले शुरू किए, जिससे युद्ध आरंभ हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q011-HI",
+    "englishQuestionId": "WHI-CP013-Q011",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F011",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "अल्जीरियाई युद्ध और स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "फ्रांस और ब्रिटेन के बीच संधि से"
+      },
+      {
+        "key": "B",
+        "text": "अल्जीरिया में आम चुनाव से"
+      },
+      {
+        "key": "C",
+        "text": "फ्रांसीसी शासन के विरुद्ध FLN के समन्वित विद्रोह से"
+      },
+      {
+        "key": "D",
+        "text": "बांटू प्रशासन की स्थापना से"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अल्जीरिया के स्वतंत्रता संघर्ष में घाना के रास्ते से क्या अंतर था?",
+    "explanation": "अल्जीरिया की स्वतंत्रता फ्रांसीसी शासन के विरुद्ध लंबे और हिंसक युद्ध के बाद मिली; घाना का सत्ता-हस्तांतरण अलग रास्ते से हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q012-HI",
+    "englishQuestionId": "WHI-CP013-Q012",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F012",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S04"
+    ],
+    "questionFamily": "अल्जीरियाई युद्ध और स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "दोनों ने एक ही दिन स्वतंत्रता प्राप्त की"
+      },
+      {
+        "key": "B",
+        "text": "अल्जीरिया को संयुक्त राष्ट्र न्यास क्षेत्र बनाया गया"
+      },
+      {
+        "key": "C",
+        "text": "घाना ने फ्रांस के विरुद्ध युद्ध किया"
+      },
+      {
+        "key": "D",
+        "text": "अल्जीरिया का लंबा और हिंसक युद्ध फ्रांसीसी शासन के विरुद्ध चला"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1960 में कांगो ने किस यूरोपीय शक्ति से स्वतंत्रता प्राप्त की?",
+    "explanation": "बेल्जियन कांगो 30 जून 1960 को स्वतंत्र हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q013-HI",
+    "englishQuestionId": "WHI-CP013-Q013",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F013",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "कांगो की स्वतंत्रता और संकट",
+    "options": [
+      {
+        "key": "A",
+        "text": "बेल्जियम"
+      },
+      {
+        "key": "B",
+        "text": "पुर्तगाल"
+      },
+      {
+        "key": "C",
+        "text": "फ्रांस"
+      },
+      {
+        "key": "D",
+        "text": "ब्रिटेन"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1960 में स्वतंत्र कांगो गणराज्य का पहला प्रधानमंत्री कौन बना?",
+    "explanation": "स्वतंत्रता के बाद पैट्रिस लुमुम्बा कांगो के पहले प्रधानमंत्री बने।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q014-HI",
+    "englishQuestionId": "WHI-CP013-Q014",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F014",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "कांगो की स्वतंत्रता और संकट",
+    "options": [
+      {
+        "key": "A",
+        "text": "मोबुतु सेसे सेको"
+      },
+      {
+        "key": "B",
+        "text": "पैट्रिस लुमुम्बा"
+      },
+      {
+        "key": "C",
+        "text": "जोमो केन्याटा"
+      },
+      {
+        "key": "D",
+        "text": "क्वामे नक्रूमा"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "ONUC क्या था?",
+    "explanation": "ONUC कांगो में संकट के दौरान स्थापित संयुक्त राष्ट्र अभियान था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q015-HI",
+    "englishQuestionId": "WHI-CP013-Q015",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F015",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "कांगो की स्वतंत्रता और संकट",
+    "options": [
+      {
+        "key": "A",
+        "text": "अफ्रीकी एकता संगठन की सभा"
+      },
+      {
+        "key": "B",
+        "text": "यूरोपीय सुरक्षा मिशन"
+      },
+      {
+        "key": "C",
+        "text": "कांगो में संयुक्त राष्ट्र अभियान"
+      },
+      {
+        "key": "D",
+        "text": "बेल्जियम की औपनिवेशिक परिषद"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1960 में कांगो की स्वतंत्रता के बाद कौन-सा संकट शुरू हुआ?",
+    "explanation": "कांगो संकट में सैनिक विद्रोह, अलगाव के प्रयास और अंतरराष्ट्रीय पक्षों की भागीदारी शामिल थी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q016-HI",
+    "englishQuestionId": "WHI-CP013-Q016",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F016",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "कांगो की स्वतंत्रता और संकट",
+    "options": [
+      {
+        "key": "A",
+        "text": "शांतिपूर्ण सत्ता-हस्तांतरण और कोई राजनीतिक विवाद नहीं"
+      },
+      {
+        "key": "B",
+        "text": "देश का संयुक्त राष्ट्र न्यास क्षेत्र बनना"
+      },
+      {
+        "key": "C",
+        "text": "कांगो का फ्रांसीसी शासन में लौटना"
+      },
+      {
+        "key": "D",
+        "text": "मुतिनी, अलगाव और ऐसा राजनीतिक संघर्ष जिसमें बाहरी पक्ष भी शामिल हुए"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "कांगो की स्वतंत्रता के तुरंत बाद किस खनिज-समृद्ध प्रांत ने अलग होने की घोषणा की?",
+    "explanation": "कटांगा ने जुलाई 1960 में, स्वतंत्रता के कुछ ही समय बाद, अलग होने की घोषणा की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q017-HI",
+    "englishQuestionId": "WHI-CP013-Q017",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F017",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "कांगो की स्वतंत्रता और संकट",
+    "options": [
+      {
+        "key": "A",
+        "text": "कटांगा"
+      },
+      {
+        "key": "B",
+        "text": "कसाई"
+      },
+      {
+        "key": "C",
+        "text": "लुआलाबा"
+      },
+      {
+        "key": "D",
+        "text": "किवु"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "कांगो संकट ने उपनिवेश-मुक्ति के बारे में क्या दिखाया?",
+    "explanation": "कांगो संकट ने दिखाया कि औपचारिक स्वतंत्रता के बाद भी गंभीर आंतरिक संघर्ष और बाहरी हस्तक्षेप हो सकते हैं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q018-HI",
+    "englishQuestionId": "WHI-CP013-Q018",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F018",
+    "sourceIds": [
+      "CP013-S06",
+      "CP013-S01"
+    ],
+    "questionFamily": "कांगो की स्वतंत्रता और संकट",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्वतंत्रता के बाद आंतरिक संघर्ष समाप्त हो जाते हैं"
+      },
+      {
+        "key": "B",
+        "text": "स्वतंत्रता के बाद गंभीर आंतरिक संघर्ष और बाहरी हस्तक्षेप हो सकते हैं"
+      },
+      {
+        "key": "C",
+        "text": "संयुक्त राष्ट्र किसी भी नए राज्य पर शासन करता है"
+      },
+      {
+        "key": "D",
+        "text": "औपनिवेशिक सीमाएँ तुरंत समाप्त हो जाती हैं"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1963 में कौन-सा देश ब्रिटेन से स्वतंत्र हुआ और केन्या कहलाया?",
+    "explanation": "केन्या दिसंबर 1963 में स्वतंत्र हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q019-HI",
+    "englishQuestionId": "WHI-CP013-Q019",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F019",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "पूर्वी और मध्य अफ्रीका की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "युगांडा"
+      },
+      {
+        "key": "B",
+        "text": "मलावी"
+      },
+      {
+        "key": "C",
+        "text": "केन्या"
+      },
+      {
+        "key": "D",
+        "text": "ज़ाम्बिया"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "स्वतंत्र केन्या का पहला प्रधानमंत्री कौन बना?",
+    "explanation": "जोमो केन्याटा ने स्वतंत्रता के समय केन्या का नेतृत्व किया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q020-HI",
+    "englishQuestionId": "WHI-CP013-Q020",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F020",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "पूर्वी और मध्य अफ्रीका की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "क्वामे नक्रूमा"
+      },
+      {
+        "key": "B",
+        "text": "पैट्रिस लुमुम्बा"
+      },
+      {
+        "key": "C",
+        "text": "नेल्सन मंडेला"
+      },
+      {
+        "key": "D",
+        "text": "जोमो केन्याटा"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1964 में ब्रिटेन से स्वतंत्र होकर बाद में ज़ाम्बिया कहलाने वाला देश कौन-सा था?",
+    "explanation": "उत्तरी रोडेशिया 1964 में स्वतंत्र हुआ और बाद में ज़ाम्बिया कहलाया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q021-HI",
+    "englishQuestionId": "WHI-CP013-Q021",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F021",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "पूर्वी और मध्य अफ्रीका की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "उत्तरी रोडेशिया"
+      },
+      {
+        "key": "B",
+        "text": "न्यासालैंड"
+      },
+      {
+        "key": "C",
+        "text": "टांगानिका"
+      },
+      {
+        "key": "D",
+        "text": "दक्षिणी रोडेशिया"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1964 में कौन-सा देश मलावी के रूप में स्वतंत्र हुआ?",
+    "explanation": "ब्रिटिश संरक्षित क्षेत्र न्यासालैंड 1964 में मलावी बना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q022-HI",
+    "englishQuestionId": "WHI-CP013-Q022",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F022",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "पूर्वी और मध्य अफ्रीका की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "ज़ाम्बिया"
+      },
+      {
+        "key": "B",
+        "text": "न्यासालैंड"
+      },
+      {
+        "key": "C",
+        "text": "केन्या"
+      },
+      {
+        "key": "D",
+        "text": "युगांडा"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1961 में मुख्यभूमि का कौन-सा क्षेत्र टांगानिका के रूप में स्वतंत्र हुआ?",
+    "explanation": "टांगानिका 1961 में स्वतंत्र हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q023-HI",
+    "englishQuestionId": "WHI-CP013-Q023",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F023",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "पूर्वी और मध्य अफ्रीका की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "ज़ांज़ीबार"
+      },
+      {
+        "key": "B",
+        "text": "न्यासालैंड"
+      },
+      {
+        "key": "C",
+        "text": "टांगानिका"
+      },
+      {
+        "key": "D",
+        "text": "उत्तरी रोडेशिया"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "टांगानिका और ज़ांज़ीबार के एक होने के बाद स्वतंत्र तंज़ानिया के पहले राष्ट्रपति कौन बने?",
+    "explanation": "जूलियस न्येरेरे ने टांगानिका का नेतृत्व किया और बाद में तंज़ानिया के राष्ट्रपति बने।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q024-HI",
+    "englishQuestionId": "WHI-CP013-Q024",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F024",
+    "sourceIds": [
+      "CP013-S13",
+      "CP013-S14"
+    ],
+    "questionFamily": "पूर्वी और मध्य अफ्रीका की स्वतंत्रता",
+    "options": [
+      {
+        "key": "A",
+        "text": "क्वामे नक्रूमा"
+      },
+      {
+        "key": "B",
+        "text": "जोमो केन्याटा"
+      },
+      {
+        "key": "C",
+        "text": "पैट्रिस लुमुम्बा"
+      },
+      {
+        "key": "D",
+        "text": "जूलियस न्येरेरे"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1963 में अफ्रीकी एकता संगठन की स्थापना कहाँ हुई?",
+    "explanation": "अफ्रीकी नेताओं ने 25 मई 1963 को इथियोपिया के अदीस अबाबा में संगठन की स्थापना की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q025-HI",
+    "englishQuestionId": "WHI-CP013-Q025",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F025",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "अफ्रीकी एकता संगठन और पैन-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "अदीस अबाबा, इथियोपिया"
+      },
+      {
+        "key": "B",
+        "text": "अक्रा, घाना"
+      },
+      {
+        "key": "C",
+        "text": "लागोस, नाइजीरिया"
+      },
+      {
+        "key": "D",
+        "text": "अल्जीयर्स, अल्जीरिया"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अफ्रीकी एकता संगठन के चार्टर का एक प्रमुख उद्देश्य क्या था?",
+    "explanation": "चार्टर में अफ्रीकी एकता, सहयोग, संप्रभुता और उपनिवेशवाद समाप्त करने का समर्थन था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q026-HI",
+    "englishQuestionId": "WHI-CP013-Q026",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F026",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "अफ्रीकी एकता संगठन और पैन-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "एक साझा अफ्रीकी औपनिवेशिक प्रशासन बनाना"
+      },
+      {
+        "key": "B",
+        "text": "अफ्रीकी एकता बढ़ाना और सदस्य देशों की स्वतंत्रता तथा क्षेत्रीय अखंडता की रक्षा करना"
+      },
+      {
+        "key": "C",
+        "text": "नए देशों को संयुक्त राष्ट्र न्यास शासन में रखना"
+      },
+      {
+        "key": "D",
+        "text": "यूरोप के साथ सैन्य गठबंधन बनाना"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1963 में अफ्रीकी एकता संगठन की स्थापना के समय कितने स्वतंत्र अफ्रीकी देश शामिल हुए?",
+    "explanation": "1963 में 32 स्वतंत्र अफ्रीकी देशों ने अफ्रीकी एकता संगठन बनाने पर सहमति दी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q027-HI",
+    "englishQuestionId": "WHI-CP013-Q027",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F027",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "अफ्रीकी एकता संगठन और पैन-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "पच्चीस"
+      },
+      {
+        "key": "B",
+        "text": "तीस"
+      },
+      {
+        "key": "C",
+        "text": "बत्तीस"
+      },
+      {
+        "key": "D",
+        "text": "चालीस"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अफ्रीकी एकता संगठन के चार्टर ने सदस्य देशों को किस औपनिवेशिक व्यवस्था को समाप्त करने के लिए प्रतिबद्ध किया?",
+    "explanation": "चार्टर ने उपनिवेशवाद समाप्त करने और अफ्रीकी संप्रभुता की रक्षा करने का समर्थन किया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q028-HI",
+    "englishQuestionId": "WHI-CP013-Q028",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F028",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "अफ्रीकी एकता संगठन और पैन-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "अफ्रीका की सभी राष्ट्रीय सीमाओं को"
+      },
+      {
+        "key": "B",
+        "text": "संयुक्त राष्ट्र में भागीदारी को"
+      },
+      {
+        "key": "C",
+        "text": "अफ्रीकी देशों के बीच व्यापार को"
+      },
+      {
+        "key": "D",
+        "text": "उपनिवेशवाद को"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1963 के अफ्रीकी एकता संगठन सम्मेलन की मेजबानी किस देश ने की?",
+    "explanation": "1963 का स्थापना सम्मेलन इथियोपिया की राजधानी अदीस अबाबा में हुआ था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q029-HI",
+    "englishQuestionId": "WHI-CP013-Q029",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F029",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "अफ्रीकी एकता संगठन और पैन-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "इथियोपिया"
+      },
+      {
+        "key": "B",
+        "text": "घाना"
+      },
+      {
+        "key": "C",
+        "text": "नाइजीरिया"
+      },
+      {
+        "key": "D",
+        "text": "सेनेगल"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अफ्रीकी एकता संगठन ने किस पहले से चल रही राजनीतिक प्रवृत्ति को संस्थागत रूप दिया?",
+    "explanation": "संगठन ने स्वतंत्र अफ्रीकी देशों के बीच पैन-अफ्रीकी सहयोग और एकजुटता को एक महाद्वीपीय संस्था का रूप दिया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q030-HI",
+    "englishQuestionId": "WHI-CP013-Q030",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F030",
+    "sourceIds": [
+      "CP013-S02",
+      "CP013-S03",
+      "CP013-S12"
+    ],
+    "questionFamily": "अफ्रीकी एकता संगठन और पैन-अफ़्रीकी सहयोग",
+    "options": [
+      {
+        "key": "A",
+        "text": "औपनिवेशिक शासन का विस्तार"
+      },
+      {
+        "key": "B",
+        "text": "स्वतंत्र अफ्रीकी देशों के बीच पैन-अफ्रीकी सहयोग"
+      },
+      {
+        "key": "C",
+        "text": "यूरोपीय संघ में शामिल होना"
+      },
+      {
+        "key": "D",
+        "text": "नाटो की सदस्यता"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "दक्षिण अफ्रीका में रंगभेद ने कानूनी रूप से किस व्यवस्था को लागू किया?",
+    "explanation": "रंगभेद ने नस्ली अलगाव और श्वेत अल्पसंख्यक शासन को संस्थागत रूप दिया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q031-HI",
+    "englishQuestionId": "WHI-CP013-Q031",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F031",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद व्यवस्था और राज्य नीति",
+    "options": [
+      {
+        "key": "A",
+        "text": "सार्वभौमिक मताधिकार"
+      },
+      {
+        "key": "B",
+        "text": "औपनिवेशिक संसद का शासन"
+      },
+      {
+        "key": "C",
+        "text": "नस्ली अलगाव और श्वेत अल्पसंख्यक शासन"
+      },
+      {
+        "key": "D",
+        "text": "संयुक्त राष्ट्र का न्यास प्रशासन"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1948 में दक्षिण अफ्रीका में कौन-सी पार्टी सत्ता में आई और उसने रंगभेद नीति को औपचारिक रूप दिया?",
+    "explanation": "नेशनल पार्टी ने 1948 का चुनाव जीता और रंगभेद को सरकारी नीति बनाया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q032-HI",
+    "englishQuestionId": "WHI-CP013-Q032",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F032",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद व्यवस्था और राज्य नीति",
+    "options": [
+      {
+        "key": "A",
+        "text": "अफ्रीकी राष्ट्रीय कांग्रेस"
+      },
+      {
+        "key": "B",
+        "text": "उदारवादी पार्टी"
+      },
+      {
+        "key": "C",
+        "text": "पैन-अफ्रीकनिस्ट कांग्रेस"
+      },
+      {
+        "key": "D",
+        "text": "नेशनल पार्टी"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "रंगभेद के तहत किस कानून ने लोगों का नस्ली वर्गीकरण अनिवार्य किया?",
+    "explanation": "जनसंख्या पंजीकरण अधिनियम ने दक्षिण अफ्रीका के लोगों को नस्ली श्रेणियों में बाँटा।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q033-HI",
+    "englishQuestionId": "WHI-CP013-Q033",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F033",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद व्यवस्था और राज्य नीति",
+    "options": [
+      {
+        "key": "A",
+        "text": "जनसंख्या पंजीकरण अधिनियम"
+      },
+      {
+        "key": "B",
+        "text": "समूह क्षेत्र अधिनियम"
+      },
+      {
+        "key": "C",
+        "text": "सुरक्षा परिषद अधिनियम"
+      },
+      {
+        "key": "D",
+        "text": "राष्ट्रीय एकता अधिनियम"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "समूह क्षेत्र अधिनियम ने क्या किया?",
+    "explanation": "समूह क्षेत्र अधिनियम ने नस्ल के आधार पर आवासीय और व्यावसायिक क्षेत्र तय किए और जबरन विस्थापन करवाया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q034-HI",
+    "englishQuestionId": "WHI-CP013-Q034",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F034",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद व्यवस्था और राज्य नीति",
+    "options": [
+      {
+        "key": "A",
+        "text": "अलग-अलग नस्ली समूहों को समान मताधिकार दिया"
+      },
+      {
+        "key": "B",
+        "text": "नस्ल के आधार पर आवासीय और व्यावसायिक क्षेत्र तय किए"
+      },
+      {
+        "key": "C",
+        "text": "दक्षिण अफ्रीका में संयुक्त राष्ट्र शासन स्थापित किया"
+      },
+      {
+        "key": "D",
+        "text": "पास कानून समाप्त किए"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "रंगभेद के किस उपाय ने अश्वेत दक्षिण अफ्रीकियों की आवाजाही सीमित की?",
+    "explanation": "पास कानूनों ने अश्वेत दक्षिण अफ्रीकियों की आवाजाही पर रोक लगाई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q035-HI",
+    "englishQuestionId": "WHI-CP013-Q035",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F035",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद व्यवस्था और राज्य नीति",
+    "options": [
+      {
+        "key": "A",
+        "text": "सार्वभौमिक मतदान कानून"
+      },
+      {
+        "key": "B",
+        "text": "अफ्रीकी एकता संगठन का चार्टर"
+      },
+      {
+        "key": "C",
+        "text": "आवाजाही नियंत्रित करने वाले पास कानून"
+      },
+      {
+        "key": "D",
+        "text": "संयुक्त राष्ट्र न्यास नियम"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "रंगभेद और उपनिवेशवाद के संबंध में कौन-सा कथन सही है?",
+    "explanation": "रंगभेद एक संप्रभु दक्षिण अफ्रीका के भीतर लागू सरकारी नस्ली व्यवस्था थी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q036-HI",
+    "englishQuestionId": "WHI-CP013-Q036",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F036",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद व्यवस्था और राज्य नीति",
+    "options": [
+      {
+        "key": "A",
+        "text": "दक्षिण अफ्रीका 1994 तक संयुक्त राष्ट्र की बस्ती था"
+      },
+      {
+        "key": "B",
+        "text": "रंगभेद स्वतंत्र दक्षिण अफ्रीका में भी जारी रहा"
+      },
+      {
+        "key": "C",
+        "text": "दक्षिण अफ्रीका फ्रांसीसी संरक्षित राज्य था"
+      },
+      {
+        "key": "D",
+        "text": "रंगभेद केवल ब्रिटिश शासन में लागू था"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "रंगभेद के विरुद्ध संघर्ष का एक प्रमुख संगठन कौन-सा था?",
+    "explanation": "अफ्रीकी राष्ट्रीय कांग्रेस (ANC) रंगभेद विरोधी संघर्ष का प्रमुख संगठन बनी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q037-HI",
+    "englishQuestionId": "WHI-CP013-Q037",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F037",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद-विरोधी प्रतिरोध और दमन",
+    "options": [
+      {
+        "key": "A",
+        "text": "अफ्रीकी राष्ट्रीय कांग्रेस (ANC)"
+      },
+      {
+        "key": "B",
+        "text": "OAU सचिवालय"
+      },
+      {
+        "key": "C",
+        "text": "नेशनल पार्टी"
+      },
+      {
+        "key": "D",
+        "text": "संयुक्त राष्ट्र सुरक्षा परिषद"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1960 में शार्पविल में क्या हुआ?",
+    "explanation": "मार्च 1960 में पास कानूनों के विरोध में प्रदर्शन कर रहे लोगों पर पुलिस ने गोली चलाई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q038-HI",
+    "englishQuestionId": "WHI-CP013-Q038",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F038",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद-विरोधी प्रतिरोध और दमन",
+    "options": [
+      {
+        "key": "A",
+        "text": "सरकार ने पास कानून समाप्त कर दिए"
+      },
+      {
+        "key": "B",
+        "text": "पास कानूनों के विरोध में प्रदर्शनकारियों को पुलिस ने मार डाला"
+      },
+      {
+        "key": "C",
+        "text": "दक्षिण अफ्रीका स्वतंत्र हुआ"
+      },
+      {
+        "key": "D",
+        "text": "अफ्रीकी एकता संगठन बना"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1976 के सोवेटो विद्रोह का महत्व क्या था?",
+    "explanation": "विद्यार्थियों ने रंगभेदी शिक्षा व्यवस्था और पढ़ाई में अफ्रीकांस भाषा थोपे जाने का विरोध किया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q039-HI",
+    "englishQuestionId": "WHI-CP013-Q039",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F039",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद-विरोधी प्रतिरोध और दमन",
+    "options": [
+      {
+        "key": "A",
+        "text": "खनन करों के विरुद्ध किसानों का विरोध"
+      },
+      {
+        "key": "B",
+        "text": "ब्रिटेन से स्वतंत्रता के लिए सशस्त्र विद्रोह"
+      },
+      {
+        "key": "C",
+        "text": "रंगभेदी शिक्षा व्यवस्था और अफ्रीकांस भाषा के विरोध में विद्यार्थियों का प्रदर्शन"
+      },
+      {
+        "key": "D",
+        "text": "संयुक्त राष्ट्र की सदस्यता के लिए आंदोलन"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "पास कानूनों के तहत अश्वेत दक्षिण अफ्रीकियों को क्या साथ रखना पड़ता था?",
+    "explanation": "पास कानूनों के तहत अश्वेत दक्षिण अफ्रीकियों को ऐसे दस्तावेज रखने पड़ते थे जो उनके आने-जाने और काम करने की जगह को नियंत्रित करते थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q040-HI",
+    "englishQuestionId": "WHI-CP013-Q040",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F040",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद-विरोधी प्रतिरोध और दमन",
+    "options": [
+      {
+        "key": "A",
+        "text": "जिनेवा समझौते"
+      },
+      {
+        "key": "B",
+        "text": "अफ्रीकी एकता संगठन का चार्टर"
+      },
+      {
+        "key": "C",
+        "text": "एवियन समझौते"
+      },
+      {
+        "key": "D",
+        "text": "आंतरिक संदर्भ दस्तावेज"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "दक्षिण अफ्रीका की सरकार ने 1960 में अफ्रीकी राष्ट्रीय कांग्रेस के साथ क्या किया?",
+    "explanation": "सरकार ने दमन तेज करते हुए 1960 में ANC पर प्रतिबंध लगा दिया।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q041-HI",
+    "englishQuestionId": "WHI-CP013-Q041",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F041",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद-विरोधी प्रतिरोध और दमन",
+    "options": [
+      {
+        "key": "A",
+        "text": "उस पर प्रतिबंध लगा दिया"
+      },
+      {
+        "key": "B",
+        "text": "उसे नेशनल पार्टी में मिला दिया"
+      },
+      {
+        "key": "C",
+        "text": "उसे संयुक्त राष्ट्र का सदस्य बना दिया"
+      },
+      {
+        "key": "D",
+        "text": "उसे सरकार में शामिल किया"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "रंगभेद के दमन का विरोध पर क्या व्यापक असर पड़ा?",
+    "explanation": "दमन से विरोध समाप्त नहीं हुआ; इससे भूमिगत प्रतिरोध और देश के भीतर तथा बाहर विरोध बढ़ा।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q042-HI",
+    "englishQuestionId": "WHI-CP013-Q042",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F042",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S11"
+    ],
+    "questionFamily": "रंगभेद-विरोधी प्रतिरोध और दमन",
+    "options": [
+      {
+        "key": "A",
+        "text": "इसने सभी प्रतिरोध समाप्त कर दिए"
+      },
+      {
+        "key": "B",
+        "text": "इससे प्रतिरोध भूमिगत हुआ और देशी तथा अंतरराष्ट्रीय विरोध बढ़ा"
+      },
+      {
+        "key": "C",
+        "text": "इससे रंगभेद को अंतरराष्ट्रीय मान्यता मिली"
+      },
+      {
+        "key": "D",
+        "text": "इससे दक्षिण अफ्रीका उपनिवेश बन गया"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "नेल्सन मंडेला को जेल से कब रिहा किया गया?",
+    "explanation": "नेल्सन मंडेला 11 फरवरी 1990 को जेल से रिहा हुए।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q043-HI",
+    "englishQuestionId": "WHI-CP013-Q043",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F043",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "मंडेला, वार्ता और सत्ता-परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "1976"
+      },
+      {
+        "key": "B",
+        "text": "1985"
+      },
+      {
+        "key": "C",
+        "text": "1990"
+      },
+      {
+        "key": "D",
+        "text": "1994"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "किस दक्षिण अफ्रीकी राष्ट्रपति ने ANC पर लगा प्रतिबंध हटाने और मंडेला की रिहाई की घोषणा की?",
+    "explanation": "एफ. डब्ल्यू. डी क्लार्क ने फरवरी 1990 में ANC और अन्य संगठनों पर लगा प्रतिबंध हटाने की घोषणा की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q044-HI",
+    "englishQuestionId": "WHI-CP013-Q044",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F044",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "मंडेला, वार्ता और सत्ता-परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "नेल्सन मंडेला"
+      },
+      {
+        "key": "B",
+        "text": "थाबो मबेकी"
+      },
+      {
+        "key": "C",
+        "text": "पी. डब्ल्यू. बोथा"
+      },
+      {
+        "key": "D",
+        "text": "एफ. डब्ल्यू. डी क्लार्क"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "दक्षिण अफ्रीका में सार्वभौमिक वयस्क मताधिकार के तहत पहला राष्ट्रीय चुनाव किस वर्ष हुआ?",
+    "explanation": "दक्षिण अफ्रीका में अप्रैल 1994 में पहली बहु-नस्ली लोकतांत्रिक चुनाव प्रक्रिया हुई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q045-HI",
+    "englishQuestionId": "WHI-CP013-Q045",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F045",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "मंडेला, वार्ता और सत्ता-परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "1994"
+      },
+      {
+        "key": "B",
+        "text": "1990"
+      },
+      {
+        "key": "C",
+        "text": "1989"
+      },
+      {
+        "key": "D",
+        "text": "1996"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1994 के चुनाव के बाद दक्षिण अफ्रीका का राष्ट्रपति कौन बना?",
+    "explanation": "ANC की जीत के बाद नेल्सन मंडेला राष्ट्रपति बने।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q046-HI",
+    "englishQuestionId": "WHI-CP013-Q046",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F046",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "मंडेला, वार्ता और सत्ता-परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "एफ. डब्ल्यू. डी क्लार्क"
+      },
+      {
+        "key": "B",
+        "text": "नेल्सन मंडेला"
+      },
+      {
+        "key": "C",
+        "text": "थाबो मबेकी"
+      },
+      {
+        "key": "D",
+        "text": "जूलियस न्येरेरे"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "1994 के दक्षिण अफ्रीकी चुनाव ने किस बात का संकेत दिया?",
+    "explanation": "1994 का चुनाव रंगभेदी शासन के अंत और लोकतांत्रिक सरकार की ओर बदलाव का संकेत था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q047-HI",
+    "englishQuestionId": "WHI-CP013-Q047",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F047",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "मंडेला, वार्ता और सत्ता-परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "ब्रिटिश शासन की वापसी"
+      },
+      {
+        "key": "B",
+        "text": "संयुक्त राष्ट्र न्यास शासन की शुरुआत"
+      },
+      {
+        "key": "C",
+        "text": "रंगभेद शासन का अंत और लोकतांत्रिक सरकार की ओर बदलाव"
+      },
+      {
+        "key": "D",
+        "text": "श्वेत अल्पसंख्यक शासन का विस्तार"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "रंगभेद समाप्त करने की वार्ता में किन दो नेताओं की प्रमुख भूमिका थी?",
+    "explanation": "नेल्सन मंडेला और एफ. डब्ल्यू. डी क्लार्क दक्षिण अफ्रीका में वार्ता के जरिए बदलाव के प्रमुख नेता थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q048-HI",
+    "englishQuestionId": "WHI-CP013-Q048",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F048",
+    "sourceIds": [
+      "CP013-S08",
+      "CP013-S09"
+    ],
+    "questionFamily": "मंडेला, वार्ता और सत्ता-परिवर्तन",
+    "options": [
+      {
+        "key": "A",
+        "text": "क्वामे नक्रूमा और जोमो केन्याटा"
+      },
+      {
+        "key": "B",
+        "text": "नेल्सन मंडेला और जूलियस न्येरेरे"
+      },
+      {
+        "key": "C",
+        "text": "एफ. डब्ल्यू. डी क्लार्क और पैट्रिस लुमुम्बा"
+      },
+      {
+        "key": "D",
+        "text": "नेल्सन मंडेला और एफ. डब्ल्यू. डी क्लार्क"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "राजनीतिक स्वतंत्रता और बहुमत के शासन में अंतर बताने वाला सही कथन कौन-सा है?",
+    "explanation": "किसी संप्रभु देश में भी उसकी अधिकांश आबादी को राजनीतिक शक्ति से वंचित किया जा सकता है; रंगभेद वाला दक्षिण अफ्रीका इसका उदाहरण है।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q049-HI",
+    "englishQuestionId": "WHI-CP013-Q049",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F049",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "questionFamily": "स्वतंत्रता और बहुमत का शासन",
+    "options": [
+      {
+        "key": "A",
+        "text": "एक संप्रभु देश अपनी अधिकांश आबादी को राजनीतिक शक्ति से वंचित कर सकता है"
+      },
+      {
+        "key": "B",
+        "text": "स्वतंत्रता से सार्वभौमिक मताधिकार अपने आप मिलता है"
+      },
+      {
+        "key": "C",
+        "text": "बहुमत का शासन औपनिवेशिक प्रशासन जारी रखने का नाम है"
+      },
+      {
+        "key": "D",
+        "text": "भेदभावपूर्ण कानून केवल उपनिवेशों में हो सकते हैं"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "रंगभेद के दौरान क्या दक्षिण अफ्रीका एक संप्रभु राज्य था?",
+    "explanation": "दक्षिण अफ्रीका संप्रभु राज्य था, लेकिन रंगभेद के तहत अधिकांश नागरिकों को समान राजनीतिक अधिकार नहीं थे।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q050-HI",
+    "englishQuestionId": "WHI-CP013-Q050",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F050",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "questionFamily": "स्वतंत्रता और बहुमत का शासन",
+    "options": [
+      {
+        "key": "A",
+        "text": "नहीं; 1994 तक वह संयुक्त राष्ट्र की बस्ती था"
+      },
+      {
+        "key": "B",
+        "text": "हाँ; वह संप्रभु था, पर बहुसंख्यक आबादी को समान राजनीतिक अधिकार नहीं थे"
+      },
+      {
+        "key": "C",
+        "text": "नहीं; वह फ्रांसीसी संरक्षित राज्य था"
+      },
+      {
+        "key": "D",
+        "text": "हाँ; लेकिन उस पर अफ्रीकी एकता संगठन शासन करता था"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "किस समझौते ने अंतरिम सरकार और पुर्तगाल से अंगोला की स्वतंत्रता का प्रावधान किया?",
+    "explanation": "अल्वोर समझौतों ने अंतरिम सरकार और 1975 में पुर्तगाल से अंगोला की स्वतंत्रता की व्यवस्था की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q051-HI",
+    "englishQuestionId": "WHI-CP013-Q051",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F051",
+    "sourceIds": [
+      "CP013-S16"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "एवियन समझौते"
+      },
+      {
+        "key": "B",
+        "text": "जिनेवा समझौते"
+      },
+      {
+        "key": "C",
+        "text": "अल्वोर समझौते"
+      },
+      {
+        "key": "D",
+        "text": "राउंड टेबल समझौते"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "1960 की संयुक्त राष्ट्र घोषणा ने कौन-सा सिद्धांत दोहराया?",
+    "explanation": "संयुक्त राष्ट्र की घोषणा ने औपनिवेशिक लोगों के आत्मनिर्णय और स्वतंत्रता के अधिकार की पुष्टि की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q052-HI",
+    "englishQuestionId": "WHI-CP013-Q052",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F052",
+    "sourceIds": [
+      "CP013-S07",
+      "CP013-S08",
+      "CP013-S10"
+    ],
+    "questionFamily": "स्वतंत्रता और बहुमत का शासन",
+    "options": [
+      {
+        "key": "A",
+        "text": "औपनिवेशिक साम्राज्यों की स्थायी संप्रभुता"
+      },
+      {
+        "key": "B",
+        "text": "नस्ल के आधार पर नागरिकता से वंचित करने का अधिकार"
+      },
+      {
+        "key": "C",
+        "text": "सभी राष्ट्रीय सीमाएँ समाप्त करने का सिद्धांत"
+      },
+      {
+        "key": "D",
+        "text": "लोगों का आत्मनिर्णय का अधिकार"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "1976 में संयुक्त राष्ट्र ने नामीबिया के लोगों का एकमात्र और प्रामाणिक प्रतिनिधि किस मुक्ति आंदोलन को माना?",
+    "explanation": "संयुक्त राष्ट्र ने SWAPO को नामीबियाई लोगों का एकमात्र और प्रामाणिक प्रतिनिधि माना।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q053-HI",
+    "englishQuestionId": "WHI-CP013-Q053",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F053",
+    "sourceIds": [
+      "CP013-S19"
+    ],
+    "questionFamily": "रंगभेद-विरोधी प्रतिरोध और दमन",
+    "options": [
+      {
+        "key": "A",
+        "text": "SWAPO"
+      },
+      {
+        "key": "B",
+        "text": "ANC"
+      },
+      {
+        "key": "C",
+        "text": "FLN"
+      },
+      {
+        "key": "D",
+        "text": "OAU"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "नामीबिया किस तारीख को स्वतंत्र हुआ?",
+    "explanation": "संयुक्त राष्ट्र की निगरानी में हुए संक्रमण और चुनावों के बाद नामीबिया 21 मार्च 1990 को स्वतंत्र हुआ।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q054-HI",
+    "englishQuestionId": "WHI-CP013-Q054",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F054",
+    "sourceIds": [
+      "CP013-S19"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "11 फरवरी 1990"
+      },
+      {
+        "key": "B",
+        "text": "21 मार्च 1990"
+      },
+      {
+        "key": "C",
+        "text": "1 अक्टूबर 1990"
+      },
+      {
+        "key": "D",
+        "text": "25 मई 1991"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "hard",
+    "stem": "अफ्रीकी एकता संगठन के चार्टर में सीमा और भूभाग के बारे में किस सिद्धांत का समर्थन किया गया?",
+    "explanation": "चार्टर ने सदस्य देशों की क्षेत्रीय अखंडता और संप्रभुता का सम्मान करने की प्रतिबद्धता जताई।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q055-HI",
+    "englishQuestionId": "WHI-CP013-Q055",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F055",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "सभी सीमाओं को बदलने का अधिकार"
+      },
+      {
+        "key": "B",
+        "text": "राज्य की संप्रभुता समाप्त करने का सिद्धांत"
+      },
+      {
+        "key": "C",
+        "text": "क्षेत्रीय अखंडता और राज्य की संप्रभुता का सम्मान"
+      },
+      {
+        "key": "D",
+        "text": "अफ्रीका का यूरोपीय शासन में लौटना"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अफ्रीका की स्वतंत्रता के बाद औपनिवेशिक सीमाएँ महत्वपूर्ण क्यों बनी रहीं?",
+    "explanation": "अधिकांश नए देशों को औपनिवेशिक दौर की सीमाएँ विरासत में मिलीं और उन्हें उन्हीं के भीतर राष्ट्रीय एकता बनानी पड़ी।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q056-HI",
+    "englishQuestionId": "WHI-CP013-Q056",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F056",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "सभी पुरानी सीमाएँ समाप्त कर दी गई थीं"
+      },
+      {
+        "key": "B",
+        "text": "नए देशों को औपनिवेशिक सीमाएँ विरासत में मिलीं और राष्ट्रीय एकता की चुनौतियाँ रहीं"
+      },
+      {
+        "key": "C",
+        "text": "हर सीमा को संयुक्त राष्ट्र ने फिर से तय किया"
+      },
+      {
+        "key": "D",
+        "text": "स्वतंत्रता के बाद अफ्रीकी देशों की सीमाएँ नहीं थीं"
+      }
+    ],
+    "correctOption": "D"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "उपनिवेश-मुक्ति और सीमाओं के बारे में कौन-सा कथन सही है?",
+    "explanation": "संप्रभुता का हस्तांतरण आम तौर पर विरासत में मिली क्षेत्रीय सीमाओं को अपने आप नहीं बदलता था।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q057-HI",
+    "englishQuestionId": "WHI-CP013-Q057",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F057",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "स्वतंत्रता से संप्रभुता बदली, लेकिन विरासत में मिली सीमाएँ अपने आप नहीं बदलीं"
+      },
+      {
+        "key": "B",
+        "text": "हर देश की सीमाएँ उसी वर्ष समाप्त हो गईं"
+      },
+      {
+        "key": "C",
+        "text": "सीमाएँ केवल संयुक्त राष्ट्र ने तय कीं"
+      },
+      {
+        "key": "D",
+        "text": "स्वतंत्रता के बाद सभी देश औपनिवेशिक सीमाओं से बाहर चले गए"
+      }
+    ],
+    "correctOption": "A"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "कौन-सा क्रम कालानुक्रमिक रूप से सही है?",
+    "explanation": "घाना 1957 में, कांगो 1960 में और अल्जीरिया 1962 में स्वतंत्र हुए।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q058-HI",
+    "englishQuestionId": "WHI-CP013-Q058",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F058",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "अल्जीरिया (1957) → घाना (1960) → कांगो (1962)"
+      },
+      {
+        "key": "B",
+        "text": "घाना (1957) → कांगो (1960) → अल्जीरिया (1962)"
+      },
+      {
+        "key": "C",
+        "text": "कांगो (1957) → अल्जीरिया (1960) → घाना (1962)"
+      },
+      {
+        "key": "D",
+        "text": "घाना (1957) → अल्जीरिया (1960) → कांगो (1962)"
+      }
+    ],
+    "correctOption": "B"
+  },
+  {
+    "language": "hi",
+    "difficulty": "easy",
+    "stem": "कौन-सा जोड़ा सही मेल खाता है?",
+    "explanation": "अल्जीरिया ने 1962 में फ्रांस से स्वतंत्रता प्राप्त की।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q059-HI",
+    "englishQuestionId": "WHI-CP013-Q059",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F059",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "नाइजीरिया — 1962 में ब्रिटेन से स्वतंत्रता"
+      },
+      {
+        "key": "B",
+        "text": "घाना — 1962 में फ्रांस से स्वतंत्रता"
+      },
+      {
+        "key": "C",
+        "text": "अल्जीरिया — 1962 में फ्रांस से स्वतंत्रता"
+      },
+      {
+        "key": "D",
+        "text": "केन्या — 1962 में पुर्तगाल से स्वतंत्रता"
+      }
+    ],
+    "correctOption": "C"
+  },
+  {
+    "language": "hi",
+    "difficulty": "medium",
+    "stem": "अफ्रीका में युद्धोत्तर उपनिवेश-मुक्ति का व्यापक परिणाम क्या था?",
+    "explanation": "स्वतंत्रता की लहर से नए संप्रभु राज्य बने और अंतरराष्ट्रीय संस्थाओं में शामिल हुए, लेकिन राष्ट्र-निर्माण की चुनौतियाँ जारी रहीं।",
+    "reviewOnly": true,
+    "runtimeRegistered": false,
+    "questionId": "WHI-CP013-Q060-HI",
+    "englishQuestionId": "WHI-CP013-Q060",
+    "checkpointId": "WHI-001-CP013",
+    "factId": "WHI-CP013-F060",
+    "sourceIds": [
+      "CP013-S01",
+      "CP013-S02",
+      "CP013-S04",
+      "CP013-S05",
+      "CP013-S10"
+    ],
+    "questionFamily": "औपनिवेशिक सीमाएँ और स्वतंत्रता के परिणाम",
+    "options": [
+      {
+        "key": "A",
+        "text": "नए देशों ने अंतरराष्ट्रीय संस्थाएँ छोड़ दीं"
+      },
+      {
+        "key": "B",
+        "text": "सभी नए राज्य आर्थिक चुनौतियों से मुक्त हो गए"
+      },
+      {
+        "key": "C",
+        "text": "औपनिवेशिक शासन कायम रहा"
+      },
+      {
+        "key": "D",
+        "text": "नए संप्रभु राज्य अंतरराष्ट्रीय संस्थाओं में शामिल हुए और राष्ट्र-निर्माण की चुनौतियाँ झेलते रहे"
+      }
+    ],
+    "correctOption": "D"
+  }
+]
