@@ -1,8 +1,8 @@
 # DI-004 Line Graph — Hindi/Punjabi Localization Review V1
 
-Status: HI_PA_FROZEN (PERMANENT TWO-SERIES) · HI_PA_CANDIDATES_STYLISTIC_REVIEW · CONTROLLED_REVIEW
+Status: HI_PA_FROZEN (PERMANENT TWO-SERIES) · HI_PA_WORDING_APPROVED (SINGLE-/THREE-SERIES) · CONTROLLED_REVIEW
 
-The frozen Hindi/Punjabi release remains limited to the 12 permanent two-series QLs. The user's latest feedback applies to the separate single-series and three-series candidate wording; those revisions remain in controlled review and are not frozen. Localization release: `DI-004-HI-PA-CONTROLLED-REVIEW-V1`.
+The frozen Hindi/Punjabi release remains limited to the 12 permanent two-series QLs. The user approved the revised single-series and three-series candidate wording on 2026-09-30 after an exam-style cross-check. This records wording approval; Question Bank, tests, mocks, publication, and production remain gated. Localization release: `DI-004-HI-PA-CONTROLLED-REVIEW-V1`.
 
 ## Source authority
 
@@ -43,10 +43,10 @@ Numeric plotted values, answer index, difficulty, task ownership and canonical a
 - Hard routes retain at least three worked steps.
 - deterministic replay is required.
 - The approved two-series permanent QLs DI-QL-109 through DI-QL-120 are available in Hindi/Punjabi for Question Studio controlled review.
-- Single-series and three-series DI-004 variants have Hindi/Punjabi Question Studio review candidates. These variants are not frozen and require native-language review.
+- Single-series and three-series DI-004 variants have Hindi/Punjabi Question Studio review candidates. Their wording has user approval; all release gates remain unchanged.
 - The permanent two-series release is unchanged by this candidate wording pass.
 - Question Bank/tests/mocks/publication/production remain locked.
 
 ## Scope boundary
 
-The permanent two-series QLs remain frozen as previously approved. Single-series and three-series Hindi/Punjabi candidates remain under controlled review pending another user review. Question Bank, scored-test, mock, public/student publication and production-release gates remain closed.
+The permanent two-series QLs remain frozen as previously approved. The revised single-series and three-series Hindi/Punjabi wording is approved, while the broader controlled-review state remains in place. Question Bank, scored-test, mock, public/student publication and production-release gates remain closed.
