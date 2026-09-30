@@ -1,6 +1,6 @@
 # LP-001 — Assignment and Grouping Logic Puzzles
 
-Status: **review-only implementation; source saturation, human English approval, permanent QL allocation, localization and publication remain locked except where a checkpoint-specific approval record says otherwise.**
+Status: **review-only multilingual implementation with permanent authority `LP-QL-001..047`; approved/frozen content exists across the current chapter surface, target-exam source saturation remains false, and production/public delivery remains locked.**
 
 This is the first general-puzzle checkpoint restored on the current `New-main` checkout. It models realistic six-person assignments in public-health fieldwork, teacher training, bank audits, district administration, scholarship verification, civic surveys, campus research and municipal planning. Each caselet has three named two-person groups, explicit same-group/different-group/exclusion clues, a unique hidden assignment, and four correlated child questions. The same Question Studio route now also carries LP-002, a separate four-person day-and-ordered-location assignment authority, and LP-003, a seven-box vertical stack authority.
 
@@ -12,7 +12,7 @@ LP-008 adds the source-backed month-and-date scheduling family: eight named peop
 
 LP-009 adds the two remaining source-backed Type 3 scheduling forms: six named entities assigned to six ordered months, and six named persons assigned to six ordered birth years. Month profiles cover birth, interview, course-start and review-meeting schedules; year profiles use same-date/month birth records with oldest-to-youngest interpretation and no age arithmetic. Children ask value-to-person, person-to-value, correctly matched pairs and an ordered-position lookup. Easy uses five direct entries, Medium mixes a direct anchor with before/between/adjacency and exclusion clues, and Hard limits direct anchors while layering order, adjacency, exclusion and second-oldest deductions. Every child repeats all people, all months or years and every clue. The English V2 editorial review is approved and frozen as `LP_009_ENGLISH_FREEZE_V1`: explanations must show direct entries, apply each remaining clue explicitly, progressively narrow the candidate table and then answer the child query from the completed schedule. `LP-QL-033` through `LP-QL-036` are now permanent LP-009 identities; runtime and delivery remain review-only.
 
-LP-001's original four review authorities remain provisional:
+LP-001's original four authorities are now part of the permanent chapter registry:
 
 | Candidate | Task |
 |---|---|
@@ -53,3 +53,29 @@ LP-006's source and ownership record is in `LP-006-SOURCE-SATURATION-AUDIT.md`. 
 LP-007's source and ownership record is in `LP-007-SOURCE-SATURATION-AUDIT.md`. It keeps LP-QL-025 through LP-QL-028 provisional until source evidence and human review are complete.
 LP-008's source and ownership record is in `LP-008-SOURCE-SATURATION-AUDIT.md`. It keeps LP-QL-029 through LP-QL-032 provisional until source evidence and human review are complete.
 LP-009's source and ownership record is in `LP-009-SOURCE-SATURATION-AUDIT.md`; its approved English explanation/editorial contract is in `LP-009-ENGLISH-EDITORIAL-APPROVAL-V2.md`; its permanent allocation/freeze record is `LP-009-PERMANENT-QL-ALLOCATION-AND-ENGLISH-FREEZE-V1.md`. `LP-QL-033` through `LP-QL-036` are permanent and `LP-QL-037` is the next available LP identity. Localization, Question Bank, test/mock and publication gates remain separately locked.
+
+
+## Current permanent chapter authority — 2026-09-30
+
+Current registry: `LP_001_011_PERMANENT_QL_REGISTRY_V3`.
+
+```text
+permanent QLs:              LP-QL-001..047
+permanent QL count:         47
+next available identity:    LP-QL-048
+runtime mode:               REVIEW_ONLY
+source saturated:           false
+production eligible:        false
+```
+
+Post-LP-010 permanent additions:
+
+- `LP-QL-041..044` — LP-011 box + attribute linked-state queries;
+- `LP-QL-045..046` — LP-006 cross-attribute projection / statement-truth queries;
+- `LP-QL-047` — counterfactual additional-condition query over grouping/committee states.
+
+QL047 has frozen English and approved/frozen Hindi/Punjabi localization, and now has a standard multilingual Question Studio review route.
+
+Historical documents that describe `LP-QL-001..040`, `001..046`, or LP001-008 QLs as provisional are discovery/governance snapshots and do not override later permanent registries.
+
+The chapter remains deliberately **not production eligible** because target-exam source saturation is still false. Banking structural convergence is strong, while durable item-level SSC and Punjab first-party provenance remains incomplete. This provenance gate blocks Question Bank/test/mock/public promotion; it does not roll back permanent QL identity or frozen review content.
