@@ -49,7 +49,7 @@ function cue(text:string,index:number,total:number){
  if(index===0)return "introduces the main idea";
  if(/however|yet|but|although/.test(t))return "gives the contrast";
  if(/therefore|thus|as a result|for this reason/.test(t))return "shows the result";
- if(/this|these|such|it |they /.test(t))return "links back to the previous idea";
+ if(/^(this|these|such|it|they)\b/.test(t.trim()))return "links back to the previous idea";
  if(index===total-1)return "concludes the paragraph";
  return "develops the idea further";
 }
