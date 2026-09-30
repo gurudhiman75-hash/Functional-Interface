@@ -36,7 +36,7 @@ export function generateEng009Cp005QuestionV1(input:GenerateEng009Cp005Input){
    correctOptionIndex=options.indexOf(correct);answer=correct;
    prompt=`Select the most appropriate word or phrase for blank number ${blank.blankNo}.`;
  }
- return{questionId:`ENG-009-CP005-V1:${blank.id}:${hash(input.seed).toString(16)}`,stem:"Read the passage and answer the question based on the numbered blank.",passage:renderEng009Cp005Passage(passage.template),prompt,options,correctOptionIndex,explanation:`Answer: ${answer}. ${blank.explanation}`,metadata:{chapterId:"ENG-009",cpId:"ENG-009-CP005",passageId:passage.id,blankId:blank.id,blankNo:blank.blankNo,mode:blank.mode,difficulty:blank.difficulty,clue:blank.clue,seed:input.seed,reviewOnly:true as const}};
+ return{questionId:`ENG-009-CP005-${blank.mode==="can-fit"?"V2":"V1"}:${blank.id}:${hash(input.seed).toString(16)}`,stem:"Read the passage and answer the question based on the numbered blank.",passage:renderEng009Cp005Passage(passage.template),prompt,options,correctOptionIndex,explanation:`Answer: ${answer}. ${blank.explanation}`,metadata:{chapterId:"ENG-009",cpId:"ENG-009-CP005",passageId:passage.id,blankId:blank.id,blankNo:blank.blankNo,mode:blank.mode,difficulty:blank.difficulty,clue:blank.clue,seed:input.seed,reviewOnly:true as const}};
 }
 export function generateEng009Cp005SetV1(seed:string,passageId?:string){
  const passages=passageId?ENG009_CP005_PASSAGES_V1.filter(x=>x.id===passageId):ENG009_CP005_PASSAGES_V1;
