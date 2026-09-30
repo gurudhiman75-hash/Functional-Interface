@@ -11,6 +11,10 @@ function context(entry: Avg001QuestionLanguageEntry) {
   if (/regionalBranches/i.test(value)) return { lower: "branches", singular: "branch", upper: "region", members: "employees" };
   if (/factoryUnits/i.test(value)) return { lower: "production units", singular: "production unit", upper: "factory", members: "machines" };
   if (/tournamentTeams/i.test(value)) return { lower: "teams", singular: "team", upper: "tournament", members: "players" };
+  if (/warehouseBatches/i.test(value)) return { lower: "consignments", singular: "consignment", upper: "warehouse", members: "packages" };
+  if (/districtFarmClusters/i.test(value)) return { lower: "farm clusters", singular: "farm cluster", upper: "district", members: "farms" };
+  if (/hospitalWards/i.test(value)) return { lower: "wards", singular: "ward", upper: "hospital", members: "patients" };
+  if (/depotRoutes/i.test(value)) return { lower: "routes", singular: "route", upper: "depot", members: "trips" };
   return { lower: "groups", singular: "group", upper: "village", members: "residents" };
 }
 
