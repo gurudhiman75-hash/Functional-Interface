@@ -586,6 +586,50 @@ function localizeNaturalStem(text: string, language: "hi"|"pa", packageId?: stri
     if (m) return hi ? "आपदा-न्यूनीकरण उपायों का कौन-सा समूह सही सुमेलित है?" : "ਆਫ਼ਤ ਘਟਾਉਣ ਦੇ ਉਪਾਵਾਂ ਦਾ ਕਿਹੜਾ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?";
   }
 
+  if (packageId === "GEO-MIN-001") {
+    let m = text.match(/^An aluminium smelter depends on which mineral raw material before refining and electrolysis\?$/);
+    if (m) return hi ? "एल्यूमिनियम गलाने से पहले शोधन और विद्युत अपघटन के लिए कौन-सा खनिज कच्चा माल आवश्यक है?" : "ਐਲੂਮੀਨੀਅਮ ਗਲਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਸ਼ੁੱਧੀਕਰਨ ਅਤੇ ਬਿਜਲੀ-ਅਪਘਟਨ ਲਈ ਕਿਹੜਾ ਖਣਿਜ ਕੱਚਾ ਮਾਲ ਲੋੜੀਂਦਾ ਹੈ?";
+
+    m = text.match(/^Which coal type is widely used in industry and includes many coking-coal varieties\?$/);
+    if (m) return hi ? "उद्योगों में व्यापक रूप से प्रयुक्त और अनेक कोकिंग-कोयला किस्मों वाला कोयला कौन-सा है?" : "ਉਦਯੋਗਾਂ ਵਿੱਚ ਵੱਡੇ ਪੱਧਰ ਤੇ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਅਤੇ ਕਈ ਕੋਕਿੰਗ ਕੋਇਲੇ ਦੀਆਂ ਕਿਸਮਾਂ ਵਾਲਾ ਕੋਇਲਾ ਕਿਹੜਾ ਹੈ?";
+
+    m = text.match(/^Which coal is commonly called brown coal because of its lower rank and higher moisture\?$/);
+    if (m) return hi ? "कम श्रेणी और अधिक नमी के कारण किस कोयले को सामान्यतः भूरा कोयला कहा जाता है?" : "ਘੱਟ ਦਰਜੇ ਅਤੇ ਵੱਧ ਨਮੀ ਕਾਰਨ ਕਿਹੜੇ ਕੋਇਲੇ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਭੂਰਾ ਕੋਇਲਾ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?";
+
+    m = text.match(/^Arrange these from lower to higher coal rank: (.+?)\. Which sequence is correct\?$/);
+    if (m) return hi ? `कोयले की निम्न से उच्च श्रेणी का सही क्रम कौन-सा है: ${f(m[1])}?` : `ਕੋਇਲੇ ਦੇ ਘੱਟ ਤੋਂ ਉੱਚ ਦਰਜੇ ਦਾ ਸਹੀ ਕ੍ਰਮ ਕਿਹੜਾ ਹੈ: ${f(m[1])}?`;
+
+    m = text.match(/^A coal sample is hard, lustrous and has very high carbon content\. Which type is it\?$/);
+    if (m) return hi ? "कोयले का एक नमूना कठोर, चमकीला और बहुत अधिक कार्बन वाला है। यह किस प्रकार का कोयला है?" : "ਕੋਇਲੇ ਦਾ ਇੱਕ ਨਮੂਨਾ ਸਖ਼ਤ, ਚਮਕੀਲਾ ਅਤੇ ਬਹੁਤ ਵੱਧ ਕਾਰਬਨ ਵਾਲਾ ਹੈ। ਇਹ ਕਿਹੜੀ ਕਿਸਮ ਦਾ ਕੋਇਲਾ ਹੈ?";
+
+    m = text.match(/^Why are porous reservoir rocks important in petroleum occurrence\?$/);
+    if (m) return hi ? "पेट्रोलियम के संचय में छिद्रयुक्त भंडार शैलें क्यों महत्वपूर्ण हैं?" : "ਪੈਟਰੋਲਿਅਮ ਦੇ ਇਕੱਠ ਵਿੱਚ ਛਿਦਰਦਾਰ ਭੰਡਾਰ ਚੱਟਾਨਾਂ ਕਿਉਂ ਮਹੱਤਵਪੂਰਨ ਹਨ?";
+
+    m = text.match(/^An oilfield is discovered in porous sandstone beneath an impermeable shale layer\. What is the shale doing\?$/);
+    if (m) return hi ? "अभेद्य शेल परत के नीचे छिद्रयुक्त बलुआ पत्थर में तेल मिला है। शेल परत क्या कार्य कर रही है?" : "ਅਭੇਦ ਸ਼ੇਲ ਪਰਤ ਹੇਠਾਂ ਛਿਦਰਦਾਰ ਰੇਤਲੀ ਚੱਟਾਨ ਵਿੱਚ ਤੇਲ ਮਿਲਿਆ ਹੈ। ਸ਼ੇਲ ਪਰਤ ਕੀ ਕੰਮ ਕਰ ਰਹੀ ਹੈ?";
+
+    m = text.match(/^Why are many large thermal stations located near coalfields\?$/);
+    if (m) return hi ? "कई बड़े ताप विद्युत केंद्र कोयला क्षेत्रों के निकट क्यों स्थापित किए जाते हैं?" : "ਕਈ ਵੱਡੇ ਤਾਪ ਬਿਜਲੀ ਘਰ ਕੋਇਲਾ ਖੇਤਰਾਂ ਦੇ ਨੇੜੇ ਕਿਉਂ ਲਗਾਏ ਜਾਂਦੇ ਹਨ?";
+
+    m = text.match(/^Which process releases energy in a conventional nuclear power reactor\?$/);
+    if (m) return hi ? "परंपरागत परमाणु विद्युत रिएक्टर में ऊर्जा किस प्रक्रिया से निकलती है?" : "ਰਵਾਇਤੀ ਪਰਮਾਣੂ ਬਿਜਲੀ ਰਿਐਕਟਰ ਵਿੱਚ ਊਰਜਾ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਨਿਕਲਦੀ ਹੈ?";
+
+    m = text.match(/^Which part of India is especially favourable for large solar projects because of high sunshine and arid conditions\?$/);
+    if (m) return hi ? "अधिक धूप और शुष्क परिस्थितियों के कारण भारत का कौन-सा भाग बड़े सौर ऊर्जा प्रकल्पों के लिए विशेष रूप से अनुकूल है?" : "ਵੱਧ ਧੁੱਪ ਅਤੇ ਸੁੱਕੀਆਂ ਹਾਲਤਾਂ ਕਾਰਨ ਭਾਰਤ ਦਾ ਕਿਹੜਾ ਭਾਗ ਵੱਡੇ ਸੂਰਜੀ ਊਰਜਾ ਪ੍ਰਾਜੈਕਟਾਂ ਲਈ ਖਾਸ ਤੌਰ ਤੇ ਅਨੁਕੂਲ ਹੈ?";
+
+    m = text.match(/^Which combination is correctly matched with (.+?)\?$/);
+    if (m) return hi ? `${f(m[1])} के साथ कौन-सा संसाधन समूह सही सुमेलित है?` : `${f(m[1])} ਨਾਲ ਕਿਹੜਾ ਸਰੋਤ ਸਮੂਹ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?`;
+
+    m = text.match(/^Which pair is incorrectly matched in Eastern mineral belt integration\?$/);
+    if (m) return hi ? "पूर्वी खनिज पट्टी से संबंधित कौन-सा युग्म गलत सुमेलित है?" : "ਪੂਰਬੀ ਖਣਿਜ ਪੱਟੀ ਨਾਲ ਸੰਬੰਧਿਤ ਕਿਹੜੀ ਜੋੜੀ ਗਲਤ ਮਿਲਾਈ ਗਈ ਹੈ?";
+
+    m = text.match(/^Which set correctly matches (.+?) with their minerals\?$/);
+    if (m) return hi ? `${f(m[1])} को उनके खनिजों से सही मिलाने वाला समूह कौन-सा है?` : `${f(m[1])} ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਖਣਿਜਾਂ ਨਾਲ ਸਹੀ ਮਿਲਾਉਣ ਵਾਲਾ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?`;
+
+    m = text.match(/^Which set correctly matches (.+?) with their energy resources\?$/);
+    if (m) return hi ? `${f(m[1])} को उनके ऊर्जा संसाधनों से सही मिलाने वाला समूह कौन-सा है?` : `${f(m[1])} ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਊਰਜਾ ਸਰੋਤਾਂ ਨਾਲ ਸਹੀ ਮਿਲਾਉਣ ਵਾਲਾ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?`;
+  }
+
   if (packageId === "GEO-PHY-001") {
     let m = text.match(/^Which range extends from (.+?) towards (.+?) in a (.+?) direction\?$/);
     if (m) return hi ? `कौन-सी पर्वत श्रेणी ${f(m[1])} से ${f(m[2])} की ओर ${f(m[3])} दिशा में फैली है?` : `ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ${f(m[1])} ਤੋਂ ${f(m[2])} ਵੱਲ ${f(m[3])} ਦਿਸ਼ਾ ਵਿੱਚ ਫੈਲੀ ਹੈ?`;
