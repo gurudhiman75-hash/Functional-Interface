@@ -190,6 +190,33 @@ for (const qlId of qlIds) {
   }
 }
 
+// Direct authored-language breadth: same seed selects the same semantic variant in all languages.
+for (const qlId of ["PNL-QL-001", "PNL-QL-005", "PNL-QL-037", "PNL-QL-038"]) {
+  const seen = new Map<string, Set<number>>(languages.map((language) => [language, new Set<number>()]));
+  const stems = new Map<string, Set<string>>(languages.map((language) => [language, new Set<string>()]));
+  for (let index = 0; index < 72; index += 1) {
+    const seed = "pnl-authored-stem-review:" + qlId + ":" + index;
+    const packages = languages.map((language) =>
+      runPnl001StandaloneDynamicPipeline({ questionLanguageId: qlId, language, seed }),
+    );
+    const variants = packages.map((pkg: any) => pkg.traceability.authoredStemVariant ?? 0);
+    assert.equal(variants[0], variants[1], qlId + ": EN/HI variant selector differs");
+    assert.equal(variants[0], variants[2], qlId + ": EN/PA variant selector differs");
+    packages.forEach((pkg: any, languageIndex) => {
+      const language = languages[languageIndex]!;
+      assert.equal(pkg.validation.valid, true);
+      assert.equal(pkg.options[pkg.correctIndex], pkg.answer);
+      assert.equal(unresolvedPlaceholders(pkg.stem).length, 0);
+      seen.get(language)!.add(variants[languageIndex]!);
+      stems.get(language)!.add(pkg.stem.replace(/₹\s*[\d,.]+|\b\d+(?:\.\d+)?%?/g, "#"));
+    });
+  }
+  for (const language of languages) {
+    assert.deepEqual([...seen.get(language)!].sort(), [0, 1, 2], qlId + "/" + language + ": authored variant coverage");
+    assert.ok(stems.get(language)!.size >= 3, qlId + "/" + language + ": only one stem structure");
+  }
+}
+
 for (const [cpId, count] of expectedCpCounts) {
   assert.equal(cpCounts.get(cpId), count, `${cpId}: QL ownership count`);
 }
