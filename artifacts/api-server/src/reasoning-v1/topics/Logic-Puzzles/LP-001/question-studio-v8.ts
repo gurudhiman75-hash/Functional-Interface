@@ -70,7 +70,8 @@ export async function generateLogicPuzzleQuestionStudioBatchV8(request: LogicPuz
   const caselets = generateLpCp04LocalizedBatchV3(language, seed, count);
   const questions = caselets.map((caselet, questionIndex) => {
     const child = caselet.counterfactualChild;
-    const text = `${caselet.scenario}\n\nClues:\n${caselet.learnerFacingClues.map((clue) => `- ${clue}`).join("\n")}\n\n${child.stem}`;
+    const clueHeading = language === "hi" ? "शर्तें:" : "ਸ਼ਰਤਾਂ:";
+    const text = `${caselet.scenario}\n\n${clueHeading}\n${caselet.learnerFacingClues.map((clue) => `- ${clue}`).join("\n")}\n\n${child.stem}`;
     return {
       text,
       options: child.options,
