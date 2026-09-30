@@ -157,7 +157,7 @@ D. 0
 
 **Answer:** C. 1.67
 
-**Explanation:** For independent observations, the standard error is σ/√n = 15/√81 = 1.67. The sampling distribution is centered at the population mean.
+**Explanation:** For independent observations, the standard error is σ/√n = 15/√81 ≈ 1.67. The sampling distribution is centered at the population mean.
 
 ## STAT-QL-123 — Sample size for estimating a mean
 
