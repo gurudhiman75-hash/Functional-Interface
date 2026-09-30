@@ -11,6 +11,8 @@ assert.equal(pkg.questionBankWritable,false);
 assert.equal(pkg.testEligible,false);
 assert.equal(pkg.mockTestEligible,false);
 assert.equal(pkg.publiclyPublishable,false);
+assert.equal((pkg.metadata as any)?.humanApprovalPending,false);
+assert.equal((pkg.metadata as any)?.registrationAuthorityId,"ENG-011-SATURATION-HUMAN-APPROVED-V1");
 
 for(const cp of["ENG-011-CP001","ENG-011-CP002","ENG-011-CP003","ENG-011-CP004"]as const){
  const r=await languageV1QuestionStudioAdapter.generate({...base,canonicalProblemId:cp,count:4,seed:`studio:${cp}`});
@@ -18,6 +20,9 @@ for(const cp of["ENG-011-CP001","ENG-011-CP002","ENG-011-CP003","ENG-011-CP004"]
  for(const q of r.questions){
   assert.equal(q.cpId,cp);
   assert.equal(q.reviewOnly,true);
+  assert.equal(q.humanReviewApproved,true);
+  assert.equal(q.authoringReviewApproved,true);
+  assert.equal(q.productionReleased,false);
   assert.equal((q.options as unknown[]).length,4);
   assert.ok(Array.isArray(q.fragments));
  }
@@ -28,7 +33,10 @@ for(const q of c.questions){
  assert.equal(q.cpId,"ENG-011-CP005");
  assert.equal(q.sourceCpId,"ENG-011-CP004");
  assert.equal(q.composerProfile,"banking-mains");
+ assert.equal(q.humanReviewApproved,true);
+ assert.equal(q.productionReleased,false);
 }
+assert.equal(c.generationContext.humanReviewApproved,true);
 await assert.rejects(()=>languageV1Eng011QuestionStudioAdapterV1.generate({...base,language:"hi",count:1}),/English only/i);
 await assert.rejects(()=>languageV1Eng011QuestionStudioAdapterV1.generate({...base,runtimeMode:"production",count:1}),/review-only/i);
 console.log("ENG-011 Question Studio integration audit passed.");
