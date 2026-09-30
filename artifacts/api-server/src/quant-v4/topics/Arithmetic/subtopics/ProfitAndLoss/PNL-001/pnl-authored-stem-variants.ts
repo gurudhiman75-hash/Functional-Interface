@@ -1863,6 +1863,118 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "₹{costPrice} ਲਾਗਤ ਵਾਲੀ ਵਸਤ ਨੂੰ ਲਾਗਤ ਤੋਂ {markupPercent}% ਉੱਪਰ ਅੰਕਿਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
       "ਵਿਕਰੇਤਾ ₹{costPrice} ਲਾਗਤ ਵਾਲੀ ਵਸਤ ਦੀ ਕੀਮਤ {markupPercent}% ਵਧਾ ਕੇ ਲਗਾਉਂਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ। ਰੁਪਏ ਵਿੱਚ ਲਾਭ ਜਾਂ ਘਾਟਾ ਕਿੰਨਾ ਹੈ?"
     ]
+  },
+  "PNL-QL-051": {
+    "en": [
+      "A store offers Buy {paidUnits}, get {freeUnits} free on identical items. Find the equivalent discount percentage.",
+      "Under a Buy {paidUnits}, Get {freeUnits} Free offer, what single percentage discount gives the same effective reduction?"
+    ],
+    "hi": [
+      "एक दुकान समान वस्तुओं पर {paidUnits} खरीदें, {freeUnits} मुफ्त पाएँ का ऑफर देती है। समतुल्य छूट प्रतिशत ज्ञात कीजिए।",
+      "{paidUnits} खरीदें, {freeUnits} मुफ्त पाएँ ऑफर के बराबर एकल प्रतिशत छूट कितनी है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਦੁਕਾਨ ਇੱਕੋ ਜਿਹੀਆਂ ਵਸਤਾਂ 'ਤੇ {paidUnits} ਖਰੀਦੋ, {freeUnits} ਮੁਫ਼ਤ ਲਵੋ ਦਾ ਆਫਰ ਦਿੰਦੀ ਹੈ। ਸਮਤੁੱਲ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "{paidUnits} ਖਰੀਦੋ, {freeUnits} ਮੁਫ਼ਤ ਲਵੋ ਆਫਰ ਦੇ ਬਰਾਬਰ ਇਕੱਲੀ ਪ੍ਰਤੀਸ਼ਤ ਛੂਟ ਕਿੰਨੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-052": {
+    "en": [
+      "Each bottle is marked at ₹{unitMarkedPrice}. Under Buy {paidUnits}, get {freeUnits} free, find the effective price per bottle.",
+      "A bottle has marked price ₹{unitMarkedPrice}. If {paidUnits} bottles are paid for and {freeUnits} are free, what is the average effective price per bottle?"
+    ],
+    "hi": [
+      "प्रत्येक बोतल का अंकित मूल्य ₹{unitMarkedPrice} है। {paidUnits} खरीदें, {freeUnits} मुफ्त पाएँ ऑफर में प्रति बोतल प्रभावी मूल्य ज्ञात कीजिए।",
+      "एक बोतल का अंकित मूल्य ₹{unitMarkedPrice} है। यदि {paidUnits} बोतलों का भुगतान किया जाए और {freeUnits} मुफ्त मिलें, तो प्रति बोतल औसत प्रभावी मूल्य क्या है?"
+    ],
+    "pa": [
+      "ਹਰ ਬੋਤਲ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{unitMarkedPrice} ਹੈ। {paidUnits} ਖਰੀਦੋ, {freeUnits} ਮੁਫ਼ਤ ਲਵੋ ਆਫਰ ਵਿੱਚ ਪ੍ਰਤੀ ਬੋਤਲ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਬੋਤਲ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{unitMarkedPrice} ਹੈ। ਜੇ {paidUnits} ਬੋਤਲਾਂ ਦਾ ਭੁਗਤਾਨ ਕੀਤਾ ਜਾਵੇ ਅਤੇ {freeUnits} ਮੁਫ਼ਤ ਮਿਲਣ, ਤਾਂ ਪ੍ਰਤੀ ਬੋਤਲ ਔਸਤ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-053": {
+    "en": [
+      "A customer pays ₹{billedPrice} and receives ₹{cashbackAmount} cashback. Find the effective cost.",
+      "The billed amount is ₹{billedPrice}, followed by cashback of ₹{cashbackAmount}. How much does the purchase effectively cost?"
+    ],
+    "hi": [
+      "ग्राहक ₹{billedPrice} का भुगतान करता है और ₹{cashbackAmount} कैशबैक प्राप्त करता है। प्रभावी लागत ज्ञात कीजिए।",
+      "बिल राशि ₹{billedPrice} है और बाद में ₹{cashbackAmount} कैशबैक मिलता है। खरीद की प्रभावी लागत कितनी है?"
+    ],
+    "pa": [
+      "ਗਾਹਕ ₹{billedPrice} ਦਾ ਭੁਗਤਾਨ ਕਰਦਾ ਹੈ ਅਤੇ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਪ੍ਰਾਪਤ ਕਰਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "ਬਿੱਲ ਦੀ ਰਕਮ ₹{billedPrice} ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ। ਖਰੀਦ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਕਿੰਨੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-054": {
+    "en": [
+      "A payment of ₹{billedPrice} earns {cashbackPercent}% cashback. Find the effective cost.",
+      "The customer pays ₹{billedPrice} and gets {cashbackPercent}% of that amount back. What is the net effective cost?"
+    ],
+    "hi": [
+      "₹{billedPrice} के भुगतान पर {cashbackPercent}% कैशबैक मिलता है। प्रभावी लागत ज्ञात कीजिए।",
+      "ग्राहक ₹{billedPrice} देता है और उस राशि का {cashbackPercent}% वापस मिलता है। शुद्ध प्रभावी लागत क्या है?"
+    ],
+    "pa": [
+      "₹{billedPrice} ਦੇ ਭੁਗਤਾਨ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "ਗਾਹਕ ₹{billedPrice} ਦਿੰਦਾ ਹੈ ਅਤੇ ਉਸ ਰਕਮ ਦਾ {cashbackPercent}% ਵਾਪਸ ਮਿਲਦਾ ਹੈ। ਸ਼ੁੱਧ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-055": {
+    "en": [
+      "An item marked at ₹{markedPrice} gets {discountPercent}% discount plus a coupon worth ₹{couponAmount}. Find the effective price.",
+      "The marked price is ₹{markedPrice}. After a {discountPercent}% discount and an additional ₹{couponAmount} coupon, what is the final effective cost?"
+    ],
+    "hi": [
+      "किसी वस्तु का अंकित मूल्य ₹{markedPrice} है। उस पर {discountPercent}% छूट और ₹{couponAmount} का अतिरिक्त कूपन मिलता है। प्रभावी मूल्य ज्ञात कीजिए।",
+      "अंकित मूल्य ₹{markedPrice} है। {discountPercent}% छूट और अतिरिक्त ₹{couponAmount} कूपन के बाद अंतिम प्रभावी लागत क्या है?"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ। ਇਸ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਵਾਧੂ ਕੂਪਨ ਮਿਲਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ। {discountPercent}% ਛੂਟ ਅਤੇ ਵਾਧੂ ₹{couponAmount} ਕੂਪਨ ਤੋਂ ਬਾਅਦ ਅੰਤਿਮ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-056": {
+    "en": [
+      "For an item marked ₹{markedPrice}, one offer gives {discountPercent}% discount and another gives ₹{cashbackAmount} cashback. Which gives the lower effective cost, and by how much?",
+      "Compare {discountPercent}% off with ₹{cashbackAmount} cashback on a marked price of ₹{markedPrice}. Find the cheaper offer and the difference in effective cost."
+    ],
+    "hi": [
+      "₹{markedPrice} अंकित मूल्य वाली वस्तु पर एक ऑफर {discountPercent}% छूट देता है और दूसरा ₹{cashbackAmount} कैशबैक। कौन-सा प्रभावी मूल्य कम करता है और कितने से?",
+      "₹{markedPrice} के अंकित मूल्य पर {discountPercent}% छूट की तुलना ₹{cashbackAmount} कैशबैक से कीजिए। सस्ता ऑफर और प्रभावी लागत का अंतर ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤ 'ਤੇ ਇੱਕ ਆਫਰ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ ਅਤੇ ਦੂਜਾ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ। ਕਿਹੜਾ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਘੱਟ ਕਰਦਾ ਹੈ ਅਤੇ ਕਿੰਨੇ ਨਾਲ?",
+      "₹{markedPrice} ਦੇ ਅੰਕਿਤ ਮੁੱਲ 'ਤੇ {discountPercent}% ਛੂਟ ਦੀ ਤੁਲਨਾ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਨਾਲ ਕਰੋ। ਸਸਤਾ ਆਫਰ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-057": {
+    "en": [
+      "An item marked at ₹{markedPrice} gets successive discounts of {firstDiscountPercent}%, {secondDiscountPercent}% and {thirdDiscountPercent}%. Find the final selling price.",
+      "Three discounts—{firstDiscountPercent}%, {secondDiscountPercent}% and {thirdDiscountPercent}%—are applied successively to ₹{markedPrice}. What is the final price?"
+    ],
+    "hi": [
+      "₹{markedPrice} अंकित मूल्य वाली वस्तु पर क्रमशः {firstDiscountPercent}%, {secondDiscountPercent}% और {thirdDiscountPercent}% छूट मिलती है। अंतिम विक्रय मूल्य ज्ञात कीजिए।",
+      "₹{markedPrice} पर {firstDiscountPercent}%, {secondDiscountPercent}% और {thirdDiscountPercent}% की तीन छूट क्रमशः लगती हैं। अंतिम मूल्य क्या होगा?"
+    ],
+    "pa": [
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤ 'ਤੇ ਲਗਾਤਾਰ {firstDiscountPercent}%, {secondDiscountPercent}% ਅਤੇ {thirdDiscountPercent}% ਛੂਟ ਮਿਲਦੀ ਹੈ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "₹{markedPrice} 'ਤੇ {firstDiscountPercent}%, {secondDiscountPercent}% ਅਤੇ {thirdDiscountPercent}% ਦੀਆਂ ਤਿੰਨ ਛੂਟਾਂ ਲਗਾਤਾਰ ਲੱਗਦੀਆਂ ਹਨ। ਅੰਤਿਮ ਕੀਮਤ ਕੀ ਹੋਵੇਗੀ?"
+    ]
+  },
+  "PNL-QL-058": {
+    "en": [
+      "A coupon of ₹{couponAmount} applies only when the bill is at least ₹{minimumSpend}. For a bill of ₹{billedPrice}, determine whether the coupon applies and find the effective price.",
+      "The minimum spend for a ₹{couponAmount} coupon is ₹{minimumSpend}. If the bill is ₹{billedPrice}, is the coupon valid, and what amount is finally paid?"
+    ],
+    "hi": [
+      "₹{couponAmount} का कूपन तभी लागू होता है जब बिल कम से कम ₹{minimumSpend} हो। ₹{billedPrice} के बिल पर बताइए कि कूपन लागू होगा या नहीं और प्रभावी मूल्य ज्ञात कीजिए।",
+      "₹{couponAmount} कूपन के लिए न्यूनतम खर्च ₹{minimumSpend} है। यदि बिल ₹{billedPrice} है, तो क्या कूपन मान्य है और अंतिम भुगतान कितना होगा?"
+    ],
+    "pa": [
+      "₹{couponAmount} ਦਾ ਕੂਪਨ ਤਦ ਹੀ ਲਾਗੂ ਹੁੰਦਾ ਹੈ ਜਦੋਂ ਬਿੱਲ ਘੱਟੋ-ਘੱਟ ₹{minimumSpend} ਹੋਵੇ। ₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ ਦੱਸੋ ਕਿ ਕੂਪਨ ਲਾਗੂ ਹੋਵੇਗਾ ਜਾਂ ਨਹੀਂ ਅਤੇ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "₹{couponAmount} ਕੂਪਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਖਰਚ ₹{minimumSpend} ਹੈ। ਜੇ ਬਿੱਲ ₹{billedPrice} ਹੈ, ਤਾਂ ਕੀ ਕੂਪਨ ਮੰਨਿਆ ਜਾਵੇਗਾ ਅਤੇ ਅੰਤਿਮ ਭੁਗਤਾਨ ਕਿੰਨਾ ਹੋਵੇਗਾ?"
+    ]
   }
 };
 
