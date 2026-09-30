@@ -113,6 +113,76 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੇ ਉਪਕਰਣ ਸੈੱਟ 'ਤੇ ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਮਿਲਦੀ ਹੈ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
       "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ ਪਹਿਲਾਂ {firstDiscountPercent}% ਅਤੇ ਫਿਰ {secondDiscountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਅੰਤਿਮ ਕੀਮਤ ਕੀ ਹੋਵੇਗੀ?"
     ]
+  },
+  "PNL-QL-075": {
+    "en": [
+      "A seller buys {totalQuantity} ceramic sets at ₹{unitCostPrice} each. {damagedQuantity} damaged sets fetch ₹{damagedRecoveryPerUnit} each. To earn an overall {targetRatePercent}% {targetDirection}, at what price should each good set be sold?",
+      "Out of {totalQuantity} ceramic sets costing ₹{unitCostPrice} each, {damagedQuantity} are damaged and sold for ₹{damagedRecoveryPerUnit} each. Find the selling price of each undamaged set needed for {targetRatePercent}% overall {targetDirection}."
+    ],
+    "hi": [
+      "एक विक्रेता {totalQuantity} सिरेमिक सेट ₹{unitCostPrice} प्रति सेट की दर से खरीदता है। {damagedQuantity} खराब सेट ₹{damagedRecoveryPerUnit} प्रति सेट मिलते हैं। कुल {targetRatePercent}% {targetDirection} के लिए प्रत्येक सही सेट का विक्रय मूल्य ज्ञात कीजिए।",
+      "{totalQuantity} सिरेमिक सेटों का क्रय मूल्य ₹{unitCostPrice} प्रति सेट है। इनमें से {damagedQuantity} खराब सेट ₹{damagedRecoveryPerUnit} प्रति सेट बिकते हैं। कुल {targetRatePercent}% {targetDirection} के लिए शेष प्रत्येक सेट किस मूल्य पर बेचना चाहिए?"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਿਕਰੇਤਾ {totalQuantity} ਸਿਰੈਮਿਕ ਸੈੱਟ ₹{unitCostPrice} ਪ੍ਰਤੀ ਸੈੱਟ ਖਰੀਦਦਾ ਹੈ। {damagedQuantity} ਖਰਾਬ ਸੈੱਟ ₹{damagedRecoveryPerUnit} ਪ੍ਰਤੀ ਸੈੱਟ ਵੇਚੇ ਜਾਂਦੇ ਹਨ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਹਰ ਠੀਕ ਸੈੱਟ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "{totalQuantity} ਸਿਰੈਮਿਕ ਸੈੱਟਾਂ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{unitCostPrice} ਪ੍ਰਤੀ ਸੈੱਟ ਹੈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ {damagedQuantity} ਖਰਾਬ ਸੈੱਟ ₹{damagedRecoveryPerUnit} ਪ੍ਰਤੀ ਸੈੱਟ ਵੇਚੇ ਜਾਂਦੇ ਹਨ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਬਾਕੀ ਹਰ ਸੈੱਟ ਕਿਸ ਕੀਮਤ 'ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?"
+    ]
+  },
+  "PNL-QL-082": {
+    "en": [
+      "A merchant buys {totalQuantity} crates at ₹{unitCostPrice} each. {goodQuantity} good crates are sold at ₹{goodUnitSellingPrice} each and {spoiledQuantity} are spoiled. What recovery per spoiled crate is needed for {targetRatePercent}% overall {targetDirection}?",
+      "Of {totalQuantity} crates costing ₹{unitCostPrice} each, {goodQuantity} are sold for ₹{goodUnitSellingPrice} each and {spoiledQuantity} are spoiled. Find the amount to be recovered from each spoiled crate to obtain {targetRatePercent}% overall {targetDirection}."
+    ],
+    "hi": [
+      "एक व्यापारी {totalQuantity} क्रेट ₹{unitCostPrice} प्रति क्रेट खरीदता है। {goodQuantity} अच्छे क्रेट ₹{goodUnitSellingPrice} प्रति क्रेट बिकते हैं और {spoiledQuantity} खराब हो जाते हैं। कुल {targetRatePercent}% {targetDirection} के लिए प्रत्येक खराब क्रेट से कितनी राशि वसूलनी चाहिए?",
+      "{totalQuantity} क्रेटों का क्रय मूल्य ₹{unitCostPrice} प्रति क्रेट है। {goodQuantity} क्रेट ₹{goodUnitSellingPrice} प्रति क्रेट बिकते हैं और {spoiledQuantity} खराब हैं। कुल {targetRatePercent}% {targetDirection} पाने के लिए प्रत्येक खराब क्रेट से आवश्यक वसूली ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਪਾਰੀ {totalQuantity} ਕਰੇਟ ₹{unitCostPrice} ਪ੍ਰਤੀ ਕਰੇਟ ਖਰੀਦਦਾ ਹੈ। {goodQuantity} ਚੰਗੇ ਕਰੇਟ ₹{goodUnitSellingPrice} ਪ੍ਰਤੀ ਕਰੇਟ ਵੇਚੇ ਜਾਂਦੇ ਹਨ ਅਤੇ {spoiledQuantity} ਖਰਾਬ ਹੋ ਜਾਂਦੇ ਹਨ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਹਰ ਖਰਾਬ ਕਰੇਟ ਤੋਂ ਕਿੰਨੀ ਵਸੂਲੀ ਲੋੜੀਂਦੀ ਹੈ?",
+      "{totalQuantity} ਕਰੇਟਾਂ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{unitCostPrice} ਪ੍ਰਤੀ ਕਰੇਟ ਹੈ। {goodQuantity} ਕਰੇਟ ₹{goodUnitSellingPrice} ਪ੍ਰਤੀ ਕਰੇਟ ਵੇਚੇ ਜਾਂਦੇ ਹਨ ਅਤੇ {spoiledQuantity} ਖਰਾਬ ਹਨ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਹਾਸਲ ਕਰਨ ਲਈ ਹਰ ਖਰਾਬ ਕਰੇਟ ਤੋਂ ਲੋੜੀਂਦੀ ਵਸੂਲੀ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-083": {
+    "en": [
+      "Two articles are sold for the same price. One gives {ratePercent}% profit and the other {ratePercent}% loss. Find the overall loss percentage.",
+      "A seller sells two items at an equal selling price. The profit on one and loss on the other are both {ratePercent}%. What is the net loss percentage?"
+    ],
+    "hi": [
+      "दो वस्तुएँ समान विक्रय मूल्य पर बेची जाती हैं। एक पर {ratePercent}% लाभ और दूसरी पर {ratePercent}% हानि होती है। कुल हानि प्रतिशत ज्ञात कीजिए।",
+      "एक विक्रेता दो वस्तुएँ समान मूल्य पर बेचता है। एक पर {ratePercent}% लाभ और दूसरी पर उतनी ही प्रतिशत हानि है। शुद्ध हानि प्रतिशत क्या होगा?"
+    ],
+    "pa": [
+      "ਦੋ ਵਸਤਾਂ ਇੱਕੋ ਵਿਕਰੀ ਮੁੱਲ 'ਤੇ ਵੇਚੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਇੱਕ 'ਤੇ {ratePercent}% ਲਾਭ ਅਤੇ ਦੂਜੀ 'ਤੇ {ratePercent}% ਘਾਟਾ ਹੁੰਦਾ ਹੈ। ਕੁੱਲ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਵਿਕਰੇਤਾ ਦੋ ਵਸਤਾਂ ਇੱਕੋ ਕੀਮਤ 'ਤੇ ਵੇਚਦਾ ਹੈ। ਇੱਕ 'ਤੇ {ratePercent}% ਲਾਭ ਅਤੇ ਦੂਜੀ 'ਤੇ ਉਤਨਾ ਹੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟਾ ਹੈ। ਸ਼ੁੱਧ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੈ?"
+    ]
+  },
+  "PNL-QL-084": {
+    "en": [
+      "Two items have the same selling price. The first is sold at {knownRatePercent}% {knownDirection}. What {unknownDirection} percentage on the second will make the combined result {targetRatePercent}% {targetDirection}?",
+      "Two electronic items are sold for equal amounts. One sale gives {knownRatePercent}% {knownDirection}. Determine the required {unknownDirection} rate on the other item so that the overall result is {targetRatePercent}% {targetDirection}."
+    ],
+    "hi": [
+      "दो वस्तुओं का विक्रय मूल्य समान है। पहली वस्तु पर {knownRatePercent}% {knownDirection} है। कुल परिणाम {targetRatePercent}% {targetDirection} करने के लिए दूसरी वस्तु पर कितनी {unknownDirection} दर चाहिए?",
+      "दो इलेक्ट्रॉनिक वस्तुएँ समान राशि में बेची जाती हैं। पहली पर {knownRatePercent}% {knownDirection} है। कुल {targetRatePercent}% {targetDirection} के लिए दूसरी वस्तु पर आवश्यक {unknownDirection} प्रतिशत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਦੋ ਵਸਤਾਂ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ਇੱਕੋ ਹੈ। ਪਹਿਲੀ ਵਸਤ 'ਤੇ {knownRatePercent}% {knownDirection} ਹੈ। ਕੁੱਲ ਨਤੀਜਾ {targetRatePercent}% {targetDirection} ਬਣਾਉਣ ਲਈ ਦੂਜੀ ਵਸਤ 'ਤੇ ਕਿੰਨੀ {unknownDirection} ਦਰ ਚਾਹੀਦੀ ਹੈ?",
+      "ਦੋ ਇਲੈਕਟ੍ਰਾਨਿਕ ਵਸਤਾਂ ਇੱਕੋ ਰਕਮ ਵਿੱਚ ਵੇਚੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਪਹਿਲੀ 'ਤੇ {knownRatePercent}% {knownDirection} ਹੈ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਦੂਜੀ ਵਸਤ 'ਤੇ ਲੋੜੀਂਦਾ {unknownDirection} ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-094": {
+    "en": [
+      "A distributor buys {totalQuantity} packs at ₹{unitCostPrice} each. {goodQuantity} good packs sell for ₹{goodUnitSellingPrice} each and {spoiledQuantity} packs are spoiled. Find the minimum recovery per spoiled pack to avoid an overall loss.",
+      "Of {totalQuantity} packs bought at ₹{unitCostPrice} each, {goodQuantity} are sold at ₹{goodUnitSellingPrice} each while {spoiledQuantity} cannot be sold normally. What minimum amount per spoiled pack will make the transaction break even?"
+    ],
+    "hi": [
+      "एक वितरक {totalQuantity} पैक ₹{unitCostPrice} प्रति पैक खरीदता है। {goodQuantity} अच्छे पैक ₹{goodUnitSellingPrice} प्रति पैक बिकते हैं और {spoiledQuantity} खराब हो जाते हैं। कुल हानि से बचने के लिए प्रत्येक खराब पैक से न्यूनतम कितनी वसूली चाहिए?",
+      "{totalQuantity} पैक ₹{unitCostPrice} प्रति पैक खरीदे गए। {goodQuantity} पैक ₹{goodUnitSellingPrice} प्रति पैक बिकते हैं और {spoiledQuantity} सामान्य रूप से नहीं बिक सकते। लेन-देन को बराबरी पर लाने के लिए प्रत्येक खराब पैक से न्यूनतम कितनी राशि चाहिए?"
+    ],
+    "pa": [
+      "ਇੱਕ ਵੰਡਕਾਰ {totalQuantity} ਪੈਕ ₹{unitCostPrice} ਪ੍ਰਤੀ ਪੈਕ ਖਰੀਦਦਾ ਹੈ। {goodQuantity} ਚੰਗੇ ਪੈਕ ₹{goodUnitSellingPrice} ਪ੍ਰਤੀ ਪੈਕ ਵੇਚੇ ਜਾਂਦੇ ਹਨ ਅਤੇ {spoiledQuantity} ਖਰਾਬ ਹੋ ਜਾਂਦੇ ਹਨ। ਕੁੱਲ ਘਾਟੇ ਤੋਂ ਬਚਣ ਲਈ ਹਰ ਖਰਾਬ ਪੈਕ ਤੋਂ ਘੱਟੋ-ਘੱਟ ਕਿੰਨੀ ਵਸੂਲੀ ਚਾਹੀਦੀ ਹੈ?",
+      "{totalQuantity} ਪੈਕ ₹{unitCostPrice} ਪ੍ਰਤੀ ਪੈਕ ਖਰੀਦੇ ਗਏ। {goodQuantity} ਪੈਕ ₹{goodUnitSellingPrice} ਪ੍ਰਤੀ ਪੈਕ ਵੇਚੇ ਜਾਂਦੇ ਹਨ ਅਤੇ {spoiledQuantity} ਆਮ ਤੌਰ 'ਤੇ ਨਹੀਂ ਵੇਚੇ ਜਾ ਸਕਦੇ। ਲੈਣ-ਦੇਣ ਨੂੰ ਬਰਾਬਰੀ 'ਤੇ ਲਿਆਉਣ ਲਈ ਹਰ ਖਰਾਬ ਪੈਕ ਤੋਂ ਘੱਟੋ-ਘੱਟ ਕਿੰਨੀ ਰਕਮ ਚਾਹੀਦੀ ਹੈ?"
+    ]
   }
 };
 
