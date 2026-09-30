@@ -31,6 +31,9 @@ jobs:
       - name: Prove LP-006 cross-attribute projection candidate
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-006-projection-extension-v1.test.ts
 
+      - name: Prove live V8 surface, difficulty routing and multilingual parity
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-deep-audit-wave2.test.ts
+
       - name: Export LP-006 projection review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-006-projection-extension-v1-review-export.ts > LP-006-PROJECTION-EXTENSION-V1-REVIEW.md
 
