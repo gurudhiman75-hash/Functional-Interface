@@ -79,5 +79,7 @@ export function localizeGeoSoi001ExactCp001PartA(question:CanonicalQuestion,lang
  const rec=R[question.questionId]; if(!rec)return null;
  const x=rec[language];
  if(x.options.length!==question.options.length)throw new Error("GEO-SOI CP001A option count "+question.questionId);
- return Object.freeze({stem:x.stem,options:Object.freeze([...x.options]),canonicalAnswer:x.options[question.correctIndex]!,explanation:x.explanation});
+ const options=[...x.options.slice(1)];
+ options.splice(question.correctIndex,0,x.options[0]!);
+ return Object.freeze({stem:x.stem,options:Object.freeze(options),canonicalAnswer:x.options[0]!,explanation:x.explanation});
 }
