@@ -198,4 +198,23 @@ fs.writeFileSync(path.join(packageDir, "rap-001-maturity-audit.md"), `${renderRa
 fs.writeFileSync(path.join(packageDir, "rap-001-freeze-record.md"), `${renderRap001FreezeRecordMarkdown(preFreeze.audit).trimEnd()}\n`, "utf8");
 fs.writeFileSync(path.join(packageDir, "entity-rendering-audit.md"), `${renderRap001EntityRenderingAuditMarkdown(100).trimEnd()}\n`, "utf8");
 
+
+for (const cpId of RAP_001_CP_IDS) {
+  for (let index = 0; index < 120; index += 1) {
+    const pkg = runRap001Pipeline(cpId, {
+      language: "en",
+      seed: `rap-001-object-pool:${cpId}:${index}`,
+      diversityOrdinal: index,
+    });
+    assert.equal(pkg.validation.valid, true);
+    assert.ok(typeof pkg.mathJax === "string" && pkg.mathJax.trim().length > 0, `${cpId} must expose MathJax`);
+    assert.equal((pkg.mathJax.match(/\\\(/g) ?? []).length, (pkg.mathJax.match(/\\\)/g) ?? []).length, `${cpId} MathJax delimiters must balance`);
+    for (const value of Object.values(pkg.parameters.variables)) {
+      if (typeof value === "string" && /\{[^}]+\}/.test(value)) {
+        assert.fail(`${cpId} leaked unresolved placeholder in expanded object pool`);
+      }
+    }
+  }
+}
+
 console.log(`RAP-001 Phase C test passed. Duplicate rate: ${(duplicateRate * 100).toFixed(2)}%.`);
