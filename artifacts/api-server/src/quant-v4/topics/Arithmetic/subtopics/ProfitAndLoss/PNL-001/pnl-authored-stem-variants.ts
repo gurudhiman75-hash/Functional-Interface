@@ -1233,6 +1233,90 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਇੱਕ ਕੈਫੇ ਉਤਪਾਦਾਂ ਨੂੰ ਨਿਸ਼ਚਿਤ ਮਿਸ਼ਰਣ {productMix} ਵਿੱਚ ਵੇਚਦਾ ਹੈ ਅਤੇ ਇਸਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ। ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਕਿੰਨੇ ਪੂਰੇ ਮਿਸ਼ਰਣ-ਬੰਡਲ ਵੇਚਣੇ ਪੈਣਗੇ?",
       "ਕੈਫੇ ਦਾ ਵਿਕਰੀ ਮਿਸ਼ਰਣ {productMix} ਹੈ। ਕੁੱਲ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੋਣ 'ਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਕਿੰਨੇ ਪੂਰੇ ਉਤਪਾਦ-ਮਿਸ਼ਰਣ ਬੰਡਲ ਵੇਚਣੇ ਪੈਣਗੇ?"
     ]
+  },
+  "PNL-QL-176": {
+    "en": [
+      "A business records actual revenue of ₹{actualRevenue} and break-even revenue of ₹{breakEvenRevenue}. Find the margin of safety in rupees.",
+      "Actual sales revenue is ₹{actualRevenue}, while break-even revenue is ₹{breakEvenRevenue}. By how much does actual revenue exceed break-even revenue?"
+    ],
+    "hi": [
+      "एक व्यवसाय का वास्तविक राजस्व ₹{actualRevenue} और ब्रेक-ईवन राजस्व ₹{breakEvenRevenue} है। रुपये में सुरक्षा मार्जिन ज्ञात कीजिए।",
+      "वास्तविक बिक्री राजस्व ₹{actualRevenue} है, जबकि ब्रेक-ईवन राजस्व ₹{breakEvenRevenue} है। वास्तविक राजस्व ब्रेक-ईवन से कितने रुपये अधिक है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਅਸਲ ਆਮਦਨ ₹{actualRevenue} ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ। ਰੁਪਏ ਵਿੱਚ ਸੁਰੱਖਿਆ ਮਾਰਜਿਨ ਪਤਾ ਕਰੋ।",
+      "ਅਸਲ ਵਿਕਰੀ ਆਮਦਨ ₹{actualRevenue} ਹੈ, ਜਦਕਿ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ। ਅਸਲ ਆਮਦਨ ਬ੍ਰੇਕ-ਈਵਨ ਤੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਹੈ?"
+    ]
+  },
+  "PNL-QL-177": {
+    "en": [
+      "A business has actual revenue ₹{actualRevenue} and break-even revenue ₹{breakEvenRevenue}. Find the margin-of-safety percentage on actual revenue.",
+      "Actual revenue is ₹{actualRevenue} and break-even revenue is ₹{breakEvenRevenue}. What percentage of actual revenue is the margin of safety?"
+    ],
+    "hi": [
+      "एक व्यवसाय का वास्तविक राजस्व ₹{actualRevenue} और ब्रेक-ईवन राजस्व ₹{breakEvenRevenue} है। वास्तविक राजस्व पर सुरक्षा मार्जिन प्रतिशत ज्ञात कीजिए।",
+      "वास्तविक राजस्व ₹{actualRevenue} और ब्रेक-ईवन राजस्व ₹{breakEvenRevenue} है। सुरक्षा मार्जिन वास्तविक राजस्व का कितने प्रतिशत है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਅਸਲ ਆਮਦਨ ₹{actualRevenue} ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ। ਅਸਲ ਆਮਦਨ 'ਤੇ ਸੁਰੱਖਿਆ ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਅਸਲ ਆਮਦਨ ₹{actualRevenue} ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ। ਸੁਰੱਖਿਆ ਮਾਰਜਿਨ ਅਸਲ ਆਮਦਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?"
+    ]
+  },
+  "PNL-QL-178": {
+    "en": [
+      "Several items have combined effective cost ₹{totalCost}. Earlier recoveries are {priorRecoveries}. Find the final recovery needed for an overall {targetRatePercent}% {targetDirection}.",
+      "The total effective cost is ₹{totalCost}, and recoveries already made are {priorRecoveries}. What final recovery will make the complete result {targetRatePercent}% {targetDirection}?"
+    ],
+    "hi": [
+      "कई वस्तुओं की संयुक्त प्रभावी लागत ₹{totalCost} है और पहले की वसूलियाँ {priorRecoveries} हैं। कुल {targetRatePercent}% {targetDirection} के लिए अंतिम आवश्यक वसूली ज्ञात कीजिए।",
+      "कुल प्रभावी लागत ₹{totalCost} है और अब तक की वसूलियाँ {priorRecoveries} हैं। पूरे परिणाम को {targetRatePercent}% {targetDirection} करने के लिए अंतिम वसूली कितनी होनी चाहिए?"
+    ],
+    "pa": [
+      "ਕਈ ਵਸਤਾਂ ਦੀ ਮਿਲੀ-ਜੁਲੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{totalCost} ਹੈ ਅਤੇ ਪਹਿਲਾਂ ਦੀਆਂ ਵਸੂਲੀਆਂ {priorRecoveries} ਹਨ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਅੰਤਿਮ ਲੋੜੀਂਦੀ ਵਸੂਲੀ ਪਤਾ ਕਰੋ।",
+      "ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{totalCost} ਹੈ ਅਤੇ ਹੁਣ ਤੱਕ ਦੀਆਂ ਵਸੂਲੀਆਂ {priorRecoveries} ਹਨ। ਪੂਰੇ ਨਤੀਜੇ ਨੂੰ {targetRatePercent}% {targetDirection} ਕਰਨ ਲਈ ਅੰਤਿਮ ਵਸੂਲੀ ਕਿੰਨੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-179": {
+    "en": [
+      "A trader loses {lossPercent}% of capital. What profit percentage on the remaining capital is needed to restore the original amount?",
+      "After a {lossPercent}% loss, only the reduced capital remains. Find the percentage gain on that remaining capital required to return to the original capital."
+    ],
+    "hi": [
+      "एक व्यापारी अपनी पूंजी का {lossPercent}% खो देता है। मूल पूंजी वापस पाने के लिए शेष पूंजी पर कितने प्रतिशत लाभ की आवश्यकता है?",
+      "{lossPercent}% हानि के बाद केवल घटी हुई पूंजी बचती है। मूल पूंजी तक वापस पहुँचने के लिए शेष राशि पर आवश्यक लाभ प्रतिशत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਪਾਰੀ ਆਪਣੀ ਪੂੰਜੀ ਦਾ {lossPercent}% ਗੁਆ ਲੈਂਦਾ ਹੈ। ਮੂਲ ਪੂੰਜੀ ਵਾਪਸ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਬਾਕੀ ਪੂੰਜੀ 'ਤੇ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਚਾਹੀਦਾ ਹੈ?",
+      "{lossPercent}% ਘਾਟੇ ਤੋਂ ਬਾਅਦ ਘੱਟੀ ਹੋਈ ਪੂੰਜੀ ਬਚਦੀ ਹੈ। ਮੂਲ ਪੂੰਜੀ ਤੱਕ ਵਾਪਸ ਪਹੁੰਚਣ ਲਈ ਬਾਕੀ ਰਕਮ 'ਤੇ ਲੋੜੀਂਦਾ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-180": {
+    "en": [
+      "A product with effective cost ₹{effectiveCost} is sold online for ₹{grossSellingPrice}. The marketplace deducts {commissionPercent}% of the gross price. Find the profit or loss amount and percentage.",
+      "An online sale fetches ₹{grossSellingPrice}, but the platform keeps {commissionPercent}% commission. If effective cost is ₹{effectiveCost}, determine the seller's actual profit or loss amount and rate."
+    ],
+    "hi": [
+      "किसी उत्पाद की प्रभावी लागत ₹{effectiveCost} है और वह ऑनलाइन ₹{grossSellingPrice} में बिकता है। मार्केटप्लेस सकल मूल्य का {commissionPercent}% काटता है। लाभ या हानि की राशि और प्रतिशत ज्ञात कीजिए।",
+      "ऑनलाइन बिक्री से ₹{grossSellingPrice} मिलते हैं, लेकिन प्लेटफॉर्म {commissionPercent}% कमीशन रखता है। प्रभावी लागत ₹{effectiveCost} होने पर वास्तविक लाभ या हानि की राशि और दर ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਉਤਪਾਦ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ ਅਤੇ ਇਹ ਆਨਲਾਈਨ ₹{grossSellingPrice} ਵਿੱਚ ਵਿਕਦਾ ਹੈ। ਮਾਰਕੀਟਪਲੇਸ ਕੁੱਲ ਕੀਮਤ ਦਾ {commissionPercent}% ਕੱਟਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਰਕਮ ਅਤੇ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਆਨਲਾਈਨ ਵਿਕਰੀ ਤੋਂ ₹{grossSellingPrice} ਮਿਲਦੇ ਹਨ, ਪਰ ਪਲੇਟਫਾਰਮ {commissionPercent}% ਕਮਿਸ਼ਨ ਰੱਖਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੋਣ 'ਤੇ ਅਸਲ ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਰਕਮ ਅਤੇ ਦਰ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-181": {
+    "en": [
+      "An item has effective cost ₹{effectiveCost}, and an auction platform deducts {commissionPercent}% from the gross selling price. Find the gross price required for {targetRatePercent}% {targetDirection} on effective cost.",
+      "To obtain {targetRatePercent}% {targetDirection} on effective cost ₹{effectiveCost}, a seller uses an auction platform charging {commissionPercent}% commission on gross price. What gross selling price is needed?"
+    ],
+    "hi": [
+      "किसी वस्तु की प्रभावी लागत ₹{effectiveCost} है और नीलामी प्लेटफॉर्म सकल विक्रय मूल्य का {commissionPercent}% काटता है। प्रभावी लागत पर {targetRatePercent}% {targetDirection} के लिए आवश्यक सकल विक्रय मूल्य ज्ञात कीजिए।",
+      "प्रभावी लागत ₹{effectiveCost} पर {targetRatePercent}% {targetDirection} पाने के लिए विक्रेता ऐसे नीलामी प्लेटफॉर्म का उपयोग करता है जो सकल मूल्य पर {commissionPercent}% कमीशन लेता है। आवश्यक सकल विक्रय मूल्य क्या है?"
+    ],
+    "pa": [
+      "ਕਿਸੇ ਵਸਤ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ ਅਤੇ ਨਿਲਾਮੀ ਪਲੇਟਫਾਰਮ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਦਾ {commissionPercent}% ਕੱਟਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦਾ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} 'ਤੇ {targetRatePercent}% {targetDirection} ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਿਕਰੇਤਾ ਅਜਿਹਾ ਨਿਲਾਮੀ ਪਲੇਟਫਾਰਮ ਵਰਤਦਾ ਹੈ ਜੋ ਕੁੱਲ ਕੀਮਤ 'ਤੇ {commissionPercent}% ਕਮਿਸ਼ਨ ਲੈਂਦਾ ਹੈ। ਲੋੜੀਂਦਾ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਕੀ ਹੈ?"
+    ]
   }
 };
 
