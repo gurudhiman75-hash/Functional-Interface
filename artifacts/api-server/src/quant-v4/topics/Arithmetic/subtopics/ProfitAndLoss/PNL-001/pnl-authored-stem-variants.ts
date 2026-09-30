@@ -1107,6 +1107,132 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਗੋਦਾਮ ਇਕਾਈ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{purchasePrice}, ਫਲੈਟ ਖਰਚ {flatExpenses} ਅਤੇ ਅੰਤਿਮ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ। ਬਾਕੀ ਓਵਰਹੈੱਡ {overheadBase} 'ਤੇ ਲਾਇਆ ਜਾਂਦਾ ਹੈ। ਓਵਰਹੈੱਡ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
       "ਗੋਦਾਮ ਦੀ ਖਰੀਦ ₹{purchasePrice} ਅਤੇ ਫਲੈਟ ਖਰਚ {flatExpenses} ਮਿਲ ਕੇ ਓਵਰਹੈੱਡ ਤੋਂ ਬਾਅਦ ₹{effectiveCost} ਹੋ ਜਾਂਦੇ ਹਨ। ਓਵਰਹੈੱਡ ਆਧਾਰ {overheadBase} ਹੈ। ਓਵਰਹੈੱਡ ਦਰ ਪਤਾ ਕਰੋ।"
     ]
+  },
+  "PNL-QL-167": {
+    "en": [
+      "A factory spends ₹{rawMaterialCost} on material and ₹{labourCost} on labour. Overhead is {factoryOverheadPercent}% of prime cost, packaging costs ₹{packagingCost}, scrap fetches ₹{scrapRecovery}, and output is {outputQuantity} units. Find the net production cost.",
+      "Material costs ₹{rawMaterialCost} and labour ₹{labourCost}. Add {factoryOverheadPercent}% factory overhead on prime cost and ₹{packagingCost} packaging, then deduct ₹{scrapRecovery} scrap recovery. What is the net production cost for {outputQuantity} units?"
+    ],
+    "hi": [
+      "एक कारखाने में कच्चे माल पर ₹{rawMaterialCost} और श्रम पर ₹{labourCost} खर्च होता है। फैक्टरी ओवरहेड प्राइम कॉस्ट का {factoryOverheadPercent}% है, पैकेजिंग ₹{packagingCost} है और स्क्रैप से ₹{scrapRecovery} मिलते हैं। {outputQuantity} इकाइयों की शुद्ध उत्पादन लागत ज्ञात कीजिए।",
+      "सामग्री लागत ₹{rawMaterialCost} और श्रम लागत ₹{labourCost} है। प्राइम कॉस्ट पर {factoryOverheadPercent}% ओवरहेड तथा ₹{packagingCost} पैकेजिंग जोड़कर ₹{scrapRecovery} स्क्रैप वसूली घटाइए। {outputQuantity} इकाइयों की शुद्ध उत्पादन लागत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਫੈਕਟਰੀ ਵਿੱਚ ਕੱਚੇ ਮਾਲ 'ਤੇ ₹{rawMaterialCost} ਅਤੇ ਮਜ਼ਦੂਰੀ 'ਤੇ ₹{labourCost} ਖਰਚ ਹੁੰਦਾ ਹੈ। ਫੈਕਟਰੀ ਓਵਰਹੈੱਡ ਪ੍ਰਾਈਮ ਕਾਸਟ ਦਾ {factoryOverheadPercent}% ਹੈ, ਪੈਕਿੰਗ ₹{packagingCost} ਹੈ ਅਤੇ ਸਕ੍ਰੈਪ ਤੋਂ ₹{scrapRecovery} ਮਿਲਦੇ ਹਨ। {outputQuantity} ਇਕਾਈਆਂ ਦੀ ਸ਼ੁੱਧ ਉਤਪਾਦਨ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "ਸਮੱਗਰੀ ਲਾਗਤ ₹{rawMaterialCost} ਅਤੇ ਮਜ਼ਦੂਰੀ ਲਾਗਤ ₹{labourCost} ਹੈ। ਪ੍ਰਾਈਮ ਕਾਸਟ 'ਤੇ {factoryOverheadPercent}% ਓਵਰਹੈੱਡ ਅਤੇ ₹{packagingCost} ਪੈਕਿੰਗ ਜੋੜ ਕੇ ₹{scrapRecovery} ਸਕ੍ਰੈਪ ਵਸੂਲੀ ਘਟਾਓ। {outputQuantity} ਇਕਾਈਆਂ ਦੀ ਸ਼ੁੱਧ ਉਤਪਾਦਨ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-168": {
+    "en": [
+      "A manufacturing run uses ₹{rawMaterialCost} material and ₹{labourCost} labour. Overhead is {factoryOverheadPercent}% of prime cost, packaging costs ₹{packagingCost}, scrap recovery is ₹{scrapRecovery}, and {outputQuantity} usable units are made. Find the effective cost per unit.",
+      "For {outputQuantity} usable units, material costs ₹{rawMaterialCost}, labour ₹{labourCost}, packaging ₹{packagingCost}, and overhead is {factoryOverheadPercent}% of prime cost. Scrap brings ₹{scrapRecovery}. What is the effective unit cost?"
+    ],
+    "hi": [
+      "एक उत्पादन बैच में सामग्री लागत ₹{rawMaterialCost}, श्रम लागत ₹{labourCost}, पैकेजिंग ₹{packagingCost} और प्राइम कॉस्ट पर {factoryOverheadPercent}% ओवरहेड है। स्क्रैप से ₹{scrapRecovery} मिलते हैं और {outputQuantity} उपयोगी इकाइयाँ बनती हैं। प्रति इकाई प्रभावी लागत ज्ञात कीजिए।",
+      "{outputQuantity} उपयोगी इकाइयों के लिए सामग्री ₹{rawMaterialCost}, श्रम ₹{labourCost}, पैकेजिंग ₹{packagingCost} और प्राइम कॉस्ट पर {factoryOverheadPercent}% ओवरहेड है। स्क्रैप से ₹{scrapRecovery} की वसूली होती है। प्रभावी इकाई लागत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਉਤਪਾਦਨ ਬੈਚ ਵਿੱਚ ਸਮੱਗਰੀ ਲਾਗਤ ₹{rawMaterialCost}, ਮਜ਼ਦੂਰੀ ₹{labourCost}, ਪੈਕਿੰਗ ₹{packagingCost} ਅਤੇ ਪ੍ਰਾਈਮ ਕਾਸਟ 'ਤੇ {factoryOverheadPercent}% ਓਵਰਹੈੱਡ ਹੈ। ਸਕ੍ਰੈਪ ਤੋਂ ₹{scrapRecovery} ਮਿਲਦੇ ਹਨ ਅਤੇ {outputQuantity} ਵਰਤਣਯੋਗ ਇਕਾਈਆਂ ਬਣਦੀਆਂ ਹਨ। ਪ੍ਰਤੀ ਇਕਾਈ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "{outputQuantity} ਵਰਤਣਯੋਗ ਇਕਾਈਆਂ ਲਈ ਸਮੱਗਰੀ ₹{rawMaterialCost}, ਮਜ਼ਦੂਰੀ ₹{labourCost}, ਪੈਕਿੰਗ ₹{packagingCost} ਅਤੇ ਪ੍ਰਾਈਮ ਕਾਸਟ 'ਤੇ {factoryOverheadPercent}% ਓਵਰਹੈੱਡ ਹੈ। ਸਕ੍ਰੈਪ ਤੋਂ ₹{scrapRecovery} ਦੀ ਵਸੂਲੀ ਹੁੰਦੀ ਹੈ। ਪ੍ਰਭਾਵੀ ਇਕਾਈ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-169": {
+    "en": [
+      "Metal input costing ₹{totalInputCost} contains {inputQuantity} units. After {wastedQuantity} units are lost in cutting, the waste is sold for ₹{scrapRecovery}. Find the effective cost per usable unit.",
+      "A fabrication batch costs ₹{totalInputCost} for {inputQuantity} units of input. Cutting wastes {wastedQuantity} units, and scrap yields ₹{scrapRecovery}. What is the net effective cost of each usable unit?"
+    ],
+    "hi": [
+      "₹{totalInputCost} की धातु इनपुट में {inputQuantity} इकाइयाँ हैं। कटाई में {wastedQuantity} इकाइयाँ नष्ट होती हैं और स्क्रैप ₹{scrapRecovery} में बिकता है। प्रति उपयोगी इकाई प्रभावी लागत ज्ञात कीजिए।",
+      "फैब्रिकेशन बैच की लागत ₹{totalInputCost} है और इनपुट {inputQuantity} इकाइयाँ है। कटाई में {wastedQuantity} इकाइयाँ नष्ट होती हैं तथा स्क्रैप से ₹{scrapRecovery} मिलते हैं। प्रत्येक उपयोगी इकाई की शुद्ध प्रभावी लागत क्या है?"
+    ],
+    "pa": [
+      "₹{totalInputCost} ਦੀ ਧਾਤੂ ਇਨਪੁੱਟ ਵਿੱਚ {inputQuantity} ਇਕਾਈਆਂ ਹਨ। ਕਟਾਈ ਵਿੱਚ {wastedQuantity} ਇਕਾਈਆਂ ਨਸ਼ਟ ਹੁੰਦੀਆਂ ਹਨ ਅਤੇ ਸਕ੍ਰੈਪ ₹{scrapRecovery} ਵਿੱਚ ਵਿਕਦਾ ਹੈ। ਪ੍ਰਤੀ ਵਰਤਣਯੋਗ ਇਕਾਈ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "ਫੈਬਰਿਕੇਸ਼ਨ ਬੈਚ ਦੀ ਲਾਗਤ ₹{totalInputCost} ਹੈ ਅਤੇ ਇਨਪੁੱਟ {inputQuantity} ਇਕਾਈਆਂ ਹੈ। ਕਟਾਈ ਵਿੱਚ {wastedQuantity} ਇਕਾਈਆਂ ਨਸ਼ਟ ਹੁੰਦੀਆਂ ਹਨ ਅਤੇ ਸਕ੍ਰੈਪ ਤੋਂ ₹{scrapRecovery} ਮਿਲਦੇ ਹਨ। ਹਰ ਵਰਤਣਯੋਗ ਇਕਾਈ ਦੀ ਸ਼ੁੱਧ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-170": {
+    "en": [
+      "A bakery breaks even after selling {breakEvenQuantity} batches. Variable cost is ₹{variableCostPerUnit} per batch and selling price is ₹{sellingPricePerUnit}. Find the fixed cost.",
+      "At break-even, a bakery sells {breakEvenQuantity} batches at ₹{sellingPricePerUnit} each with variable cost ₹{variableCostPerUnit} per batch. What is the bakery's fixed cost?"
+    ],
+    "hi": [
+      "एक बेकरी {breakEvenQuantity} बैच बेचने पर ब्रेक-ईवन करती है। प्रति बैच परिवर्ती लागत ₹{variableCostPerUnit} और विक्रय मूल्य ₹{sellingPricePerUnit} है। स्थिर लागत ज्ञात कीजिए।",
+      "ब्रेक-ईवन पर बेकरी {breakEvenQuantity} बैच ₹{sellingPricePerUnit} प्रति बैच बेचती है और परिवर्ती लागत ₹{variableCostPerUnit} प्रति बैच है। बेकरी की स्थिर लागत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਬੇਕਰੀ {breakEvenQuantity} ਬੈਚ ਵੇਚਣ 'ਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਕਰਦੀ ਹੈ। ਪ੍ਰਤੀ ਬੈਚ ਬਦਲਦੀ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPricePerUnit} ਹੈ। ਸਥਿਰ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "ਬ੍ਰੇਕ-ਈਵਨ 'ਤੇ ਬੇਕਰੀ {breakEvenQuantity} ਬੈਚ ₹{sellingPricePerUnit} ਪ੍ਰਤੀ ਬੈਚ ਵੇਚਦੀ ਹੈ ਅਤੇ ਬਦਲਦੀ ਲਾਗਤ ₹{variableCostPerUnit} ਪ੍ਰਤੀ ਬੈਚ ਹੈ। ਬੇਕਰੀ ਦੀ ਸਥਿਰ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-171": {
+    "en": [
+      "A service business has fixed cost ₹{fixedCost} and breaks even after {breakEvenQuantity} subscriptions sold at ₹{sellingPricePerUnit} each. Find the variable cost per subscription.",
+      "A business reaches break-even at {breakEvenQuantity} subscriptions, each sold for ₹{sellingPricePerUnit}. If fixed cost is ₹{fixedCost}, what is the variable cost per subscription?"
+    ],
+    "hi": [
+      "एक सेवा व्यवसाय की स्थिर लागत ₹{fixedCost} है और वह {breakEvenQuantity} सदस्यताएँ ₹{sellingPricePerUnit} प्रति सदस्यता बेचकर ब्रेक-ईवन करता है। प्रति सदस्यता परिवर्ती लागत ज्ञात कीजिए।",
+      "व्यवसाय {breakEvenQuantity} सदस्यताओं पर ब्रेक-ईवन करता है, प्रत्येक की बिक्री ₹{sellingPricePerUnit} में होती है। यदि स्थिर लागत ₹{fixedCost} है, तो प्रति सदस्यता परिवर्ती लागत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਸੇਵਾ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ ਅਤੇ ਉਹ {breakEvenQuantity} ਸਬਸਕ੍ਰਿਪਸ਼ਨ ₹{sellingPricePerUnit} ਪ੍ਰਤੀ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਵੇਚ ਕੇ ਬ੍ਰੇਕ-ਈਵਨ ਕਰਦਾ ਹੈ। ਪ੍ਰਤੀ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਬਦਲਦੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "ਕਾਰੋਬਾਰ {breakEvenQuantity} ਸਬਸਕ੍ਰਿਪਸ਼ਨਾਂ 'ਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਕਰਦਾ ਹੈ, ਹਰ ਇੱਕ ਦੀ ਵਿਕਰੀ ₹{sellingPricePerUnit} ਵਿੱਚ ਹੁੰਦੀ ਹੈ। ਜੇ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ, ਤਾਂ ਪ੍ਰਤੀ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਬਦਲਦੀ ਲਾਗਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-172": {
+    "en": [
+      "A furniture maker has fixed cost ₹{fixedCost} and variable cost ₹{variableCostPerUnit} per unit. To sell {quantity} units and earn ₹{targetProfit}, what selling price per unit is required?",
+      "For {quantity} units, fixed cost is ₹{fixedCost}, variable cost is ₹{variableCostPerUnit} per unit, and target profit is ₹{targetProfit}. Find the required unit selling price."
+    ],
+    "hi": [
+      "एक फर्नीचर निर्माता की स्थिर लागत ₹{fixedCost} और प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} है। {quantity} इकाइयाँ बेचकर ₹{targetProfit} लाभ कमाने के लिए प्रति इकाई विक्रय मूल्य क्या होना चाहिए?",
+      "{quantity} इकाइयों के लिए स्थिर लागत ₹{fixedCost}, प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} और लक्ष्य लाभ ₹{targetProfit} है। आवश्यक प्रति इकाई विक्रय मूल्य ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਫਰਨੀਚਰ ਨਿਰਮਾਤਾ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਪ੍ਰਤੀ ਇਕਾਈ ਬਦਲਦੀ ਲਾਗਤ ₹{variableCostPerUnit} ਹੈ। {quantity} ਇਕਾਈਆਂ ਵੇਚ ਕੇ ₹{targetProfit} ਲਾਭ ਕਮਾਉਣ ਲਈ ਪ੍ਰਤੀ ਇਕਾਈ ਵਿਕਰੀ ਮੁੱਲ ਕਿੰਨਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ?",
+      "{quantity} ਇਕਾਈਆਂ ਲਈ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost}, ਪ੍ਰਤੀ ਇਕਾਈ ਬਦਲਦੀ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਟਾਰਗੇਟ ਲਾਭ ₹{targetProfit} ਹੈ। ਲੋੜੀਂਦਾ ਪ੍ਰਤੀ ਇਕਾਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-173": {
+    "en": [
+      "A retail business has fixed cost ₹{fixedCost} and contribution-margin ratio {contributionMarginPercent}%. Find the break-even revenue.",
+      "If fixed cost is ₹{fixedCost} and the contribution-margin ratio is {contributionMarginPercent}%, what sales revenue is required to break even?"
+    ],
+    "hi": [
+      "एक खुदरा व्यवसाय की स्थिर लागत ₹{fixedCost} और योगदान-मार्जिन अनुपात {contributionMarginPercent}% है। ब्रेक-ईवन राजस्व ज्ञात कीजिए।",
+      "यदि स्थिर लागत ₹{fixedCost} और योगदान-मार्जिन अनुपात {contributionMarginPercent}% है, तो ब्रेक-ईवन के लिए कितना बिक्री राजस्व चाहिए?"
+    ],
+    "pa": [
+      "ਇੱਕ ਰਿਟੇਲ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਯੋਗਦਾਨ-ਮਾਰਜਿਨ ਅਨੁਪਾਤ {contributionMarginPercent}% ਹੈ। ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ਪਤਾ ਕਰੋ।",
+      "ਜੇ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਯੋਗਦਾਨ-ਮਾਰਜਿਨ ਅਨੁਪਾਤ {contributionMarginPercent}% ਹੈ, ਤਾਂ ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਕਿੰਨੀ ਵਿਕਰੀ ਆਮਦਨ ਚਾਹੀਦੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-174": {
+    "en": [
+      "A business has fixed cost ₹{fixedCost} and break-even revenue ₹{breakEvenRevenue}. Find the contribution-margin ratio.",
+      "A firm breaks even at revenue ₹{breakEvenRevenue} with fixed cost ₹{fixedCost}. What is its contribution-margin percentage?"
+    ],
+    "hi": [
+      "एक व्यवसाय की स्थिर लागत ₹{fixedCost} और ब्रेक-ईवन राजस्व ₹{breakEvenRevenue} है। योगदान-मार्जिन अनुपात ज्ञात कीजिए।",
+      "एक फर्म ₹{breakEvenRevenue} के राजस्व पर ब्रेक-ईवन करती है और स्थिर लागत ₹{fixedCost} है। योगदान-मार्जिन प्रतिशत क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ। ਯੋਗਦਾਨ-ਮਾਰਜਿਨ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਫਰਮ ₹{breakEvenRevenue} ਦੀ ਆਮਦਨ 'ਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਕਰਦੀ ਹੈ ਅਤੇ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ। ਯੋਗਦਾਨ-ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-175": {
+    "en": [
+      "A cafe sells products in the fixed mix {productMix} and has fixed cost ₹{fixedCost}. Find the minimum number of complete mix bundles needed to break even.",
+      "The cafe's sales mix is {productMix}. With total fixed cost ₹{fixedCost}, how many full product-mix bundles must be sold for break even?"
+    ],
+    "hi": [
+      "एक कैफे उत्पादों को निश्चित मिश्रण {productMix} में बेचता है और उसकी स्थिर लागत ₹{fixedCost} है। ब्रेक-ईवन के लिए न्यूनतम कितने पूर्ण मिश्रण-बंडल बेचने होंगे?",
+      "कैफे का बिक्री मिश्रण {productMix} है। कुल स्थिर लागत ₹{fixedCost} होने पर ब्रेक-ईवन के लिए कितने पूर्ण उत्पाद-मिश्रण बंडल बेचने होंगे?"
+    ],
+    "pa": [
+      "ਇੱਕ ਕੈਫੇ ਉਤਪਾਦਾਂ ਨੂੰ ਨਿਸ਼ਚਿਤ ਮਿਸ਼ਰਣ {productMix} ਵਿੱਚ ਵੇਚਦਾ ਹੈ ਅਤੇ ਇਸਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ। ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਕਿੰਨੇ ਪੂਰੇ ਮਿਸ਼ਰਣ-ਬੰਡਲ ਵੇਚਣੇ ਪੈਣਗੇ?",
+      "ਕੈਫੇ ਦਾ ਵਿਕਰੀ ਮਿਸ਼ਰਣ {productMix} ਹੈ। ਕੁੱਲ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੋਣ 'ਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਕਿੰਨੇ ਪੂਰੇ ਉਤਪਾਦ-ਮਿਸ਼ਰਣ ਬੰਡਲ ਵੇਚਣੇ ਪੈਣਗੇ?"
+    ]
   }
 };
 
