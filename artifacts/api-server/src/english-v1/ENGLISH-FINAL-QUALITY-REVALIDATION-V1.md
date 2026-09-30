@@ -1,6 +1,6 @@
 # English Content — Final Quality Revalidation V1
 
-Status: `PHASE1_COMPLETE__CLOSURE_STATE_RECONCILED__NO_CONTENT_REOPENING_YET`
+Status: `FINAL_REVALIDATION_COMPLETE__ENG001_ENG013__CONTENT_CLOSED_V4__QUESTION_STUDIO_REVIEW_ONLY`
 
 Audit date: **2026-09-30**
 
@@ -258,3 +258,22 @@ Remediation:
 - a dedicated path-scoped workflow runs the 768-authority V4 editorial/surface-diversity audit, 30,000-seed soak and Question Studio integration test.
 
 The earlier V4 editorial remediation remains fully guarded: 384 newly added target words remain distinct from V3, stock sentence frames remain forbidden, normalized surface breadth remains enforced, and incorrect-usage framing diversity remains required. No authority IDs, target words, answer indices, sentence surfaces, difficulty labels or release permissions are changed by this phase.
+
+
+## Phase 17 — Whole-English final closure reconciliation
+
+Post-closure revalidation is complete across **ENG-001 through ENG-013**.
+
+Final reconciliation actions:
+- publish `ENGLISH-CONTENT-CLOSURE-AUDIT-V4.md` as the current whole-English lifecycle authority;
+- supersede the stale ENG-009 V3 scale of 48 passages / 268 blanks with the certified live inventory of **98 passages / 548 governed blanks**;
+- retain ENG-008 at 632 passages / 5,308 governed authorities;
+- certify ENG-010 at 450 authority sets, ENG-011 at 990 authority sets, ENG-012 at 450 authorities / 1,350 lexical surfaces, and ENG-013 at 768 authorities;
+- add a whole-English closure regression that checks all 13 registered English packages remain review-only and downstream-release locked;
+- require the current ENG-009 through ENG-013 approval authorities to remain human-approved while production release remains unauthorized.
+
+No volume expansion is introduced by this reconciliation.
+
+Final state:
+
+`CONTENT_CLOSED_V4__ENG001_ENG013__FINAL_REVALIDATION_COMPLETE__QUESTION_STUDIO_REVIEW_ONLY__DOWNSTREAM_RELEASE_LOCKED`
