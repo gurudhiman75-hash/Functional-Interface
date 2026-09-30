@@ -6,7 +6,7 @@
 
 ## Implemented foundation
 
-STAT-001 through STAT-014 are merged. The original permanent contracts cover STAT-QL-001 through STAT-QL-198; controlled-review depth additions now extend through STAT-QL-194 across STAT-007, STAT-011, STAT-012, and STAT-013. Package-level workflows for STAT-004 through STAT-014 passed. The STAT-001, STAT-002, and original STAT-003 package checks also passed.
+STAT-001 through STAT-014 are merged. The original permanent contracts cover STAT-QL-001 through STAT-QL-175. Controlled-review depth additions extend STAT-QL-176 through STAT-QL-198 across STAT-007 and STAT-011 through STAT-014. Package-level workflows for STAT-004 through STAT-014 passed. The STAT-001, STAT-002, and original STAT-003 package checks also passed.
 
 The review-only lifecycle remains in force: Question Bank writes, test/mock eligibility, localization, public publication, and production release are disabled.
 
@@ -36,7 +36,7 @@ The review-only lifecycle remains in force: Question Bank writes, test/mock elig
 ## Closure gates
 
 1. Resolve ownership for the remaining chart-selection/construction concepts.
-2. Continue depth review for remaining STAT-011 through STAT-014 gaps: broader inference families and diagnostics, additional ANOVA layouts/diagnostics, advanced time-series decomposition/forecasting, and weighted/multi-period index numbers; document accepted scope limits.
+2. Continue depth review for remaining STAT-011 through STAT-014 gaps: broader inference families and diagnostics, additional ANOVA layouts/diagnostics, advanced time-series decomposition/forecasting, and additional index-number methods; document accepted scope limits.
 3. Complete editorial and mathematical review of the representative generated questions and explanations.
-4. Rerun the relevant Statistics and Quant integration checks after the unrelated GEO/DSF blockers are resolved.
+4. Complete the current STAT-014 checks and run any remaining Statistics integration checks against the latest base.
 5. Keep learner-facing lifecycle paths locked until their separate approval and validation.
