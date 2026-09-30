@@ -1,21 +1,24 @@
 import { deterministicShuffle } from '../../knowledge-v1/deterministic';
 import { WGE_CORPUS, WGE_CP_TITLES, WGE_LANGUAGES, WGE_SOURCES, type WorldGeographyCpId } from '../../knowledge-v1/world-geography/corpus';
+import { WGE_VARIABLE_POOL_QUESTIONS_V1, WGE_VARIABLE_POOL_QL_IDS_V1 } from '../../knowledge-v1/world-geography/variable-pools-v1';
 import type { QuestionStudioEngineAdapter, QuestionStudioGenerationRequest, QuestionStudioPackageDefinition } from '../engine-types';
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 as lifecycle } from '../standard-lifecycle';
 
 const packageId = 'WGE-001';
 const runtimeMode = 'review-only';
 const cpIds = Object.keys(WGE_CP_TITLES) as WorldGeographyCpId[];
+const WGE_GENERATION_POOL = [...WGE_CORPUS, ...WGE_VARIABLE_POOL_QUESTIONS_V1];
 const packageIds = new Set([packageId, ...cpIds]);
 const locales = { en: 'en-IN', hi: 'hi-IN', pa: 'pa-IN' };
-const registrationAuthorityId = 'WGE-001-WORLD-GEOGRAPHY-AUTHORED-REVIEW-V1';
+const registrationAuthorityId = 'WGE-001-WORLD-GEOGRAPHY-QUESTION-STUDIO-REVIEW-V1';
 const normalize = (v: string | undefined) => (v ?? '').trim().toUpperCase();
 // All authored and localized checkpoints through CP043 have explicit user approval.
 const isAuthoringApproved = (cp: string) => Number(cp.slice(-3)) <= 43;
 
 function definition(cp?: WorldGeographyCpId): QuestionStudioPackageDefinition {
-  const rows = WGE_CORPUS.filter(q => !cp || q.cpId === cp);
-  const authoringReviewApproved = rows.every(q => isAuthoringApproved(q.cpId));
+  const rows = WGE_GENERATION_POOL.filter(q => !cp || q.cpId === cp);
+  const variableRows = rows.filter(q => q.generationSource);
+  const authoringReviewApproved = rows.every(q => q.authoringReviewApproved ?? isAuthoringApproved(q.cpId));
   return {
     engineId: 'knowledge-v1', packageId: cp ?? packageId, subject: 'Static GK',
     topic: 'World Geography', subtopic: cp ? WGE_CP_TITLES[cp] : 'World Geography',
@@ -36,6 +39,12 @@ function definition(cp?: WorldGeographyCpId): QuestionStudioPackageDefinition {
       // CP package aliases make chapter selection available in the standard
       // cockpit's existing package selector; they do not duplicate the corpus.
       corpusSharedWith: packageId, distinctKnowledgeCapacityIsNotPermutationCount: true,
+      variablePoolQuestionCount: rows.filter(q => q.generationSource).length,
+      variablePoolEnabled: rows.some(q => q.generationSource),
+      questionLanguageIds: [...new Set(rows.map(q => q.qlId).filter((id): id is string => Boolean(id)))],
+      variablePoolStatus: !variableRows.length ? 'NOT_CONFIGURED'
+        : variableRows.every(q => q.authoringReviewApproved) ? 'USER_APPROVED' : 'REVIEW_REQUIRED',
+      generationSources: [...new Set(rows.map(q => q.generationSource).filter((id): id is string => Boolean(id)))],
     },
   };
 }
@@ -51,13 +60,19 @@ function resolveSelection(request: QuestionStudioGenerationRequest) {
   if (!packageIds.has(requestedPackage)) throw new Error(`Unknown WGE package: ${requestedPackage}`);
   const selectedCps = new Set<string>();
   const selectedQuestions = new Set<string>();
+  const selectedQlIds = new Set<string>();
   if (requestedPackage !== packageId) selectedCps.add(requestedPackage);
   for (const raw of [request.canonicalProblemId, request.patternId, request.questionLanguageId]) {
     const selector = normalize(raw);
     if (!selector || selector === packageId) continue;
     if (cpIds.includes(selector as WorldGeographyCpId)) selectedCps.add(selector);
+    else if ((WGE_VARIABLE_POOL_QL_IDS_V1 as readonly string[]).includes(selector)) {
+      const familyItem = WGE_VARIABLE_POOL_QUESTIONS_V1.find(q => q.qlId === selector)!;
+      selectedQlIds.add(selector);
+      selectedCps.add(familyItem.cpId);
+    }
     else {
-      const q = WGE_CORPUS.find(q => q.id === selector);
+      const q = WGE_GENERATION_POOL.find(q => q.id === selector);
       if (!q) throw new Error(`Unknown WGE selector: ${selector}`);
       selectedQuestions.add(q.id); selectedCps.add(q.cpId);
     }
@@ -68,8 +83,8 @@ function resolveSelection(request: QuestionStudioGenerationRequest) {
     if (!cp) throw new Error(`Unknown WGE subtopic: ${subtopic}`);
     selectedCps.add(cp);
   }
-  if (selectedCps.size > 1 || selectedQuestions.size > 1) throw new Error('Conflicting WGE selectors');
-  return { requestedPackage, cp: [...selectedCps][0], questionId: [...selectedQuestions][0] };
+  if (selectedCps.size > 1 || selectedQuestions.size > 1 || selectedQlIds.size > 1) throw new Error('Conflicting WGE selectors');
+  return { requestedPackage, cp: [...selectedCps][0], questionId: [...selectedQuestions][0], qlId: [...selectedQlIds][0] };
 }
 
 export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapter = {
@@ -83,8 +98,8 @@ export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
     if (!['Mixed', 'Easy', 'Medium', 'Hard'].includes(difficulty)) throw new Error(`Unsupported WGE difficulty: ${difficulty}`);
     const count = request.count ?? 5;
     if (!Number.isInteger(count) || count < 1 || count > 50) throw new Error('WGE count must be an integer between 1 and 50');
-    const { requestedPackage, cp, questionId } = resolveSelection(request);
-    const candidates = WGE_CORPUS.filter(q => (!cp || q.cpId === cp) && (!questionId || q.id === questionId) && (difficulty === 'Mixed' || q.difficulty === difficulty));
+    const { requestedPackage, cp, questionId, qlId } = resolveSelection(request);
+    const candidates = WGE_GENERATION_POOL.filter(q => (!cp || q.cpId === cp) && (!questionId || q.id === questionId) && (!qlId || q.qlId === qlId) && (difficulty === 'Mixed' || q.difficulty === difficulty));
     if (!candidates.length) throw new Error('WGE selection contains no questions');
     if (count > candidates.length) throw new Error(`WGE cannot generate ${count} questions from ${candidates.length} candidates without repeats`);
     const seed = request.seed?.trim() || 'wge-world-v1';
@@ -101,15 +116,15 @@ export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         ...lifecycle, id: `${q.id}-${language}`, questionId: `${q.id}-${language}`,
         sourceQuestionId: q.id, canonicalItemId: q.id, canonicalPackageId: packageId,
         packageId: requestedPackage, cpId: q.cpId, canonicalProblemId: q.cpId,
-        patternId: q.cpId, subject: 'Static GK', topic: 'World Geography',
+        patternId: q.qlId ?? q.cpId, qlId: q.qlId, subject: 'Static GK', topic: 'World Geography',
         subtopic: WGE_CP_TITLES[q.cpId as WorldGeographyCpId], language, locale: locales[language],
         stem: l.stem, text: l.stem, options, correctIndex, correct: correctIndex,
         canonicalAnswer, answer: canonicalAnswer, explanation: l.explanation,
         difficulty: q.difficulty, difficultyLabel: q.difficulty, learningObjective: q.objective,
         sourceIds: [...q.sourceIds], sourceReferences: WGE_SOURCES.filter(s => q.sourceIds.includes(s.id)),
         registrationAuthorityId, registrationStatus: 'REGISTERED_REVIEW_ONLY',
-        authoringReviewApproved: isAuthoringApproved(q.cpId),
-        localizationStatus: isAuthoringApproved(q.cpId) ? 'USER_APPROVED' : 'REVIEW_REQUIRED', reviewOnly: true,
+        authoringReviewApproved: q.authoringReviewApproved ?? isAuthoringApproved(q.cpId),
+        localizationStatus: (q.authoringReviewApproved ?? isAuthoringApproved(q.cpId)) ? 'USER_APPROVED' : 'REVIEW_REQUIRED', reviewOnly: true,
         readOnly: true, runtimeRegistered: true, productionReleased: false,
         revisionPolicy: 'REVISE_SOURCE_CORPUS_AND_RELOCALIZE_ALL_LANGUAGES',
       };
@@ -118,10 +133,11 @@ export const knowledgeV1Wge001QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       ...lifecycle, engineId: 'knowledge-v1', packageId: requestedPackage,
       canonicalPackageId: packageId, runtimeMode, registrationAuthorityId,
       registrationStatus: 'REGISTERED_REVIEW_ONLY',
-      authoringReviewApproved: WGE_CORPUS.filter(q => !cp || q.cpId === cp).every(q => isAuthoringApproved(q.cpId)),
-      localizationStatus: WGE_CORPUS.filter(q => !cp || q.cpId === cp).every(q => isAuthoringApproved(q.cpId)) ? 'USER_APPROVED' : 'REVIEW_REQUIRED', language, locale: locales[language], difficulty,
+      authoringReviewApproved: WGE_GENERATION_POOL.filter(q => !cp || q.cpId === cp).every(q => q.authoringReviewApproved ?? isAuthoringApproved(q.cpId)),
+      localizationStatus: WGE_GENERATION_POOL.filter(q => !cp || q.cpId === cp).every(q => q.authoringReviewApproved ?? isAuthoringApproved(q.cpId)) ? 'USER_APPROVED' : 'REVIEW_REQUIRED', language, locale: locales[language], difficulty,
       cpId: cp ?? null, seed, requestedCount: count, candidateCount: candidates.length,
-      corpusQuestionCount: WGE_CORPUS.length, studentPublicationAuthorized: false,
+      corpusQuestionCount: WGE_CORPUS.length, generationPoolQuestionCount: WGE_GENERATION_POOL.length,
+      variablePoolQuestionCount: WGE_VARIABLE_POOL_QUESTIONS_V1.length, studentPublicationAuthorized: false,
     } };
   },
 };
