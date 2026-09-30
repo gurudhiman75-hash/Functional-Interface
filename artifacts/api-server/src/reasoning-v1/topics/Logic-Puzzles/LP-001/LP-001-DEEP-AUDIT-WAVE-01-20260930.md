@@ -51,6 +51,30 @@ Consequences included orphaning:
 - LP-QL-047 English route;
 - LP-QL-047 frozen Hindi/Punjabi route.
 
+## Additional reproduced live defects
+
+### QL047 standalone-question defect
+
+The V7/V8 QL047 Question Studio payload exposed only the counterfactual child stem. The original scenario and clues were not included in the learner-facing question text, even though they are required to solve the additional-condition query.
+
+Remediation:
+
+- English now includes scenario + all original clues + child stem;
+- Hindi/Punjabi now include localized scenario + localized clue list + child stem;
+- the clue heading is native (`शर्तें:` / `ਸ਼ਰਤਾਂ:`);
+- regression requires at least the original clue block to be present.
+
+### LP-006 projection discovery/routing defect
+
+The LP-006 projection capability used `packageId: LP-006`, colliding with the base LP-006 package in the global package registry. It could therefore be skipped during discovery. Package-only generation also was not recognized by the lower projection router.
+
+Remediation:
+
+- global capability identity is now `LP-006-PROJECTION`;
+- `LP-006` remains explicit base-package metadata;
+- package-only requests route to QL045–046;
+- shared-engine regression proves discovery and generation.
+
 ## Remediation
 
 The stable facade now aliases the current V8 implementation as the live exported API:
@@ -68,6 +92,9 @@ A new regression exercises the real shared generation engine, not only the local
 It verifies:
 
 - global discovery of `LP-CP04-COUNTERFACTUAL`;
+- global discovery of `LP-006-PROJECTION`;
+- package-only generation for both extension packages;
+- live V8 package discovery exactly matches all 47 permanent QLs;
 - permanent QL `LP-QL-047`;
 - supported languages `en / hi / pa`;
 - generation through the global shared engine;
