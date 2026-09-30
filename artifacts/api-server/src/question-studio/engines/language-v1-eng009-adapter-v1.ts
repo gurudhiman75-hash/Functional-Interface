@@ -52,7 +52,7 @@ function studioQuestion(q:any,cp:string,seed:string,extra:Record<string,unknown>
   options:[...q.options],correctIndex:q.correctOptionIndex,correct:q.correctOptionIndex,explanation:q.explanation,
   difficulty:difficultyLabel,difficultyLabel,
   registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:ENG009_HUMAN_APPROVAL_V1.authorityId,
-  humanReviewApproved:cp!=="ENG-009-CP006",authoringReviewApproved:cp!=="ENG-009-CP006",
+  humanReviewApproved:ENG009_HUMAN_APPROVAL_V1.humanReviewApproved,authoringReviewApproved:ENG009_HUMAN_APPROVAL_V1.humanReviewApproved,
   reviewOnly:true,questionStudioDiscoverable:true,questionStudioGenerationEnabled:true,runtimeRegistered:true,readOnly:true,
   revisionPolicy:"SOURCE_GENERATOR_ONLY",productionReleased:false,generationSeed:seed,...extra
  };
@@ -71,7 +71,7 @@ export const languageV1Eng009QuestionStudioAdapterV1:QuestionStudioEngineAdapter
   questionBankStatus:lifecycle.questionBankStatus,questionBankWritable:false,testEligibility:lifecycle.testEligibility,testEligible:false,
   mockTestEligible:false,publiclyPublishable:false,automaticStudentPublication:false,productionReleaseAuthorized:false,
   metadata:{registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:ENG009_HUMAN_APPROVAL_V1.authorityId,
-   approvedCpIds:[...ENG009_HUMAN_APPROVAL_V1.approvedCpIds],composerCpId:"ENG-009-CP006",composerApprovalPending:true,
+   approvedCpIds:[...ENG009_HUMAN_APPROVAL_V1.approvedCpIds],composerCpId:"ENG-009-CP006",composerApprovalPending:false,
    profiles:[...ENG009_CP006_PROFILES]}
  }];},
  async generate(r):Promise<QuestionStudioGenerationResult>{
@@ -86,7 +86,7 @@ export const languageV1Eng009QuestionStudioAdapterV1:QuestionStudioEngineAdapter
       sourceCpId:set.cpId,composerProfile:set.profile,setId:`${set.cpId}:${set.passageId}:${hash(setSeed).toString(16)}`,setQuestionIndex:j+1,setQuestionCount:set.questions.length
     })));
    }
-   return{questions,generationContext:{...lifecycle,engineId:"language-v1",packageId:ENG009_QUESTION_STUDIO_PACKAGE_ID_V1,cpSelection:"ENG-009-CP006",profile:profile??"DETERMINISTIC_MIXED",runtimeMode:"review-only",registrationAuthorityId:ENG009_HUMAN_APPROVAL_V1.authorityId,humanReviewApproved:false,reviewOnly:true,language:outputLanguage,seed:baseSeed,setCount:sets}};
+   return{questions,generationContext:{...lifecycle,engineId:"language-v1",packageId:ENG009_QUESTION_STUDIO_PACKAGE_ID_V1,cpSelection:"ENG-009-CP006",profile:profile??"DETERMINISTIC_MIXED",runtimeMode:"review-only",registrationAuthorityId:ENG009_HUMAN_APPROVAL_V1.authorityId,humanReviewApproved:ENG009_HUMAN_APPROVAL_V1.humanReviewApproved,reviewOnly:true,language:outputLanguage,seed:baseSeed,setCount:sets}};
   }
   const total=count(r.count),questions:Record<string,unknown>[]=[];
   const approvedCps=ENG009_HUMAN_APPROVAL_V1.approvedCpIds;
