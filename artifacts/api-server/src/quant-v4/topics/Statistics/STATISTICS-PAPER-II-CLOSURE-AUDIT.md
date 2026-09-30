@@ -14,7 +14,7 @@ The review-only lifecycle remains in force: Question Bank writes, test/mock elig
 
 | Paper II area | Current owner | Audit finding |
 |---|---|---|
-| Collection, classification, presentation | STAT-004; DI-009/DI-010 for specified chart tasks | Data collection and tabulation are covered. The boundary for chart selection and construction beyond the DI-owned histogram/frequency-polygon tasks is not explicitly resolved. |
+| Collection, classification, presentation | STAT-004; DI-009/DI-010 for specified chart tasks | Ownership is explicit: STAT-004 handles collection, classification, tabulation and raw frequency tables. DI-001/002 own table-based DI; DI-003 grouped bars; DI-004 line charts; DI-005 pie charts; DI-009 histograms; DI-010 frequency polygons; DI-011 mixed charts. STAT-004 does not duplicate those chart-reading or construction tasks. |
 | Central tendency and partition values | STAT-001, STAT-003, STAT-005 | Raw and selected frequency/grouped measures plus quartiles, deciles, and percentiles have owners. |
 | Dispersion | STAT-002, STAT-003, STAT-005 | Standard deviation and selected absolute/relative measures have owners. |
 | Moments, skewness, kurtosis | STAT-006 | Foundation contracts are present. |
@@ -31,12 +31,12 @@ The review-only lifecycle remains in force: Question Bank writes, test/mock elig
 
 - STAT-004's registry marks its 15 English contracts as certified and English-review approved. Its representative `REVIEW.md` previously said permanent QL numbering was not assigned; that stale metadata is corrected in this change.
 - The representative review files for STAT-005 through STAT-014 are still marked as awaiting editorial approval. Structural checks found four options, a keyed answer, and an explanation for each listed question, with no duplicate stems within each file. This is not a substitute for editorial approval or full mathematical/content review.
-- The STAT-003 restoration workflow's deterministic proof passed, but its Question Studio integration step stopped at an unrelated GEO-IND-001 content-closure failure. STAT-007 multiple regression, STAT-011 inference depth, and STAT-012 replicated ANOVA updates passed the full 220-section Quant real-exam simulation and their package/profile/learner-surface checks. STAT-013's time-series extension and STAT-014's multi-period index extension are undergoing the same checks. Unrelated failures in older audit runs should not be treated as current blockers.
+- The STAT-003 restoration workflow's deterministic proof passed, but its Question Studio integration step stopped at an unrelated GEO-IND-001 content-closure failure. STAT-007 multiple regression, STAT-011 inference depth, STAT-012 replicated ANOVA, STAT-013 time-series depth, and STAT-014 multi-period index updates all passed their package checks, shared-profile and learner-surface checks, plus the 220-section Quant simulation. Unrelated failures in older audit runs should not be treated as current blockers.
 
 ## Closure gates
 
-1. Resolve ownership for the remaining chart-selection/construction concepts.
+1. Chart ownership is mapped to DI-001–005, DI-009–011; confirm the DI chapter's exhaustive audit remains aligned with this boundary and avoid duplicate STAT contracts.
 2. Continue depth review for remaining STAT-011 through STAT-014 gaps: broader inference families and diagnostics, additional ANOVA layouts/diagnostics, advanced time-series decomposition/forecasting, and additional index-number methods; document accepted scope limits.
 3. Complete editorial and mathematical review of the representative generated questions and explanations.
-4. Complete the current STAT-014 checks and run any remaining Statistics integration checks against the latest base.
+4. The latest Statistics depth wave passed its focused and Quant-wide integration checks; rerun them when further content changes are made.
 5. Keep learner-facing lifecycle paths locked until their separate approval and validation.
