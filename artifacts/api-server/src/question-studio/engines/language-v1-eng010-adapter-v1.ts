@@ -1,3 +1,4 @@
+import{ENG010_HUMAN_APPROVAL_V1}from"../../english-v1/chapters/para-jumbles/ENG-010/eng-010-human-approval-v1";
 import{ENG010_CP_IDS_V1}from"../../english-v1/chapters/para-jumbles/ENG-010/eng-010-authorities-v1";
 import{generateEng010Cp005SetV1,generateEng010QuestionV1}from"../../english-v1/chapters/para-jumbles/ENG-010/eng-010-v1";
 import type{QuestionStudioEngineAdapter,QuestionStudioGenerationRequest,QuestionStudioGenerationResult,QuestionStudioLanguage}from"../engine-types";
@@ -37,8 +38,8 @@ function studioQuestion(q:any,cp:string,seed:string,extra:Record<string,unknown>
   text:[q.stem,sentenceText,q.prompt,...q.options.map((o:string,i:number)=>`${String.fromCharCode(65+i)}. ${o}`)].join("\n"),
   options:[...q.options],correctIndex:q.correctOptionIndex,correct:q.correctOptionIndex,explanation:q.explanation,explanationEmphasis:q.explanationEmphasis,
   difficulty:difficultyLabel,difficultyLabel,setId:q.metadata.setId,topicLabel:q.metadata.topic,correctOrder:q.metadata.correctOrder,
-  registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:"ENG-010-IMPLEMENTATION-V1",
-  humanReviewApproved:false,authoringReviewApproved:false,reviewOnly:true,questionStudioDiscoverable:true,
+  registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:ENG010_HUMAN_APPROVAL_V1.authorityId,
+  humanReviewApproved:ENG010_HUMAN_APPROVAL_V1.humanReviewApproved,authoringReviewApproved:ENG010_HUMAN_APPROVAL_V1.humanReviewApproved,reviewOnly:true,questionStudioDiscoverable:true,
   questionStudioGenerationEnabled:true,runtimeRegistered:true,readOnly:true,revisionPolicy:"SOURCE_GENERATOR_ONLY",
   productionReleased:false,generationSeed:seed,...extra
  };
@@ -56,7 +57,7 @@ export const languageV1Eng010QuestionStudioAdapterV1:QuestionStudioEngineAdapter
   reviewSurfaceRequired:true,manualApprovalRequired:true,questionBankStatus:lifecycle.questionBankStatus,questionBankWritable:false,
   testEligibility:lifecycle.testEligibility,testEligible:false,mockTestEligible:false,publiclyPublishable:false,
   automaticStudentPublication:false,productionReleaseAuthorized:false,
-  metadata:{registrationStatus:"REGISTERED_REVIEW_ONLY",authoritySets:450,composerCpId:"ENG-010-CP005",humanApprovalPending:true}
+  metadata:{registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:ENG010_HUMAN_APPROVAL_V1.authorityId,authoritySets:ENG010_HUMAN_APPROVAL_V1.approvedAuthoritySets,composerCpId:"ENG-010-CP005",humanApprovalPending:false,approvedCpIds:[...ENG010_HUMAN_APPROVAL_V1.approvedCpIds]}
  }];},
  async generate(r):Promise<QuestionStudioGenerationResult>{
   if(!isEng010QuestionStudioRequestV1(r))throw new Error("language-v1 ENG-010 adapter requires ENG-010 package or CP selector");
@@ -73,6 +74,6 @@ export const languageV1Eng010QuestionStudioAdapterV1:QuestionStudioEngineAdapter
     questions.push(studioQuestion(q,cp,seed));
    }
   }
-  return{questions,generationContext:{...lifecycle,engineId:"language-v1",packageId:ENG010_QUESTION_STUDIO_PACKAGE_ID_V1,cpSelection:forced??"DETERMINISTIC_ACROSS_CP001..CP004",runtimeMode:"review-only",humanReviewApproved:false,reviewOnly:true,language:outputLanguage,seed:baseSeed,count:total}};
+  return{questions,generationContext:{...lifecycle,engineId:"language-v1",packageId:ENG010_QUESTION_STUDIO_PACKAGE_ID_V1,cpSelection:forced??"DETERMINISTIC_ACROSS_CP001..CP004",runtimeMode:"review-only",humanReviewApproved:ENG010_HUMAN_APPROVAL_V1.humanReviewApproved,reviewOnly:true,language:outputLanguage,seed:baseSeed,count:total}};
  }
 };

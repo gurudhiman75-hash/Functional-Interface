@@ -40,6 +40,8 @@ for(const set of ENG010_ACTIVE_SETS_V2){
  assert.equal(q.metadata.reviewOnly,true);
  assert.ok(q.explanation.length>140,"ENG-010 explanations should be simple and sufficiently detailed");
  assert.ok(Array.isArray(q.explanationEmphasis)&&q.explanationEmphasis.length>0,"ENG-010 explanations should expose emphasis cues");
+ const linked=[...q.explanation.matchAll(/links back to the previous idea: "([^"]+)"/g)].map(m=>m[1]!);
+ for(const sentence of linked)assert.match(sentence.trim(),/^(This|These|Such|It|They)\b/, `${set.id} backward-reference cue must be sentence-initial`);
  const identity=Array.from({length:q.sentences.length},(_,i)=>String.fromCharCode(65+i)).join("-");
  assert.notEqual(q.metadata.correctOrder,identity,"Displayed ENG-010 question must not leak an identity answer order");
 }

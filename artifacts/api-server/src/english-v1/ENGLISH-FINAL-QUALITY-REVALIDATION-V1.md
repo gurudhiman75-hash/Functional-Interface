@@ -185,3 +185,22 @@ Closure actions:
 - Question Bank writes, test/mock eligibility, public publication, automatic learner publication and production release remain locked.
 
 ENG-009 is therefore content-closed again under Question Studio review-only lifecycle.
+
+
+## Phase 13 — ENG-010 Para Jumbles final quality revalidation
+
+The 450-set ENG-010 bank remains structurally saturated and no new content volume is justified. Revalidation found three concrete post-closure defects in active integration/generation surfaces:
+
+1. **Stale Question Studio approval state.** The chapter-level closure authority records ENG-010 as an approved saturation set, but the live adapter still marked every generated question and package metadata as human-approval pending.
+2. **Broken Question Studio regression source.** The integration test contained a literal `\n` token between assertions, causing a syntax failure if compiled.
+3. **Overbroad explanation-link classification.** The explanation helper labelled a sentence as “links back to the previous idea” whenever words such as `this`, `these`, `such`, `it` or `they` appeared anywhere in the sentence. This could misdescribe ordinary sentences that merely contained one of those words internally.
+
+Remediation:
+- a dedicated `ENG-010-SATURATION-HUMAN-APPROVED-V1` authority now records the approved CP001–CP005 / 450-set review-only state;
+- Question Studio now exposes the approved human/editorial status while keeping Question Bank, test/mock, public and production release locked;
+- the integration test syntax is repaired and now asserts the approved lifecycle;
+- backward-reference explanation cues are limited to sentences that actually begin with a referential opener;
+- the 450-set audit now verifies that every emitted “links back” cue corresponds to a sentence beginning with `This / These / Such / It / They`;
+- a dedicated path-scoped workflow runs the 450-set structural audit, 10,000-seed soak and Question Studio integration test.
+
+No authority sets, logical orders, paragraph signatures, difficulty labels or production-release permissions are changed.
