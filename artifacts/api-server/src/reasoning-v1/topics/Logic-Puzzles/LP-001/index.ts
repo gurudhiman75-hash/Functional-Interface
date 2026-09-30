@@ -208,8 +208,20 @@ function cluesAreEssential(people: readonly PersonId[], clues: readonly Clue[]):
 function chooseClues(people: readonly PersonId[], hidden: Assignment, profile: ScenarioProfile, difficultyBand: DifficultyBand, random: () => number): Clue[] {
   const all = enumerateAssignments(people); const candidates = buildCandidateClues(people, hidden, profile, random);
   const quotaSets: Array<readonly ClueKind[]> = difficultyBand === "Hard"
-    ? [["SAME_GROUP", "DIFFERENT_GROUPS", "NOT_IN_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS"], ["SAME_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS", "NOT_IN_GROUP"]]
-    : [["SAME_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS"], ["SAME_GROUP", "SAME_GROUP", "NOT_IN_GROUP"]];
+    ? [
+        ["SAME_GROUP", "DIFFERENT_GROUPS", "NOT_IN_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS"],
+        ["SAME_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS", "NOT_IN_GROUP"],
+        ["SAME_GROUP", "SAME_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS", "NOT_IN_GROUP"],
+        ["DIFFERENT_GROUPS", "DIFFERENT_GROUPS", "SAME_GROUP", "NOT_IN_GROUP", "NOT_IN_GROUP"],
+        ["NOT_IN_GROUP", "SAME_GROUP", "NOT_IN_GROUP", "SAME_GROUP", "DIFFERENT_GROUPS"],
+      ]
+    : [
+        ["SAME_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS"],
+        ["SAME_GROUP", "SAME_GROUP", "NOT_IN_GROUP"],
+        ["DIFFERENT_GROUPS", "NOT_IN_GROUP", "SAME_GROUP"],
+        ["NOT_IN_GROUP", "DIFFERENT_GROUPS", "SAME_GROUP", "NOT_IN_GROUP"],
+        ["SAME_GROUP", "DIFFERENT_GROUPS", "DIFFERENT_GROUPS"],
+      ];
   for (const quota of shuffle(quotaSets, random)) {
     let survivors = all; const chosen: Clue[] = [];
     for (const kind of quota) {
