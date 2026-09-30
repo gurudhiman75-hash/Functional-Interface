@@ -26,6 +26,12 @@ import {
   runPnlCp006DynamicPipeline,
 } from "./CP-006/cp006-dynamic-runtime";
 import { listPnlAuthoredStemVariantQlIds } from "./pnl-authored-stem-variants";
+import cp001EditorialJson from "./CP-001/editorial-content.en.json";
+import cp002EditorialJson from "./CP-002/editorial-content.en.json";
+import cp003EditorialJson from "./CP-003/editorial-content.en.json";
+import cp004EditorialJson from "./CP-004/editorial-content.en.json";
+import cp005EditorialJson from "./CP-005/editorial-content.en.json";
+import cp006EditorialJson from "./CP-006/editorial-content.en.json";
 
 type ReviewPackage = Readonly<{
   archetypeId: string;
@@ -142,6 +148,29 @@ const runtimes: readonly Runtime[] = [
     run: runPnlCp006DynamicPipeline as Runtime["run"],
   },
 ];
+
+const englishEditorialLibraries = [
+  cp001EditorialJson,
+  cp002EditorialJson,
+  cp003EditorialJson,
+  cp004EditorialJson,
+  cp005EditorialJson,
+  cp006EditorialJson,
+] as const;
+
+const editorialRepresentationByQl = new Map<string, string>();
+for (const library of englishEditorialLibraries) {
+  for (const [qlId, rawEntry] of Object.entries(library.entries)) {
+    const entry = rawEntry as { stem: { blocks: readonly { type: string }[] } };
+    const special = entry.stem.blocks
+      .map((block) => block.type)
+      .filter((type) => type !== "paragraph");
+    editorialRepresentationByQl.set(
+      qlId,
+      special.length ? [...new Set(special)].join("+").toUpperCase() : "PARAGRAPH",
+    );
+  }
+}
 
 const samplesPerQl = 3;
 const candidateSeedsPerQl = 48;
@@ -777,15 +806,16 @@ const structuralDiversityInventory = [...candidateDiversityByQl.values()]
   .map((entry) => {
     const singleSkeleton = entry.normalizedCandidateStemCount === 1;
     const authoredRuntimeVariants = authoredStemVariantQlIds.has(entry.qlId);
-    const richRepresentation = entry.representations.some(
-      (representation) => representation !== "PARAGRAPH",
-    );
+    const editorialRepresentation =
+      editorialRepresentationByQl.get(entry.qlId) ?? "PARAGRAPH";
+    const richRepresentation = editorialRepresentation !== "PARAGRAPH";
     return {
       ...entry,
       singleSkeleton,
       lowExactVariety: entry.exactCandidateStemCount < 8,
       fixedAnswer: fixedAnswerQls.includes(entry.qlId),
       authoredRuntimeVariants,
+      editorialRepresentation,
       richRepresentation,
       pendingStructuralReview:
         singleSkeleton && !authoredRuntimeVariants && !richRepresentation,
@@ -1066,7 +1096,7 @@ const structuralDiversityMarkdown = [
   "| QL | CP | CP-runtime structures | Exact stems | Answer variants | Authored standalone variants | Rich representation | Pending review |",
   "|---|---|---:|---:|---:|---|---|---|",
   ...structuralDiversityInventory.map((entry) =>
-    `| ${entry.qlId} | ${entry.cpId} | ${entry.normalizedCandidateStemCount} | ${entry.exactCandidateStemCount} | ${entry.candidateAnswerCount} | ${entry.authoredRuntimeVariants ? "Yes" : "No"} | ${entry.richRepresentation ? entry.representations.join("+") : "No"} | ${entry.pendingStructuralReview ? "Yes" : "No"} |`,
+    `| ${entry.qlId} | ${entry.cpId} | ${entry.normalizedCandidateStemCount} | ${entry.exactCandidateStemCount} | ${entry.candidateAnswerCount} | ${entry.authoredRuntimeVariants ? "Yes" : "No"} | ${entry.richRepresentation ? entry.editorialRepresentation : "No"} | ${entry.pendingStructuralReview ? "Yes" : "No"} |`,
   ),
   "",
   "## Review rules",
