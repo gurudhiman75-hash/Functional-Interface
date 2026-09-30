@@ -310,14 +310,14 @@ function regionName(mask: number, l: L): string {
 function svg(r: readonly number[], c: Context, l: L): string {
   // These fixed, tested outlines give each of the eight membership masks its own readable interior point.
   const points: readonly (readonly [number, number])[] = [
-    [604, 368],
-    [401, 75],
-    [128, 182],
-    [497, 199],
-    [271, 340],
-    [302, 92],
-    [195, 258],
-    [324, 217],
+    [604, 438],
+    [401, 145],
+    [128, 252],
+    [497, 269],
+    [271, 410],
+    [302, 162],
+    [195, 328],
+    [324, 287],
   ];
   const names = c.sets.map((x) => x[l]);
   const labels = [
@@ -325,7 +325,7 @@ function svg(r: readonly number[], c: Context, l: L): string {
     `Rectangle = ${names[1]}`,
     `Triangle = ${names[2]}`,
   ];
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 430" role="img" aria-label="Counts in circle, triangle and rectangle regions"><rect x="4" y="4" width="632" height="422" rx="10" fill="#fff" stroke="#b8c3cf"/><rect x="76" y="130" width="499" height="174" fill="#d9edf7" fill-opacity=".34" stroke="#7b4ab5" stroke-width="3"/><polygon points="304,25 64,363 538,393" fill="#f7e9c8" fill-opacity=".3" stroke="#d28b21" stroke-width="3"/><circle cx="397" cy="167" r="175" fill="#d4e9d3" fill-opacity=".3" stroke="#25845f" stroke-width="3"/><g font-family="sans-serif" font-size="13" fill="#152536"><text x="8" y="23">${labels[0]}</text><text x="8" y="42">${labels[1]}</text><text x="8" y="61">${labels[2]}</text></g><g font-family="sans-serif" font-size="19" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#152536">${r.map((v, m) => `<text x="${points[m]![0]}" y="${points[m]![1]}" data-mask="${m}">${v}</text>`).join("")}</g></svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-label="Counts in circle, triangle and rectangle regions"><rect x="4" y="4" width="632" height="492" rx="10" fill="#fff" stroke="#b8c3cf"/><rect x="76" y="200" width="499" height="174" fill="#d9edf7" fill-opacity=".34" stroke="#7b4ab5" stroke-width="3"/><polygon points="304,95 64,433 538,463" fill="#f7e9c8" fill-opacity=".3" stroke="#d28b21" stroke-width="3"/><circle cx="397" cy="237" r="175" fill="#d4e9d3" fill-opacity=".3" stroke="#25845f" stroke-width="3"/><g font-family="sans-serif" font-size="13" fill="#152536"><text x="8" y="23">${labels[0]}</text><text x="8" y="42">${labels[1]}</text><text x="8" y="61">${labels[2]}</text></g><g font-family="sans-serif" font-size="19" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#152536">${r.map((v, m) => `<text x="${points[m]![0]}" y="${points[m]![1]}" data-mask="${m}">${v}</text>`).join("")}</g></svg>`;
 }
 function stem(c: Context, q: (typeof QUESTIONS)[number], l: L): string {
   const title =

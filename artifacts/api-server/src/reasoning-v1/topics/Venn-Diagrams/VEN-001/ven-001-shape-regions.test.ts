@@ -51,12 +51,12 @@ for (const q of result.questions) {
     const x = Number(xText),
       y = Number(yText),
       mask = Number(maskText);
-    const inCircle = (x - 397) ** 2 + (y - 167) ** 2 < 175 ** 2;
-    const inRectangle = x > 76 && x < 575 && y > 130 && y < 304;
+    const inCircle = (x - 397) ** 2 + (y - 237) ** 2 < 175 ** 2;
+    const inRectangle = x > 76 && x < 575 && y > 200 && y < 374;
     const [a, b, c] = [
-      [304, 25],
-      [64, 363],
-      [538, 393],
+      [304, 95],
+      [64, 433],
+      [538, 463],
     ] as const;
     const cross = (p: readonly number[], q: readonly number[]) =>
       (x - q[0]!) * (p[1]! - q[1]!) - (p[0]! - q[0]!) * (y - q[1]!);
@@ -94,9 +94,9 @@ for (const q of result.questions) {
       segmentDistance(point, c, a),
     );
     const rectangleClearance = inRectangle
-      ? Math.min(x - 76, 575 - x, y - 130, 304 - y)
-      : Math.hypot(Math.max(76 - x, 0, x - 575), Math.max(130 - y, 0, y - 304));
-    const circleClearance = Math.abs(Math.hypot(x - 397, y - 167) - 175);
+      ? Math.min(x - 76, 575 - x, y - 200, 374 - y)
+      : Math.hypot(Math.max(76 - x, 0, x - 575), Math.max(200 - y, 0, y - 374));
+    const circleClearance = Math.abs(Math.hypot(x - 397, y - 237) - 175);
     assert.ok(
       Math.min(triangleClearance, rectangleClearance, circleClearance) >= 32,
       `region ${mask} number label must stay at least 32 px from shape boundaries`,
