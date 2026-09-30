@@ -290,7 +290,12 @@ for (const runtime of runtimes) {
 }
 
 for (const runtime of runtimes) {
-  assert.ok(contextFamiliesByCp.get(runtime.cpId)!.size >= 2, runtime.cpId + ": fewer than two distinct context families across all QLs and seeds");
+  const expectedBreadth: Record<string, number> = {
+    "PNL-CP-001": 36, "PNL-CP-002": 34, "PNL-CP-003": 24,
+    "PNL-CP-004": 26, "PNL-CP-005": 29, "PNL-CP-006": 37,
+  };
+  const minimum = Math.ceil(expectedBreadth[runtime.cpId]! * 0.8);
+  assert.ok(contextFamiliesByCp.get(runtime.cpId)!.size >= minimum, runtime.cpId + ": scenario pool has regressed below " + minimum + " distinct context families");
 }
 
 assert.equal(generatedPackages, 4464, "PNL-001 audit did not generate all 4,464 packages.");
