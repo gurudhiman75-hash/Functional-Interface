@@ -1,6 +1,6 @@
 # Statistics — STAT-009 Random Variables and Probability Distributions Review V1
 
-**Status:** English review candidate; awaiting editorial approval.
+**Status:** English review approved on 2026-09-30.
 **Profiles:** SSC CGL Tier II and JSO. **Lifecycle:** controlled review only.
 
 ## STAT-QL-096 — Probability mass function normalization
@@ -199,6 +199,8 @@ D. 0.12
 **Explanation:** From the table, E[X] = (4+3)/10 = 0.7 and E[Y] = (1+3)/10 = 0.4. Also E[XY] = 3/10 = 0.3. Hence Cov(X,Y) = E[XY]−E[X]E[Y] = 0.3−(0.7×0.4) = 0.02.
 
 ## Review checkpoints
+
+- Editorial approval recorded on 2026-09-30. Diversity and pool expansion are deferred to a later pass.
 
 - Confirm the discrete distributions state how their probabilities are obtained.
 - Check binomial, Poisson, normal, exponential, and joint-table conventions.
