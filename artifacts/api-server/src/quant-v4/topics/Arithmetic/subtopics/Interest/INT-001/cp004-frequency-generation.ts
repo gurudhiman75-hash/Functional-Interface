@@ -90,8 +90,7 @@ function nominalRatePoolFor(
   if (qlId === "INT-QL-077") {
     if (frequency === 4) return Object.freeze([rat(40)]);
     return Object.freeze([
-      rat(4), rat(6), rat(8), rat(10), rat(12), rat(14), rat(16),
-      rat(18), rat(20), rat(22), rat(24), rat(26), rat(28), rat(30),
+      rat(4), rat(6), rat(8), rat(10), rat(12), rat(16), rat(20), rat(24), rat(30),
     ]);
   }
   if (["INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(qlId)) return Object.freeze([rat(10), rat(20), rat(25)]);
