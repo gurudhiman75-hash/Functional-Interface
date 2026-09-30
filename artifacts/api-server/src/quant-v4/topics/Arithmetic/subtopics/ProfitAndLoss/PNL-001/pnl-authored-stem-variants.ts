@@ -351,6 +351,118 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਇੱਕ ਫਰਨੀਚਰ ਸੈੱਟ ਇਨ੍ਹਾਂ ਮੁੜ-ਵਿਕਰੀ ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ: {stages}। ਪਹਿਲੀ ਖਰੀਦ ਤੋਂ ਅੰਤਿਮ ਵਿਕਰੀ ਤੱਕ ਕੁੱਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
       "ਫਰਨੀਚਰ ਸੈੱਟ ਦੀ ਪੂਰੀ ਵਿਕਰੀ ਲੜੀ {stages} ਹੈ। ਪੂਰੀ ਲੜੀ ਵਿੱਚ ਸ਼ੁੱਧ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੈ?"
     ]
+  },
+  "PNL-QL-101": {
+    "en": [
+      "A medicine consignment passes through three sales at {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection}, and {thirdRatePercent}% {thirdDirection}. Find the overall profit or loss percentage from the manufacturer's original cost.",
+      "A manufacturer, distributor and stockist sell the same medicine lot successively at {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} and {thirdRatePercent}% {thirdDirection}. What is the net percentage result?"
+    ],
+    "hi": [
+      "एक दवा खेप तीन बिक्री चरणों से गुजरती है: {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} और {thirdRatePercent}% {thirdDirection}। निर्माता की मूल लागत से कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "निर्माता, वितरक और स्टॉकिस्ट एक ही दवा खेप को क्रमशः {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} और {thirdRatePercent}% {thirdDirection} पर बेचते हैं। शुद्ध प्रतिशत परिणाम क्या है?"
+    ],
+    "pa": [
+      "ਇੱਕ ਦਵਾਈ ਖੇਪ ਤਿੰਨ ਵਿਕਰੀ ਪੜਾਅਾਂ ਵਿੱਚੋਂ ਲੰਘਦੀ ਹੈ: {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} ਅਤੇ {thirdRatePercent}% {thirdDirection}। ਨਿਰਮਾਤਾ ਦੀ ਮੂਲ ਲਾਗਤ ਤੋਂ ਕੁੱਲ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਨਿਰਮਾਤਾ, ਡਿਸਟ੍ਰੀਬਿਊਟਰ ਅਤੇ ਸਟਾਕਿਸਟ ਇੱਕੋ ਦਵਾਈ ਖੇਪ ਨੂੰ ਲਗਾਤਾਰ {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} ਅਤੇ {thirdRatePercent}% {thirdDirection} 'ਤੇ ਵੇਚਦੇ ਹਨ। ਸ਼ੁੱਧ ਪ੍ਰਤੀਸ਼ਤ ਨਤੀਜਾ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-102": {
+    "en": [
+      "An industrial pump is bought for ₹{initialCostPrice} and reaches the customer for ₹{finalSellingPrice}. With known stages {knownStages}, find the missing {missingDirection} percentage.",
+      "A pump starts at ₹{initialCostPrice} and ends at ₹{finalSellingPrice}. All resale stages except one are {knownStages}; the missing stage is a {missingDirection}. Determine its percentage."
+    ],
+    "hi": [
+      "एक औद्योगिक पंप ₹{initialCostPrice} में खरीदा जाता है और ग्राहक तक ₹{finalSellingPrice} में पहुँचता है। ज्ञात चरण {knownStages} हैं। लापता {missingDirection} प्रतिशत ज्ञात कीजिए।",
+      "एक पंप की प्रारंभिक कीमत ₹{initialCostPrice} और अंतिम कीमत ₹{finalSellingPrice} है। एक को छोड़कर सभी बिक्री चरण {knownStages} हैं; लापता चरण {missingDirection} है। उसका प्रतिशत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਉਦਯੋਗਿਕ ਪੰਪ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਗਾਹਕ ਤੱਕ ₹{finalSellingPrice} ਵਿੱਚ ਪਹੁੰਚਦਾ ਹੈ। ਜਾਣੇ-ਪਛਾਣੇ ਪੜਾਅ {knownStages} ਹਨ। ਗੁੰਮ {missingDirection} ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਪੰਪ ਦੀ ਸ਼ੁਰੂਆਤੀ ਕੀਮਤ ₹{initialCostPrice} ਅਤੇ ਅੰਤਿਮ ਕੀਮਤ ₹{finalSellingPrice} ਹੈ। ਇੱਕ ਤੋਂ ਇਲਾਵਾ ਸਾਰੇ ਵਿਕਰੀ ਪੜਾਅ {knownStages} ਹਨ; ਗੁੰਮ ਪੜਾਅ {missingDirection} ਹੈ। ਇਸਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-103": {
+    "en": [
+      "A tile consignment starts at ₹{initialCostPrice} and is finally sold for ₹{finalSellingPrice}. Given the known transfers {knownStages}, determine the missing {missingDirection} percentage.",
+      "The initial and final prices of a tile consignment are ₹{initialCostPrice} and ₹{finalSellingPrice}. The known resale stages are {knownStages}; find the rate of the missing {missingDirection} stage."
+    ],
+    "hi": [
+      "एक टाइल खेप की प्रारंभिक कीमत ₹{initialCostPrice} और अंतिम विक्रय मूल्य ₹{finalSellingPrice} है। ज्ञात स्थानांतरण {knownStages} हैं। लापता {missingDirection} प्रतिशत ज्ञात कीजिए।",
+      "टाइल खेप का आरंभिक मूल्य ₹{initialCostPrice} और अंतिम मूल्य ₹{finalSellingPrice} है। ज्ञात पुनर्विक्रय चरण {knownStages} हैं; लापता {missingDirection} चरण की दर ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਟਾਈਲ ਖੇਪ ਦੀ ਸ਼ੁਰੂਆਤੀ ਕੀਮਤ ₹{initialCostPrice} ਅਤੇ ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ₹{finalSellingPrice} ਹੈ। ਜਾਣੇ-ਪਛਾਣੇ ਟ੍ਰਾਂਸਫਰ {knownStages} ਹਨ। ਗੁੰਮ {missingDirection} ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਟਾਈਲ ਖੇਪ ਦਾ ਸ਼ੁਰੂਆਤੀ ਮੁੱਲ ₹{initialCostPrice} ਅਤੇ ਅੰਤਿਮ ਮੁੱਲ ₹{finalSellingPrice} ਹੈ। ਜਾਣੇ-ਪਛਾਣੇ ਮੁੜ-ਵਿਕਰੀ ਪੜਾਅ {knownStages} ਹਨ; ਗੁੰਮ {missingDirection} ਪੜਾਅ ਦੀ ਦਰ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-104": {
+    "en": [
+      "A sports-goods batch costing ₹{initialCostPrice} is resold through {stageCount} dealerships, each at {ratePercent}% {direction}. Find the final selling price.",
+      "Starting from ₹{initialCostPrice}, the same {ratePercent}% {direction} is applied at each of {stageCount} successive sales. What is the final price?"
+    ],
+    "hi": [
+      "₹{initialCostPrice} लागत वाले खेल-सामान के बैच को {stageCount} लगातार चरणों में हर बार {ratePercent}% {direction} पर बेचा जाता है। अंतिम विक्रय मूल्य ज्ञात कीजिए।",
+      "₹{initialCostPrice} से शुरू होकर {stageCount} लगातार बिक्री में हर बार {ratePercent}% {direction} लागू होता है। अंतिम कीमत क्या होगी?"
+    ],
+    "pa": [
+      "₹{initialCostPrice} ਲਾਗਤ ਵਾਲੇ ਖੇਡ ਸਮਾਨ ਦੇ ਬੈਚ ਨੂੰ {stageCount} ਲਗਾਤਾਰ ਪੜਾਅਾਂ ਵਿੱਚ ਹਰ ਵਾਰ {ratePercent}% {direction} 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "₹{initialCostPrice} ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ {stageCount} ਲਗਾਤਾਰ ਵਿਕਰੀਆਂ ਵਿੱਚ ਹਰ ਵਾਰ {ratePercent}% {direction} ਲਾਗੂ ਹੁੰਦਾ ਹੈ। ਅੰਤਿਮ ਕੀਮਤ ਕੀ ਹੋਵੇਗੀ?"
+    ]
+  },
+  "PNL-QL-107": {
+    "en": [
+      "A workshop buys a used generator for ₹{purchasePrice} and spends ₹{buyerExpense} on repairs. At what price should it be sold to obtain {ratePercent}% {direction} on effective cost?",
+      "The purchase price of a generator is ₹{purchasePrice} and repair expense is ₹{buyerExpense}. Find the selling price required for {ratePercent}% {direction} on total effective cost."
+    ],
+    "hi": [
+      "एक कार्यशाला पुराना जनरेटर ₹{purchasePrice} में खरीदती है और मरम्मत पर ₹{buyerExpense} खर्च करती है। प्रभावी लागत पर {ratePercent}% {direction} के लिए विक्रय मूल्य ज्ञात कीजिए।",
+      "जनरेटर का क्रय मूल्य ₹{purchasePrice} और मरम्मत खर्च ₹{buyerExpense} है। कुल प्रभावी लागत पर {ratePercent}% {direction} के लिए आवश्यक विक्रय मूल्य ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਰਕਸ਼ਾਪ ਪੁਰਾਣਾ ਜਨਰੇਟਰ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦੀ ਹੈ ਅਤੇ ਮੁਰੰਮਤ 'ਤੇ ₹{buyerExpense} ਖਰਚਦੀ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {ratePercent}% {direction} ਲਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਜਨਰੇਟਰ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{purchasePrice} ਅਤੇ ਮੁਰੰਮਤ ਖਰਚ ₹{buyerExpense} ਹੈ। ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {ratePercent}% {direction} ਲਈ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-108": {
+    "en": [
+      "An art dealer sells a painting for ₹{grossSellingPrice}, while the auction house deducts {commissionPercent}% commission from the gross price. Find the dealer's net receipt.",
+      "A painting fetches ₹{grossSellingPrice} at auction. After {commissionPercent}% commission is deducted, how much does the dealer receive?"
+    ],
+    "hi": [
+      "एक कला-विक्रेता पेंटिंग ₹{grossSellingPrice} में बेचता है और नीलामी घर सकल मूल्य का {commissionPercent}% कमीशन काटता है। विक्रेता की शुद्ध प्राप्ति ज्ञात कीजिए।",
+      "एक पेंटिंग नीलामी में ₹{grossSellingPrice} में बिकती है। {commissionPercent}% कमीशन काटने के बाद विक्रेता को कितनी राशि मिलेगी?"
+    ],
+    "pa": [
+      "ਇੱਕ ਕਲਾ-ਵਿਕਰੇਤਾ ਪੇਂਟਿੰਗ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ ਅਤੇ ਨਿਲਾਮੀ ਘਰ ਕੁੱਲ ਕੀਮਤ ਦਾ {commissionPercent}% ਕਮਿਸ਼ਨ ਕੱਟਦਾ ਹੈ। ਵਿਕਰੇਤਾ ਦੀ ਸ਼ੁੱਧ ਪ੍ਰਾਪਤੀ ਪਤਾ ਕਰੋ।",
+      "ਇੱਕ ਪੇਂਟਿੰਗ ਨਿਲਾਮੀ ਵਿੱਚ ₹{grossSellingPrice} ਵਿੱਚ ਵਿਕਦੀ ਹੈ। {commissionPercent}% ਕਮਿਸ਼ਨ ਕੱਟਣ ਤੋਂ ਬਾਅਦ ਵਿਕਰੇਤਾ ਨੂੰ ਕਿੰਨੀ ਰਕਮ ਮਿਲੇਗੀ?"
+    ]
+  },
+  "PNL-QL-109": {
+    "en": [
+      "A property owner must receive ₹{requiredNetReceipt} after a broker deducts {commissionPercent}% commission. Find the gross selling price that should be quoted.",
+      "After {commissionPercent}% brokerage is deducted, the owner wants a net receipt of ₹{requiredNetReceipt}. What gross sale price is required?"
+    ],
+    "hi": [
+      "एक संपत्ति मालिक को दलाल का {commissionPercent}% कमीशन काटने के बाद ₹{requiredNetReceipt} मिलना चाहिए। आवश्यक सकल विक्रय मूल्य ज्ञात कीजिए।",
+      "{commissionPercent}% दलाली काटने के बाद मालिक को ₹{requiredNetReceipt} शुद्ध प्राप्ति चाहिए। आवश्यक सकल बिक्री मूल्य क्या होगा?"
+    ],
+    "pa": [
+      "ਇੱਕ ਜਾਇਦਾਦ ਮਾਲਕ ਨੂੰ ਦਲਾਲ ਦਾ {commissionPercent}% ਕਮਿਸ਼ਨ ਕੱਟਣ ਤੋਂ ਬਾਅਦ ₹{requiredNetReceipt} ਮਿਲਣਾ ਚਾਹੀਦਾ ਹੈ। ਲੋੜੀਂਦਾ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "{commissionPercent}% ਦਲਾਲੀ ਕੱਟਣ ਤੋਂ ਬਾਅਦ ਮਾਲਕ ਨੂੰ ₹{requiredNetReceipt} ਸ਼ੁੱਧ ਪ੍ਰਾਪਤੀ ਚਾਹੀਦੀ ਹੈ। ਲੋੜੀਂਦਾ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਕੀ ਹੋਵੇਗਾ?"
+    ]
+  },
+  "PNL-QL-110": {
+    "en": [
+      "A trader buys machinery for ₹{purchasePrice}, spends ₹{buyerExpense} preparing it for sale, and sells it for ₹{grossSellingPrice}. An agent keeps {commissionPercent}% of the gross price. Find the trader's percentage gain or loss.",
+      "Machinery costs ₹{purchasePrice} plus ₹{buyerExpense} in preparation. It is sold for ₹{grossSellingPrice}, with {commissionPercent}% commission deducted. Calculate the trader's profit or loss percentage."
+    ],
+    "hi": [
+      "एक व्यापारी मशीन ₹{purchasePrice} में खरीदता है, बिक्री से पहले ₹{buyerExpense} खर्च करता है और उसे ₹{grossSellingPrice} में बेचता है। एजेंट सकल मूल्य का {commissionPercent}% रखता है। व्यापारी का लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+      "मशीनरी की खरीद ₹{purchasePrice} और तैयारी खर्च ₹{buyerExpense} है। उसे ₹{grossSellingPrice} में बेचा जाता है और {commissionPercent}% कमीशन काटा जाता है। व्यापारी का लाभ या हानि प्रतिशत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਵਪਾਰੀ ਮਸ਼ੀਨਰੀ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, ਵਿਕਰੀ ਤੋਂ ਪਹਿਲਾਂ ₹{buyerExpense} ਖਰਚਦਾ ਹੈ ਅਤੇ ਇਸਨੂੰ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ। ਏਜੰਟ ਕੁੱਲ ਕੀਮਤ ਦਾ {commissionPercent}% ਰੱਖਦਾ ਹੈ। ਵਪਾਰੀ ਦਾ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਮਸ਼ੀਨਰੀ ਦੀ ਖਰੀਦ ₹{purchasePrice} ਅਤੇ ਤਿਆਰੀ ਖਰਚ ₹{buyerExpense} ਹੈ। ਇਸਨੂੰ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ {commissionPercent}% ਕਮਿਸ਼ਨ ਕੱਟਿਆ ਜਾਂਦਾ ਹੈ। ਵਪਾਰੀ ਦਾ ਲਾਭ ਜਾਂ ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
+    ]
   }
 };
 
