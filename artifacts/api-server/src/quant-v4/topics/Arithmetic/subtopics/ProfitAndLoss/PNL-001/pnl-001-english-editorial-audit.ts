@@ -760,6 +760,31 @@ const fatalCodeCounts = sortedCounts(
   countBy(fatalFindings, (finding) => finding.code),
 );
 
+// This inventory is distinct from editorial correctness: a clean fixed editorial
+// authority can still expose only one question skeleton across many seeds.
+const structuralDiversityInventory = [...candidateDiversityByQl.values()]
+  .map((entry) => ({
+    ...entry,
+    singleSkeleton: entry.normalizedCandidateStemCount === 1,
+    lowExactVariety: entry.exactCandidateStemCount < 8,
+    fixedAnswer: fixedAnswerQls.includes(entry.qlId),
+  }))
+  .sort((left, right) =>
+    Number(right.singleSkeleton) - Number(left.singleSkeleton) ||
+    left.exactCandidateStemCount - right.exactCandidateStemCount ||
+    left.qlId.localeCompare(right.qlId),
+  );
+const structuralDiversityByCp = runtimes.map(({ cpId }) => {
+  const group = structuralDiversityInventory.filter((entry) => entry.cpId === cpId);
+  return {
+    cpId,
+    qlCount: group.length,
+    singleSkeletonQlCount: group.filter((entry) => entry.singleSkeleton).length,
+    lowExactVarietyQlCount: group.filter((entry) => entry.lowExactVariety).length,
+    fixedAnswerQlCount: group.filter((entry) => entry.fixedAnswer).length,
+  };
+});
+
 const metrics = {
   packageId: "PNL-001",
   language: "English",
@@ -782,6 +807,10 @@ const metrics = {
   contractuallyFixedStemQls: fixedStemQls,
   contractuallyFixedAnswerCount: fixedAnswerQls.length,
   contractuallyFixedAnswerQls: fixedAnswerQls,
+  structuralDiversityByCp,
+  singleSkeletonQlCount: structuralDiversityInventory.filter((entry) => entry.singleSkeleton).length,
+  lowExactVarietyQlCount: structuralDiversityInventory.filter((entry) => entry.lowExactVariety).length,
+  structuralDiversityRequiresSeparateRemediation: true,
   candidateDiversityByQl: [...candidateDiversityByQl.values()].sort(
     (left, right) => left.qlId.localeCompare(right.qlId),
   ),
@@ -980,6 +1009,40 @@ writeFileSync(
   reviewMarkdown,
   "utf8",
 );
+const structuralDiversityMarkdown = [
+  "# PNL-001 Per-QL Structural Diversity Audit",
+  "",
+  "> Diagnostic only. Editorial PASS verifies quality of authored content, not sufficient scenario or question-structure diversity.",
+  "",
+  "| CP | QLs | Single normalized stem structure | Fewer than 8 exact stems | Fixed-answer contracts |",
+  "|---|---:|---:|---:|---:|",
+  ...structuralDiversityByCp.map((cp) =>
+    `| ${cp.cpId} | ${cp.qlCount} | ${cp.singleSkeletonQlCount} | ${cp.lowExactVarietyQlCount} | ${cp.fixedAnswerQlCount} |`,
+  ),
+  "",
+  "## Per-QL diagnostic backlog",
+  "",
+  "| QL | CP | Normalized stem structures | Exact stems | Answer variants | Fixed answer |",
+  "|---|---|---:|---:|---:|---|",
+  ...structuralDiversityInventory.map((entry) =>
+    `| ${entry.qlId} | ${entry.cpId} | ${entry.normalizedCandidateStemCount} | ${entry.exactCandidateStemCount} | ${entry.candidateAnswerCount} | ${entry.fixedAnswer ? "Yes" : "No"} |`,
+  ),
+  "",
+  "## Review rules",
+  "",
+  "- Inspect exam authenticity before adding any new stem skeleton. A direct formula QL may legitimately require one clear structure.",
+  "- Distinguish object substitution, numerical variation, semantic problem topology, and authentic representation variation.",
+  "- Expand weak QLs through authored EN/HI/PA variants; preserve mathematical meaning, localized parity, worked explanations, and MathJax.",
+  "- Keep seven documented fixed-answer tasks outside numeric-answer diversity targets.",
+  "- Do not treat this diagnostic backlog as approval to auto-publish dynamic candidates.",
+].join("\n");
+writeFileSync(resolve(outputDirectory, "pnl-001-structural-diversity-backlog.md"), structuralDiversityMarkdown, "utf8");
+writeFileSync(resolve(outputDirectory, "pnl-001-structural-diversity-backlog.json"), JSON.stringify({
+  sampleSeedsPerQl: candidateSeedsPerQl,
+  structuralDiversityByCp,
+  qls: structuralDiversityInventory,
+}, null, 2), "utf8");
+
 writeFileSync(
   resolve(outputDirectory, "pnl-001-english-editorial-metrics.json"),
   JSON.stringify(metrics, null, 2),
