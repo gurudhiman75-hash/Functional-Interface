@@ -25,6 +25,8 @@ for(let i=0;i<80;i++){
       if(candidate.taskKind==="SAME_CATEGORY_COMBINED_TOTAL"&&candidate.metadata.pairKind==="PIE_TABLE"){
         assert.match(candidate.stem,locale==="hi"?/पाई चार्ट/u:/ਪਾਈ ਚਾਰਟ/u);
         assert.doesNotMatch(candidate.stem,/(तालिका के अनुसार|सारणी के अनुसार|ਸਾਰਣੀ ਮੁਤਾਬਕ)/u);
+        assert.doesNotMatch(candidate.stem,/(सबसे बड़ा हिस्सा रखने वाले|सबसे बड़ा हिस्सा रखने वाली|ਸਭ ਤੋਂ ਵੱਧ ਹਿੱਸੇ ਵਾਲੇ|ਸਭ ਤੋਂ ਵੱਧ ਹਿੱਸੇ ਵਾਲੀ)/u);
+        assert.match(candidate.stem,locale==="hi"?/जिस .* का पाई चार्ट में हिस्सा सबसे बड़ा है/u:/ਜਿਸ .* ਦਾ ਪਾਈ ਚਾਰਟ ਵਿੱਚ ਹਿੱਸਾ ਸਭ ਤੋਂ ਵੱਧ ਹੈ/u);
       }
       assert.doesNotMatch(candidate.stem,/[A-Za-z]{3,}/u);
       assert.doesNotMatch(candidate.explanation,/The |What |Find |Total =/u);

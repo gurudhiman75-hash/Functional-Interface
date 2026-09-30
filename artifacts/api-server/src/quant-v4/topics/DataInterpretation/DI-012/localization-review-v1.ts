@@ -45,8 +45,8 @@ export function localizeDi012Set(set:Di012Set,locale:Di012Locale):Di012Set{
   const cellTotal=(r:typeof p)=>cell(r,"a")+cell(r,"b");
   let stem="",steps:string[]=[];
   switch(q.kind){
-   case "RECOVER_X": stem=h?"दी गई शर्त के अनुसार x का मान क्या होगा?":"ਦਿੱਤੀ ਸ਼ਰਤ ਅਨੁਸਾਰ x ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੋਵੇਗਾ?";steps=[h?`दी गई शर्त से x = ${x}।`:`ਦਿੱਤੀ ਸ਼ਰਤ ਤੋਂ x = ${x}।`];break;
-   case "RECOVER_Y": stem=h?"दी गई शर्त के अनुसार y का मान क्या होगा?":"ਦਿੱਤੀ ਸ਼ਰਤ ਅਨੁਸਾਰ y ਦਾ ਮੁੱਲ ਕਿੰਨਾ ਹੋਵੇਗਾ?";steps=[h?`पहले आवश्यक अज्ञात मान ज्ञात करें। फिर y = ${y}।`:`ਪਹਿਲਾਂ ਲੋੜੀਂਦੇ ਅਣਜਾਣ ਮੁੱਲ ਕੱਢੋ। ਫਿਰ y = ${y}।`];break;
+   case "RECOVER_X": stem=h?"x का मान क्या है?":"x ਦਾ ਮੁੱਲ ਕੀ ਹੈ?";steps=[h?`दी गई शर्त से x = ${x}।`:`ਦਿੱਤੀ ਸ਼ਰਤ ਤੋਂ x = ${x}।`];break;
+   case "RECOVER_Y": stem=h?"y का मान क्या है?":"y ਦਾ ਮੁੱਲ ਕੀ ਹੈ?";steps=[h?`दी गई शर्त के अनुसार y = ${y}।`:`ਦਿੱਤੀ ਸ਼ਰਤ ਅਨੁਸਾਰ y = ${y}।`];break;
    case "UNKNOWN_SUM": stem=h?"x + y का योग कितना होगा?":"x + y ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੋਵੇਗਾ?";steps=[`x + y = ${x} + ${y} = ${x+y}।`];break;
    case "UNKNOWN_DIFFERENCE": stem=h?"x और y के मानों का अंतर कितना है?":"x ਅਤੇ y ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਫ਼ਰਕ ਹੈ?";steps=[`|${x} − ${y}| = ${Math.abs(x-y)}।`];break;
    case "UNKNOWN_RATIO": {const gcd=(a:number,b:number):number=>b?gcd(b,a%b):a;stem=h?"x : y का अनुपात क्या है?":"x : y ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?";steps=[`x : y = ${x}:${y} = ${x/gcd(x,y)}:${y/gcd(x,y)}।`];break;}
