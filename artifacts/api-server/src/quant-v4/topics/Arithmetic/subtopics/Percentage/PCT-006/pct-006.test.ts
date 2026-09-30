@@ -82,6 +82,36 @@ assertFixed("PCT-CP-009", "PCT-QL-411", { oldRate: 40, newRate: 50 }, "$$25\\%$$
 assertFixed("PCT-CP-010", "PCT-QL-451", { subjectA: "Aman", subjectB: "Bharat", rate1: 60, baseValue1: 500, rate2: 70, baseValue2: 400, wholeLabel: "salary", valuePrefix: "Rs. ", unitLabel: "" }, "Aman is greater by Rs. 20.");
 assertFixed("PCT-CP-010", "PCT-QL-462", { subjectA: "Riya", subjectB: "Karan", rate1: 60, baseValue1: 500, rate2: 70, baseValue2: 400, wholeLabel: "marks", valuePrefix: "", unitLabel: "marks" }, "$$20$$");
 
+for (const cpId of PCT_006_CP_IDS) {
+  const rotated = Array.from({ length: 50 }, (_, diversityOrdinal) =>
+    runPct006Pipeline(cpId, {
+      language: "en",
+      seed: `pct-006-full-pool-diversity:${cpId}:${diversityOrdinal}`,
+      diversityOrdinal,
+    }),
+  );
+  assert.equal(
+    new Set(rotated.map((item) => item.questionLanguageId)).size,
+    50,
+    `${cpId} should consume all 50 English QLs before unrestricted audit reuse`,
+  );
+}
+
+const explicitEasyRotation = Array.from({ length: 30 }, (_, diversityOrdinal) =>
+  runPct006Pipeline("PCT-CP-001", {
+    language: "en",
+    seed: `pct-006-explicit-easy:${diversityOrdinal}`,
+    difficultyBand: "Easy",
+    diversityOrdinal,
+  }),
+);
+assert.ok(explicitEasyRotation.every((item) => item.difficultyBand === "Easy"));
+assert.equal(
+  new Set(explicitEasyRotation.map((item) => item.questionLanguageId)).size,
+  30,
+  "PCT-006 CP001 should consume all 30 Easy QLs before explicit-difficulty reuse",
+);
+
 for (let index = 0; index < 40; index += 1) {
   const pkg = runPct006Pipeline("PCT-CP-010", { language: "en", seed: `pct-006-cross-base:${index}` });
   const unitLabel = String(pkg.parameters.variables.unitLabel ?? "");
