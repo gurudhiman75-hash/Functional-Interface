@@ -150,7 +150,8 @@ function assertMathJaxIntegrity(value: string, scope: string) {
   assert.equal(opensInline, closesInline, scope + ": unmatched MathJax inline delimiters");
   assert.equal((value.match(/\$\$/g) ?? []).length % 2, 0, scope + ": unmatched display-math dollar delimiters");
   assert.doesNotMatch(value, /\\(?:frac|times|div|cdot)$/, scope + ": dangling LaTeX operator");
-  assert.doesNotMatch(value, /\\text\{[^}]*₹[^}]*\}/, scope + ": raw currency symbol inside math-text macro");
+  // Unicode rupee signs inside MathJax \\text{} are valid. Reject nested math delimiters there instead.
+  assert.doesNotMatch(value, /\\text\{[^}]*\$[^}]*\}/, scope + ": unescaped math delimiter inside math-text macro");
 }
 
 assert.equal(runtimes.length, 6, "PNL-001 must expose exactly six CP runtimes.");
