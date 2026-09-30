@@ -55,7 +55,7 @@ V1 stress proof:
 ## Lifecycle
 - Question Studio discoverable: true
 - mode: CONTROLLED_REVIEW
-- English only
+- English plus Hindi/Punjabi review candidates (hi-IN, pa-IN)
 - Question Bank: NOT_STORED
 - writes disabled
 - tests/mocks: INELIGIBLE
@@ -63,4 +63,4 @@ V1 stress proof:
 - production release: not authorized
 - manual approval required
 
-Localization and production promotion remain separate approval gates.
+Hindi/Punjabi wording is a review candidate and requires native-language review before it can be frozen. Question Bank, test/mock, publication and production gates remain closed.

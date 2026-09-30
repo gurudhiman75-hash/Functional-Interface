@@ -23,6 +23,8 @@ export type Di011Stimulus = Readonly<{
   rightTitle: string;
   leftUnit: string;
   rightUnit: string;
+  categoryHeader?: string;
+  valueHeader?: string;
   rows: readonly Di011Datum[];
 }>;
 

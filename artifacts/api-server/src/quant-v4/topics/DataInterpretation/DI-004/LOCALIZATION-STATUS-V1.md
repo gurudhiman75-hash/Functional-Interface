@@ -43,9 +43,9 @@ Numeric plotted values, answer index, difficulty, task ownership and canonical a
 - Hard routes retain at least three worked steps.
 - deterministic replay is required.
 - The approved two-series permanent QLs DI-QL-109 through DI-QL-120 are available in Hindi/Punjabi for Question Studio controlled review.
-- The single-series and three-series DI-004 variants remain English-only.
+- Single-series and three-series DI-004 variants have Hindi/Punjabi Question Studio review candidates. These variants are not frozen and require native-language review.
 - Question Bank/tests/mocks/publication/production remain locked.
 
 ## Scope boundary
 
-This freeze covers only the 12 permanent two-series QLs in the generated Hindi/Punjabi pack. It does not change Question Bank, scored-test, mock, public/student publication or production-release authority.
+The frozen release covers only the 12 permanent two-series QLs in the generated Hindi/Punjabi pack. Single-series and three-series variants are review candidates only. It does not change Question Bank, scored-test, mock, public/student publication or production-release authority.

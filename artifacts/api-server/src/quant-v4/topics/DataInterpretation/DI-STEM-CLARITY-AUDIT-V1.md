@@ -30,4 +30,4 @@ So the reviewer's answer and calculation are mathematically consistent. The form
 
 ## Audit boundary
 
-This pass checked generated wording and mathematical answerability in source and deterministic samples. It does not claim an independent human comparison against a representative bank of current SSC/Banking previous-year questions. DI-004's Hindi/Punjabi pack still requires human review before freeze. DI-011–DI-014 remain English-only and still need a separate Hindi/Punjabi localization and review pass.
+This pass checked generated wording and mathematical answerability in source and deterministic samples. It does not claim an independent human comparison against a representative bank of current SSC/Banking previous-year questions. DI-004's newly added single-/three-series Hindi/Punjabi surfaces and DI-011–DI-014 Hindi/Punjabi surfaces are review candidates and require native-language review before freeze.

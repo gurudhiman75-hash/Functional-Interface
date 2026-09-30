@@ -1,4 +1,7 @@
 import { generateDi004PermanentQuestion } from "./permanent-question-generator";
+import { hashSeed } from "../DI-001/exact";
+import type { Di004SingleSet, Di004SingleQuestion } from "./single-line-v1";
+import type { Di004MultiSet, Di004MultiStimulus } from "./multi-line-v1";
 import type {
   Di004V2ExamProfile,
   Di004V2Question,
@@ -59,6 +62,81 @@ const SERIES_NOUNS: Readonly<Record<string, Readonly<{ hi: string; pa: string }>
   Network: { hi: "नेटवर्क", pa: "ਨੈੱਟਵਰਕ" },
   Carrier: { hi: "वाहक", pa: "ਵਾਹਕ" },
 });
+
+const SINGLE_CONTEXTS:Readonly<Record<string,Readonly<Record<"hi"|"pa",Readonly<{title:string;series:string;unit:string}>>>>> = Object.freeze({
+  "Monthly applications received": { hi:{title:"मासिक प्राप्त आवेदन",series:"आवेदन",unit:"आवेदन"}, pa:{title:"ਮਹੀਨਾਵਾਰ ਪ੍ਰਾਪਤ ਅਰਜ਼ੀਆਂ",series:"ਅਰਜ਼ੀਆਂ",unit:"ਅਰਜ਼ੀਆਂ"} },
+  "Quarterly units sold": { hi:{title:"तिमाही में बेची गई इकाइयाँ",series:"बिकी इकाइयाँ",unit:"इकाइयाँ"}, pa:{title:"ਤਿਮਾਹੀ ਵਿੱਚ ਵਿਕੀਆਂ ਇਕਾਈਆਂ",series:"ਵਿਕੀਆਂ ਇਕਾਈਆਂ",unit:"ਇਕਾਈਆਂ"} },
+  "Six-period enrolment trend": { hi:{title:"छह अवधियों में नामांकन",series:"नामांकित छात्र",unit:"छात्र"}, pa:{title:"ਛੇ ਮਿਆਦਾਂ ਵਿੱਚ ਦਾਖ਼ਲਾ",series:"ਦਾਖ਼ਲ ਵਿਦਿਆਰਥੀ",unit:"ਵਿਦਿਆਰਥੀ"} },
+  "Six-period order trend": { hi:{title:"छह अवधियों में ऑर्डर",series:"ऑर्डर",unit:"ऑर्डर"}, pa:{title:"ਛੇ ਮਿਆਦਾਂ ਵਿੱਚ ਆਰਡਰ",series:"ਆਰਡਰ",unit:"ਆਰਡਰ"} },
+  "Monthly production trend": { hi:{title:"मासिक उत्पादन",series:"उत्पादन",unit:"इकाइयाँ"}, pa:{title:"ਮਹੀਨਾਵਾਰ ਉਤਪਾਦਨ",series:"ਉਤਪਾਦਨ",unit:"ਇਕਾਈਆਂ"} },
+  "Six-month passenger trend": { hi:{title:"छह महीनों में यात्रियों की संख्या",series:"यात्री",unit:"यात्री"}, pa:{title:"ਛੇ ਮਹੀਨਿਆਂ ਵਿੱਚ ਯਾਤਰੀਆਂ ਦੀ ਗਿਣਤੀ",series:"ਯਾਤਰੀ",unit:"ਯਾਤਰੀ"} },
+  "Quarterly dispatch trend": { hi:{title:"तिमाही भेजी गई वस्तुएँ",series:"भेजे गए पैकेट",unit:"पैकेट"}, pa:{title:"ਤਿਮਾਹੀ ਵਿੱਚ ਭੇਜੇ ਪਾਰਸਲ",series:"ਭੇਜੇ ਪਾਰਸਲ",unit:"ਪਾਰਸਲ"} },
+  "Six-period claims trend": { hi:{title:"छह अवधियों में दावे",series:"दावे",unit:"दावे"}, pa:{title:"ਛੇ ਮਿਆਦਾਂ ਵਿੱਚ ਦਾਅਵੇ",series:"ਦਾਅਵੇ",unit:"ਦਾਅਵੇ"} },
+});
+const MULTI_CONTEXTS:Readonly<Record<string,Readonly<Record<"hi"|"pa",Readonly<{title:string;labels:readonly [string,string,string];unit:string}>>>>> = Object.freeze({
+  "Monthly sales of three products": { hi:{title:"तीन उत्पादों की मासिक बिक्री",labels:["उत्पाद A","उत्पाद B","उत्पाद C"],unit:"इकाइयाँ"},pa:{title:"ਤਿੰਨ ਉਤਪਾਦਾਂ ਦੀ ਮਹੀਨਾਵਾਰ ਵਿਕਰੀ",labels:["ਉਤਪਾਦ A","ਉਤਪਾਦ B","ਉਤਪਾਦ C"],unit:"ਇਕਾਈਆਂ"} },
+  "Applications in three regions": { hi:{title:"तीन क्षेत्रों में आवेदन",labels:["उत्तर","दक्षिण","पश्चिम"],unit:"आवेदन"},pa:{title:"ਤਿੰਨ ਖੇਤਰਾਂ ਵਿੱਚ ਅਰਜ਼ੀਆਂ",labels:["ਉੱਤਰ","ਦੱਖਣ","ਪੱਛਮ"],unit:"ਅਰਜ਼ੀਆਂ"} },
+  "Output of three plants": { hi:{title:"तीन संयंत्रों का उत्पादन",labels:["संयंत्र A","संयंत्र B","संयंत्र C"],unit:"इकाइयाँ"},pa:{title:"ਤਿੰਨ ਪਲਾਂਟਾਂ ਦਾ ਉਤਪਾਦਨ",labels:["ਪਲਾਂਟ A","ਪਲਾਂਟ B","ਪਲਾਂਟ C"],unit:"ਇਕਾਈਆਂ"} },
+});
+
+function localizedPeriod(period:string,locale:Di004LocalizationLocale){
+  if(/^Q[1-6]$/u.test(period)) return `${locale==="hi-IN"?"तिमाही":"ਤਿਮਾਹੀ"} ${period.slice(1)}`;
+  if(/^P[1-6]$/u.test(period)) return `${locale==="hi-IN"?"अवधि":"ਮਿਆਦ"} ${period.slice(1)}`;
+  return localizeDi004Period(period,locale);
+}
+function seededIndices(seed:string,size:number){return Array.from({length:size},(_,i)=>i).sort((a,b)=>hashSeed(`${seed}:${a}`)-hashSeed(`${seed}:${b}`));}
+function questionSeed(questionId:string,prefix:string){const body=questionId.replace(new RegExp(`^${prefix}:`),"");return body.replace(/:Q\d+$/u,"");}
+
+export function localizeDi004SingleSet(set:Di004SingleSet,locale:Di004LocalizationLocale):Di004SingleSet{
+  const lang=locale==="hi-IN"?"hi":"pa",copy=SINGLE_CONTEXTS[set.stimulus.title]?.[lang];
+  if(!copy)throw new Error(`DI-004 localization is missing single-line context '${set.stimulus.title}'.`);
+  const source=set.stimulus,points=source.points.map(p=>({...p,period:localizedPeriod(p.period,locale)}));
+  const stimulus={...source,title:copy.title,instruction:locale==="hi-IN"?"रेखा-ग्राफ का अध्ययन कीजिए और प्रश्नों के उत्तर दीजिए।":"ਰੇਖਾ-ਗ੍ਰਾਫ ਵੇਖੋ ਅਤੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਉੱਤਰ ਦਿਓ।",seriesLabel:copy.series,unit:copy.unit,points};
+  const questions=set.questions.map((q)=>{
+    const seed=questionSeed(q.questionId,"DI-004-SINGLE"),ids=seededIndices(`${seed}:ids`,6),[i,j,k,l]=ids,p=source.points;
+    let stem="",steps:string[]=[];const h=locale==="hi-IN",period=(n:number)=>localizedPeriod(p[n]!.period,locale);
+    switch(q.kind){
+      case "DIRECT_PERIOD_VALUE":stem=h?`${period(i!)} में रेखा-ग्राफ पर कौन-सा मान दिखाया गया है?`:`${period(i!)} ਵਿੱਚ ਰੇਖਾ-ਗ੍ਰਾਫ 'ਤੇ ਕਿਹੜਾ ਮੁੱਲ ਦਿੱਤਾ ਹੈ?`;steps=[h?`${period(i!)} का मान ${p[i!]!.value} है।`:`${period(i!)} ਦਾ ਮੁੱਲ ${p[i!]!.value} ਹੈ।`];break;
+      case "HIGHEST_PERIOD_VALUE":{const v=Math.max(...p.map(x=>x.value));stem=h?"रेखा-ग्राफ में सबसे अधिक मान क्या है?":"ਰੇਖਾ-ਗ੍ਰਾਫ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?";steps=[`${h?"सबसे अधिक मान":"ਸਭ ਤੋਂ ਵੱਧ ਮੁੱਲ"} = ${v}।`];break;}
+      case "LOWEST_PERIOD_VALUE":{const v=Math.min(...p.map(x=>x.value));stem=h?"रेखा-ग्राफ में सबसे कम मान क्या है?":"ਰੇਖਾ-ਗ੍ਰਾਫ ਵਿੱਚ ਸਭ ਤੋਂ ਘੱਟ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?";steps=[`${h?"सबसे कम मान":"ਸਭ ਤੋਂ ਘੱਟ ਮੁੱਲ"} = ${v}।`];break;}
+      case "TWO_PERIOD_DIFFERENCE":{const a=p[i!]!.value,b=p[j!]!.value;stem=h?`${period(i!)} और ${period(j!)} के मानों में कितना अंतर है?`:`${period(i!)} ਅਤੇ ${period(j!)} ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਫ਼ਰਕ ਹੈ?`;steps=[`${h?"अंतर":"ਫ਼ਰਕ"} = |${a} − ${b}| = ${Math.abs(a-b)}।`];break;}
+      case "TWO_PERIOD_RATIO":{const a=p[i!]!.value,b=p[j!]!.value;stem=h?`${period(i!)} और ${period(j!)} के मानों का अनुपात क्या है?`:`${period(i!)} ਅਤੇ ${period(j!)} ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`;steps=[`${a}:${b} = ${q.answer}।`];break;}
+      case "THREE_PERIOD_TOTAL":{const a=p[i!]!.value,b=p[j!]!.value,c=p[k!]!.value;stem=h?`${period(i!)}, ${period(j!)} और ${period(k!)} के मानों का कुल कितना है?`:`${period(i!)}, ${period(j!)} ਅਤੇ ${period(k!)} ਦੇ ਮੁੱਲਾਂ ਦਾ ਕੁੱਲ ਕਿੰਨਾ ਹੈ?`;steps=[`${a} + ${b} + ${c} = ${a+b+c}।`];break;}
+      case "THREE_PERIOD_AVERAGE":{const triples:number[][]=[];for(let a=0;a<6;a++)for(let b=a+1;b<6;b++)for(let c=b+1;c<6;c++)if((p[a]!.value+p[b]!.value+p[c]!.value)%3===0)triples.push([a,b,c]);const triple=triples[hashSeed(`${seed}:avg`)%triples.length]!,[a,b,c]=triple,sum=p[a]!.value+p[b]!.value+p[c]!.value;stem=h?`${period(a!)} से ${period(c!)} तक चुनी गई तीन अवधियों का औसत कितना है?`:`${period(a!)} ਤੋਂ ${period(c!)} ਤੱਕ ਚੁਣੀਆਂ ਤਿੰਨ ਮਿਆਦਾਂ ਦਾ ਔਸਤ ਕਿੰਨਾ ਹੈ?`;steps=[`${h?"योग":"ਜੋੜ"} = ${sum}।`,`${h?"औसत":"ਔਸਤ"} = ${sum} ÷ 3 = ${q.answer}।`];break;}
+      case "SERIES_TOTAL":{const sum=p.reduce((a,x)=>a+x.value,0);stem=h?`सभी छह अवधियों में ${copy.series} का कुल कितना है?`:`ਸਾਰੀਆਂ ਛੇ ਮਿਆਦਾਂ ਵਿੱਚ ${copy.series} ਦਾ ਕੁੱਲ ਕਿੰਨਾ ਹੈ?`;steps=[`${h?"कुल":"ਕੁੱਲ"} = ${p.map(x=>x.value).join(" + ")} = ${sum}।`];break;}
+      case "FIRST_TO_LAST_DIFFERENCE":{const a=p[0]!.value,b=p[5]!.value;stem=h?`${period(0)} और ${period(5)} के मानों में कितना अंतर है?`:`${period(0)} ਅਤੇ ${period(5)} ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਫ਼ਰਕ ਹੈ?`;steps=[`${h?"अंतर":"ਫ਼ਰਕ"} = |${a} − ${b}| = ${Math.abs(a-b)}।`];break;}
+      case "FOUR_PERIOD_TOTAL":{const values=[i,j,k,l].map(n=>p[n!]!.value),sum=values.reduce((a,b)=>a+b,0);stem=h?`${[i,j,k,l].map(period).join(", ")} के मानों का कुल ज्ञात कीजिए।`:`${[i,j,k,l].map(period).join(", ")} ਦੇ ਮੁੱਲਾਂ ਦਾ ਕੁੱਲ ਕੱਢੋ।`;steps=[`${h?"कुल":"ਕੁੱਲ"} = ${sum}।`];break;}
+      case "TWO_PAIR_RATIO":{const a=p[i!]!.value+p[j!]!.value,b=p[k!]!.value+p[l!]!.value;stem=h?`(${period(i!)} + ${period(j!)}) के कुल का (${period(k!)} + ${period(l!)}) के कुल से अनुपात क्या है?`:`(${period(i!)} + ${period(j!)}) ਦੇ ਕੁੱਲ ਦਾ (${period(k!)} + ${period(l!)}) ਦੇ ਕੁੱਲ ਨਾਲ ਅਨੁਪਾਤ ਕੀ ਹੈ?`;steps=[`${h?"पहली जोड़ी का कुल":"ਪਹਿਲੀ ਜੋੜੀ ਦਾ ਕੁੱਲ"} = ${a}।`,`${h?"दूसरी जोड़ी का कुल":"ਦੂਜੀ ਜੋੜੀ ਦਾ ਕੁੱਲ"} = ${b}।`,`${h?"अनुपात":"ਅਨੁਪਾਤ"} = ${q.answer}।`];break;}
+    }
+    return {...q,stem,explanation:{keyIdea:h?"रेखा-ग्राफ से आवश्यक मान पढ़ें और पूछा गया हिसाब करें।":"ਰੇਖਾ-ਗ੍ਰਾਫ ਤੋਂ ਲੋੜੀਂਦੇ ਮੁੱਲ ਪੜ੍ਹੋ ਅਤੇ ਪੁੱਛਿਆ ਹਿਸਾਬ ਕਰੋ।",steps}};
+  });
+  return {...set,stimulus,questions};
+}
+
+export function localizeDi004MultiSet(set:Di004MultiSet,locale:Di004LocalizationLocale):Di004MultiSet{
+  const lang=locale==="hi-IN"?"hi":"pa",copy=MULTI_CONTEXTS[set.stimulus.title]?.[lang];
+  if(!copy)throw new Error(`DI-004 localization is missing multi-line context '${set.stimulus.title}'.`);
+  const source=set.stimulus,h=locale==="hi-IN",points=source.points.map(p=>({...p,period:localizedPeriod(p.period,locale)}));
+  const stimulus:Di004MultiStimulus={...source,title:copy.title,instruction:h?"तीन रेखाओं वाले ग्राफ का अध्ययन कीजिए और प्रश्नों के उत्तर दीजिए।":"ਤਿੰਨ ਰੇਖਾਵਾਂ ਵਾਲਾ ਗ੍ਰਾਫ ਵੇਖੋ ਅਤੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਉੱਤਰ ਦਿਓ।",unit:copy.unit,seriesLabels:copy.labels,points};
+  const questions=set.questions.map(q=>{
+    const seed=questionSeed(q.questionId,"DI-004-MULTI"),ids=seededIndices(`${seed}:ids`,5),[i,j,k,l]=ids,p=source.points,values=(n:number)=>[p[n]!.a,p[n]!.b,p[n]!.c] as const;
+    let stem="",steps:string[]=[];
+    switch(q.kind){
+      case "DIRECT_SERIES_VALUE":{const seg=hashSeed(seed)%3,v=values(i!)[seg]!;stem=h?`${stimulus.seriesLabels[seg]} के लिए ${stimulus.points[i!]!.period} में कौन-सा मान दिखाया गया है?`:`${stimulus.seriesLabels[seg]} ਲਈ ${stimulus.points[i!]!.period} ਵਿੱਚ ਕਿਹੜਾ ਮੁੱਲ ਦਿੱਤਾ ਹੈ?`;steps=[`${stimulus.seriesLabels[seg]}: ${stimulus.points[i!]!.period} = ${v}।`];break;}
+      case "PERIOD_TOTAL":{const v=p[i!]!.a+p[i!]!.b+p[i!]!.c;stem=h?`${stimulus.points[i!]!.period} में तीनों रेखाओं का संयुक्त मान कितना है?`:`${stimulus.points[i!]!.period} ਵਿੱਚ ਤਿੰਨਾਂ ਰੇਖਾਵਾਂ ਦਾ ਜੋੜਿਆ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`;steps=[`${p[i!]!.a} + ${p[i!]!.b} + ${p[i!]!.c} = ${v}।`];break;}
+      case "SAME_PERIOD_DIFFERENCE":{const a=p[i!]!.a,b=p[i!]!.b;stem=h?`${stimulus.points[i!]!.period} में ${copy.labels[0]} और ${copy.labels[1]} के मानों में कितना अंतर है?`:`${stimulus.points[i!]!.period} ਵਿੱਚ ${copy.labels[0]} ਅਤੇ ${copy.labels[1]} ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਫ਼ਰਕ ਹੈ?`;steps=[`${h?"अंतर":"ਫ਼ਰਕ"} = |${a} − ${b}| = ${Math.abs(a-b)}।`];break;}
+      case "WITHIN_SERIES_DIFFERENCE":{const a=p[i!]!.a,b=p[j!]!.a;stem=h?`${copy.labels[0]} के लिए ${stimulus.points[i!]!.period} और ${stimulus.points[j!]!.period} के मानों में कितना अंतर है?`:`${copy.labels[0]} ਲਈ ${stimulus.points[i!]!.period} ਅਤੇ ${stimulus.points[j!]!.period} ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਫ਼ਰਕ ਹੈ?`;steps=[`${h?"अंतर":"ਫ਼ਰਕ"} = |${a} − ${b}| = ${Math.abs(a-b)}।`];break;}
+      case "WITHIN_SERIES_RATIO":{const a=p[i!]!.b,b=p[j!]!.b;stem=h?`${copy.labels[1]} में ${stimulus.points[i!]!.period} और ${stimulus.points[j!]!.period} के मानों का अनुपात क्या है?`:`${copy.labels[1]} ਵਿੱਚ ${stimulus.points[i!]!.period} ਅਤੇ ${stimulus.points[j!]!.period} ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`;steps=[`${a}:${b} = ${q.answer}।`];break;}
+      case "SERIES_TOTAL":{const seg=hashSeed(seed)%3,total=p.reduce((sum,row)=>sum+values(p.indexOf(row))[seg]!,0);stem=h?`सभी पाँच अवधियों में ${copy.labels[seg]} का कुल कितना है?`:`ਸਾਰੀਆਂ ਪੰਜ ਮਿਆਦਾਂ ਵਿੱਚ ${copy.labels[seg]} ਦਾ ਕੁੱਲ ਕਿੰਨਾ ਹੈ?`;steps=[`${h?"कुल":"ਕੁੱਲ"} = ${total}।`];break;}
+      case "THREE_PERIOD_SERIES_TOTAL":{const a=p[i!]!.c,b=p[j!]!.c,c=p[k!]!.c;stem=h?`${copy.labels[2]} के लिए ${stimulus.points[i!]!.period}, ${stimulus.points[j!]!.period} और ${stimulus.points[k!]!.period} का कुल कितना है?`:`${copy.labels[2]} ਲਈ ${stimulus.points[i!]!.period}, ${stimulus.points[j!]!.period} ਅਤੇ ${stimulus.points[k!]!.period} ਦਾ ਕੁੱਲ ਕਿੰਨਾ ਹੈ?`;steps=[`${a} + ${b} + ${c} = ${a+b+c}।`];break;}
+      case "TWO_SERIES_GROUP_RATIO":{const a=p[i!]!.a+p[j!]!.a,b=p[k!]!.b+p[l!]!.b;stem=h?`${copy.labels[0]} के ${stimulus.points[i!]!.period} और ${stimulus.points[j!]!.period} के कुल का अनुपात ${copy.labels[1]} के ${stimulus.points[k!]!.period} और ${stimulus.points[l!]!.period} के कुल से क्या है?`:`${copy.labels[0]} ਦੇ ${stimulus.points[i!]!.period} ਅਤੇ ${stimulus.points[j!]!.period} ਦੇ ਕੁੱਲ ਦਾ ਅਨੁਪਾਤ ${copy.labels[1]} ਦੇ ${stimulus.points[k!]!.period} ਅਤੇ ${stimulus.points[l!]!.period} ਦੇ ਕੁੱਲ ਨਾਲ ਕੀ ਹੈ?`;steps=[`${h?"पहला कुल":"ਪਹਿਲਾ ਕੁੱਲ"} = ${a}।`,`${h?"दूसरा कुल":"ਦੂਜਾ ਕੁੱਲ"} = ${b}।`,`${h?"अनुपात":"ਅਨੁਪਾਤ"} = ${q.answer}।`];break;}
+      case "GRAND_TOTAL":{const total=p.reduce((sum,row)=>sum+row.a+row.b+row.c,0);stem=h?`सभी पाँच अवधियों में तीनों रेखाओं का कुल योग कितना है?`:`ਸਾਰੀਆਂ ਪੰਜ ਮਿਆਦਾਂ ਵਿੱਚ ਤਿੰਨਾਂ ਰੇਖਾਵਾਂ ਦਾ ਕੁੱਲ ਜੋੜ ਕਿੰਨਾ ਹੈ?`;steps=[`${h?"कुल योग":"ਕੁੱਲ ਜੋੜ"} = ${total}।`];break;}
+      case "CROSS_SERIES_FOUR_VALUE_TOTAL":{const a=p[i!]!.a,b=p[j!]!.b,c=p[k!]!.c,d=p[l!]!.a,total=a+b+c+d;stem=h?`चार मान जोड़िए: ${copy.labels[0]} में ${stimulus.points[i!]!.period}, ${copy.labels[1]} में ${stimulus.points[j!]!.period}, ${copy.labels[2]} में ${stimulus.points[k!]!.period} और ${copy.labels[0]} में ${stimulus.points[l!]!.period}।`:`ਚਾਰ ਮੁੱਲ ਜੋੜੋ: ${copy.labels[0]} ਵਿੱਚ ${stimulus.points[i!]!.period}, ${copy.labels[1]} ਵਿੱਚ ${stimulus.points[j!]!.period}, ${copy.labels[2]} ਵਿੱਚ ${stimulus.points[k!]!.period} ਅਤੇ ${copy.labels[0]} ਵਿੱਚ ${stimulus.points[l!]!.period}।`;steps=[`${a} + ${b} + ${c} + ${d} = ${total}।`];break;}
+    }
+    return {...q,stem,explanation:{keyIdea:h?"ग्राफ की तीनों रेखाओं से सही मान पढ़ें और पूछा गया हिसाब करें।":"ਗ੍ਰਾਫ ਦੀਆਂ ਤਿੰਨਾਂ ਰੇਖਾਵਾਂ ਤੋਂ ਸਹੀ ਮੁੱਲ ਪੜ੍ਹੋ ਅਤੇ ਪੁੱਛਿਆ ਹਿਸਾਬ ਕਰੋ।",steps}};
+  });
+  return {...set,stimulus,questions};
+}
 
 type ContextCopy = Readonly<{
   hi: Readonly<{ title: string; yAxis: string; unit: string }>;

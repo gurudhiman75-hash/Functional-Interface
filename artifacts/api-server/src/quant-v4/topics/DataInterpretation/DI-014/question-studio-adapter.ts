@@ -1,6 +1,7 @@
 import { generateDi014RadarPieSet, DI014_TASKS } from "./radar-pie-set";
 import { renderDi014RadarSvg } from "./radar-svg";
 import { renderDiPieSvg } from "../visuals/pie-svg";
+import { localizeDi014Set, type Di014Locale } from "./localization-review-v1";
 
 export const DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID = "DI-CP-014" as const;
 export const DI014_QUESTION_STUDIO_RUNTIME_MODE = "DI014_RADAR_PIE_HYBRID_REVIEW_V1" as const;
@@ -21,13 +22,14 @@ export function isDi014QuestionStudioRequest(request:Di014QuestionStudioRequest)
 export async function generateDi014QuestionStudioBatch(request:Di014QuestionStudioRequest={}){
   const cp=String(request.canonicalProblemId??request.cpId??"").trim().toUpperCase();
   if(cp&&cp!==DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID)throw new Error(`Unknown canonical problem '${cp}' for DI-014.`);
-  const lang=String(request.language??"en").trim().toLowerCase();if(lang!=="en")throw new Error("DI-014 V1 is English review-only.");
+  const lang=String(request.language??"en").trim().toLowerCase();
+  const locale:Di014Locale|undefined=lang==="hi"||lang==="hi-in"?"hi-IN":lang==="pa"||lang==="pa-in"?"pa-IN":lang==="en"?undefined:(()=>{throw new Error(`DI-014 does not support language '${lang}'.`);})();
   const exam=norm(request.examProfile);if(exam&&!(exam.includes("bank")||exam.includes("sbi")||exam.includes("ibps")||exam.includes("mains")))throw new Error("DI-014 V1 is scoped to Banking Mains review.");
   const wanted=difficulty(request.difficulty),count=Math.min(1000,Math.max(1,Math.floor(Number(request.count??1)||1)));
   const batchSeed=String(request.seed??"").trim()||`quant-v4:DI-014:BANKING_MAINS:${wanted??"mixed"}:${Date.now()}`;
   const questionPackages:ReturnType<typeof generateDi014RadarPieSet>[]=[];const questions:any[]=[];
   for(let i=0;i<count;i++){
-    const seed=`${batchSeed}:${i}`,set=generateDi014RadarPieSet({seed});questionPackages.push(set);
+    const seed=`${batchSeed}:${i}`,source=generateDi014RadarPieSet({seed}),set=locale?localizeDi014Set(source,locale):source;questionPackages.push(set);
     const pool=wanted?set.questions.filter(q=>q.difficulty===wanted):set.questions,q=pool[i%pool.length]!;
     questions.push({
       text:q.stem,stem:q.stem,stimulus:{radar:set.radar,pie:set.pie},stimulusSvgs:[renderDi014RadarSvg(set.radar),renderDiPieSvg(set.pie)],
@@ -37,14 +39,14 @@ export async function generateDi014QuestionStudioBatch(request:Di014QuestionStud
       difficulty:q.difficulty,difficultyLabel:q.difficulty,patternId:"DI-014",section:"Quant",topic:"Data Interpretation",subtopic:"Radar + Pie Hybrid DI",
       generationBackend:"quant-v4",debugSource:"quant-v4-di014-radar-pie-review-v1",questionId:q.questionId,sourceQuestionId:q.questionId,
       seed,examProfile:"BANKING_MAINS" as const,packageId:"DI-014" as const,canonicalProblemId:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,taskKind:q.kind,
-      runtimeMode:DI014_QUESTION_STUDIO_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
+      runtimeMode:DI014_QUESTION_STUDIO_RUNTIME_MODE,reviewStatus:locale?"HI_PA_REVIEW_CANDIDATE" as const:"ENGLISH_REVIEW_CANDIDATE" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
       questionBankEligible:false as const,testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,
-      automaticStudentPublication:false as const,productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:"en" as const,
-      metadata:{packageId:"DI-014",canonicalProblemId:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,taskKind:q.kind,examProfile:"BANKING_MAINS",runtimeMode:DI014_QUESTION_STUDIO_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_RADAR_PIE_HYBRID"}
+      automaticStudentPublication:false as const,productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:locale==="hi-IN"?"hi" as const:locale==="pa-IN"?"pa" as const:"en" as const,
+      metadata:{packageId:"DI-014",canonicalProblemId:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,taskKind:q.kind,examProfile:"BANKING_MAINS",runtimeMode:DI014_QUESTION_STUDIO_RUNTIME_MODE,reviewStatus:locale?"HI_PA_REVIEW_CANDIDATE":"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_RADAR_PIE_HYBRID"}
     });
   }
   return {generationContext:{generationDomain:"quant-v4" as const,chapterId:"DataInterpretation" as const,packageId:"DI-014" as const,canonicalProblemId:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
-    seed:batchSeed,timestamp:Date.now(),language:"en" as const,examProfile:"BANKING_MAINS" as const,runtimeMode:DI014_QUESTION_STUDIO_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+    seed:batchSeed,timestamp:Date.now(),language:locale==="hi-IN"?"hi" as const:locale==="pa-IN"?"pa" as const:"en" as const,examProfile:"BANKING_MAINS" as const,runtimeMode:DI014_QUESTION_STUDIO_RUNTIME_MODE,reviewStatus:locale?"HI_PA_REVIEW_CANDIDATE" as const:"ENGLISH_REVIEW_CANDIDATE" as const,localizationStatus:locale?"HI_PA_REVIEW_CANDIDATE" as const:undefined,
     questionStudioDiscoverable:true as const,questionStudioMode:"CONTROLLED_REVIEW" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
     testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
     productionReleaseAuthorized:false as const,manualApprovalRequired:true as const},questionPackages,questions};
@@ -52,8 +54,8 @@ export async function generateDi014QuestionStudioBatch(request:Di014QuestionStud
 export function di014QuestionStudioPackageCard(){
   return {id:"DI-014",packageId:"DI-014",type:"quant-v4",section:"Quant",domain:"quant",topic:"Data Interpretation",subtopic:"Radar + Pie Hybrid",name:"DI-014 Radar + Pie Hybrid DI",label:"Radar + Pie Hybrid",
     generationDomain:"quant-v4",cpIds:[DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID],canonicalProblems:[{id:DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,label:"Radar + Pie Hybrid"}],
-    supportedDifficulties:["easy","medium","hard"],supportedLanguages:["en"],supportedExamProfiles:["BANKING_MAINS"],enabled:true,runtimeMode:DI014_QUESTION_STUDIO_RUNTIME_MODE,
-    supportedRuntimeModes:[DI014_QUESTION_STUDIO_RUNTIME_MODE],reviewStatus:"ENGLISH_REVIEW_CANDIDATE",questionStudioDiscoverable:true,questionStudioMode:"CONTROLLED_REVIEW",
+    supportedDifficulties:["easy","medium","hard"],supportedLanguages:["en","hi","pa"],localizationCoverage:{status:"HI_PA_REVIEW_CANDIDATE",canonicalProblemIds:[DI014_QUESTION_STUDIO_CANONICAL_PROBLEM_ID]},supportedExamProfiles:["BANKING_MAINS"],enabled:true,runtimeMode:DI014_QUESTION_STUDIO_RUNTIME_MODE,
+    supportedRuntimeModes:[DI014_QUESTION_STUDIO_RUNTIME_MODE],reviewStatus:"ENGLISH_REVIEW_CANDIDATE",localizationStatus:"HI_PA_REVIEW_CANDIDATE",questionStudioDiscoverable:true,questionStudioMode:"CONTROLLED_REVIEW",
     questionBankStatus:"NOT_STORED",questionBankWritable:false,testEligibility:"INELIGIBLE",testEligible:false,mockTestEligible:false,publiclyPublishable:false,automaticStudentPublication:false,
     productionReleaseAuthorized:false,manualApprovalRequired:true,taskKinds:[...DI014_TASKS]};
 }

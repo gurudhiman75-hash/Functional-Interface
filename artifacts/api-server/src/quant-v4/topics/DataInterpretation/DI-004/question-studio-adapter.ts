@@ -11,7 +11,7 @@ import { generateDi004SingleLineSet } from "./single-line-v1";
 import { renderDi004SingleLineSvg } from "./single-line-svg-v1";
 import { generateDi004MultiLineSet } from "./multi-line-v1";
 import { renderDi004MultiLineSvg } from "./multi-line-svg-v1";
-import { localizeDi004Question, DI004_LOCALIZATION_RELEASE_ID, type Di004LocalizationLocale } from "./localization-review-v1";
+import { localizeDi004Question, localizeDi004SingleSet, localizeDi004MultiSet, DI004_LOCALIZATION_RELEASE_ID, type Di004LocalizationLocale } from "./localization-review-v1";
 import { renderDiLineSvg } from "../visuals/line-svg";
 import type { Di004V2Difficulty, Di004V2ExamProfile } from "./line-v2-types";
 
@@ -214,7 +214,7 @@ function toQuestionStudioPreview(
 
 async function generateDi004MultiQuestionStudioBatch(request: Di004QuestionStudioRequest) {
   const language = String(request.language ?? "en").trim().toLowerCase();
-  if (language !== "en") throw new Error("DI-004 three-series line V1 is English review-only.");
+  const locale:Di004LocalizationLocale|undefined=language==="hi"||language==="hi-in"?"hi-IN":language==="pa"||language==="pa-in"?"pa-IN":language==="en"?undefined:(()=>{throw new Error(`DI-004 three-series line V1 does not support language '${language}'.`);})();
   const examSelector = normalizeSelector(request.examProfile);
   if (examSelector && !(examSelector.includes("bank") || examSelector.includes("ibps") || examSelector.includes("sbi") || examSelector.includes("rrb") || examSelector.includes("mains"))) {
     throw new Error("DI-004 three-series line V1 is scoped to Banking Mains review.");
@@ -226,7 +226,7 @@ async function generateDi004MultiQuestionStudioBatch(request: Di004QuestionStudi
   const questions:any[] = [];
   for(let index=0;index<count;index+=1){
     const seed=`${batchSeed}:${index}`;
-    const set=generateDi004MultiLineSet({seed});
+    const source=generateDi004MultiLineSet({seed}),set=locale?localizeDi004MultiSet(source,locale):source;
     questionPackages.push(set);
     const pool=difficulty?set.questions.filter(q=>q.difficulty===difficulty):set.questions;
     const question=pool[index%pool.length]!;
@@ -238,14 +238,14 @@ async function generateDi004MultiQuestionStudioBatch(request: Di004QuestionStudi
       difficulty:question.difficulty,difficultyLabel:question.difficulty,patternId:"DI-004",section:"Quant",topic:"Data Interpretation",subtopic:"Three-Series Line Graph",
       generationBackend:"quant-v4",debugSource:"quant-v4-di004-multi-line-review-v1",questionId:question.questionId,sourceQuestionId:question.questionId,
       seed,examProfile:"BANKING_MAINS" as const,packageId:"DI-004" as const,canonicalProblemId:DI004_MULTI_CANONICAL_PROBLEM_ID,taskKind:question.kind,
-      runtimeMode:DI004_MULTI_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
+      runtimeMode:DI004_MULTI_RUNTIME_MODE,reviewStatus:locale?"HI_PA_REVIEW_CANDIDATE" as const:"ENGLISH_REVIEW_CANDIDATE" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
       questionBankEligible:false as const,testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,
-      automaticStudentPublication:false as const,productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:"en" as const,
-      metadata:{packageId:"DI-004",canonicalProblemId:DI004_MULTI_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:"BANKING_MAINS",runtimeMode:DI004_MULTI_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_MULTI_LINE_SVG"}
+      automaticStudentPublication:false as const,productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:locale==="hi-IN"?"hi" as const:locale==="pa-IN"?"pa" as const:"en" as const,
+      metadata:{packageId:"DI-004",canonicalProblemId:DI004_MULTI_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:"BANKING_MAINS",runtimeMode:DI004_MULTI_RUNTIME_MODE,reviewStatus:locale?"HI_PA_REVIEW_CANDIDATE":"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_MULTI_LINE_SVG"}
     });
   }
   return {generationContext:{generationDomain:"quant-v4" as const,chapterId:"DataInterpretation" as const,packageId:"DI-004" as const,canonicalProblemId:DI004_MULTI_CANONICAL_PROBLEM_ID,
-    seed:batchSeed,timestamp:Date.now(),language:"en" as const,examProfile:"BANKING_MAINS" as const,runtimeMode:DI004_MULTI_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+    seed:batchSeed,timestamp:Date.now(),language:locale==="hi-IN"?"hi" as const:locale==="pa-IN"?"pa" as const:"en" as const,examProfile:"BANKING_MAINS" as const,runtimeMode:DI004_MULTI_RUNTIME_MODE,reviewStatus:locale?"HI_PA_REVIEW_CANDIDATE" as const:"ENGLISH_REVIEW_CANDIDATE" as const,localizationStatus:locale?"HI_PA_REVIEW_CANDIDATE" as const:undefined,
     questionStudioDiscoverable:true as const,questionStudioMode:"CONTROLLED_REVIEW" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
     testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
     productionReleaseAuthorized:false as const,manualApprovalRequired:true as const},questionPackages,questions};
@@ -253,7 +253,7 @@ async function generateDi004MultiQuestionStudioBatch(request: Di004QuestionStudi
 
 async function generateDi004SingleQuestionStudioBatch(request: Di004QuestionStudioRequest) {
   const language = String(request.language ?? "en").trim().toLowerCase();
-  if (language !== "en") throw new Error("DI-004 single-series line V1 is English review-only.");
+  const locale:Di004LocalizationLocale|undefined=language==="hi"||language==="hi-in"?"hi-IN":language==="pa"||language==="pa-in"?"pa-IN":language==="en"?undefined:(()=>{throw new Error(`DI-004 single-series line V1 does not support language '${language}'.`);})();
   const profile = normalizeProfile(request.examProfile);
   const difficulty = normalizeDifficulty(request.difficulty);
   const count = Math.min(1000, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
@@ -262,7 +262,7 @@ async function generateDi004SingleQuestionStudioBatch(request: Di004QuestionStud
   const questions:any[] = [];
   for(let index=0;index<count;index+=1){
     const seed=`${batchSeed}:${index}`;
-    const set=generateDi004SingleLineSet({seed,examProfile:profile});
+    const source=generateDi004SingleLineSet({seed,examProfile:profile}),set=locale?localizeDi004SingleSet(source,locale):source;
     questionPackages.push(set);
     const pool=difficulty?set.questions.filter(q=>q.difficulty===difficulty):set.questions;
     const question=pool[index%pool.length]!;
@@ -274,14 +274,14 @@ async function generateDi004SingleQuestionStudioBatch(request: Di004QuestionStud
       difficulty:question.difficulty,difficultyLabel:question.difficulty,patternId:"DI-004",section:"Quant",topic:"Data Interpretation",subtopic:"Single-Series Line Graph",
       generationBackend:"quant-v4",debugSource:"quant-v4-di004-single-line-review-v1",questionId:question.questionId,sourceQuestionId:question.questionId,
       seed,examProfile:set.examProfile,packageId:"DI-004" as const,canonicalProblemId:DI004_SINGLE_CANONICAL_PROBLEM_ID,taskKind:question.kind,
-      runtimeMode:DI004_SINGLE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
+      runtimeMode:DI004_SINGLE_RUNTIME_MODE,reviewStatus:locale?"HI_PA_REVIEW_CANDIDATE" as const:"ENGLISH_REVIEW_CANDIDATE" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
       questionBankEligible:false as const,testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,
-      automaticStudentPublication:false as const,productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:"en" as const,
-      metadata:{packageId:"DI-004",canonicalProblemId:DI004_SINGLE_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:set.examProfile,runtimeMode:DI004_SINGLE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_SINGLE_LINE_SVG"}
+      automaticStudentPublication:false as const,productionReleaseAuthorized:false as const,reviewOnly:true as const,manualApprovalRequired:true as const,language:locale==="hi-IN"?"hi" as const:locale==="pa-IN"?"pa" as const:"en" as const,
+      metadata:{packageId:"DI-004",canonicalProblemId:DI004_SINGLE_CANONICAL_PROBLEM_ID,taskKind:question.kind,examProfile:set.examProfile,runtimeMode:DI004_SINGLE_RUNTIME_MODE,reviewStatus:locale?"HI_PA_REVIEW_CANDIDATE":"ENGLISH_REVIEW_CANDIDATE",presentationAuthority:"DATA_INTERPRETATION_SINGLE_LINE_SVG"}
     });
   }
   return {generationContext:{generationDomain:"quant-v4" as const,chapterId:"DataInterpretation" as const,packageId:"DI-004" as const,canonicalProblemId:DI004_SINGLE_CANONICAL_PROBLEM_ID,
-    seed:batchSeed,timestamp:Date.now(),language:"en" as const,examProfile:profile,runtimeMode:DI004_SINGLE_RUNTIME_MODE,reviewStatus:"ENGLISH_REVIEW_CANDIDATE" as const,
+    seed:batchSeed,timestamp:Date.now(),language:locale==="hi-IN"?"hi" as const:locale==="pa-IN"?"pa" as const:"en" as const,examProfile:profile,runtimeMode:DI004_SINGLE_RUNTIME_MODE,reviewStatus:locale?"HI_PA_REVIEW_CANDIDATE" as const:"ENGLISH_REVIEW_CANDIDATE" as const,localizationStatus:locale?"HI_PA_REVIEW_CANDIDATE" as const:undefined,
     questionStudioDiscoverable:true as const,questionStudioMode:"CONTROLLED_REVIEW" as const,questionBankStatus:"NOT_STORED" as const,questionBankWritable:false as const,
     testEligibility:"INELIGIBLE" as const,testEligible:false as const,mockTestEligible:false as const,publiclyPublishable:false as const,automaticStudentPublication:false as const,
     productionReleaseAuthorized:false as const,manualApprovalRequired:true as const},questionPackages,questions};
@@ -378,8 +378,8 @@ export function di004QuestionStudioPackageCard() {
     qls: DI004_PERMANENT_QLS.map((descriptor) => ({ id: descriptor.qlId, label: descriptor.label, difficulty: descriptor.difficulty, taskKind: descriptor.taskKind })),
     supportedDifficulties: ["easy", "medium", "hard"],
     supportedLanguages: ["en", "hi", "pa"],
-    localizationCoverage: { status: "PARTIAL_HI_PA_FROZEN", canonicalProblemIds: [DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID], permanentQlCount: DI004_PERMANENT_QLS.length },
-    metadata: { localizationCoverage: { status: "PARTIAL_HI_PA_FROZEN", canonicalProblemIds: [DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID], permanentQlCount: DI004_PERMANENT_QLS.length } },
+    localizationCoverage: { status: "HI_PA_REVIEW_CANDIDATE_WITH_FROZEN_SCOPE", canonicalProblemIds: [DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,DI004_SINGLE_CANONICAL_PROBLEM_ID,DI004_MULTI_CANONICAL_PROBLEM_ID], permanentQlCount: DI004_PERMANENT_QLS.length },
+    metadata: { localizationCoverage: { status: "HI_PA_REVIEW_CANDIDATE_WITH_FROZEN_SCOPE", canonicalProblemIds: [DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,DI004_SINGLE_CANONICAL_PROBLEM_ID,DI004_MULTI_CANONICAL_PROBLEM_ID], permanentQlCount: DI004_PERMANENT_QLS.length } },
     supportedExamProfiles: ["SSC_CGL_TIER_I", "BANKING_PRELIMS", "BANKING_MAINS"],
     enabled: true,
     runtimeMode: DI004_QUESTION_STUDIO_RUNTIME_MODE,
@@ -397,6 +397,6 @@ export function di004QuestionStudioPackageCard() {
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
     manualApprovalRequired: true,
-    localizationStatus: "PARTIAL_HI_PA_FROZEN",
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE_WITH_FROZEN_SCOPE",
   };
 }
