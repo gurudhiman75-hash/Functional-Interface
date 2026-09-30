@@ -718,6 +718,14 @@ export function localizeIndianGeoQuestionV1(
     }
   }
 
+  if (packageId === "GEO-LND-001") {
+    const approved =
+      localizeGeoLnd001ExactCp001(question, language) ??
+      localizeGeoLnd001ExactCp002(question, language) ??
+      localizeGeoLnd001ExactCp003(question, language);
+    if (approved) return approved;
+  }
+
   const options = Object.freeze(question.options.map((option) => localizeText(option, language)));
   const canonicalAnswer = options[question.correctIndex]!;
   const stem = localizeNaturalStem(question.stem, language, packageId) ?? localizeText(question.stem, language);
