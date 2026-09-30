@@ -93,6 +93,34 @@ for (const language of ["en", "hi", "pa"] as const) {
   }
   assert.notEqual(first.questionId, "");
 }
+const subsetExplanationByLanguage = {
+  en: "Every member of A belongs to B.",
+  hi: "A का हर सदस्य B का सदस्य है।",
+  pa: "A ਦਾ ਹਰ ਮੈਂਬਰ B ਦਾ ਮੈਂਬਰ ਵੀ ਹੈ।",
+} as const;
+for (const language of ["en", "hi", "pa"] as const) {
+  const localized = await reasoningV1QuestionStudioAdapter.generate({
+    packageId: VEN_001_QUESTION_STUDIO_PACKAGE_ID,
+    patternId: "VEN-CP003-DIRECT",
+    canonicalProblemId: "VEN-AUTH-001-SPARROW-BIRD-ANIMAL",
+    language,
+    count: 1,
+    seed: "ven001-subset-explanation-language-proof",
+  });
+  assert.ok(
+    String(localized.questions[0]?.explanation).includes(
+      subsetExplanationByLanguage[language],
+    ),
+    language + " subset explanation must preserve the exact membership relation",
+  );
+  if (language !== "en")
+    assert.doesNotMatch(
+      String(localized.questions[0]?.explanation),
+      /Every member of|belongs to|have no members in common|share some members/,
+      language + " explanation must not fall back to English relation text",
+    );
+}
+
 assert.equal(VEN_001_SCENARIO_AUTHORITIES.length, 34);
 const fullReviewPool = await reasoningV1QuestionStudioAdapter.generate({
   packageId: VEN_001_QUESTION_STUDIO_PACKAGE_ID,

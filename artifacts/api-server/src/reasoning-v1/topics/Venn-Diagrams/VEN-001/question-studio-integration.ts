@@ -239,25 +239,25 @@ function relationText(
   return authority.relations.map(({ left, right, relation }) => {
     if (locale === "hi-IN") {
       if (relation === "LEFT_SUBSET_RIGHT")
-        return left + " का हर सदस्य " + right + " में आता है।";
+        return left + " का हर सदस्य " + right + " का सदस्य है।";
       if (relation === "RIGHT_SUBSET_LEFT")
-        return right + " का हर सदस्य " + left + " में आता है।";
+        return right + " का हर सदस्य " + left + " का सदस्य है।";
       if (relation === "DISJOINT")
-        return left + " और " + right + " में कोई सदस्य समान नहीं है।";
+        return left + " और " + right + " का कोई साझा सदस्य नहीं है।";
       if (relation === "PARTIAL_OVERLAP")
-        return left + " और " + right + " में कुछ सदस्य समान हैं, लेकिन दोनों में कुछ अलग सदस्य भी हैं।";
-      return left + " और " + right + " के सदस्य समान हैं।";
+        return left + " और " + right + " में कुछ सदस्य समान हैं; फिर भी दोनों समूहों में ऐसे सदस्य हैं जो दूसरे समूह में नहीं हैं।";
+      return left + " और " + right + " में ठीक वही सदस्य हैं।";
     }
     if (locale === "pa-IN") {
       if (relation === "LEFT_SUBSET_RIGHT")
-        return left + " ਸਮੂਹ ਦਾ ਹਰ ਮੈਂਬਰ " + right + " ਸਮੂਹ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।";
+        return left + " ਦਾ ਹਰ ਮੈਂਬਰ " + right + " ਦਾ ਮੈਂਬਰ ਵੀ ਹੈ।";
       if (relation === "RIGHT_SUBSET_LEFT")
-        return right + " ਸਮੂਹ ਦਾ ਹਰ ਮੈਂਬਰ " + left + " ਸਮੂਹ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।";
+        return right + " ਦਾ ਹਰ ਮੈਂਬਰ " + left + " ਦਾ ਮੈਂਬਰ ਵੀ ਹੈ।";
       if (relation === "DISJOINT")
-        return left + " ਅਤੇ " + right + " ਵਿੱਚ ਕੋਈ ਸਾਂਝਾ ਮੈਂਬਰ ਨਹੀਂ ਹੈ।";
+        return left + " ਅਤੇ " + right + " ਦਾ ਕੋਈ ਸਾਂਝਾ ਮੈਂਬਰ ਨਹੀਂ ਹੈ।";
       if (relation === "PARTIAL_OVERLAP")
-        return left + " ਅਤੇ " + right + " ਵਿੱਚ ਕੁਝ ਮੈਂਬਰ ਸਾਂਝੇ ਹਨ, ਪਰ ਦੋਵਾਂ ਵਿੱਚ ਕੁਝ ਵੱਖਰੇ ਮੈਂਬਰ ਵੀ ਹਨ।";
-      return left + " ਅਤੇ " + right + " ਦੇ ਸਾਰੇ ਮੈਂਬਰ ਇੱਕੋ ਹਨ।";
+        return left + " ਅਤੇ " + right + " ਵਿੱਚ ਕੁਝ ਮੈਂਬਰ ਸਾਂਝੇ ਹਨ; ਫਿਰ ਵੀ ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਅਜਿਹੇ ਮੈਂਬਰ ਹਨ ਜੋ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਹਨ।";
+      return left + " ਅਤੇ " + right + " ਵਿੱਚ ਬਿਲਕੁਲ ਇੱਕੋ ਮੈਂਬਰ ਹਨ।";
     }
     if (relation === "LEFT_SUBSET_RIGHT")
       return "Every member of " + left + " belongs to " + right + ".";
