@@ -21,8 +21,8 @@ for (const profile of profiles) for (const contractId of STAT005_CONTRACTS) for 
 }
 for (const contractId of ["QUARTILE_FROM_DISCRETE_FREQUENCY", "QUARTILE_FROM_GROUPED_DATA"] as const) {
   const question = generateStat005Question({ seed: "STAT-005-TABLE-HEADER-CHECK", examProfile: "SSC_CGL_JSO", contractId });
-  assert(!question.stem.includes("\\nValue | Frequency\\n| Value | Frequency |"), "Discrete table header is duplicated.");
-  assert(!question.stem.includes("\\nClass interval | Frequency\\n| Class interval | Frequency |"), "Grouped table header is duplicated.");
+  assert(!question.stem.includes("\nValue | Frequency\n| Value | Frequency |"), "Discrete table header is duplicated.");
+  assert(!question.stem.includes("\nClass interval | Frequency\n| Class interval | Frequency |"), "Grouped table header is duplicated.");
 }
 const batch = generateStat005QuestionStudioBatch({ packageId: "STAT-005", seed: "STAT-005-STUDIO-PROOF", count: STAT005_CONTRACTS.length, language: "en", examProfile: "SSC_CGL_JSO" });
 assert(batch.questions.length === STAT005_CONTRACTS.length, "Question Studio batch size drifted.");
