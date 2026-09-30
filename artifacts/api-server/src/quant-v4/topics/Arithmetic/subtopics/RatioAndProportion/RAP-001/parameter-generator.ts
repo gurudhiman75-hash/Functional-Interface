@@ -846,6 +846,7 @@ export function generateRap001Parameters(cpId: Rap001CanonicalProblemId, input: 
           selectionDifficulty,
           input.diversityOrdinal,
         );
+  const resolvedDifficulty = getQuestionEntry(cpId, questionLanguageId, "en").difficulty;
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const semanticContext = selectSemanticContext(cpId, seed);
@@ -862,7 +863,7 @@ export function generateRap001Parameters(cpId: Rap001CanonicalProblemId, input: 
     questionLanguageId,
     explanationId: getExplanationId(cpId, language),
     language,
-    difficultyBand,
+    difficultyBand: resolvedDifficulty,
     taskKind,
     answerType,
     requiredVariables,
