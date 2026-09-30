@@ -35,7 +35,8 @@ for (const language of ["en", "hi", "pa"] as const) {
     assert.equal(question.questionBankWritable, false);
     assert.equal(question.testEligible, false);
     assert.equal(question.publiclyPublishable, false);
-    assert.match(String(question.text), /Clues:/u);
+    const heading = language === "en" ? "Clues:" : language === "hi" ? "शर्तें:" : "ਸ਼ਰਤਾਂ:";
+    assert.ok(String(question.text).includes(heading));
     assert.ok(String(question.text).split("\n").filter((line) => line.startsWith("- ")).length >= 3);
     assert.ok(String(question.text).trim().endsWith(String(question.text).trim().split("\n").at(-1) ?? ""));
   }
