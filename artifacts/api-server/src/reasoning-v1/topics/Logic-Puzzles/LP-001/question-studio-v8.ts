@@ -28,8 +28,11 @@ function selector(request: LogicPuzzleQuestionStudioRequest): string {
 }
 
 function isCp04Request(request: LogicPuzzleQuestionStudioRequest): boolean {
+  const packageId = normalize(request.packageId ?? request.archetypeId);
   const selected = selector(request);
-  return selected === "lp ql 047"
+  return packageId === "lp cp04 counterfactual"
+    || packageId === "lp cp 04 counterfactual"
+    || selected === "lp ql 047"
     || selected === "lp cp 012"
     || selected === "lp cp04 counterfactual"
     || selected === "lp cp04 counterfactual additional condition";
@@ -52,6 +55,7 @@ export function listLogicPuzzleQuestionStudioPackagesV8() {
     if (pkg.id !== "LP-CP04-COUNTERFACTUAL") return pkg;
     return {
       ...pkg,
+      packageId: "LP-CP04-COUNTERFACTUAL",
       supportedLanguages: ["en", "hi", "pa"],
       localizationFreezeStatus: "FROZEN_V1",
       localizationAuthorityId: LP_CP04_HI_PA_LOCALIZATION_FREEZE_V1.authorityId,
