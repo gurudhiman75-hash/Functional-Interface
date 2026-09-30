@@ -200,7 +200,7 @@ function mainsCategory(word:string):MainsCategory{
 }
 const mainsFrames:Record<MainsCategory,readonly (readonly[string,string,string])[]>={
  "policy-rate":[
-  ["The policy note explained the significance of the {w}.","Analysts compared movements in the {w} with other market indicators.","The committee discussed how the {w} could influence financial conditions."],
+  ["The monetary review outlined why the {w} mattered.","Analysts compared movements in the {w} with other market indicators.","The committee discussed how the {w} could influence financial conditions."],
   ["The report included a separate discussion of the {w}.","Market participants monitored changes in the {w} during the period.","The analysis linked the {w} with broader monetary and funding conditions."]
  ],
  risk:[
@@ -228,7 +228,7 @@ const mainsFrames:Record<MainsCategory,readonly (readonly[string,string,string])
   ["The liquidity note contained a detailed discussion of the {w}.","Management compared the {w} with internal limits.","The committee considered how the {w} could change under stress."]
  ],
  general:[
-  ["The policy note explained the significance of the {w}.","The committee reviewed how the {w} could affect the institution.","The report included a separate analysis of the {w}."],
+  ["The internal note outlined the relevance of the {w}.","The committee reviewed how the {w} could affect the institution.","The report included a separate analysis of the {w}."],
   ["Analysts discussed the {w} in the bank's annual risk review.","Senior management considered the implications of the {w}.","The internal note described how the {w} would be monitored."]
  ]
 };
