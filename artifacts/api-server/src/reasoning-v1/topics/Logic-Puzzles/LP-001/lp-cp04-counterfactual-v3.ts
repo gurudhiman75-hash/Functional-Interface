@@ -43,7 +43,7 @@ export type Lp004HardCounterfactualCaselet = {
   counterfactualChild: Lp004HardChild;
 };
 
-export type LpCp04CaseletV3 = LpCp04CaseletV2 | Lp004HardCounterfactualCaselet;
+export type LpCp04CaseletV3 = (LpCp04CaseletV2 & { parentTopology: "LP-001_GROUPING" }) | Lp004HardCounterfactualCaselet;
 
 export const LP_CP04_COUNTERFACTUAL_V3 = Object.freeze({
   authorityId: "LP_CP04_COUNTERFACTUAL_V3" as const,
@@ -227,12 +227,12 @@ function generateHard(seed: string, outputIndex: number): Lp004HardCounterfactua
   throw new Error(`CP04 V3 could not build Hard committee caselet ${outputIndex + 1}.`);
 }
 
-function generateEasyOrMedium(seed: string, difficulty: "Easy" | "Medium", outputIndex: number): LpCp04CaseletV2 {
+function generateEasyOrMedium(seed: string, difficulty: "Easy" | "Medium", outputIndex: number): LpCp04CaseletV2 & { parentTopology: "LP-001_GROUPING" } {
   for (let attempt = 0; attempt < 50; attempt += 1) {
     try {
       const pair = generateLpCp04BatchV2(`${seed}:lp001:${difficulty}:${outputIndex}:${attempt}`, 2);
       const candidate = pair[difficulty === "Easy" ? 0 : 1]!;
-      if (candidate.difficultyBand === difficulty) return candidate;
+      if (candidate.difficultyBand === difficulty) return { ...candidate, parentTopology: "LP-001_GROUPING" };
     } catch {
       continue;
     }

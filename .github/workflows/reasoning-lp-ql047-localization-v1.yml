@@ -15,6 +15,8 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-freeze-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v8.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v8.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-deep-audit-wave2.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-structural-repetition-diagnostic.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1-review-export.ts"
   workflow_dispatch:
 
@@ -41,6 +43,10 @@ jobs:
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v3.test.ts
       - name: Prove Question Studio V8 LP-QL-047 multilingual routing
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v8.test.ts
+      - name: Prove Logic Puzzle live V8 difficulty and multilingual audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-deep-audit-wave2.test.ts
+      - name: Diagnose Logic Puzzle normalized structural repetition
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-structural-repetition-diagnostic.ts
       - name: Export LP-QL-047 localization V3 human review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-cp04-localization-v1-review-export.ts lp-cp04-localization-v3-review 9 lp-cp04-localization-v3-review.md > /dev/null
       - name: Upload localization V3 review pack

@@ -72,7 +72,7 @@ export function listLogicPuzzleQuestionStudioPackagesV8() {
   });
 }
 
-export async function generateLogicPuzzleQuestionStudioBatchV8(request: LogicPuzzleQuestionStudioRequest = {}) {
+async function generateLogicPuzzleQuestionStudioBatchV8Core(request: LogicPuzzleQuestionStudioRequest = {}) {
   if (!isCp04Request(request)) return generateLogicPuzzleQuestionStudioBatchV7(request);
   const language = normalizeLanguage(request.language);
   if (language === "en") {
@@ -164,6 +164,97 @@ export async function generateLogicPuzzleQuestionStudioBatchV8(request: LogicPuz
       automaticStudentPublication: false,
       language,
       checkpointId: "LP-CP-012",
+    },
+    questionPackages: questions,
+    questions,
+  };
+}
+
+
+type LpPublicDifficulty = "Easy" | "Medium" | "Hard";
+
+function normalizeRequestedDifficulty(value: unknown): LpPublicDifficulty | null {
+  const normalized = String(value ?? "").trim().toLowerCase();
+  if (!normalized || normalized === "mixed" || normalized === "all") return null;
+  if (normalized === "easy") return "Easy";
+  if (normalized === "medium") return "Medium";
+  if (normalized === "hard") return "Hard";
+  throw new Error(`Unsupported Logic Puzzle difficulty: ${String(value)}`);
+}
+
+function caseletKey(question: any): string {
+  return String(
+    question?.traceability?.caseletId
+    ?? question?.metadata?.caseletId
+    ?? question?.questionId
+    ?? question?.questionIndex
+    ?? "",
+  );
+}
+
+function groupByCaselet(questions: readonly any[]): any[][] {
+  const order: string[] = [];
+  const groups = new Map<string, any[]>();
+  for (const question of questions) {
+    const key = caseletKey(question);
+    if (!groups.has(key)) {
+      groups.set(key, []);
+      order.push(key);
+    }
+    groups.get(key)!.push(question);
+  }
+  return order.map((key) => groups.get(key)!);
+}
+
+export async function generateLogicPuzzleQuestionStudioBatchV8(request: LogicPuzzleQuestionStudioRequest = {}) {
+  const requestedDifficulty = normalizeRequestedDifficulty(request.difficulty);
+  if (!requestedDifficulty) return generateLogicPuzzleQuestionStudioBatchV8Core(request);
+
+  const requestedCaselets = Math.min(12, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
+  const baseSeed = String(request.seed || "question-studio:logic-puzzles");
+  const selectedGroups: any[][] = [];
+  let generationContext: any = null;
+  // Several source generators assign structural difficulty by batch index.
+  // A request for one caselet must sample multiple candidate positions;
+  // retrying seeds at index zero alone can never reach some bands.
+  const candidateCount = Math.min(12, Math.max(6, requestedCaselets * 3));
+
+  for (let attempt = 0; attempt < 36 && selectedGroups.length < requestedCaselets; attempt += 1) {
+    const batch: any = await generateLogicPuzzleQuestionStudioBatchV8Core({
+      ...request,
+      difficulty: undefined,
+      seed: `${baseSeed}:difficulty:${requestedDifficulty}:${attempt}`,
+      count: candidateCount,
+    });
+    generationContext ??= batch.generationContext;
+    for (const group of groupByCaselet(batch.questions ?? [])) {
+      if (selectedGroups.length >= requestedCaselets) break;
+      if (!group.length) continue;
+      if (group.every((question) => question.difficulty === requestedDifficulty)) {
+        selectedGroups.push(group);
+      }
+    }
+  }
+
+  if (selectedGroups.length !== requestedCaselets) {
+    throw new Error(
+      `Unable to generate ${requestedCaselets} Logic Puzzle caselet(s) at difficulty ${requestedDifficulty} within deterministic candidate budget.`,
+    );
+  }
+
+  const questions = selectedGroups.flat().map((question, questionIndex) => ({
+    ...question,
+    questionIndex,
+    requestedDifficulty,
+  }));
+
+  return {
+    generationContext: {
+      ...generationContext,
+      seed: baseSeed,
+      requestedDifficulty,
+      difficultyFilterAuthority: "LP_V8_STRUCTURAL_DIFFICULTY_FILTER_V1",
+      selectedCaseletCount: selectedGroups.length,
     },
     questionPackages: questions,
     questions,
