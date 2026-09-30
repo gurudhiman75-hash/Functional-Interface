@@ -62,6 +62,8 @@ for(const locale of ["hi-IN","pa-IN"] as const){
       const a=source.questions[n]!,b=localized.questions[n]!;tasks.add(b.kind);
       const expected=a.answer.replace(/^(\d+) percentage points$/u,(_m,n)=>`${n} ${locale==="hi-IN"?"प्रतिशत-अंक":"ਪ੍ਰਤੀਸ਼ਤ-ਅੰਕ"}`);
       assert.equal(b.answer,expected);assert.equal(b.options[b.correctIndex],b.answer);assert.equal(b.correctIndex,a.correctIndex);
+      if(b.kind==="GROUP_APPLICATION_TO_APPROVAL_RATIO")assert.match(b.stem,locale==="hi-IN"?/में प्राप्त आवेदनों की कुल संख्या का स्वीकृत आवेदनों की कुल संख्या से अनुपात क्या है\?$/u:/में प्राप्त अर्जी|ਵਿੱਚ ਪ੍ਰਾਪਤ ਅਰਜ਼ੀਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਦਾ ਮਨਜ਼ੂਰ ਅਰਜ਼ੀਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਨਾਲ ਅਨੁਪਾਤ ਕੀ ਹੈ\?$/u);
+      if(b.kind==="TOTAL_APPLICATION_TO_APPROVAL_RATIO")assert.match(b.stem,locale==="hi-IN"?/सभी श्रेणियों में प्राप्त आवेदनों की कुल संख्या का स्वीकृत आवेदनों की कुल संख्या से अनुपात क्या है\?$/u:/ਸਾਰੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਵਿੱਚ ਪ੍ਰਾਪਤ ਅਰਜ਼ੀਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਦਾ ਮਨਜ਼ੂਰ ਅਰਜ਼ੀਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਨਾਲ ਅਨੁਪਾਤ ਕੀ ਹੈ\?$/u);
       assert.doesNotMatch(b.stem,/[A-Za-z]{3,}/u);
     }
   }
