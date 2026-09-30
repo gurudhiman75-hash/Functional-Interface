@@ -76,7 +76,12 @@ function chooseFrequency(seed: string, qlId: IntCp004QlId): Cp004Frequency {
 }
 
 function inverseRatePool(frequency: Cp004Frequency): readonly Rational[] {
-  if (frequency === 2) return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24), rat(30)]);
+  if (frequency === 2) {
+    return Object.freeze([
+      rat(4), rat(6), rat(8), rat(10), rat(12), rat(14), rat(16),
+      rat(18), rat(20), rat(22), rat(24), rat(26), rat(28), rat(30),
+    ]);
+  }
   return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24)]);
 }
 
