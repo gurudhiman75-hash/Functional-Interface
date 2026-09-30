@@ -1,7 +1,7 @@
 # WHI-001-CP011 — United Nations and Post-war Institutions
 
-**Status:** English editorial first pass complete; human approval requested.
-**Lifecycle:** Review-only; not registered in Question Studio; no learner delivery.
+**Status:** English editorial first pass approved for localization.
+**Lifecycle:** Registered as the `WHI-001-CP011` Question Studio review-only package; no learner delivery.
 
 ### WHI-CP011-Q001 · easy · UN founding and chronology
 
@@ -722,4 +722,3 @@ Which conclusion best explains why the UN, IMF and IBRD should not be treated as
 **Answer:** D
 **Explanation:** The UN Charter and Bretton Woods agreements established organisations with different mandates. Their shared post-war setting does not make their roles interchangeable.
 **Sources:** CP011-S01, CP011-S07, CP011-S08
-
