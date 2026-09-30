@@ -1,0 +1,55 @@
+name: Validate ENG-009 CP005 Can-Fit V2
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/chapters/cloze-test/ENG-009/CP005/**
+      - artifacts/api-server/src/english-v1/tests/eng-009-cp005-v1.test.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng009-adapter-v1.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng009-adapter-v1.test.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eng009-cp005-can-fit-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install dependencies
+        timeout-minutes: 10
+        run: pnpm install --frozen-lockfile
+      - name: Compile CP005 audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-009-cp005-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-009-cp005-v2.test.mjs
+      - name: Run CP005 audit
+        run: node artifacts/api-server/dist/english-v1/eng-009-cp005-v2.test.mjs
+      - name: Compile Question Studio integration audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng009-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-009-question-studio-v2.test.mjs
+      - name: Run Question Studio integration audit
+        run: node artifacts/api-server/dist/english-v1/eng-009-question-studio-v2.test.mjs
+      - name: Compile CP005 review exporter
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/chapters/cloze-test/ENG-009/CP005/eng-009-cp005-review-v1-export.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-009-cp005-review-v2-export.mjs
+      - name: Generate CP005 V2 review
+        run: node artifacts/api-server/dist/english-v1/eng-009-cp005-review-v2-export.mjs
+      - name: Upload CP005 V2 review
+        uses: actions/upload-artifact@v4
+        with:
+          name: ENG-009-CP005-FULL-REVIEW-V2
+          path: artifacts/api-server/dist/english-v1/ENG-009-CP005-FULL-REVIEW-V2.md
+          if-no-files-found: error
+          retention-days: 30
