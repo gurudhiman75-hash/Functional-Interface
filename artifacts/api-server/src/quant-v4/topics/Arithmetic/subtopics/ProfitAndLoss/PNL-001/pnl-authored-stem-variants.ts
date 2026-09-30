@@ -57,6 +57,62 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "ਇੱਕ ਟੈਬਲੈਟ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ ਅਤੇ ਇਹ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਗਿਆ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
       "ਇੱਕ ਟੈਬਲੈਟ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ, ਪਰ ਗਾਹਕ ₹{sellingPrice} ਭਰਦਾ ਹੈ। ਛੂਟ ਦੀ ਦਰ ਪਤਾ ਕਰੋ।"
     ]
+  },
+  "PNL-QL-002": {
+    "en": [
+      "A study table costs a shopkeeper ₹{costPrice} and is sold for ₹{sellingPrice}. Find the profit or loss.",
+      "The purchase price of a study table is ₹{costPrice}, while its selling price is ₹{sellingPrice}. Determine the gain or loss amount."
+    ],
+    "hi": [
+      "एक दुकानदार ने स्टडी टेबल ₹{costPrice} में खरीदी और ₹{sellingPrice} में बेची। लाभ या हानि ज्ञात कीजिए।",
+      "स्टडी टेबल का क्रय मूल्य ₹{costPrice} और विक्रय मूल्य ₹{sellingPrice} है। लाभ या हानि की राशि ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਸਟਡੀ ਟੇਬਲ ₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ। ਲਾਭ ਜਾਂ ਘਾਟਾ ਪਤਾ ਕਰੋ।",
+      "ਸਟਡੀ ਟੇਬਲ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPrice} ਹੈ। ਲਾਭ ਜਾਂ ਘਾਟੇ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-006": {
+    "en": [
+      "A machine costing ₹{costPrice} is sold at a loss of {lossPercent}%. Find its selling price.",
+      "If a machine bought for ₹{costPrice} is sold at {lossPercent}% loss, what amount is received?"
+    ],
+    "hi": [
+      "₹{costPrice} की मशीन को {lossPercent}% हानि पर बेचा जाता है। उसका विक्रय मूल्य ज्ञात कीजिए।",
+      "₹{costPrice} में खरीदी गई मशीन को {lossPercent}% हानि पर बेचने पर कितनी राशि मिलेगी?"
+    ],
+    "pa": [
+      "₹{costPrice} ਦੀ ਮਸ਼ੀਨ ਨੂੰ {lossPercent}% ਘਾਟੇ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਇਸਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਮਸ਼ੀਨ ਨੂੰ {lossPercent}% ਘਾਟੇ 'ਤੇ ਵੇਚਣ ਨਾਲ ਕਿੰਨੀ ਰਕਮ ਮਿਲੇਗੀ?"
+    ]
+  },
+  "PNL-QL-039": {
+    "en": [
+      "A bookshelf is sold for ₹{sellingPrice} after a discount of {discountPercent}%. Find its marked price.",
+      "After {discountPercent}% is reduced from the marked price, a bookshelf sells for ₹{sellingPrice}. What was its marked price?"
+    ],
+    "hi": [
+      "एक बुकशेल्फ़ {discountPercent}% छूट के बाद ₹{sellingPrice} में बेची जाती है। उसका अंकित मूल्य ज्ञात कीजिए।",
+      "अंकित मूल्य पर {discountPercent}% छूट देने के बाद बुकशेल्फ़ ₹{sellingPrice} में बिकती है। मूल अंकित मूल्य क्या था?"
+    ],
+    "pa": [
+      "ਇੱਕ ਬੁੱਕਸ਼ੈਲਫ਼ {discountPercent}% ਛੂਟ ਤੋਂ ਬਾਅਦ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਜਾਂਦੀ ਹੈ। ਇਸਦਾ ਅੰਕਿਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "ਅੰਕਿਤ ਮੁੱਲ 'ਤੇ {discountPercent}% ਛੂਟ ਦੇਣ ਤੋਂ ਬਾਅਦ ਬੁੱਕਸ਼ੈਲਫ਼ ₹{sellingPrice} ਵਿੱਚ ਵਿਕਦੀ ਹੈ। ਮੂਲ ਅੰਕਿਤ ਮੁੱਲ ਕੀ ਸੀ?"
+    ]
+  },
+  "PNL-QL-040": {
+    "en": [
+      "An appliance set marked at ₹{markedPrice} gets successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Find the final selling price.",
+      "Two discounts, {firstDiscountPercent}% followed by {secondDiscountPercent}%, are offered on an item marked ₹{markedPrice}. What is the final price?"
+    ],
+    "hi": [
+      "₹{markedPrice} अंकित मूल्य वाले उपकरण सेट पर क्रमशः {firstDiscountPercent}% और {secondDiscountPercent}% छूट मिलती है। अंतिम विक्रय मूल्य ज्ञात कीजिए।",
+      "₹{markedPrice} अंकित मूल्य वाली वस्तु पर पहले {firstDiscountPercent}% और फिर {secondDiscountPercent}% छूट दी जाती है। अंतिम मूल्य क्या होगा?"
+    ],
+    "pa": [
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੇ ਉਪਕਰਣ ਸੈੱਟ 'ਤੇ ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਮਿਲਦੀ ਹੈ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ ਪਹਿਲਾਂ {firstDiscountPercent}% ਅਤੇ ਫਿਰ {secondDiscountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਅੰਤਿਮ ਕੀਮਤ ਕੀ ਹੋਵੇਗੀ?"
+    ]
   }
 };
 
