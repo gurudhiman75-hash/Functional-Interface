@@ -29,6 +29,26 @@ const expectedModes: Record<string, Record<string, number>> = {
 };
 for (const [cpId, modes] of Object.entries(expectedModes)) for (const [mode, count] of Object.entries(modes)) assert.equal(byCp(cpId).filter((entry) => entry.solveMode === mode).length, count, `${cpId}:${mode}`);
 
+const minimumContextDomains: Record<string, number> = {
+  "AVG-CP-001": 7,
+  "AVG-CP-002": 4,
+  "AVG-CP-003": 8,
+  "AVG-CP-004": 10,
+  "AVG-CP-005": 10,
+  "AVG-CP-006": 8,
+};
+for (const [cpId, minimum] of Object.entries(minimumContextDomains)) {
+  const domains = new Set(byCp(cpId).map((entry) => entry.contextDomain));
+  assert.ok(domains.size >= minimum, `${cpId} should expose at least ${minimum} context domains; found ${domains.size}`);
+}
+
+function assertMathJaxSafe(text: string, label: string) {
+  assert.equal((text.match(/\$\$/g) ?? []).length % 2, 0, `${label}: unbalanced display-math delimiters`);
+  assert.equal((text.match(/\\\\\(/g) ?? []).length, (text.match(/\\\\\)/g) ?? []).length, `${label}: unbalanced inline MathJax delimiters`);
+  assert.doesNotMatch(text, /\\text\{[^}]*\$[^}]*\}/, `${label}: currency symbol leaked inside \\text{}`);
+  assert.doesNotMatch(text, /\\(?:frac|times|div|cdot)(?!\b|\{|\s)/, `${label}: malformed MathJax operator`);
+}
+
 let generated = 0;
 for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
   for (let index = 0; index < 12; index += 1) {
@@ -42,6 +62,14 @@ for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
     assert.equal(first.answer, second.answer);
     assert.deepEqual(first.explanation, second.explanation);
     assert.equal(first.mathematicalFingerprint, second.mathematicalFingerprint);
+    assert.equal(first.options.length, 4, `${questionLanguageId}: expected four options`);
+    assert.equal(new Set(first.options).size, 4, `${questionLanguageId}: duplicate options`);
+    assert.ok(first.correctIndex >= 0 && first.correctIndex < first.options.length, `${questionLanguageId}: invalid correct option index`);
+    assert.equal(first.options[first.correctIndex], first.answer, `${questionLanguageId}: answer/options mismatch`);
+    assert.doesNotMatch(first.stem, /\{[A-Za-z0-9_]+\}/, `${questionLanguageId}: unresolved stem placeholder`);
+    assert.doesNotMatch(first.explanation.lines.join("\n"), /\{[A-Za-z0-9_]+\}/, `${questionLanguageId}: unresolved explanation placeholder`);
+    assertMathJaxSafe(first.explanation.lines.join("\n"), `${questionLanguageId}:explanation`);
+    assertMathJaxSafe(first.solver.equation ?? "", `${questionLanguageId}:solver`);
     generated += 1;
   }
 }
