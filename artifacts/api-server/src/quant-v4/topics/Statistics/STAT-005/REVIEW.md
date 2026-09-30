@@ -140,7 +140,7 @@ D. 19.38
 
 **Answer:** D. 19.38
 
-**Explanation:** N = 23, so the target position is 1 × 23 / 4 = 5.75. This lies in 10–20. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives 10 + [(5.75 − 2) / 4] × 10 = 19.38.
+**Explanation:** N = 23, so the target position is 1 × 23 / 4 = 5.75. This lies in 10–20. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives 10 + [(5.75 − 2) / 4] × 10 ≈ 19.38.
 
 ## STAT-QL-043 — Decile from grouped data
 
@@ -186,7 +186,7 @@ D. 19.38
 
 **Answer:** D. 19.38
 
-**Explanation:** N = 23, so the target position is 25 × 23 / 100 = 5.75. This lies in 10–20. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives 10 + [(5.75 − 2) / 4] × 10 = 19.38.
+**Explanation:** N = 23, so the target position is 25 × 23 / 100 = 5.75. This lies in 10–20. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives 10 + [(5.75 − 2) / 4] × 10 ≈ 19.38.
 
 ## STAT-QL-045 — Range of raw observations
 
@@ -216,7 +216,7 @@ D. 23.74
 
 **Answer:** C. 21.74
 
-**Explanation:** Coefficient of range = (largest − smallest) / (largest + smallest) × 100 = (28 − 18) / (28 + 18) × 100 = 21.74%.
+**Explanation:** Coefficient of range = (largest − smallest) / (largest + smallest) × 100 = (28 − 18) / (28 + 18) × 100 ≈ 21.74%.
 
 ## STAT-QL-047 — Quartile deviation of raw observations
 
@@ -246,7 +246,7 @@ D. 38.5
 
 **Answer:** A. 37.5
 
-**Explanation:** Coefficient of quartile deviation = (Q3 − Q1)/(Q3 + Q1) × 100 = (44 − 20)/(44 + 20) × 100 = 37.5%.
+**Explanation:** Coefficient of quartile deviation = (Q3 − Q1)/(Q3 + Q1) × 100 = (44 − 20)/(44 + 20) × 100 ≈ 37.5%.
 
 ## STAT-QL-049 — Mean deviation about the arithmetic mean
 
@@ -291,7 +291,7 @@ D. 31
 
 **Answer:** C. 30
 
-**Explanation:** Coefficient of variation = standard deviation / mean × 100 = 9/30 × 100 = 30%.
+**Explanation:** Coefficient of variation = standard deviation / mean × 100 = 9/30 × 100 ≈ 30%.
 
 ## Review checkpoints
 
