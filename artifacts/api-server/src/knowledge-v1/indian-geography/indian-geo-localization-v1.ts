@@ -759,11 +759,11 @@ export function auditIndianGeoLocalizationV1(
       if (language === "hi") {
         hindiStemResidueCount += stemResidue;
         hindiOptionResidueCount += optionResidue;
-        if (/[\u0A00-\u0A7F]/.test(localized.stem + " " + localized.options.join(" ") + " " + localized.explanation)) mixedScriptCount += 1;
+        if (GURMUKHI_SCRIPT.test(localized.stem + " " + localized.options.join(" ") + " " + localized.explanation)) mixedScriptCount += 1;
       } else {
         punjabiStemResidueCount += stemResidue;
         punjabiOptionResidueCount += optionResidue;
-        if (/[\u0900-\u097F]/.test(localized.stem + " " + localized.options.join(" ") + " " + localized.explanation)) mixedScriptCount += 1;
+        if (DEVANAGARI_SCRIPT.test(localized.stem + " " + localized.options.join(" ") + " " + localized.explanation)) mixedScriptCount += 1;
       }
 
       if (isGenericExplanationFallback(localized.explanation, language)) genericExplanationFallbackCount += 1;
