@@ -9,7 +9,7 @@ Each example is generated deterministically from its permanent QL contract. Form
 
 **Semantic contract:** Find a requested quartile in ordered raw observations using the explicitly stated (n+1) position convention and linear interpolation when required.
 
-For the ordered observations 21, 24, 25, 27, 30, 31, 33, 36, 37, 39, 42, quartiles are located at position k(n + 1)/4, with linear interpolation when required. The third quartile, Q3, is:
+The third quartile, Q3, of the following ordered observations is: 21, 24, 25, 27, 30, 31, 33, 36, 37, 39, 42.
 
 A. 38
 B. 36
@@ -24,7 +24,7 @@ D. 39
 
 **Semantic contract:** Find a requested decile in ordered raw observations using the explicitly stated (n+1) position convention and linear interpolation when required.
 
-For the ordered observations 18, 21, 22, 24, 27, 28, 30, 33, 34, deciles are located at position k(n + 1)/10, with linear interpolation when required. The third decile, D3, is:
+The third decile, D3, of the following ordered observations is: 18, 21, 22, 24, 27, 28, 30, 33, 34.
 
 A. 23
 B. 24
@@ -39,7 +39,7 @@ D. 21
 
 **Semantic contract:** Find a requested percentile in ordered raw observations using the explicitly stated (n+1) position convention and linear interpolation when required.
 
-For the ordered observations 36, 40, 42, 45, 49, 51, 54, 58, 60, percentiles are located at position k(n + 1)/100, with linear interpolation when required. The 75th percentile, P75, is:
+The 75th percentile, P75, of the following ordered observations is: 36, 40, 42, 45, 49, 51, 54, 58, 60.
 
 A. 58
 B. 57
@@ -54,7 +54,7 @@ D. 55
 
 **Semantic contract:** Locate a specified quartile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
-Under the nearest-rank convention r = ceil(kN/m), the second quartile, Q2, for the ordered frequency distribution below (N = 23) is:
+The median (Q2) of the following discrete frequency distribution is:
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -76,7 +76,7 @@ D. 41
 
 **Semantic contract:** Locate a specified decile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
-Under the nearest-rank convention r = ceil(kN/m), the eighth decile, D8, for the ordered frequency distribution below (N = 23) is:
+The eighth decile (D8) of the following discrete frequency distribution is:
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -98,7 +98,7 @@ D. 52
 
 **Semantic contract:** Locate a specified percentile by its nearest-rank position in an ordered discrete frequency distribution using cumulative frequencies.
 
-Under the nearest-rank convention r = ceil(kN/m), the 75th percentile, P75, for the ordered frequency distribution below (N = 23) is:
+The 75th percentile (P75) of the following discrete frequency distribution is:
 | Value | Frequency |
 |---:|---:|
 | 10 | 2 |
@@ -120,7 +120,7 @@ D. 40
 
 **Semantic contract:** Interpolate a requested quartile in a grouped continuous frequency distribution from its quartile class, lower boundary, cumulative frequency, class frequency and width.
 
-For grouped data, Q1 is estimated by linear interpolation at position N/4. For the distribution below, Q1 is:
+The first quartile (Q1) of the following grouped frequency distribution is:
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
@@ -142,7 +142,7 @@ D. 19.38
 
 **Semantic contract:** Interpolate a requested decile in a grouped continuous frequency distribution from its decile class and displayed frequency data.
 
-For grouped data, D4 is estimated by linear interpolation at position 4N/10. For the distribution below, D4 is:
+The fourth decile (D4) of the following grouped frequency distribution is:
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
@@ -164,7 +164,7 @@ D. 26.4
 
 **Semantic contract:** Interpolate a requested percentile in a grouped continuous frequency distribution from its percentile class and displayed frequency data.
 
-For grouped data, P25 is estimated by linear interpolation at position 25N/100. For the distribution below, P25 is:
+The 25th percentile (P25) of the following grouped frequency distribution is:
 | Class interval | Frequency |
 |---:|---:|
 | 0–10 | 2 |
@@ -201,7 +201,7 @@ D. 19
 
 **Semantic contract:** Calculate the relative range (largest minus smallest) divided by (largest plus smallest), and express it as a percentage when requested.
 
-A data set has smallest observation 18 and largest observation 28. Its coefficient of range, expressed as a percentage, is:
+The smallest and largest observations in a data set are 18 and 28. The coefficient of range, expressed as a percentage, is:
 
 A. 22.74
 B. 20.74
@@ -216,7 +216,7 @@ D. 23.74
 
 **Semantic contract:** Find Q1 and Q3 with the stated (n+1) linear-interpolation convention and calculate half their difference.
 
-For the ordered observations 30, 34, 36, 39, 43, 45, 48, 52, 54, 57, 61, quartiles are located at position k(n + 1)/4, with linear interpolation when required. The quartile deviation is:
+The quartile deviation of the following ordered observations is: 30, 34, 36, 39, 43, 45, 48, 52, 54, 57, 61.
 
 A. 8
 B. 9
@@ -231,7 +231,7 @@ D. 11
 
 **Semantic contract:** Calculate (Q3 minus Q1) divided by (Q3 plus Q1), using quartiles provided in the question.
 
-For a distribution with Q1 = 20 and Q3 = 44, the coefficient of quartile deviation, expressed as a percentage, is:
+A distribution has Q1 = 20 and Q3 = 44. Its coefficient of quartile deviation, expressed as a percentage, is:
 
 A. 37.5
 B. 36.5
@@ -246,7 +246,7 @@ D. 38.5
 
 **Semantic contract:** Calculate the arithmetic mean of absolute deviations from the mean for a small raw data set.
 
-The mean deviation about the arithmetic mean for the observations 24, 28, 32, 32, 36, 40 is:
+The mean deviation about the arithmetic mean of 24, 28, 32, 32, 36 and 40 is:
 
 A. 5
 B. 3
@@ -261,7 +261,7 @@ D. 4
 
 **Semantic contract:** Calculate the arithmetic mean of absolute deviations from the median for a small raw data set.
 
-The mean deviation about the median for the observations 16, 20, 24, 24, 28, 32 is:
+The mean deviation about the median of 16, 20, 24, 24, 28 and 32 is:
 
 A. 5
 B. 6
@@ -276,7 +276,7 @@ D. 3
 
 **Semantic contract:** Calculate the coefficient of variation from a stated mean and population standard deviation, or compare relative consistency from given means and standard deviations.
 
-A distribution has arithmetic mean 30 and population standard deviation 9. Its coefficient of variation, expressed as a percentage, is:
+A distribution has arithmetic mean 30 and population standard deviation 9. What is its coefficient of variation as a percentage?
 
 A. 32
 B. 29
@@ -286,6 +286,10 @@ D. 31
 **Answer:** C. 30
 
 **Explanation:** Coefficient of variation = standard deviation / mean × 100 = 9/30 × 100 ≈ 30%.
+
+## Reviewer-only calculation conventions
+
+The learner-facing stems omit procedural directions. The generator contract applies these conventions: raw quartiles, deciles, and percentiles use the \((n+1)\) position with linear interpolation; discrete-frequency partition values use the nearest-rank rule \(\lceil kN/m\rceil\); grouped partition values use linear interpolation at position \(kN/m\). These conventions are review metadata and are not part of the question stems.
 
 ## Review checkpoints
 
