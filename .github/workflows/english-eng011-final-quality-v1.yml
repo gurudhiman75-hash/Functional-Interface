@@ -1,0 +1,44 @@
+name: Validate ENG-011 Final Quality V1
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/chapters/sentence-rearrangement/ENG-011/**
+      - artifacts/api-server/src/english-v1/tests/eng-011-v1.test.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng011-adapter-v1.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-eng011-adapter-v1.test.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eng011-final-quality-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-eng011:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install dependencies
+        timeout-minutes: 10
+        run: pnpm install --frozen-lockfile
+      - name: Compile ENG-011 saturation audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-011-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-011-final-quality-v1.test.mjs
+      - name: Run 990-set and 20,000-seed audit
+        run: node artifacts/api-server/dist/english-v1/eng-011-final-quality-v1.test.mjs
+      - name: Compile ENG-011 Question Studio integration audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/language-v1-eng011-adapter-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-011-question-studio-v1.test.mjs
+      - name: Run ENG-011 Question Studio integration audit
+        run: node artifacts/api-server/dist/english-v1/eng-011-question-studio-v1.test.mjs
