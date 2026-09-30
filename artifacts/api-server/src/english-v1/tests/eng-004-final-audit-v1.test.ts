@@ -1,4 +1,9 @@
 import assert from"node:assert/strict";
+import{generateEng004Cp001QuestionV1}from"../chapters/synonyms-antonyms/ENG-004/CP001/eng-004-cp001-v1";
+import{generateEng004Cp002QuestionV1}from"../chapters/synonyms-antonyms/ENG-004/CP002/eng-004-cp002-v1";
+import{generateEng004Cp003QuestionV1}from"../chapters/synonyms-antonyms/ENG-004/CP003/eng-004-cp003-v1";
+import{generateEng004Cp004QuestionV1}from"../chapters/synonyms-antonyms/ENG-004/CP004/eng-004-cp004-v1";
+import{generateEng004Cp005QuestionV1}from"../chapters/synonyms-antonyms/ENG-004/CP005/eng-004-cp005-v1";
 import{ENG004_CP001_LEXICON_V2}from"../chapters/synonyms-antonyms/ENG-004/CP001/eng-004-cp001-lexicon-v1";
 import{ENG004_CP002_LEXICON_V1}from"../chapters/synonyms-antonyms/ENG-004/CP002/eng-004-cp002-lexicon-v1";
 import{ENG004_CP003_LEXICON_V1}from"../chapters/synonyms-antonyms/ENG-004/CP003/eng-004-cp003-lexicon-v1";
@@ -43,5 +48,38 @@ for(const entry of ENG004_CP005_LEXICON_V1){
   const blocked=new Set([entry.word,...entry.synonyms,...entry.antonyms,...entry.blockedOtherSenseRelations].map(x=>x.toLowerCase()));
   assert.equal(entry.distractors.some(x=>blocked.has(x.toLowerCase())),false,`CP005 blocked relation leaked: ${entry.word}`);
 }
+
+const generatorChecks=[
+  {cp:"CP001",entries:ENG004_CP001_LEXICON_V2,generator:generateEng004Cp001QuestionV1},
+  {cp:"CP002",entries:ENG004_CP002_LEXICON_V1,generator:generateEng004Cp002QuestionV1},
+  {cp:"CP003",entries:ENG004_CP003_LEXICON_V1,generator:generateEng004Cp003QuestionV1},
+  {cp:"CP005",entries:ENG004_CP005_LEXICON_V1,generator:generateEng004Cp005QuestionV1},
+] as const;
+for(const cfg of generatorChecks){
+  const direct=cfg.entries.find((e:any)=>e.senseCount===1&&(e.synonyms.length||e.antonyms.length)) as any;
+  assert.ok(direct,`${cfg.cp}: missing direct-vocabulary audit entry`);
+  const directRelation=direct.synonyms.length?"synonym":"antonym";
+  const directQ:any=cfg.generator({seed:`eng004-final-direct:${cfg.cp}`,difficulty:direct.difficulty,entryId:direct.id,relationType:directRelation} as any);
+  assert.equal(directQ.context,undefined,`${cfg.cp}: direct item unexpectedly has context`);
+  assert.ok(!/here means|in this sentence|in this sense/i.test(directQ.explanation),`${cfg.cp}: context-free explanation implies unseen context: ${directQ.explanation}`);
+  assert.ok(directQ.explanation.includes(direct.word));
+  assert.ok(directQ.explanation.includes(directQ.options[directQ.correctOptionIndex]));
+
+  const contextual=cfg.entries.find((e:any)=>e.senseCount>1&&Boolean(e.example)&&(e.synonyms.length||e.antonyms.length)) as any;
+  if(contextual){
+    const contextualRelation=contextual.synonyms.length?"synonym":"antonym";
+    const contextualQ:any=cfg.generator({seed:`eng004-final-context:${cfg.cp}`,difficulty:contextual.difficulty,entryId:contextual.id,relationType:contextualRelation} as any);
+    assert.ok(contextualQ.context,`${cfg.cp}: polysemous item lost its context`);
+    assert.match(contextualQ.explanation,/^In this sentence,/);
+    assert.match(contextualQ.explanation,/in this sense\.$/);
+  }
+}
+const cp4Entry:any=ENG004_CP004_SENSES_V1.find((e:any)=>e.synonyms.length||e.antonyms.length)!;
+const cp4Relation=cp4Entry.synonyms.length?"synonym":"antonym";
+const cp4Q:any=generateEng004Cp004QuestionV1({seed:"eng004-final-context:CP004",difficulty:cp4Entry.difficulty,entryId:cp4Entry.id,relationType:cp4Relation} as any);
+assert.ok(cp4Q.context);
+assert.match(cp4Q.explanation,/^In this sentence,/);
+assert.match(cp4Q.explanation,/in this sense\.$/);
+
 
 console.log("ENG-004 final expansion audit passed.",{uniqueHeadwords:uniqueHeadwords.size,headwordSenses:all.length,synonymLinks:synonyms,antonymLinks:antonyms});
