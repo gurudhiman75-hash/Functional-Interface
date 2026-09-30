@@ -193,11 +193,15 @@ function buildCandidateClues(people: readonly PersonId[], hidden: Assignment, pr
   return result;
 }
 
-function chooseBest(survivors: Assignment[], candidates: Clue[], chosen: Clue[], kind?: ClueKind): Clue | undefined {
+function chooseBest(survivors: Assignment[], candidates: Clue[], chosen: Clue[], random: () => number, kind?: ClueKind): Clue | undefined {
   const unused = candidates.filter((candidate) => (!kind || candidate.kind === kind) && !chosen.some((clue) => clueKey(clue) === clueKey(candidate)));
-  return unused.map((candidate) => ({ candidate, remaining: survivors.filter((state) => satisfies(state, candidate)).length }))
+  const ranked = unused.map((candidate) => ({ candidate, remaining: survivors.filter((state) => satisfies(state, candidate)).length }))
     .filter((entry) => entry.remaining > 0 && entry.remaining < survivors.length)
-    .sort((left, right) => left.remaining - right.remaining)[0]?.candidate;
+    .sort((left, right) => left.remaining - right.remaining);
+  const bestRemaining = ranked[0]?.remaining;
+  if (bestRemaining == null) return undefined;
+  const tied = ranked.filter((entry) => entry.remaining === bestRemaining);
+  return tied[Math.floor(random() * tied.length)]?.candidate;
 }
 
 function cluesAreEssential(people: readonly PersonId[], clues: readonly Clue[]): boolean {
@@ -208,17 +212,30 @@ function cluesAreEssential(people: readonly PersonId[], clues: readonly Clue[]):
 function chooseClues(people: readonly PersonId[], hidden: Assignment, profile: ScenarioProfile, difficultyBand: DifficultyBand, random: () => number): Clue[] {
   const all = enumerateAssignments(people); const candidates = buildCandidateClues(people, hidden, profile, random);
   const quotaSets: Array<readonly ClueKind[]> = difficultyBand === "Hard"
-    ? [["SAME_GROUP", "DIFFERENT_GROUPS", "NOT_IN_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS"], ["SAME_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS", "NOT_IN_GROUP"]]
-    : [["SAME_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS"], ["SAME_GROUP", "SAME_GROUP", "NOT_IN_GROUP"]];
+    ? [
+        ["SAME_GROUP", "DIFFERENT_GROUPS", "NOT_IN_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS"],
+        ["SAME_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS", "NOT_IN_GROUP"],
+        ["SAME_GROUP", "SAME_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS", "NOT_IN_GROUP"],
+        ["DIFFERENT_GROUPS", "DIFFERENT_GROUPS", "SAME_GROUP", "NOT_IN_GROUP", "NOT_IN_GROUP"],
+        ["NOT_IN_GROUP", "SAME_GROUP", "NOT_IN_GROUP", "SAME_GROUP", "DIFFERENT_GROUPS"],
+      ]
+    : [
+        ["SAME_GROUP", "NOT_IN_GROUP", "DIFFERENT_GROUPS"],
+        ["SAME_GROUP", "SAME_GROUP", "NOT_IN_GROUP"],
+        ["DIFFERENT_GROUPS", "NOT_IN_GROUP", "SAME_GROUP"],
+        ["NOT_IN_GROUP", "DIFFERENT_GROUPS", "SAME_GROUP", "NOT_IN_GROUP"],
+        ["SAME_GROUP", "DIFFERENT_GROUPS", "DIFFERENT_GROUPS"],
+      ];
   for (const quota of shuffle(quotaSets, random)) {
-    let survivors = all; const chosen: Clue[] = [];
+    let survivors = all; const chosen: Clue[] = []; let quotaFailed = false;
     for (const kind of quota) {
-      const selected = chooseBest(survivors, candidates, chosen, kind);
-      if (!selected) { chosen.length = 0; break; }
+      const selected = chooseBest(survivors, candidates, chosen, random, kind);
+      if (!selected) { quotaFailed = true; break; }
       chosen.push(selected); survivors = survivors.filter((state) => satisfies(state, selected));
     }
+    if (quotaFailed) continue;
     while (chosen.length < (difficultyBand === "Hard" ? 8 : 6) && survivors.length > 1) {
-      const selected = chooseBest(survivors, candidates, chosen);
+      const selected = chooseBest(survivors, candidates, chosen, random);
       if (!selected) break;
       chosen.push(selected); survivors = survivors.filter((state) => satisfies(state, selected));
     }
