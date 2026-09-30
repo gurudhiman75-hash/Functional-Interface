@@ -40,3 +40,5 @@ console.log(JSON.stringify({
     qualityReadyForFreeze: pkg.qualityReadyForFreeze,
   })),
 }, null, 2));
+
+// CI trigger probe: validates dedicated localization workflow scheduling.
