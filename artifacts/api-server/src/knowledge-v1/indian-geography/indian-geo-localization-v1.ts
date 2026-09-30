@@ -34,6 +34,8 @@ import { localizeGeoTrn001Cp001PartA } from "./transport-communication/geo-trn-0
 import { localizeGeoTrn001Cp001PartB } from "./transport-communication/geo-trn-001-localization-cp001-part-b-v1";
 import { localizeGeoTrn001Cp002PartA } from "./transport-communication/geo-trn-001-localization-cp002-part-a-v1";
 import { localizeGeoTrn001Cp002PartB } from "./transport-communication/geo-trn-001-localization-cp002-part-b-v1";
+import { localizeGeoTrn001Cp003PartA } from "./transport-communication/geo-trn-001-localization-cp003-part-a-v1";
+import { localizeGeoTrn001Cp003PartB } from "./transport-communication/geo-trn-001-localization-cp003-part-b-v1";
 
 export type IndianGeoLocalizationLanguageV1 = "en" | "hi" | "pa";
 type CanonicalQuestion = Readonly<{
@@ -802,7 +804,9 @@ export function localizeIndianGeoQuestionV1(
       localizeGeoTrn001Cp001PartA(question.questionId, language) ??
       localizeGeoTrn001Cp001PartB(question.questionId, language) ??
       localizeGeoTrn001Cp002PartA(question.questionId, language) ??
-      localizeGeoTrn001Cp002PartB(question.questionId, language);
+      localizeGeoTrn001Cp002PartB(question.questionId, language) ??
+      localizeGeoTrn001Cp003PartA(question.questionId, language) ??
+      localizeGeoTrn001Cp003PartB(question.questionId, language);
     if (reviewed) {
       const options = Object.freeze(question.options.map((option) => localizeText(option, language)));
       const canonicalAnswer = options[question.correctIndex]!;
