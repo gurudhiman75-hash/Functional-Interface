@@ -1,6 +1,6 @@
 # ENG-009 CP005 — Mixed / New-pattern Cloze — Source / Coverage Audit V2
 
-Status: `HUMAN_REVIEW_REQUIRED__CAN_FIT_V2__QUESTION_STUDIO_REVIEW_ONLY`
+Status: `HUMAN_APPROVED__CAN_FIT_V2__QUESTION_STUDIO_REVIEW_ONLY`
 
 ## Current scope
 
@@ -70,7 +70,7 @@ This source revision changes learner-facing CP005 can-fit surfaces and five pass
 Full review artifact:
 `ENG-009-CP005-FULL-REVIEW-V2.md`
 
-Fresh human approval is required before the revision-pending flags are cleared.
+Fresh human approval completed on 2026-09-30. Revision-pending flags may be cleared; production/test/mock/public release remains separately locked.
 
 
 ## Post-review language polish
