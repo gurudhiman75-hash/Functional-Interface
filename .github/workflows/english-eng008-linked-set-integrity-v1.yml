@@ -1,0 +1,39 @@
+name: Validate ENG-008 Linked RC Set Integrity
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/english-v1/tests/eng-008-linked-set-integrity-v1.test.ts
+      - artifacts/api-server/src/english-v1/chapters/reading-comprehension/ENG-008/CP006/**
+      - artifacts/api-server/src/english-v1/chapters/reading-comprehension/ENG-008/CP007/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: english-eng008-linked-rc-integrity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linked-rc-set-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install dependencies
+        timeout-minutes: 10
+        run: pnpm install --frozen-lockfile
+      - name: Compile ENG-008 linked RC set guard
+        run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-008-linked-set-integrity-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-008-linked-set-integrity-v1.test.mjs
+      - name: Validate all 126 linked 10-question sets
+        run: node artifacts/api-server/dist/english-v1/eng-008-linked-set-integrity-v1.test.mjs
