@@ -57,6 +57,7 @@ type AuditPackage = Readonly<{
     testEligibility: string;
     publiclyPublishable: boolean;
     representation?: string;
+    contextFamily?: string;
   }>;
   validation: Readonly<{ valid: boolean }>;
 }>;
@@ -140,6 +141,19 @@ function hasUnresolvedProsePlaceholder(value: string): boolean {
   return /\{[a-z][A-Za-z0-9_]*\}/.test(proseOnly);
 }
 
+function assertMathJaxIntegrity(value: string, scope: string) {
+  const opensDisplay = (value.match(/\\\[/g) ?? []).length;
+  const closesDisplay = (value.match(/\\\]/g) ?? []).length;
+  const opensInline = (value.match(/\\\(/g) ?? []).length;
+  const closesInline = (value.match(/\\\)/g) ?? []).length;
+  assert.equal(opensDisplay, closesDisplay, scope + ": unmatched MathJax display delimiters");
+  assert.equal(opensInline, closesInline, scope + ": unmatched MathJax inline delimiters");
+  assert.equal((value.match(/\$\$/g) ?? []).length % 2, 0, scope + ": unmatched display-math dollar delimiters");
+  assert.doesNotMatch(value, /\\(?:frac|times|div|cdot)$/, scope + ": dangling LaTeX operator");
+  // Unicode rupee signs inside MathJax \\text{} are valid. Reject nested math delimiters there instead.
+  assert.doesNotMatch(value, /\\text\{[^}]*\$[^}]*\}/, scope + ": unescaped math delimiter inside math-text macro");
+}
+
 assert.equal(runtimes.length, 6, "PNL-001 must expose exactly six CP runtimes.");
 
 const expectedAllQlIds = Array.from({ length: 186 }, (_, index) => qlId(index + 1));
@@ -179,6 +193,7 @@ const cpQlCounts: Record<string, number> = {};
 const cpPackageCounts: Record<string, number> = {};
 const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
 const representations = new Set<string>();
+const contextFamiliesByCp = new Map(runtimes.map((runtime) => [runtime.cpId, new Set<string>()]));
 const questionIds = new Set<string>();
 let generatedPackages = 0;
 
@@ -215,6 +230,7 @@ for (const runtime of runtimes) {
       if (pkg.traceability.representation) {
         representations.add(pkg.traceability.representation);
       }
+      if (pkg.traceability.contextFamily) contextFamiliesByCp.get(runtime.cpId)!.add(pkg.traceability.contextFamily);
 
       assert.equal(pkg.archetypeId, "PNL-001");
       assert.equal(pkg.canonicalProblemId, runtime.cpId);
@@ -234,6 +250,8 @@ for (const runtime of runtimes) {
       assert.equal(pkg.options.length, 4);
       assert.equal(new Set(pkg.options).size, 4);
       assert.equal(pkg.options[pkg.correctIndex], pkg.answer);
+      assertMathJaxIntegrity(pkg.stem, id + ":" + seed + ":stem");
+      assertMathJaxIntegrity(pkg.explanation.lines.join("\n"), id + ":" + seed + ":explanation");
       assert.ok(pkg.stem.length > 25, `${id}: generated stem is unexpectedly short.`);
       assert.ok(
         pkg.explanation.lines.length >= 3,
@@ -269,6 +287,10 @@ for (const runtime of runtimes) {
 
     assert.ok(stems.size >= 2, `${id}: 24-seed sweep did not vary the generated stem.`);
   }
+}
+
+for (const runtime of runtimes) {
+  assert.ok(contextFamiliesByCp.get(runtime.cpId)!.size >= 2, runtime.cpId + ": fewer than two distinct context families across all QLs and seeds");
 }
 
 assert.equal(generatedPackages, 4464, "PNL-001 audit did not generate all 4,464 packages.");
@@ -316,6 +338,7 @@ console.log(
       cpPackageCounts,
       difficultyCounts,
       representations: [...representations].sort(),
+      contextFamiliesByCp: Object.fromEntries([...contextFamiliesByCp].map(([cpId, families]) => [cpId, [...families].sort()])),
       runtimeMode: "DYNAMIC_CANDIDATE",
       reviewStatus: "UNREVIEWED_DYNAMIC_CANDIDATE",
       questionBankStatus: "NOT_STORED",
