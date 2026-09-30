@@ -227,12 +227,13 @@ function chooseClues(people: readonly PersonId[], hidden: Assignment, profile: S
         ["SAME_GROUP", "DIFFERENT_GROUPS", "DIFFERENT_GROUPS"],
       ];
   for (const quota of shuffle(quotaSets, random)) {
-    let survivors = all; const chosen: Clue[] = [];
+    let survivors = all; const chosen: Clue[] = []; let quotaFailed = false;
     for (const kind of quota) {
       const selected = chooseBest(survivors, candidates, chosen, random, kind);
-      if (!selected) { chosen.length = 0; break; }
+      if (!selected) { quotaFailed = true; break; }
       chosen.push(selected); survivors = survivors.filter((state) => satisfies(state, selected));
     }
+    if (quotaFailed) continue;
     while (chosen.length < (difficultyBand === "Hard" ? 8 : 6) && survivors.length > 1) {
       const selected = chooseBest(survivors, candidates, chosen, random);
       if (!selected) break;
