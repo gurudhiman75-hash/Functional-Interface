@@ -36,7 +36,7 @@ Several newly added Hindi/Punjabi candidate stems for DI-004 single-/three-serie
 
 Review feedback found that removing procedural directions was not enough: many Hindi/Punjabi stems still repeated literal, formula-like phrases. The revised DI-004 single-/three-series and DI-011–DI-014 templates use shorter question forms and more idiomatic wording for totals, comparisons, ratios, and chart references while preserving the data and requested operation. These revised stems remain candidates pending another user review. The already-frozen DI-004 permanent two-series release is unchanged.
 
-The subsequent chapter scan found four English DI-012 stems that began with “After recovering…” or “After solving…”, and one DI-006 stem that appended “after resolving all stated relations.” These directions are now removed from the questions; the recovery work stays in the explanations. The DI-011 pie-chart/table prompt also no longer adds a stiff “according to the table” clause where the paired display already supplies that context. Regression checks cover these wording rules.
+The subsequent chapter scan found four English DI-012 stems that began with “After recovering…” or “After solving…”, and one DI-006 stem that appended “after resolving all stated relations.” These directions are now removed from the questions; the recovery work stays in the explanations. The DI-011 pie-chart/table prompt also no longer adds a stiff “according to the table” clause where the paired display already supplies that context. Its grouped-ratio stem now names the first and second category groups and uses explicit localized measures instead of a literal “for … total” construction. Regression checks cover these wording rules.
 
 ## Exam-style spot check (2026-09-30)
 
