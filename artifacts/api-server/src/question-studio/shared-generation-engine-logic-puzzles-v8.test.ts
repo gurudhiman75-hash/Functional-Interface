@@ -11,6 +11,17 @@ assert.equal((cp04 as any).questionBankWritable, false);
 assert.equal((cp04 as any).testEligible, false);
 assert.equal((cp04 as any).publiclyPublishable, false);
 
+
+const packageOnly: any = await generateQuestion({
+  packageId: "LP-CP04-COUNTERFACTUAL",
+  language: "en",
+  seed: "LP-GLOBAL-V8-PACKAGE-ONLY",
+  count: 3,
+});
+assert.equal(packageOnly.questions.length, 3);
+assert.equal(packageOnly.generationContext.packageId, "LP-CP04-COUNTERFACTUAL");
+assert.ok(packageOnly.questions.every((question: any) => question.patternId === "LP-QL-047"));
+
 for (const language of ["en", "hi", "pa"] as const) {
   const result: any = await generateQuestion({
     packageId: "LP-CP04-COUNTERFACTUAL",
