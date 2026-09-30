@@ -12,6 +12,10 @@ const contexts: Context[] = [
   { variant: "inningsRunsCorrection", domain: "Sports", subject: "innings", measure: "runs", unitKind: "runs", finalContext: "correct batting average" },
   { variant: "parcelWeightCorrection", domain: "Logistics", subject: "parcels", measure: "weight", unitKind: "kg", finalContext: "correct average weight" },
   { variant: "recordCountCorrection", domain: "Administration", subject: "records", measure: "value", unitKind: "none", finalContext: "correct average" },
+  { variant: "cropYieldCorrection", domain: "Agriculture", subject: "farms", measure: "yield", unitKind: "units", finalContext: "correct average yield" },
+  { variant: "warehouseStockCorrection", domain: "Logistics", subject: "consignments", measure: "weight", unitKind: "kg", finalContext: "correct average consignment weight" },
+  { variant: "hospitalAgeCorrection", domain: "Healthcare", subject: "patients", measure: "age", unitKind: "years", finalContext: "correct average patient age" },
+  { variant: "ticketCollectionCorrection", domain: "Transport", subject: "trips", measure: "collection", unitKind: "currency", finalContext: "correct average collection" },
 ];
 
 const modes: Array<{ mode: Avg001SolveMode; count: number; answerType: Avg001QuestionLanguageEntry["answerType"]; strategies: string[] }> = [
@@ -132,7 +136,7 @@ let id = 274;
 let globalIndex = 0;
 for (const family of modes) {
   for (let index = 0; index < family.count; index += 1) {
-    const context = contexts[globalIndex % contexts.length]!;
+    const context = contexts[globalIndex === 37 ? 5 : globalIndex % contexts.length]!;
     const unitKind = context.unitKind;
     const questionTemplate = template(family.mode, context, index);
     entries.push({
