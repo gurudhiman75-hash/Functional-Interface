@@ -168,6 +168,38 @@
       "RAP-QL-107": {
         "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
         "difficulty": "Medium"
+      },
+      "RAP-QL-108": {
+        "template": "Rs. {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {personA} ਨੂੰ {personC} ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-208": {
+        "template": "Rs. {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਹਿੱਸੇ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-109": {
+        "template": "{personA}, {personB} ਅਤੇ {personC} ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB}:{ratioC} ਹੈ। ਜੇ {personA} ਨੂੰ {personC} ਨਾਲੋਂ Rs. {shareDifference} ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਵੰਡੀ ਰਕਮ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-209": {
+        "template": "ਇੱਕ ਰਕਮ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡੀ ਗਈ ਹੈ। ਪਹਿਲਾ ਹਿੱਸਾ ਤੀਜੇ ਨਾਲੋਂ Rs. {shareDifference} ਵੱਧ ਹੈ। ਕੁੱਲ ਰਕਮ ਕਿੰਨੀ ਹੈ?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-111": {
+        "template": "{personA} ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {ratioExp}:{ratioSav} ਹੈ। ਜੇ ਮਹੀਨਾਵਾਰ ਤਨਖਾਹ Rs. {totalSalary} ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-211": {
+        "template": "{personA} ਹਰ ਮਹੀਨੇ ਖਰਚ ਅਤੇ ਬਚਤ {ratioExp}:{ratioSav} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਕਰਦਾ ਹੈ। Rs. {totalSalary} ਦੀ ਤਨਖਾਹ ਵਿੱਚ ਕਿੰਨੀ ਬਚਤ ਹੋਵੇਗੀ?",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-207": {
+        "template": "{totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-307": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। {targetPerson} ਨੂੰ ਕਿੰਨਾ ਮਿਲੇਗਾ?",
+        "difficulty": "Medium"
       }
     }
   },
@@ -200,6 +232,26 @@
       "RAP-QL-214": {
         "template": "ਦੋ ਸੰਖਿਆਵਾਂ {ratioA}:{ratioB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਹਰੇਕ ਵਿੱਚ {transferredCount} ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਕੀ ਹੈ।",
         "difficulty": "Medium"
+      },
+      "RAP-QL-112": {
+        "template": "ਇੱਕ {contextName} ਵਿੱਚ {groupA} ਅਤੇ {groupB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। {addedCount} {groupA} ਜੁੜਣ ਤੋਂ ਬਾਅਦ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ {groupA} ਦੀ ਗਿਣਤੀ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-212": {
+        "template": "ਇੱਕ {contextName} ਵਿੱਚ {groupA}:{groupB} = {ratioA}:{ratioB} ਹੈ। {addedCount} ਹੋਰ {groupA} ਆਉਣ ਤੇ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਪਹਿਲਾਂ {groupA} ਕਿੰਨੇ ਸਨ?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-213": {
+        "template": "ਇੱਕ {contextName} ਵਿੱਚ {groupA}:{groupB} = {ratioA}:{ratioB} ਹੈ। {removedCount} {groupA} ਦੇ ਚਲੇ ਜਾਣ ਤੋਂ ਬਾਅਦ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂਆਤੀ ਕੁੱਲ ਗਿਣਤੀ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-114": {
+        "template": "ਦੋ ਸੰਖਿਆਵਾਂ {ratioA}:{ratioB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਦੋਵਾਂ ਵਿੱਚ {transferredCount} ਜੋੜਣ ਤੇ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਮੂਲ ਸੰਖਿਆ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-115": {
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ {incomeRatioA}:{incomeRatioB} ਅਤੇ ਖਰਚ ਦਾ ਅਨੁਪਾਤ {expRatioA}:{expRatioB} ਹੈ। ਜੇ ਦੋਵੇਂ Rs. {savingsAmount} ਬਚਾਉਂਦੇ ਹਨ, ਤਾਂ {personA} ਦੀ ਆਮਦਨ ਲੱਭੋ।",
+        "difficulty": "Hard"
       }
     }
   },
@@ -232,6 +284,26 @@
       "RAP-QL-219": {
         "template": "ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ {numA}, {numB} ਅਤੇ {numC} ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।",
         "difficulty": "Easy"
+      },
+      "RAP-QL-117": {
+        "template": "{numA} ਅਤੇ {numB} ਦਾ ਮੱਧ ਅਨੁਪਾਤੀ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-118": {
+        "template": "{numA} ਅਤੇ {numB} ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-119": {
+        "template": "{numA}, {numB} ਅਤੇ {numC} ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-120": {
+        "template": "{varY}, {varX} ਦੇ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ। ਜਦੋਂ {varX} = {varX1}, ਤਦ {varY} = {varY1} ਹੈ। {varX} = {varX2} ਹੋਣ ਤੇ {varY} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-121": {
+        "template": "{varY}, {varX} ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ। ਜਦੋਂ {varX} = {varX1}, ਤਦ {varY} = {varY1} ਹੈ। {varX} = {varX2} ਹੋਣ ਤੇ {varY} ਲੱਭੋ।",
+        "difficulty": "Medium"
       }
     }
   },
@@ -251,6 +323,38 @@
       },
       "RAP-QL-026": {
         "template": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ {sub1}, {sub2} ਅਤੇ {sub3} ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ {w1}, {w2} ਅਤੇ {w3} ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ {totalScore} ਹਨ, ਤਾਂ {sub1} ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-122": {
+        "template": "{denom1}, {denom2} ਅਤੇ {denom3} ਮੁੱਲ ਵਾਲੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। ਕੁੱਲ ਮੁੱਲ Rs. {totalValue} ਹੈ। {targetDenom} ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-222": {
+        "template": "ਇੱਕ ਸੰਗ੍ਰਹਿ ਵਿੱਚ {denom1}, {denom2} ਅਤੇ {denom3} ਦੇ ਸਿੱਕੇ {ratio1}:{ratio2}:{ratio3} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਕੁੱਲ ਮੁੱਲ Rs. {totalValue} ਹੈ। {targetDenom} ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-123": {
+        "template": "ਇੱਕ ਬਾਕਸ ਵਿੱਚ {denom1}, {denom2}, {denom3} ਅਤੇ {denom4} ਦੇ ਕੁੱਲ {totalCoins} ਸਿੱਕੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੇ ਕੁੱਲ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} ਹੈ। {targetDenom} ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-223": {
+        "template": "{denom1}, {denom2}, {denom3} ਅਤੇ {denom4} ਦੇ ਕੁੱਲ {totalCoins} ਸਿੱਕੇ ਹਨ। ਇਨ੍ਹਾਂ ਮੁੱਲ ਵਾਲੇ ਸਿੱਕਿਆਂ ਦੇ ਕੁੱਲ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} ਹੈ। {targetDenom} ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-124": {
+        "template": "{itemA}, {itemB} ਅਤੇ {itemC} ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB}:{ratioC} ਹੈ। ਇਨ੍ਹਾਂ ਦੀ ਕ੍ਰਮਵਾਰ {countA}, {countB} ਅਤੇ {countC} ਗਿਣਤੀ ਦਾ ਕੁੱਲ ਭਾਰ {totalWeight} g ਹੈ। ਇੱਕ {itemA} ਦਾ ਭਾਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-224": {
+        "template": "{countA} {itemA}, {countB} {itemB} ਅਤੇ {countC} {itemC} ਦਾ ਕੁੱਲ ਭਾਰ {totalWeight} g ਹੈ। ਇੱਕ-ਇੱਕ ਵਸਤੂ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB}:{ratioC} ਹੈ। ਇੱਕ {itemA} ਦਾ ਭਾਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-126": {
+        "template": "{sub1}, {sub2} ਅਤੇ {sub3} ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। ਉਨ੍ਹਾਂ ਦੇ ਭਾਰ ਕ੍ਰਮਵਾਰ {w1}, {w2} ਅਤੇ {w3} ਹਨ। ਜੇ ਭਾਰਿਤ ਕੁੱਲ {totalScore} ਹੈ, ਤਾਂ {sub1} ਦੇ ਅੰਕ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-226": {
+        "template": "ਇੱਕ ਵਿਦਿਆਰਥੀ ਦੇ {sub1}, {sub2} ਅਤੇ {sub3} ਦੇ ਅੰਕ {ratio1}:{ratio2}:{ratio3} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਭਾਰ {w1}, {w2} ਅਤੇ {w3} ਅਤੇ ਭਾਰਿਤ ਕੁੱਲ {totalScore} ਹੈ। {sub1} ਦੇ ਅੰਕ ਲੱਭੋ।",
         "difficulty": "Hard"
       }
     }
@@ -288,6 +392,22 @@
       "RAP-QL-232": {
         "template": "ਇੱਕ ਘੋਲ ਵਿੱਚ {acidVolume} ਲੀਟਰ ਐਸਿਡ ਅਤੇ {waterVolume} ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
         "difficulty": "Easy"
+      },
+      "RAP-QL-127": {
+        "template": "{liquid1} ਅਤੇ {liquid2} ਨੂੰ {ratio1}:{ratio2} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਗਿਆ ਹੈ। {addedAmount} ਲੀਟਰ {liquid1} ਮਿਲਾਉਣ ਤੇ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ {liquid2} ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-128": {
+        "template": "{totalVolume} ਲੀਟਰ ਮਿਸ਼ਰਣ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2} ਕਰਨ ਲਈ ਕਿੰਨਾ {liquid2} ਮਿਲਾਉਣਾ ਹੋਵੇਗਾ?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-129": {
+        "template": "ਇੱਕ {mixtureType} ਵਿੱਚ {liquid1}, {liquid2} ਅਤੇ {liquid3} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। {addedAmount} ਲੀਟਰ {liquid2} ਮਿਲਾਉਣ ਤੇ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2}:{finalRatio3} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂਆਤੀ ਕੁੱਲ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-130": {
+        "template": "{initialVolume} ਲੀਟਰ {liquidA} ਵਿੱਚੋਂ {removedVolume1} ਲੀਟਰ ਕੱਢ ਕੇ {liquidB} ਮਿਲਾਇਆ ਜਾਂਦਾ ਹੈ। ਫਿਰ {removedVolume2} ਲੀਟਰ ਦੁਬਾਰਾ ਕੱਢ ਕੇ {liquidB} ਮਿਲਾਇਆ ਜਾਂਦਾ ਹੈ। ਅੰਤਿਮ {liquidA}:{liquidB} ਅਨੁਪਾਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
       }
     }
   }
