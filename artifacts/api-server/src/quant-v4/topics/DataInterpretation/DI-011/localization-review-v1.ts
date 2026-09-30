@@ -20,7 +20,7 @@ const CONTEXTS:Record<Di011Locale,C[]>={
   {title:"ਆਨਲਾਈਨ ਆਰਡਰ ਅਤੇ ਸਫ਼ਲ ਡਿਲਿਵਰੀ",left:"ਆਰਡਰ",right:"ਡਿਲਿਵਰੀ",unit:"ਆਰਡਰ",cats:["ਸੋਮਵਾਰ","ਮੰਗਲਵਾਰ","ਬੁੱਧਵਾਰ","ਵੀਰਵਾਰ","ਸ਼ੁੱਕਰਵਾਰ"]},
  ]
 };
-const RATIO_MEASURES:Record<Di011Locale,readonly [readonly [string,string],...]>={
+const RATIO_MEASURES:Record<Di011Locale,readonly (readonly [string,string])[]>={
  "hi-IN":[
   ["प्राप्त आवेदनों की संख्या","स्वीकृत आवेदनों की संख्या"],
   ["भेजी गई इकाइयों की संख्या","लौटाई गई इकाइयों की संख्या"],
