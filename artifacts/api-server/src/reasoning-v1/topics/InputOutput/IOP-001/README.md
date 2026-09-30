@@ -151,4 +151,4 @@ Hindi/Punjabi:                FROZEN_V1
 
 The next content phase is **content deep-audit closure**, after verifying current Question Studio semantics, generated-surface quality and governance state.
 
-English approval does **not** authorize Question Studio, Question Bank, test/mock delivery, public publication, PR merge or automatic activation. Those remain separate gates.
+English approval alone did **not** authorize Question Studio. The later human-approved multilingual freeze now authorizes the current standard Question Studio review-only integration. Question Bank writes, test/mock delivery, public publication and automatic activation remain separate locked gates.
