@@ -30,7 +30,8 @@ function learnerText(question: any): string {
 function unresolvedPlaceholders(value: string): readonly string[] {
   const proseOnly = value
     .replace(/\\\[[\s\S]*?\\\]/gu, "")
-    .replace(/\\\([\s\S]*?\\\)/gu, "");
+    .replace(/\\\([\s\S]*?\\\)/gu, "")
+    .replace(/\$\$[\s\S]*?\$\$/gu, "");
   return [
     ...new Set(
       [...proseOnly.matchAll(/\{([a-z][A-Za-z0-9_]*)\}/gu)]
