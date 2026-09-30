@@ -1975,6 +1975,104 @@ const STEMS: Record<string, Record<AuthoredStemLanguage, readonly [string, strin
       "₹{couponAmount} ਦਾ ਕੂਪਨ ਤਦ ਹੀ ਲਾਗੂ ਹੁੰਦਾ ਹੈ ਜਦੋਂ ਬਿੱਲ ਘੱਟੋ-ਘੱਟ ₹{minimumSpend} ਹੋਵੇ। ₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ ਦੱਸੋ ਕਿ ਕੂਪਨ ਲਾਗੂ ਹੋਵੇਗਾ ਜਾਂ ਨਹੀਂ ਅਤੇ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
       "₹{couponAmount} ਕੂਪਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਖਰਚ ₹{minimumSpend} ਹੈ। ਜੇ ਬਿੱਲ ₹{billedPrice} ਹੈ, ਤਾਂ ਕੀ ਕੂਪਨ ਮੰਨਿਆ ਜਾਵੇਗਾ ਅਤੇ ਅੰਤਿਮ ਭੁਗਤਾਨ ਕਿੰਨਾ ਹੋਵੇਗਾ?"
     ]
+  },
+  "PNL-QL-059": {
+    "en": [
+      "An item marked at ₹{markedPrice} gets {discountPercent}% discount, followed by a {couponPercent}% coupon on the reduced price. Find the effective price.",
+      "A marked price of ₹{markedPrice} is reduced by {discountPercent}%, then a {couponPercent}% coupon is applied to the discounted amount. What is the final price?"
+    ],
+    "hi": [
+      "₹{markedPrice} अंकित मूल्य वाली वस्तु पर {discountPercent}% छूट मिलती है और फिर घटे हुए मूल्य पर {couponPercent}% कूपन लगता है। प्रभावी मूल्य ज्ञात कीजिए।",
+      "₹{markedPrice} के अंकित मूल्य पर पहले {discountPercent}% छूट दी जाती है, फिर रियायती राशि पर {couponPercent}% कूपन लगाया जाता है। अंतिम मूल्य क्या है?"
+    ],
+    "pa": [
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤ 'ਤੇ {discountPercent}% ਛੂਟ ਮਿਲਦੀ ਹੈ ਅਤੇ ਫਿਰ ਘੱਟੀ ਕੀਮਤ 'ਤੇ {couponPercent}% ਕੂਪਨ ਲੱਗਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+      "₹{markedPrice} ਦੇ ਅੰਕਿਤ ਮੁੱਲ 'ਤੇ ਪਹਿਲਾਂ {discountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ, ਫਿਰ ਘੱਟੀ ਰਕਮ 'ਤੇ {couponPercent}% ਕੂਪਨ ਲਾਇਆ ਜਾਂਦਾ ਹੈ। ਅੰਤਿਮ ਕੀਮਤ ਕੀ ਹੈ?"
+    ]
+  },
+  "PNL-QL-060": {
+    "en": [
+      "A bill of ₹{billedPrice} earns {cashbackPercent}% cashback, capped at ₹{cashbackCap}. Find the actual cashback and effective cost.",
+      "On a payment of ₹{billedPrice}, cashback is {cashbackPercent}% but cannot exceed ₹{cashbackCap}. How much cashback is received, and what is the net cost?"
+    ],
+    "hi": [
+      "₹{billedPrice} के बिल पर {cashbackPercent}% कैशबैक मिलता है, जिसकी अधिकतम सीमा ₹{cashbackCap} है। वास्तविक कैशबैक और प्रभावी लागत ज्ञात कीजिए।",
+      "₹{billedPrice} के भुगतान पर {cashbackPercent}% कैशबैक है, लेकिन यह ₹{cashbackCap} से अधिक नहीं हो सकता। कैशबैक और शुद्ध लागत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ, ਜਿਸਦੀ ਵੱਧ ਤੋਂ ਵੱਧ ਹੱਦ ₹{cashbackCap} ਹੈ। ਅਸਲ ਕੈਸ਼ਬੈਕ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "₹{billedPrice} ਦੇ ਭੁਗਤਾਨ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਹੈ, ਪਰ ਇਹ ₹{cashbackCap} ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦਾ। ਕੈਸ਼ਬੈਕ ਅਤੇ ਸ਼ੁੱਧ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-061": {
+    "en": [
+      "An item marked ₹{markedPrice} gets {discountPercent}% discount, then {cashbackPercent}% cashback calculated on the original marked price, capped at ₹{cashbackCap}. Find the billed price, cashback and effective cost.",
+      "A smartphone marked at ₹{markedPrice} is discounted by {discountPercent}%. Cashback is {cashbackPercent}% of the original marked price, subject to a ₹{cashbackCap} cap. Determine the bill, cashback and net cost."
+    ],
+    "hi": [
+      "₹{markedPrice} अंकित मूल्य वाली वस्तु पर {discountPercent}% छूट मिलती है। इसके बाद मूल अंकित मूल्य पर {cashbackPercent}% कैशबैक मिलता है, जिसकी सीमा ₹{cashbackCap} है। बिल, कैशबैक और प्रभावी लागत ज्ञात कीजिए।",
+      "₹{markedPrice} अंकित मूल्य वाले स्मार्टफोन पर {discountPercent}% छूट है। कैशबैक मूल अंकित मूल्य का {cashbackPercent}% है और अधिकतम ₹{cashbackCap} है। बिल राशि, कैशबैक और शुद्ध लागत ज्ञात कीजिए।"
+    ],
+    "pa": [
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤ 'ਤੇ {discountPercent}% ਛੂਟ ਮਿਲਦੀ ਹੈ। ਇਸ ਤੋਂ ਬਾਅਦ ਮੂਲ ਅੰਕਿਤ ਮੁੱਲ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ, ਜਿਸਦੀ ਹੱਦ ₹{cashbackCap} ਹੈ। ਬਿੱਲ, ਕੈਸ਼ਬੈਕ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੇ ਸਮਾਰਟਫੋਨ 'ਤੇ {discountPercent}% ਛੂਟ ਹੈ। ਕੈਸ਼ਬੈਕ ਮੂਲ ਅੰਕਿਤ ਮੁੱਲ ਦਾ {cashbackPercent}% ਹੈ ਅਤੇ ਵੱਧ ਤੋਂ ਵੱਧ ₹{cashbackCap} ਹੈ। ਬਿੱਲ ਦੀ ਰਕਮ, ਕੈਸ਼ਬੈਕ ਅਤੇ ਸ਼ੁੱਧ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
+    ]
+  },
+  "PNL-QL-062": {
+    "en": [
+      "The discount is {fractionNumerator}/{fractionDenominator} of the marked price. Find the discount percentage.",
+      "A price reduction equals {fractionNumerator}/{fractionDenominator} of MP. Express the discount as a percentage."
+    ],
+    "hi": [
+      "छूट अंकित मूल्य का {fractionNumerator}/{fractionDenominator} है। छूट प्रतिशत ज्ञात कीजिए।",
+      "मूल्य में कमी अंकित मूल्य के {fractionNumerator}/{fractionDenominator} के बराबर है। इसे प्रतिशत छूट में व्यक्त कीजिए।"
+    ],
+    "pa": [
+      "ਛੂਟ ਅੰਕਿਤ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਕੀਮਤ ਵਿੱਚ ਕਮੀ ਅੰਕਿਤ ਮੁੱਲ ਦੇ {fractionNumerator}/{fractionDenominator} ਦੇ ਬਰਾਬਰ ਹੈ। ਇਸਨੂੰ ਪ੍ਰਤੀਸ਼ਤ ਛੂਟ ਵਜੋਂ ਦਰਸਾਓ।"
+    ]
+  },
+  "PNL-QL-063": {
+    "en": [
+      "The ratio of price paid to marked price is {paidPart}:{markedPart}. Find the discount percentage.",
+      "If paid price : marked price = {paidPart}:{markedPart}, what percentage discount was allowed?"
+    ],
+    "hi": [
+      "भुगतान किए गए मूल्य और अंकित मूल्य का अनुपात {paidPart}:{markedPart} है। छूट प्रतिशत ज्ञात कीजिए।",
+      "यदि भुगतान मूल्य : अंकित मूल्य = {paidPart}:{markedPart} है, तो कितने प्रतिशत छूट दी गई?"
+    ],
+    "pa": [
+      "ਭੁਗਤਾਨ ਕੀਤੀ ਕੀਮਤ ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ {paidPart}:{markedPart} ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "ਜੇ ਭੁਗਤਾਨ ਕੀਮਤ : ਅੰਕਿਤ ਮੁੱਲ = {paidPart}:{markedPart} ਹੈ, ਤਾਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਛੂਟ ਦਿੱਤੀ ਗਈ?"
+    ]
+  },
+  "PNL-QL-064": {
+    "en": [
+      "For a ₹{billedPrice} bill, Shop A offers {discountPercent}% discount while Shop B gives a ₹{couponAmount} coupon valid from ₹{minimumSpend}. Find the eligible better offer and effective-cost difference.",
+      "A purchase totals ₹{billedPrice}. Compare {discountPercent}% off with a ₹{couponAmount} coupon requiring minimum spend ₹{minimumSpend}. Which valid offer is cheaper, and by how much?"
+    ],
+    "hi": [
+      "₹{billedPrice} के बिल पर दुकान A {discountPercent}% छूट देती है, जबकि दुकान B ₹{couponAmount} का कूपन देती है जो ₹{minimumSpend} से लागू है। पात्र बेहतर ऑफर और प्रभावी लागत का अंतर ज्ञात कीजिए।",
+      "खरीद राशि ₹{billedPrice} है। {discountPercent}% छूट की तुलना ₹{couponAmount} कूपन से कीजिए, जिसके लिए न्यूनतम खर्च ₹{minimumSpend} है। कौन-सा मान्य ऑफर सस्ता है और कितने से?"
+    ],
+    "pa": [
+      "₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ ਦੁਕਾਨ A {discountPercent}% ਛੂਟ ਦਿੰਦੀ ਹੈ, ਜਦਕਿ ਦੁਕਾਨ B ₹{couponAmount} ਦਾ ਕੂਪਨ ਦਿੰਦੀ ਹੈ ਜੋ ₹{minimumSpend} ਤੋਂ ਲਾਗੂ ਹੈ। ਯੋਗ ਵਧੀਆ ਆਫਰ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+      "ਖਰੀਦ ਦੀ ਰਕਮ ₹{billedPrice} ਹੈ। {discountPercent}% ਛੂਟ ਦੀ ਤੁਲਨਾ ₹{couponAmount} ਕੂਪਨ ਨਾਲ ਕਰੋ, ਜਿਸ ਲਈ ਘੱਟੋ-ਘੱਟ ਖਰਚ ₹{minimumSpend} ਹੈ। ਕਿਹੜਾ ਮੰਨਿਆ ਆਫਰ ਸਸਤਾ ਹੈ ਅਤੇ ਕਿੰਨੇ ਨਾਲ?"
+    ]
+  },
+  "PNL-QL-069": {
+    "en": [
+      "On an item marked ₹{markedPrice}, a {discountPercent}% discount and a flat ₹{couponAmount} coupon are available. Compare discount-then-coupon with coupon-then-discount and find the better order and price difference.",
+      "An item has marked price ₹{markedPrice}. Both {discountPercent}% off and a ₹{couponAmount} coupon may be applied. Which order gives the lower price, and by how much?"
+    ],
+    "hi": [
+      "₹{markedPrice} अंकित मूल्य वाली वस्तु पर {discountPercent}% छूट और ₹{couponAmount} का फ्लैट कूपन उपलब्ध है। छूट-फिर-कूपन और कूपन-फिर-छूट की तुलना कर बेहतर क्रम और मूल्य अंतर ज्ञात कीजिए।",
+      "किसी वस्तु का अंकित मूल्य ₹{markedPrice} है। {discountPercent}% छूट और ₹{couponAmount} कूपन दोनों लागू किए जा सकते हैं। कौन-सा क्रम कम मूल्य देता है और कितने से?"
+    ],
+    "pa": [
+      "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਫਲੈਟ ਕੂਪਨ ਉਪਲਬਧ ਹੈ। ਛੂਟ-ਫਿਰ-ਕੂਪਨ ਅਤੇ ਕੂਪਨ-ਫਿਰ-ਛੂਟ ਦੀ ਤੁਲਨਾ ਕਰਕੇ ਵਧੀਆ ਕ੍ਰਮ ਅਤੇ ਕੀਮਤ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+      "ਕਿਸੇ ਵਸਤ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ। {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਕੂਪਨ ਦੋਵੇਂ ਲਾਗੂ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ। ਕਿਹੜਾ ਕ੍ਰਮ ਘੱਟ ਕੀਮਤ ਦਿੰਦਾ ਹੈ ਅਤੇ ਕਿੰਨੇ ਨਾਲ?"
+    ]
   }
 };
 
