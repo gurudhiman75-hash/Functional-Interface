@@ -1,6 +1,6 @@
 # Statistics — STAT-007 Correlation and Regression Review V1
 
-**Status:** English representative review candidate; awaiting editorial approval.
+**Status:** English representative review approved by the user on 2026-09-30; controlled review only.
 **Profiles:** SSC CGL Tier II and JSO. **Lifecycle:** controlled review only.
 
 Population divisor n is used for displayed paired observations. Rank-based coefficients use the shown ranks. Three-variable coefficients use the formula stated in each question.
@@ -215,12 +215,9 @@ D. 0.71
 
 **Explanation:** Use R1.23 = √[(r12² + r13² − 2r12r13r23)/(1 − r23²)]. Substitution gives 0.71.
 
-## Review checkpoints
+## Approval record
 
-- Check that the simple and three-variable formulas match the intended JSO Paper-II depth.
-- Check rank tie handling, attribute-association convention, and regression notation.
-- Confirm that the displayed data and working are sufficient to reproduce each answer.
-- This candidate does not authorize storage, tests, mocks, localization, publication, or production release.
+The user approved this representative review on 2026-09-30. Question diversity and pool expansion are deferred to a later pass, as requested. Approval covers the English review content for controlled review only; it does not authorize Question Bank storage, tests, mocks, localization, publication, or production release.
 
 
 ## STAT-QL-176 — Form of a multiple regression equation
