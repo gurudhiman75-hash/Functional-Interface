@@ -1,7 +1,7 @@
 # WHI-001-CP014 — Cold War: Rivalry, Alliances, and Crises
 
 **Status:** English editorial first pass complete; human approval requested.
-**Lifecycle:** Review-only; not registered in Question Studio; no learner delivery.
+**Lifecycle:** Registered as the `WHI-001-CP014` Question Studio review-only package; no learner delivery.
 
 | ID | Difficulty | Family | Stem | A | B | C | D | Key | Explanation | Sources |
 |---|---|---|---|---|---|---|---|---|---|---|
