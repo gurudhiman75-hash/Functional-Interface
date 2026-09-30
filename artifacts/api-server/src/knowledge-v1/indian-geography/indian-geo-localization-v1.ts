@@ -2,6 +2,7 @@ import {
   GEO_WAT_001_CP001_HINDI_LOCALIZATION_V1,
   GEO_WAT_001_CP001_PUNJABI_LOCALIZATION_V1,
 } from "./water-resources/geo-wat-001-localization-cp001-v1";
+import { localizeGeoLnd001ExactCp001 } from "./land-resources/geo-lnd-001-localization-cp001-v1";
 
 export type IndianGeoLocalizationLanguageV1 = "en" | "hi" | "pa";
 type CanonicalQuestion = Readonly<{
@@ -672,6 +673,12 @@ function needsGenericExplanationFallback(source: string, language: "hi"|"pa") {
   return residueCount(localizeText(source, language)) > 3;
 }
 
+function isGenericExplanationFallback(text:string, language:"hi"|"pa") {
+  return language === "hi"
+    ? text.includes("यह भारतीय भूगोल के संबंधित तथ्य को सही रूप से बताता है।")
+    : text.includes("ਇਹ ਭਾਰਤੀ ਭੂਗੋਲ ਦੇ ਸੰਬੰਧਿਤ ਤੱਥ ਨੂੰ ਸਹੀ ਤਰ੍ਹਾਂ ਦਰਸਾਉਂਦਾ ਹੈ।");
+}
+
 function cleanExplanation(source: string, answer: string, language: "hi"|"pa") {
   const translated = localizeText(source, language);
   if (!needsGenericExplanationFallback(source, language)) return translated;
@@ -746,9 +753,7 @@ export function auditIndianGeoLocalizationV1(
         if (/[\u0900-\u097F]/.test(localized.stem + " " + localized.options.join(" ") + " " + localized.explanation)) mixedScriptCount += 1;
       }
 
-      if (packageId !== "GEO-WAT-001" || !WATER_CP001_EXACT[language].has(q.questionId)) {
-        if (needsGenericExplanationFallback(q.explanation, language)) genericExplanationFallbackCount += 1;
-      }
+      if (isGenericExplanationFallback(localized.explanation, language)) genericExplanationFallbackCount += 1;
     }
   }
 
