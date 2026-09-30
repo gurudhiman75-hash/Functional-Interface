@@ -92,6 +92,7 @@ for (const locale of locales) {
       }
       parityChecks += 1;
 
+      assert(!/(?:निकटतम पूर्ण|नज़दीकी पूरे|नज़दीकी पूरी|nearest whole|nearest integer)/iu.test(localized.question.stem), `DI010 stem contains a nearest-whole rounding instruction.`);
       const text = learnerText(localized);
       assert(!/[A-Za-z]/u.test(text), `${key} leaks Roman learner-facing text: ${text}`);
       assert(!/\d+\.\d+/u.test(text), `${key} exposes decimal learner-facing values: ${text}`);
