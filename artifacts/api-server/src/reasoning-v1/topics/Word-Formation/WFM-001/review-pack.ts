@@ -11,7 +11,8 @@ export function buildWfm001ReviewPack(language: WfmLanguage, samplesPerDifficult
       const difficulty = DIFFICULTIES[difficultyIndex];
       for (let sample = 0; sample < samplesPerDifficulty; sample += 1) {
         const seed = 1000 * (qlIndex + 1) + 100 * difficultyIndex + sample * 17 + 2;
-        out.push(generateWfm001Question({ qlId, seed, language, examProfile: "SSC_CGL_4", difficulty }));
+        const examProfile = qlId === "WFM-QL-005" || qlId === "WFM-QL-006" ? "BANKING_5" : "SSC_CGL_4";
+        out.push(generateWfm001Question({ qlId, seed, language, examProfile, difficulty }));
       }
     }
   }
@@ -20,13 +21,13 @@ export function buildWfm001ReviewPack(language: WfmLanguage, samplesPerDifficult
 
 export function renderWfm001ReviewMarkdown(questions: readonly WfmGeneratedQuestion[]): string {
   const lines: string[] = [
-    "# WFM-001 — Word Formation V2 review candidate",
+    "# WFM-001 — Word Formation current-main review",
     "",
-    "> Review-only ownership candidate. Not registered in shared Question Studio, not stored in Question Bank, not test/mock eligible, and not publicly publishable.",
+    "> Registered in the normal shared Question Studio review-only lifecycle. Question Bank/test/mock/public/automatic publication remain locked.",
     "",
-    "Proposed product code: `REAS-WFM`  ",
-    "Checkpoints: `WFM-CP-001..003`  ",
-    "QLs: `WFM-QL-001..004`.",
+    "Product code: `REAS-WFM`  ",
+    "Checkpoints: `WFM-CP-001..005`  ",
+    "QLs: `WFM-QL-001..006`.",
     "",
   ];
 
