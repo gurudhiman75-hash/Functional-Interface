@@ -19,18 +19,21 @@ assert.deepEqual((projectionPkg as any).permanentQlIds, ["LP-QL-045", "LP-QL-046
 assert.equal((projectionPkg as any).runtimeMode, "REVIEW_ONLY");
 assert.equal((projectionPkg as any).questionBankWritable, false);
 
-const projectionOnly: any = await generateQuestion({
-  packageId: "LP-006-PROJECTION",
-  language: "en",
-  seed: "LP-GLOBAL-PROJECTION-PACKAGE-ONLY",
-  count: 3,
-});
-assert.ok(projectionOnly.questions.length >= 3);
-assert.deepEqual(
-  new Set(projectionOnly.questions.map((question: any) => question.patternId)),
-  new Set(["LP-QL-045", "LP-QL-046"]),
-);
-assert.ok(projectionOnly.questions.every((question: any) => question.questionBankWritable === false));
+for (const projectionLanguage of ["en", "hi", "pa"] as const) {
+  const projectionOnly: any = await generateQuestion({
+    packageId: "LP-006-PROJECTION",
+    language: projectionLanguage,
+    seed: "LP-GLOBAL-PROJECTION-PACKAGE-ONLY",
+    count: 3,
+  });
+  assert.ok(projectionOnly.questions.length >= 3);
+  assert.deepEqual(
+    new Set(projectionOnly.questions.map((question: any) => question.patternId)),
+    new Set(["LP-QL-045", "LP-QL-046"]),
+  );
+  assert.ok(projectionOnly.questions.every((question: any) => question.questionBankWritable === false));
+  assert.ok(projectionOnly.questions.every((question: any) => question.language === projectionLanguage));
+}
 
 const packageOnly: any = await generateQuestion({
   packageId: "LP-CP04-COUNTERFACTUAL",
