@@ -16,15 +16,16 @@ async function run() {
     assert.equal(p.productionReleaseAuthorized, false); assert.deepEqual(p.supportedLanguages, ['en', 'hi', 'pa']);
   }
   const capitalPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP022')!;
-  assert.equal(capitalPackage.metadata.authoringReviewApproved, false);
+  assert.equal(capitalPackage.metadata.authoringReviewApproved, true);
   assert.equal(capitalPackage.metadata.variablePoolQuestionCount, 24);
   assert.equal(capitalPackage.metadata.variablePoolEnabled, true);
   assert.deepEqual(capitalPackage.metadata.questionLanguageIds,
     [...new Set(WGE_VARIABLE_POOL_QUESTIONS_V1.filter(q => q.cpId === 'WGE-001-CP022').map(q => q.qlId))]);
-  assert.equal(capitalPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
+  assert.equal(capitalPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const riverPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP019')!;
-  assert.equal(riverPackage.metadata.authoringReviewApproved, false);
+  assert.equal(riverPackage.metadata.authoringReviewApproved, true);
   assert.equal(riverPackage.metadata.variablePoolQuestionCount, 15);
+  assert.equal(riverPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const landformsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP018')!;
   assert.equal(landformsPackage.metadata.authoringReviewApproved, true);
   assert.equal(landformsPackage.metadata.variablePoolQuestionCount, 8);
@@ -38,11 +39,13 @@ async function run() {
   assert.equal(desertsPackage.metadata.variablePoolQuestionCount, 7);
   assert.equal(desertsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const passagesPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP017')!;
+  assert.equal(passagesPackage.metadata.authoringReviewApproved, true);
   assert.equal(passagesPackage.metadata.variablePoolQuestionCount, 8);
-  assert.equal(passagesPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
+  assert.equal(passagesPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const currentsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP016')!;
+  assert.equal(currentsPackage.metadata.authoringReviewApproved, true);
   assert.equal(currentsPackage.metadata.variablePoolQuestionCount, 5);
-  assert.equal(currentsPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
+  assert.equal(currentsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   let checked = 0;
   const newCheckpointAnswerKeyAudit: Record<string, readonly number[]> = {
     'WGE-001-CP012': [0,2,1,0,2,0,1,0,3,1,2,3,0,1,0,2,1,3,0,1,1,2,0,1,0],

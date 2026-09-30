@@ -1,6 +1,6 @@
 # WGE-001 CP017 Variable-Pool Review V1
 
-Status: **Review required; not user-approved or production eligible.** These eight forms use global strait facts already represented in CP017. Palk Strait and India-specific location facts are excluded.
+Status: **User approved for authoring and localization; REVIEW_ONLY and not production eligible.** These eight forms use global strait facts already represented in CP017. Palk Strait and India-specific location facts are excluded.
 
 ## WGE-001-CP017-Q-VP01-PASSAGE-GIBRALTAR
 

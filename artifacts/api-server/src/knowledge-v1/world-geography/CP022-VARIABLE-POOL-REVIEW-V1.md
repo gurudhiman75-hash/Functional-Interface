@@ -1,6 +1,6 @@
 # WGE-001 CP022 Variable-Pool Review V1
 
-Status: **Review required; not user-approved or production eligible.** The eight capital facts are already represented in the approved CP022 bank. This packet shows 24 generated question forms (three QLs × eight facts), with aligned answers and options across English, Hindi and Punjabi.
+Status: **User approved for authoring and localization; REVIEW_ONLY and not production eligible.** The eight capital facts are already represented in the approved CP022 bank. This packet shows 24 generated question forms (three QLs × eight facts), with aligned answers and options across English, Hindi and Punjabi.
 
 ## WGE-001-CP022-Q-VP01-COUNTRYTOCAPITAL-AUSTRALIA-CANBERRA
 
@@ -889,4 +889,3 @@ C. ਆਸਟ੍ਰੇਲੀਆ — ਕੈਨਬਰਾ
 D. ਤਨਜ਼ਾਨੀਆ — ਡੋਡੋਮਾ
 
 Explanation: ਅੰਕਾਰਾ, ਤੁਰਕੀਏ ਦੀ ਰਾਜਧਾਨੀ ਹੈ।
-
