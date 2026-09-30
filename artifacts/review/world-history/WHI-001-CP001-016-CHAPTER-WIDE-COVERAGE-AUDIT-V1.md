@@ -20,8 +20,8 @@ The SSC CGL syllabus specifies General Awareness broadly, including History and 
 | MCQ shape | Four choices and a matching answer key in every English record |
 | Explanation/source fields | Present in every English record |
 | Lifecycle | All 960 remain `reviewOnly: true`, `runtimeRegistered: false` |
-| Localized full pools | CP001–CP005 and CP016 have EN/HI/PA files; CP006–CP015 currently have English only |
-| CP016 localized extent | Four questions per origin checkpoint, not full Hindi/Punjabi translations of CP006–CP015 |
+| Localized full pools | CP001–CP005, CP011–CP014 and CP016 have EN/HI/PA files; CP006–CP010 and CP015 currently have English only |
+| CP016 localized extent | Four questions per origin checkpoint; this is not a substitute for full pools in CP006–CP010 and CP015 |
 
 These checks establish structural consistency; they do not establish that all 960 questions are necessary, distinct, source-verified or factually correct.
 
@@ -67,16 +67,16 @@ This is a semantic review list, not an instruction to remove every related quest
 
 1. **Source locators:** CP006–CP008 and CP011–CP015 still need page, section or quoted passage locators. CP009 and CP010 now have focused locators for all 60 facts each. CP016’s source-register `locator` fields are null. CP001–CP005 use legacy `S<n>` IDs and do not share the same checkpoint-wide canonical-fact/source-locator structure; CP002 and CP005 have plans, but the full crosswalk remains incomplete. Verify each question against a specific source passage and retain the locator.
 2. **Family taxonomy:** CP001, CP003, CP004 and CP005 have 52, 46, 41 and 38 unique question-family labels respectively; CP002 has 10; CP006 onward mostly use ten broad groups, with uneven counts in some pools. Normalize to a shared family ID and keep the topic/fact as separate metadata. CP016’s ten generic families should not replace the origin question’s original family.
-3. **Localization:** Full Hindi/Punjabi pools are absent for CP006–CP015. CP016 contains only four selected items per language from each of those checkpoints. Complete native Hindi and Punjabi review for the full English pools, including answer position, names, date conventions and source/fact parity.
+3. **Localization:** Full Hindi/Punjabi pools are absent for CP006–CP010 and CP015. CP016 contains only four selected items per language from each of those checkpoints. CP011–CP014 now have approved 60-item Hindi/Punjabi pools and standard Question Studio review-only routes. Complete native Hindi and Punjabi review for the remaining full English pools, including answer position, names, date conventions and source/fact parity.
 4. **Accuracy and difficulty:** No full independent fact-by-fact source validation was possible from the available generic locators. Recheck dates and causal claims against the sources; then review whether Easy/Medium/Hard reflects the reasoning load rather than merely the fact’s obscurity.
-5. **Question Studio:** CP016 now reuses the shared `knowledge-v1` review-only lifecycle. Keep all World History packages in that shared architecture; learner delivery remains blocked until coverage, source, duplicate, factual and localization gates close.
+5. **Question Studio:** CP011–CP014 and CP016 now reuse the shared `knowledge-v1` review-only lifecycle. Keep all World History packages in that shared architecture; learner delivery remains blocked until coverage, source, duplicate, factual and remaining localization gates close.
 
 ## Recommended order
 
 1. Build the checkpoint-wide canonical topic/fact map and source-locator register for CP001–CP016.
 2. Resolve the explicit duplicate clusters and coverage gaps above; add or revise questions only where a missing exam-relevant fact is supported by the source audit.
 3. Normalize question-family IDs and rebalance pools based on coverage needs rather than preserving a fixed count for its own sake.
-4. Complete full-pool Hindi/Punjabi localization and parity review for CP006–CP015.
+4. Complete full-pool Hindi/Punjabi localization and parity review for CP006–CP010 and CP015.
 5. Rerun the chapter close, source, chronology, duplicate, ambiguity, difficulty and Question Studio lifecycle audits before considering learner release.
 
 
