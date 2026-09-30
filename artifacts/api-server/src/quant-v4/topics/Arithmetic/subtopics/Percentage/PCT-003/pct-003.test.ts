@@ -146,6 +146,39 @@ for (let index = 0; index < 40; index += 1) {
   }
 }
 
+for (const cpId of PCT_003_CP_IDS) {
+  const rotated = Array.from({ length: 15 }, (_, diversityOrdinal) =>
+    runPct003Pipeline(cpId, {
+      language: "en",
+      seed: `pct-003-diversity-ordinal:${cpId}:${diversityOrdinal}`,
+      diversityOrdinal,
+    }),
+  );
+  assert.equal(
+    new Set(rotated.map((item) => item.questionLanguageId)).size,
+    15,
+    `${cpId} should consume all 15 English QLs before audit reuse`,
+  );
+}
+
+const explicitEasyRotation = Array.from({ length: 6 }, (_, diversityOrdinal) =>
+  runPct003Pipeline("PCT-CP-001", {
+    language: "en",
+    seed: `pct-003-explicit-easy:${diversityOrdinal}`,
+    difficultyBand: "Easy",
+    diversityOrdinal,
+  }),
+);
+assert.ok(explicitEasyRotation.every((item) => item.difficultyBand === "Easy"));
+
+const pct003EditorialTemplates = ["PCT-QL-085","PCT-QL-035","PCT-QL-104","PCT-QL-105","PCT-QL-106","PCT-QL-109","PCT-QL-124","PCT-QL-127","PCT-QL-128","PCT-QL-129","PCT-QL-132","PCT-QL-133","PCT-QL-048","PCT-QL-143","PCT-QL-144"];
+for (const qlId of pct003EditorialTemplates) {
+  const cpId = PCT_003_CP_IDS.find((candidate) => getQuestionLanguageIds(candidate, "en").includes(qlId));
+  assert.ok(cpId, `${qlId} must remain registered`);
+  const template = getQuestionEntry(cpId!, qlId, "en").template;
+  assert.ok(!/belong to|factor of increase|fresh percentage|increased in all|records percentage increases|has to become|stands at/i.test(template), `${qlId} still contains awkward wording`);
+}
+
 const hiPkg003 = runPct003Pipeline("PCT-CP-001", {
   language: "hi",
   questionLanguageId: "PCT-QL-001",

@@ -27,6 +27,7 @@ export interface Pct003ParameterInput {
   language?: Pct003Language;
   questionLanguageId?: string;
   difficultyBand?: Pct003DifficultyBand;
+  diversityOrdinal?: number;
 }
 
 type ScenarioFactory = (difficulty: Pct003DifficultyBand, seed: string) => Pct003Variables;
@@ -574,20 +575,35 @@ export function selectQuestionLanguageId(
   language: Pct003Language,
   seed: string,
   difficultyBand?: Pct003DifficultyBand,
+  diversityOrdinal?: number,
 ) {
   const qlIds = getSelectableQuestionLanguageIds(cpId, language);
   const filtered = difficultyBand
     ? qlIds.filter((qlId) => getQuestionEntry(cpId, qlId, language).difficulty === difficultyBand)
     : qlIds;
   const source = filtered.length > 0 ? filtered : qlIds;
-  return source[stableBucket(seed, source.length)]!;
+  const selectedIndex = Number.isInteger(diversityOrdinal)
+    ? Math.max(0, Math.floor(Number(diversityOrdinal))) % source.length
+    : stableBucket(seed, source.length);
+  return source[selectedIndex]!;
 }
 
 export function generatePct003Parameters(cpId: Pct003CanonicalProblemId, input: Pct003ParameterInput = {}): Pct003Parameters {
   const seed = input.seed ?? `PCT-003:${cpId}`;
   const language = input.language ?? "en";
-  const difficultyBand = input.difficultyBand ?? assignDifficulty(cpId, language, seed);
-  const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, seed, difficultyBand);
+  const auditRotatesFullPool =
+    !input.questionLanguageId
+    && input.difficultyBand === undefined
+    && Number.isInteger(input.diversityOrdinal);
+  const selectionDifficulty = input.difficultyBand
+    ?? (auditRotatesFullPool ? undefined : assignDifficulty(cpId, language, seed));
+  const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(
+    cpId,
+    language,
+    seed,
+    selectionDifficulty,
+    input.diversityOrdinal,
+  );
 
   if (!isQlLocalized("PCT-003", questionLanguageId, language)) {
     throw new Error(

@@ -6,8 +6,8 @@
 - English question library: `150` QLs
 - CP coverage: `10` CPs
 - Per-CP English count: `15` each
-- Shared/common cross-language QLs: `2` per CP, `20` total
-- Runtime rule preserved: English uses all English QLs; Hindi/Punjabi remain shared/common-only
+- Shared/common cross-language QLs: `15` per CP, `150` total under the current executable library contract
+- Runtime rule: all three supported languages resolve through the current localized 15-QL-per-CP library; English audit rotation may traverse the full CP pool when no explicit difficulty/QL is requested
 
 ## Files Changed
 
@@ -45,7 +45,7 @@
 - Unregistered template placeholders: `0`
 - Rendered unresolved placeholders: `0`
 - Bundled English coverage test expectation: `150` QLs covered in batch audit
-- Shared/common runtime parity expectation preserved: `2` shared QLs per CP
+- Shared/common runtime parity expectation: `15` shared QLs per CP under the current executable tests
 
 ## Bundled Test Result
 
@@ -59,7 +59,8 @@
 ## Remaining Issues
 
 - No known contract, duplicate-template, or unresolved-placeholder issues remain after Stage 1 expansion.
-- Manual editorial review can still be done later if we want another realism pass before Stage 2.
+- Manual editorial review remains required for final audit closure.
+- Audit diversity wiring was subsequently added so a 15-item CP sample can consume all 15 QLs before reuse without changing ordinary production seed behavior.
 
 ## Final Status
 

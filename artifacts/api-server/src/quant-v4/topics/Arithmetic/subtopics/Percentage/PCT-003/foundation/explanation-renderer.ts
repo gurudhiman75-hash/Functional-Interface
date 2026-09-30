@@ -87,7 +87,7 @@ function renderLocalizedPct003Explanation(parameters: Pct003Parameters, solver: 
         ...sentenceWithMath(
           localizedText(
             parameters,
-            `An increase of ${formatNumber(increaseRate)}% makes the ${wholeLabel} equal to ${formatNumber(100 + increaseRate)}% of its original value.`,
+            `An increase of ${formatNumber(increaseRate)}% makes the new ${wholeLabel} equal to ${formatNumber(100 + increaseRate)}% of the original ${wholeLabel}.`,
             `${formatNumber(increaseRate)}% की वृद्धि से ${wholeLabel}, अपने मूल मान का ${formatNumber(100 + increaseRate)}% हो जाता है।`,
             `${formatNumber(increaseRate)}% ਦੇ ਵਾਧੇ ਨਾਲ ${wholeLabel}, ਆਪਣੇ ਮੂਲ ਮਾਨ ਦਾ ${formatNumber(100 + increaseRate)}% ਬਣ ਜਾਂਦਾ ਹੈ।`,
           ),
@@ -173,7 +173,7 @@ function renderLocalizedPct003Explanation(parameters: Pct003Parameters, solver: 
       break;
     case "repeatedPercentageIncrease":
       lines.push(
-        ...sentenceWithMath(localizedText(parameters, `After the first increase of ${formatNumber(rate1)}%, the ${wholeLabel} becomes ${formatNumber(100 + rate1)}% of its original value.`, `पहली ${formatNumber(rate1)}% वृद्धि के बाद ${wholeLabel}, अपने मूल मान का ${formatNumber(100 + rate1)}% हो जाता है।`, `ਪਹਿਲੇ ${formatNumber(rate1)}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ${wholeLabel}, ਆਪਣੇ ਮੂਲ ਮਾਨ ਦਾ ${formatNumber(100 + rate1)}% ਬਣ ਜਾਂਦਾ ਹੈ।`), `${formatNumber(originalValue)}\\times\\frac{${formatNumber(100 + rate1)}}{100}=${formatNumber(afterFirstValue)}`),
+        ...sentenceWithMath(localizedText(parameters, `After the first increase of ${formatNumber(rate1)}%, the new ${wholeLabel} is ${formatNumber(100 + rate1)}% of the original ${wholeLabel}.`, `पहली ${formatNumber(rate1)}% वृद्धि के बाद ${wholeLabel}, अपने मूल मान का ${formatNumber(100 + rate1)}% हो जाता है।`, `ਪਹਿਲੇ ${formatNumber(rate1)}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ${wholeLabel}, ਆਪਣੇ ਮੂਲ ਮਾਨ ਦਾ ${formatNumber(100 + rate1)}% ਬਣ ਜਾਂਦਾ ਹੈ।`), `${formatNumber(originalValue)}\\times\\frac{${formatNumber(100 + rate1)}}{100}=${formatNumber(afterFirstValue)}`),
         ...sentenceWithMath(localizedText(parameters, `Now apply the second increase of ${formatNumber(rate2)}% to this new value.`, `अब इस नए मान पर दूसरी ${formatNumber(rate2)}% वृद्धि लागू कीजिए।`, `ਹੁਣ ਇਸ ਨਵੇਂ ਮਾਨ ਉੱਤੇ ਦੂਜਾ ${formatNumber(rate2)}% ਵਾਧਾ ਲਾਗੂ ਕਰੋ।`), `${formatNumber(afterFirstValue)}\\times\\frac{${formatNumber(100 + rate2)}}{100}=${formatNumber(solver.numericAnswer ?? 0)}`),
         ...sentenceWithMath(localizedText(parameters, `Therefore the ${wholeLabel} after both increases is ${displayValue(parameters, solver.numericAnswer ?? 0)}.`, `अतः दोनों वृद्धियों के बाद ${wholeLabel} ${displayValue(parameters, solver.numericAnswer ?? 0)} है।`, `ਇਸ ਲਈ ਦੋਵੇਂ ਵਾਧਿਆਂ ਤੋਂ ਬਾਅਦ ${wholeLabel} ${displayValue(parameters, solver.numericAnswer ?? 0)} ਹੈ।`), parameters.language === "hi" ? `\\text{अंतिम मान}=${renderedAnswer}` : `\\text{ਅੰਤਿਮ ਮਾਨ}=${renderedAnswer}`),
       );
