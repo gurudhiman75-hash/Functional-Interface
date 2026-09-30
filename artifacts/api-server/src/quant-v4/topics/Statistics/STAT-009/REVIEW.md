@@ -27,7 +27,7 @@ D. 2.3
 
 **Answer:** C. 1.8
 
-**Explanation:** The total weight is 10. E[X] = Σxf(x)/Σf(x) gives 1.8.
+**Explanation:** The total weight is 10. The weighted sum is 0×2 + 1×1 + 2×4 + 3×3 = 18, so E[X] = 18/10 = 1.8.
 
 ## STAT-QL-098 — Variance of a discrete random variable
 
@@ -40,7 +40,7 @@ D. 0.91
 
 **Answer:** C. 1.16
 
-**Explanation:** The total weight is 10. Using the weighted distribution, the requested variance E[X²]−E[X]² gives 1.16.
+**Explanation:** The total weight is 10. E[X] = 1.8 and E[X²] = (0²×2 + 1²×1 + 2²×4 + 3²×3)/10 = 4.4. Therefore Var(X) = E[X²]−E[X]² = 4.4−1.8² = 1.16.
 
 ## STAT-QL-099 — Third central moment of a discrete distribution
 
@@ -53,7 +53,7 @@ D. -0.5
 
 **Answer:** C. -0.6
 
-**Explanation:** The total weight is 10. Using the weighted distribution, the requested third central moment Σ(x−E[X])³f(x)/Σf(x) gives -0.6.
+**Explanation:** The total weight is 10 and E[X] = 2. Thus μ₃ = [(-2)³×1 + (-1)³×2 + 0³×3 + 1³×4]/10 = (-8−2+4)/10 = -0.6.
 
 ## STAT-QL-100 — Expectation under an affine transformation
 
@@ -196,7 +196,7 @@ D. 0.12
 
 **Answer:** C. 0.02
 
-**Explanation:** Use Cov(X,Y)=E[XY]−E[X]E[Y] with probabilities obtained by dividing each cell by 10; the covariance is 0.02.
+**Explanation:** From the table, E[X] = (4+3)/10 = 0.7 and E[Y] = (1+3)/10 = 0.4. Also E[XY] = 3/10 = 0.3. Hence Cov(X,Y) = E[XY]−E[X]E[Y] = 0.3−(0.7×0.4) = 0.02.
 
 ## Review checkpoints
 
