@@ -761,6 +761,31 @@ function polishGeoSoiBulkTextV1(text:string, language:"hi"|"pa") {
     ["region","क्षेत्र"],["areas","क्षेत्र"],["area","क्षेत्र"],["soil","मिट्टी"],["rocks","चट्टानें"],["rock","चट्टान"],
     ["iron","लोहा"],["water","पानी"],["high","उच्च"],["low","कम"],["deep","गहरी"],["upper","ऊपरी"],["lower","निचली"],
     ["dry","शुष्क"],["wet","गीली"],["fine","महीन"],["coarse","मोटा"],["fertile","उपजाऊ"],["poor","कम"],["rich","समृद्ध"],
+    ["plateau","पठार"],["foothill","पर्वतपदीय"],["receives","प्राप्त करता है"],["relatively","अपेक्षाकृत"],
+    ["more likely","अधिक संभावित"],["likely","संभावित"],["lateritic","लैटेराइटी"],["laterite","लैटेराइट"],
+    ["immediately east","तुरंत पूर्व"],["east","पूर्व"],["material","पदार्थ"],["soil group","मृदा समूह"],["group","समूह"],
+    ["belongs to","से संबंधित है"],["belong to","से संबंधित"],["map","मानचित्र"],["marks","दर्शाता है"],["highlights","दर्शाता है"],
+    ["narrow","संकरी"],["along","के साथ"],["rather than","के बजाय"],["legend","मानचित्र संकेत"],["says","बताता है"],
+    ["family","वर्ग"],["key","संकेत"],["use","प्रयोग करे"],["relationship","संबंध"],["effect","प्रभाव"],["role","भूमिका"],
+    ["feature","विशेषता"],["prove","सिद्ध करना"],["different origins","भिन्न उत्पत्ति"],["origin","उत्पत्ति"],["profile","प्रोफ़ाइल"],
+    ["strongly","तीव्र रूप से"],["washed","धुली"],["process","प्रक्रिया"],["best explains","सबसे अच्छी तरह समझाती है"],["explains","समझाती है"],
+    ["change","परिवर्तन"],["two","दो"],["warm","गर्म"],["similar","समान"],["one","एक"],["much heavier","बहुत अधिक"],
+    ["show","दिखाना"],["stronger","अधिक तीव्र"],["hot","गर्म"],["rapid decomposition","तेज अपघटन"],["decomposition","अपघटन"],
+    ["plant litter","पौध-अवशेष"],["organic matter","जैविक पदार्थ"],["surface material","सतही पदार्थ"],["surface","सतह"],
+    ["explanation","व्याख्या"],["fits","उपयुक्त है"],["southern state","दक्षिणी राज्य"],["important","महत्वपूर्ण"],
+    ["estate","बागान"],["management step","प्रबंधन उपाय"],["management","प्रबंधन"],["address","सुधारना"],["natural weakness","प्राकृतिक कमी"],
+    ["coastal upland","तटीय ऊँचाई वाला"],["district","जिला"],["plans","योजना बनाता है"],["tree crop","वृक्ष फसल"],
+    ["standard geographical match","मानक भौगोलिक मेल"],["clue","संकेत"],["support","समर्थन करना"],["arid","शुष्क"],
+    ["climatic","जलवायवीय"],["connects","जोड़ती है"],["layer","परत"],["saline","लवणीय"],["hard","कठोर"],["below","नीचे"],
+    ["diagnosis","पहचान"],["consistent","संगत"],["highland","ऊँचा भूभाग"],["steep slopes","तीखी ढालें"],["steep","तीखी"],
+    ["regular","नियमित"],["extensive","विस्तृत"],["forest cover","वन आवरण"],["valleys","घाटियाँ"],["valley","घाटी"],
+    ["wind erosion","पवन अपरदन"],["summits","शिखर"],["slope position","ढाल की स्थिति"],["slope","ढाल"],["thick","मोटी"],
+    ["shallow","उथली"],["helped create","बनाने में सहायक रही"],["Himalayan","हिमालयी"],["frequent removal","बार-बार हटना"],
+    ["soil loss","मिट्टी का ह्रास"],["acidity","अम्लता"],["altitude","ऊँचाई"],["local conditions","स्थानीय दशाएँ"],
+    ["every","हर"],["chemistry","रासायनिक प्रकृति"],["tendency","प्रवृत्ति"],["expected","अपेक्षित"],["east-coast","पूर्वी तट"],
+    ["even though","यद्यपि"],["far","दूर"],["eastern state","पूर्वी राज्य"],["scattered upland","बिखरे ऊँचे भूभाग"],
+    ["across these areas","इन क्षेत्रों में"],["wooded slopes","वनाच्छादित ढालें"],["high-altitude valleys","ऊँची घाटियाँ"],
+    ["depositional plain","निक्षेपी मैदान"],["has","है"],["have","हैं"],["had","था"],["would","होगा"],["should","चाहिए"],["be","होना"],
     ["Which","कौन-सा"],["which","कौन-सा"],["What","क्या"],["what","क्या"],["Why","क्यों"],["why","क्यों"],["Where","कहाँ"],["where","कहाँ"],
     ["How","कैसे"],["how","कैसे"],["When","कब"],["when","कब"],["the",""],["and","और"],["or","या"],["is","है"],["are","हैं"],
     ["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],["can","सकता है"],["could","सकता था"],
@@ -801,6 +826,31 @@ function polishGeoSoiBulkTextV1(text:string, language:"hi"|"pa") {
     ["region","ਖੇਤਰ"],["areas","ਖੇਤਰ"],["area","ਖੇਤਰ"],["soil","ਮਿੱਟੀ"],["rocks","ਚੱਟਾਨਾਂ"],["rock","ਚੱਟਾਨ"],
     ["iron","ਲੋਹਾ"],["water","ਪਾਣੀ"],["high","ਉੱਚ"],["low","ਘੱਟ"],["deep","ਡੂੰਘੀ"],["upper","ਉੱਪਰੀ"],["lower","ਹੇਠਲੀ"],
     ["dry","ਸੁੱਕੀ"],["wet","ਗੀਲੀ"],["fine","ਬਰੀਕ"],["coarse","ਮੋਟਾ"],["fertile","ਉਪਜਾਊ"],["poor","ਘੱਟ"],["rich","ਭਰਪੂਰ"],
+    ["plateau","ਪਠਾਰ"],["foothill","ਪਹਾੜ-ਪੈਰ"],["receives","ਪ੍ਰਾਪਤ ਕਰਦਾ ਹੈ"],["relatively","ਤੁਲਨਾਤਮਕ ਤੌਰ ਤੇ"],
+    ["more likely","ਵੱਧ ਸੰਭਾਵੀ"],["likely","ਸੰਭਾਵੀ"],["lateritic","ਲੈਟਰਾਈਟੀ"],["laterite","ਲੈਟਰਾਈਟ"],
+    ["immediately east","ਤੁਰੰਤ ਪੂਰਬ"],["east","ਪੂਰਬ"],["material","ਪਦਾਰਥ"],["soil group","ਮਿੱਟੀ ਦੀ ਕਿਸਮ"],["group","ਸਮੂਹ"],
+    ["belongs to","ਨਾਲ ਸਬੰਧਿਤ ਹੈ"],["belong to","ਨਾਲ ਸਬੰਧਿਤ"],["map","ਨਕਸ਼ਾ"],["marks","ਦਰਸਾਉਂਦਾ ਹੈ"],["highlights","ਦਰਸਾਉਂਦਾ ਹੈ"],
+    ["narrow","ਸੰਕਰੀ"],["along","ਦੇ ਨਾਲ"],["rather than","ਦੀ ਬਜਾਇ"],["legend","ਨਕਸ਼ਾ-ਸੰਕੇਤ"],["says","ਦੱਸਦਾ ਹੈ"],
+    ["family","ਵਰਗ"],["key","ਸੰਕੇਤ"],["use","ਵਰਤੇ"],["relationship","ਸਬੰਧ"],["effect","ਪ੍ਰਭਾਵ"],["role","ਭੂਮਿਕਾ"],
+    ["feature","ਵਿਸ਼ੇਸ਼ਤਾ"],["prove","ਸਾਬਤ ਕਰਨਾ"],["different origins","ਵੱਖਰੀ ਉਤਪੱਤੀ"],["origin","ਉਤਪੱਤੀ"],["profile","ਪ੍ਰੋਫ਼ਾਈਲ"],
+    ["strongly","ਤੀਬਰ ਤੌਰ ਤੇ"],["washed","ਧੁੱਲੀ"],["process","ਪ੍ਰਕਿਰਿਆ"],["best explains","ਸਭ ਤੋਂ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝਾਉਂਦੀ ਹੈ"],["explains","ਸਮਝਾਉਂਦੀ ਹੈ"],
+    ["change","ਬਦਲਾਅ"],["two","ਦੋ"],["warm","ਗਰਮ"],["similar","ਇੱਕੋ ਜਿਹੇ"],["one","ਇੱਕ"],["much heavier","ਬਹੁਤ ਵੱਧ"],
+    ["show","ਦਿਖਾਉਣਾ"],["stronger","ਵੱਧ ਤੀਬਰ"],["hot","ਗਰਮ"],["rapid decomposition","ਤੇਜ਼ ਵਿਘਟਨ"],["decomposition","ਵਿਘਟਨ"],
+    ["plant litter","ਪੌਧਾ-ਅਵਸ਼ੇਸ਼"],["organic matter","ਜੈਵਿਕ ਪਦਾਰਥ"],["surface material","ਸਤਹੀ ਪਦਾਰਥ"],["surface","ਸਤਹ"],
+    ["explanation","ਵਿਆਖਿਆ"],["fits","ਢੁੱਕਵੀਂ ਹੈ"],["southern state","ਦੱਖਣੀ ਰਾਜ"],["important","ਮਹੱਤਵਪੂਰਨ"],
+    ["estate","ਬਾਗ਼ਾਨ"],["management step","ਪ੍ਰਬੰਧਨ ਉਪਾਅ"],["management","ਪ੍ਰਬੰਧਨ"],["address","ਸੁਧਾਰਨਾ"],["natural weakness","ਕੁਦਰਤੀ ਘਾਟ"],
+    ["coastal upland","ਤਟੀ ਉੱਚਭੂਮੀ"],["district","ਜ਼ਿਲ੍ਹਾ"],["plans","ਯੋਜਨਾ ਬਣਾਉਂਦਾ ਹੈ"],["tree crop","ਰੁੱਖੀ ਫਸਲ"],
+    ["standard geographical match","ਮਿਆਰੀ ਭੂਗੋਲਿਕ ਮੇਲ"],["clue","ਸੰਕੇਤ"],["support","ਸਮਰਥਨ ਕਰਨਾ"],["arid","ਸੁੱਕਾ"],
+    ["climatic","ਜਲਵਾਯੂ ਸੰਬੰਧੀ"],["connects","ਜੋੜਦੀ ਹੈ"],["layer","ਪਰਤ"],["saline","ਲੂਣੀ"],["hard","ਸਖ਼ਤ"],["below","ਹੇਠਾਂ"],
+    ["diagnosis","ਪਛਾਣ"],["consistent","ਸੰਗਤ"],["highland","ਉੱਚਭੂਮੀ"],["steep slopes","ਤੇਜ਼ ਢਲਾਣਾਂ"],["steep","ਤੇਜ਼"],
+    ["regular","ਨਿਯਮਿਤ"],["extensive","ਵਿਸ਼ਾਲ"],["forest cover","ਜੰਗਲ ਆਵਰਨ"],["valleys","ਘਾਟੀਆਂ"],["valley","ਘਾਟੀ"],
+    ["wind erosion","ਹਵਾ ਦੁਆਰਾ ਕਟਾਅ"],["summits","ਚੋਟੀਆਂ"],["slope position","ਢਲਾਣ ਦੀ ਸਥਿਤੀ"],["slope","ਢਲਾਣ"],["thick","ਮੋਟੀ"],
+    ["shallow","ਥੋੜ੍ਹੀ ਡੂੰਘੀ"],["helped create","ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ"],["Himalayan","ਹਿਮਾਲਈ"],["frequent removal","ਵਾਰ-ਵਾਰ ਹਟਣਾ"],
+    ["soil loss","ਮਿੱਟੀ ਦਾ ਨੁਕਸਾਨ"],["acidity","ਅਮਲਤਾ"],["altitude","ਉਚਾਈ"],["local conditions","ਸਥਾਨਕ ਹਾਲਤਾਂ"],
+    ["every","ਹਰ"],["chemistry","ਰਸਾਇਣਕ ਸੁਭਾਅ"],["tendency","ਰੁਝਾਨ"],["expected","ਉਮੀਦ ਕੀਤੀ"],["east-coast","ਪੂਰਬੀ ਤਟ"],
+    ["even though","ਭਾਵੇਂ"],["far","ਦੂਰ"],["eastern state","ਪੂਰਬੀ ਰਾਜ"],["scattered upland","ਛਿੱਟੇ ਉੱਚਭੂਮੀ ਖੇਤਰ"],
+    ["across these areas","ਇਨ੍ਹਾਂ ਖੇਤਰਾਂ ਵਿੱਚ"],["wooded slopes","ਜੰਗਲ-ਢੱਕੀਆਂ ਢਲਾਣਾਂ"],["high-altitude valleys","ਉੱਚੀਆਂ ਘਾਟੀਆਂ"],
+    ["depositional plain","ਨਿਕਸ਼ੇਪੀ ਮੈਦਾਨ"],["has","ਹੈ"],["have","ਹਨ"],["had","ਸੀ"],["would","ਹੋਵੇਗਾ"],["should","ਚਾਹੀਦਾ"],["be","ਹੋਣਾ"],
     ["Which","ਕਿਹੜਾ"],["which","ਕਿਹੜਾ"],["What","ਕੀ"],["what","ਕੀ"],["Why","ਕਿਉਂ"],["why","ਕਿਉਂ"],["Where","ਕਿੱਥੇ"],["where","ਕਿੱਥੇ"],
     ["How","ਕਿਵੇਂ"],["how","ਕਿਵੇਂ"],["When","ਕਦੋਂ"],["when","ਕਦੋਂ"],["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],["is","ਹੈ"],["are","ਹਨ"],
     ["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],
@@ -819,13 +869,22 @@ function polishGeoSoiBulkTextV1(text:string, language:"hi"|"pa") {
 
 function localizeGeoSoiBulkCp004Cp008V1(question:CanonicalQuestion, language:"hi"|"pa") {
   if (!/^GEO-SOI-001-CP00[4-8]-Q/.test(question.questionId)) return null;
-  const local = (source:string) => polishGeoSoiBulkTextV1(localizeText(source, language), language);
-  const stemBase = localizeNaturalStem(question.stem, language, "GEO-SOI-001") ?? localizeText(question.stem, language);
-  const stem = polishGeoSoiBulkTextV1(stemBase, language);
-  const options = Object.freeze(question.options.map(local));
-  const canonicalAnswer = options[question.correctIndex]!;
-  const explanation = local(question.explanation);
-  return Object.freeze({stem, options, canonicalAnswer, explanation});
+  const safe = (source:string) => {
+    const exact=EXACT[language][source];
+    if (exact) return exact;
+    let out=source;
+    for (const [from,to] of PHRASES[language]) out=out.split(from).join(to);
+    for (const [from,to] of Object.entries(TERMS[language]).sort((a,b)=>b[0].length-a[0].length)) {
+      out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
+    }
+    out=replaceWords(out,language);
+    return polishGeoSoiBulkTextV1(out,language);
+  };
+  const stem=safe(question.stem);
+  const options=Object.freeze(question.options.map(safe));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=safe(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
 
 export function localizeIndianGeoQuestionV1(
