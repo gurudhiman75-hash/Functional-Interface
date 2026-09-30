@@ -3,6 +3,7 @@ import { DI004_PERMANENT_QLS, DI004_PERMANENT_RELEASE_ID } from "./permanent-ql-
 import {
   DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
   DI004_QUESTION_STUDIO_RUNTIME_MODE,
+  di004QuestionStudioPackageCard,
   generateDi004QuestionStudioBatch,
 } from "./question-studio-adapter";
 
@@ -18,10 +19,13 @@ assert(card.runtimeMode === DI004_QUESTION_STUDIO_RUNTIME_MODE, "DI-004 package 
 assert(card.questionBankStatus === "NOT_STORED" && card.questionBankWritable === false, "DI-004 must remain outside Question Bank writes.");
 assert(card.testEligibility === "INELIGIBLE" && card.testEligible === false && card.mockTestEligible === false, "DI-004 must remain ineligible for tests and mocks.");
 assert(card.publiclyPublishable === false && card.automaticStudentPublication === false && card.productionReleaseAuthorized === false, "DI-004 publication locks drifted.");
-assert(card.supportedLanguages.length === 1 && card.supportedLanguages[0] === "en", "DI-004 must remain English-only until localization is approved.");
+assert(JSON.stringify(card.supportedLanguages) === JSON.stringify(["en", "hi", "pa"]), "DI-004 package card must expose English, Hindi and Punjabi controlled-review languages.");
+assert(di004QuestionStudioPackageCard().localizationCoverage.status === "PARTIAL_HI_PA_FROZEN", "DI-004 must scope the Hindi/Punjabi freeze to the localized permanent two-series QLs.");
+assert((card.metadata as any)?.localizationCoverage?.permanentQlCount === 12, "Shared Question Studio metadata must expose the partial localization scope.");
 
 const seen = new Set<string>();
 for (const descriptor of DI004_PERMANENT_QLS) {
+  assert(descriptor.localizationStatus === "HI_PA_FROZEN", `${descriptor.qlId} must record its approved Hindi/Punjabi status.`);
   const request = {
     packageId: "DI-004",
     canonicalProblemId: DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID,
@@ -103,13 +107,36 @@ const explicit = await quantV4QuestionStudioAdapter.generate({
 });
 assert(explicit.questions[0]?.packageId === "DI-004", "DI-QL-109 was intercepted by another DI package selector.");
 
-let localizationBlocked = false;
-try {
-  await generateDi004QuestionStudioBatch({ packageId: "DI-004", language: "hi", count: 1, seed: "DI004-LOCALIZATION-LOCK" });
-} catch {
-  localizationBlocked = true;
+for (const language of ["hi", "pa"] as const) {
+  const localized = await generateDi004QuestionStudioBatch({ packageId: "DI-004", canonicalProblemId: DI004_QUESTION_STUDIO_CANONICAL_PROBLEM_ID, language, count: 12, seed: `DI004-LOCALIZED-QS-${language}`, examProfile: "SSC_CGL_TIER_I" });
+  assert(localized.generationContext.language === language, `DI-004 ${language} batch lost its language identity.`);
+  assert((localized.generationContext as any).localizationStatus === "HI_PA_FROZEN", `DI-004 ${language} batch lost its approved localization status.`);
+  assert(localized.generationContext.reviewStatus === "MULTILINGUAL_REVIEW_APPROVED", `DI-004 ${language} batch lost its approved review status.`);
+  assert(localized.questions.length === 12, `DI-004 ${language} batch did not cover all 12 permanent QLs.`);
+  assert(localized.questionPackages.length === 12, `DI-004 ${language} batch lost its package traceability entries.`);
+  assert(localized.questionPackages.every((pkg: any) => pkg.language === language && pkg.localizationStatus === "HI_PA_FROZEN"), `DI-004 ${language} batch exposed English source packages in its traceability payload.`);
+  for (const question of localized.questions as Record<string, any>[]) {
+    assert(question.language === language && question.localizationStatus === "HI_PA_FROZEN", `DI-004 ${language} localized question lost its language/status.`);
+    assert(question.reviewStatus === "MULTILINGUAL_REVIEW_APPROVED" && question.traceability.reviewStatus === "MULTILINGUAL_REVIEW_APPROVED", `DI-004 ${language} question/traceability review status drifted.`);
+    assert(question.localizationReleaseId === "DI-004-HI-PA-CONTROLLED-REVIEW-V1", `DI-004 ${language} question lost localization release identity.`);
+    assert(question.options[question.correctIndex] === question.answer, `DI-004 ${language} answer-index binding failed.`);
+    assert(Array.isArray(question.stimulusSvgs) && question.stimulusSvgs.length === 1, `DI-004 ${language} localized line graph is missing.`);
+    const svgText = question.stimulusSvgs.map((svg: string) => svg.replace(/<[^>]+>/gu, " ")).join(" ");
+    const text = [question.stem, question.answer, ...question.options, question.stimulus.title, question.stimulus.instruction, question.stimulus.yAxisLabel, question.stimulus.unitLabel, ...question.stimulus.categories, ...question.stimulus.series.map((item: any) => item.label), ...question.stimulus.points.map((point: any) => point.period), question.richExplanation.keyIdea, ...question.richExplanation.steps, svgText].join(" ");
+    assert(!/[A-Za-z]/u.test(text), `DI-004 ${language} leaks Roman text into the learner surface: ${text}`);
+    if (language === "hi") assert(/[\u0900-\u097F]/u.test(text), "DI-004 Hindi review lacks Devanagari text.");
+    else assert(/[\u0A00-\u0A7F]/u.test(text), "DI-004 Punjabi review lacks Gurmukhi text.");
+    assert(question.questionBankWritable === false && question.testEligible === false && question.mockTestEligible === false && question.publiclyPublishable === false && question.productionReleaseAuthorized === false, `DI-004 ${language} widened lifecycle authority.`);
+  }
 }
-assert(localizationBlocked, "DI-004 Hindi generation must stay blocked until localization is approved.");
+
+let otherLineVariantsRemainEnglishOnly = false;
+try {
+  await generateDi004QuestionStudioBatch({ packageId: "DI-004", canonicalProblemId: "DI-CP-004-SINGLE", language: "hi", count: 1, seed: "DI004-SINGLE-HI-LOCK" });
+} catch {
+  otherLineVariantsRemainEnglishOnly = true;
+}
+assert(otherLineVariantsRemainEnglishOnly, "DI-004 localization must not claim coverage for the single-series variant.");
 
 console.log(JSON.stringify({
   status: "PASS_DI_004_QUESTION_STUDIO_CONTROLLED_REVIEW",

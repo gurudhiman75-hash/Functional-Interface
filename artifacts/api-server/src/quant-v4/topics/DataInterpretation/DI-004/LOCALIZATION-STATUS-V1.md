@@ -1,6 +1,8 @@
 # DI-004 Line Graph — Hindi/Punjabi Localization Review V1
 
-Status: HI_PA_REVIEW_CANDIDATE · HUMAN APPROVAL PENDING
+Status: HI_PA_FROZEN · CONTROLLED_REVIEW
+
+User approval recorded: 2026-09-30. Localization release: `DI-004-HI-PA-CONTROLLED-REVIEW-V1`.
 
 ## Source authority
 
@@ -40,9 +42,10 @@ Numeric plotted values, answer index, difficulty, task ownership and canonical a
 - Medium routes remain derived/comparison tasks.
 - Hard routes retain at least three worked steps.
 - deterministic replay is required.
-- Hindi/Punjabi remain Question Studio locked pending human approval.
+- The approved two-series permanent QLs DI-QL-109 through DI-QL-120 are available in Hindi/Punjabi for Question Studio controlled review.
+- The single-series and three-series DI-004 variants remain English-only.
 - Question Bank/tests/mocks/publication/production remain locked.
 
-## Next gate
+## Scope boundary
 
-Human review of the generated Hindi/Punjabi pack is required before HI_PA_FROZEN and multilingual Question Studio CONTROLLED_REVIEW.
+This freeze covers only the 12 permanent two-series QLs in the generated Hindi/Punjabi pack. It does not change Question Bank, scored-test, mock, public/student publication or production-release authority.

@@ -48,7 +48,7 @@ function lineSvg(stimulus: {
   unitLabel: string;
   series: readonly [{ label: string }, { label: string }];
   points: readonly { period: string; seriesA: number; seriesB: number }[];
-}) {
+}, locale?: Di004LocalizationLocale) {
   return renderDiLineSvg({
     title: stimulus.title,
     yAxisLabel: stimulus.yAxisLabel,
@@ -56,6 +56,11 @@ function lineSvg(stimulus: {
     seriesALabel: stimulus.series[0].label,
     seriesBLabel: stimulus.series[1].label,
     points: stimulus.points,
+    description: locale === "hi-IN"
+      ? `छह क्रमबद्ध अवधियों और दो श्रेणियों वाला रेखा-ग्राफ: ${stimulus.series[0].label} और ${stimulus.series[1].label}।`
+      : locale === "pa-IN"
+        ? `ਛੇ ਕ੍ਰਮਵਾਰ ਮਿਆਦਾਂ ਅਤੇ ਦੋ ਲੜੀਆਂ ਵਾਲਾ ਰੇਖਾ-ਗ੍ਰਾਫ: ${stimulus.series[0].label} ਅਤੇ ${stimulus.series[1].label}।`
+        : undefined,
   });
 }
 
@@ -98,7 +103,7 @@ function localizedSection(locale: Di004LocalizationLocale) {
     return `<section class="review-item">
       <div class="item-head"><div><div class="eyebrow">${esc(descriptor.qlId)}</div><h3>${esc(descriptor.taskKind)}</h3></div><span class="badge">${esc(examProfile.replaceAll("_", " "))}</span></div>
       <p class="instruction">${esc(source.stimulus.instruction)}</p>
-      <div class="chart">${lineSvg(source.stimulus)}</div>
+      <div class="chart">${lineSvg(source.stimulus, locale)}</div>
       ${questionCard({
         qlId: descriptor.qlId,
         taskKind: source.question.kind,
@@ -133,7 +138,7 @@ const html = `<!doctype html>
 </style>
 </head>
 <body><main class="shell">
-<section class="hero"><h1>DI-004 Line Graph — Visual Review</h1><p>This is the primary human-review surface for DI-004. Each question is shown with the actual line graph generated from the same semantic stimulus used by the question engine.</p><p>The Markdown data tables remain only as a textual/debug representation and are not the intended learner presentation.</p><div class="notice"><strong>Review only.</strong> Hindi/Punjabi remain HI_PA_REVIEW_CANDIDATE until human approval. Question Bank, tests, mocks and public/student publication remain locked.</div></section>
+<section class="hero"><h1>DI-004 Line Graph — Visual Review</h1><p>This is the primary human-review surface for DI-004. Each question is shown with the actual line graph generated from the same semantic stimulus used by the question engine.</p><p>The Markdown data tables remain only as a textual/debug representation and are not the intended learner presentation.</p><div class="notice"><strong>Controlled review only.</strong> Hindi/Punjabi for DI-QL-109 through DI-QL-120 are approved for controlled review. The single-series and three-series variants remain English-only. Question Bank, tests, mocks and public/student delivery remain locked.</div></section>
 ${sections}
 </main></body></html>`;
 

@@ -9,6 +9,7 @@ import type {
 export type Di004LocalizationLocale = "hi-IN" | "pa-IN";
 
 export const DI004_LOCALIZATION_REVIEW_ID = "DI-004-HI-PA-REVIEW-V1" as const;
+export const DI004_LOCALIZATION_RELEASE_ID = "DI-004-HI-PA-CONTROLLED-REVIEW-V1" as const;
 
 const MONTHS: Readonly<Record<string, Readonly<{ hi: string; pa: string }>>> = Object.freeze({
   Jan: { hi: "जनवरी", pa: "ਜਨਵਰੀ" },
@@ -323,7 +324,7 @@ export function localizeDi004Question(source: ReturnType<typeof generateDi004Per
     language: locale === "hi-IN" ? "hi" as const : "pa" as const,
     locale,
     localizationReviewId: DI004_LOCALIZATION_REVIEW_ID,
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE" as const,
+    localizationStatus: "HI_PA_FROZEN" as const,
     sourceEnglishStatus: "ENGLISH_REVIEW_APPROVED" as const,
     stimulus: localizeDi004Stimulus(source.stimulus, locale),
     question: {
@@ -336,9 +337,10 @@ export function localizeDi004Question(source: ReturnType<typeof generateDi004Per
     validation: source.validation,
     traceability: {
       ...source.traceability,
-      reviewStatus: "MULTILINGUAL_REVIEW_CANDIDATE" as const,
-      localizationStatus: "HI_PA_REVIEW_CANDIDATE" as const,
-      questionStudioDiscoverable: false as const,
+      reviewStatus: "MULTILINGUAL_REVIEW_APPROVED" as const,
+      localizationStatus: "HI_PA_FROZEN" as const,
+      localizationReleaseId: DI004_LOCALIZATION_RELEASE_ID,
+      questionStudioDiscoverable: true as const,
       questionBankStatus: "NOT_STORED" as const,
       questionBankWritable: false as const,
       testEligibility: "INELIGIBLE" as const,

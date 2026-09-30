@@ -138,8 +138,8 @@ for (const locale of locales) {
         hardChecks += 1;
       }
 
-      assert(localized.localizationStatus === "HI_PA_REVIEW_CANDIDATE", `${key} localization status drifted.`);
-      assert(localized.traceability.questionStudioDiscoverable === false, `${key} became Question Studio discoverable before approval.`);
+      assert(localized.localizationStatus === "HI_PA_FROZEN", `${key} localization status drifted.`);
+      assert(localized.traceability.questionStudioDiscoverable === true, `${key} approved localization must be available for controlled review.`);
       assert(localized.traceability.questionBankWritable === false && localized.traceability.testEligible === false && localized.traceability.mockTestEligible === false, `${key} widened learner lifecycle authority.`);
       assert(localized.traceability.publiclyPublishable === false && localized.traceability.automaticStudentPublication === false && localized.traceability.productionReleaseAuthorized === false, `${key} widened publication authority.`);
       lifecycleChecks += 1;
@@ -156,7 +156,7 @@ for (const [key, seen] of surfaces) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_DI_004_HI_PA_LOCALIZATION_REVIEW_CANDIDATE_V1",
+  status: "PASS_DI_004_HI_PA_LOCALIZATION_FROZEN_V1",
   sourceContexts: contexts.size,
   exercisedSeriesPairs: pairs.size,
   configuredSeriesPairs: DI004_V2_SERIES_PAIR_COUNT,
@@ -171,7 +171,7 @@ console.log(JSON.stringify({
   easyFloorChecks,
   hardChecks,
   localizedSurfaceFamilies: surfaces.size,
-  questionStudioDiscoverable: false,
+  questionStudioDiscoverable: true,
   questionBankWritable: false,
   testEligible: false,
   mockTestEligible: false,
