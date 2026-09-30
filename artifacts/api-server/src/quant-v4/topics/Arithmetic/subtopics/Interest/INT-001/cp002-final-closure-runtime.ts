@@ -639,13 +639,23 @@ function buildBorrowLendMissingDuration(seed: string): BuiltQuestion {
 
 function buildDayCountBasisComparison(seed: string): BuiltQuestion {
   const { actor, institution } = context(seed);
-  const days = rational(pick([30, 45, 60, 72, 73, 90, 120, 146, 180, 240, 300, 360], seed, "days"));
-  const principal = rational(pick(
-    [7200, 7300, 10800, 14400, 14600, 18000, 21600, 21900, 28800, 29200, 36000, 36500],
-    seed,
-    "principal",
-  ));
-  const rate = rational(pick([4, 5, 6, 8, 10, 12], seed, "rate"));
+  const scenario = pick([
+    { principal: 7300, rate: 5, days: 72 },
+    { principal: 7300, rate: 6, days: 120 },
+    { principal: 7300, rate: 8, days: 180 },
+    { principal: 7300, rate: 10, days: 180 },
+    { principal: 7300, rate: 12, days: 240 },
+    { principal: 7300, rate: 15, days: 240 },
+    { principal: 14600, rate: 5, days: 180 },
+    { principal: 14600, rate: 6, days: 150 },
+    { principal: 21900, rate: 8, days: 90 },
+    { principal: 29200, rate: 10, days: 72 },
+    { principal: 36500, rate: 12, days: 60 },
+    { principal: 43800, rate: 15, days: 48 },
+  ] as const, seed, "basis-comparison-scenario");
+  const days = rational(scenario.days);
+  const principal = rational(scenario.principal);
+  const rate = rational(scenario.rate);
   const commercialInterest = simpleInterest(principal, rate, divideRational(days, rational(360)));
   const actualInterest = simpleInterest(principal, rate, divideRational(days, rational(365)));
   const difference = subtractRational(commercialInterest, actualInterest);
