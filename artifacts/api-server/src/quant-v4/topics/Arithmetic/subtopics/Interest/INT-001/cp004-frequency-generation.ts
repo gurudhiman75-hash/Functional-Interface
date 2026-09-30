@@ -64,7 +64,7 @@ function chooseFrequency(seed: string, qlId: IntCp004QlId): Cp004Frequency {
   if (["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072"].includes(qlId)) {
     return pick([2, 4] as const, seed, `${qlId}:frequency`);
   }
-  if (qlId === "INT-QL-077") return pick([2, 4] as const, seed, `${qlId}:frequency`);
+  if (qlId === "INT-QL-077") return pick([2, 2, 2, 4] as const, seed, `${qlId}:frequency`);
   if (qlId === "INT-QL-075" || qlId === "INT-QL-078") {
     return pick([1, 2, 4, 12] as const, seed, `${qlId}:frequency`);
   }
