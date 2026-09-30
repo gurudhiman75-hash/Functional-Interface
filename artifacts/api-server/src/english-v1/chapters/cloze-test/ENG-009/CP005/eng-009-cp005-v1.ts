@@ -19,10 +19,17 @@ export function generateEng009Cp005QuestionV1(input:GenerateEng009Cp005Input){
    correctOptionIndex=options.indexOf(correct);answer=correct;
    prompt=`Which option CANNOT appropriately fill blank number ${blank.blankNo}?`;
  }else if(blank.mode==="can-fit"){
-   const correct=blank.accepted[0]!,others=[...blank.accepted.slice(1),...blank.rejected].slice(0,3);
-   options=shuffle(`${input.seed}:options`,[correct,...others]);
+   if(blank.accepted.length<3||blank.rejected.length<1)throw new Error(`${blank.id} requires at least three accepted words and one rejected word for can-fit rendering`);
+   const accepted=blank.accepted.slice(0,3),rejected=blank.rejected[0]!;
+   const correct=accepted.join(", ");
+   const distractors=[
+     [accepted[0]!,accepted[1]!,rejected].join(", "),
+     [accepted[0]!,accepted[2]!,rejected].join(", "),
+     [accepted[1]!,accepted[2]!,rejected].join(", "),
+   ];
+   options=shuffle(`${input.seed}:options`,[correct,...distractors]);
    correctOptionIndex=options.indexOf(correct);answer=correct;
-   prompt=`Which option can appropriately fill blank number ${blank.blankNo}?`;
+   prompt=`Which group contains only words that can appropriately fill blank number ${blank.blankNo}?`;
  }else{
    const correct=blank.accepted[0]!,others=blank.rejected.slice(0,3);
    options=shuffle(`${input.seed}:options`,[correct,...others]);
