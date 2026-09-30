@@ -1143,3 +1143,8 @@ if (fatalFindings.length > 0) {
     `PNL English editorial structural audit found ${fatalFindings.length} blocker(s).`,
   );
 }
+if (metrics.pendingStructuralReviewQlCount !== 0) {
+  throw new Error(
+    `PNL structural-diversity audit still has ${metrics.pendingStructuralReviewQlCount} QL(s) pending review.`,
+  );
+}
