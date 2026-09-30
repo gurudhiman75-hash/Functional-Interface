@@ -244,7 +244,7 @@ D. (0.400, 0.800)
 
 **Answer:** A. (0.504, 0.696)
 
-**Explanation:** The sample proportion is p̂ = 60/100 = 0.60. Its standard error is √[0.60×0.40/100] ≈ 0.049. Thus p̂ ± z(SE) = 0.60 ± 1.96(0.049), giving (0.504, 0.696).
+**Explanation:** The sample proportion is p̂ = 60/100 = 0.60. Its standard error is √[0.60×0.40/100] ≈ 0.04899. Thus p̂ ± z(SE) = 0.60 ± 1.96(0.04899) ≈ (0.504, 0.696).
 
 ## STAT-QL-183 — Decision from a one-sample Z test
 
