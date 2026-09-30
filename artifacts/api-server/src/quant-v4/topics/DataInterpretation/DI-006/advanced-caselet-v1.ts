@@ -109,7 +109,7 @@ function makeQuestion(task:Di006AdvancedTask,difficulty:Di006AdvancedDifficulty,
     const raw=(a-b)*100/b, v=Math.round(raw);
     stem=`By approximately what percentage does ${an} exceed ${bn}?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[`Difference = ${a-b}.`,`Percentage excess = (${a-b} ÷ ${b}) × 100 ≈ ${v}%.`];
   } else if(task==="THREE_CATEGORY_TOTAL"){
-    const v=values[i]!+values[j]!+values[k]!;stem=`Find the total for ${labels[i]}, ${labels[j]} and ${labels[k]} after resolving all stated relations.`;answer=String(v);options=numOptions(v,seed);steps=[`${values[i]} + ${values[j]} + ${values[k]} = ${v}.`];
+    const v=values[i]!+values[j]!+values[k]!;stem=`What is the total for ${labels[i]}, ${labels[j]} and ${labels[k]} together?`;answer=String(v);options=numOptions(v,seed);steps=[`${values[i]} + ${values[j]} + ${values[k]} = ${v}.`];
   } else {
     const group=values[i]!+values[j]!,v=total-group;stem=`How many ${state.context.unit} remain after excluding ${labels[i]} and ${labels[j]}?`;answer=String(v);options=numOptions(v,seed);steps=[`Excluded total = ${values[i]} + ${values[j]} = ${group}.`,`Remaining = ${total} − ${group} = ${v}.`];
   }
