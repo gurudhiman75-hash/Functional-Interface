@@ -7,7 +7,7 @@ import { authenticate } from "../middlewares/auth";
 
 const router = Router();
 const PLACEMENTS = new Set(["home", "login_popup", "learn", "tests", "results"]);
-const DESTINATION_TYPES = new Set(["exam", "test_series", "learn", "url", "none"]);
+const DESTINATION_TYPES = new Set(["exam", "test_series", "learn", "page", "url", "none"]);
 const CAMPAIGN_KINDS = new Set(["internal", "external"]);
 
 function text(value: unknown, max = 1000): string {
@@ -74,7 +74,7 @@ function assertValid(input: ReturnType<typeof normalize>) {
   if (input.title.length < 2) throw Object.assign(new Error("Promotion title must contain at least 2 characters."), { statusCode: 400, code: "MOBILE_PROMOTION_TITLE_INVALID" });
   if (input.startAt && input.endAt && new Date(input.endAt) < new Date(input.startAt)) throw Object.assign(new Error("Promotion end time cannot be before its start time."), { statusCode: 400, code: "MOBILE_PROMOTION_WINDOW_INVALID" });
   if (input.campaignKind === "external" && input.destinationType !== "url") throw Object.assign(new Error("External campaigns must use a URL destination."), { statusCode: 400, code: "MOBILE_PROMOTION_EXTERNAL_DESTINATION_INVALID" });
-  if (["exam", "test_series"].includes(input.destinationType) && !input.destinationValue) throw Object.assign(new Error("This destination requires a target identifier."), { statusCode: 400, code: "MOBILE_PROMOTION_DESTINATION_REQUIRED" });
+  if (["exam", "test_series", "page"].includes(input.destinationType) && !input.destinationValue) throw Object.assign(new Error("This destination requires a target identifier."), { statusCode: 400, code: "MOBILE_PROMOTION_DESTINATION_REQUIRED" });
   if (input.destinationType === "url" && !isHttpUrl(input.destinationValue)) throw Object.assign(new Error("URL destinations must use http:// or https://."), { statusCode: 400, code: "MOBILE_PROMOTION_URL_INVALID" });
 }
 
