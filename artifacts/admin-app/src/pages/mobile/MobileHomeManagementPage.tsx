@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowDown, ArrowUp, Bell, BookOpen, Brain, Copy, GraduationCap, GripVertical,
-  ImagePlus, Landmark, Layers3, Newspaper, Pencil, Plus, RefreshCw, RotateCcw,
+  ImagePlus, Landmark, Layers3, Newspaper, Pencil, Plus, RotateCcw,
   Save, Shield, Smartphone, Sparkles, Star, Train, Trash2, Trophy, Grid3X3,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
