@@ -11,7 +11,7 @@ for(let i=0;i<300;i++){
   assert(svg.includes('data-single-series-bar="true"'));
   assert(!svg.includes("SERIES_B"));
   for(const p of set.stimulus.points){assert(svg.includes(`data-value="${p.value}"`));assert(svg.includes(p.category));}
-  for(const q of set.questions){questions++;tasks.add(q.kind);const expected=profile==="SSC_CGL_TIER_I"?4:5;assert.equal(q.options.length,expected);assert.equal(new Set(q.options).size,expected);assert.equal(q.options[q.correctIndex],q.answer);assert(!/\d+\.\d+/u.test(q.answer));}
+  for(const q of set.questions){questions++;tasks.add(q.kind);const expected=profile==="SSC_CGL_TIER_I"?4:5;assert.equal(q.options.length,expected);assert.equal(new Set(q.options).size,expected);assert.equal(q.options[q.correctIndex],q.answer);assert(!/\d+\.\d+/u.test(q.answer));assert(!/\b(?:value|values)\b/iu.test(q.stem),`${seed}: generic value wording leaked: ${q.stem}`);assert(!/^(?:Find|Add|Compare|Calculate)\b/iu.test(q.stem),`${seed}: instruction-like stem leaked: ${q.stem}`);assert(q.explanation.steps.length>0);}
 }
 assert.deepEqual([...tasks].sort(),[...DI003_SINGLE_TASKS].sort());
 console.log("DI003_SINGLE_BAR_V1",JSON.stringify({sets:300,questions,tasks:[...tasks].sort()}));
