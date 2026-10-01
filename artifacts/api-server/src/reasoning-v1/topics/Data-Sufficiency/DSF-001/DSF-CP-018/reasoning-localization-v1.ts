@@ -432,6 +432,25 @@ function localizeStatement(laneId: string, text: string, language: DsfReasoningL
   return s.trim();
 }
 
+
+export function localizeDsfReasoningStatementText(
+  laneId: string,
+  text: string,
+  language: DsfReasoningLocalizedLanguage,
+): string {
+  return localizeStatement(laneId, text, language);
+}
+
+export function localizeDsfReasoningStemParts(
+  laneId: string,
+  question: AnyQuestion,
+  language: DsfReasoningLocalizedLanguage,
+): Readonly<{ lead: string; prompt: string; stem: string }> {
+  const lead = scenarioLead(laneId, question, language);
+  const prompt = targetPrompt(laneId, question, language);
+  return Object.freeze({ lead, prompt, stem: `${lead} ${prompt}`.trim() });
+}
+
 function localizedExplanation(q: AnyQuestion, language: DsfReasoningLocalizedLanguage): string {
   const proof=q.proof ?? {};
   const canonical=String(q.canonicalAnswer ?? q.correctClass ?? "");
