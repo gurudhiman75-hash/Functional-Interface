@@ -38,6 +38,7 @@ const REPLACEMENTS: readonly [string,string,string][] = [
   ["total runs scored","कुल बनाए गए रन","ਕੁੱਲ ਬਣਾਏ ਰਨ"],
   ["average mark","औसत अंक","ਔਸਤ ਅੰਕ"],
   ["how many","कितने","ਕਿੰਨੇ"], ["how much","कितना","ਕਿੰਨਾ"], ["how long","कितना समय","ਕਿੰਨਾ ਸਮਾਂ"],
+  ["furniture item","फर्नीचर की वस्तु","ਫਰਨੀਚਰ ਦੀ ਵਸਤੂ"], ["item","वस्तु","ਵਸਤੂ"],
   ["cost price","क्रय मूल्य","ਖਰੀਦ ਮੁੱਲ"], ["selling price","विक्रय मूल्य","ਵਿਕਰੀ ਮੁੱਲ"],
   ["marked price","अंकित मूल्य","ਅੰਕਿਤ ਮੁੱਲ"], ["discount rate","छूट की दर","ਛੂਟ ਦੀ ਦਰ"],
   ["profit rate","लाभ प्रतिशत","ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ"], ["loss rate","हानि प्रतिशत","ਘਾਟਾ ਪ੍ਰਤੀਸ਼ਤ"],
@@ -127,6 +128,11 @@ function promptFor(q:AnyQuestion, language:DsfQuantLocalizedLanguage):string {
   }
   if(/by how much does .*compound interest.*exceed simple interest/i.test(raw)) {
     return t(language,"पूरी अवधि में चक्रवृद्धि ब्याज साधारण ब्याज से कितना अधिक है?","ਪੂਰੀ ਮਿਆਦ ਵਿੱਚ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਸਧਾਰਣ ਵਿਆਜ ਤੋਂ ਕਿੰਨਾ ਵੱਧ ਹੈ?");
+  }
+  const discountMatch=raw.match(/^What discount percent is allowed on (.+)\?$/i);
+  if(discountMatch) {
+    const item=translateQuantText(discountMatch[1]!,language);
+    return t(language,`${item} पर कितने प्रतिशत की छूट दी गई है?`,`${item} 'ਤੇ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਦੀ ਛੂਟ ਦਿੱਤੀ ਗਈ ਹੈ?`);
   }
   let out=raw
     .replace(/^What is the /i,"")
