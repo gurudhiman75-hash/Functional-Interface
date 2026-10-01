@@ -177,28 +177,40 @@ const QUESTIONS: readonly {
   {
     key: "only-A",
     masks: [1],
-    label: tr("only the circle", "केवल वृत्त में", "ਸਿਰਫ਼ ਚੱਕਰ ਵਿੱਚ"),
+    label: tr(
+      "only the first activity",
+      "केवल पहली गतिविधि",
+      "ਸਿਰਫ਼ ਪਹਿਲੀ ਗਤੀਵਿਧੀ",
+    ),
     pattern: "single",
   },
   {
     key: "only-B",
     masks: [2],
-    label: tr("only the rectangle", "केवल आयत में", "ਸਿਰਫ਼ ਆਇਤ ਵਿੱਚ"),
+    label: tr(
+      "only the second activity",
+      "केवल दूसरी गतिविधि",
+      "ਸਿਰਫ਼ ਦੂਜੀ ਗਤੀਵਿਧੀ",
+    ),
     pattern: "single",
   },
   {
     key: "only-C",
     masks: [4],
-    label: tr("only the triangle", "केवल त्रिभुज में", "ਸਿਰਫ਼ ਤਿਕੋਣ ਵਿੱਚ"),
+    label: tr(
+      "only the third activity",
+      "केवल तीसरी गतिविधि",
+      "ਸਿਰਫ਼ ਤੀਜੀ ਗਤੀਵਿਧੀ",
+    ),
     pattern: "single",
   },
   {
     key: "A-and-B-not-C",
     masks: [3],
     label: tr(
-      "in both the circle and rectangle, but outside the triangle",
-      "वृत्त और आयत दोनों में, लेकिन त्रिभुज के बाहर",
-      "ਚੱਕਰ ਅਤੇ ਆਇਤ ਦੋਵਾਂ ਵਿੱਚ, ਪਰ ਤਿਕੋਣ ਤੋਂ ਬਾਹਰ",
+      "in the first and second activities, but not the third",
+      "पहली और दूसरी गतिविधि में, लेकिन तीसरी में नहीं",
+      "ਪਹਿਲੀ ਅਤੇ ਦੂਜੀ ਗਤੀਵਿਧੀ ਵਿੱਚ, ਪਰ ਤੀਜੀ ਵਿੱਚ ਨਹੀਂ",
     ),
     pattern: "pair",
   },
@@ -206,9 +218,9 @@ const QUESTIONS: readonly {
     key: "A-and-C-not-B",
     masks: [5],
     label: tr(
-      "in both the circle and triangle, but outside the rectangle",
-      "वृत्त और त्रिभुज दोनों में, लेकिन आयत के बाहर",
-      "ਚੱਕਰ ਅਤੇ ਤਿਕੋਣ ਦੋਵਾਂ ਵਿੱਚ, ਪਰ ਆਇਤ ਤੋਂ ਬਾਹਰ",
+      "in the first and third activities, but not the second",
+      "पहली और तीसरी गतिविधि में, लेकिन दूसरी में नहीं",
+      "ਪਹਿਲੀ ਅਤੇ ਤੀਜੀ ਗਤੀਵਿਧੀ ਵਿੱਚ, ਪਰ ਦੂਜੀ ਵਿੱਚ ਨਹੀਂ",
     ),
     pattern: "pair",
   },
@@ -216,9 +228,9 @@ const QUESTIONS: readonly {
     key: "B-and-C-not-A",
     masks: [6],
     label: tr(
-      "in both the rectangle and triangle, but outside the circle",
-      "आयत और त्रिभुज दोनों में, लेकिन वृत्त के बाहर",
-      "ਆਇਤ ਅਤੇ ਤਿਕੋਣ ਦੋਵਾਂ ਵਿੱਚ, ਪਰ ਚੱਕਰ ਤੋਂ ਬਾਹਰ",
+      "in the second and third activities, but not the first",
+      "दूसरी और तीसरी गतिविधि में, लेकिन पहली में नहीं",
+      "ਦੂਜੀ ਅਤੇ ਤੀਜੀ ਗਤੀਵਿਧੀ ਵਿੱਚ, ਪਰ ਪਹਿਲੀ ਵਿੱਚ ਨਹੀਂ",
     ),
     pattern: "pair",
   },
@@ -274,66 +286,218 @@ function hash(s: string): number {
 function text(v: unknown): string {
   return typeof v === "string" ? v.trim() : "";
 }
+type ShapeKind =
+  | "circle"
+  | "oval"
+  | "rectangle"
+  | "square"
+  | "triangle"
+  | "diamond";
+export type ShapeLayout = {
+  id: string;
+  shapes: readonly [ShapeKind, ShapeKind, ShapeKind];
+};
+export const LAYOUTS: readonly ShapeLayout[] = [
+  {
+    id: "CIRCLE_RECTANGLE_TRIANGLE",
+    shapes: ["circle", "rectangle", "triangle"],
+  },
+  { id: "OVAL_RECTANGLE_TRIANGLE", shapes: ["oval", "rectangle", "triangle"] },
+  { id: "CIRCLE_SQUARE_TRIANGLE", shapes: ["circle", "square", "triangle"] },
+  {
+    id: "CIRCLE_RECTANGLE_DIAMOND",
+    shapes: ["circle", "rectangle", "diamond"],
+  },
+  { id: "OVAL_SQUARE_DIAMOND", shapes: ["oval", "square", "diamond"] },
+  { id: "OVAL_RECTANGLE_DIAMOND", shapes: ["oval", "rectangle", "diamond"] },
+];
+const POLYGONS = {
+  triangle: [
+    [304, 95],
+    [64, 433],
+    [538, 463],
+  ],
+  diamond: [
+    [304, 95],
+    [538, 279],
+    [304, 463],
+    [64, 279],
+  ],
+} as const;
+function inside(shape: ShapeKind, x: number, y: number): boolean {
+  if (shape === "circle") return (x - 397) ** 2 + (y - 237) ** 2 < 175 ** 2;
+  if (shape === "oval")
+    return (x - 397) ** 2 / 200 ** 2 + (y - 237) ** 2 / 165 ** 2 < 1;
+  if (shape === "rectangle") return x > 76 && x < 575 && y > 200 && y < 374;
+  if (shape === "square") return x > 180 && x < 520 && y > 170 && y < 510;
+  const points = POLYGONS[shape];
+  let hit = false;
+  for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+    const [xi, yi] = points[i]!,
+      [xj, yj] = points[j]!;
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi)
+      hit = !hit;
+  }
+  return hit;
+}
+function segDist(
+  x: number,
+  y: number,
+  a: readonly number[],
+  b: readonly number[],
+): number {
+  const dx = b[0]! - a[0]!,
+    dy = b[1]! - a[1]!;
+  const t = Math.max(
+    0,
+    Math.min(1, ((x - a[0]!) * dx + (y - a[1]!) * dy) / (dx * dx + dy * dy)),
+  );
+  return Math.hypot(x - a[0]! - t * dx, y - a[1]! - t * dy);
+}
+function clearance(shape: ShapeKind, x: number, y: number): number {
+  if (shape === "circle") return Math.abs(Math.hypot(x - 397, y - 237) - 175);
+  if (shape === "oval")
+    return Math.abs(Math.hypot((x - 397) / 200, (y - 237) / 165) - 1) * 165;
+  if (shape === "rectangle" || shape === "square") {
+    const [left, top, right, bottom] =
+      shape === "rectangle" ? [76, 200, 575, 374] : [180, 170, 520, 510];
+    if (inside(shape, x, y))
+      return Math.min(x - left, right - x, y - top, bottom - y);
+    return Math.hypot(
+      Math.max(left - x, 0, x - right),
+      Math.max(top - y, 0, y - bottom),
+    );
+  }
+  const points = POLYGONS[shape];
+  return Math.min(
+    ...points.map((a, i) => segDist(x, y, a, points[(i + 1) % points.length]!)),
+  );
+}
+const POINT_CACHE = new Map<string, readonly (readonly [number, number])[]>();
+export function pointsFor(
+  layout: ShapeLayout,
+): readonly (readonly [number, number])[] {
+  const cached = POINT_CACHE.get(layout.id);
+  if (cached) return cached;
+  const best: ({ x: number; y: number; margin: number } | undefined)[] =
+    Array(8).fill(undefined);
+  for (let y = 72; y < 488; y += 3)
+    for (let x = 24; x < 620; x += 3) {
+      const mask = maskAt(layout, x, y);
+      const margin = Math.min(
+        ...layout.shapes.map((shape) => clearance(shape, x, y)),
+      );
+      if (margin < 20 || (x < 160 && y < 90)) continue;
+      if (!best[mask] || margin > best[mask]!.margin)
+        best[mask] = { x, y, margin };
+    }
+  if (best.some((point) => !point))
+    throw new Error(
+      `Shape layout ${layout.id} lacks readable masks: ${best
+        .map((point, mask) => (point ? "" : mask))
+        .filter(Boolean)
+        .join(",")}`,
+    );
+  const result = best.map((point) => [point!.x, point!.y] as const);
+  POINT_CACHE.set(layout.id, result);
+  return result;
+}
+export function maskAt(layout: ShapeLayout, x: number, y: number): number {
+  return layout.shapes.reduce(
+    (mask, shape, i) => mask | (inside(shape, x, y) ? 1 << i : 0),
+    0,
+  );
+}
+export function pointClearance(
+  layout: ShapeLayout,
+  x: number,
+  y: number,
+): number {
+  return Math.min(...layout.shapes.map((shape) => clearance(shape, x, y)));
+}
+function shapeMarkup(shape: ShapeKind, color: string): string {
+  const style = `fill="${color}" fill-opacity=".28" stroke="${color}" stroke-width="3"`;
+  if (shape === "circle") return `<circle cx="397" cy="237" r="175" ${style}/>`;
+  if (shape === "oval")
+    return `<ellipse cx="397" cy="237" rx="200" ry="165" ${style}/>`;
+  if (shape === "rectangle")
+    return `<rect x="76" y="200" width="499" height="174" ${style}/>`;
+  if (shape === "square")
+    return `<rect x="180" y="170" width="340" height="340" ${style}/>`;
+  return `<polygon points="${POLYGONS[shape].map(([x, y]) => `${x},${y}`).join(" ")}" ${style}/>`;
+}
+const SHAPE_LABELS: Record<ShapeKind, T> = {
+  circle: tr("circle", "वृत्त", "ਚੱਕਰ"),
+  oval: tr("oval", "दीर्घवृत्त", "ਅੰਡਾਕਾਰ"),
+  rectangle: tr("rectangle", "आयत", "ਆਇਤ"),
+  square: tr("square", "वर्ग", "ਵਰਗ"),
+  triangle: tr("triangle", "त्रिभुज", "ਤਿਕੋਣ"),
+  diamond: tr("diamond", "हीराकार", "ਹੀਰੇ ਵਰਗਾ ਆਕਾਰ"),
+};
 function regionName(mask: number, l: L): string {
   const en = [
     "outside all three shapes",
-    "circle only",
-    "rectangle only",
-    "circle and rectangle only",
-    "triangle only",
-    "circle and triangle only",
-    "rectangle and triangle only",
+    "first shape only",
+    "second shape only",
+    "first and second shapes only",
+    "third shape only",
+    "first and third shapes only",
+    "second and third shapes only",
     "all three shapes",
   ];
   const hi = [
     "तीनों आकृतियों के बाहर",
-    "केवल वृत्त",
-    "केवल आयत",
-    "वृत्त और आयत, त्रिभुज के बिना",
-    "केवल त्रिभुज",
-    "वृत्त और त्रिभुज, आयत के बिना",
-    "आयत और त्रिभुज, वृत्त के बिना",
+    "केवल पहली आकृति",
+    "केवल दूसरी आकृति",
+    "पहली और दूसरी आकृति, तीसरी के बिना",
+    "केवल तीसरी आकृति",
+    "पहली और तीसरी आकृति, दूसरी के बिना",
+    "दूसरी और तीसरी आकृति, पहली के बिना",
     "तीनों आकृतियाँ",
   ];
   const pa = [
     "ਤਿੰਨਾਂ ਆਕਾਰਾਂ ਤੋਂ ਬਾਹਰ",
-    "ਸਿਰਫ਼ ਚੱਕਰ",
-    "ਸਿਰਫ਼ ਆਇਤ",
-    "ਚੱਕਰ ਅਤੇ ਆਇਤ, ਤਿਕੋਣ ਤੋਂ ਬਿਨਾਂ",
-    "ਸਿਰਫ਼ ਤਿਕੋਣ",
-    "ਚੱਕਰ ਅਤੇ ਤਿਕੋਣ, ਆਇਤ ਤੋਂ ਬਿਨਾਂ",
-    "ਆਇਤ ਅਤੇ ਤਿਕੋਣ, ਚੱਕਰ ਤੋਂ ਬਿਨਾਂ",
+    "ਸਿਰਫ਼ ਪਹਿਲਾ ਆਕਾਰ",
+    "ਸਿਰਫ਼ ਦੂਜਾ ਆਕਾਰ",
+    "ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਆਕਾਰ, ਤੀਜੇ ਤੋਂ ਬਿਨਾਂ",
+    "ਸਿਰਫ਼ ਤੀਜਾ ਆਕਾਰ",
+    "ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਦੂਜੇ ਤੋਂ ਬਿਨਾਂ",
+    "ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਪਹਿਲੇ ਤੋਂ ਬਿਨਾਂ",
     "ਤਿੰਨੇ ਆਕਾਰ",
   ];
   return (l === "en" ? en : l === "hi" ? hi : pa)[mask]!;
 }
-function svg(r: readonly number[], c: Context, l: L): string {
-  // These fixed, tested outlines give each of the eight membership masks its own readable interior point.
-  const points: readonly (readonly [number, number])[] = [
-    [604, 438],
-    [401, 145],
-    [128, 252],
-    [497, 269],
-    [271, 410],
-    [302, 162],
-    [195, 328],
-    [324, 287],
-  ];
-  const names = c.sets.map((x) => x[l]);
-  const labels = [
-    `Circle = ${names[0]}`,
-    `Rectangle = ${names[1]}`,
-    `Triangle = ${names[2]}`,
-  ];
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-label="Counts in circle, triangle and rectangle regions"><rect x="4" y="4" width="632" height="492" rx="10" fill="#fff" stroke="#b8c3cf"/><rect x="76" y="200" width="499" height="174" fill="#d9edf7" fill-opacity=".34" stroke="#7b4ab5" stroke-width="3"/><polygon points="304,95 64,433 538,463" fill="#f7e9c8" fill-opacity=".3" stroke="#d28b21" stroke-width="3"/><circle cx="397" cy="237" r="175" fill="#d4e9d3" fill-opacity=".3" stroke="#25845f" stroke-width="3"/><g font-family="sans-serif" font-size="13" fill="#152536"><text x="8" y="23">${labels[0]}</text><text x="8" y="42">${labels[1]}</text><text x="8" y="61">${labels[2]}</text></g><g font-family="sans-serif" font-size="19" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#152536">${r.map((v, m) => `<text x="${points[m]![0]}" y="${points[m]![1]}" data-mask="${m}">${v}</text>`).join("")}</g></svg>`;
+function svg(
+  r: readonly number[],
+  c: Context,
+  l: L,
+  layout: ShapeLayout,
+): string {
+  const points = pointsFor(layout),
+    categories = c.sets.map((x) => x[l]);
+  const labels = layout.shapes.map(
+    (shape, i) => `${SHAPE_LABELS[shape][l]} = ${categories[i]}`,
+  );
+  const marks = layout.shapes
+    .map((shape, i) =>
+      shapeMarkup(shape, ["#25845f", "#7b4ab5", "#d28b21"][i]!),
+    )
+    .join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-label="Counts in three overlapping geometric shapes"><rect x="4" y="4" width="632" height="492" rx="10" fill="#fff" stroke="#b8c3cf"/>${marks}<g font-family="sans-serif" font-size="13" fill="#152536"><text x="8" y="23">${labels[0]}</text><text x="8" y="42">${labels[1]}</text><text x="8" y="61">${labels[2]}</text></g><g font-family="sans-serif" font-size="19" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#152536">${r.map((v, m) => `<text x="${points[m]![0]}" y="${points[m]![1]}" data-mask="${m}">${v}</text>`).join("")}</g><metadata data-layout="${layout.id}" data-label-clearance="20"/></svg>`;
 }
-function stem(c: Context, q: (typeof QUESTIONS)[number], l: L): string {
+function stem(
+  c: Context,
+  q: (typeof QUESTIONS)[number],
+  l: L,
+  layout: ShapeLayout,
+): string {
+  const shapeNames = layout.shapes.map((shape) => SHAPE_LABELS[shape][l]);
   const title =
     l === "en"
-      ? `A survey records three activities: ${c.sets.map((s) => s[l]).join("; ")}. The circle represents the first activity, the rectangle the second, and the triangle the third. The numbers show counts in the separate regions.`
+      ? `A survey records three activities: ${c.sets.map((s) => s[l]).join("; ")}. The ${shapeNames[0]} represents the first activity, the ${shapeNames[1]} the second, and the ${shapeNames[2]} the third. The numbers show counts in the separate regions.`
       : l === "hi"
-        ? `एक सर्वेक्षण में तीन गतिविधियाँ दर्ज की गईं: ${c.sets.map((s) => s[l]).join("; ")}। वृत्त पहली, आयत दूसरी और त्रिभुज तीसरी गतिविधि दर्शाता है। संख्याएँ अलग-अलग क्षेत्रों की गिनती दिखाती हैं।`
-        : `ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ਤਿੰਨ ਗਤੀਵਿਧੀਆਂ ਦਰਜ ਕੀਤੀਆਂ ਗਈਆਂ: ${c.sets.map((s) => s[l]).join("; ")}। ਚੱਕਰ ਪਹਿਲੀ, ਆਇਤ ਦੂਜੀ ਅਤੇ ਤਿਕੋਣ ਤੀਜੀ ਗਤੀਵਿਧੀ ਦਰਸਾਉਂਦਾ ਹੈ। ਗਿਣਤੀਆਂ ਵੱਖਰੇ ਖੇਤਰਾਂ ਲਈ ਹਨ।`;
+        ? `एक सर्वेक्षण में तीन गतिविधियाँ दर्ज की गईं: ${c.sets.map((s) => s[l]).join("; ")}। ${shapeNames[0]} पहली, ${shapeNames[1]} दूसरी और ${shapeNames[2]} तीसरी गतिविधि दर्शाते हैं। संख्याएँ अलग-अलग क्षेत्रों की गिनती दिखाती हैं।`
+        : `ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ਤਿੰਨ ਗਤੀਵਿਧੀਆਂ ਦਰਜ ਕੀਤੀਆਂ ਗਈਆਂ: ${c.sets.map((s) => s[l]).join("; ")}। ${shapeNames[0]} ਪਹਿਲੀ, ${shapeNames[1]} ਦੂਜੀ ਅਤੇ ${shapeNames[2]} ਤੀਜੀ ਗਤੀਵਿਧੀ ਦਰਸਾਉਂਦੇ ਹਨ। ਗਿਣਤੀਆਂ ਵੱਖਰੇ ਖੇਤਰਾਂ ਲਈ ਹਨ।`;
   const ask =
     l === "en"
       ? `How many are ${q.label[l]}?`
@@ -371,6 +535,8 @@ export function generateVen001ShapeRegionBatch(
   const questions = Array.from({ length: count }, (_, i) => {
     const c = CONTEXTS[hash(`${seed}:context:${i}`) % CONTEXTS.length]!;
     const q = QUESTIONS[hash(`${seed}:query:${i}`) % QUESTIONS.length]!;
+    const layout =
+      LAYOUTS[(hash(`${seed}:layout-order`) + i) % LAYOUTS.length]!;
     const regions = Array.from(
       { length: 8 },
       (_, m) => 8 + (hash(`${seed}:${i}:${c.id}:${m}`) % 42),
@@ -405,7 +571,7 @@ export function generateVen001ShapeRegionBatch(
     else
       explanation = `${namedValues.join("; ")}। ਇਹ ${q.label[l]} ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। ${calculation} = ${answer}।`;
     const id = `VEN-CP011:${c.id}:${q.key}:${hash(`${seed}:${i}`)}:${l}`;
-    const questionStem = stem(c, q, l);
+    const questionStem = stem(c, q, l, layout);
     return {
       ...lifecycle,
       id,
@@ -429,8 +595,8 @@ export function generateVen001ShapeRegionBatch(
       answer: "ABCD"[correctIndex],
       canonicalAnswer: String(answer),
       explanation,
-      stimulusSvgs: [svg(regions, c, l)],
-      explanationSvgs: [svg(regions, c, l)],
+      stimulusSvgs: [svg(regions, c, l, layout)],
+      explanationSvgs: [svg(regions, c, l, layout)],
       optionDetails: options.map((value, j) => ({
         label: "ABCD"[j],
         text: value,
@@ -454,6 +620,8 @@ export function generateVen001ShapeRegionBatch(
       sharedStimulus: questionStem,
       semanticMetadata: {
         scenarioId: c.id,
+        shapeLayoutId: layout.id,
+        shapeTypes: layout.shapes,
         queryKey: q.key,
         queryPattern: q.pattern,
         shapeSetLabels: c.sets.map((s) => s[l]),
@@ -465,6 +633,8 @@ export function generateVen001ShapeRegionBatch(
           options.filter((x) => x === String(answer)).length === 1,
         fourUniqueOptions: new Set(options).size === 4,
         allEightRegionsVisible: regions.length === 8,
+        shapeLayoutHasEightRegions: true,
+        labelClearancePx: 20,
         localeParityPendingHumanReview: true,
       },
     };
