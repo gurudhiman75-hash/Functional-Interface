@@ -121,6 +121,7 @@ export interface CreateGenerationRunInput {
   difficulty: string;
   count: number;
   packageId?: string;
+  cpIds?: string[];
   patternId?: string;
   topic?: string;
   subtopic?: string;
