@@ -13,6 +13,13 @@ function hashSeed(seed: string): number {
   return hash >>> 0;
 }
 
+export function stablePrt001PoolIndex(seed: string, length: number): number {
+  if (!Number.isInteger(length) || length <= 0) {
+    throw new Error("pool length must be a positive integer");
+  }
+  return hashSeed(seed) % length;
+}
+
 export function createPrt001Random(seed: string): Prt001Random {
   let state = hashSeed(seed);
   const next = () => {
