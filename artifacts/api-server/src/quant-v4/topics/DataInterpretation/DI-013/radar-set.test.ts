@@ -24,6 +24,7 @@ for(let i=0;i<320;i++){
     if(q.kind==="COMBINED_CATEGORY_MAXIMUM") assert(/highest combined count of .* across both periods/u.test(q.stem),`${seed}: combined-maximum stem must name both measured count and scope: ${q.stem}`);
     if(q.kind==="NET_SERIES_ADVANTAGE") assert(/absolute difference/u.test(q.stem),`${seed}: net-advantage task produced a different question: ${q.stem}`);
     assert(!/after combining all categories/iu.test(q.stem),`${seed}: procedural combination wording leaked into the stem.`);
+    assert(!/^(?:Find|Add|Compare|Calculate)\b/iu.test(q.stem),`${seed}: instruction-like radar stem leaked: ${q.stem}`);
   }
 }
 assert.deepEqual([...tasks].sort(),[...DI013_TASKS].sort());
