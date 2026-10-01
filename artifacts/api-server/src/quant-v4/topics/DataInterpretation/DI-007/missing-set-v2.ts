@@ -521,7 +521,7 @@ function rowTotalRatioStem(stimulus: Di007V2Stimulus, otherIndex: number, varian
   const templates = [
     `What is the ratio of the combined row total for ${hiddenLabel} to the combined row total for ${otherLabel}?`,
     `Find the ratio (${stimulus.seriesALabel} + ${stimulus.seriesBLabel}) for ${hiddenLabel} to the corresponding total for ${otherLabel}.`,
-    `After finding the missing entry, compare the combined values of both columns for ${hiddenLabel} and ${otherLabel} as a ratio.`,
+    `What is the ratio of the combined row totals for ${hiddenLabel} and ${otherLabel}, in that order?`,
   ] as const;
   return templates[variant];
 }
