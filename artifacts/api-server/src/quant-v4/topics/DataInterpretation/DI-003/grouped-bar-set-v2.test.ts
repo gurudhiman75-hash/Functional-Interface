@@ -98,6 +98,18 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
 
     for (const question of first.questions) {
       assert(!/nearest whole|round(?:ed)? to the nearest|give the nearest whole/iu.test(question.stem), `${question.questionId} contains an explicit rounding instruction.`);
+      if (question.kind === "SERIES_AVERAGE") {
+        const measurePatterns: Readonly<Record<string, RegExp>> = {
+          ANNUAL_SALES: /units sold|sales volume/iu,
+          MONTHLY_PRODUCTION: /production|produce/iu,
+          TEST_SELECTIONS: /candidates selected/iu,
+          LIBRARY_ISSUES: /books issued|books did .* issue/iu,
+          TICKET_SALES: /tickets sold|tickets did .* sell|ticket sales/iu,
+          PACKAGE_DISPATCH: /packages dispatched|packages did .* dispatch/iu,
+        };
+        assert(measurePatterns[first.stimulus.contextId]?.test(question.stem), `${question.questionId} does not name its scenario's measured activity.`);
+        assert(!/average value|mean of the five .* values|per category/iu.test(question.stem), `${question.questionId} uses a context-free average prompt.`);
+      }
       if (["PERCENT_CHANGE_WITHIN_SERIES", "CATEGORY_SHARE_OF_SERIES_TOTAL", "TOTAL_SERIES_PERCENT_EXCESS"].includes(question.kind)) {
         assert(/approximately|approximate|about/iu.test(question.stem), `${question.questionId} has a rounded percentage answer but does not signal approximation.`);
       }
