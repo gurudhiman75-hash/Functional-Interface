@@ -1,6 +1,7 @@
 import { deterministicShuffle } from '../deterministic';
 import type { WorldGeographyQuestion } from './corpus';
 import { WGE_REGIONAL_VARIABLE_POOL_QUESTIONS_V1, WGE_REGIONAL_VARIABLE_POOL_QL_IDS_V1 } from './regional-pools-v1';
+import { WGE_AUDIT_D1_VARIABLE_POOL_QUESTIONS_V1, WGE_AUDIT_D1_VARIABLE_POOL_QL_IDS_V1 } from './audit-d1-pools-v1';
 
 /**
  * Typed World Geography variable pools use approved source facts and remain
@@ -513,6 +514,7 @@ export const WGE_VARIABLE_POOL_QUESTIONS_V1: readonly WorldGeographyQuestion[] =
   ...PASSAGE_FACTS.map(makePassageQuestion),
   ...OCEAN_CURRENT_FACTS.map(makeOceanCurrentQuestion),
   ...WGE_REGIONAL_VARIABLE_POOL_QUESTIONS_V1,
+  ...WGE_AUDIT_D1_VARIABLE_POOL_QUESTIONS_V1,
 ]);
 
-export const WGE_VARIABLE_POOL_QL_IDS_V1 = Object.freeze([...Object.values(qlIds), riverOutletQlId, mountainRangeQlId, lakeDescriptionQlId, desertDescriptionQlId, passageConnectionQlId, oceanCurrentQlId, ...WGE_REGIONAL_VARIABLE_POOL_QL_IDS_V1]);
+export const WGE_VARIABLE_POOL_QL_IDS_V1 = Object.freeze([...Object.values(qlIds), riverOutletQlId, mountainRangeQlId, lakeDescriptionQlId, desertDescriptionQlId, passageConnectionQlId, oceanCurrentQlId, ...WGE_REGIONAL_VARIABLE_POOL_QL_IDS_V1, ...WGE_AUDIT_D1_VARIABLE_POOL_QL_IDS_V1]);
