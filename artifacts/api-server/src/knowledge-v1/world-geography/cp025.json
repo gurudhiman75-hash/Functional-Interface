@@ -251,7 +251,7 @@
           "Malacca",
           "Marmara"
         ],
-        "explanation": "The Dardanelles links the Aegean Sea with the Sea of Marmara."
+        "explanation": "The Dardanelles connects the Aegean Sea with the Sea of Marmara. Farther northeast, the Bosporus connects the Sea of Marmara with the Black Sea, creating an important strait sequence through Türkiye."
       },
       "hi": {
         "stem": "डार्डानेल्स जलडमरूमध्य एजियन सागर को किस सागर से जोड़ता है?",
@@ -261,7 +261,7 @@
           "मलक्का जलडमरूमध्य",
           "मरमरा सागर"
         ],
-        "explanation": "डार्डानेल्स जलडमरूमध्य एजियन सागर को मरमरा सागर से जोड़ता है।"
+        "explanation": "डार्डानेल्स जलडमरूमध्य एजियन सागर को मरमरा सागर से जोड़ता है। आगे उत्तर-पूर्व में बोस्फोरस मरमरा सागर को काला सागर से जोड़ता है, जिससे तुर्किये में एक महत्वपूर्ण जलडमरूमध्य क्रम बनता है।"
       },
       "pa": {
         "stem": "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ ਏਜੀਅਨ ਸਾਗਰ ਨੂੰ ਕਿਹੜੇ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ?",
@@ -271,7 +271,7 @@
           "ਮਲੱਕਾ ਜਲਡਮਰੂ",
           "ਮਰਮਰਾ ਸਾਗਰ"
         ],
-        "explanation": "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ ਏਜੀਅਨ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ।"
+        "explanation": "ਡਾਰਡਾਨੇਲਸ ਜਲਡਮਰੂ ਏਜੀਅਨ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ। ਅੱਗੇ ਉੱਤਰ-ਪੂਰਬ ਵੱਲ ਬੋਸਫੋਰਸ ਮਰਮਰਾ ਸਾਗਰ ਨੂੰ ਕਾਲੇ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ, ਜਿਸ ਨਾਲ ਤੁਰਕੀਏ ਵਿੱਚ ਇੱਕ ਮਹੱਤਵਪੂਰਨ ਜਲਡਮਰੂ ਲੜੀ ਬਣਦੀ ਹੈ।"
       }
     },
     "authoringReviewApproved": false
@@ -298,7 +298,7 @@
           "RedSea",
           "Caspian"
         ],
-        "explanation": "The Red Sea separates the Arabian Peninsula from northeast Africa."
+        "explanation": "The Red Sea lies between northeastern Africa and the Arabian Peninsula. It connects southward with the Gulf of Aden through Bab el-Mandeb and northward with the Mediterranean through the Suez Canal."
       },
       "hi": {
         "stem": "अरब प्रायद्वीप और उत्तर-पूर्वी अफ्रीका के बीच कौन-सा सागर है?",
@@ -308,7 +308,7 @@
           "लाल सागर",
           "कैस्पियन सागर"
         ],
-        "explanation": "लाल सागर अरब प्रायद्वीप को उत्तर-पूर्वी अफ्रीका से अलग करता है।"
+        "explanation": "लाल सागर उत्तर-पूर्वी अफ्रीका और अरब प्रायद्वीप के बीच स्थित है। यह दक्षिण में बाब-अल-मंदेब के माध्यम से अदन की खाड़ी और उत्तर में स्वेज नहर के माध्यम से भूमध्य सागर से जुड़ता है।"
       },
       "pa": {
         "stem": "ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਵਿਚਕਾਰ ਕਿਹੜਾ ਸਾਗਰ ਹੈ?",
@@ -318,9 +318,10 @@
           "ਲਾਲ ਸਾਗਰ",
           "ਕੈਸਪੀਅਨ ਸਾਗਰ"
         ],
-        "explanation": "ਲਾਲ ਸਾਗਰ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਨੂੰ ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ।"
+        "explanation": "ਲਾਲ ਸਾਗਰ ਉੱਤਰ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਅਤੇ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ। ਇਹ ਦੱਖਣ ਵੱਲ ਬਾਬ ਅਲ-ਮੰਦਬ ਰਾਹੀਂ ਅਦਨ ਦੀ ਖਾੜੀ ਅਤੇ ਉੱਤਰ ਵੱਲ ਸੁਏਜ਼ ਨਹਿਰ ਰਾਹੀਂ ਭੂ-ਮੱਧ ਸਾਗਰ ਨਾਲ ਜੁੜਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP025-Q008",
@@ -390,7 +391,7 @@
           "TibetanPlateau",
           "DeccanPlateau"
         ],
-        "explanation": "The Anatolian Plateau occupies much of central Türkiye."
+        "explanation": "The Anatolian Plateau occupies much of central Türkiye. It lies between major mountain systems and forms the broad interior highland of the Anatolian Peninsula."
       },
       "hi": {
         "stem": "तुर्किये का अधिकांश आंतरिक भाग किस पठार पर स्थित है?",
@@ -400,7 +401,7 @@
           "तिब्बती पठार",
           "दक्कन का पठार"
         ],
-        "explanation": "अनातोलियाई पठार तुर्किये के मध्यवर्ती भाग के बड़े क्षेत्र में फैला है।"
+        "explanation": "अनातोलियाई पठार मध्य तुर्किये के बड़े भाग में फैला है। यह प्रमुख पर्वत प्रणालियों के बीच स्थित है और अनातोलियाई प्रायद्वीप की विस्तृत आंतरिक उच्चभूमि बनाता है।"
       },
       "pa": {
         "stem": "ਤੁਰਕੀਏ ਦਾ ਵੱਡਾ ਅੰਦਰੂਨੀ ਭਾਗ ਕਿਹੜੇ ਪਠਾਰ ਉੱਤੇ ਸਥਿਤ ਹੈ?",
@@ -410,9 +411,10 @@
           "ਤਿੱਬਤੀ ਪਠਾਰ",
           "ਦੱਖਣੀ ਪਠਾਰ"
         ],
-        "explanation": "ਅਨਾਤੋਲੀਆਈ ਪਠਾਰ ਤੁਰਕੀਏ ਦੇ ਕੇਂਦਰੀ ਹਿੱਸੇ ਦੇ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+        "explanation": "ਅਨਾਤੋਲੀਆਈ ਪਠਾਰ ਮੱਧ ਤੁਰਕੀਏ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੈ। ਇਹ ਮੁੱਖ ਪਹਾੜੀ ਪ੍ਰਣਾਲੀਆਂ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ ਅਤੇ ਅਨਾਤੋਲੀਆਈ ਪ੍ਰਾਇਦੀਪ ਦੀ ਵਿਸ਼ਾਲ ਅੰਦਰੂਨੀ ਉੱਚਭੂਮੀ ਬਣਾਉਂਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP025-Q010",
@@ -436,7 +438,7 @@
           "Malacca",
           "Bosporus"
         ],
-        "explanation": "The Bosporus connects the Black Sea with the Sea of Marmara."
+        "explanation": "The Bosporus connects the Black Sea with the Sea of Marmara and passes through Istanbul. Together with the Dardanelles, it forms the water route between the Black Sea and the Aegean–Mediterranean system."
       },
       "hi": {
         "stem": "काला सागर को मरमरा सागर से कौन-सा जलडमरूमध्य जोड़ता है?",
@@ -446,7 +448,7 @@
           "मलक्का जलडमरूमध्य",
           "बोस्फोरस"
         ],
-        "explanation": "बोस्फोरस काला सागर को मरमरा सागर से जोड़ता है।"
+        "explanation": "बोस्फोरस काला सागर को मरमरा सागर से जोड़ता है और इस्तांबुल से होकर गुजरता है। डार्डानेल्स के साथ मिलकर यह काला सागर को एजियन–भूमध्य समुद्री तंत्र से जोड़ने वाला जलमार्ग बनाता है।"
       },
       "pa": {
         "stem": "ਕਾਲੇ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਕਿਹੜਾ ਜਲਡਮਰੂ ਜੋੜਦਾ ਹੈ?",
@@ -456,9 +458,10 @@
           "ਮਲੱਕਾ ਜਲਡਮਰੂ",
           "ਬੋਸਫੋਰਸ"
         ],
-        "explanation": "ਬੋਸਫੋਰਸ ਕਾਲੇ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ।"
+        "explanation": "ਬੋਸਫੋਰਸ ਕਾਲੇ ਸਾਗਰ ਨੂੰ ਮਰਮਰਾ ਸਾਗਰ ਨਾਲ ਜੋੜਦਾ ਹੈ ਅਤੇ ਇਸਤਾਂਬੁਲ ਵਿਚੋਂ ਲੰਘਦਾ ਹੈ। ਡਾਰਡਾਨੇਲਸ ਨਾਲ ਮਿਲ ਕੇ ਇਹ ਕਾਲੇ ਸਾਗਰ ਨੂੰ ਏਜੀਅਨ–ਭੂ-ਮੱਧ ਸਮੁੰਦਰੀ ਪ੍ਰਣਾਲੀ ਨਾਲ ਜੋੜਨ ਵਾਲਾ ਜਲਮਾਰਗ ਬਣਾਉਂਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP025-Q011",
@@ -528,7 +531,7 @@
           "GulfTonkin",
           "RedSea"
         ],
-        "explanation": "The Persian Gulf lies between Iran and the Arabian Peninsula."
+        "explanation": "The Persian Gulf lies between Iran to the northeast and the Arabian Peninsula to the southwest. Its only natural sea outlet is through the Strait of Hormuz toward the Gulf of Oman."
       },
       "hi": {
         "stem": "ईरान और अरब प्रायद्वीप किस खाड़ी के विपरीत किनारों पर स्थित हैं?",
@@ -538,7 +541,7 @@
           "टोंकिन की खाड़ी",
           "लाल सागर"
         ],
-        "explanation": "फ़ारस की खाड़ी ईरान और अरब प्रायद्वीप के बीच स्थित है।"
+        "explanation": "फ़ारस की खाड़ी उत्तर-पूर्व में ईरान और दक्षिण-पश्चिम में अरब प्रायद्वीप के बीच स्थित है। इसका प्राकृतिक समुद्री निकास होर्मुज़ जलडमरूमध्य से होकर ओमान की खाड़ी की ओर है।"
       },
       "pa": {
         "stem": "ਈਰਾਨ ਅਤੇ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਕਿਹੜੀ ਖਾੜੀ ਦੇ ਦੋਹਾਂ ਪਾਸੇ ਸਥਿਤ ਹਨ?",
@@ -548,9 +551,10 @@
           "ਟੋਂਕਿਨ ਦੀ ਖਾੜੀ",
           "ਲਾਲ ਸਾਗਰ"
         ],
-        "explanation": "ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਈਰਾਨ ਅਤੇ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+        "explanation": "ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ ਉੱਤਰ-ਪੂਰਬ ਵੱਲ ਇਰਾਨ ਅਤੇ ਦੱਖਣ-ਪੱਛਮ ਵੱਲ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ। ਇਸ ਦਾ ਕੁਦਰਤੀ ਸਮੁੰਦਰੀ ਨਿਕਾਸ ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ ਰਾਹੀਂ ਓਮਾਨ ਦੀ ਖਾੜੀ ਵੱਲ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP025-Q013",
@@ -574,7 +578,7 @@
           "Hormuz",
           "Bosporus"
         ],
-        "explanation": "The Suez Canal connects the Mediterranean Sea with the Red Sea."
+        "explanation": "The Suez Canal connects the Mediterranean Sea with the Red Sea across the Isthmus of Suez. It provides a direct shipping route between Europe and the Indian Ocean region without sailing around Africa."
       },
       "hi": {
         "stem": "भूमध्य सागर और लाल सागर को कौन-सी नहर जोड़ती है?",
@@ -584,7 +588,7 @@
           "हॉर्मुज़ जलडमरूमध्य",
           "बोस्फोरस"
         ],
-        "explanation": "स्वेज नहर भूमध्य सागर को लाल सागर से जोड़ती है।"
+        "explanation": "स्वेज नहर स्वेज स्थलडमरूमध्य के पार भूमध्य सागर को लाल सागर से जोड़ती है। यह अफ्रीका का चक्कर लगाए बिना यूरोप और हिंद महासागर क्षेत्र के बीच सीधा समुद्री मार्ग देती है।"
       },
       "pa": {
         "stem": "ਭੂਮੱਧ ਸਾਗਰ ਅਤੇ ਲਾਲ ਸਾਗਰ ਨੂੰ ਕਿਹੜੀ ਨਹਿਰ ਜੋੜਦੀ ਹੈ?",
@@ -594,9 +598,10 @@
           "ਹੋਰਮੁਜ਼ ਜਲਡਮਰੂ",
           "ਬੋਸਫੋਰਸ"
         ],
-        "explanation": "ਸੂਏਜ਼ ਨਹਿਰ ਭੂਮੱਧ ਸਾਗਰ ਨੂੰ ਲਾਲ ਸਾਗਰ ਨਾਲ ਜੋੜਦੀ ਹੈ।"
+        "explanation": "ਸੁਏਜ਼ ਨਹਿਰ ਸੁਏਜ਼ ਦੀ ਤੰਗ ਥਲ-ਪੱਟੀ ਰਾਹੀਂ ਭੂ-ਮੱਧ ਸਾਗਰ ਨੂੰ ਲਾਲ ਸਾਗਰ ਨਾਲ ਜੋੜਦੀ ਹੈ। ਇਹ ਅਫ਼ਰੀਕਾ ਦਾ ਚੱਕਰ ਲਾਏ ਬਿਨਾਂ ਯੂਰਪ ਅਤੇ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਖੇਤਰ ਵਿਚਕਾਰ ਸਿੱਧਾ ਸਮੁੰਦਰੀ ਰਾਹ ਦਿੰਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP025-Q014",
@@ -712,7 +717,7 @@
           "Iberian",
           "Balkan"
         ],
-        "explanation": "Anatolia, also called Asia Minor, makes up most of Türkiye."
+        "explanation": "Anatolia, also called Asia Minor, forms most of Türkiye’s land area in southwestern Asia. A smaller part of the country lies in southeastern Europe across the Turkish straits."
       },
       "hi": {
         "stem": "तुर्किये का अधिकांश भाग किस प्रायद्वीप में आता है?",
@@ -722,7 +727,7 @@
           "आइबेरियाई प्रायद्वीप",
           "बाल्कन प्रायद्वीप"
         ],
-        "explanation": "अनातोलिया, जिसे एशिया माइनर भी कहते हैं, तुर्किये का अधिकांश भाग है।"
+        "explanation": "अनातोलिया, जिसे एशिया माइनर भी कहा जाता है, दक्षिण-पश्चिमी एशिया में तुर्किये के अधिकांश भूभाग को बनाता है। देश का छोटा भाग तुर्की जलडमरूमध्यों के पार दक्षिण-पूर्वी यूरोप में है।"
       },
       "pa": {
         "stem": "ਤੁਰਕੀਏ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਕਿਹੜੇ ਪ੍ਰਾਇਦੀਪ ਵਿੱਚ ਆਉਂਦਾ ਹੈ?",
@@ -732,9 +737,10 @@
           "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ",
           "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ"
         ],
-        "explanation": "ਅਨਾਤੋਲੀਆ, ਜਿਸਨੂੰ ਏਸ਼ੀਆ ਮਾਈਨਰ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ, ਤੁਰਕੀਏ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਹੈ।"
+        "explanation": "ਅਨਾਤੋਲੀਆ, ਜਿਸ ਨੂੰ ਏਸ਼ੀਆ ਮਾਈਨਰ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ, ਦੱਖਣ-ਪੱਛਮੀ ਏਸ਼ੀਆ ਵਿੱਚ ਤੁਰਕੀਏ ਦੇ ਜ਼ਿਆਦਾਤਰ ਭੂ-ਭਾਗ ਨੂੰ ਬਣਾਉਂਦਾ ਹੈ। ਦੇਸ਼ ਦਾ ਛੋਟਾ ਹਿੱਸਾ ਤੁਰਕੀ ਜਲਡਮਰੂਆਂ ਦੇ ਪਾਰ ਦੱਖਣ-ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP025-Q017",
@@ -758,7 +764,7 @@
           "UAE",
           "Oman"
         ],
-        "explanation": "Armenia is a landlocked country in the South Caucasus."
+        "explanation": "Armenia is a landlocked country in the South Caucasus. Because it has no coastline, its external transport depends on land connections through neighbouring countries."
       },
       "hi": {
         "stem": "दक्षिण काकेशस का कौन-सा देश स्थलरुद्ध है?",
@@ -768,7 +774,7 @@
           "संयुक्त अरब अमीरात",
           "ओमान"
         ],
-        "explanation": "आर्मेनिया दक्षिण काकेशस का स्थलरुद्ध देश है।"
+        "explanation": "आर्मेनिया दक्षिण काकेशस का स्थलरुद्ध देश है। समुद्री तट न होने के कारण इसका बाहरी परिवहन पड़ोसी देशों के माध्यम से स्थल संपर्कों पर निर्भर करता है।"
       },
       "pa": {
         "stem": "ਦੱਖਣੀ ਕਾਕੇਸ਼ਸ ਦਾ ਕਿਹੜਾ ਦੇਸ਼ ਭੂ-ਬੱਧ ਹੈ?",
@@ -778,9 +784,10 @@
           "ਸੰਯੁਕਤ ਅਰਬ ਅਮੀਰਾਤ",
           "ਓਮਾਨ"
         ],
-        "explanation": "ਅਰਮੀਨੀਆ ਦੱਖਣੀ ਕਾਕੇਸ਼ਸ ਦਾ ਭੂ-ਬੱਧ ਦੇਸ਼ ਹੈ।"
+        "explanation": "ਆਰਮੀਨੀਆ ਦੱਖਣੀ ਕਾਕੇਸਸ ਦਾ ਭੂ-ਬੱਧ ਦੇਸ਼ ਹੈ। ਸਮੁੰਦਰੀ ਤਟ ਨਾ ਹੋਣ ਕਾਰਨ ਇਸ ਦੀ ਬਾਹਰੀ ਆਵਾਜਾਈ ਪੜੋਸੀ ਦੇਸ਼ਾਂ ਰਾਹੀਂ ਧਰਤੀ ਦੇ ਸੰਪਰਕਾਂ ਉੱਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP025-Q018",
