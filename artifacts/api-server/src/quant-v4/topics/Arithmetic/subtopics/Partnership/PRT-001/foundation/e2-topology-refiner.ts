@@ -26,7 +26,7 @@ export function refinePrt001E2Topology(
   if (!firstSegment) throw new Error("E2 relational refinement requires C segment");
 
   const random = createPrt001Random(`${parameters.seed}:e2-relational-topology`);
-  const durationC = random.pick([6, 8, 9, 10, 12]);
+  const durationC = random.pick([3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
   const refinedPartnerC = {
     ...partnerC,
     capitalSegments: [
