@@ -39,7 +39,7 @@ async function run() {
   assert.equal(desertsPackage.metadata.variablePoolQuestionCount, 14);
   assert.equal(desertsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const passagesPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP017')!;
-  assert.equal(passagesPackage.metadata.authoringReviewApproved, true);
+  assert.equal(passagesPackage.metadata.authoringReviewApproved, false);
   assert.equal(passagesPackage.metadata.variablePoolQuestionCount, 16);
   assert.equal(passagesPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const currentsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP016')!;
