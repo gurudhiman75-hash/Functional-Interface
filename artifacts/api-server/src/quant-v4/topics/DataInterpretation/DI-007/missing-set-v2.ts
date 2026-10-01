@@ -404,9 +404,9 @@ function chooseTwoVisible(seed: string, stimulus: Di007V2Stimulus, salt: string)
 function visibleRowCombinedStem(stimulus: Di007V2Stimulus, index: number, variant: 0 | 1 | 2): string {
   const row = stimulus.points[index]!;
   const templates = [
-    `What is the combined value of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} for ${row.label}?`,
-    `For ${row.label}, find the sum of the two visible table values.`,
-    `Add the ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} figures for ${row.label}.`,
+    `What is the total of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} for ${row.label}?`,
+    `What is the sum of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} for ${row.label}?`,
+    `What is the combined total of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} for ${row.label}?`,
   ] as const;
   return templates[variant];
 }
@@ -415,8 +415,8 @@ function visibleDifferenceStem(stimulus: Di007V2Stimulus, index: number, variant
   const row = stimulus.points[index]!;
   const templates = [
     `What is the difference between ${stimulus.seriesAMeasure} and ${stimulus.seriesBMeasure} for ${row.label}?`,
-    `For ${row.label}, by how many ${stimulus.unit} do the two table values differ?`,
-    `Find the absolute difference between the two values shown for ${row.label}.`,
+    `For ${row.label}, what is the difference between ${stimulus.seriesALabel} and ${stimulus.seriesBLabel}?`,
+    `What is the absolute difference between ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} for ${row.label}?`,
   ] as const;
   return templates[variant];
 }
@@ -425,7 +425,7 @@ function recoverStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string {
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
     `What is the missing ${stimulus.seriesBLabel} figure for ${row.label}?`,
-    `Find the value represented by ? for ${row.label}.`,
+    `What value should replace ? under ${stimulus.seriesBLabel} for ${row.label}?`,
     `How many ${stimulus.unit} should replace the missing entry in ${row.label}?`,
   ] as const;
   return templates[variant];
@@ -436,7 +436,7 @@ function hiddenCombinedStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): stri
   const templates = [
     `For ${row.label}, what is the sum of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel}?`,
     `For ${row.label}, what is the combined total of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel}?`,
-    `Add ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} for ${row.label}.`,
+    `What is the total of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} for ${row.label}?`,
   ] as const;
   return templates[variant];
 }
@@ -445,7 +445,7 @@ function missingRatioStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
     `What is the ratio of ${stimulus.seriesBMeasure} to ${stimulus.seriesAMeasure} for ${row.label}?`,
-    `For ${row.label}, find the ratio ${stimulus.seriesBLabel} : ${stimulus.seriesALabel}.`,
+    `For ${row.label}, what is the ratio ${stimulus.seriesBLabel} : ${stimulus.seriesALabel}?`,
     `What is the ratio of ${stimulus.seriesBLabel} to ${stimulus.seriesALabel} for ${row.label}?`,
   ] as const;
   return templates[variant];
@@ -455,7 +455,7 @@ function bTotalPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): strin
   const templates = [
     `The five-row total under ${stimulus.seriesBLabel} is approximately what percentage of the total under ${stimulus.seriesALabel}?`,
     `Using the five-row totals, approximately what percentage of ${stimulus.seriesALabel} is ${stimulus.seriesBLabel}?`,
-    `Compare the five-row totals. Approximately what percentage of ${stimulus.seriesALabel} is ${stimulus.seriesBLabel}?`,
+    `The five-row total under ${stimulus.seriesBLabel} is approximately what percentage of the total under ${stimulus.seriesALabel}?`,
   ] as const;
   return templates[variant];
 }
@@ -475,7 +475,7 @@ function visibleTwoRowStem(stimulus: Di007V2Stimulus, i: number, j: number, vari
   const right = stimulus.points[j]!.label;
   const templates = [
     `What is the total ${stimulus.seriesBMeasure} for ${left} and ${right} together?`,
-    `Find the combined ${stimulus.seriesBLabel.toLowerCase()} for ${left} and ${right}.`,
+    `What is the combined ${stimulus.seriesBLabel.toLowerCase()} for ${left} and ${right}?`,
     `Together, how many ${stimulus.unit} are recorded under ${stimulus.seriesBLabel} for ${left} and ${right}?`,
   ] as const;
   return templates[variant];
@@ -510,7 +510,7 @@ function excessStem(stimulus: Di007V2Stimulus, otherIndex: number, hidden: numbe
   const templates = [
     `The ${stimulus.seriesBLabel} figure for ${largerLabel} is approximately what percentage greater than that for ${smallerLabel}?`,
     `Between ${hiddenLabel} and ${otherLabel}, by approximately what percentage does the higher ${stimulus.seriesBLabel} figure exceed the lower one?`,
-    `Compare ${hiddenLabel} and ${otherLabel}. By approximately what percentage does the higher ${stimulus.seriesBLabel} figure exceed the lower one?`,
+    `By approximately what percentage does the higher ${stimulus.seriesBLabel} figure for ${hiddenLabel} or ${otherLabel} exceed the lower one?`,
   ] as const;
   return templates[variant];
 }
@@ -520,7 +520,7 @@ function rowTotalRatioStem(stimulus: Di007V2Stimulus, otherIndex: number, varian
   const otherLabel = stimulus.points[otherIndex]!.label;
   const templates = [
     `What is the ratio of the combined row total for ${hiddenLabel} to the combined row total for ${otherLabel}?`,
-    `Find the ratio (${stimulus.seriesALabel} + ${stimulus.seriesBLabel}) for ${hiddenLabel} to the corresponding total for ${otherLabel}.`,
+    `What is the ratio of (${stimulus.seriesALabel} + ${stimulus.seriesBLabel}) for ${hiddenLabel} to the corresponding total for ${otherLabel}?`,
     `What is the ratio of the combined row totals for ${hiddenLabel} and ${otherLabel}, in that order?`,
   ] as const;
   return templates[variant];
