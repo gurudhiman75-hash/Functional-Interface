@@ -3,12 +3,15 @@ import {
   createGenerationRun,
   getQuestionStudioCapabilities,
   getQuestionStudioDashboard,
+  getQuestionStudioReviewPage,
   reviseGenerationItem,
   updateGenerationItems,
   type CreateGenerationRunInput,
   type GenerationItemStatus,
   type QuestionStudioCapabilities,
   type QuestionStudioDashboard,
+  type QuestionStudioReviewPage,
+  type QuestionStudioReviewQuery,
   type ReviseGenerationItemInput,
 } from './api';
 import { QUESTION_STUDIO_REFRESH_EVENT } from './events';
@@ -16,6 +19,25 @@ import { QUESTION_STUDIO_REFRESH_EVENT } from './events';
 const EMPTY_DASHBOARD: QuestionStudioDashboard = {
   runs: [],
   recipes: [],
+  generatedAt: '',
+};
+
+const EMPTY_REVIEW_PAGE: QuestionStudioReviewPage = {
+  runs: [],
+  pagination: {
+    page: 1,
+    pageSize: 20,
+    totalRuns: 0,
+    totalPages: 0,
+    hasPreviousPage: false,
+    hasNextPage: false,
+  },
+  filters: {
+    subject: null,
+    chapter: null,
+    status: null,
+    search: null,
+  },
   generatedAt: '',
 };
 
@@ -52,7 +74,8 @@ type BulkReviewResult = Awaited<ReturnType<typeof updateGenerationItems>> & {
  * generation/review cockpit; bespoke panels remain available for engines
  * that expose additional chapter-specific controls.
  */
-export function useQuestionStudio() {
+export function useQuestionStudio(options: { loadDashboard?: boolean } = {}) {
+  const loadDashboard = options.loadDashboard !== false;
   const [dashboard, setDashboard] = useState<QuestionStudioDashboard>(EMPTY_DASHBOARD);
   const [capabilities, setCapabilities] = useState<QuestionStudioCapabilities>(EMPTY_CAPABILITIES);
   const [loading, setLoading] = useState(true);
@@ -65,18 +88,23 @@ export function useQuestionStudio() {
     setLoading(true);
     setError(null);
     try {
-      const [nextDashboard, nextCapabilities] = await Promise.all([
-        getQuestionStudioDashboard(),
-        getQuestionStudioCapabilities(),
-      ]);
-      setDashboard(nextDashboard);
-      setCapabilities(withMixedDifficulty(nextCapabilities));
+      if (loadDashboard) {
+        const [nextDashboard, nextCapabilities] = await Promise.all([
+          getQuestionStudioDashboard(),
+          getQuestionStudioCapabilities(),
+        ]);
+        setDashboard(nextDashboard);
+        setCapabilities(withMixedDifficulty(nextCapabilities));
+      } else {
+        const nextCapabilities = await getQuestionStudioCapabilities();
+        setCapabilities(withMixedDifficulty(nextCapabilities));
+      }
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load Question Studio.');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [loadDashboard]);
 
   useEffect(() => {
     void refresh();
@@ -164,5 +192,56 @@ export function useQuestionStudio() {
     generate,
     updateItems,
     reviseItem,
+  };
+}
+
+
+export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
+  const page = query.page ?? 1;
+  const pageSize = query.pageSize ?? 20;
+  const subject = query.subject ?? '';
+  const chapter = query.chapter ?? '';
+  const status = query.status;
+  const search = query.search ?? '';
+
+  const [reviewPage, setReviewPage] = useState<QuestionStudioReviewPage>(EMPTY_REVIEW_PAGE);
+  const [loadingReviewPage, setLoadingReviewPage] = useState(true);
+  const [reviewPageError, setReviewPageError] = useState<string | null>(null);
+
+  const refreshReviewPage = useCallback(async () => {
+    setLoadingReviewPage(true);
+    setReviewPageError(null);
+    try {
+      const next = await getQuestionStudioReviewPage({
+        page,
+        pageSize,
+        subject: subject || undefined,
+        chapter: chapter || undefined,
+        status,
+        search: search || undefined,
+      });
+      setReviewPage(next);
+    } catch (caught) {
+      setReviewPageError(caught instanceof Error ? caught.message : 'Unable to load review queue.');
+    } finally {
+      setLoadingReviewPage(false);
+    }
+  }, [chapter, page, pageSize, search, status, subject]);
+
+  useEffect(() => {
+    void refreshReviewPage();
+  }, [refreshReviewPage]);
+
+  useEffect(() => {
+    const handleRefresh = () => void refreshReviewPage();
+    window.addEventListener(QUESTION_STUDIO_REFRESH_EVENT, handleRefresh);
+    return () => window.removeEventListener(QUESTION_STUDIO_REFRESH_EVENT, handleRefresh);
+  }, [refreshReviewPage]);
+
+  return {
+    reviewPage,
+    loadingReviewPage,
+    reviewPageError,
+    refreshReviewPage,
   };
 }

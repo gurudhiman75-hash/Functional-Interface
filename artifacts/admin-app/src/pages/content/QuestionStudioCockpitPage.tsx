@@ -4,6 +4,7 @@ import {
   AlertTriangle,
   CheckCircle2,
   ChevronDown,
+  ChevronLeft,
   ChevronRight,
   CircleAlert,
   Database,
@@ -63,7 +64,7 @@ import {
   type DuplicateMatch,
   type ItemQualityReport,
 } from '@/features/question-studio/quality';
-import { useQuestionStudio } from '@/features/question-studio/useQuestionStudio';
+import { useQuestionStudio, useQuestionStudioReviewPage } from '@/features/question-studio/useQuestionStudio';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
 
@@ -146,22 +147,6 @@ function runSnapshotText(run: QuestionStudioRun, key: string, fallback = '—') 
   return typeof value === 'string' && value.trim() ? value : fallback;
 }
 
-function reviewRunSubject(run: QuestionStudioRun, packagesById: Map<string, GenerationPackage>) {
-  const explicit = runSnapshotText(run, 'subject', '');
-  if (explicit) return explicit;
-  const pkg = packagesById.get(runSnapshotText(run, 'packageId', ''));
-  return pkg ? packageSubject(pkg) : 'Other';
-}
-
-function reviewRunChapter(run: QuestionStudioRun, packagesById: Map<string, GenerationPackage>) {
-  const pkg = packagesById.get(runSnapshotText(run, 'packageId', ''));
-  if (pkg) return packageChapter(pkg);
-  const topic = runSnapshotText(run, 'topic', '');
-  const subtopic = runSnapshotText(run, 'subtopic', '');
-  const engineId = runSnapshotText(run, 'engineId', '');
-  return engineId === 'quant-v4' ? (subtopic || topic || 'Other') : (topic || subtopic || 'Other');
-}
-
 function qualityTone(report: ItemQualityReport) {
   if (report.blockerCount > 0) return 'border-destructive/30 bg-destructive/5 text-destructive';
   if (report.warningCount > 0) return 'border-warning/30 bg-warning/5 text-warning';
@@ -178,7 +163,6 @@ export function QuestionStudioCockpitPage() {
   const canRun = hasPermission('content.generation.run');
   const canReview = hasPermission('content.generation.review');
   const {
-    dashboard,
     capabilities,
     loading,
     generating,
@@ -189,7 +173,7 @@ export function QuestionStudioCockpitPage() {
     generate,
     updateItems,
     reviseItem,
-  } = useQuestionStudio();
+  } = useQuestionStudio({ loadDashboard: false });
 
   const [workspaceView, setWorkspaceView] = useState<'generate' | 'review'>('generate');
   const [subject, setSubject] = useState('');
@@ -203,6 +187,9 @@ export function QuestionStudioCockpitPage() {
   const [count, setCount] = useState(10);
   const [seed, setSeed] = useState('');
   const [search, setSearch] = useState('');
+  const [serverSearch, setServerSearch] = useState('');
+  const [reviewPageNumber, setReviewPageNumber] = useState(1);
+  const [reviewPageSize, setReviewPageSize] = useState(20);
   const [reviewSubjectFilter, setReviewSubjectFilter] = useState(ALL);
   const [reviewChapterFilter, setReviewChapterFilter] = useState(ALL);
   const [statusFilter, setStatusFilter] = useState(ALL);
@@ -218,35 +205,58 @@ export function QuestionStudioCockpitPage() {
     [capabilities.packages],
   );
 
-  const packagesById = useMemo(
-    () => new Map(enabledPackages.map((entry) => [entry.packageId, entry] as const)),
+  const subjects = useMemo(
+    () => sortSubjects([...new Set(enabledPackages.map(packageSubject))]),
     [enabledPackages],
   );
 
-  const reviewSubjects = useMemo(
-    () => sortSubjects([...new Set(dashboard.runs.map((run) => reviewRunSubject(run, packagesById)))]),
-    [dashboard.runs, packagesById],
-  );
+  const reviewSubjects = subjects;
 
   const reviewChapters = useMemo(
     () => [...new Set(
-      dashboard.runs
-        .filter((run) => reviewSubjectFilter === ALL || reviewRunSubject(run, packagesById) === reviewSubjectFilter)
-        .map((run) => reviewRunChapter(run, packagesById)),
+      enabledPackages
+        .filter((entry) => reviewSubjectFilter === ALL || packageSubject(entry) === reviewSubjectFilter)
+        .map(packageChapter),
     )].sort((left, right) => left.localeCompare(right)),
-    [dashboard.runs, packagesById, reviewSubjectFilter],
+    [enabledPackages, reviewSubjectFilter],
   );
 
   useEffect(() => {
     if (reviewChapterFilter !== ALL && !reviewChapters.includes(reviewChapterFilter)) {
       setReviewChapterFilter(ALL);
+      setReviewPageNumber(1);
     }
   }, [reviewChapterFilter, reviewChapters]);
 
-  const subjects = useMemo(
-    () => sortSubjects([...new Set(enabledPackages.map(packageSubject))]),
-    [enabledPackages],
-  );
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setServerSearch(search.trim());
+      setReviewPageNumber(1);
+    }, 300);
+    return () => window.clearTimeout(timer);
+  }, [search]);
+
+  const {
+    reviewPage,
+    loadingReviewPage,
+    reviewPageError,
+    refreshReviewPage,
+  } = useQuestionStudioReviewPage({
+    page: reviewPageNumber,
+    pageSize: reviewPageSize,
+    subject: reviewSubjectFilter === ALL ? undefined : reviewSubjectFilter,
+    chapter: reviewChapterFilter === ALL ? undefined : reviewChapterFilter,
+    status: statusFilter === ALL ? undefined : statusFilter as GenerationItemStatus,
+    search: serverSearch || undefined,
+  });
+
+  const reviewRuns = reviewPage.runs;
+
+  useEffect(() => {
+    if (reviewPage.pagination.page !== reviewPageNumber) {
+      setReviewPageNumber(reviewPage.pagination.page);
+    }
+  }, [reviewPage.pagination.page, reviewPageNumber]);
 
   useEffect(() => {
     if (!subjects.length) return;
@@ -341,23 +351,23 @@ export function QuestionStudioCockpitPage() {
   }, [language, supportedLanguages]);
 
   useEffect(() => {
-    if (dashboard.runs[0] && expandedRuns.size === 0) {
-      setExpandedRuns(new Set([dashboard.runs[0].id]));
+    if (reviewRuns[0] && expandedRuns.size === 0) {
+      setExpandedRuns(new Set([reviewRuns[0].id]));
     }
-  }, [dashboard.runs, expandedRuns.size]);
+  }, [reviewRuns, expandedRuns.size]);
 
-  const duplicates = useMemo(() => findDuplicateMatches(dashboard.runs), [dashboard.runs]);
+  const duplicates = useMemo(() => findDuplicateMatches(reviewRuns), [reviewRuns]);
   const qualityByItem = useMemo(() => {
     const map = new Map<string, ItemQualityReport>();
-    for (const run of dashboard.runs) {
+    for (const run of reviewRuns) {
       for (const item of run.items) map.set(item.id, qualityWithDuplicate(item, duplicates.get(item.id)));
     }
     return map;
-  }, [dashboard.runs, duplicates]);
+  }, [reviewRuns, duplicates]);
 
   const allItems = useMemo(
-    () => dashboard.runs.flatMap((run) => run.items.map((item) => ({ run, item }))),
-    [dashboard.runs],
+    () => reviewRuns.flatMap((run) => run.items.map((item) => ({ run, item }))),
+    [reviewRuns],
   );
 
   useEffect(() => {
@@ -366,34 +376,19 @@ export function QuestionStudioCockpitPage() {
   }, [allItems]);
 
   const filteredRuns = useMemo(() => {
-    const normalizedSearch = search.trim().toLowerCase();
-    return dashboard.runs
-      .filter((run) => reviewSubjectFilter === ALL || reviewRunSubject(run, packagesById) === reviewSubjectFilter)
-      .filter((run) => reviewChapterFilter === ALL || reviewRunChapter(run, packagesById) === reviewChapterFilter)
-      .map((run) => {
+    return reviewRuns.map((run) => {
       const items = run.items.filter((item) => {
         const quality = qualityByItem.get(item.id) ?? analyzeItemQuality(item.payload);
         const duplicate = duplicates.has(item.id);
-        if (statusFilter !== ALL && item.status !== statusFilter) return false;
         if (qualityFilter === 'ready' && (!quality.readyForApproval || quality.warningCount > 0)) return false;
         if (qualityFilter === 'warning' && (quality.blockerCount > 0 || quality.warningCount === 0)) return false;
         if (qualityFilter === 'blocked' && quality.blockerCount === 0) return false;
         if (qualityFilter === 'duplicate' && !duplicate) return false;
-        if (!normalizedSearch) return true;
-        const haystack = [
-          run.publicCode,
-          runSnapshotText(run, 'exam', ''),
-          firstText(item.payload, ['text', 'stem'], ''),
-          firstText(item.payload, ['topic'], ''),
-          firstText(item.payload, ['subtopic'], ''),
-          firstText(item.payload, ['patternId', 'packageId'], ''),
-          firstText(item.payload, ['selectedCpId', 'canonicalProblemId', 'cpId'], ''),
-        ].join(' ').toLowerCase();
-        return haystack.includes(normalizedSearch);
+        return true;
       });
       return { run, items };
     }).filter(({ items }) => items.length > 0);
-  }, [dashboard.runs, duplicates, packagesById, qualityByItem, qualityFilter, reviewChapterFilter, reviewSubjectFilter, search, statusFilter]);
+  }, [duplicates, qualityByItem, qualityFilter, reviewRuns]);
 
   const visibleItemIds = useMemo(
     () => filteredRuns.flatMap(({ items }) => items.map((item) => item.id)),
@@ -401,14 +396,14 @@ export function QuestionStudioCockpitPage() {
   );
 
   const stats = useMemo(() => {
-    const values = { runs: dashboard.runs.length, total: allItems.length, unreviewed: 0, blocked: 0, duplicates: duplicates.size, inQuestionBank: 0 };
+    const values = { runs: reviewPage.pagination.totalRuns, total: allItems.length, unreviewed: 0, blocked: 0, duplicates: duplicates.size, inQuestionBank: 0 };
     for (const { item } of allItems) {
       if (item.status === 'unreviewed') values.unreviewed += 1;
       if (item.acceptedQuestionId) values.inQuestionBank += 1;
       if ((qualityByItem.get(item.id)?.blockerCount ?? 0) > 0) values.blocked += 1;
     }
     return values;
-  }, [allItems, dashboard.runs.length, duplicates.size, qualityByItem]);
+  }, [allItems, duplicates.size, qualityByItem, reviewPage.pagination.totalRuns]);
 
   const handleGenerate = async () => {
     if (!activePackage) {
@@ -441,6 +436,11 @@ export function QuestionStudioCockpitPage() {
       setExpandedRuns((current) => new Set(current).add(result.id));
       setReviewSubjectFilter(packageSubject(activePackage));
       setReviewChapterFilter(packageChapter(activePackage));
+      setStatusFilter(ALL);
+      setQualityFilter('all');
+      setSearch('');
+      setServerSearch('');
+      setReviewPageNumber(1);
       setWorkspaceView('review');
       showToast.success(
         'Generation run created',
@@ -470,6 +470,7 @@ export function QuestionStudioCockpitPage() {
     }
     try {
       const result = await updateItems({ itemIds: ids, status, reason: reason.trim() || undefined });
+      await refreshReviewPage();
       setSelectedIds((current) => new Set([...current].filter((id) => !ids.includes(id))));
       setReason('');
       const outcomeText = [
@@ -506,22 +507,26 @@ export function QuestionStudioCockpitPage() {
         actions={(
           <>
             <Badge variant="outline" className="gap-1.5 border-success/30 bg-success/5 text-success"><Database className="h-3.5 w-3.5" /> Live canonical data</Badge>
-            <Button variant="outline" onClick={() => void refresh()} disabled={loading || generating || updating || Boolean(revisingItemId)}>
-              <RefreshCw className={cn('mr-1.5 h-4 w-4', loading && 'animate-spin')} /> Refresh
+            <Button
+              variant="outline"
+              onClick={() => void Promise.all([refresh(), refreshReviewPage()])}
+              disabled={loading || loadingReviewPage || generating || updating || Boolean(revisingItemId)}
+            >
+              <RefreshCw className={cn('mr-1.5 h-4 w-4', (loading || loadingReviewPage) && 'animate-spin')} /> Refresh
             </Button>
           </>
         )}
       />
 
-      {error && <div className="flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" /><div><p className="font-semibold">Question Studio could not complete the last request</p><p className="mt-1 text-xs opacity-90">{error}</p></div></div>}
+      {(error || reviewPageError) && <div className="flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" /><div><p className="font-semibold">Question Studio could not complete the last request</p><p className="mt-1 text-xs opacity-90">{error || reviewPageError}</p></div></div>}
 
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
-        <Metric label="Generation runs" value={stats.runs} icon={<Layers3 className="h-4 w-4" />} />
-        <Metric label="Total items" value={stats.total} icon={<FileCheck2 className="h-4 w-4" />} />
-        <Metric label="Awaiting review" value={stats.unreviewed} icon={<RefreshCw className="h-4 w-4" />} tone={stats.unreviewed ? 'info' : 'neutral'} />
-        <Metric label="Approval blockers" value={stats.blocked} icon={<ShieldCheck className="h-4 w-4" />} tone={stats.blocked ? 'warning' : 'success'} />
-        <Metric label="Duplicate signals" value={stats.duplicates} icon={<CircleAlert className="h-4 w-4" />} tone={stats.duplicates ? 'warning' : 'success'} />
-        <Metric label="In Question Bank" value={stats.inQuestionBank} icon={<CheckCircle2 className="h-4 w-4" />} tone="success" />
+        <Metric label="Matching runs" value={stats.runs} icon={<Layers3 className="h-4 w-4" />} />
+        <Metric label="Items on page" value={stats.total} icon={<FileCheck2 className="h-4 w-4" />} />
+        <Metric label="Review on page" value={stats.unreviewed} icon={<RefreshCw className="h-4 w-4" />} tone={stats.unreviewed ? 'info' : 'neutral'} />
+        <Metric label="Blockers on page" value={stats.blocked} icon={<ShieldCheck className="h-4 w-4" />} tone={stats.blocked ? 'warning' : 'success'} />
+        <Metric label="Duplicates on page" value={stats.duplicates} icon={<CircleAlert className="h-4 w-4" />} tone={stats.duplicates ? 'warning' : 'success'} />
+        <Metric label="Bank on page" value={stats.inQuestionBank} icon={<CheckCircle2 className="h-4 w-4" />} tone="success" />
       </div>
 
       <Tabs value={workspaceView} onValueChange={(value) => setWorkspaceView(value as 'generate' | 'review')} className="space-y-4">
@@ -678,21 +683,21 @@ export function QuestionStudioCockpitPage() {
         <TabsContent value="review" className="mt-0">
       <Card>
         <CardHeader className="space-y-4">
-          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Inspect quality signals, revise immutable payloads, make item-level decisions, and route only Question-Bank-eligible approvals to canonical storage.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
+          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Subject, chapter, status and search are filtered server-side. Quality and duplicate signals apply to the current page of loaded questions.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search run code, stem, CP, topic, package or exam" className="pl-9" />
           </div>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            <Select value={reviewSubjectFilter} onValueChange={(value) => { setReviewSubjectFilter(value); setReviewChapterFilter(ALL); }}>
+            <Select value={reviewSubjectFilter} onValueChange={(value) => { setReviewSubjectFilter(value); setReviewChapterFilter(ALL); setReviewPageNumber(1); }}>
               <SelectTrigger><SelectValue placeholder="Subject" /></SelectTrigger>
               <SelectContent><SelectItem value={ALL}>All subjects</SelectItem>{reviewSubjects.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
             </Select>
-            <Select value={reviewChapterFilter} onValueChange={setReviewChapterFilter}>
+            <Select value={reviewChapterFilter} onValueChange={(value) => { setReviewChapterFilter(value); setReviewPageNumber(1); }}>
               <SelectTrigger><SelectValue placeholder="Chapter" /></SelectTrigger>
               <SelectContent><SelectItem value={ALL}>All chapters</SelectItem>{reviewChapters.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
             </Select>
-            <Select value={statusFilter} onValueChange={setStatusFilter}><SelectTrigger><Filter className="mr-2 h-4 w-4" /><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>All statuses</SelectItem><SelectItem value="unreviewed">Unreviewed</SelectItem><SelectItem value="needs_fix">Needs fix</SelectItem><SelectItem value="approved">Approved</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select>
+            <Select value={statusFilter} onValueChange={(value) => { setStatusFilter(value); setReviewPageNumber(1); }}><SelectTrigger><Filter className="mr-2 h-4 w-4" /><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>All statuses</SelectItem><SelectItem value="unreviewed">Unreviewed</SelectItem><SelectItem value="needs_fix">Needs fix</SelectItem><SelectItem value="approved">Approved</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select>
             <Select value={qualityFilter} onValueChange={(value) => setQualityFilter(value as QualityFilter)}><SelectTrigger><ShieldCheck className="mr-2 h-4 w-4" /><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All quality states</SelectItem><SelectItem value="ready">Approval ready</SelectItem><SelectItem value="warning">Warnings only</SelectItem><SelectItem value="blocked">Approval blocked</SelectItem><SelectItem value="duplicate">Duplicate signals</SelectItem></SelectContent></Select>
           </div>
           <div className="grid gap-3 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -702,8 +707,47 @@ export function QuestionStudioCockpitPage() {
         </CardHeader>
         <CardContent className="p-0">
           <div className="flex items-center gap-3 border-y bg-muted/20 px-4 py-2.5 text-xs text-muted-foreground"><Checkbox checked={allVisibleSelected} onCheckedChange={(checked) => toggleAllVisible(checked === true)} aria-label="Select all visible generated items" /><span>{visibleItemIds.length} visible item(s) across {filteredRuns.length} run(s)</span>{updating && <Loader2 className="ml-auto h-4 w-4 animate-spin" />}</div>
-          {loading ? <div className="flex items-center justify-center gap-2 p-12 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading Question Studio…</div> : filteredRuns.length === 0 ? <div className="p-12 text-center"><Database className="mx-auto h-7 w-7 text-muted-foreground" /><p className="mt-3 text-sm font-semibold">No generated items match this view</p><p className="mt-1 text-xs text-muted-foreground">Create a run or clear the filters.</p></div> : <div className="divide-y">{filteredRuns.map(({ run, items }) => <RunSection key={run.id} run={run} items={items} expanded={expandedRuns.has(run.id)} selectedIds={selectedIds} qualityByItem={qualityByItem} duplicates={duplicates} expandedItems={expandedItems} editingItemId={editingItemId} revisingItemId={revisingItemId} canReview={canReview} onToggle={() => setExpandedRuns((current) => { const next = new Set(current); next.has(run.id) ? next.delete(run.id) : next.add(run.id); return next; })} onToggleItem={(id) => setExpandedItems((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next; })} onSelect={(id, checked) => setSelectedIds((current) => { const next = new Set(current); checked ? next.add(id) : next.delete(id); return next; })} onSelectRun={(checked) => setSelectedIds((current) => { const next = new Set(current); items.forEach((item) => checked ? next.add(item.id) : next.delete(item.id)); return next; })} onEdit={setEditingItemId} onDecision={(status, id) => void applyStatus(status, [id])} onRevise={async (input) => { try { await reviseItem(input); setEditingItemId(null); showToast.success('Revision saved', 'A new immutable generated-item version is ready for review.'); } catch (caught) { showToast.error('Revision failed', caught instanceof Error ? caught.message : 'Unable to save revision.'); } }} />)}</div>}
+          {loadingReviewPage ? <div className="flex items-center justify-center gap-2 p-12 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading review queue…</div> : filteredRuns.length === 0 ? <div className="p-12 text-center"><Database className="mx-auto h-7 w-7 text-muted-foreground" /><p className="mt-3 text-sm font-semibold">No generated items match this view</p><p className="mt-1 text-xs text-muted-foreground">Create a run or clear the filters.</p></div> : <div className="divide-y">{filteredRuns.map(({ run, items }) => <RunSection key={run.id} run={run} items={items} expanded={expandedRuns.has(run.id)} selectedIds={selectedIds} qualityByItem={qualityByItem} duplicates={duplicates} expandedItems={expandedItems} editingItemId={editingItemId} revisingItemId={revisingItemId} canReview={canReview} onToggle={() => setExpandedRuns((current) => { const next = new Set(current); next.has(run.id) ? next.delete(run.id) : next.add(run.id); return next; })} onToggleItem={(id) => setExpandedItems((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next; })} onSelect={(id, checked) => setSelectedIds((current) => { const next = new Set(current); checked ? next.add(id) : next.delete(id); return next; })} onSelectRun={(checked) => setSelectedIds((current) => { const next = new Set(current); items.forEach((item) => checked ? next.add(item.id) : next.delete(item.id)); return next; })} onEdit={setEditingItemId} onDecision={(status, id) => void applyStatus(status, [id])} onRevise={async (input) => { try { await reviseItem(input); await refreshReviewPage(); setEditingItemId(null); showToast.success('Revision saved', 'A new immutable generated-item version is ready for review.'); } catch (caught) { showToast.error('Revision failed', caught instanceof Error ? caught.message : 'Unable to save revision.'); } }} />)}</div>}
         </CardContent>
+        <div className="flex flex-col gap-3 border-t px-4 py-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            Page {reviewPage.pagination.page}{reviewPage.pagination.totalPages > 0 ? ` of ${reviewPage.pagination.totalPages}` : ''} · {reviewPage.pagination.totalRuns} matching run(s)
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <Select
+              value={String(reviewPageSize)}
+              onValueChange={(value) => {
+                setReviewPageSize(Number(value));
+                setReviewPageNumber(1);
+              }}
+            >
+              <SelectTrigger className="h-8 w-[120px]"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">10 runs/page</SelectItem>
+                <SelectItem value="20">20 runs/page</SelectItem>
+                <SelectItem value="50">50 runs/page</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              disabled={!reviewPage.pagination.hasPreviousPage || loadingReviewPage}
+              onClick={() => setReviewPageNumber((current) => Math.max(1, current - 1))}
+            >
+              <ChevronLeft className="mr-1 h-3.5 w-3.5" /> Previous
+            </Button>
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              disabled={!reviewPage.pagination.hasNextPage || loadingReviewPage}
+              onClick={() => setReviewPageNumber((current) => current + 1)}
+            >
+              Next <ChevronRight className="ml-1 h-3.5 w-3.5" />
+            </Button>
+          </div>
+        </div>
       </Card>
         </TabsContent>
       </Tabs>
@@ -714,7 +758,7 @@ export function QuestionStudioCockpitPage() {
 function RunSection({ run, items, expanded, selectedIds, qualityByItem, duplicates, expandedItems, editingItemId, revisingItemId, canReview, onToggle, onToggleItem, onSelect, onSelectRun, onEdit, onDecision, onRevise }: { run: QuestionStudioRun; items: QuestionStudioItem[]; expanded: boolean; selectedIds: Set<string>; qualityByItem: Map<string, ItemQualityReport>; duplicates: Map<string, DuplicateMatch>; expandedItems: Set<string>; editingItemId: string | null; revisingItemId: string | null; canReview: boolean; onToggle: () => void; onToggleItem: (id: string) => void; onSelect: (id: string, checked: boolean) => void; onSelectRun: (checked: boolean) => void; onEdit: (id: string | null) => void; onDecision: (status: GenerationItemStatus, id: string) => void; onRevise: (input: { itemId: string; stem: string; explanation: string; options: string[]; correctIndex: number; changeReason: string }) => Promise<void> }) {
   const runSelected = items.length > 0 && items.every((item) => selectedIds.has(item.id));
   const blocked = run.items.filter((item) => (qualityByItem.get(item.id)?.blockerCount ?? 0) > 0).length;
-  return <div><div className="flex flex-col gap-3 px-4 py-4 xl:flex-row xl:items-center"><div className="flex items-center gap-3"><Checkbox checked={runSelected} onCheckedChange={(checked) => onSelectRun(checked === true)} aria-label={`Select items in ${run.publicCode}`} /><button type="button" onClick={onToggle} className="rounded-md p-1 hover:bg-muted">{expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}</button></div><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-xs font-bold">{run.publicCode}</span><StatusBadge tone={runStatusTone(run.status)} dot>{formatStatus(run.status)}</StatusBadge><Badge variant="secondary" className="text-[10px]">{items.length} visible / {run.items.length} total</Badge>{blocked > 0 && <Badge variant="outline" className="border-destructive/30 text-destructive">{blocked} blocked</Badge>}</div><p className="mt-1 text-xs text-muted-foreground">{runSnapshotText(run, 'subject')} · {runSnapshotText(run, 'exam')} · {runSnapshotText(run, 'difficulty')} · {runSnapshotText(run, 'packageId', runSnapshotText(run, 'patternId'))}</p><p className="mt-1 text-[10px] text-muted-foreground">{new Date(run.createdAt).toLocaleString()} · {run.model ?? run.provider ?? 'generator'}</p></div><div className="grid grid-cols-4 gap-2 text-center text-[10px] xl:w-72"><RunCount label="Review" value={run.items.filter((item) => item.status === 'unreviewed').length} /><RunCount label="Fix" value={run.items.filter((item) => item.status === 'needs_fix').length} /><RunCount label="Approved" value={run.items.filter((item) => item.status === 'approved').length} /><RunCount label="Rejected" value={run.items.filter((item) => item.status === 'rejected').length} /></div></div>{expanded && <div className="border-t bg-muted/10">{items.map((item) => <ReviewItem key={item.id} item={item} quality={qualityByItem.get(item.id) ?? analyzeItemQuality(item.payload)} duplicate={duplicates.get(item.id)} selected={selectedIds.has(item.id)} expanded={expandedItems.has(item.id)} editing={editingItemId === item.id} revising={revisingItemId === item.id} canReview={canReview} onSelected={(checked) => onSelect(item.id, checked)} onExpanded={() => onToggleItem(item.id)} onEdit={() => onEdit(editingItemId === item.id ? null : item.id)} onDecision={(status) => onDecision(status, item.id)} onRevise={onRevise} />)}</div>}</div>;
+  return <div><div className="flex flex-col gap-3 px-4 py-4 xl:flex-row xl:items-center"><div className="flex items-center gap-3"><Checkbox checked={runSelected} onCheckedChange={(checked) => onSelectRun(checked === true)} aria-label={`Select items in ${run.publicCode}`} /><button type="button" onClick={onToggle} className="rounded-md p-1 hover:bg-muted">{expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}</button></div><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-xs font-bold">{run.publicCode}</span><StatusBadge tone={runStatusTone(run.status)} dot>{formatStatus(run.status)}</StatusBadge><Badge variant="secondary" className="text-[10px]">{items.length} item(s) in view</Badge>{blocked > 0 && <Badge variant="outline" className="border-destructive/30 text-destructive">{blocked} blocked</Badge>}</div><p className="mt-1 text-xs text-muted-foreground">{runSnapshotText(run, 'subject')} · {runSnapshotText(run, 'exam')} · {runSnapshotText(run, 'difficulty')} · {runSnapshotText(run, 'packageId', runSnapshotText(run, 'patternId'))}</p><p className="mt-1 text-[10px] text-muted-foreground">{new Date(run.createdAt).toLocaleString()} · {run.model ?? run.provider ?? 'generator'}</p></div><div className="grid grid-cols-4 gap-2 text-center text-[10px] xl:w-72"><RunCount label="Review" value={run.items.filter((item) => item.status === 'unreviewed').length} /><RunCount label="Fix" value={run.items.filter((item) => item.status === 'needs_fix').length} /><RunCount label="Approved" value={run.items.filter((item) => item.status === 'approved').length} /><RunCount label="Rejected" value={run.items.filter((item) => item.status === 'rejected').length} /></div></div>{expanded && <div className="border-t bg-muted/10">{items.map((item) => <ReviewItem key={item.id} item={item} quality={qualityByItem.get(item.id) ?? analyzeItemQuality(item.payload)} duplicate={duplicates.get(item.id)} selected={selectedIds.has(item.id)} expanded={expandedItems.has(item.id)} editing={editingItemId === item.id} revising={revisingItemId === item.id} canReview={canReview} onSelected={(checked) => onSelect(item.id, checked)} onExpanded={() => onToggleItem(item.id)} onEdit={() => onEdit(editingItemId === item.id ? null : item.id)} onDecision={(status) => onDecision(status, item.id)} onRevise={onRevise} />)}</div>}</div>;
 }
 
 function ReviewItem({ item, quality, duplicate, selected, expanded, editing, revising, canReview, onSelected, onExpanded, onEdit, onDecision, onRevise }: { item: QuestionStudioItem; quality: ItemQualityReport; duplicate?: DuplicateMatch; selected: boolean; expanded: boolean; editing: boolean; revising: boolean; canReview: boolean; onSelected: (checked: boolean) => void; onExpanded: () => void; onEdit: () => void; onDecision: (status: GenerationItemStatus) => void; onRevise: (input: { itemId: string; stem: string; explanation: string; options: string[]; correctIndex: number; changeReason: string }) => Promise<void> }) {
