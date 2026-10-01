@@ -159,77 +159,49 @@ export function generatePrt001PilotParameters(input: {
   } else if (
     input.entry.solveMode === "findProfitRatioFromCapitalAndDuration"
   ) {
-    const numericStateRandom = createPrt001Random(
-      `${input.seed}:numeric-state:${input.entry.solveMode}`,
-    );
-    const capitalRatio = numericStateRandom.pick([
-      [2, 3],
-      [3, 2],
-      [3, 4],
-      [4, 3],
-      [4, 5],
-      [5, 4],
-      [5, 7],
-      [7, 5],
-      [4, 7],
-      [7, 4],
-    ] as const);
-    const durationPair = numericStateRandom.pick([
-      [12, 8],
-      [10, 6],
-      [8, 12],
-      [6, 9],
-      [12, 6],
-      [9, 12],
-      [7, 10],
-      [11, 6],
-      [5, 12],
-      [12, 7],
-    ] as const);
-    const unit = numericStateRandom.pick([5_000, 6_000, 8_000, 10_000, 12_000]);
-    scenario = {
-      capitalA: capitalRatio[0] * unit,
-      durationA: durationPair[0],
-      capitalB: capitalRatio[1] * unit,
-      durationB: durationPair[1],
-    };
+    const scenarios: readonly Scenario[] = [
+      { capitalA: 20_000, durationA: 12, capitalB: 30_000, durationB: 6 },
+      { capitalA: 30_000, durationA: 8, capitalB: 20_000, durationB: 12 },
+      { capitalA: 30_000, durationA: 10, capitalB: 40_000, durationB: 6 },
+      { capitalA: 40_000, durationA: 6, capitalB: 30_000, durationB: 9 },
+      { capitalA: 40_000, durationA: 12, capitalB: 50_000, durationB: 6 },
+      { capitalA: 50_000, durationA: 9, capitalB: 40_000, durationB: 12 },
+      { capitalA: 50_000, durationA: 7, capitalB: 70_000, durationB: 10 },
+      { capitalA: 70_000, durationA: 11, capitalB: 50_000, durationB: 6 },
+      { capitalA: 40_000, durationA: 5, capitalB: 70_000, durationB: 12 },
+      { capitalA: 70_000, durationA: 12, capitalB: 40_000, durationB: 7 },
+      { capitalA: 30_000, durationA: 8, capitalB: 50_000, durationB: 9 },
+      { capitalA: 50_000, durationA: 10, capitalB: 30_000, durationB: 8 },
+    ];
+    scenario = scenarios[
+      deterministicScenarioIndex(
+        `${input.seed}:${input.entry.solveMode}:answer-diversity`,
+        scenarios.length,
+      )
+    ]!;
   } else if (
     input.entry.solveMode === "findUnknownCapitalFromShareRatioAndDurations"
   ) {
-    const numericStateRandom = createPrt001Random(
-      `${input.seed}:numeric-state:${input.entry.solveMode}`,
-    );
-    const capitalRatio = numericStateRandom.pick([
-      [2, 3],
-      [3, 2],
-      [3, 4],
-      [4, 3],
-      [4, 5],
-      [5, 4],
-      [5, 7],
-      [7, 5],
-      [4, 7],
-      [7, 4],
-    ] as const);
-    const durationPair = numericStateRandom.pick([
-      [6, 12],
-      [8, 12],
-      [9, 12],
-      [10, 12],
-      [12, 8],
-      [12, 9],
-      [15, 20],
-      [18, 24],
-      [20, 30],
-      [24, 18],
-    ] as const);
-    const unit = numericStateRandom.pick([6_000, 8_000, 10_000, 12_000, 15_000]);
-    scenario = {
-      capitalA: capitalRatio[0] * unit,
-      durationA: durationPair[0],
-      capitalB: capitalRatio[1] * unit,
-      durationB: durationPair[1],
-    };
+    const scenarios: readonly Scenario[] = [
+      { capitalA: 24_000, durationA: 6, capitalB: 36_000, durationB: 12 },
+      { capitalA: 30_000, durationA: 8, capitalB: 40_000, durationB: 12 },
+      { capitalA: 36_000, durationA: 9, capitalB: 48_000, durationB: 12 },
+      { capitalA: 42_000, durationA: 10, capitalB: 35_000, durationB: 12 },
+      { capitalA: 48_000, durationA: 12, capitalB: 36_000, durationB: 8 },
+      { capitalA: 54_000, durationA: 12, capitalB: 45_000, durationB: 9 },
+      { capitalA: 60_000, durationA: 15, capitalB: 75_000, durationB: 20 },
+      { capitalA: 66_000, durationA: 18, capitalB: 72_000, durationB: 24 },
+      { capitalA: 72_000, durationA: 20, capitalB: 90_000, durationB: 30 },
+      { capitalA: 78_000, durationA: 24, capitalB: 72_000, durationB: 18 },
+      { capitalA: 84_000, durationA: 16, capitalB: 96_000, durationB: 24 },
+      { capitalA: 90_000, durationA: 18, capitalB: 75_000, durationB: 30 },
+    ];
+    scenario = scenarios[
+      deterministicScenarioIndex(
+        `${input.seed}:${input.entry.solveMode}:answer-diversity`,
+        scenarios.length,
+      )
+    ]!;
   } else if (
     input.entry.solveMode === "findUnknownDurationFromShareRatioAndCapitals"
   ) {
