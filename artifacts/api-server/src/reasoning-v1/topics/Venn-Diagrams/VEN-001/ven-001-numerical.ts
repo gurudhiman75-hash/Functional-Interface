@@ -984,13 +984,11 @@ export function buildNumericalItem(
       r = co.map((a) => a * x);
       answer = sum(r);
       difficulty = "Hard";
-      stem =
-        `${surveyIntro(l, hash(seed))} ${groupReference(c, 0, l)}; ${groupReference(c, 1, l)}. ` +
-        tx(
-          `For ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]}, the counts for only ${c.names.en.split("|")[0]}, only ${c.names.en.split("|")[1]}, both, and neither are in the ratio 2:3:1:1. ${x} people do both. How many people were surveyed?`,
-          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} के लिए केवल ${c.names.hi.split("|")[0]}, केवल ${c.names.hi.split("|")[1]}, दोनों समूहों और किसी भी समूह में न आने वालों की संख्याओं का अनुपात 2:3:1:1 है। दोनों समूहों में ${x} लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?`,
-          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਲਈ ਸਿਰਫ਼ ${c.names.pa.split("|")[0]}, ਸਿਰਫ਼ ${c.names.pa.split("|")[1]}, ਦੋਵਾਂ ਸਮੂਹਾਂ ਅਤੇ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ${x} ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?`,
-        )[l];
+      stem = tx(
+        `For ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]}, the four disjoint regions—only ${c.names.en.split("|")[0]}, only ${c.names.en.split("|")[1]}, both groups, and neither group—are in the ratio 2:3:1:1. The both-groups region contains ${x} people. How many people were surveyed?`,
+        `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} के चार अलग हिस्सों—केवल ${c.names.hi.split("|")[0]}, केवल ${c.names.hi.split("|")[1]}, दोनों समूह और कोई भी समूह नहीं—की संख्याओं का अनुपात 2:3:1:1 है। दोनों समूहों वाले हिस्से में ${x} लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?`,
+        `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਦੇ ਚਾਰ ਵੱਖਰੇ ਹਿੱਸਿਆਂ—ਸਿਰਫ਼ ${c.names.pa.split("|")[0]}, ਸਿਰਫ਼ ${c.names.pa.split("|")[1]}, ਦੋਵੇਂ ਸਮੂਹ ਅਤੇ ਕੋਈ ਵੀ ਸਮੂਹ ਨਹੀਂ—ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਾਲੇ ਹਿੱਸੇ ਵਿੱਚ ${x} ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?`,
+      )[l];
       explanation =
         tx(
           `The overlap between ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]} is the one-part section of the 2:3:1:1 ratio.`,
