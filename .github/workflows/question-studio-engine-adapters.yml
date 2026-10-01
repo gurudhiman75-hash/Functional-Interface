@@ -13,6 +13,8 @@ on:
       - artifacts/api-server/src/question-studio/standard-lifecycle.test.ts
       - artifacts/api-server/src/question-studio/quant-time-work.ts
       - artifacts/api-server/src/question-studio/quant-time-work.test.ts
+      - artifacts/api-server/src/question-studio/quant-number-system-num002.ts
+      - artifacts/api-server/src/question-studio/quant-number-system-num002.test.ts
       - artifacts/api-server/src/question-studio/quant-exam-profile.ts
       - artifacts/api-server/src/question-studio/engines/**
       - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
@@ -27,6 +29,8 @@ on:
       - artifacts/api-server/src/question-studio/standard-lifecycle.test.ts
       - artifacts/api-server/src/question-studio/quant-time-work.ts
       - artifacts/api-server/src/question-studio/quant-time-work.test.ts
+      - artifacts/api-server/src/question-studio/quant-number-system-num002.ts
+      - artifacts/api-server/src/question-studio/quant-number-system-num002.test.ts
       - artifacts/api-server/src/question-studio/quant-exam-profile.ts
       - artifacts/api-server/src/question-studio/engines/**
       - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
@@ -81,6 +85,16 @@ jobs:
 
       - name: Run unified TMW lifecycle proof
         run: node artifacts/api-server/dist/question-studio/quant-time-work.test.mjs
+
+      - name: Bundle unified NUM-002 CP008-CP012 proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/quant-number-system-num002.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/question-studio/quant-number-system-num002.test.mjs
+
+      - name: Run unified NUM-002 CP008-CP012 proof
+        run: node artifacts/api-server/dist/question-studio/quant-number-system-num002.test.mjs
 
       - name: Patch hygiene
         run: git diff --check
