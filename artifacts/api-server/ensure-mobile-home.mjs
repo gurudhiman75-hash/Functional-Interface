@@ -12,6 +12,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const homeMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-home-configuration.sql");
 const promotionsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-promotions.sql");
 const notificationsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-notifications.sql");
+const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
 const sql = postgres(databaseUrl, {
   max: 1,
   connect_timeout: 15,
@@ -79,6 +80,22 @@ try {
     throw new Error("Mobile notifications migration completed without creating all required tables");
   }
   console.log("[render-build] mobile notifications schema verified");
+
+  const [contentPlanningBefore] = await sql`
+    SELECT to_regclass('platform.mobile_content_plan_items')::text AS mobile_content_plan_items
+  `;
+  if (!contentPlanningBefore?.mobile_content_plan_items) {
+    console.log("[render-build] mobile content planning schema missing; applying checked-in migration");
+    const contentPlanningSql = await readFile(contentPlanningMigrationPath, "utf8");
+    await sql.unsafe(contentPlanningSql);
+  }
+  const [contentPlanningAfter] = await sql`
+    SELECT to_regclass('platform.mobile_content_plan_items')::text AS mobile_content_plan_items
+  `;
+  if (!contentPlanningAfter?.mobile_content_plan_items) {
+    throw new Error("Mobile content planning migration completed without creating platform.mobile_content_plan_items");
+  }
+  console.log("[render-build] mobile content planning schema verified");
 } finally {
   await sql.end({ timeout: 5 });
 }
