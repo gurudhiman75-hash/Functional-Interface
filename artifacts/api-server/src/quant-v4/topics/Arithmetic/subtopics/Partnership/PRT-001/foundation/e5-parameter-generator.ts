@@ -192,7 +192,29 @@ export function generatePrt001E5Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findUnknownDurationFromEqualShareConditionInMultiPartnerSystem": {
-      const s = random.pick([{a:20_000,da:12,b:30_000,db:8,c:40_000,dc:6},{a:36_000,da:10,b:45_000,db:8,c:60_000,dc:6},{a:50_000,da:6,b:30_000,db:10,c:60_000,dc:5},{a:42_000,da:8,b:56_000,db:6,c:48_000,dc:7}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const durationPair = numericStateRandom.pick([
+        [12, 8],
+        [10, 6],
+        [8, 12],
+        [6, 10],
+        [5, 12],
+        [4, 8],
+        [12, 6],
+      ] as const);
+      const dc = numericStateRandom.pick([3, 4, 5, 6, 8, 10, 12]);
+      const unit = numericStateRandom.pick([1_000, 1_500, 2_000, 2_500, 3_000]);
+      const commonWeight = 120 * unit;
+      const s = {
+        a: commonWeight / durationPair[0],
+        da: durationPair[0],
+        b: commonWeight / durationPair[1],
+        db: durationPair[1],
+        c: commonWeight / dc,
+        dc,
+      };
       state = makeState([partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))]), partner(partnerC,[segment(0,s.dc,money(s.c))])], money(120_000));
       targetPartnerId = partnerC;
       break;
