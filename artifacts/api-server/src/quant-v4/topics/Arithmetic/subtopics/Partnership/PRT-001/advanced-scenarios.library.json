@@ -234,6 +234,54 @@
       "finalCapitalA": 75000,
       "changeMonth": 3,
       "capitalB": 60000
+    },
+    {
+      "initialCapitalA": 24000,
+      "finalCapitalA": 48000,
+      "changeMonth": 4,
+      "capitalB": 32000
+    },
+    {
+      "initialCapitalA": 36000,
+      "finalCapitalA": 54000,
+      "changeMonth": 8,
+      "capitalB": 40000
+    },
+    {
+      "initialCapitalA": 45000,
+      "finalCapitalA": 60000,
+      "changeMonth": 5,
+      "capitalB": 50000
+    },
+    {
+      "initialCapitalA": 28000,
+      "finalCapitalA": 42000,
+      "changeMonth": 3,
+      "capitalB": 30000
+    },
+    {
+      "initialCapitalA": 60000,
+      "finalCapitalA": 90000,
+      "changeMonth": 9,
+      "capitalB": 70000
+    },
+    {
+      "initialCapitalA": 48000,
+      "finalCapitalA": 72000,
+      "changeMonth": 5,
+      "capitalB": 55000
+    },
+    {
+      "initialCapitalA": 35000,
+      "finalCapitalA": 70000,
+      "changeMonth": 7,
+      "capitalB": 50000
+    },
+    {
+      "initialCapitalA": 54000,
+      "finalCapitalA": 81000,
+      "changeMonth": 2,
+      "capitalB": 60000
     }
   ],
   "capitalWithdrawal": [
@@ -286,6 +334,48 @@
       "finalCapitalA": 36000,
       "changeMonth": 3,
       "capitalB": 33000
+    },
+    {
+      "initialCapitalA": 24000,
+      "finalCapitalA": 48000,
+      "changeMonth": 1,
+      "capitalB": 46000
+    },
+    {
+      "initialCapitalA": 24000,
+      "finalCapitalA": 48000,
+      "changeMonth": 2,
+      "capitalB": 44000
+    },
+    {
+      "initialCapitalA": 24000,
+      "finalCapitalA": 48000,
+      "changeMonth": 5,
+      "capitalB": 38000
+    },
+    {
+      "initialCapitalA": 24000,
+      "finalCapitalA": 48000,
+      "changeMonth": 7,
+      "capitalB": 34000
+    },
+    {
+      "initialCapitalA": 24000,
+      "finalCapitalA": 48000,
+      "changeMonth": 9,
+      "capitalB": 30000
+    },
+    {
+      "initialCapitalA": 24000,
+      "finalCapitalA": 48000,
+      "changeMonth": 10,
+      "capitalB": 28000
+    },
+    {
+      "initialCapitalA": 24000,
+      "finalCapitalA": 48000,
+      "changeMonth": 11,
+      "capitalB": 26000
     }
   ],
   "salary": [
