@@ -6,7 +6,6 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**"
-      - ".github/workflows/validate-number-system-systematic-audit-v1.yml"
 
 concurrency:
   group: number-system-systematic-audit-v1-${{ github.event.pull_request.number || github.ref }}
