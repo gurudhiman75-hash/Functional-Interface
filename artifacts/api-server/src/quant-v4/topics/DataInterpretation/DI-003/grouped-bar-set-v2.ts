@@ -136,7 +136,7 @@ const SERIES_AVERAGE_STEMS: Readonly<Record<string, (label: string) => readonly 
   PACKAGE_DISPATCH: (label) => [
     `What was the average number of packages dispatched by ${label} each week?`,
     `How many packages did ${label} dispatch per week on average?`,
-    `What was ${label}'s average weekly package dispatch?`,
+    `What was the average number of packages dispatched by ${label} each week?`,
   ],
 };
 
