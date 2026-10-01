@@ -418,6 +418,8 @@ export function QuestionStudioCockpitPage() {
         seed: seed.trim() || undefined,
       });
       setExpandedRuns((current) => new Set(current).add(result.id));
+      setReviewSubjectFilter(packageSubject(activePackage));
+      setReviewChapterFilter(packageChapter(activePackage));
       setWorkspaceView('review');
       showToast.success(
         'Generation run created',
