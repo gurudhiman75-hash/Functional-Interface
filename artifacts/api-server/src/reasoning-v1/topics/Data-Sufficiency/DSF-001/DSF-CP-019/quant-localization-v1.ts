@@ -145,10 +145,13 @@ function statementFor(text:string,language:DsfQuantLocalizedLanguage):string {
     .replace(/^There is /i,language==="hi"?"":"")
     .replace(/^The /i,"")
     .replace(/\.$/,"");
+  out=out.replace(/\bthe\b/gi,"").replace(/\s{2,}/g," ").trim();
   if(language==="hi"){
     out=out.replace(/\bis\b/gi,"है").replace(/\bare\b/gi,"हैं").replace(/\bhas\b/gi,"में").replace(/\bfor\b/gi,"के लिए").replace(/\bof\b/gi,"का");
+    out=out.replace(/\bहै\s+([₹\d][^,।]*)$/u,"$1 है");
   }else{
     out=out.replace(/\bis\b/gi,"ਹੈ").replace(/\bare\b/gi,"ਹਨ").replace(/\bhas\b/gi,"ਵਿੱਚ").replace(/\bfor\b/gi,"ਲਈ").replace(/\bof\b/gi,"ਦਾ");
+    out=out.replace(/\bਹੈ\s+([₹\d][^,।]*)$/u,"$1 ਹੈ");
   }
   return out.replace(/\s{2,}/g," ").trim()+"।";
 }
