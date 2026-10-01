@@ -82,7 +82,7 @@ function lead(c:ContextId){return ({
 
 function pool(problem:Problem):readonly Statement[]{
   const a=problem.anchor,t=target(problem.solveMode,a);
-  return Object.freeze([
+  const statements = [
     st(`TARGET_${t}`,"TARGET_EXACT",1,`The ${targetLabel(problem.solveMode)} is ${t}.`,w=>target(problem.solveMode,w)===t),
     st(`START_${a.startFacing}`,"START_FACING_EXACT",1,`The person starts facing ${a.startFacing}.`,w=>w.startFacing===a.startFacing),
     st(`TURN1_${a.firstTurn}`,"FIRST_TURN_EXACT",1,`After the first movement, the person turns ${a.firstTurn}.`,w=>w.firstTurn===a.firstTurn),
@@ -99,7 +99,12 @@ function pool(problem:Problem):readonly Statement[]{
     st(`PATH_${a.totalPath}`,"TOTAL_PATH_EXACT",2,`The total path length is ${a.totalPath} m.`,w=>w.totalPath===a.totalPath),
     st(`XSIGN_${sign(a.finalX)}`,"FINAL_X_SIGN",2,`The final east-west coordinate is ${sign(a.finalX)}.`,w=>sign(w.finalX)===sign(a.finalX)),
     st(`YSIGN_${sign(a.finalY)}`,"FINAL_Y_SIGN",2,`The final north-south coordinate is ${sign(a.finalY)}.`,w=>sign(w.finalY)===sign(a.finalY)),
-  ]);
+  ];
+  return Object.freeze(statements.filter((statement) => {
+    if (problem.solveMode === "DSF-SM-DIR-FINAL-FACING" && statement.family === "FINAL_FACING_EXACT") return false;
+    if (problem.solveMode === "DSF-SM-DIR-FINAL-COORDINATES" && statement.family === "FINAL_COMPONENT_PAIR") return false;
+    return true;
+  }));
 }
 const CACHE=new Map<string,readonly Candidate[]>();
 function candidates(problem:Problem):readonly Candidate[]{
