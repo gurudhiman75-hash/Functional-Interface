@@ -64,14 +64,25 @@ function stemNative(text: string, locale: Sea001LocaleV1): string {
 }
 
 function optionNative(value: string, locale: Sea001LocaleV1): string {
-  let output = relation(value, locale);
-  output = output
-    .replace(/\band\b/gi, tr(locale, "और", "ਅਤੇ"))
-    .replace(/sits second to the left of/gi, tr(locale, "के बाईं ओर दूसरे स्थान पर बैठा है", "ਦੇ ਖੱਬੇ ਪਾਸੇ ਦੂਜੇ ਸਥਾਨ 'ਤੇ ਬੈਠਾ ਹੈ"))
-    .replace(/sits second to the right of/gi, tr(locale, "के दाईं ओर दूसरे स्थान पर बैठा है", "ਦੇ ਸੱਜੇ ਪਾਸੇ ਦੂਜੇ ਸਥਾਨ 'ਤੇ ਬੈਠਾ ਹੈ"))
-    .replace(/sits immediately to the left of/gi, tr(locale, "के तुरंत बाईं ओर बैठा है", "ਦੇ ਤੁਰੰਤ ਖੱਬੇ ਪਾਸੇ ਬੈਠਾ ਹੈ"))
-    .replace(/sits immediately to the right of/gi, tr(locale, "के तुरंत दाईं ओर बैठा है", "ਦੇ ਤੁਰੰਤ ਸੱਜੇ ਪਾਸੇ ਬੈਠਾ ਹੈ"));
-  return names(output, locale);
+  let m: RegExpMatchArray | null;
+
+  if ((m = value.match(/^(.+) sits (second|immediately) to the (left|right) of (.+)\.$/i))) {
+    const subject = names(m[1]!, locale);
+    const reference = names(m[4]!, locale);
+    const sideHi = m[3]!.toLowerCase() === "left" ? "बाईं ओर" : "दाईं ओर";
+    const sidePa = m[3]!.toLowerCase() === "left" ? "ਖੱਬੇ ਪਾਸੇ" : "ਸੱਜੇ ਪਾਸੇ";
+    const distanceHi = m[2]!.toLowerCase() === "second" ? "दूसरे स्थान पर" : "तुरंत";
+    const distancePa = m[2]!.toLowerCase() === "second" ? "ਦੂਜੇ ਸਥਾਨ 'ਤੇ" : "ਤੁਰੰਤ";
+    return tr(
+      locale,
+      `${subject}, ${reference} के ${sideHi} ${distanceHi} बैठा है।`,
+      `${subject}, ${reference} ਦੇ ${sidePa} ${distancePa} ਬੈਠਾ ਹੈ।`,
+    );
+  }
+
+  const translated = relation(value, locale)
+    .replace(/\band\b/gi, tr(locale, "और", "ਅਤੇ"));
+  return names(translated, locale);
 }
 
 function facingNative(raw: string, locale: Sea001LocaleV1): string {
