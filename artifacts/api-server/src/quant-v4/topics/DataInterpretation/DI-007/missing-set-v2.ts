@@ -435,7 +435,7 @@ function hiddenCombinedStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): stri
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
     `For ${row.label}, what is the sum of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel}?`,
-    `After finding the missing entry, what is the total of both table values for ${row.label}?`,
+    `For ${row.label}, what is the combined total of ${stimulus.seriesALabel} and ${stimulus.seriesBLabel}?`,
     `Add ${stimulus.seriesALabel} and ${stimulus.seriesBLabel} for ${row.label}.`,
   ] as const;
   return templates[variant];
@@ -446,7 +446,7 @@ function missingRatioStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string
   const templates = [
     `What is the ratio of ${stimulus.seriesBMeasure} to ${stimulus.seriesAMeasure} for ${row.label}?`,
     `For ${row.label}, find the ratio ${stimulus.seriesBLabel} : ${stimulus.seriesALabel}.`,
-    `After finding the missing entry, what is the ratio ${stimulus.seriesBLabel} : ${stimulus.seriesALabel} for ${row.label}?`,
+    `What is the ratio of ${stimulus.seriesBLabel} to ${stimulus.seriesALabel} for ${row.label}?`,
   ] as const;
   return templates[variant];
 }
@@ -465,7 +465,7 @@ function missingShareStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2): string
   const templates = [
     `The ${stimulus.seriesBLabel} figure for ${row.label} is approximately what percentage of the five-row total?`,
     `Approximately what percentage of the five-row ${stimulus.seriesBLabel} total comes from ${row.label}?`,
-    `After finding the missing entry for ${row.label}, approximately what percentage of the five-row total does it represent?`,
+    `Approximately what percentage of the five-row ${stimulus.seriesBLabel} total is contributed by ${row.label}?`,
   ] as const;
   return templates[variant];
 }
@@ -485,7 +485,7 @@ function missingPairedPercentStem(stimulus: Di007V2Stimulus, variant: 0 | 1 | 2)
   const row = stimulus.points[stimulus.hiddenIndex]!;
   const templates = [
     `For ${row.label}, the ${stimulus.seriesBLabel} figure is approximately what percentage of the ${stimulus.seriesALabel} figure?`,
-    `After finding the missing entry for ${row.label}, approximately what percentage of the ${stimulus.seriesALabel} figure is the ${stimulus.seriesBLabel} figure?`,
+    `For ${row.label}, approximately what percentage of the ${stimulus.seriesALabel} figure is the ${stimulus.seriesBLabel} figure?`,
     `For ${row.label}, the ${stimulus.seriesBLabel} figure is approximately what percent of the ${stimulus.seriesALabel} figure?`,
   ] as const;
   return templates[variant];
@@ -497,7 +497,7 @@ function combinedShareStem(stimulus: Di007V2Stimulus, otherIndex: number, varian
   const templates = [
     `The ${stimulus.seriesBLabel} figures for ${hidden} and ${other} together are approximately what percentage of the five-row total?`,
     `Approximately what percentage of the five-row ${stimulus.seriesBLabel} total comes from ${hidden} and ${other} together?`,
-    `After finding the missing entry, approximately what percentage of the five-row ${stimulus.seriesBLabel} total comes from ${hidden} and ${other} together?`,
+    `What approximate percentage of the five-row ${stimulus.seriesBLabel} total is represented by ${hidden} and ${other} together?`,
   ] as const;
   return templates[variant];
 }
