@@ -60,6 +60,7 @@ const adminBusinessAnalyticsRouter = lazyRouter(() => import("./admin-business-a
 const adminContentQualityRouter = lazyRouter(() => import("./admin-content-quality"));
 const adminExamConfigurationRouter = lazyRouter(() => import("./admin-exam-configuration"));
 const adminMobileHomeRouter = lazyRouter(() => import("./admin-mobile-home"));
+const adminMediaRouter = lazyRouter(() => import("./admin-media"));
 const adminMobilePromotionsRouter = lazyRouter(() => import("./admin-mobile-promotions"));
 const adminMobileNotificationsRouter = lazyRouter(() => import("./admin-mobile-notifications"));
 const adminMobileContentPlanningRouter = lazyRouter(() => import("./admin-mobile-content-planning"));
@@ -224,6 +225,7 @@ router.use("/admin/taxonomy", adminTaxonomyCoverageRouter);
 router.use("/admin/taxonomy", adminTaxonomyRouter);
 router.use("/admin/exam-configuration", adminExamConfigurationRouter);
 router.use("/admin/mobile/home", adminMobileHomeRouter);
+router.use("/admin/media", adminMediaRouter);
 router.use("/admin/mobile/promotions", adminMobilePromotionsRouter);
 router.use("/admin/mobile/notifications", adminMobileNotificationsRouter);
 router.use("/admin/mobile/content-planning", adminMobileContentPlanningRouter);
