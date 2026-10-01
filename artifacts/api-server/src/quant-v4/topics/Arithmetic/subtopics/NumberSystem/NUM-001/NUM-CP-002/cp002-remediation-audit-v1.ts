@@ -61,6 +61,9 @@ assert.equal(ql151.answerCount, 2, "NUM-QL-151: exact comparison should retain i
 const ql154 = perQl.find((row) => row.qlId === "NUM-QL-154");
 assert.equal(ql154.answerCount, 2, "NUM-QL-154: termination classification should retain two answer classes");
 
+const ql156 = perQl.find((row) => row.qlId === "NUM-QL-156");
+assert.ok(ql156.answerCount >= 4, "NUM-QL-156: inverse exponent answer breadth remains below 4");
+
 console.log(JSON.stringify({
   version: "NUM-CP-002-REMEDIATION-AUDIT-V1",
   qlCount: perQl.length,
