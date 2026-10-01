@@ -25,8 +25,8 @@ async function main() {
   assert.equal(pkg.automaticStudentPublication, false);
   assert.equal(pkg.canonicalProblems.length, 21);
   assert.deepEqual(pkg.permanentQlIds, ["DSF-QL-001", "DSF-QL-002"]);
-  assert.deepEqual(pkg.generatableQlIds, ["DSF-QL-001"]);
-  assert.deepEqual(pkg.runtimeDeferredQlIds, ["DSF-QL-002"]);
+  assert.deepEqual(pkg.generatableQlIds, ["DSF-QL-001", "DSF-QL-002"]);
+  assert.deepEqual(pkg.runtimeDeferredQlIds, []);
 
   assert.equal(isDsf001NormalQuestionStudioRequest({ packageId: "DSF-001" }), true);
   assert.equal(isDsf001NormalQuestionStudioRequest({ topic: "Reasoning", subtopic: "Data Sufficiency" }), true);
