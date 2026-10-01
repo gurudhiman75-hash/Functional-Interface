@@ -73,6 +73,8 @@ jobs:
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-deep-audit-wave2-diversity.test.ts
       - name: Run WOR-001 deep audit Wave 3 difficulty realism
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-deep-audit-wave3-difficulty.test.ts
+      - name: Run WOR-001 final content closure gate
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-final-content-closure.test.ts
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Build admin app
