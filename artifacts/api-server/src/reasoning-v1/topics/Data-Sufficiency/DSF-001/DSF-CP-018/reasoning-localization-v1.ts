@@ -326,6 +326,61 @@ function localizeCalendarStatement(text:string, language:DsfReasoningLocalizedLa
   return undefined;
 }
 
+function localizeInequalityStatement(text:string, language:DsfReasoningLocalizedLanguage):string|undefined {
+  let m:RegExpMatchArray|null;
+  const rel=(left:string,op:string,right:string)=>{
+    const phrase:Record<string,[string,string]>={
+      ">":["से बड़ा है","ਤੋਂ ਵੱਡਾ ਹੈ"], "<":["से छोटा है","ਤੋਂ ਛੋਟਾ ਹੈ"], "=":["के बराबर है","ਦੇ ਬਰਾਬਰ ਹੈ"],
+    };
+    const pair=phrase[op];
+    return pair ? t(language,`${left} ${pair[0]} ${right}।`,`${left} ${pair[1]} ${right}।`) : `${left} ${op} ${right}.`;
+  };
+  m=text.match(/^([ABCD])\s*([<>=])\s*([ABCD])\.$/u);
+  if(m) return rel(m[1]!,m[2]!,m[3]!);
+  m=text.match(/^([ABCD])\s*([<>=])\s*([ABCD]) and ([ABCD])\s*([<>=])\s*([ABCD])\.$/u);
+  if(m) return t(language,
+    `${rel(m[1]!,m[2]!,m[3]!).replace(/।$/u,"")} और ${rel(m[4]!,m[5]!,m[6]!)}`,
+    `${rel(m[1]!,m[2]!,m[3]!).replace(/।$/u,"")} ਅਤੇ ${rel(m[4]!,m[5]!,m[6]!)}`);
+  m=text.match(/^([ABCD]) is (not less than|less than) ([ABCD])\.$/i);
+  if(m) return m[2]!.toLowerCase()==="not less than"
+    ? t(language,`${m[1]} ${m[3]} से छोटा नहीं है।`,`${m[1]} ${m[3]} ਤੋਂ ਛੋਟਾ ਨਹੀਂ ਹੈ।`)
+    : t(language,`${m[1]} ${m[3]} से छोटा है।`,`${m[1]} ${m[3]} ਤੋਂ ਛੋਟਾ ਹੈ।`);
+  m=text.match(/^A and D are (equal|not equal)\.$/i);
+  if(m) return m[1]!.toLowerCase()==="equal"
+    ? t(language,"A और D बराबर हैं।","A ਅਤੇ D ਬਰਾਬਰ ਹਨ।")
+    : t(language,"A और D बराबर नहीं हैं।","A ਅਤੇ D ਬਰਾਬਰ ਨਹੀਂ ਹਨ।");
+  return undefined;
+}
+
+function localizeCodingStatement(text:string, language:DsfReasoningLocalizedLanguage):string|undefined {
+  let m:RegExpMatchArray|null;
+  m=text.match(/^([A-Za-z]) is coded as (\d)\.$/u);
+  if(m) return t(language,`${m[1]} का कोड ${m[2]} है।`,`${m[1]} ਦਾ ਕੋਡ ${m[2]} ਹੈ।`);
+  m=text.match(/^The digit code of ([A-Za-z]) is (\d)\.$/u);
+  if(m) return t(language,`${m[1]} का अंक-कोड ${m[2]} है।`,`${m[1]} ਦਾ ਅੰਕ-ਕੋਡ ${m[2]} ਹੈ।`);
+  m=text.match(/^Digit (\d) represents ([A-Za-z])\.$/u);
+  if(m) return t(language,`अंक ${m[1]}, ${m[2]} को दर्शाता है।`,`ਅੰਕ ${m[1]}, ${m[2]} ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।`);
+  m=text.match(/^The mapping contains ([A-Za-z]) → (\d)\.$/u);
+  if(m) return t(language,`कोड मैपिंग में ${m[1]} → ${m[2]} है।`,`ਕੋਡ ਮੈਪਿੰਗ ਵਿੱਚ ${m[1]} → ${m[2]} ਹੈ।`);
+  m=text.match(/^([A-Za-z]) and ([A-Za-z]) are coded as (\d) and (\d), respectively\.$/u);
+  if(m) return t(language,`${m[1]} और ${m[2]} के कोड क्रमशः ${m[3]} और ${m[4]} हैं।`,`${m[1]} ਅਤੇ ${m[2]} ਦੇ ਕੋਡ ਕ੍ਰਮਵਾਰ ${m[3]} ਅਤੇ ${m[4]} ਹਨ।`);
+  m=text.match(/^The mapping contains ([A-Za-z]-\d) and ([A-Za-z]-\d)\.$/u);
+  if(m) return t(language,`कोड मैपिंग में ${m[1]} और ${m[2]} हैं।`,`ਕੋਡ ਮੈਪਿੰਗ ਵਿੱਚ ${m[1]} ਅਤੇ ${m[2]} ਹਨ।`);
+  m=text.match(/^([A-Za-z]) → (\d), while ([A-Za-z]) → (\d)\.$/u);
+  if(m) return t(language,`${m[1]} → ${m[2]} और ${m[3]} → ${m[4]} है।`,`${m[1]} → ${m[2]} ਅਤੇ ${m[3]} → ${m[4]} ਹੈ।`);
+  m=text.match(/^The digit assignments for ([A-Za-z]) and ([A-Za-z]) are (\d) and (\d), respectively\.$/u);
+  if(m) return t(language,`${m[1]} और ${m[2]} को दिए गए अंक क्रमशः ${m[3]} और ${m[4]} हैं।`,`${m[1]} ਅਤੇ ${m[2]} ਨੂੰ ਦਿੱਤੇ ਅੰਕ ਕ੍ਰਮਵਾਰ ${m[3]} ਅਤੇ ${m[4]} ਹਨ।`);
+  m=text.match(/^([A-Za-z]), ([A-Za-z]), ([A-Za-z]) are coded as (\d), (\d), (\d), respectively\.$/u);
+  if(m) return t(language,`${m[1]}, ${m[2]} और ${m[3]} के कोड क्रमशः ${m[4]}, ${m[5]} और ${m[6]} हैं।`,`${m[1]}, ${m[2]} ਅਤੇ ${m[3]} ਦੇ ਕੋਡ ਕ੍ਰਮਵਾਰ ${m[4]}, ${m[5]} ਅਤੇ ${m[6]} ਹਨ।`);
+  m=text.match(/^The mapping contains ([A-Za-z]-\d), ([A-Za-z]-\d), ([A-Za-z]-\d)\.$/u);
+  if(m) return t(language,`कोड मैपिंग में ${m[1]}, ${m[2]} और ${m[3]} हैं।`,`ਕੋਡ ਮੈਪਿੰਗ ਵਿੱਚ ${m[1]}, ${m[2]} ਅਤੇ ${m[3]} ਹਨ।`);
+  m=text.match(/^([A-Za-z]) → (\d), ([A-Za-z]) → (\d), and ([A-Za-z]) → (\d)\.$/u);
+  if(m) return t(language,`${m[1]} → ${m[2]}, ${m[3]} → ${m[4]} और ${m[5]} → ${m[6]} है।`,`${m[1]} → ${m[2]}, ${m[3]} → ${m[4]} ਅਤੇ ${m[5]} → ${m[6]} ਹੈ।`);
+  m=text.match(/^The digit assignments for ([A-Za-z]), ([A-Za-z]), ([A-Za-z]) are (\d), (\d), (\d), respectively\.$/u);
+  if(m) return t(language,`${m[1]}, ${m[2]} और ${m[3]} को दिए गए अंक क्रमशः ${m[4]}, ${m[5]} और ${m[6]} हैं।`,`${m[1]}, ${m[2]} ਅਤੇ ${m[3]} ਨੂੰ ਦਿੱਤੇ ਅੰਕ ਕ੍ਰਮਵਾਰ ${m[4]}, ${m[5]} ਅਤੇ ${m[6]} ਹਨ।`);
+  return undefined;
+}
+
 function localizeStatement(laneId: string, text: string, language: DsfReasoningLocalizedLanguage): string {
   if (laneId.includes("RANKING")) {
     const rendered=localizeRankingStatement(text,language);
@@ -345,6 +400,14 @@ function localizeStatement(laneId: string, text: string, language: DsfReasoningL
   }
   if (laneId.includes("CALENDAR")) {
     const rendered=localizeCalendarStatement(text,language);
+    if(rendered) return rendered;
+  }
+  if (laneId.includes("INEQUALITY")) {
+    const rendered=localizeInequalityStatement(text,language);
+    if(rendered) return rendered;
+  }
+  if (laneId.includes("CODING")) {
+    const rendered=localizeCodingStatement(text,language);
     if(rendered) return rendered;
   }
   let s = replaceCommon(text, language);
