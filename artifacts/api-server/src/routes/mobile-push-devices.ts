@@ -1,0 +1,56 @@
+import { randomUUID } from "node:crypto";
+import { Router } from "express";
+
+import { sqlClient } from "../lib/db";
+import { authenticate } from "../middlewares/auth";
+
+const router=Router();
+const PLATFORMS=new Set(["android","ios","web"]);
+function text(value:unknown,max=2000){return typeof value==="string"?value.trim().slice(0,max):"";}
+
+async function canonicalUserId(firebaseUid:string){
+  const rows=await sqlClient`
+    SELECT u.id::text AS id
+    FROM identity.auth_identities ai
+    JOIN identity.users u ON u.id=ai.user_id
+    WHERE ai.provider='firebase' AND ai.provider_subject=${firebaseUid}
+      AND u.deleted_at IS NULL AND u.status='active'::user_status
+    LIMIT 1
+  `;
+  return rows[0]?.id?String(rows[0].id):null;
+}
+
+router.use(authenticate);
+
+router.post("/mobile/push-devices",async(req,res)=>{
+  try{
+    const firebaseUid=req.user?.id??"";
+    const userId=await canonicalUserId(firebaseUid);
+    if(!userId)return void res.status(409).json({error:"Complete your ExamTree student profile before enabling notifications.",code:"MOBILE_PUSH_PROFILE_REQUIRED"});
+    const token=text(req.body?.token,4096);
+    const platform=text(req.body?.platform,20);
+    if(token.length<20||!PLATFORMS.has(platform))return void res.status(400).json({error:"A valid push token and platform are required.",code:"MOBILE_PUSH_DEVICE_INVALID"});
+    const appVersion=text(req.body?.appVersion,80);
+    const locale=text(req.body?.locale,40);
+    const id=randomUUID();
+    await sqlClient`
+      INSERT INTO platform.mobile_push_devices (id,user_id,firebase_uid,token,platform,app_version,locale,is_active,last_seen_at,created_at,updated_at)
+      VALUES (${id}::uuid,${userId}::uuid,${firebaseUid},${token},${platform},${appVersion},${locale},true,now(),now(),now())
+      ON CONFLICT (token) DO UPDATE SET
+        user_id=EXCLUDED.user_id,firebase_uid=EXCLUDED.firebase_uid,platform=EXCLUDED.platform,
+        app_version=EXCLUDED.app_version,locale=EXCLUDED.locale,is_active=true,last_seen_at=now(),updated_at=now()
+    `;
+    res.status(201).json({registered:true});
+  }catch(error){console.error("Unable to register push device",error);res.status(500).json({error:"Unable to register push device",code:"MOBILE_PUSH_DEVICE_REGISTER_FAILED"});}
+});
+
+router.delete("/mobile/push-devices",async(req,res)=>{
+  try{
+    const firebaseUid=req.user?.id??"";const token=text(req.body?.token,4096);
+    if(!token)return void res.status(400).json({error:"Push token is required.",code:"MOBILE_PUSH_TOKEN_REQUIRED"});
+    await sqlClient`UPDATE platform.mobile_push_devices SET is_active=false,updated_at=now() WHERE firebase_uid=${firebaseUid} AND token=${token}`;
+    res.json({registered:false});
+  }catch(error){console.error("Unable to unregister push device",error);res.status(500).json({error:"Unable to unregister push device",code:"MOBILE_PUSH_DEVICE_UNREGISTER_FAILED"});}
+});
+
+export default router;
