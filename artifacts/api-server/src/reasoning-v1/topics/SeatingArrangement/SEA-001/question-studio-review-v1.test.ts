@@ -7,7 +7,7 @@ import {
 import {
   generateQuestion,
   listQuestionStudioPackages,
-} from "../../../question-studio/shared-generation-engine.ts";
+} from "../../../../question-studio/shared-generation-engine.ts";
 
 assert.equal(SEA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 9);
 assert.deepEqual(SEA_001_QUESTION_STUDIO_REVIEW_PACKAGE.supportedLanguages, ["en", "hi", "pa"]);
