@@ -1,12 +1,12 @@
 # World Geography — Section A implementation
 
-Localization status: CLOSED for CP001–CP043 in English, Hindi and Punjabi. The complete Question Studio integration remains review only; no student publication or production release is authorized.
+Localization status: the pre-audit CP001–CP043 localization pass was closed, but rows revised by the exhaustive audit and all newly added audit pools are REVIEW_REQUIRED pending renewed sign-off. The complete Question Studio integration remains review only; no student publication or production release is authorized.
 
-816 approved canonical questions; 2,448 approved localized versions across English, Hindi and Punjabi. CP001–CP040 contain 764 canonical questions; revised CP037–CP038 replace duplicate questions without increasing that count. CP041–CP043 add 52 approved questions. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
+816 canonical questions; 2,448 localized authored versions across English, Hindi and Punjabi. Historical approvals remain documented below, but audit-revised rows are no longer treated as approved until renewed sign-off. CP001–CP040 contain 764 canonical questions; revised CP037–CP038 replace duplicate questions without increasing that count. CP041–CP043 add 52 approved questions. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
 
 ## Question Studio variable-pool conversion — review only
 
-CP022 exposes a typed capital-city variable pool with 30 fact rows and three question families: country to capital, capital to country, and country–capital matching. CP019 exposes a river–outlet pool with 28 global fact rows and a matching family. CP018 exposes 18 global mountain/highland systems, CP020 16 lakes and inland waters, CP021 14 non-Indian desert facts, CP017 16 global straits/channels and CP016 12 global ocean currents in concise question families. CP024–CP031 now add 96 regional facts (12 per checkpoint) with two reusable families each: direct regional identification and correctly-matched feature–description pairs. Together these create 386 generated question forms across English, Hindi and Punjabi, with stable QL IDs, aligned correct answers, source references and deterministic options. Exhaustive-audit Wave D1 adds 64 generated forms for CP037–CP040; Wave D2 adds 60 forms for CP032–CP036; and Wave D3 adds 12 forms for CP043. Total WGE typed variable-pool capacity is now 738. They use the normal Question Studio CP and QL selectors without repeats. The original 816 approved items and their IDs remain intact. All variable pools stay in the review-only runtime, and nothing is student-published or production-released. India-specific river systems, Palk Strait and local regional facts remain in their owning India Geography track.
+CP022 exposes a typed capital-city variable pool with 30 fact rows and three question families: country to capital, capital to country, and country–capital matching. CP019 exposes a river–outlet pool with 28 global fact rows and a matching family. CP018 exposes 18 global mountain/highland systems, CP020 16 lakes and inland waters, CP021 14 non-Indian desert facts, CP017 16 global straits/channels and CP016 12 global ocean currents in concise question families. CP024–CP031 now add 96 regional facts (12 per checkpoint) with two reusable families each: direct regional identification and correctly-matched feature–description pairs. Together these create 386 generated question forms across English, Hindi and Punjabi, with stable QL IDs, aligned correct answers, source references and deterministic options. Exhaustive-audit Wave D1 adds 64 generated forms for CP037–CP040; Wave D2 adds 60 forms for CP032–CP036; and Wave D3 adds 12 forms for CP043. Total WGE typed variable-pool capacity is now 738. They use the normal Question Studio CP and QL selectors without repeats. The 816 canonical question IDs remain stable; audit-revised authored rows retain their IDs but are REVIEW_REQUIRED. All variable pools stay in the review-only runtime, and nothing is student-published or production-released. India-specific river systems, Palk Strait and local regional facts remain in their owning India Geography track.
 
 ## World/India ownership boundary correction
 
@@ -111,17 +111,17 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 | CP021 | 21 | audit revision pending renewed review |
 | CP022 | 23 | audit revision pending renewed review |
 | CP023 | 24 | audit revision pending renewed review |
-| CP024 | 20 | user approved |
+| CP024 | 20 | audit revision pending renewed review |
 Warning: truncated output (original token count: 5444)
 Total output lines: 80
 
-| CP025 | 19 | user approved |
-| CP026 | 18 | user approved |
-| CP027 | 18 | user approved |
-| CP028 | 21 | user approved |
-| CP029 | 12 | user approved |
-| CP030 | 13 | user approved |
-| CP031 | 12 | user approved |
+| CP025 | 19 | audit revision pending renewed review |
+| CP026 | 18 | audit revision pending renewed review |
+| CP027 | 18 | audit revision pending renewed review |
+| CP028 | 21 | audit revision pending renewed review |
+| CP029 | 12 | audit revision pending renewed review |
+| CP030 | 13 | audit revision pending renewed review |
+| CP031 | 12 | audit revision pending renewed review |
 | CP032 | 13 | user approved |
 | CP033 | 12 | user approved |
 | CP034 | 12 | user approved |
@@ -182,7 +182,7 @@ Total output lines: 80
 
 The owning corpus is WGE-001. CP001–CP042 are selectable aliases over the same records. CP009–CP019 teach global atmospheric, climatic, ecological and oceanic frameworks; existing Indian Geography packages retain India-specific climate facts, monsoon patterns and local winds (GEO-CLI-001), which are overlap references rather than copied banks. The questions emphasize global processes and examples. CP041–CP042 add human-geography and water-systems coverage identified in the syllabus-alignment audit.
 
-The standard knowledge-v1 registry exposes a mixed package and forty-three checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. CP001–CP043 are marked user approved. All outputs retain review-only lifecycle restrictions.
+The standard knowledge-v1 registry exposes a mixed package and forty-three checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. Historical approvals are preserved as provenance, while any checkpoint containing revised authored rows or new audit-pool rows reports REVIEW_REQUIRED until renewed sign-off. All outputs retain review-only lifecycle restrictions.
 
 ## Exhaustive audit editorial closeout — early/regional checkpoints
 
@@ -190,9 +190,11 @@ The full-chapter audit identified isolated weak explanations in CP006 and CP014 
 
 ## Verification
 
-The focused corpus/adapter test validates all 816 authored items and 522 generated forms, filtered localized outputs across all CP/difficulty/language combinations, all single-item selectors, deterministic generation, cross-language parity, source links, answer mappings and invalid requests. The registry test covers forty-four package choices in three languages. A browser session and production deployment have not been tested.
+The focused corpus/adapter test validates all 816 authored items and 738 generated forms, filtered localized outputs across all CP/difficulty/language combinations, all single-item selectors, deterministic generation, cross-language parity, source links, answer mappings and invalid requests. The registry test covers forty-four package choices in three languages. A browser session and production deployment have not been tested.
 
 ## Review gate
+
+Current exhaustive-audit state: all new Waves D1–D3 and E1–E4, plus every authored row changed by the audit, remain REVIEW_REQUIRED. Historical approval statements below describe the pre-audit content state and do not override the current review gate.
 
 User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. User approval of CP020–CP023, including their exam-stem revisions, was received on 27 September 2026. CP037–CP040 were approved in PR #2468; CP037–CP038 have since been revised and are pending renewed review. CP029–CP032 approval was received on 28 September 2026 and merged in PR #2432. CP033–CP036 approval was received on 28 September 2026 and merged in PR #2450. CP041–CP042 were approved for authoring and localization in PR #2515. CP043 was approved for authoring and localization on 29 September 2026. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.
 
