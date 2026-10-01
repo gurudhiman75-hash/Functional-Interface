@@ -70,6 +70,29 @@ for (const family of families) {
         "THREE_NESTED_PAIR_CROSSED_BY_THIRD", "THREE_TWO_DISJOINT_OVERLAP_THIRD",
         "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP",
       ]) assert.ok(keyedTopologies.has(topology), `missing keyed topology: ${topology}`);
+      const difficultyByTopology = new Map(
+        result.questions.map((item) => [
+          item.semanticMetadata.topologyId,
+          item.difficulty,
+        ]),
+      );
+      for (const topology of [
+        "THREE_NESTED",
+        "THREE_TWO_DISJOINT_SUBSETS",
+        "THREE_ONE_NESTED_PAIR_ONE_SEPARATE",
+        "THREE_ALL_DISJOINT",
+      ])
+        assert.equal(difficultyByTopology.get(topology), "Easy");
+      for (const topology of [
+        "THREE_PARTIAL_OVERLAP_INSIDE_SUPERSET",
+        "THREE_PAIRWISE_OVERLAP_WITH_TRIPLE",
+        "THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE",
+        "THREE_TWO_OVERLAP_ONE_SEPARATE",
+        "THREE_NESTED_PAIR_CROSSED_BY_THIRD",
+        "THREE_TWO_DISJOINT_OVERLAP_THIRD",
+        "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP",
+      ])
+        assert.equal(difficultyByTopology.get(topology), "Medium");
     }
   }
 }
