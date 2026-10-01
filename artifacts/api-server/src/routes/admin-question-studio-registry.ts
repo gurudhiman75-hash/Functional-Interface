@@ -56,11 +56,12 @@ const adminQuestionStudioRouter = lazyRouter(() => import("./admin-question-stud
  * Canonical Question Studio route registry.
  *
  * Specialized hardening/read-only and governed chapter routers run before the
- * generic engine and legacy catch-all surfaces. ARG-001 CP015 is the current
+ * generic engine and shared review/bulk catch-all surface. ARG-001 CP015 is the current
  * diversity-hardened internal authority; CP014/CP013/CP012/CP010/CP007 and the
  * base ARG router remain historical fallbacks. COM-003, SRI and the multi-engine
  * V1 route retain their current New-main ownership and ordering, followed by
- * chapter/workflow routers and compatibility fallbacks.
+ * chapter/workflow routers and compatibility fallbacks. The final shared router
+ * owns paged review and bulk disposition only; it no longer generates runs.
  */
 const router: IRouter = Router();
 
