@@ -124,6 +124,49 @@ const REGIONAL_QL_IDS: Readonly<Record<string, readonly [string, string]>> = {
   "WGE-001-CP030": ["WGE-001-CP030-QL-REGION-ID-V1", "WGE-001-CP030-QL-REGION-MATCH-V1"],
   "WGE-001-CP031": ["WGE-001-CP031-QL-REGION-ID-V1", "WGE-001-CP031-QL-REGION-MATCH-V1"],
 };
+const REGIONAL_MATCH_STEMS: Readonly<Record<string, LocalizedValue>> = {
+  'WGE-001-CP024': {
+    en: 'Which East, Southeast or Central Asian feature–description pair is correctly matched?',
+    hi: 'पूर्व, दक्षिण-पूर्व या मध्य एशिया की भौगोलिक विशेषता और विवरण का कौन-सा युग्म सही सुमेलित है?',
+    pa: 'ਪੂਰਬੀ, ਦੱਖਣ-ਪੂਰਬੀ ਜਾਂ ਮੱਧ ਏਸ਼ੀਆ ਦੀ ਭੂਗੋਲਿਕ ਵਿਸ਼ੇਸ਼ਤਾ ਅਤੇ ਵੇਰਵੇ ਦਾ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
+  },
+  'WGE-001-CP025': {
+    en: 'Which West Asian feature–description pair is correctly matched?',
+    hi: 'पश्चिम एशिया की भौगोलिक विशेषता और विवरण का कौन-सा युग्म सही सुमेलित है?',
+    pa: 'ਪੱਛਮੀ ਏਸ਼ੀਆ ਦੀ ਭੂਗੋਲਿਕ ਵਿਸ਼ੇਸ਼ਤਾ ਅਤੇ ਵੇਰਵੇ ਦਾ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
+  },
+  'WGE-001-CP026': {
+    en: 'Which European feature–description pair is correctly matched?',
+    hi: 'यूरोप की भौगोलिक विशेषता और विवरण का कौन-सा युग्म सही सुमेलित है?',
+    pa: 'ਯੂਰਪ ਦੀ ਭੂਗੋਲਿਕ ਵਿਸ਼ੇਸ਼ਤਾ ਅਤੇ ਵੇਰਵੇ ਦਾ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
+  },
+  'WGE-001-CP027': {
+    en: 'Which African feature–description pair is correctly matched?',
+    hi: 'अफ्रीका की भौगोलिक विशेषता और विवरण का कौन-सा युग्म सही सुमेलित है?',
+    pa: 'ਅਫ਼ਰੀਕਾ ਦੀ ਭੂਗੋਲਿਕ ਵਿਸ਼ੇਸ਼ਤਾ ਅਤੇ ਵੇਰਵੇ ਦਾ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
+  },
+  'WGE-001-CP028': {
+    en: 'Which North or Central American feature–description pair is correctly matched?',
+    hi: 'उत्तरी या मध्य अमेरिका की भौगोलिक विशेषता और विवरण का कौन-सा युग्म सही सुमेलित है?',
+    pa: 'ਉੱਤਰੀ ਜਾਂ ਮੱਧ ਅਮਰੀਕਾ ਦੀ ਭੂਗੋਲਿਕ ਵਿਸ਼ੇਸ਼ਤਾ ਅਤੇ ਵੇਰਵੇ ਦਾ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
+  },
+  'WGE-001-CP029': {
+    en: 'Which South American feature–description pair is correctly matched?',
+    hi: 'दक्षिण अमेरिका की भौगोलिक विशेषता और विवरण का कौन-सा युग्म सही सुमेलित है?',
+    pa: 'ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੀ ਭੂਗੋਲਿਕ ਵਿਸ਼ੇਸ਼ਤਾ ਅਤੇ ਵੇਰਵੇ ਦਾ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
+  },
+  'WGE-001-CP030': {
+    en: 'Which Australia–New Zealand–Pacific feature–description pair is correctly matched?',
+    hi: 'ऑस्ट्रेलिया–न्यूज़ीलैंड–प्रशांत क्षेत्र की भौगोलिक विशेषता और विवरण का कौन-सा युग्म सही सुमेलित है?',
+    pa: 'ਆਸਟ੍ਰੇਲੀਆ–ਨਿਊਜ਼ੀਲੈਂਡ–ਪ੍ਰਸ਼ਾਂਤ ਖੇਤਰ ਦੀ ਭੂਗੋਲਿਕ ਵਿਸ਼ੇਸ਼ਤਾ ਅਤੇ ਵੇਰਵੇ ਦਾ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
+  },
+  'WGE-001-CP031': {
+    en: 'Which polar-geography feature–description pair is correctly matched?',
+    hi: 'ध्रुवीय भूगोल की विशेषता और विवरण का कौन-सा युग्म सही सुमेलित है?',
+    pa: 'ਧਰੁਵੀ ਭੂਗੋਲ ਦੀ ਵਿਸ਼ੇਸ਼ਤਾ ਅਤੇ ਵੇਰਵੇ ਦਾ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
+  },
+};
+
 
 const bumpDifficulty = (difficulty: RegionalDifficulty): RegionalDifficulty =>
   difficulty === 'Easy' ? 'Medium' : 'Hard';
@@ -180,11 +223,7 @@ function makeMatchQuestion(target: RegionalFact): WorldGeographyQuestion {
   }));
   const { id, order, options } = shuffledOptions(target, pairValues, 'MATCH');
   const qlId = REGIONAL_QL_IDS[target.cpId]![1];
-  const stem = {
-    en: 'Which geographical feature–description pair is correctly matched?',
-    hi: 'भौगोलिक विशेषता और विवरण का कौन-सा युग्म सही सुमेलित है?',
-    pa: 'ਭੂਗੋਲਿਕ ਵਿਸ਼ੇਸ਼ਤਾ ਅਤੇ ਵੇਰਵੇ ਦਾ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
-  };
+  const stem = REGIONAL_MATCH_STEMS[target.cpId]!;
   return {
     id,
     cpId: target.cpId,
