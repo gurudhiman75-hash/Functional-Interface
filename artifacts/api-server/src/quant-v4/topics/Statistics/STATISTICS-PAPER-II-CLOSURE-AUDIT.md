@@ -2,7 +2,7 @@
 
 **Audit date:** 2026-10-01  
 **Target:** Quant V4 Statistics on `New-main`  
-**Overall status:** SSC CGL Paper-II Statistics syllabus coverage complete at the current controlled-review depth; chapter is ready for closure after the final repository-wide simulation gate records success.
+**Overall status:** CLOSED — SSC CGL Paper-II Statistics syllabus coverage is complete at the current controlled-review depth and all final validation gates have passed.
 
 ## Implemented foundation
 
@@ -38,7 +38,7 @@ The review-only lifecycle remains in force: Question Bank writes, test/mock elig
 
 - The chapter-wide learner-facing stem cleanup was merged in PR #2862 after 17 validation workflows passed, including all Statistics package checks, learner-surface remediation, shared exam-profile checks and the Quant real-exam simulation.
 - The final syllabus-gap implementation was merged in PR #2865. STAT-010 and STAT-014 focused package checks, shared exam-profile checks, learner-surface remediation and branch-topology checks passed before merge.
-- The final repository-wide Quant real-exam simulation triggered by PR #2865 was still running when this closure record was updated; it is the only remaining validation gate to record.
+- The final repository-wide Quant real-exam simulation triggered by PR #2865 completed successfully. All closure validation gates are now green.
 - Existing state solvers, answer keys, distractor contracts, lifecycle locks and Question Studio integration were preserved through the closure additions.
 
 ## Accepted scope limits
@@ -47,6 +47,6 @@ The following are intentionally outside the SSC Paper-II closure target and are 
 
 Question diversity and object-pool expansion remain a later enhancement pass, as previously approved; they are not treated as syllabus-coverage blockers.
 
-## Closure gate
+## Closure status
 
-The content and syllabus audit is complete. The chapter can be marked closed once the final PR #2865 Quant real-exam simulation records success. No further syllabus expansion is required for closure.
+**CLOSED.** The content audit, syllabus audit, focused Statistics package checks, shared exam-profile checks, learner-surface checks and final Quant real-exam simulation have all passed. No further syllabus expansion is required for closure. Question diversity/object-pool expansion remains a separate future enhancement pass and does not reopen the chapter.
