@@ -40,6 +40,11 @@ else
   echo "[render-build] verify Current Affairs schema"
   pnpm --dir artifacts/api-server exec node ensure-current-affairs.mjs
 
+  # Mobile Home Management persists presentation-only configuration that the
+  # Android app can consume without duplicating Question Studio or test data.
+  echo "[render-build] verify mobile home configuration schema"
+  pnpm --dir artifacts/api-server exec node ensure-mobile-home.mjs
+
   # Legacy Notes Studio retains its existing ordered migration authority.
   echo "[render-build] verify Notes Studio schema"
   pnpm --dir artifacts/api-server exec esbuild notes-studio-migrate.ts \

@@ -20,6 +20,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
 function fallbackTitle(pathname: string) {
+  if (pathname.startsWith('/mobile')) return 'Mobile app workspace';
   if (pathname.startsWith('/commerce')) return 'Commerce workspace';
   if (pathname.startsWith('/users')) return 'Users and support workspace';
   if (pathname.startsWith('/analytics')) return 'Analytics workspace';
@@ -41,6 +42,9 @@ function recommendedLiveWorkspace(pathname: string) {
   }
   if (pathname.startsWith('/content')) {
     return { label: 'Open Question Studio', path: '/content/questions/generate' };
+  }
+  if (pathname.startsWith('/mobile')) {
+    return { label: 'Open shared content', path: '/content/questions/generate' };
   }
   return { label: 'Open admin launchpad', path: '/dashboard' };
 }

@@ -18,6 +18,75 @@ export const NUMERICAL_CP_IDS = [
   "VEN-CP009",
   "VEN-CP010",
 ] as const;
+export type VenNumericalSourceSupport =
+  | "STRONG_LIBRARY_SUPPORT"
+  | "DIRECT_OPERATION_SUPPORT"
+  | "DERIVED_EXTENSION"
+  | "SOURCE_GAP_OPEN";
+
+export function venNumericalSourceSupport(cp: string, queryKey: string): {
+  status: VenNumericalSourceSupport;
+  note: string;
+} {
+  if (["VEN-CP005", "VEN-CP006", "VEN-CP009"].includes(cp)) {
+    return {
+      status: "STRONG_LIBRARY_SUPPORT",
+      note: "Core headcount and populated-Venn counting operations are repeatedly represented in the Examtree reasoning source Library.",
+    };
+  }
+  if (cp === "VEN-CP007") {
+    if (["percentage-count", "percentage-three-count"].includes(queryKey)) {
+      return {
+        status: "STRONG_LIBRARY_SUPPORT",
+        note: "Percentage-based two-set and three-set Venn operations are directly represented in the Examtree Library.",
+      };
+    }
+    if (["percentage-total", "percentage-three-total"].includes(queryKey)) {
+      return {
+        status: "DIRECT_OPERATION_SUPPORT",
+        note: "The governing percentage/inclusion-exclusion operation is source-backed; recovering the total is the algebraic inverse of the observed task.",
+      };
+    }
+    return {
+      status: "DERIVED_EXTENSION",
+      note: "Ratio-form Venn questions are currently a controlled generator extension; dedicated exam-pattern evidence was not located in the Library pass.",
+    };
+  }
+  if (cp === "VEN-CP008") {
+    if (queryKey === "missing-pair") {
+      return {
+        status: "STRONG_LIBRARY_SUPPORT",
+        note: "Recovering a missing two-set intersection from totals/union is directly represented in the Examtree Library.",
+      };
+    }
+    if (queryKey === "missing-triple") {
+      return {
+        status: "DIRECT_OPERATION_SUPPORT",
+        note: "Three-set inclusion-exclusion is source-backed, but the exact explicit-x centre formulation is less directly evidenced.",
+      };
+    }
+    return {
+      status: "DERIVED_EXTENSION",
+      note: "The solve-for-total/region-equation form is a controlled inverse/constraint extension of source-backed inclusion-exclusion operations.",
+    };
+  }
+  if (cp === "VEN-CP010") {
+    if (queryKey === "minimum-intersection-2") {
+      return {
+        status: "STRONG_LIBRARY_SUPPORT",
+        note: "Two-set minimum-overlap reasoning is directly evidenced by an RRB NTPC 28 March 2016 Shift 1 previous-paper question asking the minimum number who speak both Tamil and Telugu.",
+      };
+    }
+    return {
+      status: "SOURCE_GAP_OPEN",
+      note: "No comparable SSC/Banking/Punjab-state source evidence has yet been established for this exact min/max bound variant; keep review-only pending source evidence.",
+    };
+  }
+  return {
+    status: "DIRECT_OPERATION_SUPPORT",
+    note: "Source support is inherited from the chapter-level numerical Venn evidence set.",
+  };
+}
 // Each context supplies full grammatical activity phrases and localized object names.
 export const NUMERICAL_CONTEXTS = [
   {
@@ -528,25 +597,25 @@ function explanationRegion(c: Context, mask: number, l: L) {
   const names = c.names[l].split("|");
   if (!members.length)
     return tx(
-      "none of the activities",
+      "None of the activities",
       "इनमें से कोई गतिविधि नहीं",
       "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਵੀ ਗਤੀਵਿਧੀ ਨਹੀਂ",
     )[l];
   if (members.length === 1)
     return tx(
-      `only ${names[members[0]]}`,
+      `Only ${names[members[0]]}`,
       `केवल ${names[members[0]]}`,
       `ਸਿਰਫ਼ ${names[members[0]]}`,
     )[l];
   if (members.length === 3)
-    return tx(`all three activities`, `तीनों गतिविधियाँ`, `ਤਿੰਨੇ ਕੰਮ`)[l];
+    return tx(`All three activities`, `तीनों गतिविधियाँ`, `ਤਿੰਨੇ ਕੰਮ`)[l];
   const selected = join(
     members.map((i) => names[i]),
     l,
   );
   const excluded = names.find((_, i) => !members.includes(i)) ?? names[2];
   return tx(
-    `only ${selected} (not ${excluded})`,
+    `Only ${selected} (not ${excluded})`,
     `केवल ${selected} (${excluded} वाले समूह को छोड़कर)`,
     `ਸਿਰਫ਼ ${selected} (${excluded} ਵਾਲੇ ਸਮੂਹ ਤੋਂ ਬਿਨਾਂ)`,
   )[l];
@@ -721,7 +790,7 @@ export function buildNumericalItem(
           explanation += ` ${tx(`Count everyone doing ${names[0]} or ${names[1]} once; subtract the overlap because it was counted twice:`, `${names[0]} या ${names[1]} करने वाले हर व्यक्ति को एक बार गिनें; साझा लोगों को दो बार गिने जाने के कारण एक बार घटाएँ:`, `${names[0]} ਜਾਂ ${names[1]} ਕਰਨ ਵਾਲੇ ਹਰ ਵਿਅਕਤੀ ਨੂੰ ਇੱਕ ਵਾਰ ਗਿਣੋ; ਸਾਂਝੇ ਲੋਕ ਦੋ ਵਾਰ ਗਿਣੇ ਗਏ ਹਨ, ਇਸ ਲਈ ਇੱਕ ਵਾਰ ਘਟਾਓ:`)[l]} ${a} + ${b} − ${both} = ${answer}.`;
         if (q === "onlyA" || q === "onlyB")
           explanation += ` ${requestedRegions(c, r, q, l)}`;
-        if (q === "neither")
+        if (q === "none")
           explanation = `${tx(`First count the people doing ${names[0]} or ${names[1]}:`, `पहले ${names[0]} या ${names[1]} करने वालों की संख्या निकालें:`, `ਪਹਿਲਾਂ ${names[0]} ਜਾਂ ${names[1]} ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Subtract this from the surveyed total to find those doing neither:", "कोई भी गतिविधि न करने वालों की संख्या के लिए इसे सर्वेक्षण की कुल संख्या में से घटाएँ:", "ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਲਈ ਇਸ ਨੂੰ ਸਰਵੇਖਣ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:")[l]} ${sum(r)} − ${union} = ${answer}.`;
       }
     } else {
@@ -1262,6 +1331,8 @@ export function generateVen001NumericalBatch(
         sets: item.sets,
         exclusiveRegions: item.regions,
         formulaLatex: item.formula,
+        sourceSupport: venNumericalSourceSupport(cp, item.queryKey).status,
+        sourceSupportNote: venNumericalSourceSupport(cp, item.queryKey).note,
       },
       validation: {
         exactlyOneCorrect: true,

@@ -1,6 +1,6 @@
 # VEN-001 — Logical Venn Diagrams: End-to-End Design
 
-Status: **chapter content signed off by product owner on 2026-09-30; no permanent QLs or learner authority assigned yet**
+Status: **11 live review-only checkpoints; 10 permanent QLs allocated and wired; final localization/source closure still pending**
 
 Product code: `REAS-VEN`  
 Chapter ID: `VEN-001`  
@@ -9,166 +9,186 @@ Primary locales: English (`en-IN`), Hindi (`hi-IN`), Punjabi (`pa-IN`)
 
 ## 1. Chapter purpose
 
-Logical Venn Diagrams tests whether a learner can represent relationships among named groups and identify the diagram that matches those relationships. The chapter uses set regions as the question and answer representation.
+VEN-001 covers direct Venn relationship recognition, category-to-diagram mapping, region identification, numerical set questions, overlap bounds, and geometric-region counting.
 
-It is a standalone product chapter because learners encounter diagram-selection and group-classification questions as their own exam pattern. The chapter may reuse audited SVG primitives and relation-topology utilities from Syllogism, but it must have its own question authorities, Question Logics, distractors, solver contract, review packs and lifecycle.
+The chapter is distinct from Syllogism. Syllogism evaluates logical conclusions from quantified premises; VEN-001 asks the learner to represent, read, or calculate from an explicit set structure.
 
-## 2. Boundary with Syllogism
+## 2. Live checkpoint surface
 
-Syllogism asks what conclusions necessarily follow, or can be true, from quantified premises. Its solver evaluates proposition truth across admissible models.
+| Checkpoint | Learner operation | Permanent QL |
+|---|---|---|
+| VEN-CP001 | two-set relation → diagram | VEN-QL-001 |
+| VEN-CP002 | three-set relation → diagram | VEN-QL-001 |
+| VEN-CP003 | categories → diagram | VEN-QL-002 |
+| VEN-CP003 reverse | diagram → categories | VEN-QL-003 |
+| VEN-CP004 | numbered region identification | VEN-QL-004 |
+| VEN-CP005 | two-set numerical set/region count | VEN-QL-005 |
+| VEN-CP006 | three-set numerical set/region count | VEN-QL-005 |
+| VEN-CP007 | percentage / ratio | VEN-QL-006 |
+| VEN-CP008 | solve unknown | VEN-QL-007 |
+| VEN-CP009 | shared caselet count | VEN-QL-008 |
+| VEN-CP010 | overlap bounds | VEN-QL-009 |
+| VEN-CP011 | geometric region count | VEN-QL-010 |
 
-VEN-001 asks which labeled set diagram represents a stated group relationship or a curated relationship among category names. Its solver compares the exact set topology encoded by the question with each diagram option. It does not ask whether a conclusion follows from a premise set.
+There are eleven implementation checkpoints but ten learner-contract QLs. CP001+CP002 and CP005+CP006 are intentionally compressed because set count and relation-to-diagram remain the same semantic operation across two-set and three-set variants.
 
-| VEN-001 owns | Syllogism owns |
-|---|---|
-| Mapping group relations to labeled circles | Necessary or possible conclusion evaluation |
-| Selecting the matching two-set or three-set topology | Truth classification from quantified premises |
-| Identifying which labeled region represents a described group | Existential import and possibility diagrams |
-| Applying reviewed category-membership facts | Formal inference over premise sets |
+`VEN-QL-011` is the next unallocated permanent QL ID.
 
-A Venn-shaped illustration inside a Syllogism solution does not count as a VEN-001 question or implementation.
+## 3. Permanent QL authority
 
-## 3. Candidate checkpoint structure
+Authority: `VEN_001_PERMANENT_QL_REGISTRY_V1`.
 
-Checkpoint and QL IDs below are **provisional**. The product owner signed off on the chapter on 2026-09-30; permanent QL IDs now need to be registered against the approved checkpoint and topology map.
+Every live generation path emits both `qlId` and `permanentQlId`. The registry is tested separately from the generators so checkpoint growth cannot silently create an unmapped learner operation.
 
-### CP001 — Two-group relationships
+## 4. Source and authority model
 
-Represent and distinguish:
+VEN-CP003 uses curated, versioned category authorities. The current live authority library contains 34 signed-off trilingual category records across animal classification, geometry, number classification, general classification, astronomy, food, and language domains.
 
-- one group fully contained in another;
-- two mutually exclusive groups;
-- two groups with a partial overlap;
-- two equivalent groups, only where the exam source and wording make equivalence explicit.
+Source-pattern evidence and scenario-authority correctness are deliberately separate:
 
-The learner task is to select the matching labeled diagram or identify the region described by the stem. Distractors target reversed containment, false separation, missing overlap, and an unjustified equality.
+- attributed previous-paper reproductions establish that three-class category→diagram and diagram→category operations occur in SSC-family exams;
+- curated canonical facts may broaden safe category coverage where the set relationship is stable;
+- context-dependent or disputed classifications are excluded;
+- the supplemental source census has **not** independently confirmed standalone two-class category→diagram as a recurring exam pattern.
 
-### CP002 — Three-group relationships
+Therefore VEN-CP001 remains a supported structural/basic-practice layer. Its presence must not be described as separately source-proven exam frequency.
 
-Cover source-supported topologies, including:
+## 5. Relation-to-diagram breadth
 
-- three nested groups;
-- two separate subgroups within one larger group;
-- one contained group and a third group that partially overlaps the larger group;
-- pairwise overlaps with and without a shared three-way region;
-- one group separate from the other two, where supported.
+Current review pools after Wave 05:
 
-The topology census must state which patterns are frequent, which are rare, and which are excluded. Do not create a pattern solely to fill a matrix.
+- VEN-CP001: 20 fixed scenarios
+  - 8 containment
+  - 5 disjoint
+  - 7 partial overlap
+- VEN-CP002: 33 fixed scenarios across all 11 supported three-set topologies
+  - every topology has at least two reviewed scenarios
+- VEN-CP004: 21 distinct numbered-region candidates
 
-### CP003 — Category-set classification
+The generator refuses counts above the distinct fixed candidate pool rather than silently duplicating a candidate.
 
-Given two or three category labels, select the diagram that represents their accepted real-world relationship. Use curated, versioned category authorities with evidence and locale-specific wording where needed.
+## 6. Numerical breadth
 
-Authority records must distinguish facts that are always true from facts that are merely common, typical, or context-dependent. A question may not depend on disputed taxonomy, stereotypes, or an unstated interpretation of a word.
+VEN-CP005–CP010 use a 20-context scenario library with deterministic seeded numeric variation.
 
-### CP004 — Region and membership identification
+The numerical surface includes:
 
-Given a labeled diagram and a category/member description, identify the correct region or diagram. Use explicit membership facts so the keyed region follows from the stem. This checkpoint is retained only if source review confirms a distinct, recurring exam operation; otherwise it is folded into CP001–CP003.
+- 7 two-set query forms;
+- 17 three-set region/query forms;
+- percentage and ratio questions;
+- unknown-value solving;
+- five-question shared caselets;
+- mathematically verified overlap minima/maxima and union/intersection bounds.
 
-## 4. Source and scenario authority
+The numerical solver stores exclusive region counts and derives the displayed totals from those regions. Tests independently reconstruct membership and validate the keyed answer.
 
-Remaining implementation work before permanent QL registration:
+## 7. Geometric region breadth
 
-1. Census SSC, Banking and Punjab-state exam patterns for two-group and three-group diagram questions.
-2. Record source, exam, year/session where available, stem operation, number of sets, topology, answer format and locale.
-3. Separate verified exam patterns from practice-book patterns and ExamTree extensions.
-4. Build a reviewed category library. Each record stores the category labels, locale text, asserted set relations, evidence/source, caveats, approval status and version.
-5. Reject authorities whose relation changes with context unless the stem explicitly fixes that context.
+VEN-CP011 currently uses:
 
-Question scenarios should use varied, ordinary category domains. Names and labels must remain exam-natural in English, Hindi and Punjabi; translations preserve the same set relationship and answer.
+- 20 activity/scenario contexts;
+- 9 geometric layout families;
+- circle, ellipse, rectangle, square, triangle, right triangle, diamond, trapezoid and pentagon primitives;
+- 10 query keys spanning single-region, pair-only, all-three, exactly-one, at-least-two and at-least-one operations.
 
-## 5. Question and diagram contract
+The learner stem and explanation name the actual activities. Ordinal wording such as “first/second/third activity” is not permitted in learner-facing text.
 
-A generated item carries structured fields for:
+## 8. Solver and rendering contract
 
-- chapter, checkpoint and permanent QL (once approved);
-- locale, source-authority ID and authority version;
-- labeled sets and their relation signature;
-- learner stem and four answer choices;
-- correct option and question-specific explanation;
-- difficulty evidence;
-- SVG/HTML diagram data and accessible text alternative;
-- validation results and lifecycle state.
+Every item carries structured semantic metadata sufficient to validate its answer independently of surface wording.
 
-Diagrams must be readable at mobile widths. Circle labels remain attached to the correct sets, overlaps are geometrically visible, and answer choices have equivalent scale and visual treatment. Color must not carry meaning by itself. The accessible alternative describes the set relationships without revealing the answer.
+For topology questions:
 
-## 6. Independent topology solver
+1. derive the intended set signature;
+2. derive each option signature;
+3. require exactly one semantic match;
+4. reject duplicate-equivalent options;
+5. render from the same typed topology/order data used by validation.
 
-Represent a two- or three-set diagram as the set of occupied membership atoms (bit masks), plus explicit subset, exclusion, overlap and equality relations.
+For numerical questions:
 
-For every item, the independent solver must:
+1. generate a feasible exclusive-region state;
+2. derive membership totals and overlap totals from that state;
+3. solve the requested operation;
+4. generate distractors from nearby valid-looking values;
+5. verify the answer independently in property tests.
 
-1. derive the target relation signature from the structured authority or explicit stem facts;
-2. derive each option's signature from its labeled regions;
-3. compare signatures without relying on circle position or rendering;
-4. confirm exactly one option matches;
-5. reject duplicate-equivalent options, contradictory labels, impossible membership facts, and stems that do not determine one answer.
+For geometric-region questions, numeric labels are placed in actual geometric membership regions and tested against the shape-membership mask.
 
-The renderer and solver must consume the same typed set labels but separate logic paths. Tests compare the rendered labels and geometry to the structured signature.
+## 9. Distractor rules
 
-## 7. Distractor rules
+Distractors must correspond to plausible reasoning errors, not visual tricks.
 
-Distractors must correspond to plausible exam mistakes:
+Typical topology errors include:
 
-- reverse the direction of containment;
-- treat partial overlap as complete containment;
-- treat overlap as separation;
-- assume a three-way intersection from pairwise overlaps;
-- assume pairwise disjointness from the lack of a common intersection;
-- confuse the outer set with a subset;
-- place a member in an adjacent but incorrect region.
+- reversed containment;
+- overlap treated as disjoint;
+- partial overlap treated as containment;
+- false three-way intersection;
+- missing three-way intersection;
+- wrong nested group;
+- incorrect excluded region.
 
-Distractors may not depend on a visually misleading diagram or tiny circle differences. Each distractor carries a machine-readable error tag for reviewer inspection.
+Numerical distractors may use nearby arithmetic results, but exactly one option must equal the independently solved value.
 
-## 8. Difficulty
+## 10. Difficulty
 
-Difficulty comes from the relationship structure and information load:
+Difficulty is structure-based, not driven by obscure labels.
 
-- two vs three labeled groups;
-- direct vs mixed containment and overlap;
-- multiple plausible near-miss topologies;
-- number of explicit membership facts;
-- diagram-reading and region-selection steps.
+Current rules include:
 
-Larger or more obscure category names alone do not make a question harder. Difficulty is assigned from generated-instance features, then checked against review samples in all supported locales.
+- VEN-CP001 direct two-set relations: Easy;
+- VEN-CP002 straightforward nested/disjoint structures: Easy;
+- VEN-CP002 mixed overlap/crossed structures: Medium;
+- VEN-CP003 uses authority/structure features;
+- numerical checkpoints span Easy/Medium/Hard according to operation and number of derivation steps;
+- VEN-CP011 single/all-three region reads: Easy; exclusion/union/exactly-one combinations: Medium.
 
-## 9. Localization
+No artificial Hard label is added merely to populate a difficulty tier.
 
-The set logic is language-neutral; category authorities and learner wording may be language-adapted. Hindi and Punjabi must use natural, exam-standard terminology rather than literal translations.
+## 11. Localization
 
-For every localized item, verify:
+Set logic is language-neutral; stems and explanations are localized.
 
-- identical set signature and keyed option;
-- same number and order of labels;
-- no translation that changes inclusion, exclusion or overlap;
-- readable script and label fit at mobile sizes;
-- a simple explanation that names the relevant groups and region.
+Required guarantees:
 
-## 10. Proof and review gates
+- identical semantic state and keyed answer across EN/HI/PA;
+- actual activity/category names instead of ordinal placeholders;
+- natural exam-standard Hindi and Punjabi;
+- simple question-specific explanations;
+- no translation that changes inclusion, exclusion, overlap, or numerical meaning.
 
-Before a chapter freeze:
+CP001, CP002, CP003 and CP004 are already marked signed-off for trilingual review in runtime metadata. CP005–CP011 remain review candidates where `localeParityPendingHumanReview` is still true and must not be silently promoted.
 
-- topology catalog has source-pattern coverage and explicit exclusions;
-- every QL has deterministic generation and an independent topology solver;
-- all options are unique and exactly one is correct;
-- property tests cover every registered topology and its targeted mutations;
-- category authorities are source-backed and human-reviewed;
-- EN/HI/PA answer and relation parity passes;
-- SVG geometry, text fit, accessibility and mobile rendering pass;
-- review packs show full questions, options, diagrams, answers and explanations;
-- a separate product-owner approval records the content freeze.
+## 12. Review and release gates
 
-Current release state: **review-only**. Chapter content and all four checkpoints are signed off. Question Bank persistence, tests, mocks, public learner delivery and automatic publication remain disabled until the permanent-QL release implementation is complete.
+Before final chapter closure:
 
-## 11. Question Studio integration
+- all registered QLs must remain wired to every live generator path;
+- all topology/solver/property tests must pass;
+- fixed pools must meet breadth minimums;
+- review artifacts must match current generator output;
+- source claims must stay within documented evidence;
+- pending EN/HI/PA review flags for CP005–CP011 must be resolved by actual review;
+- lifecycle must remain review-only until an explicit learner-release decision is made.
 
-After the source census, executable prototype and proofs pass, register VEN-001 as its own Family C package in normal Question Studio. Expose checkpoint, QL, language, difficulty and deterministic seed filters. Persist authenticated review runs through the shared run workflow while keeping canonical learner persistence disabled until release approval.
+Current lifecycle:
 
-## 12. First implementation sequence
+- review-only: true
+- Question Bank writable: false
+- test eligible: false
+- mock-test eligible: false
+- publicly publishable: false
+- automatic student publication: false
 
-1. Complete the source-pattern census and confirm CP001–CP004 scope.
-2. Register permanent QLs and topology signatures against the approved checkpoint map.
-3. Implement typed authorities, solver, distractor generator and SVG renderer.
-4. Add topology and ambiguity proofs, then create a representative trilingual review pack.
-5. Integrate the proved package into normal Question Studio.
-6. Editorial signoff is complete; finish permanent-QL registration and technical release gates before production use.
+## 13. Question Studio integration
+
+VEN-001 is wired into normal Question Studio with checkpoint/QL/language/difficulty/seed selection and deterministic review generation.
+
+Question Studio integration does **not** authorize learner publication. Canonical learner persistence and production release remain disabled until the chapter passes the remaining review gates.
+
+## 14. Closure state
+
+The old four-checkpoint provisional design is retired. The live architecture is the authority.
+
+Wave 05 closes the stale-documentation gap, expands the thin direct-relation pools, and fixes the CP005 `none` explanation path. Final deep-audit closure is still blocked by the pending human localization review on CP005–CP011. The numerical review V2 artifacts were refreshed after the Wave 05 generator change.

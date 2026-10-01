@@ -2,6 +2,7 @@
 import "dotenv/config";
 import app from "./app";
 import { startGenerationJobWorker } from "./lib/generation-jobs";
+import { startMobileNotificationWorker } from "./lib/mobile-notification-delivery";
 import { logger } from "./lib/logger";
 import { validateAIProviderStartup } from "./lib/ai-providers";
 
@@ -22,6 +23,7 @@ if (Number.isNaN(port) || port <= 0) {
 validateAIProviderStartup();
 
 startGenerationJobWorker();
+startMobileNotificationWorker();
 
 app.listen(port, "0.0.0.0", () => {
   logger.info(`API server running on http://0.0.0.0:${port}`);

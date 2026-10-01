@@ -2,7 +2,7 @@ import {
   Activity, AlertTriangle, BarChart3, Bell, BookOpen, Box, CalendarClock, ClipboardCheck, ClipboardList, FileJson, FileQuestion,
   FileText, HeartPulse, Image as ImageIcon, KeyRound, Languages, LayoutDashboard,
   Layers, LifeBuoy, ListChecks, Lock, Network, Palette, Plug, ScrollText, Settings,
-  ShieldCheck, ShoppingCart, Sparkles, Target, Ticket, TrendingUp, Users,
+  ShieldCheck, ShoppingCart, Sparkles, Target, Ticket, TrendingUp, Users, Smartphone, Megaphone, Home,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -43,6 +43,14 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Exam Blueprints', path: '/tests/blueprints', icon: CalendarClock, status: 'live', permission: 'tests.read', summary: 'Define immutable exam structures, preview Question Bank shortages and assemble deterministic test drafts.' },
     { label: 'Publishing Calendar', path: '/tests/calendar', icon: CalendarClock, status: 'live', permission: 'tests.read', summary: 'Plan releases, inspect missed schedules, drag QA-approved tests onto dates, publish immediately, postpone or unschedule.' },
   ] },
+  { id: 'mobile-app', label: 'Mobile App', items: [
+    { label: 'Home Management', path: '/mobile/home', icon: Home, status: 'live', permission: 'content.taxonomy.read', summary: 'Control mobile homepage hero slides, featured exam categories, featured test series and app-only section ordering without duplicating shared content.', milestone: 'Canonical mobile presentation schema, image assets, ordering, scheduling and deep-link validation.' },
+    { label: 'Promotions & Ads', path: '/mobile/promotions', icon: Megaphone, status: 'live', permission: 'content.taxonomy.read', summary: 'Manage mobile promotional placements and campaign cards independently from shared exam, test and learning content.', milestone: 'Placement inventory, internal/external destinations, scheduling, frequency controls and audience rules.' },
+    { label: 'Notifications', path: '/mobile/notifications', icon: Bell, status: 'live', permission: 'content.taxonomy.read', summary: 'Compose, schedule and target learner-facing mobile push notifications with audited deep links and delivery history.', milestone: 'Push provider integration, templates, audience targeting, scheduling, delivery receipts and engagement tracking.' },
+    { label: 'Content Planning', path: '/mobile/content-planning', icon: CalendarClock, status: 'planned', summary: 'Plan which shared exams, test series, learning resources and current-affairs content are surfaced in the mobile experience.', milestone: 'Shared-content references, feature windows, language targeting, labels and ordered placements — no duplicate content store.' },
+    { label: 'App Configuration', path: '/mobile/configuration', icon: Smartphone, status: 'planned', summary: 'Manage mobile-only runtime settings such as minimum version, maintenance mode, update policy, support links and feature flags.', milestone: 'Typed remote configuration, environment safety, version gates, audit history and rollback.' },
+    { label: 'Mobile Analytics', path: '/mobile/analytics', icon: BarChart3, status: 'planned', summary: 'Inspect mobile presentation, notification and campaign engagement while core test and question analytics remain shared.', milestone: 'Event taxonomy, privacy-safe aggregation, campaign attribution and mobile release diagnostics.' },
+  ] },
   { id: 'commerce', label: 'Commerce', items: [
     { label: 'Packages', path: '/commerce/packages', icon: Box, status: 'live', permission: 'commerce.products.read', summary: 'Canonical package inventory with immutable versions, minor-unit pricing, ordered test membership and audited lifecycle controls.' },
     { label: 'Orders & Payments', path: '/commerce/orders', icon: ShoppingCart, status: 'live', permission: 'commerce.orders.read', summary: 'Canonical order ledger, frozen pricing snapshots, signature-verified provider events, captured-payment reconciliation, verified refunds and entitlement evidence.' },
@@ -57,7 +65,6 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Account Recovery', path: '/users/recovery', icon: LifeBuoy, status: 'live', permission: 'users.students.read', summary: 'Review self-service account recovery requests and begin verified identity recovery without creating duplicate students.' },
     { label: 'Admin Team', path: '/users/team', icon: ShieldCheck, status: 'live', permission: 'users.admins.read', summary: 'Authorize administrators, manage profiles, role grants, suspension and session revocation through canonical identity records.' },
     { label: 'Support Requests', path: '/users/support', icon: LifeBuoy, status: 'planned', summary: 'Triage student support tickets with assignment, status and resolution history.', milestone: 'Support ticket ingestion and workflow APIs.' },
-    { label: 'Notifications', path: '/users/notifications', icon: Bell, status: 'planned', summary: 'Compose and target operational, product and exam notifications.', milestone: 'Template, audience, delivery and engagement tracking.' },
   ] },
   { id: 'analytics', label: 'Analytics', items: [
     { label: 'Business Analytics', path: '/analytics/business', icon: TrendingUp, status: 'live', permission: 'commerce.orders.read', summary: 'Canonical gross and net revenue, conversion, package, coupon, refund and entitlement metrics with equal-window comparison, CSV export and data-quality checks.' },
