@@ -18,6 +18,7 @@ import {
   type MalCp004PermanentQlId,
 } from "./foundation/cp004-permanent-runtime";
 import { compareRational, equalsRational, rational } from "./foundation/rational";
+import { applyMal001DualMethodExplanationV2 } from "./foundation/chapter-compact-explanation-v1";
 import { runMal001QuestionStudioPipeline } from "./question-studio-adapter";
 
 function assert(value: unknown, message: string): asserts value {
@@ -161,10 +162,13 @@ for (const allocation of MAL_CP004_PERMANENT_ALLOCATION) {
       seed,
       language: "en",
     }) as MalCp004ProductReviewQuestion;
+    const expectedStudio = applyMal001DualMethodExplanationV2(
+      first,
+    ) as MalCp004ProductReviewQuestion;
     assert(
       malCp004ProductReviewV7Stable(studio) ===
-        malCp004ProductReviewV7Stable(first),
-      `${allocation.qlId}/${seed}: Question Studio parity failed.`,
+        malCp004ProductReviewV7Stable(expectedStudio),
+      `${allocation.qlId}/${seed}: Question Studio parity failed after the chapter explanation overlay.`,
     );
     studioParity += 1;
 
