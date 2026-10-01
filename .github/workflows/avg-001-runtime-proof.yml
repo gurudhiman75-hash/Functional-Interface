@@ -9,6 +9,11 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
       - artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts
+      - artifacts/api-server/src/question-studio/quant-average-unified.test.ts
+      - artifacts/api-server/src/question-studio/quant-exam-profile.ts
+      - artifacts/api-server/src/question-studio/engine-types.ts
+      - artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts
+      - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
       - artifacts/api-server/src/routes/admin-question-studio-average.ts
       - artifacts/api-server/src/routes/index.ts
       - .github/workflows/avg-001-runtime-proof.yml
@@ -59,6 +64,7 @@ jobs:
           run_case avg-001-distractor-realism src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-distractor-realism-audit.ts
           run_case avg-001-explanation-depth src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-explanation-depth-audit.ts
           run_case avg-001-question-studio src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-question-studio-integration-audit.ts
+          run_case avg-001-unified-engine src/question-studio/quant-average-unified.test.ts
           run_case avg-001-cp001-coverage src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp001-coverage-audit.ts
           run_case avg-001-cp002-coverage src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-coverage-audit.ts
           run_case avg-001-cp002-ap-validity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-ap-validity-audit.ts
