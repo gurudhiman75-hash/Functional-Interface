@@ -425,7 +425,7 @@
   {
     "id": "WGE-001-CP023-Q011",
     "cpId": "WGE-001-CP023",
-    "objective": "nepal-landlocked-himalaya",
+    "objective": "nepal-kathmandu-himalaya",
     "difficulty": "Medium",
     "sourceIds": [
       "WGE-PHY-023A",
@@ -434,41 +434,42 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which country is landlocked between India and China and contains part of the Himalaya?",
+        "stem": "Which South Asian country contains the Kathmandu Valley and rises northward into the Himalaya?",
         "options": [
           "SriLanka",
           "Maldives",
           "Nepal",
           "Bangladesh"
         ],
-        "explanation": "Nepal is a landlocked Himalayan country bordered by India and China."
+        "explanation": "Nepal contains the Kathmandu Valley in its central hill region and extends northward into the high Himalaya. Its relief rises sharply from lowland plains to some of the world’s highest mountains."
       },
       "hi": {
-        "stem": "कौन-सा देश भारत और चीन के बीच स्थलरुद्ध है और हिमालय का भाग इसमें है?",
+        "stem": "कौन-सा दक्षिण एशियाई देश काठमांडू घाटी को समेटे हुए है और उत्तर की ओर हिमालय तक ऊँचा होता जाता है?",
         "options": [
           "श्रीलंका",
           "मालदीव",
           "नेपाल",
           "बांग्लादेश"
         ],
-        "explanation": "नेपाल भारत और चीन से घिरा स्थलरुद्ध हिमालयी देश है।"
+        "explanation": "नेपाल के मध्य पहाड़ी भाग में काठमांडू घाटी स्थित है और देश उत्तर की ओर ऊँचे हिमालय तक उठता है। इसकी स्थलाकृति निम्न मैदानों से बहुत ऊँचे पर्वतों तक तेजी से बदलती है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਭਾਰਤ ਅਤੇ ਚੀਨ ਵਿਚਕਾਰ ਭੂ-ਬੱਧ ਹੈ ਅਤੇ ਹਿਮਾਲਿਆ ਦਾ ਹਿੱਸਾ ਇਸ ਵਿੱਚ ਹੈ?",
+        "stem": "ਕਿਹੜਾ ਦੱਖਣੀ ਏਸ਼ੀਆਈ ਦੇਸ਼ ਕਾਠਮੰਡੂ ਘਾਟੀ ਨੂੰ ਸਮੇਟਦਾ ਹੈ ਅਤੇ ਉੱਤਰ ਵੱਲ ਹਿਮਾਲਿਆ ਤੱਕ ਉੱਚਾ ਹੁੰਦਾ ਜਾਂਦਾ ਹੈ?",
         "options": [
           "ਸ੍ਰੀਲੰਕਾ",
           "ਮਾਲਦੀਵ",
           "ਨੇਪਾਲ",
           "ਬੰਗਲਾਦੇਸ਼"
         ],
-        "explanation": "ਨੇਪਾਲ ਭਾਰਤ ਅਤੇ ਚੀਨ ਨਾਲ ਲੱਗਦਾ ਭੂ-ਬੱਧ ਹਿਮਾਲਿਆਈ ਦੇਸ਼ ਹੈ।"
+        "explanation": "ਨੇਪਾਲ ਦੇ ਮੱਧ ਪਹਾੜੀ ਹਿੱਸੇ ਵਿੱਚ ਕਾਠਮੰਡੂ ਘਾਟੀ ਸਥਿਤ ਹੈ ਅਤੇ ਦੇਸ਼ ਉੱਤਰ ਵੱਲ ਉੱਚੇ ਹਿਮਾਲਿਆ ਤੱਕ ਚੜ੍ਹਦਾ ਹੈ। ਇਸ ਦੀ ਭੂ-ਆਕ੍ਰਿਤੀ ਨੀਵੇਂ ਮੈਦਾਨਾਂ ਤੋਂ ਬਹੁਤ ਉੱਚੇ ਪਹਾੜਾਂ ਤੱਕ ਤੇਜ਼ੀ ਨਾਲ ਬਦਲਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP023-Q012",
     "cpId": "WGE-001-CP023",
-    "objective": "bhutan-landlocked-neighbours",
+    "objective": "bhutan-eastern-himalaya",
     "difficulty": "Medium",
     "sourceIds": [
       "WGE-PHY-023A",
@@ -477,41 +478,42 @@
     "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "Which country is a landlocked Himalayan kingdom between India and China?",
+        "stem": "Which landlocked South Asian country has Thimphu as its capital and lies on the southern slopes of the eastern Himalaya?",
         "options": [
           "Maldives",
           "Bhutan",
           "Bangladesh",
           "SriLanka"
         ],
-        "explanation": "Bhutan is landlocked and lies between India and China along the eastern Himalaya."
+        "explanation": "Bhutan is a landlocked Himalayan country whose capital is Thimphu. Much of the country lies on the southern slopes of the eastern Himalaya, with elevation generally increasing northward."
       },
       "hi": {
-        "stem": "कौन-सा देश भारत और चीन के बीच स्थलरुद्ध हिमालयी देश है?",
+        "stem": "कौन-सा स्थलरुद्ध दक्षिण एशियाई देश, जिसकी राजधानी थिम्फू है, पूर्वी हिमालय की दक्षिणी ढालों पर स्थित है?",
         "options": [
           "मालदीव",
           "भूटान",
           "बांग्लादेश",
           "श्रीलंका"
         ],
-        "explanation": "भूटान स्थलरुद्ध है और पूर्वी हिमालय में भारत तथा चीन के बीच स्थित है।"
+        "explanation": "भूटान एक स्थलरुद्ध हिमालयी देश है जिसकी राजधानी थिम्फू है। इसका बड़ा भाग पूर्वी हिमालय की दक्षिणी ढालों पर है और सामान्यतः उत्तर की ओर ऊँचाई बढ़ती है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਭਾਰਤ ਅਤੇ ਚੀਨ ਵਿਚਕਾਰ ਭੂ-ਬੱਧ ਹਿਮਾਲਿਆਈ ਦੇਸ਼ ਹੈ?",
+        "stem": "ਕਿਹੜਾ ਭੂ-ਬੱਧ ਦੱਖਣੀ ਏਸ਼ੀਆਈ ਦੇਸ਼, ਜਿਸ ਦੀ ਰਾਜਧਾਨੀ ਥਿੰਫੂ ਹੈ, ਪੂਰਬੀ ਹਿਮਾਲਿਆ ਦੀਆਂ ਦੱਖਣੀ ਢਲਾਣਾਂ ਉੱਤੇ ਸਥਿਤ ਹੈ?",
         "options": [
           "ਮਾਲਦੀਵ",
           "ਭੂਟਾਨ",
           "ਬੰਗਲਾਦੇਸ਼",
           "ਸ੍ਰੀਲੰਕਾ"
         ],
-        "explanation": "ਭੂਟਾਨ ਭੂ-ਬੱਧ ਹੈ ਅਤੇ ਪੂਰਬੀ ਹਿਮਾਲਿਆ ਵਿੱਚ ਭਾਰਤ ਤੇ ਚੀਨ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+        "explanation": "ਭੂਟਾਨ ਇੱਕ ਭੂ-ਬੱਧ ਹਿਮਾਲਿਆਈ ਦੇਸ਼ ਹੈ ਜਿਸ ਦੀ ਰਾਜਧਾਨੀ ਥਿੰਫੂ ਹੈ। ਇਸ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਪੂਰਬੀ ਹਿਮਾਲਿਆ ਦੀਆਂ ਦੱਖਣੀ ਢਲਾਣਾਂ ਉੱਤੇ ਹੈ ਅਤੇ ਆਮ ਤੌਰ ਉੱਤੇ ਉੱਤਰ ਵੱਲ ਉਚਾਈ ਵਧਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP023-Q013",
     "cpId": "WGE-001-CP023",
-    "objective": "sri-lanka-palk-strait",
+    "objective": "sri-lanka-island-country",
     "difficulty": "Easy",
     "sourceIds": [
       "WGE-PHY-023A"
@@ -519,41 +521,42 @@
     "correctIndex": 0,
     "locales": {
       "en": {
-        "stem": "Which island is separated from India by the Palk Strait?",
+        "stem": "Which South Asian island country lies in the Indian Ocean immediately south of the Bay of Bengal?",
         "options": [
           "SriLanka",
           "Maldives",
           "Bangladesh",
           "Myanmar"
         ],
-        "explanation": "Sri Lanka lies southeast of India, across the Palk Strait and Gulf of Mannar."
+        "explanation": "Sri Lanka is a South Asian island country in the northern Indian Ocean. It lies just south of the Bay of Bengal and has a mountainous central interior surrounded by coastal lowlands."
       },
       "hi": {
-        "stem": "कौन-सा द्वीप पाक जलडमरूमध्य से भारत से अलग है?",
+        "stem": "बंगाल की खाड़ी के ठीक दक्षिण में हिंद महासागर में कौन-सा दक्षिण एशियाई द्वीपीय देश स्थित है?",
         "options": [
           "श्रीलंका",
           "मालदीव",
           "बांग्लादेश",
           "म्यांमार"
         ],
-        "explanation": "श्रीलंका भारत के दक्षिण-पूर्व में पाक जलडमरूमध्य और मन्नार की खाड़ी के पार है।"
+        "explanation": "श्रीलंका उत्तरी हिंद महासागर में स्थित दक्षिण एशियाई द्वीपीय देश है। यह बंगाल की खाड़ी के दक्षिण में है और इसके मध्य भाग में ऊँची भूमि तथा चारों ओर तटीय निम्नभूमि है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਟਾਪੂ ਪਾਕ ਜਲਡਮਰੂ ਰਾਹੀਂ ਭਾਰਤ ਤੋਂ ਵੱਖ ਹੈ?",
+        "stem": "ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਦੇ ਠੀਕ ਦੱਖਣ ਵੱਲ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਕਿਹੜਾ ਦੱਖਣੀ ਏਸ਼ੀਆਈ ਟਾਪੂ-ਦੇਸ਼ ਸਥਿਤ ਹੈ?",
         "options": [
           "ਸ੍ਰੀਲੰਕਾ",
           "ਮਾਲਦੀਵ",
           "ਬੰਗਲਾਦੇਸ਼",
           "ਮਿਆਂਮਾਰ"
         ],
-        "explanation": "ਸ੍ਰੀਲੰਕਾ ਭਾਰਤ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਪਾਕ ਜਲਡਮਰੂ ਅਤੇ ਮੰਨਾਰ ਦੀ ਖਾੜੀ ਦੇ ਪਾਰ ਹੈ।"
+        "explanation": "ਸ੍ਰੀਲੰਕਾ ਉੱਤਰੀ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਸਥਿਤ ਦੱਖਣੀ ਏਸ਼ੀਆਈ ਟਾਪੂ-ਦੇਸ਼ ਹੈ। ਇਹ ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਦੇ ਦੱਖਣ ਵੱਲ ਹੈ ਅਤੇ ਇਸ ਦੇ ਮੱਧ ਵਿੱਚ ਉੱਚੀ ਧਰਤੀ ਤੇ ਆਲੇ-ਦੁਆਲੇ ਤਟਵਰਤੀ ਨੀਵੀਂ ਧਰਤੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP023-Q014",
     "cpId": "WGE-001-CP023",
-    "objective": "maldives-atolls-location",
+    "objective": "maldives-coral-atolls",
     "difficulty": "Medium",
     "sourceIds": [
       "WGE-PHY-023A"
@@ -561,41 +564,42 @@
     "correctIndex": 3,
     "locales": {
       "en": {
-        "stem": "Which archipelago of coral atolls lies southwest of India in the Indian Ocean?",
+        "stem": "Which South Asian country consists mainly of coral atolls spread across the Indian Ocean?",
         "options": [
           "SriLanka",
-          "Andaman",
-          "Lakshadweep",
+          "Seychelles",
+          "Comoros",
           "Maldives"
         ],
-        "explanation": "The Maldives is an atoll archipelago in the Indian Ocean, southwest of India and Sri Lanka."
+        "explanation": "The Maldives is an archipelago made up of low coral islands grouped into atolls. Its islands extend in a north–south chain across the central northern Indian Ocean."
       },
       "hi": {
-        "stem": "हिंद महासागर में भारत के दक्षिण-पश्चिम में प्रवाल एटोलों का कौन-सा द्वीपसमूह स्थित है?",
+        "stem": "कौन-सा दक्षिण एशियाई देश हिंद महासागर में फैले मुख्यतः प्रवाल एटोलों से बना है?",
         "options": [
           "श्रीलंका",
-          "अंडमान",
-          "लक्षद्वीप",
+          "सेशेल्स",
+          "कोमोरोस",
           "मालदीव"
         ],
-        "explanation": "मालदीव हिंद महासागर का एटोल द्वीपसमूह है, जो भारत और श्रीलंका के दक्षिण-पश्चिम में है।"
+        "explanation": "मालदीव निम्न प्रवाल द्वीपों का द्वीपसमूह है जो एटोलों में संगठित हैं। इसके द्वीप उत्तरी हिंद महासागर के मध्य भाग में उत्तर-दक्षिण दिशा में फैले हैं।"
       },
       "pa": {
-        "stem": "ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਭਾਰਤ ਦੇ ਦੱਖਣ-ਪੱਛਮ ਵੱਲ ਕੋਰਲ ਐਟੋਲਾਂ ਦਾ ਕਿਹੜਾ ਟਾਪੂ-ਸਮੂਹ ਸਥਿਤ ਹੈ?",
+        "stem": "ਕਿਹੜਾ ਦੱਖਣੀ ਏਸ਼ੀਆਈ ਦੇਸ਼ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਫੈਲੇ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕੋਰਲ ਐਟੋਲਾਂ ਤੋਂ ਬਣਿਆ ਹੈ?",
         "options": [
           "ਸ੍ਰੀਲੰਕਾ",
-          "ਅੰਡਮਾਨ",
-          "ਲਕਸ਼ਦੀਪ",
+          "ਸੇਸ਼ੇਲਸ",
+          "ਕੋਮੋਰੋਸ",
           "ਮਾਲਦੀਵ"
         ],
-        "explanation": "ਮਾਲਦੀਵ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦਾ ਐਟੋਲ ਟਾਪੂ-ਸਮੂਹ ਹੈ, ਜੋ ਭਾਰਤ ਅਤੇ ਸ੍ਰੀਲੰਕਾ ਦੇ ਦੱਖਣ-ਪੱਛਮ ਵਿੱਚ ਹੈ।"
+        "explanation": "ਮਾਲਦੀਵ ਨੀਵੇਂ ਕੋਰਲ ਟਾਪੂਆਂ ਦਾ ਟਾਪੂ-ਸਮੂਹ ਹੈ ਜੋ ਐਟੋਲਾਂ ਵਿੱਚ ਗਠਿਤ ਹਨ। ਇਸ ਦੇ ਟਾਪੂ ਉੱਤਰੀ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਦੇ ਮੱਧ ਹਿੱਸੇ ਵਿੱਚ ਉੱਤਰ-ਦੱਖਣ ਲੜੀ ਵਜੋਂ ਫੈਲੇ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP023-Q015",
     "cpId": "WGE-001-CP023",
-    "objective": "myanmar-india-neighbour",
+    "objective": "myanmar-bay-andaman",
     "difficulty": "Medium",
     "sourceIds": [
       "WGE-PHY-023A"
@@ -603,36 +607,37 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which country lies east of India and borders India’s northeastern states?",
+        "stem": "Which country occupies the western edge of mainland Southeast Asia and has coasts on the Bay of Bengal and the Andaman Sea?",
         "options": [
           "Maldives",
           "SriLanka",
           "Myanmar",
           "Pakistan"
         ],
-        "explanation": "Myanmar lies east of India and shares a land boundary with several northeastern Indian states."
+        "explanation": "Myanmar forms the western side of mainland Southeast Asia. Its western and southern coasts face the Bay of Bengal and the Andaman Sea, while the Irrawaddy basin occupies much of its central lowland."
       },
       "hi": {
-        "stem": "कौन-सा देश भारत के पूर्व में है और भारत के पूर्वोत्तर राज्यों से सीमा साझा करता है?",
+        "stem": "कौन-सा देश मुख्यभूमि दक्षिण-पूर्व एशिया के पश्चिमी किनारे पर स्थित है और बंगाल की खाड़ी तथा अंडमान सागर दोनों पर तट रखता है?",
         "options": [
           "मालदीव",
           "श्रीलंका",
           "म्यांमार",
           "पाकिस्तान"
         ],
-        "explanation": "म्यांमार भारत के पूर्व में है और भारत के कई पूर्वोत्तर राज्यों से स्थल सीमा साझा करता है।"
+        "explanation": "म्यांमार मुख्यभूमि दक्षिण-पूर्व एशिया के पश्चिमी भाग में स्थित है। इसके पश्चिमी और दक्षिणी तट बंगाल की खाड़ी तथा अंडमान सागर की ओर हैं और इरावदी बेसिन इसके मध्य निम्नभाग का बड़ा हिस्सा घेरे हुए है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਭਾਰਤ ਦੇ ਪੂਰਬ ਵੱਲ ਹੈ ਅਤੇ ਭਾਰਤ ਦੇ ਉੱਤਰ-ਪੂਰਬੀ ਰਾਜਾਂ ਨਾਲ ਸਰਹੱਦ ਸਾਂਝੀ ਕਰਦਾ ਹੈ?",
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਮੁੱਖਭੂਮੀ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੇ ਪੱਛਮੀ ਕਿਨਾਰੇ ਉੱਤੇ ਸਥਿਤ ਹੈ ਅਤੇ ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਤੇ ਅੰਡਮਾਨ ਸਾਗਰ ਦੋਵਾਂ ਉੱਤੇ ਤਟ ਰੱਖਦਾ ਹੈ?",
         "options": [
           "ਮਾਲਦੀਵ",
           "ਸ੍ਰੀਲੰਕਾ",
           "ਮਿਆਂਮਾਰ",
           "ਪਾਕਿਸਤਾਨ"
         ],
-        "explanation": "ਮਿਆਂਮਾਰ ਭਾਰਤ ਦੇ ਪੂਰਬ ਵੱਲ ਹੈ ਅਤੇ ਭਾਰਤ ਦੇ ਕਈ ਉੱਤਰ-ਪੂਰਬੀ ਰਾਜਾਂ ਨਾਲ ਧਰਤੀ ਦੀ ਸਰਹੱਦ ਸਾਂਝੀ ਕਰਦਾ ਹੈ।"
+        "explanation": "ਮਿਆਂਮਾਰ ਮੁੱਖਭੂਮੀ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੇ ਪੱਛਮੀ ਹਿੱਸੇ ਵਿੱਚ ਸਥਿਤ ਹੈ। ਇਸ ਦੇ ਪੱਛਮੀ ਅਤੇ ਦੱਖਣੀ ਤਟ ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਅਤੇ ਅੰਡਮਾਨ ਸਾਗਰ ਵੱਲ ਹਨ ਅਤੇ ਇਰਾਵਦੀ ਬੇਸਿਨ ਇਸ ਦੇ ਮੱਧ ਨੀਵੇਂ ਹਿੱਸੇ ਦਾ ਵੱਡਾ ਭਾਗ ਘੇਰਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP023-Q016",
@@ -934,7 +939,7 @@
   {
     "id": "WGE-001-CP023-Q023",
     "cpId": "WGE-001-CP023",
-    "objective": "india-myanmar-east",
+    "objective": "myanmar-regional-gateway",
     "difficulty": "Medium",
     "sourceIds": [
       "WGE-PHY-023A"
@@ -942,36 +947,37 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which country lies east of India and connects South Asia with mainland Southeast Asia?",
+        "stem": "Which country lies between Bangladesh and Thailand and forms the western gateway to mainland Southeast Asia?",
         "options": [
           "Afghanistan",
           "Maldives",
           "Myanmar",
           "Nepal"
         ],
-        "explanation": "Myanmar borders India to the west and forms a land connection toward mainland Southeast Asia."
+        "explanation": "Myanmar lies between Bangladesh to the west and Thailand to the east. Its position places it at the western edge of mainland Southeast Asia and links the Bay of Bengal region with the interior of Southeast Asia."
       },
       "hi": {
-        "stem": "कौन-सा देश भारत के पूर्व में है और दक्षिण एशिया को मुख्यभूमि दक्षिण-पूर्व एशिया से जोड़ता है?",
+        "stem": "कौन-सा देश बांग्लादेश और थाईलैंड के बीच स्थित है और मुख्यभूमि दक्षिण-पूर्व एशिया का पश्चिमी प्रवेश क्षेत्र बनाता है?",
         "options": [
           "अफ़ग़ानिस्तान",
           "मालदीव",
           "म्यांमार",
           "नेपाल"
         ],
-        "explanation": "म्यांमार भारत से पश्चिम में सीमा साझा करता है और मुख्यभूमि दक्षिण-पूर्व एशिया की ओर स्थल-संपर्क बनाता है।"
+        "explanation": "म्यांमार पश्चिम में बांग्लादेश और पूर्व में थाईलैंड के बीच स्थित है। इसकी स्थिति इसे मुख्यभूमि दक्षिण-पूर्व एशिया के पश्चिमी किनारे पर रखती है और बंगाल की खाड़ी क्षेत्र को दक्षिण-पूर्व एशिया के आंतरिक भाग से जोड़ती है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਭਾਰਤ ਦੇ ਪੂਰਬ ਵੱਲ ਹੈ ਅਤੇ ਦੱਖਣੀ ਏਸ਼ੀਆ ਨੂੰ ਮੁੱਖਭੂਮੀ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਨਾਲ ਜੋੜਦਾ ਹੈ?",
+        "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਬੰਗਲਾਦੇਸ਼ ਅਤੇ ਥਾਈਲੈਂਡ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ ਅਤੇ ਮੁੱਖਭੂਮੀ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦਾ ਪੱਛਮੀ ਦਰਵਾਜ਼ਾ ਬਣਦਾ ਹੈ?",
         "options": [
           "ਅਫ਼ਗਾਨਿਸਤਾਨ",
           "ਮਾਲਦੀਵ",
           "ਮਿਆਂਮਾਰ",
           "ਨੇਪਾਲ"
         ],
-        "explanation": "ਮਿਆਂਮਾਰ ਭਾਰਤ ਨਾਲ ਪੱਛਮ ਵੱਲ ਸਰਹੱਦ ਸਾਂਝੀ ਕਰਦਾ ਹੈ ਅਤੇ ਮੁੱਖਭੂਮੀ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਵੱਲ ਧਰਤੀ ਦਾ ਜੋੜ ਬਣਾਉਂਦਾ ਹੈ।"
+        "explanation": "ਮਿਆਂਮਾਰ ਪੱਛਮ ਵੱਲ ਬੰਗਲਾਦੇਸ਼ ਅਤੇ ਪੂਰਬ ਵੱਲ ਥਾਈਲੈਂਡ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ। ਇਸ ਦੀ ਸਥਿਤੀ ਇਸ ਨੂੰ ਮੁੱਖਭੂਮੀ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੇ ਪੱਛਮੀ ਕਿਨਾਰੇ ਉੱਤੇ ਰੱਖਦੀ ਹੈ ਅਤੇ ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਖੇਤਰ ਨੂੰ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆ ਦੇ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਨਾਲ ਜੋੜਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP023-Q024",
