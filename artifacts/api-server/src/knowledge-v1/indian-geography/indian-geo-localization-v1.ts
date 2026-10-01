@@ -880,7 +880,7 @@ function localizeGeoTrnBulkV1(question:CanonicalQuestion,language:"hi"|"pa"){
   return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
 
-export function localizeIndianGeoQuestionV1(");
+
   for (const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) {
     out=out.replace(new RegExp("\\b"+esc(a)+"\\b","gi"),b);
   }
