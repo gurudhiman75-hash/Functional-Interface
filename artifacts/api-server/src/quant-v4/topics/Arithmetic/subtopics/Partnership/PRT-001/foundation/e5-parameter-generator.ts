@@ -212,7 +212,7 @@ export function generatePrt001E5Parameters(input: { questionLanguageId: string; 
         [4, 8],
         [12, 6],
       ] as const);
-      const dc = numericStateRandom.pick([3, 4, 5, 6, 8, 10, 12]);
+      const dc = numericStateRandom.pick([3, 4, 5, 6, 8, 10, 12, 1, 2]);
       const unit = numericStateRandom.pick([1_000, 1_500, 2_000, 2_500, 3_000]);
       const commonWeight = 120 * unit;
       const s = {
