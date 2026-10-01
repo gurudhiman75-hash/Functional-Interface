@@ -172,6 +172,26 @@ for (const language of ["en", "hi", "pa"] as const) {
         q.reviewOnly === true,
     ),
   );
+  for (const q of localized.questions) {
+    if (language === "hi")
+      assert.doesNotMatch(
+        `${q.stem} ${q.explanation}`,
+        /[\u0A00-\u0A7F]/u,
+        "CP011 Hindi output must not contain Gurmukhi leakage",
+      );
+    if (language === "pa") {
+      assert.doesNotMatch(
+        `${q.stem} ${q.explanation}`,
+        /[\u0900-\u097F]/u,
+        "CP011 Punjabi output must not contain Devanagari leakage",
+      );
+      assert.doesNotMatch(
+        q.explanation ?? "",
+        /ਗਤੀਵਿਧੀ|ਮੈਂਬਰਸ਼ਿਪ/u,
+        "CP011 Punjabi explanation should use natural group wording",
+      );
+    }
+  }
 }
 const packageItem = reasoningV1QuestionStudioAdapter
   .listPackages()
