@@ -1,7 +1,7 @@
 import objectPoolsSource from "../object-pools.library.json" assert { type: "json" };
 import { rational, subtractRational } from "./math";
 import { formatPrt001Duration, formatPrt001Money, localizePrt001Business } from "./parameter-generator";
-import { createPrt001Random } from "./random";
+import { createPrt001Random, stablePrt001PoolIndex } from "./random";
 import { solvePrt001State } from "./solver";
 import type { CapitalSegment, Partner, PartnershipState, PreDistributionAllocation, Prt001Language, Prt001PilotParameters, Prt001TaskRegistryEntry } from "./types";
 
@@ -62,10 +62,8 @@ export function generatePrt001E3BParameters(input: { questionLanguageId: string;
       break;
     }
     case "findUnknownCapitalFromProfitRatio": {
-      const numericStateRandom = createPrt001Random(
-        `${input.seed}:numeric-state:${input.entry.solveMode}`,
-      );
-      const ratio = numericStateRandom.pick([
+      const numericStateSeed = `${input.seed}:numeric-state:${input.entry.solveMode}`;
+      const ratioStates = [
         { a: 2, b: 3 },
         { a: 3, b: 2 },
         { a: 4, b: 3 },
@@ -78,8 +76,8 @@ export function generatePrt001E3BParameters(input: { questionLanguageId: string;
         { a: 4, b: 7 },
         { a: 7, b: 5 },
         { a: 5, b: 7 },
-      ]);
-      const unit = numericStateRandom.pick([
+     ;
+      const unitStates = [
         6_000,
         8_000,
         10_000,
@@ -88,7 +86,13 @@ export function generatePrt001E3BParameters(input: { questionLanguageId: string;
         18_000,
         20_000,
         24_000,
-      ]);
+     ;
+      const ratio = ratioStates[
+        stablePrt001PoolIndex(`${numericStateSeed}:ratio`, ratioStates.length)
+      ]!;
+      const unit = unitStates[
+        stablePrt001PoolIndex(`${numericStateSeed}:unit`, unitStates.length)
+      ]!;);
       const s = { a: ratio.a * unit, b: ratio.b * unit };
       state = makeState([partner(partnerA, [segment(0, 12, money(s.a))]), partner(partnerB, [segment(0, 12, money(s.b))])], money(150_000));
       break;
