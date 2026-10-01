@@ -63,7 +63,12 @@ for (const [index, lane] of DSF_CP017_LANES.entries()) {
   laneQuestionIds.add(question.questionId);
 
   if (lane.domainFamily === "REASONING") {
-    assert.equal(question.editorialSurfaceVersion, "DSF_REASONING_COMMON_BASE_EDITORIAL_V3", `${lane.laneId}: CP014 editorial overlay`);
+    assert.equal(question.editorialSurfaceVersion, "DSF_CP017_DIRECT_EXAM_STEM_V1", `${lane.laneId}: direct exam-style CP017 surface`);
+    assert.doesNotMatch(
+      question.stem,
+      /Treat the two statements as independent pieces of evidence|Read the two numbered statements as separate information records|Check each one alone before using both together/iu,
+      `${lane.laneId}: historical CP014 instructional overlay must not leak into the learner stem`,
+    );
   }
 }
 

@@ -21,12 +21,7 @@ import { generateDsfCp012InequalityBatch } from "../DSF-CP-012/inequality-runtim
 import { generateDsfCp013SeatingBatch } from "../DSF-CP-013/seating-runtime-v1.ts";
 import { generateDsfCp013CodingBatch } from "../DSF-CP-013/coding-runtime-v1.ts";
 import { generateDsfCp013CalendarBatch } from "../DSF-CP-013/calendar-runtime-v1.ts";
-import {
-  DSF_REASONING_COMMON_BASE_EDITORIAL_VERSION,
-  reasoningEditorialLead,
-  reasoningExplanationLead,
-  type DsfReasoningEditorialLane,
-} from "../DSF-CP-014/reasoning-common-base-editorial-overlay.ts";
+import type { DsfReasoningEditorialLane } from "../DSF-CP-014/reasoning-common-base-editorial-overlay.ts";
 import {
   DSF_CURRENT_NEXT_AVAILABLE_QL_ID,
   DSF_CURRENT_PERMANENT_QL_REGISTRY,
@@ -39,6 +34,7 @@ export const DSF_CP017_GENERATABLE_QL_IDS = ["DSF-QL-001"] as const;
 export const DSF_CP017_RUNTIME_DEFERRED_QL_IDS = ["DSF-QL-002"] as const;
 export const DSF_CP017_SUPPORTED_LANGUAGES = ["en"] as const;
 export const DSF_CP017_SUPPORTED_DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
+export const DSF_CP017_LEARNER_STEM_VERSION = "DSF_CP017_DIRECT_EXAM_STEM_V1" as const;
 
 export const DSF_CP017_LANES = Object.freeze([
   { laneId: "DSF-QS-LEGACY-NUMBER-SYSTEM", label: "Number System · frozen core", checkpointId: "DSF-CP-002", domainFamily: "QUANT", sourceChapter: "NUM-001" },
@@ -216,13 +212,10 @@ function legacyQuestion(domain: DsfStudioDomainId, seed: number): AnyQuestion {
   }).questions[0]! as AnyQuestion;
 }
 
-function reasoningSurface(lane: DsfReasoningEditorialLane, question: AnyQuestion): AnyQuestion {
-  const seed = Number(question.seed ?? 0);
+function reasoningSurface(_lane: DsfReasoningEditorialLane, question: AnyQuestion): AnyQuestion {
   return Object.freeze({
     ...question,
-    stem: `${reasoningEditorialLead(lane, seed)}\n\n${String(question.stem ?? "")}`,
-    studioExplanationLead: reasoningExplanationLead(lane, seed),
-    editorialSurfaceVersion: DSF_REASONING_COMMON_BASE_EDITORIAL_VERSION,
+    editorialSurfaceVersion: DSF_CP017_LEARNER_STEM_VERSION,
   });
 }
 
@@ -254,6 +247,17 @@ function generateLaneQuestion(lane: LaneEntry, seed: number): AnyQuestion {
 
 function stemOnly(stem: unknown): string {
   return String(stem ?? "").split(/\n+\s*Statement I:/u, 1)[0]!.trim();
+}
+
+function examStandardStem(stem: string): string {
+  let text = stem.trim();
+  const editorialOpening = /^(?:consider\b[^.?!]*[.?!]|[^.?!]*(?:being analysed|being examined|being reviewed|being checked|is reviewing|are reviewing|under review|under consideration|must be determined|to be analysed)[^.?!]*[.?!])\s*/iu;
+  for (let pass = 0; pass < 2; pass += 1) {
+    const cleaned = text.replace(editorialOpening, "").trim();
+    if (cleaned === text) break;
+    text = cleaned;
+  }
+  return text;
 }
 
 function explanationBody(value: unknown): string {
@@ -359,7 +363,7 @@ function normalizeQuestion(lane: LaneEntry, question: AnyQuestion) {
   const statements = normalizeStatements(lane, question);
   const optionDetails = normalizeOptions(lane, question);
   const correctIndex = optionDetails.findIndex((option) => option.isCorrect);
-  const cleanStem = stemOnly(question.stem);
+  const cleanStem = examStandardStem(stemOnly(question.stem));
   if (!cleanStem) throw new Error(`${lane.laneId}: source question has an empty stem.`);
 
   const text = `${cleanStem}\nI. ${statements[0].text}\nII. ${statements[1].text}`;
