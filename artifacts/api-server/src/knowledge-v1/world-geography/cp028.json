@@ -21,7 +21,7 @@
           "Andes",
           "Alps"
         ],
-        "explanation": "The Rocky Mountains are a major cordillera in western North America."
+        "explanation": "The Rocky Mountains form a major north–south mountain system along western North America. They extend from western Canada into the United States and form an important part of the continental divide."
       },
       "hi": {
         "stem": "उत्तरी अमेरिका के पश्चिमी भाग में कौन-सी प्रमुख पर्वत-प्रणाली फैली है?",
@@ -31,7 +31,7 @@
           "एंडीज़",
           "आल्प्स"
         ],
-        "explanation": "रॉकी पर्वत पश्चिमी उत्तरी अमेरिका की प्रमुख पर्वत-श्रेणी हैं।"
+        "explanation": "रॉकी पर्वत पश्चिमी उत्तरी अमेरिका में उत्तर-दक्षिण दिशा में फैली प्रमुख पर्वत प्रणाली है। यह पश्चिमी कनाडा से संयुक्त राज्य अमेरिका तक फैली है और महाद्वीपीय जल-विभाजक का महत्वपूर्ण भाग बनाती है।"
       },
       "pa": {
         "stem": "ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਪੱਛਮੀ ਹਿੱਸੇ ਵਿੱਚ ਕਿਹੜੀ ਮੁੱਖ ਪਹਾੜੀ ਪ੍ਰਣਾਲੀ ਫੈਲੀ ਹੈ?",
@@ -41,9 +41,10 @@
           "ਐਂਡੀਜ਼",
           "ਆਲਪਸ"
         ],
-        "explanation": "ਰੌਕੀ ਪਹਾੜ ਪੱਛਮੀ ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੀ ਮੁੱਖ ਪਹਾੜੀ ਲੜੀ ਹਨ।"
+        "explanation": "ਰਾਕੀ ਪਹਾੜ ਪੱਛਮੀ ਉੱਤਰੀ ਅਮਰੀਕਾ ਵਿੱਚ ਉੱਤਰ-ਦੱਖਣ ਦਿਸ਼ਾ ਵਿੱਚ ਫੈਲੀ ਮੁੱਖ ਪਹਾੜੀ ਪ੍ਰਣਾਲੀ ਹੈ। ਇਹ ਪੱਛਮੀ ਕੈਨੇਡਾ ਤੋਂ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਤੱਕ ਫੈਲੀ ਹੈ ਅਤੇ ਮਹਾਂਦੀਪੀ ਜਲ-ਵਿਭਾਜਕ ਦਾ ਮਹੱਤਵਪੂਰਨ ਹਿੱਸਾ ਬਣਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP028-Q002",
@@ -343,7 +344,7 @@
           "GulfMexico",
           "Caribbean"
         ],
-        "explanation": "Hudson Bay is a large inland sea in northeastern Canada."
+        "explanation": "Hudson Bay is a very large inland sea in northeastern Canada. It is connected to the Atlantic Ocean through Hudson Strait and is surrounded mainly by the Canadian Shield region."
       },
       "hi": {
         "stem": "उत्तर-पूर्वी कनाडा में कौन-सा बड़ा अंतर्देशीय सागर स्थित है?",
@@ -353,7 +354,7 @@
           "मैक्सिको की खाड़ी",
           "कैरेबियन सागर"
         ],
-        "explanation": "हडसन की खाड़ी उत्तर-पूर्वी कनाडा का बड़ा अंतर्देशीय सागर है।"
+        "explanation": "हडसन खाड़ी उत्तर-पूर्वी कनाडा में स्थित एक बहुत बड़ा अंतर्देशीय समुद्र है। यह हडसन जलडमरूमध्य द्वारा अटलांटिक महासागर से जुड़ी है और इसके चारों ओर मुख्यतः कनाडाई शील्ड क्षेत्र है।"
       },
       "pa": {
         "stem": "ਉੱਤਰ-ਪੂਰਬੀ ਕੈਨੇਡਾ ਵਿੱਚ ਕਿਹੜਾ ਵੱਡਾ ਅੰਦਰੂਨੀ ਸਾਗਰ ਸਥਿਤ ਹੈ?",
@@ -363,9 +364,10 @@
           "ਮੈਕਸੀਕੋ ਦੀ ਖਾੜੀ",
           "ਕੈਰੇਬੀਅਨ ਸਾਗਰ"
         ],
-        "explanation": "ਹਡਸਨ ਦੀ ਖਾੜੀ ਉੱਤਰ-ਪੂਰਬੀ ਕੈਨੇਡਾ ਦਾ ਵੱਡਾ ਅੰਦਰੂਨੀ ਸਾਗਰ ਹੈ।"
+        "explanation": "ਹਡਸਨ ਖਾੜੀ ਉੱਤਰ-ਪੂਰਬੀ ਕੈਨੇਡਾ ਵਿੱਚ ਸਥਿਤ ਇੱਕ ਬਹੁਤ ਵੱਡਾ ਅੰਦਰੂਨੀ ਸਮੁੰਦਰ ਹੈ। ਇਹ ਹਡਸਨ ਜਲਡਮਰੂ ਰਾਹੀਂ ਐਟਲਾਂਟਿਕ ਮਹਾਂਸਾਗਰ ਨਾਲ ਜੁੜੀ ਹੈ ਅਤੇ ਇਸ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕੈਨੇਡੀਅਨ ਸ਼ੀਲਡ ਖੇਤਰ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP028-Q009",
@@ -573,7 +575,7 @@
           "Caribbean",
           "HudsonBay"
         ],
-        "explanation": "The Gulf of California lies between Baja California and mainland Mexico."
+        "explanation": "The Gulf of California lies between the Baja California Peninsula and mainland Mexico. It is a long narrow gulf opening southward into the Pacific Ocean."
       },
       "hi": {
         "stem": "बाजा कैलिफ़ोर्निया प्रायद्वीप को मैक्सिको की मुख्यभूमि से कौन-सी खाड़ी अलग करती है?",
@@ -583,7 +585,7 @@
           "कैरेबियन सागर",
           "हडसन की खाड़ी"
         ],
-        "explanation": "कैलिफ़ोर्निया की खाड़ी बाजा कैलिफ़ोर्निया और मैक्सिको की मुख्यभूमि के बीच स्थित है।"
+        "explanation": "कैलिफ़ोर्निया की खाड़ी बाजा कैलिफ़ोर्निया प्रायद्वीप और मेक्सिको की मुख्य भूमि के बीच स्थित है। यह एक लंबी संकरी खाड़ी है जो दक्षिण में प्रशांत महासागर की ओर खुलती है।"
       },
       "pa": {
         "stem": "ਬਾਜਾ ਕੈਲੀਫ਼ੋਰਨੀਆ ਪ੍ਰਾਇਦੀਪ ਨੂੰ ਮੈਕਸੀਕੋ ਦੀ ਮੁੱਖ ਧਰਤੀ ਤੋਂ ਕਿਹੜੀ ਖਾੜੀ ਵੱਖ ਕਰਦੀ ਹੈ?",
@@ -593,9 +595,10 @@
           "ਕੈਰੇਬੀਅਨ ਸਾਗਰ",
           "ਹਡਸਨ ਦੀ ਖਾੜੀ"
         ],
-        "explanation": "ਕੈਲੀਫ਼ੋਰਨੀਆ ਦੀ ਖਾੜੀ ਬਾਜਾ ਕੈਲੀਫ਼ੋਰਨੀਆ ਅਤੇ ਮੈਕਸੀਕੋ ਦੀ ਮੁੱਖ ਧਰਤੀ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+        "explanation": "ਕੈਲੀਫ਼ੋਰਨੀਆ ਦੀ ਖਾੜੀ ਬਾਹਾ ਕੈਲੀਫ਼ੋਰਨੀਆ ਪ੍ਰਾਇਦੀਪ ਅਤੇ ਮੈਕਸੀਕੋ ਦੀ ਮੁੱਖ ਧਰਤੀ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ। ਇਹ ਇੱਕ ਲੰਮੀ ਤੰਗ ਖਾੜੀ ਹੈ ਜੋ ਦੱਖਣ ਵੱਲ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਖੁਲ੍ਹਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP028-Q014",
@@ -619,7 +622,7 @@
           "Baja",
           "CentralAmerica"
         ],
-        "explanation": "Central America forms the land bridge between Mexico and South America."
+        "explanation": "Central America is the narrow land bridge extending from southern Mexico toward Colombia. It separates the Caribbean Sea from the Pacific Ocean and links North America with South America."
       },
       "hi": {
         "stem": "मैक्सिको और कोलंबिया के बीच संकरा भू-संपर्क कौन-सा क्षेत्र बनाता है?",
@@ -629,7 +632,7 @@
           "बाजा कैलिफ़ोर्निया प्रायद्वीप",
           "मध्य अमेरिका"
         ],
-        "explanation": "मध्य अमेरिका मैक्सिको और दक्षिण अमेरिका के बीच भू-संपर्क बनाता है।"
+        "explanation": "मध्य अमेरिका दक्षिणी मेक्सिको से कोलंबिया की ओर फैला संकरा स्थल-सेतु है। यह कैरिबियन सागर को प्रशांत महासागर से अलग करता है और उत्तरी अमेरिका को दक्षिणी अमेरिका से जोड़ता है।"
       },
       "pa": {
         "stem": "ਮੈਕਸੀਕੋ ਅਤੇ ਕੋਲੰਬੀਆ ਵਿਚਕਾਰ ਤੰਗ ਧਰਤੀ ਦਾ ਜੋੜ ਕਿਹੜਾ ਖੇਤਰ ਬਣਾਉਂਦਾ ਹੈ?",
@@ -639,9 +642,10 @@
           "ਬਾਜਾ ਕੈਲੀਫ਼ੋਰਨੀਆ ਪ੍ਰਾਇਦੀਪ",
           "ਮੱਧ ਅਮਰੀਕਾ"
         ],
-        "explanation": "ਮੱਧ ਅਮਰੀਕਾ ਮੈਕਸੀਕੋ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਵਿਚਕਾਰ ਧਰਤੀ ਦਾ ਜੋੜ ਬਣਾਉਂਦਾ ਹੈ।"
+        "explanation": "ਮੱਧ ਅਮਰੀਕਾ ਦੱਖਣੀ ਮੈਕਸੀਕੋ ਤੋਂ ਕੋਲੰਬੀਆ ਵੱਲ ਫੈਲਿਆ ਤੰਗ ਥਲ-ਸੇਤੁ ਹੈ। ਇਹ ਕੈਰੀਬੀਆਈ ਸਾਗਰ ਨੂੰ ਪ੍ਰਸ਼ਾਂਤ ਮਹਾਂਸਾਗਰ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ ਅਤੇ ਉੱਤਰੀ ਅਮਰੀਕਾ ਨੂੰ ਦੱਖਣੀ ਅਮਰੀਕਾ ਨਾਲ ਜੋੜਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP028-Q015",
