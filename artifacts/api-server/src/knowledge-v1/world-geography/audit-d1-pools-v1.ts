@@ -556,9 +556,9 @@ function shuffled<T>(target: AuditFact, family: string, values: readonly T[]) {
 
 function makeDirect(target: AuditFact): WorldGeographyQuestion {
   const rows = optionFacts(target);
-  const en = shuffled(target, 'direct-en', rows.map(f => f.label.en));
-  const hi = shuffled(target, 'direct-hi', rows.map(f => f.label.hi));
-  const pa = shuffled(target, 'direct-pa', rows.map(f => f.label.pa));
+  const en = shuffled(target, 'direct', rows.map(f => f.label.en));
+  const hi = shuffled(target, 'direct', rows.map(f => f.label.hi));
+  const pa = shuffled(target, 'direct', rows.map(f => f.label.pa));
   if (en.order.join() !== hi.order.join() || en.order.join() !== pa.order.join()) throw new Error('Language option-order drift');
   const correctIndex = en.order.indexOf(0);
   return {
@@ -587,9 +587,9 @@ function makeMatch(target: AuditFact): WorldGeographyQuestion {
     `${rows[2]!.label[language]} — ${rows[3]!.relation[language]}`,
     `${rows[3]!.label[language]} — ${rows[1]!.relation[language]}`,
   ];
-  const en = shuffled(target, 'match-en', pairValues('en'));
-  const hi = shuffled(target, 'match-hi', pairValues('hi'));
-  const pa = shuffled(target, 'match-pa', pairValues('pa'));
+  const en = shuffled(target, 'match', pairValues('en'));
+  const hi = shuffled(target, 'match', pairValues('hi'));
+  const pa = shuffled(target, 'match', pairValues('pa'));
   if (en.order.join() !== hi.order.join() || en.order.join() !== pa.order.join()) throw new Error('Language option-order drift');
   const correctIndex = en.order.indexOf(0);
   const difficulty: Difficulty = target.difficulty === 'Easy' ? 'Medium' : 'Hard';
