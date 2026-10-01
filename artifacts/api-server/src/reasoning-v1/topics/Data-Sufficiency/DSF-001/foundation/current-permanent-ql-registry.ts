@@ -26,13 +26,15 @@ export const DSF_QL_002_PERMANENT_ENTRY = Object.freeze({
     "DYNAMIC_NEAREST_5",
   ] as const),
   lifecycle: Object.freeze({
-    englishContentStatus: "CP015_THREE_STATEMENT_SEMANTIC_FOUNDATION_FROZEN" as const,
-    sourceBackedPrototypeChapters: Object.freeze(["NUM-001"] as const),
-    questionStudioDiscoverable: false as const,
+    englishContentStatus: "CP033_QL002_REASONING_QUESTION_STUDIO_FREEZE_CANDIDATE" as const,
+    sourceBackedPrototypeChapters: Object.freeze(["NUM-001","RNK-001","REAS-DIRECTION","BLR-001","REAS-INEQ","SEA-001","COD-CP-001","CAL-001"] as const),
+    questionStudioDiscoverable: true as const,
     questionBankWritable: false as const,
     testEligible: false as const,
     mockTestEligible: false as const,
     publiclyPublishable: false as const,
+    automaticStudentPublication: false as const,
+    reviewRuntimeScope: "REASONING_ONLY_EN_HI_PA" as const,
   }),
 });
 
