@@ -157,9 +157,79 @@ export function generatePrt001PilotParameters(input: {
       durationB: 12,
     };
   } else if (
+    input.entry.solveMode === "findProfitRatioFromCapitalAndDuration"
+  ) {
+    const numericStateRandom = createPrt001Random(
+      `${input.seed}:numeric-state:${input.entry.solveMode}`,
+    );
+    const capitalRatio = numericStateRandom.pick([
+      [2, 3],
+      [3, 2],
+      [3, 4],
+      [4, 3],
+      [4, 5],
+      [5, 4],
+      [5, 7],
+      [7, 5],
+      [4, 7],
+      [7, 4],
+    ] as const);
+    const durationPair = numericStateRandom.pick([
+      [12, 8],
+      [10, 6],
+      [8, 12],
+      [6, 9],
+      [12, 6],
+      [9, 12],
+      [7, 10],
+      [11, 6],
+      [5, 12],
+      [12, 7],
+    ] as const);
+    const unit = numericStateRandom.pick([5_000, 6_000, 8_000, 10_000, 12_000]);
+    scenario = {
+      capitalA: capitalRatio[0] * unit,
+      durationA: durationPair[0],
+      capitalB: capitalRatio[1] * unit,
+      durationB: durationPair[1],
+    };
+  } else if (
     input.entry.solveMode === "findUnknownCapitalFromShareRatioAndDurations"
   ) {
-    scenario = random.pick(variableRanges.unknownCapitalScenarios);
+    const numericStateRandom = createPrt001Random(
+      `${input.seed}:numeric-state:${input.entry.solveMode}`,
+    );
+    const capitalRatio = numericStateRandom.pick([
+      [2, 3],
+      [3, 2],
+      [3, 4],
+      [4, 3],
+      [4, 5],
+      [5, 4],
+      [5, 7],
+      [7, 5],
+      [4, 7],
+      [7, 4],
+    ] as const);
+    const durationPair = numericStateRandom.pick([
+      [6, 12],
+      [8, 12],
+      [9, 12],
+      [10, 12],
+      [12, 8],
+      [12, 9],
+      [15, 20],
+      [18, 24],
+      [20, 30],
+      [24, 18],
+    ] as const);
+    const unit = numericStateRandom.pick([6_000, 8_000, 10_000, 12_000, 15_000]);
+    scenario = {
+      capitalA: capitalRatio[0] * unit,
+      durationA: durationPair[0],
+      capitalB: capitalRatio[1] * unit,
+      durationB: durationPair[1],
+    };
   } else if (
     input.entry.solveMode === "findUnknownDurationFromShareRatioAndCapitals"
   ) {
