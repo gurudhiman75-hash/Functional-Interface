@@ -19,6 +19,7 @@ import {
 } from "./foundation/cp004-permanent-runtime";
 import { compareRational, equalsRational, rational } from "./foundation/rational";
 import { applyMal001DualMethodExplanationV2 } from "./foundation/chapter-compact-explanation-v1";
+import { runMalCp004EnglishChapterClosureV9Pipeline } from "./foundation/cp004-chapter-closure-runtime-v9";
 import { runMal001QuestionStudioPipeline } from "./question-studio-adapter";
 
 function assert(value: unknown, message: string): asserts value {
@@ -181,17 +182,16 @@ for (const allocation of MAL_CP004_PERMANENT_ALLOCATION) {
       studio.parameters.requestedSeed === seed,
       `${allocation.qlId}/${seed}: Question Studio requested-seed trace drifted.`,
     );
-    const studioSelectedSeed = String(studio.parameters.selectedSeed ?? seed);
     const expectedStudio = applyMal001DualMethodExplanationV2(
-      runMalCp004EnglishProductReviewV7Pipeline({
+      runMalCp004EnglishChapterClosureV9Pipeline({
         questionLanguageId: allocation.qlId,
-        seed: studioSelectedSeed,
+        seed,
         language: "en",
       }),
     ) as MalCp004ProductReviewQuestion;
     assert(
       questionStudioParityShape(studio) === questionStudioParityShape(expectedStudio),
-      `${allocation.qlId}/${seed}: Question Studio learner/math parity failed after closure selection and chapter explanation overlay.`,
+      `${allocation.qlId}/${seed}: Question Studio learner/math parity failed against the V9 closure source plus chapter explanation overlay.`,
     );
     studioParity += 1;
 
