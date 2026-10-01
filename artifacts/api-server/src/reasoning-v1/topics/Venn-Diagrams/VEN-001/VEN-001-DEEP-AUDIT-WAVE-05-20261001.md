@@ -41,11 +41,11 @@ Source caveat: the supplemental source census still does not independently estab
 
 ### 2. VEN-CP002 topology breadth was complete but shallow
 
-Before Wave 05, all 11 supported three-set topologies were present, but several topology families had only one scenario.
+Before Wave 05, the live pool already had 26 scenarios across all 11 supported three-set topologies; THREE_TWO_OVERLAP_ONE_SEPARATE had only one scenario.
 
 After Wave 05:
 
-- 27 total scenarios;
+- 33 total scenarios;
 - all 11 supported topology families remain represented;
 - every topology has at least two fixed scenarios.
 
@@ -56,12 +56,12 @@ Current distribution:
 - THREE_TWO_OVERLAP_ONE_SEPARATE: 2
 - THREE_PAIRWISE_OVERLAP_WITH_TRIPLE: 3
 - THREE_PAIRWISE_OVERLAP_WITHOUT_TRIPLE: 2
-- THREE_PARTIAL_OVERLAP_INSIDE_SUPERSET: 3
-- THREE_TWO_DISJOINT_OVERLAP_THIRD: 2
-- THREE_ALL_DISJOINT: 2
-- THREE_NESTED_PAIR_CROSSED_BY_THIRD: 2
-- THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP: 2
-- THREE_ONE_NESTED_PAIR_ONE_SEPARATE: 2
+- THREE_PARTIAL_OVERLAP_INSIDE_SUPERSET: 4
+- THREE_TWO_DISJOINT_OVERLAP_THIRD: 3
+- THREE_ALL_DISJOINT: 3
+- THREE_NESTED_PAIR_CROSSED_BY_THIRD: 3
+- THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP: 3
+- THREE_ONE_NESTED_PAIR_ONE_SEPARATE: 3
 
 Tests now enforce the minimum so future edits cannot silently collapse a topology back to a single example.
 
@@ -149,7 +149,7 @@ Wave 05 enforces:
 
 - CP001 count = 20;
 - each CP001 topology family has at least five scenarios;
-- CP002 count = 27;
+- CP002 count = 33;
 - every CP002 topology has at least two scenarios;
 - CP005 `none` uses the dedicated derivation;
 - the identified lower-case English region-fragment regression does not return in CP005 `none`.
