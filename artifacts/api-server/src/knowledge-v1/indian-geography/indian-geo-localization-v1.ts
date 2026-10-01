@@ -1098,6 +1098,135 @@ function localizeGeoVegBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
   return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
 
+
+function polishGeoIndBulkTextV1(text:string, language:"hi"|"pa") {
+  const hi:[string,string][] = [
+    ["manufacturing industry","विनिर्माण उद्योग"],["manufacturing","विनिर्माण"],["processing","प्रसंस्करण"],["value addition","मूल्य संवर्धन"],
+    ["secondary activity","द्वितीयक गतिविधि"],["industrial chain","औद्योगिक शृंखला"],["agro-based industry","कृषि-आधारित उद्योग"],["agro-based industries","कृषि-आधारित उद्योग"],
+    ["mineral-based industry","खनिज-आधारित उद्योग"],["mineral-based industries","खनिज-आधारित उद्योग"],["ownership","स्वामित्व"],
+    ["public sector","सार्वजनिक क्षेत्र"],["private sector","निजी क्षेत्र"],["joint sector","संयुक्त क्षेत्र"],["cooperative sector","सहकारी क्षेत्र"],
+    ["raw material","कच्चा माल"],["raw materials","कच्चे माल"],["location factor","स्थान निर्धारण कारक"],["location factors","स्थान निर्धारण कारक"],
+    ["industrial location","औद्योगिक स्थान निर्धारण"],["power and energy","शक्ति और ऊर्जा"],["power","शक्ति"],["energy","ऊर्जा"],
+    ["labour","श्रम"],["capital","पूंजी"],["technology","प्रौद्योगिकी"],["transport","परिवहन"],["market","बाजार"],["markets","बाजार"],
+    ["agglomeration","समूहन"],["industrial clustering","औद्योगिक संकुलन"],["industrial cluster","औद्योगिक संकुल"],["industrial clusters","औद्योगिक संकुल"],
+    ["footloose industry","स्थान-लचीला उद्योग"],["footloose industries","स्थान-लचीले उद्योग"],
+    ["iron and steel industry","लोहा-इस्पात उद्योग"],["iron and steel","लोहा और इस्पात"],["steel plant","इस्पात संयंत्र"],["steel plants","इस्पात संयंत्र"],
+    ["iron ore","लौह अयस्क"],["coking coal","कोकिंग कोयला"],["limestone","चूना पत्थर"],["manganese","मैंगनीज"],["blast furnace","ब्लास्ट फर्नेस"],
+    ["Jamshedpur","जमशेदपुर"],["Bhilai","भिलाई"],["Rourkela","राउरकेला"],["Durgapur","दुर्गापुर"],["Burnpur","बर्नपुर"],["Bokaro","बोकारो"],
+    ["Visakhapatnam","विशाखापत्तनम"],["Salem","सेलम"],["Bhadravati","भद्रावती"],["Vijayanagar","विजयनगर"],["Chotanagpur","छोटानागपुर"],
+    ["cotton textile industry","सूती वस्त्र उद्योग"],["cotton textile","सूती वस्त्र"],["textile industry","वस्त्र उद्योग"],["textiles","वस्त्र"],
+    ["cotton","कपास"],["jute industry","जूट उद्योग"],["jute","जूट"],["Hugli","हुगली"],["synthetic fibre","कृत्रिम रेशा"],["man-made fibre","मानव निर्मित रेशा"],
+    ["knitwear","बुना हुआ परिधान"],["silk textile","रेशम वस्त्र"],["woollen textile","ऊनी वस्त्र"],["Tiruppur","तिरुप्पुर"],["Surat","सूरत"],
+    ["Mumbai","मुंबई"],["Ahmedabad","अहमदाबाद"],["Tamil Nadu","तमिलनाडु"],["Maharashtra","महाराष्ट्र"],["Uttar Pradesh","उत्तर प्रदेश"],
+    ["sugar industry","चीनी उद्योग"],["sugarcane","गन्ना"],["sugar belt","चीनी पट्टी"],["cooperative","सहकारी"],["food processing","खाद्य प्रसंस्करण"],
+    ["dairy processing","दुग्ध प्रसंस्करण"],["cold chain","शीत शृंखला"],["by-products","उप-उत्पाद"],["by-product","उप-उत्पाद"],
+    ["fruit and vegetable processing","फल एवं सब्जी प्रसंस्करण"],["edible oil","खाद्य तेल"],
+    ["cement industry","सीमेंट उद्योग"],["cement","सीमेंट"],["gypsum","जिप्सम"],["clinker","क्लिंकर"],["blended cement","मिश्रित सीमेंट"],
+    ["Rajasthan","राजस्थान"],["Chhattisgarh","छत्तीसगढ़"],["Odisha","ओडिशा"],["Gujarat","गुजरात"],["Karnataka","कर्नाटक"],
+    ["aluminium industry","एल्युमिनियम उद्योग"],["aluminium","एल्युमिनियम"],["bauxite","बॉक्साइट"],["smelting","गलन"],["smelter","गलन संयंत्र"],
+    ["copper","तांबा"],["lead-zinc","सीसा-जस्ता"],["metallurgy","धातुकर्म"],["recycling","पुनर्चक्रण"],["secondary metal","द्वितीयक धातु"],
+    ["Damanjodi","दामनजोड़ी"],["Angul","अंगुल"],["Korba","कोरबा"],["Renukoot","रेणुकूट"],["Malanjkhand","मलांजखंड"],["Ghatsila","घाटशिला"],
+    ["engineering industry","इंजीनियरिंग उद्योग"],["heavy engineering","भारी इंजीनियरिंग"],["automobile industry","ऑटोमोबाइल उद्योग"],["automobile","ऑटोमोबाइल"],
+    ["aerospace","विमान-अंतरिक्ष"],["heavy electrical equipment","भारी विद्युत उपकरण"],["machine tools","मशीन औजार"],["shipbuilding","जहाज निर्माण"],
+    ["railway equipment","रेलवे उपकरण"],["Bengaluru","बेंगलुरु"],["Chennai","चेन्नई"],["Pune","पुणे"],["Delhi-NCR","दिल्ली-एनसीआर"],["Bhopal","भोपाल"],["Haridwar","हरिद्वार"],["Pinjore","पिंजौर"],
+    ["petrochemical industry","पेट्रो-रसायन उद्योग"],["petrochemical","पेट्रो-रसायन"],["feedstock","कच्चा इनपुट"],["fertilizer industry","उर्वरक उद्योग"],["fertilizer","उर्वरक"],
+    ["natural gas","प्राकृतिक गैस"],["phosphatic fertilizer","फॉस्फेटिक उर्वरक"],["chemical industry","रासायनिक उद्योग"],["pharmaceutical industry","औषधि उद्योग"],
+    ["Sindri","सिंदरी"],["Namrup","नामरूप"],["Mumbai-Thane","मुंबई-ठाणे"],
+    ["industrial region","औद्योगिक क्षेत्र"],["industrial regions","औद्योगिक क्षेत्र"],["industrial belt","औद्योगिक पट्टी"],["industrial belts","औद्योगिक पट्टियाँ"],
+    ["Mumbai-Pune","मुंबई-पुणे"],["Delhi-Meerut-Gurugram","दिल्ली-मेरठ-गुरुग्राम"],["Kollam-Thiruvananthapuram","कोल्लम-तिरुवनंतपुरम"],
+    ["industrial corridor","औद्योगिक गलियारा"],["industrial corridors","औद्योगिक गलियारे"],["Delhi-Mumbai Industrial Corridor","दिल्ली-मुंबई औद्योगिक गलियारा"],
+    ["Chennai-Bengaluru industrial corridor","चेन्नई-बेंगलुरु औद्योगिक गलियारा"],["Amritsar-Kolkata industrial corridor","अमृतसर-कोलकाता औद्योगिक गलियारा"],
+    ["port-led industrial location","बंदरगाह-आधारित औद्योगिक स्थान"],["industrial node","औद्योगिक नोड"],["industrial nodes","औद्योगिक नोड"],
+    ["logistics hub","लॉजिस्टिक्स केंद्र"],["logistics hubs","लॉजिस्टिक्स केंद्र"],["freight corridor","माल गलियारा"],["freight corridors","माल गलियारे"],
+    ["special economic zone","विशेष आर्थिक क्षेत्र"],["SEZ","विशेष आर्थिक क्षेत्र"],["export-oriented","निर्यातोन्मुख"],
+    ["industrial air pollution","औद्योगिक वायु प्रदूषण"],["air pollution","वायु प्रदूषण"],["industrial water pollution","औद्योगिक जल प्रदूषण"],
+    ["water pollution","जल प्रदूषण"],["thermal pollution","तापीय प्रदूषण"],["noise pollution","ध्वनि प्रदूषण"],["solid waste","ठोस अपशिष्ट"],
+    ["waste management","अपशिष्ट प्रबंधन"],["cleaner production","स्वच्छतर उत्पादन"],["resource efficiency","संसाधन दक्षता"],["water recycling","जल पुनर्चक्रण"],
+    ["reuse","पुनः उपयोग"],["industrial symbiosis","औद्योगिक सहजीवन"],["pollution control","प्रदूषण नियंत्रण"],["particulate emissions","कण उत्सर्जन"],
+    ["petroleum refining","पेट्रोलियम शोधन"],["oil refinery","तेल रिफाइनरी"],["refinery","रिफाइनरी"],["refineries","रिफाइनरियाँ"],["crude oil","कच्चा तेल"],
+    ["electronics manufacturing","इलेक्ट्रॉनिक्स विनिर्माण"],["electronics","इलेक्ट्रॉनिक्स"],["paper and pulp industry","कागज और लुगदी उद्योग"],
+    ["paper industry","कागज उद्योग"],["pulp","लुगदी"],["leather industry","चमड़ा उद्योग"],["footwear","जूता उद्योग"],["rubber tyre industry","रबर टायर उद्योग"],
+    ["industry","उद्योग"],["industries","उद्योग"],["industrial","औद्योगिक"],["location","स्थान"],["production","उत्पादन"],["manufactures","निर्मित करता है"],
+    ["plant","संयंत्र"],["plants","संयंत्र"],["factory","कारखाना"],["factories","कारखाने"],["centre","केंद्र"],["centres","केंद्र"],["center","केंद्र"],["centers","केंद्र"],
+    ["region","क्षेत्र"],["regions","क्षेत्र"],["cluster","संकुल"],["clusters","संकुल"],["belt","पट्टी"],["belts","पट्टियाँ"],["corridor","गलियारा"],["corridors","गलियारे"],
+    ["Which","कौन-सा"],["which","कौन-सा"],["What","क्या"],["what","क्या"],["Why","क्यों"],["why","क्यों"],["Where","कहाँ"],["where","कहाँ"],["When","कब"],["when","कब"],["How","कैसे"],["how","कैसे"],
+    ["the",""],["and","और"],["or","या"],["is","है"],["are","हैं"],["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],["can","सकता है"],["could","सकता था"],["would","होगा"],["should","चाहिए"],["has","है"],["have","हैं"],["had","था"],
+    ["with","के साथ"],["from","से"],["into","में"],["for","के लिए"],["of","का"],["to","को"],["in","में"],["on","पर"],["at","पर"],["by","द्वारा"],["as","के रूप में"],["than","की तुलना में"],["that","कि"],["this","यह"],["these","ये"],["those","वे"],
+    ["most","सबसे"],["main","मुख्य"],["major","प्रमुख"],["only","केवल"],["correct","सही"],["statement","कथन"],["following","निम्नलिखित"]
+  ];
+  const pa:[string,string][] = [
+    ["manufacturing industry","ਨਿਰਮਾਣ ਉਦਯੋਗ"],["manufacturing","ਨਿਰਮਾਣ"],["processing","ਪ੍ਰਸੰਸਕਰਨ"],["value addition","ਮੁੱਲ ਵਾਧਾ"],
+    ["secondary activity","ਦੁਤੀਆ ਗਤੀਵਿਧੀ"],["industrial chain","ਉਦਯੋਗਿਕ ਲੜੀ"],["agro-based industry","ਖੇਤੀ-ਅਧਾਰਿਤ ਉਦਯੋਗ"],["agro-based industries","ਖੇਤੀ-ਅਧਾਰਿਤ ਉਦਯੋਗ"],
+    ["mineral-based industry","ਖਣਿਜ-ਅਧਾਰਿਤ ਉਦਯੋਗ"],["mineral-based industries","ਖਣਿਜ-ਅਧਾਰਿਤ ਉਦਯੋਗ"],["ownership","ਮਾਲਕੀ"],
+    ["public sector","ਸਰਕਾਰੀ ਖੇਤਰ"],["private sector","ਨਿੱਜੀ ਖੇਤਰ"],["joint sector","ਸੰਯੁਕਤ ਖੇਤਰ"],["cooperative sector","ਸਹਿਕਾਰੀ ਖੇਤਰ"],
+    ["raw material","ਕੱਚਾ ਮਾਲ"],["raw materials","ਕੱਚਾ ਮਾਲ"],["location factor","ਸਥਾਨ ਨਿਰਧਾਰਣ ਕਾਰਕ"],["location factors","ਸਥਾਨ ਨਿਰਧਾਰਣ ਕਾਰਕ"],
+    ["industrial location","ਉਦਯੋਗਿਕ ਸਥਾਨ ਨਿਰਧਾਰਣ"],["power and energy","ਬਿਜਲੀ ਅਤੇ ਊਰਜਾ"],["power","ਬਿਜਲੀ"],["energy","ਊਰਜਾ"],
+    ["labour","ਮਜ਼ਦੂਰੀ"],["capital","ਪੂੰਜੀ"],["technology","ਤਕਨਾਲੋਜੀ"],["transport","ਆਵਾਜਾਈ"],["market","ਬਾਜ਼ਾਰ"],["markets","ਬਾਜ਼ਾਰ"],
+    ["agglomeration","ਸਮੂਹੀਕਰਨ"],["industrial clustering","ਉਦਯੋਗਿਕ ਸਮੂਹੀਕਰਨ"],["industrial cluster","ਉਦਯੋਗਿਕ ਸਮੂਹ"],["industrial clusters","ਉਦਯੋਗਿਕ ਸਮੂਹ"],
+    ["footloose industry","ਸਥਾਨ-ਲਚਕੀਲਾ ਉਦਯੋਗ"],["footloose industries","ਸਥਾਨ-ਲਚਕੀਲੇ ਉਦਯੋਗ"],
+    ["iron and steel industry","ਲੋਹਾ-ਇਸਪਾਤ ਉਦਯੋਗ"],["iron and steel","ਲੋਹਾ ਅਤੇ ਇਸਪਾਤ"],["steel plant","ਇਸਪਾਤ ਪਲਾਂਟ"],["steel plants","ਇਸਪਾਤ ਪਲਾਂਟ"],
+    ["iron ore","ਲੋਹ ਅਯਸਕ"],["coking coal","ਕੋਕਿੰਗ ਕੋਇਲਾ"],["limestone","ਚੂਨਾ ਪੱਥਰ"],["manganese","ਮੈਂਗਨੀਜ਼"],["blast furnace","ਬਲਾਸਟ ਫਰਨੇਸ"],
+    ["Jamshedpur","ਜਮਸ਼ੇਦਪੁਰ"],["Bhilai","ਭਿਲਾਈ"],["Rourkela","ਰਾਊਰਕੇਲਾ"],["Durgapur","ਦੁਰਗਾਪੁਰ"],["Burnpur","ਬਰਨਪੁਰ"],["Bokaro","ਬੋਕਾਰੋ"],
+    ["Visakhapatnam","ਵਿਸਾਖਾਪਟਨਮ"],["Salem","ਸੇਲਮ"],["Bhadravati","ਭਦਰਾਵਤੀ"],["Vijayanagar","ਵਿਜਯਨਗਰ"],["Chotanagpur","ਛੋਟਾਨਾਗਪੁਰ"],
+    ["cotton textile industry","ਸੂਤੀ ਕੱਪੜਾ ਉਦਯੋਗ"],["cotton textile","ਸੂਤੀ ਕੱਪੜਾ"],["textile industry","ਕੱਪੜਾ ਉਦਯੋਗ"],["textiles","ਕੱਪੜੇ"],
+    ["cotton","ਕਪਾਹ"],["jute industry","ਜੂਟ ਉਦਯੋਗ"],["jute","ਜੂਟ"],["Hugli","ਹੁਗਲੀ"],["synthetic fibre","ਕ੍ਰਿਤ੍ਰਿਮ ਰੇਸ਼ਾ"],["man-made fibre","ਮਨੁੱਖ-ਨਿਰਮਿਤ ਰੇਸ਼ਾ"],
+    ["knitwear","ਬੁਣੇ ਕੱਪੜੇ"],["silk textile","ਰੇਸ਼ਮੀ ਕੱਪੜਾ"],["woollen textile","ਉੱਨੀ ਕੱਪੜਾ"],["Tiruppur","ਤਿਰੁੱਪੁਰ"],["Surat","ਸੂਰਤ"],
+    ["Mumbai","ਮੁੰਬਈ"],["Ahmedabad","ਅਹਿਮਦਾਬਾਦ"],["Tamil Nadu","ਤਮਿਲਨਾਡੂ"],["Maharashtra","ਮਹਾਰਾਸ਼ਟਰ"],["Uttar Pradesh","ਉੱਤਰ ਪ੍ਰਦੇਸ਼"],
+    ["sugar industry","ਚੀਨੀ ਉਦਯੋਗ"],["sugarcane","ਗੰਨਾ"],["sugar belt","ਚੀਨੀ ਪੱਟੀ"],["cooperative","ਸਹਿਕਾਰੀ"],["food processing","ਖਾਦ ਪ੍ਰਸੰਸਕਰਨ"],
+    ["dairy processing","ਦੁੱਧ ਪ੍ਰਸੰਸਕਰਨ"],["cold chain","ਠੰਡੀ ਲੜੀ"],["by-products","ਉਪ-ਉਤਪਾਦ"],["by-product","ਉਪ-ਉਤਪਾਦ"],
+    ["fruit and vegetable processing","ਫਲ ਅਤੇ ਸਬਜ਼ੀ ਪ੍ਰਸੰਸਕਰਨ"],["edible oil","ਖਾਣਯੋਗ ਤੇਲ"],
+    ["cement industry","ਸੀਮੈਂਟ ਉਦਯੋਗ"],["cement","ਸੀਮੈਂਟ"],["gypsum","ਜਿਪਸਮ"],["clinker","ਕਲਿੰਕਰ"],["blended cement","ਮਿਸ਼ਰਤ ਸੀਮੈਂਟ"],
+    ["Rajasthan","ਰਾਜਸਥਾਨ"],["Chhattisgarh","ਛੱਤੀਸਗੜ੍ਹ"],["Odisha","ਓਡੀਸ਼ਾ"],["Gujarat","ਗੁਜਰਾਤ"],["Karnataka","ਕਰਨਾਟਕ"],
+    ["aluminium industry","ਐਲੂਮੀਨੀਅਮ ਉਦਯੋਗ"],["aluminium","ਐਲੂਮੀਨੀਅਮ"],["bauxite","ਬਾਕਸਾਈਟ"],["smelting","ਗਲਨ"],["smelter","ਗਲਨ ਪਲਾਂਟ"],
+    ["copper","ਤਾਂਬਾ"],["lead-zinc","ਸੀਸਾ-ਜ਼ਿੰਕ"],["metallurgy","ਧਾਤੁਕਰਮ"],["recycling","ਮੁੜ-ਚੱਕਰੀਕਰਨ"],["secondary metal","ਦੁਤੀਆ ਧਾਤ"],
+    ["Damanjodi","ਦਾਮਨਜੋੜੀ"],["Angul","ਅੰਗੁਲ"],["Korba","ਕੋਰਬਾ"],["Renukoot","ਰੇਣੂਕੂਟ"],["Malanjkhand","ਮਲਾਂਜਖੰਡ"],["Ghatsila","ਘਾਟਸ਼ਿਲਾ"],
+    ["engineering industry","ਇੰਜੀਨੀਅਰਿੰਗ ਉਦਯੋਗ"],["heavy engineering","ਭਾਰੀ ਇੰਜੀਨੀਅਰਿੰਗ"],["automobile industry","ਆਟੋਮੋਬਾਈਲ ਉਦਯੋਗ"],["automobile","ਆਟੋਮੋਬਾਈਲ"],
+    ["aerospace","ਹਵਾਈ-ਅੰਤਰਿਕਸ਼"],["heavy electrical equipment","ਭਾਰੀ ਬਿਜਲੀ ਉਪਕਰਣ"],["machine tools","ਮਸ਼ੀਨੀ ਔਜ਼ਾਰ"],["shipbuilding","ਜਹਾਜ਼ ਨਿਰਮਾਣ"],
+    ["railway equipment","ਰੇਲਵੇ ਉਪਕਰਣ"],["Bengaluru","ਬੈਂਗਲੁਰੂ"],["Chennai","ਚੇਨਈ"],["Pune","ਪੁਣੇ"],["Delhi-NCR","ਦਿੱਲੀ-ਐਨਸੀਆਰ"],["Bhopal","ਭੋਪਾਲ"],["Haridwar","ਹਰਿਦੁਆਰ"],["Pinjore","ਪਿੰਜੌਰ"],
+    ["petrochemical industry","ਪੈਟਰੋ-ਰਸਾਇਣ ਉਦਯੋਗ"],["petrochemical","ਪੈਟਰੋ-ਰਸਾਇਣ"],["feedstock","ਕੱਚਾ ਇਨਪੁਟ"],["fertilizer industry","ਖਾਦ ਉਦਯੋਗ"],["fertilizer","ਖਾਦ"],
+    ["natural gas","ਕੁਦਰਤੀ ਗੈਸ"],["phosphatic fertilizer","ਫਾਸਫੇਟਿਕ ਖਾਦ"],["chemical industry","ਰਸਾਇਣ ਉਦਯੋਗ"],["pharmaceutical industry","ਦਵਾਈ ਉਦਯੋਗ"],
+    ["Sindri","ਸਿੰਦਰੀ"],["Namrup","ਨਾਮਰੂਪ"],["Mumbai-Thane","ਮੁੰਬਈ-ਠਾਣੇ"],
+    ["industrial region","ਉਦਯੋਗਿਕ ਖੇਤਰ"],["industrial regions","ਉਦਯੋਗਿਕ ਖੇਤਰ"],["industrial belt","ਉਦਯੋਗਿਕ ਪੱਟੀ"],["industrial belts","ਉਦਯੋਗਿਕ ਪੱਟੀਆਂ"],
+    ["Mumbai-Pune","ਮੁੰਬਈ-ਪੁਣੇ"],["Delhi-Meerut-Gurugram","ਦਿੱਲੀ-ਮੇਰਠ-ਗੁਰੁਗ੍ਰਾਮ"],["Kollam-Thiruvananthapuram","ਕੋਲਲਮ-ਤਿਰੁਵਨੰਤਪੁਰਮ"],
+    ["industrial corridor","ਉਦਯੋਗਿਕ ਗਲਿਆਰਾ"],["industrial corridors","ਉਦਯੋਗਿਕ ਗਲਿਆਰੇ"],["Delhi-Mumbai Industrial Corridor","ਦਿੱਲੀ-ਮੁੰਬਈ ਉਦਯੋਗਿਕ ਗਲਿਆਰਾ"],
+    ["Chennai-Bengaluru industrial corridor","ਚੇਨਈ-ਬੈਂਗਲੁਰੂ ਉਦਯੋਗਿਕ ਗਲਿਆਰਾ"],["Amritsar-Kolkata industrial corridor","ਅੰਮ੍ਰਿਤਸਰ-ਕੋਲਕਾਤਾ ਉਦਯੋਗਿਕ ਗਲਿਆਰਾ"],
+    ["port-led industrial location","ਬੰਦਰਗਾਹ-ਅਧਾਰਿਤ ਉਦਯੋਗਿਕ ਸਥਾਨ"],["industrial node","ਉਦਯੋਗਿਕ ਨੋਡ"],["industrial nodes","ਉਦਯੋਗਿਕ ਨੋਡ"],
+    ["logistics hub","ਲਾਜਿਸਟਿਕ ਕੇਂਦਰ"],["logistics hubs","ਲਾਜਿਸਟਿਕ ਕੇਂਦਰ"],["freight corridor","ਮਾਲ ਗਲਿਆਰਾ"],["freight corridors","ਮਾਲ ਗਲਿਆਰੇ"],
+    ["special economic zone","ਵਿਸ਼ੇਸ਼ ਆਰਥਿਕ ਖੇਤਰ"],["SEZ","ਵਿਸ਼ੇਸ਼ ਆਰਥਿਕ ਖੇਤਰ"],["export-oriented","ਨਿਰਯਾਤ-ਕੇਂਦ੍ਰਿਤ"],
+    ["industrial air pollution","ਉਦਯੋਗਿਕ ਹਵਾ ਪ੍ਰਦੂਸ਼ਣ"],["air pollution","ਹਵਾ ਪ੍ਰਦੂਸ਼ਣ"],["industrial water pollution","ਉਦਯੋਗਿਕ ਜਲ ਪ੍ਰਦੂਸ਼ਣ"],
+    ["water pollution","ਜਲ ਪ੍ਰਦੂਸ਼ਣ"],["thermal pollution","ਤਾਪੀ ਪ੍ਰਦੂਸ਼ਣ"],["noise pollution","ਸ਼ੋਰ ਪ੍ਰਦੂਸ਼ਣ"],["solid waste","ਠੋਸ ਕਚਰਾ"],
+    ["waste management","ਕਚਰਾ ਪ੍ਰਬੰਧਨ"],["cleaner production","ਸਾਫ਼ ਉਤਪਾਦਨ"],["resource efficiency","ਸਰੋਤ ਕੁਸ਼ਲਤਾ"],["water recycling","ਜਲ ਮੁੜ-ਚੱਕਰੀਕਰਨ"],
+    ["reuse","ਮੁੜ ਵਰਤੋਂ"],["industrial symbiosis","ਉਦਯੋਗਿਕ ਸਹਜੀਵਨ"],["pollution control","ਪ੍ਰਦੂਸ਼ਣ ਨਿਯੰਤਰਣ"],["particulate emissions","ਕਣ ਨਿਕਾਸ"],
+    ["petroleum refining","ਪੈਟਰੋਲਿਅਮ ਸ਼ੋਧਨ"],["oil refinery","ਤੇਲ ਰਿਫਾਇਨਰੀ"],["refinery","ਰਿਫਾਇਨਰੀ"],["refineries","ਰਿਫਾਇਨਰੀਆਂ"],["crude oil","ਕੱਚਾ ਤੇਲ"],
+    ["electronics manufacturing","ਇਲੈਕਟ੍ਰਾਨਿਕਸ ਨਿਰਮਾਣ"],["electronics","ਇਲੈਕਟ੍ਰਾਨਿਕਸ"],["paper and pulp industry","ਕਾਗਜ਼ ਅਤੇ ਲੁਗਦੀ ਉਦਯੋਗ"],
+    ["paper industry","ਕਾਗਜ਼ ਉਦਯੋਗ"],["pulp","ਲੁਗਦੀ"],["leather industry","ਚਮੜਾ ਉਦਯੋਗ"],["footwear","ਜੁੱਤਾ ਉਦਯੋਗ"],["rubber tyre industry","ਰਬਰ ਟਾਇਰ ਉਦਯੋਗ"],
+    ["industry","ਉਦਯੋਗ"],["industries","ਉਦਯੋਗ"],["industrial","ਉਦਯੋਗਿਕ"],["location","ਸਥਾਨ"],["production","ਉਤਪਾਦਨ"],["manufactures","ਨਿਰਮਾਣ ਕਰਦਾ ਹੈ"],
+    ["plant","ਪਲਾਂਟ"],["plants","ਪਲਾਂਟ"],["factory","ਕਾਰਖਾਨਾ"],["factories","ਕਾਰਖਾਨੇ"],["centre","ਕੇਂਦਰ"],["centres","ਕੇਂਦਰ"],["center","ਕੇਂਦਰ"],["centers","ਕੇਂਦਰ"],
+    ["region","ਖੇਤਰ"],["regions","ਖੇਤਰ"],["cluster","ਸਮੂਹ"],["clusters","ਸਮੂਹ"],["belt","ਪੱਟੀ"],["belts","ਪੱਟੀਆਂ"],["corridor","ਗਲਿਆਰਾ"],["corridors","ਗਲਿਆਰੇ"],
+    ["Which","ਕਿਹੜਾ"],["which","ਕਿਹੜਾ"],["What","ਕੀ"],["what","ਕੀ"],["Why","ਕਿਉਂ"],["why","ਕਿਉਂ"],["Where","ਕਿੱਥੇ"],["where","ਕਿੱਥੇ"],["When","ਕਦੋਂ"],["when","ਕਦੋਂ"],["How","ਕਿਵੇਂ"],["how","ਕਿਵੇਂ"],
+    ["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],["is","ਹੈ"],["are","ਹਨ"],["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],["would","ਹੋਵੇਗਾ"],["should","ਚਾਹੀਦਾ ਹੈ"],["has","ਹੈ"],["have","ਹਨ"],["had","ਸੀ"],
+    ["with","ਨਾਲ"],["from","ਤੋਂ"],["into","ਵਿੱਚ"],["for","ਲਈ"],["of","ਦਾ"],["to","ਨੂੰ"],["in","ਵਿੱਚ"],["on","ਉੱਤੇ"],["at","ਉੱਤੇ"],["by","ਦੁਆਰਾ"],["as","ਵਜੋਂ"],["than","ਨਾਲੋਂ"],["that","ਕਿ"],["this","ਇਹ"],["these","ਇਹ"],["those","ਉਹ"],
+    ["most","ਸਭ ਤੋਂ"],["main","ਮੁੱਖ"],["major","ਮੁੱਖ"],["only","ਕੇਵਲ"],["correct","ਸਹੀ"],["statement","ਕਥਨ"],["following","ਹੇਠ ਲਿਖੇ"]
+  ];
+  let out=text;
+  const pairs=language==="hi"?hi:pa;
+  for(const [from,to] of pairs.sort((a,b)=>b[0].length-a[0].length)){
+    out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
+  }
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+
+function localizeGeoIndBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
+  if(!/^GEO-IND-001-CP(?:00[1-9]|01[013])-Q/.test(question.questionId)) return null;
+  const local=(source:string)=>polishGeoIndBulkTextV1(localizeText(source,language),language);
+  const stemBase=localizeNaturalStem(question.stem,language,"GEO-IND-001") ?? localizeText(question.stem,language);
+  const stem=polishGeoIndBulkTextV1(stemBase,language);
+  const options=Object.freeze(question.options.map(local));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=local(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
   language: IndianGeoLocalizationLanguageV1,
@@ -1114,6 +1243,11 @@ export function localizeIndianGeoQuestionV1(
 
   if (packageId === "GEO-TRN-001") {
     const bulk = localizeGeoTrnBulkV1(question, language);
+    if (bulk) return bulk;
+  }
+
+  if (packageId === "GEO-IND-001") {
+    const bulk = localizeGeoIndBulkV1(question, language);
     if (bulk) return bulk;
   }
 
