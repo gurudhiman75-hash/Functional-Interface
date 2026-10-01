@@ -66,6 +66,10 @@ export function buildTmwCp007Parameters(entry:TmwCp007RegistryEntry,seed:string)
         {source:1,target:2,count:8,presentation:"REPLACEMENT"},
         {source:0,target:2,count:4,presentation:"REPLACEMENT"},
         {source:1,target:0,count:30,presentation:"EQUIVALENT"},
+        {source:0,target:1,count:60,presentation:"REPLACEMENT"},
+        {source:1,target:2,count:10,presentation:"EQUIVALENT"},
+        {source:0,target:2,count:14,presentation:"EQUIVALENT"},
+        {source:1,target:2,count:12,presentation:"REPLACEMENT"},
       ] as const,seed,"cp007-equivalent"),source=v.source as 0|1|2,target=v.target as 0|1|2,n=r(v.count);
       return {context:c,crewA:[source===0?n:r(0),source===1?n:r(0),source===2?n:r(0)],crewB:zeroCrew(),workA:r(1),workB:r(1),daysA:r(1),daysB:r(1),sourceCategoryIndex:source,...(v.presentation==="REPLACEMENT"?{replacementCategoryIndex:target}:{targetCategoryIndex:target})};
     }
