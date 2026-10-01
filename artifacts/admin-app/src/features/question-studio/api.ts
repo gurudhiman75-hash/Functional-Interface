@@ -84,8 +84,17 @@ export interface QuestionStudioReviewQuery {
   search?: string;
 }
 
+export interface QuestionStudioReviewDuplicateMatch {
+  itemId: string;
+  matchedItemId: string;
+  matchedRunCode: string;
+  similarity: number;
+  exact: boolean;
+}
+
 export interface QuestionStudioReviewPage {
   runs: QuestionStudioRun[];
+  duplicateMatches: QuestionStudioReviewDuplicateMatch[];
   pagination: {
     page: number;
     pageSize: number;

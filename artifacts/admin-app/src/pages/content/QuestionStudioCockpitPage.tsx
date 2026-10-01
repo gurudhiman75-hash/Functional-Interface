@@ -356,7 +356,16 @@ export function QuestionStudioCockpitPage() {
     }
   }, [reviewRuns, expandedRuns.size]);
 
-  const duplicates = useMemo(() => findDuplicateMatches(reviewRuns), [reviewRuns]);
+  const duplicates = useMemo(() => {
+    const combined = findDuplicateMatches(reviewRuns);
+    for (const match of reviewPage.duplicateMatches) {
+      const current = combined.get(match.itemId);
+      if (!current || match.exact || current.similarity < match.similarity) {
+        combined.set(match.itemId, match as DuplicateMatch);
+      }
+    }
+    return combined;
+  }, [reviewPage.duplicateMatches, reviewRuns]);
   const qualityByItem = useMemo(() => {
     const map = new Map<string, ItemQualityReport>();
     for (const run of reviewRuns) {
@@ -683,7 +692,7 @@ export function QuestionStudioCockpitPage() {
         <TabsContent value="review" className="mt-0">
       <Card>
         <CardHeader className="space-y-4">
-          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Subject, chapter, status and search are filtered server-side. Quality and duplicate signals apply to the current page of loaded questions.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
+          <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Subject, chapter, status and search are filtered server-side. Exact duplicates are checked across the full generated corpus; near-duplicate similarity and other quality signals are evaluated on the current page.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search run code, stem, CP, topic, package or exam" className="pl-9" />

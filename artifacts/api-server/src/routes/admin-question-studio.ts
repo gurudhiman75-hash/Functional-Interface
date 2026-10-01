@@ -303,6 +303,51 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
         `
       : [];
 
+    const pageItemIds = items.map((item) => String(item.id));
+    const duplicateMatches = pageItemIds.length > 0
+      ? await sqlClient`
+          WITH current_payloads AS (
+            SELECT
+              i.id,
+              r.public_code AS "runCode",
+              r.created_at AS "runCreatedAt",
+              NULLIF(v.payload ->> 'contentFingerprint', '') AS fingerprint,
+              LOWER(
+                REGEXP_REPLACE(
+                  TRIM(COALESCE(NULLIF(v.payload ->> 'text', ''), v.payload ->> 'stem', '')),
+                  '[[:space:][:punct:]]+',
+                  ' ',
+                  'g'
+                )
+              ) AS "normalizedStem"
+            FROM content.generation_run_items i
+            INNER JOIN content.generation_runs r
+              ON r.id = i.generation_run_id
+            INNER JOIN content.generation_item_versions v
+              ON v.generation_item_id = i.id
+             AND v.version_number = i.current_version_number
+          )
+          SELECT DISTINCT ON (source.id)
+            source.id::text AS "itemId",
+            matched.id::text AS "matchedItemId",
+            matched."runCode" AS "matchedRunCode",
+            1::float AS similarity,
+            true AS exact
+          FROM current_payloads source
+          INNER JOIN current_payloads matched
+            ON matched.id <> source.id
+           AND source."normalizedStem" <> ''
+           AND source."normalizedStem" = matched."normalizedStem"
+           AND (
+             source.fingerprint IS NULL
+             OR matched.fingerprint IS NULL
+             OR source.fingerprint = matched.fingerprint
+           )
+          WHERE source.id = ANY(${pageItemIds}::uuid[])
+          ORDER BY source.id, matched."runCreatedAt" DESC, matched.id
+        `
+      : [];
+
     const itemsByRun = new Map<string, typeof items>();
     for (const item of items) {
       const runId = String(item.generationRunId);
@@ -316,6 +361,7 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
         ...run,
         items: itemsByRun.get(String(run.id)) ?? [],
       })),
+      duplicateMatches,
       pagination: {
         page: normalizedPage,
         pageSize,
