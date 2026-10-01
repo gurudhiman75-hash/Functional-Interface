@@ -15,6 +15,7 @@ import {
   renderThreeStatementSemanticLabel,
   type DsfCp015ThreeStatementSemanticKey,
 } from "../DSF-CP-015/three-statement-answer-profile.ts";
+import { renderThreeStatementEditorialExplanation } from "../shared/three-statement-editorial-explanation.ts";
 
 export const DSF_CP021_RANKING_QL002_RUNTIME_VERSION = "DSF_CP021_RANKING_QL002_RUNTIME_V1" as const;
 export const DSF_CP021_CHECKPOINT_ID = "DSF-CP-021" as const;
@@ -283,21 +284,8 @@ function subsetSummary(evaluation:ThreeStatementSufficiencyEvaluation<number>, i
 }
 
 function explanation(problem:Problem,triple:CandidateTriple):string {
-  const describe=(label:string,result:ReturnType<typeof subsetSummary>)=>{
-    if(!result) return `${label}: evaluation unavailable.`;
-    if(result.sufficient) return `${label} alone fixes the requested ranking value at ${result.normalizedTargetAnswers[0]}.`;
-    const examples=result.normalizedTargetAnswers.slice(0,2).join(" and ");
-    return `${label} alone does not fix one value${examples?`; possible values include ${examples}`:""}.`;
-  };
-  return [
-    `We need the ${targetLabel(problem.solveMode)}.`,
-    describe("Statement I",subsetSummary(triple.evaluation,["I"])),
-    describe("Statement II",subsetSummary(triple.evaluation,["II"])),
-    describe("Statement III",subsetSummary(triple.evaluation,["III"])),
-    renderThreeStatementSemanticLabel(triple.semanticKey),
-  ].join(" ");
+  return renderThreeStatementEditorialExplanation(triple.evaluation, targetLabel(problem.solveMode), triple.semanticKey);
 }
-
 export function generateDsfCp021RankingQuestion(seed:string|number){
   const seedText=String(seed);
   const {problem,triple}=selectTriple(seedText);
