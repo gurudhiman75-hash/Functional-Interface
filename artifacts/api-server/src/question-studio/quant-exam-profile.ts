@@ -410,8 +410,9 @@ export async function generateProfiledQuantBatch(input: {
       questionLanguageId: input.request.questionLanguageId,
     });
 
-    const resultContext = asRecord(result.generationContext);
-    const candidates = (Array.isArray(result.questions) ? result.questions : [])
+    const resultRecord = asRecord(result);
+    const resultContext = asRecord(resultRecord.generationContext);
+    const candidates = (Array.isArray(resultRecord.questions) ? resultRecord.questions : [])
       .map((question) => question as Record<string, unknown>)
       .sort((left, right) =>
         scoreQuantQuestionForProfile(right, plan.profile)
