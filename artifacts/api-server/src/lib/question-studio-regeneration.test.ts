@@ -51,6 +51,40 @@ test("rebuilds the original generation scope with a fresh seed", () => {
   assert.equal(request.count, 1);
 });
 
+test("preserves a registered engine and the originating CP for recovery", () => {
+  const languageSource: RegenerationSource = {
+    ...source,
+    requestSnapshot: {
+      engineId: "language-v1",
+      exam: "SSC CGL",
+      subject: "English",
+      packageId: "ENG-011",
+      topic: "Sentence Rearrangement",
+      subtopic: "Fragment Ordering",
+      difficulty: "Medium",
+      language: "en",
+      runtimeMode: "review-only",
+    },
+    payload: {
+      engineId: "language-v1",
+      packageId: "ENG-011",
+      selectedCpId: "ENG-011-CP003",
+      difficulty: "Medium",
+      language: "en",
+    },
+  };
+
+  const request = buildRegenerationRequest(languageSource, "language-recovery-seed");
+  assert.equal(request.engineId, "language-v1");
+  assert.equal(request.exam, "SSC CGL");
+  assert.equal(request.subject, "English");
+  assert.equal(request.packageId, "ENG-011");
+  assert.equal(request.canonicalProblemId, "ENG-011-CP003");
+  assert.equal(request.runtimeMode, "review-only");
+  assert.equal(request.seed, "language-recovery-seed");
+  assert.equal(request.count, 1);
+});
+
 test("records regeneration provenance in the replacement payload", () => {
   const payload = buildRegenerationPayload(
     { stem: "Replacement question", options: ["1", "2"], correctIndex: 1 },
@@ -61,6 +95,7 @@ test("records regeneration provenance in the replacement payload", () => {
   );
 
   assert.equal(payload.validationResult, "pending");
+  assert.equal(payload.selectedCpId, "PCT-003-CP-04");
   assert.deepEqual(payload.regeneration, {
     sourceVersionNumber: 2,
     sourceRunCode: "GEN-TEST",
