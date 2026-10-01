@@ -108,10 +108,10 @@ assert.equal(
   "hi",
   "reasoning CP018 Hindi review surface",
 );
-assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-AVERAGE", language: "hi", count: 1 }),
-  /not yet localized|English-only/iu,
-  "new Quant CP011 breadth must remain English-only until its localization wave",
+assert.equal(
+  previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-AVERAGE", language: "hi", count: 1 }).questions[0]?.language,
+  "hi",
+  "CP019 Quant Hindi review surface",
 );
 assert.throws(
   () => previewDsf001NormalQuestionStudioReview({ canonicalProblemId: "DSF-QS-NOT-A-LANE", count: 1 }),

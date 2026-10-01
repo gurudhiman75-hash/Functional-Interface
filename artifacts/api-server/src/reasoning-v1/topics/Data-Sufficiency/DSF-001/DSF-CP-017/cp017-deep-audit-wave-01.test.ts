@@ -127,9 +127,9 @@ assert.equal(
   previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-CALENDAR", language: "pa", count: 1 }).questions[0]?.language,
   "pa",
 );
-assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-AVERAGE", language: "hi", count: 1 }),
-  /not yet localized|English-only/iu,
+assert.equal(
+  previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-AVERAGE", language: "hi", count: 1 }).questions[0]?.language,
+  "hi",
 );
 
 console.log(JSON.stringify({
