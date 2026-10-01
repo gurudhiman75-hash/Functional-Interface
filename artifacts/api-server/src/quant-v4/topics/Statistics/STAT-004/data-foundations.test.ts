@@ -22,7 +22,7 @@ for (const profile of profiles) {
       const replay = generateStat004Question({ seed, contractId, examProfile: profile });
       assert(JSON.stringify(q) === JSON.stringify(replay), `Non-deterministic replay for ${contractId}, ${profile}, seed ${index}.`);
       assert(q.options.length === 4 && new Set(q.options).size === 4, `Invalid option set for ${q.questionId}.`);
-      assert(!/\\b(?:Select the|Tally them into|Using classes|Using lower-inclusive)\\b/iu.test(q.stem),
+      assert(!/\b(?:Select the|Tally them into|Using classes|Using lower-inclusive)\b/iu.test(q.stem),
         `Instruction-style prompt leaked into the learner-facing stem for ${q.questionId}.`);
       assert(q.correctIndex >= 0 && q.correctIndex < 4 && q.options[q.correctIndex] === q.answer, `Incorrect answer position for ${q.questionId}.`);
       assert(!q.questionBankWritable && !q.testEligible && !q.mockTestEligible && !q.publiclyPublishable && !q.automaticStudentPublication && !q.productionReleaseAuthorized,
