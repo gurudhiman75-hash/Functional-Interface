@@ -140,6 +140,8 @@ After regeneration, the saved review packs contain:
 - CP011 shape-regions: 60 localized questions;
 - total checked surface: 204 learner-facing questions.
 
+The final numerical and CP011 review artifacts were regenerated after the last generator edits and are synchronized with this branch.
+
 Automated scan result:
 
 - Hindi→Gurmukhi leakage: 0
