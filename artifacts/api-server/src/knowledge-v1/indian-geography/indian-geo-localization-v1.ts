@@ -1087,7 +1087,12 @@ function localizeGeoVegBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
   const local=(source:string)=>polishGeoVegBulkTextV1(localizeText(source,language),language);
   const stemBase=localizeNaturalStem(question.stem,language,"GEO-VEG-001") ?? localizeText(question.stem,language);
   const stem=polishGeoVegBulkTextV1(stemBase,language);
-  const options=Object.freeze(question.options.map(local));
+  const localOption=(source:string)=>{
+    if(source.toLowerCase()==="acacia") return language==="hi" ? "कीकर" : "ਕਿੱਕਰ";
+    if(source.toLowerCase()==="babool") return language==="hi" ? "बबूल" : "ਬਬੂਲ";
+    return local(source);
+  };
+  const options=Object.freeze(question.options.map(localOption));
   const canonicalAnswer=options[question.correctIndex]!;
   const explanation=local(question.explanation);
   return Object.freeze({stem,options,canonicalAnswer,explanation});
