@@ -67,6 +67,7 @@ describe('admin navigation roadmap', () => {
       '/mobile/notifications',
       '/mobile/content-planning',
       '/mobile/configuration',
+      '/mobile/analytics',
       '/commerce/packages',
       '/commerce/orders',
       '/commerce/coupons',
@@ -93,7 +94,7 @@ describe('admin navigation roadmap', () => {
     expect(items.filter((item) => item.status === 'in_progress').map((item) => item.path)).toEqual([
       '/content/notes-studio',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 42, in_progress: 1, planned: 6 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 43, in_progress: 1, planned: 5 });
   });
 
   it('protects canonical operations with read permissions', () => {
@@ -113,6 +114,7 @@ describe('admin navigation roadmap', () => {
     expect(NAV_LOOKUP['/mobile/notifications']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/mobile/content-planning']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/mobile/configuration']?.permission).toBe('content.taxonomy.read');
+    expect(NAV_LOOKUP['/mobile/analytics']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/users/students']?.permission).toBe('users.students.read');
     expect(NAV_LOOKUP['/users/team']?.permission).toBe('users.admins.read');
     expect(NAV_LOOKUP['/analytics/system-health']?.permission).toBe('jobs.read');
