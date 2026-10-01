@@ -472,7 +472,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "70",
-      "explanation": "Add the two group totals and subtract the overlap once because those people were counted in both totals: 38 + 65 − 33 = 70.",
+      "explanation": "Add the mathematics and English totals and subtract their overlap once because those people were counted in both totals: 38 + 65 − 33 = 70.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">17</text><text x=\"135\" y=\"220\" data-mask=\"1\">5</text><text x=\"425\" y=\"220\" data-mask=\"2\">32</text><text x=\"280\" y=\"220\" data-mask=\"3\">33</text></g></svg>"
       ],
@@ -576,7 +576,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "24",
-      "explanation": "Remove the overlap from each group total, then add the two exclusive parts: (6 − 0) + (18 − 0) = 6 + 18 = 24.",
+      "explanation": "Remove the daily newspapers–news magazines overlap from each group total, then add the two exclusive parts: (6 − 0) + (18 − 0) = 6 + 18 = 24.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">12</text><text x=\"135\" y=\"220\" data-mask=\"1\">6</text><text x=\"425\" y=\"220\" data-mask=\"2\">18</text><text x=\"280\" y=\"220\" data-mask=\"3\">0</text></g></svg>"
       ],
@@ -680,7 +680,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "85",
-      "explanation": "Add the two group totals and subtract the overlap once to find how many are in at least one group: 39 + 27 − 9 = 57. Then add those in neither group: 57 + 28 = 85.",
+      "explanation": "Add the newspaper A and newspaper B totals and subtract their overlap once to find how many are in at least one group: 39 + 27 − 9 = 57. Then add those in neither group: 57 + 28 = 85.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">28</text><text x=\"135\" y=\"220\" data-mask=\"1\">30</text><text x=\"425\" y=\"220\" data-mask=\"2\">18</text><text x=\"280\" y=\"220\" data-mask=\"3\">9</text></g></svg>"
       ],
@@ -2828,7 +2828,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "18:35",
-      "explanation": "Subtract the overlap from each group total: only yoga = 52 − 34 = 18; only swimming = 69 − 34 = 35. The ratio 18:35 is already in simplest form.",
+      "explanation": "Subtract the overlap from each group total: only yoga = 52 − 34 = 18; only swimming = 69 − 34 = 35. The ratio 18:35 is already in simplest form. Therefore, the ratio is 18:35.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">33</text><text x=\"135\" y=\"220\" data-mask=\"1\">18</text><text x=\"425\" y=\"220\" data-mask=\"2\">35</text><text x=\"280\" y=\"220\" data-mask=\"3\">34</text></g></svg>"
       ],
@@ -2932,7 +2932,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21:4",
-      "explanation": "Each pair total includes the all-three group. Subtract the all-three count from each pair, then add the three pair-only regions: (31 − 12) + (37 − 12) + (31 − 12) = 63. All three groups = 12. Divide both terms by their highest common factor 3: 63 ÷ 3 : 12 ÷ 3 = 21:4.",
+      "explanation": "For the chess club, the music club, the drama club, each pair total includes the all-three group. Subtract the all-three count from each pair, then add the three pair-only regions: (31 − 12) + (37 − 12) + (31 − 12) = 63. All three groups = 12. Divide both terms by their highest common factor 3: 63 ÷ 3 : 12 ÷ 3 = 21:4.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"200\" cy=\"150\" r=\"130\"/><circle cx=\"360\" cy=\"150\" r=\"130\"/><circle cx=\"280\" cy=\"280\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"280\" y=\"439\">C</text><text x=\"505\" y=\"380\" data-mask=\"0\">31</text><text x=\"125\" y=\"125\" data-mask=\"1\">2</text><text x=\"435\" y=\"125\" data-mask=\"2\">34</text><text x=\"280\" y=\"85\" data-mask=\"3\">19</text><text x=\"280\" y=\"365\" data-mask=\"4\">14</text><text x=\"190\" y=\"265\" data-mask=\"5\">25</text><text x=\"370\" y=\"265\" data-mask=\"6\">19</text><text x=\"280\" y=\"205\" data-mask=\"7\">12</text></g></svg>"
       ],
@@ -5522,7 +5522,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "70",
-      "explanation": "दोनों समूहों की कुल संख्याएँ जोड़ें और साझा लोगों को एक बार घटाएँ, क्योंकि वे दोनों कुल संख्याओं में गिने गए हैं: 38 + 65 − 33 = 70.",
+      "explanation": "गणित और अंग्रेज़ी की कुल संख्याएँ जोड़ें और साझा लोगों को एक बार घटाएँ, क्योंकि वे दोनों कुल संख्याओं में गिने गए हैं: 38 + 65 − 33 = 70.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">17</text><text x=\"135\" y=\"220\" data-mask=\"1\">5</text><text x=\"425\" y=\"220\" data-mask=\"2\">32</text><text x=\"280\" y=\"220\" data-mask=\"3\">33</text></g></svg>"
       ],
@@ -5626,7 +5626,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "24",
-      "explanation": "हर समूह की कुल संख्या में से साझा लोगों को घटाएँ, फिर दोनों केवल-वाले हिस्से जोड़ें: (6 − 0) + (18 − 0) = 6 + 18 = 24.",
+      "explanation": "दैनिक समाचार-पत्र और समाचार पत्रिकाएँ के साझा लोगों को दोनों समूहों की कुल संख्याओं से घटाएँ, फिर दोनों केवल-वाले हिस्से जोड़ें: (6 − 0) + (18 − 0) = 6 + 18 = 24.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">12</text><text x=\"135\" y=\"220\" data-mask=\"1\">6</text><text x=\"425\" y=\"220\" data-mask=\"2\">18</text><text x=\"280\" y=\"220\" data-mask=\"3\">0</text></g></svg>"
       ],
@@ -5730,7 +5730,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "85",
-      "explanation": "दोनों समूहों की कुल संख्याएँ जोड़ें और साझा लोगों को एक बार घटाएँ: 39 + 27 − 9 = 57. फिर दोनों में से किसी समूह में न आने वालों को जोड़ें: 57 + 28 = 85.",
+      "explanation": "समाचार-पत्र A और समाचार-पत्र B की कुल संख्याएँ जोड़ें और साझा लोगों को एक बार घटाएँ: 39 + 27 − 9 = 57. फिर दोनों में से किसी समूह में न आने वालों को जोड़ें: 57 + 28 = 85.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">28</text><text x=\"135\" y=\"220\" data-mask=\"1\">30</text><text x=\"425\" y=\"220\" data-mask=\"2\">18</text><text x=\"280\" y=\"220\" data-mask=\"3\">9</text></g></svg>"
       ],
@@ -7878,7 +7878,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "18:35",
-      "explanation": "हर समूह की कुल संख्या में से साझा लोगों को घटाएँ: केवल योग = 52 − 34 = 18; केवल तैराकी = 69 − 34 = 35। 18:35 का अनुपात पहले से सरल रूप में है।",
+      "explanation": "हर समूह की कुल संख्या में से साझा लोगों को घटाएँ: केवल योग = 52 − 34 = 18; केवल तैराकी = 69 − 34 = 35। 18:35 का अनुपात पहले से सरल रूप में है। अतः अनुपात 18:35.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">33</text><text x=\"135\" y=\"220\" data-mask=\"1\">18</text><text x=\"425\" y=\"220\" data-mask=\"2\">35</text><text x=\"280\" y=\"220\" data-mask=\"3\">34</text></g></svg>"
       ],
@@ -7982,7 +7982,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21:4",
-      "explanation": "हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। हर जोड़ी में से तीनों वाले लोगों को घटाकर तीन केवल-जोड़ी क्षेत्रों को जोड़ें: (31 − 12) + (37 − 12) + (31 − 12) = 63. तीनों समूह = 12. दोनों पदों को महत्तम समापवर्तक 3 से भाग दें: 63 ÷ 3 : 12 ÷ 3 = 21:4।",
+      "explanation": "शतरंज क्लब, संगीत क्लब, नाटक क्लब की हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। हर जोड़ी में से तीनों वाले लोगों को घटाकर तीन केवल-जोड़ी क्षेत्रों को जोड़ें: (31 − 12) + (37 − 12) + (31 − 12) = 63. तीनों समूह = 12. दोनों पदों को महत्तम समापवर्तक 3 से भाग दें: 63 ÷ 3 : 12 ÷ 3 = 21:4।",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"200\" cy=\"150\" r=\"130\"/><circle cx=\"360\" cy=\"150\" r=\"130\"/><circle cx=\"280\" cy=\"280\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"280\" y=\"439\">C</text><text x=\"505\" y=\"380\" data-mask=\"0\">31</text><text x=\"125\" y=\"125\" data-mask=\"1\">2</text><text x=\"435\" y=\"125\" data-mask=\"2\">34</text><text x=\"280\" y=\"85\" data-mask=\"3\">19</text><text x=\"280\" y=\"365\" data-mask=\"4\">14</text><text x=\"190\" y=\"265\" data-mask=\"5\">25</text><text x=\"370\" y=\"265\" data-mask=\"6\">19</text><text x=\"280\" y=\"205\" data-mask=\"7\">12</text></g></svg>"
       ],
@@ -10572,7 +10572,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "70",
-      "explanation": "ਦੋਵਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਸਾਂਝੇ ਲੋਕ ਇੱਕ ਵਾਰ ਘਟਾਓ, ਕਿਉਂਕਿ ਉਹ ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਗਿਣੇ ਗਏ ਹਨ: 38 + 65 − 33 = 70.",
+      "explanation": "ਗਣਿਤ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਸਾਂਝੇ ਲੋਕ ਇੱਕ ਵਾਰ ਘਟਾਓ, ਕਿਉਂਕਿ ਉਹ ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਗਿਣੇ ਗਏ ਹਨ: 38 + 65 − 33 = 70.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">17</text><text x=\"135\" y=\"220\" data-mask=\"1\">5</text><text x=\"425\" y=\"220\" data-mask=\"2\">32</text><text x=\"280\" y=\"220\" data-mask=\"3\">33</text></g></svg>"
       ],
@@ -10676,7 +10676,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "24",
-      "explanation": "ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਸਾਂਝੇ ਲੋਕ ਘਟਾਓ, ਫਿਰ ਦੋਵੇਂ ਸਿਰਫ਼-ਵਾਲੇ ਹਿੱਸੇ ਜੋੜੋ: (6 − 0) + (18 − 0) = 6 + 18 = 24.",
+      "explanation": "ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਅਤੇ ਖ਼ਬਰਾਂ ਦੇ ਰਸਾਲੇ ਦੇ ਸਾਂਝੇ ਲੋਕ ਦੋਵਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚੋਂ ਘਟਾਓ, ਫਿਰ ਦੋਵੇਂ ਸਿਰਫ਼-ਵਾਲੇ ਹਿੱਸੇ ਜੋੜੋ: (6 − 0) + (18 − 0) = 6 + 18 = 24.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">12</text><text x=\"135\" y=\"220\" data-mask=\"1\">6</text><text x=\"425\" y=\"220\" data-mask=\"2\">18</text><text x=\"280\" y=\"220\" data-mask=\"3\">0</text></g></svg>"
       ],
@@ -10780,7 +10780,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "85",
-      "explanation": "ਦੋਵਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਸਾਂਝੇ ਲੋਕ ਇੱਕ ਵਾਰ ਘਟਾਓ: 39 + 27 − 9 = 57. ਫਿਰ ਦੋਵਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਨੂੰ ਜੋੜੋ: 57 + 28 = 85.",
+      "explanation": "ਅਖ਼ਬਾਰ A ਅਤੇ ਅਖ਼ਬਾਰ B ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਸਾਂਝੇ ਲੋਕ ਇੱਕ ਵਾਰ ਘਟਾਓ: 39 + 27 − 9 = 57. ਫਿਰ ਦੋਵਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਨੂੰ ਜੋੜੋ: 57 + 28 = 85.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">28</text><text x=\"135\" y=\"220\" data-mask=\"1\">30</text><text x=\"425\" y=\"220\" data-mask=\"2\">18</text><text x=\"280\" y=\"220\" data-mask=\"3\">9</text></g></svg>"
       ],
@@ -12928,7 +12928,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "18:35",
-      "explanation": "ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਸਾਂਝੇ ਲੋਕ ਘਟਾਓ: ਸਿਰਫ਼ ਯੋਗ = 52 − 34 = 18; ਸਿਰਫ਼ ਤੈਰਾਕੀ = 69 − 34 = 35। 18:35 ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ।",
+      "explanation": "ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਸਾਂਝੇ ਲੋਕ ਘਟਾਓ: ਸਿਰਫ਼ ਯੋਗ = 52 − 34 = 18; ਸਿਰਫ਼ ਤੈਰਾਕੀ = 69 − 34 = 35। 18:35 ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ। ਇਸ ਲਈ ਅਨੁਪਾਤ 18:35.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">33</text><text x=\"135\" y=\"220\" data-mask=\"1\">18</text><text x=\"425\" y=\"220\" data-mask=\"2\">35</text><text x=\"280\" y=\"220\" data-mask=\"3\">34</text></g></svg>"
       ],
@@ -13032,7 +13032,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21:4",
-      "explanation": "ਹਰ ਜੋੜੇ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਹਰ ਜੋੜੇ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕ ਘਟਾ ਕੇ ਤਿੰਨ ਸਿਰਫ਼-ਜੋੜੀ ਖੇਤਰ ਜੋੜੋ: (31 − 12) + (37 − 12) + (31 − 12) = 63. ਤਿੰਨੇ ਸਮੂਹ = 12. ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ 3 ਨਾਲ ਭਾਗ ਦਿਓ: 63 ÷ 3 : 12 ÷ 3 = 21:4।",
+      "explanation": "ਸ਼ਤਰੰਜ ਕਲੱਬ, ਸੰਗੀਤ ਕਲੱਬ, ਨਾਟਕ ਕਲੱਬ ਦੀ ਹਰ ਜੋੜੀ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਹਰ ਜੋੜੀ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕ ਘਟਾ ਕੇ ਤਿੰਨ ਸਿਰਫ਼-ਜੋੜੀ ਖੇਤਰ ਜੋੜੋ: (31 − 12) + (37 − 12) + (31 − 12) = 63. ਤਿੰਨੇ ਸਮੂਹ = 12. ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ 3 ਨਾਲ ਭਾਗ ਦਿਓ: 63 ÷ 3 : 12 ÷ 3 = 21:4।",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"200\" cy=\"150\" r=\"130\"/><circle cx=\"360\" cy=\"150\" r=\"130\"/><circle cx=\"280\" cy=\"280\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"280\" y=\"439\">C</text><text x=\"505\" y=\"380\" data-mask=\"0\">31</text><text x=\"125\" y=\"125\" data-mask=\"1\">2</text><text x=\"435\" y=\"125\" data-mask=\"2\">34</text><text x=\"280\" y=\"85\" data-mask=\"3\">19</text><text x=\"280\" y=\"365\" data-mask=\"4\">14</text><text x=\"190\" y=\"265\" data-mask=\"5\">25</text><text x=\"370\" y=\"265\" data-mask=\"6\">19</text><text x=\"280\" y=\"205\" data-mask=\"7\">12</text></g></svg>"
       ],
