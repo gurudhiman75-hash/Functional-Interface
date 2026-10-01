@@ -968,7 +968,11 @@ function polishGeoTrnBulkTextV1(text:string, language:"hi"|"pa") {
   ];
   let out=text;
   const pairs=language==="hi"?hi:pa;
-  const esc=(s:string)=>s.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\
+  const bs=String.fromCharCode(92);
+  const esc=(s:string)=>Array.from(s).map((ch)=>".^$*+?()[]{}|".includes(ch)?bs+ch:ch).join("");
+  for(const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) out=out.replace(new RegExp(bs+"b"+esc(a)+bs+"b","gi"),b);
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
 
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
