@@ -57,6 +57,25 @@ for (let s = 0; s < 200; s++)
           /first group|second group|third group|first activity|second activity|third activity|पहले समूह|दूसरे समूह|तीसरे समूह|पहली गतिविधि|दूसरी गतिविधि|तीसरी गतिविधि|ਪਹਿਲੇ ਸਮੂਹ|ਦੂਜੇ ਸਮੂਹ|ਤੀਜੇ ਸਮੂਹ|ਪਹਿਲਾ ਕੰਮ|ਦੂਜਾ ਕੰਮ|ਤੀਜਾ ਕੰਮ/iu,
           `${cp}/${localized.semanticMetadata.queryKey}/${languages[localeIndex]}: stem must name the actual activities rather than ordinal groups`,
         );
+        if (languages[localeIndex] === "hi") {
+          assert.doesNotMatch(
+            `${localized.stem} ${localized.explanation}`,
+            /[\u0A00-\u0A7F]/u,
+            `${cp}/${localized.semanticMetadata.queryKey}/hi: Hindi output must not contain Gurmukhi leakage`,
+          );
+        }
+        if (languages[localeIndex] === "pa") {
+          assert.doesNotMatch(
+            `${localized.stem} ${localized.explanation}`,
+            /[\u0900-\u097F]/u,
+            `${cp}/${localized.semanticMetadata.queryKey}/pa: Punjabi output must not contain Devanagari leakage`,
+          );
+          assert.doesNotMatch(
+            localized.explanation,
+            /ਗਤੀਵਿਧੀ|ਮੈਂਬਰਸ਼ਿਪ/u,
+            `${cp}/${localized.semanticMetadata.queryKey}/pa: use natural Punjabi set/group wording`,
+          );
+        }
         if (
           scenario &&
           ["onlyAB", "onlyAC", "onlyBC"].includes(
