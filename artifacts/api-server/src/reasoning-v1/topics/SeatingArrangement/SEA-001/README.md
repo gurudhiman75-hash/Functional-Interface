@@ -108,13 +108,11 @@ SEA_CP004_REVIEW_OUTPUT_DIR=./dist/sea-cp004-review \
   node --experimental-strip-types cp004-review-export.ts
 ```
 
-## Current audit frontier
+## Current audit status
 
-All five SEA-001 topology checkpoints are now executable.
+SEA-001 content deep audit is closed under `SEA-001-FINAL-DEEP-AUDIT-CLOSURE-20261001.md`.
 
-The topology, source-gap query breadth and merge/split audit are now complete enough to allocate the permanent learner taxonomy.
-
-Permanent QLs:
+Permanent QLs remain:
 
 - `SEA-QL-001` — endpoint identification;
 - `SEA-QL-002` — person at relative position;
@@ -126,38 +124,36 @@ Permanent QLs:
 - `SEA-QL-008` — directional sequence;
 - `SEA-QL-009` — facing-state resolution.
 
-The remaining work is now the **freeze/localization/integration audit**:
+Frozen multilingual authority:
 
-- English freeze authority: `SEA_001_ENGLISH_FREEZE_V1` over the approved deterministic 324-item pack;
-- Hindi/Punjabi localization and semantic parity from the frozen English semantic state;
-- Question Studio review-only integration after multilingual authority exists;
-- downstream Question Bank/test/mock/public gates only after separate approval.
-
-Current English review authority:
-
-- review pack: `SEA_001_ENGLISH_REVIEW_PACK_V1`;
-- review items: 324;
-- blueprint authorities represented: 20 / 20;
-- permanent QLs represented: 9 / 9;
-- difficulty: structural `EASY / MEDIUM / HARD`, not seed- or magnitude-driven;
+- English: 324 reviewed items;
+- Hindi: 324 parity-locked native items;
+- Punjabi: 324 parity-locked native items;
+- blueprint authorities: 20 / 20;
+- permanent QLs: 9 / 9;
+- difficulty: structural `EASY / MEDIUM / HARD`;
 - solved diagrams: `EXPLANATION_ONLY`;
-- review status: APPROVED AND FROZEN.
+- untranslated Latin prose in Hindi/Punjabi learner surfaces: 0.
+
+SEA-001 is registered in the normal Question Studio workflow through
+`SEA_001_QUESTION_STUDIO_REVIEW_V1`. The current adapter deliberately exposes
+the frozen multilingual review pool; it does not claim learner-release authority.
 
 SEA-002 and SEA-003 remain the owners for parallel rows, polygonal/multi-ring seating, attribute-linked seating, vacancies and other advanced families.
 
 ## Lifecycle
 
-This package has a **review-only permanent QL allocation** but remains product-locked:
-
 ```text
 Permanent QLs:                9
 Permanent range:              SEA-QL-001..009
 English freeze:               FROZEN
-Hindi/Punjabi freeze:         not started
-Question Studio registered:   false
+Hindi/Punjabi freeze:         FROZEN
+Question Studio registered:   true
+Question Studio mode:         REVIEW_ONLY
 Question Bank writes:         false
 Test/mock eligibility:        false
 Public publication:           false
+Automatic student release:    false
 ```
 
-Do not bypass `assertSea001ActivationAllowed`. QL allocation does not authorize Question Studio registration, Question Bank writes, tests, mocks or public/student delivery.
+`assertSea001ActivationAllowed` continues to block downstream learner-delivery activation. Question Studio registration authorizes review only.

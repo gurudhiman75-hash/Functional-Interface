@@ -148,7 +148,7 @@ export const SEA_001_QL_REGISTRY = Object.freeze({
   immediateVsKthCreatesQl: false,
   statementShellCreatesQl: false,
   counterfactualFacingCreatesQl: false,
-  questionStudioRegistered: false,
+  questionStudioRegistered: true,
   questionBankWritable: false,
   testEligible: false,
   mockTestEligible: false,

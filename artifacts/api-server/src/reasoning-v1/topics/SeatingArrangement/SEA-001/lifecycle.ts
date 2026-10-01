@@ -5,13 +5,15 @@ export const SEA_001_LIFECYCLE: SeatingLifecycle = Object.freeze({
   solveInventoryStatus: "FROZEN",
   queryMixStatus: "FROZEN",
   englishFreezeStatus: "FROZEN",
+  multilingualFreezeStatus: "FROZEN",
   permanentQlCount: 9,
-  questionStudioRegistered: false,
+  questionStudioRegistered: true,
+  questionStudioReviewOnly: true,
   questionBankWritable: false,
   testEligible: false,
   publiclyPublishable: false,
 });
 
 export function assertSea001ActivationAllowed(): never {
-  throw new Error("SEA-001 English is frozen; multilingual freeze, Question Studio registration, Question Bank writes, tests, mocks and public delivery remain locked.");
+  throw new Error("SEA-001 is multilingual-frozen and available in Question Studio for review only; Question Bank writes, tests, mocks and public/student delivery remain locked.");
 }

@@ -121,6 +121,8 @@ jobs:
           node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/verification/question-studio-schema-audit.test.ts
           node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/english-review-v1-audit.test.ts
           node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/english-review-pack-v1-audit.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/localization-v1-audit.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio-review-v1.test.ts
 
   cp005-review-export:
     runs-on: ubuntu-latest

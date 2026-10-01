@@ -11,6 +11,7 @@ import {
   isCoaCp012ApprovedQuestionStudioRequest,
   isSta001QuestionStudioRequest,
   isWor001QuestionStudioRequest,
+  isSea001QuestionStudioRequest,
   listQuestionStudioPackages,
 } from "../question-studio/shared-generation-engine";
 import {
@@ -311,8 +312,9 @@ router.post(
     const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
     const staRequest = isSta001QuestionStudioRequest(req.body ?? {});
     const worRequest = isWor001QuestionStudioRequest(req.body ?? {});
+    const seaRequest = isSea001QuestionStudioRequest(req.body ?? {});
     const coaRequest = isCoaCp012ApprovedQuestionStudioRequest(req.body ?? {});
-    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !staRequest && !worRequest && !coaRequest) {
+    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !staRequest && !worRequest && !seaRequest && !coaRequest) {
       next();
       return;
     }
@@ -341,7 +343,9 @@ router.post(
       ? "STA-001"
       : worRequest
         ? "WOR-001"
-        : coaRequest
+        : seaRequest
+          ? "SEA-001"
+          : coaRequest
           ? "COA-001"
           : simplificationRequest
           ? "SAP"
@@ -353,7 +357,9 @@ router.post(
       ? "Statement & Assumption"
       : worRequest
         ? "Word & Dictionary Order"
-        : coaRequest
+        : seaRequest
+          ? "Seating Arrangement"
+          : coaRequest
           ? "Course of Action"
           : simplificationRequest
           ? "Simplification & Approximation"
@@ -362,7 +368,7 @@ router.post(
             : defaultSubtopic;
     const packageId = asString(req.body?.packageId) || selectedPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
-    const reasoningRequest = staRequest || worRequest || coaRequest;
+    const reasoningRequest = staRequest || worRequest || seaRequest || coaRequest;
     const topic = reasoningRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
     const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
@@ -473,7 +479,9 @@ router.post(
         ? "reasoning-v1-sta-001"
         : worRequest
           ? "reasoning-v1-wor-001"
-          : coaRequest
+          : seaRequest
+            ? "reasoning-v1-sea-001-frozen-review"
+            : coaRequest
             ? "reasoning-v1-coa-001-cp012-internal-eligible"
             : "quant-v4";
 
@@ -496,6 +504,19 @@ router.post(
           const itemId = randomUUID();
           const versionId = randomUUID();
           const question = generatedQuestions[index] as Record<string, unknown>;
+
+          if (seaRequest) {
+            if (
+              question.questionBankWritable !== false
+              || question.testEligible !== false
+              || question.mockTestEligible !== false
+              || question.publiclyPublishable !== false
+              || question.automaticStudentPublication !== false
+              || question.lifecycleStatus !== "REVIEW_ONLY"
+            ) {
+              throw new Error("SEA-001 attempted to persist a question outside the frozen review-only lifecycle boundary.");
+            }
+          }
 
           if (coaRequest) {
             if (

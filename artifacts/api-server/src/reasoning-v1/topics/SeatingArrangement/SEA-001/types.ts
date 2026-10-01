@@ -150,8 +150,10 @@ export interface SeatingLifecycle {
   readonly solveInventoryStatus: "FROZEN";
   readonly queryMixStatus: "FROZEN";
   readonly englishFreezeStatus: "NOT_STARTED" | "IN_REVIEW" | "FROZEN";
+  readonly multilingualFreezeStatus: "NOT_STARTED" | "IN_REVIEW" | "FROZEN";
   readonly permanentQlCount: 9;
-  readonly questionStudioRegistered: false;
+  readonly questionStudioRegistered: boolean;
+  readonly questionStudioReviewOnly: boolean;
   readonly questionBankWritable: false;
   readonly testEligible: false;
   readonly publiclyPublishable: false;
