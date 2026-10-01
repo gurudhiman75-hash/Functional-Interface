@@ -1227,6 +1227,93 @@ function localizeGeoIndBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
   return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
 
+
+function polishGeoAgrBulkTextV1(text:string, language:"hi"|"pa") {
+  const hi:[string,string][] = [
+    ["agriculture","कृषि"],["agricultural","कृषि"],["crop season","फसल ऋतु"],["crop seasons","फसल ऋतुएँ"],
+    ["kharif","खरीफ"],["rabi","रबी"],["zaid","जायद"],["monsoon crops","मानसूनी फसलें"],["winter crops","शीतकालीन फसलें"],
+    ["food crops","खाद्य फसलें"],["commercial crops","वाणिज्यिक फसलें"],["cash crops","नकदी फसलें"],["plantation crops","बागानी फसलें"],
+    ["cereals","अनाज"],["millets","मोटे अनाज"],["pulses","दलहन"],["oilseeds","तिलहन"],["horticulture","बागवानी"],
+    ["rice","चावल"],["paddy","धान"],["wheat","गेहूँ"],["maize","मक्का"],["jowar","ज्वार"],["bajra","बाजरा"],["ragi","रागी"],
+    ["gram","चना"],["tur","अरहर"],["arhar","अरहर"],["moong","मूंग"],["urad","उड़द"],["lentil","मसूर"],
+    ["groundnut","मूंगफली"],["mustard","सरसों"],["rapeseed","रेपसीड"],["sesame","तिल"],["soybean","सोयाबीन"],["sunflower","सूरजमुखी"],
+    ["sugarcane","गन्ना"],["cotton","कपास"],["jute","जूट"],["tea","चाय"],["coffee","कॉफी"],["rubber","रबर"],
+    ["coconut","नारियल"],["spices","मसाले"],["fruits","फल"],["vegetables","सब्जियाँ"],
+    ["irrigation","सिंचाई"],["canal irrigation","नहर सिंचाई"],["well irrigation","कुआँ सिंचाई"],["tube well","नलकूप"],["tank irrigation","टैंक सिंचाई"],
+    ["groundwater","भूजल"],["surface water","सतही जल"],["rainfed","वर्षा-आधारित"],["rain-fed","वर्षा-आधारित"],["irrigated","सिंचित"],
+    ["Green Revolution","हरित क्रांति"],["high-yielding varieties","उच्च उपज किस्में"],["HYV seeds","उच्च उपज बीज"],["fertilizers","उर्वरक"],["fertilizer","उर्वरक"],
+    ["pesticides","कीटनाशक"],["mechanisation","यंत्रीकरण"],["mechanization","यंत्रीकरण"],["farm machinery","कृषि मशीनरी"],
+    ["multiple cropping","बहुफसली खेती"],["crop rotation","फसल चक्र"],["mixed farming","मिश्रित खेती"],["subsistence farming","निर्वाह कृषि"],
+    ["commercial farming","वाणिज्यिक कृषि"],["intensive farming","गहन कृषि"],["extensive farming","विस्तृत कृषि"],
+    ["shifting cultivation","स्थानांतरित कृषि"],["plantation agriculture","बागानी कृषि"],["dry farming","शुष्क कृषि"],
+    ["soil fertility","मृदा उर्वरता"],["moisture","नमी"],["temperature","तापमान"],["rainfall","वर्षा"],["climate","जलवायु"],
+    ["black soil","काली मिट्टी"],["alluvial soil","जलोढ़ मिट्टी"],["red soil","लाल मिट्टी"],["laterite soil","लैटेराइट मिट्टी"],
+    ["Punjab","पंजाब"],["Haryana","हरियाणा"],["Uttar Pradesh","उत्तर प्रदेश"],["Madhya Pradesh","मध्य प्रदेश"],["Maharashtra","महाराष्ट्र"],
+    ["Gujarat","गुजरात"],["Rajasthan","राजस्थान"],["Karnataka","कर्नाटक"],["Tamil Nadu","तमिलनाडु"],["Kerala","केरल"],
+    ["West Bengal","पश्चिम बंगाल"],["Assam","असम"],["Odisha","ओडिशा"],["Bihar","बिहार"],["Andhra Pradesh","आंध्र प्रदेश"],["Telangana","तेलंगाना"],
+    ["Deccan plateau","दक्कन का पठार"],["northern plains","उत्तरी मैदान"],["coastal areas","तटीय क्षेत्र"],["deltaic regions","डेल्टाई क्षेत्र"],
+    ["procurement","सरकारी खरीद"],["minimum support price","न्यूनतम समर्थन मूल्य"],["MSP","एमएसपी"],["food security","खाद्य सुरक्षा"],
+    ["cold storage","शीत भंडारण"],["storage","भंडारण"],["market access","बाजार पहुँच"],["transport access","परिवहन पहुँच"],
+    ["yield","उपज"],["productivity","उत्पादकता"],["production","उत्पादन"],["acreage","कृषि क्षेत्रफल"],["cropping intensity","फसल तीव्रता"],
+    ["Which","कौन-सा"],["which","कौन-सा"],["What","क्या"],["what","क्या"],["Why","क्यों"],["why","क्यों"],["Where","कहाँ"],["where","कहाँ"],["When","कब"],["when","कब"],["How","कैसे"],["how","कैसे"],
+    ["the",""],["and","और"],["or","या"],["is","है"],["are","हैं"],["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],
+    ["can","सकता है"],["could","सकता था"],["would","होगा"],["should","चाहिए"],["has","है"],["have","हैं"],["had","था"],
+    ["with","के साथ"],["from","से"],["into","में"],["for","के लिए"],["of","का"],["to","को"],["in","में"],["on","पर"],["at","पर"],["by","द्वारा"],["as","के रूप में"],
+    ["than","की तुलना में"],["that","कि"],["this","यह"],["these","ये"],["those","वे"],["most","सबसे"],["main","मुख्य"],["major","प्रमुख"],["only","केवल"],["correct","सही"],
+    ["statement","कथन"],["following","निम्नलिखित"]
+  ];
+  const pa:[string,string][] = [
+    ["agriculture","ਖੇਤੀਬਾੜੀ"],["agricultural","ਖੇਤੀਬਾੜੀ"],["crop season","ਫਸਲੀ ਰੁੱਤ"],["crop seasons","ਫਸਲੀ ਰੁੱਤਾਂ"],
+    ["kharif","ਖਰੀਫ"],["rabi","ਰਬੀ"],["zaid","ਜ਼ਾਇਦ"],["monsoon crops","ਮਾਨਸੂਨੀ ਫਸਲਾਂ"],["winter crops","ਸਰਦੀ ਦੀਆਂ ਫਸਲਾਂ"],
+    ["food crops","ਖਾਦ ਫਸਲਾਂ"],["commercial crops","ਵਪਾਰਕ ਫਸਲਾਂ"],["cash crops","ਨਕਦੀ ਫਸਲਾਂ"],["plantation crops","ਬਾਗਬਾਨੀ ਫਸਲਾਂ"],
+    ["cereals","ਅਨਾਜ"],["millets","ਮੋਟੇ ਅਨਾਜ"],["pulses","ਦਾਲਾਂ"],["oilseeds","ਤਿਲਹਨ"],["horticulture","ਬਾਗਬਾਨੀ"],
+    ["rice","ਚੌਲ"],["paddy","ਧਾਨ"],["wheat","ਕਣਕ"],["maize","ਮੱਕੀ"],["jowar","ਜਵਾਰ"],["bajra","ਬਾਜਰਾ"],["ragi","ਰਾਗੀ"],
+    ["gram","ਚਣਾ"],["tur","ਅਰਹਰ"],["arhar","ਅਰਹਰ"],["moong","ਮੂੰਗ"],["urad","ਉੜਦ"],["lentil","ਮਸਰ"],
+    ["groundnut","ਮੂੰਗਫਲੀ"],["mustard","ਸਰੋਂ"],["rapeseed","ਰੇਪਸੀਡ"],["sesame","ਤਿਲ"],["soybean","ਸੋਇਆਬੀਨ"],["sunflower","ਸੂਰਜਮੁਖੀ"],
+    ["sugarcane","ਗੰਨਾ"],["cotton","ਕਪਾਹ"],["jute","ਜੂਟ"],["tea","ਚਾਹ"],["coffee","ਕੌਫੀ"],["rubber","ਰਬਰ"],
+    ["coconut","ਨਾਰੀਅਲ"],["spices","ਮਸਾਲੇ"],["fruits","ਫਲ"],["vegetables","ਸਬਜ਼ੀਆਂ"],
+    ["irrigation","ਸਿੰਚਾਈ"],["canal irrigation","ਨਹਿਰ ਸਿੰਚਾਈ"],["well irrigation","ਖੂਹ ਸਿੰਚਾਈ"],["tube well","ਟਿਊਬਵੈੱਲ"],["tank irrigation","ਟੈਂਕ ਸਿੰਚਾਈ"],
+    ["groundwater","ਭੂਜਲ"],["surface water","ਸਤਹੀ ਪਾਣੀ"],["rainfed","ਵਰਖਾ-ਆਧਾਰਿਤ"],["rain-fed","ਵਰਖਾ-ਆਧਾਰਿਤ"],["irrigated","ਸਿੰਚਿਤ"],
+    ["Green Revolution","ਹਰੀ ਕ੍ਰਾਂਤੀ"],["high-yielding varieties","ਉੱਚ ਉਪਜ ਵਾਲੀਆਂ ਕਿਸਮਾਂ"],["HYV seeds","ਉੱਚ ਉਪਜ ਬੀਜ"],["fertilizers","ਖਾਦਾਂ"],["fertilizer","ਖਾਦ"],
+    ["pesticides","ਕੀਟਨਾਸ਼ਕ"],["mechanisation","ਮਸ਼ੀਨੀਕਰਨ"],["mechanization","ਮਸ਼ੀਨੀਕਰਨ"],["farm machinery","ਖੇਤੀ ਮਸ਼ੀਨਰੀ"],
+    ["multiple cropping","ਬਹੁ-ਫਸਲੀ ਖੇਤੀ"],["crop rotation","ਫਸਲ ਚੱਕਰ"],["mixed farming","ਮਿਸ਼ਰਤ ਖੇਤੀ"],["subsistence farming","ਜੀਵਿਕਾ ਖੇਤੀ"],
+    ["commercial farming","ਵਪਾਰਕ ਖੇਤੀ"],["intensive farming","ਗਹਿਰੀ ਖੇਤੀ"],["extensive farming","ਵਿਸਤ੍ਰਿਤ ਖੇਤੀ"],
+    ["shifting cultivation","ਝੂਮ ਖੇਤੀ"],["plantation agriculture","ਬਾਗਬਾਨੀ ਖੇਤੀ"],["dry farming","ਸੁੱਕੀ ਖੇਤੀ"],
+    ["soil fertility","ਮਿੱਟੀ ਦੀ ਉਪਜਾਊਪਣ"],["moisture","ਨਮੀ"],["temperature","ਤਾਪਮਾਨ"],["rainfall","ਵਰਖਾ"],["climate","ਜਲਵਾਯੂ"],
+    ["black soil","ਕਾਲੀ ਮਿੱਟੀ"],["alluvial soil","ਜਲੋਢ ਮਿੱਟੀ"],["red soil","ਲਾਲ ਮਿੱਟੀ"],["laterite soil","ਲੈਟਰਾਈਟ ਮਿੱਟੀ"],
+    ["Punjab","ਪੰਜਾਬ"],["Haryana","ਹਰਿਆਣਾ"],["Uttar Pradesh","ਉੱਤਰ ਪ੍ਰਦੇਸ਼"],["Madhya Pradesh","ਮੱਧ ਪ੍ਰਦੇਸ਼"],["Maharashtra","ਮਹਾਰਾਸ਼ਟਰ"],
+    ["Gujarat","ਗੁਜਰਾਤ"],["Rajasthan","ਰਾਜਸਥਾਨ"],["Karnataka","ਕਰਨਾਟਕ"],["Tamil Nadu","ਤਮਿਲਨਾਡੂ"],["Kerala","ਕੇਰਲ"],
+    ["West Bengal","ਪੱਛਮੀ ਬੰਗਾਲ"],["Assam","ਅਸਾਮ"],["Odisha","ਓਡੀਸ਼ਾ"],["Bihar","ਬਿਹਾਰ"],["Andhra Pradesh","ਆੰਧਰਾ ਪ੍ਰਦੇਸ਼"],["Telangana","ਤੇਲੰਗਾਨਾ"],
+    ["Deccan plateau","ਦੱਖਣ ਦਾ ਪਠਾਰ"],["northern plains","ਉੱਤਰੀ ਮੈਦਾਨ"],["coastal areas","ਤਟੀ ਖੇਤਰ"],["deltaic regions","ਡੈਲਟਾਈ ਖੇਤਰ"],
+    ["procurement","ਸਰਕਾਰੀ ਖਰੀਦ"],["minimum support price","ਘੱਟੋ-ਘੱਟ ਸਮਰਥਨ ਮੁੱਲ"],["MSP","ਐਮਐਸਪੀ"],["food security","ਖਾਦ ਸੁਰੱਖਿਆ"],
+    ["cold storage","ਠੰਢਾ ਭੰਡਾਰ"],["storage","ਭੰਡਾਰਣ"],["market access","ਬਾਜ਼ਾਰ ਪਹੁੰਚ"],["transport access","ਆਵਾਜਾਈ ਪਹੁੰਚ"],
+    ["yield","ਉਪਜ"],["productivity","ਉਤਪਾਦਕਤਾ"],["production","ਉਤਪਾਦਨ"],["acreage","ਖੇਤੀ ਖੇਤਰਫਲ"],["cropping intensity","ਫਸਲ ਤੀਬਰਤਾ"],
+    ["Which","ਕਿਹੜਾ"],["which","ਕਿਹੜਾ"],["What","ਕੀ"],["what","ਕੀ"],["Why","ਕਿਉਂ"],["why","ਕਿਉਂ"],["Where","ਕਿੱਥੇ"],["where","ਕਿੱਥੇ"],["When","ਕਦੋਂ"],["when","ਕਦੋਂ"],["How","ਕਿਵੇਂ"],["how","ਕਿਵੇਂ"],
+    ["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],["is","ਹੈ"],["are","ਹਨ"],["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],
+    ["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],["would","ਹੋਵੇਗਾ"],["should","ਚਾਹੀਦਾ ਹੈ"],["has","ਹੈ"],["have","ਹਨ"],["had","ਸੀ"],
+    ["with","ਨਾਲ"],["from","ਤੋਂ"],["into","ਵਿੱਚ"],["for","ਲਈ"],["of","ਦਾ"],["to","ਨੂੰ"],["in","ਵਿੱਚ"],["on","ਉੱਤੇ"],["at","ਉੱਤੇ"],["by","ਦੁਆਰਾ"],["as","ਵਜੋਂ"],
+    ["than","ਨਾਲੋਂ"],["that","ਕਿ"],["this","ਇਹ"],["these","ਇਹ"],["those","ਉਹ"],["most","ਸਭ ਤੋਂ"],["main","ਮੁੱਖ"],["major","ਮੁੱਖ"],["only","ਕੇਵਲ"],["correct","ਸਹੀ"],
+    ["statement","ਕਥਨ"],["following","ਹੇਠ ਲਿਖੇ"]
+  ];
+  let out=text;
+  const pairs=language==="hi"?hi:pa;
+  for(const [from,to] of pairs.sort((a,b)=>b[0].length-a[0].length)){
+    out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
+  }
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+
+function localizeGeoAgrBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
+  if(!/^GEO-AGR-001-CP00[1-5]-Q/.test(question.questionId)) return null;
+  const local=(source:string)=>polishGeoAgrBulkTextV1(localizeText(source,language),language);
+  const stemBase=localizeNaturalStem(question.stem,language,"GEO-AGR-001") ?? localizeText(question.stem,language);
+  const stem=polishGeoAgrBulkTextV1(stemBase,language);
+  const options=Object.freeze(question.options.map(local));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=local(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
   language: IndianGeoLocalizationLanguageV1,
@@ -1243,6 +1330,11 @@ export function localizeIndianGeoQuestionV1(
 
   if (packageId === "GEO-TRN-001") {
     const bulk = localizeGeoTrnBulkV1(question, language);
+    if (bulk) return bulk;
+  }
+
+  if (packageId === "GEO-AGR-001") {
+    const bulk = localizeGeoAgrBulkV1(question, language);
     if (bulk) return bulk;
   }
 
