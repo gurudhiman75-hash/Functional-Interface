@@ -159,6 +159,14 @@ export function generatePrt001E5Parameters(input: { questionLanguageId: string; 
         {a0:60_000,a1:90_000,ca:4,b0:40_000,b1:70_000,cb:8},
         {a0:80_000,a1:50_000,ca:6,b0:60_000,b1:90_000,cb:3},
         {a0:50_000,a1:75_000,ca:8,b0:70_000,b1:50_000,cb:6},
+        {a0:30_000,a1:45_000,ca:4,b0:60_000,b1:48_000,cb:7},
+        {a0:36_000,a1:54_000,ca:8,b0:40_000,b1:60_000,cb:5},
+        {a0:50_000,a1:75_000,ca:3,b0:80_000,b1:60_000,cb:9},
+        {a0:70_000,a1:56_000,ca:5,b0:45_000,b1:67_500,cb:6},
+        {a0:48_000,a1:72_000,ca:9,b0:60_000,b1:90_000,cb:2},
+        {a0:90_000,a1:60_000,ca:7,b0:80_000,b1:100_000,cb:8},
+        {a0:42_000,a1:63_000,ca:2,b0:56_000,b1:42_000,cb:10},
+        {a0:64_000,a1:80_000,ca:10,b0:72_000,b1:54_000,cb:4},
       ]);
       state = makeState([partner(partnerA,[segment(0,s.ca,money(s.a0)),segment(s.ca,12,money(s.a1))]), partner(partnerB,[segment(0,s.cb,money(s.b0)),segment(s.cb,12,money(s.b1))])], money(120_000));
       extra.initialCapitalB = formatPrt001Money(rational(money(s.b0)));
