@@ -1,0 +1,31 @@
+name: Validate DSF-CP-033 QL002 Freeze Audit
+
+on:
+  pull_request:
+    branches:
+      - audit/dsf-001-cp032-question-studio-ql002
+    types: [opened, reopened, synchronize, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-dsf-cp033:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP033 freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-033/ql002-freeze-audit-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dsf-cp033-freeze-audit.test.mjs
+      - name: Run CP033 freeze audit
+        run: node artifacts/api-server/dist/reasoning-v1/dsf-cp033-freeze-audit.test.mjs
