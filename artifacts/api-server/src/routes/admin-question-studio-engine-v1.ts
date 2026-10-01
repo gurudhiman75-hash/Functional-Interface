@@ -15,6 +15,7 @@ import type {
 } from "../question-studio/engine-types";
 import {
   generateProfiledQuantBatch,
+  resolveLegacyQuantExamProfile,
   type QuantExamProfilePlan,
 } from "../question-studio/quant-exam-profile";
 
@@ -108,14 +109,44 @@ const LEGACY_NUMBER_SYSTEM_CPS = new Set([
  * selectors on their established route until each package is migrated
  * independently. Dedicated /quant/.../runs surfaces do not need deferral.
  */
+function isBankingSapCompatibilityRequest(body: Record<string, unknown>): boolean {
+  const packageId = normalizeCompatibilitySelector(body.packageId ?? body.archetypeId);
+  const patternId = normalizeCompatibilitySelector(body.patternId);
+  const topic = normalizeCompatibilitySelector(body.topic);
+  const subtopic = normalizeCompatibilitySelector(body.subtopic);
+  const legacyProfile = resolveLegacyQuantExamProfile(
+    body.examProfileId ?? body.examProfile,
+    body.exam,
+  );
+  const bankingProfile =
+    legacyProfile === "BANKING_PRELIMS" || legacyProfile === "BANKING_MAINS";
+  if (!bankingProfile) return false;
+
+  const simplificationSelectors = new Set([
+    "simplification approximation",
+    "simplification and approximation",
+    "simplification",
+    "approximation",
+  ]);
+
+  return (
+    packageId === "sap"
+    || patternId === "sap"
+    || patternId.includes("sap ql")
+    || (simplificationSelectors.has(topic) && !subtopic)
+    || (topic === "arithmetic" && simplificationSelectors.has(subtopic))
+  );
+}
+
 function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolean {
   const packageId = normalizeCompatibilitySelector(body.packageId ?? body.archetypeId);
   const patternId = normalizeCompatibilitySelector(body.patternId);
   const topic = normalizeCompatibilitySelector(body.topic);
   const subtopic = normalizeCompatibilitySelector(body.subtopic);
   const cpId = asString(body.canonicalProblemId) || asString(body.cpId);
+  const bankingSap = isBankingSapCompatibilityRequest(body);
 
-  if (LEGACY_GENERIC_QUANT_PACKAGES.has(packageId)) return true;
+  if (LEGACY_GENERIC_QUANT_PACKAGES.has(packageId) && !(packageId === "sap" && bankingSap)) return true;
   if (LEGACY_NUMBER_SYSTEM_CPS.has(cpId)) return true;
 
   if (
@@ -128,8 +159,7 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     || patternId.includes("num cp 012")
     || patternId.includes("num cp 013")
     || patternId.includes("num cp 014")
-    || patternId === "sap"
-    || patternId.includes("sap ql")
+    || ((patternId === "sap" || patternId.includes("sap ql")) && !bankingSap)
   ) {
     return true;
   }
@@ -144,8 +174,8 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
   return (
     (numberSelectors.has(topic) && !subtopic)
     || (topic === "arithmetic" && numberSelectors.has(subtopic))
-    || (simplificationSelectors.has(topic) && !subtopic)
-    || (topic === "arithmetic" && simplificationSelectors.has(subtopic))
+    || ((simplificationSelectors.has(topic) && !subtopic) && !bankingSap)
+    || ((topic === "arithmetic" && simplificationSelectors.has(subtopic)) && !bankingSap)
   );
 }
 
@@ -375,7 +405,9 @@ router.post(
           difficultyPreset: req.body?.difficultyPreset,
           difficultyDistribution: req.body?.difficultyDistribution,
           forwardLegacyExamProfile:
-            packageId === "AVG-001" || packageId === "TMW-001",
+            packageId === "AVG-001"
+            || packageId === "TMW-001"
+            || isBankingSapCompatibilityRequest((req.body ?? {}) as Record<string, unknown>),
           generateCandidateBatch: (candidateRequest) =>
             generateQuestionStudioQuestions({
               ...candidateRequest,
