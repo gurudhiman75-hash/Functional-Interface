@@ -414,7 +414,7 @@ function combinedPercentStem(stimulus: Di008V2Stimulus, indices: readonly number
   const label = names(stimulus.rows, indices);
   return [
     "The combined units sold of " + label + " increased by what percentage from the previous period to the current period?",
-    "After combining the sales of " + label + ", find the percentage increase between the two periods.",
+    "By what percentage did total sales of " + label + " increase from the previous period to the current period?",
     "What is the percentage rise in total units sold of " + label + " from the previous period to the current period?",
   ][variant]!;
 }
