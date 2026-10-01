@@ -119,7 +119,7 @@ function explanationNative(text: string, locale: Sea001LocaleV1): string {
   if ((m = text.match(/^(.+) faces (north|south)\. Hence, .+'s right is towards the (left|right) end of the row, where (.+) is seated\.$/))) {
     return names(tr(locale, `${m[1]} का मुख ${facingNative(m[2]!, locale)} है। इसलिए उसका दायाँ पंक्ति के ${directionNative(m[3]!, locale)} छोर की ओर होगा, जहाँ ${m[4]} बैठा है।`, `${m[1]} ਦਾ ਮੂੰਹ ${facingNative(m[2]!, locale)} ਹੈ। ਇਸ ਲਈ ਉਸਦਾ ਸੱਜਾ ਕਤਾਰ ਦੇ ${directionNative(m[3]!, locale)} ਸਿਰੇ ਵੱਲ ਹੋਵੇਗਾ, ਜਿੱਥੇ ${m[4]} ਬੈਠਾ ਹੈ।`), locale);
   }
-  if ((m = text.match(/^(.+) and (.+) occupy the two seats directly beside (.+)\.(?: Facing does not change (?:physical )?adjacency\.)?$/))) {
+  if ((m = text.match(/^(.+) and (.+) occupy the two seats directly beside (.+?)\\.(?: Facing does not change (?:physical )?adjacency\\.)?$/))) {
     return names(tr(locale, `${m[1]} और ${m[2]}, ${m[3]} के दोनों ओर वाली सीटों पर बैठे हैं। मुख की दिशा से पास-पास बैठने का संबंध नहीं बदलता।`, `${m[1]} ਅਤੇ ${m[2]}, ${m[3]} ਦੇ ਦੋਵੇਂ ਪਾਸਿਆਂ ਵਾਲੀਆਂ ਸੀਟਾਂ 'ਤੇ ਬੈਠੇ ਹਨ। ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਨਾਲ ਨਾਲ-ਨਾਲ ਬੈਠਣ ਦਾ ਸੰਬੰਧ ਨਹੀਂ ਬਦਲਦਾ।`), locale);
   }
   if ((m = text.match(/^(.+) and (.+) are (\d+) seats apart, so (\d+) − 1 = (\d+) (?:person sits|persons sit) between them\.$/))) {
