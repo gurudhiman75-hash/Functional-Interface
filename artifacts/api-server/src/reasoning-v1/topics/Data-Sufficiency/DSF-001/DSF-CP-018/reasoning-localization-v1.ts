@@ -101,7 +101,61 @@ function replaceCommon(text: string, language: DsfReasoningLocalizedLanguage): s
   return s;
 }
 
-function localizeStatement(text: string, language: DsfReasoningLocalizedLanguage): string {
+function localizeRankingStatement(text: string, language: DsfReasoningLocalizedLanguage): string | undefined {
+  let m: RegExpMatchArray | null;
+  const side = (value: string) => /starting/i.test(value)
+    ? t(language, "आरंभिक सिरे", "ਸ਼ੁਰੂਆਤੀ ਸਿਰੇ")
+    : t(language, "दूसरे सिरे", "ਦੂਜੇ ਸਿਰੇ");
+  const parity = (value: string) => /even/i.test(value)
+    ? t(language, "सम", "ਜੁੜੀ")
+    : t(language, "विषम", "ਬੇਜੋੜ");
+
+  m = text.match(/^The (rank from the opposite end|total number of people|number of people after the target person|rank from the starting end) is exactly (\d+)\.$/i);
+  if (m) {
+    const label: Record<string,[string,string]> = {
+      "rank from the opposite end": ["दूसरे सिरे से रैंक","ਦੂਜੇ ਸਿਰੇ ਤੋਂ ਰੈਂਕ"],
+      "total number of people": ["कुल व्यक्तियों की संख्या","ਕੁੱਲ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ"],
+      "number of people after the target person": ["लक्षित व्यक्ति के बाद व्यक्तियों की संख्या","ਲਕਸ਼ਿਤ ਵਿਅਕਤੀ ਤੋਂ ਬਾਅਦ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ"],
+      "rank from the starting end": ["आरंभिक सिरे से रैंक","ਸ਼ੁਰੂਆਤੀ ਸਿਰੇ ਤੋਂ ਰੈਂਕ"],
+    };
+    const pair=label[m[1]!.toLowerCase()]!;
+    return t(language, `${pair[0]} ठीक ${m[2]} है।`, `${pair[1]} ਬਿਲਕੁਲ ${m[2]} ਹੈ।`);
+  }
+  m=text.match(/^There are exactly (\d+) people in the complete order\.$/i);
+  if(m) return t(language,`पूरे क्रम में कुल ${m[1]} व्यक्ति हैं।`,`ਪੂਰੇ ਕ੍ਰਮ ਵਿੱਚ ਕੁੱਲ ${m[1]} ਵਿਅਕਤੀ ਹਨ।`);
+  m=text.match(/^The target person is (\d+)(?:st|nd|rd|th) from the (starting|opposite) end\.$/i);
+  if(m) return t(language,`लक्षित व्यक्ति ${side(m[2]!)} से ${ordinal(m[1]!,language)} है।`,`ਲਕਸ਼ਿਤ ਵਿਅਕਤੀ ${side(m[2]!)} ਤੋਂ ${ordinal(m[1]!,language)} ਹੈ।`);
+  m=text.match(/^Exactly (\d+) people are (before|after) the target person\.$/i);
+  if(m) return m[2]!.toLowerCase()==="before"
+    ? t(language,`लक्षित व्यक्ति से पहले ठीक ${m[1]} व्यक्ति हैं।`,`ਲਕਸ਼ਿਤ ਵਿਅਕਤੀ ਤੋਂ ਪਹਿਲਾਂ ਬਿਲਕੁਲ ${m[1]} ਵਿਅਕਤੀ ਹਨ।`)
+    : t(language,`लक्षित व्यक्ति के बाद ठीक ${m[1]} व्यक्ति हैं।`,`ਲਕਸ਼ਿਤ ਵਿਅਕਤੀ ਤੋਂ ਬਾਅਦ ਬਿਲਕੁਲ ${m[1]} ਵਿਅਕਤੀ ਹਨ।`);
+  m=text.match(/^There are (\d+) people, and the target person is (\d+)(?:st|nd|rd|th) from the starting end\.$/i);
+  if(m) return t(language,`कुल ${m[1]} व्यक्ति हैं और लक्षित व्यक्ति आरंभिक सिरे से ${ordinal(m[2]!,language)} है।`,`ਕੁੱਲ ${m[1]} ਵਿਅਕਤੀ ਹਨ ਅਤੇ ਲਕਸ਼ਿਤ ਵਿਅਕਤੀ ਸ਼ੁਰੂਆਤੀ ਸਿਰੇ ਤੋਂ ${ordinal(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The target person is (\d+)(?:st|nd|rd|th) from one end and (\d+)(?:st|nd|rd|th) from the other end\.$/i);
+  if(m) return t(language,`लक्षित व्यक्ति एक सिरे से ${ordinal(m[1]!,language)} और दूसरे सिरे से ${ordinal(m[2]!,language)} है।`,`ਲਕਸ਼ਿਤ ਵਿਅਕਤੀ ਇੱਕ ਸਿਰੇ ਤੋਂ ${ordinal(m[1]!,language)} ਅਤੇ ਦੂਜੇ ਸਿਰੇ ਤੋਂ ${ordinal(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^There are (\d+) people in all and (\d+) people are after the target person\.$/i);
+  if(m) return t(language,`कुल ${m[1]} व्यक्ति हैं और लक्षित व्यक्ति के बाद ${m[2]} व्यक्ति हैं।`,`ਕੁੱਲ ${m[1]} ਵਿਅਕਤੀ ਹਨ ਅਤੇ ਲਕਸ਼ਿਤ ਵਿਅਕਤੀ ਤੋਂ ਬਾਅਦ ${m[2]} ਵਿਅਕਤੀ ਹਨ।`);
+  m=text.match(/^The total number of people does not exceed (\d+)\.$/i);
+  if(m) return t(language,`कुल व्यक्तियों की संख्या ${m[1]} से अधिक नहीं है।`,`ਕੁੱਲ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ ${m[1]} ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੈ।`);
+  m=text.match(/^The total number of people is at least (\d+)\.$/i);
+  if(m) return t(language,`कुल व्यक्तियों की संख्या कम से कम ${m[1]} है।`,`ਕੁੱਲ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ ਘੱਟੋ-ਘੱਟ ${m[1]} ਹੈ।`);
+  m=text.match(/^The target person's rank from the (starting|opposite) end is at (most|least) (\d+)\.$/i);
+  if(m) {
+    const bound=m[2]!.toLowerCase()==="most" ? t(language,"अधिकतम","ਵੱਧ ਤੋਂ ਵੱਧ") : t(language,"कम से कम","ਘੱਟੋ-ਘੱਟ");
+    return t(language,`लक्षित व्यक्ति की ${side(m[1]!)} से रैंक ${bound} ${m[3]} है।`,`ਲਕਸ਼ਿਤ ਵਿਅਕਤੀ ਦੀ ${side(m[1]!)} ਤੋਂ ਰੈਂਕ ${bound} ${m[3]} ਹੈ।`);
+  }
+  m=text.match(/^The rank from the starting end is (even|odd)\.$/i);
+  if(m) return t(language,`आरंभिक सिरे से रैंक ${parity(m[1]!)} है।`,`ਸ਼ੁਰੂਆਤੀ ਸਿਰੇ ਤੋਂ ਰੈਂਕ ${parity(m[1]!)} ਹੈ।`);
+  m=text.match(/^The total number of people is (even|odd)\.$/i);
+  if(m) return t(language,`कुल व्यक्तियों की संख्या ${parity(m[1]!)} है।`,`ਕੁੱਲ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ ${parity(m[1]!)} ਹੈ।`);
+  return undefined;
+}
+
+function localizeStatement(laneId: string, text: string, language: DsfReasoningLocalizedLanguage): string {
+  if (laneId.includes("RANKING")) {
+    const rendered=localizeRankingStatement(text,language);
+    if(rendered) return rendered;
+  }
   let s = replaceCommon(text, language);
   const exact: Array<[RegExp,(m:RegExpMatchArray)=>string]> = [
     [/^There are exactly (\d+) व्यक्ति in the complete order\.$/u,m=>t(language,`पूरे क्रम में कुल ${m[1]} व्यक्ति हैं।`,`ਪੂਰੇ ਕ੍ਰਮ ਵਿੱਚ ਕੁੱਲ ${m[1]} ਵਿਅਕਤੀ ਹਨ।`)],
@@ -154,7 +208,7 @@ export function localizeDsfReasoningQuestion(
   question: AnyQuestion,
   language: DsfReasoningLocalizedLanguage,
 ): AnyQuestion {
-  const statements=(question.statements ?? []).map((statement:any)=>Object.freeze({...statement,text:localizeStatement(String(statement.text ?? ""),language)}));
+  const statements=(question.statements ?? []).map((statement:any)=>Object.freeze({...statement,text:localizeStatement(laneId,String(statement.text ?? ""),language)}));
   const prompt=targetPrompt(laneId,question,language);
   const stem=`${scenarioLead(laneId,question,language)} ${prompt}`.trim();
   const options=(question.options ?? []).map((option:any)=>{
