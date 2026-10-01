@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type { QuestionStudioItem, QuestionStudioRun } from '@/features/question-studio/api';
+import type { DuplicateMatch } from '@/features/question-studio/quality';
 import {
   buildRegenerationQueue,
   isItemRegeneratable,
@@ -84,6 +85,25 @@ describe('Question Studio regeneration queue', () => {
 
     const queue = buildRegenerationQueue([run([blocked])]);
     expect(queue[0]?.items[0]?.blockerCount).toBeGreaterThan(0);
+  });
+
+  it('surfaces an unreviewed item when a duplicate signal blocks approval', () => {
+    const duplicateItem = item('item-7', 'unreviewed');
+    const duplicate: DuplicateMatch = {
+      itemId: duplicateItem.id,
+      matchedItemId: 'item-8',
+      matchedRunCode: 'GEN-OLDER',
+      similarity: 1,
+      exact: true,
+    };
+
+    const queue = buildRegenerationQueue(
+      [run([duplicateItem])],
+      new Map([[duplicateItem.id, duplicate]]),
+    );
+
+    expect(queue[0]?.items[0]?.blockerCount).toBeGreaterThan(0);
+    expect(queue[0]?.items[0]?.reasons[0]).toMatch(/Exact duplicate/i);
   });
 
   it('protects approved and converted items from regeneration', () => {
