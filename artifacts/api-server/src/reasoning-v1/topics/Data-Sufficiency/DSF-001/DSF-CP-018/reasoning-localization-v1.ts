@@ -230,6 +230,12 @@ function localizeDirectionStatement(text: string, language: DsfReasoningLocalize
   }
   m=text.match(/^The first two movement lengths are ([\d.]+) m and ([\d.]+) m respectively\.$/i);
   if(m) return t(language,`पहली दो चालों की लंबाई क्रमशः ${m[1]} मीटर और ${m[2]} मीटर है।`,`ਪਹਿਲੀਆਂ ਦੋ ਚਾਲਾਂ ਦੀ ਲੰਬਾਈ ਕ੍ਰਮਵਾਰ ${m[1]} ਮੀਟਰ ਅਤੇ ${m[2]} ਮੀਟਰ ਹੈ।`);
+  m=text.match(/^The final point is ([\d.]+) m (east|west) of the starting point\.$/i);
+  if(m) return t(language,`अंतिम बिंदु आरंभिक बिंदु से ${m[1]} मीटर ${localizeDirectionValue(m[2]!,language)} है।`,`ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${m[1]} ਮੀਟਰ ${localizeDirectionValue(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The final point is ([\d.]+) m (north|south) of the starting point\.$/i);
+  if(m) return t(language,`अंतिम बिंदु आरंभिक बिंदु से ${m[1]} मीटर ${localizeDirectionValue(m[2]!,language)} है।`,`ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${m[1]} ਮੀਟਰ ${localizeDirectionValue(m[2]!,language)} ਹੈ।`);
+  if(/^The final point lies on the same north-south line as the starting point\.$/i.test(text)) return t(language,"अंतिम बिंदु आरंभिक बिंदु की उसी उत्तर-दक्षिण रेखा पर है।","ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੀ ਉਸੇ ਉੱਤਰ-ਦੱਖਣ ਰੇਖਾ ਉੱਤੇ ਹੈ।");
+  if(/^The final point lies on the same east-west line as the starting point\.$/i.test(text)) return t(language,"अंतिम बिंदु आरंभिक बिंदु की उसी पूर्व-पश्चिम रेखा पर है।","ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੀ ਉਸੇ ਪੂਰਬ-ਪੱਛਮ ਰੇਖਾ ਉੱਤੇ ਹੈ।");
   m=text.match(/^The net (east-west|north-south) displacement is ([\d.]+) m (with no east-west shift|with no north-south shift|to the east|to the west|to the north|to the south)\.$/i);
   if(m){
     const axis=m[1]!.toLowerCase()==="east-west" ? t(language,"पूर्व-पश्चिम","ਪੂਰਬ-ਪੱਛਮ") : t(language,"उत्तर-दक्षिण","ਉੱਤਰ-ਦੱਖਣ");
