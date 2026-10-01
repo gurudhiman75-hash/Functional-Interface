@@ -76,9 +76,14 @@ function wrongOptions(entry: TmwCp003RegistryEntry, p: TmwCp003Parameters, answe
     }
     case "findTimePercentLessFromEfficiencyPercentMore": {
       const pct = required(p.percentAOverB, "percentAOverB");
+      const reversedBaseDenominator = subtract(rational(100), pct);
+      const reversedBaseDistractor =
+        reversedBaseDenominator.numerator === 0
+          ? multiply(answer, rational(2))
+          : percent(divide(pct, reversedBaseDenominator));
       return [
         option(pct, "EFFICIENCY_PERCENT_USED_AS_TIME_PERCENT"),
-        option(percent(divide(pct, subtract(rational(100), pct))), "PERCENT_BASE_REVERSED"),
+        option(reversedBaseDistractor, "PERCENT_BASE_REVERSED"),
         option(subtract(rational(100), answer), "PLAUSIBLE_SCALE_ERROR"),
       ];
     }
