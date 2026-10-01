@@ -497,7 +497,7 @@ function combinedShareStem(stimulus: Di007V2Stimulus, otherIndex: number, varian
   const templates = [
     `The ${stimulus.seriesBLabel} figures for ${hidden} and ${other} together are approximately what percentage of the five-row total?`,
     `Approximately what percentage of the five-row ${stimulus.seriesBLabel} total comes from ${hidden} and ${other} together?`,
-    `What approximate percentage of the five-row ${stimulus.seriesBLabel} total is represented by ${hidden} and ${other} together?`,
+    `Approximately what percentage of the five-row ${stimulus.seriesBLabel} total is represented by ${hidden} and ${other} together?`,
   ] as const;
   return templates[variant];
 }
