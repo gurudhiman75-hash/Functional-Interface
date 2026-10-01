@@ -18,7 +18,7 @@ describe('admin navigation roadmap', () => {
     expect(items).toHaveLength(50);
     expect(items.map((item) => item.label)).toEqual(expect.arrayContaining([
       'Question Studio', 'Notes Studio', 'Notes Studio v2', 'Content Review', 'Learning Resources', 'Current Affairs', 'Coverage Planner', 'Sections & Topics',
-      'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Screen Builder', 'Home Management', 'Promotions & Ads', 'Notifications', 'Packages', 'Students', 'Admin Team',
+      'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Layout Composer', 'Home Management', 'Promotions & Ads', 'Notifications', 'Packages', 'Students', 'Admin Team',
       'Question Analytics', 'System Health', 'Request Failures', 'Languages', 'Roles & Permissions', 'Audit Logs',
     ]));
   });
