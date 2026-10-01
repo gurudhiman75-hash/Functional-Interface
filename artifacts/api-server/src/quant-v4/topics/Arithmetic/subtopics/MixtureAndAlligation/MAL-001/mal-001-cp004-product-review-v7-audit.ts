@@ -31,6 +31,21 @@ function stable(value: unknown): string {
   );
 }
 
+function questionStudioParityShape(question: MalCp004ProductReviewQuestion): string {
+  return stable({
+    permanentQlId: question.permanentQlId,
+    questionLanguageId: question.questionLanguageId,
+    stem: question.stem,
+    options: question.options,
+    answer: question.answer,
+    correctIndex: question.correctIndex,
+    answerValue: question.answerValue,
+    exactState: question.exactState,
+    mathematicalFingerprint: question.mathematicalFingerprint,
+    explanation: question.explanation,
+  });
+}
+
 function validate(question: MalCp004ProductReviewQuestion): void {
   const id = `${question.permanentQlId}/${question.parameters.requestedSeed}`;
   assert(
@@ -162,13 +177,21 @@ for (const allocation of MAL_CP004_PERMANENT_ALLOCATION) {
       seed,
       language: "en",
     }) as MalCp004ProductReviewQuestion;
+    assert(
+      studio.parameters.requestedSeed === seed,
+      `${allocation.qlId}/${seed}: Question Studio requested-seed trace drifted.`,
+    );
+    const studioSelectedSeed = String(studio.parameters.selectedSeed ?? seed);
     const expectedStudio = applyMal001DualMethodExplanationV2(
-      first,
+      runMalCp004EnglishProductReviewV7Pipeline({
+        questionLanguageId: allocation.qlId,
+        seed: studioSelectedSeed,
+        language: "en",
+      }),
     ) as MalCp004ProductReviewQuestion;
     assert(
-      malCp004ProductReviewV7Stable(studio) ===
-        malCp004ProductReviewV7Stable(expectedStudio),
-      `${allocation.qlId}/${seed}: Question Studio parity failed after the chapter explanation overlay.`,
+      questionStudioParityShape(studio) === questionStudioParityShape(expectedStudio),
+      `${allocation.qlId}/${seed}: Question Studio learner/math parity failed after closure selection and chapter explanation overlay.`,
     );
     studioParity += 1;
 
