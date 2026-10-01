@@ -66,6 +66,13 @@ import {
   type WorQuestionStudioReviewQuestion,
 } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/question-studio-review";
 import {
+  SEA_001_QUESTION_STUDIO_REVIEW_PACKAGE,
+  isSea001QuestionStudioRequest,
+  previewSea001QuestionStudioReview,
+  type Sea001QuestionStudioDifficulty,
+  type Sea001QuestionStudioLanguage,
+} from "../reasoning-v1/topics/SeatingArrangement/SEA-001/question-studio-review-v1.ts";
+import {
   generateLogicPuzzleQuestionStudioBatch,
   isLogicPuzzleQuestionStudioRequest,
   listLogicPuzzleQuestionStudioPackages,
@@ -108,7 +115,7 @@ export {
   isNumCp012QuestionStudioRequest,
 };
 
-export { isCoaCp012ApprovedQuestionStudioRequest };
+export { isCoaCp012ApprovedQuestionStudioRequest, isSea001QuestionStudioRequest };
 
 export function isSta001QuestionStudioRequest(request: SharedQuestionStudioGenerationRequest) {
   const packageId = normalizeSelector(request.packageId ?? request.archetypeId);
@@ -191,6 +198,20 @@ function normalizeWorLanguage(value: unknown): WorQuestionStudioLanguage {
   const language = String(value ?? "en").trim().toLowerCase();
   if (language === "en" || language === "hi" || language === "pa") return language;
   throw new Error(`WOR-001 does not support Question Studio language ${language}.`);
+}
+
+function normalizeSeaDifficulty(value: unknown): Sea001QuestionStudioDifficulty | undefined {
+  const text = String(value ?? "").trim().toLowerCase();
+  if (text === "easy") return "Easy";
+  if (text === "medium" || text === "moderate") return "Medium";
+  if (text === "hard") return "Hard";
+  return undefined;
+}
+
+function normalizeSeaLanguage(value: unknown): Sea001QuestionStudioLanguage {
+  const language = String(value ?? "en").trim().toLowerCase();
+  if (language === "en" || language === "hi" || language === "pa") return language;
+  throw new Error(`SEA-001 does not support Question Studio language ${language}.`);
 }
 
 function stableHash(value: string): number {
@@ -362,6 +383,9 @@ export function listQuestionStudioPackages() {
   if (!packages.some((entry) => String(entry.packageId) === "WOR-001")) {
     packages.push(worPackageCapability());
   }
+  if (!packages.some((entry) => String(entry.packageId) === SEA_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId)) {
+    packages.push(SEA_001_QUESTION_STUDIO_REVIEW_PACKAGE as any);
+  }
   for (const packageCapability of listLogicPuzzleQuestionStudioPackages()) {
     if (!packages.some((entry) => String(entry.packageId) === packageCapability.packageId)) {
       packages.push(packageCapability);
@@ -462,6 +486,20 @@ function generateWorProductionBatch(
   });
 }
 
+async function generateSea001QuestionStudioQuestions(request: SharedQuestionStudioGenerationRequest) {
+  const language = normalizeSeaLanguage(request.language);
+  const difficulty = normalizeSeaDifficulty(request.difficulty);
+  return previewSea001QuestionStudioReview({
+    language,
+    difficulty,
+    seed: request.seed,
+    count: request.count,
+    canonicalProblemId: request.canonicalProblemId,
+    cpId: request.cpId,
+    questionLanguageId: request.questionLanguageId,
+  });
+}
+
 async function generateWor001QuestionStudioQuestions(request: SharedQuestionStudioGenerationRequest) {
   const language = normalizeWorLanguage(request.language);
   const difficulty = normalizeWorDifficulty(request.difficulty);
@@ -557,6 +595,9 @@ export async function generateQuestion(request: SharedQuestionStudioGenerationRe
   }
   if (isWor001QuestionStudioRequest(request)) {
     return generateWor001QuestionStudioQuestions(request);
+  }
+  if (isSea001QuestionStudioRequest(request as Readonly<Record<string, unknown>>)) {
+    return generateSea001QuestionStudioQuestions(request);
   }
   if (isLogicPuzzleQuestionStudioRequest(request)) {
     return generateLogicPuzzleQuestionStudioBatch(request);
