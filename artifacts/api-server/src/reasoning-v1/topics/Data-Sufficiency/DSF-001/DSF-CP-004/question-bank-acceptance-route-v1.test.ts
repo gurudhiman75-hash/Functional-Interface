@@ -12,7 +12,7 @@ const bulkRoute = read("src/routes/admin-question-studio-bulk-hardening.ts");
 const conversion = read("src/lib/admin-question-conversion.ts");
 const questionLifecycle = read("src/routes/admin-question-lifecycle-hardening.ts");
 const testRoutes = read("src/routes/admin-tests.ts");
-const routeIndex = read("src/routes/index.ts");
+const questionStudioRegistry = read("src/routes/admin-question-studio-registry.ts");
 const cp002Runtime = read("src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-integration-v1.ts");
 
 assert.equal(DSF_CP004_QUESTION_BANK_ACCEPTANCE.questionBank.writable, true);
@@ -56,9 +56,11 @@ assert.match(questionLifecycle, /generationTestEligible/);
 assert.match(testRoutes, /QUESTION_NOT_PUBLISHED/);
 assert.match(testRoutes, /String\(row\.status\) !== "published"/);
 
-assert.match(routeIndex, /adminQuestionStudioBulkHardeningRouter/);
-assert.match(routeIndex, /adminQuestionStudioDataSufficiencyRouter/);
-assert.match(routeIndex, /adminQuestionLifecycleHardeningRouter/);
+assert.match(questionStudioRegistry, /adminQuestionStudioBulkHardeningRouter/);
+assert.match(questionStudioRegistry, /adminQuestionStudioDataSufficiencyRouter/);
+assert.match(questionStudioRegistry, /router\.use\(adminQuestionStudioBulkHardeningRouter\)/);
+assert.match(questionStudioRegistry, /router\.use\(adminQuestionStudioDataSufficiencyRouter\)/);
+assert.match(questionLifecycle, /generationPubliclyPublishable/);
 
 // Frozen CP-002 source contract must remain untouched.
 assert.match(cp002Runtime, /questionBankStatus: "NOT_STORED"/);
