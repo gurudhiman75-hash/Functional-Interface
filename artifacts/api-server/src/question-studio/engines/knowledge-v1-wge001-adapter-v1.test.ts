@@ -232,7 +232,7 @@ async function run() {
   assert.equal(owns({packageId: 'COM-001', topic: 'World Geography'}), false);
   assert.equal(owns({packageId: 'WGE-001-CP011'}), true);
   assert.equal(owns({topic: 'World Geography'}), true);
-  assert.equal(WGE_VARIABLE_POOL_QUESTIONS_V1.some(q => q.cpId === 'WGE-001-CP023'), false);
+  assert.equal(WGE_VARIABLE_POOL_QUESTIONS_V1.filter(q => q.cpId === 'WGE-001-CP023').length, 12);
   console.log(`PASS: ${WGE_CORPUS.length} authored questions + ${WGE_VARIABLE_POOL_QUESTIONS_V1.length} review-only variable-pool items, ${checked} filtered localized outputs, 43 CPs, all selectors and invariants`);
 }
 void run();
