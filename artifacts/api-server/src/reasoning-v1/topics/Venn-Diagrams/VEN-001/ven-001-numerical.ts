@@ -633,7 +633,7 @@ function derivation(c: Context, r: State, sets: 2 | 3, l: L) {
   if (sets === 2) {
     const first = c.names[l].split("|")[0],
       second = c.names[l].split("|")[1];
-    return `${tx(`There are ${a} people who ${c.verb.en} ${first} and ${b} who ${c.verb.en} ${second}. The overlap is counted in both totals.`, `${a} लोग ${first} ${c.verb[l]} और ${b} लोग ${second} ${c.verb[l]}। साझा लोगों को दोनों कुल संख्याओं में गिना गया है।`, `${a} ਲੋਕ ${first} ${c.verb[l]} ਅਤੇ ${b} ਲੋਕ ${second} ${c.verb[l]}। ਸਾਂਝੇ ਲੋਕ ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹਨ।`)[l]} ${explanationRegion(c, 1, l)} = ${a} − ${ab} = ${r[1]}; ${explanationRegion(c, 2, l)} = ${b} − ${ab} = ${r[2]}. ${tx("The number in at least one activity", "कम-से-कम एक गतिविधि करने वाले लोग", "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਕੰਮ ਕਰਨ ਵਾਲੇ ਲੋਕ")[l]} = ${a} + ${b} − ${ab} = ${sum(r) - r[0]}. ${explanationRegion(c, 0, l)} = ${sum(r)} − ${sum(r) - r[0]} = ${r[0]}.`;
+    return `${tx(`There are ${a} people who ${c.verb.en} ${first} and ${b} who ${c.verb.en} ${second}. The overlap is counted in both totals.`, `${a} लोग ${first} ${c.verb[l]} और ${b} लोग ${second} ${c.verb[l]}। साझा लोगों को दोनों कुल संख्याओं में गिना गया है।`, `${a} ਲੋਕ ${first} ${c.verb[l]} ਅਤੇ ${b} ਲੋਕ ${second} ${c.verb[l]}। ਸਾਂਝੇ ਲੋਕ ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹਨ।`)[l]} ${explanationRegion(c, 1, l)} = ${a} − ${ab} = ${r[1]}; ${explanationRegion(c, 2, l)} = ${b} − ${ab} = ${r[2]}. ${tx("The number in at least one group", "कम-से-कम एक समूह में आने वाले लोग", "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ")[l]} = ${a} + ${b} − ${ab} = ${sum(r) - r[0]}. ${explanationRegion(c, 0, l)} = ${sum(r)} − ${sum(r) - r[0]} = ${r[0]}.`;
   }
   const cTotal = membershipTotal(r, 4),
     ac = membershipTotal(r, 5),
@@ -908,19 +908,26 @@ export function buildNumericalItem(
             : "ਠੀਕ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਅਤੇ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?",
         )[l];
       const common = gcd(x, y);
-      explanation = `${derivation(c, r, modelSets, l)} ${
-        tx(
-          mode === 2
-            ? `Only ${c.names[l].split("|")[0]} = ${x} and only ${c.names[l].split("|")[1]} = ${y}. Divide both terms by their highest common factor, ${common}.`
-            : `Exactly two of ${c.names.en.split("|").join(", ")} = ${x}; all three = ${y}. Divide both terms by their highest common factor, ${common}.`,
-          mode === 2
-            ? `केवल ${c.names.hi.split("|")[0]} = ${x} और केवल ${c.names.hi.split("|")[1]} = ${y}। दोनों पदों को उनके महत्तम समापवर्तक ${common} से भाग दें।`
-            : `${c.names.hi.split("|").join(", ")} में से ठीक दो समूहों में आने वाले = ${x}; तीनों समूहों में आने वाले = ${y}। दोनों पदों को उनके महत्तम समापवर्तक ${common} से भाग दें।`,
-          mode === 2
-            ? `ਸਿਰਫ਼ ${c.names.pa.split("|")[0]} = ${x} ਅਤੇ ਸਿਰਫ਼ ${c.names.pa.split("|")[1]} = ${y}। ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ।`
-            : `${c.names.pa.split("|").join(", ")} ਵਿੱਚੋਂ ਠੀਕ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ = ${x}; ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ = ${y}। ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ।`,
-        )[l]
-      } ${x}/${common}:${y}/${common} = ${answer}.`;
+      if (mode === 2) {
+        const aTotal = membershipTotal(r, 1),
+          bTotal = membershipTotal(r, 2),
+          overlap = r[3];
+        explanation = `${tx(
+          `Subtract the overlap from each group total: only ${names[0]} = ${aTotal} − ${overlap} = ${x}; only ${names[1]} = ${bTotal} − ${overlap} = ${y}.`,
+          `हर समूह की कुल संख्या में से साझा लोगों को घटाएँ: केवल ${names[0]} = ${aTotal} − ${overlap} = ${x}; केवल ${names[1]} = ${bTotal} − ${overlap} = ${y}।`,
+          `ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਸਾਂਝੇ ਲੋਕ ਘਟਾਓ: ਸਿਰਫ਼ ${names[0]} = ${aTotal} − ${overlap} = ${x}; ਸਿਰਫ਼ ${names[1]} = ${bTotal} − ${overlap} = ${y}।`,
+        )[l]} ${tx("Reduce the ratio by the highest common factor", "अनुपात को महत्तम समापवर्तक से सरल करें", "ਅਨੁਪਾਤ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ")[l]} ${common}: ${x}/${common}:${y}/${common} = ${answer}.`;
+      } else {
+        const ab = membershipTotal(r, 3),
+          ac = membershipTotal(r, 5),
+          bc = membershipTotal(r, 6),
+          triple = r[7];
+        explanation = `${tx(
+          `Each pair total includes the all-three group. Subtract the all-three count from each pair, then add the three pair-only regions:`,
+          `हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। हर जोड़ी में से तीनों वाले लोगों को घटाकर तीन केवल-जोड़ी क्षेत्रों को जोड़ें:`,
+          `ਹਰ ਜੋੜੇ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਹਰ ਜੋੜੇ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕ ਘਟਾ ਕੇ ਤਿੰਨ ਸਿਰਫ਼-ਜੋੜੀ ਖੇਤਰ ਜੋੜੋ:`,
+        )[l]} (${ab} − ${triple}) + (${ac} − ${triple}) + (${bc} − ${triple}) = ${x}. ${tx("All three groups", "तीनों समूह", "ਤਿੰਨੇ ਸਮੂਹ")[l]} = ${y}. ${tx("Reduce the ratio by the highest common factor", "अनुपात को महत्तम समापवर्तक से सरल करें", "ਅਨੁਪਾਤ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ")[l]} ${common}: ${x}/${common}:${y}/${common} = ${answer}.`;
+      }
       formula = "\\text{ratio}=a:b";
     }
     if (mode === 4 || mode === 5) {
