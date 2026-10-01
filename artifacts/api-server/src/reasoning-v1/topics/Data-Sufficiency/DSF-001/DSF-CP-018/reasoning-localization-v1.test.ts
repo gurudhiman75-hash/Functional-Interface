@@ -65,22 +65,21 @@ assert.equal(
   }).questions[0]?.language,
   "hi",
 );
-assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({
+assert.equal(
+  previewDsf001NormalQuestionStudioReview({
     laneId: "DSF-QS-TIME-WORK-PIPES",
     language: "hi",
     count: 1,
-  }),
-  /not yet localized|English-only/iu,
+  }).questions[0]?.language,
+  "hi",
 );
-
-assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({
+assert.equal(
+  previewDsf001NormalQuestionStudioReview({
     laneId: "DSF-QS-MENSURATION",
     language: "pa",
     count: 1,
-  }),
-  /not yet localized|English-only/iu,
+  }).questions[0]?.language,
+  "pa",
 );
 
 console.log(JSON.stringify({
@@ -90,5 +89,5 @@ console.log(JSON.stringify({
   sampleCount: DSF_CP018_REASONING_LOCALIZED_LANES.length * 2 * 5,
   semanticParity: true,
   lifecycle: "REVIEW_ONLY",
-  remainingQuantExpansionLocalization: 6,
+  remainingQuantExpansionLocalization: 0,
 }, null, 2));
