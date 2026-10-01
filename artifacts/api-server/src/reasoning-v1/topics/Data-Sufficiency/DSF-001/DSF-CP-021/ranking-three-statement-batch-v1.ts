@@ -163,7 +163,7 @@ function targetLabel(mode: SolveMode): string {
   switch (mode) {
     case "DSF-SM-RNK-OPPOSITE-END-RANK": return "rank from the opposite end";
     case "DSF-SM-RNK-TOTAL-FROM-END-RANKS": return "total number of people";
-    case "DSF-SM-RNK-COUNT-AFTER": return "number of people after the ${subject}";
+    case "DSF-SM-RNK-COUNT-AFTER": return "number of people after the person";
     case "DSF-SM-RNK-RANK-FROM-COUNT-BEFORE": return "rank from the starting end";
   }
 }
@@ -197,12 +197,12 @@ function buildStatementPool(problem: Problem): readonly RankingStatement[] {
   return Object.freeze([
     statement(`TARGET_${target}`, "TARGET_EXACT", 1, `The ${targetText} is exactly ${target}.`, w => sourceProjection(problem.solveMode, w) === target),
     statement(`TOTAL_${a.total}`, "TOTAL_EXACT", 1, `There are exactly ${a.total} people in the complete order.`, w => w.total === a.total),
-    statement(`START_${a.rankFromStart}`, "START_RANK_EXACT", 1, `The target person is ${ordinal(a.rankFromStart)} from the starting end.`, w => w.rankFromStart === a.rankFromStart),
-    statement(`END_${a.rankFromEnd}`, "END_RANK_EXACT", 1, `The target person is ${ordinal(a.rankFromEnd)} from the opposite end.`, w => w.rankFromEnd === a.rankFromEnd),
+    statement(`START_${a.rankFromStart}`, "START_RANK_EXACT", 1, `The ${subject} is ${ordinal(a.rankFromStart)} from the starting end.`, w => w.rankFromStart === a.rankFromStart),
+    statement(`END_${a.rankFromEnd}`, "END_RANK_EXACT", 1, `The ${subject} is ${ordinal(a.rankFromEnd)} from the opposite end.`, w => w.rankFromEnd === a.rankFromEnd),
     statement(`BEFORE_${a.beforeCount}`, "BEFORE_COUNT_EXACT", 1, `${a.beforeCount === 1 ? "Exactly 1 person is" : `Exactly ${a.beforeCount} people are`} before the ${subject}.`, w => w.beforeCount === a.beforeCount),
     statement(`AFTER_${a.afterCount}`, "AFTER_COUNT_EXACT", 1, `${a.afterCount === 1 ? "Exactly 1 person is" : `Exactly ${a.afterCount} people are`} after the ${subject}.`, w => w.afterCount === a.afterCount),
     statement(`TOTAL_START_${a.total}_${a.rankFromStart}`, "TOTAL_START_PAIR", 2, `There are ${a.total} people, and the ${subject} is ${ordinal(a.rankFromStart)} from the starting end.`, w => w.total === a.total && w.rankFromStart === a.rankFromStart),
-    statement(`START_END_${a.rankFromStart}_${a.rankFromEnd}`, "START_END_PAIR", 2, `The target person is ${ordinal(a.rankFromStart)} from one end and ${ordinal(a.rankFromEnd)} from the other end.`, w => w.rankFromStart === a.rankFromStart && w.rankFromEnd === a.rankFromEnd),
+    statement(`START_END_${a.rankFromStart}_${a.rankFromEnd}`, "START_END_PAIR", 2, `The ${subject} is ${ordinal(a.rankFromStart)} from one end and ${ordinal(a.rankFromEnd)} from the other end.`, w => w.rankFromStart === a.rankFromStart && w.rankFromEnd === a.rankFromEnd),
     statement(`TOTAL_AFTER_${a.total}_${a.afterCount}`, "TOTAL_AFTER_PAIR", 2, `There are ${a.total} people in all and ${a.afterCount} people are after the ${subject}.`, w => w.total === a.total && w.afterCount === a.afterCount),
     statement(`TOTAL_LE_${a.total}`, "TOTAL_BOUND", 2, `The total number of people does not exceed ${a.total}.`, w => w.total <= a.total),
     statement(`TOTAL_GE_${a.total}`, "TOTAL_BOUND", 2, `The total number of people is at least ${a.total}.`, w => w.total >= a.total),
