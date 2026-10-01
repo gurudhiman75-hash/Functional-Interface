@@ -1287,6 +1287,8 @@ export function generateVen001ShapeRegionBatch(
     }
     const id = `VEN-CP011:${c.id}:${q.key}:${hash(`${seed}:${i}`)}:${l}`;
     const questionStem = stem(c, q, l);
+    const difficulty =
+      q.pattern === "single" || q.pattern === "triple" ? "Easy" : "Medium";
     return {
       ...lifecycle,
       id,
@@ -1317,9 +1319,9 @@ export function generateVen001ShapeRegionBatch(
         text: value,
         isCorrect: j === correctIndex,
       })),
-      difficulty: "Medium",
-      difficultyLabel: "Medium",
-      difficultyAuthority: "PROVISIONAL_OPERATION_BASED",
+      difficulty,
+      difficultyLabel: difficulty,
+      difficultyAuthority: "PROVISIONAL_STRUCTURE_BASED_CANDIDATE",
       questionOperation: "GEOMETRIC_REGION_COUNT",
       qlId: ven001QlForOperation("GEOMETRIC_REGION_COUNT"),
       permanentQlId: ven001QlForOperation("GEOMETRIC_REGION_COUNT"),
