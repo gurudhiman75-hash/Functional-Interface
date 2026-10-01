@@ -73,6 +73,12 @@ for (const language of ["en","hi","pa"] as const) {
   assert.equal(cp003.questions.length, 34);
   cp003.questions.forEach((question) => verifyQuestion(question, language));
 
+  const cp003Reverse = generateVen001QuestionStudioBatch({
+    packageId:"VEN-001", patternId:"VEN-CP003-REVERSE", language, count:4,
+    seed:`ven-final-closure:${language}:VEN-CP003-REVERSE`,
+  });
+  cp003Reverse.questions.forEach((question) => verifyQuestion(question, language));
+
   for (const cp of NUMERICAL_CP_IDS) {
     const result = generateVen001NumericalBatch({
       packageId:"VEN-001", patternId:cp, language, count:4,
