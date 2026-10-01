@@ -1314,6 +1314,81 @@ function localizeGeoAgrBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
   return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
 
+
+function polishGeoCliBulkTextV1(text:string, language:"hi"|"pa") {
+  const hi:[string,string][] = [
+    ["Indian monsoon","भारतीय मानसून"],["southwest monsoon","दक्षिण-पश्चिम मानसून"],["northeast monsoon","उत्तर-पूर्व मानसून"],
+    ["retreating monsoon","लौटता मानसून"],["monsoon onset","मानसून का आगमन"],["monsoon withdrawal","मानसून की वापसी"],["monsoon burst","मानसून का अचानक सक्रिय होना"],
+    ["Arabian Sea branch","अरब सागर शाखा"],["Bay of Bengal branch","बंगाल की खाड़ी शाखा"],["Inter-Tropical Convergence Zone","अंतर-उष्णकटिबंधीय अभिसरण क्षेत्र"],["ITCZ","आईटीसीजेड"],
+    ["thermal low","तापीय निम्न दाब"],["low pressure","निम्न दाब"],["high pressure","उच्च दाब"],["pressure gradient","दाब प्रवणता"],
+    ["land-sea pressure gradient","स्थल-समुद्र दाब प्रवणता"],["seasonal reversal","मौसमी उलटाव"],["prevailing winds","प्रचलित पवनें"],
+    ["Coriolis force","कोरिओलिस बल"],["jet stream","जेट धारा"],["subtropical westerly jet","उपोष्णकटिबंधीय पश्चिमी जेट"],["tropical easterly jet","उष्णकटिबंधीय पूर्वी जेट"],
+    ["western disturbances","पश्चिमी विक्षोभ"],["western disturbance","पश्चिमी विक्षोभ"],["Mediterranean","भूमध्यसागरीय"],
+    ["loo winds","लू"],["loo","लू"],["mango showers","आम्र वर्षा"],["Kalbaisakhi","कालबैसाखी"],["Nor'westers","कालबैसाखी आँधियाँ"],
+    ["cold weather season","शीत ऋतु"],["hot weather season","ग्रीष्म ऋतु"],["rainy season","वर्षा ऋतु"],["retreating season","मानसून वापसी ऋतु"],
+    ["orographic rainfall","पर्वतीय वर्षा"],["convectional rainfall","संवहनीय वर्षा"],["cyclonic rainfall","चक्रवाती वर्षा"],
+    ["windward side","पवनाभिमुख ढाल"],["leeward side","पवनविमुख ढाल"],["rain shadow","वर्षाछाया"],["Western Ghats","पश्चिमी घाट"],["Khasi Hills","खासी पहाड़ियाँ"],
+    ["Mawsynram","मौसिनराम"],["Meghalaya","मेघालय"],["Deccan Plateau","दक्कन का पठार"],["Tamil Nadu coast","तमिलनाडु तट"],["Kerala coast","केरल तट"],
+    ["annual rainfall","वार्षिक वर्षा"],["rainfall variability","वर्षा परिवर्तनशीलता"],["rainfall distribution","वर्षा वितरण"],["rainfall reliability","वर्षा विश्वसनीयता"],
+    ["precipitation","वर्षण"],["rainfall","वर्षा"],["snowfall","हिमपात"],["snow","हिम"],["hail","ओले"],["thunderstorm","आंधी-तूफान"],["thunderstorms","आंधी-तूफान"],
+    ["cyclone","चक्रवात"],["cyclones","चक्रवात"],["tropical cyclone","उष्णकटिबंधीय चक्रवात"],["Bay of Bengal","बंगाल की खाड़ी"],["Arabian Sea","अरब सागर"],
+    ["temperature range","तापांतर"],["annual temperature range","वार्षिक तापांतर"],["temperature","तापमान"],["altitude","ऊँचाई"],["latitude","अक्षांश"],
+    ["distance from sea","समुद्र से दूरी"],["sea proximity","समुद्र की निकटता"],["continentality","महाद्वीपीयता"],["maritime influence","समुद्री प्रभाव"],["relief","स्थलरूप"],
+    ["humidity","आर्द्रता"],["moisture","नमी"],["summer heating","ग्रीष्मकालीन तापन"],["winter cooling","शीतकालीन शीतलन"],
+    ["northwestern India","उत्तर-पश्चिम भारत"],["northern India","उत्तरी भारत"],["peninsular India","प्रायद्वीपीय भारत"],["interior Deccan","आंतरिक दक्कन"],
+    ["October heat","अक्टूबर की उमस"],["climate control","जलवायु नियंत्रक"],["climatic controls","जलवायु नियंत्रक"],
+    ["Which","कौन-सा"],["which","कौन-सा"],["What","क्या"],["what","क्या"],["Why","क्यों"],["why","क्यों"],["Where","कहाँ"],["where","कहाँ"],["When","कब"],["when","कब"],["How","कैसे"],["how","कैसे"],
+    ["the",""],["and","और"],["or","या"],["is","है"],["are","हैं"],["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],
+    ["can","सकता है"],["could","सकता था"],["would","होगा"],["should","चाहिए"],["has","है"],["have","हैं"],["had","था"],
+    ["with","के साथ"],["from","से"],["into","में"],["for","के लिए"],["of","का"],["to","को"],["in","में"],["on","पर"],["at","पर"],["by","द्वारा"],["as","के रूप में"],
+    ["than","की तुलना में"],["that","कि"],["this","यह"],["these","ये"],["those","वे"],["most","सबसे"],["main","मुख्य"],["major","प्रमुख"],["only","केवल"],["correct","सही"],["statement","कथन"],["following","निम्नलिखित"]
+  ];
+  const pa:[string,string][] = [
+    ["Indian monsoon","ਭਾਰਤੀ ਮਾਨਸੂਨ"],["southwest monsoon","ਦੱਖਣ-ਪੱਛਮੀ ਮਾਨਸੂਨ"],["northeast monsoon","ਉੱਤਰ-ਪੂਰਬੀ ਮਾਨਸੂਨ"],
+    ["retreating monsoon","ਵਾਪਸੀ ਮਾਨਸੂਨ"],["monsoon onset","ਮਾਨਸੂਨ ਦੀ ਸ਼ੁਰੂਆਤ"],["monsoon withdrawal","ਮਾਨਸੂਨ ਦੀ ਵਾਪਸੀ"],["monsoon burst","ਮਾਨਸੂਨ ਦਾ ਅਚਾਨਕ ਸਰਗਰਮ ਹੋਣਾ"],
+    ["Arabian Sea branch","ਅਰਬ ਸਾਗਰ ਸ਼ਾਖਾ"],["Bay of Bengal branch","ਬੰਗਾਲ ਦੀ ਖਾੜੀ ਸ਼ਾਖਾ"],["Inter-Tropical Convergence Zone","ਅੰਤਰ-ਉਸ਼ਣਕਟੀਬੰਧੀ ਅਭਿਸਰਨ ਖੇਤਰ"],["ITCZ","ਆਈਟੀਸੀਜ਼ੈਡ"],
+    ["thermal low","ਤਾਪੀ ਨਿਮਨ ਦਬਾਅ"],["low pressure","ਨਿਮਨ ਦਬਾਅ"],["high pressure","ਉੱਚ ਦਬਾਅ"],["pressure gradient","ਦਬਾਅ ਢਲਾਣ"],
+    ["land-sea pressure gradient","ਧਰਤੀ-ਸਮੁੰਦਰ ਦਬਾਅ ਢਲਾਣ"],["seasonal reversal","ਮੌਸਮੀ ਉਲਟਾਅ"],["prevailing winds","ਪ੍ਰਮੁੱਖ ਹਵਾਵਾਂ"],
+    ["Coriolis force","ਕੋਰੀਓਲਿਸ ਬਲ"],["jet stream","ਜੈੱਟ ਧਾਰਾ"],["subtropical westerly jet","ਉਪ-ਉਸ਼ਣਕਟੀਬੰਧੀ ਪੱਛਮੀ ਜੈੱਟ"],["tropical easterly jet","ਉਸ਼ਣਕਟੀਬੰਧੀ ਪੂਰਬੀ ਜੈੱਟ"],
+    ["western disturbances","ਪੱਛਮੀ ਵਿਘਨ"],["western disturbance","ਪੱਛਮੀ ਵਿਘਨ"],["Mediterranean","ਭੂ-ਮੱਧ ਸਾਗਰੀ"],
+    ["loo winds","ਲੂ ਹਵਾਵਾਂ"],["loo","ਲੂ"],["mango showers","ਆਮ ਵਰਖਾ"],["Kalbaisakhi","ਕਾਲਬੈਸਾਖੀ"],["Nor'westers","ਕਾਲਬੈਸਾਖੀ ਆੰਧੀਆਂ"],
+    ["cold weather season","ਸਰਦੀ ਦੀ ਰੁੱਤ"],["hot weather season","ਗਰਮੀ ਦੀ ਰੁੱਤ"],["rainy season","ਵਰਖਾ ਰੁੱਤ"],["retreating season","ਮਾਨਸੂਨ ਵਾਪਸੀ ਰੁੱਤ"],
+    ["orographic rainfall","ਪਹਾੜੀ ਵਰਖਾ"],["convectional rainfall","ਸੰਵਹਨੀ ਵਰਖਾ"],["cyclonic rainfall","ਚੱਕਰਵਾਤੀ ਵਰਖਾ"],
+    ["windward side","ਪਵਨ-ਮੁਖੀ ਢਲਾਣ"],["leeward side","ਪਵਨ-ਵਿਮੁਖ ਢਲਾਣ"],["rain shadow","ਵਰਖਾ-ਛਾਂ"],["Western Ghats","ਪੱਛਮੀ ਘਾਟ"],["Khasi Hills","ਖਾਸੀ ਪਹਾੜੀਆਂ"],
+    ["Mawsynram","ਮੌਸਿਨਰਾਮ"],["Meghalaya","ਮੇਘਾਲਿਆ"],["Deccan Plateau","ਦੱਖਣ ਦਾ ਪਠਾਰ"],["Tamil Nadu coast","ਤਮਿਲਨਾਡੂ ਤਟ"],["Kerala coast","ਕੇਰਲ ਤਟ"],
+    ["annual rainfall","ਸਾਲਾਨਾ ਵਰਖਾ"],["rainfall variability","ਵਰਖਾ ਵਿੱਚ ਤਬਦੀਲੀ"],["rainfall distribution","ਵਰਖਾ ਵੰਡ"],["rainfall reliability","ਵਰਖਾ ਦੀ ਭਰੋਸੇਯੋਗਤਾ"],
+    ["precipitation","ਵਰਖਾ"],["rainfall","ਵਰਖਾ"],["snowfall","ਹਿਮਪਾਤ"],["snow","ਬਰਫ਼"],["hail","ਓਲੇ"],["thunderstorm","ਗਰਜ-ਤੂਫ਼ਾਨ"],["thunderstorms","ਗਰਜ-ਤੂਫ਼ਾਨ"],
+    ["cyclone","ਚੱਕਰਵਾਤ"],["cyclones","ਚੱਕਰਵਾਤ"],["tropical cyclone","ਉਸ਼ਣਕਟੀਬੰਧੀ ਚੱਕਰਵਾਤ"],["Bay of Bengal","ਬੰਗਾਲ ਦੀ ਖਾੜੀ"],["Arabian Sea","ਅਰਬ ਸਾਗਰ"],
+    ["temperature range","ਤਾਪਮਾਨ ਅੰਤਰ"],["annual temperature range","ਸਾਲਾਨਾ ਤਾਪਮਾਨ ਅੰਤਰ"],["temperature","ਤਾਪਮਾਨ"],["altitude","ਉਚਾਈ"],["latitude","ਅਕਸ਼ਾਂਸ਼"],
+    ["distance from sea","ਸਮੁੰਦਰ ਤੋਂ ਦੂਰੀ"],["sea proximity","ਸਮੁੰਦਰ ਦੀ ਨੇੜਤਾ"],["continentality","ਮਹਾਂਦੀਪੀ ਪ੍ਰਭਾਵ"],["maritime influence","ਸਮੁੰਦਰੀ ਪ੍ਰਭਾਵ"],["relief","ਭੂ-ਆਕ੍ਰਿਤੀ"],
+    ["humidity","ਨਮੀ"],["moisture","ਨਮੀ"],["summer heating","ਗਰਮੀ ਦਾ ਤਾਪ"],["winter cooling","ਸਰਦੀ ਦੀ ਠੰਢ"],
+    ["northwestern India","ਉੱਤਰ-ਪੱਛਮੀ ਭਾਰਤ"],["northern India","ਉੱਤਰੀ ਭਾਰਤ"],["peninsular India","ਪ੍ਰਾਇਦੀਪੀ ਭਾਰਤ"],["interior Deccan","ਦੱਖਣ ਦਾ ਅੰਦਰੂਨੀ ਪਠਾਰੀ ਖੇਤਰ"],
+    ["October heat","ਅਕਤੂਬਰ ਦੀ ਉਮਸ"],["climate control","ਜਲਵਾਯੂ ਨਿਯੰਤਰਕ"],["climatic controls","ਜਲਵਾਯੂ ਨਿਯੰਤਰਕ"],
+    ["Which","ਕਿਹੜਾ"],["which","ਕਿਹੜਾ"],["What","ਕੀ"],["what","ਕੀ"],["Why","ਕਿਉਂ"],["why","ਕਿਉਂ"],["Where","ਕਿੱਥੇ"],["where","ਕਿੱਥੇ"],["When","ਕਦੋਂ"],["when","ਕਦੋਂ"],["How","ਕਿਵੇਂ"],["how","ਕਿਵੇਂ"],
+    ["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],["is","ਹੈ"],["are","ਹਨ"],["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],
+    ["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],["would","ਹੋਵੇਗਾ"],["should","ਚਾਹੀਦਾ ਹੈ"],["has","ਹੈ"],["have","ਹਨ"],["had","ਸੀ"],
+    ["with","ਨਾਲ"],["from","ਤੋਂ"],["into","ਵਿੱਚ"],["for","ਲਈ"],["of","ਦਾ"],["to","ਨੂੰ"],["in","ਵਿੱਚ"],["on","ਉੱਤੇ"],["at","ਉੱਤੇ"],["by","ਦੁਆਰਾ"],["as","ਵਜੋਂ"],
+    ["than","ਨਾਲੋਂ"],["that","ਕਿ"],["this","ਇਹ"],["these","ਇਹ"],["those","ਉਹ"],["most","ਸਭ ਤੋਂ"],["main","ਮੁੱਖ"],["major","ਮੁੱਖ"],["only","ਕੇਵਲ"],["correct","ਸਹੀ"],["statement","ਕਥਨ"],["following","ਹੇਠ ਲਿਖੇ"]
+  ];
+  let out=text;
+  const pairs=language==="hi"?hi:pa;
+  for(const [from,to] of pairs.sort((a,b)=>b[0].length-a[0].length)){
+    out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
+  }
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+
+function localizeGeoCliBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
+  if(!/^GEO-CLI-001-CP0(?:0[1-9]|1[0-2])-Q/.test(question.questionId)) return null;
+  const local=(source:string)=>polishGeoCliBulkTextV1(localizeText(source,language),language);
+  const stemBase=localizeNaturalStem(question.stem,language,"GEO-CLI-001") ?? localizeText(question.stem,language);
+  const stem=polishGeoCliBulkTextV1(stemBase,language);
+  const options=Object.freeze(question.options.map(local));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=local(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
   language: IndianGeoLocalizationLanguageV1,
@@ -1330,6 +1405,11 @@ export function localizeIndianGeoQuestionV1(
 
   if (packageId === "GEO-TRN-001") {
     const bulk = localizeGeoTrnBulkV1(question, language);
+    if (bulk) return bulk;
+  }
+
+  if (packageId === "GEO-CLI-001") {
+    const bulk = localizeGeoCliBulkV1(question, language);
     if (bulk) return bulk;
   }
 
