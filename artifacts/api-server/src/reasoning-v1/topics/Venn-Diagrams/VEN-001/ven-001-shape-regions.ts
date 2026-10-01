@@ -418,9 +418,9 @@ const QUESTIONS: readonly {
     key: "only-A",
     masks: [1],
     label: tr(
-      "only the first activity",
-      "केवल पहली गतिविधि",
-      "ਸਿਰਫ਼ ਪਹਿਲੀ ਗਤੀਵਿਧੀ",
+      "in only the first set",
+      "केवल पहले समूह में",
+      "ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ",
     ),
     pattern: "single",
   },
@@ -428,9 +428,9 @@ const QUESTIONS: readonly {
     key: "only-B",
     masks: [2],
     label: tr(
-      "only the second activity",
-      "केवल दूसरी गतिविधि",
-      "ਸਿਰਫ਼ ਦੂਜੀ ਗਤੀਵਿਧੀ",
+      "in only the second set",
+      "केवल दूसरे समूह में",
+      "ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ",
     ),
     pattern: "single",
   },
@@ -438,9 +438,9 @@ const QUESTIONS: readonly {
     key: "only-C",
     masks: [4],
     label: tr(
-      "only the third activity",
-      "केवल तीसरी गतिविधि",
-      "ਸਿਰਫ਼ ਤੀਜੀ ਗਤੀਵਿਧੀ",
+      "in only the third set",
+      "केवल तीसरे समूह में",
+      "ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ",
     ),
     pattern: "single",
   },
@@ -448,9 +448,9 @@ const QUESTIONS: readonly {
     key: "A-and-B-not-C",
     masks: [3],
     label: tr(
-      "in the first and second activities, but not the third",
-      "पहली और दूसरी गतिविधि में, लेकिन तीसरी में नहीं",
-      "ਪਹਿਲੀ ਅਤੇ ਦੂਜੀ ਗਤੀਵਿਧੀ ਵਿੱਚ, ਪਰ ਤੀਜੀ ਵਿੱਚ ਨਹੀਂ",
+      "in both the first and second sets, but not the third",
+      "पहले और दूसरे दोनों समूहों में, लेकिन तीसरे में नहीं",
+      "ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਤੀਜੇ ਵਿੱਚ ਨਹੀਂ",
     ),
     pattern: "pair",
   },
@@ -458,9 +458,9 @@ const QUESTIONS: readonly {
     key: "A-and-C-not-B",
     masks: [5],
     label: tr(
-      "in the first and third activities, but not the second",
-      "पहली और तीसरी गतिविधि में, लेकिन दूसरी में नहीं",
-      "ਪਹਿਲੀ ਅਤੇ ਤੀਜੀ ਗਤੀਵਿਧੀ ਵਿੱਚ, ਪਰ ਦੂਜੀ ਵਿੱਚ ਨਹੀਂ",
+      "in both the first and third sets, but not the second",
+      "पहले और तीसरे दोनों समूहों में, लेकिन दूसरे में नहीं",
+      "ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਦੂਜੇ ਵਿੱਚ ਨਹੀਂ",
     ),
     pattern: "pair",
   },
@@ -468,49 +468,41 @@ const QUESTIONS: readonly {
     key: "B-and-C-not-A",
     masks: [6],
     label: tr(
-      "in the second and third activities, but not the first",
-      "दूसरी और तीसरी गतिविधि में, लेकिन पहली में नहीं",
-      "ਦੂਜੀ ਅਤੇ ਤੀਜੀ ਗਤੀਵਿਧੀ ਵਿੱਚ, ਪਰ ਪਹਿਲੀ ਵਿੱਚ ਨਹੀਂ",
+      "in both the second and third sets, but not the first",
+      "दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं",
+      "ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ",
     ),
     pattern: "pair",
   },
   {
     key: "all-three",
     masks: [7],
-    label: tr(
-      "inside all three shapes",
-      "तीनों आकृतियों के भीतर",
-      "ਤਿੰਨਾਂ ਆਕਾਰਾਂ ਦੇ ਅੰਦਰ",
-    ),
+    label: tr("in all three sets", "तीनों समूहों में", "ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ"),
     pattern: "triple",
   },
   {
     key: "at-least-two",
     masks: [3, 5, 6, 7],
     label: tr(
-      "inside at least two shapes",
-      "कम-से-कम दो आकृतियों के भीतर",
-      "ਘੱਟੋ-ਘੱਟ ਦੋ ਆਕਾਰਾਂ ਦੇ ਅੰਦਰ",
+      "in at least two sets",
+      "कम-से-कम दो समूहों में",
+      "ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ",
     ),
     pattern: "union",
   },
   {
     key: "exactly-one",
     masks: [1, 2, 4],
-    label: tr(
-      "inside exactly one shape",
-      "ठीक एक आकृति के भीतर",
-      "ਠੀਕ ਇੱਕ ਆਕਾਰ ਦੇ ਅੰਦਰ",
-    ),
+    label: tr("in exactly one set", "ठीक एक समूह में", "ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ"),
     pattern: "exactly-one",
   },
   {
     key: "any-shape",
     masks: [1, 2, 3, 4, 5, 6, 7],
     label: tr(
-      "inside at least one shape",
-      "कम-से-कम एक आकृति के भीतर",
-      "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਆਕਾਰ ਦੇ ਅੰਦਰ",
+      "in at least one set",
+      "कम-से-कम एक समूह में",
+      "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ",
     ),
     pattern: "union",
   },
@@ -767,22 +759,39 @@ function svg(
     .join("");
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-label="Counts in three overlapping geometric shapes"><rect x="4" y="4" width="632" height="492" rx="10" fill="#fff" stroke="#b8c3cf"/>${marks}<g font-family="sans-serif" font-size="13" fill="#152536"><text x="8" y="23">${labels[0]}</text><text x="8" y="42">${labels[1]}</text><text x="8" y="61">${labels[2]}</text></g><g font-family="sans-serif" font-size="16" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#152536">${r.map((v, m) => `<text x="${points[m]![0]}" y="${points[m]![1]}" data-mask="${m}">${v}</text>`).join("")}</g><metadata data-layout="${layout.id}" data-label-clearance="20"/></svg>`;
 }
-function stem(
-  c: Context,
-  q: (typeof QUESTIONS)[number],
-  l: L,
-  layout: ShapeLayout,
-): string {
-  const shapeNames = layout.shapes.map((shape) => SHAPE_LABELS[shape][l]);
+function stem(c: Context, q: (typeof QUESTIONS)[number], l: L): string {
+  const [a, b, d] = c.sets.map((s) => s[l]);
+  const opener = hash(c.id) % 6;
   const title =
     l === "en"
-      ? `A survey records three activities: ${c.sets.map((s) => s[l]).join("; ")}. The ${shapeNames[0]} represents the first activity, the ${shapeNames[1]} the second, and the ${shapeNames[2]} the third. The numbers show counts in the separate regions.`
+      ? [
+          `The overlap among ${a}, ${b}, and ${d} is shown in the diagram.`,
+          `The diagram gives the numbers for ${a}, ${b}, and ${d}.`,
+          `Records for ${a}, ${b}, and ${d} are summarized below.`,
+          `A survey counted ${a}, ${b}, and ${d}; the overlapping regions show shared membership.`,
+          `The diagram compares three groups: ${a}, ${b}, and ${d}.`,
+          `Counts for ${a}, ${b}, and ${d} are divided among the regions below.`,
+        ][opener]!
       : l === "hi"
-        ? `एक सर्वेक्षण में तीन गतिविधियाँ दर्ज की गईं: ${c.sets.map((s) => s[l]).join("; ")}। ${shapeNames[0]} पहली, ${shapeNames[1]} दूसरी और ${shapeNames[2]} तीसरी गतिविधि दर्शाते हैं। संख्याएँ अलग-अलग क्षेत्रों की गिनती दिखाती हैं।`
-        : `ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ਤਿੰਨ ਗਤੀਵਿਧੀਆਂ ਦਰਜ ਕੀਤੀਆਂ ਗਈਆਂ: ${c.sets.map((s) => s[l]).join("; ")}। ${shapeNames[0]} ਪਹਿਲੀ, ${shapeNames[1]} ਦੂਜੀ ਅਤੇ ${shapeNames[2]} ਤੀਜੀ ਗਤੀਵਿਧੀ ਦਰਸਾਉਂਦੇ ਹਨ। ਗਿਣਤੀਆਂ ਵੱਖਰੇ ਖੇਤਰਾਂ ਲਈ ਹਨ।`;
+        ? [
+            `आरेख में ${a}, ${b} और ${d} समूहों का साझा हिस्सा दिखाया गया है।`,
+            `आरेख में ${a}, ${b} और ${d} की संख्या दी गई है।`,
+            `${a}, ${b} और ${d} के आँकड़े नीचे दिए गए हैं।`,
+            `एक सर्वेक्षण में ${a}, ${b} और ${d} की गिनती की गई; साझा सदस्यता अलग-अलग क्षेत्रों में दिखाई गई है।`,
+            `आरेख में तीन समूहों की तुलना है: ${a}, ${b} और ${d}।`,
+            `${a}, ${b} और ${d} की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं।`,
+          ][opener]!
+        : [
+            `ਚਿੱਤਰ ਵਿੱਚ ${a}, ${b} ਅਤੇ ${d} ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।`,
+            `ਚਿੱਤਰ ਵਿੱਚ ${a}, ${b} ਅਤੇ ${d} ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ।`,
+            `${a}, ${b} ਅਤੇ ${d} ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ।`,
+            `ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ${a}, ${b} ਅਤੇ ${d} ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ; ਸਾਂਝੀ ਮੈਂਬਰਸ਼ਿਪ ਵੱਖ-ਵੱਖ ਖੇਤਰਾਂ ਵਿੱਚ ਦਿਖਾਈ ਗਈ ਹੈ।`,
+            `ਚਿੱਤਰ ਵਿੱਚ ਤਿੰਨ ਸਮੂਹਾਂ ਦੀ ਤੁਲਨਾ ਹੈ: ${a}, ${b} ਅਤੇ ${d}।`,
+            `${a}, ${b} ਅਤੇ ${d} ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ।`,
+          ][opener]!;
   const ask =
     l === "en"
-      ? `How many are ${q.label[l]}?`
+      ? `How many people belong ${q.label[l]}?`
       : l === "hi"
         ? `कितने लोग ${q.label[l]} हैं?`
         : `ਕਿੰਨੇ ਲੋਕ ${q.label[l]} ਹਨ?`;
@@ -853,7 +862,7 @@ export function generateVen001ShapeRegionBatch(
     else
       explanation = `${namedValues.join("; ")}। ਇਹ ${q.label[l]} ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। ${calculation} = ${answer}।`;
     const id = `VEN-CP011:${c.id}:${q.key}:${hash(`${seed}:${i}`)}:${l}`;
-    const questionStem = stem(c, q, l, layout);
+    const questionStem = stem(c, q, l);
     return {
       ...lifecycle,
       id,
