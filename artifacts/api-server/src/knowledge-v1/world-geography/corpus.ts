@@ -77,7 +77,7 @@ export const WGE_CP_TITLES = {
   'WGE-001-CP020': 'Lakes, Waterfalls and Inland Waters',
   'WGE-001-CP021': 'Deserts, Islands, Peninsulas and Capes',
   'WGE-001-CP022': 'Countries, Capitals and Political Geography',
-  'WGE-001-CP023': 'South Asia and India’s Neighbours',
+  'WGE-001-CP023': 'South Asia: Countries and Regional Geography',
   'WGE-001-CP024': 'East, Southeast and Central Asia',
   'WGE-001-CP025': 'West Asia',
   'WGE-001-CP026': 'Europe',

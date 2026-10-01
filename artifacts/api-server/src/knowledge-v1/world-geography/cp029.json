@@ -205,7 +205,7 @@
           "Colombia and Venezuela",
           "Chile and Ecuador"
         ],
-        "explanation": "Brazil borders every South American country except Chile and Ecuador."
+        "explanation": "Brazil shares land borders with every South American country except Chile and Ecuador. Both of those countries lie on the Pacific side of the continent and do not reach Brazil’s boundary."
       },
       "hi": {
         "stem": "दक्षिण अमेरिका के कौन-से दो देशों की ब्राज़ील से स्थलीय सीमा नहीं लगती?",
@@ -215,7 +215,7 @@
           "कोलंबिया और वेनेज़ुएला",
           "चिली और इक्वाडोर"
         ],
-        "explanation": "दक्षिण अमेरिका में ब्राज़ील की स्थलीय सीमा चिली और इक्वाडोर को छोड़कर सभी देशों से लगती है।"
+        "explanation": "ब्राज़ील दक्षिण अमेरिका के हर देश से स्थल सीमा साझा करता है, केवल चिली और इक्वाडोर को छोड़कर। ये दोनों देश महाद्वीप के प्रशांत पक्ष में हैं और ब्राज़ील की सीमा तक नहीं पहुँचते।"
       },
       "pa": {
         "stem": "ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਕਿਹੜੇ ਦੋ ਦੇਸ਼ਾਂ ਦੀ ਬ੍ਰਾਜ਼ੀਲ ਨਾਲ ਜ਼ਮੀਨੀ ਸਰਹੱਦ ਨਹੀਂ ਲੱਗਦੀ?",
@@ -225,9 +225,10 @@
           "ਕੋਲੰਬੀਆ ਅਤੇ ਵੇਨੇਜ਼ੂਏਲਾ",
           "ਚਿਲੀ ਅਤੇ ਇਕਵਾਡੋਰ"
         ],
-        "explanation": "ਦੱਖਣੀ ਅਮਰੀਕਾ ਵਿੱਚ ਬ੍ਰਾਜ਼ੀਲ ਦੀ ਜ਼ਮੀਨੀ ਸਰਹੱਦ ਚਿਲੀ ਅਤੇ ਇਕਵਾਡੋਰ ਤੋਂ ਇਲਾਵਾ ਸਾਰੇ ਦੇਸ਼ਾਂ ਨਾਲ ਲੱਗਦੀ ਹੈ।"
+        "explanation": "ਬ੍ਰਾਜ਼ੀਲ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਹਰ ਦੇਸ਼ ਨਾਲ ਧਰਤੀ ਦੀ ਸਰਹੱਦ ਸਾਂਝੀ ਕਰਦਾ ਹੈ, ਸਿਰਫ਼ ਚਿਲੀ ਅਤੇ ਇਕਵਾਡੋਰ ਤੋਂ ਇਲਾਵਾ। ਇਹ ਦੋਵੇਂ ਦੇਸ਼ ਮਹਾਂਦੀਪ ਦੇ ਪ੍ਰਸ਼ਾਂਤ ਪਾਸੇ ਹਨ ਅਤੇ ਬ੍ਰਾਜ਼ੀਲ ਦੀ ਸਰਹੱਦ ਤੱਕ ਨਹੀਂ ਪਹੁੰਚਦੇ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP029-Q006",
@@ -251,7 +252,7 @@
           "Amazon",
           "Paraná"
         ],
-        "explanation": "The Llanos occupy the Orinoco basin in Venezuela and eastern Colombia."
+        "explanation": "The Llanos are broad tropical grasslands in the Orinoco basin, mainly in Venezuela and eastern Colombia. Seasonal flooding and a pronounced wet–dry cycle shape this landscape."
       },
       "hi": {
         "stem": "ल्यानोस किस नदी-बेसिन की मौसमी घासभूमि है?",
@@ -261,7 +262,7 @@
           "अमेज़न",
           "पराना"
         ],
-        "explanation": "ल्यानोस वेनेज़ुएला और पूर्वी कोलंबिया में ओरिनोको बेसिन में फैली है।"
+        "explanation": "ल्यानोस ओरिनोको बेसिन की विस्तृत उष्णकटिबंधीय घासभूमियाँ हैं, जो मुख्यतः वेनेज़ुएला और पूर्वी कोलंबिया में फैली हैं। मौसमी बाढ़ और स्पष्ट आर्द्र–शुष्क ऋतुचक्र इस भू-दृश्य को आकार देते हैं।"
       },
       "pa": {
         "stem": "ਲਿਆਨੋਸ ਕਿਹੜੇ ਦਰਿਆਈ ਬੇਸਿਨ ਦੀ ਮੌਸਮੀ ਘਾਹ-ਭੂਮੀ ਹੈ?",
@@ -271,9 +272,10 @@
           "ਐਮਾਜ਼ਨ",
           "ਪਰਾਨਾ"
         ],
-        "explanation": "ਲਿਆਨੋਸ ਵੇਨੇਜ਼ੂਏਲਾ ਅਤੇ ਪੂਰਬੀ ਕੋਲੰਬੀਆ ਵਿੱਚ ਓਰੀਨੋਕੋ ਬੇਸਿਨ ਵਿੱਚ ਫੈਲੀ ਹੈ।"
+        "explanation": "ਲਿਆਨੋਸ ਓਰੀਨੋਕੋ ਬੇਸਿਨ ਦੇ ਵਿਸ਼ਾਲ ਉਸ਼ਣਕਟੀਬੰਧੀ ਘਾਹ-ਮੈਦਾਨ ਹਨ, ਜੋ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਵੇਨੇਜ਼ੂਏਲਾ ਅਤੇ ਪੂਰਬੀ ਕੋਲੰਬੀਆ ਵਿੱਚ ਫੈਲੇ ਹਨ। ਮੌਸਮੀ ਹੜ੍ਹ ਅਤੇ ਸਪਸ਼ਟ ਗਿੱਲੇ–ਸੁੱਕੇ ਰੁੱਤ ਚੱਕਰ ਇਸ ਭੂ-ਦ੍ਰਿਸ਼ ਨੂੰ ਆਕਾਰ ਦਿੰਦੇ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP029-Q007",
@@ -527,7 +529,7 @@
           "Brazil and Paraguay",
           "Ecuador and Colombia"
         ],
-        "explanation": "Lake Titicaca lies in the Andes between Peru and Bolivia."
+        "explanation": "Lake Titicaca lies high in the Andes on the border between Peru and Bolivia. It occupies part of the Altiplano, the elevated plateau region of the central Andes."
       },
       "hi": {
         "stem": "टिटिकाका झील किन दो देशों की सीमा पर स्थित है?",
@@ -537,7 +539,7 @@
           "ब्राज़ील और पराग्वे",
           "इक्वाडोर और कोलंबिया"
         ],
-        "explanation": "टिटिकाका झील एंडीज़ में पेरू और बोलीविया के बीच स्थित है।"
+        "explanation": "टिटिकाका झील एंडीज़ में ऊँचाई पर पेरू और बोलिविया की सीमा पर स्थित है। यह मध्य एंडीज़ के ऊँचे पठारी क्षेत्र अल्टिप्लानो का हिस्सा है।"
       },
       "pa": {
         "stem": "ਟਿਟਿਕਾਕਾ ਝੀਲ ਕਿਹੜੇ ਦੋ ਦੇਸ਼ਾਂ ਦੀ ਸਰਹੱਦ ਉੱਤੇ ਹੈ?",
@@ -547,8 +549,9 @@
           "ਬ੍ਰਾਜ਼ੀਲ ਅਤੇ ਪੈਰਾਗੁਏ",
           "ਇਕਵਾਡੋਰ ਅਤੇ ਕੋਲੰਬੀਆ"
         ],
-        "explanation": "ਟਿਟਿਕਾਕਾ ਝੀਲ ਐਂਡੀਜ਼ ਵਿੱਚ ਪੇਰੂ ਅਤੇ ਬੋਲੀਵੀਆ ਦੇ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+        "explanation": "ਟਿਟਿਕਾਕਾ ਝੀਲ ਐਂਡੀਜ਼ ਵਿੱਚ ਉਚਾਈ ਉੱਤੇ ਪੇਰੂ ਅਤੇ ਬੋਲੀਵੀਆ ਦੀ ਸਰਹੱਦ ਉੱਤੇ ਸਥਿਤ ਹੈ। ਇਹ ਮੱਧ ਐਂਡੀਜ਼ ਦੇ ਉੱਚੇ ਪਠਾਰੀ ਖੇਤਰ ਅਲਟੀਪਲਾਨੋ ਦਾ ਹਿੱਸਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   }
 ]

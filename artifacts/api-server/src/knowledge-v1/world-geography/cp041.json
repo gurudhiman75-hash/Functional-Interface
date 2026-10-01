@@ -17,7 +17,7 @@
           "Exports, imports and tariffs",
           "Population, area and density"
         ],
-        "explanation": "HDI summarises achievements in health, knowledge and standard of living."
+        "explanation": "The HDI combines three broad dimensions: health, knowledge and standard of living. These are represented by life expectancy, schooling indicators and income per person. It is therefore a broader measure than income alone."
       },
       "hi": {
         "stem": "मानव विकास सूचकांक में किन तीन आयामों को जोड़ा जाता है?",
@@ -27,7 +27,7 @@
           "निर्यात, आयात और शुल्क",
           "जनसंख्या, क्षेत्रफल और घनत्व"
         ],
-        "explanation": "मानव विकास सूचकांक स्वास्थ्य, ज्ञान और जीवन-स्तर की उपलब्धियों का सार देता है।"
+        "explanation": "मानव विकास सूचकांक तीन व्यापक आयामों को जोड़ता है—स्वास्थ्य, ज्ञान और जीवन स्तर। इन्हें जीवन प्रत्याशा, शिक्षा संबंधी संकेतकों और प्रति व्यक्ति आय से मापा जाता है। इसलिए यह केवल आय से अधिक व्यापक माप है।"
       },
       "pa": {
         "stem": "ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਵਿੱਚ ਕਿਹੜੇ ਤਿੰਨ ਪੱਖ ਜੋੜੇ ਜਾਂਦੇ ਹਨ?",
@@ -37,9 +37,10 @@
           "ਨਿਰਯਾਤ, ਆਯਾਤ ਅਤੇ ਕਰ",
           "ਆਬਾਦੀ, ਖੇਤਰਫਲ ਅਤੇ ਘਣਤਾ"
         ],
-        "explanation": "ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਸਿਹਤ, ਗਿਆਨ ਅਤੇ ਜੀਵਨ-ਮਿਆਰ ਦੀਆਂ ਪ੍ਰਾਪਤੀਆਂ ਦਾ ਸਾਰ ਦਿੰਦਾ ਹੈ।"
+        "explanation": "ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਤਿੰਨ ਵਿਆਪਕ ਪੱਖਾਂ ਨੂੰ ਜੋੜਦਾ ਹੈ—ਸਿਹਤ, ਗਿਆਨ ਅਤੇ ਜੀਵਨ ਪੱਧਰ। ਇਨ੍ਹਾਂ ਨੂੰ ਜੀਵਨ ਉਮੀਦ, ਸਿੱਖਿਆ ਸੰਕੇਤਕਾਂ ਅਤੇ ਪ੍ਰਤੀ ਵਿਅਕਤੀ ਆਮਦਨ ਨਾਲ ਮਾਪਿਆ ਜਾਂਦਾ ਹੈ। ਇਸ ਲਈ ਇਹ ਸਿਰਫ਼ ਆਮਦਨ ਨਾਲੋਂ ਵੱਡਾ ਮਾਪ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP041-Q002",
@@ -59,7 +60,7 @@
           "Development outcomes may be distributed unequally within each country",
           "Their populations must be equal"
         ],
-        "explanation": "A national average can conceal differences between regions and social groups."
+        "explanation": "HDI is a national average, so two countries can have the same value while their internal conditions differ greatly. Regional, income or social-group inequalities may be hidden by the average. The same HDI therefore does not mean development is equally distributed."
       },
       "hi": {
         "stem": "दो देशों का औसत मानव विकास सूचकांक समान है। यह औसत किस अंतर को छिपा सकता है?",
@@ -69,7 +70,7 @@
           "हर देश के भीतर विकास के लाभ असमान बँटे हो सकते हैं",
           "उनकी जनसंख्या अवश्य समान है"
         ],
-        "explanation": "राष्ट्रीय औसत क्षेत्रों और सामाजिक समूहों के बीच अंतर छिपा सकता है।"
+        "explanation": "मानव विकास सूचकांक एक राष्ट्रीय औसत है, इसलिए दो देशों का मान समान होने पर भी उनकी आंतरिक स्थितियाँ बहुत अलग हो सकती हैं। क्षेत्रीय, आय या सामाजिक समूहों की असमानताएँ औसत में छिप सकती हैं। इसलिए समान मानव विकास सूचकांक का अर्थ विकास का समान वितरण नहीं है।"
       },
       "pa": {
         "stem": "ਦੋ ਦੇਸ਼ਾਂ ਦਾ ਔਸਤ ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਇੱਕੋ ਹੈ। ਇਹ ਔਸਤ ਕਿਹੜਾ ਫ਼ਰਕ ਲੁਕਾ ਸਕਦਾ ਹੈ?",
@@ -79,9 +80,10 @@
           "ਹਰ ਦੇਸ਼ ਅੰਦਰ ਵਿਕਾਸ ਦੇ ਲਾਭ ਅਸਮਾਨ ਵੰਡੇ ਹੋ ਸਕਦੇ ਹਨ",
           "ਉਨ੍ਹਾਂ ਦੀ ਆਬਾਦੀ ਲਾਜ਼ਮੀ ਬਰਾਬਰ ਹੈ"
         ],
-        "explanation": "ਕੌਮੀ ਔਸਤ ਖੇਤਰਾਂ ਅਤੇ ਸਮਾਜਿਕ ਸਮੂਹਾਂ ਵਿਚਕਾਰ ਫ਼ਰਕ ਲੁਕਾ ਸਕਦਾ ਹੈ।"
+        "explanation": "ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਇੱਕ ਰਾਸ਼ਟਰੀ ਔਸਤ ਹੈ, ਇਸ ਲਈ ਦੋ ਦੇਸ਼ਾਂ ਦਾ ਮੁੱਲ ਇੱਕੋ ਹੋ ਸਕਦਾ ਹੈ ਪਰ ਅੰਦਰੂਨੀ ਹਾਲਾਤ ਕਾਫ਼ੀ ਵੱਖ ਹੋ ਸਕਦੇ ਹਨ। ਖੇਤਰੀ, ਆਮਦਨੀ ਜਾਂ ਸਮਾਜਕ ਸਮੂਹਾਂ ਦੀਆਂ ਅਸਮਾਨਤਾਵਾਂ ਔਸਤ ਵਿੱਚ ਲੁਕ ਸਕਦੀਆਂ ਹਨ। ਇਸ ਲਈ ਇੱਕੋ ਮਨੁੱਖੀ ਵਿਕਾਸ ਸੂਚਕਾਂਕ ਦਾ ਅਰਥ ਵਿਕਾਸ ਦਾ ਇੱਕੋ ਜਿਹਾ ਵੰਡ ਹੋਣਾ ਨਹੀਂ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP041-Q003",
@@ -143,7 +145,7 @@
           "Quaternary",
           "Secondary"
         ],
-        "explanation": "The secondary sector processes raw materials and manufactures goods."
+        "explanation": "Iron ore is a raw material, while steel is a manufactured product. Converting the ore into steel is processing and manufacturing, which belongs to the secondary sector. Primary activities extract resources; secondary activities transform them."
       },
       "hi": {
         "stem": "कारखाना लौह-अयस्क को इस्पात में बदलता है। यह काम कौन-सा आर्थिक क्षेत्र करता है?",
@@ -153,7 +155,7 @@
           "चतुर्थक",
           "द्वितीयक"
         ],
-        "explanation": "द्वितीयक क्षेत्र कच्चे माल का प्रसंस्करण और वस्तुओं का निर्माण करता है।"
+        "explanation": "लौह अयस्क कच्चा माल है, जबकि इस्पात निर्मित उत्पाद है। अयस्क को इस्पात में बदलना प्रसंस्करण और विनिर्माण है, जो द्वितीयक क्षेत्र में आता है। प्राथमिक क्षेत्र संसाधन निकालता है, जबकि द्वितीयक क्षेत्र उन्हें रूपांतरित करता है।"
       },
       "pa": {
         "stem": "ਇੱਕ ਕਾਰਖਾਨਾ ਲੋਹੇ ਦੀ ਕੱਚੀ ਧਾਤ ਨੂੰ ਇਸਪਾਤ ਵਿੱਚ ਬਦਲਦਾ ਹੈ। ਇਹ ਕੰਮ ਕਿਹੜਾ ਆਰਥਿਕ ਖੇਤਰ ਕਰਦਾ ਹੈ?",
@@ -163,9 +165,10 @@
           "ਚੌਥਾ",
           "ਦੂਜਾ"
         ],
-        "explanation": "ਦੂਜਾ ਖੇਤਰ ਕੱਚੇ ਮਾਲ ਦੀ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਵਸਤਾਂ ਦਾ ਨਿਰਮਾਣ ਕਰਦਾ ਹੈ।"
+        "explanation": "ਲੋਹ ਅਯਸਕ ਕੱਚਾ ਮਾਲ ਹੈ, ਜਦਕਿ ਸਟੀਲ ਬਣਿਆ ਹੋਇਆ ਉਤਪਾਦ ਹੈ। ਅਯਸਕ ਨੂੰ ਸਟੀਲ ਵਿੱਚ ਬਦਲਣਾ ਪ੍ਰੋਸੈਸਿੰਗ ਅਤੇ ਨਿਰਮਾਣ ਹੈ, ਜੋ ਦੂਜੇ ਖੇਤਰ ਵਿੱਚ ਆਉਂਦਾ ਹੈ। ਪ੍ਰਾਇਮਰੀ ਖੇਤਰ ਸਰੋਤ ਕੱਢਦਾ ਹੈ, ਜਦਕਿ ਸੈਕੰਡਰੀ ਖੇਤਰ ਉਨ੍ਹਾਂ ਨੂੰ ਬਦਲਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP041-Q005",
@@ -186,7 +189,7 @@
           "Smelting copper ore",
           "Quarrying stone"
         ],
-        "explanation": "Warehousing and logistics are services for producers and consumers."
+        "explanation": "Warehousing and logistics help move, store and distribute goods, but they do not themselves manufacture the goods. These are service activities, so they belong to the tertiary sector. The tertiary sector supports both producers and consumers."
       },
       "hi": {
         "stem": "कौन-सी गतिविधि भौतिक वस्तु बनाने के बजाय तृतीयक सेवा देती है?",
@@ -196,7 +199,7 @@
           "ताँबे का अयस्क गलाना",
           "पत्थर की खदान चलाना"
         ],
-        "explanation": "भंडारण और माल-प्रबंधन उत्पादकों तथा उपभोक्ताओं को सेवाएँ देते हैं।"
+        "explanation": "भंडारण और लॉजिस्टिक्स वस्तुओं को रखने, पहुँचाने और वितरित करने में सहायता करते हैं, पर वे स्वयं वस्तुओं का निर्माण नहीं करते। इसलिए ये सेवा गतिविधियाँ हैं और तृतीयक क्षेत्र में आती हैं। तृतीयक क्षेत्र उत्पादकों और उपभोक्ताओं दोनों को सेवाएँ देता है।"
       },
       "pa": {
         "stem": "ਕਿਹੜੀ ਗਤੀਵਿਧੀ ਭੌਤਿਕ ਵਸਤੂ ਬਣਾਉਣ ਦੀ ਥਾਂ ਤੀਜੇ ਖੇਤਰ ਦੀ ਸੇਵਾ ਦਿੰਦੀ ਹੈ?",
@@ -206,9 +209,10 @@
           "ਤਾਂਬੇ ਦਾ ਅਯਸ ਪਿਘਲਾਉਣਾ",
           "ਪੱਥਰ ਦੀ ਖਾਣ ਚਲਾਉਣਾ"
         ],
-        "explanation": "ਗੋਦਾਮ ਅਤੇ ਮਾਲ-ਪ੍ਰਬੰਧ ਉਤਪਾਦਕਾਂ ਤੇ ਖਪਤਕਾਰਾਂ ਨੂੰ ਸੇਵਾਵਾਂ ਦਿੰਦੇ ਹਨ।"
+        "explanation": "ਗੋਦਾਮਬੰਦੀ ਅਤੇ ਲਾਜਿਸਟਿਕਸ ਮਾਲ ਨੂੰ ਸੰਭਾਲਣ, ਪਹੁੰਚਾਉਣ ਅਤੇ ਵੰਡਣ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ, ਪਰ ਆਪਣੇ ਆਪ ਮਾਲ ਨਹੀਂ ਬਣਾਉਂਦੇ। ਇਸ ਲਈ ਇਹ ਸੇਵਾ ਗਤੀਵਿਧੀਆਂ ਹਨ ਅਤੇ ਤੀਜੇ ਖੇਤਰ ਵਿੱਚ ਆਉਂਦੀਆਂ ਹਨ। ਤੀਜਾ ਖੇਤਰ ਉਤਪਾਦਕਾਂ ਅਤੇ ਖਪਤਕਾਰਾਂ ਦੋਵਾਂ ਨੂੰ ਸੇਵਾਵਾਂ ਦਿੰਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP041-Q006",
@@ -228,7 +232,7 @@
           "Building a road",
           "Selling vegetables"
         ],
-        "explanation": "Quaternary work centres on information, research and knowledge creation."
+        "explanation": "Quaternary activities are based mainly on knowledge and information rather than routine production. Research, data analysis and specialised information services are typical examples. That is why research work fits the quaternary sector."
       },
       "hi": {
         "stem": "कौन-सी गतिविधि चतुर्थक कार्य का स्पष्ट उदाहरण है?",
@@ -238,7 +242,7 @@
           "सड़क बनाना",
           "सब्ज़ियाँ बेचना"
         ],
-        "explanation": "चतुर्थक कार्य में सूचना, अनुसंधान और ज्ञान-सृजन प्रमुख होते हैं।"
+        "explanation": "चतुर्थक गतिविधियाँ मुख्यतः ज्ञान और सूचना पर आधारित होती हैं, न कि सामान्य उत्पादन पर। अनुसंधान, आँकड़ा विश्लेषण और विशेष सूचना सेवाएँ इसके सामान्य उदाहरण हैं। इसलिए शोध कार्य चतुर्थक क्षेत्र में आता है।"
       },
       "pa": {
         "stem": "ਕਿਹੜੀ ਗਤੀਵਿਧੀ ਚੌਥੇ ਖੇਤਰ ਦੇ ਕੰਮ ਦੀ ਸਪਸ਼ਟ ਮਿਸਾਲ ਹੈ?",
@@ -248,9 +252,10 @@
           "ਸੜਕ ਬਣਾਉਣਾ",
           "ਸਬਜ਼ੀਆਂ ਵੇਚਣਾ"
         ],
-        "explanation": "ਚੌਥੇ ਖੇਤਰ ਦੇ ਕੰਮ ਵਿੱਚ ਜਾਣਕਾਰੀ, ਖੋਜ ਅਤੇ ਗਿਆਨ-ਸਿਰਜਣਾ ਮੁੱਖ ਹੁੰਦੇ ਹਨ।"
+        "explanation": "ਚੌਥੇ ਖੇਤਰ ਦੀਆਂ ਗਤੀਵਿਧੀਆਂ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਗਿਆਨ ਅਤੇ ਜਾਣਕਾਰੀ ਉੱਤੇ ਆਧਾਰਿਤ ਹੁੰਦੀਆਂ ਹਨ, ਨਾ ਕਿ ਆਮ ਉਤਪਾਦਨ ਉੱਤੇ। ਖੋਜ, ਡਾਟਾ ਵਿਸ਼ਲੇਸ਼ਣ ਅਤੇ ਵਿਸ਼ੇਸ਼ ਜਾਣਕਾਰੀ ਸੇਵਾਵਾਂ ਇਸ ਦੇ ਆਮ ਉਦਾਹਰਨ ਹਨ। ਇਸ ਲਈ ਖੋਜ ਕੰਮ ਚੌਥੇ ਖੇਤਰ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP041-Q007",
@@ -271,7 +276,7 @@
           "Different economic sectors depend on one another",
           "Trade begins only at retail"
         ],
-        "explanation": "The chain links primary production, secondary processing and tertiary distribution."
+        "explanation": "The chain contains activities from several sectors. Farming supplies the primary product, mills and bakeries process it in the secondary sector, and shops distribute it through the tertiary sector. It shows how economic sectors depend on one another."
       },
       "hi": {
         "stem": "रोटी की आपूर्ति-श्रृंखला खेतों, मिलों, बेकरी और दुकानों को जोड़ती है। यह क्या दर्शाती है?",
@@ -281,7 +286,7 @@
           "अलग-अलग आर्थिक क्षेत्र एक-दूसरे पर निर्भर होते हैं",
           "व्यापार केवल खुदरा बिक्री से शुरू होता है"
         ],
-        "explanation": "यह श्रृंखला प्राथमिक उत्पादन, द्वितीयक प्रसंस्करण और तृतीयक वितरण को जोड़ती है।"
+        "explanation": "इस शृंखला में कई आर्थिक क्षेत्रों की गतिविधियाँ जुड़ी हैं। खेती प्राथमिक उत्पाद देती है, मिलें और बेकरी द्वितीयक क्षेत्र में उसका प्रसंस्करण करती हैं, और दुकानें तृतीयक क्षेत्र के माध्यम से उसे बेचती हैं। इससे आर्थिक क्षेत्रों की परस्पर निर्भरता स्पष्ट होती है।"
       },
       "pa": {
         "stem": "ਰੋਟੀ ਦੀ ਲੜੀ ਖੇਤਾਂ, ਮਿੱਲਾਂ, ਬੇਕਰੀਆਂ ਅਤੇ ਦੁਕਾਨਾਂ ਨੂੰ ਜੋੜਦੀ ਹੈ। ਇਹ ਕੀ ਦਰਸਾਉਂਦੀ ਹੈ?",
@@ -291,9 +296,10 @@
           "ਵੱਖਰੇ ਆਰਥਿਕ ਖੇਤਰ ਇੱਕ-ਦੂਜੇ ਉੱਤੇ ਨਿਰਭਰ ਹਨ",
           "ਵਪਾਰ ਸਿਰਫ਼ ਖੁਦਰਾ ਵਿਕਰੀ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ"
         ],
-        "explanation": "ਇਹ ਲੜੀ ਮੁੱਢਲੇ ਉਤਪਾਦਨ, ਦੂਜੀ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਤੀਜੀ ਵੰਡ ਨੂੰ ਜੋੜਦੀ ਹੈ।"
+        "explanation": "ਇਸ ਲੜੀ ਵਿੱਚ ਕਈ ਆਰਥਿਕ ਖੇਤਰਾਂ ਦੀਆਂ ਗਤੀਵਿਧੀਆਂ ਜੁੜੀਆਂ ਹਨ। ਖੇਤੀ ਪ੍ਰਾਇਮਰੀ ਉਤਪਾਦ ਦਿੰਦੀ ਹੈ, ਮਿਲਾਂ ਅਤੇ ਬੇਕਰੀਆਂ ਸੈਕੰਡਰੀ ਖੇਤਰ ਵਿੱਚ ਉਸ ਦੀ ਪ੍ਰੋਸੈਸਿੰਗ ਕਰਦੀਆਂ ਹਨ ਅਤੇ ਦੁਕਾਨਾਂ ਤੀਜੇ ਖੇਤਰ ਰਾਹੀਂ ਉਸ ਨੂੰ ਵੇਚਦੀਆਂ ਹਨ। ਇਸ ਨਾਲ ਆਰਥਿਕ ਖੇਤਰਾਂ ਦੀ ਆਪਸੀ ਨਿਰਭਰਤਾ ਦਿਖਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP041-Q008",

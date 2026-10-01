@@ -113,7 +113,7 @@
           "New Zealand and New Caledonia",
           "North Island and South Island"
         ],
-        "explanation": "Cook Strait lies between New Zealand’s North Island and South Island."
+        "explanation": "Cook Strait separates New Zealand’s North Island from its South Island. It connects the Tasman Sea with the waters of the southwestern Pacific east of the strait."
       },
       "hi": {
         "stem": "कुक जलडमरूमध्य न्यूज़ीलैंड के किन दो मुख्य द्वीपों को अलग करता है?",
@@ -123,7 +123,7 @@
           "न्यूज़ीलैंड और न्यू कैलेडोनिया",
           "उत्तर द्वीप और दक्षिण द्वीप"
         ],
-        "explanation": "कुक जलडमरूमध्य न्यूज़ीलैंड के उत्तर द्वीप और दक्षिण द्वीप के बीच स्थित है।"
+        "explanation": "कुक जलडमरूमध्य न्यूज़ीलैंड के उत्तरी द्वीप को दक्षिणी द्वीप से अलग करता है। यह तस्मान सागर को जलडमरूमध्य के पूर्व में दक्षिण-पश्चिमी प्रशांत के जल से जोड़ता है।"
       },
       "pa": {
         "stem": "ਕੁੱਕ ਜਲਡਮਰੂ ਨਿਊਜ਼ੀਲੈਂਡ ਦੇ ਕਿਹੜੇ ਦੋ ਮੁੱਖ ਟਾਪੂਆਂ ਨੂੰ ਵੱਖ ਕਰਦਾ ਹੈ?",
@@ -133,9 +133,10 @@
           "ਨਿਊਜ਼ੀਲੈਂਡ ਅਤੇ ਨਿਊ ਕੈਲੇਡੋਨੀਆ",
           "ਉੱਤਰੀ ਟਾਪੂ ਅਤੇ ਦੱਖਣੀ ਟਾਪੂ"
         ],
-        "explanation": "ਕੁੱਕ ਜਲਡਮਰੂ ਨਿਊਜ਼ੀਲੈਂਡ ਦੇ ਉੱਤਰੀ ਟਾਪੂ ਅਤੇ ਦੱਖਣੀ ਟਾਪੂ ਦੇ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ।"
+        "explanation": "ਕੁੱਕ ਜਲਡਮਰੂ ਨਿਊਜ਼ੀਲੈਂਡ ਦੇ ਉੱਤਰੀ ਟਾਪੂ ਨੂੰ ਦੱਖਣੀ ਟਾਪੂ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ। ਇਹ ਤਸਮਾਨ ਸਾਗਰ ਨੂੰ ਜਲਡਮਰੂ ਦੇ ਪੂਰਬ ਵੱਲ ਦੱਖਣ-ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਪਾਣੀਆਂ ਨਾਲ ਜੋੜਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP030-Q004",
@@ -159,7 +160,7 @@
           "North Island of New Zealand",
           "Tasmania"
         ],
-        "explanation": "The Southern Alps extend along New Zealand’s South Island."
+        "explanation": "The Southern Alps form the main mountain chain of New Zealand’s South Island. They run along much of the island and strongly influence its relief, glaciers and west–east rainfall contrast."
       },
       "hi": {
         "stem": "सदर्न आल्प्स किस द्वीप की प्रमुख पर्वत-श्रेणी है?",
@@ -169,7 +170,7 @@
           "न्यूज़ीलैंड का उत्तर द्वीप",
           "तस्मानिया"
         ],
-        "explanation": "सदर्न आल्प्स न्यूज़ीलैंड के दक्षिण द्वीप में फैली है।"
+        "explanation": "दक्षिणी आल्प्स न्यूज़ीलैंड के दक्षिणी द्वीप की मुख्य पर्वत-श्रृंखला है। यह द्वीप के बड़े भाग में फैली है और स्थलरूप, हिमनदों तथा पश्चिम–पूर्व वर्षा अंतर को गहराई से प्रभावित करती है।"
       },
       "pa": {
         "stem": "ਸਦਰਨ ਐਲਪਸ ਕਿਹੜੇ ਟਾਪੂ ਦੀ ਮੁੱਖ ਪਹਾੜੀ ਲੜੀ ਹੈ?",
@@ -179,9 +180,10 @@
           "ਨਿਊਜ਼ੀਲੈਂਡ ਦਾ ਉੱਤਰੀ ਟਾਪੂ",
           "ਤਸਮਾਨੀਆ"
         ],
-        "explanation": "ਸਦਰਨ ਐਲਪਸ ਨਿਊਜ਼ੀਲੈਂਡ ਦੇ ਦੱਖਣੀ ਟਾਪੂ ਵਿੱਚ ਫੈਲੀ ਹੈ।"
+        "explanation": "ਦੱਖਣੀ ਆਲਪਸ ਨਿਊਜ਼ੀਲੈਂਡ ਦੇ ਦੱਖਣੀ ਟਾਪੂ ਦੀ ਮੁੱਖ ਪਹਾੜੀ ਲੜੀ ਹੈ। ਇਹ ਟਾਪੂ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲੀ ਹੈ ਅਤੇ ਭੂ-ਰੂਪ, ਹਿਮਨਦਾਂ ਅਤੇ ਪੱਛਮ–ਪੂਰਬ ਵਰਖਾ ਅੰਤਰ ਨੂੰ ਕਾਫ਼ੀ ਪ੍ਰਭਾਵਿਤ ਕਰਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP030-Q005",
@@ -205,7 +207,7 @@
           "Australasia only",
           "Melanesia"
         ],
-        "explanation": "Fiji, Vanuatu and the Solomon Islands are commonly included in Melanesia."
+        "explanation": "Fiji, Vanuatu and the Solomon Islands are commonly grouped within Melanesia. Melanesia occupies the southwestern Pacific and also includes New Guinea and nearby island groups."
       },
       "hi": {
         "stem": "फ़िजी, वानुअतु और सोलोमन द्वीपसमूह को प्रशांत के किस उपक्षेत्र में रखा जाता है?",
@@ -215,7 +217,7 @@
           "केवल ऑस्ट्रेलेशिया",
           "मेलानेशिया"
         ],
-        "explanation": "फ़िजी, वानुअतु और सोलोमन द्वीपसमूह को सामान्यतः मेलानेशिया में रखा जाता है।"
+        "explanation": "फ़िजी, वानुआतु और सोलोमन द्वीप सामान्यतः मेलानेशिया में रखे जाते हैं। मेलानेशिया दक्षिण-पश्चिमी प्रशांत में स्थित है और इसमें न्यू गिनी तथा आसपास के द्वीप समूह भी शामिल हैं।"
       },
       "pa": {
         "stem": "ਫਿਜੀ, ਵਾਨੂਆਟੂ ਅਤੇ ਸੋਲੋਮਨ ਟਾਪੂਆਂ ਨੂੰ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਕਿਹੜੇ ਉਪ-ਖੇਤਰ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ?",
@@ -225,9 +227,10 @@
           "ਕੇਵਲ ਆਸਟ੍ਰੇਲੇਸ਼ੀਆ",
           "ਮੇਲਾਨੇਸ਼ੀਆ"
         ],
-        "explanation": "ਫਿਜੀ, ਵਾਨੂਆਟੂ ਅਤੇ ਸੋਲੋਮਨ ਟਾਪੂਆਂ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਮੇਲਾਨੇਸ਼ੀਆ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।"
+        "explanation": "ਫਿਜੀ, ਵਾਨੂਆਤੂ ਅਤੇ ਸੋਲੋਮਨ ਟਾਪੂ ਆਮ ਤੌਰ ਉੱਤੇ ਮੇਲਾਨੇਸ਼ੀਆ ਵਿੱਚ ਰੱਖੇ ਜਾਂਦੇ ਹਨ। ਮੇਲਾਨੇਸ਼ੀਆ ਦੱਖਣ-ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਸਥਿਤ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਨਿਊ ਗਿਨੀ ਅਤੇ ਨੇੜਲੇ ਟਾਪੂ-ਸਮੂਹ ਵੀ ਸ਼ਾਮਲ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP030-Q006",
@@ -251,7 +254,7 @@
           "Melanesia",
           "Polynesia"
         ],
-        "explanation": "The Caroline and Marshall island groups are part of Micronesia."
+        "explanation": "The Caroline and Marshall island groups are part of Micronesia in the western Pacific. Micronesia consists of many relatively small islands spread across a very large ocean area."
       },
       "hi": {
         "stem": "कैरोलाइन और मार्शल द्वीपसमूह प्रशांत के किस उपक्षेत्र में आते हैं?",
@@ -261,7 +264,7 @@
           "मेलानेशिया",
           "पॉलिनेशिया"
         ],
-        "explanation": "कैरोलाइन और मार्शल द्वीपसमूह माइक्रोनेशिया का हिस्सा हैं।"
+        "explanation": "कैरोलाइन और मार्शल द्वीप समूह पश्चिमी प्रशांत के माइक्रोनेशिया क्षेत्र में आते हैं। माइक्रोनेशिया बहुत बड़े महासागरीय क्षेत्र में फैले अनेक अपेक्षाकृत छोटे द्वीपों से बना है।"
       },
       "pa": {
         "stem": "ਕੈਰੋਲਾਈਨ ਅਤੇ ਮਾਰਸ਼ਲ ਟਾਪੂ-ਸਮੂਹ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਕਿਹੜੇ ਉਪ-ਖੇਤਰ ਵਿੱਚ ਆਉਂਦੇ ਹਨ?",
@@ -271,9 +274,10 @@
           "ਮੇਲਾਨੇਸ਼ੀਆ",
           "ਪੋਲੀਨੇਸ਼ੀਆ"
         ],
-        "explanation": "ਕੈਰੋਲਾਈਨ ਅਤੇ ਮਾਰਸ਼ਲ ਟਾਪੂ-ਸਮੂਹ ਮਾਈਕ੍ਰੋਨੇਸ਼ੀਆ ਦਾ ਹਿੱਸਾ ਹਨ।"
+        "explanation": "ਕੈਰੋਲਾਈਨ ਅਤੇ ਮਾਰਸ਼ਲ ਟਾਪੂ-ਸਮੂਹ ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਮਾਈਕ੍ਰੋਨੇਸ਼ੀਆ ਖੇਤਰ ਵਿੱਚ ਆਉਂਦੇ ਹਨ। ਮਾਈਕ੍ਰੋਨੇਸ਼ੀਆ ਬਹੁਤ ਵੱਡੇ ਮਹਾਂਸਾਗਰੀ ਖੇਤਰ ਵਿੱਚ ਫੈਲੇ ਅਨੇਕ ਤੁਲਨਾਤਮਕ ਤੌਰ ਉੱਤੇ ਛੋਟੇ ਟਾਪੂਆਂ ਤੋਂ ਬਣਿਆ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP030-Q007",
@@ -343,7 +347,7 @@
           "Polynesia",
           "Micronesia"
         ],
-        "explanation": "Hawaii, Samoa and Tonga are widely grouped within Polynesia."
+        "explanation": "Hawaii, Samoa and Tonga are commonly grouped within Polynesia. Polynesia covers a vast triangular area of the central and southern Pacific with widely separated island groups."
       },
       "hi": {
         "stem": "हवाई, समोआ और टोंगा को प्रशांत के किस उपक्षेत्र में रखा जाता है?",
@@ -353,7 +357,7 @@
           "पॉलिनेशिया",
           "माइक्रोनेशिया"
         ],
-        "explanation": "हवाई, समोआ और टोंगा को सामान्यतः पॉलिनेशिया में रखा जाता है।"
+        "explanation": "हवाई, सामोआ और टोंगा सामान्यतः पोलिनेशिया में रखे जाते हैं। पोलिनेशिया मध्य और दक्षिणी प्रशांत में एक विशाल त्रिकोणीय क्षेत्र में फैले दूर-दूर स्थित द्वीप समूहों को समेटता है।"
       },
       "pa": {
         "stem": "ਹਵਾਈ, ਸਮੋਆ ਅਤੇ ਟੋਂਗਾ ਨੂੰ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਕਿਹੜੇ ਉਪ-ਖੇਤਰ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ?",
@@ -363,9 +367,10 @@
           "ਪੋਲੀਨੇਸ਼ੀਆ",
           "ਮਾਈਕ੍ਰੋਨੇਸ਼ੀਆ"
         ],
-        "explanation": "ਹਵਾਈ, ਸਮੋਆ ਅਤੇ ਟੋਂਗਾ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਪੋਲੀਨੇਸ਼ੀਆ ਵਿੱਚ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।"
+        "explanation": "ਹਵਾਈ, ਸਮੋਆ ਅਤੇ ਟੋਂਗਾ ਆਮ ਤੌਰ ਉੱਤੇ ਪੋਲੀਨੇਸ਼ੀਆ ਵਿੱਚ ਰੱਖੇ ਜਾਂਦੇ ਹਨ। ਪੋਲੀਨੇਸ਼ੀਆ ਮੱਧ ਅਤੇ ਦੱਖਣੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਇੱਕ ਵਿਸ਼ਾਲ ਤਿਕੋਣੀ ਖੇਤਰ ਵਿੱਚ ਫੈਲੇ ਦੂਰ-ਦੂਰ ਸਥਿਤ ਟਾਪੂ-ਸਮੂਹਾਂ ਨੂੰ ਸਮੇਟਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP030-Q009",
@@ -389,7 +394,7 @@
           "Torres Strait",
           "Cook Strait"
         ],
-        "explanation": "Bass Strait lies between Tasmania and the southeastern mainland of Australia."
+        "explanation": "Bass Strait separates Tasmania from southeastern mainland Australia. It lies south of the state of Victoria and is a major sea passage between the Australian mainland and Tasmania."
       },
       "hi": {
         "stem": "तस्मानिया को ऑस्ट्रेलिया की मुख्यभूमि से कौन-सा जलडमरूमध्य अलग करता है?",
@@ -399,7 +404,7 @@
           "टॉरेस जलडमरूमध्य",
           "कुक जलडमरूमध्य"
         ],
-        "explanation": "बास जलडमरूमध्य तस्मानिया और ऑस्ट्रेलिया की दक्षिण-पूर्वी मुख्यभूमि के बीच है।"
+        "explanation": "बास जलडमरूमध्य तस्मानिया को दक्षिण-पूर्वी ऑस्ट्रेलियाई मुख्य भूमि से अलग करता है। यह विक्टोरिया राज्य के दक्षिण में है और मुख्य भूमि तथा तस्मानिया के बीच प्रमुख समुद्री मार्ग है।"
       },
       "pa": {
         "stem": "ਤਸਮਾਨੀਆ ਨੂੰ ਆਸਟ੍ਰੇਲੀਆ ਦੀ ਮੁੱਖ ਧਰਤੀ ਤੋਂ ਕਿਹੜਾ ਜਲਡਮਰੂ ਵੱਖ ਕਰਦਾ ਹੈ?",
@@ -409,9 +414,10 @@
           "ਟੋਰੇਸ ਜਲਡਮਰੂ",
           "ਕੁੱਕ ਜਲਡਮਰੂ"
         ],
-        "explanation": "ਬਾਸ ਜਲਡਮਰੂ ਤਸਮਾਨੀਆ ਅਤੇ ਆਸਟ੍ਰੇਲੀਆ ਦੀ ਦੱਖਣ-ਪੂਰਬੀ ਮੁੱਖ ਧਰਤੀ ਦੇ ਵਿਚਕਾਰ ਹੈ।"
+        "explanation": "ਬਾਸ ਜਲਡਮਰੂ ਤਸਮਾਨੀਆ ਨੂੰ ਦੱਖਣ-ਪੂਰਬੀ ਆਸਟ੍ਰੇਲੀਆਈ ਮੁੱਖ ਧਰਤੀ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ। ਇਹ ਵਿਕਟੋਰੀਆ ਰਾਜ ਦੇ ਦੱਖਣ ਵੱਲ ਹੈ ਅਤੇ ਮੁੱਖ ਧਰਤੀ ਤੇ ਤਸਮਾਨੀਆ ਵਿਚਕਾਰ ਮੁੱਖ ਸਮੁੰਦਰੀ ਰਾਹ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP030-Q010",
@@ -573,7 +579,7 @@
           "Australia",
           "Asia"
         ],
-        "explanation": "New Zealand is in the southwestern Pacific, southeast of Australia."
+        "explanation": "New Zealand lies in the southwestern Pacific southeast of Australia. The Tasman Sea separates the two countries, while New Zealand consists mainly of the North and South islands."
       },
       "hi": {
         "stem": "न्यूज़ीलैंड किस महाद्वीप के दक्षिण-पूर्व में स्थित है?",
@@ -583,7 +589,7 @@
           "ऑस्ट्रेलिया",
           "एशिया"
         ],
-        "explanation": "न्यूज़ीलैंड दक्षिण-पश्चिमी प्रशांत में ऑस्ट्रेलिया के दक्षिण-पूर्व में स्थित है।"
+        "explanation": "न्यूज़ीलैंड दक्षिण-पश्चिमी प्रशांत में ऑस्ट्रेलिया के दक्षिण-पूर्व में स्थित है। दोनों देशों के बीच तस्मान सागर है और न्यूज़ीलैंड मुख्यतः उत्तरी तथा दक्षिणी द्वीपों से बना है।"
       },
       "pa": {
         "stem": "ਨਿਊਜ਼ੀਲੈਂਡ ਕਿਹੜੇ ਮਹਾਂਦੀਪ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਹੈ?",
@@ -593,8 +599,9 @@
           "ਆਸਟ੍ਰੇਲੀਆ",
           "ਏਸ਼ੀਆ"
         ],
-        "explanation": "ਨਿਊਜ਼ੀਲੈਂਡ ਦੱਖਣ-ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਹੈ।"
+        "explanation": "ਨਿਊਜ਼ੀਲੈਂਡ ਦੱਖਣ-ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਆਸਟ੍ਰੇਲੀਆ ਦੇ ਦੱਖਣ-ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਹੈ। ਦੋਵੇਂ ਦੇਸ਼ਾਂ ਵਿਚਕਾਰ ਤਸਮਾਨ ਸਾਗਰ ਹੈ ਅਤੇ ਨਿਊਜ਼ੀਲੈਂਡ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਉੱਤਰੀ ਅਤੇ ਦੱਖਣੀ ਟਾਪੂਆਂ ਤੋਂ ਬਣਿਆ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   }
 ]
