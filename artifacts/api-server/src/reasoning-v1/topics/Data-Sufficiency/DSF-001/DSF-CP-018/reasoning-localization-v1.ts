@@ -280,6 +280,8 @@ function localizeBloodStatement(text: string, language: DsfReasoningLocalizedLan
   if(m) return t(language,`${m[1]} , ${m[3]} का ${localizeRelation(m[2]!,language)} है।`,`${m[1]}, ${m[3]} ਦਾ ${localizeRelation(m[2]!,language)} ਹੈ।`);
   m=text.match(/^([PXQ]) is (male|female)\.$/i);
   if(m) return t(language,`${m[1]} ${localizeRelation(m[2]!,language)} है।`,`${m[1]} ${localizeRelation(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The gender of ([PXQ]) is not fixed\.$/i);
+  if(m) return t(language,`${m[1]} का लिंग निश्चित नहीं है।`,`${m[1]} ਦਾ ਲਿੰਗ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੈ।`);
   m=text.match(/^The gender of ([PXQ]) is not fixed by the available direct-relation wording\.$/i);
   if(m) return t(language,`उपलब्ध प्रत्यक्ष संबंध से ${m[1]} का लिंग निश्चित नहीं होता।`,`ਉਪਲਬਧ ਸਿੱਧੇ ਸੰਬੰਧ ਤੋਂ ${m[1]} ਦਾ ਲਿੰਗ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੁੰਦਾ।`);
   m=text.match(/^The stated (P-X|X-Q) clue is a (parent|child|sibling|spouse)-type relation\.$/i);
