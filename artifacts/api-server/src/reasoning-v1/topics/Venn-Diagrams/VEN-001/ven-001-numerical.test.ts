@@ -33,8 +33,9 @@ for (let s = 0; s < 200; s++)
           (x: string) => !x.includes("NaN") && !x.includes("undefined"),
         ),
       );
+      assert.equal((q.validation as any).localeParityPendingHumanReview, false);
       assert.equal(q.questionBankWritable, false);
-      assert.equal(q.reviewStatus, "REVIEW_CANDIDATE_TRILINGUAL");
+      assert.equal(q.reviewStatus, "USER_SIGNED_OFF_TRILINGUAL_REVIEW");
       assert.ok(q.stem && !q.stem.includes("undefined"));
       assert.ok(
         !/^A\s*=/.test(q.stem),
