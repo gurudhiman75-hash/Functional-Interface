@@ -116,11 +116,15 @@ function numericSignature(value: string): string {
     .replace(/\\%/gu, "%");
   const tokens =
     normalized.match(
-      /₹\s*[\d,]+(?:\.\d+)?|\b\d+(?:\.\d+)?(?:\/\d+(?:\.\d+)?)?%?/gu,
+      /₹\s*[\d,]+(?:\.\d+)?|\b\d+(?:\.\d+)?(?:\/\d+(?:\.\d+)?)?/gu,
     ) ?? [];
   return tokens
     .map((token) => token.replace(/\s+/gu, "").replace(/,/gu, ""))
     .join("|");
+}
+
+function hasPercentMarker(value: string): boolean {
+  return /%|\\%/u.test(value);
 }
 
 const MACHINE_STEM_PATTERNS = [
@@ -317,12 +321,21 @@ for (const descriptor of TMW_001_QUESTION_STUDIO_QLS) {
           String(englishPackage.traceability?.mathematicalFingerprint ?? ""),
           `${scope}: mathematical-state parity drift.`,
         );
-        const englishAnswerNumbers = numericSignature(String(englishPackage.answer));
-        const localizedAnswerNumbers = numericSignature(String(pkg.answer));
+        const englishAnswer = String(englishPackage.answer);
+        const localizedAnswer = String(pkg.answer);
+        const englishAnswerNumbers = numericSignature(englishAnswer);
+        const localizedAnswerNumbers = numericSignature(localizedAnswer);
         if (englishAnswerNumbers || localizedAnswerNumbers) {
           assert.equal(localizedAnswerNumbers, englishAnswerNumbers, `${scope}: numeric-answer parity drift.`);
         }
-        parityChecks += 4;
+        if (hasPercentMarker(englishAnswer)) {
+          assert.equal(
+            hasPercentMarker(localizedAnswer),
+            true,
+            `${scope}: percentage answer lost its percent marker during localization.`,
+          );
+        }
+        parityChecks += 5;
       }
 
       generatedPackages += 1;
