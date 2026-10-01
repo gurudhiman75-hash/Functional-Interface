@@ -52,7 +52,6 @@ const PERCENT_CONVERSION_TARGETS_V2 = Object.freeze([
   { numerator: 50, denominator: 1 },
   { numerator: 60, denominator: 1 },
   { numerator: 200, denominator: 3 },
-  { numerator: 100, denominator: 1 },
 ] as const);
 
 function percentConversionTargetV2(seed: string) {
