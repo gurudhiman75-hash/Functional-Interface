@@ -38,6 +38,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { EXAMS } from '@/data/exams';
 import {
@@ -140,6 +141,22 @@ function runSnapshotText(run: QuestionStudioRun, key: string, fallback = '—') 
   return typeof value === 'string' && value.trim() ? value : fallback;
 }
 
+function reviewRunSubject(run: QuestionStudioRun, packagesById: Map<string, GenerationPackage>) {
+  const explicit = runSnapshotText(run, 'subject', '');
+  if (explicit) return explicit;
+  const pkg = packagesById.get(runSnapshotText(run, 'packageId', ''));
+  return pkg ? packageSubject(pkg) : 'Other';
+}
+
+function reviewRunChapter(run: QuestionStudioRun, packagesById: Map<string, GenerationPackage>) {
+  const pkg = packagesById.get(runSnapshotText(run, 'packageId', ''));
+  if (pkg) return packageChapter(pkg);
+  const topic = runSnapshotText(run, 'topic', '');
+  const subtopic = runSnapshotText(run, 'subtopic', '');
+  const engineId = runSnapshotText(run, 'engineId', '');
+  return engineId === 'quant-v4' ? (subtopic || topic || 'Other') : (topic || subtopic || 'Other');
+}
+
 function qualityTone(report: ItemQualityReport) {
   if (report.blockerCount > 0) return 'border-destructive/30 bg-destructive/5 text-destructive';
   if (report.warningCount > 0) return 'border-warning/30 bg-warning/5 text-warning';
@@ -169,6 +186,7 @@ export function QuestionStudioCockpitPage() {
     reviseItem,
   } = useQuestionStudio();
 
+  const [workspaceView, setWorkspaceView] = useState<'generate' | 'review'>('generate');
   const [subject, setSubject] = useState('');
   const [chapter, setChapter] = useState('');
   const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL_T1');
@@ -179,6 +197,8 @@ export function QuestionStudioCockpitPage() {
   const [count, setCount] = useState(10);
   const [seed, setSeed] = useState('');
   const [search, setSearch] = useState('');
+  const [reviewSubjectFilter, setReviewSubjectFilter] = useState(ALL);
+  const [reviewChapterFilter, setReviewChapterFilter] = useState(ALL);
   const [statusFilter, setStatusFilter] = useState(ALL);
   const [qualityFilter, setQualityFilter] = useState<QualityFilter>('all');
   const [reason, setReason] = useState('');
@@ -191,6 +211,31 @@ export function QuestionStudioCockpitPage() {
     () => capabilities.packages.filter((entry) => entry.enabled),
     [capabilities.packages],
   );
+
+  const packagesById = useMemo(
+    () => new Map(enabledPackages.map((entry) => [entry.packageId, entry] as const)),
+    [enabledPackages],
+  );
+
+  const reviewSubjects = useMemo(
+    () => sortSubjects([...new Set(dashboard.runs.map((run) => reviewRunSubject(run, packagesById)))]),
+    [dashboard.runs, packagesById],
+  );
+
+  const reviewChapters = useMemo(
+    () => [...new Set(
+      dashboard.runs
+        .filter((run) => reviewSubjectFilter === ALL || reviewRunSubject(run, packagesById) === reviewSubjectFilter)
+        .map((run) => reviewRunChapter(run, packagesById)),
+    )].sort((left, right) => left.localeCompare(right)),
+    [dashboard.runs, packagesById, reviewSubjectFilter],
+  );
+
+  useEffect(() => {
+    if (reviewChapterFilter !== ALL && !reviewChapters.includes(reviewChapterFilter)) {
+      setReviewChapterFilter(ALL);
+    }
+  }, [reviewChapterFilter, reviewChapters]);
 
   const subjects = useMemo(
     () => sortSubjects([...new Set(enabledPackages.map(packageSubject))]),
@@ -301,7 +346,10 @@ export function QuestionStudioCockpitPage() {
 
   const filteredRuns = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
-    return dashboard.runs.map((run) => {
+    return dashboard.runs
+      .filter((run) => reviewSubjectFilter === ALL || reviewRunSubject(run, packagesById) === reviewSubjectFilter)
+      .filter((run) => reviewChapterFilter === ALL || reviewRunChapter(run, packagesById) === reviewChapterFilter)
+      .map((run) => {
       const items = run.items.filter((item) => {
         const quality = qualityByItem.get(item.id) ?? analyzeItemQuality(item.payload);
         const duplicate = duplicates.has(item.id);
@@ -323,8 +371,8 @@ export function QuestionStudioCockpitPage() {
         return haystack.includes(normalizedSearch);
       });
       return { run, items };
-    }).filter(({ items }) => items.length > 0 || (!search.trim() && statusFilter === ALL && qualityFilter === 'all'));
-  }, [dashboard.runs, duplicates, qualityByItem, qualityFilter, search, statusFilter]);
+    }).filter(({ items }) => items.length > 0);
+  }, [dashboard.runs, duplicates, packagesById, qualityByItem, qualityFilter, reviewChapterFilter, reviewSubjectFilter, search, statusFilter]);
 
   const visibleItemIds = useMemo(
     () => filteredRuns.flatMap(({ items }) => items.map((item) => item.id)),
@@ -370,6 +418,9 @@ export function QuestionStudioCockpitPage() {
         seed: seed.trim() || undefined,
       });
       setExpandedRuns((current) => new Set(current).add(result.id));
+      setReviewSubjectFilter(packageSubject(activePackage));
+      setReviewChapterFilter(packageChapter(activePackage));
+      setWorkspaceView('review');
       showToast.success(
         'Generation run created',
         `${result.publicCode} produced ${result.itemCount} review items${cpIds.length > 0 ? ` across ${cpIds.length} selected CPs` : ' using the engine-managed CP mix'}.`,
@@ -452,6 +503,16 @@ export function QuestionStudioCockpitPage() {
         <Metric label="In Question Bank" value={stats.inQuestionBank} icon={<CheckCircle2 className="h-4 w-4" />} tone="success" />
       </div>
 
+      <Tabs value={workspaceView} onValueChange={(value) => setWorkspaceView(value as 'generate' | 'review')} className="space-y-4">
+        <TabsList className="h-auto p-1">
+          <TabsTrigger value="generate">Generate batch</TabsTrigger>
+          <TabsTrigger value="review" className="gap-2">
+            Review queue
+            {stats.unreviewed > 0 && <Badge variant="secondary" className="h-5 min-w-5 px-1.5 text-[10px]">{stats.unreviewed}</Badge>}
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="generate" className="mt-0">
       <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Sparkles className="h-4 w-4 text-primary" /> Create generation run</CardTitle><p className="text-xs text-muted-foreground">Choose a subject and chapter, select one or more CPs, then generate a review batch. Package and engine routing stay behind the workflow unless a chapter has multiple question families.</p></CardHeader>
         <CardContent className="space-y-4">
@@ -564,12 +625,25 @@ export function QuestionStudioCockpitPage() {
           {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageChapter(activePackage)}</span> · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
         </CardContent>
       </Card>
+        </TabsContent>
 
+        <TabsContent value="review" className="mt-0">
       <Card>
         <CardHeader className="space-y-4">
           <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start"><div><CardTitle className="text-base">Review cockpit</CardTitle><p className="mt-1 text-xs text-muted-foreground">Inspect quality signals, revise immutable payloads, make item-level decisions, and route only Question-Bank-eligible approvals to canonical storage.</p></div><Badge variant="outline">{selectedIds.size} selected</Badge></div>
-          <div className="grid gap-3 xl:grid-cols-[1fr_190px_190px]">
-            <div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" /><Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search run code, stem, topic, package or exam" className="pl-9" /></div>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search run code, stem, CP, topic, package or exam" className="pl-9" />
+          </div>
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            <Select value={reviewSubjectFilter} onValueChange={(value) => { setReviewSubjectFilter(value); setReviewChapterFilter(ALL); }}>
+              <SelectTrigger><SelectValue placeholder="Subject" /></SelectTrigger>
+              <SelectContent><SelectItem value={ALL}>All subjects</SelectItem>{reviewSubjects.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
+            </Select>
+            <Select value={reviewChapterFilter} onValueChange={setReviewChapterFilter}>
+              <SelectTrigger><SelectValue placeholder="Chapter" /></SelectTrigger>
+              <SelectContent><SelectItem value={ALL}>All chapters</SelectItem>{reviewChapters.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
+            </Select>
             <Select value={statusFilter} onValueChange={setStatusFilter}><SelectTrigger><Filter className="mr-2 h-4 w-4" /><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>All statuses</SelectItem><SelectItem value="unreviewed">Unreviewed</SelectItem><SelectItem value="needs_fix">Needs fix</SelectItem><SelectItem value="approved">Approved</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select>
             <Select value={qualityFilter} onValueChange={(value) => setQualityFilter(value as QualityFilter)}><SelectTrigger><ShieldCheck className="mr-2 h-4 w-4" /><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All quality states</SelectItem><SelectItem value="ready">Approval ready</SelectItem><SelectItem value="warning">Warnings only</SelectItem><SelectItem value="blocked">Approval blocked</SelectItem><SelectItem value="duplicate">Duplicate signals</SelectItem></SelectContent></Select>
           </div>
@@ -583,6 +657,8 @@ export function QuestionStudioCockpitPage() {
           {loading ? <div className="flex items-center justify-center gap-2 p-12 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading Question Studio…</div> : filteredRuns.length === 0 ? <div className="p-12 text-center"><Database className="mx-auto h-7 w-7 text-muted-foreground" /><p className="mt-3 text-sm font-semibold">No generated items match this view</p><p className="mt-1 text-xs text-muted-foreground">Create a run or clear the filters.</p></div> : <div className="divide-y">{filteredRuns.map(({ run, items }) => <RunSection key={run.id} run={run} items={items} expanded={expandedRuns.has(run.id)} selectedIds={selectedIds} qualityByItem={qualityByItem} duplicates={duplicates} expandedItems={expandedItems} editingItemId={editingItemId} revisingItemId={revisingItemId} canReview={canReview} onToggle={() => setExpandedRuns((current) => { const next = new Set(current); next.has(run.id) ? next.delete(run.id) : next.add(run.id); return next; })} onToggleItem={(id) => setExpandedItems((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next; })} onSelect={(id, checked) => setSelectedIds((current) => { const next = new Set(current); checked ? next.add(id) : next.delete(id); return next; })} onSelectRun={(checked) => setSelectedIds((current) => { const next = new Set(current); items.forEach((item) => checked ? next.add(item.id) : next.delete(item.id)); return next; })} onEdit={setEditingItemId} onDecision={(status, id) => void applyStatus(status, [id])} onRevise={async (input) => { try { await reviseItem(input); setEditingItemId(null); showToast.success('Revision saved', 'A new immutable generated-item version is ready for review.'); } catch (caught) { showToast.error('Revision failed', caught instanceof Error ? caught.message : 'Unable to save revision.'); } }} />)}</div>}
         </CardContent>
       </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
