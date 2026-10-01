@@ -1,0 +1,40 @@
+name: Validate DSF-CP-025 QL002 Seating
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - audit/dsf-001-cp024-ql002-inequality
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-025/**
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp025-ql002-seating-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp025:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP025 QL002 Seating audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-025/seating-three-statement-batch-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dsf-cp025-ql002-seating.test.mjs
+      - name: Run CP025 QL002 Seating audit
+        run: node artifacts/api-server/dist/reasoning-v1/dsf-cp025-ql002-seating.test.mjs
