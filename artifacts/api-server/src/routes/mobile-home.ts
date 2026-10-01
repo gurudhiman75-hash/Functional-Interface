@@ -31,8 +31,14 @@ router.get("/mobile/home-config", async (_req, res) => {
         ? Promise.resolve([])
         : sqlClient`
             SELECT s.id::text AS id,s.code,s.name,e.name AS "examName",
-              (SELECT COUNT(*)::int FROM assessment.test_series_items item
-               WHERE item.series_id=s.id AND item.series_version_number=s.current_version_number) AS "testCount"
+              (
+                SELECT COUNT(*)::int
+                FROM assessment.test_series_versions sv
+                JOIN assessment.test_series_items item
+                  ON item.series_version_id=sv.id
+                WHERE sv.series_id=s.id
+                  AND sv.version_number=s.current_version_number
+              ) AS "testCount"
             FROM assessment.test_series s
             JOIN catalog.exam_versions ev ON ev.id=s.exam_version_id
             JOIN catalog.exams e ON e.id=ev.exam_id
