@@ -253,7 +253,10 @@ export function generatePrt001E1Parameters(input: {
       break;
     }
     case "findUnknownCapitalWithStaggeredParticipation": {
-      const scenario = random.pick([
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const scenario = numericStateRandom.pick([
         { a: 20_000, b: 30_000, bj: 4, c: 40_000, cj: 6 },
         { a: 30_000, b: 45_000, bj: 3, c: 60_000, cj: 6 },
         { a: 24_000, b: 36_000, bj: 2, c: 48_000, cj: 8 },
