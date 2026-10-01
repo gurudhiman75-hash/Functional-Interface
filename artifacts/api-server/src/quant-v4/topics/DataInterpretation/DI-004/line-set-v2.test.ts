@@ -79,6 +79,8 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
       assert(question.options[question.correctIndex] === question.answer, `${seed}/${question.kind}: correct-index mismatch.`);
       assert(!/\bassociated\b/iu.test(question.stem), `${seed}/${question.kind}: mechanical 'associated' wording leaked into the stem.`);
       assert(!/nearest whole|round to the nearest|give the nearest whole/iu.test(question.stem), `${seed}/${question.kind}: explicit rounding instruction leaked into the stem.`);
+      const activityPatterns: Readonly<Record<string, RegExp>> = { ANNUAL_SALES: /sales volume/iu, ANNUAL_PRODUCTION: /production output/iu, MONTHLY_ORDERS: /orders received/iu, ANNUAL_ENROLMENT: /student enrolment/iu, ANNUAL_EXPORTS: /exports/iu, MONTHLY_PASSENGERS: /passengers carried/iu };
+      assert(activityPatterns[set.stimulus.contextId]?.test(question.stem), seed + "/" + question.kind + ": stem must name its context activity: " + question.stem);
       assert(!/\d+\.\d+%/u.test(question.stem + " " + question.answer), `${seed}/${question.kind}: decimal percentage leaked to learner surface.`);
       assert((question.explanation as any).shortcut === undefined && (question.explanation as any).trap === undefined, `${seed}/${question.kind}: forced shortcut/trap fields returned.`);
       assert(question.explanation.steps.length >= 2, `${seed}/${question.kind}: explanation is too thin.`);

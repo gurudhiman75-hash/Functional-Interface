@@ -65,6 +65,10 @@ for (const profile of profiles) {
     orderSignatures.add(first.questions.map((question) => question.kind).join("|"));
     first.questions.forEach((question) => {
       assert(!/nearest whole|round(?:ed)? to the nearest|give the nearest whole/iu.test(question.stem), `${question.questionId}: explicit rounding instruction leaked into the stem.`);
+      if (question.kind === "CONSTRUCTION_PROPERTY") {
+        assert(/frequency polygon/iu.test(question.stem) && /x-coordinate|x-axis|horizontal axis/iu.test(question.stem), `${question.questionId}: construction stem must identify the frequency polygon x-coordinate.`);
+        assert(!/plotted above which values/iu.test(question.stem), `${question.questionId}: awkward x-axis wording leaked into the stem.`);
+      }
       if (question.kind === "CLASS_SHARE_OF_TOTAL") assert(/approximately|approximate|about/iu.test(question.stem), `${question.questionId}: rounded percentage answer is not signalled as approximate.`);
       if (question.kind === "GROUPED_MEAN_FROM_POLYGON") assert(/approximate|estimate/iu.test(question.stem), `${question.questionId}: grouped estimate is not signalled as approximate.`);
       questions += 1;
