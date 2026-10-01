@@ -96,7 +96,7 @@ The existing CP016 common-base gate continues to supply the larger **2,100-recor
 This wave must not be mistaken for final chapter closure.
 
 1. **New breadth localization gap** — CP011–CP013 normal Question Studio lanes are English-first. The older specialized DSF route has approved Hindi/Punjabi coverage, but the 21-lane CP017 breadth does not yet have language parity.
-2. **DSF-QL-002 runtime gap** — three-statement semantics are permanent and exhaustively foundation-tested, but no exhaustively reviewed batch generator is exposed through normal Question Studio.
+2. **DSF-QL-002 runtime gap** — three-statement semantics are permanent and exhaustively foundation-tested, but no exhaustively reviewed batch generator is exposed through normal Question Studio. This is **not a source-pattern gap**: the Examtree Library contains explicit three-statement Data Sufficiency examples asking which of Statements I, II and III are sufficient, including partnership, Time & Work and profit/article-count problems. The remaining QL002 blocker is production batch-generation/editorial validation.
 3. **External source-solver holds** — Geometry DS and generic floor/box/scheduling puzzle DS remain held until authoritative source solvers exist.
 4. **Primary/source-frequency calibration** — Library material establishes real exam use across core DS domains, but exact lane frequency by exam family/year is not claimed here.
 5. **Learner-data difficulty calibration** — later analytics gate.
@@ -109,3 +109,20 @@ If the CP017 executable gate is green on the current `New-main` base, the correc
 `TWO_STATEMENT_CP017_IMPLEMENTED_SURFACE_DEEP_AUDITED__CHAPTER_FINAL_CLOSURE_PENDING_LOCALIZATION_AND_QL002_RUNTIME`
 
 This is a real content/integration milestone, but not a full DSF chapter freeze.
+
+
+## QL002 source-status correction
+
+A dedicated Library pass located direct three-statement Data Sufficiency material in the SSC mathematics source.
+
+Observed learner task:
+- a question followed by Statements I, II and III;
+- learner determines which individual/combined statements are sufficient;
+- answer choices encode combinations such as only I+III, only II+III, all three necessary, any two sufficient, or even all three insufficient.
+
+Observed domains include:
+- partnership/profit share;
+- Time & Work;
+- profit / number of articles sold.
+
+Therefore `DSF-QL-002 / THREE_STATEMENT_MINIMAL_SUFFICIENT_SUBSETS` is source-backed at the learner-task level. Its deferred status must be understood as a **runtime and editorial production gap**, not lack of competitive-exam evidence.
