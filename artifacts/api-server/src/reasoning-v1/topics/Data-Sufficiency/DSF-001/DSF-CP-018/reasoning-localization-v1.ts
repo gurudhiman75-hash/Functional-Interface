@@ -223,6 +223,11 @@ function localizeRelation(value: string, language: DsfReasoningLocalizedLanguage
 }
 
 function localizeBloodStatement(text: string, language: DsfReasoningLocalizedLanguage): string | undefined {
+  const parts=text.trim().split(/(?<=\.)\s+/u).filter(Boolean);
+  if(parts.length>1){
+    const localized=parts.map((part)=>localizeBloodStatement(part,language));
+    if(localized.every((part): part is string => Boolean(part))) return localized.join(" ");
+  }
   let m:RegExpMatchArray|null;
   m=text.match(/^([PXQ]) is the (father|mother|son|daughter|brother|sister|husband|wife) of ([PXQ])\.$/i);
   if(m) return t(language,`${m[1]} , ${m[3]} का ${localizeRelation(m[2]!,language)} है।`,`${m[1]}, ${m[3]} ਦਾ ${localizeRelation(m[2]!,language)} ਹੈ।`);
