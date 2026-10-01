@@ -23,7 +23,7 @@ assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.automaticStudentPublicatio
 const forbiddenSurface = /\b(?:TODO|TBD|undefined|null|NaN)\b|\[object Object\]/iu;
 const genericInstructionOpeners = /^(?:study|read|consider|analyse|analyze)\s+(?:the\s+)?(?:following|given)\b/iu;
 const oldEditorialBoilerplate = /(?:Treat the two statements as independent pieces of evidence|Read the two numbered statements as separate information records|Use only the facts supplied in the two statements|Check each one alone before using both together)/iu;
-const machineFraming = /(?:being analysed|being examined|being reviewed|being checked|under review|under consideration|must be determined|to be analysed)/iu;
+const machineFraming = /(?:being analysed|being examined|being reviewed|being checked|is reviewing|are reviewing|under review|under consideration|must be determined|to be analysed)/iu;
 const allSourceIds = new Set<string>();
 const allQuestionIds = new Set<string>();
 const laneFingerprints = new Map<string, Set<string>>();
