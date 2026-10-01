@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowDown, ArrowUp, ImagePlus, Layers3, Pencil, Plus, RefreshCw, Save, Smartphone, Trash2 } from 'lucide-react';
+import {
+  ArrowDown, ArrowUp, Bell, BookOpen, Brain, Copy, GraduationCap, GripVertical,
+  ImagePlus, Landmark, Layers3, Newspaper, Pencil, Plus, RefreshCw, RotateCcw,
+  Save, Shield, Smartphone, Sparkles, Star, Train, Trash2, Trophy, Grid3X3,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -42,7 +46,26 @@ const SECTION_LABELS:Record<string,string>={
   exam_categories:'Exam Categories',
   featured_test_series:'Featured Test Series',
   continue_learning:'Continue Learning',
+  recommended_learning:'Recommended Learning',
+  current_affairs:'Current Affairs',
+  today_goal:"Today's Goal",
 };
+
+const ICON_OPTIONS=[
+  {value:'government',label:'Government',icon:Landmark},
+  {value:'school',label:'Education',icon:GraduationCap},
+  {value:'book',label:'Learning',icon:BookOpen},
+  {value:'test',label:'Tests',icon:Trophy},
+  {value:'banking',label:'Banking',icon:Landmark},
+  {value:'railway',label:'Railway',icon:Train},
+  {value:'defence',label:'Defence',icon:Shield},
+  {value:'news',label:'News',icon:Newspaper},
+  {value:'brain',label:'Practice',icon:Brain},
+  {value:'bell',label:'Alerts',icon:Bell},
+  {value:'star',label:'Featured',icon:Star},
+  {value:'sparkles',label:'Special',icon:Sparkles},
+  {value:'grid',label:'General',icon:Grid3X3},
+] as const;
 
 async function call<T>(path:string,init?:RequestInit):Promise<T>{
   const user=getFirebaseAuth()?.currentUser;
@@ -85,6 +108,7 @@ export function MobileHomeManagementPage(){
   const[editingHeroId,setEditingHeroId]=useState<string|null>(null);
   const[seriesQuery,setSeriesQuery]=useState('');
   const[editingCustomSectionId,setEditingCustomSectionId]=useState<string|null>(null);
+  const[draggedSectionId,setDraggedSectionId]=useState<string|null>(null);
 
   const refresh=async()=>{
     setLoading(true);
@@ -146,6 +170,23 @@ export function MobileHomeManagementPage(){
   };
   const updateCustomSection=(id:string,patch:Partial<CustomSection>)=>setConfig(previous=>previous?({...previous,customSections:previous.customSections.map(section=>section.id===id?{...section,...patch}:section)}):previous);
   const removeCustomSection=(id:string)=>setConfig(previous=>previous?({...previous,customSections:previous.customSections.filter(section=>section.id!==id),sectionOrder:previous.sectionOrder.filter(value=>value!==id)}):previous);
+  const duplicateCustomSection=(id:string)=>setConfig(previous=>{
+    if(!previous)return previous;
+    const source=previous.customSections.find(section=>section.id===id);
+    if(!source)return previous;
+    const nextId=`custom_${crypto.randomUUID()}`;
+    const duplicate:CustomSection={
+      ...source,
+      id:nextId,
+      title:`${source.title} copy`,
+      sortOrder:previous.customSections.length+1,
+      cards:source.cards.map((card,index)=>({...card,id:crypto.randomUUID(),sortOrder:index+1})),
+    };
+    const sourceOrderIndex=previous.sectionOrder.indexOf(id);
+    const order=[...previous.sectionOrder];
+    order.splice(sourceOrderIndex>=0?sourceOrderIndex+1:order.length,0,nextId);
+    return {...previous,customSections:[...previous.customSections,duplicate],sectionOrder:order};
+  });
   const addCustomCard=(sectionId:string)=>setConfig(previous=>{
     if(!previous)return previous;
     const section=previous.customSections.find(item=>item.id===sectionId); if(!section)return previous;
@@ -153,12 +194,45 @@ export function MobileHomeManagementPage(){
     return {...previous,customSections:previous.customSections.map(item=>item.id===sectionId?{...item,cards:[...item.cards,card]}:item)};
   });
   const updateCustomCard=(sectionId:string,cardId:string,patch:Partial<HomeCard>)=>setConfig(previous=>previous?({...previous,customSections:previous.customSections.map(section=>section.id===sectionId?{...section,cards:section.cards.map(card=>card.id===cardId?{...card,...patch}:card)}:section)}):previous);
-  const removeCustomCard=(sectionId:string,cardId:string)=>setConfig(previous=>previous?({...previous,customSections:previous.customSections.map(section=>section.id===sectionId?{...section,cards:section.cards.filter(card=>card.id!==cardId)}:section)}):previous);
+  const removeCustomCard=(sectionId:string,cardId:string)=>setConfig(previous=>previous?({...previous,customSections:previous.customSections.map(section=>section.id===sectionId?{...section,cards:section.cards.filter(card=>card.id!==cardId).map((card,index)=>({...card,sortOrder:index+1}))}:section)}):previous);
+  const duplicateCustomCard=(sectionId:string,cardId:string)=>setConfig(previous=>{
+    if(!previous)return previous;
+    return {...previous,customSections:previous.customSections.map(section=>{
+      if(section.id!==sectionId)return section;
+      const index=section.cards.findIndex(card=>card.id===cardId);
+      if(index<0)return section;
+      const source=section.cards[index]!;
+      const cards=[...section.cards];
+      cards.splice(index+1,0,{...source,id:crypto.randomUUID(),title:`${source.title} copy`});
+      return {...section,cards:cards.map((card,cardIndex)=>({...card,sortOrder:cardIndex+1}))};
+    })};
+  });
+  const moveCustomCard=(sectionId:string,cardId:string,direction:-1|1)=>setConfig(previous=>{
+    if(!previous)return previous;
+    return {...previous,customSections:previous.customSections.map(section=>{
+      if(section.id!==sectionId)return section;
+      const index=section.cards.findIndex(card=>card.id===cardId);
+      const target=index+direction;
+      if(index<0||target<0||target>=section.cards.length)return section;
+      const cards=[...section.cards];
+      [cards[index],cards[target]]=[cards[target]!,cards[index]!];
+      return {...section,cards:cards.map((card,cardIndex)=>({...card,sortOrder:cardIndex+1}))};
+    })};
+  });
   const moveSection=(index:number,direction:-1|1)=>setConfig(previous=>{
     if(!previous)return previous;
     const next=[...previous.sectionOrder];const target=index+direction;
     if(target<0||target>=next.length)return previous;
     [next[index],next[target]]=[next[target]!,next[index]!];
+    return {...previous,sectionOrder:next};
+  });
+  const moveSectionTo=(sourceId:string,targetId:string)=>setConfig(previous=>{
+    if(!previous||sourceId===targetId)return previous;
+    const next=[...previous.sectionOrder];
+    const source=next.indexOf(sourceId);const target=next.indexOf(targetId);
+    if(source<0||target<0)return previous;
+    const [value]=next.splice(source,1);
+    next.splice(target,0,value!);
     return {...previous,sectionOrder:next};
   });
 
@@ -171,7 +245,7 @@ export function MobileHomeManagementPage(){
       const result=await call<{configuration:Configuration;updatedAt:string}>('/admin/mobile/home',{method:'PUT',body:JSON.stringify({configuration:config})});
       setConfig(result.configuration);
       setData(previous=>previous?({...previous,configuration:result.configuration,updatedAt:result.updatedAt}):previous);
-      showToast.success('Mobile homepage saved','The configuration is now available through the mobile home endpoint.');
+      showToast.success('Mobile homepage published','The latest layout is now available to the mobile app.');
     }catch(error){
       showToast.error('Unable to save Mobile Home',error instanceof Error?error.message:'Request failed.');
     }finally{setSaving(false);}
@@ -182,15 +256,38 @@ export function MobileHomeManagementPage(){
       title="Mobile App · Home Management"
       description="Manage each mobile-home item independently while keeping exams, test series and Learn content canonical and shared."
       icon={<Smartphone className="h-5 w-5"/>}
-      actions={<div className="flex gap-2"><Button variant="outline" onClick={()=>void refresh()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading?'animate-spin':''}`}/>Refresh</Button><Button onClick={()=>void save()} disabled={!config||saving}><Save className="mr-1.5 h-4 w-4"/>{saving?'Saving…':'Save homepage'}</Button></div>}
+      actions={<div className="flex flex-wrap gap-2"><Button variant="outline" onClick={()=>void refresh()} disabled={loading}><RotateCcw className="mr-1.5 h-4 w-4"/>Discard draft</Button><Button onClick={()=>void save()} disabled={!config||saving}><Save className="mr-1.5 h-4 w-4"/>{saving?'Publishing…':'Publish homepage'}</Button></div>}
     />
 
     <Card className="border-primary/20 bg-primary/5">
       <CardContent className="p-4 text-sm leading-6">
-        Use the controls below to edit, order, show or remove individual items. Editing the underlying exam or test-series content still happens in its canonical workspace.
-        {data?.updatedAt&&<span className="ml-1 text-muted-foreground">Last saved {new Date(data.updatedAt).toLocaleString('en-IN')}.</span>}
+        Changes remain a draft in this screen until you publish. Drag sections in the builder, preview the phone layout, then publish when ready. Canonical exam, test-series and Learn content remains shared.
+        {data?.updatedAt&&<span className="ml-1 text-muted-foreground"> Last published {new Date(data.updatedAt).toLocaleString('en-IN')}.</span>}
       </CardContent>
     </Card>
+
+    {config&&<div className="grid gap-4 2xl:grid-cols-[minmax(0,1fr)_390px]">
+      <Card>
+        <CardHeader><CardTitle className="text-base">Visual layout builder</CardTitle><p className="text-sm text-muted-foreground">Drag sections to reorder them. Visibility and titles are edited below.</p></CardHeader>
+        <CardContent className="space-y-2">
+          {config.sectionOrder.map((section,index)=><div
+            key={section}
+            draggable
+            onDragStart={()=>setDraggedSectionId(section)}
+            onDragEnd={()=>setDraggedSectionId(null)}
+            onDragOver={event=>event.preventDefault()}
+            onDrop={()=>{if(draggedSectionId)moveSectionTo(draggedSectionId,section);setDraggedSectionId(null);}}
+            className={`flex items-center gap-3 rounded-xl border bg-background px-3 py-3 transition ${draggedSectionId===section?'opacity-50':''}`}
+          >
+            <GripVertical className="h-5 w-5 cursor-grab text-muted-foreground"/>
+            <div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold">{SECTION_LABELS[section]||config.customSections.find(item=>item.id===section)?.title||section}</p><p className="text-xs text-muted-foreground">{config.sectionSettings[section]?.isVisible===false?'Hidden':'Visible'} · position {index+1}</p></div>
+            <Button size="icon" variant="ghost" onClick={()=>moveSection(index,-1)} disabled={index===0}><ArrowUp className="h-4 w-4"/></Button>
+            <Button size="icon" variant="ghost" onClick={()=>moveSection(index,1)} disabled={index===config.sectionOrder.length-1}><ArrowDown className="h-4 w-4"/></Button>
+          </div>)}
+        </CardContent>
+      </Card>
+      <PhonePreview config={config} familyById={familyById} seriesById={seriesById}/>
+    </div>}
 
     <Card>
       <CardHeader className="flex-row items-center justify-between space-y-0">
@@ -222,7 +319,7 @@ export function MobileHomeManagementPage(){
                 <Field label="CTA label"><Input value={slide.ctaLabel} onChange={e=>updateSlide(slide.id,{ctaLabel:e.target.value})} placeholder="Explore Tests"/></Field>
                 <div className="md:col-span-2"><Field label="Subtitle"><Textarea rows={2} value={slide.subtitle} onChange={e=>updateSlide(slide.id,{subtitle:e.target.value})} placeholder="Prepare with exam-focused mock tests and learning resources."/></Field></div>
                 <div className="md:col-span-2"><Field label="Banner image URL"><Input value={slide.imageUrl} onChange={e=>updateSlide(slide.id,{imageUrl:e.target.value})} placeholder="https://…"/></Field></div>
-                <Field label="Icon name"><Input value={slide.iconName} onChange={e=>updateSlide(slide.id,{iconName:e.target.value})} placeholder="Optional built-in icon key"/></Field>
+                <Field label="Built-in icon"><IconPicker value={slide.iconName} onChange={value=>updateSlide(slide.id,{iconName:value})}/></Field>
                 <Field label="Custom icon URL"><Input value={slide.iconUrl} onChange={e=>updateSlide(slide.id,{iconUrl:e.target.value})} placeholder="Optional SVG / PNG / WebP URL"/></Field>
                 <Field label="Destination type"><Select value={slide.destinationType} onValueChange={value=>updateSlide(slide.id,{destinationType:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="url">External URL</SelectItem></SelectContent></Select></Field>
                 <Field label="Destination / deep link"><Input value={slide.destinationValue} onChange={e=>updateSlide(slide.id,{destinationValue:e.target.value})} placeholder="Exam ID, series ID, Learn route or URL"/></Field>
@@ -305,6 +402,7 @@ export function MobileHomeManagementPage(){
             <div className="min-w-0 flex-1"><p className="font-semibold">{section.title}</p><p className="text-xs text-muted-foreground">{section.layout} · {section.cards.length} card{section.cards.length===1?'':'s'}</p></div>
             <Switch checked={section.isVisible} onCheckedChange={checked=>updateCustomSection(section.id,{isVisible:checked})}/>
             <Button size="sm" variant="outline" onClick={()=>setEditingCustomSectionId(editingCustomSectionId===section.id?null:section.id)}><Pencil className="mr-1.5 h-4 w-4"/>{editingCustomSectionId===section.id?'Close':'Edit'}</Button>
+            <Button size="icon" variant="ghost" onClick={()=>duplicateCustomSection(section.id)} aria-label="Duplicate section"><Copy className="h-4 w-4"/></Button>
             <Button size="icon" variant="ghost" onClick={()=>removeCustomSection(section.id)}><Trash2 className="h-4 w-4"/></Button>
           </div>
           {editingCustomSectionId===section.id&&<div className="space-y-4 border-t bg-muted/20 p-4">
@@ -312,20 +410,20 @@ export function MobileHomeManagementPage(){
               <Field label="Section title"><Input value={section.title} onChange={e=>updateCustomSection(section.id,{title:e.target.value})}/></Field>
               <Field label="Layout"><Select value={section.layout} onValueChange={value=>updateCustomSection(section.id,{layout:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="horizontal">Horizontal cards</SelectItem><SelectItem value="grid">Grid</SelectItem><SelectItem value="list">List</SelectItem><SelectItem value="banner">Banner</SelectItem></SelectContent></Select></Field>
               <div className="md:col-span-2"><Field label="Subtitle"><Input value={section.subtitle} onChange={e=>updateCustomSection(section.id,{subtitle:e.target.value})}/></Field></div>
-              <Field label="Section icon name"><Input value={section.iconName} onChange={e=>updateCustomSection(section.id,{iconName:e.target.value})} placeholder="Optional icon key"/></Field>
+              <Field label="Section icon"><IconPicker value={section.iconName} onChange={value=>updateCustomSection(section.id,{iconName:value})}/></Field>
               <Field label="Section icon URL"><Input value={section.iconUrl} onChange={e=>updateCustomSection(section.id,{iconUrl:e.target.value})} placeholder="Optional custom icon URL"/></Field>
             </div>
             <div className="flex items-center justify-between"><p className="text-sm font-semibold">Cards</p><Button size="sm" variant="outline" onClick={()=>addCustomCard(section.id)}><Plus className="mr-1 h-4 w-4"/>Add card</Button></div>
-            <div className="space-y-3">{section.cards.map(card=><div key={card.id} className="grid gap-3 rounded-lg border bg-background p-3 md:grid-cols-2">
+            <div className="space-y-3">{section.cards.map((card,cardIndex)=><div key={card.id} className="grid gap-3 rounded-lg border bg-background p-3 md:grid-cols-2">
               <Field label="Title"><Input value={card.title} onChange={e=>updateCustomCard(section.id,card.id,{title:e.target.value})}/></Field>
               <Field label="Badge"><Input value={card.badge} onChange={e=>updateCustomCard(section.id,card.id,{badge:e.target.value})} placeholder="New / Free / Popular"/></Field>
               <Field label="Subtitle"><Input value={card.subtitle} onChange={e=>updateCustomCard(section.id,card.id,{subtitle:e.target.value})}/></Field>
               <Field label="CTA label"><Input value={card.ctaLabel} onChange={e=>updateCustomCard(section.id,card.id,{ctaLabel:e.target.value})}/></Field>
-              <Field label="Icon name"><Input value={card.iconName} onChange={e=>updateCustomCard(section.id,card.id,{iconName:e.target.value})}/></Field>
+              <Field label="Built-in icon"><IconPicker value={card.iconName} onChange={value=>updateCustomCard(section.id,card.id,{iconName:value})}/></Field>
               <Field label="Custom icon URL"><Input value={card.iconUrl} onChange={e=>updateCustomCard(section.id,card.id,{iconUrl:e.target.value})}/></Field>
               <Field label="Image URL"><Input value={card.imageUrl} onChange={e=>updateCustomCard(section.id,card.id,{imageUrl:e.target.value})}/></Field>
               <Field label="Destination"><Select value={card.destinationType} onValueChange={value=>updateCustomCard(section.id,card.id,{destinationType:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="url">URL</SelectItem></SelectContent></Select></Field>
-              <div className="md:col-span-2 flex items-end gap-2"><div className="flex-1"><Field label="Destination / deep link"><Input value={card.destinationValue} onChange={e=>updateCustomCard(section.id,card.id,{destinationValue:e.target.value})}/></Field></div><Button size="icon" variant="ghost" onClick={()=>removeCustomCard(section.id,card.id)}><Trash2 className="h-4 w-4"/></Button></div>
+              <div className="md:col-span-2 flex items-end gap-2"><div className="flex-1"><Field label="Destination / deep link"><Input value={card.destinationValue} onChange={e=>updateCustomCard(section.id,card.id,{destinationValue:e.target.value})}/></Field></div><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,-1)} disabled={cardIndex===0} aria-label="Move card up"><ArrowUp className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,1)} disabled={cardIndex===section.cards.length-1} aria-label="Move card down"><ArrowDown className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>duplicateCustomCard(section.id,card.id)} aria-label="Duplicate card"><Copy className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>removeCustomCard(section.id,card.id)}><Trash2 className="h-4 w-4"/></Button></div>
             </div>)}</div>
           </div>}
         </div>)}
@@ -339,7 +437,7 @@ export function MobileHomeManagementPage(){
           <div className="flex items-center justify-between"><p className="font-semibold">{label}</p><Switch checked={setting.isVisible!==false} onCheckedChange={checked=>setSectionSetting(id,{isVisible:checked})}/></div>
           <Field label="Display title"><Input value={setting.title||''} onChange={e=>setSectionSetting(id,{title:e.target.value})} placeholder={label}/></Field>
           <Field label="Subtitle"><Input value={setting.subtitle||''} onChange={e=>setSectionSetting(id,{subtitle:e.target.value})}/></Field>
-          <div className="grid gap-3 sm:grid-cols-2"><Field label="Icon name"><Input value={setting.iconName||''} onChange={e=>setSectionSetting(id,{iconName:e.target.value})}/></Field><Field label="Icon URL"><Input value={setting.iconUrl||''} onChange={e=>setSectionSetting(id,{iconUrl:e.target.value})}/></Field></div>
+          <div className="grid gap-3 sm:grid-cols-2"><Field label="Built-in icon"><IconPicker value={setting.iconName||''} onChange={value=>setSectionSetting(id,{iconName:value})}/></Field><Field label="Icon URL"><Input value={setting.iconUrl||''} onChange={e=>setSectionSetting(id,{iconUrl:e.target.value})} placeholder="Optional SVG / PNG / WebP URL"/></Field></div>
         </div>})}
       </CardContent>
     </Card>
@@ -350,18 +448,66 @@ export function MobileHomeManagementPage(){
         {[...selectedFamilyItems.map(item=>({id:item.id,label:item.name,type:'Exam category'})),...selectedSeriesItems.map(item=>({id:item.id,label:item.name,type:'Test series'}))].map(item=>{const override=config?.itemOverrides[item.id]||{};return <div key={item.id} className="grid gap-3 rounded-xl border p-4 md:grid-cols-4">
           <div><p className="text-sm font-semibold">{item.label}</p><p className="text-xs text-muted-foreground">{item.type}</p></div>
           <Field label="Display title"><Input value={override.title||''} onChange={e=>setItemOverride(item.id,{title:e.target.value})} placeholder="Use canonical title"/></Field>
-          <Field label="Icon name"><Input value={override.iconName||''} onChange={e=>setItemOverride(item.id,{iconName:e.target.value})} placeholder="Built-in icon key"/></Field>
+          <Field label="Built-in icon"><IconPicker value={override.iconName||''} onChange={value=>setItemOverride(item.id,{iconName:value})}/></Field>
           <Field label="Custom icon URL"><Input value={override.iconUrl||''} onChange={e=>setItemOverride(item.id,{iconUrl:e.target.value})} placeholder="SVG / PNG / WebP"/></Field>
         </div>})}
       </CardContent>
     </Card>
 
     <Card>
-      <CardHeader><CardTitle className="text-base">Homepage section order</CardTitle><p className="text-sm text-muted-foreground">Continue Learning remains learner-data driven; this only changes where the section appears.</p></CardHeader>
-      <CardContent className="space-y-2">{config?.sectionOrder.map((section,index)=><div key={section} className="flex items-center justify-between rounded-lg border px-4 py-3"><div><p className="text-sm font-medium">{SECTION_LABELS[section]||config?.customSections.find(item=>item.id===section)?.title||section}</p><p className="text-xs text-muted-foreground">{section==='continue_learning'?'Personalized from learner progress; not manually populated.':'Controlled by this mobile presentation configuration.'}</p></div><div className="flex gap-1"><Button size="icon" variant="ghost" onClick={()=>moveSection(index,-1)} disabled={index===0}><ArrowUp className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>moveSection(index,1)} disabled={index===config.sectionOrder.length-1}><ArrowDown className="h-4 w-4"/></Button></div></div>)}</CardContent>
+      <CardHeader><CardTitle className="text-base">Publishing notes</CardTitle><p className="text-sm text-muted-foreground">The visual builder above is the authoritative section order. Recommended Learning, Current Affairs and Today’s Goal remain data-driven; Home Management controls their position, label, icon and visibility.</p></CardHeader>
+      <CardContent className="flex flex-wrap items-center justify-between gap-3 text-sm"><span className="text-muted-foreground">Use “Discard draft” to reload the last published configuration.</span><Button onClick={()=>void save()} disabled={!config||saving}><Save className="mr-1.5 h-4 w-4"/>{saving?'Publishing…':'Publish homepage'}</Button></CardContent>
     </Card>
   </div>;
 }
+
+
+
+function IconPicker({value,onChange}:{value:string;onChange:(value:string)=>void}){
+  return <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-5">
+    <button type="button" onClick={()=>onChange('')} className={`rounded-lg border px-2 py-2 text-[10px] ${!value?'border-primary bg-primary/5':'hover:bg-muted'}`}>
+      <span className="mx-auto mb-1 block h-4 w-4 rounded border border-dashed"/>
+      None
+    </button>
+    {ICON_OPTIONS.map(option=>{const Icon=option.icon;const selected=value===option.value;return <button key={option.value} type="button" title={option.label} onClick={()=>onChange(option.value)} className={`rounded-lg border px-2 py-2 text-[10px] transition ${selected?'border-primary bg-primary/10 text-primary':'hover:bg-muted'}`}><Icon className="mx-auto mb-1 h-4 w-4"/><span className="block truncate">{option.label}</span></button>})}
+  </div>;
+}
+
+function PhonePreview({config,familyById,seriesById}:{config:Configuration;familyById:Map<string,ExamFamily>;seriesById:Map<string,TestSeries>}){
+  const customById=new Map(config.customSections.map(section=>[section.id,section]));
+  const visibleSections=config.sectionOrder.filter(id=>id.startsWith('custom_')?customById.get(id)?.isVisible!==false:config.sectionSettings[id]?.isVisible!==false);
+  const title=(id:string)=>config.sectionSettings[id]?.title?.trim()||SECTION_LABELS[id]||customById.get(id)?.title||id;
+  return <Card className="overflow-hidden">
+    <CardHeader className="pb-3"><CardTitle className="flex items-center gap-2 text-base"><Smartphone className="h-4 w-4"/>Live phone preview</CardTitle><p className="text-sm text-muted-foreground">Structure preview. The app keeps its final native styling.</p></CardHeader>
+    <CardContent>
+      <div className="mx-auto w-[300px] overflow-hidden rounded-[34px] border-[7px] border-slate-900 bg-white shadow-xl">
+        <div className="mx-auto mt-2 h-4 w-24 rounded-full bg-slate-900"/>
+        <div className="max-h-[650px] space-y-3 overflow-y-auto p-3">
+          <div className="flex items-center justify-between"><div><p className="text-[10px] text-slate-500">Good day</p><p className="text-sm font-black text-slate-900">Examtree</p></div><div className="h-8 w-8 rounded-full bg-slate-100"/></div>
+          {visibleSections.map(id=>{
+            if(id==='hero'){
+              const slide=config.heroSlides.find(item=>item.isActive);
+              return <div key={id} className="relative min-h-28 overflow-hidden rounded-2xl bg-gradient-to-br from-slate-950 via-blue-950 to-blue-700 p-3 text-white">{slide?.imageUrl&&<img src={slide.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35"/>}<div className="relative"><p className="text-[9px] font-bold uppercase tracking-wider text-amber-300">Featured</p><p className="mt-1 text-sm font-black leading-tight">{slide?.title||'Hero banner'}</p><p className="mt-1 line-clamp-2 text-[9px] text-white/80">{slide?.subtitle||'Add a hero slide to preview it here.'}</p></div></div>;
+            }
+            if(id==='exam_categories'){
+              return <PreviewSection key={id} title={title(id)}><div className="grid grid-cols-4 gap-1">{config.featuredExamFamilyIds.slice(0,8).map(familyId=>{const family=familyById.get(familyId);const override=config.itemOverrides[familyId];return <div key={familyId} className="rounded-lg bg-slate-50 p-1.5 text-center"><div className="mx-auto mb-1 h-5 w-5 rounded-md bg-blue-100"/><p className="line-clamp-2 text-[7px] font-bold">{override?.title||family?.name||'Exam'}</p></div>})}</div></PreviewSection>;
+            }
+            if(id==='featured_test_series'){
+              return <PreviewSection key={id} title={title(id)}><div className="flex gap-2 overflow-hidden">{config.featuredTestSeriesIds.slice(0,2).map(seriesId=>{const series=seriesById.get(seriesId);const override=config.itemOverrides[seriesId];return <div key={seriesId} className="min-w-32 rounded-xl bg-blue-950 p-2 text-white"><p className="text-[7px] font-bold text-amber-300">TEST SERIES</p><p className="mt-1 line-clamp-2 text-[9px] font-black">{override?.title||series?.name||'Test Series'}</p></div>})}</div></PreviewSection>;
+            }
+            if(id==='continue_learning')return <PreviewSection key={id} title={title(id)}><div className="rounded-xl border bg-slate-50 p-2"><div className="mb-1 h-2 w-1/2 rounded bg-slate-300"/><div className="h-1.5 rounded bg-blue-100"><div className="h-full w-2/3 rounded bg-blue-600"/></div></div></PreviewSection>;
+            if(id==='recommended_learning'||id==='current_affairs'||id==='today_goal')return <PreviewSection key={id} title={title(id)}><div className="rounded-xl border bg-slate-50 p-2"><div className="h-2 w-2/3 rounded bg-slate-300"/><div className="mt-2 h-2 w-1/3 rounded bg-slate-200"/></div></PreviewSection>;
+            const section=customById.get(id);
+            if(!section)return null;
+            return <PreviewSection key={id} title={section.title}><div className={section.layout==='grid'?'grid grid-cols-2 gap-1':'flex gap-1 overflow-hidden'}>{section.cards.filter(card=>card.isActive).slice(0,4).map(card=><div key={card.id} className="min-w-24 rounded-lg border bg-white p-2"><p className="line-clamp-2 text-[8px] font-bold">{card.title}</p>{card.badge&&<span className="mt-1 inline-block rounded bg-blue-50 px-1 text-[6px] text-blue-700">{card.badge}</span>}</div>)}</div></PreviewSection>;
+          })}
+        </div>
+      </div>
+    </CardContent>
+  </Card>;
+}
+
+function PreviewSection({title,children}:{title:string;children:React.ReactNode}){return <div><p className="mb-1.5 text-[10px] font-black text-slate-800">{title}</p>{children}</div>}
 
 function Field({label,children}:{label:string;children:React.ReactNode}){return <div className="space-y-1.5"><Label>{label}</Label>{children}</div>}
 export default MobileHomeManagementPage;
