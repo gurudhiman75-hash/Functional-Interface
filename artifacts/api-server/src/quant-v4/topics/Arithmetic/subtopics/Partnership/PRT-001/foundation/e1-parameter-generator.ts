@@ -5,7 +5,7 @@ import {
   formatPrt001Money,
   localizePrt001Business,
 } from "./parameter-generator";
-import { createPrt001Random } from "./random";
+import { createPrt001Random, stablePrt001PoolIndex } from "./random";
 import { solvePrt001State } from "./solver";
 import type {
   CapitalSegment,
@@ -253,10 +253,8 @@ export function generatePrt001E1Parameters(input: {
       break;
     }
     case "findUnknownCapitalWithStaggeredParticipation": {
-      const numericStateRandom = createPrt001Random(
-        `${input.seed}:numeric-state:${input.entry.solveMode}`,
-      );
-      const scenario = numericStateRandom.pick([
+      const numericStateSeed = `${input.seed}:numeric-state:${input.entry.solveMode}`;
+      const numericStates = [
         { a: 20_000, b: 30_000, bj: 4, c: 40_000, cj: 6 },
         { a: 30_000, b: 45_000, bj: 3, c: 60_000, cj: 6 },
         { a: 24_000, b: 36_000, bj: 2, c: 48_000, cj: 8 },
@@ -274,7 +272,10 @@ export function generatePrt001E1Parameters(input: {
         { a: 42_000, b: 63_000, bj: 2, c: 81_000, cj: 7 },
         { a: 55_000, b: 44_000, bj: 5, c: 88_000, cj: 9 },
         { a: 64_000, b: 80_000, bj: 3, c: 100_000, cj: 6 },
-      ]);
+      ];
+      const scenario = numericStates[
+        stablePrt001PoolIndex(numericStateSeed, numericStates.length)
+      ]!
       state = makeState([
         partner(partnerA, [segment(0, 12, money(scenario.a))]),
         partner(partnerB, [segment(scenario.bj, 12, money(scenario.b))]),
