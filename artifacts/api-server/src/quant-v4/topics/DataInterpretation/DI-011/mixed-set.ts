@@ -7,7 +7,7 @@ const MEDIUM: readonly Di011TaskKind[] = ["LEFT_TO_RIGHT_RATIO", "TWO_CATEGORY_C
 const HARD: readonly Di011TaskKind[] = ["TWO_GROUP_CROSS_RATIO", "TWO_GROUP_COMBINED_DIFFERENCE", "THREE_CATEGORY_CROSS_TOTAL", "FOUR_VALUE_CROSS_AVERAGE"];
 
 const CONTEXTS = [
-  { title: "Regional loan applications and approvals", left: "Applications", right: "Approvals", unit: "cases", labels: ["North", "South", "East", "West", "Central"] },
+  { title: "Regional loan applications and approvals", left: "Applications", right: "Approvals", unit: "applications", labels: ["North", "South", "East", "West", "Central"] },
   { title: "Product dispatch and returns", left: "Dispatched", right: "Returned", unit: "units", labels: ["P", "Q", "R", "S", "T"] },
   { title: "Insurance policies and claims", left: "Policies", right: "Claims", unit: "records", labels: ["A", "B", "C", "D", "E"] },
   { title: "Branch deposits and withdrawals", left: "Deposits", right: "Withdrawals", unit: "₹ lakh", labels: ["B1", "B2", "B3", "B4", "B5"] },
