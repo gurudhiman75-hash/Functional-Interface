@@ -2,7 +2,7 @@
 
 Implementation root for ExamTree `REAS-DSF`.
 
-Current status: **QL001 production history preserved; QL002 Reasoning Question Studio review runtime at CP033 freeze candidate**. Permanent QLs: **`DSF-QL-001`** and **`DSF-QL-002`**.
+Current status: **CP034 final conventional deep-audit closure candidate; QL001 + QL002 Question Studio review runtime integrated**. Permanent QLs: **`DSF-QL-001`** and **`DSF-QL-002`**.
 
 Core rule:
 
