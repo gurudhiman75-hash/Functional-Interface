@@ -32,6 +32,7 @@
     { "capitalA": 36000, "durationA": 12, "capitalB": 48000, "durationB": 9 },
     { "capitalA": 40000, "durationA": 9, "capitalB": 30000, "durationB": 12 },
     { "capitalA": 50000, "durationA": 24, "capitalB": 75000, "durationB": 16 },
-    { "capitalA": 80000, "durationA": 18, "capitalB": 60000, "durationB": 24 }
+    { "capitalA": 80000, "durationA": 18, "capitalB": 60000, "durationB": 24 },
+    { "capitalA": 60000, "durationA": 10, "capitalB": 50000, "durationB": 12 }
   ]
 }
