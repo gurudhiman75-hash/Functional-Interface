@@ -8,7 +8,7 @@ import {
 const locales = ["en", "hi", "pa"] as const;
 const families = [
   { id: "VEN-CP001", count: 20, operation: "RELATIONS_TO_DIAGRAM" },
-  { id: "VEN-CP002", count: 27, operation: "RELATIONS_TO_DIAGRAM" },
+  { id: "VEN-CP002", count: 33, operation: "RELATIONS_TO_DIAGRAM" },
   { id: "VEN-CP004", count: 21, operation: "REGION_IDENTIFICATION" },
 ] as const;
 
