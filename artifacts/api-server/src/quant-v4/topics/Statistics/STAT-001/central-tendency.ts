@@ -24,6 +24,11 @@ const SIMPLE_MEAN_PATTERNS = [
   [-8, -4, 0, 4, 8],
   [-10, -6, -2, 3, 7, 8],
   [-12, -3, -1, 2, 5, 9],
+  [-15, -9, -3, 3, 9, 15],
+  [-11, -7, -2, 1, 5, 6, 8],
+  [-14, -8, -5, -1, 2, 7, 9, 10],
+  [-18, -12, -4, 0, 4, 12, 18],
+  [-9, -6, -3, -1, 1, 3, 6, 9],
 ] as const;
 
 const MISSING_PATTERNS = [
@@ -33,10 +38,24 @@ const MISSING_PATTERNS = [
   [-10, -6, -1, 2, 6, 9],
   [-12, -4, -1, 3, 5, 9],
   [-12, -9, -5, -1, 2, 5, 8, 12],
+  [-14, -7, -2, 4, 8, 11],
+  [-15, -10, -4, 1, 5, 9, 14],
+  [-16, -11, -6, -2, 3, 7, 10, 15],
+  [-18, -12, -7, -3, 2, 5, 8, 11, 14],
 ] as const;
 
-const MEDIAN_ODD_OFFSETS = [-12, -7, -3, 1, 5, 9, 15] as const;
-const MEDIAN_EVEN_OFFSETS = [-14, -9, -4, -1, 3, 7, 12, 18] as const;
+const MEDIAN_ODD_OFFSET_POOL = [
+  [-12, -7, -3, 1, 5, 9, 15],
+  [-16, -9, -4, 0, 6, 11, 18],
+  [-14, -8, -2, 3, 7, 12, 17],
+  [-18, -11, -5, 2, 8, 13, 21],
+] as const;
+const MEDIAN_EVEN_OFFSET_POOL = [
+  [-14, -9, -4, -1, 3, 7, 12, 18],
+  [-18, -12, -6, -2, 2, 6, 13, 19],
+  [-16, -10, -5, 0, 4, 9, 15, 22],
+  [-20, -13, -7, -3, 1, 8, 14, 20],
+] as const;
 
 const CONTRACT_META: Record<Sta001ContractId, { solveMode: Sta001SolveMode; difficulty: Sta001Difficulty }> = {
   "STAT-TEMP-001-SIMPLE-MEAN": { solveMode: "DIRECT_MEAN", difficulty: "Easy" },
@@ -268,7 +287,7 @@ function buildCombinedMean(seed: string, profile: Sta001ExamProfile): Draft {
 function buildMedian(seed: string, profile: Sta001ExamProfile): Draft {
   const random = seededRandom(`${seed}:${profile}:median`);
   const even = profile === "SSC_CGL_JSO" ? random() < 0.65 : random() < 0.45;
-  const offsets = even ? MEDIAN_EVEN_OFFSETS : MEDIAN_ODD_OFFSETS;
+  const offsets = even ? pick(random, MEDIAN_EVEN_OFFSET_POOL) : pick(random, MEDIAN_ODD_OFFSET_POOL);
   const base = pick(random, profile === "SSC_CGL_JSO" ? [50, 60, 70, 80] : [30, 40, 50, 60]);
   const values = shuffle(seededRandom(`${seed}:median-values`), offsets.map((offset) => base + offset));
   const sorted = [...values].sort((a, b) => a - b);

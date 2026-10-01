@@ -25,6 +25,10 @@ const EXACT_SD_TEMPLATES = [
   { deviations: [-3, -2, 0, 1, 1, 3] as const, baseSd: 2 },
   { deviations: [-4, -4, 0, 2, 3, 3] as const, baseSd: 3 },
   { deviations: [-3, -2, -1, 0, 1, 2, 3] as const, baseSd: 2 },
+  { deviations: [-6, -3, 1, 3, 5] as const, baseSd: 4 },
+  { deviations: [-6, -4, 0, 2, 2, 6] as const, baseSd: 4 },
+  { deviations: [-5, -2, 0, 0, 3, 4] as const, baseSd: 3 },
+  { deviations: [-4, -2, -1, -1, 4, 4] as const, baseSd: 3 },
 ] as const;
 
 const CONTRACT_META: Record<Stat002ContractId, { solveMode: Stat002SolveMode; difficulty: Stat002Difficulty }> = {
@@ -96,9 +100,9 @@ function generateExactData(seed: string, profile: Stat002ExamProfile): ExactData
   const random = seededRandom(`${seed}:${profile}:exact-data`);
   const pool = profile === "SSC_CGL_JSO" ? EXACT_SD_TEMPLATES.slice(1) : EXACT_SD_TEMPLATES;
   const template = pick(random, pool);
-  const scale = pick(random, profile === "SSC_CGL_JSO" ? [1, 2, 3, 4] : [1, 2, 3]);
+  const scale = pick(random, profile === "SSC_CGL_JSO" ? [1, 2, 3, 4, 5] : [1, 2, 3, 4]);
   const minimumCenter = Math.abs(Math.min(...template.deviations)) * scale + 12;
-  const center = pick(random, [minimumCenter + 8, minimumCenter + 18, minimumCenter + 28, minimumCenter + 38]);
+  const center = pick(random, [minimumCenter + 8, minimumCenter + 14, minimumCenter + 18, minimumCenter + 24, minimumCenter + 28, minimumCenter + 34, minimumCenter + 38, minimumCenter + 46]);
   const values = shuffle(
     seededRandom(`${seed}:${profile}:visible-order`),
     template.deviations.map((deviation) => center + deviation * scale),

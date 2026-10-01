@@ -34,13 +34,15 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
         "A researcher interviews shop owners directly to record this month's stock shortages.",
         "A crop officer measures the yield from fields selected for a study this season.",
         "A college asks its students to report their own daily study hours for a new investigation.",
+        "A hospital records waiting times directly from patients attending its outpatient desk this week.",
+        "A transport office asks commuters directly about the duration of their morning journey.",
       ]);
       return draft([`${situation} The information collected is:`, `For a new study, an investigator collects responses directly from the people concerned. These responses are:`],
         ["primary data", "secondary data", "published records", "a sampling error"], "primary data",
         "The information is collected first-hand for the current investigation. That makes it primary data for this study; an existing report or earlier survey would be secondary data.");
     }
     case "CENSUS_VS_SAMPLE_ENUMERATION": {
-      const population = pick(random, ["all 640 students enrolled at a college", "every household in a village", "all 275 machines in a plant", "each shop registered in a market"]);
+      const population = pick(random, ["all 640 students enrolled at a college", "every household in a village", "all 275 machines in a plant", "each shop registered in a market", "every employee on a company's payroll", "all buses operating from a depot"]);
       return draft([`A survey records information from ${population}. The method is:`, `An investigator obtains information from every unit in the stated population, ${population}. This is:`],
         ["complete enumeration", "a sample survey", "indirect oral investigation", "secondary-data collection"], "complete enumeration",
         "Every unit in the defined population is covered, so the investigation is a census or complete enumeration. A sample survey would cover only a selected part.");
@@ -65,7 +67,7 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
         answer === "schedule" ? "An enumerator asks the questions and records the answers, so the form is a schedule. A questionnaire is ordinarily completed by the respondent." : "The respondents complete and return the form themselves, so this is the questionnaire method. In a schedule method, an enumerator records their answers.");
     }
     case "OBSERVATION_METHOD": {
-      const activity = pick(random, ["vehicles entering a toll plaza", "customers joining a service queue", "birds visiting a marked feeding area", "machines stopping during a production shift"]);
+      const activity = pick(random, ["vehicles entering a toll plaza", "customers joining a service queue", "birds visiting a marked feeding area", "machines stopping during a production shift", "patients arriving at a registration counter", "packages passing a scanning point"]);
       return draft([`An investigator records each instance of ${activity} as it occurs, without asking anyone to report it. Which method is used?`, `To measure ${activity}, the investigator watches the events and records them directly. This is:`],
         ["observation", "mailed questionnaire", "indirect oral investigation", "secondary-data analysis"], "observation",
         "The investigator records behaviour or events as they occur without relying on respondents' accounts. This is the observation method.");
@@ -85,7 +87,7 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
     }
     case "DISCRETE_VS_CONTINUOUS_VARIABLE": {
       const measured = pick(random, ["weight of parcels handled in a day", "time taken to complete a task", "length of metal rods produced", "volume of water used by a household"]);
-      const counted = pick(random, ["number of customer complaints in a week", "number of machines operating in a plant", "number of seeds in a packet", "number of absent students in a class"]);
+      const counted = pick(random, ["number of customer complaints in a week", "number of machines operating in a plant", "number of seeds in a packet", "number of absent students in a class", "number of calls received in an hour", "number of defective units in a batch"]);
       const askMeasured = random() < 0.5;
       return draft([`Which of the following is a ${askMeasured ? "continuous measurement" : "discrete count"}?`, `Which of the following is a ${askMeasured ? "continuous variable" : "discrete variable"}?`],
         askMeasured ? [measured, counted, "number of buses in a depot", "number of calls received"] : [counted, measured, "weight of a package", "temperature of a sample"], askMeasured ? measured : counted,
@@ -138,6 +140,9 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
         [3, 7, 5, 8, 4, 6, 9, 5],
         [2, 4, 6, 7, 9, 10, 5, 8, 3, 6],
         [1, 5, 5, 7, 8, 9, 4, 6, 10, 3, 7, 2],
+        [4, 6, 8, 5, 7, 9, 3, 6, 10, 4],
+        [2, 3, 5, 8, 8, 7, 6, 4, 9, 10, 5, 3],
+        [1, 4, 6, 6, 8, 9, 2, 5, 7, 10, 4, 8],
       ] as const);
       const frequencies: [number, number, number] = [0, 0, 0];
       for (const value of data) {
