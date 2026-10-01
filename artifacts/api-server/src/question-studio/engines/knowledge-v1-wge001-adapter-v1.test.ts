@@ -16,7 +16,7 @@ async function run() {
     assert.equal(p.productionReleaseAuthorized, false); assert.deepEqual(p.supportedLanguages, ['en', 'hi', 'pa']);
   }
   const capitalPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP022')!;
-  assert.equal(capitalPackage.metadata.authoringReviewApproved, true);
+  assert.equal(capitalPackage.metadata.authoringReviewApproved, false);
   assert.equal(capitalPackage.metadata.variablePoolQuestionCount, 90);
   assert.equal(capitalPackage.metadata.variablePoolEnabled, true);
   assert.deepEqual(capitalPackage.metadata.questionLanguageIds,
@@ -31,11 +31,11 @@ async function run() {
   assert.equal(landformsPackage.metadata.variablePoolQuestionCount, 18);
   assert.equal(landformsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const lakesPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP020')!;
-  assert.equal(lakesPackage.metadata.authoringReviewApproved, true);
+  assert.equal(lakesPackage.metadata.authoringReviewApproved, false);
   assert.equal(lakesPackage.metadata.variablePoolQuestionCount, 16);
   assert.equal(lakesPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const desertsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP021')!;
-  assert.equal(desertsPackage.metadata.authoringReviewApproved, true);
+  assert.equal(desertsPackage.metadata.authoringReviewApproved, false);
   assert.equal(desertsPackage.metadata.variablePoolQuestionCount, 14);
   assert.equal(desertsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const passagesPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP017')!;
