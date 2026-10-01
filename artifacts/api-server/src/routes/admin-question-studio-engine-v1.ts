@@ -127,8 +127,6 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     || patternId.includes("num cp 012")
     || patternId.includes("num cp 013")
     || patternId.includes("num cp 014")
-    || patternId === "sap"
-    || patternId.includes("sap ql")
   ) {
     return true;
   }
@@ -137,8 +135,6 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
   return (
     (numberSelectors.has(topic) && !subtopic)
     || (topic === "arithmetic" && numberSelectors.has(subtopic))
-    || (simplificationSelectors.has(topic) && !subtopic)
-    || (topic === "arithmetic" && simplificationSelectors.has(subtopic))
   );
 }
 
