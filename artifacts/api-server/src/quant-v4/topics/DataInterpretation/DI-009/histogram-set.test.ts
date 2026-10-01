@@ -143,6 +143,16 @@ for (const profile of profiles) {
         if (question.kind === "APPROX_GROUPED_MEAN_FROM_HISTOGRAM") {
           assert(/\?/u.test(question.stem), `${profile} ${seed} grouped-mean stem is not a direct question.`);
           assert(!/class marks?|class-mark|midpoint|using .*method/iu.test(question.stem), `${profile} ${seed} grouped-mean method instruction leaked into the stem.`);
+          const measurePatterns: Readonly<Record<string, RegExp>> = {
+            Marks: /mark|score/iu,
+            "Height (cm)": /height/iu,
+            "Weight (kg)": /weight/iu,
+            "Travel time (minutes)": /travel time|how long .* travel/iu,
+            "Age (years)": /age/iu,
+            "Daily wage (₹)": /daily wage|wage per worker/iu,
+          };
+          assert(measurePatterns[first.stimulus.xAxisLabel]?.test(question.stem), `${profile} ${seed} grouped-mean prompt must name its measured quantity (${first.stimulus.xAxisLabel}: ${question.stem}).`);
+          assert(!/mean of the distribution|grouped distribution shown|data shown in the histogram|mean represented by the histogram/iu.test(question.stem), `${profile} ${seed} grouped-mean stem is too generic for its context.`);
         }
       }
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${profile} ${seed} ${question.kind} has invalid options.`);
