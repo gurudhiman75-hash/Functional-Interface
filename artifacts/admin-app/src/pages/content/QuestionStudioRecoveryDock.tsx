@@ -23,20 +23,20 @@ import { useQuestionStudio } from '@/features/question-studio/useQuestionStudio'
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
 
-export function QuestionStudioRecoveryDock() {
+export function QuestionStudioRecoveryDock({ embedded = false }: { embedded?: boolean }) {
   const { hasPermission } = useAdminPermissions();
   const canRegenerate = hasPermission('content.generation.run');
   const { dashboard, loading, refresh } = useQuestionStudio();
   const queue = useMemo(() => buildRegenerationQueue(dashboard.runs), [dashboard.runs]);
   const queueItems = useMemo(() => queue.flatMap((entry) => entry.items), [queue]);
   const needsFixCount = queueItems.filter((entry) => entry.item.status === 'needs_fix').length;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(embedded);
   const [reason, setReason] = useState('Generate a fresh replacement after editorial review feedback');
   const [activeIds, setActiveIds] = useState<Set<string>>(() => new Set());
 
   useEffect(() => {
-    if (needsFixCount > 0) setOpen(true);
-  }, [needsFixCount]);
+    if (embedded || needsFixCount > 0) setOpen(true);
+  }, [embedded, needsFixCount]);
 
   const regenerate = async (itemIds: string[], label: string) => {
     const normalizedReason = reason.trim();
@@ -76,7 +76,7 @@ export function QuestionStudioRecoveryDock() {
   const allNeedsFixIds = queue.flatMap((entry) => entry.needsFixItemIds);
   const busy = activeIds.size > 0;
 
-  if (!open) {
+  if (!open && !embedded) {
     return (
       <Button
         type="button"
@@ -93,7 +93,14 @@ export function QuestionStudioRecoveryDock() {
   }
 
   return (
-    <Card className="fixed bottom-4 left-4 right-4 z-50 max-h-[78vh] overflow-hidden border-primary/20 shadow-2xl md:left-auto md:w-[520px]">
+    <Card
+      className={cn(
+        'overflow-hidden border-primary/20',
+        embedded
+          ? 'w-full shadow-sm'
+          : 'fixed bottom-4 left-4 right-4 z-50 max-h-[78vh] shadow-2xl md:left-auto md:w-[520px]',
+      )}
+    >
       <CardHeader className="border-b bg-background/95 pb-3 backdrop-blur">
         <div className="flex items-start justify-between gap-3">
           <div>
@@ -104,9 +111,11 @@ export function QuestionStudioRecoveryDock() {
               Create fresh immutable replacements without overwriting reviewer history.
             </p>
           </div>
-          <Button type="button" variant="ghost" size="icon" onClick={() => setOpen(false)} aria-label="Close recovery queue">
-            <X className="h-4 w-4" />
-          </Button>
+          {!embedded && (
+            <Button type="button" variant="ghost" size="icon" onClick={() => setOpen(false)} aria-label="Close recovery queue">
+              <X className="h-4 w-4" />
+            </Button>
+          )}
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -132,7 +141,7 @@ export function QuestionStudioRecoveryDock() {
         </div>
       </CardHeader>
 
-      <CardContent className="max-h-[55vh] overflow-y-auto p-0">
+      <CardContent className={cn('overflow-y-auto p-0', embedded ? 'max-h-none' : 'max-h-[55vh]')}>
         {loading ? (
           <div className="flex items-center justify-center gap-2 p-8 text-sm text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin" /> Loading recovery queue…
