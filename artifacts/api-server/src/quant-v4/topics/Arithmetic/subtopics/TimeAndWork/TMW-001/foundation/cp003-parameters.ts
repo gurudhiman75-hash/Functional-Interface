@@ -24,6 +24,9 @@ const ratioStates = [
   { a: 5, b: 4 },
   { a: 2, b: 1 },
   { a: 7, b: 5 },
+  { a: 6, b: 5 },
+  { a: 5, b: 3 },
+  { a: 8, b: 5 },
 ] as const;
 
 const moreStates = [
@@ -32,6 +35,9 @@ const moreStates = [
   { percent: 40, slowerTime: 21 },
   { percent: 50, slowerTime: 18 },
   { percent: 60, slowerTime: 24 },
+  { percent: 75, slowerTime: 21 },
+  { percent: 80, slowerTime: 27 },
+  { percent: 100, slowerTime: 24 },
 ] as const;
 
 const lessStates = [
@@ -39,6 +45,10 @@ const lessStates = [
   { percent: 25, fasterTime: 15 },
   { percent: 40, fasterTime: 12 },
   { percent: 50, fasterTime: 10 },
+  { percent: 10, fasterTime: 18 },
+  { percent: 60, fasterTime: 12 },
+  { percent: 75, fasterTime: 8 },
+  { percent: 80, fasterTime: 9 },
 ] as const;
 
 function ratioValues(seed: string, salt: string): { a: Rational; b: Rational } {
@@ -114,6 +124,10 @@ export function buildTmwCp003Parameters(entry: TmwCp003RegistryEntry, seed: stri
         { workA: 5, workB: 4, timeA: 6, timeB: 8 },
         { workA: 7, workB: 5, timeA: 5, timeB: 6 },
         { workA: 4, workB: 3, timeA: 9, timeB: 8 },
+        { workA: 6, workB: 5, timeA: 8, timeB: 10 },
+        { workA: 8, workB: 5, timeA: 12, timeB: 9 },
+        { workA: 9, workB: 7, timeA: 6, timeB: 8 },
+        { workA: 5, workB: 3, timeA: 10, timeB: 12 },
       ], seed, "cp003-unequal-state");
       if (entry.solveMode === "findTimeRatioForUnequalWorkAndEfficiencyRatio") {
         return { ...base, workA: rational(state.workA), workB: rational(state.workB) };
@@ -143,6 +157,10 @@ export function buildTmwCp003Parameters(entry: TmwCp003RegistryEntry, seed: stri
         { a: 4, b: 3, combined: 12 },
         { a: 5, b: 4, combined: 20 },
         { a: 2, b: 1, combined: 6 },
+        { a: 6, b: 5, combined: 15 },
+        { a: 5, b: 3, combined: 15 },
+        { a: 7, b: 4, combined: 14 },
+        { a: 8, b: 5, combined: 20 },
       ], seed, "cp003-combined-ratio");
       const efficiencyA = rational(state.a);
       const efficiencyB = rational(state.b);
@@ -160,6 +178,10 @@ export function buildTmwCp003Parameters(entry: TmwCp003RegistryEntry, seed: stri
         { a: 4, b: 3, scale: 5 },
         { a: 5, b: 4, scale: 6 },
         { a: 2, b: 1, scale: 7 },
+        { a: 6, b: 5, scale: 4 },
+        { a: 5, b: 3, scale: 5 },
+        { a: 7, b: 4, scale: 3 },
+        { a: 8, b: 5, scale: 4 },
       ], seed, "cp003-time-relation");
       const efficiencyA = rational(state.a);
       const efficiencyB = rational(state.b);
@@ -184,6 +206,10 @@ export function buildTmwCp003Parameters(entry: TmwCp003RegistryEntry, seed: stri
         { outA: 150, outB: 120, timeA: 5, timeB: 6 },
         { outA: 180, outB: 140, timeA: 9, timeB: 7 },
         { outA: 96, outB: 72, timeA: 4, timeB: 4 },
+        { outA: 210, outB: 160, timeA: 7, timeB: 8 },
+        { outA: 144, outB: 120, timeA: 6, timeB: 8 },
+        { outA: 200, outB: 150, timeA: 10, timeB: 9 },
+        { outA: 168, outB: 126, timeA: 7, timeB: 6 },
       ], seed, "cp003-output-time");
       const efficiencyA = divide(rational(state.outA, state.timeA), rational(state.outB, state.timeB));
       return { ...base, efficiencyA, efficiencyB: rational(1), outputA: rational(state.outA), outputB: rational(state.outB), durationA: rational(state.timeA), durationB: rational(state.timeB) };
@@ -195,6 +221,10 @@ export function buildTmwCp003Parameters(entry: TmwCp003RegistryEntry, seed: stri
         { a: 4, b: 3, dA: 6, dB: 4, outB: 72 },
         { a: 5, b: 4, dA: 8, dB: 5, outB: 100 },
         { a: 2, b: 1, dA: 3, dB: 4, outB: 80 },
+        { a: 6, b: 5, dA: 5, dB: 6, outB: 90 },
+        { a: 5, b: 3, dA: 4, dB: 5, outB: 75 },
+        { a: 7, b: 4, dA: 6, dB: 7, outB: 112 },
+        { a: 8, b: 5, dA: 5, dB: 8, outB: 160 },
       ], seed, "cp003-comparative-output");
       const outputA = divide(multiply(multiply(rational(state.outB), rational(state.a)), rational(state.dA)), multiply(rational(state.b), rational(state.dB)));
       return { ...base, efficiencyA: rational(state.a), efficiencyB: rational(state.b), durationA: rational(state.dA), durationB: rational(state.dB), outputA, outputB: rational(state.outB) };
@@ -206,6 +236,10 @@ export function buildTmwCp003Parameters(entry: TmwCp003RegistryEntry, seed: stri
         { a: 4, b: 3, workA: 8, workB: 5, timeB: 10 },
         { a: 5, b: 4, workA: 9, workB: 6, timeB: 8 },
         { a: 2, b: 1, workA: 3, workB: 5, timeB: 20 },
+        { a: 6, b: 5, workA: 7, workB: 6, timeB: 12 },
+        { a: 5, b: 3, workA: 8, workB: 5, timeB: 15 },
+        { a: 7, b: 4, workA: 6, workB: 7, timeB: 14 },
+        { a: 8, b: 5, workA: 9, workB: 8, timeB: 16 },
       ], seed, "cp003-comparative-duration");
       const timeA = divide(multiply(multiply(rational(state.timeB), rational(state.workA)), rational(state.b)), multiply(rational(state.workB), rational(state.a)));
       return { ...base, efficiencyA: rational(state.a), efficiencyB: rational(state.b), workA: rational(state.workA), workB: rational(state.workB), timeA, timeB: rational(state.timeB) };
@@ -217,6 +251,10 @@ export function buildTmwCp003Parameters(entry: TmwCp003RegistryEntry, seed: stri
         { abA: 5, abB: 4, bcB: 3, bcC: 2 },
         { abA: 4, abB: 3, bcB: 5, bcC: 4 },
         { abA: 7, abB: 5, bcB: 2, bcC: 1 },
+        { abA: 6, abB: 5, bcB: 5, bcC: 3 },
+        { abA: 8, abB: 5, bcB: 4, bcC: 3 },
+        { abA: 5, abB: 3, bcB: 7, bcC: 4 },
+        { abA: 9, abB: 7, bcB: 3, bcC: 2 },
       ], seed, "cp003-successive-ratio");
       return { ...base, efficiencyA: rational(state.abA, state.abB), efficiencyB: rational(1), efficiencyC: rational(state.bcC, state.bcB) };
     }
@@ -227,6 +265,10 @@ export function buildTmwCp003Parameters(entry: TmwCp003RegistryEntry, seed: stri
         { first: 20, second: 25 },
         { first: 50, second: 20 },
         { first: 40, second: 25 },
+        { first: 60, second: 20 },
+        { first: 25, second: 50 },
+        { first: 75, second: 25 },
+        { first: 20, second: 40 },
       ], seed, "cp003-successive-percent");
       return {
         ...base,
@@ -244,6 +286,10 @@ export function buildTmwCp003Parameters(entry: TmwCp003RegistryEntry, seed: stri
         { original: 18, changed: 15 },
         { original: 24, changed: 16 },
         { original: 21, changed: 15 },
+        { original: 30, changed: 20 },
+        { original: 28, changed: 21 },
+        { original: 25, changed: 20 },
+        { original: 36, changed: 24 },
       ], seed, "cp003-time-change");
       return { ...base, originalTime: rational(state.original), changedTime: rational(state.changed) };
     }
