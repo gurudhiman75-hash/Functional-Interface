@@ -100,11 +100,20 @@ export function generatePrt001E1Parameters(input: {
 
   switch (input.entry.solveMode) {
     case "findProfitRatioWithJoinAndLeaveEvents": {
-      const scenario = random.pick([
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const scenario = numericStateRandom.pick([
         { a: 30_000, leave: 8, b: 40_000, join: 3 },
         { a: 45_000, leave: 9, b: 30_000, join: 4 },
         { a: 24_000, leave: 10, b: 36_000, join: 5 },
         { a: 36_000, leave: 7, b: 28_000, join: 2 },
+        { a: 40_000, leave: 6, b: 30_000, join: 4 },
+        { a: 50_000, leave: 10, b: 40_000, join: 2 },
+        { a: 35_000, leave: 11, b: 50_000, join: 5 },
+        { a: 48_000, leave: 8, b: 36_000, join: 3 },
+        { a: 54_000, leave: 7, b: 45_000, join: 5 },
+        { a: 42_000, leave: 9, b: 32_000, join: 2 },
       ]);
       state = makeState([
         partner(partnerA, [segment(0, scenario.leave, money(scenario.a))]),
@@ -115,11 +124,19 @@ export function generatePrt001E1Parameters(input: {
       break;
     }
     case "findUnknownLeaveTimeFromProfitRatio": {
-      const scenario = random.pick([
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const scenario = numericStateRandom.pick([
         { a: 30_000, leave: 8, b: 20_000 },
         { a: 24_000, leave: 10, b: 30_000 },
         { a: 40_000, leave: 9, b: 30_000 },
         { a: 36_000, leave: 6, b: 18_000 },
+        { a: 48_000, leave: 4, b: 20_000 },
+        { a: 42_000, leave: 5, b: 25_000 },
+        { a: 54_000, leave: 7, b: 28_000 },
+        { a: 60_000, leave: 11, b: 45_000 },
+        { a: 50_000, leave: 3, b: 25_000 },
       ]);
       state = makeState([
         partner(partnerA, [segment(0, scenario.leave, money(scenario.a))]),
@@ -142,12 +159,20 @@ export function generatePrt001E1Parameters(input: {
       break;
     }
     case "findProfitRatioAfterPercentageCapitalIncrease": {
-      const scenario = random.pick([
-        { a0: 20_000, a1: 30_000, pct: 50, change: 6, b: 25_000 },
-        { a0: 24_000, a1: 30_000, pct: 25, change: 4, b: 28_000 },
-        { a0: 30_000, a1: 36_000, pct: 20, change: 8, b: 32_000 },
-        { a0: 40_000, a1: 50_000, pct: 25, change: 3, b: 45_000 },
-      ]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const a0 = numericStateRandom.pick([20_000, 24_000, 32_000, 40_000, 48_000, 60_000]);
+      const pct = numericStateRandom.pick([20, 25, 50, 75]);
+      const change = numericStateRandom.pick([3, 4, 5, 6, 8, 9]);
+      const b = numericStateRandom.pick([25_000, 28_000, 32_000, 36_000, 45_000, 50_000, 60_000]);
+      const scenario = {
+        a0,
+        a1: (a0 * (100 + pct)) / 100,
+        pct,
+        change,
+        b,
+      };
       state = makeState([
         partner(partnerA, [segment(0, scenario.change, money(scenario.a0)), segment(scenario.change, 12, money(scenario.a1))]),
         partner(partnerB, [segment(0, 12, money(scenario.b))]),
@@ -256,14 +281,34 @@ export function generatePrt001E1Parameters(input: {
       const numericStateRandom = createPrt001Random(
         `${input.seed}:numeric-state:${input.entry.solveMode}`,
       );
-      const scenario = numericStateRandom.pick([
-        { a: 20_000, b: 30_000, bj: 4, c: 40_000, cj: 6 },
-        { a: 30_000, b: 45_000, bj: 3, c: 60_000, cj: 6 },
-        { a: 24_000, b: 36_000, bj: 2, c: 48_000, cj: 8 },
-        { a: 40_000, b: 30_000, bj: 4, c: 50_000, cj: 5 },
-        { a: 25_000, b: 40_000, bj: 2, c: 45_000, cj: 7 },
-        { a: 36_000, b: 48_000, bj: 5, c: 72_000, cj: 8 },
-      ]);
+      const capitalRatio = numericStateRandom.pick([
+        [2, 3, 4],
+        [3, 4, 5],
+        [4, 3, 5],
+        [5, 4, 6],
+        [3, 4, 6],
+        [4, 5, 7],
+        [5, 3, 6],
+        [6, 5, 8],
+      ] as const);
+      const joinPair = numericStateRandom.pick([
+        [2, 6],
+        [3, 6],
+        [4, 7],
+        [2, 8],
+        [5, 8],
+        [3, 9],
+        [4, 9],
+        [6, 9],
+      ] as const);
+      const unit = numericStateRandom.pick([8_000, 10_000, 12_000, 15_000]);
+      const scenario = {
+        a: capitalRatio[0] * unit,
+        b: capitalRatio[1] * unit,
+        bj: joinPair[0],
+        c: capitalRatio[2] * unit,
+        cj: joinPair[1],
+      };
       state = makeState([
         partner(partnerA, [segment(0, 12, money(scenario.a))]),
         partner(partnerB, [segment(scenario.bj, 12, money(scenario.b))]),

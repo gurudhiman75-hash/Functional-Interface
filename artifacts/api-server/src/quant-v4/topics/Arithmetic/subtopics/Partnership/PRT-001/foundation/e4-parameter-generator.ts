@@ -90,25 +90,107 @@ export function generatePrt001E4Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findCapitalForEqualProfitGivenDurations": {
-      const s = random.pick([{a:20_000,da:12,b:40_000,db:6},{a:24_000,da:10,b:40_000,db:6},{a:36_000,da:8,b:48_000,db:6},{a:60_000,da:7,b:42_000,db:10}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const durationPair = numericStateRandom.pick([
+        [12, 6],
+        [11, 8],
+        [10, 6],
+        [9, 12],
+        [8, 6],
+        [7, 10],
+        [6, 8],
+        [5, 10],
+        [4, 12],
+      ] as const);
+      const unit = numericStateRandom.pick([4_000, 5_000, 6_000, 8_000, 10_000]);
+      const s = {
+        a: durationPair[1] * unit,
+        da: durationPair[0],
+        b: durationPair[0] * unit,
+        db: durationPair[1],
+      };
       state = makeState([partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))])], money(100_000));
       targetPartnerId = partnerA;
       break;
     }
     case "findDurationForEqualProfitGivenCapitals": {
-      const s = random.pick([{a:20_000,da:12,b:40_000,db:6},{a:24_000,da:10,b:40_000,db:6},{a:36_000,da:8,b:48_000,db:6},{a:60_000,da:7,b:42_000,db:10}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const durationPair = numericStateRandom.pick([
+        [12, 6],
+        [11, 8],
+        [10, 6],
+        [9, 12],
+        [8, 6],
+        [7, 10],
+        [6, 8],
+        [5, 10],
+        [4, 12],
+      ] as const);
+      const unit = numericStateRandom.pick([4_000, 5_000, 6_000, 8_000, 10_000]);
+      const s = {
+        a: durationPair[1] * unit,
+        da: durationPair[0],
+        b: durationPair[0] * unit,
+        db: durationPair[1],
+      };
       state = makeState([partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))])], money(100_000));
       targetPartnerId = partnerA;
       break;
     }
     case "findProfitDifferenceFromCapitalDurationWeights": {
-      const s = random.pick([{a:20_000,da:12,b:30_000,db:6},{a:24_000,da:10,b:40_000,db:6},{a:35_000,da:6,b:28_000,db:10},{a:42_000,da:8,b:30_000,db:12}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const s = numericStateRandom.pick([
+        {a:20_000,da:12,b:30_000,db:6},
+        {a:24_000,da:10,b:40_000,db:6},
+        {a:35_000,da:6,b:28_000,db:10},
+        {a:42_000,da:8,b:30_000,db:12},
+        {a:30_000,da:12,b:45_000,db:8},
+        {a:48_000,da:9,b:36_000,db:12},
+        {a:40_000,da:7,b:28_000,db:12},
+        {a:54_000,da:8,b:32_000,db:12},
+      ]);
+      const perPart = numericStateRandom.pick([
+        12_000,
+        15_000,
+        18_000,
+        20_000,
+        24_000,
+        27_000,
+        30_000,
+      ]);
       const partners = [partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))])];
-      state = makeState(partners, money(cleanGross(partners, 18_000)));
+      state = makeState(partners, money(cleanGross(partners, perPart)));
       break;
     }
     case "findProfitRatioWhenPartnerLeavesEarly": {
-      const s = random.pick([{a:40_000,leave:6,b:30_000},{a:60_000,leave:8,b:40_000},{a:72_000,leave:5,b:30_000},{a:50_000,leave:9,b:45_000}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const capitalRatio = numericStateRandom.pick([
+        [2, 3],
+        [3, 2],
+        [3, 4],
+        [4, 3],
+        [4, 5],
+        [5, 4],
+        [5, 7],
+        [7, 5],
+        [4, 7],
+        [7, 4],
+      ] as const);
+      const leave = numericStateRandom.pick([4, 5, 6, 7, 8, 9, 10, 11]);
+      const unit = numericStateRandom.pick([6_000, 8_000, 10_000, 12_000, 15_000]);
+      const s = {
+        a: capitalRatio[0] * unit,
+        leave,
+        b: capitalRatio[1] * unit,
+      };
       state = makeState([partner(partnerA,[segment(0,s.leave,money(s.a))]), partner(partnerB,[segment(0,12,money(s.b))])], money(120_000));
       break;
     }
@@ -138,7 +220,14 @@ export function generatePrt001E4Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findProfitRatioAfterPercentageCapitalDecrease": {
-      const s = random.pick([{a0:60_000,p:25,change:4,b:50_000},{a0:80_000,p:20,change:6,b:60_000},{a0:90_000,p:40,change:5,b:60_000},{a0:100_000,p:30,change:8,b:75_000}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const a0 = numericStateRandom.pick([40_000, 48_000, 60_000, 72_000, 80_000, 100_000, 120_000]);
+      const p = numericStateRandom.pick([20, 25, 30, 40, 50]);
+      const change = numericStateRandom.pick([3, 4, 5, 6, 8, 9]);
+      const b = numericStateRandom.pick([30_000, 36_000, 45_000, 60_000, 75_000, 90_000]);
+      const s = { a0, p, change, b };
       const a1 = s.a0 * (100 - s.p) / 100;
       state = makeState([partner(partnerA,[segment(0,s.change,money(s.a0)),segment(s.change,12,money(a1))]), partner(partnerB,[segment(0,12,money(s.b))])], money(120_000));
       extra.percentageDecreaseA = s.p;

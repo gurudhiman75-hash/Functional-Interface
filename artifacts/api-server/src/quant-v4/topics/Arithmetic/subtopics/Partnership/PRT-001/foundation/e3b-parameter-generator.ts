@@ -65,17 +65,31 @@ export function generatePrt001E3BParameters(input: { questionLanguageId: string;
       const numericStateRandom = createPrt001Random(
         `${input.seed}:numeric-state:${input.entry.solveMode}`,
       );
-      const s = numericStateRandom.pick([
-        { a: 40_000, b: 60_000 },
-        { a: 30_000, b: 45_000 },
-        { a: 50_000, b: 30_000 },
-        { a: 72_000, b: 48_000 },
-        { a: 45_000, b: 60_000 },
-        { a: 56_000, b: 40_000 },
-        { a: 36_000, b: 60_000 },
-        { a: 50_000, b: 70_000 },
-        { a: 64_000, b: 48_000 },
+      const ratio = numericStateRandom.pick([
+        { a: 2, b: 3 },
+        { a: 3, b: 2 },
+        { a: 4, b: 3 },
+        { a: 3, b: 4 },
+        { a: 5, b: 4 },
+        { a: 4, b: 5 },
+        { a: 5, b: 3 },
+        { a: 3, b: 5 },
+        { a: 7, b: 4 },
+        { a: 4, b: 7 },
+        { a: 7, b: 5 },
+        { a: 5, b: 7 },
       ]);
+      const unit = numericStateRandom.pick([
+        6_000,
+        8_000,
+        10_000,
+        12_000,
+        15_000,
+        18_000,
+        20_000,
+        24_000,
+      ]);
+      const s = { a: ratio.a * unit, b: ratio.b * unit };
       state = makeState([partner(partnerA, [segment(0, 12, money(s.a))]), partner(partnerB, [segment(0, 12, money(s.b))])], money(150_000));
       break;
     }
@@ -91,11 +105,20 @@ export function generatePrt001E3BParameters(input: { questionLanguageId: string;
       break;
     }
     case "findUnknownJoinTimeFromPartnerShare": {
-      const s = random.pick([
-        { a: 40_000, b: 60_000, join: 4, gross: 120_000 },
-        { a: 30_000, b: 60_000, join: 6, gross: 120_000 },
-        { a: 40_000, b: 60_000, join: 6, gross: 140_000 },
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const s = numericStateRandom.pick([
+        { a: 50_000, b: 60_000, join: 2, gross: 180_000 },
         { a: 50_000, b: 40_000, join: 3, gross: 160_000 },
+        { a: 40_000, b: 60_000, join: 4, gross: 120_000 },
+        { a: 70_000, b: 120_000, join: 5, gross: 200_000 },
+        { a: 30_000, b: 60_000, join: 6, gross: 120_000 },
+        { a: 50_000, b: 120_000, join: 7, gross: 180_000 },
+        { a: 40_000, b: 120_000, join: 8, gross: 160_000 },
+        { a: 30_000, b: 120_000, join: 9, gross: 140_000 },
+        { a: 60_000, b: 90_000, join: 4, gross: 210_000 },
+        { a: 45_000, b: 72_000, join: 5, gross: 190_000 },
       ]);
       state = makeState([partner(partnerA, [segment(0, 12, money(s.a))]), partner(partnerB, [segment(s.join, 12, money(s.b))])], money(s.gross));
       break;

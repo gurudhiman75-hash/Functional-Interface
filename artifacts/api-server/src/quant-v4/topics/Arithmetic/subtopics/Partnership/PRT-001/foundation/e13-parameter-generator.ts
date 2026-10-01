@@ -169,18 +169,39 @@ export function generatePrt001E13Parameters(input: { questionLanguageId: string;
       const numericStateRandom = createPrt001Random(
         `${input.seed}:numeric-state:${input.questionLanguageId}`,
       );
-      const s = numericStateRandom.pick([
-        { oa: 5, ob: 3, fn: 1, fd: 4, sa: 2, sb: 1 },
-        { oa: 7, ob: 5, fn: 1, fd: 6, sa: 3, sb: 2 },
-        { oa: 3, ob: 2, fn: 1, fd: 5, sa: 1, sb: 1 },
-        { oa: 8, ob: 7, fn: 1, fd: 10, sa: 3, sb: 2 },
-        { oa: 4, ob: 3, fn: 1, fd: 7, sa: 2, sb: 1 },
-        { oa: 9, ob: 5, fn: 1, fd: 7, sa: 1, sb: 2 },
-        { oa: 6, ob: 5, fn: 1, fd: 11, sa: 1, sb: 1 },
-        { oa: 5, ob: 4, fn: 1, fd: 9, sa: 1, sb: 2 },
-        { oa: 11, ob: 9, fn: 1, fd: 10, sa: 2, sb: 3 },
-        { oa: 7, ob: 3, fn: 1, fd: 5, sa: 1, sb: 1 },
-      ]);
+      const oldRatio = numericStateRandom.pick([
+        [5, 3],
+        [7, 5],
+        [3, 2],
+        [8, 7],
+        [4, 3],
+        [9, 5],
+        [6, 5],
+        [5, 4],
+        [7, 3],
+        [11, 9],
+      ] as const);
+      const acquiredFraction = numericStateRandom.pick([
+        [1, 10],
+        [1, 8],
+        [1, 6],
+        [1, 5],
+      ] as const);
+      const sacrificeRatio = numericStateRandom.pick([
+        [1, 1],
+        [2, 1],
+        [1, 2],
+        [3, 2],
+        [2, 3],
+      ] as const);
+      const s = {
+        oa: oldRatio[0],
+        ob: oldRatio[1],
+        fn: acquiredFraction[0],
+        fd: acquiredFraction[1],
+        sa: sacrificeRatio[0],
+        sb: sacrificeRatio[1],
+      };
       const oldTotal = rational(s.oa + s.ob);
       const oldA = divideRational(rational(s.oa), oldTotal);
       const oldB = divideRational(rational(s.ob), oldTotal);
