@@ -285,6 +285,11 @@ function localizeSeatingStatement(text:string, language:DsfReasoningLocalizedLan
   if(m) return t(language,`${localizeSeatName(m[2]!,language)} और ${localizeSeatName(m[3]!,language)} के बीच ${m[1]} व्यक्ति बैठा है/बैठे हैं।`,`${localizeSeatName(m[2]!,language)} ਅਤੇ ${localizeSeatName(m[3]!,language)} ਦੇ ਵਿਚਕਾਰ ${m[1]} ਵਿਅਕਤੀ ਬੈਠਾ ਹੈ/ਬੈਠੇ ਹਨ।`);
   m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) and (Aman|Bina|Charan|Diya|Eshan) are not adjacent\.$/i);
   if(m) return t(language,`${localizeSeatName(m[1]!,language)} और ${localizeSeatName(m[2]!,language)} साथ-साथ नहीं बैठे हैं।`,`${localizeSeatName(m[1]!,language)} ਅਤੇ ${localizeSeatName(m[2]!,language)} ਨਾਲ-ਨਾਲ ਨਹੀਂ ਬੈਠੇ ਹਨ।`);
+  m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) sits immediately to the (left|right) of (Aman|Bina|Charan|Diya|Eshan)\.$/i);
+  if(m){
+    const dir=m[2]!.toLowerCase()==="left" ? t(language,"बाएँ","ਖੱਬੇ") : t(language,"दाएँ","ਸੱਜੇ");
+    return t(language,`${localizeSeatName(m[1]!,language)}, ${localizeSeatName(m[3]!,language)} के ठीक ${dir} बैठा/बैठी है।`,`${localizeSeatName(m[1]!,language)}, ${localizeSeatName(m[3]!,language)} ਦੇ ਤੁਰੰਤ ${dir} ਬੈਠਾ/ਬੈਠੀ ਹੈ।`);
+  }
   m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) sits (one|two|three|four) places? to the (left|right) of (Aman|Bina|Charan|Diya|Eshan)\.$/i);
   if(m){
     const countMap:Record<string,[string,string]>={one:["एक","ਇੱਕ"],two:["दो","ਦੋ"],three:["तीन","ਤਿੰਨ"],four:["चार","ਚਾਰ"]};
