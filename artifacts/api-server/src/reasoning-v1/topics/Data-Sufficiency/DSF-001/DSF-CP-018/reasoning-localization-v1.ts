@@ -94,9 +94,9 @@ function replaceCommon(text: string, language: DsfReasoningLocalizedLanguage): s
     [/north/gi,"उत्तर","ਉੱਤਰ"],[/south/gi,"दक्षिण","ਦੱਖਣ"],[/east/gi,"पूर्व","ਪੂਰਬ"],[/west/gi,"पश्चिम","ਪੱਛਮ"],
     [/left/gi,"बाएँ","ਖੱਬੇ"],[/right/gi,"दाएँ","ਸੱਜੇ"],
     [/immediately/gi,"ठीक","ਤੁਰੰਤ"],[/between/gi,"के बीच","ਦੇ ਵਿਚਕਾਰ"],
-    [/Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday/g,(m)=>localizeWeekday(m,language) as any,(m)=>localizeWeekday(m,language) as any] as any,
   ];
-  for (const [re,hi,pa] of reps) s=s.replace(re, language==="hi" ? hi as any : pa as any);
+  for (const [re,hi,pa] of reps) s=s.replace(re, language==="hi" ? hi : pa);
+  s=s.replace(/Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday/g,(m)=>localizeWeekday(m,language));
   s=s.replace(/(\d+)(?:st|nd|rd|th)\b/g,(_,n)=>ordinal(n,language));
   return s;
 }
