@@ -62,6 +62,12 @@ assert.ok(
   ),
 );
 assert.ok(
+  twentyScenarios.questions.every(
+    (q) =>
+      !/first activity|second activity|first set|second set/iu.test(q.stem!),
+  ),
+);
+assert.ok(
   new Set(result.questions.map((q) => (q.semanticMetadata as any).queryKey))
     .size >= 8,
 );
