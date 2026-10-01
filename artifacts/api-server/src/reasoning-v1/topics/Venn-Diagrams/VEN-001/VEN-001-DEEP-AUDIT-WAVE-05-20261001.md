@@ -159,11 +159,10 @@ Wave 05 enforces:
 1. **Human localization review is still pending for CP005–CP011.**  
    Runtime metadata correctly keeps `localeParityPendingHumanReview: true` on numerical and geometric-region paths. This audit does not falsely clear those flags.
 
-2. **Generated numerical review artifacts must be refreshed after the Wave 05 explanation change.**  
-   The saved review snapshot must match current generator output before final closure.
-
-3. **CP001 source claims must remain limited.**  
+2. **CP001 source claims must remain limited.**  
    The current evidence supports the structural practice layer, not a claim that standalone two-class relation→diagram is independently source-proven recurring exam frequency.
+
+The numerical review V2 HTML/JSON snapshots were regenerated after the Wave 05 explanation change and now match the current generator.
 
 ## Lifecycle
 
