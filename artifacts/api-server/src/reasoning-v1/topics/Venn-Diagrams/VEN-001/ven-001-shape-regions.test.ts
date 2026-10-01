@@ -35,7 +35,19 @@ assert.deepEqual(
 );
 assert.ok(
   new Set(result.questions.map((q) => (q.semanticMetadata as any).scenarioId))
-    .size >= 6,
+    .size >= 20,
+);
+const twentyScenarios = generateVen001ShapeRegionBatch({
+  ...request,
+  count: 20,
+});
+assert.equal(
+  new Set(
+    twentyScenarios.questions.map(
+      (q) => (q.semanticMetadata as any).scenarioId,
+    ),
+  ).size,
+  20,
 );
 assert.ok(
   new Set(result.questions.map((q) => (q.semanticMetadata as any).queryKey))
