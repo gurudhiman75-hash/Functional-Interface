@@ -243,12 +243,36 @@ export function generatePrt001E2Parameters(input: {
       break;
     }
     case "findFourPartnerProfitRatio": {
-      const s = random.pick([
-        { a: 20_000, da: 12, b: 30_000, db: 8, c: 40_000, dc: 6, d: 24_000, dd: 10 },
-        { a: 30_000, da: 10, b: 24_000, db: 12, c: 36_000, dc: 8, d: 48_000, dd: 6 },
-        { a: 25_000, da: 12, b: 40_000, db: 6, c: 30_000, dc: 10, d: 20_000, dd: 9 },
-        { a: 28_000, da: 9, b: 42_000, db: 6, c: 21_000, dc: 12, d: 35_000, dd: 8 },
-      ]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const capitals = numericStateRandom.pick([
+        [2, 3, 4, 5],
+        [3, 4, 5, 6],
+        [4, 3, 5, 7],
+        [5, 4, 6, 3],
+        [3, 5, 4, 7],
+        [6, 4, 5, 8],
+        [4, 7, 3, 6],
+        [5, 6, 8, 4],
+      ] as const);
+      const durations = numericStateRandom.pick([
+        [12, 8, 6, 10],
+        [10, 12, 8, 6],
+        [12, 6, 10, 9],
+        [9, 6, 12, 8],
+        [8, 12, 5, 10],
+        [7, 10, 12, 6],
+        [11, 7, 9, 12],
+        [6, 9, 11, 8],
+      ] as const);
+      const unit = numericStateRandom.pick([6_000, 8_000, 10_000, 12_000]);
+      const s = {
+        a: capitals[0] * unit, da: durations[0],
+        b: capitals[1] * unit, db: durations[1],
+        c: capitals[2] * unit, dc: durations[2],
+        d: capitals[3] * unit, dd: durations[3],
+      };
       state = makeState([
         partner(partnerA, [segment(0, s.da, money(s.a))]),
         partner(partnerB, [segment(0, s.db, money(s.b))]),
