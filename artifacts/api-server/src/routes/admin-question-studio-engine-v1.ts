@@ -167,6 +167,9 @@ router.post(
     }
 
     const packageId = asString(req.body?.packageId) || undefined;
+    const requestedCpIds = Array.isArray(req.body?.cpIds)
+      ? [...new Set(req.body.cpIds.map(asString).filter(Boolean))].slice(0, 50)
+      : [];
     const packageEngineId = engineForPackage(packageId);
     const selectedEngineId = requestedEngineId ?? packageEngineId;
 
@@ -195,10 +198,39 @@ router.post(
     const seed = asString(req.body?.seed) || undefined;
     const runtimeMode = asString(req.body?.runtimeMode) || undefined;
     const canonicalProblemId = asString(req.body?.canonicalProblemId) || asString(req.body?.cpId) || undefined;
+    const selectedCpIds = requestedCpIds.length > 0
+      ? requestedCpIds
+      : canonicalProblemId
+        ? [canonicalProblemId]
+        : [];
     const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
 
     if (!packageId && !patternId && !(topic && subtopic)) {
       res.status(400).json({ error: "A package, pattern, or topic/subtopic selection is required" });
+      return;
+    }
+
+    if (packageId && selectedCpIds.length > 0) {
+      const pkg = packageForId(packageId);
+      if (pkg) {
+        const allowedCpIds = new Set([
+          ...pkg.cpIds.map(String),
+          ...(pkg.dynamicCandidateCpIds ?? []).map(String),
+        ]);
+        const invalidCpIds = selectedCpIds.filter((cpId) => !allowedCpIds.has(cpId));
+        if (invalidCpIds.length > 0) {
+          res.status(400).json({
+            error: `Selected CPs are not available in ${packageId}: ${invalidCpIds.join(", ")}`,
+          });
+          return;
+        }
+      }
+    }
+
+    if (selectedCpIds.length > count) {
+      res.status(400).json({
+        error: `Question count must be at least the number of selected CPs (${selectedCpIds.length})`,
+      });
       return;
     }
 
@@ -215,7 +247,7 @@ router.post(
       language: language as "en" | "hi" | "pa",
       seed,
       runtimeMode,
-      canonicalProblemId,
+      canonicalProblemId: selectedCpIds.length === 1 ? selectedCpIds[0] : undefined,
       questionLanguageId,
     };
 
@@ -224,16 +256,70 @@ router.post(
     const timestamp = new Date().toISOString();
 
     try {
-      const result = await generateQuestionStudioQuestions(generationRequest);
-      const generatedQuestions = Array.isArray(result.questions) ? result.questions : [];
+      const generationRequests = selectedCpIds.length > 0
+        ? selectedCpIds.map((cpId, index) => {
+            const baseCount = Math.floor(count / selectedCpIds.length);
+            const remainder = count % selectedCpIds.length;
+            return {
+              cpId,
+              count: baseCount + (index < remainder ? 1 : 0),
+            };
+          }).filter((entry) => entry.count > 0)
+        : [{ cpId: undefined, count }];
+
+      const generatedQuestions: Array<Record<string, unknown>> = [];
+      const generationContexts: Array<{ cpId?: string; context: unknown }> = [];
+
+      for (let index = 0; index < generationRequests.length; index++) {
+        const request = generationRequests[index]!;
+        const cpSeed = seed && request.cpId
+          ? `${seed}:cp:${request.cpId}:slot:${index + 1}`
+          : seed;
+
+        const result = await generateQuestionStudioQuestions({
+          ...generationRequest,
+          count: request.count,
+          seed: cpSeed,
+          canonicalProblemId: request.cpId,
+        });
+
+        if (result.engineId !== selectedEngineId) {
+          throw new Error(
+            `Question Studio engine changed during generation: expected ${selectedEngineId}, received ${result.engineId}`,
+          );
+        }
+
+        const questions = Array.isArray(result.questions) ? result.questions : [];
+        generationContexts.push({
+          cpId: request.cpId,
+          context: { ...(result.generationContext ?? {}), engineId: result.engineId },
+        });
+
+        for (const question of questions) {
+          generatedQuestions.push({
+            ...question,
+            canonicalProblemId:
+              asString((question as Record<string, unknown>)?.canonicalProblemId) ||
+              request.cpId,
+            selectedCpId: request.cpId,
+            engineId: result.engineId,
+            generationContext: { ...(result.generationContext ?? {}), engineId: result.engineId },
+          });
+        }
+      }
 
       if (generatedQuestions.length === 0) {
         res.status(422).json({ error: "The generation engine returned no questions" });
         return;
       }
 
-      const requestSnapshot = { ...generationRequest, engineId: result.engineId, requestedByFirebaseUid: req.user?.id };
-      const generationContext = { ...(result.generationContext ?? {}), engineId: result.engineId };
+      const requestSnapshot = {
+        ...generationRequest,
+        canonicalProblemId: selectedCpIds.length === 1 ? selectedCpIds[0] : undefined,
+        cpIds: selectedCpIds,
+        engineId: selectedEngineId,
+        requestedByFirebaseUid: req.user?.id,
+      };
 
       await sqlClient.begin(async (tx) => {
         await tx`
@@ -244,7 +330,7 @@ router.post(
           ) VALUES (
             ${runId}::uuid, ${code}, 'review'::generation_run_status, 1,
             ${JSON.stringify(requestSnapshot)}, ${JSON.stringify(requestSnapshot)},
-            'examtree', ${result.engineId}, 0, 0, 0, 0,
+            'examtree', ${selectedEngineId}, 0, 0, 0, 0,
             ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
           )
         `;
@@ -253,7 +339,7 @@ router.post(
           const itemId = randomUUID();
           const versionId = randomUUID();
           const question = generatedQuestions[index] as Record<string, unknown>;
-          const payload = { ...question, engineId: result.engineId, generationContext, validationResult: "pending" };
+          const payload = { ...question, generationContexts, validationResult: "pending" };
 
           await tx`
             INSERT INTO content.generation_run_items (
@@ -282,8 +368,8 @@ router.post(
             ${req.adminSession?.user.id ?? null}::uuid,
             'question_studio.generation_run.created', 'generation_run', ${runId}::uuid,
             'Admin generated a Question Studio batch',
-            ${`Generated ${generatedQuestions.length} ${result.engineId} questions in ${code}`},
-            ${JSON.stringify({ firebaseUid: req.user?.id, engineId: result.engineId, requestSnapshot })}
+            ${`Generated ${generatedQuestions.length} ${selectedEngineId} questions in ${code}`},
+            ${JSON.stringify({ firebaseUid: req.user?.id, engineId: selectedEngineId, requestSnapshot })}
           )
         `;
 
@@ -293,7 +379,7 @@ router.post(
           ) VALUES (
             ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid,
             'question_studio.generation_run.created',
-            ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length, engineId: result.engineId })}
+            ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length, engineId: selectedEngineId })}
           )
         `;
       });
@@ -303,8 +389,8 @@ router.post(
         publicCode: code,
         status: "review",
         itemCount: generatedQuestions.length,
-        generationSystem: result.engineId,
-        engineId: result.engineId,
+        generationSystem: selectedEngineId,
+        engineId: selectedEngineId,
       });
     } catch (error) {
       console.error("Question Studio multi-engine generation failed", error);
