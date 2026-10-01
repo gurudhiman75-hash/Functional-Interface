@@ -87,7 +87,7 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
       const measured = pick(random, ["weight of parcels handled in a day", "time taken to complete a task", "length of metal rods produced", "volume of water used by a household"]);
       const counted = pick(random, ["number of customer complaints in a week", "number of machines operating in a plant", "number of seeds in a packet", "number of absent students in a class"]);
       const askMeasured = random() < 0.5;
-      return draft([`Which of the following is a ${askMeasured ? "continuous measurement" : "discrete count"}?`, `Select the ${askMeasured ? "continuous variable" : "discrete variable"}.`],
+      return draft([`Which of the following is a ${askMeasured ? "continuous measurement" : "discrete count"}?`, `Which of the following is a ${askMeasured ? "continuous variable" : "discrete variable"}?`],
         askMeasured ? [measured, counted, "number of buses in a depot", "number of calls received"] : [counted, measured, "weight of a package", "temperature of a sample"], askMeasured ? measured : counted,
         askMeasured ? `The quantity is measured and may take fractional values within a range, so ${measured.toLowerCase()} is continuous. Counts take separate whole-number values.` : `The quantity counts separate units, so ${counted.toLowerCase()} is discrete. Measurements such as weight or temperature may vary continuously across an interval.`);
     }
@@ -129,7 +129,7 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
       const lower = boundary;
       const upper = boundary + 10;
       const previous = boundary - 10;
-      return draft([`Classes are ${previous}–${boundary}, ${lower}–${upper} and ${upper}–${upper + 10}. Each class includes its lower limit but excludes its upper limit, except the final class. Where is an observation of exactly ${boundary} placed?`, `Using lower-inclusive, upper-exclusive intervals ${previous}–${boundary}, ${lower}–${upper} and ${upper}–${upper + 10}, where does the value ${boundary} belong?`],
+      return draft([`Classes are ${previous}–${boundary}, ${lower}–${upper} and ${upper}–${upper + 10}. Each class includes its lower limit but excludes its upper limit, except the final class. Where is an observation of exactly ${boundary} placed?`, `The intervals ${previous}–${boundary}, ${lower}–${upper} and ${upper}–${upper + 10} include their lower limit and exclude their upper limit. The observation ${boundary} belongs to which interval?`],
         [`${previous}–${boundary} only`, `${lower}–${upper} only`, `Both adjacent classes`, `Neither adjacent class`], `${lower}–${upper} only`,
         `The first interval ends before ${boundary} because its upper limit is excluded. The next interval includes its lower limit, so ${boundary} belongs in ${lower}–${upper} only.`);
     }
@@ -153,7 +153,7 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
       const uniqueWrong = [...new Set(shuffledWrong)].slice(0, 3);
       while (uniqueWrong.length < 3) uniqueWrong.push(`${uniqueWrong.length + 1}, ${uniqueWrong.length + 4}, ${uniqueWrong.length + 3}`);
       const values = [answer, ...uniqueWrong] as [string, string, string, string];
-      return draft([`The observations are ${data.join(", ")}. Using classes 0–4, 4–8 and 8–12, with lower limits included and upper limits excluded, what are the frequencies in that order?`, `A set of ${data.length} observations is ${data.join(", ")}. Tally them into 0–4, 4–8 and 8–12, including each lower limit but not each upper limit. What frequencies result?`],
+      return draft([`The observations are ${data.join(", ")}. A frequency table uses intervals 0–4, 4–8 and 8–12, each including its lower limit but excluding its upper limit. The class frequencies, in order, are:`, `A set of ${data.length} values is recorded: ${data.join(", ")}. In the intervals 0–4, 4–8 and 8–12 (lower limit included, upper limit excluded), the frequencies are:`],
         values, answer,
         `Count values in each stated interval. In 0–4 there ${frequencies[0] === 1 ? "is" : "are"} ${frequencies[0]}; in 4–8 there ${frequencies[1] === 1 ? "is" : "are"} ${frequencies[1]}; in 8–12 there ${frequencies[2] === 1 ? "is" : "are"} ${frequencies[2]}. The frequencies add to ${data.length}, the number of observations.`);
     }
