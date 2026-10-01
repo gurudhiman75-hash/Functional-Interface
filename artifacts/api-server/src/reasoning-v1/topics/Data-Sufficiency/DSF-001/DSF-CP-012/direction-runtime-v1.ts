@@ -80,7 +80,7 @@ function enumerateWorlds(): readonly DirectionWorld[] {
         shortestDistance: path.shortestDistance(), totalPath: firstDistance + secondDistance + thirdDistance,
       }));
     }
-  return Object.freeze(worlds);
+  return Object.freeze(worlds.filter((world) => Number.isInteger(world.shortestDistance)));
 }
 
 const DIRECTION_WORLDS = enumerateWorlds();
