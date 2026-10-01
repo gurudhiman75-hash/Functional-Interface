@@ -49,7 +49,7 @@ function enumerateWorlds():readonly World[]{
     const angle=((p.thetaDegrees%360)+360)%360; const finalFacing=DEGREES_TO_FACING[angle]!;
     out.push(Object.freeze({startFacing,firstDistance,firstTurn,secondDistance,secondTurn,thirdDistance,finalFacing,finalX:p.position.x,finalY:p.position.y,shortestDistance:p.shortestDistance(),totalPath:firstDistance+secondDistance+thirdDistance}));
   }
-  return Object.freeze(out);
+  return Object.freeze(out.filter((world)=>Number.isInteger(world.shortestDistance)));
 }
 const WORLDS=enumerateWorlds();
 
@@ -70,7 +70,7 @@ const adapter={
 function st(id:string,family:string,complexity:1|2|3,text:string,test:(w:World)=>boolean):Statement{return Object.freeze({id,family,complexity,text,test});}
 function sign(v:number){return v===0?"zero":v>0?"positive":"negative";}
 function targetLabel(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"final facing direction":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"final coordinates":"shortest distance from the starting point";}
-function prompt(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"Which direction is the person facing after the third movement?":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"Taking the starting point as (0, 0), what are the final coordinates?":"What is the shortest distance from the final point to the starting point?";}
+function prompt(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"Which direction is the person facing after the third movement?":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"Where is the final point relative to the starting point?":"What is the shortest distance from the final point to the starting point?";}
 function lead(c:ContextId){return ({
   WALKING_ROUTE:"A person moves in three successive stages.",
   DELIVERY_ROUTE:"A delivery worker moves in three successive stages.",
@@ -101,6 +101,7 @@ function pool(problem:Problem):readonly Statement[]{
     st(`YSIGN_${sign(a.finalY)}`,"FINAL_Y_SIGN",2,`The final north-south coordinate is ${sign(a.finalY)}.`,w=>sign(w.finalY)===sign(a.finalY)),
   ];
   return Object.freeze(statements.filter((statement) => {
+    if (["FINAL_X_EXACT","FINAL_Y_EXACT","FINAL_COMPONENT_PAIR","FINAL_X_SIGN","FINAL_Y_SIGN"].includes(statement.family)) return false;
     if (problem.solveMode === "DSF-SM-DIR-FINAL-FACING" && statement.family === "FINAL_FACING_EXACT") return false;
     if (problem.solveMode === "DSF-SM-DIR-FINAL-COORDINATES" && statement.family === "FINAL_COMPONENT_PAIR") return false;
     return true;
