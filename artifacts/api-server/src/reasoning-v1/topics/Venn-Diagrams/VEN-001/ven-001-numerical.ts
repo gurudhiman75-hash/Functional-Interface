@@ -947,9 +947,9 @@ export function buildNumericalItem(
                 `ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}।`,
               )[l];
         explanation = `${tx(
-          `Each pair total includes the all-three group. Subtract the all-three count from each pair, then add the three pair-only regions:`,
-          `हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। हर जोड़ी में से तीनों वाले लोगों को घटाकर तीन केवल-जोड़ी क्षेत्रों को जोड़ें:`,
-          `ਹਰ ਜੋੜੇ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਹਰ ਜੋੜੇ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕ ਘਟਾ ਕੇ ਤਿੰਨ ਸਿਰਫ਼-ਜੋੜੀ ਖੇਤਰ ਜੋੜੋ:`,
+          `For ${names.join(", ")}, each pair total includes the all-three group. Subtract the all-three count from each pair, then add the three pair-only regions:`,
+          `${names.join(", ")} की हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। हर जोड़ी में से तीनों वाले लोगों को घटाकर तीन केवल-जोड़ी क्षेत्रों को जोड़ें:`,
+          `${names.join(", ")} ਦੀ ਹਰ ਜੋੜੀ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਹਰ ਜੋੜੀ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕ ਘਟਾ ਕੇ ਤਿੰਨ ਸਿਰਫ਼-ਜੋੜੀ ਖੇਤਰ ਜੋੜੋ:`,
         )[l]} (${ab} − ${triple}) + (${ac} − ${triple}) + (${bc} − ${triple}) = ${x}. ${tx("All three groups", "तीनों समूह", "ਤਿੰਨੇ ਸਮੂਹ")[l]} = ${y}. ${ratioWork}`;
       }
       formula = "\\text{ratio}=a:b";
