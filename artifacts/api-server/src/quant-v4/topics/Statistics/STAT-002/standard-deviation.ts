@@ -170,7 +170,7 @@ function buildMeanSquares(seed: string, profile: Stat002ExamProfile): Draft {
   const meanOfSquares = m ** 2 + variance;
   const s = surface(`${seed}:mean-squares`);
   const stems = [
-    `The mean of a set of observations is ${m}, and the mean of their squares is ${meanOfSquares}. Find the standard deviation.`,
+    `The mean of a set of observations is ${m}, and the mean of their squares is ${meanOfSquares}. What is the standard deviation.`,
     `For a data set, mean = ${m} and mean of squares = ${meanOfSquares}. What is its standard deviation?`,
     `If x̄ = ${m} and the mean of x² is ${meanOfSquares}, determine the standard deviation of the observations.`,
   ] as const;
@@ -202,7 +202,7 @@ function buildTranslation(seed: string, profile: Stat002ExamProfile): Draft {
   const s = surface(`${seed}:translation`);
   const stems = [
     `The standard deviation of the observations ${list(data.values)} is ${data.standardDeviation}. If ${constant} is added to every observation, what will be the new standard deviation?`,
-    `A data set has standard deviation ${data.standardDeviation}. Every value is increased by ${constant}. Find the standard deviation of the new data set.`,
+    `A data set has standard deviation ${data.standardDeviation}. Every value is increased by ${constant}. What is the standard deviation of the new data set.`,
     `Each observation in ${list(data.values)} is replaced by x + ${constant}. If the original standard deviation is ${data.standardDeviation}, determine the new standard deviation.`,
   ] as const;
   const visibleValues = s !== 1;
@@ -246,8 +246,8 @@ function buildScale(seed: string, profile: Stat002ExamProfile): Draft {
   const s = surface(`${seed}:scale`);
   const stems = [
     `A data set has standard deviation ${data.standardDeviation}. If every observation is multiplied by ${multiplier}, what is the standard deviation of the new data set?`,
-    `The standard deviation of ${list(data.values)} is ${data.standardDeviation}. Each value is replaced by ${multiplier}x. Find the new standard deviation.`,
-    `Every observation of a data set with standard deviation ${data.standardDeviation} is multiplied by ${multiplier}. Determine the resulting standard deviation.`,
+    `The standard deviation of ${list(data.values)} is ${data.standardDeviation}. Each value is replaced by ${multiplier}x. What is the new standard deviation.`,
+    `Every observation of a data set with standard deviation ${data.standardDeviation} is multiplied by ${multiplier}. What is the resulting standard deviation.`,
   ] as const;
   const visibleValues = s === 1;
   const transformedMean = data.mean * multiplier;
@@ -289,8 +289,8 @@ function buildReverseScale(seed: string, profile: Stat002ExamProfile): Draft {
   const transformedStandardDeviation = originalStandardDeviation * multiplier;
   const s = surface(`${seed}:reverse-scale`);
   const stems = [
-    `The standard deviation of a data set is ${originalStandardDeviation}. After every observation is multiplied by the same positive number, the standard deviation becomes ${transformedStandardDeviation}. Find the multiplier.`,
-    `Multiplying every value in a data set by k changes its standard deviation from ${originalStandardDeviation} to ${transformedStandardDeviation}. Find k.`,
+    `The standard deviation of a data set is ${originalStandardDeviation}. After every observation is multiplied by the same positive number, the standard deviation becomes ${transformedStandardDeviation}. What is the multiplier.`,
+    `Multiplying every value in a data set by k changes its standard deviation from ${originalStandardDeviation} to ${transformedStandardDeviation}. What is k.`,
     `A common positive scale factor changes the standard deviation of a set from ${originalStandardDeviation} to ${transformedStandardDeviation}. What is the scale factor?`,
   ] as const;
   return {
@@ -327,7 +327,7 @@ function buildAffineFromMoments(seed: string, profile: Stat002ExamProfile): Draf
   const s = surface(`${seed}:affine-from-moments`);
   const stems = [
     `For a data set, x̄ = ${m} and the mean of x² is ${meanOfSquares}. If y = ${transform}, find the standard deviation of y.`,
-    `The mean of x is ${m} and the mean of x² is ${meanOfSquares}. Each observation is transformed by y = ${transform}. Determine the standard deviation of the transformed data.`,
+    `The mean of x is ${m} and the mean of x² is ${meanOfSquares}. Each observation is transformed by y = ${transform}. What is the standard deviation of the transformed data.`,
     `A variable x has mean ${m} and mean of squares ${meanOfSquares}. Under the transformation y = ${transform}, what is the standard deviation of y?`,
   ] as const;
   return {
