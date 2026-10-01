@@ -34,18 +34,15 @@ for (const [packageId, corpus] of packages) {
       explanationResidueCount++;
       issues.push(q.questionId+":"+language+":EXPLANATION_RESIDUE:"+l.explanation);
     }
-    const hasDev=/[\u0900-\u097F]/.test(l.stem+" "+l.options.join(" ")+" "+l.explanation);
-    const hasGur=/[\u0A00-\u0A7F]/.test(l.stem+" "+l.options.join(" ")+" "+l.explanation);
-    if(hasDev&&hasGur){ mixedScriptCount++; issues.push(q.questionId+":"+language+":MIXED_SCRIPT"); }
+    const combined=l.stem+" "+l.options.join(" ")+" "+l.explanation;
+    const cps=Array.from(combined).map(ch=>ch.codePointAt(0)??0);
+    const hasDev=cps.some(cp=>cp>=0x0900&&cp<=0x097F);
+    const hasGur=cps.some(cp=>cp>=0x0A00&&cp<=0x0A7F);
+    const mixed=language==="hi"?hasGur:hasDev;
+    if(mixed){ mixedScriptCount++; issues.push(q.questionId+":"+language+":MIXED_SCRIPT"); }
   }
   const audit={packageId,canonicalQuestionCount:corpus.length,localizedVersionCount:corpus.length*3,hindiStemResidueCount,punjabiStemResidueCount,hindiOptionResidueCount,punjabiOptionResidueCount,explanationResidueCount,genericExplanationFallbackCount,mixedScriptCount,issueCount:issues.length,issues};
   console.log(JSON.stringify(audit,null,2));
   assert.equal(corpus.length,75);
-  assert.equal(hindiStemResidueCount,0);
-  assert.equal(punjabiStemResidueCount,0);
-  assert.equal(hindiOptionResidueCount,0);
-  assert.equal(punjabiOptionResidueCount,0);
-  assert.equal(explanationResidueCount,0);
-  assert.equal(genericExplanationFallbackCount,0);
-  assert.equal(mixedScriptCount,0);
+  assert.equal(hindiStemResidueCount+punjabiStemResidueCount+hindiOptionResidueCount+punjabiOptionResidueCount+explanationResidueCount+genericExplanationFallbackCount+mixedScriptCount,0,packageId+" strict localization issues remain");
 }
