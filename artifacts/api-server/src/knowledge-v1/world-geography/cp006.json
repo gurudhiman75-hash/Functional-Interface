@@ -100,7 +100,7 @@
           "Hygrometer",
           "Anemometer"
         ],
-        "explanation": "A seismograph records seismic motion. Its record is called a seismogram."
+        "explanation": "A seismograph detects and records ground motion produced by seismic waves. The recorded trace is called a seismogram, which helps show the timing and strength of the arriving waves."
       },
       "hi": {
         "stem": "भूकंप से उत्पन्न भूमि की गति कौन-सा यंत्र दर्ज करता है?",
@@ -110,7 +110,7 @@
           "आर्द्रतामापी",
           "पवनवेगमापी"
         ],
-        "explanation": "भूकंपलेखी भूकंपीय गति दर्ज करता है। उसके अभिलेख को सीस्मोग्राम कहते हैं।"
+        "explanation": "भूकंपलेखी भूकंपीय तरंगों से उत्पन्न भूमि की गति को दर्ज करता है। इससे बनने वाले अभिलेख को सीस्मोग्राम कहा जाता है, जिससे तरंगों के पहुँचने का समय और उनकी तीव्रता समझी जाती है।"
       },
       "pa": {
         "stem": "ਭੂਚਾਲ ਨਾਲ ਪੈਦਾ ਧਰਤੀ ਦੀ ਹਿਲਜੁਲ ਕਿਹੜਾ ਯੰਤਰ ਦਰਜ ਕਰਦਾ ਹੈ?",
@@ -120,10 +120,11 @@
           "ਨਮੀ ਮਾਪਕ",
           "ਹਵਾ ਦੀ ਚਾਲ ਮਾਪਕ"
         ],
-        "explanation": "ਭੂਚਾਲ-ਲੇਖੀ ਭੂਚਾਲੀ ਗਤੀ ਦਰਜ ਕਰਦਾ ਹੈ। ਇਸ ਦੇ ਰਿਕਾਰਡ ਨੂੰ ਸੀਸਮੋਗ੍ਰਾਮ ਕਹਿੰਦੇ ਹਨ।"
+        "explanation": "ਭੂਚਾਲ-ਲੇਖੀ ਭੂਚਾਲੀ ਤਰੰਗਾਂ ਨਾਲ ਪੈਦਾ ਹੋਈ ਧਰਤੀ ਦੀ ਹਿਲਜੁਲ ਦਰਜ ਕਰਦਾ ਹੈ। ਇਸ ਨਾਲ ਬਣੇ ਰਿਕਾਰਡ ਨੂੰ ਸੀਸਮੋਗ੍ਰਾਮ ਕਹਿੰਦੇ ਹਨ, ਜਿਸ ਤੋਂ ਤਰੰਗਾਂ ਦੇ ਪਹੁੰਚਣ ਦਾ ਸਮਾਂ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਤੀਬਰਤਾ ਸਮਝੀ ਜਾਂਦੀ ਹੈ।"
       }
     },
-    "correctIndex": 0
+    "correctIndex": 0,
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP006-Q004",
