@@ -65,7 +65,7 @@ async function main() {
   const catchAllIndex = routeRegistry.indexOf("router.use(adminQuestionStudioRouter)");
   assert(sriIndex >= 0 && dsfIndex > sriIndex, "DSF normal route must follow the newest capabilities aggregator");
   assert(legacyIndex > dsfIndex, "DSF normal route must claim generic DSF runs before the legacy specialized route");
-  assert(catchAllIndex > dsfIndex, "DSF normal route must run before the legacy catch-all generator");
+  assert(catchAllIndex > dsfIndex, "DSF normal route must run before the shared review/bulk catch-all");
   assert(currentRoute.includes('router.post("/runs"'), "DSF normal route must use the standard /runs endpoint");
   assert(currentRoute.includes("questionStudioDiscoverable !== true"), "route must enforce Studio discovery contract");
   assert(currentRoute.includes("questionBankWritable !== false"), "route must enforce Question Bank lock");
