@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
-      - .github/workflows/num-002-cp007-completion-freeze.yml
       - package.json
       - pnpm-lock.yaml
   workflow_dispatch:
@@ -168,6 +167,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/num-002-cp007-english-freeze-audit.log
             artifacts/api-server/dist/quant-v4/num-002-cp007-hi-pa-parity.log
             artifacts/api-server/dist/quant-v4/num-002-cp007-hi-pa-editorial-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp007-semantic-remediation-audit-v1.log
             artifacts/api-server/dist/quant-v4/num-002-cp007-permanent-english-review.json
             artifacts/api-server/dist/quant-v4/num-002-cp007-permanent-english-review.csv
             artifacts/api-server/dist/quant-v4/num-002-cp007-permanent-english-review.md
