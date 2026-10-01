@@ -117,7 +117,10 @@ export function generatePrt001E2Parameters(input: {
       break;
     }
     case "findCapitalRatioFromProfitRatioAndTimeRatio": {
-      const s = random.pick([
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const s = numericStateRandom.pick([
         { a: 20_000, da: 12, b: 30_000, db: 8 },
         { a: 24_000, da: 9, b: 36_000, db: 6 },
         { a: 30_000, da: 8, b: 40_000, db: 12 },
