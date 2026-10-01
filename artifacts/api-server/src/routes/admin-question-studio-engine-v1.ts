@@ -90,7 +90,6 @@ const LEGACY_GENERIC_QUANT_PACKAGES = new Set([
   "num 001",
   "num 002",
   "sap",
-  "tmw 001",
 ]);
 
 const LEGACY_NUMBER_SYSTEM_CPS = new Set([
@@ -131,7 +130,6 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     || patternId.includes("num cp 014")
     || patternId === "sap"
     || patternId.includes("sap ql")
-    || patternId.includes("tmw 001")
   ) {
     return true;
   }
@@ -143,20 +141,11 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     "simplification",
     "approximation",
   ]);
-  const timeWorkSelectors = new Set([
-    "time work",
-    "time and work",
-    "work and time",
-    "pipes cisterns",
-    "pipes and cisterns",
-  ]);
   return (
     (numberSelectors.has(topic) && !subtopic)
     || (topic === "arithmetic" && numberSelectors.has(subtopic))
     || (simplificationSelectors.has(topic) && !subtopic)
     || (topic === "arithmetic" && simplificationSelectors.has(subtopic))
-    || (timeWorkSelectors.has(topic) && !subtopic)
-    || (topic === "arithmetic" && timeWorkSelectors.has(subtopic))
   );
 }
 
@@ -385,7 +374,8 @@ router.post(
           examProfileId: req.body?.examProfileId,
           difficultyPreset: req.body?.difficultyPreset,
           difficultyDistribution: req.body?.difficultyDistribution,
-          forwardLegacyExamProfile: packageId === "AVG-001",
+          forwardLegacyExamProfile:
+            packageId === "AVG-001" || packageId === "TMW-001",
           generateCandidateBatch: (candidateRequest) =>
             generateQuestionStudioQuestions({
               ...candidateRequest,

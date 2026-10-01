@@ -161,6 +161,10 @@ import {
   trg001EnginePackage,
   trg002EnginePackage,
 } from "../quant-trigonometry";
+import {
+  generateTmw001EngineBatch,
+  tmw001EnginePackage,
+} from "../quant-time-work";
 import type {
   QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
@@ -613,10 +617,14 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       packages.push(toSharedPackage(stat014QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
 
-    for (const trigPackage of [trg001EnginePackage(), trg002EnginePackage()]) {
-      const index = packages.findIndex((pkg) => pkg.packageId === trigPackage.packageId);
-      if (index >= 0) packages[index] = trigPackage;
-      else packages.push(trigPackage);
+    for (const specializedPackage of [
+      trg001EnginePackage(),
+      trg002EnginePackage(),
+      tmw001EnginePackage(),
+    ]) {
+      const index = packages.findIndex((pkg) => pkg.packageId === specializedPackage.packageId);
+      if (index >= 0) packages[index] = specializedPackage;
+      else packages.push(specializedPackage);
     }
 
     return packages.sort((left, right) => left.packageId.localeCompare(right.packageId));
@@ -642,6 +650,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
     const trigonometry = await generateTrigonometryEngineBatch(request);
     if (trigonometry) return trigonometry;
+
+    const timeAndWork = await generateTmw001EngineBatch(request);
+    if (timeAndWork) return timeAndWork;
 
     const diMixRequest = toDiMixRequest(request);
     if (isDiDeliveryNoveltyMixRequest(diMixRequest)) {

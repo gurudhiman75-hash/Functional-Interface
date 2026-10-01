@@ -75,7 +75,6 @@ for (const packageId of [
   "num 001",
   "num 002",
   "sap",
-  "tmw 001",
 ]) {
   assert.equal(
     engineRoute.includes(`"${packageId}"`),
@@ -89,7 +88,9 @@ assert.match(quantProfile, /buildQuantExamProfilePlan/);
 assert.match(quantProfile, /generateProfiledQuantBatch/);
 assert.match(quantProfile, /cpCounts/);
 assert.doesNotMatch(engineRoute, /"avg 001"/);
-assert.match(engineRoute, /forwardLegacyExamProfile: packageId === "AVG-001"/);
+assert.doesNotMatch(engineRoute, /"tmw 001"/);
+assert.match(engineRoute, /packageId === "AVG-001"/);
+assert.match(engineRoute, /packageId === "TMW-001"/);
 assert.doesNotMatch(engineRoute, /"trg 001"/);
 assert.doesNotMatch(engineRoute, /"trg 002"/);
 
