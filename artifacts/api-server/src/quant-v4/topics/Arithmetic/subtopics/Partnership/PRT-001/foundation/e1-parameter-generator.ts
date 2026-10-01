@@ -159,12 +159,20 @@ export function generatePrt001E1Parameters(input: {
       break;
     }
     case "findProfitRatioAfterPercentageCapitalIncrease": {
-      const scenario = random.pick([
-        { a0: 20_000, a1: 30_000, pct: 50, change: 6, b: 25_000 },
-        { a0: 24_000, a1: 30_000, pct: 25, change: 4, b: 28_000 },
-        { a0: 30_000, a1: 36_000, pct: 20, change: 8, b: 32_000 },
-        { a0: 40_000, a1: 50_000, pct: 25, change: 3, b: 45_000 },
-      ]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const a0 = numericStateRandom.pick([20_000, 24_000, 32_000, 40_000, 48_000, 60_000]);
+      const pct = numericStateRandom.pick([20, 25, 50, 75]);
+      const change = numericStateRandom.pick([3, 4, 5, 6, 8, 9]);
+      const b = numericStateRandom.pick([25_000, 28_000, 32_000, 36_000, 45_000, 50_000, 60_000]);
+      const scenario = {
+        a0,
+        a1: (a0 * (100 + pct)) / 100,
+        pct,
+        change,
+        b,
+      };
       state = makeState([
         partner(partnerA, [segment(0, scenario.change, money(scenario.a0)), segment(scenario.change, 12, money(scenario.a1))]),
         partner(partnerB, [segment(0, 12, money(scenario.b))]),
