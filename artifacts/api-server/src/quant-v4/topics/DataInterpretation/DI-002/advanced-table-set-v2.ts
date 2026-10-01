@@ -356,7 +356,7 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const missingSurface = surface(`${seed}:MISSING_APPLICANTS_FROM_RATE:surface`, [
     `The Applicants value for ${hiddenRow.label} is missing. How many candidates applied there?`,
     `For ${hiddenRow.label}, ${hiddenRow.selected} candidates were selected at a selection rate of ${hiddenRow.selectionPercent}%. Find the number of applicants.`,
-    `Using the data for ${hiddenRow.label}, calculate the missing Applicants entry.`,
+    `How many applicants are there for ${hiddenRow.label}?`,
   ]);
 
   const rejectedSurface = surface(`${seed}:REJECTED_COUNT:surface`, [
@@ -386,7 +386,7 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const combinedRejectedSurface = surface(`${seed}:COMBINED_REJECTED:surface`, [
     `How many applicants from ${rows[combinedRejectedA]!.label} and ${rows[combinedRejectedB]!.label} together were not selected?`,
     `Find the combined number of candidates not selected from ${rows[combinedRejectedA]!.label} and ${rows[combinedRejectedB]!.label}.`,
-    `After finding the rejected candidates for ${rows[combinedRejectedA]!.label} and ${rows[combinedRejectedB]!.label}, what is their total?`,
+    `How many candidates were not selected in total at ${rows[combinedRejectedA]!.label} and ${rows[combinedRejectedB]!.label}?`,
   ]);
 
   const applicantsRatioSurface = surface(`${seed}:APPLICANTS_RATIO:surface`, [
@@ -422,7 +422,7 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const rejectedRatioSurface = surface(`${seed}:REJECTED_TO_SELECTED_RATIO:surface`, [
     `For ${rows[rejectA]!.label} and ${rows[rejectB]!.label} together, what is the ratio of candidates not selected to candidates selected?`,
     `For ${rows[rejectA]!.label} and ${rows[rejectB]!.label} together, find the ratio of candidates not selected to candidates selected.`,
-    `After combining the two rows, what is the ratio of the number not selected to the number selected?`,
+    `For ${rows[rejectA]!.label} and ${rows[rejectB]!.label} together, what is the ratio of candidates not selected to candidates selected?`,
   ]);
 
   return [

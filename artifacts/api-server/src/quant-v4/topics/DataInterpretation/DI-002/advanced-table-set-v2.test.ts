@@ -53,6 +53,7 @@ for (let seedIndex = 0; seedIndex < 240; seedIndex += 1) {
       assert(new Set(question.options).size === set.optionCount, `${seed}/${question.kind}: duplicate options.`);
       assert(question.options[question.correctIndex] === question.answer, `${seed}/${question.kind}: correct index mismatch.`);
       assert(!/\bassociated\b/iu.test(question.stem), `${seed}/${question.kind}: mechanical 'associated' wording leaked into the stem.`);
+      assert(!/\bAfter (?:combining|finding|calculating|adding|resolving)\b|\bUsing the data\b/iu.test(question.stem), `${seed}/${question.kind}: procedural setup leaked into the stem.`);
       assert(!/nearest whole percent|round to the nearest whole percent|give the nearest whole percent/iu.test(question.stem), `${seed}/${question.kind}: explicit rounding instruction leaked into the stem.`);
       assert(!/\d+\.\d+%/u.test(question.stem + " " + question.answer), `${seed}/${question.kind}: decimal percentage leaked to the learner surface.`);
       assert(!/Selected\(|Applicants\(/u.test(question.stem), `${seed}/${question.kind}: formula-like table notation leaked into an exam stem.`);

@@ -38,6 +38,8 @@ Review feedback found that removing procedural directions was not enough: many H
 
 The subsequent chapter scan found four English DI-012 stems that began with “After recovering…” or “After solving…”, and one DI-006 stem that appended “after resolving all stated relations.” These directions are now removed from the questions; the recovery work stays in the explanations. The DI-011 pie-chart/table prompt also no longer adds a stiff “according to the table” clause where the paired display already supplies that context. Its grouped-ratio stem now names the first and second category groups and uses explicit localized measures instead of a literal “for … total” construction. Regression checks cover these wording rules.
 
+A later English full-batch sample exposed procedural variants in DI-002 (“After combining the two rows”), DI-007 (“After finding the missing entry” and “After finding the missing value”) and DI-008 (“After combining the sales”). These variants have been replaced with direct asks that name the requested values, groups or measure. Seeded stress tests now reject these procedural openings across their generated stem surfaces.
+
 ## Exam-style spot check (2026-09-30)
 
 A limited comparison was made against publicly available SSC CGL and Banking DI materials:
