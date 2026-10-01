@@ -88,7 +88,6 @@ function normalizeCompatibilitySelector(value: unknown): string {
 }
 
 const LEGACY_GENERIC_QUANT_PACKAGES = new Set([
-  "num 001",
   "num 002",
   "sap",
 ]);
@@ -102,6 +101,52 @@ const LEGACY_NUMBER_SYSTEM_CPS = new Set([
   "NUM-CP-013",
   "NUM-CP-014",
 ]);
+
+function isLegacyNum002QuestionLanguageId(value: unknown): boolean {
+  const match = /^NUM-QL-(\d{3})$/u.exec(asString(value).toUpperCase());
+  return Boolean(match && Number(match[1]) >= 166);
+}
+
+function includesLegacyNum002CpIds(value: unknown): boolean {
+  return Array.isArray(value)
+    && value.some((cpId) => LEGACY_NUMBER_SYSTEM_CPS.has(asString(cpId)));
+}
+
+function inferNum001CpFromQl(value: unknown): "NUM-CP-001" | "NUM-CP-003" | "NUM-CP-004" | undefined {
+  const match = /^NUM-QL-(\d{3})$/u.exec(asString(value).toUpperCase());
+  if (!match) return undefined;
+  const number = Number(match[1]);
+  if (number >= 1 && number <= 17) return "NUM-CP-003";
+  if (number >= 18 && number <= 45) return "NUM-CP-004";
+  if (number >= 124 && number <= 144) return "NUM-CP-001";
+  return undefined;
+}
+
+function isNum001UnifiedRequest(body: Record<string, unknown>): boolean {
+  const packageId = normalizeCompatibilitySelector(body.packageId ?? body.archetypeId);
+  const patternId = normalizeCompatibilitySelector(body.patternId);
+  const topic = normalizeCompatibilitySelector(body.topic);
+  const subtopic = normalizeCompatibilitySelector(body.subtopic);
+  const cpId = asString(body.canonicalProblemId) || asString(body.cpId);
+  const qlCp = inferNum001CpFromQl(body.questionLanguageId);
+  const numberSelectors = new Set(["number system", "numbers", "number theory"]);
+
+  if (packageId === "num 002") return false;
+  if (LEGACY_NUMBER_SYSTEM_CPS.has(cpId)) return false;
+  if (includesLegacyNum002CpIds(body.cpIds)) return false;
+  if (isLegacyNum002QuestionLanguageId(body.questionLanguageId)) return false;
+
+  return (
+    packageId === "num 001"
+    || patternId.includes("num 001")
+    || cpId === "NUM-CP-001"
+    || cpId === "NUM-CP-003"
+    || cpId === "NUM-CP-004"
+    || Boolean(qlCp)
+    || (numberSelectors.has(topic) && !subtopic)
+    || (topic === "arithmetic" && numberSelectors.has(subtopic))
+  );
+}
 
 /**
  * A small set of pre-registry Quant routes still owns the generic /runs
@@ -148,10 +193,11 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
 
   if (LEGACY_GENERIC_QUANT_PACKAGES.has(packageId) && !(packageId === "sap" && bankingSap)) return true;
   if (LEGACY_NUMBER_SYSTEM_CPS.has(cpId)) return true;
+  if (includesLegacyNum002CpIds(body.cpIds)) return true;
+  if (isLegacyNum002QuestionLanguageId(body.questionLanguageId)) return true;
 
   if (
-    patternId.includes("num 001")
-    || patternId.includes("num 002")
+    patternId.includes("num 002")
     || patternId.includes("num cp 008")
     || patternId.includes("num cp 009")
     || patternId.includes("num cp 010")
@@ -172,8 +218,8 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     "approximation",
   ]);
   return (
-    (numberSelectors.has(topic) && !subtopic)
-    || (topic === "arithmetic" && numberSelectors.has(subtopic))
+    ((numberSelectors.has(topic) && !subtopic) && packageId === "num 002")
+    || ((topic === "arithmetic" && numberSelectors.has(subtopic)) && packageId === "num 002")
     || ((simplificationSelectors.has(topic) && !subtopic) && !bankingSap)
     || ((topic === "arithmetic" && simplificationSelectors.has(subtopic)) && !bankingSap)
   );
@@ -407,6 +453,7 @@ router.post(
           forwardLegacyExamProfile:
             packageId === "AVG-001"
             || packageId === "TMW-001"
+            || isNum001UnifiedRequest((req.body ?? {}) as Record<string, unknown>)
             || isBankingSapCompatibilityRequest((req.body ?? {}) as Record<string, unknown>),
           generateCandidateBatch: (candidateRequest) =>
             generateQuestionStudioQuestions({
