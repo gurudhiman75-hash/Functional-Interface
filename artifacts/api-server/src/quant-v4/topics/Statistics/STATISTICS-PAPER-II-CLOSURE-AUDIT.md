@@ -40,13 +40,14 @@ The review-only lifecycle remains in force: Question Bank writes, test/mock elig
 - The final syllabus-gap implementation was merged in PR #2865. STAT-010 and STAT-014 focused package checks, shared exam-profile checks, learner-surface remediation and branch-topology checks passed before merge.
 - The final repository-wide Quant real-exam simulation triggered by PR #2865 completed successfully. All closure validation gates are now green.
 - Existing state solvers, answer keys, distractor contracts, lifecycle locks and Question Studio integration were preserved through the closure additions.
+- The diversity/object-pool expansion in PR #2873 passed all 14 Statistics package workflows plus branch topology, shared exam-profile, learner-surface remediation and the 220-section Quant real-exam simulation.
 
 ## Accepted scope limits
 
 The following are intentionally outside the SSC Paper-II closure target and are not chapter blockers: advanced two-sample and small-sample interval families beyond the current foundation, power analysis, mixed/repeated-measures models, robust ANOVA alternatives, stochastic time-series forecasting, ARIMA-style modelling and specialist index-number families not listed in the SSC syllabus.
 
-Question diversity and object-pool expansion remain a later enhancement pass, as previously approved; they are not treated as syllabus-coverage blockers.
+The chapter-wide diversity/object-pool enhancement pass was completed in PR #2873. Existing QLs now use wider deterministic numeric templates, datasets, scenario surfaces and context pools across STAT-001 through STAT-014, including conversion of several formerly fixed examples into seeded variants.
 
 ## Closure status
 
-**CLOSED.** The content audit, syllabus audit, focused Statistics package checks, shared exam-profile checks, learner-surface checks and final Quant real-exam simulation have all passed. No further syllabus expansion is required for closure. Question diversity/object-pool expansion remains a separate future enhancement pass and does not reopen the chapter.
+**CLOSED.** The content audit, syllabus audit, exam-style stem cleanup, diversity/object-pool expansion, focused Statistics package checks, shared exam-profile checks, learner-surface checks and final Quant real-exam simulation have all passed. No further syllabus or diversity expansion is required for the current Statistics closure scope.
