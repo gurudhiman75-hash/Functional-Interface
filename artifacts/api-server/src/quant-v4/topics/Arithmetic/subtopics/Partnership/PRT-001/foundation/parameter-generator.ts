@@ -163,13 +163,42 @@ export function generatePrt001PilotParameters(input: {
   } else if (
     input.entry.solveMode === "findUnknownDurationFromShareRatioAndCapitals"
   ) {
-    const scenarios = variableRanges.unknownDurationScenarios;
-    scenario = scenarios[
-      deterministicScenarioIndex(
-        `${input.seed}:numeric-state:${input.entry.solveMode}`,
-        scenarios.length,
-      )
-    ]!;
+    const numericStateRandom = createPrt001Random(
+      `${input.seed}:numeric-state:${input.entry.solveMode}`,
+    );
+    const capitalRatio = numericStateRandom.pick([
+      [2, 3],
+      [3, 2],
+      [3, 4],
+      [4, 3],
+      [4, 5],
+      [5, 4],
+      [3, 5],
+      [5, 3],
+      [5, 7],
+      [7, 5],
+    ] as const);
+    const durationPair = numericStateRandom.pick([
+      [6, 12],
+      [8, 12],
+      [9, 12],
+      [10, 12],
+      [12, 18],
+      [15, 20],
+      [16, 24],
+      [18, 24],
+      [20, 24],
+      [12, 16],
+      [14, 21],
+      [18, 30],
+    ] as const);
+    const unit = numericStateRandom.pick([6_000, 8_000, 10_000, 12_000, 15_000]);
+    scenario = {
+      capitalA: capitalRatio[0] * unit,
+      durationA: durationPair[0],
+      capitalB: capitalRatio[1] * unit,
+      durationB: durationPair[1],
+    };
   } else {
     scenario = random.pick(variableRanges.unequalDurationScenarios);
   }
