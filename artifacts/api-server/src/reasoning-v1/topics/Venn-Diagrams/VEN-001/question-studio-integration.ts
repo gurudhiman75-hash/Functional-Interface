@@ -7,6 +7,7 @@ import type {
   QuestionStudioPackageDefinition,
 } from "../../../../question-studio/engine-types.ts";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle.ts";
+import { VEN_001_PERMANENT_QLS, ven001QlForOperation } from "./ql-registry.ts";
 import { findVennTopologyWitness } from "./logical-venn-topology.ts";
 import {
   renderVennTopologySvg,
@@ -379,7 +380,10 @@ export const VEN_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition =
       chapterId: "VEN-001",
       reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
       registrationAuthorityId: VEN_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
-      permanentQlIdsAllocated: false,
+      permanentQlIdsAllocated: true,
+      permanentQlAuthorityId: "VEN_001_PERMANENT_QL_REGISTRY_V1",
+      permanentQlCount: VEN_001_PERMANENT_QLS.length,
+      permanentQlIds: VEN_001_PERMANENT_QLS.map((entry) => entry.qlId),
       numericalSupplementReviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
       geometricRegionSupplementReviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
       supportedQuestionOperations: [
@@ -549,6 +553,8 @@ export function generateVen001QuestionStudioBatch(
       questionOperation: reverse
         ? "DIAGRAM_TO_CATEGORIES"
         : "CATEGORIES_TO_DIAGRAM",
+      qlId: ven001QlForOperation(reverse ? "DIAGRAM_TO_CATEGORIES" : "CATEGORIES_TO_DIAGRAM"),
+      permanentQlId: ven001QlForOperation(reverse ? "DIAGRAM_TO_CATEGORIES" : "CATEGORIES_TO_DIAGRAM"),
       language: lang,
       locale,
       stem,

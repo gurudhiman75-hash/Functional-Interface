@@ -4,6 +4,7 @@ import type {
   QuestionStudioLanguage,
 } from "../../../../question-studio/engine-types.ts";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 as lifecycle } from "../../../../question-studio/standard-lifecycle.ts";
+import { ven001QlForOperation } from "./ql-registry.ts";
 
 export const VEN_001_SHAPE_REGION_CP_ID = "VEN-CP011" as const;
 type L = QuestionStudioLanguage;
@@ -1320,6 +1321,8 @@ export function generateVen001ShapeRegionBatch(
       difficultyLabel: "Medium",
       difficultyAuthority: "PROVISIONAL_OPERATION_BASED",
       questionOperation: "GEOMETRIC_REGION_COUNT",
+      qlId: ven001QlForOperation("GEOMETRIC_REGION_COUNT"),
+      permanentQlId: ven001QlForOperation("GEOMETRIC_REGION_COUNT"),
       generationSeed: seed,
       reviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
       runtimeMode: "review-only",
