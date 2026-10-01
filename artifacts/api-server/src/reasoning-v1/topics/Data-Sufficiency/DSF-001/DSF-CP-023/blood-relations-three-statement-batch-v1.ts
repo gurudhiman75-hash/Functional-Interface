@@ -21,6 +21,7 @@ import {
   renderThreeStatementSemanticLabel,
   type DsfCp015ThreeStatementSemanticKey,
 } from "../DSF-CP-015/three-statement-answer-profile.ts";
+import { renderThreeStatementEditorialExplanation } from "../shared/three-statement-editorial-explanation.ts";
 
 export const DSF_CP023_BLOOD_QL002_RUNTIME_VERSION = "DSF_CP023_BLOOD_QL002_RUNTIME_V1" as const;
 export const DSF_CP023_BLOOD_SOLVE_MODES = [
@@ -167,9 +168,7 @@ function select(seed:string){
   return {problem:fallback.problem,candidate:short[pick(`${seed}:fallback`,short.length)]!};
 }
 function explanation(problem:Problem,c:Candidate){
-  const single=(id:"I"|"II"|"III")=>c.evaluation.subsetEvaluations.find(e=>e.statementIds.length===1&&e.statementIds[0]===id)?.result;
-  const line=(label:string,r:ReturnType<typeof single>)=>r?.sufficient?`${label} alone fixes the exact relation as ${rel(r.normalizedTargetAnswers[0]??"")}.`:`${label} alone still permits more than one exact relation.`;
-  return [`We need to determine ${targetLabel(problem.solveMode)}.`,line("Statement I",single("I")),line("Statement II",single("II")),line("Statement III",single("III")),renderThreeStatementSemanticLabel(c.semanticKey)].join(" ");
+  return renderThreeStatementEditorialExplanation(c.evaluation, targetLabel(problem.solveMode), c.semanticKey);
 }
 export function generateDsfCp023BloodQuestion(seed:string|number){
   const s=String(seed),{problem,candidate:c}=select(s),options=buildThreeStatementAnswerOptions(c.semanticKey,hash(s)),correctIndex=options.findIndex(x=>x.isCorrect);
