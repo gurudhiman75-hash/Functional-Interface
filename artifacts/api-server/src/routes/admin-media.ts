@@ -13,11 +13,34 @@ const MAX_BYTES = 10 * 1024 * 1024;
 
 function text(value: unknown, max=500){return typeof value==="string"?value.trim().slice(0,max):"";}
 function safeName(value:string){return value.replace(/[^a-zA-Z0-9._-]+/g,"-").replace(/^-+|-+$/g,"").slice(0,120)||"asset";}
+let schemaPromise:Promise<void>|null=null;
+function ensureMediaSchema(){
+  schemaPromise??=(async()=>{
+    await sqlClient`CREATE TABLE IF NOT EXISTS platform.media_assets (
+      id uuid PRIMARY KEY,
+      name text NOT NULL,
+      asset_type text NOT NULL,
+      mime_type text NOT NULL,
+      byte_size bigint NOT NULL CHECK (byte_size >= 0),
+      width_px integer NULL CHECK (width_px IS NULL OR width_px > 0),
+      height_px integer NULL CHECK (height_px IS NULL OR height_px > 0),
+      storage_path text NOT NULL UNIQUE,
+      download_url text NOT NULL,
+      status text NOT NULL DEFAULT 'active' CHECK (status IN ('active','archived')),
+      created_by uuid NULL REFERENCES identity.users(id) ON DELETE SET NULL,
+      created_at timestamptz NOT NULL DEFAULT now(),
+      updated_at timestamptz NOT NULL DEFAULT now()
+    )`;
+    await sqlClient`CREATE INDEX IF NOT EXISTS media_assets_status_type_idx ON platform.media_assets (status, asset_type, created_at DESC)`;
+  })();
+  return schemaPromise;
+}
 
 router.use(authenticate);
 
 router.get("/", requireAdminPermission("content.taxonomy.read"), async (req,res)=>{
   try{
+    await ensureMediaSchema();
     const status=text(req.query.status,20)||"all";
     const type=text(req.query.type,80)||"all";
     const search=text(req.query.search,120).toLowerCase();
@@ -41,6 +64,7 @@ router.get("/", requireAdminPermission("content.taxonomy.read"), async (req,res)
 
 router.post("/upload-intent",requireAdminPermission("content.taxonomy.manage"),async(req,res)=>{
   try{
+    await ensureMediaSchema();
     if(!storage)return void res.status(503).json({error:"Firebase Storage is unavailable",code:"MEDIA_STORAGE_UNAVAILABLE"});
     const name=text(req.body?.name,200); const assetType=text(req.body?.type,80); const mimeType=text(req.body?.mimeType,100); const byteSize=Number(req.body?.byteSize);
     if(!name||!ALLOWED_TYPES.has(assetType)||!ALLOWED_MIME.has(mimeType)||!Number.isFinite(byteSize)||byteSize<=0||byteSize>MAX_BYTES)return void res.status(400).json({error:"Invalid media upload",code:"MEDIA_UPLOAD_INVALID"});
@@ -53,6 +77,7 @@ router.post("/upload-intent",requireAdminPermission("content.taxonomy.manage"),a
 
 router.post("/finalize",requireAdminPermission("content.taxonomy.manage"),async(req,res)=>{
   try{
+    await ensureMediaSchema();
     if(!storage)return void res.status(503).json({error:"Firebase Storage is unavailable",code:"MEDIA_STORAGE_UNAVAILABLE"});
     const objectPath=text(req.body?.objectPath,600); const name=text(req.body?.name,200); const assetType=text(req.body?.type,80); const mimeType=text(req.body?.mimeType,100); const byteSize=Number(req.body?.byteSize);
     const width=Number(req.body?.width)||null; const height=Number(req.body?.height)||null;
@@ -73,6 +98,7 @@ router.post("/finalize",requireAdminPermission("content.taxonomy.manage"),async(
 
 router.patch("/:id",requireAdminPermission("content.taxonomy.manage"),async(req,res)=>{
   try{
+    await ensureMediaSchema();
     const id=text(req.params.id,80); const status=text(req.body?.status,20);
     if(!/^[0-9a-f-]{36}$/i.test(id)||!["active","archived"].includes(status))return void res.status(400).json({error:"Invalid media update",code:"MEDIA_UPDATE_INVALID"});
     const rows=await sqlClient`UPDATE platform.media_assets SET status=${status},updated_at=now() WHERE id=${id}::uuid RETURNING id::text`;
