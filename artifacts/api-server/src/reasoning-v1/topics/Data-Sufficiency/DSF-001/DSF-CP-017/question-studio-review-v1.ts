@@ -27,6 +27,10 @@ import {
   type DsfReasoningLocalizedLanguage,
 } from "../DSF-CP-018/reasoning-localization-v1.ts";
 import {
+  localizeDsfQuantQuestion,
+  type DsfQuantLocalizedLanguage,
+} from "../DSF-CP-019/quant-localization-v1.ts";
+import {
   DSF_CURRENT_NEXT_AVAILABLE_QL_ID,
   DSF_CURRENT_PERMANENT_QL_REGISTRY,
 } from "../foundation/current-permanent-ql-registry.ts";
@@ -51,6 +55,18 @@ export const DSF_CP018_REASONING_LOCALIZED_LANES = [
   "DSF-QS-SEATING",
   "DSF-QS-CODING",
   "DSF-QS-CALENDAR",
+] as const;
+export const DSF_CP019_QUANT_LOCALIZED_LANES = [
+  "DSF-QS-AVERAGE",
+  "DSF-QS-AGES",
+  "DSF-QS-PROFIT-LOSS-DISCOUNT",
+  "DSF-QS-INTEREST",
+  "DSF-QS-TIME-WORK-PIPES",
+  "DSF-QS-TSD-TRAINS-BOATS",
+  "DSF-QS-MIXTURE-ALLIGATION",
+  "DSF-QS-MENSURATION",
+  "DSF-QS-CORE-ENRICHMENT",
+  "DSF-QS-ALGEBRA-ENRICHMENT",
 ] as const;
 export const DSF_CP017_SUPPORTED_DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
 export const DSF_CP017_LEARNER_STEM_VERSION = "DSF_CP017_DIRECT_EXAM_STEM_V1" as const;
@@ -122,9 +138,7 @@ export const DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
     qlId: "DSF-QL-001" as const,
     domainFamily: lane.domainFamily,
     sourceChapter: lane.sourceChapter,
-    supportedLanguages: lane.domainFamily === "REASONING" || DSF_CP017_LEGACY_LOCALIZED_LANES.includes(lane.laneId as any)
-      ? DSF_CP017_SUPPORTED_LANGUAGES
-      : ["en"] as const,
+    supportedLanguages: DSF_CP017_SUPPORTED_LANGUAGES,
   }))),
   laneCount: DSF_CP017_LANES.length,
   permanentQlCount: DSF_CURRENT_PERMANENT_QL_REGISTRY.length,
@@ -184,7 +198,8 @@ function normalizeLanguage(value: unknown): "en" | "hi" | "pa" {
 function laneSupportsLanguage(lane: LaneEntry, language: "en" | "hi" | "pa"): boolean {
   if (language === "en") return true;
   if (DSF_CP017_LEGACY_LOCALIZED_LANES.includes(lane.laneId as any)) return true;
-  return DSF_CP018_REASONING_LOCALIZED_LANES.includes(lane.laneId as any);
+  if (DSF_CP018_REASONING_LOCALIZED_LANES.includes(lane.laneId as any)) return true;
+  return DSF_CP019_QUANT_LOCALIZED_LANES.includes(lane.laneId as any);
 }
 
 function requestedQl(input: DsfCp017QuestionStudioInput): string | undefined {
@@ -219,7 +234,7 @@ function candidateLanes(input: DsfCp017QuestionStudioInput, language: "en" | "hi
   }
   if (explicitLane) {
     if (!laneSupportsLanguage(explicitLane, language)) {
-      throw new Error(`${explicitLane.laneId} is not yet localized for '${language}'. Its current CP017 review surface remains English-only pending the Quant expansion localization pass.`);
+      throw new Error(`${explicitLane.laneId} is not localized for '${language}'.`);
     }
     return [explicitLane];
   }
@@ -253,16 +268,46 @@ function generateLaneQuestion(lane: LaneEntry, seed: number, language: "en" | "h
     case "DSF-QS-LEGACY-RATIO": return legacyQuestion("RATIO_PROPORTION", seed, language);
     case "DSF-QS-LEGACY-PERCENTAGE": return legacyQuestion("PERCENTAGE", seed, language);
     case "DSF-QS-LEGACY-ALGEBRA": return legacyQuestion("ALGEBRA", seed, language);
-    case "DSF-QS-AVERAGE": return generateDsfCp011AverageBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-AGES": return generateDsfCp011AgesEditorialBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-PROFIT-LOSS-DISCOUNT": return generateDsfCp011PnlBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-INTEREST": return generateDsfCp011InterestBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-TIME-WORK-PIPES": return generateDsfCp011TmwBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-TSD-TRAINS-BOATS": return generateDsfCp011TsdBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-MIXTURE-ALLIGATION": return generateDsfCp011MixtureBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-MENSURATION": return generateDsfCp011MensurationBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-CORE-ENRICHMENT": return generateDsfCp011CoreEnrichmentBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-ALGEBRA-ENRICHMENT": return generateDsfCp011AlgebraEnrichmentBatch([seed])[0]! as AnyQuestion;
+    case "DSF-QS-AVERAGE": {
+      const q = generateDsfCp011AverageBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfQuantQuestion(lane.laneId, q, language as DsfQuantLocalizedLanguage);
+    }
+    case "DSF-QS-AGES": {
+      const q = generateDsfCp011AgesEditorialBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfQuantQuestion(lane.laneId, q, language as DsfQuantLocalizedLanguage);
+    }
+    case "DSF-QS-PROFIT-LOSS-DISCOUNT": {
+      const q = generateDsfCp011PnlBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfQuantQuestion(lane.laneId, q, language as DsfQuantLocalizedLanguage);
+    }
+    case "DSF-QS-INTEREST": {
+      const q = generateDsfCp011InterestBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfQuantQuestion(lane.laneId, q, language as DsfQuantLocalizedLanguage);
+    }
+    case "DSF-QS-TIME-WORK-PIPES": {
+      const q = generateDsfCp011TmwBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfQuantQuestion(lane.laneId, q, language as DsfQuantLocalizedLanguage);
+    }
+    case "DSF-QS-TSD-TRAINS-BOATS": {
+      const q = generateDsfCp011TsdBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfQuantQuestion(lane.laneId, q, language as DsfQuantLocalizedLanguage);
+    }
+    case "DSF-QS-MIXTURE-ALLIGATION": {
+      const q = generateDsfCp011MixtureBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfQuantQuestion(lane.laneId, q, language as DsfQuantLocalizedLanguage);
+    }
+    case "DSF-QS-MENSURATION": {
+      const q = generateDsfCp011MensurationBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfQuantQuestion(lane.laneId, q, language as DsfQuantLocalizedLanguage);
+    }
+    case "DSF-QS-CORE-ENRICHMENT": {
+      const q = generateDsfCp011CoreEnrichmentBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfQuantQuestion(lane.laneId, q, language as DsfQuantLocalizedLanguage);
+    }
+    case "DSF-QS-ALGEBRA-ENRICHMENT": {
+      const q = generateDsfCp011AlgebraEnrichmentBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfQuantQuestion(lane.laneId, q, language as DsfQuantLocalizedLanguage);
+    }
     case "DSF-QS-RANKING": {
       const q = reasoningSurface("RANKING", generateDsfCp012RankingBatch([seed])[0]! as AnyQuestion);
       return language === "en" ? q : localizeDsfReasoningQuestion(lane.laneId, q, language as DsfReasoningLocalizedLanguage);
