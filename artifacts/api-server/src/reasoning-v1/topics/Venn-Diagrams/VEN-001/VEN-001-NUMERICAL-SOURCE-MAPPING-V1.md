@@ -45,7 +45,10 @@ Concrete examples include SSC CHSL/CPO/GD/MTS tagged diagram-count questions in 
 | VEN-CP008 | missing-triple | DIRECT_OPERATION_SUPPORT | retain; exact explicit-x centre form needs stronger direct evidence |
 | VEN-CP008 | missing-total / region-equation | DERIVED_EXTENSION | retain review-only as inverse/constraint variants |
 | VEN-CP009 | shared caselet counting | STRONG_LIBRARY_SUPPORT at operation level | retain |
-| VEN-CP010 | minimum/maximum intersection/union bounds | SOURCE_GAP_OPEN | keep review-only; do not describe as source-saturated |
+| VEN-CP010 | minimum two-set intersection | STRONG_LIBRARY_SUPPORT | direct RRB NTPC 28 Mar 2016 Shift 1 evidence; retain |
+| VEN-CP010 | maximum two-set intersection | SOURCE_GAP_OPEN | retain review-only; target-exam evidence still needed |
+| VEN-CP010 | minimum/maximum three-set intersection | SOURCE_GAP_OPEN | retain review-only; target-exam evidence still needed |
+| VEN-CP010 | minimum/maximum two-/three-set union bounds | SOURCE_GAP_OPEN | retain review-only; target-exam evidence still needed |
 
 ## Important conclusion
 
@@ -57,7 +60,7 @@ The corrected conclusion is narrower:
 - **percentage Venn reasoning is sourced;**
 - **missing-intersection solving is sourced;**
 - **some ratio/inverse/x formulations are derived extensions of sourced mathematics;**
-- **explicit min/max overlap bounds remain the clearest open source gap.**
+- **the two-set minimum-overlap pattern is now directly sourced from RRB NTPC; the remaining CP010 bound variants remain the clearest open source gap.**
 
 This is a source-calibration distinction, not a correctness defect. Runtime metadata now exposes the status per generated numerical question so Question Studio review can distinguish sourced patterns from controlled extensions.
 
@@ -70,3 +73,25 @@ This is a source-calibration distinction, not a correctness defect. Runtime meta
 - CP010 source saturation: open
 - learner-data difficulty calibration: later gate
 - novelty promotion: later cross-chapter pass
+
+
+## CP010 source refinement — 2026-10-01
+
+A broader source search located a direct target-exam match for `minimum-intersection-2`:
+
+- **RRB NTPC, 28 March 2016, Shift 1**: 40 students; 28 speak Tamil; 30 speak Telugu; all speak at least one language; asked for the **minimum number who can speak both Tamil and Telugu**.
+- The solution is the exact lower-bound relation used by the current two-set CP010 generator: `max(0, n(A)+n(B)-N)`.
+
+This changes only that specific CP010 variant from open-gap to strongly supported.
+
+The following CP010 variants remain open for comparable SSC/Banking/Punjab-state evidence:
+
+- maximum-intersection-2;
+- minimum-intersection-3;
+- maximum-intersection-3;
+- minimum-union-2;
+- maximum-union-2;
+- minimum-union-3;
+- maximum-union-3.
+
+Non-target-exam sources (for example CAT/GMAT-style set-bound questions) demonstrate mathematical legitimacy, but are not used here to claim target-exam saturation.
