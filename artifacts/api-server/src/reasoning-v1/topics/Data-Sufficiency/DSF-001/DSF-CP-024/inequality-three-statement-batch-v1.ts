@@ -14,6 +14,7 @@ import {
   renderThreeStatementSemanticLabel,
   type DsfCp015ThreeStatementSemanticKey,
 } from "../DSF-CP-015/three-statement-answer-profile.ts";
+import { renderThreeStatementEditorialExplanation } from "../shared/three-statement-editorial-explanation.ts";
 
 export const DSF_CP024_INEQUALITY_QL002_RUNTIME_VERSION = "DSF_CP024_INEQUALITY_QL002_RUNTIME_V1" as const;
 export const DSF_CP024_INEQUALITY_SOLVE_MODES = [
@@ -115,9 +116,7 @@ function select(seed:string){
   return {p:fallback.p,c:short[pick(`${seed}:fallback`,short.length)]!};
 }
 function explanation(p:Problem,c:Candidate){
-  const get=(id:"I"|"II"|"III")=>c.evaluation.subsetEvaluations.find(e=>e.statementIds.length===1&&e.statementIds[0]===id)?.result;
-  const line=(label:string,r:ReturnType<typeof get>)=>r?.sufficient?`${label} alone fixes the requested relation at ${r.normalizedTargetAnswers[0]}.`:`${label} alone does not fix one definite relation.`;
-  return [`We need the ${targetLabel(p.solveMode)}.`,line("Statement I",get("I")),line("Statement II",get("II")),line("Statement III",get("III")),renderThreeStatementSemanticLabel(c.semanticKey)].join(" ");
+  return renderThreeStatementEditorialExplanation(c.evaluation, targetLabel(p.solveMode), c.semanticKey);
 }
 export function generateDsfCp024InequalityQuestion(seed:string|number){
   const s=String(seed),{p,c}=select(s),options=buildThreeStatementAnswerOptions(c.semanticKey,hash(s)),correctIndex=options.findIndex(x=>x.isCorrect);
