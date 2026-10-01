@@ -1141,9 +1141,9 @@ export function buildNumericalItem(
             "ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਤਦ ਮਿਲਦੀ ਹੈ ਜਦੋਂ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਦਾ ਹਰ ਵਿਅਕਤੀ ਬਾਕੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਵੀ ਹੋਵੇ।",
           )
         : tx(
-            `If nobody belongs to all ${modelSets} groups, each person can be counted in at most ${modelSets - 1} group totals. Any count beyond ${modelSets - 1} × N must therefore come from people common to all ${modelSets} groups; if there is no excess, the lower bound is zero.`,
-            `यदि कोई व्यक्ति सभी ${modelSets} समूहों में न हो, तो हर व्यक्ति अधिक-से-अधिक ${modelSets - 1} समूहों की गिनती में आ सकता है। ${modelSets - 1} × N से अधिक की गिनती केवल उन लोगों से आ सकती है जो सभी ${modelSets} समूहों में हैं; अतिरिक्त गिनती न हो तो न्यूनतम मान 0 होगा।`,
-            `ਜੇ ਕੋਈ ਵਿਅਕਤੀ ਸਾਰੇ ${modelSets} ਸਮੂਹਾਂ ਵਿੱਚ ਨਾ ਹੋਵੇ, ਤਾਂ ਹਰ ਵਿਅਕਤੀ ਵੱਧ ਤੋਂ ਵੱਧ ${modelSets - 1} ਸਮੂਹਾਂ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਆ ਸਕਦਾ ਹੈ। ${modelSets - 1} × N ਤੋਂ ਵੱਧ ਦੀ ਗਿਣਤੀ ਉਹਨਾਂ ਲੋਕਾਂ ਕਰਕੇ ਹੀ ਹੋ ਸਕਦੀ ਹੈ ਜੋ ਸਾਰੇ ${modelSets} ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ; ਵਾਧੂ ਗਿਣਤੀ ਨਾ ਹੋਵੇ ਤਾਂ ਘੱਟ ਤੋਂ ਘੱਟ ਮਾਨ 0 ਹੋਵੇਗਾ।`,
+            `If nobody belongs to every group, each person can be counted in at most ${modelSets - 1 === 1 ? "one group total" : `${modelSets - 1} group totals`}. Across ${n} people, that allows at most ${modelSets - 1} × ${n} group-count entries without an all-group overlap. Any excess must come from people in every group; if there is no excess, the minimum is 0.`,
+            `यदि कोई व्यक्ति सभी समूहों में न हो, तो हर व्यक्ति अधिक-से-अधिक ${modelSets - 1 === 1 ? "एक समूह की" : `${modelSets - 1} समूहों की`} गिनती में आ सकता है। ${n} लोगों के लिए बिना साझा व्यक्ति के अधिकतम ${modelSets - 1} × ${n} समूह-गिनतियाँ हो सकती हैं। इससे अधिक गिनती सभी समूहों में आने वाले लोगों से ही आएगी; अतिरिक्त गिनती न हो तो न्यूनतम मान 0 होगा।`,
+            `ਜੇ ਕੋਈ ਵਿਅਕਤੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਨਾ ਹੋਵੇ, ਤਾਂ ਹਰ ਵਿਅਕਤੀ ਵੱਧ ਤੋਂ ਵੱਧ ${modelSets - 1 === 1 ? "ਇੱਕ ਸਮੂਹ ਦੀ" : `${modelSets - 1} ਸਮੂਹਾਂ ਦੀ`} ਗਿਣਤੀ ਵਿੱਚ ਆ ਸਕਦਾ ਹੈ। ${n} ਲੋਕਾਂ ਲਈ ਬਿਨਾਂ ਸਾਂਝੇ ਵਿਅਕਤੀ ਦੇ ਵੱਧ ਤੋਂ ਵੱਧ ${modelSets - 1} × ${n} ਸਮੂਹ-ਗਿਣਤੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ। ਇਸ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕਾਂ ਕਰਕੇ ਹੀ ਹੋਵੇਗੀ; ਵਾਧੂ ਗਿਣਤੀ ਨਾ ਹੋਵੇ ਤਾਂ ਘੱਟ ਤੋਂ ਘੱਟ ਮਾਨ 0 ਹੋਵੇਗਾ।`,
           )
       : maximum
         ? tx(
@@ -1165,9 +1165,9 @@ export function buildNumericalItem(
         : `max(${counts.join(", ")})`;
     explanation = `${
       tx(
-        `The survey gives ${counts.map((k, i) => `${c.names.en.split("|")[i]}: ${k}`).join("; ")} out of ${n} people.`,
-        `कुल ${n} लोगों में से ${counts.map((k, i) => `${c.names.hi.split("|")[i]}: ${k}`).join(", ")}।`,
-        `ਕੁੱਲ ${n} ਲੋਕਾਂ ਵਿੱਚੋਂ ${counts.map((k, i) => `${c.names.pa.split("|")[i]}: ${k}`).join(", ")}।`,
+        `Among ${n} people, the group totals are ${counts.map((k, i) => `${c.names.en.split("|")[i]} = ${k}`).join("; ")}.`,
+        `कुल ${n} लोगों में समूह-संख्याएँ हैं: ${counts.map((k, i) => `${c.names.hi.split("|")[i]} = ${k}`).join("; ")}।`,
+        `ਕੁੱਲ ${n} ਲੋਕਾਂ ਵਿੱਚ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ: ${counts.map((k, i) => `${c.names.pa.split("|")[i]} = ${k}`).join("; ")}।`,
       )[l]
     } ${reason[l].replaceAll("k−1", String(modelSets - 1)).replaceAll(`(${modelSets - 1})N`, `${modelSets - 1} × ${n}`)} ${tx("Using the given group sizes:", "दी गई समूह-संख्याओं से:", "ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ:")[l]} ${calculation} = ${answer}.`;
     r = []; // Hidden construction is not the unique solution and must never appear as a solved distribution.
