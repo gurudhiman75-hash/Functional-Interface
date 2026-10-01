@@ -63,37 +63,38 @@ async function imageDimensions(file:File):Promise<{width:number|null;height:numb
   });
 }
 
+function readBase64(file:File):Promise<string>{
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const value=String(reader.result||'');
+      const comma=value.indexOf(',');
+      resolve(comma>=0?value.slice(comma+1):value);
+    };
+    reader.onerror=()=>reject(reader.error||new Error('Unable to read image.'));
+    reader.readAsDataURL(file);
+  });
+}
+
 export async function uploadMediaAsset(file:File,type:MediaAssetType){
   const allowed=new Set(['image/png','image/jpeg','image/webp','image/svg+xml']);
   if(!allowed.has(file.type))throw new Error('Use PNG, JPG, WebP or SVG images.');
   if(file.size<=0||file.size>10*1024*1024)throw new Error('Images must be smaller than 10 MB.');
 
-  const intent=await api<{objectPath:string;uploadUrl:string}>('/admin/media/upload-intent',{
-    method:'POST',
-    body:JSON.stringify({name:file.name,type,mimeType:file.type,byteSize:file.size}),
-  });
-
-  const uploaded=await fetch(intent.uploadUrl,{
-    method:'PUT',
-    headers:{'Content-Type':file.type},
-    body:file,
-  });
-  if(!uploaded.ok)throw new Error('Firebase Storage upload failed ('+uploaded.status+').');
-
-  const dimensions=await imageDimensions(file);
-  const finalized=await api<{asset:LiveMediaAsset}>('/admin/media/finalize',{
+  const [dimensions,dataBase64]=await Promise.all([imageDimensions(file),readBase64(file)]);
+  const result=await api<{asset:LiveMediaAsset}>('/admin/media/upload',{
     method:'POST',
     body:JSON.stringify({
-      objectPath:intent.objectPath,
       name:file.name,
       type,
       mimeType:file.type,
       byteSize:file.size,
       width:dimensions.width,
       height:dimensions.height,
+      dataBase64,
     }),
   });
-  return finalized.asset;
+  return result.asset;
 }
 
 export async function setMediaAssetStatus(id:string,status:MediaAssetStatus){
