@@ -22,26 +22,33 @@ function ratioOptions(answer:string,a:number,b:number,seed:string){
 }
 function buildStimulus(seed:string){
   const domain=pick(DOMAINS,`${seed}:domain`);
-  const labels=shuffle(["A","B","C","D","E"],`${seed}:labels`).map(x=>`Case ${x}`);
+  const codes=shuffle(["A","B","C","D","E"],`${seed}:labels`);
+  let labels:string[]=[];
   let title="",columnA="",columnB="",columnC:string|undefined,note="",rows:any[]=[],derived:number[]=[];
   if(domain==="TIME_WORK"){
     title="Work completed by five teams";columnA="Workers";columnB="Days";note="Assume equal work done per worker per day.";
+    labels=codes.map(x=>`Team ${x}`);
     rows=labels.map((label,i)=>({label,a:4+(hashSeed(`${seed}:a:${i}`)%5)*2,b:5+(hashSeed(`${seed}:b:${i}`)%4)*5}));
     derived=rows.map(r=>r.a*r.b);
   } else if(domain==="TIME_SPEED_DISTANCE"){
     title="Travel data for five routes";columnA="Speed (km/h)";columnB="Time (hours)";note="Distance = speed × time.";
+    labels=codes.map(x=>`Route ${x}`);
     const speeds=[40,50,60,70,80],times=[2,3,4,5,6];rows=labels.map((label,i)=>({label,a:pick(speeds,`${seed}:s:${i}`),b:pick(times,`${seed}:t:${i}`)}));derived=rows.map(r=>r.a*r.b);
   } else if(domain==="PARTNERSHIP"){
-    title="Capital invested by five partners";columnA="Capital (₹ thousand)";columnB="Months invested";note="Profit-sharing weight is proportional to capital × time.";
+    title="Capital invested by five partners";columnA="Capital (₹ thousand)";columnB="Months invested";note="Profit-sharing ratio is proportional to capital × time.";
+    labels=codes.map(x=>`Partner ${x}`);
     rows=labels.map((label,i)=>({label,a:20+(hashSeed(`${seed}:c:${i}`)%6)*10,b:4+(hashSeed(`${seed}:m:${i}`)%5)*2}));derived=rows.map(r=>r.a*r.b);
   } else if(domain==="MIXTURE_ALLIGATION"){
     title="Mixtures prepared in five containers";columnA="Quantity (litres)";columnB="Pure component (%)";note="Pure component amount = quantity × percentage ÷ 100.";
+    labels=codes.map(x=>`Container ${x}`);
     const quantities=[100,120,160,200,240],percentages=[25,40,50,60,75];rows=labels.map((label,i)=>({label,a:pick(quantities,`${seed}:q:${i}`),b:pick(percentages,`${seed}:p:${i}`)}));derived=rows.map(r=>r.a*r.b/100);
   } else if(domain==="INTEREST_LOAN"){
     title="Simple-interest data for five loans";columnA="Principal (₹ thousand)";columnB="Rate (% p.a.)";columnC="Time (years)";note="Simple interest = principal × rate × time ÷ 100.";
+    labels=codes.map(x=>`Loan ${x}`);
     const principals=[100,200,300,400,500],rates=[5,8,10,12],years=[2,3,4,5];rows=labels.map((label,i)=>({label,a:pick(principals,`${seed}:p:${i}`),b:pick(rates,`${seed}:r:${i}`),c:pick(years,`${seed}:y:${i}`)}));derived=rows.map(r=>r.a*r.b*r.c/100);
   } else {
     title="Selection data for five groups";columnA="Eligible candidates";columnB="Selection rate (%)";note="Selected candidates = eligible candidates × selection rate ÷ 100.";
+    labels=codes.map(x=>`Group ${x}`);
     const eligible=[200,300,400,500,600];const rates=[20,25,40,50,60];rows=labels.map((label,i)=>({label,a:pick(eligible,`${seed}:e:${i}`),b:pick(rates,`${seed}:r:${i}`)}));derived=rows.map(r=>r.a*r.b/100);
   }
   if(derived.some(v=>!Number.isSafeInteger(v)||v<=0))throw new Error(`DI-008 advanced generated non-integral derived values for ${domain}.`);
@@ -49,12 +56,20 @@ function buildStimulus(seed:string){
   return {stimulus,derived};
 }
 function derivedLabel(domain:Di008AdvancedDomain){
-  if(domain==="TIME_WORK")return"work units";
+  if(domain==="TIME_WORK")return"worker-days";
   if(domain==="TIME_SPEED_DISTANCE")return"distance";
-  if(domain==="PARTNERSHIP")return"profit-sharing weight";
+  if(domain==="PARTNERSHIP")return"capital-time product";
   if(domain==="MIXTURE_ALLIGATION")return"amount of pure component";
   if(domain==="INTEREST_LOAN")return"simple interest";
   return"selected candidates";
+}
+function derivationLine(stimulus:Di008AdvancedStimulus,row:{label:string;a:number;b:number;c?:number},value:number){
+  if(stimulus.domain==="TIME_WORK")return `${row.a} workers × ${row.b} days = ${value} worker-days.`;
+  if(stimulus.domain==="TIME_SPEED_DISTANCE")return `${row.a} km/h × ${row.b} hours = ${value} km.`;
+  if(stimulus.domain==="PARTNERSHIP")return `Capital-time product = ${row.a} × ${row.b} = ${value}.`;
+  if(stimulus.domain==="MIXTURE_ALLIGATION")return `${row.a} litres × ${row.b}% = ${value} litres of pure component.`;
+  if(stimulus.domain==="INTEREST_LOAN")return `Simple interest = ${row.a} × ${row.b} × ${row.c} ÷ 100 = ${value} (₹ thousand).`;
+  return `${row.a} eligible candidates × ${row.b}% = ${value} selected candidates.`;
 }
 function makeQuestion(task:Di008AdvancedTask,difficulty:Di008AdvancedDifficulty,state:ReturnType<typeof buildStimulus>,seed:string,index:number):Di008AdvancedQuestion{
   const {stimulus,derived}=state,label=derivedLabel(stimulus.domain),ids=shuffle([0,1,2,3,4],`${seed}:ids`);
@@ -64,11 +79,11 @@ function makeQuestion(task:Di008AdvancedTask,difficulty:Di008AdvancedDifficulty,
   const remaining=ids.filter((idx)=>idx!==i && idx!==j);
   const k=remaining[0] ?? ids[2]!, l=remaining[1] ?? ids[3]!;
   let stem="",answer="",options:string[]=[],steps:string[]=[];
-  if(task==="ROW_DERIVED_VALUE"){const v=derived[i]!;stem=`What is the ${label} for ${stimulus.rows[i]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`Using the rule shown with the data, the ${label} is ${v}.`];}
+  if(task==="ROW_DERIVED_VALUE"){const v=derived[i]!;stem=`What is the ${label} for ${stimulus.rows[i]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[derivationLine(stimulus,stimulus.rows[i]!,v)];}
   else if(task==="TWO_ROW_DERIVED_TOTAL"){const v=derived[i]!+derived[j]!;stem=`What is the combined ${label} for ${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`${derived[i]} + ${derived[j]} = ${v}.`];}
   else if(task==="DERIVED_DIFFERENCE"){const v=Math.abs(derived[i]!-derived[j]!);stem=`What is the difference in ${label} between ${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`Difference = |${derived[i]} − ${derived[j]}| = ${v}.`];}
   else if(task==="DERIVED_RATIO"){const v=ratio(derived[i]!,derived[j]!);stem=`What is the ratio of the ${label} for ${stimulus.rows[i]!.label} to that for ${stimulus.rows[j]!.label}?`;answer=v;options=ratioOptions(v,derived[i]!,derived[j]!,seed);steps=[`${derived[i]}:${derived[j]} = ${v}.`];}
-  else if(task==="HIGHEST_DERIVED_CATEGORY"){const best=derived.reduce((p,v,idx)=>v>derived[p]!?idx:p,0);stem=`Which case has the highest ${label}?`;answer=stimulus.rows[best]!.label;options=shuffle(stimulus.rows.map(r=>r.label),seed);steps=[...derived.map((v,idx)=>`${stimulus.rows[idx]!.label}: ${v}`),`The highest value is for ${answer}.`];}
+  else if(task==="MAXIMUM_DERIVED_VALUE"){const best=derived.reduce((p,v,idx)=>v>derived[p]!?idx:p,0);stem=`Which ${stimulus.rows[best]!.label.split(" ")[0].toLowerCase()} has the highest ${label}?`;answer=stimulus.rows[best]!.label;options=shuffle(stimulus.rows.map(r=>r.label),seed);steps=[...derived.map((v,idx)=>`${stimulus.rows[idx]!.label}: ${derivationLine(stimulus,stimulus.rows[idx]!,v)}`),`Therefore, ${answer} has the highest ${label}.`];}
   else if(task==="THREE_ROW_DERIVED_TOTAL"){const v=derived[i]!+derived[j]!+derived[k]!;stem=`Find the total ${label} for ${stimulus.rows[i]!.label}, ${stimulus.rows[j]!.label} and ${stimulus.rows[k]!.label}.`;answer=String(v);options=numOptions(v,seed);steps=[`${derived[i]} + ${derived[j]} + ${derived[k]} = ${v}.`];}
   else if(task==="GROUP_DERIVED_RATIO"){const a=derived[i]!+derived[j]!,b=derived[k]!+derived[l]!,v=ratio(a,b);const left=`${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label} together`,right=`${stimulus.rows[k]!.label} and ${stimulus.rows[l]!.label} together`;stem=stimulus.domain==="MIXTURE_ALLIGATION"?`What is the ratio of the amount of pure component in ${left} to that in ${right}?`:`What is the ratio of the combined ${label} for ${left} to the combined ${label} for ${right}?`;answer=v;options=ratioOptions(v,a,b,seed);steps=[`First group = ${a}.`,`Second group = ${b}.`,`Ratio = ${v}.`];}
   else if(task==="FOUR_ROW_DERIVED_TOTAL"){const v=derived[i]!+derived[j]!+derived[k]!+derived[l]!;stem=`Find the total ${label} for ${stimulus.rows[i]!.label}, ${stimulus.rows[j]!.label}, ${stimulus.rows[k]!.label} and ${stimulus.rows[l]!.label}.`;answer=String(v);options=numOptions(v,seed);steps=[`${derived[i]} + ${derived[j]} + ${derived[k]} + ${derived[l]} = ${v}.`];}
@@ -81,7 +96,7 @@ function makeQuestion(task:Di008AdvancedTask,difficulty:Di008AdvancedDifficulty,
   }
   else {const total=derived.reduce((a,b)=>a+b,0),excluded=derived[i]!+derived[j]!,v=total-excluded;stem=`What ${label} remains after excluding ${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`Total = ${total}.`,`Excluded = ${excluded}.`,`Remaining = ${v}.`];}
   const correctIndex=options.indexOf(answer);if(correctIndex<0)throw new Error(`DI-008 advanced lost answer for ${task}.`);
-  return {questionId:`DI-008-ADV:${seed}:Q${index+1}`,kind:task,difficulty,stem,options,correctIndex,answer,explanation:{keyIdea:`First derive the ${label} from the learner-visible data, then perform the requested comparison.`,steps}};
+  return {questionId:`DI-008-ADV:${seed}:Q${index+1}`,kind:task,difficulty,stem,options,correctIndex,answer,explanation:{keyIdea:`Use the given ${stimulus.columnA}${stimulus.columnC?`, ${stimulus.columnB} and ${stimulus.columnC}`:` and ${stimulus.columnB}`} to derive the ${label}, then perform the requested calculation.`,steps}};
 }
 export function generateDi008AdvancedArithmeticSet(input:{seed:string;examProfile?:Di008AdvancedExamProfile}):Di008AdvancedSet{
   const state=buildStimulus(input.seed),examProfile=input.examProfile??"BANKING_MAINS";
