@@ -129,9 +129,9 @@ function promptFor(q:AnyQuestion, language:DsfQuantLocalizedLanguage):string {
   if(/by how much does .*compound interest.*exceed simple interest/i.test(raw)) {
     return t(language,"पूरी अवधि में चक्रवृद्धि ब्याज साधारण ब्याज से कितना अधिक है?","ਪੂਰੀ ਮਿਆਦ ਵਿੱਚ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਸਧਾਰਣ ਵਿਆਜ ਤੋਂ ਕਿੰਨਾ ਵੱਧ ਹੈ?");
   }
-  const discountMatch=raw.match(/^What discount percent is allowed on (.+)\?$/i);
+  const discountMatch=raw.match(/^What discount percent(?:age)? is allowed on (?:the )?(.+)\?$/i);
   if(discountMatch) {
-    const item=translateQuantText(discountMatch[1]!,language);
+    const item=translateQuantText(discountMatch[1]!,language).replace(/^the\s+/i,"").trim();
     return t(language,`${item} पर कितने प्रतिशत की छूट दी गई है?`,`${item} 'ਤੇ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਦੀ ਛੂਟ ਦਿੱਤੀ ਗਈ ਹੈ?`);
   }
   let out=raw
