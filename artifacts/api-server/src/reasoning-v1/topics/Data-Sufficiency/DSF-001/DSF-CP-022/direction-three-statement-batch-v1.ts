@@ -49,7 +49,7 @@ function enumerateWorlds():readonly World[]{
     const angle=((p.thetaDegrees%360)+360)%360; const finalFacing=DEGREES_TO_FACING[angle]!;
     out.push(Object.freeze({startFacing,firstDistance,firstTurn,secondDistance,secondTurn,thirdDistance,finalFacing,finalX:p.position.x,finalY:p.position.y,shortestDistance:p.shortestDistance(),totalPath:firstDistance+secondDistance+thirdDistance}));
   }
-  return Object.freeze(out.filter((world)=>Number.isInteger(world.shortestDistance)));
+  return Object.freeze(out);
 }
 const WORLDS=enumerateWorlds();
 
