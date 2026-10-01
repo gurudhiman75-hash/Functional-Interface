@@ -24,6 +24,7 @@ const EMPTY_DASHBOARD: QuestionStudioDashboard = {
 
 const EMPTY_REVIEW_PAGE: QuestionStudioReviewPage = {
   runs: [],
+  duplicateMatches: [],
   pagination: {
     page: 1,
     pageSize: 20,
