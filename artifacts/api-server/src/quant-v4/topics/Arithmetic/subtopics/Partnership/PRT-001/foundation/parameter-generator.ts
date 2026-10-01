@@ -154,7 +154,10 @@ export function generatePrt001PilotParameters(input: {
   } else if (
     input.entry.solveMode === "findUnknownDurationFromShareRatioAndCapitals"
   ) {
-    scenario = random.pick(variableRanges.unknownDurationScenarios);
+    const numericStateRandom = createPrt001Random(
+      `${input.seed}:numeric-state:${input.entry.solveMode}`,
+    );
+    scenario = numericStateRandom.pick(variableRanges.unknownDurationScenarios);
   } else {
     scenario = random.pick(variableRanges.unequalDurationScenarios);
   }
