@@ -122,8 +122,18 @@ function p014(seed: number): Draft {
 }
 
 const exponentCases = [
-  { unknown: "a", fixed: 1, places: 3 }, { unknown: "a", fixed: 2, places: 4 }, { unknown: "a", fixed: 1, places: 5 },
-  { unknown: "b", fixed: 1, places: 3 }, { unknown: "b", fixed: 2, places: 4 }, { unknown: "b", fixed: 2, places: 5 },
+  { unknown: "a", fixed: 1, places: 2 },
+  { unknown: "a", fixed: 1, places: 3 },
+  { unknown: "a", fixed: 2, places: 4 },
+  { unknown: "a", fixed: 1, places: 5 },
+  { unknown: "a", fixed: 2, places: 6 },
+  { unknown: "a", fixed: 3, places: 7 },
+  { unknown: "b", fixed: 1, places: 2 },
+  { unknown: "b", fixed: 1, places: 3 },
+  { unknown: "b", fixed: 2, places: 4 },
+  { unknown: "b", fixed: 2, places: 5 },
+  { unknown: "b", fixed: 3, places: 6 },
+  { unknown: "b", fixed: 2, places: 7 },
 ] as const;
 
 function p015(seed: number): Draft {
@@ -135,11 +145,24 @@ function p015(seed: number): Draft {
     answerSemantic: "INTEGER", difficulty: "MEDIUM",
     stem: `The fraction ${math(`\\frac{1}{${denominator}}`)} has an exact terminating decimal with ${math(String(c.places))} decimal places. Find ${math(c.unknown)}.`,
     correct: math(String(answer)),
-    wrong: [
-      { value: math(String(c.fixed)), misconceptionId: "COPY_FIXED_EXPONENT" },
-      { value: math(String(c.places - 1)), misconceptionId: "ONE_LESS_THAN_PLACES" },
-      { value: math(String(c.places + 1)), misconceptionId: "ONE_MORE_THAN_PLACES" },
-    ],
+    wrong: (() => {
+      const candidates = [
+        { value: c.fixed, misconceptionId: "COPY_FIXED_EXPONENT" },
+        { value: Math.max(0, c.places - 1), misconceptionId: "ONE_LESS_THAN_PLACES" },
+        { value: c.places + 1, misconceptionId: "ONE_MORE_THAN_PLACES" },
+        { value: c.places + 2, misconceptionId: "TWO_MORE_THAN_PLACES" },
+        { value: Math.max(0, c.fixed + 1), misconceptionId: "INCREMENT_FIXED_EXPONENT" },
+      ];
+      const seen = new Set<number>([answer]);
+      return candidates
+        .filter((candidate) => {
+          if (seen.has(candidate.value)) return false;
+          seen.add(candidate.value);
+          return true;
+        })
+        .slice(0, 3)
+        .map((candidate) => ({ value: math(String(candidate.value)), misconceptionId: candidate.misconceptionId }));
+    })(),
     hiddenState: { unknown: c.unknown, fixed: c.fixed, places: c.places },
     concept: `For denominator ${math("2^a5^b")}, the decimal-place count is ${math("\\max(a,b)")}.`,
     solution: [`The fixed exponent ${math(String(c.fixed))} is smaller than ${math(String(c.places))}.`, `Therefore the unknown exponent itself must be ${math(String(c.places))}.`],

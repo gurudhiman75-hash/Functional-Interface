@@ -43,7 +43,16 @@ const selectionSets:readonly (readonly Entry[])[]=[
 function p024(seed:number):Draft{const entries=choose(seed,selectionSets,24);const largest=seed%2===0;const sorted=[...entries].sort((a,b)=>compareRational(a.value,b.value));const target=largest?sorted.at(-1)!:sorted[0]!;return{answerSemantic:"RATIONAL",difficulty:"MEDIUM",stem:`Which is the ${largest?"largest":"smallest"} of ${entries.map(e=>e.display).join(", ")}?`,correct:target.display,wrong:entries.filter(e=>e.display!==target.display).map(e=>e.display),hiddenState:{largest,entries:entries.map(e=>({display:e.display,n:e.value.n,d:e.value.d}))},concept:"Largest/smallest selection is an ordering task on exact rational values.",solution:["Compare the four values without rounding the recurring decimal.",`The ${largest?"largest":"smallest"} value is ${target.display}.`]};}
 
 const numeratorCases=[
-  {target:rational(3,8),d:40},{target:rational(7,20),d:100},{target:rational(9,25),d:75},{target:rational(11,16),d:64},{target:rational(13,20),d:80},
+  {target:rational(3,8),d:40},
+  {target:rational(7,20),d:100},
+  {target:rational(9,25),d:75},
+  {target:rational(11,16),d:64},
+  {target:rational(13,20),d:80},
+  {target:rational(3,5),d:85},
+  {target:rational(7,16),d:96},
+  {target:rational(9,20),d:140},
+  {target:rational(11,25),d:150},
+  {target:rational(13,40),d:200},
 ] as const;
 function p025(seed:number):Draft{const c=choose(seed,numeratorCases,25);const n=c.target.n*(c.d/c.target.d);const shown=terminatingDecimal(c.target);return{answerSemantic:"INTEGER",difficulty:"EASY",stem:`If ${math(`\\frac{n}{${c.d}}=${shown}`)}, find the integer ${math("n")}.`,correct:math(String(n)),wrong:[math(String(n-1)),math(String(n+1)),math(String(c.target.n))],hiddenState:{d:c.d,targetN:c.target.n,targetD:c.target.d},concept:"Convert the decimal to an exact fraction and use equivalent fractions.",solution:[`${math(shown)} ${math(`=${fractionBody(c.target)}`)}.`,`Thus ${math(`\\frac{n}{${c.d}}=${fractionBody(c.target)}`)}, giving ${math(`n=${n}`)}.`]};}
 
@@ -53,6 +62,10 @@ const denominatorCases=[
   {n:4,target:pureRecurringToRational(4,1),display:math("0.\\overline{4}")},
   {n:5,target:mixedRecurringToRational(1,1,6,1),display:math("0.1\\overline{6}")},
   {n:7,target:mixedRecurringToRational(2,1,3,1),display:math("0.2\\overline{3}")},
+  {n:4,target:rational(1,3),display:math("0.\\overline{3}")},
+  {n:8,target:rational(2,3),display:math("0.\\overline{6}")},
+  {n:4,target:rational(1,15),display:math("0.0\\overline{6}")},
+  {n:7,target:rational(7,15),display:math("0.4\\overline{6}")},
 ] as const;
 function p026(seed:number):Draft{const c=choose(seed,denominatorCases,26);const d=(c.n*c.target.d)/c.target.n;if(!Number.isInteger(d))throw new Error("P026 denominator fixture");return{answerSemantic:"INTEGER",difficulty:"MEDIUM",stem:`If ${math(`\\frac{${c.n}}{d}`)} is exactly equal to ${c.display}, find the positive integer ${math("d")}.`,correct:math(String(d)),wrong:[math(String(d-1)),math(String(d+1)),math(String(c.target.d))],hiddenState:{n:c.n,targetN:c.target.n,targetD:c.target.d},concept:"First convert the recurring decimal to its exact reduced fraction.",solution:[`${c.display} ${math(`=${fractionBody(c.target)}`)}.`,`So ${math(`\\frac{${c.n}}{d}=${fractionBody(c.target)}`)}, hence ${math(`d=${d}`)}.`]};}
 
