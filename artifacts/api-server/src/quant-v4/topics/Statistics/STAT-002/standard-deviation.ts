@@ -25,10 +25,10 @@ const EXACT_SD_TEMPLATES = [
   { deviations: [-3, -2, 0, 1, 1, 3] as const, baseSd: 2 },
   { deviations: [-4, -4, 0, 2, 3, 3] as const, baseSd: 3 },
   { deviations: [-3, -2, -1, 0, 1, 2, 3] as const, baseSd: 2 },
-  { deviations: [-4, -2, 0, 0, 2, 4] as const, baseSd: 2 },
-  { deviations: [-6, -3, 0, 0, 3, 6] as const, baseSd: 3 },
-  { deviations: [-5, -4, -1, 0, 0, 1, 4, 5] as const, baseSd: 3 },
-  { deviations: [-6, -2, -2, 0, 0, 2, 2, 6] as const, baseSd: 3 },
+  { deviations: [-6, -3, 1, 3, 5] as const, baseSd: 4 },
+  { deviations: [-6, -4, 0, 2, 2, 6] as const, baseSd: 4 },
+  { deviations: [-5, -2, 0, 0, 3, 4] as const, baseSd: 3 },
+  { deviations: [-4, -2, -1, -1, 4, 4] as const, baseSd: 3 },
 ] as const;
 
 const CONTRACT_META: Record<Stat002ContractId, { solveMode: Stat002SolveMode; difficulty: Stat002Difficulty }> = {
