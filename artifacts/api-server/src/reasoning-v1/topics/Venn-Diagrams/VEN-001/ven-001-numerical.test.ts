@@ -67,7 +67,7 @@ for (let s = 0; s < 200; s++)
         if (languages[localeIndex] === "pa") {
           assert.doesNotMatch(
             `${localized.stem} ${localized.explanation}`,
-            /[\u0900-\u097F]/u,
+            /[\u0900-\u0963\u0966-\u097F]/u,
             `${cp}/${localized.semanticMetadata.queryKey}/pa: Punjabi output must not contain Devanagari leakage`,
           );
           assert.doesNotMatch(
