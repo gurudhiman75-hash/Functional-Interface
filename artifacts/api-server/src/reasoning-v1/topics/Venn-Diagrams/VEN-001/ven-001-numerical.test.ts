@@ -52,6 +52,34 @@ for (let s = 0; s < 200; s++)
             .some((name: string) => localized.explanation.includes(name)),
           `${cp}/${localized.semanticMetadata.queryKey}/${languages[localeIndex]}: explanation must use this question's actual activity names`,
         );
+        assert.doesNotMatch(
+          localized.stem,
+          /first group|second group|third group|first activity|second activity|third activity|पहले समूह|दूसरे समूह|तीसरे समूह|पहली गतिविधि|दूसरी गतिविधि|तीसरी गतिविधि|ਪਹਿਲੇ ਸਮੂਹ|ਦੂਜੇ ਸਮੂਹ|ਤੀਜੇ ਸਮੂਹ|ਪਹਿਲਾ ਕੰਮ|ਦੂਜਾ ਕੰਮ|ਤੀਜਾ ਕੰਮ/iu,
+          `${cp}/${localized.semanticMetadata.queryKey}/${languages[localeIndex]}: stem must name the actual activities rather than ordinal groups`,
+        );
+        if (
+          scenario &&
+          ["onlyAB", "onlyAC", "onlyBC"].includes(
+            localized.semanticMetadata.queryKey,
+          )
+        ) {
+          const excludedIndex =
+            localized.semanticMetadata.queryKey === "onlyAB"
+              ? 2
+              : localized.semanticMetadata.queryKey === "onlyAC"
+                ? 1
+                : 0;
+          const excludedName =
+            scenario.names[languages[localeIndex]].split("|")[excludedIndex]!;
+          assert.ok(
+            localized.explanation.includes(excludedName),
+            `${cp}/${localized.semanticMetadata.queryKey}/${languages[localeIndex]}: pair-only explanation must name the actually excluded activity`,
+          );
+          assert.doesNotMatch(
+            localized.explanation,
+            /तीसरी गतिविधि|ਤੀਜਾ ਕੰਮ/u,
+          );
+        }
       }
       assert.ok(
         !q.explanation.includes("Required count") &&
