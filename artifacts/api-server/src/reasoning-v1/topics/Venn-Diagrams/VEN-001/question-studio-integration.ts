@@ -244,21 +244,12 @@ function correctCircleLabelOrder(authority: VennScenarioAuthority): string[] {
   return authority.sets.map((set) => set.setId);
 }
 function stemFor(authority: VennScenarioAuthority, locale: VennLocale): string {
-  const groups = authority.sets
-    .map((set) => set.setId + " = " + set.labels[locale])
-    .join(", ");
+  const groups = authority.sets.map((set) => set.labels[locale]);
   if (locale === "hi-IN")
-    return (
-      groups + "। A, B और C के बीच संबंध को कौन-सा वेन आरेख सही दर्शाता है?"
-    );
+    return `${groups.join(", ")} के बीच संबंध को कौन-सा वेन आरेख सही दर्शाता है?`;
   if (locale === "pa-IN")
-    return (
-      groups + "। A, B ਅਤੇ C ਦਾ ਆਪਸੀ ਸੰਬੰਧ ਕਿਹੜਾ ਵੇਨ ਚਿੱਤਰ ਸਹੀ ਦਰਸਾਉਂਦਾ ਹੈ?"
-    );
-  return (
-    groups +
-    ". Which Venn diagram correctly represents the relationship among A, B and C?"
-  );
+    return `${groups.join(", ")} ਦਾ ਆਪਸੀ ਸੰਬੰਧ ਕਿਹੜਾ ਵੇਨ ਚਿੱਤਰ ਸਹੀ ਦਰਸਾਉਂਦਾ ਹੈ?`;
+  return `Which Venn diagram correctly represents the relationship among ${groups.join(", ")}?`;
 }
 function stemForDiagram(locale: VennLocale): string {
   if (locale === "hi-IN")
