@@ -1280,6 +1280,8 @@ export function generateVen001ShapeRegionBatch(
       difficultyLabel: "Medium",
       difficultyAuthority: "PROVISIONAL_OPERATION_BASED",
       questionOperation: "GEOMETRIC_REGION_COUNT",
+      qlId: ven001QlForOperation("GEOMETRIC_REGION_COUNT"),
+      permanentQlId: ven001QlForOperation("GEOMETRIC_REGION_COUNT"),
       generationSeed: seed,
       reviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
       runtimeMode: "review-only",
