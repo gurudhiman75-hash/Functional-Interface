@@ -5,9 +5,9 @@ import {
   previewSea001QuestionStudioReview,
 } from "./question-studio-review-v1.ts";
 import {
-  generateQuestion,
-  listQuestionStudioPackages,
-} from "../../../../question-studio/shared-generation-engine.ts";
+  listReasoningV1QuestionStudioReviewPackages,
+  previewReasoningV1QuestionStudioReview,
+} from "../../../question-studio-review-registry.ts";
 
 assert.equal(SEA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 9);
 assert.deepEqual(SEA_001_QUESTION_STUDIO_REVIEW_PACKAGE.supportedLanguages, ["en", "hi", "pa"]);
@@ -65,17 +65,17 @@ assert.equal(isSea001QuestionStudioRequest({ canonicalProblemId: "SEA-QL-004" })
 assert.equal(isSea001QuestionStudioRequest({ subtopic: "Seating Arrangement" }), true);
 assert.equal(isSea001QuestionStudioRequest({ packageId: "WOR-001" }), false);
 
-const packages = listQuestionStudioPackages();
+const packages = listReasoningV1QuestionStudioReviewPackages();
 const seaPackages = packages.filter((entry: any) => String(entry.packageId) === "SEA-001");
 assert.equal(seaPackages.length, 1);
 assert.equal(seaPackages[0]!.enabled, true);
 assert.equal(seaPackages[0]!.permanentQlCount, 9);
 
-const shared = await generateQuestion({
+const shared = previewReasoningV1QuestionStudioReview({
   packageId: "SEA-001",
   language: "hi",
   difficulty: "Medium",
-  seed: "sea-shared-engine-proof",
+  seed: "sea-reasoning-registry-proof",
   count: 3,
 });
 assert.ok(Array.isArray(shared.questions));
