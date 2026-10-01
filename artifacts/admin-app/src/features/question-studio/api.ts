@@ -75,6 +75,34 @@ export interface QuestionStudioDashboard {
   generatedAt: string;
 }
 
+export interface QuestionStudioReviewQuery {
+  page?: number;
+  pageSize?: number;
+  subject?: string;
+  chapter?: string;
+  status?: GenerationItemStatus;
+  search?: string;
+}
+
+export interface QuestionStudioReviewPage {
+  runs: QuestionStudioRun[];
+  pagination: {
+    page: number;
+    pageSize: number;
+    totalRuns: number;
+    totalPages: number;
+    hasPreviousPage: boolean;
+    hasNextPage: boolean;
+  };
+  filters: {
+    subject: string | null;
+    chapter: string | null;
+    status: string | null;
+    search: string | null;
+  };
+  generatedAt: string;
+}
+
 export interface GenerationPackage {
   engineId?: string;
   packageId: string;
@@ -212,6 +240,23 @@ export function getQuestionStudioDashboard() {
     '/admin/question-studio/dashboard',
     undefined,
     { fallbackMessage: 'Unable to load the Question Studio dashboard.' },
+  );
+}
+
+export function getQuestionStudioReviewPage(query: QuestionStudioReviewQuery = {}) {
+  const params = new URLSearchParams();
+  if (query.page) params.set('page', String(query.page));
+  if (query.pageSize) params.set('pageSize', String(query.pageSize));
+  if (query.subject) params.set('subject', query.subject);
+  if (query.chapter) params.set('chapter', query.chapter);
+  if (query.status) params.set('status', query.status);
+  if (query.search?.trim()) params.set('search', query.search.trim());
+
+  const suffix = params.toString();
+  return adminRequest<QuestionStudioReviewPage>(
+    `/admin/question-studio/review-page${suffix ? `?${suffix}` : ''}`,
+    undefined,
+    { fallbackMessage: 'Unable to load the Question Studio review queue.' },
   );
 }
 
