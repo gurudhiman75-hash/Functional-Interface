@@ -2,23 +2,78 @@
   "chapterId": "PRT-001",
   "freezeStatus": "FROZEN",
   "chapterStatus": "CLOSED",
-  "freezeDate": "2026-09-01",
-  "closureDate": "2026-09-01",
-  "approvedRuntimeHead": "f4fe65366aab2fc8e60ed1f0420231d4b9ed72db",
+  "originalFreezeDate": "2026-09-01",
+  "originalClosureDate": "2026-09-01",
+  "freezeDate": "2026-10-01",
+  "closureDate": "2026-10-01",
+  "approvedRuntimeHead": "b2cfdd51db3790b3805e80ad9cc4bd05543f18a0",
+  "validatedPullRequestHead": "04a8e661581b991578c71942804aba47a89240b9",
   "approvedValidation": {
-    "workflowRun": 33472771514,
-    "job": 99745764110,
-    "artifact": 9787117264,
-    "branchTopologyRun": 33472771501,
-    "generatedCorpusQuestions": 3360,
+    "workflowRun": 36832547425,
+    "job": 110272244755,
+    "artifact": 11147802530,
+    "branchTopologyRun": 36832548046,
+    "standaloneSystematicRun": 36832548336,
+    "generatedCorpusQuestions": 4032,
     "activeQuestionLanguagesPerLocale": 112,
     "activeSolveModes": 102,
     "canonicalProblems": 7,
-    "cpDistribution": [13, 14, 16, 19, 17, 20, 13],
-    "locales": ["en", "hi", "pa"],
-    "crossQlStructuralComparisons": 167832,
-    "crossChapterOwnershipCases": 208,
-    "questionStudioIntegrationCases": 42
+    "cpDistribution": [
+      13,
+      14,
+      16,
+      19,
+      17,
+      20,
+      13
+    ],
+    "locales": [
+      "en",
+      "hi",
+      "pa"
+    ],
+    "systematicSeedsPerQl": 12,
+    "systematicCoreIntegrity": "PASS",
+    "permanentE1ToE13FreezeAudit": "PASS",
+    "lowRawStemQls": 0,
+    "lowStructureQls": 0,
+    "lowNumericSignatureQls": 0,
+    "lowParameterStateQls": 0,
+    "thinExplanationQls": 0,
+    "machineStemQls": 0,
+    "crossQlStemCollisions": 0,
+    "answerDiversityDiagnostic": "23 QLs remain below the conservative six-distinct-answer diagnostic, but each has 12 parameter states, at least 6 numeric signatures, and 4-5 distinct answers; treated as legitimate mathematical convergence rather than a breadth defect."
+  },
+  "historicalFreeze": {
+    "approvedRuntimeHead": "f4fe65366aab2fc8e60ed1f0420231d4b9ed72db",
+    "approvedValidation": {
+      "workflowRun": 33472771514,
+      "job": 99745764110,
+      "artifact": 9787117264,
+      "branchTopologyRun": 33472771501,
+      "generatedCorpusQuestions": 3360,
+      "activeQuestionLanguagesPerLocale": 112,
+      "activeSolveModes": 102,
+      "canonicalProblems": 7,
+      "cpDistribution": [
+        13,
+        14,
+        16,
+        19,
+        17,
+        20,
+        13
+      ],
+      "locales": [
+        "en",
+        "hi",
+        "pa"
+      ],
+      "crossQlStructuralComparisons": 167832,
+      "crossChapterOwnershipCases": 208,
+      "questionStudioIntegrationCases": 42
+    },
+    "releaseMergeCommit": "7a767646f6d7eb1c61d603c98887defdad3d46bc"
   },
   "ownershipBoundaries": {
     "pureInterest": "INT-001",
@@ -33,7 +88,7 @@
     "mergeAuthorizedByUser": true,
     "mergeCompleted": true,
     "mergedIntoBranch": "New-main",
-    "mergeCommit": "7a767646f6d7eb1c61d603c98887defdad3d46bc",
+    "mergeCommit": "b2cfdd51db3790b3805e80ad9cc4bd05543f18a0",
     "allPartnershipPullRequestsClosed": true,
     "publicationAuthorizedByFreeze": false,
     "publicationAuthorizedByUser": false,
@@ -41,7 +96,14 @@
     "publicActivationAuthorizedByUser": false,
     "publiclyPublishable": false
   },
-  "scopeStatement": "No known unresolved PRT-001 gap remains from the E1-E13 reviewed source/audit universe.",
+  "remediationClosure": {
+    "breadthRemediationMerge": "9837b1429dd5a1ff644732a61b59a70a897503f5",
+    "postRemediationRefreezePr": 2900,
+    "postRemediationRefreezeMerge": "b2cfdd51db3790b3805e80ad9cc4bd05543f18a0",
+    "ql090DegenerateZeroDifferenceStateRemoved": true,
+    "e13IntOwnershipAuditPathMadeBundleSafe": true
+  },
+  "scopeStatement": "No known unresolved PRT-001 gap remains from the E1-E13 reviewed source/audit universe after the October 2026 systematic breadth and post-remediation freeze revalidation.",
   "openWorldCaveat": "A genuinely new future source-backed topology may reopen exhaustiveness and invalidate the affected freeze gates.",
   "invalidationRule": "Any behavioral or editorial change to the frozen PRT-001 surface requires reopening the applicable freeze gates; lifecycle-only metadata changes do not change the approved runtime fingerprint."
 }
