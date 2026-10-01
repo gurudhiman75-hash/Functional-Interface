@@ -181,9 +181,9 @@ function explanation(q:AnyQuestion,l:DsfCp019Language){
    ? tx(l,`${label} से मांगा गया मान निश्चित हो जाता है${values?`: ${values}`:""}।`,`${label} ਨਾਲ ਮੰਗਿਆ ਗਿਆ ਮੁੱਲ ਨਿਸ਼ਚਿਤ ਹੋ ਜਾਂਦਾ ਹੈ${values?`: ${values}`:""}।`)
    : tx(l,`${label} अकेले पर्याप्त नहीं है${values?`; ${values} जैसे अलग मान संभव हैं`:""}।`,`${label} ਇਕੱਲਾ ਕਾਫ਼ੀ ਨਹੀਂ ਹੈ${values?`; ${values} ਵਰਗੇ ਵੱਖਰੇ ਮੁੱਲ ਸੰਭਵ ਹਨ`:""}।`);
  };
- const s1=Boolean(proof.statementISufficient??proof.statementI?.sufficient);
- const s2=Boolean(proof.statementIISufficient??proof.statementII?.sufficient);
- const st=Boolean(proof.togetherSufficient??proof.together?.sufficient);
+ const s1=cls==="STATEMENT_I_ONLY" || cls==="EACH_STATEMENT_ALONE";
+ const s2=cls==="STATEMENT_II_ONLY" || cls==="EACH_STATEMENT_ALONE";
+ const st=cls!=="INSUFFICIENT_EVEN_TOGETHER";
  return [
   tx(l,"पहले दोनों कथनों को अलग-अलग जाँचते हैं।","ਪਹਿਲਾਂ ਦੋਵੇਂ ਕਥਨਾਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਜਾਂਚਦੇ ਹਾਂ।"),
   line(tx(l,"कथन I","ਕਥਨ I"),proof.statementIWorldCount,proof.statementITargetAnswers,s1),
