@@ -163,12 +163,12 @@ function buildStatementPool(problem: DirectionProblem): readonly DirectionStatem
     statement(`D12_${a.firstDistance}_${a.secondDistance}`, "DISTANCE_PAIR", 2, `The first two movement lengths are ${a.firstDistance} m and ${a.secondDistance} m respectively.`, (w) => w.firstDistance === a.firstDistance && w.secondDistance === a.secondDistance),
     statement(`X_${a.finalX}`, "FINAL_X_EXACT", 2, `The net east-west displacement is ${Math.abs(a.finalX)} m ${a.finalX === 0 ? "with no east-west shift" : a.finalX > 0 ? "to the east" : "to the west"}.`, (w) => w.finalX === a.finalX),
     statement(`Y_${a.finalY}`, "FINAL_Y_EXACT", 2, `The net north-south displacement is ${Math.abs(a.finalY)} m ${a.finalY === 0 ? "with no north-south shift" : a.finalY > 0 ? "to the north" : "to the south"}.`, (w) => w.finalY === a.finalY),
-    statement(`XY_${a.finalX}_${a.finalY}`, "FINAL_COMPONENT_PAIR", 3, `The net displacement components are ${a.finalX} m on the east-west axis and ${a.finalY} m on the north-south axis.`, (w) => w.finalX === a.finalX && w.finalY === a.finalY),
+    statement(`XY_${a.finalX}_${a.finalY}`, "FINAL_COMPONENT_PAIR", 3, `The final point has coordinates (${a.finalX}, ${a.finalY}) when the starting point is (0, 0).`, (w) => w.finalX === a.finalX && w.finalY === a.finalY),
     statement(`FACING_${a.finalFacing}`, "FINAL_FACING_EXACT", 1, `After all movements, the person is facing ${a.finalFacing}.`, (w) => w.finalFacing === a.finalFacing),
     statement(`PATH_${a.totalPath}`, "TOTAL_PATH_EXACT", 2, `The total path length travelled is ${a.totalPath} m.`, (w) => w.totalPath === a.totalPath),
     statement(`XSIGN_${signLabel(a.finalX)}`, "FINAL_X_SIGN", 2, `The final east-west coordinate is ${signLabel(a.finalX)}.`, (w) => signLabel(w.finalX) === signLabel(a.finalX)),
     statement(`YSIGN_${signLabel(a.finalY)}`, "FINAL_Y_SIGN", 2, `The final north-south coordinate is ${signLabel(a.finalY)}.`, (w) => signLabel(w.finalY) === signLabel(a.finalY)),
-  ].filter((entry) => !["FINAL_X_EXACT", "FINAL_Y_EXACT", "FINAL_COMPONENT_PAIR", "FINAL_X_SIGN", "FINAL_Y_SIGN"].includes(entry.family));
+  ].filter((entry) => !["FINAL_X_EXACT", "FINAL_Y_EXACT", "FINAL_X_SIGN", "FINAL_Y_SIGN"].includes(entry.family));
 }
 
 function pairQuality(first: DirectionStatement, second: DirectionStatement, evaluation: TwoStatementSufficiencyEvaluation<string>): number {
