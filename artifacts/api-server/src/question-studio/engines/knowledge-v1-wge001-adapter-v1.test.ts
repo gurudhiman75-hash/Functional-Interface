@@ -48,7 +48,7 @@ async function run() {
   assert.equal(currentsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   for (const packageId of ['WGE-001-CP024','WGE-001-CP025','WGE-001-CP026','WGE-001-CP027','WGE-001-CP028','WGE-001-CP029','WGE-001-CP030','WGE-001-CP031']) {
     const regionalPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
-    assert.equal(regionalPackage.metadata.authoringReviewApproved, true);
+    assert.equal(regionalPackage.metadata.authoringReviewApproved, false);
     assert.equal(regionalPackage.metadata.variablePoolQuestionCount, 24);
     assert.equal(regionalPackage.metadata.variablePoolEnabled, true);
     assert.equal(regionalPackage.metadata.variablePoolStatus, 'USER_APPROVED');
