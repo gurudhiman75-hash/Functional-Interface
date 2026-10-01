@@ -42,6 +42,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { EXAMS } from '@/data/exams';
 import {
   type GenerationItemStatus,
+  type GenerationPackage,
   type GenerationRunStatus,
   type QuestionStudioItem,
   type QuestionStudioRun,
@@ -67,6 +68,39 @@ import { cn } from '@/lib/utils';
 
 const ALL = 'all';
 const LANGUAGE_LABELS: Record<string, string> = { en: 'English', hi: 'Hindi', pa: 'Punjabi' };
+const SUBJECT_ORDER = ['Quantitative Aptitude', 'Reasoning Ability', 'English', 'Static GK', 'Punjabi Language'];
+
+function packageSubject(entry: GenerationPackage) {
+  const explicit = entry.subject?.trim();
+  if (explicit) return explicit;
+  if (entry.engineId === 'quant-v4') return 'Quantitative Aptitude';
+  if (entry.engineId === 'reasoning-v1') return 'Reasoning Ability';
+  if (entry.engineId === 'language-v1') return 'English';
+  if (entry.engineId === 'knowledge-v1') return 'Static GK';
+  return 'Other';
+}
+
+function packageChapter(entry: GenerationPackage) {
+  if (entry.engineId === 'quant-v4') return entry.subtopic?.trim() || entry.topic?.trim() || entry.label;
+  return entry.topic?.trim() || entry.subtopic?.trim() || entry.label;
+}
+
+function packageCpIds(entry: GenerationPackage) {
+  return [...new Set([...(entry.cpIds ?? []), ...(entry.dynamicCandidateCpIds ?? [])])];
+}
+
+function sortSubjects(values: string[]) {
+  return [...values].sort((left, right) => {
+    const leftRank = SUBJECT_ORDER.indexOf(left);
+    const rightRank = SUBJECT_ORDER.indexOf(right);
+    if (leftRank !== -1 || rightRank !== -1) {
+      if (leftRank === -1) return 1;
+      if (rightRank === -1) return -1;
+      if (leftRank !== rightRank) return leftRank - rightRank;
+    }
+    return left.localeCompare(right);
+  });
+}
 
 type QualityFilter = 'all' | 'ready' | 'warning' | 'blocked' | 'duplicate';
 
@@ -135,7 +169,9 @@ export function QuestionStudioCockpitPage() {
     reviseItem,
   } = useQuestionStudio();
 
-  const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL');
+  const [subject, setSubject] = useState('');
+  const [chapter, setChapter] = useState('');
+  const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL_T1');
   const [packageId, setPackageId] = useState('');
   const [selectedCpIds, setSelectedCpIds] = useState<Set<string>>(() => new Set());
   const [difficulty, setDifficulty] = useState('Medium');
@@ -156,13 +192,60 @@ export function QuestionStudioCockpitPage() {
     [capabilities.packages],
   );
 
-  useEffect(() => {
-    if (!packageId && enabledPackages[0]) setPackageId(enabledPackages[0].packageId);
-  }, [enabledPackages, packageId]);
+  const subjects = useMemo(
+    () => sortSubjects([...new Set(enabledPackages.map(packageSubject))]),
+    [enabledPackages],
+  );
 
-  const activePackage = enabledPackages.find((entry) => entry.packageId === packageId);
+  useEffect(() => {
+    if (!subjects.length) return;
+    if (!subject || !subjects.includes(subject)) setSubject(subjects[0]!);
+  }, [subject, subjects]);
+
+  const subjectPackages = useMemo(
+    () => enabledPackages.filter((entry) => packageSubject(entry) === subject),
+    [enabledPackages, subject],
+  );
+
+  const chapters = useMemo(
+    () => [...new Set(subjectPackages.map(packageChapter))].sort((left, right) => left.localeCompare(right)),
+    [subjectPackages],
+  );
+
+  useEffect(() => {
+    if (!chapters.length) {
+      setChapter('');
+      return;
+    }
+    if (!chapter || !chapters.includes(chapter)) setChapter(chapters[0]!);
+  }, [chapter, chapters]);
+
+  const chapterPackages = useMemo(
+    () => subjectPackages
+      .filter((entry) => packageChapter(entry) === chapter)
+      .sort((left, right) => {
+        const cpDelta = packageCpIds(right).length - packageCpIds(left).length;
+        if (cpDelta !== 0) return cpDelta;
+        const idLengthDelta = left.packageId.length - right.packageId.length;
+        return idLengthDelta !== 0 ? idLengthDelta : left.packageId.localeCompare(right.packageId);
+      }),
+    [chapter, subjectPackages],
+  );
+
+  useEffect(() => {
+    if (!chapterPackages.length) {
+      setPackageId('');
+      return;
+    }
+    if (!packageId || !chapterPackages.some((entry) => entry.packageId === packageId)) {
+      setPackageId(chapterPackages[0]!.packageId);
+      setSelectedCpIds(new Set());
+    }
+  }, [chapterPackages, packageId]);
+
+  const activePackage = chapterPackages.find((entry) => entry.packageId === packageId);
   const availableCpIds = useMemo(
-    () => activePackage?.cpIds ?? [],
+    () => activePackage ? packageCpIds(activePackage) : [],
     [activePackage],
   );
 
@@ -226,6 +309,7 @@ export function QuestionStudioCockpitPage() {
           firstText(item.payload, ['topic'], ''),
           firstText(item.payload, ['subtopic'], ''),
           firstText(item.payload, ['patternId', 'packageId'], ''),
+          firstText(item.payload, ['selectedCpId', 'canonicalProblemId', 'cpId'], ''),
         ].join(' ').toLowerCase();
         return haystack.includes(normalizedSearch);
       });
@@ -250,7 +334,7 @@ export function QuestionStudioCockpitPage() {
 
   const handleGenerate = async () => {
     if (!activePackage) {
-      showToast.error('Generation package required', 'Select an enabled generation package.');
+      showToast.error('Generation source required', 'Select a subject and chapter with an enabled generation source.');
       return;
     }
     const cpIds = [...selectedCpIds];
@@ -266,7 +350,7 @@ export function QuestionStudioCockpitPage() {
       const result = await generate({
         exam: selectedExam?.name ?? exam,
         engineId: activePackage.engineId,
-        subject: activePackage.subject ?? 'Quantitative Aptitude',
+        subject: packageSubject(activePackage),
         difficulty,
         count: Math.min(capabilities.maxBatchSize, Math.max(1, count)),
         packageId: activePackage.packageId,
@@ -360,30 +444,66 @@ export function QuestionStudioCockpitPage() {
       </div>
 
       <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Sparkles className="h-4 w-4 text-primary" /> Create generation run</CardTitle><p className="text-xs text-muted-foreground">Generate immutable review items from the selected registered engine. Approval remains subject to the package lifecycle and quality gates.</p></CardHeader>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Sparkles className="h-4 w-4 text-primary" /> Create generation run</CardTitle><p className="text-xs text-muted-foreground">Choose a subject and chapter, select one or more CPs, then generate a review batch. Package and engine routing stay behind the workflow unless a chapter has multiple question families.</p></CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
-            <Field label="Exam"><Select value={exam} onValueChange={setExam}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{EXAMS.map((entry) => <SelectItem key={entry.code} value={entry.code}>{entry.name}</SelectItem>)}</SelectContent></Select></Field>
-            <Field label="Generation package" className="xl:col-span-2"><Select value={packageId} onValueChange={(value) => { setPackageId(value); setSelectedCpIds(new Set()); }}><SelectTrigger><SelectValue placeholder="Select package" /></SelectTrigger><SelectContent>{enabledPackages.map((entry) => <SelectItem key={entry.packageId} value={entry.packageId}>{entry.packageId} · {entry.label}</SelectItem>)}</SelectContent></Select></Field>
-            <Field label="Difficulty"><Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{capabilities.difficulties.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
-            <Field label="Language"><Select value={language} onValueChange={setLanguage}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{supportedLanguages.map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry] ?? entry}</SelectItem>)}</SelectContent></Select></Field>
-            <Field label="Question count"><Input type="number" min={1} max={capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
+            <Field label="Subject" className="xl:col-span-2">
+              <Select
+                value={subject}
+                onValueChange={(value) => {
+                  setSubject(value);
+                  setChapter('');
+                  setPackageId('');
+                  setSelectedCpIds(new Set());
+                }}
+              >
+                <SelectTrigger><SelectValue placeholder="Select subject" /></SelectTrigger>
+                <SelectContent>{subjects.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
+              </Select>
+            </Field>
+            <Field label="Chapter" className="xl:col-span-2">
+              <Select
+                value={chapter}
+                onValueChange={(value) => {
+                  setChapter(value);
+                  setPackageId('');
+                  setSelectedCpIds(new Set());
+                }}
+                disabled={!subject}
+              >
+                <SelectTrigger><SelectValue placeholder="Select chapter" /></SelectTrigger>
+                <SelectContent>{chapters.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
+              </Select>
+            </Field>
+            {chapterPackages.length > 1 ? (
+              <Field label="Question family" className="xl:col-span-2">
+                <Select value={packageId} onValueChange={(value) => { setPackageId(value); setSelectedCpIds(new Set()); }}>
+                  <SelectTrigger><SelectValue placeholder="Select question family" /></SelectTrigger>
+                  <SelectContent>{chapterPackages.map((entry) => <SelectItem key={entry.packageId} value={entry.packageId}>{entry.label}</SelectItem>)}</SelectContent>
+                </Select>
+              </Field>
+            ) : (
+              <div className="xl:col-span-2 rounded-lg border bg-muted/20 px-3 py-2">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Generation source</p>
+                <p className="mt-1 text-xs font-medium">{activePackage?.label ?? 'Choose a chapter'}</p>
+              </div>
+            )}
           </div>
 
           {activePackage && availableCpIds.length > 0 && (
             <div className="rounded-xl border bg-muted/10">
               <div className="flex flex-col gap-3 border-b px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-xs font-semibold">CP selection</p>
+                  <p className="text-xs font-semibold">Content patterns (CPs)</p>
                   <p className="mt-0.5 text-[11px] text-muted-foreground">
                     {selectedCpIds.size > 0
                       ? `${selectedCpIds.size} of ${availableCpIds.length} CPs selected · questions are distributed across the selected CPs`
-                      : `No explicit CP filter · the engine can mix across all ${availableCpIds.length} CPs`}
+                      : `No explicit CP filter · the generator can mix across all ${availableCpIds.length} CPs in this family`}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Button type="button" size="sm" variant="outline" onClick={() => setSelectedCpIds(new Set())}>
-                    Engine mix
+                    Use chapter mix
                   </Button>
                   <Button
                     type="button"
@@ -392,11 +512,11 @@ export function QuestionStudioCockpitPage() {
                     onClick={() => setSelectedCpIds(new Set(availableCpIds))}
                     disabled={availableCpIds.length > capabilities.maxBatchSize}
                   >
-                    Select all
+                    Select all CPs
                   </Button>
                 </div>
               </div>
-              <div className="grid max-h-56 gap-2 overflow-y-auto p-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid max-h-64 gap-2 overflow-y-auto p-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {availableCpIds.map((cpId) => {
                   const checked = selectedCpIds.has(cpId);
                   return (
@@ -421,11 +541,18 @@ export function QuestionStudioCockpitPage() {
               )}
             </div>
           )}
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <Field label="Exam profile"><Select value={exam} onValueChange={setExam}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{EXAMS.map((entry) => <SelectItem key={entry.code} value={entry.code}>{entry.name}</SelectItem>)}</SelectContent></Select></Field>
+            <Field label="Difficulty"><Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{((activePackage?.supportedDifficulties?.length ? activePackage.supportedDifficulties : capabilities.difficulties)).map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
+            <Field label="Language"><Select value={language} onValueChange={setLanguage}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{supportedLanguages.map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry] ?? entry}</SelectItem>)}</SelectContent></Select></Field>
+            <Field label="Question count"><Input type="number" min={1} max={capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
+          </div>
           <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
             <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for a fresh generated seed" /></Field>
             <Button onClick={() => void handleGenerate()} disabled={loading || generating || !activePackage || !canRun} className="min-w-44">{generating ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating ? 'Generating…' : 'Generate review batch'}</Button>
           </div>
-          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{activePackage.topic} · {activePackage.subtopic}</span> · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${activePackage.cpIds.length} CP(s), engine mix`} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
+          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageChapter(activePackage)}</span> · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
         </CardContent>
       </Card>
 
@@ -454,12 +581,13 @@ export function QuestionStudioCockpitPage() {
 function RunSection({ run, items, expanded, selectedIds, qualityByItem, duplicates, expandedItems, editingItemId, revisingItemId, canReview, onToggle, onToggleItem, onSelect, onSelectRun, onEdit, onDecision, onRevise }: { run: QuestionStudioRun; items: QuestionStudioItem[]; expanded: boolean; selectedIds: Set<string>; qualityByItem: Map<string, ItemQualityReport>; duplicates: Map<string, DuplicateMatch>; expandedItems: Set<string>; editingItemId: string | null; revisingItemId: string | null; canReview: boolean; onToggle: () => void; onToggleItem: (id: string) => void; onSelect: (id: string, checked: boolean) => void; onSelectRun: (checked: boolean) => void; onEdit: (id: string | null) => void; onDecision: (status: GenerationItemStatus, id: string) => void; onRevise: (input: { itemId: string; stem: string; explanation: string; options: string[]; correctIndex: number; changeReason: string }) => Promise<void> }) {
   const runSelected = items.length > 0 && items.every((item) => selectedIds.has(item.id));
   const blocked = run.items.filter((item) => (qualityByItem.get(item.id)?.blockerCount ?? 0) > 0).length;
-  return <div><div className="flex flex-col gap-3 px-4 py-4 xl:flex-row xl:items-center"><div className="flex items-center gap-3"><Checkbox checked={runSelected} onCheckedChange={(checked) => onSelectRun(checked === true)} aria-label={`Select items in ${run.publicCode}`} /><button type="button" onClick={onToggle} className="rounded-md p-1 hover:bg-muted">{expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}</button></div><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-xs font-bold">{run.publicCode}</span><StatusBadge tone={runStatusTone(run.status)} dot>{formatStatus(run.status)}</StatusBadge><Badge variant="secondary" className="text-[10px]">{items.length} visible / {run.items.length} total</Badge>{blocked > 0 && <Badge variant="outline" className="border-destructive/30 text-destructive">{blocked} blocked</Badge>}</div><p className="mt-1 text-xs text-muted-foreground">{runSnapshotText(run, 'exam')} · {runSnapshotText(run, 'difficulty')} · {runSnapshotText(run, 'packageId', runSnapshotText(run, 'patternId'))}</p><p className="mt-1 text-[10px] text-muted-foreground">{new Date(run.createdAt).toLocaleString()} · {run.model ?? run.provider ?? 'generator'}</p></div><div className="grid grid-cols-4 gap-2 text-center text-[10px] xl:w-72"><RunCount label="Review" value={run.items.filter((item) => item.status === 'unreviewed').length} /><RunCount label="Fix" value={run.items.filter((item) => item.status === 'needs_fix').length} /><RunCount label="Approved" value={run.items.filter((item) => item.status === 'approved').length} /><RunCount label="Rejected" value={run.items.filter((item) => item.status === 'rejected').length} /></div></div>{expanded && <div className="border-t bg-muted/10">{items.map((item) => <ReviewItem key={item.id} item={item} quality={qualityByItem.get(item.id) ?? analyzeItemQuality(item.payload)} duplicate={duplicates.get(item.id)} selected={selectedIds.has(item.id)} expanded={expandedItems.has(item.id)} editing={editingItemId === item.id} revising={revisingItemId === item.id} canReview={canReview} onSelected={(checked) => onSelect(item.id, checked)} onExpanded={() => onToggleItem(item.id)} onEdit={() => onEdit(editingItemId === item.id ? null : item.id)} onDecision={(status) => onDecision(status, item.id)} onRevise={onRevise} />)}</div>}</div>;
+  return <div><div className="flex flex-col gap-3 px-4 py-4 xl:flex-row xl:items-center"><div className="flex items-center gap-3"><Checkbox checked={runSelected} onCheckedChange={(checked) => onSelectRun(checked === true)} aria-label={`Select items in ${run.publicCode}`} /><button type="button" onClick={onToggle} className="rounded-md p-1 hover:bg-muted">{expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}</button></div><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-xs font-bold">{run.publicCode}</span><StatusBadge tone={runStatusTone(run.status)} dot>{formatStatus(run.status)}</StatusBadge><Badge variant="secondary" className="text-[10px]">{items.length} visible / {run.items.length} total</Badge>{blocked > 0 && <Badge variant="outline" className="border-destructive/30 text-destructive">{blocked} blocked</Badge>}</div><p className="mt-1 text-xs text-muted-foreground">{runSnapshotText(run, 'subject')} · {runSnapshotText(run, 'exam')} · {runSnapshotText(run, 'difficulty')} · {runSnapshotText(run, 'packageId', runSnapshotText(run, 'patternId'))}</p><p className="mt-1 text-[10px] text-muted-foreground">{new Date(run.createdAt).toLocaleString()} · {run.model ?? run.provider ?? 'generator'}</p></div><div className="grid grid-cols-4 gap-2 text-center text-[10px] xl:w-72"><RunCount label="Review" value={run.items.filter((item) => item.status === 'unreviewed').length} /><RunCount label="Fix" value={run.items.filter((item) => item.status === 'needs_fix').length} /><RunCount label="Approved" value={run.items.filter((item) => item.status === 'approved').length} /><RunCount label="Rejected" value={run.items.filter((item) => item.status === 'rejected').length} /></div></div>{expanded && <div className="border-t bg-muted/10">{items.map((item) => <ReviewItem key={item.id} item={item} quality={qualityByItem.get(item.id) ?? analyzeItemQuality(item.payload)} duplicate={duplicates.get(item.id)} selected={selectedIds.has(item.id)} expanded={expandedItems.has(item.id)} editing={editingItemId === item.id} revising={revisingItemId === item.id} canReview={canReview} onSelected={(checked) => onSelect(item.id, checked)} onExpanded={() => onToggleItem(item.id)} onEdit={() => onEdit(editingItemId === item.id ? null : item.id)} onDecision={(status) => onDecision(status, item.id)} onRevise={onRevise} />)}</div>}</div>;
 }
 
 function ReviewItem({ item, quality, duplicate, selected, expanded, editing, revising, canReview, onSelected, onExpanded, onEdit, onDecision, onRevise }: { item: QuestionStudioItem; quality: ItemQualityReport; duplicate?: DuplicateMatch; selected: boolean; expanded: boolean; editing: boolean; revising: boolean; canReview: boolean; onSelected: (checked: boolean) => void; onExpanded: () => void; onEdit: () => void; onDecision: (status: GenerationItemStatus) => void; onRevise: (input: { itemId: string; stem: string; explanation: string; options: string[]; correctIndex: number; changeReason: string }) => Promise<void> }) {
   const stem = itemStem(item.payload) || 'Generated stem unavailable';
-  return <div className="border-b px-4 py-4 last:border-b-0"><div className="flex items-start gap-3"><Checkbox checked={selected} onCheckedChange={(checked) => onSelected(checked === true)} aria-label={`Select generated item ${item.itemNumber}`} /><button type="button" onClick={onExpanded} className="mt-0.5 rounded-md p-1 hover:bg-muted">{expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}</button><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-[10px] text-muted-foreground">Item {item.itemNumber} · v{item.currentVersionNumber}</span><StatusBadge tone={itemStatusTone(item.status)}>{formatStatus(item.status)}</StatusBadge><Badge variant="outline" className={cn('text-[10px]', qualityTone(quality))}>{quality.readyForApproval ? quality.warningCount ? `${quality.score} · warnings` : `${quality.score} · ready` : `${quality.score} · blocked`}</Badge>{duplicate && <Badge variant="outline" className="border-warning/30 text-warning">{duplicate.exact ? 'Exact duplicate' : `${Math.round(duplicate.similarity * 100)}% similar`}</Badge>}{item.acceptedQuestionId && <Badge className="bg-success/10 text-success hover:bg-success/10">In Question Bank</Badge>}</div><p className="mt-2 text-sm leading-relaxed">{stem}</p>{item.retryReason && <p className="mt-2 text-xs text-warning">Review reason: {item.retryReason}</p>}<div className="mt-3 flex flex-wrap gap-2">{item.acceptedQuestionId ? <Button asChild size="sm" variant="outline"><Link to={`/content/questions/${item.acceptedQuestionId}`}><ExternalLink className="mr-1.5 h-3.5 w-3.5" /> Open canonical question</Link></Button> : <><Button size="sm" variant="outline" onClick={onEdit} disabled={!canReview}><PencilLine className="mr-1.5 h-3.5 w-3.5" /> {editing ? 'Close editor' : 'Revise'}</Button><Button size="sm" onClick={() => onDecision('approved')} disabled={!canReview || quality.blockerCount > 0}><CheckCircle2 className="mr-1.5 h-3.5 w-3.5" /> Approve</Button><Button size="sm" variant="outline" onClick={() => onDecision('needs_fix')} disabled={!canReview}><AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> Needs fix</Button><Button size="sm" variant="ghost" onClick={() => onDecision('rejected')} disabled={!canReview} className="text-destructive"><XCircle className="mr-1.5 h-3.5 w-3.5" /> Reject</Button></>}</div></div></div>{expanded && <ItemInspection item={item} quality={quality} duplicate={duplicate} />}{editing && !item.acceptedQuestionId && <RevisionEditor item={item} saving={revising} onCancel={onEdit} onSave={onRevise} />}</div>;
+  const cpId = firstText(item.payload, ['selectedCpId', 'canonicalProblemId', 'cpId'], '');
+  return <div className="border-b px-4 py-4 last:border-b-0"><div className="flex items-start gap-3"><Checkbox checked={selected} onCheckedChange={(checked) => onSelected(checked === true)} aria-label={`Select generated item ${item.itemNumber}`} /><button type="button" onClick={onExpanded} className="mt-0.5 rounded-md p-1 hover:bg-muted">{expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}</button><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><span className="font-mono text-[10px] text-muted-foreground">Item {item.itemNumber} · v{item.currentVersionNumber}</span>{cpId && <Badge variant="secondary" className="font-mono text-[10px]">{cpId}</Badge>}<StatusBadge tone={itemStatusTone(item.status)}>{formatStatus(item.status)}</StatusBadge><Badge variant="outline" className={cn('text-[10px]', qualityTone(quality))}>{quality.readyForApproval ? quality.warningCount ? `${quality.score} · warnings` : `${quality.score} · ready` : `${quality.score} · blocked`}</Badge>{duplicate && <Badge variant="outline" className="border-warning/30 text-warning">{duplicate.exact ? 'Exact duplicate' : `${Math.round(duplicate.similarity * 100)}% similar`}</Badge>}{item.acceptedQuestionId && <Badge className="bg-success/10 text-success hover:bg-success/10">In Question Bank</Badge>}</div><p className="mt-2 text-sm leading-relaxed">{stem}</p>{item.retryReason && <p className="mt-2 text-xs text-warning">Review reason: {item.retryReason}</p>}<div className="mt-3 flex flex-wrap gap-2">{item.acceptedQuestionId ? <Button asChild size="sm" variant="outline"><Link to={`/content/questions/${item.acceptedQuestionId}`}><ExternalLink className="mr-1.5 h-3.5 w-3.5" /> Open canonical question</Link></Button> : <><Button size="sm" variant="outline" onClick={onEdit} disabled={!canReview}><PencilLine className="mr-1.5 h-3.5 w-3.5" /> {editing ? 'Close editor' : 'Revise'}</Button><Button size="sm" onClick={() => onDecision('approved')} disabled={!canReview || quality.blockerCount > 0}><CheckCircle2 className="mr-1.5 h-3.5 w-3.5" /> Approve</Button><Button size="sm" variant="outline" onClick={() => onDecision('needs_fix')} disabled={!canReview}><AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> Needs fix</Button><Button size="sm" variant="ghost" onClick={() => onDecision('rejected')} disabled={!canReview} className="text-destructive"><XCircle className="mr-1.5 h-3.5 w-3.5" /> Reject</Button></>}</div></div></div>{expanded && <ItemInspection item={item} quality={quality} duplicate={duplicate} />}{editing && !item.acceptedQuestionId && <RevisionEditor item={item} saving={revising} onCancel={onEdit} onSave={onRevise} />}</div>;
 }
 
 function ItemInspection({ item, quality, duplicate }: { item: QuestionStudioItem; quality: ItemQualityReport; duplicate?: DuplicateMatch }) {
