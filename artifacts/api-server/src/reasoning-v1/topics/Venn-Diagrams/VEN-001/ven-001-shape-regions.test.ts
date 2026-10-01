@@ -60,7 +60,7 @@ const rightTriangleQuestion = generateVen001ShapeRegionBatch({
 assert.match(rightTriangleQuestion.stimulusSvgs![0]!, /right-angled triangle/);
 assert.match(
   rightTriangleQuestion.stimulusSvgs![0]!,
-  /M 60 40 L 60 70 L 30 70/,
+  /M 150 100 L 150 130 L 120 130/,
 );
 for (const layout of LAYOUTS) {
   const points = pointsFor(layout);
