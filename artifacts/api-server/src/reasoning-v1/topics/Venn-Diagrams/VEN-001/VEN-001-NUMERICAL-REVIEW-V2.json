@@ -2828,7 +2828,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "18:35",
-      "explanation": "Subtract the overlap from each group total: only yoga = 52 − 34 = 18; only swimming = 69 − 34 = 35. Reduce the ratio by the highest common factor 1: 18/1:35/1 = 18:35.",
+      "explanation": "Subtract the overlap from each group total: only yoga = 52 − 34 = 18; only swimming = 69 − 34 = 35. The ratio 18:35 is already in simplest form.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">33</text><text x=\"135\" y=\"220\" data-mask=\"1\">18</text><text x=\"425\" y=\"220\" data-mask=\"2\">35</text><text x=\"280\" y=\"220\" data-mask=\"3\">34</text></g></svg>"
       ],
@@ -2932,7 +2932,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21:4",
-      "explanation": "Each pair total includes the all-three group. Subtract the all-three count from each pair, then add the three pair-only regions: (31 − 12) + (37 − 12) + (31 − 12) = 63. All three groups = 12. Reduce the ratio by the highest common factor 3: 63/3:12/3 = 21:4.",
+      "explanation": "Each pair total includes the all-three group. Subtract the all-three count from each pair, then add the three pair-only regions: (31 − 12) + (37 − 12) + (31 − 12) = 63. All three groups = 12. Divide both terms by their highest common factor 3: 63 ÷ 3 : 12 ÷ 3 = 21:4.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"200\" cy=\"150\" r=\"130\"/><circle cx=\"360\" cy=\"150\" r=\"130\"/><circle cx=\"280\" cy=\"280\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"280\" y=\"439\">C</text><text x=\"505\" y=\"380\" data-mask=\"0\">31</text><text x=\"125\" y=\"125\" data-mask=\"1\">2</text><text x=\"435\" y=\"125\" data-mask=\"2\">34</text><text x=\"280\" y=\"85\" data-mask=\"3\">19</text><text x=\"280\" y=\"365\" data-mask=\"4\">14</text><text x=\"190\" y=\"265\" data-mask=\"5\">25</text><text x=\"370\" y=\"265\" data-mask=\"6\">19</text><text x=\"280\" y=\"205\" data-mask=\"7\">12</text></g></svg>"
       ],
@@ -3022,8 +3022,8 @@
       "subtopic": "Numerical Venn Diagrams",
       "language": "en",
       "locale": "en-IN",
-      "stem": "Among 300 people, 45% of respondents passed mathematics; 50% of respondents passed English; 45% of respondents passed science; 20% of respondents passed both mathematics and English; 20% of respondents passed both mathematics and science; 20% of respondents passed both English and science; 10% of respondents passed all three: mathematics and English and science. Each pairwise percentage includes people in all three groups. Among 300 people, How many people belong to none of these groups?",
-      "text": "Among 300 people, 45% of respondents passed mathematics; 50% of respondents passed English; 45% of respondents passed science; 20% of respondents passed both mathematics and English; 20% of respondents passed both mathematics and science; 20% of respondents passed both English and science; 10% of respondents passed all three: mathematics and English and science. Each pairwise percentage includes people in all three groups. Among 300 people, How many people belong to none of these groups?",
+      "stem": "Among 300 people, 45% of respondents passed mathematics; 50% of respondents passed English; 45% of respondents passed science; 20% of respondents passed both mathematics and English; 20% of respondents passed both mathematics and science; 20% of respondents passed both English and science; 10% of respondents passed all three: mathematics and English and science. Each pairwise percentage includes people in all three groups. How many people belong to none of these groups?",
+      "text": "Among 300 people, 45% of respondents passed mathematics; 50% of respondents passed English; 45% of respondents passed science; 20% of respondents passed both mathematics and English; 20% of respondents passed both mathematics and science; 20% of respondents passed both English and science; 10% of respondents passed all three: mathematics and English and science. Each pairwise percentage includes people in all three groups. How many people belong to none of these groups?",
       "options": [
         "270",
         "135",
@@ -7878,7 +7878,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "18:35",
-      "explanation": "हर समूह की कुल संख्या में से साझा लोगों को घटाएँ: केवल योग = 52 − 34 = 18; केवल तैराकी = 69 − 34 = 35। अनुपात को महत्तम समापवर्तक से सरल करें 1: 18/1:35/1 = 18:35.",
+      "explanation": "हर समूह की कुल संख्या में से साझा लोगों को घटाएँ: केवल योग = 52 − 34 = 18; केवल तैराकी = 69 − 34 = 35। 18:35 का अनुपात पहले से सरल रूप में है।",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">33</text><text x=\"135\" y=\"220\" data-mask=\"1\">18</text><text x=\"425\" y=\"220\" data-mask=\"2\">35</text><text x=\"280\" y=\"220\" data-mask=\"3\">34</text></g></svg>"
       ],
@@ -7982,7 +7982,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21:4",
-      "explanation": "हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। हर जोड़ी में से तीनों वाले लोगों को घटाकर तीन केवल-जोड़ी क्षेत्रों को जोड़ें: (31 − 12) + (37 − 12) + (31 − 12) = 63. तीनों समूह = 12. अनुपात को महत्तम समापवर्तक से सरल करें 3: 63/3:12/3 = 21:4.",
+      "explanation": "हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। हर जोड़ी में से तीनों वाले लोगों को घटाकर तीन केवल-जोड़ी क्षेत्रों को जोड़ें: (31 − 12) + (37 − 12) + (31 − 12) = 63. तीनों समूह = 12. दोनों पदों को महत्तम समापवर्तक 3 से भाग दें: 63 ÷ 3 : 12 ÷ 3 = 21:4।",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"200\" cy=\"150\" r=\"130\"/><circle cx=\"360\" cy=\"150\" r=\"130\"/><circle cx=\"280\" cy=\"280\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"280\" y=\"439\">C</text><text x=\"505\" y=\"380\" data-mask=\"0\">31</text><text x=\"125\" y=\"125\" data-mask=\"1\">2</text><text x=\"435\" y=\"125\" data-mask=\"2\">34</text><text x=\"280\" y=\"85\" data-mask=\"3\">19</text><text x=\"280\" y=\"365\" data-mask=\"4\">14</text><text x=\"190\" y=\"265\" data-mask=\"5\">25</text><text x=\"370\" y=\"265\" data-mask=\"6\">19</text><text x=\"280\" y=\"205\" data-mask=\"7\">12</text></g></svg>"
       ],
@@ -8072,8 +8072,8 @@
       "subtopic": "Numerical Venn Diagrams",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "कुल 300 लोगों में, 45% लोग गणित में उत्तीर्ण हुए; 50% लोग अंग्रेज़ी में उत्तीर्ण हुए; 45% लोग विज्ञान में उत्तीर्ण हुए; 20% लोग गणित और अंग्रेज़ी दोनों में उत्तीर्ण हुए; 20% लोग गणित और विज्ञान दोनों में उत्तीर्ण हुए; 20% लोग अंग्रेज़ी और विज्ञान दोनों में उत्तीर्ण हुए; 10% लोग गणित और अंग्रेज़ी और विज्ञान तीनों में उत्तीर्ण हुए. हर जोड़ी के प्रतिशत में तीनों समूहों के लोग भी शामिल हैं। कुल 300 लोगों में, कितने लोग इनमें से किसी समूह में नहीं आते हैं?",
-      "text": "कुल 300 लोगों में, 45% लोग गणित में उत्तीर्ण हुए; 50% लोग अंग्रेज़ी में उत्तीर्ण हुए; 45% लोग विज्ञान में उत्तीर्ण हुए; 20% लोग गणित और अंग्रेज़ी दोनों में उत्तीर्ण हुए; 20% लोग गणित और विज्ञान दोनों में उत्तीर्ण हुए; 20% लोग अंग्रेज़ी और विज्ञान दोनों में उत्तीर्ण हुए; 10% लोग गणित और अंग्रेज़ी और विज्ञान तीनों में उत्तीर्ण हुए. हर जोड़ी के प्रतिशत में तीनों समूहों के लोग भी शामिल हैं। कुल 300 लोगों में, कितने लोग इनमें से किसी समूह में नहीं आते हैं?",
+      "stem": "कुल 300 लोगों में, 45% लोग गणित में उत्तीर्ण हुए; 50% लोग अंग्रेज़ी में उत्तीर्ण हुए; 45% लोग विज्ञान में उत्तीर्ण हुए; 20% लोग गणित और अंग्रेज़ी दोनों में उत्तीर्ण हुए; 20% लोग गणित और विज्ञान दोनों में उत्तीर्ण हुए; 20% लोग अंग्रेज़ी और विज्ञान दोनों में उत्तीर्ण हुए; 10% लोग गणित और अंग्रेज़ी और विज्ञान तीनों में उत्तीर्ण हुए. हर जोड़ी के प्रतिशत में तीनों समूहों के लोग भी शामिल हैं। कितने लोग इनमें से किसी समूह में नहीं आते हैं?",
+      "text": "कुल 300 लोगों में, 45% लोग गणित में उत्तीर्ण हुए; 50% लोग अंग्रेज़ी में उत्तीर्ण हुए; 45% लोग विज्ञान में उत्तीर्ण हुए; 20% लोग गणित और अंग्रेज़ी दोनों में उत्तीर्ण हुए; 20% लोग गणित और विज्ञान दोनों में उत्तीर्ण हुए; 20% लोग अंग्रेज़ी और विज्ञान दोनों में उत्तीर्ण हुए; 10% लोग गणित और अंग्रेज़ी और विज्ञान तीनों में उत्तीर्ण हुए. हर जोड़ी के प्रतिशत में तीनों समूहों के लोग भी शामिल हैं। कितने लोग इनमें से किसी समूह में नहीं आते हैं?",
       "options": [
         "270",
         "135",
@@ -12928,7 +12928,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "18:35",
-      "explanation": "ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਸਾਂਝੇ ਲੋਕ ਘਟਾਓ: ਸਿਰਫ਼ ਯੋਗ = 52 − 34 = 18; ਸਿਰਫ਼ ਤੈਰਾਕੀ = 69 − 34 = 35। ਅਨੁਪਾਤ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ 1: 18/1:35/1 = 18:35.",
+      "explanation": "ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਸਾਂਝੇ ਲੋਕ ਘਟਾਓ: ਸਿਰਫ਼ ਯੋਗ = 52 − 34 = 18; ਸਿਰਫ਼ ਤੈਰਾਕੀ = 69 − 34 = 35। 18:35 ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ।",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">33</text><text x=\"135\" y=\"220\" data-mask=\"1\">18</text><text x=\"425\" y=\"220\" data-mask=\"2\">35</text><text x=\"280\" y=\"220\" data-mask=\"3\">34</text></g></svg>"
       ],
@@ -13032,7 +13032,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21:4",
-      "explanation": "ਹਰ ਜੋੜੇ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਹਰ ਜੋੜੇ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕ ਘਟਾ ਕੇ ਤਿੰਨ ਸਿਰਫ਼-ਜੋੜੀ ਖੇਤਰ ਜੋੜੋ: (31 − 12) + (37 − 12) + (31 − 12) = 63. ਤਿੰਨੇ ਸਮੂਹ = 12. ਅਨੁਪਾਤ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ 3: 63/3:12/3 = 21:4.",
+      "explanation": "ਹਰ ਜੋੜੇ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਹਰ ਜੋੜੇ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕ ਘਟਾ ਕੇ ਤਿੰਨ ਸਿਰਫ਼-ਜੋੜੀ ਖੇਤਰ ਜੋੜੋ: (31 − 12) + (37 − 12) + (31 − 12) = 63. ਤਿੰਨੇ ਸਮੂਹ = 12. ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ 3 ਨਾਲ ਭਾਗ ਦਿਓ: 63 ÷ 3 : 12 ÷ 3 = 21:4।",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"200\" cy=\"150\" r=\"130\"/><circle cx=\"360\" cy=\"150\" r=\"130\"/><circle cx=\"280\" cy=\"280\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"280\" y=\"439\">C</text><text x=\"505\" y=\"380\" data-mask=\"0\">31</text><text x=\"125\" y=\"125\" data-mask=\"1\">2</text><text x=\"435\" y=\"125\" data-mask=\"2\">34</text><text x=\"280\" y=\"85\" data-mask=\"3\">19</text><text x=\"280\" y=\"365\" data-mask=\"4\">14</text><text x=\"190\" y=\"265\" data-mask=\"5\">25</text><text x=\"370\" y=\"265\" data-mask=\"6\">19</text><text x=\"280\" y=\"205\" data-mask=\"7\">12</text></g></svg>"
       ],
@@ -13122,8 +13122,8 @@
       "subtopic": "Numerical Venn Diagrams",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਕੁੱਲ 300 ਲੋਕਾਂ ਵਿੱਚ, 45% ਲੋਕ ਗਣਿਤ ਵਿੱਚ ਪਾਸ ਹੋਏ; 50% ਲੋਕ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਪਾਸ ਹੋਏ; 45% ਲੋਕ ਵਿਗਿਆਨ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਗਣਿਤ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਗਣਿਤ ਅਤੇ ਵਿਗਿਆਨ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 10% ਲੋਕ ਗਣਿਤ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਤਿੰਨੇ ਵਿੱਚ ਪਾਸ ਹੋਏ. ਹਰ ਜੋੜੇ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਦੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਕੁੱਲ 300 ਲੋਕਾਂ ਵਿੱਚ, ਕਿੰਨੇ ਲੋਕ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ ਹਨ?",
-      "text": "ਕੁੱਲ 300 ਲੋਕਾਂ ਵਿੱਚ, 45% ਲੋਕ ਗਣਿਤ ਵਿੱਚ ਪਾਸ ਹੋਏ; 50% ਲੋਕ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਪਾਸ ਹੋਏ; 45% ਲੋਕ ਵਿਗਿਆਨ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਗਣਿਤ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਗਣਿਤ ਅਤੇ ਵਿਗਿਆਨ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 10% ਲੋਕ ਗਣਿਤ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਤਿੰਨੇ ਵਿੱਚ ਪਾਸ ਹੋਏ. ਹਰ ਜੋੜੇ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਦੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਕੁੱਲ 300 ਲੋਕਾਂ ਵਿੱਚ, ਕਿੰਨੇ ਲੋਕ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ ਹਨ?",
+      "stem": "ਕੁੱਲ 300 ਲੋਕਾਂ ਵਿੱਚ, 45% ਲੋਕ ਗਣਿਤ ਵਿੱਚ ਪਾਸ ਹੋਏ; 50% ਲੋਕ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਪਾਸ ਹੋਏ; 45% ਲੋਕ ਵਿਗਿਆਨ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਗਣਿਤ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਗਣਿਤ ਅਤੇ ਵਿਗਿਆਨ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 10% ਲੋਕ ਗਣਿਤ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਤਿੰਨੇ ਵਿੱਚ ਪਾਸ ਹੋਏ. ਹਰ ਜੋੜੇ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਦੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ ਹਨ?",
+      "text": "ਕੁੱਲ 300 ਲੋਕਾਂ ਵਿੱਚ, 45% ਲੋਕ ਗਣਿਤ ਵਿੱਚ ਪਾਸ ਹੋਏ; 50% ਲੋਕ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਪਾਸ ਹੋਏ; 45% ਲੋਕ ਵਿਗਿਆਨ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਗਣਿਤ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਗਣਿਤ ਅਤੇ ਵਿਗਿਆਨ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 20% ਲੋਕ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਦੋਵੇਂ ਵਿੱਚ ਪਾਸ ਹੋਏ; 10% ਲੋਕ ਗਣਿਤ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਤਿੰਨੇ ਵਿੱਚ ਪਾਸ ਹੋਏ. ਹਰ ਜੋੜੇ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਦੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ ਹਨ?",
       "options": [
         "270",
         "135",
