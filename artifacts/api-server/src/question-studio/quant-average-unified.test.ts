@@ -1,11 +1,29 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { generateQuestionStudioQuestions } from "./engine-registry";
+import {
+  generateQuestionStudioQuestions,
+  listQuestionStudioPackages,
+} from "./engine-registry";
 import {
   generateProfiledQuantBatch,
   resolveLegacyQuantExamProfile,
 } from "./quant-exam-profile";
+
+test("AVG-001 is exposed through shared engine capabilities", () => {
+  const pkg = listQuestionStudioPackages().find((entry) => entry.packageId === "AVG-001");
+  assert.ok(pkg);
+  assert.equal(pkg!.engineId, "quant-v4");
+  assert.deepEqual(pkg!.cpIds, [
+    "AVG-CP-001",
+    "AVG-CP-002",
+    "AVG-CP-003",
+    "AVG-CP-004",
+    "AVG-CP-005",
+    "AVG-CP-006",
+  ]);
+  assert.deepEqual(pkg!.supportedLanguages, ["en", "hi", "pa"]);
+});
 
 test("legacy Quant profile mapping preserves the former Average route semantics", () => {
   assert.equal(resolveLegacyQuantExamProfile("IBPS PO Prelims", undefined), "BANKING_PRELIMS");
