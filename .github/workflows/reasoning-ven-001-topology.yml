@@ -111,5 +111,14 @@ jobs:
       - name: Run logical Venn stem editorial audit
         run: node artifacts/api-server/dist/reasoning-v1/ven-001-logical-editorial-audit.test.mjs
 
+      - name: Bundle CP004 region-stem editorial audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-region-editorial-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-region-editorial-audit.test.mjs
+      - name: Run CP004 region-stem editorial audit
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-region-editorial-audit.test.mjs
+
       - name: Check patch whitespace
         run: git diff --check

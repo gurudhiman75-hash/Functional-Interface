@@ -98,6 +98,17 @@ function regionSvg(c:RegionCandidate):string{
  const badges=points.map(([x,y,n])=>`<g><circle cx="${x}" cy="${y}" r="9" fill="#fff2bb" stroke="#9b6c00" stroke-width="1.2"/><text x="${x}" y="${y+4}" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#533700">${n}</text></g>`).join("");
  return renderVennTopologySvg(c.topology,[...c.order]).replace("</svg>",`<g aria-label="Numbered regions">${badges}</g><desc>Numbered regions identify membership in the labeled sets; 0 is outside all circles.</desc></svg>`);
 }
+function regionMapping(c:RegionCandidate,loc:Locale):string{
+ const parts=c.assignment[loc].split(";").map(part=>part.trim()).filter(Boolean).map(part=>{
+  const match=part.match(/^([ABC])\s*=\s*(.+)$/u);
+  if(!match)throw new Error(`${c.id}: invalid region assignment '${part}'`);
+  return {label:match[1]!,value:match[2]!};
+ });
+ const joinNative=(items:string[],conjunction:string)=>items.length<=1?(items[0]??""):items.length===2?`${items[0]} ${conjunction} ${items[1]}`:`${items.slice(0,-1).join(", ")} ${conjunction} ${items.at(-1)}`;
+ if(loc==="hi-IN")return `आरेख में ${joinNative(parts.map(part=>`${part.label} से ${part.value}`),"और")} दर्शाए गए हैं।`;
+ if(loc==="pa-IN")return `ਚਿੱਤਰ ਵਿੱਚ ${joinNative(parts.map(part=>`${part.label} ਨਾਲ ${part.value}`),"ਅਤੇ")} ਦਰਸਾਏ ਗਏ ਹਨ।`;
+ return `In the diagram, ${joinNative(parts.map(part=>`${part.label} represents ${part.value}`),"and")}.`;
+}
 export function generateVen001NextCheckpointBatch(r:QuestionStudioGenerationRequest):QuestionStudioGenerationResult{
  if(r.runtimeMode&&r.runtimeMode!=="review-only")throw new Error("VEN-001 only supports review-only generation");
  const sels=selectors(r),family=sels.find(x=>x==="VEN-CP001"||x==="VEN-CP002"||x==="VEN-CP004") as Family|undefined;
@@ -109,7 +120,7 @@ export function generateVen001NextCheckpointBatch(r:QuestionStudioGenerationRequ
   if(count>R.length)throw new Error(`VEN-CP004 has ${R.length} distinct region candidates in this review pool`);
   const chosen=shuffle(R,seed).slice(0,count);
   const questions=chosen.map((c,i)=>{
-   const optionOrder=shuffle(c.regions,`${seed}:${c.id}:${i}:regions`),correctIndex=optionOrder.indexOf(c.answer),stem=loc==="en-IN"?`Study the diagram. ${c.assignment[loc]}. Which numbered region represents ${c.target[loc]}?`:loc==="hi-IN"?`आरेख देखें। ${c.assignment[loc]}। कौन-सा क्रमांकित क्षेत्र यह दिखाता है: ${c.target[loc]}?`:`ਚਿੱਤਰ ਵੇਖੋ। ${c.assignment[loc]}। ਕਿਹੜਾ ਨੰਬਰ ਵਾਲਾ ਖੇਤਰ ਇਹ ਦਰਸਾਉਂਦਾ ਹੈ: ${c.target[loc]}?`;
+   const optionOrder=shuffle(c.regions,`${seed}:${c.id}:${i}:regions`),correctIndex=optionOrder.indexOf(c.answer),mapping=regionMapping(c,loc),stem=loc==="en-IN"?`${mapping} Which numbered region represents ${c.target[loc]}?`:loc==="hi-IN"?`${mapping} ${c.target[loc]} को कौन-सा क्रमांकित क्षेत्र दर्शाता है?`:`${mapping} ${c.target[loc]} ਨੂੰ ਕਿਹੜਾ ਨੰਬਰ ਵਾਲਾ ਖੇਤਰ ਦਰਸਾਉਂਦਾ ਹੈ?`;
    return {...lifecycle,id:`${c.id}:${hash(seed+":"+i)}:${lang}`,questionId:`${c.id}:${hash(seed+":"+i)}:${lang}`,packageId:"VEN-001",patternId:family,cpId:family,checkpointId:family,candidateId:c.id,sourceAuthorityId:c.id,subject:"Reasoning",topic:"Logical Venn Diagrams",subtopic:"Region and membership identification",questionOperation:"REGION_IDENTIFICATION",qlId:ven001QlForOperation("REGION_IDENTIFICATION"),permanentQlId:ven001QlForOperation("REGION_IDENTIFICATION"),language:lang,locale:loc,stem,text:stem,options:optionOrder,optionLabels:["A","B","C","D"],stimulusSvgs:[regionSvg(c)],optionDetails:optionOrder.map((n,j)=>({label:String.fromCharCode(65+j),text:n,isCorrect:j===correctIndex,semanticKey:`REGION-${n}`})),correctIndex,correct:correctIndex,answer:String.fromCharCode(65+correctIndex),canonicalAnswer:optionOrder[correctIndex],explanation:c.explanation[loc],difficulty:"Easy",difficultyLabel:"Easy",difficultyAuthority:"PROVISIONAL_STRUCTURE_BASED_CANDIDATE",generationSeed:seed+":"+c.id+":"+i,runtimeMode:"review-only",reviewStatus:"USER_SIGNED_OFF_TRILINGUAL_REVIEW",reviewOnly:true,readOnly:true,productionReleased:false,questionBankWritable:false,testEligible:false,mockTestEligible:false,publiclyPublishable:false,automaticStudentPublication:false,productionReleaseAuthorized:false,validation:{exactlyOneCorrect:optionOrder.filter(n=>n===c.answer).length===1,diagramLabelsMatchAssignment:true,regionIdsUnique:new Set(optionOrder).size===4,localeParityPendingHumanReview:false},semanticMetadata:{topologyId:c.topology,setOrder:c.order,numberedRegionAnswer:c.answer}};
   });
   return {questions,generationContext:{...lifecycle,engineId:"reasoning-v1",packageId:"VEN-001",chapterId:"VEN-001",runtimeMode:"review-only",requestedOperation:"REGION_IDENTIFICATION",requestedCheckpoint:family,language:lang,seed,count,reviewOnly:true,questionBankWritable:false,productionReleaseAuthorized:false}};
