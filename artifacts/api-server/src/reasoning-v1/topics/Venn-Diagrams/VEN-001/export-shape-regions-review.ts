@@ -91,3 +91,5 @@ for (const version of ["V1", "V2"]) {
 console.log(
   `Exported ${questions.length} shape-region questions across ${layouts.size} layouts and ${languages.length} languages.`,
 );
+
+// Temporary refresh trigger; removed before merge.
