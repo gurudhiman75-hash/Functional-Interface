@@ -912,21 +912,45 @@ export function buildNumericalItem(
         const aTotal = membershipTotal(r, 1),
           bTotal = membershipTotal(r, 2),
           overlap = r[3];
+        const ratioWork =
+          common === 1
+            ? tx(
+                `The ratio ${x}:${y} is already in simplest form.`,
+                `${x}:${y} का अनुपात पहले से सरल रूप में है।`,
+                `${x}:${y} ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ।`,
+              )[l]
+            : tx(
+                `Divide both terms by their highest common factor ${common}: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}.`,
+                `दोनों पदों को महत्तम समापवर्तक ${common} से भाग दें: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}।`,
+                `ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}।`,
+              )[l];
         explanation = `${tx(
           `Subtract the overlap from each group total: only ${names[0]} = ${aTotal} − ${overlap} = ${x}; only ${names[1]} = ${bTotal} − ${overlap} = ${y}.`,
           `हर समूह की कुल संख्या में से साझा लोगों को घटाएँ: केवल ${names[0]} = ${aTotal} − ${overlap} = ${x}; केवल ${names[1]} = ${bTotal} − ${overlap} = ${y}।`,
           `ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਸਾਂਝੇ ਲੋਕ ਘਟਾਓ: ਸਿਰਫ਼ ${names[0]} = ${aTotal} − ${overlap} = ${x}; ਸਿਰਫ਼ ${names[1]} = ${bTotal} − ${overlap} = ${y}।`,
-        )[l]} ${tx("Reduce the ratio by the highest common factor", "अनुपात को महत्तम समापवर्तक से सरल करें", "ਅਨੁਪਾਤ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ")[l]} ${common}: ${x}/${common}:${y}/${common} = ${answer}.`;
+        )[l]} ${ratioWork}`;
       } else {
         const ab = membershipTotal(r, 3),
           ac = membershipTotal(r, 5),
           bc = membershipTotal(r, 6),
           triple = r[7];
+        const ratioWork =
+          common === 1
+            ? tx(
+                `The ratio ${x}:${y} is already in simplest form.`,
+                `${x}:${y} का अनुपात पहले से सरल रूप में है।`,
+                `${x}:${y} ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ।`,
+              )[l]
+            : tx(
+                `Divide both terms by their highest common factor ${common}: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}.`,
+                `दोनों पदों को महत्तम समापवर्तक ${common} से भाग दें: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}।`,
+                `ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}।`,
+              )[l];
         explanation = `${tx(
           `Each pair total includes the all-three group. Subtract the all-three count from each pair, then add the three pair-only regions:`,
           `हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। हर जोड़ी में से तीनों वाले लोगों को घटाकर तीन केवल-जोड़ी क्षेत्रों को जोड़ें:`,
           `ਹਰ ਜੋੜੇ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਹਰ ਜੋੜੇ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕ ਘਟਾ ਕੇ ਤਿੰਨ ਸਿਰਫ਼-ਜੋੜੀ ਖੇਤਰ ਜੋੜੋ:`,
-        )[l]} (${ab} − ${triple}) + (${ac} − ${triple}) + (${bc} − ${triple}) = ${x}. ${tx("All three groups", "तीनों समूह", "ਤਿੰਨੇ ਸਮੂਹ")[l]} = ${y}. ${tx("Reduce the ratio by the highest common factor", "अनुपात को महत्तम समापवर्तक से सरल करें", "ਅਨੁਪਾਤ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ")[l]} ${common}: ${x}/${common}:${y}/${common} = ${answer}.`;
+        )[l]} (${ab} − ${triple}) + (${ac} − ${triple}) + (${bc} − ${triple}) = ${x}. ${tx("All three groups", "तीनों समूह", "ਤਿੰਨੇ ਸਮੂਹ")[l]} = ${y}. ${ratioWork}`;
       }
       formula = "\\text{ratio}=a:b";
     }
@@ -961,7 +985,7 @@ export function buildNumericalItem(
         ` ${a}% + ${b}% + ${cv}% − ${ab}% − ${ac}% − ${bc}% + ${t}% = ${union}%. ${tx("So the percentage in none is", "इसलिए किसी भी समूह में न आने वालों का प्रतिशत", "ਇਸ ਲਈ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ")[l]} 100% − ${union}% = ${none}%. `;
       if (mode === 4) {
         answer = r[0];
-        stem += " " + prefix(sum(r), l) + " " + query(c, "none", 3, l);
+        stem += " " + query(c, "none", 3, l);
         explanation += `${sum(r)} × ${none}/100 = ${answer}.`;
       } else {
         answer = sum(r);
