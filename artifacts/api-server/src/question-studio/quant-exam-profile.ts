@@ -521,7 +521,8 @@ export async function generateProfiledQuantBatch(input: {
         difficulty: assignment.difficulty,
         difficultyLabel: assignment.difficulty,
         mixedDifficulty: plan.mixed,
-        examProfile: plan.trace,
+        examProfile: question.examProfile ?? plan.trace,
+        examProfileTrace: plan.trace,
         generationContext,
       });
     }
