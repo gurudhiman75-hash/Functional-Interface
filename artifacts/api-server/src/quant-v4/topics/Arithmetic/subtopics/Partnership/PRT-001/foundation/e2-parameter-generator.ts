@@ -164,12 +164,38 @@ export function generatePrt001E2Parameters(input: {
       break;
     }
     case "findTimeRatioFromProfitRatioAndCapitalRatio": {
-      const s = random.pick([
-        { a: 20_000, da: 12, b: 30_000, db: 8 },
-        { a: 24_000, da: 10, b: 40_000, db: 6 },
-        { a: 36_000, da: 8, b: 24_000, db: 12 },
-        { a: 28_000, da: 6, b: 42_000, db: 10 },
-      ]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const capitalRatio = numericStateRandom.pick([
+        [2, 3],
+        [3, 2],
+        [3, 4],
+        [4, 3],
+        [4, 5],
+        [5, 4],
+        [5, 7],
+        [7, 5],
+      ] as const);
+      const timePair = numericStateRandom.pick([
+        [4, 6],
+        [6, 4],
+        [5, 8],
+        [8, 5],
+        [6, 10],
+        [10, 6],
+        [7, 12],
+        [12, 7],
+        [8, 11],
+        [11, 8],
+      ] as const);
+      const unit = numericStateRandom.pick([6_000, 8_000, 10_000, 12_000, 15_000]);
+      const s = {
+        a: capitalRatio[0] * unit,
+        da: timePair[0],
+        b: capitalRatio[1] * unit,
+        db: timePair[1],
+      };
       state = makeState([
         partner(partnerA, [segment(0, s.da, money(s.a))]),
         partner(partnerB, [segment(0, s.db, money(s.b))]),
