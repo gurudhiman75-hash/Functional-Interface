@@ -46,6 +46,22 @@ assert.ok(
     result.questions.map((q) => (q.semanticMetadata as any).shapeLayoutId),
   ).size >= 5,
 );
+assert.ok(
+  LAYOUTS.some((layout) => layout.shapes.includes("right-triangle" as any)),
+);
+assert.ok(LAYOUTS.some((layout) => layout.shapes.includes("trapezoid" as any)));
+assert.ok(LAYOUTS.some((layout) => layout.shapes.includes("pentagon" as any)));
+const rightTriangleQuestion = generateVen001ShapeRegionBatch({
+  ...request,
+  count: LAYOUTS.length,
+}).questions.find((q) =>
+  String((q.semanticMetadata as any).shapeLayoutId).includes("RIGHT_TRIANGLE"),
+)!;
+assert.match(rightTriangleQuestion.stimulusSvgs![0]!, /right-angled triangle/);
+assert.match(
+  rightTriangleQuestion.stimulusSvgs![0]!,
+  /M 60 40 L 60 70 L 30 70/,
+);
 for (const layout of LAYOUTS) {
   const points = pointsFor(layout);
   assert.equal(points.length, 8);
