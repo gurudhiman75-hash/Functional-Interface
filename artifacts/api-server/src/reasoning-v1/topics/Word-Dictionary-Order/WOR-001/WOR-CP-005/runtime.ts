@@ -1,7 +1,7 @@
 import { buildLetterOptions, buildWordOptions, correctOptionIndex } from "../foundation/distractors";
 import { classifyWorDifficulty } from "../foundation/difficulty";
 import { independentlySolveBankingTrace } from "../foundation/banking-independent-solver";
-import { buildBankingClusters } from "../foundation/banking-cluster-builder";
+import { buildBankingClusterSet } from "../foundation/banking-cluster-builder";
 import { BANKING_TRANSFORMATIONS, transformBankingTokens } from "../foundation/banking-transformations";
 import { adjacentComparisonTrace, sortWorWords } from "../foundation/lexical-comparator";
 import { createWorRng } from "../foundation/prng";
@@ -279,9 +279,10 @@ function validateBankingQuestion(question: GeneratedWorQuestion, trace: WorBanki
   if (/\{\{|\}\}|undefined|null|WOR-PROT|WOR-CP/.test(`${question.stem} ${question.explanation}`)) throw new Error(`${question.prototypeId} leaked unresolved/internal Banking text.`);
 }
 
-function buildTraceAttempt(contract: WorPrototypeContract, generationSeed: number, targetDifficulty: WorDifficulty): { trace: WorBankingTrace; difficultyFeatures: WorDifficultyFeatures } {
+function buildTraceAttempt(contract: WorPrototypeContract, generationSeed: number, targetDifficulty: WorDifficulty): { trace: WorBankingTrace; difficultyFeatures: WorDifficultyFeatures; sourceFamilyId: string } {
   const rng = createWorRng(generationSeed, `${contract.prototypeId}:BANKING`);
-  const originalTokens = buildBankingClusters(targetDifficulty, rng);
+  const builtClusters = buildBankingClusterSet(targetDifficulty, rng);
+  const originalTokens = [...builtClusters.selected];
   const taskKind = contract.taskKind as WorBankingTaskKind;
   const transformation: WorBankingTransformation = taskKind === "BANK_TRANSFORM_SORT_POSITION" || taskKind === "BANK_TRANSFORM_SORT_LOCAL_CHAR"
     ? rng.pick(BANKING_TRANSFORMATIONS)
@@ -333,7 +334,7 @@ function buildTraceAttempt(contract: WorPrototypeContract, generationSeed: numbe
     ...(answerMode ? { answerMode } : {}),
   };
   const difficultyFeatures = calculateBankingDifficultyFeatures(ascending, taskKind, transformation, sortDirection, alphabetOffset);
-  return { trace, difficultyFeatures };
+  return { trace, difficultyFeatures, sourceFamilyId: builtClusters.familyId };
 }
 
 export function generateWorCp005Question(
@@ -347,7 +348,7 @@ export function generateWorCp005Question(
   for (let attempt = 0; attempt < 96; attempt += 1) {
     const generationSeed = seed + attempt * 6151;
     try {
-      const { trace, difficultyFeatures } = buildTraceAttempt(contract, generationSeed, targetDifficulty);
+      const { trace, difficultyFeatures, sourceFamilyId } = buildTraceAttempt(contract, generationSeed, targetDifficulty);
       const difficulty = classifyWorDifficulty(difficultyFeatures);
       if (difficulty !== targetDifficulty) continue;
       const answer = generatorAnswer(trace);
@@ -388,7 +389,7 @@ export function generateWorCp005Question(
           localeMode: "TRANSLATABLE",
           sortDirection: trace.sortDirection,
           wordCount: 5,
-          sourceFamilyId: `BANK-CLUSTER-${targetDifficulty}`,
+          sourceFamilyId,
           independentSolverVerified: true,
           ambiguityAudit: "LEXICALLY_UNIQUE",
           difficultyFeatures,
