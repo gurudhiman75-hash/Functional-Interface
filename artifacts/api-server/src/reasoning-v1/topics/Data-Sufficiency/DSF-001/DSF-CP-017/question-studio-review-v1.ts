@@ -21,12 +21,7 @@ import { generateDsfCp012InequalityBatch } from "../DSF-CP-012/inequality-runtim
 import { generateDsfCp013SeatingBatch } from "../DSF-CP-013/seating-runtime-v1.ts";
 import { generateDsfCp013CodingBatch } from "../DSF-CP-013/coding-runtime-v1.ts";
 import { generateDsfCp013CalendarBatch } from "../DSF-CP-013/calendar-runtime-v1.ts";
-import {
-  DSF_REASONING_COMMON_BASE_EDITORIAL_VERSION,
-  reasoningEditorialLead,
-  reasoningExplanationLead,
-  type DsfReasoningEditorialLane,
-} from "../DSF-CP-014/reasoning-common-base-editorial-overlay.ts";
+import type { DsfReasoningEditorialLane } from "../DSF-CP-014/reasoning-common-base-editorial-overlay.ts";
 import {
   DSF_CURRENT_NEXT_AVAILABLE_QL_ID,
   DSF_CURRENT_PERMANENT_QL_REGISTRY,
@@ -39,6 +34,7 @@ export const DSF_CP017_GENERATABLE_QL_IDS = ["DSF-QL-001"] as const;
 export const DSF_CP017_RUNTIME_DEFERRED_QL_IDS = ["DSF-QL-002"] as const;
 export const DSF_CP017_SUPPORTED_LANGUAGES = ["en"] as const;
 export const DSF_CP017_SUPPORTED_DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
+export const DSF_CP017_LEARNER_STEM_VERSION = "DSF_CP017_DIRECT_EXAM_STEM_V1" as const;
 
 export const DSF_CP017_LANES = Object.freeze([
   { laneId: "DSF-QS-LEGACY-NUMBER-SYSTEM", label: "Number System · frozen core", checkpointId: "DSF-CP-002", domainFamily: "QUANT", sourceChapter: "NUM-001" },
@@ -216,13 +212,10 @@ function legacyQuestion(domain: DsfStudioDomainId, seed: number): AnyQuestion {
   }).questions[0]! as AnyQuestion;
 }
 
-function reasoningSurface(lane: DsfReasoningEditorialLane, question: AnyQuestion): AnyQuestion {
-  const seed = Number(question.seed ?? 0);
+function reasoningSurface(_lane: DsfReasoningEditorialLane, question: AnyQuestion): AnyQuestion {
   return Object.freeze({
     ...question,
-    stem: `${reasoningEditorialLead(lane, seed)}\n\n${String(question.stem ?? "")}`,
-    studioExplanationLead: reasoningExplanationLead(lane, seed),
-    editorialSurfaceVersion: DSF_REASONING_COMMON_BASE_EDITORIAL_VERSION,
+    editorialSurfaceVersion: DSF_CP017_LEARNER_STEM_VERSION,
   });
 }
 
