@@ -10,6 +10,9 @@ for (const profile of profiles) for (const contractId of STAT005_CONTRACTS) for 
   const question = generateStat005Question({ seed, examProfile: profile, contractId });
   const replay = generateStat005Question({ seed, examProfile: profile, contractId });
   assert(JSON.stringify(question) === JSON.stringify(replay), `Deterministic replay failed for ${seed}.`);
+  assert(!/^\\s*(?:Find|Calculate|Determine|Use|Using|Select|Choose|Compute|Evaluate|Identify|Tally)\\b/im.test(question.stem)
+    && !/\\b(?:use|using)\\b[^.\\n]*\\b(?:find|calculate|determine)\\b/i.test(question.stem),
+  `Learner-facing stem contains procedural instructions for ${seed}: ${question.stem}`);
   assert(question.options.length === 4 && new Set(question.options).size === 4, `Options are not four unique values for ${seed}.`);
   assert(question.options[question.correctIndex] === question.answer, `Answer index mismatch for ${seed}.`);
   assert(String(Math.round(solveStat005State(question.state, contractId) * 100) / 100) === question.answer,
