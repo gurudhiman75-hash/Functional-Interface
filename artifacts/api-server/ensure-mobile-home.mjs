@@ -15,6 +15,7 @@ const notificationsMigrationPath = path.resolve(here, "../../docs/database-migra
 const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
 const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
 const analyticsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-analytics.sql");
+const mediaMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-media-assets.sql");
 const sql = postgres(databaseUrl, {
   max: 1,
   connect_timeout: 15,
@@ -130,6 +131,22 @@ try {
     throw new Error("Mobile analytics migration completed without creating platform.mobile_analytics_events");
   }
   console.log("[render-build] mobile analytics schema verified");
+
+  const [mediaBefore] = await sql`
+    SELECT to_regclass('platform.media_assets')::text AS media_assets
+  `;
+  if (!mediaBefore?.media_assets) {
+    console.log("[render-build] media assets schema missing; applying checked-in migration");
+    const mediaSql = await readFile(mediaMigrationPath, "utf8");
+    await sql.unsafe(mediaSql);
+  }
+  const [mediaAfter] = await sql`
+    SELECT to_regclass('platform.media_assets')::text AS media_assets
+  `;
+  if (!mediaAfter?.media_assets) {
+    throw new Error("Media assets migration completed without creating platform.media_assets");
+  }
+  console.log("[render-build] media assets schema verified");
 } finally {
   await sql.end({ timeout: 5 });
 }
