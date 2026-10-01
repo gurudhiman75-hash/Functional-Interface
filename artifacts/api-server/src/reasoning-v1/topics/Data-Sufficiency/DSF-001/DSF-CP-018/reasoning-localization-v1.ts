@@ -303,6 +303,29 @@ function localizeSeatingStatement(text:string, language:DsfReasoningLocalizedLan
   return undefined;
 }
 
+function localizeCalendarStatement(text:string, language:DsfReasoningLocalizedLanguage):string|undefined {
+  let m:RegExpMatchArray|null;
+  m=text.match(/^The starting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\.$/i);
+  if(m) return t(language,`आरंभिक वार ${localizeWeekday(m[1]!,language)} है।`,`ਸ਼ੁਰੂਆਤੀ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਹੈ।`);
+  m=text.match(/^The number of days leaves remainder (\d+) when divided by 7\.$/i);
+  if(m) return t(language,`दिनों की संख्या को 7 से भाग देने पर शेषफल ${m[1]} है।`,`ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ 7 ਨਾਲ ਭਾਗ ਦੇਣ 'ਤੇ ਬਾਕੀ ${m[1]} ਹੈ।`);
+  m=text.match(/^The resulting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\.$/i);
+  if(m) return t(language,`परिणामी वार ${localizeWeekday(m[1]!,language)} है।`,`ਨਤੀਜੇ ਵਾਲਾ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਹੈ।`);
+  m=text.match(/^The starting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday), and the day count leaves remainder (\d+) on division by 7\.$/i);
+  if(m) return t(language,`आरंभिक वार ${localizeWeekday(m[1]!,language)} है और दिनों की संख्या को 7 से भाग देने पर शेषफल ${m[2]} है।`,`ਸ਼ੁਰੂਆਤੀ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਹੈ ਅਤੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ 7 ਨਾਲ ਭਾਗ ਦੇਣ 'ਤੇ ਬਾਕੀ ${m[2]} ਹੈ।`);
+  m=text.match(/^The resulting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday), and the day count leaves remainder (\d+) on division by 7\.$/i);
+  if(m) return t(language,`परिणामी वार ${localizeWeekday(m[1]!,language)} है और दिनों की संख्या को 7 से भाग देने पर शेषफल ${m[2]} है।`,`ਨਤੀਜੇ ਵਾਲਾ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਹੈ ਅਤੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ 7 ਨਾਲ ਭਾਗ ਦੇਣ 'ਤੇ ਬਾਕੀ ${m[2]} ਹੈ।`);
+  m=text.match(/^The movement starts on (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday) and ends on (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\.$/i);
+  if(m) return t(language,`गणना ${localizeWeekday(m[1]!,language)} से शुरू होकर ${localizeWeekday(m[2]!,language)} पर समाप्त होती है।`,`ਗਿਣਤੀ ${localizeWeekday(m[1]!,language)} ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ${localizeWeekday(m[2]!,language)} 'ਤੇ ਖਤਮ ਹੁੰਦੀ ਹੈ।`);
+  m=text.match(/^The starting day is either (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday) or (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\.$/i);
+  if(m) return t(language,`आरंभिक वार ${localizeWeekday(m[1]!,language)} या ${localizeWeekday(m[2]!,language)} है।`,`ਸ਼ੁਰੂਆਤੀ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਜਾਂ ${localizeWeekday(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The remainder on division of the day count by 7 is either (\d+) or (\d+)\.$/i);
+  if(m) return t(language,`दिनों की संख्या को 7 से भाग देने पर शेषफल ${m[1]} या ${m[2]} है।`,`ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ 7 ਨਾਲ ਭਾਗ ਦੇਣ 'ਤੇ ਬਾਕੀ ${m[1]} ਜਾਂ ${m[2]} ਹੈ।`);
+  m=text.match(/^The resulting day is either (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday) or (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\.$/i);
+  if(m) return t(language,`परिणामी वार ${localizeWeekday(m[1]!,language)} या ${localizeWeekday(m[2]!,language)} है।`,`ਨਤੀਜੇ ਵਾਲਾ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਜਾਂ ${localizeWeekday(m[2]!,language)} ਹੈ।`);
+  return undefined;
+}
+
 function localizeStatement(laneId: string, text: string, language: DsfReasoningLocalizedLanguage): string {
   if (laneId.includes("RANKING")) {
     const rendered=localizeRankingStatement(text,language);
@@ -318,6 +341,10 @@ function localizeStatement(laneId: string, text: string, language: DsfReasoningL
   }
   if (laneId.includes("SEATING")) {
     const rendered=localizeSeatingStatement(text,language);
+    if(rendered) return rendered;
+  }
+  if (laneId.includes("CALENDAR")) {
+    const rendered=localizeCalendarStatement(text,language);
     if(rendered) return rendered;
   }
   let s = replaceCommon(text, language);
