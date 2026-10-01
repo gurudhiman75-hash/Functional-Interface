@@ -8,6 +8,11 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
       - artifacts/api-server/src/quant-v4/question-studio-review-engine.ts
+      - artifacts/api-server/src/question-studio/quant-number-system-num001.ts
+      - artifacts/api-server/src/question-studio/quant-number-system-num001.test.ts
+      - artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts
+      - artifacts/api-server/src/question-studio/quant-exam-profile.ts
+      - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
       - artifacts/api-server/src/routes/admin-question-studio-average.ts
       - package.json
       - pnpm-lock.yaml
@@ -75,6 +80,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.log
 
+      - name: Bundle unified NUM-001 engine proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/question-studio/quant-number-system-num001.test.ts
+          --bundle --platform=node --format=esm --packages=external
+          --outfile=dist/quant-v4/num-001-unified-engine.test.mjs
+
+      - name: Run unified NUM-001 engine proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-unified-engine.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-unified-engine.log
+
       - name: Bundle CP001 Editorial V2 quality audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -139,6 +157,7 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/num-cp001-qs-review-hi-pa-parity.log
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review-audit.log
+            artifacts/api-server/dist/quant-v4/num-001-unified-engine.log
             artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-audit.log
             artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-latex-audit.log
             artifacts/api-server/dist/quant-v4/num-cp001-qs-review-legacy-release.log

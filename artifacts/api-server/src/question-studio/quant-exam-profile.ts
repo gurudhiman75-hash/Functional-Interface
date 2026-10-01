@@ -417,6 +417,7 @@ export async function generateProfiledQuantBatch(input: {
   difficultyPreset?: unknown;
   difficultyDistribution?: unknown;
   forwardLegacyExamProfile?: boolean;
+  difficultyFilterSupported?: boolean;
   generateCandidateBatch: (
     request: QuestionStudioGenerationRequest,
   ) => Promise<unknown>;
@@ -453,7 +454,10 @@ export async function generateProfiledQuantBatch(input: {
       ...input.request,
       engineId: "quant-v4",
       examProfile: input.forwardLegacyExamProfile ? plan.legacyExamProfile : undefined,
-      difficulty: assignment.difficulty,
+      difficulty:
+        input.difficultyFilterSupported === false
+          ? undefined
+          : assignment.difficulty,
       seed: assignment.seed,
       count: candidateCount,
       canonicalProblemId: assignment.cpId,
@@ -506,6 +510,7 @@ export async function generateProfiledQuantBatch(input: {
         difficultyPreset: plan.difficultyPreset,
         difficultyDistribution: plan.difficultyDistribution,
         difficultyCounts: plan.difficultyCounts,
+        difficultyFilterApplied: input.difficultyFilterSupported !== false,
         cpCounts: plan.cpCounts,
         ...plan.trace,
         appliedRules,
@@ -518,8 +523,12 @@ export async function generateProfiledQuantBatch(input: {
           || assignment.cpId,
         selectedCpId: assignment.cpId,
         engineId: "quant-v4",
-        difficulty: assignment.difficulty,
-        difficultyLabel: assignment.difficulty,
+        ...(input.difficultyFilterSupported === false
+          ? {}
+          : {
+              difficulty: assignment.difficulty,
+              difficultyLabel: assignment.difficulty,
+            }),
         mixedDifficulty: plan.mixed,
         examProfile: question.examProfile ?? plan.trace,
         examProfileTrace: plan.trace,
@@ -535,6 +544,7 @@ export async function generateProfiledQuantBatch(input: {
         engineId: "quant-v4",
         seed: assignment.seed,
         examProfileId: plan.profile.id,
+        difficultyFilterApplied: input.difficultyFilterSupported !== false,
         requestedCount: assignment.count,
       },
     });

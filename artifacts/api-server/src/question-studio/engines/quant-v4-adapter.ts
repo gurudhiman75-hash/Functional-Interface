@@ -168,6 +168,10 @@ import {
 import {
   generateSapBankingEngineBatch,
 } from "../quant-sap-banking";
+import {
+  generateNum001EngineBatch,
+  num001EnginePackageCard,
+} from "../quant-number-system-num001";
 import type {
   QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
@@ -222,11 +226,32 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
     cpIds: asStringArray(pkg.cpIds),
     supportedLanguages: asLanguageArray(pkg.supportedLanguages),
     supportedDifficulties: asDifficultyArray(pkg.supportedDifficulties),
+    difficultyFilterSupported:
+      typeof pkg.difficultyFilterSupported === "boolean"
+        ? pkg.difficultyFilterSupported
+        : undefined,
     runtimeMode: asString(pkg.runtimeMode) || undefined,
     supportedRuntimeModes: asStringArray(pkg.supportedRuntimeModes),
     dynamicCandidateCpIds: asStringArray(pkg.dynamicCandidateCpIds),
+    lifecycleId: asString(pkg.lifecycleId) || undefined,
+    lifecycleStage:
+      pkg.lifecycleStage === "REVIEW_ONLY" || pkg.lifecycleStage === "BANK_ONLY"
+        ? pkg.lifecycleStage
+        : undefined,
+    reviewSurfaceRequired:
+      typeof pkg.reviewSurfaceRequired === "boolean"
+        ? pkg.reviewSurfaceRequired
+        : undefined,
     questionBankStatus: asString(pkg.questionBankStatus) || undefined,
     questionBankWritable: typeof pkg.questionBankWritable === "boolean" ? pkg.questionBankWritable : undefined,
+    questionBankAcceptanceMode:
+      pkg.questionBankAcceptanceMode === "BANK_ONLY" || pkg.questionBankAcceptanceMode === "FULL_RELEASE"
+        ? pkg.questionBankAcceptanceMode
+        : undefined,
+    questionBankAcceptanceAuthority:
+      typeof pkg.questionBankAcceptanceAuthority === "string" || pkg.questionBankAcceptanceAuthority === null
+        ? pkg.questionBankAcceptanceAuthority
+        : undefined,
     testEligibility: asString(pkg.testEligibility) || undefined,
     testEligible: typeof pkg.testEligible === "boolean" ? pkg.testEligible : undefined,
     mockTestEligible: typeof pkg.mockTestEligible === "boolean" ? pkg.mockTestEligible : undefined,
@@ -630,6 +655,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       trg001EnginePackage(),
       trg002EnginePackage(),
       tmw001EnginePackage(),
+      toSharedPackage(num001EnginePackageCard()),
     ]) {
       const index = packages.findIndex((pkg) => pkg.packageId === specializedPackage.packageId);
       if (index >= 0) packages[index] = specializedPackage;
@@ -665,6 +691,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
     const sapBanking = await generateSapBankingEngineBatch(request);
     if (sapBanking) return sapBanking;
+
+    const numberSystem = await generateNum001EngineBatch(request);
+    if (numberSystem) return numberSystem;
 
     const diMixRequest = toDiMixRequest(request);
     if (isDiDeliveryNoveltyMixRequest(diMixRequest)) {
