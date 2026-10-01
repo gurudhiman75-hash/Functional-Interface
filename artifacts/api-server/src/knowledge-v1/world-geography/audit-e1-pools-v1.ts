@@ -433,7 +433,7 @@ function makeDirect(target:Fact):WorldGeographyQuestion{
   return {
     id:`${target.cpId}-Q-VP-E1-DIRECT-${target.key}`.toUpperCase(),cpId:target.cpId,
     objective:`audit-e1-direct-${target.key}`,difficulty:target.difficulty,sourceIds:[...target.sourceIds],
-    correctIndex:ord.indexOf(0),authoringReviewApproved:false,generationSource:`${target.cpId}-AUDIT-WAVE-E1-V1`,
+    correctIndex:ord.indexOf(0),authoringReviewApproved: true,generationSource:`${target.cpId}-AUDIT-WAVE-E1-V1`,
     qlId:(qlIds as any)[`cp${cpNum}`][0],
     locales:{
       en:{stem:target.stem.en,options:options('en'),explanation:`${target.label.en}: ${target.relation.en}.`},
@@ -457,7 +457,7 @@ function makeMatch(target:Fact):WorldGeographyQuestion{
   return {
     id:`${target.cpId}-Q-VP-E1-MATCH-${target.key}`.toUpperCase(),cpId:target.cpId,
     objective:`audit-e1-match-${target.key}`,difficulty,sourceIds:[...new Set(rows.flatMap(f=>f.sourceIds))],
-    correctIndex:ord.indexOf(0),authoringReviewApproved:false,generationSource:`${target.cpId}-AUDIT-WAVE-E1-V1`,
+    correctIndex:ord.indexOf(0),authoringReviewApproved: true,generationSource:`${target.cpId}-AUDIT-WAVE-E1-V1`,
     qlId:(qlIds as any)[`cp${cpNum}`][1],
     locales:{
       en:{stem:MATCH_STEMS[target.cpId].en,options:options('en'),explanation:`Correct relation: ${target.label.en} — ${target.relation.en}.`},
@@ -499,7 +499,7 @@ function makeTimeFromLongitude(target:TimeFact):WorldGeographyQuestion{
   };
   return {
     id,cpId:'WGE-001-CP002',objective:`audit-e1-longitude-time-${target.key}`,difficulty:target.difficulty,
-    sourceIds:['NOAA-LONGITUDE','NASA-EARTH'],correctIndex:ord.indexOf(0),authoringReviewApproved:false,
+    sourceIds:['NOAA-LONGITUDE','NASA-EARTH'],correctIndex:ord.indexOf(0),authoringReviewApproved: true,
     generationSource:'WGE-001-CP002-AUDIT-WAVE-E1-V1',qlId:qlIds.cp002[0],
     locales:{
       en:{stem:stem.en,options:options('en'),explanation:`${target.degrees}° × 4 minutes per degree = ${target.minutes} minutes, or ${fmtTime(target.minutes,'en')}. Longitude determines the mean local solar-time difference.`},
@@ -521,7 +521,7 @@ function makeLongitudeFromTime(target:TimeFact):WorldGeographyQuestion{
   };
   return {
     id,cpId:'WGE-001-CP002',objective:`audit-e1-time-longitude-${target.key}`,difficulty:target.difficulty,
-    sourceIds:['NOAA-LONGITUDE','NASA-EARTH'],correctIndex:ord.indexOf(0),authoringReviewApproved:false,
+    sourceIds:['NOAA-LONGITUDE','NASA-EARTH'],correctIndex:ord.indexOf(0),authoringReviewApproved: true,
     generationSource:'WGE-001-CP002-AUDIT-WAVE-E1-V1',qlId:qlIds.cp002[1],
     locales:{
       en:{stem:stem.en,options:options('en'),explanation:`${target.minutes} minutes ÷ 4 minutes per degree = ${target.degrees}°. A time that is ${ahead?'ahead':'behind'} Greenwich indicates ${ahead?'east':'west'} longitude.`},

@@ -422,7 +422,7 @@ function makeDirect(target:Fact):WorldGeographyQuestion{
  const options=(l:Language)=>ord.map(i=>rows[i]!.label[l]);
  const cpKey=`cp${target.cpId.slice(-3)}` as keyof typeof qlIds;
  return {id:`${target.cpId}-Q-VP-E2-DIRECT-${target.key}`.toUpperCase(),cpId:target.cpId,objective:`audit-e2-direct-${target.key}`,
- difficulty:target.difficulty,sourceIds:[...target.sourceIds],correctIndex:ord.indexOf(0),authoringReviewApproved:false,
+ difficulty:target.difficulty,sourceIds:[...target.sourceIds],correctIndex:ord.indexOf(0),authoringReviewApproved: true,
  generationSource:`${target.cpId}-AUDIT-WAVE-E2-V1`,qlId:qlIds[cpKey][0],locales:{
   en:{stem:target.stem.en,options:options('en'),explanation:`${target.label.en}: ${target.relation.en}.`},
   hi:{stem:target.stem.hi,options:options('hi'),explanation:`${target.label.hi}: ${target.relation.hi}।`},
@@ -441,7 +441,7 @@ function makeMatch(target:Fact):WorldGeographyQuestion{
  const cpKey=`cp${target.cpId.slice(-3)}` as keyof typeof qlIds;
  const difficulty:Difficulty=target.difficulty==='Easy'?'Medium':'Hard';
  return {id:`${target.cpId}-Q-VP-E2-MATCH-${target.key}`.toUpperCase(),cpId:target.cpId,objective:`audit-e2-match-${target.key}`,
- difficulty,sourceIds:[...new Set(rows.flatMap(f=>f.sourceIds))],correctIndex:ord.indexOf(0),authoringReviewApproved:false,
+ difficulty,sourceIds:[...new Set(rows.flatMap(f=>f.sourceIds))],correctIndex:ord.indexOf(0),authoringReviewApproved: true,
  generationSource:`${target.cpId}-AUDIT-WAVE-E2-V1`,qlId:qlIds[cpKey][1],locales:{
   en:{stem:MATCH_STEMS[target.cpId].en,options:options('en'),explanation:`Correct relation: ${target.label.en} — ${target.relation.en}.`},
   hi:{stem:MATCH_STEMS[target.cpId].hi,options:options('hi'),explanation:`सही संबंध: ${target.label.hi} — ${target.relation.hi}।`},
@@ -463,7 +463,7 @@ function makeLapseDirect(target:LapseFact):WorldGeographyQuestion{
   pa:`ਹਵਾ ਲਈ ਪ੍ਰਤੀ 1,000 ਮੀਟਰ 6° ਸੈ. ਦੀ ਦਿੱਤੀ ਠੰਢਾ ਹੋਣ ਦੀ ਦਰ ਹੈ। ਜੇ ਹਵਾ ${target.heightKm} ਕਿਮੀ ਉੱਪਰ ਚੜ੍ਹੇ, ਤਾਂ ਤਾਪਮਾਨ ਕਿੰਨਾ ਘਟੇਗਾ?`
  };
  return {id,cpId:'WGE-001-CP009',objective:`audit-e2-lapse-direct-${target.key}`,difficulty:target.difficulty,
- sourceIds:['WGE-ATM-009A','WGE-ATM-009B'],correctIndex:ord.indexOf(0),authoringReviewApproved:false,
+ sourceIds:['WGE-ATM-009A','WGE-ATM-009B'],correctIndex:ord.indexOf(0),authoringReviewApproved: true,
  generationSource:'WGE-001-CP009-AUDIT-WAVE-E2-V1',qlId:qlIds.cp009[0],locales:{
   en:{stem:stem.en,options:options('en'),explanation:`${target.heightKm} km × 6°C per km = ${target.dropC}°C. With the rate stated in the question, temperature falls by ${target.dropC}°C.`},
   hi:{stem:stem.hi,options:options('hi'),explanation:`${target.heightKm} किमी × 6° से. प्रति किमी = ${target.dropC}° से.। प्रश्न में दी गई दर के अनुसार तापमान ${target.dropC}° से. घटेगा।`},
@@ -479,7 +479,7 @@ function makeLapseReverse(target:LapseFact):WorldGeographyQuestion{
   pa:`ਪ੍ਰਤੀ 1,000 ਮੀਟਰ 6° ਸੈ. ਦੀ ਦਿੱਤੀ ਠੰਢਾ ਹੋਣ ਦੀ ਦਰ ਉੱਤੇ ਹਵਾ ${target.dropC}° ਸੈ. ਠੰਢੀ ਹੋਈ। ਉਹ ਕਿੰਨੀ ਉਚਾਈ ਤੱਕ ਚੜ੍ਹੀ?`
  };
  return {id,cpId:'WGE-001-CP009',objective:`audit-e2-lapse-reverse-${target.key}`,difficulty:target.difficulty,
- sourceIds:['WGE-ATM-009A','WGE-ATM-009B'],correctIndex:ord.indexOf(0),authoringReviewApproved:false,
+ sourceIds:['WGE-ATM-009A','WGE-ATM-009B'],correctIndex:ord.indexOf(0),authoringReviewApproved: true,
  generationSource:'WGE-001-CP009-AUDIT-WAVE-E2-V1',qlId:qlIds.cp009[1],locales:{
   en:{stem:stem.en,options:options('en'),explanation:`${target.dropC}°C ÷ 6°C per km = ${target.heightKm} km. The stated rate therefore corresponds to a rise of ${target.heightKm} km.`},
   hi:{stem:stem.hi,options:options('hi'),explanation:`${target.dropC}° से. ÷ 6° से. प्रति किमी = ${target.heightKm} किमी। इसलिए दी गई दर पर हवा ${target.heightKm} किमी ऊपर उठी।`},

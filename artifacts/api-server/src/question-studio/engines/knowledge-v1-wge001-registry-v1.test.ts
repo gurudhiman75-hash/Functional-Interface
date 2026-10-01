@@ -17,21 +17,22 @@ async function run() {
   assert.equal(approvedNew.questions[0]!.authoringReviewApproved, true);
   assert.equal(approvedNew.questions[0]!.localizationStatus, 'USER_APPROVED');
 
-  for (const packageId of ['WGE-001-CP001','WGE-001-CP002','WGE-001-CP003','WGE-001-CP004','WGE-001-CP005','WGE-001-CP006','WGE-001-CP007','WGE-001-CP008','WGE-001-CP009','WGE-001-CP010','WGE-001-CP011','WGE-001-CP012','WGE-001-CP013','WGE-001-CP014','WGE-001-CP015','WGE-001-CP017','WGE-001-CP020','WGE-001-CP021','WGE-001-CP022','WGE-001-CP023','WGE-001-CP024','WGE-001-CP025','WGE-001-CP026','WGE-001-CP027','WGE-001-CP028','WGE-001-CP029','WGE-001-CP030','WGE-001-CP031','WGE-001-CP032','WGE-001-CP033','WGE-001-CP034','WGE-001-CP035','WGE-001-CP036','WGE-001-CP037','WGE-001-CP038','WGE-001-CP039','WGE-001-CP040','WGE-001-CP041','WGE-001-CP042','WGE-001-CP043']) {
-    const pkg = packages.find(p => p.packageId === packageId)!;
-    assert.equal(pkg.metadata.authoringReviewApproved, false);
-    assert.equal(pkg.metadata.localizationStatus, 'REVIEW_REQUIRED');
-  }
-  for (const packageId of ['WGE-001-CP032','WGE-001-CP033','WGE-001-CP034','WGE-001-CP035','WGE-001-CP036','WGE-001-CP037','WGE-001-CP038','WGE-001-CP039','WGE-001-CP040','WGE-001-CP043']) {
-    const pkg = packages.find(p => p.packageId === packageId)!;
-    assert.equal(pkg.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
+  for (const pkg of packages) {
+    assert.equal(pkg.metadata.authoringReviewApproved, true, `${pkg.packageId}: final authoring approval`);
+    assert.equal(pkg.metadata.localizationStatus, 'USER_APPROVED', `${pkg.packageId}: final localization approval`);
+    if (pkg.metadata.variablePoolEnabled) {
+      assert.equal(pkg.metadata.variablePoolStatus, 'USER_APPROVED', `${pkg.packageId}: final variable-pool approval`);
+    }
+    assert.equal(pkg.lifecycleStage, 'REVIEW_ONLY');
+    assert.equal(pkg.questionBankWritable, false);
+    assert.equal(pkg.productionReleaseAuthorized, false);
   }
   const revised041 = await generateQuestionStudioQuestions({packageId:'WGE-001', canonicalProblemId:'WGE-001-CP041-Q001', language:'en', count:1});
-  assert.equal(revised041.questions[0]!.authoringReviewApproved, false);
-  assert.equal(revised041.questions[0]!.localizationStatus, 'REVIEW_REQUIRED');
+  assert.equal(revised041.questions[0]!.authoringReviewApproved, true);
+  assert.equal(revised041.questions[0]!.localizationStatus, 'USER_APPROVED');
   const revised042 = await generateQuestionStudioQuestions({packageId:'WGE-001', canonicalProblemId:'WGE-001-CP042-Q002', language:'pa', count:1});
-  assert.equal(revised042.questions[0]!.authoringReviewApproved, false);
-  assert.equal(revised042.questions[0]!.localizationStatus, 'REVIEW_REQUIRED');
+  assert.equal(revised042.questions[0]!.authoringReviewApproved, true);
+  assert.equal(revised042.questions[0]!.localizationStatus, 'USER_APPROVED');
   await assert.rejects(() => generateQuestionStudioQuestions({engineId: 'knowledge-v1',packageId:'WGE-001-CP044'}), /Unknown WGE/);
   console.log('PASS: WGE standard registry discovery and generation, 44 packages × 3 languages');
 }

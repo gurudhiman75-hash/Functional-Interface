@@ -248,7 +248,7 @@ function direct(target:Fact):WorldGeographyQuestion{
  const rows=selected(target),ord=shuffle(`${target.cpId}:${target.key}:direct`);
  const options=(l:Language)=>ord.map(i=>rows[i]!.label[l]);
  return {id:`${target.cpId}-Q-VP-E4-DIRECT-${target.key}`.toUpperCase(),cpId:target.cpId,objective:`audit-e4-direct-${target.key}`,
- difficulty:target.difficulty,sourceIds:[...target.sourceIds],correctIndex:ord.indexOf(0),authoringReviewApproved:false,
+ difficulty:target.difficulty,sourceIds:[...target.sourceIds],correctIndex:ord.indexOf(0),authoringReviewApproved: true,
  generationSource:`${target.cpId}-AUDIT-WAVE-E4-V1`,qlId:ql(target,0),locales:{
   en:{stem:target.stem.en,options:options('en'),explanation:`${target.label.en}: ${target.relation.en}.`},
   hi:{stem:target.stem.hi,options:options('hi'),explanation:`${target.label.hi}: ${target.relation.hi}।`},
@@ -266,7 +266,7 @@ function match(target:Fact):WorldGeographyQuestion{
  const options=(l:Language)=>{const p=pairs(l);return ord.map(i=>p[i]!);};
  const difficulty:Difficulty=target.difficulty==='Easy'?'Medium':'Hard';
  return {id:`${target.cpId}-Q-VP-E4-MATCH-${target.key}`.toUpperCase(),cpId:target.cpId,objective:`audit-e4-match-${target.key}`,
- difficulty,sourceIds:[...new Set(rows.flatMap(f=>f.sourceIds))],correctIndex:ord.indexOf(0),authoringReviewApproved:false,
+ difficulty,sourceIds:[...new Set(rows.flatMap(f=>f.sourceIds))],correctIndex:ord.indexOf(0),authoringReviewApproved: true,
  generationSource:`${target.cpId}-AUDIT-WAVE-E4-V1`,qlId:ql(target,1),locales:{
   en:{stem:MATCH_STEMS[target.cpId].en,options:options('en'),explanation:`Correct relation: ${target.label.en} — ${target.relation.en}.`},
   hi:{stem:MATCH_STEMS[target.cpId].hi,options:options('hi'),explanation:`सही संबंध: ${target.label.hi} — ${target.relation.hi}।`},
