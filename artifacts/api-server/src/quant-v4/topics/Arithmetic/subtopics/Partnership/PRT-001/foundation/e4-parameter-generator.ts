@@ -19,6 +19,14 @@ function cleanGross(partners: readonly Partner[], perPart = 20_000): number {
 function absTextMoney(value: ReturnType<typeof rational>): string {
   return formatPrt001Money(value.numerator < 0n ? rational(-value.numerator, value.denominator) : value);
 }
+function deterministicScenarioIndex(seed: string, size: number): number {
+  let hash = 2166136261;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash ^= seed.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % size;
+}
 function fractionPhrase(kind: "INCREASE_HALF" | "DECREASE_THIRD" | "INCREASE_QUARTER" | "DECREASE_QUARTER", language: Prt001Language): string {
   const phrases = {
     en: { INCREASE_HALF: "increased the capital by one-half", DECREASE_THIRD: "withdrew one-third of the capital", INCREASE_QUARTER: "increased the capital by one-fourth", DECREASE_QUARTER: "withdrew one-fourth of the capital" },
@@ -116,82 +124,87 @@ export function generatePrt001E4Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findCapitalForEqualProfitGivenDurations": {
-      const numericStateRandom = createPrt001Random(
-        `${input.seed}:numeric-state:${input.entry.solveMode}`,
-      );
-      const durationPair = numericStateRandom.pick([
-        [12, 6],
-        [11, 8],
-        [10, 6],
-        [9, 12],
-        [8, 6],
-        [7, 10],
-        [6, 8],
-        [5, 10],
-        [4, 12],
-      ] as const);
-      const unit = numericStateRandom.pick([4_000, 5_000, 6_000, 8_000, 10_000]);
-      const s = {
-        a: durationPair[1] * unit,
-        da: durationPair[0],
-        b: durationPair[0] * unit,
-        db: durationPair[1],
-      };
-      state = makeState([partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))])], money(100_000));
+      const scenarios = [
+        {a:30_000,da:12,b:60_000,db:6},
+        {a:40_000,da:11,b:55_000,db:8},
+        {a:42_000,da:10,b:70_000,db:6},
+        {a:48_000,da:9,b:36_000,db:12},
+        {a:60_000,da:8,b:80_000,db:6},
+        {a:70_000,da:7,b:49_000,db:10},
+        {a:80_000,da:6,b:60_000,db:8},
+        {a:90_000,da:5,b:45_000,db:10},
+        {a:120_000,da:4,b:40_000,db:12},
+        {a:135_000,da:3,b:45_000,db:9},
+        {a:160_000,da:2,b:40_000,db:8},
+        {a:180_000,da:1,b:15_000,db:12},
+      ] as const;
+      const s = scenarios[
+        deterministicScenarioIndex(
+          `${input.seed}:${input.entry.solveMode}:answer-diversity`,
+          scenarios.length,
+        )
+      ]!;
+      state = makeState([
+        partner(partnerA,[segment(0,s.da,s.a)]),
+        partner(partnerB,[segment(0,s.db,s.b)]),
+      ], 100_000);
       targetPartnerId = partnerA;
       break;
     }
     case "findDurationForEqualProfitGivenCapitals": {
-      const numericStateRandom = createPrt001Random(
-        `${input.seed}:numeric-state:${input.entry.solveMode}`,
-      );
-      const durationPair = numericStateRandom.pick([
-        [12, 6],
-        [11, 8],
-        [10, 6],
-        [9, 12],
-        [8, 6],
-        [7, 10],
-        [6, 8],
-        [5, 10],
-        [4, 12],
-      ] as const);
-      const unit = numericStateRandom.pick([4_000, 5_000, 6_000, 8_000, 10_000]);
-      const s = {
-        a: durationPair[1] * unit,
-        da: durationPair[0],
-        b: durationPair[0] * unit,
-        db: durationPair[1],
-      };
-      state = makeState([partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))])], money(100_000));
+      const scenarios = [
+        {a:30_000,da:12,b:60_000,db:6},
+        {a:40_000,da:11,b:55_000,db:8},
+        {a:42_000,da:10,b:70_000,db:6},
+        {a:48_000,da:9,b:36_000,db:12},
+        {a:60_000,da:8,b:80_000,db:6},
+        {a:70_000,da:7,b:49_000,db:10},
+        {a:80_000,da:6,b:60_000,db:8},
+        {a:90_000,da:5,b:45_000,db:10},
+        {a:120_000,da:4,b:40_000,db:12},
+        {a:135_000,da:3,b:45_000,db:9},
+        {a:160_000,da:2,b:40_000,db:8},
+        {a:180_000,da:1,b:15_000,db:12},
+      ] as const;
+      const s = scenarios[
+        deterministicScenarioIndex(
+          `${input.seed}:${input.entry.solveMode}:answer-diversity`,
+          scenarios.length,
+        )
+      ]!;
+      state = makeState([
+        partner(partnerA,[segment(0,s.da,s.a)]),
+        partner(partnerB,[segment(0,s.db,s.b)]),
+      ], 100_000);
       targetPartnerId = partnerA;
       break;
     }
     case "findProfitDifferenceFromCapitalDurationWeights": {
-      const numericStateRandom = createPrt001Random(
-        `${input.seed}:numeric-state:${input.entry.solveMode}`,
-      );
-      const s = numericStateRandom.pick([
-        {a:20_000,da:12,b:30_000,db:6},
-        {a:24_000,da:10,b:40_000,db:6},
-        {a:35_000,da:6,b:28_000,db:10},
-        {a:42_000,da:8,b:30_000,db:12},
-        {a:30_000,da:12,b:45_000,db:8},
-        {a:48_000,da:9,b:36_000,db:12},
-        {a:40_000,da:7,b:28_000,db:12},
-        {a:54_000,da:8,b:32_000,db:12},
-      ]);
-      const perPart = numericStateRandom.pick([
-        12_000,
-        15_000,
-        18_000,
-        20_000,
-        24_000,
-        27_000,
-        30_000,
-      ]);
-      const partners = [partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))])];
-      state = makeState(partners, money(cleanGross(partners, perPart)));
+      const scenarios = [
+        {a:30_000,da:12,b:30_000,db:6,perPart:10_000},
+        {a:45_000,da:12,b:30_000,db:6,perPart:12_000},
+        {a:30_000,da:12,b:40_000,db:6,perPart:15_000},
+        {a:40_000,da:12,b:20_000,db:6,perPart:10_000},
+        {a:40_000,da:12,b:60_000,db:6,perPart:18_000},
+        {a:50_000,da:12,b:40_000,db:6,perPart:12_000},
+        {a:50_000,da:12,b:60_000,db:6,perPart:20_000},
+        {a:50_000,da:12,b:80_000,db:6,perPart:25_000},
+        {a:70_000,da:12,b:40_000,db:6,perPart:10_000},
+        {a:70_000,da:12,b:60_000,db:6,perPart:15_000},
+        {a:70_000,da:12,b:80_000,db:6,perPart:30_000},
+        {a:80_000,da:12,b:60_000,db:6,perPart:20_000},
+      ] as const;
+      const s = scenarios[
+        deterministicScenarioIndex(
+          `${input.seed}:${input.entry.solveMode}:answer-diversity`,
+          scenarios.length,
+        )
+      ]!;
+      const partners = [
+        partner(partnerA,[segment(0,s.da,s.a)]),
+        partner(partnerB,[segment(0,s.db,s.b)]),
+      ];
+      state = makeState(partners, cleanGross(partners, s.perPart));
       break;
     }
     case "findProfitRatioWhenPartnerLeavesEarly": {
