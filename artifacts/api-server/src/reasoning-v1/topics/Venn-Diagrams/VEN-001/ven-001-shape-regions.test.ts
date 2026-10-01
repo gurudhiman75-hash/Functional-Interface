@@ -128,6 +128,12 @@ for (const q of result.questions) {
   assert.equal(q.reviewOnly, true);
   assert.equal(q.questionBankWritable, false);
   assert.equal(q.testEligible, false);
+  assert.equal(
+    q.difficulty,
+    meta.queryPattern === "single" || meta.queryPattern === "triple"
+      ? "Easy"
+      : "Medium",
+  );
   assert.equal(q.stimulusSvgs?.length, 1);
   for (const mask of Array.from({ length: 8 }, (_, i) => i))
     assert.match(q.stimulusSvgs![0]!, new RegExp(`data-mask="${mask}"`));
