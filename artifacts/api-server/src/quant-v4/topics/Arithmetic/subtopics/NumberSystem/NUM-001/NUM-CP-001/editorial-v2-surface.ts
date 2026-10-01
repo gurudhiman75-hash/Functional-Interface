@@ -39,16 +39,13 @@ function hardenEnglishSurface(surface: any, qlId: string, seed: number) {
   }
 
   if (EXPLANATION_HARDENING_QLS.has(qlId)) {
-    const concept = String(surface.concept ?? "").trim();
-    if (concept && !steps.some((step) => step.includes(concept))) {
-      steps.unshift(`Rule: ${concept}`);
-    }
     if (steps.length < 3) {
       steps.push(`Therefore the correct answer is ${surface.answer}.`);
     }
     if (steps.length < 3) {
       steps.push("A quick check with the defining Number System rule gives the same result.");
     }
+    steps = steps.slice(0, 4);
   }
 
   return Object.freeze({ ...surface, stem, steps: Object.freeze(steps) });
