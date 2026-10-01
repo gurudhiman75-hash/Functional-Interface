@@ -168,6 +168,10 @@ import {
 import {
   generateSapBankingEngineBatch,
 } from "../quant-sap-banking";
+import {
+  generateNum001EngineBatch,
+  num001EnginePackageCard,
+} from "../quant-number-system-num001";
 import type {
   QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
@@ -630,6 +634,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       trg001EnginePackage(),
       trg002EnginePackage(),
       tmw001EnginePackage(),
+      toSharedPackage(num001EnginePackageCard()),
     ]) {
       const index = packages.findIndex((pkg) => pkg.packageId === specializedPackage.packageId);
       if (index >= 0) packages[index] = specializedPackage;
@@ -665,6 +670,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
     const sapBanking = await generateSapBankingEngineBatch(request);
     if (sapBanking) return sapBanking;
+
+    const numberSystem = await generateNum001EngineBatch(request);
+    if (numberSystem) return numberSystem;
 
     const diMixRequest = toDiMixRequest(request);
     if (isDiDeliveryNoveltyMixRequest(diMixRequest)) {
