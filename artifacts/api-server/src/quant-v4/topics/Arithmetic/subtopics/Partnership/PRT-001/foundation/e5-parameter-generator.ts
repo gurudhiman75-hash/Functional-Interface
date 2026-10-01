@@ -89,7 +89,7 @@ export function generatePrt001E5Parameters(input: { questionLanguageId: string; 
       const numericStateRandom = createPrt001Random(
         `${input.seed}:numeric-state:${input.entry.solveMode}`,
       );
-      const join = numericStateRandom.pick([2, 3, 4, 5, 6, 7, 8, 9]);
+      const join = numericStateRandom.pick([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
       const unit = numericStateRandom.pick([4_000, 5_000, 6_000, 8_000, 10_000]);
       const s = { a: (12 - join) * unit, b: 12 * unit, join };
       state = makeState([partner(partnerA,[segment(0,12,money(s.a))]), partner(partnerB,[segment(s.join,12,money(s.b))])], money(100_000));
