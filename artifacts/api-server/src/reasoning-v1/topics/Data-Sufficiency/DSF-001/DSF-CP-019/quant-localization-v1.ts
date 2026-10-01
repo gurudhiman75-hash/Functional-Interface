@@ -119,13 +119,24 @@ function laneLead(laneId:string,q:AnyQuestion,language:DsfQuantLocalizedLanguage
 function promptFor(q:AnyQuestion, language:DsfQuantLocalizedLanguage):string {
   const raw=String(q.questionPrompt??"").trim();
   if(!raw) return t(language,"मांगा गया मान क्या है?","ਮੰਗਿਆ ਗਿਆ ਮੁੱਲ ਕੀ ਹੈ?");
-  let out=translateQuantText(raw,language)
+  if(/can the value of x be determined/i.test(raw)) {
+    return t(language,"क्या x का मान निर्धारित किया जा सकता है?","ਕੀ x ਦਾ ਮੁੱਲ ਨਿਰਧਾਰਤ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ?");
+  }
+  if(/by how much does .*compound interest.*exceed simple interest/i.test(raw)) {
+    return t(language,"पूरी अवधि में चक्रवृद्धि ब्याज साधारण ब्याज से कितना अधिक है?","ਪੂਰੀ ਮਿਆਦ ਵਿੱਚ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਸਧਾਰਣ ਵਿਆਜ ਤੋਂ ਕਿੰਨਾ ਵੱਧ ਹੈ?");
+  }
+  let out=raw
+    .replace(/^What is the /i,"")
     .replace(/^What is /i,"")
+    .replace(/^What are the /i,"")
     .replace(/^What are /i,"")
-    .replace(/^Can /i,language==="hi"?"क्या ":"ਕੀ ")
-    .replace(/\?$/,"").trim();
-  if(language==="hi") return out.startsWith("क्या ") ? out+"?" : out+" क्या है?";
-  return out.startsWith("ਕੀ ") ? out+"?" : out+" ਕੀ ਹੈ?";
+    .replace(/\?$/,"");
+  out=translateQuantText(out,language)
+    .replace(/^the\s+/i,"")
+    .replace(/\bthe\b/gi,"")
+    .replace(/\s{2,}/g," ")
+    .trim();
+  return language==="hi" ? out+" क्या है?" : out+" ਕੀ ਹੈ?";
 }
 
 function statementFor(text:string,language:DsfQuantLocalizedLanguage):string {
