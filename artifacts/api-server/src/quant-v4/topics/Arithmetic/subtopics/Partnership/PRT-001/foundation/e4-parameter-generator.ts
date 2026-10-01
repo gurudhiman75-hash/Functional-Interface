@@ -265,13 +265,33 @@ export function generatePrt001E4Parameters(input: { questionLanguageId: string; 
         {a0:60_000,a1:40_000,kind:"DECREASE_THIRD" as const,change:6,b:45_000},
         {a0:80_000,a1:100_000,kind:"INCREASE_QUARTER" as const,change:5,b:75_000},
         {a0:80_000,a1:60_000,kind:"DECREASE_QUARTER" as const,change:8,b:70_000},
+        {a0:30_000,a1:45_000,kind:"INCREASE_HALF" as const,change:6,b:40_000},
+        {a0:90_000,a1:60_000,kind:"DECREASE_THIRD" as const,change:4,b:70_000},
+        {a0:60_000,a1:75_000,kind:"INCREASE_QUARTER" as const,change:8,b:50_000},
+        {a0:100_000,a1:75_000,kind:"DECREASE_QUARTER" as const,change:3,b:80_000},
+        {a0:50_000,a1:75_000,kind:"INCREASE_HALF" as const,change:2,b:60_000},
+        {a0:120_000,a1:80_000,kind:"DECREASE_THIRD" as const,change:5,b:90_000},
+        {a0:80_000,a1:100_000,kind:"INCREASE_QUARTER" as const,change:7,b:85_000},
+        {a0:60_000,a1:45_000,kind:"DECREASE_QUARTER" as const,change:10,b:55_000},
       ]);
       state = makeState([partner(partnerA,[segment(0,s.change,money(s.a0)),segment(s.change,12,money(s.a1))]), partner(partnerB,[segment(0,12,money(s.b))])], money(120_000));
       extra.fractionalChangeA = fractionPhrase(s.kind, input.language);
       break;
     }
     case "findUnknownCapitalChangeTimeFromPartnerShare": {
-      const s = random.pick([{a0:40_000,a1:60_000,change:6,b:50_000},{a0:60_000,a1:30_000,change:4,b:45_000},{a0:30_000,a1:45_000,change:8,b:35_000},{a0:80_000,a1:60_000,change:3,b:70_000}]);
+      const s = random.pick([
+        {a0:40_000,a1:60_000,change:6,b:50_000},
+        {a0:60_000,a1:30_000,change:4,b:45_000},
+        {a0:30_000,a1:45_000,change:8,b:35_000},
+        {a0:80_000,a1:60_000,change:3,b:70_000},
+        {a0:24_000,a1:48_000,change:1,b:36_000},
+        {a0:30_000,a1:45_000,change:2,b:40_000},
+        {a0:36_000,a1:54_000,change:5,b:42_000},
+        {a0:40_000,a1:60_000,change:7,b:50_000},
+        {a0:72_000,a1:48_000,change:9,b:60_000},
+        {a0:50_000,a1:75_000,change:10,b:55_000},
+        {a0:80_000,a1:40_000,change:11,b:70_000},
+      ]);
       const partners = [partner(partnerA,[segment(0,s.change,money(s.a0)),segment(s.change,12,money(s.a1))]), partner(partnerB,[segment(0,12,money(s.b))])];
       state = makeState(partners, money(cleanGross(partners, 20_000)));
       targetPartnerId = partnerA;
