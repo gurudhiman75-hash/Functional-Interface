@@ -217,6 +217,12 @@ function localizeRelation(value: string, language: DsfReasoningLocalizedLanguage
     father:["पिता","ਪਿਤਾ"], mother:["माता","ਮਾਤਾ"], son:["पुत्र","ਪੁੱਤਰ"], daughter:["पुत्री","ਧੀ"],
     brother:["भाई","ਭਰਾ"], sister:["बहन","ਭੈਣ"], husband:["पति","ਪਤੀ"], wife:["पत्नी","ਪਤਨੀ"],
     parent:["माता-पिता","ਮਾਤਾ-ਪਿਤਾ"], child:["संतान","ਸੰਤਾਨ"], sibling:["भाई-बहन","ਭੈਣ-ਭਰਾ"], spouse:["जीवनसाथी","ਜੀਵਨ ਸਾਥੀ"],
+    grandfather:["दादा/नाना","ਦਾਦਾ/ਨਾਨਾ"], grandmother:["दादी/नानी","ਦਾਦੀ/ਨਾਨੀ"], grandson:["पोता/नाती","ਪੋਤਾ/ਦੋਹਤਾ"], granddaughter:["पोती/नातिन","ਪੋਤੀ/ਦੋਹਤੀ"],
+    "great grandfather":["परदादा/परनाना","ਪਰਦਾਦਾ/ਪਰਨਾਨਾ"], "great grandmother":["परदादी/परनानी","ਪਰਦਾਦੀ/ਪਰਨਾਨੀ"],
+    "great grandson":["परपोता/परनाती","ਪਰਪੋਤਾ/ਪਰਦੋਹਤਾ"], "great granddaughter":["परपोती/परनातिन","ਪਰਪੋਤੀ/ਪਰਦੋਹਤੀ"],
+    uncle:["चाचा/मामा","ਚਾਚਾ/ਮਾਮਾ"], aunt:["चाची/मामी","ਚਾਚੀ/ਮਾਮੀ"], nephew:["भतीजा/भांजा","ਭਤੀਜਾ/ਭਾਣਜਾ"], niece:["भतीजी/भांजी","ਭਤੀਜੀ/ਭਾਣਜੀ"], cousin:["चचेरा/ममेरा भाई-बहन","ਚਚੇਰਾ/ਮਮੇਰਾ ਭੈਣ-ਭਰਾ"],
+    "father in law":["ससुर","ਸਹੁਰਾ"], "mother in law":["सास","ਸੱਸ"], "son in law":["दामाद","ਜਵਾਈ"], "daughter in law":["बहू","ਨੂੰਹ"],
+    "brother in law":["बहनोई/साला","ਜੀਜਾ/ਸਾਲਾ"], "sister in law":["भाभी/साली","ਭਾਬੀ/ਸਾਲੀ"],
     male:["पुरुष","ਪੁਰਸ਼"], female:["महिला","ਇਸਤਰੀ"], unknown:["अज्ञात","ਅਣਜਾਣ"],
   };
   return map[key] ? t(language,...map[key]!) : value;
@@ -229,10 +235,12 @@ function localizeBloodStatement(text: string, language: DsfReasoningLocalizedLan
     if(localized.every((part): part is string => Boolean(part))) return localized.join(" ");
   }
   let m:RegExpMatchArray|null;
-  m=text.match(/^([PXQ]) is the (father|mother|son|daughter|brother|sister|husband|wife) of ([PXQ])\.$/i);
+  m=text.match(/^([PXQ]) is the (father|mother|son|daughter|brother|sister|husband|wife|grandfather|grandmother|grandson|granddaughter|great grandfather|great grandmother|great grandson|great granddaughter|uncle|aunt|nephew|niece|cousin|father in law|mother in law|son in law|daughter in law|brother in law|sister in law) of ([PXQ])\.$/i);
   if(m) return t(language,`${m[1]} , ${m[3]} का ${localizeRelation(m[2]!,language)} है।`,`${m[1]}, ${m[3]} ਦਾ ${localizeRelation(m[2]!,language)} ਹੈ।`);
   m=text.match(/^([PXQ]) is (male|female)\.$/i);
   if(m) return t(language,`${m[1]} ${localizeRelation(m[2]!,language)} है।`,`${m[1]} ${localizeRelation(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The gender of ([PXQ]) is not fixed by the available direct-relation wording\.$/i);
+  if(m) return t(language,`उपलब्ध प्रत्यक्ष संबंध से ${m[1]} का लिंग निश्चित नहीं होता।`,`ਉਪਲਬਧ ਸਿੱਧੇ ਸੰਬੰਧ ਤੋਂ ${m[1]} ਦਾ ਲਿੰਗ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੁੰਦਾ।`);
   m=text.match(/^The stated (P-X|X-Q) clue is a (parent|child|sibling|spouse)-type relation\.$/i);
   if(m) return t(language,`दिया गया ${m[1]} संकेत ${localizeRelation(m[2]!,language)} संबंध दर्शाता है।`,`ਦਿੱਤਾ ਗਿਆ ${m[1]} ਸੰਕੇਤ ${localizeRelation(m[2]!,language)} ਸੰਬੰਧ ਦਰਸਾਉਂਦਾ ਹੈ।`);
   m=text.match(/^The (P-X|X-Q) clue is stated with ([PXQ]) as the subject and ([PXQ]) as the reference person\.$/i);
@@ -242,7 +250,7 @@ function localizeBloodStatement(text: string, language: DsfReasoningLocalizedLan
     ? t(language,`${m[1]} संबंध रक्त संबंध है।`,`${m[1]} ਸੰਬੰਧ ਖੂਨ ਦਾ ਰਿਸ਼ਤਾ ਹੈ।`)
     : t(language,`${m[1]} संबंध वैवाहिक संबंध है।`,`${m[1]} ਸੰਬੰਧ ਵਿਆਹਕ ਰਿਸ਼ਤਾ ਹੈ।`);
   // BLR source-normalized direct clues use the same compact relation sentence family.
-  m=text.match(/^([PXQ])(?: is|'s) (?:the )?(father|mother|son|daughter|brother|sister|husband|wife)(?: of)? ([PXQ])\.?$/i);
+  m=text.match(/^([PXQ])(?: is|'s) (?:the )?(father|mother|son|daughter|brother|sister|husband|wife|grandfather|grandmother|grandson|granddaughter|great grandfather|great grandmother|great grandson|great granddaughter|uncle|aunt|nephew|niece|cousin|father in law|mother in law|son in law|daughter in law|brother in law|sister in law)(?: of)? ([PXQ])\.?$/i);
   if(m) return t(language,`${m[1]} , ${m[3]} का ${localizeRelation(m[2]!,language)} है।`,`${m[1]}, ${m[3]} ਦਾ ${localizeRelation(m[2]!,language)} ਹੈ।`);
   return undefined;
 }
