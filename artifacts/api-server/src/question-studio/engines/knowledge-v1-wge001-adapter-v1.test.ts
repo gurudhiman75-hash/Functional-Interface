@@ -17,7 +17,7 @@ async function run() {
   }
   for (const packageId of ['WGE-001-CP001','WGE-001-CP002','WGE-001-CP003','WGE-001-CP004','WGE-001-CP005']) {
     const earlyAuditPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
-    assert.equal(earlyAuditPackage.metadata.authoringReviewApproved, false);
+    assert.equal(earlyAuditPackage.metadata.authoringReviewApproved, false, `${packageId}: authoring review state`);
     assert.equal(earlyAuditPackage.metadata.variablePoolQuestionCount, 12);
     assert.equal(earlyAuditPackage.metadata.variablePoolEnabled, true);
     assert.equal(earlyAuditPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
@@ -25,7 +25,7 @@ async function run() {
   }
   for (const packageId of ['WGE-001-CP006','WGE-001-CP007','WGE-001-CP008','WGE-001-CP009','WGE-001-CP010']) {
     const earlyAuditPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
-    assert.equal(earlyAuditPackage.metadata.authoringReviewApproved, false);
+    assert.equal(earlyAuditPackage.metadata.authoringReviewApproved, false, `${packageId}: authoring review state`);
     assert.equal(earlyAuditPackage.metadata.variablePoolQuestionCount, 12);
     assert.equal(earlyAuditPackage.metadata.variablePoolEnabled, true);
     assert.equal(earlyAuditPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
@@ -33,7 +33,7 @@ async function run() {
   }
   for (const packageId of ['WGE-001-CP011','WGE-001-CP012','WGE-001-CP013','WGE-001-CP014','WGE-001-CP015']) {
     const earlyAuditPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
-    assert.equal(earlyAuditPackage.metadata.authoringReviewApproved, false);
+    assert.equal(earlyAuditPackage.metadata.authoringReviewApproved, false, `${packageId}: authoring review state`);
     assert.equal(earlyAuditPackage.metadata.variablePoolQuestionCount, 12);
     assert.equal(earlyAuditPackage.metadata.variablePoolEnabled, true);
     assert.equal(earlyAuditPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
@@ -41,14 +41,14 @@ async function run() {
   }
   for (const packageId of ['WGE-001-CP023','WGE-001-CP041','WGE-001-CP042']) {
     const finalAuditPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
-    assert.equal(finalAuditPackage.metadata.authoringReviewApproved, false);
+    assert.equal(finalAuditPackage.metadata.authoringReviewApproved, false, `${packageId}: authoring review state`);
     assert.equal(finalAuditPackage.metadata.variablePoolQuestionCount, 12);
     assert.equal(finalAuditPackage.metadata.variablePoolEnabled, true);
     assert.equal(finalAuditPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
     assert.equal(finalAuditPackage.metadata.questionLanguageIds.length, 2);
   }
   const capitalPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP022')!;
-  assert.equal(capitalPackage.metadata.authoringReviewApproved, false);
+  assert.equal(capitalPackage.metadata.authoringReviewApproved, false, 'CP022: authoring review state');
   assert.equal(capitalPackage.metadata.variablePoolQuestionCount, 90);
   assert.equal(capitalPackage.metadata.variablePoolEnabled, true);
   assert.deepEqual(capitalPackage.metadata.questionLanguageIds,
@@ -63,15 +63,15 @@ async function run() {
   assert.equal(landformsPackage.metadata.variablePoolQuestionCount, 18);
   assert.equal(landformsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const lakesPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP020')!;
-  assert.equal(lakesPackage.metadata.authoringReviewApproved, false);
+  assert.equal(lakesPackage.metadata.authoringReviewApproved, false, 'CP020: authoring review state');
   assert.equal(lakesPackage.metadata.variablePoolQuestionCount, 16);
   assert.equal(lakesPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const desertsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP021')!;
-  assert.equal(desertsPackage.metadata.authoringReviewApproved, false);
+  assert.equal(desertsPackage.metadata.authoringReviewApproved, false, 'CP021: authoring review state');
   assert.equal(desertsPackage.metadata.variablePoolQuestionCount, 14);
   assert.equal(desertsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const passagesPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP017')!;
-  assert.equal(passagesPackage.metadata.authoringReviewApproved, false);
+  assert.equal(passagesPackage.metadata.authoringReviewApproved, false, 'CP017: authoring review state');
   assert.equal(passagesPackage.metadata.variablePoolQuestionCount, 16);
   assert.equal(passagesPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const currentsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP016')!;
@@ -80,7 +80,7 @@ async function run() {
   assert.equal(currentsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   for (const packageId of ['WGE-001-CP024','WGE-001-CP025','WGE-001-CP026','WGE-001-CP027','WGE-001-CP028','WGE-001-CP029','WGE-001-CP030','WGE-001-CP031']) {
     const regionalPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
-    assert.equal(regionalPackage.metadata.authoringReviewApproved, false);
+    assert.equal(regionalPackage.metadata.authoringReviewApproved, false, `${packageId}: authoring review state`);
     assert.equal(regionalPackage.metadata.variablePoolQuestionCount, 24);
     assert.equal(regionalPackage.metadata.variablePoolEnabled, true);
     assert.equal(regionalPackage.metadata.variablePoolStatus, 'USER_APPROVED');
@@ -88,7 +88,7 @@ async function run() {
   }
   for (const packageId of ['WGE-001-CP032','WGE-001-CP033','WGE-001-CP034','WGE-001-CP035','WGE-001-CP036']) {
     const auditPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
-    assert.equal(auditPackage.metadata.authoringReviewApproved, false);
+    assert.equal(auditPackage.metadata.authoringReviewApproved, false, `${packageId}: authoring review state`);
     assert.equal(auditPackage.metadata.variablePoolQuestionCount, 12);
     assert.equal(auditPackage.metadata.variablePoolEnabled, true);
     assert.equal(auditPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
@@ -96,7 +96,7 @@ async function run() {
   }
   for (const packageId of ['WGE-001-CP037','WGE-001-CP038','WGE-001-CP039','WGE-001-CP040']) {
     const auditPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
-    assert.equal(auditPackage.metadata.authoringReviewApproved, false);
+    assert.equal(auditPackage.metadata.authoringReviewApproved, false, `${packageId}: authoring review state`);
     assert.equal(auditPackage.metadata.variablePoolQuestionCount, 16);
     assert.equal(auditPackage.metadata.variablePoolEnabled, true);
     assert.equal(auditPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
@@ -104,7 +104,7 @@ async function run() {
   }
   {
     const auditPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP043')!;
-    assert.equal(auditPackage.metadata.authoringReviewApproved, false);
+    assert.equal(auditPackage.metadata.authoringReviewApproved, false, `${packageId}: authoring review state`);
     assert.equal(auditPackage.metadata.variablePoolQuestionCount, 12);
     assert.equal(auditPackage.metadata.variablePoolEnabled, true);
     assert.equal(auditPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
