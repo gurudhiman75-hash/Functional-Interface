@@ -7,7 +7,10 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**"
       - "artifacts/api-server/src/question-studio/shared-generation-engine-trigonometry.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-trigonometry.ts"
+      - "artifacts/api-server/src/question-studio/quant-trigonometry.ts"
+      - "artifacts/api-server/src/question-studio/quant-trigonometry.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
   workflow_dispatch:
 
@@ -48,6 +51,9 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$base/question-studio-family-route-contract.test.ts" \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/trigonometry-family-question-studio-route.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/quant-trigonometry.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/trigonometry-unified-engine-lifecycle.mjs
 
       - name: Run frozen authority and lifecycle integration audit
         shell: bash
@@ -63,12 +69,19 @@ jobs:
           node artifacts/api-server/dist/quant-v4/trigonometry-family-question-studio-route.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/trigonometry-family-question-studio-route.log
 
-      - name: Bundle actual Trigonometry admin route
+      - name: Run unified engine lifecycle audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trigonometry-unified-engine-lifecycle.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trigonometry-unified-engine-lifecycle.log
+
+      - name: Bundle unified Trigonometry engine adapter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/routes/admin-question-studio-trigonometry.ts
+          src/question-studio/quant-trigonometry.ts
           --bundle --platform=node --format=esm --packages=external
-          --outfile=dist/quant-v4/admin-question-studio-trigonometry-route.mjs
+          --outfile=dist/quant-v4/question-studio-quant-trigonometry.mjs
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -80,5 +93,6 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/trigonometry-family-question-studio-integration.log
             artifacts/api-server/dist/quant-v4/trigonometry-family-question-studio-route.log
+            artifacts/api-server/dist/quant-v4/trigonometry-unified-engine-lifecycle.log
           if-no-files-found: error
           retention-days: 30

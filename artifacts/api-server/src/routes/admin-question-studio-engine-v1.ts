@@ -92,8 +92,6 @@ const LEGACY_GENERIC_QUANT_PACKAGES = new Set([
   "num 002",
   "sap",
   "tmw 001",
-  "trg 001",
-  "trg 002",
 ]);
 
 const LEGACY_NUMBER_SYSTEM_CPS = new Set([
@@ -136,8 +134,6 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     || patternId === "sap"
     || patternId.includes("sap ql")
     || patternId.includes("tmw 001")
-    || patternId.includes("trg 001")
-    || patternId.includes("trg 002")
   ) {
     return true;
   }
@@ -156,13 +152,6 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     "pipes cisterns",
     "pipes and cisterns",
   ]);
-  const trigSelectors = new Set([
-    "trigonometry",
-    "trigonometry ratios values identities",
-    "heights distances",
-    "heights and distances",
-  ]);
-
   return (
     (topic === "average" && !subtopic)
     || (topic === "arithmetic" && subtopic === "average")
@@ -172,8 +161,6 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     || (topic === "arithmetic" && simplificationSelectors.has(subtopic))
     || (timeWorkSelectors.has(topic) && !subtopic)
     || (topic === "arithmetic" && timeWorkSelectors.has(subtopic))
-    || (trigSelectors.has(topic) && !subtopic)
-    || (topic === "advanced mathematics" && trigSelectors.has(subtopic))
   );
 }
 
@@ -402,6 +389,11 @@ router.post(
           examProfileId: req.body?.examProfileId,
           difficultyPreset: req.body?.difficultyPreset,
           difficultyDistribution: req.body?.difficultyDistribution,
+          generateCandidateBatch: (candidateRequest) =>
+            generateQuestionStudioQuestions({
+              ...candidateRequest,
+              engineId: "quant-v4",
+            }),
         });
         quantPlan = quantBatch.plan;
         generatedQuestions.push(...quantBatch.questions);

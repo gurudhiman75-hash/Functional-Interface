@@ -77,8 +77,6 @@ for (const packageId of [
   "num 002",
   "sap",
   "tmw 001",
-  "trg 001",
-  "trg 002",
 ]) {
   assert.equal(
     engineRoute.includes(`"${packageId}"`),
@@ -91,6 +89,8 @@ assert.doesNotMatch(engineRoute, /router\.use\(authenticate\)/);
 assert.match(quantProfile, /buildQuantExamProfilePlan/);
 assert.match(quantProfile, /generateProfiledQuantBatch/);
 assert.match(quantProfile, /cpCounts/);
+assert.doesNotMatch(engineRoute, /"trg 001"/);
+assert.doesNotMatch(engineRoute, /"trg 002"/);
 
 // New-engine runs persist engine provenance in all important records.
 assert.match(engineRoute, /engineId:\s*result\.engineId/);

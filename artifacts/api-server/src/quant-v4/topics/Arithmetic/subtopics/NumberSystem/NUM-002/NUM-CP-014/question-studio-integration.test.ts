@@ -100,17 +100,17 @@ const registrySource = readFileSync(resolve(process.cwd(), "artifacts/api-server
 const cp014RouteSource = readFileSync(resolve(process.cwd(), "artifacts/api-server/src/routes/admin-question-studio-cp014.ts"), "utf8");
 const facadeSource = readFileSync(resolve(process.cwd(), "artifacts/api-server/src/question-studio/shared-generation-engine-cp014.ts"), "utf8");
 
+const engineMount = "router.use(adminQuestionStudioEngineV1Router);";
 const cp014Mount = "router.use(adminQuestionStudioCp014Router);";
-const trigMount = "router.use(adminQuestionStudioTrigonometryRouter);";
 const cp013Mount = "router.use(adminQuestionStudioCp013Router);";
 assert.ok(registrySource.includes('import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";'));
-assert.ok(registrySource.includes('import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";'));
+assert.ok(!registrySource.includes("adminQuestionStudioTrigonometryRouter"), "Retired Trigonometry router must not remain mounted.");
+const engineMountIndex = registrySource.indexOf(engineMount);
 const cp014MountIndex = registrySource.indexOf(cp014Mount);
-const trigMountIndex = registrySource.indexOf(trigMount);
 const cp013MountIndex = registrySource.indexOf(cp013Mount);
-assert.ok(cp014MountIndex >= 0 && trigMountIndex >= 0 && cp013MountIndex >= 0);
-assert.ok(cp014MountIndex < trigMountIndex, "CP014 aggregate router must precede Trigonometry capability router");
-assert.ok(trigMountIndex < cp013MountIndex, "Trigonometry router must remain before CP013");
+assert.ok(engineMountIndex >= 0 && cp014MountIndex >= 0 && cp013MountIndex >= 0);
+assert.ok(engineMountIndex < cp014MountIndex, "Unified engine must precede CP014 compatibility routing.");
+assert.ok(cp014MountIndex < cp013MountIndex, "CP014 compatibility router must remain before CP013.");
 for (const marker of ["isNumCp014QuestionStudioRequest", "shared-generation-engine-cp014", 'canonicalProblemId = asString(req.body?.canonicalProblemId)', 'questionLanguageId = asString(req.body?.questionLanguageId)', "quant-v4-num-cp014"]) {
   assert.ok(cp014RouteSource.includes(marker), `CP014 admin route missing marker: ${marker}`);
 }
@@ -127,7 +127,7 @@ console.log(JSON.stringify({
   packageOnlyFallbackPreserved: true,
   cp012Cp013RoutingRegression: "PASS",
   trigonometryCapabilitiesPreserved: true,
-  registryMountOrder: "CP014_BEFORE_TRIGONOMETRY_BEFORE_CP013",
+  registryMountOrder: "UNIFIED_ENGINE_BEFORE_CP014_BEFORE_CP013",
   supportedLanguages: ["en", "hi", "pa"],
   questionBankWritable: false,
   testEligible: false,

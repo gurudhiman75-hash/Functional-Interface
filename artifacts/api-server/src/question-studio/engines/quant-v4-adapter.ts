@@ -148,6 +148,11 @@ import {
   stat011QuestionStudioPackageCard,
 } from "../../quant-v4/topics/Statistics/STAT-011/question-studio-adapter";
 import { deriveQuestionStudioCpTitles } from "../package-metadata";
+import {
+  generateTrigonometryEngineBatch,
+  trg001EnginePackage,
+  trg002EnginePackage,
+} from "../quant-trigonometry";
 import type {
   QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
@@ -562,10 +567,20 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (!packages.some((pkg) => pkg.packageId === "STAT-014")) {
       packages.push(toSharedPackage(stat014QuestionStudioPackageCard() as unknown as Record<string, unknown>));
     }
+
+    for (const trigPackage of [trg001EnginePackage(), trg002EnginePackage()]) {
+      const index = packages.findIndex((pkg) => pkg.packageId === trigPackage.packageId);
+      if (index >= 0) packages[index] = trigPackage;
+      else packages.push(trigPackage);
+    }
+
     return packages.sort((left, right) => left.packageId.localeCompare(right.packageId));
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    const trigonometry = await generateTrigonometryEngineBatch(request);
+    if (trigonometry) return trigonometry;
+
     const diMixRequest = toDiMixRequest(request);
     if (isDiDeliveryNoveltyMixRequest(diMixRequest)) {
       return generateDiDeliveryNoveltyMix(diMixRequest) as unknown as QuestionStudioGenerationResult;
