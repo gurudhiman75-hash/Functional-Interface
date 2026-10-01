@@ -221,7 +221,7 @@ export const NUMERICAL_CONTEXTS = [
     names: tx(
       "live online classes|recorded lessons|digital notes",
       "लाइव ऑनलाइन कक्षाओं|रिकॉर्ड किए गए पाठों|डिजिटल नोट्स",
-      "ਲਾਈਵ ਆਨਲਾਈਨ ਕਲਾਸਾਂ|ਰਿਕਾਰਡ ਕੀਤੇ ਪਾਠਾਂ|ਡਿਜ਼ੀਟਲ ਨੋਟਸ",
+      "ਲਾਈਵ ਆਨਲਾਈਨ ਕਲਾਸਾਂ|ਰਿਕਾਰਡ ਕੀਤੇ ਪਾਠ|ਡਿਜ਼ੀਟਲ ਨੋਟਸ",
     ),
     verb: tx("use", "का उपयोग करते हैं", "ਵਰਤਦੇ ਹਨ"),
   },
@@ -340,16 +340,28 @@ function percentStatement(c: Context, mask: number, percent: number, l: L) {
             )}`;
     return `${percent}% of respondents ${c.verb.en} ${group}`;
   }
+  if (l === "hi") {
+    const group =
+      members.length === 1
+        ? `${names[members[0]]} ${c.verb.hi}`
+        : members.length === 2
+          ? `${names[members[0]]} और ${names[members[1]]} दोनों ${c.verb.hi}`
+          : `${join(
+              members.map((i) => names[i]),
+              l,
+            )} तीनों ${c.verb.hi}`;
+    return `${percent}% लोग ${group}`;
+  }
   const group =
     members.length === 1
-      ? `${names[members[0]]} ${c.verb[l]}`
+      ? `${names[members[0]]} ${c.verb.pa}`
       : members.length === 2
-        ? `${names[members[0]]} और ${names[members[1]]} दोनों ${c.verb[l]}`
+        ? `${names[members[0]]} ਅਤੇ ${names[members[1]]} ਦੋਵੇਂ ${c.verb.pa}`
         : `${join(
             members.map((i) => names[i]),
             l,
-          )} तीनों ${c.verb[l]}`;
-  return l === "hi" ? `${percent}% लोग ${group}` : `${percent}% ਲੋਕ ${group}`;
+          )} ਤਿੰਨੇ ${c.verb.pa}`;
+  return `${percent}% ਲੋਕ ${group}`;
 }
 function regionName(c: Context, mask: number, l: L) {
   const names = c.names[l].split("|");
@@ -597,9 +609,9 @@ function explanationRegion(c: Context, mask: number, l: L) {
   const names = c.names[l].split("|");
   if (!members.length)
     return tx(
-      "None of the activities",
-      "इनमें से कोई गतिविधि नहीं",
-      "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਵੀ ਗਤੀਵਿਧੀ ਨਹੀਂ",
+      "None of these groups",
+      "इनमें से किसी समूह में नहीं",
+      "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ",
     )[l];
   if (members.length === 1)
     return tx(
@@ -608,7 +620,7 @@ function explanationRegion(c: Context, mask: number, l: L) {
       `ਸਿਰਫ਼ ${names[members[0]]}`,
     )[l];
   if (members.length === 3)
-    return tx(`All three activities`, `तीनों गतिविधियाँ`, `ਤਿੰਨੇ ਕੰਮ`)[l];
+    return tx(`All three groups`, `तीनों समूह`, `ਤਿੰਨੇ ਸਮੂਹ`)[l];
   const selected = join(
     members.map((i) => names[i]),
     l,
@@ -627,13 +639,13 @@ function derivation(c: Context, r: State, sets: 2 | 3, l: L) {
   if (sets === 2) {
     const first = c.names[l].split("|")[0],
       second = c.names[l].split("|")[1];
-    return `${tx(`There are ${a} people who ${c.verb.en} ${first} and ${b} who ${c.verb.en} ${second}. The overlap is counted in both totals.`, `${a} लोग ${first} ${c.verb[l]} और ${b} लोग ${second} ${c.verb[l]}। साझा लोगों को दोनों कुल संख्याओं में गिना गया है।`, `${a} ਲੋਕ ${first} ${c.verb[l]} ਅਤੇ ${b} ਲੋਕ ${second} ${c.verb[l]}। ਸਾਂਝੇ ਲੋਕ ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹਨ।`)[l]} ${explanationRegion(c, 1, l)} = ${a} − ${ab} = ${r[1]}; ${explanationRegion(c, 2, l)} = ${b} − ${ab} = ${r[2]}. ${tx("The number in at least one activity", "कम-से-कम एक गतिविधि करने वाले लोग", "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਕੰਮ ਕਰਨ ਵਾਲੇ ਲੋਕ")[l]} = ${a} + ${b} − ${ab} = ${sum(r) - r[0]}. ${explanationRegion(c, 0, l)} = ${sum(r)} − ${sum(r) - r[0]} = ${r[0]}.`;
+    return `${tx(`There are ${a} people who ${c.verb.en} ${first} and ${b} who ${c.verb.en} ${second}. The overlap is counted in both totals.`, `${a} लोग ${first} ${c.verb[l]} और ${b} लोग ${second} ${c.verb[l]}। साझा लोगों को दोनों कुल संख्याओं में गिना गया है।`, `${a} ਲੋਕ ${first} ${c.verb[l]} ਅਤੇ ${b} ਲੋਕ ${second} ${c.verb[l]}। ਸਾਂਝੇ ਲੋਕ ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹਨ।`)[l]} ${explanationRegion(c, 1, l)} = ${a} − ${ab} = ${r[1]}; ${explanationRegion(c, 2, l)} = ${b} − ${ab} = ${r[2]}. ${tx("The number in at least one group", "कम-से-कम एक समूह में आने वाले लोग", "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ")[l]} = ${a} + ${b} − ${ab} = ${sum(r) - r[0]}. ${explanationRegion(c, 0, l)} = ${sum(r)} − ${sum(r) - r[0]} = ${r[0]}.`;
   }
   const cTotal = membershipTotal(r, 4),
     ac = membershipTotal(r, 5),
     bc = membershipTotal(r, 6),
     t = r[7];
-  return `${tx(`First place ${t} people in all three activities: ${c.names.en.split("|").join(", ")}.`, `पहले ${c.names.hi.split("|").join(", ")} तीनों गतिविधियाँ करने वाले ${t} लोगों को रखें।`, `ਪਹਿਲਾਂ ${c.names.pa.split("|").join(", ")} ਤਿੰਨੇ ਕੰਮ ਕਰਨ ਵਾਲੇ ${t} ਲੋਕ ਰੱਖੋ।`)[l]} ${explanationRegion(c, 3, l)} = ${ab} − ${t} = ${r[3]}; ${explanationRegion(c, 5, l)} = ${ac} − ${t} = ${r[5]}; ${explanationRegion(c, 6, l)} = ${bc} − ${t} = ${r[6]}. ${explanationRegion(c, 1, l)} = ${a} − ${r[3]} − ${r[5]} − ${t} = ${r[1]}; ${explanationRegion(c, 2, l)} = ${b} − ${r[3]} − ${r[6]} − ${t} = ${r[2]}; ${explanationRegion(c, 4, l)} = ${cTotal} − ${r[5]} − ${r[6]} − ${t} = ${r[4]}. ${explanationRegion(c, 0, l)} = ${sum(r)} − (${r.slice(1).join(" + ")}) = ${r[0]}.`;
+  return `${tx(`First place ${t} people in the region common to all three groups: ${c.names.en.split("|").join(", ")}.`, `पहले तीनों समूहों—${c.names.hi.split("|").join(", ")}—के साझा क्षेत्र में ${t} लोगों को रखें।`, `ਪਹਿਲਾਂ ਤਿੰਨਾਂ ਸਮੂਹਾਂ—${c.names.pa.split("|").join(", ")}—ਦੇ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ ${t} ਲੋਕ ਰੱਖੋ।`)[l]} ${explanationRegion(c, 3, l)} = ${ab} − ${t} = ${r[3]}; ${explanationRegion(c, 5, l)} = ${ac} − ${t} = ${r[5]}; ${explanationRegion(c, 6, l)} = ${bc} − ${t} = ${r[6]}. ${explanationRegion(c, 1, l)} = ${a} − ${r[3]} − ${r[5]} − ${t} = ${r[1]}; ${explanationRegion(c, 2, l)} = ${b} − ${r[3]} − ${r[6]} − ${t} = ${r[2]}; ${explanationRegion(c, 4, l)} = ${cTotal} − ${r[5]} − ${r[6]} − ${t} = ${r[4]}. ${explanationRegion(c, 0, l)} = ${sum(r)} − (${r.slice(1).join(" + ")}) = ${r[0]}.`;
 }
 function requestedRegions(c: Context, r: State, q: string, l: L) {
   const masks = QUERY_MASKS[q];
@@ -775,24 +787,27 @@ export function buildNumericalItem(
       if (q === "both")
         explanation = `${
           tx(
-            `The survey gives the totals for ${names[0]} and ${names[1]}, and the number who do neither. First find how many do at least one activity; the remaining part of the two activity totals is the overlap.`,
-            `सर्वेक्षण में ${names[0]} और ${names[1]} करने वालों की कुल संख्या तथा कोई भी गतिविधि न करने वालों की संख्या दी है। पहले कम-से-कम एक गतिविधि करने वालों की संख्या निकालें; दोनों कुल संख्याओं में बचा अंतर साझा लोगों की संख्या है।`,
-            `ਸਰਵੇਖਣ ਵਿੱਚ ${names[0]} ਅਤੇ ${names[1]} ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਅਤੇ ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਹੈ। ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਕੰਮ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ; ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਬਚਿਆ ਫ਼ਰਕ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਹੈ।`,
+            `The totals for ${names[0]} and ${names[1]} are given, along with the number in neither group. First find the number in at least one group, then use inclusion–exclusion to find the overlap.`,
+            `${names[0]} और ${names[1]} की कुल संख्याएँ तथा दोनों में से किसी समूह में न आने वालों की संख्या दी है। पहले कम-से-कम एक समूह में आने वालों की संख्या निकालें, फिर साझा लोगों की संख्या निकालें।`,
+            `${names[0]} ਅਤੇ ${names[1]} ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਅਤੇ ਦੋਵਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਹੈ। ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ, ਫਿਰ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।`,
           )[l]
         } ${tx("At least one", "कम-से-कम एक", "ਘੱਟੋ-ਘੱਟ ਇੱਕ")[l]} = ${sum(r)} − ${r[0]} = ${union}. ${tx("Both", "दोनों", "ਦੋਵੇਂ")[l]} = ${a} + ${b} − ${union} = ${answer}.`;
       else if (q === "total2")
-        explanation = `${tx(`Use inclusion–exclusion for ${names[0]} and ${names[1]} to find the number doing at least one activity:`, `${names[0]} और ${names[1]} में से कम-से-कम एक करने वालों की संख्या समावेशन–बहिष्करण से निकालें:`, `${names[0]} ਅਤੇ ${names[1]} ਵਿੱਚੋਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਕੰਮ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਸਮਾਵੇਸ਼–ਬਹਿਸ਼ਕਰਨ ਨਾਲ ਕੱਢੋ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Then add those who do neither:", "फिर कोई भी गतिविधि न करने वालों को जोड़ें:", "ਫਿਰ ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਨੂੰ ਜੋੜੋ:")[l]} ${union} + ${r[0]} = ${answer}.`;
-      else {
+        explanation = `${tx(`Add the ${names[0]} and ${names[1]} totals and subtract their overlap once to find how many are in at least one group:`, `${names[0]} और ${names[1]} की कुल संख्याएँ जोड़ें और साझा लोगों को एक बार घटाएँ:`, `${names[0]} ਅਤੇ ${names[1]} ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਸਾਂਝੇ ਲੋਕ ਇੱਕ ਵਾਰ ਘਟਾਓ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Then add those in neither group:", "फिर दोनों में से किसी समूह में न आने वालों को जोड़ें:", "ਫਿਰ ਦੋਵਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਨੂੰ ਜੋੜੋ:")[l]} ${union} + ${r[0]} = ${answer}.`;
+      else if (q === "onlyA")
+        explanation = `${tx(`To find people in ${names[0]} but not ${names[1]}, subtract the overlap from the ${names[0]} total:`, `केवल ${names[0]} वाले लोगों के लिए ${names[0]} और ${names[1]} के साझा लोगों को ${names[0]} की कुल संख्या में से घटाएँ:`, `ਸਿਰਫ਼ ${names[0]} ਵਾਲੇ ਲੋਕ ਕੱਢਣ ਲਈ ${names[0]} ਅਤੇ ${names[1]} ਦੇ ਸਾਂਝੇ ਲੋਕ ${names[0]} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:`)[l]} ${a} − ${both} = ${answer}.`;
+      else if (q === "onlyB")
+        explanation = `${tx(`To find people in ${names[1]} but not ${names[0]}, subtract the overlap from the ${names[1]} total:`, `केवल ${names[1]} वाले लोगों के लिए ${names[0]} और ${names[1]} के साझा लोगों को ${names[1]} की कुल संख्या में से घटाएँ:`, `ਸਿਰਫ਼ ${names[1]} ਵਾਲੇ ਲੋਕ ਕੱਢਣ ਲਈ ${names[0]} ਅਤੇ ${names[1]} ਦੇ ਸਾਂਝੇ ਲੋਕ ${names[1]} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:`)[l]} ${b} − ${both} = ${answer}.`;
+      else if (q === "exactOne2") {
+        const onlyA = a - both,
+          onlyB = b - both;
+        explanation = `${tx(`Remove the ${names[0]}–${names[1]} overlap from each group total, then add the two exclusive parts:`, `${names[0]} और ${names[1]} के साझा लोगों को दोनों समूहों की कुल संख्याओं से घटाएँ, फिर दोनों केवल-वाले हिस्से जोड़ें:`, `${names[0]} ਅਤੇ ${names[1]} ਦੇ ਸਾਂਝੇ ਲੋਕ ਦੋਵਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚੋਂ ਘਟਾਓ, ਫਿਰ ਦੋਵੇਂ ਸਿਰਫ਼-ਵਾਲੇ ਹਿੱਸੇ ਜੋੜੋ:`)[l]} (${a} − ${both}) + (${b} − ${both}) = ${onlyA} + ${onlyB} = ${answer}.`;
+      } else if (q === "union2")
+        explanation = `${tx(`Add the ${names[0]} and ${names[1]} totals and subtract their overlap once because those people were counted in both totals:`, `${names[0]} और ${names[1]} की कुल संख्याएँ जोड़ें और साझा लोगों को एक बार घटाएँ, क्योंकि वे दोनों कुल संख्याओं में गिने गए हैं:`, `${names[0]} ਅਤੇ ${names[1]} ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਸਾਂਝੇ ਲੋਕ ਇੱਕ ਵਾਰ ਘਟਾਓ, ਕਿਉਂਕਿ ਉਹ ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਗਿਣੇ ਗਏ ਹਨ:`)[l]} ${a} + ${b} − ${both} = ${answer}.`;
+      else if (q === "none")
+        explanation = `${tx(`First find how many people belong to at least one of the two groups (${names[0]} or ${names[1]}):`, `पहले ${names[0]} या ${names[1]} वाले कम-से-कम एक समूह में आने वालों की संख्या निकालें:`, `ਪਹਿਲਾਂ ${names[0]} ਜਾਂ ${names[1]} ਵਾਲੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Subtract this from the surveyed total to find those in neither group:", "दोनों में से किसी समूह में न आने वालों के लिए इसे कुल संख्या में से घटाएँ:", "ਦੋਵਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਲਈ ਇਸ ਨੂੰ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:")[l]} ${sum(r)} − ${union} = ${answer}.`;
+      else
         explanation = derivation(c, r, 2, l);
-        if (q === "exactOne2")
-          explanation += ` ${tx("Exactly one group", "केवल एक समूह", "ਸਿਰਫ਼ ਇੱਕ ਸਮੂਹ")[l]} = ${r[1]} + ${r[2]} = ${answer}.`;
-        if (q === "union2")
-          explanation += ` ${tx(`Count everyone doing ${names[0]} or ${names[1]} once; subtract the overlap because it was counted twice:`, `${names[0]} या ${names[1]} करने वाले हर व्यक्ति को एक बार गिनें; साझा लोगों को दो बार गिने जाने के कारण एक बार घटाएँ:`, `${names[0]} ਜਾਂ ${names[1]} ਕਰਨ ਵਾਲੇ ਹਰ ਵਿਅਕਤੀ ਨੂੰ ਇੱਕ ਵਾਰ ਗਿਣੋ; ਸਾਂਝੇ ਲੋਕ ਦੋ ਵਾਰ ਗਿਣੇ ਗਏ ਹਨ, ਇਸ ਲਈ ਇੱਕ ਵਾਰ ਘਟਾਓ:`)[l]} ${a} + ${b} − ${both} = ${answer}.`;
-        if (q === "onlyA" || q === "onlyB")
-          explanation += ` ${requestedRegions(c, r, q, l)}`;
-        if (q === "none")
-          explanation = `${tx(`First count the people doing ${names[0]} or ${names[1]}:`, `पहले ${names[0]} या ${names[1]} करने वालों की संख्या निकालें:`, `ਪਹਿਲਾਂ ${names[0]} ਜਾਂ ${names[1]} ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Subtract this from the surveyed total to find those doing neither:", "कोई भी गतिविधि न करने वालों की संख्या के लिए इसे सर्वेक्षण की कुल संख्या में से घटाएँ:", "ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਲਈ ਇਸ ਨੂੰ ਸਰਵੇਖਣ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:")[l]} ${sum(r)} − ${union} = ${answer}.`;
-      }
     } else {
       const regionWork =
         q === "none"
@@ -808,17 +823,17 @@ export function buildNumericalItem(
                 union = a + b + cTotal - ab - ac - bc + all;
               return `${
                 tx(
-                  `For ${names.join(", ")}, the pair counts include the centre (people doing all three activities). Add the three activity totals, subtract all three pair counts, then add the centre back once. Subtract this union from the survey total to find those doing none.`,
-                  `${names.join(", ")} के लिए तीनों गतिविधियों के कुल जोड़ें और हर जोड़ी का कुल घटाएँ। तीनों गतिविधियाँ करने वालों को तीन बार घटाया गया है, इसलिए केंद्र की संख्या एक बार फिर जोड़ें। कोई भी गतिविधि न करने वालों के लिए बने हुए संघ को कुल संख्या में से घटाएँ।`,
-                  `${names.join(", ")} ਲਈ ਤਿੰਨਾਂ ਕੰਮਾਂ ਦੇ ਕੁੱਲ ਜੋੜੋ ਅਤੇ ਹਰ ਜੋੜੇ ਦਾ ਕੁੱਲ ਘਟਾਓ। ਤਿੰਨੇ ਕੰਮ ਕਰਨ ਵਾਲੇ ਤਿੰਨ ਵਾਰ ਘਟੇ ਹਨ, ਇਸ ਲਈ ਕੇਂਦਰ ਦੀ ਗਿਣਤੀ ਇੱਕ ਵਾਰ ਮੁੜ ਜੋੜੋ। ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਲਈ ਬਣੇ ਸੰਘ ਨੂੰ ਕੁੱਲ ਵਿੱਚੋਂ ਘਟਾਓ।`,
+                  `For ${names.join(", ")}, each pair count includes the people in all three groups. Add the three group totals, subtract the three pair counts, then add the all-three count back once. Subtract this union from the total to find those in none of the groups.`,
+                  `${names.join(", ")} के तीनों समूहों की कुल संख्याएँ जोड़ें और तीनों जोड़ियों की संख्याएँ घटाएँ। तीनों समूहों में आने वालों की संख्या एक बार फिर जोड़ें। फिर किसी भी समूह में न आने वालों के लिए इस संघ को कुल संख्या में से घटाएँ।`,
+                  `${names.join(", ")} ਦੇ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਤਿੰਨਾਂ ਜੋੜਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਘਟਾਓ। ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਇੱਕ ਵਾਰ ਮੁੜ ਜੋੜੋ। ਫਿਰ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਲਈ ਇਸ ਜੋੜ ਨੂੰ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ।`,
                 )[l]
               } ${a} + ${b} + ${cTotal} − ${ab} − ${ac} − ${bc} + ${all} = ${union}. ${sum(r)} − ${union} = ${r[0]}.`;
             })()
           : `${
               tx(
-                `For ${c.names.en.split("|").join(", ")}, each pair total also includes people doing all three activities. Subtract that centre count from each pair total to get the pair-only numbers; then remove those overlaps from each activity total to find its only region.`,
-                `${c.names.hi.split("|").join(", ")} के हर जोड़ी-योग में तीनों गतिविधियाँ करने वाले लोग भी शामिल हैं। केवल दो गतिविधियाँ करने वालों की संख्या के लिए हर जोड़ी-योग में से केंद्र की संख्या घटाएँ; फिर हर गतिविधि के कुल में से साझा हिस्से घटाएँ।`,
-                `${c.names.pa.split("|").join(", ")} ਦੇ ਹਰ ਜੋੜੇ ਦੇ ਕੁੱਲ ਵਿੱਚ ਤਿੰਨੇ ਕੰਮ ਕਰਨ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਸਿਰਫ਼ ਦੋ ਕੰਮ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਲਈ ਹਰ ਜੋੜੇ ਦੇ ਕੁੱਲ ਵਿੱਚੋਂ ਕੇਂਦਰ ਦੀ ਗਿਣਤੀ ਘਟਾਓ; ਫਿਰ ਹਰ ਕੰਮ ਦੇ ਕੁੱਲ ਵਿੱਚੋਂ ਸਾਂਝੇ ਹਿੱਸੇ ਘਟਾਓ।`,
+                `For ${c.names.en.split("|").join(", ")}, each pair count also includes the people in all three groups. Subtract the all-three count from each pair count to get the pair-only regions; then remove those overlaps from each group total to get the only-one-group regions.`,
+                `${c.names.hi.split("|").join(", ")} की हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। केवल दो समूहों में आने वालों के लिए हर जोड़ी की संख्या में से तीनों वाले लोगों की संख्या घटाएँ; फिर हर समूह की कुल संख्या में से उसके साझा हिस्से घटाएँ।`,
+                `${c.names.pa.split("|").join(", ")} ਦੀ ਹਰ ਜੋੜੀ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਸਿਰਫ਼ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਲਈ ਹਰ ਜੋੜੀ ਦੀ ਗਿਣਤੀ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਘਟਾਓ; ਫਿਰ ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਉਸਦੇ ਸਾਂਝੇ ਹਿੱਸੇ ਘਟਾਓ।`,
               )[l]
             } ${derivation(c, r, 3, l)} ${requestedRegions(c, r, q, l)}`;
       explanation = regionWork;
@@ -865,9 +880,9 @@ export function buildNumericalItem(
       }
       explanation =
         tx(
-          `${p[0]}% do neither activity, so ${100 - p[0]}% do at least one. The totals for ${names[0]} and ${names[1]} add the people doing both twice; subtract the at-least-one percentage to isolate the overlap.`,
-          `${p[0]}% लोग कोई भी गतिविधि नहीं करते, इसलिए ${100 - p[0]}% कम-से-कम एक करते हैं। ${names[0]} और ${names[1]} के कुल में साझा लोग दो बार जुड़ते हैं; साझा प्रतिशत निकालने के लिए कम-से-कम एक का प्रतिशत घटाएँ।`,
-          `${p[0]}% ਲੋਕ ਕੋਈ ਵੀ ਕੰਮ ਨਹੀਂ ਕਰਦੇ, ਇਸ ਲਈ ${100 - p[0]}% ਘੱਟੋ-ਘੱਟ ਇੱਕ ਕੰਮ ਕਰਦੇ ਹਨ। ${names[0]} ਅਤੇ ${names[1]} ਦੇ ਕੁੱਲ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕ ਦੋ ਵਾਰ ਗਿਣੇ ਜਾਂਦੇ ਹਨ; ਸਾਂਝਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭਣ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਓ।`,
+          `${p[0]}% are in neither group, so ${100 - p[0]}% are in at least one group. The totals for ${names[0]} and ${names[1]} count the overlap twice; subtract the at-least-one percentage to isolate the overlap.`,
+          `${p[0]}% लोग किसी भी समूह में नहीं आते, इसलिए ${100 - p[0]}% कम-से-कम एक समूह में आते हैं। ${names[0]} और ${names[1]} की कुल संख्याओं में साझा लोग दो बार गिने जाते हैं; साझा प्रतिशत निकालने के लिए कम-से-कम एक समूह का प्रतिशत घटाएँ।`,
+          `${p[0]}% ਲੋਕ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ, ਇਸ ਲਈ ${100 - p[0]}% ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ। ${names[0]} ਅਤੇ ${names[1]} ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕ ਦੋ ਵਾਰ ਗਿਣੇ ਜਾਂਦੇ ਹਨ; ਸਾਂਝਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭਣ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਓ।`,
         )[l] +
         ` ${a}% + ${b}% − ${100 - p[0]}% = ${p[3]}%. ` +
         (mode === 0
@@ -892,26 +907,57 @@ export function buildNumericalItem(
             ? `What is the ratio of people who ${c.verb.en} ${names[0]} only to people who ${c.verb.en} ${names[1]} only?`
             : "What is the ratio of people in exactly two groups to people in all three?",
           mode === 2
-            ? `केवल ${names[0]} करने वालों और केवल ${names[1]} करने वालों की संख्या का अनुपात क्या है?`
+            ? `केवल ${names[0]} वाले और केवल ${names[1]} वाले लोगों की संख्या का अनुपात क्या है?`
             : "ठीक दो समूहों में आने वालों और तीनों समूहों में आने वालों की संख्या का अनुपात क्या है?",
           mode === 2
-            ? `ਸਿਰਫ਼ ${names[0]} ਕਰਨ ਵਾਲਿਆਂ ਅਤੇ ਸਿਰਫ਼ ${names[1]} ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`
+            ? `ਸਿਰਫ਼ ${names[0]} ਵਾਲੇ ਅਤੇ ਸਿਰਫ਼ ${names[1]} ਵਾਲੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`
             : "ਠੀਕ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਅਤੇ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?",
         )[l];
       const common = gcd(x, y);
-      explanation = `${derivation(c, r, modelSets, l)} ${
-        tx(
-          mode === 2
-            ? `Only ${c.names[l].split("|")[0]} = ${x} and only ${c.names[l].split("|")[1]} = ${y}. Divide both terms by their highest common factor, ${common}.`
-            : `Exactly two of ${c.names.en.split("|").join(", ")} = ${x}; all three = ${y}. Divide both terms by their highest common factor, ${common}.`,
-          mode === 2
-            ? `केवल ${c.names.hi.split("|")[0]} = ${x} और केवल ${c.names.hi.split("|")[1]} = ${y}। दोनों पदों को उनके महत्तम समापवर्तक ${common} से भाग दें।`
-            : `${c.names.hi.split("|").join(", ")} में से ठीक दो करने वाले = ${x}; तीनों करने वाले = ${y}। दोनों पदों को उनके महत्तम समापवर्तक ${common} से भाग दें।`,
-          mode === 2
-            ? `ਸਿਰਫ਼ ${c.names.pa.split("|")[0]} = ${x} ਅਤੇ ਸਿਰਫ਼ ${c.names.pa.split("|")[1]} = ${y}। ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ।`
-            : `${c.names.pa.split("|").join(", ")} ਵਿੱਚੋਂ ਠੀਕ ਦੋ ਕਰਨ ਵਾਲੇ = ${x}; ਤਿੰਨੇ ਕਰਨ ਵਾਲੇ = ${y}। ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ।`,
-        )[l]
-      } ${x}/${common}:${y}/${common} = ${answer}.`;
+      if (mode === 2) {
+        const aTotal = membershipTotal(r, 1),
+          bTotal = membershipTotal(r, 2),
+          overlap = r[3];
+        const ratioWork =
+          common === 1
+            ? tx(
+                `The ratio ${x}:${y} is already in simplest form. Therefore, the ratio is ${answer}.`,
+                `${x}:${y} का अनुपात पहले से सरल रूप में है। अतः अनुपात ${answer}.`,
+                `${x}:${y} ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ। ਇਸ ਲਈ ਅਨੁਪਾਤ ${answer}.`,
+              )[l]
+            : tx(
+                `Divide both terms by their highest common factor ${common}: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}.`,
+                `दोनों पदों को महत्तम समापवर्तक ${common} से भाग दें: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}।`,
+                `ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}।`,
+              )[l];
+        explanation = `${tx(
+          `Subtract the overlap from each group total: only ${names[0]} = ${aTotal} − ${overlap} = ${x}; only ${names[1]} = ${bTotal} − ${overlap} = ${y}.`,
+          `हर समूह की कुल संख्या में से साझा लोगों को घटाएँ: केवल ${names[0]} = ${aTotal} − ${overlap} = ${x}; केवल ${names[1]} = ${bTotal} − ${overlap} = ${y}।`,
+          `ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਸਾਂਝੇ ਲੋਕ ਘਟਾਓ: ਸਿਰਫ਼ ${names[0]} = ${aTotal} − ${overlap} = ${x}; ਸਿਰਫ਼ ${names[1]} = ${bTotal} − ${overlap} = ${y}।`,
+        )[l]} ${ratioWork}`;
+      } else {
+        const ab = membershipTotal(r, 3),
+          ac = membershipTotal(r, 5),
+          bc = membershipTotal(r, 6),
+          triple = r[7];
+        const ratioWork =
+          common === 1
+            ? tx(
+                `The ratio ${x}:${y} is already in simplest form. Therefore, the ratio is ${answer}.`,
+                `${x}:${y} का अनुपात पहले से सरल रूप में है। अतः अनुपात ${answer}.`,
+                `${x}:${y} ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ। ਇਸ ਲਈ ਅਨੁਪਾਤ ${answer}.`,
+              )[l]
+            : tx(
+                `Divide both terms by their highest common factor ${common}: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}.`,
+                `दोनों पदों को महत्तम समापवर्तक ${common} से भाग दें: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}।`,
+                `ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}।`,
+              )[l];
+        explanation = `${tx(
+          `For ${names.join(", ")}, each pair total includes the all-three group. Subtract the all-three count from each pair, then add the three pair-only regions:`,
+          `${names.join(", ")} की हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। हर जोड़ी में से तीनों वाले लोगों को घटाकर तीन केवल-जोड़ी क्षेत्रों को जोड़ें:`,
+          `${names.join(", ")} ਦੀ ਹਰ ਜੋੜੀ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਹਰ ਜੋੜੀ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕ ਘਟਾ ਕੇ ਤਿੰਨ ਸਿਰਫ਼-ਜੋੜੀ ਖੇਤਰ ਜੋੜੋ:`,
+        )[l]} (${ab} − ${triple}) + (${ac} − ${triple}) + (${bc} − ${triple}) = ${x}. ${tx("All three groups", "तीनों समूह", "ਤਿੰਨੇ ਸਮੂਹ")[l]} = ${y}. ${ratioWork}`;
+      }
       formula = "\\text{ratio}=a:b";
     }
     if (mode === 4 || mode === 5) {
@@ -938,14 +984,14 @@ export function buildNumericalItem(
         none = 100 - union;
       explanation =
         tx(
-          `For ${c.names.en.split("|").join(", ")}, add the three activity percentages. The pair totals include the people doing both activities, so subtract each pair percentage; this removes the overlaps once too many. Finally, add back the percentage doing all three, which was subtracted three times but should be counted once.`,
-          `${c.names.hi.split("|").join(", ")} के लिए तीनों गतिविधियों के प्रतिशत जोड़ें। हर जोड़ी के कुल में साझा लोग शामिल हैं, इसलिए जोड़ी-प्रतिशत घटाएँ। अंत में तीनों गतिविधियाँ करने वालों का प्रतिशत फिर जोड़ें, क्योंकि उसे तीन बार घटाया गया था और एक बार गिनना है।`,
-          `${c.names.pa.split("|").join(", ")} ਲਈ ਤਿੰਨਾਂ ਕੰਮਾਂ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਜੋੜੋ। ਹਰ ਜੋੜੇ ਦੇ ਕੁੱਲ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕ ਸ਼ਾਮਲ ਹਨ, ਇਸ ਲਈ ਜੋੜਿਆਂ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਓ। ਅੰਤ ਵਿੱਚ ਤਿੰਨੇ ਕੰਮ ਕਰਨ ਵਾਲਿਆਂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਮੁੜ ਜੋੜੋ, ਕਿਉਂਕਿ ਉਹ ਤਿੰਨ ਵਾਰ ਘਟਿਆ ਸੀ ਪਰ ਇੱਕ ਵਾਰ ਗਿਣਨਾ ਹੈ।`,
+          `For ${c.names.en.split("|").join(", ")}, add the three group percentages. Each pair percentage includes the all-three group, so subtract the three pair percentages and then add the all-three percentage back once.`,
+          `${c.names.hi.split("|").join(", ")} के तीनों समूहों के प्रतिशत जोड़ें। तीनों जोड़ी-प्रतिशत घटाएँ और अंत में तीनों समूहों में आने वालों का प्रतिशत एक बार फिर जोड़ें।`,
+          `${c.names.pa.split("|").join(", ")} ਦੇ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਜੋੜੋ। ਤਿੰਨਾਂ ਜੋੜਿਆਂ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਓ ਅਤੇ ਅੰਤ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਇੱਕ ਵਾਰ ਮੁੜ ਜੋੜੋ।`,
         )[l] +
         ` ${a}% + ${b}% + ${cv}% − ${ab}% − ${ac}% − ${bc}% + ${t}% = ${union}%. ${tx("So the percentage in none is", "इसलिए किसी भी समूह में न आने वालों का प्रतिशत", "ਇਸ ਲਈ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ")[l]} 100% − ${union}% = ${none}%. `;
       if (mode === 4) {
         answer = r[0];
-        stem += " " + prefix(sum(r), l) + " " + query(c, "none", 3, l);
+        stem += " " + query(c, "none", 3, l);
         explanation += `${sum(r)} × ${none}/100 = ${answer}.`;
       } else {
         answer = sum(r);
@@ -968,18 +1014,16 @@ export function buildNumericalItem(
       r = co.map((a) => a * x);
       answer = sum(r);
       difficulty = "Hard";
-      stem =
-        `${surveyIntro(l, hash(seed))} ${groupReference(c, 0, l)}; ${groupReference(c, 1, l)}. ` +
-        tx(
-          `For ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]}, the counts for only ${c.names.en.split("|")[0]}, only ${c.names.en.split("|")[1]}, both, and neither are in the ratio 2:3:1:1. ${x} people do both. How many people were surveyed?`,
-          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} करने वालों में केवल ${c.names.hi.split("|")[0]}, केवल ${c.names.hi.split("|")[1]}, दोनों और कोई भी न करने वालों की संख्याओं का अनुपात 2:3:1:1 है। ${x} लोग दोनों करते हैं। कुल कितने लोगों का सर्वेक्षण किया गया?`,
-          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਕਰਨ ਵਾਲਿਆਂ ਵਿੱਚ ਸਿਰਫ਼ ${c.names.pa.split("|")[0]}, ਸਿਰਫ਼ ${c.names.pa.split("|")[1]}, ਦੋਵੇਂ ਅਤੇ ਕੋਈ ਵੀ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ${x} ਲੋਕ ਦੋਵੇਂ ਕੰਮ ਕਰਦੇ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?`,
-        )[l];
+      stem = tx(
+        `For ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]}, the four disjoint regions—only ${c.names.en.split("|")[0]}, only ${c.names.en.split("|")[1]}, both groups, and neither group—are in the ratio 2:3:1:1. The both-groups region contains ${x} people. How many people were surveyed?`,
+        `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} के चार अलग हिस्सों—केवल ${c.names.hi.split("|")[0]}, केवल ${c.names.hi.split("|")[1]}, दोनों समूह और कोई भी समूह नहीं—की संख्याओं का अनुपात 2:3:1:1 है। दोनों समूहों वाले हिस्से में ${x} लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?`,
+        `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਦੇ ਚਾਰ ਵੱਖਰੇ ਹਿੱਸਿਆਂ—ਸਿਰਫ਼ ${c.names.pa.split("|")[0]}, ਸਿਰਫ਼ ${c.names.pa.split("|")[1]}, ਦੋਵੇਂ ਸਮੂਹ ਅਤੇ ਕੋਈ ਵੀ ਸਮੂਹ ਨਹੀਂ—ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਾਲੇ ਹਿੱਸੇ ਵਿੱਚ ${x} ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?`,
+      )[l];
       explanation =
         tx(
           `The overlap between ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]} is the one-part section of the 2:3:1:1 ratio.`,
-          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} दोनों करने वालों की संख्या 2:3:1:1 के अनुपात का एक भाग है।`,
-          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਦੋਵੇਂ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ 2:3:1:1 ਦੇ ਅਨੁਪਾਤ ਦਾ ਇੱਕ ਹਿੱਸਾ ਹੈ।`,
+          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} दोनों समूहों में आने वालों की संख्या 2:3:1:1 के अनुपात का एक भाग है।`,
+          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ 2:3:1:1 ਦੇ ਅਨੁਪਾਤ ਦਾ ਇੱਕ ਹਿੱਸਾ ਹੈ।`,
         )[l] +
         ` ${tx("So one part", "इसलिए एक भाग", "ਇਸ ਲਈ ਇੱਕ ਹਿੱਸਾ")[l]} = ${x}. ${tx("The four disjoint sections together make the total:", "चारों अलग-अलग हिस्सों का योग कुल संख्या है:", "ਚਾਰੇ ਵੱਖ-ਵੱਖ ਹਿੱਸਿਆਂ ਦਾ ਜੋੜ ਕੁੱਲ ਗਿਣਤੀ ਹੈ:")[l]} (2 + 3 + 1 + 1) × ${x} = ${answer}.`;
       formula = "N=(2+3+1+1)x";
@@ -1127,20 +1171,20 @@ export function buildNumericalItem(
     const reason = intersection
       ? maximum
         ? tx(
-            "The common population cannot exceed the smallest group. Nesting the smaller groups attains this bound.",
-            "साझा संख्या सबसे छोटे समूह से अधिक नहीं हो सकती। छोटे समूहों को बड़े समूहों के भीतर रखने पर यह सीमा मिलती है।",
-            "ਸਾਂਝੀ ਗਿਣਤੀ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਛੋਟੇ ਸਮੂਹਾਂ ਨੂੰ ਵੱਡਿਆਂ ਅੰਦਰ ਰੱਖ ਕੇ ਇਹ ਹੱਦ ਮਿਲਦੀ ਹੈ।",
+            "The number common to all groups cannot exceed the smallest group. The maximum is reached when every member of the smallest group also belongs to each of the other groups.",
+            "सभी समूहों में साझा लोगों की संख्या सबसे छोटे समूह से अधिक नहीं हो सकती। अधिकतम मान तब मिलता है जब सबसे छोटे समूह का हर व्यक्ति बाकी सभी समूहों में भी शामिल हो।",
+            "ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਤਦ ਮਿਲਦੀ ਹੈ ਜਦੋਂ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਦਾ ਹਰ ਵਿਅਕਤੀ ਬਾਕੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਵੀ ਹੋਵੇ।",
           )
         : tx(
-            `Without anyone in all ${modelSets} activities, one person can account for at most ${modelSets - 1} memberships. Memberships beyond that capacity must create people in the common region; its size cannot be below zero.`,
-            `यदि कोई भी व्यक्ति सभी ${modelSets} गतिविधियाँ नहीं करता, तो एक व्यक्ति अधिक-से-अधिक ${modelSets - 1} सदस्यताएँ दे सकता है। इससे अधिक सदस्यताएँ साझा क्षेत्र में लोगों को अनिवार्य बनाती हैं; उसकी संख्या शून्य से कम नहीं हो सकती।`,
-            `ਜੇ ਕੋਈ ਵੀ ਵਿਅਕਤੀ ਸਾਰੇ ${modelSets} ਕੰਮ ਨਹੀਂ ਕਰਦਾ, ਤਾਂ ਇੱਕ ਵਿਅਕਤੀ ਵੱਧ ਤੋਂ ਵੱਧ ${modelSets - 1} ਮੈਂਬਰਸ਼ਿਪਾਂ ਦੇ ਸਕਦਾ ਹੈ। ਇਸ ਤੋਂ ਵੱਧ ਮੈਂਬਰਸ਼ਿਪਾਂ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ ਲੋਕਾਂ ਨੂੰ ਲਾਜ਼ਮੀ ਬਣਾਉਂਦੀਆਂ ਹਨ; ਇਸ ਦੀ ਗਿਣਤੀ ਸਿਫ਼ਰ ਤੋਂ ਘੱਟ ਨਹੀਂ ਹੋ ਸਕਦੀ।`,
+            `If nobody belongs to every group, each person can be counted in at most ${modelSets - 1 === 1 ? "one group total" : `${modelSets - 1} group totals`}. Across ${n} people, that allows at most ${modelSets - 1} × ${n} group-count entries without an all-group overlap. Any excess must come from people in every group; if there is no excess, the minimum is 0.`,
+            `यदि कोई व्यक्ति सभी समूहों में न हो, तो हर व्यक्ति अधिक-से-अधिक ${modelSets - 1 === 1 ? "एक समूह की" : `${modelSets - 1} समूहों की`} गिनती में आ सकता है। ${n} लोगों के लिए बिना साझा व्यक्ति के अधिकतम ${modelSets - 1} × ${n} समूह-गिनतियाँ हो सकती हैं। इससे अधिक गिनती सभी समूहों में आने वाले लोगों से ही आएगी; अतिरिक्त गिनती न हो तो न्यूनतम मान 0 होगा।`,
+            `ਜੇ ਕੋਈ ਵਿਅਕਤੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਨਾ ਹੋਵੇ, ਤਾਂ ਹਰ ਵਿਅਕਤੀ ਵੱਧ ਤੋਂ ਵੱਧ ${modelSets - 1 === 1 ? "ਇੱਕ ਸਮੂਹ ਦੀ" : `${modelSets - 1} ਸਮੂਹਾਂ ਦੀ`} ਗਿਣਤੀ ਵਿੱਚ ਆ ਸਕਦਾ ਹੈ। ${n} ਲੋਕਾਂ ਲਈ ਬਿਨਾਂ ਸਾਂਝੇ ਵਿਅਕਤੀ ਦੇ ਵੱਧ ਤੋਂ ਵੱਧ ${modelSets - 1} × ${n} ਸਮੂਹ-ਗਿਣਤੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ। ਇਸ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕਾਂ ਕਰਕੇ ਹੀ ਹੋਵੇਗੀ; ਵਾਧੂ ਗਿਣਤੀ ਨਾ ਹੋਵੇ ਤਾਂ ਘੱਟ ਤੋਂ ਘੱਟ ਮਾਨ 0 ਹੋਵੇਗਾ।`,
           )
       : maximum
         ? tx(
-            "The union cannot exceed the population or the sum of individual group sizes. Spread memberships to attain this limit.",
-            "कम-से-कम एक समूह में आने वालों की संख्या कुल जनसंख्या या समूहों की संख्याओं के योग से अधिक नहीं हो सकती। सदस्यताओं को फैलाकर यह सीमा मिलती है।",
-            "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੁੱਲ ਲੋਕਾਂ ਜਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦੇ ਜੋੜ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਮੈਂਬਰਸ਼ਿਪਾਂ ਨੂੰ ਫੈਲਾ ਕੇ ਇਹ ਹੱਦ ਮਿਲਦੀ ਹੈ।",
+            "The number in at least one group cannot exceed the total population or the sum of the group sizes. To maximize it, keep the groups separate as far as the population allows.",
+            "कम-से-कम एक समूह में आने वालों की संख्या कुल लोगों की संख्या या समूह-संख्याओं के योग से अधिक नहीं हो सकती। अधिकतम के लिए समूहों को जहाँ तक संभव हो अलग रखें।",
+            "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੁੱਲ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਜਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦੇ ਜੋੜ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਲਈ ਸਮੂਹਾਂ ਨੂੰ ਜਿੱਥੋਂ ਤੱਕ ਸੰਭਵ ਹੋਵੇ ਵੱਖ ਰੱਖੋ।",
           )
         : tx(
             "The union must include the largest group. Nest the other groups inside it to attain the minimum.",
@@ -1156,11 +1200,11 @@ export function buildNumericalItem(
         : `max(${counts.join(", ")})`;
     explanation = `${
       tx(
-        `The survey gives ${counts.map((k, i) => `${c.names.en.split("|")[i]}: ${k}`).join("; ")} out of ${n} people.`,
-        `कुल ${n} लोगों में से ${counts.map((k, i) => `${c.names.hi.split("|")[i]}: ${k}`).join(", ")}।`,
-        `ਕੁੱਲ ${n} ਲੋਕਾਂ ਵਿੱਚੋਂ ${counts.map((k, i) => `${c.names.pa.split("|")[i]}: ${k}`).join(", ")}।`,
+        `Among ${n} people, the group totals are ${counts.map((k, i) => `${c.names.en.split("|")[i]} = ${k}`).join("; ")}.`,
+        `कुल ${n} लोगों में समूह-संख्याएँ हैं: ${counts.map((k, i) => `${c.names.hi.split("|")[i]} = ${k}`).join("; ")}।`,
+        `ਕੁੱਲ ${n} ਲੋਕਾਂ ਵਿੱਚ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ: ${counts.map((k, i) => `${c.names.pa.split("|")[i]} = ${k}`).join("; ")}।`,
       )[l]
-    } ${reason[l].replaceAll("k−1", String(modelSets - 1)).replaceAll(`(${modelSets - 1})N`, `${modelSets - 1} × ${n}`)} ${tx("Using these actual group sizes:", "इन दी गई समूह-संख्याओं को रखने पर:", "ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਰੱਖਣ ਤੇ:")[l]} ${calculation} = ${answer}.`;
+    } ${reason[l].replaceAll("k−1", String(modelSets - 1)).replaceAll(`(${modelSets - 1})N`, `${modelSets - 1} × ${n}`)} ${tx("Using the given group sizes:", "दी गई समूह-संख्याओं से:", "ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ:")[l]} ${calculation} = ${answer}.`;
     r = []; // Hidden construction is not the unique solution and must never appear as a solved distribution.
   }
   const numeric = typeof answer === "number";

@@ -58,6 +58,52 @@ for (let s = 0; s < 200; s++)
           `${cp}/${localized.semanticMetadata.queryKey}/${languages[localeIndex]}: stem must name the actual activities rather than ordinal groups`,
         );
         if (
+          cp === "VEN-CP007" &&
+          localized.semanticMetadata.queryKey === "percentage-three-count"
+        ) {
+          const totalOpeners =
+            languages[localeIndex] === "en"
+              ? localized.stem.match(/Among \d+ people,/g) ?? []
+              : languages[localeIndex] === "hi"
+                ? localized.stem.match(/कुल \d+ लोगों में/g) ?? []
+                : localized.stem.match(/ਕੁੱਲ \d+ ਲੋਕਾਂ ਵਿੱਚ/g) ?? [];
+          assert.equal(
+            totalOpeners.length,
+            1,
+            `VEN-CP007/percentage-three-count/${languages[localeIndex]}: surveyed total must not be repeated in the stem`,
+          );
+        }
+        if (
+          cp === "VEN-CP007" &&
+          ["ratio-two", "ratio-three"].includes(
+            localized.semanticMetadata.queryKey,
+          )
+        )
+          assert.doesNotMatch(
+            localized.explanation,
+            /highest common factor 1(?!\d)|महत्तम समापवर्तक से सरल करें 1(?!\d)|ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ 1(?!\d)/iu,
+            `VEN-CP007/${localized.semanticMetadata.queryKey}/${languages[localeIndex]}: do not narrate division by GCD 1`,
+          );
+        if (languages[localeIndex] === "hi") {
+          assert.doesNotMatch(
+            `${localized.stem} ${localized.explanation}`,
+            /[\u0A00-\u0A7F]/u,
+            `${cp}/${localized.semanticMetadata.queryKey}/hi: Hindi output must not contain Gurmukhi leakage`,
+          );
+        }
+        if (languages[localeIndex] === "pa") {
+          assert.doesNotMatch(
+            `${localized.stem} ${localized.explanation}`,
+            /[\u0900-\u0963\u0966-\u097F]/u,
+            `${cp}/${localized.semanticMetadata.queryKey}/pa: Punjabi output must not contain Devanagari leakage`,
+          );
+          assert.doesNotMatch(
+            localized.explanation,
+            /ਗਤੀਵਿਧੀ|ਮੈਂਬਰਸ਼ਿਪ/u,
+            `${cp}/${localized.semanticMetadata.queryKey}/pa: use natural Punjabi set/group wording`,
+          );
+        }
+        if (
           scenario &&
           ["onlyAB", "onlyAC", "onlyBC"].includes(
             localized.semanticMetadata.queryKey,
@@ -95,7 +141,7 @@ for (let s = 0; s < 200; s++)
         meta.queryKey === "none"
       )
         assert.ok(
-          q.explanation.includes("pair counts include the centre") &&
+          q.explanation.includes("each pair count includes the people in all three groups") &&
             q.explanation.includes("−") &&
             q.explanation.includes("+"),
           `${cp}/none: derive the union from the supplied inclusive counts`,

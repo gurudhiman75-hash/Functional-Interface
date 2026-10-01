@@ -403,7 +403,7 @@ const CONTEXTS = [
       tr(
         "residents who take part in recycling programmes",
         "पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासी",
-        "ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕ",
+        "ਰੀਸਾਈਕਲਿੰਗ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕ",
       ),
     ],
   },
@@ -508,7 +508,7 @@ const STEM_OPENERS: Record<string, T> = {
   MUNICIPAL_SERVICES: tr(
     "A city report records residents using the bus service, visiting public parks and joining recycling programmes.",
     "शहर की रिपोर्ट में बस सेवा का उपयोग करने, सार्वजनिक पार्कों में जाने और पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासियों का विवरण है।",
-    "ਸ਼ਹਿਰ ਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਬੱਸ ਸੇਵਾ ਵਰਤਣ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਅਤੇ ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ।",
+    "ਸ਼ਹਿਰ ਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਬੱਸ ਸੇਵਾ ਵਰਤਣ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਅਤੇ ਰੀਸਾਈਕਲਿੰਗ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ।",
   ),
 };
 const ACTIVITY_GROUPS: Record<string, [T, T, T]> = {
@@ -781,7 +781,7 @@ const ACTIVITY_GROUPS: Record<string, [T, T, T]> = {
     tr(
       "recycling-program participants",
       "पुनर्चक्रण कार्यक्रमों में भाग लेने वाले",
-      "ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ",
+      "ਰੀਸਾਈਕਲਿੰਗ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ",
     ),
   ],
 };
@@ -1243,9 +1243,9 @@ export function generateVen001ShapeRegionBatch(
       if (l === "en")
         explanation = `We need ${groups[selectedIndex]} who are in neither of the other two groups (${groups[excluded[0]!]} or ${groups[excluded[1]!]}). The exclusive region for ${groups[selectedIndex]} shows ${regions[mask]}. Therefore, the answer is ${answer}.`;
       else if (l === "hi")
-        explanation = `हमें ऐसे ${groups[selectedIndex]} चाहिए जो बाकी दोनों समूहों—${groups[excluded[0]!]} और ${groups[excluded[1]!]}—में न हों। ${groups[selectedIndex]} के केवल अपने क्षेत्र में ${regions[mask]} दिए हैं। अतः उत्तर ${answer} है।`;
+        explanation = `हमें ऐसे ${groups[selectedIndex]} चाहिए जो बाकी दोनों समूहों—${groups[excluded[0]!]} और ${groups[excluded[1]!]}—में न हों। आरेख में केवल इसी समूह वाले क्षेत्र में ${regions[mask]} दिए हैं। अतः उत्तर ${answer} है।`;
       else
-        explanation = `ਸਾਨੂੰ ਉਹ ${groups[selectedIndex]} ਚਾਹੀਦੇ ਹਨ ਜੋ ਬਾਕੀ ਦੋਵੇਂ ਸਮੂਹਾਂ—${groups[excluded[0]!]} ਅਤੇ ${groups[excluded[1]!]}—ਵਿੱਚ ਨਾ ਹੋਣ। ${groups[selectedIndex]} ਦੇ ਸਿਰਫ਼ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ ${regions[mask]} ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ ${answer} ਹੈ।`;
+        explanation = `ਸਾਨੂੰ ਉਹ ${groups[selectedIndex]} ਚਾਹੀਦੇ ਹਨ ਜੋ ਬਾਕੀ ਦੋਵੇਂ ਸਮੂਹਾਂ—${groups[excluded[0]!]} ਅਤੇ ${groups[excluded[1]!]}—ਵਿੱਚ ਨਾ ਹੋਣ। ਚਿੱਤਰ ਵਿੱਚ ਸਿਰਫ਼ ਇਸੇ ਸਮੂਹ ਵਾਲੇ ਖੇਤਰ ਵਿੱਚ ${regions[mask]} ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ ${answer} ਹੈ।`;
     } else if (q.pattern === "pair") {
       const mask = q.masks[0]!;
       const included = [0, 1, 2].filter((index) => mask & (1 << index));
@@ -1253,9 +1253,9 @@ export function generateVen001ShapeRegionBatch(
       if (l === "en")
         explanation = `We need the overlap of ${groups[included[0]!]} and ${groups[included[1]!]}, excluding ${groups[excluded]}. That exact overlap region contains ${regions[mask]}. Therefore, the answer is ${answer}.`;
       else if (l === "hi")
-        explanation = `हमें ${groups[included[0]!]} और ${groups[included[1]!]} का साझा भाग चाहिए, लेकिन ${groups[excluded]} को शामिल नहीं करना है। इस ठीक उसी क्षेत्र में ${regions[mask]} दिए हैं। अतः उत्तर ${answer} है।`;
+        explanation = `हमें ${groups[included[0]!]} और ${groups[included[1]!]} का साझा भाग चाहिए, लेकिन ${groups[excluded]} को शामिल नहीं करना है। इन दोनों समूहों के साझा, लेकिन तीसरे समूह से बाहर वाले क्षेत्र में ${regions[mask]} दिए हैं। अतः उत्तर ${answer} है।`;
       else
-        explanation = `ਸਾਨੂੰ ${groups[included[0]!]} ਅਤੇ ${groups[included[1]!]} ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਚਾਹੀਦਾ ਹੈ, ਪਰ ${groups[excluded]} ਨੂੰ ਸ਼ਾਮਲ ਨਹੀਂ ਕਰਨਾ। ਇਸੇ ਖੇਤਰ ਵਿੱਚ ${regions[mask]} ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ ${answer} ਹੈ।`;
+        explanation = `ਸਾਨੂੰ ${groups[included[0]!]} ਅਤੇ ${groups[included[1]!]} ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਚਾਹੀਦਾ ਹੈ, ਪਰ ${groups[excluded]} ਨੂੰ ਸ਼ਾਮਲ ਨਹੀਂ ਕਰਨਾ। ਇਨ੍ਹਾਂ ਦੋਵਾਂ ਸਮੂਹਾਂ ਦੇ ਸਾਂਝੇ, ਪਰ ਤੀਜੇ ਸਮੂਹ ਤੋਂ ਬਾਹਰ ਵਾਲੇ ਖੇਤਰ ਵਿੱਚ ${regions[mask]} ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ ${answer} ਹੈ।`;
     } else if (q.pattern === "triple") {
       if (l === "en")
         explanation = `The required region is common to all three groups: ${groups.join(", ")}. The central three-way overlap shows ${regions[7]}. Therefore, the answer is ${answer}.`;
@@ -1274,16 +1274,16 @@ export function generateVen001ShapeRegionBatch(
       if (l === "en")
         explanation = `At least two groups includes the three pair-only overlaps and the all-three overlap for ${groups.join(", ")}. Their counts are ${q.masks.map((m) => regions[m]).join(", ")}, so ${calculation} = ${answer}.`;
       else if (l === "hi")
-        explanation = `कम-से-कम दो समूहों में वे तीन क्षेत्र आते हैं जहाँ केवल दो समूह मिलते हैं, साथ ही तीनों का साझा क्षेत्र भी। ${groups.join(", ")} के इन क्षेत्रों की संख्याएँ ${q.masks.map((m) => regions[m]).join(", ")} हैं। इसलिए ${calculation} = ${answer}।`;
+        explanation = `कम-से-कम दो समूहों में वे तीन क्षेत्र आते हैं जहाँ केवल दो समूह मिलते हैं, साथ ही तीनों का साझा क्षेत्र भी। इन चार क्षेत्रों की संख्याएँ ${q.masks.map((m) => regions[m]).join(", ")} हैं। इसलिए ${calculation} = ${answer}।`;
       else
-        explanation = `ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਉਹ ਤਿੰਨ ਖੇਤਰ ਆਉਂਦੇ ਹਨ ਜਿੱਥੇ ਸਿਰਫ਼ ਦੋ ਸਮੂਹ ਮਿਲਦੇ ਹਨ, ਨਾਲ ਹੀ ਤਿੰਨਾਂ ਦਾ ਸਾਂਝਾ ਖੇਤਰ ਵੀ। ${groups.join(", ")} ਲਈ ਇਨ੍ਹਾਂ ਖੇਤਰਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ${q.masks.map((m) => regions[m]).join(", ")} ਹਨ। ਇਸ ਲਈ ${calculation} = ${answer}।`;
+        explanation = `ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਉਹ ਤਿੰਨ ਖੇਤਰ ਆਉਂਦੇ ਹਨ ਜਿੱਥੇ ਸਿਰਫ਼ ਦੋ ਸਮੂਹ ਮਿਲਦੇ ਹਨ, ਨਾਲ ਹੀ ਤਿੰਨਾਂ ਦਾ ਸਾਂਝਾ ਖੇਤਰ ਵੀ। ਇਨ੍ਹਾਂ ਚਾਰ ਖੇਤਰਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ${q.masks.map((m) => regions[m]).join(", ")} ਹਨ। ਇਸ ਲਈ ${calculation} = ${answer}।`;
     } else {
       if (l === "en")
         explanation = `At least one group means every region inside any of the three groups—${groups.join(", ")}. The outside-all region is not counted. Adding the seven inside regions gives ${calculation} = ${answer}.`;
       else if (l === "hi")
-        explanation = `कम-से-कम एक समूह में आने वालों के लिए ${groups.join(", ")} के भीतर के सभी सात क्षेत्रों को गिनते हैं। तीनों समूहों के बाहर वाला क्षेत्र नहीं जोड़ा जाता। इसलिए ${calculation} = ${answer}।`;
+        explanation = `कम-से-कम एक समूह में आने वालों के लिए तीनों समूहों के भीतर आने वाले सभी सात क्षेत्रों को गिनते हैं। तीनों समूहों के बाहर वाला क्षेत्र नहीं जोड़ा जाता। इसलिए ${calculation} = ${answer}।`;
       else
-        explanation = `ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਲਈ ${groups.join(", ")} ਦੇ ਅੰਦਰਲੇ ਸਾਰੇ ਸੱਤ ਖੇਤਰ ਗਿਣੇ ਜਾਂਦੇ ਹਨ। ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਤੋਂ ਬਾਹਰ ਵਾਲਾ ਖੇਤਰ ਨਹੀਂ ਜੋੜਿਆ ਜਾਂਦਾ। ਇਸ ਲਈ ${calculation} = ${answer}।`;
+        explanation = `ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਲਈ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਦੇ ਅੰਦਰ ਆਉਣ ਵਾਲੇ ਸਾਰੇ ਸੱਤ ਖੇਤਰ ਗਿਣੇ ਜਾਂਦੇ ਹਨ। ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਤੋਂ ਬਾਹਰ ਵਾਲਾ ਖੇਤਰ ਨਹੀਂ ਜੋੜਿਆ ਜਾਂਦਾ। ਇਸ ਲਈ ${calculation} = ${answer}।`;
     }
     const id = `VEN-CP011:${c.id}:${q.key}:${hash(`${seed}:${i}`)}:${l}`;
     const questionStem = stem(c, q, l);
