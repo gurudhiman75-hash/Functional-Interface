@@ -18,7 +18,7 @@
           "Atacama",
           "Namib"
         ],
-        "explanation": "The Sahara spans a broad belt of North Africa."
+        "explanation": "The Sahara extends across a vast belt of North Africa from the Atlantic side toward the Red Sea region. It is the world’s largest hot desert; Antarctica is larger when polar deserts are included."
       },
       "hi": {
         "stem": "कौन-सा मरुस्थल उत्तरी अफ्रीका के बड़े भाग में फैला है?",
@@ -28,7 +28,7 @@
           "अटाकामा",
           "नामिब"
         ],
-        "explanation": "सहारा उत्तरी अफ्रीका के विशाल क्षेत्र में फैला है।"
+        "explanation": "सहारा उत्तर अफ्रीका में अटलांटिक तट से लाल सागर क्षेत्र की ओर विशाल पट्टी में फैला है। यह विश्व का सबसे बड़ा गर्म मरुस्थल है; ध्रुवीय मरुस्थलों को शामिल करने पर अंटार्कटिका इससे बड़ा है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
@@ -38,9 +38,10 @@
           "ਅਟਾਕਾਮਾ",
           "ਨਾਮਿਬ"
         ],
-        "explanation": "ਸਹਾਰਾ ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਦੇ ਵੱਡੇ ਖੇਤਰ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+        "explanation": "ਸਹਾਰਾ ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਐਟਲਾਂਟਿਕ ਪਾਸੇ ਤੋਂ ਲਾਲ ਸਾਗਰ ਖੇਤਰ ਵੱਲ ਇੱਕ ਵਿਸ਼ਾਲ ਪੱਟੀ ਵਿੱਚ ਫੈਲਿਆ ਹੈ। ਇਹ ਦੁਨੀਆ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਗਰਮ ਰੇਗਿਸਤਾਨ ਹੈ; ਧਰੁਵੀ ਰੇਗਿਸਤਾਨਾਂ ਨੂੰ ਸ਼ਾਮਲ ਕਰਨ ਉੱਤੇ ਅੰਟਾਰਕਟਿਕਾ ਇਸ ਤੋਂ ਵੱਡਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP021-Q002",
@@ -104,7 +105,7 @@
           "Atacama",
           "Namib"
         ],
-        "explanation": "The Atacama occupies the Pacific-facing side of northern Chile."
+        "explanation": "The Atacama Desert lies along the Pacific side of northern Chile. Its extreme dryness is linked to subtropical high pressure, the cold Peru Current and the rain-shadow effect of surrounding relief."
       },
       "hi": {
         "stem": "कौन-सा मरुस्थल उत्तरी चिली के प्रशांत तट के साथ स्थित है?",
@@ -114,7 +115,7 @@
           "अटाकामा",
           "नामिब"
         ],
-        "explanation": "अटाकामा उत्तरी चिली के प्रशांतमुखी भाग में है।"
+        "explanation": "अटाकामा मरुस्थल उत्तरी चिली के प्रशांत तट के साथ स्थित है। इसकी अत्यधिक शुष्कता उपोष्ण उच्च दाब, ठंडी पेरू धारा और आसपास के स्थलरूप के वर्षाछाया प्रभाव से जुड़ी है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਉੱਤਰੀ ਚਿਲੀ ਦੇ ਪ੍ਰਸ਼ਾਂਤ ਤਟ ਨਾਲ ਸਥਿਤ ਹੈ?",
@@ -124,9 +125,10 @@
           "ਅਟਾਕਾਮਾ",
           "ਨਾਮਿਬ"
         ],
-        "explanation": "ਅਟਾਕਾਮਾ ਉੱਤਰੀ ਚਿਲੀ ਦੇ ਪ੍ਰਸ਼ਾਂਤ ਵੱਲ ਦੇ ਹਿੱਸੇ ਵਿੱਚ ਹੈ।"
+        "explanation": "ਅਟਾਕਾਮਾ ਰੇਗਿਸਤਾਨ ਉੱਤਰੀ ਚਿਲੀ ਦੇ ਪ੍ਰਸ਼ਾਂਤ ਤਟ ਨਾਲ ਸਥਿਤ ਹੈ। ਇਸ ਦੀ ਬਹੁਤ ਵੱਧ ਸੁੱਕਿਆਪਣ ਉਪ-ਉਸ਼ਣ ਉੱਚ ਦਬਾਅ, ਠੰਢੀ ਪੇਰੂ ਧਾਰਾ ਅਤੇ ਆਲੇ-ਦੁਆਲੇ ਦੇ ਭੂ-ਰੂਪ ਦੇ ਵਰਖਾ-ਛਾਂ ਪ੍ਰਭਾਵ ਨਾਲ ਜੁੜੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP021-Q004",
@@ -274,7 +276,7 @@
           "Madagascar",
           "Greenland"
         ],
-        "explanation": "Madagascar lies in the Indian Ocean east of Mozambique."
+        "explanation": "Madagascar is a large island in the Indian Ocean east of Mozambique. The Mozambique Channel separates it from the southeastern coast of mainland Africa."
       },
       "hi": {
         "stem": "कौन-सा द्वीप दक्षिण-पूर्वी अफ्रीका के तट से दूर हिंद महासागर में स्थित है?",
@@ -284,7 +286,7 @@
           "मेडागास्कर",
           "ग्रीनलैंड"
         ],
-        "explanation": "मेडागास्कर मोज़ाम्बिक के पूर्व में हिंद महासागर में है।"
+        "explanation": "मेडागास्कर हिंद महासागर में मोज़ाम्बिक के पूर्व में स्थित एक बड़ा द्वीप है। मोज़ाम्बिक चैनल इसे दक्षिण-पूर्वी अफ्रीकी मुख्य भूमि से अलग करता है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਟਾਪੂ ਦੱਖਣ-ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਤੋਂ ਦੂਰ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਸਥਿਤ ਹੈ?",
@@ -294,9 +296,10 @@
           "ਮੈਡਾਗਾਸਕਰ",
           "ਗ੍ਰੀਨਲੈਂਡ"
         ],
-        "explanation": "ਮੈਡਾਗਾਸਕਰ ਮੋਜ਼ਾਮਬੀਕ ਦੇ ਪੂਰਬ ਵੱਲ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਹੈ।"
+        "explanation": "ਮੈਡਾਗਾਸਕਰ ਹਿੰਦ ਮਹਾਂਸਾਗਰ ਵਿੱਚ ਮੋਜ਼ਾਮਬੀਕ ਦੇ ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਇੱਕ ਵੱਡਾ ਟਾਪੂ ਹੈ। ਮੋਜ਼ਾਮਬੀਕ ਚੈਨਲ ਇਸ ਨੂੰ ਦੱਖਣ-ਪੂਰਬੀ ਅਫ਼ਰੀਕੀ ਮੁੱਖ ਧਰਤੀ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP021-Q008",
@@ -316,7 +319,7 @@
           "Madagascar",
           "NewGuinea"
         ],
-        "explanation": "Borneo is divided among Brunei, Indonesia and Malaysia."
+        "explanation": "Borneo is shared by three states: Indonesia occupies the largest part, Malaysia occupies areas in the north, and Brunei lies on the northern coast. This makes it a politically divided island."
       },
       "hi": {
         "stem": "कौन-सा द्वीप ब्रुनेई, इंडोनेशिया और मलेशिया में बँटा है?",
@@ -326,7 +329,7 @@
           "मेडागास्कर",
           "न्यू गिनी"
         ],
-        "explanation": "बोर्नियो ब्रुनेई, इंडोनेशिया और मलेशिया में बँटा है।"
+        "explanation": "बोर्नियो तीन देशों में विभाजित है। सबसे बड़ा भाग इंडोनेशिया में है, उत्तर के कुछ भाग मलेशिया में हैं और ब्रुनेई उत्तरी तट पर स्थित है। इसलिए यह राजनीतिक रूप से विभाजित द्वीप है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਟਾਪੂ ਬਰੂਨੇਈ, ਇੰਡੋਨੇਸ਼ੀਆ ਅਤੇ ਮਲੇਸ਼ੀਆ ਵਿੱਚ ਵੰਡਿਆ ਹੋਇਆ ਹੈ?",
@@ -336,9 +339,10 @@
           "ਮੈਡਾਗਾਸਕਰ",
           "ਨਿਊ ਗਿਨੀ"
         ],
-        "explanation": "ਬੋਰਨਿਓ ਬਰੂਨੇਈ, ਇੰਡੋਨੇਸ਼ੀਆ ਅਤੇ ਮਲੇਸ਼ੀਆ ਵਿੱਚ ਵੰਡਿਆ ਹੋਇਆ ਹੈ।"
+        "explanation": "ਬੋਰਨਿਓ ਤਿੰਨ ਦੇਸ਼ਾਂ ਵਿੱਚ ਵੰਡਿਆ ਹੋਇਆ ਹੈ। ਸਭ ਤੋਂ ਵੱਡਾ ਹਿੱਸਾ ਇੰਡੋਨੇਸ਼ੀਆ ਵਿੱਚ ਹੈ, ਉੱਤਰ ਦੇ ਕੁਝ ਹਿੱਸੇ ਮਲੇਸ਼ੀਆ ਵਿੱਚ ਹਨ ਅਤੇ ਬਰੂਨੇਈ ਉੱਤਰੀ ਤਟ ਉੱਤੇ ਸਥਿਤ ਹੈ। ਇਸ ਲਈ ਇਹ ਰਾਜਨੀਤਿਕ ਤੌਰ ਉੱਤੇ ਵੰਡਿਆ ਟਾਪੂ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP021-Q009",
@@ -699,7 +703,7 @@
           "Indonesia",
           "NewGuinea"
         ],
-        "explanation": "The Philippines is a large island archipelago in the western Pacific."
+        "explanation": "The Philippines is an archipelagic country in the western Pacific, east of Vietnam. Its many islands lie between the South China Sea and the Philippine Sea."
       },
       "hi": {
         "stem": "पश्चिमी प्रशांत में वियतनाम के पूर्व स्थित द्वीपसमूह वाला देश कौन-सा है?",
@@ -709,7 +713,7 @@
           "इंडोनेशिया",
           "न्यू गिनी"
         ],
-        "explanation": "फ़िलिपींस पश्चिमी प्रशांत का बड़ा द्वीपसमूह है।"
+        "explanation": "फिलीपींस पश्चिमी प्रशांत में वियतनाम के पूर्व में स्थित एक द्वीपसमूह देश है। इसके अनेक द्वीप दक्षिण चीन सागर और फिलीपीन सागर के बीच फैले हैं।"
       },
       "pa": {
         "stem": "ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਵੀਅਤਨਾਮ ਦੇ ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਟਾਪੂ-ਸਮੂਹ ਵਾਲਾ ਦੇਸ਼ ਕਿਹੜਾ ਹੈ?",
@@ -719,9 +723,10 @@
           "ਇੰਡੋਨੇਸ਼ੀਆ",
           "ਨਿਊ ਗਿਨੀ"
         ],
-        "explanation": "ਫ਼ਿਲੀਪੀਨਜ਼ ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਦਾ ਵੱਡਾ ਟਾਪੂ-ਸਮੂਹ ਹੈ।"
+        "explanation": "ਫਿਲੀਪੀਨਜ਼ ਪੱਛਮੀ ਪ੍ਰਸ਼ਾਂਤ ਵਿੱਚ ਵੀਅਤਨਾਮ ਦੇ ਪੂਰਬ ਵੱਲ ਸਥਿਤ ਇੱਕ ਟਾਪੂ-ਸਮੂਹ ਦੇਸ਼ ਹੈ। ਇਸ ਦੇ ਅਨੇਕ ਟਾਪੂ ਦੱਖਣੀ ਚੀਨ ਸਾਗਰ ਅਤੇ ਫਿਲੀਪੀਨ ਸਾਗਰ ਵਿਚਕਾਰ ਫੈਲੇ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP021-Q018",
