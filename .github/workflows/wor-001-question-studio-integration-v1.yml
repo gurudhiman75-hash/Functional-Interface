@@ -29,7 +29,6 @@ on:
       - 'artifacts/api-server/src/routes/admin-question-studio-quality.ts'
       - 'artifacts/api-server/src/routes/index.ts'
       - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
-      - '.github/workflows/wor-001-question-studio-integration-v1.yml'
   workflow_dispatch:
 
 concurrency:
