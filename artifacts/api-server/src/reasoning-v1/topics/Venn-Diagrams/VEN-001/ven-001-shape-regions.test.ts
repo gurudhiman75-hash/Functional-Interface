@@ -50,6 +50,18 @@ assert.equal(
   20,
 );
 assert.ok(
+  new Set(
+    twentyScenarios.questions.map((q) =>
+      q.stem!.split(" ").slice(0, 3).join(" "),
+    ),
+  ).size >= 5,
+);
+assert.ok(
+  twentyScenarios.questions.every(
+    (q) => !q.stem!.startsWith("A survey records three activities:"),
+  ),
+);
+assert.ok(
   new Set(result.questions.map((q) => (q.semanticMetadata as any).queryKey))
     .size >= 8,
 );
