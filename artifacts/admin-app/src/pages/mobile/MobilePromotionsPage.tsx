@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Megaphone, Plus, RefreshCw, Save, Trash2 } from 'lucide-react';
 
+import { MediaAssetPicker } from '@/components/shared/MediaAssetPicker';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
 import { Button } from '@/components/ui/button';
@@ -90,7 +91,7 @@ export function MobilePromotionsPage(){
       <Field label="Title"><Input value={editing.title} onChange={e=>setEditing({...editing,title:e.target.value})} placeholder="New Punjab test series"/></Field>
       <Field label="Placement"><Select value={editing.placement} onValueChange={value=>setEditing({...editing,placement:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="home">Home</SelectItem><SelectItem value="login_popup">Login / app-open popup</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="tests">Tests</SelectItem><SelectItem value="results">Results</SelectItem></SelectContent></Select></Field>
       <div className="md:col-span-2"><Field label="Subtitle"><Textarea rows={2} value={editing.subtitle} onChange={e=>setEditing({...editing,subtitle:e.target.value})}/></Field></div>
-      <div className="md:col-span-2"><Field label="Image URL"><Input value={editing.imageUrl} onChange={e=>setEditing({...editing,imageUrl:e.target.value})} placeholder="https://…"/></Field></div>
+      <div className="md:col-span-2"><Field label="Promotion image"><MediaAssetPicker value={editing.imageUrl} onChange={url=>setEditing({...editing,imageUrl:url})} preferredType="Promotion Image" label="Choose / Upload"/></Field></div>
       <Field label="Campaign type"><Select value={editing.campaignKind} onValueChange={value=>setEditing({...editing,campaignKind:value,destinationType:value==='external'?'url':editing.destinationType})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="internal">Internal promotion</SelectItem><SelectItem value="external">External ad</SelectItem></SelectContent></Select></Field>
       <Field label="Destination type"><Select value={editing.destinationType} onValueChange={value=>setEditing({...editing,destinationType:value,destinationValue:value==='none'?'':editing.destinationValue})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="url">URL</SelectItem></SelectContent></Select></Field>
       {editing.destinationType!=='none'&&<div className="md:col-span-2"><Field label={editing.destinationType==='url'?'Destination URL':'Destination / deep link'}><Input value={editing.destinationValue} onChange={e=>setEditing({...editing,destinationValue:e.target.value})} placeholder={editing.destinationType==='url'?'https://…':editing.destinationType==='learn'?'/learn (blank also opens Learn)':'Shared exam/series ID'}/></Field></div>}
