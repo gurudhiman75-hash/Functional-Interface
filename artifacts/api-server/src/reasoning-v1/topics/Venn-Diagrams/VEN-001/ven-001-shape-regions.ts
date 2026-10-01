@@ -408,6 +408,108 @@ const CONTEXTS = [
   },
 ] as const;
 type Context = (typeof CONTEXTS)[number];
+const STEM_OPENERS: Record<string, T> = {
+  SCHOOL_ACTIVITIES: tr(
+    "At a school, students take part in the newspaper club, team sports and the science club.",
+    "एक विद्यालय में विद्यार्थी समाचार-पत्र क्लब, टीम खेलों और विज्ञान क्लब में भाग लेते हैं।",
+    "ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਵਿਦਿਆਰਥੀ ਅਖ਼ਬਾਰ ਕਲੱਬ, ਟੀਮ ਖੇਡਾਂ ਅਤੇ ਵਿਗਿਆਨ ਕਲੱਬ ਵਿੱਚ ਹਿੱਸਾ ਲੈਂਦੇ ਹਨ।",
+  ),
+  COMMUNITY_SURVEY: tr(
+    "Residents in a neighbourhood use the public library and sports centre, or attend cultural events.",
+    "एक मोहल्ले के निवासी सार्वजनिक पुस्तकालय और खेल केंद्र का उपयोग करते हैं या सांस्कृतिक कार्यक्रमों में जाते हैं।",
+    "ਇੱਕ ਮੁਹੱਲੇ ਦੇ ਵਸਨੀਕ ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਅਤੇ ਖੇਡ ਕੇਂਦਰ ਵਰਤਦੇ ਹਨ ਜਾਂ ਸੱਭਿਆਚਾਰਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਜਾਂਦੇ ਹਨ।",
+  ),
+  TRAINING_COURSE: tr(
+    "A training institute tracks trainees completing its safety, digital-skills and first-aid modules.",
+    "एक प्रशिक्षण संस्थान सुरक्षा, डिजिटल-कौशल और प्राथमिक उपचार मॉड्यूल पूरे करने वाले प्रशिक्षुओं का लेखा रखता है।",
+    "ਇੱਕ ਸਿਖਲਾਈ ਸੰਸਥਾ ਸੁਰੱਖਿਆ, ਡਿਜ਼ਿਟਲ ਹੁਨਰ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦੇ ਮੋਡੀਊਲ ਪੂਰੇ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀਆਂ ਦਾ ਰਿਕਾਰਡ ਰੱਖਦੀ ਹੈ।",
+  ),
+  MEDIA_PREFERENCES: tr(
+    "A media-use study counts daily newspaper readers, news-podcast listeners and evening-bulletin viewers.",
+    "मीडिया के उपयोग से जुड़े अध्ययन में दैनिक समाचार-पत्र पढ़ने, समाचार पॉडकास्ट सुनने और शाम का बुलेटिन देखने वालों की गिनती की गई।",
+    "ਮੀਡੀਆ ਦੀ ਵਰਤੋਂ ਬਾਰੇ ਅਧਿਐਨ ਵਿੱਚ ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ, ਖ਼ਬਰਾਂ ਦਾ ਪੌਡਕਾਸਟ ਸੁਣਨ ਅਤੇ ਸ਼ਾਮ ਦਾ ਬੁਲੇਟਿਨ ਦੇਖਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ।",
+  ),
+  HEALTH_CAMP: tr(
+    "At a health camp, visitors receive blood-pressure, vision and diabetes checks.",
+    "स्वास्थ्य शिविर में आगंतुक रक्तचाप, दृष्टि और मधुमेह की जाँच कराते हैं।",
+    "ਸਿਹਤ ਕੈਂਪ ਵਿੱਚ ਆਏ ਲੋਕ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ, ਨਜ਼ਰ ਅਤੇ ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਂਦੇ ਹਨ।",
+  ),
+  WORKPLACE_TOOLS: tr(
+    "An office review records staff using the project dashboard, shared calendar and team chat.",
+    "कार्यालय की समीक्षा में परियोजना डैशबोर्ड, साझा कैलेंडर और टीम चैट का उपयोग करने वाले कर्मचारियों का विवरण है।",
+    "ਦਫ਼ਤਰੀ ਸਮੀਖਿਆ ਵਿੱਚ ਪ੍ਰੋਜੈਕਟ ਡੈਸ਼ਬੋਰਡ, ਸਾਂਝਾ ਕੈਲੰਡਰ ਅਤੇ ਟੀਮ ਚੈਟ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀਆਂ ਦਾ ਵੇਰਵਾ ਹੈ।",
+  ),
+  TRAVEL_SURVEY: tr(
+    "On a travel route, passengers use buses, trains and bicycles, sometimes using more than one mode.",
+    "एक यात्रा मार्ग पर यात्री बस, रेलगाड़ी और साइकिल का उपयोग करते हैं; कुछ यात्री एक से अधिक साधन अपनाते हैं।",
+    "ਇੱਕ ਸਫ਼ਰੀ ਰੂਟ ਉੱਤੇ ਯਾਤਰੀ ਬੱਸ, ਰੇਲ ਅਤੇ ਸਾਈਕਲ ਵਰਤਦੇ ਹਨ; ਕੁਝ ਯਾਤਰੀ ਇੱਕ ਤੋਂ ਵੱਧ ਸਾਧਨ ਵਰਤਦੇ ਹਨ।",
+  ),
+  WEEKEND_HOBBIES: tr(
+    "A weekend-club register lists people who garden, try new recipes and take photographs.",
+    "सप्ताहांत क्लब के रजिस्टर में बागवानी, नई रेसिपी बनाने और तस्वीरें लेने वाले लोगों का विवरण है।",
+    "ਹਫ਼ਤੇ-ਅੰਤ ਦੇ ਕਲੱਬ ਦੇ ਰਜਿਸਟਰ ਵਿੱਚ ਬਾਗਬਾਨੀ, ਨਵੀਆਂ ਰੈਸਿਪੀਆਂ ਬਣਾਉਣ ਅਤੇ ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਵਾਲੇ ਲੋਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ।",
+  ),
+  EXAM_PREPARATION: tr(
+    "At an exam-preparation centre, candidates attend mathematics, English and general-awareness classes.",
+    "परीक्षा-तैयारी केंद्र में अभ्यर्थी गणित, अंग्रेज़ी और सामान्य जागरूकता की कक्षाएँ लेते हैं।",
+    "ਇਮਤਿਹਾਨ ਦੀ ਤਿਆਰੀ ਕਰਾਉਣ ਵਾਲੇ ਕੇਂਦਰ ਵਿੱਚ ਉਮੀਦਵਾਰ ਗਣਿਤ, ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਂਦੇ ਹਨ।",
+  ),
+  CROP_CULTIVATION: tr(
+    "Farmers in a block cultivate wheat, mustard and cotton, with some growing more than one crop.",
+    "एक क्षेत्र के किसान गेहूँ, सरसों और कपास उगाते हैं; कुछ किसान एक से अधिक फसलें भी उगाते हैं।",
+    "ਇੱਕ ਇਲਾਕੇ ਦੇ ਕਿਸਾਨ ਕਣਕ, ਸਰ੍ਹੋਂ ਅਤੇ ਕਪਾਹ ਉਗਾਉਂਦੇ ਹਨ; ਕੁਝ ਕਿਸਾਨ ਇੱਕ ਤੋਂ ਵੱਧ ਫ਼ਸਲਾਂ ਵੀ ਉਗਾਉਂਦੇ ਹਨ।",
+  ),
+  LIBRARY_BORROWING: tr(
+    "Library records show members borrowing fiction, biographies and science books.",
+    "पुस्तकालय के अभिलेखों में कथा-साहित्य, जीवनियाँ और विज्ञान की पुस्तकें लेने वाले सदस्यों की संख्या दी गई है।",
+    "ਲਾਇਬ੍ਰੇਰੀ ਦੇ ਰਿਕਾਰਡ ਵਿੱਚ ਗਲਪ, ਜੀਵਨੀਆਂ ਅਤੇ ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਮੈਂਬਰਾਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ।",
+  ),
+  ONLINE_PURCHASES: tr(
+    "An online retailer groups customers by purchases of groceries, clothing and electronic goods.",
+    "एक ऑनलाइन विक्रेता ग्राहकों को किराने के सामान, कपड़ों और इलेक्ट्रॉनिक वस्तुओं की खरीद के आधार पर दर्ज करता है।",
+    "ਇੱਕ ਆਨਲਾਈਨ ਵਿਕਰੇਤਾ ਗਾਹਕਾਂ ਨੂੰ ਰਾਸ਼ਨ, ਕੱਪੜੇ ਅਤੇ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਦੀ ਖਰੀਦ ਅਨੁਸਾਰ ਦਰਜ ਕਰਦਾ ਹੈ।",
+  ),
+  DIGITAL_DEVICES: tr(
+    "A household study records residents who use smartphones, laptops and tablets.",
+    "एक घरेलू अध्ययन में स्मार्टफ़ोन, लैपटॉप और टैबलेट का उपयोग करने वाले निवासियों का विवरण है।",
+    "ਘਰੇਲੂ ਅਧਿਐਨ ਵਿੱਚ ਸਮਾਰਟਫ਼ੋਨ, ਲੈਪਟਾਪ ਅਤੇ ਟੈਬਲੈੱਟ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ।",
+  ),
+  PAYMENT_METHODS: tr(
+    "A shop's payment records cover customers paying by UPI, debit card and cash.",
+    "एक दुकान के भुगतान अभिलेखों में UPI, डेबिट कार्ड और नकद से भुगतान करने वाले ग्राहक शामिल हैं।",
+    "ਇੱਕ ਦੁਕਾਨ ਦੇ ਭੁਗਤਾਨ ਰਿਕਾਰਡ ਵਿੱਚ UPI, ਡੈਬਿਟ ਕਾਰਡ ਅਤੇ ਨਕਦ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ ਸ਼ਾਮਲ ਹਨ।",
+  ),
+  COMMUNITY_VOLUNTEERING: tr(
+    "A community organisation assigns volunteers to literacy programmes, health camps and cleanliness drives.",
+    "एक सामुदायिक संस्था स्वयंसेवकों को साक्षरता कार्यक्रमों, स्वास्थ्य शिविरों और स्वच्छता अभियानों में लगाती है।",
+    "ਇੱਕ ਭਾਈਚਾਰਕ ਸੰਸਥਾ ਵਲੰਟੀਅਰਾਂ ਨੂੰ ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ, ਸਿਹਤ ਕੈਂਪਾਂ ਅਤੇ ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਵਿੱਚ ਲਗਾਉਂਦੀ ਹੈ।",
+  ),
+  WORKPLACE_SOFTWARE: tr(
+    "A company checks which staff use spreadsheet, video-conferencing and presentation software.",
+    "एक कंपनी यह दर्ज करती है कि कौन-से कर्मचारी स्प्रेडशीट, वीडियो-कॉन्फ़्रेंसिंग और प्रेज़ेंटेशन सॉफ़्टवेयर का उपयोग करते हैं।",
+    "ਇੱਕ ਕੰਪਨੀ ਦਰਜ ਕਰਦੀ ਹੈ ਕਿ ਕਿਹੜੇ ਕਰਮਚਾਰੀ ਸਪ੍ਰੈੱਡਸ਼ੀਟ, ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਅਤੇ ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਦੇ ਹਨ।",
+  ),
+  CULTURAL_EVENTS: tr(
+    "At a cultural festival, visitors attend folk-music performances, theatre and craft exhibitions.",
+    "सांस्कृतिक उत्सव में आगंतुक लोक-संगीत कार्यक्रमों, नाटकों और शिल्प प्रदर्शनियों में शामिल होते हैं।",
+    "ਸੱਭਿਆਚਾਰਕ ਮੇਲੇ ਵਿੱਚ ਲੋਕ ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ, ਨਾਟਕਾਂ ਅਤੇ ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੁੰਦੇ ਹਨ।",
+  ),
+  STREAMING_VIEWERS: tr(
+    "A streaming platform counts viewers watching films, sports and documentaries.",
+    "एक स्ट्रीमिंग मंच पर फ़िल्में, खेल और वृत्तचित्र देखने वाले दर्शकों की संख्या दर्ज की गई है।",
+    "ਇੱਕ ਸਟ੍ਰੀਮਿੰਗ ਪਲੇਟਫ਼ਾਰਮ ਉੱਤੇ ਫ਼ਿਲਮਾਂ, ਖੇਡਾਂ ਅਤੇ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕਾਂ ਦੀ ਗਿਣਤੀ ਦਰਜ ਹੈ।",
+  ),
+  SKILL_COURSES: tr(
+    "A training programme tracks learners completing computer-basics, spoken-English and first-aid courses.",
+    "एक प्रशिक्षण कार्यक्रम कंप्यूटर की बुनियादी जानकारी, बोलचाल की अंग्रेज़ी और प्राथमिक उपचार के पाठ्यक्रम पूरे करने वाले प्रशिक्षुओं का लेखा रखता है।",
+    "ਇੱਕ ਸਿਖਲਾਈ ਪ੍ਰੋਗਰਾਮ ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ, ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦੇ ਕੋਰਸ ਪੂਰੇ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀਆਂ ਦਾ ਰਿਕਾਰਡ ਰੱਖਦਾ ਹੈ।",
+  ),
+  MUNICIPAL_SERVICES: tr(
+    "A city report records residents using the bus service, visiting public parks and joining recycling programmes.",
+    "शहर की रिपोर्ट में बस सेवा का उपयोग करने, सार्वजनिक पार्कों में जाने और पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासियों का विवरण है।",
+    "ਸ਼ਹਿਰ ਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਬੱਸ ਸੇਵਾ ਵਰਤਣ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਅਤੇ ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ।",
+  ),
+};
 const QUESTIONS: readonly {
   key: string;
   masks: number[];
@@ -760,35 +862,7 @@ function svg(
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-label="Counts in three overlapping geometric shapes"><rect x="4" y="4" width="632" height="492" rx="10" fill="#fff" stroke="#b8c3cf"/>${marks}<g font-family="sans-serif" font-size="13" fill="#152536"><text x="8" y="23">${labels[0]}</text><text x="8" y="42">${labels[1]}</text><text x="8" y="61">${labels[2]}</text></g><g font-family="sans-serif" font-size="16" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#152536">${r.map((v, m) => `<text x="${points[m]![0]}" y="${points[m]![1]}" data-mask="${m}">${v}</text>`).join("")}</g><metadata data-layout="${layout.id}" data-label-clearance="20"/></svg>`;
 }
 function stem(c: Context, q: (typeof QUESTIONS)[number], l: L): string {
-  const [a, b, d] = c.sets.map((s) => s[l]);
-  const opener = hash(c.id) % 6;
-  const title =
-    l === "en"
-      ? [
-          `The overlap among ${a}, ${b}, and ${d} is shown in the diagram.`,
-          `The diagram gives the numbers for ${a}, ${b}, and ${d}.`,
-          `Records for ${a}, ${b}, and ${d} are summarized below.`,
-          `A survey counted ${a}, ${b}, and ${d}; the overlapping regions show shared membership.`,
-          `The diagram compares three groups: ${a}, ${b}, and ${d}.`,
-          `Counts for ${a}, ${b}, and ${d} are divided among the regions below.`,
-        ][opener]!
-      : l === "hi"
-        ? [
-            `आरेख में ${a}, ${b} और ${d} समूहों का साझा हिस्सा दिखाया गया है।`,
-            `आरेख में ${a}, ${b} और ${d} की संख्या दी गई है।`,
-            `${a}, ${b} और ${d} के आँकड़े नीचे दिए गए हैं।`,
-            `एक सर्वेक्षण में ${a}, ${b} और ${d} की गिनती की गई; साझा सदस्यता अलग-अलग क्षेत्रों में दिखाई गई है।`,
-            `आरेख में तीन समूहों की तुलना है: ${a}, ${b} और ${d}।`,
-            `${a}, ${b} और ${d} की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं।`,
-          ][opener]!
-        : [
-            `ਚਿੱਤਰ ਵਿੱਚ ${a}, ${b} ਅਤੇ ${d} ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ।`,
-            `ਚਿੱਤਰ ਵਿੱਚ ${a}, ${b} ਅਤੇ ${d} ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ।`,
-            `${a}, ${b} ਅਤੇ ${d} ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ।`,
-            `ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ${a}, ${b} ਅਤੇ ${d} ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ; ਸਾਂਝੀ ਮੈਂਬਰਸ਼ਿਪ ਵੱਖ-ਵੱਖ ਖੇਤਰਾਂ ਵਿੱਚ ਦਿਖਾਈ ਗਈ ਹੈ।`,
-            `ਚਿੱਤਰ ਵਿੱਚ ਤਿੰਨ ਸਮੂਹਾਂ ਦੀ ਤੁਲਨਾ ਹੈ: ${a}, ${b} ਅਤੇ ${d}।`,
-            `${a}, ${b} ਅਤੇ ${d} ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ।`,
-          ][opener]!;
+  const title = STEM_OPENERS[c.id]![l];
   const ask =
     l === "en"
       ? `How many people belong ${q.label[l]}?`

@@ -1,4 +1,4 @@
-Warning: truncated output (original token count: 126373)
+Warning: truncated output (original token count: 121487)
 Total output lines: 7518
 
 {
@@ -40,8 +40,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "A survey counted residents who use a smartphone, residents who use a laptop, and residents who use a tablet; the overlapping regions show shared membership. How many people belong in all three sets?",
-      "text": "A survey counted residents who use a smartphone, residents who use a laptop, and residents who use a tablet; the overlapping regions show shared membership. How many people belong in all three sets?",
+      "stem": "A household study records residents who use smartphones, laptops and tablets. How many people belong in all three sets?",
+      "text": "A household study records residents who use smartphones, laptops and tablets. How many people belong in all three sets?",
       "options": [
         "33",
         "12",
@@ -96,7 +96,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "A survey counted residents who use a smartphone, residents who use a laptop, and residents who use a tablet; the overlapping regions show shared membership. How many people belong in all three sets?",
+      "sharedStimulus": "A household study records residents who use smartphones, laptops and tablets. How many people belong in all three sets?",
       "semanticMetadata": {
         "scenarioId": "DIGITAL_DEVICES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_TRIANGLE",
@@ -164,8 +164,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The overlap among customers who paid using UPI, customers who paid using a debit card, and customers who paid in cash is shown in the diagram. How many people belong in both the second and third sets, but not the first?",
-      "text": "The overlap among customers who paid using UPI, customers who paid using a debit card, and customers who paid in cash is shown in the diagram. How many people belong in both the second and third sets, but not the first?",
+      "stem": "A shop's payment records cover customers paying by UPI, debit card and cash. How many people belong in both the second and third sets, but not the first?",
+      "text": "A shop's payment records cover customers paying by UPI, debit card and cash. How many people belong in both the second and third sets, but not the first?",
       "options": [
         "10",
         "83",
@@ -220,7 +220,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The overlap among customers who paid using UPI, customers who paid using a debit card, and customers who paid in cash is shown in the diagram. How many people belong in both the second and third sets, but not the first?",
+      "sharedStimulus": "A shop's payment records cover customers paying by UPI, debit card and cash. How many people belong in both the second and third sets, but not the first?",
       "semanticMetadata": {
         "scenarioId": "PAYMENT_METHODS",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRIANGLE",
@@ -288,8 +288,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The diagram gives the numbers for volunteers who joined literacy programmes, volunteers who joined health camps, and volunteers who joined cleanliness drives. How many people belong in both the first and third sets, but not the second?",
-      "text": "The diagram gives the numbers for volunteers who joined literacy programmes, volunteers who joined health camps, and volunteers who joined cleanliness drives. How many people belong in both the first and third sets, but not the second?",
+      "stem": "A community organisation assigns volunteers to literacy programmes, health camps and cleanliness drives. How many people belong in both the first and third sets, but not the second?",
+      "text": "A community organisation assigns volunteers to literacy programmes, health camps and cleanliness drives. How many people belong in both the first and third sets, but not the second?",
       "options": [
         "11",
         "27",
@@ -344,7 +344,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The diagram gives the numbers for volunteers who joined literacy programmes, volunteers who joined health camps, and volunteers who joined cleanliness drives. How many people belong in both the first and third sets, but not the second?",
+      "sharedStimulus": "A community organisation assigns volunteers to literacy programmes, health camps and cleanliness drives. How many people belong in both the first and third sets, but not the second?",
       "semanticMetadata": {
         "scenarioId": "COMMUNITY_VOLUNTEERING",
         "shapeLayoutId": "CIRCLE_SQUARE_TRIANGLE",
@@ -412,8 +412,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The diagram gives the numbers for staff who use spreadsheet software, staff who use video-conferencing software, and staff who use presentation software. How many people belong in both the first and second sets, but not the third?",
-      "text": "The diagram gives the numbers for staff who use spreadsheet software, staff who use video-conferencing software, and staff who use presentation software. How many people belong in both the first and second sets, but not the third?",
+      "stem": "A company checks which staff use spreadsheet, video-conferencing and presentation software. How many people belong in both the first and second sets, but not the third?",
+      "text": "A company checks which staff use spreadsheet, video-conferencing and presentation software. How many people belong in both the first and second sets, but not the third?",
       "options": [
         "14",
         "55",
@@ -468,7 +468,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The diagram gives the numbers for staff who use spreadsheet software, staff who use video-conferencing software, and staff who use presentation software. How many people belong in both the first and second sets, but not the third?",
+      "sharedStimulus": "A company checks which staff use spreadsheet, video-conferencing and presentation software. How many people belong in both the first and second sets, but not the third?",
       "semanticMetadata": {
         "scenarioId": "WORKPLACE_SOFTWARE",
         "shapeLayoutId": "CIRCLE_RECTANGLE_DIAMOND",
@@ -536,8 +536,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The diagram gives the numbers for visitors who attended folk-music performances, visitors who attended theatre performances, and visitors who attended craft exhibitions. How many people belong in only the third set?",
-      "text": "The diagram gives the numbers for visitors who attended folk-music performances, visitors who attended theatre performances, and visitors who attended craft exhibitions. How many people belong in only the third set?",
+      "stem": "At a cultural festival, visitors attend folk-music performances, theatre and craft exhibitions. How many people belong in only the third set?",
+      "text": "At a cultural festival, visitors attend folk-music performances, theatre and craft exhibitions. How many people belong in only the third set?",
       "options": [
         "21",
         "31",
@@ -592,7 +592,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The diagram gives the numbers for visitors who attended folk-music performances, visitors who attended theatre performances, and visitors who attended craft exhibitions. How many people belong in only the third set?",
+      "sharedStimulus": "At a cultural festival, visitors attend folk-music performances, theatre and craft exhibitions. How many people belong in only the third set?",
       "semanticMetadata": {
         "scenarioId": "CULTURAL_EVENTS",
         "shapeLayoutId": "ELLIPSE_SQUARE_DIAMOND",
@@ -660,8 +660,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "Counts for viewers who stream films, viewers who stream sports, and viewers who stream documentaries are divided among the regions below. How many people belong in only the second set?",
-      "text": "Counts for viewers who stream films, viewers who stream sports, and viewers who stream documentaries are divided among the regions below. How many people belong in only the second set?",
+      "stem": "A streaming platform counts viewers watching films, sports and documentaries. How many people belong in only the second set?",
+      "text": "A streaming platform counts viewers watching films, sports and documentaries. How many people belong in only the second set?",
       "options": [
         "55",
         "43",
@@ -716,7 +716,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "Counts for viewers who stream films, viewers who stream sports, and viewers who stream documentaries are divided among the regions below. How many people belong in only the second set?",
+      "sharedStimulus": "A streaming platform counts viewers watching films, sports and documentaries. How many people belong in only the second set?",
       "semanticMetadata": {
         "scenarioId": "STREAMING_VIEWERS",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_DIAMOND",
@@ -784,8 +784,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The diagram gives the numbers for trainees who completed a computer-basics course, trainees who completed a spoken-English course, and trainees who completed a first-aid course. How many people belong in only the first set?",
-      "text": "The diagram gives the numbers for trainees who completed a computer-basics course, trainees who completed a spoken-English course, and trainees who completed a first-aid course. How many people belong in only the first set?",
+      "stem": "A training programme tracks learners completing computer-basics, spoken-English and first-aid courses. How many people belong in only the first set?",
+      "text": "A training programme tracks learners completing computer-basics, spoken-English and first-aid courses. How many people belong in only the first set?",
       "options": [
         "0",
         "43",
@@ -840,7 +840,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The diagram gives the numbers for trainees who completed a computer-basics course, trainees who completed a spoken-English course, and trainees who completed a first-aid course. How many people belong in only the first set?",
+      "sharedStimulus": "A training programme tracks learners completing computer-basics, spoken-English and first-aid courses. How many people belong in only the first set?",
       "semanticMetadata": {
         "scenarioId": "SKILL_COURSES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_RIGHT_TRIANGLE",
@@ -908,8 +908,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "Records for residents who use the city bus service, residents who use public parks, and residents who take part in recycling programmes are summarized below. How many people belong in at least one set?",
-      "text": "Records for residents who use the city bus service, residents who use public parks, and residents who take part in recycling programmes are summarized below. How many people belong in at least one set?",
+      "stem": "A city report records residents using the bus service, visiting public parks and joining recycling programmes. How many people belong in at least one set?",
+      "text": "A city report records residents using the bus service, visiting public parks and joining recycling programmes. How many people belong in at least one set?",
       "options": [
         "196",
         "173",
@@ -964,7 +964,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "Records for residents who use the city bus service, residents who use public parks, and residents who take part in recycling programmes are summarized below. How many people belong in at least one set?",
+      "sharedStimulus": "A city report records residents using the bus service, visiting public parks and joining recycling programmes. How many people belong in at least one set?",
       "semanticMetadata": {
         "scenarioId": "MUNICIPAL_SERVICES",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRAPEZOID",
@@ -1038,8 +1038,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "Counts for students who read the school newspaper, students who play a team sport, and students who attend the science club are divided among the regions below. How many people belong in exactly one set?",
-      "text": "Counts for students who read the school newspaper, students who play a team sport, and students who attend the science club are divided among the regions below. How many people belong in exactly one set?",
+      "stem": "At a school, students take part in the newspaper club, team sports and the science club. How many people belong in exactly one set?",
+      "text": "At a school, students take part in the newspaper club, team sports and the science club. How many people belong in exactly one set?",
       "options": [
         "71",
         "79",
@@ -1094,7 +1094,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "Counts for students who read the school newspaper, students who play a team sport, and students who attend the science club are divided among the regions below. How many people belong in exactly one set?",
+      "sharedStimulus": "At a school, students take part in the newspaper club, team sports and the science club. How many people belong in exactly one set?",
       "semanticMetadata": {
         "scenarioId": "SCHOOL_ACTIVITIES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_PENTAGON",
@@ -1164,8 +1164,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The diagram gives the numbers for residents who use the public library, residents who use the sports centre, and residents who attend cultural events. How many people belong in at least two sets?",
-      "text": "The diagram gives the numbers for residents who use the public library, residents who use the sports centre, and residents who attend cultural events. How many people belong in at least two sets?",
+      "stem": "Residents in a neighbourhood use the public library and sports centre, or attend cultural events. How many people belong in at least two sets?",
+      "text": "Residents in a neighbourhood use the public library and sports centre, or attend cultural events. How many people belong in at least two sets?",
       "options": [
         "93",
         "122",
@@ -1220,7 +1220,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The diagram gives the numbers for residents who use the public library, residents who use the sports centre, and residents who attend cultural events. How many people belong in at least two sets?",
+      "sharedStimulus": "Residents in a neighbourhood use the public library and sports centre, or attend cultural events. How many people belong in at least two sets?",
       "semanticMetadata": {
         "scenarioId": "COMMUNITY_SURVEY",
         "shapeLayoutId": "CIRCLE_RECTANGLE_TRIANGLE",
@@ -1291,8 +1291,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The diagram gives the numbers for trainees who completed the safety module, trainees who completed the digital-skills module, and trainees who completed the first-aid module. How many people belong in at least one set?",
-      "text": "The diagram gives the numbers for trainees who completed the safety module, trainees who completed the digital-skills module, and trainees who completed the first-aid module. How many people belong in at least one set?",
+      "stem": "A training institute tracks trainees completing its safety, digital-skills and first-aid modules. How many people belong in at least one set?",
+      "text": "A training institute tracks trainees completing its safety, digital-skills and first-aid modules. How many people belong in at least one set?",
       "options": [
         "205",
         "217",
@@ -1347,7 +1347,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The diagram gives the numbers for trainees who completed the safety module, trainees who completed the digital-skills module, and trainees who completed the first-aid module. How many people belong in at least one set?",
+      "sharedStimulus": "A training institute tracks trainees completing its safety, digital-skills and first-aid modules. How many people belong in at least one set?",
       "semanticMetadata": {
         "scenarioId": "TRAINING_COURSE",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRIANGLE",
@@ -1421,8 +1421,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The diagram compares three groups: people who read the daily paper, people who listen to a news podcast, and people who watch the evening bulletin. How many people belong in only the first set?",
-      "text": "The diagram compares three groups: people who read the daily paper, people who listen to a news podcast, and people who watch the evening bulletin. How many people belong in only the first set?",
+      "stem": "A media-use study counts daily newspaper readers, news-podcast listeners and evening-bulletin viewers. How many people belong in only the first set?",
+      "text": "A media-use study counts daily newspaper readers, news-podcast listeners and evening-bulletin viewers. How many people belong in only the first set?",
       "options": [
         "69",
         "10",
@@ -1477,7 +1477,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The diagram compares three groups: people who read the daily paper, people who listen to a news podcast, and people who watch the evening bulletin. How many people belong in only the first set?",
+      "sharedStimulus": "A media-use study counts daily newspaper readers, news-podcast listeners and evening-bulletin viewers. How many people belong in only the first set?",
       "semanticMetadata": {
         "scenarioId": "MEDIA_PREFERENCES",
         "shapeLayoutId": "CIRCLE_SQUARE_TRIANGLE",
@@ -1545,8 +1545,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The diagram gives the numbers for visitors who received a blood-pressure check, visitors who received a vision check, and visitors who received a diabetes check. How many people belong in only the second set?",
-      "text": "The diagram gives the numbers for visitors who received a blood-pressure check, visitors who received a vision check, and visitors who received a diabetes check. How many people belong in only the second set?",
+      "stem": "At a health camp, visitors receive blood-pressure, vision and diabetes checks. How many people belong in only the second set?",
+      "text": "At a health camp, visitors receive blood-pressure, vision and diabetes checks. How many people belong in only the second set?",
       "options": [
         "0",
         "25",
@@ -1601,7 +1601,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The diagram gives the numbers for visitors who received a blood-pressure check, visitors who received a vision check, and visitors who received a diabetes check. How many people belong in only the second set?",
+      "sharedStimulus": "At a health camp, visitors receive blood-pressure, vision and diabetes checks. How many people belong in only the second set?",
       "semanticMetadata": {
         "scenarioId": "HEALTH_CAMP",
         "shapeLayoutId": "CIRCLE_RECTANGLE_DIAMOND",
@@ -1669,8 +1669,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "A survey counted staff who use the project dashboard, staff who use the shared calendar, and staff who use the team chat; the overlapping regions show shared membership. How many people belong in only the third set?",
-      "text": "A survey counted staff who use the project dashboard, staff who use the shared calendar, and staff who use the team chat; the overlapping regions show shared membership. How many people belong in only the third set?",
+      "stem": "An office review records staff using the project dashboard, shared calendar and team chat. How many people belong in only the third set?",
+      "text": "An office review records staff using the project dashboard, shared calendar and team chat. How many people belong in only the third set?",
       "options": [
         "10",
         "31",
@@ -1725,7 +1725,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "A survey counted staff who use the project dashboard, staff who use the shared calendar, and staff who use the team chat; the overlapping regions show shared membership. How many people belong in only the third set?",
+      "sharedStimulus": "An office review records staff using the project dashboard, shared calendar and team chat. How many people belong in only the third set?",
       "semanticMetadata": {
         "scenarioId": "WORKPLACE_TOOLS",
         "shapeLayoutId": "ELLIPSE_SQUARE_DIAMOND",
@@ -1793,8 +1793,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The overlap among travellers who used a bus, travellers who used a train, and travellers who used a bicycle is shown in the diagram. How many people belong in both the second and third sets, but not the first?",
-      "text": "The overlap among travellers who used a bus, travellers who used a train, and travellers who used a bicycle is shown in the diagram. How many people belong in both the second and third sets, but not the first?",
+      "stem": "On a travel route, passengers use buses, trains and bicycles, sometimes using more than one mode. How many people belong in both the second and third sets, but not the first?",
+      "text": "On a travel route, passengers use buses, trains and bicycles, sometimes using more than one mode. How many people belong in both the second and third sets, but not the first?",
       "options": [
         "20",
         "45",
@@ -1849,7 +1849,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The overlap among travellers who used a bus, travellers who used a train, and travellers who used a bicycle is shown in the diagram. How many people belong in both the second and third sets, but not the first?",
+      "sharedStimulus": "On a travel route, passengers use buses, trains and bicycles, sometimes using more than one mode. How many people belong in both the second and third sets, but not the first?",
       "semanticMetadata": {
         "scenarioId": "TRAVEL_SURVEY",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_DIAMOND",
@@ -1917,8 +1917,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "Counts for people who garden, people who cook a new recipe, and people who take photographs are divided among the regions below. How many people belong in all three sets?",
-      "text": "Counts for people who garden, people who cook a new recipe, and people who take photographs are divided among the regions below. How many people belong in all three sets?",
+      "stem": "A weekend-club register lists people who garden, try new recipes and take photographs. How many people belong in all three sets?",
+      "text": "A weekend-club register lists people who garden, try new recipes and take photographs. How many people belong in all three sets?",
       "options": [
         "73",
         "45",
@@ -1973,7 +1973,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "Counts for people who garden, people who cook a new recipe, and people who take photographs are divided among the regions below. How many people belong in all three sets?",
+      "sharedStimulus": "A weekend-club register lists people who garden, try new recipes and take photographs. How many people belong in all three sets?",
       "semanticMetadata": {
         "scenarioId": "WEEKEND_HOBBIES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_RIGHT_TRIANGLE",
@@ -2041,8 +2041,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The overlap among candidates who attend mathematics classes, candidates who attend English classes, and candidates who attend general-awareness classes is shown in the diagram. How many people belong in at least two sets?",
-      "text": "The overlap among candidates who attend mathematics classes, candidates who attend English classes, and candidates who attend general-awareness classes is shown in the diagram. How many people belong in at least two sets?",
+      "stem": "At an exam-preparation centre, candidates attend mathematics, English and general-awareness classes. How many people belong in at least two sets?",
+      "text": "At an exam-preparation centre, candidates attend mathematics, English and general-awareness classes. How many people belong in at least two sets?",
       "options": [
         "125",
         "80",
@@ -2097,7 +2097,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The overlap among candidates who attend mathematics classes, candidates who attend English classes, and candidates who attend general-awareness classes is shown in the diagram. How many people belong in at least two sets?",
+      "sharedStimulus": "At an exam-preparation centre, candidates attend mathematics, English and general-awareness classes. How many people belong in at least two sets?",
       "semanticMetadata": {
         "scenarioId": "EXAM_PREPARATION",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRAPEZOID",
@@ -2168,8 +2168,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "Records for farmers who cultivate wheat, farmers who cultivate mustard, and farmers who cultivate cotton are summarized below. How many people belong in exactly one set?",
-      "text": "Records for farmers who cultivate wheat, farmers who cultivate mustard, and farmers who cultivate cotton are summarized below. How many people belong in exactly one set?",
+      "stem": "Farmers in a block cultivate wheat, mustard and cotton, with some growing more than one crop. How many people belong in exactly one set?",
+      "text": "Farmers in a block cultivate wheat, mustard and cotton, with some growing more than one crop. How many people belong in exactly one set?",
       "options": [
         "102",
         "72",
@@ -2224,7 +2224,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "Records for farmers who cultivate wheat, farmers who cultivate mustard, and farmers who cultivate cotton are summarized below. How many people belong in exactly one set?",
+      "sharedStimulus": "Farmers in a block cultivate wheat, mustard and cotton, with some growing more than one crop. How many people belong in exactly one set?",
       "semanticMetadata": {
         "scenarioId": "CROP_CULTIVATION",
         "shapeLayoutId": "CIRCLE_RECTANGLE_PENTAGON",
@@ -2294,8 +2294,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "Records for library members who borrow fiction, library members who borrow biographies, and library members who borrow science books are summarized below. How many people belong in only the second set?",
-      "text": "Records for library members who borrow fiction, library members who borrow biographies, and library members who borrow science books are summarized below. How many people belong in only the second set?",
+      "stem": "Library records show members borrowing fiction, biographies and science books. How many people belong in only the second set?",
+      "text": "Library records show members borrowing fiction, biographies and science books. How many people belong in only the second set?",
       "options": [
         "24",
         "0",
@@ -2350,7 +2350,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "Records for library members who borrow fiction, library members who borrow biographies, and library members who borrow science books are summarized below. How many people belong in only the second set?",
+      "sharedStimulus": "Library records show members borrowing fiction, biographies and science books. How many people belong in only the second set?",
       "semanticMetadata": {
         "scenarioId": "LIBRARY_BORROWING",
         "shapeLayoutId": "CIRCLE_RECTANGLE_TRIANGLE",
@@ -2418,8 +2418,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The diagram gives the numbers for customers who bought groceries online, customers who bought clothing online, and customers who bought electronic goods online. How many people belong in only the third set?",
-      "text": "The diagram gives the numbers for customers who bought groceries online, customers who bought clothing online, and customers who bought electronic goods online. How many people belong in only the third set?",
+      "stem": "An online retailer groups customers by purchases of groceries, clothing and electronic goods. How many people belong in only the third set?",
+      "text": "An online retailer groups customers by purchases of groceries, clothing and electronic goods. How many people belong in only the third set?",
       "options": [
         "49",
         "59",
@@ -2474,7 +2474,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "The diagram gives the numbers for customers who bought groceries online, customers who bought clothing online, and customers who bought electronic goods online. How many people belong in only the third set?",
+      "sharedStimulus": "An online retailer groups customers by purchases of groceries, clothing and electronic goods. How many people belong in only the third set?",
       "semanticMetadata": {
         "scenarioId": "ONLINE_PURCHASES",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRIANGLE",
@@ -2542,8 +2542,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "एक सर्वेक्षण में स्मार्टफ़ोन का उपयोग करने वाले निवासी, लैपटॉप का उपयोग करने वाले निवासी और टैबलेट का उपयोग करने वाले निवासी की गिनती की गई; साझा सदस्यता अलग-अलग क्षेत्रों में दिखाई गई है। कितने लोग तीनों समूहों में हैं?",
-      "text": "एक सर्वेक्षण में स्मार्टफ़ोन का उपयोग करने वाले निवासी, लैपटॉप का उपयोग करने वाले निवासी और टैबलेट का उपयोग करने वाले निवासी की गिनती की गई; साझा सदस्यता अलग-अलग क्षेत्रों में दिखाई गई है। कितने लोग तीनों समूहों में हैं?",
+      "stem": "एक घरेलू अध्ययन में स्मार्टफ़ोन, लैपटॉप और टैबलेट का उपयोग करने वाले निवासियों का विवरण है। कितने लोग तीनों समूहों में हैं?",
+      "text": "एक घरेलू अध्ययन में स्मार्टफ़ोन, लैपटॉप और टैबलेट का उपयोग करने वाले निवासियों का विवरण है। कितने लोग तीनों समूहों में हैं?",
       "options": [
         "33",
         "12",
@@ -2598,7 +2598,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "एक सर्वेक्षण में स्मार्टफ़ोन का उपयोग करने वाले निवासी, लैपटॉप का उपयोग करने वाले निवासी और टैबलेट का उपयोग करने वाले निवासी की गिनती की गई; साझा सदस्यता अलग-अलग क्षेत्रों में दिखाई गई है। कितने लोग तीनों समूहों में हैं?",
+      "sharedStimulus": "एक घरेलू अध्ययन में स्मार्टफ़ोन, लैपटॉप और टैबलेट का उपयोग करने वाले निवासियों का विवरण है। कितने लोग तीनों समूहों में हैं?",
       "semanticMetadata": {
         "scenarioId": "DIGITAL_DEVICES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_TRIANGLE",
@@ -2666,8 +2666,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आरेख में UPI से भुगतान करने वाले ग्राहक, डेबिट कार्ड से भुगतान करने वाले ग्राहक और नकद भुगतान करने वाले ग्राहक समूहों का साझा हिस्सा दिखाया गया है। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
-      "text": "आरेख में UPI से भुगतान करने वाले ग्राहक, डेबिट कार्ड से भुगतान करने वाले ग्राहक और नकद भुगतान करने वाले ग्राहक समूहों का साझा हिस्सा दिखाया गया है। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
+      "stem": "एक दुकान के भुगतान अभिलेखों में UPI, डेबिट कार्ड और नकद से भुगतान करने वाले ग्राहक शामिल हैं। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
+      "text": "एक दुकान के भुगतान अभिलेखों में UPI, डेबिट कार्ड और नकद से भुगतान करने वाले ग्राहक शामिल हैं। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
       "options": [
         "10",
         "83",
@@ -2722,7 +2722,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "आरेख में UPI से भुगतान करने वाले ग्राहक, डेबिट कार्ड से भुगतान करने वाले ग्राहक और नकद भुगतान करने वाले ग्राहक समूहों का साझा हिस्सा दिखाया गया है। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
+      "sharedStimulus": "एक दुकान के भुगतान अभिलेखों में UPI, डेबिट कार्ड और नकद से भुगतान करने वाले ग्राहक शामिल हैं। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
       "semanticMetadata": {
         "scenarioId": "PAYMENT_METHODS",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRIANGLE",
@@ -2790,8 +2790,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आरेख में साक्षरता कार्यक्रमों में शामिल स्वयंसेवक, स्वास्थ्य शिविरों में शामिल स्वयंसेवक और स्वच्छता अभियानों में शामिल स्वयंसेवक की संख्या दी गई है। कितने लोग पहले और तीसरे दोनों समूहों में, लेकिन दूसरे में नहीं हैं?",
-      "text": "आरेख में साक्षरता कार्यक्रमों में शामिल स्वयंसेवक, स्वास्थ्य शिविरों में शामिल स्वयंसेवक और स्वच्छता अभियानों में शामिल स्वयंसेवक की संख्या दी गई है। कितने लोग पहले और तीसरे दोनों समूहों में, लेकिन दूसरे में नहीं हैं?",
+      "stem": "एक सामुदायिक संस्था स्वयंसेवकों को साक्षरता कार्यक्रमों, स्वास्थ्य शिविरों और स्वच्छता अभियानों में लगाती है। कितने लोग पहले और तीसरे दोनों समूहों में, लेकिन दूसरे में नहीं हैं?",
+      "text": "एक सामुदायिक संस्था स्वयंसेवकों को साक्षरता कार्यक्रमों, स्वास्थ्य शिविरों और स्वच्छता अभियानों में लगाती है। कितने लोग पहले और तीसरे दोनों समूहों में, लेकिन दूसरे में नहीं हैं?",
       "options": [
         "11",
         "27",
@@ -2846,7 +2846,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "आरेख में साक्षरता कार्यक्रमों में शामिल स्वयंसेवक, स्वास्थ्य शिविरों में शामिल स्वयंसेवक और स्वच्छता अभियानों में शामिल स्वयंसेवक की संख्या दी गई है। कितने लोग पहले और तीसरे दोनों समूहों में, लेकिन दूसरे में नहीं हैं?",
+      "sharedStimulus": "एक सामुदायिक संस्था स्वयंसेवकों को साक्षरता कार्यक्रमों, स्वास्थ्य शिविरों और स्वच्छता अभियानों में लगाती है। कितने लोग पहले और तीसरे दोनों समूहों में, लेकिन दूसरे में नहीं हैं?",
       "semanticMetadata": {
         "scenarioId": "COMMUNITY_VOLUNTEERING",
         "shapeLayoutId": "CIRCLE_SQUARE_TRIANGLE",
@@ -2914,8 +2914,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आरेख में स्प्रेडशीट सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी, वीडियो-कॉन्फ़्रेंसिंग सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी और प्रेज़ेंटेशन सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी की संख्या दी गई है। कितने लोग पहले और दूसरे दोनों समूहों में, लेकिन तीसरे में नहीं हैं?",
-      "text": "आरेख में स्प्रेडशीट सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी, वीडियो-कॉन्फ़्रेंसिंग सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी और प्रेज़ेंटेशन सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी की संख्या दी गई है। कितने लोग पहले और दूसरे दोनों समूहों में, लेकिन तीसरे में नहीं हैं?",
+      "stem": "एक कंपनी यह दर्ज करती है कि कौन-से कर्मचारी स्प्रेडशीट, वीडियो-कॉन्फ़्रेंसिंग और प्रेज़ेंटेशन सॉफ़्टवेयर का उपयोग करते हैं। कितने लोग पहले और दूसरे दोनों समूहों में, लेकिन तीसरे में नहीं हैं?",
+      "text": "एक कंपनी यह दर्ज करती है कि कौन-से कर्मचारी स्प्रेडशीट, वीडियो-कॉन्फ़्रेंसिंग और प्रेज़ेंटेशन सॉफ़्टवेयर का उपयोग करते हैं। कितने लोग पहले और दूसरे दोनों समूहों में, लेकिन तीसरे में नहीं हैं?",
       "options": [
         "14",
         "55",
@@ -2970,7 +2970,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "आरेख में स्प्रेडशीट सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी, वीडियो-कॉन्फ़्रेंसिंग सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी और प्रेज़ेंटेशन सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी की संख्या दी गई है। कितने लोग पहले और दूसरे दोनों समूहों में, लेकिन तीसरे में नहीं हैं?",
+      "sharedStimulus": "एक कंपनी यह दर्ज करती है कि कौन-से कर्मचारी स्प्रेडशीट, वीडियो-कॉन्फ़्रेंसिंग और प्रेज़ेंटेशन सॉफ़्टवेयर का उपयोग करते हैं। कितने लोग पहले और दूसरे दोनों समूहों में, लेकिन तीसरे में नहीं हैं?",
       "semanticMetadata": {
         "scenarioId": "WORKPLACE_SOFTWARE",
         "shapeLayoutId": "CIRCLE_RECTANGLE_DIAMOND",
@@ -3038,8 +3038,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आरेख में लोक-संगीत कार्यक्रमों में शामिल आगंतुक, नाटक देखने वाले आगंतुक और शिल्प प्रदर्शनियों में शामिल आगंतुक की संख्या दी गई है। कितने लोग केवल तीसरे समूह में हैं?",
-      "text": "आरेख में लोक-संगीत कार्यक्रमों में शामिल आगंतुक, नाटक देखने वाले आगंतुक और शिल्प प्रदर्शनियों में शामिल आगंतुक की संख्या दी गई है। कितने लोग केवल तीसरे समूह में हैं?",
+      "stem": "सांस्कृतिक उत्सव में आगंतुक लोक-संगीत कार्यक्रमों, नाटकों और शिल्प प्रदर्शनियों में शामिल होते हैं। कितने लोग केवल तीसरे समूह में हैं?",
+      "text": "सांस्कृतिक उत्सव में आगंतुक लोक-संगीत कार्यक्रमों, नाटकों और शिल्प प्रदर्शनियों में शामिल होते हैं। कितने लोग केवल तीसरे समूह में हैं?",
       "options": [
         "21",
         "31",
@@ -3094,7 +3094,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "आरेख में लोक-संगीत कार्यक्रमों में शामिल आगंतुक, नाटक देखने वाले आगंतुक और शिल्प प्रदर्शनियों में शामिल आगंतुक की संख्या दी गई है। कितने लोग केवल तीसरे समूह में हैं?",
+      "sharedStimulus": "सांस्कृतिक उत्सव में आगंतुक लोक-संगीत कार्यक्रमों, नाटकों और शिल्प प्रदर्शनियों में शामिल होते हैं। कितने लोग केवल तीसरे समूह में हैं?",
       "semanticMetadata": {
         "scenarioId": "CULTURAL_EVENTS",
         "shapeLayoutId": "ELLIPSE_SQUARE_DIAMOND",
@@ -3162,8 +3162,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "ऑनलाइन फ़िल्में देखने वाले दर्शक, ऑनलाइन खेल देखने वाले दर्शक और ऑनलाइन वृत्तचित्र देखने वाले दर्शक की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं। कितने लोग केवल दूसरे समूह में हैं?",
-      "text": "ऑनलाइन फ़िल्में देखने वाले दर्शक, ऑनलाइन खेल देखने वाले दर्शक और ऑनलाइन वृत्तचित्र देखने वाले दर्शक की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं। कितने लोग केवल दूसरे समूह में हैं?",
+      "stem": "एक स्ट्रीमिंग मंच पर फ़िल्में, खेल और वृत्तचित्र देखने वाले दर्शकों की संख्या दर्ज की गई है। कितने लोग केवल दूसरे समूह में हैं?",
+      "text": "एक स्ट्रीमिंग मंच पर फ़िल्में, खेल और वृत्तचित्र देखने वाले दर्शकों की संख्या दर्ज की गई है। कितने लोग केवल दूसरे समूह में हैं?",
       "options": [
         "55",
         "43",
@@ -3218,7 +3218,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ऑनलाइन फ़िल्में देखने वाले दर्शक, ऑनलाइन खेल देखने वाले दर्शक और ऑनलाइन वृत्तचित्र देखने वाले दर्शक की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं। कितने लोग केवल दूसरे समूह में हैं?",
+      "sharedStimulus": "एक स्ट्रीमिंग मंच पर फ़िल्में, खेल और वृत्तचित्र देखने वाले दर्शकों की संख्या दर्ज की गई है। कितने लोग केवल दूसरे समूह में हैं?",
       "semanticMetadata": {
         "scenarioId": "STREAMING_VIEWERS",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_DIAMOND",
@@ -3286,8 +3286,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आरेख में कंप्यूटर की बुनियादी जानकारी का पाठ्यक्रम पूरा करने वाले प्रशिक्षु, बोलचाल की अंग्रेज़ी का पाठ्यक्रम पूरा करने वाले प्रशिक्षु और प्राथमिक उपचार का पाठ्यक्रम पूरा करने वाले प्रशिक्षु की संख्या दी गई है। कितने लोग केवल पहले समूह में हैं?",
-      "text": "आरेख में कंप्यूटर की बुनियादी जानकारी का पाठ्यक्रम पूरा करने वाले प्रशिक्षु, बोलचाल की अंग्रेज़ी का पाठ्यक्रम पूरा करने वाले प्रशिक्षु और प्राथमिक उपचार का पाठ्यक्रम पूरा करने वाले प्रशिक्षु की संख्या दी गई है। कितने लोग केवल पहले समूह में हैं?",
+      "stem": "एक प्रशिक्षण कार्यक्रम कंप्यूटर की बुनियादी जानकारी, बोलचाल की अंग्रेज़ी और प्राथमिक उपचार के पाठ्यक्रम पूरे करने वाले प्रशिक्षुओं का लेखा रखता है। कितने लोग केवल पहले समूह में हैं?",
+      "text": "एक प्रशिक्षण कार्यक्रम कंप्यूटर की बुनियादी जानकारी, बोलचाल की अंग्रेज़ी और प्राथमिक उपचार के पाठ्यक्रम पूरे करने वाले प्रशिक्षुओं का लेखा रखता है। कितने लोग केवल पहले समूह में हैं?",
       "options": [
         "0",
         "43",
@@ -3342,7 +3342,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "आरेख में कंप्यूटर की बुनियादी जानकारी का पाठ्यक्रम पूरा करने वाले प्रशिक्षु, बोलचाल की अंग्रेज़ी का पाठ्यक्रम पूरा करने वाले प्रशिक्षु और प्राथमिक उपचार का पाठ्यक्रम पूरा करने वाले प्रशिक्षु की संख्या दी गई है। कितने लोग केवल पहले समूह में हैं?",
+      "sharedStimulus": "एक प्रशिक्षण कार्यक्रम कंप्यूटर की बुनियादी जानकारी, बोलचाल की अंग्रेज़ी और प्राथमिक उपचार के पाठ्यक्रम पूरे करने वाले प्रशिक्षुओं का लेखा रखता है। कितने लोग केवल पहले समूह में हैं?",
       "semanticMetadata": {
         "scenarioId": "SKILL_COURSES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_RIGHT_TRIANGLE",
@@ -3410,8 +3410,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "शहर की बस सेवा का उपयोग करने वाले निवासी, सार्वजनिक पार्कों में जाने वाले निवासी और पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासी के आँकड़े नीचे दिए गए हैं। कितने लोग कम-से-कम एक समूह में हैं?",
-      "text": "शहर की बस सेवा का उपयोग करने वाले निवासी, सार्वजनिक पार्कों में जाने वाले निवासी और पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासी के आँकड़े नीचे दिए गए हैं। कितने लोग कम-से-कम एक समूह में हैं?",
+      "stem": "शहर की रिपोर्ट में बस सेवा का उपयोग करने, सार्वजनिक पार्कों में जाने और पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासियों का विवरण है। कितने लोग कम-से-कम एक समूह में हैं?",
+      "text": "शहर की रिपोर्ट में बस सेवा का उपयोग करने, सार्वजनिक पार्कों में जाने और पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासियों का विवरण है। कितने लोग कम-से-कम एक समूह में हैं?",
       "options": [
         "196",
         "173",
@@ -3466,7 +3466,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "शहर की बस सेवा का उपयोग करने वाले निवासी, सार्वजनिक पार्कों में जाने वाले निवासी और पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासी के आँकड़े नीचे दिए गए हैं। कितने लोग कम-से-कम एक समूह में हैं?",
+      "sharedStimulus": "शहर की रिपोर्ट में बस सेवा का उपयोग करने, सार्वजनिक पार्कों में जाने और पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासियों का विवरण है। कितने लोग कम-से-कम एक समूह में हैं?",
       "semanticMetadata": {
         "scenarioId": "MUNICIPAL_SERVICES",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRAPEZOID",
@@ -3540,8 +3540,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "विद्यालय का समाचार-पत्र पढ़ने वाले विद्यार्थी, टीम खेल खेलने वाले विद्यार्थी और विज्ञान क्लब में जाने वाले विद्यार्थी की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं। कितने लोग ठीक एक समूह में हैं?",
-      "text": "विद्यालय का समाचार-पत्र पढ़ने वाले विद्यार्थी, टीम खेल खेलने वाले विद्यार्थी और विज्ञान क्लब में जाने वाले विद्यार्थी की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं। कितने लोग ठीक एक समूह में हैं?",
+      "stem": "एक विद्यालय में विद्यार्थी समाचार-पत्र क्लब, टीम खेलों और विज्ञान क्लब में भाग लेते हैं। कितने लोग ठीक एक समूह में हैं?",
+      "text": "एक विद्यालय में विद्यार्थी समाचार-पत्र क्लब, टीम खेलों और विज्ञान क्लब में भाग लेते हैं। कितने लोग ठीक एक समूह में हैं?",
       "options": [
         "71",
         "79",
@@ -3596,7 +3596,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "विद्यालय का समाचार-पत्र पढ़ने वाले विद्यार्थी, टीम खेल खेलने वाले विद्यार्थी और विज्ञान क्लब में जाने वाले विद्यार्थी की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं। कितने लोग ठीक एक समूह में हैं?",
+      "sharedStimulus": "एक विद्यालय में विद्यार्थी समाचार-पत्र क्लब, टीम खेलों और विज्ञान क्लब में भाग लेते हैं। कितने लोग ठीक एक समूह में हैं?",
       "semanticMetadata": {
         "scenarioId": "SCHOOL_ACTIVITIES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_PENTAGON",
@@ -3666,8 +3666,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आरेख में सार्वजनिक पुस्तकालय का उपयोग करने वाले निवासी, खेल केंद्र का उपयोग करने वाले निवासी और सांस्कृतिक कार्यक्रमों में जाने वाले निवासी की संख्या दी गई है। कितने लोग कम-से-कम दो समूहों में हैं?",
-      "text": "आरेख में सार्वजनिक पुस्तकालय का उपयोग करने वाले निवासी, खेल केंद्र का उपयोग करने वाले निवासी और सांस्कृतिक कार्यक्रमों में जाने वाले निवासी की संख्या दी गई है। कितने लोग कम-से-कम दो समूहों में हैं?",
+      "stem": "एक मोहल्ले के निवासी सार्वजनिक पुस्तकालय और खेल केंद्र का उपयोग करते हैं या सांस्कृतिक कार्यक्रमों में जाते हैं। कितने लोग कम-से-कम दो समूहों में हैं?",
+      "text": "एक मोहल्ले के निवासी सार्वजनिक पुस्तकालय और खेल केंद्र का उपयोग करते हैं या सांस्कृतिक कार्यक्रमों में जाते हैं। कितने लोग कम-से-कम दो समूहों में हैं?",
       "options": [
         "93",
         "122",
@@ -3722,7 +3722,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "आरेख में सार्वजनिक पुस्तकालय का उपयोग करने वाले निवासी, खेल केंद्र का उपयोग करने वाले निवासी और सांस्कृतिक कार्यक्रमों में जाने वाले निवासी की संख्या दी गई है। कितने लोग कम-से-कम दो समूहों में हैं?",
+      "sharedStimulus": "एक मोहल्ले के निवासी सार्वजनिक पुस्तकालय और खेल केंद्र का उपयोग करते हैं या सांस्कृतिक कार्यक्रमों में जाते हैं। कितने लोग कम-से-कम दो समूहों में हैं?",
       "semanticMetadata": {
         "scenarioId": "COMMUNITY_SURVEY",
         "shapeLayoutId": "CIRCLE_RECTANGLE_TRIANGLE",
@@ -3793,7 +3793,308 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आरेख में सुरक्षा मॉड्यूल पूरा करने वाले प्रशिक्षु, डिजिटल-कौशल मॉड्यूल पूरा करने वाले प्रशिक्षु औ…6373 tokens truncated…anualApprovalRequired": true,
+      "stem": "एक प्रशिक्षण संस्थान सुरक्षा, डिजिटल-कौशल और प्राथमिक उपचार मॉड्यूल पूरे करने वाले प्रशिक्षुओं का लेखा रखता है। कितने लोग कम-से-कम एक समूह में हैं?",
+      "text": "एक प्रशिक्षण संस्थान सुरक्षा, डिजिटल-कौशल और प्राथमिक उपचार मॉड्यूल पूरे करने वाले प्रशिक्षुओं का लेखा रखता है। कितने लोग कम-से-कम एक समूह में हैं?",
+      "options": [
+        "205",
+        "217",
+        "266",
+        "234"
+      ],
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correctIndex": 1,
+      "correct": 1,
+      "answer": "B",
+      "canonicalAnswer": "217",
+      "explanation": "केवल पहली आकृति: 22; केवल दूसरी आकृति: 17; पहली और दूसरी आकृति, तीसरी के बिना: 12; केवल तीसरी आकृति: 49; पहली और तीसरी आकृति, दूसरी के बिना: 44; दूसरी और तीसरी आकृति, पहली के बिना: 39; तीनों आकृतियाँ: 34। यही कम-से-कम एक समूह में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 22 + 17 + 12 + 49 + 44 + 39 + 34 = 217।",
+      "stimulusSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = सुरक्षा मॉड्यूल पूरा करने वाले प्रशिक्षु</text><text x=\"8\" y=\"42\">B — आयत = डिजिटल-कौशल मॉड्यूल पूरा करने वाले प्रशिक्षु</text><text x=\"8\" y=\"61\">C — त्रिभुज = प्राथमिक उपचार मॉड्यूल पूरा करने वाले प्रशिक्षु</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">27</text><text x=\"402\" y=\"144\" data-mask=\"1\">22</text><text x=\"117\" y=\"279\" data-mask=\"2\">17</text><text x=\"501\" y=\"273\" data-mask=\"3\">12</text><text x=\"465\" y=\"420\" data-mask=\"4\">49</text><text x=\"303\" y=\"162\" data-mask=\"5\">44</text><text x=\"168\" y=\"342\" data-mask=\"6\">39</text><text x=\"327\" y=\"285\" data-mask=\"7\">34</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "explanationSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = सुरक्षा मॉड्यूल पूरा करने वाले प्रशिक्षु</text><text x=\"8\" y=\"42\">B — आयत = डिजिटल-कौशल मॉड्यूल पूरा करने वाले प्रशिक्षु</text><text x=\"8\" y=\"61\">C — त्रिभुज = प्राथमिक उपचार मॉड्यूल पूरा करने वाले प्रशिक्षु</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">27</text><text x=\"402\" y=\"144\" data-mask=\"1\">22</text><text x=\"117\" y=\"279\" data-mask=\"2\">17</text><text x=\"501\" y=\"273\" data-mask=\"3\">12</text><text x=\"465\" y=\"420\" data-mask=\"4\">49</text><text x=\"303\" y=\"162\" data-mask=\"5\">44</text><text x=\"168\" y=\"342\" data-mask=\"6\">39</text><text x=\"327\" y=\"285\" data-mask=\"7\">34</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "optionDetails": [
+        {
+          "label": "A",
+          "text": "205",
+          "isCorrect": false
+        },
+        {
+          "label": "B",
+          "text": "217",
+          "isCorrect": true
+        },
+        {
+          "label": "C",
+          "text": "266",
+          "isCorrect": false
+        },
+        {
+          "label": "D",
+          "text": "234",
+          "isCorrect": false
+        }
+      ],
+      "difficulty": "Medium",
+      "difficultyLabel": "Medium",
+      "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
+      "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "generationSeed": "shape-regions-review-v2",
+      "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
+      "runtimeMode": "review-only",
+      "reviewOnly": true,
+      "readOnly": true,
+      "sharedStimulus": "एक प्रशिक्षण संस्थान सुरक्षा, डिजिटल-कौशल और प्राथमिक उपचार मॉड्यूल पूरे करने वाले प्रशिक्षुओं का लेखा रखता है। कितने लोग कम-से-कम एक समूह में हैं?",
+      "semanticMetadata": {
+        "scenarioId": "TRAINING_COURSE",
+        "shapeLayoutId": "ELLIPSE_RECTANGLE_TRIANGLE",
+        "shapeTypes": [
+          "ellipse",
+          "rectangle",
+          "triangle"
+        ],
+        "queryKey": "any-shape",
+        "queryPattern": "union",
+        "shapeSetLabels": [
+          "सुरक्षा मॉड्यूल पूरा करने वाले प्रशिक्षु",
+          "डिजिटल-कौशल मॉड्यूल पूरा करने वाले प्रशिक्षु",
+          "प्राथमिक उपचार मॉड्यूल पूरा करने वाले प्रशिक्षु"
+        ],
+        "exclusiveRegions": [
+          27,
+          22,
+          17,
+          12,
+          49,
+          44,
+          39,
+          34
+        ],
+        "selectedMasks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "validation": {
+        "exactlyOneCorrect": true,
+        "fourUniqueOptions": true,
+        "allEightRegionsVisible": true,
+        "shapeLayoutHasEightRegions": true,
+        "labelClearancePx": 20,
+        "localeParityPendingHumanReview": true
+      }
+    },
+    {
+      "lifecycleId": "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+      "stage": "REVIEW_ONLY",
+      "reviewSurfaceRequired": true,
+      "reviewRunPersistenceAllowed": true,
+      "canonicalQuestionPersistenceAllowed": false,
+      "manualApprovalRequired": true,
+      "questionBankStatus": "NOT_STORED",
+      "questionBankWritable": false,
+      "questionBankAcceptanceMode": nu…1487 tokens truncated…     "isCorrect": false
+        },
+        {
+          "label": "C",
+          "text": "43",
+          "isCorrect": false
+        },
+        {
+          "label": "D",
+          "text": "24",
+          "isCorrect": true
+        }
+      ],
+      "difficulty": "Medium",
+      "difficultyLabel": "Medium",
+      "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
+      "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "generationSeed": "shape-regions-review-v2",
+      "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
+      "runtimeMode": "review-only",
+      "reviewOnly": true,
+      "readOnly": true,
+      "sharedStimulus": "मीडिया के उपयोग से जुड़े अध्ययन में दैनिक समाचार-पत्र पढ़ने, समाचार पॉडकास्ट सुनने और शाम का बुलेटिन देखने वालों की गिनती की गई। कितने लोग केवल पहले समूह में हैं?",
+      "semanticMetadata": {
+        "scenarioId": "MEDIA_PREFERENCES",
+        "shapeLayoutId": "CIRCLE_SQUARE_TRIANGLE",
+        "shapeTypes": [
+          "circle",
+          "square",
+          "triangle"
+        ],
+        "queryKey": "only-A",
+        "queryPattern": "single",
+        "shapeSetLabels": [
+          "दैनिक समाचार-पत्र पढ़ने वाले लोग",
+          "समाचार पॉडकास्ट सुनने वाले लोग",
+          "शाम का समाचार बुलेटिन देखने वाले लोग"
+        ],
+        "exclusiveRegions": [
+          29,
+          24,
+          19,
+          14,
+          45,
+          40,
+          35,
+          34
+        ],
+        "selectedMasks": [
+          1
+        ]
+      },
+      "validation": {
+        "exactlyOneCorrect": true,
+        "fourUniqueOptions": true,
+        "allEightRegionsVisible": true,
+        "shapeLayoutHasEightRegions": true,
+        "labelClearancePx": 20,
+        "localeParityPendingHumanReview": true
+      }
+    },
+    {
+      "lifecycleId": "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+      "stage": "REVIEW_ONLY",
+      "reviewSurfaceRequired": true,
+      "reviewRunPersistenceAllowed": true,
+      "canonicalQuestionPersistenceAllowed": false,
+      "manualApprovalRequired": true,
+      "questionBankStatus": "NOT_STORED",
+      "questionBankWritable": false,
+      "questionBankAcceptanceMode": null,
+      "questionBankAcceptanceAuthority": null,
+      "testEligibility": "INELIGIBLE",
+      "testEligible": false,
+      "mockTestEligible": false,
+      "publiclyPublishable": false,
+      "automaticStudentPublication": false,
+      "productionReleaseAuthorized": false,
+      "id": "VEN-CP011:HEALTH_CAMP:only-B:874707541:hi",
+      "questionId": "VEN-CP011:HEALTH_CAMP:only-B:874707541:hi",
+      "packageId": "VEN-001",
+      "patternId": "VEN-CP011",
+      "cpId": "VEN-CP011",
+      "checkpointId": "VEN-CP011",
+      "subject": "Reasoning Ability",
+      "contentDomain": "Geometric Venn diagram region reading",
+      "topic": "Venn Diagrams",
+      "subtopic": "Geometric shape region counts",
+      "language": "hi",
+      "locale": "hi-IN",
+      "stem": "स्वास्थ्य शिविर में आगंतुक रक्तचाप, दृष्टि और मधुमेह की जाँच कराते हैं। कितने लोग केवल दूसरे समूह में हैं?",
+      "text": "स्वास्थ्य शिविर में आगंतुक रक्तचाप, दृष्टि और मधुमेह की जाँच कराते हैं। कितने लोग केवल दूसरे समूह में हैं?",
+      "options": [
+        "0",
+        "25",
+        "57",
+        "45"
+      ],
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correctIndex": 1,
+      "correct": 1,
+      "answer": "B",
+      "canonicalAnswer": "25",
+      "explanation": "केवल दूसरी आकृति: 25। यही केवल दूसरे समूह में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 25 = 25।",
+      "stimulusSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = रक्तचाप जाँच कराने वाले आगंतुक</text><text x=\"8\" y=\"42\">B — आयत = दृष्टि जाँच कराने वाले आगंतुक</text><text x=\"8\" y=\"61\">C — हीराकार = मधुमेह जाँच कराने वाले आगंतुक</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">15</text><text x=\"456\" y=\"138\" data-mask=\"1\">10</text><text x=\"105\" y=\"345\" data-mask=\"2\">25</text><text x=\"537\" y=\"234\" data-mask=\"3\">20</text><text x=\"300\" y=\"420\" data-mask=\"4\">37</text><text x=\"303\" y=\"153\" data-mask=\"5\">32</text><text x=\"165\" y=\"279\" data-mask=\"6\">47</text><text x=\"327\" y=\"288\" data-mask=\"7\">42</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "explanationSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = रक्तचाप जाँच कराने वाले आगंतुक</text><text x=\"8\" y=\"42\">B — आयत = दृष्टि जाँच कराने वाले आगंतुक</text><text x=\"8\" y=\"61\">C — हीराकार = मधुमेह जाँच कराने वाले आगंतुक</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">15</text><text x=\"456\" y=\"138\" data-mask=\"1\">10</text><text x=\"105\" y=\"345\" data-mask=\"2\">25</text><text x=\"537\" y=\"234\" data-mask=\"3\">20</text><text x=\"300\" y=\"420\" data-mask=\"4\">37</text><text x=\"303\" y=\"153\" data-mask=\"5\">32</text><text x=\"165\" y=\"279\" data-mask=\"6\">47</text><text x=\"327\" y=\"288\" data-mask=\"7\">42</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "optionDetails": [
+        {
+          "label": "A",
+          "text": "0",
+          "isCorrect": false
+        },
+        {
+          "label": "B",
+          "text": "25",
+          "isCorrect": true
+        },
+        {
+          "label": "C",
+          "text": "57",
+          "isCorrect": false
+        },
+        {
+          "label": "D",
+          "text": "45",
+          "isCorrect": false
+        }
+      ],
+      "difficulty": "Medium",
+      "difficultyLabel": "Medium",
+      "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
+      "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "generationSeed": "shape-regions-review-v2",
+      "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
+      "runtimeMode": "review-only",
+      "reviewOnly": true,
+      "readOnly": true,
+      "sharedStimulus": "स्वास्थ्य शिविर में आगंतुक रक्तचाप, दृष्टि और मधुमेह की जाँच कराते हैं। कितने लोग केवल दूसरे समूह में हैं?",
+      "semanticMetadata": {
+        "scenarioId": "HEALTH_CAMP",
+        "shapeLayoutId": "CIRCLE_RECTANGLE_DIAMOND",
+        "shapeTypes": [
+          "circle",
+          "rectangle",
+          "diamond"
+        ],
+        "queryKey": "only-B",
+        "queryPattern": "single",
+        "shapeSetLabels": [
+          "रक्तचाप जाँच कराने वाले आगंतुक",
+          "दृष्टि जाँच कराने वाले आगंतुक",
+          "मधुमेह जाँच कराने वाले आगंतुक"
+        ],
+        "exclusiveRegions": [
+          15,
+          10,
+          25,
+          20,
+          37,
+          32,
+          47,
+          42
+        ],
+        "selectedMasks": [
+          2
+        ]
+      },
+      "validation": {
+        "exactlyOneCorrect": true,
+        "fourUniqueOptions": true,
+        "allEightRegionsVisible": true,
+        "shapeLayoutHasEightRegions": true,
+        "labelClearancePx": 20,
+        "localeParityPendingHumanReview": true
+      }
+    },
+    {
+      "lifecycleId": "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+      "stage": "REVIEW_ONLY",
+      "reviewSurfaceRequired": true,
+      "reviewRunPersistenceAllowed": true,
+      "canonicalQuestionPersistenceAllowed": false,
+      "manualApprovalRequired": true,
       "questionBankStatus": "NOT_STORED",
       "questionBankWritable": false,
       "questionBankAcceptanceMode": null,
@@ -3816,8 +4117,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "एक सर्वेक्षण में परियोजना डैशबोर्ड का उपयोग करने वाले कर्मचारी, साझा कैलेंडर का उपयोग करने वाले कर्मचारी और टीम चैट का उपयोग करने वाले कर्मचारी की गिनती की गई; साझा सदस्यता अलग-अलग क्षेत्रों में दिखाई गई है। कितने लोग केवल तीसरे समूह में हैं?",
-      "text": "एक सर्वेक्षण में परियोजना डैशबोर्ड का उपयोग करने वाले कर्मचारी, साझा कैलेंडर का उपयोग करने वाले कर्मचारी और टीम चैट का उपयोग करने वाले कर्मचारी की गिनती की गई; साझा सदस्यता अलग-अलग क्षेत्रों में दिखाई गई है। कितने लोग केवल तीसरे समूह में हैं?",
+      "stem": "कार्यालय की समीक्षा में परियोजना डैशबोर्ड, साझा कैलेंडर और टीम चैट का उपयोग करने वाले कर्मचारियों का विवरण है। कितने लोग केवल तीसरे समूह में हैं?",
+      "text": "कार्यालय की समीक्षा में परियोजना डैशबोर्ड, साझा कैलेंडर और टीम चैट का उपयोग करने वाले कर्मचारियों का विवरण है। कितने लोग केवल तीसरे समूह में हैं?",
       "options": [
         "10",
         "31",
@@ -3872,7 +4173,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "एक सर्वेक्षण में परियोजना डैशबोर्ड का उपयोग करने वाले कर्मचारी, साझा कैलेंडर का उपयोग करने वाले कर्मचारी और टीम चैट का उपयोग करने वाले कर्मचारी की गिनती की गई; साझा सदस्यता अलग-अलग क्षेत्रों में दिखाई गई है। कितने लोग केवल तीसरे समूह में हैं?",
+      "sharedStimulus": "कार्यालय की समीक्षा में परियोजना डैशबोर्ड, साझा कैलेंडर और टीम चैट का उपयोग करने वाले कर्मचारियों का विवरण है। कितने लोग केवल तीसरे समूह में हैं?",
       "semanticMetadata": {
         "scenarioId": "WORKPLACE_TOOLS",
         "shapeLayoutId": "ELLIPSE_SQUARE_DIAMOND",
@@ -3940,8 +4241,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आरेख में बस से यात्रा करने वाले यात्री, रेलगाड़ी से यात्रा करने वाले यात्री और साइकिल से यात्रा करने वाले यात्री समूहों का साझा हिस्सा दिखाया गया है। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
-      "text": "आरेख में बस से यात्रा करने वाले यात्री, रेलगाड़ी से यात्रा करने वाले यात्री और साइकिल से यात्रा करने वाले यात्री समूहों का साझा हिस्सा दिखाया गया है। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
+      "stem": "एक यात्रा मार्ग पर यात्री बस, रेलगाड़ी और साइकिल का उपयोग करते हैं; कुछ यात्री एक से अधिक साधन अपनाते हैं। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
+      "text": "एक यात्रा मार्ग पर यात्री बस, रेलगाड़ी और साइकिल का उपयोग करते हैं; कुछ यात्री एक से अधिक साधन अपनाते हैं। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
       "options": [
         "20",
         "45",
@@ -3996,7 +4297,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "आरेख में बस से यात्रा करने वाले यात्री, रेलगाड़ी से यात्रा करने वाले यात्री और साइकिल से यात्रा करने वाले यात्री समूहों का साझा हिस्सा दिखाया गया है। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
+      "sharedStimulus": "एक यात्रा मार्ग पर यात्री बस, रेलगाड़ी और साइकिल का उपयोग करते हैं; कुछ यात्री एक से अधिक साधन अपनाते हैं। कितने लोग दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं हैं?",
       "semanticMetadata": {
         "scenarioId": "TRAVEL_SURVEY",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_DIAMOND",
@@ -4064,8 +4365,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "बागवानी करने वाले लोग, नई रेसिपी बनाने वाले लोग और तस्वीरें लेने वाले लोग की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं। कितने लोग तीनों समूहों में हैं?",
-      "text": "बागवानी करने वाले लोग, नई रेसिपी बनाने वाले लोग और तस्वीरें लेने वाले लोग की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं। कितने लोग तीनों समूहों में हैं?",
+      "stem": "सप्ताहांत क्लब के रजिस्टर में बागवानी, नई रेसिपी बनाने और तस्वीरें लेने वाले लोगों का विवरण है। कितने लोग तीनों समूहों में हैं?",
+      "text": "सप्ताहांत क्लब के रजिस्टर में बागवानी, नई रेसिपी बनाने और तस्वीरें लेने वाले लोगों का विवरण है। कितने लोग तीनों समूहों में हैं?",
       "options": [
         "73",
         "45",
@@ -4120,7 +4421,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "बागवानी करने वाले लोग, नई रेसिपी बनाने वाले लोग और तस्वीरें लेने वाले लोग की संख्याएँ नीचे दिए गए क्षेत्रों में बाँटी गई हैं। कितने लोग तीनों समूहों में हैं?",
+      "sharedStimulus": "सप्ताहांत क्लब के रजिस्टर में बागवानी, नई रेसिपी बनाने और तस्वीरें लेने वाले लोगों का विवरण है। कितने लोग तीनों समूहों में हैं?",
       "semanticMetadata": {
         "scenarioId": "WEEKEND_HOBBIES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_RIGHT_TRIANGLE",
@@ -4188,8 +4489,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आरेख में गणित की कक्षाओं में जाने वाले अभ्यर्थी, अंग्रेज़ी की कक्षाओं में जाने वाले अभ्यर्थी और सामान्य जागरूकता की कक्षाओं में जाने वाले अभ्यर्थी समूहों का साझा हिस्सा दिखाया गया है। कितने लोग कम-से-कम दो समूहों में हैं?",
-      "text": "आरेख में गणित की कक्षाओं में जाने वाले अभ्यर्थी, अंग्रेज़ी की कक्षाओं में जाने वाले अभ्यर्थी और सामान्य जागरूकता की कक्षाओं में जाने वाले अभ्यर्थी समूहों का साझा हिस्सा दिखाया गया है। कितने लोग कम-से-कम दो समूहों में हैं?",
+      "stem": "परीक्षा-तैयारी केंद्र में अभ्यर्थी गणित, अंग्रेज़ी और सामान्य जागरूकता की कक्षाएँ लेते हैं। कितने लोग कम-से-कम दो समूहों में हैं?",
+      "text": "परीक्षा-तैयारी केंद्र में अभ्यर्थी गणित, अंग्रेज़ी और सामान्य जागरूकता की कक्षाएँ लेते हैं। कितने लोग कम-से-कम दो समूहों में हैं?",
       "options": [
         "125",
         "80",
@@ -4244,7 +4545,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "आरेख में गणित की कक्षाओं में जाने वाले अभ्यर्थी, अंग्रेज़ी की कक्षाओं में जाने वाले अभ्यर्थी और सामान्य जागरूकता की कक्षाओं में जाने वाले अभ्यर्थी समूहों का साझा हिस्सा दिखाया गया है। कितने लोग कम-से-कम दो समूहों में हैं?",
+      "sharedStimulus": "परीक्षा-तैयारी केंद्र में अभ्यर्थी गणित, अंग्रेज़ी और सामान्य जागरूकता की कक्षाएँ लेते हैं। कितने लोग कम-से-कम दो समूहों में हैं?",
       "semanticMetadata": {
         "scenarioId": "EXAM_PREPARATION",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRAPEZOID",
@@ -4315,8 +4616,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "गेहूँ उगाने वाले किसान, सरसों उगाने वाले किसान और कपास उगाने वाले किसान के आँकड़े नीचे दिए गए हैं। कितने लोग ठीक एक समूह में हैं?",
-      "text": "गेहूँ उगाने वाले किसान, सरसों उगाने वाले किसान और कपास उगाने वाले किसान के आँकड़े नीचे दिए गए हैं। कितने लोग ठीक एक समूह में हैं?",
+      "stem": "एक क्षेत्र के किसान गेहूँ, सरसों और कपास उगाते हैं; कुछ किसान एक से अधिक फसलें भी उगाते हैं। कितने लोग ठीक एक समूह में हैं?",
+      "text": "एक क्षेत्र के किसान गेहूँ, सरसों और कपास उगाते हैं; कुछ किसान एक से अधिक फसलें भी उगाते हैं। कितने लोग ठीक एक समूह में हैं?",
       "options": [
         "102",
         "72",
@@ -4371,7 +4672,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "गेहूँ उगाने वाले किसान, सरसों उगाने वाले किसान और कपास उगाने वाले किसान के आँकड़े नीचे दिए गए हैं। कितने लोग ठीक एक समूह में हैं?",
+      "sharedStimulus": "एक क्षेत्र के किसान गेहूँ, सरसों और कपास उगाते हैं; कुछ किसान एक से अधिक फसलें भी उगाते हैं। कितने लोग ठीक एक समूह में हैं?",
       "semanticMetadata": {
         "scenarioId": "CROP_CULTIVATION",
         "shapeLayoutId": "CIRCLE_RECTANGLE_PENTAGON",
@@ -4441,8 +4742,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "कथा-साहित्य लेने वाले पुस्तकालय सदस्य, जीवनियाँ लेने वाले पुस्तकालय सदस्य और विज्ञान की पुस्तकें लेने वाले पुस्तकालय सदस्य के आँकड़े नीचे दिए गए हैं। कितने लोग केवल दूसरे समूह में हैं?",
-      "text": "कथा-साहित्य लेने वाले पुस्तकालय सदस्य, जीवनियाँ लेने वाले पुस्तकालय सदस्य और विज्ञान की पुस्तकें लेने वाले पुस्तकालय सदस्य के आँकड़े नीचे दिए गए हैं। कितने लोग केवल दूसरे समूह में हैं?",
+      "stem": "पुस्तकालय के अभिलेखों में कथा-साहित्य, जीवनियाँ और विज्ञान की पुस्तकें लेने वाले सदस्यों की संख्या दी गई है। कितने लोग केवल दूसरे समूह में हैं?",
+      "text": "पुस्तकालय के अभिलेखों में कथा-साहित्य, जीवनियाँ और विज्ञान की पुस्तकें लेने वाले सदस्यों की संख्या दी गई है। कितने लोग केवल दूसरे समूह में हैं?",
       "options": [
         "24",
         "0",
@@ -4497,7 +4798,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "कथा-साहित्य लेने वाले पुस्तकालय सदस्य, जीवनियाँ लेने वाले पुस्तकालय सदस्य और विज्ञान की पुस्तकें लेने वाले पुस्तकालय सदस्य के आँकड़े नीचे दिए गए हैं। कितने लोग केवल दूसरे समूह में हैं?",
+      "sharedStimulus": "पुस्तकालय के अभिलेखों में कथा-साहित्य, जीवनियाँ और विज्ञान की पुस्तकें लेने वाले सदस्यों की संख्या दी गई है। कितने लोग केवल दूसरे समूह में हैं?",
       "semanticMetadata": {
         "scenarioId": "LIBRARY_BORROWING",
         "shapeLayoutId": "CIRCLE_RECTANGLE_TRIANGLE",
@@ -4565,8 +4866,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आरेख में ऑनलाइन किराने का सामान खरीदने वाले ग्राहक, ऑनलाइन कपड़े खरीदने वाले ग्राहक और ऑनलाइन इलेक्ट्रॉनिक सामान खरीदने वाले ग्राहक की संख्या दी गई है। कितने लोग केवल तीसरे समूह में हैं?",
-      "text": "आरेख में ऑनलाइन किराने का सामान खरीदने वाले ग्राहक, ऑनलाइन कपड़े खरीदने वाले ग्राहक और ऑनलाइन इलेक्ट्रॉनिक सामान खरीदने वाले ग्राहक की संख्या दी गई है। कितने लोग केवल तीसरे समूह में हैं?",
+      "stem": "एक ऑनलाइन विक्रेता ग्राहकों को किराने के सामान, कपड़ों और इलेक्ट्रॉनिक वस्तुओं की खरीद के आधार पर दर्ज करता है। कितने लोग केवल तीसरे समूह में हैं?",
+      "text": "एक ऑनलाइन विक्रेता ग्राहकों को किराने के सामान, कपड़ों और इलेक्ट्रॉनिक वस्तुओं की खरीद के आधार पर दर्ज करता है। कितने लोग केवल तीसरे समूह में हैं?",
       "options": [
         "49",
         "59",
@@ -4621,7 +4922,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "आरेख में ऑनलाइन किराने का सामान खरीदने वाले ग्राहक, ऑनलाइन कपड़े खरीदने वाले ग्राहक और ऑनलाइन इलेक्ट्रॉनिक सामान खरीदने वाले ग्राहक की संख्या दी गई है। कितने लोग केवल तीसरे समूह में हैं?",
+      "sharedStimulus": "एक ऑनलाइन विक्रेता ग्राहकों को किराने के सामान, कपड़ों और इलेक्ट्रॉनिक वस्तुओं की खरीद के आधार पर दर्ज करता है। कितने लोग केवल तीसरे समूह में हैं?",
       "semanticMetadata": {
         "scenarioId": "ONLINE_PURCHASES",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRIANGLE",
@@ -4689,8 +4990,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ਸਮਾਰਟਫ਼ੋਨ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ, ਲੈਪਟਾਪ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ ਅਤੇ ਟੈਬਲੈੱਟ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ; ਸਾਂਝੀ ਮੈਂਬਰਸ਼ਿਪ ਵੱਖ-ਵੱਖ ਖੇਤਰਾਂ ਵਿੱਚ ਦਿਖਾਈ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
-      "text": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ਸਮਾਰਟਫ਼ੋਨ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ, ਲੈਪਟਾਪ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ ਅਤੇ ਟੈਬਲੈੱਟ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ; ਸਾਂਝੀ ਮੈਂਬਰਸ਼ਿਪ ਵੱਖ-ਵੱਖ ਖੇਤਰਾਂ ਵਿੱਚ ਦਿਖਾਈ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "stem": "ਘਰੇਲੂ ਅਧਿਐਨ ਵਿੱਚ ਸਮਾਰਟਫ਼ੋਨ, ਲੈਪਟਾਪ ਅਤੇ ਟੈਬਲੈੱਟ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "text": "ਘਰੇਲੂ ਅਧਿਐਨ ਵਿੱਚ ਸਮਾਰਟਫ਼ੋਨ, ਲੈਪਟਾਪ ਅਤੇ ਟੈਬਲੈੱਟ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
       "options": [
         "33",
         "12",
@@ -4745,7 +5046,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ਸਮਾਰਟਫ਼ੋਨ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ, ਲੈਪਟਾਪ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ ਅਤੇ ਟੈਬਲੈੱਟ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ; ਸਾਂਝੀ ਮੈਂਬਰਸ਼ਿਪ ਵੱਖ-ਵੱਖ ਖੇਤਰਾਂ ਵਿੱਚ ਦਿਖਾਈ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਘਰੇਲੂ ਅਧਿਐਨ ਵਿੱਚ ਸਮਾਰਟਫ਼ੋਨ, ਲੈਪਟਾਪ ਅਤੇ ਟੈਬਲੈੱਟ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "DIGITAL_DEVICES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_TRIANGLE",
@@ -4813,8 +5114,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ UPI ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ, ਡੈਬਿਟ ਕਾਰਡ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ ਅਤੇ ਨਕਦ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ UPI ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ, ਡੈਬਿਟ ਕਾਰਡ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ ਅਤੇ ਨਕਦ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "stem": "ਇੱਕ ਦੁਕਾਨ ਦੇ ਭੁਗਤਾਨ ਰਿਕਾਰਡ ਵਿੱਚ UPI, ਡੈਬਿਟ ਕਾਰਡ ਅਤੇ ਨਕਦ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ ਸ਼ਾਮਲ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "text": "ਇੱਕ ਦੁਕਾਨ ਦੇ ਭੁਗਤਾਨ ਰਿਕਾਰਡ ਵਿੱਚ UPI, ਡੈਬਿਟ ਕਾਰਡ ਅਤੇ ਨਕਦ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ ਸ਼ਾਮਲ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
       "options": [
         "10",
         "83",
@@ -4869,7 +5170,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ UPI ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ, ਡੈਬਿਟ ਕਾਰਡ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ ਅਤੇ ਨਕਦ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਦੁਕਾਨ ਦੇ ਭੁਗਤਾਨ ਰਿਕਾਰਡ ਵਿੱਚ UPI, ਡੈਬਿਟ ਕਾਰਡ ਅਤੇ ਨਕਦ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ ਸ਼ਾਮਲ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "PAYMENT_METHODS",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRIANGLE",
@@ -4937,8 +5238,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ, ਸਿਹਤ ਕੈਂਪਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ ਅਤੇ ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਦੂਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ, ਸਿਹਤ ਕੈਂਪਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ ਅਤੇ ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਦੂਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "stem": "ਇੱਕ ਭਾਈਚਾਰਕ ਸੰਸਥਾ ਵਲੰਟੀਅਰਾਂ ਨੂੰ ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ, ਸਿਹਤ ਕੈਂਪਾਂ ਅਤੇ ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਵਿੱਚ ਲਗਾਉਂਦੀ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਦੂਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "text": "ਇੱਕ ਭਾਈਚਾਰਕ ਸੰਸਥਾ ਵਲੰਟੀਅਰਾਂ ਨੂੰ ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ, ਸਿਹਤ ਕੈਂਪਾਂ ਅਤੇ ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਵਿੱਚ ਲਗਾਉਂਦੀ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਦੂਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
       "options": [
         "11",
         "27",
@@ -4993,7 +5294,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ, ਸਿਹਤ ਕੈਂਪਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ ਅਤੇ ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਦੂਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਭਾਈਚਾਰਕ ਸੰਸਥਾ ਵਲੰਟੀਅਰਾਂ ਨੂੰ ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ, ਸਿਹਤ ਕੈਂਪਾਂ ਅਤੇ ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਵਿੱਚ ਲਗਾਉਂਦੀ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਦੂਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "COMMUNITY_VOLUNTEERING",
         "shapeLayoutId": "CIRCLE_SQUARE_TRIANGLE",
@@ -5061,8 +5362,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਸਪ੍ਰੈੱਡਸ਼ੀਟ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ, ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਅਤੇ ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਤੀਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਸਪ੍ਰੈੱਡਸ਼ੀਟ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ, ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਅਤੇ ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਤੀਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "stem": "ਇੱਕ ਕੰਪਨੀ ਦਰਜ ਕਰਦੀ ਹੈ ਕਿ ਕਿਹੜੇ ਕਰਮਚਾਰੀ ਸਪ੍ਰੈੱਡਸ਼ੀਟ, ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਅਤੇ ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਤੀਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "text": "ਇੱਕ ਕੰਪਨੀ ਦਰਜ ਕਰਦੀ ਹੈ ਕਿ ਕਿਹੜੇ ਕਰਮਚਾਰੀ ਸਪ੍ਰੈੱਡਸ਼ੀਟ, ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਅਤੇ ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਤੀਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
       "options": [
         "14",
         "55",
@@ -5117,7 +5418,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਸਪ੍ਰੈੱਡਸ਼ੀਟ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ, ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਅਤੇ ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਤੀਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਕੰਪਨੀ ਦਰਜ ਕਰਦੀ ਹੈ ਕਿ ਕਿਹੜੇ ਕਰਮਚਾਰੀ ਸਪ੍ਰੈੱਡਸ਼ੀਟ, ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਅਤੇ ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਤੀਜੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "WORKPLACE_SOFTWARE",
         "shapeLayoutId": "CIRCLE_RECTANGLE_DIAMOND",
@@ -5185,8 +5486,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਆਏ ਲੋਕ, ਨਾਟਕ ਦੇਖਣ ਆਏ ਲੋਕ ਅਤੇ ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਆਏ ਲੋਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਆਏ ਲੋਕ, ਨਾਟਕ ਦੇਖਣ ਆਏ ਲੋਕ ਅਤੇ ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਆਏ ਲੋਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਸੱਭਿਆਚਾਰਕ ਮੇਲੇ ਵਿੱਚ ਲੋਕ ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ, ਨਾਟਕਾਂ ਅਤੇ ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੁੰਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਸੱਭਿਆਚਾਰਕ ਮੇਲੇ ਵਿੱਚ ਲੋਕ ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ, ਨਾਟਕਾਂ ਅਤੇ ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੁੰਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "21",
         "31",
@@ -5241,7 +5542,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਆਏ ਲੋਕ, ਨਾਟਕ ਦੇਖਣ ਆਏ ਲੋਕ ਅਤੇ ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਆਏ ਲੋਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਸੱਭਿਆਚਾਰਕ ਮੇਲੇ ਵਿੱਚ ਲੋਕ ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ, ਨਾਟਕਾਂ ਅਤੇ ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੁੰਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "CULTURAL_EVENTS",
         "shapeLayoutId": "ELLIPSE_SQUARE_DIAMOND",
@@ -5309,8 +5610,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਆਨਲਾਈਨ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ, ਆਨਲਾਈਨ ਖੇਡਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ ਅਤੇ ਆਨਲਾਈਨ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਆਨਲਾਈਨ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ, ਆਨਲਾਈਨ ਖੇਡਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ ਅਤੇ ਆਨਲਾਈਨ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਇੱਕ ਸਟ੍ਰੀਮਿੰਗ ਪਲੇਟਫ਼ਾਰਮ ਉੱਤੇ ਫ਼ਿਲਮਾਂ, ਖੇਡਾਂ ਅਤੇ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕਾਂ ਦੀ ਗਿਣਤੀ ਦਰਜ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਇੱਕ ਸਟ੍ਰੀਮਿੰਗ ਪਲੇਟਫ਼ਾਰਮ ਉੱਤੇ ਫ਼ਿਲਮਾਂ, ਖੇਡਾਂ ਅਤੇ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕਾਂ ਦੀ ਗਿਣਤੀ ਦਰਜ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "55",
         "43",
@@ -5365,7 +5666,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਆਨਲਾਈਨ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ, ਆਨਲਾਈਨ ਖੇਡਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ ਅਤੇ ਆਨਲਾਈਨ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਸਟ੍ਰੀਮਿੰਗ ਪਲੇਟਫ਼ਾਰਮ ਉੱਤੇ ਫ਼ਿਲਮਾਂ, ਖੇਡਾਂ ਅਤੇ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕਾਂ ਦੀ ਗਿਣਤੀ ਦਰਜ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "STREAMING_VIEWERS",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_DIAMOND",
@@ -5433,8 +5734,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ, ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ, ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਇੱਕ ਸਿਖਲਾਈ ਪ੍ਰੋਗਰਾਮ ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ, ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦੇ ਕੋਰਸ ਪੂਰੇ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀਆਂ ਦਾ ਰਿਕਾਰਡ ਰੱਖਦਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਇੱਕ ਸਿਖਲਾਈ ਪ੍ਰੋਗਰਾਮ ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ, ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦੇ ਕੋਰਸ ਪੂਰੇ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀਆਂ ਦਾ ਰਿਕਾਰਡ ਰੱਖਦਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "0",
         "43",
@@ -5489,7 +5790,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ, ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਸਿਖਲਾਈ ਪ੍ਰੋਗਰਾਮ ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ, ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦੇ ਕੋਰਸ ਪੂਰੇ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀਆਂ ਦਾ ਰਿਕਾਰਡ ਰੱਖਦਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "SKILL_COURSES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_RIGHT_TRIANGLE",
@@ -5557,8 +5858,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਸ਼ਹਿਰ ਦੀ ਬੱਸ ਸੇਵਾ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਸਨੀਕ ਅਤੇ ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕ ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਸ਼ਹਿਰ ਦੀ ਬੱਸ ਸੇਵਾ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਸਨੀਕ ਅਤੇ ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕ ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਸ਼ਹਿਰ ਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਬੱਸ ਸੇਵਾ ਵਰਤਣ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਅਤੇ ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਸ਼ਹਿਰ ਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਬੱਸ ਸੇਵਾ ਵਰਤਣ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਅਤੇ ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "196",
         "173",
@@ -5613,7 +5914,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਸ਼ਹਿਰ ਦੀ ਬੱਸ ਸੇਵਾ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਸਨੀਕ ਅਤੇ ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕ ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਸ਼ਹਿਰ ਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਬੱਸ ਸੇਵਾ ਵਰਤਣ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਅਤੇ ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "MUNICIPAL_SERVICES",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRAPEZOID",
@@ -5687,8 +5988,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਸਕੂਲ ਦਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ ਵਿਦਿਆਰਥੀ, ਟੀਮ ਖੇਡ ਖੇਡਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ ਅਤੇ ਵਿਗਿਆਨ ਕਲੱਬ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਸਕੂਲ ਦਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ ਵਿਦਿਆਰਥੀ, ਟੀਮ ਖੇਡ ਖੇਡਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ ਅਤੇ ਵਿਗਿਆਨ ਕਲੱਬ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਵਿਦਿਆਰਥੀ ਅਖ਼ਬਾਰ ਕਲੱਬ, ਟੀਮ ਖੇਡਾਂ ਅਤੇ ਵਿਗਿਆਨ ਕਲੱਬ ਵਿੱਚ ਹਿੱਸਾ ਲੈਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਵਿਦਿਆਰਥੀ ਅਖ਼ਬਾਰ ਕਲੱਬ, ਟੀਮ ਖੇਡਾਂ ਅਤੇ ਵਿਗਿਆਨ ਕਲੱਬ ਵਿੱਚ ਹਿੱਸਾ ਲੈਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "71",
         "79",
@@ -5743,7 +6044,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਸਕੂਲ ਦਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ ਵਿਦਿਆਰਥੀ, ਟੀਮ ਖੇਡ ਖੇਡਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ ਅਤੇ ਵਿਗਿਆਨ ਕਲੱਬ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਵਿਦਿਆਰਥੀ ਅਖ਼ਬਾਰ ਕਲੱਬ, ਟੀਮ ਖੇਡਾਂ ਅਤੇ ਵਿਗਿਆਨ ਕਲੱਬ ਵਿੱਚ ਹਿੱਸਾ ਲੈਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "SCHOOL_ACTIVITIES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_PENTAGON",
@@ -5813,8 +6114,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ, ਖੇਡ ਕੇਂਦਰ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ ਅਤੇ ਸੱਭਿਆਚਾਰਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਸਨੀਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ, ਖੇਡ ਕੇਂਦਰ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ ਅਤੇ ਸੱਭਿਆਚਾਰਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਸਨੀਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "stem": "ਇੱਕ ਮੁਹੱਲੇ ਦੇ ਵਸਨੀਕ ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਅਤੇ ਖੇਡ ਕੇਂਦਰ ਵਰਤਦੇ ਹਨ ਜਾਂ ਸੱਭਿਆਚਾਰਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਜਾਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "text": "ਇੱਕ ਮੁਹੱਲੇ ਦੇ ਵਸਨੀਕ ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਅਤੇ ਖੇਡ ਕੇਂਦਰ ਵਰਤਦੇ ਹਨ ਜਾਂ ਸੱਭਿਆਚਾਰਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਜਾਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
       "options": [
         "93",
         "122",
@@ -5869,7 +6170,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ, ਖੇਡ ਕੇਂਦਰ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ ਅਤੇ ਸੱਭਿਆਚਾਰਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਸਨੀਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਮੁਹੱਲੇ ਦੇ ਵਸਨੀਕ ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਅਤੇ ਖੇਡ ਕੇਂਦਰ ਵਰਤਦੇ ਹਨ ਜਾਂ ਸੱਭਿਆਚਾਰਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਜਾਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "COMMUNITY_SURVEY",
         "shapeLayoutId": "CIRCLE_RECTANGLE_TRIANGLE",
@@ -5940,8 +6241,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਸੁਰੱਖਿਆ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ, ਡਿਜ਼ਿਟਲ-ਹੁਨਰ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਸੁਰੱਖਿਆ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ, ਡਿਜ਼ਿਟਲ-ਹੁਨਰ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਇੱਕ ਸਿਖਲਾਈ ਸੰਸਥਾ ਸੁਰੱਖਿਆ, ਡਿਜ਼ਿਟਲ ਹੁਨਰ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦੇ ਮੋਡੀਊਲ ਪੂਰੇ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀਆਂ ਦਾ ਰਿਕਾਰਡ ਰੱਖਦੀ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਇੱਕ ਸਿਖਲਾਈ ਸੰਸਥਾ ਸੁਰੱਖਿਆ, ਡਿਜ਼ਿਟਲ ਹੁਨਰ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦੇ ਮੋਡੀਊਲ ਪੂਰੇ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀਆਂ ਦਾ ਰਿਕਾਰਡ ਰੱਖਦੀ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "205",
         "217",
@@ -5996,7 +6297,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਸੁਰੱਖਿਆ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ, ਡਿਜ਼ਿਟਲ-ਹੁਨਰ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਸਿਖਲਾਈ ਸੰਸਥਾ ਸੁਰੱਖਿਆ, ਡਿਜ਼ਿਟਲ ਹੁਨਰ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦੇ ਮੋਡੀਊਲ ਪੂਰੇ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀਆਂ ਦਾ ਰਿਕਾਰਡ ਰੱਖਦੀ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "TRAINING_COURSE",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRIANGLE",
@@ -6070,8 +6371,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਤਿੰਨ ਸਮੂਹਾਂ ਦੀ ਤੁਲਨਾ ਹੈ: ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ ਲੋਕ, ਖ਼ਬਰਾਂ ਦਾ ਪੌਡਕਾਸਟ ਸੁਣਨ ਵਾਲੇ ਲੋਕ ਅਤੇ ਸ਼ਾਮ ਦਾ ਖ਼ਬਰ ਬੁਲੇਟਿਨ ਦੇਖਣ ਵਾਲੇ ਲੋਕ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਤਿੰਨ ਸਮੂਹਾਂ ਦੀ ਤੁਲਨਾ ਹੈ: ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ ਲੋਕ, ਖ਼ਬਰਾਂ ਦਾ ਪੌਡਕਾਸਟ ਸੁਣਨ ਵਾਲੇ ਲੋਕ ਅਤੇ ਸ਼ਾਮ ਦਾ ਖ਼ਬਰ ਬੁਲੇਟਿਨ ਦੇਖਣ ਵਾਲੇ ਲੋਕ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਮੀਡੀਆ ਦੀ ਵਰਤੋਂ ਬਾਰੇ ਅਧਿਐਨ ਵਿੱਚ ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ, ਖ਼ਬਰਾਂ ਦਾ ਪੌਡਕਾਸਟ ਸੁਣਨ ਅਤੇ ਸ਼ਾਮ ਦਾ ਬੁਲੇਟਿਨ ਦੇਖਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਮੀਡੀਆ ਦੀ ਵਰਤੋਂ ਬਾਰੇ ਅਧਿਐਨ ਵਿੱਚ ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ, ਖ਼ਬਰਾਂ ਦਾ ਪੌਡਕਾਸਟ ਸੁਣਨ ਅਤੇ ਸ਼ਾਮ ਦਾ ਬੁਲੇਟਿਨ ਦੇਖਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "69",
         "10",
@@ -6126,7 +6427,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਤਿੰਨ ਸਮੂਹਾਂ ਦੀ ਤੁਲਨਾ ਹੈ: ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ ਲੋਕ, ਖ਼ਬਰਾਂ ਦਾ ਪੌਡਕਾਸਟ ਸੁਣਨ ਵਾਲੇ ਲੋਕ ਅਤੇ ਸ਼ਾਮ ਦਾ ਖ਼ਬਰ ਬੁਲੇਟਿਨ ਦੇਖਣ ਵਾਲੇ ਲੋਕ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਮੀਡੀਆ ਦੀ ਵਰਤੋਂ ਬਾਰੇ ਅਧਿਐਨ ਵਿੱਚ ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ, ਖ਼ਬਰਾਂ ਦਾ ਪੌਡਕਾਸਟ ਸੁਣਨ ਅਤੇ ਸ਼ਾਮ ਦਾ ਬੁਲੇਟਿਨ ਦੇਖਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "MEDIA_PREFERENCES",
         "shapeLayoutId": "CIRCLE_SQUARE_TRIANGLE",
@@ -6194,8 +6495,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ, ਨਜ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ ਅਤੇ ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ, ਨਜ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ ਅਤੇ ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਸਿਹਤ ਕੈਂਪ ਵਿੱਚ ਆਏ ਲੋਕ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ, ਨਜ਼ਰ ਅਤੇ ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਸਿਹਤ ਕੈਂਪ ਵਿੱਚ ਆਏ ਲੋਕ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ, ਨਜ਼ਰ ਅਤੇ ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "0",
         "25",
@@ -6250,7 +6551,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ, ਨਜ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ ਅਤੇ ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਸਿਹਤ ਕੈਂਪ ਵਿੱਚ ਆਏ ਲੋਕ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ, ਨਜ਼ਰ ਅਤੇ ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "HEALTH_CAMP",
         "shapeLayoutId": "CIRCLE_RECTANGLE_DIAMOND",
@@ -6318,8 +6619,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ਪ੍ਰੋਜੈਕਟ ਡੈਸ਼ਬੋਰਡ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ, ਸਾਂਝਾ ਕੈਲੰਡਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਅਤੇ ਟੀਮ ਚੈਟ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ; ਸਾਂਝੀ ਮੈਂਬਰਸ਼ਿਪ ਵੱਖ-ਵੱਖ ਖੇਤਰਾਂ ਵਿੱਚ ਦਿਖਾਈ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ਪ੍ਰੋਜੈਕਟ ਡੈਸ਼ਬੋਰਡ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ, ਸਾਂਝਾ ਕੈਲੰਡਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਅਤੇ ਟੀਮ ਚੈਟ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ; ਸਾਂਝੀ ਮੈਂਬਰਸ਼ਿਪ ਵੱਖ-ਵੱਖ ਖੇਤਰਾਂ ਵਿੱਚ ਦਿਖਾਈ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਦਫ਼ਤਰੀ ਸਮੀਖਿਆ ਵਿੱਚ ਪ੍ਰੋਜੈਕਟ ਡੈਸ਼ਬੋਰਡ, ਸਾਂਝਾ ਕੈਲੰਡਰ ਅਤੇ ਟੀਮ ਚੈਟ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀਆਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਦਫ਼ਤਰੀ ਸਮੀਖਿਆ ਵਿੱਚ ਪ੍ਰੋਜੈਕਟ ਡੈਸ਼ਬੋਰਡ, ਸਾਂਝਾ ਕੈਲੰਡਰ ਅਤੇ ਟੀਮ ਚੈਟ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀਆਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "10",
         "31",
@@ -6374,7 +6675,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ਪ੍ਰੋਜੈਕਟ ਡੈਸ਼ਬੋਰਡ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ, ਸਾਂਝਾ ਕੈਲੰਡਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਅਤੇ ਟੀਮ ਚੈਟ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ ਦੀ ਗਿਣਤੀ ਕੀਤੀ ਗਈ; ਸਾਂਝੀ ਮੈਂਬਰਸ਼ਿਪ ਵੱਖ-ਵੱਖ ਖੇਤਰਾਂ ਵਿੱਚ ਦਿਖਾਈ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਦਫ਼ਤਰੀ ਸਮੀਖਿਆ ਵਿੱਚ ਪ੍ਰੋਜੈਕਟ ਡੈਸ਼ਬੋਰਡ, ਸਾਂਝਾ ਕੈਲੰਡਰ ਅਤੇ ਟੀਮ ਚੈਟ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀਆਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "WORKPLACE_TOOLS",
         "shapeLayoutId": "ELLIPSE_SQUARE_DIAMOND",
@@ -6442,8 +6743,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਬੱਸ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ, ਰੇਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ ਅਤੇ ਸਾਈਕਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਬੱਸ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ, ਰੇਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ ਅਤੇ ਸਾਈਕਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "stem": "ਇੱਕ ਸਫ਼ਰੀ ਰੂਟ ਉੱਤੇ ਯਾਤਰੀ ਬੱਸ, ਰੇਲ ਅਤੇ ਸਾਈਕਲ ਵਰਤਦੇ ਹਨ; ਕੁਝ ਯਾਤਰੀ ਇੱਕ ਤੋਂ ਵੱਧ ਸਾਧਨ ਵਰਤਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "text": "ਇੱਕ ਸਫ਼ਰੀ ਰੂਟ ਉੱਤੇ ਯਾਤਰੀ ਬੱਸ, ਰੇਲ ਅਤੇ ਸਾਈਕਲ ਵਰਤਦੇ ਹਨ; ਕੁਝ ਯਾਤਰੀ ਇੱਕ ਤੋਂ ਵੱਧ ਸਾਧਨ ਵਰਤਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
       "options": [
         "20",
         "45",
@@ -6498,7 +6799,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਬੱਸ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ, ਰੇਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ ਅਤੇ ਸਾਈਕਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਸਫ਼ਰੀ ਰੂਟ ਉੱਤੇ ਯਾਤਰੀ ਬੱਸ, ਰੇਲ ਅਤੇ ਸਾਈਕਲ ਵਰਤਦੇ ਹਨ; ਕੁਝ ਯਾਤਰੀ ਇੱਕ ਤੋਂ ਵੱਧ ਸਾਧਨ ਵਰਤਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "TRAVEL_SURVEY",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_DIAMOND",
@@ -6566,8 +6867,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਬਾਗਬਾਨੀ ਕਰਨ ਵਾਲੇ ਲੋਕ, ਨਵੀਂ ਰੈਸਿਪੀ ਬਣਾਉਣ ਵਾਲੇ ਲੋਕ ਅਤੇ ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਵਾਲੇ ਲੋਕ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
-      "text": "ਬਾਗਬਾਨੀ ਕਰਨ ਵਾਲੇ ਲੋਕ, ਨਵੀਂ ਰੈਸਿਪੀ ਬਣਾਉਣ ਵਾਲੇ ਲੋਕ ਅਤੇ ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਵਾਲੇ ਲੋਕ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "stem": "ਹਫ਼ਤੇ-ਅੰਤ ਦੇ ਕਲੱਬ ਦੇ ਰਜਿਸਟਰ ਵਿੱਚ ਬਾਗਬਾਨੀ, ਨਵੀਆਂ ਰੈਸਿਪੀਆਂ ਬਣਾਉਣ ਅਤੇ ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਵਾਲੇ ਲੋਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "text": "ਹਫ਼ਤੇ-ਅੰਤ ਦੇ ਕਲੱਬ ਦੇ ਰਜਿਸਟਰ ਵਿੱਚ ਬਾਗਬਾਨੀ, ਨਵੀਆਂ ਰੈਸਿਪੀਆਂ ਬਣਾਉਣ ਅਤੇ ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਵਾਲੇ ਲੋਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
       "options": [
         "73",
         "45",
@@ -6622,7 +6923,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਬਾਗਬਾਨੀ ਕਰਨ ਵਾਲੇ ਲੋਕ, ਨਵੀਂ ਰੈਸਿਪੀ ਬਣਾਉਣ ਵਾਲੇ ਲੋਕ ਅਤੇ ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਵਾਲੇ ਲੋਕ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹੇਠਾਂ ਦਿੱਤੇ ਖੇਤਰਾਂ ਵਿੱਚ ਵੰਡੀਆਂ ਗਈਆਂ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਹਫ਼ਤੇ-ਅੰਤ ਦੇ ਕਲੱਬ ਦੇ ਰਜਿਸਟਰ ਵਿੱਚ ਬਾਗਬਾਨੀ, ਨਵੀਆਂ ਰੈਸਿਪੀਆਂ ਬਣਾਉਣ ਅਤੇ ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਵਾਲੇ ਲੋਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "WEEKEND_HOBBIES",
         "shapeLayoutId": "CIRCLE_RECTANGLE_RIGHT_TRIANGLE",
@@ -6690,8 +6991,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਗਣਿਤ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ, ਅੰਗਰੇਜ਼ੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਅਤੇ ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਗਣਿਤ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ, ਅੰਗਰੇਜ਼ੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਅਤੇ ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "stem": "ਇਮਤਿਹਾਨ ਦੀ ਤਿਆਰੀ ਕਰਾਉਣ ਵਾਲੇ ਕੇਂਦਰ ਵਿੱਚ ਉਮੀਦਵਾਰ ਗਣਿਤ, ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "text": "ਇਮਤਿਹਾਨ ਦੀ ਤਿਆਰੀ ਕਰਾਉਣ ਵਾਲੇ ਕੇਂਦਰ ਵਿੱਚ ਉਮੀਦਵਾਰ ਗਣਿਤ, ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
       "options": [
         "125",
         "80",
@@ -6746,7 +7047,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਗਣਿਤ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ, ਅੰਗਰੇਜ਼ੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਅਤੇ ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ ਸਮੂਹਾਂ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਇਮਤਿਹਾਨ ਦੀ ਤਿਆਰੀ ਕਰਾਉਣ ਵਾਲੇ ਕੇਂਦਰ ਵਿੱਚ ਉਮੀਦਵਾਰ ਗਣਿਤ, ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "EXAM_PREPARATION",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRAPEZOID",
@@ -6817,8 +7118,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਕਣਕ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ, ਸਰ੍ਹੋਂ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ ਅਤੇ ਕਪਾਹ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਕਣਕ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ, ਸਰ੍ਹੋਂ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ ਅਤੇ ਕਪਾਹ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਇੱਕ ਇਲਾਕੇ ਦੇ ਕਿਸਾਨ ਕਣਕ, ਸਰ੍ਹੋਂ ਅਤੇ ਕਪਾਹ ਉਗਾਉਂਦੇ ਹਨ; ਕੁਝ ਕਿਸਾਨ ਇੱਕ ਤੋਂ ਵੱਧ ਫ਼ਸਲਾਂ ਵੀ ਉਗਾਉਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਇੱਕ ਇਲਾਕੇ ਦੇ ਕਿਸਾਨ ਕਣਕ, ਸਰ੍ਹੋਂ ਅਤੇ ਕਪਾਹ ਉਗਾਉਂਦੇ ਹਨ; ਕੁਝ ਕਿਸਾਨ ਇੱਕ ਤੋਂ ਵੱਧ ਫ਼ਸਲਾਂ ਵੀ ਉਗਾਉਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "102",
         "72",
@@ -6873,7 +7174,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਕਣਕ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ, ਸਰ੍ਹੋਂ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ ਅਤੇ ਕਪਾਹ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਇਲਾਕੇ ਦੇ ਕਿਸਾਨ ਕਣਕ, ਸਰ੍ਹੋਂ ਅਤੇ ਕਪਾਹ ਉਗਾਉਂਦੇ ਹਨ; ਕੁਝ ਕਿਸਾਨ ਇੱਕ ਤੋਂ ਵੱਧ ਫ਼ਸਲਾਂ ਵੀ ਉਗਾਉਂਦੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "CROP_CULTIVATION",
         "shapeLayoutId": "CIRCLE_RECTANGLE_PENTAGON",
@@ -6943,8 +7244,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਗਲਪ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ, ਜੀਵਨੀਆਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ ਅਤੇ ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਗਲਪ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ, ਜੀਵਨੀਆਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ ਅਤੇ ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਲਾਇਬ੍ਰੇਰੀ ਦੇ ਰਿਕਾਰਡ ਵਿੱਚ ਗਲਪ, ਜੀਵਨੀਆਂ ਅਤੇ ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਮੈਂਬਰਾਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਲਾਇਬ੍ਰੇਰੀ ਦੇ ਰਿਕਾਰਡ ਵਿੱਚ ਗਲਪ, ਜੀਵਨੀਆਂ ਅਤੇ ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਮੈਂਬਰਾਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "24",
         "0",
@@ -6999,7 +7300,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਗਲਪ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ, ਜੀਵਨੀਆਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ ਅਤੇ ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ ਦੇ ਅੰਕੜੇ ਹੇਠਾਂ ਦਿੱਤੇ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਲਾਇਬ੍ਰੇਰੀ ਦੇ ਰਿਕਾਰਡ ਵਿੱਚ ਗਲਪ, ਜੀਵਨੀਆਂ ਅਤੇ ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਮੈਂਬਰਾਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "LIBRARY_BORROWING",
         "shapeLayoutId": "CIRCLE_RECTANGLE_TRIANGLE",
@@ -7067,8 +7368,8 @@ Total output lines: 7518
       "subtopic": "Geometric shape region counts",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਚਿੱਤਰ ਵਿੱਚ ਆਨਲਾਈਨ ਰਾਸ਼ਨ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ, ਆਨਲਾਈਨ ਕੱਪੜੇ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ ਅਤੇ ਆਨਲਾਈਨ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
-      "text": "ਚਿੱਤਰ ਵਿੱਚ ਆਨਲਾਈਨ ਰਾਸ਼ਨ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ, ਆਨਲਾਈਨ ਕੱਪੜੇ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ ਅਤੇ ਆਨਲਾਈਨ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "stem": "ਇੱਕ ਆਨਲਾਈਨ ਵਿਕਰੇਤਾ ਗਾਹਕਾਂ ਨੂੰ ਰਾਸ਼ਨ, ਕੱਪੜੇ ਅਤੇ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਦੀ ਖਰੀਦ ਅਨੁਸਾਰ ਦਰਜ ਕਰਦਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "text": "ਇੱਕ ਆਨਲਾਈਨ ਵਿਕਰੇਤਾ ਗਾਹਕਾਂ ਨੂੰ ਰਾਸ਼ਨ, ਕੱਪੜੇ ਅਤੇ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਦੀ ਖਰੀਦ ਅਨੁਸਾਰ ਦਰਜ ਕਰਦਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "options": [
         "49",
         "59",
@@ -7123,7 +7424,7 @@ Total output lines: 7518
       "runtimeMode": "review-only",
       "reviewOnly": true,
       "readOnly": true,
-      "sharedStimulus": "ਚਿੱਤਰ ਵਿੱਚ ਆਨਲਾਈਨ ਰਾਸ਼ਨ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ, ਆਨਲਾਈਨ ਕੱਪੜੇ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ ਅਤੇ ਆਨਲਾਈਨ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
+      "sharedStimulus": "ਇੱਕ ਆਨਲਾਈਨ ਵਿਕਰੇਤਾ ਗਾਹਕਾਂ ਨੂੰ ਰਾਸ਼ਨ, ਕੱਪੜੇ ਅਤੇ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਦੀ ਖਰੀਦ ਅਨੁਸਾਰ ਦਰਜ ਕਰਦਾ ਹੈ। ਕਿੰਨੇ ਲੋਕ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਹਨ?",
       "semanticMetadata": {
         "scenarioId": "ONLINE_PURCHASES",
         "shapeLayoutId": "ELLIPSE_RECTANGLE_TRIANGLE",

@@ -50,15 +50,15 @@ assert.equal(
   20,
 );
 assert.ok(
-  new Set(
-    twentyScenarios.questions.map((q) =>
-      q.stem!.split(" ").slice(0, 3).join(" "),
-    ),
-  ).size >= 5,
+  new Set(twentyScenarios.questions.map((q) => q.stem!.split("?")[0])).size >=
+    5,
 );
 assert.ok(
   twentyScenarios.questions.every(
-    (q) => !q.stem!.startsWith("A survey records three activities:"),
+    (q) =>
+      !/^(A survey|The diagram|Records for|Counts for|एक सर्वेक्षण|ਆਰੇਖ ਵਿੱਚ)/u.test(
+        q.stem!,
+      ),
   ),
 );
 assert.ok(
