@@ -104,9 +104,10 @@ function regionMapping(c:RegionCandidate,loc:Locale):string{
   if(!match)throw new Error(`${c.id}: invalid region assignment '${part}'`);
   return {label:match[1]!,value:match[2]!};
  });
- if(loc==="hi-IN")return `आरेख में ${parts.map((part,index)=>`${part.label}, ${part.value} को${index===parts.length-1?" दर्शाता है":""}`).join("; ")}।`;
- if(loc==="pa-IN")return `ਚਿੱਤਰ ਵਿੱਚ ${parts.map((part,index)=>`${part.label}, ${part.value} ਨੂੰ${index===parts.length-1?" ਦਰਸਾਉਂਦਾ ਹੈ":""}`).join("; ")}।`;
- return `In the diagram, ${parts.map(part=>`${part.label} represents ${part.value}`).join(", ").replace(/, ([^,]+)$/u," and $1")}.`;
+ const joinNative=(items:string[],conjunction:string)=>items.length<=1?(items[0]??""):items.length===2?`${items[0]} ${conjunction} ${items[1]}`:`${items.slice(0,-1).join(", ")} ${conjunction} ${items.at(-1)}`;
+ if(loc==="hi-IN")return `आरेख में ${joinNative(parts.map(part=>`${part.label} से ${part.value}`),"और")} दर्शाए गए हैं।`;
+ if(loc==="pa-IN")return `ਚਿੱਤਰ ਵਿੱਚ ${joinNative(parts.map(part=>`${part.label} ਨਾਲ ${part.value}`),"ਅਤੇ")} ਦਰਸਾਏ ਗਏ ਹਨ।`;
+ return `In the diagram, ${joinNative(parts.map(part=>`${part.label} represents ${part.value}`),"and")}.`;
 }
 export function generateVen001NextCheckpointBatch(r:QuestionStudioGenerationRequest):QuestionStudioGenerationResult{
  if(r.runtimeMode&&r.runtimeMode!=="review-only")throw new Error("VEN-001 only supports review-only generation");
