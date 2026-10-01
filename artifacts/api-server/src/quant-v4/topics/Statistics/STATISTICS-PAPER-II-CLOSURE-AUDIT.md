@@ -1,42 +1,52 @@
 # Statistics Paper II Closure Audit
 
-**Audit date:** 2026-09-30  
+**Audit date:** 2026-10-01  
 **Target:** Quant V4 Statistics on `New-main`  
-**Overall status:** Implementation mapped across all syllabus areas; not yet ready for chapter closure.
+**Overall status:** SSC CGL Paper-II Statistics syllabus coverage complete at the current controlled-review depth; chapter is ready for closure after the final repository-wide simulation gate records success.
 
 ## Implemented foundation
 
-STAT-001 through STAT-014 are merged. The original permanent contracts cover STAT-QL-001 through STAT-QL-175. Controlled-review depth additions extend STAT-QL-176 through STAT-QL-208 across STAT-007 and STAT-011 through STAT-014. Package-level workflows for STAT-004 through STAT-014 passed. The STAT-001, STAT-002, and original STAT-003 package checks also passed.
+STAT-001 through STAT-014 are merged and wired into Question Studio. Permanent Statistics QLs now extend through STAT-QL-214. The latest closure wave added:
 
-The review-only lifecycle remains in force: Question Bank writes, test/mock eligibility, localization, public publication, and production release are disabled.
+- STAT-QL-209: multiphase sampling in STAT-010.
+- STAT-QL-210: meaning and uses of index numbers in STAT-014.
+- STAT-QL-211: problems in construction of index numbers.
+- STAT-QL-212: splicing index-number series.
+- STAT-QL-213: cost of living index by aggregate expenditure method.
+- STAT-QL-214: cost of living index by family budget method.
 
-## Coverage and remaining depth
+The review-only lifecycle remains in force: Question Bank writes, test/mock eligibility, localization, public publication, and production release remain disabled.
 
-| Paper II area | Current owner | Audit finding |
+## Coverage by Paper-II area
+
+| Paper II area | Current owner | Closure finding |
 |---|---|---|
-| Collection, classification, presentation | STAT-004; DI-009/DI-010 for specified chart tasks | Ownership is explicit: STAT-004 handles collection, classification, tabulation and raw frequency tables. DI-001/002 own table-based DI; DI-003 grouped bars; DI-004 line charts; DI-005 pie charts; DI-009 histograms; DI-010 frequency polygons; DI-011 mixed charts. STAT-004 does not duplicate those chart-reading or construction tasks. |
-| Central tendency and partition values | STAT-001, STAT-003, STAT-005 | Raw and selected frequency/grouped measures plus quartiles, deciles, and percentiles have owners. |
-| Dispersion | STAT-002, STAT-003, STAT-005 | Standard deviation and selected absolute/relative measures have owners. |
-| Moments, skewness, kurtosis | STAT-006 | Foundation contracts are present. |
-| Correlation and regression | STAT-007 | Correlation, simple and multiple regression, association, and three-variable partial/multiple correlation are present. |
-| Probability | STAT-008 | Core event rules, conditional probability, independence, total probability, and Bayes have contracts. |
-| Random variables and distributions | STAT-009 | Common named distributions and discrete joint-distribution foundations are present. |
-| Sampling theory | STAT-010 | Core designs, errors, sampling distribution, standard error, and a stated sample-size method are present. |
-| Statistical inference | STAT-011 | Point-estimation foundations now include known-σ mean and Wald proportion interval construction plus upper-tailed Z and chi-square critical-value decisions, and a decision from a supplied p-value. Two-sample/small-sample intervals, calculated p-values, broader test families, power, and sample-size planning remain deferred. |
-| Analysis of variance | STAT-012 | One-way calculation from raw data; additive randomized-block F calculation; replicated 2×2 interaction SS/F; interaction interpretation and the unreplicated limitation; Tukey-style follow-up; classical assumptions and residual variance diagnosis. Repeated measures, mixed models and robust alternatives remain outside this foundation pass. |
-| Time series | STAT-013 | Trend can be fitted from raw coded-time observations by least squares; raw-data centered four-quarter moving averages, adjusted quarterly indices, additive seasonal forecasts, and multiplicative deseasonalization are also covered. Ratio-to-moving-average seasonal estimation, multiplicative seasonal forecasting, additive adjustment and even-length semi-average trend fitting now complete this classical foundation pass. Advanced stochastic forecasting and other decomposition methods remain outside this pass. |
-| Index numbers | STAT-014 | Weighted price relatives, multi-period Laspeyres basket, three-link chain index, rebasing a multi-period series, and a Marshall-Edgeworth price index now supplement the foundation; broader index families remain open. |
+| Collection, classification, presentation | STAT-004; DI-001–005 and DI-009–011 for chart/data-interpretation ownership | Ownership is explicit and non-duplicative. STAT-004 covers statistical collection/classification/tabulation foundations; DI owns table/chart interpretation and chart-specific tasks. |
+| Central tendency and partition values | STAT-001, STAT-003, STAT-005 | Arithmetic mean, median, mode, grouped/discrete forms, empirical relation, missing-value forms, quartiles, deciles and percentiles have owners. |
+| Dispersion | STAT-002, STAT-003, STAT-005 | Standard deviation plus major absolute and relative dispersion measures have owners. |
+| Moments, skewness, kurtosis | STAT-006 | Raw/central moments, transformation behaviour, Pearson/Bowley/moment skewness and kurtosis foundations are present. |
+| Correlation and regression | STAT-007 | Pearson/Spearman, covariance, simple regression, multiple regression, association, partial and multiple correlation have owners. |
+| Probability | STAT-008 | Classical/empirical probability, addition/complement, conditional probability, independence, total probability and Bayes are covered. |
+| Random variables and distributions | STAT-009 | Random-variable foundations, expectation/variance, common named distributions and joint-distribution foundations are present. |
+| Sampling theory | STAT-010 | Population/sample concepts, sampling and non-sampling errors, simple random, stratified, cluster, systematic, multistage, multiphase, non-probability methods, sampling distribution, standard error and sample-size calculation are covered. |
+| Statistical inference | STAT-011 | Estimator terminology/properties, method of moments, maximum likelihood, least squares, confidence intervals, Type I/II errors, one/two-tailed tests, Z/t/chi-square/F statistics, critical-value decisions and supplied-p-value decisions are covered at the SSC foundation level. |
+| Analysis of variance | STAT-012 | One-way ANOVA, randomized blocks, replicated two-way interaction, post-hoc interpretation, assumptions and residual-variance diagnosis are covered. |
+| Time series | STAT-013 | Trend, least-squares fitting, moving averages, centered moving averages, seasonal indices, ratio-to-moving-average, additive/multiplicative seasonal treatment and semi-average trend are covered. |
+| Index numbers | STAT-014 | Meaning/uses, construction issues, simple/weighted relatives, Laspeyres, Paasche, Fisher, Marshall-Edgeworth, value/quantity indices, chain linking, rebasing, splicing, reversal tests, inflation and both SSC cost-of-living methods are covered. |
 
-## Review and validation notes
+## Editorial and validation status
 
-- STAT-004's registry marks its 15 English contracts as certified and English-review approved. Its representative `REVIEW.md` previously said permanent QL numbering was not assigned; that stale metadata is corrected in this change.
-- The user approved STAT-011 earlier and STAT-012, STAT-013, and STAT-007 representative reviews on 2026-09-30. The STAT-012 and STAT-013 candidates include QL201–208. STAT-007, STAT-008, STAT-009, and STAT-010 were approved on 2026-09-30; STAT-005 was approved on 2026-10-01. Question diversity and pool expansion are deferred by the user to a later pass. Remaining representative reviews for STAT-006 and STAT-014 await editorial approval. Structural checks found four options, a keyed answer, and an explanation for each listed question, with no duplicate stems within each file.
-- The STAT-003 restoration workflow's deterministic proof passed, but its Question Studio integration step stopped at an unrelated GEO-IND-001 content-closure failure. STAT-007 multiple regression, STAT-011 inference depth, STAT-012 replicated ANOVA, STAT-013 time-series depth, and STAT-014 multi-period index updates all passed their package checks, shared-profile and learner-surface checks, plus the 220-section Quant simulation. Unrelated failures in older audit runs should not be treated as current blockers.
+- The chapter-wide learner-facing stem cleanup was merged in PR #2862 after 17 validation workflows passed, including all Statistics package checks, learner-surface remediation, shared exam-profile checks and the Quant real-exam simulation.
+- The final syllabus-gap implementation was merged in PR #2865. STAT-010 and STAT-014 focused package checks, shared exam-profile checks, learner-surface remediation and branch-topology checks passed before merge.
+- The final repository-wide Quant real-exam simulation triggered by PR #2865 was still running when this closure record was updated; it is the only remaining validation gate to record.
+- Existing state solvers, answer keys, distractor contracts, lifecycle locks and Question Studio integration were preserved through the closure additions.
 
-## Closure gates
+## Accepted scope limits
 
-1. Chart ownership is mapped to DI-001–005, DI-009–011; confirm the DI chapter's exhaustive audit remains aligned with this boundary and avoid duplicate STAT contracts.
-2. Continue depth review for remaining STAT-011 through STAT-014 gaps: broader inference families and diagnostics, advanced ANOVA layouts and alternatives, advanced time-series decomposition/forecasting, and additional index-number methods; document accepted scope limits.
-3. Complete editorial and mathematical review of the remaining representative generated questions and explanations; STAT-007 through STAT-010 are approved.
-4. The latest Statistics depth wave passed its focused and Quant-wide integration checks; rerun them when further content changes are made.
-5. Keep learner-facing lifecycle paths locked until their separate approval and validation.
+The following are intentionally outside the SSC Paper-II closure target and are not chapter blockers: advanced two-sample and small-sample interval families beyond the current foundation, power analysis, mixed/repeated-measures models, robust ANOVA alternatives, stochastic time-series forecasting, ARIMA-style modelling and specialist index-number families not listed in the SSC syllabus.
+
+Question diversity and object-pool expansion remain a later enhancement pass, as previously approved; they are not treated as syllabus-coverage blockers.
+
+## Closure gate
+
+The content and syllabus audit is complete. The chapter can be marked closed once the final PR #2865 Quant real-exam simulation records success. No further syllabus expansion is required for closure.
