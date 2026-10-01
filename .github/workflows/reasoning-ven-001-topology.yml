@@ -120,6 +120,15 @@ jobs:
       - name: Run CP004 region-stem editorial audit
         run: node artifacts/api-server/dist/reasoning-v1/ven-001-region-editorial-audit.test.mjs
 
+      - name: Bundle numerical Library source-support audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-source-support-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-source-support-audit.test.mjs
+      - name: Run numerical Library source-support audit
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-source-support-audit.test.mjs
+
       - name: Bundle final VEN-001 deep-audit closure proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
