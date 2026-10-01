@@ -104,7 +104,7 @@ async function run() {
   }
   {
     const auditPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP043')!;
-    assert.equal(auditPackage.metadata.authoringReviewApproved, false, `${packageId}: authoring review state`);
+    assert.equal(auditPackage.metadata.authoringReviewApproved, false, 'WGE-001-CP043: authoring review state');
     assert.equal(auditPackage.metadata.variablePoolQuestionCount, 12);
     assert.equal(auditPackage.metadata.variablePoolEnabled, true);
     assert.equal(auditPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
