@@ -1,0 +1,31 @@
+name: Sample DSF-CP-030 Reasoning Editorial Output
+
+on:
+  pull_request:
+    branches:
+      - audit/dsf-001-cp029-editorial-surface
+    types: [opened, reopened, synchronize, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sample-dsf-cp030:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle editorial sampler
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-030/reasoning-editorial-sampler-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dsf-cp030-editorial-sampler.test.mjs
+      - name: Emit editorial samples
+        run: node artifacts/api-server/dist/reasoning-v1/dsf-cp030-editorial-sampler.test.mjs
