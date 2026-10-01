@@ -879,14 +879,6 @@ function localizeGeoTrnBulkV1(question:CanonicalQuestion,language:"hi"|"pa"){
   const explanation=local(question.explanation);
   return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
-
-
-  for (const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) {
-    out=out.replace(new RegExp("\\b"+esc(a)+"\\b","gi"),b);
-  }
-  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
-}
-
 function localizeGeoSoiBulkCp004Cp008V1(question:CanonicalQuestion, language:"hi"|"pa") {
   if (!/^GEO-SOI-001-CP(?:00[4-9]|01[0-2])-Q/.test(question.questionId)) return null;
   const safe = (source:string) => {
