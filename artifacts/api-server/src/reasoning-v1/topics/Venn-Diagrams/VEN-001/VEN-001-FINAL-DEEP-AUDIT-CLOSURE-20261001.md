@@ -39,16 +39,25 @@ This is strong generation breadth, but this closure does **not** claim exhaustiv
 
 ## Source-pattern boundary
 
-The source-pattern census establishes that category→diagram and diagram→category operations occur in attributed SSC/Delhi Police reproductions and records several concrete exam-family examples.
+The source-pattern census plus the Examtree persistent Library establish substantially broader exam-tagged evidence than the earlier web-only pass recorded.
 
-The census itself correctly states important limits:
+Library-backed evidence now covers:
 
-- the retrieved evidence is secondary reproduction evidence rather than original-paper provenance;
-- it does not establish pattern frequency;
-- standalone two-class category→diagram paper frequency remains insufficiently evidenced;
-- additional source-backed expansion may continue later.
+- logical category→diagram questions across SSC, Police, RRB, DSSSB and KVS reproductions;
+- diagram→category reverse interpretation;
+- numbered/lettered region identification;
+- direct populated-diagram count questions;
+- pair-only / triple-overlap / neither / exclusive-or style region logic;
+- multi-shape Venn diagrams using circles, triangles, squares, rectangles, rhombi, hexagons and pentagons;
+- direct two-set inclusion–exclusion from prose data.
 
-Those research limits do not reopen the implemented learner-contract audit.
+Important limits remain:
+
+- the Library material is exam-tagged secondary reproduction evidence, not uniformly original-paper provenance;
+- the review does not establish frequency weighting by exam family/year;
+- CP007 percentage/ratio, CP008 explicit unknown-solving and CP010 minimum/maximum overlap-bound extensions still need a dedicated source-frequency mapping pass before they can be called source-saturated.
+
+These are source-calibration/research limits, not correctness defects in the implemented learner contracts.
 
 ## Solver and correctness result
 
