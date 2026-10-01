@@ -2828,7 +2828,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "18:35",
-      "explanation": "There are 52 people who practise yoga and 69 who practise swimming. The overlap is counted in both totals. Only yoga = 52 − 34 = 18; Only swimming = 69 − 34 = 35. The number in at least one activity = 52 + 69 − 34 = 87. None of these groups = 120 − 87 = 33. Only yoga = 18 and only swimming = 35. Divide both terms by their highest common factor, 1. 18/1:35/1 = 18:35.",
+      "explanation": "Subtract the overlap from each group total: only yoga = 52 − 34 = 18; only swimming = 69 − 34 = 35. Reduce the ratio by the highest common factor 1: 18/1:35/1 = 18:35.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">33</text><text x=\"135\" y=\"220\" data-mask=\"1\">18</text><text x=\"425\" y=\"220\" data-mask=\"2\">35</text><text x=\"280\" y=\"220\" data-mask=\"3\">34</text></g></svg>"
       ],
@@ -2932,7 +2932,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21:4",
-      "explanation": "First place 12 people in the region common to all three groups: the chess club, the music club, the drama club. Only the chess club and the music club (not the drama club) = 31 − 12 = 19; Only the chess club and the drama club (not the music club) = 37 − 12 = 25; Only the music club and the drama club (not the chess club) = 31 − 12 = 19. Only the chess club = 58 − 19 − 25 − 12 = 2; Only the music club = 84 − 19 − 19 − 12 = 34; Only the drama club = 70 − 25 − 19 − 12 = 14. None of these groups = 156 − (2 + 34 + 19 + 14 + 25 + 19 + 12) = 31. Exactly two of the chess club, the music club, the drama club = 63; all three = 12. Divide both terms by their highest common factor, 3. 63/3:12/3 = 21:4.",
+      "explanation": "Each pair total includes the all-three group. Subtract the all-three count from each pair, then add the three pair-only regions: (31 − 12) + (37 − 12) + (31 − 12) = 63. All three groups = 12. Reduce the ratio by the highest common factor 3: 63/3:12/3 = 21:4.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"200\" cy=\"150\" r=\"130\"/><circle cx=\"360\" cy=\"150\" r=\"130\"/><circle cx=\"280\" cy=\"280\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"280\" y=\"439\">C</text><text x=\"505\" y=\"380\" data-mask=\"0\">31</text><text x=\"125\" y=\"125\" data-mask=\"1\">2</text><text x=\"435\" y=\"125\" data-mask=\"2\">34</text><text x=\"280\" y=\"85\" data-mask=\"3\">19</text><text x=\"280\" y=\"365\" data-mask=\"4\">14</text><text x=\"190\" y=\"265\" data-mask=\"5\">25</text><text x=\"370\" y=\"265\" data-mask=\"6\">19</text><text x=\"280\" y=\"205\" data-mask=\"7\">12</text></g></svg>"
       ],
@@ -3238,8 +3238,8 @@
       "subtopic": "Numerical Venn Diagrams",
       "language": "en",
       "locale": "en-IN",
-      "stem": "The figures show that Group A consists of people who read newspaper A; Group B consists of people who read newspaper B. For newspaper A and newspaper B, the counts for only newspaper A, only newspaper B, both, and neither are in the ratio 2:3:1:1. 18 people do both. How many people were surveyed?",
-      "text": "The figures show that Group A consists of people who read newspaper A; Group B consists of people who read newspaper B. For newspaper A and newspaper B, the counts for only newspaper A, only newspaper B, both, and neither are in the ratio 2:3:1:1. 18 people do both. How many people were surveyed?",
+      "stem": "For newspaper A and newspaper B, the four disjoint regions—only newspaper A, only newspaper B, both groups, and neither group—are in the ratio 2:3:1:1. The both-groups region contains 18 people. How many people were surveyed?",
+      "text": "For newspaper A and newspaper B, the four disjoint regions—only newspaper A, only newspaper B, both groups, and neither group—are in the ratio 2:3:1:1. The both-groups region contains 18 people. How many people were surveyed?",
       "options": [
         "54",
         "72",
@@ -4338,7 +4338,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "22",
-      "explanation": "The survey gives literacy drives: 51; clean-up drives: 43 out of 72 people. If nobody belongs to all 2 groups, each person can be counted in at most 1 group totals. Any count beyond 1 × N must therefore come from people common to all 2 groups; if there is no excess, the lower bound is zero. Using the given group sizes: max(0, 51 + 43 − 1 × 72) = 22.",
+      "explanation": "Among 72 people, the group totals are literacy drives = 51; clean-up drives = 43. If nobody belongs to every group, each person can be counted in at most one group total. Across 72 people, that allows at most 1 × 72 group-count entries without an all-group overlap. Any excess must come from people in every group; if there is no excess, the minimum is 0. Using the given group sizes: max(0, 51 + 43 − 1 × 72) = 22.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -4434,7 +4434,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21",
-      "explanation": "The survey gives live online classes: 21; recorded lessons: 29 out of 68 people. The number common to all groups cannot exceed the smallest group. The maximum is reached when every member of the smallest group also belongs to each of the other groups. Using the given group sizes: min(21, 29) = 21.",
+      "explanation": "Among 68 people, the group totals are live online classes = 21; recorded lessons = 29. The number common to all groups cannot exceed the smallest group. The maximum is reached when every member of the smallest group also belongs to each of the other groups. Using the given group sizes: min(21, 29) = 21.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -4530,7 +4530,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "0",
-      "explanation": "The survey gives yoga: 32; swimming: 55; cycling: 43 out of 105 people. If nobody belongs to all 3 groups, each person can be counted in at most 2 group totals. Any count beyond 2 × N must therefore come from people common to all 3 groups; if there is no excess, the lower bound is zero. Using the given group sizes: max(0, 32 + 55 + 43 − 2 × 105) = 0.",
+      "explanation": "Among 105 people, the group totals are yoga = 32; swimming = 55; cycling = 43. If nobody belongs to every group, each person can be counted in at most 2 group totals. Across 105 people, that allows at most 2 × 105 group-count entries without an all-group overlap. Any excess must come from people in every group; if there is no excess, the minimum is 0. Using the given group sizes: max(0, 32 + 55 + 43 − 2 × 105) = 0.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -4626,7 +4626,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "85",
-      "explanation": "The survey gives the chess club: 93; the music club: 96; the drama club: 85 out of 171 people. The number common to all groups cannot exceed the smallest group. The maximum is reached when every member of the smallest group also belongs to each of the other groups. Using the given group sizes: min(93, 96, 85) = 85.",
+      "explanation": "Among 171 people, the group totals are the chess club = 93; the music club = 96; the drama club = 85. The number common to all groups cannot exceed the smallest group. The maximum is reached when every member of the smallest group also belongs to each of the other groups. Using the given group sizes: min(93, 96, 85) = 85.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -4722,7 +4722,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "46",
-      "explanation": "The survey gives mathematics: 15; English: 46 out of 52 people. The union must include the largest group. Nest the other groups inside it to attain the minimum. Using the given group sizes: max(15, 46) = 46.",
+      "explanation": "Among 52 people, the group totals are mathematics = 15; English = 46. The union must include the largest group. Nest the other groups inside it to attain the minimum. Using the given group sizes: max(15, 46) = 46.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -4818,7 +4818,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "72",
-      "explanation": "The survey gives daily newspapers: 51; news magazines: 36 out of 72 people. The number in at least one group cannot exceed the total population or the sum of the group sizes. To maximize it, keep the groups separate as far as the population allows. Using the given group sizes: min(72, 51 + 36) = 72.",
+      "explanation": "Among 72 people, the group totals are daily newspapers = 51; news magazines = 36. The number in at least one group cannot exceed the total population or the sum of the group sizes. To maximize it, keep the groups separate as far as the population allows. Using the given group sizes: min(72, 51 + 36) = 72.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -4914,7 +4914,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "75",
-      "explanation": "The survey gives newspaper A: 75; newspaper B: 49; newspaper C: 46 out of 113 people. The union must include the largest group. Nest the other groups inside it to attain the minimum. Using the given group sizes: max(75, 49, 46) = 75.",
+      "explanation": "Among 113 people, the group totals are newspaper A = 75; newspaper B = 49; newspaper C = 46. The union must include the largest group. Nest the other groups inside it to attain the minimum. Using the given group sizes: max(75, 49, 46) = 75.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -5010,7 +5010,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "169",
-      "explanation": "The survey gives tea: 83; coffee: 82; milk: 105 out of 169 people. The number in at least one group cannot exceed the total population or the sum of the group sizes. To maximize it, keep the groups separate as far as the population allows. Using the given group sizes: min(169, 83 + 82 + 105) = 169.",
+      "explanation": "Among 169 people, the group totals are tea = 83; coffee = 82; milk = 105. The number in at least one group cannot exceed the total population or the sum of the group sizes. To maximize it, keep the groups separate as far as the population allows. Using the given group sizes: min(169, 83 + 82 + 105) = 169.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -7878,7 +7878,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "18:35",
-      "explanation": "52 लोग योग का अभ्यास करते हैं और 69 लोग तैराकी का अभ्यास करते हैं। साझा लोगों को दोनों कुल संख्याओं में गिना गया है। केवल योग = 52 − 34 = 18; केवल तैराकी = 69 − 34 = 35. कम-से-कम एक गतिविधि करने वाले लोग = 52 + 69 − 34 = 87. इनमें से किसी समूह में नहीं = 120 − 87 = 33. केवल योग = 18 और केवल तैराकी = 35। दोनों पदों को उनके महत्तम समापवर्तक 1 से भाग दें। 18/1:35/1 = 18:35.",
+      "explanation": "हर समूह की कुल संख्या में से साझा लोगों को घटाएँ: केवल योग = 52 − 34 = 18; केवल तैराकी = 69 − 34 = 35। अनुपात को महत्तम समापवर्तक से सरल करें 1: 18/1:35/1 = 18:35.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">33</text><text x=\"135\" y=\"220\" data-mask=\"1\">18</text><text x=\"425\" y=\"220\" data-mask=\"2\">35</text><text x=\"280\" y=\"220\" data-mask=\"3\">34</text></g></svg>"
       ],
@@ -7982,7 +7982,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21:4",
-      "explanation": "पहले तीनों समूहों—शतरंज क्लब, संगीत क्लब, नाटक क्लब—के साझा क्षेत्र में 12 लोगों को रखें। केवल शतरंज क्लब और संगीत क्लब (नाटक क्लब वाले समूह को छोड़कर) = 31 − 12 = 19; केवल शतरंज क्लब और नाटक क्लब (संगीत क्लब वाले समूह को छोड़कर) = 37 − 12 = 25; केवल संगीत क्लब और नाटक क्लब (शतरंज क्लब वाले समूह को छोड़कर) = 31 − 12 = 19. केवल शतरंज क्लब = 58 − 19 − 25 − 12 = 2; केवल संगीत क्लब = 84 − 19 − 19 − 12 = 34; केवल नाटक क्लब = 70 − 25 − 19 − 12 = 14. इनमें से किसी समूह में नहीं = 156 − (2 + 34 + 19 + 14 + 25 + 19 + 12) = 31. शतरंज क्लब, संगीत क्लब, नाटक क्लब में से ठीक दो समूहों में आने वाले = 63; तीनों समूहों में आने वाले = 12। दोनों पदों को उनके महत्तम समापवर्तक 3 से भाग दें। 63/3:12/3 = 21:4.",
+      "explanation": "हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। हर जोड़ी में से तीनों वाले लोगों को घटाकर तीन केवल-जोड़ी क्षेत्रों को जोड़ें: (31 − 12) + (37 − 12) + (31 − 12) = 63. तीनों समूह = 12. अनुपात को महत्तम समापवर्तक से सरल करें 3: 63/3:12/3 = 21:4.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"200\" cy=\"150\" r=\"130\"/><circle cx=\"360\" cy=\"150\" r=\"130\"/><circle cx=\"280\" cy=\"280\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"280\" y=\"439\">C</text><text x=\"505\" y=\"380\" data-mask=\"0\">31</text><text x=\"125\" y=\"125\" data-mask=\"1\">2</text><text x=\"435\" y=\"125\" data-mask=\"2\">34</text><text x=\"280\" y=\"85\" data-mask=\"3\">19</text><text x=\"280\" y=\"365\" data-mask=\"4\">14</text><text x=\"190\" y=\"265\" data-mask=\"5\">25</text><text x=\"370\" y=\"265\" data-mask=\"6\">19</text><text x=\"280\" y=\"205\" data-mask=\"7\">12</text></g></svg>"
       ],
@@ -8288,8 +8288,8 @@
       "subtopic": "Numerical Venn Diagrams",
       "language": "hi",
       "locale": "hi-IN",
-      "stem": "आँकड़ों के अनुसार समूह A में वे लोग हैं जो समाचार-पत्र A पढ़ते हैं; समूह B में वे लोग हैं जो समाचार-पत्र B पढ़ते हैं. समाचार-पत्र A और समाचार-पत्र B के लिए केवल समाचार-पत्र A, केवल समाचार-पत्र B, दोनों समूहों और किसी भी समूह में न आने वालों की संख्याओं का अनुपात 2:3:1:1 है। दोनों समूहों में 18 लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?",
-      "text": "आँकड़ों के अनुसार समूह A में वे लोग हैं जो समाचार-पत्र A पढ़ते हैं; समूह B में वे लोग हैं जो समाचार-पत्र B पढ़ते हैं. समाचार-पत्र A और समाचार-पत्र B के लिए केवल समाचार-पत्र A, केवल समाचार-पत्र B, दोनों समूहों और किसी भी समूह में न आने वालों की संख्याओं का अनुपात 2:3:1:1 है। दोनों समूहों में 18 लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?",
+      "stem": "समाचार-पत्र A और समाचार-पत्र B के चार अलग हिस्सों—केवल समाचार-पत्र A, केवल समाचार-पत्र B, दोनों समूह और कोई भी समूह नहीं—की संख्याओं का अनुपात 2:3:1:1 है। दोनों समूहों वाले हिस्से में 18 लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?",
+      "text": "समाचार-पत्र A और समाचार-पत्र B के चार अलग हिस्सों—केवल समाचार-पत्र A, केवल समाचार-पत्र B, दोनों समूह और कोई भी समूह नहीं—की संख्याओं का अनुपात 2:3:1:1 है। दोनों समूहों वाले हिस्से में 18 लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?",
       "options": [
         "54",
         "72",
@@ -9388,7 +9388,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "22",
-      "explanation": "कुल 72 लोगों में से साक्षरता अभियानों: 51, सफाई अभियानों: 43। यदि कोई व्यक्ति सभी 2 समूहों में न हो, तो हर व्यक्ति अधिक-से-अधिक 1 समूहों की गिनती में आ सकता है। 1 × N से अधिक की गिनती केवल उन लोगों से आ सकती है जो सभी 2 समूहों में हैं; अतिरिक्त गिनती न हो तो न्यूनतम मान 0 होगा। दी गई समूह-संख्याओं से: max(0, 51 + 43 − 1 × 72) = 22.",
+      "explanation": "कुल 72 लोगों में समूह-संख्याएँ हैं: साक्षरता अभियानों = 51; सफाई अभियानों = 43। यदि कोई व्यक्ति सभी समूहों में न हो, तो हर व्यक्ति अधिक-से-अधिक एक समूह की गिनती में आ सकता है। 72 लोगों के लिए बिना साझा व्यक्ति के अधिकतम 1 × 72 समूह-गिनतियाँ हो सकती हैं। इससे अधिक गिनती सभी समूहों में आने वाले लोगों से ही आएगी; अतिरिक्त गिनती न हो तो न्यूनतम मान 0 होगा। दी गई समूह-संख्याओं से: max(0, 51 + 43 − 1 × 72) = 22.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -9484,7 +9484,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21",
-      "explanation": "कुल 68 लोगों में से लाइव ऑनलाइन कक्षाओं: 21, रिकॉर्ड किए गए पाठों: 29। सभी समूहों में साझा लोगों की संख्या सबसे छोटे समूह से अधिक नहीं हो सकती। अधिकतम मान तब मिलता है जब सबसे छोटे समूह का हर व्यक्ति बाकी सभी समूहों में भी शामिल हो। दी गई समूह-संख्याओं से: min(21, 29) = 21.",
+      "explanation": "कुल 68 लोगों में समूह-संख्याएँ हैं: लाइव ऑनलाइन कक्षाओं = 21; रिकॉर्ड किए गए पाठों = 29। सभी समूहों में साझा लोगों की संख्या सबसे छोटे समूह से अधिक नहीं हो सकती। अधिकतम मान तब मिलता है जब सबसे छोटे समूह का हर व्यक्ति बाकी सभी समूहों में भी शामिल हो। दी गई समूह-संख्याओं से: min(21, 29) = 21.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -9580,7 +9580,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "0",
-      "explanation": "कुल 105 लोगों में से योग: 32, तैराकी: 55, साइकिल चलाने: 43। यदि कोई व्यक्ति सभी 3 समूहों में न हो, तो हर व्यक्ति अधिक-से-अधिक 2 समूहों की गिनती में आ सकता है। 2 × N से अधिक की गिनती केवल उन लोगों से आ सकती है जो सभी 3 समूहों में हैं; अतिरिक्त गिनती न हो तो न्यूनतम मान 0 होगा। दी गई समूह-संख्याओं से: max(0, 32 + 55 + 43 − 2 × 105) = 0.",
+      "explanation": "कुल 105 लोगों में समूह-संख्याएँ हैं: योग = 32; तैराकी = 55; साइकिल चलाने = 43। यदि कोई व्यक्ति सभी समूहों में न हो, तो हर व्यक्ति अधिक-से-अधिक 2 समूहों की गिनती में आ सकता है। 105 लोगों के लिए बिना साझा व्यक्ति के अधिकतम 2 × 105 समूह-गिनतियाँ हो सकती हैं। इससे अधिक गिनती सभी समूहों में आने वाले लोगों से ही आएगी; अतिरिक्त गिनती न हो तो न्यूनतम मान 0 होगा। दी गई समूह-संख्याओं से: max(0, 32 + 55 + 43 − 2 × 105) = 0.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -9676,7 +9676,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "85",
-      "explanation": "कुल 171 लोगों में से शतरंज क्लब: 93, संगीत क्लब: 96, नाटक क्लब: 85। सभी समूहों में साझा लोगों की संख्या सबसे छोटे समूह से अधिक नहीं हो सकती। अधिकतम मान तब मिलता है जब सबसे छोटे समूह का हर व्यक्ति बाकी सभी समूहों में भी शामिल हो। दी गई समूह-संख्याओं से: min(93, 96, 85) = 85.",
+      "explanation": "कुल 171 लोगों में समूह-संख्याएँ हैं: शतरंज क्लब = 93; संगीत क्लब = 96; नाटक क्लब = 85। सभी समूहों में साझा लोगों की संख्या सबसे छोटे समूह से अधिक नहीं हो सकती। अधिकतम मान तब मिलता है जब सबसे छोटे समूह का हर व्यक्ति बाकी सभी समूहों में भी शामिल हो। दी गई समूह-संख्याओं से: min(93, 96, 85) = 85.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -9772,7 +9772,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "46",
-      "explanation": "कुल 52 लोगों में से गणित: 15, अंग्रेज़ी: 46। कम-से-कम एक समूह में आने वालों में सबसे बड़ा समूह शामिल होगा। अन्य समूहों को इसके भीतर रखने पर न्यूनतम संख्या मिलती है। दी गई समूह-संख्याओं से: max(15, 46) = 46.",
+      "explanation": "कुल 52 लोगों में समूह-संख्याएँ हैं: गणित = 15; अंग्रेज़ी = 46। कम-से-कम एक समूह में आने वालों में सबसे बड़ा समूह शामिल होगा। अन्य समूहों को इसके भीतर रखने पर न्यूनतम संख्या मिलती है। दी गई समूह-संख्याओं से: max(15, 46) = 46.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -9868,7 +9868,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "72",
-      "explanation": "कुल 72 लोगों में से दैनिक समाचार-पत्र: 51, समाचार पत्रिकाएँ: 36। कम-से-कम एक समूह में आने वालों की संख्या कुल लोगों की संख्या या समूह-संख्याओं के योग से अधिक नहीं हो सकती। अधिकतम के लिए समूहों को जहाँ तक संभव हो अलग रखें। दी गई समूह-संख्याओं से: min(72, 51 + 36) = 72.",
+      "explanation": "कुल 72 लोगों में समूह-संख्याएँ हैं: दैनिक समाचार-पत्र = 51; समाचार पत्रिकाएँ = 36। कम-से-कम एक समूह में आने वालों की संख्या कुल लोगों की संख्या या समूह-संख्याओं के योग से अधिक नहीं हो सकती। अधिकतम के लिए समूहों को जहाँ तक संभव हो अलग रखें। दी गई समूह-संख्याओं से: min(72, 51 + 36) = 72.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -9964,7 +9964,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "75",
-      "explanation": "कुल 113 लोगों में से समाचार-पत्र A: 75, समाचार-पत्र B: 49, समाचार-पत्र C: 46। कम-से-कम एक समूह में आने वालों में सबसे बड़ा समूह शामिल होगा। अन्य समूहों को इसके भीतर रखने पर न्यूनतम संख्या मिलती है। दी गई समूह-संख्याओं से: max(75, 49, 46) = 75.",
+      "explanation": "कुल 113 लोगों में समूह-संख्याएँ हैं: समाचार-पत्र A = 75; समाचार-पत्र B = 49; समाचार-पत्र C = 46। कम-से-कम एक समूह में आने वालों में सबसे बड़ा समूह शामिल होगा। अन्य समूहों को इसके भीतर रखने पर न्यूनतम संख्या मिलती है। दी गई समूह-संख्याओं से: max(75, 49, 46) = 75.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -10060,7 +10060,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "169",
-      "explanation": "कुल 169 लोगों में से चाय: 83, कॉफ़ी: 82, दूध: 105। कम-से-कम एक समूह में आने वालों की संख्या कुल लोगों की संख्या या समूह-संख्याओं के योग से अधिक नहीं हो सकती। अधिकतम के लिए समूहों को जहाँ तक संभव हो अलग रखें। दी गई समूह-संख्याओं से: min(169, 83 + 82 + 105) = 169.",
+      "explanation": "कुल 169 लोगों में समूह-संख्याएँ हैं: चाय = 83; कॉफ़ी = 82; दूध = 105। कम-से-कम एक समूह में आने वालों की संख्या कुल लोगों की संख्या या समूह-संख्याओं के योग से अधिक नहीं हो सकती। अधिकतम के लिए समूहों को जहाँ तक संभव हो अलग रखें। दी गई समूह-संख्याओं से: min(169, 83 + 82 + 105) = 169.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -12928,7 +12928,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "18:35",
-      "explanation": "52 ਲੋਕ ਯੋਗ ਦਾ ਅਭਿਆਸ ਕਰਦੇ ਹਨ ਅਤੇ 69 ਲੋਕ ਤੈਰਾਕੀ ਦਾ ਅਭਿਆਸ ਕਰਦੇ ਹਨ। ਸਾਂਝੇ ਲੋਕ ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹਨ। ਸਿਰਫ਼ ਯੋਗ = 52 − 34 = 18; ਸਿਰਫ਼ ਤੈਰਾਕੀ = 69 − 34 = 35. ਘੱਟੋ-ਘੱਟ ਇੱਕ ਕੰਮ ਕਰਨ ਵਾਲੇ ਲੋਕ = 52 + 69 − 34 = 87. ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ = 120 − 87 = 33. ਸਿਰਫ਼ ਯੋਗ = 18 ਅਤੇ ਸਿਰਫ਼ ਤੈਰਾਕੀ = 35। ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ 1 ਨਾਲ ਭਾਗ ਦਿਓ। 18/1:35/1 = 18:35.",
+      "explanation": "ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਸਾਂਝੇ ਲੋਕ ਘਟਾਓ: ਸਿਰਫ਼ ਯੋਗ = 52 − 34 = 18; ਸਿਰਫ਼ ਤੈਰਾਕੀ = 69 − 34 = 35। ਅਨੁਪਾਤ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ 1: 18/1:35/1 = 18:35.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"210\" cy=\"220\" r=\"130\"/><circle cx=\"350\" cy=\"220\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"505\" y=\"380\" data-mask=\"0\">33</text><text x=\"135\" y=\"220\" data-mask=\"1\">18</text><text x=\"425\" y=\"220\" data-mask=\"2\">35</text><text x=\"280\" y=\"220\" data-mask=\"3\">34</text></g></svg>"
       ],
@@ -13032,7 +13032,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21:4",
-      "explanation": "ਪਹਿਲਾਂ ਤਿੰਨਾਂ ਸਮੂਹਾਂ—ਸ਼ਤਰੰਜ ਕਲੱਬ, ਸੰਗੀਤ ਕਲੱਬ, ਨਾਟਕ ਕਲੱਬ—ਦੇ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ 12 ਲੋਕ ਰੱਖੋ। ਸਿਰਫ਼ ਸ਼ਤਰੰਜ ਕਲੱਬ ਅਤੇ ਸੰਗੀਤ ਕਲੱਬ (ਨਾਟਕ ਕਲੱਬ ਵਾਲੇ ਸਮੂਹ ਤੋਂ ਬਿਨਾਂ) = 31 − 12 = 19; ਸਿਰਫ਼ ਸ਼ਤਰੰਜ ਕਲੱਬ ਅਤੇ ਨਾਟਕ ਕਲੱਬ (ਸੰਗੀਤ ਕਲੱਬ ਵਾਲੇ ਸਮੂਹ ਤੋਂ ਬਿਨਾਂ) = 37 − 12 = 25; ਸਿਰਫ਼ ਸੰਗੀਤ ਕਲੱਬ ਅਤੇ ਨਾਟਕ ਕਲੱਬ (ਸ਼ਤਰੰਜ ਕਲੱਬ ਵਾਲੇ ਸਮੂਹ ਤੋਂ ਬਿਨਾਂ) = 31 − 12 = 19. ਸਿਰਫ਼ ਸ਼ਤਰੰਜ ਕਲੱਬ = 58 − 19 − 25 − 12 = 2; ਸਿਰਫ਼ ਸੰਗੀਤ ਕਲੱਬ = 84 − 19 − 19 − 12 = 34; ਸਿਰਫ਼ ਨਾਟਕ ਕਲੱਬ = 70 − 25 − 19 − 12 = 14. ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ = 156 − (2 + 34 + 19 + 14 + 25 + 19 + 12) = 31. ਸ਼ਤਰੰਜ ਕਲੱਬ, ਸੰਗੀਤ ਕਲੱਬ, ਨਾਟਕ ਕਲੱਬ ਵਿੱਚੋਂ ਠੀਕ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ = 63; ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ = 12। ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ 3 ਨਾਲ ਭਾਗ ਦਿਓ। 63/3:12/3 = 21:4.",
+      "explanation": "ਹਰ ਜੋੜੇ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਹਰ ਜੋੜੇ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕ ਘਟਾ ਕੇ ਤਿੰਨ ਸਿਰਫ਼-ਜੋੜੀ ਖੇਤਰ ਜੋੜੋ: (31 − 12) + (37 − 12) + (31 − 12) = 63. ਤਿੰਨੇ ਸਮੂਹ = 12. ਅਨੁਪਾਤ ਨੂੰ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ 3: 63/3:12/3 = 21:4.",
       "explanationSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 460\" role=\"img\" aria-label=\"Solved Venn region counts\"><rect x=\"15\" y=\"5\" width=\"530\" height=\"445\" rx=\"8\" fill=\"white\" stroke=\"#bbb\"/><g fill=\"none\" stroke=\"#17324d\" stroke-width=\"2\"><circle cx=\"200\" cy=\"150\" r=\"130\"/><circle cx=\"360\" cy=\"150\" r=\"130\"/><circle cx=\"280\" cy=\"280\" r=\"130\"/></g><g font-family=\"sans-serif\" font-size=\"20\" text-anchor=\"middle\" fill=\"#17324d\"><text x=\"120\" y=\"17\">A</text><text x=\"440\" y=\"17\">B</text><text x=\"280\" y=\"439\">C</text><text x=\"505\" y=\"380\" data-mask=\"0\">31</text><text x=\"125\" y=\"125\" data-mask=\"1\">2</text><text x=\"435\" y=\"125\" data-mask=\"2\">34</text><text x=\"280\" y=\"85\" data-mask=\"3\">19</text><text x=\"280\" y=\"365\" data-mask=\"4\">14</text><text x=\"190\" y=\"265\" data-mask=\"5\">25</text><text x=\"370\" y=\"265\" data-mask=\"6\">19</text><text x=\"280\" y=\"205\" data-mask=\"7\">12</text></g></svg>"
       ],
@@ -13338,8 +13338,8 @@
       "subtopic": "Numerical Venn Diagrams",
       "language": "pa",
       "locale": "pa-IN",
-      "stem": "ਅੰਕੜਿਆਂ ਅਨੁਸਾਰ A ਸਮੂਹ ਵਿੱਚ ਉਹ ਲੋਕ ਹਨ ਜੋ ਅਖ਼ਬਾਰ A ਪੜ੍ਹਦੇ ਹਨ; B ਸਮੂਹ ਵਿੱਚ ਉਹ ਲੋਕ ਹਨ ਜੋ ਅਖ਼ਬਾਰ B ਪੜ੍ਹਦੇ ਹਨ. ਅਖ਼ਬਾਰ A ਅਤੇ ਅਖ਼ਬਾਰ B ਲਈ ਸਿਰਫ਼ ਅਖ਼ਬਾਰ A, ਸਿਰਫ਼ ਅਖ਼ਬਾਰ B, ਦੋਵਾਂ ਸਮੂਹਾਂ ਅਤੇ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ 18 ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?",
-      "text": "ਅੰਕੜਿਆਂ ਅਨੁਸਾਰ A ਸਮੂਹ ਵਿੱਚ ਉਹ ਲੋਕ ਹਨ ਜੋ ਅਖ਼ਬਾਰ A ਪੜ੍ਹਦੇ ਹਨ; B ਸਮੂਹ ਵਿੱਚ ਉਹ ਲੋਕ ਹਨ ਜੋ ਅਖ਼ਬਾਰ B ਪੜ੍ਹਦੇ ਹਨ. ਅਖ਼ਬਾਰ A ਅਤੇ ਅਖ਼ਬਾਰ B ਲਈ ਸਿਰਫ਼ ਅਖ਼ਬਾਰ A, ਸਿਰਫ਼ ਅਖ਼ਬਾਰ B, ਦੋਵਾਂ ਸਮੂਹਾਂ ਅਤੇ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ 18 ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?",
+      "stem": "ਅਖ਼ਬਾਰ A ਅਤੇ ਅਖ਼ਬਾਰ B ਦੇ ਚਾਰ ਵੱਖਰੇ ਹਿੱਸਿਆਂ—ਸਿਰਫ਼ ਅਖ਼ਬਾਰ A, ਸਿਰਫ਼ ਅਖ਼ਬਾਰ B, ਦੋਵੇਂ ਸਮੂਹ ਅਤੇ ਕੋਈ ਵੀ ਸਮੂਹ ਨਹੀਂ—ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਾਲੇ ਹਿੱਸੇ ਵਿੱਚ 18 ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?",
+      "text": "ਅਖ਼ਬਾਰ A ਅਤੇ ਅਖ਼ਬਾਰ B ਦੇ ਚਾਰ ਵੱਖਰੇ ਹਿੱਸਿਆਂ—ਸਿਰਫ਼ ਅਖ਼ਬਾਰ A, ਸਿਰਫ਼ ਅਖ਼ਬਾਰ B, ਦੋਵੇਂ ਸਮੂਹ ਅਤੇ ਕੋਈ ਵੀ ਸਮੂਹ ਨਹੀਂ—ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਾਲੇ ਹਿੱਸੇ ਵਿੱਚ 18 ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?",
       "options": [
         "54",
         "72",
@@ -14438,7 +14438,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "22",
-      "explanation": "ਕੁੱਲ 72 ਲੋਕਾਂ ਵਿੱਚੋਂ ਸਾਖਰਤਾ ਮੁਹਿੰਮਾਂ: 51, ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ: 43। ਜੇ ਕੋਈ ਵਿਅਕਤੀ ਸਾਰੇ 2 ਸਮੂਹਾਂ ਵਿੱਚ ਨਾ ਹੋਵੇ, ਤਾਂ ਹਰ ਵਿਅਕਤੀ ਵੱਧ ਤੋਂ ਵੱਧ 1 ਸਮੂਹਾਂ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਆ ਸਕਦਾ ਹੈ। 1 × N ਤੋਂ ਵੱਧ ਦੀ ਗਿਣਤੀ ਉਹਨਾਂ ਲੋਕਾਂ ਕਰਕੇ ਹੀ ਹੋ ਸਕਦੀ ਹੈ ਜੋ ਸਾਰੇ 2 ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ; ਵਾਧੂ ਗਿਣਤੀ ਨਾ ਹੋਵੇ ਤਾਂ ਘੱਟ ਤੋਂ ਘੱਟ ਮਾਨ 0 ਹੋਵੇਗਾ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: max(0, 51 + 43 − 1 × 72) = 22.",
+      "explanation": "ਕੁੱਲ 72 ਲੋਕਾਂ ਵਿੱਚ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ: ਸਾਖਰਤਾ ਮੁਹਿੰਮਾਂ = 51; ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ = 43। ਜੇ ਕੋਈ ਵਿਅਕਤੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਨਾ ਹੋਵੇ, ਤਾਂ ਹਰ ਵਿਅਕਤੀ ਵੱਧ ਤੋਂ ਵੱਧ ਇੱਕ ਸਮੂਹ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਆ ਸਕਦਾ ਹੈ। 72 ਲੋਕਾਂ ਲਈ ਬਿਨਾਂ ਸਾਂਝੇ ਵਿਅਕਤੀ ਦੇ ਵੱਧ ਤੋਂ ਵੱਧ 1 × 72 ਸਮੂਹ-ਗਿਣਤੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ। ਇਸ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕਾਂ ਕਰਕੇ ਹੀ ਹੋਵੇਗੀ; ਵਾਧੂ ਗਿਣਤੀ ਨਾ ਹੋਵੇ ਤਾਂ ਘੱਟ ਤੋਂ ਘੱਟ ਮਾਨ 0 ਹੋਵੇਗਾ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: max(0, 51 + 43 − 1 × 72) = 22.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -14534,7 +14534,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "21",
-      "explanation": "ਕੁੱਲ 68 ਲੋਕਾਂ ਵਿੱਚੋਂ ਲਾਈਵ ਆਨਲਾਈਨ ਕਲਾਸਾਂ: 21, ਰਿਕਾਰਡ ਕੀਤੇ ਪਾਠ: 29। ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਤਦ ਮਿਲਦੀ ਹੈ ਜਦੋਂ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਦਾ ਹਰ ਵਿਅਕਤੀ ਬਾਕੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਵੀ ਹੋਵੇ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: min(21, 29) = 21.",
+      "explanation": "ਕੁੱਲ 68 ਲੋਕਾਂ ਵਿੱਚ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ: ਲਾਈਵ ਆਨਲਾਈਨ ਕਲਾਸਾਂ = 21; ਰਿਕਾਰਡ ਕੀਤੇ ਪਾਠ = 29। ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਤਦ ਮਿਲਦੀ ਹੈ ਜਦੋਂ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਦਾ ਹਰ ਵਿਅਕਤੀ ਬਾਕੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਵੀ ਹੋਵੇ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: min(21, 29) = 21.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -14630,7 +14630,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "0",
-      "explanation": "ਕੁੱਲ 105 ਲੋਕਾਂ ਵਿੱਚੋਂ ਯੋਗ: 32, ਤੈਰਾਕੀ: 55, ਸਾਈਕਲ ਚਲਾਉਣ: 43। ਜੇ ਕੋਈ ਵਿਅਕਤੀ ਸਾਰੇ 3 ਸਮੂਹਾਂ ਵਿੱਚ ਨਾ ਹੋਵੇ, ਤਾਂ ਹਰ ਵਿਅਕਤੀ ਵੱਧ ਤੋਂ ਵੱਧ 2 ਸਮੂਹਾਂ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਆ ਸਕਦਾ ਹੈ। 2 × N ਤੋਂ ਵੱਧ ਦੀ ਗਿਣਤੀ ਉਹਨਾਂ ਲੋਕਾਂ ਕਰਕੇ ਹੀ ਹੋ ਸਕਦੀ ਹੈ ਜੋ ਸਾਰੇ 3 ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ; ਵਾਧੂ ਗਿਣਤੀ ਨਾ ਹੋਵੇ ਤਾਂ ਘੱਟ ਤੋਂ ਘੱਟ ਮਾਨ 0 ਹੋਵੇਗਾ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: max(0, 32 + 55 + 43 − 2 × 105) = 0.",
+      "explanation": "ਕੁੱਲ 105 ਲੋਕਾਂ ਵਿੱਚ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ: ਯੋਗ = 32; ਤੈਰਾਕੀ = 55; ਸਾਈਕਲ ਚਲਾਉਣ = 43। ਜੇ ਕੋਈ ਵਿਅਕਤੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਨਾ ਹੋਵੇ, ਤਾਂ ਹਰ ਵਿਅਕਤੀ ਵੱਧ ਤੋਂ ਵੱਧ 2 ਸਮੂਹਾਂ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਆ ਸਕਦਾ ਹੈ। 105 ਲੋਕਾਂ ਲਈ ਬਿਨਾਂ ਸਾਂਝੇ ਵਿਅਕਤੀ ਦੇ ਵੱਧ ਤੋਂ ਵੱਧ 2 × 105 ਸਮੂਹ-ਗਿਣਤੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ। ਇਸ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕਾਂ ਕਰਕੇ ਹੀ ਹੋਵੇਗੀ; ਵਾਧੂ ਗਿਣਤੀ ਨਾ ਹੋਵੇ ਤਾਂ ਘੱਟ ਤੋਂ ਘੱਟ ਮਾਨ 0 ਹੋਵੇਗਾ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: max(0, 32 + 55 + 43 − 2 × 105) = 0.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -14726,7 +14726,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "85",
-      "explanation": "ਕੁੱਲ 171 ਲੋਕਾਂ ਵਿੱਚੋਂ ਸ਼ਤਰੰਜ ਕਲੱਬ: 93, ਸੰਗੀਤ ਕਲੱਬ: 96, ਨਾਟਕ ਕਲੱਬ: 85। ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਤਦ ਮਿਲਦੀ ਹੈ ਜਦੋਂ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਦਾ ਹਰ ਵਿਅਕਤੀ ਬਾਕੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਵੀ ਹੋਵੇ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: min(93, 96, 85) = 85.",
+      "explanation": "ਕੁੱਲ 171 ਲੋਕਾਂ ਵਿੱਚ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ: ਸ਼ਤਰੰਜ ਕਲੱਬ = 93; ਸੰਗੀਤ ਕਲੱਬ = 96; ਨਾਟਕ ਕਲੱਬ = 85। ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਤਦ ਮਿਲਦੀ ਹੈ ਜਦੋਂ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਦਾ ਹਰ ਵਿਅਕਤੀ ਬਾਕੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਵੀ ਹੋਵੇ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: min(93, 96, 85) = 85.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -14822,7 +14822,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "46",
-      "explanation": "ਕੁੱਲ 52 ਲੋਕਾਂ ਵਿੱਚੋਂ ਗਣਿਤ: 15, ਅੰਗਰੇਜ਼ੀ: 46। ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਡਾ ਸਮੂਹ ਸ਼ਾਮਲ ਹੋਵੇਗਾ। ਬਾਕੀ ਸਮੂਹਾਂ ਨੂੰ ਇਸ ਅੰਦਰ ਰੱਖਣ ਨਾਲ ਘੱਟ ਤੋਂ ਘੱਟ ਗਿਣਤੀ ਮਿਲਦੀ ਹੈ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: max(15, 46) = 46.",
+      "explanation": "ਕੁੱਲ 52 ਲੋਕਾਂ ਵਿੱਚ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ: ਗਣਿਤ = 15; ਅੰਗਰੇਜ਼ੀ = 46। ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਡਾ ਸਮੂਹ ਸ਼ਾਮਲ ਹੋਵੇਗਾ। ਬਾਕੀ ਸਮੂਹਾਂ ਨੂੰ ਇਸ ਅੰਦਰ ਰੱਖਣ ਨਾਲ ਘੱਟ ਤੋਂ ਘੱਟ ਗਿਣਤੀ ਮਿਲਦੀ ਹੈ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: max(15, 46) = 46.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -14918,7 +14918,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "72",
-      "explanation": "ਕੁੱਲ 72 ਲੋਕਾਂ ਵਿੱਚੋਂ ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ: 51, ਖ਼ਬਰਾਂ ਦੇ ਰਸਾਲੇ: 36। ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੁੱਲ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਜਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦੇ ਜੋੜ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਲਈ ਸਮੂਹਾਂ ਨੂੰ ਜਿੱਥੋਂ ਤੱਕ ਸੰਭਵ ਹੋਵੇ ਵੱਖ ਰੱਖੋ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: min(72, 51 + 36) = 72.",
+      "explanation": "ਕੁੱਲ 72 ਲੋਕਾਂ ਵਿੱਚ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ: ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ = 51; ਖ਼ਬਰਾਂ ਦੇ ਰਸਾਲੇ = 36। ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੁੱਲ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਜਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦੇ ਜੋੜ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਲਈ ਸਮੂਹਾਂ ਨੂੰ ਜਿੱਥੋਂ ਤੱਕ ਸੰਭਵ ਹੋਵੇ ਵੱਖ ਰੱਖੋ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: min(72, 51 + 36) = 72.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -15014,7 +15014,7 @@
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "75",
-      "explanation": "ਕੁੱਲ 113 ਲੋਕਾਂ ਵਿੱਚੋਂ ਅਖ਼ਬਾਰ A: 75, ਅਖ਼ਬਾਰ B: 49, ਅਖ਼ਬਾਰ C: 46। ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਡਾ ਸਮੂਹ ਸ਼ਾਮਲ ਹੋਵੇਗਾ। ਬਾਕੀ ਸਮੂਹਾਂ ਨੂੰ ਇਸ ਅੰਦਰ ਰੱਖਣ ਨਾਲ ਘੱਟ ਤੋਂ ਘੱਟ ਗਿਣਤੀ ਮਿਲਦੀ ਹੈ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: max(75, 49, 46) = 75.",
+      "explanation": "ਕੁੱਲ 113 ਲੋਕਾਂ ਵਿੱਚ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ: ਅਖ਼ਬਾਰ A = 75; ਅਖ਼ਬਾਰ B = 49; ਅਖ਼ਬਾਰ C = 46। ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਡਾ ਸਮੂਹ ਸ਼ਾਮਲ ਹੋਵੇਗਾ। ਬਾਕੀ ਸਮੂਹਾਂ ਨੂੰ ਇਸ ਅੰਦਰ ਰੱਖਣ ਨਾਲ ਘੱਟ ਤੋਂ ਘੱਟ ਗਿਣਤੀ ਮਿਲਦੀ ਹੈ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: max(75, 49, 46) = 75.",
       "explanationSvgs": [],
       "optionDetails": [
         {
@@ -15110,7 +15110,7 @@
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "169",
-      "explanation": "ਕੁੱਲ 169 ਲੋਕਾਂ ਵਿੱਚੋਂ ਚਾਹ: 83, ਕੌਫ਼ੀ: 82, ਦੁੱਧ: 105। ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੁੱਲ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਜਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦੇ ਜੋੜ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਲਈ ਸਮੂਹਾਂ ਨੂੰ ਜਿੱਥੋਂ ਤੱਕ ਸੰਭਵ ਹੋਵੇ ਵੱਖ ਰੱਖੋ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: min(169, 83 + 82 + 105) = 169.",
+      "explanation": "ਕੁੱਲ 169 ਲੋਕਾਂ ਵਿੱਚ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ: ਚਾਹ = 83; ਕੌਫ਼ੀ = 82; ਦੁੱਧ = 105। ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੁੱਲ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਜਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦੇ ਜੋੜ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਲਈ ਸਮੂਹਾਂ ਨੂੰ ਜਿੱਥੋਂ ਤੱਕ ਸੰਭਵ ਹੋਵੇ ਵੱਖ ਰੱਖੋ। ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ: min(169, 83 + 82 + 105) = 169.",
       "explanationSvgs": [],
       "optionDetails": [
         {
