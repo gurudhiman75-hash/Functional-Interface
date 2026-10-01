@@ -1,6 +1,5 @@
 import { randomUUID } from "node:crypto";
 
-import { generateQuestion as generateQuantV4Questions } from "../quant-v4/generation-engine";
 import type { QuestionStudioGenerationRequest } from "./engine-types";
 
 export type QuantProfileDifficulty = "Easy" | "Medium" | "Hard";
@@ -367,6 +366,9 @@ export async function generateProfiledQuantBatch(input: {
   examProfileId?: unknown;
   difficultyPreset?: unknown;
   difficultyDistribution?: unknown;
+  generateCandidateBatch: (
+    request: QuestionStudioGenerationRequest,
+  ) => Promise<unknown>;
 }): Promise<{
   questions: Array<Record<string, unknown>>;
   generationContexts: Array<{
@@ -396,18 +398,13 @@ export async function generateProfiledQuantBatch(input: {
 
   for (const assignment of plan.assignments) {
     const candidateCount = Math.min(100, assignment.count * 2);
-    const result = await generateQuantV4Questions({
-      packageId: input.request.packageId as never,
-      patternId: input.request.patternId,
-      topic: input.request.topic,
-      subtopic: input.request.subtopic,
+    const result = await input.generateCandidateBatch({
+      ...input.request,
+      engineId: "quant-v4",
       difficulty: assignment.difficulty,
-      language: input.request.language,
       seed: assignment.seed,
       count: candidateCount,
-      runtimeMode: input.request.runtimeMode as never,
       canonicalProblemId: assignment.cpId,
-      questionLanguageId: input.request.questionLanguageId,
     });
 
     const resultRecord = asRecord(result);
