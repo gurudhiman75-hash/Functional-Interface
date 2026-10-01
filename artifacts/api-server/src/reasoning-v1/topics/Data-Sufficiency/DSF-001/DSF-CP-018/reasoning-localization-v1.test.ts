@@ -4,7 +4,7 @@ import {
   previewDsf001NormalQuestionStudioReview,
 } from "../DSF-CP-017/question-studio-review-v1.ts";
 
-const englishLeak = /\b(?:the|is|are|was|were|what|which|how|from|with|and|or|only|statement|sufficient|person|people|day|rank|starting|opposite|resulting|number|target|between|before|after|father|mother|son|daughter|brother|sister|husband|wife|parent|child|sibling|spouse|male|female|blood|relation|subject|reference|clue|link)\b/iu;
+const englishLeak = /\b(?:the|is|are|was|were|what|which|how|from|with|and|or|only|statement|sufficient|person|people|day|rank|starting|opposite|resulting|number|target|between|before|after|father|mother|son|daughter|brother|sister|husband|wife|grandfather|grandmother|grandson|granddaughter|uncle|aunt|nephew|niece|cousin|parent|child|sibling|spouse|male|female|blood|relation|subject|reference|clue|link)\b/iu;
 
 for (const laneId of DSF_CP018_REASONING_LOCALIZED_LANES) {
   for (const language of ["hi", "pa"] as const) {
