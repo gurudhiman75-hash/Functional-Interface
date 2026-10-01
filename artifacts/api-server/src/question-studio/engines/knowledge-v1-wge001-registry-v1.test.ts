@@ -17,7 +17,7 @@ async function run() {
   assert.equal(approvedNew.questions[0]!.authoringReviewApproved, true);
   assert.equal(approvedNew.questions[0]!.localizationStatus, 'USER_APPROVED');
 
-  for (const packageId of ['WGE-001-CP017','WGE-001-CP032','WGE-001-CP033','WGE-001-CP034','WGE-001-CP035','WGE-001-CP036','WGE-001-CP037','WGE-001-CP038','WGE-001-CP039','WGE-001-CP040','WGE-001-CP041','WGE-001-CP042','WGE-001-CP043']) {
+  for (const packageId of ['WGE-001-CP002','WGE-001-CP006','WGE-001-CP014','WGE-001-CP017','WGE-001-CP020','WGE-001-CP021','WGE-001-CP022','WGE-001-CP023','WGE-001-CP032','WGE-001-CP033','WGE-001-CP034','WGE-001-CP035','WGE-001-CP036','WGE-001-CP037','WGE-001-CP038','WGE-001-CP039','WGE-001-CP040','WGE-001-CP041','WGE-001-CP042','WGE-001-CP043']) {
     const pkg = packages.find(p => p.packageId === packageId)!;
     assert.equal(pkg.metadata.authoringReviewApproved, false);
     assert.equal(pkg.metadata.localizationStatus, 'REVIEW_REQUIRED');
