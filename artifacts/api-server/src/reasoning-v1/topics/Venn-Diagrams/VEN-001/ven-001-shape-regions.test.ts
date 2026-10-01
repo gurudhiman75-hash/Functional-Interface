@@ -142,7 +142,13 @@ for (const q of result.questions) {
     assert.match(svg, new RegExp(`data-mask="${mask}"`));
   }
   const selected = masks.map((m) => String(vals[m])).join(" + ");
-  assert.ok(q.explanation!.includes(selected));
+  if (masks.length > 1) assert.ok(q.explanation!.includes(selected));
+  const labels = meta.activityGroupLabels as string[];
+  assert.ok(labels.some((label) => q.explanation!.includes(label)));
+  assert.doesNotMatch(
+    q.explanation!,
+    /first shape|second shape|third shape|first set|second set|third set/iu,
+  );
 }
 for (const language of ["en", "hi", "pa"] as const) {
   const localized = await reasoningV1QuestionStudioAdapter.generate({
