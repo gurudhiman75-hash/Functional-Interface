@@ -20,17 +20,39 @@
 **E13 full technical revalidation:** PASS  
 **E13 cross-chapter ownership closure:** PASS  
 **Formal chapter freeze:** **FROZEN**  
-**Approved runtime fingerprint:** `f4fe65366aab2fc8e60ed1f0420231d4b9ed72db`  
-**Freeze approval date:** **2026-09-01**  
+**Approved runtime fingerprint:** `b2cfdd51db3790b3805e80ad9cc4bd05543f18a0`  
+**Original freeze approval date:** **2026-09-01**  
+**Post-remediation technical revalidation:** **2026-10-01 — PASS**  
 **Public publication status:** **BLOCKED pending separate release authorization**
+
+## Post-remediation technical revalidation — 2026-10-01
+
+The October chapter-wide systematic audit expanded numeric and answer-space breadth after the original September freeze. Under the freeze invalidation rule, the applicable technical gates were reopened rather than treating the September fingerprint as current.
+
+PR #2900 revalidated the changed surface and merged as `b2cfdd51db3790b3805e80ad9cc4bd05543f18a0`.
+
+Evidence:
+
+- validated PR head: `04a8e661581b991578c71942804aba47a89240b9`
+- workflow run: `36832547425`
+- validation job: `110272244755`
+- artifact: `11147802530`
+- standalone systematic run: `36832548336`
+- permanent E1-E13 freeze audit: **PASS**
+- 4,032-package EN/HI/PA systematic Question Studio audit: **PASS**
+- low raw-stem / structure / numeric-signature / parameter-state / thin-explanation / machine-stem / cross-QL-collision defects: **0**
+
+The refreeze pass also removed a degenerate zero-difference `PRT-QL-090` state and repaired bundle-safe INT-001 ownership-evidence path resolution. Neither ownership boundaries nor publication state changed.
+
+The original September fingerprint `f4fe65366aab2fc8e60ed1f0420231d4b9ed72db` remains historical evidence, but it is no longer the current approved runtime fingerprint.
 
 ## Formal freeze decision
 
 The user explicitly authorized the formal `PRT-001` freeze after the full E13 pre-freeze readiness pass. The immutable behavior checkpoint for this freeze is:
 
-`f4fe65366aab2fc8e60ed1f0420231d4b9ed72db`
+`b2cfdd51db3790b3805e80ad9cc4bd05543f18a0`
 
-That approved runtime head passed the complete PRT-001 validation suite before freeze authorization. The commits that record this freeze are lifecycle metadata only; they do not alter mathematical authority, generators, stems, explanations, localization, distractors, ownership boundaries, output schema, or publication behavior.
+The validated PR head `04a8e661581b991578c71942804aba47a89240b9` passed the complete PRT-001 validation suite before freeze authorization. The commits that record this freeze are lifecycle metadata only; they do not alter mathematical authority, generators, stems, explanations, localization, distractors, ownership boundaries, output schema, or publication behavior.
 
 Formal freeze does **not** authorize merge, Question Bank publication, public activation, or a change to `publiclyPublishable`. Those remain separate release decisions.
 
@@ -151,4 +173,4 @@ This freeze means no known unresolved PRT-001 gap remains from the **E1-E13 revi
 
 ## Current verdict
 
-**PRT-001 is formally frozen at approved runtime head `f4fe65366aab2fc8e60ed1f0420231d4b9ed72db`. Publication and public activation remain blocked pending separate authorization.**
+**PRT-001 is technically revalidated and frozen at current merged runtime head `b2cfdd51db3790b3805e80ad9cc4bd05543f18a0`. Publication and public activation remain blocked pending separate authorization.**
