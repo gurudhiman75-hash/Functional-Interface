@@ -55,7 +55,7 @@ Therefore VEN-CP001 remains a supported structural/basic-practice layer. Its pre
 
 ## 5. Relation-to-diagram breadth
 
-Current review pools after Wave 02:
+Current review pools after Wave 03:
 
 - VEN-CP001: 20 fixed scenarios
   - 8 containment
@@ -191,4 +191,4 @@ Question Studio integration does **not** authorize learner publication. Canonica
 
 The old four-checkpoint provisional design is retired. The live architecture is the authority.
 
-Wave 02 closes the stale-documentation gap, expands the thin direct-relation pools, and fixes the CP005 `none` explanation path. Final deep-audit closure is still blocked by the pending human localization review on CP005–CP011 and any review-artifact refresh required after generator changes.
+Wave 03 closes the stale-documentation gap, expands the thin direct-relation pools, and fixes the CP005 `none` explanation path. Final deep-audit closure is still blocked by the pending human localization review on CP005–CP011 and any review-artifact refresh required after generator changes.
