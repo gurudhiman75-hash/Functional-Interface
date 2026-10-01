@@ -598,7 +598,7 @@
   {
     "id": "WGE-001-CP021-Q015",
     "cpId": "WGE-001-CP021",
-    "objective": "thar-desert-location",
+    "objective": "taklamakan-tarim-basin",
     "difficulty": "Easy",
     "sourceIds": [
       "WGE-PHY-021A",
@@ -607,36 +607,37 @@
     "correctIndex": 2,
     "locales": {
       "en": {
-        "stem": "Which desert straddles northwestern India and southeastern Pakistan?",
+        "stem": "Which desert occupies much of the Tarim Basin in western China?",
         "options": [
           "Sahara",
           "Kalahari",
-          "Thar",
+          "Taklamakan",
           "Gobi"
         ],
-        "explanation": "The Thar Desert extends across Rajasthan and adjoining parts of Pakistan."
+        "explanation": "The Taklamakan Desert occupies much of the Tarim Basin in Xinjiang, western China. It is enclosed by high mountain systems and is one of the major deserts of interior Asia."
       },
       "hi": {
-        "stem": "कौन-सा मरुस्थल उत्तर-पश्चिमी भारत और दक्षिण-पूर्वी पाकिस्तान में फैला है?",
+        "stem": "पश्चिमी चीन के तारिम बेसिन के बड़े भाग में कौन-सा मरुस्थल फैला है?",
         "options": [
           "सहारा",
           "कालाहारी",
-          "थार मरुस्थल",
+          "तकला माकान",
           "गोबी"
         ],
-        "explanation": "थार मरुस्थल राजस्थान और पाकिस्तान के सटे हुए भागों में फैला है।"
+        "explanation": "तकला माकान मरुस्थल पश्चिमी चीन के शिनजियांग में तारिम बेसिन के बड़े भाग में फैला है। इसके चारों ओर ऊँची पर्वत-श्रेणियाँ हैं और यह आंतरिक एशिया के प्रमुख मरुस्थलों में से एक है।"
       },
       "pa": {
-        "stem": "ਕਿਹੜਾ ਮਾਰੂਥਲ ਉੱਤਰ-ਪੱਛਮੀ ਭਾਰਤ ਅਤੇ ਦੱਖਣ-ਪੂਰਬੀ ਪਾਕਿਸਤਾਨ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
+        "stem": "ਪੱਛਮੀ ਚੀਨ ਦੇ ਤਾਰਿਮ ਬੇਸਿਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਕਿਹੜਾ ਰੇਗਿਸਤਾਨ ਫੈਲਿਆ ਹੈ?",
         "options": [
           "ਸਹਾਰਾ",
           "ਕਾਲਾਹਾਰੀ",
-          "ਥਾਰ ਮਾਰੂਥਲ",
+          "ਤਕਲਾ ਮਕਾਨ",
           "ਗੋਬੀ"
         ],
-        "explanation": "ਥਾਰ ਮਾਰੂਥਲ ਰਾਜਸਥਾਨ ਅਤੇ ਪਾਕਿਸਤਾਨ ਦੇ ਨਾਲ ਲੱਗਦੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਫੈਲਿਆ ਹੈ।"
+        "explanation": "ਤਕਲਾ ਮਕਾਨ ਰੇਗਿਸਤਾਨ ਪੱਛਮੀ ਚੀਨ ਦੇ ਸ਼ਿਨਜਿਆਂਗ ਵਿੱਚ ਤਾਰਿਮ ਬੇਸਿਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਹੈ। ਇਸ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਉੱਚੀਆਂ ਪਹਾੜੀ ਲੜੀਆਂ ਹਨ ਅਤੇ ਇਹ ਅੰਦਰੂਨੀ ਏਸ਼ੀਆ ਦੇ ਮੁੱਖ ਰੇਗਿਸਤਾਨਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP021-Q016",
