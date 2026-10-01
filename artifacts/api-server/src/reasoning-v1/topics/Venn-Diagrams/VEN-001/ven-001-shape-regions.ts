@@ -292,7 +292,10 @@ type ShapeKind =
   | "rectangle"
   | "square"
   | "triangle"
-  | "diamond";
+  | "right-triangle"
+  | "diamond"
+  | "trapezoid"
+  | "pentagon";
 export type ShapeLayout = {
   id: string;
   shapes: readonly [ShapeKind, ShapeKind, ShapeKind];
@@ -316,6 +319,18 @@ export const LAYOUTS: readonly ShapeLayout[] = [
     id: "ELLIPSE_RECTANGLE_DIAMOND",
     shapes: ["ellipse", "rectangle", "diamond"],
   },
+  {
+    id: "CIRCLE_RECTANGLE_RIGHT_TRIANGLE",
+    shapes: ["circle", "rectangle", "right-triangle"],
+  },
+  {
+    id: "ELLIPSE_RECTANGLE_TRAPEZOID",
+    shapes: ["ellipse", "rectangle", "trapezoid"],
+  },
+  {
+    id: "CIRCLE_RECTANGLE_PENTAGON",
+    shapes: ["circle", "rectangle", "pentagon"],
+  },
 ];
 const POLYGONS = {
   triangle: [
@@ -328,6 +343,24 @@ const POLYGONS = {
     [538, 279],
     [304, 463],
     [64, 279],
+  ],
+  "right-triangle": [
+    [30, 40],
+    [600, 40],
+    [30, 500],
+  ],
+  trapezoid: [
+    [176, 92],
+    [430, 92],
+    [556, 478],
+    [54, 478],
+  ],
+  pentagon: [
+    [304, 76],
+    [566, 266],
+    [466, 478],
+    [142, 478],
+    [42, 266],
   ],
 } as const;
 function inside(shape: ShapeKind, x: number, y: number): boolean {
@@ -430,6 +463,8 @@ function shapeMarkup(shape: ShapeKind, color: string): string {
     return `<rect x="76" y="200" width="499" height="174" ${style}/>`;
   if (shape === "square")
     return `<rect x="180" y="170" width="340" height="340" ${style}/>`;
+  if (shape === "right-triangle")
+    return `<polygon points="${POLYGONS[shape].map(([x, y]) => `${x},${y}`).join(" ")}" ${style}/><path d="M 60 40 L 60 70 L 30 70" fill="none" stroke="${color}" stroke-width="3"/>`;
   return `<polygon points="${POLYGONS[shape].map(([x, y]) => `${x},${y}`).join(" ")}" ${style}/>`;
 }
 const SHAPE_LABELS: Record<ShapeKind, T> = {
@@ -438,7 +473,10 @@ const SHAPE_LABELS: Record<ShapeKind, T> = {
   rectangle: tr("rectangle", "आयत", "ਆਇਤ"),
   square: tr("square", "वर्ग", "ਵਰਗ"),
   triangle: tr("triangle", "त्रिभुज", "ਤਿਕੋਣ"),
+  "right-triangle": tr("right-angled triangle", "समकोण त्रिभुज", "ਸਮਕੋਣ ਤਿਕੋਣ"),
   diamond: tr("diamond", "हीराकार", "ਹੀਰੇ ਵਰਗਾ ਆਕਾਰ"),
+  trapezoid: tr("trapezoid", "समलंब चतुर्भुज", "ਸਮਲੰਬ ਚਤੁਰਭੁਜ"),
+  pentagon: tr("pentagon", "पंचभुज", "ਪੰਜਭੁਜ"),
 };
 function regionName(mask: number, l: L): string {
   const en = [
