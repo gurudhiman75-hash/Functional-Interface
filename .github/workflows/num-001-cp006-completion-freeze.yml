@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
-      - .github/workflows/num-001-cp006-completion-freeze.yml
       - package.json
       - pnpm-lock.yaml
   workflow_dispatch:
@@ -136,6 +135,21 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-editorial-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-editorial-audit.log
 
+      - name: Bundle CP006 semantic remediation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-006/cp006-semantic-remediation-audit-v1.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp006-semantic-remediation-audit-v1.mjs
+
+      - name: Run CP006 semantic remediation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp006-semantic-remediation-audit-v1.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp006-semantic-remediation-audit-v1.log
+          grep -q "PASS_NUM_CP006_SEMANTIC_REMEDIATION_AUDIT_V1" artifacts/api-server/dist/quant-v4/num-cp006-semantic-remediation-audit-v1.log
+
       - name: Bundle English review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -170,6 +184,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/num-001-cp006-english-freeze-audit.log
             artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-parity.log
             artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-editorial-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp006-semantic-remediation-audit-v1.log
             artifacts/api-server/dist/quant-v4/num-001-cp006-permanent-english-review.json
             artifacts/api-server/dist/quant-v4/num-001-cp006-permanent-english-review.csv
             artifacts/api-server/dist/quant-v4/num-001-cp006-permanent-english-review.md
