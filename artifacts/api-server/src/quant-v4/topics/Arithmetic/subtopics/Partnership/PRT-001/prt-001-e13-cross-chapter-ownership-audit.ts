@@ -1,5 +1,6 @@
 import { strict as assert } from "node:assert";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import {
   getRap003ActiveCanonicalProblemIds,
   getRap003QuestionLanguageIds,
@@ -16,6 +17,13 @@ export interface Prt001E13CrossChapterOwnershipReport {
   readonly audit: string;
   readonly cases: number;
   readonly metrics: Readonly<Record<string, unknown>>;
+}
+
+function readApiServerSource(relativeToSrc: string): string {
+  const direct = resolve(process.cwd(), "src", relativeToSrc);
+  const workspace = resolve(process.cwd(), "artifacts/api-server/src", relativeToSrc);
+  const path = existsSync(direct) ? direct : workspace;
+  return readFileSync(path, "utf8");
 }
 
 export function auditPrt001E13CrossChapterOwnership(): Prt001E13CrossChapterOwnershipReport {
@@ -58,9 +66,8 @@ export function auditPrt001E13CrossChapterOwnership(): Prt001E13CrossChapterOwne
   // Keep this ownership assertion independent of INT runtime compilation. INT has
   // its own active localization/typecheck lifecycle; PRT only needs to prove that
   // INT's declared boundary remains pure interest and does not claim G06.
-  const intOwnership = readFileSync(
-    new URL("../../Interest/INT-001/INT-001-SOURCE-AND-OWNERSHIP-AUDIT.md", import.meta.url),
-    "utf8",
+  const intOwnership = readApiServerSource(
+    "quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-001-SOURCE-AND-OWNERSHIP-AUDIT.md",
   );
   assert.match(
     intOwnership,
@@ -72,9 +79,8 @@ export function auditPrt001E13CrossChapterOwnership(): Prt001E13CrossChapterOwne
     /INT must not treat partnership contribution-time products as interest\./,
     "INT ownership ledger must explicitly reject contribution-time Partnership semantics.",
   );
-  const intPreRegistrationAdapter = readFileSync(
-    new URL("../../Interest/INT-001/int-001-cp001-question-studio-pre-registration-adapter.ts", import.meta.url),
-    "utf8",
+  const intPreRegistrationAdapter = readApiServerSource(
+    "quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-question-studio-pre-registration-adapter.ts",
   );
   assert.match(intPreRegistrationAdapter, /packageId:\s*"INT-001"/);
   assert.match(intPreRegistrationAdapter, /id:\s*"INT-CP-001"/);
