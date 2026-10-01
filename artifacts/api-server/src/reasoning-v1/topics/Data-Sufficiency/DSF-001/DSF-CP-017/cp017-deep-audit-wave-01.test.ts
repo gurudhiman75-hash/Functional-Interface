@@ -10,8 +10,8 @@ import {
 } from "./question-studio-review-v1.ts";
 
 assert.equal(DSF_CP017_LANES.length, 21);
-assert.deepEqual([...DSF_CP017_GENERATABLE_QL_IDS], ["DSF-QL-001"]);
-assert.deepEqual([...DSF_CP017_RUNTIME_DEFERRED_QL_IDS], ["DSF-QL-002"]);
+assert.deepEqual([...DSF_CP017_GENERATABLE_QL_IDS], ["DSF-QL-001", "DSF-QL-002"]);
+assert.deepEqual([...DSF_CP017_RUNTIME_DEFERRED_QL_IDS], []);
 assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioDiscoverable, true);
 assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.persistenceAllowed, true);
 assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, false);
@@ -115,9 +115,25 @@ assert.equal(new Set(mixed.questions.map((question) => question.sourceGeneration
 assert.equal(new Set(mixed.questions.map((question) => question.questionId)).size, 50);
 assert.ok(new Set(mixed.questions.map((question) => question.laneId)).size >= 12);
 
+const ql002Reasoning = previewDsf001NormalQuestionStudioReview({
+  qlId: "DSF-QL-002",
+  laneId: "DSF-QS-RANKING",
+  language: "en",
+  count: 2,
+  seed: "cp017-wave01:ql002-ranking",
+});
+assert.equal(ql002Reasoning.questions.length, 2);
+assert.ok(ql002Reasoning.questions.every((question) => question.statements.length === 3));
+assert.ok(ql002Reasoning.questions.every((question) => question.qlId === "DSF-QL-002"));
+
 assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({ qlId: "DSF-QL-002", count: 1 }),
-  /permanently allocated.*not exposed|semantic\/prototype proof/iu,
+  () => previewDsf001NormalQuestionStudioReview({
+    qlId: "DSF-QL-002",
+    laneId: "DSF-QS-AVERAGE",
+    language: "en",
+    count: 1,
+  }),
+  /restricted to reasoning lanes|does not support DSF-QL-002/iu,
 );
 assert.equal(
   previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-RANKING", language: "hi", count: 1 }).questions[0]?.language,
