@@ -6,6 +6,7 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
 const router=Router();
+const MOBILE_APP_CONFIGURATION_AUDIT_ENTITY_ID = "00000000-0000-4000-8000-000000000102";
 function text(value:unknown,max=1000){return typeof value==="string"?value.trim().slice(0,max):"";}
 function normalize(input:unknown){
   const raw=input&&typeof input==="object"?input as Record<string,unknown>:{};
@@ -45,7 +46,7 @@ router.put("/",requireAdminPermission("content.taxonomy.manage"),async(req,res)=
         SET configuration=EXCLUDED.configuration,updated_by=EXCLUDED.updated_by,updated_at=EXCLUDED.updated_at
       `;
       await tx`INSERT INTO platform.audit_events (id,actor_type,actor_user_id,action_key,entity_type,entity_id,summary,reason,metadata)
-        VALUES (${randomUUID()}::uuid,'user'::audit_actor_type,${actor}::uuid,'mobile.app_configuration.updated','mobile_app_configuration',NULL,'Updated mobile app configuration','Admin updated mobile runtime configuration',${tx.json({minimumSupportedVersion:configuration.minimumSupportedVersion,latestVersion:configuration.latestVersion,forceUpdate:configuration.forceUpdate,maintenanceMode:configuration.maintenanceMode,featureFlags:configuration.featureFlags})})`;
+        VALUES (${randomUUID()}::uuid,'user'::audit_actor_type,${actor}::uuid,'mobile.app_configuration.updated','mobile_app_configuration',${MOBILE_APP_CONFIGURATION_AUDIT_ENTITY_ID}::uuid,'Updated mobile app configuration','Admin updated mobile runtime configuration',${tx.json({minimumSupportedVersion:configuration.minimumSupportedVersion,latestVersion:configuration.latestVersion,forceUpdate:configuration.forceUpdate,maintenanceMode:configuration.maintenanceMode,featureFlags:configuration.featureFlags})})`;
     });
     res.json({configuration,updatedAt:new Date().toISOString()});
   }catch(error){console.error("Unable to update mobile app configuration",error);res.status(500).json({error:"Unable to update mobile app configuration",code:"MOBILE_CONFIG_UPDATE_FAILED"});}
