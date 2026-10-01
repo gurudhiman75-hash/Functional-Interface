@@ -133,7 +133,10 @@ router.get("/", requireAdminPermission("content.taxonomy.read"), async (_req, re
       LIMIT 1000
     `,
   ]);
-  res.json({ pages, catalog: { examFamilies, testSeries, exams } });
+  res.json({
+    pages: pages.map((page) => ({ ...page, configuration: normalizeConfiguration(page.configuration) })),
+    catalog: { examFamilies, testSeries, exams },
+  });
 });
 
 router.post("/", requireAdminPermission("content.taxonomy.manage"), async (req, res) => {
