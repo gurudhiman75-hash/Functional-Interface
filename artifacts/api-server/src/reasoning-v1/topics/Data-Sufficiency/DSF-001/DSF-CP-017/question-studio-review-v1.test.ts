@@ -103,10 +103,15 @@ assert.throws(
   /permanently allocated.*not exposed/i,
   "QL002 must remain explicitly deferred until a real reviewed batch runtime exists",
 );
+assert.equal(
+  previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-RANKING", language: "hi", count: 1 }).questions[0]?.language,
+  "hi",
+  "reasoning CP018 Hindi review surface",
+);
 assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({ language: "hi", count: 1 }),
-  /English-first/i,
-  "new CP011-CP013 breadth must not pretend to have Hindi localization",
+  () => previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-AVERAGE", language: "hi", count: 1 }),
+  /not yet localized|English-only/iu,
+  "new Quant CP011 breadth must remain English-only until its localization wave",
 );
 assert.throws(
   () => previewDsf001NormalQuestionStudioReview({ canonicalProblemId: "DSF-QS-NOT-A-LANE", count: 1 }),
