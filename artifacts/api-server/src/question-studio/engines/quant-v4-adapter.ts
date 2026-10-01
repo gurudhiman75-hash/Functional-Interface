@@ -702,6 +702,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
     const result = await generateQuantV4Question({
       packageId: request.packageId as never,
+      examProfile: request.examProfile as never,
       patternId: request.patternId,
       topic: request.topic,
       subtopic: request.subtopic,
