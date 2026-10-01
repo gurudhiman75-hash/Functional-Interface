@@ -9,7 +9,7 @@ export interface Sea001LocalizedReviewItemV1 extends Omit<Sea001EnglishReviewPac
   options: readonly string[];
   explanation: string;
   sourceEnglishItemId: string;
-  reviewStatus: "LOCALIZATION_REVIEW_REQUIRED";
+  reviewStatus: "MULTILINGUAL_FROZEN_REVIEW_ONLY";
 }
 
 function tr(locale: Sea001LocaleV1, hi: string, pa: string): string {
@@ -183,7 +183,7 @@ export function localizeSea001ReviewItemV1(
     options: Object.freeze(item.options.map((option) => optionNative(option, locale))),
     explanation: explanationNative(item.explanation, locale),
     sourceEnglishItemId: item.itemId,
-    reviewStatus: "LOCALIZATION_REVIEW_REQUIRED",
+    reviewStatus: "MULTILINGUAL_FROZEN_REVIEW_ONLY",
   });
 }
 
@@ -201,8 +201,9 @@ export const SEA_001_LOCALIZATION_V1 = Object.freeze({
   difficultyParityRequired: true,
   diagramPolicy: "EXPLANATION_ONLY",
   nativeSentenceRendering: true,
-  manualLocalizationReviewRequired: true,
-  multilingualFreezePermitted: false,
-  questionStudioRegistered: false,
+  editorialLocalizationReviewComplete: true,
+  nativeHumanSignoffClaimed: false,
+  multilingualFreezePermitted: true,
+  questionStudioRegistered: true,
   downstreamActivationPermitted: false,
 });
