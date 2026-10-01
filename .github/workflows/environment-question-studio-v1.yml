@@ -17,7 +17,6 @@ on:
       - "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
       - "artifacts/admin-app/src/features/question-studio/api.ts"
-      - "artifacts/admin-app/src/pages/content/QuestionStudioLivePage.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx"
   workflow_dispatch:
 
