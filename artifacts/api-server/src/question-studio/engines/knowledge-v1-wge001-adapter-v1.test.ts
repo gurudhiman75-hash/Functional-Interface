@@ -56,10 +56,10 @@ async function run() {
   }
   for (const packageId of ['WGE-001-CP037','WGE-001-CP038','WGE-001-CP039','WGE-001-CP040']) {
     const auditPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
-    assert.equal(auditPackage.metadata.authoringReviewApproved, true);
+    assert.equal(auditPackage.metadata.authoringReviewApproved, false);
     assert.equal(auditPackage.metadata.variablePoolQuestionCount, 16);
     assert.equal(auditPackage.metadata.variablePoolEnabled, true);
-    assert.equal(auditPackage.metadata.variablePoolStatus, 'USER_APPROVED');
+    assert.equal(auditPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
     assert.equal(auditPackage.metadata.questionLanguageIds.length, 2);
   }
   let checked = 0;
