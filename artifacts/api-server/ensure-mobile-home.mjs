@@ -13,6 +13,7 @@ const homeMigrationPath = path.resolve(here, "../../docs/database-migrations/202
 const promotionsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-promotions.sql");
 const notificationsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-notifications.sql");
 const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
+const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
 const sql = postgres(databaseUrl, {
   max: 1,
   connect_timeout: 15,
@@ -96,6 +97,22 @@ try {
     throw new Error("Mobile content planning migration completed without creating platform.mobile_content_plan_items");
   }
   console.log("[render-build] mobile content planning schema verified");
+
+  const [appConfigBefore] = await sql`
+    SELECT to_regclass('platform.mobile_app_configuration')::text AS mobile_app_configuration
+  `;
+  if (!appConfigBefore?.mobile_app_configuration) {
+    console.log("[render-build] mobile app configuration schema missing; applying checked-in migration");
+    const appConfigSql = await readFile(appConfigurationMigrationPath, "utf8");
+    await sql.unsafe(appConfigSql);
+  }
+  const [appConfigAfter] = await sql`
+    SELECT to_regclass('platform.mobile_app_configuration')::text AS mobile_app_configuration
+  `;
+  if (!appConfigAfter?.mobile_app_configuration) {
+    throw new Error("Mobile app configuration migration completed without creating platform.mobile_app_configuration");
+  }
+  console.log("[render-build] mobile app configuration schema verified");
 } finally {
   await sql.end({ timeout: 5 });
 }
