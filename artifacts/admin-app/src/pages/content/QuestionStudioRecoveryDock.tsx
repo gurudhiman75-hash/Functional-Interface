@@ -34,6 +34,7 @@ export function QuestionStudioRecoveryDock({ embedded = false }: { embedded?: bo
   const {
     reviewPage,
     loadingReviewPage,
+    reviewPageError,
     refreshReviewPage,
   } = useQuestionStudioReviewPage({ page, pageSize });
 
@@ -61,6 +62,12 @@ export function QuestionStudioRecoveryDock({ embedded = false }: { embedded?: bo
   useEffect(() => {
     if (embedded || needsFixCount > 0) setOpen(true);
   }, [embedded, needsFixCount]);
+
+  useEffect(() => {
+    if (reviewPage.pagination.page !== page) {
+      setPage(reviewPage.pagination.page);
+    }
+  }, [page, reviewPage.pagination.page]);
 
   const regenerate = async (itemIds: string[], label: string) => {
     const normalizedReason = reason.trim();
@@ -167,7 +174,15 @@ export function QuestionStudioRecoveryDock({ embedded = false }: { embedded?: bo
       </CardHeader>
 
       <CardContent className={cn('overflow-y-auto p-0', embedded ? 'max-h-none' : 'max-h-[55vh]')}>
-        {loadingReviewPage ? (
+        {reviewPageError ? (
+          <div className="flex items-start gap-2 p-6 text-sm text-destructive">
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+            <div>
+              <p className="font-semibold">Recovery queue could not be loaded</p>
+              <p className="mt-1 text-xs">{reviewPageError}</p>
+            </div>
+          </div>
+        ) : loadingReviewPage ? (
           <div className="flex items-center justify-center gap-2 p-8 text-sm text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin" /> Loading recovery queue…
           </div>
