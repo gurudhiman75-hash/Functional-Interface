@@ -143,7 +143,7 @@ function explanationNative(text: string, locale: Sea001LocaleV1): string {
     return names(tr(locale, `${m[1]} का मुख पहले ${facingNative(m[2]!, locale)} है। सभी की मुख-दिशा बदलने पर उसका मुख ${facingNative(m[3]!, locale)} हो जाता है। नई स्थिति में बायाँ ${directionNative(m[4]!, locale)} है, इसलिए बाईं ओर दूसरे स्थान पर ${m[5]} बैठा है।`, `${m[1]} ਦਾ ਮੂੰਹ ਪਹਿਲਾਂ ${facingNative(m[2]!, locale)} ਹੈ। ਸਭ ਦੀ ਮੂੰਹ ਦੀ ਦਿਸ਼ਾ ਬਦਲਣ 'ਤੇ ਉਸਦਾ ਮੂੰਹ ${facingNative(m[3]!, locale)} ਹੋ ਜਾਂਦਾ ਹੈ। ਨਵੀਂ ਸਥਿਤੀ ਵਿੱਚ ਖੱਬਾ ${directionNative(m[4]!, locale)} ਹੈ, ਇਸ ਲਈ ਖੱਬੇ ਪਾਸੇ ਦੂਜੇ ਸਥਾਨ 'ਤੇ ${m[5]} ਬੈਠਾ ਹੈ।`), locale);
   }
   if ((m = text.match(/^(.+) occupy the two extreme seats in the verified row\. Hence, that pair is correct\.$/))) {
-    return names(tr(locale, `सत्यापित पंक्ति में ${m[1]} दोनों अंतिम छोरों पर बैठे हैं। इसलिए यही जोड़ी सही है।`, `ਪੱਕੀ ਕੀਤੀ ਕਤਾਰ ਵਿੱਚ ${m[1]} ਦੋਵੇਂ ਅੰਤਲੇ ਸਿਰਿਆਂ 'ਤੇ ਬੈਠੇ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਜੋੜੀ ਸਹੀ ਹੈ।`), locale);
+    return tr(locale, `सत्यापित पंक्ति में ${optionNative(m[1]!, locale)} दोनों अंतिम छोरों पर बैठे हैं। इसलिए यही जोड़ी सही है।`, `ਪੱਕੀ ਕੀਤੀ ਕਤਾਰ ਵਿੱਚ ${optionNative(m[1]!, locale)} ਦੋਵੇਂ ਅੰਤਲੇ ਸਿਰਿਆਂ 'ਤੇ ਬੈਠੇ ਹਨ। ਇਸ ਲਈ ਇਹੀ ਜੋੜੀ ਸਹੀ ਹੈ।`);
   }
   if ((m = text.match(/^Trace the target person from the reference in the verified circular arrangement\. The relation is (.+)\. Hence, that option is correct\.$/))) {
     return names(tr(locale, `सत्यापित वृत्ताकार व्यवस्था में संदर्भ व्यक्ति से लक्ष्य व्यक्ति की स्थिति देखें। संबंध ${relation(m[1]!, locale)} है, इसलिए वही विकल्प सही है।`, `ਪੱਕੀ ਕੀਤੀ ਗੋਲ ਵਿਵਸਥਾ ਵਿੱਚ ਹਵਾਲਾ ਵਿਅਕਤੀ ਤੋਂ ਲਕਸ਼ ਵਿਅਕਤੀ ਦੀ ਸਥਿਤੀ ਵੇਖੋ। ਸੰਬੰਧ ${relation(m[1]!, locale)} ਹੈ, ਇਸ ਲਈ ਉਹੀ ਵਿਕਲਪ ਸਹੀ ਹੈ।`), locale);
