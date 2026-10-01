@@ -91,7 +91,7 @@ router.post("/upload",requireAdminPermission("content.taxonomy.manage"),async(re
     await bucket.file(uploadedPath).save(bytes,{
       resumable:false,
       contentType:mimeType,
-      metadata:{cacheControl:"public,max-age=31536000,immutable",metadata:{firebaseStorageDownloadTokens:token}},
+      metadata:{contentType:mimeType,cacheControl:"public,max-age=31536000,immutable",metadata:{firebaseStorageDownloadTokens:token}},
     });
     const url="https://firebasestorage.googleapis.com/v0/b/"+encodeURIComponent(bucket.name)+"/o/"+encodeURIComponent(uploadedPath)+"?alt=media&token="+token;
     const id=randomUUID();
