@@ -67,6 +67,11 @@ export function generatePrt001E3BParameters(input: { questionLanguageId: string;
         { a: 30_000, b: 45_000 },
         { a: 50_000, b: 30_000 },
         { a: 72_000, b: 48_000 },
+        { a: 45_000, b: 60_000 },
+        { a: 56_000, b: 40_000 },
+        { a: 36_000, b: 60_000 },
+        { a: 50_000, b: 70_000 },
+        { a: 64_000, b: 48_000 },
       ]);
       state = makeState([partner(partnerA, [segment(0, 12, money(s.a))]), partner(partnerB, [segment(0, 12, money(s.b))])], money(150_000));
       break;
