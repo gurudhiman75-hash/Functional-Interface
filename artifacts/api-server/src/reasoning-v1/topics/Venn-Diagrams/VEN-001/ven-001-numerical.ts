@@ -235,35 +235,17 @@ function groupedActivity(c: Context, mask: number, l: L) {
   );
 }
 function prefix(total: number, l: L) {
-  const style = total % 3;
   return tx(
-    [
-      `Of the ${total} people surveyed,`,
-      `A survey of ${total} people found that`,
-      `Among the ${total} respondents,`,
-    ][style],
-    [
-      `सर्वेक्षण में शामिल ${total} लोगों में से,`,
-      `${total} लोगों के सर्वेक्षण में यह पाया गया कि`,
-      `सर्वेक्षण के ${total} उत्तरदाताओं में,`,
-    ][style],
-    [
-      `ਸਰਵੇਖਣ ਵਿੱਚ ਸ਼ਾਮਲ ${total} ਲੋਕਾਂ ਵਿੱਚੋਂ,`,
-      `${total} ਲੋਕਾਂ ਦੇ ਸਰਵੇਖਣ ਤੋਂ ਪਤਾ ਲੱਗਾ ਕਿ`,
-      `ਸਰਵੇਖਣ ਦੇ ${total} ਜਵਾਬਦਾਤਿਆਂ ਵਿੱਚੋਂ,`,
-    ][style],
+    `Among ${total} people,`,
+    `कुल ${total} लोगों में,`,
+    `ਕੁੱਲ ${total} ਲੋਕਾਂ ਵਿੱਚ,`,
   )[l];
 }
-function surveyIntro(l: L, seed: string | number) {
-  const style = hash(String(seed)) % 3;
+function surveyIntro(l: L, _seed: string | number) {
   return tx(
-    ["In a survey,", "Survey results showed that", "A survey recorded that"][
-      style
-    ],
-    ["एक सर्वेक्षण में", "सर्वेक्षण के अनुसार", "सर्वेक्षण में यह दर्ज हुआ कि"][
-      style
-    ],
-    ["ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ", "ਸਰਵੇਖਣ ਅਨੁਸਾਰ", "ਸਰਵੇਖਣ ਵਿੱਚ ਇਹ ਦਰਜ ਹੋਇਆ ਕਿ"][style],
+    "The figures show that",
+    "आँकड़ों के अनुसार",
+    "ਅੰਕੜਿਆਂ ਅਨੁਸਾਰ",
   )[l];
 }
 function groupReference(c: Context, i: number, l: L) {
@@ -389,6 +371,7 @@ export const QUERY_MASKS: Record<string, number[]> = {
   total3: [0, 1, 2, 3, 4, 5, 6, 7],
 };
 function target(c: Context, q: string, l: L) {
+  const names = c.names[l].split("|");
   const a = activity(c, [0], l),
     b = activity(c, [1], l),
     d = activity(c, [2], l);
@@ -410,18 +393,18 @@ function target(c: Context, q: string, l: L) {
     ),
     onlyAB: tx(
       `${activity(c, [0, 1], l)}, but do not ${d}`,
-      `${activity(c, [0, 1], l)}, लेकिन तीसरे समूह में नहीं आते`,
-      `${activity(c, [0, 1], l)}, ਪਰ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ`,
+      `${names[0]} और ${names[1]} वाले समूहों में आते हैं, लेकिन ${names[2]} वाले समूह में नहीं`,
+      `${names[0]} ਅਤੇ ${names[1]} ਵਾਲੇ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${names[2]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     ),
     onlyBC: tx(
       `${activity(c, [1, 2], l)}, but do not ${a}`,
-      `${activity(c, [1, 2], l)}, लेकिन पहले समूह में नहीं आते`,
-      `${activity(c, [1, 2], l)}, ਪਰ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ`,
+      `${names[1]} और ${names[2]} वाले समूहों में आते हैं, लेकिन ${names[0]} वाले समूह में नहीं`,
+      `${names[1]} ਅਤੇ ${names[2]} ਵਾਲੇ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${names[0]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     ),
     onlyAC: tx(
       `${activity(c, [0, 2], l)}, but do not ${b}`,
-      `${activity(c, [0, 2], l)}, लेकिन दूसरे समूह में नहीं आते`,
-      `${activity(c, [0, 2], l)}, ਪਰ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ`,
+      `${names[0]} और ${names[2]} वाले समूहों में आते हैं, लेकिन ${names[1]} वाले समूह में नहीं`,
+      `${names[0]} ਅਤੇ ${names[2]} ਵਾਲੇ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${names[1]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     ),
     all: tx(
       activity(c, [0, 1, 2], l),
@@ -474,19 +457,19 @@ function target(c: Context, q: string, l: L) {
       "ਵੱਧ ਤੋਂ ਵੱਧ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਂਦੇ, ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਸਮੇਤ",
     ),
     AorBnotC: tx(
-      "belong to the first group, the second group, or both, but not the third",
-      "पहले या दूसरे समूह में, या दोनों में आते हैं, लेकिन तीसरे में नहीं",
-      "ਪਹਿਲੇ ਜਾਂ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ, ਜਾਂ ਦੋਵਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ਤੀਜੇ ਵਿੱਚ ਨਹੀਂ",
+      `belong to the ${names[0]} group, the ${names[1]} group, or both, but not the ${names[2]} group`,
+      `${names[0]} या ${names[1]} वाले समूह में, या दोनों में आते हैं, लेकिन ${names[2]} वाले समूह में नहीं`,
+      `${names[0]} ਜਾਂ ${names[1]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ, ਜਾਂ ਦੋਵਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${names[2]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     ),
     AnotB: tx(
-      "belong to the first group but not the second, whether or not they belong to the third",
-      "पहले समूह में आते हैं, लेकिन दूसरे में नहीं; तीसरे में आ सकते हैं",
-      "ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ਦੂਜੇ ਵਿੱਚ ਨਹੀਂ; ਤੀਜੇ ਵਿੱਚ ਆ ਸਕਦੇ ਹਨ",
+      `belong to the ${names[0]} group but not the ${names[1]} group, whether or not they also belong to the ${names[2]} group`,
+      `${names[0]} वाले समूह में आते हैं, लेकिन ${names[1]} वाले समूह में नहीं; ${names[2]} वाले समूह में हो सकते हैं`,
+      `${names[0]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${names[1]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ; ${names[2]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ`,
     ),
     inclusiveAB: tx(
-      "belong to both the first and second groups, including those also in the third",
-      "पहले और दूसरे समूह दोनों में आते हैं, तीसरे में आने वालों सहित",
-      "ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਸਮੂਹ ਦੋਵਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਤੀਜੇ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਸਮੇਤ",
+      `belong to both the ${names[0]} and ${names[1]} groups, including those also in the ${names[2]} group`,
+      `${names[0]} और ${names[1]} वाले दोनों समूहों में आते हैं, ${names[2]} वाले समूह में आने वालों सहित`,
+      `${names[0]} ਅਤੇ ${names[1]} ਵਾਲੇ ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ${names[2]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਸਮੇਤ`,
     ),
     both: tx(
       activity(c, [0, 1], l),
@@ -515,14 +498,14 @@ function query(c: Context, q: string, sets: 2 | 3, l: L) {
   if (sets === 2 && q === "onlyA")
     label = tx(
       `${activity(c, [0], l)} but do not ${activity(c, [1], l)}`,
-      `पहले समूह में आते हैं, लेकिन दूसरे में नहीं`,
-      `ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ਦੂਜੇ ਵਿੱਚ ਨਹੀਂ`,
+      `${c.names.hi.split("|")[0]} वाले समूह में आते हैं, लेकिन ${c.names.hi.split("|")[1]} वाले समूह में नहीं`,
+      `${c.names.pa.split("|")[0]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${c.names.pa.split("|")[1]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     )[l];
   if (sets === 2 && q === "onlyB")
     label = tx(
       `${activity(c, [1], l)} but do not ${activity(c, [0], l)}`,
-      `दूसरे समूह में आते हैं, लेकिन पहले में नहीं`,
-      `ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ`,
+      `${c.names.hi.split("|")[1]} वाले समूह में आते हैं, लेकिन ${c.names.hi.split("|")[0]} वाले समूह में नहीं`,
+      `${c.names.pa.split("|")[1]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${c.names.pa.split("|")[0]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     )[l];
   return tx(
     `How many people ${label}?`,
