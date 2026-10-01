@@ -70,33 +70,59 @@ export function generatePrt001E5Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findUnknownLeaveTimeFromPartnerShare": {
-      const s = random.pick([{a:40_000,b:60_000,leave:6},{a:50_000,b:80_000,leave:9},{a:60_000,b:90_000,leave:5},{a:45_000,b:72_000,leave:10}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const capitalRatio = numericStateRandom.pick([
+        [2, 3], [3, 2], [3, 4], [4, 3], [4, 5],
+        [5, 4], [5, 7], [7, 5], [4, 7], [7, 4],
+      ] as const);
+      const leave = numericStateRandom.pick([4, 5, 6, 7, 8, 9, 10, 11]);
+      const unit = numericStateRandom.pick([6_000, 8_000, 10_000, 12_000, 15_000]);
+      const s = { a: capitalRatio[0] * unit, b: capitalRatio[1] * unit, leave };
       const partners = [partner(partnerA,[segment(0,12,money(s.a))]), partner(partnerB,[segment(0,s.leave,money(s.b))])];
-      state = makeState(partners, money(cleanGross(partners, 18_000)));
+      state = makeState(partners, money(cleanGross(partners, numericStateRandom.pick([12_000,15_000,18_000,20_000,24_000]))));
       targetPartnerId = partnerB;
       break;
     }
     case "findJoinTimeForEqualProfitShares": {
-      const s = random.pick([{a:30_000,b:45_000,join:4},{a:40_000,b:80_000,join:6},{a:45_000,b:60_000,join:3},{a:50_000,b:75_000,join:4}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const join = numericStateRandom.pick([2, 3, 4, 5, 6, 7, 8, 9]);
+      const unit = numericStateRandom.pick([4_000, 5_000, 6_000, 8_000, 10_000]);
+      const s = { a: (12 - join) * unit, b: 12 * unit, join };
       state = makeState([partner(partnerA,[segment(0,12,money(s.a))]), partner(partnerB,[segment(s.join,12,money(s.b))])], money(100_000));
       targetPartnerId = partnerB;
       break;
     }
     case "findLeaveTimeForEqualProfitShares": {
-      const s = random.pick([{a:60_000,leave:6,b:30_000},{a:72_000,leave:8,b:48_000},{a:90_000,leave:4,b:30_000},{a:80_000,leave:9,b:60_000}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const leave = numericStateRandom.pick([3, 4, 5, 6, 7, 8, 9, 10]);
+      const unit = numericStateRandom.pick([4_000, 5_000, 6_000, 8_000, 10_000]);
+      const s = { a: 12 * unit, leave, b: leave * unit };
       state = makeState([partner(partnerA,[segment(0,s.leave,money(s.a))]), partner(partnerB,[segment(0,12,money(s.b))])], money(100_000));
       targetPartnerId = partnerA;
       break;
     }
     case "findShareDifferenceWithStaggeredParticipation": {
-      const s = random.pick([
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const s = numericStateRandom.pick([
         {a:30_000,b:45_000,c:60_000,jb:3,jc:6},
         {a:40_000,b:60_000,c:72_000,jb:5,jc:7},
         {a:50_000,b:80_000,c:90_000,jb:4,jc:6},
         {a:36_000,b:54_000,c:72_000,jb:6,jc:8},
+        {a:42_000,b:63_000,c:84_000,jb:2,jc:7},
+        {a:48_000,b:72_000,c:60_000,jb:4,jc:9},
+        {a:54_000,b:81_000,c:90_000,jb:5,jc:8},
+        {a:60_000,b:75_000,c:96_000,jb:3,jc:7},
       ]);
       const partners = [partner(partnerA,[segment(0,12,money(s.a))]), partner(partnerB,[segment(s.jb,12,money(s.b))]), partner(partnerC,[segment(s.jc,12,money(s.c))])];
-      state = makeState(partners, money(cleanGross(partners, 12_000)));
+      state = makeState(partners, money(cleanGross(partners, numericStateRandom.pick([9_000,12_000,15_000,18_000,20_000,24_000]))));
       break;
     }
     case "findProfitRatioAfterCapitalWithdrawal": {
