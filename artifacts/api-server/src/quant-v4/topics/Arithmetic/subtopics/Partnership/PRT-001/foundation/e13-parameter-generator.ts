@@ -171,6 +171,8 @@ export function generatePrt001E13Parameters(input: { questionLanguageId: string;
         { oa: 7, ob: 5, fn: 1, fd: 6, sa: 3, sb: 2 },
         { oa: 3, ob: 2, fn: 1, fd: 5, sa: 1, sb: 1 },
         { oa: 8, ob: 7, fn: 1, fd: 10, sa: 3, sb: 2 },
+        { oa: 4, ob: 3, fn: 1, fd: 7, sa: 2, sb: 1 },
+        { oa: 9, ob: 5, fn: 1, fd: 7, sa: 1, sb: 2 },
       ]);
       const oldTotal = rational(s.oa + s.ob);
       const oldA = divideRational(rational(s.oa), oldTotal);
