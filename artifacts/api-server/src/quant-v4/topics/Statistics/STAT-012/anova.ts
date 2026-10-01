@@ -33,7 +33,7 @@ type Draft={state:Stat012State;stem:string;explanation:string;choices?:string[]}
  }
  if(id==="RANDOMIZED_BLOCK_F"){
  const state:Stat012State={kind:"BLOCK_F",data:[[8,10,12],[10,13,13],[12,13,17],[10,12,14]]};
- return{state,stem:"A randomized-block experiment has three treatments and four blocks, with one observation per treatment in each block. The block rows are (8, 10, 12), (10, 13, 13), (12, 13, 17), and (10, 12, 14). Assuming an additive model, find the treatment F statistic.",explanation:"The grand mean is 12. Treatment means are 10, 12, and 14, so SStreatment = 4[(10−12)²+(12−12)²+(14−12)²] = 32. Block means are 10, 12, 14, and 12, giving SSblock = 24. SStotal = 60, so SSerror = 60−32−24 = 4. Treatment df = 2 and error df = (4−1)(3−1) = 6. Thus F = (32/2)/(4/6) = 24.",choices:["24","8","16","48"]};
+ return{state,stem:"A randomized-block experiment has three treatments and four blocks, with one observation per treatment in each block. The block rows are (8, 10, 12), (10, 13, 13), (12, 13, 17), and (10, 12, 14). Under an additive model, what is the treatment F statistic?",explanation:"The grand mean is 12. Treatment means are 10, 12, and 14, so SStreatment = 4[(10−12)²+(12−12)²+(14−12)²] = 32. Block means are 10, 12, 14, and 12, giving SSblock = 24. SStotal = 60, so SSerror = 60−32−24 = 4. Treatment df = 2 and error df = (4−1)(3−1) = 6. Thus F = (32/2)/(4/6) = 24.",choices:["24","8","16","48"]};
  }
  if(id==="UNREPLICATED_INTERACTION_LIMIT"){
  const answer="Interaction cannot be estimated separately from error";
