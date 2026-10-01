@@ -60,7 +60,7 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     const state: Stat005State = { kind: "RAW_PARTITION", values, numerator, denominator, convention: "N_PLUS_1_LINEAR" };
     const label = symbol === "Q" ? `Q${numerator}` : symbol === "D" ? `D${numerator}` : `P${numerator}`;
     const position = numerator * (values.length + 1) / denominator;
-    return { state, answer, stem: `The ordered observations are ${rawTable(values)}. Using the position rule k(n + 1)/m with linear interpolation when needed, what is ${label}?`, explanation: `${label}'s position is ${numerator} × (${values.length} + 1) / ${denominator} = ${fmt(position)}. Interpolate at that position in the ordered observations; the value is ${fmt(answer)}.` };
+    return { state, answer, stem: `For the ordered observations ${rawTable(values)}, the ${label} is:`, explanation: `${label}'s position is ${numerator} × (${values.length} + 1) / ${denominator} = ${fmt(position)}. Interpolate at that position in the ordered observations; the value is ${fmt(answer)}.` };
   }
   if (contractId.endsWith("FROM_DISCRETE_FREQUENCY")) {
     const values = [10, 20, 30, 40, 50];
@@ -72,7 +72,7 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     const result = discretePosition(rows, numerator, denominator);
     const state: Stat005State = { kind: "DISCRETE_PARTITION", rows, numerator, denominator, convention: "CEILING_KN_OVER_M" };
     const label = symbol === "Q" ? `Q${numerator}` : symbol === "D" ? `D${numerator}` : `P${numerator}`;
-    return { state, answer: result.value, stem: `The following ordered frequency distribution has N = ${result.total}. Using the nearest-rank rule ceil(kN/m), find ${label}.\n${freqTable(rows)}`, explanation: `The rank is ceil(${numerator} × ${result.total} / ${denominator}) = ${result.rank}. The cumulative frequencies are 2, 6, 11, 18 and 23, so rank ${result.rank} falls at value ${result.value}.` };
+    return { state, answer: result.value, stem: `The ordered frequency distribution has N = ${result.total}. The ${label} is:\n${freqTable(rows)}`, explanation: `The rank is ceil(${numerator} × ${result.total} / ${denominator}) = ${result.rank}. The cumulative frequencies are 2, 6, 11, 18 and 23, so rank ${result.rank} falls at value ${result.value}.` };
   }
   if (contractId.endsWith("FROM_GROUPED_DATA")) {
     const classes = [0, 10, 20, 30, 40].map((lower, i) => ({ lower, upper: lower + 10, frequency: [2, 4, 5, 7, 5][i]! }));
@@ -83,26 +83,26 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     const result = groupedPosition(classes, numerator, denominator);
     const state: Stat005State = { kind: "GROUPED_PARTITION", classes, numerator, denominator, convention: "K_N_OVER_M_INTERPOLATION" };
     const label = symbol === "Q" ? `Q${numerator}` : symbol === "D" ? `D${numerator}` : `P${numerator}`;
-    return { state, answer: result.value, stem: `Use the grouped interpolation rule at position kN/m to find ${label}.\n${groupedTable(classes)}`, explanation: `N = ${result.total}, so the target position is ${numerator} × ${result.total} / ${denominator} = ${fmt(result.target)}. This lies in ${result.row.lower}–${result.row.upper}. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives ${result.row.lower} + [(${fmt(result.target)} − ${result.cumulativeBefore}) / ${result.row.frequency}] × 10 ≈ ${fmt(result.value)}.` };
+    return { state, answer: result.value, stem: `For the grouped frequency distribution below, the interpolated ${label} is:\n${groupedTable(classes)}`, explanation: `N = ${result.total}, so the target position is ${numerator} × ${result.total} / ${denominator} = ${fmt(result.target)}. This lies in ${result.row.lower}–${result.row.upper}. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives ${result.row.lower} + [(${fmt(result.target)} − ${result.cumulativeBefore}) / ${result.row.frequency}] × 10 ≈ ${fmt(result.value)}.` };
   }
   if (contractId === "RANGE_OF_RAW_DATA" || contractId === "COEFFICIENT_OF_RANGE") {
     const values = rawValues(`${seed}:range`, 6); const min = Math.min(...values); const max = Math.max(...values);
     const state: Stat005State = { kind: "RAW_RANGE", values };
     const answer = contractId === "RANGE_OF_RAW_DATA" ? max - min : 100 * (max - min) / (max + min);
-    const stem = contractId === "RANGE_OF_RAW_DATA" ? `Find the range of the observations ${rawTable(values)}.` : `The smallest and largest observations in a data set are ${min} and ${max}. Find the coefficient of range as a percentage.`;
+    const stem = contractId === "RANGE_OF_RAW_DATA" ? `The range of the observations ${rawTable(values)} is:` : `The smallest and largest observations in a data set are ${min} and ${max}. The coefficient of range, as a percentage, is:`;
     const explanation = contractId === "RANGE_OF_RAW_DATA" ? `The largest value is ${max} and the smallest is ${min}. Range = ${max} − ${min} = ${fmt(answer)}.` : `Coefficient of range = (largest − smallest) / (largest + smallest) × 100 = (${max} − ${min}) / (${max} + ${min}) × 100 ≈ ${fmt(answer)}%.`;
     return { state, answer, stem, explanation };
   }
   if (contractId === "QUARTILE_DEVIATION_OF_RAW_DATA") {
     const values = rawValues(`${seed}:qd`, 11); const q1 = rawPosition(values, 1, 4); const q3 = rawPosition(values, 3, 4);
     const state: Stat005State = { kind: "RAW_QUARTILE_DEVIATION", values };
-    return { state, answer: (q3 - q1) / 2, stem: `The ordered observations are ${rawTable(values)}. Use the k(n + 1)/4 position rule and linear interpolation to find the quartile deviation.`, explanation: `Q1 is at position (${values.length} + 1)/4 = 3 and equals ${fmt(q1)}. Q3 is at position 3(${values.length} + 1)/4 = 9 and equals ${fmt(q3)}. Quartile deviation = (Q3 − Q1)/2 = (${fmt(q3)} − ${fmt(q1)})/2 = ${fmt((q3 - q1) / 2)}.` };
+    return { state, answer: (q3 - q1) / 2, stem: `The quartile deviation of the ordered observations ${rawTable(values)} is:`, explanation: `Q1 is at position (${values.length} + 1)/4 = 3 and equals ${fmt(q1)}. Q3 is at position 3(${values.length} + 1)/4 = 9 and equals ${fmt(q3)}. Quartile deviation = (Q3 − Q1)/2 = (${fmt(q3)} − ${fmt(q1)})/2 = ${fmt((q3 - q1) / 2)}.` };
   }
   if (contractId === "COEFFICIENT_OF_QUARTILE_DEVIATION") {
     const q1 = 10 + Math.floor(r() * 8) * 2; const q3 = q1 + 12 + Math.floor(r() * 7) * 2;
     const state: Stat005State = { kind: "COEFFICIENT_QUARTILE_DEVIATION", q1, q3 };
     const answer = 100 * (q3 - q1) / (q3 + q1);
-    return { state, answer, stem: `For a distribution, Q1 = ${q1} and Q3 = ${q3}. Find the coefficient of quartile deviation as a percentage.`, explanation: `Coefficient of quartile deviation = (Q3 − Q1)/(Q3 + Q1) × 100 = (${q3} − ${q1})/(${q3} + ${q1}) × 100 ≈ ${fmt(answer)}%.` };
+    return { state, answer, stem: `For a distribution with Q1 = ${q1} and Q3 = ${q3}, the coefficient of quartile deviation is:`, explanation: `Coefficient of quartile deviation = (Q3 − Q1)/(Q3 + Q1) × 100 = (${q3} − ${q1})/(${q3} + ${q1}) × 100 ≈ ${fmt(answer)}%.` };
   }
   if (contractId === "MEAN_DEVIATION_ABOUT_MEAN" || contractId === "MEAN_DEVIATION_ABOUT_MEDIAN") {
     const center = 20 + Math.floor(r() * 5) * 4; const gaps = [0, 0, 4, 4, 8, 8];
@@ -112,12 +112,12 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     const answer = values.reduce((sum, value) => sum + Math.abs(value - base), 0) / values.length;
     const state: Stat005State = { kind: "RAW_MEAN_DEVIATION", values, about };
     const deviations = values.map((v) => Math.abs(v - base));
-    return { state, answer, stem: `Find the mean deviation about the ${about} for the observations ${rawTable(values)}.`, explanation: `The ${about} is ${fmt(base)}. The absolute deviations are ${deviations.map(fmt).join(", ")}. Their sum is ${fmt(answer * values.length)}; dividing by ${values.length} gives mean deviation ${fmt(answer)}.` };
+    return { state, answer, stem: `The mean deviation about the ${about} for the observations ${rawTable(values)} is:`, explanation: `The ${about} is ${fmt(base)}. The absolute deviations are ${deviations.map(fmt).join(", ")}. Their sum is ${fmt(answer * values.length)}; dividing by ${values.length} gives mean deviation ${fmt(answer)}.` };
   }
   const mean = 30 + Math.floor(r() * 5) * 10; const sd = 3 + Math.floor(r() * 5) * 3;
   const answer = sd / mean * 100;
   const state: Stat005State = { kind: "COEFFICIENT_OF_VARIATION", mean, populationStandardDeviation: sd };
-  return { state, answer, stem: `A distribution has arithmetic mean ${mean} and population standard deviation ${sd}. Find its coefficient of variation as a percentage.`, explanation: `Coefficient of variation = standard deviation / mean × 100 = ${sd}/${mean} × 100 ≈ ${fmt(answer)}%.` };
+  return { state, answer, stem: `A distribution has arithmetic mean ${mean} and population standard deviation ${sd}. Its coefficient of variation, as a percentage, is:`, explanation: `Coefficient of variation = standard deviation / mean × 100 = ${sd}/${mean} × 100 ≈ ${fmt(answer)}%.` };
 }
 
 export function solveStat005State(state: Stat005State, contractId: Stat005ContractId) {
