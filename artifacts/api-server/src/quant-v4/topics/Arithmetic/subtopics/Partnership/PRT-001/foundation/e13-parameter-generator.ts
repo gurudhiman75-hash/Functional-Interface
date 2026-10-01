@@ -73,6 +73,14 @@ export function generatePrt001E13Parameters(input: { questionLanguageId: string;
         { a: 20_000, b: 30_000, profit: 25_000, reinvest: "A" as const },
         { a: 40_000, b: 60_000, profit: 50_000, reinvest: "B" as const },
         { a: 45_000, b: 30_000, profit: 25_000, reinvest: "B" as const },
+        { a: 20_000, b: 30_000, profit: 10_000, reinvest: "A" as const },
+        { a: 24_000, b: 36_000, profit: 10_000, reinvest: "A" as const },
+        { a: 30_000, b: 40_000, profit: 28_000, reinvest: "A" as const },
+        { a: 30_000, b: 50_000, profit: 24_000, reinvest: "A" as const },
+        { a: 36_000, b: 48_000, profit: 28_000, reinvest: "B" as const },
+        { a: 40_000, b: 50_000, profit: 45_000, reinvest: "A" as const },
+        { a: 40_000, b: 60_000, profit: 10_000, reinvest: "A" as const },
+        { a: 45_000, b: 60_000, profit: 28_000, reinvest: "A" as const },
       ]);
       const first = makeState([partner(partnerA, [segment(0, 12, m(s.a))]), partner(partnerB, [segment(0, 12, m(s.b))])], m(s.profit));
       const firstSolution = solvePrt001State(first);
