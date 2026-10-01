@@ -138,7 +138,7 @@ router.get("/mobile/pages", async (_req, res) => {
     ORDER BY sort_order, title
   `;
   res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
-  res.json({ pages: await decorateRows(rows as Record<string, unknown>[]), generatedAt: new Date().toISOString() });
+  res.json({ pages: rows, generatedAt: new Date().toISOString() });
 });
 
 router.get("/mobile/pages/:slug", async (req, res) => {
