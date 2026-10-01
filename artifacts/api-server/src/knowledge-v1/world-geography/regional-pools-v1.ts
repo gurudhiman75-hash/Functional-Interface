@@ -179,7 +179,15 @@ function peersFor(target: RegionalFact): readonly RegionalFact[] {
 
 function shuffledOptions(target: RegionalFact, values: readonly LocalizedValue[], family: string) {
   const id = `${target.cpId}-Q-VP-REGION-${family}-${target.key}`.toUpperCase();
-  const order = deterministicShuffle([0, 1, 2, 3], `${id}:option-order`);
+  const peers = peersFor(target);
+  const targetIndex = peers.findIndex(f => f.key === target.key);
+  const seedOrder = deterministicShuffle([0, 1, 2, 3], `${target.cpId}:${target.category}:${family}:rotation`);
+  const baseOffset = seedOrder[0]!;
+  const offset = (baseOffset + targetIndex) % 4;
+  // Four targets in a semantic category receive four distinct rotations.
+  // This preserves deterministic options while preventing duplicate option
+  // layouts inside the same regional QL family.
+  const order = [0, 1, 2, 3].map(i => (i + offset) % 4);
   const options = (language: Language) => order.map(i => values[i]![language]);
   return { id, order, options };
 }
