@@ -182,7 +182,8 @@ async function run() {
     assert.equal(generated.questions.length, expectedQlRows.length);
     assert.ok(generated.questions.every(q => q.patternId === qlId && q.cpId === expectedQlRows[0]!.cpId));
     assert.equal(new Set(generated.questions.map(q => (q.options as string[]).join(' | '))).size, expectedQlRows.length);
-    assert.equal(generated.generationContext.authoringReviewApproved, expectedQlRows.every(q => q.authoringReviewApproved));
+    const expectedContextApproval = generationPool.filter(q => q.cpId === expectedQlRows[0]!.cpId).every(q => q.authoringReviewApproved ?? (Number(q.cpId.slice(-3)) <= 43));
+    assert.equal(generated.generationContext.authoringReviewApproved, expectedContextApproval);
     assert.equal(generated.generationContext.studentPublicationAuthorized, false);
   }
   // Independent numeric oracle for date/time questions, not option-position snapshots.
