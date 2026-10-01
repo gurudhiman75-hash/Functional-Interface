@@ -861,14 +861,53 @@ function svg(
     .join("");
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-label="Counts in three overlapping geometric shapes"><rect x="4" y="4" width="632" height="492" rx="10" fill="#fff" stroke="#b8c3cf"/>${marks}<g font-family="sans-serif" font-size="13" fill="#152536"><text x="8" y="23">${labels[0]}</text><text x="8" y="42">${labels[1]}</text><text x="8" y="61">${labels[2]}</text></g><g font-family="sans-serif" font-size="16" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#152536">${r.map((v, m) => `<text x="${points[m]![0]}" y="${points[m]![1]}" data-mask="${m}">${v}</text>`).join("")}</g><metadata data-layout="${layout.id}" data-label-clearance="20"/></svg>`;
 }
-function stem(c: Context, q: (typeof QUESTIONS)[number], l: L): string {
+function stem(
+  c: Context,
+  q: (typeof QUESTIONS)[number],
+  l: L,
+  layout: ShapeLayout,
+): string {
   const title = STEM_OPENERS[c.id]![l];
+  const names = layout.shapes.map((shape) => SHAPE_LABELS[shape][l]);
+  const participating = [0, 1, 2].filter((index) =>
+    q.masks.some((mask) => mask & (1 << index)),
+  );
   const ask =
-    l === "en"
-      ? `How many people belong ${q.label[l]}?`
-      : l === "hi"
-        ? `कितने लोग ${q.label[l]} हैं?`
-        : `ਕਿੰਨੇ ਲੋਕ ${q.label[l]} ਹਨ?`;
+    q.pattern === "single"
+      ? l === "en"
+        ? `How many people are in the region belonging only to the ${names[participating[0]!]}?`
+        : l === "hi"
+          ? `केवल ${names[participating[0]!]} वाले क्षेत्र में कितने लोग हैं?`
+          : `ਸਿਰਫ਼ ${names[participating[0]!]} ਵਾਲੇ ਖੇਤਰ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?`
+      : q.pattern === "pair"
+        ? l === "en"
+          ? `How many people are in the region common to the ${names[participating[0]!]} and ${names[participating[1]!]}, but not the ${names[[0, 1, 2].find((i) => !participating.includes(i))!]}?`
+          : l === "hi"
+            ? `${names[participating[0]!]} और ${names[participating[1]!]} के साझा क्षेत्र में, लेकिन ${names[[0, 1, 2].find((i) => !participating.includes(i))!]} में नहीं, कितने लोग हैं?`
+            : `${names[participating[0]!]} ਅਤੇ ${names[participating[1]!]} ਦੇ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ, ਪਰ ${names[[0, 1, 2].find((i) => !participating.includes(i))!]} ਵਿੱਚ ਨਹੀਂ, ਕਿੰਨੇ ਲੋਕ ਹਨ?`
+        : q.pattern === "triple"
+          ? l === "en"
+            ? "How many people are in the region common to all three shapes?"
+            : l === "hi"
+              ? "तीनों आकृतियों के साझा क्षेत्र में कितने लोग हैं?"
+              : "ਤਿੰਨਾਂ ਆਕਾਰਾਂ ਦੇ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?"
+          : q.key === "at-least-two"
+            ? l === "en"
+              ? "How many people belong to at least two of these groups?"
+              : l === "hi"
+                ? "कम-से-कम दो समूहों में कितने लोग हैं?"
+                : "ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?"
+            : q.key === "exactly-one"
+              ? l === "en"
+                ? "How many people belong to exactly one of these groups?"
+                : l === "hi"
+                  ? "ठीक एक समूह में कितने लोग हैं?"
+                  : "ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?"
+              : l === "en"
+                ? "How many people belong to at least one of these groups?"
+                : l === "hi"
+                  ? "कम-से-कम एक समूह में कितने लोग हैं?"
+                  : "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?";
   return `${title} ${ask}`;
 }
 export function isVen001ShapeRegionRequest(
@@ -936,7 +975,7 @@ export function generateVen001ShapeRegionBatch(
     else
       explanation = `${namedValues.join("; ")}। ਇਹ ${q.label[l]} ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। ${calculation} = ${answer}।`;
     const id = `VEN-CP011:${c.id}:${q.key}:${hash(`${seed}:${i}`)}:${l}`;
-    const questionStem = stem(c, q, l);
+    const questionStem = stem(c, q, l, layout);
     return {
       ...lifecycle,
       id,
