@@ -2,25 +2,17 @@ import { useCallback, useEffect, useState } from 'react';
 import {
   createGenerationRun,
   getQuestionStudioCapabilities,
-  getQuestionStudioDashboard,
   getQuestionStudioReviewPage,
   reviseGenerationItem,
   updateGenerationItems,
   type CreateGenerationRunInput,
   type GenerationItemStatus,
   type QuestionStudioCapabilities,
-  type QuestionStudioDashboard,
   type QuestionStudioReviewPage,
   type QuestionStudioReviewQuery,
   type ReviseGenerationItemInput,
 } from './api';
 import { QUESTION_STUDIO_REFRESH_EVENT } from './events';
-
-const EMPTY_DASHBOARD: QuestionStudioDashboard = {
-  runs: [],
-  recipes: [],
-  generatedAt: '',
-};
 
 const EMPTY_REVIEW_PAGE: QuestionStudioReviewPage = {
   runs: [],
@@ -76,9 +68,7 @@ type BulkReviewResult = Awaited<ReturnType<typeof updateGenerationItems>> & {
  * generation/review cockpit; bespoke panels remain available for engines
  * that expose additional chapter-specific controls.
  */
-export function useQuestionStudio(options: { loadDashboard?: boolean } = {}) {
-  const loadDashboard = options.loadDashboard !== false;
-  const [dashboard, setDashboard] = useState<QuestionStudioDashboard>(EMPTY_DASHBOARD);
+export function useQuestionStudio() {
   const [capabilities, setCapabilities] = useState<QuestionStudioCapabilities>(EMPTY_CAPABILITIES);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
@@ -90,23 +80,14 @@ export function useQuestionStudio(options: { loadDashboard?: boolean } = {}) {
     setLoading(true);
     setError(null);
     try {
-      if (loadDashboard) {
-        const [nextDashboard, nextCapabilities] = await Promise.all([
-          getQuestionStudioDashboard(),
-          getQuestionStudioCapabilities(),
-        ]);
-        setDashboard(nextDashboard);
-        setCapabilities(withMixedDifficulty(nextCapabilities));
-      } else {
-        const nextCapabilities = await getQuestionStudioCapabilities();
-        setCapabilities(withMixedDifficulty(nextCapabilities));
-      }
+      const nextCapabilities = await getQuestionStudioCapabilities();
+      setCapabilities(withMixedDifficulty(nextCapabilities));
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load Question Studio.');
     } finally {
       setLoading(false);
     }
-  }, [loadDashboard]);
+  }, []);
 
   useEffect(() => {
     void refresh();
@@ -183,7 +164,6 @@ export function useQuestionStudio(options: { loadDashboard?: boolean } = {}) {
   }, [refresh]);
 
   return {
-    dashboard,
     capabilities,
     loading,
     generating,
