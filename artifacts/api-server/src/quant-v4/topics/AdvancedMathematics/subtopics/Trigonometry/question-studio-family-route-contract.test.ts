@@ -76,8 +76,12 @@ const facadeSource = readFileSync(
 );
 
 assert.ok(
-  routeIndexSource.includes('import adminQuestionStudioRegistryRouter from "./admin-question-studio-registry";'),
-  "Global route index must mount Question Studio through the dedicated registry",
+  routeIndexSource.includes('const adminQuestionStudioRegistryRouter = lazyRouter(() => import("./admin-question-studio-registry"));'),
+  "Global route index must lazily load the dedicated Question Studio registry",
+);
+assert.ok(
+  routeIndexSource.includes('router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);'),
+  "Global route index must mount the dedicated Question Studio registry at /admin/question-studio",
 );
 assert.ok(
   !routeIndexSource.includes("adminQuestionStudioTrigonometryRouter"),
