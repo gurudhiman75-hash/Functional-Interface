@@ -71,9 +71,15 @@ export function venNumericalSourceSupport(cp: string, queryKey: string): {
     };
   }
   if (cp === "VEN-CP010") {
+    if (queryKey === "minimum-intersection-2") {
+      return {
+        status: "STRONG_LIBRARY_SUPPORT",
+        note: "Two-set minimum-overlap reasoning is directly evidenced by an RRB NTPC 28 March 2016 Shift 1 previous-paper question asking the minimum number who speak both Tamil and Telugu.",
+      };
+    }
     return {
       status: "SOURCE_GAP_OPEN",
-      note: "A dedicated Library pass did not locate exam-pattern evidence for explicit minimum/maximum overlap-bound questions; keep review-only pending source evidence.",
+      note: "No comparable SSC/Banking/Punjab-state source evidence has yet been established for this exact min/max bound variant; keep review-only pending source evidence.",
     };
   }
   return {

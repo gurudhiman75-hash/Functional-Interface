@@ -39,6 +39,18 @@ assert.equal(
 );
 assert.equal(
   venNumericalSourceSupport("VEN-CP010", "minimum-intersection-2").status,
+  "STRONG_LIBRARY_SUPPORT",
+);
+assert.equal(
+  venNumericalSourceSupport("VEN-CP010", "maximum-intersection-2").status,
+  "SOURCE_GAP_OPEN",
+);
+assert.equal(
+  venNumericalSourceSupport("VEN-CP010", "minimum-intersection-3").status,
+  "SOURCE_GAP_OPEN",
+);
+assert.equal(
+  venNumericalSourceSupport("VEN-CP010", "maximum-union-3").status,
   "SOURCE_GAP_OPEN",
 );
 
