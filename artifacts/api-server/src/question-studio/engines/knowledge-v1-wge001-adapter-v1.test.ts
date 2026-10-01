@@ -6,7 +6,7 @@ import { knowledgeV1Wge001QuestionStudioAdapterV1 as adapter, isWge001QuestionSt
 async function run() {
   const cpIds = Object.keys(WGE_CP_TITLES);
   assert.equal(WGE_CORPUS.length, 816);
-  assert.equal(WGE_VARIABLE_POOL_QUESTIONS_V1.length, 76);
+  assert.equal(WGE_VARIABLE_POOL_QUESTIONS_V1.length, 194);
   const generationPool = [...WGE_CORPUS, ...WGE_VARIABLE_POOL_QUESTIONS_V1];
   validateWorldGeographyCorpus(generationPool);
   assert.equal(adapter.listPackages().length, 44);
@@ -17,34 +17,34 @@ async function run() {
   }
   const capitalPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP022')!;
   assert.equal(capitalPackage.metadata.authoringReviewApproved, true);
-  assert.equal(capitalPackage.metadata.variablePoolQuestionCount, 24);
+  assert.equal(capitalPackage.metadata.variablePoolQuestionCount, 90);
   assert.equal(capitalPackage.metadata.variablePoolEnabled, true);
   assert.deepEqual(capitalPackage.metadata.questionLanguageIds,
     [...new Set(WGE_VARIABLE_POOL_QUESTIONS_V1.filter(q => q.cpId === 'WGE-001-CP022').map(q => q.qlId))]);
   assert.equal(capitalPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const riverPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP019')!;
   assert.equal(riverPackage.metadata.authoringReviewApproved, true);
-  assert.equal(riverPackage.metadata.variablePoolQuestionCount, 15);
+  assert.equal(riverPackage.metadata.variablePoolQuestionCount, 28);
   assert.equal(riverPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const landformsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP018')!;
   assert.equal(landformsPackage.metadata.authoringReviewApproved, true);
-  assert.equal(landformsPackage.metadata.variablePoolQuestionCount, 8);
+  assert.equal(landformsPackage.metadata.variablePoolQuestionCount, 18);
   assert.equal(landformsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const lakesPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP020')!;
   assert.equal(lakesPackage.metadata.authoringReviewApproved, true);
-  assert.equal(lakesPackage.metadata.variablePoolQuestionCount, 9);
+  assert.equal(lakesPackage.metadata.variablePoolQuestionCount, 16);
   assert.equal(lakesPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const desertsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP021')!;
   assert.equal(desertsPackage.metadata.authoringReviewApproved, true);
-  assert.equal(desertsPackage.metadata.variablePoolQuestionCount, 7);
+  assert.equal(desertsPackage.metadata.variablePoolQuestionCount, 14);
   assert.equal(desertsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const passagesPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP017')!;
   assert.equal(passagesPackage.metadata.authoringReviewApproved, true);
-  assert.equal(passagesPackage.metadata.variablePoolQuestionCount, 8);
+  assert.equal(passagesPackage.metadata.variablePoolQuestionCount, 16);
   assert.equal(passagesPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   const currentsPackage = adapter.listPackages().find(p => p.packageId === 'WGE-001-CP016')!;
   assert.equal(currentsPackage.metadata.authoringReviewApproved, true);
-  assert.equal(currentsPackage.metadata.variablePoolQuestionCount, 5);
+  assert.equal(currentsPackage.metadata.variablePoolQuestionCount, 12);
   assert.equal(currentsPackage.metadata.variablePoolStatus, 'USER_APPROVED');
   let checked = 0;
   const newCheckpointAnswerKeyAudit: Record<string, readonly number[]> = {
@@ -89,12 +89,17 @@ async function run() {
   for (const cp of cpIds) {
     for (const difficulty of ['Mixed', 'Easy', 'Medium', 'Hard']) {
       const expected = generationPool.filter(q => q.cpId === cp && (difficulty === 'Mixed' || q.difficulty === difficulty));
-      const en = await adapter.generate({packageId: 'WGE-001', canonicalProblemId: cp, difficulty, count: expected.length, seed: 'audit'});
+      // Runtime requests are intentionally capped at 50. Every corpus and
+      // variable-pool item is validated individually below, so this sweep
+      // checks filtering, no-repeat behaviour and cross-language parity on
+      // the largest supported request rather than exceeding the API limit.
+      const requestCount = Math.min(expected.length, 50);
+      const en = await adapter.generate({packageId: 'WGE-001', canonicalProblemId: cp, difficulty, count: requestCount, seed: 'audit'});
       for (const language of ['en', 'hi', 'pa'] as const) {
-        const result = await adapter.generate({packageId: cp, language, difficulty, count: expected.length, seed: 'audit'});
+        const result = await adapter.generate({packageId: cp, language, difficulty, count: requestCount, seed: 'audit'});
         assert.deepEqual(result.questions.map(q => q.sourceQuestionId), en.questions.map(q => q.sourceQuestionId));
         assert.deepEqual(result.questions.map(q => q.correctIndex), en.questions.map(q => q.correctIndex));
-        assert.equal(new Set(result.questions.map(q => q.sourceQuestionId)).size, expected.length);
+        assert.equal(new Set(result.questions.map(q => q.sourceQuestionId)).size, requestCount);
         for (const q of result.questions) {
           const canonical = generationPool.find(row => row.id === q.sourceQuestionId)!;
           assert.equal(q.cpId, cp); assert.equal(q.language, language);

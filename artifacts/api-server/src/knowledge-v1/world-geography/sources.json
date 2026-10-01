@@ -365,8 +365,8 @@
     "url": "https://oceanservice.noaa.gov/education/tutorial_tides/",
     "section": "Tidal range, spring and neap tides, and tidal currents",
     "kind": "primary-agency",
-    "consultedOn": "2026-09-27",
-    "retrievalStatus": "search-excerpt"
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
   },
   {
     "id": "WGE-PHY-016D",
@@ -969,6 +969,105 @@
     "section": "Punjabi equivalents and definition of isthmus",
     "kind": "reference-dictionary",
     "consultedOn": "2026-09-29",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-017C",
+    "title": "National Geographic Education: Strait",
+    "url": "https://education.nationalgeographic.org/resource/strait/",
+    "section": "Definition of a strait; Strait of Gibraltar and Strait of Messina examples",
+    "kind": "educational-reference",
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-017D",
+    "title": "NASA: The Strait of Gibraltar connects the Atlantic to the Mediterranean",
+    "url": "https://www.nasa.gov/image-article/strait-of-gibraltar-connects-atlantic-mediterranean/",
+    "section": "Atlantic–Mediterranean connection; Spain–Morocco separation",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-017E",
+    "title": "NASA: The Strait of Hormuz connects the Gulf of Oman with the Persian Gulf",
+    "url": "https://www.nasa.gov/image-article/strait-of-hormuz-connects-gulf-of-oman-with-persian-gulf/",
+    "section": "Persian Gulf–Gulf of Oman connection and surrounding land",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-017F",
+    "title": "U.S. EIA: Strait of Malacca links the Indian and Pacific Oceans",
+    "url": "https://www.eia.gov/todayinenergy/detail.php?id=32452",
+    "section": "Malacca location between Indonesia, Malaysia and Singapore; Indian–Pacific route",
+    "kind": "primary-agency",
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-018C",
+    "title": "National Geographic Education: Africa Physical Geography",
+    "url": "https://education.nationalgeographic.org/resource/africa-physical-geography/",
+    "section": "Major African physical regions, mountains, highlands, lakes and deserts",
+    "kind": "educational-reference",
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-018D",
+    "title": "National Geographic Education: Europe Physical Geography",
+    "url": "https://education.nationalgeographic.org/resource/europe-physical-geography/",
+    "section": "Ural boundary, European plains and Alpine mountain systems",
+    "kind": "educational-reference",
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-018E",
+    "title": "National Geographic Education: Asia Physical Geography",
+    "url": "https://education.nationalgeographic.org/resource/asia/",
+    "section": "Himalaya, Urals, Tien Shan, plateaus, plains and Asian physical regions",
+    "kind": "educational-reference",
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-018F",
+    "title": "National Geographic Education: North America Physical Geography",
+    "url": "https://education.nationalgeographic.org/resource/north-america-physical-geography/",
+    "section": "Rocky Mountains, continental divide and major North American relief",
+    "kind": "educational-reference",
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-018G",
+    "title": "National Geographic Education: South America Physical Geography",
+    "url": "https://education.nationalgeographic.org/resource/south-america-physical-geography/",
+    "section": "Andes, Altiplano, Brazilian and Guiana highlands, river basins and plains",
+    "kind": "educational-reference",
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-018H",
+    "title": "National Geographic Education: Australia and Oceania Physical Geography",
+    "url": "https://education.nationalgeographic.org/resource/oceania-physical-geography/",
+    "section": "Great Dividing Range, Southern Alps and regional physical geography",
+    "kind": "educational-reference",
+    "consultedOn": "2026-09-30",
+    "retrievalStatus": "page-read"
+  },
+  {
+    "id": "WGE-PHY-021C",
+    "title": "National Geographic Education: Deserts",
+    "url": "https://education.nationalgeographic.org/resource/deserts/",
+    "section": "Desert definition and major hot, cold and polar desert examples",
+    "kind": "educational-reference",
+    "consultedOn": "2026-09-30",
     "retrievalStatus": "page-read"
   }
 ]

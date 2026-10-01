@@ -5,7 +5,8 @@
     "objective": "sahara-hot-desert",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-PHY-021A"
+      "WGE-PHY-021A",
+      "WGE-PHY-021C"
     ],
     "correctIndex": 0,
     "locales": {
@@ -47,7 +48,8 @@
     "objective": "gobi-cold-desert",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-PHY-021A"
+      "WGE-PHY-021A",
+      "WGE-PHY-021C"
     ],
     "correctIndex": 3,
     "locales": {
@@ -89,7 +91,8 @@
     "objective": "atacama-west-coast",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-PHY-021A"
+      "WGE-PHY-021A",
+      "WGE-PHY-021C"
     ],
     "correctIndex": 2,
     "locales": {
@@ -131,7 +134,8 @@
     "objective": "namib-coastal-desert",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-PHY-021A"
+      "WGE-PHY-021A",
+      "WGE-PHY-021C"
     ],
     "correctIndex": 1,
     "locales": {
@@ -173,7 +177,8 @@
     "objective": "antarctica-polar-desert",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-PHY-021A"
+      "WGE-PHY-021A",
+      "WGE-PHY-021C"
     ],
     "correctIndex": 0,
     "locales": {
@@ -510,7 +515,8 @@
     "objective": "kalahari-southern-africa",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-PHY-021A"
+      "WGE-PHY-021A",
+      "WGE-PHY-021C"
     ],
     "correctIndex": 0,
     "locales": {
@@ -552,7 +558,8 @@
     "objective": "patagonia-desert",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-PHY-021A"
+      "WGE-PHY-021A",
+      "WGE-PHY-021C"
     ],
     "correctIndex": 3,
     "locales": {
@@ -594,7 +601,8 @@
     "objective": "thar-desert-location",
     "difficulty": "Easy",
     "sourceIds": [
-      "WGE-PHY-021A"
+      "WGE-PHY-021A",
+      "WGE-PHY-021C"
     ],
     "correctIndex": 2,
     "locales": {
