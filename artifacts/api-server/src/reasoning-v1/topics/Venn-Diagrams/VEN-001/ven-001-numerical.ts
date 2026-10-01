@@ -327,35 +327,35 @@ function percentStatement(c: Context, mask: number, percent: number, l: L) {
       members.length === 1
         ? names[members[0]]
         : members.length === 2
-          ? \`both \${names[members[0]]} and \${names[members[1]]}\`
-          : \`all three: \${join(
+          ? `both ${names[members[0]]} and ${names[members[1]]}`
+          : `all three: ${join(
               members.map((i) => names[i]),
               l,
-            )}\`;
-    return \`\${percent}% of respondents \${c.verb.en} \${group}\`;
+            )}`;
+    return `${percent}% of respondents ${c.verb.en} ${group}`;
   }
   if (l === "hi") {
     const group =
       members.length === 1
-        ? \`\${names[members[0]]} \${c.verb.hi}\`
+        ? `${names[members[0]]} ${c.verb.hi}`
         : members.length === 2
-          ? \`\${names[members[0]]} और \${names[members[1]]} दोनों \${c.verb.hi}\`
-          : \`\${join(
+          ? `${names[members[0]]} और ${names[members[1]]} दोनों ${c.verb.hi}`
+          : `${join(
               members.map((i) => names[i]),
               l,
-            )} तीनों \${c.verb.hi}\`;
-    return \`\${percent}% लोग \${group}\`;
+            )} तीनों ${c.verb.hi}`;
+    return `${percent}% लोग ${group}`;
   }
   const group =
     members.length === 1
-      ? \`\${names[members[0]]} \${c.verb.pa}\`
+      ? `${names[members[0]]} ${c.verb.pa}`
       : members.length === 2
-        ? \`\${names[members[0]]} ਅਤੇ \${names[members[1]]} ਦੋਵੇਂ \${c.verb.pa}\`
-        : \`\${join(
+        ? `${names[members[0]]} ਅਤੇ ${names[members[1]]} ਦੋਵੇਂ ${c.verb.pa}`
+        : `${join(
             members.map((i) => names[i]),
             l,
-          )} ਤਿੰਨੇ \${c.verb.pa}\`;
-  return \`\${percent}% ਲੋਕ \${group}\`;
+          )} ਤਿੰਨੇ ${c.verb.pa}`;
+  return `${percent}% ਲੋਕ ${group}`;
 }
 function regionName(c: Context, mask: number, l: L) {
   const names = c.names[l].split("|");
