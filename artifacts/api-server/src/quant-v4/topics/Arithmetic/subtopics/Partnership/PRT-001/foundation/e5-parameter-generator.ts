@@ -126,7 +126,15 @@ export function generatePrt001E5Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findProfitRatioAfterCapitalWithdrawal": {
-      const s = random.pick([{a0:60_000,a1:40_000,change:4,b:50_000},{a0:80_000,a1:60_000,change:6,b:70_000},{a0:90_000,a1:54_000,change:5,b:60_000},{a0:100_000,a1:70_000,change:8,b:75_000}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const a0 = numericStateRandom.pick([60_000, 72_000, 80_000, 90_000, 100_000, 120_000]);
+      const withdrawalPercent = numericStateRandom.pick([20, 25, 40, 50]);
+      const change = numericStateRandom.pick([3, 4, 5, 6, 8, 9]);
+      const b = numericStateRandom.pick([45_000, 50_000, 60_000, 70_000, 75_000, 90_000, 100_000]);
+      const withdrawn = (a0 * withdrawalPercent) / 100;
+      const s = { a0, a1: a0 - withdrawn, change, b };
       state = makeState([partner(partnerA,[segment(0,s.change,money(s.a0)),segment(s.change,12,money(s.a1))]), partner(partnerB,[segment(0,12,money(s.b))])], money(120_000));
       extra.withdrawnCapital = formatPrt001Money(rational(money(s.a0 - s.a1)));
       break;
