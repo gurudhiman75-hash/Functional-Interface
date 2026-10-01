@@ -11,7 +11,10 @@ import {
   type RegenerationSource,
 } from "../lib/question-studio-regeneration";
 import { authenticate } from "../middlewares/auth";
-import { generateQuestionStudioQuestions } from "../question-studio/engine-registry";
+import {
+  generateQuestionStudioQuestions,
+  resolveQuestionStudioEngine,
+} from "../question-studio/engine-registry";
 
 const router = Router();
 
@@ -114,6 +117,12 @@ router.post(
 
         try {
           const request = buildRegenerationRequest(source, seed);
+          const resolvedEngine = resolveQuestionStudioEngine(request);
+          if (resolvedEngine.engineId === "knowledge-v1") {
+            throw new Error(
+              "KNOWLEDGE_V1_REGENERATION_LOCKED: Computer Awareness is source-generator controlled; correct the canonical generator/localization source and create a new review batch.",
+            );
+          }
           const generated = await generateQuestionStudioQuestions(request);
           if (request.engineId && generated.engineId !== request.engineId) {
             throw new Error(
