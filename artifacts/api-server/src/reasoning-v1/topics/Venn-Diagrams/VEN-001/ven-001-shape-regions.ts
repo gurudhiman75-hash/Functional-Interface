@@ -166,6 +166,246 @@ const CONTEXTS = [
       ),
     ],
   },
+  {
+    id: "EXAM_PREPARATION",
+    sets: [
+      tr(
+        "candidates who attend mathematics classes",
+        "गणित की कक्षाओं में जाने वाले अभ्यर्थी",
+        "ਗਣਿਤ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ",
+      ),
+      tr(
+        "candidates who attend English classes",
+        "अंग्रेज़ी की कक्षाओं में जाने वाले अभ्यर्थी",
+        "ਅੰਗਰੇਜ਼ੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ",
+      ),
+      tr(
+        "candidates who attend general-awareness classes",
+        "सामान्य जागरूकता की कक्षाओं में जाने वाले अभ्यर्थी",
+        "ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ",
+      ),
+    ],
+  },
+  {
+    id: "CROP_CULTIVATION",
+    sets: [
+      tr(
+        "farmers who cultivate wheat",
+        "गेहूँ उगाने वाले किसान",
+        "ਕਣਕ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ",
+      ),
+      tr(
+        "farmers who cultivate mustard",
+        "सरसों उगाने वाले किसान",
+        "ਸਰ੍ਹੋਂ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ",
+      ),
+      tr(
+        "farmers who cultivate cotton",
+        "कपास उगाने वाले किसान",
+        "ਕਪਾਹ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ",
+      ),
+    ],
+  },
+  {
+    id: "LIBRARY_BORROWING",
+    sets: [
+      tr(
+        "library members who borrow fiction",
+        "कथा-साहित्य लेने वाले पुस्तकालय सदस्य",
+        "ਗਲਪ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ",
+      ),
+      tr(
+        "library members who borrow biographies",
+        "जीवनियाँ लेने वाले पुस्तकालय सदस्य",
+        "ਜੀਵਨੀਆਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ",
+      ),
+      tr(
+        "library members who borrow science books",
+        "विज्ञान की पुस्तकें लेने वाले पुस्तकालय सदस्य",
+        "ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ",
+      ),
+    ],
+  },
+  {
+    id: "ONLINE_PURCHASES",
+    sets: [
+      tr(
+        "customers who bought groceries online",
+        "ऑनलाइन किराने का सामान खरीदने वाले ग्राहक",
+        "ਆਨਲਾਈਨ ਰਾਸ਼ਨ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ",
+      ),
+      tr(
+        "customers who bought clothing online",
+        "ऑनलाइन कपड़े खरीदने वाले ग्राहक",
+        "ਆਨਲਾਈਨ ਕੱਪੜੇ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ",
+      ),
+      tr(
+        "customers who bought electronic goods online",
+        "ऑनलाइन इलेक्ट्रॉनिक सामान खरीदने वाले ग्राहक",
+        "ਆਨਲਾਈਨ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ",
+      ),
+    ],
+  },
+  {
+    id: "DIGITAL_DEVICES",
+    sets: [
+      tr(
+        "residents who use a smartphone",
+        "स्मार्टफ़ोन का उपयोग करने वाले निवासी",
+        "ਸਮਾਰਟਫ਼ੋਨ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ",
+      ),
+      tr(
+        "residents who use a laptop",
+        "लैपटॉप का उपयोग करने वाले निवासी",
+        "ਲੈਪਟਾਪ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ",
+      ),
+      tr(
+        "residents who use a tablet",
+        "टैबलेट का उपयोग करने वाले निवासी",
+        "ਟੈਬਲੈੱਟ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ",
+      ),
+    ],
+  },
+  {
+    id: "PAYMENT_METHODS",
+    sets: [
+      tr(
+        "customers who paid using UPI",
+        "UPI से भुगतान करने वाले ग्राहक",
+        "UPI ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ",
+      ),
+      tr(
+        "customers who paid using a debit card",
+        "डेबिट कार्ड से भुगतान करने वाले ग्राहक",
+        "ਡੈਬਿਟ ਕਾਰਡ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ",
+      ),
+      tr(
+        "customers who paid in cash",
+        "नकद भुगतान करने वाले ग्राहक",
+        "ਨਕਦ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ",
+      ),
+    ],
+  },
+  {
+    id: "COMMUNITY_VOLUNTEERING",
+    sets: [
+      tr(
+        "volunteers who joined literacy programmes",
+        "साक्षरता कार्यक्रमों में शामिल स्वयंसेवक",
+        "ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ",
+      ),
+      tr(
+        "volunteers who joined health camps",
+        "स्वास्थ्य शिविरों में शामिल स्वयंसेवक",
+        "ਸਿਹਤ ਕੈਂਪਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ",
+      ),
+      tr(
+        "volunteers who joined cleanliness drives",
+        "स्वच्छता अभियानों में शामिल स्वयंसेवक",
+        "ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ",
+      ),
+    ],
+  },
+  {
+    id: "WORKPLACE_SOFTWARE",
+    sets: [
+      tr(
+        "staff who use spreadsheet software",
+        "स्प्रेडशीट सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी",
+        "ਸਪ੍ਰੈੱਡਸ਼ੀਟ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ",
+      ),
+      tr(
+        "staff who use video-conferencing software",
+        "वीडियो-कॉन्फ़्रेंसिंग सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी",
+        "ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ",
+      ),
+      tr(
+        "staff who use presentation software",
+        "प्रेज़ेंटेशन सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी",
+        "ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ",
+      ),
+    ],
+  },
+  {
+    id: "CULTURAL_EVENTS",
+    sets: [
+      tr(
+        "visitors who attended folk-music performances",
+        "लोक-संगीत कार्यक्रमों में शामिल आगंतुक",
+        "ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਆਏ ਲੋਕ",
+      ),
+      tr(
+        "visitors who attended theatre performances",
+        "नाटक देखने वाले आगंतुक",
+        "ਨਾਟਕ ਦੇਖਣ ਆਏ ਲੋਕ",
+      ),
+      tr(
+        "visitors who attended craft exhibitions",
+        "शिल्प प्रदर्शनियों में शामिल आगंतुक",
+        "ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਆਏ ਲੋਕ",
+      ),
+    ],
+  },
+  {
+    id: "STREAMING_VIEWERS",
+    sets: [
+      tr(
+        "viewers who stream films",
+        "ऑनलाइन फ़िल्में देखने वाले दर्शक",
+        "ਆਨਲਾਈਨ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ",
+      ),
+      tr(
+        "viewers who stream sports",
+        "ऑनलाइन खेल देखने वाले दर्शक",
+        "ਆਨਲਾਈਨ ਖੇਡਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ",
+      ),
+      tr(
+        "viewers who stream documentaries",
+        "ऑनलाइन वृत्तचित्र देखने वाले दर्शक",
+        "ਆਨਲਾਈਨ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ",
+      ),
+    ],
+  },
+  {
+    id: "SKILL_COURSES",
+    sets: [
+      tr(
+        "trainees who completed a computer-basics course",
+        "कंप्यूटर की बुनियादी जानकारी का पाठ्यक्रम पूरा करने वाले प्रशिक्षु",
+        "ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ",
+      ),
+      tr(
+        "trainees who completed a spoken-English course",
+        "बोलचाल की अंग्रेज़ी का पाठ्यक्रम पूरा करने वाले प्रशिक्षु",
+        "ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ",
+      ),
+      tr(
+        "trainees who completed a first-aid course",
+        "प्राथमिक उपचार का पाठ्यक्रम पूरा करने वाले प्रशिक्षु",
+        "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ",
+      ),
+    ],
+  },
+  {
+    id: "MUNICIPAL_SERVICES",
+    sets: [
+      tr(
+        "residents who use the city bus service",
+        "शहर की बस सेवा का उपयोग करने वाले निवासी",
+        "ਸ਼ਹਿਰ ਦੀ ਬੱਸ ਸੇਵਾ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ",
+      ),
+      tr(
+        "residents who use public parks",
+        "सार्वजनिक पार्कों में जाने वाले निवासी",
+        "ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਸਨੀਕ",
+      ),
+      tr(
+        "residents who take part in recycling programmes",
+        "पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासी",
+        "ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕ",
+      ),
+    ],
+  },
 ] as const;
 type Context = (typeof CONTEXTS)[number];
 const QUESTIONS: readonly {
@@ -574,8 +814,9 @@ export function generateVen001ShapeRegionBatch(
   if (!Number.isInteger(count) || count < 1 || count > 50)
     throw new Error("VEN-CP011 batch count must be 1–50");
   const seed = text(req.seed) || "ven-001-shape-regions-review-v1";
+  const contextStart = hash(`${seed}:context-order`) % CONTEXTS.length;
   const questions = Array.from({ length: count }, (_, i) => {
-    const c = CONTEXTS[hash(`${seed}:context:${i}`) % CONTEXTS.length]!;
+    const c = CONTEXTS[(contextStart + i) % CONTEXTS.length]!;
     const q = QUESTIONS[hash(`${seed}:query:${i}`) % QUESTIONS.length]!;
     const layout = LAYOUTS[i % LAYOUTS.length]!;
     const regions = Array.from(
