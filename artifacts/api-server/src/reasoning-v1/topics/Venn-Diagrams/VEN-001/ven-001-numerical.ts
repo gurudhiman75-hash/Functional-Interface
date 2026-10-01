@@ -981,8 +981,8 @@ export function buildNumericalItem(
         `${surveyIntro(l, hash(seed))} ${groupReference(c, 0, l)}; ${groupReference(c, 1, l)}. ` +
         tx(
           `For ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]}, the counts for only ${c.names.en.split("|")[0]}, only ${c.names.en.split("|")[1]}, both, and neither are in the ratio 2:3:1:1. ${x} people do both. How many people were surveyed?`,
-          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} के लिए केवल पहले समूह, केवल दूसरे समूह, दोनों समूहों और किसी भी समूह में न आने वालों की संख्याओं का अनुपात 2:3:1:1 है। दोनों समूहों में ${x} लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?`,
-          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਲਈ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ, ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ, ਦੋਵਾਂ ਸਮੂਹਾਂ ਅਤੇ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ${x} ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?`,
+          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} के लिए केवल ${c.names.hi.split("|")[0]}, केवल ${c.names.hi.split("|")[1]}, दोनों समूहों और किसी भी समूह में न आने वालों की संख्याओं का अनुपात 2:3:1:1 है। दोनों समूहों में ${x} लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?`,
+          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਲਈ ਸਿਰਫ਼ ${c.names.pa.split("|")[0]}, ਸਿਰਫ਼ ${c.names.pa.split("|")[1]}, ਦੋਵਾਂ ਸਮੂਹਾਂ ਅਤੇ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ${x} ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?`,
         )[l];
       explanation =
         tx(
