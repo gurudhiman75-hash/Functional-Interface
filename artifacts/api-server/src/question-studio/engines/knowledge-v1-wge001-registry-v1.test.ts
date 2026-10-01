@@ -26,10 +26,10 @@ async function run() {
     const pkg = packages.find(p => p.packageId === packageId)!;
     assert.equal(pkg.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
   }
-  const revised041 = await generateQuestionStudioQuestions({canonicalProblemId:'WGE-001-CP041-Q001', language:'en', count:1});
+  const revised041 = await generateQuestionStudioQuestions({packageId:'WGE-001', canonicalProblemId:'WGE-001-CP041-Q001', language:'en', count:1});
   assert.equal(revised041.questions[0]!.authoringReviewApproved, false);
   assert.equal(revised041.questions[0]!.localizationStatus, 'REVIEW_REQUIRED');
-  const revised042 = await generateQuestionStudioQuestions({canonicalProblemId:'WGE-001-CP042-Q002', language:'pa', count:1});
+  const revised042 = await generateQuestionStudioQuestions({packageId:'WGE-001', canonicalProblemId:'WGE-001-CP042-Q002', language:'pa', count:1});
   assert.equal(revised042.questions[0]!.authoringReviewApproved, false);
   assert.equal(revised042.questions[0]!.localizationStatus, 'REVIEW_REQUIRED');
   await assert.rejects(() => generateQuestionStudioQuestions({engineId: 'knowledge-v1',packageId:'WGE-001-CP044'}), /Unknown WGE/);
