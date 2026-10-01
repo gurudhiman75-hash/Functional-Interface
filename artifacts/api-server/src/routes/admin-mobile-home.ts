@@ -9,6 +9,7 @@ const router = Router();
 
 const ALLOWED_SECTIONS = ["hero", "exam_categories", "featured_test_series", "continue_learning"] as const;
 const DESTINATION_TYPES = new Set(["exam", "test_series", "learn", "url", "none"]);
+const MOBILE_HOME_AUDIT_ENTITY_ID = "00000000-0000-4000-8000-000000000101";
 
 type HeroSlide = {
   id: string;
@@ -172,7 +173,7 @@ router.put("/", requireAdminPermission("content.taxonomy.manage"), async (req, r
           ${actorUserId}::uuid,
           'mobile.home.configuration.updated',
           'mobile_home_configuration',
-          NULL,
+          ${MOBILE_HOME_AUDIT_ENTITY_ID}::uuid,
           'Updated mobile app home configuration',
           'Admin saved the mobile homepage presentation configuration',
           ${tx.json({
