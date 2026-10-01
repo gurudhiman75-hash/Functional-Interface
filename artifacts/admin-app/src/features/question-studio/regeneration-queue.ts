@@ -1,5 +1,5 @@
 import type { QuestionStudioItem, QuestionStudioRun } from './api';
-import { analyzeItemQuality, itemStem } from './quality';
+import { itemStem, qualityWithDuplicate, type DuplicateMatch } from './quality';
 
 export interface RegenerationQueueItem {
   item: QuestionStudioItem;
@@ -20,11 +20,14 @@ export function isItemRegeneratable(item: QuestionStudioItem): boolean {
     && (item.status === 'unreviewed' || item.status === 'needs_fix' || item.status === 'rejected');
 }
 
-export function buildRegenerationQueue(runs: QuestionStudioRun[]): RegenerationQueueRun[] {
+export function buildRegenerationQueue(
+  runs: QuestionStudioRun[],
+  duplicates: Map<string, DuplicateMatch> = new Map(),
+): RegenerationQueueRun[] {
   return runs.map((run) => {
     const items = run.items.flatMap((item) => {
       if (!isItemRegeneratable(item)) return [];
-      const quality = analyzeItemQuality(item.payload);
+      const quality = qualityWithDuplicate(item, duplicates.get(item.id));
       const shouldSurface = item.status === 'needs_fix'
         || item.status === 'rejected'
         || quality.blockerCount > 0;

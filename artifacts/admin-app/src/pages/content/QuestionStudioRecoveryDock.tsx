@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   AlertTriangle,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ChevronUp,
   Loader2,
   RefreshCw,
@@ -18,16 +20,39 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { regenerateGenerationItems } from '@/features/question-studio/api';
 import { notifyQuestionStudioRefresh } from '@/features/question-studio/events';
+import { findDuplicateMatches, type DuplicateMatch } from '@/features/question-studio/quality';
 import { buildRegenerationQueue } from '@/features/question-studio/regeneration-queue';
-import { useQuestionStudio } from '@/features/question-studio/useQuestionStudio';
+import { useQuestionStudioReviewPage } from '@/features/question-studio/useQuestionStudio';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
 
 export function QuestionStudioRecoveryDock({ embedded = false }: { embedded?: boolean }) {
   const { hasPermission } = useAdminPermissions();
   const canRegenerate = hasPermission('content.generation.run');
-  const { dashboard, loading, refresh } = useQuestionStudio();
-  const queue = useMemo(() => buildRegenerationQueue(dashboard.runs), [dashboard.runs]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(50);
+  const {
+    reviewPage,
+    loadingReviewPage,
+    reviewPageError,
+    refreshReviewPage,
+  } = useQuestionStudioReviewPage({ page, pageSize });
+
+  const duplicates = useMemo(() => {
+    const combined = findDuplicateMatches(reviewPage.runs);
+    for (const match of reviewPage.duplicateMatches) {
+      const current = combined.get(match.itemId);
+      if (!current || match.exact || current.similarity < match.similarity) {
+        combined.set(match.itemId, match as DuplicateMatch);
+      }
+    }
+    return combined;
+  }, [reviewPage.duplicateMatches, reviewPage.runs]);
+
+  const queue = useMemo(
+    () => buildRegenerationQueue(reviewPage.runs, duplicates),
+    [duplicates, reviewPage.runs],
+  );
   const queueItems = useMemo(() => queue.flatMap((entry) => entry.items), [queue]);
   const needsFixCount = queueItems.filter((entry) => entry.item.status === 'needs_fix').length;
   const [open, setOpen] = useState(embedded);
@@ -37,6 +62,12 @@ export function QuestionStudioRecoveryDock({ embedded = false }: { embedded?: bo
   useEffect(() => {
     if (embedded || needsFixCount > 0) setOpen(true);
   }, [embedded, needsFixCount]);
+
+  useEffect(() => {
+    if (reviewPage.pagination.page !== page) {
+      setPage(reviewPage.pagination.page);
+    }
+  }, [page, reviewPage.pagination.page]);
 
   const regenerate = async (itemIds: string[], label: string) => {
     const normalizedReason = reason.trim();
@@ -52,7 +83,7 @@ export function QuestionStudioRecoveryDock({ embedded = false }: { embedded?: bo
     setActiveIds(new Set(itemIds));
     try {
       const result = await regenerateGenerationItems({ itemIds, reason: normalizedReason });
-      await refresh();
+      await refreshReviewPage();
       notifyQuestionStudioRefresh();
 
       const exceptionCount = result.skipped.length + result.failed.length;
@@ -87,7 +118,7 @@ export function QuestionStudioRecoveryDock({ embedded = false }: { embedded?: bo
         )}
       >
         {queueItems.length > 0 ? <AlertTriangle className="mr-2 h-4 w-4" /> : <Sparkles className="mr-2 h-4 w-4" />}
-        Recovery queue · {queueItems.length}
+        Recovery queue · {queueItems.length} on page
       </Button>
     );
   }
@@ -119,38 +150,47 @@ export function QuestionStudioRecoveryDock({ embedded = false }: { embedded?: bo
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <Badge variant="outline">{queueItems.length} surfaced</Badge>
+          <Badge variant="outline">{queueItems.length} surfaced on page</Badge>
           <Badge variant="outline" className={needsFixCount > 0 ? 'border-warning/30 text-warning' : 'border-success/30 text-success'}>
             {needsFixCount} needs fix
           </Badge>
-          <Badge variant="outline">{queue.length} run(s)</Badge>
+          <Badge variant="outline">{queue.length} run(s) on page</Badge>
+          <Badge variant="outline">Page {reviewPage.pagination.page}{reviewPage.pagination.totalPages > 0 ? ` / ${reviewPage.pagination.totalPages}` : ''}</Badge>
         </div>
 
         <div className="grid gap-2 sm:grid-cols-[1fr_auto]">
           <Input value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Reason for regeneration" />
           <Button
             type="button"
-            onClick={() => void regenerate(allNeedsFixIds, 'Retry all needs-fix items')}
+            onClick={() => void regenerate(allNeedsFixIds, 'Retry needs-fix items on this page')}
             disabled={!canRegenerate || busy || allNeedsFixIds.length === 0}
           >
             {busy && allNeedsFixIds.some((id) => activeIds.has(id))
               ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
               : <RotateCcw className="mr-1.5 h-4 w-4" />}
-            Retry all needs fix
+            Retry needs fix on page
           </Button>
         </div>
       </CardHeader>
 
       <CardContent className={cn('overflow-y-auto p-0', embedded ? 'max-h-none' : 'max-h-[55vh]')}>
-        {loading ? (
+        {reviewPageError ? (
+          <div className="flex items-start gap-2 p-6 text-sm text-destructive">
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+            <div>
+              <p className="font-semibold">Recovery queue could not be loaded</p>
+              <p className="mt-1 text-xs">{reviewPageError}</p>
+            </div>
+          </div>
+        ) : loadingReviewPage ? (
           <div className="flex items-center justify-center gap-2 p-8 text-sm text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin" /> Loading recovery queue…
           </div>
         ) : queue.length === 0 ? (
           <div className="p-8 text-center">
             <Sparkles className="mx-auto h-6 w-6 text-success" />
-            <p className="mt-3 text-sm font-semibold">Recovery queue is clear</p>
-            <p className="mt-1 text-xs text-muted-foreground">No needs-fix, rejected, or automatically blocked items require replacement.</p>
+            <p className="mt-3 text-sm font-semibold">No recovery items on this page</p>
+            <p className="mt-1 text-xs text-muted-foreground">Check another page or return here after new review feedback is recorded.</p>
           </div>
         ) : (
           <div className="divide-y">
@@ -170,6 +210,41 @@ export function QuestionStudioRecoveryDock({ embedded = false }: { embedded?: bo
           </div>
         )}
       </CardContent>
+      <div className="flex flex-col gap-2 border-t px-4 py-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <span>{reviewPage.pagination.totalRuns} generation run(s) available</span>
+        <div className="flex flex-wrap items-center gap-2">
+          <select
+            value={pageSize}
+            onChange={(event) => {
+              setPageSize(Number(event.target.value));
+              setPage(1);
+            }}
+            className="h-8 rounded-md border bg-background px-2 text-xs"
+            aria-label="Recovery runs per page"
+          >
+            <option value={20}>20 runs/page</option>
+            <option value={50}>50 runs/page</option>
+          </select>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            disabled={!reviewPage.pagination.hasPreviousPage || loadingReviewPage}
+            onClick={() => setPage((current) => Math.max(1, current - 1))}
+          >
+            <ChevronLeft className="mr-1 h-3.5 w-3.5" /> Previous
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            disabled={!reviewPage.pagination.hasNextPage || loadingReviewPage}
+            onClick={() => setPage((current) => current + 1)}
+          >
+            Next <ChevronRight className="ml-1 h-3.5 w-3.5" />
+          </Button>
+        </div>
+      </div>
     </Card>
   );
 }
