@@ -85,11 +85,24 @@ function enumerateWorlds(): readonly DirectionWorld[] {
 
 const DIRECTION_WORLDS = enumerateWorlds();
 
+function exactDistanceText(x: number, y: number): string {
+  const squared = x * x + y * y;
+  const whole = Math.sqrt(squared);
+  if (Number.isInteger(whole)) return `${whole} m`;
+  let squareFactor = 1;
+  for (let factor = 2; factor * factor <= squared; factor++) {
+    if (squared % (factor * factor) === 0) squareFactor = factor * factor;
+  }
+  const coefficient = Math.sqrt(squareFactor);
+  const remainder = squared / squareFactor;
+  return coefficient === 1 ? `√${remainder} m` : `${coefficient}√${remainder} m`;
+}
+
 function targetAnswer(mode: DsfCp012DirectionSolveMode, world: DirectionWorld): string {
   switch (mode) {
     case "DSF-SM-DIR-FINAL-FACING": return world.finalFacing;
     case "DSF-SM-DIR-FINAL-COORDINATES": return `(${world.finalX},${world.finalY})`;
-    case "DSF-SM-DIR-SHORTEST-DISTANCE": return `${world.shortestDistance} m`;
+    case "DSF-SM-DIR-SHORTEST-DISTANCE": return exactDistanceText(world.finalX, world.finalY);
   }
 }
 
