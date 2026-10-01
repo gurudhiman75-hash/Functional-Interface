@@ -29,9 +29,18 @@ export function remediateTmwCp005CriticalParameters(
 
   const soloTimes = [
     [12, 6],
+    [15, 10],
     [18, 9],
+    [24, 8],
     [24, 12],
     [30, 15],
+    [30, 20],
+    [36, 12],
+    [36, 18],
+    [40, 24],
+    [45, 30],
+    [48, 16],
+    [60, 40],
   ] as const;
   const [firstSoloTime, secondSoloTime] = soloTimes[seedIndex(seed, soloTimes.length)];
   const timeA = rational(firstSoloTime);
