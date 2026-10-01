@@ -76,6 +76,7 @@ export function num001EnginePackageCard(): Record<string, unknown> {
     ],
     supportedLanguages: ["en", "hi", "pa"],
     supportedDifficulties: ["Easy", "Medium", "Hard"],
+    difficultyFilterSupported: false,
     runtimeMode: "QUESTION_STUDIO_ACTIVE",
     supportedRuntimeModes: ["QUESTION_STUDIO_ACTIVE"],
     lifecycleStage: "REVIEW_ONLY",
