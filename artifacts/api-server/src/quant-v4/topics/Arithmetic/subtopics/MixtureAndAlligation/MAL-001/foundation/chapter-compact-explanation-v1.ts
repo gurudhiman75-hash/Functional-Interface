@@ -333,6 +333,9 @@ function solutionFirstSimple(
     return {
       ...explanation,
       visibleLines: learnerLines,
+      ...(cpId === "MAL-CP-004" && Array.isArray(explanation.lines)
+        ? { lines: learnerLines }
+        : {}),
     };
   }
   return {
