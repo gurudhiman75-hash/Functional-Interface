@@ -5,7 +5,7 @@ import {
   formatPrt001Money,
   localizePrt001Business,
 } from "./parameter-generator";
-import { createPrt001Random } from "./random";
+import { createPrt001Random, stablePrt001PoolIndex } from "./random";
 import { solvePrt001State } from "./solver";
 import type {
   CapitalSegment,
@@ -117,10 +117,8 @@ export function generatePrt001E2Parameters(input: {
       break;
     }
     case "findCapitalRatioFromProfitRatioAndTimeRatio": {
-      const numericStateRandom = createPrt001Random(
-        `${input.seed}:numeric-state:${input.entry.solveMode}`,
-      );
-      const s = numericStateRandom.pick([
+      const numericStateSeed = `${input.seed}:numeric-state:${input.entry.solveMode}`;
+      const numericStates = [
         { a: 20_000, da: 12, b: 30_000, db: 8 },
         { a: 24_000, da: 9, b: 36_000, db: 6 },
         { a: 30_000, da: 8, b: 40_000, db: 12 },
@@ -144,7 +142,10 @@ export function generatePrt001E2Parameters(input: {
         { a: 88_000, da: 6, b: 55_000, db: 10 },
         { a: 39_000, da: 10, b: 65_000, db: 8 },
         { a: 84_000, da: 9, b: 56_000, db: 5 },
-      ]);
+      ];
+      const scenario = numericStates[
+        stablePrt001PoolIndex(numericStateSeed, numericStates.length)
+      ]!
       state = makeState([
         partner(partnerA, [segment(0, s.da, money(s.a))]),
         partner(partnerB, [segment(0, s.db, money(s.b))]),
