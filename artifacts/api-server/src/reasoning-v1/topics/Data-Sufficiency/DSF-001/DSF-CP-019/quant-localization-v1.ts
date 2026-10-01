@@ -138,6 +138,41 @@ function promptFor(q:AnyQuestion, language:DsfQuantLocalizedLanguage):string {
   if(/^What is the simple interest for the full period\?$/i.test(raw)) {
     return t(language,"पूरी अवधि का साधारण ब्याज कितना है?","ਪੂਰੀ ਮਿਆਦ ਦਾ ਸਧਾਰਣ ਵਿਆਜ ਕਿੰਨਾ ਹੈ?");
   }
+  if(/^How many days will the worker take to complete the whole job at the same rate\?$/i.test(raw))
+    return t(language,"उसी कार्य-दर पर पूरा काम कितने दिनों में होगा?","ਉਸੇ ਕੰਮ ਦੀ ਦਰ 'ਤੇ ਪੂਰਾ ਕੰਮ ਕਿੰਨੇ ਦਿਨਾਂ ਵਿੱਚ ਹੋਵੇਗਾ?");
+  if(/^What fraction of the whole job is completed per day\?$/i.test(raw))
+    return t(language,"पूरे काम का कितना भाग प्रतिदिन पूरा होता है?","ਪੂਰੇ ਕੰਮ ਦਾ ਕਿੰਨਾ ਹਿੱਸਾ ਹਰ ਦਿਨ ਪੂਰਾ ਹੁੰਦਾ ਹੈ?");
+  if(/^What fraction of the whole job is completed during the observed period\?$/i.test(raw))
+    return t(language,"दी गई अवधि में पूरे काम का कितना भाग पूरा होता है?","ਦਿੱਤੀ ਮਿਆਦ ਵਿੱਚ ਪੂਰੇ ਕੰਮ ਦਾ ਕਿੰਨਾ ਹਿੱਸਾ ਪੂਰਾ ਹੁੰਦਾ ਹੈ?");
+  if(/^If both pipes are opened together, how long will the tank take to fill\?$/i.test(raw))
+    return t(language,"दोनों पाइप साथ खोलने पर टंकी कितने समय में भरेगी?","ਦੋਵੇਂ ਪਾਈਪ ਇਕੱਠੇ ਖੋਲ੍ਹਣ 'ਤੇ ਟੈਂਕੀ ਕਿੰਨੇ ਸਮੇਂ ਵਿੱਚ ਭਰੇਗੀ?");
+  if(/^What distance is travelled\?$/i.test(raw)) return t(language,"कितनी दूरी तय की गई है?","ਕਿੰਨੀ ਦੂਰੀ ਤੈਅ ਕੀਤੀ ਗਈ ਹੈ?");
+  if(/^What is the speed\?$/i.test(raw)) return t(language,"गति कितनी है?","ਰਫ਼ਤਾਰ ਕਿੰਨੀ ਹੈ?");
+  if(/^How long does the journey take\?$/i.test(raw)) return t(language,"यात्रा में कितना समय लगता है?","ਯਾਤਰਾ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗਦਾ ਹੈ?");
+  if(/^How long does the train take to clear the fixed object completely\?$/i.test(raw)) return t(language,"रेलगाड़ी स्थिर वस्तु को पूरी तरह पार करने में कितना समय लेती है?","ਰੇਲਗੱਡੀ ਸਥਿਰ ਵਸਤੂ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਪਾਰ ਕਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੈਂਦੀ ਹੈ?");
+  if(/^How long do the two trains take to cross each other completely\?$/i.test(raw)) return t(language,"दोनों रेलगाड़ियाँ एक-दूसरे को पूरी तरह पार करने में कितना समय लेती हैं?","ਦੋਵੇਂ ਰੇਲਗੱਡੀਆਂ ਇਕ-ਦੂਜੇ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਪਾਰ ਕਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੈਂਦੀਆਂ ਹਨ?");
+  if(/^How long does the upstream journey take\?$/i.test(raw)) return t(language,"धारा के विरुद्ध यात्रा में कितना समय लगता है?","ਧਾਰਾ ਦੇ ਵਿਰੁੱਧ ਯਾਤਰਾ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗਦਾ ਹੈ?");
+  if(/^How long does the downstream journey take\?$/i.test(raw)) return t(language,"धारा के साथ यात्रा में कितना समय लगता है?","ਧਾਰਾ ਦੇ ਨਾਲ ਯਾਤਰਾ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗਦਾ ਹੈ?");
+  if(/^What is the mean cost of the final mixture\?$/i.test(raw)) return t(language,"अंतिम मिश्रण की औसत लागत क्या है?","ਅੰਤਿਮ ਮਿਸ਼ਰਣ ਦੀ ਔਸਤ ਲਾਗਤ ਕੀ ਹੈ?");
+  if(/^In what ratio are the cheaper and costlier grades mixed\?$/i.test(raw)) return t(language,"सस्ती और महंगी किस्में किस अनुपात में मिलाई गई हैं?","ਸਸਤੀ ਅਤੇ ਮਹਿੰਗੀ ਕਿਸਮਾਂ ਕਿਹੜੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਈਆਂ ਗਈਆਂ ਹਨ?");
+  if(/^What is the cost per unit of the costlier grade\?$/i.test(raw)) return t(language,"महंगी किस्म की प्रति इकाई लागत क्या है?","ਮਹਿੰਗੀ ਕਿਸਮ ਦੀ ਪ੍ਰਤੀ ਇਕਾਈ ਲਾਗਤ ਕੀ ਹੈ?");
+  if(/^What quantity of the costlier grade is present\?$/i.test(raw)) return t(language,"महंगी किस्म की कितनी मात्रा मौजूद है?","ਮਹਿੰਗੀ ਕਿਸਮ ਦੀ ਕਿੰਨੀ ਮਾਤਰਾ ਮੌਜੂਦ ਹੈ?");
+  if(/^What quantity of the costlier grade must be added\?$/i.test(raw)) return t(language,"महंगी किस्म की कितनी मात्रा मिलानी होगी?","ਮਹਿੰਗੀ ਕਿਸਮ ਦੀ ਕਿੰਨੀ ਮਾਤਰਾ ਮਿਲਾਉਣੀ ਹੋਵੇਗੀ?");
+  if(/^What are the two component quantities\?$/i.test(raw)) return t(language,"दोनों घटकों की मात्राएँ क्या हैं?","ਦੋਵੇਂ ਘਟਕਾਂ ਦੀਆਂ ਮਾਤਰਾਵਾਂ ਕੀ ਹਨ?");
+  if(/^What is the area of the triangle\?$/i.test(raw)) return t(language,"त्रिभुज का क्षेत्रफल क्या है?","ਤਿਕੋਣ ਦਾ ਖੇਤਰਫਲ ਕੀ ਹੈ?");
+  if(/^What is the area of the rectangle\?$/i.test(raw)) return t(language,"आयत का क्षेत्रफल क्या है?","ਆਇਤ ਦਾ ਖੇਤਰਫਲ ਕੀ ਹੈ?");
+  if(/^What is the perimeter of the rectangle\?$/i.test(raw)) return t(language,"आयत का परिमाप क्या है?","ਆਇਤ ਦਾ ਘੇਰਾ ਕੀ ਹੈ?");
+  if(/^What is the area of the circle\?$/i.test(raw)) return t(language,"वृत्त का क्षेत्रफल क्या है?","ਵ੍ਰਿਤ ਦਾ ਖੇਤਰਫਲ ਕੀ ਹੈ?");
+  if(/^What is the circumference of the circle\?$/i.test(raw)) return t(language,"वृत्त की परिधि क्या है?","ਵ੍ਰਿਤ ਦੀ ਪਰਿਧੀ ਕੀ ਹੈ?");
+  if(/^What is the volume of the square pyramid\?$/i.test(raw)) return t(language,"वर्गाकार पिरामिड का आयतन क्या है?","ਵਰਗਾਕਾਰ ਪਿਰਾਮਿਡ ਦਾ ਆਇਤਨ ਕੀ ਹੈ?");
+  if(/^What is the volume of the conical frustum\?$/i.test(raw)) return t(language,"शंकु-खंड का आयतन क्या है?","ਸ਼ੰਕੂ-ਖੰਡ ਦਾ ਆਇਤਨ ਕੀ ਹੈ?");
+  const ageMatch=raw.match(/^What is (.+)'s present age\?$/i);
+  if(ageMatch) return t(language,`${ageMatch[1]} की वर्तमान आयु क्या है?`,`${ageMatch[1]} ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੀ ਹੈ?`);
+  const canTarget=raw.match(/^Can the (.+) be determined\?$/i);
+  if(canTarget) {
+    const target=translateQuantText(canTarget[1]!,language).replace(/\bthe\b/gi,"").trim();
+    return t(language,`क्या ${target} निर्धारित किया जा सकता है?`,`ਕੀ ${target} ਨਿਰਧਾਰਤ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ?`);
+  }
   const discountMatch=raw.match(/^What discount percent(?:age)? is allowed on (?:the )?(.+)\?$/i);
   if(discountMatch) {
     const item=translateQuantText(discountMatch[1]!,language).replace(/^the\s+/i,"").trim();
