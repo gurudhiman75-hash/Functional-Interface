@@ -56,6 +56,10 @@ const denominatorCases = [
   { n: 4, target: rational(4, 9), display: math("0.\\overline{4}") },
   { n: 5, target: rational(1, 6), display: math("0.1\\overline{6}") },
   { n: 7, target: rational(7, 30), display: math("0.2\\overline{3}") },
+  { n: 4, target: rational(1, 3), display: math("0.\\overline{3}") },
+  { n: 8, target: rational(2, 3), display: math("0.\\overline{6}") },
+  { n: 4, target: rational(1, 15), display: math("0.0\\overline{6}") },
+  { n: 7, target: rational(7, 15), display: math("0.4\\overline{6}") },
 ] as const;
 function fixedDenominator(seed: number): NumCp002Wave03Package {
   const c = denominatorCases[idx(seed, denominatorCases.length, 26)]!;
