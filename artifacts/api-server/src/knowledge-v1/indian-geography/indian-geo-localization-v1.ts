@@ -865,8 +865,7 @@ function polishGeoSoiBulkTextV1(text:string, language:"hi"|"pa") {
   ];
   let out=text;
   const pairs=language==="hi"?hi:pa;
-  const esc=(s:string)=>s.replace(/[.*+?^$()|[\]\\{}]/g,"\\
-export function localizeIndianGeoQuestionV1(");
+  const esc=(s:string)=>s.replace(/[.*+?^$()|[\]\\{}]/g,(ch)=>"\\\\"+ch);
   for(const [a,b] of pairs.sort((x,y)=>y[0].length-x[0].length)) out=out.replace(new RegExp("\\b"+esc(a)+"\\b","gi"),b);
   return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
 }
