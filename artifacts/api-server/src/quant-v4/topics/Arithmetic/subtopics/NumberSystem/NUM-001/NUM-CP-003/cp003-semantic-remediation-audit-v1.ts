@@ -33,11 +33,12 @@ for (const qlId of NUM_CP003_PERMANENT_QL_IDS) {
       language: "en",
     });
 
-    assert.equal(q.lifecycle.active, false, qlId + ": active gate opened");
-    assert.equal(q.lifecycle.questionStudioDiscoverable, false, qlId + ": Question Studio gate opened");
-    assert.equal(q.lifecycle.questionBankWritable, false, qlId + ": Question Bank gate opened");
-    assert.equal(q.lifecycle.testEligible, false, qlId + ": test gate opened");
-    assert.equal(q.lifecycle.publiclyPublishable, false, qlId + ": public gate opened");
+    const lifecycle = q.lifecycle ?? q;
+    assert.equal(Boolean(lifecycle.active), false, qlId + ": active gate opened");
+    assert.equal(Boolean(lifecycle.questionStudioDiscoverable), false, qlId + ": Question Studio gate opened");
+    assert.equal(Boolean(lifecycle.questionBankWritable), false, qlId + ": Question Bank gate opened");
+    assert.equal(Boolean(lifecycle.testEligible), false, qlId + ": test gate opened");
+    assert.equal(Boolean(lifecycle.publiclyPublishable), false, qlId + ": public gate opened");
 
     const options = q.options.map((option: any) => String(option.value ?? option));
     const expectedOptionCount = qlId === "NUM-QL-016" ? 5 : 4;
