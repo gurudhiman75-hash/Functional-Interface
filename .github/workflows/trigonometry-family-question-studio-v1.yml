@@ -11,7 +11,6 @@ on:
       - "artifacts/api-server/src/question-studio/quant-trigonometry.test.ts"
       - "artifacts/api-server/src/question-studio/engines/quant-v4-adapter.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-trigonometry.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
   workflow_dispatch:
 
