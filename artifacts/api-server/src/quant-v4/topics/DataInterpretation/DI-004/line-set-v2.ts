@@ -307,6 +307,8 @@ function buildAllDrafts(seed: string, stimulus: Di004V2Stimulus): Draft[] {
   const points = stimulus.points;
   const labelA = stimulus.series[0].label;
   const labelB = stimulus.series[1].label;
+  const measureByContext = { ANNUAL_SALES: "sales volume", ANNUAL_PRODUCTION: "production output", MONTHLY_ORDERS: "orders received", ANNUAL_ENROLMENT: "student enrolment", ANNUAL_EXPORTS: "exports", MONTHLY_PASSENGERS: "passengers carried" } as const;
+  const measure = measureByContext[stimulus.contextId as keyof typeof measureByContext];
   const valuesA = points.map((point) => point.seriesA);
   const valuesB = points.map((point) => point.seriesB);
   const totalA = valuesA.reduce((sum, value) => sum + value, 0);
@@ -408,75 +410,75 @@ function buildAllDrafts(seed: string, stimulus: Di004V2Stimulus): Draft[] {
   const groupBPeriods = grouping.b.map((index) => points[index]!.period);
 
   const diffSurface = surface(`${seed}:CROSS_SERIES_DIFFERENCE:surface`, [
-    `What is the difference between ${labelA} and ${labelB} in ${points[targetIndex]!.period}?`,
-    `By how much did the values of ${labelA} and ${labelB} differ in ${points[targetIndex]!.period}?`,
-    `Find the absolute difference between the two series for ${points[targetIndex]!.period}.`,
+    `What was the difference in ${measure} between ${labelA} and ${labelB} in ${points[targetIndex]!.period}?`,
+    `By how much did ${labelA} and ${labelB} differ in ${measure} in ${points[targetIndex]!.period}?`,
+    `Find the absolute difference in ${measure} between the two series in ${points[targetIndex]!.period}.`,
   ]);
 
   const combinedSurface = surface(`${seed}:COMBINED_PERIOD_TOTAL:surface`, [
-    `What was the combined value of ${labelA} and ${labelB} in ${points[targetIndex]!.period}?`,
-    `Find the total for both series together in ${points[targetIndex]!.period}.`,
-    `In ${points[targetIndex]!.period}, what is the sum of the values shown for ${labelA} and ${labelB}?`,
+    `What was the combined ${measure} for ${labelA} and ${labelB} in ${points[targetIndex]!.period}?`,
+    `Find the combined ${measure} for both series in ${points[targetIndex]!.period}.`,
+    `In ${points[targetIndex]!.period}, what was the total ${measure} for ${labelA} and ${labelB}?`,
   ]);
 
   const overtakeSurface = surface(`${seed}:FIRST_OVERTAKE_PERIOD:surface`, [
-    `${labelB} was higher initially. In which period did ${labelA} first move above ${labelB}?`,
-    `From left to right, when did ${labelA} first overtake ${labelB}?`,
-    `Identify the first period in which ${labelA} became greater than ${labelB} after being lower in the previous period.`,
+    `In which period did ${labelA} first move above ${labelB} in ${measure}?`,
+    `When did ${labelA} first overtake ${labelB} in ${measure}?`,
+    `Identify the first period in which ${labelA} exceeded ${labelB} in ${measure}.`,
   ]);
 
   const closestSurface = surface(`${seed}:CLOSEST_LINES_PERIOD:surface`, [
-    `In which period were the values of ${labelA} and ${labelB} closest to each other?`,
-    `For which period was the gap between the two series the smallest?`,
-    `At what point on the graph is the absolute difference between ${labelA} and ${labelB} minimum?`,
+    `In which period was the difference in ${measure} between ${labelA} and ${labelB} smallest?`,
+    `For which period was the gap in ${measure} between the two series smallest?`,
+    `In which period was the absolute difference in ${measure} between ${labelA} and ${labelB} smallest?`,
   ]);
 
   const averageSurface = surface(`${seed}:THREE_PERIOD_AVERAGE:surface`, [
-    `Approximately what was the average value of ${averageLabel} from ${points[averageStart]!.period} through ${points[averageStart + 2]!.period}?`,
-    `Find the approximate average for ${averageLabel} over ${points[averageStart]!.period}, ${points[averageStart + 1]!.period} and ${points[averageStart + 2]!.period}.`,
-    `What is the approximate mean of ${averageLabel}'s values in the three periods from ${points[averageStart]!.period} to ${points[averageStart + 2]!.period}?`,
+    `Approximately what was ${averageLabel}’s average ${measure} from ${points[averageStart]!.period} through ${points[averageStart + 2]!.period}?`,
+    `Find ${averageLabel}’s approximate average ${measure} across ${points[averageStart]!.period}, ${points[averageStart + 1]!.period} and ${points[averageStart + 2]!.period}.`,
+    `What was ${averageLabel}’s approximate mean ${measure} over the three periods from ${points[averageStart]!.period} to ${points[averageStart + 2]!.period}?`,
   ]);
 
   const increaseSurface = surface(`${seed}:CONSECUTIVE_PERCENT_INCREASE:surface`, [
-    `Approximately by what percentage did ${increaseLabel} increase from ${points[increaseFromIndex]!.period} to ${points[increaseToIndex]!.period}?`,
-    `The value for ${increaseLabel} rose between ${points[increaseFromIndex]!.period} and ${points[increaseToIndex]!.period}. Approximately what was the percentage increase?`,
-    `Taking ${points[increaseFromIndex]!.period} as the base, approximately by what percentage did ${increaseLabel} increase in ${points[increaseToIndex]!.period}?`,
+    `By approximately what percentage did ${increaseLabel}’s ${measure} increase from ${points[increaseFromIndex]!.period} to ${points[increaseToIndex]!.period}?`,
+    `${increaseLabel}’s ${measure} rose between ${points[increaseFromIndex]!.period} and ${points[increaseToIndex]!.period}. Approximately what was the percentage increase?`,
+    `Taking ${points[increaseFromIndex]!.period} as the base, by approximately what percentage did ${increaseLabel}’s ${measure} increase by ${points[increaseToIndex]!.period}?`,
   ]);
 
   const twoPeriodRatioSurface = surface(`${seed}:TWO_PERIOD_SERIES_RATIO:surface`, [
-    `What is the ratio of the combined ${labelA} values for ${points[ratioP1]!.period} and ${points[ratioP2]!.period} to the combined ${labelB} values for the same two periods?`,
-    `Add ${labelA} across ${points[ratioP1]!.period} and ${points[ratioP2]!.period}, and do the same for ${labelB}. What is the ratio of the two totals?`,
-    `For ${points[ratioP1]!.period} and ${points[ratioP2]!.period} together, find ${labelA} : ${labelB}.`,
+    `What is the ratio of ${labelA}’s combined ${measure} in ${points[ratioP1]!.period} and ${points[ratioP2]!.period} to ${labelB}’s combined ${measure} in those periods?`,
+    `Compare the combined ${measure} for ${labelA} and ${labelB} across ${points[ratioP1]!.period} and ${points[ratioP2]!.period}. What is their ratio, in that order?`,
+    `For ${points[ratioP1]!.period} and ${points[ratioP2]!.period} together, what is the ratio of ${labelA}’s to ${labelB}’s ${measure}?`,
   ]);
 
   const fourValueSurface = surface(`${seed}:TWO_PERIOD_COMBINED_TOTAL:surface`, [
-    `What is the total of both series together for ${points[totalP1]!.period} and ${points[totalP2]!.period}?`,
-    `Find the combined ${labelA} and ${labelB} value across ${points[totalP1]!.period} and ${points[totalP2]!.period}.`,
-    `Adding all four plotted values for ${points[totalP1]!.period} and ${points[totalP2]!.period}, what total is obtained?`,
+    `What was the total ${measure} for both series in ${points[totalP1]!.period} and ${points[totalP2]!.period}?`,
+    `Find the combined ${measure} for ${labelA} and ${labelB} across ${points[totalP1]!.period} and ${points[totalP2]!.period}.`,
+    `What was the total ${measure} in ${points[totalP1]!.period} and ${points[totalP2]!.period}, combining both series?`,
   ]);
 
   const totalRatioSurface = surface(`${seed}:TOTAL_SERIES_RATIO:surface`, [
-    `What is the ratio of the six-period total for ${labelA} to the six-period total for ${labelB}?`,
-    `Find ${labelA} : ${labelB} after adding all six periods for each series.`,
-    `The totals of ${labelA} and ${labelB} over the entire graph are in what ratio?`,
+    `What is the ratio of ${labelA}’s six-period total ${measure} to ${labelB}’s?`,
+    `Find the ratio of the total ${measure} for ${labelA} to that for ${labelB} across all six periods.`,
+    `What is the ratio of ${labelA}’s to ${labelB}’s total ${measure} over all six periods?`,
   ]);
 
   const combinedPercentSurface = surface(`${seed}:COMBINED_PERIOD_PERCENT_EXCESS:surface`, [
-    `The combined value of both series in ${points[largerCombinedIndex]!.period} was approximately what percent higher than in ${points[smallerCombinedIndex]!.period}?`,
-    `Approximately by what percentage did the two-series total in ${points[largerCombinedIndex]!.period} exceed the two-series total in ${points[smallerCombinedIndex]!.period}?`,
-    `Taking the combined value in ${points[smallerCombinedIndex]!.period} as the base, how much higher was the combined value in ${points[largerCombinedIndex]!.period}, in percentage terms?`,
+    `By approximately what percentage was the combined ${measure} in ${points[largerCombinedIndex]!.period} higher than in ${points[smallerCombinedIndex]!.period}?`,
+    `By approximately what percentage did the combined ${measure} in ${points[largerCombinedIndex]!.period} exceed that in ${points[smallerCombinedIndex]!.period}?`,
+    `Taking the combined ${measure} in ${points[smallerCombinedIndex]!.period} as the base, by what percentage was it lower than the combined ${measure} in ${points[largerCombinedIndex]!.period}?`,
   ]);
 
   const totalPercentSurface = surface(`${seed}:TOTAL_SERIES_PERCENT_EXCESS:surface`, [
-    `Over all six periods, ${largerSeriesLabel}'s total was approximately what percent higher than ${smallerSeriesLabel}'s total?`,
-    `Approximately by what percentage did the six-period total of ${largerSeriesLabel} exceed that of ${smallerSeriesLabel}?`,
-    `Taking ${smallerSeriesLabel}'s six-period total as the base, find the percentage excess of ${largerSeriesLabel}'s total.`,
+    `By approximately what percentage was ${largerSeriesLabel}’s total ${measure} higher than ${smallerSeriesLabel}’s across all six periods?`,
+    `By approximately what percentage did ${largerSeriesLabel}’s total ${measure} exceed ${smallerSeriesLabel}’s across the six periods?`,
+    `Taking ${smallerSeriesLabel}’s six-period total ${measure} as the base, by what percentage was ${largerSeriesLabel}’s total higher?`,
   ]);
 
   const groupRatioSurface = surface(`${seed}:THREE_VS_THREE_RATIO:surface`, [
-    `What is the ratio of ${labelA}'s total for ${groupAPeriods.join(", ")} to ${labelB}'s total for ${groupBPeriods.join(", ")}?`,
-    `Add ${labelA} over ${groupAPeriods.join(", ")} and ${labelB} over ${groupBPeriods.join(", ")}. Find the ratio of these totals.`,
-    `The sum of ${labelA} for ${groupAPeriods.join(", ")} is in what ratio to the sum of ${labelB} for ${groupBPeriods.join(", ")}?`,
+    `What is the ratio of ${labelA}’s total ${measure} across ${groupAPeriods.join(", ")} to ${labelB}’s across ${groupBPeriods.join(", ")}?`,
+    `Compare ${labelA}’s total ${measure} across ${groupAPeriods.join(", ")} with ${labelB}’s across ${groupBPeriods.join(", ")}. What is the ratio, in that order?`,
+    `What is the ratio of ${labelA}’s total ${measure} in ${groupAPeriods.join(", ")} to ${labelB}’s total ${measure} in ${groupBPeriods.join(", ")}?`,
   ]);
 
   return [
