@@ -12,7 +12,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/tests/spatial-cubes-dice-question-studio-workflow-v1.test.ts
       - artifacts/admin-app/src/features/question-studio/api.ts
       - artifacts/admin-app/src/features/question-studio/cubes-dice-review-api.ts
-      - artifacts/admin-app/src/pages/content/QuestionStudioLivePage.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
       - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
       - .github/workflows/spa-cnd-001-question-studio-workflow-v1.yml
   workflow_dispatch:

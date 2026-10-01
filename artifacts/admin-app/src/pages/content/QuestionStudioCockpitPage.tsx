@@ -173,7 +173,7 @@ export function QuestionStudioCockpitPage() {
     generate,
     updateItems,
     reviseItem,
-  } = useQuestionStudio({ loadDashboard: false });
+  } = useQuestionStudio();
 
   const [workspaceView, setWorkspaceView] = useState<'generate' | 'review'>('generate');
   const [subject, setSubject] = useState('');

@@ -13,7 +13,7 @@ const cndRoute = readFileSync(resolve(cwd, "src/routes/admin-question-studio-cub
 const sharedRoute = readFileSync(resolve(cwd, "src/routes/admin-question-studio.ts"), "utf8");
 const sharedApi = readFileSync(resolve(cwd, "../admin-app/src/features/question-studio/api.ts"), "utf8");
 const cndApi = readFileSync(resolve(cwd, "../admin-app/src/features/question-studio/cubes-dice-review-api.ts"), "utf8");
-const livePage = readFileSync(resolve(cwd, "../admin-app/src/pages/content/QuestionStudioLivePage.tsx"), "utf8");
+const cockpitPage = readFileSync(resolve(cwd, "../admin-app/src/pages/content/QuestionStudioCockpitPage.tsx"), "utf8");
 const operationsPage = readFileSync(resolve(cwd, "../admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"), "utf8");
 
 assert.match(sharedEngine, /CND_001_QUESTION_STUDIO_PACKAGE/);
@@ -39,7 +39,7 @@ const workflowIndex = registry.indexOf("router.use(adminQuestionStudioCubesDiceW
 const cndIndex = registry.indexOf("router.use(adminQuestionStudioCubesDiceRouter)");
 const catchAllIndex = registry.indexOf("router.use(adminQuestionStudioRouter)");
 assert.ok(workflowIndex >= 0 && cndIndex > workflowIndex && catchAllIndex > cndIndex,
-  "CND shared-run adapter must execute before the chapter router and legacy catch-all generator.");
+  "CND shared-run adapter must execute before the chapter router and shared review/bulk catch-all.");
 
 assert.match(workflowRoute, /router\.post\("\/runs"/);
 assert.match(workflowRoute, /SPA-001-CND-001-REVIEW/);
@@ -66,12 +66,12 @@ assert.match(cndApi, /canonicalProblemId: input\.qlId/);
 assert.ok(!cndApi.includes("'/admin/question-studio/reasoning/spatial/cubes-dice/runs'"),
   "The CND panel must not bypass the shared Question Studio run client.");
 
-assert.match(livePage, /capabilities\.packages\.filter\(\(entry\) => entry\.enabled\)/);
-assert.match(livePage, /packageId: activePackage\.packageId/);
-assert.match(livePage, /const result = await generate\(\{/);
+assert.match(cockpitPage, /capabilities\.packages\.filter\(\(entry\) => entry\.enabled\)/);
+assert.match(cockpitPage, /packageId: activePackage\.packageId/);
+assert.match(cockpitPage, /const result = await generate\(\{/);
 assert.match(operationsPage, /<QuestionStudioCubesDiceReviewPanel \/>/);
 
-assert.match(sharedRoute, /router\.get\("\/dashboard"/);
+assert.match(sharedRoute, /router\.get\("\/review-page"/);
 assert.match(sharedRoute, /accepted_question_id AS "acceptedQuestionId"/);
 assert.match(sharedRoute, /router\.patch\("\/items\/bulk"/);
 assert.match(sharedRoute, /convertApprovedGenerationItem/);
@@ -85,7 +85,7 @@ const evidence = {
   canonicalRunsEndpoint: "/admin/question-studio/runs",
   serverSideCndDispatch: true,
   cndPanelUsesSharedClient: true,
-  commonDashboardReviewQueue: true,
+  commonPagedReviewQueue: true,
   commonBulkApprovalConversion: true,
   testBuilderEligible: true,
   mockTestEligible: false,

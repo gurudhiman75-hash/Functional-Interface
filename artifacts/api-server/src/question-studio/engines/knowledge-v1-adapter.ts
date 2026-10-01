@@ -1,4 +1,5 @@
 import { isWge001QuestionStudioRequestV1, knowledgeV1Wge001QuestionStudioAdapterV1 } from './knowledge-v1-wge001-adapter-v1';
+import { enrichQuestionStudioPackageCpTitles } from "../package-metadata";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -195,7 +196,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     if (new Set(ids).size !== ids.length) {
       throw new Error("knowledge-v1 Question Studio package IDs must be unique");
     }
-    return packages;
+    return packages.map(enrichQuestionStudioPackageCpTitles);
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {

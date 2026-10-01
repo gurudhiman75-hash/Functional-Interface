@@ -75,7 +75,7 @@ function examForProfile(profileId: string) {
 export function QuestionStudioStatementAssumptionReviewPanel() {
   const { hasPermission } = useAdminPermissions();
   const canRun = hasPermission('content.generation.run');
-  const { capabilities, loading, generating, error, generate } = useQuestionStudio({ loadDashboard: false });
+  const { capabilities, loading, generating, error, generate } = useQuestionStudio();
 
   const [qlId, setQlId] = useState<StaQlId>('STA-QL-001');
   const [profileId, setProfileId] = useState<string>(AUTO_PROFILE);

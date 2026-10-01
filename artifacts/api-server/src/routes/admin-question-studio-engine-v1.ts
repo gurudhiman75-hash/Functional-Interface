@@ -103,19 +103,28 @@ router.get(
     try {
       const generationSystems = listQuestionStudioEngines();
       const registeredPackages = listQuestionStudioPackages();
-      const cpLabels = new Map<string, string>();
 
-      for (const pkg of registeredPackages) {
+      const packages = registeredPackages.map((pkg) => {
+        const cpLabels = new Map<string, string>();
+        const visibleCpIds = [
+          ...new Set([
+            ...pkg.cpIds.map(String),
+            ...(pkg.dynamicCandidateCpIds ?? []).map(String),
+          ]),
+        ];
+
         const metadataTitles = pkg.metadata?.cpTitles;
         if (metadataTitles && typeof metadataTitles === "object" && !Array.isArray(metadataTitles)) {
           for (const [cpId, title] of Object.entries(metadataTitles as Record<string, unknown>)) {
             const normalizedTitle = asString(title);
-            if (normalizedTitle) cpLabels.set(cpId, normalizedTitle);
+            if (visibleCpIds.includes(cpId) && normalizedTitle) {
+              cpLabels.set(cpId, normalizedTitle);
+            }
           }
         }
 
-        if (pkg.cpIds.length === 1) {
-          const cpId = String(pkg.cpIds[0]);
+        if (visibleCpIds.length === 1) {
+          const cpId = visibleCpIds[0]!;
           const topic = asString(pkg.topic);
           const subtopic = asString(pkg.subtopic);
           const normalizedSubtopic = subtopic.toLowerCase();
@@ -125,45 +134,45 @@ router.get(
             /^(complete chapter|mixed|approved|review|question studio)$/i.test(subtopic) ||
             normalizedSubtopic.includes("approved checkpoint");
 
-          if (!genericSubtopic) cpLabels.set(cpId, subtopic);
+          if (!genericSubtopic && !cpLabels.has(cpId)) cpLabels.set(cpId, subtopic);
         }
-      }
 
-      const packages = registeredPackages.map((pkg) => ({
-        engineId: pkg.engineId,
-        packageId: pkg.packageId,
-        subject: pkg.subject,
-        topic: pkg.topic,
-        subtopic: pkg.subtopic,
-        label: pkg.label,
-        enabled: pkg.enabled,
-        cpIds: pkg.cpIds,
-        cpLabels: Object.fromEntries(
-          pkg.cpIds
-            .map((cpId) => [String(cpId), cpLabels.get(String(cpId))] as const)
-            .filter((entry): entry is readonly [string, string] => Boolean(entry[1])),
-        ),
-        supportedLanguages: pkg.supportedLanguages,
-        supportedDifficulties: pkg.supportedDifficulties ?? [],
-        difficultyFilterSupported: pkg.difficultyFilterSupported ?? true,
-        runtimeMode: pkg.runtimeMode,
-        supportedRuntimeModes: pkg.supportedRuntimeModes ?? [],
-        dynamicCandidateCpIds: pkg.dynamicCandidateCpIds ?? [],
-        lifecycleId: pkg.lifecycleId,
-        lifecycleStage: pkg.lifecycleStage,
-        reviewSurfaceRequired: pkg.reviewSurfaceRequired,
-        manualApprovalRequired: pkg.manualApprovalRequired,
-        questionBankStatus: pkg.questionBankStatus,
-        questionBankWritable: pkg.questionBankWritable,
-        questionBankAcceptanceMode: pkg.questionBankAcceptanceMode,
-        questionBankAcceptanceAuthority: pkg.questionBankAcceptanceAuthority,
-        testEligibility: pkg.testEligibility,
-        testEligible: pkg.testEligible,
-        mockTestEligible: pkg.mockTestEligible,
-        publiclyPublishable: pkg.publiclyPublishable,
-        automaticStudentPublication: pkg.automaticStudentPublication,
-        productionReleaseAuthorized: pkg.productionReleaseAuthorized,
-      }));
+        return {
+          engineId: pkg.engineId,
+          packageId: pkg.packageId,
+          subject: pkg.subject,
+          topic: pkg.topic,
+          subtopic: pkg.subtopic,
+          label: pkg.label,
+          enabled: pkg.enabled,
+          cpIds: pkg.cpIds,
+          cpLabels: Object.fromEntries(
+            visibleCpIds
+              .map((cpId) => [cpId, cpLabels.get(cpId)] as const)
+              .filter((entry): entry is readonly [string, string] => Boolean(entry[1])),
+          ),
+          supportedLanguages: pkg.supportedLanguages,
+          supportedDifficulties: pkg.supportedDifficulties ?? [],
+          difficultyFilterSupported: pkg.difficultyFilterSupported ?? true,
+          runtimeMode: pkg.runtimeMode,
+          supportedRuntimeModes: pkg.supportedRuntimeModes ?? [],
+          dynamicCandidateCpIds: pkg.dynamicCandidateCpIds ?? [],
+          lifecycleId: pkg.lifecycleId,
+          lifecycleStage: pkg.lifecycleStage,
+          reviewSurfaceRequired: pkg.reviewSurfaceRequired,
+          manualApprovalRequired: pkg.manualApprovalRequired,
+          questionBankStatus: pkg.questionBankStatus,
+          questionBankWritable: pkg.questionBankWritable,
+          questionBankAcceptanceMode: pkg.questionBankAcceptanceMode,
+          questionBankAcceptanceAuthority: pkg.questionBankAcceptanceAuthority,
+          testEligibility: pkg.testEligibility,
+          testEligible: pkg.testEligible,
+          mockTestEligible: pkg.mockTestEligible,
+          publiclyPublishable: pkg.publiclyPublishable,
+          automaticStudentPublication: pkg.automaticStudentPublication,
+          productionReleaseAuthorized: pkg.productionReleaseAuthorized,
+        };
+      });
 
       res.json({
         generationSystem: "quant-v4",

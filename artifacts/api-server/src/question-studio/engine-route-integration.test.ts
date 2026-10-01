@@ -24,6 +24,14 @@ const questionStudioRegistry = readFileSync(
   "utf8",
 );
 const routeIndex = readFileSync(resolve(sourceRoot, "routes/index.ts"), "utf8");
+const sharedReviewRoute = readFileSync(
+  resolve(sourceRoot, "routes/admin-question-studio.ts"),
+  "utf8",
+);
+const examProfileRoute = readFileSync(
+  resolve(sourceRoot, "routes/admin-question-studio-exam-profiles.ts"),
+  "utf8",
+);
 
 // Capabilities become engine-aware without removing the legacy field.
 assert.match(engineRoute, /generationSystem:\s*"quant-v4"/);
@@ -100,3 +108,13 @@ assert.match(
 );
 assert.doesNotMatch(routeIndex, /adminQuestionStudioMixedDifficultyRouter/);
 assert.doesNotMatch(routeIndex, /adminQuestionStudioEngineV1Router/);
+
+
+// The final shared router is review/bulk only. Quant generation is owned by
+// the exam-profile compatibility route after engine-v1 declines quant-v4.
+assert.doesNotMatch(sharedReviewRoute, /router\.post\("\/runs"/);
+assert.doesNotMatch(sharedReviewRoute, /router\.get\("\/capabilities"/);
+assert.match(sharedReviewRoute, /router\.get\("\/review-page"/);
+assert.match(sharedReviewRoute, /router\.patch\("\/items\/bulk"/);
+assert.match(examProfileRoute, /router\.post\("\/runs"/);
+assert.match(examProfileRoute, /generateQuantV4Questions/);

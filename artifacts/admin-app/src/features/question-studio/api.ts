@@ -57,24 +57,6 @@ export interface QuestionStudioRun {
   items: QuestionStudioItem[];
 }
 
-export interface QuestionStudioRecipe {
-  id: string;
-  name: string;
-  visibility: string;
-  currentVersionNumber: number;
-  createdAt: string;
-  updatedAt: string;
-  versionId: string | null;
-  configuration: Record<string, unknown> | null;
-  versionNotes: string | null;
-}
-
-export interface QuestionStudioDashboard {
-  runs: QuestionStudioRun[];
-  recipes: QuestionStudioRecipe[];
-  generatedAt: string;
-}
-
 export interface QuestionStudioReviewQuery {
   page?: number;
   pageSize?: number;
@@ -243,14 +225,6 @@ export function getQuestionStudioCapabilities() {
     '/admin/question-studio/capabilities',
     undefined,
     { fallbackMessage: 'Unable to load Question Studio capabilities.' },
-  );
-}
-
-export function getQuestionStudioDashboard() {
-  return adminRequest<QuestionStudioDashboard>(
-    '/admin/question-studio/dashboard',
-    undefined,
-    { fallbackMessage: 'Unable to load the Question Studio dashboard.' },
   );
 }
 

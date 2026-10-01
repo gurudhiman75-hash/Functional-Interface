@@ -60,7 +60,7 @@ function Metric({ label, value }: { label: string; value: number | string }) {
 export function QuestionStudioInputOutputReviewPanel() {
   const { hasPermission } = useAdminPermissions();
   const canRun = hasPermission('content.generation.run');
-  const { capabilities, loading, generating, error, generate } = useQuestionStudio({ loadDashboard: false });
+  const { capabilities, loading, generating, error, generate } = useQuestionStudio();
 
   const [familyId, setFamilyId] = useState('');
   const [difficulty, setDifficulty] = useState<IopDifficulty>('Easy');
