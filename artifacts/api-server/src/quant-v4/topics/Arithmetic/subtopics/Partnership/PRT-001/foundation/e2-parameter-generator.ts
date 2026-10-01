@@ -402,6 +402,14 @@ export function generatePrt001E2Parameters(input: {
         { a0: 24_000, a1: 36_000, change: 4, b: 32_000, commission: 10, gross: 120_000 },
         { a0: 30_000, a1: 45_000, change: 8, b: 35_000, commission: 20, gross: 150_000 },
         { a0: 40_000, a1: 50_000, change: 3, b: 45_000, commission: 10, gross: 200_000 },
+        { a0: 30_000, a1: 60_000, change: 6, b: 45_000, commission: 10, gross: 120_000 },
+        { a0: 40_000, a1: 60_000, change: 4, b: 40_000, commission: 20, gross: 140_000 },
+        { a0: 50_000, a1: 75_000, change: 8, b: 50_000, commission: 10, gross: 130_000 },
+        { a0: 36_000, a1: 54_000, change: 6, b: 60_000, commission: 20, gross: 140_000 },
+        { a0: 60_000, a1: 90_000, change: 4, b: 80_000, commission: 25, gross: 160_000 },
+        { a0: 48_000, a1: 72_000, change: 9, b: 54_000, commission: 15, gross: 200_000 },
+        { a0: 40_000, a1: 80_000, change: 3, b: 70_000, commission: 20, gross: 150_000 },
+        { a0: 72_000, a1: 108_000, change: 8, b: 84_000, commission: 10, gross: 180_000 },
       ]);
       state = makeState([
         partner(partnerA, [
@@ -426,6 +434,14 @@ export function generatePrt001E2Parameters(input: {
         { a0: 24_000, a1: 36_000, change: 4, b: 40_000, join: 3 },
         { a0: 30_000, a1: 45_000, change: 8, b: 50_000, join: 6 },
         { a0: 40_000, a1: 50_000, change: 3, b: 60_000, join: 5 },
+        { a0: 24_000, a1: 48_000, change: 6, b: 60_000, join: 1 },
+        { a0: 30_000, a1: 45_000, change: 4, b: 50_000, join: 2 },
+        { a0: 36_000, a1: 54_000, change: 8, b: 60_000, join: 7 },
+        { a0: 40_000, a1: 60_000, change: 5, b: 75_000, join: 8 },
+        { a0: 50_000, a1: 75_000, change: 6, b: 90_000, join: 9 },
+        { a0: 60_000, a1: 90_000, change: 3, b: 120_000, join: 10 },
+        { a0: 72_000, a1: 96_000, change: 9, b: 144_000, join: 11 },
+        { a0: 45_000, a1: 60_000, change: 7, b: 80_000, join: 4 },
       ]);
       state = makeState([
         partner(partnerA, [
