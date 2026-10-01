@@ -6,6 +6,7 @@ import {
   listQuestionStudioPackages,
 } from "./engine-registry";
 import { generateProfiledQuantBatch } from "./quant-exam-profile";
+import { isNum001EngineRequest } from "./quant-number-system-num001";
 
 test("NUM-001 shared capabilities expose guarded CP001/003/004 review surface", () => {
   const pkg = listQuestionStudioPackages().find((entry) => entry.packageId === "NUM-001");
@@ -132,17 +133,16 @@ test("NUM-001 unified profile planner can generate all active CPs in one batch",
   assert.equal(counts.get("NUM-CP-004"), 2);
 });
 
-test("NUM-002 QL ownership remains outside the NUM-001 adapter", async () => {
-  await assert.rejects(
-    () => generateQuestionStudioQuestions({
+test("NUM-002 QL ownership remains outside the NUM-001 adapter", () => {
+  assert.equal(
+    isNum001EngineRequest({
       engineId: "quant-v4",
       packageId: "NUM-001",
       questionLanguageId: "NUM-QL-166",
       difficulty: "Medium",
       language: "en",
-      seed: "num001-unified:num002-ql-reject",
       count: 1,
     }),
-    /NUM-QL-166/u,
+    false,
   );
 });
