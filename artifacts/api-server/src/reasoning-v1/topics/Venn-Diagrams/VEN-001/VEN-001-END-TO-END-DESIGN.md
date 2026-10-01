@@ -191,4 +191,4 @@ Question Studio integration does **not** authorize learner publication. Canonica
 
 The old four-checkpoint provisional design is retired. The live architecture is the authority.
 
-Wave 05 closes the stale-documentation gap, expands the thin direct-relation pools, and fixes the CP005 `none` explanation path. Final deep-audit closure is still blocked by the pending human localization review on CP005–CP011 and any review-artifact refresh required after generator changes.
+Wave 05 closes the stale-documentation gap, expands the thin direct-relation pools, and fixes the CP005 `none` explanation path. Final deep-audit closure is still blocked by the pending human localization review on CP005–CP011. The numerical review V2 artifacts were refreshed after the Wave 05 generator change.
