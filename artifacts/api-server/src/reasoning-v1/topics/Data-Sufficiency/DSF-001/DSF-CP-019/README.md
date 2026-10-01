@@ -2,58 +2,67 @@
 
 Date: 2026-10-01
 
-Status: **Wave 01 — review-only**
+Status: **Multilingual Question Studio review coverage complete**
 
-## Wave 01 localized lanes
+## Localized Quant expansion
 
+Wave 01:
 1. Average
 2. Ages
 3. Profit, Loss & Discount
 4. Simple & Compound Interest
 
-Hindi and Punjabi learner text is rebuilt from structured DS metadata and source statement families. The source solver, canonical sufficiency class, correct option index and proof state remain unchanged.
+Wave 02:
+5. Time & Work / Pipes & Cisterns
+6. Time, Speed & Distance / Trains / Boats
+7. Mixture & Alligation
+8. Mensuration 2D & 3D
+9. Ratio / Percentage / Number System enrichment
+10. Algebra enrichment
+
+Together with the four historically localized Quant lanes and the seven CP018 Reasoning lanes, all **21 current DSF-QL-001 Question Studio lanes** now support English, Hindi and Punjabi review generation.
+
+Hindi and Punjabi learner text is rebuilt from structured DS metadata, solve modes, statement families and rule identities. Source solvers, canonical sufficiency classes, correct option indices and proof semantics remain unchanged.
 
 ## Lifecycle boundary
 
-This wave is available only in normal Question Studio review:
+The CP017–CP019 expanded multilingual surface remains normal Question Studio review only:
 
 - Question Studio discoverable: true
 - review persistence: true
 - human language review required: true
 - Question Bank writable: false
-- test eligible: false
+- scored-test eligible: false
 - mock-test eligible: false
 - publicly publishable: false
 - automatic learner publication: false
 
-The older CP010 approved multilingual production scope is not retroactively changed.
+The older CP010 approved multilingual production scope is not retroactively broadened.
 
 ## Executable proof
 
-`quant-localization-wave-01-v1.test.ts` checks Hindi and Punjabi against English controls for all four lanes.
-
-Direct audit surface:
-
+`quant-localization-wave-01-v1.test.ts`:
 - 4 lanes
-- 2 localized languages
-- 8 localized questions per lane/language
 - 64 localized questions
-- 64 corresponding English controls
+- 64 English controls
+
+`quant-localization-wave-02-v1.test.ts`:
+- 6 lanes
+- 96 localized questions
+- 96 English controls
+- verifies all 21 canonical Question Studio lanes advertise EN/HI/PA
+- mixed Hindi and Punjabi batches exercise broad lane coverage
+
+Both audits verify:
 - semantic-class parity
 - correct-index parity
-- two-statement / five-option contract
-- English prose leakage guard
+- two-statement / five-option DS contract
+- language-aware Question Studio identity
+- English learner-prose leakage guards
 - review-only lifecycle locks
 
-## Remaining CP011 Quant localization
+## Remaining DSF blocker
 
-The following six lanes remain English-only after Wave 01:
+Multilingual review parity for **DSF-QL-001** is complete.
 
-- Time & Work / Pipes & Cisterns
-- Time, Speed & Distance / Trains / Boats
-- Mixture & Alligation
-- Mensuration 2D & 3D
-- Ratio / Percentage / Number System enrichment
-- Algebra enrichment
-
-Do not claim full DSF multilingual closure until these six lanes are localized and audited.
+**DSF-QL-002** (three-statement minimal sufficient subsets) is still permanently allocated but batch-runtime deferred. It remains the next major DSF implementation blocker before final chapter closure.
