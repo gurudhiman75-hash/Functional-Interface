@@ -726,14 +726,17 @@ function generateReconstructInteger(seed: number): NumCp004RetainedQuestion {
 
 function generateCompareStructures(seed: number): NumCp004RetainedQuestion {
   const factorsA = factorState(seed + 53);
-  const factorsB = factorState(seed + 79).map((factor, index) => ({
+  const targetIndex = (seed - 1) % 3;
+  const target = ["DISTINCT", "MULTIPLICITY", "VALUE"] as const;
+  const baseFactorsB = target[targetIndex] === "DISTINCT"
+    ? factorState(seed + 56)
+    : factorState(seed + 79);
+  const factorsB = baseFactorsB.map((factor, index) => ({
     prime: factor.prime,
-    exponent: factor.exponent + (index === 0 && seed % 2 === 0 ? 1 : 0),
+    exponent: factor.exponent + (target[targetIndex] !== "DISTINCT" && index === 0 && seed % 2 === 0 ? 1 : 0),
   }));
   const valueA = multiplyPrimePowers(factorsA);
   const valueB = multiplyPrimePowers(factorsB);
-  const targetIndex = (seed - 1) % 3;
-  const target = ["DISTINCT", "MULTIPLICITY", "VALUE"] as const;
   let metricA: number;
   let metricB: number;
   if (target[targetIndex] === "DISTINCT") {
