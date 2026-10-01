@@ -32,6 +32,10 @@ const examProfileRoute = readFileSync(
   resolve(sourceRoot, "routes/admin-question-studio-exam-profiles.ts"),
   "utf8",
 );
+const quantProfile = readFileSync(
+  resolve(sourceRoot, "question-studio/quant-exam-profile.ts"),
+  "utf8",
+);
 
 // Capabilities become engine-aware without removing the legacy field.
 assert.match(engineRoute, /generationSystem:\s*"quant-v4"/);
@@ -57,10 +61,36 @@ for (const field of [
   assert.match(engineRoute, new RegExp(`${field}:\\s*pkg\\.${field}`));
 }
 
-// Existing Quant traffic must bypass the new non-Quant persistence path.
+// Quant and non-Quant share the canonical persistence route. Quant takes the
+// profile-aware generation branch. Only the explicitly enumerated bespoke
+// generic Quant compatibility packages/selectors may fall through.
 assert.match(engineRoute, /selectedEngineId === "quant-v4"/);
+assert.match(engineRoute, /generateProfiledQuantBatch/);
+assert.match(engineRoute, /selectedCpIds/);
+assert.match(engineRoute, /difficultyDistribution/);
+assert.doesNotMatch(engineRoute, /nonQuantRunGate/);
+assert.match(engineRoute, /shouldDeferQuantCompatibilityRun/);
+assert.match(engineRoute, /LEGACY_GENERIC_QUANT_PACKAGES/);
+for (const packageId of [
+  "avg 001",
+  "num 001",
+  "num 002",
+  "sap",
+  "tmw 001",
+  "trg 001",
+  "trg 002",
+]) {
+  assert.equal(
+    engineRoute.includes(`"${packageId}"`),
+    true,
+    `Quant compatibility package ${packageId} must remain explicitly deferred`,
+  );
+}
 assert.match(engineRoute, /next\("route"\)/);
 assert.doesNotMatch(engineRoute, /router\.use\(authenticate\)/);
+assert.match(quantProfile, /buildQuantExamProfilePlan/);
+assert.match(quantProfile, /generateProfiledQuantBatch/);
+assert.match(quantProfile, /cpCounts/);
 
 // New-engine runs persist engine provenance in all important records.
 assert.match(engineRoute, /engineId:\s*result\.engineId/);
@@ -68,17 +98,14 @@ assert.match(engineRoute, /generationSystem:\s*result\.engineId/);
 assert.match(engineRoute, /\$\{result\.engineId\}/);
 assert.match(engineRoute, /generationContext/);
 
-// The compatibility composition offers new engines first refusal, then falls
-// through to the established exam-profile/mixed-difficulty router.
-const engineUse = mixedRoute.indexOf(
-  "router.use(adminQuestionStudioEngineV1Router)",
-);
-const legacyUse = mixedRoute.indexOf(
-  "router.use(adminQuestionStudioExamProfilesRouter)",
-);
-assert.equal(engineUse >= 0, true);
-assert.equal(legacyUse >= 0, true);
-assert.equal(engineUse < legacyUse, true);
+// The mixed-difficulty compatibility surface is now read-only and exposes only
+// the Quant exam-profile catalog. It must not remount the canonical engine route.
+assert.doesNotMatch(mixedRoute, /adminQuestionStudioEngineV1Router/);
+assert.match(mixedRoute, /router\.use\(adminQuestionStudioExamProfilesRouter\)/);
+assert.match(examProfileRoute, /router\.get\(\s*"\/exam-profiles"/);
+assert.match(examProfileRoute, /listQuantExamProfiles/);
+assert.doesNotMatch(examProfileRoute, /router\.post\(\s*"\/runs"/);
+assert.doesNotMatch(examProfileRoute, /generateQuantV4Questions/);
 
 // New-main owns Question Studio composition through the canonical registry.
 // The mixed-difficulty compatibility router must be registered there before the
@@ -110,11 +137,11 @@ assert.doesNotMatch(routeIndex, /adminQuestionStudioMixedDifficultyRouter/);
 assert.doesNotMatch(routeIndex, /adminQuestionStudioEngineV1Router/);
 
 
-// The final shared router is review/bulk only. Quant generation is owned by
-// the exam-profile compatibility route after engine-v1 declines quant-v4.
+// The final shared router remains review/bulk only. All standard generation,
+// including Quant exam-profile/mixed batches, is owned by engine-v1.
 assert.doesNotMatch(sharedReviewRoute, /router\.post\("\/runs"/);
 assert.doesNotMatch(sharedReviewRoute, /router\.get\("\/capabilities"/);
 assert.match(sharedReviewRoute, /router\.get\("\/review-page"/);
 assert.match(sharedReviewRoute, /router\.patch\("\/items\/bulk"/);
-assert.match(examProfileRoute, /router\.post\("\/runs"/);
-assert.match(examProfileRoute, /generateQuantV4Questions/);
+assert.match(engineRoute, /router\.post\(\s*"\/runs"/);
+assert.match(engineRoute, /generateProfiledQuantBatch/);

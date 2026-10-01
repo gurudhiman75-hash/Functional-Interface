@@ -1,14 +1,12 @@
 import { Router } from "express";
 
-import adminQuestionStudioEngineV1Router from "./admin-question-studio-engine-v1";
 import adminQuestionStudioExamProfilesRouter from "./admin-question-studio-exam-profiles";
 
 const router = Router();
 
-// Non-Quant engines get first refusal. The engine facade deliberately calls
-// next("route") for legacy Quant/Reasoning requests so the established
-// exam-profile/mixed-difficulty path remains authoritative for them.
-router.use(adminQuestionStudioEngineV1Router);
+// Quant mixed-difficulty generation now runs through the canonical engine-v1
+// /runs handler. This compatibility router only exposes the read-only exam
+// profile catalog used by calibration/profile administration surfaces.
 router.use(adminQuestionStudioExamProfilesRouter);
 
 export default router;

@@ -28,8 +28,8 @@ assert(legacyIndex > engineIndex, "Multi-engine route must precede legacy Questi
 
 for (const marker of [
   'router.post(\n  "/runs"',
-  "nonQuantRunGate",
   "generateQuestionStudioQuestions",
+  "generateProfiledQuantBatch",
   "content.generation_runs",
   "content.generation_run_items",
   "content.generation_item_versions",
@@ -54,7 +54,7 @@ for (const forbidden of [
 
 console.log("[COM003-QUESTION-STUDIO-REVIEW-ONLY-ROUTE-CONTRACT-V1]", {
   valid: true,
-  routeOrder: "SRI -> MULTI_ENGINE -> DSF/LEGACY",
+  routeOrder: "SRI -> UNIFIED_ENGINE -> DSF/COMPATIBILITY",
   reviewRunTables: 3,
   auditOutbox: true,
   difficultyFailClosed: true,
