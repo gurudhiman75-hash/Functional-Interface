@@ -89,7 +89,10 @@ export function generatePrt001AdvancedParameters(input: {
   switch (input.entry.solveMode) {
     case "findProfitRatioWhenPartnerJoinsLater":
     case "findUnknownJoinTimeFromProfitRatio": {
-      const s = random.pick(advancedScenarios.joinLater);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const s = numericStateRandom.pick(advancedScenarios.joinLater);
       const partners = [
         partner(partnerA, [segment(0, 12, money(s.capitalA))]),
         partner(partnerB, [segment(s.joinAfterB, 12, money(s.capitalB))]),
@@ -113,7 +116,10 @@ export function generatePrt001AdvancedParameters(input: {
     case "findUnknownCapitalInThreePartnerSystem":
     case "findTotalProfitFromOnePartnerShareInMultiPartnerSystem":
     case "findMultiPartnerSharesWithStaggeredEvents": {
-      const s = random.pick(advancedScenarios.staggeredThree);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const s = numericStateRandom.pick(advancedScenarios.staggeredThree);
       const partners = [
         partner(partnerA, [segment(0, 12, money(s.capitalA))]),
         partner(partnerB, [segment(s.joinAfterB, 12, money(s.capitalB))]),
