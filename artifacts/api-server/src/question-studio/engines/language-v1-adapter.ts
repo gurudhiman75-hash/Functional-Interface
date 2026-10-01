@@ -1,3 +1,4 @@
+import { enrichQuestionStudioPackageCpTitles } from "../package-metadata";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -98,7 +99,7 @@ export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...languageV1Eng012QuestionStudioAdapterV1.listPackages(),
       ...languageV1Eng013QuestionStudioAdapterV1.listPackages(),
       ...languageV1Pun001QuestionStudioAdapterV1.listPackages(),
-    ];
+    ].map(enrichQuestionStudioPackageCpTitles);
   },
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
     if (isPun001QuestionStudioRequestV1(request)) return languageV1Pun001QuestionStudioAdapterV1.generate(request);

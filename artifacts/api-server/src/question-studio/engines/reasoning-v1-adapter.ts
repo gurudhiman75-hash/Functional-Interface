@@ -13,6 +13,7 @@ import {
   type OpsAuditedLanguage,
 } from "../../reasoning-v1/topics/Mathematical-Operations/OPS-001/runtime/audited-generator";
 import { generateOpsPairedCompoundPresentation } from "../../reasoning-v1/topics/Mathematical-Operations/OPS-001/runtime/paired-compound-presentation";
+import { enrichQuestionStudioPackageCpTitles } from "../package-metadata";
 import type { OpsInstanceDifficulty } from "../../reasoning-v1/topics/Mathematical-Operations/OPS-001/runtime/final-audit-remediation";
 import type {
   QuestionStudioEngineAdapter,
@@ -411,7 +412,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE,
       SIF_001_QUESTION_STUDIO_PACKAGE,
       VEN_001_QUESTION_STUDIO_PACKAGE,
-    ];
+    ].map(enrichQuestionStudioPackageCpTitles);
   },
 
   async generate(
