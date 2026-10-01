@@ -9,7 +9,8 @@ if (!databaseUrl) {
 }
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const migrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-home-configuration.sql");
+const homeMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-home-configuration.sql");
+const promotionsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-promotions.sql");
 const sql = postgres(databaseUrl, {
   max: 1,
   connect_timeout: 15,
@@ -26,7 +27,7 @@ try {
     console.log("[render-build] mobile home configuration schema already present");
   } else {
     console.log("[render-build] mobile home configuration schema missing; applying checked-in migration");
-    const migrationSql = await readFile(migrationPath, "utf8");
+    const migrationSql = await readFile(homeMigrationPath, "utf8");
     await sql.unsafe(migrationSql);
   }
 
@@ -39,6 +40,22 @@ try {
   }
 
   console.log("[render-build] mobile home configuration schema verified");
+
+  const [promotionsBefore] = await sql`
+    SELECT to_regclass('platform.mobile_promotions')::text AS mobile_promotions
+  `;
+  if (!promotionsBefore?.mobile_promotions) {
+    console.log("[render-build] mobile promotions schema missing; applying checked-in migration");
+    const promotionsSql = await readFile(promotionsMigrationPath, "utf8");
+    await sql.unsafe(promotionsSql);
+  }
+  const [promotionsAfter] = await sql`
+    SELECT to_regclass('platform.mobile_promotions')::text AS mobile_promotions
+  `;
+  if (!promotionsAfter?.mobile_promotions) {
+    throw new Error("Mobile promotions migration completed without creating platform.mobile_promotions");
+  }
+  console.log("[render-build] mobile promotions schema verified");
 } finally {
   await sql.end({ timeout: 5 });
 }
