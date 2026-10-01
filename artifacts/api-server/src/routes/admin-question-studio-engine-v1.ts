@@ -88,23 +88,19 @@ function normalizeCompatibilitySelector(value: unknown): string {
 }
 
 const LEGACY_GENERIC_QUANT_PACKAGES = new Set([
-  "num 002",
   "sap",
 ]);
 
 const LEGACY_NUMBER_SYSTEM_CPS = new Set([
-  "NUM-CP-008",
-  "NUM-CP-009",
-  "NUM-CP-010",
-  "NUM-CP-011",
-  "NUM-CP-012",
   "NUM-CP-013",
   "NUM-CP-014",
 ]);
 
 function isLegacyNum002QuestionLanguageId(value: unknown): boolean {
   const match = /^NUM-QL-(\d{3})$/u.exec(asString(value).toUpperCase());
-  return Boolean(match && Number(match[1]) >= 166);
+  if (!match) return false;
+  const number = Number(match[1]);
+  return number >= 237 && number <= 253;
 }
 
 function includesLegacyNum002CpIds(value: unknown): boolean {
@@ -197,13 +193,7 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
   if (isLegacyNum002QuestionLanguageId(body.questionLanguageId)) return true;
 
   if (
-    patternId.includes("num 002")
-    || patternId.includes("num cp 008")
-    || patternId.includes("num cp 009")
-    || patternId.includes("num cp 010")
-    || patternId.includes("num cp 011")
-    || patternId.includes("num cp 012")
-    || patternId.includes("num cp 013")
+    patternId.includes("num cp 013")
     || patternId.includes("num cp 014")
     || ((patternId === "sap" || patternId.includes("sap ql")) && !bankingSap)
   ) {
@@ -218,9 +208,7 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     "approximation",
   ]);
   return (
-    ((numberSelectors.has(topic) && !subtopic) && packageId === "num 002")
-    || ((topic === "arithmetic" && numberSelectors.has(subtopic)) && packageId === "num 002")
-    || ((simplificationSelectors.has(topic) && !subtopic) && !bankingSap)
+    ((simplificationSelectors.has(topic) && !subtopic) && !bankingSap)
     || ((topic === "arithmetic" && simplificationSelectors.has(subtopic)) && !bankingSap)
   );
 }
@@ -342,6 +330,17 @@ router.post(
       : [];
     const packageEngineId = engineForPackage(packageId);
     const selectedEngineId = requestedEngineId ?? packageEngineId ?? "quant-v4";
+
+    if (
+      selectedEngineId === "quant-v4"
+      && requestedCpIds.some((cpId) => LEGACY_NUMBER_SYSTEM_CPS.has(cpId))
+    ) {
+      res.status(400).json({
+        error: "NUM-CP-013 and NUM-CP-014 cannot be mixed with unified NUM-002 CPs until their dedicated routes are migrated.",
+        code: "LEGACY_NUM002_CP_MIX_UNSUPPORTED",
+      });
+      return;
+    }
 
     if (
       selectedEngineId === "quant-v4"
