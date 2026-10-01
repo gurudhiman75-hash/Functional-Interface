@@ -94,16 +94,15 @@ function pool(problem:Problem):readonly Statement[]{
     st(`D12_${a.firstDistance}_${a.secondDistance}`,"DISTANCE_PAIR",2,`The first two movement lengths are ${a.firstDistance} m and ${a.secondDistance} m respectively.`,w=>w.firstDistance===a.firstDistance&&w.secondDistance===a.secondDistance),
     st(`X_${a.finalX}`,"FINAL_X_EXACT",2,`The net east-west displacement is ${Math.abs(a.finalX)} m ${a.finalX===0?"with no east-west shift":a.finalX>0?"to the east":"to the west"}.`,w=>w.finalX===a.finalX),
     st(`Y_${a.finalY}`,"FINAL_Y_EXACT",2,`The net north-south displacement is ${Math.abs(a.finalY)} m ${a.finalY===0?"with no north-south shift":a.finalY>0?"to the north":"to the south"}.`,w=>w.finalY===a.finalY),
-    st(`XY_${a.finalX}_${a.finalY}`,"FINAL_COMPONENT_PAIR",3,`The net displacement components are ${a.finalX} m east-west and ${a.finalY} m north-south.`,w=>w.finalX===a.finalX&&w.finalY===a.finalY),
+    st(`XY_${a.finalX}_${a.finalY}`,"FINAL_COMPONENT_PAIR",3,`The final point has coordinates (${a.finalX}, ${a.finalY}) when the starting point is (0, 0).`,w=>w.finalX===a.finalX&&w.finalY===a.finalY),
     st(`FACING_${a.finalFacing}`,"FINAL_FACING_EXACT",1,`After all movements, the person is facing ${a.finalFacing}.`,w=>w.finalFacing===a.finalFacing),
     st(`PATH_${a.totalPath}`,"TOTAL_PATH_EXACT",2,`The total path length is ${a.totalPath} m.`,w=>w.totalPath===a.totalPath),
     st(`XSIGN_${sign(a.finalX)}`,"FINAL_X_SIGN",2,`The final east-west coordinate is ${sign(a.finalX)}.`,w=>sign(w.finalX)===sign(a.finalX)),
     st(`YSIGN_${sign(a.finalY)}`,"FINAL_Y_SIGN",2,`The final north-south coordinate is ${sign(a.finalY)}.`,w=>sign(w.finalY)===sign(a.finalY)),
   ];
   return Object.freeze(statements.filter((statement) => {
-    if (["FINAL_X_EXACT","FINAL_Y_EXACT","FINAL_COMPONENT_PAIR","FINAL_X_SIGN","FINAL_Y_SIGN"].includes(statement.family)) return false;
+    if (["FINAL_X_EXACT","FINAL_Y_EXACT","FINAL_X_SIGN","FINAL_Y_SIGN"].includes(statement.family)) return false;
     if (problem.solveMode === "DSF-SM-DIR-FINAL-FACING" && statement.family === "FINAL_FACING_EXACT") return false;
-    if (problem.solveMode === "DSF-SM-DIR-FINAL-COORDINATES" && statement.family === "FINAL_COMPONENT_PAIR") return false;
     return true;
   }));
 }
