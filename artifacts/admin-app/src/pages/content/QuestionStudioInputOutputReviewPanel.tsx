@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { QUESTION_STUDIO_REFRESH_EVENT } from '@/features/question-studio/events';
-import { useQuestionStudio } from '@/features/question-studio/useQuestionStudio';
+import { useQuestionStudio, useQuestionStudioReviewPage } from '@/features/question-studio/useQuestionStudio';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
 const IOP_PACKAGE_ID = 'IOP-001';
@@ -60,14 +60,7 @@ function Metric({ label, value }: { label: string; value: number | string }) {
 export function QuestionStudioInputOutputReviewPanel() {
   const { hasPermission } = useAdminPermissions();
   const canRun = hasPermission('content.generation.run');
-  const {
-    dashboard,
-    capabilities,
-    loading,
-    generating,
-    error,
-    generate,
-  } = useQuestionStudio();
+  const { capabilities, loading, generating, error, generate } = useQuestionStudio({ loadDashboard: false });
 
   const [familyId, setFamilyId] = useState('');
   const [difficulty, setDifficulty] = useState<IopDifficulty>('Easy');
@@ -102,10 +95,12 @@ export function QuestionStudioInputOutputReviewPanel() {
     if (!supported.includes(language)) setLanguage(supported[0] ?? 'en');
   }, [language, pkg]);
 
-  const iopRuns = useMemo(
-    () => dashboard.runs.filter((run) => run.requestSnapshot?.packageId === IOP_PACKAGE_ID),
-    [dashboard.runs],
-  );
+  const { reviewPage } = useQuestionStudioReviewPage({
+    page: 1,
+    pageSize: 50,
+    packageId: IOP_PACKAGE_ID,
+  });
+  const iopRuns = reviewPage.runs;
   const iopItems = useMemo(() => iopRuns.flatMap((run) => run.items), [iopRuns]);
 
   const handleCreateRun = async () => {
@@ -161,7 +156,7 @@ export function QuestionStudioInputOutputReviewPanel() {
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <Metric label="Exam profile" value="Banking" />
           <Metric label="Permanent families" value={availableFamilies.length || 8} />
-          <Metric label="Studio items" value={iopItems.length} />
+          <Metric label="Recent page items" value={iopItems.length} />
           <Metric label="Question Bank" value="Locked" />
         </div>
 
