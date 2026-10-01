@@ -80,6 +80,7 @@ export interface QuestionStudioReviewQuery {
   pageSize?: number;
   subject?: string;
   chapter?: string;
+  packageId?: string;
   status?: GenerationItemStatus;
   search?: string;
 }
@@ -106,6 +107,7 @@ export interface QuestionStudioReviewPage {
   filters: {
     subject: string | null;
     chapter: string | null;
+    packageId: string | null;
     status: string | null;
     search: string | null;
   };
@@ -258,6 +260,7 @@ export function getQuestionStudioReviewPage(query: QuestionStudioReviewQuery = {
   if (query.pageSize) params.set('pageSize', String(query.pageSize));
   if (query.subject) params.set('subject', query.subject);
   if (query.chapter) params.set('chapter', query.chapter);
+  if (query.packageId) params.set('packageId', query.packageId);
   if (query.status) params.set('status', query.status);
   if (query.search?.trim()) params.set('search', query.search.trim());
 
