@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   DSF_CP017_GENERATABLE_QL_IDS,
   DSF_CP017_LANES,
+  DSF_CP017_LEARNER_STEM_VERSION,
   DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE,
   DSF_CP017_RUNTIME_DEFERRED_QL_IDS,
   previewDsf001NormalQuestionStudioReview,
@@ -21,6 +22,7 @@ assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.automaticStudentPublicatio
 
 const forbiddenSurface = /\b(?:TODO|TBD|undefined|null|NaN)\b|\[object Object\]/iu;
 const genericInstructionOpeners = /^(?:study|read|consider|analyse|analyze)\s+(?:the\s+)?(?:following|given)\b/iu;
+const oldEditorialBoilerplate = /(?:Treat the two statements as independent pieces of evidence|Read the two numbered statements as separate information records|Use only the facts supplied in the two statements|Check each one alone before using both together)/iu;
 const allSourceIds = new Set<string>();
 const allQuestionIds = new Set<string>();
 const laneFingerprints = new Map<string, Set<string>>();
@@ -73,6 +75,10 @@ for (const lane of DSF_CP017_LANES) {
     assert.doesNotMatch(question.stem, forbiddenSurface);
     assert.doesNotMatch(question.explanation, forbiddenSurface);
     assert.doesNotMatch(question.stem, genericInstructionOpeners);
+    assert.doesNotMatch(question.stem, oldEditorialBoilerplate);
+    if (lane.domainFamily === "REASONING") {
+      assert.equal(question.editorialSurfaceVersion, DSF_CP017_LEARNER_STEM_VERSION);
+    }
 
     assert.ok(question.sourceGenerationIdentity.trim().length > 0);
     assert.ok(question.contentFingerprint.trim().length > 0);
