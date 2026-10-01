@@ -18,6 +18,69 @@ export const NUMERICAL_CP_IDS = [
   "VEN-CP009",
   "VEN-CP010",
 ] as const;
+export type VenNumericalSourceSupport =
+  | "STRONG_LIBRARY_SUPPORT"
+  | "DIRECT_OPERATION_SUPPORT"
+  | "DERIVED_EXTENSION"
+  | "SOURCE_GAP_OPEN";
+
+export function venNumericalSourceSupport(cp: string, queryKey: string): {
+  status: VenNumericalSourceSupport;
+  note: string;
+} {
+  if (["VEN-CP005", "VEN-CP006", "VEN-CP009"].includes(cp)) {
+    return {
+      status: "STRONG_LIBRARY_SUPPORT",
+      note: "Core headcount and populated-Venn counting operations are repeatedly represented in the Examtree reasoning source Library.",
+    };
+  }
+  if (cp === "VEN-CP007") {
+    if (["percentage-count", "percentage-three-count"].includes(queryKey)) {
+      return {
+        status: "STRONG_LIBRARY_SUPPORT",
+        note: "Percentage-based two-set and three-set Venn operations are directly represented in the Examtree Library.",
+      };
+    }
+    if (["percentage-total", "percentage-three-total"].includes(queryKey)) {
+      return {
+        status: "DIRECT_OPERATION_SUPPORT",
+        note: "The governing percentage/inclusion-exclusion operation is source-backed; recovering the total is the algebraic inverse of the observed task.",
+      };
+    }
+    return {
+      status: "DERIVED_EXTENSION",
+      note: "Ratio-form Venn questions are currently a controlled generator extension; dedicated exam-pattern evidence was not located in the Library pass.",
+    };
+  }
+  if (cp === "VEN-CP008") {
+    if (queryKey === "missing-pair") {
+      return {
+        status: "STRONG_LIBRARY_SUPPORT",
+        note: "Recovering a missing two-set intersection from totals/union is directly represented in the Examtree Library.",
+      };
+    }
+    if (queryKey === "missing-triple") {
+      return {
+        status: "DIRECT_OPERATION_SUPPORT",
+        note: "Three-set inclusion-exclusion is source-backed, but the exact explicit-x centre formulation is less directly evidenced.",
+      };
+    }
+    return {
+      status: "DERIVED_EXTENSION",
+      note: "The solve-for-total/region-equation form is a controlled inverse/constraint extension of source-backed inclusion-exclusion operations.",
+    };
+  }
+  if (cp === "VEN-CP010") {
+    return {
+      status: "SOURCE_GAP_OPEN",
+      note: "A dedicated Library pass did not locate exam-pattern evidence for explicit minimum/maximum overlap-bound questions; keep review-only pending source evidence.",
+    };
+  }
+  return {
+    status: "DIRECT_OPERATION_SUPPORT",
+    note: "Source support is inherited from the chapter-level numerical Venn evidence set.",
+  };
+}
 // Each context supplies full grammatical activity phrases and localized object names.
 export const NUMERICAL_CONTEXTS = [
   {
@@ -1262,6 +1325,8 @@ export function generateVen001NumericalBatch(
         sets: item.sets,
         exclusiveRegions: item.regions,
         formulaLatex: item.formula,
+        sourceSupport: venNumericalSourceSupport(cp, item.queryKey).status,
+        sourceSupportNote: venNumericalSourceSupport(cp, item.queryKey).note,
       },
       validation: {
         exactlyOneCorrect: true,
