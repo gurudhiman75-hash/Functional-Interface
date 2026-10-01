@@ -81,7 +81,7 @@ for (let s = 0; s < 200; s++)
         )
           assert.doesNotMatch(
             localized.explanation,
-            /highest common factor 1|महत्तम समापवर्तक से सरल करें 1|ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ 1/iu,
+            /highest common factor 1(?!\d)|महत्तम समापवर्तक से सरल करें 1(?!\d)|ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ 1(?!\d)/iu,
             `VEN-CP007/${localized.semanticMetadata.queryKey}/${languages[localeIndex]}: do not narrate division by GCD 1`,
           );
         if (languages[localeIndex] === "hi") {
