@@ -1257,6 +1257,8 @@ export function generateVen001NumericalBatch(
       difficultyLabel: item.difficulty,
       difficultyAuthority: "PROVISIONAL_OPERATION_BASED",
       questionOperation: item.operation,
+      qlId: ven001QlForOperation(item.operation),
+      permanentQlId: ven001QlForOperation(item.operation),
       generationSeed: seed,
       reviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
       runtimeMode: "review-only",
