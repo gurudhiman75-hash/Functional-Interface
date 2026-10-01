@@ -1634,6 +1634,82 @@ function localizeGeoMinBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
   return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
 
+
+function polishGeoRivBulkTextV1(text:string, language:"hi"|"pa") {
+  const hi:[string,string][] = [
+    ["river system","नदी तंत्र"],["river systems","नदी तंत्र"],["drainage system","अपवाह तंत्र"],["drainage systems","अपवाह तंत्र"],["drainage pattern","अपवाह प्रतिरूप"],["drainage patterns","अपवाह प्रतिरूप"],
+    ["Himalayan rivers","हिमालयी नदियाँ"],["Himalayan river","हिमालयी नदी"],["Peninsular rivers","प्रायद्वीपीय नदियाँ"],["Peninsular river","प्रायद्वीपीय नदी"],
+    ["perennial river","बारहमासी नदी"],["perennial rivers","बारहमासी नदियाँ"],["seasonal river","मौसमी नदी"],["seasonal rivers","मौसमी नदियाँ"],
+    ["tributary","सहायक नदी"],["tributaries","सहायक नदियाँ"],["distributary","वितरिका"],["distributaries","वितरिकाएँ"],["confluence","संगम"],
+    ["source","उद्गम"],["origin","उद्गम"],["mouth","मुहाना"],["river basin","नदी बेसिन"],["river basins","नदी बेसिन"],["catchment area","जलग्रहण क्षेत्र"],["watershed","जल-विभाजक"],
+    ["Ganga","गंगा"],["Ganges","गंगा"],["Yamuna","यमुना"],["Brahmaputra","ब्रह्मपुत्र"],["Indus","सिंधु"],["Sutlej","सतलुज"],["Beas","ब्यास"],["Ravi","रावी"],["Chenab","चिनाब"],["Jhelum","झेलम"],
+    ["Ghaghara","घाघरा"],["Gandak","गंडक"],["Kosi","कोसी"],["Son","सोन"],["Gomti","गोमती"],["Ramganga","रामगंगा"],["Chambal","चंबल"],["Betwa","बेतवा"],["Ken","केन"],
+    ["Damodar","दामोदर"],["Hooghly","हुगली"],["Hugli","हुगली"],["Teesta","तीस्ता"],["Tista","तीस्ता"],
+    ["Narmada","नर्मदा"],["Tapi","ताप्ती"],["Tapti","ताप्ती"],["Godavari","गोदावरी"],["Krishna","कृष्णा"],["Kaveri","कावेरी"],["Cauvery","कावेरी"],["Mahanadi","महानदी"],
+    ["Pennar","पेन्नार"],["Sabarmati","साबरमती"],["Mahi","माही"],["Luni","लूनी"],["Periyar","पेरियार"],["Brahmani","ब्राह्मणी"],["Baitarani","बैतरणी"],
+    ["Bhagirathi","भागीरथी"],["Alaknanda","अलकनंदा"],["Devprayag","देवप्रयाग"],["Gangotri Glacier","गंगोत्री हिमनद"],["Yamunotri Glacier","यमुनोत्री हिमनद"],
+    ["Tibet","तिब्बत"],["Mansarovar","मानसरोवर"],["Amarkantak","अमरकंटक"],["Mahabaleshwar","महाबलेश्वर"],["Brahmagiri Hills","ब्रह्मगिरि पहाड़ियाँ"],
+    ["Arabian Sea","अरब सागर"],["Bay of Bengal","बंगाल की खाड़ी"],["east-flowing river","पूर्ववाहिनी नदी"],["east-flowing rivers","पूर्ववाहिनी नदियाँ"],["west-flowing river","पश्चिमवाहिनी नदी"],["west-flowing rivers","पश्चिमवाहिनी नदियाँ"],
+    ["delta","डेल्टा"],["deltas","डेल्टा"],["estuary","मुहाना"],["estuaries","मुहाने"],["river delta","नदी डेल्टा"],["deltaic plain","डेल्टाई मैदान"],
+    ["rift valley","भ्रंश घाटी"],["fault trough","भ्रंश गर्त"],["meander","विसर्प"],["meanders","विसर्प"],["oxbow lake","गोखुर झील"],["floodplain","बाढ़ मैदान"],["levee","प्राकृतिक तटबंध"],
+    ["dendritic drainage","वृक्षाकार अपवाह"],["trellis drainage","जालीदार अपवाह"],["radial drainage","अरीय अपवाह"],["centripetal drainage","अभिकेंद्री अपवाह"],["rectangular drainage","आयताकार अपवाह"],
+    ["antecedent river","पूर्ववर्ती नदी"],["antecedent drainage","पूर्ववर्ती अपवाह"],["superimposed drainage","अध्यारोपित अपवाह"],["inland drainage","अंतःस्थलीय अपवाह"],
+    ["water divide","जल-विभाजक"],["interfluve","दोआबी उच्चभूमि"],["river course","नदी मार्ग"],["upper course","ऊपरी प्रवाह"],["middle course","मध्य प्रवाह"],["lower course","निचला प्रवाह"],
+    ["right-bank tributary","दाहिने तट की सहायक नदी"],["left-bank tributary","बाएँ तट की सहायक नदी"],["right bank","दायाँ तट"],["left bank","बायाँ तट"],
+    ["Punjab","पंजाब"],["Haryana","हरियाणा"],["Uttar Pradesh","उत्तर प्रदेश"],["Bihar","बिहार"],["West Bengal","पश्चिम बंगाल"],["Assam","असम"],["Arunachal Pradesh","अरुणाचल प्रदेश"],
+    ["Madhya Pradesh","मध्य प्रदेश"],["Maharashtra","महाराष्ट्र"],["Gujarat","गुजरात"],["Chhattisgarh","छत्तीसगढ़"],["Odisha","ओडिशा"],["Telangana","तेलंगाना"],["Andhra Pradesh","आंध्र प्रदेश"],["Karnataka","कर्नाटक"],["Tamil Nadu","तमिलनाडु"],["Kerala","केरल"],
+    ["flows through","से होकर बहती है"],["flows into","में गिरती है"],["rises near","के निकट निकलती है"],["originates near","के निकट उद्गम होता है"],["joins","में मिलती है"],["drains into","में गिरती है"],
+    ["Which","कौन-सा"],["which","कौन-सा"],["What","क्या"],["what","क्या"],["Why","क्यों"],["why","क्यों"],["Where","कहाँ"],["where","कहाँ"],["When","कब"],["when","कब"],["How","कैसे"],["how","कैसे"],
+    ["the",""],["and","और"],["or","या"],["is","है"],["are","हैं"],["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],["can","सकता है"],["could","सकता था"],["would","होगा"],["should","चाहिए"],["has","है"],["have","हैं"],["had","था"],
+    ["with","के साथ"],["from","से"],["into","में"],["for","के लिए"],["of","का"],["to","को"],["in","में"],["on","पर"],["at","पर"],["by","द्वारा"],["as","के रूप में"],["than","की तुलना में"],["that","कि"],["this","यह"],["these","ये"],["those","वे"],
+    ["most","सबसे"],["main","मुख्य"],["major","प्रमुख"],["only","केवल"],["correct","सही"],["statement","कथन"],["following","निम्नलिखित"]
+  ];
+  const pa:[string,string][] = [
+    ["river system","ਨਦੀ ਤੰਤਰ"],["river systems","ਨਦੀ ਤੰਤਰ"],["drainage system","ਨਿਕਾਸੀ ਤੰਤਰ"],["drainage systems","ਨਿਕਾਸੀ ਤੰਤਰ"],["drainage pattern","ਨਿਕਾਸੀ ਰੂਪ"],["drainage patterns","ਨਿਕਾਸੀ ਰੂਪ"],
+    ["Himalayan rivers","ਹਿਮਾਲਈ ਨਦੀਆਂ"],["Himalayan river","ਹਿਮਾਲਈ ਨਦੀ"],["Peninsular rivers","ਪ੍ਰਾਇਦੀਪੀ ਨਦੀਆਂ"],["Peninsular river","ਪ੍ਰਾਇਦੀਪੀ ਨਦੀ"],
+    ["perennial river","ਸਦਾਬਹਾਰ ਨਦੀ"],["perennial rivers","ਸਦਾਬਹਾਰ ਨਦੀਆਂ"],["seasonal river","ਮੌਸਮੀ ਨਦੀ"],["seasonal rivers","ਮੌਸਮੀ ਨਦੀਆਂ"],
+    ["tributary","ਸਹਾਇਕ ਨਦੀ"],["tributaries","ਸਹਾਇਕ ਨਦੀਆਂ"],["distributary","ਵਿਤਰਿਕਾ"],["distributaries","ਵਿਤਰਿਕਾਵਾਂ"],["confluence","ਸੰਗਮ"],
+    ["source","ਉਦਗਮ"],["origin","ਉਦਗਮ"],["mouth","ਮੁਹਾਨਾ"],["river basin","ਨਦੀ ਬੇਸਿਨ"],["river basins","ਨਦੀ ਬੇਸਿਨ"],["catchment area","ਜਲਗ੍ਰਹਿਣ ਖੇਤਰ"],["watershed","ਜਲ-ਵਿਭਾਜਕ"],
+    ["Ganga","ਗੰਗਾ"],["Ganges","ਗੰਗਾ"],["Yamuna","ਯਮੁਨਾ"],["Brahmaputra","ਬ੍ਰਹਮਪੁੱਤਰ"],["Indus","ਸਿੰਧੂ"],["Sutlej","ਸਤਲੁਜ"],["Beas","ਬਿਆਸ"],["Ravi","ਰਾਵੀ"],["Chenab","ਚਿਨਾਬ"],["Jhelum","ਝੇਲਮ"],
+    ["Ghaghara","ਘਾਘਰਾ"],["Gandak","ਗੰਡਕ"],["Kosi","ਕੋਸੀ"],["Son","ਸੋਨ"],["Gomti","ਗੋਮਤੀ"],["Ramganga","ਰਾਮਗੰਗਾ"],["Chambal","ਚੰਬਲ"],["Betwa","ਬੇਤਵਾ"],["Ken","ਕੇਨ"],
+    ["Damodar","ਦਾਮੋਦਰ"],["Hooghly","ਹੁਗਲੀ"],["Hugli","ਹੁਗਲੀ"],["Teesta","ਤੀਸਤਾ"],["Tista","ਤੀਸਤਾ"],
+    ["Narmada","ਨਰਮਦਾ"],["Tapi","ਤਾਪਤੀ"],["Tapti","ਤਾਪਤੀ"],["Godavari","ਗੋਦਾਵਰੀ"],["Krishna","ਕ੍ਰਿਸ਼ਨਾ"],["Kaveri","ਕਾਵੇਰੀ"],["Cauvery","ਕਾਵੇਰੀ"],["Mahanadi","ਮਹਾਨਦੀ"],
+    ["Pennar","ਪੇਨਾਰ"],["Sabarmati","ਸਾਬਰਮਤੀ"],["Mahi","ਮਾਹੀ"],["Luni","ਲੂਨੀ"],["Periyar","ਪੇਰੀਆਰ"],["Brahmani","ਬ੍ਰਾਹਮਣੀ"],["Baitarani","ਬੈਤਰਣੀ"],
+    ["Bhagirathi","ਭਾਗੀਰਥੀ"],["Alaknanda","ਅਲਕਨੰਦਾ"],["Devprayag","ਦੇਵਪ੍ਰਯਾਗ"],["Gangotri Glacier","ਗੰਗੋਤਰੀ ਹਿਮਨਦ"],["Yamunotri Glacier","ਯਮੁਨੋਤਰੀ ਹਿਮਨਦ"],
+    ["Tibet","ਤਿਬਤ"],["Mansarovar","ਮਾਨਸਰੋਵਰ"],["Amarkantak","ਅਮਰਕੰਟਕ"],["Mahabaleshwar","ਮਹਾਬਲੇਸ਼ਵਰ"],["Brahmagiri Hills","ਬ੍ਰਹਮਗਿਰੀ ਪਹਾੜੀਆਂ"],
+    ["Arabian Sea","ਅਰਬ ਸਾਗਰ"],["Bay of Bengal","ਬੰਗਾਲ ਦੀ ਖਾੜੀ"],["east-flowing river","ਪੂਰਬ ਵੱਲ ਵਗਣ ਵਾਲੀ ਨਦੀ"],["east-flowing rivers","ਪੂਰਬ ਵੱਲ ਵਗਣ ਵਾਲੀਆਂ ਨਦੀਆਂ"],["west-flowing river","ਪੱਛਮ ਵੱਲ ਵਗਣ ਵਾਲੀ ਨਦੀ"],["west-flowing rivers","ਪੱਛਮ ਵੱਲ ਵਗਣ ਵਾਲੀਆਂ ਨਦੀਆਂ"],
+    ["delta","ਡੈਲਟਾ"],["deltas","ਡੈਲਟੇ"],["estuary","ਮੁਹਾਨਾ"],["estuaries","ਮੁਹਾਨੇ"],["river delta","ਨਦੀ ਡੈਲਟਾ"],["deltaic plain","ਡੈਲਟਾਈ ਮੈਦਾਨ"],
+    ["rift valley","ਭ੍ਰੰਸ਼ ਘਾਟੀ"],["fault trough","ਭ੍ਰੰਸ਼ ਗਰਤ"],["meander","ਵਿਸਰਪ"],["meanders","ਵਿਸਰਪ"],["oxbow lake","ਘੋੜੇ ਦੀ ਨਾਲ ਵਰਗੀ ਝੀਲ"],["floodplain","ਹੜ੍ਹ-ਮੈਦਾਨ"],["levee","ਕੁਦਰਤੀ ਬੰਧ"],
+    ["dendritic drainage","ਰੁੱਖ-ਆਕਾਰ ਨਿਕਾਸੀ"],["trellis drainage","ਜਾਲੀਦਾਰ ਨਿਕਾਸੀ"],["radial drainage","ਅਰੀਯ ਨਿਕਾਸੀ"],["centripetal drainage","ਕੇਂਦਰ-ਵੱਲ ਨਿਕਾਸੀ"],["rectangular drainage","ਆਇਤਾਕਾਰ ਨਿਕਾਸੀ"],
+    ["antecedent river","ਪੂਰਵਵਰਤੀ ਨਦੀ"],["antecedent drainage","ਪੂਰਵਵਰਤੀ ਨਿਕਾਸੀ"],["superimposed drainage","ਅਧਿਆਰੋਪਿਤ ਨਿਕਾਸੀ"],["inland drainage","ਅੰਦਰੂਨੀ ਨਿਕਾਸੀ"],
+    ["water divide","ਜਲ-ਵਿਭਾਜਕ"],["interfluve","ਦੋ ਨਦੀਆਂ ਵਿਚਲੀ ਉੱਚਭੂਮੀ"],["river course","ਨਦੀ ਮਾਰਗ"],["upper course","ਉੱਪਰੀ ਵਹਾਅ"],["middle course","ਮੱਧ ਵਹਾਅ"],["lower course","ਹੇਠਲਾ ਵਹਾਅ"],
+    ["right-bank tributary","ਸੱਜੇ ਕੰਢੇ ਦੀ ਸਹਾਇਕ ਨਦੀ"],["left-bank tributary","ਖੱਬੇ ਕੰਢੇ ਦੀ ਸਹਾਇਕ ਨਦੀ"],["right bank","ਸੱਜਾ ਕੰਢਾ"],["left bank","ਖੱਬਾ ਕੰਢਾ"],
+    ["Punjab","ਪੰਜਾਬ"],["Haryana","ਹਰਿਆਣਾ"],["Uttar Pradesh","ਉੱਤਰ ਪ੍ਰਦੇਸ਼"],["Bihar","ਬਿਹਾਰ"],["West Bengal","ਪੱਛਮੀ ਬੰਗਾਲ"],["Assam","ਅਸਾਮ"],["Arunachal Pradesh","ਅਰੁਣਾਚਲ ਪ੍ਰਦੇਸ਼"],
+    ["Madhya Pradesh","ਮੱਧ ਪ੍ਰਦੇਸ਼"],["Maharashtra","ਮਹਾਰਾਸ਼ਟਰ"],["Gujarat","ਗੁਜਰਾਤ"],["Chhattisgarh","ਛੱਤੀਸਗੜ੍ਹ"],["Odisha","ਓਡੀਸ਼ਾ"],["Telangana","ਤੇਲੰਗਾਨਾ"],["Andhra Pradesh","ਆੰਧਰਾ ਪ੍ਰਦੇਸ਼"],["Karnataka","ਕਰਨਾਟਕ"],["Tamil Nadu","ਤਮਿਲਨਾਡੂ"],["Kerala","ਕੇਰਲ"],
+    ["flows through","ਵਿੱਚੋਂ ਵਗਦੀ ਹੈ"],["flows into","ਵਿੱਚ ਡਿੱਗਦੀ ਹੈ"],["rises near","ਦੇ ਨੇੜੇ ਨਿਕਲਦੀ ਹੈ"],["originates near","ਦੇ ਨੇੜੇ ਉਦਗਮ ਹੁੰਦਾ ਹੈ"],["joins","ਵਿੱਚ ਮਿਲਦੀ ਹੈ"],["drains into","ਵਿੱਚ ਡਿੱਗਦੀ ਹੈ"],
+    ["Which","ਕਿਹੜਾ"],["which","ਕਿਹੜਾ"],["What","ਕੀ"],["what","ਕੀ"],["Why","ਕਿਉਂ"],["why","ਕਿਉਂ"],["Where","ਕਿੱਥੇ"],["where","ਕਿੱਥੇ"],["When","ਕਦੋਂ"],["when","ਕਦੋਂ"],["How","ਕਿਵੇਂ"],["how","ਕਿਵੇਂ"],
+    ["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],["is","ਹੈ"],["are","ਹਨ"],["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],["would","ਹੋਵੇਗਾ"],["should","ਚਾਹੀਦਾ ਹੈ"],["has","ਹੈ"],["have","ਹਨ"],["had","ਸੀ"],
+    ["with","ਨਾਲ"],["from","ਤੋਂ"],["into","ਵਿੱਚ"],["for","ਲਈ"],["of","ਦਾ"],["to","ਨੂੰ"],["in","ਵਿੱਚ"],["on","ਉੱਤੇ"],["at","ਉੱਤੇ"],["by","ਦੁਆਰਾ"],["as","ਵਜੋਂ"],["than","ਨਾਲੋਂ"],["that","ਕਿ"],["this","ਇਹ"],["these","ਇਹ"],["those","ਉਹ"],
+    ["most","ਸਭ ਤੋਂ"],["main","ਮੁੱਖ"],["major","ਮੁੱਖ"],["only","ਕੇਵਲ"],["correct","ਸਹੀ"],["statement","ਕਥਨ"],["following","ਹੇਠ ਲਿਖੇ"]
+  ];
+  let out=text;
+  const pairs=language==="hi"?hi:pa;
+  for(const [from,to] of pairs.sort((a,b)=>b[0].length-a[0].length)){
+    out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
+  }
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+function localizeGeoRivBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
+  if(!/^GEO-RIV-001-CP(?:00[1-9]|01[0-4])-/.test(question.questionId)) return null;
+  const local=(source:string)=>polishGeoRivBulkTextV1(localizeText(source,language),language);
+  const stemBase=localizeNaturalStem(question.stem,language,"GEO-RIV-001") ?? localizeText(question.stem,language);
+  const stem=polishGeoRivBulkTextV1(stemBase,language);
+  const options=Object.freeze(question.options.map(local));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=local(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
   language: IndianGeoLocalizationLanguageV1,
@@ -1650,6 +1726,11 @@ export function localizeIndianGeoQuestionV1(
 
   if (packageId === "GEO-TRN-001") {
     const bulk = localizeGeoTrnBulkV1(question, language);
+    if (bulk) return bulk;
+  }
+
+  if (packageId === "GEO-RIV-001") {
+    const bulk = localizeGeoRivBulkV1(question, language);
     if (bulk) return bulk;
   }
 
