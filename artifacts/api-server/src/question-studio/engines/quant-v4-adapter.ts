@@ -7,6 +7,10 @@ import {
   listQuantV4Packages as listQuantV4QuestionStudioPackages,
 } from "../../quant-v4/question-studio-generation-engine";
 import {
+  AVG_001_QUESTION_STUDIO_CP_IDS,
+  AVG_001_QUESTION_STUDIO_LANGUAGES,
+} from "../../quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
+import {
   di001QuestionStudioPackageCard,
   generateDi001QuestionStudioBatch,
   isDi001QuestionStudioRequest,
@@ -523,7 +527,17 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     const avgPackage = listQuantV4QuestionStudioPackages()
       .find((pkg: any) => pkg.packageId === "AVG-001");
     if (avgPackage) {
-      replaceOrPush("AVG-001", avgPackage as unknown as Record<string, unknown>);
+      replaceOrPush("AVG-001", {
+        ...(avgPackage as Record<string, unknown>),
+        cpIds: [...AVG_001_QUESTION_STUDIO_CP_IDS],
+        canonicalProblems: AVG_001_QUESTION_STUDIO_CP_IDS.map((cpId) => ({
+          id: cpId,
+          label: cpId,
+        })),
+        supportedLanguages: [...AVG_001_QUESTION_STUDIO_LANGUAGES],
+        supportedDifficulties: ["Easy", "Medium", "Hard"],
+        enabled: true,
+      });
     }
 
     replaceOrPush("DI-001", di001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
