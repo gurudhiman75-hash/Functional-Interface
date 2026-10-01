@@ -143,7 +143,7 @@ function targetLabel(mode: DsfCp012DirectionSolveMode): string {
 function promptFor(mode: DsfCp012DirectionSolveMode): string {
   switch (mode) {
     case "DSF-SM-DIR-FINAL-FACING": return "Which direction is the person facing after the third movement?";
-    case "DSF-SM-DIR-FINAL-COORDINATES": return "Where is the final point relative to the starting point?";
+    case "DSF-SM-DIR-FINAL-COORDINATES": return "What are the coordinates of the final point, taking the starting point as (0, 0)?";
     case "DSF-SM-DIR-SHORTEST-DISTANCE": return "What is the shortest distance from the final point to the starting point?";
   }
 }
