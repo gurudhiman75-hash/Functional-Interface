@@ -98,6 +98,28 @@ const adapter={
 };
 function st(id:string,family:string,complexity:1|2|3,text:string,test:(w:World)=>boolean):Statement{return Object.freeze({id,family,complexity,text,test});}
 function rel(r:string){return r.toLowerCase().replaceAll("_"," ");}
+function displayRelation(r:string){return rel(r).replace(/\b\w/g,(ch)=>ch.toUpperCase());}
+const DISPLAY_RELATION_VALUES = [
+  "AUNT","BROTHER","BROTHER_IN_LAW","DAUGHTER","DAUGHTER_IN_LAW","FATHER","FATHER_IN_LAW",
+  "GRANDFATHER","GRANDMOTHER","GRANDDAUGHTER","GRANDSON","HUSBAND","MOTHER","MOTHER_IN_LAW",
+  "NEPHEW","NIECE","SISTER","SISTER_IN_LAW","SON","SON_IN_LAW","UNCLE","WIFE",
+] as const;
+function naturalizeRelationTokens(text:string){
+  let output=text;
+  for(const value of DISPLAY_RELATION_VALUES){
+    output=output.replaceAll(value,displayRelation(value));
+  }
+  return output;
+}
+function categoryText(value:string){
+  switch(value){
+    case "PARENT": return "parent-child";
+    case "CHILD": return "parent-child";
+    case "SIBLING": return "sibling";
+    case "SPOUSE": return "spouse";
+    default: return value.toLowerCase();
+  }
+}
 function targetLabel(mode:SolveMode){return mode==="DSF-SM-BLR-P-TO-Q-RELATION"?"P's exact relation to Q":"Q's exact relation to P";}
 function prompt(mode:SolveMode){return mode==="DSF-SM-BLR-P-TO-Q-RELATION"?"How is P related to Q?":"How is Q related to P?";}
 function lead(c:ContextId){return ({
@@ -122,10 +144,8 @@ function pool(problem:Problem):readonly Statement[]{
     st(`PG_${a.pGender}`,"P_GENDER",2,genderText("P",a.pGender),w=>w.pGender===a.pGender),
     st(`XG_${a.xGender}`,"X_GENDER",2,genderText("X",a.xGender),w=>w.xGender===a.xGender),
     st(`QG_${a.qGender}`,"Q_GENDER",2,genderText("Q",a.qGender),w=>w.qGender===a.qGender),
-    st(`FC_${category(a.firstRelation)}`,"FIRST_CATEGORY",2,`The P-X clue is a ${category(a.firstRelation).toLowerCase()}-type relation.`,w=>category(w.firstRelation)===category(a.firstRelation)),
-    st(`SC_${category(a.secondRelation)}`,"SECOND_CATEGORY",2,`The X-Q clue is a ${category(a.secondRelation).toLowerCase()}-type relation.`,w=>category(w.secondRelation)===category(a.secondRelation)),
-    st(`FO_${a.firstOrientation}`,"FIRST_ORIENTATION",2,`The P-X clue has ${a.firstClue.subjectId} as subject and ${a.firstClue.referenceId} as reference.`,w=>w.firstOrientation===a.firstOrientation),
-    st(`SO_${a.secondOrientation}`,"SECOND_ORIENTATION",2,`The X-Q clue has ${a.secondClue.subjectId} as subject and ${a.secondClue.referenceId} as reference.`,w=>w.secondOrientation===a.secondOrientation),
+    st(`FC_${category(a.firstRelation)}`,"FIRST_CATEGORY",2,`The relation between P and X is a ${categoryText(category(a.firstRelation))} relation.`,w=>category(w.firstRelation)===category(a.firstRelation)),
+    st(`SC_${category(a.secondRelation)}`,"SECOND_CATEGORY",2,`The relation between X and Q is a ${categoryText(category(a.secondRelation))} relation.`,w=>category(w.secondRelation)===category(a.secondRelation)),    st(`SO_${a.secondOrientation}`,"SECOND_ORIENTATION",2,`The X-Q clue has ${a.secondClue.subjectId} as subject and ${a.secondClue.referenceId} as reference.`,w=>w.secondOrientation===a.secondOrientation),
     st(`FB_${isBlood(a.firstRelation)}`,"FIRST_IS_BLOOD",2,`The P-X link is ${isBlood(a.firstRelation)?"a blood relation":"a spouse relation"}.`,w=>isBlood(w.firstRelation)===isBlood(a.firstRelation)),
     st(`SB_${isBlood(a.secondRelation)}`,"SECOND_IS_BLOOD",2,`The X-Q link is ${isBlood(a.secondRelation)?"a blood relation":"a spouse relation"}.`,w=>isBlood(w.secondRelation)===isBlood(a.secondRelation)),
   ]);
@@ -168,7 +188,8 @@ function select(seed:string){
   return {problem:fallback.problem,candidate:short[pick(`${seed}:fallback`,short.length)]!};
 }
 function explanation(problem:Problem,c:Candidate){
-  return renderThreeStatementEditorialExplanation(c.evaluation, targetLabel(problem.solveMode), c.semanticKey);
+  const raw = renderThreeStatementEditorialExplanation(c.evaluation, targetLabel(problem.solveMode), c.semanticKey);
+  return naturalizeRelationTokens(raw);
 }
 export function generateDsfCp023BloodQuestion(seed:string|number){
   const s=String(seed),{problem,candidate:c}=select(s),options=buildThreeStatementAnswerOptions(c.semanticKey,hash(s)),correctIndex=options.findIndex(x=>x.isCorrect);

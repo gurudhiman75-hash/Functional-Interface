@@ -142,21 +142,39 @@ function statement(
   return Object.freeze({ id, family, complexity, text, test });
 }
 
+function ordinal(value: number): string {
+  const mod100 = value % 100;
+  if (mod100 >= 11 && mod100 <= 13) return `${value}th`;
+  const suffix = value % 10 === 1 ? "st" : value % 10 === 2 ? "nd" : value % 10 === 3 ? "rd" : "th";
+  return `${value}${suffix}`;
+}
+
+function subjectFor(contextId: ContextId): string {
+  switch (contextId) {
+    case "MERIT_LIST":
+    case "INTERVIEW_ORDER": return "candidate";
+    case "RACE_ORDER": return "runner";
+    case "SCORE_ORDER": return "student";
+    default: return "person";
+  }
+}
+
 function targetLabel(mode: SolveMode): string {
   switch (mode) {
     case "DSF-SM-RNK-OPPOSITE-END-RANK": return "rank from the opposite end";
     case "DSF-SM-RNK-TOTAL-FROM-END-RANKS": return "total number of people";
-    case "DSF-SM-RNK-COUNT-AFTER": return "number of people after the target person";
+    case "DSF-SM-RNK-COUNT-AFTER": return "number of people after the person";
     case "DSF-SM-RNK-RANK-FROM-COUNT-BEFORE": return "rank from the starting end";
   }
 }
 
-function promptFor(mode: SolveMode): string {
+function promptFor(mode: SolveMode, contextId: ContextId): string {
+  const subject = subjectFor(contextId);
   switch (mode) {
-    case "DSF-SM-RNK-OPPOSITE-END-RANK": return "What is the target person's rank from the opposite end?";
+    case "DSF-SM-RNK-OPPOSITE-END-RANK": return `What is the ${subject}'s rank from the opposite end?`;
     case "DSF-SM-RNK-TOTAL-FROM-END-RANKS": return "How many people are there in the complete order?";
-    case "DSF-SM-RNK-COUNT-AFTER": return "How many people are after the target person?";
-    case "DSF-SM-RNK-RANK-FROM-COUNT-BEFORE": return "What is the target person's rank from the starting end?";
+    case "DSF-SM-RNK-COUNT-AFTER": return `How many people are after the ${subject}?`;
+    case "DSF-SM-RNK-RANK-FROM-COUNT-BEFORE": return `What is the ${subject}'s rank from the starting end?`;
   }
 }
 
@@ -175,22 +193,23 @@ function buildStatementPool(problem: Problem): readonly RankingStatement[] {
   const a = problem.anchor;
   const target = sourceProjection(problem.solveMode, a);
   const targetText = targetLabel(problem.solveMode);
+  const subject = subjectFor(problem.contextId);
   return Object.freeze([
     statement(`TARGET_${target}`, "TARGET_EXACT", 1, `The ${targetText} is exactly ${target}.`, w => sourceProjection(problem.solveMode, w) === target),
     statement(`TOTAL_${a.total}`, "TOTAL_EXACT", 1, `There are exactly ${a.total} people in the complete order.`, w => w.total === a.total),
-    statement(`START_${a.rankFromStart}`, "START_RANK_EXACT", 1, `The target person is ${a.rankFromStart}th from the starting end.`, w => w.rankFromStart === a.rankFromStart),
-    statement(`END_${a.rankFromEnd}`, "END_RANK_EXACT", 1, `The target person is ${a.rankFromEnd}th from the opposite end.`, w => w.rankFromEnd === a.rankFromEnd),
-    statement(`BEFORE_${a.beforeCount}`, "BEFORE_COUNT_EXACT", 1, `Exactly ${a.beforeCount} people are before the target person.`, w => w.beforeCount === a.beforeCount),
-    statement(`AFTER_${a.afterCount}`, "AFTER_COUNT_EXACT", 1, `Exactly ${a.afterCount} people are after the target person.`, w => w.afterCount === a.afterCount),
-    statement(`TOTAL_START_${a.total}_${a.rankFromStart}`, "TOTAL_START_PAIR", 2, `There are ${a.total} people, and the target person is ${a.rankFromStart}th from the starting end.`, w => w.total === a.total && w.rankFromStart === a.rankFromStart),
-    statement(`START_END_${a.rankFromStart}_${a.rankFromEnd}`, "START_END_PAIR", 2, `The target person is ${a.rankFromStart}th from one end and ${a.rankFromEnd}th from the other end.`, w => w.rankFromStart === a.rankFromStart && w.rankFromEnd === a.rankFromEnd),
-    statement(`TOTAL_AFTER_${a.total}_${a.afterCount}`, "TOTAL_AFTER_PAIR", 2, `There are ${a.total} people in all and ${a.afterCount} people are after the target person.`, w => w.total === a.total && w.afterCount === a.afterCount),
+    statement(`START_${a.rankFromStart}`, "START_RANK_EXACT", 1, `The ${subject} is ${ordinal(a.rankFromStart)} from the starting end.`, w => w.rankFromStart === a.rankFromStart),
+    statement(`END_${a.rankFromEnd}`, "END_RANK_EXACT", 1, `The ${subject} is ${ordinal(a.rankFromEnd)} from the opposite end.`, w => w.rankFromEnd === a.rankFromEnd),
+    statement(`BEFORE_${a.beforeCount}`, "BEFORE_COUNT_EXACT", 1, `${a.beforeCount === 1 ? "Exactly 1 person is" : `Exactly ${a.beforeCount} people are`} before the ${subject}.`, w => w.beforeCount === a.beforeCount),
+    statement(`AFTER_${a.afterCount}`, "AFTER_COUNT_EXACT", 1, `${a.afterCount === 1 ? "Exactly 1 person is" : `Exactly ${a.afterCount} people are`} after the ${subject}.`, w => w.afterCount === a.afterCount),
+    statement(`TOTAL_START_${a.total}_${a.rankFromStart}`, "TOTAL_START_PAIR", 2, `There are ${a.total} people, and the ${subject} is ${ordinal(a.rankFromStart)} from the starting end.`, w => w.total === a.total && w.rankFromStart === a.rankFromStart),
+    statement(`START_END_${a.rankFromStart}_${a.rankFromEnd}`, "START_END_PAIR", 2, `The ${subject} is ${ordinal(a.rankFromStart)} from one end and ${ordinal(a.rankFromEnd)} from the other end.`, w => w.rankFromStart === a.rankFromStart && w.rankFromEnd === a.rankFromEnd),
+    statement(`TOTAL_AFTER_${a.total}_${a.afterCount}`, "TOTAL_AFTER_PAIR", 2, `${a.total} people are in the complete order, and ${a.afterCount === 1 ? "1 person is" : `${a.afterCount} people are`} after the ${subject}.`, w => w.total === a.total && w.afterCount === a.afterCount),
     statement(`TOTAL_LE_${a.total}`, "TOTAL_BOUND", 2, `The total number of people does not exceed ${a.total}.`, w => w.total <= a.total),
     statement(`TOTAL_GE_${a.total}`, "TOTAL_BOUND", 2, `The total number of people is at least ${a.total}.`, w => w.total >= a.total),
-    statement(`START_LE_${a.rankFromStart}`, "START_RANK_BOUND", 2, `The target person's rank from the starting end is at most ${a.rankFromStart}.`, w => w.rankFromStart <= a.rankFromStart),
-    statement(`START_GE_${a.rankFromStart}`, "START_RANK_BOUND", 2, `The target person's rank from the starting end is at least ${a.rankFromStart}.`, w => w.rankFromStart >= a.rankFromStart),
-    statement(`END_LE_${a.rankFromEnd}`, "END_RANK_BOUND", 2, `The target person's rank from the opposite end is at most ${a.rankFromEnd}.`, w => w.rankFromEnd <= a.rankFromEnd),
-    statement(`END_GE_${a.rankFromEnd}`, "END_RANK_BOUND", 2, `The target person's rank from the opposite end is at least ${a.rankFromEnd}.`, w => w.rankFromEnd >= a.rankFromEnd),
+    statement(`START_LE_${a.rankFromStart}`, "START_RANK_BOUND", 2, `The ${subject}'s rank from the starting end is at most ${a.rankFromStart}.`, w => w.rankFromStart <= a.rankFromStart),
+    statement(`START_GE_${a.rankFromStart}`, "START_RANK_BOUND", 2, `The ${subject}'s rank from the starting end is at least ${a.rankFromStart}.`, w => w.rankFromStart >= a.rankFromStart),
+    statement(`END_LE_${a.rankFromEnd}`, "END_RANK_BOUND", 2, `The ${subject}'s rank from the opposite end is at most ${a.rankFromEnd}.`, w => w.rankFromEnd <= a.rankFromEnd),
+    statement(`END_GE_${a.rankFromEnd}`, "END_RANK_BOUND", 2, `The ${subject}'s rank from the opposite end is at least ${a.rankFromEnd}.`, w => w.rankFromEnd >= a.rankFromEnd),
     statement(`START_PAR_${a.rankFromStart % 2}`, "START_RANK_PARITY", 2, `The rank from the starting end is ${a.rankFromStart % 2 === 0 ? "even" : "odd"}.`, w => w.rankFromStart % 2 === a.rankFromStart % 2),
     statement(`TOTAL_PAR_${a.total % 2}`, "TOTAL_PARITY", 2, `The total number of people is ${a.total % 2 === 0 ? "even" : "odd"}.`, w => w.total % 2 === a.total % 2),
   ]);
@@ -309,8 +328,8 @@ export function generateDsfCp021RankingQuestion(seed:string|number){
     statementCount:3 as const,
     taskContract:"THREE_STATEMENT_MINIMAL_SUFFICIENT_SUBSETS" as const,
     answerSemantic:"MINIMAL_SUFFICIENT_STATEMENT_SUBSET" as const,
-    stem:`${contextLead(problem.contextId)} ${promptFor(problem.solveMode)}`,
-    questionPrompt:promptFor(problem.solveMode),
+    stem:`${contextLead(problem.contextId)} ${promptFor(problem.solveMode, problem.contextId)}`,
+    questionPrompt:promptFor(problem.solveMode, problem.contextId),
     statements:Object.freeze([
       Object.freeze({id:"I" as const,statementRuleId:triple.statementI.id,statementFamily:triple.statementI.family,text:triple.statementI.text}),
       Object.freeze({id:"II" as const,statementRuleId:triple.statementII.id,statementFamily:triple.statementII.family,text:triple.statementII.text}),
