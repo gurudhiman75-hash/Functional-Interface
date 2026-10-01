@@ -113,9 +113,9 @@ function ratio(left: number, right: number) {
 
 function constructionProperty(seed: string): Di010Draft {
   const s = surface(seed, "CONSTRUCTION_PROPERTY", [
-    "In a frequency polygon, what do the x-coordinates of the main plotted points represent?",
-    "The points of a frequency polygon are plotted above which values on the horizontal axis?",
-    "For each original class, which value is taken on the x-axis while drawing a frequency polygon?",
+    "In a frequency polygon, what does the x-coordinate of each plotted point represent?",
+    "Which x-axis value is used for each class in a frequency polygon?",
+    "For each class, which value is plotted on the horizontal axis of a frequency polygon?",
   ]);
   return {
     kind: "CONSTRUCTION_PROPERTY",
