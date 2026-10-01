@@ -781,24 +781,27 @@ export function buildNumericalItem(
       if (q === "both")
         explanation = `${
           tx(
-            `The survey gives the totals for ${names[0]} and ${names[1]}, and the number who do neither. First find how many do at least one activity; the remaining part of the two activity totals is the overlap.`,
-            `सर्वेक्षण में ${names[0]} और ${names[1]} करने वालों की कुल संख्या तथा कोई भी गतिविधि न करने वालों की संख्या दी है। पहले कम-से-कम एक गतिविधि करने वालों की संख्या निकालें; दोनों कुल संख्याओं में बचा अंतर साझा लोगों की संख्या है।`,
-            `ਸਰਵੇਖਣ ਵਿੱਚ ${names[0]} ਅਤੇ ${names[1]} ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਅਤੇ ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਹੈ। ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਕੰਮ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ; ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਬਚਿਆ ਫ਼ਰਕ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਹੈ।`,
+            `The totals for ${names[0]} and ${names[1]} are given, along with the number in neither group. First find the number in at least one group, then use inclusion–exclusion to find the overlap.`,
+            `${names[0]} और ${names[1]} की कुल संख्याएँ तथा दोनों में से किसी समूह में न आने वालों की संख्या दी है। पहले कम-से-कम एक समूह में आने वालों की संख्या निकालें, फिर साझा लोगों की संख्या निकालें।`,
+            `${names[0]} ਅਤੇ ${names[1]} ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਅਤੇ ਦੋਵਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਹੈ। ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ, ਫਿਰ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।`,
           )[l]
         } ${tx("At least one", "कम-से-कम एक", "ਘੱਟੋ-ਘੱਟ ਇੱਕ")[l]} = ${sum(r)} − ${r[0]} = ${union}. ${tx("Both", "दोनों", "ਦੋਵੇਂ")[l]} = ${a} + ${b} − ${union} = ${answer}.`;
       else if (q === "total2")
-        explanation = `${tx(`Use inclusion–exclusion for ${names[0]} and ${names[1]} to find the number doing at least one activity:`, `${names[0]} और ${names[1]} में से कम-से-कम एक करने वालों की संख्या समावेशन–बहिष्करण से निकालें:`, `${names[0]} ਅਤੇ ${names[1]} ਵਿੱਚੋਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਕੰਮ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਸਮਾਵੇਸ਼–ਬਹਿਸ਼ਕਰਨ ਨਾਲ ਕੱਢੋ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Then add those who do neither:", "फिर कोई भी गतिविधि न करने वालों को जोड़ें:", "ਫਿਰ ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਨੂੰ ਜੋੜੋ:")[l]} ${union} + ${r[0]} = ${answer}.`;
-      else {
+        explanation = `${tx(`Add the two group totals and subtract the overlap once to find how many are in at least one group:`, `दोनों समूहों की कुल संख्याएँ जोड़ें और साझा लोगों को एक बार घटाएँ:`, `ਦੋਵਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਸਾਂਝੇ ਲੋਕ ਇੱਕ ਵਾਰ ਘਟਾਓ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Then add those in neither group:", "फिर दोनों में से किसी समूह में न आने वालों को जोड़ें:", "ਫਿਰ ਦੋਵਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਨੂੰ ਜੋੜੋ:")[l]} ${union} + ${r[0]} = ${answer}.`;
+      else if (q === "onlyA")
+        explanation = `${tx(`To find people in ${names[0]} but not ${names[1]}, subtract the overlap from the ${names[0]} total:`, `केवल ${names[0]} वाले लोगों के लिए ${names[0]} और ${names[1]} के साझा लोगों को ${names[0]} की कुल संख्या में से घटाएँ:`, `ਸਿਰਫ਼ ${names[0]} ਵਾਲੇ ਲੋਕ ਕੱਢਣ ਲਈ ${names[0]} ਅਤੇ ${names[1]} ਦੇ ਸਾਂਝੇ ਲੋਕ ${names[0]} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:`)[l]} ${a} − ${both} = ${answer}.`;
+      else if (q === "onlyB")
+        explanation = `${tx(`To find people in ${names[1]} but not ${names[0]}, subtract the overlap from the ${names[1]} total:`, `केवल ${names[1]} वाले लोगों के लिए ${names[0]} और ${names[1]} के साझा लोगों को ${names[1]} की कुल संख्या में से घटाएँ:`, `ਸਿਰਫ਼ ${names[1]} ਵਾਲੇ ਲੋਕ ਕੱਢਣ ਲਈ ${names[0]} ਅਤੇ ${names[1]} ਦੇ ਸਾਂਝੇ ਲੋਕ ${names[1]} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:`)[l]} ${b} − ${both} = ${answer}.`;
+      else if (q === "exactOne2") {
+        const onlyA = a - both,
+          onlyB = b - both;
+        explanation = `${tx(`Remove the overlap from each group total, then add the two exclusive parts:`, `हर समूह की कुल संख्या में से साझा लोगों को घटाएँ, फिर दोनों केवल-वाले हिस्से जोड़ें:`, `ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਸਾਂਝੇ ਲੋਕ ਘਟਾਓ, ਫਿਰ ਦੋਵੇਂ ਸਿਰਫ਼-ਵਾਲੇ ਹਿੱਸੇ ਜੋੜੋ:`)[l]} (${a} − ${both}) + (${b} − ${both}) = ${onlyA} + ${onlyB} = ${answer}.`;
+      } else if (q === "union2")
+        explanation = `${tx(`Add the two group totals and subtract the overlap once because those people were counted in both totals:`, `दोनों समूहों की कुल संख्याएँ जोड़ें और साझा लोगों को एक बार घटाएँ, क्योंकि वे दोनों कुल संख्याओं में गिने गए हैं:`, `ਦੋਵਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਸਾਂਝੇ ਲੋਕ ਇੱਕ ਵਾਰ ਘਟਾਓ, ਕਿਉਂਕਿ ਉਹ ਦੋਵਾਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਗਿਣੇ ਗਏ ਹਨ:`)[l]} ${a} + ${b} − ${both} = ${answer}.`;
+      else if (q === "none")
+        explanation = `${tx(`First find how many people belong to at least one of the two groups (${names[0]} or ${names[1]}):`, `पहले ${names[0]} या ${names[1]} वाले कम-से-कम एक समूह में आने वालों की संख्या निकालें:`, `ਪਹਿਲਾਂ ${names[0]} ਜਾਂ ${names[1]} ਵਾਲੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Subtract this from the surveyed total to find those in neither group:", "दोनों में से किसी समूह में न आने वालों के लिए इसे कुल संख्या में से घटाएँ:", "ਦੋਵਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਲਈ ਇਸ ਨੂੰ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:")[l]} ${sum(r)} − ${union} = ${answer}.`;
+      else
         explanation = derivation(c, r, 2, l);
-        if (q === "exactOne2")
-          explanation += ` ${tx("Exactly one group", "केवल एक समूह", "ਸਿਰਫ਼ ਇੱਕ ਸਮੂਹ")[l]} = ${r[1]} + ${r[2]} = ${answer}.`;
-        if (q === "union2")
-          explanation += ` ${tx(`Count everyone doing ${names[0]} or ${names[1]} once; subtract the overlap because it was counted twice:`, `${names[0]} या ${names[1]} करने वाले हर व्यक्ति को एक बार गिनें; साझा लोगों को दो बार गिने जाने के कारण एक बार घटाएँ:`, `${names[0]} ਜਾਂ ${names[1]} ਕਰਨ ਵਾਲੇ ਹਰ ਵਿਅਕਤੀ ਨੂੰ ਇੱਕ ਵਾਰ ਗਿਣੋ; ਸਾਂਝੇ ਲੋਕ ਦੋ ਵਾਰ ਗਿਣੇ ਗਏ ਹਨ, ਇਸ ਲਈ ਇੱਕ ਵਾਰ ਘਟਾਓ:`)[l]} ${a} + ${b} − ${both} = ${answer}.`;
-        if (q === "onlyA" || q === "onlyB")
-          explanation += ` ${requestedRegions(c, r, q, l)}`;
-        if (q === "none")
-          explanation = `${tx(`First find how many people belong to at least one of the two groups (${names[0]} or ${names[1]}):`, `पहले ${names[0]} या ${names[1]} वाले कम-से-कम एक समूह में आने वालों की संख्या निकालें:`, `ਪਹਿਲਾਂ ${names[0]} ਜਾਂ ${names[1]} ਵਾਲੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Subtract this from the surveyed total to find those doing neither:", "कोई भी गतिविधि न करने वालों की संख्या के लिए इसे सर्वेक्षण की कुल संख्या में से घटाएँ:", "ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਲਈ ਇਸ ਨੂੰ ਸਰਵੇਖਣ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:")[l]} ${sum(r)} − ${union} = ${answer}.`;
-      }
     } else {
       const regionWork =
         q === "none"
