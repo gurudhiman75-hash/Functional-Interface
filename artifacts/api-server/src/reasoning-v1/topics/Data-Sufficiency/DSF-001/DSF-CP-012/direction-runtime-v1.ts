@@ -154,6 +154,12 @@ function verticalPositionClue(value: number): string {
   if (value === 0) return "The final point lies on the same east-west line as the starting point.";
   return `The final point is ${Math.abs(value)} m ${value > 0 ? "north" : "south"} of the starting point.`;
 }
+function horizontalSideClue(value: number): string {
+  return value === 0 ? "The final point is neither east nor west of the starting point." : `The final point is ${value > 0 ? "east" : "west"} of the starting point.`;
+}
+function verticalSideClue(value: number): string {
+  return value === 0 ? "The final point is neither north nor south of the starting point." : `The final point is ${value > 0 ? "north" : "south"} of the starting point.`;
+}
 function targetLabel(mode: DsfCp012DirectionSolveMode): string {
   switch (mode) {
     case "DSF-SM-DIR-FINAL-FACING": return "final facing direction";
@@ -187,9 +193,9 @@ function buildStatementPool(problem: DirectionProblem): readonly DirectionStatem
     statement(`XY_${a.finalX}_${a.finalY}`, "FINAL_COMPONENT_PAIR", 3, `The final point has coordinates (${a.finalX}, ${a.finalY}) when the starting point is (0, 0).`, (w) => w.finalX === a.finalX && w.finalY === a.finalY),
     statement(`FACING_${a.finalFacing}`, "FINAL_FACING_EXACT", 1, `After all movements, the person is facing ${a.finalFacing}.`, (w) => w.finalFacing === a.finalFacing),
     statement(`PATH_${a.totalPath}`, "TOTAL_PATH_EXACT", 2, `The total path length travelled is ${a.totalPath} m.`, (w) => w.totalPath === a.totalPath),
-    statement(`XSIGN_${signLabel(a.finalX)}`, "FINAL_X_SIGN", 2, `The final east-west coordinate is ${signLabel(a.finalX)}.`, (w) => signLabel(w.finalX) === signLabel(a.finalX)),
-    statement(`YSIGN_${signLabel(a.finalY)}`, "FINAL_Y_SIGN", 2, `The final north-south coordinate is ${signLabel(a.finalY)}.`, (w) => signLabel(w.finalY) === signLabel(a.finalY)),
-  ].filter((entry) => !["FINAL_X_SIGN", "FINAL_Y_SIGN"].includes(entry.family));
+    statement(`XSIGN_${signLabel(a.finalX)}`, "FINAL_X_SIGN", 2, horizontalSideClue(a.finalX), (w) => signLabel(w.finalX) === signLabel(a.finalX)),
+    statement(`YSIGN_${signLabel(a.finalY)}`, "FINAL_Y_SIGN", 2, verticalSideClue(a.finalY), (w) => signLabel(w.finalY) === signLabel(a.finalY)),
+  ];
 }
 
 function pairQuality(first: DirectionStatement, second: DirectionStatement, evaluation: TwoStatementSufficiencyEvaluation<string>): number {
