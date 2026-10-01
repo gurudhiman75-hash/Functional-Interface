@@ -26,7 +26,7 @@ export const DSF_QL_002_PERMANENT_ENTRY = Object.freeze({
     "DYNAMIC_NEAREST_5",
   ] as const),
   lifecycle: Object.freeze({
-    englishContentStatus: "CP033_QL002_REASONING_QUESTION_STUDIO_FREEZE_CANDIDATE" as const,
+    englishContentStatus: "CP034_CONVENTIONAL_DEEP_AUDIT_CLOSED" as const,
     sourceBackedPrototypeChapters: Object.freeze(["NUM-001","RNK-001","REAS-DIR","BLR-001","REAS-INEQ","SEA-001","COD-001","CAL-001"] as const),
     questionStudioDiscoverable: true as const,
     questionBankWritable: false as const,
