@@ -528,25 +528,25 @@ function explanationRegion(c: Context, mask: number, l: L) {
   const names = c.names[l].split("|");
   if (!members.length)
     return tx(
-      "none of the activities",
+      "None of the activities",
       "इनमें से कोई गतिविधि नहीं",
       "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਵੀ ਗਤੀਵਿਧੀ ਨਹੀਂ",
     )[l];
   if (members.length === 1)
     return tx(
-      `only ${names[members[0]]}`,
+      `Only ${names[members[0]]}`,
       `केवल ${names[members[0]]}`,
       `ਸਿਰਫ਼ ${names[members[0]]}`,
     )[l];
   if (members.length === 3)
-    return tx(`all three activities`, `तीनों गतिविधियाँ`, `ਤਿੰਨੇ ਕੰਮ`)[l];
+    return tx(`All three activities`, `तीनों गतिविधियाँ`, `ਤਿੰਨੇ ਕੰਮ`)[l];
   const selected = join(
     members.map((i) => names[i]),
     l,
   );
   const excluded = names.find((_, i) => !members.includes(i)) ?? names[2];
   return tx(
-    `only ${selected} (not ${excluded})`,
+    `Only ${selected} (not ${excluded})`,
     `केवल ${selected} (${excluded} वाले समूह को छोड़कर)`,
     `ਸਿਰਫ਼ ${selected} (${excluded} ਵਾਲੇ ਸਮੂਹ ਤੋਂ ਬਿਨਾਂ)`,
   )[l];
@@ -721,7 +721,7 @@ export function buildNumericalItem(
           explanation += ` ${tx(`Count everyone doing ${names[0]} or ${names[1]} once; subtract the overlap because it was counted twice:`, `${names[0]} या ${names[1]} करने वाले हर व्यक्ति को एक बार गिनें; साझा लोगों को दो बार गिने जाने के कारण एक बार घटाएँ:`, `${names[0]} ਜਾਂ ${names[1]} ਕਰਨ ਵਾਲੇ ਹਰ ਵਿਅਕਤੀ ਨੂੰ ਇੱਕ ਵਾਰ ਗਿਣੋ; ਸਾਂਝੇ ਲੋਕ ਦੋ ਵਾਰ ਗਿਣੇ ਗਏ ਹਨ, ਇਸ ਲਈ ਇੱਕ ਵਾਰ ਘਟਾਓ:`)[l]} ${a} + ${b} − ${both} = ${answer}.`;
         if (q === "onlyA" || q === "onlyB")
           explanation += ` ${requestedRegions(c, r, q, l)}`;
-        if (q === "neither")
+        if (q === "none")
           explanation = `${tx(`First count the people doing ${names[0]} or ${names[1]}:`, `पहले ${names[0]} या ${names[1]} करने वालों की संख्या निकालें:`, `ਪਹਿਲਾਂ ${names[0]} ਜਾਂ ${names[1]} ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Subtract this from the surveyed total to find those doing neither:", "कोई भी गतिविधि न करने वालों की संख्या के लिए इसे सर्वेक्षण की कुल संख्या में से घटाएँ:", "ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਲਈ ਇਸ ਨੂੰ ਸਰਵੇਖਣ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:")[l]} ${sum(r)} − ${union} = ${answer}.`;
       }
     } else {
