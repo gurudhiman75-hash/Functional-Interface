@@ -64,8 +64,21 @@ assert.ok(
 assert.ok(
   twentyScenarios.questions.every(
     (q) =>
-      !/first activity|second activity|first set|second set/iu.test(q.stem!),
+      !/first activity|second activity|first set|second set|first and second|second and third/iu.test(
+        q.stem!,
+      ),
   ),
+);
+assert.ok(
+  twentyScenarios.questions.every((q) => {
+    const meta = q.semanticMetadata as any;
+    const labels = meta.activityGroupLabels as string[];
+    const required =
+      meta.queryPattern === "single"
+        ? [labels[Math.log2(meta.selectedMasks[0])]]
+        : labels;
+    return required.every((label) => q.stem!.includes(label));
+  }),
 );
 assert.ok(
   new Set(result.questions.map((q) => (q.semanticMetadata as any).queryKey))

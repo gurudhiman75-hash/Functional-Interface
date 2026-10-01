@@ -510,6 +510,280 @@ const STEM_OPENERS: Record<string, T> = {
     "ਸ਼ਹਿਰ ਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਬੱਸ ਸੇਵਾ ਵਰਤਣ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਅਤੇ ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕਾਂ ਦਾ ਵੇਰਵਾ ਹੈ।",
   ),
 };
+const ACTIVITY_GROUPS: Record<string, [T, T, T]> = {
+  SCHOOL_ACTIVITIES: [
+    tr(
+      "school-newspaper readers",
+      "विद्यालय के समाचार-पत्र पाठक",
+      "ਸਕੂਲ ਦੇ ਅਖ਼ਬਾਰ ਪਾਠਕ",
+    ),
+    tr("team-sport players", "टीम खेलों के खिलाड़ी", "ਟੀਮ ਖੇਡਾਂ ਦੇ ਖਿਡਾਰੀ"),
+    tr("science-club members", "विज्ञान क्लब के सदस्य", "ਵਿਗਿਆਨ ਕਲੱਬ ਦੇ ਮੈਂਬਰ"),
+  ],
+  COMMUNITY_SURVEY: [
+    tr(
+      "public-library users",
+      "सार्वजनिक पुस्तकालय के उपयोगकर्ता",
+      "ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਦੇ ਵਰਤੋਂਕਾਰ",
+    ),
+    tr(
+      "sports-centre users",
+      "खेल केंद्र के उपयोगकर्ता",
+      "ਖੇਡ ਕੇਂਦਰ ਦੇ ਵਰਤੋਂਕਾਰ",
+    ),
+    tr(
+      "cultural-event attendees",
+      "सांस्कृतिक कार्यक्रमों में जाने वाले",
+      "ਸੱਭਿਆਚਾਰਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ",
+    ),
+  ],
+  TRAINING_COURSE: [
+    tr(
+      "safety-module completers",
+      "सुरक्षा मॉड्यूल पूरा करने वाले",
+      "ਸੁਰੱਖਿਆ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ",
+    ),
+    tr(
+      "digital-skills module completers",
+      "डिजिटल-कौशल मॉड्यूल पूरा करने वाले",
+      "ਡਿਜ਼ਿਟਲ-ਹੁਨਰ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ",
+    ),
+    tr(
+      "first-aid module completers",
+      "प्राथमिक उपचार मॉड्यूल पूरा करने वाले",
+      "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ",
+    ),
+  ],
+  MEDIA_PREFERENCES: [
+    tr(
+      "daily-newspaper readers",
+      "दैनिक समाचार-पत्र पढ़ने वाले",
+      "ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ",
+    ),
+    tr(
+      "news-podcast listeners",
+      "समाचार पॉडकास्ट सुनने वाले",
+      "ਖ਼ਬਰਾਂ ਦਾ ਪੌਡਕਾਸਟ ਸੁਣਨ ਵਾਲੇ",
+    ),
+    tr(
+      "evening-bulletin viewers",
+      "शाम का समाचार बुलेटिन देखने वाले",
+      "ਸ਼ਾਮ ਦਾ ਖ਼ਬਰ ਬੁਲੇਟਿਨ ਦੇਖਣ ਵਾਲੇ",
+    ),
+  ],
+  HEALTH_CAMP: [
+    tr(
+      "blood-pressure check visitors",
+      "रक्तचाप जाँच कराने वाले",
+      "ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ",
+    ),
+    tr(
+      "vision-check visitors",
+      "दृष्टि जाँच कराने वाले",
+      "ਨਜ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ",
+    ),
+    tr(
+      "diabetes-check visitors",
+      "मधुमेह जाँच कराने वाले",
+      "ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ",
+    ),
+  ],
+  WORKPLACE_TOOLS: [
+    tr(
+      "project-dashboard users",
+      "परियोजना डैशबोर्ड के उपयोगकर्ता",
+      "ਪ੍ਰੋਜੈਕਟ ਡੈਸ਼ਬੋਰਡ ਦੇ ਵਰਤੋਂਕਾਰ",
+    ),
+    tr(
+      "shared-calendar users",
+      "साझा कैलेंडर के उपयोगकर्ता",
+      "ਸਾਂਝੇ ਕੈਲੰਡਰ ਦੇ ਵਰਤੋਂਕਾਰ",
+    ),
+    tr("team-chat users", "टीम चैट के उपयोगकर्ता", "ਟੀਮ ਚੈਟ ਦੇ ਵਰਤੋਂਕਾਰ"),
+  ],
+  TRAVEL_SURVEY: [
+    tr("bus travellers", "बस से यात्रा करने वाले", "ਬੱਸ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ"),
+    tr(
+      "train travellers",
+      "रेलगाड़ी से यात्रा करने वाले",
+      "ਰੇਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ",
+    ),
+    tr(
+      "bicycle commuters",
+      "साइकिल से यात्रा करने वाले",
+      "ਸਾਈਕਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ",
+    ),
+  ],
+  WEEKEND_HOBBIES: [
+    tr("gardeners", "बागवानी करने वाले", "ਬਾਗਬਾਨੀ ਕਰਨ ਵਾਲੇ"),
+    tr(
+      "people who try new recipes",
+      "नई रेसिपी बनाने वाले",
+      "ਨਵੀਂ ਰੈਸਿਪੀ ਬਣਾਉਣ ਵਾਲੇ",
+    ),
+    tr("photographers", "तस्वीरें खींचने वाले", "ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਵਾਲੇ"),
+  ],
+  EXAM_PREPARATION: [
+    tr(
+      "mathematics-class attendees",
+      "गणित की कक्षाएँ लेने वाले",
+      "ਗਣਿਤ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ",
+    ),
+    tr(
+      "English-class attendees",
+      "अंग्रेज़ी की कक्षाएँ लेने वाले",
+      "ਅੰਗਰੇਜ਼ੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ",
+    ),
+    tr(
+      "general-awareness class attendees",
+      "सामान्य जागरूकता की कक्षाएँ लेने वाले",
+      "ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ",
+    ),
+  ],
+  CROP_CULTIVATION: [
+    tr("wheat growers", "गेहूँ उगाने वाले किसान", "ਕਣਕ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ"),
+    tr("mustard growers", "सरसों उगाने वाले किसान", "ਸਰ੍ਹੋਂ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ"),
+    tr("cotton growers", "कपास उगाने वाले किसान", "ਕਪਾਹ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ"),
+  ],
+  LIBRARY_BORROWING: [
+    tr(
+      "fiction borrowers",
+      "कथा-साहित्य लेने वाले",
+      "ਗਲਪ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ",
+    ),
+    tr("biography borrowers", "जीवनियाँ लेने वाले", "ਜੀਵਨੀਆਂ ਲੈਣ ਵਾਲੇ"),
+    tr(
+      "science-book borrowers",
+      "विज्ञान की पुस्तकें लेने वाले",
+      "ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ",
+    ),
+  ],
+  ONLINE_PURCHASES: [
+    tr(
+      "online grocery shoppers",
+      "ऑनलाइन किराने का सामान खरीदने वाले",
+      "ਆਨਲਾਈਨ ਰਾਸ਼ਨ ਖਰੀਦਣ ਵਾਲੇ",
+    ),
+    tr(
+      "online clothing shoppers",
+      "ऑनलाइन कपड़े खरीदने वाले",
+      "ਆਨਲਾਈਨ ਕੱਪੜੇ ਖਰੀਦਣ ਵਾਲੇ",
+    ),
+    tr(
+      "online electronics shoppers",
+      "ऑनलाइन इलेक्ट्रॉनिक सामान खरीदने वाले",
+      "ਆਨਲਾਈਨ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਖਰੀਦਣ ਵਾਲੇ",
+    ),
+  ],
+  DIGITAL_DEVICES: [
+    tr("smartphone users", "स्मार्टफ़ोन उपयोगकर्ता", "ਸਮਾਰਟਫ਼ੋਨ ਵਰਤੋਂਕਾਰ"),
+    tr("laptop users", "लैपटॉप उपयोगकर्ता", "ਲੈਪਟਾਪ ਵਰਤੋਂਕਾਰ"),
+    tr("tablet users", "टैबलेट उपयोगकर्ता", "ਟੈਬਲੈੱਟ ਵਰਤੋਂਕਾਰ"),
+  ],
+  PAYMENT_METHODS: [
+    tr("UPI payers", "UPI से भुगतान करने वाले", "UPI ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ"),
+    tr(
+      "debit-card payers",
+      "डेबिट कार्ड से भुगतान करने वाले",
+      "ਡੈਬਿਟ ਕਾਰਡ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ",
+    ),
+    tr("cash payers", "नकद भुगतान करने वाले", "ਨਕਦ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ"),
+  ],
+  COMMUNITY_VOLUNTEERING: [
+    tr(
+      "literacy-program volunteers",
+      "साक्षरता कार्यक्रमों के स्वयंसेवक",
+      "ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ ਦੇ ਵਲੰਟੀਅਰ",
+    ),
+    tr(
+      "health-camp volunteers",
+      "स्वास्थ्य शिविरों के स्वयंसेवक",
+      "ਸਿਹਤ ਕੈਂਪਾਂ ਦੇ ਵਲੰਟੀਅਰ",
+    ),
+    tr(
+      "cleanliness-drive volunteers",
+      "स्वच्छता अभियानों के स्वयंसेवक",
+      "ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਦੇ ਵਲੰਟੀਅਰ",
+    ),
+  ],
+  WORKPLACE_SOFTWARE: [
+    tr(
+      "spreadsheet-software users",
+      "स्प्रेडशीट सॉफ़्टवेयर उपयोगकर्ता",
+      "ਸਪ੍ਰੈੱਡਸ਼ੀਟ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤੋਂਕਾਰ",
+    ),
+    tr(
+      "video-conferencing software users",
+      "वीडियो-कॉन्फ़्रेंसिंग सॉफ़्टवेयर उपयोगकर्ता",
+      "ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤੋਂਕਾਰ",
+    ),
+    tr(
+      "presentation-software users",
+      "प्रेज़ेंटेशन सॉफ़्टवेयर उपयोगकर्ता",
+      "ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤੋਂਕਾਰ",
+    ),
+  ],
+  CULTURAL_EVENTS: [
+    tr(
+      "folk-music audiences",
+      "लोक-संगीत कार्यक्रमों के दर्शक",
+      "ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ ਦੇ ਦਰਸ਼ਕ",
+    ),
+    tr("theatre audiences", "नाटक देखने वाले", "ਨਾਟਕ ਦੇਖਣ ਵਾਲੇ"),
+    tr(
+      "craft-exhibition visitors",
+      "शिल्प प्रदर्शनियों में जाने वाले",
+      "ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ",
+    ),
+  ],
+  STREAMING_VIEWERS: [
+    tr(
+      "film streamers",
+      "फ़िल्में ऑनलाइन देखने वाले",
+      "ਆਨਲਾਈਨ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ",
+    ),
+    tr("sports streamers", "खेल ऑनलाइन देखने वाले", "ਆਨਲਾਈਨ ਖੇਡਾਂ ਦੇਖਣ ਵਾਲੇ"),
+    tr(
+      "documentary streamers",
+      "वृत्तचित्र ऑनलाइन देखने वाले",
+      "ਆਨਲਾਈਨ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ",
+    ),
+  ],
+  SKILL_COURSES: [
+    tr(
+      "computer-basics course completers",
+      "कंप्यूटर की बुनियादी जानकारी का पाठ्यक्रम पूरा करने वाले",
+      "ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ",
+    ),
+    tr(
+      "spoken-English course completers",
+      "बोलचाल की अंग्रेज़ी का पाठ्यक्रम पूरा करने वाले",
+      "ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ",
+    ),
+    tr(
+      "first-aid course completers",
+      "प्राथमिक उपचार का पाठ्यक्रम पूरा करने वाले",
+      "ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ",
+    ),
+  ],
+  MUNICIPAL_SERVICES: [
+    tr(
+      "city-bus users",
+      "शहर की बस सेवा के उपयोगकर्ता",
+      "ਸ਼ਹਿਰ ਦੀ ਬੱਸ ਸੇਵਾ ਦੇ ਵਰਤੋਂਕਾਰ",
+    ),
+    tr(
+      "public-park visitors",
+      "सार्वजनिक पार्कों में जाने वाले",
+      "ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ",
+    ),
+    tr(
+      "recycling-program participants",
+      "पुनर्चक्रण कार्यक्रमों में भाग लेने वाले",
+      "ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ",
+    ),
+  ],
+};
 const QUESTIONS: readonly {
   key: string;
   masks: number[];
@@ -861,53 +1135,48 @@ function svg(
     .join("");
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" role="img" aria-label="Counts in three overlapping geometric shapes"><rect x="4" y="4" width="632" height="492" rx="10" fill="#fff" stroke="#b8c3cf"/>${marks}<g font-family="sans-serif" font-size="13" fill="#152536"><text x="8" y="23">${labels[0]}</text><text x="8" y="42">${labels[1]}</text><text x="8" y="61">${labels[2]}</text></g><g font-family="sans-serif" font-size="16" font-weight="600" text-anchor="middle" dominant-baseline="middle" fill="#152536">${r.map((v, m) => `<text x="${points[m]![0]}" y="${points[m]![1]}" data-mask="${m}">${v}</text>`).join("")}</g><metadata data-layout="${layout.id}" data-label-clearance="20"/></svg>`;
 }
-function stem(
-  c: Context,
-  q: (typeof QUESTIONS)[number],
-  l: L,
-  layout: ShapeLayout,
-): string {
+function stem(c: Context, q: (typeof QUESTIONS)[number], l: L): string {
   const title = STEM_OPENERS[c.id]![l];
-  const names = layout.shapes.map((shape) => SHAPE_LABELS[shape][l]);
+  const groups = ACTIVITY_GROUPS[c.id]!.map((group) => group[l]);
   const participating = [0, 1, 2].filter((index) =>
     q.masks.some((mask) => mask & (1 << index)),
   );
   const ask =
     q.pattern === "single"
       ? l === "en"
-        ? `How many people are in the region belonging only to the ${names[participating[0]!]}?`
+        ? `How many are ${groups[participating[0]!]} only?`
         : l === "hi"
-          ? `केवल ${names[participating[0]!]} वाले क्षेत्र में कितने लोग हैं?`
-          : `ਸਿਰਫ਼ ${names[participating[0]!]} ਵਾਲੇ ਖੇਤਰ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?`
+          ? `केवल ${groups[participating[0]!]} कितने हैं?`
+          : `ਸਿਰਫ਼ ${groups[participating[0]!]} ਕਿੰਨੇ ਹਨ?`
       : q.pattern === "pair"
         ? l === "en"
-          ? `How many people are in the region common to the ${names[participating[0]!]} and ${names[participating[1]!]}, but not the ${names[[0, 1, 2].find((i) => !participating.includes(i))!]}?`
+          ? `How many are both ${groups[participating[0]!]} and ${groups[participating[1]!]}, but not ${groups[[0, 1, 2].find((i) => !participating.includes(i))!]}?`
           : l === "hi"
-            ? `${names[participating[0]!]} और ${names[participating[1]!]} के साझा क्षेत्र में, लेकिन ${names[[0, 1, 2].find((i) => !participating.includes(i))!]} में नहीं, कितने लोग हैं?`
-            : `${names[participating[0]!]} ਅਤੇ ${names[participating[1]!]} ਦੇ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ, ਪਰ ${names[[0, 1, 2].find((i) => !participating.includes(i))!]} ਵਿੱਚ ਨਹੀਂ, ਕਿੰਨੇ ਲੋਕ ਹਨ?`
+            ? `कितने लोग ${groups[participating[0]!]} और ${groups[participating[1]!]} दोनों समूहों में हैं, लेकिन ${groups[[0, 1, 2].find((i) => !participating.includes(i))!]} समूह में नहीं?`
+            : `ਕਿੰਨੇ ਲੋਕ ${groups[participating[0]!]} ਅਤੇ ${groups[participating[1]!]} ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ, ਪਰ ${groups[[0, 1, 2].find((i) => !participating.includes(i))!]} ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ?`
         : q.pattern === "triple"
           ? l === "en"
-            ? "How many people are in the region common to all three shapes?"
+            ? `How many belong to all three groups: ${groups.join(", ")}?`
             : l === "hi"
-              ? "तीनों आकृतियों के साझा क्षेत्र में कितने लोग हैं?"
-              : "ਤਿੰਨਾਂ ਆਕਾਰਾਂ ਦੇ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?"
+              ? `इन तीनों समूहों—${groups.join(", ")}—में कितने लोग हैं?`
+              : `ਇਨ੍ਹਾਂ ਤਿੰਨਾਂ ਸਮੂਹਾਂ—${groups.join(", ")}—ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?`
           : q.key === "at-least-two"
             ? l === "en"
-              ? "How many people belong to at least two of these groups?"
+              ? `How many belong to at least two of these groups: ${groups.join(", ")}?`
               : l === "hi"
-                ? "कम-से-कम दो समूहों में कितने लोग हैं?"
-                : "ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?"
+                ? `इन समूहों में से कम-से-कम दो में कितने लोग हैं: ${groups.join(", ")}?`
+                : `ਇਨ੍ਹਾਂ ਸਮੂਹਾਂ ਵਿੱਚੋਂ ਘੱਟੋ-ਘੱਟ ਦੋ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ: ${groups.join(", ")}?`
             : q.key === "exactly-one"
               ? l === "en"
-                ? "How many people belong to exactly one of these groups?"
+                ? `How many belong to exactly one of these groups: ${groups.join(", ")}?`
                 : l === "hi"
-                  ? "ठीक एक समूह में कितने लोग हैं?"
-                  : "ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?"
+                  ? `इनमें से ठीक एक समूह में कितने लोग हैं: ${groups.join(", ")}?`
+                  : `ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ: ${groups.join(", ")}?`
               : l === "en"
-                ? "How many people belong to at least one of these groups?"
+                ? `How many belong to at least one of these groups: ${groups.join(", ")}?`
                 : l === "hi"
-                  ? "कम-से-कम एक समूह में कितने लोग हैं?"
-                  : "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ?";
+                  ? `इनमें से कम-से-कम एक समूह में कितने लोग हैं: ${groups.join(", ")}?`
+                  : `ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕਿੰਨੇ ਲੋਕ ਹਨ: ${groups.join(", ")}?`;
   return `${title} ${ask}`;
 }
 export function isVen001ShapeRegionRequest(
@@ -975,7 +1244,7 @@ export function generateVen001ShapeRegionBatch(
     else
       explanation = `${namedValues.join("; ")}। ਇਹ ${q.label[l]} ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। ${calculation} = ${answer}।`;
     const id = `VEN-CP011:${c.id}:${q.key}:${hash(`${seed}:${i}`)}:${l}`;
-    const questionStem = stem(c, q, l, layout);
+    const questionStem = stem(c, q, l);
     return {
       ...lifecycle,
       id,
@@ -1029,6 +1298,7 @@ export function generateVen001ShapeRegionBatch(
         queryKey: q.key,
         queryPattern: q.pattern,
         shapeSetLabels: c.sets.map((s) => s[l]),
+        activityGroupLabels: ACTIVITY_GROUPS[c.id]!.map((group) => group[l]),
         exclusiveRegions: regions,
         selectedMasks: q.masks,
       },
