@@ -111,7 +111,7 @@ details{margin-top:10px}.raw pre{white-space:pre-wrap;font-size:11px}.meta{font-
 </head>
 <body>
 <h1>Examtree DI Chapter Delivery Mix — Full Batch Review V11</h1>
-<p class="intro">Reviewer-only view. Tier/source labels and answer panels are not learner-facing. Each profile contains a deterministic 20-question chapter mix.</p>
+<p class="intro">Reviewer-only view. Tier/source labels and answer panels are not learner-facing. Each profile contains a deterministic 20-question chapter mix.</p><p class="intro"><b>Source revision:</b> ${esc(process.env.GITHUB_SHA??"local")}</p>
 ${sections.join("")}
 </body>
 </html>`;
