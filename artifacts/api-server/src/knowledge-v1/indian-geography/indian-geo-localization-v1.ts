@@ -1389,6 +1389,95 @@ function localizeGeoCliBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
   return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
 
+
+function polishGeoLocBulkTextV1(text:string, language:"hi"|"pa") {
+  const hi:[string,string][] = [
+    ["location and extent","स्थिति और विस्तार"],["location","स्थिति"],["extent","विस्तार"],["hemisphere","गोलार्ध"],["hemispheres","गोलार्ध"],
+    ["Northern Hemisphere","उत्तरी गोलार्ध"],["Eastern Hemisphere","पूर्वी गोलार्ध"],["Southern Hemisphere","दक्षिणी गोलार्ध"],["Western Hemisphere","पश्चिमी गोलार्ध"],
+    ["latitude","अक्षांश"],["latitudes","अक्षांश"],["longitude","देशांतर"],["longitudes","देशांतर"],
+    ["Tropic of Cancer","कर्क रेखा"],["Standard Meridian","मानक मध्याह्न रेखा"],["Indian Standard Time","भारतीय मानक समय"],["IST","आईएसटी"],
+    ["82°30′ E","82°30′ पूर्व"],["82°30' E","82°30′ पूर्व"],["23°30′ N","23°30′ उत्तर"],["23°30' N","23°30′ उत्तर"],
+    ["north-south extent","उत्तर-दक्षिण विस्तार"],["east-west extent","पूर्व-पश्चिम विस्तार"],["north to south","उत्तर से दक्षिण"],["east to west","पूर्व से पश्चिम"],
+    ["southernmost point","दक्षिणतम बिंदु"],["northernmost point","उत्तरतम बिंदु"],["easternmost point","पूर्वतम बिंदु"],["westernmost point","पश्चिमतम बिंदु"],
+    ["Indira Point","इंदिरा पॉइंट"],["Kanyakumari","कन्याकुमारी"],["Guhar Moti","गुहार मोती"],["Kibithu","किबिथू"],
+    ["land boundary","स्थलीय सीमा"],["land boundaries","स्थलीय सीमाएँ"],["coastline","समुद्र तटरेखा"],["coastal boundary","तटीय सीमा"],
+    ["land neighbour","स्थलीय पड़ोसी"],["land neighbours","स्थलीय पड़ोसी"],["maritime neighbour","समुद्री पड़ोसी"],["maritime neighbours","समुद्री पड़ोसी"],
+    ["neighbouring country","पड़ोसी देश"],["neighbouring countries","पड़ोसी देश"],
+    ["Pakistan","पाकिस्तान"],["Afghanistan","अफगानिस्तान"],["China","चीन"],["Nepal","नेपाल"],["Bhutan","भूटान"],["Bangladesh","बांग्लादेश"],["Myanmar","म्यांमार"],
+    ["Sri Lanka","श्रीलंका"],["Maldives","मालदीव"],["Palk Strait","पाक जलडमरूमध्य"],["Gulf of Mannar","मन्नार की खाड़ी"],
+    ["Arabian Sea","अरब सागर"],["Bay of Bengal","बंगाल की खाड़ी"],["Indian Ocean","हिंद महासागर"],
+    ["Andaman and Nicobar Islands","अंडमान और निकोबार द्वीपसमूह"],["Andaman and Nicobar","अंडमान और निकोबार"],["Lakshadweep","लक्षद्वीप"],
+    ["island group","द्वीपसमूह"],["islands","द्वीप"],["island","द्वीप"],["channel","जलडमरूमध्य"],["strait","जलडमरूमध्य"],
+    ["states and union territories","राज्य और केंद्र शासित प्रदेश"],["Union Territory","केंद्र शासित प्रदेश"],["Union Territories","केंद्र शासित प्रदेश"],
+    ["state","राज्य"],["states","राज्य"],["capital","राजधानी"],["capitals","राजधानियाँ"],
+    ["Jammu and Kashmir","जम्मू और कश्मीर"],["Ladakh","लद्दाख"],["Delhi","दिल्ली"],["Chandigarh","चंडीगढ़"],["Puducherry","पुदुचेरी"],
+    ["Dadra and Nagar Haveli and Daman and Diu","दादरा और नगर हवेली और दमन और दीव"],
+    ["Gujarat","गुजरात"],["Rajasthan","राजस्थान"],["Madhya Pradesh","मध्य प्रदेश"],["Chhattisgarh","छत्तीसगढ़"],["Jharkhand","झारखंड"],
+    ["West Bengal","पश्चिम बंगाल"],["Tripura","त्रिपुरा"],["Mizoram","मिजोरम"],["Manipur","मणिपुर"],["Nagaland","नागालैंड"],["Assam","असम"],["Arunachal Pradesh","अरुणाचल प्रदेश"],
+    ["Punjab","पंजाब"],["Haryana","हरियाणा"],["Uttar Pradesh","उत्तर प्रदेश"],["Bihar","बिहार"],["Sikkim","सिक्किम"],
+    ["Maharashtra","महाराष्ट्र"],["Goa","गोवा"],["Karnataka","कर्नाटक"],["Kerala","केरल"],["Tamil Nadu","तमिलनाडु"],["Andhra Pradesh","आंध्र प्रदेश"],["Odisha","ओडिशा"],
+    ["international boundary","अंतरराष्ट्रीय सीमा"],["border state","सीमावर्ती राज्य"],["border states","सीमावर्ती राज्य"],
+    ["mainland","मुख्यभूमि"],["peninsular India","प्रायद्वीपीय भारत"],["Indian mainland","भारतीय मुख्यभूमि"],["geographical centre","भौगोलिक केंद्र"],
+    ["time difference","समय अंतर"],["local time","स्थानीय समय"],["standard time","मानक समय"],["sunrise","सूर्योदय"],
+    ["Which","कौन-सा"],["which","कौन-सा"],["What","क्या"],["what","क्या"],["Why","क्यों"],["why","क्यों"],["Where","कहाँ"],["where","कहाँ"],["When","कब"],["when","कब"],["How","कैसे"],["how","कैसे"],
+    ["the",""],["and","और"],["or","या"],["is","है"],["are","हैं"],["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],
+    ["can","सकता है"],["could","सकता था"],["would","होगा"],["should","चाहिए"],["has","है"],["have","हैं"],["had","था"],
+    ["with","के साथ"],["from","से"],["into","में"],["for","के लिए"],["of","का"],["to","को"],["in","में"],["on","पर"],["at","पर"],["by","द्वारा"],["as","के रूप में"],
+    ["than","की तुलना में"],["that","कि"],["this","यह"],["these","ये"],["those","वे"],["most","सबसे"],["main","मुख्य"],["major","प्रमुख"],["only","केवल"],["correct","सही"],["statement","कथन"],["following","निम्नलिखित"]
+  ];
+  const pa:[string,string][] = [
+    ["location and extent","ਸਥਿਤੀ ਅਤੇ ਵਿਸਥਾਰ"],["location","ਸਥਿਤੀ"],["extent","ਵਿਸਥਾਰ"],["hemisphere","ਗੋਲਾਰਧ"],["hemispheres","ਗੋਲਾਰਧ"],
+    ["Northern Hemisphere","ਉੱਤਰੀ ਗੋਲਾਰਧ"],["Eastern Hemisphere","ਪੂਰਬੀ ਗੋਲਾਰਧ"],["Southern Hemisphere","ਦੱਖਣੀ ਗੋਲਾਰਧ"],["Western Hemisphere","ਪੱਛਮੀ ਗੋਲਾਰਧ"],
+    ["latitude","ਅਕਸ਼ਾਂਸ਼"],["latitudes","ਅਕਸ਼ਾਂਸ਼"],["longitude","ਦੇਸ਼ਾਂਤਰ"],["longitudes","ਦੇਸ਼ਾਂਤਰ"],
+    ["Tropic of Cancer","ਕਰਕ ਰੇਖਾ"],["Standard Meridian","ਮਿਆਰੀ ਮੱਧਿਆਹਨ ਰੇਖਾ"],["Indian Standard Time","ਭਾਰਤੀ ਮਿਆਰੀ ਸਮਾਂ"],["IST","ਆਈਐਸਟੀ"],
+    ["82°30′ E","82°30′ ਪੂਰਬ"],["82°30' E","82°30′ ਪੂਰਬ"],["23°30′ N","23°30′ ਉੱਤਰ"],["23°30' N","23°30′ ਉੱਤਰ"],
+    ["north-south extent","ਉੱਤਰ-ਦੱਖਣ ਵਿਸਥਾਰ"],["east-west extent","ਪੂਰਬ-ਪੱਛਮ ਵਿਸਥਾਰ"],["north to south","ਉੱਤਰ ਤੋਂ ਦੱਖਣ"],["east to west","ਪੂਰਬ ਤੋਂ ਪੱਛਮ"],
+    ["southernmost point","ਸਭ ਤੋਂ ਦੱਖਣੀ ਬਿੰਦੂ"],["northernmost point","ਸਭ ਤੋਂ ਉੱਤਰੀ ਬਿੰਦੂ"],["easternmost point","ਸਭ ਤੋਂ ਪੂਰਬੀ ਬਿੰਦੂ"],["westernmost point","ਸਭ ਤੋਂ ਪੱਛਮੀ ਬਿੰਦੂ"],
+    ["Indira Point","ਇੰਦਿਰਾ ਪੁਆਇੰਟ"],["Kanyakumari","ਕੰਨਿਆਕੁਮਾਰੀ"],["Guhar Moti","ਗੁਹਾਰ ਮੋਤੀ"],["Kibithu","ਕਿਬਿਥੂ"],
+    ["land boundary","ਜ਼ਮੀਨੀ ਸਰਹੱਦ"],["land boundaries","ਜ਼ਮੀਨੀ ਸਰਹੱਦਾਂ"],["coastline","ਤਟਰੇਖਾ"],["coastal boundary","ਤਟੀ ਸਰਹੱਦ"],
+    ["land neighbour","ਜ਼ਮੀਨੀ ਪੜੋਸੀ"],["land neighbours","ਜ਼ਮੀਨੀ ਪੜੋਸੀ"],["maritime neighbour","ਸਮੁੰਦਰੀ ਪੜੋਸੀ"],["maritime neighbours","ਸਮੁੰਦਰੀ ਪੜੋਸੀ"],
+    ["neighbouring country","ਪੜੋਸੀ ਦੇਸ਼"],["neighbouring countries","ਪੜੋਸੀ ਦੇਸ਼"],
+    ["Pakistan","ਪਾਕਿਸਤਾਨ"],["Afghanistan","ਅਫ਼ਗਾਨਿਸਤਾਨ"],["China","ਚੀਨ"],["Nepal","ਨੇਪਾਲ"],["Bhutan","ਭੂਟਾਨ"],["Bangladesh","ਬੰਗਲਾਦੇਸ਼"],["Myanmar","ਮਿਆਂਮਾਰ"],
+    ["Sri Lanka","ਸ੍ਰੀਲੰਕਾ"],["Maldives","ਮਾਲਦੀਵ"],["Palk Strait","ਪਾਕ ਜਲਡਮਰੂ"],["Gulf of Mannar","ਮੰਨਾਰ ਦੀ ਖਾੜੀ"],
+    ["Arabian Sea","ਅਰਬ ਸਾਗਰ"],["Bay of Bengal","ਬੰਗਾਲ ਦੀ ਖਾੜੀ"],["Indian Ocean","ਹਿੰਦ ਮਹਾਂਸਾਗਰ"],
+    ["Andaman and Nicobar Islands","ਅੰਡਮਾਨ ਅਤੇ ਨਿਕੋਬਾਰ ਟਾਪੂ-ਸਮੂਹ"],["Andaman and Nicobar","ਅੰਡਮਾਨ ਅਤੇ ਨਿਕੋਬਾਰ"],["Lakshadweep","ਲਕਸ਼ਦੀਪ"],
+    ["island group","ਟਾਪੂ-ਸਮੂਹ"],["islands","ਟਾਪੂ"],["island","ਟਾਪੂ"],["channel","ਜਲਡਮਰੂ"],["strait","ਜਲਡਮਰੂ"],
+    ["states and union territories","ਰਾਜ ਅਤੇ ਕੇਂਦਰ ਸ਼ਾਸਿਤ ਪ੍ਰਦੇਸ਼"],["Union Territory","ਕੇਂਦਰ ਸ਼ਾਸਿਤ ਪ੍ਰਦੇਸ਼"],["Union Territories","ਕੇਂਦਰ ਸ਼ਾਸਿਤ ਪ੍ਰਦੇਸ਼"],
+    ["state","ਰਾਜ"],["states","ਰਾਜ"],["capital","ਰਾਜਧਾਨੀ"],["capitals","ਰਾਜਧਾਨੀਆਂ"],
+    ["Jammu and Kashmir","ਜੰਮੂ ਅਤੇ ਕਸ਼ਮੀਰ"],["Ladakh","ਲੱਦਾਖ"],["Delhi","ਦਿੱਲੀ"],["Chandigarh","ਚੰਡੀਗੜ੍ਹ"],["Puducherry","ਪੁਡੂਚੇਰੀ"],
+    ["Dadra and Nagar Haveli and Daman and Diu","ਦਾਦਰਾ ਅਤੇ ਨਗਰ ਹਵੇਲੀ ਅਤੇ ਦਮਨ ਅਤੇ ਦੀਵ"],
+    ["Gujarat","ਗੁਜਰਾਤ"],["Rajasthan","ਰਾਜਸਥਾਨ"],["Madhya Pradesh","ਮੱਧ ਪ੍ਰਦੇਸ਼"],["Chhattisgarh","ਛੱਤੀਸਗੜ੍ਹ"],["Jharkhand","ਝਾਰਖੰਡ"],
+    ["West Bengal","ਪੱਛਮੀ ਬੰਗਾਲ"],["Tripura","ਤ੍ਰਿਪੁਰਾ"],["Mizoram","ਮਿਜ਼ੋਰਮ"],["Manipur","ਮਣੀਪੁਰ"],["Nagaland","ਨਾਗਾਲੈਂਡ"],["Assam","ਅਸਾਮ"],["Arunachal Pradesh","ਅਰੁਣਾਚਲ ਪ੍ਰਦੇਸ਼"],
+    ["Punjab","ਪੰਜਾਬ"],["Haryana","ਹਰਿਆਣਾ"],["Uttar Pradesh","ਉੱਤਰ ਪ੍ਰਦੇਸ਼"],["Bihar","ਬਿਹਾਰ"],["Sikkim","ਸਿੱਕਿਮ"],
+    ["Maharashtra","ਮਹਾਰਾਸ਼ਟਰ"],["Goa","ਗੋਆ"],["Karnataka","ਕਰਨਾਟਕ"],["Kerala","ਕੇਰਲ"],["Tamil Nadu","ਤਮਿਲਨਾਡੂ"],["Andhra Pradesh","ਆੰਧਰਾ ਪ੍ਰਦੇਸ਼"],["Odisha","ਓਡੀਸ਼ਾ"],
+    ["international boundary","ਅੰਤਰਰਾਸ਼ਟਰੀ ਸਰਹੱਦ"],["border state","ਸਰਹੱਦੀ ਰਾਜ"],["border states","ਸਰਹੱਦੀ ਰਾਜ"],
+    ["mainland","ਮੁੱਖ ਭੂਮੀ"],["peninsular India","ਪ੍ਰਾਇਦੀਪੀ ਭਾਰਤ"],["Indian mainland","ਭਾਰਤੀ ਮੁੱਖ ਭੂਮੀ"],["geographical centre","ਭੂਗੋਲਿਕ ਕੇਂਦਰ"],
+    ["time difference","ਸਮਾਂ ਅੰਤਰ"],["local time","ਸਥਾਨਕ ਸਮਾਂ"],["standard time","ਮਿਆਰੀ ਸਮਾਂ"],["sunrise","ਸੂਰਜ ਚੜ੍ਹਨਾ"],
+    ["Which","ਕਿਹੜਾ"],["which","ਕਿਹੜਾ"],["What","ਕੀ"],["what","ਕੀ"],["Why","ਕਿਉਂ"],["why","ਕਿਉਂ"],["Where","ਕਿੱਥੇ"],["where","ਕਿੱਥੇ"],["When","ਕਦੋਂ"],["when","ਕਦੋਂ"],["How","ਕਿਵੇਂ"],["how","ਕਿਵੇਂ"],
+    ["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],["is","ਹੈ"],["are","ਹਨ"],["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],
+    ["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],["would","ਹੋਵੇਗਾ"],["should","ਚਾਹੀਦਾ ਹੈ"],["has","ਹੈ"],["have","ਹਨ"],["had","ਸੀ"],
+    ["with","ਨਾਲ"],["from","ਤੋਂ"],["into","ਵਿੱਚ"],["for","ਲਈ"],["of","ਦਾ"],["to","ਨੂੰ"],["in","ਵਿੱਚ"],["on","ਉੱਤੇ"],["at","ਉੱਤੇ"],["by","ਦੁਆਰਾ"],["as","ਵਜੋਂ"],
+    ["than","ਨਾਲੋਂ"],["that","ਕਿ"],["this","ਇਹ"],["these","ਇਹ"],["those","ਉਹ"],["most","ਸਭ ਤੋਂ"],["main","ਮੁੱਖ"],["major","ਮੁੱਖ"],["only","ਕੇਵਲ"],["correct","ਸਹੀ"],["statement","ਕਥਨ"],["following","ਹੇਠ ਲਿਖੇ"]
+  ];
+  let out=text;
+  const pairs=language==="hi"?hi:pa;
+  for(const [from,to] of pairs.sort((a,b)=>b[0].length-a[0].length)){
+    out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
+  }
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+
+function localizeGeoLocBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
+  if(!/^GEO-LOC-001-CP0(?:0[1-9]|1[0-2])-Q/.test(question.questionId)) return null;
+  const local=(source:string)=>polishGeoLocBulkTextV1(localizeText(source,language),language);
+  const stemBase=localizeNaturalStem(question.stem,language,"GEO-LOC-001") ?? localizeText(question.stem,language);
+  const stem=polishGeoLocBulkTextV1(stemBase,language);
+  const options=Object.freeze(question.options.map(local));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=local(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
   language: IndianGeoLocalizationLanguageV1,
@@ -1405,6 +1494,11 @@ export function localizeIndianGeoQuestionV1(
 
   if (packageId === "GEO-TRN-001") {
     const bulk = localizeGeoTrnBulkV1(question, language);
+    if (bulk) return bulk;
+  }
+
+  if (packageId === "GEO-LOC-001") {
+    const bulk = localizeGeoLocBulkV1(question, language);
     if (bulk) return bulk;
   }
 
