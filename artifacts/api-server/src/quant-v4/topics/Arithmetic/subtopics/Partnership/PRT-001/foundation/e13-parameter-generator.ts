@@ -166,7 +166,10 @@ export function generatePrt001E13Parameters(input: { questionLanguageId: string;
       break;
     }
     case "PRT-QL-112": {
-      const s = random.pick([
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.questionLanguageId}`,
+      );
+      const s = numericStateRandom.pick([
         { oa: 5, ob: 3, fn: 1, fd: 4, sa: 2, sb: 1 },
         { oa: 7, ob: 5, fn: 1, fd: 6, sa: 3, sb: 2 },
         { oa: 3, ob: 2, fn: 1, fd: 5, sa: 1, sb: 1 },
