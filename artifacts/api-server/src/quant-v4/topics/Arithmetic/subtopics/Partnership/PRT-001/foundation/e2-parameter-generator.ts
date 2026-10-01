@@ -301,7 +301,10 @@ export function generatePrt001E2Parameters(input: {
       break;
     }
     case "findUnknownDurationInThreePartnerSystem": {
-      const s = random.pick([
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const s = numericStateRandom.pick([
         { a: 20_000, da: 12, b: 30_000, db: 8, c: 40_000, dc: 6 },
         { a: 24_000, da: 10, b: 40_000, db: 6, c: 30_000, dc: 8 },
         { a: 36_000, da: 8, b: 24_000, db: 12, c: 48_000, dc: 6 },
