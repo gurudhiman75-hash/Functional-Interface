@@ -84,12 +84,22 @@ export function generatePrt001E3AParameters(input: { questionLanguageId: string;
       break;
     }
     case "findUnknownCommissionPercentFromFinalReceipt": {
-      const s = random.pick([
-        { a: 30_000, b: 45_000, pct: 10, gross: 150_000 },
-        { a: 40_000, b: 60_000, pct: 20, gross: 200_000 },
-        { a: 50_000, b: 50_000, pct: 10, gross: 180_000 },
-        { a: 30_000, b: 60_000, pct: 25, gross: 240_000 },
-      ]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const capitalRatio = numericStateRandom.pick([
+        [2, 3], [3, 2], [3, 4], [4, 3], [4, 5],
+        [5, 4], [5, 7], [7, 5],
+      ] as const);
+      const capitalUnit = numericStateRandom.pick([10_000, 12_000, 15_000, 18_000, 20_000]);
+      const pct = numericStateRandom.pick([5, 10, 12, 15, 20, 25, 30]);
+      const grossUnit = numericStateRandom.pick([8_000, 10_000, 12_000, 15_000]);
+      const s = {
+        a: capitalRatio[0] * capitalUnit,
+        b: capitalRatio[1] * capitalUnit,
+        pct,
+        gross: (capitalRatio[0] + capitalRatio[1]) * grossUnit,
+      };
       state = makeState([partner(partnerA, [segment(0, 12, money(s.a))], "ACTIVE"), partner(partnerB, [segment(0, 12, money(s.b))])], money(s.gross), [{ kind: "COMMISSION", basis: "PERCENT_OF_GROSS_PROFIT", value: rational(s.pct), recipientPartnerId: partnerA, sequence: 1 }]);
       break;
     }
@@ -104,12 +114,22 @@ export function generatePrt001E3AParameters(input: { questionLanguageId: string;
       break;
     }
     case "findProfitRatioFromFinalReceiptsWhenOnePartnerGetsSalary": {
-      const s = random.pick([
-        { a: 30_000, b: 45_000, salary: 15_000, gross: 150_000 },
-        { a: 40_000, b: 60_000, salary: 20_000, gross: 220_000 },
-        { a: 30_000, b: 60_000, salary: 18_000, gross: 198_000 },
-        { a: 50_000, b: 30_000, salary: 24_000, gross: 184_000 },
-      ]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const capitalRatio = numericStateRandom.pick([
+        [2, 3], [3, 2], [3, 4], [4, 3], [4, 5],
+        [5, 4], [5, 7], [7, 5], [3, 5], [5, 3],
+      ] as const);
+      const capitalUnit = numericStateRandom.pick([10_000, 12_000, 15_000, 18_000, 20_000]);
+      const salary = numericStateRandom.pick([10_000, 12_000, 15_000, 18_000, 20_000, 24_000, 30_000]);
+      const perPart = numericStateRandom.pick([18_000, 20_000, 24_000, 25_000, 30_000]);
+      const s = {
+        a: capitalRatio[0] * capitalUnit,
+        b: capitalRatio[1] * capitalUnit,
+        salary,
+        gross: salary + (capitalRatio[0] + capitalRatio[1]) * perPart,
+      };
       state = makeState([partner(partnerA, [segment(0, 12, money(s.a))], "ACTIVE"), partner(partnerB, [segment(0, 12, money(s.b))])], money(s.gross), [{ kind: "SALARY", basis: "FIXED_AMOUNT", value: rational(money(s.salary)), recipientPartnerId: partnerA, sequence: 1 }]);
       break;
     }
