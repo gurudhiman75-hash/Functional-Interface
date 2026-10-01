@@ -1,0 +1,36 @@
+name: Validate DSF-001 Current-Main Deep Audit
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-001-current-main-deep-audit-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Prove CP017 source adapter
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/question-studio-review-v1.test.ts
+      - name: Prove CP017 shared normal workflow
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/normal-workflow-integration.test.ts
+      - name: Run DSF-001 deep audit Wave 1
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/dsf-001-deep-audit-wave1.test.ts
