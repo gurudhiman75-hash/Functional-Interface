@@ -114,6 +114,47 @@ const REGIONAL_FACTS: readonly RegionalFact[] = [
   { key: "polar-antarctic-desert", cpId: "WGE-001-CP031", category: "concept", feature: { en: "Antarctic polar desert", hi: "अंटार्कटिक ध्रुवीय मरुस्थल", pa: "ਅੰਟਾਰਕਟਿਕ ਧਰੁਵੀ ਰੇਗਿਸਤਾਨ" }, stem: { en: "Which polar region is classed as a desert because precipitation is extremely low despite extensive ice cover?", hi: "विस्तृत बर्फ़ आवरण के बावजूद अत्यंत कम वर्षण के कारण कौन-सा ध्रुवीय क्षेत्र मरुस्थल माना जाता है?", pa: "ਵਿਸ਼ਾਲ ਬਰਫ਼ੀਲੇ ਆਵਰਨ ਦੇ ਬਾਵਜੂਦ ਬਹੁਤ ਘੱਟ ਵਰਖਾ ਕਾਰਨ ਕਿਹੜਾ ਧਰੁਵੀ ਖੇਤਰ ਰੇਗਿਸਤਾਨ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ?" }, match: { en: "polar desert with extremely low precipitation", hi: "अत्यंत कम वर्षण वाला ध्रुवीय मरुस्थल", pa: "ਬਹੁਤ ਘੱਟ ਵਰਖਾ ਵਾਲਾ ਧਰੁਵੀ ਰੇਗਿਸਤਾਨ" }, difficulty: "Medium", sourceIds: ["WGE-PHY-021C","WGE-ATM-013"] },
 ];
 
+type RegionalOptionFact = {
+  key: string;
+  feature: LocalizedValue;
+  match: LocalizedValue;
+  sourceIds: readonly string[];
+};
+
+const REGIONAL_EXTRA_DISTRACTORS: Readonly<Record<string, RegionalOptionFact>> = {
+  'WGE-001-CP024/country': { key: 'extra-thailand', feature: { en: 'Thailand', hi: 'थाईलैंड', pa: 'ਥਾਈਲੈਂਡ' }, match: { en: 'mainland Southeast Asian country centred on the Chao Phraya plain', hi: 'चाओ फ्राया मैदान पर केंद्रित मुख्यभूमि दक्षिण-पूर्व एशियाई देश', pa: 'ਚਾਓ ਫ੍ਰਾਇਆ ਮੈਦਾਨ ਉੱਤੇ ਕੇਂਦਰਿਤ ਮੁੱਖਭੂਮੀ ਦੱਖਣ-ਪੂਰਬੀ ਏਸ਼ੀਆਈ ਦੇਸ਼' }, sourceIds: ['WGE-REG-UN-MAPS'] },
+  'WGE-001-CP024/relief': { key: 'extra-taklamakan', feature: { en: 'Taklamakan Desert', hi: 'तकला मकान मरुस्थल', pa: 'ਤਕਲਾਮਕਾਨ ਰੇਗਿਸਤਾਨ' }, match: { en: 'desert occupying much of the Tarim Basin', hi: 'तारिम बेसिन के बड़े भाग में फैला मरुस्थल', pa: 'ਤਾਰਿਮ ਬੇਸਿਨ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਰੇਗਿਸਤਾਨ' }, sourceIds: ['WGE-PHY-018E', 'WGE-PHY-021C'] },
+  'WGE-001-CP024/river': { key: 'extra-yangtze', feature: { en: 'Yangtze', hi: 'यांग्त्सी', pa: 'ਯਾਂਗਤਸੀ' }, match: { en: 'major river crossing China from west to east', hi: 'चीन को पश्चिम से पूर्व पार करने वाली प्रमुख नदी', pa: 'ਚੀਨ ਨੂੰ ਪੱਛਮ ਤੋਂ ਪੂਰਬ ਪਾਰ ਕਰਨ ਵਾਲਾ ਮੁੱਖ ਦਰਿਆ' }, sourceIds: ['WGE-PHY-019A'] },
+
+  'WGE-001-CP025/country': { key: 'extra-saudi-arabia', feature: { en: 'Saudi Arabia', hi: 'सऊदी अरब', pa: 'ਸਾਊਦੀ ਅਰਬ' }, match: { en: 'country occupying most of the Arabian Peninsula', hi: 'अरब प्रायद्वीप के अधिकांश भाग में फैला देश', pa: 'ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਦੇ ਵੱਡੇ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲਿਆ ਦੇਸ਼' }, sourceIds: ['WGE-REG-UN-MAPS'] },
+  'WGE-001-CP025/relief': { key: 'extra-rub-al-khali', feature: { en: 'Rub al Khali', hi: 'रुब अल खली', pa: 'ਰੁਬ ਅਲ ਖਾਲੀ' }, match: { en: 'vast sand desert of the southern Arabian Peninsula', hi: 'दक्षिणी अरब प्रायद्वीप का विशाल रेतीला मरुस्थल', pa: 'ਦੱਖਣੀ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਦਾ ਵਿਸ਼ਾਲ ਰੇਤਲਾ ਰੇਗਿਸਤਾਨ' }, sourceIds: ['WGE-PHY-021C'] },
+  'WGE-001-CP025/water': { key: 'extra-persian-gulf', feature: { en: 'Persian Gulf', hi: 'फ़ारस की खाड़ी', pa: 'ਫ਼ਾਰਸ ਦੀ ਖਾੜੀ' }, match: { en: 'gulf between Iran and the Arabian Peninsula', hi: 'ईरान और अरब प्रायद्वीप के बीच की खाड़ी', pa: 'ਇਰਾਨ ਅਤੇ ਅਰਬ ਪ੍ਰਾਇਦੀਪ ਵਿਚਕਾਰ ਦੀ ਖਾੜੀ' }, sourceIds: ['WGE-REG-UN-MAPS'] },
+
+  'WGE-001-CP026/peninsula': { key: 'extra-balkan', feature: { en: 'Balkan Peninsula', hi: 'बाल्कन प्रायद्वीप', pa: 'ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ' }, match: { en: 'large peninsula of south-eastern Europe', hi: 'दक्षिण-पूर्वी यूरोप का बड़ा प्रायद्वीप', pa: 'ਦੱਖਣ-ਪੂਰਬੀ ਯੂਰਪ ਦਾ ਵੱਡਾ ਪ੍ਰਾਇਦੀਪ' }, sourceIds: ['WGE-REG-UN-MAPS'] },
+  'WGE-001-CP026/relief': { key: 'extra-scandinavian-mountains', feature: { en: 'Scandinavian Mountains', hi: 'स्कैंडिनेवियाई पर्वत', pa: 'ਸਕੈਂਡੀਨੇਵੀਆਈ ਪਰਬਤ' }, match: { en: 'mountain system along Norway and western Sweden', hi: 'नॉर्वे और पश्चिमी स्वीडन की पर्वत-प्रणाली', pa: 'ਨਾਰਵੇ ਅਤੇ ਪੱਛਮੀ ਸਵੀਡਨ ਦੀ ਪਰਬਤ-ਪ੍ਰਣਾਲੀ' }, sourceIds: ['WGE-PHY-018D'] },
+  'WGE-001-CP026/water': { key: 'extra-mediterranean', feature: { en: 'Mediterranean Sea', hi: 'भूमध्य सागर', pa: 'ਭੂ-ਮੱਧ ਸਾਗਰ' }, match: { en: 'sea south of Europe and north of Africa', hi: 'यूरोप के दक्षिण और अफ्रीका के उत्तर का सागर', pa: 'ਯੂਰਪ ਦੇ ਦੱਖਣ ਅਤੇ ਅਫ਼ਰੀਕਾ ਦੇ ਉੱਤਰ ਵਾਲਾ ਸਾਗਰ' }, sourceIds: ['WGE-REG-UN-MAPS'] },
+
+  'WGE-001-CP027/region': { key: 'extra-sahara', feature: { en: 'Sahara', hi: 'सहारा', pa: 'ਸਹਾਰਾ' }, match: { en: 'vast desert region across North Africa', hi: 'उत्तर अफ्रीका में फैला विशाल मरुस्थलीय क्षेत्र', pa: 'ਉੱਤਰੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਫੈਲਿਆ ਵਿਸ਼ਾਲ ਰੇਗਿਸਤਾਨੀ ਖੇਤਰ' }, sourceIds: ['WGE-PHY-021C'] },
+  'WGE-001-CP027/relief': { key: 'extra-kilimanjaro', feature: { en: 'Mount Kilimanjaro', hi: 'माउंट किलिमंजारो', pa: 'ਮਾਊਂਟ ਕਿਲਿਮੰਜਾਰੋ' }, match: { en: 'isolated volcanic massif in north-eastern Tanzania', hi: 'उत्तर-पूर्वी तंज़ानिया का अलग ज्वालामुखीय पर्वत-समूह', pa: 'ਉੱਤਰ-ਪੂਰਬੀ ਤਨਜ਼ਾਨੀਆ ਦਾ ਅਲੱਗ ਜਵਾਲਾਮੁਖੀ ਪਰਬਤ-ਸਮੂਹ' }, sourceIds: ['WGE-PHY-018C'] },
+  'WGE-001-CP027/water': { key: 'extra-congo-river', feature: { en: 'Congo River', hi: 'कांगो नदी', pa: 'ਕਾਂਗੋ ਦਰਿਆ' }, match: { en: 'major river draining equatorial central Africa', hi: 'भूमध्यरेखीय मध्य अफ्रीका की प्रमुख नदी', pa: 'ਭੂ-ਮੱਧਰੇਖੀ ਮੱਧ ਅਫ਼ਰੀਕਾ ਦਾ ਮੁੱਖ ਦਰਿਆ' }, sourceIds: ['WGE-PHY-019A'] },
+
+  'WGE-001-CP028/region': { key: 'extra-prairies', feature: { en: 'Prairies', hi: 'प्रेयरी', pa: 'ਪ੍ਰੇਰੀ' }, match: { en: 'temperate grassland region of central North America', hi: 'मध्य उत्तरी अमेरिका का समशीतोष्ण घासभूमि क्षेत्र', pa: 'ਮੱਧ ਉੱਤਰੀ ਅਮਰੀਕਾ ਦਾ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹਦਾਰ ਖੇਤਰ' }, sourceIds: ['WGE-PHY-018F'] },
+  'WGE-001-CP028/relief': { key: 'extra-sierra-madre-oriental', feature: { en: 'Sierra Madre Oriental', hi: 'सिएरा माद्रे ओरिएंटल', pa: 'ਸਿਏਰਾ ਮਾਦਰੇ ਓਰੀਐਂਟਲ' }, match: { en: 'mountain chain along eastern Mexico', hi: 'पूर्वी मेक्सिको की पर्वत-शृंखला', pa: 'ਪੂਰਬੀ ਮੈਕਸੀਕੋ ਦੀ ਪਰਬਤ-ਲੜੀ' }, sourceIds: ['WGE-PHY-018F'] },
+  'WGE-001-CP028/water': { key: 'extra-caribbean-sea', feature: { en: 'Caribbean Sea', hi: 'कैरेबियन सागर', pa: 'ਕੈਰੇਬੀਅਨ ਸਾਗਰ' }, match: { en: 'sea east of Central America and north of South America', hi: 'मध्य अमेरिका के पूर्व और दक्षिण अमेरिका के उत्तर का सागर', pa: 'ਮੱਧ ਅਮਰੀਕਾ ਦੇ ਪੂਰਬ ਅਤੇ ਦੱਖਣੀ ਅਮਰੀਕਾ ਦੇ ਉੱਤਰ ਵਾਲਾ ਸਾਗਰ' }, sourceIds: ['WGE-REG-UN-MAPS'] },
+
+  'WGE-001-CP029/region': { key: 'extra-atacama', feature: { en: 'Atacama', hi: 'अटाकामा', pa: 'ਅਟਾਕਾਮਾ' }, match: { en: 'extremely arid region along northern Chile', hi: 'उत्तरी चिली का अत्यंत शुष्क क्षेत्र', pa: 'ਉੱਤਰੀ ਚਿਲੀ ਦਾ ਬਹੁਤ ਸੁੱਕਾ ਖੇਤਰ' }, sourceIds: ['WGE-PHY-021C'] },
+  'WGE-001-CP029/relief': { key: 'extra-aconcagua', feature: { en: 'Aconcagua', hi: 'अकोंकागुआ', pa: 'ਅਕੋਂਕਾਗੁਆ' }, match: { en: 'high Andean peak in western Argentina', hi: 'पश्चिमी अर्जेंटीना की ऊँची एंडीज़ चोटी', pa: 'ਪੱਛਮੀ ਅਰਜਨਟੀਨਾ ਦੀ ਉੱਚੀ ਐਂਡੀਜ਼ ਚੋਟੀ' }, sourceIds: ['WGE-PHY-018G'] },
+  'WGE-001-CP029/water': { key: 'extra-rio-de-la-plata', feature: { en: 'Río de la Plata', hi: 'रियो दे ला प्लाता', pa: 'ਰੀਓ ਦੇ ਲਾ ਪਲਾਤਾ' }, match: { en: 'broad estuary between Argentina and Uruguay', hi: 'अर्जेंटीना और उरुग्वे के बीच विस्तृत मुहाना', pa: 'ਅਰਜਨਟੀਨਾ ਅਤੇ ਉਰੂਗਵੇ ਵਿਚਕਾਰ ਵਿਸ਼ਾਲ ਮੁਹਾਣਾ' }, sourceIds: ['WGE-REG-UN-MAPS'] },
+
+  'WGE-001-CP030/region': { key: 'extra-fiji', feature: { en: 'Fiji', hi: 'फ़िजी', pa: 'ਫ਼ਿਜੀ' }, match: { en: 'island country in Melanesia in the South Pacific', hi: 'दक्षिण प्रशांत के मेलानेशिया का द्वीपीय देश', pa: 'ਦੱਖਣੀ ਪ੍ਰਸ਼ਾਂਤ ਦੇ ਮੇਲਾਨੇਸ਼ੀਆ ਦਾ ਟਾਪੂਈ ਦੇਸ਼' }, sourceIds: ['WGE-REG-M49', 'WGE-REG-UN-MAPS'] },
+  'WGE-001-CP030/relief': { key: 'extra-macdonnell', feature: { en: 'MacDonnell Ranges', hi: 'मैकडॉनेल पर्वतमालाएँ', pa: 'ਮੈਕਡੋਨਲ ਪਰਬਤ-ਲੜੀਆਂ' }, match: { en: 'mountain ranges of central Australia near Alice Springs', hi: 'एलिस स्प्रिंग्स के पास मध्य ऑस्ट्रेलिया की पर्वतमालाएँ', pa: 'ਐਲਿਸ ਸਪ੍ਰਿੰਗਜ਼ ਦੇ ਨੇੜੇ ਮੱਧ ਆਸਟ੍ਰੇਲੀਆ ਦੀਆਂ ਪਰਬਤ-ਲੜੀਆਂ' }, sourceIds: ['WGE-PHY-018H'] },
+  'WGE-001-CP030/water': { key: 'extra-bass-strait', feature: { en: 'Bass Strait', hi: 'बास जलडमरूमध्य', pa: 'ਬਾਸ ਜਲਡਮਰੂ' }, match: { en: 'strait separating Tasmania from mainland Australia', hi: 'तस्मानिया को मुख्यभूमि ऑस्ट्रेलिया से अलग करने वाला जलडमरूमध्य', pa: 'ਤਸਮਾਨੀਆ ਨੂੰ ਮੁੱਖਭੂਮੀ ਆਸਟ੍ਰੇਲੀਆ ਤੋਂ ਵੱਖ ਕਰਨ ਵਾਲਾ ਜਲਡਮਰੂ' }, sourceIds: ['WGE-REG-UN-MAPS'] },
+
+  'WGE-001-CP031/arctic': { key: 'extra-beaufort-sea', feature: { en: 'Beaufort Sea', hi: 'ब्यूफ़ोर्ट सागर', pa: 'ਬਿਊਫੋਰਟ ਸਾਗਰ' }, match: { en: 'Arctic sea north of Alaska and north-western Canada', hi: 'अलास्का और उत्तर-पश्चिमी कनाडा के उत्तर का आर्कटिक सागर', pa: 'ਅਲਾਸਕਾ ਅਤੇ ਉੱਤਰ-ਪੱਛਮੀ ਕੈਨੇਡਾ ਦੇ ਉੱਤਰ ਵਾਲਾ ਆਰਕਟਿਕ ਸਾਗਰ' }, sourceIds: ['WGE-REG-UN-MAPS'] },
+  'WGE-001-CP031/antarctic': { key: 'extra-amundsen-sea', feature: { en: 'Amundsen Sea', hi: 'अमुंडसेन सागर', pa: 'ਅਮੁੰਡਸਨ ਸਾਗਰ' }, match: { en: 'Antarctic sea west of the Antarctic Peninsula sector', hi: 'अंटार्कटिक प्रायद्वीप वाले क्षेत्र के पश्चिम का अंटार्कटिक सागर', pa: 'ਅੰਟਾਰਕਟਿਕ ਪ੍ਰਾਇਦੀਪ ਵਾਲੇ ਖੇਤਰ ਦੇ ਪੱਛਮ ਦਾ ਅੰਟਾਰਕਟਿਕ ਸਾਗਰ' }, sourceIds: ['WGE-REG-UN-MAPS'] },
+  'WGE-001-CP031/concept': { key: 'extra-arctic-tundra', feature: { en: 'Arctic tundra', hi: 'आर्कटिक टुंड्रा', pa: 'ਆਰਕਟਿਕ ਟੁੰਡਰਾ' }, match: { en: 'treeless cold-region biome associated with permafrost', hi: 'पर्माफ्रॉस्ट से जुड़ा वृक्षहीन शीत-प्रदेशीय बायोम', pa: 'ਪਰਮਾਫਰੌਸਟ ਨਾਲ ਜੁੜਿਆ ਦਰੱਖਤ-ਰਹਿਤ ਠੰਢੇ ਖੇਤਰ ਦਾ ਬਾਇਓਮ' }, sourceIds: ['WGE-ATM-013', 'WGE-POLAR-NSIDC-PERMAFROST'] },
+};
+
 const REGIONAL_QL_IDS: Readonly<Record<string, readonly [string, string]>> = {
   "WGE-001-CP024": ["WGE-001-CP024-QL-REGION-ID-V1", "WGE-001-CP024-QL-REGION-MATCH-V1"],
   "WGE-001-CP025": ["WGE-001-CP025-QL-REGION-ID-V1", "WGE-001-CP025-QL-REGION-MATCH-V1"],
@@ -173,8 +214,19 @@ const bumpDifficulty = (difficulty: RegionalDifficulty): RegionalDifficulty =>
 
 function peersFor(target: RegionalFact): readonly RegionalFact[] {
   const peers = REGIONAL_FACTS.filter(f => f.cpId === target.cpId && f.category === target.category);
-  if (peers.length !== 4) throw new Error(`Regional pool category must contain exactly four facts: ${target.cpId}/${target.category}`);
+  if (peers.length !== 4) throw new Error(`Regional pool category must contain exactly four generated facts: ${target.cpId}/${target.category}`);
   return peers;
+}
+
+function optionFactsFor(target: RegionalFact): readonly RegionalOptionFact[] {
+  const peers = peersFor(target);
+  const targetIndex = peers.findIndex(f => f.key === target.key);
+  const extra = REGIONAL_EXTRA_DISTRACTORS[`${target.cpId}/${target.category}`];
+  if (!extra) throw new Error(`Missing regional distractor object: ${target.cpId}/${target.category}`);
+  const distractors: RegionalOptionFact[] = [...peers.filter(f => f.key !== target.key), extra];
+  const selected = distractors.filter((_, index) => index !== targetIndex);
+  if (selected.length !== 3) throw new Error(`Regional distractor selection failed: ${target.key}`);
+  return [target, ...selected];
 }
 
 function shuffledOptions(target: RegionalFact, values: readonly LocalizedValue[], family: string) {
@@ -193,8 +245,7 @@ function shuffledOptions(target: RegionalFact, values: readonly LocalizedValue[]
 }
 
 function makeIdentifyQuestion(target: RegionalFact): WorldGeographyQuestion {
-  const peers = peersFor(target);
-  const ordered = [target, ...peers.filter(f => f.key !== target.key)];
+  const ordered = optionFactsFor(target);
   const { id, order, options } = shuffledOptions(target, ordered.map(f => f.feature), 'IDENTIFY');
   const qlId = REGIONAL_QL_IDS[target.cpId]![0];
   return {
@@ -216,8 +267,7 @@ function makeIdentifyQuestion(target: RegionalFact): WorldGeographyQuestion {
 }
 
 function makeMatchQuestion(target: RegionalFact): WorldGeographyQuestion {
-  const peers = peersFor(target);
-  const ordered = [target, ...peers.filter(f => f.key !== target.key)];
+  const ordered = optionFactsFor(target);
   const mismatched = [
     { feature: ordered[0]!.feature, match: ordered[0]!.match },
     { feature: ordered[1]!.feature, match: ordered[2]!.match },
