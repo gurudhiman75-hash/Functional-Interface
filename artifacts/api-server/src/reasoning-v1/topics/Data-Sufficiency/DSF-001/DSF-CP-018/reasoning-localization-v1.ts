@@ -290,10 +290,11 @@ function localizeSeatingStatement(text:string, language:DsfReasoningLocalizedLan
     const dir=m[2]!.toLowerCase()==="left" ? t(language,"बाएँ","ਖੱਬੇ") : t(language,"दाएँ","ਸੱਜੇ");
     return t(language,`${localizeSeatName(m[1]!,language)}, ${localizeSeatName(m[3]!,language)} के ठीक ${dir} बैठा/बैठी है।`,`${localizeSeatName(m[1]!,language)}, ${localizeSeatName(m[3]!,language)} ਦੇ ਤੁਰੰਤ ${dir} ਬੈਠਾ/ਬੈਠੀ ਹੈ।`);
   }
-  m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) sits (one|two|three|four) places? to the (left|right) of (Aman|Bina|Charan|Diya|Eshan)\.$/i);
+  m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) sits (\d+|one|two|three|four) places? to the (left|right) of (Aman|Bina|Charan|Diya|Eshan)\.$/i);
   if(m){
     const countMap:Record<string,[string,string]>={one:["एक","ਇੱਕ"],two:["दो","ਦੋ"],three:["तीन","ਤਿੰਨ"],four:["चार","ਚਾਰ"]};
-    const count=t(language,...countMap[m[2]!.toLowerCase()]!);
+    const token=m[2]!.toLowerCase();
+    const count=/^\d+$/.test(token) ? token : t(language,...countMap[token]!);
     const dir=m[3]!.toLowerCase()==="left" ? t(language,"बाएँ","ਖੱਬੇ") : t(language,"दाएँ","ਸੱਜੇ");
     return t(language,`${localizeSeatName(m[1]!,language)}, ${localizeSeatName(m[4]!,language)} से ${count} स्थान ${dir} बैठा/बैठी है।`,`${localizeSeatName(m[1]!,language)}, ${localizeSeatName(m[4]!,language)} ਤੋਂ ${count} ਥਾਂ ${dir} ਬੈਠਾ/ਬੈਠੀ ਹੈ।`);
   }
