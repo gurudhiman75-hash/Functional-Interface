@@ -57,7 +57,7 @@ for (const prototype of WOR_001_QUESTION_STUDIO_PRODUCTION_PROTOTYPES) {
     for (let index = 0; index < sampleSize; index += 1) {
       const question = generateWor001Question(
         prototype.prototypeId,
-        810000 + index * 131 + prototype.prototypeId.charCodeAt(prototype.prototypeId.length - 1),
+        810000 + index,
         "en-IN",
         difficulty,
       );
