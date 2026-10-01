@@ -422,7 +422,7 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
   const rejectedRatioSurface = surface(`${seed}:REJECTED_TO_SELECTED_RATIO:surface`, [
     `For ${rows[rejectA]!.label} and ${rows[rejectB]!.label} together, what is the ratio of candidates not selected to candidates selected?`,
     `For ${rows[rejectA]!.label} and ${rows[rejectB]!.label} together, find the ratio of candidates not selected to candidates selected.`,
-    `After combining the two rows, what is the ratio of the number not selected to the number selected?`,
+    `For ${rows[rejectA]!.label} and ${rows[rejectB]!.label} together, what is the ratio of candidates not selected to candidates selected?`,
   ]);
 
   return [
