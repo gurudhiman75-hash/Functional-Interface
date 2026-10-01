@@ -3,6 +3,7 @@ import { Router } from "express";
 
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
+import { messaging } from "../lib/firebase-admin";
 import { authenticate } from "../middlewares/auth";
 
 const router=Router();
@@ -103,6 +104,68 @@ router.put("/:id",requireAdminPermission("content.taxonomy.manage"),async(req,re
       VALUES (${randomUUID()}::uuid,'user'::audit_actor_type,${actor}::uuid,'mobile.notification.updated','mobile_notification_campaign',${id}::uuid,'Updated mobile notification campaign','Admin updated a mobile push campaign',${sqlClient.json({title:input.title,status:input.status,scheduledAt:input.scheduledAt})})`;
     res.json({id});
   }catch(error){const typed=error as {statusCode?:number;code?:string;message?:string};res.status(typed.statusCode??500).json({error:typed.message??"Unable to update notification",code:typed.code??"MOBILE_NOTIFICATION_UPDATE_FAILED"});}
+});
+
+router.post("/:id/send-test-to-my-device",requireAdminPermission("content.taxonomy.manage"),async(req,res)=>{
+  const id=text(req.params.id,80);if(!/^[0-9a-f-]{36}$/i.test(id))return void res.status(400).json({error:"Invalid notification identifier",code:"MOBILE_NOTIFICATION_ID_INVALID"});
+  try{
+    if(!messaging)return void res.status(503).json({error:"Push provider is not configured.",code:"MOBILE_NOTIFICATION_PROVIDER_UNAVAILABLE"});
+    const firebaseUid=req.user?.id??"";
+    const actor=req.adminSession!.user.id;
+    const campaigns=await sqlClient`
+      SELECT id::text AS id,title,body,image_url AS "imageUrl",destination_type AS "destinationType",destination_value AS "destinationValue"
+      FROM platform.mobile_notification_campaigns
+      WHERE id=${id}::uuid
+      LIMIT 1
+    `;
+    const campaign=campaigns[0];
+    if(!campaign)return void res.status(404).json({error:"Notification campaign not found.",code:"MOBILE_NOTIFICATION_NOT_FOUND"});
+    const devices=await sqlClient`
+      SELECT id::text AS id,user_id::text AS "userId",token
+      FROM platform.mobile_push_devices
+      WHERE is_active=true AND firebase_uid=${firebaseUid}
+      ORDER BY updated_at DESC
+      LIMIT 1
+    `;
+    const device=devices[0];
+    if(!device)return void res.status(404).json({error:"No active mobile device is registered to this administrator account. Open the mobile app while signed in with the same account and try again.",code:"MOBILE_NOTIFICATION_TEST_DEVICE_NOT_FOUND"});
+    try{
+      const messageId=await messaging.send({
+        token:String(device.token),
+        notification:{
+          title:String(campaign.title),
+          body:String(campaign.body),
+          ...(campaign.imageUrl?{imageUrl:String(campaign.imageUrl)}:{}),
+        },
+        data:{
+          campaignId:id,
+          destinationType:String(campaign.destinationType??"none"),
+          destinationValue:String(campaign.destinationValue??""),
+        },
+        android:{priority:"high"},
+      });
+      await sqlClient.begin(async tx=>{
+        await tx`
+          INSERT INTO platform.mobile_notification_deliveries
+            (id,campaign_id,user_id,device_id,provider,provider_message_id,status,sent_at,created_at)
+          VALUES
+            (${randomUUID()}::uuid,${id}::uuid,${String(device.userId)}::uuid,${String(device.id)}::uuid,'fcm',${messageId},'sent',now(),now())
+        `;
+        await tx`INSERT INTO platform.audit_events (id,actor_type,actor_user_id,action_key,entity_type,entity_id,summary,reason,metadata)
+          VALUES (${randomUUID()}::uuid,'user'::audit_actor_type,${actor}::uuid,'mobile.notification.test_sent','mobile_notification_campaign',${id}::uuid,'Sent mobile notification test to administrator device','Admin requested a single-account test push',${tx.json({firebaseUid,deviceId:String(device.id)})})`;
+      });
+      res.json({id,status:"sent",test:true,deviceCount:1});
+    }catch(error){
+      const code=error&&typeof error==="object"&&"code" in error?String((error as {code?:unknown}).code??""):"";
+      if(["messaging/registration-token-not-registered","messaging/invalid-registration-token"].includes(code)){
+        await sqlClient`UPDATE platform.mobile_push_devices SET is_active=false,updated_at=now() WHERE id=${String(device.id)}::uuid`;
+      }
+      throw error;
+    }
+  }catch(error){
+    console.error("Unable to send notification test",error);
+    res.status(500).json({error:"Unable to send test notification",code:"MOBILE_NOTIFICATION_TEST_SEND_FAILED"});
+  }
 });
 
 router.post("/:id/send-now",requireAdminPermission("content.taxonomy.manage"),async(req,res)=>{
