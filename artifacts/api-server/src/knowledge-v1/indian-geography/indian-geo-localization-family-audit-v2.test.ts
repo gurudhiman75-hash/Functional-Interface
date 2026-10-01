@@ -24,7 +24,7 @@ console.log(JSON.stringify({
 
 
 assert.equal(audit.authorityId, "INDIAN-GEO-LOCALIZATION-FAMILY-QA-V2");
-assert.equal(audit.packageCount, 15);
+assert.equal(audit.packageCount, 17);
 assert.equal(audit.structuralValid, true);
 assert.equal(audit.totals.structuralIssueCount, 0);
 assert.equal(audit.packages.every((pkg) => pkg.canonicalQuestionCount > 0), true);
@@ -37,9 +37,9 @@ assert.equal(
   true,
 );
 
-// Quality freeze is intentionally a separate gate. It may remain false until
-// explicit Hindi/Punjabi stem/explanation cleanup eliminates all measured residue.
-assert.equal(audit.reviewRequired, !audit.qualityReadyForFreeze);
+// Full Indian Geography family localization freeze requires all 17 packages to be clean.
+assert.equal(audit.qualityReadyForFreeze, true);
+assert.equal(audit.reviewRequired, false);
 
 
 // CI trigger probe: validates dedicated localization workflow scheduling.

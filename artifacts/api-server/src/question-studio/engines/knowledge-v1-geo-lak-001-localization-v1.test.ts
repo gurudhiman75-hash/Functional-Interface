@@ -2,7 +2,7 @@ import { strict as assert } from "node:assert";
 import { GEO_LAK_001_QUESTION_STUDIO_CORPUS_V1, GEO_LAK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1, knowledgeV1GeoLak001QuestionStudioAdapterV1 } from "./knowledge-v1-geo-lak-001-adapter-v1";
 
 assert.deepEqual(GEO_LAK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.supportedLanguages,["en","hi","pa"]);
-assert.equal(GEO_LAK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.metadata?.localizationStatus,"REVIEW_REQUIRED");
+assert.equal(GEO_LAK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.metadata?.localizationStatus,"APPROVED_FOR_REVIEW");
 assert.equal(GEO_LAK_001_STANDARD_REVIEW_ONLY_PACKAGE_V1.publiclyPublishable,false);
 
 for(const language of ["en","hi","pa"] as const){

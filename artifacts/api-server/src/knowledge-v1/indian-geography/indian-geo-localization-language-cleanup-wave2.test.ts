@@ -29,7 +29,7 @@ const veg=q(
 );
 assert.equal(localizeIndianGeoQuestionV1(veg,"hi","GEO-VEG-001").stem,"कीकर, बबूल और कांटेदार झाड़ियाँ किस प्रकार की वनस्पति की विशेषता हैं?");
 assert.equal(localizeIndianGeoQuestionV1(veg,"pa","GEO-VEG-001").stem,"ਕੀਕਰ, ਬਬੂਲ ਅਤੇ ਕਾਂਟੇਦਾਰ ਝਾੜੀਆਂ ਕਿਹੜੀ ਕਿਸਮ ਦੀ ਬਨਸਪਤੀ ਦੀ ਵਿਸ਼ੇਸ਼ਤਾ ਹਨ?");
-assert.equal(localizeIndianGeoQuestionV1(veg,"pa","GEO-VEG-001").canonicalAnswer.includes("ਕਾਂਟੇਦਾਰ"),true);
+assert.equal(localizeIndianGeoQuestionV1(veg,"pa","GEO-VEG-001").canonicalAnswer.includes("ਕੰਡੇਦਾਰ"),true);
 
 
 const cropNames=q(

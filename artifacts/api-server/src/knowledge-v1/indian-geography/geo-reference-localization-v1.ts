@@ -144,6 +144,68 @@ function localizeText(text:string,language:"hi"|"pa"){
         .replace(/\bNational Park\b/g,language==="hi"?"राष्ट्रीय उद्यान":"ਰਾਸ਼ਟਰੀ ਉਦਿਆਨ");
  return out.trim();
 }
+
+const REFERENCE_ENTITY_LABELS_V2:Record<"hi"|"pa",Record<string,string>>={
+hi:{
+"GEO-LAK-001-QL-WULAR-LAKE":"वुलर","GEO-LAK-001-QL-DAL-LAKE":"डल झील","GEO-LAK-001-QL-LOKTAK-LAKE":"लोकतक","GEO-LAK-001-QL-CHILIKA-LAKE":"चिलिका","GEO-LAK-001-QL-SAMBHAR-LAKE":"सांभर","GEO-LAK-001-QL-VEMBANAD-LAKE":"वेम्बनाड","GEO-LAK-001-QL-PULICAT-LAKE":"पुलिकट","GEO-LAK-001-QL-KOLLERU-LAKE":"कोल्लेरू","GEO-LAK-001-QL-LONAR-LAKE":"लोणार","GEO-LAK-001-QL-PANGONG-TSO":"पैंगोंग त्सो","GEO-LAK-001-QL-JOG-FALLS":"जोग जलप्रपात","GEO-LAK-001-QL-CHITRAKOTE-FALLS":"चित्रकोट जलप्रपात","GEO-LAK-001-QL-DHUANDHAR-FALLS":"धुआंधार जलप्रपात","GEO-LAK-001-QL-HUNDRU-FALLS":"हुंडरू जलप्रपात","GEO-LAK-001-QL-KAVERI-WATERFALLS":"कावेरी के जलप्रपात",
+"GEO-MTP-001-QL-NATHU-LA":"नाथू ला","GEO-MTP-001-QL-SHIPKI-LA":"शिपकी ला","GEO-MTP-001-QL-ZOJI-LA":"जोजी ला","GEO-MTP-001-QL-ROHTANG-PASS":"रोहतांग दर्रा","GEO-MTP-001-QL-LIPULEKH-PASS":"लिपुलेख दर्रा","GEO-MTP-001-QL-BOMDI-LA":"बोमडिला","GEO-MTP-001-QL-BANIHAL-PASS":"बनिहाल दर्रा","GEO-MTP-001-QL-KHARDUNG-LA":"खारदुंग ला","GEO-MTP-001-QL-CHANG-LA":"चांग ला","GEO-MTP-001-QL-JELEP-LA":"जेलेप ला","GEO-MTP-001-QL-KANCHENJUNGA":"कंचनजंघा","GEO-MTP-001-QL-NANDA-DEVI":"नंदा देवी","GEO-MTP-001-QL-ANAMUDI":"अनामुडी","GEO-MTP-001-QL-GURU-SHIKHAR":"गुरु शिखर","GEO-MTP-001-QL-DODDABETTA":"डोड्डाबेट्टा"
+},
+pa:{
+"GEO-LAK-001-QL-WULAR-LAKE":"ਵੁਲਰ","GEO-LAK-001-QL-DAL-LAKE":"ਡਲ ਝੀਲ","GEO-LAK-001-QL-LOKTAK-LAKE":"ਲੋਕਤਕ","GEO-LAK-001-QL-CHILIKA-LAKE":"ਚਿਲਿਕਾ","GEO-LAK-001-QL-SAMBHAR-LAKE":"ਸਾਂਭਰ","GEO-LAK-001-QL-VEMBANAD-LAKE":"ਵੇਂਬਨਾਡ","GEO-LAK-001-QL-PULICAT-LAKE":"ਪੁਲਿਕਟ","GEO-LAK-001-QL-KOLLERU-LAKE":"ਕੋਲੇਰੂ","GEO-LAK-001-QL-LONAR-LAKE":"ਲੋਣਾਰ","GEO-LAK-001-QL-PANGONG-TSO":"ਪੈਂਗੋਂਗ ਤਸੋ","GEO-LAK-001-QL-JOG-FALLS":"ਜੋਗ ਝਰਨਾ","GEO-LAK-001-QL-CHITRAKOTE-FALLS":"ਚਿਤਰਕੋਟ ਝਰਨਾ","GEO-LAK-001-QL-DHUANDHAR-FALLS":"ਧੁਆਂਧਾਰ ਝਰਨਾ","GEO-LAK-001-QL-HUNDRU-FALLS":"ਹੁੰਡਰੂ ਝਰਨਾ","GEO-LAK-001-QL-KAVERI-WATERFALLS":"ਕਾਵੇਰੀ ਦੇ ਝਰਨੇ",
+"GEO-MTP-001-QL-NATHU-LA":"ਨਾਥੂ ਲਾ","GEO-MTP-001-QL-SHIPKI-LA":"ਸ਼ਿਪਕੀ ਲਾ","GEO-MTP-001-QL-ZOJI-LA":"ਜ਼ੋਜੀ ਲਾ","GEO-MTP-001-QL-ROHTANG-PASS":"ਰੋਹਤਾਂਗ ਦਰਰਾ","GEO-MTP-001-QL-LIPULEKH-PASS":"ਲਿਪੁਲੇਖ ਦਰਰਾ","GEO-MTP-001-QL-BOMDI-LA":"ਬੋਮਡੀ ਲਾ","GEO-MTP-001-QL-BANIHAL-PASS":"ਬਨਿਹਾਲ ਦਰਰਾ","GEO-MTP-001-QL-KHARDUNG-LA":"ਖਾਰਦੁੰਗ ਲਾ","GEO-MTP-001-QL-CHANG-LA":"ਚਾਂਗ ਲਾ","GEO-MTP-001-QL-JELEP-LA":"ਜੇਲੇਪ ਲਾ","GEO-MTP-001-QL-KANCHENJUNGA":"ਕੰਚਨਜੰਗਾ","GEO-MTP-001-QL-NANDA-DEVI":"ਨੰਦਾ ਦੇਵੀ","GEO-MTP-001-QL-ANAMUDI":"ਅਨਾਮੁਡੀ","GEO-MTP-001-QL-GURU-SHIKHAR":"ਗੁਰੂ ਸ਼ਿਖਰ","GEO-MTP-001-QL-DODDABETTA":"ਡੋਡਾਬੇਟਾ"
+}};
+
+function nativeReferenceExplanationV2(question:CanonicalQuestion,language:"hi"|"pa",answer:string){
+ const entity=REFERENCE_ENTITY_LABELS_V2[language][question.qlId] ?? answer;
+ const stem=question.stem;
+ const isStatements=stem.startsWith("Consider the statements:");
+ if(isStatements){
+  return language==="hi"
+   ? entity+" से जुड़े दोनों दिए गए तथ्य सही हैं; इसलिए दोनों कथन सही हैं।"
+   : entity+" ਨਾਲ ਜੁੜੇ ਦੋਵੇਂ ਦਿੱਤੇ ਤੱਥ ਸਹੀ ਹਨ; ਇਸ ਲਈ ਦੋਵੇਂ ਕਥਨ ਸਹੀ ਹਨ।";
+ }
+ if(/located in which state|lies in which state|located in which Union Territory|lies in which Union Territory/i.test(stem)){
+  return language==="hi" ? entity+" "+answer+" में स्थित है।" : entity+" "+answer+" ਵਿੱਚ ਸਥਿਤ ਹੈ।";
+ }
+ if(/located in which city|near which hill station/i.test(stem)){
+  return language==="hi" ? entity+" का प्रमुख स्थानिक संबंध "+answer+" से है।" : entity+" ਦਾ ਮੁੱਖ ਸਥਾਨਕ ਸੰਬੰਧ "+answer+" ਨਾਲ ਹੈ।";
+ }
+ if(/What type of lake|What type of water body|Which broad setting describes/i.test(stem)){
+  return language==="hi" ? entity+" की सही भौगोलिक पहचान "+answer+" है।" : entity+" ਦੀ ਸਹੀ ਭੂਗੋਲਿਕ ਪਛਾਣ "+answer+" ਹੈ।";
+ }
+ if(/formed by which river|Which river is closely linked|Which river forms major waterfalls/i.test(stem)){
+  return language==="hi" ? entity+" का संबंध "+answer+" नदी से है।" : entity+" ਦਾ ਸੰਬੰਧ "+answer+" ਨਦੀ ਨਾਲ ਹੈ।";
+ }
+ if(/Which national park|Which protected area/i.test(stem)){
+  return language==="hi" ? entity+" का संबंध "+answer+" से है।" : entity+" ਦਾ ਸੰਬੰਧ "+answer+" ਨਾਲ ਹੈ।";
+ }
+ if(/Which feature is strongly identified|Which activity is strongly linked/i.test(stem)){
+  return language==="hi" ? entity+" की प्रमुख विशेषता "+answer+" है।" : entity+" ਦੀ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾ "+answer+" ਹੈ।";
+ }
+ if(/What is the origin/i.test(stem)){
+  return language==="hi" ? entity+" की उत्पत्ति "+answer+" से हुई है।" : entity+" ਦੀ ਉਤਪੱਤੀ "+answer+" ਨਾਲ ਹੋਈ ਹੈ।";
+ }
+ if(/connected with which sea region|Which coastal sea|lies near which coast/i.test(stem)){
+  return language==="hi" ? entity+" का भौगोलिक संबंध "+answer+" से है।" : entity+" ਦਾ ਭੂਗੋਲਿਕ ਸੰਬੰਧ "+answer+" ਨਾਲ ਹੈ।";
+ }
+ if(/lies along the coast of which two states|lies between the deltas of which two rivers|shared by India and which country|boundary with which country|boundary of India and which country|boundary with which two countries/i.test(stem)){
+  return language==="hi" ? entity+" के स्थान को "+answer+" सही रूप से दर्शाता है।" : entity+" ਦੇ ਸਥਾਨ ਨੂੰ "+answer+" ਸਹੀ ਤਰ੍ਹਾਂ ਦਰਸਾਉਂਦਾ ਹੈ।";
+ }
+ if(/connects .* with which region|provides access .* toward which valley|route from .* toward which lake region|road corridor uses|pilgrimage route|trade route toward which region|Which broad mountain region/i.test(stem)){
+  return language==="hi" ? entity+" का प्रमुख मार्गीय/क्षेत्रीय संबंध "+answer+" से है।" : entity+" ਦਾ ਮੁੱਖ ਰਸਤਾ/ਖੇਤਰੀ ਸੰਬੰਧ "+answer+" ਨਾਲ ਹੈ।";
+ }
+ if(/Which mountain range|Which mountain system|Which hill range|Which plateau region|Which mountain region|Which region is closely linked/i.test(stem)){
+  return language==="hi" ? entity+" "+answer+" क्षेत्र/श्रेणी से जुड़ा है।" : entity+" "+answer+" ਖੇਤਰ/ਲੜੀ ਨਾਲ ਜੁੜਿਆ ਹੈ।";
+ }
+ if(/Which neighbouring country lies north/i.test(stem)){
+  return language==="hi" ? entity+" के क्षेत्र के उत्तर में "+answer+" स्थित है।" : entity+" ਦੇ ਖੇਤਰ ਦੇ ਉੱਤਰ ਵੱਲ "+answer+" ਸਥਿਤ ਹੈ।";
+ }
+ if(/A |Which one is it|Which lake is it|Which pass is it|Which peak is it/i.test(stem)){
+  return language==="hi" ? "प्रश्न में दिए गए भौगोलिक संकेत "+entity+" की पहचान करते हैं।" : "ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੇ ਭੂਗੋਲਿਕ ਸੰਕੇਤ "+entity+" ਦੀ ਪਛਾਣ ਕਰਦੇ ਹਨ।";
+ }
+ return language==="hi" ? entity+" के बारे में दिया गया तथ्य "+answer+" से सही रूप में मेल खाता है।" : entity+" ਬਾਰੇ ਦਿੱਤਾ ਤੱਥ "+answer+" ਨਾਲ ਸਹੀ ਤਰ੍ਹਾਂ ਮਿਲਦਾ ਹੈ।";
+}
+
 function genericExplanation(answer:string,language:"hi"|"pa",qlId:string){
  if(language==="hi")return `सही उत्तर ${answer} है। यह ${qlId.startsWith("GEO-LAK")?"झील/जलप्रपात":"दर्रा/चोटी"} के स्थान या भौगोलिक संबंध को सही रूप से पहचानता है।`;
  return `ਸਹੀ ਉੱਤਰ ${answer} ਹੈ। ਇਹ ${qlId.startsWith("GEO-LAK")?"ਝੀਲ/ਝਰਨੇ":"ਦਰਰੇ/ਚੋਟੀ"} ਦੇ ਸਥਾਨ ਜਾਂ ਭੂਗੋਲਿਕ ਸੰਬੰਧ ਦੀ ਸਹੀ ਪਛਾਣ ਕਰਦਾ ਹੈ।`;
@@ -155,7 +217,7 @@ export function localizeGeoReferenceQuestionV1(question:CanonicalQuestion,langua
  const stem=GEO_REFERENCE_STEM_OVERRIDES_V1[question.stem]?.[language] ?? localizeText(question.stem,language);
  const translatedExplanation=localizeText(question.explanation,language);
  const latinResidue=/\b(?:is|are|which|what|the|and|with|in|on|from|near|lies|located|formed|major|river|state|region|correct|lake|falls|pass|peak)\b/i.test(translatedExplanation);
- const explanation=latinResidue?genericExplanation(canonicalAnswer,language,question.qlId):translatedExplanation;
+ const explanation=latinResidue?nativeReferenceExplanationV2(question,language,canonicalAnswer):translatedExplanation;
  return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
 export function auditGeoReferenceLocalizationV1(questions:readonly CanonicalQuestion[]){
