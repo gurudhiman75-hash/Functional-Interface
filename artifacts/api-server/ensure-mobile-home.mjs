@@ -14,6 +14,7 @@ const promotionsMigrationPath = path.resolve(here, "../../docs/database-migratio
 const notificationsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-notifications.sql");
 const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
 const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
+const analyticsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-analytics.sql");
 const sql = postgres(databaseUrl, {
   max: 1,
   connect_timeout: 15,
@@ -113,6 +114,22 @@ try {
     throw new Error("Mobile app configuration migration completed without creating platform.mobile_app_configuration");
   }
   console.log("[render-build] mobile app configuration schema verified");
+
+  const [analyticsBefore] = await sql`
+    SELECT to_regclass('platform.mobile_analytics_events')::text AS mobile_analytics_events
+  `;
+  if (!analyticsBefore?.mobile_analytics_events) {
+    console.log("[render-build] mobile analytics schema missing; applying checked-in migration");
+    const analyticsSql = await readFile(analyticsMigrationPath, "utf8");
+    await sql.unsafe(analyticsSql);
+  }
+  const [analyticsAfter] = await sql`
+    SELECT to_regclass('platform.mobile_analytics_events')::text AS mobile_analytics_events
+  `;
+  if (!analyticsAfter?.mobile_analytics_events) {
+    throw new Error("Mobile analytics migration completed without creating platform.mobile_analytics_events");
+  }
+  console.log("[render-build] mobile analytics schema verified");
 } finally {
   await sql.end({ timeout: 5 });
 }
