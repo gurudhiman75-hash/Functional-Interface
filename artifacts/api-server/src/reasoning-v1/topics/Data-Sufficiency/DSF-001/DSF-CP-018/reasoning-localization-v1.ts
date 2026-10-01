@@ -255,6 +255,48 @@ function localizeBloodStatement(text: string, language: DsfReasoningLocalizedLan
   return undefined;
 }
 
+function localizeSeatName(value:string, language:DsfReasoningLocalizedLanguage):string {
+  const map:Record<string,[string,string]>={
+    Aman:["अमन","ਅਮਨ"], Bina:["बीना","ਬੀਨਾ"], Charan:["चरण","ਚਰਨ"], Diya:["दिया","ਦੀਆ"], Eshan:["ईशान","ਈਸ਼ਾਨ"],
+  };
+  return map[value] ? t(language,...map[value]!) : value;
+}
+
+function localizeSeatOrdinal(value:string, language:DsfReasoningLocalizedLanguage):string {
+  const map:Record<string,[string,string]>={
+    first:["पहली","ਪਹਿਲੀ"], second:["दूसरी","ਦੂਜੀ"], third:["तीसरी","ਤੀਜੀ"], fourth:["चौथी","ਚੌਥੀ"], fifth:["पाँचवीं","ਪੰਜਵੀਂ"],
+  };
+  return map[value.toLowerCase()] ? t(language,...map[value.toLowerCase()]!) : value;
+}
+
+function localizeSeatingStatement(text:string, language:DsfReasoningLocalizedLanguage):string|undefined {
+  let m:RegExpMatchArray|null;
+  m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) occupies the (first|second|third|fourth|fifth) seat from the left end\.$/i);
+  if(m) return t(language,`${localizeSeatName(m[1]!,language)} बाएँ सिरे से ${localizeSeatOrdinal(m[2]!,language)} सीट पर बैठा/बैठी है।`,`${localizeSeatName(m[1]!,language)} ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${localizeSeatOrdinal(m[2]!,language)} ਸੀਟ 'ਤੇ ਬੈਠਾ/ਬੈਠੀ ਹੈ।`);
+  m=text.match(/^(\d+) (?:person sits|people sit) to the left of (Aman|Bina|Charan|Diya|Eshan) when positions are counted from the left end\.$/i);
+  if(m) return t(language,`बाएँ सिरे से गिनने पर ${localizeSeatName(m[2]!,language)} के बाएँ ${m[1]} व्यक्ति बैठे हैं।`,`ਖੱਬੇ ਸਿਰੇ ਤੋਂ ਗਿਣਨ 'ਤੇ ${localizeSeatName(m[2]!,language)} ਦੇ ਖੱਬੇ ${m[1]} ਵਿਅਕਤੀ ਬੈਠੇ ਹਨ।`);
+  m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) sits at one of the two ends\.$/i);
+  if(m) return t(language,`${localizeSeatName(m[1]!,language)} दोनों सिरों में से किसी एक सिरे पर बैठा/बैठी है।`,`${localizeSeatName(m[1]!,language)} ਦੋਵੇਂ ਸਿਰਿਆਂ ਵਿੱਚੋਂ ਕਿਸੇ ਇੱਕ ਸਿਰੇ 'ਤੇ ਬੈਠਾ/ਬੈਠੀ ਹੈ।`);
+  m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) sits in the middle(?: seat)?\.$/i);
+  if(m) return t(language,`${localizeSeatName(m[1]!,language)} बीच वाली सीट पर बैठा/बैठी है।`,`${localizeSeatName(m[1]!,language)} ਵਿਚਕਾਰਲੀ ਸੀਟ 'ਤੇ ਬੈਠਾ/ਬੈਠੀ ਹੈ।`);
+  m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) and (Aman|Bina|Charan|Diya|Eshan) sit next to each other\.$/i);
+  if(m) return t(language,`${localizeSeatName(m[1]!,language)} और ${localizeSeatName(m[2]!,language)} एक-दूसरे के साथ वाली सीटों पर बैठे हैं।`,`${localizeSeatName(m[1]!,language)} ਅਤੇ ${localizeSeatName(m[2]!,language)} ਇਕ-ਦੂਜੇ ਦੇ ਨਾਲ ਵਾਲੀਆਂ ਸੀਟਾਂ 'ਤੇ ਬੈਠੇ ਹਨ।`);
+  m=text.match(/^(\d+) (?:person sits|people sit) between (Aman|Bina|Charan|Diya|Eshan) and (Aman|Bina|Charan|Diya|Eshan)\.$/i);
+  if(m) return t(language,`${localizeSeatName(m[2]!,language)} और ${localizeSeatName(m[3]!,language)} के बीच ${m[1]} व्यक्ति बैठा है/बैठे हैं।`,`${localizeSeatName(m[2]!,language)} ਅਤੇ ${localizeSeatName(m[3]!,language)} ਦੇ ਵਿਚਕਾਰ ${m[1]} ਵਿਅਕਤੀ ਬੈਠਾ ਹੈ/ਬੈਠੇ ਹਨ।`);
+  m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) and (Aman|Bina|Charan|Diya|Eshan) are not adjacent\.$/i);
+  if(m) return t(language,`${localizeSeatName(m[1]!,language)} और ${localizeSeatName(m[2]!,language)} साथ-साथ नहीं बैठे हैं।`,`${localizeSeatName(m[1]!,language)} ਅਤੇ ${localizeSeatName(m[2]!,language)} ਨਾਲ-ਨਾਲ ਨਹੀਂ ਬੈਠੇ ਹਨ।`);
+  m=text.match(/^(Aman|Bina|Charan|Diya|Eshan) sits (one|two|three|four) places? to the (left|right) of (Aman|Bina|Charan|Diya|Eshan)\.$/i);
+  if(m){
+    const countMap:Record<string,[string,string]>={one:["एक","ਇੱਕ"],two:["दो","ਦੋ"],three:["तीन","ਤਿੰਨ"],four:["चार","ਚਾਰ"]};
+    const count=t(language,...countMap[m[2]!.toLowerCase()]!);
+    const dir=m[3]!.toLowerCase()==="left" ? t(language,"बाएँ","ਖੱਬੇ") : t(language,"दाएँ","ਸੱਜੇ");
+    return t(language,`${localizeSeatName(m[1]!,language)}, ${localizeSeatName(m[4]!,language)} से ${count} स्थान ${dir} बैठा/बैठी है।`,`${localizeSeatName(m[1]!,language)}, ${localizeSeatName(m[4]!,language)} ਤੋਂ ${count} ਥਾਂ ${dir} ਬੈਠਾ/ਬੈਠੀ ਹੈ।`);
+  }
+  m=text.match(/^Aman is (first|second|third|fourth|fifth) from the left end\.$/i);
+  if(m) return t(language,`अमन बाएँ सिरे से ${localizeSeatOrdinal(m[1]!,language)} स्थान पर है।`,`ਅਮਨ ਖੱਬੇ ਸਿਰੇ ਤੋਂ ${localizeSeatOrdinal(m[1]!,language)} ਥਾਂ 'ਤੇ ਹੈ।`);
+  return undefined;
+}
+
 function localizeStatement(laneId: string, text: string, language: DsfReasoningLocalizedLanguage): string {
   if (laneId.includes("RANKING")) {
     const rendered=localizeRankingStatement(text,language);
@@ -266,6 +308,10 @@ function localizeStatement(laneId: string, text: string, language: DsfReasoningL
   }
   if (laneId.includes("BLOOD")) {
     const rendered=localizeBloodStatement(text,language);
+    if(rendered) return rendered;
+  }
+  if (laneId.includes("SEATING")) {
+    const rendered=localizeSeatingStatement(text,language);
     if(rendered) return rendered;
   }
   let s = replaceCommon(text, language);
