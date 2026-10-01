@@ -463,6 +463,45 @@ function kthObservationDraft(seed: string, stimulus: Di009Stimulus): Di009Draft 
   };
 }
 
+const GROUPED_MEAN_STEMS: Readonly<Record<string, readonly string[]>> = {
+  Marks: [
+    "What was the approximate average mark scored by the students in the test?",
+    "What was the students' approximate mean mark in the test?",
+    "What was the approximate mean score in the test?",
+    "What was the average mark obtained by the students, approximately?",
+  ],
+  "Height (cm)": [
+    "What was the approximate average height of the students in the group?",
+    "What was the students' mean height, approximately?",
+    "What was the approximate mean height in the group?",
+    "What was the average height of the students, approximately?",
+  ],
+  "Weight (kg)": [
+    "What was the approximate average weight of the participants?",
+    "What was the participants' mean weight, approximately?",
+    "What was the approximate mean weight in the fitness survey?",
+    "What was the average weight recorded in the survey, approximately?",
+  ],
+  "Travel time (minutes)": [
+    "What was the approximate average daily travel time of the employees?",
+    "How long did employees travel each day on average, approximately?",
+    "What was the employees' mean daily travel time?",
+    "What was the average daily travel time recorded for employees, approximately?",
+  ],
+  "Age (years)": [
+    "What was the approximate average age of the workers?",
+    "What was the workers' mean age, approximately?",
+    "What was the approximate mean age in the unit?",
+    "What was the average age recorded for the workers, approximately?",
+  ],
+  "Daily wage (₹)": [
+    "What was the approximate average daily wage of the workers?",
+    "What was the workers' mean daily wage, approximately?",
+    "What was the approximate mean wage per worker per day?",
+    "What was the average daily wage recorded for the workers, approximately?",
+  ],
+};
+
 function groupedMeanDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
   const bins = stimulus.bins;
   const total = totalFrequency(bins);
@@ -472,12 +511,9 @@ function groupedMeanDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
   const weightedLower = formatWhole(bins.reduce((sum, bin) => sum + bin.lower * bin.frequency, 0), total);
   const weightedUpper = formatWhole(bins.reduce((sum, bin) => sum + bin.upper * bin.frequency, 0), total);
   const unweightedMidpointMean = formatWhole(bins.reduce((sum, bin) => sum + bin.lower + bin.upper, 0), 2 * bins.length);
-  const s = surface(seed, "APPROX_GROUPED_MEAN_FROM_HISTOGRAM", [
-    `What is the approximate mean of the distribution?`,
-    `What is the approximate arithmetic mean of the grouped distribution shown?`,
-    `What is the estimated mean represented by the histogram?`,
-    `What is the approximate mean of the data shown in the histogram?`,
-  ]);
+  const meanStems = GROUPED_MEAN_STEMS[stimulus.xAxisLabel];
+  if (!meanStems) throw new Error(`DI-009 has no grouped-mean stem mapping for '${stimulus.xAxisLabel}'.`);
+  const s = surface(seed, "APPROX_GROUPED_MEAN_FROM_HISTOGRAM", meanStems);
   return {
     kind: "APPROX_GROUPED_MEAN_FROM_HISTOGRAM",
     difficulty: "Hard",
