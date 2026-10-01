@@ -41,7 +41,7 @@ The final closure sweep found and corrected remaining learner-surface debt in th
 - Calendar no longer exposes modulo/remainder arithmetic as a learner target or solver hint;
 - Calendar clues use concrete forward day counts;
 - Direction authoring excludes engineering-style displacement-component and coordinate-sign clue families;
-- Direction shortest-distance authoring uses integer-metre worlds;
+- Direction shortest-distance answers use exact whole-number or simplified-radical metre forms;
 - Inequality no longer tells the learner that equal values are allowed;
 - Coding no longer uses the internal phrase “source symbol” in learner prompts;
 - the stale CP017 deep-audit executable now reflects the live QL002 Question Studio runtime.
@@ -109,7 +109,7 @@ It additionally checks:
 - QL002 seven-subset proof;
 - known machine/editorial wording regressions;
 - removal of learner-facing modulo Calendar targets;
-- whole-metre Direction shortest-distance targets;
+- exact non-decimal Direction shortest-distance targets;
 - downstream release locks.
 
 If CP034 and the production API build pass together, DSF-001 may be marked conventionally deep-audit closed.
