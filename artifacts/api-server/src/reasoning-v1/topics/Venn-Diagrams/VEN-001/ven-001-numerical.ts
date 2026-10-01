@@ -603,9 +603,9 @@ function explanationRegion(c: Context, mask: number, l: L) {
   const names = c.names[l].split("|");
   if (!members.length)
     return tx(
-      "None of the activities",
-      "इनमें से कोई गतिविधि नहीं",
-      "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਵੀ ਕੰਮ ਨਹੀਂ",
+      "None of these groups",
+      "इनमें से किसी समूह में नहीं",
+      "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ",
     )[l];
   if (members.length === 1)
     return tx(
@@ -614,7 +614,7 @@ function explanationRegion(c: Context, mask: number, l: L) {
       `ਸਿਰਫ਼ ${names[members[0]]}`,
     )[l];
   if (members.length === 3)
-    return tx(`All three activities`, `तीनों गतिविधियाँ`, `ਤਿੰਨੇ ਕੰਮ`)[l];
+    return tx(`All three groups`, `तीनों समूह`, `ਤਿੰਨੇ ਸਮੂਹ`)[l];
   const selected = join(
     members.map((i) => names[i]),
     l,
@@ -639,7 +639,7 @@ function derivation(c: Context, r: State, sets: 2 | 3, l: L) {
     ac = membershipTotal(r, 5),
     bc = membershipTotal(r, 6),
     t = r[7];
-  return `${tx(`First place ${t} people in all three activities: ${c.names.en.split("|").join(", ")}.`, `पहले ${c.names.hi.split("|").join(", ")} तीनों गतिविधियाँ करने वाले ${t} लोगों को रखें।`, `ਪਹਿਲਾਂ ${c.names.pa.split("|").join(", ")} ਤਿੰਨੇ ਕੰਮ ਕਰਨ ਵਾਲੇ ${t} ਲੋਕ ਰੱਖੋ।`)[l]} ${explanationRegion(c, 3, l)} = ${ab} − ${t} = ${r[3]}; ${explanationRegion(c, 5, l)} = ${ac} − ${t} = ${r[5]}; ${explanationRegion(c, 6, l)} = ${bc} − ${t} = ${r[6]}. ${explanationRegion(c, 1, l)} = ${a} − ${r[3]} − ${r[5]} − ${t} = ${r[1]}; ${explanationRegion(c, 2, l)} = ${b} − ${r[3]} − ${r[6]} − ${t} = ${r[2]}; ${explanationRegion(c, 4, l)} = ${cTotal} − ${r[5]} − ${r[6]} − ${t} = ${r[4]}. ${explanationRegion(c, 0, l)} = ${sum(r)} − (${r.slice(1).join(" + ")}) = ${r[0]}.`;
+  return `${tx(`First place ${t} people in the region common to all three groups: ${c.names.en.split("|").join(", ")}.`, `पहले तीनों समूहों—${c.names.hi.split("|").join(", ")}—के साझा क्षेत्र में ${t} लोगों को रखें।`, `ਪਹਿਲਾਂ ਤਿੰਨਾਂ ਸਮੂਹਾਂ—${c.names.pa.split("|").join(", ")}—ਦੇ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ ${t} ਲੋਕ ਰੱਖੋ।`)[l]} ${explanationRegion(c, 3, l)} = ${ab} − ${t} = ${r[3]}; ${explanationRegion(c, 5, l)} = ${ac} − ${t} = ${r[5]}; ${explanationRegion(c, 6, l)} = ${bc} − ${t} = ${r[6]}. ${explanationRegion(c, 1, l)} = ${a} − ${r[3]} − ${r[5]} − ${t} = ${r[1]}; ${explanationRegion(c, 2, l)} = ${b} − ${r[3]} − ${r[6]} − ${t} = ${r[2]}; ${explanationRegion(c, 4, l)} = ${cTotal} − ${r[5]} − ${r[6]} − ${t} = ${r[4]}. ${explanationRegion(c, 0, l)} = ${sum(r)} − (${r.slice(1).join(" + ")}) = ${r[0]}.`;
 }
 function requestedRegions(c: Context, r: State, q: string, l: L) {
   const masks = QUERY_MASKS[q];
@@ -817,17 +817,17 @@ export function buildNumericalItem(
                 union = a + b + cTotal - ab - ac - bc + all;
               return `${
                 tx(
-                  `For ${names.join(", ")}, the pair counts include the centre (people doing all three activities). Add the three activity totals, subtract all three pair counts, then add the centre back once. Subtract this union from the survey total to find those doing none.`,
-                  `${names.join(", ")} के लिए तीनों गतिविधियों के कुल जोड़ें और हर जोड़ी का कुल घटाएँ। तीनों गतिविधियाँ करने वालों को तीन बार घटाया गया है, इसलिए केंद्र की संख्या एक बार फिर जोड़ें। कोई भी गतिविधि न करने वालों के लिए बने हुए संघ को कुल संख्या में से घटाएँ।`,
-                  `${names.join(", ")} ਲਈ ਤਿੰਨਾਂ ਕੰਮਾਂ ਦੇ ਕੁੱਲ ਜੋੜੋ ਅਤੇ ਹਰ ਜੋੜੇ ਦਾ ਕੁੱਲ ਘਟਾਓ। ਤਿੰਨੇ ਕੰਮ ਕਰਨ ਵਾਲੇ ਤਿੰਨ ਵਾਰ ਘਟੇ ਹਨ, ਇਸ ਲਈ ਕੇਂਦਰ ਦੀ ਗਿਣਤੀ ਇੱਕ ਵਾਰ ਮੁੜ ਜੋੜੋ। ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਲਈ ਬਣੇ ਸੰਘ ਨੂੰ ਕੁੱਲ ਵਿੱਚੋਂ ਘਟਾਓ।`,
+                  `For ${names.join(", ")}, each pair count includes the people in all three groups. Add the three group totals, subtract the three pair counts, then add the all-three count back once. Subtract this union from the total to find those in none of the groups.`,
+                  `${names.join(", ")} के तीनों समूहों की कुल संख्याएँ जोड़ें और तीनों जोड़ियों की संख्याएँ घटाएँ। तीनों समूहों में आने वालों की संख्या एक बार फिर जोड़ें। फिर किसी भी समूह में न आने वालों के लिए इस संघ को कुल संख्या में से घटाएँ।`,
+                  `${names.join(", ")} ਦੇ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਜੋੜੋ ਅਤੇ ਤਿੰਨਾਂ ਜੋੜਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਘਟਾਓ। ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਇੱਕ ਵਾਰ ਮੁੜ ਜੋੜੋ। ਫਿਰ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਲਈ ਇਸ ਜੋੜ ਨੂੰ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ।`,
                 )[l]
               } ${a} + ${b} + ${cTotal} − ${ab} − ${ac} − ${bc} + ${all} = ${union}. ${sum(r)} − ${union} = ${r[0]}.`;
             })()
           : `${
               tx(
-                `For ${c.names.en.split("|").join(", ")}, each pair total also includes people doing all three activities. Subtract that centre count from each pair total to get the pair-only numbers; then remove those overlaps from each activity total to find its only region.`,
-                `${c.names.hi.split("|").join(", ")} के हर जोड़ी-योग में तीनों गतिविधियाँ करने वाले लोग भी शामिल हैं। केवल दो गतिविधियाँ करने वालों की संख्या के लिए हर जोड़ी-योग में से केंद्र की संख्या घटाएँ; फिर हर गतिविधि के कुल में से साझा हिस्से घटाएँ।`,
-                `${c.names.pa.split("|").join(", ")} ਦੇ ਹਰ ਜੋੜੇ ਦੇ ਕੁੱਲ ਵਿੱਚ ਤਿੰਨੇ ਕੰਮ ਕਰਨ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਸਿਰਫ਼ ਦੋ ਕੰਮ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਲਈ ਹਰ ਜੋੜੇ ਦੇ ਕੁੱਲ ਵਿੱਚੋਂ ਕੇਂਦਰ ਦੀ ਗਿਣਤੀ ਘਟਾਓ; ਫਿਰ ਹਰ ਕੰਮ ਦੇ ਕੁੱਲ ਵਿੱਚੋਂ ਸਾਂਝੇ ਹਿੱਸੇ ਘਟਾਓ।`,
+                `For ${c.names.en.split("|").join(", ")}, each pair count also includes the people in all three groups. Subtract the all-three count from each pair count to get the pair-only regions; then remove those overlaps from each group total to get the only-one-group regions.`,
+                `${c.names.hi.split("|").join(", ")} की हर जोड़ी की संख्या में तीनों समूहों में आने वाले लोग भी शामिल हैं। केवल दो समूहों में आने वालों के लिए हर जोड़ी की संख्या में से तीनों वाले लोगों की संख्या घटाएँ; फिर हर समूह की कुल संख्या में से उसके साझा हिस्से घटाएँ।`,
+                `${c.names.pa.split("|").join(", ")} ਦੀ ਹਰ ਜੋੜੀ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ਲੋਕ ਵੀ ਸ਼ਾਮਲ ਹਨ। ਸਿਰਫ਼ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਲਈ ਹਰ ਜੋੜੀ ਦੀ ਗਿਣਤੀ ਵਿੱਚੋਂ ਤਿੰਨਾਂ ਵਾਲੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਘਟਾਓ; ਫਿਰ ਹਰ ਸਮੂਹ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਉਸਦੇ ਸਾਂਝੇ ਹਿੱਸੇ ਘਟਾਓ।`,
               )[l]
             } ${derivation(c, r, 3, l)} ${requestedRegions(c, r, q, l)}`;
       explanation = regionWork;
