@@ -9,6 +9,10 @@ export const GROUPED_MEAN_FREQUENCIES = [
   [4, 7, 10, 7, 4],
   [5, 8, 12, 9, 6],
   [2, 5, 9, 12, 8, 4],
+  [3, 6, 11, 14, 9, 5],
+  [5, 9, 13, 13, 9, 5],
+  [2, 7, 15, 18, 10, 4],
+  [6, 10, 15, 11, 7, 3],
 ] as const;
 export const GROUPED_MEDIAN_FREQUENCIES = [
   [5, 8, 6, 6, 5],
@@ -16,6 +20,10 @@ export const GROUPED_MEDIAN_FREQUENCIES = [
   [7, 11, 18, 14, 8],
   [6, 10, 20, 12, 6],
   [8, 15, 25, 15, 8],
+  [4, 9, 17, 13, 7],
+  [6, 12, 22, 16, 9],
+  [5, 14, 19, 12, 6],
+  [10, 18, 27, 17, 8],
 ] as const;
 export const GROUPED_MODE_FREQUENCIES = [
   [8, 15, 25, 15, 8],
@@ -23,6 +31,10 @@ export const GROUPED_MODE_FREQUENCIES = [
   [4, 9, 16, 11, 5],
   [5, 13, 18, 10, 4],
   [7, 11, 18, 14, 8],
+  [3, 8, 19, 12, 5],
+  [6, 14, 23, 15, 7],
+  [5, 10, 21, 13, 6],
+  [9, 17, 28, 16, 8],
 ] as const;
 export const MISSING_VALUE_TEMPLATES = [
   { values: [4, 7, 10, 13, 16], frequencies: [2, 3, 4, 5, 1], mean: 10 },
@@ -31,6 +43,10 @@ export const MISSING_VALUE_TEMPLATES = [
   { values: [8, 12, 16, 20, 24], frequencies: [3, 2, 5, 4, 2], mean: 16 },
   { values: [10, 15, 20, 25, 30], frequencies: [1, 4, 3, 2, 5], mean: 22 },
   { values: [10, 15, 20, 25, 30], frequencies: [2, 5, 3, 4, 1], mean: 19 },
+  { values: [7, 10, 13, 16, 19], frequencies: [2, 4, 6, 4, 2], mean: 13 },
+  { values: [12, 16, 20, 24, 28], frequencies: [3, 5, 7, 5, 3], mean: 20 },
+  { values: [15, 20, 25, 30, 35], frequencies: [4, 6, 8, 6, 4], mean: 25 },
+  { values: [18, 24, 30, 36, 42], frequencies: [2, 5, 9, 5, 2], mean: 30 },
 ] as const;
 
 export function sum(values: readonly number[]) { return values.reduce((a,b)=>a+b,0); }
