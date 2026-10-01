@@ -21,10 +21,10 @@ export type Di003SingleSet=Readonly<{
 }>;
 
 const CONTEXTS=[
-  {title:"Applications received by five branches",series:"Applications",unit:"applications",labels:["Branch A","Branch B","Branch C","Branch D","Branch E"]},
-  {title:"Students enrolled in five courses",series:"Students",unit:"students",labels:["Course A","Course B","Course C","Course D","Course E"]},
-  {title:"Units produced by five plants",series:"Production",unit:"units",labels:["Plant A","Plant B","Plant C","Plant D","Plant E"]},
-  {title:"Orders processed by five centres",series:"Orders",unit:"orders",labels:["Centre A","Centre B","Centre C","Centre D","Centre E"]},
+  {title:"Applications received by five branches",series:"Applications",unit:"applications",averageMeasure:"number of applications received",labels:["Branch A","Branch B","Branch C","Branch D","Branch E"]},
+  {title:"Students enrolled in five courses",series:"Students",unit:"students",averageMeasure:"number of students enrolled",labels:["Course A","Course B","Course C","Course D","Course E"]},
+  {title:"Units produced by five plants",series:"Production",unit:"units",averageMeasure:"production (in units)",labels:["Plant A","Plant B","Plant C","Plant D","Plant E"]},
+  {title:"Orders processed by five centres",series:"Orders",unit:"orders",averageMeasure:"number of orders processed",labels:["Centre A","Centre B","Centre C","Centre D","Centre E"]},
 ] as const;
 const EASY:readonly Di003SingleTask[]=["DIRECT_VALUE","HIGHEST_VALUE","LOWEST_VALUE"];
 const MEDIUM:readonly Di003SingleTask[]=["CATEGORY_DIFFERENCE","CATEGORY_RATIO","THREE_CATEGORY_TOTAL","THREE_CATEGORY_AVERAGE"];
@@ -55,7 +55,7 @@ function question(task:Di003SingleTask,difficulty:Di003SingleDifficulty,stimulus
     const triples:[[number,number,number],number][]=[];
     for(let a=0;a<5;a++)for(let b=a+1;b<5;b++)for(let c=b+1;c<5;c++){const sum=p[a]!.value+p[b]!.value+p[c]!.value;if(sum%3===0)triples.push([[a,b,c],sum]);}
     if(!triples.length)return question("THREE_CATEGORY_TOTAL",difficulty,stimulus,seed,index,count);
-    const [t,sum]=pick(triples,`${seed}:avg`),[a,b,c]=t,v=sum/3;stem=`What is the average value for ${p[a]!.category}, ${p[b]!.category} and ${p[c]!.category}?`;answer=String(v);options=numOptions(v,count,seed);steps=[`Sum = ${sum}.`,`Average = ${sum} ÷ 3 = ${v}.`];
+    const [t,sum]=pick(triples,`${seed}:avg`),[a,b,c]=t,v=sum/3,context=CONTEXTS.find(x=>x.series===stimulus.seriesLabel);if(!context)throw new Error("DI-003 single bar average context missing.");stem=`What was the average ${context.averageMeasure} across ${p[a]!.category}, ${p[b]!.category} and ${p[c]!.category}?`;answer=String(v);options=numOptions(v,count,seed);steps=[`Sum = ${sum}.`,`Average = ${sum} ÷ 3 = ${v}.`];
   } else if(task==="SERIES_TOTAL"){const v=p.reduce((s,x)=>s+x.value,0);stem="What is the total of all five categories?";answer=String(v);options=numOptions(v,count,seed);steps=[`Total = ${p.map(x=>x.value).join(" + ")} = ${v}.`];}
   else if(task==="TWO_GROUP_RATIO"){const a=p[i]!.value+p[j]!.value,b=p[k]!.value+p[l]!.value,v=ratio(a,b);stem=`What is the ratio of the combined value for ${p[i]!.category} and ${p[j]!.category} to that for ${p[k]!.category} and ${p[l]!.category}?`;answer=v;options=ratioOptions(v,a,b,count,seed);steps=[`First group = ${a}.`,`Second group = ${b}.`,`Ratio = ${v}.`];}
   else if(task==="FOUR_CATEGORY_TOTAL"){const v=p[i]!.value+p[j]!.value+p[k]!.value+p[l]!.value;stem=`Find the total for ${p[i]!.category}, ${p[j]!.category}, ${p[k]!.category} and ${p[l]!.category}.`;answer=String(v);options=numOptions(v,count,seed);steps=[`Total = ${v}.`];}
