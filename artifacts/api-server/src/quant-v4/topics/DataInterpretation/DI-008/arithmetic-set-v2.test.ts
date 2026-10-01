@@ -85,6 +85,10 @@ for (let seedIndex = 1; seedIndex <= 160; seedIndex += 1) {
       assert(question.options.length === 5 && new Set(question.options).size === 5, question.questionId + " does not have five unique options.");
       assert(question.options[question.correctIndex] === question.answer, question.questionId + " correctIndex is not bound to the answer.");
       assert(!/\bAfter (?:finding|recovering|solving|calculating|adding|combining|resolving)\b/iu.test(question.stem), question.questionId + " contains procedural setup instead of a direct ask.");
+      if (question.kind === "GROUP_REVENUE_RATIO") {
+        assert(/^(?:What is the ratio|Find the ratio|Calculate the ratio)/u.test(question.stem), question.questionId + " must ask directly for the grouped revenue ratio.");
+        assert(!/\bCompare\b|\bas a ratio\b|\bin the same order\b/iu.test(question.stem), question.questionId + " contains an indirect or mechanically worded ratio prompt.");
+      }
       assert(question.optionMetadata.filter((option) => option.misconceptionId === "CORRECT").length === 1, question.questionId + " does not have one correct metadata entry.");
       assert(question.explanation.keyIdea.length >= 35 && question.explanation.steps.length >= 2, question.questionId + " explanation is too thin.");
 
