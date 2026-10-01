@@ -140,6 +140,10 @@ for (const profile of profiles) {
       if (question.kind === "CLASS_SHARE_OF_TOTAL") assert(/approximately|approximate|about/iu.test(question.stem), `${profile} ${seed} percentage answer is not signalled as approximate.`);
       if (question.kind === "APPROX_GROUPED_MEAN_FROM_HISTOGRAM" || question.kind === "APPROX_GROUPED_MODE_FROM_HISTOGRAM") {
         assert(/approximate|estimate/iu.test(question.stem), `${profile} ${seed} grouped estimate is not signalled as approximate.`);
+        if (question.kind === "APPROX_GROUPED_MEAN_FROM_HISTOGRAM") {
+          assert(/\?/u.test(question.stem), `${profile} ${seed} grouped-mean stem is not a direct question.`);
+          assert(!/class marks?|class-mark|midpoint|using .*method/iu.test(question.stem), `${profile} ${seed} grouped-mean method instruction leaked into the stem.`);
+        }
       }
       assert(question.options.length === 4 && new Set(question.options).size === 4, `${profile} ${seed} ${question.kind} has invalid options.`);
       if (question.kind === "COMBINED_RANGE_TOTAL" || question.kind === "RANGE_RATIO") {

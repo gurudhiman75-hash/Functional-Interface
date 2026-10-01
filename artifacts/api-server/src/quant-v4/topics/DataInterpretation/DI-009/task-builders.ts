@@ -473,10 +473,10 @@ function groupedMeanDraft(seed: string, stimulus: Di009Stimulus): Di009Draft {
   const weightedUpper = formatWhole(bins.reduce((sum, bin) => sum + bin.upper * bin.frequency, 0), total);
   const unweightedMidpointMean = formatWhole(bins.reduce((sum, bin) => sum + bin.lower + bin.upper, 0), 2 * bins.length);
   const s = surface(seed, "APPROX_GROUPED_MEAN_FROM_HISTOGRAM", [
-    `Using the class marks, what is the approximate mean of the distribution?`,
+    `What is the approximate mean of the distribution?`,
     `What is the approximate arithmetic mean of the grouped distribution shown?`,
-    `Estimate the grouped mean by using the midpoint of each class as its value.`,
-    `Use the class-mark method to estimate the mean from the histogram.`,
+    `What is the estimated mean represented by the histogram?`,
+    `What is the approximate mean of the data shown in the histogram?`,
   ]);
   return {
     kind: "APPROX_GROUPED_MEAN_FROM_HISTOGRAM",
