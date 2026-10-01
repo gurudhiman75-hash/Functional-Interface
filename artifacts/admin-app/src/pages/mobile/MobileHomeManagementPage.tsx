@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import { MediaAssetPicker } from '@/components/shared/MediaAssetPicker';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
 import { Button } from '@/components/ui/button';
@@ -318,9 +319,9 @@ export function MobileHomeManagementPage(){
                 <Field label="Title"><Input value={slide.title} onChange={e=>updateSlide(slide.id,{title:e.target.value})} placeholder="Punjab Govt. Exams"/></Field>
                 <Field label="CTA label"><Input value={slide.ctaLabel} onChange={e=>updateSlide(slide.id,{ctaLabel:e.target.value})} placeholder="Explore Tests"/></Field>
                 <div className="md:col-span-2"><Field label="Subtitle"><Textarea rows={2} value={slide.subtitle} onChange={e=>updateSlide(slide.id,{subtitle:e.target.value})} placeholder="Prepare with exam-focused mock tests and learning resources."/></Field></div>
-                <div className="md:col-span-2"><Field label="Banner image URL"><Input value={slide.imageUrl} onChange={e=>updateSlide(slide.id,{imageUrl:e.target.value})} placeholder="https://…"/></Field></div>
+                <div className="md:col-span-2"><Field label="Banner image"><MediaAssetPicker value={slide.imageUrl} onChange={url=>updateSlide(slide.id,{imageUrl:url})} preferredType="Home Banner" label="Choose / Upload"/></Field></div>
                 <Field label="Built-in icon"><IconPicker value={slide.iconName} onChange={value=>updateSlide(slide.id,{iconName:value})}/></Field>
-                <Field label="Custom icon URL"><Input value={slide.iconUrl} onChange={e=>updateSlide(slide.id,{iconUrl:e.target.value})} placeholder="Optional SVG / PNG / WebP URL"/></Field>
+                <Field label="Custom icon"><MediaAssetPicker value={slide.iconUrl} onChange={url=>updateSlide(slide.id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
                 <Field label="Destination type"><Select value={slide.destinationType} onValueChange={value=>updateSlide(slide.id,{destinationType:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="url">External URL</SelectItem></SelectContent></Select></Field>
                 <Field label="Destination / deep link"><Input value={slide.destinationValue} onChange={e=>updateSlide(slide.id,{destinationValue:e.target.value})} placeholder="Exam ID, series ID, Learn route or URL"/></Field>
                 <Field label="Start"><Input type="datetime-local" value={localDateTime(slide.startAt)} onChange={e=>updateSlide(slide.id,{startAt:isoOrNull(e.target.value)})}/></Field>
@@ -411,7 +412,7 @@ export function MobileHomeManagementPage(){
               <Field label="Layout"><Select value={section.layout} onValueChange={value=>updateCustomSection(section.id,{layout:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="horizontal">Horizontal cards</SelectItem><SelectItem value="grid">Grid</SelectItem><SelectItem value="list">List</SelectItem><SelectItem value="banner">Banner</SelectItem></SelectContent></Select></Field>
               <div className="md:col-span-2"><Field label="Subtitle"><Input value={section.subtitle} onChange={e=>updateCustomSection(section.id,{subtitle:e.target.value})}/></Field></div>
               <Field label="Section icon"><IconPicker value={section.iconName} onChange={value=>updateCustomSection(section.id,{iconName:value})}/></Field>
-              <Field label="Section icon URL"><Input value={section.iconUrl} onChange={e=>updateCustomSection(section.id,{iconUrl:e.target.value})} placeholder="Optional custom icon URL"/></Field>
+              <Field label="Section icon"><MediaAssetPicker value={section.iconUrl} onChange={url=>updateCustomSection(section.id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
             </div>
             <div className="flex items-center justify-between"><p className="text-sm font-semibold">Cards</p><Button size="sm" variant="outline" onClick={()=>addCustomCard(section.id)}><Plus className="mr-1 h-4 w-4"/>Add card</Button></div>
             <div className="space-y-3">{section.cards.map((card,cardIndex)=><div key={card.id} className="grid gap-3 rounded-lg border bg-background p-3 md:grid-cols-2">
@@ -420,8 +421,8 @@ export function MobileHomeManagementPage(){
               <Field label="Subtitle"><Input value={card.subtitle} onChange={e=>updateCustomCard(section.id,card.id,{subtitle:e.target.value})}/></Field>
               <Field label="CTA label"><Input value={card.ctaLabel} onChange={e=>updateCustomCard(section.id,card.id,{ctaLabel:e.target.value})}/></Field>
               <Field label="Built-in icon"><IconPicker value={card.iconName} onChange={value=>updateCustomCard(section.id,card.id,{iconName:value})}/></Field>
-              <Field label="Custom icon URL"><Input value={card.iconUrl} onChange={e=>updateCustomCard(section.id,card.id,{iconUrl:e.target.value})}/></Field>
-              <Field label="Image URL"><Input value={card.imageUrl} onChange={e=>updateCustomCard(section.id,card.id,{imageUrl:e.target.value})}/></Field>
+              <Field label="Custom icon"><MediaAssetPicker value={card.iconUrl} onChange={url=>updateCustomCard(section.id,card.id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
+              <Field label="Card image"><MediaAssetPicker value={card.imageUrl} onChange={url=>updateCustomCard(section.id,card.id,{imageUrl:url})} preferredType="Home Banner" label="Choose / Upload"/></Field>
               <Field label="Destination"><Select value={card.destinationType} onValueChange={value=>updateCustomCard(section.id,card.id,{destinationType:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="url">URL</SelectItem></SelectContent></Select></Field>
               <div className="md:col-span-2 flex items-end gap-2"><div className="flex-1"><Field label="Destination / deep link"><Input value={card.destinationValue} onChange={e=>updateCustomCard(section.id,card.id,{destinationValue:e.target.value})}/></Field></div><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,-1)} disabled={cardIndex===0} aria-label="Move card up"><ArrowUp className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,1)} disabled={cardIndex===section.cards.length-1} aria-label="Move card down"><ArrowDown className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>duplicateCustomCard(section.id,card.id)} aria-label="Duplicate card"><Copy className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>removeCustomCard(section.id,card.id)}><Trash2 className="h-4 w-4"/></Button></div>
             </div>)}</div>
@@ -437,7 +438,7 @@ export function MobileHomeManagementPage(){
           <div className="flex items-center justify-between"><p className="font-semibold">{label}</p><Switch checked={setting.isVisible!==false} onCheckedChange={checked=>setSectionSetting(id,{isVisible:checked})}/></div>
           <Field label="Display title"><Input value={setting.title||''} onChange={e=>setSectionSetting(id,{title:e.target.value})} placeholder={label}/></Field>
           <Field label="Subtitle"><Input value={setting.subtitle||''} onChange={e=>setSectionSetting(id,{subtitle:e.target.value})}/></Field>
-          <div className="grid gap-3 sm:grid-cols-2"><Field label="Built-in icon"><IconPicker value={setting.iconName||''} onChange={value=>setSectionSetting(id,{iconName:value})}/></Field><Field label="Icon URL"><Input value={setting.iconUrl||''} onChange={e=>setSectionSetting(id,{iconUrl:e.target.value})} placeholder="Optional SVG / PNG / WebP URL"/></Field></div>
+          <div className="grid gap-3 sm:grid-cols-2"><Field label="Built-in icon"><IconPicker value={setting.iconName||''} onChange={value=>setSectionSetting(id,{iconName:value})}/></Field><Field label="Custom icon"><MediaAssetPicker value={setting.iconUrl||''} onChange={url=>setSectionSetting(id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field></div>
         </div>})}
       </CardContent>
     </Card>
@@ -449,7 +450,7 @@ export function MobileHomeManagementPage(){
           <div><p className="text-sm font-semibold">{item.label}</p><p className="text-xs text-muted-foreground">{item.type}</p></div>
           <Field label="Display title"><Input value={override.title||''} onChange={e=>setItemOverride(item.id,{title:e.target.value})} placeholder="Use canonical title"/></Field>
           <Field label="Built-in icon"><IconPicker value={override.iconName||''} onChange={value=>setItemOverride(item.id,{iconName:value})}/></Field>
-          <Field label="Custom icon URL"><Input value={override.iconUrl||''} onChange={e=>setItemOverride(item.id,{iconUrl:e.target.value})} placeholder="SVG / PNG / WebP"/></Field>
+          <Field label="Custom icon"><MediaAssetPicker value={override.iconUrl||''} onChange={url=>setItemOverride(item.id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
         </div>})}
       </CardContent>
     </Card>
