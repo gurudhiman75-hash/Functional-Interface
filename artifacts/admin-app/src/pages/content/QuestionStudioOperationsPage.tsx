@@ -29,7 +29,7 @@ import { QuestionStudioSeriesReviewPanel } from './QuestionStudioSeriesReviewPan
 import { QuestionStudioSpatialReviewPanel } from './QuestionStudioSpatialReviewPanel';
 import { QuestionStudioStatementAssumptionReviewPanel } from './QuestionStudioStatementAssumptionReviewPanel';
 
-type SpecializedWorkspace =
+type AdvancedWorkspace =
   | 'english'
   | 'computer-awareness'
   | 'com003'
@@ -43,8 +43,8 @@ type SpecializedWorkspace =
   | 'input-output'
   | 'statement-assumption';
 
-const SPECIALIZED_WORKSPACES: Array<{
-  value: SpecializedWorkspace;
+const ADVANCED_WORKSPACES: Array<{
+  value: AdvancedWorkspace;
   label: string;
   group: string;
 }> = [
@@ -63,14 +63,14 @@ const SPECIALIZED_WORKSPACES: Array<{
 ];
 
 export function QuestionStudioOperationsPage() {
-  const [specializedWorkspace, setSpecializedWorkspace] = useState<SpecializedWorkspace>('algebra');
+  const [advancedWorkspace, setAdvancedWorkspace] = useState<AdvancedWorkspace>('algebra');
 
   return (
     <Tabs defaultValue="workspace" className="space-y-4">
       <div className="sticky top-0 z-20 -mx-1 overflow-x-auto bg-background/95 px-1 pb-1 pt-1 backdrop-blur">
         <TabsList className="h-auto w-max min-w-full justify-start gap-1 p-1 sm:min-w-0">
           <TabsTrigger value="workspace">Generate & review</TabsTrigger>
-          <TabsTrigger value="specialized">Specialized engines</TabsTrigger>
+          <TabsTrigger value="advanced">Advanced controls</TabsTrigger>
           <TabsTrigger value="calibration">Profiles & calibration</TabsTrigger>
           <TabsTrigger value="recovery">Recovery</TabsTrigger>
         </TabsList>
@@ -80,27 +80,27 @@ export function QuestionStudioOperationsPage() {
         <QuestionStudioCockpitPage />
       </TabsContent>
 
-      <TabsContent value="specialized" className="mt-0 space-y-4">
+      <TabsContent value="advanced" className="mt-0 space-y-4">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-base">Specialized generation engines</CardTitle>
+            <CardTitle className="text-base">Engine-specific advanced controls</CardTitle>
             <p className="text-xs text-muted-foreground">
-              Use these only for generators that have not yet been migrated into the common production cockpit.
-              Selecting one workspace mounts only that engine instead of loading every Question Studio panel at once.
+              Normal generation and review for registered Quant, Reasoning, English and Static GK content belongs in Generate & review.
+              Use this area only for bespoke previews, diagnostics or chapter-specific controls that are not represented by the standard workflow.
             </p>
           </CardHeader>
           <CardContent>
             <div className="max-w-xl space-y-2">
-              <p className="text-xs font-semibold text-muted-foreground">Engine workspace</p>
+              <p className="text-xs font-semibold text-muted-foreground">Advanced workspace</p>
               <Select
-                value={specializedWorkspace}
-                onValueChange={(value) => setSpecializedWorkspace(value as SpecializedWorkspace)}
+                value={advancedWorkspace}
+                onValueChange={(value) => setAdvancedWorkspace(value as AdvancedWorkspace)}
               >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {SPECIALIZED_WORKSPACES.map((entry) => (
+                  {ADVANCED_WORKSPACES.map((entry) => (
                     <SelectItem key={entry.value} value={entry.value}>
                       {entry.group} · {entry.label}
                     </SelectItem>
@@ -111,7 +111,7 @@ export function QuestionStudioOperationsPage() {
           </CardContent>
         </Card>
 
-        <SpecializedPanel workspace={specializedWorkspace} />
+        <AdvancedPanel workspace={advancedWorkspace} />
       </TabsContent>
 
       <TabsContent value="calibration" className="mt-0 space-y-4">
@@ -142,8 +142,8 @@ function SectionIntro({ title, description }: { title: string; description: stri
   );
 }
 
-function SpecializedPanel({ workspace }: { workspace: SpecializedWorkspace }) {
-  const panels: Record<SpecializedWorkspace, ReactNode> = {
+function AdvancedPanel({ workspace }: { workspace: AdvancedWorkspace }) {
+  const panels: Record<AdvancedWorkspace, ReactNode> = {
     english: <QuestionStudioEnglishReviewPanel />,
     'computer-awareness': <QuestionStudioComputerAwarenessReviewPanel />,
     com003: (
