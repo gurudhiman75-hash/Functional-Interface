@@ -12,7 +12,7 @@ for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
   const fingerprints = new Set<string>();
   const explanations = new Set<string>();
   const answerPositions = new Set<number>();
-  let minExplanationLength = Number.POSITIVE_INFINITY;
+  let minExplanationWordCount = Number.POSITIVE_INFINITY;
 
   for (let seed = 1; seed <= SEEDS_PER_QL; seed += 1) {
     const q: any = generateNumCp008Permanent(qlId as any, seed);
@@ -32,7 +32,8 @@ for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
     fingerprints.add(String(q.mathematicalFingerprint));
     explanations.add(explanation);
     answerPositions.add(Number(q.correctIndex));
-    minExplanationLength = Math.min(minExplanationLength, explanation.length);
+    const explanationWordCount = explanation.trim().split(/\s+/u).filter(Boolean).length;
+    minExplanationWordCount = Math.min(minExplanationWordCount, explanationWordCount);
   }
 
   perQl.push({
@@ -42,7 +43,7 @@ for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
     fingerprintCount: fingerprints.size,
     explanationCount: explanations.size,
     answerPositionCount: answerPositions.size,
-    minExplanationLength,
+    minExplanationWordCount,
   });
 }
 
@@ -51,7 +52,7 @@ for (const row of perQl) {
   assert.ok(row.fingerprintCount >= 16, row.qlId + ": mathematical-state breadth below 16");
   assert.ok(row.explanationCount >= 8, row.qlId + ": explanation diversity below 8");
   assert.ok(row.answerPositionCount >= 3, row.qlId + ": answer-position spread below 3");
-  assert.ok(row.minExplanationLength >= 220, row.qlId + ": explanation remains too thin");
+  assert.ok(row.minExplanationWordCount >= 40, row.qlId + ": explanation falls below the established Human V3 40-word minimum");
 }
 
 assert.equal(perQl.find(r => r.qlId === "NUM-QL-169").answerCount, 1,
