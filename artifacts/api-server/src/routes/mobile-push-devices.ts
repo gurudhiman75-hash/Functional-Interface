@@ -53,6 +53,41 @@ router.delete("/mobile/push-devices",async(req,res)=>{
   }catch(error){console.error("Unable to unregister push device",error);res.status(500).json({error:"Unable to unregister push device",code:"MOBILE_PUSH_DEVICE_UNREGISTER_FAILED"});}
 });
 
+
+router.get("/mobile/notifications",async(req,res)=>{
+  try{
+    const firebaseUid=req.user?.id??"";
+    const userId=await canonicalUserId(firebaseUid);
+    if(!userId)return void res.status(404).json({error:"Student profile not found.",code:"MOBILE_PUSH_PROFILE_NOT_FOUND"});
+    const rows=await sqlClient`
+      SELECT DISTINCT ON (d.campaign_id)
+        c.id::text AS "campaignId",
+        c.title,
+        c.body,
+        c.image_url AS "imageUrl",
+        c.destination_type AS "destinationType",
+        c.destination_value AS "destinationValue",
+        d.status,
+        d.sent_at AS "sentAt",
+        d.opened_at AS "openedAt"
+      FROM platform.mobile_notification_deliveries d
+      JOIN platform.mobile_notification_campaigns c ON c.id=d.campaign_id
+      WHERE d.user_id=${userId}::uuid
+        AND d.status IN ('sent','opened')
+      ORDER BY d.campaign_id,d.created_at DESC
+    `;
+    rows.sort((a,b)=>{
+      const at=a.sentAt instanceof Date?a.sentAt.getTime():new Date(String(a.sentAt??0)).getTime();
+      const bt=b.sentAt instanceof Date?b.sentAt.getTime():new Date(String(b.sentAt??0)).getTime();
+      return bt-at;
+    });
+    res.json({notifications:rows.slice(0,100)});
+  }catch(error){
+    console.error("Unable to list mobile notifications",error);
+    res.status(500).json({error:"Unable to load notifications",code:"MOBILE_NOTIFICATION_LIST_FAILED"});
+  }
+});
+
 router.post("/mobile/notifications/:campaignId/open",async(req,res)=>{
   try{
     const firebaseUid=req.user?.id??"";
