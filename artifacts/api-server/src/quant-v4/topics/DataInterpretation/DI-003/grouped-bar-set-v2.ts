@@ -283,7 +283,7 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const points = stimulus.points;
   const aLabel = stimulus.series[0].label;
   const bLabel = stimulus.series[1].label;
-  const measureByContext = { ANNUAL_SALES: "sales", MONTHLY_PRODUCTION: "production", TEST_SELECTIONS: "candidates selected", LIBRARY_ISSUES: "books issued", TICKET_SALES: "tickets sold", PACKAGE_DISPATCH: "packages dispatched" } as const;
+  const measureByContext = { ANNUAL_SALES: "sales volume", MONTHLY_PRODUCTION: "production output", TEST_SELECTIONS: "number of candidates selected", LIBRARY_ISSUES: "number of books issued", TICKET_SALES: "number of tickets sold", PACKAGE_DISPATCH: "number of packages dispatched" } as const;
   const measure = measureByContext[stimulus.contextId as keyof typeof measureByContext] ?? "values";
   const totalA = points.reduce((sum, point) => sum + point.seriesA, 0);
   const totalB = points.reduce((sum, point) => sum + point.seriesB, 0);
