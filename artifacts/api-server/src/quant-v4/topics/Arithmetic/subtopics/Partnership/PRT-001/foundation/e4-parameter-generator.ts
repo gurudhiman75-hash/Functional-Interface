@@ -68,13 +68,39 @@ export function generatePrt001E4Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findCapitalRatioFromProfitShares": {
-      const s = random.pick([{a:24_000,b:36_000},{a:30_000,b:50_000},{a:40_000,b:70_000},{a:45_000,b:72_000}]);
+      const s = random.pick([
+        {a:24_000,b:36_000},
+        {a:24_000,b:32_000},
+        {a:30_000,b:50_000},
+        {a:36_000,b:45_000},
+        {a:40_000,b:70_000},
+        {a:50_000,b:60_000},
+        {a:35_000,b:49_000},
+        {a:45_000,b:72_000},
+        {a:56_000,b:80_000},
+        {a:64_000,b:88_000},
+        {a:54_000,b:78_000},
+        {a:66_000,b:90_000},
+      ]);
       const partners = [partner(partnerA,[segment(0,12,money(s.a))]), partner(partnerB,[segment(0,12,money(s.b))])];
       state = makeState(partners, money(cleanGross(partners, 12_000)));
       break;
     }
     case "findLossShareFromCapitals": {
-      const s = random.pick([{a:20_000,b:30_000},{a:30_000,b:45_000},{a:40_000,b:60_000},{a:50_000,b:80_000}]);
+      const s = random.pick([
+        {a:20_000,b:30_000},
+        {a:24_000,b:32_000},
+        {a:30_000,b:45_000},
+        {a:36_000,b:45_000},
+        {a:40_000,b:60_000},
+        {a:50_000,b:60_000},
+        {a:35_000,b:49_000},
+        {a:50_000,b:80_000},
+        {a:56_000,b:80_000},
+        {a:64_000,b:88_000},
+        {a:54_000,b:78_000},
+        {a:66_000,b:90_000},
+      ]);
       const partners = [partner(partnerA,[segment(0,12,money(s.a))]), partner(partnerB,[segment(0,12,money(s.b))])];
       const loss = money(cleanGross(partners, 10_000));
       state = makeState(partners, -loss);

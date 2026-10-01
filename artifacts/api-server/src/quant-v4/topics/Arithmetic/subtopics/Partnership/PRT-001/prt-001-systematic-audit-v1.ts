@@ -404,6 +404,17 @@ const perCp = cpIds.map((cpId) => {
   };
 });
 
+const cp001LowAnswerDiversityQls = lowAnswerDiversityQls.filter(
+  (item) => item.cpId === "PRT-CP-001",
+);
+assert.equal(
+  cp001LowAnswerDiversityQls.length,
+  0,
+  `PRT-CP-001 answer diversity remains below 6 distinct answers for: ${cp001LowAnswerDiversityQls
+    .map((item) => item.qlId)
+    .join(", ")}`,
+);
+
 console.log(
   JSON.stringify(
     {
