@@ -39,7 +39,7 @@ const workflowIndex = registry.indexOf("router.use(adminQuestionStudioCubesDiceW
 const cndIndex = registry.indexOf("router.use(adminQuestionStudioCubesDiceRouter)");
 const catchAllIndex = registry.indexOf("router.use(adminQuestionStudioRouter)");
 assert.ok(workflowIndex >= 0 && cndIndex > workflowIndex && catchAllIndex > cndIndex,
-  "CND shared-run adapter must execute before the chapter router and legacy catch-all generator.");
+  "CND shared-run adapter must execute before the chapter router and shared review/bulk catch-all.");
 
 assert.match(workflowRoute, /router\.post\("\/runs"/);
 assert.match(workflowRoute, /SPA-001-CND-001-REVIEW/);
