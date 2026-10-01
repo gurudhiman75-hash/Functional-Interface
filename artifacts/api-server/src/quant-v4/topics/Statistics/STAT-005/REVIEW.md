@@ -1,6 +1,6 @@
 # Statistics — STAT-005 Partition Values & Dispersion Review V2
 
-**Review status:** English representative review candidate; awaiting content approval.
+**Review status:** English representative review approved on 2026-10-01.
 **Profiles:** SSC CGL Tier II and JSO. **Lifecycle:** controlled review only.
 
 Each example is generated deterministically from its permanent QL contract. Formula conventions are stated where needed; stem wording has been revised to read as exam questions rather than procedural directions.
@@ -292,6 +292,8 @@ D. 31
 The learner-facing stems omit procedural directions. The generator contract applies these conventions: raw quartiles, deciles, and percentiles use the \((n+1)\) position with linear interpolation; discrete-frequency partition values use the nearest-rank rule \(\lceil kN/m\rceil\); grouped partition values use linear interpolation at position \(kN/m\). These conventions are review metadata and are not part of the question stems.
 
 ## Review checkpoints
+
+- Editorial approval recorded on 2026-10-01. Diversity and pool expansion remain deferred to a later pass.
 
 - Table presentation corrected after the STAT-005 review pass.
 
