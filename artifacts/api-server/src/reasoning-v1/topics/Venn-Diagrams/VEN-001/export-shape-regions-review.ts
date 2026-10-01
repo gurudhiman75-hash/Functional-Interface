@@ -53,32 +53,41 @@ const queryKeys = new Set(
       (question.semanticMetadata as Record<string, unknown>).queryKey,
   ),
 );
-writeFileSync(
-  fileURLToPath(
-    new URL("./VEN-001-SHAPE-REGIONS-REVIEW-V2.html", import.meta.url),
-  ),
-  html,
+const json = JSON.stringify(
+  {
+    checkpointId: "VEN-CP011",
+    title: "Geometric Shape Region Inspection",
+    status: "TRILINGUAL_REVIEW_CANDIDATE",
+    runtimeMode: "review-only",
+    seed,
+    layoutCount: layouts.size,
+    scenarioCount: scenarioIds.size,
+    queryTypeCount: queryKeys.size,
+    questions,
+  },
+  null,
+  2,
 );
-writeFileSync(
-  fileURLToPath(
-    new URL("./VEN-001-SHAPE-REGIONS-REVIEW-V2.json", import.meta.url),
-  ),
-  JSON.stringify(
-    {
-      checkpointId: "VEN-CP011",
-      title: "Geometric Shape Region Inspection",
-      status: "TRILINGUAL_REVIEW_CANDIDATE",
-      runtimeMode: "review-only",
-      seed,
-      layoutCount: layouts.size,
-      scenarioCount: scenarioIds.size,
-      queryTypeCount: queryKeys.size,
-      questions,
-    },
-    null,
-    2,
-  ),
-);
+for (const version of ["V1", "V2"]) {
+  writeFileSync(
+    fileURLToPath(
+      new URL(
+        `./VEN-001-SHAPE-REGIONS-REVIEW-${version}.html`,
+        import.meta.url,
+      ),
+    ),
+    html,
+  );
+  writeFileSync(
+    fileURLToPath(
+      new URL(
+        `./VEN-001-SHAPE-REGIONS-REVIEW-${version}.json`,
+        import.meta.url,
+      ),
+    ),
+    json,
+  );
+}
 console.log(
   `Exported ${questions.length} shape-region questions across ${layouts.size} layouts and ${languages.length} languages.`,
 );
