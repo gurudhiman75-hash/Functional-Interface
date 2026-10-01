@@ -165,6 +165,9 @@ import {
   generateTmw001EngineBatch,
   tmw001EnginePackage,
 } from "../quant-time-work";
+import {
+  generateSapBankingEngineBatch,
+} from "../quant-sap-banking";
 import type {
   QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
@@ -653,6 +656,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
     const timeAndWork = await generateTmw001EngineBatch(request);
     if (timeAndWork) return timeAndWork;
+
+    const sapBanking = await generateSapBankingEngineBatch(request);
+    if (sapBanking) return sapBanking;
 
     const diMixRequest = toDiMixRequest(request);
     if (isDiDeliveryNoveltyMixRequest(diMixRequest)) {
