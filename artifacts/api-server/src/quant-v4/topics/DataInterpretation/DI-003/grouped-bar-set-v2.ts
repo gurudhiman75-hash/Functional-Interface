@@ -283,6 +283,8 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const points = stimulus.points;
   const aLabel = stimulus.series[0].label;
   const bLabel = stimulus.series[1].label;
+  const measureByContext = { ANNUAL_SALES: "sales volume", MONTHLY_PRODUCTION: "production output", TEST_SELECTIONS: "number of candidates selected", LIBRARY_ISSUES: "number of books issued", TICKET_SALES: "number of tickets sold", PACKAGE_DISPATCH: "number of packages dispatched" } as const;
+  const measure = measureByContext[stimulus.contextId as keyof typeof measureByContext] ?? "values";
   const totalA = points.reduce((sum, point) => sum + point.seriesA, 0);
   const totalB = points.reduce((sum, point) => sum + point.seriesB, 0);
   if (totalA <= totalB) throw new Error("DI-003 V2 state requires Series A total to exceed Series B total.");
@@ -294,27 +296,27 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const directValue = directSeriesA ? directPoint.seriesA : directPoint.seriesB;
   const otherSeriesValue = directSeriesA ? directPoint.seriesB : directPoint.seriesA;
   const directSurface = surface(`${seed}:DIRECT_BAR_VALUE:stem`, [
-    `What is the value of ${directLabel} for ${directPoint.category}?`,
+    `How many ${stimulus.unit} did ${directLabel} record for ${directPoint.category}?`,
     `According to the chart, how many ${stimulus.unit} are shown for ${directLabel} in ${directPoint.category}?`,
-    `For ${directPoint.category}, what value is shown for ${directLabel}?`,
+    `For ${directPoint.category}, how many ${stimulus.unit} did ${directLabel} record?`,
   ]);
 
   const highestSeriesA = hashSeed(`${seed}:highest-series`) % 2 === 0;
   const highestLabel = highestSeriesA ? aLabel : bLabel;
   const highestPoint = points.reduce((best, point) => (highestSeriesA ? point.seriesA > best.seriesA : point.seriesB > best.seriesB) ? point : best, points[0]!);
   const highestSurface = surface(`${seed}:HIGHEST_CATEGORY_FOR_SERIES:stem`, [
-    `In which category is ${highestLabel} the highest?`,
-    `For ${highestLabel}, which category has the maximum value?`,
-    `Which category has the highest ${highestLabel} value?`,
+    `In which category did ${highestLabel} record the highest ${measure}?`,
+    `For ${highestLabel}, which category had the most ${measure}?`,
+    `Which category has the highest ${measure} for ${highestLabel}?`,
   ]);
 
   const lowestSeriesA = hashSeed(`${seed}:lowest-series`) % 2 === 0;
   const lowestLabel = lowestSeriesA ? aLabel : bLabel;
   const lowestPoint = points.reduce((best, point) => (lowestSeriesA ? point.seriesA < best.seriesA : point.seriesB < best.seriesB) ? point : best, points[0]!);
   const lowestSurface = surface(`${seed}:LOWEST_CATEGORY_FOR_SERIES:stem`, [
-    `In which category is ${lowestLabel} the lowest?`,
-    `For ${lowestLabel}, which category has the minimum value?`,
-    `Which category has the lowest ${lowestLabel} value?`,
+    `In which category did ${lowestLabel} record the lowest ${measure}?`,
+    `For ${lowestLabel}, which category had the least ${measure}?`,
+    `Which category has the lowest ${measure} for ${lowestLabel}?`,
   ]);
 
   const differenceChoices = points.map((point, index) => ({ index, value: Math.abs(point.seriesA - point.seriesB) })).filter((entry) => entry.value > 0);
@@ -322,18 +324,18 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const differencePoint = points[differenceEntry.index]!;
   const crossDifference = differenceEntry.value;
   const differenceSurface = surface(`${seed}:CROSS_SERIES_DIFFERENCE:stem`, [
-    `What is the difference between ${aLabel} and ${bLabel} in ${differencePoint.category}?`,
-    `In ${differencePoint.category}, what is the difference between the two series?`,
-    `Find the absolute difference between ${aLabel} and ${bLabel} for ${differencePoint.category}.`,
+    `What is the difference in ${measure} between ${aLabel} and ${bLabel} for ${differencePoint.category}?`,
+    `In ${differencePoint.category}, what was the difference in ${measure} between ${aLabel} and ${bLabel}?`,
+    `Find the absolute difference in ${measure} between ${aLabel} and ${bLabel} for ${differencePoint.category}.`,
   ]);
 
   const combinedIndex = hashSeed(`${seed}:combined-total`) % points.length;
   const combinedPoint = points[combinedIndex]!;
   const combinedTotal = combinedPoint.seriesA + combinedPoint.seriesB;
   const combinedSurface = surface(`${seed}:COMBINED_CATEGORY_TOTAL:stem`, [
-    `What is the combined value of ${aLabel} and ${bLabel} in ${combinedPoint.category}?`,
-    `Find the total of ${aLabel} and ${bLabel} for ${combinedPoint.category}.`,
-    `Together, what value do ${aLabel} and ${bLabel} give for ${combinedPoint.category}?`,
+    `What was the combined ${measure} for ${aLabel} and ${bLabel} in ${combinedPoint.category}?`,
+    `Find the combined ${measure} for ${aLabel} and ${bLabel} in ${combinedPoint.category}.`,
+    `Together, how many ${stimulus.unit} did ${aLabel} and ${bLabel} record for ${combinedPoint.category}?`,
   ]);
 
   const withinSeriesA = hashSeed(`${seed}:within-series`) % 2 === 0;
@@ -343,9 +345,9 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const withinB = withinSeriesA ? points[withinRight]!.seriesA : points[withinRight]!.seriesB;
   const withinDifference = Math.abs(withinA - withinB);
   const withinSurface = surface(`${seed}:WITHIN_SERIES_DIFFERENCE:stem`, [
-    `What is the difference in ${withinLabel} between ${points[withinLeft]!.category} and ${points[withinRight]!.category}?`,
-    `For ${withinLabel}, how much do the values for ${points[withinLeft]!.category} and ${points[withinRight]!.category} differ?`,
-    `Find the absolute difference between the ${withinLabel} values for ${points[withinLeft]!.category} and ${points[withinRight]!.category}.`,
+    `For ${withinLabel}, what is the difference in ${measure} between ${points[withinLeft]!.category} and ${points[withinRight]!.category}?`,
+    `How much did ${withinLabel}'s ${measure} differ between ${points[withinLeft]!.category} and ${points[withinRight]!.category}?`,
+    `Find the absolute difference in ${measure} for ${withinLabel} between ${points[withinLeft]!.category} and ${points[withinRight]!.category}.`,
   ]);
 
   const ratioSeriesA = hashSeed(`${seed}:ratio-series`) % 2 === 0;
@@ -355,9 +357,9 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const ratioB = ratioSeriesA ? points[ratioRight]!.seriesA : points[ratioRight]!.seriesB;
   const categoryRatio = ratioDisplay(ratioA, ratioB);
   const ratioSurface = surface(`${seed}:CATEGORY_RATIO_WITHIN_SERIES:stem`, [
-    `What is the ratio of ${ratioLabel} in ${points[ratioLeft]!.category} to ${points[ratioRight]!.category}?`,
-    `For ${ratioLabel}, the values in ${points[ratioLeft]!.category} and ${points[ratioRight]!.category} are in what ratio, in that order?`,
-    `Find ${points[ratioLeft]!.category} : ${points[ratioRight]!.category} for ${ratioLabel}.`,
+    `What is the ratio of ${ratioLabel}'s ${measure} in ${points[ratioLeft]!.category} to its ${measure} in ${points[ratioRight]!.category}?`,
+    `For ${ratioLabel}, compare the ${measure} in ${points[ratioLeft]!.category} and ${points[ratioRight]!.category}, in that order.`,
+    `What is the ${points[ratioLeft]!.category} : ${points[ratioRight]!.category} ratio of ${measure} for ${ratioLabel}?`,
   ]);
 
   const averageSeriesA = hashSeed(`${seed}:average-series`) % 2 === 0;
@@ -374,9 +376,9 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const secondCombined = points[secondIndex]!.seriesA + points[secondIndex]!.seriesB;
   const combinedRatio = ratioDisplay(firstCombined, secondCombined);
   const combinedRatioSurface = surface(`${seed}:COMBINED_CATEGORY_RATIO:stem`, [
-    `What is the ratio of the combined values of both series in ${points[firstIndex]!.category} to ${points[secondIndex]!.category}?`,
-    `Add the two series values in each named category. What is ${points[firstIndex]!.category} : ${points[secondIndex]!.category}?`,
-    `The combined totals for ${points[firstIndex]!.category} and ${points[secondIndex]!.category} are in what ratio, in that order?`,
+    `What is the ratio of the combined ${measure} in ${points[firstIndex]!.category} to that in ${points[secondIndex]!.category}?`,
+    `Compare the combined ${measure} in ${points[firstIndex]!.category} and ${points[secondIndex]!.category}, in that order.`,
+    `What is the ratio of total ${measure} in ${points[firstIndex]!.category} to total ${measure} in ${points[secondIndex]!.category}?`,
   ]);
 
   const [changeLeft, changeRight] = pair(`${seed}:percent-change`, points.length);
@@ -387,9 +389,9 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const changeDifference = higherValue - lowerValue;
   const percentChange = formatPercent(changeDifference, lowerValue);
   const percentSurface = surface(`${seed}:PERCENT_CHANGE_WITHIN_SERIES:stem`, [
-    `By approximately what percentage is ${aLabel} in ${points[higherIndex]!.category} higher than in ${points[lowerIndex]!.category}?`,
-    `Approximately by what percentage does ${aLabel} increase from ${points[lowerIndex]!.category} to ${points[higherIndex]!.category}?`,
-    `What is the approximate percentage increase in ${aLabel} from ${points[lowerIndex]!.category} to ${points[higherIndex]!.category}?`,
+    `By approximately what percentage were ${aLabel}’s ${measure} in ${points[higherIndex]!.category} higher than in ${points[lowerIndex]!.category}?`,
+    `By approximately what percentage did ${aLabel}’s ${measure} increase from ${points[lowerIndex]!.category} to ${points[higherIndex]!.category}?`,
+    `What was the approximate percentage increase in ${aLabel}’s ${measure} from ${points[lowerIndex]!.category} to ${points[higherIndex]!.category}?`,
   ]);
 
   const shareSeriesA = hashSeed(`${seed}:share-series`) % 2 === 0;
@@ -399,16 +401,16 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const shareValue = shareSeriesA ? points[shareIndex]!.seriesA : points[shareIndex]!.seriesB;
   const shareAnswer = formatPercent(shareValue, shareTotal);
   const shareSurface = surface(`${seed}:CATEGORY_SHARE_OF_SERIES_TOTAL:stem`, [
-    `Approximately what percentage of the ${shareLabel} total across all five categories is from ${points[shareIndex]!.category}?`,
-    `What percentage of the five-category ${shareLabel} total comes from ${points[shareIndex]!.category}, approximately?`,
-    `What is the approximate share of ${points[shareIndex]!.category} in the total of ${shareLabel}?`,
+    `Approximately what percentage of ${shareLabel}’s total ${measure} across the five categories came from ${points[shareIndex]!.category}?`,
+    `Approximately what percentage of ${shareLabel}’s total ${measure} came from ${points[shareIndex]!.category}?`,
+    `What was ${points[shareIndex]!.category}’s approximate share of ${shareLabel}’s total ${measure}?`,
   ]);
 
   const totalDifference = totalA - totalB;
   const totalExcess = formatPercent(totalDifference, totalB);
   const excessSurface = surface(`${seed}:TOTAL_SERIES_PERCENT_EXCESS:stem`, [
-    `Approximately by what percentage does the total of ${aLabel} exceed the total of ${bLabel}?`,
-    `By about what percentage is the five-category total for ${aLabel} higher than the total for ${bLabel}?`,
+    `By approximately what percentage did ${aLabel}’s total ${measure} exceed ${bLabel}’s?`,
+    `By about what percentage was ${aLabel}’s five-category total ${measure} higher than ${bLabel}’s?`,
     `What is the approximate percentage by which the overall ${aLabel} total exceeds the overall ${bLabel} total?`,
   ]);
 
