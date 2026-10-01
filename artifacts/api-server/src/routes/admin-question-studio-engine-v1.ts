@@ -13,6 +13,10 @@ import type {
   QuestionStudioEngineId,
   QuestionStudioGenerationRequest,
 } from "../question-studio/engine-types";
+import {
+  generateProfiledQuantBatch,
+  type QuantExamProfilePlan,
+} from "../question-studio/quant-exam-profile";
 
 const router = Router();
 
@@ -73,26 +77,6 @@ function difficultyForRequest(value: unknown, packageId: string | undefined) {
     return normalizeDifficulty(raw);
   }
   return normalizeDifficulty(value);
-}
-
-function nonQuantRunGate(req: any, _res: any, next: any) {
-  const requestedEngineRaw = asString(req.body?.engineId);
-  const requestedEngineId = normalizeEngineId(requestedEngineRaw);
-
-  if (requestedEngineRaw && !requestedEngineId) {
-    next();
-    return;
-  }
-
-  const packageId = asString(req.body?.packageId) || undefined;
-  const selectedEngineId = requestedEngineId ?? engineForPackage(packageId);
-
-  if (!selectedEngineId || selectedEngineId === "quant-v4") {
-    next("route");
-    return;
-  }
-
-  next();
 }
 
 router.get(
@@ -192,7 +176,6 @@ router.get(
 
 router.post(
   "/runs",
-  nonQuantRunGate,
   authenticate,
   requireAdminPermission("content.generation.run"),
   async (req, res) => {
@@ -212,14 +195,7 @@ router.post(
       ? [...new Set(req.body.cpIds.map(asString).filter(Boolean))].slice(0, 50)
       : [];
     const packageEngineId = engineForPackage(packageId);
-    const selectedEngineId = requestedEngineId ?? packageEngineId;
-
-    if (!selectedEngineId || selectedEngineId === "quant-v4") {
-      res.status(409).json({
-        error: "Legacy Quant requests must use the established Question Studio run path",
-      });
-      return;
-    }
+    const selectedEngineId = requestedEngineId ?? packageEngineId ?? "quant-v4";
 
     if (requestedEngineId && packageEngineId && requestedEngineId !== packageEngineId) {
       res.status(400).json({
@@ -230,15 +206,24 @@ router.post(
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
     const patternId = asString(req.body?.patternId) || undefined;
-    const topic = asString(req.body?.topic) || undefined;
-    const subtopic = asString(req.body?.subtopic) || undefined;
-    const exam = asString(req.body?.exam) || "SSC CGL";
-    const subject = asString(req.body?.subject) || undefined;
+    const rawTopic = asString(req.body?.topic) || undefined;
+    const rawSubtopic = asString(req.body?.subtopic) || undefined;
+    const topic = rawTopic ?? (selectedEngineId === "quant-v4" ? "Arithmetic" : undefined);
+    const subtopic = rawSubtopic ?? (selectedEngineId === "quant-v4" ? "Percentage" : undefined);
+    const exam = asString(req.body?.exam)
+      || (selectedEngineId === "quant-v4" ? "SSC CGL Tier 1" : "SSC CGL");
+    const subject = asString(req.body?.subject)
+      || (selectedEngineId === "quant-v4" ? "Quantitative Aptitude" : undefined);
     const language = normalizeLanguage(req.body?.language);
-    const difficulty = difficultyForRequest(req.body?.difficulty, packageId);
+    const difficulty = selectedEngineId === "quant-v4"
+      ? (asString(req.body?.difficulty) || "Medium")
+      : difficultyForRequest(req.body?.difficulty, packageId);
     const seed = asString(req.body?.seed) || undefined;
     const runtimeMode = asString(req.body?.runtimeMode) || undefined;
-    const canonicalProblemId = asString(req.body?.canonicalProblemId) || asString(req.body?.cpId) || undefined;
+    const canonicalProblemId =
+      asString(req.body?.canonicalProblemId)
+      || asString(req.body?.cpId)
+      || undefined;
     const selectedCpIds = requestedCpIds.length > 0
       ? requestedCpIds
       : canonicalProblemId
@@ -247,7 +232,9 @@ router.post(
     const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
 
     if (!packageId && !patternId && !(topic && subtopic)) {
-      res.status(400).json({ error: "A package, pattern, or topic/subtopic selection is required" });
+      res.status(400).json({
+        error: "A package, pattern, or topic/subtopic selection is required",
+      });
       return;
     }
 
@@ -297,55 +284,82 @@ router.post(
     const timestamp = new Date().toISOString();
 
     try {
-      const generationRequests = selectedCpIds.length > 0
-        ? selectedCpIds.map((cpId, index) => {
-            const baseCount = Math.floor(count / selectedCpIds.length);
-            const remainder = count % selectedCpIds.length;
-            return {
-              cpId,
-              count: baseCount + (index < remainder ? 1 : 0),
-            };
-          }).filter((entry) => entry.count > 0)
-        : [{ cpId: undefined, count }];
-
       const generatedQuestions: Array<Record<string, unknown>> = [];
-      const generationContexts: Array<{ cpId?: string; context: unknown }> = [];
+      const generationContexts: Array<Record<string, unknown>> = [];
+      let quantPlan: QuantExamProfilePlan | null = null;
 
-      for (let index = 0; index < generationRequests.length; index++) {
-        const request = generationRequests[index]!;
-        const cpSeed = seed && request.cpId
-          ? `${seed}:cp:${request.cpId}:slot:${index + 1}`
-          : seed;
-
-        const result = await generateQuestionStudioQuestions({
-          ...generationRequest,
-          count: request.count,
-          seed: cpSeed,
-          canonicalProblemId: request.cpId,
+      if (selectedEngineId === "quant-v4") {
+        const quantBatch = await generateProfiledQuantBatch({
+          request: generationRequest,
+          count,
+          selectedCpIds,
+          examProfileId: req.body?.examProfileId,
+          difficultyPreset: req.body?.difficultyPreset,
+          difficultyDistribution: req.body?.difficultyDistribution,
         });
+        quantPlan = quantBatch.plan;
+        generatedQuestions.push(...quantBatch.questions);
+        generationContexts.push(
+          ...quantBatch.generationContexts.map((entry) => ({
+            cpId: entry.cpId,
+            difficulty: entry.difficulty,
+            context: entry.context,
+          })),
+        );
+      } else {
+        const generationRequests = selectedCpIds.length > 0
+          ? selectedCpIds.map((cpId, index) => {
+              const baseCount = Math.floor(count / selectedCpIds.length);
+              const remainder = count % selectedCpIds.length;
+              return {
+                cpId,
+                count: baseCount + (index < remainder ? 1 : 0),
+              };
+            }).filter((entry) => entry.count > 0)
+          : [{ cpId: undefined, count }];
 
-        if (result.engineId !== selectedEngineId) {
-          throw new Error(
-            `Question Studio engine changed during generation: expected ${selectedEngineId}, received ${result.engineId}`,
-          );
-        }
+        for (let index = 0; index < generationRequests.length; index += 1) {
+          const request = generationRequests[index]!;
+          const cpSeed = seed && request.cpId
+            ? `${seed}:cp:${request.cpId}:slot:${index + 1}`
+            : seed;
 
-        const questions = Array.isArray(result.questions) ? result.questions : [];
-        generationContexts.push({
-          cpId: request.cpId,
-          context: { ...(result.generationContext ?? {}), engineId: result.engineId },
-        });
-
-        for (const question of questions) {
-          generatedQuestions.push({
-            ...question,
-            canonicalProblemId:
-              asString((question as Record<string, unknown>)?.canonicalProblemId) ||
-              request.cpId,
-            selectedCpId: request.cpId,
-            engineId: result.engineId,
-            generationContext: { ...(result.generationContext ?? {}), engineId: result.engineId },
+          const result = await generateQuestionStudioQuestions({
+            ...generationRequest,
+            count: request.count,
+            seed: cpSeed,
+            canonicalProblemId: request.cpId,
           });
+
+          if (result.engineId !== selectedEngineId) {
+            throw new Error(
+              `Question Studio engine changed during generation: expected ${selectedEngineId}, received ${result.engineId}`,
+            );
+          }
+
+          const questions = Array.isArray(result.questions) ? result.questions : [];
+          generationContexts.push({
+            cpId: request.cpId,
+            context: {
+              ...(result.generationContext ?? {}),
+              engineId: result.engineId,
+            },
+          });
+
+          for (const question of questions) {
+            generatedQuestions.push({
+              ...question,
+              canonicalProblemId:
+                asString((question as Record<string, unknown>)?.canonicalProblemId)
+                || request.cpId,
+              selectedCpId: request.cpId,
+              engineId: result.engineId,
+              generationContext: {
+                ...(result.generationContext ?? {}),
+                engineId: result.engineId,
+              },
+            });
+          }
         }
       }
 
@@ -356,11 +370,24 @@ router.post(
 
       const requestSnapshot = {
         ...generationRequest,
+        seed: quantPlan?.seed ?? generationRequest.seed,
+        difficulty: quantPlan?.requestedDifficulty ?? generationRequest.difficulty,
         canonicalProblemId: selectedCpIds.length === 1 ? selectedCpIds[0] : undefined,
         cpIds: selectedCpIds,
         engineId: selectedEngineId,
+        ...(quantPlan
+          ? {
+              difficultyPreset: quantPlan.difficultyPreset,
+              difficultyDistribution: quantPlan.difficultyDistribution,
+              difficultyCounts: quantPlan.difficultyCounts,
+              cpCounts: quantPlan.cpCounts,
+              ...quantPlan.trace,
+            }
+          : {}),
         requestedByFirebaseUid: req.user?.id,
       };
+
+      const model = quantPlan ? "quant-v4-exam-profile" : selectedEngineId;
 
       await sqlClient.begin(async (tx) => {
         await tx`
@@ -371,16 +398,20 @@ router.post(
           ) VALUES (
             ${runId}::uuid, ${code}, 'review'::generation_run_status, 1,
             ${JSON.stringify(requestSnapshot)}, ${JSON.stringify(requestSnapshot)},
-            'examtree', ${selectedEngineId}, 0, 0, 0, 0,
+            'examtree', ${model}, 0, 0, 0, 0,
             ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
           )
         `;
 
-        for (let index = 0; index < generatedQuestions.length; index++) {
+        for (let index = 0; index < generatedQuestions.length; index += 1) {
           const itemId = randomUUID();
           const versionId = randomUUID();
           const question = generatedQuestions[index] as Record<string, unknown>;
-          const payload = { ...question, generationContexts, validationResult: "pending" };
+          const payload = {
+            ...question,
+            generationContexts,
+            validationResult: "pending",
+          };
 
           await tx`
             INSERT INTO content.generation_run_items (
@@ -408,9 +439,17 @@ router.post(
             ${randomUUID()}::uuid, 'user'::audit_actor_type,
             ${req.adminSession?.user.id ?? null}::uuid,
             'question_studio.generation_run.created', 'generation_run', ${runId}::uuid,
-            'Admin generated a Question Studio batch',
-            ${`Generated ${generatedQuestions.length} ${selectedEngineId} questions in ${code}`},
-            ${JSON.stringify({ firebaseUid: req.user?.id, engineId: selectedEngineId, requestSnapshot })}
+            ${quantPlan
+              ? 'Admin generated an exam-profile Question Studio batch'
+              : 'Admin generated a Question Studio batch'},
+            ${quantPlan
+              ? `Generated ${generatedQuestions.length} ${quantPlan.profile.label} Quant V4 questions in ${code}`
+              : `Generated ${generatedQuestions.length} ${selectedEngineId} questions in ${code}`},
+            ${JSON.stringify({
+              firebaseUid: req.user?.id,
+              engineId: selectedEngineId,
+              requestSnapshot,
+            })}
           )
         `;
 
@@ -420,7 +459,12 @@ router.post(
           ) VALUES (
             ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid,
             'question_studio.generation_run.created',
-            ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length, engineId: selectedEngineId })}
+            ${JSON.stringify({
+              runId,
+              publicCode: code,
+              itemCount: generatedQuestions.length,
+              engineId: selectedEngineId,
+            })}
           )
         `;
       });
@@ -432,11 +476,28 @@ router.post(
         itemCount: generatedQuestions.length,
         generationSystem: selectedEngineId,
         engineId: selectedEngineId,
+        ...(quantPlan
+          ? {
+              difficulty: quantPlan.requestedDifficulty,
+              difficultyPreset: quantPlan.difficultyPreset,
+              difficultyDistribution: quantPlan.difficultyDistribution,
+              difficultyCounts: quantPlan.difficultyCounts,
+              cpCounts: quantPlan.cpCounts,
+              examProfile: quantPlan.trace,
+            }
+          : {}),
       });
     } catch (error) {
       console.error("Question Studio multi-engine generation failed", error);
+      const statusCode = Number((error as { statusCode?: unknown })?.statusCode);
+      const code = asString((error as { code?: unknown })?.code);
+      const details = (error as { details?: unknown })?.details;
       const message = error instanceof Error ? error.message : "Question generation failed";
-      res.status(500).json({ error: message });
+      res.status(Number.isFinite(statusCode) ? statusCode : 500).json({
+        error: message,
+        ...(code ? { code } : {}),
+        ...(details !== undefined ? { details } : {}),
+      });
     }
   },
 );
