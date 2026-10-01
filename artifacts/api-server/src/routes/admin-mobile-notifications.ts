@@ -105,6 +105,23 @@ router.put("/:id",requireAdminPermission("content.taxonomy.manage"),async(req,re
   }catch(error){const typed=error as {statusCode?:number;code?:string;message?:string};res.status(typed.statusCode??500).json({error:typed.message??"Unable to update notification",code:typed.code??"MOBILE_NOTIFICATION_UPDATE_FAILED"});}
 });
 
+router.post("/:id/send-now",requireAdminPermission("content.taxonomy.manage"),async(req,res)=>{
+  const id=text(req.params.id,80);if(!/^[0-9a-f-]{36}$/i.test(id))return void res.status(400).json({error:"Invalid notification identifier",code:"MOBILE_NOTIFICATION_ID_INVALID"});
+  try{
+    const actor=req.adminSession!.user.id;
+    const rows=await sqlClient`
+      UPDATE platform.mobile_notification_campaigns
+      SET status='scheduled',scheduled_at=now(),updated_by=${actor}::uuid,updated_at=now()
+      WHERE id=${id}::uuid AND status IN ('draft','scheduled','cancelled')
+      RETURNING id::text AS id
+    `;
+    if(rows.length===0)return void res.status(409).json({error:"This notification can no longer be sent.",code:"MOBILE_NOTIFICATION_SEND_BLOCKED"});
+    await sqlClient`INSERT INTO platform.audit_events (id,actor_type,actor_user_id,action_key,entity_type,entity_id,summary,reason,metadata)
+      VALUES (${randomUUID()}::uuid,'user'::audit_actor_type,${actor}::uuid,'mobile.notification.send_requested','mobile_notification_campaign',${id}::uuid,'Requested immediate mobile notification delivery','Admin requested Send now for a mobile push campaign','{}'::jsonb)`;
+    res.json({id,status:"scheduled"});
+  }catch(error){console.error("Unable to queue notification",error);res.status(500).json({error:"Unable to queue notification",code:"MOBILE_NOTIFICATION_SEND_FAILED"});}
+});
+
 router.post("/:id/cancel",requireAdminPermission("content.taxonomy.manage"),async(req,res)=>{
   const id=text(req.params.id,80);if(!/^[0-9a-f-]{36}$/i.test(id))return void res.status(400).json({error:"Invalid notification identifier",code:"MOBILE_NOTIFICATION_ID_INVALID"});
   try{
