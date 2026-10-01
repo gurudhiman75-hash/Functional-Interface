@@ -108,9 +108,13 @@ function normalizedExplanation(value: string): string {
 }
 
 function numericSignature(value: string): string {
+  const normalized = value.replace(
+    /\\frac\{(\d+)\}\{(\d+)\}/gu,
+    "$1/$2",
+  );
   const tokens =
-    value.match(
-      /₹\s*[\d,]+(?:\.\d+)?|\\frac\{\d+\}\{\d+\}|\b\d+(?:\.\d+)?%|\b\d+(?:\.\d+)?\b/gu,
+    normalized.match(
+      /₹\s*[\d,]+(?:\.\d+)?|\b\d+(?:\.\d+)?(?:\/\d+(?:\.\d+)?)?%?/gu,
     ) ?? [];
   return tokens
     .map((token) => token.replace(/\s+/gu, "").replace(/,/gu, ""))
