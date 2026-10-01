@@ -1,0 +1,44 @@
+name: Validate DSF-CP-023 QL002 Blood Relations
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - audit/dsf-001-cp022-ql002-direction-batch
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-023/**
+      - artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp023-ql002-blood-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp023:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP023 QL002 Blood audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-023/blood-relations-three-statement-batch-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dsf-cp023-ql002-blood.test.mjs
+      - name: Run CP023 QL002 Blood audit
+        run: node artifacts/api-server/dist/reasoning-v1/dsf-cp023-ql002-blood.test.mjs
