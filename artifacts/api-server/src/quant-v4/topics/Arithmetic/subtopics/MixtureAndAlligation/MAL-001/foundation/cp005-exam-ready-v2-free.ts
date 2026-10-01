@@ -464,17 +464,8 @@ export function adulterantPercentQuestionV2(input: {
   const solution = solveMalCp005(request);
   const adulterantPercent = expectPercent(solution);
   const purePercent = subtractRational(HUNDRED_V2, adulterantPercent);
-  const doubledTotalError = divideRational(
-    multiplyRational(HUNDRED_V2, targetProfitPercent),
-    addRational(
-      HUNDRED_V2,
-      multiplyRational(rational(2), targetProfitPercent),
-    ),
-  );
-  const wrongComplementBase = divideRational(
-    multiplyRational(HUNDRED_V2, targetProfitPercent),
-    subtractRational(HUNDRED_V2, targetProfitPercent),
-  );
+  const doubledShare = multiplyRational(adulterantPercent, rational(2));
+  const profitComplement = subtractRational(HUNDRED_V2, targetProfitPercent);
   const answer = percentTextV2(adulterantPercent);
   const options = buildNaturalOptionsV2(
     answer,
@@ -488,14 +479,13 @@ export function adulterantPercentQuestionV2(input: {
         misconceptionId: "reported_pure_share_of_final_mixture",
       },
       {
-        text: percentTextV2(doubledTotalError),
-        misconceptionId: "added_the_free_part_twice_to_final_total",
+        text: percentTextV2(doubledShare),
+        misconceptionId: "doubled_the_adulterant_share",
+        physicallyPossible: compareRational(doubledShare, HUNDRED_V2) <= 0,
       },
       {
-        text: percentTextV2(wrongComplementBase),
-        misconceptionId: "used_profit_complement_as_final_total",
-        physicallyPossible:
-          compareRational(wrongComplementBase, HUNDRED_V2) <= 0,
+        text: percentTextV2(profitComplement),
+        misconceptionId: "used_profit_complement",
       },
     ],
     `${input.selectedSeed}:options`,
@@ -558,14 +548,9 @@ export function profitFromAdulterantPercentQuestionV2(input: {
   const solution = solveMalCp005(request);
   const profit = expectPercent(solution);
   const purePercent = subtractRational(HUNDRED_V2, adulterantPercentOfMixture);
-  const forwardConversionError = divideRational(
-    multiplyRational(HUNDRED_V2, adulterantPercentOfMixture),
-    addRational(HUNDRED_V2, adulterantPercentOfMixture),
-  );
-  const omittedPercentConversion = divideRational(
-    adulterantPercentOfMixture,
-    purePercent,
-  );
+  const profitComplement = subtractRational(HUNDRED_V2, profit);
+  const shiftedProfit = addRational(profit, rational(10));
+  const doubledAdulterantShare = multiplyRational(adulterantPercentOfMixture, rational(2));
   const answer = percentTextV2(profit);
   const options = buildNaturalOptionsV2(
     answer,
@@ -579,12 +564,18 @@ export function profitFromAdulterantPercentQuestionV2(input: {
         misconceptionId: "reported_pure_share_of_final_mixture",
       },
       {
-        text: percentTextV2(forwardConversionError),
-        misconceptionId: "used_the_forward_base_conversion",
+        text: percentTextV2(profitComplement),
+        misconceptionId: "used_profit_complement",
       },
       {
-        text: percentTextV2(omittedPercentConversion),
-        misconceptionId: "forgot_to_multiply_ratio_by_100",
+        text: percentTextV2(shiftedProfit),
+        misconceptionId: "added_ten_percentage_points",
+        physicallyPossible: compareRational(shiftedProfit, rational(200)) <= 0,
+      },
+      {
+        text: percentTextV2(doubledAdulterantShare),
+        misconceptionId: "doubled_the_free_share",
+        physicallyPossible: compareRational(doubledAdulterantShare, HUNDRED_V2) <= 0,
       },
     ],
     `${input.selectedSeed}:options`,
