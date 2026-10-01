@@ -568,7 +568,7 @@ function makeDirect(target: AuditFact): WorldGeographyQuestion {
     difficulty: target.difficulty,
     sourceIds: [...target.sourceIds],
     correctIndex,
-    authoringReviewApproved: true,
+    authoringReviewApproved: false,
     generationSource: `${target.cpId}-AUDIT-WAVE-D1-V1`,
     qlId: QL_IDS[target.cpId][0],
     locales: {
@@ -600,7 +600,7 @@ function makeMatch(target: AuditFact): WorldGeographyQuestion {
     difficulty,
     sourceIds: [...new Set(rows.flatMap(f => f.sourceIds))],
     correctIndex,
-    authoringReviewApproved: true,
+    authoringReviewApproved: false,
     generationSource: `${target.cpId}-AUDIT-WAVE-D1-V1`,
     qlId: QL_IDS[target.cpId][1],
     locales: {
