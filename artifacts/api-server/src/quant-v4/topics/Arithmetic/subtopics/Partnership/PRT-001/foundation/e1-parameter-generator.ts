@@ -274,6 +274,14 @@ export function generatePrt001E1Parameters(input: {
         { a0: 30_000, a1: 45_000, change: 5, leave: 10, b: 36_000, join: 2 },
         { a0: 24_000, a1: 36_000, change: 3, leave: 8, b: 30_000, join: 4 },
         { a0: 40_000, a1: 50_000, change: 6, leave: 11, b: 45_000, join: 5 },
+        { a0: 30_000, a1: 45_000, change: 3, leave: 8, b: 50_000, join: 2 },
+        { a0: 36_000, a1: 54_000, change: 4, leave: 10, b: 48_000, join: 4 },
+        { a0: 40_000, a1: 60_000, change: 5, leave: 9, b: 55_000, join: 3 },
+        { a0: 50_000, a1: 75_000, change: 2, leave: 7, b: 60_000, join: 5 },
+        { a0: 24_000, a1: 48_000, change: 6, leave: 11, b: 36_000, join: 1 },
+        { a0: 60_000, a1: 90_000, change: 7, leave: 10, b: 80_000, join: 6 },
+        { a0: 45_000, a1: 60_000, change: 4, leave: 9, b: 70_000, join: 2 },
+        { a0: 54_000, a1: 81_000, change: 3, leave: 11, b: 72_000, join: 7 },
       ]);
       state = makeState([
         partner(partnerA, [segment(0, scenario.change, money(scenario.a0)), segment(scenario.change, scenario.leave, money(scenario.a1))]),
