@@ -85,6 +85,8 @@ export interface GenerationPackage {
   enabled: boolean;
   cpIds: string[];
   supportedLanguages: string[];
+  supportedDifficulties?: string[];
+  difficultyFilterSupported?: boolean;
   runtimeMode?: string;
   supportedRuntimeModes?: string[];
   dynamicCandidateCpIds?: string[];
