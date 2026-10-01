@@ -94,11 +94,11 @@ export function buildTmwCp007Parameters(entry:TmwCp007RegistryEntry,seed:string)
         {c:machineContexts[0],base:crew(3,3,6),next:crew(2,2,4),days:8},
         {c:machineContexts[1],base:crew(2,4,6),next:crew(1,4,2),days:8},
         {c:machineContexts[2],base:crew(3,4,4),next:crew(2,3,4),days:9},
-        {c:workerContexts[4],base:crew(5,3,4),next:crew(3,5,2),days:12},
-        {c:workerContexts[5],base:crew(4,5,2),next:crew(3,3,5),days:10},
-        {c:machineContexts[3],base:crew(4,2,5),next:crew(2,5,3),days:12},
-        {c:machineContexts[4],base:crew(3,5,2),next:crew(4,2,4),days:10},
-        {c:machineContexts[5],base:crew(5,2,3),next:crew(3,4,2),days:15},
+        {c:workerContexts[4],base:crew(5,3,4),next:crew(8,5,2),days:12},
+        {c:workerContexts[5],base:crew(4,5,2),next:crew(3,3,3),days:10},
+        {c:machineContexts[3],base:crew(3,3,3),next:crew(2,3,4),days:10},
+        {c:machineContexts[4],base:crew(2,4,4),next:crew(5,2,5),days:15},
+        {c:machineContexts[5],base:crew(3,2,4),next:crew(4,4,2),days:12},
       ],seed,"cp007-replacement-time"),work=multiply(rate(v.c,v.base),r(v.days));
       return {context:v.c,crewA:v.base,crewB:v.next,workA:work,workB:work,daysA:r(v.days),daysB:divide(work,rate(v.c,v.next))};
     }
