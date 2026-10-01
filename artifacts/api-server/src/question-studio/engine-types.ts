@@ -43,6 +43,7 @@ export type QuestionStudioPackageDefinition = {
 export type QuestionStudioGenerationRequest = {
   engineId?: QuestionStudioEngineId;
   exam?: string;
+  examProfile?: string;
   subject?: string;
   difficulty?: QuestionStudioDifficulty | "Mixed" | string;
   count?: number;
