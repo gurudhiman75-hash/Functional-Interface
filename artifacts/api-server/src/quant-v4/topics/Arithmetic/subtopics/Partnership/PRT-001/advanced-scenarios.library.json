@@ -60,6 +60,46 @@
       "capitalA": 56000,
       "capitalB": 84000,
       "joinAfterB": 7
+    },
+    {
+      "capitalA": 54000,
+      "capitalB": 108000,
+      "joinAfterB": 9
+    },
+    {
+      "capitalA": 24000,
+      "capitalB": 36000,
+      "joinAfterB": 1
+    },
+    {
+      "capitalA": 36000,
+      "capitalB": 72000,
+      "joinAfterB": 8
+    },
+    {
+      "capitalA": 72000,
+      "capitalB": 144000,
+      "joinAfterB": 11
+    },
+    {
+      "capitalA": 64000,
+      "capitalB": 96000,
+      "joinAfterB": 9
+    },
+    {
+      "capitalA": 60000,
+      "capitalB": 120000,
+      "joinAfterB": 10
+    },
+    {
+      "capitalA": 56000,
+      "capitalB": 84000,
+      "joinAfterB": 7
+    },
+    {
+      "capitalA": 80000,
+      "capitalB": 100000,
+      "joinAfterB": 11
     }
   ],
   "leaveEarly": [
