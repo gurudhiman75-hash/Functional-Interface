@@ -40,6 +40,7 @@ type Configuration={
 };
 type ExamFamily={id:string;code:string;name:string;description:string|null};
 type TestSeries={id:string;code:string;name:string;currentVersionNumber:number;examName:string};
+type ManagedPage={id:string;slug:string;title:string;renderMode:string;isActive:boolean};
 type Data={configuration:Configuration;catalog:{examFamilies:ExamFamily[];testSeries:TestSeries[]};updatedAt:string|null;updatedBy:string|null};
 
 const SECTION_LABELS:Record<string,string>={
@@ -111,13 +112,18 @@ export function MobileHomeManagementPage(){
   const[editingCustomSectionId,setEditingCustomSectionId]=useState<string|null>(null);
   const[editingBuilderSectionId,setEditingBuilderSectionId]=useState<string|null>(null);
   const[draggedSectionId,setDraggedSectionId]=useState<string|null>(null);
+  const[managedPages,setManagedPages]=useState<ManagedPage[]>([]);
 
   const refresh=async()=>{
     setLoading(true);
     try{
-      const result=await call<Data>('/admin/mobile/home');
+      const [result,pagesResult]=await Promise.all([
+        call<Data>('/admin/mobile/home'),
+        call<{pages:ManagedPage[]}>('/admin/mobile/pages'),
+      ]);
       setData(result);
       setConfig(result.configuration);
+      setManagedPages(pagesResult.pages.filter(page=>page.isActive));
       setEditingHeroId(null);
     }catch(error){
       showToast.error('Unable to load Mobile Home',error instanceof Error?error.message:'Request failed.');
@@ -356,8 +362,10 @@ export function MobileHomeManagementPage(){
                 <div className="md:col-span-2"><Field label="Banner image"><MediaAssetPicker value={slide.imageUrl} onChange={url=>updateSlide(slide.id,{imageUrl:url})} preferredType="Home Banner" label="Choose / Upload"/></Field></div>
                 <Field label="Built-in icon"><IconPicker value={slide.iconName} onChange={value=>updateSlide(slide.id,{iconName:value})}/></Field>
                 <Field label="Custom icon"><MediaAssetPicker value={slide.iconUrl} onChange={url=>updateSlide(slide.id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
-                <Field label="Destination type"><Select value={slide.destinationType} onValueChange={value=>updateSlide(slide.id,{destinationType:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="page">Managed page</SelectItem><SelectItem value="url">External URL</SelectItem></SelectContent></Select></Field>
-                <Field label="Destination / deep link"><Input value={slide.destinationValue} onChange={e=>updateSlide(slide.id,{destinationValue:e.target.value})} placeholder="Exam ID, series ID, Learn route or URL"/></Field>
+                <Field label="Destination type"><Select value={slide.destinationType} onValueChange={value=>updateSlide(slide.id,{destinationType:value,destinationValue:value==='none'?'':slide.destinationValue})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="page">Managed page</SelectItem><SelectItem value="url">External URL</SelectItem></SelectContent></Select></Field>
+                {slide.destinationType==='page'
+                  ?<Field label="Select page"><Select value={slide.destinationValue} onValueChange={value=>updateSlide(slide.id,{destinationValue:value})}><SelectTrigger><SelectValue placeholder="Choose a Screen Builder page"/></SelectTrigger><SelectContent>{managedPages.map(page=><SelectItem key={page.id} value={page.slug}>{page.title} · /{page.slug}</SelectItem>)}</SelectContent></Select></Field>
+                  :<Field label="Destination / deep link"><Input value={slide.destinationValue} onChange={e=>updateSlide(slide.id,{destinationValue:e.target.value})} placeholder="Exam ID, series ID, Learn route or URL"/></Field>}
                 <Field label="Start"><Input type="datetime-local" value={localDateTime(slide.startAt)} onChange={e=>updateSlide(slide.id,{startAt:isoOrNull(e.target.value)})}/></Field>
                 <Field label="End"><Input type="datetime-local" value={localDateTime(slide.endAt)} onChange={e=>updateSlide(slide.id,{endAt:isoOrNull(e.target.value)})}/></Field>
               </div>
@@ -457,8 +465,10 @@ export function MobileHomeManagementPage(){
               <Field label="Built-in icon"><IconPicker value={card.iconName} onChange={value=>updateCustomCard(section.id,card.id,{iconName:value})}/></Field>
               <Field label="Custom icon"><MediaAssetPicker value={card.iconUrl} onChange={url=>updateCustomCard(section.id,card.id,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
               <Field label="Card image"><MediaAssetPicker value={card.imageUrl} onChange={url=>updateCustomCard(section.id,card.id,{imageUrl:url})} preferredType="Home Banner" label="Choose / Upload"/></Field>
-              <Field label="Destination"><Select value={card.destinationType} onValueChange={value=>updateCustomCard(section.id,card.id,{destinationType:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="page">Managed page</SelectItem><SelectItem value="url">URL</SelectItem></SelectContent></Select></Field>
-              <div className="md:col-span-2 flex items-end gap-2"><div className="flex-1"><Field label="Destination / deep link"><Input value={card.destinationValue} onChange={e=>updateCustomCard(section.id,card.id,{destinationValue:e.target.value})}/></Field></div><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,-1)} disabled={cardIndex===0} aria-label="Move card up"><ArrowUp className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,1)} disabled={cardIndex===section.cards.length-1} aria-label="Move card down"><ArrowDown className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>duplicateCustomCard(section.id,card.id)} aria-label="Duplicate card"><Copy className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>removeCustomCard(section.id,card.id)}><Trash2 className="h-4 w-4"/></Button></div>
+              <Field label="Destination"><Select value={card.destinationType} onValueChange={value=>updateCustomCard(section.id,card.id,{destinationType:value,destinationValue:value==='none'?'':card.destinationValue})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="page">Managed page</SelectItem><SelectItem value="url">URL</SelectItem></SelectContent></Select></Field>
+              <div className="md:col-span-2 flex items-end gap-2"><div className="flex-1">{card.destinationType==='page'
+                ?<Field label="Select page"><Select value={card.destinationValue} onValueChange={value=>updateCustomCard(section.id,card.id,{destinationValue:value})}><SelectTrigger><SelectValue placeholder="Choose a Screen Builder page"/></SelectTrigger><SelectContent>{managedPages.map(page=><SelectItem key={page.id} value={page.slug}>{page.title} · /{page.slug}</SelectItem>)}</SelectContent></Select></Field>
+                :<Field label="Destination / deep link"><Input value={card.destinationValue} onChange={e=>updateCustomCard(section.id,card.id,{destinationValue:e.target.value})}/></Field>}</div><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,-1)} disabled={cardIndex===0} aria-label="Move card up"><ArrowUp className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>moveCustomCard(section.id,card.id,1)} disabled={cardIndex===section.cards.length-1} aria-label="Move card down"><ArrowDown className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>duplicateCustomCard(section.id,card.id)} aria-label="Duplicate card"><Copy className="h-4 w-4"/></Button><Button size="icon" variant="ghost" onClick={()=>removeCustomCard(section.id,card.id)}><Trash2 className="h-4 w-4"/></Button></div>
             </div>)}</div>
           </div>}
         </div>)}
