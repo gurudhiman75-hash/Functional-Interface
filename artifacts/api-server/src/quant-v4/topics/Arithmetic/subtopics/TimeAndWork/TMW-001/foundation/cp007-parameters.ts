@@ -24,11 +24,19 @@ const workerContexts:readonly TmwCp007Context[]=[
   context("a component-assembly order","components",["skilled worker","unskilled worker","trainee"],[r(4),r(2),r(1)],["skilled-worker-days","unskilled-worker-days","trainee-days"]),
   context("a document-processing assignment","files",["senior clerk","junior clerk","assistant"],[r(5),r(3),r(1)],["senior-clerk-days","junior-clerk-days","assistant-days"]),
   context("a painting contract","work units",["master painter","painter","helper"],[r(6),r(3),r(2)],["master-painter-days","painter-days","helper-days"]),
+  context("a road-repair contract","work units",["man","woman","child"],[r(5),r(3),r(1)],["man-days","woman-days","child-days"]),
+  context("a component-assembly order","components",["skilled worker","unskilled worker","trainee"],[r(5),r(3),r(2)],["skilled-worker-days","unskilled-worker-days","trainee-days"]),
+  context("a document-processing assignment","files",["senior clerk","junior clerk","assistant"],[r(4),r(3),r(2)],["senior-clerk-days","junior-clerk-days","assistant-days"]),
+  context("a painting contract","work units",["master painter","painter","helper"],[r(7),r(4),r(2)],["master-painter-days","painter-days","helper-days"]),
+  context("a component-assembly order","components",["skilled worker","unskilled worker","trainee"],[r(8),r(3),r(1)],["skilled-worker-days","unskilled-worker-days","trainee-days"]),
 ];
 const machineContexts:readonly TmwCp007Context[]=[
   context("a production order","components",["heavy machine","standard machine","compact machine"],[r(5),r(3),r(1)],["heavy-machine-hours","standard-machine-hours","compact-machine-hours"]),
   context("a printing order","copies",["high-speed printer","standard printer","desktop printer"],[r(6),r(3),r(1)],["high-speed-printer-hours","standard-printer-hours","desktop-printer-hours"]),
   context("a bottling order","bottles",["automatic line","semi-automatic line","manual station"],[r(4),r(2),r(1)],["automatic-line-hours","semi-automatic-line-hours","manual-station-hours"]),
+  context("a production order","components",["heavy machine","standard machine","compact machine"],[r(7),r(4),r(1)],["heavy-machine-hours","standard-machine-hours","compact-machine-hours"]),
+  context("a printing order","copies",["high-speed printer","standard printer","desktop printer"],[r(8),r(5),r(2)],["high-speed-printer-hours","standard-printer-hours","desktop-printer-hours"]),
+  context("a bottling order","bottles",["automatic line","semi-automatic line","manual station"],[r(9),r(5),r(2)],["automatic-line-hours","semi-automatic-line-hours","manual-station-hours"]),
 ];
 
 function rate(c:TmwCp007Context,counts:[Rational,Rational,Rational]):Rational{
@@ -66,7 +74,7 @@ export function buildTmwCp007Parameters(entry:TmwCp007RegistryEntry,seed:string)
       return {context:c,crewA:v.crew,crewB:full,workA:multiply(daily,r(v.days)),workB:r(0),daysA:r(v.days),daysB:r(0),targetCategoryIndex:v.target as 0|1|2};
     }
     case "findCrewCompositionFromTwoOutputFacts":{
-      const c=workerContext(seed,"cp007-composition-facts-context"),v=pick([{x:3,y:4,d1:5,d2:4},{x:4,y:3,d1:6,d2:3},{x:2,y:5,d1:8,d2:4},{x:5,y:2,d1:4,d2:2}],seed,"cp007-composition-facts"),a=crew(v.x,v.y,0),b=crew(2*v.x,v.y,0);
+      const c=workerContext(seed,"cp007-composition-facts-context"),v=pick([{x:3,y:4,d1:5,d2:4},{x:4,y:3,d1:6,d2:3},{x:2,y:5,d1:8,d2:4},{x:5,y:2,d1:4,d2:2},{x:3,y:5,d1:4,d2:2},{x:6,y:3,d1:5,d2:3},{x:4,y:6,d1:3,d2:2},{x:7,y:2,d1:6,d2:3}],seed,"cp007-composition-facts"),a=crew(v.x,v.y,0),b=crew(2*v.x,v.y,0);
       return {context:c,crewA:a,crewB:b,workA:multiply(rate(c,a),r(v.d1)),workB:multiply(rate(c,b),r(v.d2)),daysA:r(v.d1),daysB:r(v.d2),targetCategoryIndex:0,replacementCategoryIndex:1};
     }
     case "findCategoryRateFromWeightedCrewFacts":{
@@ -86,6 +94,11 @@ export function buildTmwCp007Parameters(entry:TmwCp007RegistryEntry,seed:string)
         {c:machineContexts[0],base:crew(3,3,6),next:crew(2,2,4),days:8},
         {c:machineContexts[1],base:crew(2,4,6),next:crew(1,4,2),days:8},
         {c:machineContexts[2],base:crew(3,4,4),next:crew(2,3,4),days:9},
+        {c:workerContexts[4],base:crew(5,3,4),next:crew(3,5,2),days:12},
+        {c:workerContexts[5],base:crew(4,5,2),next:crew(3,3,5),days:10},
+        {c:machineContexts[3],base:crew(4,2,5),next:crew(2,5,3),days:12},
+        {c:machineContexts[4],base:crew(3,5,2),next:crew(4,2,4),days:10},
+        {c:machineContexts[5],base:crew(5,2,3),next:crew(3,4,2),days:15},
       ],seed,"cp007-replacement-time"),work=multiply(rate(v.c,v.base),r(v.days));
       return {context:v.c,crewA:v.base,crewB:v.next,workA:work,workB:work,daysA:r(v.days),daysB:divide(work,rate(v.c,v.next))};
     }
@@ -102,6 +115,11 @@ export function buildTmwCp007Parameters(entry:TmwCp007RegistryEntry,seed:string)
         {c:machineContexts[0],crew:crew(2,3,1),days:5},
         {c:machineContexts[1],crew:crew(2,3,3),days:5},
         {c:machineContexts[2],crew:crew(2,3,2),days:5},
+        {c:workerContexts[4],crew:crew(3,2,4),days:6},
+        {c:workerContexts[5],crew:crew(4,3,2),days:7},
+        {c:workerContexts[7],crew:crew(2,5,3),days:6},
+        {c:machineContexts[3],crew:crew(3,4,2),days:8},
+        {c:machineContexts[4],crew:crew(4,2,3),days:6},
       ],seed,"cp007-resource-time");
       return {context:v.c,crewA:v.crew,crewB:zeroCrew(),workA:r(1),workB:r(0),daysA:r(v.days),daysB:r(0),targetCategoryIndex:0};
     }
@@ -110,6 +128,11 @@ export function buildTmwCp007Parameters(entry:TmwCp007RegistryEntry,seed:string)
         {c:context("a repair contract","work units",["skilled worker","helper","trainee"],[r(3),r(1),r(1)],["skilled-worker-days","helper-days","trainee-days"]),target:r(10)},
         {c:context("a production order","components",["heavy machine","compact machine","manual station"],[r(4),r(1),r(1)],["heavy-machine-hours","compact-machine-hours","manual-station-hours"]),target:r(13)},
         {c:context("a printing order","copies",["high-speed printer","desktop printer","manual station"],[r(5),r(2),r(1)],["high-speed-printer-hours","desktop-printer-hours","manual-station-hours"]),target:r(19)},
+        {c:context("a repair contract","work units",["skilled worker","helper","trainee"],[r(4),r(1),r(1)],["skilled-worker-days","helper-days","trainee-days"]),target:r(11)},
+        {c:context("a production order","components",["heavy machine","compact machine","manual station"],[r(5),r(2),r(1)],["heavy-machine-hours","compact-machine-hours","manual-station-hours"]),target:r(16)},
+        {c:context("a printing order","copies",["high-speed printer","desktop printer","manual station"],[r(6),r(2),r(1)],["high-speed-printer-hours","desktop-printer-hours","manual-station-hours"]),target:r(16)},
+        {c:context("a repair contract","work units",["skilled worker","helper","trainee"],[r(7),r(2),r(1)],["skilled-worker-days","helper-days","trainee-days"]),target:r(23)},
+        {c:context("a production order","components",["heavy machine","compact machine","manual station"],[r(5),r(3),r(1)],["heavy-machine-hours","compact-machine-hours","manual-station-hours"]),target:r(18)},
       ],seed,"cp007-min");
       return {context:v.c,crewA:zeroCrew(),crewB:zeroCrew(),workA:r(1),workB:r(0),daysA:r(1),daysB:r(0),targetCrewRate:v.target,maximumCrewCount:r(20),targetCategoryIndex:0,replacementCategoryIndex:1};
     }
@@ -118,6 +141,11 @@ export function buildTmwCp007Parameters(entry:TmwCp007RegistryEntry,seed:string)
         {c:context("a verification assignment","whole job",["senior clerk","junior clerk","assistant"],[r(1,12),r(1,18),r(1,24)],["senior-clerk-days","junior-clerk-days","assistant-days"]),crew:crew(2,3,0)},
         {c:context("a repair contract","whole job",["skilled worker","helper","trainee"],[r(1,10),r(1,20),r(1,25)],["skilled-worker-days","helper-days","trainee-days"]),crew:crew(1,2,0)},
         {c:context("a production order","whole job",["fast machine","standard machine","compact machine"],[r(1,8),r(1,16),r(1,24)],["fast-machine-hours","standard-machine-hours","compact-machine-hours"]),crew:crew(1,2,0)},
+        {c:context("a verification assignment","whole job",["senior clerk","junior clerk","assistant"],[r(1,15),r(1,20),r(1,30)],["senior-clerk-days","junior-clerk-days","assistant-days"]),crew:crew(2,2,0)},
+        {c:context("a repair contract","whole job",["skilled worker","helper","trainee"],[r(1,12),r(1,18),r(1,30)],["skilled-worker-days","helper-days","trainee-days"]),crew:crew(2,1,0)},
+        {c:context("a production order","whole job",["fast machine","standard machine","compact machine"],[r(1,10),r(1,15),r(1,30)],["fast-machine-hours","standard-machine-hours","compact-machine-hours"]),crew:crew(1,3,0)},
+        {c:context("a verification assignment","whole job",["senior clerk","junior clerk","assistant"],[r(1,8),r(1,24),r(1,32)],["senior-clerk-days","junior-clerk-days","assistant-days"]),crew:crew(1,2,0)},
+        {c:context("a production order","whole job",["fast machine","standard machine","compact machine"],[r(1,9),r(1,18),r(1,27)],["fast-machine-hours","standard-machine-hours","compact-machine-hours"]),crew:crew(2,2,0)},
       ],seed,"cp007-solo"),daily=rate(v.c,v.crew),days=divide(r(1),daily);
       return {context:v.c,crewA:v.crew,crewB:zeroCrew(),workA:r(1),workB:r(0),daysA:days,daysB:r(0),targetCategoryIndex:1};
     }
@@ -130,7 +158,7 @@ export function buildTmwCp007Parameters(entry:TmwCp007RegistryEntry,seed:string)
       return {context:c,crewA:pair[0],crewB:pair[1],workA:r(1),workB:r(1),daysA:r(1),daysB:r(1)};
     }
     case "findIntegerCrewCompositionUnderConstraints":{
-      const c=workerContext(seed,"cp007-constraints-context"),v=pick([{x:4,y:6},{x:6,y:4},{x:5,y:7},{x:8,y:3}],seed,"cp007-constraints"),a=crew(v.x,v.y,0);
+      const c=workerContext(seed,"cp007-constraints-context"),v=pick([{x:4,y:6},{x:6,y:4},{x:5,y:7},{x:8,y:3},{x:7,y:5},{x:3,y:9},{x:9,y:4},{x:6,y:7}],seed,"cp007-constraints"),a=crew(v.x,v.y,0);
       return {context:c,crewA:a,crewB:zeroCrew(),workA:r(1),workB:r(0),daysA:r(1),daysB:r(0),totalCrewCount:r(v.x+v.y),targetCrewRate:rate(c,a),targetCategoryIndex:0,replacementCategoryIndex:1};
     }
   }
