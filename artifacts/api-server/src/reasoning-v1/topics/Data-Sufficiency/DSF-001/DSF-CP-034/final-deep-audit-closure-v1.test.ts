@@ -142,7 +142,7 @@ for(let seed=0;seed<180;seed++){
   const q=generateDsfCp012DirectionQuestion(seed);
   if(q.solveModeId==="DSF-SM-DIR-SHORTEST-DISTANCE"){
     for(const value of [...q.proof.statementITargetAnswers,...q.proof.statementIITargetAnswers,...q.proof.togetherTargetAnswers]){
-      assert.match(String(value),/^\d+ m$/u);
+      assert.match(String(value),/^(?:\d+|(?:\d+)?√\d+) m$/u);
     }
   }
 }
@@ -150,7 +150,7 @@ for(let seed=0;seed<100;seed++){
   const q=generateDsfCp022DirectionQuestion(`cp034-direction:${seed}`);
   if(q.solveModeId==="DSF-SM-DIR-SHORTEST-DISTANCE"){
     for(const entry of q.proof.subsetEvaluations){
-      for(const value of entry.normalizedTargetAnswers) assert.match(String(value),/^\d+ m$/u);
+      for(const value of entry.normalizedTargetAnswers) assert.match(String(value),/^(?:\d+|(?:\d+)?√\d+) m$/u);
     }
   }
 }
