@@ -57,6 +57,33 @@ for (let s = 0; s < 200; s++)
           /first group|second group|third group|first activity|second activity|third activity|पहले समूह|दूसरे समूह|तीसरे समूह|पहली गतिविधि|दूसरी गतिविधि|तीसरी गतिविधि|ਪਹਿਲੇ ਸਮੂਹ|ਦੂਜੇ ਸਮੂਹ|ਤੀਜੇ ਸਮੂਹ|ਪਹਿਲਾ ਕੰਮ|ਦੂਜਾ ਕੰਮ|ਤੀਜਾ ਕੰਮ/iu,
           `${cp}/${localized.semanticMetadata.queryKey}/${languages[localeIndex]}: stem must name the actual activities rather than ordinal groups`,
         );
+        if (
+          cp === "VEN-CP007" &&
+          localized.semanticMetadata.queryKey === "percentage-three-count"
+        ) {
+          const totalOpeners =
+            languages[localeIndex] === "en"
+              ? localized.stem.match(/Among \d+ people,/g) ?? []
+              : languages[localeIndex] === "hi"
+                ? localized.stem.match(/कुल \d+ लोगों में/g) ?? []
+                : localized.stem.match(/ਕੁੱਲ \d+ ਲੋਕਾਂ ਵਿੱਚ/g) ?? [];
+          assert.equal(
+            totalOpeners.length,
+            1,
+            `VEN-CP007/percentage-three-count/${languages[localeIndex]}: surveyed total must not be repeated in the stem`,
+          );
+        }
+        if (
+          cp === "VEN-CP007" &&
+          ["ratio-two", "ratio-three"].includes(
+            localized.semanticMetadata.queryKey,
+          )
+        )
+          assert.doesNotMatch(
+            localized.explanation,
+            /highest common factor 1|महत्तम समापवर्तक से सरल करें 1|ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ਨਾਲ ਸਰਲ ਕਰੋ 1/iu,
+            `VEN-CP007/${localized.semanticMetadata.queryKey}/${languages[localeIndex]}: do not narrate division by GCD 1`,
+          );
         if (languages[localeIndex] === "hi") {
           assert.doesNotMatch(
             `${localized.stem} ${localized.explanation}`,
@@ -114,7 +141,7 @@ for (let s = 0; s < 200; s++)
         meta.queryKey === "none"
       )
         assert.ok(
-          q.explanation.includes("pair counts include the centre") &&
+          q.explanation.includes("each pair count includes the people in all three groups") &&
             q.explanation.includes("−") &&
             q.explanation.includes("+"),
           `${cp}/none: derive the union from the supplied inclusive counts`,
