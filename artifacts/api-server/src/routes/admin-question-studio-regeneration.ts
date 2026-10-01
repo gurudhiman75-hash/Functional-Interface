@@ -11,7 +11,10 @@ import {
   type RegenerationSource,
 } from "../lib/question-studio-regeneration";
 import { authenticate } from "../middlewares/auth";
-import { generateQuestion as generateQuestionStudioQuestion } from "../question-studio/shared-generation-engine";
+import {
+  generateQuestionStudioQuestions,
+  resolveQuestionStudioEngine,
+} from "../question-studio/engine-registry";
 
 const router = Router();
 
@@ -114,7 +117,18 @@ router.post(
 
         try {
           const request = buildRegenerationRequest(source, seed);
-          const generated = await generateQuestionStudioQuestion(request);
+          const resolvedEngine = resolveQuestionStudioEngine(request);
+          if (resolvedEngine.engineId === "knowledge-v1") {
+            throw new Error(
+              "KNOWLEDGE_V1_REGENERATION_LOCKED: Computer Awareness is source-generator controlled; correct the canonical generator/localization source and create a new review batch.",
+            );
+          }
+          const generated = await generateQuestionStudioQuestions(request);
+          if (request.engineId && generated.engineId !== request.engineId) {
+            throw new Error(
+              `Question Studio regeneration changed engines: expected ${request.engineId}, received ${generated.engineId}`,
+            );
+          }
           const generatedQuestion = Array.isArray(generated.questions)
             ? generated.questions[0]
             : null;
@@ -125,8 +139,14 @@ router.post(
 
           const regeneratedAt = new Date().toISOString();
           const payload = buildRegenerationPayload(
-            generatedQuestion as Record<string, unknown>,
-            generated.generationContext,
+            {
+              ...(generatedQuestion as Record<string, unknown>),
+              engineId: generated.engineId,
+            },
+            {
+              ...(generated.generationContext ?? {}),
+              engineId: generated.engineId,
+            },
             source,
             reason,
             regeneratedAt,
