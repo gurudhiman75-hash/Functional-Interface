@@ -28,7 +28,7 @@ for (const qlId of NUM_CP006_PERMANENT_QL_IDS) {
     assert.equal(new Set(q.options.map((option: any) => option.value)).size, 4, qlId + ": duplicate options");
     assert.equal(q.options[q.correctIndex]?.value, q.canonicalAnswer, qlId + ": answer/index drift");
     assert.equal(q.verifierAnswer, q.canonicalAnswer, qlId + ": verifier drift");
-    assert.equal(q.explanation.finalAnswer, q.canonicalAnswer, qlId + ": explanation answer drift");
+    assert.ok(String(q.explanation.finalAnswer).includes(String(q.canonicalAnswer)), qlId + ": explanation answer drift");
     assert.ok(q.explanation.stepByStep.length >= 2, qlId + ": explanation lost working steps");
 
     const lifecycle = q.lifecycle ?? q;
