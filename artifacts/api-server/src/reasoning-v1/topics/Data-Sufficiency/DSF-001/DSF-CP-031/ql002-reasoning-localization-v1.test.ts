@@ -44,6 +44,14 @@ for (const language of ["hi","pa"] as const) {
       for(const banned of ["minimal sufficient statement set","target person","parent-type relation","BROTHER_IN_LAW","GRANDDAUGHTER"]) {
         assert.equal(learnerText.includes(banned),false,`${language}/${laneId} leaked ${banned}`);
       }
+      for(const bannedPattern of [
+        /\bThe\b/, /\bis coded as\b/i, /\bmovement\b/i, /\bresulting day\b/i,
+        /\bcomplete order\b/i, /\bstarting end\b/i, /\bopposite end\b/i,
+        /\bspouse relation\b/i, /\bparent-child relation\b/i,
+      ]) {
+        assert.equal(bannedPattern.test(learnerText),false,`${language}/${laneId} English leakage: ${bannedPattern}`);
+      }
+      if(i===0) console.log("CP031_SAMPLE",JSON.stringify({language,laneId,stem:localized.stem,statements:localized.statements.map((s:any)=>s.text),options:localized.options.map((o:any)=>o.text),explanation:localized.explanation}));
     }
   }
 }
