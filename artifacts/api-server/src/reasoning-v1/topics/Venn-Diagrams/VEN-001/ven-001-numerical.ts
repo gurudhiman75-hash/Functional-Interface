@@ -235,35 +235,17 @@ function groupedActivity(c: Context, mask: number, l: L) {
   );
 }
 function prefix(total: number, l: L) {
-  const style = total % 3;
   return tx(
-    [
-      `Of the ${total} people surveyed,`,
-      `A survey of ${total} people found that`,
-      `Among the ${total} respondents,`,
-    ][style],
-    [
-      `सर्वेक्षण में शामिल ${total} लोगों में से,`,
-      `${total} लोगों के सर्वेक्षण में यह पाया गया कि`,
-      `सर्वेक्षण के ${total} उत्तरदाताओं में,`,
-    ][style],
-    [
-      `ਸਰਵੇਖਣ ਵਿੱਚ ਸ਼ਾਮਲ ${total} ਲੋਕਾਂ ਵਿੱਚੋਂ,`,
-      `${total} ਲੋਕਾਂ ਦੇ ਸਰਵੇਖਣ ਤੋਂ ਪਤਾ ਲੱਗਾ ਕਿ`,
-      `ਸਰਵੇਖਣ ਦੇ ${total} ਜਵਾਬਦਾਤਿਆਂ ਵਿੱਚੋਂ,`,
-    ][style],
+    `Among ${total} people,`,
+    `कुल ${total} लोगों में,`,
+    `ਕੁੱਲ ${total} ਲੋਕਾਂ ਵਿੱਚ,`,
   )[l];
 }
-function surveyIntro(l: L, seed: string | number) {
-  const style = hash(String(seed)) % 3;
+function surveyIntro(l: L, _seed: string | number) {
   return tx(
-    ["In a survey,", "Survey results showed that", "A survey recorded that"][
-      style
-    ],
-    ["एक सर्वेक्षण में", "सर्वेक्षण के अनुसार", "सर्वेक्षण में यह दर्ज हुआ कि"][
-      style
-    ],
-    ["ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ", "ਸਰਵੇਖਣ ਅਨੁਸਾਰ", "ਸਰਵੇਖਣ ਵਿੱਚ ਇਹ ਦਰਜ ਹੋਇਆ ਕਿ"][style],
+    "The figures show that",
+    "आँकड़ों के अनुसार",
+    "ਅੰਕੜਿਆਂ ਅਨੁਸਾਰ",
   )[l];
 }
 function groupReference(c: Context, i: number, l: L) {
@@ -389,6 +371,7 @@ export const QUERY_MASKS: Record<string, number[]> = {
   total3: [0, 1, 2, 3, 4, 5, 6, 7],
 };
 function target(c: Context, q: string, l: L) {
+  const names = c.names[l].split("|");
   const a = activity(c, [0], l),
     b = activity(c, [1], l),
     d = activity(c, [2], l);
@@ -409,19 +392,19 @@ function target(c: Context, q: string, l: L) {
       `${d}, ਪਰ ਨਾ ${a} ਅਤੇ ਨਾ ${b}`,
     ),
     onlyAB: tx(
-      `${activity(c, [0, 1], l)}, but do not ${c.verb.en} ${c.names.en.split("|")[2]}`,
-      `${activity(c, [0, 1], l)}, लेकिन ${c.names.hi.split("|")[2]} नहीं ${c.verb.hi}`,
-      `${activity(c, [0, 1], l)}, ਪਰ ${c.names.pa.split("|")[2]} ਨਹੀਂ ${c.verb.pa}`,
+      `${activity(c, [0, 1], l)}, but do not ${d}`,
+      `${names[0]} और ${names[1]} वाले समूहों में आते हैं, लेकिन ${names[2]} वाले समूह में नहीं`,
+      `${names[0]} ਅਤੇ ${names[1]} ਵਾਲੇ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${names[2]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     ),
     onlyBC: tx(
-      `${activity(c, [1, 2], l)}, but do not ${c.verb.en} ${c.names.en.split("|")[0]}`,
-      `${activity(c, [1, 2], l)}, लेकिन ${c.names.hi.split("|")[0]} नहीं ${c.verb.hi}`,
-      `${activity(c, [1, 2], l)}, ਪਰ ${c.names.pa.split("|")[0]} ਨਹੀਂ ${c.verb.pa}`,
+      `${activity(c, [1, 2], l)}, but do not ${a}`,
+      `${names[1]} और ${names[2]} वाले समूहों में आते हैं, लेकिन ${names[0]} वाले समूह में नहीं`,
+      `${names[1]} ਅਤੇ ${names[2]} ਵਾਲੇ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${names[0]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     ),
     onlyAC: tx(
-      `${activity(c, [0, 2], l)}, but do not ${c.verb.en} ${c.names.en.split("|")[1]}`,
-      `${activity(c, [0, 2], l)}, लेकिन ${c.names.hi.split("|")[1]} नहीं ${c.verb.hi}`,
-      `${activity(c, [0, 2], l)}, ਪਰ ${c.names.pa.split("|")[1]} ਨਹੀਂ ${c.verb.pa}`,
+      `${activity(c, [0, 2], l)}, but do not ${b}`,
+      `${names[0]} और ${names[2]} वाले समूहों में आते हैं, लेकिन ${names[1]} वाले समूह में नहीं`,
+      `${names[0]} ਅਤੇ ${names[2]} ਵਾਲੇ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${names[1]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     ),
     all: tx(
       activity(c, [0, 1, 2], l),
@@ -474,19 +457,19 @@ function target(c: Context, q: string, l: L) {
       "ਵੱਧ ਤੋਂ ਵੱਧ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਂਦੇ, ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਸਮੇਤ",
     ),
     AorBnotC: tx(
-      `${c.verb.en} ${c.names.en.split("|")[0]} or ${c.names.en.split("|")[1]} (or both), but do not ${c.verb.en} ${c.names.en.split("|")[2]}`,
-      `${c.names.hi.split("|")[0]} या ${c.names.hi.split("|")[1]} (या दोनों) ${c.verb.hi}, लेकिन ${c.names.hi.split("|")[2]} नहीं ${c.verb.hi}`,
-      `${c.names.pa.split("|")[0]} ਜਾਂ ${c.names.pa.split("|")[1]} (ਜਾਂ ਦੋਵੇਂ) ${c.verb.pa}, ਪਰ ${c.names.pa.split("|")[2]} ਨਹੀਂ ${c.verb.pa}`,
+      `belong to the ${names[0]} group, the ${names[1]} group, or both, but not the ${names[2]} group`,
+      `${names[0]} या ${names[1]} वाले समूह में, या दोनों में आते हैं, लेकिन ${names[2]} वाले समूह में नहीं`,
+      `${names[0]} ਜਾਂ ${names[1]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ, ਜਾਂ ਦੋਵਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${names[2]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     ),
     AnotB: tx(
-      `${c.verb.en} ${c.names.en.split("|")[0]} but not ${c.names.en.split("|")[1]}, whether or not they also ${c.verb.en} ${c.names.en.split("|")[2]}`,
-      `${c.names.hi.split("|")[0]} ${c.verb.hi}, लेकिन ${c.names.hi.split("|")[1]} नहीं ${c.verb.hi}; ${c.names.hi.split("|")[2]} कर सकते हैं या नहीं भी`,
-      `${c.names.pa.split("|")[0]} ${c.verb.pa}, ਪਰ ${c.names.pa.split("|")[1]} ਨਹੀਂ ${c.verb.pa}; ${c.names.pa.split("|")[2]} ਕਰ ਸਕਦੇ ਹਨ ਜਾਂ ਨਹੀਂ ਵੀ`,
+      `belong to the ${names[0]} group but not the ${names[1]} group, whether or not they also belong to the ${names[2]} group`,
+      `${names[0]} वाले समूह में आते हैं, लेकिन ${names[1]} वाले समूह में नहीं; ${names[2]} वाले समूह में हो सकते हैं`,
+      `${names[0]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${names[1]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ; ${names[2]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ`,
     ),
     inclusiveAB: tx(
-      `${c.verb.en} both ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]}, including those who also ${c.verb.en} ${c.names.en.split("|")[2]}`,
-      `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} दोनों ${c.verb.hi}, ${c.names.hi.split("|")[2]} भी ${c.verb.hi} वाले लोगों सहित`,
-      `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਦੋਵੇਂ ${c.verb.pa}, ${c.names.pa.split("|")[2]} ਵੀ ${c.verb.pa} ਵਾਲਿਆਂ ਸਮੇਤ`,
+      `belong to both the ${names[0]} and ${names[1]} groups, including those also in the ${names[2]} group`,
+      `${names[0]} और ${names[1]} वाले दोनों समूहों में आते हैं, ${names[2]} वाले समूह में आने वालों सहित`,
+      `${names[0]} ਅਤੇ ${names[1]} ਵਾਲੇ ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ${names[2]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਸਮੇਤ`,
     ),
     both: tx(
       activity(c, [0, 1], l),
@@ -514,15 +497,15 @@ function query(c: Context, q: string, sets: 2 | 3, l: L) {
   let label = target(c, q, l);
   if (sets === 2 && q === "onlyA")
     label = tx(
-      `${c.verb.en} ${c.names.en.split("|")[0]} but not ${c.names.en.split("|")[1]}`,
-      `${c.names.hi.split("|")[0]} ${c.verb.hi}, लेकिन ${c.names.hi.split("|")[1]} नहीं ${c.verb.hi}`,
-      `${c.names.pa.split("|")[0]} ${c.verb.pa}, ਪਰ ${c.names.pa.split("|")[1]} ਨਹੀਂ ${c.verb.pa}`,
+      `${activity(c, [0], l)} but do not ${activity(c, [1], l)}`,
+      `${c.names.hi.split("|")[0]} वाले समूह में आते हैं, लेकिन ${c.names.hi.split("|")[1]} वाले समूह में नहीं`,
+      `${c.names.pa.split("|")[0]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${c.names.pa.split("|")[1]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     )[l];
   if (sets === 2 && q === "onlyB")
     label = tx(
-      `${c.verb.en} ${c.names.en.split("|")[1]} but not ${c.names.en.split("|")[0]}`,
-      `${c.names.hi.split("|")[1]} ${c.verb.hi}, लेकिन ${c.names.hi.split("|")[0]} नहीं ${c.verb.hi}`,
-      `${c.names.pa.split("|")[1]} ${c.verb.pa}, ਪਰ ${c.names.pa.split("|")[0]} ਨਹੀਂ ${c.verb.pa}`,
+      `${activity(c, [1], l)} but do not ${activity(c, [0], l)}`,
+      `${c.names.hi.split("|")[1]} वाले समूह में आते हैं, लेकिन ${c.names.hi.split("|")[0]} वाले समूह में नहीं`,
+      `${c.names.pa.split("|")[1]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ, ਪਰ ${c.names.pa.split("|")[0]} ਵਾਲੇ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ`,
     )[l];
   return tx(
     `How many people ${label}?`,
@@ -561,13 +544,10 @@ function explanationRegion(c: Context, mask: number, l: L) {
     members.map((i) => names[i]),
     l,
   );
-  const excluded =
-    names.find((_, i) => !members.includes(i)) ??
-    tx("the remaining activity", "बाकी गतिविधि", "ਬਾਕੀ ਕੰਮ")[l];
   return tx(
-    `only ${selected} (not ${excluded})`,
-    `केवल ${selected} (${excluded} को छोड़कर)`,
-    `ਸਿਰਫ਼ ${selected} (${excluded} ਤੋਂ ਬਿਨਾਂ)`,
+    `only ${selected} (not ${names.find((_, i) => !members.includes(i)) ?? "the third activity"})`,
+    `केवल ${selected} (तीसरी गतिविधि करने वालों को छोड़कर)`,
+    `ਸਿਰਫ਼ ${selected} (ਤੀਜਾ ਕੰਮ ਕਰਨ ਵਾਲਿਆਂ ਤੋਂ ਬਿਨਾਂ)`,
   )[l];
 }
 function derivation(c: Context, r: State, sets: 2 | 3, l: L) {
@@ -921,9 +901,9 @@ export function buildNumericalItem(
       stem =
         `${surveyIntro(l, hash(seed))} ${groupReference(c, 0, l)}; ${groupReference(c, 1, l)}. ` +
         tx(
-          `For ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]}, the counts for ${c.names.en.split("|")[0]} only, ${c.names.en.split("|")[1]} only, both, and neither are in the ratio 2:3:1:1. ${x} people do both. How many people were surveyed?`,
-          `केवल ${c.names.hi.split("|")[0]}, केवल ${c.names.hi.split("|")[1]}, दोनों और किसी में भी नहीं आने वालों की संख्याओं का अनुपात 2:3:1:1 है। दोनों में आने वाले ${x} लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?`,
-          `ਸਿਰਫ਼ ${c.names.pa.split("|")[0]}, ਸਿਰਫ਼ ${c.names.pa.split("|")[1]}, ਦੋਵੇਂ ਅਤੇ ਕਿਸੇ ਵਿੱਚ ਵੀ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ ${x} ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?`,
+          `For ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]}, the counts for only the first activity, only the second, both, and neither are in the ratio 2:3:1:1. ${x} people do both. How many people were surveyed?`,
+          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} करने वालों में केवल पहली गतिविधि, केवल दूसरी, दोनों और कोई भी न करने वालों की संख्याओं का अनुपात 2:3:1:1 है। ${x} लोग दोनों करते हैं। कुल कितने लोगों का सर्वेक्षण किया गया?`,
+          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਕਰਨ ਵਾਲਿਆਂ ਵਿੱਚ ਸਿਰਫ਼ ਪਹਿਲਾ ਕੰਮ, ਸਿਰਫ਼ ਦੂਜਾ, ਦੋਵੇਂ ਅਤੇ ਕੋਈ ਵੀ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ${x} ਲੋਕ ਦੋਵੇਂ ਕੰਮ ਕਰਦੇ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?`,
         )[l];
       explanation =
         tx(
