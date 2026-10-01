@@ -449,6 +449,44 @@ function remodelExplanation(temporary: NumCp002TemporaryPackage): NumCp002Perman
   };
 }
 
+const EXPLANATION_RULE_BY_QL: Readonly<Partial<Record<NumCp002PermanentQlId, string>>> = Object.freeze({
+  "NUM-QL-145": "To reduce a fraction to lowest terms, divide the numerator and denominator by their HCF; this changes the form but not the rational value.",
+  "NUM-QL-146": "For an improper fraction, divide the numerator by the denominator: the quotient is the whole part and the remainder forms the fractional part. Reverse conversion uses whole part × denominator + numerator.",
+  "NUM-QL-147": "A terminating decimal is written over the matching power of ten according to its decimal places and then reduced by the common factor.",
+  "NUM-QL-148": "For a recurring decimal, shift by powers of ten until the repeating blocks align, subtract to remove the recurring part, and reduce the resulting fraction.",
+  "NUM-QL-149": "After reducing the fraction, scale its denominator to a power of ten; the corresponding numerator gives the exact terminating decimal.",
+  "NUM-QL-150": "In long division, a repeated non-zero remainder starts the recurring cycle; the digits produced between the repeated remainders form the recurring block.",
+  "NUM-QL-151": "Compare two rational numbers exactly by cross-multiplying their numerators and denominators; rounding to decimals is unnecessary and can hide close comparisons.",
+  "NUM-QL-152": "Order all rational values by exact comparison, using common denominators or cross-products so terminating and recurring forms are compared on the same basis.",
+  "NUM-QL-153": "A value lies strictly between two bounds only when it is greater than the lower bound and smaller than the upper bound; equality with either endpoint is not allowed.",
+  "NUM-QL-155": "For a reduced denominator \(2^a5^b\), the terminating decimal has exactly \(\max(a,b)\) places because both prime powers must be absorbed into one power of ten.",
+  "NUM-QL-156": "Use the known terminating-place count to reconstruct the missing exponent from \(\max(a,b)\); the stated conditions must leave only one exponent possible.",
+  "NUM-QL-157": "Reduce first, then identify every denominator prime factor other than \(2\) and \(5\); the least intervention is exactly what removes those unwanted factors.",
+  "NUM-QL-158": "A denominator is valid only when every prime factor other than \(2\) and \(5\) is cancelled by the numerator after reduction; count all such denominators within the stated bound.",
+  "NUM-QL-159": "List every bounded denominator that becomes a product of powers of \(2\) and \(5\) after cancellation with the numerator; no valid denominator may be omitted.",
+  "NUM-QL-160": "The numerator must supply enough factors to cancel every denominator prime other than \(2\) and \(5\); only then can the reduced decimal terminate.",
+  "NUM-QL-161": "Generate the exact long-division remainder cycle and read the missing digit from the repeating block at the required position.",
+  "NUM-QL-162": "The recurring period is the number of long-division steps between the first occurrence of a remainder and the next occurrence of that same remainder.",
+  "NUM-QL-163": "Convert the exact decimal representation to a reduced fraction first, then use equivalent fractions to recover the missing numerator or denominator without approximation.",
+  "NUM-QL-164": "Check each representation statement independently with exact fraction and decimal rules, then combine only the statements that are true.",
+});
+
+function strengthenPermanentExplanation(
+  qlId: NumCp002PermanentQlId,
+  explanation: NumCp002PermanentExplanation,
+): NumCp002PermanentExplanation {
+  const rule = EXPLANATION_RULE_BY_QL[qlId];
+  if (!rule) return explanation;
+  const current = [explanation.concept ?? "", ...explanation.solution, explanation.finalAnswer].join("\n");
+  if (current.length >= 120) return explanation;
+  const concept = [explanation.concept, rule].filter(Boolean).join(" ");
+  return Object.freeze({
+    concept,
+    solution: Object.freeze([...explanation.solution]),
+    finalAnswer: explanation.finalAnswer,
+  });
+}
+
 function authorityPrototypeIds(allocation: NumCp002PermanentAllocationEntry): readonly string[] {
   return Object.freeze([...allocation.corePrototypeIds, ...allocation.adapterPrototypeIds]);
 }
@@ -509,7 +547,7 @@ export function runNumCp002PermanentPipeline(
 
   const difficulty = permanentDifficulty(allocation.qlId, runtimePrototypeId, temporary);
   const stem = remodelStem(temporary);
-  const explanation = remodelExplanation(temporary);
+  const explanation = strengthenPermanentExplanation(allocation.qlId, remodelExplanation(temporary));
   const lifecycle: NumCp002PermanentLifecycle = {
     permanentQlId: allocation.qlId,
     maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
