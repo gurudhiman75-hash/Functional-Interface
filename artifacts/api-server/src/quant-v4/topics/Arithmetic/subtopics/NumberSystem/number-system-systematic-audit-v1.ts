@@ -288,8 +288,9 @@ for (const spec of SPECS) {
       const verifier = verifierOf(pkg);
 
       assert.ok(stem.length > 0, qlId + ": learner stem is missing.");
-      assert.equal(options.length, 4, qlId + ": expected four learner options.");
-      assert.equal(new Set(options).size, 4, qlId + ": duplicate learner options.");
+      const expectedOptionCount = qlId === "NUM-QL-016" ? 5 : 4;
+      assert.equal(options.length, expectedOptionCount, qlId + ": unexpected learner option count.");
+      assert.equal(new Set(options).size, expectedOptionCount, qlId + ": duplicate learner options.");
       assert.ok(correctIndex >= 0 && correctIndex < options.length, qlId + ": invalid correct index.");
       assert.equal(options[correctIndex], answer, qlId + ": correct option does not match canonical answer.");
       assert.ok(explanation.length > 0, qlId + ": explanation is missing.");
