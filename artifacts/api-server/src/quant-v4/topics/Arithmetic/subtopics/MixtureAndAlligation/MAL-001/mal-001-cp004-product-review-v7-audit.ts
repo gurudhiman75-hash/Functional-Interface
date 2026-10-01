@@ -18,6 +18,8 @@ import {
   type MalCp004PermanentQlId,
 } from "./foundation/cp004-permanent-runtime";
 import { compareRational, equalsRational, rational } from "./foundation/rational";
+import { applyMal001DualMethodExplanationV2 } from "./foundation/chapter-compact-explanation-v1";
+import { runMalCp004EnglishChapterClosureV9Pipeline } from "./foundation/cp004-chapter-closure-runtime-v9";
 import { runMal001QuestionStudioPipeline } from "./question-studio-adapter";
 
 function assert(value: unknown, message: string): asserts value {
@@ -28,6 +30,21 @@ function stable(value: unknown): string {
   return JSON.stringify(value, (_key, entry) =>
     typeof entry === "bigint" ? `${entry}n` : entry,
   );
+}
+
+function questionStudioParityShape(question: MalCp004ProductReviewQuestion): string {
+  return stable({
+    permanentQlId: question.permanentQlId,
+    questionLanguageId: question.questionLanguageId,
+    stem: question.stem,
+    options: question.options,
+    answer: question.answer,
+    correctIndex: question.correctIndex,
+    answerValue: question.answerValue,
+    exactState: question.exactState,
+    mathematicalFingerprint: question.mathematicalFingerprint,
+    explanation: question.explanation,
+  });
 }
 
 function validate(question: MalCp004ProductReviewQuestion): void {
@@ -162,9 +179,19 @@ for (const allocation of MAL_CP004_PERMANENT_ALLOCATION) {
       language: "en",
     }) as MalCp004ProductReviewQuestion;
     assert(
-      malCp004ProductReviewV7Stable(studio) ===
-        malCp004ProductReviewV7Stable(first),
-      `${allocation.qlId}/${seed}: Question Studio parity failed.`,
+      studio.parameters.requestedSeed === seed,
+      `${allocation.qlId}/${seed}: Question Studio requested-seed trace drifted.`,
+    );
+    const expectedStudio = applyMal001DualMethodExplanationV2(
+      runMalCp004EnglishChapterClosureV9Pipeline({
+        questionLanguageId: allocation.qlId,
+        seed,
+        language: "en",
+      }),
+    ) as MalCp004ProductReviewQuestion;
+    assert(
+      questionStudioParityShape(studio) === questionStudioParityShape(expectedStudio),
+      `${allocation.qlId}/${seed}: Question Studio learner/math parity failed against the V9 closure source plus chapter explanation overlay.`,
     );
     studioParity += 1;
 

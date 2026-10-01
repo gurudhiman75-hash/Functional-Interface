@@ -158,11 +158,11 @@ function simpleStepBased(
 function cp004SimpleIdea(qlId: string): string | null {
   switch (qlId) {
     case "MAL-QL-038":
-      return "Water is the remaining percentage after subtracting the alcohol percentage from 100%.";
+      return "First identify the required component. If its percentage is given, multiply the total mixture by that percentage; if the other component is given, subtract its percentage from 100% first.";
     case "MAL-QL-039":
-      return "First find the total mixture; concentration is acid quantity divided by total quantity, multiplied by 100.";
+      return "Add the component quantities to get the total mixture. Then divide the required component by the total and multiply by 100 to obtain its concentration.";
     case "MAL-QL-040":
-      return "The given acid amount is only the stated percentage of the whole solution, so divide it by that percentage to recover the total.";
+      return "Use the percentage of the component that is actually given. Since component quantity = total mixture × component percentage, divide the known quantity by that percentage to recover the whole mixture.";
     case "MAL-QL-041":
       return "Only water is added, so the amount of solute remains unchanged.";
     case "MAL-QL-042":
@@ -172,8 +172,9 @@ function cp004SimpleIdea(qlId: string): string | null {
     case "MAL-QL-045":
       return "Only water evaporates, so the amount of dissolved solute remains unchanged.";
     case "MAL-QL-046":
+      return "Drying removes only moisture, so the dry-matter quantity remains unchanged. Find the original dry matter, use the final dry-matter percentage to obtain the dried mass, and compare the two masses when moisture loss is asked.";
     case "MAL-QL-047":
-      return "Drying removes moisture, but the amount of dry matter remains unchanged.";
+      return "Work backward using unchanged dry matter. Find the dry matter in the final batch, treat that as the original dry matter too, and divide by the original dry-matter percentage to recover the initial mass.";
     default:
       return null;
   }
@@ -332,6 +333,9 @@ function solutionFirstSimple(
     return {
       ...explanation,
       visibleLines: learnerLines,
+      ...(cpId === "MAL-CP-004" && Array.isArray(explanation.lines)
+        ? { lines: learnerLines }
+        : {}),
     };
   }
   return {
