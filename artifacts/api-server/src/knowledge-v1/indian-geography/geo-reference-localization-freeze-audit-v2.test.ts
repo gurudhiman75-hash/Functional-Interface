@@ -36,7 +36,7 @@ for (const [packageId, corpus] of packages) {
     }
     const combined=l.stem+" "+l.options.join(" ")+" "+l.explanation;
     const cps=Array.from(combined).map(ch=>ch.codePointAt(0)??0);
-    const hasDev=cps.some(cp=>cp>=0x0900&&cp<=0x097F);
+    const hasDev=cps.some(cp=>cp>=0x0900&&cp<=0x097F&&cp!==0x0964&&cp!==0x0965);
     const hasGur=cps.some(cp=>cp>=0x0A00&&cp<=0x0A7F);
     const mixed=language==="hi"?hasGur:hasDev;
     if(mixed){ mixedScriptCount++; issues.push(q.questionId+":"+language+":MIXED_SCRIPT"); }
