@@ -7,7 +7,15 @@ import { authenticate } from "../middlewares/auth";
 
 const router = Router();
 
-const ALLOWED_SECTIONS = ["hero", "exam_categories", "featured_test_series", "continue_learning"] as const;
+const ALLOWED_SECTIONS = [
+  "hero",
+  "exam_categories",
+  "featured_test_series",
+  "continue_learning",
+  "recommended_learning",
+  "current_affairs",
+  "today_goal",
+] as const;
 const DESTINATION_TYPES = new Set(["exam", "test_series", "learn", "url", "none"]);
 const MOBILE_HOME_AUDIT_ENTITY_ID = "00000000-0000-4000-8000-000000000101";
 
