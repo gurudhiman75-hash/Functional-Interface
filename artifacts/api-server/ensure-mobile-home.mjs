@@ -16,6 +16,7 @@ const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-mig
 const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
 const analyticsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-analytics.sql");
 const mediaMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-media-assets.sql");
+const pagesMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-pages.sql");
 const sql = postgres(databaseUrl, {
   max: 1,
   connect_timeout: 15,
@@ -45,6 +46,21 @@ try {
   }
 
   console.log("[render-build] mobile home configuration schema verified");
+  const [pagesBefore] = await sql`
+    SELECT to_regclass('platform.mobile_pages')::text AS mobile_pages
+  `;
+  if (!pagesBefore?.mobile_pages) {
+    console.log("[render-build] mobile pages schema missing; applying checked-in migration");
+    await sql.unsafe(await readFile(pagesMigrationPath, "utf8"));
+  }
+  const [pagesAfter] = await sql`
+    SELECT to_regclass('platform.mobile_pages')::text AS mobile_pages
+  `;
+  if (!pagesAfter?.mobile_pages) {
+    throw new Error("Mobile pages migration completed without creating platform.mobile_pages");
+  }
+  console.log("[render-build] mobile pages schema verified");
+
 
   const [promotionsBefore] = await sql`
     SELECT to_regclass('platform.mobile_promotions')::text AS mobile_promotions
