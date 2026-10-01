@@ -76,7 +76,7 @@ export function renderTmwCp006ExamStem(entry:TmwCp006RegistryEntry,p:TmwCp006Par
       const elapsed=required(p.elapsedBeforePopulationChange,"elapsedBeforePopulationChange");
       const variant=Math.abs(initial.numerator)%3;
       if(variant===1)return `A relief camp stores enough provisions for ${number(initial)} people for ${days(a.days)}. After ${days(elapsed)}, the number of people in the camp becomes ${number(changed)}. How many additional days will the remaining provisions last?`;
-      if(variant===2)return `Food stocked at a relief camp can support ${number(initial)} people for ${days(a.days)}. ${days(elapsed)} later, the camp has ${number(changed)} people. For how long will the food left at that point last?`;
+      if(variant===2)return `At a relief camp, the available food can support ${number(initial)} people for ${days(a.days)}. ${days(elapsed)} later, the camp has ${number(changed)} people. For how long will the food left at that point last?`;
       return `A relief camp has enough food for ${number(initial)} people for ${days(a.days)}. After ${days(elapsed)}, the camp population changes to ${number(changed)}. For how many more days will the remaining food last?`;
     }
     case "findCompletionTimeAfterAbsenteeism":return `A department at ${s.setting} schedules ${resourceCount(p,a.resources)} to complete ${s.task} in ${days(a.days)}. If ${number(required(p.absentPercent,"absentPercent"))}% of them remain absent throughout the assignment, in how many days will the active workforce finish it?`;
