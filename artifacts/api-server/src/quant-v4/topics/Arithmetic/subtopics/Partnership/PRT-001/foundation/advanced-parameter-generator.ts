@@ -225,7 +225,10 @@ export function generatePrt001AdvancedParameters(input: {
       break;
     }
     case "findUnknownJoinTimeWithPreDistributionDeduction": {
-      const s = random.pick(advancedScenarios.joinWithDeduction);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const s = numericStateRandom.pick(advancedScenarios.joinWithDeduction);
       const partners = [
         partner(partnerA, [segment(0, 12, money(s.capitalA))]),
         partner(partnerB, [segment(s.joinAfterB, 12, money(s.capitalB))]),
