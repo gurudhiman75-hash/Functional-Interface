@@ -147,6 +147,7 @@ import {
   isStat011QuestionStudioRequest,
   stat011QuestionStudioPackageCard,
 } from "../../quant-v4/topics/Statistics/STAT-011/question-studio-adapter";
+import { deriveQuestionStudioCpTitles } from "../package-metadata";
 import type {
   QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
@@ -182,6 +183,14 @@ function asDifficultyArray(value: unknown): QuestionStudioDifficulty[] {
 }
 
 function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDefinition {
+  const sourceMetadata = typeof pkg.metadata === "object" && pkg.metadata !== null
+    ? pkg.metadata as Record<string, unknown>
+    : undefined;
+  const cpTitles = deriveQuestionStudioCpTitles(pkg);
+  const metadata = Object.keys(cpTitles).length > 0
+    ? { ...(sourceMetadata ?? {}), cpTitles }
+    : sourceMetadata;
+
   return {
     engineId: "quant-v4",
     packageId: asString(pkg.packageId),
@@ -205,7 +214,7 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
     automaticStudentPublication: typeof pkg.automaticStudentPublication === "boolean" ? pkg.automaticStudentPublication : undefined,
     productionReleaseAuthorized: typeof pkg.productionReleaseAuthorized === "boolean" ? pkg.productionReleaseAuthorized : undefined,
     manualApprovalRequired: typeof pkg.manualApprovalRequired === "boolean" ? pkg.manualApprovalRequired : undefined,
-    metadata: typeof pkg.metadata === "object" && pkg.metadata !== null ? pkg.metadata as Record<string, unknown> : undefined,
+    metadata,
   };
 }
 
