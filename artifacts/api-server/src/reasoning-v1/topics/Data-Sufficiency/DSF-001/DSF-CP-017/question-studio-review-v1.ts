@@ -249,6 +249,17 @@ function stemOnly(stem: unknown): string {
   return String(stem ?? "").split(/\n+\s*Statement I:/u, 1)[0]!.trim();
 }
 
+function examStandardStem(stem: string): string {
+  let text = stem.trim();
+  const editorialOpening = /^(?:consider\b[^.?!]*[.?!]|[^.?!]*(?:being analysed|being examined|being reviewed|being checked|under review|under consideration|must be determined|to be analysed)[^.?!]*[.?!])\s*/iu;
+  for (let pass = 0; pass < 2; pass += 1) {
+    const cleaned = text.replace(editorialOpening, "").trim();
+    if (cleaned === text) break;
+    text = cleaned;
+  }
+  return text;
+}
+
 function explanationBody(value: unknown): string {
   if (typeof value === "string") return value.trim();
   if (Array.isArray(value)) return value.filter((entry): entry is string => typeof entry === "string").join("\n");
@@ -352,7 +363,7 @@ function normalizeQuestion(lane: LaneEntry, question: AnyQuestion) {
   const statements = normalizeStatements(lane, question);
   const optionDetails = normalizeOptions(lane, question);
   const correctIndex = optionDetails.findIndex((option) => option.isCorrect);
-  const cleanStem = stemOnly(question.stem);
+  const cleanStem = examStandardStem(stemOnly(question.stem));
   if (!cleanStem) throw new Error(`${lane.laneId}: source question has an empty stem.`);
 
   const text = `${cleanStem}\nI. ${statements[0].text}\nII. ${statements[1].text}`;
