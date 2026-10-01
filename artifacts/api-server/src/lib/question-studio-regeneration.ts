@@ -1,9 +1,8 @@
 import type {
-  QuantV4Difficulty,
-  QuantV4GenerationRequest,
-  QuantV4Language,
-  QuantV4PackageId,
-} from "../quant-v4/generation-engine";
+  QuestionStudioEngineId,
+  QuestionStudioGenerationRequest,
+  QuestionStudioLanguage,
+} from "../question-studio/engine-types";
 
 export type RegenerationSource = {
   itemId: string;
@@ -27,6 +26,18 @@ function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" && !Array.isArray(value)
     ? value as Record<string, unknown>
     : {};
+}
+
+function asEngineId(value: unknown): QuestionStudioEngineId | undefined {
+  const engineId = asString(value);
+  return new Set<QuestionStudioEngineId>([
+    "quant-v4",
+    "reasoning-v1",
+    "language-v1",
+    "knowledge-v1",
+  ]).has(engineId as QuestionStudioEngineId)
+    ? engineId as QuestionStudioEngineId
+    : undefined;
 }
 
 export function getRegenerationEligibility(
@@ -55,14 +66,16 @@ export function getRegenerationEligibility(
 export function buildRegenerationRequest(
   source: RegenerationSource,
   seed: string,
-): QuantV4GenerationRequest {
+): QuestionStudioGenerationRequest {
   const requestSnapshot = asRecord(source.requestSnapshot);
   const payload = asRecord(source.payload);
   const generationContext = asRecord(payload.generationContext);
   const packageId = asString(payload.packageId) || asString(requestSnapshot.packageId);
   const patternId = asString(payload.patternId) || asString(requestSnapshot.patternId);
   const canonicalProblemId =
-    asString(payload.canonicalProblemId)
+    asString(payload.selectedCpId)
+    || asString(payload.canonicalProblemId)
+    || asString(payload.cpId)
     || asString(asRecord(payload.metadata).canonicalProblemId)
     || asString(requestSnapshot.canonicalProblemId);
   const questionLanguageId =
@@ -79,9 +92,9 @@ export function buildRegenerationRequest(
     || asString(requestSnapshot.language)
     || "en";
   const preservedEngineId =
-    asString(payload.engineId)
-    || asString(generationContext.engineId)
-    || asString(requestSnapshot.engineId);
+    asEngineId(payload.engineId)
+    || asEngineId(generationContext.engineId)
+    || asEngineId(requestSnapshot.engineId);
 
   // This regeneration helper is the established Quant/Reasoning path. Frozen
   // knowledge-v1 content must never fall through it because doing so would
@@ -95,14 +108,18 @@ export function buildRegenerationRequest(
   }
 
   return {
-    packageId: packageId ? packageId as QuantV4PackageId : undefined,
+    engineId: preservedEngineId,
+    exam: asString(requestSnapshot.exam) || undefined,
+    subject: asString(requestSnapshot.subject) || undefined,
+    packageId: packageId || undefined,
     patternId: patternId || undefined,
     topic: asString(payload.topic) || asString(requestSnapshot.topic) || undefined,
     subtopic: asString(payload.subtopic) || asString(requestSnapshot.subtopic) || undefined,
     canonicalProblemId: canonicalProblemId || undefined,
     questionLanguageId: questionLanguageId || undefined,
-    difficulty: difficulty as QuantV4Difficulty,
-    language: language as QuantV4Language,
+    difficulty,
+    language: language as QuestionStudioLanguage,
+    runtimeMode: asString(requestSnapshot.runtimeMode) || undefined,
     seed,
     count: 1,
   };
@@ -115,8 +132,20 @@ export function buildRegenerationPayload(
   reason: string,
   regeneratedAt: string,
 ): Record<string, unknown> {
+  const sourcePayload = asRecord(source.payload);
+  const sourceCpId =
+    asString(sourcePayload.selectedCpId)
+    || asString(sourcePayload.canonicalProblemId)
+    || asString(sourcePayload.cpId);
+
   return {
     ...generatedQuestion,
+    ...(sourceCpId && !asString(generatedQuestion.selectedCpId)
+      ? { selectedCpId: sourceCpId }
+      : {}),
+    ...(sourceCpId && !asString(generatedQuestion.canonicalProblemId) && !asString(generatedQuestion.cpId)
+      ? { canonicalProblemId: sourceCpId }
+      : {}),
     generationContext,
     validationResult: "pending",
     regeneration: {
