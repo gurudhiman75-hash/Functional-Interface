@@ -66,5 +66,32 @@ jobs:
       - name: Run next checkpoint question proofs
         run: node artifacts/api-server/dist/reasoning-v1/ven-001-next-checkpoints.test.mjs
 
+      - name: Bundle and run numerical CP005-CP010 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-numerical.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-numerical.test.mjs
+      - name: Run numerical CP005-CP010 proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-numerical.test.mjs
+
+      - name: Bundle and run CP011 shape-region proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-shape-regions.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-shape-regions.test.mjs
+      - name: Run CP011 shape-region proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-shape-regions.test.mjs
+
+      - name: Bundle permanent QL integration proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/ql-registry-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-ql-registry-audit.test.mjs
+      - name: Run permanent QL integration proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-ql-registry-audit.test.mjs
+
       - name: Check patch whitespace
         run: git diff --check
