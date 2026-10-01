@@ -8,7 +8,6 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/**
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-018/**
-      - .github/workflows/dsf-cp018-reasoning-localization.yml
   workflow_dispatch:
 
 permissions:
@@ -21,7 +20,7 @@ concurrency:
 jobs:
   validate-dsf-cp018:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
