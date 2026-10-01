@@ -8,7 +8,6 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/**
       - artifacts/api-server/src/question-studio/shared-generation-engine.ts
-      - .github/workflows/num-cp008-full-explanation-v3.yml
       - package.json
       - pnpm-lock.yaml
   workflow_dispatch:
@@ -65,6 +64,22 @@ jobs:
           node dist/quant-v4/num-cp008-full-explanation-v3.test.mjs \
             2>&1 | tee dist/quant-v4/num-cp008-full-explanation-v3.log
 
+      - name: Bundle CP008 semantic remediation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/cp008-semantic-remediation-audit-v1.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp008-semantic-remediation-audit-v1.mjs
+
+      - name: Run CP008 semantic remediation audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/num-cp008-semantic-remediation-audit-v1.mjs \
+            2>&1 | tee dist/quant-v4/num-cp008-semantic-remediation-audit-v1.log
+          grep -q "PASS_NUM_CP008_SEMANTIC_REMEDIATION_AUDIT_V1" dist/quant-v4/num-cp008-semantic-remediation-audit-v1.log
+
       - name: Bundle learner review export
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -94,5 +109,6 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/num-cp008-full-explanation-v3-review.md
             artifacts/api-server/dist/quant-v4/num-cp008-full-explanation-v3.log
+            artifacts/api-server/dist/quant-v4/num-cp008-semantic-remediation-audit-v1.log
           if-no-files-found: error
           retention-days: 14
