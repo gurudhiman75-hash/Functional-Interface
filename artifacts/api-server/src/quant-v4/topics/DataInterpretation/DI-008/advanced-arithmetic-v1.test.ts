@@ -31,6 +31,9 @@ for(let i=0;i<360;i++){
     assert.equal(q.options[q.correctIndex],q.answer,`${seed}: answer/index drift`);
     assert(!/\d+\.\d+/u.test(q.answer),`${seed}: decimal answer leaked: ${q.answer}`);
     assert(!/nearest whole|approximately what whole percent/iu.test(q.stem),`${seed}: rounding wording leaked`);
+    assert(!/\bCase [A-E]\b/u.test(q.stem+" "+set.stimulus.title),`${seed}: generic case label leaked`);
+    assert(!/Using the rule shown|learner-visible data/iu.test(q.explanation.steps.join(" ")),`${seed}: explanation is generic rather than calculative`);
+    if(q.kind==="ROW_DERIVED_VALUE" || q.kind==="MAXIMUM_DERIVED_VALUE") assert(/[×÷=]/u.test(q.explanation.steps.join(" ")),`${seed}: derived-value explanation does not show arithmetic`);
   if(set.stimulus.domain==="MIXTURE_ALLIGATION"){assert(/amount of pure component/iu.test(q.stem),`${seed}: mixture stem does not use natural quantity wording`);assert(!/pure component amount/iu.test(q.stem),`${seed}: formula-like mixture wording leaked`);}
     assert(q.explanation.steps.length>0);
   }

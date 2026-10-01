@@ -67,8 +67,12 @@ for(let i=0;i<350;i++){
     assert.equal(new Set(q.options).size,5,`${seed}: duplicate options`);
     assert.equal(q.options[q.correctIndex],q.answer,`${seed}: answer/index drift`);
     assert(!/\.\d/u.test(q.answer),`${seed}: decimal answer leaked: ${q.answer}`);
+    if(q.kind==="RECOVERED_SHARE_OF_TOTAL"||q.kind==="COMBINED_RECOVERED_PERCENT"){assert(q.answer.endsWith("%"),`${seed}: percentage answer lost its % sign`);assert(q.options.every(o=>o.endsWith("%")),`${seed}: percentage options must carry %`);}
+    assert(!/^(?:Find|Add|Compare|Calculate)\b/iu.test(q.stem),`${seed}: instruction-like stem leaked: ${q.stem}`);
+    assert(!/^What is the value of [xy]\?/iu.test(q.stem),`${seed}: generic variable stem leaked: ${q.stem}`);
     assert.doesNotMatch(q.stem,/after recovering|after recovery|after solving|recover .* first/iu,`${seed}: solving directions leaked into the stem: ${q.stem}`);
     assert(q.explanation.steps.length>0);
+    if(q.kind==="RECOVER_X"||q.kind==="RECOVER_Y") assert(/[=−÷×]/u.test(q.explanation.steps.join(" ")),`${seed}: recovery explanation is not calculative`);
   }
 }
 assert.deepEqual([...models].sort(),[...DI012_MODEL_KINDS].sort(),"Not all advanced missing models were exercised.");

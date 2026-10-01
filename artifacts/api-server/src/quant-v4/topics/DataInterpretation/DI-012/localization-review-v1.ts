@@ -28,6 +28,16 @@ export function localizeDi012Set(set:Di012Set,locale:Di012Locale):Di012Set{
  const number=(v:number|string)=>v==="x"?x:v==="y"?y:v as number;
  const rows=old.rows.map((r,i)=>({...r,label:ctx.unitless[i]!}));
  const totalA=rows.reduce((s,r)=>s+number(r.a),0),totalB=rows.reduce((s,r)=>s+number(r.b),0),grand=totalA+totalB;
+ const recoveryCalc=(variable:"x"|"y"):string[]=>{
+  const target=variable==="x"?x:y;
+  if(old.modelKind==="SINGLE_X_TOTAL"){const visible=totalB-x;return [`${ctx.b}: ${totalB} − ${visible} = ${x}।`];}
+  if(old.modelKind==="X_Y_SUM_DIFFERENCE"){const sum=x+y,diff=Math.abs(x-y);return x>=y?[`x + y = ${sum}; x − y = ${diff}।`,`2x = ${sum+diff}; x = ${x}; y = ${y}।`]:[`x + y = ${sum}; y − x = ${diff}।`,`2y = ${sum+diff}; y = ${y}; x = ${x}।`];}
+  if(old.modelKind==="X_Y_RATIO_TOTAL"){const gcd=(a:number,b:number):number=>b?gcd(b,a%b):a,g=gcd(x,y),a=x/g,b=y/g,part=(x+y)/(a+b);return [`x : y = ${a}:${b}; x + y = ${x+y}।`,`${x+y} ÷ ${a+b} = ${part}; x = ${a} × ${part} = ${x}; y = ${b} × ${part} = ${y}।`];}
+  if(old.modelKind==="TWO_MISSING_COLUMN_TOTALS"){const m=missing.find(z=>z.variable===variable)!,total=m.column==="a"?totalA:totalB,visible=total-target;return [`${variable} = ${total} − ${visible} = ${target}।`];}
+  if(old.modelKind==="MISSING_RATE"){const row=missing[0]!.rowIndex,b=number(rows[row]!.b);return [`x = ${b} × 100 ÷ 75 = ${x}।`];}
+  if(old.modelKind==="AVERAGE_CONSTRAINED"){const avg=totalA/5,visible=totalA-x;return [`${avg} × 5 = ${totalA}।`,`x = ${totalA} − ${visible} = ${x}।`];}
+  const first=number(rows[0]!.b),delta=x-first;return [`x = ${first} + ${delta} = ${x}।`,`y = 2 × ${x} = ${y}।`];
+ };
  let condition="";
  switch(old.modelKind){
   case "SINGLE_X_TOTAL": condition=h?`सभी पाँच पंक्तियों में ${ctx.b} का कुल ${totalB} है।`:`ਪੰਜਾਂ ਕਤਾਰਾਂ ਵਿੱਚ ${ctx.b} ਦਾ ਕੁੱਲ ${totalB} ਹੈ।`;break;
@@ -46,8 +56,8 @@ export function localizeDi012Set(set:Di012Set,locale:Di012Locale):Di012Set{
   const cellTotal=(r:typeof p)=>cell(r,"a")+cell(r,"b");
   let stem="",steps:string[]=[];
   switch(q.kind){
-   case "RECOVER_X": stem=h?`${describe("x")} क्या है?`:`${describe("x")} ਕੀ ਹੈ?`;steps=[h?`दी गई शर्त से x = ${x}।`:`ਦਿੱਤੀ ਸ਼ਰਤ ਤੋਂ x = ${x}।`];break;
-   case "RECOVER_Y": stem=h?`${describe("y")} क्या है?`:`${describe("y")} ਕੀ ਹੈ?`;steps=[h?`दी गई शर्त के अनुसार y = ${y}।`:`ਦਿੱਤੀ ਸ਼ਰਤ ਅਨੁਸਾਰ y = ${y}।`];break;
+   case "RECOVER_X": stem=h?`${describe("x")} क्या है?`:`${describe("x")} ਕੀ ਹੈ?`;steps=recoveryCalc("x");break;
+   case "RECOVER_Y": stem=h?`${describe("y")} क्या है?`:`${describe("y")} ਕੀ ਹੈ?`;steps=recoveryCalc("y");break;
    case "UNKNOWN_SUM": stem=h?`${describe("x")} और ${describe("y")} का योग कितना है?`:`${describe("x")} ਅਤੇ ${describe("y")} ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੈ?`;steps=[`x + y = ${x} + ${y} = ${x+y}।`];break;
    case "UNKNOWN_DIFFERENCE": stem=h?`${describe("x")} और ${describe("y")} के मानों में कितना अंतर है?`:`${describe("x")} ਅਤੇ ${describe("y")} ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਫ਼ਰਕ ਹੈ?`;steps=[`|${x} − ${y}| = ${Math.abs(x-y)}।`];break;
    case "UNKNOWN_RATIO": {const gcd=(a:number,b:number):number=>b?gcd(b,a%b):a;stem=h?`${describe("x")} और ${describe("y")} के मानों का अनुपात क्या है?`:`${describe("x")} ਅਤੇ ${describe("y")} ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`;steps=[`x : y = ${x}:${y} = ${x/gcd(x,y)}:${y/gcd(x,y)}।`];break;}

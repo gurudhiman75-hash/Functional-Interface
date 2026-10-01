@@ -99,6 +99,8 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
       assert(question.options.length === 5 && new Set(question.options).size === 5, `${question.questionId} does not have five unique options.`);
       assert(question.options[question.correctIndex] === question.answer, `${question.questionId} correctIndex is not bound to the answer.`);
       assert(!/\bAfter (?:finding|recovering|solving|calculating|adding|combining|resolving)\b/iu.test(question.stem), `${question.questionId} contains procedural setup instead of a direct ask.`);
+      assert(!/^(?:Add|Compare|Calculate|Determine)\b/iu.test(question.stem), `${question.questionId} uses an instruction-like opener instead of an exam question.`);
+      assert(!/\b(?:two visible table values|two values shown|combined value)\b/iu.test(question.stem), `${question.questionId} leaked generic table-value wording.`);
       if (question.answer.endsWith("%")) {
         assert(!/\d+\.\d+%/u.test([question.answer, ...question.options].join(" ")), `${question.questionId} exposes a decimal percentage.`);
         assert(/approximately/iu.test(question.stem), `${question.questionId} rounds a percentage without signaling approximation.`);

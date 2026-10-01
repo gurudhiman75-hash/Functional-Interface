@@ -7,12 +7,21 @@ const MEDIUM: readonly Di011TaskKind[] = ["LEFT_TO_RIGHT_RATIO", "TWO_CATEGORY_C
 const HARD: readonly Di011TaskKind[] = ["TWO_GROUP_CROSS_RATIO", "TWO_GROUP_COMBINED_DIFFERENCE", "THREE_CATEGORY_CROSS_TOTAL", "FOUR_VALUE_CROSS_AVERAGE"];
 
 const CONTEXTS = [
-  { title: "Regional loan applications and approvals", left: "Applications", right: "Approvals", unit: "applications", labels: ["North", "South", "East", "West", "Central"] },
-  { title: "Product dispatch and returns", left: "Dispatched", right: "Returned", unit: "units", labels: ["P", "Q", "R", "S", "T"] },
-  { title: "Insurance policies and claims", left: "Policies", right: "Claims", unit: "records", labels: ["A", "B", "C", "D", "E"] },
-  { title: "Branch deposits and withdrawals", left: "Deposits", right: "Withdrawals", unit: "₹ lakh", labels: ["B1", "B2", "B3", "B4", "B5"] },
-  { title: "Training enrolment and completion", left: "Enrolled", right: "Completed", unit: "people", labels: ["Batch A", "Batch B", "Batch C", "Batch D", "Batch E"] },
-  { title: "Online orders and successful deliveries", left: "Orders", right: "Delivered", unit: "orders", labels: ["Mon", "Tue", "Wed", "Thu", "Fri"] },
+  { title: "Loan applications received in two drives", left: "Drive 1 applications", right: "Drive 2 applications", unit: "applications", labels: ["North", "South", "East", "West", "Central"] },
+  { title: "Product sales in two years", left: "2025 sales", right: "2026 sales", unit: "units", labels: ["P", "Q", "R", "S", "T"] },
+  { title: "Insurance policies issued in two quarters", left: "Q1 policies", right: "Q2 policies", unit: "policies", labels: ["A", "B", "C", "D", "E"] },
+  { title: "Branch deposits in two months", left: "January deposits", right: "February deposits", unit: "₹ lakh", labels: ["B1", "B2", "B3", "B4", "B5"] },
+  { title: "Course enrolment in two sessions", left: "Session 1 enrolment", right: "Session 2 enrolment", unit: "students", labels: ["Course A", "Course B", "Course C", "Course D", "Course E"] },
+  { title: "Online orders in two weeks", left: "Week 1 orders", right: "Week 2 orders", unit: "orders", labels: ["Mon", "Tue", "Wed", "Thu", "Fri"] },
+] as const;
+
+const PIE_CONTEXTS = [
+  { title: "Regional loan applications and approvals", left: "Application share", right: "Applications approved", unit: "applications", labels: ["North", "South", "East", "West", "Central"] },
+  { title: "Product dispatch share and returns", left: "Dispatch share", right: "Units returned", unit: "units", labels: ["P", "Q", "R", "S", "T"] },
+  { title: "Insurance policy share and claims", left: "Policy share", right: "Claims", unit: "claims", labels: ["A", "B", "C", "D", "E"] },
+  { title: "Branch deposit share and withdrawals", left: "Deposit share", right: "Withdrawals", unit: "₹ lakh", labels: ["B1", "B2", "B3", "B4", "B5"] },
+  { title: "Training enrolment share and completions", left: "Enrolment share", right: "Completed", unit: "students", labels: ["Batch A", "Batch B", "Batch C", "Batch D", "Batch E"] },
+  { title: "Order share and successful deliveries", left: "Order share", right: "Delivered", unit: "orders", labels: ["Mon", "Tue", "Wed", "Thu", "Fri"] },
 ] as const;
 
 const PIE_PARTITIONS = [
@@ -63,11 +72,11 @@ function makeQuestion(task: Di011TaskKind, difficulty: Di011Difficulty, stimulus
       const v=linked.right;
       const topShareStems:Record<string,string>={
         "Regional loan applications and approvals":"In the region with the largest pie-chart share, how many applications were approved?",
-        "Product dispatch and returns":"How many units were returned for the product with the largest pie-chart share?",
-        "Insurance policies and claims":"How many claims were recorded for the category with the largest pie-chart share?",
-        "Branch deposits and withdrawals":"How much was withdrawn from the branch with the largest pie-chart share?",
-        "Training enrolment and completion":"How many people completed the course in the batch with the largest pie-chart share?",
-        "Online orders and successful deliveries":"How many orders were delivered on the day with the largest pie-chart share?",
+        "Product dispatch share and returns":"How many units were returned for the product with the largest pie-chart share?",
+        "Insurance policy share and claims":"How many claims were recorded for the category with the largest pie-chart share?",
+        "Branch deposit share and withdrawals":"How much was withdrawn from the branch with the largest pie-chart share?",
+        "Training enrolment share and completions":"How many students completed the course in the batch with the largest pie-chart share?",
+        "Order share and successful deliveries":"How many orders were delivered on the day with the largest pie-chart share?",
       };
       stem=topShareStems[stimulus.title]??`What figure does the table show for ${linked.category}?`;
       answer=String(v);options=numericalOptions(v,seed);steps=[`${linked.category} has the largest pie-chart share at ${linked.left}%.`,`The table lists ${v} for ${linked.category}.`];
@@ -92,15 +101,15 @@ function makeQuestion(task: Di011TaskKind, difficulty: Di011Difficulty, stimulus
       throw new Error(`DI-011 does not support ${task} for a pie-and-table stimulus.`);
     }
   } else if(task==="SAME_CATEGORY_COMBINED_TOTAL"){
-    const v=a.left+a.right; stem=`What is the combined value for ${a.category} from the two displays?`; answer=String(v); options=numericalOptions(v,seed); steps=[`${a.left} + ${a.right} = ${v}.`];
+    const v=a.left+a.right; stem=`What is the combined ${stimulus.leftTitle} and ${stimulus.rightTitle} for ${a.category}?`; answer=String(v); options=numericalOptions(v,seed); steps=[`${a.left} + ${a.right} = ${v}.`];
   } else if(task==="SAME_CATEGORY_ABSOLUTE_DIFFERENCE"){
-    const v=Math.abs(a.left-a.right); stem=`What is the difference between the two displayed values for ${a.category}?`; answer=String(v); options=numericalOptions(v,seed); steps=[`Difference = |${a.left} − ${a.right}| = ${v}.`];
+    const v=Math.abs(a.left-a.right); stem=`What is the difference between ${stimulus.leftTitle} and ${stimulus.rightTitle} for ${a.category}?`; answer=String(v); options=numericalOptions(v,seed); steps=[`Difference = |${a.left} − ${a.right}| = ${v}.`];
   } else if(task==="LEFT_TO_RIGHT_RATIO"){
     const v=ratio(a.left,a.right); stem=`What is the ratio of ${stimulus.leftTitle} to ${stimulus.rightTitle} for ${a.category}?`; answer=v; options=ratioOptions(v,a.left,a.right,seed); steps=[`Required ratio = ${a.left}:${a.right} = ${v}.`];
   } else if(task==="TWO_CATEGORY_CROSS_SUM"){
     const v=a.left+b.right; stem=`Find ${stimulus.leftTitle} for ${a.category} plus ${stimulus.rightTitle} for ${b.category}.`; answer=String(v); options=numericalOptions(v,seed); steps=[`${a.left} + ${b.right} = ${v}.`];
   } else if(task==="HIGHEST_COMBINED_CATEGORY"){
-    const best=[...rows].sort((x,y)=>(y.left+y.right)-(x.left+x.right))[0]!; stem="For which category is the sum of the two displayed values the highest?"; answer=best.category; options=categoryOptions(rows.map(r=>r.category),answer,seed); steps=rows.map(r=>`${r.category}: ${r.left} + ${r.right} = ${r.left+r.right}`).concat([`The highest combined value is for ${answer}.`]);
+    const best=[...rows].sort((x,y)=>(y.left+y.right)-(x.left+x.right))[0]!; stem=`For which category is the combined ${stimulus.leftTitle} and ${stimulus.rightTitle} the highest?`; answer=best.category; options=categoryOptions(rows.map(r=>r.category),answer,seed); steps=rows.map(r=>`${r.category}: ${r.left} + ${r.right} = ${r.left+r.right}`).concat([`The highest combined value is for ${answer}.`]);
   } else if(task==="CROSS_COMPONENT_AVERAGE"){
     const v=(a.left+b.right)/2; stem=`What is the average of ${stimulus.leftTitle} for ${a.category} and ${stimulus.rightTitle} for ${b.category}?`; answer=String(v); options=numericalOptions(v,seed); steps=[`Average = (${a.left} + ${b.right}) ÷ 2 = ${v}.`];
   } else if(task==="TWO_GROUP_CROSS_RATIO"){
@@ -114,11 +123,11 @@ function makeQuestion(task: Di011TaskKind, difficulty: Di011Difficulty, stimulus
   }
   const correctIndex=options.indexOf(answer);
   if(correctIndex<0) throw new Error(`DI-011 option construction lost answer for ${task}.`);
-  return { questionId:`DI-011:${seed}:Q${index+1}`, kind:task, difficulty, stem, options, correctIndex, answer, explanation:{keyIdea:"Read the required values from both parts of the mixed stimulus, then combine only those values.",steps} };
+  return { questionId:`DI-011:${seed}:Q${index+1}`, kind:task, difficulty, stem, options, correctIndex, answer, explanation:{keyIdea:`Read the required ${stimulus.leftTitle} and ${stimulus.rightTitle} figures from the two displays, then carry out only the operation asked in the question.`,steps} };
 }
 function buildStimulus(seed:string): Di011Stimulus {
   const pairKind=pick(PAIRS,`${seed}:pair`);
-  const ctx=pick(CONTEXTS,`${seed}:ctx`);
+  const ctx=pairKind==="PIE_TABLE"?pick(PIE_CONTEXTS,`${seed}:ctx`):pick(CONTEXTS,`${seed}:ctx`);
   const rows=ctx.labels.map((category,i)=>{
     if(pairKind==="PIE_TABLE"){
       const part=pick(PIE_PARTITIONS,`${seed}:pie`);

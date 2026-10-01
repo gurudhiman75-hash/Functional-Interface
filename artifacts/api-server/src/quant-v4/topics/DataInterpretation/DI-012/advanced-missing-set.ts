@@ -23,6 +23,11 @@ function numOptions(answer:number,seed:string){
   while(vals.size<5)vals.add(answer+10*vals.size);
   return [...vals].slice(0,5).map(String).sort((a,b)=>hashSeed(`${seed}:${a}`)-hashSeed(`${seed}:${b}`));
 }
+function percentOptions(answer:number,seed:string){
+  const vals=new Set<number>([answer]);
+  for(const d of [5,-5,10,-10,15,-15,20,-20]){const v=answer+d;if(v>0)vals.add(v);if(vals.size>=5)break;}
+  return [...vals].slice(0,5).map(v=>`${v}%`).sort((a,b)=>hashSeed(`${seed}:${a}`)-hashSeed(`${seed}:${b}`));
+}
 function ratioOptions(answer:string,x:number,y:number,seed:string){
   const vals=new Set([answer,ratio(y,x),ratio(x+10,y),ratio(x,y+10),ratio(x+20,y+10),ratio(x+10,y+20)]);
   const arr=[...vals].slice(0,5); while(arr.length<5)arr.push(`${arr.length+2}:${arr.length+3}`);
@@ -69,6 +74,43 @@ function build(seed:string){
   return {modelKind,ctx,base,rows,x,y,condition,unknownCells};
 }
 
+function recoverySteps(state:ReturnType<typeof build>,variable:"x"|"y"):string[]{
+  const {modelKind,ctx,base,x,y,unknownCells}=state;
+  const cell=unknownCells.find(c=>c.variable===variable);
+  const target=variable==="x"?x:y;
+  if(!cell)return [`${variable} = ${target}.`];
+  const label=base[cell.rowIndex]!.label;
+  const column=cell.column==="a"?ctx.a:ctx.b;
+  if(modelKind==="SINGLE_X_TOTAL"){
+    const total=base.reduce((s,r)=>s+r.b,0),visible=total-x;
+    return [`Total ${ctx.b} = ${total}; visible ${ctx.b} = ${visible}.`,`${variable} = ${total} − ${visible} = ${target}.`];
+  }
+  if(modelKind==="X_Y_SUM_DIFFERENCE"){
+    const sum=x+y,diff=Math.abs(x-y);
+    return x>=y
+      ? [`x + y = ${sum} and x − y = ${diff}.`,`2x = ${sum+diff}, so x = ${x}; therefore y = ${sum} − ${x} = ${y}.`]
+      : [`x + y = ${sum} and y − x = ${diff}.`,`2y = ${sum+diff}, so y = ${y}; therefore x = ${sum} − ${y} = ${x}.`];
+  }
+  if(modelKind==="X_Y_RATIO_TOTAL"){
+    const g=gcd(x,y),a=x/g,b=y/g,sum=x+y,part=sum/(a+b);
+    return [`x : y = ${a}:${b} and x + y = ${sum}.`,`One ratio part = ${sum} ÷ ${a+b} = ${part}; hence x = ${a} × ${part} = ${x} and y = ${b} × ${part} = ${y}.`];
+  }
+  if(modelKind==="TWO_MISSING_COLUMN_TOTALS"){
+    const total=cell.column==="a"?base.reduce((s,r)=>s+r.a,0):base.reduce((s,r)=>s+r.b,0);
+    const visible=total-target;
+    return [`Total ${column} = ${total}; visible ${column} = ${visible}.`,`${variable} = ${total} − ${visible} = ${target}.`];
+  }
+  if(modelKind==="MISSING_RATE"){
+    const approved=base[cell.rowIndex]!.b;
+    return [`For ${label}, ${ctx.b} = 75% of ${ctx.a}.`,`${variable} = ${approved} × 100 ÷ 75 = ${target}.`];
+  }
+  if(modelKind==="AVERAGE_CONSTRAINED"){
+    const total=base.reduce((s,r)=>s+r.a,0),avg=total/5,visible=total-x;
+    return [`Required ${ctx.a} total = ${avg} × 5 = ${total}.`,`x = ${total} − ${visible} = ${x}.`];
+  }
+  const delta=x-base[0]!.b;
+  return [`x = ${ctx.b} for ${base[0]!.label} + ${delta} = ${base[0]!.b} + ${delta} = ${x}.`,`y = 2 × x = 2 × ${x} = ${y}.`];
+}
 function solveQuestion(task:Di012TaskKind,difficulty:Di012Difficulty,state:ReturnType<typeof build>,seed:string,i:number):Di012Question{
   const {ctx,base,x,y,unknownCells}=state;
   const totalA=base.reduce((s,r)=>s+r.a,0), totalB=base.reduce((s,r)=>s+r.b,0);
@@ -77,18 +119,18 @@ function solveQuestion(task:Di012TaskKind,difficulty:Di012Difficulty,state:Retur
   const primaryRow = base[primaryUnknown.rowIndex]!;
   const secondaryRow = secondaryUnknown ? base[secondaryUnknown.rowIndex]! : base[(primaryUnknown.rowIndex + 2) % base.length]!;
   let stem="",answer="",options:string[]=[],steps:string[]=[];
-  if(task==="RECOVER_X"){stem="What is the value of x?";answer=String(x);options=numOptions(x,seed);steps=[`Using the stated condition, x = ${x}.`];}
-  else if(task==="RECOVER_Y"){stem="What is the value of y?";answer=String(y);options=numOptions(y,seed);steps=[`Using the stated condition after recovering the required unknowns, y = ${y}.`];}
+  if(task==="RECOVER_X"){const cell=unknownCells.find(c=>c.variable==="x")!;const row=base[cell.rowIndex]!;const column=cell.column==="a"?ctx.a:ctx.b;stem=`What number should replace x under ${column} for ${row.label}?`;answer=String(x);options=numOptions(x,seed);steps=recoverySteps(state,"x");}
+  else if(task==="RECOVER_Y"){const cell=unknownCells.find(c=>c.variable==="y")!;const row=base[cell.rowIndex]!;const column=cell.column==="a"?ctx.a:ctx.b;stem=`What number should replace y under ${column} for ${row.label}?`;answer=String(y);options=numOptions(y,seed);steps=recoverySteps(state,"y");}
   else if(task==="UNKNOWN_SUM"){const v=x+y;stem="What is x + y?";answer=String(v);options=numOptions(v,seed);steps=[`x + y = ${x} + ${y} = ${v}.`];}
   else if(task==="UNKNOWN_DIFFERENCE"){const v=Math.abs(x-y);stem="What is the absolute difference between x and y?";answer=String(v);options=numOptions(v,seed);steps=[`|${x} − ${y}| = ${v}.`];}
   else if(task==="UNKNOWN_RATIO"){const v=ratio(x,y);stem="What is the ratio x : y?";answer=v;options=ratioOptions(v,x,y,seed);steps=[`x : y = ${x}:${y} = ${v}.`];}
-  else if(task==="RECOVERED_ROW_TOTAL"){const r=primaryRow;const v=r.a+r.b;stem=`What is the combined total for ${r.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`Recover the unknown in ${r.label} first.`,`${r.a} + ${r.b} = ${v}.`];}
+  else if(task==="RECOVERED_ROW_TOTAL"){const r=primaryRow;const v=r.a+r.b;stem=`What is the combined total of ${ctx.a} and ${ctx.b} for ${r.label}?`;answer=String(v);options=numOptions(v,seed);steps=[`Recover the unknown in ${r.label} first.`,`${r.a} + ${r.b} = ${v}.`];}
   else if(task==="RECOVERED_COLUMN_TOTAL"){const targetColumn=primaryUnknown.column;const label=targetColumn==="a"?ctx.a:ctx.b;const total=targetColumn==="a"?totalA:totalB;stem=`What is the total ${label} across all five rows?`;answer=String(total);options=numOptions(total,seed);steps=[`Recover the missing value in the ${label} column first.`,`Add the five ${label} values to get ${total}.`];}
-  else if(task==="RECOVERED_SHARE_OF_TOTAL"){const r=primaryRow;const combined=totalA+totalB;const num=r.a+r.b;const v=Math.round(num*100/combined);stem=`Approximately what percentage of the grand total does ${r.label} account for?`;answer=String(v);options=numOptions(v,seed);steps=[`Recover the unknown value in ${r.label}.`,`${r.label} total = ${r.a} + ${r.b} = ${num}.`,`Grand total = ${combined}.`,`Share ≈ ${v}%.`];}
+  else if(task==="RECOVERED_SHARE_OF_TOTAL"){const r=primaryRow;const combined=totalA+totalB;const num=r.a+r.b;const v=Math.round(num*100/combined);stem=`Approximately what percentage of the combined ${ctx.a} and ${ctx.b} total is accounted for by ${r.label}?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[...recoverySteps(state,primaryUnknown.variable),`${r.label} total = ${r.a} + ${r.b} = ${num}.`,`Grand total = ${combined}.`,`Share = ${num} ÷ ${combined} × 100 ≈ ${v}%.`];}
   else if(task==="CROSS_ROW_RATIO_AFTER_RECOVERY"){const p=primaryRow,q=secondaryRow;const a=p.a+p.b,b=q.a+q.b,v=ratio(a,b);stem=`What is the ratio of the combined total for ${p.label} to that for ${q.label}?`;answer=v;options=ratioOptions(v,a,b,seed);steps=[`${p.label} total = ${a}.`,`${q.label} total = ${b}.`,`Ratio = ${v}.`];}
-  else {const num=x+y,den=totalA+totalB,v=Math.round(num*100/den);stem="Together, approximately what percentage of the grand total do x and y represent?";answer=String(v);options=numOptions(v,seed);steps=[`x + y = ${num}.`,`Grand total = ${den}.`,`Required percentage ≈ ${v}%.`];}
+  else {const num=x+y,den=totalA+totalB,v=Math.round(num*100/den);stem=`Together, approximately what percentage of the combined ${ctx.a} and ${ctx.b} total do x and y represent?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[...recoverySteps(state,"x"),...(unknownCells.some(c=>c.variable==="y")?recoverySteps(state,"y"):[]),`x + y = ${num}.`,`Grand total = ${den}.`,`Required percentage = ${num} ÷ ${den} × 100 ≈ ${v}%.`];}
   const correctIndex=options.indexOf(answer); if(correctIndex<0)throw new Error(`DI-012 lost answer for ${task}`);
-  return {questionId:`DI-012:${seed}:Q${i+1}`,kind:task,difficulty,stem,options,correctIndex,answer,explanation:{keyIdea:"First recover the unknown table value(s) from the stated condition, then perform the requested DI calculation.",steps}};
+  return {questionId:`DI-012:${seed}:Q${i+1}`,kind:task,difficulty,stem,options,correctIndex,answer,explanation:{keyIdea:`Use the table condition to recover the unknown ${ctx.a}/${ctx.b} entry or entries, then carry out the requested calculation.`,steps}};
 }
 
 export function generateDi012Set(input:{seed:string;examProfile?:Di012ExamProfile}):Di012Set{

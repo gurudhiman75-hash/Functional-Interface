@@ -29,6 +29,8 @@ for(let i=0;i<300;i++){
     assert.equal(q.options[q.correctIndex],q.answer,`${seed}: answer/index drift`);
     assert(!/\.\d/u.test(q.answer),`${seed}: decimal answer leaked: ${q.answer}`);
     assert(q.explanation.steps.length>0);
+    assert(!/combined value|two displayed values|sum of the two displayed values/iu.test(q.stem),`${seed}: generic mixed-chart wording leaked: ${q.stem}`);
+    if(a.stimulus.pairKind!=="PIE_TABLE") assert(!/applications and approvals|dispatch and returns|policies and claims|deposits and withdrawals|enrolment and completion|orders and successful deliveries/iu.test(a.stimulus.title),`${seed}: non-parallel mixed-chart scenario leaked: ${a.stimulus.title}`);
     if(a.stimulus.pairKind==="PIE_TABLE"){
       assert.equal(a.stimulus.leftUnit,"%");
       assert(!/combined value for .*two displays|difference between the two displayed values|average of/iu.test(q.stem),`${seed}: PIE_TABLE asks for an operation across incompatible units: ${q.stem}`);

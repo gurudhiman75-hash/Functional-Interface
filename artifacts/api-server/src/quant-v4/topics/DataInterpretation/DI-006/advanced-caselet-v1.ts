@@ -90,19 +90,19 @@ function makeQuestion(task:Di006AdvancedTask,difficulty:Di006AdvancedDifficulty,
   if(task==="RECOVER_SINGLE_CATEGORY"){
     const v=values[i]!;stem=`How many ${state.context.unit} belonged to ${labels[i]}?`;answer=String(v);options=numOptions(v,seed);steps=[`Using the stated relations, ${labels[i]} = ${v}.`];
   } else if(task==="COMBINED_TWO_CATEGORIES"){
-    const v=values[i]!+values[j]!;stem=`What is the combined number for ${labels[i]} and ${labels[j]}?`;answer=String(v);options=numOptions(v,seed);steps=[`${values[i]} + ${values[j]} = ${v}.`];
+    const v=values[i]!+values[j]!;stem=`What is the combined number of ${state.context.unit} for ${labels[i]} and ${labels[j]}?`;answer=String(v);options=numOptions(v,seed);steps=[`${values[i]} + ${values[j]} = ${v}.`];
   } else if(task==="CATEGORY_DIFFERENCE"){
-    const v=Math.abs(values[i]!-values[j]!);stem=`What is the difference between ${labels[i]} and ${labels[j]}?`;answer=String(v);options=numOptions(v,seed);steps=[`Difference = |${values[i]} − ${values[j]}| = ${v}.`];
+    const v=Math.abs(values[i]!-values[j]!);stem=`What is the difference in the number of ${state.context.unit} between ${labels[i]} and ${labels[j]}?`;answer=String(v);options=numOptions(v,seed);steps=[`Difference = |${values[i]} − ${values[j]}| = ${v}.`];
   } else if(task==="CATEGORY_RATIO"){
-    const v=ratio(values[i]!,values[j]!);stem=`What is the ratio of ${labels[i]} to ${labels[j]}?`;answer=v;options=ratioOptions(v,values[i]!,values[j]!,seed);steps=[`${values[i]}:${values[j]} = ${v}.`];
+    const v=ratio(values[i]!,values[j]!);stem=`What is the ratio of the number of ${state.context.unit} for ${labels[i]} to that for ${labels[j]}?`;answer=v;options=ratioOptions(v,values[i]!,values[j]!,seed);steps=[`${values[i]}:${values[j]} = ${v}.`];
   } else if(task==="CATEGORY_SHARE_OF_TOTAL"){
     const raw=values[i]!*100/total;
     const v=Math.round(raw);
-    stem=`Approximately what percentage of the total is represented by ${labels[i]}?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[`Share = (${values[i]} ÷ ${total}) × 100 ≈ ${v}%.`];
+    stem=`Approximately what percentage of the total ${state.context.unit} belongs to ${labels[i]}?`;answer=`${v}%`;options=percentOptions(v,seed);steps=[`Share = (${values[i]} ÷ ${total}) × 100 ≈ ${v}%.`];
   } else if(task==="GROUP_TOTAL"){
-    const v=values[i]!+values[j]!+values[k]!;stem=`What is the total for ${labels[i]}, ${labels[j]} and ${labels[k]} together?`;answer=String(v);options=numOptions(v,seed);steps=[`${values[i]} + ${values[j]} + ${values[k]} = ${v}.`];
+    const v=values[i]!+values[j]!+values[k]!;stem=`What is the total number of ${state.context.unit} for ${labels[i]}, ${labels[j]} and ${labels[k]} together?`;answer=String(v);options=numOptions(v,seed);steps=[`${values[i]} + ${values[j]} + ${values[k]} = ${v}.`];
   } else if(task==="GROUP_RATIO"){
-    const left=values[i]!+values[j]!,right=values[k]!+values[ids[3]!]!,v=ratio(left,right);stem=`What is the ratio of the combined number for ${labels[i]} and ${labels[j]} to that for ${labels[k]} and ${labels[ids[3]!]}?`;answer=v;options=ratioOptions(v,left,right,seed);steps=[`First group = ${left}.`,`Second group = ${right}.`,`Ratio = ${v}.`];
+    const left=values[i]!+values[j]!,right=values[k]!+values[ids[3]!]!,v=ratio(left,right);stem=`What is the ratio of the combined number of ${state.context.unit} for ${labels[i]} and ${labels[j]} to that for ${labels[k]} and ${labels[ids[3]!]}?`;answer=v;options=ratioOptions(v,left,right,seed);steps=[`First group = ${left}.`,`Second group = ${right}.`,`Ratio = ${v}.`];
   } else if(task==="DERIVED_PERCENT_EXCESS"){
     let a=values[i]!,b=values[j]!,an=labels[i]!,bn=labels[j]!;
     if(a<b){[a,b]=[b,a];[an,bn]=[bn,an];}
@@ -114,7 +114,7 @@ function makeQuestion(task:Di006AdvancedTask,difficulty:Di006AdvancedDifficulty,
     const group=values[i]!+values[j]!,v=total-group;stem=`How many ${state.context.unit} remain after excluding ${labels[i]} and ${labels[j]}?`;answer=String(v);options=numOptions(v,seed);steps=[`Excluded total = ${values[i]} + ${values[j]} = ${group}.`,`Remaining = ${total} − ${group} = ${v}.`];
   }
   const correctIndex=options.indexOf(answer);if(correctIndex<0)throw new Error(`DI-006 advanced lost answer for ${task}.`);
-  return {questionId:`DI-006-ADV:${seed}:Q${index+1}`,kind:task,difficulty,stem,options,correctIndex,answer,explanation:{keyIdea:"Resolve the caselet relations first, then use only the required category values.",steps}};
+  return {questionId:`DI-006-ADV:${seed}:Q${index+1}`,kind:task,difficulty,stem,options,correctIndex,answer,explanation:{keyIdea:`Use the relations in the caselet to obtain the required ${state.context.unit} counts, then perform the calculation asked in the question.`,steps}};
 }
 
 export function generateDi006AdvancedCaseletSet(input:{seed:string;examProfile?:Di006AdvancedExamProfile}):Di006AdvancedSet{
