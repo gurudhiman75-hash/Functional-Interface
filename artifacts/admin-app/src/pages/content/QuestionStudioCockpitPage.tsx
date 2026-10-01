@@ -137,6 +137,7 @@ export function QuestionStudioCockpitPage() {
 
   const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL');
   const [packageId, setPackageId] = useState('');
+  const [selectedCpIds, setSelectedCpIds] = useState<Set<string>>(() => new Set());
   const [difficulty, setDifficulty] = useState('Medium');
   const [language, setLanguage] = useState('en');
   const [count, setCount] = useState(10);
@@ -160,6 +161,18 @@ export function QuestionStudioCockpitPage() {
   }, [enabledPackages, packageId]);
 
   const activePackage = enabledPackages.find((entry) => entry.packageId === packageId);
+  const availableCpIds = useMemo(
+    () => activePackage?.cpIds ?? [],
+    [activePackage],
+  );
+
+  useEffect(() => {
+    setSelectedCpIds((current) => {
+      const valid = new Set(availableCpIds);
+      return new Set([...current].filter((cpId) => valid.has(cpId)));
+    });
+  }, [availableCpIds]);
+
   const supportedLanguages = useMemo(
     () => activePackage?.supportedLanguages.length ? activePackage.supportedLanguages : ['en'],
     [activePackage],
@@ -240,6 +253,14 @@ export function QuestionStudioCockpitPage() {
       showToast.error('Generation package required', 'Select an enabled generation package.');
       return;
     }
+    const cpIds = [...selectedCpIds];
+    if (cpIds.length > count) {
+      showToast.error(
+        'Question count too small',
+        `Select at least ${cpIds.length} questions so every chosen CP contributes at least one question.`,
+      );
+      return;
+    }
     try {
       const selectedExam = EXAMS.find((entry) => entry.code === exam);
       const result = await generate({
@@ -249,13 +270,17 @@ export function QuestionStudioCockpitPage() {
         difficulty,
         count: Math.min(capabilities.maxBatchSize, Math.max(1, count)),
         packageId: activePackage.packageId,
+        cpIds: cpIds.length > 0 ? cpIds : undefined,
         topic: activePackage.topic,
         subtopic: activePackage.subtopic,
         language,
         seed: seed.trim() || undefined,
       });
       setExpandedRuns((current) => new Set(current).add(result.id));
-      showToast.success('Generation run created', `${result.publicCode} produced ${result.itemCount} review items.`);
+      showToast.success(
+        'Generation run created',
+        `${result.publicCode} produced ${result.itemCount} review items${cpIds.length > 0 ? ` across ${cpIds.length} selected CPs` : ' using the engine-managed CP mix'}.`,
+      );
     } catch (caught) {
       showToast.error('Generation failed', caught instanceof Error ? caught.message : 'Unable to generate questions.');
     }
@@ -339,16 +364,68 @@ export function QuestionStudioCockpitPage() {
         <CardContent className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
             <Field label="Exam"><Select value={exam} onValueChange={setExam}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{EXAMS.map((entry) => <SelectItem key={entry.code} value={entry.code}>{entry.name}</SelectItem>)}</SelectContent></Select></Field>
-            <Field label="Generation package" className="xl:col-span-2"><Select value={packageId} onValueChange={setPackageId}><SelectTrigger><SelectValue placeholder="Select package" /></SelectTrigger><SelectContent>{enabledPackages.map((entry) => <SelectItem key={entry.packageId} value={entry.packageId}>{entry.packageId} · {entry.label}</SelectItem>)}</SelectContent></Select></Field>
+            <Field label="Generation package" className="xl:col-span-2"><Select value={packageId} onValueChange={(value) => { setPackageId(value); setSelectedCpIds(new Set()); }}><SelectTrigger><SelectValue placeholder="Select package" /></SelectTrigger><SelectContent>{enabledPackages.map((entry) => <SelectItem key={entry.packageId} value={entry.packageId}>{entry.packageId} · {entry.label}</SelectItem>)}</SelectContent></Select></Field>
             <Field label="Difficulty"><Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{capabilities.difficulties.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent></Select></Field>
             <Field label="Language"><Select value={language} onValueChange={setLanguage}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{supportedLanguages.map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry] ?? entry}</SelectItem>)}</SelectContent></Select></Field>
             <Field label="Question count"><Input type="number" min={1} max={capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} /></Field>
           </div>
+
+          {activePackage && availableCpIds.length > 0 && (
+            <div className="rounded-xl border bg-muted/10">
+              <div className="flex flex-col gap-3 border-b px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-xs font-semibold">CP selection</p>
+                  <p className="mt-0.5 text-[11px] text-muted-foreground">
+                    {selectedCpIds.size > 0
+                      ? `${selectedCpIds.size} of ${availableCpIds.length} CPs selected · questions are distributed across the selected CPs`
+                      : `No explicit CP filter · the engine can mix across all ${availableCpIds.length} CPs`}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Button type="button" size="sm" variant="outline" onClick={() => setSelectedCpIds(new Set())}>
+                    Engine mix
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setSelectedCpIds(new Set(availableCpIds))}
+                    disabled={availableCpIds.length > capabilities.maxBatchSize}
+                  >
+                    Select all
+                  </Button>
+                </div>
+              </div>
+              <div className="grid max-h-56 gap-2 overflow-y-auto p-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {availableCpIds.map((cpId) => {
+                  const checked = selectedCpIds.has(cpId);
+                  return (
+                    <label key={cpId} className={cn('flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition-colors', checked ? 'border-primary/40 bg-primary/5' : 'bg-background hover:bg-muted/40')}>
+                      <Checkbox
+                        checked={checked}
+                        onCheckedChange={(value) => setSelectedCpIds((current) => {
+                          const next = new Set(current);
+                          value === true ? next.add(cpId) : next.delete(cpId);
+                          return next;
+                        })}
+                      />
+                      <span className="font-mono">{cpId}</span>
+                    </label>
+                  );
+                })}
+              </div>
+              {selectedCpIds.size > count && (
+                <div className="border-t border-warning/20 bg-warning/5 px-4 py-2 text-[11px] text-warning">
+                  Increase question count to at least {selectedCpIds.size} so each selected CP receives a question.
+                </div>
+              )}
+            </div>
+          )}
           <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
             <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for a fresh generated seed" /></Field>
             <Button onClick={() => void handleGenerate()} disabled={loading || generating || !activePackage || !canRun} className="min-w-44">{generating ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating ? 'Generating…' : 'Generate review batch'}</Button>
           </div>
-          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{activePackage.topic} · {activePackage.subtopic}</span> · {activePackage.cpIds.length} CP(s) · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
+          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{activePackage.topic} · {activePackage.subtopic}</span> · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${activePackage.cpIds.length} CP(s), engine mix`} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
         </CardContent>
       </Card>
 
