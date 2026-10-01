@@ -24,7 +24,8 @@ router.get("/",requireAdminPermission("content.taxonomy.read"),async(req,res)=>{
       `,
       sqlClient`
         WITH days AS (
-          SELECT generate_series((current_date-${days-1})::date,current_date::date,'1 day'::interval)::date AS day
+          SELECT (current_date-g.day_offset)::date AS day
+          FROM generate_series(0,${days-1}) AS g(day_offset)
         ), counts AS (
           SELECT (occurred_at AT TIME ZONE 'Asia/Kolkata')::date AS day,
             COUNT(*)::int AS events,
