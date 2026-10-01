@@ -173,10 +173,28 @@ function interestStatement(s:any,l:DsfCp019Language){
  throw new Error(`INT unsupported family ${f}`);
 }
 
+function localizedProofValue(value:unknown,l:DsfCp019Language):string{
+ const raw=String(value??"");
+ const pnl=raw.match(/^(PROFIT|LOSS):(\d+)\/(\d+)$/);
+ if(pnl){
+   const amount=pnl[3]==="1"?pnl[2]:`${pnl[2]}/${pnl[3]}`;
+   const direction=pnl[1]==="PROFIT"?tx(l,"लाभ","ਲਾਭ"):tx(l,"हानि","ਘਾਟਾ");
+   return `${amount}% ${direction}`;
+ }
+ const pct=raw.match(/^(\d+)\/(\d+)%$/);
+ if(pct) return `${pct[2]==="1"?pct[1]:`${pct[1]}/${pct[2]}`}%`;
+ return raw;
+}
+
 function explanation(q:AnyQuestion,l:DsfCp019Language){
  const proof=q.proof??{}; const cls=String(q.canonicalAnswer??"");
- const line=(label:string,worlds:number|undefined,answers:any[],sufficient:boolean)=>{
-  const values=(answers??[]).slice(0,2).join(tx(l," और "," ਅਤੇ "));
+ const line=(label:string,answers:any[],sufficient:boolean,combined=false)=>{
+  const values=(answers??[]).slice(0,2).map((v:any)=>localizedProofValue(v,l)).join(tx(l," और "," ਅਤੇ "));
+  if(combined){
+    return sufficient
+      ? tx(l,`${label} मांगा गया मान निश्चित हो जाता है${values?`: ${values}`:""}।`,`${label} ਮੰਗਿਆ ਗਿਆ ਮੁੱਲ ਨਿਸ਼ਚਿਤ ਹੋ ਜਾਂਦਾ ਹੈ${values?`: ${values}`:""}।`)
+      : tx(l,`${label} भी मांगा गया मान निश्चित नहीं होता${values?`; ${values} जैसे अलग मान संभव हैं`:""}।`,`${label} ਵੀ ਮੰਗਿਆ ਗਿਆ ਮੁੱਲ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੁੰਦਾ${values?`; ${values} ਵਰਗੇ ਵੱਖਰੇ ਮੁੱਲ ਸੰਭਵ ਹਨ`:""}।`);
+  }
   return sufficient
    ? tx(l,`${label} से मांगा गया मान निश्चित हो जाता है${values?`: ${values}`:""}।`,`${label} ਨਾਲ ਮੰਗਿਆ ਗਿਆ ਮੁੱਲ ਨਿਸ਼ਚਿਤ ਹੋ ਜਾਂਦਾ ਹੈ${values?`: ${values}`:""}।`)
    : tx(l,`${label} अकेले पर्याप्त नहीं है${values?`; ${values} जैसे अलग मान संभव हैं`:""}।`,`${label} ਇਕੱਲਾ ਕਾਫ਼ੀ ਨਹੀਂ ਹੈ${values?`; ${values} ਵਰਗੇ ਵੱਖਰੇ ਮੁੱਲ ਸੰਭਵ ਹਨ`:""}।`);
@@ -186,9 +204,9 @@ function explanation(q:AnyQuestion,l:DsfCp019Language){
  const st=cls!=="INSUFFICIENT_EVEN_TOGETHER";
  return [
   tx(l,"पहले दोनों कथनों को अलग-अलग जाँचते हैं।","ਪਹਿਲਾਂ ਦੋਵੇਂ ਕਥਨਾਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਜਾਂਚਦੇ ਹਾਂ।"),
-  line(tx(l,"कथन I","ਕਥਨ I"),proof.statementIWorldCount,proof.statementITargetAnswers,s1),
-  line(tx(l,"कथन II","ਕਥਨ II"),proof.statementIIWorldCount,proof.statementIITargetAnswers,s2),
-  line(tx(l,"दोनों कथन साथ लेने पर","ਦੋਵੇਂ ਕਥਨ ਇਕੱਠੇ ਲੈਣ 'ਤੇ"),proof.togetherWorldCount,proof.togetherTargetAnswers,st),
+  line(tx(l,"कथन I","ਕਥਨ I"),proof.statementITargetAnswers,s1),
+  line(tx(l,"कथन II","ਕਥਨ II"),proof.statementIITargetAnswers,s2),
+  line(tx(l,"दोनों कथन साथ लेने पर","ਦੋਵੇਂ ਕਥਨ ਇਕੱਠੇ ਲੈਣ 'ਤੇ"),proof.togetherTargetAnswers,st,true),
   tx(l,`अतः सही विकल्प: ${OPTIONS.hi[cls as keyof typeof OPTIONS.hi]??cls}`,`ਇਸ ਲਈ ਸਹੀ ਵਿਕਲਪ: ${OPTIONS.pa[cls as keyof typeof OPTIONS.pa]??cls}`),
  ].join(" ");
 }
