@@ -36,6 +36,15 @@ interface ObjectPools {
 const variableRanges = variableRangesSource as unknown as VariableRanges;
 const objectPools = objectPoolsSource as unknown as ObjectPools;
 
+function deterministicScenarioIndex(seed: string, size: number): number {
+  let hash = 2166136261;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash ^= seed.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % size;
+}
+
 function formatIndianInteger(value: bigint): string {
   const sign = value < 0n ? "-" : "";
   const digits = (value < 0n ? -value : value).toString();
@@ -154,10 +163,13 @@ export function generatePrt001PilotParameters(input: {
   } else if (
     input.entry.solveMode === "findUnknownDurationFromShareRatioAndCapitals"
   ) {
-    const numericStateRandom = createPrt001Random(
-      `${input.seed}:numeric-state:${input.entry.solveMode}`,
-    );
-    scenario = numericStateRandom.pick(variableRanges.unknownDurationScenarios);
+    const scenarios = variableRanges.unknownDurationScenarios;
+    scenario = scenarios[
+      deterministicScenarioIndex(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+        scenarios.length,
+      )
+    ]!;
   } else {
     scenario = random.pick(variableRanges.unequalDurationScenarios);
   }
