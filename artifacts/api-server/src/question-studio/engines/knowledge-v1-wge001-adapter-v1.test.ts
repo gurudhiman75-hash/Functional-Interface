@@ -6,7 +6,7 @@ import { knowledgeV1Wge001QuestionStudioAdapterV1 as adapter, isWge001QuestionSt
 async function run() {
   const cpIds = Object.keys(WGE_CP_TITLES);
   assert.equal(WGE_CORPUS.length, 816);
-  assert.equal(WGE_VARIABLE_POOL_QUESTIONS_V1.length, 642);
+  assert.equal(WGE_VARIABLE_POOL_QUESTIONS_V1.length, 702);
   const generationPool = [...WGE_CORPUS, ...WGE_VARIABLE_POOL_QUESTIONS_V1];
   validateWorldGeographyCorpus(generationPool);
   assert.equal(adapter.listPackages().length, 44);
@@ -24,6 +24,14 @@ async function run() {
     assert.equal(earlyAuditPackage.metadata.questionLanguageIds.length, 2);
   }
   for (const packageId of ['WGE-001-CP006','WGE-001-CP007','WGE-001-CP008','WGE-001-CP009','WGE-001-CP010']) {
+    const earlyAuditPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
+    assert.equal(earlyAuditPackage.metadata.authoringReviewApproved, false);
+    assert.equal(earlyAuditPackage.metadata.variablePoolQuestionCount, 12);
+    assert.equal(earlyAuditPackage.metadata.variablePoolEnabled, true);
+    assert.equal(earlyAuditPackage.metadata.variablePoolStatus, 'REVIEW_REQUIRED');
+    assert.equal(earlyAuditPackage.metadata.questionLanguageIds.length, 2);
+  }
+  for (const packageId of ['WGE-001-CP011','WGE-001-CP012','WGE-001-CP013','WGE-001-CP014','WGE-001-CP015']) {
     const earlyAuditPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
     assert.equal(earlyAuditPackage.metadata.authoringReviewApproved, false);
     assert.equal(earlyAuditPackage.metadata.variablePoolQuestionCount, 12);
