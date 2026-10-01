@@ -11,7 +11,20 @@ function moment(values: readonly number[], order: 1|2|3|4) { return values.reduc
 function mean(values: readonly number[]) { return values.reduce((sum, value) => sum + value, 0) / values.length; }
 function centralMoment(values: readonly number[], order: 2|3|4) { const xbar=mean(values); return values.reduce((sum, value) => sum + (value-xbar)**order, 0) / values.length; }
 function rawMomentVector(values: readonly number[]): [number,number,number,number] { return [moment(values,1),moment(values,2),moment(values,3),moment(values,4)]; }
-function data(seed: string, direction: 1|-1 = 1) { const scale=1+(hash(`${seed}:scale`)%3); const base=2+(hash(`${seed}:base`)%5); const offsets=direction>0?[-2,-1,0,0,3]:[-3,0,0,1,2]; return offsets.map(x=>base+x*scale); }
+function data(seed: string, direction: 1|-1 = 1) {
+  const scale=1+(hash(`${seed}:scale`)%5);
+  const base=4+(hash(`${seed}:base`)%9);
+  const positivePatterns=[
+    [-2,-1,0,0,3],
+    [-3,-1,0,1,4],
+    [-4,-1,0,2,3],
+    [-3,-2,0,1,4],
+    [-5,-1,0,2,4],
+    [-4,-2,-1,2,5],
+  ] as const;
+  const offsets=pick(positivePatterns,`${seed}:shape`);
+  return (direction>0?offsets:[...offsets].reverse().map(x=>-x)).map(x=>base+x*scale);
+}
 type Draft = { state: Stat006State; answer: number|string; stem: string; explanation: string; choices?: readonly string[] };
 function build(contractId: Stat006ContractId, seed: string): Draft {
   const r=random(seed);
@@ -35,7 +48,7 @@ function build(contractId: Stat006ContractId, seed: string): Draft {
     return {state,answer,stem:`The first four raw moments about the origin are μ′1 = ${fmt(raw[0])}, μ′2 = ${fmt(raw[1])}, μ′3 = ${fmt(raw[2])} and μ′4 = ${fmt(raw[3])}. What is the ${order}${order===2?"nd":order===3?"rd":"th"} central moment.`,explanation:`Use ${formula}. Substituting the stated raw moments gives ${substitution} = ${fmt(answer)}.`};
   }
   if (contractId==="CENTRAL_MOMENT_AFFINE_TRANSFORM") {
-    const order=pick([2,3,4] as const,`${seed}:order`); const centralMomentValue=order===2?2.5:order===3?1.5:4.5; const multiplier=pick([-2,2,3] as const,`${seed}:a`); const shift=pick([4,7,10] as const,`${seed}:b`); const answer=centralMomentValue*multiplier**order; const state:Stat006State={kind:"AFFINE_MOMENT",centralMoment:centralMomentValue,order,multiplier,shift};
+    const order=pick([2,3,4] as const,`${seed}:order`); const centralMomentValue=pick(order===2?[2,2.5,3,4]:order===3?[1.5,2,2.5,3.5]:[3,4.5,5,6.5] as const,`${seed}:moment`); const multiplier=pick([-3,-2,2,3,4] as const,`${seed}:a`); const shift=pick([-8,-4,4,7,10,15] as const,`${seed}:b`); const answer=centralMomentValue*multiplier**order; const state:Stat006State={kind:"AFFINE_MOMENT",centralMoment:centralMomentValue,order,multiplier,shift};
     return {state,answer,stem:`For a variable X, μ${order}(X) = ${centralMomentValue}. If Y = ${multiplier}X + ${shift}, what is μ${order}(Y)?`,explanation:`For a central moment, adding ${shift} shifts the values and their mean equally, so the shift does not change the moment. Multiplication by ${multiplier} scales the ${order}${order===2?"nd":order===3?"rd":"th"} central moment by (${multiplier})^${order}: μ${order}(Y) = (${multiplier})^${order} × ${centralMomentValue} = ${fmt(answer)}.`};
   }
   if (contractId==="SKEWNESS_BETA_ONE" || contractId==="SKEWNESS_GAMMA_ONE") {
