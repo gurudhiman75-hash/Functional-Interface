@@ -119,13 +119,17 @@ assert.throws(
   () => previewDsf001NormalQuestionStudioReview({ qlId: "DSF-QL-002", count: 1 }),
   /permanently allocated.*not exposed|semantic\/prototype proof/iu,
 );
-assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({ language: "hi", count: 1 }),
-  /English-first|localization/iu,
+assert.equal(
+  previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-RANKING", language: "hi", count: 1 }).questions[0]?.language,
+  "hi",
+);
+assert.equal(
+  previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-CALENDAR", language: "pa", count: 1 }).questions[0]?.language,
+  "pa",
 );
 assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({ language: "pa", count: 1 }),
-  /English-first|localization/iu,
+  () => previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-AVERAGE", language: "hi", count: 1 }),
+  /not yet localized|English-only/iu,
 );
 
 console.log(JSON.stringify({
