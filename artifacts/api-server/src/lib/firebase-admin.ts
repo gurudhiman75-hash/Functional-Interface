@@ -47,6 +47,7 @@ const storageBucket =
 let authInstance: admin.auth.Auth | { verifyIdToken: (token: string) => Promise<{ uid: string; email: string }> };
 let firestoreInstance: admin.firestore.Firestore | null = null;
 let storageInstance: admin.storage.Storage | null = null;
+let messagingInstance: admin.messaging.Messaging | null = null;
 
 if (serviceAccountKey) {
   if (!admin.apps || admin.apps.length === 0) {
@@ -58,6 +59,7 @@ if (serviceAccountKey) {
   authInstance = admin.auth();
   firestoreInstance = admin.firestore();
   storageInstance = admin.storage();
+  messagingInstance = admin.messaging();
 } else if (hasSeparateVars) {
   let initialized = false;
   try {
@@ -75,6 +77,7 @@ if (serviceAccountKey) {
     authInstance = admin.auth();
     firestoreInstance = admin.firestore();
     storageInstance = admin.storage();
+    messagingInstance = admin.messaging();
     initialized = true;
   } catch (err) {
     if (isProd) throw err; // hard fail in production
@@ -116,4 +119,5 @@ if (serviceAccountKey) {
 export const auth = authInstance;
 export const firestore = firestoreInstance;
 export const storage = storageInstance;
+export const messaging = messagingInstance;
 
