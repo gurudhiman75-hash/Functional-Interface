@@ -34,6 +34,12 @@ else
   echo "[render-build] verify learning resources schema"
   pnpm --dir artifacts/api-server exec node ensure-learning-resources.mjs
 
+  # Learner exam preferences are consumed by the mobile app home/discovery flow.
+  # Ensure the checked-in idempotent migration is present in production before
+  # the API begins serving preference reads or writes.
+  echo "[render-build] verify student exam preferences schema"
+  pnpm --dir artifacts/api-server exec node ensure-student-exam-preferences.mjs
+
   # Current Affairs has a cumulative, explicitly ordered schema. Apply only its
   # checked-in migrations through a dedicated ledger, under an advisory lock,
   # before any runtime that can generate yesterday's packs is deployed.
