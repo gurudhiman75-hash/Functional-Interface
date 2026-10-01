@@ -11,6 +11,7 @@ if (!databaseUrl) {
 const here = path.dirname(fileURLToPath(import.meta.url));
 const homeMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-home-configuration.sql");
 const promotionsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-promotions.sql");
+const notificationsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-notifications.sql");
 const sql = postgres(databaseUrl, {
   max: 1,
   connect_timeout: 15,
@@ -56,6 +57,28 @@ try {
     throw new Error("Mobile promotions migration completed without creating platform.mobile_promotions");
   }
   console.log("[render-build] mobile promotions schema verified");
+
+  const [notificationsBefore] = await sql`
+    SELECT
+      to_regclass('platform.mobile_push_devices')::text AS mobile_push_devices,
+      to_regclass('platform.mobile_notification_campaigns')::text AS mobile_notification_campaigns,
+      to_regclass('platform.mobile_notification_deliveries')::text AS mobile_notification_deliveries
+  `;
+  if (!notificationsBefore?.mobile_push_devices || !notificationsBefore?.mobile_notification_campaigns || !notificationsBefore?.mobile_notification_deliveries) {
+    console.log("[render-build] mobile notifications schema missing; applying checked-in migration");
+    const notificationsSql = await readFile(notificationsMigrationPath, "utf8");
+    await sql.unsafe(notificationsSql);
+  }
+  const [notificationsAfter] = await sql`
+    SELECT
+      to_regclass('platform.mobile_push_devices')::text AS mobile_push_devices,
+      to_regclass('platform.mobile_notification_campaigns')::text AS mobile_notification_campaigns,
+      to_regclass('platform.mobile_notification_deliveries')::text AS mobile_notification_deliveries
+  `;
+  if (!notificationsAfter?.mobile_push_devices || !notificationsAfter?.mobile_notification_campaigns || !notificationsAfter?.mobile_notification_deliveries) {
+    throw new Error("Mobile notifications migration completed without creating all required tables");
+  }
+  console.log("[render-build] mobile notifications schema verified");
 } finally {
   await sql.end({ timeout: 5 });
 }
