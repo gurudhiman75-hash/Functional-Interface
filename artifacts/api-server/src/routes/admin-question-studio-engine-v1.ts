@@ -285,7 +285,7 @@ router.post(
 
         if (result.engineId !== selectedEngineId) {
           throw new Error(
-            `Question Studio engine changed during generation: expected ${selectedEngineId}, received ${selectedEngineId}`,
+            `Question Studio engine changed during generation: expected ${selectedEngineId}, received ${result.engineId}`,
           );
         }
 
@@ -330,7 +330,7 @@ router.post(
           ) VALUES (
             ${runId}::uuid, ${code}, 'review'::generation_run_status, 1,
             ${JSON.stringify(requestSnapshot)}, ${JSON.stringify(requestSnapshot)},
-            'examtree', ${result.engineId}, 0, 0, 0, 0,
+            'examtree', ${selectedEngineId}, 0, 0, 0, 0,
             ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
           )
         `;
@@ -368,8 +368,8 @@ router.post(
             ${req.adminSession?.user.id ?? null}::uuid,
             'question_studio.generation_run.created', 'generation_run', ${runId}::uuid,
             'Admin generated a Question Studio batch',
-            ${`Generated ${generatedQuestions.length} ${result.engineId} questions in ${code}`},
-            ${JSON.stringify({ firebaseUid: req.user?.id, engineId: result.engineId, requestSnapshot })}
+            ${`Generated ${generatedQuestions.length} ${selectedEngineId} questions in ${code}`},
+            ${JSON.stringify({ firebaseUid: req.user?.id, engineId: selectedEngineId, requestSnapshot })}
           )
         `;
 
@@ -379,7 +379,7 @@ router.post(
           ) VALUES (
             ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid,
             'question_studio.generation_run.created',
-            ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length, engineId: result.engineId })}
+            ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length, engineId: selectedEngineId })}
           )
         `;
       });
