@@ -288,7 +288,7 @@ function text(v: unknown): string {
 }
 type ShapeKind =
   | "circle"
-  | "oval"
+  | "ellipse"
   | "rectangle"
   | "square"
   | "triangle"
@@ -302,14 +302,20 @@ export const LAYOUTS: readonly ShapeLayout[] = [
     id: "CIRCLE_RECTANGLE_TRIANGLE",
     shapes: ["circle", "rectangle", "triangle"],
   },
-  { id: "OVAL_RECTANGLE_TRIANGLE", shapes: ["oval", "rectangle", "triangle"] },
+  {
+    id: "ELLIPSE_RECTANGLE_TRIANGLE",
+    shapes: ["ellipse", "rectangle", "triangle"],
+  },
   { id: "CIRCLE_SQUARE_TRIANGLE", shapes: ["circle", "square", "triangle"] },
   {
     id: "CIRCLE_RECTANGLE_DIAMOND",
     shapes: ["circle", "rectangle", "diamond"],
   },
-  { id: "OVAL_SQUARE_DIAMOND", shapes: ["oval", "square", "diamond"] },
-  { id: "OVAL_RECTANGLE_DIAMOND", shapes: ["oval", "rectangle", "diamond"] },
+  { id: "ELLIPSE_SQUARE_DIAMOND", shapes: ["ellipse", "square", "diamond"] },
+  {
+    id: "ELLIPSE_RECTANGLE_DIAMOND",
+    shapes: ["ellipse", "rectangle", "diamond"],
+  },
 ];
 const POLYGONS = {
   triangle: [
@@ -326,8 +332,8 @@ const POLYGONS = {
 } as const;
 function inside(shape: ShapeKind, x: number, y: number): boolean {
   if (shape === "circle") return (x - 397) ** 2 + (y - 237) ** 2 < 175 ** 2;
-  if (shape === "oval")
-    return (x - 397) ** 2 / 200 ** 2 + (y - 237) ** 2 / 165 ** 2 < 1;
+  if (shape === "ellipse")
+    return (x - 397) ** 2 / 225 ** 2 + (y - 237) ** 2 / 150 ** 2 < 1;
   if (shape === "rectangle") return x > 76 && x < 575 && y > 200 && y < 374;
   if (shape === "square") return x > 180 && x < 520 && y > 170 && y < 510;
   const points = POLYGONS[shape];
@@ -356,8 +362,8 @@ function segDist(
 }
 function clearance(shape: ShapeKind, x: number, y: number): number {
   if (shape === "circle") return Math.abs(Math.hypot(x - 397, y - 237) - 175);
-  if (shape === "oval")
-    return Math.abs(Math.hypot((x - 397) / 200, (y - 237) / 165) - 1) * 165;
+  if (shape === "ellipse")
+    return Math.abs(Math.hypot((x - 397) / 225, (y - 237) / 150) - 1) * 150;
   if (shape === "rectangle" || shape === "square") {
     const [left, top, right, bottom] =
       shape === "rectangle" ? [76, 200, 575, 374] : [180, 170, 520, 510];
@@ -418,8 +424,8 @@ export function pointClearance(
 function shapeMarkup(shape: ShapeKind, color: string): string {
   const style = `fill="${color}" fill-opacity=".28" stroke="${color}" stroke-width="3"`;
   if (shape === "circle") return `<circle cx="397" cy="237" r="175" ${style}/>`;
-  if (shape === "oval")
-    return `<ellipse cx="397" cy="237" rx="200" ry="165" ${style}/>`;
+  if (shape === "ellipse")
+    return `<ellipse cx="397" cy="237" rx="225" ry="150" ${style}/>`;
   if (shape === "rectangle")
     return `<rect x="76" y="200" width="499" height="174" ${style}/>`;
   if (shape === "square")
@@ -428,7 +434,7 @@ function shapeMarkup(shape: ShapeKind, color: string): string {
 }
 const SHAPE_LABELS: Record<ShapeKind, T> = {
   circle: tr("circle", "वृत्त", "ਚੱਕਰ"),
-  oval: tr("oval", "दीर्घवृत्त", "ਅੰਡਾਕਾਰ"),
+  ellipse: tr("ellipse", "दीर्घवृत्त", "ਅੰਡਾਕਾਰ"),
   rectangle: tr("rectangle", "आयत", "ਆਇਤ"),
   square: tr("square", "वर्ग", "ਵਰਗ"),
   triangle: tr("triangle", "त्रिभुज", "ਤਿਕੋਣ"),
@@ -476,7 +482,7 @@ function svg(
   const points = pointsFor(layout),
     categories = c.sets.map((x) => x[l]);
   const labels = layout.shapes.map(
-    (shape, i) => `${SHAPE_LABELS[shape][l]} = ${categories[i]}`,
+    (shape, i) => `${"ABC"[i]} — ${SHAPE_LABELS[shape][l]} = ${categories[i]}`,
   );
   const marks = layout.shapes
     .map((shape, i) =>
@@ -535,8 +541,7 @@ export function generateVen001ShapeRegionBatch(
   const questions = Array.from({ length: count }, (_, i) => {
     const c = CONTEXTS[hash(`${seed}:context:${i}`) % CONTEXTS.length]!;
     const q = QUESTIONS[hash(`${seed}:query:${i}`) % QUESTIONS.length]!;
-    const layout =
-      LAYOUTS[(hash(`${seed}:layout-order`) + i) % LAYOUTS.length]!;
+    const layout = LAYOUTS[i % LAYOUTS.length]!;
     const regions = Array.from(
       { length: 8 },
       (_, m) => 8 + (hash(`${seed}:${i}:${c.id}:${m}`) % 42),
