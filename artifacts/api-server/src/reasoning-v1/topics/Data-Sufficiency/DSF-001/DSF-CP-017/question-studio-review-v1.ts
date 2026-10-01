@@ -150,6 +150,7 @@ export const DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
     label: lane.label,
     checkpointId: lane.checkpointId,
     qlId: "DSF-QL-001" as const,
+    supportedQlIds: lane.domainFamily === "REASONING" ? ["DSF-QL-001","DSF-QL-002"] as const : ["DSF-QL-001"] as const,
     domainFamily: lane.domainFamily,
     sourceChapter: lane.sourceChapter,
     supportedLanguages: lane.domainFamily === "REASONING"
