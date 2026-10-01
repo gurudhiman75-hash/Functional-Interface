@@ -61,7 +61,7 @@ Current review pools after Wave 05:
   - 8 containment
   - 5 disjoint
   - 7 partial overlap
-- VEN-CP002: 27 fixed scenarios across all 11 supported three-set topologies
+- VEN-CP002: 33 fixed scenarios across all 11 supported three-set topologies
   - every topology has at least two reviewed scenarios
 - VEN-CP004: 21 distinct numbered-region candidates
 
