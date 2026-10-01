@@ -76,6 +76,7 @@ for (const lane of DSF_CP017_LANES) {
     assert.doesNotMatch(question.stem, forbiddenSurface);
     assert.doesNotMatch(question.explanation, forbiddenSurface);
     assert.doesNotMatch(question.stem, genericInstructionOpeners);
+    assert.doesNotMatch(question.stem, /^Consider\b/iu);
     assert.doesNotMatch(question.stem, oldEditorialBoilerplate);
     assert.doesNotMatch(question.stem, machineFraming);
     if (lane.domainFamily === "REASONING") {
