@@ -9,7 +9,6 @@ on:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
       - artifacts/api-server/src/quant-v4/question-studio-review-engine.ts
       - artifacts/api-server/src/routes/admin-question-studio-average.ts
-      - .github/workflows/num-001-cp001-question-studio-review.yml
       - package.json
       - pnpm-lock.yaml
   workflow_dispatch:
@@ -102,6 +101,20 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-latex-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-latex-audit.log
 
+      - name: Bundle CP001 learner-surface remediation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-001/cp001-learner-surface-audit-v1.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp001-learner-surface-audit-v1.mjs
+
+      - name: Run CP001 learner-surface remediation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp001-learner-surface-audit-v1.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp001-learner-surface-audit-v1.log
+          grep -q "PASS_NUM_CP001_LEARNER_SURFACE_AUDIT_V1" artifacts/api-server/dist/quant-v4/num-cp001-learner-surface-audit-v1.log
+
       - name: Bundle legacy Number System Question Studio regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -129,6 +142,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-audit.log
             artifacts/api-server/dist/quant-v4/num-cp001-editorial-v2-latex-audit.log
             artifacts/api-server/dist/quant-v4/num-cp001-qs-review-legacy-release.log
+            artifacts/api-server/dist/quant-v4/num-cp001-learner-surface-audit-v1.log
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.json
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.md
             artifacts/api-server/dist/quant-v4/num-cp001-question-studio-review/num-cp001-question-studio-review.csv
