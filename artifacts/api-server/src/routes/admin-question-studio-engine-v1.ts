@@ -455,6 +455,9 @@ router.post(
             || packageId === "TMW-001"
             || isNum001UnifiedRequest((req.body ?? {}) as Record<string, unknown>)
             || isBankingSapCompatibilityRequest((req.body ?? {}) as Record<string, unknown>),
+          difficultyFilterSupported:
+            !isNum001UnifiedRequest((req.body ?? {}) as Record<string, unknown>)
+            && packageForId(packageId)?.difficultyFilterSupported !== false,
           generateCandidateBatch: (candidateRequest) =>
             generateQuestionStudioQuestions({
               ...candidateRequest,
