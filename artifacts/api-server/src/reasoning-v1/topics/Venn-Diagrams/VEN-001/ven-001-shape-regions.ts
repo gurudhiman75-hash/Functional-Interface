@@ -463,8 +463,6 @@ function shapeMarkup(shape: ShapeKind, color: string): string {
     return `<rect x="76" y="200" width="499" height="174" ${style}/>`;
   if (shape === "square")
     return `<rect x="180" y="170" width="340" height="340" ${style}/>`;
-  if (shape === "right-triangle")
-    return `<polygon points="${POLYGONS[shape].map(([x, y]) => `${x},${y}`).join(" ")}" ${style}/><path d="M 150 100 L 150 130 L 120 130" fill="none" stroke="${color}" stroke-width="3"/>`;
   return `<polygon points="${POLYGONS[shape].map(([x, y]) => `${x},${y}`).join(" ")}" ${style}/>`;
 }
 const SHAPE_LABELS: Record<ShapeKind, T> = {
