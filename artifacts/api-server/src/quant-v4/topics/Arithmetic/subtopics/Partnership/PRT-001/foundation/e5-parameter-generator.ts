@@ -1,7 +1,7 @@
 import objectPoolsSource from "../object-pools.library.json" assert { type: "json" };
 import { rational, subtractRational } from "./math";
 import { formatPrt001Duration, formatPrt001Money, localizePrt001Business } from "./parameter-generator";
-import { createPrt001Random } from "./random";
+import { createPrt001Random, stablePrt001PoolIndex } from "./random";
 import { solvePrt001State } from "./solver";
 import type { CapitalSegment, Partner, PartnerRole, PartnershipState, PreDistributionAllocation, Prt001Language, Prt001PilotParameters, Prt001TaskRegistryEntry, Rational } from "./types";
 
@@ -158,7 +158,22 @@ export function generatePrt001E5Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findUnknownDurationFromEqualShareConditionInMultiPartnerSystem": {
-      const s = random.pick([{a:20_000,da:12,b:30_000,db:8,c:40_000,dc:6},{a:36_000,da:10,b:45_000,db:8,c:60_000,dc:6},{a:50_000,da:6,b:30_000,db:10,c:60_000,dc:5},{a:42_000,da:8,b:56_000,db:6,c:48_000,dc:7}]);
+      const numericStateSeed = `${input.seed}:numeric-state:${input.entry.solveMode}`;
+      const numericStates = [
+        {a:20_000,da:12,b:30_000,db:8,c:60_000,dc:4},
+        {a:25_000,da:12,b:30_000,db:10,c:60_000,dc:5},
+        {a:30_000,da:12,b:45_000,db:8,c:60_000,dc:6},
+        {a:28_000,da:12,b:42_000,db:8,c:48_000,dc:7},
+        {a:40_000,da:9,b:60_000,db:6,c:45_000,dc:8},
+        {a:30_000,da:12,b:45_000,db:8,c:40_000,dc:9},
+        {a:40_000,da:9,b:60_000,db:6,c:36_000,dc:10},
+        {a:33_000,da:12,b:44_000,db:9,c:36_000,dc:11},
+        {a:40_000,da:9,b:45_000,db:8,c:30_000,dc:12},
+        {a:20_000,da:12,b:30_000,db:8,c:80_000,dc:3},
+      ];
+      const s = numericStates[
+        stablePrt001PoolIndex(numericStateSeed, numericStates.length)
+      ]!;
       state = makeState([partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))]), partner(partnerC,[segment(0,s.dc,money(s.c))])], money(120_000));
       targetPartnerId = partnerC;
       break;
