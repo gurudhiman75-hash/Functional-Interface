@@ -165,6 +165,10 @@ import {
   generateTmw001EngineBatch,
   tmw001EnginePackage,
 } from "../quant-time-work";
+import {
+  generateSapEngineBatch,
+  sapEnginePackage,
+} from "../quant-sap";
 import type {
   QuestionStudioDifficulty,
   QuestionStudioEngineAdapter,
@@ -621,6 +625,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       trg001EnginePackage(),
       trg002EnginePackage(),
       tmw001EnginePackage(),
+      sapEnginePackage(),
     ]) {
       const index = packages.findIndex((pkg) => pkg.packageId === specializedPackage.packageId);
       if (index >= 0) packages[index] = specializedPackage;
@@ -653,6 +658,9 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
     const timeAndWork = await generateTmw001EngineBatch(request);
     if (timeAndWork) return timeAndWork;
+
+    const simplification = await generateSapEngineBatch(request);
+    if (simplification) return simplification;
 
     const diMixRequest = toDiMixRequest(request);
     if (isDiDeliveryNoveltyMixRequest(diMixRequest)) {

@@ -89,7 +89,6 @@ function normalizeCompatibilitySelector(value: unknown): string {
 const LEGACY_GENERIC_QUANT_PACKAGES = new Set([
   "num 001",
   "num 002",
-  "sap",
 ]);
 
 const LEGACY_NUMBER_SYSTEM_CPS = new Set([
@@ -128,24 +127,14 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     || patternId.includes("num cp 012")
     || patternId.includes("num cp 013")
     || patternId.includes("num cp 014")
-    || patternId === "sap"
-    || patternId.includes("sap ql")
   ) {
     return true;
   }
 
   const numberSelectors = new Set(["number system", "numbers", "number theory"]);
-  const simplificationSelectors = new Set([
-    "simplification approximation",
-    "simplification and approximation",
-    "simplification",
-    "approximation",
-  ]);
   return (
     (numberSelectors.has(topic) && !subtopic)
     || (topic === "arithmetic" && numberSelectors.has(subtopic))
-    || (simplificationSelectors.has(topic) && !subtopic)
-    || (topic === "arithmetic" && simplificationSelectors.has(subtopic))
   );
 }
 
@@ -375,7 +364,9 @@ router.post(
           difficultyPreset: req.body?.difficultyPreset,
           difficultyDistribution: req.body?.difficultyDistribution,
           forwardLegacyExamProfile:
-            packageId === "AVG-001" || packageId === "TMW-001",
+            packageId === "AVG-001"
+            || packageId === "TMW-001"
+            || packageId === "SAP",
           generateCandidateBatch: (candidateRequest) =>
             generateQuestionStudioQuestions({
               ...candidateRequest,
