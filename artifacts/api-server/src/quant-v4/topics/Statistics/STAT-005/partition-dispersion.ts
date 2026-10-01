@@ -63,8 +63,18 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     return { state, answer, stem: `For the ordered observations ${rawTable(values)}, what is ${label} under the k(n + 1)/m position rule with linear interpolation when needed?`, explanation: `${label}'s position is ${numerator} × (${values.length} + 1) / ${denominator} = ${fmt(position)}. Interpolate at that position in the ordered observations; the value is ${fmt(answer)}.` };
   }
   if (contractId.endsWith("FROM_DISCRETE_FREQUENCY")) {
-    const values = [10, 20, 30, 40, 50];
-    const rows = values.map((value, i) => ({ value, frequency: [2, 4, 5, 7, 5][i]! }));
+    const start = choose([6, 10, 12, 15, 20], `${seed}:discrete:start`);
+    const step = choose([4, 5, 6, 8, 10], `${seed}:discrete:step`);
+    const frequencies = choose([
+      [2, 4, 5, 7, 5],
+      [3, 5, 8, 6, 3],
+      [4, 6, 9, 7, 4],
+      [2, 7, 10, 6, 5],
+      [5, 8, 11, 7, 3],
+      [3, 6, 12, 8, 4],
+    ] as const, `${seed}:discrete:freq`);
+    const values = Array.from({ length: frequencies.length }, (_, i) => start + i * step);
+    const rows = values.map((value, i) => ({ value, frequency: frequencies[i]! }));
     const [numerator, denominator, symbol] = contractId === "QUARTILE_FROM_DISCRETE_FREQUENCY"
       ? [choose([1, 2, 3], `${seed}:k`), 4, "Q"]
       : contractId === "DECILE_FROM_DISCRETE_FREQUENCY" ? [choose([2, 3, 4, 6, 7, 8], `${seed}:k`), 10, "D"]
@@ -72,10 +82,20 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     const result = discretePosition(rows, numerator, denominator);
     const state: Stat005State = { kind: "DISCRETE_PARTITION", rows, numerator, denominator, convention: "CEILING_KN_OVER_M" };
     const label = symbol === "Q" ? `Q${numerator}` : symbol === "D" ? `D${numerator}` : `P${numerator}`;
-    return { state, answer: result.value, stem: `The following ordered frequency distribution has N = ${result.total}. Under the nearest-rank rule ceil(kN/m), what is ${label}?\n${freqTable(rows)}`, explanation: `The rank is ceil(${numerator} × ${result.total} / ${denominator}) = ${result.rank}. The cumulative frequencies are 2, 6, 11, 18 and 23, so rank ${result.rank} falls at value ${result.value}.` };
+    return { state, answer: result.value, stem: `The following ordered frequency distribution has N = ${result.total}. Under the nearest-rank rule ceil(kN/m), what is ${label}?\n${freqTable(rows)}`, explanation: `The rank is ceil(${numerator} × ${result.total} / ${denominator}) = ${result.rank}. The cumulative frequencies are ${rows.map((_, i) => rows.slice(0, i + 1).reduce((n, row) => n + row.frequency, 0)).join(", ")}, so rank ${result.rank} falls at value ${result.value}.` };
   }
   if (contractId.endsWith("FROM_GROUPED_DATA")) {
-    const classes = [0, 10, 20, 30, 40].map((lower, i) => ({ lower, upper: lower + 10, frequency: [2, 4, 5, 7, 5][i]! }));
+    const width = choose([5, 10, 15, 20], `${seed}:grouped:width`);
+    const start = choose([0, 10, 20, 30], `${seed}:grouped:start`);
+    const frequencies = choose([
+      [2, 4, 5, 7, 5],
+      [4, 7, 11, 8, 4],
+      [3, 6, 10, 9, 5],
+      [5, 9, 13, 8, 3],
+      [2, 8, 12, 7, 4],
+      [6, 10, 14, 9, 5],
+    ] as const, `${seed}:grouped:freq`);
+    const classes = frequencies.map((frequency, i) => ({ lower: start + i * width, upper: start + (i + 1) * width, frequency }));
     const [numerator, denominator, symbol] = contractId === "QUARTILE_FROM_GROUPED_DATA"
       ? [choose([1, 2, 3], `${seed}:k`), 4, "Q"]
       : contractId === "DECILE_FROM_GROUPED_DATA" ? [choose([2, 3, 4, 6, 7, 8], `${seed}:k`), 10, "D"]
@@ -83,7 +103,7 @@ function contractSpec(contractId: Stat005ContractId, seed: string): { state: Sta
     const result = groupedPosition(classes, numerator, denominator);
     const state: Stat005State = { kind: "GROUPED_PARTITION", classes, numerator, denominator, convention: "K_N_OVER_M_INTERPOLATION" };
     const label = symbol === "Q" ? `Q${numerator}` : symbol === "D" ? `D${numerator}` : `P${numerator}`;
-    return { state, answer: result.value, stem: `Under the grouped interpolation rule at position kN/m, what is ${label}?\n${groupedTable(classes)}`, explanation: `N = ${result.total}, so the target position is ${numerator} × ${result.total} / ${denominator} = ${fmt(result.target)}. This lies in ${result.row.lower}–${result.row.upper}. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives ${result.row.lower} + [(${fmt(result.target)} − ${result.cumulativeBefore}) / ${result.row.frequency}] × 10 ≈ ${fmt(result.value)}.` };
+    return { state, answer: result.value, stem: `Under the grouped interpolation rule at position kN/m, what is ${label}?\n${groupedTable(classes)}`, explanation: `N = ${result.total}, so the target position is ${numerator} × ${result.total} / ${denominator} = ${fmt(result.target)}. This lies in ${result.row.lower}–${result.row.upper}. Using L + [(target − cumulative frequency before the class) / class frequency] × class width gives ${result.row.lower} + [(${fmt(result.target)} − ${result.cumulativeBefore}) / ${result.row.frequency}] × ${result.row.upper - result.row.lower} ≈ ${fmt(result.value)}.` };
   }
   if (contractId === "RANGE_OF_RAW_DATA" || contractId === "COEFFICIENT_OF_RANGE") {
     const values = rawValues(`${seed}:range`, 6); const min = Math.min(...values); const max = Math.max(...values);
