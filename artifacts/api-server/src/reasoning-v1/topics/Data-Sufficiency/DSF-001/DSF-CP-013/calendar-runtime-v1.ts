@@ -376,8 +376,7 @@ export function generateDsfCp013CalendarQuestion(seed: number) {
   const problem: CalendarProblem = { solveMode, anchor, context, intro };
   const pair = synthesizePair(problem, seed, desiredClass);
   const prompt = targetPrompt(solveMode);
-  const premise = "Only the remainder after division of the forward day count by 7 affects the weekday.";
-  const stem = `${intro} ${premise} ${prompt}\n\nStatement I: ${pair.statementI.text}\nStatement II: ${pair.statementII.text}`;
+  const stem = `${intro} ${prompt}\n\nStatement I: ${pair.statementI.text}\nStatement II: ${pair.statementII.text}`;
   const correct = optionForClass(DS_STANDARD_5_EN, pair.evaluation.classification);
   const generationIdentity = createHash("sha256")
     .update(`${DSF_CP013_CALENDAR_RUNTIME_VERSION}|${seed}|${solveMode}|${context.id}|${anchor.start}|${anchor.shiftRemainder}|${pair.statementI.id}|${pair.statementII.id}`)
@@ -403,9 +402,7 @@ export function generateDsfCp013CalendarQuestion(seed: number) {
     solveModeId: solveMode,
     targetKind: solveMode === "DSF-SM-CAL-RESULT-WEEKDAY"
       ? "RESULT_WEEKDAY" as const
-      : solveMode === "DSF-SM-CAL-START-WEEKDAY"
-        ? "START_WEEKDAY" as const
-        : "START_WEEKDAY" as const,
+      : "START_WEEKDAY" as const,
     contextId: context.id,
     answerContractId: "DS_STANDARD_5" as const,
     taskDirection: "DATA_SUFFICIENCY" as const,
