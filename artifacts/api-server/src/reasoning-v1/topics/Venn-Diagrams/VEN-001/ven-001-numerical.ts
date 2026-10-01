@@ -4,6 +4,7 @@ import type {
   QuestionStudioLanguage,
 } from "../../../../question-studio/engine-types.ts";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 as lifecycle } from "../../../../question-studio/standard-lifecycle.ts";
+import { ven001QlForOperation } from "./ql-registry.ts";
 
 type L = QuestionStudioLanguage;
 type Text = Record<L, string>;
