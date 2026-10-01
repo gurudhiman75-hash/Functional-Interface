@@ -61,14 +61,32 @@ for (const field of [
   assert.match(engineRoute, new RegExp(`${field}:\\s*pkg\\.${field}`));
 }
 
-// Quant and non-Quant now share the canonical persistence route. Quant takes
-// the profile-aware generation branch without falling through to another /runs handler.
+// Quant and non-Quant share the canonical persistence route. Quant takes the
+// profile-aware generation branch. Only the explicitly enumerated bespoke
+// generic Quant compatibility packages/selectors may fall through.
 assert.match(engineRoute, /selectedEngineId === "quant-v4"/);
 assert.match(engineRoute, /generateProfiledQuantBatch/);
 assert.match(engineRoute, /selectedCpIds/);
 assert.match(engineRoute, /difficultyDistribution/);
 assert.doesNotMatch(engineRoute, /nonQuantRunGate/);
-assert.doesNotMatch(engineRoute, /next\("route"\)/);
+assert.match(engineRoute, /shouldDeferQuantCompatibilityRun/);
+assert.match(engineRoute, /LEGACY_GENERIC_QUANT_PACKAGES/);
+for (const packageId of [
+  "avg 001",
+  "num 001",
+  "num 002",
+  "sap",
+  "tmw 001",
+  "trg 001",
+  "trg 002",
+]) {
+  assert.equal(
+    engineRoute.includes(`"${packageId}"`),
+    true,
+    `Quant compatibility package ${packageId} must remain explicitly deferred`,
+  );
+}
+assert.match(engineRoute, /next\("route"\)/);
 assert.doesNotMatch(engineRoute, /router\.use\(authenticate\)/);
 assert.match(quantProfile, /buildQuantExamProfilePlan/);
 assert.match(quantProfile, /generateProfiledQuantBatch/);
