@@ -345,9 +345,9 @@ const POLYGONS = {
     [64, 279],
   ],
   "right-triangle": [
-    [30, 40],
-    [600, 40],
-    [30, 500],
+    [120, 100],
+    [340, 100],
+    [120, 480],
   ],
   trapezoid: [
     [176, 92],
@@ -464,7 +464,7 @@ function shapeMarkup(shape: ShapeKind, color: string): string {
   if (shape === "square")
     return `<rect x="180" y="170" width="340" height="340" ${style}/>`;
   if (shape === "right-triangle")
-    return `<polygon points="${POLYGONS[shape].map(([x, y]) => `${x},${y}`).join(" ")}" ${style}/><path d="M 60 40 L 60 70 L 30 70" fill="none" stroke="${color}" stroke-width="3"/>`;
+    return `<polygon points="${POLYGONS[shape].map(([x, y]) => `${x},${y}`).join(" ")}" ${style}/><path d="M 150 100 L 150 130 L 120 130" fill="none" stroke="${color}" stroke-width="3"/>`;
   return `<polygon points="${POLYGONS[shape].map(([x, y]) => `${x},${y}`).join(" ")}" ${style}/>`;
 }
 const SHAPE_LABELS: Record<ShapeKind, T> = {
