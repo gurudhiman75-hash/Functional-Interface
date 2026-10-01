@@ -52,6 +52,7 @@ function targetPrompt(laneId: string, q: AnyQuestion, language: DsfReasoningLoca
 
   const prompt = String(q.questionPrompt ?? "");
   if (/which direction/i.test(prompt)) return t(language, "पूछी गई दिशा क्या है?", "ਪੁੱਛੀ ਗਈ ਦਿਸ਼ਾ ਕੀ ਹੈ?");
+  if (/coordinates of the final point/i.test(prompt)) return t(language, "आरंभिक बिंदु को (0, 0) मानकर अंतिम बिंदु के निर्देशांक क्या हैं?", "ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਨੂੰ (0, 0) ਮੰਨ ਕੇ ਅੰਤਿਮ ਬਿੰਦੂ ਦੇ ਕੋਆਰਡੀਨੇਟ ਕੀ ਹਨ?");
   if (/where is the final point/i.test(prompt)) return t(language, "अंतिम बिंदु आरंभिक बिंदु के सापेक्ष कहाँ है?", "ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ਮੁਕਾਬਲੇ ਕਿੱਥੇ ਹੈ?");
   if (/related|relationship/i.test(prompt)) return t(language, "पूछा गया पारिवारिक संबंध क्या है?", "ਪੁੱਛਿਆ ਗਿਆ ਪਰਿਵਾਰਕ ਸੰਬੰਧ ਕੀ ਹੈ?");
   if (/inequal|greater|smaller|relation/i.test(prompt) && laneId.includes("INEQUALITY")) return t(language, "पूछा गया संबंध क्या है?", "ਪੁੱਛਿਆ ਗਿਆ ਸੰਬੰਧ ਕੀ ਹੈ?");
