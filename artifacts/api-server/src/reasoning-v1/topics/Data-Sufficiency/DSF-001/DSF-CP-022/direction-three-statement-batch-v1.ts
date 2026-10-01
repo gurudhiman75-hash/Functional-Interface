@@ -72,12 +72,12 @@ function sign(v:number){return v===0?"zero":v>0?"positive":"negative";}
 function targetLabel(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"final facing direction":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"final coordinates":"shortest distance from the starting point";}
 function prompt(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"Which direction is the person facing after the third movement?":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"Taking the starting point as (0, 0), what are the final coordinates?":"What is the shortest distance from the final point to the starting point?";}
 function lead(c:ContextId){return ({
-  WALKING_ROUTE:"A person follows a three-leg walking route.",
-  DELIVERY_ROUTE:"A delivery worker follows a three-leg route.",
-  CAMPUS_PATH:"A student follows a three-leg path across a campus.",
-  PATROL_ROUTE:"A guard follows a three-leg patrol route.",
-  WAREHOUSE_ROUTE:"A worker follows a three-leg route inside a warehouse.",
-  FIELD_ROUTE:"A surveyor follows a three-leg route across a field.",
+  WALKING_ROUTE:"A person moves in three successive stages.",
+  DELIVERY_ROUTE:"A delivery worker moves in three successive stages.",
+  CAMPUS_PATH:"A student moves in three successive stages across a campus.",
+  PATROL_ROUTE:"A guard moves in three successive stages while on patrol.",
+  WAREHOUSE_ROUTE:"A worker moves in three successive stages inside a warehouse.",
+  FIELD_ROUTE:"A surveyor moves in three successive stages across a field.",
 } as const)[c];}
 
 function pool(problem:Problem):readonly Statement[]{
