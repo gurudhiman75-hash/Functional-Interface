@@ -3,7 +3,7 @@ import { Router } from "express";
 import { sqlClient } from "../lib/db";
 
 const router=Router();
-const allowed=new Set(["home","learn","tests","results"]);
+const allowed=new Set(["home","login_popup","learn","tests","results"]);
 
 router.get("/mobile/promotions",async(req,res)=>{
   try{

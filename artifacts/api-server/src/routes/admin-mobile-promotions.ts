@@ -6,7 +6,7 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
-const PLACEMENTS = new Set(["home", "learn", "tests", "results"]);
+const PLACEMENTS = new Set(["home", "login_popup", "learn", "tests", "results"]);
 const DESTINATION_TYPES = new Set(["exam", "test_series", "learn", "url", "none"]);
 const CAMPAIGN_KINDS = new Set(["internal", "external"]);
 

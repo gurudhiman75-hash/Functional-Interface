@@ -16,6 +16,8 @@ type HeroSlide = {
   title: string;
   subtitle: string;
   imageUrl: string;
+  iconName: string;
+  iconUrl: string;
   ctaLabel: string;
   destinationType: string;
   destinationValue: string;
@@ -57,6 +59,8 @@ function normalizeSlide(input: unknown, index: number): HeroSlide {
     title: text(raw.title, 140),
     subtitle: text(raw.subtitle, 280),
     imageUrl: text(raw.imageUrl, 1000),
+    iconName: text(raw.iconName, 80),
+    iconUrl: text(raw.iconUrl, 1000),
     ctaLabel: text(raw.ctaLabel, 60),
     destinationType: DESTINATION_TYPES.has(destinationType) ? destinationType : "none",
     destinationValue: text(raw.destinationValue, 1000),
@@ -67,20 +71,112 @@ function normalizeSlide(input: unknown, index: number): HeroSlide {
   };
 }
 
+function normalizeCard(input: unknown, index: number) {
+  const raw = input && typeof input === "object" ? input as Record<string, unknown> : {};
+  const destinationType = text(raw.destinationType, 40) || "none";
+  return {
+    id: text(raw.id, 80) || randomUUID(),
+    title: text(raw.title, 140),
+    subtitle: text(raw.subtitle, 280),
+    badge: text(raw.badge, 60),
+    iconName: text(raw.iconName, 80),
+    iconUrl: text(raw.iconUrl, 1000),
+    imageUrl: text(raw.imageUrl, 1000),
+    ctaLabel: text(raw.ctaLabel, 60),
+    destinationType: DESTINATION_TYPES.has(destinationType) ? destinationType : "none",
+    destinationValue: text(raw.destinationValue, 1000),
+    isActive: raw.isActive !== false,
+    sortOrder: Number.isFinite(Number(raw.sortOrder)) ? Math.max(0, Math.min(999, Number(raw.sortOrder))) : index + 1,
+  };
+}
+
+function normalizeCustomSection(input: unknown, index: number) {
+  const raw = input && typeof input === "object" ? input as Record<string, unknown> : {};
+  const id = text(raw.id, 80) || `custom_${randomUUID()}`;
+  const cards = Array.isArray(raw.cards)
+    ? raw.cards.slice(0, 40).map(normalizeCard).filter((card) => card.title.length >= 1)
+    : [];
+  const layoutRaw = text(raw.layout, 30);
+  const layout = ["grid", "horizontal", "list", "banner"].includes(layoutRaw) ? layoutRaw : "horizontal";
+  return {
+    id,
+    title: text(raw.title, 140),
+    subtitle: text(raw.subtitle, 280),
+    iconName: text(raw.iconName, 80),
+    iconUrl: text(raw.iconUrl, 1000),
+    layout,
+    isVisible: raw.isVisible !== false,
+    sortOrder: Number.isFinite(Number(raw.sortOrder)) ? Math.max(0, Math.min(999, Number(raw.sortOrder))) : index + 1,
+    cards: cards.sort((a, b) => a.sortOrder - b.sortOrder),
+  };
+}
+
+function normalizeOverrides(input: unknown) {
+  if (!input || typeof input !== "object" || Array.isArray(input)) return {};
+  const result: Record<string, Record<string, unknown>> = {};
+  for (const [key, value] of Object.entries(input as Record<string, unknown>)) {
+    const id = text(key, 100);
+    if (!id || !value || typeof value !== "object" || Array.isArray(value)) continue;
+    const raw = value as Record<string, unknown>;
+    result[id] = {
+      title: text(raw.title, 140),
+      subtitle: text(raw.subtitle, 280),
+      badge: text(raw.badge, 60),
+      iconName: text(raw.iconName, 80),
+      iconUrl: text(raw.iconUrl, 1000),
+      imageUrl: text(raw.imageUrl, 1000),
+      hidden: raw.hidden === true,
+    };
+    if (Object.keys(result).length >= 200) break;
+  }
+  return result;
+}
+
+function normalizeSectionSettings(input: unknown) {
+  if (!input || typeof input !== "object" || Array.isArray(input)) return {};
+  const result: Record<string, Record<string, unknown>> = {};
+  for (const [key, value] of Object.entries(input as Record<string, unknown>)) {
+    const id = text(key, 100);
+    if (!id || !value || typeof value !== "object" || Array.isArray(value)) continue;
+    const raw = value as Record<string, unknown>;
+    const layoutRaw = text(raw.layout, 30);
+    result[id] = {
+      title: text(raw.title, 140),
+      subtitle: text(raw.subtitle, 280),
+      iconName: text(raw.iconName, 80),
+      iconUrl: text(raw.iconUrl, 1000),
+      layout: ["grid", "horizontal", "list", "banner"].includes(layoutRaw) ? layoutRaw : "",
+      isVisible: raw.isVisible !== false,
+    };
+  }
+  return result;
+}
+
 function normalizeConfiguration(input: unknown) {
   const raw = input && typeof input === "object" ? input as Record<string, unknown> : {};
   const heroSlides = Array.isArray(raw.heroSlides)
     ? raw.heroSlides.slice(0, 20).map(normalizeSlide).filter((slide) => slide.title.length >= 2)
     : [];
-  const requestedOrder = Array.isArray(raw.sectionOrder) ? raw.sectionOrder.map((value) => text(value, 50)) : [];
+  const customSections = Array.isArray(raw.customSections)
+    ? raw.customSections.slice(0, 30).map(normalizeCustomSection).filter((section) => section.title.length >= 1)
+    : [];
+  const customIds = new Set(customSections.map((section) => section.id));
+  const requestedOrder = Array.isArray(raw.sectionOrder) ? raw.sectionOrder.map((value) => text(value, 100)) : [];
+  const validOrder = requestedOrder.filter((value, index) => (
+    (ALLOWED_SECTIONS as readonly string[]).includes(value) || customIds.has(value)
+  ) && requestedOrder.indexOf(value) === index);
   const sectionOrder = [
-    ...requestedOrder.filter((value, index) => (ALLOWED_SECTIONS as readonly string[]).includes(value) && requestedOrder.indexOf(value) === index),
-    ...ALLOWED_SECTIONS.filter((value) => !requestedOrder.includes(value)),
+    ...validOrder,
+    ...ALLOWED_SECTIONS.filter((value) => !validOrder.includes(value)),
+    ...customSections.map((section) => section.id).filter((value) => !validOrder.includes(value)),
   ];
   return {
     heroSlides: heroSlides.sort((a, b) => a.sortOrder - b.sortOrder),
     featuredExamFamilyIds: ids(raw.featuredExamFamilyIds),
     featuredTestSeriesIds: ids(raw.featuredTestSeriesIds),
+    customSections: customSections.sort((a, b) => a.sortOrder - b.sortOrder),
+    itemOverrides: normalizeOverrides(raw.itemOverrides),
+    sectionSettings: normalizeSectionSettings(raw.sectionSettings),
     sectionOrder,
   };
 }
@@ -180,6 +276,8 @@ router.put("/", requireAdminPermission("content.taxonomy.manage"), async (req, r
             heroSlideCount: configuration.heroSlides.length,
             featuredExamFamilyCount: configuration.featuredExamFamilyIds.length,
             featuredTestSeriesCount: configuration.featuredTestSeriesIds.length,
+            customSectionCount: configuration.customSections.length,
+            overrideCount: Object.keys(configuration.itemOverrides).length,
             sectionOrder: configuration.sectionOrder,
           })}
         )
