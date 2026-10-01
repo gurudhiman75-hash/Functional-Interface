@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { EXAMS } from '@/data/exams';
-import { getQuestionStudioDashboard, type QuestionStudioRun } from '@/features/question-studio/api';
+import { getQuestionStudioReviewPage, type QuestionStudioRun } from '@/features/question-studio/api';
 import {
   createCom003ReviewRun,
   type Com003ReviewLanguage,
@@ -37,11 +37,6 @@ const QLS = Array.from({ length: 19 }, (_, index) => {
 
 function asText(value: unknown) {
   return typeof value === 'string' ? value.trim() : '';
-}
-
-function isCom003Run(run: QuestionStudioRun) {
-  return asText(run.requestSnapshot?.engineId) === 'knowledge-v1'
-    && asText(run.requestSnapshot?.packageId) === 'COM-003';
 }
 
 export function QuestionStudioCom003ReviewPanel() {
@@ -67,8 +62,12 @@ export function QuestionStudioCom003ReviewPanel() {
     }
     setLoading(true);
     try {
-      const dashboard = await getQuestionStudioDashboard();
-      setRuns(dashboard.runs.filter(isCom003Run));
+      const reviewPage = await getQuestionStudioReviewPage({
+        packageId: 'COM-003',
+        page: 1,
+        pageSize: 20,
+      });
+      setRuns(reviewPage.runs);
     } catch (caught) {
       showToast.error(
         'COM-003 review runs unavailable',
