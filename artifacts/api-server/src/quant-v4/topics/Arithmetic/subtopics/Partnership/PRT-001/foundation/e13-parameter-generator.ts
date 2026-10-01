@@ -1,7 +1,7 @@
 import objectPoolsSource from "../object-pools.library.json" assert { type: "json" };
 import { addRational, divideRational, multiplyRational, normalizeRatio, rational, subtractRational } from "./math";
 import { formatPrt001Duration, formatPrt001Money, localizePrt001Business } from "./parameter-generator";
-import { createPrt001Random } from "./random";
+import { createPrt001Random, stablePrt001PoolIndex } from "./random";
 import { solvePrt001State } from "./solver";
 import type { CapitalSegment, Partner, PartnershipState, PreDistributionAllocation, Prt001Language, Prt001PilotParameters, Prt001TaskRegistryEntry, Rational } from "./types";
 
@@ -166,10 +166,8 @@ export function generatePrt001E13Parameters(input: { questionLanguageId: string;
       break;
     }
     case "PRT-QL-112": {
-      const numericStateRandom = createPrt001Random(
-        `${input.seed}:numeric-state:${input.questionLanguageId}`,
-      );
-      const s = numericStateRandom.pick([
+      const numericStateSeed = `${input.seed}:numeric-state:${input.questionLanguageId}`;
+      const numericStates = [
         { oa: 5, ob: 3, fn: 1, fd: 4, sa: 2, sb: 1 },
         { oa: 7, ob: 5, fn: 1, fd: 6, sa: 3, sb: 2 },
         { oa: 3, ob: 2, fn: 1, fd: 5, sa: 1, sb: 1 },
@@ -191,7 +189,10 @@ export function generatePrt001E13Parameters(input: { questionLanguageId: string;
         { oa: 9, ob: 4, fn: 1, fd: 13, sa: 2, sb: 1 },
         { oa: 12, ob: 5, fn: 1, fd: 17, sa: 1, sb: 2 },
         { oa: 13, ob: 11, fn: 1, fd: 12, sa: 3, sb: 2 },
-      ]);
+     ;
+      const s = numericStates[
+        stablePrt001PoolIndex(numericStateSeed, numericStates.length)
+      ]!;);
       const oldTotal = rational(s.oa + s.ob);
       const oldA = divideRational(rational(s.oa), oldTotal);
       const oldB = divideRational(rational(s.ob), oldTotal);
