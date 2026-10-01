@@ -485,7 +485,7 @@ const GROUPED_MEAN_STEMS: Readonly<Record<string, readonly string[]>> = {
   "Travel time (minutes)": [
     "What was the approximate average daily travel time of the employees?",
     "How long did employees travel each day on average, approximately?",
-    "What was the employees' mean daily travel time?",
+    "What was the employees' approximate mean daily travel time?",
     "What was the average daily travel time recorded for employees, approximately?",
   ],
   "Age (years)": [
