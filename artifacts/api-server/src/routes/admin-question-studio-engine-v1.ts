@@ -389,6 +389,11 @@ router.post(
           examProfileId: req.body?.examProfileId,
           difficultyPreset: req.body?.difficultyPreset,
           difficultyDistribution: req.body?.difficultyDistribution,
+          generateCandidateBatch: (candidateRequest) =>
+            generateQuestionStudioQuestions({
+              ...candidateRequest,
+              engineId: "quant-v4",
+            }),
         });
         quantPlan = quantBatch.plan;
         generatedQuestions.push(...quantBatch.questions);
