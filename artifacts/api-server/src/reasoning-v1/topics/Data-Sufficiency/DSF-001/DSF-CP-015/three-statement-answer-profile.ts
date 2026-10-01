@@ -78,6 +78,22 @@ export function renderThreeStatementSemanticLabel(key: ThreeStatementSemanticKey
   return `The minimal sufficient statement sets are ${subsets.map(subsetPhrase).join("; ")}.`;
 }
 
+export function renderThreeStatementOptionText(key: ThreeStatementSemanticKey): string {
+  if (key === "NONE") return "Even Statements I, II and III together are not sufficient.";
+  if (key === "I|II|III") return "Any one of Statements I, II or III alone is sufficient.";
+  if (key === "I+II|I+III|II+III") return "Any two statements together are sufficient, but no single statement is sufficient.";
+  if (key === "I+II+III") return "Statements I, II and III together are required.";
+
+  const subsets = minimalSubsets(key);
+  if (subsets.length === 1) {
+    return `${subsetPhrase(subsets[0]!)} is sufficient.`;
+  }
+  if (subsets.length === 2) {
+    return `Either ${subsetPhrase(subsets[0]!)} or ${subsetPhrase(subsets[1]!)} is sufficient.`;
+  }
+  return subsets.map((subset) => subsetPhrase(subset)).join("; ") + " are sufficient.";
+}
+
 function rankedDistractors(correctKey: DsfCp015ThreeStatementSemanticKey): readonly DsfCp015ThreeStatementSemanticKey[] {
   return DSF_CP015_THREE_STATEMENT_SEMANTIC_KEYS
     .filter((key) => key !== correctKey)
@@ -107,7 +123,7 @@ export function buildThreeStatementAnswerOptions(
   return Object.freeze(semanticKeys.map((semanticKey, index) => Object.freeze({
     key: OPTION_KEYS[index]!,
     semanticKey,
-    text: renderThreeStatementSemanticLabel(semanticKey),
+    text: renderThreeStatementOptionText(semanticKey),
     isCorrect: semanticKey === correctKey,
   })));
 }

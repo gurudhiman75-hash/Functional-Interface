@@ -26,17 +26,21 @@ export const DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE = Object.freeze({
 });
 
 function bankOnlyQuestion(question: Readonly<Record<string, any>>) {
+  const ql002 = question.qlId === "DSF-QL-002";
+  const questionBankStatus = ql002 ? "NOT_STORED" as const : "READY_FOR_STORAGE" as const;
+  const questionBankWritable = ql002 ? false as const : true as const;
+  const questionBankAcceptanceMode = ql002 ? "REVIEW_ONLY" as const : "BANK_ONLY" as const;
   return Object.freeze({
     ...question,
     integrationAuthority: DSF_CP017_NORMAL_WORKFLOW_AUTHORITY,
-    runtimeMode: DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.runtimeMode,
-    reviewStatus: DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.reviewStatus,
+    runtimeMode: ql002 ? "NORMAL_QUESTION_STUDIO_QL002_REVIEW_ONLY" as const : DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.runtimeMode,
+    reviewStatus: ql002 ? "QUESTION_STUDIO_QL002_REVIEW_CONNECTED" as const : DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.reviewStatus,
     reviewOnly: true as const,
     manualApprovalRequired: true as const,
-    questionBankStatus: "READY_FOR_STORAGE" as const,
-    questionBankWritable: true as const,
-    questionBankAcceptanceMode: "BANK_ONLY" as const,
-    questionBankAcceptanceAuthority: DSF_CP017_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+    questionBankStatus,
+    questionBankWritable,
+    questionBankAcceptanceMode,
+    questionBankAcceptanceAuthority: ql002 ? null : DSF_CP017_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
     testEligibility: "INELIGIBLE" as const,
     testEligible: false as const,
     mockTestEligible: false as const,
@@ -45,14 +49,14 @@ function bankOnlyQuestion(question: Readonly<Record<string, any>>) {
     generationContext: Object.freeze({
       ...(question.generationContext ?? {}),
       integrationAuthority: DSF_CP017_NORMAL_WORKFLOW_AUTHORITY,
-      runtimeMode: DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.runtimeMode,
-      reviewStatus: DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.reviewStatus,
+      runtimeMode: ql002 ? "NORMAL_QUESTION_STUDIO_QL002_REVIEW_ONLY" as const : DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.runtimeMode,
+      reviewStatus: ql002 ? "QUESTION_STUDIO_QL002_REVIEW_CONNECTED" as const : DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.reviewStatus,
       reviewOnly: true as const,
       manualApprovalRequired: true as const,
-      questionBankStatus: "READY_FOR_STORAGE" as const,
-      questionBankWritable: true as const,
-      questionBankAcceptanceMode: "BANK_ONLY" as const,
-      questionBankAcceptanceAuthority: DSF_CP017_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+      questionBankStatus,
+      questionBankWritable,
+      questionBankAcceptanceMode,
+      questionBankAcceptanceAuthority: ql002 ? null : DSF_CP017_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
       testEligibility: "INELIGIBLE" as const,
       testEligible: false as const,
       mockTestEligible: false as const,
@@ -64,6 +68,7 @@ function bankOnlyQuestion(question: Readonly<Record<string, any>>) {
 
 export function generateDsf001NormalQuestionStudioWorkflow(input: DsfCp017QuestionStudioInput = {}) {
   const review = previewDsf001NormalQuestionStudioReview(input);
+  const ql002 = review.questions.every((question) => question.qlId === "DSF-QL-002");
   const questions = Object.freeze(review.questions.map((question) => bankOnlyQuestion(question)));
   return Object.freeze({
     ...review,
@@ -71,14 +76,14 @@ export function generateDsf001NormalQuestionStudioWorkflow(input: DsfCp017Questi
     generationContext: Object.freeze({
       ...review.generationContext,
       integrationAuthority: DSF_CP017_NORMAL_WORKFLOW_AUTHORITY,
-      runtimeMode: DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.runtimeMode,
-      reviewStatus: DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.reviewStatus,
+      runtimeMode: ql002 ? "NORMAL_QUESTION_STUDIO_QL002_REVIEW_ONLY" as const : DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.runtimeMode,
+      reviewStatus: ql002 ? "QUESTION_STUDIO_QL002_REVIEW_CONNECTED" as const : DSF_CP017_NORMAL_QUESTION_STUDIO_PACKAGE.reviewStatus,
       reviewOnly: true as const,
       manualApprovalRequired: true as const,
-      questionBankStatus: "READY_FOR_STORAGE" as const,
-      questionBankWritable: true as const,
-      questionBankAcceptanceMode: "BANK_ONLY" as const,
-      questionBankAcceptanceAuthority: DSF_CP017_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+      questionBankStatus: ql002 ? "NOT_STORED" as const : "READY_FOR_STORAGE" as const,
+      questionBankWritable: ql002 ? false as const : true as const,
+      questionBankAcceptanceMode: ql002 ? "REVIEW_ONLY" as const : "BANK_ONLY" as const,
+      questionBankAcceptanceAuthority: ql002 ? null : DSF_CP017_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
       testEligibility: "INELIGIBLE" as const,
       testEligible: false as const,
       mockTestEligible: false as const,

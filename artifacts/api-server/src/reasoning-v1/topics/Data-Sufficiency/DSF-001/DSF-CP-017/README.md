@@ -1,6 +1,6 @@
 # DSF-CP-017 — Normal Question Studio Review Integration
 
-Status: **IMPLEMENTED / VALIDATION PENDING**
+Status: **IMPLEMENTED / QL001 + QL002 REVIEW INTEGRATED**
 
 CP-017 is an additive delivery adapter over the production-integrated DSF CP011–CP016 work. It does not rewrite any frozen source solver, DSF sufficiency semantic, CP014 editorial rule, or permanent QL allocation.
 
@@ -21,13 +21,13 @@ The existing specialized `/reasoning/data-sufficiency/*` endpoints remain untouc
 
 Permanent semantic registry:
 
-- `DSF-QL-001` — two-statement target determinacy — **generatable**
-- `DSF-QL-002` — three-statement minimal-sufficient-subset semantics — **permanent but runtime-deferred**
+- `DSF-QL-001` — two-statement target determinacy — **generatable across all 21 lanes**
+- `DSF-QL-002` — three-statement minimal-sufficient-subset semantics — **Question Studio review-enabled for seven Reasoning lanes**
 - next permanent identity: `DSF-QL-003`
 
-`DSF-QL-002` is deliberately not exposed for batch generation. CP015 froze the semantic lattice and source-backed Number System prototypes, but did not create an exhaustively reviewed production batch runtime. CP017 rejects QL002 generation explicitly instead of replaying prototypes or pretending it is ready.
+QL002 was originally deferred at CP017. CP021–CP027 added seven Reasoning batch runtimes, CP029–CP030 completed learner-surface remediation/sampling, CP031 added Hindi/Punjabi review localization, CP032 connected QL002 to the normal Question Studio path, and CP033 provides the final freeze audit. QL002 remains review-only: Question Bank, scored-test, mock-test and public-delivery gates are locked.
 
-## Two-statement Question Studio lanes
+## Question Studio lanes
 
 CP017 exposes 21 normal-workflow lanes under `DSF-QL-001`.
 
@@ -113,4 +113,4 @@ CP017 is not frozen merely because the package appears in a dropdown. Its execut
 8. the shared dispatcher routes DSF requests to CP017 rather than the Quant fallback;
 9. the standard `/runs` DSF handler is mounted before legacy DSF/catch-all routes;
 10. review persistence is enabled while Bank/test/mock/public/automatic-publication gates remain false;
-11. a QL002 generation request fails explicitly until a real reviewed batch runtime exists.
+11. QL002 generation succeeds only for the seven Reasoning lanes and remains blocked from Question Bank/test/mock/public release.

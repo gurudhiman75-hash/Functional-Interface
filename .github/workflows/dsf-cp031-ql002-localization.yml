@@ -1,0 +1,31 @@
+name: Validate DSF-CP-031 QL002 Localization
+
+on:
+  pull_request:
+    branches:
+      - audit/dsf-001-cp030-editorial-sampling
+    types: [opened, reopened, synchronize, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-dsf-cp031:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP031 localization test
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-031/ql002-reasoning-localization-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dsf-cp031-localization.test.mjs
+      - name: Validate CP031 localization
+        run: node artifacts/api-server/dist/reasoning-v1/dsf-cp031-localization.test.mjs
