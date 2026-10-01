@@ -86,9 +86,16 @@ assert.doesNotMatch(engineRoute, /router\.use\(authenticate\)/);
 assert.match(quantProfile, /buildQuantExamProfilePlan/);
 assert.match(quantProfile, /generateProfiledQuantBatch/);
 assert.match(quantProfile, /cpCounts/);
-assert.doesNotMatch(engineRoute, /LEGACY_GENERIC_QUANT_PACKAGES[\s\S]*?"avg 001"/);
-assert.doesNotMatch(engineRoute, /LEGACY_GENERIC_QUANT_PACKAGES[\s\S]*?"tmw 001"/);
-assert.doesNotMatch(engineRoute, /LEGACY_GENERIC_QUANT_PACKAGES[\s\S]*?"num 001"/);
+const legacyQuantPackagesStart = engineRoute.indexOf("const LEGACY_GENERIC_QUANT_PACKAGES");
+const legacyQuantPackagesEnd = engineRoute.indexOf("]);", legacyQuantPackagesStart);
+assert.ok(legacyQuantPackagesStart >= 0 && legacyQuantPackagesEnd > legacyQuantPackagesStart);
+const legacyQuantPackagesBlock = engineRoute.slice(
+  legacyQuantPackagesStart,
+  legacyQuantPackagesEnd + 3,
+);
+assert.doesNotMatch(legacyQuantPackagesBlock, /"avg 001"/);
+assert.doesNotMatch(legacyQuantPackagesBlock, /"tmw 001"/);
+assert.doesNotMatch(legacyQuantPackagesBlock, /"num 001"/);
 assert.match(engineRoute, /isNum001UnifiedRequest/);
 assert.match(engineRoute, /packageId === "num 001"/);
 assert.match(engineRoute, /isLegacyNum002QuestionLanguageId/);
