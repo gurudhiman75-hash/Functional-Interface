@@ -234,6 +234,12 @@ function localizeDirectionStatement(text: string, language: DsfReasoningLocalize
   if(m) return t(language,`अंतिम बिंदु आरंभिक बिंदु से ${m[1]} मीटर ${localizeDirectionValue(m[2]!,language)} है।`,`ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${m[1]} ਮੀਟਰ ${localizeDirectionValue(m[2]!,language)} ਹੈ।`);
   m=text.match(/^The final point is ([\d.]+) m (north|south) of the starting point\.$/i);
   if(m) return t(language,`अंतिम बिंदु आरंभिक बिंदु से ${m[1]} मीटर ${localizeDirectionValue(m[2]!,language)} है।`,`ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ${m[1]} ਮੀਟਰ ${localizeDirectionValue(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The final point is (east|west) of the starting point\.$/i);
+  if(m) return t(language,`अंतिम बिंदु आरंभिक बिंदु के ${localizeDirectionValue(m[1]!,language)} में है।`,`ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ${localizeDirectionValue(m[1]!,language)} ਵੱਲ ਹੈ।`);
+  m=text.match(/^The final point is (north|south) of the starting point\.$/i);
+  if(m) return t(language,`अंतिम बिंदु आरंभिक बिंदु के ${localizeDirectionValue(m[1]!,language)} में है।`,`ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ${localizeDirectionValue(m[1]!,language)} ਵੱਲ ਹੈ।`);
+  if(/^The final point is neither east nor west of the starting point\.$/i.test(text)) return t(language,"अंतिम बिंदु आरंभिक बिंदु के न पूर्व में है, न पश्चिम में।","ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ਨਾ ਪੂਰਬ ਵੱਲ ਹੈ, ਨਾ ਪੱਛਮ ਵੱਲ।");
+  if(/^The final point is neither north nor south of the starting point\.$/i.test(text)) return t(language,"अंतिम बिंदु आरंभिक बिंदु के न उत्तर में है, न दक्षिण में।","ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ਨਾ ਉੱਤਰ ਵੱਲ ਹੈ, ਨਾ ਦੱਖਣ ਵੱਲ।");
   if(/^The final point lies on the same north-south line as the starting point\.$/i.test(text)) return t(language,"अंतिम बिंदु आरंभिक बिंदु की उसी उत्तर-दक्षिण रेखा पर है।","ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੀ ਉਸੇ ਉੱਤਰ-ਦੱਖਣ ਰੇਖਾ ਉੱਤੇ ਹੈ।");
   if(/^The final point lies on the same east-west line as the starting point\.$/i.test(text)) return t(language,"अंतिम बिंदु आरंभिक बिंदु की उसी पूर्व-पश्चिम रेखा पर है।","ਅੰਤਿਮ ਬਿੰਦੂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੀ ਉਸੇ ਪੂਰਬ-ਪੱਛਮ ਰੇਖਾ ਉੱਤੇ ਹੈ।");
   m=text.match(/^The net (east-west|north-south) displacement is ([\d.]+) m (with no east-west shift|with no north-south shift|to the east|to the west|to the north|to the south)\.$/i);
