@@ -22,6 +22,13 @@ const request = {
 assert.equal(isVen001ShapeRegionRequest(request), true);
 const result = generateVen001ShapeRegionBatch(request);
 assert.equal(result.questions.length, 50);
+assert.equal(
+  (result.questions[0]!.semanticMetadata as any).shapeLayoutId,
+  "CIRCLE_RECTANGLE_TRIANGLE",
+);
+assert.match(result.questions[0]!.stimulusSvgs![0]!, /A — circle =/);
+assert.match(result.questions[0]!.stimulusSvgs![0]!, /B — rectangle =/);
+assert.match(result.questions[0]!.stimulusSvgs![0]!, /C — triangle =/);
 assert.deepEqual(
   result.questions.map((q) => q.questionId),
   generateVen001ShapeRegionBatch(request).questions.map((q) => q.questionId),
