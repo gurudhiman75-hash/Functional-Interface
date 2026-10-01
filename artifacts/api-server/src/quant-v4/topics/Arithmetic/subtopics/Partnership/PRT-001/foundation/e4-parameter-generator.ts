@@ -169,7 +169,28 @@ export function generatePrt001E4Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findProfitRatioWhenPartnerLeavesEarly": {
-      const s = random.pick([{a:40_000,leave:6,b:30_000},{a:60_000,leave:8,b:40_000},{a:72_000,leave:5,b:30_000},{a:50_000,leave:9,b:45_000}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const capitalRatio = numericStateRandom.pick([
+        [2, 3],
+        [3, 2],
+        [3, 4],
+        [4, 3],
+        [4, 5],
+        [5, 4],
+        [5, 7],
+        [7, 5],
+        [4, 7],
+        [7, 4],
+      ] as const);
+      const leave = numericStateRandom.pick([4, 5, 6, 7, 8, 9, 10, 11]);
+      const unit = numericStateRandom.pick([6_000, 8_000, 10_000, 12_000, 15_000]);
+      const s = {
+        a: capitalRatio[0] * unit,
+        leave,
+        b: capitalRatio[1] * unit,
+      };
       state = makeState([partner(partnerA,[segment(0,s.leave,money(s.a))]), partner(partnerB,[segment(0,12,money(s.b))])], money(120_000));
       break;
     }
