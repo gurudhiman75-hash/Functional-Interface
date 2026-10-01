@@ -16,7 +16,7 @@ const ALLOWED_SECTIONS = [
   "current_affairs",
   "today_goal",
 ] as const;
-const DESTINATION_TYPES = new Set(["exam", "test_series", "learn", "url", "none"]);
+const DESTINATION_TYPES = new Set(["exam", "test_series", "learn", "page", "url", "none"]);
 const MOBILE_HOME_AUDIT_ENTITY_ID = "00000000-0000-4000-8000-000000000101";
 
 type HeroSlide = {
