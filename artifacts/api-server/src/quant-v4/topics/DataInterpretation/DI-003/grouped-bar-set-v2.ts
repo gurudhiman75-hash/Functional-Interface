@@ -107,6 +107,39 @@ const CONTEXTS = [
   },
 ] as const;
 
+const SERIES_AVERAGE_STEMS: Readonly<Record<string, (label: string) => readonly string[]>> = {
+  ANNUAL_SALES: (label) => [
+    `What was the average number of units sold by ${label} per year?`,
+    `How many units did ${label} sell per year on average?`,
+    `What was the average annual sales volume of ${label}?`,
+  ],
+  MONTHLY_PRODUCTION: (label) => [
+    `What was ${label}'s average monthly production?`,
+    `What was the average production of ${label} per month?`,
+    `How many units did ${label} produce per month on average?`,
+  ],
+  TEST_SELECTIONS: (label) => [
+    `What was the average number of candidates selected in ${label} per centre?`,
+    `On average, how many candidates were selected in ${label} at each centre?`,
+    `What was the mean number of candidates selected in ${label} across the five centres?`,
+  ],
+  LIBRARY_ISSUES: (label) => [
+    `What was the average number of books issued by ${label} each day?`,
+    `How many books did ${label} issue per day on average?`,
+    `What was the mean number of books issued by ${label} across the five days?`,
+  ],
+  TICKET_SALES: (label) => [
+    `What was the average number of tickets sold by ${label} each day?`,
+    `How many tickets did ${label} sell per day on average?`,
+    `What was ${label}'s average daily ticket sales?`,
+  ],
+  PACKAGE_DISPATCH: (label) => [
+    `What was the average number of packages dispatched by ${label} each week?`,
+    `How many packages did ${label} dispatch per week on average?`,
+    `What was ${label}'s average weekly package dispatch?`,
+  ],
+};
+
 type Candidate = Readonly<{
   text: string;
   misconceptionId: string;
@@ -332,11 +365,9 @@ function buildDrafts(seed: string, stimulus: Di003V2Stimulus): Draft[] {
   const averageValues = points.map((point) => averageSeriesA ? point.seriesA : point.seriesB);
   const averageTotal = averageValues.reduce((sum, value) => sum + value, 0);
   const average = averageTotal / points.length;
-  const averageSurface = surface(`${seed}:SERIES_AVERAGE:stem`, [
-    `What is the average value of ${averageLabel} across all five categories?`,
-    `Find the mean of the five ${averageLabel} values.`,
-    `On average, what value does ${averageLabel} have per category?`,
-  ]);
+  const averageTemplates = SERIES_AVERAGE_STEMS[stimulus.contextId];
+  if (!averageTemplates) throw new Error(`DI-003 V2 has no average stem mapping for ${stimulus.contextId}.`);
+  const averageSurface = surface(`${seed}:SERIES_AVERAGE:stem`, averageTemplates(averageLabel));
 
   const [firstIndex, secondIndex] = pair(`${seed}:combined-ratio`, points.length);
   const firstCombined = points[firstIndex]!.seriesA + points[firstIndex]!.seriesB;
