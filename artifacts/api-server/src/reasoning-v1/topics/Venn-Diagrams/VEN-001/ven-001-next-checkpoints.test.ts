@@ -7,8 +7,8 @@ import {
 
 const locales = ["en", "hi", "pa"] as const;
 const families = [
-  { id: "VEN-CP001", count: 12, operation: "RELATIONS_TO_DIAGRAM" },
-  { id: "VEN-CP002", count: 20, operation: "RELATIONS_TO_DIAGRAM" },
+  { id: "VEN-CP001", count: 20, operation: "RELATIONS_TO_DIAGRAM" },
+  { id: "VEN-CP002", count: 33, operation: "RELATIONS_TO_DIAGRAM" },
   { id: "VEN-CP004", count: 21, operation: "REGION_IDENTIFICATION" },
 ] as const;
 
@@ -54,6 +54,22 @@ for (const family of families) {
       }
     }
     assert.equal(keys.size, family.count);
+    if (family.id === "VEN-CP001") {
+      const topologyCounts = new Map<string, number>();
+      for (const item of result.questions) {
+        const topology = item.semanticMetadata.topologyId as string;
+        topologyCounts.set(topology, (topologyCounts.get(topology) ?? 0) + 1);
+      }
+      for (const topology of [
+        "TWO_CONTAINMENT",
+        "TWO_DISJOINT",
+        "TWO_PARTIAL_OVERLAP",
+      ])
+        assert.ok(
+          (topologyCounts.get(topology) ?? 0) >= 5,
+          `${topology} pool is still too thin`,
+        );
+    }
     if (family.id === "VEN-CP004") {
       const representedRegions = new Set(result.questions.map((item) => item.semanticMetadata.numberedRegionAnswer));
       for (const region of ["0", "1", "2", "3", "4", "5", "6", "7"]) {
@@ -70,6 +86,13 @@ for (const family of families) {
         "THREE_NESTED_PAIR_CROSSED_BY_THIRD", "THREE_TWO_DISJOINT_OVERLAP_THIRD",
         "THREE_NESTED_PAIR_OUTER_ONLY_OVERLAP",
       ]) assert.ok(keyedTopologies.has(topology), `missing keyed topology: ${topology}`);
+      const topologyCounts = new Map<string, number>();
+      for (const item of result.questions) {
+        const topology = item.semanticMetadata.topologyId as string;
+        topologyCounts.set(topology, (topologyCounts.get(topology) ?? 0) + 1);
+      }
+      for (const [topology, count] of topologyCounts)
+        assert.ok(count >= 2, `${topology} needs at least two reviewed scenarios, found ${count}`);
       const difficultyByTopology = new Map(
         result.questions.map((item) => [
           item.semanticMetadata.topologyId,

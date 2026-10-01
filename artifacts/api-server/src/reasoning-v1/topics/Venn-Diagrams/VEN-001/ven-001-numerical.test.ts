@@ -100,6 +100,17 @@ for (let s = 0; s < 200; s++)
             q.explanation.includes("+"),
           `${cp}/none: derive the union from the supplied inclusive counts`,
         );
+      if (cp === "VEN-CP005" && meta.queryKey === "none") {
+        assert.ok(
+          q.explanation.includes("Subtract this from the surveyed total"),
+          "VEN-CP005/none must use the dedicated two-set none derivation",
+        );
+        assert.doesNotMatch(
+          q.explanation,
+          /(?:^|[.;]\s+)(?:only |none of the activities|all three activities)/,
+          "VEN-CP005 English explanation should not expose lower-case region fragments",
+        );
+      }
       if (r) {
         // Independently materialize each person by their membership rather than reuse the solver.
         const people = r.flatMap((count, mask) =>
