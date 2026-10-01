@@ -211,6 +211,37 @@ function localizeDirectionStatement(text: string, language: DsfReasoningLocalize
   return undefined;
 }
 
+function localizeRelation(value: string, language: DsfReasoningLocalizedLanguage): string {
+  const key=value.trim().toLowerCase().replace(/-type$/,"");
+  const map: Record<string,[string,string]>={
+    father:["पिता","ਪਿਤਾ"], mother:["माता","ਮਾਤਾ"], son:["पुत्र","ਪੁੱਤਰ"], daughter:["पुत्री","ਧੀ"],
+    brother:["भाई","ਭਰਾ"], sister:["बहन","ਭੈਣ"], husband:["पति","ਪਤੀ"], wife:["पत्नी","ਪਤਨੀ"],
+    parent:["माता-पिता","ਮਾਤਾ-ਪਿਤਾ"], child:["संतान","ਸੰਤਾਨ"], sibling:["भाई-बहन","ਭੈਣ-ਭਰਾ"], spouse:["जीवनसाथी","ਜੀਵਨ ਸਾਥੀ"],
+    male:["पुरुष","ਪੁਰਸ਼"], female:["महिला","ਇਸਤਰੀ"], unknown:["अज्ञात","ਅਣਜਾਣ"],
+  };
+  return map[key] ? t(language,...map[key]!) : value;
+}
+
+function localizeBloodStatement(text: string, language: DsfReasoningLocalizedLanguage): string | undefined {
+  let m:RegExpMatchArray|null;
+  m=text.match(/^([PXQ]) is the (father|mother|son|daughter|brother|sister|husband|wife) of ([PXQ])\.$/i);
+  if(m) return t(language,`${m[1]} , ${m[3]} का ${localizeRelation(m[2]!,language)} है।`,`${m[1]}, ${m[3]} ਦਾ ${localizeRelation(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^([PXQ]) is (male|female)\.$/i);
+  if(m) return t(language,`${m[1]} ${localizeRelation(m[2]!,language)} है।`,`${m[1]} ${localizeRelation(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The stated (P-X|X-Q) clue is a (parent|child|sibling|spouse)-type relation\.$/i);
+  if(m) return t(language,`दिया गया ${m[1]} संकेत ${localizeRelation(m[2]!,language)} संबंध दर्शाता है।`,`ਦਿੱਤਾ ਗਿਆ ${m[1]} ਸੰਕੇਤ ${localizeRelation(m[2]!,language)} ਸੰਬੰਧ ਦਰਸਾਉਂਦਾ ਹੈ।`);
+  m=text.match(/^The (P-X|X-Q) clue is stated with ([PXQ]) as the subject and ([PXQ]) as the reference person\.$/i);
+  if(m) return t(language,`${m[1]} संकेत में ${m[2]} मुख्य व्यक्ति और ${m[3]} संदर्भ व्यक्ति है।`,`${m[1]} ਸੰਕੇਤ ਵਿੱਚ ${m[2]} ਮੁੱਖ ਵਿਅਕਤੀ ਅਤੇ ${m[3]} ਹਵਾਲਾ ਵਿਅਕਤੀ ਹੈ।`);
+  m=text.match(/^The (P-X|X-Q) link is (a blood relation|a spouse relation)\.$/i);
+  if(m) return /blood/i.test(m[2]!)
+    ? t(language,`${m[1]} संबंध रक्त संबंध है।`,`${m[1]} ਸੰਬੰਧ ਖੂਨ ਦਾ ਰਿਸ਼ਤਾ ਹੈ।`)
+    : t(language,`${m[1]} संबंध वैवाहिक संबंध है।`,`${m[1]} ਸੰਬੰਧ ਵਿਆਹਕ ਰਿਸ਼ਤਾ ਹੈ।`);
+  // BLR source-normalized direct clues use the same compact relation sentence family.
+  m=text.match(/^([PXQ])(?: is|'s) (?:the )?(father|mother|son|daughter|brother|sister|husband|wife)(?: of)? ([PXQ])\.?$/i);
+  if(m) return t(language,`${m[1]} , ${m[3]} का ${localizeRelation(m[2]!,language)} है।`,`${m[1]}, ${m[3]} ਦਾ ${localizeRelation(m[2]!,language)} ਹੈ।`);
+  return undefined;
+}
+
 function localizeStatement(laneId: string, text: string, language: DsfReasoningLocalizedLanguage): string {
   if (laneId.includes("RANKING")) {
     const rendered=localizeRankingStatement(text,language);
@@ -218,6 +249,10 @@ function localizeStatement(laneId: string, text: string, language: DsfReasoningL
   }
   if (laneId.includes("DIRECTION")) {
     const rendered=localizeDirectionStatement(text,language);
+    if(rendered) return rendered;
+  }
+  if (laneId.includes("BLOOD")) {
+    const rendered=localizeBloodStatement(text,language);
     if(rendered) return rendered;
   }
   let s = replaceCommon(text, language);
@@ -272,14 +307,30 @@ export function localizeDsfReasoningQuestion(
   question: AnyQuestion,
   language: DsfReasoningLocalizedLanguage,
 ): AnyQuestion {
-  const statements=(question.statements ?? []).map((statement:any)=>Object.freeze({...statement,text:localizeStatement(laneId,String(statement.text ?? ""),language)}));
+  const rawStatements = Array.isArray(question.statements) && question.statements.length === 2
+    ? question.statements
+    : [
+        { id:"I", text:String(question.statementI ?? ""), statementFamily:question.statementIFamily },
+        { id:"II", text:String(question.statementII ?? ""), statementFamily:question.statementIIFamily },
+      ];
+  const statements=rawStatements.map((statement:any)=>Object.freeze({...statement,text:localizeStatement(laneId,String(statement.text ?? ""),language)}));
   const prompt=targetPrompt(laneId,question,language);
   const stem=`${scenarioLead(laneId,question,language)} ${prompt}`.trim();
-  const options=(question.options ?? []).map((option:any)=>{
-    const semantic=String(option.semanticClass ?? "");
+  const standardSemanticByIndex = [
+    "STATEMENT_I_ONLY",
+    "STATEMENT_II_ONLY",
+    "EACH_STATEMENT_ALONE",
+    "INSUFFICIENT_EVEN_TOGETHER",
+    "BOTH_TOGETHER_ONLY",
+  ] as const;
+  const options=(question.options ?? []).map((option:any,index:number)=>{
+    const record=typeof option==="object" && option!==null ? option : {};
+    const semantic=String(record.semanticClass ?? standardSemanticByIndex[index] ?? "");
     const value=OPTION_TEXT[language][semantic as keyof typeof OPTION_TEXT.hi];
     if(!value) throw new Error(`${laneId}: unsupported sufficiency semantic class '${semantic}' for ${language}`);
-    return Object.freeze({...option,value});
+    return Object.freeze(typeof option==="string"
+      ? { key:String.fromCharCode(65+index), value, semanticClass:semantic, isCorrect:index===Number(question.correctIndex) }
+      : {...option,value,semanticClass:semantic});
   });
   return Object.freeze({
     ...question,
