@@ -281,7 +281,7 @@ const FACTS: readonly Fact[] = [
     label:{en:'Gabbro',hi:'गैब्रो',pa:'ਗੈਬਰੋ'},
     stem:{
       en:'Which coarse-grained intrusive igneous rock has a mafic composition broadly similar to basalt?',
-      hi:'कौन-सी मोटे क्रिस्टलों वाली अंतर्वेधी आग्नेय शैल की मैफिक संरचना बेसाल्ट से broadly समान होती है?',
+      hi:'कौन-सी मोटे क्रिस्टलों वाली अंतर्वेधी आग्नेय शैल की मैफिक संरचना बेसाल्ट से व्यापक रूप से समान होती है?',
       pa:'ਕਿਹੜੀ ਮੋਟੇ ਕ੍ਰਿਸਟਲਾਂ ਵਾਲੀ ਅੰਦਰੂਨੀ ਆਗਨੇਯ ਚੱਟਾਨ ਦੀ ਮੈਫਿਕ ਬਣਤਰ ਬੇਸਾਲਟ ਨਾਲ ਮਿਲਦੀ-ਜੁਲਦੀ ਹੁੰਦੀ ਹੈ?'
     },
     relation:{
@@ -483,7 +483,7 @@ function timeDistractors(target:TimeFact){
   return values;
 }
 function lonDistractors(target:TimeFact){
-  const vals=[target.degrees,target.degrees+15,Math.max(15,target.degrees-15),target.degrees+30];
+  const vals=[target.degrees,target.degrees+15,target.degrees+30,target.degrees+45];
   return vals;
 }
 function makeTimeFromLongitude(target:TimeFact):WorldGeographyQuestion{
