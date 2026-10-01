@@ -109,6 +109,7 @@ export function MobileHomeManagementPage(){
   const[editingHeroId,setEditingHeroId]=useState<string|null>(null);
   const[seriesQuery,setSeriesQuery]=useState('');
   const[editingCustomSectionId,setEditingCustomSectionId]=useState<string|null>(null);
+  const[editingBuilderSectionId,setEditingBuilderSectionId]=useState<string|null>(null);
   const[draggedSectionId,setDraggedSectionId]=useState<string|null>(null);
 
   const refresh=async()=>{
@@ -163,11 +164,13 @@ export function MobileHomeManagementPage(){
   const moveSeries=(id:string,direction:-1|1)=>setConfig(previous=>previous?({...previous,featuredTestSeriesIds:moveValue(previous.featuredTestSeriesIds,id,direction)}):previous);
   const setItemOverride=(id:string,patch:Partial<ItemOverride>)=>setConfig(previous=>previous?({...previous,itemOverrides:{...previous.itemOverrides,[id]:{...(previous.itemOverrides[id]||{}),...patch}}}):previous);
   const setSectionSetting=(id:string,patch:Partial<SectionSetting>)=>setConfig(previous=>previous?({...previous,sectionSettings:{...previous.sectionSettings,[id]:{...(previous.sectionSettings[id]||{}),...patch}}}):previous);
-  const addCustomSection=()=>{
+  const addCustomSection=(layout='horizontal')=>{
     const id=`custom_${crypto.randomUUID()}`;
-    const section:CustomSection={id,title:'New section',subtitle:'',iconName:'',iconUrl:'',layout:'horizontal',isVisible:true,sortOrder:(config?.customSections.length||0)+1,cards:[]};
+    const titleByLayout:Record<string,string>={horizontal:'New card row',grid:'New grid',list:'New list',banner:'New banner'};
+    const section:CustomSection={id,title:titleByLayout[layout]||'New section',subtitle:'',iconName:'',iconUrl:'',layout,isVisible:true,sortOrder:(config?.customSections.length||0)+1,cards:[]};
     setConfig(previous=>previous?({...previous,customSections:[...previous.customSections,section],sectionOrder:[...previous.sectionOrder,id]}):previous);
     setEditingCustomSectionId(id);
+    setEditingBuilderSectionId(id);
   };
   const updateCustomSection=(id:string,patch:Partial<CustomSection>)=>setConfig(previous=>previous?({...previous,customSections:previous.customSections.map(section=>section.id===id?{...section,...patch}:section)}):previous);
   const removeCustomSection=(id:string)=>setConfig(previous=>previous?({...previous,customSections:previous.customSections.filter(section=>section.id!==id),sectionOrder:previous.sectionOrder.filter(value=>value!==id)}):previous);
@@ -269,22 +272,53 @@ export function MobileHomeManagementPage(){
 
     {config&&<div className="grid gap-4 2xl:grid-cols-[minmax(0,1fr)_390px]">
       <Card>
-        <CardHeader><CardTitle className="text-base">Visual layout builder</CardTitle><p className="text-sm text-muted-foreground">Drag sections to reorder them. Visibility and titles are edited below.</p></CardHeader>
+        <CardHeader className="flex-row items-start justify-between gap-3 space-y-0">
+          <div><CardTitle className="text-base">Visual layout builder</CardTitle><p className="mt-1 text-sm text-muted-foreground">Reorder, rename, hide or add Home content directly here.</p></div>
+          <Select onValueChange={value=>addCustomSection(value)}>
+            <SelectTrigger className="w-[170px]"><Plus className="mr-2 h-4 w-4"/><SelectValue placeholder="Add content"/></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="horizontal">Horizontal cards</SelectItem>
+              <SelectItem value="grid">Grid section</SelectItem>
+              <SelectItem value="list">List section</SelectItem>
+              <SelectItem value="banner">Banner section</SelectItem>
+            </SelectContent>
+          </Select>
+        </CardHeader>
         <CardContent className="space-y-2">
-          {config.sectionOrder.map((section,index)=><div
-            key={section}
-            draggable
-            onDragStart={()=>setDraggedSectionId(section)}
-            onDragEnd={()=>setDraggedSectionId(null)}
-            onDragOver={event=>event.preventDefault()}
-            onDrop={()=>{if(draggedSectionId)moveSectionTo(draggedSectionId,section);setDraggedSectionId(null);}}
-            className={`flex items-center gap-3 rounded-xl border bg-background px-3 py-3 transition ${draggedSectionId===section?'opacity-50':''}`}
-          >
-            <GripVertical className="h-5 w-5 cursor-grab text-muted-foreground"/>
-            <div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold">{SECTION_LABELS[section]||config.customSections.find(item=>item.id===section)?.title||section}</p><p className="text-xs text-muted-foreground">{config.sectionSettings[section]?.isVisible===false?'Hidden':'Visible'} · position {index+1}</p></div>
-            <Button size="icon" variant="ghost" onClick={()=>moveSection(index,-1)} disabled={index===0}><ArrowUp className="h-4 w-4"/></Button>
-            <Button size="icon" variant="ghost" onClick={()=>moveSection(index,1)} disabled={index===config.sectionOrder.length-1}><ArrowDown className="h-4 w-4"/></Button>
-          </div>)}
+          {config.sectionOrder.map((section,index)=>{
+            const custom=config.customSections.find(item=>item.id===section);
+            const setting=config.sectionSettings[section]||{};
+            const isVisible=custom?custom.isVisible:setting.isVisible!==false;
+            const displayTitle=custom?.title||setting.title||SECTION_LABELS[section]||section;
+            const editing=editingBuilderSectionId===section;
+            return <div
+              key={section}
+              draggable
+              onDragStart={()=>setDraggedSectionId(section)}
+              onDragEnd={()=>setDraggedSectionId(null)}
+              onDragOver={event=>event.preventDefault()}
+              onDrop={()=>{if(draggedSectionId)moveSectionTo(draggedSectionId,section);setDraggedSectionId(null);}}
+              className={`rounded-xl border bg-background transition ${draggedSectionId===section?'opacity-50':''}`}
+            >
+              <div className="flex items-center gap-2 px-3 py-3">
+                <GripVertical className="h-5 w-5 cursor-grab text-muted-foreground"/>
+                <div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold">{displayTitle}</p><p className="text-xs text-muted-foreground">{custom?`${custom.layout} content`:'Built-in content'} · position {index+1}</p></div>
+                <Switch checked={isVisible} onCheckedChange={checked=>custom?updateCustomSection(section,{isVisible:checked}):setSectionSetting(section,{isVisible:checked})} aria-label={`Toggle ${displayTitle}`}/>
+                <Button size="icon" variant={editing?'secondary':'ghost'} onClick={()=>setEditingBuilderSectionId(editing?null:section)} aria-label={`Edit ${displayTitle}`}><Pencil className="h-4 w-4"/></Button>
+                {custom&&<Button size="icon" variant="ghost" onClick={()=>duplicateCustomSection(section)} aria-label={`Duplicate ${displayTitle}`}><Copy className="h-4 w-4"/></Button>}
+                {custom&&<Button size="icon" variant="ghost" onClick={()=>removeCustomSection(section)} aria-label={`Remove ${displayTitle}`}><Trash2 className="h-4 w-4"/></Button>}
+                <Button size="icon" variant="ghost" onClick={()=>moveSection(index,-1)} disabled={index===0} aria-label="Move section up"><ArrowUp className="h-4 w-4"/></Button>
+                <Button size="icon" variant="ghost" onClick={()=>moveSection(index,1)} disabled={index===config.sectionOrder.length-1} aria-label="Move section down"><ArrowDown className="h-4 w-4"/></Button>
+              </div>
+              {editing&&<div className="grid gap-3 border-t bg-muted/20 p-3 md:grid-cols-2">
+                <Field label="Display title"><Input value={custom?custom.title:(setting.title||'')} onChange={e=>custom?updateCustomSection(section,{title:e.target.value}):setSectionSetting(section,{title:e.target.value})} placeholder={SECTION_LABELS[section]||'Section title'}/></Field>
+                {custom?<Field label="Content layout"><Select value={custom.layout} onValueChange={value=>updateCustomSection(section,{layout:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="horizontal">Horizontal cards</SelectItem><SelectItem value="grid">Grid</SelectItem><SelectItem value="list">List</SelectItem><SelectItem value="banner">Banner</SelectItem></SelectContent></Select></Field>:<div className="flex items-end"><p className="pb-2 text-xs text-muted-foreground">Built-in content keeps its native mobile layout.</p></div>}
+                <Field label="Built-in icon"><IconPicker value={custom?custom.iconName:(setting.iconName||'')} onChange={value=>custom?updateCustomSection(section,{iconName:value}):setSectionSetting(section,{iconName:value})}/></Field>
+                <Field label="Custom icon"><MediaAssetPicker value={custom?custom.iconUrl:(setting.iconUrl||'')} onChange={url=>custom?updateCustomSection(section,{iconUrl:url}):setSectionSetting(section,{iconUrl:url})} preferredType="Home Icon" label="Choose"/></Field>
+                {custom&&<div className="md:col-span-2"><Button size="sm" variant="outline" onClick={()=>{setEditingCustomSectionId(section);setEditingBuilderSectionId(null);}}><Layers3 className="mr-1.5 h-4 w-4"/>Edit cards & destinations</Button></div>}
+              </div>}
+            </div>;
+          })}
         </CardContent>
       </Card>
       <PhonePreview config={config} familyById={familyById} seriesById={seriesById}/>
@@ -394,7 +428,7 @@ export function MobileHomeManagementPage(){
     <Card>
       <CardHeader className="flex-row items-center justify-between space-y-0">
         <div><CardTitle className="flex items-center gap-2 text-base"><Layers3 className="h-4 w-4"/>Custom content sections</CardTitle><p className="mt-1 text-sm text-muted-foreground">Add homepage content areas and cards without an APK change. Each card can have its own icon, image, badge and destination.</p></div>
-        <Button variant="outline" onClick={addCustomSection}><Plus className="mr-1.5 h-4 w-4"/>Add section</Button>
+        <Button variant="outline" onClick={()=>addCustomSection()}><Plus className="mr-1.5 h-4 w-4"/>Add section</Button>
       </CardHeader>
       <CardContent className="space-y-3">
         {config?.customSections.length===0&&<div className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">No custom sections yet.</div>}
