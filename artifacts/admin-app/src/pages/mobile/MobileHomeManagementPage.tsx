@@ -428,7 +428,7 @@ export function MobileHomeManagementPage(){
     <Card>
       <CardHeader className="flex-row items-center justify-between space-y-0">
         <div><CardTitle className="flex items-center gap-2 text-base"><Layers3 className="h-4 w-4"/>Custom content sections</CardTitle><p className="mt-1 text-sm text-muted-foreground">Add homepage content areas and cards without an APK change. Each card can have its own icon, image, badge and destination.</p></div>
-        <Button variant="outline" onClick={addCustomSection}><Plus className="mr-1.5 h-4 w-4"/>Add section</Button>
+        <Button variant="outline" onClick={()=>addCustomSection()}><Plus className="mr-1.5 h-4 w-4"/>Add section</Button>
       </CardHeader>
       <CardContent className="space-y-3">
         {config?.customSections.length===0&&<div className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">No custom sections yet.</div>}
