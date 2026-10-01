@@ -38,12 +38,20 @@ import {
   DSF_CURRENT_NEXT_AVAILABLE_QL_ID,
   DSF_CURRENT_PERMANENT_QL_REGISTRY,
 } from "../foundation/current-permanent-ql-registry.ts";
+import { generateDsfCp021RankingQuestion } from "../DSF-CP-021/ranking-three-statement-batch-v1.ts";
+import { generateDsfCp022DirectionQuestion } from "../DSF-CP-022/direction-three-statement-batch-v1.ts";
+import { generateDsfCp023BloodQuestion } from "../DSF-CP-023/blood-relations-three-statement-batch-v1.ts";
+import { generateDsfCp024InequalityQuestion } from "../DSF-CP-024/inequality-three-statement-batch-v1.ts";
+import { generateDsfCp025SeatingQuestion } from "../DSF-CP-025/seating-three-statement-batch-v1.ts";
+import { generateDsfCp026CodingQuestion } from "../DSF-CP-026/coding-three-statement-batch-v1.ts";
+import { generateDsfCp027CalendarQuestion } from "../DSF-CP-027/calendar-three-statement-batch-v1.ts";
+import { localizeDsfQl002ReasoningQuestion } from "../DSF-CP-031/ql002-reasoning-localization-v1.ts";
 
 export const DSF_CP017_QUESTION_STUDIO_AUTHORITY = "DSF_CP017_NORMAL_QUESTION_STUDIO_REVIEW_V1" as const;
 export const DSF_CP017_CHECKPOINT_ID = "DSF-CP-017" as const;
 export const DSF_CP017_PACKAGE_ID = "DSF-001" as const;
-export const DSF_CP017_GENERATABLE_QL_IDS = ["DSF-QL-001"] as const;
-export const DSF_CP017_RUNTIME_DEFERRED_QL_IDS = ["DSF-QL-002"] as const;
+export const DSF_CP017_GENERATABLE_QL_IDS = ["DSF-QL-001", "DSF-QL-002"] as const;
+export const DSF_CP017_RUNTIME_DEFERRED_QL_IDS = [] as const;
 export const DSF_CP017_SUPPORTED_LANGUAGES = ["en", "hi", "pa"] as const;
 export const DSF_CP017_LEGACY_LOCALIZED_LANES = [
   "DSF-QS-LEGACY-NUMBER-SYSTEM",
@@ -107,7 +115,7 @@ export type DsfCp017Difficulty = (typeof DSF_CP017_SUPPORTED_DIFFICULTIES)[numbe
 type AnyQuestion = Readonly<Record<string, any>>;
 type LaneEntry = (typeof DSF_CP017_LANES)[number];
 
-type NormalizedStatement = Readonly<{ id: "I" | "II"; text: string }>;
+type NormalizedStatement = Readonly<{ id: "I" | "II" | "III"; text: string }>;
 type NormalizedOption = Readonly<{ label: string; text: string; isCorrect: boolean; semanticClass: string }>;
 
 export interface DsfCp017QuestionStudioInput {
@@ -131,8 +139,8 @@ export const DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   subject: "Reasoning Ability" as const,
   topic: "Reasoning" as const,
   subtopic: "Data Sufficiency" as const,
-  name: "DSF-001 Data Sufficiency — complete two-statement Question Studio breadth",
-  label: "Data Sufficiency — complete two-statement breadth",
+  name: "DSF-001 Data Sufficiency — complete Question Studio review breadth",
+  label: "Data Sufficiency — two- and three-statement review breadth",
   generationDomain: "reasoning-v1" as const,
   integrationAuthority: DSF_CP017_QUESTION_STUDIO_AUTHORITY,
   integrationCheckpointId: DSF_CP017_CHECKPOINT_ID,
@@ -164,7 +172,7 @@ export const DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   questionStudioDiscoverable: true as const,
   questionStudioGenerationEnabled: true as const,
   persistenceAllowed: true as const,
-  runtimeMode: "REVIEW_ONLY_CURRENT_TWO_STATEMENT_BREADTH" as const,
+  runtimeMode: "REVIEW_ONLY_QL001_QL002_BREADTH" as const,
   reviewStatus: "QUESTION_STUDIO_REVIEW_CONNECTED" as const,
   reviewOnly: true as const,
   manualApprovalRequired: true as const,
@@ -175,7 +183,7 @@ export const DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   mockTestEligible: false as const,
   publiclyPublishable: false as const,
   automaticStudentPublication: false as const,
-  ql002RuntimeStatus: "PERMANENT_SEMANTICS_ALLOCATED_BATCH_RUNTIME_DEFERRED" as const,
+  ql002RuntimeStatus: "QUESTION_STUDIO_REVIEW_ENABLED_REASONING_ONLY" as const,
 });
 
 function stableHash(text: string): number {
@@ -223,12 +231,7 @@ function requestedQl(input: DsfCp017QuestionStudioInput): string | undefined {
 
 function assertGeneratableQl(input: DsfCp017QuestionStudioInput): void {
   const ql = requestedQl(input);
-  if (!ql || ql === "DSF-QL-001") return;
-  if (ql === "DSF-QL-002") {
-    throw new Error(
-      "DSF-QL-002 is permanently allocated, but CP015 currently provides semantic/prototype proof rather than an exhaustively reviewed batch generator. It is intentionally not exposed for normal Question Studio generation yet.",
-    );
-  }
+  if (!ql || ql === "DSF-QL-001" || ql === "DSF-QL-002") return;
   throw new Error(`Unsupported Data Sufficiency QL '${ql}'.`);
 }
 
@@ -239,12 +242,16 @@ function laneById(value: unknown): LaneEntry | undefined {
 }
 
 function candidateLanes(input: DsfCp017QuestionStudioInput, language: "en" | "hi" | "pa"): readonly LaneEntry[] {
+  const ql = requestedQl(input) ?? "DSF-QL-001";
   const explicitLane = laneById(input.laneId) ?? laneById(input.canonicalProblemId);
   if (input.laneId && !explicitLane) throw new Error(`Unsupported Data Sufficiency lane '${input.laneId}'.`);
   if (input.canonicalProblemId && !String(input.canonicalProblemId).toUpperCase().startsWith("DSF-QL-") && !explicitLane) {
     throw new Error(`Unsupported Data Sufficiency canonical problem '${input.canonicalProblemId}'.`);
   }
   if (explicitLane) {
+    if (ql === "DSF-QL-002" && explicitLane.domainFamily !== "REASONING") {
+      throw new Error(`${explicitLane.laneId} does not support DSF-QL-002; the three-statement runtime is currently restricted to reasoning lanes.`);
+    }
     if (!laneSupportsLanguage(explicitLane, language)) {
       throw new Error(`${explicitLane.laneId} is not yet localized for '${language}'. Its current CP017 review surface remains English-only pending the Quant expansion localization pass.`);
     }
@@ -252,8 +259,8 @@ function candidateLanes(input: DsfCp017QuestionStudioInput, language: "en" | "hi
   }
 
   const checkpoint = String(input.cpId ?? "").trim().toUpperCase();
-  if (!checkpoint) return DSF_CP017_LANES.filter((lane) => laneSupportsLanguage(lane, language));
-  const lanes = DSF_CP017_LANES.filter((lane) => lane.checkpointId === checkpoint && laneSupportsLanguage(lane, language));
+  if (!checkpoint) return DSF_CP017_LANES.filter((lane) => laneSupportsLanguage(lane, language) && (ql !== "DSF-QL-002" || lane.domainFamily === "REASONING"));
+  const lanes = DSF_CP017_LANES.filter((lane) => lane.checkpointId === checkpoint && laneSupportsLanguage(lane, language) && (ql !== "DSF-QL-002" || lane.domainFamily === "REASONING"));
   if (!lanes.length) throw new Error(`Checkpoint '${checkpoint}' has no normal Data Sufficiency batch runtime.`);
   return lanes;
 }
@@ -351,6 +358,34 @@ function generateLaneQuestion(lane: LaneEntry, seed: number, language: "en" | "h
   }
 }
 
+function generateQl002LaneQuestion(lane: LaneEntry, seed: number, language: "en" | "hi" | "pa"): AnyQuestion {
+  let question: AnyQuestion;
+  switch (lane.laneId) {
+    case "DSF-QS-RANKING": question = generateDsfCp021RankingQuestion(seed) as AnyQuestion; break;
+    case "DSF-QS-DIRECTION": question = generateDsfCp022DirectionQuestion(seed) as AnyQuestion; break;
+    case "DSF-QS-BLOOD-RELATIONS": question = generateDsfCp023BloodQuestion(seed) as AnyQuestion; break;
+    case "DSF-QS-INEQUALITY": question = generateDsfCp024InequalityQuestion(seed) as AnyQuestion; break;
+    case "DSF-QS-SEATING": question = generateDsfCp025SeatingQuestion(seed) as AnyQuestion; break;
+    case "DSF-QS-CODING": question = generateDsfCp026CodingQuestion(seed) as AnyQuestion; break;
+    case "DSF-QS-CALENDAR": question = generateDsfCp027CalendarQuestion(seed) as AnyQuestion; break;
+    default: throw new Error(`${lane.laneId} does not support DSF-QL-002.`);
+  }
+  return language === "en"
+    ? question
+    : localizeDsfQl002ReasoningQuestion(lane.laneId, question, language as DsfReasoningLocalizedLanguage);
+}
+
+function generateRequestedLaneQuestion(
+  lane: LaneEntry,
+  seed: number,
+  language: "en" | "hi" | "pa",
+  qlId: "DSF-QL-001" | "DSF-QL-002",
+): AnyQuestion {
+  return qlId === "DSF-QL-002"
+    ? generateQl002LaneQuestion(lane, seed, language)
+    : generateLaneQuestion(lane, seed, language);
+}
+
 function stemOnly(stem: unknown): string {
   return String(stem ?? "").split(/\n+\s*Statement I:/u, 1)[0]!.trim();
 }
@@ -401,26 +436,27 @@ function normalQuestionId(lane: LaneEntry, question: AnyQuestion): string {
     .slice(0, 24)}`;
 }
 
-function normalizeStatements(lane: LaneEntry, question: AnyQuestion): readonly [NormalizedStatement, NormalizedStatement] {
-  if (Array.isArray(question.statements) && question.statements.length === 2) {
-    const first = question.statements[0];
-    const second = question.statements[1];
-    if (typeof first?.text === "string" && typeof second?.text === "string") {
-      return Object.freeze([
-        Object.freeze({ ...first, id: "I" as const, text: first.text.trim() }),
-        Object.freeze({ ...second, id: "II" as const, text: second.text.trim() }),
-      ] as const);
-    }
+function normalizeStatements(lane: LaneEntry, question: AnyQuestion): readonly NormalizedStatement[] {
+  const expectedCount = Number(question.statementCount ?? (Array.isArray(question.statements) ? question.statements.length : 2));
+  if (Array.isArray(question.statements) && (expectedCount === 2 || expectedCount === 3) && question.statements.length === expectedCount) {
+    const ids = expectedCount === 3 ? ["I","II","III"] as const : ["I","II"] as const;
+    const normalized = question.statements.map((statement:any,index:number) => {
+      if (typeof statement?.text !== "string" || !statement.text.trim()) {
+        throw new Error(`${lane.laneId}: statement ${index + 1} has no learner text.`);
+      }
+      return Object.freeze({ ...statement, id: ids[index]!, text: statement.text.trim() });
+    });
+    return Object.freeze(normalized);
   }
 
-  if (typeof question.statementI === "string" && typeof question.statementII === "string") {
+  if (expectedCount === 2 && typeof question.statementI === "string" && typeof question.statementII === "string") {
     return Object.freeze([
       Object.freeze({ id: "I" as const, text: question.statementI.trim() }),
       Object.freeze({ id: "II" as const, text: question.statementII.trim() }),
-    ] as const);
+    ]);
   }
 
-  throw new Error(`${lane.laneId}: source question does not expose two valid statements.`);
+  throw new Error(`${lane.laneId}: source question does not expose ${expectedCount} valid statements.`);
 }
 
 function normalizeOptions(lane: LaneEntry, question: AnyQuestion): readonly NormalizedOption[] {
@@ -472,7 +508,7 @@ function normalizeQuestion(lane: LaneEntry, question: AnyQuestion) {
   const cleanStem = examStandardStem(stemOnly(question.stem));
   if (!cleanStem) throw new Error(`${lane.laneId}: source question has an empty stem.`);
 
-  const text = `${cleanStem}\nI. ${statements[0].text}\nII. ${statements[1].text}`;
+  const text = [cleanStem, ...statements.map((statement) => `${statement.id}. ${statement.text}`)].join("\n");
   const explanation = [String(question.studioExplanationLead ?? "").trim(), explanationBody(question.explanation)]
     .filter(Boolean)
     .join("\n");
@@ -501,9 +537,9 @@ function normalizeQuestion(lane: LaneEntry, question: AnyQuestion) {
     difficultyLabel: String(question.difficulty ?? "Medium"),
     renderer: "TEXT_MATH" as const,
     packageId: DSF_CP017_PACKAGE_ID,
-    patternId: "DSF-QL-001" as const,
-    qlId: "DSF-QL-001" as const,
-    qlName: "Two-statement target determinacy",
+    patternId: String(question.qlId ?? "DSF-QL-001") as "DSF-QL-001" | "DSF-QL-002",
+    qlId: String(question.qlId ?? "DSF-QL-001") as "DSF-QL-001" | "DSF-QL-002",
+    qlName: question.qlId === "DSF-QL-002" ? "Three-statement minimal sufficiency" : "Two-statement target determinacy",
     canonicalProblemId: lane.laneId,
     laneId: lane.laneId,
     laneLabel: lane.label,
@@ -556,7 +592,7 @@ function normalizeQuestion(lane: LaneEntry, question: AnyQuestion) {
       laneId: lane.laneId,
       sourceCheckpointId,
       integrationCheckpointId: DSF_CP017_CHECKPOINT_ID,
-      qlId: "DSF-QL-001" as const,
+      qlId: String(question.qlId ?? "DSF-QL-001") as "DSF-QL-001" | "DSF-QL-002",
       sourceChapterId,
       solveMode,
       semanticClass: canonicalAnswer,
@@ -597,6 +633,7 @@ export function isDsf001NormalQuestionStudioRequest(input: DsfCp017QuestionStudi
 export function previewDsf001NormalQuestionStudioReview(input: DsfCp017QuestionStudioInput = {}) {
   const language = normalizeLanguage(input.language);
   assertGeneratableQl(input);
+  const qlId = (requestedQl(input) ?? "DSF-QL-001") as "DSF-QL-001" | "DSF-QL-002";
   const difficulty = normalizeDifficulty(input.difficulty);
   const lanes = candidateLanes(input, language);
   const count = Math.min(50, Math.max(1, Math.floor(Number(input.count ?? 5) || 5)));
@@ -611,7 +648,7 @@ export function previewDsf001NormalQuestionStudioReview(input: DsfCp017QuestionS
       const lane = lanes[stableHash(`${seedText}:lane:${itemIndex}:${attempt}`) % lanes.length]!;
       const seed = numericSeed(seedText, itemIndex, attempt);
       try {
-        const normalized = normalizeQuestion(lane, generateLaneQuestion(lane, seed, language));
+        const normalized = normalizeQuestion(lane, generateRequestedLaneQuestion(lane, seed, language, qlId));
         if (difficulty && normalized.difficulty !== difficulty) continue;
         if (seen.has(normalized.sourceGenerationIdentity)) continue;
         found = normalized;
