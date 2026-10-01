@@ -146,6 +146,14 @@ function statement(id: string, family: StatementFamily, complexity: 1 | 2 | 3, t
   return { id, family, complexity, text, test };
 }
 function signLabel(value: number): "positive" | "negative" | "zero" { return value === 0 ? "zero" : value > 0 ? "positive" : "negative"; }
+function horizontalPositionClue(value: number): string {
+  if (value === 0) return "The final point lies on the same north-south line as the starting point.";
+  return `The final point is ${Math.abs(value)} m ${value > 0 ? "east" : "west"} of the starting point.`;
+}
+function verticalPositionClue(value: number): string {
+  if (value === 0) return "The final point lies on the same east-west line as the starting point.";
+  return `The final point is ${Math.abs(value)} m ${value > 0 ? "north" : "south"} of the starting point.`;
+}
 function targetLabel(mode: DsfCp012DirectionSolveMode): string {
   switch (mode) {
     case "DSF-SM-DIR-FINAL-FACING": return "final facing direction";
@@ -174,14 +182,14 @@ function buildStatementPool(problem: DirectionProblem): readonly DirectionStatem
     statement(`D2_${a.secondDistance}`, "SECOND_DISTANCE_EXACT", 1, `The second movement is ${a.secondDistance} m.`, (w) => w.secondDistance === a.secondDistance),
     statement(`D3_${a.thirdDistance}`, "THIRD_DISTANCE_EXACT", 1, `The third movement is ${a.thirdDistance} m.`, (w) => w.thirdDistance === a.thirdDistance),
     statement(`D12_${a.firstDistance}_${a.secondDistance}`, "DISTANCE_PAIR", 2, `The first two movement lengths are ${a.firstDistance} m and ${a.secondDistance} m respectively.`, (w) => w.firstDistance === a.firstDistance && w.secondDistance === a.secondDistance),
-    statement(`X_${a.finalX}`, "FINAL_X_EXACT", 2, `The net east-west displacement is ${Math.abs(a.finalX)} m ${a.finalX === 0 ? "with no east-west shift" : a.finalX > 0 ? "to the east" : "to the west"}.`, (w) => w.finalX === a.finalX),
-    statement(`Y_${a.finalY}`, "FINAL_Y_EXACT", 2, `The net north-south displacement is ${Math.abs(a.finalY)} m ${a.finalY === 0 ? "with no north-south shift" : a.finalY > 0 ? "to the north" : "to the south"}.`, (w) => w.finalY === a.finalY),
+    statement(`X_${a.finalX}`, "FINAL_X_EXACT", 2, horizontalPositionClue(a.finalX), (w) => w.finalX === a.finalX),
+    statement(`Y_${a.finalY}`, "FINAL_Y_EXACT", 2, verticalPositionClue(a.finalY), (w) => w.finalY === a.finalY),
     statement(`XY_${a.finalX}_${a.finalY}`, "FINAL_COMPONENT_PAIR", 3, `The final point has coordinates (${a.finalX}, ${a.finalY}) when the starting point is (0, 0).`, (w) => w.finalX === a.finalX && w.finalY === a.finalY),
     statement(`FACING_${a.finalFacing}`, "FINAL_FACING_EXACT", 1, `After all movements, the person is facing ${a.finalFacing}.`, (w) => w.finalFacing === a.finalFacing),
     statement(`PATH_${a.totalPath}`, "TOTAL_PATH_EXACT", 2, `The total path length travelled is ${a.totalPath} m.`, (w) => w.totalPath === a.totalPath),
     statement(`XSIGN_${signLabel(a.finalX)}`, "FINAL_X_SIGN", 2, `The final east-west coordinate is ${signLabel(a.finalX)}.`, (w) => signLabel(w.finalX) === signLabel(a.finalX)),
     statement(`YSIGN_${signLabel(a.finalY)}`, "FINAL_Y_SIGN", 2, `The final north-south coordinate is ${signLabel(a.finalY)}.`, (w) => signLabel(w.finalY) === signLabel(a.finalY)),
-  ].filter((entry) => !["FINAL_X_EXACT", "FINAL_Y_EXACT", "FINAL_X_SIGN", "FINAL_Y_SIGN"].includes(entry.family));
+  ].filter((entry) => !["FINAL_X_SIGN", "FINAL_Y_SIGN"].includes(entry.family));
 }
 
 function pairQuality(first: DirectionStatement, second: DirectionStatement, evaluation: TwoStatementSufficiencyEvaluation<string>): number {
