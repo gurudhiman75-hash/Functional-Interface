@@ -126,6 +126,8 @@ for (const q of result.questions) {
   assert.equal(new Set(q.options).size, 4);
   assert.equal((q.validation as any).exactlyOneCorrect, true);
   assert.equal(q.reviewOnly, true);
+  assert.equal(q.reviewStatus, "USER_SIGNED_OFF_TRILINGUAL_REVIEW");
+  assert.equal((q.validation as any).localeParityPendingHumanReview, false);
   assert.equal(q.questionBankWritable, false);
   assert.equal(q.testEligible, false);
   assert.equal(

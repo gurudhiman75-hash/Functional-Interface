@@ -1357,7 +1357,7 @@ export function generateVen001NumericalBatch(
       qlId: ven001QlForOperation(item.operation),
       permanentQlId: ven001QlForOperation(item.operation),
       generationSeed: seed,
-      reviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
+      reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
       runtimeMode: "review-only",
       reviewOnly: true,
       readOnly: true,
@@ -1381,7 +1381,7 @@ export function generateVen001NumericalBatch(
       validation: {
         exactlyOneCorrect: true,
         nonnegativeRegions: item.regions?.every((n) => n >= 0) ?? true,
-        localeParityPendingHumanReview: true,
+        localeParityPendingHumanReview: false,
       },
     });
   }

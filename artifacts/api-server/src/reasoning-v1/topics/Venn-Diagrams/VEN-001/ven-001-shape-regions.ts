@@ -1326,7 +1326,7 @@ export function generateVen001ShapeRegionBatch(
       qlId: ven001QlForOperation("GEOMETRIC_REGION_COUNT"),
       permanentQlId: ven001QlForOperation("GEOMETRIC_REGION_COUNT"),
       generationSeed: seed,
-      reviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
+      reviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
       runtimeMode: "review-only",
       reviewOnly: true,
       readOnly: true,
@@ -1355,7 +1355,7 @@ export function generateVen001ShapeRegionBatch(
         allEightRegionsVisible: regions.length === 8,
         shapeLayoutHasEightRegions: true,
         labelClearancePx: 20,
-        localeParityPendingHumanReview: true,
+        localeParityPendingHumanReview: false,
       },
     };
   });

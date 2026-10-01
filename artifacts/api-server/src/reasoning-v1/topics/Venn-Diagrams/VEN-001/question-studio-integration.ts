@@ -375,8 +375,8 @@ export const VEN_001_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition =
       permanentQlAuthorityId: "VEN_001_PERMANENT_QL_REGISTRY_V1",
       permanentQlCount: VEN_001_PERMANENT_QLS.length,
       permanentQlIds: VEN_001_PERMANENT_QLS.map((entry) => entry.qlId),
-      numericalSupplementReviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
-      geometricRegionSupplementReviewStatus: "REVIEW_CANDIDATE_TRILINGUAL",
+      numericalSupplementReviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
+      geometricRegionSupplementReviewStatus: "USER_SIGNED_OFF_TRILINGUAL_REVIEW",
       supportedQuestionOperations: [
         "RELATIONS_TO_DIAGRAM",
         "CATEGORIES_TO_DIAGRAM",
