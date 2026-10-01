@@ -1,29 +1,24 @@
 -- Phone-first authentication support for canonical ExamTree student accounts.
--- Allows Firebase phone-auth users to provision before they add an email address.
+-- The canonical schema already has identity.users.phone with an active-row
+-- uniqueness index. This migration allows phone-auth users to exist before
+-- they add an email address and validates E.164 phone values.
 
 ALTER TABLE identity.users
   ALTER COLUMN email DROP NOT NULL;
-
-ALTER TABLE identity.users
-  ADD COLUMN IF NOT EXISTS phone_number text;
-
-CREATE UNIQUE INDEX IF NOT EXISTS identity_users_phone_number_unique
-  ON identity.users (phone_number)
-  WHERE phone_number IS NOT NULL;
 
 DO $$
 BEGIN
   IF NOT EXISTS (
     SELECT 1
     FROM pg_constraint
-    WHERE conname = 'identity_users_phone_number_e164'
+    WHERE conname = 'identity_users_phone_e164'
       AND conrelid = 'identity.users'::regclass
   ) THEN
     ALTER TABLE identity.users
-      ADD CONSTRAINT identity_users_phone_number_e164
+      ADD CONSTRAINT identity_users_phone_e164
       CHECK (
-        phone_number IS NULL
-        OR phone_number ~ '^\+[1-9][0-9]{7,14}$'
+        phone IS NULL
+        OR phone ~ '^\+[1-9][0-9]{7,14}$'
       )
       NOT VALID;
   END IF;
@@ -36,11 +31,11 @@ BEGIN
   ) THEN
     ALTER TABLE identity.users
       ADD CONSTRAINT identity_users_contact_required
-      CHECK (email IS NOT NULL OR phone_number IS NOT NULL)
+      CHECK (email IS NOT NULL OR phone IS NOT NULL)
       NOT VALID;
   END IF;
 END
 $$;
 
-COMMENT ON COLUMN identity.users.phone_number IS
+COMMENT ON COLUMN identity.users.phone IS
   'Verified E.164 phone number supplied by the authenticated identity provider.';
