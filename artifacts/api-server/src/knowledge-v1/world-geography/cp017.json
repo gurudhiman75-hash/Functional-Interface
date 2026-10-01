@@ -611,45 +611,46 @@
   {
     "id": "WGE-001-CP017-Q015",
     "cpId": "WGE-001-CP017",
-    "objective": "palk-strait-separation",
+    "objective": "bass-strait-separation",
     "difficulty": "Medium",
     "sourceIds": [
-      "WGE-PHY-017A",
-      "WGE-PHY-021B"
+      "WGE-PHY-021B",
+      "WGE-REG-UN-MAPS"
     ],
     "correctIndex": 1,
     "locales": {
       "en": {
-        "stem": "The Palk Strait lies between India and which island country?",
+        "stem": "Bass Strait separates mainland Australia from which island?",
         "options": [
-          "Maldives",
-          "Sri Lanka",
-          "Indonesia",
-          "Madagascar"
+          "New Guinea",
+          "Tasmania",
+          "New Zealand",
+          "Timor"
         ],
-        "explanation": "The Palk Strait lies between south-eastern India and northern Sri Lanka. The Gulf of Mannar is nearby, to its south-west."
+        "explanation": "Bass Strait lies between mainland Australia and Tasmania. It connects waters of the Indian Ocean side with the Tasman Sea region and is a major passage south of the Australian mainland."
       },
       "hi": {
-        "stem": "पाक जलडमरूमध्य भारत और किस द्वीपीय देश के बीच स्थित है?",
+        "stem": "बास जलडमरूमध्य ऑस्ट्रेलिया की मुख्य भूमि को किस द्वीप से अलग करता है?",
         "options": [
-          "मालदीव",
-          "श्रीलंका",
-          "इंडोनेशिया",
-          "मेडागास्कर"
+          "न्यू गिनी",
+          "तस्मानिया",
+          "न्यूज़ीलैंड",
+          "तिमोर"
         ],
-        "explanation": "पाक जलडमरूमध्य दक्षिण-पूर्वी भारत और उत्तरी श्रीलंका के बीच स्थित है। इसके दक्षिण-पश्चिम में मन्नार की खाड़ी है।"
+        "explanation": "बास जलडमरूमध्य ऑस्ट्रेलिया की मुख्य भूमि और तस्मानिया के बीच स्थित है। यह ऑस्ट्रेलियाई मुख्य भूमि के दक्षिण में एक महत्वपूर्ण समुद्री मार्ग है।"
       },
       "pa": {
-        "stem": "ਪਾਕ ਜਲਡਮਰੂ ਭਾਰਤ ਅਤੇ ਕਿਹੜੇ ਟਾਪੂ-ਦੇਸ਼ ਵਿਚਕਾਰ ਹੈ?",
+        "stem": "ਬਾਸ ਜਲਡਮਰੂ ਆਸਟ੍ਰੇਲੀਆ ਦੀ ਮੁੱਖ ਧਰਤੀ ਨੂੰ ਕਿਹੜੇ ਟਾਪੂ ਤੋਂ ਵੱਖ ਕਰਦਾ ਹੈ?",
         "options": [
-          "ਮਾਲਦੀਵ",
-          "ਸ੍ਰੀਲੰਕਾ",
-          "ਇੰਡੋਨੇਸ਼ੀਆ",
-          "ਮੈਡਾਗਾਸਕਰ"
+          "ਨਿਊ ਗਿਨੀ",
+          "ਤਸਮਾਨੀਆ",
+          "ਨਿਊਜ਼ੀਲੈਂਡ",
+          "ਤਿਮੋਰ"
         ],
-        "explanation": "ਪਾਕ ਜਲਡਮਰੂ ਦੱਖਣ-ਪੂਰਬੀ ਭਾਰਤ ਅਤੇ ਉੱਤਰੀ ਸ੍ਰੀਲੰਕਾ ਵਿਚਕਾਰ ਹੈ। ਇਸ ਦੇ ਦੱਖਣ-ਪੱਛਮ ਵੱਲ ਮੰਨਾਰ ਦੀ ਖਾੜੀ ਹੈ।"
+        "explanation": "ਬਾਸ ਜਲਡਮਰੂ ਆਸਟ੍ਰੇਲੀਆ ਦੀ ਮੁੱਖ ਧਰਤੀ ਅਤੇ ਤਸਮਾਨੀਆ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ। ਇਹ ਆਸਟ੍ਰੇਲੀਆਈ ਮੁੱਖ ਧਰਤੀ ਦੇ ਦੱਖਣ ਵੱਲ ਇੱਕ ਮਹੱਤਵਪੂਰਨ ਸਮੁੰਦਰੀ ਰਾਹ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP017-Q016",
