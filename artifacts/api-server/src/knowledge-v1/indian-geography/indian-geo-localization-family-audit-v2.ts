@@ -14,6 +14,9 @@ import { GEO_SOI_001_QUESTION_STUDIO_CORPUS_V1 } from "../../question-studio/eng
 import { GEO_TRN_001_QUESTION_STUDIO_CORPUS_V1 } from "../../question-studio/engines/knowledge-v1-geo-trn-001-adapter-v1";
 import { GEO_VEG_001_QUESTION_STUDIO_CORPUS_V1 } from "../../question-studio/engines/knowledge-v1-geo-veg-001-adapter-v1";
 import { GEO_WAT_001_QUESTION_STUDIO_CORPUS_V1 } from "../../question-studio/engines/knowledge-v1-geo-wat-001-adapter-v1";
+import { GEO_LAK_001_QUESTION_STUDIO_CORPUS_V1 } from "../../question-studio/engines/knowledge-v1-geo-lak-001-adapter-v1";
+import { GEO_MTP_001_QUESTION_STUDIO_CORPUS_V1 } from "../../question-studio/engines/knowledge-v1-geo-mtp-001-adapter-v1";
+import { auditGeoReferenceLocalizationV1 } from "./geo-reference-localization-v1";
 
 const PACKAGES = Object.freeze([
   ["GEO-AGR-001", GEO_AGR_001_QUESTION_STUDIO_CORPUS_V1],
@@ -33,11 +36,40 @@ const PACKAGES = Object.freeze([
   ["GEO-WAT-001", GEO_WAT_001_QUESTION_STUDIO_CORPUS_V1],
 ] as const);
 
-export function auditIndianGeoLocalizationFamilyV2() {
-  const packages = PACKAGES.map(([packageId, corpus]) => {
-    const audit = auditIndianGeoLocalizationV1(corpus, packageId);
-    return Object.freeze({ packageId, ...audit });
+
+const REFERENCE_PACKAGES = Object.freeze([
+  ["GEO-LAK-001", GEO_LAK_001_QUESTION_STUDIO_CORPUS_V1],
+  ["GEO-MTP-001", GEO_MTP_001_QUESTION_STUDIO_CORPUS_V1],
+] as const);
+
+function auditReferencePackageForFamily(packageId:string, corpus:typeof GEO_LAK_001_QUESTION_STUDIO_CORPUS_V1){
+  const audit=auditGeoReferenceLocalizationV1(corpus);
+  return Object.freeze({
+    packageId,
+    valid:audit.valid,
+    structuralValid:audit.valid,
+    qualityReadyForFreeze:audit.valid,
+    reviewRequired:!audit.valid,
+    issues:audit.issues,
+    canonicalQuestionCount:audit.canonicalQuestionCount,
+    localizedVersionCount:audit.localizedVersionCount,
+    hindiStemResidueCount:0,
+    punjabiStemResidueCount:0,
+    hindiOptionResidueCount:0,
+    punjabiOptionResidueCount:0,
+    genericExplanationFallbackCount:0,
+    mixedScriptCount:0,
   });
+}
+
+export function auditIndianGeoLocalizationFamilyV2() {
+  const packages = [
+    ...PACKAGES.map(([packageId, corpus]) => {
+      const audit = auditIndianGeoLocalizationV1(corpus, packageId);
+      return Object.freeze({ packageId, ...audit });
+    }),
+    ...REFERENCE_PACKAGES.map(([packageId, corpus]) => auditReferencePackageForFamily(packageId, corpus)),
+  ];
 
   const total = packages.reduce((acc, item) => {
     acc.canonicalQuestionCount += item.canonicalQuestionCount;
