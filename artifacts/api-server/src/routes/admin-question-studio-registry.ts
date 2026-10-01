@@ -27,7 +27,6 @@ const adminQuestionStudioSriRouter = lazyRouter(() => import("./admin-question-s
 const adminQuestionStudioEngineV1Router = lazyRouter(() => import("./admin-question-studio-engine-v1"));
 const adminQuestionStudioDataSufficiencyCurrentRouter = lazyRouter(() => import("./admin-question-studio-data-sufficiency-current"));
 const adminQuestionStudioCp014Router = lazyRouter(() => import("./admin-question-studio-cp014"));
-const adminQuestionStudioTrigonometryRouter = lazyRouter(() => import("./admin-question-studio-trigonometry"));
 const adminQuestionStudioCp013Router = lazyRouter(() => import("./admin-question-studio-cp013"));
 const adminQuestionStudioAverageRouter = lazyRouter(() => import("./admin-question-studio-average"));
 const adminQuestionStudioRegenerationRouter = lazyRouter(() => import("./admin-question-studio-regeneration"));
@@ -79,7 +78,6 @@ router.use(adminQuestionStudioSriRouter);
 router.use(adminQuestionStudioEngineV1Router);
 router.use(adminQuestionStudioDataSufficiencyCurrentRouter);
 router.use(adminQuestionStudioCp014Router);
-router.use(adminQuestionStudioTrigonometryRouter);
 router.use(adminQuestionStudioCp013Router);
 router.use(adminQuestionStudioAverageRouter);
 router.use(adminQuestionStudioRegenerationRouter);
