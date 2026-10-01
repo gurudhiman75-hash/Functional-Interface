@@ -120,5 +120,14 @@ jobs:
       - name: Run CP004 region-stem editorial audit
         run: node artifacts/api-server/dist/reasoning-v1/ven-001-region-editorial-audit.test.mjs
 
+      - name: Bundle final VEN-001 deep-audit closure proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/final-deep-audit-closure.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/ven-001-final-deep-audit-closure.test.mjs
+      - name: Run final VEN-001 deep-audit closure proof
+        run: node artifacts/api-server/dist/reasoning-v1/ven-001-final-deep-audit-closure.test.mjs
+
       - name: Check patch whitespace
         run: git diff --check
