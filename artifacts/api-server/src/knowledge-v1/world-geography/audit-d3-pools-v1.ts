@@ -95,8 +95,8 @@ const FACTS: readonly GisFact[] = [
     label: { en: 'Geocoding', hi: 'भू-कोडन', pa: 'ਭੂ-ਕੋਡਿੰਗ' },
     stem: {
       en: 'Street addresses are converted into map coordinates so that they can be plotted as points in GIS. Which process is this?',
-      hi: 'सड़क पतों को मानचित्र निर्देशांकों में बदला जाता है ताकि उन्हें GIS में बिंदुओं के रूप में दिखाया जा सके। यह कौन-सी प्रक्रिया है?',
-      pa: 'ਗਲੀ-ਪਤਿਆਂ ਨੂੰ ਨਕਸ਼ਾ ਕੋਆਰਡੀਨੇਟਾਂ ਵਿੱਚ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ ਤਾਂ ਜੋ ਉਨ੍ਹਾਂ ਨੂੰ GIS ਵਿੱਚ ਬਿੰਦੂਆਂ ਵਜੋਂ ਦਿਖਾਇਆ ਜਾ ਸਕੇ। ਇਹ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਹੈ?'
+      hi: 'सड़क पतों को मानचित्र निर्देशांकों में बदला जाता है ताकि उन्हें भौगोलिक सूचना प्रणाली में बिंदुओं के रूप में दिखाया जा सके। यह कौन-सी प्रक्रिया है?',
+      pa: 'ਗਲੀ-ਪਤਿਆਂ ਨੂੰ ਨਕਸ਼ਾ ਕੋਆਰਡੀਨੇਟਾਂ ਵਿੱਚ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ ਤਾਂ ਜੋ ਉਨ੍ਹਾਂ ਨੂੰ ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਵਿੱਚ ਬਿੰਦੂਆਂ ਵਜੋਂ ਦਿਖਾਇਆ ਜਾ ਸਕੇ। ਇਹ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਹੈ?'
     },
     relation: {
       en: 'converting address descriptions into geographic coordinates',
@@ -110,8 +110,8 @@ const FACTS: readonly GisFact[] = [
 const qlIds = ['WGE-001-CP043-QL-AUDIT-DIRECT-V1', 'WGE-001-CP043-QL-AUDIT-MATCH-V1'] as const;
 const matchStem: LocalizedValue = {
   en: 'Which GIS or remote-sensing concept is correctly matched with its description?',
-  hi: 'GIS या सुदूर-संवेदन की कौन-सी अवधारणा अपने विवरण से सही सुमेलित है?',
-  pa: 'GIS ਜਾਂ ਦੂਰ-ਸੰਵੇਦਨ ਦੀ ਕਿਹੜੀ ਧਾਰਣਾ ਆਪਣੇ ਵੇਰਵੇ ਨਾਲ ਸਹੀ ਮਿਲਾਈ ਗਈ ਹੈ?'
+  hi: 'भौगोलिक सूचना प्रणाली या सुदूर-संवेदन की कौन-सी अवधारणा अपने विवरण से सही सुमेलित है?',
+  pa: 'ਭੂਗੋਲਿਕ ਜਾਣਕਾਰੀ ਪ੍ਰਣਾਲੀ ਜਾਂ ਦੂਰ-ਸੰਵੇਦਨ ਦੀ ਕਿਹੜੀ ਧਾਰਣਾ ਆਪਣੇ ਵੇਰਵੇ ਨਾਲ ਸਹੀ ਮਿਲਾਈ ਗਈ ਹੈ?'
 };
 
 function optionFacts(target: GisFact): readonly GisFact[] {
