@@ -544,10 +544,11 @@ function explanationRegion(c: Context, mask: number, l: L) {
     members.map((i) => names[i]),
     l,
   );
+  const excluded = names.find((_, i) => !members.includes(i)) ?? names[2];
   return tx(
-    `only ${selected} (not ${names.find((_, i) => !members.includes(i)) ?? "the third activity"})`,
-    `केवल ${selected} (तीसरी गतिविधि करने वालों को छोड़कर)`,
-    `ਸਿਰਫ਼ ${selected} (ਤੀਜਾ ਕੰਮ ਕਰਨ ਵਾਲਿਆਂ ਤੋਂ ਬਿਨਾਂ)`,
+    `only ${selected} (not ${excluded})`,
+    `केवल ${selected} (${excluded} वाले समूह को छोड़कर)`,
+    `ਸਿਰਫ਼ ${selected} (${excluded} ਵਾਲੇ ਸਮੂਹ ਤੋਂ ਬਿਨਾਂ)`,
   )[l];
 }
 function derivation(c: Context, r: State, sets: 2 | 3, l: L) {
