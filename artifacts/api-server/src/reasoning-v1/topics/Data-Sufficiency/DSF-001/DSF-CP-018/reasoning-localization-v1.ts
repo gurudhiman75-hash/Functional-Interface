@@ -202,6 +202,8 @@ function localizeDirectionValue(value: string, language: DsfReasoningLocalizedLa
 
 function localizeDirectionStatement(text: string, language: DsfReasoningLocalizedLanguage): string | undefined {
   let m: RegExpMatchArray | null;
+  m=text.match(/^The final point has coordinates \((-?\d+), (-?\d+)\) when the starting point is \(0, 0\)\.$/i);
+  if(m) return t(language,`आरंभिक बिंदु को (0, 0) मानने पर अंतिम बिंदु के निर्देशांक (${m[1]}, ${m[2]}) हैं।`,`ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਨੂੰ (0, 0) ਮੰਨਣ 'ਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ਦੇ ਕੋਆਰਡੀਨੇਟ (${m[1]}, ${m[2]}) ਹਨ।`);
   m=text.match(/^The (final facing direction|final coordinates from the starting point|shortest distance from the starting point) is (.+)\.$/i);
   if(m){
     const label: Record<string,[string,string]>={
