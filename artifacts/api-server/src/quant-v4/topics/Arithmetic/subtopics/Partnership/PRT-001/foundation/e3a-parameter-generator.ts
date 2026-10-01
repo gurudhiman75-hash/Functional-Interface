@@ -57,6 +57,14 @@ export function generatePrt001E3AParameters(input: { questionLanguageId: string;
         { a0: 40_000, pct: 25, change: 4, b: 40_000 },
         { a0: 30_000, pct: 20, change: 6, b: 30_000 },
         { a0: 50_000, pct: 40, change: 3, b: 60_000 },
+        { a0: 50_000, pct: 10, change: 8, b: 45_000 },
+        { a0: 40_000, pct: 15, change: 5, b: 42_000 },
+        { a0: 50_000, pct: 30, change: 7, b: 55_000 },
+        { a0: 40_000, pct: 35, change: 9, b: 48_000 },
+        { a0: 30_000, pct: 60, change: 4, b: 36_000 },
+        { a0: 40_000, pct: 75, change: 10, b: 60_000 },
+        { a0: 50_000, pct: 80, change: 2, b: 70_000 },
+        { a0: 30_000, pct: 100, change: 11, b: 45_000 },
       ]);
       const a1 = s.a0 * (100 + s.pct) / 100;
       state = makeState([partner(partnerA, [segment(0, s.change, money(s.a0)), segment(s.change, 12, money(a1))]), partner(partnerB, [segment(0, 12, money(s.b))])], money(180_000));
