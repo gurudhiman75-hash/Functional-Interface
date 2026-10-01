@@ -10,6 +10,7 @@ declare global {
       user?: {
         id: string;
         email?: string;
+        phoneNumber?: string;
         displayName?: string;
         emailVerified?: boolean;
       };
@@ -228,6 +229,10 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
     req.user = {
       id: decodedToken.uid,
       email: decodedToken.email,
+      phoneNumber:
+        typeof decodedToken.phone_number === "string"
+          ? decodedToken.phone_number
+          : undefined,
       displayName: typeof decodedToken.name === "string" ? decodedToken.name : undefined,
       emailVerified: decodedToken.email_verified,
     };
