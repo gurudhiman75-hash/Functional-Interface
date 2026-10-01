@@ -354,9 +354,9 @@ function buildAllDrafts(seed: string, stimulus: Di002V2Stimulus): Draft[] {
 
   const hiddenRow = rows[hiddenIndex]!;
   const missingSurface = surface(`${seed}:MISSING_APPLICANTS_FROM_RATE:surface`, [
-    `The Applicants value for ${hiddenRow.label} is missing. How many candidates applied there?`,
+    `How many applicants are recorded for ${hiddenRow.label}?`,
     `For ${hiddenRow.label}, ${hiddenRow.selected} candidates were selected at a selection rate of ${hiddenRow.selectionPercent}%. Find the number of applicants.`,
-    `How many applicants are there for ${hiddenRow.label}?`,
+    `What is the number of applicants recorded for ${hiddenRow.label}?`,
   ]);
 
   const rejectedSurface = surface(`${seed}:REJECTED_COUNT:surface`, [
