@@ -9,7 +9,8 @@ const ADMIN_EMAIL = "gurbajdhiman@gmail.com";
 
 type CanonicalUserRow = {
   id: string;
-  email: string;
+  email: string | null;
+  phoneNumber: string | null;
   displayName: string;
   status: string;
   createdAt: Date | string;
@@ -31,7 +32,8 @@ function toAppUser(row: CanonicalUserRow, firebaseUid: string) {
   return {
     id: firebaseUid,
     canonicalUserId: row.id,
-    email: row.email,
+    email: row.email ?? "",
+    phoneNumber: row.phoneNumber,
     name: row.displayName,
     role: row.isAdmin ? "admin" : "student",
     status: row.status,
@@ -45,6 +47,7 @@ async function loadCanonicalUser(firebaseUid: string): Promise<CanonicalUserRow 
     SELECT
       u.id::text AS id,
       u.email,
+      u.phone_number AS "phoneNumber",
       u.display_name AS "displayName",
       u.status::text AS status,
       u.created_at AS "createdAt",
@@ -77,19 +80,28 @@ function registrationCode(userId: string): string {
 async function ensureCanonicalUser(input: {
   firebaseUid: string;
   email: string;
+  phoneNumber: string;
   displayName: string;
   emailVerified: boolean;
 }): Promise<CanonicalUserRow> {
-  const normalizedEmail = input.email.trim().toLowerCase();
-  const displayName = input.displayName.trim() || normalizedEmail.split("@")[0] || "User";
+  const normalizedEmail = input.email.trim().toLowerCase() || null;
+  const normalizedPhone = input.phoneNumber.trim() || null;
+  const phoneSuffix = normalizedPhone?.replace(/\D/g, "").slice(-4) ?? "";
+  const displayName =
+    input.displayName.trim()
+    || normalizedEmail?.split("@")[0]
+    || (phoneSuffix ? `Student ${phoneSuffix}` : "User");
   if (!input.firebaseUid) throw new Error("Firebase account does not contain a UID");
-  if (!normalizedEmail) throw new Error("Firebase account does not contain an email address");
+  if (!normalizedEmail && !normalizedPhone) {
+    throw new Error("Firebase account does not contain a verified email or phone number");
+  }
 
   await sqlClient.begin(async (tx) => {
     let rows = await tx`
       SELECT
         u.id::text AS id,
         u.email,
+        u.phone_number AS "phoneNumber",
         u.display_name AS "displayName",
         u.status::text AS status,
         u.created_at AS "createdAt",
@@ -101,7 +113,11 @@ async function ensureCanonicalUser(input: {
       WHERE u.deleted_at IS NULL
         AND (
           ai.provider_subject = ${input.firebaseUid}
-          OR (${input.emailVerified}::boolean AND lower(u.email) = ${normalizedEmail})
+          OR (
+            ${input.emailVerified}::boolean
+            AND ${normalizedEmail}::text IS NOT NULL
+            AND lower(u.email) = ${normalizedEmail}
+          )
         )
       ORDER BY (ai.provider_subject = ${input.firebaseUid}) DESC
       LIMIT 1
@@ -113,7 +129,8 @@ async function ensureCanonicalUser(input: {
       userId = String(rows[0].id);
       await tx`
         UPDATE identity.users
-        SET email = ${normalizedEmail},
+        SET email = COALESCE(${normalizedEmail}, email),
+            phone_number = COALESCE(${normalizedPhone}, phone_number),
             display_name = ${displayName},
             last_login_at = now(),
             updated_at = now()
@@ -121,8 +138,20 @@ async function ensureCanonicalUser(input: {
       `;
     } else {
       rows = await tx`
-        INSERT INTO identity.users (email, display_name, status, last_login_at)
-        VALUES (${normalizedEmail}, ${displayName}, 'active', now())
+        INSERT INTO identity.users (
+          email,
+          phone_number,
+          display_name,
+          status,
+          last_login_at
+        )
+        VALUES (
+          ${normalizedEmail},
+          ${normalizedPhone},
+          ${displayName},
+          'active',
+          now()
+        )
         RETURNING id::text AS id
       `;
       userId = String(rows[0].id);
@@ -237,6 +266,7 @@ async function ensureCanonicalUser(input: {
             provider: "firebase",
             providerSubject: input.firebaseUid,
             email: normalizedEmail,
+            phoneNumber: normalizedPhone,
             preferredLanguageCode: "en",
           })}
         )
@@ -272,10 +302,12 @@ async function ensureCanonicalUser(input: {
 async function userFromRequest(req: Parameters<typeof authenticate>[0]) {
   const firebaseUid = req.user?.id ?? "";
   const email = req.user?.email ?? "";
+  const phoneNumber = req.user?.phoneNumber ?? "";
   const displayName = req.user?.displayName ?? email.split("@")[0] ?? "User";
   const row = await ensureCanonicalUser({
     firebaseUid,
     email,
+    phoneNumber,
     displayName,
     emailVerified: req.user?.emailVerified === true,
   });
