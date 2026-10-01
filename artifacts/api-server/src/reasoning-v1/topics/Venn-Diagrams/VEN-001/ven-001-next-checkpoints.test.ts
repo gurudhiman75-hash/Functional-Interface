@@ -39,16 +39,7 @@ for (const family of families) {
       assert.equal(item.validation.exactlyOneCorrect, true);
       assert.ok(item.stem.length > 30);
       keys.add(item.candidateId);
-      if (family.id === "VEN-CP001") {
-      const topologyCounts = new Map<string, number>();
-      for (const item of result.questions) {
-        const topology = item.semanticMetadata.topologyId as string;
-        topologyCounts.set(topology, (topologyCounts.get(topology) ?? 0) + 1);
-      }
-      for (const topology of ["TWO_CONTAINMENT", "TWO_DISJOINT", "TWO_PARTIAL_OVERLAP"])
-        assert.ok((topologyCounts.get(topology) ?? 0) >= 5, `${topology} pool is still too thin`);
-    }
-    if (family.id === "VEN-CP004") {
+      if (family.id === "VEN-CP004") {
         assert.equal(item.stimulusSvgs?.length, 1);
         assert.equal(item.options.length, 4);
         assert.equal(new Set(item.options).size, 4);
@@ -63,6 +54,22 @@ for (const family of families) {
       }
     }
     assert.equal(keys.size, family.count);
+    if (family.id === "VEN-CP001") {
+      const topologyCounts = new Map<string, number>();
+      for (const item of result.questions) {
+        const topology = item.semanticMetadata.topologyId as string;
+        topologyCounts.set(topology, (topologyCounts.get(topology) ?? 0) + 1);
+      }
+      for (const topology of [
+        "TWO_CONTAINMENT",
+        "TWO_DISJOINT",
+        "TWO_PARTIAL_OVERLAP",
+      ])
+        assert.ok(
+          (topologyCounts.get(topology) ?? 0) >= 5,
+          `${topology} pool is still too thin`,
+        );
+    }
     if (family.id === "VEN-CP004") {
       const representedRegions = new Set(result.questions.map((item) => item.semanticMetadata.numberedRegionAnswer));
       for (const region of ["0", "1", "2", "3", "4", "5", "6", "7"]) {
