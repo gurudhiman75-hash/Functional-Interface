@@ -53,3 +53,6 @@ This spot check supports keeping data-set directions in the chart/table presenta
 ## Audit boundary
 
 The wording checks and answerability checks cover deterministic source samples; the external comparison above is a limited spot check rather than a representative bank-wide comparison. Revised DI-004 single-/three-series and DI-011–DI-014 Hindi/Punjabi surfaces remain review candidates and require another review before freeze.
+
+
+The current English full-batch review caught a remaining DI-009 stem that instructed learners to use class marks or class midpoints. All grouped-mean variants now ask directly for an approximate mean; the calculation method remains in the explanation. The same review exposed a stiff DI-008 mixture phrase (“pure component amount”); mixture questions now refer naturally to the amount of pure component, including grouped ratios. Seeded tests guard both wording rules.
