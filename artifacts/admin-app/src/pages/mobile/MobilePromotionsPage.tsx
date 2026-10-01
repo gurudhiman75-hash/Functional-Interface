@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Megaphone, Plus, RefreshCw, Save } from 'lucide-react';
+import { Megaphone, Plus, RefreshCw, Save, Trash2 } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -14,12 +15,16 @@ import { getFirebaseAuth } from '@/integrations/firebase';
 
 const apiBase=((import.meta.env.VITE_API_URL as string|undefined)?.trim()||'/api').replace(/\/$/,'');
 
+type Audience={languageCodes?:string[];examIds?:string[]};
 type Promotion={
   id:string;title:string;subtitle:string;imageUrl:string;placement:string;destinationType:string;destinationValue:string;
-  campaignKind:string;isDismissible:boolean;frequencyCapPerDay:number|null;audience:Record<string,unknown>;isActive:boolean;
+  campaignKind:string;isDismissible:boolean;frequencyCapPerDay:number|null;audience:Audience;isActive:boolean;
   startAt:string|null;endAt:string|null;sortOrder:number;createdAt?:string;updatedAt?:string;
 };
-type Data={promotions:Promotion[]};
+type Exam={id:string;code:string;name:string;familyName:string};
+type Data={promotions:Promotion[];catalog?:{exams?:Exam[]}};
+
+const LANGUAGES=[{code:'en',label:'English'},{code:'hi',label:'Hindi'},{code:'pa',label:'Punjabi'}];
 
 function localDateTime(value:string|null){
   if(!value)return '';
@@ -28,7 +33,8 @@ function localDateTime(value:string|null){
   return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 function isoOrNull(value:string){return value?new Date(value).toISOString():null;}
-function blank():Promotion{return{id:'',title:'',subtitle:'',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,audience:{},isActive:true,startAt:null,endAt:null,sortOrder:1};}
+function blank():Promotion{return{id:'',title:'',subtitle:'',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,audience:{languageCodes:[],examIds:[]},isActive:true,startAt:null,endAt:null,sortOrder:1};}
+function audienceOf(value:Audience|undefined):Required<Audience>{return{languageCodes:Array.isArray(value?.languageCodes)?value!.languageCodes!:[],examIds:Array.isArray(value?.examIds)?value!.examIds!:[]};}
 
 async function call<T>(path:string,init?:RequestInit):Promise<T>{
   const user=getFirebaseAuth()?.currentUser;if(!user)throw new Error('Your administrator session has expired.');
@@ -41,11 +47,13 @@ async function call<T>(path:string,init?:RequestInit):Promise<T>{
 
 export function MobilePromotionsPage(){
   const[items,setItems]=useState<Promotion[]>([]);
+  const[exams,setExams]=useState<Exam[]>([]);
+  const[examQuery,setExamQuery]=useState('');
   const[loading,setLoading]=useState(true);
   const[editing,setEditing]=useState<Promotion|null>(null);
   const[saving,setSaving]=useState(false);
 
-  const refresh=async()=>{setLoading(true);try{const data=await call<Data>('/admin/mobile/promotions');setItems(data.promotions);}catch(error){showToast.error('Unable to load promotions',error instanceof Error?error.message:'Request failed.');}finally{setLoading(false);}};
+  const refresh=async()=>{setLoading(true);try{const data=await call<Data>('/admin/mobile/promotions');setItems(data.promotions.map(item=>({...item,audience:audienceOf(item.audience)})));setExams(data.catalog?.exams||[]);}catch(error){showToast.error('Unable to load promotions',error instanceof Error?error.message:'Request failed.');}finally{setLoading(false);}};
   useEffect(()=>{void refresh();},[]);
 
   const save=async()=>{
