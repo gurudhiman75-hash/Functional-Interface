@@ -70,9 +70,9 @@ const CONTEXTS: readonly CodingContext[] = [
     id: "CODE_LANGUAGE",
     symbols: ["A", "B", "C", "D"],
     intros: [
-      "In a certain code language, four source symbols are assigned digit codes.",
+      "In a certain code language, four letters are assigned digit codes.",
       "A four-symbol code language uses four different digit codes.",
-      "Consider a one-to-one digit code for four source symbols.",
+      "Consider a one-to-one digit code for four letters.",
       "Four symbols in a code language receive distinct digit codes.",
     ],
   },
@@ -336,8 +336,8 @@ function targetPrompt(problem: CodingProblem): string {
   const [first, second] = problem.context.symbols;
   switch (problem.solveMode) {
     case "DSF-SM-COD-ENCODE-FIRST-SYMBOL": return `What is the digit code of ${first}?`;
-    case "DSF-SM-COD-DECODE-DIGIT-1": return "Which source symbol is represented by digit 1?";
-    case "DSF-SM-COD-ENCODE-FIRST-TWO": return `How is the two-symbol sequence ${first}${second} coded?`;
+    case "DSF-SM-COD-DECODE-DIGIT-1": return "Which letter is represented by digit 1?";
+    case "DSF-SM-COD-ENCODE-FIRST-TWO": return `How is ${first}${second} coded?`;
   }
 }
 
@@ -345,7 +345,7 @@ function targetLabel(problem: CodingProblem): string {
   const [first, second] = problem.context.symbols;
   switch (problem.solveMode) {
     case "DSF-SM-COD-ENCODE-FIRST-SYMBOL": return `the exact digit assigned to ${first}`;
-    case "DSF-SM-COD-DECODE-DIGIT-1": return "the exact source symbol assigned digit 1";
+    case "DSF-SM-COD-DECODE-DIGIT-1": return "the letter represented by digit 1";
     case "DSF-SM-COD-ENCODE-FIRST-TWO": return `the exact two-digit code of ${first}${second}`;
   }
 }
