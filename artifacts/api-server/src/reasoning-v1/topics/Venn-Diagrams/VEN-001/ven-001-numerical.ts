@@ -915,9 +915,9 @@ export function buildNumericalItem(
         const ratioWork =
           common === 1
             ? tx(
-                `The ratio ${x}:${y} is already in simplest form.`,
-                `${x}:${y} का अनुपात पहले से सरल रूप में है।`,
-                `${x}:${y} ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ।`,
+                `The ratio ${x}:${y} is already in simplest form. Therefore, the ratio is ${answer}.`,
+                `${x}:${y} का अनुपात पहले से सरल रूप में है। अतः अनुपात ${answer}.`,
+                `${x}:${y} ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ। ਇਸ ਲਈ ਅਨੁਪਾਤ ${answer}.`,
               )[l]
             : tx(
                 `Divide both terms by their highest common factor ${common}: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}.`,
@@ -937,9 +937,9 @@ export function buildNumericalItem(
         const ratioWork =
           common === 1
             ? tx(
-                `The ratio ${x}:${y} is already in simplest form.`,
-                `${x}:${y} का अनुपात पहले से सरल रूप में है।`,
-                `${x}:${y} ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ।`,
+                `The ratio ${x}:${y} is already in simplest form. Therefore, the ratio is ${answer}.`,
+                `${x}:${y} का अनुपात पहले से सरल रूप में है। अतः अनुपात ${answer}.`,
+                `${x}:${y} ਦਾ ਅਨੁਪਾਤ ਪਹਿਲਾਂ ਹੀ ਸਰਲ ਰੂਪ ਵਿੱਚ ਹੈ। ਇਸ ਲਈ ਅਨੁਪਾਤ ${answer}.`,
               )[l]
             : tx(
                 `Divide both terms by their highest common factor ${common}: ${x} ÷ ${common} : ${y} ÷ ${common} = ${answer}.`,
