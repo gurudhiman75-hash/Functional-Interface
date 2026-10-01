@@ -1,0 +1,53 @@
+name: Validate PRT-001 Systematic Audit V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/**"
+
+concurrency:
+  group: prt-001-systematic-audit-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle PRT-001 systematic audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001-systematic-audit-v1.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/.prt-001-systematic-audit-v1.mjs
+
+      - name: Run full PRT-001 trilingual chapter audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/.prt-001-systematic-audit-v1.mjs \
+            2>&1 | tee -a prt-001-systematic-audit-v1.log
+          grep -q "PASS_PRT_001_SYSTEMATIC_AUDIT_V1_CORE_INTEGRITY" prt-001-systematic-audit-v1.log
+
+      - name: Upload PRT-001 audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prt-001-systematic-audit-v1
+          path: prt-001-systematic-audit-v1.log

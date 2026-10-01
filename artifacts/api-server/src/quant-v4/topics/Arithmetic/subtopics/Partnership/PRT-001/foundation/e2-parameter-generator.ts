@@ -122,6 +122,14 @@ export function generatePrt001E2Parameters(input: {
         { a: 24_000, da: 9, b: 36_000, db: 6 },
         { a: 30_000, da: 8, b: 40_000, db: 12 },
         { a: 35_000, da: 6, b: 28_000, db: 10 },
+        { a: 42_000, da: 10, b: 30_000, db: 6 },
+        { a: 45_000, da: 8, b: 30_000, db: 12 },
+        { a: 28_000, da: 12, b: 49_000, db: 8 },
+        { a: 32_000, da: 9, b: 48_000, db: 12 },
+        { a: 54_000, da: 10, b: 36_000, db: 9 },
+        { a: 25_000, da: 12, b: 40_000, db: 5 },
+        { a: 48_000, da: 7, b: 42_000, db: 8 },
+        { a: 63_000, da: 8, b: 45_000, db: 10 },
       ]);
       state = makeState([
         partner(partnerA, [segment(0, s.da, money(s.a))]),
