@@ -84,6 +84,7 @@ export interface GenerationPackage {
   label: string;
   enabled: boolean;
   cpIds: string[];
+  cpLabels?: Record<string, string>;
   supportedLanguages: string[];
   supportedDifficulties?: string[];
   difficultyFilterSupported?: boolean;

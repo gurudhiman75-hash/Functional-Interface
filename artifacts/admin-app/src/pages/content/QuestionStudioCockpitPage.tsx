@@ -90,6 +90,11 @@ function packageCpIds(entry: GenerationPackage) {
   return [...new Set([...(entry.cpIds ?? []), ...(entry.dynamicCandidateCpIds ?? [])])];
 }
 
+function cpDisplayLabel(entry: GenerationPackage, cpId: string) {
+  const label = entry.cpLabels?.[cpId]?.trim();
+  return label && label !== cpId ? label : '';
+}
+
 function sortSubjects(values: string[]) {
   return [...values].sort((left, right) => {
     const leftRank = SUBJECT_ORDER.indexOf(left);
@@ -599,7 +604,14 @@ export function QuestionStudioCockpitPage() {
                           return next;
                         })}
                       />
-                      <span className="font-mono">{cpId}</span>
+                      <span className="min-w-0">
+                        <span className="block font-mono">{cpId}</span>
+                        {cpDisplayLabel(activePackage, cpId) && (
+                          <span className="mt-0.5 block truncate text-[10px] text-muted-foreground">
+                            {cpDisplayLabel(activePackage, cpId)}
+                          </span>
+                        )}
+                      </span>
                     </label>
                   );
                 })}
