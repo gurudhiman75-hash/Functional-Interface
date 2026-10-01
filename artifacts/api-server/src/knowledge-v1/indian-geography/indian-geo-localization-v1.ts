@@ -969,6 +969,135 @@ function polishGeoTrnBulkTextV1(text:string, language:"hi"|"pa") {
   return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
 }
 
+
+function polishGeoVegBulkTextV1(text:string, language:"hi"|"pa") {
+  const hi:[string,string][] = [
+    ["natural vegetation","प्राकृतिक वनस्पति"],["virgin vegetation","अक्षत प्राकृतिक वनस्पति"],["cultivated vegetation","कृषित वनस्पति"],
+    ["flora","वनस्पति-जगत"],["fauna","जीव-जगत"],["indigenous","देशज"],["endemic","स्थानिक"],["exotic","विदेशी"],
+    ["relief","स्थलरूप"],["land controls","स्थलीय नियंत्रण"],["soil controls","मृदा नियंत्रण"],["photoperiod","प्रकाश-अवधि"],
+    ["precipitation","वर्षण"],["rainfall","वर्षा"],["temperature","तापमान"],["climate","जलवायु"],["moisture","नमी"],
+    ["tropical evergreen forest","उष्णकटिबंधीय सदाबहार वन"],["tropical evergreen forests","उष्णकटिबंधीय सदाबहार वन"],
+    ["evergreen forest","सदाबहार वन"],["evergreen forests","सदाबहार वन"],["semi-evergreen forest","अर्ध-सदाबहार वन"],["semi-evergreen forests","अर्ध-सदाबहार वन"],
+    ["tropical deciduous forest","उष्णकटिबंधीय पर्णपाती वन"],["tropical deciduous forests","उष्णकटिबंधीय पर्णपाती वन"],
+    ["moist deciduous forest","आर्द्र पर्णपाती वन"],["moist deciduous forests","आर्द्र पर्णपाती वन"],
+    ["dry deciduous forest","शुष्क पर्णपाती वन"],["dry deciduous forests","शुष्क पर्णपाती वन"],
+    ["thorn forest","कांटेदार वन"],["thorn forests","कांटेदार वन"],["thorn and scrub","कांटेदार एवं झाड़ीदार वनस्पति"],["scrub","झाड़ीदार वनस्पति"],
+    ["montane vegetation","पर्वतीय वनस्पति"],["montane forest","पर्वतीय वन"],["montane forests","पर्वतीय वन"],
+    ["wet temperate broadleaf forests","आर्द्र शीतोष्ण चौड़ी-पत्ती वन"],["temperate conifer forests","शीतोष्ण शंकुधारी वन"],
+    ["conifer forests","शंकुधारी वन"],["alpine vegetation","अल्पाइन वनस्पति"],["alpine meadows","अल्पाइन घासभूमियाँ"],
+    ["tree line","वृक्ष-रेखा"],["mosses","काई"],["lichens","लाइकेन"],["moss","काई"],["lichen","लाइकेन"],
+    ["mangrove vegetation","मैंग्रोव वनस्पति"],["mangrove forest","मैंग्रोव वन"],["mangrove forests","मैंग्रोव वन"],["mangroves","मैंग्रोव"],
+    ["tidal forest","ज्वारीय वन"],["tidal forests","ज्वारीय वन"],["tidal","ज्वारीय"],["waterlogging","जलभराव"],["salinity","लवणता"],
+    ["pneumatophores","श्वसन-मूल"],["stilt roots","सहारा-जड़ें"],["Sundari","सुंदरी"],["Sundarbans","सुंदरबन"],
+    ["Western Ghats","पश्चिमी घाट"],["Northeast India","पूर्वोत्तर भारत"],["Andaman and Nicobar","अंडमान और निकोबार"],
+    ["east-coast deltas","पूर्वी तटीय डेल्टा"],["coastal mangroves","तटीय मैंग्रोव"],["central India","मध्य भारत"],["western India","पश्चिमी भारत"],
+    ["Himalayan","हिमालयी"],["Himalayas","हिमालय"],["windward","पवनाभिमुख"],["leeward","वर्षाछाया-पक्ष"],
+    ["forest structure","वन संरचना"],["forest type","वन प्रकार"],["forest types","वन प्रकार"],["forest cover","वन आवरण"],
+    ["species","प्रजातियाँ"],["species identification","प्रजाति पहचान"],["characteristic species","विशिष्ट प्रजातियाँ"],
+    ["ebony","आबनूस"],["mahogany","महोगनी"],["rosewood","शीशम"],["rubber","रबर"],["cinchona","सिनकोना"],
+    ["teak","सागौन"],["sal","साल"],["shisham","शीशम"],["sandalwood","चंदन"],["khair","खैर"],["palas","पलाश"],
+    ["acacia","अकेशिया"],["babool","बबूल"],["cactus","कैक्टस"],["date palm","खजूर"],["deodar","देवदार"],["fir","फर"],["spruce","स्प्रूस"],["pine","चीड़"],
+    ["oak","ओक"],["chestnut","चेस्टनट"],["birch","भोजपत्र"],["juniper","जूनिपर"],["rhododendron","बुरांश"],
+    ["wildlife","वन्यजीव"],["habitat","आवास"],["habitats","आवास"],["grassland","घासभूमि"],["grasslands","घासभूमियाँ"],
+    ["swampy grasslands","दलदली घासभूमियाँ"],["wetland","आर्द्रभूमि"],["wetlands","आर्द्रभूमियाँ"],["riverine","नदीतटीय"],
+    ["Asiatic lion","एशियाई सिंह"],["Gir","गिर"],["one-horned rhinoceros","एक-सींग वाला गैंडा"],["rhinoceros","गैंडा"],
+    ["Asian elephant","एशियाई हाथी"],["elephant","हाथी"],["tiger","बाघ"],["camel","ऊँट"],["wild ass","जंगली गधा"],["blackbuck","काला हिरण"],
+    ["snow leopard","हिम तेंदुआ"],["yak","याक"],["musk deer","कस्तूरी मृग"],["hangul","हंगुल"],["barasingha","बारहसिंगा"],
+    ["gharial","घड़ियाल"],["crocodile","मगरमच्छ"],["reptiles","सरीसृप"],["herbivores","शाकाहारी जीव"],
+    ["biodiversity","जैव विविधता"],["genetic diversity","आनुवंशिक विविधता"],["species diversity","प्रजातीय विविधता"],["ecosystem diversity","पारिस्थितिकी तंत्र विविधता"],
+    ["habitat loss","आवास हानि"],["biodiversity threats","जैव विविधता के खतरे"],["conservation","संरक्षण"],["biodiversity conservation","जैव विविधता संरक्षण"],
+    ["in-situ conservation","स्थल-स्थित संरक्षण"],["ex-situ conservation","बाह्य-स्थल संरक्षण"],["protected area","संरक्षित क्षेत्र"],["protected areas","संरक्षित क्षेत्र"],
+    ["national park","राष्ट्रीय उद्यान"],["national parks","राष्ट्रीय उद्यान"],["wildlife sanctuary","वन्यजीव अभयारण्य"],["wildlife sanctuaries","वन्यजीव अभयारण्य"],
+    ["biosphere reserve","जैवमंडल आरक्षित क्षेत्र"],["biosphere reserves","जैवमंडल आरक्षित क्षेत्र"],["zoo","चिड़ियाघर"],["botanical garden","वनस्पति उद्यान"],
+    ["seed bank","बीज बैंक"],["endangered","संकटग्रस्त"],["extinct","विलुप्त"],["vulnerable","असुरक्षित"],["rare","दुर्लभ"],
+    ["community participation","समुदाय की भागीदारी"],["habitat restoration","आवास पुनर्स्थापन"],["restoration","पुनर्स्थापन"],
+    ["forest conservation","वन संरक्षण"],["poaching","अवैध शिकार"],["deforestation","वनों की कटाई"],["fragmentation","खंडीकरण"],
+    ["rainfall gradient","वर्षा प्रवणता"],["moisture gradient","नमी प्रवणता"],["altitude","ऊँचाई"],["high altitude","अधिक ऊँचाई"],
+    ["comparison","तुलना"],["identification","पहचान"],["distribution","वितरण"],["adaptation","अनुकूलन"],["adaptations","अनुकूलन"],
+    ["broad leaves","चौड़ी पत्तियाँ"],["small leaves","छोटी पत्तियाँ"],["thorns","कांटे"],["deep roots","गहरी जड़ें"],["thick bark","मोटी छाल"],
+    ["dense canopy","घना छत्र"],["multi-layered","बहु-स्तरीय"],["leaf fall","पर्णपात"],["dry season","शुष्क ऋतु"],["wet season","आर्द्र ऋतु"],
+    ["hot wet forests","उष्ण आर्द्र वन"],["open forest","खुले वन"],["open forests","खुले वन"],["mixed forest","मिश्रित वन"],["mixed forests","मिश्रित वन"],
+    ["animal and habitat","जीव और आवास"],["forest and region","वन और क्षेत्र"],["species and forest","प्रजाति और वन"],
+    ["Which","कौन-सा"],["which","कौन-सा"],["What","क्या"],["what","क्या"],["Why","क्यों"],["why","क्यों"],["Where","कहाँ"],["where","कहाँ"],["When","कब"],["when","कब"],["How","कैसे"],["how","कैसे"],
+    ["the",""],["and","और"],["or","या"],["is","है"],["are","हैं"],["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],["can","सकता है"],["could","सकता था"],["would","होगा"],["should","चाहिए"],["has","है"],["have","हैं"],["had","था"],
+    ["with","के साथ"],["from","से"],["into","में"],["for","के लिए"],["of","का"],["to","को"],["in","में"],["on","पर"],["at","पर"],["by","द्वारा"],["as","के रूप में"],["than","की तुलना में"],["that","कि"],["this","यह"],["these","ये"],["those","वे"],
+    ["most","सबसे"],["main","मुख्य"],["major","प्रमुख"],["only","केवल"],["correct","सही"],["statement","कथन"],["following","निम्नलिखित"]
+  ];
+  const pa:[string,string][] = [
+    ["natural vegetation","ਕੁਦਰਤੀ ਬਨਸਪਤੀ"],["virgin vegetation","ਅਛੁਤੀ ਕੁਦਰਤੀ ਬਨਸਪਤੀ"],["cultivated vegetation","ਖੇਤੀ ਕੀਤੀ ਬਨਸਪਤੀ"],
+    ["flora","ਬਨਸਪਤੀ-ਜਗਤ"],["fauna","ਜੀਵ-ਜਗਤ"],["indigenous","ਦੇਸੀ"],["endemic","ਸਥਾਨਕ"],["exotic","ਵਿਦੇਸ਼ੀ"],
+    ["relief","ਭੂ-ਆਕ੍ਰਿਤੀ"],["land controls","ਭੂਮੀ ਨਿਯੰਤਰਣ"],["soil controls","ਮਿੱਟੀ ਨਿਯੰਤਰਣ"],["photoperiod","ਪ੍ਰਕਾਸ਼-ਅਵਧੀ"],
+    ["precipitation","ਵਰਖਾ"],["rainfall","ਵਰਖਾ"],["temperature","ਤਾਪਮਾਨ"],["climate","ਜਲਵਾਯੂ"],["moisture","ਨਮੀ"],
+    ["tropical evergreen forest","ਉਸ਼ਣਕਟੀਬੰਧੀ ਸਦਾਬਹਾਰ ਜੰਗਲ"],["tropical evergreen forests","ਉਸ਼ਣਕਟੀਬੰਧੀ ਸਦਾਬਹਾਰ ਜੰਗਲ"],
+    ["evergreen forest","ਸਦਾਬਹਾਰ ਜੰਗਲ"],["evergreen forests","ਸਦਾਬਹਾਰ ਜੰਗਲ"],["semi-evergreen forest","ਅਰਧ-ਸਦਾਬਹਾਰ ਜੰਗਲ"],["semi-evergreen forests","ਅਰਧ-ਸਦਾਬਹਾਰ ਜੰਗਲ"],
+    ["tropical deciduous forest","ਉਸ਼ਣਕਟੀਬੰਧੀ ਪੱਤਝੜ ਜੰਗਲ"],["tropical deciduous forests","ਉਸ਼ਣਕਟੀਬੰਧੀ ਪੱਤਝੜ ਜੰਗਲ"],
+    ["moist deciduous forest","ਨਮੀ ਵਾਲੇ ਪੱਤਝੜ ਜੰਗਲ"],["moist deciduous forests","ਨਮੀ ਵਾਲੇ ਪੱਤਝੜ ਜੰਗਲ"],
+    ["dry deciduous forest","ਸੁੱਕੇ ਪੱਤਝੜ ਜੰਗਲ"],["dry deciduous forests","ਸੁੱਕੇ ਪੱਤਝੜ ਜੰਗਲ"],
+    ["thorn forest","ਕਾਂਟੇਦਾਰ ਜੰਗਲ"],["thorn forests","ਕਾਂਟੇਦਾਰ ਜੰਗਲ"],["thorn and scrub","ਕਾਂਟੇਦਾਰ ਅਤੇ ਝਾੜੀਦਾਰ ਬਨਸਪਤੀ"],["scrub","ਝਾੜੀਦਾਰ ਬਨਸਪਤੀ"],
+    ["montane vegetation","ਪਹਾੜੀ ਬਨਸਪਤੀ"],["montane forest","ਪਹਾੜੀ ਜੰਗਲ"],["montane forests","ਪਹਾੜੀ ਜੰਗਲ"],
+    ["wet temperate broadleaf forests","ਨਮੀ ਵਾਲੇ ਸਮਸ਼ੀਤੋਸ਼ਣ ਚੌੜੇ-ਪੱਤੇ ਜੰਗਲ"],["temperate conifer forests","ਸਮਸ਼ੀਤੋਸ਼ਣ ਸ਼ੰਕੂਧਾਰੀ ਜੰਗਲ"],
+    ["conifer forests","ਸ਼ੰਕੂਧਾਰੀ ਜੰਗਲ"],["alpine vegetation","ਅਲਪਾਈਨ ਬਨਸਪਤੀ"],["alpine meadows","ਅਲਪਾਈਨ ਘਾਹ-ਮੈਦਾਨ"],
+    ["tree line","ਰੁੱਖ-ਰੇਖਾ"],["mosses","ਕਾਈ"],["lichens","ਲਾਈਕਨ"],["moss","ਕਾਈ"],["lichen","ਲਾਈਕਨ"],
+    ["mangrove vegetation","ਮੈਂਗਰੋਵ ਬਨਸਪਤੀ"],["mangrove forest","ਮੈਂਗਰੋਵ ਜੰਗਲ"],["mangrove forests","ਮੈਂਗਰੋਵ ਜੰਗਲ"],["mangroves","ਮੈਂਗਰੋਵ"],
+    ["tidal forest","ਜਵਾਰੀ ਜੰਗਲ"],["tidal forests","ਜਵਾਰੀ ਜੰਗਲ"],["tidal","ਜਵਾਰੀ"],["waterlogging","ਜਲਭਰਾਅ"],["salinity","ਲੂਣਾਪਣ"],
+    ["pneumatophores","ਸਾਹ-ਜੜਾਂ"],["stilt roots","ਸਹਾਰਾ-ਜੜਾਂ"],["Sundari","ਸੁੰਦਰੀ"],["Sundarbans","ਸੁੰਦਰਬਨ"],
+    ["Western Ghats","ਪੱਛਮੀ ਘਾਟ"],["Northeast India","ਉੱਤਰ-ਪੂਰਬੀ ਭਾਰਤ"],["Andaman and Nicobar","ਅੰਡਮਾਨ ਅਤੇ ਨਿਕੋਬਾਰ"],
+    ["east-coast deltas","ਪੂਰਬੀ ਤਟੀ ਡੈਲਟੇ"],["coastal mangroves","ਤਟੀ ਮੈਂਗਰੋਵ"],["central India","ਮੱਧ ਭਾਰਤ"],["western India","ਪੱਛਮੀ ਭਾਰਤ"],
+    ["Himalayan","ਹਿਮਾਲਈ"],["Himalayas","ਹਿਮਾਲਿਆ"],["windward","ਪਵਨ-ਮੁਖੀ"],["leeward","ਵਰਖਾ-ਛਾਂ ਪਾਸਾ"],
+    ["forest structure","ਜੰਗਲ ਬਣਤਰ"],["forest type","ਜੰਗਲ ਕਿਸਮ"],["forest types","ਜੰਗਲ ਕਿਸਮਾਂ"],["forest cover","ਜੰਗਲ ਆਵਰਨ"],
+    ["species","ਪ੍ਰਜਾਤੀਆਂ"],["species identification","ਪ੍ਰਜਾਤੀ ਪਛਾਣ"],["characteristic species","ਖਾਸ ਪ੍ਰਜਾਤੀਆਂ"],
+    ["ebony","ਆਬਨੂਸ"],["mahogany","ਮਹੋਗਨੀ"],["rosewood","ਸ਼ੀਸ਼ਮ"],["rubber","ਰਬਰ"],["cinchona","ਸਿਨਕੋਨਾ"],
+    ["teak","ਸਾਗਵਾਨ"],["sal","ਸਾਲ"],["shisham","ਸ਼ੀਸ਼ਮ"],["sandalwood","ਚੰਦਨ"],["khair","ਖੈਰ"],["palas","ਪਲਾਸ਼"],
+    ["acacia","ਅਕੇਸ਼ੀਆ"],["babool","ਬਬੂਲ"],["cactus","ਕੈਕਟਸ"],["date palm","ਖਜੂਰ"],["deodar","ਦੇਵਦਾਰ"],["fir","ਫਰ"],["spruce","ਸਪ੍ਰੂਸ"],["pine","ਚੀੜ"],
+    ["oak","ਓਕ"],["chestnut","ਚੈਸਟਨਟ"],["birch","ਭੋਜਪੱਤਰ"],["juniper","ਜੂਨੀਪਰ"],["rhododendron","ਬੁਰਾਂਸ਼"],
+    ["wildlife","ਜੰਗਲੀ ਜੀਵ"],["habitat","ਆਵਾਸ"],["habitats","ਆਵਾਸ"],["grassland","ਘਾਹ-ਮੈਦਾਨ"],["grasslands","ਘਾਹ-ਮੈਦਾਨ"],["swampy grasslands","ਦਲਦਲੀ ਘਾਹ-ਮੈਦਾਨ"],
+    ["wetland","ਆਰਦ੍ਰਭੂਮੀ"],["wetlands","ਆਰਦ੍ਰਭੂਮੀਆਂ"],["riverine","ਨਦੀ-ਕਿਨਾਰੇ"],["Asiatic lion","ਏਸ਼ੀਆਈ ਸ਼ੇਰ"],["Gir","ਗਿਰ"],
+    ["one-horned rhinoceros","ਇੱਕ-ਸਿੰਗ ਵਾਲਾ ਗੈਂਡਾ"],["rhinoceros","ਗੈਂਡਾ"],["Asian elephant","ਏਸ਼ੀਆਈ ਹਾਥੀ"],["elephant","ਹਾਥੀ"],["tiger","ਬਾਘ"],
+    ["camel","ਊਠ"],["wild ass","ਜੰਗਲੀ ਖੋਤਾ"],["blackbuck","ਕਾਲਾ ਹਿਰਨ"],["snow leopard","ਬਰਫ਼ੀਲਾ ਤਿੰਦੂਆ"],["yak","ਯਾਕ"],["musk deer","ਕਸਤੂਰੀ ਹਿਰਨ"],["hangul","ਹੰਗੁਲ"],["barasingha","ਬਾਰਾਂਸਿੰਗਾ"],
+    ["gharial","ਘੜਿਆਲ"],["crocodile","ਮਗਰਮੱਛ"],["reptiles","ਸਰੀਸ੍ਰਪ"],["herbivores","ਸ਼ਾਕਾਹਾਰੀ ਜੀਵ"],
+    ["biodiversity","ਜੈਵ-ਵਿਭਿੰਨਤਾ"],["genetic diversity","ਆਨੁਵੰਸ਼ਿਕ ਵਿਭਿੰਨਤਾ"],["species diversity","ਪ੍ਰਜਾਤੀ ਵਿਭਿੰਨਤਾ"],["ecosystem diversity","ਪਰਿਸਥਿਤਕੀ ਤੰਤਰ ਵਿਭਿੰਨਤਾ"],
+    ["habitat loss","ਆਵਾਸ ਹਾਨੀ"],["biodiversity threats","ਜੈਵ-ਵਿਭਿੰਨਤਾ ਲਈ ਖਤਰੇ"],["conservation","ਸੰਰੱਖਣ"],["biodiversity conservation","ਜੈਵ-ਵਿਭਿੰਨਤਾ ਸੰਰੱਖਣ"],
+    ["in-situ conservation","ਥਾਂ-ਉੱਤੇ ਸੰਰੱਖਣ"],["ex-situ conservation","ਥਾਂ-ਤੋਂ-ਬਾਹਰ ਸੰਰੱਖਣ"],["protected area","ਸੁਰੱਖਿਅਤ ਖੇਤਰ"],["protected areas","ਸੁਰੱਖਿਅਤ ਖੇਤਰ"],
+    ["national park","ਰਾਸ਼ਟਰੀ ਉਦਿਆਨ"],["national parks","ਰਾਸ਼ਟਰੀ ਉਦਿਆਨ"],["wildlife sanctuary","ਜੰਗਲੀ ਜੀਵ ਅਭਿਆਰਣ"],["wildlife sanctuaries","ਜੰਗਲੀ ਜੀਵ ਅਭਿਆਰਣ"],
+    ["biosphere reserve","ਜੈਵਮੰਡਲ ਰਾਖਵਾਂ ਖੇਤਰ"],["biosphere reserves","ਜੈਵਮੰਡਲ ਰਾਖਵੇਂ ਖੇਤਰ"],["zoo","ਚਿੜਿਆਘਰ"],["botanical garden","ਬੋਟੈਨਿਕਲ ਬਾਗ਼"],
+    ["seed bank","ਬੀਜ ਬੈਂਕ"],["endangered","ਸੰਕਟਗ੍ਰਸਤ"],["extinct","ਵਿਲੁਪਤ"],["vulnerable","ਅਸੁਰੱਖਿਅਤ"],["rare","ਦੁਲਭ"],
+    ["community participation","ਸਮੁਦਾਇਕ ਭਾਗੀਦਾਰੀ"],["habitat restoration","ਆਵਾਸ ਮੁੜ-ਬਹਾਲੀ"],["restoration","ਮੁੜ-ਬਹਾਲੀ"],
+    ["forest conservation","ਜੰਗਲ ਸੰਰੱਖਣ"],["poaching","ਗੈਰਕਾਨੂੰਨੀ ਸ਼ਿਕਾਰ"],["deforestation","ਜੰਗਲ ਕਟਾਈ"],["fragmentation","ਖੰਡਨ"],
+    ["rainfall gradient","ਵਰਖਾ ਢਲਾਣ"],["moisture gradient","ਨਮੀ ਢਲਾਣ"],["altitude","ਉਚਾਈ"],["high altitude","ਵੱਧ ਉਚਾਈ"],
+    ["comparison","ਤੁਲਨਾ"],["identification","ਪਛਾਣ"],["distribution","ਵੰਡ"],["adaptation","ਅਨੁਕੂਲਨ"],["adaptations","ਅਨੁਕੂਲਨ"],
+    ["broad leaves","ਚੌੜੇ ਪੱਤੇ"],["small leaves","ਛੋਟੇ ਪੱਤੇ"],["thorns","ਕਾਂਟੇ"],["deep roots","ਡੂੰਘੀਆਂ ਜੜਾਂ"],["thick bark","ਮੋਟੀ ਛਾਲ"],
+    ["dense canopy","ਘਣਾ ਛੱਤਰ"],["multi-layered","ਬਹੁ-ਪਰਤੀ"],["leaf fall","ਪੱਤਝੜ"],["dry season","ਸੁੱਕਾ ਮੌਸਮ"],["wet season","ਨਮੀ ਵਾਲਾ ਮੌਸਮ"],
+    ["hot wet forests","ਗਰਮ ਨਮੀ ਵਾਲੇ ਜੰਗਲ"],["open forest","ਖੁੱਲ੍ਹਾ ਜੰਗਲ"],["open forests","ਖੁੱਲ੍ਹੇ ਜੰਗਲ"],["mixed forest","ਮਿਸ਼ਰਤ ਜੰਗਲ"],["mixed forests","ਮਿਸ਼ਰਤ ਜੰਗਲ"],
+    ["animal and habitat","ਜੀਵ ਅਤੇ ਆਵਾਸ"],["forest and region","ਜੰਗਲ ਅਤੇ ਖੇਤਰ"],["species and forest","ਪ੍ਰਜਾਤੀ ਅਤੇ ਜੰਗਲ"],
+    ["Which","ਕਿਹੜਾ"],["which","ਕਿਹੜਾ"],["What","ਕੀ"],["what","ਕੀ"],["Why","ਕਿਉਂ"],["why","ਕਿਉਂ"],["Where","ਕਿੱਥੇ"],["where","ਕਿੱਥੇ"],["When","ਕਦੋਂ"],["when","ਕਦੋਂ"],["How","ਕਿਵੇਂ"],["how","ਕਿਵੇਂ"],
+    ["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],["is","ਹੈ"],["are","ਹਨ"],["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],["would","ਹੋਵੇਗਾ"],["should","ਚਾਹੀਦਾ ਹੈ"],["has","ਹੈ"],["have","ਹਨ"],["had","ਸੀ"],
+    ["with","ਨਾਲ"],["from","ਤੋਂ"],["into","ਵਿੱਚ"],["for","ਲਈ"],["of","ਦਾ"],["to","ਨੂੰ"],["in","ਵਿੱਚ"],["on","ਉੱਤੇ"],["at","ਉੱਤੇ"],["by","ਦੁਆਰਾ"],["as","ਵਜੋਂ"],["than","ਨਾਲੋਂ"],["that","ਕਿ"],["this","ਇਹ"],["these","ਇਹ"],["those","ਉਹ"],
+    ["most","ਸਭ ਤੋਂ"],["main","ਮੁੱਖ"],["major","ਮੁੱਖ"],["only","ਕੇਵਲ"],["correct","ਸਹੀ"],["statement","ਕਥਨ"],["following","ਹੇਠ ਲਿਖੇ"]
+  ];
+  let out=text;
+  const pairs=language==="hi"?hi:pa;
+  for(const [from,to] of pairs.sort((a,b)=>b[0].length-a[0].length)){
+    out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
+  }
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+
+function localizeGeoVegBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
+  if(!/^GEO-VEG-001-CP0(?:0[1-9]|1[0-2])-Q/.test(question.questionId)) return null;
+  const local=(source:string)=>polishGeoVegBulkTextV1(localizeText(source,language),language);
+  const stemBase=localizeNaturalStem(question.stem,language,"GEO-VEG-001") ?? localizeText(question.stem,language);
+  const stem=polishGeoVegBulkTextV1(stemBase,language);
+  const localOption=(source:string)=>{
+    if(source.toLowerCase()==="acacia") return language==="hi" ? "कीकर" : "ਕਿੱਕਰ";
+    if(source.toLowerCase()==="babool") return language==="hi" ? "बबूल" : "ਬਬੂਲ";
+    return local(source);
+  };
+  const options=Object.freeze(question.options.map(localOption));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=local(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
   language: IndianGeoLocalizationLanguageV1,
@@ -985,6 +1114,11 @@ export function localizeIndianGeoQuestionV1(
 
   if (packageId === "GEO-TRN-001") {
     const bulk = localizeGeoTrnBulkV1(question, language);
+    if (bulk) return bulk;
+  }
+
+  if (packageId === "GEO-VEG-001") {
+    const bulk = localizeGeoVegBulkV1(question, language);
     if (bulk) return bulk;
   }
 
