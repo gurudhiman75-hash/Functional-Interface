@@ -91,9 +91,10 @@ jobs:
             "$ROOT/DSF-CP-015" \
             "$ROOT/DSF-CP-016" \
             "$ROOT/DSF-CP-017" \
+            "$ROOT/DSF-CP-018" \
             -type f -name '*.test.ts' | sort)
 
-          if [ "$count" -lt 22 ]; then
+          if [ "$count" -lt 23 ]; then
             echo "Expected at least 23 CP011-CP018 audit files, found $count" >&2
             exit 1
           fi
