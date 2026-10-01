@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: ven-001-topology-${{ github.event.pull_request.number || github.ref }}
@@ -92,26 +92,6 @@ jobs:
           --outfile=dist/reasoning-v1/ven-001-ql-registry-audit.test.mjs
       - name: Run permanent QL integration proof
         run: node artifacts/api-server/dist/reasoning-v1/ven-001-ql-registry-audit.test.mjs
-
-      - name: Regenerate review artifacts
-        run: |
-          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Venn-Diagrams/VEN-001/export-shape-regions-review.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-shape-review.mjs
-          node artifacts/api-server/dist/reasoning-v1/export-shape-review.mjs
-          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Venn-Diagrams/VEN-001/export-numerical-review.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/export-numerical-review.mjs
-          node artifacts/api-server/dist/reasoning-v1/export-numerical-review.mjs
-      - name: Commit refreshed review artifacts
-        if: github.actor != 'github-actions[bot]'
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/VEN-001-*-REVIEW-V*.html artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/VEN-001-*-REVIEW-V*.json
-          if git diff --cached --quiet; then
-            echo "Review artifacts already current."
-          else
-            git commit -m "Refresh VEN-001 review artifacts"
-            git push origin HEAD:${{ github.head_ref }}
-          fi
 
       - name: Check patch whitespace
         run: git diff --check
