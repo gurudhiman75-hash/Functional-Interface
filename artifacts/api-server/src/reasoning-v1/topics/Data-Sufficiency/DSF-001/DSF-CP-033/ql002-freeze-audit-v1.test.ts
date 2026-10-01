@@ -4,6 +4,7 @@ import {
   previewDsf001NormalQuestionStudioReview,
 } from "../DSF-CP-017/question-studio-review-v1.ts";
 import { DSF_CP015_THREE_STATEMENT_SEMANTIC_KEYS } from "../DSF-CP-015/three-statement-answer-profile.ts";
+import { DSF_QL_002_PERMANENT_ENTRY, DSF_CURRENT_NEXT_AVAILABLE_QL_ID } from "../foundation/current-permanent-ql-registry.ts";
 
 const lanes = [
   "DSF-QS-RANKING","DSF-QS-DIRECTION","DSF-QS-BLOOD-RELATIONS","DSF-QS-INEQUALITY",
@@ -70,6 +71,13 @@ assert.deepEqual([...DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeDeferredQlI
 assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioDiscoverable,true);
 assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioGenerationEnabled,true);
 assert.equal(DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.automaticStudentPublication,false);
+assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.questionStudioDiscoverable,true);
+assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.questionBankWritable,false);
+assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.testEligible,false);
+assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.mockTestEligible,false);
+assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.publiclyPublishable,false);
+assert.equal(DSF_QL_002_PERMANENT_ENTRY.lifecycle.automaticStudentPublication,false);
+assert.equal(DSF_CURRENT_NEXT_AVAILABLE_QL_ID,"DSF-QL-003");
 
 console.log("DSF_CP033_SAMPLE_SUMMARY",JSON.stringify(sampleRows));
 console.log("DSF-CP-033 QL002 freeze audit: PASS",JSON.stringify({semanticCoverage:[...seenSemantic].sort(),count:seenSemantic.size}));
