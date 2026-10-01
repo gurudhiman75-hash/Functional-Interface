@@ -35,6 +35,8 @@ for (let i = 0; i < 320; i += 1) {
     assert.equal(new Set(question.options).size, 5);
     assert.equal(question.options[question.correctIndex], question.answer);
     assert(!/\d+\.\d+/u.test(question.answer));
+    assert(!/\b(?:value|values|requested)\b/iu.test(question.stem),`${seed}: generic multi-line wording leaked: ${question.stem}`);
+    assert(!/^(?:Find|Add|Compare|Calculate)\b/iu.test(question.stem),`${seed}: instruction-like multi-line stem leaked: ${question.stem}`);
   }
 }
 
