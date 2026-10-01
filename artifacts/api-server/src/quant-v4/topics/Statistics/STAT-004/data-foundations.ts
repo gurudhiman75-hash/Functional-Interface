@@ -153,7 +153,7 @@ function makeDraft(contractId: Stat004ContractId, seed: string, profile: Stat004
       const uniqueWrong = [...new Set(shuffledWrong)].slice(0, 3);
       while (uniqueWrong.length < 3) uniqueWrong.push(`${uniqueWrong.length + 1}, ${uniqueWrong.length + 4}, ${uniqueWrong.length + 3}`);
       const values = [answer, ...uniqueWrong] as [string, string, string, string];
-      return draft([`The observations are ${data.join(", ")}. A frequency table uses intervals 0–4, 4–8 and 8–12, each including its lower limit but excluding its upper limit. The class frequencies, in order, are:`, `A set of ${data.length} values is recorded: ${data.join(", ")}. In the intervals 0–4, 4–8 and 8–12 (lower limit included, upper limit excluded), the frequencies are:`],
+      return draft([`The observations are ${data.join(", ")}. A frequency table uses intervals 0–4, 4–8 and 8–12, each including its lower limit but excluding its upper limit. The class frequencies, in order, are:`, `The observations are ${data.join(", ")}. In a frequency table with intervals 0–4, 4–8 and 8–12 (lower limit included, upper limit excluded), the class frequencies are:`],
         values, answer,
         `Count values in each stated interval. In 0–4 there ${frequencies[0] === 1 ? "is" : "are"} ${frequencies[0]}; in 4–8 there ${frequencies[1] === 1 ? "is" : "are"} ${frequencies[1]}; in 8–12 there ${frequencies[2] === 1 ? "is" : "are"} ${frequencies[2]}. The frequencies add to ${data.length}, the number of observations.`);
     }
