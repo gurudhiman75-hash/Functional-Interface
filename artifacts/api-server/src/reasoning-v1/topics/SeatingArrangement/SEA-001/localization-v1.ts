@@ -51,7 +51,7 @@ function stemNative(text: string, locale: Sea001LocaleV1): string {
     ), locale);
   }
   if ((m = text.match(/^Who are the immediate neighbours of (.+)\?$/))) return names(tr(locale, `${m[1]} के दोनों ओर तुरंत कौन-कौन बैठा है?`, `${m[1]} ਦੇ ਦੋਵੇਂ ਪਾਸਿਆਂ ਤੁਰੰਤ ਕੌਣ-ਕੌਣ ਬੈਠੇ ਹਨ?`), locale);
-  if ((m = text.match(/^How many persons sit between (.+) and (.+)\?$/))) return names(tr(locale, `${m[1]} और ${m[2]} के बीच कितने व्यक्ति बैठे हैं?`, `${m[1]} ਅਤੇ ${m[2]} ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਵਿਅਕਤੀ ਬੈਠੇ ਹਨ?`), locale);
+  if (!text.includes(" when counted ") && (m = text.match(/^How many persons sit between (.+) and (.+)\?$/))) return names(tr(locale, `${m[1]} और ${m[2]} के बीच कितने व्यक्ति बैठे हैं?`, `${m[1]} ਅਤੇ ${m[2]} ਦੇ ਵਿਚਕਾਰ ਕਿੰਨੇ ਵਿਅਕਤੀ ਬੈਠੇ ਹਨ?`), locale);
   if ((m = text.match(/^Who sits opposite (.+)\?$/))) return names(tr(locale, `${m[1]} के ठीक सामने कौन बैठा है?`, `${m[1]} ਦੇ ਬਿਲਕੁਲ ਸਾਹਮਣੇ ਕੌਣ ਬੈਠਾ ਹੈ?`), locale);
   if ((m = text.match(/^What is the position of (.+) with respect to (.+)\?$/))) return names(tr(locale, `${m[2]} के सापेक्ष ${m[1]} का स्थान क्या है?`, `${m[2]} ਦੇ ਸਬੰਧ ਵਿੱਚ ${m[1]} ਦੀ ਸਥਿਤੀ ਕੀ ਹੈ?`), locale);
   if ((m = text.match(/^How many persons are facing (north|south)\?$/))) return tr(locale, `${m[1] === "north" ? "उत्तर" : "दक्षिण"} की ओर मुख करके कितने व्यक्ति बैठे हैं?`, `${m[1] === "north" ? "ਉੱਤਰ" : "ਦੱਖਣ"} ਵੱਲ ਮੂੰਹ ਕਰਕੇ ਕਿੰਨੇ ਵਿਅਕਤੀ ਬੈਠੇ ਹਨ?`);
