@@ -72,7 +72,6 @@ assert.doesNotMatch(engineRoute, /nonQuantRunGate/);
 assert.match(engineRoute, /shouldDeferQuantCompatibilityRun/);
 assert.match(engineRoute, /LEGACY_GENERIC_QUANT_PACKAGES/);
 for (const packageId of [
-  "avg 001",
   "num 001",
   "num 002",
   "sap",
@@ -89,6 +88,8 @@ assert.doesNotMatch(engineRoute, /router\.use\(authenticate\)/);
 assert.match(quantProfile, /buildQuantExamProfilePlan/);
 assert.match(quantProfile, /generateProfiledQuantBatch/);
 assert.match(quantProfile, /cpCounts/);
+assert.doesNotMatch(engineRoute, /"avg 001"/);
+assert.match(engineRoute, /forwardLegacyExamProfile: packageId === "AVG-001"/);
 assert.doesNotMatch(engineRoute, /"trg 001"/);
 assert.doesNotMatch(engineRoute, /"trg 002"/);
 

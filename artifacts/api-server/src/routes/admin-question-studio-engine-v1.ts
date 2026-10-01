@@ -87,7 +87,6 @@ function normalizeCompatibilitySelector(value: unknown): string {
 }
 
 const LEGACY_GENERIC_QUANT_PACKAGES = new Set([
-  "avg 001",
   "num 001",
   "num 002",
   "sap",
@@ -121,8 +120,7 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
   if (LEGACY_NUMBER_SYSTEM_CPS.has(cpId)) return true;
 
   if (
-    patternId.includes("avg 001")
-    || patternId.includes("num 001")
+    patternId.includes("num 001")
     || patternId.includes("num 002")
     || patternId.includes("num cp 008")
     || patternId.includes("num cp 009")
@@ -153,9 +151,7 @@ function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolea
     "pipes and cisterns",
   ]);
   return (
-    (topic === "average" && !subtopic)
-    || (topic === "arithmetic" && subtopic === "average")
-    || (numberSelectors.has(topic) && !subtopic)
+    (numberSelectors.has(topic) && !subtopic)
     || (topic === "arithmetic" && numberSelectors.has(subtopic))
     || (simplificationSelectors.has(topic) && !subtopic)
     || (topic === "arithmetic" && simplificationSelectors.has(subtopic))
@@ -389,6 +385,7 @@ router.post(
           examProfileId: req.body?.examProfileId,
           difficultyPreset: req.body?.difficultyPreset,
           difficultyDistribution: req.body?.difficultyDistribution,
+          forwardLegacyExamProfile: packageId === "AVG-001",
           generateCandidateBatch: (candidateRequest) =>
             generateQuestionStudioQuestions({
               ...candidateRequest,
@@ -478,6 +475,7 @@ router.post(
               difficultyPreset: quantPlan.difficultyPreset,
               difficultyDistribution: quantPlan.difficultyDistribution,
               difficultyCounts: quantPlan.difficultyCounts,
+              legacyExamProfile: quantPlan.legacyExamProfile,
               cpCounts: quantPlan.cpCounts,
               ...quantPlan.trace,
             }

@@ -5,6 +5,15 @@ import type { QuestionStudioGenerationRequest } from "./engine-types";
 export type QuantProfileDifficulty = "Easy" | "Medium" | "Hard";
 export type QuantDifficultyDistribution = Record<QuantProfileDifficulty, number>;
 
+export type LegacyQuantExamProfileId =
+  | "GENERIC_PRACTICE"
+  | "SSC_CGL_TIER_I"
+  | "SSC_CGL_CHSL"
+  | "SSC_CGL_JSO"
+  | "BANKING_PRELIMS"
+  | "BANKING_MAINS"
+  | "PUNJAB_STATE";
+
 export type QuantExamProfile = {
   id: string;
   version: number;
@@ -47,6 +56,7 @@ export type QuantExamProfilePlan = {
   difficultyPreset: string;
   difficultyDistribution: QuantDifficultyDistribution | null;
   difficultyCounts: QuantDifficultyDistribution;
+  legacyExamProfile?: LegacyQuantExamProfileId;
   cpCounts: Record<string, number>;
   seed: string;
   assignments: QuantGenerationAssignment[];
@@ -112,6 +122,44 @@ export function resolveQuantExamProfile(value: unknown): QuantExamProfile {
     || normalized(profile.id) === target
     || normalized(profile.label) === target
   ) ?? FALLBACK_PROFILE;
+}
+
+export function resolveLegacyQuantExamProfile(
+  examProfileId: unknown,
+  exam: unknown,
+): LegacyQuantExamProfileId | undefined {
+  const allowed = new Set<LegacyQuantExamProfileId>([
+    "GENERIC_PRACTICE",
+    "SSC_CGL_TIER_I",
+    "SSC_CGL_CHSL",
+    "SSC_CGL_JSO",
+    "BANKING_PRELIMS",
+    "BANKING_MAINS",
+    "PUNJAB_STATE",
+  ]);
+
+  const explicit = text(examProfileId).toUpperCase();
+  if (allowed.has(explicit as LegacyQuantExamProfileId)) {
+    return explicit as LegacyQuantExamProfileId;
+  }
+
+  const selected = normalized(text(examProfileId) || text(exam));
+  if (!selected) return undefined;
+
+  const bankingFamily = /\b(ibps|sbi|banking|bank|rrb po|rrb clerk)\b/u.test(selected);
+  if (bankingFamily) {
+    if (/\b(mains|main)\b/u.test(selected)) return "BANKING_MAINS";
+    if (/\b(prelims|preliminary|pre)\b/u.test(selected)) return "BANKING_PRELIMS";
+    if (/\b(ibps|sbi)\b/u.test(selected) && /\b(po|clerk)\b/u.test(selected)) {
+      return "BANKING_PRELIMS";
+    }
+  }
+
+  if (/\b(psssb|ppsc|punjab police)\b/u.test(selected)) return "PUNJAB_STATE";
+  if (/\bssc\b/u.test(selected) && /\bchsl\b/u.test(selected)) return "SSC_CGL_CHSL";
+  if (/\bssc\b/u.test(selected) && /\b(jso|tier 2|tier ii)\b/u.test(selected)) return "SSC_CGL_JSO";
+  if (/\bssc\b/u.test(selected) && /\b(tier 1|tier i)\b/u.test(selected)) return "SSC_CGL_TIER_I";
+  return undefined;
 }
 
 export function quantExamProfileTrace(profile: QuantExamProfile): QuantExamProfileTrace {
@@ -274,6 +322,7 @@ export function buildQuantExamProfilePlan(input: {
   selectedCpIds?: readonly string[];
 }): QuantExamProfilePlan {
   const profile = resolveQuantExamProfile(input.examProfileId ?? input.exam);
+  const legacyExamProfile = resolveLegacyQuantExamProfile(input.examProfileId, input.exam);
   const requestedDifficulty = normalizeDifficulty(input.requestedDifficulty);
   const mixed = requestedDifficulty === "Mixed";
   const difficultyPreset = text(input.difficultyPreset)
@@ -315,6 +364,7 @@ export function buildQuantExamProfilePlan(input: {
     difficultyPreset,
     difficultyDistribution,
     difficultyCounts,
+    legacyExamProfile,
     cpCounts,
     seed,
     assignments,
@@ -366,6 +416,7 @@ export async function generateProfiledQuantBatch(input: {
   examProfileId?: unknown;
   difficultyPreset?: unknown;
   difficultyDistribution?: unknown;
+  forwardLegacyExamProfile?: boolean;
   generateCandidateBatch: (
     request: QuestionStudioGenerationRequest,
   ) => Promise<unknown>;
@@ -401,6 +452,7 @@ export async function generateProfiledQuantBatch(input: {
     const result = await input.generateCandidateBatch({
       ...input.request,
       engineId: "quant-v4",
+      examProfile: input.forwardLegacyExamProfile ? plan.legacyExamProfile : undefined,
       difficulty: assignment.difficulty,
       seed: assignment.seed,
       count: candidateCount,

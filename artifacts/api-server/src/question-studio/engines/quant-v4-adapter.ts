@@ -3,6 +3,14 @@ import {
   listQuantV4Packages,
 } from "../../quant-v4/generation-engine";
 import {
+  generateQuestion as generateQuantV4QuestionStudioQuestion,
+  listQuantV4Packages as listQuantV4QuestionStudioPackages,
+} from "../../quant-v4/question-studio-generation-engine";
+import {
+  AVG_001_QUESTION_STUDIO_CP_IDS,
+  AVG_001_QUESTION_STUDIO_LANGUAGES,
+} from "../../quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
+import {
   di001QuestionStudioPackageCard,
   generateDi001QuestionStudioBatch,
   isDi001QuestionStudioRequest,
@@ -482,6 +490,27 @@ function toDiMixRequest(request: QuestionStudioGenerationRequest) {
   };
 }
 
+function normalizeAverageSelector(value: unknown): string {
+  return String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function isAverageEngineRequest(request: QuestionStudioGenerationRequest): boolean {
+  const packageId = normalizeAverageSelector(request.packageId);
+  const patternId = normalizeAverageSelector(request.patternId);
+  const topic = normalizeAverageSelector(request.topic);
+  const subtopic = normalizeAverageSelector(request.subtopic);
+  return (
+    packageId === "avg 001"
+    || patternId.includes("avg 001")
+    || (topic === "average" && !subtopic)
+    || (topic === "arithmetic" && subtopic === "average")
+  );
+}
+
 export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   engineId: "quant-v4",
 
@@ -494,6 +523,22 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       if (index >= 0) packages[index] = shared;
       else packages.push(shared);
     };
+
+    const avgPackage = listQuantV4QuestionStudioPackages()
+      .find((pkg: any) => pkg.packageId === "AVG-001");
+    if (avgPackage) {
+      replaceOrPush("AVG-001", {
+        ...(avgPackage as Record<string, unknown>),
+        cpIds: [...AVG_001_QUESTION_STUDIO_CP_IDS],
+        canonicalProblems: AVG_001_QUESTION_STUDIO_CP_IDS.map((cpId) => ({
+          id: cpId,
+          label: cpId,
+        })),
+        supportedLanguages: [...AVG_001_QUESTION_STUDIO_LANGUAGES],
+        supportedDifficulties: ["Easy", "Medium", "Hard"],
+        enabled: true,
+      });
+    }
 
     replaceOrPush("DI-001", di001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-002", di002QuestionStudioPackageCard() as unknown as Record<string, unknown>);
@@ -578,6 +623,23 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isAverageEngineRequest(request)) {
+      return generateQuantV4QuestionStudioQuestion({
+        packageId: "AVG-001",
+        examProfile: request.examProfile as never,
+        patternId: request.patternId,
+        topic: request.topic,
+        subtopic: request.subtopic,
+        difficulty: request.difficulty as never,
+        language: request.language,
+        seed: request.seed,
+        count: request.count,
+        runtimeMode: request.runtimeMode as never,
+        canonicalProblemId: request.canonicalProblemId,
+        questionLanguageId: request.questionLanguageId,
+      } as any) as unknown as QuestionStudioGenerationResult;
+    }
+
     const trigonometry = await generateTrigonometryEngineBatch(request);
     if (trigonometry) return trigonometry;
 
@@ -702,6 +764,7 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
 
     const result = await generateQuantV4Question({
       packageId: request.packageId as never,
+      examProfile: request.examProfile as never,
       patternId: request.patternId,
       topic: request.topic,
       subtopic: request.subtopic,
