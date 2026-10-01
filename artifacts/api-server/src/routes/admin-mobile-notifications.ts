@@ -7,7 +7,7 @@ import { messaging } from "../lib/firebase-admin";
 import { authenticate } from "../middlewares/auth";
 
 const router=Router();
-const DESTINATIONS=new Set(["exam","test_series","learn","url","none"]);
+const DESTINATIONS=new Set(["exam","test_series","learn","page","url","none"]);
 const STATUSES=new Set(["draft","scheduled","cancelled"]);
 
 function text(value:unknown,max=1000){return typeof value==="string"?value.trim().slice(0,max):"";}
