@@ -142,12 +142,22 @@ export function generatePrt001E1Parameters(input: {
       break;
     }
     case "findProfitRatioAfterPercentageCapitalIncrease": {
-      const scenario = random.pick([
+      const numericStateSeed = `${input.seed}:numeric-state:${input.entry.solveMode}`;
+      const numericStates = [
         { a0: 20_000, a1: 30_000, pct: 50, change: 6, b: 25_000 },
-        { a0: 24_000, a1: 30_000, pct: 25, change: 4, b: 28_000 },
-        { a0: 30_000, a1: 36_000, pct: 20, change: 8, b: 32_000 },
+        { a0: 20_000, a1: 30_000, pct: 50, change: 4, b: 24_000 },
+        { a0: 24_000, a1: 30_000, pct: 25, change: 6, b: 27_000 },
+        { a0: 30_000, a1: 36_000, pct: 20, change: 4, b: 32_000 },
         { a0: 40_000, a1: 50_000, pct: 25, change: 3, b: 45_000 },
-      ]);
+        { a0: 50_000, a1: 60_000, pct: 20, change: 6, b: 48_000 },
+        { a0: 32_000, a1: 40_000, pct: 25, change: 8, b: 36_000 },
+        { a0: 36_000, a1: 54_000, pct: 50, change: 4, b: 45_000 },
+        { a0: 60_000, a1: 75_000, pct: 25, change: 6, b: 70_000 },
+        { a0: 48_000, a1: 60_000, pct: 25, change: 9, b: 50_000 },
+      ];
+      const scenario = numericStates[
+        stablePrt001PoolIndex(numericStateSeed, numericStates.length)
+      ]!;
       state = makeState([
         partner(partnerA, [segment(0, scenario.change, money(scenario.a0)), segment(scenario.change, 12, money(scenario.a1))]),
         partner(partnerB, [segment(0, 12, money(scenario.b))]),
