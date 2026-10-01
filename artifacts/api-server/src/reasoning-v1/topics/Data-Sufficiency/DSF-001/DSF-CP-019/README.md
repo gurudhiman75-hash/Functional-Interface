@@ -61,8 +61,8 @@ Both audits verify:
 - English learner-prose leakage guards
 - review-only lifecycle locks
 
-## Remaining DSF blocker
+## Subsequent QL002 status
 
-Multilingual review parity for **DSF-QL-001** is complete.
+Multilingual review parity for **DSF-QL-001** remains complete.
 
-**DSF-QL-002** (three-statement minimal sufficient subsets) is still permanently allocated but batch-runtime deferred. It remains the next major DSF implementation blocker before final chapter closure.
+The earlier QL002 runtime blocker has since been resolved for the seven Reasoning lanes through CP021–CP033. QL002 now has English/Hindi/Punjabi Question Studio review coverage while all downstream release gates remain locked.

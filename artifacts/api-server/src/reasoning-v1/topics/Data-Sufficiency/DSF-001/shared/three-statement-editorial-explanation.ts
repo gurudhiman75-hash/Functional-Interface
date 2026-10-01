@@ -1,5 +1,5 @@
 import type { ThreeStatementSufficiencyEvaluation } from "../DSF-CP-015/three-statement-foundation.ts";
-import { renderThreeStatementSemanticLabel, type DsfCp015ThreeStatementSemanticKey } from "../DSF-CP-015/three-statement-answer-profile.ts";
+import { renderThreeStatementOptionText, type DsfCp015ThreeStatementSemanticKey } from "../DSF-CP-015/three-statement-answer-profile.ts";
 
 const ORDER = [
   ["I"],
@@ -45,6 +45,6 @@ export function renderThreeStatementEditorialExplanation<Answer>(
     }
   }
 
-  lines.push(`Hence, ${renderThreeStatementSemanticLabel(semanticKey)}`);
+  lines.push(`Hence, ${renderThreeStatementOptionText(semanticKey)}`);
   return lines.join(" ");
 }
