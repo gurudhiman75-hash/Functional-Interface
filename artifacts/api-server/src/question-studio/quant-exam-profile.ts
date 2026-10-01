@@ -1,5 +1,8 @@
 import { randomUUID } from "node:crypto";
 
+import { generateQuestion as generateQuantV4Questions } from "../quant-v4/generation-engine";
+import type { QuestionStudioGenerationRequest } from "./engine-types";
+
 export type QuantProfileDifficulty = "Easy" | "Medium" | "Hard";
 export type QuantDifficultyDistribution = Record<QuantProfileDifficulty, number>;
 
@@ -348,4 +351,167 @@ export function scoreQuantQuestionForProfile(
     value += Math.min(4, numbers.length) + decimals;
   }
   return value;
+}
+
+
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+}
+
+export async function generateProfiledQuantBatch(input: {
+  request: QuestionStudioGenerationRequest;
+  count: number;
+  selectedCpIds: readonly string[];
+  examProfileId?: unknown;
+  difficultyPreset?: unknown;
+  difficultyDistribution?: unknown;
+}): Promise<{
+  questions: Array<Record<string, unknown>>;
+  generationContexts: Array<{
+    cpId?: string;
+    difficulty: QuantProfileDifficulty;
+    context: Record<string, unknown>;
+  }>;
+  plan: QuantExamProfilePlan;
+}> {
+  const plan = buildQuantExamProfilePlan({
+    exam: input.request.exam,
+    examProfileId: input.examProfileId,
+    requestedDifficulty: input.request.difficulty,
+    difficultyPreset: input.difficultyPreset,
+    difficultyDistribution: input.difficultyDistribution,
+    count: input.count,
+    seed: input.request.seed,
+    selectedCpIds: input.selectedCpIds,
+  });
+
+  const generatedQuestions: Array<Record<string, unknown>> = [];
+  const generationContexts: Array<{
+    cpId?: string;
+    difficulty: QuantProfileDifficulty;
+    context: Record<string, unknown>;
+  }> = [];
+
+  for (const assignment of plan.assignments) {
+    const candidateCount = Math.min(100, assignment.count * 2);
+    const result = await generateQuantV4Questions({
+      packageId: input.request.packageId as never,
+      patternId: input.request.patternId,
+      topic: input.request.topic,
+      subtopic: input.request.subtopic,
+      difficulty: assignment.difficulty,
+      language: input.request.language,
+      seed: assignment.seed,
+      count: candidateCount,
+      runtimeMode: input.request.runtimeMode as never,
+      canonicalProblemId: assignment.cpId,
+      questionLanguageId: input.request.questionLanguageId,
+    });
+
+    const resultContext = asRecord(result.generationContext);
+    const candidates = (Array.isArray(result.questions) ? result.questions : [])
+      .map((question) => question as Record<string, unknown>)
+      .sort((left, right) =>
+        scoreQuantQuestionForProfile(right, plan.profile)
+        - scoreQuantQuestionForProfile(left, plan.profile)
+        || text(left.questionId).localeCompare(text(right.questionId)),
+      );
+
+    if (candidates.length < assignment.count) {
+      throw Object.assign(
+        new Error(
+          `Profile generation returned ${candidates.length} of ${assignment.count} requested ${assignment.difficulty} questions`,
+        ),
+        {
+          statusCode: 422,
+          code: "EXAM_PROFILE_GENERATION_COUNT_MISMATCH",
+          details: {
+            requested: assignment.count,
+            generated: candidates.length,
+            difficulty: assignment.difficulty,
+            cpId: assignment.cpId,
+            examProfileId: plan.profile.id,
+          },
+        },
+      );
+    }
+
+    const selected = candidates.slice(0, assignment.count);
+    for (const question of selected) {
+      const body = quantQuestionText(question);
+      const appliedRules = {
+        preferredContextMatches: plan.profile.preferredContexts.filter((term) => body.includes(term)),
+        discouragedContextMatches: plan.profile.discouragedContexts.filter((term) => body.includes(term)),
+        candidateScore: scoreQuantQuestionForProfile(question, plan.profile),
+      };
+      const generationContext = {
+        ...resultContext,
+        engineId: "quant-v4",
+        generationDomain: "quant-v4",
+        mode: plan.mixed ? "mixed-difficulty-exam-profile" : "exam-profile",
+        seed: plan.seed,
+        assignmentSeed: assignment.seed,
+        difficultyPreset: plan.difficultyPreset,
+        difficultyDistribution: plan.difficultyDistribution,
+        difficultyCounts: plan.difficultyCounts,
+        cpCounts: plan.cpCounts,
+        ...plan.trace,
+        appliedRules,
+      };
+
+      generatedQuestions.push({
+        ...question,
+        canonicalProblemId:
+          text(question.canonicalProblemId)
+          || assignment.cpId,
+        selectedCpId: assignment.cpId,
+        engineId: "quant-v4",
+        difficulty: assignment.difficulty,
+        difficultyLabel: assignment.difficulty,
+        mixedDifficulty: plan.mixed,
+        examProfile: plan.trace,
+        generationContext,
+      });
+    }
+
+    generationContexts.push({
+      cpId: assignment.cpId,
+      difficulty: assignment.difficulty,
+      context: {
+        ...resultContext,
+        engineId: "quant-v4",
+        seed: assignment.seed,
+        examProfileId: plan.profile.id,
+        requestedCount: assignment.count,
+      },
+    });
+  }
+
+  const questions = shuffleQuantProfileItems(
+    generatedQuestions,
+    `${plan.seed}:${plan.profile.id}:order`,
+  );
+
+  if (questions.length !== input.count) {
+    throw Object.assign(
+      new Error(
+        `Profile generation returned ${questions.length} of ${input.count} requested questions`,
+      ),
+      {
+        statusCode: 422,
+        code: "EXAM_PROFILE_GENERATION_COUNT_MISMATCH",
+        details: {
+          requested: input.count,
+          generated: questions.length,
+          difficultyCounts: plan.difficultyCounts,
+          cpCounts: plan.cpCounts,
+          examProfileId: plan.profile.id,
+        },
+      },
+    );
+  }
+
+  return { questions, generationContexts, plan };
 }
