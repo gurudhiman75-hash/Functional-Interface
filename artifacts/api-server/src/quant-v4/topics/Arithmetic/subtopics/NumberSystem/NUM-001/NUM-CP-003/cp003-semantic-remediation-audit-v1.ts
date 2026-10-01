@@ -40,17 +40,17 @@ for (const qlId of NUM_CP003_PERMANENT_QL_IDS) {
     assert.equal(Boolean(lifecycle.testEligible), false, qlId + ": test gate opened");
     assert.equal(Boolean(lifecycle.publiclyPublishable), false, qlId + ": public gate opened");
 
-    const options = q.options.map((option: any) => String(option.value ?? option));
+    const options = q.options.map((option: any) => String(option));
     const expectedOptionCount = qlId === "NUM-QL-016" ? 5 : 4;
     assert.equal(options.length, expectedOptionCount, qlId + ": option count drift");
     assert.equal(new Set(options).size, expectedOptionCount, qlId + ": duplicate options");
-    assert.equal(options[q.correctIndex], String(q.canonicalAnswer), qlId + ": answer/index drift");
-    assert.equal(String(q.verifierAnswer), String(q.canonicalAnswer), qlId + ": verifier drift");
+    assert.equal(options[q.correctIndex], String(q.answer), qlId + ": answer/index drift");
+    assert.equal(String(q.validation?.verifierAnswer), String(q.answer), qlId + ": verifier drift");
 
     const explanation = JSON.stringify(q.explanation);
     stems.add(String(q.stem));
     structures.add(normalizeStem(String(q.stem)));
-    answers.add(String(q.canonicalAnswer));
+    answers.add(String(q.answer));
     numeric.add(numericSignature(String(q.stem)));
     minExplanationLength = Math.min(minExplanationLength, explanation.length);
   }
