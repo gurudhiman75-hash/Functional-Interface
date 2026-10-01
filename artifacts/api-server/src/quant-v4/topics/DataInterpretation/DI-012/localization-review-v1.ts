@@ -42,19 +42,20 @@ export function localizeDi012Set(set:Di012Set,locale:Di012Locale):Di012Set{
  const questions=set.questions.map(q=>{
   const primary=missing[0]!,second=missing[1],p=rows[primary.rowIndex]!,fallback=rows[(primary.rowIndex+2)%rows.length]!,s=second?rows[second.rowIndex]!:fallback;
   const cell=(r:typeof p,col:"a"|"b")=>number(r[col]);
+  const describe=(v:"x"|"y")=>{const m=missing.find(item=>item.variable===v)??primary,row=rows[m.rowIndex]!,header=m.column==="a"?ctx.a:ctx.b;return h?`${row.label} में "${header}" वाला मान`:`${row.label} ਵਿੱਚ "${header}" ਵਾਲਾ ਮੁੱਲ`;};
   const cellTotal=(r:typeof p)=>cell(r,"a")+cell(r,"b");
   let stem="",steps:string[]=[];
   switch(q.kind){
-   case "RECOVER_X": stem=h?"x का मान क्या है?":"x ਦਾ ਮੁੱਲ ਕੀ ਹੈ?";steps=[h?`दी गई शर्त से x = ${x}।`:`ਦਿੱਤੀ ਸ਼ਰਤ ਤੋਂ x = ${x}।`];break;
-   case "RECOVER_Y": stem=h?"y का मान क्या है?":"y ਦਾ ਮੁੱਲ ਕੀ ਹੈ?";steps=[h?`दी गई शर्त के अनुसार y = ${y}।`:`ਦਿੱਤੀ ਸ਼ਰਤ ਅਨੁਸਾਰ y = ${y}।`];break;
-   case "UNKNOWN_SUM": stem=h?"x + y का योग कितना होगा?":"x + y ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੋਵੇਗਾ?";steps=[`x + y = ${x} + ${y} = ${x+y}।`];break;
-   case "UNKNOWN_DIFFERENCE": stem=h?"x और y के मानों का अंतर कितना है?":"x ਅਤੇ y ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਫ਼ਰਕ ਹੈ?";steps=[`|${x} − ${y}| = ${Math.abs(x-y)}।`];break;
-   case "UNKNOWN_RATIO": {const gcd=(a:number,b:number):number=>b?gcd(b,a%b):a;stem=h?"x : y का अनुपात क्या है?":"x : y ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?";steps=[`x : y = ${x}:${y} = ${x/gcd(x,y)}:${y/gcd(x,y)}।`];break;}
+   case "RECOVER_X": stem=h?`${describe("x")} क्या है?`:`${describe("x")} ਕੀ ਹੈ?`;steps=[h?`दी गई शर्त से x = ${x}।`:`ਦਿੱਤੀ ਸ਼ਰਤ ਤੋਂ x = ${x}।`];break;
+   case "RECOVER_Y": stem=h?`${describe("y")} क्या है?`:`${describe("y")} ਕੀ ਹੈ?`;steps=[h?`दी गई शर्त के अनुसार y = ${y}।`:`ਦਿੱਤੀ ਸ਼ਰਤ ਅਨੁਸਾਰ y = ${y}।`];break;
+   case "UNKNOWN_SUM": stem=h?`${describe("x")} और ${describe("y")} का योग कितना है?`:`${describe("x")} ਅਤੇ ${describe("y")} ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੈ?`;steps=[`x + y = ${x} + ${y} = ${x+y}।`];break;
+   case "UNKNOWN_DIFFERENCE": stem=h?`${describe("x")} और ${describe("y")} के मानों में कितना अंतर है?`:`${describe("x")} ਅਤੇ ${describe("y")} ਦੇ ਮੁੱਲਾਂ ਵਿੱਚ ਕਿੰਨਾ ਫ਼ਰਕ ਹੈ?`;steps=[`|${x} − ${y}| = ${Math.abs(x-y)}।`];break;
+   case "UNKNOWN_RATIO": {const gcd=(a:number,b:number):number=>b?gcd(b,a%b):a;stem=h?`${describe("x")} और ${describe("y")} के मानों का अनुपात क्या है?`:`${describe("x")} ਅਤੇ ${describe("y")} ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`;steps=[`x : y = ${x}:${y} = ${x/gcd(x,y)}:${y/gcd(x,y)}।`];break;}
    case "RECOVERED_ROW_TOTAL": {const total=cellTotal(p);stem=h?`तालिका में ${p.label} के दोनों मानों का योग कितना है?`:`ਸਾਰਣੀ ਵਿੱਚ ${p.label} ਦੇ ਦੋਵਾਂ ਮੁੱਲਾਂ ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੈ?`;steps=[h?`पहले ${p.label} का अज्ञात मान ज्ञात करें।`:`ਪਹਿਲਾਂ ${p.label} ਦਾ ਅਣਜਾਣ ਮੁੱਲ ਕੱਢੋ।`,`${cell(p,"a")} + ${cell(p,"b")} = ${total}।`];break;}
    case "RECOVERED_COLUMN_TOTAL": {const column=primary.column,label=column==="a"?ctx.a:ctx.b,total=column==="a"?totalA:totalB;stem=h?`तालिका में “${label}” वाले सभी मानों का योग कितना है?`:`ਸਾਰਣੀ ਵਿੱਚ “${label}” ਵਾਲੇ ਸਾਰੇ ਮੁੱਲਾਂ ਦਾ ਜੋੜ ਕਿੰਨਾ ਹੈ?`;steps=[h?`पहले ${label} वाले खाने का लुप्त मान ज्ञात करें।`:`ਪਹਿਲਾਂ ${label} ਵਾਲਾ ਗੁੰਮ ਮੁੱਲ ਕੱਢੋ।`,h?`पाँचों ${label} मान जोड़ने पर ${total} मिलता है।`:`ਪੰਜਾਂ ${label} ਮੁੱਲਾਂ ਨੂੰ ਜੋੜਿਆਂ ${total} ਬਣਦਾ ਹੈ।`];break;}
    case "RECOVERED_SHARE_OF_TOTAL": {const rowTotal=cellTotal(p),share=Math.round(rowTotal*100/grand);stem=h?`कुल योग में ${p.label} का हिस्सा लगभग कितने प्रतिशत है?`:`ਕੁੱਲ ਜੋੜ ਵਿੱਚ ${p.label} ਦਾ ਹਿੱਸਾ ਲਗਭਗ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`;steps=[h?`${p.label} का अज्ञात मान ज्ञात करें।`:`${p.label} ਦਾ ਅਣਜਾਣ ਮੁੱਲ ਕੱਢੋ।`,`${p.label} का कुल = ${cell(p,"a")} + ${cell(p,"b")} = ${rowTotal}।`,`${h?"बड़ा कुल":"ਵੱਡਾ ਕੁੱਲ"} = ${grand}।`,`${h?"हिस्सा":"ਹਿੱਸਾ"} ≈ ${share}%।`];break;}
    case "CROSS_ROW_RATIO_AFTER_RECOVERY": {const a=cellTotal(p),b=cellTotal(s);stem=h?`${p.label} और ${s.label} के कुलों का अनुपात क्या है?`:`${p.label} ਅਤੇ ${s.label} ਦੇ ਕੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`;steps=[`${p.label} का कुल = ${a}।`,`${s.label} का कुल = ${b}।`,`${h?"अनुपात":"ਅਨੁਪਾਤ"} = ${q.answer}।`];break;}
-   case "COMBINED_RECOVERED_PERCENT": {const share=Math.round((x+y)*100/grand);stem=h?"x और y मिलकर कुल योग का लगभग कितना प्रतिशत हैं?":"x ਅਤੇ y ਮਿਲ ਕੇ ਕੁੱਲ ਜੋੜ ਦਾ ਲਗਭਗ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹਨ?";steps=[`x + y = ${x+y}।`,`${h?"बड़ा कुल":"ਵੱਡਾ ਕੁੱਲ"} = ${grand}।`,`${h?"आवश्यक प्रतिशत":"ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ"} ≈ ${share}%।`];break;}
+   case "COMBINED_RECOVERED_PERCENT": {const share=Math.round((x+y)*100/grand);stem=h?`दोनों लुप्त मानों का योग पूरी तालिका के कुल का लगभग कितना प्रतिशत है?`:`ਦੋਵੇਂ ਗੁੰਮ ਮੁੱਲਾਂ ਦਾ ਜੋੜ ਪੂਰੀ ਸਾਰਣੀ ਦੇ ਕੁੱਲ ਦਾ ਲਗਭਗ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?`;steps=[`x + y = ${x+y}।`,`${h?"बड़ा कुल":"ਵੱਡਾ ਕੁੱਲ"} = ${grand}।`,`${h?"आवश्यक प्रतिशत":"ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ"} ≈ ${share}%।`];break;}
   }
   return {...q,stem,explanation:{keyIdea:h?"पहले दी गई शर्त और तालिका से अज्ञात मान निकालें। फिर पूछा गया हिसाब करें।":"ਪਹਿਲਾਂ ਦਿੱਤੀ ਸ਼ਰਤ ਅਤੇ ਸਾਰਣੀ ਤੋਂ ਅਣਜਾਣ ਮੁੱਲ ਕੱਢੋ। ਫਿਰ ਪੁੱਛਿਆ ਹਿਸਾਬ ਕਰੋ।",steps}};
  });
