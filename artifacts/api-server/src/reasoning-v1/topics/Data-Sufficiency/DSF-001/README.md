@@ -2,7 +2,7 @@
 
 Implementation root for ExamTree `REAS-DSF`.
 
-Current status: **DSF-CP-000 FROZEN**. First permanent QL: **`DSF-QL-001`**.
+Current status: **QL001 production history preserved; QL002 Reasoning Question Studio review runtime at CP033 freeze candidate**. Permanent QLs: **`DSF-QL-001`** and **`DSF-QL-002`**.
 
 Core rule:
 
@@ -21,12 +21,15 @@ Frozen CP-000 includes:
 - merge/split audit and permanent QL boundary freeze;
 - dedicated CI proof suite.
 
-Permanent identity:
+Permanent identities:
 
 - `DSF-QL-001 / TWO_STATEMENT_TARGET_DETERMINACY`
-- answer semantic: `SUFFICIENCY_CLASS`
-- next available identity: `DSF-QL-002`
+  - answer semantic: `SUFFICIENCY_CLASS`
+  - normal two-statement Question Studio breadth across 21 lanes
+- `DSF-QL-002 / THREE_STATEMENT_MINIMAL_SUFFICIENT_SUBSETS`
+  - answer semantic: `MINIMAL_SUFFICIENT_STATEMENT_SUBSET`
+  - 19 frozen semantic states
+  - Question Studio review runtime for seven Reasoning lanes in English, Hindi and Punjabi
+- next available identity: `DSF-QL-003`
 
-Source chapters and target kinds remain solve-mode/adapter metadata. `DSF-QL-CAND-002` for three-statement subset DS remains deferred.
-
-Question Studio publication, question-bank writes and mock-test eligibility remain locked. `DSF-CP-001` owns the first production generator for `DSF-QL-001`.
+QL002 is review-enabled but not release-enabled. Question Bank writes, scored tests, mock tests, public publication and automatic learner publication remain locked for QL002. Historical CP000/CP001 snapshots are intentionally preserved as records of the earlier state.

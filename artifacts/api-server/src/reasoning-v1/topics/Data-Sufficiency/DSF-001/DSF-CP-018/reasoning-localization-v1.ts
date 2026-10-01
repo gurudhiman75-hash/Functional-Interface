@@ -101,6 +101,18 @@ function replaceCommon(text: string, language: DsfReasoningLocalizedLanguage): s
   return s;
 }
 
+function localizeRankingSubject(value:string, language:DsfReasoningLocalizedLanguage):string {
+  const key=value.toLowerCase();
+  const map:Record<string,[string,string]>={
+    "target person":["लक्षित व्यक्ति","ਲਕਸ਼ਿਤ ਵਿਅਕਤੀ"],
+    candidate:["अभ्यर्थी","ਉਮੀਦਵਾਰ"],
+    runner:["धावक","ਦੌੜਾਕ"],
+    student:["विद्यार्थी","ਵਿਦਿਆਰਥੀ"],
+    person:["व्यक्ति","ਵਿਅਕਤੀ"],
+  };
+  return map[key] ? t(language,...map[key]!) : value;
+}
+
 function localizeRankingStatement(text: string, language: DsfReasoningLocalizedLanguage): string | undefined {
   let m: RegExpMatchArray | null;
   const side = (value: string) => /starting/i.test(value)
@@ -148,6 +160,31 @@ function localizeRankingStatement(text: string, language: DsfReasoningLocalizedL
   if(m) return t(language,`आरंभिक सिरे से रैंक ${parity(m[1]!)} है।`,`ਸ਼ੁਰੂਆਤੀ ਸਿਰੇ ਤੋਂ ਰੈਂਕ ${parity(m[1]!)} ਹੈ।`);
   m=text.match(/^The total number of people is (even|odd)\.$/i);
   if(m) return t(language,`कुल व्यक्तियों की संख्या ${parity(m[1]!)} है।`,`ਕੁੱਲ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ ${parity(m[1]!)} ਹੈ।`);
+  m=text.match(/^The (rank from the opposite end|total number of people|number of people after the person|rank from the starting end) is exactly (\d+)\.$/i);
+  if(m){
+    const labels:Record<string,[string,string]>={
+      "rank from the opposite end":["दूसरे सिरे से रैंक","ਦੂਜੇ ਸਿਰੇ ਤੋਂ ਰੈਂਕ"],
+      "total number of people":["कुल व्यक्तियों की संख्या","ਕੁੱਲ ਵਿਅਕਤੀਆਂ ਦੀ ਗਿਣਤੀ"],
+      "number of people after the person":["व्यक्ति के बाद लोगों की संख्या","ਵਿਅਕਤੀ ਤੋਂ ਬਾਅਦ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ"],
+      "rank from the starting end":["आरंभिक सिरे से रैंक","ਸ਼ੁਰੂਆਤੀ ਸਿਰੇ ਤੋਂ ਰੈਂਕ"],
+    };
+    const pair=labels[m[1]!.toLowerCase()]!;
+    return t(language,`${pair[0]} ठीक ${m[2]} है।`,`${pair[1]} ਬਿਲਕੁਲ ${m[2]} ਹੈ।`);
+  }
+  m=text.match(/^The (candidate|runner|student|person) is (\d+)(?:st|nd|rd|th) from the (starting|opposite) end\.$/i);
+  if(m) return t(language,`${localizeRankingSubject(m[1]!,language)} ${side(m[3]!)} से ${ordinal(m[2]!,language)} है।`,`${localizeRankingSubject(m[1]!,language)} ${side(m[3]!)} ਤੋਂ ${ordinal(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^Exactly (\d+) (person is|people are) (before|after) the (candidate|runner|student|person)\.$/i);
+  if(m){
+    const where=m[3]!.toLowerCase()==="before" ? t(language,"से पहले","ਤੋਂ ਪਹਿਲਾਂ") : t(language,"के बाद","ਤੋਂ ਬਾਅਦ");
+    return t(language,`${localizeRankingSubject(m[4]!,language)} ${where} ठीक ${m[1]} व्यक्ति ${Number(m[1])===1?"है":"हैं"}।`,`${localizeRankingSubject(m[4]!,language)} ${where} ਬਿਲਕੁਲ ${m[1]} ਵਿਅਕਤੀ ${Number(m[1])===1?"ਹੈ":"ਹਨ"}।`);
+  }
+  m=text.match(/^(\d+) people are in the complete order, and (\d+) (person is|people are) after the (candidate|runner|student|person)\.$/i);
+  if(m) return t(language,`पूरे क्रम में ${m[1]} व्यक्ति हैं और ${localizeRankingSubject(m[4]!,language)} के बाद ${m[2]} व्यक्ति हैं।`,`ਪੂਰੇ ਕ੍ਰਮ ਵਿੱਚ ${m[1]} ਵਿਅਕਤੀ ਹਨ ਅਤੇ ${localizeRankingSubject(m[4]!,language)} ਤੋਂ ਬਾਅਦ ${m[2]} ਵਿਅਕਤੀ ਹਨ।`);
+  m=text.match(/^The (candidate|runner|student|person)'s rank from the (starting|opposite) end is at (most|least) (\d+)\.$/i);
+  if(m){
+    const bound=m[3]!.toLowerCase()==="most" ? t(language,"अधिकतम","ਵੱਧ ਤੋਂ ਵੱਧ") : t(language,"कम से कम","ਘੱਟੋ-ਘੱਟ");
+    return t(language,`${localizeRankingSubject(m[1]!,language)} की ${side(m[2]!)} से रैंक ${bound} ${m[4]} है।`,`${localizeRankingSubject(m[1]!,language)} ਦੀ ${side(m[2]!)} ਤੋਂ ਰੈਂਕ ${bound} ${m[4]} ਹੈ।`);
+  }
   return undefined;
 }
 
@@ -208,6 +245,10 @@ function localizeDirectionStatement(text: string, language: DsfReasoningLocalize
     const axis=m[1]!.toLowerCase()==="east-west" ? t(language,"पूर्व-पश्चिम","ਪੂਰਬ-ਪੱਛਮ") : t(language,"उत्तर-दक्षिण","ਉੱਤਰ-ਦੱਖਣ");
     return t(language,`अंतिम ${axis} निर्देशांक ${localizeDirectionValue(m[2]!,language)} है।`,`ਅੰਤਿਮ ${axis} ਕੋਆਰਡੀਨੇਟ ${localizeDirectionValue(m[2]!,language)} ਹੈ।`);
   }
+  m=text.match(/^The net displacement components are (-?[\d.]+) m east-west and (-?[\d.]+) m north-south\.$/i);
+  if(m) return t(language,`शुद्ध विस्थापन के घटक पूर्व-पश्चिम दिशा में ${m[1]} मीटर और उत्तर-दक्षिण दिशा में ${m[2]} मीटर हैं।`,`ਕੁੱਲ ਵਿਸਥਾਪਨ ਦੇ ਘਟਕ ਪੂਰਬ-ਪੱਛਮ ਦਿਸ਼ਾ ਵਿੱਚ ${m[1]} ਮੀਟਰ ਅਤੇ ਉੱਤਰ-ਦੱਖਣ ਦਿਸ਼ਾ ਵਿੱਚ ${m[2]} ਮੀਟਰ ਹਨ।`);
+  m=text.match(/^The total path length is ([\d.]+) m\.$/i);
+  if(m) return t(language,`कुल तय की गई दूरी ${m[1]} मीटर है।`,`ਕੁੱਲ ਤੈਅ ਕੀਤੀ ਦੂਰੀ ${m[1]} ਮੀਟਰ ਹੈ।`);
   return undefined;
 }
 
@@ -239,12 +280,19 @@ function localizeBloodStatement(text: string, language: DsfReasoningLocalizedLan
   if(m) return t(language,`${m[1]} , ${m[3]} का ${localizeRelation(m[2]!,language)} है।`,`${m[1]}, ${m[3]} ਦਾ ${localizeRelation(m[2]!,language)} ਹੈ।`);
   m=text.match(/^([PXQ]) is (male|female)\.$/i);
   if(m) return t(language,`${m[1]} ${localizeRelation(m[2]!,language)} है।`,`${m[1]} ${localizeRelation(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The gender of ([PXQ]) is not fixed\.$/i);
+  if(m) return t(language,`${m[1]} का लिंग निश्चित नहीं है।`,`${m[1]} ਦਾ ਲਿੰਗ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੈ।`);
   m=text.match(/^The gender of ([PXQ]) is not fixed by the available direct-relation wording\.$/i);
   if(m) return t(language,`उपलब्ध प्रत्यक्ष संबंध से ${m[1]} का लिंग निश्चित नहीं होता।`,`ਉਪਲਬਧ ਸਿੱਧੇ ਸੰਬੰਧ ਤੋਂ ${m[1]} ਦਾ ਲਿੰਗ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੁੰਦਾ।`);
   m=text.match(/^The stated (P-X|X-Q) clue is a (parent|child|sibling|spouse)-type relation\.$/i);
   if(m) return t(language,`दिया गया ${m[1]} संकेत ${localizeRelation(m[2]!,language)} संबंध दर्शाता है।`,`ਦਿੱਤਾ ਗਿਆ ${m[1]} ਸੰਕੇਤ ${localizeRelation(m[2]!,language)} ਸੰਬੰਧ ਦਰਸਾਉਂਦਾ ਹੈ।`);
   m=text.match(/^The (P-X|X-Q) clue is stated with ([PXQ]) as the subject and ([PXQ]) as the reference person\.$/i);
   if(m) return t(language,`${m[1]} संकेत में ${m[2]} मुख्य व्यक्ति और ${m[3]} संदर्भ व्यक्ति है।`,`${m[1]} ਸੰਕੇਤ ਵਿੱਚ ${m[2]} ਮੁੱਖ ਵਿਅਕਤੀ ਅਤੇ ${m[3]} ਹਵਾਲਾ ਵਿਅਕਤੀ ਹੈ।`);
+  m=text.match(/^The relation between ([PXQ]) and ([PXQ]) is a (parent-child|sibling|spouse) relation\.$/i);
+  if(m){
+    const relation=m[3]!.toLowerCase()==="parent-child" ? t(language,"माता-पिता और संतान","ਮਾਤਾ-ਪਿਤਾ ਅਤੇ ਸੰਤਾਨ") : m[3]!.toLowerCase()==="sibling" ? t(language,"भाई-बहन","ਭੈਣ-ਭਰਾ") : t(language,"वैवाहिक","ਵਿਆਹਕ");
+    return t(language,`${m[1]} और ${m[2]} के बीच ${relation} संबंध है।`,`${m[1]} ਅਤੇ ${m[2]} ਵਿਚਕਾਰ ${relation} ਰਿਸ਼ਤਾ ਹੈ।`);
+  }
   m=text.match(/^The (P-X|X-Q) link is (a blood relation|a spouse relation)\.$/i);
   if(m) return /blood/i.test(m[2]!)
     ? t(language,`${m[1]} संबंध रक्त संबंध है।`,`${m[1]} ਸੰਬੰਧ ਖੂਨ ਦਾ ਰਿਸ਼ਤਾ ਹੈ।`)
@@ -323,6 +371,10 @@ function localizeCalendarStatement(text:string, language:DsfReasoningLocalizedLa
   if(m) return t(language,`दिनों की संख्या को 7 से भाग देने पर शेषफल ${m[1]} या ${m[2]} है।`,`ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ 7 ਨਾਲ ਭਾਗ ਦੇਣ 'ਤੇ ਬਾਕੀ ${m[1]} ਜਾਂ ${m[2]} ਹੈ।`);
   m=text.match(/^The resulting day is either (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday) or (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\.$/i);
   if(m) return t(language,`परिणामी वार ${localizeWeekday(m[1]!,language)} या ${localizeWeekday(m[2]!,language)} है।`,`ਨਤੀਜੇ ਵਾਲਾ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਜਾਂ ${localizeWeekday(m[2]!,language)} ਹੈ।`);
+  m=text.match(/^The day count leaves remainder (\d+) on division by 7\.$/i);
+  if(m) return t(language,`दिनों की संख्या को 7 से भाग देने पर शेषफल ${m[1]} है।`,`ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ 7 ਨਾਲ ਭਾਗ ਦੇਣ 'ਤੇ ਬਾਕੀ ${m[1]} ਹੈ।`);
+  m=text.match(/^The remainder is either (\d+) or (\d+)\.$/i);
+  if(m) return t(language,`शेषफल ${m[1]} या ${m[2]} है।`,`ਬਾਕੀ ${m[1]} ਜਾਂ ${m[2]} ਹੈ।`);
   return undefined;
 }
 
@@ -353,6 +405,11 @@ function localizeInequalityStatement(text:string, language:DsfReasoningLocalized
 }
 
 function localizeCodingStatement(text:string, language:DsfReasoningLocalizedLanguage):string|undefined {
+  if(text.includes(";")){
+    const parts=text.split(";").map(part=>part.trim()).filter(Boolean);
+    const localized=parts.map(part=>localizeCodingStatement(part.endsWith(".")?part:`${part}.`,language));
+    if(localized.every((part):part is string=>Boolean(part))) return localized.join(" ");
+  }
   let m:RegExpMatchArray|null;
   m=text.match(/^([A-Za-z]) is coded as (\d)\.$/u);
   if(m) return t(language,`${m[1]} का कोड ${m[2]} है।`,`${m[1]} ਦਾ ਕੋਡ ${m[2]} ਹੈ।`);
@@ -430,6 +487,25 @@ function localizeStatement(laneId: string, text: string, language: DsfReasoningL
     .replace(/ does not /gi, language==="hi" ? " नहीं " : " ਨਹੀਂ ")
     .replace(/ is not /gi, language==="hi" ? " नहीं है " : " ਨਹੀਂ ਹੈ ");
   return s.trim();
+}
+
+
+export function localizeDsfReasoningStatementText(
+  laneId: string,
+  text: string,
+  language: DsfReasoningLocalizedLanguage,
+): string {
+  return localizeStatement(laneId, text, language);
+}
+
+export function localizeDsfReasoningStemParts(
+  laneId: string,
+  question: AnyQuestion,
+  language: DsfReasoningLocalizedLanguage,
+): Readonly<{ lead: string; prompt: string; stem: string }> {
+  const lead = scenarioLead(laneId, question, language);
+  const prompt = targetPrompt(laneId, question, language);
+  return Object.freeze({ lead, prompt, stem: `${lead} ${prompt}`.trim() });
 }
 
 function localizedExplanation(q: AnyQuestion, language: DsfReasoningLocalizedLanguage): string {

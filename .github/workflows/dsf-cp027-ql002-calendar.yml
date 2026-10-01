@@ -1,0 +1,40 @@
+name: Validate DSF-CP-027 QL002 Calendar
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - audit/dsf-001-cp026-ql002-coding
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-027/**
+      - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp027-ql002-calendar-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp027:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP027 QL002 Calendar audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-027/calendar-three-statement-batch-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dsf-cp027-ql002-calendar.test.mjs
+      - name: Run CP027 QL002 Calendar audit
+        run: node artifacts/api-server/dist/reasoning-v1/dsf-cp027-ql002-calendar.test.mjs

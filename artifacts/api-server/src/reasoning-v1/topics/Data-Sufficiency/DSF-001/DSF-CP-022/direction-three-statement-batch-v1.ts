@@ -10,6 +10,7 @@ import {
   renderThreeStatementSemanticLabel,
   type DsfCp015ThreeStatementSemanticKey,
 } from "../DSF-CP-015/three-statement-answer-profile.ts";
+import { renderThreeStatementEditorialExplanation } from "../shared/three-statement-editorial-explanation.ts";
 
 export const DSF_CP022_DIRECTION_QL002_RUNTIME_VERSION = "DSF_CP022_DIRECTION_QL002_RUNTIME_V1" as const;
 
@@ -71,17 +72,17 @@ function sign(v:number){return v===0?"zero":v>0?"positive":"negative";}
 function targetLabel(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"final facing direction":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"final coordinates":"shortest distance from the starting point";}
 function prompt(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"Which direction is the person facing after the third movement?":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"Taking the starting point as (0, 0), what are the final coordinates?":"What is the shortest distance from the final point to the starting point?";}
 function lead(c:ContextId){return ({
-  WALKING_ROUTE:"A person follows a three-leg walking route.",
-  DELIVERY_ROUTE:"A delivery worker follows a three-leg route.",
-  CAMPUS_PATH:"A student follows a three-leg path across a campus.",
-  PATROL_ROUTE:"A guard follows a three-leg patrol route.",
-  WAREHOUSE_ROUTE:"A worker follows a three-leg route inside a warehouse.",
-  FIELD_ROUTE:"A surveyor follows a three-leg route across a field.",
+  WALKING_ROUTE:"A person moves in three successive stages.",
+  DELIVERY_ROUTE:"A delivery worker moves in three successive stages.",
+  CAMPUS_PATH:"A student moves in three successive stages across a campus.",
+  PATROL_ROUTE:"A guard moves in three successive stages while on patrol.",
+  WAREHOUSE_ROUTE:"A worker moves in three successive stages inside a warehouse.",
+  FIELD_ROUTE:"A surveyor moves in three successive stages across a field.",
 } as const)[c];}
 
 function pool(problem:Problem):readonly Statement[]{
   const a=problem.anchor,t=target(problem.solveMode,a);
-  return Object.freeze([
+  const statements = [
     st(`TARGET_${t}`,"TARGET_EXACT",1,`The ${targetLabel(problem.solveMode)} is ${t}.`,w=>target(problem.solveMode,w)===t),
     st(`START_${a.startFacing}`,"START_FACING_EXACT",1,`The person starts facing ${a.startFacing}.`,w=>w.startFacing===a.startFacing),
     st(`TURN1_${a.firstTurn}`,"FIRST_TURN_EXACT",1,`After the first movement, the person turns ${a.firstTurn}.`,w=>w.firstTurn===a.firstTurn),
@@ -98,7 +99,12 @@ function pool(problem:Problem):readonly Statement[]{
     st(`PATH_${a.totalPath}`,"TOTAL_PATH_EXACT",2,`The total path length is ${a.totalPath} m.`,w=>w.totalPath===a.totalPath),
     st(`XSIGN_${sign(a.finalX)}`,"FINAL_X_SIGN",2,`The final east-west coordinate is ${sign(a.finalX)}.`,w=>sign(w.finalX)===sign(a.finalX)),
     st(`YSIGN_${sign(a.finalY)}`,"FINAL_Y_SIGN",2,`The final north-south coordinate is ${sign(a.finalY)}.`,w=>sign(w.finalY)===sign(a.finalY)),
-  ]);
+  ];
+  return Object.freeze(statements.filter((statement) => {
+    if (problem.solveMode === "DSF-SM-DIR-FINAL-FACING" && statement.family === "FINAL_FACING_EXACT") return false;
+    if (problem.solveMode === "DSF-SM-DIR-FINAL-COORDINATES" && statement.family === "FINAL_COMPONENT_PAIR") return false;
+    return true;
+  }));
 }
 const CACHE=new Map<string,readonly Candidate[]>();
 function candidates(problem:Problem):readonly Candidate[]{
@@ -138,9 +144,7 @@ function select(seed:string){
   return {problem:fallback.problem,candidate:short[pick(`${seed}:fallback`,short.length)]!};
 }
 function explanation(problem:Problem,c:Candidate){
-  const get=(id:"I"|"II"|"III")=>c.evaluation.subsetEvaluations.find(x=>x.statementIds.length===1&&x.statementIds[0]===id)?.result;
-  const line=(label:string,r:ReturnType<typeof get>)=>r?.sufficient?`${label} alone fixes the requested direction result at ${r.normalizedTargetAnswers[0]}.`:`${label} alone does not fix one requested direction result.`;
-  return [`We need the ${targetLabel(problem.solveMode)}.`,line("Statement I",get("I")),line("Statement II",get("II")),line("Statement III",get("III")),renderThreeStatementSemanticLabel(c.semanticKey)].join(" ");
+  return renderThreeStatementEditorialExplanation(c.evaluation, targetLabel(problem.solveMode), c.semanticKey);
 }
 export function generateDsfCp022DirectionQuestion(seed:string|number){
   const s=String(seed),{problem,candidate:c}=select(s),options=buildThreeStatementAnswerOptions(c.semanticKey,hash(s)),correctIndex=options.findIndex(x=>x.isCorrect);
