@@ -78,7 +78,7 @@ const adapter={
 };
 function st(id:string,family:string,complexity:1|2|3,text:string,test:(w:World)=>boolean):Statement{return Object.freeze({id,family,complexity,text,test});}
 function sign(v:number){return v===0?"zero":v>0?"positive":"negative";}
-function targetLabel(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"final facing direction":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"final coordinates":"shortest distance from the starting point";}
+function targetLabel(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"final facing direction":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"final coordinates from the starting point":"shortest distance from the starting point";}
 function prompt(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"Which direction is the person facing after the third movement?":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"What are the coordinates of the final point, taking the starting point as (0, 0)?":"What is the shortest distance from the final point to the starting point?";}
 function lead(c:ContextId){return ({
   WALKING_ROUTE:"A person moves in three successive stages.",
