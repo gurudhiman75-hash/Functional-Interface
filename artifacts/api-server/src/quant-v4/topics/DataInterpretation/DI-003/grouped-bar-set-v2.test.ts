@@ -102,7 +102,7 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
         const measurePatterns: Readonly<Record<string, RegExp>> = {
           ANNUAL_SALES: /units sold|units did .* sell|sales volume/iu,
           MONTHLY_PRODUCTION: /production|produce/iu,
-          TEST_SELECTIONS: /candidates selected/iu,
+          TEST_SELECTIONS: /candidates (?:were )?selected/iu,
           LIBRARY_ISSUES: /books issued|books did .* issue/iu,
           TICKET_SALES: /tickets sold|tickets did .* sell|ticket sales/iu,
           PACKAGE_DISPATCH: /packages dispatched|packages did .* dispatch/iu,
