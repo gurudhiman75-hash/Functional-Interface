@@ -197,6 +197,7 @@ export function QuestionStudioCockpitPage() {
   const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL_T1');
   const [packageId, setPackageId] = useState('');
   const [selectedCpIds, setSelectedCpIds] = useState<Set<string>>(() => new Set());
+  const [cpSearch, setCpSearch] = useState('');
   const [difficulty, setDifficulty] = useState('Medium');
   const [language, setLanguage] = useState('en');
   const [count, setCount] = useState(10);
@@ -299,6 +300,7 @@ export function QuestionStudioCockpitPage() {
     if (!packageId || !chapterPackages.some((entry) => entry.packageId === packageId)) {
       setPackageId(chapterPackages[0]!.packageId);
       setSelectedCpIds(new Set());
+      setCpSearch('');
     }
   }, [chapterPackages, packageId]);
 
@@ -306,6 +308,20 @@ export function QuestionStudioCockpitPage() {
   const availableCpIds = useMemo(
     () => activePackage ? packageCpIds(activePackage) : [],
     [activePackage],
+  );
+
+  const visibleCpIds = useMemo(() => {
+    const normalizedSearch = cpSearch.trim().toLowerCase();
+    if (!normalizedSearch || !activePackage) return availableCpIds;
+    return availableCpIds.filter((cpId) => {
+      const label = cpDisplayLabel(activePackage, cpId);
+      return `${cpId} ${label}`.toLowerCase().includes(normalizedSearch);
+    });
+  }, [activePackage, availableCpIds, cpSearch]);
+
+  const selectedAfterVisibleCount = useMemo(
+    () => new Set([...selectedCpIds, ...visibleCpIds]).size,
+    [selectedCpIds, visibleCpIds],
   );
 
   useEffect(() => {
@@ -530,6 +546,7 @@ export function QuestionStudioCockpitPage() {
                   setChapter('');
                   setPackageId('');
                   setSelectedCpIds(new Set());
+                  setCpSearch('');
                 }}
               >
                 <SelectTrigger><SelectValue placeholder="Select subject" /></SelectTrigger>
@@ -543,6 +560,7 @@ export function QuestionStudioCockpitPage() {
                   setChapter(value);
                   setPackageId('');
                   setSelectedCpIds(new Set());
+                  setCpSearch('');
                 }}
                 disabled={!subject}
               >
@@ -552,7 +570,7 @@ export function QuestionStudioCockpitPage() {
             </Field>
             {chapterPackages.length > 1 ? (
               <Field label="Question family" className="xl:col-span-2">
-                <Select value={packageId} onValueChange={(value) => { setPackageId(value); setSelectedCpIds(new Set()); }}>
+                <Select value={packageId} onValueChange={(value) => { setPackageId(value); setSelectedCpIds(new Set()); setCpSearch(''); }}>
                   <SelectTrigger><SelectValue placeholder="Select question family" /></SelectTrigger>
                   <SelectContent>{chapterPackages.map((entry) => <SelectItem key={entry.packageId} value={entry.packageId}>{entry.label}</SelectItem>)}</SelectContent>
                 </Select>
@@ -572,8 +590,9 @@ export function QuestionStudioCockpitPage() {
                   <p className="text-xs font-semibold">Content patterns (CPs)</p>
                   <p className="mt-0.5 text-[11px] text-muted-foreground">
                     {selectedCpIds.size > 0
-                      ? `${selectedCpIds.size} of ${availableCpIds.length} CPs selected · questions are distributed across the selected CPs`
-                      : `No explicit CP filter · the generator can mix across all ${availableCpIds.length} CPs in this family`}
+                      ? `${selectedCpIds.size} of ${availableCpIds.length} CPs selected`
+                      : `No explicit CP filter · chapter mix uses all ${availableCpIds.length} CPs`}
+                    {cpSearch.trim() ? ` · ${visibleCpIds.length} shown` : ''}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -584,38 +603,55 @@ export function QuestionStudioCockpitPage() {
                     type="button"
                     size="sm"
                     variant="outline"
-                    onClick={() => setSelectedCpIds(new Set(availableCpIds))}
-                    disabled={availableCpIds.length > capabilities.maxBatchSize}
+                    onClick={() => setSelectedCpIds((current) => new Set([...current, ...visibleCpIds]))}
+                    disabled={visibleCpIds.length === 0 || selectedAfterVisibleCount > capabilities.maxBatchSize}
                   >
-                    Select all CPs
+                    Select visible
                   </Button>
                 </div>
               </div>
-              <div className="grid max-h-64 gap-2 overflow-y-auto p-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {availableCpIds.map((cpId) => {
-                  const checked = selectedCpIds.has(cpId);
-                  return (
-                    <label key={cpId} className={cn('flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition-colors', checked ? 'border-primary/40 bg-primary/5' : 'bg-background hover:bg-muted/40')}>
-                      <Checkbox
-                        checked={checked}
-                        onCheckedChange={(value) => setSelectedCpIds((current) => {
-                          const next = new Set(current);
-                          value === true ? next.add(cpId) : next.delete(cpId);
-                          return next;
-                        })}
-                      />
-                      <span className="min-w-0">
-                        <span className="block font-mono">{cpId}</span>
-                        {cpDisplayLabel(activePackage, cpId) && (
-                          <span className="mt-0.5 block truncate text-[10px] text-muted-foreground">
-                            {cpDisplayLabel(activePackage, cpId)}
-                          </span>
-                        )}
-                      </span>
-                    </label>
-                  );
-                })}
+              <div className="border-b p-3">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    value={cpSearch}
+                    onChange={(event) => setCpSearch(event.target.value)}
+                    placeholder="Search CP code or title"
+                    className="pl-9"
+                  />
+                </div>
               </div>
+              {visibleCpIds.length > 0 ? (
+                <div className="grid max-h-64 gap-2 overflow-y-auto p-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {visibleCpIds.map((cpId) => {
+                    const checked = selectedCpIds.has(cpId);
+                    return (
+                      <label key={cpId} className={cn('flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition-colors', checked ? 'border-primary/40 bg-primary/5' : 'bg-background hover:bg-muted/40')}>
+                        <Checkbox
+                          checked={checked}
+                          onCheckedChange={(value) => setSelectedCpIds((current) => {
+                            const next = new Set(current);
+                            value === true ? next.add(cpId) : next.delete(cpId);
+                            return next;
+                          })}
+                        />
+                        <span className="min-w-0">
+                          <span className="block font-mono">{cpId}</span>
+                          {cpDisplayLabel(activePackage, cpId) && (
+                            <span className="mt-0.5 block truncate text-[10px] text-muted-foreground">
+                              {cpDisplayLabel(activePackage, cpId)}
+                            </span>
+                          )}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="p-6 text-center text-xs text-muted-foreground">
+                  No CP matches “{cpSearch.trim()}”.
+                </div>
+              )}
               {selectedCpIds.size > count && (
                 <div className="border-t border-warning/20 bg-warning/5 px-4 py-2 text-[11px] text-warning">
                   Increase question count to at least {selectedCpIds.size} so each selected CP receives a question.
