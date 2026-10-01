@@ -69,7 +69,7 @@
           "Prince Charles Mountains",
           "Gamburtsev Mountains"
         ],
-        "explanation": "Mount Vinson, Antarctica’s highest peak, is part of the Ellsworth Mountains."
+        "explanation": "Mount Vinson is Antarctica’s highest peak and lies in the Ellsworth Mountains. The range is in western Antarctica, near the base of the Antarctic Peninsula."
       },
       "hi": {
         "stem": "माउंट विंसन अंटार्कटिका की किस पर्वत-श्रेणी में स्थित है?",
@@ -79,7 +79,7 @@
           "प्रिंस चार्ल्स पर्वत",
           "गाम्बुर्त्सेव पर्वत"
         ],
-        "explanation": "अंटार्कटिका की सबसे ऊँची चोटी माउंट विंसन एल्सवर्थ पर्वत का हिस्सा है।"
+        "explanation": "माउंट विन्सन अंटार्कटिका की सबसे ऊँची चोटी है और एल्सवर्थ पर्वतों में स्थित है। यह पर्वत-श्रेणी पश्चिमी अंटार्कटिका में अंटार्कटिक प्रायद्वीप के आधार के निकट है।"
       },
       "pa": {
         "stem": "ਮਾਊਂਟ ਵਿਨਸਨ ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਕਿਹੜੀ ਪਹਾੜੀ ਲੜੀ ਵਿੱਚ ਹੈ?",
@@ -89,9 +89,10 @@
           "ਪ੍ਰਿੰਸ ਚਾਰਲਜ਼ ਪਹਾੜ",
           "ਗੈਂਬਰਟਸੇਵ ਪਹਾੜ"
         ],
-        "explanation": "ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਸਭ ਤੋਂ ਉੱਚੀ ਚੋਟੀ ਮਾਊਂਟ ਵਿਨਸਨ ਐਲਸਵਰਥ ਪਹਾੜਾਂ ਦਾ ਹਿੱਸਾ ਹੈ।"
+        "explanation": "ਮਾਊਂਟ ਵਿਨਸਨ ਅੰਟਾਰਕਟਿਕਾ ਦੀ ਸਭ ਤੋਂ ਉੱਚੀ ਚੋਟੀ ਹੈ ਅਤੇ ਐਲਸਵਰਥ ਪਹਾੜਾਂ ਵਿੱਚ ਸਥਿਤ ਹੈ। ਇਹ ਪਹਾੜੀ ਲੜੀ ਪੱਛਮੀ ਅੰਟਾਰਕਟਿਕਾ ਵਿੱਚ ਅੰਟਾਰਕਟਿਕ ਪ੍ਰਾਇਦੀਪ ਦੇ ਅਧਾਰ ਦੇ ਨੇੜੇ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP031-Q003",

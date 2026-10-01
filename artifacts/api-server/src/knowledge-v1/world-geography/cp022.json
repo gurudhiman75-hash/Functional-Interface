@@ -59,7 +59,7 @@
           "Bishkek",
           "Astana"
         ],
-        "explanation": "Astana is Kazakhstan’s capital; Almaty was the capital until 1997."
+        "explanation": "Astana is the capital of Kazakhstan. Almaty, the country’s largest city, served as the capital until 1997, which is why the two cities are commonly confused in static-GK questions."
       },
       "hi": {
         "stem": "कौन-सा शहर कज़ाख़स्तान की राजधानी है?",
@@ -69,7 +69,7 @@
           "बिश्केक",
           "अस्ताना"
         ],
-        "explanation": "अस्ताना कज़ाख़स्तान की राजधानी है; 1997 तक अल्माटी राजधानी थी।"
+        "explanation": "अस्ताना कज़ाख़स्तान की राजधानी है। देश का सबसे बड़ा शहर अल्माटी 1997 तक राजधानी था, इसलिए सामान्य ज्ञान के प्रश्नों में दोनों शहरों को अक्सर भ्रमित किया जाता है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਕਜ਼ਾਖਸਤਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
@@ -79,9 +79,10 @@
           "ਬਿਸ਼ਕੇਕ",
           "ਅਸਤਾਨਾ"
         ],
-        "explanation": "ਅਸਤਾਨਾ ਕਜ਼ਾਖਸਤਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; 1997 ਤੱਕ ਅਲਮਾਟੀ ਰਾਜਧਾਨੀ ਸੀ।"
+        "explanation": "ਅਸਤਾਨਾ ਕਜ਼ਾਖਸਤਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ। ਦੇਸ਼ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਸ਼ਹਿਰ ਅਲਮਾਟੀ 1997 ਤੱਕ ਰਾਜਧਾਨੀ ਸੀ, ਇਸ ਲਈ ਆਮ ਗਿਆਨ ਦੇ ਸਵਾਲਾਂ ਵਿੱਚ ਦੋਵੇਂ ਸ਼ਹਿਰ ਅਕਸਰ ਗਲਤ ਮਿਲਾਏ ਜਾਂਦੇ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP022-Q003",
@@ -143,7 +144,7 @@
           "Yangon",
           "Mandalay"
         ],
-        "explanation": "Naypyidaw is Myanmar’s capital; Yangon is its largest city."
+        "explanation": "Naypyidaw is the capital of Myanmar. Yangon is the country’s largest city and former capital, so it remains the most common distractor in capital-city questions."
       },
       "hi": {
         "stem": "कौन-सा शहर म्यांमार की राजधानी है?",
@@ -153,7 +154,7 @@
           "यांगून",
           "मांडले"
         ],
-        "explanation": "नेपीडॉ म्यांमार की राजधानी है; यांगून इसका सबसे बड़ा शहर है।"
+        "explanation": "नेपीडॉ म्यांमार की राजधानी है। यांगून देश का सबसे बड़ा शहर और पूर्व राजधानी है, इसलिए राजधानी संबंधी प्रश्नों में यह सबसे सामान्य भ्रमकारी विकल्प होता है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਮਿਆਂਮਾਰ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
@@ -163,9 +164,10 @@
           "ਯਾਂਗੂਨ",
           "ਮਾਂਡਲੇ"
         ],
-        "explanation": "ਨੇਪੀਡੌ ਮਿਆਂਮਾਰ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਯਾਂਗੂਨ ਇਸਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਸ਼ਹਿਰ ਹੈ।"
+        "explanation": "ਨੇਪੀਡੌ ਮਿਆਂਮਾਰ ਦੀ ਰਾਜਧਾਨੀ ਹੈ। ਯਾਂਗੂਨ ਦੇਸ਼ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਸ਼ਹਿਰ ਅਤੇ ਸਾਬਕਾ ਰਾਜਧਾਨੀ ਹੈ, ਇਸ ਲਈ ਰਾਜਧਾਨੀ ਵਾਲੇ ਸਵਾਲਾਂ ਵਿੱਚ ਇਹ ਸਭ ਤੋਂ ਆਮ ਭੁਲਾਵਾ ਵਿਕਲਪ ਹੁੰਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP022-Q005",
@@ -185,7 +187,7 @@
           "Marseille",
           "Nice"
         ],
-        "explanation": "Paris is the capital of France."
+        "explanation": "Paris is the capital of France and its principal political centre. Lyon, Marseille and Nice are major French cities, but none of them is the national capital."
       },
       "hi": {
         "stem": "कौन-सा शहर फ्रांस की राजधानी है?",
@@ -195,7 +197,7 @@
           "मार्सेय",
           "नीस"
         ],
-        "explanation": "पेरिस फ्रांस की राजधानी है।"
+        "explanation": "पेरिस फ्रांस की राजधानी और उसका प्रमुख राजनीतिक केंद्र है। लियोन, मार्सेय और नीस बड़े फ्रांसीसी शहर हैं, लेकिन इनमें से कोई भी राष्ट्रीय राजधानी नहीं है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਫ਼ਰਾਂਸ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
@@ -205,9 +207,10 @@
           "ਮਾਰਸੇਈ",
           "ਨੀਸ"
         ],
-        "explanation": "ਪੈਰਿਸ ਫ਼ਰਾਂਸ ਦੀ ਰਾਜਧਾਨੀ ਹੈ।"
+        "explanation": "ਪੈਰਿਸ ਫ਼ਰਾਂਸ ਦੀ ਰਾਜਧਾਨੀ ਅਤੇ ਇਸ ਦਾ ਮੁੱਖ ਰਾਜਨੀਤਿਕ ਕੇਂਦਰ ਹੈ। ਲਿਓਂ, ਮਾਰਸੇ ਅਤੇ ਨੀਸ ਵੱਡੇ ਫ਼ਰਾਂਸੀਸੀ ਸ਼ਹਿਰ ਹਨ, ਪਰ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਵੀ ਰਾਸ਼ਟਰੀ ਰਾਜਧਾਨੀ ਨਹੀਂ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP022-Q006",
@@ -353,7 +356,7 @@
           "Norway",
           "Greece"
         ],
-        "explanation": "Switzerland has no coastline and is surrounded by other countries."
+        "explanation": "Switzerland is landlocked in Central Europe and has no coastline. Portugal, Norway and Greece all have sea coasts, so they do not fit the landlocked condition."
       },
       "hi": {
         "stem": "मध्य यूरोप में स्थित स्थलरुद्ध देश कौन-सा है?",
@@ -363,7 +366,7 @@
           "नॉर्वे",
           "यूनान"
         ],
-        "explanation": "स्विट्ज़रलैंड का समुद्री तट नहीं है और यह अन्य देशों से घिरा है।"
+        "explanation": "स्विट्ज़रलैंड मध्य यूरोप का स्थलरुद्ध देश है और इसकी कोई समुद्री तटरेखा नहीं है। पुर्तगाल, नॉर्वे और ग्रीस सभी के समुद्री तट हैं, इसलिए वे स्थलरुद्ध नहीं हैं।"
       },
       "pa": {
         "stem": "ਮੱਧ ਯੂਰਪ ਵਿੱਚ ਸਥਿਤ ਭੂ-ਬੱਧ ਦੇਸ਼ ਕਿਹੜਾ ਹੈ?",
@@ -373,9 +376,10 @@
           "ਨਾਰਵੇ",
           "ਯੂਨਾਨ"
         ],
-        "explanation": "ਸਵਿਟਜ਼ਰਲੈਂਡ ਦਾ ਸਮੁੰਦਰੀ ਤਟ ਨਹੀਂ ਹੈ ਅਤੇ ਇਹ ਹੋਰ ਦੇਸ਼ਾਂ ਨਾਲ ਘਿਰਿਆ ਹੈ।"
+        "explanation": "ਸਵਿਟਜ਼ਰਲੈਂਡ ਮੱਧ ਯੂਰਪ ਦਾ ਭੂ-ਬੱਧ ਦੇਸ਼ ਹੈ ਅਤੇ ਇਸ ਦੀ ਕੋਈ ਸਮੁੰਦਰੀ ਤਟਰੇਖਾ ਨਹੀਂ ਹੈ। ਪੁਰਤਗਾਲ, ਨਾਰਵੇ ਅਤੇ ਗ੍ਰੀਸ ਸਭ ਦੇ ਸਮੁੰਦਰੀ ਤਟ ਹਨ, ਇਸ ਲਈ ਉਹ ਭੂ-ਬੱਧ ਨਹੀਂ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP022-Q010",
@@ -437,7 +441,7 @@
           "Lesotho",
           "Eswatini"
         ],
-        "explanation": "Lesotho is a sovereign enclave completely surrounded by South Africa."
+        "explanation": "Lesotho is an independent sovereign country completely surrounded by South Africa. A country enclosed within another country is called an enclave in this geographic sense."
       },
       "hi": {
         "stem": "कौन-सा देश पूरी तरह दक्षिण अफ्रीका से घिरा है?",
@@ -447,7 +451,7 @@
           "लेसोथो",
           "एस्वातिनी"
         ],
-        "explanation": "लेसोथो संप्रभु देश है और पूरी तरह दक्षिण अफ्रीका से घिरा है।"
+        "explanation": "लेसोथो एक स्वतंत्र संप्रभु देश है जो पूरी तरह दक्षिण अफ्रीका से घिरा है। इस प्रकार दूसरे देश के भीतर चारों ओर से घिरे देश को भौगोलिक अर्थ में एन्क्लेव कहा जाता है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਪੂਰੀ ਤਰ੍ਹਾਂ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਨਾਲ ਘਿਰਿਆ ਹੈ?",
@@ -457,9 +461,10 @@
           "ਲੈਸੋਥੋ",
           "ਐਸਵਾਤੀਨੀ"
         ],
-        "explanation": "ਲੈਸੋਥੋ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ ਅਤੇ ਪੂਰੀ ਤਰ੍ਹਾਂ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਨਾਲ ਘਿਰਿਆ ਹੈ।"
+        "explanation": "ਲੇਸੋਥੋ ਇੱਕ ਆਜ਼ਾਦ ਸਰਬਭੌਮ ਦੇਸ਼ ਹੈ ਜੋ ਪੂਰੀ ਤਰ੍ਹਾਂ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਨਾਲ ਘਿਰਿਆ ਹੋਇਆ ਹੈ। ਇਸ ਤਰ੍ਹਾਂ ਦੂਜੇ ਦੇਸ਼ ਦੇ ਅੰਦਰ ਚਾਰੋਂ ਪਾਸਿਆਂ ਤੋਂ ਘਿਰੇ ਦੇਸ਼ ਨੂੰ ਭੂਗੋਲਿਕ ਅਰਥ ਵਿੱਚ ਐਨਕਲੇਵ ਕਿਹਾ ਜਾਂਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP022-Q012",
@@ -479,7 +484,7 @@
           "Monaco",
           "Andorra"
         ],
-        "explanation": "San Marino is an independent enclave within Italy."
+        "explanation": "San Marino is an independent sovereign state completely enclosed by Italy. It is one of Europe’s small states and should not be confused with Monaco or Andorra, which are not enclosed by Italy."
       },
       "hi": {
         "stem": "कौन-सा देश इटली से घिरा संप्रभु देश है?",
@@ -489,7 +494,7 @@
           "मोनाको",
           "अंडोरा"
         ],
-        "explanation": "सैन मरीनो इटली के भीतर स्थित स्वतंत्र देश है।"
+        "explanation": "सान मरीनो एक स्वतंत्र संप्रभु राज्य है जो पूरी तरह इटली से घिरा है। यह यूरोप के छोटे राज्यों में से एक है और इसे मोनाको या अंडोरा से नहीं मिलाना चाहिए।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਇਟਲੀ ਨਾਲ ਘਿਰਿਆ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ?",
@@ -499,9 +504,10 @@
           "ਮੋਨਾਕੋ",
           "ਅੰਡੋਰਾ"
         ],
-        "explanation": "ਸੈਨ ਮਰੀਨੋ ਇਟਲੀ ਦੇ ਅੰਦਰ ਸਥਿਤ ਆਜ਼ਾਦ ਦੇਸ਼ ਹੈ।"
+        "explanation": "ਸਾਨ ਮਰੀਨੋ ਇੱਕ ਆਜ਼ਾਦ ਸਰਬਭੌਮ ਰਾਜ ਹੈ ਜੋ ਪੂਰੀ ਤਰ੍ਹਾਂ ਇਟਲੀ ਨਾਲ ਘਿਰਿਆ ਹੈ। ਇਹ ਯੂਰਪ ਦੇ ਛੋਟੇ ਰਾਜਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ ਅਤੇ ਇਸ ਨੂੰ ਮੋਨਾਕੋ ਜਾਂ ਅੰਡੋਰਾ ਨਾਲ ਨਹੀਂ ਮਿਲਾਉਣਾ ਚਾਹੀਦਾ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP022-Q013",
@@ -605,7 +611,7 @@
           "Vatican",
           "Malta"
         ],
-        "explanation": "Vatican City is a sovereign state enclosed within Rome, Italy."
+        "explanation": "Vatican City is an independent sovereign state completely enclosed within the city of Rome. It is therefore both a city-state and an enclave within Italy."
       },
       "hi": {
         "stem": "कौन-सा देश रोम के भीतर स्थित स्वतंत्र देश है?",
@@ -615,7 +621,7 @@
           "वेटिकन सिटी",
           "माल्टा"
         ],
-        "explanation": "वेटिकन सिटी इटली के रोम के भीतर स्थित संप्रभु देश है।"
+        "explanation": "वेटिकन सिटी एक स्वतंत्र संप्रभु राज्य है जो रोम नगर के भीतर पूरी तरह घिरा हुआ है। इसलिए यह नगर-राज्य भी है और इटली के भीतर एक एन्क्लेव भी है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਰੋਮ ਦੇ ਅੰਦਰ ਸਥਿਤ ਆਜ਼ਾਦ ਦੇਸ਼ ਹੈ?",
@@ -625,9 +631,10 @@
           "ਵੈਟੀਕਨ ਸਿਟੀ",
           "ਮਾਲਟਾ"
         ],
-        "explanation": "ਵੈਟੀਕਨ ਸਿਟੀ ਇਟਲੀ ਦੇ ਰੋਮ ਅੰਦਰ ਸਥਿਤ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ।"
+        "explanation": "ਵੈਟੀਕਨ ਸਿਟੀ ਇੱਕ ਆਜ਼ਾਦ ਸਰਬਭੌਮ ਰਾਜ ਹੈ ਜੋ ਰੋਮ ਸ਼ਹਿਰ ਦੇ ਅੰਦਰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਘਿਰਿਆ ਹੋਇਆ ਹੈ। ਇਸ ਲਈ ਇਹ ਸ਼ਹਿਰ-ਰਾਜ ਵੀ ਹੈ ਅਤੇ ਇਟਲੀ ਦੇ ਅੰਦਰ ਇੱਕ ਐਨਕਲੇਵ ਵੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP022-Q016",
@@ -689,7 +696,7 @@
           "Kyiv",
           "Minsk"
         ],
-        "explanation": "Moscow is Russia’s capital, in the European part of the country."
+        "explanation": "Moscow is the capital of Russia and lies in the European part of the country. Saint Petersburg is another major Russian city, but it is not the present national capital."
       },
       "hi": {
         "stem": "कौन-सा शहर रूस की राजधानी है?",
@@ -699,7 +706,7 @@
           "कीव",
           "मिन्स्क"
         ],
-        "explanation": "मॉस्को रूस की राजधानी है और देश के यूरोपीय भाग में स्थित है।"
+        "explanation": "मॉस्को रूस की राजधानी है और देश के यूरोपीय भाग में स्थित है। सेंट पीटर्सबर्ग भी रूस का प्रमुख शहर है, लेकिन वर्तमान राष्ट्रीय राजधानी नहीं है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਰੂਸ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
@@ -709,9 +716,10 @@
           "ਕੀਵ",
           "ਮਿੰਸਕ"
         ],
-        "explanation": "ਮਾਸਕੋ ਰੂਸ ਦੀ ਰਾਜਧਾਨੀ ਹੈ ਅਤੇ ਦੇਸ਼ ਦੇ ਯੂਰਪੀ ਹਿੱਸੇ ਵਿੱਚ ਸਥਿਤ ਹੈ।"
+        "explanation": "ਮਾਸਕੋ ਰੂਸ ਦੀ ਰਾਜਧਾਨੀ ਹੈ ਅਤੇ ਦੇਸ਼ ਦੇ ਯੂਰਪੀ ਹਿੱਸੇ ਵਿੱਚ ਸਥਿਤ ਹੈ। ਸੇਂਟ ਪੀਟਰਜ਼ਬਰਗ ਵੀ ਰੂਸ ਦਾ ਮੁੱਖ ਸ਼ਹਿਰ ਹੈ, ਪਰ ਮੌਜੂਦਾ ਰਾਸ਼ਟਰੀ ਰਾਜਧਾਨੀ ਨਹੀਂ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP022-Q018",
@@ -731,7 +739,7 @@
           "Bursa",
           "Ankara"
         ],
-        "explanation": "Ankara is the capital of Türkiye; Istanbul is its largest city."
+        "explanation": "Ankara is the capital of Türkiye. Istanbul is the country’s largest city and historic imperial centre, so it is a common distractor, but the modern national capital is Ankara."
       },
       "hi": {
         "stem": "कौन-सा शहर तुर्किये की राजधानी है?",
@@ -741,7 +749,7 @@
           "बुर्सा",
           "अंकारा"
         ],
-        "explanation": "अंकारा तुर्किये की राजधानी है; इस्तांबुल इसका सबसे बड़ा शहर है।"
+        "explanation": "अंकारा तुर्किये की राजधानी है। इस्तांबुल देश का सबसे बड़ा शहर और ऐतिहासिक साम्राज्यिक केंद्र है, इसलिए वह सामान्य भ्रमकारी विकल्प है, लेकिन आधुनिक राष्ट्रीय राजधानी अंकारा है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਤੁਰਕੀਏ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
@@ -751,9 +759,10 @@
           "ਬਰਸਾ",
           "ਅੰਕਾਰਾ"
         ],
-        "explanation": "ਅੰਕਾਰਾ ਤੁਰਕੀਏ ਦੀ ਰਾਜਧਾਨੀ ਹੈ; ਇਸਤਾਂਬੁਲ ਇਸਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਸ਼ਹਿਰ ਹੈ।"
+        "explanation": "ਅੰਕਾਰਾ ਤੁਰਕੀਏ ਦੀ ਰਾਜਧਾਨੀ ਹੈ। ਇਸਤਾਂਬੁਲ ਦੇਸ਼ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਸ਼ਹਿਰ ਅਤੇ ਇਤਿਹਾਸਕ ਸਾਮਰਾਜੀ ਕੇਂਦਰ ਹੈ, ਇਸ ਲਈ ਇਹ ਆਮ ਭੁਲਾਵਾ ਵਿਕਲਪ ਹੈ, ਪਰ ਆਧੁਨਿਕ ਰਾਸ਼ਟਰੀ ਰਾਜਧਾਨੀ ਅੰਕਾਰਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP022-Q019",
@@ -773,7 +782,7 @@
           "Russia",
           "Turkey"
         ],
-        "explanation": "Russia spans eastern Europe and northern Asia, making it transcontinental."
+        "explanation": "Russia extends across eastern Europe and northern Asia, so it is a transcontinental country. The Ural Mountains are commonly used as part of the conventional boundary between its European and Asian regions."
       },
       "hi": {
         "stem": "कौन-सा देश पूर्वी यूरोप और उत्तरी एशिया में फैला है?",
@@ -783,7 +792,7 @@
           "रूस",
           "तुर्किये"
         ],
-        "explanation": "रूस पूर्वी यूरोप और उत्तरी एशिया में फैला है, इसलिए यह अंतरमहाद्वीपीय देश है।"
+        "explanation": "रूस पूर्वी यूरोप और उत्तरी एशिया दोनों में फैला है, इसलिए यह अंतरमहाद्वीपीय देश है। यूराल पर्वतों को इसके यूरोपीय और एशियाई भागों की पारंपरिक सीमा के हिस्से के रूप में माना जाता है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਪੂਰਬੀ ਯੂਰਪ ਅਤੇ ਉੱਤਰੀ ਏਸ਼ੀਆ ਵਿੱਚ ਫੈਲਿਆ ਹੈ?",
@@ -793,9 +802,10 @@
           "ਰੂਸ",
           "ਤੁਰਕੀਏ"
         ],
-        "explanation": "ਰੂਸ ਪੂਰਬੀ ਯੂਰਪ ਅਤੇ ਉੱਤਰੀ ਏਸ਼ੀਆ ਵਿੱਚ ਫੈਲਿਆ ਹੈ, ਇਸ ਲਈ ਇਹ ਦੋ ਮਹਾਂਦੀਪਾਂ ਵਿੱਚ ਸਥਿਤ ਦੇਸ਼ ਹੈ।"
+        "explanation": "ਰੂਸ ਪੂਰਬੀ ਯੂਰਪ ਅਤੇ ਉੱਤਰੀ ਏਸ਼ੀਆ ਦੋਵਾਂ ਵਿੱਚ ਫੈਲਿਆ ਹੈ, ਇਸ ਲਈ ਇਹ ਅੰਤਰ-ਮਹਾਂਦੀਪੀ ਦੇਸ਼ ਹੈ। ਯੂਰਾਲ ਪਹਾੜਾਂ ਨੂੰ ਇਸ ਦੇ ਯੂਰਪੀ ਅਤੇ ਏਸ਼ੀਆਈ ਹਿੱਸਿਆਂ ਦੀ ਰਵਾਇਤੀ ਸਰਹੱਦ ਦੇ ਹਿੱਸੇ ਵਜੋਂ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP022-Q020",

@@ -415,7 +415,7 @@
           "Atlas",
           "Carpathians"
         ],
-        "explanation": "The Carpathians form a broad arc through Central and Eastern Europe."
+        "explanation": "The Carpathians form a broad mountain arc across Central and Eastern Europe, including Slovakia, Ukraine and Romania. They curve around the Transylvanian region and continue toward the lower Danube area."
       },
       "hi": {
         "stem": "स्लोवाकिया और रोमानिया से होकर कौन-सा पर्वतीय चाप फैला है?",
@@ -425,7 +425,7 @@
           "एटलस पर्वत",
           "कार्पेथियन पर्वत"
         ],
-        "explanation": "कार्पेथियन पर्वत मध्य और पूर्वी यूरोप में चौड़ा चाप बनाते हैं।"
+        "explanation": "कार्पेथियन पर्वत मध्य और पूर्वी यूरोप में एक विस्तृत चाप बनाते हैं, जिसमें स्लोवाकिया, यूक्रेन और रोमानिया के भाग शामिल हैं। ये ट्रांसिल्वेनिया क्षेत्र के चारों ओर मुड़ते हुए निचले डेन्यूब क्षेत्र की ओर बढ़ते हैं।"
       },
       "pa": {
         "stem": "ਸਲੋਵਾਕੀਆ ਅਤੇ ਰੋਮਾਨੀਆ ਵਿੱਚੋਂ ਕਿਹੜਾ ਪਹਾੜੀ ਚਾਪ ਲੰਘਦਾ ਹੈ?",
@@ -435,9 +435,10 @@
           "ਐਟਲਸ ਪਹਾੜ",
           "ਕਾਰਪੇਥੀਅਨ ਪਹਾੜ"
         ],
-        "explanation": "ਕਾਰਪੇਥੀਅਨ ਪਹਾੜ ਮੱਧ ਅਤੇ ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚ ਵੱਡਾ ਚਾਪ ਬਣਾਉਂਦੇ ਹਨ।"
+        "explanation": "ਕਾਰਪੇਥੀਅਨ ਪਹਾੜ ਮੱਧ ਅਤੇ ਪੂਰਬੀ ਯੂਰਪ ਵਿੱਚ ਇੱਕ ਵਿਸ਼ਾਲ ਚਾਪ ਬਣਾਉਂਦੇ ਹਨ, ਜਿਸ ਵਿੱਚ ਸਲੋਵਾਕੀਆ, ਯੂਕਰੇਨ ਅਤੇ ਰੋਮਾਨੀਆ ਦੇ ਹਿੱਸੇ ਸ਼ਾਮਲ ਹਨ। ਇਹ ਟ੍ਰਾਂਸਿਲਵੇਨੀਆ ਖੇਤਰ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਮੁੜਦੇ ਹੋਏ ਹੇਠਲੇ ਡੈਨਿਊਬ ਖੇਤਰ ਵੱਲ ਵਧਦੇ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP026-Q011",
@@ -503,7 +504,7 @@
           "Balkan",
           "Jutland"
         ],
-        "explanation": "The Iberian Peninsula occupies southwestern Europe and contains Spain and Portugal."
+        "explanation": "The Iberian Peninsula forms the southwestern projection of Europe and contains Spain and Portugal. It is separated from the rest of Europe largely by the Pyrenees in the northeast."
       },
       "hi": {
         "stem": "स्पेन और पुर्तगाल का अधिकांश भाग किस प्रायद्वीप में है?",
@@ -513,7 +514,7 @@
           "बाल्कन प्रायद्वीप",
           "जटलैंड प्रायद्वीप"
         ],
-        "explanation": "आइबेरियाई प्रायद्वीप दक्षिण-पश्चिमी यूरोप में है और इसमें स्पेन तथा पुर्तगाल आते हैं।"
+        "explanation": "आइबेरियाई प्रायद्वीप यूरोप का दक्षिण-पश्चिमी भाग बनाता है और इसमें स्पेन तथा पुर्तगाल स्थित हैं। उत्तर-पूर्व में पिरेनीज़ इसे शेष यूरोप से काफी हद तक अलग करते हैं।"
       },
       "pa": {
         "stem": "ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਕਿਹੜੇ ਪ੍ਰਾਇਦੀਪ ਵਿੱਚ ਹੈ?",
@@ -523,9 +524,10 @@
           "ਬਾਲਕਨ ਪ੍ਰਾਇਦੀਪ",
           "ਜਟਲੈਂਡ ਪ੍ਰਾਇਦੀਪ"
         ],
-        "explanation": "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਦੱਖਣ-ਪੱਛਮੀ ਯੂਰਪ ਵਿੱਚ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਸਪੇਨ ਤੇ ਪੁਰਤਗਾਲ ਆਉਂਦੇ ਹਨ।"
+        "explanation": "ਆਈਬੇਰੀਆਈ ਪ੍ਰਾਇਦੀਪ ਯੂਰਪ ਦਾ ਦੱਖਣ-ਪੱਛਮੀ ਹਿੱਸਾ ਬਣਾਉਂਦਾ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਸਪੇਨ ਅਤੇ ਪੁਰਤਗਾਲ ਸਥਿਤ ਹਨ। ਉੱਤਰ-ਪੂਰਬ ਵਿੱਚ ਪੀਰੇਨੀਜ਼ ਇਸ ਨੂੰ ਬਾਕੀ ਯੂਰਪ ਤੋਂ ਕਾਫ਼ੀ ਹੱਦ ਤੱਕ ਵੱਖ ਕਰਦੇ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP026-Q013",
@@ -591,7 +593,7 @@
           "Madagascar",
           "Iceland"
         ],
-        "explanation": "Iceland is a North Atlantic island country northwest of mainland Europe."
+        "explanation": "Iceland is an island country in the North Atlantic northwest of mainland Europe. It lies near the Mid-Atlantic Ridge, which helps explain its strong volcanic and geothermal activity."
       },
       "hi": {
         "stem": "उत्तरी अटलांटिक में मुख्य यूरोप के उत्तर-पश्चिम में कौन-सा द्वीपीय देश है?",
@@ -601,7 +603,7 @@
           "मेडागास्कर",
           "आइसलैंड"
         ],
-        "explanation": "आइसलैंड उत्तरी अटलांटिक में मुख्यभूमि यूरोप के उत्तर-पश्चिम में स्थित द्वीपीय देश है।"
+        "explanation": "आइसलैंड उत्तरी अटलांटिक में मुख्यभूमि यूरोप के उत्तर-पश्चिम में स्थित द्वीपीय देश है। यह मध्य-अटलांटिक रिज के पास है, जिससे इसकी तीव्र ज्वालामुखीय और भू-तापीय गतिविधि समझी जाती है।"
       },
       "pa": {
         "stem": "ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਵਿੱਚ ਯੂਰਪ ਦੀ ਮੁੱਖ ਧਰਤੀ ਦੇ ਉੱਤਰ-ਪੱਛਮ ਵੱਲ ਕਿਹੜਾ ਟਾਪੂ-ਦੇਸ਼ ਹੈ?",
@@ -611,9 +613,10 @@
           "ਮੈਡਾਗਾਸਕਰ",
           "ਆਈਸਲੈਂਡ"
         ],
-        "explanation": "ਆਈਸਲੈਂਡ ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਵਿੱਚ ਯੂਰਪ ਦੀ ਮੁੱਖ ਧਰਤੀ ਦੇ ਉੱਤਰ-ਪੱਛਮ ਵੱਲ ਟਾਪੂ-ਦੇਸ਼ ਹੈ।"
+        "explanation": "ਆਈਸਲੈਂਡ ਉੱਤਰੀ ਐਟਲਾਂਟਿਕ ਵਿੱਚ ਮੁੱਖਭੂਮੀ ਯੂਰਪ ਦੇ ਉੱਤਰ-ਪੱਛਮ ਵੱਲ ਸਥਿਤ ਟਾਪੂ-ਦੇਸ਼ ਹੈ। ਇਹ ਮੱਧ-ਐਟਲਾਂਟਿਕ ਰਿਜ ਦੇ ਨੇੜੇ ਹੈ, ਜਿਸ ਨਾਲ ਇਸ ਦੀ ਤੀਬਰ ਜਵਾਲਾਮੁਖੀ ਅਤੇ ਭੂ-ਤਾਪੀ ਗਤੀਵਿਧੀ ਸਮਝੀ ਜਾਂਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP026-Q015",

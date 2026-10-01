@@ -59,7 +59,7 @@
           "Infiltration",
           "Transpiration"
         ],
-        "explanation": "Cooling changes water vapour into liquid droplets; this is condensation."
+        "explanation": "Condensation occurs when water vapour cools enough to change into tiny liquid droplets. Cloud droplets form through this process. Evaporation is the reverse change, from liquid water to vapour."
       },
       "hi": {
         "stem": "जलवाष्प ठंडी होकर बादल की छोटी बूँदें बनाती है। कौन-सी प्रक्रिया हुई?",
@@ -69,7 +69,7 @@
           "अंतःस्रवण",
           "वाष्पोत्सर्जन"
         ],
-        "explanation": "ठंडा होने पर जलवाष्प तरल बूँदों में बदलती है; इसे संघनन कहते हैं।"
+        "explanation": "संघनन तब होता है जब जलवाष्प ठंडी होकर सूक्ष्म तरल बूंदों में बदलती है। बादल की बूंदें इसी प्रक्रिया से बनती हैं। वाष्पीकरण इसके विपरीत प्रक्रिया है, जिसमें तरल जल वाष्प बनता है।"
       },
       "pa": {
         "stem": "ਜਲ-ਵਾਸ਼ਪ ਠੰਢੀ ਹੋ ਕੇ ਬੱਦਲਾਂ ਦੀਆਂ ਨਿੱਕੀਆਂ ਬੂੰਦਾਂ ਬਣਾਉਂਦੀ ਹੈ। ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਹੋਈ?",
@@ -79,9 +79,10 @@
           "ਮਿੱਟੀ ਵਿੱਚ ਰਿਸਾਅ",
           "ਬਾਫ਼-ਉਤਸਰਜਨ"
         ],
-        "explanation": "ਠੰਢ ਪੈਣ ਨਾਲ ਜਲ-ਵਾਸ਼ਪ ਤਰਲ ਬੂੰਦਾਂ ਵਿੱਚ ਬਦਲਦੀ ਹੈ; ਇਸ ਨੂੰ ਸੰਘਣਨ ਕਹਿੰਦੇ ਹਨ।"
+        "explanation": "ਸੰਘਣਨ ਉਸ ਵੇਲੇ ਹੁੰਦਾ ਹੈ ਜਦੋਂ ਜਲ-ਵਾਸ਼ਪ ਠੰਢੀ ਹੋ ਕੇ ਬਹੁਤ ਛੋਟੀਆਂ ਤਰਲ ਬੂੰਦਾਂ ਵਿੱਚ ਬਦਲਦੀ ਹੈ। ਬੱਦਲਾਂ ਦੀਆਂ ਬੂੰਦਾਂ ਇਸੇ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਬਣਦੀਆਂ ਹਨ। ਵਾਸ਼ਪੀਕਰਨ ਇਸ ਦਾ ਉਲਟ ਹੈ, ਜਿਸ ਵਿੱਚ ਤਰਲ ਪਾਣੀ ਵਾਸ਼ਪ ਬਣਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP042-Q003",
@@ -101,7 +102,7 @@
           "Condensation",
           "Transpiration"
         ],
-        "explanation": "Transpiration transfers water from plants to the atmosphere as vapour."
+        "explanation": "Plants absorb water through their roots and release part of it as water vapour from their leaves. This transfer to the atmosphere is called transpiration. It is an important pathway in the water cycle."
       },
       "hi": {
         "stem": "पौधों की पत्तियों से हवा में निकला जल किस प्रक्रिया से जल-चक्र में शामिल होता है?",
@@ -111,7 +112,7 @@
           "संघनन",
           "वाष्पोत्सर्जन"
         ],
-        "explanation": "वाष्पोत्सर्जन पौधों से जल को वाष्प के रूप में वायुमंडल तक पहुँचाता है।"
+        "explanation": "पौधे जड़ों से जल लेते हैं और उसका कुछ भाग पत्तियों से जलवाष्प के रूप में वायुमंडल में छोड़ते हैं। इस प्रक्रिया को वाष्पोत्सर्जन कहा जाता है। यह जलचक्र का एक महत्वपूर्ण मार्ग है।"
       },
       "pa": {
         "stem": "ਬੂਟਿਆਂ ਦੇ ਪੱਤਿਆਂ ਤੋਂ ਹਵਾ ਵਿੱਚ ਨਿਕਲਿਆ ਪਾਣੀ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਰਾਹੀਂ ਜਲ-ਚੱਕਰ ਵਿੱਚ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ?",
@@ -121,9 +122,10 @@
           "ਸੰਘਣਨ",
           "ਬਾਫ਼-ਉਤਸਰਜਨ"
         ],
-        "explanation": "ਬਾਫ਼-ਉਤਸਰਜਨ ਬੂਟਿਆਂ ਤੋਂ ਪਾਣੀ ਨੂੰ ਵਾਸ਼ਪ ਰੂਪ ਵਿੱਚ ਵਾਤਾਵਰਣ ਤੱਕ ਲੈ ਜਾਂਦਾ ਹੈ।"
+        "explanation": "ਪੌਦੇ ਜੜ੍ਹਾਂ ਰਾਹੀਂ ਪਾਣੀ ਲੈਂਦੇ ਹਨ ਅਤੇ ਉਸ ਦਾ ਕੁਝ ਹਿੱਸਾ ਪੱਤਿਆਂ ਰਾਹੀਂ ਜਲ-ਵਾਸ਼ਪ ਵਜੋਂ ਵਾਤਾਵਰਣ ਵਿੱਚ ਛੱਡਦੇ ਹਨ। ਇਸ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਵਾਸ਼ਪੋਤਸਰਜਨ ਕਿਹਾ ਜਾਂਦਾ ਹੈ। ਇਹ ਜਲ-ਚੱਕਰ ਦਾ ਇੱਕ ਮਹੱਤਵਪੂਰਨ ਰਾਹ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP042-Q004",
@@ -647,7 +649,7 @@
           "Equal water depth",
           "Equal rainfall over a stated period"
         ],
-        "explanation": "An isohyet joins places receiving equal precipitation during the mapped period."
+        "explanation": "An isohyet joins places that received the same amount of precipitation during the period shown on the map. Closely spaced isohyets indicate a rapid change in rainfall over distance. Isohyets should not be confused with isobars, which show equal air pressure."
       },
       "hi": {
         "stem": "मौसम मानचित्र में समवर्षा रेखाएँ हैं। ये रेखाएँ किन स्थानों को जोड़ती हैं?",
@@ -657,7 +659,7 @@
           "समान जल-गहराई",
           "दी गई अवधि में समान वर्षा"
         ],
-        "explanation": "समवर्षा रेखा मानचित्र की अवधि में समान वर्षा पाने वाले स्थानों को जोड़ती है।"
+        "explanation": "समवर्षा रेखा मानचित्र पर दिखाए गए समय में समान वर्षा प्राप्त करने वाले स्थानों को जोड़ती है। पास-पास की समवर्षा रेखाएँ कम दूरी में वर्षा के तेज बदलाव को दिखाती हैं। इन्हें समदाब रेखाओं से नहीं मिलाना चाहिए, जो समान वायुदाब दर्शाती हैं।"
       },
       "pa": {
         "stem": "ਮੌਸਮੀ ਨਕਸ਼ੇ ਉੱਤੇ ਸਮਵਰਖਾ ਰੇਖਾਵਾਂ ਹਨ। ਇਹ ਰੇਖਾਵਾਂ ਕਿਹੜੀਆਂ ਥਾਵਾਂ ਜੋੜਦੀਆਂ ਹਨ?",
@@ -667,9 +669,10 @@
           "ਇੱਕੋ ਪਾਣੀ ਦੀ ਡੂੰਘਾਈ",
           "ਦਿੱਤੇ ਅਰਸੇ ਵਿੱਚ ਇੱਕੋ ਮੀਂਹ"
         ],
-        "explanation": "ਸਮਵਰਖਾ ਰੇਖਾ ਨਕਸ਼ੇ ਦੇ ਅਰਸੇ ਦੌਰਾਨ ਇੱਕੋ ਜਿਹਾ ਮੀਂਹ ਲੈਣ ਵਾਲੀਆਂ ਥਾਵਾਂ ਜੋੜਦੀ ਹੈ।"
+        "explanation": "ਸਮਵਰਖਾ ਰੇਖਾ ਨਕਸ਼ੇ ਉੱਤੇ ਦਿਖਾਏ ਸਮੇਂ ਦੌਰਾਨ ਇੱਕੋ ਜਿਹੀ ਵਰਖਾ ਪ੍ਰਾਪਤ ਕਰਨ ਵਾਲੀਆਂ ਥਾਵਾਂ ਨੂੰ ਜੋੜਦੀ ਹੈ। ਨੇੜੇ-ਨੇੜੇ ਸਮਵਰਖਾ ਰੇਖਾਵਾਂ ਘੱਟ ਦੂਰੀ ਵਿੱਚ ਵਰਖਾ ਦੇ ਤੇਜ਼ ਬਦਲਾਅ ਨੂੰ ਦਿਖਾਉਂਦੀਆਂ ਹਨ। ਇਨ੍ਹਾਂ ਨੂੰ ਸਮਦਬਾਅ ਰੇਖਾਵਾਂ ਨਾਲ ਨਹੀਂ ਮਿਲਾਉਣਾ ਚਾਹੀਦਾ, ਜੋ ਇੱਕੋ ਹਵਾਈ ਦਬਾਅ ਦਿਖਾਉਂਦੀਆਂ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP042-Q017",

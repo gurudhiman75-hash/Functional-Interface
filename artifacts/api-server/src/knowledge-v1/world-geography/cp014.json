@@ -147,7 +147,7 @@
           "Steppes",
           "Veld"
         ],
-        "explanation": "Prairies are the temperate grasslands of central North America."
+        "explanation": "Prairies are the temperate grasslands of central North America, especially across the interior plains. Similar temperate grasslands have different regional names, such as Pampas in South America and Steppes in Eurasia."
       },
       "hi": {
         "stem": "मध्य उत्तरी अमेरिका की समशीतोष्ण घासभूमियों को सामान्यतः क्या कहते हैं?",
@@ -157,7 +157,7 @@
           "स्टेपी",
           "वेल्ड"
         ],
-        "explanation": "प्रेयरी मध्य उत्तरी अमेरिका की समशीतोष्ण घासभूमियाँ हैं।"
+        "explanation": "प्रेयरी मध्य उत्तरी अमेरिका, विशेषकर आंतरिक मैदानों की समशीतोष्ण घासभूमियाँ हैं। इसी प्रकार की घासभूमियों के अन्य क्षेत्रों में अलग नाम हैं, जैसे दक्षिण अमेरिका में पम्पास और यूरेशिया में स्टेपी।"
       },
       "pa": {
         "stem": "ਮੱਧ ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨਾਂ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
@@ -167,9 +167,10 @@
           "ਸਟੈੱਪੀ",
           "ਵੈਲਡ"
         ],
-        "explanation": "ਪ੍ਰੇਰੀ ਮੱਧ ਉੱਤਰੀ ਅਮਰੀਕਾ ਦੇ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨ ਹਨ।"
+        "explanation": "ਪ੍ਰੇਰੀ ਮੱਧ ਉੱਤਰੀ ਅਮਰੀਕਾ, ਖ਼ਾਸ ਕਰਕੇ ਅੰਦਰੂਨੀ ਮੈਦਾਨਾਂ ਦੇ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨ ਹਨ। ਇਸੇ ਕਿਸਮ ਦੇ ਘਾਹ-ਮੈਦਾਨਾਂ ਦੇ ਹੋਰ ਖੇਤਰਾਂ ਵਿੱਚ ਵੱਖ ਨਾਂ ਹਨ, ਜਿਵੇਂ ਦੱਖਣੀ ਅਮਰੀਕਾ ਵਿੱਚ ਪੰਪਾਸ ਅਤੇ ਯੂਰੇਸ਼ੀਆ ਵਿੱਚ ਸਟੈੱਪੀ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP014-Q005",
@@ -233,7 +234,7 @@
           "Steppes",
           "Prairies"
         ],
-        "explanation": "Steppes form a broad belt of temperate grassland across Eurasia."
+        "explanation": "Steppes are the broad temperate grasslands extending across much of the Eurasian interior. They occur in a continental setting with limited rainfall, unlike the Prairies of North America or Pampas of South America."
       },
       "hi": {
         "stem": "यूरेशिया की विस्तृत समशीतोष्ण घासभूमियों को सामान्यतः क्या कहते हैं?",
@@ -243,7 +244,7 @@
           "स्टेपी",
           "प्रेयरी"
         ],
-        "explanation": "स्टेपी यूरेशिया में फैली समशीतोष्ण घासभूमियों की विस्तृत पेटी है।"
+        "explanation": "स्टेपी यूरेशिया के बड़े आंतरिक भाग में फैली विस्तृत समशीतोष्ण घासभूमियाँ हैं। ये महाद्वीपीय जलवायु और अपेक्षाकृत कम वर्षा वाले क्षेत्रों में मिलती हैं, जबकि उत्तरी अमेरिका में इसी प्रकार की घासभूमियाँ प्रेयरी कहलाती हैं।"
       },
       "pa": {
         "stem": "ਯੂਰੇਸ਼ੀਆ ਦੇ ਵਿਸ਼ਾਲ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨਾਂ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਕੀ ਕਹਿੰਦੇ ਹਨ?",
@@ -253,9 +254,10 @@
           "ਸਟੈੱਪੀ",
           "ਪ੍ਰੇਰੀ"
         ],
-        "explanation": "ਸਟੈੱਪੀ ਯੂਰੇਸ਼ੀਆ ਵਿੱਚ ਫੈਲੀ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨਾਂ ਦੀ ਵਿਸ਼ਾਲ ਪੱਟੀ ਹੈ।"
+        "explanation": "ਸਟੈੱਪੀ ਯੂਰੇਸ਼ੀਆ ਦੇ ਵੱਡੇ ਅੰਦਰੂਨੀ ਹਿੱਸੇ ਵਿੱਚ ਫੈਲੇ ਵਿਸ਼ਾਲ ਸਮਸ਼ੀਤੋਸ਼ਣ ਘਾਹ-ਮੈਦਾਨ ਹਨ। ਇਹ ਮਹਾਂਦੀਪੀ ਜਲਵਾਯੂ ਅਤੇ ਤੁਲਨਾਤਮਕ ਤੌਰ ਉੱਤੇ ਘੱਟ ਵਰਖਾ ਵਾਲੇ ਖੇਤਰਾਂ ਵਿੱਚ ਮਿਲਦੇ ਹਨ, ਜਦਕਿ ਉੱਤਰੀ ਅਮਰੀਕਾ ਵਿੱਚ ਇਸੇ ਕਿਸਮ ਦੇ ਘਾਹ-ਮੈਦਾਨਾਂ ਨੂੰ ਪ੍ਰੇਰੀ ਕਹਿੰਦੇ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP014-Q007",

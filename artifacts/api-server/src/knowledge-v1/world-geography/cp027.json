@@ -20,7 +20,7 @@
           "Drakensberg",
           "EastAfricanRift"
         ],
-        "explanation": "The Blue Nile rises at Lake Tana in the Ethiopian Highlands."
+        "explanation": "The Blue Nile rises from Lake Tana in the Ethiopian Highlands. It flows northwestward into Sudan, where it joins the White Nile at Khartoum."
       },
       "hi": {
         "stem": "टाना झील से निकलने वाली नीली नील का स्रोत कौन-सा उच्चभूमि क्षेत्र है?",
@@ -30,7 +30,7 @@
           "ड्रैकन्सबर्ग पर्वत",
           "पूर्वी अफ्रीकी रिफ्ट घाटी"
         ],
-        "explanation": "नीली नील इथियोपियाई उच्चभूमि की टाना झील से निकलती है।"
+        "explanation": "नीली नील इथियोपियाई उच्चभूमि में टाना झील से निकलती है। यह उत्तर-पश्चिम की ओर सूडान में बहती है और खार्तूम में श्वेत नील से मिलती है।"
       },
       "pa": {
         "stem": "ਟਾਨਾ ਝੀਲ ਤੋਂ ਨਿਕਲਣ ਵਾਲੇ ਨੀਲੇ ਨੀਲ ਦਾ ਸਰੋਤ ਕਿਹੜਾ ਉੱਚਭੂਮੀ ਖੇਤਰ ਹੈ?",
@@ -40,9 +40,10 @@
           "ਡ੍ਰੈਕਨਜ਼ਬਰਗ ਪਹਾੜ",
           "ਪੂਰਬੀ ਅਫ਼ਰੀਕੀ ਰਿਫਟ ਘਾਟੀ"
         ],
-        "explanation": "ਨੀਲਾ ਨੀਲ ਇਥੋਪੀਆਈ ਉੱਚਭੂਮੀ ਦੀ ਟਾਨਾ ਝੀਲ ਤੋਂ ਨਿਕਲਦਾ ਹੈ।"
+        "explanation": "ਨੀਲੀ ਨਾਈਲ ਇਥੋਪੀਆਈ ਉੱਚਭੂਮੀ ਵਿੱਚ ਟਾਨਾ ਝੀਲ ਤੋਂ ਨਿਕਲਦੀ ਹੈ। ਇਹ ਉੱਤਰ-ਪੱਛਮ ਵੱਲ ਸੁਡਾਨ ਵਿੱਚ ਵਗਦੀ ਹੈ ਅਤੇ ਖਾਰਤੂਮ ਵਿੱਚ ਵਾਈਟ ਨਾਈਲ ਨਾਲ ਮਿਲਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP027-Q002",
@@ -380,7 +381,7 @@
           "LakeTanganyika",
           "Caspian"
         ],
-        "explanation": "Lake Victoria is shared by these three East African countries."
+        "explanation": "Lake Victoria is shared by Tanzania, Uganda and Kenya in East Africa. It is Africa’s largest lake by surface area and is an important source region for the White Nile system."
       },
       "hi": {
         "stem": "कौन-सी अफ्रीकी झील तंज़ानिया, युगांडा और केन्या से लगती है?",
@@ -390,7 +391,7 @@
           "टांगानिका झील",
           "कैस्पियन सागर"
         ],
-        "explanation": "विक्टोरिया झील इन तीन पूर्वी अफ्रीकी देशों से लगती है।"
+        "explanation": "विक्टोरिया झील पूर्वी अफ्रीका में तंजानिया, युगांडा और केन्या द्वारा साझा की जाती है। सतही क्षेत्रफल के आधार पर यह अफ्रीका की सबसे बड़ी झील है और श्वेत नील तंत्र के लिए महत्वपूर्ण स्रोत क्षेत्र है।"
       },
       "pa": {
         "stem": "ਕਿਹੜੀ ਅਫ਼ਰੀਕੀ ਝੀਲ ਤਨਜ਼ਾਨੀਆ, ਯੂਗਾਂਡਾ ਅਤੇ ਕੀਨੀਆ ਨਾਲ ਲੱਗਦੀ ਹੈ?",
@@ -400,9 +401,10 @@
           "ਟਾਂਗਾਨੀਕਾ ਝੀਲ",
           "ਕੈਸਪੀਅਨ ਸਾਗਰ"
         ],
-        "explanation": "ਵਿਕਟੋਰੀਆ ਝੀਲ ਇਨ੍ਹਾਂ ਤਿੰਨ ਪੂਰਬੀ ਅਫ਼ਰੀਕੀ ਦੇਸ਼ਾਂ ਨਾਲ ਲੱਗਦੀ ਹੈ।"
+        "explanation": "ਵਿਕਟੋਰੀਆ ਝੀਲ ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਤਨਜ਼ਾਨੀਆ, ਯੂਗਾਂਡਾ ਅਤੇ ਕੀਨੀਆ ਵੱਲੋਂ ਸਾਂਝੀ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਸਤਹੀ ਖੇਤਰਫਲ ਦੇ ਆਧਾਰ ਉੱਤੇ ਇਹ ਅਫ਼ਰੀਕਾ ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਝੀਲ ਹੈ ਅਤੇ ਵਾਈਟ ਨਾਈਲ ਪ੍ਰਣਾਲੀ ਲਈ ਮਹੱਤਵਪੂਰਨ ਸਰੋਤ ਖੇਤਰ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP027-Q010",
@@ -695,7 +697,7 @@
           "Ghana",
           "Uganda"
         ],
-        "explanation": "Lesotho is a sovereign enclave entirely surrounded by South Africa."
+        "explanation": "Lesotho is an independent sovereign country completely surrounded by South Africa. This makes it an enclave state, unlike nearby countries that have boundaries with more than one neighbour."
       },
       "hi": {
         "stem": "कौन-सा अफ्रीकी देश पूरी तरह दक्षिण अफ्रीका से घिरा है?",
@@ -705,7 +707,7 @@
           "घाना",
           "युगांडा"
         ],
-        "explanation": "लेसोथो दक्षिण अफ्रीका से पूरी तरह घिरा संप्रभु देश है।"
+        "explanation": "लेसोथो एक स्वतंत्र संप्रभु देश है जो पूरी तरह दक्षिण अफ्रीका से घिरा है। इसलिए यह एक एन्क्लेव राज्य है, जबकि आसपास के अन्य देशों की सीमाएँ एक से अधिक पड़ोसियों से मिलती हैं।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਅਫ਼ਰੀਕੀ ਦੇਸ਼ ਪੂਰੀ ਤਰ੍ਹਾਂ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਨਾਲ ਘਿਰਿਆ ਹੋਇਆ ਹੈ?",
@@ -715,9 +717,10 @@
           "ਘਾਨਾ",
           "ਯੂਗਾਂਡਾ"
         ],
-        "explanation": "ਲੇਸੋਥੋ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਨਾਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਘਿਰਿਆ ਪ੍ਰਭੂਸੱਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ।"
+        "explanation": "ਲੇਸੋਥੋ ਇੱਕ ਆਜ਼ਾਦ ਸਰਬਭੌਮ ਦੇਸ਼ ਹੈ ਜੋ ਪੂਰੀ ਤਰ੍ਹਾਂ ਦੱਖਣੀ ਅਫ਼ਰੀਕਾ ਨਾਲ ਘਿਰਿਆ ਹੋਇਆ ਹੈ। ਇਸ ਲਈ ਇਹ ਇੱਕ ਐਨਕਲੇਵ ਰਾਜ ਹੈ, ਜਦਕਿ ਨੇੜਲੇ ਹੋਰ ਦੇਸ਼ਾਂ ਦੀਆਂ ਸਰਹੱਦਾਂ ਇੱਕ ਤੋਂ ਵੱਧ ਪੜੋਸੀਆਂ ਨਾਲ ਮਿਲਦੀਆਂ ਹਨ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP027-Q017",

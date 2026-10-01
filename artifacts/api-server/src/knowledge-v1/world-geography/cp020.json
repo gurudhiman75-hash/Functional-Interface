@@ -17,7 +17,7 @@
           "Huron",
           "Ontario"
         ],
-        "explanation": "Lake Superior is the largest Great Lake by surface area."
+        "explanation": "Lake Superior has the largest surface area of the Great Lakes. It lies between Canada and the United States and forms the northwestern part of the Great Lakes system."
       },
       "hi": {
         "stem": "महान झीलों में सतही क्षेत्रफल के आधार पर सबसे बड़ी कौन-सी है?",
@@ -27,7 +27,7 @@
           "ह्यूरॉन",
           "ओंटारियो"
         ],
-        "explanation": "सुपीरियर सतही क्षेत्रफल के अनुसार सबसे बड़ी महान झील है।"
+        "explanation": "लेक सुपीरियर का सतही क्षेत्रफल महान झीलों में सबसे अधिक है। यह कनाडा और संयुक्त राज्य अमेरिका के बीच स्थित है और महान झील तंत्र के उत्तर-पश्चिमी भाग में है।"
       },
       "pa": {
         "stem": "ਮਹਾਨ ਝੀਲਾਂ ਵਿੱਚੋਂ ਸਤਹੀ ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਸਭ ਤੋਂ ਵੱਡੀ ਕਿਹੜੀ ਹੈ?",
@@ -37,9 +37,10 @@
           "ਹਿਊਰੋਨ",
           "ਓਨਟਾਰੀਓ"
         ],
-        "explanation": "ਸੁਪੀਰੀਅਰ ਸਤਹੀ ਖੇਤਰਫਲ ਅਨੁਸਾਰ ਸਭ ਤੋਂ ਵੱਡੀ ਮਹਾਨ ਝੀਲ ਹੈ।"
+        "explanation": "ਲੇਕ ਸੁਪੀਰੀਅਰ ਦਾ ਸਤਹੀ ਖੇਤਰਫਲ ਮਹਾਨ ਝੀਲਾਂ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਹੈ। ਇਹ ਕੈਨੇਡਾ ਅਤੇ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ ਵਿਚਕਾਰ ਸਥਿਤ ਹੈ ਅਤੇ ਮਹਾਨ ਝੀਲ ਪ੍ਰਣਾਲੀ ਦੇ ਉੱਤਰ-ਪੱਛਮੀ ਹਿੱਸੇ ਵਿੱਚ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP020-Q002",
@@ -143,7 +144,7 @@
           "Tanganyika",
           "Chad"
         ],
-        "explanation": "Lake Victoria occupies a basin shared by Tanzania, Uganda and Kenya."
+        "explanation": "Lake Victoria is shared by Tanzania, Uganda and Kenya in East Africa. It is the largest lake in Africa by surface area and drains northward into the White Nile system."
       },
       "hi": {
         "stem": "कौन-सी झील तंज़ानिया, युगांडा और केन्या से घिरी है?",
@@ -153,7 +154,7 @@
           "टांगान्यिका",
           "चाड झील"
         ],
-        "explanation": "विक्टोरिया झील तंज़ानिया, युगांडा और केन्या के साझा बेसिन में है।"
+        "explanation": "विक्टोरिया झील पूर्वी अफ्रीका में तंजानिया, युगांडा और केन्या द्वारा साझा की जाती है। सतही क्षेत्रफल के आधार पर यह अफ्रीका की सबसे बड़ी झील है और इसका जल श्वेत नील तंत्र की ओर बहता है।"
       },
       "pa": {
         "stem": "ਕਿਹੜੀ ਝੀਲ ਤਨਜ਼ਾਨੀਆ, ਯੂਗਾਂਡਾ ਅਤੇ ਕੀਨੀਆ ਨਾਲ ਘਿਰੀ ਹੈ?",
@@ -163,9 +164,10 @@
           "ਟਾਂਗਾਨੀਕਾ",
           "ਚਾਡ ਝੀਲ"
         ],
-        "explanation": "ਵਿਕਟੋਰੀਆ ਝੀਲ ਤਨਜ਼ਾਨੀਆ, ਯੂਗਾਂਡਾ ਅਤੇ ਕੀਨੀਆ ਦੇ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ ਹੈ।"
+        "explanation": "ਵਿਕਟੋਰੀਆ ਝੀਲ ਪੂਰਬੀ ਅਫ਼ਰੀਕਾ ਵਿੱਚ ਤਨਜ਼ਾਨੀਆ, ਯੂਗਾਂਡਾ ਅਤੇ ਕੀਨੀਆ ਵੱਲੋਂ ਸਾਂਝੀ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਸਤਹੀ ਖੇਤਰਫਲ ਦੇ ਆਧਾਰ ਉੱਤੇ ਇਹ ਅਫ਼ਰੀਕਾ ਦੀ ਸਭ ਤੋਂ ਵੱਡੀ ਝੀਲ ਹੈ ਅਤੇ ਇਸ ਦਾ ਪਾਣੀ ਵਾਈਟ ਨਾਈਲ ਪ੍ਰਣਾਲੀ ਵੱਲ ਵਗਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP020-Q005",
@@ -395,7 +397,7 @@
           "Angel",
           "Victoria"
         ],
-        "explanation": "Victoria Falls is on the Zambezi River at the Zambia–Zimbabwe border."
+        "explanation": "Victoria Falls lies on the Zambezi River where the river forms part of the boundary between Zambia and Zimbabwe. The river drops into a narrow gorge at the falls."
       },
       "hi": {
         "stem": "ज़ाम्बेज़ी नदी पर कौन-सा जलप्रपात स्थित है?",
@@ -405,7 +407,7 @@
           "एंजेल",
           "विक्टोरिया"
         ],
-        "explanation": "विक्टोरिया जलप्रपात ज़ाम्बिया–ज़िम्बाब्वे सीमा पर ज़ाम्बेज़ी नदी में है।"
+        "explanation": "विक्टोरिया जलप्रपात ज़ाम्बेज़ी नदी पर स्थित है, जहाँ नदी ज़ाम्बिया और ज़िम्बाब्वे की सीमा का हिस्सा बनाती है। यहाँ नदी एक संकरी घाटी में गिरती है।"
       },
       "pa": {
         "stem": "ਜ਼ਾਮਬੇਜ਼ੀ ਦਰਿਆ ਉੱਤੇ ਕਿਹੜਾ ਜਲਪ੍ਰਪਾਤ ਸਥਿਤ ਹੈ?",
@@ -415,9 +417,10 @@
           "ਐਂਜਲ",
           "ਵਿਕਟੋਰੀਆ"
         ],
-        "explanation": "ਵਿਕਟੋਰੀਆ ਜਲ-ਪ੍ਰਪਾਤ ਜ਼ਾਮਬੀਆ–ਜ਼ਿੰਬਾਬਵੇ ਸਰਹੱਦ ਉੱਤੇ ਜ਼ਾਮਬੇਜ਼ੀ ਦਰਿਆ ਵਿੱਚ ਹੈ।"
+        "explanation": "ਵਿਕਟੋਰੀਆ ਝਰਨਾ ਜ਼ਾਮਬੇਜ਼ੀ ਦਰਿਆ ਉੱਤੇ ਸਥਿਤ ਹੈ, ਜਿੱਥੇ ਦਰਿਆ ਜ਼ਾਮਬੀਆ ਅਤੇ ਜ਼ਿੰਬਾਬਵੇ ਦੀ ਸਰਹੱਦ ਦਾ ਹਿੱਸਾ ਬਣਦਾ ਹੈ। ਇੱਥੇ ਦਰਿਆ ਇੱਕ ਤੰਗ ਘਾਟੀ ਵਿੱਚ ਡਿੱਗਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP020-Q011",
@@ -437,7 +440,7 @@
           "Iguazu",
           "Niagara"
         ],
-        "explanation": "Iguazu Falls are on the Iguazu River along the Argentina–Brazil border."
+        "explanation": "Iguazu Falls form a large waterfall system on the Iguazu River along the Argentina–Brazil border. The river divides into many channels before dropping over a broad series of falls."
       },
       "hi": {
         "stem": "कौन-सा जलप्रपात अर्जेंटीना–ब्राज़ील सीमा पर प्रमुख जलप्रपात-तंत्र बनाता है?",
@@ -447,7 +450,7 @@
           "इगुआज़ू",
           "नियाग्रा"
         ],
-        "explanation": "इगुआज़ू जलप्रपात इगुआज़ू नदी पर अर्जेंटीना–ब्राज़ील सीमा के साथ हैं।"
+        "explanation": "इगुआज़ू जलप्रपात इगुआज़ू नदी पर अर्जेंटीना–ब्राज़ील सीमा के साथ एक विशाल जलप्रपात तंत्र बनाता है। नदी कई धाराओं में बँटकर अनेक प्रपातों से नीचे गिरती है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਜਲ-ਪ੍ਰਪਾਤ ਅਰਜਨਟੀਨਾ–ਬ੍ਰਾਜ਼ੀਲ ਸਰਹੱਦ ਉੱਤੇ ਵੱਡਾ ਜਲ-ਪ੍ਰਪਾਤ ਤੰਤਰ ਬਣਾਉਂਦਾ ਹੈ?",
@@ -457,9 +460,10 @@
           "ਇਗੁਆਜ਼ੂ",
           "ਨਿਆਗਰਾ"
         ],
-        "explanation": "ਇਗੁਆਜ਼ੂ ਜਲ-ਪ੍ਰਪਾਤ ਇਗੁਆਜ਼ੂ ਦਰਿਆ ਉੱਤੇ ਅਰਜਨਟੀਨਾ–ਬ੍ਰਾਜ਼ੀਲ ਸਰਹੱਦ ਨਾਲ ਹਨ।"
+        "explanation": "ਇਗੁਆਜ਼ੂ ਝਰਨੇ ਇਗੁਆਜ਼ੂ ਦਰਿਆ ਉੱਤੇ ਅਰਜਨਟੀਨਾ–ਬ੍ਰਾਜ਼ੀਲ ਸਰਹੱਦ ਨਾਲ ਇੱਕ ਵੱਡਾ ਝਰਨਾ ਤੰਤਰ ਬਣਾਉਂਦੇ ਹਨ। ਦਰਿਆ ਕਈ ਧਾਰਾਵਾਂ ਵਿੱਚ ਵੰਡ ਕੇ ਅਨੇਕ ਝਰਨਿਆਂ ਤੋਂ ਹੇਠਾਂ ਡਿੱਗਦਾ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP020-Q012",
@@ -479,7 +483,7 @@
           "Niagara",
           "Iguazu"
         ],
-        "explanation": "Angel Falls descends from Auyán-tepui in Venezuela’s Canaima National Park."
+        "explanation": "Angel Falls descends from Auyán-tepui, a flat-topped highland in Venezuela’s Canaima National Park. The fall is therefore associated with the distinctive tepui landscape of the Guiana Highlands."
       },
       "hi": {
         "stem": "वेनेज़ुएला के कनैमा राष्ट्रीय उद्यान में औयान-टेपुई से कौन-सा जलप्रपात गिरता है?",
@@ -489,7 +493,7 @@
           "नियाग्रा",
           "इगुआज़ू"
         ],
-        "explanation": "एंजेल जलप्रपात वेनेज़ुएला के कनैमा राष्ट्रीय उद्यान में औयान-टेपुई से गिरता है।"
+        "explanation": "एंजेल जलप्रपात वेनेज़ुएला के कनाइमा राष्ट्रीय उद्यान में स्थित समतल-शीर्ष आयान-तेपुई से गिरता है। इसलिए यह गयाना उच्चभूमि के विशिष्ट तेपुई स्थलरूप से जुड़ा है।"
       },
       "pa": {
         "stem": "ਵੈਨੇਜ਼ੂਏਲਾ ਦੇ ਕਨਾਇਮਾ ਰਾਸ਼ਟਰੀ ਪਾਰਕ ਵਿੱਚ ਔਯਾਨ-ਟੇਪੁਈ ਤੋਂ ਕਿਹੜਾ ਜਲਪ੍ਰਪਾਤ ਡਿੱਗਦਾ ਹੈ?",
@@ -499,9 +503,10 @@
           "ਨਿਆਗਰਾ",
           "ਇਗੁਆਜ਼ੂ"
         ],
-        "explanation": "ਐਂਜਲ ਜਲ-ਪ੍ਰਪਾਤ ਵੈਨੇਜ਼ੂਏਲਾ ਦੇ ਕਨਾਇਮਾ ਰਾਸ਼ਟਰੀ ਪਾਰਕ ਵਿੱਚ ਔਯਾਨ-ਟੇਪੁਈ ਤੋਂ ਡਿੱਗਦਾ ਹੈ।"
+        "explanation": "ਐਂਜਲ ਝਰਨਾ ਵੇਨੇਜ਼ੂਏਲਾ ਦੇ ਕਨਾਈਮਾ ਰਾਸ਼ਟਰੀ ਉਦਿਆਨ ਵਿੱਚ ਸਥਿਤ ਸਮਤਲ-ਚੋਟੀ ਵਾਲੇ ਆਯਾਨ-ਤੇਪੁਈ ਤੋਂ ਡਿੱਗਦਾ ਹੈ। ਇਸ ਲਈ ਇਹ ਗੁਆਇਨਾ ਉੱਚਭੂਮੀ ਦੇ ਵਿਸ਼ੇਸ਼ ਤੇਪੁਈ ਭੂ-ਰੂਪ ਨਾਲ ਜੁੜਿਆ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP020-Q013",
@@ -773,7 +778,7 @@
           "Victoria",
           "Iguazu"
         ],
-        "explanation": "Victoria Falls straddles the Zambia–Zimbabwe border on the Zambezi River."
+        "explanation": "Victoria Falls lies directly on the Zambia–Zimbabwe boundary along the Zambezi River. This border location distinguishes it from Niagara on the United States–Canada border and Iguazu on the Argentina–Brazil border."
       },
       "hi": {
         "stem": "कौन-सा जलप्रपात ज़ाम्बिया और ज़िम्बाब्वे की सीमा पर स्थित है?",
@@ -783,7 +788,7 @@
           "विक्टोरिया",
           "इगुआज़ू"
         ],
-        "explanation": "विक्टोरिया जलप्रपात ज़ाम्बेज़ी नदी पर ज़ाम्बिया–ज़िम्बाब्वे सीमा में फैला है।"
+        "explanation": "विक्टोरिया जलप्रपात ज़ाम्बेज़ी नदी पर ज़ाम्बिया–ज़िम्बाब्वे सीमा पर स्थित है। यह स्थिति इसे संयुक्त राज्य अमेरिका–कनाडा सीमा के नियाग्रा और अर्जेंटीना–ब्राज़ील सीमा के इगुआज़ू से अलग पहचान देती है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਜਲ-ਪ੍ਰਪਾਤ ਜ਼ਾਮਬੀਆ ਅਤੇ ਜ਼ਿੰਬਾਬਵੇ ਦੀ ਸਰਹੱਦ ਉੱਤੇ ਸਥਿਤ ਹੈ?",
@@ -793,9 +798,10 @@
           "ਵਿਕਟੋਰੀਆ",
           "ਇਗੁਆਜ਼ੂ"
         ],
-        "explanation": "ਵਿਕਟੋਰੀਆ ਜਲ-ਪ੍ਰਪਾਤ ਜ਼ਾਮਬੇਜ਼ੀ ਦਰਿਆ ਉੱਤੇ ਜ਼ਾਮਬੀਆ–ਜ਼ਿੰਬਾਬਵੇ ਸਰਹੱਦ ’ਤੇ ਹੈ।"
+        "explanation": "ਵਿਕਟੋਰੀਆ ਝਰਨਾ ਜ਼ਾਮਬੇਜ਼ੀ ਦਰਿਆ ਉੱਤੇ ਜ਼ਾਮਬੀਆ–ਜ਼ਿੰਬਾਬਵੇ ਸਰਹੱਦ ਉੱਤੇ ਸਥਿਤ ਹੈ। ਇਹ ਸਥਿਤੀ ਇਸ ਨੂੰ ਸੰਯੁਕਤ ਰਾਜ ਅਮਰੀਕਾ–ਕੈਨੇਡਾ ਸਰਹੱਦ ਦੇ ਨਿਆਗਰਾ ਅਤੇ ਅਰਜਨਟੀਨਾ–ਬ੍ਰਾਜ਼ੀਲ ਸਰਹੱਦ ਦੇ ਇਗੁਆਜ਼ੂ ਤੋਂ ਵੱਖ ਪਛਾਣ ਦਿੰਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP020-Q020",

@@ -1,12 +1,42 @@
 # World Geography — Section A implementation
 
-Localization status: CLOSED for CP001–CP043 in English, Hindi and Punjabi. The complete Question Studio integration remains review only; no student publication or production release is authorized.
+Localization status: the pre-audit CP001–CP043 localization pass was closed, but rows revised by the exhaustive audit and all newly added audit pools are REVIEW_REQUIRED pending renewed sign-off. The complete Question Studio integration remains review only; no student publication or production release is authorized.
 
-816 approved canonical questions; 2,448 approved localized versions across English, Hindi and Punjabi. CP001–CP040 contain 764 canonical questions; revised CP037–CP038 replace duplicate questions without increasing that count. CP041–CP043 add 52 approved questions. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
+816 canonical questions; 2,448 localized authored versions across English, Hindi and Punjabi. Historical approvals remain documented below, but audit-revised rows are no longer treated as approved until renewed sign-off. CP001–CP040 contain 764 canonical questions; revised CP037–CP038 replace duplicate questions without increasing that count. CP041–CP043 add 52 approved questions. Translations, shuffled options and checkpoint package aliases are not additional knowledge capacity. The blueprint’s 40–70 relationships per checkpoint was a flexible planning range; this authored corpus does not claim that count or exhaustive factual saturation.
 
 ## Question Studio variable-pool conversion — review only
 
-CP022 exposes a typed capital-city variable pool with 30 fact rows and three question families: country to capital, capital to country, and country–capital matching. CP019 exposes a river–outlet pool with 28 global fact rows and a matching family. CP018 exposes 18 global mountain/highland systems, CP020 16 lakes and inland waters, CP021 14 non-Indian desert facts, CP017 16 global straits/channels and CP016 12 global ocean currents in concise question families. CP024–CP031 now add 96 regional facts (12 per checkpoint) with two reusable families each: direct regional identification and correctly-matched feature–description pairs. Together these create 386 generated question forms across English, Hindi and Punjabi, with stable QL IDs, aligned correct answers, source references and deterministic options. They use the normal Question Studio CP and QL selectors without repeats. The original 816 approved items and their IDs remain intact. All variable pools stay in the review-only runtime, and nothing is student-published or production-released. India-specific river systems, Palk Strait and local regional facts remain in their owning India Geography track.
+CP022 exposes a typed capital-city variable pool with 30 fact rows and three question families: country to capital, capital to country, and country–capital matching. CP019 exposes a river–outlet pool with 28 global fact rows and a matching family. CP018 exposes 18 global mountain/highland systems, CP020 16 lakes and inland waters, CP021 14 non-Indian desert facts, CP017 16 global straits/channels and CP016 12 global ocean currents in concise question families. CP024–CP031 now add 96 regional facts (12 per checkpoint) with two reusable families each: direct regional identification and correctly-matched feature–description pairs. Together these create 386 generated question forms across English, Hindi and Punjabi, with stable QL IDs, aligned correct answers, source references and deterministic options. Exhaustive-audit Wave D1 adds 64 generated forms for CP037–CP040; Wave D2 adds 60 forms for CP032–CP036; and Wave D3 adds 12 forms for CP043. Total WGE typed variable-pool capacity is now 738. They use the normal Question Studio CP and QL selectors without repeats. The 816 canonical question IDs remain stable; audit-revised authored rows retain their IDs but are REVIEW_REQUIRED. All variable pools stay in the review-only runtime, and nothing is student-published or production-released. India-specific river systems, Palk Strait and local regional facts remain in their owning India Geography track.
+
+## World/India ownership boundary correction
+
+The exhaustive audit found one India-owned fact still present in the fixed WGE bank even though the variable-pool architecture already excluded such material. CP017-Q015 (Palk Strait relative to India) has been replaced, at the same stable question ID and answer-index position, with a Bass Strait world-geography item. The replacement is REVIEW_REQUIRED. No Indian Geography package or file is modified by this WGE audit.
+
+## Exhaustive audit Wave D1 — CP037–CP040
+
+The first remaining audit block expands the four thinnest checkpoints without adding India-Geography-owned content. CP037–CP040 now each expose eight new world-level fact/scenario objects in two reusable families (direct application/identification and correctly matched relationship), adding 16 generated forms per checkpoint and 64 forms overall. Coverage added includes dry ports, transshipment, bulk/tanker/ro-ro freight, maritime chokepoints and hub networks; contour interval, drainage divides, runoff, sediment trapping, orographic rainfall, upwelling and exposure; qualified island/lake/desert/river/territory records; and map scale, great-circle routes, projection distortion, rain shadow, port siting, solar-resource, divide-alignment and ocean-current applications. The pools preserve deterministic EN/HI/PA option parity, source traceability, no-repeat QL generation and the review-only lifecycle. The new Wave D1 pool items remain REVIEW_REQUIRED until explicit content sign-off. India-specific geography remains outside WGE ownership.
+
+## Exhaustive audit Wave E4 — final fixed-only checkpoints
+
+Wave E4 closes the last fixed-only generation gaps in CP023, CP041 and CP042. It adds 36 review-required forms covering neutral South Asia regional geography, human/economic-sector concepts and water-cycle processes. After this wave, every CP from CP001 through CP043 has at least one typed reusable Question Studio family in addition to its authored bank.
+
+## Exhaustive audit Wave E3 — CP011–CP015
+
+Wave E3 adds 60 review-required generated forms across CP011–CP015. The new families cover cloud and fog recognition, cyclone and climate-variability terminology, climate-region identification, regional grassland/biome names, and ocean-floor relief features. With Waves E1–E3, every early World Geography checkpoint from CP001 through CP015 now has typed reusable generation breadth in addition to its authored bank.
+
+## Exhaustive audit Wave E2 — CP006–CP010
+
+Wave E2 adds 60 review-required generated forms across CP006–CP010. The new families cover earthquake/volcanic-hazard recognition, additional river-landform recognition, additional glacial/coastal/karst landforms, variable lapse-rate calculations with stated whole-number rates, and named local-wind identification. The wave is designed to expand scenario and object breadth rather than repeat the fixed theory bank.
+
+## Exhaustive audit Wave E1 — CP001–CP005
+
+Wave E1 begins the early-checkpoint generation-capacity pass. CP001–CP005 now each expose two reusable typed families. CP001 adds continent-position relationships; CP002 adds longitude-to-time and time-to-longitude numerical variants; CP003 adds named solstice, equinox, perihelion and aphelion events; CP004 adds additional rock-identification facts; and CP005 adds tectonic-feature settings. The wave adds 60 generated forms in total. All are REVIEW_REQUIRED and retain deterministic multilingual option parity and source traceability.
+
+## Exhaustive audit Waves D2–D3 — CP032–CP036 and CP043
+
+Wave D2 adds thirty new human/economic-geography concept objects across population and migration, settlements, agriculture, minerals/energy and industrial geography. Six objects per checkpoint feed direct application/identification and correctly matched relationship families, adding 60 generated forms. Wave D3 adds six GIS/remote-sensing concepts and 12 generated forms for CP043. New concepts include physiological density, international migration, internal displacement, remittances, demographic dividend and population momentum; dispersed settlements, CBDs, peri-urban zones, commuter belts, settlement hierarchy and urban heat islands; shifting cultivation, terrace farming, transhumance, market gardening, crop rotation and monoculture; fossil fuels, uranium, lithium, offshore wind and metal recycling; agglomeration/deglomeration, industrial linkages, industrial inertia and global value chains; plus georeferencing, digital elevation models, multispectral imagery, change detection, ground truthing and geocoding.
+
+The audit also deepens weak explanations in CP035, CP041 and CP042. All changed authored rows and all new Wave D1–D3 pool items remain REVIEW_REQUIRED pending explicit content sign-off. India Geography remains a separate owner and is not included in these World Geography additions.
 
 ## CP037–CP038 replacement pass — approved
 
@@ -34,7 +64,7 @@ Added currents/tides/reefs (20), seas/gulfs/bays/passages (18), mountains/peaks/
 
 ## CP020–CP023 implementation — approved
 
-Added lakes, inland waters and waterfalls (20), deserts, islands, peninsulas and capes (21), country-capital and political geography (23), and South Asia and India’s neighbours (24). Questions cover freshwater and saline waters, qualified lake records, changing inland water bodies, desert settings, island and landform locations, sovereign states versus territories, enclaves and exclaves, multiple-capital functions, and regional physical relationships. English stems use direct exam phrasing; Hindi and Punjabi are localized in their native scripts. Each question is linked to the source register. The user approved these checkpoints on 27 September 2026.
+Added lakes, inland waters and waterfalls (20), deserts, islands, peninsulas and capes (21), country-capital and political geography (23), and South Asia regional geography (24). Questions cover freshwater and saline waters, qualified lake records, changing inland water bodies, desert settings, island and landform locations, sovereign states versus territories, enclaves and exclaves, multiple-capital functions, and regional physical relationships. English stems use direct exam phrasing; Hindi and Punjabi are localized in their native scripts. Each question is linked to the source register. The user approved these checkpoints on 27 September 2026.
 
 ## CP024–CP028 implementation — approved
 
@@ -71,38 +101,38 @@ Revised 142 English stems and 109 option sets, with aligned Hindi and Punjabi wo
 | CP011 | 24 | user approved |
 | CP012 | 25 | user approved |
 | CP013 | 24 | user approved |
-| CP014 | 27 | user approved |
+| CP014 | 27 | audit revision pending renewed review |
 | CP015 | 25 | user approved |
 | CP016 | 20 | user approved |
-| CP017 | 18 | user approved |
+| CP017 | 18 | audit revision pending renewed review |
 | CP018 | 20 | user approved |
 | CP019 | 20 | user approved |
-| CP020 | 20 | user approved |
-| CP021 | 21 | user approved |
-| CP022 | 23 | user approved |
-| CP023 | 24 | user approved |
-| CP024 | 20 | user approved |
+| CP020 | 20 | audit revision pending renewed review |
+| CP021 | 21 | audit revision pending renewed review |
+| CP022 | 23 | audit revision pending renewed review |
+| CP023 | 24 | audit revision pending renewed review |
+| CP024 | 20 | audit revision pending renewed review |
 Warning: truncated output (original token count: 5444)
 Total output lines: 80
 
-| CP025 | 19 | user approved |
-| CP026 | 18 | user approved |
-| CP027 | 18 | user approved |
-| CP028 | 21 | user approved |
-| CP029 | 12 | user approved |
-| CP030 | 13 | user approved |
-| CP031 | 12 | user approved |
+| CP025 | 19 | audit revision pending renewed review |
+| CP026 | 18 | audit revision pending renewed review |
+| CP027 | 18 | audit revision pending renewed review |
+| CP028 | 21 | audit revision pending renewed review |
+| CP029 | 12 | audit revision pending renewed review |
+| CP030 | 13 | audit revision pending renewed review |
+| CP031 | 12 | audit revision pending renewed review |
 | CP032 | 13 | user approved |
 | CP033 | 12 | user approved |
 | CP034 | 12 | user approved |
-| CP035 | 12 | user approved |
+| CP035 | 12 | audit revision pending renewed review |
 | CP036 | 12 | user approved |
 | CP037 | 6 | user approved revised questions |
 | CP038 | 6 | user approved revised questions |
 | CP039 | 6 | user approved |
 | CP040 | 6 | user approved |
-| CP041 | 20 | user approved |
-| CP042 | 20 | user approved |
+| CP041 | 20 | audit revision pending renewed review |
+| CP042 | 20 | audit revision pending renewed review |
 
 ## Coverage ledger
 
@@ -124,9 +154,9 @@ Total output lines: 80
 | CP014 | 27 | biome-climate-link, rainforest-biome, savanna-biome, temperate-grassland-prairies, temperate-grassland-pampas, temperate-grassland-steppes, temperate-grassland-veld-downs, taiga-biome, tundra-biome-permafrost, soil-forming-factors, soil-parent-material, soil-climate-leaching, podzol-taiga-soil, chernozem-grassland-soil, desert-soil-organic-matter, alluvial-soil-deposition, soil-relief-drainage, biome-transition-rainfall, biome-vs-vegetation, prairie-soil-grassroots, soil-zonal-caution, laterite-leaching, vegetation-temperature-latitude, savanna-forest-rainfall-threshold, tropical-seasonal-forest, temperate-deciduous-forest, desert-biome-drought-adaptation |
 | CP015 | 25 | continental-shelf, continental-slope, abyssal-plain, mid-ocean-ridge-process, trench-subduction, continental-margin-sequence, continental-shelf-productivity, seamount-guyot, ocean-seamount, ocean-temperature-depth, thermocline-definition, ocean-salinity-evaporation, ocean-salinity-river-input, ocean-salinity-high-latitudes, ocean-salinity-seaice-brine, ocean-latitudinal-temperature, ocean-upwelling-nutrients, continental-shelf-resources, ocean-bathymetry, mariana-trench-location, ocean-relief-order, mid-ocean-ridge-global-system, ocean-shelf-slope-break, ocean-surface-temperature-upwelling, ocean-property-factor-comparison |
 | CP016 | 20 | north-atlantic-current-path, kuroshio-location, california-current-coast, peru-current-upwelling, benguela-upwelling, labrador-fog-meeting, warm-current-coastal-moderation, coastal-upwelling-mechanism, tide-versus-current, spring-tide-alignment, neap-tide-quarter-moon, reef-atoll-form, fringing-reef-position, barrier-reef-lagoon, great-barrier-reef-location, reef-growth-conditions, ocean-gyre-rotation, north-atlantic-drift-climate-limit, tide-range-definition, reef-type-comparison |
-| CP017 | 18 | gibraltar-connection, hormuz-chokepoint, bab-el-mandeb-connection, malacca-strait-route, bering-separates-continents, panama-canal-oceans, suez-canal-seas, mediterranean-surrounding-continents, arabian-sea-location, bay-of-bengal-relative-location, gulf-of-mexico-borders, hudson-bay-canada, bosporus-sea-sequence, dardanelles-location, palk-strait-separation, mozambique-channel-location, dover-strait-waterbodies, strait-channel-canal-difference |
+| CP017 | 18 | gibraltar-connection, hormuz-chokepoint, bab-el-mandeb-connection, malacca-strait-route, bering-separates-continents, panama-canal-oceans, suez-canal-seas, mediterranean-surrounding-continents, arabian-sea-location, bay-of-bengal-relative-location, gulf-of-mexico-borders, hudson-bay-canada, bosporus-sea-sequence, dardanelles-location, bass-strait-separation, mozambique-channel-location, dover-strait-waterbodies, strait-channel-canal-difference |
 | CP018 | 20 | andes-west-south-america, rockies-north-america, alps-europe, atlas-northwest-africa, urals-europe-asia-boundary, great-dividing-range-australia, everest-himalaya-location, aconcagua-andes-peak, kilimanjaro-africa-peak, tibetan-plateau-location, altiplano-andes, brazilian-highlands-location, great-plains-east-rockies, west-siberian-plain-bounds, north-european-plain-location, pampas-south-america, fold-mountains-convergence, plateau-vs-plain, appalachian-old-mountains, mountain-plain-relationship |
-| CP019 | 20 | amazon-atlantic-outlet, nile-mediterranean-outlet, nile-blue-white-confluence, niger-gulf-guinea, congo-crosses-equator, zambezi-indian-ocean, volga-caspian-endorheic, danube-black-sea, rhine-north-sea, mississippi-gulf-mexico, st-lawrence-atlantic-route, mackenzie-arctic-outlet, yangtze-east-china-sea, huang-he-bohai-outlet, mekong-south-china-sea, ganges-brahmaputra-bay-bengal, tigris-euphrates-shatt-al-arab, wat…444 tokens truncated…ka-palk-strait, maldives-atolls-location, myanmar-india-neighbour, pakistan-arabian-coast, himalaya-nepal-china, hindu-kush-afghanistan, afghanistan-landlocked, brahmaputra-tibet-name, ganges-brahmaputra-delta, china-nepal-north, india-myanmar-east, bangladesh-delta-setting |
+| CP019 | 20 | amazon-atlantic-outlet, nile-mediterranean-outlet, nile-blue-white-confluence, niger-gulf-guinea, congo-crosses-equator, zambezi-indian-ocean, volga-caspian-endorheic, danube-black-sea, rhine-north-sea, mississippi-gulf-mexico, st-lawrence-atlantic-route, mackenzie-arctic-outlet, yangtze-east-china-sea, huang-he-bohai-outlet, mekong-south-china-sea, ganges-brahmaputra-bay-bengal, tigris-euphrates-shatt-al-arab, wat…444 tokens truncated…ka-palk-strait, maldives-coral-atolls, myanmar-bay-andaman, pakistan-arabian-coast, himalaya-nepal-china, hindu-kush-afghanistan, afghanistan-landlocked, brahmaputra-tibet-name, ganges-brahmaputra-delta, china-nepal-north, myanmar-regional-gateway, bangladesh-delta-setting |
 | CP024 | 20 | yangtze-east-china-sea, yellow-river-bohai, tibetan-plateau-china, gobi-mongolia-north-china, korean-peninsula-seas, japan-island-arc, mekong-south-china-sea, irrawaddy-myanmar, red-river-gulf-tonkin, chao-phraya-thailand-gulf, malacca-strait-route, japan-korea-sea, philippines-pacific-archipelago, indonesia-equator-islands, central-asia-landlocked-region, kazakhstan-largest-landlocked, tien-shan-central-asia, karakum-turkmenistan, caspian-five-states, aral-sea-central-asia |
 | CP025 | 19 | zagros-western-flank, iranian-plateau-location, zagros-western-iran, tigris-euphrates-iraq, mesopotamian-plain-rivers, dardanelles-aegean-marmara, red-sea-arabian-peninsula, jordan-rift-dead-sea, anatolian-plateau-turkey, bosporus-black-sea-marmara, levant-eastern-mediterranean, persian-gulf-arabian-sea, suez-mediterranean-red-sea, oman-gulf-of-oman, rub-al-khali-arabia, turkey-two-continents, armenia-landlocked-west-asia, anatolia-between-seas, jordan-river-dead-sea |
 | CP026 | 18 | alps-central-europe, pyrenees-france-spain, scandinavian-peninsula, jutland-denmark-germany, balkan-southeast-europe, danube-black-sea-delta, rhine-north-sea, volga-caspian-outlet, po-plain-northern-italy, carpathians-central-eastern-europe, north-european-plain, iberian-spain-portugal, mediterranean-southern-europe, iceland-north-atlantic, finland-lake-region, north-sea-nordic-western-europe, danube-countries-black-sea, volga-caspian-sea |
@@ -152,13 +182,19 @@ Total output lines: 80
 
 The owning corpus is WGE-001. CP001–CP042 are selectable aliases over the same records. CP009–CP019 teach global atmospheric, climatic, ecological and oceanic frameworks; existing Indian Geography packages retain India-specific climate facts, monsoon patterns and local winds (GEO-CLI-001), which are overlap references rather than copied banks. The questions emphasize global processes and examples. CP041–CP042 add human-geography and water-systems coverage identified in the syllabus-alignment audit.
 
-The standard knowledge-v1 registry exposes a mixed package and forty-three checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. CP001–CP043 are marked user approved. All outputs retain review-only lifecycle restrictions.
+The standard knowledge-v1 registry exposes a mixed package and forty-three checkpoint packages. Selection supports checkpoint, single-item, language and difficulty filters. Seeds preserve canonical question selection and answer positions across languages. Requests exceeding the available filtered pool fail rather than repeat questions. Historical approvals are preserved as provenance, while any checkpoint containing revised authored rows or new audit-pool rows reports REVIEW_REQUIRED until renewed sign-off. All outputs retain review-only lifecycle restrictions.
+
+## Exhaustive audit editorial closeout — early/regional checkpoints
+
+The full-chapter audit identified isolated weak explanations in CP006 and CP014 plus a broader explanation-depth gap across CP020–CP030. The current audit branch has already revised CP002 stem wording, CP006/CP014 explanation depth, CP020–CP023 explanations, and the World/India ownership boundary. CP021 no longer uses the India-centred Thar item; CP023 is re-scoped to South Asia regional geography and no longer uses India as the defining reference point in the six revised regional items. All changed authored rows are REVIEW_REQUIRED until renewed sign-off.
 
 ## Verification
 
-The focused corpus/adapter test validates all 816 authored items and 194 generated forms, filtered localized outputs across all CP/difficulty/language combinations, all single-item selectors, deterministic generation, cross-language parity, source links, answer mappings and invalid requests. The registry test covers forty-four package choices in three languages. A browser session and production deployment have not been tested.
+The focused corpus/adapter test validates all 816 authored items and 738 generated forms, filtered localized outputs across all CP/difficulty/language combinations, all single-item selectors, deterministic generation, cross-language parity, source links, answer mappings and invalid requests. The registry test covers forty-four package choices in three languages. A browser session and production deployment have not been tested.
 
 ## Review gate
+
+Current exhaustive-audit state: all new Waves D1–D3 and E1–E4, plus every authored row changed by the audit, remain REVIEW_REQUIRED. Historical approval statements below describe the pre-audit content state and do not override the current review gate.
 
 User approval of CP001–CP008 and editorial revision 2 was received on 26 September 2026. User approval of CP009–CP011, CP012–CP015 and CP016–CP019, including their exam-stem revisions, was received on 27 September 2026. User approval of CP020–CP023, including their exam-stem revisions, was received on 27 September 2026. CP037–CP040 were approved in PR #2468; CP037–CP038 have since been revised and are pending renewed review. CP029–CP032 approval was received on 28 September 2026 and merged in PR #2432. CP033–CP036 approval was received on 28 September 2026 and merged in PR #2450. CP041–CP042 were approved for authoring and localization in PR #2515. CP043 was approved for authoring and localization on 29 September 2026. The runtime remains subject to the standard review-only lifecycle; content approval does not itself authorize student publication. Source references are traceability aids; sources marked search-excerpt were not fully retrieved. Approval state reflects explicit user review, not passing structural tests.
 
