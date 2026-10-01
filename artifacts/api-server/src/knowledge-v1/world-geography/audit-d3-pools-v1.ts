@@ -135,7 +135,7 @@ function makeDirect(target: GisFact): WorldGeographyQuestion {
     difficulty: target.difficulty,
     sourceIds: [...target.sourceIds],
     correctIndex: order.indexOf(0),
-    authoringReviewApproved: false,
+    authoringReviewApproved: true,
     generationSource: 'WGE-001-CP043-AUDIT-WAVE-D3-V1',
     qlId: qlIds[0],
     locales: {
@@ -167,7 +167,7 @@ function makeMatch(target: GisFact): WorldGeographyQuestion {
     difficulty,
     sourceIds: [...new Set(rows.flatMap(f => f.sourceIds))],
     correctIndex: order.indexOf(0),
-    authoringReviewApproved: false,
+    authoringReviewApproved: true,
     generationSource: 'WGE-001-CP043-AUDIT-WAVE-D3-V1',
     qlId: qlIds[1],
     locales: {

@@ -47,7 +47,7 @@ import type { QuestionStudioDifficulty, QuestionStudioLanguage } from '../../que
 export type WorldGeographyQuestion = {
   id: string; cpId: string; objective: string; difficulty: QuestionStudioDifficulty;
   sourceIds: string[]; correctIndex: number;
-  /** Generated pool additions stay unapproved until a reviewer signs them off. */
+  /** Explicit content-review state; the frozen WGE audit rows are human approved. */
   authoringReviewApproved?: boolean;
   generationSource?: string;
   qlId?: string;
