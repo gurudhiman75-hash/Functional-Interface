@@ -118,7 +118,7 @@ export const GEO_MTP_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
     englishQuestionCount: GEO_MTP_001_QUESTION_STUDIO_CORPUS_V1.length,
     localizedVersionCount: GEO_MTP_001_QUESTION_STUDIO_CORPUS_V1.length * 3,
     localizationLanguages: ["en","hi","pa"],
-    localizationStatus: "REVIEW_REQUIRED",
+    localizationStatus: "APPROVED_FOR_REVIEW",
     exhaustiveMasterQuestionCount: 15,
   },
 };
@@ -188,7 +188,7 @@ export const knowledgeV1GeoMtp001QuestionStudioAdapterV1: QuestionStudioEngineAd
       readOnly: true,
       productionReleased: false,
       sourceQuestionId: q.questionId,
-      localizationStatus: language === "en" ? "SOURCE_APPROVED" : "REVIEW_REQUIRED",
+      localizationStatus: language === "en" ? "SOURCE_APPROVED" : "APPROVED_FOR_REVIEW",
       revisionPolicy: "REVISE_CANONICAL_AND_RELOCALIZE_ALL_LANGUAGES",
     });});
     return { questions, generationContext: {
@@ -202,7 +202,7 @@ export const knowledgeV1GeoMtp001QuestionStudioAdapterV1: QuestionStudioEngineAd
       masteryAuthorityId: GEO_MTP_001_MASTERY_AUTHORITY_ID_V1,
       language,
       locale: ({en:"en-IN",hi:"hi-IN",pa:"pa-IN"} as const)[language],
-      localizationStatus: language === "en" ? "SOURCE_APPROVED" : "REVIEW_REQUIRED",
+      localizationStatus: language === "en" ? "SOURCE_APPROVED" : "APPROVED_FOR_REVIEW",
       requestedDifficulty: difficulty,
       qlSelection: qlId ?? "DETERMINISTIC_ACROSS_PERMANENT_QLS",
       cpSelection: cpId ?? "DETERMINISTIC_ACROSS_CLOSED_CPS",
