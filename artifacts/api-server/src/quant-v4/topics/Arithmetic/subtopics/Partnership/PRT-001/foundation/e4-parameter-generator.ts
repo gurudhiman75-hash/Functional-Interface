@@ -90,13 +90,53 @@ export function generatePrt001E4Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findCapitalForEqualProfitGivenDurations": {
-      const s = random.pick([{a:20_000,da:12,b:40_000,db:6},{a:24_000,da:10,b:40_000,db:6},{a:36_000,da:8,b:48_000,db:6},{a:60_000,da:7,b:42_000,db:10}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const durationPair = numericStateRandom.pick([
+        [12, 6],
+        [11, 8],
+        [10, 6],
+        [9, 12],
+        [8, 6],
+        [7, 10],
+        [6, 8],
+        [5, 10],
+        [4, 12],
+      ] as const);
+      const unit = numericStateRandom.pick([4_000, 5_000, 6_000, 8_000, 10_000]);
+      const s = {
+        a: durationPair[1] * unit,
+        da: durationPair[0],
+        b: durationPair[0] * unit,
+        db: durationPair[1],
+      };
       state = makeState([partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))])], money(100_000));
       targetPartnerId = partnerA;
       break;
     }
     case "findDurationForEqualProfitGivenCapitals": {
-      const s = random.pick([{a:20_000,da:12,b:40_000,db:6},{a:24_000,da:10,b:40_000,db:6},{a:36_000,da:8,b:48_000,db:6},{a:60_000,da:7,b:42_000,db:10}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const durationPair = numericStateRandom.pick([
+        [12, 6],
+        [11, 8],
+        [10, 6],
+        [9, 12],
+        [8, 6],
+        [7, 10],
+        [6, 8],
+        [5, 10],
+        [4, 12],
+      ] as const);
+      const unit = numericStateRandom.pick([4_000, 5_000, 6_000, 8_000, 10_000]);
+      const s = {
+        a: durationPair[1] * unit,
+        da: durationPair[0],
+        b: durationPair[0] * unit,
+        db: durationPair[1],
+      };
       state = makeState([partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))])], money(100_000));
       targetPartnerId = partnerA;
       break;
