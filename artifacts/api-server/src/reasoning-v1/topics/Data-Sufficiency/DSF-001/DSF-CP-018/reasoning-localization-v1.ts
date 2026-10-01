@@ -151,9 +151,73 @@ function localizeRankingStatement(text: string, language: DsfReasoningLocalizedL
   return undefined;
 }
 
+function localizeDirectionValue(value: string, language: DsfReasoningLocalizedLanguage): string {
+  const normalized=value.trim().toLowerCase();
+  const map: Record<string,[string,string]> = {
+    north:["उत्तर","ਉੱਤਰ"], south:["दक्षिण","ਦੱਖਣ"], east:["पूर्व","ਪੂਰਬ"], west:["पश्चिम","ਪੱਛਮ"],
+    left:["बाएँ","ਖੱਬੇ"], right:["दाएँ","ਸੱਜੇ"],
+    positive:["धनात्मक","ਧਨਾਤਮਕ"], negative:["ऋणात्मक","ਰਿਣਾਤਮਕ"], zero:["शून्य","ਸਿਫ਼ਰ"],
+  };
+  return map[normalized] ? t(language,...map[normalized]!) : value;
+}
+
+function localizeDirectionStatement(text: string, language: DsfReasoningLocalizedLanguage): string | undefined {
+  let m: RegExpMatchArray | null;
+  m=text.match(/^The (final facing direction|final coordinates from the starting point|shortest distance from the starting point) is (.+)\.$/i);
+  if(m){
+    const label: Record<string,[string,string]>={
+      "final facing direction":["अंतिम दिशा","ਅੰਤਿਮ ਦਿਸ਼ਾ"],
+      "final coordinates from the starting point":["आरंभिक बिंदु से अंतिम निर्देशांक","ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ਅੰਤਿਮ ਕੋਆਰਡੀਨੇਟ"],
+      "shortest distance from the starting point":["आरंभिक बिंदु से न्यूनतम दूरी","ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ਘੱਟੋ-ਘੱਟ ਦੂਰੀ"],
+    };
+    const pair=label[m[1]!.toLowerCase()]!;
+    return t(language,`${pair[0]} ${localizeDirectionValue(m[2]!,language)} है।`,`${pair[1]} ${localizeDirectionValue(m[2]!,language)} ਹੈ।`);
+  }
+  m=text.match(/^The person starts facing (North|South|East|West)\.$/i);
+  if(m) return t(language,`व्यक्ति शुरुआत में ${localizeDirectionValue(m[1]!,language)} की ओर मुख किए है।`,`ਵਿਅਕਤੀ ਸ਼ੁਰੂ ਵਿੱਚ ${localizeDirectionValue(m[1]!,language)} ਵੱਲ ਮੂੰਹ ਕਰਕੇ ਖੜ੍ਹਾ ਹੈ।`);
+  m=text.match(/^After the (first|second) movement, the person turns (LEFT|RIGHT|left|right)\.$/i);
+  if(m){
+    const move=m[1]!.toLowerCase()==="first" ? t(language,"पहली","ਪਹਿਲੀ") : t(language,"दूसरी","ਦੂਜੀ");
+    return t(language,`${move} चाल के बाद व्यक्ति ${localizeDirectionValue(m[2]!,language)} मुड़ता है।`,`${move} ਚਾਲ ਤੋਂ ਬਾਅਦ ਵਿਅਕਤੀ ${localizeDirectionValue(m[2]!,language)} ਮੁੜਦਾ ਹੈ।`);
+  }
+  m=text.match(/^The two turns, in order, are (LEFT|RIGHT|left|right) and then (LEFT|RIGHT|left|right)\.$/i);
+  if(m) return t(language,`क्रम से दोनों मोड़ ${localizeDirectionValue(m[1]!,language)} और फिर ${localizeDirectionValue(m[2]!,language)} हैं।`,`ਕ੍ਰਮਵਾਰ ਦੋਵੇਂ ਮੋੜ ${localizeDirectionValue(m[1]!,language)} ਅਤੇ ਫਿਰ ${localizeDirectionValue(m[2]!,language)} ਹਨ।`);
+  m=text.match(/^The (first|second|third) movement is ([\d.]+) m\.$/i);
+  if(m){
+    const pos=m[1]!.toLowerCase()==="first" ? t(language,"पहली","ਪਹਿਲੀ") : m[1]!.toLowerCase()==="second" ? t(language,"दूसरी","ਦੂਜੀ") : t(language,"तीसरी","ਤੀਜੀ");
+    return t(language,`${pos} चाल ${m[2]} मीटर की है।`,`${pos} ਚਾਲ ${m[2]} ਮੀਟਰ ਦੀ ਹੈ।`);
+  }
+  m=text.match(/^The first two movement lengths are ([\d.]+) m and ([\d.]+) m respectively\.$/i);
+  if(m) return t(language,`पहली दो चालों की लंबाई क्रमशः ${m[1]} मीटर और ${m[2]} मीटर है।`,`ਪਹਿਲੀਆਂ ਦੋ ਚਾਲਾਂ ਦੀ ਲੰਬਾਈ ਕ੍ਰਮਵਾਰ ${m[1]} ਮੀਟਰ ਅਤੇ ${m[2]} ਮੀਟਰ ਹੈ।`);
+  m=text.match(/^The net (east-west|north-south) displacement is ([\d.]+) m (with no east-west shift|with no north-south shift|to the east|to the west|to the north|to the south)\.$/i);
+  if(m){
+    const axis=m[1]!.toLowerCase()==="east-west" ? t(language,"पूर्व-पश्चिम","ਪੂਰਬ-ਪੱਛਮ") : t(language,"उत्तर-दक्षिण","ਉੱਤਰ-ਦੱਖਣ");
+    const dir=m[3]!.toLowerCase();
+    if(dir.startsWith("with no")) return t(language,`${axis} दिशा में शुद्ध विस्थापन ${m[2]} मीटर है; इस अक्ष पर कोई खिसकाव नहीं है।`,`${axis} ਦਿਸ਼ਾ ਵਿੱਚ ਕੁੱਲ ਵਿਸਥਾਪਨ ${m[2]} ਮੀਟਰ ਹੈ; ਇਸ ਧੁਰੇ 'ਤੇ ਕੋਈ ਖਿਸਕਾਅ ਨਹੀਂ ਹੈ।`);
+    const localized=dir.replace(/^to the /,"");
+    return t(language,`${axis} दिशा में शुद्ध विस्थापन ${m[2]} मीटर ${localizeDirectionValue(localized,language)} की ओर है।`,`${axis} ਦਿਸ਼ਾ ਵਿੱਚ ਕੁੱਲ ਵਿਸਥਾਪਨ ${m[2]} ਮੀਟਰ ${localizeDirectionValue(localized,language)} ਵੱਲ ਹੈ।`);
+  }
+  m=text.match(/^The net displacement components are (-?[\d.]+) m on the east-west axis and (-?[\d.]+) m on the north-south axis\.$/i);
+  if(m) return t(language,`शुद्ध विस्थापन के घटक पूर्व-पश्चिम अक्ष पर ${m[1]} मीटर और उत्तर-दक्षिण अक्ष पर ${m[2]} मीटर हैं।`,`ਕੁੱਲ ਵਿਸਥਾਪਨ ਦੇ ਘਟਕ ਪੂਰਬ-ਪੱਛਮ ਧੁਰੇ 'ਤੇ ${m[1]} ਮੀਟਰ ਅਤੇ ਉੱਤਰ-ਦੱਖਣ ਧੁਰੇ 'ਤੇ ${m[2]} ਮੀਟਰ ਹਨ।`);
+  m=text.match(/^After all movements, the person is facing (North|South|East|West)\.$/i);
+  if(m) return t(language,`सभी चालों के बाद व्यक्ति ${localizeDirectionValue(m[1]!,language)} की ओर मुख किए है।`,`ਸਾਰੀਆਂ ਚਾਲਾਂ ਤੋਂ ਬਾਅਦ ਵਿਅਕਤੀ ${localizeDirectionValue(m[1]!,language)} ਵੱਲ ਮੂੰਹ ਕਰਕੇ ਖੜ੍ਹਾ ਹੈ।`);
+  m=text.match(/^The total path length travelled is ([\d.]+) m\.$/i);
+  if(m) return t(language,`कुल तय की गई दूरी ${m[1]} मीटर है।`,`ਕੁੱਲ ਤੈਅ ਕੀਤੀ ਦੂਰੀ ${m[1]} ਮੀਟਰ ਹੈ।`);
+  m=text.match(/^The final (east-west|north-south) coordinate is (positive|negative|zero)\.$/i);
+  if(m){
+    const axis=m[1]!.toLowerCase()==="east-west" ? t(language,"पूर्व-पश्चिम","ਪੂਰਬ-ਪੱਛਮ") : t(language,"उत्तर-दक्षिण","ਉੱਤਰ-ਦੱਖਣ");
+    return t(language,`अंतिम ${axis} निर्देशांक ${localizeDirectionValue(m[2]!,language)} है।`,`ਅੰਤਿਮ ${axis} ਕੋਆਰਡੀਨੇਟ ${localizeDirectionValue(m[2]!,language)} ਹੈ।`);
+  }
+  return undefined;
+}
+
 function localizeStatement(laneId: string, text: string, language: DsfReasoningLocalizedLanguage): string {
   if (laneId.includes("RANKING")) {
     const rendered=localizeRankingStatement(text,language);
+    if(rendered) return rendered;
+  }
+  if (laneId.includes("DIRECTION")) {
+    const rendered=localizeDirectionStatement(text,language);
     if(rendered) return rendered;
   }
   let s = replaceCommon(text, language);
