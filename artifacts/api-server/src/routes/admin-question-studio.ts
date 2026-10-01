@@ -277,11 +277,28 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
               'contentFingerprint', v.payload -> 'contentFingerprint'
             )) AS payload
           FROM content.generation_run_items i
+          INNER JOIN content.generation_runs r
+            ON r.id = i.generation_run_id
           LEFT JOIN content.generation_item_versions v
             ON v.generation_item_id = i.id
            AND v.version_number = i.current_version_number
           WHERE i.generation_run_id = ANY(${runIds}::uuid[])
             AND (${status}::text IS NULL OR i.status::text = ${status})
+            AND (
+              ${searchPattern}::text IS NULL
+              OR r.public_code ILIKE ${searchPattern}
+              OR COALESCE(r.request_snapshot ->> 'exam', '') ILIKE ${searchPattern}
+              OR COALESCE(r.request_snapshot ->> 'subject', '') ILIKE ${searchPattern}
+              OR COALESCE(r.request_snapshot ->> 'topic', '') ILIKE ${searchPattern}
+              OR COALESCE(r.request_snapshot ->> 'subtopic', '') ILIKE ${searchPattern}
+              OR COALESCE(r.request_snapshot ->> 'packageId', '') ILIKE ${searchPattern}
+              OR COALESCE(v.payload ->> 'text', '') ILIKE ${searchPattern}
+              OR COALESCE(v.payload ->> 'stem', '') ILIKE ${searchPattern}
+              OR COALESCE(v.payload ->> 'selectedCpId', '') ILIKE ${searchPattern}
+              OR COALESCE(v.payload ->> 'canonicalProblemId', '') ILIKE ${searchPattern}
+              OR COALESCE(v.payload ->> 'cpId', '') ILIKE ${searchPattern}
+              OR COALESCE(v.payload ->> 'qlId', '') ILIKE ${searchPattern}
+            )
           ORDER BY i.generation_run_id, i.item_number ASC
         `
       : [];
