@@ -52,7 +52,7 @@ function derivedLabel(domain:Di008AdvancedDomain){
   if(domain==="TIME_WORK")return"work units";
   if(domain==="TIME_SPEED_DISTANCE")return"distance";
   if(domain==="PARTNERSHIP")return"profit-sharing weight";
-  if(domain==="MIXTURE_ALLIGATION")return"pure component amount";
+  if(domain==="MIXTURE_ALLIGATION")return"amount of pure component";
   if(domain==="INTEREST_LOAN")return"simple interest";
   return"selected candidates";
 }
@@ -70,7 +70,7 @@ function makeQuestion(task:Di008AdvancedTask,difficulty:Di008AdvancedDifficulty,
   else if(task==="DERIVED_RATIO"){const v=ratio(derived[i]!,derived[j]!);stem=`What is the ratio of the ${label} for ${stimulus.rows[i]!.label} to that for ${stimulus.rows[j]!.label}?`;answer=v;options=ratioOptions(v,derived[i]!,derived[j]!,seed);steps=[`${derived[i]}:${derived[j]} = ${v}.`];}
   else if(task==="HIGHEST_DERIVED_CATEGORY"){const best=derived.reduce((p,v,idx)=>v>derived[p]!?idx:p,0);stem=`Which case has the highest ${label}?`;answer=stimulus.rows[best]!.label;options=shuffle(stimulus.rows.map(r=>r.label),seed);steps=[...derived.map((v,idx)=>`${stimulus.rows[idx]!.label}: ${v}`),`The highest value is for ${answer}.`];}
   else if(task==="THREE_ROW_DERIVED_TOTAL"){const v=derived[i]!+derived[j]!+derived[k]!;stem=`Find the total ${label} for ${stimulus.rows[i]!.label}, ${stimulus.rows[j]!.label} and ${stimulus.rows[k]!.label}.`;answer=String(v);options=numOptions(v,seed);steps=[`${derived[i]} + ${derived[j]} + ${derived[k]} = ${v}.`];}
-  else if(task==="GROUP_DERIVED_RATIO"){const a=derived[i]!+derived[j]!,b=derived[k]!+derived[l]!,v=ratio(a,b);stem=`What is the ratio of combined ${label} for ${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label} to that for ${stimulus.rows[k]!.label} and ${stimulus.rows[l]!.label}?`;answer=v;options=ratioOptions(v,a,b,seed);steps=[`First group = ${a}.`,`Second group = ${b}.`,`Ratio = ${v}.`];}
+  else if(task==="GROUP_DERIVED_RATIO"){const a=derived[i]!+derived[j]!,b=derived[k]!+derived[l]!,v=ratio(a,b);const left=`${stimulus.rows[i]!.label} and ${stimulus.rows[j]!.label} together`,right=`${stimulus.rows[k]!.label} and ${stimulus.rows[l]!.label} together`;stem=stimulus.domain==="MIXTURE_ALLIGATION"?`What is the ratio of the amount of pure component in ${left} to that in ${right}?`:`What is the ratio of the combined ${label} for ${left} to the combined ${label} for ${right}?`;answer=v;options=ratioOptions(v,a,b,seed);steps=[`First group = ${a}.`,`Second group = ${b}.`,`Ratio = ${v}.`];}
   else if(task==="FOUR_ROW_DERIVED_TOTAL"){const v=derived[i]!+derived[j]!+derived[k]!+derived[l]!;stem=`Find the total ${label} for ${stimulus.rows[i]!.label}, ${stimulus.rows[j]!.label}, ${stimulus.rows[k]!.label} and ${stimulus.rows[l]!.label}.`;answer=String(v);options=numOptions(v,seed);steps=[`${derived[i]} + ${derived[j]} + ${derived[k]} + ${derived[l]} = ${v}.`];}
   else if(task==="AVERAGE_DERIVED_VALUE"){
     const triples:[[number,number,number],number][]=[];
