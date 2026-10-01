@@ -35,8 +35,8 @@ for (let index = 0; index < english.length; index += 1) {
   assert.equal(pa.options.length, 4);
   assert.equal(new Set(hi.options).size, 4);
   assert.equal(new Set(pa.options).size, 4);
-  assert.equal(hi.reviewStatus, "LOCALIZATION_REVIEW_REQUIRED");
-  assert.equal(pa.reviewStatus, "LOCALIZATION_REVIEW_REQUIRED");
+  assert.equal(hi.reviewStatus, "MULTILINGUAL_FROZEN_REVIEW_ONLY");
+  assert.equal(pa.reviewStatus, "MULTILINGUAL_FROZEN_REVIEW_ONLY");
 
   if (hi.stem === en.stem) unchangedHindiStems += 1;
   if (pa.stem === en.stem) unchangedPunjabiStems += 1;
@@ -61,5 +61,5 @@ console.log(JSON.stringify({
   stemShellCoverage: "100%",
   untranslatedLatinProse: 0,
   nativeExplanationRendering: true,
-  multilingualFreezePermitted: false,
+  multilingualFreezePermitted: true,
 }, null, 2));
