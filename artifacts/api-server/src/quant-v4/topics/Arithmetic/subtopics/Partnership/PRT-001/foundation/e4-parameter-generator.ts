@@ -1,7 +1,7 @@
 import objectPoolsSource from "../object-pools.library.json" assert { type: "json" };
 import { rational, subtractRational } from "./math";
 import { formatPrt001Duration, formatPrt001Money, localizePrt001Business } from "./parameter-generator";
-import { createPrt001Random } from "./random";
+import { createPrt001Random, stablePrt001PoolIndex } from "./random";
 import { solvePrt001State } from "./solver";
 import type { CapitalSegment, Partner, PartnershipState, Prt001Language, Prt001PilotParameters, Prt001TaskRegistryEntry } from "./types";
 
@@ -102,9 +102,24 @@ export function generatePrt001E4Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findProfitDifferenceFromCapitalDurationWeights": {
-      const s = random.pick([{a:20_000,da:12,b:30_000,db:6},{a:24_000,da:10,b:40_000,db:6},{a:35_000,da:6,b:28_000,db:10},{a:42_000,da:8,b:30_000,db:12}]);
+      const numericStateSeed = `${input.seed}:numeric-state:${input.entry.solveMode}`;
+      const numericStates = [
+        {a:20_000,da:12,b:30_000,db:6,unit:10_000},
+        {a:30_000,da:10,b:20_000,db:12,unit:12_000},
+        {a:25_000,da:12,b:20_000,db:9,unit:7_000},
+        {a:42_000,da:10,b:30_000,db:9,unit:3_000},
+        {a:36_000,da:8,b:24_000,db:10,unit:16_000},
+        {a:40_000,da:9,b:30_000,db:8,unit:18_000},
+        {a:28_000,da:12,b:42_000,db:6,unit:20_000},
+        {a:45_000,da:8,b:30_000,db:10,unit:22_000},
+        {a:35_000,da:8,b:25_000,db:8,unit:12_000},
+        {a:35_000,da:12,b:30_000,db:8,unit:9_000},
+      ];
+      const s = numericStates[
+        stablePrt001PoolIndex(numericStateSeed, numericStates.length)
+      ]!;
       const partners = [partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))])];
-      state = makeState(partners, money(cleanGross(partners, 18_000)));
+      state = makeState(partners, money(cleanGross(partners, s.unit)));
       break;
     }
     case "findProfitRatioWhenPartnerLeavesEarly": {
