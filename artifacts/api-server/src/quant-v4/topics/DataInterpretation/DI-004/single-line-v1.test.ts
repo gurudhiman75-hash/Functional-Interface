@@ -11,7 +11,7 @@ for(let i=0;i<300;i++){
   assert(svg.includes('data-single-series-line="true"'));
   assert(!svg.includes("SERIES_B"));
   for(const p of set.stimulus.points){assert(svg.includes(`data-value="${p.value}"`));assert(svg.includes(p.period));}
-  for(const q of set.questions){questions++;tasks.add(q.kind);const expected=profile==="SSC_CGL_TIER_I"?4:5;assert.equal(q.options.length,expected);assert.equal(new Set(q.options).size,expected);assert.equal(q.options[q.correctIndex],q.answer);assert(!/\d+\.\d+/u.test(q.answer));}
+  for(const q of set.questions){questions++;tasks.add(q.kind);const expected=profile==="SSC_CGL_TIER_I"?4:5;assert.equal(q.options.length,expected);assert.equal(new Set(q.options).size,expected);assert.equal(q.options[q.correctIndex],q.answer);assert(!/\d+\.\d+/u.test(q.answer));assert(!/\b(?:value|values|first-period|last-period|plotted values)\b/iu.test(q.stem),`${seed}: generic line wording leaked: ${q.stem}`);assert(!/^(?:Find|Add|Compare|Calculate)\b/iu.test(q.stem),`${seed}: instruction-like stem leaked: ${q.stem}`);if(q.kind==="HIGHEST_PERIOD_VALUE"||q.kind==="LOWEST_PERIOD_VALUE")assert(!/which period/iu.test(q.stem),`${seed}: numeric answer paired with a period question: ${q.stem}`);}
 }
 assert.deepEqual([...tasks].sort(),[...DI004_SINGLE_TASKS].sort());
 console.log("DI004_SINGLE_LINE_V1",JSON.stringify({sets:300,questions,tasks:[...tasks].sort()}));
