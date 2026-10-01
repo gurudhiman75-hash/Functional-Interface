@@ -53,4 +53,23 @@ router.delete("/mobile/push-devices",async(req,res)=>{
   }catch(error){console.error("Unable to unregister push device",error);res.status(500).json({error:"Unable to unregister push device",code:"MOBILE_PUSH_DEVICE_UNREGISTER_FAILED"});}
 });
 
+router.post("/mobile/notifications/:campaignId/open",async(req,res)=>{
+  try{
+    const firebaseUid=req.user?.id??"";
+    const userId=await canonicalUserId(firebaseUid);
+    if(!userId)return void res.status(404).json({error:"Student profile not found.",code:"MOBILE_PUSH_PROFILE_NOT_FOUND"});
+    const campaignId=text(req.params.campaignId,80);
+    if(!/^[0-9a-f-]{36}$/i.test(campaignId))return void res.status(400).json({error:"Invalid campaign identifier.",code:"MOBILE_NOTIFICATION_ID_INVALID"});
+    const rows=await sqlClient`
+      UPDATE platform.mobile_notification_deliveries
+      SET status='opened',opened_at=COALESCE(opened_at,now())
+      WHERE campaign_id=${campaignId}::uuid
+        AND user_id=${userId}::uuid
+        AND status='sent'
+      RETURNING id::text AS id
+    `;
+    res.json({opened:true,deliveryCount:rows.length});
+  }catch(error){console.error("Unable to record notification open",error);res.status(500).json({error:"Unable to record notification open",code:"MOBILE_NOTIFICATION_OPEN_FAILED"});}
+});
+
 export default router;
