@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 130208)
-Total output lines: 7818
-
 {
   "checkpointId": "VEN-CP011",
   "title": "Geometric Shape Region Inspection",
@@ -58,7 +55,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "33",
-      "explanation": "Use all three shapes: 33. These are the in all three sets region; the remaining diagram regions do not meet that condition. 33 = 33.",
+      "explanation": "The required region is common to all three groups: smartphone users, laptop users, tablet users. The central three-way overlap shows 33. Therefore, the answer is 33.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = residents who use a smartphone</text><text x=\"8\" y=\"42\">B — rectangle = residents who use a laptop</text><text x=\"8\" y=\"61\">C — triangle = residents who use a tablet</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">16</text><text x=\"411\" y=\"132\" data-mask=\"1\">21</text><text x=\"129\" y=\"252\" data-mask=\"2\">48</text><text x=\"498\" y=\"270\" data-mask=\"3\">11</text><text x=\"276\" y=\"411\" data-mask=\"4\">38</text><text x=\"303\" y=\"162\" data-mask=\"5\">43</text><text x=\"195\" y=\"327\" data-mask=\"6\">28</text><text x=\"324\" y=\"288\" data-mask=\"7\">33</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -91,6 +88,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -187,7 +186,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "44",
-      "explanation": "Use second and third shapes only: 44. These are the in both the second and third sets, but not the first region; the remaining diagram regions do not meet that condition. 44 = 44.",
+      "explanation": "We need the overlap of debit-card payers and cash payers, excluding UPI payers. That exact overlap region contains 44. Therefore, the answer is 44.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ellipse = customers who paid using UPI</text><text x=\"8\" y=\"42\">B — rectangle = customers who paid using a debit card</text><text x=\"8\" y=\"61\">C — triangle = customers who paid in cash</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">34</text><text x=\"402\" y=\"144\" data-mask=\"1\">39</text><text x=\"117\" y=\"279\" data-mask=\"2\">24</text><text x=\"501\" y=\"273\" data-mask=\"3\">29</text><text x=\"465\" y=\"420\" data-mask=\"4\">12</text><text x=\"303\" y=\"162\" data-mask=\"5\">17</text><text x=\"168\" y=\"342\" data-mask=\"6\">44</text><text x=\"327\" y=\"285\" data-mask=\"7\">49</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -220,6 +219,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -316,7 +317,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "11",
-      "explanation": "Use first and third shapes only: 11. These are the in both the first and third sets, but not the second region; the remaining diagram regions do not meet that condition. 11 = 11.",
+      "explanation": "We need the overlap of literacy-program volunteers and cleanliness-drive volunteers, excluding health-camp volunteers. That exact overlap region contains 11. Therefore, the answer is 11.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = volunteers who joined literacy programmes</text><text x=\"8\" y=\"42\">B — square = volunteers who joined health camps</text><text x=\"8\" y=\"61\">C — triangle = volunteers who joined cleanliness drives</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">26</text><text x=\"381\" y=\"117\" data-mask=\"1\">31</text><text x=\"213\" y=\"477\" data-mask=\"2\">36</text><text x=\"459\" y=\"228\" data-mask=\"3\">41</text><text x=\"141\" y=\"393\" data-mask=\"4\">48</text><text x=\"303\" y=\"144\" data-mask=\"5\">11</text><text x=\"231\" y=\"390\" data-mask=\"6\">16</text><text x=\"321\" y=\"282\" data-mask=\"7\">21</text></g><metadata data-layout=\"CIRCLE_SQUARE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -349,6 +350,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -445,7 +448,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "14",
-      "explanation": "Use first and second shapes only: 14. These are the in both the first and second sets, but not the third region; the remaining diagram regions do not meet that condition. 14 = 14.",
+      "explanation": "We need the overlap of spreadsheet-software users and video-conferencing software users, excluding presentation-software users. That exact overlap region contains 14. Therefore, the answer is 14.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = staff who use spreadsheet software</text><text x=\"8\" y=\"42\">B — rectangle = staff who use video-conferencing software</text><text x=\"8\" y=\"61\">C — diamond = staff who use presentation software</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">29</text><text x=\"456\" y=\"138\" data-mask=\"1\">24</text><text x=\"105\" y=\"345\" data-mask=\"2\">19</text><text x=\"537\" y=\"234\" data-mask=\"3\">14</text><text x=\"300\" y=\"420\" data-mask=\"4\">9</text><text x=\"303\" y=\"153\" data-mask=\"5\">46</text><text x=\"165\" y=\"279\" data-mask=\"6\">41</text><text x=\"327\" y=\"288\" data-mask=\"7\">36</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -478,6 +481,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -574,7 +579,7 @@ Total output lines: 7818
       "correct": 3,
       "answer": "D",
       "canonicalAnswer": "8",
-      "explanation": "Use third shape only: 8. These are the in only the third set region; the remaining diagram regions do not meet that condition. 8 = 8.",
+      "explanation": "We need craft-exhibition visitors who are in neither of the other two groups (folk-music audiences or theatre audiences). The exclusive region for craft-exhibition visitors shows 8. Therefore, the answer is 8.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ellipse = visitors who attended folk-music performances</text><text x=\"8\" y=\"42\">B — square = visitors who attended theatre performances</text><text x=\"8\" y=\"61\">C — diamond = visitors who attended craft exhibitions</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"447\" data-mask=\"0\">30</text><text x=\"414\" y=\"129\" data-mask=\"1\">35</text><text x=\"453\" y=\"447\" data-mask=\"2\">40</text><text x=\"489\" y=\"201\" data-mask=\"3\">45</text><text x=\"123\" y=\"279\" data-mask=\"4\">8</text><text x=\"303\" y=\"138\" data-mask=\"5\">13</text><text x=\"303\" y=\"414\" data-mask=\"6\">18</text><text x=\"363\" y=\"276\" data-mask=\"7\">23</text></g><metadata data-layout=\"ELLIPSE_SQUARE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -607,6 +612,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -703,7 +710,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "9",
-      "explanation": "Use second shape only: 9. These are the in only the second set region; the remaining diagram regions do not meet that condition. 9 = 9.",
+      "explanation": "We need sports streamers who are in neither of the other two groups (film streamers or documentary streamers). The exclusive region for sports streamers shows 9. Therefore, the answer is 9.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ellipse = viewers who stream films</text><text x=\"8\" y=\"42\">B — rectangle = viewers who stream sports</text><text x=\"8\" y=\"61\">C — diamond = viewers who stream documentaries</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">19</text><text x=\"456\" y=\"147\" data-mask=\"1\">14</text><text x=\"105\" y=\"345\" data-mask=\"2\">9</text><text x=\"540\" y=\"237\" data-mask=\"3\">46</text><text x=\"303\" y=\"414\" data-mask=\"4\">39</text><text x=\"303\" y=\"153\" data-mask=\"5\">34</text><text x=\"123\" y=\"279\" data-mask=\"6\">29</text><text x=\"342\" y=\"288\" data-mask=\"7\">24</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -736,6 +743,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -832,7 +841,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "35",
-      "explanation": "Use first shape only: 35. These are the in only the first set region; the remaining diagram regions do not meet that condition. 35 = 35.",
+      "explanation": "We need computer-basics course completers who are in neither of the other two groups (spoken-English course completers or first-aid course completers). The exclusive region for computer-basics course completers shows 35. Therefore, the answer is 35.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"120,100 340,100 120,480\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = trainees who completed a computer-basics course</text><text x=\"8\" y=\"42\">B — rectangle = trainees who completed a spoken-English course</text><text x=\"8\" y=\"61\">C — right-angled triangle = trainees who completed a first-aid course</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"618\" y=\"486\" data-mask=\"0\">30</text><text x=\"402\" y=\"132\" data-mask=\"1\">35</text><text x=\"228\" y=\"348\" data-mask=\"2\">40</text><text x=\"333\" y=\"288\" data-mask=\"3\">45</text><text x=\"171\" y=\"150\" data-mask=\"4\">8</text><text x=\"273\" y=\"159\" data-mask=\"5\">13</text><text x=\"174\" y=\"282\" data-mask=\"6\">18</text><text x=\"243\" y=\"225\" data-mask=\"7\">23</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_RIGHT_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -865,6 +874,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -961,7 +972,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "196",
-      "explanation": "Use first shape only: 13; second shape only: 18; first and second shapes only: 23; third shape only: 28; first and third shapes only: 33; second and third shapes only: 38; all three shapes: 43. These are the in at least one set regions; the remaining diagram regions do not meet that condition. 13 + 18 + 23 + 28 + 33 + 38 + 43 = 196.",
+      "explanation": "At least one group means every region inside any of the three groups—city-bus users, public-park visitors, recycling-program participants. The outside-all region is not counted. Adding the seven inside regions gives 13 + 18 + 23 + 28 + 33 + 38 + 43 = 196.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"176,92 430,92 556,478 54,478\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ellipse = residents who use the city bus service</text><text x=\"8\" y=\"42\">B — rectangle = residents who use public parks</text><text x=\"8\" y=\"61\">C — trapezoid = residents who take part in recycling programmes</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">8</text><text x=\"498\" y=\"156\" data-mask=\"1\">13</text><text x=\"105\" y=\"228\" data-mask=\"2\">18</text><text x=\"528\" y=\"246\" data-mask=\"3\">23</text><text x=\"126\" y=\"426\" data-mask=\"4\">28</text><text x=\"345\" y=\"147\" data-mask=\"5\">33</text><text x=\"144\" y=\"330\" data-mask=\"6\">38</text><text x=\"342\" y=\"288\" data-mask=\"7\">43</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRAPEZOID\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -994,6 +1005,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -1096,7 +1109,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "71",
-      "explanation": "Use first shape only: 39; second shape only: 24; third shape only: 8. These are the in exactly one set regions; the remaining diagram regions do not meet that condition. 39 + 24 + 8 = 71.",
+      "explanation": "Exactly one group means counting only the three exclusive regions: school-newspaper readers = 39, team-sport players = 24, and science-club members = 8. So 39 + 24 + 8 = 71.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,76 566,266 466,478 142,478 42,266\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = students who read the school newspaper</text><text x=\"8\" y=\"42\">B — rectangle = students who play a team sport</text><text x=\"8\" y=\"61\">C — pentagon = students who attend the science club</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">34</text><text x=\"474\" y=\"138\" data-mask=\"1\">39</text><text x=\"555\" y=\"354\" data-mask=\"2\">24</text><text x=\"549\" y=\"225\" data-mask=\"3\">29</text><text x=\"177\" y=\"426\" data-mask=\"4\">8</text><text x=\"312\" y=\"147\" data-mask=\"5\">13</text><text x=\"153\" y=\"297\" data-mask=\"6\">44</text><text x=\"327\" y=\"288\" data-mask=\"7\">49</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_PENTAGON\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -1129,6 +1142,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -1227,7 +1242,7 @@ Total output lines: 7818
       "correct": 3,
       "answer": "D",
       "canonicalAnswer": "105",
-      "explanation": "Use first and second shapes only: 44; first and third shapes only: 12; second and third shapes only: 27; all three shapes: 22. These are the in at least two sets regions; the remaining diagram regions do not meet that condition. 44 + 12 + 27 + 22 = 105.",
+      "explanation": "At least two groups includes the three pair-only overlaps and the all-three overlap for public-library users, sports-centre users, cultural-event attendees. Their counts are 44, 12, 27, 22, so 44 + 12 + 27 + 22 = 105.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = residents who use the public library</text><text x=\"8\" y=\"42\">B — rectangle = residents who use the sports centre</text><text x=\"8\" y=\"61\">C — triangle = residents who attend cultural events</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">39</text><text x=\"411\" y=\"132\" data-mask=\"1\">34</text><text x=\"129\" y=\"252\" data-mask=\"2\">49</text><text x=\"498\" y=\"270\" data-mask=\"3\">44</text><text x=\"276\" y=\"411\" data-mask=\"4\">17</text><text x=\"303\" y=\"162\" data-mask=\"5\">12</text><text x=\"195\" y=\"327\" data-mask=\"6\">27</text><text x=\"324\" y=\"288\" data-mask=\"7\">22</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -1260,6 +1275,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -1359,7 +1376,7 @@ Total output lines: 7818
       "correct": 1,
       "answer": "B",
       "canonicalAnswer": "217",
-      "explanation": "Use first shape only: 22; second shape only: 17; first and second shapes only: 12; third shape only: 49; first and third shapes only: 44; second and third shapes only: 39; all three shapes: 34. These are the in at least one set regions; the remaining diagram regions do not meet that condition. 22 + 17 + 12 + 49 + 44 + 39 + 34 = 217.",
+      "explanation": "At least one group means every region inside any of the three groups—safety-module completers, digital-skills module completers, first-aid module completers. The outside-all region is not counted. Adding the seven inside regions gives 22 + 17 + 12 + 49 + 44 + 39 + 34 = 217.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ellipse = trainees who completed the safety module</text><text x=\"8\" y=\"42\">B — rectangle = trainees who completed the digital-skills module</text><text x=\"8\" y=\"61\">C — triangle = trainees who completed the first-aid module</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">27</text><text x=\"402\" y=\"144\" data-mask=\"1\">22</text><text x=\"117\" y=\"279\" data-mask=\"2\">17</text><text x=\"501\" y=\"273\" data-mask=\"3\">12</text><text x=\"465\" y=\"420\" data-mask=\"4\">49</text><text x=\"303\" y=\"162\" data-mask=\"5\">44</text><text x=\"168\" y=\"342\" data-mask=\"6\">39</text><text x=\"327\" y=\"285\" data-mask=\"7\">34</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -1392,6 +1409,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -1494,7 +1513,7 @@ Total output lines: 7818
       "correct": 3,
       "answer": "D",
       "canonicalAnswer": "24",
-      "explanation": "Use first shape only: 24. These are the in only the first set region; the remaining diagram regions do not meet that condition. 24 = 24.",
+      "explanation": "We need daily-newspaper readers who are in neither of the other two groups (news-podcast listeners or evening-bulletin viewers). The exclusive region for daily-newspaper readers shows 24. Therefore, the answer is 24.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = people who read the daily paper</text><text x=\"8\" y=\"42\">B — square = people who listen to a news podcast</text><text x=\"8\" y=\"61\">C — triangle = people who watch the evening bulletin</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">29</text><text x=\"381\" y=\"117\" data-mask=\"1\">24</text><text x=\"213\" y=\"477\" data-mask=\"2\">19</text><text x=\"459\" y=\"228\" data-mask=\"3\">14</text><text x=\"141\" y=\"393\" data-mask=\"4\">45</text><text x=\"303\" y=\"144\" data-mask=\"5\">40</text><text x=\"231\" y=\"390\" data-mask=\"6\">35</text><text x=\"321\" y=\"282\" data-mask=\"7\">34</text></g><metadata data-layout=\"CIRCLE_SQUARE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -1527,6 +1546,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -1623,7 +1644,7 @@ Total output lines: 7818
       "correct": 1,
       "answer": "B",
       "canonicalAnswer": "25",
-      "explanation": "Use second shape only: 25. These are the in only the second set region; the remaining diagram regions do not meet that condition. 25 = 25.",
+      "explanation": "We need vision-check visitors who are in neither of the other two groups (blood-pressure check visitors or diabetes-check visitors). The exclusive region for vision-check visitors shows 25. Therefore, the answer is 25.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = visitors who received a blood-pressure check</text><text x=\"8\" y=\"42\">B — rectangle = visitors who received a vision check</text><text x=\"8\" y=\"61\">C — diamond = visitors who received a diabetes check</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">15</text><text x=\"456\" y=\"138\" data-mask=\"1\">10</text><text x=\"105\" y=\"345\" data-mask=\"2\">25</text><text x=\"537\" y=\"234\" data-mask=\"3\">20</text><text x=\"300\" y=\"420\" data-mask=\"4\">37</text><text x=\"303\" y=\"153\" data-mask=\"5\">32</text><text x=\"165\" y=\"279\" data-mask=\"6\">47</text><text x=\"327\" y=\"288\" data-mask=\"7\">42</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -1656,6 +1677,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -1752,7 +1775,7 @@ Total output lines: 7818
       "correct": 3,
       "answer": "D",
       "canonicalAnswer": "18",
-      "explanation": "Use third shape only: 18. These are the in only the third set region; the remaining diagram regions do not meet that condition. 18 = 18.",
+      "explanation": "We need team-chat users who are in neither of the other two groups (project-dashboard users or shared-calendar users). The exclusive region for team-chat users shows 18. Therefore, the answer is 18.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ellipse = staff who use the project dashboard</text><text x=\"8\" y=\"42\">B — square = staff who use the shared calendar</text><text x=\"8\" y=\"61\">C — diamond = staff who use the team chat</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"447\" data-mask=\"0\">38</text><text x=\"414\" y=\"129\" data-mask=\"1\">43</text><text x=\"453\" y=\"447\" data-mask=\"2\">28</text><text x=\"489\" y=\"201\" data-mask=\"3\">33</text><text x=\"123\" y=\"279\" data-mask=\"4\">18</text><text x=\"303\" y=\"138\" data-mask=\"5\">23</text><text x=\"303\" y=\"414\" data-mask=\"6\">8</text><text x=\"363\" y=\"276\" data-mask=\"7\">13</text></g><metadata data-layout=\"ELLIPSE_SQUARE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -1785,6 +1808,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -1881,7 +1906,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "20",
-      "explanation": "Use second and third shapes only: 20. These are the in both the second and third sets, but not the first region; the remaining diagram regions do not meet that condition. 20 = 20.",
+      "explanation": "We need the overlap of train travellers and bicycle commuters, excluding bus travellers. That exact overlap region contains 20. Therefore, the answer is 20.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ellipse = travellers who used a bus</text><text x=\"8\" y=\"42\">B — rectangle = travellers who used a train</text><text x=\"8\" y=\"61\">C — diamond = travellers who used a bicycle</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">30</text><text x=\"456\" y=\"147\" data-mask=\"1\">35</text><text x=\"105\" y=\"345\" data-mask=\"2\">40</text><text x=\"540\" y=\"237\" data-mask=\"3\">45</text><text x=\"303\" y=\"414\" data-mask=\"4\">10</text><text x=\"303\" y=\"153\" data-mask=\"5\">15</text><text x=\"123\" y=\"279\" data-mask=\"6\">20</text><text x=\"342\" y=\"288\" data-mask=\"7\">25</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -1914,6 +1939,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -2010,7 +2037,7 @@ Total output lines: 7818
       "correct": 1,
       "answer": "B",
       "canonicalAnswer": "45",
-      "explanation": "Use all three shapes: 45. These are the in all three sets region; the remaining diagram regions do not meet that condition. 45 = 45.",
+      "explanation": "The required region is common to all three groups: gardeners, people who try new recipes, photographers. The central three-way overlap shows 45. Therefore, the answer is 45.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"120,100 340,100 120,480\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = people who garden</text><text x=\"8\" y=\"42\">B — rectangle = people who cook a new recipe</text><text x=\"8\" y=\"61\">C — right-angled triangle = people who take photographs</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"618\" y=\"486\" data-mask=\"0\">28</text><text x=\"402\" y=\"132\" data-mask=\"1\">33</text><text x=\"228\" y=\"348\" data-mask=\"2\">18</text><text x=\"333\" y=\"288\" data-mask=\"3\">23</text><text x=\"171\" y=\"150\" data-mask=\"4\">8</text><text x=\"273\" y=\"159\" data-mask=\"5\">13</text><text x=\"174\" y=\"282\" data-mask=\"6\">40</text><text x=\"243\" y=\"225\" data-mask=\"7\">45</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_RIGHT_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -2043,6 +2070,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -2139,7 +2168,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "125",
-      "explanation": "Use first and second shapes only: 15; first and third shapes only: 45; second and third shapes only: 30; all three shapes: 35. These are the in at least two sets regions; the remaining diagram regions do not meet that condition. 15 + 45 + 30 + 35 = 125.",
+      "explanation": "At least two groups includes the three pair-only overlaps and the all-three overlap for mathematics-class attendees, English-class attendees, general-awareness class attendees. Their counts are 15, 45, 30, 35, so 15 + 45 + 30 + 35 = 125.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"176,92 430,92 556,478 54,478\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ellipse = candidates who attend mathematics classes</text><text x=\"8\" y=\"42\">B — rectangle = candidates who attend English classes</text><text x=\"8\" y=\"61\">C — trapezoid = candidates who attend general-awareness classes</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">20</text><text x=\"498\" y=\"156\" data-mask=\"1\">25</text><text x=\"105\" y=\"228\" data-mask=\"2\">10</text><text x=\"528\" y=\"246\" data-mask=\"3\">15</text><text x=\"126\" y=\"426\" data-mask=\"4\">40</text><text x=\"345\" y=\"147\" data-mask=\"5\">45</text><text x=\"144\" y=\"330\" data-mask=\"6\">30</text><text x=\"342\" y=\"288\" data-mask=\"7\">35</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRAPEZOID\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -2172,6 +2201,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -2271,7 +2302,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "102",
-      "explanation": "Use first shape only: 20; second shape only: 35; third shape only: 47. These are the in exactly one set regions; the remaining diagram regions do not meet that condition. 20 + 35 + 47 = 102.",
+      "explanation": "Exactly one group means counting only the three exclusive regions: wheat growers = 20, mustard growers = 35, and cotton growers = 47. So 20 + 35 + 47 = 102.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,76 566,266 466,478 142,478 42,266\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = farmers who cultivate wheat</text><text x=\"8\" y=\"42\">B — rectangle = farmers who cultivate mustard</text><text x=\"8\" y=\"61\">C — pentagon = farmers who cultivate cotton</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">25</text><text x=\"474\" y=\"138\" data-mask=\"1\">20</text><text x=\"555\" y=\"354\" data-mask=\"2\">35</text><text x=\"549\" y=\"225\" data-mask=\"3\">30</text><text x=\"177\" y=\"426\" data-mask=\"4\">47</text><text x=\"312\" y=\"147\" data-mask=\"5\">42</text><text x=\"153\" y=\"297\" data-mask=\"6\">15</text><text x=\"327\" y=\"288\" data-mask=\"7\">10</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_PENTAGON\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -2304,6 +2335,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -2402,7 +2435,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "24",
-      "explanation": "Use second shape only: 24. These are the in only the second set region; the remaining diagram regions do not meet that condition. 24 = 24.",
+      "explanation": "We need biography borrowers who are in neither of the other two groups (fiction borrowers or science-book borrowers). The exclusive region for biography borrowers shows 24. Therefore, the answer is 24.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — circle = library members who borrow fiction</text><text x=\"8\" y=\"42\">B — rectangle = library members who borrow biographies</text><text x=\"8\" y=\"61\">C — triangle = library members who borrow science books</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">14</text><text x=\"411\" y=\"132\" data-mask=\"1\">19</text><text x=\"129\" y=\"252\" data-mask=\"2\">24</text><text x=\"498\" y=\"270\" data-mask=\"3\">29</text><text x=\"276\" y=\"411\" data-mask=\"4\">36</text><text x=\"303\" y=\"162\" data-mask=\"5\">41</text><text x=\"195\" y=\"327\" data-mask=\"6\">46</text><text x=\"324\" y=\"288\" data-mask=\"7\">9</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -2435,6 +2468,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -2531,7 +2566,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "22",
-      "explanation": "Use third shape only: 22. These are the in only the third set region; the remaining diagram regions do not meet that condition. 22 = 22.",
+      "explanation": "We need online electronics shoppers who are in neither of the other two groups (online grocery shoppers or online clothing shoppers). The exclusive region for online electronics shoppers shows 22. Therefore, the answer is 22.",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ellipse = customers who bought groceries online</text><text x=\"8\" y=\"42\">B — rectangle = customers who bought clothing online</text><text x=\"8\" y=\"61\">C — triangle = customers who bought electronic goods online</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">42</text><text x=\"402\" y=\"144\" data-mask=\"1\">47</text><text x=\"117\" y=\"279\" data-mask=\"2\">10</text><text x=\"501\" y=\"273\" data-mask=\"3\">15</text><text x=\"465\" y=\"420\" data-mask=\"4\">22</text><text x=\"303\" y=\"162\" data-mask=\"5\">27</text><text x=\"168\" y=\"342\" data-mask=\"6\">32</text><text x=\"327\" y=\"285\" data-mask=\"7\">37</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -2564,6 +2599,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -2660,7 +2697,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "33",
-      "explanation": "तीनों आकृतियाँ: 33। यही तीनों समूहों में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 33 = 33।",
+      "explanation": "हमें तीनों समूहों—स्मार्टफ़ोन उपयोगकर्ता, लैपटॉप उपयोगकर्ता, टैबलेट उपयोगकर्ता—का साझा क्षेत्र चाहिए। तीनों के बीच वाले साझा भाग में 33 दिए हैं। अतः उत्तर 33 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = स्मार्टफ़ोन का उपयोग करने वाले निवासी</text><text x=\"8\" y=\"42\">B — आयत = लैपटॉप का उपयोग करने वाले निवासी</text><text x=\"8\" y=\"61\">C — त्रिभुज = टैबलेट का उपयोग करने वाले निवासी</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">16</text><text x=\"411\" y=\"132\" data-mask=\"1\">21</text><text x=\"129\" y=\"252\" data-mask=\"2\">48</text><text x=\"498\" y=\"270\" data-mask=\"3\">11</text><text x=\"276\" y=\"411\" data-mask=\"4\">38</text><text x=\"303\" y=\"162\" data-mask=\"5\">43</text><text x=\"195\" y=\"327\" data-mask=\"6\">28</text><text x=\"324\" y=\"288\" data-mask=\"7\">33</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -2693,6 +2730,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -2789,7 +2828,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "44",
-      "explanation": "दूसरी और तीसरी आकृति, पहली के बिना: 44। यही दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 44 = 44।",
+      "explanation": "हमें डेबिट कार्ड से भुगतान करने वाले और नकद भुगतान करने वाले का साझा भाग चाहिए, लेकिन UPI से भुगतान करने वाले को शामिल नहीं करना है। इस ठीक उसी क्षेत्र में 44 दिए हैं। अतः उत्तर 44 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = UPI से भुगतान करने वाले ग्राहक</text><text x=\"8\" y=\"42\">B — आयत = डेबिट कार्ड से भुगतान करने वाले ग्राहक</text><text x=\"8\" y=\"61\">C — त्रिभुज = नकद भुगतान करने वाले ग्राहक</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">34</text><text x=\"402\" y=\"144\" data-mask=\"1\">39</text><text x=\"117\" y=\"279\" data-mask=\"2\">24</text><text x=\"501\" y=\"273\" data-mask=\"3\">29</text><text x=\"465\" y=\"420\" data-mask=\"4\">12</text><text x=\"303\" y=\"162\" data-mask=\"5\">17</text><text x=\"168\" y=\"342\" data-mask=\"6\">44</text><text x=\"327\" y=\"285\" data-mask=\"7\">49</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -2822,6 +2861,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -2918,7 +2959,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "11",
-      "explanation": "पहली और तीसरी आकृति, दूसरी के बिना: 11। यही पहले और तीसरे दोनों समूहों में, लेकिन दूसरे में नहीं वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 11 = 11।",
+      "explanation": "हमें साक्षरता कार्यक्रमों के स्वयंसेवक और स्वच्छता अभियानों के स्वयंसेवक का साझा भाग चाहिए, लेकिन स्वास्थ्य शिविरों के स्वयंसेवक को शामिल नहीं करना है। इस ठीक उसी क्षेत्र में 11 दिए हैं। अतः उत्तर 11 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = साक्षरता कार्यक्रमों में शामिल स्वयंसेवक</text><text x=\"8\" y=\"42\">B — वर्ग = स्वास्थ्य शिविरों में शामिल स्वयंसेवक</text><text x=\"8\" y=\"61\">C — त्रिभुज = स्वच्छता अभियानों में शामिल स्वयंसेवक</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">26</text><text x=\"381\" y=\"117\" data-mask=\"1\">31</text><text x=\"213\" y=\"477\" data-mask=\"2\">36</text><text x=\"459\" y=\"228\" data-mask=\"3\">41</text><text x=\"141\" y=\"393\" data-mask=\"4\">48</text><text x=\"303\" y=\"144\" data-mask=\"5\">11</text><text x=\"231\" y=\"390\" data-mask=\"6\">16</text><text x=\"321\" y=\"282\" data-mask=\"7\">21</text></g><metadata data-layout=\"CIRCLE_SQUARE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -2951,6 +2992,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -3047,7 +3090,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "14",
-      "explanation": "पहली और दूसरी आकृति, तीसरी के बिना: 14। यही पहले और दूसरे दोनों समूहों में, लेकिन तीसरे में नहीं वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 14 = 14।",
+      "explanation": "हमें स्प्रेडशीट सॉफ़्टवेयर उपयोगकर्ता और वीडियो-कॉन्फ़्रेंसिंग सॉफ़्टवेयर उपयोगकर्ता का साझा भाग चाहिए, लेकिन प्रेज़ेंटेशन सॉफ़्टवेयर उपयोगकर्ता को शामिल नहीं करना है। इस ठीक उसी क्षेत्र में 14 दिए हैं। अतः उत्तर 14 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = स्प्रेडशीट सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी</text><text x=\"8\" y=\"42\">B — आयत = वीडियो-कॉन्फ़्रेंसिंग सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी</text><text x=\"8\" y=\"61\">C — हीराकार = प्रेज़ेंटेशन सॉफ़्टवेयर का उपयोग करने वाले कर्मचारी</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">29</text><text x=\"456\" y=\"138\" data-mask=\"1\">24</text><text x=\"105\" y=\"345\" data-mask=\"2\">19</text><text x=\"537\" y=\"234\" data-mask=\"3\">14</text><text x=\"300\" y=\"420\" data-mask=\"4\">9</text><text x=\"303\" y=\"153\" data-mask=\"5\">46</text><text x=\"165\" y=\"279\" data-mask=\"6\">41</text><text x=\"327\" y=\"288\" data-mask=\"7\">36</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -3080,6 +3123,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -3176,7 +3221,7 @@ Total output lines: 7818
       "correct": 3,
       "answer": "D",
       "canonicalAnswer": "8",
-      "explanation": "केवल तीसरी आकृति: 8। यही केवल तीसरे समूह में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 8 = 8।",
+      "explanation": "हमें ऐसे शिल्प प्रदर्शनियों में जाने वाले चाहिए जो बाकी दोनों समूहों—लोक-संगीत कार्यक्रमों के दर्शक और नाटक देखने वाले—में न हों। शिल्प प्रदर्शनियों में जाने वाले के केवल अपने क्षेत्र में 8 दिए हैं। अतः उत्तर 8 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = लोक-संगीत कार्यक्रमों में शामिल आगंतुक</text><text x=\"8\" y=\"42\">B — वर्ग = नाटक देखने वाले आगंतुक</text><text x=\"8\" y=\"61\">C — हीराकार = शिल्प प्रदर्शनियों में शामिल आगंतुक</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"447\" data-mask=\"0\">30</text><text x=\"414\" y=\"129\" data-mask=\"1\">35</text><text x=\"453\" y=\"447\" data-mask=\"2\">40</text><text x=\"489\" y=\"201\" data-mask=\"3\">45</text><text x=\"123\" y=\"279\" data-mask=\"4\">8</text><text x=\"303\" y=\"138\" data-mask=\"5\">13</text><text x=\"303\" y=\"414\" data-mask=\"6\">18</text><text x=\"363\" y=\"276\" data-mask=\"7\">23</text></g><metadata data-layout=\"ELLIPSE_SQUARE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -3209,6 +3254,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -3305,7 +3352,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "9",
-      "explanation": "केवल दूसरी आकृति: 9। यही केवल दूसरे समूह में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 9 = 9।",
+      "explanation": "हमें ऐसे खेल ऑनलाइन देखने वाले चाहिए जो बाकी दोनों समूहों—फ़िल्में ऑनलाइन देखने वाले और वृत्तचित्र ऑनलाइन देखने वाले—में न हों। खेल ऑनलाइन देखने वाले के केवल अपने क्षेत्र में 9 दिए हैं। अतः उत्तर 9 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = ऑनलाइन फ़िल्में देखने वाले दर्शक</text><text x=\"8\" y=\"42\">B — आयत = ऑनलाइन खेल देखने वाले दर्शक</text><text x=\"8\" y=\"61\">C — हीराकार = ऑनलाइन वृत्तचित्र देखने वाले दर्शक</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">19</text><text x=\"456\" y=\"147\" data-mask=\"1\">14</text><text x=\"105\" y=\"345\" data-mask=\"2\">9</text><text x=\"540\" y=\"237\" data-mask=\"3\">46</text><text x=\"303\" y=\"414\" data-mask=\"4\">39</text><text x=\"303\" y=\"153\" data-mask=\"5\">34</text><text x=\"123\" y=\"279\" data-mask=\"6\">29</text><text x=\"342\" y=\"288\" data-mask=\"7\">24</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -3338,6 +3385,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -3434,7 +3483,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "35",
-      "explanation": "केवल पहली आकृति: 35। यही केवल पहले समूह में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 35 = 35।",
+      "explanation": "हमें ऐसे कंप्यूटर की बुनियादी जानकारी का पाठ्यक्रम पूरा करने वाले चाहिए जो बाकी दोनों समूहों—बोलचाल की अंग्रेज़ी का पाठ्यक्रम पूरा करने वाले और प्राथमिक उपचार का पाठ्यक्रम पूरा करने वाले—में न हों। कंप्यूटर की बुनियादी जानकारी का पाठ्यक्रम पूरा करने वाले के केवल अपने क्षेत्र में 35 दिए हैं। अतः उत्तर 35 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"120,100 340,100 120,480\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = कंप्यूटर की बुनियादी जानकारी का पाठ्यक्रम पूरा करने वाले प्रशिक्षु</text><text x=\"8\" y=\"42\">B — आयत = बोलचाल की अंग्रेज़ी का पाठ्यक्रम पूरा करने वाले प्रशिक्षु</text><text x=\"8\" y=\"61\">C — समकोण त्रिभुज = प्राथमिक उपचार का पाठ्यक्रम पूरा करने वाले प्रशिक्षु</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"618\" y=\"486\" data-mask=\"0\">30</text><text x=\"402\" y=\"132\" data-mask=\"1\">35</text><text x=\"228\" y=\"348\" data-mask=\"2\">40</text><text x=\"333\" y=\"288\" data-mask=\"3\">45</text><text x=\"171\" y=\"150\" data-mask=\"4\">8</text><text x=\"273\" y=\"159\" data-mask=\"5\">13</text><text x=\"174\" y=\"282\" data-mask=\"6\">18</text><text x=\"243\" y=\"225\" data-mask=\"7\">23</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_RIGHT_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -3467,6 +3516,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -3563,7 +3614,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "196",
-      "explanation": "केवल पहली आकृति: 13; केवल दूसरी आकृति: 18; पहली और दूसरी आकृति, तीसरी के बिना: 23; केवल तीसरी आकृति: 28; पहली और तीसरी आकृति, दूसरी के बिना: 33; दूसरी और तीसरी आकृति, पहली के बिना: 38; तीनों आकृतियाँ: 43। यही कम-से-कम एक समूह में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 13 + 18 + 23 + 28 + 33 + 38 + 43 = 196।",
+      "explanation": "कम-से-कम एक समूह में आने वालों के लिए शहर की बस सेवा के उपयोगकर्ता, सार्वजनिक पार्कों में जाने वाले, पुनर्चक्रण कार्यक्रमों में भाग लेने वाले के भीतर के सभी सात क्षेत्रों को गिनते हैं। तीनों समूहों के बाहर वाला क्षेत्र नहीं जोड़ा जाता। इसलिए 13 + 18 + 23 + 28 + 33 + 38 + 43 = 196।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"176,92 430,92 556,478 54,478\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = शहर की बस सेवा का उपयोग करने वाले निवासी</text><text x=\"8\" y=\"42\">B — आयत = सार्वजनिक पार्कों में जाने वाले निवासी</text><text x=\"8\" y=\"61\">C — समलंब चतुर्भुज = पुनर्चक्रण कार्यक्रमों में भाग लेने वाले निवासी</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">8</text><text x=\"498\" y=\"156\" data-mask=\"1\">13</text><text x=\"105\" y=\"228\" data-mask=\"2\">18</text><text x=\"528\" y=\"246\" data-mask=\"3\">23</text><text x=\"126\" y=\"426\" data-mask=\"4\">28</text><text x=\"345\" y=\"147\" data-mask=\"5\">33</text><text x=\"144\" y=\"330\" data-mask=\"6\">38</text><text x=\"342\" y=\"288\" data-mask=\"7\">43</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRAPEZOID\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -3596,6 +3647,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -3698,7 +3751,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "71",
-      "explanation": "केवल पहली आकृति: 39; केवल दूसरी आकृति: 24; केवल तीसरी आकृति: 8। यही ठीक एक समूह में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 39 + 24 + 8 = 71।",
+      "explanation": "ठीक एक समूह का अर्थ है केवल तीन अलग-अलग एकल क्षेत्रों को जोड़ना: विद्यालय के समाचार-पत्र पाठक = 39, टीम खेलों के खिलाड़ी = 24 और विज्ञान क्लब के सदस्य = 8। इसलिए 39 + 24 + 8 = 71।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,76 566,266 466,478 142,478 42,266\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = विद्यालय का समाचार-पत्र पढ़ने वाले विद्यार्थी</text><text x=\"8\" y=\"42\">B — आयत = टीम खेल खेलने वाले विद्यार्थी</text><text x=\"8\" y=\"61\">C — पंचभुज = विज्ञान क्लब में जाने वाले विद्यार्थी</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">34</text><text x=\"474\" y=\"138\" data-mask=\"1\">39</text><text x=\"555\" y=\"354\" data-mask=\"2\">24</text><text x=\"549\" y=\"225\" data-mask=\"3\">29</text><text x=\"177\" y=\"426\" data-mask=\"4\">8</text><text x=\"312\" y=\"147\" data-mask=\"5\">13</text><text x=\"153\" y=\"297\" data-mask=\"6\">44</text><text x=\"327\" y=\"288\" data-mask=\"7\">49</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_PENTAGON\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -3731,6 +3784,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -3829,12 +3884,630 @@ Total output lines: 7818
       "correct": 3,
       "answer": "D",
       "canonicalAnswer": "105",
-      "explanation": "पहली और दूसरी आकृति, तीसरी के बिना: 44; पहली और तीसरी आकृति, दूसरी के बिना: 12; दूसरी और तीसरी आकृति, पहली के बिना: 27; तीनों आकृतियाँ: 22। यही कम-से-कम दो समूहों में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 44 + 12 + 27 + 22 = 105।",
+      "explanation": "कम-से-कम दो समूहों में वे तीन क्षेत्र आते हैं जहाँ केवल दो समूह मिलते हैं, साथ ही तीनों का साझा क्षेत्र भी। सार्वजनिक पुस्तकालय के उपयोगकर्ता, खेल केंद्र के उपयोगकर्ता, सांस्कृतिक कार्यक्रमों में जाने वाले के इन क्षेत्रों की संख्याएँ 44, 12, 27, 22 हैं। इसलिए 44 + 12 + 27 + 22 = 105।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = सार्वजनिक पुस्तकालय का उपयोग करने वाले निवासी</text><text x=\"8\" y=\"42\">B — आयत = खेल केंद्र का उपयोग करने वाले निवासी</text><text x=\"8\" y=\"61\">C — त्रिभुज = सांस्कृतिक कार्यक्रमों में जाने वाले निवासी</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">39</text><text x=\"411\" y=\"132\" data-mask=\"1\">34</text><text x=\"129\" y=\"252\" data-mask=\"2\">49</text><text x=\"498\" y=\"270\" data-mask=\"3\">44</text><text x=\"276\" y=\"411\" data-mask=\"4\">17</text><text x=\"303\" y=\"162\" data-mask=\"5\">12</text><text x=\"195\" y=\"327\" data-mask=\"6\">27</text><text x=\"324\" y=\"288\" data-mask=\"7\">22</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
       "explanationSvgs": [
-        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = सार्वजनिक पुस्तकालय का उपयोग करने वाले निवासी</text><text x=\"8\" y=\"42\">B — आयत = खेल केंद्र का उपयोग करने वाले निवासी</text><text x=\"8\" y=\"61\">C — त्रिभुज = स…10208 tokens truncated…e,
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = सार्वजनिक पुस्तकालय का उपयोग करने वाले निवासी</text><text x=\"8\" y=\"42\">B — आयत = खेल केंद्र का उपयोग करने वाले निवासी</text><text x=\"8\" y=\"61\">C — त्रिभुज = सांस्कृतिक कार्यक्रमों में जाने वाले निवासी</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">39</text><text x=\"411\" y=\"132\" data-mask=\"1\">34</text><text x=\"129\" y=\"252\" data-mask=\"2\">49</text><text x=\"498\" y=\"270\" data-mask=\"3\">44</text><text x=\"276\" y=\"411\" data-mask=\"4\">17</text><text x=\"303\" y=\"162\" data-mask=\"5\">12</text><text x=\"195\" y=\"327\" data-mask=\"6\">27</text><text x=\"324\" y=\"288\" data-mask=\"7\">22</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "optionDetails": [
+        {
+          "label": "A",
+          "text": "93",
+          "isCorrect": false
+        },
+        {
+          "label": "B",
+          "text": "122",
+          "isCorrect": false
+        },
+        {
+          "label": "C",
+          "text": "132",
+          "isCorrect": false
+        },
+        {
+          "label": "D",
+          "text": "105",
+          "isCorrect": true
+        }
+      ],
+      "difficulty": "Medium",
+      "difficultyLabel": "Medium",
+      "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
+      "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
+      "generationSeed": "shape-regions-review-v2",
+      "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
+      "runtimeMode": "review-only",
+      "reviewOnly": true,
+      "readOnly": true,
+      "sharedStimulus": "एक मोहल्ले के निवासी सार्वजनिक पुस्तकालय और खेल केंद्र का उपयोग करते हैं या सांस्कृतिक कार्यक्रमों में जाते हैं। इन समूहों में से कम-से-कम दो में कितने लोग हैं: सार्वजनिक पुस्तकालय के उपयोगकर्ता, खेल केंद्र के उपयोगकर्ता, सांस्कृतिक कार्यक्रमों में जाने वाले?",
+      "semanticMetadata": {
+        "scenarioId": "COMMUNITY_SURVEY",
+        "shapeLayoutId": "CIRCLE_RECTANGLE_TRIANGLE",
+        "shapeTypes": [
+          "circle",
+          "rectangle",
+          "triangle"
+        ],
+        "queryKey": "at-least-two",
+        "queryPattern": "union",
+        "shapeSetLabels": [
+          "सार्वजनिक पुस्तकालय का उपयोग करने वाले निवासी",
+          "खेल केंद्र का उपयोग करने वाले निवासी",
+          "सांस्कृतिक कार्यक्रमों में जाने वाले निवासी"
+        ],
+        "activityGroupLabels": [
+          "सार्वजनिक पुस्तकालय के उपयोगकर्ता",
+          "खेल केंद्र के उपयोगकर्ता",
+          "सांस्कृतिक कार्यक्रमों में जाने वाले"
+        ],
+        "exclusiveRegions": [
+          39,
+          34,
+          49,
+          44,
+          17,
+          12,
+          27,
+          22
+        ],
+        "selectedMasks": [
+          3,
+          5,
+          6,
+          7
+        ]
+      },
+      "validation": {
+        "exactlyOneCorrect": true,
+        "fourUniqueOptions": true,
+        "allEightRegionsVisible": true,
+        "shapeLayoutHasEightRegions": true,
+        "labelClearancePx": 20,
+        "localeParityPendingHumanReview": true
+      }
+    },
+    {
+      "lifecycleId": "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+      "stage": "REVIEW_ONLY",
+      "reviewSurfaceRequired": true,
+      "reviewRunPersistenceAllowed": true,
+      "canonicalQuestionPersistenceAllowed": false,
+      "manualApprovalRequired": true,
+      "questionBankStatus": "NOT_STORED",
+      "questionBankWritable": false,
+      "questionBankAcceptanceMode": null,
+      "questionBankAcceptanceAuthority": null,
+      "testEligibility": "INELIGIBLE",
+      "testEligible": false,
+      "mockTestEligible": false,
+      "publiclyPublishable": false,
+      "automaticStudentPublication": false,
+      "productionReleaseAuthorized": false,
+      "id": "VEN-CP011:TRAINING_COURSE:any-shape:841152303:hi",
+      "questionId": "VEN-CP011:TRAINING_COURSE:any-shape:841152303:hi",
+      "packageId": "VEN-001",
+      "patternId": "VEN-CP011",
+      "cpId": "VEN-CP011",
+      "checkpointId": "VEN-CP011",
+      "subject": "Reasoning Ability",
+      "contentDomain": "Geometric Venn diagram region reading",
+      "topic": "Venn Diagrams",
+      "subtopic": "Geometric shape region counts",
+      "language": "hi",
+      "locale": "hi-IN",
+      "stem": "एक प्रशिक्षण संस्थान सुरक्षा, डिजिटल-कौशल और प्राथमिक उपचार मॉड्यूल पूरे करने वाले प्रशिक्षुओं का लेखा रखता है। इनमें से कम-से-कम एक समूह में कितने लोग हैं: सुरक्षा मॉड्यूल पूरा करने वाले, डिजिटल-कौशल मॉड्यूल पूरा करने वाले, प्राथमिक उपचार मॉड्यूल पूरा करने वाले?",
+      "text": "एक प्रशिक्षण संस्थान सुरक्षा, डिजिटल-कौशल और प्राथमिक उपचार मॉड्यूल पूरे करने वाले प्रशिक्षुओं का लेखा रखता है। इनमें से कम-से-कम एक समूह में कितने लोग हैं: सुरक्षा मॉड्यूल पूरा करने वाले, डिजिटल-कौशल मॉड्यूल पूरा करने वाले, प्राथमिक उपचार मॉड्यूल पूरा करने वाले?",
+      "options": [
+        "205",
+        "217",
+        "266",
+        "234"
+      ],
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correctIndex": 1,
+      "correct": 1,
+      "answer": "B",
+      "canonicalAnswer": "217",
+      "explanation": "कम-से-कम एक समूह में आने वालों के लिए सुरक्षा मॉड्यूल पूरा करने वाले, डिजिटल-कौशल मॉड्यूल पूरा करने वाले, प्राथमिक उपचार मॉड्यूल पूरा करने वाले के भीतर के सभी सात क्षेत्रों को गिनते हैं। तीनों समूहों के बाहर वाला क्षेत्र नहीं जोड़ा जाता। इसलिए 22 + 17 + 12 + 49 + 44 + 39 + 34 = 217।",
+      "stimulusSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = सुरक्षा मॉड्यूल पूरा करने वाले प्रशिक्षु</text><text x=\"8\" y=\"42\">B — आयत = डिजिटल-कौशल मॉड्यूल पूरा करने वाले प्रशिक्षु</text><text x=\"8\" y=\"61\">C — त्रिभुज = प्राथमिक उपचार मॉड्यूल पूरा करने वाले प्रशिक्षु</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">27</text><text x=\"402\" y=\"144\" data-mask=\"1\">22</text><text x=\"117\" y=\"279\" data-mask=\"2\">17</text><text x=\"501\" y=\"273\" data-mask=\"3\">12</text><text x=\"465\" y=\"420\" data-mask=\"4\">49</text><text x=\"303\" y=\"162\" data-mask=\"5\">44</text><text x=\"168\" y=\"342\" data-mask=\"6\">39</text><text x=\"327\" y=\"285\" data-mask=\"7\">34</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "explanationSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = सुरक्षा मॉड्यूल पूरा करने वाले प्रशिक्षु</text><text x=\"8\" y=\"42\">B — आयत = डिजिटल-कौशल मॉड्यूल पूरा करने वाले प्रशिक्षु</text><text x=\"8\" y=\"61\">C — त्रिभुज = प्राथमिक उपचार मॉड्यूल पूरा करने वाले प्रशिक्षु</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">27</text><text x=\"402\" y=\"144\" data-mask=\"1\">22</text><text x=\"117\" y=\"279\" data-mask=\"2\">17</text><text x=\"501\" y=\"273\" data-mask=\"3\">12</text><text x=\"465\" y=\"420\" data-mask=\"4\">49</text><text x=\"303\" y=\"162\" data-mask=\"5\">44</text><text x=\"168\" y=\"342\" data-mask=\"6\">39</text><text x=\"327\" y=\"285\" data-mask=\"7\">34</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "optionDetails": [
+        {
+          "label": "A",
+          "text": "205",
+          "isCorrect": false
+        },
+        {
+          "label": "B",
+          "text": "217",
+          "isCorrect": true
+        },
+        {
+          "label": "C",
+          "text": "266",
+          "isCorrect": false
+        },
+        {
+          "label": "D",
+          "text": "234",
+          "isCorrect": false
+        }
+      ],
+      "difficulty": "Medium",
+      "difficultyLabel": "Medium",
+      "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
+      "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
+      "generationSeed": "shape-regions-review-v2",
+      "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
+      "runtimeMode": "review-only",
+      "reviewOnly": true,
+      "readOnly": true,
+      "sharedStimulus": "एक प्रशिक्षण संस्थान सुरक्षा, डिजिटल-कौशल और प्राथमिक उपचार मॉड्यूल पूरे करने वाले प्रशिक्षुओं का लेखा रखता है। इनमें से कम-से-कम एक समूह में कितने लोग हैं: सुरक्षा मॉड्यूल पूरा करने वाले, डिजिटल-कौशल मॉड्यूल पूरा करने वाले, प्राथमिक उपचार मॉड्यूल पूरा करने वाले?",
+      "semanticMetadata": {
+        "scenarioId": "TRAINING_COURSE",
+        "shapeLayoutId": "ELLIPSE_RECTANGLE_TRIANGLE",
+        "shapeTypes": [
+          "ellipse",
+          "rectangle",
+          "triangle"
+        ],
+        "queryKey": "any-shape",
+        "queryPattern": "union",
+        "shapeSetLabels": [
+          "सुरक्षा मॉड्यूल पूरा करने वाले प्रशिक्षु",
+          "डिजिटल-कौशल मॉड्यूल पूरा करने वाले प्रशिक्षु",
+          "प्राथमिक उपचार मॉड्यूल पूरा करने वाले प्रशिक्षु"
+        ],
+        "activityGroupLabels": [
+          "सुरक्षा मॉड्यूल पूरा करने वाले",
+          "डिजिटल-कौशल मॉड्यूल पूरा करने वाले",
+          "प्राथमिक उपचार मॉड्यूल पूरा करने वाले"
+        ],
+        "exclusiveRegions": [
+          27,
+          22,
+          17,
+          12,
+          49,
+          44,
+          39,
+          34
+        ],
+        "selectedMasks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "validation": {
+        "exactlyOneCorrect": true,
+        "fourUniqueOptions": true,
+        "allEightRegionsVisible": true,
+        "shapeLayoutHasEightRegions": true,
+        "labelClearancePx": 20,
+        "localeParityPendingHumanReview": true
+      }
+    },
+    {
+      "lifecycleId": "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+      "stage": "REVIEW_ONLY",
+      "reviewSurfaceRequired": true,
+      "reviewRunPersistenceAllowed": true,
+      "canonicalQuestionPersistenceAllowed": false,
+      "manualApprovalRequired": true,
+      "questionBankStatus": "NOT_STORED",
+      "questionBankWritable": false,
+      "questionBankAcceptanceMode": null,
+      "questionBankAcceptanceAuthority": null,
+      "testEligibility": "INELIGIBLE",
+      "testEligible": false,
+      "mockTestEligible": false,
+      "publiclyPublishable": false,
+      "automaticStudentPublication": false,
+      "productionReleaseAuthorized": false,
+      "id": "VEN-CP011:MEDIA_PREFERENCES:only-A:824374684:hi",
+      "questionId": "VEN-CP011:MEDIA_PREFERENCES:only-A:824374684:hi",
+      "packageId": "VEN-001",
+      "patternId": "VEN-CP011",
+      "cpId": "VEN-CP011",
+      "checkpointId": "VEN-CP011",
+      "subject": "Reasoning Ability",
+      "contentDomain": "Geometric Venn diagram region reading",
+      "topic": "Venn Diagrams",
+      "subtopic": "Geometric shape region counts",
+      "language": "hi",
+      "locale": "hi-IN",
+      "stem": "मीडिया के उपयोग से जुड़े अध्ययन में दैनिक समाचार-पत्र पढ़ने, समाचार पॉडकास्ट सुनने और शाम का बुलेटिन देखने वालों की गिनती की गई। केवल दैनिक समाचार-पत्र पढ़ने वाले कितने हैं?",
+      "text": "मीडिया के उपयोग से जुड़े अध्ययन में दैनिक समाचार-पत्र पढ़ने, समाचार पॉडकास्ट सुनने और शाम का बुलेटिन देखने वालों की गिनती की गई। केवल दैनिक समाचार-पत्र पढ़ने वाले कितने हैं?",
+      "options": [
+        "69",
+        "10",
+        "43",
+        "24"
+      ],
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correctIndex": 3,
+      "correct": 3,
+      "answer": "D",
+      "canonicalAnswer": "24",
+      "explanation": "हमें ऐसे दैनिक समाचार-पत्र पढ़ने वाले चाहिए जो बाकी दोनों समूहों—समाचार पॉडकास्ट सुनने वाले और शाम का समाचार बुलेटिन देखने वाले—में न हों। दैनिक समाचार-पत्र पढ़ने वाले के केवल अपने क्षेत्र में 24 दिए हैं। अतः उत्तर 24 है।",
+      "stimulusSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = दैनिक समाचार-पत्र पढ़ने वाले लोग</text><text x=\"8\" y=\"42\">B — वर्ग = समाचार पॉडकास्ट सुनने वाले लोग</text><text x=\"8\" y=\"61\">C — त्रिभुज = शाम का समाचार बुलेटिन देखने वाले लोग</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">29</text><text x=\"381\" y=\"117\" data-mask=\"1\">24</text><text x=\"213\" y=\"477\" data-mask=\"2\">19</text><text x=\"459\" y=\"228\" data-mask=\"3\">14</text><text x=\"141\" y=\"393\" data-mask=\"4\">45</text><text x=\"303\" y=\"144\" data-mask=\"5\">40</text><text x=\"231\" y=\"390\" data-mask=\"6\">35</text><text x=\"321\" y=\"282\" data-mask=\"7\">34</text></g><metadata data-layout=\"CIRCLE_SQUARE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "explanationSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = दैनिक समाचार-पत्र पढ़ने वाले लोग</text><text x=\"8\" y=\"42\">B — वर्ग = समाचार पॉडकास्ट सुनने वाले लोग</text><text x=\"8\" y=\"61\">C — त्रिभुज = शाम का समाचार बुलेटिन देखने वाले लोग</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">29</text><text x=\"381\" y=\"117\" data-mask=\"1\">24</text><text x=\"213\" y=\"477\" data-mask=\"2\">19</text><text x=\"459\" y=\"228\" data-mask=\"3\">14</text><text x=\"141\" y=\"393\" data-mask=\"4\">45</text><text x=\"303\" y=\"144\" data-mask=\"5\">40</text><text x=\"231\" y=\"390\" data-mask=\"6\">35</text><text x=\"321\" y=\"282\" data-mask=\"7\">34</text></g><metadata data-layout=\"CIRCLE_SQUARE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "optionDetails": [
+        {
+          "label": "A",
+          "text": "69",
+          "isCorrect": false
+        },
+        {
+          "label": "B",
+          "text": "10",
+          "isCorrect": false
+        },
+        {
+          "label": "C",
+          "text": "43",
+          "isCorrect": false
+        },
+        {
+          "label": "D",
+          "text": "24",
+          "isCorrect": true
+        }
+      ],
+      "difficulty": "Medium",
+      "difficultyLabel": "Medium",
+      "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
+      "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
+      "generationSeed": "shape-regions-review-v2",
+      "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
+      "runtimeMode": "review-only",
+      "reviewOnly": true,
+      "readOnly": true,
+      "sharedStimulus": "मीडिया के उपयोग से जुड़े अध्ययन में दैनिक समाचार-पत्र पढ़ने, समाचार पॉडकास्ट सुनने और शाम का बुलेटिन देखने वालों की गिनती की गई। केवल दैनिक समाचार-पत्र पढ़ने वाले कितने हैं?",
+      "semanticMetadata": {
+        "scenarioId": "MEDIA_PREFERENCES",
+        "shapeLayoutId": "CIRCLE_SQUARE_TRIANGLE",
+        "shapeTypes": [
+          "circle",
+          "square",
+          "triangle"
+        ],
+        "queryKey": "only-A",
+        "queryPattern": "single",
+        "shapeSetLabels": [
+          "दैनिक समाचार-पत्र पढ़ने वाले लोग",
+          "समाचार पॉडकास्ट सुनने वाले लोग",
+          "शाम का समाचार बुलेटिन देखने वाले लोग"
+        ],
+        "activityGroupLabels": [
+          "दैनिक समाचार-पत्र पढ़ने वाले",
+          "समाचार पॉडकास्ट सुनने वाले",
+          "शाम का समाचार बुलेटिन देखने वाले"
+        ],
+        "exclusiveRegions": [
+          29,
+          24,
+          19,
+          14,
+          45,
+          40,
+          35,
+          34
+        ],
+        "selectedMasks": [
+          1
+        ]
+      },
+      "validation": {
+        "exactlyOneCorrect": true,
+        "fourUniqueOptions": true,
+        "allEightRegionsVisible": true,
+        "shapeLayoutHasEightRegions": true,
+        "labelClearancePx": 20,
+        "localeParityPendingHumanReview": true
+      }
+    },
+    {
+      "lifecycleId": "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+      "stage": "REVIEW_ONLY",
+      "reviewSurfaceRequired": true,
+      "reviewRunPersistenceAllowed": true,
+      "canonicalQuestionPersistenceAllowed": false,
+      "manualApprovalRequired": true,
+      "questionBankStatus": "NOT_STORED",
+      "questionBankWritable": false,
+      "questionBankAcceptanceMode": null,
+      "questionBankAcceptanceAuthority": null,
+      "testEligibility": "INELIGIBLE",
+      "testEligible": false,
+      "mockTestEligible": false,
+      "publiclyPublishable": false,
+      "automaticStudentPublication": false,
+      "productionReleaseAuthorized": false,
+      "id": "VEN-CP011:HEALTH_CAMP:only-B:874707541:hi",
+      "questionId": "VEN-CP011:HEALTH_CAMP:only-B:874707541:hi",
+      "packageId": "VEN-001",
+      "patternId": "VEN-CP011",
+      "cpId": "VEN-CP011",
+      "checkpointId": "VEN-CP011",
+      "subject": "Reasoning Ability",
+      "contentDomain": "Geometric Venn diagram region reading",
+      "topic": "Venn Diagrams",
+      "subtopic": "Geometric shape region counts",
+      "language": "hi",
+      "locale": "hi-IN",
+      "stem": "स्वास्थ्य शिविर में आगंतुक रक्तचाप, दृष्टि और मधुमेह की जाँच कराते हैं। केवल दृष्टि जाँच कराने वाले कितने हैं?",
+      "text": "स्वास्थ्य शिविर में आगंतुक रक्तचाप, दृष्टि और मधुमेह की जाँच कराते हैं। केवल दृष्टि जाँच कराने वाले कितने हैं?",
+      "options": [
+        "0",
+        "25",
+        "57",
+        "45"
+      ],
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correctIndex": 1,
+      "correct": 1,
+      "answer": "B",
+      "canonicalAnswer": "25",
+      "explanation": "हमें ऐसे दृष्टि जाँच कराने वाले चाहिए जो बाकी दोनों समूहों—रक्तचाप जाँच कराने वाले और मधुमेह जाँच कराने वाले—में न हों। दृष्टि जाँच कराने वाले के केवल अपने क्षेत्र में 25 दिए हैं। अतः उत्तर 25 है।",
+      "stimulusSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = रक्तचाप जाँच कराने वाले आगंतुक</text><text x=\"8\" y=\"42\">B — आयत = दृष्टि जाँच कराने वाले आगंतुक</text><text x=\"8\" y=\"61\">C — हीराकार = मधुमेह जाँच कराने वाले आगंतुक</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">15</text><text x=\"456\" y=\"138\" data-mask=\"1\">10</text><text x=\"105\" y=\"345\" data-mask=\"2\">25</text><text x=\"537\" y=\"234\" data-mask=\"3\">20</text><text x=\"300\" y=\"420\" data-mask=\"4\">37</text><text x=\"303\" y=\"153\" data-mask=\"5\">32</text><text x=\"165\" y=\"279\" data-mask=\"6\">47</text><text x=\"327\" y=\"288\" data-mask=\"7\">42</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "explanationSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = रक्तचाप जाँच कराने वाले आगंतुक</text><text x=\"8\" y=\"42\">B — आयत = दृष्टि जाँच कराने वाले आगंतुक</text><text x=\"8\" y=\"61\">C — हीराकार = मधुमेह जाँच कराने वाले आगंतुक</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">15</text><text x=\"456\" y=\"138\" data-mask=\"1\">10</text><text x=\"105\" y=\"345\" data-mask=\"2\">25</text><text x=\"537\" y=\"234\" data-mask=\"3\">20</text><text x=\"300\" y=\"420\" data-mask=\"4\">37</text><text x=\"303\" y=\"153\" data-mask=\"5\">32</text><text x=\"165\" y=\"279\" data-mask=\"6\">47</text><text x=\"327\" y=\"288\" data-mask=\"7\">42</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "optionDetails": [
+        {
+          "label": "A",
+          "text": "0",
+          "isCorrect": false
+        },
+        {
+          "label": "B",
+          "text": "25",
+          "isCorrect": true
+        },
+        {
+          "label": "C",
+          "text": "57",
+          "isCorrect": false
+        },
+        {
+          "label": "D",
+          "text": "45",
+          "isCorrect": false
+        }
+      ],
+      "difficulty": "Medium",
+      "difficultyLabel": "Medium",
+      "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
+      "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
+      "generationSeed": "shape-regions-review-v2",
+      "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
+      "runtimeMode": "review-only",
+      "reviewOnly": true,
+      "readOnly": true,
+      "sharedStimulus": "स्वास्थ्य शिविर में आगंतुक रक्तचाप, दृष्टि और मधुमेह की जाँच कराते हैं। केवल दृष्टि जाँच कराने वाले कितने हैं?",
+      "semanticMetadata": {
+        "scenarioId": "HEALTH_CAMP",
+        "shapeLayoutId": "CIRCLE_RECTANGLE_DIAMOND",
+        "shapeTypes": [
+          "circle",
+          "rectangle",
+          "diamond"
+        ],
+        "queryKey": "only-B",
+        "queryPattern": "single",
+        "shapeSetLabels": [
+          "रक्तचाप जाँच कराने वाले आगंतुक",
+          "दृष्टि जाँच कराने वाले आगंतुक",
+          "मधुमेह जाँच कराने वाले आगंतुक"
+        ],
+        "activityGroupLabels": [
+          "रक्तचाप जाँच कराने वाले",
+          "दृष्टि जाँच कराने वाले",
+          "मधुमेह जाँच कराने वाले"
+        ],
+        "exclusiveRegions": [
+          15,
+          10,
+          25,
+          20,
+          37,
+          32,
+          47,
+          42
+        ],
+        "selectedMasks": [
+          2
+        ]
+      },
+      "validation": {
+        "exactlyOneCorrect": true,
+        "fourUniqueOptions": true,
+        "allEightRegionsVisible": true,
+        "shapeLayoutHasEightRegions": true,
+        "labelClearancePx": 20,
+        "localeParityPendingHumanReview": true
+      }
+    },
+    {
+      "lifecycleId": "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+      "stage": "REVIEW_ONLY",
+      "reviewSurfaceRequired": true,
+      "reviewRunPersistenceAllowed": true,
+      "canonicalQuestionPersistenceAllowed": false,
+      "manualApprovalRequired": true,
+      "questionBankStatus": "NOT_STORED",
+      "questionBankWritable": false,
+      "questionBankAcceptanceMode": null,
+      "questionBankAcceptanceAuthority": null,
+      "testEligibility": "INELIGIBLE",
+      "testEligible": false,
+      "mockTestEligible": false,
+      "publiclyPublishable": false,
+      "automaticStudentPublication": false,
+      "productionReleaseAuthorized": false,
+      "id": "VEN-CP011:WORKPLACE_TOOLS:only-C:857929922:hi",
+      "questionId": "VEN-CP011:WORKPLACE_TOOLS:only-C:857929922:hi",
+      "packageId": "VEN-001",
+      "patternId": "VEN-CP011",
+      "cpId": "VEN-CP011",
+      "checkpointId": "VEN-CP011",
+      "subject": "Reasoning Ability",
+      "contentDomain": "Geometric Venn diagram region reading",
+      "topic": "Venn Diagrams",
+      "subtopic": "Geometric shape region counts",
+      "language": "hi",
+      "locale": "hi-IN",
+      "stem": "कार्यालय की समीक्षा में परियोजना डैशबोर्ड, साझा कैलेंडर और टीम चैट का उपयोग करने वाले कर्मचारियों का विवरण है। केवल टीम चैट के उपयोगकर्ता कितने हैं?",
+      "text": "कार्यालय की समीक्षा में परियोजना डैशबोर्ड, साझा कैलेंडर और टीम चैट का उपयोग करने वाले कर्मचारियों का विवरण है। केवल टीम चैट के उपयोगकर्ता कितने हैं?",
+      "options": [
+        "10",
+        "31",
+        "41",
+        "18"
+      ],
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correctIndex": 3,
+      "correct": 3,
+      "answer": "D",
+      "canonicalAnswer": "18",
+      "explanation": "हमें ऐसे टीम चैट के उपयोगकर्ता चाहिए जो बाकी दोनों समूहों—परियोजना डैशबोर्ड के उपयोगकर्ता और साझा कैलेंडर के उपयोगकर्ता—में न हों। टीम चैट के उपयोगकर्ता के केवल अपने क्षेत्र में 18 दिए हैं। अतः उत्तर 18 है।",
+      "stimulusSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = परियोजना डैशबोर्ड का उपयोग करने वाले कर्मचारी</text><text x=\"8\" y=\"42\">B — वर्ग = साझा कैलेंडर का उपयोग करने वाले कर्मचारी</text><text x=\"8\" y=\"61\">C — हीराकार = टीम चैट का उपयोग करने वाले कर्मचारी</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"447\" data-mask=\"0\">38</text><text x=\"414\" y=\"129\" data-mask=\"1\">43</text><text x=\"453\" y=\"447\" data-mask=\"2\">28</text><text x=\"489\" y=\"201\" data-mask=\"3\">33</text><text x=\"123\" y=\"279\" data-mask=\"4\">18</text><text x=\"303\" y=\"138\" data-mask=\"5\">23</text><text x=\"303\" y=\"414\" data-mask=\"6\">8</text><text x=\"363\" y=\"276\" data-mask=\"7\">13</text></g><metadata data-layout=\"ELLIPSE_SQUARE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "explanationSvgs": [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = परियोजना डैशबोर्ड का उपयोग करने वाले कर्मचारी</text><text x=\"8\" y=\"42\">B — वर्ग = साझा कैलेंडर का उपयोग करने वाले कर्मचारी</text><text x=\"8\" y=\"61\">C — हीराकार = टीम चैट का उपयोग करने वाले कर्मचारी</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"447\" data-mask=\"0\">38</text><text x=\"414\" y=\"129\" data-mask=\"1\">43</text><text x=\"453\" y=\"447\" data-mask=\"2\">28</text><text x=\"489\" y=\"201\" data-mask=\"3\">33</text><text x=\"123\" y=\"279\" data-mask=\"4\">18</text><text x=\"303\" y=\"138\" data-mask=\"5\">23</text><text x=\"303\" y=\"414\" data-mask=\"6\">8</text><text x=\"363\" y=\"276\" data-mask=\"7\">13</text></g><metadata data-layout=\"ELLIPSE_SQUARE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
+      ],
+      "optionDetails": [
+        {
+          "label": "A",
+          "text": "10",
+          "isCorrect": false
+        },
+        {
+          "label": "B",
+          "text": "31",
+          "isCorrect": false
+        },
+        {
+          "label": "C",
+          "text": "41",
+          "isCorrect": false
+        },
+        {
+          "label": "D",
+          "text": "18",
+          "isCorrect": true
+        }
+      ],
+      "difficulty": "Medium",
+      "difficultyLabel": "Medium",
+      "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
+      "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
+      "generationSeed": "shape-regions-review-v2",
+      "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
+      "runtimeMode": "review-only",
+      "reviewOnly": true,
+      "readOnly": true,
+      "sharedStimulus": "कार्यालय की समीक्षा में परियोजना डैशबोर्ड, साझा कैलेंडर और टीम चैट का उपयोग करने वाले कर्मचारियों का विवरण है। केवल टीम चैट के उपयोगकर्ता कितने हैं?",
+      "semanticMetadata": {
+        "scenarioId": "WORKPLACE_TOOLS",
+        "shapeLayoutId": "ELLIPSE_SQUARE_DIAMOND",
+        "shapeTypes": [
+          "ellipse",
+          "square",
+          "diamond"
+        ],
+        "queryKey": "only-C",
+        "queryPattern": "single",
+        "shapeSetLabels": [
+          "परियोजना डैशबोर्ड का उपयोग करने वाले कर्मचारी",
+          "साझा कैलेंडर का उपयोग करने वाले कर्मचारी",
+          "टीम चैट का उपयोग करने वाले कर्मचारी"
+        ],
+        "activityGroupLabels": [
+          "परियोजना डैशबोर्ड के उपयोगकर्ता",
+          "साझा कैलेंडर के उपयोगकर्ता",
+          "टीम चैट के उपयोगकर्ता"
+        ],
+        "exclusiveRegions": [
+          38,
+          43,
+          28,
+          33,
+          18,
+          23,
+          8,
+          13
+        ],
+        "selectedMasks": [
+          4
+        ]
+      },
+      "validation": {
+        "exactlyOneCorrect": true,
+        "fourUniqueOptions": true,
+        "allEightRegionsVisible": true,
+        "shapeLayoutHasEightRegions": true,
+        "labelClearancePx": 20,
+        "localeParityPendingHumanReview": true
+      }
+    },
+    {
+      "lifecycleId": "QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1",
+      "stage": "REVIEW_ONLY",
+      "reviewSurfaceRequired": true,
+      "reviewRunPersistenceAllowed": true,
+      "canonicalQuestionPersistenceAllowed": false,
+      "manualApprovalRequired": true,
       "questionBankStatus": "NOT_STORED",
       "questionBankWritable": false,
       "questionBankAcceptanceMode": null,
@@ -3875,7 +4548,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "20",
-      "explanation": "दूसरी और तीसरी आकृति, पहली के बिना: 20। यही दूसरे और तीसरे दोनों समूहों में, लेकिन पहले में नहीं वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 20 = 20।",
+      "explanation": "हमें रेलगाड़ी से यात्रा करने वाले और साइकिल से यात्रा करने वाले का साझा भाग चाहिए, लेकिन बस से यात्रा करने वाले को शामिल नहीं करना है। इस ठीक उसी क्षेत्र में 20 दिए हैं। अतः उत्तर 20 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = बस से यात्रा करने वाले यात्री</text><text x=\"8\" y=\"42\">B — आयत = रेलगाड़ी से यात्रा करने वाले यात्री</text><text x=\"8\" y=\"61\">C — हीराकार = साइकिल से यात्रा करने वाले यात्री</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">30</text><text x=\"456\" y=\"147\" data-mask=\"1\">35</text><text x=\"105\" y=\"345\" data-mask=\"2\">40</text><text x=\"540\" y=\"237\" data-mask=\"3\">45</text><text x=\"303\" y=\"414\" data-mask=\"4\">10</text><text x=\"303\" y=\"153\" data-mask=\"5\">15</text><text x=\"123\" y=\"279\" data-mask=\"6\">20</text><text x=\"342\" y=\"288\" data-mask=\"7\">25</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -3908,6 +4581,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -4004,7 +4679,7 @@ Total output lines: 7818
       "correct": 1,
       "answer": "B",
       "canonicalAnswer": "45",
-      "explanation": "तीनों आकृतियाँ: 45। यही तीनों समूहों में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 45 = 45।",
+      "explanation": "हमें तीनों समूहों—बागवानी करने वाले, नई रेसिपी बनाने वाले, तस्वीरें खींचने वाले—का साझा क्षेत्र चाहिए। तीनों के बीच वाले साझा भाग में 45 दिए हैं। अतः उत्तर 45 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"120,100 340,100 120,480\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = बागवानी करने वाले लोग</text><text x=\"8\" y=\"42\">B — आयत = नई रेसिपी बनाने वाले लोग</text><text x=\"8\" y=\"61\">C — समकोण त्रिभुज = तस्वीरें लेने वाले लोग</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"618\" y=\"486\" data-mask=\"0\">28</text><text x=\"402\" y=\"132\" data-mask=\"1\">33</text><text x=\"228\" y=\"348\" data-mask=\"2\">18</text><text x=\"333\" y=\"288\" data-mask=\"3\">23</text><text x=\"171\" y=\"150\" data-mask=\"4\">8</text><text x=\"273\" y=\"159\" data-mask=\"5\">13</text><text x=\"174\" y=\"282\" data-mask=\"6\">40</text><text x=\"243\" y=\"225\" data-mask=\"7\">45</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_RIGHT_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -4037,6 +4712,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -4133,7 +4810,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "125",
-      "explanation": "पहली और दूसरी आकृति, तीसरी के बिना: 15; पहली और तीसरी आकृति, दूसरी के बिना: 45; दूसरी और तीसरी आकृति, पहली के बिना: 30; तीनों आकृतियाँ: 35। यही कम-से-कम दो समूहों में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 15 + 45 + 30 + 35 = 125।",
+      "explanation": "कम-से-कम दो समूहों में वे तीन क्षेत्र आते हैं जहाँ केवल दो समूह मिलते हैं, साथ ही तीनों का साझा क्षेत्र भी। गणित की कक्षाएँ लेने वाले, अंग्रेज़ी की कक्षाएँ लेने वाले, सामान्य जागरूकता की कक्षाएँ लेने वाले के इन क्षेत्रों की संख्याएँ 15, 45, 30, 35 हैं। इसलिए 15 + 45 + 30 + 35 = 125।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"176,92 430,92 556,478 54,478\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = गणित की कक्षाओं में जाने वाले अभ्यर्थी</text><text x=\"8\" y=\"42\">B — आयत = अंग्रेज़ी की कक्षाओं में जाने वाले अभ्यर्थी</text><text x=\"8\" y=\"61\">C — समलंब चतुर्भुज = सामान्य जागरूकता की कक्षाओं में जाने वाले अभ्यर्थी</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">20</text><text x=\"498\" y=\"156\" data-mask=\"1\">25</text><text x=\"105\" y=\"228\" data-mask=\"2\">10</text><text x=\"528\" y=\"246\" data-mask=\"3\">15</text><text x=\"126\" y=\"426\" data-mask=\"4\">40</text><text x=\"345\" y=\"147\" data-mask=\"5\">45</text><text x=\"144\" y=\"330\" data-mask=\"6\">30</text><text x=\"342\" y=\"288\" data-mask=\"7\">35</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRAPEZOID\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -4166,6 +4843,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -4265,7 +4944,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "102",
-      "explanation": "केवल पहली आकृति: 20; केवल दूसरी आकृति: 35; केवल तीसरी आकृति: 47। यही ठीक एक समूह में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 20 + 35 + 47 = 102।",
+      "explanation": "ठीक एक समूह का अर्थ है केवल तीन अलग-अलग एकल क्षेत्रों को जोड़ना: गेहूँ उगाने वाले किसान = 20, सरसों उगाने वाले किसान = 35 और कपास उगाने वाले किसान = 47। इसलिए 20 + 35 + 47 = 102।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,76 566,266 466,478 142,478 42,266\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = गेहूँ उगाने वाले किसान</text><text x=\"8\" y=\"42\">B — आयत = सरसों उगाने वाले किसान</text><text x=\"8\" y=\"61\">C — पंचभुज = कपास उगाने वाले किसान</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">25</text><text x=\"474\" y=\"138\" data-mask=\"1\">20</text><text x=\"555\" y=\"354\" data-mask=\"2\">35</text><text x=\"549\" y=\"225\" data-mask=\"3\">30</text><text x=\"177\" y=\"426\" data-mask=\"4\">47</text><text x=\"312\" y=\"147\" data-mask=\"5\">42</text><text x=\"153\" y=\"297\" data-mask=\"6\">15</text><text x=\"327\" y=\"288\" data-mask=\"7\">10</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_PENTAGON\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -4298,6 +4977,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -4396,7 +5077,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "24",
-      "explanation": "केवल दूसरी आकृति: 24। यही केवल दूसरे समूह में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 24 = 24।",
+      "explanation": "हमें ऐसे जीवनियाँ लेने वाले चाहिए जो बाकी दोनों समूहों—कथा-साहित्य लेने वाले और विज्ञान की पुस्तकें लेने वाले—में न हों। जीवनियाँ लेने वाले के केवल अपने क्षेत्र में 24 दिए हैं। अतः उत्तर 24 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — वृत्त = कथा-साहित्य लेने वाले पुस्तकालय सदस्य</text><text x=\"8\" y=\"42\">B — आयत = जीवनियाँ लेने वाले पुस्तकालय सदस्य</text><text x=\"8\" y=\"61\">C — त्रिभुज = विज्ञान की पुस्तकें लेने वाले पुस्तकालय सदस्य</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">14</text><text x=\"411\" y=\"132\" data-mask=\"1\">19</text><text x=\"129\" y=\"252\" data-mask=\"2\">24</text><text x=\"498\" y=\"270\" data-mask=\"3\">29</text><text x=\"276\" y=\"411\" data-mask=\"4\">36</text><text x=\"303\" y=\"162\" data-mask=\"5\">41</text><text x=\"195\" y=\"327\" data-mask=\"6\">46</text><text x=\"324\" y=\"288\" data-mask=\"7\">9</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -4429,6 +5110,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -4525,7 +5208,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "22",
-      "explanation": "केवल तीसरी आकृति: 22। यही केवल तीसरे समूह में वाले क्षेत्र हैं; आरेख के बाकी क्षेत्र इस शर्त में नहीं आते। 22 = 22।",
+      "explanation": "हमें ऐसे ऑनलाइन इलेक्ट्रॉनिक सामान खरीदने वाले चाहिए जो बाकी दोनों समूहों—ऑनलाइन किराने का सामान खरीदने वाले और ऑनलाइन कपड़े खरीदने वाले—में न हों। ऑनलाइन इलेक्ट्रॉनिक सामान खरीदने वाले के केवल अपने क्षेत्र में 22 दिए हैं। अतः उत्तर 22 है।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — दीर्घवृत्त = ऑनलाइन किराने का सामान खरीदने वाले ग्राहक</text><text x=\"8\" y=\"42\">B — आयत = ऑनलाइन कपड़े खरीदने वाले ग्राहक</text><text x=\"8\" y=\"61\">C — त्रिभुज = ऑनलाइन इलेक्ट्रॉनिक सामान खरीदने वाले ग्राहक</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">42</text><text x=\"402\" y=\"144\" data-mask=\"1\">47</text><text x=\"117\" y=\"279\" data-mask=\"2\">10</text><text x=\"501\" y=\"273\" data-mask=\"3\">15</text><text x=\"465\" y=\"420\" data-mask=\"4\">22</text><text x=\"303\" y=\"162\" data-mask=\"5\">27</text><text x=\"168\" y=\"342\" data-mask=\"6\">32</text><text x=\"327\" y=\"285\" data-mask=\"7\">37</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -4558,6 +5241,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -4654,7 +5339,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "33",
-      "explanation": "ਤਿੰਨੇ ਆਕਾਰ: 33। ਇਹ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 33 = 33।",
+      "explanation": "ਸਾਨੂੰ ਤਿੰਨਾਂ ਸਮੂਹਾਂ—ਸਮਾਰਟਫ਼ੋਨ ਵਰਤੋਂਕਾਰ, ਲੈਪਟਾਪ ਵਰਤੋਂਕਾਰ, ਟੈਬਲੈੱਟ ਵਰਤੋਂਕਾਰ—ਦਾ ਸਾਂਝਾ ਖੇਤਰ ਚਾਹੀਦਾ ਹੈ। ਤਿੰਨਾਂ ਦੇ ਵਿਚਕਾਰਲੇ ਸਾਂਝੇ ਹਿੱਸੇ ਵਿੱਚ 33 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 33 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਸਮਾਰਟਫ਼ੋਨ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਲੈਪਟਾਪ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ</text><text x=\"8\" y=\"61\">C — ਤਿਕੋਣ = ਟੈਬਲੈੱਟ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">16</text><text x=\"411\" y=\"132\" data-mask=\"1\">21</text><text x=\"129\" y=\"252\" data-mask=\"2\">48</text><text x=\"498\" y=\"270\" data-mask=\"3\">11</text><text x=\"276\" y=\"411\" data-mask=\"4\">38</text><text x=\"303\" y=\"162\" data-mask=\"5\">43</text><text x=\"195\" y=\"327\" data-mask=\"6\">28</text><text x=\"324\" y=\"288\" data-mask=\"7\">33</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -4687,6 +5372,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -4783,7 +5470,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "44",
-      "explanation": "ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਪਹਿਲੇ ਤੋਂ ਬਿਨਾਂ: 44। ਇਹ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 44 = 44।",
+      "explanation": "ਸਾਨੂੰ ਡੈਬਿਟ ਕਾਰਡ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਅਤੇ ਨਕਦ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਚਾਹੀਦਾ ਹੈ, ਪਰ UPI ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਨੂੰ ਸ਼ਾਮਲ ਨਹੀਂ ਕਰਨਾ। ਇਸੇ ਖੇਤਰ ਵਿੱਚ 44 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 44 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਅੰਡਾਕਾਰ = UPI ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਡੈਬਿਟ ਕਾਰਡ ਰਾਹੀਂ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ</text><text x=\"8\" y=\"61\">C — ਤਿਕੋਣ = ਨਕਦ ਭੁਗਤਾਨ ਕਰਨ ਵਾਲੇ ਗਾਹਕ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">34</text><text x=\"402\" y=\"144\" data-mask=\"1\">39</text><text x=\"117\" y=\"279\" data-mask=\"2\">24</text><text x=\"501\" y=\"273\" data-mask=\"3\">29</text><text x=\"465\" y=\"420\" data-mask=\"4\">12</text><text x=\"303\" y=\"162\" data-mask=\"5\">17</text><text x=\"168\" y=\"342\" data-mask=\"6\">44</text><text x=\"327\" y=\"285\" data-mask=\"7\">49</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -4816,6 +5503,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -4912,7 +5601,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "11",
-      "explanation": "ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਦੂਜੇ ਤੋਂ ਬਿਨਾਂ: 11। ਇਹ ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਦੂਜੇ ਵਿੱਚ ਨਹੀਂ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 11 = 11।",
+      "explanation": "ਸਾਨੂੰ ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ ਦੇ ਵਲੰਟੀਅਰ ਅਤੇ ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਦੇ ਵਲੰਟੀਅਰ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਚਾਹੀਦਾ ਹੈ, ਪਰ ਸਿਹਤ ਕੈਂਪਾਂ ਦੇ ਵਲੰਟੀਅਰ ਨੂੰ ਸ਼ਾਮਲ ਨਹੀਂ ਕਰਨਾ। ਇਸੇ ਖੇਤਰ ਵਿੱਚ 11 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 11 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਸਾਖਰਤਾ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ</text><text x=\"8\" y=\"42\">B — ਵਰਗ = ਸਿਹਤ ਕੈਂਪਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ</text><text x=\"8\" y=\"61\">C — ਤਿਕੋਣ = ਸਫ਼ਾਈ ਮੁਹਿੰਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਵਲੰਟੀਅਰ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">26</text><text x=\"381\" y=\"117\" data-mask=\"1\">31</text><text x=\"213\" y=\"477\" data-mask=\"2\">36</text><text x=\"459\" y=\"228\" data-mask=\"3\">41</text><text x=\"141\" y=\"393\" data-mask=\"4\">48</text><text x=\"303\" y=\"144\" data-mask=\"5\">11</text><text x=\"231\" y=\"390\" data-mask=\"6\">16</text><text x=\"321\" y=\"282\" data-mask=\"7\">21</text></g><metadata data-layout=\"CIRCLE_SQUARE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -4945,6 +5634,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -5041,7 +5732,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "14",
-      "explanation": "ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਆਕਾਰ, ਤੀਜੇ ਤੋਂ ਬਿਨਾਂ: 14। ਇਹ ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਤੀਜੇ ਵਿੱਚ ਨਹੀਂ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 14 = 14।",
+      "explanation": "ਸਾਨੂੰ ਸਪ੍ਰੈੱਡਸ਼ੀਟ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤੋਂਕਾਰ ਅਤੇ ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤੋਂਕਾਰ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਚਾਹੀਦਾ ਹੈ, ਪਰ ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤੋਂਕਾਰ ਨੂੰ ਸ਼ਾਮਲ ਨਹੀਂ ਕਰਨਾ। ਇਸੇ ਖੇਤਰ ਵਿੱਚ 14 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 14 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਸਪ੍ਰੈੱਡਸ਼ੀਟ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਵੀਡੀਓ ਕਾਨਫ਼ਰੰਸਿੰਗ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ</text><text x=\"8\" y=\"61\">C — ਹੀਰੇ ਵਰਗਾ ਆਕਾਰ = ਪ੍ਰੈਜ਼ੈਂਟੇਸ਼ਨ ਸਾਫ਼ਟਵੇਅਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">29</text><text x=\"456\" y=\"138\" data-mask=\"1\">24</text><text x=\"105\" y=\"345\" data-mask=\"2\">19</text><text x=\"537\" y=\"234\" data-mask=\"3\">14</text><text x=\"300\" y=\"420\" data-mask=\"4\">9</text><text x=\"303\" y=\"153\" data-mask=\"5\">46</text><text x=\"165\" y=\"279\" data-mask=\"6\">41</text><text x=\"327\" y=\"288\" data-mask=\"7\">36</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -5074,6 +5765,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -5170,7 +5863,7 @@ Total output lines: 7818
       "correct": 3,
       "answer": "D",
       "canonicalAnswer": "8",
-      "explanation": "ਸਿਰਫ਼ ਤੀਜਾ ਆਕਾਰ: 8। ਇਹ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 8 = 8।",
+      "explanation": "ਸਾਨੂੰ ਉਹ ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਚਾਹੀਦੇ ਹਨ ਜੋ ਬਾਕੀ ਦੋਵੇਂ ਸਮੂਹਾਂ—ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ ਦੇ ਦਰਸ਼ਕ ਅਤੇ ਨਾਟਕ ਦੇਖਣ ਵਾਲੇ—ਵਿੱਚ ਨਾ ਹੋਣ। ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਦੇ ਸਿਰਫ਼ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ 8 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 8 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਅੰਡਾਕਾਰ = ਲੋਕ-ਸੰਗੀਤ ਦੇ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਆਏ ਲੋਕ</text><text x=\"8\" y=\"42\">B — ਵਰਗ = ਨਾਟਕ ਦੇਖਣ ਆਏ ਲੋਕ</text><text x=\"8\" y=\"61\">C — ਹੀਰੇ ਵਰਗਾ ਆਕਾਰ = ਦਸਤਕਾਰੀ ਦੀਆਂ ਪ੍ਰਦਰਸ਼ਨੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਆਏ ਲੋਕ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"447\" data-mask=\"0\">30</text><text x=\"414\" y=\"129\" data-mask=\"1\">35</text><text x=\"453\" y=\"447\" data-mask=\"2\">40</text><text x=\"489\" y=\"201\" data-mask=\"3\">45</text><text x=\"123\" y=\"279\" data-mask=\"4\">8</text><text x=\"303\" y=\"138\" data-mask=\"5\">13</text><text x=\"303\" y=\"414\" data-mask=\"6\">18</text><text x=\"363\" y=\"276\" data-mask=\"7\">23</text></g><metadata data-layout=\"ELLIPSE_SQUARE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -5203,6 +5896,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -5299,7 +5994,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "9",
-      "explanation": "ਸਿਰਫ਼ ਦੂਜਾ ਆਕਾਰ: 9। ਇਹ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 9 = 9।",
+      "explanation": "ਸਾਨੂੰ ਉਹ ਆਨਲਾਈਨ ਖੇਡਾਂ ਦੇਖਣ ਵਾਲੇ ਚਾਹੀਦੇ ਹਨ ਜੋ ਬਾਕੀ ਦੋਵੇਂ ਸਮੂਹਾਂ—ਆਨਲਾਈਨ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਅਤੇ ਆਨਲਾਈਨ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ—ਵਿੱਚ ਨਾ ਹੋਣ। ਆਨਲਾਈਨ ਖੇਡਾਂ ਦੇਖਣ ਵਾਲੇ ਦੇ ਸਿਰਫ਼ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ 9 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 9 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਅੰਡਾਕਾਰ = ਆਨਲਾਈਨ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਆਨਲਾਈਨ ਖੇਡਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ</text><text x=\"8\" y=\"61\">C — ਹੀਰੇ ਵਰਗਾ ਆਕਾਰ = ਆਨਲਾਈਨ ਦਸਤਾਵੇਜ਼ੀ ਫ਼ਿਲਮਾਂ ਦੇਖਣ ਵਾਲੇ ਦਰਸ਼ਕ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">19</text><text x=\"456\" y=\"147\" data-mask=\"1\">14</text><text x=\"105\" y=\"345\" data-mask=\"2\">9</text><text x=\"540\" y=\"237\" data-mask=\"3\">46</text><text x=\"303\" y=\"414\" data-mask=\"4\">39</text><text x=\"303\" y=\"153\" data-mask=\"5\">34</text><text x=\"123\" y=\"279\" data-mask=\"6\">29</text><text x=\"342\" y=\"288\" data-mask=\"7\">24</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -5332,6 +6027,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -5428,7 +6125,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "35",
-      "explanation": "ਸਿਰਫ਼ ਪਹਿਲਾ ਆਕਾਰ: 35। ਇਹ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 35 = 35।",
+      "explanation": "ਸਾਨੂੰ ਉਹ ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਚਾਹੀਦੇ ਹਨ ਜੋ ਬਾਕੀ ਦੋਵੇਂ ਸਮੂਹਾਂ—ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਅਤੇ ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ—ਵਿੱਚ ਨਾ ਹੋਣ। ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਦੇ ਸਿਰਫ਼ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ 35 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 35 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"120,100 340,100 120,480\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਕੰਪਿਊਟਰ ਦੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਬੋਲਚਾਲ ਦੀ ਅੰਗਰੇਜ਼ੀ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ</text><text x=\"8\" y=\"61\">C — ਸਮਕੋਣ ਤਿਕੋਣ = ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਦਾ ਕੋਰਸ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"618\" y=\"486\" data-mask=\"0\">30</text><text x=\"402\" y=\"132\" data-mask=\"1\">35</text><text x=\"228\" y=\"348\" data-mask=\"2\">40</text><text x=\"333\" y=\"288\" data-mask=\"3\">45</text><text x=\"171\" y=\"150\" data-mask=\"4\">8</text><text x=\"273\" y=\"159\" data-mask=\"5\">13</text><text x=\"174\" y=\"282\" data-mask=\"6\">18</text><text x=\"243\" y=\"225\" data-mask=\"7\">23</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_RIGHT_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -5461,6 +6158,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -5557,7 +6256,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "196",
-      "explanation": "ਸਿਰਫ਼ ਪਹਿਲਾ ਆਕਾਰ: 13; ਸਿਰਫ਼ ਦੂਜਾ ਆਕਾਰ: 18; ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਆਕਾਰ, ਤੀਜੇ ਤੋਂ ਬਿਨਾਂ: 23; ਸਿਰਫ਼ ਤੀਜਾ ਆਕਾਰ: 28; ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਦੂਜੇ ਤੋਂ ਬਿਨਾਂ: 33; ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਪਹਿਲੇ ਤੋਂ ਬਿਨਾਂ: 38; ਤਿੰਨੇ ਆਕਾਰ: 43। ਇਹ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 13 + 18 + 23 + 28 + 33 + 38 + 43 = 196।",
+      "explanation": "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਲਈ ਸ਼ਹਿਰ ਦੀ ਬੱਸ ਸੇਵਾ ਦੇ ਵਰਤੋਂਕਾਰ, ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ, ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਦੇ ਅੰਦਰਲੇ ਸਾਰੇ ਸੱਤ ਖੇਤਰ ਗਿਣੇ ਜਾਂਦੇ ਹਨ। ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਤੋਂ ਬਾਹਰ ਵਾਲਾ ਖੇਤਰ ਨਹੀਂ ਜੋੜਿਆ ਜਾਂਦਾ। ਇਸ ਲਈ 13 + 18 + 23 + 28 + 33 + 38 + 43 = 196।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"176,92 430,92 556,478 54,478\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਅੰਡਾਕਾਰ = ਸ਼ਹਿਰ ਦੀ ਬੱਸ ਸੇਵਾ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਜਨਤਕ ਪਾਰਕਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਸਨੀਕ</text><text x=\"8\" y=\"61\">C — ਸਮਲੰਬ ਚਤੁਰਭੁਜ = ਮੁੜ-ਵਰਤੋਂ ਪ੍ਰੋਗਰਾਮਾਂ ਵਿੱਚ ਹਿੱਸਾ ਲੈਣ ਵਾਲੇ ਵਸਨੀਕ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">8</text><text x=\"498\" y=\"156\" data-mask=\"1\">13</text><text x=\"105\" y=\"228\" data-mask=\"2\">18</text><text x=\"528\" y=\"246\" data-mask=\"3\">23</text><text x=\"126\" y=\"426\" data-mask=\"4\">28</text><text x=\"345\" y=\"147\" data-mask=\"5\">33</text><text x=\"144\" y=\"330\" data-mask=\"6\">38</text><text x=\"342\" y=\"288\" data-mask=\"7\">43</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRAPEZOID\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -5590,6 +6289,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -5692,7 +6393,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "71",
-      "explanation": "ਸਿਰਫ਼ ਪਹਿਲਾ ਆਕਾਰ: 39; ਸਿਰਫ਼ ਦੂਜਾ ਆਕਾਰ: 24; ਸਿਰਫ਼ ਤੀਜਾ ਆਕਾਰ: 8। ਇਹ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 39 + 24 + 8 = 71।",
+      "explanation": "ਠੀਕ ਇੱਕ ਸਮੂਹ ਦਾ ਅਰਥ ਹੈ ਸਿਰਫ਼ ਤਿੰਨ ਵੱਖਰੇ ਇਕੱਲੇ ਖੇਤਰ ਜੋੜਣੇ: ਸਕੂਲ ਦੇ ਅਖ਼ਬਾਰ ਪਾਠਕ = 39, ਟੀਮ ਖੇਡਾਂ ਦੇ ਖਿਡਾਰੀ = 24 ਅਤੇ ਵਿਗਿਆਨ ਕਲੱਬ ਦੇ ਮੈਂਬਰ = 8। ਇਸ ਲਈ 39 + 24 + 8 = 71।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,76 566,266 466,478 142,478 42,266\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਸਕੂਲ ਦਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ ਵਿਦਿਆਰਥੀ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਟੀਮ ਖੇਡ ਖੇਡਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ</text><text x=\"8\" y=\"61\">C — ਪੰਜਭੁਜ = ਵਿਗਿਆਨ ਕਲੱਬ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">34</text><text x=\"474\" y=\"138\" data-mask=\"1\">39</text><text x=\"555\" y=\"354\" data-mask=\"2\">24</text><text x=\"549\" y=\"225\" data-mask=\"3\">29</text><text x=\"177\" y=\"426\" data-mask=\"4\">8</text><text x=\"312\" y=\"147\" data-mask=\"5\">13</text><text x=\"153\" y=\"297\" data-mask=\"6\">44</text><text x=\"327\" y=\"288\" data-mask=\"7\">49</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_PENTAGON\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -5725,6 +6426,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -5823,7 +6526,7 @@ Total output lines: 7818
       "correct": 3,
       "answer": "D",
       "canonicalAnswer": "105",
-      "explanation": "ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਆਕਾਰ, ਤੀਜੇ ਤੋਂ ਬਿਨਾਂ: 44; ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਦੂਜੇ ਤੋਂ ਬਿਨਾਂ: 12; ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਪਹਿਲੇ ਤੋਂ ਬਿਨਾਂ: 27; ਤਿੰਨੇ ਆਕਾਰ: 22। ਇਹ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 44 + 12 + 27 + 22 = 105।",
+      "explanation": "ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਉਹ ਤਿੰਨ ਖੇਤਰ ਆਉਂਦੇ ਹਨ ਜਿੱਥੇ ਸਿਰਫ਼ ਦੋ ਸਮੂਹ ਮਿਲਦੇ ਹਨ, ਨਾਲ ਹੀ ਤਿੰਨਾਂ ਦਾ ਸਾਂਝਾ ਖੇਤਰ ਵੀ। ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਦੇ ਵਰਤੋਂਕਾਰ, ਖੇਡ ਕੇਂਦਰ ਦੇ ਵਰਤੋਂਕਾਰ, ਸੱਭਿਆਚਾਰਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਲਈ ਇਨ੍ਹਾਂ ਖੇਤਰਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ 44, 12, 27, 22 ਹਨ। ਇਸ ਲਈ 44 + 12 + 27 + 22 = 105।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਖੇਡ ਕੇਂਦਰ ਵਰਤਣ ਵਾਲੇ ਵਸਨੀਕ</text><text x=\"8\" y=\"61\">C — ਤਿਕੋਣ = ਸੱਭਿਆਚਾਰਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਜਾਣ ਵਾਲੇ ਵਸਨੀਕ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">39</text><text x=\"411\" y=\"132\" data-mask=\"1\">34</text><text x=\"129\" y=\"252\" data-mask=\"2\">49</text><text x=\"498\" y=\"270\" data-mask=\"3\">44</text><text x=\"276\" y=\"411\" data-mask=\"4\">17</text><text x=\"303\" y=\"162\" data-mask=\"5\">12</text><text x=\"195\" y=\"327\" data-mask=\"6\">27</text><text x=\"324\" y=\"288\" data-mask=\"7\">22</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -5856,6 +6559,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -5955,7 +6660,7 @@ Total output lines: 7818
       "correct": 1,
       "answer": "B",
       "canonicalAnswer": "217",
-      "explanation": "ਸਿਰਫ਼ ਪਹਿਲਾ ਆਕਾਰ: 22; ਸਿਰਫ਼ ਦੂਜਾ ਆਕਾਰ: 17; ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਆਕਾਰ, ਤੀਜੇ ਤੋਂ ਬਿਨਾਂ: 12; ਸਿਰਫ਼ ਤੀਜਾ ਆਕਾਰ: 49; ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਦੂਜੇ ਤੋਂ ਬਿਨਾਂ: 44; ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਪਹਿਲੇ ਤੋਂ ਬਿਨਾਂ: 39; ਤਿੰਨੇ ਆਕਾਰ: 34। ਇਹ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 22 + 17 + 12 + 49 + 44 + 39 + 34 = 217।",
+      "explanation": "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਲਈ ਸੁਰੱਖਿਆ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ, ਡਿਜ਼ਿਟਲ-ਹੁਨਰ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ, ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਦੇ ਅੰਦਰਲੇ ਸਾਰੇ ਸੱਤ ਖੇਤਰ ਗਿਣੇ ਜਾਂਦੇ ਹਨ। ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਤੋਂ ਬਾਹਰ ਵਾਲਾ ਖੇਤਰ ਨਹੀਂ ਜੋੜਿਆ ਜਾਂਦਾ। ਇਸ ਲਈ 22 + 17 + 12 + 49 + 44 + 39 + 34 = 217।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਅੰਡਾਕਾਰ = ਸੁਰੱਖਿਆ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਡਿਜ਼ਿਟਲ-ਹੁਨਰ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ</text><text x=\"8\" y=\"61\">C — ਤਿਕੋਣ = ਮੁੱਢਲੀ ਸਹਾਇਤਾ ਮੋਡੀਊਲ ਪੂਰਾ ਕਰਨ ਵਾਲੇ ਸਿਖਿਆਰਥੀ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">27</text><text x=\"402\" y=\"144\" data-mask=\"1\">22</text><text x=\"117\" y=\"279\" data-mask=\"2\">17</text><text x=\"501\" y=\"273\" data-mask=\"3\">12</text><text x=\"465\" y=\"420\" data-mask=\"4\">49</text><text x=\"303\" y=\"162\" data-mask=\"5\">44</text><text x=\"168\" y=\"342\" data-mask=\"6\">39</text><text x=\"327\" y=\"285\" data-mask=\"7\">34</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -5988,6 +6693,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -6090,7 +6797,7 @@ Total output lines: 7818
       "correct": 3,
       "answer": "D",
       "canonicalAnswer": "24",
-      "explanation": "ਸਿਰਫ਼ ਪਹਿਲਾ ਆਕਾਰ: 24। ਇਹ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 24 = 24।",
+      "explanation": "ਸਾਨੂੰ ਉਹ ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ ਚਾਹੀਦੇ ਹਨ ਜੋ ਬਾਕੀ ਦੋਵੇਂ ਸਮੂਹਾਂ—ਖ਼ਬਰਾਂ ਦਾ ਪੌਡਕਾਸਟ ਸੁਣਨ ਵਾਲੇ ਅਤੇ ਸ਼ਾਮ ਦਾ ਖ਼ਬਰ ਬੁਲੇਟਿਨ ਦੇਖਣ ਵਾਲੇ—ਵਿੱਚ ਨਾ ਹੋਣ। ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ ਦੇ ਸਿਰਫ਼ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ 24 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 24 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਰੋਜ਼ਾਨਾ ਅਖ਼ਬਾਰ ਪੜ੍ਹਨ ਵਾਲੇ ਲੋਕ</text><text x=\"8\" y=\"42\">B — ਵਰਗ = ਖ਼ਬਰਾਂ ਦਾ ਪੌਡਕਾਸਟ ਸੁਣਨ ਵਾਲੇ ਲੋਕ</text><text x=\"8\" y=\"61\">C — ਤਿਕੋਣ = ਸ਼ਾਮ ਦਾ ਖ਼ਬਰ ਬੁਲੇਟਿਨ ਦੇਖਣ ਵਾਲੇ ਲੋਕ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">29</text><text x=\"381\" y=\"117\" data-mask=\"1\">24</text><text x=\"213\" y=\"477\" data-mask=\"2\">19</text><text x=\"459\" y=\"228\" data-mask=\"3\">14</text><text x=\"141\" y=\"393\" data-mask=\"4\">45</text><text x=\"303\" y=\"144\" data-mask=\"5\">40</text><text x=\"231\" y=\"390\" data-mask=\"6\">35</text><text x=\"321\" y=\"282\" data-mask=\"7\">34</text></g><metadata data-layout=\"CIRCLE_SQUARE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -6123,6 +6830,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -6219,7 +6928,7 @@ Total output lines: 7818
       "correct": 1,
       "answer": "B",
       "canonicalAnswer": "25",
-      "explanation": "ਸਿਰਫ਼ ਦੂਜਾ ਆਕਾਰ: 25। ਇਹ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 25 = 25।",
+      "explanation": "ਸਾਨੂੰ ਉਹ ਨਜ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਚਾਹੀਦੇ ਹਨ ਜੋ ਬਾਕੀ ਦੋਵੇਂ ਸਮੂਹਾਂ—ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਅਤੇ ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ—ਵਿੱਚ ਨਾ ਹੋਣ। ਨਜ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਦੇ ਸਿਰਫ਼ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ 25 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 25 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਨਜ਼ਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ</text><text x=\"8\" y=\"61\">C — ਹੀਰੇ ਵਰਗਾ ਆਕਾਰ = ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਕਰਵਾਉਣ ਵਾਲੇ ਆਏ ਲੋਕ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">15</text><text x=\"456\" y=\"138\" data-mask=\"1\">10</text><text x=\"105\" y=\"345\" data-mask=\"2\">25</text><text x=\"537\" y=\"234\" data-mask=\"3\">20</text><text x=\"300\" y=\"420\" data-mask=\"4\">37</text><text x=\"303\" y=\"153\" data-mask=\"5\">32</text><text x=\"165\" y=\"279\" data-mask=\"6\">47</text><text x=\"327\" y=\"288\" data-mask=\"7\">42</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -6252,6 +6961,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -6348,7 +7059,7 @@ Total output lines: 7818
       "correct": 3,
       "answer": "D",
       "canonicalAnswer": "18",
-      "explanation": "ਸਿਰਫ਼ ਤੀਜਾ ਆਕਾਰ: 18। ਇਹ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 18 = 18।",
+      "explanation": "ਸਾਨੂੰ ਉਹ ਟੀਮ ਚੈਟ ਦੇ ਵਰਤੋਂਕਾਰ ਚਾਹੀਦੇ ਹਨ ਜੋ ਬਾਕੀ ਦੋਵੇਂ ਸਮੂਹਾਂ—ਪ੍ਰੋਜੈਕਟ ਡੈਸ਼ਬੋਰਡ ਦੇ ਵਰਤੋਂਕਾਰ ਅਤੇ ਸਾਂਝੇ ਕੈਲੰਡਰ ਦੇ ਵਰਤੋਂਕਾਰ—ਵਿੱਚ ਨਾ ਹੋਣ। ਟੀਮ ਚੈਟ ਦੇ ਵਰਤੋਂਕਾਰ ਦੇ ਸਿਰਫ਼ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ 18 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 18 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"180\" y=\"170\" width=\"340\" height=\"340\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਅੰਡਾਕਾਰ = ਪ੍ਰੋਜੈਕਟ ਡੈਸ਼ਬੋਰਡ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ</text><text x=\"8\" y=\"42\">B — ਵਰਗ = ਸਾਂਝਾ ਕੈਲੰਡਰ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ</text><text x=\"8\" y=\"61\">C — ਹੀਰੇ ਵਰਗਾ ਆਕਾਰ = ਟੀਮ ਚੈਟ ਵਰਤਣ ਵਾਲੇ ਕਰਮਚਾਰੀ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"447\" data-mask=\"0\">38</text><text x=\"414\" y=\"129\" data-mask=\"1\">43</text><text x=\"453\" y=\"447\" data-mask=\"2\">28</text><text x=\"489\" y=\"201\" data-mask=\"3\">33</text><text x=\"123\" y=\"279\" data-mask=\"4\">18</text><text x=\"303\" y=\"138\" data-mask=\"5\">23</text><text x=\"303\" y=\"414\" data-mask=\"6\">8</text><text x=\"363\" y=\"276\" data-mask=\"7\">13</text></g><metadata data-layout=\"ELLIPSE_SQUARE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -6381,6 +7092,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -6477,7 +7190,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "20",
-      "explanation": "ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਪਹਿਲੇ ਤੋਂ ਬਿਨਾਂ: 20। ਇਹ ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਦੋਵੇਂ ਸਮੂਹਾਂ ਵਿੱਚ, ਪਰ ਪਹਿਲੇ ਵਿੱਚ ਨਹੀਂ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 20 = 20।",
+      "explanation": "ਸਾਨੂੰ ਰੇਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਅਤੇ ਸਾਈਕਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਦਾ ਸਾਂਝਾ ਹਿੱਸਾ ਚਾਹੀਦਾ ਹੈ, ਪਰ ਬੱਸ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਨੂੰ ਸ਼ਾਮਲ ਨਹੀਂ ਕਰਨਾ। ਇਸੇ ਖੇਤਰ ਵਿੱਚ 20 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 20 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 538,279 304,463 64,279\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਅੰਡਾਕਾਰ = ਬੱਸ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਰੇਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ</text><text x=\"8\" y=\"61\">C — ਹੀਰੇ ਵਰਗਾ ਆਕਾਰ = ਸਾਈਕਲ ਰਾਹੀਂ ਸਫ਼ਰ ਕਰਨ ਵਾਲੇ ਯਾਤਰੀ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"486\" data-mask=\"0\">30</text><text x=\"456\" y=\"147\" data-mask=\"1\">35</text><text x=\"105\" y=\"345\" data-mask=\"2\">40</text><text x=\"540\" y=\"237\" data-mask=\"3\">45</text><text x=\"303\" y=\"414\" data-mask=\"4\">10</text><text x=\"303\" y=\"153\" data-mask=\"5\">15</text><text x=\"123\" y=\"279\" data-mask=\"6\">20</text><text x=\"342\" y=\"288\" data-mask=\"7\">25</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_DIAMOND\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -6510,6 +7223,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -6606,7 +7321,7 @@ Total output lines: 7818
       "correct": 1,
       "answer": "B",
       "canonicalAnswer": "45",
-      "explanation": "ਤਿੰਨੇ ਆਕਾਰ: 45। ਇਹ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 45 = 45।",
+      "explanation": "ਸਾਨੂੰ ਤਿੰਨਾਂ ਸਮੂਹਾਂ—ਬਾਗਬਾਨੀ ਕਰਨ ਵਾਲੇ, ਨਵੀਂ ਰੈਸਿਪੀ ਬਣਾਉਣ ਵਾਲੇ, ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਵਾਲੇ—ਦਾ ਸਾਂਝਾ ਖੇਤਰ ਚਾਹੀਦਾ ਹੈ। ਤਿੰਨਾਂ ਦੇ ਵਿਚਕਾਰਲੇ ਸਾਂਝੇ ਹਿੱਸੇ ਵਿੱਚ 45 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 45 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"120,100 340,100 120,480\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਬਾਗਬਾਨੀ ਕਰਨ ਵਾਲੇ ਲੋਕ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਨਵੀਂ ਰੈਸਿਪੀ ਬਣਾਉਣ ਵਾਲੇ ਲੋਕ</text><text x=\"8\" y=\"61\">C — ਸਮਕੋਣ ਤਿਕੋਣ = ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਵਾਲੇ ਲੋਕ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"618\" y=\"486\" data-mask=\"0\">28</text><text x=\"402\" y=\"132\" data-mask=\"1\">33</text><text x=\"228\" y=\"348\" data-mask=\"2\">18</text><text x=\"333\" y=\"288\" data-mask=\"3\">23</text><text x=\"171\" y=\"150\" data-mask=\"4\">8</text><text x=\"273\" y=\"159\" data-mask=\"5\">13</text><text x=\"174\" y=\"282\" data-mask=\"6\">40</text><text x=\"243\" y=\"225\" data-mask=\"7\">45</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_RIGHT_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -6639,6 +7354,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -6735,7 +7452,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "125",
-      "explanation": "ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਆਕਾਰ, ਤੀਜੇ ਤੋਂ ਬਿਨਾਂ: 15; ਪਹਿਲੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਦੂਜੇ ਤੋਂ ਬਿਨਾਂ: 45; ਦੂਜੇ ਅਤੇ ਤੀਜੇ ਆਕਾਰ, ਪਹਿਲੇ ਤੋਂ ਬਿਨਾਂ: 30; ਤਿੰਨੇ ਆਕਾਰ: 35। ਇਹ ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 15 + 45 + 30 + 35 = 125।",
+      "explanation": "ਘੱਟੋ-ਘੱਟ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਉਹ ਤਿੰਨ ਖੇਤਰ ਆਉਂਦੇ ਹਨ ਜਿੱਥੇ ਸਿਰਫ਼ ਦੋ ਸਮੂਹ ਮਿਲਦੇ ਹਨ, ਨਾਲ ਹੀ ਤਿੰਨਾਂ ਦਾ ਸਾਂਝਾ ਖੇਤਰ ਵੀ। ਗਣਿਤ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ, ਅੰਗਰੇਜ਼ੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ, ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਲਈ ਇਨ੍ਹਾਂ ਖੇਤਰਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ 15, 45, 30, 35 ਹਨ। ਇਸ ਲਈ 15 + 45 + 30 + 35 = 125।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"176,92 430,92 556,478 54,478\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਅੰਡਾਕਾਰ = ਗਣਿਤ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਅੰਗਰੇਜ਼ੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ</text><text x=\"8\" y=\"61\">C — ਸਮਲੰਬ ਚਤੁਰਭੁਜ = ਆਮ ਜਾਣਕਾਰੀ ਦੀਆਂ ਕਲਾਸਾਂ ਲੈਣ ਵਾਲੇ ਉਮੀਦਵਾਰ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">20</text><text x=\"498\" y=\"156\" data-mask=\"1\">25</text><text x=\"105\" y=\"228\" data-mask=\"2\">10</text><text x=\"528\" y=\"246\" data-mask=\"3\">15</text><text x=\"126\" y=\"426\" data-mask=\"4\">40</text><text x=\"345\" y=\"147\" data-mask=\"5\">45</text><text x=\"144\" y=\"330\" data-mask=\"6\">30</text><text x=\"342\" y=\"288\" data-mask=\"7\">35</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRAPEZOID\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -6768,6 +7485,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -6867,7 +7586,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "102",
-      "explanation": "ਸਿਰਫ਼ ਪਹਿਲਾ ਆਕਾਰ: 20; ਸਿਰਫ਼ ਦੂਜਾ ਆਕਾਰ: 35; ਸਿਰਫ਼ ਤੀਜਾ ਆਕਾਰ: 47। ਇਹ ਠੀਕ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 20 + 35 + 47 = 102।",
+      "explanation": "ਠੀਕ ਇੱਕ ਸਮੂਹ ਦਾ ਅਰਥ ਹੈ ਸਿਰਫ਼ ਤਿੰਨ ਵੱਖਰੇ ਇਕੱਲੇ ਖੇਤਰ ਜੋੜਣੇ: ਕਣਕ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ = 20, ਸਰ੍ਹੋਂ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ = 35 ਅਤੇ ਕਪਾਹ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ = 47। ਇਸ ਲਈ 20 + 35 + 47 = 102।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,76 566,266 466,478 142,478 42,266\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਕਣਕ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਸਰ੍ਹੋਂ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ</text><text x=\"8\" y=\"61\">C — ਪੰਜਭੁਜ = ਕਪਾਹ ਉਗਾਉਣ ਵਾਲੇ ਕਿਸਾਨ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">25</text><text x=\"474\" y=\"138\" data-mask=\"1\">20</text><text x=\"555\" y=\"354\" data-mask=\"2\">35</text><text x=\"549\" y=\"225\" data-mask=\"3\">30</text><text x=\"177\" y=\"426\" data-mask=\"4\">47</text><text x=\"312\" y=\"147\" data-mask=\"5\">42</text><text x=\"153\" y=\"297\" data-mask=\"6\">15</text><text x=\"327\" y=\"288\" data-mask=\"7\">10</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_PENTAGON\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -6900,6 +7619,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -6998,7 +7719,7 @@ Total output lines: 7818
       "correct": 0,
       "answer": "A",
       "canonicalAnswer": "24",
-      "explanation": "ਸਿਰਫ਼ ਦੂਜਾ ਆਕਾਰ: 24। ਇਹ ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 24 = 24।",
+      "explanation": "ਸਾਨੂੰ ਉਹ ਜੀਵਨੀਆਂ ਲੈਣ ਵਾਲੇ ਚਾਹੀਦੇ ਹਨ ਜੋ ਬਾਕੀ ਦੋਵੇਂ ਸਮੂਹਾਂ—ਗਲਪ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਅਤੇ ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ—ਵਿੱਚ ਨਾ ਹੋਣ। ਜੀਵਨੀਆਂ ਲੈਣ ਵਾਲੇ ਦੇ ਸਿਰਫ਼ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ 24 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 24 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><circle cx=\"397\" cy=\"237\" r=\"175\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਚੱਕਰ = ਗਲਪ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਜੀਵਨੀਆਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ</text><text x=\"8\" y=\"61\">C — ਤਿਕੋਣ = ਵਿਗਿਆਨ ਦੀਆਂ ਕਿਤਾਬਾਂ ਲੈਣ ਵਾਲੇ ਲਾਇਬ੍ਰੇਰੀ ਮੈਂਬਰ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">14</text><text x=\"411\" y=\"132\" data-mask=\"1\">19</text><text x=\"129\" y=\"252\" data-mask=\"2\">24</text><text x=\"498\" y=\"270\" data-mask=\"3\">29</text><text x=\"276\" y=\"411\" data-mask=\"4\">36</text><text x=\"303\" y=\"162\" data-mask=\"5\">41</text><text x=\"195\" y=\"327\" data-mask=\"6\">46</text><text x=\"324\" y=\"288\" data-mask=\"7\">9</text></g><metadata data-layout=\"CIRCLE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -7031,6 +7752,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
@@ -7127,7 +7850,7 @@ Total output lines: 7818
       "correct": 2,
       "answer": "C",
       "canonicalAnswer": "22",
-      "explanation": "ਸਿਰਫ਼ ਤੀਜਾ ਆਕਾਰ: 22। ਇਹ ਸਿਰਫ਼ ਤੀਜੇ ਸਮੂਹ ਵਿੱਚ ਵਾਲੇ ਖੇਤਰ ਹਨ; ਚਿੱਤਰ ਦੇ ਬਾਕੀ ਖੇਤਰ ਇਸ ਸ਼ਰਤ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ। 22 = 22।",
+      "explanation": "ਸਾਨੂੰ ਉਹ ਆਨਲਾਈਨ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਖਰੀਦਣ ਵਾਲੇ ਚਾਹੀਦੇ ਹਨ ਜੋ ਬਾਕੀ ਦੋਵੇਂ ਸਮੂਹਾਂ—ਆਨਲਾਈਨ ਰਾਸ਼ਨ ਖਰੀਦਣ ਵਾਲੇ ਅਤੇ ਆਨਲਾਈਨ ਕੱਪੜੇ ਖਰੀਦਣ ਵਾਲੇ—ਵਿੱਚ ਨਾ ਹੋਣ। ਆਨਲਾਈਨ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਖਰੀਦਣ ਵਾਲੇ ਦੇ ਸਿਰਫ਼ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ 22 ਦਿੱਤੇ ਹਨ। ਇਸ ਲਈ ਉੱਤਰ 22 ਹੈ।",
       "stimulusSvgs": [
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 500\" role=\"img\" aria-label=\"Counts in three overlapping geometric shapes\"><rect x=\"4\" y=\"4\" width=\"632\" height=\"492\" rx=\"10\" fill=\"#fff\" stroke=\"#b8c3cf\"/><ellipse cx=\"397\" cy=\"237\" rx=\"225\" ry=\"150\" fill=\"#25845f\" fill-opacity=\".28\" stroke=\"#25845f\" stroke-width=\"3\"/><rect x=\"76\" y=\"200\" width=\"499\" height=\"174\" fill=\"#7b4ab5\" fill-opacity=\".28\" stroke=\"#7b4ab5\" stroke-width=\"3\"/><polygon points=\"304,95 64,433 538,463\" fill=\"#d28b21\" fill-opacity=\".28\" stroke=\"#d28b21\" stroke-width=\"3\"/><g font-family=\"sans-serif\" font-size=\"13\" fill=\"#152536\"><text x=\"8\" y=\"23\">A — ਅੰਡਾਕਾਰ = ਆਨਲਾਈਨ ਰਾਸ਼ਨ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ</text><text x=\"8\" y=\"42\">B — ਆਇਤ = ਆਨਲਾਈਨ ਕੱਪੜੇ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ</text><text x=\"8\" y=\"61\">C — ਤਿਕੋਣ = ਆਨਲਾਈਨ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ਖਰੀਦਣ ਵਾਲੇ ਗਾਹਕ</text></g><g font-family=\"sans-serif\" font-size=\"16\" font-weight=\"600\" text-anchor=\"middle\" dominant-baseline=\"middle\" fill=\"#152536\"><text x=\"24\" y=\"90\" data-mask=\"0\">42</text><text x=\"402\" y=\"144\" data-mask=\"1\">47</text><text x=\"117\" y=\"279\" data-mask=\"2\">10</text><text x=\"501\" y=\"273\" data-mask=\"3\">15</text><text x=\"465\" y=\"420\" data-mask=\"4\">22</text><text x=\"303\" y=\"162\" data-mask=\"5\">27</text><text x=\"168\" y=\"342\" data-mask=\"6\">32</text><text x=\"327\" y=\"285\" data-mask=\"7\">37</text></g><metadata data-layout=\"ELLIPSE_RECTANGLE_TRIANGLE\" data-label-clearance=\"20\"/></svg>"
       ],
@@ -7160,6 +7883,8 @@ Total output lines: 7818
       "difficultyLabel": "Medium",
       "difficultyAuthority": "PROVISIONAL_OPERATION_BASED",
       "questionOperation": "GEOMETRIC_REGION_COUNT",
+      "qlId": "VEN-QL-010",
+      "permanentQlId": "VEN-QL-010",
       "generationSeed": "shape-regions-review-v2",
       "reviewStatus": "REVIEW_CANDIDATE_TRILINGUAL",
       "runtimeMode": "review-only",
