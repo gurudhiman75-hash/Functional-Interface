@@ -1,7 +1,7 @@
 import objectPoolsSource from "../object-pools.library.json" assert { type: "json" };
 import variableRangesSource from "../variable-ranges.library.json" assert { type: "json" };
 import { formatRatio, normalizeRatio, rational } from "./math";
-import { createPrt001Random } from "./random";
+import { createPrt001Random, stablePrt001PoolIndex } from "./random";
 import { solvePrt001State } from "./solver";
 import type {
   PartnershipState,
@@ -154,10 +154,14 @@ export function generatePrt001PilotParameters(input: {
   } else if (
     input.entry.solveMode === "findUnknownDurationFromShareRatioAndCapitals"
   ) {
-    const numericStateRandom = createPrt001Random(
-      `${input.seed}:numeric-state:${input.entry.solveMode}`,
-    );
-    scenario = numericStateRandom.pick(variableRanges.unknownDurationScenarios);
+    const numericStateSeed = `${input.seed}:numeric-state:${input.entry.solveMode}`;
+    scenario =
+      variableRanges.unknownDurationScenarios[
+        stablePrt001PoolIndex(
+          numericStateSeed,
+          variableRanges.unknownDurationScenarios.length,
+        )
+      ]!;
   } else {
     scenario = random.pick(variableRanges.unequalDurationScenarios);
   }
