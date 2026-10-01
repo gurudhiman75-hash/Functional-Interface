@@ -47,7 +47,7 @@ async function loadCanonicalUser(firebaseUid: string): Promise<CanonicalUserRow 
     SELECT
       u.id::text AS id,
       u.email,
-      u.phone_number AS "phoneNumber",
+      u.phone AS "phoneNumber",
       u.display_name AS "displayName",
       u.status::text AS status,
       u.created_at AS "createdAt",
@@ -101,7 +101,7 @@ async function ensureCanonicalUser(input: {
       SELECT
         u.id::text AS id,
         u.email,
-        u.phone_number AS "phoneNumber",
+        u.phone AS "phoneNumber",
         u.display_name AS "displayName",
         u.status::text AS status,
         u.created_at AS "createdAt",
@@ -130,7 +130,7 @@ async function ensureCanonicalUser(input: {
       await tx`
         UPDATE identity.users
         SET email = COALESCE(${normalizedEmail}, email),
-            phone_number = COALESCE(${normalizedPhone}, phone_number),
+            phone = COALESCE(${normalizedPhone}, phone),
             display_name = ${displayName},
             last_login_at = now(),
             updated_at = now()
@@ -140,7 +140,7 @@ async function ensureCanonicalUser(input: {
       rows = await tx`
         INSERT INTO identity.users (
           email,
-          phone_number,
+          phone,
           display_name,
           status,
           last_login_at
