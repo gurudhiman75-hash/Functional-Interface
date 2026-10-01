@@ -86,6 +86,8 @@ function verticalPositionClue(value:number):string{
   if(value===0)return "The final point lies on the same east-west line as the starting point.";
   return `The final point is ${Math.abs(value)} m ${value>0?"north":"south"} of the starting point.`;
 }
+function horizontalSideClue(value:number):string{return value===0?"The final point is neither east nor west of the starting point.":`The final point is ${value>0?"east":"west"} of the starting point.`;}
+function verticalSideClue(value:number):string{return value===0?"The final point is neither north nor south of the starting point.":`The final point is ${value>0?"north":"south"} of the starting point.`;}
 function targetLabel(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"final facing direction":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"final coordinates from the starting point":"shortest distance from the starting point";}
 function prompt(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"Which direction is the person facing after the third movement?":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"What are the coordinates of the final point, taking the starting point as (0, 0)?":"What is the shortest distance from the final point to the starting point?";}
 function lead(c:ContextId){return ({
@@ -114,11 +116,10 @@ function pool(problem:Problem):readonly Statement[]{
     st(`XY_${a.finalX}_${a.finalY}`,"FINAL_COMPONENT_PAIR",3,`The final point has coordinates (${a.finalX}, ${a.finalY}) when the starting point is (0, 0).`,w=>w.finalX===a.finalX&&w.finalY===a.finalY),
     st(`FACING_${a.finalFacing}`,"FINAL_FACING_EXACT",1,`After all movements, the person is facing ${a.finalFacing}.`,w=>w.finalFacing===a.finalFacing),
     st(`PATH_${a.totalPath}`,"TOTAL_PATH_EXACT",2,`The total path length is ${a.totalPath} m.`,w=>w.totalPath===a.totalPath),
-    st(`XSIGN_${sign(a.finalX)}`,"FINAL_X_SIGN",2,`The final east-west coordinate is ${sign(a.finalX)}.`,w=>sign(w.finalX)===sign(a.finalX)),
-    st(`YSIGN_${sign(a.finalY)}`,"FINAL_Y_SIGN",2,`The final north-south coordinate is ${sign(a.finalY)}.`,w=>sign(w.finalY)===sign(a.finalY)),
+    st(`XSIGN_${sign(a.finalX)}`,"FINAL_X_SIGN",2,horizontalSideClue(a.finalX),w=>sign(w.finalX)===sign(a.finalX)),
+    st(`YSIGN_${sign(a.finalY)}`,"FINAL_Y_SIGN",2,verticalSideClue(a.finalY),w=>sign(w.finalY)===sign(a.finalY)),
   ];
   return Object.freeze(statements.filter((statement) => {
-    if (["FINAL_X_SIGN","FINAL_Y_SIGN"].includes(statement.family)) return false;
     if (problem.solveMode === "DSF-SM-DIR-FINAL-FACING" && statement.family === "FINAL_FACING_EXACT") return false;
     return true;
   }));
