@@ -102,9 +102,30 @@ export function generatePrt001E4Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findProfitDifferenceFromCapitalDurationWeights": {
-      const s = random.pick([{a:20_000,da:12,b:30_000,db:6},{a:24_000,da:10,b:40_000,db:6},{a:35_000,da:6,b:28_000,db:10},{a:42_000,da:8,b:30_000,db:12}]);
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const s = numericStateRandom.pick([
+        {a:20_000,da:12,b:30_000,db:6},
+        {a:24_000,da:10,b:40_000,db:6},
+        {a:35_000,da:6,b:28_000,db:10},
+        {a:42_000,da:8,b:30_000,db:12},
+        {a:30_000,da:12,b:45_000,db:8},
+        {a:48_000,da:9,b:36_000,db:12},
+        {a:40_000,da:7,b:28_000,db:12},
+        {a:54_000,da:8,b:32_000,db:12},
+      ]);
+      const perPart = numericStateRandom.pick([
+        12_000,
+        15_000,
+        18_000,
+        20_000,
+        24_000,
+        27_000,
+        30_000,
+      ]);
       const partners = [partner(partnerA,[segment(0,s.da,money(s.a))]), partner(partnerB,[segment(0,s.db,money(s.b))])];
-      state = makeState(partners, money(cleanGross(partners, 18_000)));
+      state = makeState(partners, money(cleanGross(partners, perPart)));
       break;
     }
     case "findProfitRatioWhenPartnerLeavesEarly": {
