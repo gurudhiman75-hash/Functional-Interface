@@ -129,6 +129,15 @@ function promptFor(q:AnyQuestion, language:DsfQuantLocalizedLanguage):string {
   if(/by how much does .*compound interest.*exceed simple interest/i.test(raw)) {
     return t(language,"पूरी अवधि में चक्रवृद्धि ब्याज साधारण ब्याज से कितना अधिक है?","ਪੂਰੀ ਮਿਆਦ ਵਿੱਚ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਸਧਾਰਣ ਵਿਆਜ ਤੋਂ ਕਿੰਨਾ ਵੱਧ ਹੈ?");
   }
+  if(/^What is the final amount if interest is compounded annually\?$/i.test(raw)) {
+    return t(language,"वार्षिक चक्रवृद्धि पर अंतिम राशि कितनी है?","ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਨਾਲ ਅੰਤਿਮ ਰਕਮ ਕਿੰਨੀ ਹੈ?");
+  }
+  if(/^What is the compound interest for the full period if interest is compounded annually\?$/i.test(raw)) {
+    return t(language,"वार्षिक चक्रवृद्धि पर पूरी अवधि का चक्रवृद्धि ब्याज कितना है?","ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ ਨਾਲ ਪੂਰੀ ਮਿਆਦ ਦਾ ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਕਿੰਨਾ ਹੈ?");
+  }
+  if(/^What is the simple interest for the full period\?$/i.test(raw)) {
+    return t(language,"पूरी अवधि का साधारण ब्याज कितना है?","ਪੂਰੀ ਮਿਆਦ ਦਾ ਸਧਾਰਣ ਵਿਆਜ ਕਿੰਨਾ ਹੈ?");
+  }
   const discountMatch=raw.match(/^What discount percent(?:age)? is allowed on (?:the )?(.+)\?$/i);
   if(discountMatch) {
     const item=translateQuantText(discountMatch[1]!,language).replace(/^the\s+/i,"").trim();
