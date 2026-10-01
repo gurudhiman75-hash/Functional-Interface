@@ -215,7 +215,7 @@ export const NUMERICAL_CONTEXTS = [
     names: tx(
       "live online classes|recorded lessons|digital notes",
       "लाइव ऑनलाइन कक्षाओं|रिकॉर्ड किए गए पाठों|डिजिटल नोट्स",
-      "ਲਾਈਵ ਆਨਲਾਈਨ ਕਲਾਸਾਂ|ਰਿਕਾਰਡ ਕੀਤੇ ਪਾਠਾਂ|ਡਿਜ਼ੀਟਲ ਨੋਟਸ",
+      "ਲਾਈਵ ਆਨਲਾਈਨ ਕਲਾਸਾਂ|ਰਿਕਾਰਡ ਕੀਤੇ ਪਾਠ|ਡਿਜ਼ੀਟਲ ਨੋਟਸ",
     ),
     verb: tx("use", "का उपयोग करते हैं", "ਵਰਤਦੇ ਹਨ"),
   },
@@ -874,9 +874,9 @@ export function buildNumericalItem(
       }
       explanation =
         tx(
-          `${p[0]}% do neither activity, so ${100 - p[0]}% do at least one. The totals for ${names[0]} and ${names[1]} add the people doing both twice; subtract the at-least-one percentage to isolate the overlap.`,
-          `${p[0]}% लोग कोई भी गतिविधि नहीं करते, इसलिए ${100 - p[0]}% कम-से-कम एक करते हैं। ${names[0]} और ${names[1]} के कुल में साझा लोग दो बार जुड़ते हैं; साझा प्रतिशत निकालने के लिए कम-से-कम एक का प्रतिशत घटाएँ।`,
-          `${p[0]}% ਲੋਕ ਕੋਈ ਵੀ ਕੰਮ ਨਹੀਂ ਕਰਦੇ, ਇਸ ਲਈ ${100 - p[0]}% ਘੱਟੋ-ਘੱਟ ਇੱਕ ਕੰਮ ਕਰਦੇ ਹਨ। ${names[0]} ਅਤੇ ${names[1]} ਦੇ ਕੁੱਲ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕ ਦੋ ਵਾਰ ਗਿਣੇ ਜਾਂਦੇ ਹਨ; ਸਾਂਝਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭਣ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਓ।`,
+          `${p[0]}% are in neither group, so ${100 - p[0]}% are in at least one group. The totals for ${names[0]} and ${names[1]} count the overlap twice; subtract the at-least-one percentage to isolate the overlap.`,
+          `${p[0]}% लोग किसी भी समूह में नहीं आते, इसलिए ${100 - p[0]}% कम-से-कम एक समूह में आते हैं। ${names[0]} और ${names[1]} की कुल संख्याओं में साझा लोग दो बार गिने जाते हैं; साझा प्रतिशत निकालने के लिए कम-से-कम एक समूह का प्रतिशत घटाएँ।`,
+          `${p[0]}% ਲੋਕ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ, ਇਸ ਲਈ ${100 - p[0]}% ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਂਦੇ ਹਨ। ${names[0]} ਅਤੇ ${names[1]} ਦੀਆਂ ਕੁੱਲ ਗਿਣਤੀਆਂ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕ ਦੋ ਵਾਰ ਗਿਣੇ ਜਾਂਦੇ ਹਨ; ਸਾਂਝਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭਣ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਓ।`,
         )[l] +
         ` ${a}% + ${b}% − ${100 - p[0]}% = ${p[3]}%. ` +
         (mode === 0
@@ -901,10 +901,10 @@ export function buildNumericalItem(
             ? `What is the ratio of people who ${c.verb.en} ${names[0]} only to people who ${c.verb.en} ${names[1]} only?`
             : "What is the ratio of people in exactly two groups to people in all three?",
           mode === 2
-            ? `केवल ${names[0]} करने वालों और केवल ${names[1]} करने वालों की संख्या का अनुपात क्या है?`
+            ? `केवल ${names[0]} वाले और केवल ${names[1]} वाले लोगों की संख्या का अनुपात क्या है?`
             : "ठीक दो समूहों में आने वालों और तीनों समूहों में आने वालों की संख्या का अनुपात क्या है?",
           mode === 2
-            ? `ਸਿਰਫ਼ ${names[0]} ਕਰਨ ਵਾਲਿਆਂ ਅਤੇ ਸਿਰਫ਼ ${names[1]} ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`
+            ? `ਸਿਰਫ਼ ${names[0]} ਵਾਲੇ ਅਤੇ ਸਿਰਫ਼ ${names[1]} ਵਾਲੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`
             : "ਠੀਕ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਅਤੇ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?",
         )[l];
       const common = gcd(x, y);
@@ -915,10 +915,10 @@ export function buildNumericalItem(
             : `Exactly two of ${c.names.en.split("|").join(", ")} = ${x}; all three = ${y}. Divide both terms by their highest common factor, ${common}.`,
           mode === 2
             ? `केवल ${c.names.hi.split("|")[0]} = ${x} और केवल ${c.names.hi.split("|")[1]} = ${y}। दोनों पदों को उनके महत्तम समापवर्तक ${common} से भाग दें।`
-            : `${c.names.hi.split("|").join(", ")} में से ठीक दो करने वाले = ${x}; तीनों करने वाले = ${y}। दोनों पदों को उनके महत्तम समापवर्तक ${common} से भाग दें।`,
+            : `${c.names.hi.split("|").join(", ")} में से ठीक दो समूहों में आने वाले = ${x}; तीनों समूहों में आने वाले = ${y}। दोनों पदों को उनके महत्तम समापवर्तक ${common} से भाग दें।`,
           mode === 2
             ? `ਸਿਰਫ਼ ${c.names.pa.split("|")[0]} = ${x} ਅਤੇ ਸਿਰਫ਼ ${c.names.pa.split("|")[1]} = ${y}। ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ।`
-            : `${c.names.pa.split("|").join(", ")} ਵਿੱਚੋਂ ਠੀਕ ਦੋ ਕਰਨ ਵਾਲੇ = ${x}; ਤਿੰਨੇ ਕਰਨ ਵਾਲੇ = ${y}। ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ।`,
+            : `${c.names.pa.split("|").join(", ")} ਵਿੱਚੋਂ ਠੀਕ ਦੋ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ = ${x}; ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲੇ = ${y}। ਦੋਵਾਂ ਪਦਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਮਹੱਤਮ ਸਾਂਝੇ ਗੁਣਨਖੰਡ ${common} ਨਾਲ ਭਾਗ ਦਿਓ।`,
         )[l]
       } ${x}/${common}:${y}/${common} = ${answer}.`;
       formula = "\\text{ratio}=a:b";
@@ -947,9 +947,9 @@ export function buildNumericalItem(
         none = 100 - union;
       explanation =
         tx(
-          `For ${c.names.en.split("|").join(", ")}, add the three activity percentages. The pair totals include the people doing both activities, so subtract each pair percentage; this removes the overlaps once too many. Finally, add back the percentage doing all three, which was subtracted three times but should be counted once.`,
-          `${c.names.hi.split("|").join(", ")} के लिए तीनों गतिविधियों के प्रतिशत जोड़ें। हर जोड़ी के कुल में साझा लोग शामिल हैं, इसलिए जोड़ी-प्रतिशत घटाएँ। अंत में तीनों गतिविधियाँ करने वालों का प्रतिशत फिर जोड़ें, क्योंकि उसे तीन बार घटाया गया था और एक बार गिनना है।`,
-          `${c.names.pa.split("|").join(", ")} ਲਈ ਤਿੰਨਾਂ ਕੰਮਾਂ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਜੋੜੋ। ਹਰ ਜੋੜੇ ਦੇ ਕੁੱਲ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕ ਸ਼ਾਮਲ ਹਨ, ਇਸ ਲਈ ਜੋੜਿਆਂ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਓ। ਅੰਤ ਵਿੱਚ ਤਿੰਨੇ ਕੰਮ ਕਰਨ ਵਾਲਿਆਂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਮੁੜ ਜੋੜੋ, ਕਿਉਂਕਿ ਉਹ ਤਿੰਨ ਵਾਰ ਘਟਿਆ ਸੀ ਪਰ ਇੱਕ ਵਾਰ ਗਿਣਨਾ ਹੈ।`,
+          `For ${c.names.en.split("|").join(", ")}, add the three group percentages. Each pair percentage includes the all-three group, so subtract the three pair percentages and then add the all-three percentage back once.`,
+          `${c.names.hi.split("|").join(", ")} के तीनों समूहों के प्रतिशत जोड़ें। तीनों जोड़ी-प्रतिशत घटाएँ और अंत में तीनों समूहों में आने वालों का प्रतिशत एक बार फिर जोड़ें।`,
+          `${c.names.pa.split("|").join(", ")} ਦੇ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਜੋੜੋ। ਤਿੰਨਾਂ ਜੋੜਿਆਂ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਘਟਾਓ ਅਤੇ ਅੰਤ ਵਿੱਚ ਤਿੰਨਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਇੱਕ ਵਾਰ ਮੁੜ ਜੋੜੋ।`,
         )[l] +
         ` ${a}% + ${b}% + ${cv}% − ${ab}% − ${ac}% − ${bc}% + ${t}% = ${union}%. ${tx("So the percentage in none is", "इसलिए किसी भी समूह में न आने वालों का प्रतिशत", "ਇਸ ਲਈ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ")[l]} 100% − ${union}% = ${none}%. `;
       if (mode === 4) {
@@ -981,14 +981,14 @@ export function buildNumericalItem(
         `${surveyIntro(l, hash(seed))} ${groupReference(c, 0, l)}; ${groupReference(c, 1, l)}. ` +
         tx(
           `For ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]}, the counts for only ${c.names.en.split("|")[0]}, only ${c.names.en.split("|")[1]}, both, and neither are in the ratio 2:3:1:1. ${x} people do both. How many people were surveyed?`,
-          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} करने वालों में केवल ${c.names.hi.split("|")[0]}, केवल ${c.names.hi.split("|")[1]}, दोनों और कोई भी न करने वालों की संख्याओं का अनुपात 2:3:1:1 है। ${x} लोग दोनों करते हैं। कुल कितने लोगों का सर्वेक्षण किया गया?`,
-          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਕਰਨ ਵਾਲਿਆਂ ਵਿੱਚ ਸਿਰਫ਼ ${c.names.pa.split("|")[0]}, ਸਿਰਫ਼ ${c.names.pa.split("|")[1]}, ਦੋਵੇਂ ਅਤੇ ਕੋਈ ਵੀ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ${x} ਲੋਕ ਦੋਵੇਂ ਕੰਮ ਕਰਦੇ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?`,
+          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} के लिए केवल पहले समूह, केवल दूसरे समूह, दोनों समूहों और किसी भी समूह में न आने वालों की संख्याओं का अनुपात 2:3:1:1 है। दोनों समूहों में ${x} लोग हैं। कुल कितने लोगों का सर्वेक्षण किया गया?`,
+          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਲਈ ਸਿਰਫ਼ ਪਹਿਲੇ ਸਮੂਹ, ਸਿਰਫ਼ ਦੂਜੇ ਸਮੂਹ, ਦੋਵਾਂ ਸਮੂਹਾਂ ਅਤੇ ਕਿਸੇ ਵੀ ਸਮੂਹ ਵਿੱਚ ਨਾ ਆਉਣ ਵਾਲਿਆਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3:1:1 ਹੈ। ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ${x} ਲੋਕ ਹਨ। ਕੁੱਲ ਕਿੰਨੇ ਲੋਕਾਂ ਦਾ ਸਰਵੇਖਣ ਕੀਤਾ ਗਿਆ?`,
         )[l];
       explanation =
         tx(
           `The overlap between ${c.names.en.split("|")[0]} and ${c.names.en.split("|")[1]} is the one-part section of the 2:3:1:1 ratio.`,
-          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} दोनों करने वालों की संख्या 2:3:1:1 के अनुपात का एक भाग है।`,
-          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਦੋਵੇਂ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ 2:3:1:1 ਦੇ ਅਨੁਪਾਤ ਦਾ ਇੱਕ ਹਿੱਸਾ ਹੈ।`,
+          `${c.names.hi.split("|")[0]} और ${c.names.hi.split("|")[1]} दोनों समूहों में आने वालों की संख्या 2:3:1:1 के अनुपात का एक भाग है।`,
+          `${c.names.pa.split("|")[0]} ਅਤੇ ${c.names.pa.split("|")[1]} ਦੋਵਾਂ ਸਮੂਹਾਂ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ 2:3:1:1 ਦੇ ਅਨੁਪਾਤ ਦਾ ਇੱਕ ਹਿੱਸਾ ਹੈ।`,
         )[l] +
         ` ${tx("So one part", "इसलिए एक भाग", "ਇਸ ਲਈ ਇੱਕ ਹਿੱਸਾ")[l]} = ${x}. ${tx("The four disjoint sections together make the total:", "चारों अलग-अलग हिस्सों का योग कुल संख्या है:", "ਚਾਰੇ ਵੱਖ-ਵੱਖ ਹਿੱਸਿਆਂ ਦਾ ਜੋੜ ਕੁੱਲ ਗਿਣਤੀ ਹੈ:")[l]} (2 + 3 + 1 + 1) × ${x} = ${answer}.`;
       formula = "N=(2+3+1+1)x";
