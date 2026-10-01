@@ -158,7 +158,7 @@ Required guarantees:
 - simple question-specific explanations;
 - no translation that changes inclusion, exclusion, overlap, or numerical meaning.
 
-CP001, CP002, CP003 and CP004 are already marked signed-off for trilingual review in runtime metadata. CP005–CP011 remain review candidates where `localeParityPendingHumanReview` is still true and must not be silently promoted.
+CP001–CP011 are now marked signed-off for trilingual review in runtime metadata. CP005–CP011 were explicitly approved by the user on 2026-10-01 after the Wave 06 multilingual audit; `localeParityPendingHumanReview` is false across the live chapter. This signoff does not change the review-only publication lifecycle.
 
 ## 12. Review and release gates
 
