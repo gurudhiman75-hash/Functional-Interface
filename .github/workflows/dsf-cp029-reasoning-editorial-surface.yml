@@ -1,0 +1,42 @@
+name: Validate DSF-CP-029 Reasoning Editorial Surface
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - audit/dsf-001-cp028-ql002-reasoning-consolidation
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-021/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-022/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-023/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-024/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-025/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-026/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-027/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-029/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/shared/three-statement-editorial-explanation.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-dsf-cp029:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle CP029 editorial audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-029/reasoning-editorial-surface-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dsf-cp029-editorial-surface.test.mjs
+      - name: Run CP029 editorial audit
+        run: node artifacts/api-server/dist/reasoning-v1/dsf-cp029-editorial-surface.test.mjs

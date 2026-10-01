@@ -10,6 +10,7 @@ import {
   renderThreeStatementSemanticLabel,
   type DsfCp015ThreeStatementSemanticKey,
 } from "../DSF-CP-015/three-statement-answer-profile.ts";
+import { renderThreeStatementEditorialExplanation } from "../shared/three-statement-editorial-explanation.ts";
 
 export const DSF_CP022_DIRECTION_QL002_RUNTIME_VERSION = "DSF_CP022_DIRECTION_QL002_RUNTIME_V1" as const;
 
@@ -71,12 +72,12 @@ function sign(v:number){return v===0?"zero":v>0?"positive":"negative";}
 function targetLabel(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"final facing direction":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"final coordinates":"shortest distance from the starting point";}
 function prompt(mode:SolveMode){return mode==="DSF-SM-DIR-FINAL-FACING"?"Which direction is the person facing after the third movement?":mode==="DSF-SM-DIR-FINAL-COORDINATES"?"Taking the starting point as (0, 0), what are the final coordinates?":"What is the shortest distance from the final point to the starting point?";}
 function lead(c:ContextId){return ({
-  WALKING_ROUTE:"A person follows a three-leg walking route.",
-  DELIVERY_ROUTE:"A delivery worker follows a three-leg route.",
-  CAMPUS_PATH:"A student follows a three-leg path across a campus.",
-  PATROL_ROUTE:"A guard follows a three-leg patrol route.",
-  WAREHOUSE_ROUTE:"A worker follows a three-leg route inside a warehouse.",
-  FIELD_ROUTE:"A surveyor follows a three-leg route across a field.",
+  WALKING_ROUTE:"A person moves in three successive stages.",
+  DELIVERY_ROUTE:"A delivery worker moves in three successive stages.",
+  CAMPUS_PATH:"A student moves in three successive stages across a campus.",
+  PATROL_ROUTE:"A guard moves in three successive stages while on patrol.",
+  WAREHOUSE_ROUTE:"A worker moves in three successive stages inside a warehouse.",
+  FIELD_ROUTE:"A surveyor moves in three successive stages across a field.",
 } as const)[c];}
 
 function pool(problem:Problem):readonly Statement[]{
@@ -138,9 +139,7 @@ function select(seed:string){
   return {problem:fallback.problem,candidate:short[pick(`${seed}:fallback`,short.length)]!};
 }
 function explanation(problem:Problem,c:Candidate){
-  const get=(id:"I"|"II"|"III")=>c.evaluation.subsetEvaluations.find(x=>x.statementIds.length===1&&x.statementIds[0]===id)?.result;
-  const line=(label:string,r:ReturnType<typeof get>)=>r?.sufficient?`${label} alone fixes the requested direction result at ${r.normalizedTargetAnswers[0]}.`:`${label} alone does not fix one requested direction result.`;
-  return [`We need the ${targetLabel(problem.solveMode)}.`,line("Statement I",get("I")),line("Statement II",get("II")),line("Statement III",get("III")),renderThreeStatementSemanticLabel(c.semanticKey)].join(" ");
+  return renderThreeStatementEditorialExplanation(c.evaluation, targetLabel(problem.solveMode), c.semanticKey);
 }
 export function generateDsfCp022DirectionQuestion(seed:string|number){
   const s=String(seed),{problem,candidate:c}=select(s),options=buildThreeStatementAnswerOptions(c.semanticKey,hash(s)),correctIndex=options.findIndex(x=>x.isCorrect);
