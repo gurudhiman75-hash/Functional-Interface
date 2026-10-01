@@ -44,18 +44,25 @@ function expectRatio(result: MalCp005SolveResult) {
   return [result.firstPart, result.secondPart] as const;
 }
 
-const PERCENT_CONVERSION_TARGETS_V2 = Object.freeze([
+const PERCENT_CONVERSION_TARGETS_Q52_V2 = Object.freeze([
   { numerator: 20, denominator: 3 },
   { numerator: 20, denominator: 1 },
   { numerator: 25, denominator: 1 },
   { numerator: 100, denominator: 3 },
-  { numerator: 50, denominator: 1 },
   { numerator: 60, denominator: 1 },
   { numerator: 200, denominator: 3 },
 ] as const);
 
-function percentConversionTargetV2(seed: string) {
-  const selected = pickV2(PERCENT_CONVERSION_TARGETS_V2, seed);
+const PERCENT_CONVERSION_TARGETS_Q53_V2 = Object.freeze([
+  ...PERCENT_CONVERSION_TARGETS_Q52_V2,
+  { numerator: 50, denominator: 1 },
+] as const);
+
+function percentConversionTargetV2(
+  seed: string,
+  values: readonly { readonly numerator: number; readonly denominator: number }[],
+) {
+  const selected = pickV2(values, seed);
   return rV2(selected.numerator, selected.denominator);
 }
 
@@ -453,6 +460,7 @@ export function adulterantPercentQuestionV2(input: {
   const state = freeStateV2(input.selectedSeed);
   const targetProfitPercent = percentConversionTargetV2(
     `${input.selectedSeed}:ql052:target-profit`,
+    PERCENT_CONVERSION_TARGETS_Q52_V2,
   );
   const request: Extract<
     MalCp005SolveRequest,
@@ -533,6 +541,7 @@ export function profitFromAdulterantPercentQuestionV2(input: {
   const state = freeStateV2(input.selectedSeed);
   const targetProfitPercent = percentConversionTargetV2(
     `${input.selectedSeed}:ql053:target-profit`,
+    PERCENT_CONVERSION_TARGETS_Q53_V2,
   );
   const adulterantPercentOfMixture = divideRational(
     multiplyRational(HUNDRED_V2, targetProfitPercent),
