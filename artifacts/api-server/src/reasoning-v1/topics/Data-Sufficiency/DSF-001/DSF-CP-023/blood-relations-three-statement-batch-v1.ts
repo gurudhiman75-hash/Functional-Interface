@@ -99,6 +99,18 @@ const adapter={
 function st(id:string,family:string,complexity:1|2|3,text:string,test:(w:World)=>boolean):Statement{return Object.freeze({id,family,complexity,text,test});}
 function rel(r:string){return r.toLowerCase().replaceAll("_"," ");}
 function displayRelation(r:string){return rel(r).replace(/\b\w/g,(ch)=>ch.toUpperCase());}
+const DISPLAY_RELATION_VALUES = [
+  "AUNT","BROTHER","BROTHER_IN_LAW","DAUGHTER","DAUGHTER_IN_LAW","FATHER","FATHER_IN_LAW",
+  "GRANDFATHER","GRANDMOTHER","GRANDDAUGHTER","GRANDSON","HUSBAND","MOTHER","MOTHER_IN_LAW",
+  "NEPHEW","NIECE","SISTER","SISTER_IN_LAW","SON","SON_IN_LAW","UNCLE","WIFE",
+] as const;
+function naturalizeRelationTokens(text:string){
+  let output=text;
+  for(const value of DISPLAY_RELATION_VALUES){
+    output=output.replaceAll(value,displayRelation(value));
+  }
+  return output;
+}
 function categoryText(value:string){
   switch(value){
     case "PARENT": return "parent-child";
@@ -177,7 +189,7 @@ function select(seed:string){
 }
 function explanation(problem:Problem,c:Candidate){
   const raw = renderThreeStatementEditorialExplanation(c.evaluation, targetLabel(problem.solveMode), c.semanticKey);
-  return raw.replace(/\b[A-Z]+(?:_[A-Z]+)+\b/g, (value) => displayRelation(value));
+  return naturalizeRelationTokens(raw);
 }
 export function generateDsfCp023BloodQuestion(seed:string|number){
   const s=String(seed),{problem,candidate:c}=select(s),options=buildThreeStatementAnswerOptions(c.semanticKey,hash(s)),correctIndex=options.findIndex(x=>x.isCorrect);
