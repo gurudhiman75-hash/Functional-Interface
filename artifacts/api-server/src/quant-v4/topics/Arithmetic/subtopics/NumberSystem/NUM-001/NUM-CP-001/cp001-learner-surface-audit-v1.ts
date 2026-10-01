@@ -30,12 +30,12 @@ for (const qlId of qlIds) {
   let minExplanationLines = Number.POSITIVE_INFINITY;
 
   for (let index = 0; index < SEEDS_PER_QL; index += 1) {
-    const seed = index + 1;
+    const seed = `NUM-CP001-LEARNER-SURFACE-AUDIT-V1:${qlId}:${index + 1}`;
     const question: any = runNumCp001QuestionStudioReview({
       questionLanguageId: qlId as any,
       language: "en",
       seed,
-    } as any);
+    });
 
     assert.equal(question.questionLanguageId, qlId, qlId + ": Question Studio QL drift.");
     assert.equal(question.options.length, 4, qlId + ": learner option count drift.");
