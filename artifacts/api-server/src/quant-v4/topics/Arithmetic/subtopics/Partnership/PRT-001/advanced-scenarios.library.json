@@ -394,7 +394,7 @@
     {
       "capitalA": 30000,
       "capitalB": 45000,
-      "joinAfterB": 4,
+      "joinAfterB": 2,
       "deduction": 10000,
       "distributableUnit": 18000
     },
@@ -406,10 +406,45 @@
       "distributableUnit": 15000
     },
     {
+      "capitalA": 30000,
+      "capitalB": 45000,
+      "joinAfterB": 4,
+      "deduction": 10000,
+      "distributableUnit": 18000
+    },
+    {
+      "capitalA": 42000,
+      "capitalB": 70000,
+      "joinAfterB": 5,
+      "deduction": 14000,
+      "distributableUnit": 16000
+    },
+    {
       "capitalA": 50000,
       "capitalB": 80000,
       "joinAfterB": 6,
       "deduction": 15000,
+      "distributableUnit": 12000
+    },
+    {
+      "capitalA": 48000,
+      "capitalB": 96000,
+      "joinAfterB": 7,
+      "deduction": 16000,
+      "distributableUnit": 14000
+    },
+    {
+      "capitalA": 40000,
+      "capitalB": 120000,
+      "joinAfterB": 8,
+      "deduction": 18000,
+      "distributableUnit": 15000
+    },
+    {
+      "capitalA": 30000,
+      "capitalB": 120000,
+      "joinAfterB": 9,
+      "deduction": 20000,
       "distributableUnit": 12000
     },
     {
@@ -418,6 +453,13 @@
       "joinAfterB": 4,
       "deduction": 18000,
       "distributableUnit": 10000
+    },
+    {
+      "capitalA": 54000,
+      "capitalB": 72000,
+      "joinAfterB": 5,
+      "deduction": 12000,
+      "distributableUnit": 20000
     }
   ]
 }
