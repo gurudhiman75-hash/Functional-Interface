@@ -125,7 +125,6 @@ function isNum001UnifiedRequest(body: Record<string, unknown>): boolean {
   const subtopic = normalizeCompatibilitySelector(body.subtopic);
   const cpId = asString(body.canonicalProblemId) || asString(body.cpId);
   const qlCp = inferNum001CpFromQl(body.questionLanguageId);
-  const numberSelectors = new Set(["number system", "numbers", "number theory"]);
 
   if (packageId === "num 002") return false;
   if (LEGACY_NUMBER_SYSTEM_CPS.has(cpId)) return false;
