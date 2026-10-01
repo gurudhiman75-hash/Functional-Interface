@@ -91,6 +91,12 @@ assert.doesNotMatch(engineRoute, /"avg 001"/);
 assert.doesNotMatch(engineRoute, /"tmw 001"/);
 assert.match(engineRoute, /packageId === "AVG-001"/);
 assert.match(engineRoute, /packageId === "TMW-001"/);
+assert.match(engineRoute, /isBankingSapCompatibilityRequest/);
+assert.match(engineRoute, /resolveLegacyQuantExamProfile/);
+assert.match(engineRoute, /legacyProfile === "BANKING_PRELIMS"/);
+assert.match(engineRoute, /legacyProfile === "BANKING_MAINS"/);
+assert.match(engineRoute, /packageId === "sap"/);
+assert.match(engineRoute, /isBankingSapCompatibilityRequest\(\(req\.body \?\? \{\}\)/);
 assert.doesNotMatch(engineRoute, /"trg 001"/);
 assert.doesNotMatch(engineRoute, /"trg 002"/);
 
