@@ -100,11 +100,20 @@ export function generatePrt001E1Parameters(input: {
 
   switch (input.entry.solveMode) {
     case "findProfitRatioWithJoinAndLeaveEvents": {
-      const scenario = random.pick([
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const scenario = numericStateRandom.pick([
         { a: 30_000, leave: 8, b: 40_000, join: 3 },
         { a: 45_000, leave: 9, b: 30_000, join: 4 },
         { a: 24_000, leave: 10, b: 36_000, join: 5 },
         { a: 36_000, leave: 7, b: 28_000, join: 2 },
+        { a: 40_000, leave: 6, b: 30_000, join: 4 },
+        { a: 50_000, leave: 10, b: 40_000, join: 2 },
+        { a: 35_000, leave: 11, b: 50_000, join: 5 },
+        { a: 48_000, leave: 8, b: 36_000, join: 3 },
+        { a: 54_000, leave: 7, b: 45_000, join: 5 },
+        { a: 42_000, leave: 9, b: 32_000, join: 2 },
       ]);
       state = makeState([
         partner(partnerA, [segment(0, scenario.leave, money(scenario.a))]),
@@ -115,11 +124,19 @@ export function generatePrt001E1Parameters(input: {
       break;
     }
     case "findUnknownLeaveTimeFromProfitRatio": {
-      const scenario = random.pick([
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const scenario = numericStateRandom.pick([
         { a: 30_000, leave: 8, b: 20_000 },
         { a: 24_000, leave: 10, b: 30_000 },
         { a: 40_000, leave: 9, b: 30_000 },
         { a: 36_000, leave: 6, b: 18_000 },
+        { a: 48_000, leave: 4, b: 20_000 },
+        { a: 42_000, leave: 5, b: 25_000 },
+        { a: 54_000, leave: 7, b: 28_000 },
+        { a: 60_000, leave: 11, b: 45_000 },
+        { a: 50_000, leave: 3, b: 25_000 },
       ]);
       state = makeState([
         partner(partnerA, [segment(0, scenario.leave, money(scenario.a))]),
