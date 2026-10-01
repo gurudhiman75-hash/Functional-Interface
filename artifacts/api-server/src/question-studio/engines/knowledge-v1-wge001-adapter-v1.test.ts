@@ -6,7 +6,7 @@ import { knowledgeV1Wge001QuestionStudioAdapterV1 as adapter, isWge001QuestionSt
 async function run() {
   const cpIds = Object.keys(WGE_CP_TITLES);
   assert.equal(WGE_CORPUS.length, 816);
-  assert.equal(WGE_VARIABLE_POOL_QUESTIONS_V1.length, 386);
+  assert.equal(WGE_VARIABLE_POOL_QUESTIONS_V1.length, 450);
   const generationPool = [...WGE_CORPUS, ...WGE_VARIABLE_POOL_QUESTIONS_V1];
   validateWorldGeographyCorpus(generationPool);
   assert.equal(adapter.listPackages().length, 44);
@@ -53,6 +53,14 @@ async function run() {
     assert.equal(regionalPackage.metadata.variablePoolEnabled, true);
     assert.equal(regionalPackage.metadata.variablePoolStatus, 'USER_APPROVED');
     assert.equal(regionalPackage.metadata.questionLanguageIds.length, 2);
+  }
+  for (const packageId of ['WGE-001-CP037','WGE-001-CP038','WGE-001-CP039','WGE-001-CP040']) {
+    const auditPackage = adapter.listPackages().find(p => p.packageId === packageId)!;
+    assert.equal(auditPackage.metadata.authoringReviewApproved, true);
+    assert.equal(auditPackage.metadata.variablePoolQuestionCount, 16);
+    assert.equal(auditPackage.metadata.variablePoolEnabled, true);
+    assert.equal(auditPackage.metadata.variablePoolStatus, 'USER_APPROVED');
+    assert.equal(auditPackage.metadata.questionLanguageIds.length, 2);
   }
   let checked = 0;
   const newCheckpointAnswerKeyAudit: Record<string, readonly number[]> = {
