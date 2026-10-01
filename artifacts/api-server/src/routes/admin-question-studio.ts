@@ -149,8 +149,11 @@ router.get("/dashboard", requireAdminPermission("content.generation.read"), asyn
           'difficultyLabel', v.payload -> 'difficultyLabel',
           'patternId', v.payload -> 'patternId',
           'packageId', v.payload -> 'packageId',
+          'cpId', v.payload -> 'cpId',
           'canonicalProblemId', v.payload -> 'canonicalProblemId',
           'selectedCpId', v.payload -> 'selectedCpId',
+          'engineId', v.payload -> 'engineId',
+          'questionLanguageId', v.payload -> 'questionLanguageId',
           'topic', v.payload -> 'topic',
           'subtopic', v.payload -> 'subtopic',
           'language', v.payload -> 'language',
@@ -159,8 +162,10 @@ router.get("/dashboard", requireAdminPermission("content.generation.read"), asyn
           'qlName', v.payload -> 'qlName',
           'stimulusSvgs', v.payload -> 'stimulusSvgs',
           'optionSvgs', v.payload -> 'optionSvgs',
+          'explanationSvgs', v.payload -> 'explanationSvgs',
           'optionLabels', v.payload -> 'optionLabels',
           'renderer', v.payload -> 'renderer',
+          'semanticMetadata', v.payload -> 'semanticMetadata',
           'contentFingerprint', v.payload -> 'contentFingerprint'
         )) AS payload
       FROM content.generation_run_items i
