@@ -1553,6 +1553,87 @@ function localizeGeoPhyBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
   return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
 
+
+function polishGeoMinBulkTextV1(text:string, language:"hi"|"pa") {
+  const hi:[string,string][] = [
+    ["mineral resources","खनिज संसाधन"],["mineral resource","खनिज संसाधन"],["minerals","खनिज"],["mineral","खनिज"],
+    ["metallic mineral","धात्विक खनिज"],["metallic minerals","धात्विक खनिज"],["non-metallic mineral","अधात्विक खनिज"],["non-metallic minerals","अधात्विक खनिज"],
+    ["ferrous mineral","लौह खनिज"],["ferrous minerals","लौह खनिज"],["non-ferrous mineral","अलौह खनिज"],["non-ferrous minerals","अलौह खनिज"],
+    ["iron ore","लौह अयस्क"],["hematite","हेमेटाइट"],["magnetite","मैग्नेटाइट"],["manganese","मैंगनीज"],["chromite","क्रोमाइट"],
+    ["bauxite","बॉक्साइट"],["copper","तांबा"],["lead","सीसा"],["zinc","जस्ता"],["mica","अभ्रक"],["limestone","चूना पत्थर"],["gypsum","जिप्सम"],
+    ["gold","सोना"],["silver","चाँदी"],["diamond","हीरा"],["uranium","यूरेनियम"],["thorium","थोरियम"],
+    ["mineral belt","खनिज पट्टी"],["mineral belts","खनिज पट्टियाँ"],["ore","अयस्क"],["ores","अयस्क"],["deposit","भंडार"],["deposits","भंडार"],
+    ["coal","कोयला"],["coalfield","कोयला क्षेत्र"],["coalfields","कोयला क्षेत्र"],["anthracite","एन्थ्रासाइट"],["bituminous","बिटुमिनस"],["lignite","लिग्नाइट"],["peat","पीट"],
+    ["coking coal","कोकिंग कोयला"],["non-coking coal","गैर-कोकिंग कोयला"],["brown coal","भूरा कोयला"],
+    ["Jharia","झरिया"],["Raniganj","रानीगंज"],["Bokaro","बोकारो"],["Talcher","तालचेर"],["Korba","कोरबा"],["Neyveli","नेवेली"],
+    ["petroleum","पेट्रोलियम"],["crude oil","कच्चा तेल"],["oilfield","तेल क्षेत्र"],["oilfields","तेल क्षेत्र"],["natural gas","प्राकृतिक गैस"],
+    ["reservoir rock","भंडार शैल"],["reservoir rocks","भंडार शैलें"],["porous rock","छिद्रयुक्त शैल"],["impermeable rock","अभेद्य शैल"],["anticline","अपनति-वक्र"],
+    ["Mumbai High","मुंबई हाई"],["Digboi","डिगबोई"],["Naharkatiya","नाहरकटिया"],["Ankleshwar","अंकलेश्वर"],["Krishna-Godavari Basin","कृष्णा-गोदावरी बेसिन"],
+    ["energy resource","ऊर्जा संसाधन"],["energy resources","ऊर्जा संसाधन"],["conventional energy","पारंपरिक ऊर्जा"],["non-conventional energy","गैर-पारंपरिक ऊर्जा"],
+    ["renewable energy","नवीकरणीय ऊर्जा"],["non-renewable energy","अनवीकरणीय ऊर्जा"],["fossil fuel","जीवाश्म ईंधन"],["fossil fuels","जीवाश्म ईंधन"],
+    ["thermal power","ताप विद्युत"],["hydroelectric power","जलविद्युत"],["hydropower","जलविद्युत"],["nuclear power","परमाणु ऊर्जा"],
+    ["solar energy","सौर ऊर्जा"],["wind energy","पवन ऊर्जा"],["biogas","बायोगैस"],["tidal energy","ज्वारीय ऊर्जा"],["geothermal energy","भूतापीय ऊर्जा"],
+    ["power plant","विद्युत संयंत्र"],["power plants","विद्युत संयंत्र"],["thermal power plant","ताप विद्युत संयंत्र"],["nuclear power plant","परमाणु विद्युत संयंत्र"],
+    ["coal-based power","कोयला-आधारित विद्युत"],["energy mix","ऊर्जा मिश्रण"],["electricity generation","विद्युत उत्पादन"],
+    ["Damodar Valley","दामोदर घाटी"],["Chotanagpur Plateau","छोटानागपुर पठार"],["Odisha-Jharkhand belt","ओडिशा-झारखंड पट्टी"],
+    ["Rajasthan","राजस्थान"],["Odisha","ओडिशा"],["Jharkhand","झारखंड"],["Chhattisgarh","छत्तीसगढ़"],["Madhya Pradesh","मध्य प्रदेश"],["Karnataka","कर्नाटक"],["Goa","गोवा"],
+    ["Andhra Pradesh","आंध्र प्रदेश"],["Telangana","तेलंगाना"],["Tamil Nadu","तमिलनाडु"],["Gujarat","गुजरात"],["Assam","असम"],
+    ["distribution","वितरण"],["occurrence","उपस्थिति"],["extraction","खनन"],["mining","खनन"],["refining","शोधन"],["smelting","गलन"],["electrolysis","विद्युत अपघटन"],
+    ["conservation","संरक्षण"],["resource conservation","संसाधन संरक्षण"],["recycling","पुनर्चक्रण"],["sustainable use","सतत उपयोग"],
+    ["Which","कौन-सा"],["which","कौन-सा"],["What","क्या"],["what","क्या"],["Why","क्यों"],["why","क्यों"],["Where","कहाँ"],["where","कहाँ"],["When","कब"],["when","कब"],["How","कैसे"],["how","कैसे"],
+    ["the",""],["and","और"],["or","या"],["is","है"],["are","हैं"],["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],["can","सकता है"],["could","सकता था"],["would","होगा"],["should","चाहिए"],["has","है"],["have","हैं"],["had","था"],
+    ["with","के साथ"],["from","से"],["into","में"],["for","के लिए"],["of","का"],["to","को"],["in","में"],["on","पर"],["at","पर"],["by","द्वारा"],["as","के रूप में"],["than","की तुलना में"],["that","कि"],["this","यह"],["these","ये"],["those","वे"],
+    ["most","सबसे"],["main","मुख्य"],["major","प्रमुख"],["only","केवल"],["correct","सही"],["statement","कथन"],["following","निम्नलिखित"]
+  ];
+  const pa:[string,string][] = [
+    ["mineral resources","ਖਣਿਜ ਸਰੋਤ"],["mineral resource","ਖਣਿਜ ਸਰੋਤ"],["minerals","ਖਣਿਜ"],["mineral","ਖਣਿਜ"],
+    ["metallic mineral","ਧਾਤਵੀ ਖਣਿਜ"],["metallic minerals","ਧਾਤਵੀ ਖਣਿਜ"],["non-metallic mineral","ਅਧਾਤਵੀ ਖਣਿਜ"],["non-metallic minerals","ਅਧਾਤਵੀ ਖਣਿਜ"],
+    ["ferrous mineral","ਲੋਹ ਧਾਤਵੀ ਖਣਿਜ"],["ferrous minerals","ਲੋਹ ਧਾਤਵੀ ਖਣਿਜ"],["non-ferrous mineral","ਗੈਰ-ਲੋਹ ਧਾਤਵੀ ਖਣਿਜ"],["non-ferrous minerals","ਗੈਰ-ਲੋਹ ਧਾਤਵੀ ਖਣਿਜ"],
+    ["iron ore","ਲੋਹ ਅਯਸਕ"],["hematite","ਹੀਮੈਟਾਈਟ"],["magnetite","ਮੈਗਨੈਟਾਈਟ"],["manganese","ਮੈਂਗਨੀਜ਼"],["chromite","ਕ੍ਰੋਮਾਈਟ"],
+    ["bauxite","ਬਾਕਸਾਈਟ"],["copper","ਤਾਂਬਾ"],["lead","ਸੀਸਾ"],["zinc","ਜ਼ਿੰਕ"],["mica","ਅਭਰਕ"],["limestone","ਚੂਨਾ ਪੱਥਰ"],["gypsum","ਜਿਪਸਮ"],
+    ["gold","ਸੋਨਾ"],["silver","ਚਾਂਦੀ"],["diamond","ਹੀਰਾ"],["uranium","ਯੂਰੇਨੀਅਮ"],["thorium","ਥੋਰੀਅਮ"],
+    ["mineral belt","ਖਣਿਜ ਪੱਟੀ"],["mineral belts","ਖਣਿਜ ਪੱਟੀਆਂ"],["ore","ਅਯਸਕ"],["ores","ਅਯਸਕ"],["deposit","ਭੰਡਾਰ"],["deposits","ਭੰਡਾਰ"],
+    ["coal","ਕੋਇਲਾ"],["coalfield","ਕੋਇਲਾ ਖੇਤਰ"],["coalfields","ਕੋਇਲਾ ਖੇਤਰ"],["anthracite","ਐਂਥ੍ਰਾਸਾਈਟ"],["bituminous","ਬਿਟੂਮਿਨਸ"],["lignite","ਲਿਗਨਾਈਟ"],["peat","ਪੀਟ"],
+    ["coking coal","ਕੋਕਿੰਗ ਕੋਇਲਾ"],["non-coking coal","ਗੈਰ-ਕੋਕਿੰਗ ਕੋਇਲਾ"],["brown coal","ਭੂਰਾ ਕੋਇਲਾ"],
+    ["Jharia","ਝਾਰੀਆ"],["Raniganj","ਰਾਣੀਗੰਜ"],["Bokaro","ਬੋਕਾਰੋ"],["Talcher","ਤਾਲਚੇਰ"],["Korba","ਕੋਰਬਾ"],["Neyveli","ਨੇਵੈਲੀ"],
+    ["petroleum","ਪੈਟਰੋਲਿਅਮ"],["crude oil","ਕੱਚਾ ਤੇਲ"],["oilfield","ਤੇਲ ਖੇਤਰ"],["oilfields","ਤੇਲ ਖੇਤਰ"],["natural gas","ਕੁਦਰਤੀ ਗੈਸ"],
+    ["reservoir rock","ਭੰਡਾਰ ਚੱਟਾਨ"],["reservoir rocks","ਭੰਡਾਰ ਚੱਟਾਨਾਂ"],["porous rock","ਛਿਦਰਦਾਰ ਚੱਟਾਨ"],["impermeable rock","ਅਭੇਦ ਚੱਟਾਨ"],["anticline","ਉੱਪਰ-ਮੋੜ"],
+    ["Mumbai High","ਮੁੰਬਈ ਹਾਈ"],["Digboi","ਡਿਗਬੋਈ"],["Naharkatiya","ਨਾਹਰਕਟੀਆ"],["Ankleshwar","ਅੰਕਲੇਸ਼ਵਰ"],["Krishna-Godavari Basin","ਕ੍ਰਿਸ਼ਨਾ-ਗੋਦਾਵਰੀ ਬੇਸਿਨ"],
+    ["energy resource","ਊਰਜਾ ਸਰੋਤ"],["energy resources","ਊਰਜਾ ਸਰੋਤ"],["conventional energy","ਰਵਾਇਤੀ ਊਰਜਾ"],["non-conventional energy","ਗੈਰ-ਰਵਾਇਤੀ ਊਰਜਾ"],
+    ["renewable energy","ਨਵੀਕਰਨਯੋਗ ਊਰਜਾ"],["non-renewable energy","ਗੈਰ-ਨਵੀਕਰਨਯੋਗ ਊਰਜਾ"],["fossil fuel","ਜੀਵਾਸ਼ਮ ਇੰਧਨ"],["fossil fuels","ਜੀਵਾਸ਼ਮ ਇੰਧਨ"],
+    ["thermal power","ਤਾਪ ਬਿਜਲੀ"],["hydroelectric power","ਜਲ-ਬਿਜਲੀ"],["hydropower","ਜਲ-ਬਿਜਲੀ"],["nuclear power","ਪਰਮਾਣੂ ਊਰਜਾ"],
+    ["solar energy","ਸੂਰਜੀ ਊਰਜਾ"],["wind energy","ਹਵਾ ਊਰਜਾ"],["biogas","ਬਾਇਓਗੈਸ"],["tidal energy","ਜਵਾਰੀ ਊਰਜਾ"],["geothermal energy","ਭੂ-ਤਾਪੀ ਊਰਜਾ"],
+    ["power plant","ਬਿਜਲੀ ਘਰ"],["power plants","ਬਿਜਲੀ ਘਰ"],["thermal power plant","ਤਾਪ ਬਿਜਲੀ ਘਰ"],["nuclear power plant","ਪਰਮਾਣੂ ਬਿਜਲੀ ਘਰ"],
+    ["coal-based power","ਕੋਇਲਾ-ਅਧਾਰਿਤ ਬਿਜਲੀ"],["energy mix","ਊਰਜਾ ਮਿਸ਼ਰਣ"],["electricity generation","ਬਿਜਲੀ ਉਤਪਾਦਨ"],
+    ["Damodar Valley","ਦਾਮੋਦਰ ਘਾਟੀ"],["Chotanagpur Plateau","ਛੋਟਾਨਾਗਪੁਰ ਪਠਾਰ"],["Odisha-Jharkhand belt","ਓਡੀਸ਼ਾ-ਝਾਰਖੰਡ ਪੱਟੀ"],
+    ["Rajasthan","ਰਾਜਸਥਾਨ"],["Odisha","ਓਡੀਸ਼ਾ"],["Jharkhand","ਝਾਰਖੰਡ"],["Chhattisgarh","ਛੱਤੀਸਗੜ੍ਹ"],["Madhya Pradesh","ਮੱਧ ਪ੍ਰਦੇਸ਼"],["Karnataka","ਕਰਨਾਟਕ"],["Goa","ਗੋਆ"],
+    ["Andhra Pradesh","ਆੰਧਰਾ ਪ੍ਰਦੇਸ਼"],["Telangana","ਤੇਲੰਗਾਨਾ"],["Tamil Nadu","ਤਮਿਲਨਾਡੂ"],["Gujarat","ਗੁਜਰਾਤ"],["Assam","ਅਸਾਮ"],
+    ["distribution","ਵੰਡ"],["occurrence","ਮੌਜੂਦਗੀ"],["extraction","ਖਣਨ"],["mining","ਖਣਨ"],["refining","ਸ਼ੋਧਨ"],["smelting","ਗਲਨ"],["electrolysis","ਬਿਜਲੀ-ਅਪਘਟਨ"],
+    ["conservation","ਸੰਰੱਖਣ"],["resource conservation","ਸਰੋਤ ਸੰਰੱਖਣ"],["recycling","ਮੁੜ-ਚੱਕਰੀਕਰਨ"],["sustainable use","ਟਿਕਾਊ ਵਰਤੋਂ"],
+    ["Which","ਕਿਹੜਾ"],["which","ਕਿਹੜਾ"],["What","ਕੀ"],["what","ਕੀ"],["Why","ਕਿਉਂ"],["why","ਕਿਉਂ"],["Where","ਕਿੱਥੇ"],["where","ਕਿੱਥੇ"],["When","ਕਦੋਂ"],["when","ਕਦੋਂ"],["How","ਕਿਵੇਂ"],["how","ਕਿਵੇਂ"],
+    ["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],["is","ਹੈ"],["are","ਹਨ"],["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],["would","ਹੋਵੇਗਾ"],["should","ਚਾਹੀਦਾ ਹੈ"],["has","ਹੈ"],["have","ਹਨ"],["had","ਸੀ"],
+    ["with","ਨਾਲ"],["from","ਤੋਂ"],["into","ਵਿੱਚ"],["for","ਲਈ"],["of","ਦਾ"],["to","ਨੂੰ"],["in","ਵਿੱਚ"],["on","ਉੱਤੇ"],["at","ਉੱਤੇ"],["by","ਦੁਆਰਾ"],["as","ਵਜੋਂ"],["than","ਨਾਲੋਂ"],["that","ਕਿ"],["this","ਇਹ"],["these","ਇਹ"],["those","ਉਹ"],
+    ["most","ਸਭ ਤੋਂ"],["main","ਮੁੱਖ"],["major","ਮੁੱਖ"],["only","ਕੇਵਲ"],["correct","ਸਹੀ"],["statement","ਕਥਨ"],["following","ਹੇਠ ਲਿਖੇ"]
+  ];
+  let out=text;
+  const pairs=language==="hi"?hi:pa;
+  for(const [from,to] of pairs.sort((a,b)=>b[0].length-a[0].length)){
+    out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
+  }
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+
+function localizeGeoMinBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
+  if(!/^GEO-MIN-001-CP(?:00[1-9]|01[0-2])-/.test(question.questionId)) return null;
+  const local=(source:string)=>polishGeoMinBulkTextV1(localizeText(source,language),language);
+  const stemBase=localizeNaturalStem(question.stem,language,"GEO-MIN-001") ?? localizeText(question.stem,language);
+  const stem=polishGeoMinBulkTextV1(stemBase,language);
+  const options=Object.freeze(question.options.map(local));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=local(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
   language: IndianGeoLocalizationLanguageV1,
@@ -1569,6 +1650,11 @@ export function localizeIndianGeoQuestionV1(
 
   if (packageId === "GEO-TRN-001") {
     const bulk = localizeGeoTrnBulkV1(question, language);
+    if (bulk) return bulk;
+  }
+
+  if (packageId === "GEO-MIN-001") {
+    const bulk = localizeGeoMinBulkV1(question, language);
     if (bulk) return bulk;
   }
 
