@@ -432,7 +432,7 @@ export function MobileHomeManagementPage(){
     </Card>
 
     <Card>
-      <CardHeader><CardTitle className="text-base">Standard section appearance</CardTitle><p className="text-sm text-muted-foreground">Override section labels, icons, layout and visibility without changing the underlying shared content.</p></CardHeader>
+      <CardHeader><CardTitle className="text-base">Standard section appearance</CardTitle><p className="text-sm text-muted-foreground">Override section labels, icons and visibility without changing the underlying shared content. Custom sections provide the configurable grid, horizontal, list and banner layouts.</p></CardHeader>
       <CardContent className="grid gap-4 md:grid-cols-2">
         {Object.entries(SECTION_LABELS).map(([id,label])=>{const setting=config?.sectionSettings[id]||{};return <div key={id} className="space-y-3 rounded-xl border p-4">
           <div className="flex items-center justify-between"><p className="font-semibold">{label}</p><Switch checked={setting.isVisible!==false} onCheckedChange={checked=>setSectionSetting(id,{isVisible:checked})}/></div>
