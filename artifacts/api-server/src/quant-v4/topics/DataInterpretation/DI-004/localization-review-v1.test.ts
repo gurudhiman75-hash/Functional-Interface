@@ -87,11 +87,11 @@ for (const locale of locales) {
     const single=localizeDi004SingleSet(generateDi004SingleLineSet({seed:`DI004-GROUP-RATIO-SINGLE-${sample}`}),locale);
     const multi=localizeDi004MultiSet(generateDi004MultiLineSet({seed:`DI004-GROUP-RATIO-MULTI-${sample}`}),locale);
     for(const q of single.questions) if(q.kind==="TWO_PAIR_RATIO"){
-      const stemPattern=locale==="hi-IN"?/पहली जोड़ी .* के कुल मान और दूसरी जोड़ी .* के कुल मान का अनुपात क्या है\?$/u:/ਪਹਿਲੀ ਜੋੜੀ .* ਦੇ ਕੁੱਲ ਮੁੱਲ ਅਤੇ ਦੂਜੀ ਜੋੜੀ .* ਦੇ ਕੁੱਲ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ\?$/u;
+      const stemPattern=locale==="hi-IN"?/\(.*\) में .* के कुल और \(.*\) में .* के कुल का अनुपात क्या है\?$/u:/\(.*\) ਵਿੱਚ .* ਦੇ ਕੁੱਲ ਅਤੇ \(.*\) ਵਿੱਚ .* ਦੇ ਕੁੱਲ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ\?$/u;
       assert(stemPattern.test(q.stem), `Unexpected DI-004 single-series group ratio: ${q.stem}`);
     }
     for(const q of multi.questions) if(q.kind==="TWO_SERIES_GROUP_RATIO"){
-      const stemPattern=locale==="hi-IN"?/पहले समूह .* में .* के कुल मान और दूसरे समूह .* में .* के कुल मान का अनुपात क्या है\?$/u:/ਪਹਿਲੇ ਸਮੂਹ .* ਵਿੱਚ .* ਦੇ ਕੁੱਲ ਮੁੱਲ ਅਤੇ ਦੂਜੇ ਸਮੂਹ .* ਵਿੱਚ .* ਦੇ ਕੁੱਲ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ\?$/u;
+      const stemPattern=locale==="hi-IN"?/\(.*\) में .* की कुल .* और \(.*\) में .* की कुल .* का अनुपात क्या है\?$/u:/\(.*\) ਵਿੱਚ .* ਦੀਆਂ ਕੁੱਲ .* ਅਤੇ \(.*\) ਵਿੱਚ .* ਦੀਆਂ ਕੁੱਲ .* ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ\?$/u;
       assert(stemPattern.test(q.stem), `Unexpected DI-004 three-series group ratio: ${q.stem}`);
     }
   }
