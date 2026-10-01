@@ -157,9 +157,9 @@ function makeIdentifyQuestion(target: RegionalFact): WorldGeographyQuestion {
     generationSource: `${target.cpId}-REGIONAL-VARIABLE-POOL-V1`,
     qlId,
     locales: {
-      en: { stem: target.stem.en, options: options('en'), explanation: `${target.feature.en} — ${target.match.en}.` },
-      hi: { stem: target.stem.hi, options: options('hi'), explanation: `${target.feature.hi} — ${target.match.hi}।` },
-      pa: { stem: target.stem.pa, options: options('pa'), explanation: `${target.feature.pa} — ${target.match.pa}।` },
+      en: { stem: target.stem.en, options: options('en'), explanation: `Correct relation: ${target.feature.en} — ${target.match.en}.` },
+      hi: { stem: target.stem.hi, options: options('hi'), explanation: `सही संबंध: ${target.feature.hi} — ${target.match.hi}।` },
+      pa: { stem: target.stem.pa, options: options('pa'), explanation: `ਸਹੀ ਸੰਬੰਧ: ${target.feature.pa} — ${target.match.pa}।` },
     },
   };
 }
@@ -182,8 +182,8 @@ function makeMatchQuestion(target: RegionalFact): WorldGeographyQuestion {
   const qlId = REGIONAL_QL_IDS[target.cpId]![1];
   const stem = {
     en: 'Which geographical feature–description pair is correctly matched?',
-    hi: 'कौन-सा भौगोलिक विशेषता–विवरण युग्म सही सुमेलित है?',
-    pa: 'ਕਿਹੜਾ ਭੂਗੋਲਿਕ ਵਿਸ਼ੇਸ਼ਤਾ–ਵੇਰਵਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
+    hi: 'भौगोलिक विशेषता और विवरण का कौन-सा युग्म सही सुमेलित है?',
+    pa: 'ਭੂਗੋਲਿਕ ਵਿਸ਼ੇਸ਼ਤਾ ਅਤੇ ਵੇਰਵੇ ਦਾ ਕਿਹੜਾ ਜੋੜ ਸਹੀ ਮਿਲਾਇਆ ਗਿਆ ਹੈ?',
   };
   return {
     id,
@@ -196,9 +196,9 @@ function makeMatchQuestion(target: RegionalFact): WorldGeographyQuestion {
     generationSource: `${target.cpId}-REGIONAL-VARIABLE-POOL-V1`,
     qlId,
     locales: {
-      en: { stem: stem.en, options: options('en'), explanation: `${target.feature.en} — ${target.match.en}.` },
-      hi: { stem: stem.hi, options: options('hi'), explanation: `${target.feature.hi} — ${target.match.hi}।` },
-      pa: { stem: stem.pa, options: options('pa'), explanation: `${target.feature.pa} — ${target.match.pa}।` },
+      en: { stem: stem.en, options: options('en'), explanation: `Correct relation: ${target.feature.en} — ${target.match.en}.` },
+      hi: { stem: stem.hi, options: options('hi'), explanation: `सही संबंध: ${target.feature.hi} — ${target.match.hi}।` },
+      pa: { stem: stem.pa, options: options('pa'), explanation: `ਸਹੀ ਸੰਬੰਧ: ${target.feature.pa} — ${target.match.pa}।` },
     },
   };
 }
