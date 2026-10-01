@@ -110,7 +110,7 @@
           "Australia",
           "Canada"
         ],
-        "explanation": "The Pilbara in Western Australia is a major iron-ore mining region."
+        "explanation": "The Pilbara lies in Western Australia. It is one of the world’s major iron-ore mining regions, with large mines linked to export ports. Therefore, the correct country is Australia."
       },
       "hi": {
         "stem": "प्रमुख लौह-अयस्क क्षेत्र पिलबरा किस देश में स्थित है?",
@@ -120,7 +120,7 @@
           "ऑस्ट्रेलिया",
           "कनाडा"
         ],
-        "explanation": "पश्चिमी ऑस्ट्रेलिया का पिलबरा प्रमुख लौह-अयस्क खनन क्षेत्र है।"
+        "explanation": "पिलबरा पश्चिमी ऑस्ट्रेलिया में स्थित है। यह विश्व के प्रमुख लौह-अयस्क खनन क्षेत्रों में से एक है और बड़े खदान क्षेत्रों का निर्यात बंदरगाहों से संपर्क है। इसलिए सही देश ऑस्ट्रेलिया है।"
       },
       "pa": {
         "stem": "ਲੋਹੇ ਦੀ ਕੱਚੀ ਧਾਤ ਲਈ ਪ੍ਰਸਿੱਧ ਪਿਲਬਰਾ ਖੇਤਰ ਕਿਹੜੇ ਦੇਸ਼ ਵਿੱਚ ਹੈ?",
@@ -130,9 +130,10 @@
           "ਆਸਟ੍ਰੇਲੀਆ",
           "ਕੈਨੇਡਾ"
         ],
-        "explanation": "ਪੱਛਮੀ ਆਸਟ੍ਰੇਲੀਆ ਦਾ ਪਿਲਬਰਾ ਲੋਹੇ ਦੀ ਕੱਚੀ ਧਾਤ ਕੱਢਣ ਦਾ ਵੱਡਾ ਖੇਤਰ ਹੈ।"
+        "explanation": "ਪਿਲਬਰਾ ਪੱਛਮੀ ਆਸਟ੍ਰੇਲੀਆ ਵਿੱਚ ਸਥਿਤ ਹੈ। ਇਹ ਦੁਨੀਆ ਦੇ ਮੁੱਖ ਲੋਹ ਅਯਸਕ ਖਦਾਨੀ ਖੇਤਰਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ ਅਤੇ ਵੱਡੀਆਂ ਖਦਾਨਾਂ ਨਿਰਯਾਤ ਬੰਦਰਗਾਹਾਂ ਨਾਲ ਜੁੜੀਆਂ ਹਨ। ਇਸ ਲਈ ਸਹੀ ਦੇਸ਼ ਆਸਟ੍ਰੇਲੀਆ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP035-Q004",
@@ -155,7 +156,7 @@
           "Nickel",
           "Copper"
         ],
-        "explanation": "Chile's Andean mining belt is particularly associated with large copper deposits."
+        "explanation": "Chile’s Andes contain major copper deposits and some of the world’s best-known copper-mining districts. The mountain belt is therefore especially associated with copper mining in Chile."
       },
       "hi": {
         "stem": "चिली के एंडीज़ क्षेत्र में किस धातु का खनन विशेष रूप से महत्वपूर्ण है?",
@@ -165,7 +166,7 @@
           "निकल",
           "ताँबा"
         ],
-        "explanation": "चिली का एंडीज़ खनन क्षेत्र विशेष रूप से बड़े ताँबा भंडारों के लिए जाना जाता है।"
+        "explanation": "चिली के एंडीज़ में बड़े ताँबा भंडार और विश्व के प्रसिद्ध ताँबा-खनन क्षेत्र पाए जाते हैं। इसलिए चिली में एंडीज़ पर्वतीय पट्टी विशेष रूप से ताँबे के खनन से जुड़ी है।"
       },
       "pa": {
         "stem": "ਚਿਲੀ ਦੇ ਐਂਡੀਜ਼ ਖੇਤਰ ਵਿੱਚ ਕਿਹੜੀ ਧਾਤ ਦੀ ਖਣਨ ਖ਼ਾਸ ਤੌਰ ਤੇ ਮਹੱਤਵਪੂਰਨ ਹੈ?",
@@ -175,9 +176,10 @@
           "ਨਿੱਕਲ",
           "ਤਾਂਬਾ"
         ],
-        "explanation": "ਚਿਲੀ ਦਾ ਐਂਡੀਜ਼ ਖਣਨ ਖੇਤਰ ਵੱਡੇ ਤਾਂਬੇ ਦੇ ਭੰਡਾਰਾਂ ਲਈ ਖ਼ਾਸ ਤੌਰ ਤੇ ਜਾਣਿਆ ਜਾਂਦਾ ਹੈ।"
+        "explanation": "ਚਿਲੀ ਦੇ ਐਂਡੀਜ਼ ਵਿੱਚ ਵੱਡੇ ਤਾਂਬੇ ਦੇ ਭੰਡਾਰ ਅਤੇ ਦੁਨੀਆ ਦੇ ਪ੍ਰਸਿੱਧ ਤਾਂਬਾ-ਖਦਾਨੀ ਖੇਤਰ ਮਿਲਦੇ ਹਨ। ਇਸ ਲਈ ਚਿਲੀ ਵਿੱਚ ਐਂਡੀਜ਼ ਪਹਾੜੀ ਪੱਟੀ ਖਾਸ ਤੌਰ ਉੱਤੇ ਤਾਂਬੇ ਦੀ ਖਦਾਨੀ ਨਾਲ ਜੁੜੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP035-Q005",
