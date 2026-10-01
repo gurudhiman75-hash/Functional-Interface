@@ -220,17 +220,26 @@ export function QuestionStudioCockpitPage() {
     if (!chapter || !chapters.includes(chapter)) setChapter(chapters[0]!);
   }, [chapter, chapters]);
 
-  const chapterPackages = useMemo(
-    () => subjectPackages
-      .filter((entry) => packageChapter(entry) === chapter)
-      .sort((left, right) => {
-        const cpDelta = packageCpIds(right).length - packageCpIds(left).length;
-        if (cpDelta !== 0) return cpDelta;
-        const idLengthDelta = left.packageId.length - right.packageId.length;
-        return idLengthDelta !== 0 ? idLengthDelta : left.packageId.localeCompare(right.packageId);
-      }),
-    [chapter, subjectPackages],
-  );
+  const chapterPackages = useMemo(() => {
+    const candidates = subjectPackages.filter((entry) => packageChapter(entry) === chapter);
+    const withoutCoveredAliases = candidates.filter((candidate) => {
+      const candidateCpIds = packageCpIds(candidate);
+      if (candidateCpIds.length === 0) return true;
+      return !candidates.some((other) => {
+        if (other.packageId === candidate.packageId) return false;
+        const otherCpIds = packageCpIds(other);
+        if (otherCpIds.length <= candidateCpIds.length) return false;
+        const otherSet = new Set(otherCpIds);
+        return candidateCpIds.every((cpId) => otherSet.has(cpId));
+      });
+    });
+    return withoutCoveredAliases.sort((left, right) => {
+      const cpDelta = packageCpIds(right).length - packageCpIds(left).length;
+      if (cpDelta !== 0) return cpDelta;
+      const idLengthDelta = left.packageId.length - right.packageId.length;
+      return idLengthDelta !== 0 ? idLengthDelta : left.packageId.localeCompare(right.packageId);
+    });
+  }, [chapter, subjectPackages]);
 
   useEffect(() => {
     if (!chapterPackages.length) {
