@@ -14,6 +14,7 @@ jobs:
   refresh:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,22 +25,10 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Build shape review exporter
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/export-shape-regions-review.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/export-shape-review.mjs
       - name: Regenerate shape review pack
-        run: node artifacts/api-server/dist/reasoning-v1/export-shape-review.mjs
-      - name: Build numerical review exporter
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Venn-Diagrams/VEN-001/export-numerical-review.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/export-numerical-review.mjs
+        run: node artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/export-shape-regions-review.ts
       - name: Regenerate numerical review pack
-        run: node artifacts/api-server/dist/reasoning-v1/export-numerical-review.mjs
+        run: node artifacts/api-server/src/reasoning-v1/topics/Venn-Diagrams/VEN-001/export-numerical-review.ts
       - name: Commit regenerated review files
         shell: bash
         run: |
