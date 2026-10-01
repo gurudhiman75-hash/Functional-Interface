@@ -1,0 +1,61 @@
+name: Validate MIS-001 Final Deep Audit
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Missing-Number/MIS-001/**'
+      - 'artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mis-001-final-deep-audit-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mis-001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Bundle MIS-001 audit gates
+        working-directory: artifacts/api-server
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Missing-Number/MIS-001
+          OUT=dist/reasoning-v1/mis-001-final-audit
+          mkdir -p "$OUT"
+          for TEST in             semantic-authority-registry.test.ts             MIS-PERMANENT-QL-REGISTRY.test.ts             english-editorial-freeze.test.ts             localization-wave1.test.ts             localization-wave2.test.ts             localization-wave3.test.ts             localization-wave4.test.ts             localization-chapter-accounting.test.ts             final-corpus-readiness.test.ts             question-studio-integration.test.ts
+          do
+            pnpm exec esbuild "$ROOT/$TEST"               --bundle --platform=node --format=esm               --outfile="$OUT/${TEST%.ts}.mjs"
+          done
+
+      - name: Run MIS-001 audit gates
+        working-directory: artifacts/api-server
+        run: |
+          set -euo pipefail
+          OUT=dist/reasoning-v1/mis-001-final-audit
+          for TEST in             semantic-authority-registry.test.mjs             MIS-PERMANENT-QL-REGISTRY.test.mjs             english-editorial-freeze.test.mjs             localization-wave1.test.mjs             localization-wave2.test.mjs             localization-wave3.test.mjs             localization-wave4.test.mjs             localization-chapter-accounting.test.mjs             final-corpus-readiness.test.mjs             question-studio-integration.test.mjs
+          do
+            node "$OUT/$TEST"
+          done
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Preserve review-only lifecycle
+        run: |
+          echo 'MIS-001 conventional deep audit validated.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
