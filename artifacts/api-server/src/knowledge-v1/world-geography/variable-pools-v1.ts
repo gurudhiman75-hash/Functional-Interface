@@ -4,6 +4,7 @@ import { WGE_REGIONAL_VARIABLE_POOL_QUESTIONS_V1, WGE_REGIONAL_VARIABLE_POOL_QL_
 import { WGE_AUDIT_D1_VARIABLE_POOL_QUESTIONS_V1, WGE_AUDIT_D1_VARIABLE_POOL_QL_IDS_V1 } from './audit-d1-pools-v1';
 import { WGE_AUDIT_D2_VARIABLE_POOL_QUESTIONS_V1, WGE_AUDIT_D2_VARIABLE_POOL_QL_IDS_V1 } from './audit-d2-pools-v1';
 import { WGE_AUDIT_D3_VARIABLE_POOL_QUESTIONS_V1, WGE_AUDIT_D3_VARIABLE_POOL_QL_IDS_V1 } from './audit-d3-pools-v1';
+import { WGE_AUDIT_E1_VARIABLE_POOL_QUESTIONS_V1, WGE_AUDIT_E1_VARIABLE_POOL_QL_IDS_V1 } from './audit-e1-pools-v1';
 
 /**
  * Typed World Geography variable pools use approved source facts and remain
@@ -519,6 +520,7 @@ export const WGE_VARIABLE_POOL_QUESTIONS_V1: readonly WorldGeographyQuestion[] =
   ...WGE_AUDIT_D1_VARIABLE_POOL_QUESTIONS_V1,
   ...WGE_AUDIT_D2_VARIABLE_POOL_QUESTIONS_V1,
   ...WGE_AUDIT_D3_VARIABLE_POOL_QUESTIONS_V1,
+  ...WGE_AUDIT_E1_VARIABLE_POOL_QUESTIONS_V1,
 ]);
 
-export const WGE_VARIABLE_POOL_QL_IDS_V1 = Object.freeze([...Object.values(qlIds), riverOutletQlId, mountainRangeQlId, lakeDescriptionQlId, desertDescriptionQlId, passageConnectionQlId, oceanCurrentQlId, ...WGE_REGIONAL_VARIABLE_POOL_QL_IDS_V1, ...WGE_AUDIT_D1_VARIABLE_POOL_QL_IDS_V1, ...WGE_AUDIT_D2_VARIABLE_POOL_QL_IDS_V1, ...WGE_AUDIT_D3_VARIABLE_POOL_QL_IDS_V1]);
+export const WGE_VARIABLE_POOL_QL_IDS_V1 = Object.freeze([...Object.values(qlIds), riverOutletQlId, mountainRangeQlId, lakeDescriptionQlId, desertDescriptionQlId, passageConnectionQlId, oceanCurrentQlId, ...WGE_REGIONAL_VARIABLE_POOL_QL_IDS_V1, ...WGE_AUDIT_D1_VARIABLE_POOL_QL_IDS_V1, ...WGE_AUDIT_D2_VARIABLE_POOL_QL_IDS_V1, ...WGE_AUDIT_D3_VARIABLE_POOL_QL_IDS_V1, ...WGE_AUDIT_E1_VARIABLE_POOL_QL_IDS_V1]);
