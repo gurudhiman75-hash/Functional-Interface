@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
-      - .github/workflows/num-001-cp003-editorial-v2.yml
       - package.json
       - pnpm-lock.yaml
   workflow_dispatch:
@@ -73,6 +72,21 @@ jobs:
           node dist/quant-v4/num-cp003-editorial-v2-audit.mjs \
             2>&1 | tee dist/quant-v4/num-cp003-editorial-v2-audit.log
 
+      - name: Bundle CP003 semantic remediation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-003/cp003-semantic-remediation-audit-v1.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp003-semantic-remediation-audit-v1.mjs
+
+      - name: Run CP003 semantic remediation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp003-semantic-remediation-audit-v1.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp003-semantic-remediation-audit-v1.log
+          grep -q "PASS_NUM_CP003_SEMANTIC_REMEDIATION_AUDIT_V1" artifacts/api-server/dist/quant-v4/num-cp003-semantic-remediation-audit-v1.log
+
       - name: Upload Editorial V2 review evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -80,6 +94,7 @@ jobs:
           name: num-001-cp003-editorial-v2-review
           path: |
             artifacts/api-server/dist/quant-v4/num-cp003-editorial-v2-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp003-semantic-remediation-audit-v1.log
             artifacts/api-server/dist/quant-v4/num-cp003-editorial-v2/num-cp003-editorial-v2-68q-review.json
             artifacts/api-server/dist/quant-v4/num-cp003-editorial-v2/num-cp003-editorial-v2-68q-review.md
             artifacts/api-server/dist/quant-v4/num-cp003-editorial-v2/num-cp003-editorial-v2-68q-review.csv
