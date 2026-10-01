@@ -143,7 +143,7 @@ function targetLabel(mode: DsfCp012DirectionSolveMode): string {
 function promptFor(mode: DsfCp012DirectionSolveMode): string {
   switch (mode) {
     case "DSF-SM-DIR-FINAL-FACING": return "Which direction is the person facing after the third movement?";
-    case "DSF-SM-DIR-FINAL-COORDINATES": return "Taking the starting point as (0, 0), what are the final coordinates?";
+    case "DSF-SM-DIR-FINAL-COORDINATES": return "Where is the final point relative to the starting point?";
     case "DSF-SM-DIR-SHORTEST-DISTANCE": return "What is the shortest distance from the final point to the starting point?";
   }
 }
@@ -168,7 +168,7 @@ function buildStatementPool(problem: DirectionProblem): readonly DirectionStatem
     statement(`PATH_${a.totalPath}`, "TOTAL_PATH_EXACT", 2, `The total path length travelled is ${a.totalPath} m.`, (w) => w.totalPath === a.totalPath),
     statement(`XSIGN_${signLabel(a.finalX)}`, "FINAL_X_SIGN", 2, `The final east-west coordinate is ${signLabel(a.finalX)}.`, (w) => signLabel(w.finalX) === signLabel(a.finalX)),
     statement(`YSIGN_${signLabel(a.finalY)}`, "FINAL_Y_SIGN", 2, `The final north-south coordinate is ${signLabel(a.finalY)}.`, (w) => signLabel(w.finalY) === signLabel(a.finalY)),
-  ];
+  ].filter((entry) => !["FINAL_X_EXACT", "FINAL_Y_EXACT", "FINAL_COMPONENT_PAIR", "FINAL_X_SIGN", "FINAL_Y_SIGN"].includes(entry.family));
 }
 
 function pairQuality(first: DirectionStatement, second: DirectionStatement, evaluation: TwoStatementSufficiencyEvaluation<string>): number {
