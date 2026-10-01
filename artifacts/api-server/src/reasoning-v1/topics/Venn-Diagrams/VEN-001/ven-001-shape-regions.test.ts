@@ -182,7 +182,7 @@ for (const language of ["en", "hi", "pa"] as const) {
     if (language === "pa") {
       assert.doesNotMatch(
         `${q.stem} ${q.explanation}`,
-        /[\u0900-\u097F]/u,
+        /[\u0900-\u0963\u0966-\u097F]/u,
         "CP011 Punjabi output must not contain Devanagari leakage",
       );
       assert.doesNotMatch(
