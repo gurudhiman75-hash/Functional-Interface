@@ -232,6 +232,12 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
     void refreshReviewPage();
   }, [refreshReviewPage]);
 
+  useEffect(() => {
+    const handleRefresh = () => void refreshReviewPage();
+    window.addEventListener(QUESTION_STUDIO_REFRESH_EVENT, handleRefresh);
+    return () => window.removeEventListener(QUESTION_STUDIO_REFRESH_EVENT, handleRefresh);
+  }, [refreshReviewPage]);
+
   return {
     reviewPage,
     loadingReviewPage,
