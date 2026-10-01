@@ -6,7 +6,7 @@ function assert(condition: boolean, message: string): asserts condition {
 }
 
 const routeSource = readFileSync(resolve(process.cwd(), "src/routes/admin-question-studio-data-sufficiency.ts"), "utf8");
-const routeIndexSource = readFileSync(resolve(process.cwd(), "src/routes/index.ts"), "utf8");
+const questionStudioRegistrySource = readFileSync(resolve(process.cwd(), "src/routes/admin-question-studio-registry.ts"), "utf8");
 const adminApiSource = readFileSync(resolve(process.cwd(), "../admin-app/src/features/question-studio/data-sufficiency-review-api.ts"), "utf8");
 const adminPanelSource = readFileSync(resolve(process.cwd(), "../admin-app/src/pages/content/QuestionStudioDataSufficiencyReviewPanel.tsx"), "utf8");
 const operationsSource = readFileSync(resolve(process.cwd(), "../admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"), "utf8");
@@ -28,7 +28,8 @@ const declaredRoutes = [...routeSource.matchAll(/router\.(get|post|put|patch|del
   .map((match) => `${match[1]!.toUpperCase()} ${match[2]!}`);
 assert(declaredRoutes.length === 4, `Expected exactly four Data Sufficiency Studio routes, found ${declaredRoutes.length}`);
 assert(!declaredRoutes.some((route) => /publish|question-bank|mock|test/i.test(route)), "Parallel DSF downstream route leaked into Question Studio");
-assert(routeIndexSource.includes('router.use("/admin/question-studio", adminQuestionStudioDataSufficiencyRouter);'), "DSF router mount missing");
+assert(questionStudioRegistrySource.includes('const adminQuestionStudioDataSufficiencyRouter = lazyRouter(() => import("./admin-question-studio-data-sufficiency"));'), "DSF router registry entry missing");
+assert(questionStudioRegistrySource.includes("router.use(adminQuestionStudioDataSufficiencyRouter);"), "DSF router registry mount missing");
 
 for (const lifecycleFragment of [
   "questionStudioDiscoverable: true", "persistenceAllowed: true", "reviewOnly: true",

@@ -10,7 +10,7 @@ const testsRoute = readFileSync(resolve(root, "src/routes/admin-tests.ts"), "utf
 
 const dsfRouteMatches = [...route.matchAll(/router\.(?:get|post)\("\/reasoning\/data-sufficiency\//g)];
 assert.equal(dsfRouteMatches.length, 4, "DSF must keep exactly four Question Studio routes");
-assert.ok(route.includes('activationMode: "MOCK_TEST_RELEASE_ENABLED"'));
+assert.ok(route.includes('activationMode: "MULTILINGUAL_MOCK_TEST_RELEASE_ENABLED"'));
 assert.ok(route.includes('questionBankAcceptanceMode: "FULL_RELEASE"'));
 assert.ok(route.includes('testReleaseCheckpointId: DSF_CP005_CHECKPOINT_ID'));
 assert.ok(route.includes('testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY'));

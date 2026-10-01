@@ -23,6 +23,10 @@ import { generateDsfCp013CodingBatch } from "../DSF-CP-013/coding-runtime-v1.ts"
 import { generateDsfCp013CalendarBatch } from "../DSF-CP-013/calendar-runtime-v1.ts";
 import type { DsfReasoningEditorialLane } from "../DSF-CP-014/reasoning-common-base-editorial-overlay.ts";
 import {
+  localizeDsfReasoningQuestion,
+  type DsfReasoningLocalizedLanguage,
+} from "../DSF-CP-018/reasoning-localization-v1.ts";
+import {
   DSF_CURRENT_NEXT_AVAILABLE_QL_ID,
   DSF_CURRENT_PERMANENT_QL_REGISTRY,
 } from "../foundation/current-permanent-ql-registry.ts";
@@ -32,7 +36,22 @@ export const DSF_CP017_CHECKPOINT_ID = "DSF-CP-017" as const;
 export const DSF_CP017_PACKAGE_ID = "DSF-001" as const;
 export const DSF_CP017_GENERATABLE_QL_IDS = ["DSF-QL-001"] as const;
 export const DSF_CP017_RUNTIME_DEFERRED_QL_IDS = ["DSF-QL-002"] as const;
-export const DSF_CP017_SUPPORTED_LANGUAGES = ["en"] as const;
+export const DSF_CP017_SUPPORTED_LANGUAGES = ["en", "hi", "pa"] as const;
+export const DSF_CP017_LEGACY_LOCALIZED_LANES = [
+  "DSF-QS-LEGACY-NUMBER-SYSTEM",
+  "DSF-QS-LEGACY-RATIO",
+  "DSF-QS-LEGACY-PERCENTAGE",
+  "DSF-QS-LEGACY-ALGEBRA",
+] as const;
+export const DSF_CP018_REASONING_LOCALIZED_LANES = [
+  "DSF-QS-RANKING",
+  "DSF-QS-DIRECTION",
+  "DSF-QS-BLOOD-RELATIONS",
+  "DSF-QS-INEQUALITY",
+  "DSF-QS-SEATING",
+  "DSF-QS-CODING",
+  "DSF-QS-CALENDAR",
+] as const;
 export const DSF_CP017_SUPPORTED_DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
 export const DSF_CP017_LEARNER_STEM_VERSION = "DSF_CP017_DIRECT_EXAM_STEM_V1" as const;
 
@@ -103,7 +122,9 @@ export const DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
     qlId: "DSF-QL-001" as const,
     domainFamily: lane.domainFamily,
     sourceChapter: lane.sourceChapter,
-    supportedLanguages: DSF_CP017_SUPPORTED_LANGUAGES,
+    supportedLanguages: lane.domainFamily === "REASONING" || DSF_CP017_LEGACY_LOCALIZED_LANES.includes(lane.laneId as any)
+      ? DSF_CP017_SUPPORTED_LANGUAGES
+      : ["en"] as const,
   }))),
   laneCount: DSF_CP017_LANES.length,
   permanentQlCount: DSF_CURRENT_PERMANENT_QL_REGISTRY.length,
@@ -154,14 +175,16 @@ function normalizeDifficulty(value: unknown): DsfCp017Difficulty | undefined {
   throw new Error(`Unsupported Data Sufficiency difficulty '${String(value)}'.`);
 }
 
-function normalizeLanguage(value: unknown): "en" {
+function normalizeLanguage(value: unknown): "en" | "hi" | "pa" {
   const language = String(value ?? "en").trim().toLowerCase() || "en";
-  if (language !== "en") {
-    throw new Error(
-      `The CP011-CP013 normal Data Sufficiency Studio expansion is English-first. '${language}' remains available only through the existing approved DSF localization route until the new breadth is localized.`,
-    );
-  }
-  return "en";
+  if (language === "en" || language === "hi" || language === "pa") return language;
+  throw new Error(`Unsupported Data Sufficiency language '${language}'.`);
+}
+
+function laneSupportsLanguage(lane: LaneEntry, language: "en" | "hi" | "pa"): boolean {
+  if (language === "en") return true;
+  if (DSF_CP017_LEGACY_LOCALIZED_LANES.includes(lane.laneId as any)) return true;
+  return DSF_CP018_REASONING_LOCALIZED_LANES.includes(lane.laneId as any);
 }
 
 function requestedQl(input: DsfCp017QuestionStudioInput): string | undefined {
@@ -188,27 +211,32 @@ function laneById(value: unknown): LaneEntry | undefined {
   return DSF_CP017_LANES.find((lane) => lane.laneId === id);
 }
 
-function candidateLanes(input: DsfCp017QuestionStudioInput): readonly LaneEntry[] {
+function candidateLanes(input: DsfCp017QuestionStudioInput, language: "en" | "hi" | "pa"): readonly LaneEntry[] {
   const explicitLane = laneById(input.laneId) ?? laneById(input.canonicalProblemId);
   if (input.laneId && !explicitLane) throw new Error(`Unsupported Data Sufficiency lane '${input.laneId}'.`);
   if (input.canonicalProblemId && !String(input.canonicalProblemId).toUpperCase().startsWith("DSF-QL-") && !explicitLane) {
     throw new Error(`Unsupported Data Sufficiency canonical problem '${input.canonicalProblemId}'.`);
   }
-  if (explicitLane) return [explicitLane];
+  if (explicitLane) {
+    if (!laneSupportsLanguage(explicitLane, language)) {
+      throw new Error(`${explicitLane.laneId} is not yet localized for '${language}'. Its current CP017 review surface remains English-only pending the Quant expansion localization pass.`);
+    }
+    return [explicitLane];
+  }
 
   const checkpoint = String(input.cpId ?? "").trim().toUpperCase();
-  if (!checkpoint) return DSF_CP017_LANES;
-  const lanes = DSF_CP017_LANES.filter((lane) => lane.checkpointId === checkpoint);
+  if (!checkpoint) return DSF_CP017_LANES.filter((lane) => laneSupportsLanguage(lane, language));
+  const lanes = DSF_CP017_LANES.filter((lane) => lane.checkpointId === checkpoint && laneSupportsLanguage(lane, language));
   if (!lanes.length) throw new Error(`Checkpoint '${checkpoint}' has no normal Data Sufficiency batch runtime.`);
   return lanes;
 }
 
-function legacyQuestion(domain: DsfStudioDomainId, seed: number): AnyQuestion {
+function legacyQuestion(domain: DsfStudioDomainId, seed: number, language: "en" | "hi" | "pa"): AnyQuestion {
   return generateDsfQuestionStudioBatch({
     seed: `${DSF_CP017_QUESTION_STUDIO_AUTHORITY}:${seed}`,
     count: 1,
     domain,
-    language: "en",
+    language,
   }).questions[0]! as AnyQuestion;
 }
 
@@ -219,12 +247,12 @@ function reasoningSurface(_lane: DsfReasoningEditorialLane, question: AnyQuestio
   });
 }
 
-function generateLaneQuestion(lane: LaneEntry, seed: number): AnyQuestion {
+function generateLaneQuestion(lane: LaneEntry, seed: number, language: "en" | "hi" | "pa"): AnyQuestion {
   switch (lane.laneId) {
-    case "DSF-QS-LEGACY-NUMBER-SYSTEM": return legacyQuestion("NUMBER_SYSTEM", seed);
-    case "DSF-QS-LEGACY-RATIO": return legacyQuestion("RATIO_PROPORTION", seed);
-    case "DSF-QS-LEGACY-PERCENTAGE": return legacyQuestion("PERCENTAGE", seed);
-    case "DSF-QS-LEGACY-ALGEBRA": return legacyQuestion("ALGEBRA", seed);
+    case "DSF-QS-LEGACY-NUMBER-SYSTEM": return legacyQuestion("NUMBER_SYSTEM", seed, language);
+    case "DSF-QS-LEGACY-RATIO": return legacyQuestion("RATIO_PROPORTION", seed, language);
+    case "DSF-QS-LEGACY-PERCENTAGE": return legacyQuestion("PERCENTAGE", seed, language);
+    case "DSF-QS-LEGACY-ALGEBRA": return legacyQuestion("ALGEBRA", seed, language);
     case "DSF-QS-AVERAGE": return generateDsfCp011AverageBatch([seed])[0]! as AnyQuestion;
     case "DSF-QS-AGES": return generateDsfCp011AgesEditorialBatch([seed])[0]! as AnyQuestion;
     case "DSF-QS-PROFIT-LOSS-DISCOUNT": return generateDsfCp011PnlBatch([seed])[0]! as AnyQuestion;
@@ -235,13 +263,34 @@ function generateLaneQuestion(lane: LaneEntry, seed: number): AnyQuestion {
     case "DSF-QS-MENSURATION": return generateDsfCp011MensurationBatch([seed])[0]! as AnyQuestion;
     case "DSF-QS-CORE-ENRICHMENT": return generateDsfCp011CoreEnrichmentBatch([seed])[0]! as AnyQuestion;
     case "DSF-QS-ALGEBRA-ENRICHMENT": return generateDsfCp011AlgebraEnrichmentBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-RANKING": return reasoningSurface("RANKING", generateDsfCp012RankingBatch([seed])[0]! as AnyQuestion);
-    case "DSF-QS-DIRECTION": return reasoningSurface("DIRECTION", generateDsfCp012DirectionBatch([seed])[0]! as AnyQuestion);
-    case "DSF-QS-BLOOD-RELATIONS": return reasoningSurface("BLOOD_RELATIONS", generateDsfCp012BloodQuestion(seed) as AnyQuestion);
-    case "DSF-QS-INEQUALITY": return reasoningSurface("INEQUALITY", generateDsfCp012InequalityBatch([seed])[0]! as AnyQuestion);
-    case "DSF-QS-SEATING": return reasoningSurface("SEATING", generateDsfCp013SeatingBatch([seed])[0]! as AnyQuestion);
-    case "DSF-QS-CODING": return reasoningSurface("CODING", generateDsfCp013CodingBatch([seed])[0]! as AnyQuestion);
-    case "DSF-QS-CALENDAR": return reasoningSurface("CALENDAR", generateDsfCp013CalendarBatch([seed])[0]! as AnyQuestion);
+    case "DSF-QS-RANKING": {
+      const q = reasoningSurface("RANKING", generateDsfCp012RankingBatch([seed])[0]! as AnyQuestion);
+      return language === "en" ? q : localizeDsfReasoningQuestion(lane.laneId, q, language as DsfReasoningLocalizedLanguage);
+    }
+    case "DSF-QS-DIRECTION": {
+      const q = reasoningSurface("DIRECTION", generateDsfCp012DirectionBatch([seed])[0]! as AnyQuestion);
+      return language === "en" ? q : localizeDsfReasoningQuestion(lane.laneId, q, language as DsfReasoningLocalizedLanguage);
+    }
+    case "DSF-QS-BLOOD-RELATIONS": {
+      const q = reasoningSurface("BLOOD_RELATIONS", generateDsfCp012BloodQuestion(seed) as AnyQuestion);
+      return language === "en" ? q : localizeDsfReasoningQuestion(lane.laneId, q, language as DsfReasoningLocalizedLanguage);
+    }
+    case "DSF-QS-INEQUALITY": {
+      const q = reasoningSurface("INEQUALITY", generateDsfCp012InequalityBatch([seed])[0]! as AnyQuestion);
+      return language === "en" ? q : localizeDsfReasoningQuestion(lane.laneId, q, language as DsfReasoningLocalizedLanguage);
+    }
+    case "DSF-QS-SEATING": {
+      const q = reasoningSurface("SEATING", generateDsfCp013SeatingBatch([seed])[0]! as AnyQuestion);
+      return language === "en" ? q : localizeDsfReasoningQuestion(lane.laneId, q, language as DsfReasoningLocalizedLanguage);
+    }
+    case "DSF-QS-CODING": {
+      const q = reasoningSurface("CODING", generateDsfCp013CodingBatch([seed])[0]! as AnyQuestion);
+      return language === "en" ? q : localizeDsfReasoningQuestion(lane.laneId, q, language as DsfReasoningLocalizedLanguage);
+    }
+    case "DSF-QS-CALENDAR": {
+      const q = reasoningSurface("CALENDAR", generateDsfCp013CalendarBatch([seed])[0]! as AnyQuestion);
+      return language === "en" ? q : localizeDsfReasoningQuestion(lane.laneId, q, language as DsfReasoningLocalizedLanguage);
+    }
   }
 }
 
@@ -290,7 +339,7 @@ function sourceIdentity(question: AnyQuestion): string {
 
 function normalQuestionId(lane: LaneEntry, question: AnyQuestion): string {
   return `DSF-QS17-${createHash("sha256")
-    .update(`${DSF_CP017_QUESTION_STUDIO_AUTHORITY}:${lane.laneId}:${sourceIdentity(question)}`)
+    .update(`${DSF_CP017_QUESTION_STUDIO_AUTHORITY}:${lane.laneId}:${String(question.language ?? "en")}:${sourceIdentity(question)}`)
     .digest("hex")
     .slice(0, 24)}`;
 }
@@ -411,8 +460,8 @@ function normalizeQuestion(lane: LaneEntry, question: AnyQuestion) {
     topic: "Reasoning" as const,
     subtopic: "Data Sufficiency" as const,
     subject: "Reasoning Ability" as const,
-    language: "en" as const,
-    locale: String(question.locale ?? "en-IN"),
+    language: String(question.language ?? "en") as "en" | "hi" | "pa",
+    locale: String(question.locale ?? (question.language === "hi" ? "hi-IN" : question.language === "pa" ? "pa-IN" : "en-IN")),
     seed: Number(question.seed ?? 0),
     generationSeed: Number(question.seed ?? 0),
     questionId,
@@ -455,8 +504,8 @@ function normalizeQuestion(lane: LaneEntry, question: AnyQuestion) {
       solveMode,
       semanticClass: canonicalAnswer,
       difficulty: String(question.difficulty ?? "Medium"),
-      language: "en" as const,
-      locale: String(question.locale ?? "en-IN"),
+      language: String(question.language ?? "en") as "en" | "hi" | "pa",
+      locale: String(question.locale ?? (question.language === "hi" ? "hi-IN" : question.language === "pa" ? "pa-IN" : "en-IN")),
       integrationAuthority: DSF_CP017_QUESTION_STUDIO_AUTHORITY,
       questionStudioDiscoverable: true as const,
       persistenceAllowed: true as const,
@@ -489,10 +538,10 @@ export function isDsf001NormalQuestionStudioRequest(input: DsfCp017QuestionStudi
 }
 
 export function previewDsf001NormalQuestionStudioReview(input: DsfCp017QuestionStudioInput = {}) {
-  normalizeLanguage(input.language);
+  const language = normalizeLanguage(input.language);
   assertGeneratableQl(input);
   const difficulty = normalizeDifficulty(input.difficulty);
-  const lanes = candidateLanes(input);
+  const lanes = candidateLanes(input, language);
   const count = Math.min(50, Math.max(1, Math.floor(Number(input.count ?? 5) || 5)));
   const seedText = String(input.seed ?? "").trim() || "dsf-normal-question-studio";
   const questions: ReturnType<typeof normalizeQuestion>[] = [];
@@ -505,7 +554,7 @@ export function previewDsf001NormalQuestionStudioReview(input: DsfCp017QuestionS
       const lane = lanes[stableHash(`${seedText}:lane:${itemIndex}:${attempt}`) % lanes.length]!;
       const seed = numericSeed(seedText, itemIndex, attempt);
       try {
-        const normalized = normalizeQuestion(lane, generateLaneQuestion(lane, seed));
+        const normalized = normalizeQuestion(lane, generateLaneQuestion(lane, seed, language));
         if (difficulty && normalized.difficulty !== difficulty) continue;
         if (seen.has(normalized.sourceGenerationIdentity)) continue;
         found = normalized;
@@ -548,7 +597,7 @@ export function previewDsf001NormalQuestionStudioReview(input: DsfCp017QuestionS
       mockTestEligible: false as const,
       publiclyPublishable: false as const,
       automaticStudentPublication: false as const,
-      language: "en" as const,
+      language,
       difficulty: difficulty ?? null,
     }),
     questions: Object.freeze(questions),
