@@ -149,6 +149,8 @@ router.get("/dashboard", requireAdminPermission("content.generation.read"), asyn
           'difficultyLabel', v.payload -> 'difficultyLabel',
           'patternId', v.payload -> 'patternId',
           'packageId', v.payload -> 'packageId',
+          'canonicalProblemId', v.payload -> 'canonicalProblemId',
+          'selectedCpId', v.payload -> 'selectedCpId',
           'topic', v.payload -> 'topic',
           'subtopic', v.payload -> 'subtopic',
           'language', v.payload -> 'language',
@@ -214,6 +216,9 @@ router.get("/dashboard", requireAdminPermission("content.generation.read"), asyn
 router.post("/runs", requireAdminPermission("content.generation.run"), async (req, res) => {
   const count = asPositiveInteger(req.body?.count, 5, 50);
   const packageId = asString(req.body?.packageId) || undefined;
+  const requestedCpIds = Array.isArray(req.body?.cpIds)
+    ? [...new Set(req.body.cpIds.map(asString).filter(Boolean))].slice(0, 50)
+    : [];
   const patternId = asString(req.body?.patternId) || undefined;
   const topic = asString(req.body?.topic) || "Arithmetic";
   const subtopic = asString(req.body?.subtopic) || "Percentage";
@@ -225,6 +230,11 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
   const runtimeMode = asString(req.body?.runtimeMode) || undefined;
   const canonicalProblemId =
     asString(req.body?.canonicalProblemId) || asString(req.body?.cpId) || undefined;
+  const selectedCpIds = requestedCpIds.length > 0
+    ? requestedCpIds
+    : canonicalProblemId
+      ? [canonicalProblemId]
+      : [];
   const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
 
   if (!packageId && !patternId && !(topic && subtopic)) {
@@ -232,6 +242,27 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
       error: "A package, pattern, or topic/subtopic selection is required",
     });
     return;
+  }
+
+  if (packageId && selectedCpIds.length > 0) {
+    const packageDefinition = listQuantV4Packages().find(
+      (pkg) => String(pkg.packageId) === packageId,
+    );
+    if (packageDefinition) {
+      const allowedCpIds = new Set([
+        ...(Array.isArray(packageDefinition.cpIds) ? packageDefinition.cpIds.map(String) : []),
+        ...(Array.isArray((packageDefinition as any).dynamicCandidateCpIds)
+          ? (packageDefinition as any).dynamicCandidateCpIds.map(String)
+          : []),
+      ]);
+      const invalidCpIds = selectedCpIds.filter((cpId) => !allowedCpIds.has(cpId));
+      if (invalidCpIds.length > 0) {
+        res.status(400).json({
+          error: `Selected CPs are not available in ${packageId}: ${invalidCpIds.join(", ")}`,
+        });
+        return;
+      }
+    }
   }
 
   const runId = randomUUID();
@@ -250,29 +281,68 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
     language,
     seed,
     runtimeMode,
-    canonicalProblemId,
+    canonicalProblemId: selectedCpIds.length === 1 ? selectedCpIds[0] : undefined,
+    cpIds: selectedCpIds,
     questionLanguageId,
     requestedByFirebaseUid: req.user?.id,
   };
 
   try {
-    const result = await generateQuantV4Questions({
-      packageId: packageId as never,
-      patternId,
-      topic,
-      subtopic,
-      difficulty,
-      language: language as "en" | "hi" | "pa",
-      seed,
-      count,
-      runtimeMode: runtimeMode as "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE" | undefined,
-      canonicalProblemId,
-      questionLanguageId,
-    });
+    const generationRequests = selectedCpIds.length > 0
+      ? selectedCpIds.map((cpId, index) => {
+          const baseCount = Math.floor(count / selectedCpIds.length);
+          const remainder = count % selectedCpIds.length;
+          return {
+            cpId,
+            count: baseCount + (index < remainder ? 1 : 0),
+          };
+        }).filter((entry) => entry.count > 0)
+      : [{ cpId: undefined, count }];
 
-    const generatedQuestions = Array.isArray(result.questions)
-      ? result.questions
-      : [];
+    if (selectedCpIds.length > count) {
+      res.status(400).json({
+        error: `Question count must be at least the number of selected CPs (${selectedCpIds.length})`,
+      });
+      return;
+    }
+
+    const generatedQuestions: Array<Record<string, unknown>> = [];
+    const generationContexts: Array<{ cpId?: string; context: unknown }> = [];
+
+    for (let index = 0; index < generationRequests.length; index++) {
+      const request = generationRequests[index]!;
+      const cpSeed = seed && request.cpId
+        ? `${seed}:cp:${request.cpId}:slot:${index + 1}`
+        : seed;
+
+      const result = await generateQuantV4Questions({
+        packageId: packageId as never,
+        patternId,
+        topic,
+        subtopic,
+        difficulty,
+        language: language as "en" | "hi" | "pa",
+        seed: cpSeed,
+        count: request.count,
+        runtimeMode: runtimeMode as "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE" | undefined,
+        canonicalProblemId: request.cpId,
+        questionLanguageId,
+      });
+
+      const questions = Array.isArray(result.questions) ? result.questions : [];
+      generationContexts.push({ cpId: request.cpId, context: result.generationContext });
+
+      for (const question of questions) {
+        generatedQuestions.push({
+          ...question,
+          canonicalProblemId:
+            asString((question as Record<string, unknown>)?.canonicalProblemId) ||
+            request.cpId,
+          selectedCpId: request.cpId,
+          generationContext: result.generationContext,
+        });
+      }
+    }
 
     if (generatedQuestions.length === 0) {
       res.status(422).json({ error: "The generation engine returned no questions" });
@@ -323,7 +393,7 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
         const versionId = randomUUID();
         const payload = {
           ...generatedQuestions[index],
-          generationContext: result.generationContext,
+          generationContexts,
           validationResult: "pending",
         };
 
