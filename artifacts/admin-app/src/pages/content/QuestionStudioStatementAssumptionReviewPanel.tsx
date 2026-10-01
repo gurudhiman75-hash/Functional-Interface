@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { QUESTION_STUDIO_REFRESH_EVENT } from '@/features/question-studio/events';
-import { useQuestionStudio } from '@/features/question-studio/useQuestionStudio';
+import { useQuestionStudio, useQuestionStudioReviewPage } from '@/features/question-studio/useQuestionStudio';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
 const STA_PACKAGE_ID = 'STA-001';
@@ -75,7 +75,7 @@ function examForProfile(profileId: string) {
 export function QuestionStudioStatementAssumptionReviewPanel() {
   const { hasPermission } = useAdminPermissions();
   const canRun = hasPermission('content.generation.run');
-  const { dashboard, capabilities, loading, generating, error, generate } = useQuestionStudio();
+  const { capabilities, loading, generating, error, generate } = useQuestionStudio({ loadDashboard: false });
 
   const [qlId, setQlId] = useState<StaQlId>('STA-QL-001');
   const [profileId, setProfileId] = useState<string>(AUTO_PROFILE);
@@ -88,10 +88,12 @@ export function QuestionStudioStatementAssumptionReviewPanel() {
     () => capabilities.packages.find((entry) => entry.packageId === STA_PACKAGE_ID),
     [capabilities.packages],
   );
-  const staRuns = useMemo(
-    () => dashboard.runs.filter((run) => run.requestSnapshot?.packageId === STA_PACKAGE_ID),
-    [dashboard.runs],
-  );
+  const { reviewPage } = useQuestionStudioReviewPage({
+    page: 1,
+    pageSize: 50,
+    packageId: STA_PACKAGE_ID,
+  });
+  const staRuns = reviewPage.runs;
   const staItems = useMemo(() => staRuns.flatMap((run) => run.items), [staRuns]);
 
   const supportedLanguages = pkg?.supportedLanguages.length ? pkg.supportedLanguages : ['en'];
@@ -153,7 +155,7 @@ export function QuestionStudioStatementAssumptionReviewPanel() {
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <Metric label="V4.1 candidate QLs" value={6} />
           <Metric label="Semantic authorities" value={108} />
-          <Metric label="Studio items" value={staItems.length} />
+          <Metric label="Recent page items" value={staItems.length} />
           <Metric label="Question Bank" value="Locked" />
         </div>
 
