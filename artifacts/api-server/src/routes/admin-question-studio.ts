@@ -101,6 +101,7 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
   const pageSize = asPositiveInteger(req.query?.pageSize, 20, 50);
   const subject = asString(req.query?.subject) || null;
   const chapter = asString(req.query?.chapter) || null;
+  const packageId = asString(req.query?.packageId) || null;
   const status = asString(req.query?.status) || null;
   const search = asString(req.query?.search).slice(0, 200);
   const searchPattern = search ? `%${search}%` : null;
@@ -121,6 +122,7 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
           OR r.request_snapshot ->> 'topic' = ${chapter}
           OR r.request_snapshot ->> 'subtopic' = ${chapter}
         )
+        AND (${packageId}::text IS NULL OR r.request_snapshot ->> 'packageId' = ${packageId})
         AND (
           ${status}::text IS NULL
           OR EXISTS (
@@ -191,6 +193,7 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
           OR r.request_snapshot ->> 'topic' = ${chapter}
           OR r.request_snapshot ->> 'subtopic' = ${chapter}
         )
+        AND (${packageId}::text IS NULL OR r.request_snapshot ->> 'packageId' = ${packageId})
         AND (
           ${status}::text IS NULL
           OR EXISTS (
@@ -373,6 +376,7 @@ router.get("/review-page", requireAdminPermission("content.generation.read"), as
       filters: {
         subject,
         chapter,
+        packageId,
         status,
         search: search || null,
       },

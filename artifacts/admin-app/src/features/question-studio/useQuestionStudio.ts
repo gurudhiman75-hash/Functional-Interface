@@ -36,6 +36,7 @@ const EMPTY_REVIEW_PAGE: QuestionStudioReviewPage = {
   filters: {
     subject: null,
     chapter: null,
+    packageId: null,
     status: null,
     search: null,
   },
@@ -202,6 +203,7 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
   const pageSize = query.pageSize ?? 20;
   const subject = query.subject ?? '';
   const chapter = query.chapter ?? '';
+  const packageId = query.packageId ?? '';
   const status = query.status;
   const search = query.search ?? '';
 
@@ -218,6 +220,7 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
         pageSize,
         subject: subject || undefined,
         chapter: chapter || undefined,
+        packageId: packageId || undefined,
         status,
         search: search || undefined,
       });
@@ -227,7 +230,7 @@ export function useQuestionStudioReviewPage(query: QuestionStudioReviewQuery) {
     } finally {
       setLoadingReviewPage(false);
     }
-  }, [chapter, page, pageSize, search, status, subject]);
+  }, [chapter, packageId, page, pageSize, search, status, subject]);
 
   useEffect(() => {
     void refreshReviewPage();

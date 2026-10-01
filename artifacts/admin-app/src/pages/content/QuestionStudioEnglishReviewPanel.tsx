@@ -19,7 +19,7 @@ import { EXAMS } from '@/data/exams';
 import {
   createGenerationRun,
   getQuestionStudioCapabilities,
-  getQuestionStudioDashboard,
+  getQuestionStudioReviewPage,
   updateGenerationItems,
   type GenerationItemStatus,
   type QuestionStudioItem,
@@ -146,8 +146,6 @@ type CpId = (typeof CPS)[number]['id'];
 function asText(value: unknown) { return typeof value === 'string' ? value.trim() : ''; }
 function asStringArray(value: unknown) { return Array.isArray(value) ? value.map((entry) => String(entry ?? '').trim()).filter(Boolean) : []; }
 function asNumber(value: unknown) { const parsed = Number(value); return Number.isInteger(parsed) ? parsed : -1; }
-function isEnglishRun(run: QuestionStudioRun) { return asText(run.requestSnapshot?.engineId) === ENGINE_ID && asText(run.requestSnapshot?.packageId) === PACKAGE_ID; }
-
 export function QuestionStudioEnglishReviewPanel() {
   const { hasPermission } = useAdminPermissions();
   const canRun = hasPermission('content.generation.run');
@@ -171,10 +169,13 @@ export function QuestionStudioEnglishReviewPanel() {
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
-      const [capabilities, dashboard] = await Promise.all([getQuestionStudioCapabilities(), getQuestionStudioDashboard()]);
+      const [capabilities, reviewPage] = await Promise.all([
+        getQuestionStudioCapabilities(),
+        getQuestionStudioReviewPage({ packageId: PACKAGE_ID, page: 1, pageSize: 20 }),
+      ]);
       const pkg = capabilities.packages.find((entry) => entry.packageId === PACKAGE_ID && entry.engineId === ENGINE_ID);
       setAvailable(Boolean(pkg?.enabled && pkg.cpIds?.includes(cpId)));
-      setRuns(dashboard.runs.filter(isEnglishRun));
+      setRuns(reviewPage.runs);
     } catch (caught) {
       showToast.error('English review unavailable', caught instanceof Error ? caught.message : 'Unable to load ENG-001 review data.');
     } finally { setLoading(false); }

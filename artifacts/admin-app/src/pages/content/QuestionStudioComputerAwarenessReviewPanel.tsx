@@ -27,7 +27,7 @@ import { EXAMS } from '@/data/exams';
 import {
   createGenerationRun,
   getQuestionStudioCapabilities,
-  getQuestionStudioDashboard,
+  getQuestionStudioReviewPage,
   updateGenerationItems,
   type GenerationItemStatus,
   type QuestionStudioItem,
@@ -96,11 +96,6 @@ function readableToken(value: string) {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
-function isCom001Run(run: QuestionStudioRun) {
-  return asText(run.requestSnapshot?.engineId) === COM001_ENGINE_ID
-    && asText(run.requestSnapshot?.packageId) === COM001_PACKAGE_ID;
-}
-
 function qlLabel(qlId: string) {
   return QLS.find(([id]) => id === qlId)?.[1] ?? qlId;
 }
@@ -130,15 +125,15 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
-      const [capabilities, dashboard] = await Promise.all([
+      const [capabilities, reviewPage] = await Promise.all([
         getQuestionStudioCapabilities(),
-        getQuestionStudioDashboard(),
+        getQuestionStudioReviewPage({ packageId: COM001_PACKAGE_ID, page: 1, pageSize: 20 }),
       ]);
       const pkg = capabilities.packages.find(
         (entry) => entry.packageId === COM001_PACKAGE_ID && entry.engineId === COM001_ENGINE_ID,
       );
       setAvailable(Boolean(pkg?.enabled));
-      setRuns(dashboard.runs.filter(isCom001Run));
+      setRuns(reviewPage.runs);
     } catch (caught) {
       showToast.error(
         'Computer Awareness review unavailable',
