@@ -163,7 +163,7 @@ function buildMissingObservation(seed: string, profile: Sta001ExamProfile): Draf
   const stems = [
     `The mean of ${pattern.length} observations is ${meanValue}. If ${list(knownValues)} are ${knownValues.length} of them, find the remaining observation.`,
     `${pattern.length} observations have an average of ${meanValue}. All but one are ${list(knownValues)}. What is the missing value?`,
-    `The average of a set of ${pattern.length} values is ${meanValue}. The known values are ${list(knownValues)}. Determine the omitted value.`,
+    `The average of a set of ${pattern.length} values is ${meanValue}. The known values are ${list(knownValues)}. What is the omitted value.`,
   ] as const;
 
   return {
@@ -202,8 +202,8 @@ function buildCorrectedMean(seed: string, profile: Sta001ExamProfile): Draft {
   const s = surface(`${seed}:corrected`);
   const stems = [
     `The mean of ${observationCount} observations was calculated as ${reportedMean}. Later, a value entered as ${wrongValue} was found to be ${correctValue}. What is the correct mean?`,
-    `An average of ${reportedMean} was obtained for ${observationCount} observations using ${wrongValue} in place of the correct value ${correctValue}. Find the corrected average.`,
-    `For ${observationCount} observations, the reported mean is ${reportedMean}. One observation was recorded as ${wrongValue} instead of ${correctValue}. Determine the actual mean.`,
+    `An average of ${reportedMean} was obtained for ${observationCount} observations using ${wrongValue} in place of the correct value ${correctValue}. What is the corrected average.`,
+    `For ${observationCount} observations, the reported mean is ${reportedMean}. One observation was recorded as ${wrongValue} instead of ${correctValue}. What is the actual mean.`,
   ] as const;
 
   return {
@@ -242,8 +242,8 @@ function buildCombinedMean(seed: string, profile: Sta001ExamProfile): Draft {
   const s = surface(`${seed}:combined`);
   const stems = [
     `One group has ${group1Count} observations with mean ${group1Mean}, and another has ${group2Count} observations with mean ${group2Mean}. What is the mean of all the observations together?`,
-    `The average of ${group1Count} values is ${group1Mean}, while the average of another ${group2Count} values is ${group2Mean}. Find the combined mean.`,
-    `Two data groups contain ${group1Count} and ${group2Count} observations, with means ${group1Mean} and ${group2Mean} respectively. Determine their overall mean.`,
+    `The average of ${group1Count} values is ${group1Mean}, while the average of another ${group2Count} values is ${group2Mean}. What is the combined mean.`,
+    `Two data groups contain ${group1Count} and ${group2Count} observations, with means ${group1Mean} and ${group2Mean} respectively. What is their overall mean.`,
   ] as const;
 
   return {
