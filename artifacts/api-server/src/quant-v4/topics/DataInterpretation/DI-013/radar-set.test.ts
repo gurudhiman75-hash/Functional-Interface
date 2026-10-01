@@ -21,6 +21,7 @@ for(let i=0;i<320;i++){
     questions++;tasks.add(q.kind);assert.equal(q.options.length,5);assert.equal(new Set(q.options).size,5,`${seed}: duplicate options`);
     assert.equal(q.options[q.correctIndex],q.answer);assert(!/\d+\.\d+/u.test(q.answer));assert(q.explanation.steps.length>0);
     if(q.kind==="HIGHEST_VALUE_FOR_SERIES") assert(/highest (?:output|number of cases handled|target points achieved|student enrolment|sales|number of service requests resolved|number of packages dispatched|number of beneficiaries covered)/u.test(q.stem),`${seed}: highest-value stem must name the context measure: ${q.stem}`);
+    if(q.kind==="COMBINED_CATEGORY_MAXIMUM") assert(/highest combined count of .* across both periods/u.test(q.stem),`${seed}: combined-maximum stem must name both measured count and scope: ${q.stem}`);
     if(q.kind==="NET_SERIES_ADVANTAGE") assert(/absolute difference/u.test(q.stem),`${seed}: net-advantage task produced a different question: ${q.stem}`);
     assert(!/after combining all categories/iu.test(q.stem),`${seed}: procedural combination wording leaked into the stem.`);
   }
