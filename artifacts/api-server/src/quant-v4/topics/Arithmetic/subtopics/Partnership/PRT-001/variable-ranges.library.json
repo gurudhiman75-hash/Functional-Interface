@@ -33,6 +33,12 @@
     { "capitalA": 40000, "durationA": 9, "capitalB": 30000, "durationB": 12 },
     { "capitalA": 50000, "durationA": 24, "capitalB": 75000, "durationB": 16 },
     { "capitalA": 80000, "durationA": 18, "capitalB": 60000, "durationB": 24 },
-    { "capitalA": 60000, "durationA": 10, "capitalB": 50000, "durationB": 12 }
+    { "capitalA": 60000, "durationA": 10, "capitalB": 50000, "durationB": 12 },
+    { "capitalA": 30000, "durationA": 6, "capitalB": 45000, "durationB": 12 },
+    { "capitalA": 42000, "durationA": 14, "capitalB": 49000, "durationB": 12 },
+    { "capitalA": 60000, "durationA": 16, "capitalB": 80000, "durationB": 12 },
+    { "capitalA": 75000, "durationA": 20, "capitalB": 100000, "durationB": 15 },
+    { "capitalA": 90000, "durationA": 30, "capitalB": 60000, "durationB": 24 },
+    { "capitalA": 120000, "durationA": 36, "capitalB": 90000, "durationB": 24 }
   ]
 }
