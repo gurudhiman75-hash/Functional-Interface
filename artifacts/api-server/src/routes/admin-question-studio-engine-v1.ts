@@ -102,7 +102,34 @@ router.get(
   async (_req, res) => {
     try {
       const generationSystems = listQuestionStudioEngines();
-      const packages = listQuestionStudioPackages().map((pkg) => ({
+      const registeredPackages = listQuestionStudioPackages();
+      const cpLabels = new Map<string, string>();
+
+      for (const pkg of registeredPackages) {
+        const metadataTitles = pkg.metadata?.cpTitles;
+        if (metadataTitles && typeof metadataTitles === "object" && !Array.isArray(metadataTitles)) {
+          for (const [cpId, title] of Object.entries(metadataTitles as Record<string, unknown>)) {
+            const normalizedTitle = asString(title);
+            if (normalizedTitle) cpLabels.set(cpId, normalizedTitle);
+          }
+        }
+
+        if (pkg.cpIds.length === 1) {
+          const cpId = String(pkg.cpIds[0]);
+          const topic = asString(pkg.topic);
+          const subtopic = asString(pkg.subtopic);
+          const normalizedSubtopic = subtopic.toLowerCase();
+          const genericSubtopic =
+            !subtopic ||
+            subtopic === topic ||
+            /^(complete chapter|mixed|approved|review|question studio)$/i.test(subtopic) ||
+            normalizedSubtopic.includes("approved checkpoint");
+
+          if (!genericSubtopic) cpLabels.set(cpId, subtopic);
+        }
+      }
+
+      const packages = registeredPackages.map((pkg) => ({
         engineId: pkg.engineId,
         packageId: pkg.packageId,
         subject: pkg.subject,
@@ -111,6 +138,11 @@ router.get(
         label: pkg.label,
         enabled: pkg.enabled,
         cpIds: pkg.cpIds,
+        cpLabels: Object.fromEntries(
+          pkg.cpIds
+            .map((cpId) => [String(cpId), cpLabels.get(String(cpId))] as const)
+            .filter((entry): entry is readonly [string, string] => Boolean(entry[1])),
+        ),
         supportedLanguages: pkg.supportedLanguages,
         supportedDifficulties: pkg.supportedDifficulties ?? [],
         difficultyFilterSupported: pkg.difficultyFilterSupported ?? true,
