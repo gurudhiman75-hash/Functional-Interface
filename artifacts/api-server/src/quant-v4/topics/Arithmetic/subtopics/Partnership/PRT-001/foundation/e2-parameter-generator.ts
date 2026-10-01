@@ -62,6 +62,15 @@ function ratioOf(values: readonly Rational[]): readonly bigint[] {
   return normalizeRatio(values);
 }
 
+function deterministicScenarioIndex(seed: string, size: number): number {
+  let hash = 2166136261;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash ^= seed.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % size;
+}
+
 export function isPrt001E2SolveMode(solveMode: string): boolean {
   return new Set([
     "findTotalProfitFromShareDifferenceAndCapitals",
@@ -164,43 +173,31 @@ export function generatePrt001E2Parameters(input: {
       break;
     }
     case "findTimeRatioFromProfitRatioAndCapitalRatio": {
-      const numericStateRandom = createPrt001Random(
-        `${input.seed}:numeric-state:${input.entry.solveMode}`,
-      );
-      const capitalRatio = numericStateRandom.pick([
-        [2, 3],
-        [3, 2],
-        [3, 4],
-        [4, 3],
-        [4, 5],
-        [5, 4],
-        [5, 7],
-        [7, 5],
-      ] as const);
-      const timePair = numericStateRandom.pick([
-        [4, 6],
-        [6, 4],
-        [5, 8],
-        [8, 5],
-        [6, 10],
-        [10, 6],
-        [7, 12],
-        [12, 7],
-        [8, 11],
-        [11, 8],
-      ] as const);
-      const unit = numericStateRandom.pick([6_000, 8_000, 10_000, 12_000, 15_000]);
-      const s = {
-        a: capitalRatio[0] * unit,
-        da: timePair[0],
-        b: capitalRatio[1] * unit,
-        db: timePair[1],
-      };
+      const scenarios = [
+        { cr: [2, 3] as const, time: [4, 6] as const, unit: 10_000 },
+        { cr: [3, 2] as const, time: [5, 8] as const, unit: 12_000 },
+        { cr: [3, 4] as const, time: [6, 5] as const, unit: 8_000 },
+        { cr: [4, 3] as const, time: [7, 10] as const, unit: 10_000 },
+        { cr: [4, 5] as const, time: [8, 11] as const, unit: 6_000 },
+        { cr: [5, 4] as const, time: [9, 7] as const, unit: 8_000 },
+        { cr: [5, 7] as const, time: [10, 6] as const, unit: 6_000 },
+        { cr: [7, 5] as const, time: [11, 8] as const, unit: 10_000 },
+        { cr: [4, 7] as const, time: [12, 5] as const, unit: 6_000 },
+        { cr: [7, 4] as const, time: [5, 12] as const, unit: 8_000 },
+        { cr: [3, 5] as const, time: [7, 12] as const, unit: 10_000 },
+        { cr: [5, 3] as const, time: [12, 7] as const, unit: 12_000 },
+      ] as const;
+      const s = scenarios[
+        deterministicScenarioIndex(
+          `${input.seed}:${input.entry.solveMode}:answer-diversity`,
+          scenarios.length,
+        )
+      ]!;
       state = makeState([
-        partner(partnerA, [segment(0, s.da, money(s.a))]),
-        partner(partnerB, [segment(0, s.db, money(s.b))]),
+        partner(partnerA, [segment(0, s.time[0], money(s.cr[0] * s.unit))]),
+        partner(partnerB, [segment(0, s.time[1], money(s.cr[1] * s.unit))]),
       ], money(90_000));
-      const cr = ratioOf([rational(s.a), rational(s.b)]);
+      const cr = ratioOf([rational(s.cr[0]), rational(s.cr[1])]);
       extra.capitalRatioA = cr[0]!.toString();
       extra.capitalRatioB = cr[1]!.toString();
       break;
