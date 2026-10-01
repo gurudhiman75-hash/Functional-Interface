@@ -1543,7 +1543,7 @@ function polishGeoPhyBulkTextV1(text:string, language:"hi"|"pa") {
 }
 
 function localizeGeoPhyBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
-  if(!/^GEO-PHY-001-CP0(?:0[1-9]|1[0-2])-Q/.test(question.questionId)) return null;
+  if(!/^GEO-PHY-001-CP(?:00[1-9]|01[0-2])-/.test(question.questionId)) return null;
   const local=(source:string)=>polishGeoPhyBulkTextV1(localizeText(source,language),language);
   const stemBase=localizeNaturalStem(question.stem,language,"GEO-PHY-001") ?? localizeText(question.stem,language);
   const stem=polishGeoPhyBulkTextV1(stemBase,language);
