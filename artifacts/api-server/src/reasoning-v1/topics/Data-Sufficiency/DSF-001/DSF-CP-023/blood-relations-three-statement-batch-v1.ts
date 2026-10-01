@@ -101,12 +101,12 @@ function rel(r:string){return r.toLowerCase().replaceAll("_"," ");}
 function targetLabel(mode:SolveMode){return mode==="DSF-SM-BLR-P-TO-Q-RELATION"?"P's exact relation to Q":"Q's exact relation to P";}
 function prompt(mode:SolveMode){return mode==="DSF-SM-BLR-P-TO-Q-RELATION"?"How is P related to Q?":"How is Q related to P?";}
 function lead(c:ContextId){return ({
-  FAMILY_TREE:"P, X and Q belong to the same family tree.",
-  FAMILY_GATHERING:"At a family gathering, P and Q are connected through X.",
-  HOUSEHOLD_RECORD:"A household relation record contains P, X and Q.",
-  RELATION_CHAIN:"P and Q are linked through X in a family relation chain.",
-  PEDIGREE_NOTE:"A pedigree note refers to P, X and Q.",
-  KINSHIP_RECORD:"A kinship record contains a chain from P through X to Q.",
+  FAMILY_TREE:"P, X and Q are members of the same family.",
+  FAMILY_GATHERING:"P, X and Q are members of the same family.",
+  HOUSEHOLD_RECORD:"P, X and Q are members of the same family.",
+  RELATION_CHAIN:"P, X and Q are members of the same family.",
+  PEDIGREE_NOTE:"P, X and Q are members of the same family.",
+  KINSHIP_RECORD:"P, X and Q are members of the same family.",
 } as const)[c];}
 function genderText(person:string,g:BlrGender){return g==="UNKNOWN"?`The gender of ${person} is not fixed.`:`${person} is ${g==="MALE"?"male":"female"}.`;}
 
