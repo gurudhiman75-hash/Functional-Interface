@@ -547,6 +547,12 @@ export const quantV4QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       });
     }
 
+    const sapPackage = listQuantV4QuestionStudioPackages()
+      .find((pkg: any) => pkg.packageId === "SAP");
+    if (sapPackage) {
+      replaceOrPush("SAP", sapPackage as unknown as Record<string, unknown>);
+    }
+
     replaceOrPush("DI-001", di001QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-002", di002QuestionStudioPackageCard() as unknown as Record<string, unknown>);
     replaceOrPush("DI-003", di003QuestionStudioPackageCard() as unknown as Record<string, unknown>);
