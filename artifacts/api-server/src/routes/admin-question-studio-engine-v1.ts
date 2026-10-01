@@ -79,6 +79,104 @@ function difficultyForRequest(value: unknown, packageId: string | undefined) {
   return normalizeDifficulty(value);
 }
 
+function normalizeCompatibilitySelector(value: unknown): string {
+  return asString(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+const LEGACY_GENERIC_QUANT_PACKAGES = new Set([
+  "avg 001",
+  "num 001",
+  "num 002",
+  "sap",
+  "tmw 001",
+  "trg 001",
+  "trg 002",
+]);
+
+const LEGACY_NUMBER_SYSTEM_CPS = new Set([
+  "NUM-CP-008",
+  "NUM-CP-009",
+  "NUM-CP-010",
+  "NUM-CP-011",
+  "NUM-CP-012",
+  "NUM-CP-013",
+  "NUM-CP-014",
+]);
+
+/**
+ * A small set of pre-registry Quant routes still owns the generic /runs
+ * endpoint for chapter-specific lifecycle/delivery contracts. Keep those
+ * selectors on their established route until each package is migrated
+ * independently. Dedicated /quant/.../runs surfaces do not need deferral.
+ */
+function shouldDeferQuantCompatibilityRun(body: Record<string, unknown>): boolean {
+  const packageId = normalizeCompatibilitySelector(body.packageId ?? body.archetypeId);
+  const patternId = normalizeCompatibilitySelector(body.patternId);
+  const topic = normalizeCompatibilitySelector(body.topic);
+  const subtopic = normalizeCompatibilitySelector(body.subtopic);
+  const cpId = asString(body.canonicalProblemId) || asString(body.cpId);
+
+  if (LEGACY_GENERIC_QUANT_PACKAGES.has(packageId)) return true;
+  if (LEGACY_NUMBER_SYSTEM_CPS.has(cpId)) return true;
+
+  if (
+    patternId.includes("avg 001")
+    || patternId.includes("num 001")
+    || patternId.includes("num 002")
+    || patternId.includes("num cp 008")
+    || patternId.includes("num cp 009")
+    || patternId.includes("num cp 010")
+    || patternId.includes("num cp 011")
+    || patternId.includes("num cp 012")
+    || patternId.includes("num cp 013")
+    || patternId.includes("num cp 014")
+    || patternId === "sap"
+    || patternId.includes("sap ql")
+    || patternId.includes("tmw 001")
+    || patternId.includes("trg 001")
+    || patternId.includes("trg 002")
+  ) {
+    return true;
+  }
+
+  const numberSelectors = new Set(["number system", "numbers", "number theory"]);
+  const simplificationSelectors = new Set([
+    "simplification approximation",
+    "simplification and approximation",
+    "simplification",
+    "approximation",
+  ]);
+  const timeWorkSelectors = new Set([
+    "time work",
+    "time and work",
+    "work and time",
+    "pipes cisterns",
+    "pipes and cisterns",
+  ]);
+  const trigSelectors = new Set([
+    "trigonometry",
+    "trigonometry ratios values identities",
+    "heights distances",
+    "heights and distances",
+  ]);
+
+  return (
+    (topic === "average" && !subtopic)
+    || (topic === "arithmetic" && subtopic === "average")
+    || (numberSelectors.has(topic) && !subtopic)
+    || (topic === "arithmetic" && numberSelectors.has(subtopic))
+    || (simplificationSelectors.has(topic) && !subtopic)
+    || (topic === "arithmetic" && simplificationSelectors.has(subtopic))
+    || (timeWorkSelectors.has(topic) && !subtopic)
+    || (topic === "arithmetic" && timeWorkSelectors.has(subtopic))
+    || (trigSelectors.has(topic) && !subtopic)
+    || (topic === "advanced mathematics" && trigSelectors.has(subtopic))
+  );
+}
+
 router.get(
   "/capabilities",
   authenticate,
@@ -178,7 +276,7 @@ router.post(
   "/runs",
   authenticate,
   requireAdminPermission("content.generation.run"),
-  async (req, res) => {
+  async (req, res, next) => {
     const requestedEngineRaw = asString(req.body?.engineId);
     const requestedEngineId = normalizeEngineId(requestedEngineRaw);
 
@@ -196,6 +294,14 @@ router.post(
       : [];
     const packageEngineId = engineForPackage(packageId);
     const selectedEngineId = requestedEngineId ?? packageEngineId ?? "quant-v4";
+
+    if (
+      selectedEngineId === "quant-v4"
+      && shouldDeferQuantCompatibilityRun((req.body ?? {}) as Record<string, unknown>)
+    ) {
+      next("route");
+      return;
+    }
 
     if (requestedEngineId && packageEngineId && requestedEngineId !== packageEngineId) {
       res.status(400).json({
