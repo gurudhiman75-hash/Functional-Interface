@@ -120,20 +120,41 @@ export function generatePrt001E2Parameters(input: {
       const numericStateRandom = createPrt001Random(
         `${input.seed}:numeric-state:${input.entry.solveMode}`,
       );
-      const s = numericStateRandom.pick([
-        { a: 20_000, da: 12, b: 30_000, db: 8 },
-        { a: 24_000, da: 9, b: 36_000, db: 6 },
-        { a: 30_000, da: 8, b: 40_000, db: 12 },
-        { a: 35_000, da: 6, b: 28_000, db: 10 },
-        { a: 42_000, da: 10, b: 30_000, db: 6 },
-        { a: 45_000, da: 8, b: 30_000, db: 12 },
-        { a: 28_000, da: 12, b: 49_000, db: 8 },
-        { a: 32_000, da: 9, b: 48_000, db: 12 },
-        { a: 54_000, da: 10, b: 36_000, db: 9 },
-        { a: 25_000, da: 12, b: 40_000, db: 5 },
-        { a: 48_000, da: 7, b: 42_000, db: 8 },
-        { a: 63_000, da: 8, b: 45_000, db: 10 },
-      ]);
+      const capitalRatio = numericStateRandom.pick([
+        [2, 3],
+        [3, 2],
+        [3, 4],
+        [4, 3],
+        [4, 5],
+        [5, 4],
+        [3, 5],
+        [5, 3],
+        [5, 7],
+        [7, 5],
+        [4, 7],
+        [7, 4],
+      ] as const);
+      const timePair = numericStateRandom.pick([
+        [4, 6],
+        [6, 4],
+        [6, 9],
+        [9, 6],
+        [8, 12],
+        [12, 8],
+        [5, 10],
+        [10, 5],
+        [6, 12],
+        [12, 6],
+        [9, 12],
+        [12, 9],
+      ] as const);
+      const unit = numericStateRandom.pick([6_000, 8_000, 10_000, 12_000, 15_000]);
+      const s = {
+        a: capitalRatio[0] * unit,
+        da: timePair[0],
+        b: capitalRatio[1] * unit,
+        db: timePair[1],
+      };
       state = makeState([
         partner(partnerA, [segment(0, s.da, money(s.a))]),
         partner(partnerB, [segment(0, s.db, money(s.b))]),
