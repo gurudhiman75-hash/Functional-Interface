@@ -251,7 +251,7 @@ function stemOnly(stem: unknown): string {
 
 function examStandardStem(stem: string): string {
   let text = stem.trim();
-  const editorialOpening = /^(?:consider\b[^.?!]*[.?!]|[^.?!]*(?:being analysed|being examined|being reviewed|being checked|under review|under consideration|must be determined|to be analysed)[^.?!]*[.?!])\s*/iu;
+  const editorialOpening = /^(?:consider\b[^.?!]*[.?!]|[^.?!]*(?:being analysed|being examined|being reviewed|being checked|is reviewing|are reviewing|under review|under consideration|must be determined|to be analysed)[^.?!]*[.?!])\s*/iu;
   for (let pass = 0; pass < 2; pass += 1) {
     const cleaned = text.replace(editorialOpening, "").trim();
     if (cleaned === text) break;
