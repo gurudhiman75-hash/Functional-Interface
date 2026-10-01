@@ -426,6 +426,17 @@ assert.equal(
     .join(", ")}`,
 );
 
+const cp004LowAnswerDiversityQls = lowAnswerDiversityQls.filter(
+  (item) => item.cpId === "PRT-CP-004",
+);
+assert.equal(
+  cp004LowAnswerDiversityQls.length,
+  0,
+  `PRT-CP-004 answer diversity remains below 6 distinct answers for: ${cp004LowAnswerDiversityQls
+    .map((item) => item.qlId)
+    .join(", ")}`,
+);
+
 console.log(
   JSON.stringify(
     {
