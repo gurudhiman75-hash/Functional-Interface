@@ -996,7 +996,7 @@
     ],
     "locales": {
       "en": {
-        "stem": "The mean local solar time at a place is 2 hours 20 minutes ahead of Greenwich. Find its longitude.",
+        "stem": "A place is 2 hours 20 minutes ahead of Greenwich in mean local solar time. What is its longitude?",
         "options": [
           "35° E",
           "35° W",
@@ -1006,7 +1006,7 @@
         "explanation": "2 hours 20 minutes = 140 minutes. Divide by 4 minutes per degree: 140 ÷ 4 = 35°. Being ahead indicates east."
       },
       "hi": {
-        "stem": "किसी स्थान का माध्य स्थानीय सौर समय ग्रीनविच से 2 घंटे 20 मिनट आगे है। उस स्थान का देशांतर ज्ञात करें।",
+        "stem": "किसी स्थान का माध्य स्थानीय सौर समय ग्रीनविच से 2 घंटे 20 मिनट आगे है। उसका देशांतर क्या है?",
         "options": [
           "35° पूर्व",
           "35° पश्चिम",
@@ -1016,7 +1016,7 @@
         "explanation": "2 घंटे 20 मिनट = 140 मिनट। 140 ÷ 4 मिनट प्रति डिग्री = 35°। समय आगे होने से दिशा पूर्व है।"
       },
       "pa": {
-        "stem": "ਕਿਸੇ ਸਥਾਨ ਦਾ ਔਸਤ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮਾਂ ਗ੍ਰੀਨਵਿਚ ਤੋਂ 2 ਘੰਟੇ 20 ਮਿੰਟ ਅੱਗੇ ਹੈ। ਉਸ ਸਥਾਨ ਦਾ ਲੰਬਕਾਰ ਪਤਾ ਕਰੋ।",
+        "stem": "ਕਿਸੇ ਸਥਾਨ ਦਾ ਔਸਤ ਸਥਾਨਕ ਸੂਰਜੀ ਸਮਾਂ ਗ੍ਰੀਨਵਿਚ ਤੋਂ 2 ਘੰਟੇ 20 ਮਿੰਟ ਅੱਗੇ ਹੈ। ਉਸ ਦਾ ਲੰਬਕਾਰ ਕੀ ਹੈ?",
         "options": [
           "35° ਪੂਰਬ",
           "35° ਪੱਛਮ",
@@ -1026,6 +1026,7 @@
         "explanation": "2 ਘੰਟੇ 20 ਮਿੰਟ = 140 ਮਿੰਟ। 140 ÷ 4 ਮਿੰਟ ਪ੍ਰਤੀ ਡਿਗਰੀ = 35°। ਸਮਾਂ ਅੱਗੇ ਹੋਣ ਕਾਰਨ ਦਿਸ਼ਾ ਪੂਰਬ ਹੈ।"
       }
     },
-    "correctIndex": 0
+    "correctIndex": 0,
+    "authoringReviewApproved": false
   }
 ]
