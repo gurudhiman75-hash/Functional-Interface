@@ -1,3 +1,4 @@
+// Refreshes the deterministic packet from the current DI stem templates.
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { generateDiDeliveryNoveltyMix } from "./di-delivery-novelty-mix-v1";
