@@ -117,7 +117,7 @@ export function generatePrt001E5Parameters(input: { questionLanguageId: string; 
         {a:50_000,b:80_000,c:90_000,jb:4,jc:6},
         {a:36_000,b:54_000,c:72_000,jb:6,jc:8},
         {a:42_000,b:63_000,c:84_000,jb:2,jc:7},
-        {a:48_000,b:72_000,c:60_000,jb:4,jc:9},
+        {a:48_000,b:72_000,c:60_000,jb:5,jc:9},
         {a:54_000,b:81_000,c:90_000,jb:5,jc:8},
         {a:60_000,b:75_000,c:96_000,jb:3,jc:7},
       ]);
