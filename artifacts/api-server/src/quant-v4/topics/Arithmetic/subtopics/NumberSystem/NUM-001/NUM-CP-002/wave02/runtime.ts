@@ -122,8 +122,18 @@ function p014(seed: number): Draft {
 }
 
 const exponentCases = [
-  { unknown: "a", fixed: 1, places: 3 }, { unknown: "a", fixed: 2, places: 4 }, { unknown: "a", fixed: 1, places: 5 },
-  { unknown: "b", fixed: 1, places: 3 }, { unknown: "b", fixed: 2, places: 4 }, { unknown: "b", fixed: 2, places: 5 },
+  { unknown: "a", fixed: 1, places: 2 },
+  { unknown: "a", fixed: 1, places: 3 },
+  { unknown: "a", fixed: 2, places: 4 },
+  { unknown: "a", fixed: 1, places: 5 },
+  { unknown: "a", fixed: 2, places: 6 },
+  { unknown: "a", fixed: 3, places: 7 },
+  { unknown: "b", fixed: 1, places: 2 },
+  { unknown: "b", fixed: 1, places: 3 },
+  { unknown: "b", fixed: 2, places: 4 },
+  { unknown: "b", fixed: 2, places: 5 },
+  { unknown: "b", fixed: 3, places: 6 },
+  { unknown: "b", fixed: 2, places: 7 },
 ] as const;
 
 function p015(seed: number): Draft {
