@@ -356,6 +356,14 @@ function localizeCalendarStatement(text:string, language:DsfReasoningLocalizedLa
   let m:RegExpMatchArray|null;
   m=text.match(/^The starting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\.$/i);
   if(m) return t(language,`आरंभिक वार ${localizeWeekday(m[1]!,language)} है।`,`ਸ਼ੁਰੂਆਤੀ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਹੈ।`);
+  m=text.match(/^The date is moved forward by (\d+) days\.$/i);
+  if(m) return t(language,`तिथि को ${m[1]} दिन आगे बढ़ाया गया है।`,`ਤਾਰੀਖ ਨੂੰ ${m[1]} ਦਿਨ ਅੱਗੇ ਵਧਾਇਆ ਗਿਆ ਹੈ।`);
+  m=text.match(/^The starting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday), and the date is moved forward by (\d+) days\.$/i);
+  if(m) return t(language,`आरंभिक वार ${localizeWeekday(m[1]!,language)} है और तिथि को ${m[2]} दिन आगे बढ़ाया गया है।`,`ਸ਼ੁਰੂਆਤੀ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਹੈ ਅਤੇ ਤਾਰੀਖ ਨੂੰ ${m[2]} ਦਿਨ ਅੱਗੇ ਵਧਾਇਆ ਗਿਆ ਹੈ।`);
+  m=text.match(/^The resulting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday), and the date is moved forward by (\d+) days\.$/i);
+  if(m) return t(language,`परिणामी वार ${localizeWeekday(m[1]!,language)} है और तिथि को ${m[2]} दिन आगे बढ़ाया गया है।`,`ਨਤੀਜੇ ਵਾਲਾ ਵਾਰ ${localizeWeekday(m[1]!,language)} ਹੈ ਅਤੇ ਤਾਰੀਖ ਨੂੰ ${m[2]} ਦਿਨ ਅੱਗੇ ਵਧਾਇਆ ਗਿਆ ਹੈ।`);
+  m=text.match(/^The date is moved forward by either (\d+) or (\d+) days\.$/i);
+  if(m) return t(language,`तिथि को ${m[1]} या ${m[2]} दिन आगे बढ़ाया गया है।`,`ਤਾਰੀਖ ਨੂੰ ${m[1]} ਜਾਂ ${m[2]} ਦਿਨ ਅੱਗੇ ਵਧਾਇਆ ਗਿਆ ਹੈ।`);
   m=text.match(/^The number of days leaves remainder (\d+) when divided by 7\.$/i);
   if(m) return t(language,`दिनों की संख्या को 7 से भाग देने पर शेषफल ${m[1]} है।`,`ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ 7 ਨਾਲ ਭਾਗ ਦੇਣ 'ਤੇ ਬਾਕੀ ${m[1]} ਹੈ।`);
   m=text.match(/^The resulting day is (Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\.$/i);
