@@ -1478,6 +1478,81 @@ function localizeGeoLocBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
   return Object.freeze({stem,options,canonicalAnswer,explanation});
 }
 
+
+function polishGeoPhyBulkTextV1(text:string, language:"hi"|"pa") {
+  const hi:[string,string][] = [
+    ["physiography","भौतिक भू-आकृति"],["physiographic division","भौतिक प्रदेश"],["physiographic divisions","भौतिक प्रदेश"],["physical region","भौतिक प्रदेश"],["physical regions","भौतिक प्रदेश"],
+    ["Himalayan Mountains","हिमालय पर्वत"],["Himalayas","हिमालय"],["Himalayan region","हिमालयी क्षेत्र"],["young fold mountains","युवा वलित पर्वत"],
+    ["Himadri","हिमाद्रि"],["Greater Himalaya","महान हिमालय"],["Himachal","हिमाचल"],["Lesser Himalaya","लघु हिमालय"],["Shiwalik","शिवालिक"],["Shiwaliks","शिवालिक"],
+    ["Purvanchal","पूर्वांचल"],["Karakoram","काराकोरम"],["Ladakh Range","लद्दाख श्रेणी"],["Zanskar","जास्कर"],["Pir Panjal","पीर पंजाल"],
+    ["Northern Plains","उत्तरी मैदान"],["northern plain","उत्तरी मैदान"],["Indus-Ganga-Brahmaputra plain","सिंधु-गंगा-ब्रह्मपुत्र मैदान"],["alluvial plain","जलोढ़ मैदान"],["river-built plain","नदी-निर्मित मैदान"],
+    ["bhabar","भाबर"],["terai","तराई"],["bhangar","भांगर"],["khadar","खादर"],["doab","दोआब"],["floodplain","बाढ़ मैदान"],
+    ["Peninsular Plateau","प्रायद्वीपीय पठार"],["peninsular plateau","प्रायद्वीपीय पठार"],["Central Highlands","मध्य उच्चभूमि"],["Deccan Plateau","दक्कन का पठार"],
+    ["Malwa Plateau","मालवा पठार"],["Chotanagpur Plateau","छोटानागपुर पठार"],["Bundelkhand","बुंदेलखंड"],["Baghelkhand","बघेलखंड"],
+    ["Western Ghats","पश्चिमी घाट"],["Eastern Ghats","पूर्वी घाट"],["Nilgiri Hills","नीलगिरि पहाड़ियाँ"],["Anaimalai Hills","अन्नामलाई पहाड़ियाँ"],["Cardamom Hills","इलायची पहाड़ियाँ"],
+    ["Aravalli Range","अरावली श्रेणी"],["Vindhya Range","विंध्य श्रेणी"],["Satpura Range","सतपुड़ा श्रेणी"],["Narmada valley","नर्मदा घाटी"],["Tapi valley","ताप्ती घाटी"],
+    ["Indian Desert","भारतीय मरुस्थल"],["Thar Desert","थार मरुस्थल"],["desert region","मरुस्थलीय क्षेत्र"],["arid sandy region","शुष्क रेतीला क्षेत्र"],["sand dunes","रेत के टीले"],
+    ["Coastal Plains","तटीय मैदान"],["coastal plains","तटीय मैदान"],["Western Coastal Plain","पश्चिमी तटीय मैदान"],["Eastern Coastal Plain","पूर्वी तटीय मैदान"],
+    ["Konkan Coast","कोंकण तट"],["Kannad Coast","कन्नड़ तट"],["Malabar Coast","मालाबार तट"],["Northern Circars","उत्तरी सरकार तट"],["Coromandel Coast","कोरोमंडल तट"],
+    ["coastal lowland","तटीय निम्नभूमि"],["delta","डेल्टा"],["deltas","डेल्टा"],["estuary","मुहाना"],["estuaries","मुहाने"],["lagoon","लैगून"],["lagoons","लैगून"],
+    ["Islands","द्वीपसमूह"],["island groups","द्वीपसमूह"],["Andaman and Nicobar Islands","अंडमान और निकोबार द्वीपसमूह"],["Lakshadweep","लक्षद्वीप"],
+    ["coral islands","प्रवाल द्वीप"],["volcanic island","ज्वालामुखीय द्वीप"],["Barren Island","बैरन द्वीप"],
+    ["relief","स्थलरूप"],["landform","भू-आकृति"],["landforms","भू-आकृतियाँ"],["mountain","पर्वत"],["mountains","पर्वत"],["plateau","पठार"],["plateaus","पठार"],["plain","मैदान"],["plains","मैदान"],
+    ["fold mountains","वलित पर्वत"],["block mountain","भ्रंशोत्थ पर्वत"],["rift valley","भ्रंश घाटी"],["faulting","भ्रंशन"],["erosion","अपरदन"],["deposition","निक्षेपण"],
+    ["old stable plateau","प्राचीन स्थिर पठार"],["geologically young","भूवैज्ञानिक रूप से युवा"],["ancient landmass","प्राचीन भूखंड"],["Gondwana land","गोंडवाना भूभाग"],
+    ["river valley","नदी घाटी"],["intermontane valley","अंतरपर्वतीय घाटी"],["pass","दर्रा"],["passes","दर्रे"],["peak","शिखर"],["peaks","शिखर"],
+    ["east coast","पूर्वी तट"],["west coast","पश्चिमी तट"],["western side","पश्चिमी भाग"],["eastern side","पूर्वी भाग"],
+    ["Which","कौन-सा"],["which","कौन-सा"],["What","क्या"],["what","क्या"],["Why","क्यों"],["why","क्यों"],["Where","कहाँ"],["where","कहाँ"],["When","कब"],["when","कब"],["How","कैसे"],["how","कैसे"],
+    ["the",""],["and","और"],["or","या"],["is","है"],["are","हैं"],["was","था"],["were","थे"],["does","करता है"],["do","करते हैं"],["did","किया"],["can","सकता है"],["could","सकता था"],["would","होगा"],["should","चाहिए"],["has","है"],["have","हैं"],["had","था"],
+    ["with","के साथ"],["from","से"],["into","में"],["for","के लिए"],["of","का"],["to","को"],["in","में"],["on","पर"],["at","पर"],["by","द्वारा"],["as","के रूप में"],["than","की तुलना में"],["that","कि"],["this","यह"],["these","ये"],["those","वे"],
+    ["most","सबसे"],["main","मुख्य"],["major","प्रमुख"],["only","केवल"],["correct","सही"],["statement","कथन"],["following","निम्नलिखित"]
+  ];
+  const pa:[string,string][] = [
+    ["physiography","ਭੌਤਿਕ ਭੂ-ਆਕ੍ਰਿਤੀ"],["physiographic division","ਭੌਤਿਕ ਖੇਤਰ"],["physiographic divisions","ਭੌਤਿਕ ਖੇਤਰ"],["physical region","ਭੌਤਿਕ ਖੇਤਰ"],["physical regions","ਭੌਤਿਕ ਖੇਤਰ"],
+    ["Himalayan Mountains","ਹਿਮਾਲਿਆ ਪਹਾੜ"],["Himalayas","ਹਿਮਾਲਿਆ"],["Himalayan region","ਹਿਮਾਲਈ ਖੇਤਰ"],["young fold mountains","ਨਵੇਂ ਮੋੜਦਾਰ ਪਹਾੜ"],
+    ["Himadri","ਹਿਮਾਦ੍ਰੀ"],["Greater Himalaya","ਮਹਾਨ ਹਿਮਾਲਿਆ"],["Himachal","ਹਿਮਾਚਲ"],["Lesser Himalaya","ਲਘੂ ਹਿਮਾਲਿਆ"],["Shiwalik","ਸ਼ਿਵਾਲਿਕ"],["Shiwaliks","ਸ਼ਿਵਾਲਿਕ"],
+    ["Purvanchal","ਪੂਰਵਾਂਚਲ"],["Karakoram","ਕਾਰਾਕੋਰਮ"],["Ladakh Range","ਲੱਦਾਖ ਸ਼੍ਰੇਣੀ"],["Zanskar","ਜ਼ਾਂਸਕਾਰ"],["Pir Panjal","ਪੀਰ ਪੰਜਾਲ"],
+    ["Northern Plains","ਉੱਤਰੀ ਮੈਦਾਨ"],["northern plain","ਉੱਤਰੀ ਮੈਦਾਨ"],["Indus-Ganga-Brahmaputra plain","ਸਿੰਧੂ-ਗੰਗਾ-ਬ੍ਰਹਮਪੁੱਤਰ ਮੈਦਾਨ"],["alluvial plain","ਜਲੋਢ ਮੈਦਾਨ"],["river-built plain","ਨਦੀ-ਬਣਿਆ ਮੈਦਾਨ"],
+    ["bhabar","ਭਾਬਰ"],["terai","ਤਰਾਈ"],["bhangar","ਭਾਂਗਰ"],["khadar","ਖਾਦਰ"],["doab","ਦੋਆਬ"],["floodplain","ਹੜ੍ਹ-ਮੈਦਾਨ"],
+    ["Peninsular Plateau","ਪ੍ਰਾਇਦੀਪੀ ਪਠਾਰ"],["peninsular plateau","ਪ੍ਰਾਇਦੀਪੀ ਪਠਾਰ"],["Central Highlands","ਮੱਧ ਉੱਚਭੂਮੀ"],["Deccan Plateau","ਦੱਖਣ ਦਾ ਪਠਾਰ"],
+    ["Malwa Plateau","ਮਾਲਵਾ ਪਠਾਰ"],["Chotanagpur Plateau","ਛੋਟਾਨਾਗਪੁਰ ਪਠਾਰ"],["Bundelkhand","ਬੁੰਦੇਲਖੰਡ"],["Baghelkhand","ਬਘੇਲਖੰਡ"],
+    ["Western Ghats","ਪੱਛਮੀ ਘਾਟ"],["Eastern Ghats","ਪੂਰਬੀ ਘਾਟ"],["Nilgiri Hills","ਨੀਲਗਿਰੀ ਪਹਾੜੀਆਂ"],["Anaimalai Hills","ਅਨਾਮਲਾਈ ਪਹਾੜੀਆਂ"],["Cardamom Hills","ਇਲਾਇਚੀ ਪਹਾੜੀਆਂ"],
+    ["Aravalli Range","ਅਰਾਵਲੀ ਸ਼੍ਰੇਣੀ"],["Vindhya Range","ਵਿੰਧਿਆ ਸ਼੍ਰੇਣੀ"],["Satpura Range","ਸਤਪੁੜਾ ਸ਼੍ਰੇਣੀ"],["Narmada valley","ਨਰਮਦਾ ਘਾਟੀ"],["Tapi valley","ਤਾਪਤੀ ਘਾਟੀ"],
+    ["Indian Desert","ਭਾਰਤੀ ਰੇਗਿਸਤਾਨ"],["Thar Desert","ਥਾਰ ਰੇਗਿਸਤਾਨ"],["desert region","ਰੇਗਿਸਤਾਨੀ ਖੇਤਰ"],["arid sandy region","ਸੁੱਕਾ ਰੇਤਲਾ ਖੇਤਰ"],["sand dunes","ਰੇਤਲੇ ਟਿੱਬੇ"],
+    ["Coastal Plains","ਤਟੀ ਮੈਦਾਨ"],["coastal plains","ਤਟੀ ਮੈਦਾਨ"],["Western Coastal Plain","ਪੱਛਮੀ ਤਟੀ ਮੈਦਾਨ"],["Eastern Coastal Plain","ਪੂਰਬੀ ਤਟੀ ਮੈਦਾਨ"],
+    ["Konkan Coast","ਕੋਂਕਣ ਤਟ"],["Kannad Coast","ਕੰਨੜ ਤਟ"],["Malabar Coast","ਮਾਲਾਬਾਰ ਤਟ"],["Northern Circars","ਉੱਤਰੀ ਸਰਕਾਰ ਤਟ"],["Coromandel Coast","ਕੋਰੋਮੰਡਲ ਤਟ"],
+    ["coastal lowland","ਤਟੀ ਨੀਚਭੂਮੀ"],["delta","ਡੈਲਟਾ"],["deltas","ਡੈਲਟੇ"],["estuary","ਮੁਹਾਨਾ"],["estuaries","ਮੁਹਾਨੇ"],["lagoon","ਲੈਗੂਨ"],["lagoons","ਲੈਗੂਨ"],
+    ["Islands","ਟਾਪੂ-ਸਮੂਹ"],["island groups","ਟਾਪੂ-ਸਮੂਹ"],["Andaman and Nicobar Islands","ਅੰਡਮਾਨ ਅਤੇ ਨਿਕੋਬਾਰ ਟਾਪੂ-ਸਮੂਹ"],["Lakshadweep","ਲਕਸ਼ਦੀਪ"],
+    ["coral islands","ਪ੍ਰਵਾਲ ਟਾਪੂ"],["volcanic island","ਜਵਾਲਾਮੁਖੀ ਟਾਪੂ"],["Barren Island","ਬੈਰਨ ਟਾਪੂ"],
+    ["relief","ਭੂ-ਆਕ੍ਰਿਤੀ"],["landform","ਭੂ-ਆਕ੍ਰਿਤੀ"],["landforms","ਭੂ-ਆਕ੍ਰਿਤੀਆਂ"],["mountain","ਪਹਾੜ"],["mountains","ਪਹਾੜ"],["plateau","ਪਠਾਰ"],["plateaus","ਪਠਾਰ"],["plain","ਮੈਦਾਨ"],["plains","ਮੈਦਾਨ"],
+    ["fold mountains","ਮੋੜਦਾਰ ਪਹਾੜ"],["block mountain","ਭ੍ਰੰਸ਼ੋਤਥ ਪਹਾੜ"],["rift valley","ਭ੍ਰੰਸ਼ ਘਾਟੀ"],["faulting","ਭ੍ਰੰਸ਼ਨ"],["erosion","ਕਟਾਅ"],["deposition","ਨਿਕਸ਼ੇਪ"],
+    ["old stable plateau","ਪੁਰਾਣਾ ਸਥਿਰ ਪਠਾਰ"],["geologically young","ਭੂਗੋਲਿਕ ਤੌਰ ਤੇ ਨਵਾਂ"],["ancient landmass","ਪੁਰਾਤਨ ਭੂਖੰਡ"],["Gondwana land","ਗੋਂਡਵਾਨਾ ਭੂਖੰਡ"],
+    ["river valley","ਨਦੀ ਘਾਟੀ"],["intermontane valley","ਅੰਤਰ-ਪਹਾੜੀ ਘਾਟੀ"],["pass","ਦਰਰਾ"],["passes","ਦਰਰੇ"],["peak","ਚੋਟੀ"],["peaks","ਚੋਟੀਆਂ"],
+    ["east coast","ਪੂਰਬੀ ਤਟ"],["west coast","ਪੱਛਮੀ ਤਟ"],["western side","ਪੱਛਮੀ ਪਾਸਾ"],["eastern side","ਪੂਰਬੀ ਪਾਸਾ"],
+    ["Which","ਕਿਹੜਾ"],["which","ਕਿਹੜਾ"],["What","ਕੀ"],["what","ਕੀ"],["Why","ਕਿਉਂ"],["why","ਕਿਉਂ"],["Where","ਕਿੱਥੇ"],["where","ਕਿੱਥੇ"],["When","ਕਦੋਂ"],["when","ਕਦੋਂ"],["How","ਕਿਵੇਂ"],["how","ਕਿਵੇਂ"],
+    ["the",""],["and","ਅਤੇ"],["or","ਜਾਂ"],["is","ਹੈ"],["are","ਹਨ"],["was","ਸੀ"],["were","ਸਨ"],["does","ਕਰਦਾ ਹੈ"],["do","ਕਰਦੇ ਹਨ"],["did","ਕੀਤਾ"],["can","ਸਕਦਾ ਹੈ"],["could","ਸਕਦਾ ਸੀ"],["would","ਹੋਵੇਗਾ"],["should","ਚਾਹੀਦਾ ਹੈ"],["has","ਹੈ"],["have","ਹਨ"],["had","ਸੀ"],
+    ["with","ਨਾਲ"],["from","ਤੋਂ"],["into","ਵਿੱਚ"],["for","ਲਈ"],["of","ਦਾ"],["to","ਨੂੰ"],["in","ਵਿੱਚ"],["on","ਉੱਤੇ"],["at","ਉੱਤੇ"],["by","ਦੁਆਰਾ"],["as","ਵਜੋਂ"],["than","ਨਾਲੋਂ"],["that","ਕਿ"],["this","ਇਹ"],["these","ਇਹ"],["those","ਉਹ"],
+    ["most","ਸਭ ਤੋਂ"],["main","ਮੁੱਖ"],["major","ਮੁੱਖ"],["only","ਕੇਵਲ"],["correct","ਸਹੀ"],["statement","ਕਥਨ"],["following","ਹੇਠ ਲਿਖੇ"]
+  ];
+  let out=text;
+  const pairs=language==="hi"?hi:pa;
+  for(const [from,to] of pairs.sort((a,b)=>b[0].length-a[0].length)){
+    out=out.replace(new RegExp("(?<![A-Za-z])"+regexEscape(from)+"(?![A-Za-z])","gi"),to);
+  }
+  return out.replace(/\s{2,}/g," ").replace(/\s+([,.;:?!])/g,"$1").trim();
+}
+
+function localizeGeoPhyBulkV1(question:CanonicalQuestion, language:"hi"|"pa") {
+  if(!/^GEO-PHY-001-CP(?:00[1-9]|01[0-2])-/.test(question.questionId)) return null;
+  const local=(source:string)=>polishGeoPhyBulkTextV1(localizeText(source,language),language);
+  const stemBase=localizeNaturalStem(question.stem,language,"GEO-PHY-001") ?? localizeText(question.stem,language);
+  const stem=polishGeoPhyBulkTextV1(stemBase,language);
+  const options=Object.freeze(question.options.map(local));
+  const canonicalAnswer=options[question.correctIndex]!;
+  const explanation=local(question.explanation);
+  return Object.freeze({stem,options,canonicalAnswer,explanation});
+}
+
 export function localizeIndianGeoQuestionV1(
   question: CanonicalQuestion,
   language: IndianGeoLocalizationLanguageV1,
@@ -1494,6 +1569,11 @@ export function localizeIndianGeoQuestionV1(
 
   if (packageId === "GEO-TRN-001") {
     const bulk = localizeGeoTrnBulkV1(question, language);
+    if (bulk) return bulk;
+  }
+
+  if (packageId === "GEO-PHY-001") {
+    const bulk = localizeGeoPhyBulkV1(question, language);
     if (bulk) return bulk;
   }
 
