@@ -121,6 +121,7 @@ function pool(problem:Problem):readonly Statement[]{
   ];
   return Object.freeze(statements.filter((statement) => {
     if (problem.solveMode === "DSF-SM-DIR-FINAL-FACING" && statement.family === "FINAL_FACING_EXACT") return false;
+    if (problem.solveMode === "DSF-SM-DIR-FINAL-COORDINATES" && statement.family === "FINAL_COMPONENT_PAIR") return false;
     return true;
   }));
 }
