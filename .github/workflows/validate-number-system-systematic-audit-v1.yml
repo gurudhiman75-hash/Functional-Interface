@@ -1,0 +1,52 @@
+name: Validate Number System Systematic Audit V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**"
+      - ".github/workflows/validate-number-system-systematic-audit-v1.yml"
+
+concurrency:
+  group: number-system-systematic-audit-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Number System systematic audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/number-system-systematic-audit-v1.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/.number-system-systematic-audit-v1.mjs
+
+      - name: Run full Number System chapter audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/.number-system-systematic-audit-v1.mjs \
+            2>&1 | tee -a number-system-systematic-audit-v1.log
+          grep -q "PASS_NUMBER_SYSTEM_SYSTEMATIC_AUDIT_V1_CORE_INTEGRITY" number-system-systematic-audit-v1.log
+
+      - name: Upload Number System audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: number-system-systematic-audit-v1
+          path: number-system-systematic-audit-v1.log
