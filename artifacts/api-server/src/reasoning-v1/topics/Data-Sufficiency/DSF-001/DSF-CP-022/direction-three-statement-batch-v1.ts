@@ -53,10 +53,19 @@ function enumerateWorlds():readonly World[]{
 }
 const WORLDS=enumerateWorlds();
 
+function exactDistanceText(x:number,y:number):string{
+  const squared=x*x+y*y,whole=Math.sqrt(squared);
+  if(Number.isInteger(whole))return `${whole} m`;
+  let squareFactor=1;
+  for(let factor=2;factor*factor<=squared;factor++)if(squared%(factor*factor)===0)squareFactor=factor*factor;
+  const coefficient=Math.sqrt(squareFactor),remainder=squared/squareFactor;
+  return coefficient===1?`√${remainder} m`:`${coefficient}√${remainder} m`;
+}
+
 function target(mode:SolveMode,w:World):string{
   if(mode==="DSF-SM-DIR-FINAL-FACING")return w.finalFacing;
   if(mode==="DSF-SM-DIR-FINAL-COORDINATES")return `(${w.finalX},${w.finalY})`;
-  return `${w.shortestDistance} m`;
+  return exactDistanceText(w.finalX,w.finalY);
 }
 const adapter={
   adapterId:"DSF-CP022-DIRECTION-THREE-STATEMENT-V1",
