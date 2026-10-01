@@ -21,7 +21,9 @@ import {
   freeStateV2,
   packageExamReadyQuestionV2,
   percentTextV2,
+  pickV2,
   quantityTextV2,
+  rV2,
   ratioTextV2,
   reducedRatioTextV2,
   type MalCp005FreeStateV2,
@@ -40,6 +42,22 @@ function expectQuantity(result: MalCp005SolveResult) {
 function expectRatio(result: MalCp005SolveResult) {
   if (result.kind !== "RATIO") throw new Error("Expected ratio result.");
   return [result.firstPart, result.secondPart] as const;
+}
+
+const PERCENT_CONVERSION_TARGETS_V2 = Object.freeze([
+  { numerator: 20, denominator: 3 },
+  { numerator: 20, denominator: 1 },
+  { numerator: 25, denominator: 1 },
+  { numerator: 100, denominator: 3 },
+  { numerator: 50, denominator: 1 },
+  { numerator: 60, denominator: 1 },
+  { numerator: 200, denominator: 3 },
+  { numerator: 100, denominator: 1 },
+] as const);
+
+function percentConversionTargetV2(seed: string) {
+  const selected = pickV2(PERCENT_CONVERSION_TARGETS_V2, seed);
+  return rV2(selected.numerator, selected.denominator);
 }
 
 function commonInput(input: {
@@ -434,33 +452,36 @@ export function adulterantPercentQuestionV2(input: {
   const prototypeId =
     "MAL-CP005-PROT-ADULTERANT-PERCENT-FROM-TARGET-PROFIT" as const;
   const state = freeStateV2(input.selectedSeed);
+  const targetProfitPercent = percentConversionTargetV2(
+    `${input.selectedSeed}:ql052:target-profit`,
+  );
   const request: Extract<
     MalCp005SolveRequest,
     { mode: "ADULTERANT_PERCENT_FROM_TARGET_PROFIT" }
   > = {
     mode: "ADULTERANT_PERCENT_FROM_TARGET_PROFIT",
-    targetProfitPercent: state.profitPercentAtPureCost,
+    targetProfitPercent,
   };
   const solution = solveMalCp005(request);
   const adulterantPercent = expectPercent(solution);
   const purePercent = subtractRational(HUNDRED_V2, adulterantPercent);
   const doubledTotalError = divideRational(
-    multiplyRational(HUNDRED_V2, state.profitPercentAtPureCost),
+    multiplyRational(HUNDRED_V2, targetProfitPercent),
     addRational(
       HUNDRED_V2,
-      multiplyRational(rational(2), state.profitPercentAtPureCost),
+      multiplyRational(rational(2), targetProfitPercent),
     ),
   );
   const wrongComplementBase = divideRational(
-    multiplyRational(HUNDRED_V2, state.profitPercentAtPureCost),
-    subtractRational(HUNDRED_V2, state.profitPercentAtPureCost),
+    multiplyRational(HUNDRED_V2, targetProfitPercent),
+    subtractRational(HUNDRED_V2, targetProfitPercent),
   );
   const answer = percentTextV2(adulterantPercent);
   const options = buildNaturalOptionsV2(
     answer,
     [
       {
-        text: percentTextV2(state.profitPercentAtPureCost),
+        text: percentTextV2(targetProfitPercent),
         misconceptionId: "equated_profit_percent_with_final_adulterant_percent",
       },
       {
@@ -485,27 +506,27 @@ export function adulterantPercentQuestionV2(input: {
     request,
     solution,
     exactState: {
-      targetProfitPercent: state.profitPercentAtPureCost,
+      targetProfitPercent,
       adulterantPercent,
       purePercent,
     },
-    stem: `${actorPhraseV2(state.context.actor)} sells an adulterated ${state.context.product} mixture at the cost price of pure ${state.context.product} and earns ${percentTextV2(state.profitPercentAtPureCost)} profit. What percentage of the final mixture is ${state.context.adulterant}?`,
+    stem: `${actorPhraseV2(state.context.actor)} sells an adulterated ${state.context.product} mixture at the cost price of pure ${state.context.product} and earns ${percentTextV2(targetProfitPercent)} profit. What percentage of the final mixture is ${state.context.adulterant}?`,
     answer,
     options,
     visibleLines: [
-      `Take 100 paid parts of pure ${state.context.product}. The free ${state.context.adulterant} equals ${formatRational(state.profitPercentAtPureCost)} parts.`,
-      `${state.context.adulterant} percentage = ${formatRational(state.profitPercentAtPureCost)}/${formatRational(addRational(HUNDRED_V2, state.profitPercentAtPureCost))} × 100 = ${answer}.`,
+      `Take 100 paid parts of pure ${state.context.product}. The free ${state.context.adulterant} equals ${formatRational(targetProfitPercent)} parts.`,
+      `${state.context.adulterant} percentage = ${formatRational(targetProfitPercent)}/${formatRational(addRational(HUNDRED_V2, targetProfitPercent))} × 100 = ${answer}.`,
     ],
     commonMistake:
       "Profit percentage and adulterant percentage use different denominators.",
     verification: [
-      `The final mixture has ${formatRational(addRational(HUNDRED_V2, state.profitPercentAtPureCost))} parts, of which ${formatRational(state.profitPercentAtPureCost)} parts are adulterant.`,
+      `The final mixture has ${formatRational(addRational(HUNDRED_V2, targetProfitPercent))} parts, of which ${formatRational(targetProfitPercent)} parts are adulterant.`,
     ],
     numberProvenance: {
-      stemFacts: [`Target profit: ${formatRational(state.profitPercentAtPureCost)}%`],
+      stemFacts: [`Target profit: ${formatRational(targetProfitPercent)}%`],
       permittedAssumptions: ["Pure-product cost is normalized to 100 paid parts."],
       derivedFacts: [
-        `Final mixture: ${formatRational(addRational(HUNDRED_V2, state.profitPercentAtPureCost))} parts`,
+        `Final mixture: ${formatRational(addRational(HUNDRED_V2, targetProfitPercent))} parts`,
         `Adulterant percentage: ${formatRational(adulterantPercent)}%`,
       ],
       hiddenStateKeys: [],
@@ -521,22 +542,29 @@ export function profitFromAdulterantPercentQuestionV2(input: {
   const prototypeId =
     "MAL-CP005-PROT-PROFIT-FROM-ADULTERANT-PERCENT" as const;
   const state = freeStateV2(input.selectedSeed);
+  const targetProfitPercent = percentConversionTargetV2(
+    `${input.selectedSeed}:ql053:target-profit`,
+  );
+  const adulterantPercentOfMixture = divideRational(
+    multiplyRational(HUNDRED_V2, targetProfitPercent),
+    addRational(HUNDRED_V2, targetProfitPercent),
+  );
   const request: Extract<
     MalCp005SolveRequest,
     { mode: "TARGET_PROFIT_FROM_ADULTERANT_PERCENT" }
   > = {
     mode: "TARGET_PROFIT_FROM_ADULTERANT_PERCENT",
-    adulterantPercentOfMixture: state.finalAdulterantPercent,
+    adulterantPercentOfMixture,
   };
   const solution = solveMalCp005(request);
   const profit = expectPercent(solution);
-  const purePercent = subtractRational(HUNDRED_V2, state.finalAdulterantPercent);
+  const purePercent = subtractRational(HUNDRED_V2, adulterantPercentOfMixture);
   const forwardConversionError = divideRational(
-    multiplyRational(HUNDRED_V2, state.finalAdulterantPercent),
-    addRational(HUNDRED_V2, state.finalAdulterantPercent),
+    multiplyRational(HUNDRED_V2, adulterantPercentOfMixture),
+    addRational(HUNDRED_V2, adulterantPercentOfMixture),
   );
   const omittedPercentConversion = divideRational(
-    state.finalAdulterantPercent,
+    adulterantPercentOfMixture,
     purePercent,
   );
   const answer = percentTextV2(profit);
@@ -544,7 +572,7 @@ export function profitFromAdulterantPercentQuestionV2(input: {
     answer,
     [
       {
-        text: percentTextV2(state.finalAdulterantPercent),
+        text: percentTextV2(adulterantPercentOfMixture),
         misconceptionId: "reported_adulterant_share_as_profit",
       },
       {
@@ -567,24 +595,24 @@ export function profitFromAdulterantPercentQuestionV2(input: {
     request,
     solution,
     exactState: {
-      adulterantPercent: state.finalAdulterantPercent,
+      adulterantPercent: adulterantPercentOfMixture,
       purePercent,
       profitPercent: profit,
     },
-    stem: `${percentTextV2(state.finalAdulterantPercent)} of a ${state.context.product}-${state.context.adulterant} mixture is ${state.context.adulterant}. The mixture is sold at the cost price of pure ${state.context.product}. What is the profit percentage?`,
+    stem: `${percentTextV2(adulterantPercentOfMixture)} of a ${state.context.product}-${state.context.adulterant} mixture is ${state.context.adulterant}. The mixture is sold at the cost price of pure ${state.context.product}. What is the profit percentage?`,
     answer,
     options,
     visibleLines: [
-      `In 100 parts of mixture, ${formatRational(state.finalAdulterantPercent)} parts are free ${state.context.adulterant} and ${formatRational(purePercent)} parts carry cost.`,
-      `Profit percentage = ${formatRational(state.finalAdulterantPercent)}/${formatRational(purePercent)} × 100 = ${answer}.`,
+      `In 100 parts of mixture, ${formatRational(adulterantPercentOfMixture)} parts are free ${state.context.adulterant} and ${formatRational(purePercent)} parts carry cost.`,
+      `Profit percentage = ${formatRational(adulterantPercentOfMixture)}/${formatRational(purePercent)} × 100 = ${answer}.`,
     ],
     commonMistake:
       "Do not report the adulterant's share of the final mixture as the profit rate.",
     verification: [
-      `A cost of ${formatRational(purePercent)} units produces ${formatRational(HUNDRED_V2)} units of revenue, so the profit is ${formatRational(state.finalAdulterantPercent)} units.`,
+      `A cost of ${formatRational(purePercent)} units produces ${formatRational(HUNDRED_V2)} units of revenue, so the profit is ${formatRational(adulterantPercentOfMixture)} units.`,
     ],
     numberProvenance: {
-      stemFacts: [`Adulterant percentage of final mixture: ${formatRational(state.finalAdulterantPercent)}%`],
+      stemFacts: [`Adulterant percentage of final mixture: ${formatRational(adulterantPercentOfMixture)}%`],
       permittedAssumptions: ["The final mixture is normalized to 100 parts."],
       derivedFacts: [
         `Pure-product share: ${formatRational(purePercent)}%`,
