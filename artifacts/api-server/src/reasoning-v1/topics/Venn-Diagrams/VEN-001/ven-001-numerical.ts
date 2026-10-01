@@ -797,7 +797,7 @@ export function buildNumericalItem(
         if (q === "onlyA" || q === "onlyB")
           explanation += ` ${requestedRegions(c, r, q, l)}`;
         if (q === "none")
-          explanation = `${tx(`First count the people doing ${names[0]} or ${names[1]}:`, `पहले ${names[0]} या ${names[1]} करने वालों की संख्या निकालें:`, `ਪਹਿਲਾਂ ${names[0]} ਜਾਂ ${names[1]} ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Subtract this from the surveyed total to find those doing neither:", "कोई भी गतिविधि न करने वालों की संख्या के लिए इसे सर्वेक्षण की कुल संख्या में से घटाएँ:", "ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਲਈ ਇਸ ਨੂੰ ਸਰਵੇਖਣ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:")[l]} ${sum(r)} − ${union} = ${answer}.`;
+          explanation = `${tx(`First find how many people belong to at least one of the two groups (${names[0]} or ${names[1]}):`, `पहले ${names[0]} या ${names[1]} वाले कम-से-कम एक समूह में आने वालों की संख्या निकालें:`, `ਪਹਿਲਾਂ ${names[0]} ਜਾਂ ${names[1]} ਵਾਲੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ:`)[l]} ${a} + ${b} − ${both} = ${union}. ${tx("Subtract this from the surveyed total to find those doing neither:", "कोई भी गतिविधि न करने वालों की संख्या के लिए इसे सर्वेक्षण की कुल संख्या में से घटाएँ:", "ਕੋਈ ਵੀ ਕੰਮ ਨਾ ਕਰਨ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਲਈ ਇਸ ਨੂੰ ਸਰਵੇਖਣ ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਵਿੱਚੋਂ ਘਟਾਓ:")[l]} ${sum(r)} − ${union} = ${answer}.`;
       }
     } else {
       const regionWork =
@@ -1133,20 +1133,20 @@ export function buildNumericalItem(
     const reason = intersection
       ? maximum
         ? tx(
-            "The common population cannot exceed the smallest group. Nesting the smaller groups attains this bound.",
-            "साझा संख्या सबसे छोटे समूह से अधिक नहीं हो सकती। छोटे समूहों को बड़े समूहों के भीतर रखने पर यह सीमा मिलती है।",
-            "ਸਾਂਝੀ ਗਿਣਤੀ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਛੋਟੇ ਸਮੂਹਾਂ ਨੂੰ ਵੱਡਿਆਂ ਅੰਦਰ ਰੱਖ ਕੇ ਇਹ ਹੱਦ ਮਿਲਦੀ ਹੈ।",
+            "The number common to all groups cannot exceed the smallest group. The maximum is reached when every member of the smallest group also belongs to each of the other groups.",
+            "सभी समूहों में साझा लोगों की संख्या सबसे छोटे समूह से अधिक नहीं हो सकती। अधिकतम मान तब मिलता है जब सबसे छोटे समूह का हर व्यक्ति बाकी सभी समूहों में भी शामिल हो।",
+            "ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਸਾਂਝੇ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਤਦ ਮਿਲਦੀ ਹੈ ਜਦੋਂ ਸਭ ਤੋਂ ਛੋਟੇ ਸਮੂਹ ਦਾ ਹਰ ਵਿਅਕਤੀ ਬਾਕੀ ਸਾਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਵੀ ਹੋਵੇ।",
           )
         : tx(
-            `Without anyone in all ${modelSets} activities, one person can account for at most ${modelSets - 1} memberships. Memberships beyond that capacity must create people in the common region; its size cannot be below zero.`,
-            `यदि कोई भी व्यक्ति सभी ${modelSets} गतिविधियाँ नहीं करता, तो एक व्यक्ति अधिक-से-अधिक ${modelSets - 1} सदस्यताएँ दे सकता है। इससे अधिक सदस्यताएँ साझा क्षेत्र में लोगों को अनिवार्य बनाती हैं; उसकी संख्या शून्य से कम नहीं हो सकती।`,
-            `ਜੇ ਕੋਈ ਵੀ ਵਿਅਕਤੀ ਸਾਰੇ ${modelSets} ਕੰਮ ਨਹੀਂ ਕਰਦਾ, ਤਾਂ ਇੱਕ ਵਿਅਕਤੀ ਵੱਧ ਤੋਂ ਵੱਧ ${modelSets - 1} ਮੈਂਬਰਸ਼ਿਪਾਂ ਦੇ ਸਕਦਾ ਹੈ। ਇਸ ਤੋਂ ਵੱਧ ਮੈਂਬਰਸ਼ਿਪਾਂ ਸਾਂਝੇ ਖੇਤਰ ਵਿੱਚ ਲੋਕਾਂ ਨੂੰ ਲਾਜ਼ਮੀ ਬਣਾਉਂਦੀਆਂ ਹਨ; ਇਸ ਦੀ ਗਿਣਤੀ ਸਿਫ਼ਰ ਤੋਂ ਘੱਟ ਨਹੀਂ ਹੋ ਸਕਦੀ।`,
+            `If nobody belongs to all ${modelSets} groups, each person can be counted in at most ${modelSets - 1} group totals. Any count beyond ${modelSets - 1} × N must therefore come from people common to all ${modelSets} groups; if there is no excess, the lower bound is zero.`,
+            `यदि कोई व्यक्ति सभी ${modelSets} समूहों में न हो, तो हर व्यक्ति अधिक-से-अधिक ${modelSets - 1} समूहों की गिनती में आ सकता है। ${modelSets - 1} × N से अधिक की गिनती केवल उन लोगों से आ सकती है जो सभी ${modelSets} समूहों में हैं; अतिरिक्त गिनती न हो तो न्यूनतम मान 0 होगा।`,
+            `ਜੇ ਕੋਈ ਵਿਅਕਤੀ ਸਾਰੇ ${modelSets} ਸਮੂਹਾਂ ਵਿੱਚ ਨਾ ਹੋਵੇ, ਤਾਂ ਹਰ ਵਿਅਕਤੀ ਵੱਧ ਤੋਂ ਵੱਧ ${modelSets - 1} ਸਮੂਹਾਂ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਆ ਸਕਦਾ ਹੈ। ${modelSets - 1} × N ਤੋਂ ਵੱਧ ਦੀ ਗਿਣਤੀ ਉਹਨਾਂ ਲੋਕਾਂ ਕਰਕੇ ਹੀ ਹੋ ਸਕਦੀ ਹੈ ਜੋ ਸਾਰੇ ${modelSets} ਸਮੂਹਾਂ ਵਿੱਚ ਹਨ; ਵਾਧੂ ਗਿਣਤੀ ਨਾ ਹੋਵੇ ਤਾਂ ਘੱਟ ਤੋਂ ਘੱਟ ਮਾਨ 0 ਹੋਵੇਗਾ।`,
           )
       : maximum
         ? tx(
-            "The union cannot exceed the population or the sum of individual group sizes. Spread memberships to attain this limit.",
-            "कम-से-कम एक समूह में आने वालों की संख्या कुल जनसंख्या या समूहों की संख्याओं के योग से अधिक नहीं हो सकती। सदस्यताओं को फैलाकर यह सीमा मिलती है।",
-            "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੁੱਲ ਲੋਕਾਂ ਜਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦੇ ਜੋੜ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਮੈਂਬਰਸ਼ਿਪਾਂ ਨੂੰ ਫੈਲਾ ਕੇ ਇਹ ਹੱਦ ਮਿਲਦੀ ਹੈ।",
+            "The number in at least one group cannot exceed the total population or the sum of the group sizes. To maximize it, keep the groups separate as far as the population allows.",
+            "कम-से-कम एक समूह में आने वालों की संख्या कुल लोगों की संख्या या समूह-संख्याओं के योग से अधिक नहीं हो सकती। अधिकतम के लिए समूहों को जहाँ तक संभव हो अलग रखें।",
+            "ਘੱਟੋ-ਘੱਟ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਆਉਣ ਵਾਲਿਆਂ ਦੀ ਗਿਣਤੀ ਕੁੱਲ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ ਜਾਂ ਸਮੂਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਦੇ ਜੋੜ ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦੀ। ਵੱਧ ਤੋਂ ਵੱਧ ਗਿਣਤੀ ਲਈ ਸਮੂਹਾਂ ਨੂੰ ਜਿੱਥੋਂ ਤੱਕ ਸੰਭਵ ਹੋਵੇ ਵੱਖ ਰੱਖੋ।",
           )
         : tx(
             "The union must include the largest group. Nest the other groups inside it to attain the minimum.",
@@ -1166,7 +1166,7 @@ export function buildNumericalItem(
         `कुल ${n} लोगों में से ${counts.map((k, i) => `${c.names.hi.split("|")[i]}: ${k}`).join(", ")}।`,
         `ਕੁੱਲ ${n} ਲੋਕਾਂ ਵਿੱਚੋਂ ${counts.map((k, i) => `${c.names.pa.split("|")[i]}: ${k}`).join(", ")}।`,
       )[l]
-    } ${reason[l].replaceAll("k−1", String(modelSets - 1)).replaceAll(`(${modelSets - 1})N`, `${modelSets - 1} × ${n}`)} ${tx("Using these actual group sizes:", "इन दी गई समूह-संख्याओं को रखने पर:", "ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਰੱਖਣ ਤੇ:")[l]} ${calculation} = ${answer}.`;
+    } ${reason[l].replaceAll("k−1", String(modelSets - 1)).replaceAll(`(${modelSets - 1})N`, `${modelSets - 1} × ${n}`)} ${tx("Using the given group sizes:", "दी गई समूह-संख्याओं से:", "ਦਿੱਤੀਆਂ ਸਮੂਹ-ਗਿਣਤੀਆਂ ਨਾਲ:")[l]} ${calculation} = ${answer}.`;
     r = []; // Hidden construction is not the unique solution and must never appear as a solved distribution.
   }
   const numeric = typeof answer === "number";
