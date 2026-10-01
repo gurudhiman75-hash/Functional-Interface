@@ -62,7 +62,10 @@ export function generatePrt001E3BParameters(input: { questionLanguageId: string;
       break;
     }
     case "findUnknownCapitalFromProfitRatio": {
-      const s = random.pick([
+      const numericStateRandom = createPrt001Random(
+        `${input.seed}:numeric-state:${input.entry.solveMode}`,
+      );
+      const s = numericStateRandom.pick([
         { a: 40_000, b: 60_000 },
         { a: 30_000, b: 45_000 },
         { a: 50_000, b: 30_000 },
