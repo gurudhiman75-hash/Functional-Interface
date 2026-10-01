@@ -271,6 +271,13 @@ for (const descriptor of TMW_001_QUESTION_STUDIO_QLS) {
         assert(/[\u0A00-\u0A7F]/u.test(visible), `${scope}: Punjabi learner text lacks Gurmukhi.`);
         nativeScriptChecks += 1;
       }
+      if (language !== "en") {
+        assert.doesNotMatch(
+          visible,
+          /\b(?:sorters?|operators?|gardeners?|surveyors?|technicians?|loaders?|labeling machines?|looms?|CNC machines?|sealing lines?|parcels|records|sections|forms|consignments|labels|cartons|metres of fabric|sorter-days?|operator-days?|gardener-days?|surveyor-days?|technician-days?|loader-days?)\b/iu,
+          `${scope}: expanded CP006 object-pool term leaked in English.`,
+        );
+      }
 
       const fingerprint = String(pkg.traceability?.mathematicalFingerprint ?? "");
       assert(fingerprint.length > 0, `${scope}: mathematical fingerprint missing.`);
