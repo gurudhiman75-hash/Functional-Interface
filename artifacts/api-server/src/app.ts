@@ -142,16 +142,26 @@ if (process.env.NODE_ENV === "production") {
   const studentIndex = path.join(staticDir, "index.html");
   const adminIndex = path.join(staticDir, "admin", "index.html");
 
-  app.use(express.static(staticDir));
+  app.use(express.static(staticDir, {
+    setHeaders(res, filePath) {
+      if (filePath.endsWith('.html')) {
+        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+      } else if (filePath.includes(`${path.sep}assets${path.sep}`)) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      }
+    },
+  }));
 
   // React Router owns every deep admin URL below /admin. Return the dedicated
   // admin document instead of the student SPA document on direct navigation.
   app.get(/^\/admin(?:\/.*)?$/, (_req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
     res.sendFile(adminIndex);
   });
 
   // Student SPA fallback for all remaining non-API routes.
   app.get("/{*splat}", (_req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
     res.sendFile(studentIndex);
   });
 }
