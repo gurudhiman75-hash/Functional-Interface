@@ -15,6 +15,7 @@ test("NUM-001 shared capabilities expose guarded CP001/003/004 review surface", 
   assert.deepEqual(pkg!.cpIds, ["NUM-CP-001", "NUM-CP-003", "NUM-CP-004"]);
   assert.deepEqual(pkg!.supportedLanguages, ["en", "hi", "pa"]);
   assert.deepEqual(pkg!.supportedDifficulties, ["Easy", "Medium", "Hard"]);
+  assert.equal(pkg!.difficultyFilterSupported, false);
   assert.equal(pkg!.lifecycleStage, "REVIEW_ONLY");
   assert.equal(pkg!.questionBankStatus, "NOT_STORED");
   assert.equal(pkg!.questionBankWritable, false);
@@ -63,7 +64,6 @@ test("NUM-CP-003/004 remain English-only", async () => {
     packageId: "NUM-001",
     canonicalProblemId: "NUM-CP-003",
     questionLanguageId: "NUM-QL-001",
-    difficulty: "Easy",
     language: "en",
     seed: "num001-unified:cp003:en",
     count: 1,
@@ -77,7 +77,6 @@ test("NUM-CP-003/004 remain English-only", async () => {
       packageId: "NUM-001",
       canonicalProblemId: "NUM-CP-003",
       questionLanguageId: "NUM-QL-001",
-      difficulty: "Easy",
       language: "hi",
       seed: "num001-unified:cp003:hi-reject",
       count: 1,
@@ -107,6 +106,7 @@ test("NUM-001 unified profile planner can generate all active CPs in one batch",
     selectedCpIds: ["NUM-CP-001", "NUM-CP-003", "NUM-CP-004"],
     examProfileId: "SSC CGL Tier 1",
     forwardLegacyExamProfile: true,
+    difficultyFilterSupported: false,
     generateCandidateBatch: (request) =>
       generateQuestionStudioQuestions({
         ...request,
@@ -120,6 +120,10 @@ test("NUM-001 unified profile planner can generate all active CPs in one batch",
     "NUM-CP-004": 2,
   });
   assert.equal(batch.questions.length, 6);
+  assert.equal(
+    batch.generationContexts.every((entry) => entry.context.difficultyFilterApplied === false),
+    true,
+  );
 
   const counts = new Map<string, number>();
   for (const question of batch.questions as Array<Record<string, any>>) {
