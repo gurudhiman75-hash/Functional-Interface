@@ -110,7 +110,7 @@ function normalizedExplanation(value: string): string {
 function numericSignature(value: string): string {
   const normalized = value.replace(
     /\\frac\{(\d+)\}\{(\d+)\}/gu,
-    "$1/$2",
+    " $1/$2 ",
   );
   const tokens =
     normalized.match(
