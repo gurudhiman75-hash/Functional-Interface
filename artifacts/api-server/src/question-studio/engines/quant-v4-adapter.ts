@@ -226,11 +226,32 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
     cpIds: asStringArray(pkg.cpIds),
     supportedLanguages: asLanguageArray(pkg.supportedLanguages),
     supportedDifficulties: asDifficultyArray(pkg.supportedDifficulties),
+    difficultyFilterSupported:
+      typeof pkg.difficultyFilterSupported === "boolean"
+        ? pkg.difficultyFilterSupported
+        : undefined,
     runtimeMode: asString(pkg.runtimeMode) || undefined,
     supportedRuntimeModes: asStringArray(pkg.supportedRuntimeModes),
     dynamicCandidateCpIds: asStringArray(pkg.dynamicCandidateCpIds),
+    lifecycleId: asString(pkg.lifecycleId) || undefined,
+    lifecycleStage:
+      pkg.lifecycleStage === "REVIEW_ONLY" || pkg.lifecycleStage === "BANK_ONLY"
+        ? pkg.lifecycleStage
+        : undefined,
+    reviewSurfaceRequired:
+      typeof pkg.reviewSurfaceRequired === "boolean"
+        ? pkg.reviewSurfaceRequired
+        : undefined,
     questionBankStatus: asString(pkg.questionBankStatus) || undefined,
     questionBankWritable: typeof pkg.questionBankWritable === "boolean" ? pkg.questionBankWritable : undefined,
+    questionBankAcceptanceMode:
+      pkg.questionBankAcceptanceMode === "BANK_ONLY" || pkg.questionBankAcceptanceMode === "FULL_RELEASE"
+        ? pkg.questionBankAcceptanceMode
+        : undefined,
+    questionBankAcceptanceAuthority:
+      typeof pkg.questionBankAcceptanceAuthority === "string" || pkg.questionBankAcceptanceAuthority === null
+        ? pkg.questionBankAcceptanceAuthority
+        : undefined,
     testEligibility: asString(pkg.testEligibility) || undefined,
     testEligible: typeof pkg.testEligible === "boolean" ? pkg.testEligible : undefined,
     mockTestEligible: typeof pkg.mockTestEligible === "boolean" ? pkg.mockTestEligible : undefined,
