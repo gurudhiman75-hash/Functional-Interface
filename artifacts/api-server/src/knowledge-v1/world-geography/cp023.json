@@ -145,7 +145,7 @@
           "Kathmandu",
           "Kabul"
         ],
-        "explanation": "Thimphu is Bhutan’s capital in the western part of the country."
+        "explanation": "Thimphu is the capital of Bhutan and lies in the country’s western highlands. Bhutan is a landlocked Himalayan state, so Thimphu is an inland mountain capital."
       },
       "hi": {
         "stem": "कौन-सा शहर भूटान की राजधानी है?",
@@ -155,7 +155,7 @@
           "काठमांडू",
           "काबुल"
         ],
-        "explanation": "थिम्फू भूटान के पश्चिमी भाग में स्थित राजधानी है।"
+        "explanation": "थिम्फू भूटान की राजधानी है और देश के पश्चिमी उच्चभूमि क्षेत्र में स्थित है। भूटान स्थलरुद्ध हिमालयी देश है, इसलिए थिम्फू एक अंतर्देशीय पर्वतीय राजधानी है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਭੂਟਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
@@ -165,9 +165,10 @@
           "ਕਾਠਮੰਡੂ",
           "ਕਾਬੁਲ"
         ],
-        "explanation": "ਥਿੰਫੂ ਭੂਟਾਨ ਦੇ ਪੱਛਮੀ ਹਿੱਸੇ ਵਿੱਚ ਸਥਿਤ ਰਾਜਧਾਨੀ ਹੈ।"
+        "explanation": "ਥਿੰਫੂ ਭੂਟਾਨ ਦੀ ਰਾਜਧਾਨੀ ਹੈ ਅਤੇ ਦੇਸ਼ ਦੇ ਪੱਛਮੀ ਉੱਚਭੂਮੀ ਖੇਤਰ ਵਿੱਚ ਸਥਿਤ ਹੈ। ਭੂਟਾਨ ਭੂ-ਬੱਧ ਹਿਮਾਲਿਆਈ ਦੇਸ਼ ਹੈ, ਇਸ ਲਈ ਥਿੰਫੂ ਇੱਕ ਅੰਦਰੂਨੀ ਪਹਾੜੀ ਰਾਜਧਾਨੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP023-Q005",
@@ -188,7 +189,7 @@
           "Colombo",
           "Islamabad"
         ],
-        "explanation": "Dhaka is Bangladesh’s capital, in the Ganges–Brahmaputra delta region."
+        "explanation": "Dhaka is the capital of Bangladesh and lies in the low-lying Ganges–Brahmaputra–Meghna delta region. This delta setting helps explain the country’s dense river network and widespread floodplains."
       },
       "hi": {
         "stem": "कौन-सा शहर बांग्लादेश की राजधानी है?",
@@ -198,7 +199,7 @@
           "कोलंबो",
           "इस्लामाबाद"
         ],
-        "explanation": "ढाका बांग्लादेश की राजधानी है और गंगा–ब्रह्मपुत्र डेल्टा क्षेत्र में है।"
+        "explanation": "ढाका बांग्लादेश की राजधानी है और निम्न गंगा–ब्रह्मपुत्र–मेघना डेल्टा क्षेत्र में स्थित है। यह डेल्टा स्थिति देश के घने नदी जाल और विस्तृत बाढ़-मैदानों को समझने में मदद करती है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਸ਼ਹਿਰ ਬੰਗਲਾਦੇਸ਼ ਦੀ ਰਾਜਧਾਨੀ ਹੈ?",
@@ -208,9 +209,10 @@
           "ਕੋਲੰਬੋ",
           "ਇਸਲਾਮਾਬਾਦ"
         ],
-        "explanation": "ਢਾਕਾ ਬੰਗਲਾਦੇਸ਼ ਦੀ ਰਾਜਧਾਨੀ ਹੈ ਅਤੇ ਗੰਗਾ–ਬ੍ਰਹਮਪੁੱਤਰ ਡੈਲਟਾ ਖੇਤਰ ਵਿੱਚ ਹੈ।"
+        "explanation": "ਢਾਕਾ ਬੰਗਲਾਦੇਸ਼ ਦੀ ਰਾਜਧਾਨੀ ਹੈ ਅਤੇ ਨੀਵੇਂ ਗੰਗਾ–ਬ੍ਰਹਮਪੁਤ੍ਰ–ਮੇਘਨਾ ਡੈਲਟਾ ਖੇਤਰ ਵਿੱਚ ਸਥਿਤ ਹੈ। ਇਹ ਡੈਲਟਾਈ ਸਥਿਤੀ ਦੇਸ਼ ਦੇ ਘਣੇ ਦਰਿਆਈ ਜਾਲ ਅਤੇ ਵਿਸ਼ਾਲ ਹੜ੍ਹ-ਮੈਦਾਨਾਂ ਨੂੰ ਸਮਝਾਉਂਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP023-Q006",
@@ -912,7 +914,7 @@
           "Myanmar",
           "China"
         ],
-        "explanation": "China borders Nepal along the Himalayan arc to Nepal’s north."
+        "explanation": "China lies directly north of Nepal across the Himalayan mountain belt. Nepal’s northern frontier meets the Tibet Autonomous Region of China along high Himalayan terrain."
       },
       "hi": {
         "stem": "कौन-सा देश हिमालय के पार नेपाल के उत्तर में स्थित है?",
@@ -922,7 +924,7 @@
           "म्यांमार",
           "चीन"
         ],
-        "explanation": "चीन नेपाल की उत्तरी हिमालयी सीमा से लगता है।"
+        "explanation": "चीन नेपाल के सीधे उत्तर में हिमालयी पर्वत पट्टी के पार स्थित है। नेपाल की उत्तरी सीमा ऊँचे हिमालयी भूभाग में चीन के तिब्बत स्वायत्त क्षेत्र से मिलती है।"
       },
       "pa": {
         "stem": "ਕਿਹੜਾ ਦੇਸ਼ ਹਿਮਾਲਿਆ ਦੇ ਪਾਰ ਨੇਪਾਲ ਦੇ ਉੱਤਰ ਵੱਲ ਸਥਿਤ ਹੈ?",
@@ -932,9 +934,10 @@
           "ਮਿਆਂਮਾਰ",
           "ਚੀਨ"
         ],
-        "explanation": "ਚੀਨ ਨੇਪਾਲ ਦੀ ਉੱਤਰੀ ਹਿਮਾਲਿਆਈ ਸਰਹੱਦ ਨਾਲ ਲੱਗਦਾ ਹੈ।"
+        "explanation": "ਚੀਨ ਨੇਪਾਲ ਦੇ ਸਿੱਧੇ ਉੱਤਰ ਵੱਲ ਹਿਮਾਲਿਆਈ ਪਹਾੜੀ ਪੱਟੀ ਦੇ ਪਾਰ ਸਥਿਤ ਹੈ। ਨੇਪਾਲ ਦੀ ਉੱਤਰੀ ਸਰਹੱਦ ਉੱਚੇ ਹਿਮਾਲਿਆਈ ਭੂ-ਭਾਗ ਵਿੱਚ ਚੀਨ ਦੇ ਤਿਬਤ ਸਵਾਇਤ ਖੇਤਰ ਨਾਲ ਮਿਲਦੀ ਹੈ।"
       }
-    }
+    },
+    "authoringReviewApproved": false
   },
   {
     "id": "WGE-001-CP023-Q023",
