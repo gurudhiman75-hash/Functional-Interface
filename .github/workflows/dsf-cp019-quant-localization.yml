@@ -36,12 +36,22 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP019 localization audit
+      - name: Bundle CP019 Wave 01 localization audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-019/quant-localization-wave-01-v1.test.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/dsf-cp019-quant-localization.test.mjs
+          --outfile=dist/reasoning-v1/dsf-cp019-quant-localization-wave-01.test.mjs
 
-      - name: Run CP019 localization audit
-        run: node artifacts/api-server/dist/reasoning-v1/dsf-cp019-quant-localization.test.mjs
+      - name: Run CP019 Wave 01 localization audit
+        run: node artifacts/api-server/dist/reasoning-v1/dsf-cp019-quant-localization-wave-01.test.mjs
+
+      - name: Bundle CP019 Wave 02 localization audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-019/quant-localization-wave-02-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dsf-cp019-quant-localization-wave-02.test.mjs
+
+      - name: Run CP019 Wave 02 localization audit
+        run: node artifacts/api-server/dist/reasoning-v1/dsf-cp019-quant-localization-wave-02.test.mjs

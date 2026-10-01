@@ -31,6 +31,10 @@ import {
   type DsfCp019Language,
 } from "../DSF-CP-019/quant-localization-wave-01-v1.ts";
 import {
+  localizeDsfCp019Wave02Question,
+  type DsfCp019Wave02Language,
+} from "../DSF-CP-019/quant-localization-wave-02-v1.ts";
+import {
   DSF_CURRENT_NEXT_AVAILABLE_QL_ID,
   DSF_CURRENT_PERMANENT_QL_REGISTRY,
 } from "../foundation/current-permanent-ql-registry.ts";
@@ -61,6 +65,14 @@ export const DSF_CP019_QUANT_LOCALIZED_LANES = [
   "DSF-QS-AGES",
   "DSF-QS-PROFIT-LOSS-DISCOUNT",
   "DSF-QS-INTEREST",
+] as const;
+export const DSF_CP019_QUANT_LOCALIZED_WAVE_02_LANES = [
+  "DSF-QS-TIME-WORK-PIPES",
+  "DSF-QS-TSD-TRAINS-BOATS",
+  "DSF-QS-MIXTURE-ALLIGATION",
+  "DSF-QS-MENSURATION",
+  "DSF-QS-CORE-ENRICHMENT",
+  "DSF-QS-ALGEBRA-ENRICHMENT",
 ] as const;
 export const DSF_CP017_SUPPORTED_DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
 export const DSF_CP017_LEARNER_STEM_VERSION = "DSF_CP017_DIRECT_EXAM_STEM_V1" as const;
@@ -135,6 +147,7 @@ export const DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
     supportedLanguages: lane.domainFamily === "REASONING"
       || DSF_CP017_LEGACY_LOCALIZED_LANES.includes(lane.laneId as any)
       || DSF_CP019_QUANT_LOCALIZED_LANES.includes(lane.laneId as any)
+      || DSF_CP019_QUANT_LOCALIZED_WAVE_02_LANES.includes(lane.laneId as any)
       ? DSF_CP017_SUPPORTED_LANGUAGES
       : ["en"] as const,
   }))),
@@ -197,6 +210,7 @@ function laneSupportsLanguage(lane: LaneEntry, language: "en" | "hi" | "pa"): bo
   if (language === "en") return true;
   if (DSF_CP017_LEGACY_LOCALIZED_LANES.includes(lane.laneId as any)) return true;
   if (DSF_CP019_QUANT_LOCALIZED_LANES.includes(lane.laneId as any)) return true;
+  if (DSF_CP019_QUANT_LOCALIZED_WAVE_02_LANES.includes(lane.laneId as any)) return true;
   return DSF_CP018_REASONING_LOCALIZED_LANES.includes(lane.laneId as any);
 }
 
@@ -282,12 +296,30 @@ function generateLaneQuestion(lane: LaneEntry, seed: number, language: "en" | "h
       const q = generateDsfCp011InterestBatch([seed])[0]! as AnyQuestion;
       return language === "en" ? q : localizeDsfCp019QuantQuestion(lane.laneId, q, language as DsfCp019Language);
     }
-    case "DSF-QS-TIME-WORK-PIPES": return generateDsfCp011TmwBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-TSD-TRAINS-BOATS": return generateDsfCp011TsdBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-MIXTURE-ALLIGATION": return generateDsfCp011MixtureBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-MENSURATION": return generateDsfCp011MensurationBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-CORE-ENRICHMENT": return generateDsfCp011CoreEnrichmentBatch([seed])[0]! as AnyQuestion;
-    case "DSF-QS-ALGEBRA-ENRICHMENT": return generateDsfCp011AlgebraEnrichmentBatch([seed])[0]! as AnyQuestion;
+    case "DSF-QS-TIME-WORK-PIPES": {
+      const q = generateDsfCp011TmwBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfCp019Wave02Question(lane.laneId, q, language as DsfCp019Wave02Language);
+    }
+    case "DSF-QS-TSD-TRAINS-BOATS": {
+      const q = generateDsfCp011TsdBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfCp019Wave02Question(lane.laneId, q, language as DsfCp019Wave02Language);
+    }
+    case "DSF-QS-MIXTURE-ALLIGATION": {
+      const q = generateDsfCp011MixtureBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfCp019Wave02Question(lane.laneId, q, language as DsfCp019Wave02Language);
+    }
+    case "DSF-QS-MENSURATION": {
+      const q = generateDsfCp011MensurationBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfCp019Wave02Question(lane.laneId, q, language as DsfCp019Wave02Language);
+    }
+    case "DSF-QS-CORE-ENRICHMENT": {
+      const q = generateDsfCp011CoreEnrichmentBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfCp019Wave02Question(lane.laneId, q, language as DsfCp019Wave02Language);
+    }
+    case "DSF-QS-ALGEBRA-ENRICHMENT": {
+      const q = generateDsfCp011AlgebraEnrichmentBatch([seed])[0]! as AnyQuestion;
+      return language === "en" ? q : localizeDsfCp019Wave02Question(lane.laneId, q, language as DsfCp019Wave02Language);
+    }
     case "DSF-QS-RANKING": {
       const q = reasoningSurface("RANKING", generateDsfCp012RankingBatch([seed])[0]! as AnyQuestion);
       return language === "en" ? q : localizeDsfReasoningQuestion(lane.laneId, q, language as DsfReasoningLocalizedLanguage);

@@ -61,9 +61,9 @@ for (const [laneId, language] of [
   ["DSF-QS-TIME-WORK-PIPES", "hi"],
   ["DSF-QS-MENSURATION", "pa"],
 ] as const) {
-  assert.throws(
-    () => previewDsf001NormalQuestionStudioReview({ laneId, language, count: 1 }),
-    /not yet localized|English-only/iu,
+  assert.equal(
+    previewDsf001NormalQuestionStudioReview({ laneId, language, count: 1 }).questions[0]?.language,
+    language,
   );
 }
 
@@ -75,5 +75,5 @@ console.log(JSON.stringify({
   englishControls: DSF_CP019_QUANT_LOCALIZED_LANES.length * 2 * 8,
   semanticParity: true,
   lifecycle: "REVIEW_ONLY",
-  remainingQuantLocalizationLanes: 6,
+  remainingQuantLocalizationLanes: 0,
 }, null, 2));

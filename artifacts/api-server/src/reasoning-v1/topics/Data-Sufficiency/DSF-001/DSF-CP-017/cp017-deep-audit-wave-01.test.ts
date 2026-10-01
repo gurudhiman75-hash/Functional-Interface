@@ -131,9 +131,13 @@ assert.equal(
   previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-AVERAGE", language: "hi", count: 1 }).questions[0]?.language,
   "hi",
 );
-assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-TIME-WORK-PIPES", language: "hi", count: 1 }),
-  /not yet localized|English-only/iu,
+assert.equal(
+  previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-TIME-WORK-PIPES", language: "hi", count: 1 }).questions[0]?.language,
+  "hi",
+);
+assert.equal(
+  previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-MENSURATION", language: "pa", count: 1 }).questions[0]?.language,
+  "pa",
 );
 
 console.log(JSON.stringify({

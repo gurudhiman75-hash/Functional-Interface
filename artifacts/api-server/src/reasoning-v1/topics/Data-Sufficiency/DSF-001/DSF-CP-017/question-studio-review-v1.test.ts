@@ -113,11 +113,14 @@ assert.equal(
   "hi",
   "CP019 opens Average Hindi review surface",
 );
-assert.throws(
-  () => previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-TIME-WORK-PIPES", language: "hi", count: 1 }),
-  /not yet localized|English-only/iu,
-  "remaining Quant lanes stay English-only until later CP019 waves",
+assert.equal(
+  previewDsf001NormalQuestionStudioReview({ laneId: "DSF-QS-TIME-WORK-PIPES", language: "hi", count: 1 }).questions[0]?.language,
+  "hi",
+  "CP019 Wave 02 opens Time & Work Hindi review surface",
 );
+for (const canonicalProblem of DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.canonicalProblems) {
+  assert.deepEqual(canonicalProblem.supportedLanguages, ["en", "hi", "pa"], `${canonicalProblem.id}: multilingual review parity`);
+}
 assert.throws(
   () => previewDsf001NormalQuestionStudioReview({ canonicalProblemId: "DSF-QS-NOT-A-LANE", count: 1 }),
   /Unsupported Data Sufficiency canonical problem/i,
