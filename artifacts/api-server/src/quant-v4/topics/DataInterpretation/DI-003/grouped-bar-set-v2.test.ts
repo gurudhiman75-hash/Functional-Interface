@@ -107,7 +107,7 @@ for (let seedIndex = 1; seedIndex <= 120; seedIndex += 1) {
           TICKET_SALES: /tickets sold|tickets did .* sell|ticket sales/iu,
           PACKAGE_DISPATCH: /packages dispatched|packages did .* dispatch/iu,
         };
-        assert(measurePatterns[first.stimulus.contextId]?.test(question.stem), `${question.questionId} does not name its scenario's measured activity.`);
+        assert(measurePatterns[first.stimulus.contextId]?.test(question.stem), `${question.questionId} (${first.stimulus.contextId}: ${question.stem}) does not name its scenario's measured activity.`);
         assert(!/average value|mean of the five .* values|per category/iu.test(question.stem), `${question.questionId} uses a context-free average prompt.`);
       }
       if (["PERCENT_CHANGE_WITHIN_SERIES", "CATEGORY_SHARE_OF_SERIES_TOTAL", "TOTAL_SERIES_PERCENT_EXCESS"].includes(question.kind)) {
