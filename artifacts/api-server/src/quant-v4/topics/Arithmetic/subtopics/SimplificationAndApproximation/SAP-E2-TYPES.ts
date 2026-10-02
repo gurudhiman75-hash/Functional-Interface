@@ -78,18 +78,6 @@ export function optionSet(correct: string, correctIndex: number, wrong: readonly
   return Object.freeze(out);
 }
 
-export function nearbyNumericOptions(answer: number, correctIndex: number, step = 1, places = 0): readonly SapE2Option[] {
-  const correct = fmt(answer, places);
-  const deltas = [-step, step, 2 * step, -2 * step, 3 * step, -3 * step];
-  const wrong: { value: string; id: string; analysis: string }[] = [];
-  for (const d of deltas) {
-    const value = fmt(answer + d, places);
-    if (value !== correct && !wrong.some(x => x.value === value)) wrong.push({ value, id: "NEARBY_RESULT", analysis: "A nearby value from an arithmetic or approximation slip." });
-    if (wrong.length === 3) break;
-  }
-  return optionSet(correct, correctIndex, wrong);
-}
-
 function validate(args: { stem: string; answer: string; options: readonly SapE2Option[]; correctIndex: number; decisionCount: number; steps: readonly string[] }): readonly string[] {
   const errors: string[] = [];
   if (args.decisionCount < 2) errors.push("Production item must require at least two mathematical decisions.");
