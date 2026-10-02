@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Home, Megaphone, Plus, RefreshCw, Save, Sparkles, Target, Trash2 } from 'lucide-react';
+import { Copy, Eye, Home, Megaphone, Pause, Play, Plus, RefreshCw, Save, Sparkles, Target, Trash2, X } from 'lucide-react';
 
 import { MediaAssetPicker } from '@/components/shared/MediaAssetPicker';
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -21,6 +21,7 @@ type Promotion={
   id:string;title:string;subtitle:string;ctaLabel:string;imageUrl:string;placement:string;destinationType:string;destinationValue:string;
   campaignKind:string;isDismissible:boolean;frequencyCapPerDay:number|null;repeatOnEveryOpen:boolean;audience:Audience;isActive:boolean;
   startAt:string|null;endAt:string|null;sortOrder:number;createdAt?:string;updatedAt?:string;
+  impressions?:number;clicks?:number;dismissals?:number;
 };
 type Exam={id:string;code:string;name:string;familyName:string};
 type TestSeries={id:string;code:string;name:string;examName:string};
@@ -42,6 +43,34 @@ function frequencyLabel(promotion:Promotion){
   if(mode==='custom_daily')return`${promotion.frequencyCapPerDay}× per day`;
   return'No daily cap';
 }
+type CampaignStatus='live'|'scheduled'|'ended'|'inactive';
+function statusOf(promotion:Promotion):CampaignStatus{
+  if(!promotion.isActive)return'inactive';
+  const now=Date.now();
+  const starts=promotion.startAt?new Date(promotion.startAt).getTime():null;
+  const ends=promotion.endAt?new Date(promotion.endAt).getTime():null;
+  if(starts!==null&&Number.isFinite(starts)&&starts>now)return'scheduled';
+  if(ends!==null&&Number.isFinite(ends)&&ends<now)return'ended';
+  return'live';
+}
+function statusMeta(status:CampaignStatus){
+  if(status==='live')return{label:'Live',className:'bg-success/10 text-success'};
+  if(status==='scheduled')return{label:'Scheduled',className:'bg-blue-500/10 text-blue-700'};
+  if(status==='ended')return{label:'Ended',className:'bg-amber-500/10 text-amber-700'};
+  return{label:'Inactive',className:'bg-muted text-muted-foreground'};
+}
+function scheduleErrorOf(promotion:Promotion){
+  if(!promotion.startAt||!promotion.endAt)return'';
+  const start=new Date(promotion.startAt).getTime();
+  const end=new Date(promotion.endAt).getTime();
+  if(!Number.isFinite(start)||!Number.isFinite(end))return'Enter a valid start and end time.';
+  if(end<=start)return'End time must be later than start time.';
+  return'';
+}
+function ctrOf(promotion:Promotion){
+  const impressions=promotion.impressions??0;
+  return impressions>0?`${(((promotion.clicks??0)/impressions)*100).toFixed(1)}%`:'—';
+}
 
 function localDateTime(value:string|null){
   if(!value)return '';
@@ -50,7 +79,7 @@ function localDateTime(value:string|null){
   return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 function isoOrNull(value:string){return value?new Date(value).toISOString():null;}
-function blank():Promotion{return{id:'',title:'',subtitle:'',ctaLabel:'Explore',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,repeatOnEveryOpen:false,audience:{languageCodes:[],examIds:[]},isActive:true,startAt:null,endAt:null,sortOrder:1};}
+function blank():Promotion{return{id:'',title:'',subtitle:'',ctaLabel:'Explore',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,repeatOnEveryOpen:false,audience:{languageCodes:[],examIds:[]},isActive:true,startAt:null,endAt:null,sortOrder:1,impressions:0,clicks:0,dismissals:0};}
 function audienceOf(value:Audience|undefined):Required<Audience>{return{languageCodes:Array.isArray(value?.languageCodes)?value!.languageCodes!:[],examIds:Array.isArray(value?.examIds)?value!.examIds!:[]};}
 function preset(kind:'popup'|'home'|'targeted'):Promotion{
   const base={...blank(),isActive:false};
