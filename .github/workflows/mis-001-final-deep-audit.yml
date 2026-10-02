@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Missing-Number/MIS-001/**'
-      - '.github/workflows/mis-001-final-deep-audit.yml'
   workflow_dispatch:
 
 permissions:
