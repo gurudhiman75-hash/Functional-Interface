@@ -177,6 +177,7 @@ for (const [index, record] of records.entries()) {
   assert.equal(record.options.filter((option) => option.isCorrect).length, 1);
   assert.equal(record.options[record.correctIndex]?.value, record.canonicalAnswer);
   assert.ok(record.options.filter((option) => !option.isCorrect).every((option) => Boolean(option.misconceptionId) && option.analysis.length >= 45));
+  assert.ok(record.options.filter((option) => !option.isCorrect).every((option) => !/^(?:NEARBY_(?:LOW|HIGH|OPTION)|FINAL_VALUE_)/.test(option.misconceptionId ?? "")), `${record.questionId}: generic fallback distractor leaked into review surface.`);
   assert.ok(record.explanation.coreConcept.length >= 100);
   assert.ok(record.explanation.steps.length >= 2);
   assert.ok(record.explanation.verification.length >= 2);
