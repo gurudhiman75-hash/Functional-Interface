@@ -20,7 +20,7 @@ function normalizedSurface(candidate: Record<string, unknown>): string {
 const awaitingRouteProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
 );
-assert.equal(awaitingRouteProviders.length, 3);
+assert.equal(awaitingRouteProviders.length, 2);
 
 const providerIds = new Set<string>();
 const chapterIds = new Set<string>();
@@ -108,6 +108,7 @@ assert.equal(reviewPack.includes("CAL-001-IMPLICIT-RANGE-FREQUENCY"), false);
 assert.equal(reviewPack.includes("OPS-001-INFER-THEN-FILL"), false);
 assert.equal(reviewPack.includes("CLK-001-FAULTY-TIME-ANGLE"), false);
 assert.equal(reviewPack.includes("DIR-001-GRAPH-RELATIVE-PATH"), false);
+assert.equal(reviewPack.includes("BLR-001-CODED-FILTERED-COUNT"), false);
 
 const approvedProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "APPROVED_RUNTIME",
@@ -121,6 +122,7 @@ assert.deepEqual(
     "CLK-001-FAULTY-TIME-ANGLE",
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
+    "BLR-001-CODED-FILTERED-COUNT",
   ],
 );
 assert.deepEqual(
