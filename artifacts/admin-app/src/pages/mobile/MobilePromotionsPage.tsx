@@ -255,5 +255,48 @@ export function MobilePromotionsPage(){
     </CardContent></Card>}
   </div>;
 }
+function PromotionPreview({promotion}:{promotion:Promotion}){
+  const hasAction=promotion.destinationType!=='none';
+  const title=promotion.title||'Promotion title';
+  const subtitle=promotion.subtitle||'Promotion message appears here.';
+  if(promotion.placement==='login_popup'){
+    return <div className="mx-auto max-w-[420px] rounded-[28px] bg-slate-950/70 p-5 shadow-inner">
+      <div className="relative mx-auto max-w-[360px]">
+        {promotion.imageUrl?<>
+          <div className="overflow-hidden rounded-3xl bg-white shadow-2xl">
+            <img src={promotion.imageUrl} alt="" className="block max-h-[520px] w-full object-contain"/>
+          </div>
+          {promotion.isDismissible&&<div className="absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow"><X className="h-4 w-4 text-slate-700"/></div>}
+        </>:<div className="relative rounded-3xl bg-white p-5 shadow-2xl">
+          {promotion.isDismissible&&<div className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-slate-100"><X className="h-4 w-4 text-slate-700"/></div>}
+          <p className="pr-10 text-lg font-extrabold text-slate-900">{title}</p>
+          <p className="mt-2 text-sm leading-5 text-slate-600">{subtitle}</p>
+          {hasAction&&<div className="mt-4 rounded-xl bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground">{promotion.ctaLabel||'Explore'}</div>}
+        </div>}
+      </div>
+      <p className="mt-3 text-center text-[11px] text-white/70">{promotion.imageUrl?'Image-led app-open campaign: the creative itself is the tappable surface.':'Text-led app-open modal.'}</p>
+    </div>;
+  }
+  return <div className="mx-auto max-w-[390px]">
+    <div className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">{promotion.placement} placement</div>
+    <div className="relative h-44 overflow-hidden rounded-3xl border bg-primary/10 shadow-sm">
+      <div className="absolute -right-8 -top-10 h-36 w-36 rounded-full bg-primary/10"/>
+      {promotion.imageUrl&&<img src={promotion.imageUrl} alt="" className="absolute bottom-0 right-0 top-0 h-full w-[132px] object-cover"/>}
+      <div className="relative flex h-full">
+        <div className="flex min-w-0 flex-1 flex-col p-4 pr-3">
+          <div className="w-fit rounded-full bg-white/80 px-2.5 py-1 text-[10px] font-extrabold tracking-[0.12em] text-primary">EXAMTREE</div>
+          <div className="mt-auto max-w-[230px]">
+            <p className="line-clamp-2 text-lg font-extrabold leading-tight text-slate-900">{title}</p>
+            <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-600">{subtitle}</p>
+            {hasAction&&<div className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-primary">{promotion.ctaLabel||'Explore'} <span aria-hidden="true">→</span></div>}
+          </div>
+        </div>
+        {promotion.imageUrl&&<div className="w-[132px] shrink-0"/>}
+      </div>
+      {promotion.isDismissible&&<div className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow"><X className="h-4 w-4 text-slate-700"/></div>}
+    </div>
+  </div>;
+}
+
 function Field({label,children}:{label:string;children:React.ReactNode}){return <div className="space-y-1.5"><Label>{label}</Label>{children}</div>}
 export default MobilePromotionsPage;
