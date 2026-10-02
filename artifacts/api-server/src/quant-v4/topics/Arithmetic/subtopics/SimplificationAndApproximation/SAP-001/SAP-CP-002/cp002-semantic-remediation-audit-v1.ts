@@ -73,8 +73,8 @@ assert.deepEqual(
 assert.equal(ql031.answerPositionCount, 4, "SAP-QL-031: comparison answers must rotate across all four positions");
 assert.equal(
   ql031.optionSurfaceCount,
-  4,
-  "SAP-QL-031: fixed comparison choices should produce exactly four meaningful option-order surfaces",
+  8,
+  "SAP-QL-031: fixed comparison authority should retain its eight meaningful relation-option surfaces",
 );
 
 const ql033 = rows.find((row) => row.qlId === "SAP-QL-033");
