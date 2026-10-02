@@ -550,7 +550,9 @@ function buildOptions(answer: any, language: AlgebraStudioLanguage, seed: string
     "QUANTITY_RELATION",
     "DATA_SUFFICIENCY",
   ].includes(kind);
-  const selectionPool = primary.length >= 3 ? primary : fallback;
+  const selectionPool = fixedChoiceFamily
+    ? (primary.length >= 3 ? primary : fallback)
+    : fallback;
   const wrongs = fixedChoiceFamily
     ? selectionPool.slice(0, 3)
     : selectSeededWindow(selectionPool, seed, 3);
