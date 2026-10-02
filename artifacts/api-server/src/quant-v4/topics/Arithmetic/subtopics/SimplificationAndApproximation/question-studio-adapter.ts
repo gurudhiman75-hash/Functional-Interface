@@ -230,7 +230,9 @@ function hash(value: string) {
 }
 
 function numericSeed(seed: string, qlId: string, attempt: number) {
-  return (hash(`${seed}:${qlId}:${attempt}`) % 100) + 1;
+  // Keep deterministic positive integer source seeds while avoiding the severe
+  // birthday-collision rate caused by the previous 1..100 compression.
+  return (hash(`${seed}:${qlId}:${attempt}`) % 1_000_000) + 1;
 }
 
 function weightedPick(list: readonly SapQuestionStudioQlDescriptor[], seed: string, attempt: number) {
