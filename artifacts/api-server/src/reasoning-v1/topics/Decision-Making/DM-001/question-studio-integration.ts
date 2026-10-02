@@ -6,7 +6,7 @@ import type {
 } from "../../../../question-studio/engine-types.ts";
 import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle.ts";
 import { DM_001_MANIFEST } from "./chapter-manifest.ts";
-import { generateDmQuestion, modesForDmDifficulty } from "./generator.ts";
+import { generateDm020QuestionSet, generateDmQuestion, modesForDmDifficulty } from "./generator.ts";
 import { DM_001_QL_REGISTRY } from "./ql-registry.ts";
 import { DM_001_SCENARIO_LIBRARY } from "./scenario-library.ts";
 import type { DmCheckpointId, DmDifficulty, DmLocale, DmQlId } from "./types.ts";
@@ -208,24 +208,33 @@ export async function generateDm001QuestionStudioBatch(
   const count = normalizeCount(request.count);
   const requestedDifficulty = normalizeDifficulty(request.difficulty);
   const qlPool = resolveQlPool(request);
+  const cohesiveDm020 = qlPool.every((qlId) =>
+    DM_001_QL_REGISTRY.find((entry) => entry.qlId === qlId)?.checkpointId === "DM-CP-020"
+  );
   const seedText = text(request.seed) || "dm001-waves-1-4-review-v1";
   const start = hash(seedText + ":ql-start") % qlPool.length;
   const questions: Record<string, unknown>[] = [];
 
   for (let index = 0; index < count; index += 1) {
-    const qlId = qlPool[(start + index) % qlPool.length]!;
+    const sequenceIndex = cohesiveDm020 ? Math.floor(index / 5) : index;
+    const qlId = qlPool[(start + sequenceIndex) % qlPool.length]!;
     const eligibleScenarios = DM_001_SCENARIO_LIBRARY.filter((scenario) => scenario.qlId === qlId);
     if (eligibleScenarios.length === 0) throw new Error("DM-001 has no scenario authority for " + qlId);
-    const numericSeed = hash(seedText + ":" + qlId + ":" + String(index));
+    const numericSeed = hash(seedText + ":" + qlId + ":" + String(sequenceIndex));
     const scenario = eligibleScenarios[numericSeed % eligibleScenarios.length]!;
-    const difficulty = requestedDifficulty ?? DIFFICULTY_PATTERN[index % DIFFICULTY_PATTERN.length]!;
+    const difficulty = requestedDifficulty ?? DIFFICULTY_PATTERN[sequenceIndex % DIFFICULTY_PATTERN.length]!;
     const mode = modesForDmDifficulty(scenario, difficulty, numericSeed);
-    const generated = generateDmQuestion({ scenario, locale, seed: numericSeed, mode });
+    const generatedSet = cohesiveDm020
+      ? generateDm020QuestionSet({ scenario, locale, seed: numericSeed, mode })
+      : undefined;
+    const generated = generatedSet?.questions[index % 5]
+      ?? generateDmQuestion({ scenario, locale, seed: numericSeed, mode });
     if (generated.difficulty !== difficulty) {
       throw new Error("DM-001 difficulty selector produced a different generated-instance difficulty.");
     }
     const options = [...generated.options];
-    const questionId = "DM-001:" + qlId + ":" + String(numericSeed) + ":" + language;
+    const setQuestionSuffix = generated.setQuestionNumber ? ":Q" + String(generated.setQuestionNumber) : "";
+    const questionId = "DM-001:" + qlId + ":" + String(numericSeed) + setQuestionSuffix + ":" + language;
     const localeName = language === "en" ? "en-IN" : language === "hi" ? "hi-IN" : "pa-IN";
     const difficultyLabel = displayDifficulty(generated.difficulty);
 
@@ -244,7 +253,14 @@ export async function generateDm001QuestionStudioBatch(
       ruleOutcome: generated.outcome,
       answerMode: generated.answerMode,
       ...(generated.selectedCandidates ? { selectedCandidates: [...generated.selectedCandidates] } : {}),
+      ...(generated.candidateGroup ? { candidateGroup: generated.candidateGroup.map((candidate) => ({ ...candidate })) } : {}),
       ...(generated.setQuestionKind ? { setQuestionKind: generated.setQuestionKind, setQuestionNumber: generated.setQuestionNumber } : {}),
+      ...(generatedSet ? {
+        setId: generatedSet.setId,
+        setSize: generatedSet.questions.length,
+        setSharedStimulus: generatedSet.sharedStimulus,
+        setCandidateProfiles: generatedSet.candidateGroup.map((candidate) => ({ ...candidate })),
+      } : {}),
       subject: "Reasoning",
       topic: "Decision Making / Eligibility",
       subtopic: "Eligibility and Rule Application",
@@ -264,7 +280,7 @@ export async function generateDm001QuestionStudioBatch(
       requestedDifficulty: request.difficulty ?? "Mixed",
       requestedDifficultyApplied: Boolean(requestedDifficulty),
       requestedExam: request.exam ?? null,
-      generationSeed: seedText + ":" + qlId + ":" + String(index),
+      generationSeed: seedText + ":" + qlId + ":" + String(sequenceIndex) + setQuestionSuffix,
       numericSeed,
       runtimeMode: DM001_QUESTION_STUDIO_RUNTIME_MODE_V1,
       registrationStatus: "REGISTERED_REVIEW_ONLY",
@@ -294,6 +310,7 @@ export async function generateDm001QuestionStudioBatch(
         ruleOutcome: generated.outcome,
         answerMode: generated.answerMode,
         ...(generated.setQuestionKind ? { setQuestionKind: generated.setQuestionKind, setQuestionNumber: generated.setQuestionNumber } : {}),
+        ...(generatedSet ? { setId: generatedSet.setId, setSize: generatedSet.questions.length } : {}),
       },
     });
   }
