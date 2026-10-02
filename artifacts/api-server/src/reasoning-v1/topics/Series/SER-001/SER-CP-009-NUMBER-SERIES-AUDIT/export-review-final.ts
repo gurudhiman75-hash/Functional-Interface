@@ -5,19 +5,13 @@ import {
 } from "./number-series-audited";
 
 const titles: Record<(typeof SER_CP009_AUDITED_QL_IDS)[number], string> = {
-  "SER-QL-029": "Fixed difference",
-  "SER-QL-030": "Progressive difference",
-  "SER-QL-031": "Figurate differences",
+  "SER-QL-029": "First-difference patterns",
   "SER-QL-032": "Constant multiplication/division",
   "SER-QL-033": "Alternating operations",
-  "SER-QL-034": "Interleaved double series",
   "SER-QL-035": "Progressive multiplier + fixed adjustment",
   "SER-QL-036": "Direct square/cube series",
-  "SER-QL-037": "Prime differences",
   "SER-QL-038": "Fibonacci-like recurrence",
-  "SER-QL-039": "Digit-block rotation",
-  "SER-QL-040": "Wrong term in power series",
-  "SER-QL-041": "Grouped multi-missing series",
+  "SER-QL-040": "Wrong-term pattern diagnosis",
 };
 
 const lines = [
