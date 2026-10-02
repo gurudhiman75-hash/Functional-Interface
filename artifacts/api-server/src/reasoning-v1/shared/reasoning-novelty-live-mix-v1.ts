@@ -29,7 +29,7 @@ export const REASONING_V1_LIVE_NOVELTY_ACTIVATIONS: readonly LiveActivation[] = 
   {
     packageId: "OPS-001",
     providerId: "OPS-001-INFER-THEN-FILL",
-    calibratedDifficulty: "Medium",
+    calibratedDifficulty: "Hard",
   },
   {
     packageId: "DIR-001",
