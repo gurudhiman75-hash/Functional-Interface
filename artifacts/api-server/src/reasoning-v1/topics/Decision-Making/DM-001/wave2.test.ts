@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { evaluateDmDecision, rankDmCandidates } from "./decision-engine.ts";
-import { buildDmCandidate, generateDmQuestion } from "./generator.ts";
+import { buildDmCandidate, formatDmRequirement, generateDmQuestion } from "./generator.ts";
 import { dmScenariosForCheckpoint } from "./scenario-library.ts";
 
 const cutoffs = dmScenariosForCheckpoint("DM-CP-008").find((scenario) =>
@@ -18,6 +18,7 @@ for (const condition of cutoffs.baseConditions) {
 
 const relaxations = dmScenariosForCheckpoint("DM-CP-009");
 for (const scenario of relaxations) {
+  assert.equal(new Set(scenario.ruleNotes.map((note) => note.en)).size, scenario.ruleNotes.length, scenario.scenarioId + " must explain each relaxation separately");
   for (const [mode, ruleId] of [
     ["AGE_EXCEPTION", "AGE_EXPERIENCE_RELAXATION_REFER_COMMITTEE"],
     ["MARKS_EXCEPTION", "POSTGRADUATE_MARKS_RELAXATION_REFER_COMMITTEE"],
@@ -33,6 +34,7 @@ const rankedScenario = dmScenariosForCheckpoint("DM-CP-010").find((scenario) =>
   scenario.ranking?.seatCount === 1 && scenario.ranking.priorityOrder[0]?.field === "qualificationRank",
 )!;
 const generated = generateDmQuestion({ scenario: rankedScenario, locale: "en", seed: 137, mode: "ALL_PASS" });
+assert.ok(!generated.stem.includes("Two training seats"), "the context must not contradict the computed seat count");
 const reversed = rankDmCandidates([...generated.candidateGroup!].reverse(), rankedScenario);
 assert.deepEqual(reversed.selected.map((candidate) => candidate.name), generated.selectedCandidates);
 assert.equal(
@@ -70,4 +72,6 @@ for (const offset of [-1, 0, 1]) {
 
 assert.equal(dmScenariosForCheckpoint("DM-CP-007").length, 25);
 assert.ok(dmScenariosForCheckpoint("DM-CP-007").every((scenario) => scenario.context.en.includes("fictional scheme")));
+const employmentCondition = dmScenariosForCheckpoint("DM-CP-007")[0]!.baseConditions.find((condition) => condition.field === "employmentStatus")!;
+assert.equal(formatDmRequirement(employmentCondition, "en"), "Employment status: student or unemployed");
 console.log("DM-001 Wave 2 checks passed: cutoff boundaries, dependent relaxations, fictional benefit contexts and computed priority ranking.");
