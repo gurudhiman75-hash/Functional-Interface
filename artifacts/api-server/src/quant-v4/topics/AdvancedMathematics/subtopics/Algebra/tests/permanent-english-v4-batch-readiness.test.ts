@@ -20,12 +20,9 @@ import {
   ALG_CP008_ENGLISH_REVIEW_V4_TARGETS,
   generateAlgCp008EnglishReviewV4,
 } from "../permanent/english-review-v4-cp008";
+import { generateAlgCp009EnglishReviewV4 } from "../permanent/english-review-v4-cp009";
 import {
-  ALG_CP009_ENGLISH_REVIEW_V4_TARGETS,
-  generateAlgCp009EnglishReviewV4,
-} from "../permanent/english-review-v4-cp009";
-import {
-  ALG_CP011_ENGLISH_REVIEW_V4_TARGETS,
+  ALG_CP011_ENGLISH_REVIEW_V4_VARIANT_COUNT,
   generateAlgCp011EnglishReviewV4,
 } from "../permanent/english-review-v4-cp011";
 import {
@@ -67,8 +64,11 @@ const families: readonly Family[] = [
   { cpId: "ALG-CP-004", targets: ALG_CP004_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp004EnglishReviewV4 as Family["generate"], minQuestions: 48, minExplanations: 48 },
   { cpId: "ALG-CP-007", targets: ALG_CP007_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp007EnglishReviewV4 as Family["generate"], minQuestions: 48, minExplanations: 48 },
   { cpId: "ALG-CP-008", targets: ALG_CP008_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp008EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32 },
-  { cpId: "ALG-CP-009", targets: ALG_CP009_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp009EnglishReviewV4 as Family["generate"], minQuestions: 48, minExplanations: 48 },
-  { cpId: "ALG-CP-011", targets: ALG_CP011_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp011EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32 },
+  { cpId: "ALG-CP-009", targets: ["ALG-CP009-CAND-005"], generate: ((_prototypeId, seed) => generateAlgCp009EnglishReviewV4(seed)) as Family["generate"], minQuestions: 48, minExplanations: 48 },
+  { cpId: "ALG-CP-011", targets: Array.from({ length: ALG_CP011_ENGLISH_REVIEW_V4_VARIANT_COUNT }, (_unused, index) => `ALG-CP011-VARIANT-${index}`), generate: ((prototypeId, seed) => {
+      const variantIndex = Number(String(prototypeId).split("-").at(-1));
+      return generateAlgCp011EnglishReviewV4(seed, variantIndex);
+    }) as Family["generate"], minQuestions: 32, minExplanations: 32 },
   { cpId: "ALG-CP-012", targets: ALG_CP012_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp012EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32 },
   { cpId: "ALG-CP-013", targets: ALG_CP013_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp013EnglishReviewV4 as Family["generate"], minQuestions: 24, minExplanations: 24 },
   { cpId: "ALG-CP-014", targets: ALG_CP014_ENGLISH_REVIEW_V4_TARGETS, generate: generateAlgCp014EnglishReviewV4 as Family["generate"], minQuestions: 32, minExplanations: 32 },
