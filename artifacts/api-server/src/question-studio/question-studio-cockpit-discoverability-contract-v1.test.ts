@@ -60,6 +60,11 @@ assert(
   source.includes("item.status === 'rejected'"),
   "Question Studio cockpit must disable redundant rejection decisions.",
 );
+
+assert(
+  source.includes("expectedVersionNumber: item.currentVersionNumber"),
+  "Question Studio revision editor must submit the version it was opened against.",
+);
 assert(
   source.includes("summary.total"),
   "Question Studio run header must distinguish items in view from the full run total.",
