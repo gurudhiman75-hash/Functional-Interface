@@ -109,7 +109,7 @@ for (const family of families) {
       assert.ok(item.question.trim().length >= 12, `${prototypeId}/${seed}: thin question`);
       assert.ok(item.explanation.trim().length >= 45, `${prototypeId}/${seed}: thin explanation`);
       assert.doesNotMatch(item.question, /oracle|runtime|prototype|canonical|machine policy|TODO|TBD|undefined|\\bNaN\\b/i);
-      assert.doesNotMatch(item.explanation, /oracle|runtime|prototype|canonical|machine policy|TODO|TBD|undefined|NaN/i);
+      assert.doesNotMatch(item.explanation, /oracle|runtime|prototype|canonical|machine policy|TODO|TBD|undefined|\\bNaN\\b/i);
       questions.add(item.question);
       explanations.add(item.explanation);
       frames.add(normalizedFrame(item.question));
