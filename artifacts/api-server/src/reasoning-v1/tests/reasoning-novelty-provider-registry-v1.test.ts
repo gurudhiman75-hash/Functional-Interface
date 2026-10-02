@@ -16,10 +16,9 @@ const live = [
   "DIR-001-GRAPH-RELATIVE-PATH",
   "CAL-001-IMPLICIT-RANGE-FREQUENCY",
   "BLR-001-CODED-FILTERED-COUNT",
-] as const;
-const awaitingRoute = [
   "RNK-001-CROSS-FAMILY-CASELET",
 ] as const;
+const awaitingRoute = [] as const;
 
 test("novelty provider registry has unique provider identities", () => {
   const ids = REASONING_V1_NOVELTY_PROVIDERS_V1.map((entry) => entry.providerId);
