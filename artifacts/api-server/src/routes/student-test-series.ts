@@ -391,6 +391,12 @@ async function enforceSeriesAccess(req: Request, res: Response, next: NextFuncti
   }
 }
 
+router.post("/attempt-sessions", async (req, res, next) => {
+  const identifier = asString(req.body?.testId);
+  const seriesId = asString(req.body?.seriesId);
+  await enforceSeriesAccess(req, res, next, identifier, seriesId);
+});
+
 router.get("/tests/:id", async (req, res, next) => {
   const identifier = asString(req.params.id);
   const seriesId = asString(req.query.seriesId);
