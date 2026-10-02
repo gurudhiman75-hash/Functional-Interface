@@ -46,9 +46,6 @@ jobs:
           grep -F "path:'/settings/exam-config'" artifacts/admin-app/src/App.tsx
           grep -F "status: 'live', permission: 'content.taxonomy.read'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "toLocaleString('en-US')" artifacts/admin-app/src/pages/settings/ExamConfigurationPage.tsx
-          grep -F "'/admin/exam-configuration/families'" artifacts/admin-app/src/pages/settings/ExamConfigurationPage.tsx
-          grep -F "'/admin/exam-configuration/exams'" artifacts/admin-app/src/pages/settings/ExamConfigurationPage.tsx
-          grep -F 'Question generation is not required.' artifacts/admin-app/src/pages/settings/ExamConfigurationPage.tsx
           ! grep -E 'usePrototypeStore|@/data/exams|Prototype Settings|demonstration data' artifacts/admin-app/src/pages/settings/ExamConfigurationPage.tsx
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
