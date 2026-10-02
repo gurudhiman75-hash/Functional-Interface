@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { showToast } from '@/components/shared/toast';
-import { updateGenerationItems } from '@/features/question-studio/api';
 import {
-  isProbabilityNativeReviewPayload,
-  updateProbabilityReviewItem,
-} from '@/features/question-studio/probability-review-api';
+  updateGenerationItems,
+  type GenerationItemStatus,
+} from '@/features/question-studio/api';
 import { transitionQuestion } from '@/features/question-bank/api';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import type { ReviewDecision } from '@/pages/content/ContentReviewDetail';
@@ -75,29 +74,22 @@ export function useContentReviewController() {
       return;
     }
     try {
-      let probabilityNativeDecision = false;
       if (selectedItem.entityType === 'generation_item') {
-        const status = decision === 'approve'
+        const status: GenerationItemStatus = decision === 'approve'
           ? 'approved'
           : decision === 'needs_fix'
             ? 'needs_fix'
             : decision === 'reject'
               ? 'rejected'
               : 'unreviewed';
-        probabilityNativeDecision = isProbabilityNativeReviewPayload(selectedItem.currentPayload);
-        if (probabilityNativeDecision) {
-          await updateProbabilityReviewItem({
-            itemId: selectedItem.entityId,
-            status,
-            reason: actionReason.trim() || undefined,
-          });
-        } else {
-          await updateGenerationItems({
-            itemIds: [selectedItem.entityId],
-            status,
-            reason: actionReason.trim() || undefined,
-          });
-        }
+        await updateGenerationItems({
+          itemIds: [selectedItem.entityId],
+          expectedStatuses: {
+            [selectedItem.entityId]: selectedItem.status as GenerationItemStatus,
+          },
+          status,
+          reason: actionReason.trim() || undefined,
+        });
       } else {
         const action = decision === 'approve'
           ? 'approve'
@@ -111,9 +103,7 @@ export function useContentReviewController() {
       }
       showToast.success(
         'Review decision saved',
-        probabilityNativeDecision
-          ? `${selectedItem.publicCode} updated as Probability editorial evidence; Question Bank and release remain locked.`
-          : `${selectedItem.publicCode} moved through the canonical lifecycle.`,
+        `${selectedItem.publicCode} moved through the canonical lifecycle.`,
       );
       setActionReason('');
       await collaboration.refresh();

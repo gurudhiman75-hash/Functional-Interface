@@ -241,6 +241,8 @@ assert.match(
 );
 assert.match(bulkHardeningRoute, /APPROVED_REOPEN_REASON_REQUIRED/);
 assert.match(bulkHardeningRoute, /NO_REVIEW_STATUS_CHANGE/);
+assert.match(bulkHardeningRoute, /EXPECTED_REVIEW_STATUS_REQUIRED/);
+assert.match(bulkHardeningRoute, /GENERATION_ITEM_STATUS_CONFLICT/);
 assert.match(bulkHardeningRoute, /analyzeGeneratedQuestionPayload\(item\.payload\)/);
 assert.match(bulkHardeningRoute, /transactional approval quality gate/);
 assert.match(bulkHardeningRoute, /Generated item is an exact duplicate of an existing generated question/);

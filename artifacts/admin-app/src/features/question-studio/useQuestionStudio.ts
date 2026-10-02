@@ -119,6 +119,7 @@ export function useQuestionStudio() {
 
   const updateItems = useCallback(async (input: {
     itemIds: string[];
+    expectedStatuses: Record<string, GenerationItemStatus>;
     status: GenerationItemStatus;
     reason?: string;
   }) => {

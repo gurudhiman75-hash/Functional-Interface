@@ -522,7 +522,15 @@ export function QuestionStudioCockpitPage() {
       }
     }
     try {
-      const result = await updateItems({ itemIds: ids, status, reason: reason.trim() || undefined });
+      const expectedStatuses = Object.fromEntries(
+        ids.map((id) => [id, selectedStatusById.get(id)]).filter((entry): entry is [string, GenerationItemStatus] => Boolean(entry[1])),
+      );
+      const result = await updateItems({
+        itemIds: ids,
+        expectedStatuses,
+        status,
+        reason: reason.trim() || undefined,
+      });
       await refreshReviewPage();
       setSelectedIds((current) => new Set([...current].filter((id) => !ids.includes(id))));
       setReason('');
