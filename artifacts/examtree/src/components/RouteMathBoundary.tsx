@@ -4,7 +4,7 @@ import { useLocation } from "wouter";
 const MathJaxRouteProvider = lazy(() => import("@/providers/MathJaxRouteProvider"));
 
 function routeNeedsMath(location: string) {
-  return location.startsWith("/test/") || location === "/result" || location.startsWith("/ssc-cgl/questions/");
+  return location.startsWith("/test/") || location === "/result" || /^\/[^/]+\/questions\//.test(location);
 }
 
 function MathRouteSkeleton() {
