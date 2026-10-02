@@ -106,6 +106,7 @@ const QUESTION_REWRITES: Readonly<Record<string, { hi: RegExp; hiTo: string; pa:
 });
 
 const HI_PHRASES: readonly [RegExp, string][] = [
+  [/\btherefore\b/gi, "अतः"], [/\bhence\b/gi, "अतः"],
   [/\bfind\b/gi, "ज्ञात करें"], [/\bdetermine\b/gi, "निर्धारित करें"], [/\bcalculate\b/gi, "गणना करें"], [/\bcompare\b/gi, "तुलना करें"],
   [/\bsatisfies\b/gi, "संतुष्ट करता है"], [/\bsatisfy\b/gi, "संतुष्ट करते हैं"], [/\bfactorise\b/gi, "गुणनखंड करें"], [/\bfactorization\b/gi, "गुणनखंडन"],
   [/\bdefined\b/gi, "परिभाषित"], [/\bpossible\b/gi, "संभव"], [/\brelation\b/gi, "संबंध"], [/\bequation\b/gi, "समीकरण"],
@@ -161,6 +162,7 @@ const HI_PHRASES: readonly [RegExp, string][] = [
 const PA_PHRASES: readonly [RegExp, string][] = HI_PHRASES.map(([pattern, replacement]) => [pattern, replacement] as [RegExp, string]);
 
 const PA_TOKEN_REPLACE: readonly [RegExp, string][] = [
+  [/अतः/g, "ਇਸ ਲਈ"],
   [/ज्ञात करें/g, "ਪਤਾ ਕਰੋ"], [/निर्धारित करें/g, "ਨਿਰਧਾਰਤ ਕਰੋ"], [/तुलना करें/g, "ਤੁਲਨਾ ਕਰੋ"],
   [/संतुष्ट करता है/g, "ਸੰਤੁਸ਼ਟ ਕਰਦਾ ਹੈ"], [/संतुष्ट करते हैं/g, "ਸੰਤੁਸ਼ਟ ਕਰਦੇ ਹਨ"], [/गुणनखंड करें/g, "ਗੁਣਨਖੰਡ ਕਰੋ"],
   [/गुणनखंडन/g, "ਗੁਣਨਖੰਡਨ"], [/परिभाषित/g, "ਪਰਿਭਾਸ਼ਿਤ"], [/संभव/g, "ਸੰਭਵ"], [/यहाँ/g, "ਇੱਥੇ"],
