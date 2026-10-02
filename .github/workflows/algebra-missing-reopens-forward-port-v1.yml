@@ -107,13 +107,29 @@ jobs:
       - name: Run V4 reopen proofs
         run: |
           cd artifacts/api-server
+          set +e
+          failures=0
+
+          run_proof() {
+            echo "::group::$1"
+            node "$1"
+            code=$?
+            echo "::endgroup::"
+            if [ "$code" -ne 0 ]; then
+              failures=1
+              echo "::error::Proof failed: $1"
+            fi
+          }
+
           for cp in 002 003 004 007 008 009 011 012 013 014; do
-            node dist/quant-v4/algebra/permanent-english-review-v4-cp${cp}.test.mjs
+            run_proof "dist/quant-v4/algebra/permanent-english-review-v4-cp${cp}.test.mjs"
           done
-          node dist/quant-v4/algebra/permanent-english-v4-batch-readiness.test.mjs
-          node dist/quant-v4/algebra/permanent-english-v4-chapter-review.test.mjs
-          node dist/quant-v4/algebra/permanent-multilingual-v3-chapter-review.test.mjs
-          node dist/quant-v4/algebra/algebra-question-studio-runtime-v4.test.mjs
-          node dist/quant-v4/algebra/algebra-question-studio-runtime-v5.test.mjs
-          node dist/quant-v4/algebra/algebra-question-bank-activation-v1.test.mjs
-          node dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs
+          run_proof "dist/quant-v4/algebra/permanent-english-v4-batch-readiness.test.mjs"
+          run_proof "dist/quant-v4/algebra/permanent-english-v4-chapter-review.test.mjs"
+          run_proof "dist/quant-v4/algebra/permanent-multilingual-v3-chapter-review.test.mjs"
+          run_proof "dist/quant-v4/algebra/algebra-question-studio-runtime-v4.test.mjs"
+          run_proof "dist/quant-v4/algebra/algebra-question-studio-runtime-v5.test.mjs"
+          run_proof "dist/quant-v4/algebra/algebra-question-bank-activation-v1.test.mjs"
+          run_proof "dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs"
+
+          exit "$failures"
