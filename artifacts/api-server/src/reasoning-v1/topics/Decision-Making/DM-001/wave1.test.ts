@@ -1,20 +1,20 @@
 import assert from "node:assert/strict";
-import { calculateDmAgeOnDate, evaluateDmDecision } from "./decision-engine.ts";
+import { calculateDmAgeOnDate, evaluateDmDecision, rankDmCandidates } from "./decision-engine.ts";
 import { generateDmQuestion, modesForDmDifficulty } from "./generator.ts";
 import { DM_001_QL_REGISTRY, assertContinuousDmQlIds, dmQlIdsForCheckpoint } from "./ql-registry.ts";
 import { DM_001_SCENARIO_LIBRARY, dmScenariosForCheckpoint } from "./scenario-library.ts";
 import { DM_001_CHECKPOINT_IDS } from "./types.ts";
 
 assertContinuousDmQlIds();
-assert.equal(DM_001_QL_REGISTRY.length, 15);
-assert.equal(DM_001_SCENARIO_LIBRARY.length, 125);
+assert.equal(DM_001_QL_REGISTRY.length, 30);
+assert.equal(DM_001_SCENARIO_LIBRARY.length, 250);
 for (const checkpointId of DM_001_CHECKPOINT_IDS) {
   const scenarios = dmScenariosForCheckpoint(checkpointId);
   assert.equal(scenarios.length, 25, checkpointId + " scenario coverage");
   assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 25);
   assert.equal(dmQlIdsForCheckpoint(checkpointId).length, 3);
   for (const scenario of scenarios) {
-    assert.ok(scenario.baseConditions.length >= (checkpointId === "DM-CP-002" ? 5 : 3));
+    assert.ok(scenario.baseConditions.length >= (checkpointId === "DM-CP-002" ? 5 : 2));
     if (checkpointId === "DM-CP-002") assert.ok(scenario.baseConditions.length <= 7);
   }
 }
@@ -35,7 +35,12 @@ for (const scenario of DM_001_SCENARIO_LIBRARY) {
         for (const value of Object.values(question.candidate)) if (typeof value === "number") assert.ok(value >= 0, "candidate numeric values must remain plausible");
         assert.equal(question.options.length, 4);
         assert.equal(new Set(question.options).size, 4);
-        assert.equal(question.options[question.correctIndex], {
+        if (question.answerMode === "RANKED_CANDIDATE_SET") {
+          const ranked = rankDmCandidates(question.candidateGroup!, scenario);
+          assert.deepEqual(question.selectedCandidates, ranked.selected.map((candidate) => candidate.name));
+          assert.equal(question.options[question.correctIndex], question.selectedCandidates!.join(locale === "en" ? " and " : locale === "hi" ? " और " : " ਅਤੇ "));
+          assert.match(question.stem, /Priority order|प्राथमिकता क्रम|ਤਰਜੀਹ ਦਾ ਕ੍ਰਮ/);
+        } else assert.equal(question.options[question.correctIndex], {
           en: {
             SELECT: "Eligible for selection", REJECT: "Not eligible", REFER_TO_MANAGER: "Refer the case to the Manager",
             REFER_TO_DIRECTOR: "Refer the case to the Director", REFER_TO_COMMITTEE: "Refer the case to the Review Committee",
@@ -68,6 +73,11 @@ for (const checkpointId of ["DM-CP-001", "DM-CP-002", "DM-CP-005"] as const) {
 }
 for (const expected of ["SELECT", "REJECT", "INFORMATION_REQUIRED", "REFER_TO_MANAGER", "REFER_TO_COMMITTEE"]) assert.ok(observedOutcomes.get("DM-CP-003")!.has(expected), "DM-CP-003 should cover " + expected);
 for (const expected of ["SELECT", "REJECT", "INFORMATION_REQUIRED", "REFER_TO_MANAGER", "REFER_TO_DIRECTOR", "REFER_TO_COMMITTEE"]) assert.ok(observedOutcomes.get("DM-CP-004")!.has(expected), "DM-CP-004 should cover " + expected);
+for (const expected of ["SELECT", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(observedOutcomes.get("DM-CP-006")!.has(expected), "DM-CP-006 should cover " + expected);
+for (const expected of ["SELECT", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(observedOutcomes.get("DM-CP-007")!.has(expected), "DM-CP-007 should cover " + expected);
+for (const expected of ["SELECT", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(observedOutcomes.get("DM-CP-008")!.has(expected), "DM-CP-008 should cover " + expected);
+for (const expected of ["SELECT", "REFER_TO_COMMITTEE", "REJECT", "INFORMATION_REQUIRED"]) assert.ok(observedOutcomes.get("DM-CP-009")!.has(expected), "DM-CP-009 should cover " + expected);
+assert.ok(DM_001_SCENARIO_LIBRARY.filter((scenario) => scenario.checkpointId === "DM-CP-010").every((scenario) => scenario.ranking?.priorityOrder.at(-1)?.field === "applicationOrder"));
 
 const cp3 = dmScenariosForCheckpoint("DM-CP-003");
 const cp4 = dmScenariosForCheckpoint("DM-CP-004");
@@ -75,4 +85,4 @@ assert.ok(cp3.some((scenario) => scenario.decisionRules.some((rule) => rule.outc
 assert.ok(cp3.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_COMMITTEE")));
 assert.ok(cp4.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_DIRECTOR")));
 assert.ok(cp4.some((scenario) => scenario.decisionRules.some((rule) => rule.outcome === "REFER_TO_COMMITTEE")));
-console.log("DM-001 Wave 1 checks passed: 125 scenarios, 15 QLs, three locales, deterministic rules and explanations.");
+console.log("DM-001 Waves 1–2 checks passed: 250 scenarios, 30 QLs, three locales, dependent rules and computed candidate rankings.");

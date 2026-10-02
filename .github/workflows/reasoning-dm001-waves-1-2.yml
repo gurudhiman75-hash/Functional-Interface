@@ -1,30 +1,29 @@
-name: Reasoning DM-001 Wave 1
+name: Reasoning DM-001 Waves 1 and 2
 
 on:
   pull_request:
-    branches:
-      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/**"
       - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
+      - ".github/workflows/reasoning-dm001-waves-1-2.yml"
   push:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/**"
       - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
-      - ".github/workflows/reasoning-dm001-wave1.yml"
+      - ".github/workflows/reasoning-dm001-waves-1-2.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: reasoning-dm001-wave1-${{ github.ref }}
+  group: reasoning-dm001-waves-1-2-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-wave1:
+  validate-waves-1-2:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -40,9 +39,11 @@ jobs:
           version: 10.33.0
       - name: Install workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Validate Wave 1 rule engine, scenarios and explanations
+      - name: Validate Wave 1 and 2 rule engine, scenarios and explanations
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/wave1.test.ts
-      - name: Validate shared Question Studio DM routing and review-only lifecycle
+      - name: Validate Wave 2 boundary rules, relaxations and ranking
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/wave2.test.ts
+      - name: Validate shared Question Studio routing and review-only lifecycle
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/question-studio-integration.test.ts
       - name: Build API server
         run: pnpm --dir artifacts/api-server build

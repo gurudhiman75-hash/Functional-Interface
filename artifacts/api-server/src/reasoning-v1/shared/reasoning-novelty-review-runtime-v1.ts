@@ -64,6 +64,12 @@ async function oneCandidate(
   language: ReasoningNoveltyReviewLanguageV1,
 ): Promise<Record<string, unknown>> {
   switch (providerId) {
+    case "ALP-001-TRANSFORMED-GAP": {
+      const module = await import(
+        "../topics/Alphabet-Test/ALP-001/alp-001-controlled-novelty-discovery-v1"
+      );
+      return module.generateAlpControlledNovelTransformedGapCandidateV1(seed) as unknown as Record<string, unknown>;
+    }
     case "OPS-001-INFER-THEN-FILL": {
       const module = await import(
         "../topics/Mathematical-Operations/OPS-001/ops-001-controlled-novelty-discovery-v1"

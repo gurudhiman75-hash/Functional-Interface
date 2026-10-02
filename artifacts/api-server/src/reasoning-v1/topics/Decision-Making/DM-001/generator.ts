@@ -1,4 +1,4 @@
-import { calculateDmAgeOnDate, evaluateDmDecision } from "./decision-engine.ts";
+import { calculateDmAgeOnDate, evaluateDmDecision, rankDmCandidates } from "./decision-engine.ts";
 import { formatDmDate } from "./scenario-library.ts";
 import type {
   DmCandidateMode,
@@ -12,6 +12,7 @@ import type {
   DmOutcome,
   DmRuleCondition,
   DmScenario,
+  DmRankingSpec,
 } from "./types.ts";
 
 const NAMES: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
@@ -25,19 +26,25 @@ const FIELD_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmField, string>>>
     age: "Age", ageAtDate: "Age on the cut-off date", graduationMarks: "Graduation marks",
     qualificationRank: "Qualification", experienceYears: "Relevant experience", experienceArea: "Experience area",
     residenceStatus: "Residence", registrationStatus: "Registration", certificateStatus: "Certificate status",
-    writtenScore: "Written score", interviewScore: "Interview score",
+    writtenScore: "Written score", sectionalScore: "Sectional score", interviewScore: "Interview score", overallScore: "Overall score",
+    annualIncome: "Annual income", familyIncome: "Family income", employmentStatus: "Employment status",
+    repaymentStatus: "Repayment record", collateralStatus: "Collateral", category: "Category", applicationOrder: "Application order",
   },
   hi: {
     age: "आयु", ageAtDate: "निर्धारित तिथि पर आयु", graduationMarks: "स्नातक में अंक",
     qualificationRank: "योग्यता", experienceYears: "संबंधित अनुभव", experienceArea: "अनुभव का क्षेत्र",
     residenceStatus: "निवास", registrationStatus: "पंजीकरण", certificateStatus: "प्रमाणपत्र की स्थिति",
-    writtenScore: "लिखित परीक्षा के अंक", interviewScore: "साक्षात्कार के अंक",
+    writtenScore: "लिखित परीक्षा के अंक", sectionalScore: "अनुभागीय अंक", interviewScore: "साक्षात्कार के अंक", overallScore: "कुल अंक",
+    annualIncome: "वार्षिक आय", familyIncome: "परिवार की आय", employmentStatus: "रोज़गार की स्थिति",
+    repaymentStatus: "भुगतान का रिकॉर्ड", collateralStatus: "जमानत", category: "श्रेणी", applicationOrder: "आवेदन क्रम",
   },
   pa: {
     age: "ਉਮਰ", ageAtDate: "ਨਿਰਧਾਰਤ ਮਿਤੀ ਨੂੰ ਉਮਰ", graduationMarks: "ਗ੍ਰੈਜੂਏਸ਼ਨ ਦੇ ਅੰਕ",
     qualificationRank: "ਯੋਗਤਾ", experienceYears: "ਸੰਬੰਧਤ ਤਜਰਬਾ", experienceArea: "ਤਜਰਬੇ ਦਾ ਖੇਤਰ",
     residenceStatus: "ਰਿਹਾਇਸ਼", registrationStatus: "ਰਜਿਸਟ੍ਰੇਸ਼ਨ", certificateStatus: "ਸਰਟੀਫਿਕੇਟ ਦੀ ਸਥਿਤੀ",
-    writtenScore: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਦੇ ਅੰਕ", interviewScore: "ਇੰਟਰਵਿਊ ਦੇ ਅੰਕ",
+    writtenScore: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਦੇ ਅੰਕ", sectionalScore: "ਭਾਗੀ ਅੰਕ", interviewScore: "ਇੰਟਰਵਿਊ ਦੇ ਅੰਕ", overallScore: "ਕੁੱਲ ਅੰਕ",
+    annualIncome: "ਸਾਲਾਨਾ ਆਮਦਨ", familyIncome: "ਪਰਿਵਾਰਕ ਆਮਦਨ", employmentStatus: "ਰੁਜ਼ਗਾਰ ਦੀ ਸਥਿਤੀ",
+    repaymentStatus: "ਭੁਗਤਾਨ ਰਿਕਾਰਡ", collateralStatus: "ਜਮਾਨਤ", category: "ਸ਼੍ਰੇਣੀ", applicationOrder: "ਅਰਜ਼ੀ ਦਾ ਕ੍ਰਮ",
   },
 });
 
@@ -45,16 +52,19 @@ const VALUE_LABELS: Readonly<Record<DmLocale, Readonly<Record<string, string>>>>
   en: {
     VALID: "valid", PENDING: "pending", INVALID: "invalid", MISMATCH: "does not match the record",
     HOME_STATE: "resident of the state", OTHER_STATE: "not a resident of the state",
+    STUDENT: "a student", UNEMPLOYED: "unemployed", CURRENT: "up to date", NOT_APPLICABLE: "not applicable", ACCEPTABLE: "acceptable", GENERAL: "General category", OBC: "OBC category", SC: "SC category", ST: "ST category", OTHER: "other",
     TEACHING: "teaching", CLERICAL: "clerical work", BANKING: "banking", TECHNICAL: "technical work", FIELD: "field work", LABORATORY: "laboratory work",
   },
   hi: {
     VALID: "वैध", PENDING: "लंबित", INVALID: "अमान्य", MISMATCH: "अभिलेख से मेल नहीं खाता",
     HOME_STATE: "राज्य का निवासी", OTHER_STATE: "राज्य का निवासी नहीं",
+    STUDENT: "विद्यार्थी", UNEMPLOYED: "बेरोज़गार", CURRENT: "भुगतान नियमित", NOT_APPLICABLE: "लागू नहीं", ACCEPTABLE: "स्वीकार्य", GENERAL: "सामान्य श्रेणी", OBC: "ओबीसी श्रेणी", SC: "एससी श्रेणी", ST: "एसटी श्रेणी", OTHER: "अन्य",
     TEACHING: "अध्यापन", CLERICAL: "लिपिकीय कार्य", BANKING: "बैंकिंग", TECHNICAL: "तकनीकी कार्य", FIELD: "क्षेत्रीय कार्य", LABORATORY: "प्रयोगशाला कार्य",
   },
   pa: {
     VALID: "ਵੈਧ", PENDING: "ਲੰਬਿਤ", INVALID: "ਅਵੈਧ", MISMATCH: "ਰਿਕਾਰਡ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ",
     HOME_STATE: "ਰਾਜ ਦਾ ਵਸਨੀਕ", OTHER_STATE: "ਰਾਜ ਦਾ ਵਸਨੀਕ ਨਹੀਂ",
+    STUDENT: "ਵਿਦਿਆਰਥੀ", UNEMPLOYED: "ਬੇਰੁਜ਼ਗਾਰ", CURRENT: "ਭੁਗਤਾਨ ਠੀਕ", NOT_APPLICABLE: "ਲਾਗੂ ਨਹੀਂ", ACCEPTABLE: "ਮਨਜ਼ੂਰਯੋਗ", GENERAL: "ਜਨਰਲ ਸ਼੍ਰੇਣੀ", OBC: "ਓਬੀਸੀ ਸ਼੍ਰੇਣੀ", SC: "ਐਸਸੀ ਸ਼੍ਰੇਣੀ", ST: "ਐਸਟੀ ਸ਼੍ਰੇਣੀ", OTHER: "ਹੋਰ",
     TEACHING: "ਅਧਿਆਪਨ", CLERICAL: "ਕਲਰਕੀ ਕੰਮ", BANKING: "ਬੈਂਕਿੰਗ", TECHNICAL: "ਤਕਨੀਕੀ ਕੰਮ", FIELD: "ਫੀਲਡ ਕੰਮ", LABORATORY: "ਲੈਬੋਰਟਰੀ ਦਾ ਕੰਮ",
   },
 });
@@ -116,6 +126,69 @@ const STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
     "ਹਰ ਸ਼ਰਤ ਦੀ ਜਾਂਚ ਮਗਰੋਂ ਕਿਹੜਾ ਨਤੀਜਾ ਨਿਕਲਦਾ ਹੈ?", "ਚੋਣ ਅਧਿਕਾਰੀ ਨੂੰ ਇਸ ਮਾਮਲੇ ਵਿੱਚ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
     "{name} ਦੇ ਮਾਮਲੇ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਫੈਸਲਾ ਚੁਣੋ।", "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਹੇਠ {name}...",
     "ਬਿਨੈਕਾਰ ਉੱਤੇ ਕਿਹੜੀ ਸਥਿਤੀ ਲਾਗੂ ਹੁੰਦੀ ਹੈ?", "{name} ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਫੈਸਲੇ ਵਜੋਂ ਕੀ ਦਰਜ ਕੀਤਾ ਜਾਵੇ?",
+  ],
+});
+
+const RANKING_STEMS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
+  en: [
+    "Which applicant or applicants should receive the available seats?",
+    "Who should be selected after applying every stated priority?",
+    "Which listed candidate group ranks first for the available seats?",
+    "Which applicants belong on the final selection list?",
+    "Who receives the limited seats under the published order?",
+    "Choose the candidate set with the highest priority.",
+    "Which answer correctly identifies the seat awardees?",
+    "Which candidates fill the available vacancies?",
+    "Who is selected after ineligible applicants are removed?",
+    "Which applicants rank within the number of available seats?",
+    "Which candidate set follows from the ordered tie-break rules?",
+    "Which applicants should the authority select for these seats?",
+    "Who ranks above the others after the tie-break is applied?",
+    "Which candidates are selected instead of waitlisted?",
+    "Which group receives the stated number of seats?",
+    "Identify the eligible applicants who rank within the seat limit.",
+    "Which candidates have priority for these vacancies?",
+    "Select the group of successful applicants.",
+  ],
+  hi: [
+    "उपलब्ध सीटें किस आवेदक या आवेदकों को मिलनी चाहिए?",
+    "दी गई हर प्राथमिकता लागू करने के बाद किसका चयन होगा?",
+    "कौन-सा उम्मीदवार समूह उपलब्ध सीटों के लिए सबसे ऊपर है?",
+    "अंतिम चयन-सूची में किन आवेदकों को रखना चाहिए?",
+    "प्रकाशित क्रम के अनुसार सीमित सीटें किसे मिलेंगी?",
+    "सबसे अधिक प्राथमिकता वाले उम्मीदवार समूह को चुनें।",
+    "सीट पाने वाले आवेदकों की सही पहचान कौन-सा विकल्प करता है?",
+    "उपलब्ध रिक्तियाँ कौन-से उम्मीदवार भरेंगे?",
+    "अपात्र आवेदकों को हटाने के बाद किसका चयन होगा?",
+    "उपलब्ध सीटों की संख्या के भीतर कौन-से आवेदक रैंक करते हैं?",
+    "क्रमबद्ध बराबरी-निर्णय नियमों से कौन-सा उम्मीदवार समूह निकलता है?",
+    "इन सीटों के लिए प्राधिकरण को किन आवेदकों का चयन करना चाहिए?",
+    "बराबरी-निर्णय लागू होने पर कौन दूसरों से ऊपर आता है?",
+    "किन उम्मीदवारों का चयन होगा और किन्हें प्रतीक्षा-सूची में रखा जाएगा?",
+    "निर्धारित संख्या की सीटें किस समूह को मिलेंगी?",
+    "सीमा के भीतर रैंक करने वाले पात्र आवेदकों की पहचान करें।",
+    "इन रिक्तियों के लिए किन उम्मीदवारों को प्राथमिकता मिलेगी?",
+    "सफल आवेदकों के समूह को चुनें।",
+  ],
+  pa: [
+    "ਉਪਲਬਧ ਸੀਟਾਂ ਕਿਹੜੇ ਬਿਨੈਕਾਰ ਜਾਂ ਬਿਨੈਕਾਰਾਂ ਨੂੰ ਮਿਲਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ?",
+    "ਦਿੱਤੀ ਹਰ ਤਰਜੀਹ ਲਾਗੂ ਕਰਨ ਮਗਰੋਂ ਕੌਣ ਚੁਣਿਆ ਜਾਵੇਗਾ?",
+    "ਕਿਹੜਾ ਉਮੀਦਵਾਰ ਸਮੂਹ ਉਪਲਬਧ ਸੀਟਾਂ ਲਈ ਸਭ ਤੋਂ ਉੱਪਰ ਹੈ?",
+    "ਅੰਤਿਮ ਚੋਣ-ਸੂਚੀ ਵਿੱਚ ਕਿਹੜੇ ਬਿਨੈਕਾਰ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ?",
+    "ਦਿੱਤੇ ਕ੍ਰਮ ਅਨੁਸਾਰ ਸੀਮਤ ਸੀਟਾਂ ਕਿਸ ਨੂੰ ਮਿਲਣਗੀਆਂ?",
+    "ਸਭ ਤੋਂ ਵੱਧ ਤਰਜੀਹ ਵਾਲੇ ਉਮੀਦਵਾਰ ਸਮੂਹ ਨੂੰ ਚੁਣੋ।",
+    "ਸੀਟਾਂ ਲੈਣ ਵਾਲਿਆਂ ਦੀ ਸਹੀ ਪਛਾਣ ਕਿਹੜਾ ਵਿਕਲਪ ਕਰਦਾ ਹੈ?",
+    "ਉਪਲਬਧ ਖਾਲੀ ਅਸਾਮੀਆਂ ਕਿਹੜੇ ਉਮੀਦਵਾਰ ਭਰਨਗੇ?",
+    "ਅਯੋਗ ਬਿਨੈਕਾਰਾਂ ਨੂੰ ਹਟਾਉਣ ਮਗਰੋਂ ਕੌਣ ਚੁਣਿਆ ਜਾਵੇਗਾ?",
+    "ਉਪਲਬਧ ਸੀਟਾਂ ਦੀ ਗਿਣਤੀ ਅੰਦਰ ਕਿਹੜੇ ਬਿਨੈਕਾਰ ਆਉਂਦੇ ਹਨ?",
+    "ਕ੍ਰਮਵਾਰ ਬਰਾਬਰੀ-ਫੈਸਲਾ ਨਿਯਮਾਂ ਤੋਂ ਕਿਹੜਾ ਸਮੂਹ ਬਣਦਾ ਹੈ?",
+    "ਇਨ੍ਹਾਂ ਸੀਟਾਂ ਲਈ ਅਧਿਕਾਰੀ ਨੂੰ ਕਿਹੜੇ ਬਿਨੈਕਾਰ ਚੁਣਨੇ ਚਾਹੀਦੇ ਹਨ?",
+    "ਬਰਾਬਰੀ ਦਾ ਫੈਸਲਾ ਕਰਨ ਮਗਰੋਂ ਕੌਣ ਦੂਜਿਆਂ ਤੋਂ ਉੱਪਰ ਆਉਂਦਾ ਹੈ?",
+    "ਕਿਹੜੇ ਉਮੀਦਵਾਰ ਚੁਣੇ ਜਾਣਗੇ ਅਤੇ ਕਿਹੜੇ ਉਡੀਕ-ਸੂਚੀ ਵਿੱਚ ਰਹਿਣਗੇ?",
+    "ਨਿਰਧਾਰਤ ਗਿਣਤੀ ਦੀਆਂ ਸੀਟਾਂ ਕਿਹੜੇ ਸਮੂਹ ਨੂੰ ਮਿਲਣਗੀਆਂ?",
+    "ਸੀਟਾਂ ਦੀ ਹੱਦ ਅੰਦਰ ਦਰਜਾ ਲੈਣ ਵਾਲੇ ਯੋਗ ਬਿਨੈਕਾਰ ਪਛਾਣੋ।",
+    "ਇਨ੍ਹਾਂ ਖਾਲੀ ਅਸਾਮੀਆਂ ਲਈ ਕਿਹੜੇ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਤਰਜੀਹ ਮਿਲੇਗੀ?",
+    "ਸਫਲ ਬਿਨੈਕਾਰਾਂ ਦੇ ਸਮੂਹ ਨੂੰ ਚੁਣੋ।",
   ],
 });
 
@@ -191,7 +264,7 @@ function satisfyingValue(conditions: readonly DmRuleCondition[], scenario: DmSce
     if (age === undefined) throw new Error("DM-001 could not satisfy the age conditions in " + scenario.scenarioId);
     return dateOfBirthForAge(scenario.referenceDate, age);
   }
-  const numericField = ["age", "graduationMarks", "qualificationRank", "experienceYears", "writtenScore", "interviewScore"].includes(field);
+  const numericField = ["age", "graduationMarks", "qualificationRank", "experienceYears", "writtenScore", "sectionalScore", "interviewScore", "overallScore", "annualIncome", "familyIncome"].includes(field);
   if (numericField) {
     const numericThresholds = thresholds.filter((value): value is number => typeof value === "number");
     const offset = boundary ? 0 : 1 + (seed % 2);
@@ -225,7 +298,7 @@ function valueFailing(condition: DmRuleCondition, seed: number, scenario: DmScen
   if (typeof target !== "number") return "OTHER";
   const delta = 1 + (seed % 2);
   if (condition.operator === "LTE") return target + delta;
-  if (condition.field === "experienceYears" || condition.field === "graduationMarks" || condition.field === "writtenScore" || condition.field === "interviewScore" || condition.field === "age") return Math.max(0, target - delta);
+    if (condition.field === "experienceYears" || condition.field === "graduationMarks" || condition.field === "writtenScore" || condition.field === "sectionalScore" || condition.field === "interviewScore" || condition.field === "overallScore" || condition.field === "annualIncome" || condition.field === "familyIncome" || condition.field === "age") return Math.max(0, target - delta);
   return target - delta;
 }
 
@@ -242,11 +315,15 @@ function setField(profile: Record<string, string | number | undefined>, field: D
 }
 
 function defaultForField(field: DmField): number | string | undefined {
-  if (field === "experienceYears" || field === "graduationMarks" || field === "writtenScore" || field === "interviewScore" || field === "qualificationRank" || field === "age" || field === "ageAtDate") return 0;
+  if (["experienceYears", "graduationMarks", "writtenScore", "sectionalScore", "interviewScore", "overallScore", "annualIncome", "familyIncome", "qualificationRank", "age", "ageAtDate", "applicationOrder"].includes(field)) return 0;
   if (field === "experienceArea") return "FIELD";
   if (field === "residenceStatus") return "OTHER_STATE";
   if (field === "registrationStatus") return "PENDING";
   if (field === "certificateStatus") return "INVALID";
+  if (field === "employmentStatus") return "UNEMPLOYED";
+  if (field === "repaymentStatus") return "NOT_APPLICABLE";
+  if (field === "collateralStatus") return "ACCEPTABLE";
+  if (field === "category") return "GENERAL";
   return undefined;
 }
 
@@ -272,6 +349,7 @@ function initialPassingProfile(scenario: DmScenario, seed: number, boundary: boo
 }
 
 function ruleForMode(scenario: DmScenario, mode: DmCandidateMode) {
+  if (mode === "BOTH_RELAXATION") return scenario.decisionRules.find((rule) => /BOTH_RELAXATIONS/.test(rule.ruleId));
   if (mode === "AGE_EXCEPTION") return scenario.decisionRules.find((rule) => /AGE_/.test(rule.ruleId));
   if (mode === "MARKS_EXCEPTION") return scenario.decisionRules.find((rule) => /MARKS_/.test(rule.ruleId));
   if (mode === "DOCUMENT_REFERRAL") return scenario.decisionRules.find((rule) => /CERTIFICATE_MISMATCH/.test(rule.ruleId));
@@ -321,7 +399,8 @@ function formatRuleValue(field: DmField, value: number | string, locale: DmLocal
   if (field === "qualificationRank" && typeof value === "number") return QUALIFICATIONS[locale][value] ?? QUALIFICATIONS[locale][5]!;
   const translated = VALUE_LABELS[locale][String(value)];
   if (translated) return translated;
-  if (field === "graduationMarks" || field === "writtenScore" || field === "interviewScore") return String(value) + "%";
+  if (field === "annualIncome" || field === "familyIncome") return "₹" + String(value);
+  if (field === "graduationMarks" || field === "writtenScore" || field === "sectionalScore" || field === "interviewScore" || field === "overallScore") return String(value) + "%";
   if (field === "age" || field === "ageAtDate" || field === "experienceYears") {
     if (locale === "en") return String(value) + (value === 1 ? " year" : " years");
     if (locale === "hi") return String(value) + " वर्ष";
@@ -375,6 +454,167 @@ function formatCandidateValue(field: DmField, candidate: DmCandidateProfile, sce
   const raw = candidate[field as keyof DmCandidateProfile];
   if (raw === undefined) return PROMPTS[locale].missing;
   return formatRuleValue(field, raw as number | string, locale);
+}
+
+function localizedPriorityOrder(ranking: DmRankingSpec, locale: DmLocale): string {
+  const direction = (value: DmRankingSpec["priorityOrder"][number]["direction"]): string => {
+    if (locale === "en") return value === "HIGHER_FIRST" ? "higher first" : "lower first";
+    if (locale === "hi") return value === "HIGHER_FIRST" ? "अधिक पहले" : "कम पहले";
+    return value === "HIGHER_FIRST" ? "ਵੱਧ ਪਹਿਲਾਂ" : "ਘੱਟ ਪਹਿਲਾਂ";
+  };
+  const entries = ranking.priorityOrder.map((criterion, index) =>
+    String(index + 1) + ". " + FIELD_LABELS[locale][criterion.field as DmField] + " (" + direction(criterion.direction) + ")",
+  );
+  return entries.join(locale === "en" ? " → " : " → ");
+}
+
+function formatRankingCandidate(candidate: DmCandidateProfile, scenario: DmScenario, locale: DmLocale): string {
+  const fieldsToShow = new Set<DmField>(scenario.baseConditions.map((condition) => condition.field));
+  for (const criterion of scenario.ranking!.priorityOrder) fieldsToShow.add(criterion.field);
+  const fields = [...fieldsToShow].map((field) =>
+    FIELD_LABELS[locale][field] + ": " + formatCandidateValue(field, candidate, scenario, locale),
+  );
+  return candidate.name + " — " + fields.join(locale === "en" ? "; " : "। ");
+}
+
+function localizedRankingStem(scenario: DmScenario, candidates: readonly DmCandidateProfile[], locale: DmLocale, seed: number): string {
+  const ranking = scenario.ranking!;
+  const intro = PROMPTS[locale].intro.replaceAll("{context}", scenario.context[locale]);
+  const requirements = scenario.baseConditions.map((item, index) => String(index + 1) + ". " + formatDmRequirement(item, locale));
+  const orderLabel = locale === "en" ? "Priority order (each item breaks a tie in the previous one)" : locale === "hi" ? "प्राथमिकता क्रम (हर अगली शर्त पिछले बराबर परिणाम का निर्णय करती है)" : "ਤਰਜੀਹ ਦਾ ਕ੍ਰਮ (ਹਰ ਅਗਲੀ ਸ਼ਰਤ ਪਿਛਲੀ ਬਰਾਬਰੀ ਦਾ ਫੈਸਲਾ ਕਰਦੀ ਹੈ)";
+  const applicantsLabel = locale === "en" ? "Applicants" : locale === "hi" ? "आवेदक" : "ਬਿਨੈਕਾਰ";
+  const seatsLabel = locale === "en" ? "Available seats" : locale === "hi" ? "उपलब्ध सीटें" : "ਉਪਲਬਧ ਸੀਟਾਂ";
+  const prompt = RANKING_STEMS[locale][seed % RANKING_STEMS[locale].length]!;
+  return [
+    intro,
+    PROMPTS[locale].conditions + ":",
+    ...requirements,
+    orderLabel + ":",
+    localizedPriorityOrder(ranking, locale),
+    applicantsLabel + ":",
+    ...candidates.map((candidate, index) => String(index + 1) + ". " + formatRankingCandidate(candidate, scenario, locale)),
+    seatsLabel + ": " + String(ranking.seatCount),
+    prompt,
+  ].join("\n");
+}
+
+function rankingOptions(
+  scenario: DmScenario,
+  candidates: readonly DmCandidateProfile[],
+  selected: readonly DmCandidateProfile[],
+  locale: DmLocale,
+  seed: number,
+): { options: readonly string[]; correctIndex: number } {
+  const seats = scenario.ranking!.seatCount;
+  const combinations: DmCandidateProfile[][] = [];
+  const choose = (from: number, picked: DmCandidateProfile[]): void => {
+    if (picked.length === seats) { combinations.push([...picked]); return; }
+    for (let index = from; index < candidates.length; index += 1) choose(index + 1, [...picked, candidates[index]!]);
+  };
+  choose(0, []);
+  const key = (group: readonly DmCandidateProfile[]) => group.map((candidate) => candidate.name).sort().join("\u0000");
+  const correctKey = key(selected);
+  const correct = combinations.find((group) => key(group) === correctKey);
+  if (!correct) throw new Error("The ranked selection must be present in the candidate option pool.");
+  const alternatives = combinations.filter((group) => key(group) !== correctKey);
+  const offset = alternatives.length ? seed % alternatives.length : 0;
+  const selectedOptions = [correct, ...Array.from({ length: 3 }, (_, index) => alternatives[(offset + index) % alternatives.length]!)];
+  const options = selectedOptions.map((group) => group.map((candidate) => candidate.name).join(locale === "en" ? " and " : locale === "hi" ? " और " : " ਅਤੇ "));
+  if (options.length !== 4 || new Set(options).size !== 4) throw new Error("DM-010 requires four distinct candidate-set options.");
+  const ordered = [...options];
+  for (let index = ordered.length - 1; index > 0; index -= 1) {
+    const swap = hash(String(seed) + ":rank-option:" + String(index)) % (index + 1);
+    [ordered[index], ordered[swap]] = [ordered[swap]!, ordered[index]!];
+  }
+  return Object.freeze({ options: Object.freeze(ordered), correctIndex: ordered.indexOf(options[0]!) });
+}
+
+function buildRankingCandidates(scenario: DmScenario, mode: DmCandidateMode, seed: number, locale: DmLocale): readonly DmCandidateProfile[] {
+  const qualification = [3, 4, 5, 3, 4];
+  const experience = [2, 6, 4, 5, 3];
+  const marks = [70, 80, 75, 90, 85];
+  const written = [72, 88, 81, 90, 84];
+  const interview = [86, 74, 89, 78, 92];
+  const overall = [79, 82, 85, 86, 88];
+  const ages = [24, 28, 26, 30, 22];
+  const failingIndex = seed % 5;
+  return Object.freeze(Array.from({ length: 5 }, (_, index) => {
+    const applicantMode = index === failingIndex ? mode : "ALL_PASS";
+    const candidate = buildDmCandidate(scenario, applicantMode, seed + index * 17, locale);
+    return Object.freeze({
+      ...candidate,
+      name: NAMES[locale][(seed + index) % NAMES[locale].length]!,
+      age: ages[index]!,
+      qualificationRank: qualification[index]!,
+      experienceYears: experience[index]!,
+      graduationMarks: marks[index]!,
+      writtenScore: written[index]!,
+      interviewScore: interview[index]!,
+      overallScore: overall[index]!,
+      sectionalScore: Math.min(written[index]!, interview[index]!),
+      applicationOrder: index + 1,
+    });
+  }));
+}
+
+function buildRankingExplanation(
+  scenario: DmScenario,
+  cohort: readonly DmCandidateProfile[],
+  ranked: ReturnType<typeof rankDmCandidates>,
+  locale: DmLocale,
+): string {
+  const selectedNames = new Set(ranked.selected.map((candidate) => candidate.name));
+  const rankingRows = ranked.eligibleRanking.map((entry) => {
+    const status = selectedNames.has(entry.candidate.name)
+      ? locale === "en" ? "selected" : locale === "hi" ? "चयनित" : "ਚੁਣਿਆ ਗਿਆ"
+      : locale === "en" ? "waitlisted" : locale === "hi" ? "प्रतीक्षा-सूची" : "ਉਡੀਕ-ਸੂਚੀ";
+    return String(entry.rank) + ". " + formatRankingCandidate(entry.candidate, scenario, locale) + " — " + status;
+  });
+  const excluded = cohort.filter((candidate) => !ranked.eligibleRanking.some((entry) => entry.candidate.name === candidate.name));
+  const excludedRows = excluded.map((candidate) => {
+    const result = evaluateDmDecision(candidate, scenario);
+    return candidate.name + " — " + OUTCOME_LABELS[locale][result.outcome];
+  });
+  const heading = locale === "en" ? "Ranking using the stated priority order" : locale === "hi" ? "दिए गए प्राथमिकता क्रम से वरीयता" : "ਦਿੱਤੇ ਤਰਜੀਹ ਕ੍ਰਮ ਅਨੁਸਾਰ ਦਰਜਾਬੰਦੀ";
+  const eligibleHeading = locale === "en" ? "Eligible ranking" : locale === "hi" ? "पात्रता के बाद वरीयता" : "ਯੋਗਤਾ ਮਗਰੋਂ ਦਰਜਾਬੰਦੀ";
+  const excludedHeading = locale === "en" ? "Not eligible" : locale === "hi" ? "अपात्र" : "ਅਯੋਗ";
+  const selectedLine = locale === "en"
+    ? "The first " + scenario.ranking!.seatCount + " eligible applicants receive the seats."
+    : locale === "hi"
+      ? "पहले " + scenario.ranking!.seatCount + " पात्र आवेदकों को सीटें मिलेंगी।"
+      : "ਪਹਿਲੇ " + scenario.ranking!.seatCount + " ਯੋਗ ਬਿਨੈਕਾਰਾਂ ਨੂੰ ਸੀਟਾਂ ਮਿਲਣਗੀਆਂ।";
+  return heading + ": " + localizedPriorityOrder(scenario.ranking!, locale) + "\n\n" + eligibleHeading + ":\n" + rankingRows.join("\n")
+    + (excludedRows.length ? "\n\n" + excludedHeading + ":\n" + excludedRows.join("\n") : "") + "\n\n" + selectedLine;
+}
+
+function generateRankedQuestion(scenario: DmScenario, locale: DmLocale, seed: number, mode: DmCandidateMode): DmGeneratedQuestion {
+  const cohort = buildRankingCandidates(scenario, mode, seed, locale);
+  const ranked = rankDmCandidates(cohort, scenario);
+  if (ranked.eligibleRanking.length < scenario.ranking!.seatCount) throw new Error("DM-010 must have enough eligible applicants to fill the available seats.");
+  const candidate = ranked.selected[0]!;
+  const eligibility = evaluateDmDecision(candidate, scenario);
+  const eligibleProfiles = ranked.eligibleRanking.map((entry) => entry.candidate);
+  const options = rankingOptions(scenario, eligibleProfiles, ranked.selected, locale, seed);
+  return Object.freeze({
+    chapterId: "DM-001",
+    checkpointId: scenario.checkpointId,
+    blueprintCheckpointId: scenario.blueprintCheckpointId,
+    qlId: scenario.qlId,
+    scenarioId: scenario.scenarioId,
+    seed,
+    locale,
+    difficulty: dmDifficultyForMode(scenario.checkpointId, mode),
+    candidate,
+    candidateGroup: cohort,
+    selectedCandidates: Object.freeze(ranked.selected.map((selected) => selected.name)),
+    answerMode: "RANKED_CANDIDATE_SET",
+    stem: localizedRankingStem(scenario, cohort, locale, seed),
+    options: options.options,
+    correctIndex: options.correctIndex,
+    outcome: "SELECT",
+    explanation: buildRankingExplanation(scenario, cohort, ranked, locale),
+    explanationRows: Object.freeze(explanationRows(eligibility, candidate, scenario, locale)),
+  });
 }
 
 function profileFields(scenario: DmScenario): readonly DmField[] {
@@ -464,6 +704,7 @@ export function dmDifficultyForMode(checkpointId: DmScenario["checkpointId"], mo
   if (mode === "ALL_PASS" || mode === "BOUNDARY_PASS") return "EASY";
   if (mode === "SINGLE_FAIL" || mode === "MISSING_REQUIRED" || mode === "DOCUMENT_REFERRAL") return "MEDIUM";
   if (checkpointId === "DM-CP-003" && (mode === "AGE_EXCEPTION" || mode === "MARKS_EXCEPTION")) return "HARD";
+  if (checkpointId === "DM-CP-009" && (mode === "AGE_EXCEPTION" || mode === "MARKS_EXCEPTION" || mode === "BOTH_RELAXATION")) return "HARD";
   if (checkpointId === "DM-CP-004" && (mode === "DIRECTOR_REFERRAL" || mode === "COMMITTEE_REFERRAL")) return "HARD";
   return "HARD";
 }
@@ -484,6 +725,9 @@ export function modesForDmDifficulty(
     const rule = scenario.decisionRules[seed % scenario.decisionRules.length];
     return rule?.ruleId.includes("AGE_") ? "AGE_EXCEPTION" : rule ? "MARKS_EXCEPTION" : "MULTIPLE_FAIL";
   }
+  if (scenario.checkpointId === "DM-CP-009") {
+    return seed % 3 === 0 ? "BOTH_RELAXATION" : seed % 3 === 1 ? "AGE_EXCEPTION" : "MARKS_EXCEPTION";
+  }
   if (scenario.checkpointId === "DM-CP-004") {
     const special = scenario.decisionRules.filter((rule) => rule.outcome === "REFER_TO_DIRECTOR" || rule.outcome === "REFER_TO_COMMITTEE");
     const rule = special.length ? special[seed % special.length] : undefined;
@@ -500,6 +744,7 @@ export function generateDmQuestion(input: {
   mode: DmCandidateMode;
 }): DmGeneratedQuestion {
   const { scenario, locale, seed, mode } = input;
+  if (scenario.ranking) return generateRankedQuestion(scenario, locale, seed, mode);
   const candidate = buildDmCandidate(scenario, mode, seed, locale);
   const result = evaluateDmDecision(candidate, scenario);
   const expectedSpecialRule = ruleForMode(scenario, mode);
@@ -517,6 +762,7 @@ export function generateDmQuestion(input: {
     locale,
     difficulty: dmDifficultyForMode(scenario.checkpointId, mode),
     candidate,
+    answerMode: "ELIGIBILITY_OUTCOME",
     stem: localizedStem(scenario, candidate, locale, seed),
     options: options.options,
     correctIndex: options.correctIndex,

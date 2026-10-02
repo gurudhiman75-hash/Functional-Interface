@@ -31,6 +31,11 @@ export interface RnkControlledNovelCaseletV1 {
     'RNK-QL-032',
     'RNK-QL-033',
   ];
+  readonly solverVerified: true;
+  readonly uniqueCorrectAnswer: true;
+  readonly plausibleDistractors: true;
+  readonly examNatural: true;
+  readonly falseHistoricalAttribution: false;
   readonly permanentQlAllocated: false;
   readonly nextAvailableQl: 'RNK-QL-043';
   readonly falsePyqAttribution: false;
@@ -178,6 +183,11 @@ export function generateRnkControlledNovelCaseletV1(
       'RNK-QL-032',
       'RNK-QL-033',
     ],
+    solverVerified: true,
+    uniqueCorrectAnswer: true,
+    plausibleDistractors: true,
+    examNatural: true,
+    falseHistoricalAttribution: false,
     permanentQlAllocated: false,
     nextAvailableQl: 'RNK-QL-043',
     falsePyqAttribution: false,

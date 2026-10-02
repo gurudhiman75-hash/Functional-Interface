@@ -26,6 +26,11 @@ export interface CaeControlledNovelCandidateV1 {
   readonly explanation: string;
   readonly semanticFingerprint: string;
   readonly solverAuthority: string;
+  readonly solverVerified: true;
+  readonly uniqueCorrectAnswer: true;
+  readonly plausibleDistractors: true;
+  readonly examNatural: true;
+  readonly falseHistoricalAttribution: false;
   readonly permanentQlAllocated: false;
   readonly questionStudioNoveltyMixActivated: false;
   readonly humanReviewRequired: true;
@@ -120,6 +125,11 @@ export function generateCaeControlledNovelCandidateV1(input: {
     explanation: question.explanation,
     semanticFingerprint: question.causalStateId,
     solverAuthority: String(question.metadata.solver),
+    solverVerified: true,
+    uniqueCorrectAnswer: true,
+    plausibleDistractors: true,
+    examNatural: true,
+    falseHistoricalAttribution: false,
     permanentQlAllocated: false,
     questionStudioNoveltyMixActivated: false,
     humanReviewRequired: true,

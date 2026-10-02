@@ -67,6 +67,11 @@ assert(
 );
 
 assert(
+  source.includes("expectedStatuses"),
+  "Question Studio cockpit must submit expected statuses with review decisions.",
+);
+
+assert(
   source.includes("catch (caught) { await refreshReviewPage(); setEditingItemId(null);"),
   "Question Studio cockpit must refresh the queue and close a stale editor after revision failure.",
 );
@@ -97,6 +102,20 @@ const hookSource = readFileSync(
 assert(
   hookSource.includes("notifyQuestionStudioRefresh();"),
   "Successful generation must notify review consumers even when review filters do not change.",
+);
+
+const contentReviewSource = readFileSync(
+  resolve(process.cwd(), "artifacts/admin-app/src/features/content-review/useContentReviewController.ts"),
+  "utf8",
+);
+
+assert(
+  contentReviewSource.includes("expectedStatuses"),
+  "Content Review must submit expected statuses through the central Question Studio decision path.",
+);
+assert(
+  !contentReviewSource.includes("updateProbabilityReviewItem"),
+  "Content Review must not retain a specialist Probability review mutation path.",
 );
 
 console.log("[QUESTION-STUDIO-COCKPIT-DISCOVERABILITY-CONTRACT-V1]", {

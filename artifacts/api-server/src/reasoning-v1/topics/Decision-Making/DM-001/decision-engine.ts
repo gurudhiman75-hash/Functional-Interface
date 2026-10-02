@@ -4,6 +4,8 @@ import type {
   DmDecisionResult,
   DmField,
   DmRuleCondition,
+  DmRankCriterion,
+  DmRankingSpec,
   DmScenario,
 } from "./types.ts";
 
@@ -89,4 +91,57 @@ export function evaluateDmDecision(
     return Object.freeze({ outcome: "INFORMATION_REQUIRED", checks: Object.freeze(baseChecks), unresolvedRuleIds: Object.freeze(unresolvedRuleIds) });
   }
   return Object.freeze({ outcome: "REJECT", checks: Object.freeze(baseChecks), unresolvedRuleIds: Object.freeze([]) });
+}
+
+export type DmRankedCandidate = Readonly<{
+  candidate: DmCandidateProfile;
+  outcome: DmDecisionResult["outcome"];
+  rank?: number;
+}>;
+
+export type DmRankingResult = Readonly<{
+  selected: readonly DmCandidateProfile[];
+  waitlisted: readonly DmCandidateProfile[];
+  notEligible: readonly DmRankedCandidate[];
+  eligibleRanking: readonly DmRankedCandidate[];
+}>;
+
+function compareRankValue(left: number | string, right: number | string, criterion: DmRankCriterion): number {
+  const comparison = typeof left === "number" && typeof right === "number"
+    ? left - right
+    : String(left).localeCompare(String(right), "en", { sensitivity: "variant", numeric: true });
+  return criterion.direction === "HIGHER_FIRST" ? -comparison : comparison;
+}
+
+/** Ranks only applicants who pass the ordinary eligibility rules, applying each stated priority in order. */
+export function rankDmCandidates(
+  candidates: readonly DmCandidateProfile[],
+  scenario: DmScenario,
+  ranking: DmRankingSpec = scenario.ranking!,
+): DmRankingResult {
+  if (!ranking) throw new Error("A ranking scenario must provide an explicit priority order.");
+  if (!Number.isInteger(ranking.seatCount) || ranking.seatCount < 1) throw new Error("Seat count must be a positive integer.");
+  if (ranking.priorityOrder.length === 0) throw new Error("A ranking scenario must provide at least one explicit priority criterion.");
+  if (new Set(candidates.map((candidate) => candidate.name)).size !== candidates.length) throw new Error("Applicant names must be unique within a ranking pool.");
+  const fields = ranking.priorityOrder.map((criterion) => criterion.field);
+  if (new Set(fields).size !== fields.length) throw new Error("Ranking criteria must be unique and ordered explicitly.");
+  const evaluated = candidates.map((candidate) => ({ candidate, outcome: evaluateDmDecision(candidate, scenario).outcome }));
+  const eligible = evaluated.filter((item) => item.outcome === "SELECT");
+  const notEligible = evaluated.filter((item) => item.outcome !== "SELECT").map((item) => Object.freeze(item));
+  const ranked = [...eligible].sort((left, right) => {
+    for (const criterion of ranking.priorityOrder) {
+      const a = left.candidate[criterion.field];
+      const b = right.candidate[criterion.field];
+      if (a === undefined || b === undefined) throw new Error("Missing ranking value for " + criterion.field + ".");
+      const order = compareRankValue(a, b, criterion);
+      if (order !== 0) return order;
+    }
+    throw new Error("Applicants are tied after all stated priority criteria; add an explicit tie-breaker.");
+  }).map((item, index) => Object.freeze({ ...item, rank: index + 1 }));
+  return Object.freeze({
+    selected: Object.freeze(ranked.slice(0, ranking.seatCount).map((item) => item.candidate)),
+    waitlisted: Object.freeze(ranked.slice(ranking.seatCount).map((item) => item.candidate)),
+    notEligible: Object.freeze(notEligible),
+    eligibleRanking: Object.freeze(ranked),
+  });
 }

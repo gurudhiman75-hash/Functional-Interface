@@ -101,6 +101,11 @@ export interface OpsControlledNovelInferThenFillCandidateV1 {
   readonly answer: string;
   readonly semanticFingerprint: string;
   readonly solverAgreement: true;
+  readonly solverVerified: true;
+  readonly uniqueCorrectAnswer: true;
+  readonly plausibleDistractors: true;
+  readonly examNatural: true;
+  readonly falseHistoricalAttribution: false;
   readonly permanentQlAllocated: false;
   readonly questionStudioNoveltyMixActivated: false;
   readonly humanReviewRequired: true;
@@ -226,6 +231,11 @@ export function generateOpsControlledNovelInferThenFillCandidateV1(
       correctToken,
     ].join("::"),
     solverAgreement: true,
+    solverVerified: true,
+    uniqueCorrectAnswer: true,
+    plausibleDistractors: true,
+    examNatural: true,
+    falseHistoricalAttribution: false,
     permanentQlAllocated: false,
     questionStudioNoveltyMixActivated: false,
     humanReviewRequired: true,

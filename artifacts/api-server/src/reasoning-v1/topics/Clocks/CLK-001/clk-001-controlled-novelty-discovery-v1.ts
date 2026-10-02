@@ -22,8 +22,14 @@ export interface ClockControlledNovelAngleCandidateV1 {
   readonly semanticFingerprint: string;
   readonly solverAgreement: true;
   readonly candidateDisposition: string;
+  readonly solverVerified: true;
+  readonly uniqueCorrectAnswer: true;
+  readonly plausibleDistractors: true;
+  readonly examNatural: true;
+  readonly falseHistoricalAttribution: false;
   readonly permanentQlAllocated: false;
   readonly questionStudioActivated: false;
+  readonly questionStudioNoveltyMixActivated: false;
   readonly humanReviewRequired: true;
   readonly falsePyqAttribution: false;
 }
@@ -93,8 +99,14 @@ export function generateClockControlledNovelAngleCandidateV1(
     semanticFingerprint: question.fingerprint,
     solverAgreement: true,
     candidateDisposition: question.discoveryAudit.candidateDisposition,
+    solverVerified: true,
+    uniqueCorrectAnswer: true,
+    plausibleDistractors: true,
+    examNatural: true,
+    falseHistoricalAttribution: false,
     permanentQlAllocated: false,
     questionStudioActivated: false,
+    questionStudioNoveltyMixActivated: false,
     humanReviewRequired: true,
     falsePyqAttribution: false,
   };

@@ -261,6 +261,7 @@ export function createGenerationRun(input: CreateGenerationRunInput) {
 
 export function updateGenerationItems(input: {
   itemIds: string[];
+  expectedStatuses: Record<string, GenerationItemStatus>;
   status: GenerationItemStatus;
   reason?: string;
 }) {

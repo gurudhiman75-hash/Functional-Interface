@@ -4,6 +4,11 @@ export const DM_001_CHECKPOINT_IDS = [
   "DM-CP-003",
   "DM-CP-004",
   "DM-CP-005",
+  "DM-CP-006",
+  "DM-CP-007",
+  "DM-CP-008",
+  "DM-CP-009",
+  "DM-CP-010",
 ] as const;
 
 export const DM_001_QL_IDS = [
@@ -12,6 +17,11 @@ export const DM_001_QL_IDS = [
   "DM-QL-007", "DM-QL-008", "DM-QL-009",
   "DM-QL-010", "DM-QL-011", "DM-QL-012",
   "DM-QL-013", "DM-QL-014", "DM-QL-015",
+  "DM-QL-016", "DM-QL-017", "DM-QL-018",
+  "DM-QL-019", "DM-QL-020", "DM-QL-021",
+  "DM-QL-022", "DM-QL-023", "DM-QL-024",
+  "DM-QL-025", "DM-QL-026", "DM-QL-027",
+  "DM-QL-028", "DM-QL-029", "DM-QL-030",
 ] as const;
 
 export type DmCheckpointId = (typeof DM_001_CHECKPOINT_IDS)[number];
@@ -36,7 +46,18 @@ export type DmField =
   | "registrationStatus"
   | "certificateStatus"
   | "writtenScore"
-  | "interviewScore";
+  | "sectionalScore"
+  | "interviewScore"
+  | "overallScore"
+  | "annualIncome"
+  | "familyIncome"
+  | "employmentStatus"
+  | "repaymentStatus"
+  | "collateralStatus"
+  | "category"
+  | "applicationOrder";
+export type DmRankField = "qualificationRank" | "experienceYears" | "graduationMarks" | "writtenScore" | "sectionalScore" | "interviewScore" | "overallScore" | "age" | "applicationOrder";
+export type DmRankCriterion = Readonly<{ field: DmRankField; direction: "HIGHER_FIRST" | "LOWER_FIRST" }>;
 export type DmOperator = "LTE" | "GTE" | "EQ" | "IN";
 export type DmRuleValue = number | string | readonly (number | string)[];
 export type DmCandidateMode =
@@ -49,7 +70,8 @@ export type DmCandidateMode =
   | "MARKS_EXCEPTION"
   | "DOCUMENT_REFERRAL"
   | "DIRECTOR_REFERRAL"
-  | "COMMITTEE_REFERRAL";
+  | "COMMITTEE_REFERRAL"
+  | "BOTH_RELAXATION";
 
 export type LocalizedText = Readonly<Record<DmLocale, string>>;
 
@@ -81,6 +103,20 @@ export type DmCandidateProfile = Readonly<{
   certificateStatus?: string;
   writtenScore?: number;
   interviewScore?: number;
+  sectionalScore?: number;
+  overallScore?: number;
+  annualIncome?: number;
+  familyIncome?: number;
+  employmentStatus?: string;
+  repaymentStatus?: string;
+  collateralStatus?: string;
+  category?: string;
+  applicationOrder?: number;
+}>; 
+
+export type DmRankingSpec = Readonly<{
+  seatCount: number;
+  priorityOrder: readonly DmRankCriterion[];
 }>;
 
 export type DmScenario = Readonly<{
@@ -94,6 +130,7 @@ export type DmScenario = Readonly<{
   ruleNotes: readonly LocalizedText[];
   referenceDate?: string;
   experienceAreaForBase?: string;
+  ranking?: DmRankingSpec;
 }>;
 
 export type DmConditionCheck = Readonly<{
@@ -119,6 +156,9 @@ export type DmGeneratedQuestion = Readonly<{
   locale: DmLocale;
   difficulty: DmDifficulty;
   candidate: DmCandidateProfile;
+  answerMode: "ELIGIBILITY_OUTCOME" | "RANKED_CANDIDATE_SET";
+  candidateGroup?: readonly DmCandidateProfile[];
+  selectedCandidates?: readonly string[];
   stem: string;
   options: readonly string[];
   correctIndex: number;
