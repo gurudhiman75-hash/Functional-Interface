@@ -437,11 +437,18 @@ function diversifyWrongTermFactorial(
   if (question.qlId !== "SER-QL-040" || requestedSeed % 4 !== 0) return question;
 
   const descending = stableIndex(requestedSeed, 81, 2) === 1;
-  const startN = descending ? 7 : 1;
-  const values = Array.from({ length: 6 }, (_, i) => factorial(descending ? startN - i : startN + i));
-  const wrongIndex = 2 + stableIndex(requestedSeed, 82, 3);
+  const startN = descending
+    ? 6 + stableIndex(requestedSeed, 84, 3)
+    : 1 + stableIndex(requestedSeed, 84, 3);
+  const values = Array.from(
+    { length: 6 },
+    (_, i) => factorial(descending ? startN - i : startN + i),
+  );
+  const wrongIndex = 1 + stableIndex(requestedSeed, 82, 4);
   const shown = [...values];
-  shown[wrongIndex] = values[wrongIndex]! + (descending ? -2 : 2 + stableIndex(requestedSeed, 83, 5));
+  const corruptionMagnitude = 2 + stableIndex(requestedSeed, 83, 9);
+  const corruptionDirection = stableIndex(requestedSeed, 85, 2) === 0 ? -1 : 1;
+  shown[wrongIndex] = values[wrongIndex]! + corruptionDirection * corruptionMagnitude;
   const wrongValue = shown[wrongIndex]!;
   const distractors = shown
     .filter((_, index) => index !== wrongIndex)
