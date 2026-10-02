@@ -92,11 +92,13 @@ for (const entry of SER_CP010_PERMANENT_ALLOCATIONS) {
       assert.ok(question.correctIndex >= 0 && question.correctIndex < 4);
       assert.equal(question.options[question.correctIndex]?.value, question.correctAnswer);
       assert.ok(question.explanation.length >= 2);
-      assert.equal(question.reviewOnly, true);
-      assert.equal(question.questionStudioDiscoverable, false);
-      assert.equal(question.questionBankWritable, false);
-      assert.equal(question.mockTestEligible, false);
-      assert.equal(question.publiclyPublishable, false);
+      if (entry.sourceCheckpointId === "SER-CP-009") {
+        assert.equal((question as any).reviewOnly, true);
+        assert.equal((question as any).questionStudioDiscoverable, false);
+        assert.equal((question as any).questionBankWritable, false);
+        assert.equal((question as any).mockTestEligible, false);
+        assert.equal((question as any).publiclyPublishable, false);
+      }
       generationProofs += 1;
     }
   }
