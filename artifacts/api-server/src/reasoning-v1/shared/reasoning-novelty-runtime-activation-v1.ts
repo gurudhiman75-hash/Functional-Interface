@@ -7,6 +7,7 @@ export const REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1 = Object.freeze({
   acceptableBand: [0.15, 0.25] as const,
   liveQuestionStudioProviders: [
     "ALP-001-TRANSFORMED-GAP",
+    "BLR-001-CODED-FILTERED-COUNT",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
     "OPS-001-INFER-THEN-FILL",
     "DIR-001-GRAPH-RELATIVE-PATH",
@@ -15,7 +16,6 @@ export const REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1 = Object.freeze({
   contentApprovedAwaitingQuestionStudioRoute: [
     "RNK-001-CROSS-FAMILY-CASELET",
     "CAE-001-EDGE-FAMILIES",
-    "BLR-001-CODED-FILTERED-COUNT",
   ] as const,
   safeguards: Object.freeze({
     explicitQlOrCpScopePreserved: true,

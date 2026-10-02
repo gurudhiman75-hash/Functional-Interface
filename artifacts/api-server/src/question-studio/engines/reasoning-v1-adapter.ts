@@ -76,6 +76,12 @@ import {
 } from "../../reasoning-v1/topics/Calendar/CAL-001/question-studio-integration";
 
 import {
+  BLR_001_CHAPTER_QUESTION_STUDIO_PACKAGE,
+  generateBlr001ChapterQuestionStudioBatch,
+  isBlr001ChapterQuestionStudioRequest,
+} from "../../reasoning-v1/topics/Blood-Relations/BLR-001/question-studio-chapter-integration-v1";
+
+import {
   WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
   generateWfm001QuestionStudioBatch,
   isWfm001QuestionStudioRequest,
@@ -420,6 +426,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE,
       CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
+      BLR_001_CHAPTER_QUESTION_STUDIO_PACKAGE,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       CLK_001_QUESTION_STUDIO_PACKAGE,
       MIS_001_QUESTION_STUDIO_PACKAGE,
@@ -447,6 +454,10 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isSif001QuestionStudioRequest(request)) {
       return generateSif001QuestionStudioBatch(request);
+    }
+    if (isBlr001ChapterQuestionStudioRequest(request)) {
+      const source = await generateBlr001ChapterQuestionStudioBatch(request);
+      return applyReasoningControlledNovelMixV1(request, source);
     }
     if (isAlp001QuestionStudioRequest(request)) {
       const source = await generateAlp001QuestionStudioBatch(request);

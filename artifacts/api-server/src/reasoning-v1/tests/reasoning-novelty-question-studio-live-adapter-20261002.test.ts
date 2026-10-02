@@ -4,6 +4,7 @@ import { reasoningV1QuestionStudioAdapter } from "../../question-studio/engines/
 
 const cases = [
   { packageId: "ALP-001", difficulty: "Medium" as const },
+  { packageId: "BLR-001", difficulty: "Hard" as const },
   { packageId: "CAL-001", difficulty: "Medium" as const },
   { packageId: "OPS-001", difficulty: "Hard" as const },
   { packageId: "DIR-001", difficulty: "Medium" as const },
@@ -61,3 +62,32 @@ console.log(JSON.stringify({
   controlledNovelShare: 0.2,
   explicitScopeProtected: true,
 }, null, 2));
+
+const blrScoped = await reasoningV1QuestionStudioAdapter.generate({
+  engineId: "reasoning-v1",
+  packageId: "BLR-001",
+  canonicalProblemId: "BLR-QL-013",
+  language: "en",
+  difficulty: "Hard",
+  count: 10,
+  seed: "blr-ql013-scoped-proof",
+});
+assert.equal(blrScoped.questions.some((question) => question.provenance === "CONTROLLED_NOVEL"), false);
+assert.equal(
+  (blrScoped.generationContext?.noveltyMix as any)?.blockedReason,
+  "EXPLICIT_QL_OR_CP_SCOPE_PRESERVED",
+);
+
+const blrHindi = await reasoningV1QuestionStudioAdapter.generate({
+  engineId: "reasoning-v1",
+  packageId: "BLR-001",
+  language: "hi",
+  difficulty: "Hard",
+  count: 10,
+  seed: "blr-hindi-proof",
+});
+assert.equal(blrHindi.questions.some((question) => question.provenance === "CONTROLLED_NOVEL"), false);
+assert.equal(
+  (blrHindi.generationContext?.noveltyMix as any)?.blockedReason,
+  "SUPPORTED_LANGUAGE_NOT_REVIEWED_FOR_NOVELTY",
+);
