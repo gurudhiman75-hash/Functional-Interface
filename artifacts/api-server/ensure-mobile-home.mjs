@@ -126,22 +126,26 @@ try {
     throw new Error("First live mobile promotion seed verification failed");
   }
   console.log("[render-build] first live mobile promotion verified");
-  const [repeatOnOpenBefore] = await sql`
-    SELECT
-      EXISTS (
-        SELECT 1
-        FROM information_schema.columns
-        WHERE table_schema='platform'
-          AND table_name='mobile_promotions'
-          AND column_name='repeat_on_every_open'
-      ) AS has_repeat_flag,
-      COALESCE((
-        SELECT repeat_on_every_open
-        FROM platform.mobile_promotions
-        WHERE id='7f9e7e53-7b75-4dd8-8d79-6e32d8c90d01'::uuid
-      ), false) AS repeat_enabled
+  const [repeatOnOpenSchemaBefore] = await sql`
+    SELECT EXISTS (
+      SELECT 1
+      FROM information_schema.columns
+      WHERE table_schema='platform'
+        AND table_name='mobile_promotions'
+        AND column_name='repeat_on_every_open'
+    ) AS has_repeat_flag
   `;
-  if (!repeatOnOpenBefore?.has_repeat_flag || !repeatOnOpenBefore?.repeat_enabled) {
+  if (!repeatOnOpenSchemaBefore?.has_repeat_flag) {
+    console.log("[render-build] promotion repeat-on-open schema missing; applying checked-in migration");
+    await sql.unsafe(await readFile(repeatOnOpenMigrationPath, "utf8"));
+  }
+
+  const [repeatOnOpenBefore] = await sql`
+    SELECT repeat_on_every_open AS repeat_enabled,frequency_cap_per_day AS frequency_cap
+    FROM platform.mobile_promotions
+    WHERE id='7f9e7e53-7b75-4dd8-8d79-6e32d8c90d01'::uuid
+  `;
+  if (!repeatOnOpenBefore?.repeat_enabled || repeatOnOpenBefore?.frequency_cap !== null) {
     console.log("[render-build] promotion repeat-on-open test mode missing; applying checked-in migration");
     await sql.unsafe(await readFile(repeatOnOpenMigrationPath, "utf8"));
   }
