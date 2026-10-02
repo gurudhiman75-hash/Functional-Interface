@@ -8,7 +8,7 @@ test.describe("CP03 build-time sitemap and crawlable snapshots", () => {
     expect(sitemapResponse.ok()).toBe(true);
     const sitemap = await sitemapResponse.text();
 
-    for (const path of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility", "/ssc-cgl", "/ssc-cgl-preparation", "/ssc-cgl-syllabus", "/ssc-cgl/questions/percentage", "/ssc-cgl/questions/syllogism"]) {
+    for (const path of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility", "/ssc-cgl", "/ssc-cgl-preparation", "/ssc-cgl-syllabus", "/ssc-cgl/questions/percentage", "/ssc-cgl/questions/syllogism", "/ssc-chsl", "/ssc-chsl-preparation", "/ssc-chsl-syllabus", "/ssc-chsl/questions/percentage", "/ssc-chsl/questions/syllogism"]) {
       expect(sitemap).toContain(`<loc>${DEFAULT_ORIGIN}${path === "/" ? "/" : path}</loc>`);
     }
     expect(sitemap).not.toContain(`${DEFAULT_ORIGIN}/pyqs`);
@@ -55,6 +55,21 @@ test.describe("CP03 build-time sitemap and crawlable snapshots", () => {
     const topicHtml = await topicResponse.text();
     expect(topicHtml).toContain("Percentage Questions for SSC CGL");
     expect(topicHtml).toContain(`<link rel="canonical" href="${DEFAULT_ORIGIN}/ssc-cgl/questions/percentage"`);
+  });
+
+  test("SSC CHSL acquisition snapshots are crawlable", async ({ request }) => {
+    const hubResponse = await request.get("/ssc-chsl.html");
+    expect(hubResponse.ok()).toBe(true);
+    const hubHtml = await hubResponse.text();
+    expect(hubHtml).toContain("<title>SSC CHSL Preparation, Syllabus, Mock Tests & Free Questions | ExamTree</title>");
+    expect(hubHtml).toContain(`<link rel="canonical" href="${DEFAULT_ORIGIN}/ssc-chsl"`);
+    expect(hubHtml).toContain("SSC CHSL preparation hub");
+
+    const topicResponse = await request.get("/ssc-chsl/questions/percentage.html");
+    expect(topicResponse.ok()).toBe(true);
+    const topicHtml = await topicResponse.text();
+    expect(topicHtml).toContain("Percentage Questions for SSC CHSL");
+    expect(topicHtml).toContain(`<link rel="canonical" href="${DEFAULT_ORIGIN}/ssc-chsl/questions/percentage"`);
   });
 
   test("exam discovery snapshot has unique metadata and static discovery content", async ({ request }) => {
