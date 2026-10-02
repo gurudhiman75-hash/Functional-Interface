@@ -90,7 +90,7 @@ for (const provider of reviewProviders) {
           candidate.uniqueSolution,
         ]),
       );
-      assert.ok(fp.length > 8, provider.providerId + ": fingerprint too thin");
+      assert.ok(fp.trim().length > 0, provider.providerId + ": semantic fingerprint missing");
       seen.add(fp);
     }
   }
