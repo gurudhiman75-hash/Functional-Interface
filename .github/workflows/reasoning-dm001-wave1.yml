@@ -42,7 +42,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Validate Wave 1 rule engine, scenarios and explanations
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/wave1.test.ts
-      - name: Validate reasoning-v1 adapter routing and review-only lifecycle
+      - name: Validate shared Question Studio DM routing and review-only lifecycle
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Decision-Making/DM-001/question-studio-integration.test.ts
       - name: Build API server
         run: pnpm --dir artifacts/api-server build

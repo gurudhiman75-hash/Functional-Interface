@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
-import { getQuestionStudioEngine } from "../../../../question-studio/engine-registry.ts";
+import {
+  generateQuestionStudioQuestions,
+  getQuestionStudioEngine,
+} from "../../../../question-studio/engine-registry.ts";
 
 const adapter = getQuestionStudioEngine("reasoning-v1");
 const registered = adapter.listPackages().find((entry) => entry.packageId === "DM-001");
@@ -15,8 +18,10 @@ assert.equal(registered.publiclyPublishable, false);
 
 for (const language of ["en", "hi", "pa"] as const) {
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
-    const result = await adapter.generate({
-      packageId: "DM-001",
+    const result = await generateQuestionStudioQuestions({
+      engineId: "reasoning-v1",
+      topic: "Decision Making / Eligibility",
+      subtopic: "Eligibility and Rule Application",
       count: 10,
       language,
       difficulty,
@@ -31,18 +36,16 @@ for (const language of ["en", "hi", "pa"] as const) {
   }
 }
 
-const basic = await adapter.generate({
+const basic = await generateQuestionStudioQuestions({
   engineId: "reasoning-v1",
-  packageId: "DM-001",
   patternId: "DM-001",
   count: 7,
   seed: "dm001-cp-alias",
 });
 assert.ok(basic.questions.every((question) => question.checkpointId === "DM-CP-001"));
 
-const dateProfile = await adapter.generate({
+const dateProfile = await generateQuestionStudioQuestions({
   engineId: "reasoning-v1",
-  packageId: "DM-001",
   patternId: "DM-QL-013",
   language: "pa",
   count: 5,
@@ -51,4 +54,4 @@ const dateProfile = await adapter.generate({
 assert.ok(dateProfile.questions.every((question) => question.checkpointId === "DM-CP-005"));
 assert.ok(dateProfile.questions.every((question) => String(question.stem).includes("ਜਨਮ ਮਿਤੀ")));
 
-console.log("DM-001 passed reasoning-v1 adapter registration, routing, locale, difficulty and review-only lifecycle checks.");
+console.log("DM-001 passed shared Question Studio generation routing, locale, difficulty and review-only lifecycle checks.");
