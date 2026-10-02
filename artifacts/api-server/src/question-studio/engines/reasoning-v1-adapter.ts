@@ -62,6 +62,8 @@ import {
   isVen001ShapeRegionRequest,
 } from "../../reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-shape-regions.ts";
 
+import { applyReasoningControlledNovelMixV1 } from "../../reasoning-v1/shared/reasoning-novelty-live-mix-v1";
+
 import {
   WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
   generateWfm001QuestionStudioBatch,
@@ -434,7 +436,8 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       return generateSif001QuestionStudioBatch(request);
     }
     if (isClk001QuestionStudioRequest(request)) {
-      return generateClk001QuestionStudioBatch(request);
+      const source = await generateClk001QuestionStudioBatch(request);
+      return applyReasoningControlledNovelMixV1(request, source);
     }
     if (isWfm001QuestionStudioRequest(request)) {
       return generateWfm001QuestionStudioBatch(request);
@@ -443,7 +446,8 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       return generateMis001QuestionStudioBatch(request);
     }
     if (isDir001QuestionStudioRequest(request)) {
-      return generateDir001QuestionStudioBatch(request);
+      const source = await generateDir001QuestionStudioBatch(request);
+      return applyReasoningControlledNovelMixV1(request, source);
     }
     if (
       isCoaCp012ApprovedQuestionStudioRequest(
@@ -584,7 +588,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       });
     }
 
-    return {
+    const sourceResult: QuestionStudioGenerationResult = {
       questions,
       generationContext: {
         ...lifecycle,
@@ -611,5 +615,6 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
         count,
       },
     };
+    return applyReasoningControlledNovelMixV1(request, sourceResult);
   },
 };

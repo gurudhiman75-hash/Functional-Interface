@@ -34,6 +34,13 @@ const EXPECTED_TOPIC_DIRECTORIES = [
   'Word-Formation',
 ] as const;
 
+const CREDITED_TOPICS = [
+  'Clocks',
+  'Direction-Sense',
+  'Mathematical-Operations',
+  'Non-Verbal-Reasoning',
+] as const;
+
 test('novelty inventory covers every Reasoning V1 topic directory exactly once', () => {
   const actual = REASONING_V1_NOVELTY_INVENTORY_V1.map((entry) => entry.topicDirectory);
   assert.equal(actual.length, EXPECTED_TOPIC_DIRECTORIES.length);
@@ -41,20 +48,30 @@ test('novelty inventory covers every Reasoning V1 topic directory exactly once',
   assert.deepEqual([...actual].sort(), [...EXPECTED_TOPIC_DIRECTORIES].sort());
 });
 
-test('only explicitly approved controlled-novel runtime receives current target credit', () => {
+test('only explicitly approved controlled-novel runtimes receive current target credit', () => {
   const credited = REASONING_V1_NOVELTY_INVENTORY_V1
     .filter((entry) => entry.countsTowardControlledNovelTargetNow)
-    .map((entry) => entry.topicDirectory);
-  assert.deepEqual(credited, ['Non-Verbal-Reasoning']);
+    .map((entry) => entry.topicDirectory)
+    .sort();
+  assert.deepEqual(credited, [...CREDITED_TOPICS]);
 });
 
-test('RNK and Clock discovery lanes stay uncredited until human review', () => {
-  for (const topicDirectory of ['Ranking-and-Order', 'Clocks']) {
+test('routable reviewed lanes are active while reviewed unrouted lanes stay uncredited', () => {
+  for (const topicDirectory of ['Clocks', 'Direction-Sense', 'Mathematical-Operations']) {
     const entry = REASONING_V1_NOVELTY_INVENTORY_V1.find(
       (candidate) => candidate.topicDirectory === topicDirectory,
     );
     assert.ok(entry);
-    assert.equal(entry?.status, 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW');
+    assert.equal(entry?.status, 'APPROVED_CONTROLLED_NOVEL_RUNTIME');
+    assert.equal(entry?.countsTowardControlledNovelTargetNow, true);
+  }
+
+  for (const topicDirectory of ['Alphabet-Test', 'Ranking-and-Order', 'Cause-and-Effect', 'Calendar', 'Blood-Relations']) {
+    const entry = REASONING_V1_NOVELTY_INVENTORY_V1.find(
+      (candidate) => candidate.topicDirectory === topicDirectory,
+    );
+    assert.ok(entry);
+    assert.equal(entry?.status, 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE');
     assert.equal(entry?.countsTowardControlledNovelTargetNow, false);
   }
 });
@@ -62,7 +79,7 @@ test('RNK and Clock discovery lanes stay uncredited until human review', () => {
 test('inventory summary is internally consistent', () => {
   const summary = reasoningNoveltyInventorySummaryV1();
   assert.equal(summary.topicCount, EXPECTED_TOPIC_DIRECTORIES.length);
-  assert.deepEqual(summary.controlledNovelTargetCreditedTopics, ['Non-Verbal-Reasoning']);
+  assert.deepEqual([...summary.controlledNovelTargetCreditedTopics].sort(), [...CREDITED_TOPICS]);
   assert.equal(
     Object.values(summary.byStatus).reduce((sum, value) => sum + Number(value), 0),
     EXPECTED_TOPIC_DIRECTORIES.length,

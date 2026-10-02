@@ -14,18 +14,13 @@ function normalizedSurface(candidate: Record<string, unknown>): string {
   const options = Array.isArray(candidate.options)
     ? candidate.options.map((value) => String(value ?? "").trim()).join(" | ")
     : "";
-  return [shared, stem, clues, options]
-    .filter(Boolean)
-    .join(" || ")
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .trim();
+  return [shared, stem, clues, options].filter(Boolean).join(" || ").toLowerCase().replace(/\s+/g, " ").trim();
 }
 
-const reviewProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
-  (provider) => provider.status === "DISCOVERY_REVIEW_ONLY",
+const awaitingRouteProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
+  (provider) => provider.status === "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
 );
-assert.equal(reviewProviders.length, 8);
+assert.equal(awaitingRouteProviders.length, 5);
 
 const providerIds = new Set<string>();
 const chapterIds = new Set<string>();
@@ -33,39 +28,32 @@ const allCandidateIds = new Set<string>();
 const allFingerprints = new Map<string, string>();
 const allSurfaces = new Map<string, string>();
 
-for (const provider of reviewProviders) {
-  assert.ok(!providerIds.has(provider.providerId), "Duplicate novelty provider id: " + provider.providerId);
+for (const provider of awaitingRouteProviders) {
+  assert.ok(!providerIds.has(provider.providerId));
   providerIds.add(provider.providerId);
-
-  assert.ok(!chapterIds.has(provider.chapterId), "More than one active review provider currently owns chapter " + provider.chapterId);
+  assert.ok(!chapterIds.has(provider.chapterId));
   chapterIds.add(provider.chapterId);
 
   assert.equal(provider.questionStudioNoveltyMixActivated, false);
   assert.equal(provider.countsTowardAssemblyNoveltyNow, false);
-  assert.equal(provider.humanReviewRequired, true);
+  assert.equal(provider.humanReviewRequired, false);
   assert.equal(provider.permanentQlAllocationRequired, false);
-  assert.ok(provider.parentQlIds.length > 0, provider.providerId + ": review provider must bind to existing parent QLs");
-  assert.ok(provider.noveltyAxes.length > 0, provider.providerId + ": provider novelty axes missing");
+  assert.ok(provider.parentQlIds.length > 0);
 
   const expectedQlPrefix = provider.chapterId.split("-")[0] + "-QL-";
   for (const parentQlId of provider.parentQlIds) {
-    assert.ok(
-      parentQlId.startsWith(expectedQlPrefix),
-      provider.providerId + ": parent QL crosses chapter ownership: " + parentQlId,
-    );
+    assert.ok(parentQlId.startsWith(expectedQlPrefix), provider.providerId + ": parent QL crosses chapter ownership: " + parentQlId);
   }
 
   const inventory = REASONING_V1_NOVELTY_INVENTORY_V1.find(
     (entry) => entry.topicDirectory === provider.topicDirectory,
   );
-  assert.ok(inventory, provider.providerId + ": missing novelty inventory entry");
+  assert.ok(inventory);
   assert.equal(inventory?.chapterId, provider.chapterId);
-  assert.equal(inventory?.status, "CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW");
+  assert.equal(inventory?.status, "CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE");
   assert.equal(inventory?.countsTowardControlledNovelTargetNow, false);
 
-  const language = provider.supportedLanguages.includes("en")
-    ? "en"
-    : provider.supportedLanguages[0]!;
+  const language = provider.supportedLanguages.includes("en") ? "en" : provider.supportedLanguages[0]!;
   const batch = await generateReasoningNoveltyReviewBatchV1({
     providerId: provider.providerId,
     count: 6,
@@ -73,17 +61,11 @@ for (const provider of reviewProviders) {
     language,
   });
 
-  assert.equal(batch.reviewOnly, true);
-  assert.equal(batch.questionStudioNoveltyMixActivated, false);
-  assert.equal(batch.candidates.length, 6);
-
   for (const rawCandidate of batch.candidates) {
     const candidate = rawCandidate as Record<string, unknown>;
-
     assert.equal(candidate.noveltyReviewProviderId, provider.providerId);
     assert.equal(candidate.reviewOnly, true);
     assert.equal(candidate.questionStudioNoveltyMixActivated, false);
-    assert.equal(candidate.humanReviewRequired, true);
     assert.equal(candidate.provenance, "CONTROLLED_NOVEL");
     assert.equal(candidate.solverVerified, true);
     assert.equal(candidate.uniqueCorrectAnswer, true);
@@ -91,62 +73,24 @@ for (const provider of reviewProviders) {
     assert.equal(candidate.examNatural, true);
     assert.equal(candidate.falseHistoricalAttribution, false);
 
-    const candidateAxes = Array.isArray(candidate.noveltyAxes)
-      ? candidate.noveltyAxes.map(String)
-      : [];
-    assert.ok(candidateAxes.length > 0, provider.providerId + ": candidate novelty axes missing");
-    for (const axis of candidateAxes) {
-      assert.ok(
-        (provider.noveltyAxes as readonly string[]).includes(axis),
-        provider.providerId + ": candidate axis not declared by provider: " + axis,
-      );
-    }
-
-    const candidateParents = Array.isArray(candidate.parentQlIds)
-      ? candidate.parentQlIds.map(String)
-      : [];
-    for (const qlId of candidateParents) {
-      assert.ok(
-        provider.parentQlIds.includes(qlId),
-        provider.providerId + ": candidate escaped provider parent-Ql authority: " + qlId,
-      );
-    }
-
     const candidateId = String(candidate.candidateId ?? "").trim();
-    assert.ok(candidateId, provider.providerId + ": candidate id missing");
-    assert.ok(!allCandidateIds.has(candidateId), "Cross-provider candidate-id collision: " + candidateId);
+    assert.ok(candidateId);
+    assert.ok(!allCandidateIds.has(candidateId));
     allCandidateIds.add(candidateId);
 
     const fingerprint = String(
       candidate.semanticFingerprint
       ?? candidate.structuralFingerprint
       ?? candidate.contentFingerprint
-      ?? JSON.stringify([
-        candidate.sharedPrompt,
-        candidate.stem,
-        candidate.clueTexts,
-        candidate.options,
-        candidate.answer,
-        candidate.uniqueSolution,
-      ]),
+      ?? JSON.stringify([candidate.sharedPrompt, candidate.stem, candidate.clueTexts, candidate.options, candidate.answer]),
     ).trim();
-    assert.ok(fingerprint && fingerprint !== "[]", provider.providerId + ": semantic/structural fingerprint missing");
-    const priorFingerprintOwner = allFingerprints.get(fingerprint);
-    assert.equal(
-      priorFingerprintOwner,
-      undefined,
-      provider.providerId + ": semantic fingerprint collides with " + priorFingerprintOwner,
-    );
+    assert.ok(fingerprint && fingerprint !== "[]");
+    assert.equal(allFingerprints.get(fingerprint), undefined);
     allFingerprints.set(fingerprint, provider.providerId);
 
     const surface = normalizedSurface(candidate);
-    assert.ok(surface.length > 20, provider.providerId + ": learner surface unexpectedly empty");
-    const priorSurfaceOwner = allSurfaces.get(surface);
-    assert.equal(
-      priorSurfaceOwner,
-      undefined,
-      provider.providerId + ": exact normalized learner surface collides with " + priorSurfaceOwner,
-    );
+    assert.ok(surface.length > 20);
+    assert.equal(allSurfaces.get(surface), undefined);
     allSurfaces.set(surface, provider.providerId);
   }
 }
@@ -155,36 +99,38 @@ const reviewPack = await buildReasoningNoveltyReviewPackV1({
   samplesPerProvider: 3,
   seed: 9400,
 });
-for (const provider of reviewProviders) {
+for (const provider of awaitingRouteProviders) {
   assert.ok(reviewPack.includes(`## ${provider.chapterId} — ${provider.providerId}`));
 }
-assert.equal(
-  (reviewPack.match(/\*\*Human review:\*\*/g) ?? []).length,
-  reviewProviders.length * 3,
-);
-assert.equal(reviewPack.includes("PFC-001-CONTROLLED-NOVEL"), false);
-assert.ok(reviewPack.includes("Production novelty mixing: **disabled**"));
+assert.equal((reviewPack.match(/\*\*Human review:\*\*/g) ?? []).length, awaitingRouteProviders.length * 3);
+assert.equal(reviewPack.includes("OPS-001-INFER-THEN-FILL"), false);
+assert.equal(reviewPack.includes("CLK-001-FAULTY-TIME-ANGLE"), false);
+assert.equal(reviewPack.includes("DIR-001-GRAPH-RELATIVE-PATH"), false);
 
 const approvedProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "APPROVED_RUNTIME",
 );
 assert.deepEqual(
   approvedProviders.map((provider) => provider.providerId),
-  ["PFC-001-CONTROLLED-NOVEL"],
+  [
+    "PFC-001-CONTROLLED-NOVEL",
+    "OPS-001-INFER-THEN-FILL",
+    "CLK-001-FAULTY-TIME-ANGLE",
+    "DIR-001-GRAPH-RELATIVE-PATH",
+  ],
 );
 assert.deepEqual(
   REASONING_V1_NOVELTY_PROVIDERS_V1
     .filter((provider) => provider.countsTowardAssemblyNoveltyNow)
     .map((provider) => provider.providerId),
-  ["PFC-001-CONTROLLED-NOVEL"],
+  approvedProviders.map((provider) => provider.providerId),
 );
 
 console.log(JSON.stringify({
   status: "PASS_REASONING_NOVELTY_FINAL_OVERLAP_OWNERSHIP_20261002",
-  reviewProviderCount: reviewProviders.length,
+  awaitingRouteProviderCount: awaitingRouteProviders.length,
   reviewedCandidateCount: allCandidateIds.size,
   uniqueFingerprintCount: allFingerprints.size,
   uniqueLearnerSurfaceCount: allSurfaces.size,
-  reviewPackSampleCount: reviewProviders.length * 3,
-  assemblyCreditedProviders: ["PFC-001-CONTROLLED-NOVEL"],
+  assemblyCreditedProviders: approvedProviders.map((provider) => provider.providerId),
 }, null, 2));

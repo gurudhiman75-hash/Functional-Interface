@@ -4,6 +4,7 @@ export const REASONING_V1_NOVELTY_INVENTORY_VERSION =
 export type ReasoningNoveltyAuditStatusV1 =
   | 'APPROVED_CONTROLLED_NOVEL_RUNTIME'
   | 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW'
+  | 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE'
   | 'SEMANTIC_NOVELTY_PROVEN_NEEDS_STANDARDIZATION'
   | 'NOVEL_EDGE_PRESENT_NEEDS_STANDARDIZATION'
   | 'NOVELTY_GATE_PRESENT_NEEDS_EXPANSION'
@@ -25,15 +26,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Alphabet-Test',
     chapterId: 'ALP-001',
-    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
     evidence: [
       'A full alphabet is explicitly rearranged by an existing CP004 transform, then an interval-gap query is solved in the transformed order.',
       'The lane composes CP003 gap semantics with the exact CP004 transform authority selected for the seed.',
       'The transformed positions are independently recomputed before the gap answer is emitted.',
-      'No permanent QL is allocated and Question Studio novelty mixing remains disabled.',
+      'Human content review passed on 2026-10-02; activation is held only because the chapter lacks a live source-backed multi-engine Question Studio route.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Human-review transformed-alphabet interval questions before any chapter-mix activation.',
+    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
   },
   {
     topicDirectory: 'Analogy',
@@ -52,7 +53,7 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Blood-Relations',
     chapterId: 'BLR-001',
-    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
     evidence: [
       'A coded-relation graph is decoded first, then a second-stage filtered granddaughter count is solved from the reconstructed family.',
       'The lane composes existing BLR-QL-026 coded decoding with BLR-QL-013 family-counting semantics.',
@@ -60,12 +61,12 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
       'BLR-QL-036 remains unallocated and Question Studio novelty mixing remains disabled.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Human-review coded-count learner surfaces before chapter-mix activation.',
+    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
   },
   {
     topicDirectory: 'Calendar',
     chapterId: 'CAL-001',
-    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
     evidence: [
       'A duration-defined calendar span hides the end date, so the learner must derive the boundary before counting a named weekday.',
       'The lane composes existing CAL-QL-005 date-shift semantics with CAL-QL-035 named-weekday range counting.',
@@ -73,19 +74,19 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
       'CAL-QL-037 remains unallocated and Question Studio novelty mixing remains disabled.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Human-review the implicit-range weekday-count surface before chapter-mix activation.',
+    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
   },
   {
     topicDirectory: 'Cause-and-Effect',
     chapterId: 'CAE-001',
-    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
     evidence: [
       'CP008 multi-event ordering and CP009 integrated missing-link/reconstruction families are explicitly retained as Examtree edge coverage.',
       'The existing reviewed multilingual runtime is wrapped with shared CONTROLLED_NOVEL provenance.',
       'Solver trace, unique-answer and distractor gates remain intact; no historical-paper frequency claim is made.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Human-review the standardized CP008/009 controlled-novel corpus before chapter-mix activation.',
+    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
   },
   {
     topicDirectory: 'Classification',
@@ -104,14 +105,14 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Clocks',
     chapterId: 'CLK-001',
-    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    status: 'APPROVED_CONTROLLED_NOVEL_RUNTIME',
     evidence: [
       'Faulty actual→display mapping composed with hand-angle reasoning.',
       'Exact Clock solver and independent verifier agree.',
-      'No permanent QL allocated and no Question Studio activation granted.',
+      'Human content review passed on 2026-10-02 and bounded Question Studio novelty mixing is authorized for the live chapter route.',
     ],
-    countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Human-review the controlled-novel candidate family before mix activation.',
+    countsTowardControlledNovelTargetNow: true,
+    nextGate: 'Monitor bounded Question Studio mix quality and keep the shared 15–25% assembly band intact.',
   },
   {
     topicDirectory: 'Coding-Decoding',
@@ -157,15 +158,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Direction-Sense',
     chapterId: 'DIR-001',
-    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    status: 'APPROVED_CONTROLLED_NOVEL_RUNTIME',
     evidence: [
       'A solver-backed graph-to-relative-path composition combines existing DIR-QL-004 and DIR-QL-041 skills.',
       'Primary and independent relative-path replays must agree before a candidate is emitted.',
       'Exact Pythagorean distance families and misconception-labelled direction-distance options are preserved.',
-      'No permanent QL is allocated and Question Studio novelty mixing remains disabled.',
+      'Human content review passed on 2026-10-02 and bounded Question Studio novelty mixing is authorized for the live chapter route.',
     ],
-    countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Human-review the graph-relative-path learner surface before chapter-mix activation.',
+    countsTowardControlledNovelTargetNow: true,
+    nextGate: 'Monitor bounded Question Studio mix quality and keep the shared 15–25% assembly band intact.',
   },
   {
     topicDirectory: 'InputOutput',
@@ -196,15 +197,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Mathematical-Operations',
     chapterId: 'OPS-001',
-    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    status: 'APPROVED_CONTROLLED_NOVEL_RUNTIME',
     evidence: [
       'A hidden bijective operator mapping is inferred first, then applied to recover a missing coded symbol in a fresh target equation.',
       'The lane composes OPS-QL-028 hidden-mapping inference with OPS-QL-008 missing-operator recovery.',
       'The existing exact mapping solver proves one inferred mapping and exactly one target symbol.',
-      'No permanent QL is allocated and Question Studio novelty mixing remains disabled.',
+      'Human content review passed on 2026-10-02 and bounded Question Studio novelty mixing is authorized for the live chapter route.',
     ],
-    countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Human-review infer-then-fill learner surfaces before chapter-mix activation.',
+    countsTowardControlledNovelTargetNow: true,
+    nextGate: 'Monitor bounded Question Studio mix quality and keep the shared 15–25% assembly band intact.',
   },
   {
     topicDirectory: 'Missing-Number',
@@ -235,14 +236,14 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Ranking-and-Order',
     chapterId: 'RNK-001',
-    status: 'CONTROLLED_NOVEL_DISCOVERY_PENDING_HUMAN_REVIEW',
+    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
     evidence: [
       'Six-person multi-constraint caselets combine endpoint, exact-gap, neighbour and relative-order reasoning.',
       'All 6! orders are independently checked for one unique solution.',
       'Children map to existing RNK QLs; RNK-QL-043 remains unallocated.',
     ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Human-review learner surfaces, then integrate an approved novelty lane into the chapter mixer.',
+    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
   },
   {
     topicDirectory: 'SeatingArrangement',

@@ -75,7 +75,7 @@ export async function buildReasoningNoveltyReviewPackV1(
   if (!Number.isSafeInteger(seed)) throw new Error("Novelty review pack seed must be a safe integer.");
 
   const providers = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
-    (provider) => provider.status === "DISCOVERY_REVIEW_ONLY",
+    (provider) => provider.status !== "APPROVED_RUNTIME",
   );
 
   const lines: string[] = [

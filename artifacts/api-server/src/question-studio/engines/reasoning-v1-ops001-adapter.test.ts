@@ -52,7 +52,17 @@ assert.equal(first.engineId, "reasoning-v1");
 assert.equal(first.questions.length, 12);
 assert.deepEqual(first.questions, replay.questions, "OPS-001 audited generation must replay deterministically.");
 
-for (const question of first.questions) {
+const novelQuestions = first.questions.filter(
+  (question) => question.provenance === "CONTROLLED_NOVEL",
+);
+const sourceQuestions = first.questions.filter(
+  (question) => question.provenance !== "CONTROLLED_NOVEL",
+);
+assert.equal(novelQuestions.length, 2);
+assert.equal(sourceQuestions.length, 10);
+assert.equal((first.generationContext?.noveltyMix as any)?.controlledNovelShare, 2 / 12);
+
+for (const question of sourceQuestions) {
   assert.equal(question.packageId, "OPS-001");
   assert.match(String(question.qlId), /^OPS-QL-\d{3}$/u);
   assert.match(String(question.cpId), /^OPS-CP-\d{3}$/u);
@@ -75,6 +85,23 @@ for (const question of first.questions) {
   assert.equal(options.length, 4);
   assert.equal(new Set(options).size, 4);
   assert.equal(options[Number(question.correctIndex)], question.canonicalAnswer);
+  assert.ok(String(question.explanation).length > 50);
+}
+
+for (const question of novelQuestions) {
+  assert.equal(question.packageId, "OPS-001");
+  assert.equal(question.patternId, "OPS-001-INFER-THEN-FILL");
+  assert.equal(question.qlId, null);
+  assert.equal(question.cpId, null);
+  assert.equal(question.language, "en");
+  assert.equal(question.reviewOnly, true);
+  assert.equal(question.productionReleased, false);
+  assert.equal(question.difficulty, "Hard");
+  assert.equal(question.questionStudioNoveltyMixActivated, true);
+  assert.equal(question.humanReviewCompleted, true);
+  assert.equal(question.countsTowardAssemblyNoveltyNow, true);
+  assert.equal(question.permanentQlAllocated, false);
+  assert.equal((question.options as string[]).length, 4);
   assert.ok(String(question.explanation).length > 50);
 }
 
