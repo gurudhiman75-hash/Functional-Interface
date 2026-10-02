@@ -1,3 +1,4 @@
+import { formatRational } from "../../../../../shared/algebra";
 import type { AlgPermanentQlId } from "./allocation";
 import {
   generateAlgPermanentMultilingualV2Frozen,
@@ -141,8 +142,8 @@ function localizeCp007Target(english: any, locale: AlgReviewLocale) {
   const system = raw.system;
   if (!system || !["ALG-CP007-CAND-005", "ALG-CP007-CAND-006"].includes(english.prototypeId)) return null;
 
-  const a1 = String(system.a1), b1 = String(system.b1), c1 = String(system.c1);
-  const a2 = String(system.a2), b2 = String(system.b2), c2 = String(system.c2);
+  const a1 = formatRational(system.a1), b1 = formatRational(system.b1), c1 = formatRational(system.c1);
+  const a2 = formatRational(system.a2), b2 = formatRational(system.b2), c2 = formatRational(system.c2);
   const question = locale === "hi-IN"
     ? `निम्न समीकरण-युग्म की प्रकृति बताइए: ${a1}x + ${b1}y = ${c1} और ${a2}x + ${b2}y = ${c2}।`
     : `ਹੇਠਾਂ ਦਿੱਤੇ ਸਮੀਕਰਨ-ਜੋੜ ਦੀ ਪ੍ਰਕਿਰਤੀ ਦੱਸੋ: ${a1}x + ${b1}y = ${c1} ਅਤੇ ${a2}x + ${b2}y = ${c2}।`;
