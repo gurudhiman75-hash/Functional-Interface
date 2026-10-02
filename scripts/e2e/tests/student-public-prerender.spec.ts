@@ -8,7 +8,7 @@ test.describe("CP03 build-time sitemap and crawlable snapshots", () => {
     expect(sitemapResponse.ok()).toBe(true);
     const sitemap = await sitemapResponse.text();
 
-    for (const path of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility", "/ssc-cgl", "/ssc-cgl-preparation", "/ssc-cgl-syllabus", "/ssc-cgl/questions/percentage", "/ssc-cgl/questions/syllogism", "/ssc-chsl", "/ssc-chsl-preparation", "/ssc-chsl-syllabus", "/ssc-chsl/questions/percentage", "/ssc-chsl/questions/syllogism", "/ssc-mts", "/ssc-mts/questions/percentage", "/ssc-cpo", "/ssc-cpo/questions/syllogism", "/ssc-stenographer", "/ssc-stenographer/questions/syllogism", "/ssc-gd", "/ssc-gd/questions/percentage"]) {
+    for (const path of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility", "/ssc-cgl", "/ssc-cgl-preparation", "/ssc-cgl-syllabus", "/ssc-cgl/questions/percentage", "/ssc-cgl/questions/syllogism", "/ssc-chsl", "/ssc-chsl-preparation", "/ssc-chsl-syllabus", "/ssc-chsl/questions/percentage", "/ssc-chsl/questions/syllogism", "/ssc-mts", "/ssc-mts/questions/percentage", "/ssc-cpo", "/ssc-cpo/questions/syllogism", "/ssc-stenographer", "/ssc-stenographer/questions/syllogism", "/ssc-gd", "/ssc-gd/questions/percentage", "/ibps-po", "/ibps-po-preparation", "/ibps-po-syllabus", "/ibps-po/questions/percentage", "/ibps-clerk", "/ibps-clerk-preparation", "/ibps-clerk-syllabus", "/ibps-clerk/questions/syllogism"]) {
       expect(sitemap).toContain(`<loc>${DEFAULT_ORIGIN}${path === "/" ? "/" : path}</loc>`);
     }
     expect(sitemap).not.toContain(`${DEFAULT_ORIGIN}/pyqs`);
@@ -83,6 +83,25 @@ test.describe("CP03 build-time sitemap and crawlable snapshots", () => {
       expect(response.ok()).toBe(true);
       expect(await response.text()).toContain(phrase);
     }
+  });
+
+  test("IBPS acquisition snapshots are crawlable", async ({ request }) => {
+    for (const [path, phrase] of [
+      ["/ibps-po.html", "IBPS PO 2026 preparation hub"],
+      ["/ibps-clerk.html", "IBPS Clerk / CSA 2026 preparation hub"],
+    ] as const) {
+      const response = await request.get(path);
+      expect(response.ok()).toBe(true);
+      expect(await response.text()).toContain(phrase);
+    }
+
+    const poTopic = await request.get("/ibps-po/questions/percentage.html");
+    expect(poTopic.ok()).toBe(true);
+    expect(await poTopic.text()).toContain("Percentage Questions for IBPS PO");
+
+    const clerkTopic = await request.get("/ibps-clerk/questions/syllogism.html");
+    expect(clerkTopic.ok()).toBe(true);
+    expect(await clerkTopic.text()).toContain("Syllogism Questions for IBPS Clerk / CSA");
   });
 
   test("exam discovery snapshot has unique metadata and static discovery content", async ({ request }) => {
