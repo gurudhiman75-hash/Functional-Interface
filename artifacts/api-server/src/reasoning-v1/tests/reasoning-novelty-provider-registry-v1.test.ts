@@ -9,15 +9,15 @@ import {
 
 const live = [
   "PFC-001-CONTROLLED-NOVEL",
+  "ALP-001-TRANSFORMED-GAP",
   "OPS-001-INFER-THEN-FILL",
   "CLK-001-FAULTY-TIME-ANGLE",
   "DIR-001-GRAPH-RELATIVE-PATH",
+  "CAL-001-IMPLICIT-RANGE-FREQUENCY",
 ] as const;
 const awaitingRoute = [
-  "ALP-001-TRANSFORMED-GAP",
   "RNK-001-CROSS-FAMILY-CASELET",
   "CAE-001-EDGE-FAMILIES",
-  "CAL-001-IMPLICIT-RANGE-FREQUENCY",
   "BLR-001-CODED-FILTERED-COUNT",
 ] as const;
 
@@ -47,7 +47,7 @@ test("awaiting-route providers are content-approved but production-mix disabled"
   }
 });
 
-test("three reviewed chapter providers are live Question Studio runtimes", () => {
+test("five reviewed chapter providers are live Question Studio runtimes", () => {
   for (const providerId of live.slice(1)) {
     const provider = reasoningNoveltyProviderByIdV1(providerId);
     assert.equal(provider.status, "APPROVED_RUNTIME");
