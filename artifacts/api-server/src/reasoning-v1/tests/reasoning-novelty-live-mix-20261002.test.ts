@@ -109,13 +109,12 @@ assert.deepEqual(
     "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
-    "CAE-001-EDGE-FAMILIES",
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
     "BLR-001-CODED-FILTERED-COUNT",
   ],
 );
-assert.equal(summary.awaitingRouteProviderIds.length, 1);
+assert.equal(summary.awaitingRouteProviderIds.length, 2);
 assert.deepEqual(
   summary.assemblyCreditedProviderIds,
   [
@@ -123,10 +122,8 @@ assert.deepEqual(
     "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
-    "CAE-001-EDGE-FAMILIES",
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
-    "BLR-001-CODED-FILTERED-COUNT",
   ],
 );
 assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.safeguards.questionBankReleaseChanged, false);
