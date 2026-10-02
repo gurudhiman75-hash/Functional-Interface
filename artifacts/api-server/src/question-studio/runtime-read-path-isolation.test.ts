@@ -37,9 +37,10 @@ const manifestBuilder = readFileSync(
 assert.match(manifestBuilder, /subject:\s*packageSubject\(pkg\)/);
 assert.match(manifestBuilder, /chapter:\s*packageChapter\(pkg\)/);
 assert.match(manifestBuilder, /return "Other"/);
-assert.match(manifestBuilder, /from "\.\/engine-registry"/);
-assert.doesNotMatch(manifestBuilder, /shared-generation-engine-arg/);
+assert.doesNotMatch(manifestBuilder, /from "\.\/engine-registry"/);
+assert.match(manifestBuilder, /shared-generation-engine-arg/);
+assert.match(manifestBuilder, /quantV4QuestionStudioAdapter/);
 assert.match(manifestBuilder, /MEN-CP-001\.\.MEN-CP-013/);
-assert.match(manifestBuilder, /listQuestionStudioEngines\(\)/);
+assert.match(manifestBuilder, /packageSubject\(pkg\) !== "Quantitative Aptitude"/);
 
 console.log("PASS_QUESTION_STUDIO_RUNTIME_READ_PATH_ISOLATION");
