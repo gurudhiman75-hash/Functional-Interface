@@ -3,7 +3,7 @@ import type { AlpTransformId } from "./types";
 import {
   validateReasoningNoveltyCandidateV1,
   type ReasoningNoveltyAxisV1,
-} from "../../shared/reasoning-novelty-governance-v1";
+} from "../../../shared/reasoning-novelty-governance-v1";
 
 export const ALP_001_CONTROLLED_NOVELTY_DISCOVERY_V1 =
   "ALP_001_CONTROLLED_NOVELTY_DISCOVERY_V1" as const;
@@ -25,6 +25,28 @@ function rank(letter: string): number {
   const code = letter.charCodeAt(0) - 64;
   if (code < 1 || code > 26) throw new Error("ALP novelty requires A-Z letters.");
   return code;
+}
+
+function transformQlId(transformId: AlpTransformId): string {
+  const all: readonly AlpTransformId[] = [
+    "REVERSE_ALL",
+    "REVERSE_FIRST_HALF",
+    "REVERSE_SECOND_HALF",
+    "REVERSE_BOTH_HALVES",
+    "SWAP_HALVES",
+    "ROTATE_TO_START",
+    "ODD_THEN_EVEN",
+    "EVEN_THEN_ODD",
+    "ALTERNATE_LEFT_RIGHT",
+    "ALTERNATE_RIGHT_LEFT",
+    "REMOVE_VOWELS",
+    "REMOVE_CONSONANTS",
+    "SWAP_ADJACENT_PAIRS",
+    "REVERSE_BLOCKS_OF_THREE",
+  ];
+  const index = all.indexOf(transformId);
+  if (index < 0) throw new Error("Unknown ALP transform.");
+  return `ALP-QL-${String(47 + index * 2).padStart(3, "0")}`;
 }
 
 function rotate<T>(values: readonly T[], amount: number): T[] {
@@ -60,7 +82,7 @@ export interface AlpControlledNovelTransformedGapCandidateV1 {
   readonly candidateId: string;
   readonly provenance: "CONTROLLED_NOVEL";
   readonly noveltyAxes: readonly ReasoningNoveltyAxisV1[];
-  readonly parentQlIds: readonly ["ALP-QL-031", "ALP-QL-047"];
+  readonly parentQlIds: readonly string[];
   readonly seed: number;
   readonly transformId: AlpTransformId;
   readonly stem: string;
@@ -117,6 +139,7 @@ export function generateAlpControlledNovelTransformedGapCandidateV1(
     throw new Error("ALP transformed-gap options must contain four unique choices.");
   }
 
+  const parentTransformQlId = transformQlId(transformId);
   const transformDescription = describeTransformCore(transformId);
   const stem =
     `The English alphabet is rearranged so that we ${transformDescription}. In the new order, how many letters are there between ${pair.first} and ${pair.second}?`;
@@ -133,7 +156,7 @@ export function generateAlpControlledNovelTransformedGapCandidateV1(
   validateReasoningNoveltyCandidateV1({
     candidateId: "ALP-NOVEL-TRANSFORMED-GAP-" + seed,
     chapterId: "ALP-001",
-    qlId: "ALP-QL-031+ALP-QL-047",
+    qlId: "ALP-QL-031+" + parentTransformQlId,
     provenance: "CONTROLLED_NOVEL",
     noveltyAxes,
     solverVerified: true,
@@ -148,7 +171,7 @@ export function generateAlpControlledNovelTransformedGapCandidateV1(
     candidateId: "ALP-NOVEL-TRANSFORMED-GAP-" + seed,
     provenance: "CONTROLLED_NOVEL",
     noveltyAxes,
-    parentQlIds: ["ALP-QL-031", "ALP-QL-047"],
+    parentQlIds: ["ALP-QL-031", parentTransformQlId],
     seed,
     transformId,
     stem,
