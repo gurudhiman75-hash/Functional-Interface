@@ -139,6 +139,7 @@ for (const prototypeId of SAP_CP010_PROTOTYPE_IDS) {
     assert.equal(q.options[q.correctIndex]?.value, q.canonicalAnswer);
     assert.ok(q.explanation.steps.length >= 2 && q.explanation.steps.length <= 3);
     assert.ok(q.stem.length <= 220);
+    assert.ok(q.options.filter((option) => !option.isCorrect).every((option) => !/^(?:NEARBY_(?:LOW|HIGH|OPTION)|FINAL_VALUE_)/.test(option.misconceptionId ?? "")), `${prototypeId}:${seed}: generic fallback distractor leaked into certified surface.`);
 
     const visible = `${q.stem} ${q.canonicalAnswer} ${q.options.map((o) => o.value).join(" ")} ${q.explanation.coreConcept} ${q.explanation.steps.join(" ")} ${q.explanation.verification.join(" ")}`;
     assert.doesNotMatch(visible, /oracle|runtime|prototype|canonical|internal|guard|machine policy|newton|taylor|logarithmic interpolation|binomial series/i);
