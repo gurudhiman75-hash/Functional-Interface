@@ -180,6 +180,9 @@ assert.doesNotMatch(routeIndex, /adminQuestionStudioEngineV1Router/);
 assert.doesNotMatch(sharedReviewRoute, /router\.post\("\/runs"/);
 assert.doesNotMatch(sharedReviewRoute, /router\.get\("\/capabilities"/);
 assert.match(sharedReviewRoute, /router\.get\("\/review-page"/);
+assert.match(sharedReviewRoute, /reviewSummary/);
+assert.match(sharedReviewRoute, /'needsFix'/);
+assert.match(sharedReviewRoute, /'rejected'/);
 assert.match(sharedReviewRoute, /router\.patch\("\/items\/bulk"/);
 
 const bulkHardeningRoute = readFileSync(
