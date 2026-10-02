@@ -604,13 +604,19 @@ export function QuestionStudioCockpitPage() {
               <Field label="Question family" className="xl:col-span-2">
                 <Select value={packageId} onValueChange={(value) => { setPackageId(value); setSelectedCpIds(new Set()); setCpSearch(''); }}>
                   <SelectTrigger><SelectValue placeholder="Select question family" /></SelectTrigger>
-                  <SelectContent>{chapterPackages.map((entry) => <SelectItem key={entry.packageId} value={entry.packageId}>{entry.label}</SelectItem>)}</SelectContent>
+                  <SelectContent>{chapterPackages.map((entry) => (
+                    <SelectItem key={entry.packageId} value={entry.packageId}>
+                      {entry.label} · {entry.packageId}
+                    </SelectItem>
+                  ))}</SelectContent>
                 </Select>
               </Field>
             ) : (
               <div className="xl:col-span-2 rounded-lg border bg-muted/20 px-3 py-2">
                 <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Generation source</p>
-                <p className="mt-1 text-xs font-medium">{activePackage?.label ?? 'Choose a chapter'}</p>
+                <p className="mt-1 text-xs font-medium">
+                  {activePackage ? `${activePackage.label} · ${activePackage.packageId}` : 'Choose a chapter'}
+                </p>
               </div>
             )}
           </div>
@@ -709,7 +715,7 @@ export function QuestionStudioCockpitPage() {
             <Field label="Optional deterministic seed"><Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for a fresh generated seed" /></Field>
             <Button onClick={() => void handleGenerate()} disabled={loading || generating || !activePackage || !canRun} className="min-w-44">{generating ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}{generating ? 'Generating…' : 'Generate review batch'}</Button>
           </div>
-          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageChapter(activePackage)}</span> · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {difficultyFilterSupported ? `Difficulty: ${difficulty}` : 'Difficulty: engine managed'} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
+          {activePackage && <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground"><span className="font-semibold text-foreground">{packageSubject(activePackage)} · {packageChapter(activePackage)}</span> · {activePackage.packageId} · {selectedCpIds.size > 0 ? `${selectedCpIds.size} selected CP(s)` : `${availableCpIds.length} CP(s), chapter mix`} · {difficultyFilterSupported ? `Difficulty: ${difficulty}` : 'Difficulty: engine managed'} · {activePackage.lifecycleStage ? `Lifecycle: ${activePackage.lifecycleStage.replace(/_/g, ' ')}` : 'Lifecycle: legacy'} · {activePackage.engineId ?? capabilities.defaultGenerationSystem ?? capabilities.generationSystem}</div>}
         </CardContent>
       </Card>
         </TabsContent>
