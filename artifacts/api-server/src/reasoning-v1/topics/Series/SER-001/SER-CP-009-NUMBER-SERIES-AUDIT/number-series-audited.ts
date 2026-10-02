@@ -256,7 +256,7 @@ export function generateSerCp009AuditedNumberSeries(
   locale: SerCp009Locale = "en-IN",
 ): GeneratedSerCp009Question {
   const generated = generateFinalPrototype(qlId, seed, locale);
-  const editorial = qlId === "SER-QL-039" ? auditedDigitRotation(generated, seed, locale) : generated;
+  const editorial = generated;
   const difficulty = structuralDifficulty(editorial);
   if (difficulty === editorial.difficulty) return editorial;
   return Object.freeze({
