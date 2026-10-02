@@ -75,6 +75,7 @@ export interface CalControlledNovelImplicitRangeFrequencyCandidateV1 {
   readonly options: readonly string[];
   readonly correctIndex: number;
   readonly answer: string;
+  readonly explanation: string;
   readonly semanticFingerprint: string;
   readonly solverAgreement: true;
   readonly solverVerified: true;
@@ -151,6 +152,23 @@ export function generateCalControlledNovelImplicitRangeFrequencyCandidateV1(
   const stem =
     `A training programme begins on ${formatDate(startDate)} and runs for ${durationDays} consecutive days, counting the starting day as Day 1. How many ${WEEKDAY_NAMES[namedWeekday]}s occur during the programme?`;
 
+  const completeWeeks = Math.floor(durationDays / 7);
+  const extraDays = durationDays % 7;
+  const startWeekday = ordinalWeekday(startDate);
+  const extraWeekdays = Array.from(
+    { length: extraDays },
+    (_, offset) => ((startWeekday + offset) % 7) as Weekday,
+  );
+  const extraOccurrence = extraWeekdays.includes(namedWeekday) ? 1 : 0;
+  const explanation =
+    `The programme ends on ${formatDate(endDate)}. ` +
+    `${durationDays} days contain ${completeWeeks} complete week(s) and ${extraDays} extra day(s). ` +
+    `The complete weeks contain ${completeWeeks} ${WEEKDAY_NAMES[namedWeekday]}(s)` +
+    (extraDays > 0
+      ? `, and the extra days ${extraOccurrence ? "include" : "do not include"} ${WEEKDAY_NAMES[namedWeekday]}. `
+      : ". ") +
+    `Therefore, the total is ${primaryCount}.`;
+
   const noveltyAxes = [
     "INFORMATION_DISTRIBUTION",
     "MULTI_STAGE_COMPOSITION",
@@ -182,6 +200,7 @@ export function generateCalControlledNovelImplicitRangeFrequencyCandidateV1(
     options,
     correctIndex,
     answer: options[correctIndex]!,
+    explanation,
     semanticFingerprint: stableDigest({
       authority: CAL_001_CONTROLLED_NOVELTY_DISCOVERY_V1,
       startDate,

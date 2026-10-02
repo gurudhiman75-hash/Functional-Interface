@@ -22,6 +22,12 @@ export interface RnkControlledNovelCaseletV1 {
   readonly hiddenOrder: readonly string[];
   readonly constraints: readonly Constraint[];
   readonly clueTexts: readonly string[];
+  readonly sharedPrompt: string;
+  readonly stem: string;
+  readonly options: readonly string[];
+  readonly correctIndex: number;
+  readonly answer: string;
+  readonly explanation: string;
   readonly uniqueSolution: readonly string[];
   readonly mappedQlIds: readonly [
     'RNK-QL-027',
@@ -62,6 +68,12 @@ function orderedEntities(seed: number): string[] {
     }))
     .sort((left, right) => left.key - right.key || left.name.localeCompare(right.name))
     .map((entry) => entry.name);
+}
+
+function rotate<T>(values: readonly T[], amount: number): T[] {
+  if (!values.length) return [];
+  const offset = ((amount % values.length) + values.length) % values.length;
+  return [...values.slice(offset), ...values.slice(0, offset)];
 }
 
 function permutations<T>(values: readonly T[]): T[][] {
@@ -145,6 +157,21 @@ export function generateRnkControlledNovelCaseletV1(
     throw new Error('RNK controlled-novel solver disagrees with the hidden order.');
   }
 
+  const clueTexts = constraints.map(clueText);
+  const sharedPrompt =
+    "Six persons are ranked from first to sixth. " + clueTexts.join(" ");
+  const correctAnswer = fourth;
+  const options = rotate([correctAnswer, second, fifth, sixth], Math.abs(seed) % 4);
+  const correctIndex = options.indexOf(correctAnswer);
+  if (correctIndex < 0 || new Set(options).size !== 4) {
+    throw new Error("RNK controlled-novel MCQ options must contain four distinct persons.");
+  }
+  const stem = "Who is ranked fourth?";
+  const explanation =
+    "Combining the clues gives the unique order " +
+    solutions[0]!.map((name, index) => `${index + 1}. ${name}`).join(", ") +
+    `. Therefore, ${correctAnswer} is ranked fourth.`;
+
   const noveltyAxes = [
     'CONSTRAINT_INTERACTION',
     'INFORMATION_DISTRIBUTION',
@@ -173,7 +200,13 @@ export function generateRnkControlledNovelCaseletV1(
     entities: hiddenOrder,
     hiddenOrder,
     constraints,
-    clueTexts: constraints.map(clueText),
+    clueTexts,
+    sharedPrompt,
+    stem,
+    options,
+    correctIndex,
+    answer: options[correctIndex]!,
+    explanation,
     uniqueSolution: solutions[0]!,
     mappedQlIds: [
       'RNK-QL-027',

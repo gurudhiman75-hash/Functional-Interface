@@ -67,6 +67,7 @@ export interface DirControlledNovelGraphRelativePathCandidateV1 {
   readonly options: readonly string[];
   readonly correctIndex: number;
   readonly answer: string;
+  readonly explanation: string;
   readonly semanticFingerprint: string;
   readonly solverAgreement: true;
   readonly solverVerified: true;
@@ -184,6 +185,13 @@ export function generateDirControlledNovelGraphRelativePathCandidateV1(
     `In which direction and at what shortest distance is the final position from ${referenceEntity}?`,
   ].join(" ");
 
+  const explanation =
+    statementText(relations[0]!) + " " +
+    statementText(relations[1]!) + " " +
+    `Starting from ${startEntity}, the two moves lead to the final position. ` +
+    `From ${referenceEntity}, this position lies ${DIRECTION_LABELS[answerDirection]} at a shortest distance of ${answerDistance} metres. ` +
+    `Hence the answer is ${options[correctIndex]}.`;
+
   const noveltyAxes = [
     "MULTI_STAGE_COMPOSITION",
     "VALID_CROSS_FAMILY_COMPOSITION",
@@ -229,6 +237,7 @@ export function generateDirControlledNovelGraphRelativePathCandidateV1(
     options,
     correctIndex,
     answer: options[correctIndex]!,
+    explanation,
     semanticFingerprint,
     solverAgreement: true,
     solverVerified: true,

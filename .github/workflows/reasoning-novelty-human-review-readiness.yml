@@ -1,0 +1,36 @@
+name: Validate Reasoning novelty human review readiness
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-review-pack-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Alphabet-Test/ALP-001/alp-001-controlled-novelty-discovery-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/ops-001-controlled-novelty-discovery-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-controlled-novelty-discovery-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/dir-001-controlled-novelty-discovery-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/cal-001-controlled-novelty-discovery-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/blr-001-controlled-novelty-discovery-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Cause-and-Effect/CAE-001/cae-001-controlled-novelty-discovery-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-human-review-readiness-20261002.test.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-novelty-human-review-readiness-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/reasoning-novelty-human-review-readiness-20261002.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/reasoning-novelty-human-review-readiness-20261002.test.mjs
+      - run: node artifacts/api-server/dist/reasoning-v1/reasoning-novelty-human-review-readiness-20261002.test.mjs
