@@ -240,6 +240,7 @@ router.patch(
           correct: correctIndex,
           validationResult: "editorial_revision",
         };
+        delete nextPayload.contentFingerprint;
         const quality = analyzeGeneratedQuestionPayload(nextPayload);
         if (!quality.readyForApproval) {
           return { kind: "quality" as const, quality };
