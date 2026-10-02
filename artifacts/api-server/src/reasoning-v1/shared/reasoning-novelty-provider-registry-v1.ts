@@ -133,7 +133,7 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     providerId: "CAE-001-EDGE-FAMILIES",
     chapterId: "CAE-001",
     topicDirectory: "Cause-and-Effect",
-    status: "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
+    status: "APPROVED_RUNTIME",
     parentQlIds: ["CAE-QL-008", "CAE-QL-009"],
     noveltyAxes: [
       "RELATION_STRUCTURE",
@@ -145,9 +145,9 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     generatorExport: "generateCaeControlledNovelCandidateV1",
     supportedLanguages: ["en", "hi", "pa"],
     permanentQlAllocationRequired: false,
-    questionStudioNoveltyMixActivated: false,
+    questionStudioNoveltyMixActivated: true,
     humanReviewRequired: false,
-    countsTowardAssemblyNoveltyNow: false,
+    countsTowardAssemblyNoveltyNow: true,
   },
   {
     providerId: "DIR-001-GRAPH-RELATIVE-PATH",
@@ -193,7 +193,7 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     providerId: "BLR-001-CODED-FILTERED-COUNT",
     chapterId: "BLR-001",
     topicDirectory: "Blood-Relations",
-    status: "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
+    status: "APPROVED_RUNTIME",
     parentQlIds: ["BLR-QL-013", "BLR-QL-026"],
     noveltyAxes: [
       "MULTI_STAGE_COMPOSITION",
@@ -205,9 +205,9 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     generatorExport: "generateBlrControlledNovelCodedCountCandidateV1",
     supportedLanguages: ["en"],
     permanentQlAllocationRequired: false,
-    questionStudioNoveltyMixActivated: false,
+    questionStudioNoveltyMixActivated: true,
     humanReviewRequired: false,
-    countsTowardAssemblyNoveltyNow: false,
+    countsTowardAssemblyNoveltyNow: true,
   },
 ] as const;
 
