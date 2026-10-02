@@ -56,9 +56,13 @@ async function assertReviewEntityExists(
 ): Promise<void> {
   const rows = entityType === "generation_item"
     ? await client`
-        SELECT id
-        FROM content.generation_run_items
-        WHERE id = ${entityId}::uuid
+        SELECT
+          i.id,
+          i.accepted_question_id AS "acceptedQuestionId",
+          r.status::text AS "runStatus"
+        FROM content.generation_run_items i
+        INNER JOIN content.generation_runs r ON r.id = i.generation_run_id
+        WHERE i.id = ${entityId}::uuid
         LIMIT 1
       `
     : await client`
@@ -73,6 +77,23 @@ async function assertReviewEntityExists(
       "The selected review item no longer exists.",
       404,
     );
+  }
+  if (entityType === "generation_item") {
+    const row = rows[0];
+    if (String(row.runStatus) === "cancelled") {
+      throw new ContentReviewError(
+        "GENERATION_RUN_CANCELLED",
+        "Cancelled generation runs are immutable.",
+        409,
+      );
+    }
+    if (row.acceptedQuestionId) {
+      throw new ContentReviewError(
+        "GENERATION_ITEM_ALREADY_CONVERTED",
+        "This generated item is already in Question Bank.",
+        409,
+      );
+    }
   }
 }
 
@@ -125,6 +146,7 @@ router.get(
           ON pv.generation_item_id = i.id
          AND pv.version_number = i.current_version_number - 1
         WHERE i.accepted_question_id IS NULL
+          AND r.status <> 'cancelled'::generation_run_status
         ORDER BY i.updated_at DESC, r.created_at DESC, i.item_number
         LIMIT 3000
       `;
