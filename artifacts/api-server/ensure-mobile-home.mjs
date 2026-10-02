@@ -12,6 +12,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const homeMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-home-configuration.sql");
 const promotionsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-promotions.sql");
 const promotionsV2MigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-mobile-promotions-v2.sql");
+const firstPromotionMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-first-live-promotion.sql");
 const notificationsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-notifications.sql");
 const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
 const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
@@ -104,6 +105,27 @@ try {
     throw new Error("Mobile promotions v2 migration completed without cta_label");
   }
   console.log("[render-build] mobile promotions v2 schema verified");
+  const [firstPromotionBefore] = await sql`
+    SELECT EXISTS (
+      SELECT 1
+      FROM platform.mobile_promotions
+      WHERE id='7f9e7e53-7b75-4dd8-8d79-6e32d8c90d01'::uuid
+    ) AS present
+  `;
+  if (!firstPromotionBefore?.present) {
+    console.log("[render-build] first live mobile promotion missing; applying checked-in seed");
+    await sql.unsafe(await readFile(firstPromotionMigrationPath, "utf8"));
+  }
+  const [firstPromotionAfter] = await sql`
+    SELECT is_active AS active,placement,destination_type AS destination_type,destination_value AS destination_value
+    FROM platform.mobile_promotions
+    WHERE id='7f9e7e53-7b75-4dd8-8d79-6e32d8c90d01'::uuid
+  `;
+  if (!firstPromotionAfter?.active || firstPromotionAfter?.placement !== "login_popup") {
+    throw new Error("First live mobile promotion seed verification failed");
+  }
+  console.log("[render-build] first live mobile promotion verified");
+
 
 
   const [notificationsBefore] = await sql`
