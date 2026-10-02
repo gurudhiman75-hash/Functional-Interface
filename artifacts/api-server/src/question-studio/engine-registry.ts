@@ -33,12 +33,28 @@ export function getQuestionStudioEngine(
 }
 
 export function listQuestionStudioPackages(): QuestionStudioPackageDefinition[] {
-  return [...adapters.values()]
+  const packages = [...adapters.values()]
     .flatMap((adapter) => adapter.listPackages())
-    .map(enrichQuestionStudioPackageCpTitles)
-    .sort((left, right) =>
-      left.packageId.localeCompare(right.packageId),
+    .map(enrichQuestionStudioPackageCpTitles);
+
+  const owners = new Map<string, QuestionStudioEngineId[]>();
+  for (const pkg of packages) {
+    const packageOwners = owners.get(pkg.packageId) ?? [];
+    packageOwners.push(pkg.engineId);
+    owners.set(pkg.packageId, packageOwners);
+  }
+
+  const duplicate = [...owners.entries()].find(([, engineIds]) => engineIds.length > 1);
+  if (duplicate) {
+    const [packageId, engineIds] = duplicate;
+    throw new Error(
+      `Question Studio package ${packageId} is registered by multiple engines: ${engineIds.join(", ")}.`,
     );
+  }
+
+  return packages.sort((left, right) =>
+    left.packageId.localeCompare(right.packageId),
+  );
 }
 
 export function resolveQuestionStudioEngine(
