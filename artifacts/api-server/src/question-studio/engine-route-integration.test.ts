@@ -197,6 +197,10 @@ assert.doesNotMatch(bulkHardeningRoute, /slice\(0, 500\)/);
 assert.doesNotMatch(qualityRoute, /slice\(0, 100\)/);
 assert.match(bulkHardeningRoute, /TOO_MANY_REVIEW_ITEMS/);
 assert.match(qualityRoute, /TOO_MANY_REVIEW_ITEMS/);
+assert.match(qualityRoute, /INVALID_GENERATION_ITEM_ID/);
+assert.match(qualityRoute, /QUESTION_STUDIO_DUPLICATE_BLOCKED/);
+assert.match(qualityRoute, /normalizedStem/);
+assert.match(qualityRoute, /contentFingerprint/);
 assert.match(bulkHardeningRoute, /INVALID_GENERATION_ITEM_ID/);
 assert.match(
   bulkHardeningRoute,

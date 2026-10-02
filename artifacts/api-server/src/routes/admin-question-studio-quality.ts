@@ -8,6 +8,7 @@ import { authenticate } from "../middlewares/auth";
 
 const router = Router();
 const MAX_BULK_REVIEW_ITEMS = 500;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function asString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -40,6 +41,16 @@ router.patch(
       });
       return;
     }
+    const invalidIds = rawIds.filter((id) => !UUID_RE.test(id));
+    if (invalidIds.length > 0) {
+      res.status(400).json({
+        error: "All generated item IDs must be valid UUIDs",
+        code: "INVALID_GENERATION_ITEM_ID",
+        invalidItemIds: invalidIds,
+      });
+      return;
+    }
+
     const itemIds = [...new Set(rawIds)];
     if (itemIds.length === 0) {
       next();
@@ -75,6 +86,60 @@ router.patch(
           error: `${blocked.length} selected item(s) failed the Question Studio quality gate.`,
           code: "QUESTION_STUDIO_QUALITY_BLOCKED",
           blocked,
+        });
+        return;
+      }
+
+      const duplicateRows = await sqlClient`
+        WITH current_payloads AS (
+          SELECT
+            i.id,
+            r.public_code AS "runCode",
+            NULLIF(v.payload ->> 'contentFingerprint', '') AS fingerprint,
+            LOWER(
+              REGEXP_REPLACE(
+                TRIM(COALESCE(NULLIF(v.payload ->> 'text', ''), v.payload ->> 'stem', '')),
+                '[[:space:][:punct:]]+',
+                ' ',
+                'g'
+              )
+            ) AS "normalizedStem"
+          FROM content.generation_run_items i
+          INNER JOIN content.generation_runs r
+            ON r.id = i.generation_run_id
+          INNER JOIN content.generation_item_versions v
+            ON v.generation_item_id = i.id
+           AND v.version_number = i.current_version_number
+        )
+        SELECT DISTINCT ON (source.id)
+          source.id::text AS "itemId",
+          matched.id::text AS "matchedItemId",
+          matched."runCode" AS "matchedRunCode"
+        FROM current_payloads source
+        INNER JOIN current_payloads matched
+          ON matched.id <> source.id
+         AND source."normalizedStem" <> ''
+         AND source."normalizedStem" = matched."normalizedStem"
+         AND (
+           source.fingerprint IS NULL
+           OR matched.fingerprint IS NULL
+           OR source.fingerprint = matched.fingerprint
+         )
+        WHERE source.id = ANY(${itemIds}::uuid[])
+        ORDER BY source.id, matched.id
+      `;
+
+      if (duplicateRows.length > 0) {
+        res.status(422).json({
+          error: `${duplicateRows.length} selected item(s) are exact duplicates of existing generated questions.`,
+          code: "QUESTION_STUDIO_DUPLICATE_BLOCKED",
+          blocked: duplicateRows.map((row) => ({
+            itemId: String(row.itemId),
+            matchedItemId: String(row.matchedItemId),
+            matchedRunCode: String(row.matchedRunCode),
+            similarity: 1,
+            exact: true,
+          })),
         });
         return;
       }
