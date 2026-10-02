@@ -45,6 +45,7 @@ jobs:
             "localization/runtime-parity.test.ts:localization-parity" \
             "localization/runtime-human-quality.test.ts:localization-quality" \
             "question-studio-integration.test.ts:question-studio" \
+            "cp014-semantic-remediation-audit-v1.ts:semantic-remediation" \
             "cumulative-landing.test.ts:cumulative"; do
             file="${spec%%:*}"; name="${spec##*:}"
             pnpm --dir artifacts/api-server exec esbuild "$root/$file" --bundle --platform=node --format=esm --outfile="dist/quant-v4/num-cp014-$name.mjs"
@@ -53,9 +54,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for name in freeze-readiness allocation english localization-parity localization-quality question-studio cumulative; do
+          for name in freeze-readiness allocation english localization-parity localization-quality question-studio semantic-remediation cumulative; do
             node "artifacts/api-server/dist/quant-v4/num-cp014-$name.mjs"
           done
+          node artifacts/api-server/dist/quant-v4/num-cp014-semantic-remediation.mjs | grep -q "PASS_NUM_CP014_SEMANTIC_REMEDIATION_AUDIT_V1"
       - name: Bundle CP014 admin route and shared facade
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-cp014.ts --bundle --platform=node --format=esm --outfile=dist/routes/admin-question-studio-cp014.mjs
