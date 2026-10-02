@@ -1,7 +1,10 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { listQuestionStudioPackages } from "../question-studio/shared-generation-engine-arg";
+import {
+  listQuestionStudioEngines,
+  listQuestionStudioPackages,
+} from "./engine-registry";
 import {
   ARG_CP015_REAL_PAPER_PROFILES,
   ARG_CP015_QUESTION_STUDIO_AUTHORITY,
@@ -75,9 +78,16 @@ function currentPackage(pkg: any) {
     runtimeMode: text(pkg.runtimeMode) || undefined,
     supportedRuntimeModes: Array.isArray(pkg.supportedRuntimeModes) ? pkg.supportedRuntimeModes.map(String) : [],
     dynamicCandidateCpIds: Array.isArray(pkg.dynamicCandidateCpIds) ? pkg.dynamicCandidateCpIds.map(String) : [],
-    cpLabels: pkg.cpLabels && typeof pkg.cpLabels === "object" && !Array.isArray(pkg.cpLabels)
-      ? pkg.cpLabels
-      : {},
+    cpLabels: (() => {
+      if (pkg.cpLabels && typeof pkg.cpLabels === "object" && !Array.isArray(pkg.cpLabels)) {
+        return pkg.cpLabels;
+      }
+      const metadataTitles = pkg.metadata?.cpTitles;
+      if (metadataTitles && typeof metadataTitles === "object" && !Array.isArray(metadataTitles)) {
+        return metadataTitles;
+      }
+      return {};
+    })(),
     lifecycleId: text(pkg.lifecycleId) || undefined,
     lifecycleStage: text(pkg.lifecycleStage) || undefined,
     reviewSurfaceRequired: pkg.reviewSurfaceRequired,
@@ -128,9 +138,32 @@ if (!outputPath) {
   throw new Error("QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT is required.");
 }
 
+const packages = listQuestionStudioPackages().map(currentPackage);
+
+const mensuration = packages.find((pkg) => pkg.packageId === "MENSURATION");
+const expectedMensurationCpIds = Array.from(
+  { length: 13 },
+  (_, index) => `MEN-CP-${String(index + 1).padStart(3, "0")}`,
+);
+if (!mensuration) {
+  throw new Error("Question Studio capability manifest is missing the MENSURATION package.");
+}
+const actualMensurationCpIds = [...new Set(mensuration.cpIds)].sort();
+if (
+  actualMensurationCpIds.length !== expectedMensurationCpIds.length
+  || expectedMensurationCpIds.some((cpId) => !actualMensurationCpIds.includes(cpId))
+) {
+  throw new Error(
+    `Question Studio MENSURATION capability drift: expected MEN-CP-001..MEN-CP-013, received ${actualMensurationCpIds.join(", ")}`,
+  );
+}
+
+const generationSystems = listQuestionStudioEngines();
 const manifest = {
-  generationSystem: "question-studio",
-  packages: listQuestionStudioPackages().map(currentPackage),
+  generationSystem: "quant-v4",
+  defaultGenerationSystem: "quant-v4",
+  generationSystems,
+  packages,
   difficulties: ["Easy", "Medium", "Hard"],
   languages: ["en", "hi", "pa"],
   realPaperProfiles: ARG_CP015_REAL_PAPER_PROFILES,
