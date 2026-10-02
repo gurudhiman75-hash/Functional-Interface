@@ -106,6 +106,14 @@ const QUESTION_REWRITES: Readonly<Record<string, { hi: RegExp; hiTo: string; pa:
 });
 
 const HI_PHRASES: readonly [RegExp, string][] = [
+  [/\bfind\b/gi, "ज्ञात करें"], [/\bdetermine\b/gi, "निर्धारित करें"], [/\bcalculate\b/gi, "गणना करें"], [/\bcompare\b/gi, "तुलना करें"],
+  [/\bsatisfies\b/gi, "संतुष्ट करता है"], [/\bsatisfy\b/gi, "संतुष्ट करते हैं"], [/\bfactorise\b/gi, "गुणनखंड करें"], [/\bfactorization\b/gi, "गुणनखंडन"],
+  [/\bdefined\b/gi, "परिभाषित"], [/\bpossible\b/gi, "संभव"], [/\brelation\b/gi, "संबंध"], [/\bequation\b/gi, "समीकरण"],
+  [/\bhere\b/gi, "यहाँ"], [/\bleft side\b/gi, "बायाँ पक्ष"], [/\bright side\b/gi, "दायाँ पक्ष"], [/\bsubstituting\b/gi, "मान रखने पर"],
+  [/\bmove\b/gi, "स्थानांतरित करें"], [/\bother side\b/gi, "दूसरे पक्ष"], [/\bgives\b/gi, "मिलता है"], [/\bgive\b/gi, "देता है"],
+  [/\buse\b/gi, "उपयोग करें"], [/\busing\b/gi, "उपयोग करके"], [/\bsame\b/gi, "समान"], [/\bmultiplier\b/gi, "गुणक"],
+  [/\brepresented\b/gi, "दर्शाते"], [/\brepresent\b/gi, "दर्शाते हैं"], [/\blines\b/gi, "रेखाएँ"], [/\bline\b/gi, "रेखा"],
+  [/\bsystem\b/gi, "समीकरण-तंत्र"], [/\bvariables\b/gi, "चर"], [/\bvariable\b/gi, "चर"], [/\binstead\b/gi, "इसके स्थान पर"],
   [/\band\b/g, "और"], [/\bor\b/g, "या"], [/\bso\b/g, "इसलिए"], [/\bthen\b/g, "तब"], [/\bbecause\b/g, "क्योंकि"],
   [/\bthe required value\b/gi, "आवश्यक मान"], [/\bthe required expression\b/gi, "आवश्यक व्यंजक"], [/\bthe original equation\b/gi, "मूल समीकरण"],
   [/\bthe original denominator\b/gi, "मूल हर"], [/\bthe original denominators\b/gi, "मूल हर"], [/\bthe original domain\b/gi, "मूल मान्य क्षेत्र"],
