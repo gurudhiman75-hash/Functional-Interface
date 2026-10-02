@@ -85,6 +85,41 @@ test("preserves a registered engine and the originating CP for recovery", () => 
   assert.equal(request.count, 1);
 });
 
+test("preserves authoritative lifecycle gates across regeneration", () => {
+  const lifecycleSource: RegenerationSource = {
+    ...source,
+    payload: {
+      ...source.payload,
+      lifecycleStage: "BANK_ONLY",
+      questionBankStatus: "READY_FOR_STORAGE",
+      questionBankWritable: true,
+      questionBankAcceptanceMode: "BANK_ONLY",
+      testEligible: false,
+      mockTestEligible: false,
+      publiclyPublishable: false,
+      automaticStudentPublication: false,
+      productionReleaseAuthorized: false,
+    },
+  };
+
+  const payload = buildRegenerationPayload(
+    { stem: "Replacement question", options: ["1", "2"], correctIndex: 1 },
+    { seed: "fresh-seed" },
+    lifecycleSource,
+    "Regenerate wording",
+    "2026-07-19T10:00:00.000Z",
+  );
+
+  assert.equal(payload.lifecycleStage, "BANK_ONLY");
+  assert.equal(payload.questionBankWritable, true);
+  assert.equal(payload.questionBankAcceptanceMode, "BANK_ONLY");
+  assert.equal(payload.testEligible, false);
+  assert.equal(payload.mockTestEligible, false);
+  assert.equal(payload.publiclyPublishable, false);
+  assert.equal(payload.automaticStudentPublication, false);
+  assert.equal(payload.productionReleaseAuthorized, false);
+});
+
 test("records regeneration provenance in the replacement payload", () => {
   const payload = buildRegenerationPayload(
     { stem: "Replacement question", options: ["1", "2"], correctIndex: 1 },
