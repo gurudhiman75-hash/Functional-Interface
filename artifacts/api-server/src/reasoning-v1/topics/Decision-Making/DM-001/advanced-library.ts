@@ -33,8 +33,8 @@ const CONTEXTS: Readonly<Record<AdvancedCheckpoint, readonly LocalizedText[]>> =
     text("Departmental screening of several employee profiles", "कई कर्मचारी प्रोफाइलों की विभागीय जाँच", "ਕਈ ਕਰਮਚਾਰੀ ਪ੍ਰੋਫਾਈਲਾਂ ਦੀ ਵਿਭਾਗੀ ਜਾਂਚ"),
   ],
   "DM-CP-020": [
-    text("Final recruitment set with eligibility, relaxation and referral", "पात्रता, छूट और संदर्भ वाला अंतिम भर्ती सेट", "ਯੋਗਤਾ, ਛੋਟ ਅਤੇ ਰੈਫਰਲ ਵਾਲਾ ਅੰਤਿਮ ਭਰਤੀ ਸੈੱਟ"),
-    text("Advanced admission set with exceptions and missing data", "अपवाद और गायब जानकारी वाला उन्नत प्रवेश सेट", "ਅਪਵਾਦ ਅਤੇ ਗੁੰਮ ਜਾਣਕਾਰੀ ਵਾਲਾ ਉੱਨਤ ਦਾਖ਼ਲਾ ਸੈੱਟ"),
+    text("a final recruitment exercise involving eligibility, relaxation and referral", "अंतिम भर्ती में पात्रता, छूट और प्रेषण से जुड़े निर्णय", "ਅੰਤਿਮ ਭਰਤੀ ਵਿੱਚ ਯੋਗਤਾ, ਛੋਟ ਅਤੇ ਰੈਫਰਲ ਨਾਲ ਜੁੜੇ ਫੈਸਲੇ"),
+    text("an advanced admission exercise involving exceptions and missing data", "उन्नत प्रवेश में अपवाद और अनुपलब्ध जानकारी से जुड़े निर्णय", "ਉੱਨਤ ਦਾਖ਼ਲੇ ਵਿੱਚ ਅਪਵਾਦ ਅਤੇ ਗੁੰਮ ਜਾਣਕਾਰੀ ਨਾਲ ਜੁੜੇ ਫੈਸਲੇ"),
     text("Mixed scholarship decisions under one rule notice", "एक नियम सूचना के तहत मिश्रित छात्रवृत्ति निर्णय", "ਇੱਕ ਨਿਯਮ ਸੂਚਨਾ ਹੇਠ ਮਿਲੇ-ਜੁਲੇ ਵਜ਼ੀਫ਼ਾ ਫੈਸਲੇ"),
     text("Comprehensive training-selection decision set", "व्यापक प्रशिक्षण-चयन निर्णय सेट", "ਵਿਆਪਕ ਸਿਖਲਾਈ-ਚੋਣ ਫੈਸਲਾ ਸੈੱਟ"),
     text("Full administrative screening set for five profiles", "पाँच प्रोफाइलों का पूर्ण प्रशासनिक जाँच सेट", "ਪੰਜ ਪ੍ਰੋਫਾਈਲਾਂ ਦਾ ਪੂਰਾ ਪ੍ਰਸ਼ਾਸਕੀ ਜਾਂਚ ਸੈੱਟ"),
