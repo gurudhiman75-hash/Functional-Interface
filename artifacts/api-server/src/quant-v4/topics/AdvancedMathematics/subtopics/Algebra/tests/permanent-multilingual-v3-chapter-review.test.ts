@@ -45,6 +45,12 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
         assert.deepEqual(localized.canonicalAnswer, english.canonicalAnswer, `${pattern.prototypeId}/${locale}/${seed}: canonical answer diverged from English V4`);
         if (locale === "hi-IN") assert.match(localized.question + localized.explanation, /[\u0900-\u097F]/u);
         else assert.match(localized.question + localized.explanation, /[\u0A00-\u0A7F]/u);
+        const learnerText = `${localized.question} ${localized.explanation}`;
+        assert.doesNotMatch(
+          learnerText,
+          /\b(?:find|given|determine|calculate|solve|therefore|hence|minimum|maximum|least|statement|equation|compare|value|relation|satisfies|factorise|factorization|defined|domain|solution|roots?|both|every|possible)\b/i,
+          `${pattern.prototypeId}/${locale}/${seed}: residual English learner prose leaked`,
+        );
       } else {
         untouched += 1;
         assert.equal(localized.chapterReviewCandidate, false);
