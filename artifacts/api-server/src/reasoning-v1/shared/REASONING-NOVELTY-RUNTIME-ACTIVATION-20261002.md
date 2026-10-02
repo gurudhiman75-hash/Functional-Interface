@@ -8,7 +8,7 @@ Status: `3_LIVE_QUESTION_STUDIO_PROVIDERS__5_CONTENT_APPROVED_AWAITING_ROUTE`
 
 The following human-reviewed providers are activated in the real multi-engine Reasoning Question Studio adapter:
 
-- `OPS-001-INFER-THEN-FILL` — Medium
+- `OPS-001-INFER-THEN-FILL` — Hard
 - `DIR-001-GRAPH-RELATIVE-PATH` — Medium
 - `CLK-001-FAULTY-TIME-ANGLE` — Hard
 
