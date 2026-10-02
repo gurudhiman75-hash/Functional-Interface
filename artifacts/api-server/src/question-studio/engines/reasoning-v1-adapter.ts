@@ -63,6 +63,20 @@ import {
 } from "../../reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-shape-regions.ts";
 
 import { applyReasoningControlledNovelMixV1 } from "../../reasoning-v1/shared/reasoning-novelty-live-mix-v1";
+import {
+  ALP_001_SHARED_QUESTION_STUDIO_PACKAGE,
+  CAE_001_SHARED_QUESTION_STUDIO_PACKAGE,
+  CAL_001_SHARED_QUESTION_STUDIO_PACKAGE,
+  BLR_001_SHARED_QUESTION_STUDIO_PACKAGE,
+  isAlp001SharedQuestionStudioRequest,
+  isCae001SharedQuestionStudioRequest,
+  isCal001SharedQuestionStudioRequest,
+  isBlr001SharedQuestionStudioRequest,
+  generateAlp001SharedQuestionStudioBatch,
+  generateCae001SharedQuestionStudioBatch,
+  generateCal001SharedQuestionStudioBatch,
+  generateBlr001SharedQuestionStudioBatch,
+} from "../../reasoning-v1/shared/reasoning-additional-question-studio-routes-v1";
 
 import {
   WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
@@ -409,6 +423,10 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       CLK_001_QUESTION_STUDIO_PACKAGE,
+      ALP_001_SHARED_QUESTION_STUDIO_PACKAGE,
+      CAL_001_SHARED_QUESTION_STUDIO_PACKAGE,
+      CAE_001_SHARED_QUESTION_STUDIO_PACKAGE,
+      BLR_001_SHARED_QUESTION_STUDIO_PACKAGE,
       MIS_001_QUESTION_STUDIO_PACKAGE,
       WFM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       COA_CP012_APPROVED_QUESTION_STUDIO_PACKAGE,
@@ -434,6 +452,18 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isSif001QuestionStudioRequest(request)) {
       return generateSif001QuestionStudioBatch(request);
+    }
+    if (isAlp001SharedQuestionStudioRequest(request)) {
+      return generateAlp001SharedQuestionStudioBatch(request);
+    }
+    if (isCal001SharedQuestionStudioRequest(request)) {
+      return generateCal001SharedQuestionStudioBatch(request);
+    }
+    if (isCae001SharedQuestionStudioRequest(request)) {
+      return generateCae001SharedQuestionStudioBatch(request);
+    }
+    if (isBlr001SharedQuestionStudioRequest(request)) {
+      return generateBlr001SharedQuestionStudioBatch(request);
     }
     if (isClk001QuestionStudioRequest(request)) {
       const source = await generateClk001QuestionStudioBatch(request);
