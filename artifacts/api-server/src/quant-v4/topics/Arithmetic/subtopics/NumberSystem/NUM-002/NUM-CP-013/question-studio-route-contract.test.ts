@@ -98,6 +98,7 @@ assert.notEqual(fallback.questions[0]?.canonicalProblemId, "NUM-CP-013", "Packag
 
 const adminRouteSource = readFileSync(resolve(process.cwd(), "artifacts/api-server/src/routes/admin-question-studio-cp013.ts"), "utf8");
 const routeIndexSource = readFileSync(resolve(process.cwd(), "artifacts/api-server/src/routes/index.ts"), "utf8");
+const routeRegistrySource = readFileSync(resolve(process.cwd(), "artifacts/api-server/src/routes/admin-question-studio-registry.ts"), "utf8");
 const facadeSource = readFileSync(resolve(process.cwd(), "artifacts/api-server/src/question-studio/shared-generation-engine-cp013.ts"), "utf8");
 
 for (const marker of [
@@ -109,16 +110,27 @@ for (const marker of [
 ]) {
   assert.ok(adminRouteSource.includes(marker), `CP013 admin route missing marker: ${marker}`);
 }
-assert.ok(routeIndexSource.includes('import adminQuestionStudioCp013Router from "./admin-question-studio-cp013";'));
-const cp013Mount = 'router.use("/admin/question-studio", adminQuestionStudioCp013Router);';
-const legacyNumberSystemMount = 'router.use("/admin/question-studio", adminQuestionStudioAverageRouter);';
-const cp013MountIndex = routeIndexSource.indexOf(cp013Mount);
-const legacyNumberSystemMountIndex = routeIndexSource.indexOf(legacyNumberSystemMount);
-assert.ok(cp013MountIndex >= 0, "CP013 admin Question Studio router mount is missing");
-assert.ok(legacyNumberSystemMountIndex >= 0, "Legacy Number System Question Studio router mount is missing");
+assert.ok(
+  routeIndexSource.includes('const adminQuestionStudioRegistryRouter = lazyRouter(() => import("./admin-question-studio-registry"));'),
+  "Canonical lazy Question Studio registry import is missing from routes/index.ts",
+);
+assert.ok(
+  routeIndexSource.includes('router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);'),
+  "Canonical Question Studio registry mount is missing from routes/index.ts",
+);
+assert.ok(
+  routeRegistrySource.includes('const adminQuestionStudioCp013Router = lazyRouter(() => import("./admin-question-studio-cp013"));'),
+  "CP013 lazy router registration is missing from the Question Studio registry",
+);
+const cp013Mount = "router.use(adminQuestionStudioCp013Router);";
+const legacyNumberSystemMount = "router.use(adminQuestionStudioAverageRouter);";
+const cp013MountIndex = routeRegistrySource.indexOf(cp013Mount);
+const legacyNumberSystemMountIndex = routeRegistrySource.indexOf(legacyNumberSystemMount);
+assert.ok(cp013MountIndex >= 0, "CP013 registry mount is missing");
+assert.ok(legacyNumberSystemMountIndex >= 0, "Legacy Number System registry mount is missing");
 assert.ok(
   cp013MountIndex < legacyNumberSystemMountIndex,
-  "CP013 admin Question Studio router must be mounted before the legacy Number System router",
+  "CP013 registry router must be mounted before the legacy Number System router",
 );
 
 for (const marker of [
