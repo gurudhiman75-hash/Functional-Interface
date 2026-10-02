@@ -123,8 +123,11 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
             i.generation_run_id::text AS "generationRunId",
             i.status::text AS status,
             i.accepted_question_id::text AS "acceptedQuestionId",
+            r.status::text AS "runStatus",
             v.payload
           FROM content.generation_run_items i
+          INNER JOIN content.generation_runs r
+            ON r.id = i.generation_run_id
           LEFT JOIN content.generation_item_versions v
             ON v.generation_item_id = i.id
            AND v.version_number = i.current_version_number
@@ -133,6 +136,12 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
         `;
         const item = rows[0];
         if (!item) throw Object.assign(new Error("Generated item not found"), { code: "ITEM_NOT_FOUND" });
+        if (String(item.runStatus) === "cancelled") {
+          throw Object.assign(
+            new Error("Cancelled generation runs are immutable"),
+            { code: "GENERATION_RUN_CANCELLED" },
+          );
+        }
         if (item.acceptedQuestionId) {
           throw Object.assign(
             new Error("Generated item is already converted to Question Bank; review the canonical question instead"),
