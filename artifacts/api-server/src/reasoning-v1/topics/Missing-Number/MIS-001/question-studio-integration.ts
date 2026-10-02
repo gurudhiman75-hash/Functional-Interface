@@ -926,7 +926,7 @@ export async function generateMis001QuestionStudioBatch(
       readOnly: true,
       productionReleased: false,
       groupCount: generated.groupCount,
-      operandCount: generated.operandCount,
+      operandCount: 'operandCount' in generated ? generated.operandCount : 2,
       missingPosition: generated.missingPosition,
       forwardOrInverse: 'forwardOrInverse' in generated ? generated.forwardOrInverse : 'FORWARD',
       operationDepth: generated.operationDepth,
