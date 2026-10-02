@@ -19,6 +19,11 @@ const packages = listQuestionStudioPackages();
 assert.equal(packages.length > 0, true);
 assert.equal(packages.every((pkg) => pkg.packageId.length > 0), true);
 assert.equal(packages.every((pkg) => pkg.supportedLanguages.length > 0), true);
+assert.equal(
+  new Set(packages.map((pkg) => pkg.packageId)).size,
+  packages.length,
+  "Question Studio package IDs must be globally unique across all registered engines.",
+);
 
 const quantPackage = packages.find((pkg) => pkg.engineId === "quant-v4");
 assert.ok(quantPackage);
