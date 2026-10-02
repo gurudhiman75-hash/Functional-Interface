@@ -89,11 +89,17 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   },
   {
     topicDirectory: 'Classification',
-    chapterId: null,
-    status: 'DEDICATED_NOVELTY_AUDIT_PENDING',
-    evidence: [],
+    chapterId: 'CLS-001',
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
+    evidence: [
+      'CLS-QL-003 already permanently owns coherent semantic-group selection.',
+      'The source-backed complete letter-cluster-pair hypothesis was implemented and frozen as CLS-QL-013.',
+      'Object-bank, numeric-value, tuple-arity and cluster-length changes are governed instance variables rather than new solve contracts.',
+      'CP008 final mixed-token closure found no distinct self-contained Classification solver contract and preserves neighbouring chapter ownership.',
+      'CLS-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261002.md records the dedicated novelty decision.',
+    ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Separate true rule novelty from object-bank substitution.',
+    nextGate: 'Re-open only on recurring source evidence for a bounded self-contained Classification contract not representable by CLS-QL-001..013.',
   },
   {
     topicDirectory: 'Clocks',
