@@ -1,0 +1,41 @@
+name: Validate Reasoning Cross-Chapter Novelty Current Head
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-**'
+      - 'artifacts/api-server/src/reasoning-v1/tests/reasoning-cross-chapter-novelty-current-head-20261002.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/**/controlled-novelty-**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reasoning-cross-chapter-novelty-current-head-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build production API
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle cross-chapter novelty audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/tests/reasoning-cross-chapter-novelty-current-head-20261002.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/reasoning-cross-chapter-novelty-current-head-20261002.test.mjs
+      - name: Run cross-chapter novelty audit
+        run: node artifacts/api-server/dist/reasoning-v1/reasoning-cross-chapter-novelty-current-head-20261002.test.mjs
