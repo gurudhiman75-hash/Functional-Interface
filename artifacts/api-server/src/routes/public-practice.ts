@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router, type IRouter, type Request, type Response } from "express";
 
 import { sqlClient } from "../lib/db";
 
@@ -156,7 +156,7 @@ async function loadPublicPracticeQuestions(input: {
   });
 }
 
-async function handlePublicPractice(req: any, res: any, examSlugValue: string, topicSlugValue: string) {
+async function handlePublicPractice(req: Request, res: Response, examSlugValue: string, topicSlugValue: string) {
   const examSlug = normalizeExamText(examSlugValue) as PublicExamSlug;
   const topicSlug = normalizeExamText(topicSlugValue) as PublicTopicSlug;
   if (!examSlug || examSlug.length > 80) {
