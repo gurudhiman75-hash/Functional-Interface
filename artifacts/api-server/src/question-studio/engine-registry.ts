@@ -152,28 +152,29 @@ export function listQuestionStudioPackages(): QuestionStudioPackageDefinition[] 
 export function resolveQuestionStudioEngine(
   request: QuestionStudioGenerationRequest,
 ): QuestionStudioEngineAdapter {
+  if (request.packageId) {
+    const pkg = listQuestionStudioPackages().find(
+      (candidate) => candidate.packageId === request.packageId,
+    );
+    if (!pkg) {
+      throw new Error(
+        `Question Studio package ${request.packageId} is not registered.`,
+      );
+    }
+    if (request.engineId && request.engineId !== pkg.engineId) {
+      throw new Error(
+        `Question Studio package ${request.packageId} belongs to ${pkg.engineId}, not ${request.engineId}.`,
+      );
+    }
+    return getQuestionStudioEngine(pkg.engineId);
+  }
+
   if (request.engineId) {
     return getQuestionStudioEngine(request.engineId);
   }
 
-  if (request.packageId) {
-    const matches = [...adapters.values()].filter((adapter) =>
-      adapter.listPackages().some(
-        (pkg) => pkg.packageId === request.packageId,
-      ),
-    );
-
-    if (matches.length === 1) return matches[0]!;
-    if (matches.length > 1) {
-      throw new Error(
-        `Question Studio package ${request.packageId} is registered by multiple engines.`,
-      );
-    }
-  }
-
-  // Backward-compatible default while the existing admin route remains
-  // Quant-V4-first. New engines are selected explicitly or by registered
-  // package ownership so existing Quant traffic is not stolen.
+  // Backward-compatible default for legacy requests that provide neither
+  // an engine nor a package. Explicit package IDs never fall through here.
   return quantV4QuestionStudioAdapter;
 }
 
