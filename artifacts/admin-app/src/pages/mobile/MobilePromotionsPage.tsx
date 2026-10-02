@@ -18,12 +18,14 @@ const apiBase=((import.meta.env.VITE_API_URL as string|undefined)?.trim()||'/api
 
 type Audience={languageCodes?:string[];examIds?:string[]};
 type Promotion={
-  id:string;title:string;subtitle:string;imageUrl:string;placement:string;destinationType:string;destinationValue:string;
+  id:string;title:string;subtitle:string;ctaLabel:string;imageUrl:string;placement:string;destinationType:string;destinationValue:string;
   campaignKind:string;isDismissible:boolean;frequencyCapPerDay:number|null;audience:Audience;isActive:boolean;
   startAt:string|null;endAt:string|null;sortOrder:number;createdAt?:string;updatedAt?:string;
 };
 type Exam={id:string;code:string;name:string;familyName:string};
-type Data={promotions:Promotion[];catalog?:{exams?:Exam[]}};
+type TestSeries={id:string;code:string;name:string;examName:string};
+type ManagedPage={id:string;slug:string;title:string;isActive:boolean};
+type Data={promotions:Promotion[];catalog?:{exams?:Exam[];testSeries?:TestSeries[]}};
 
 const LANGUAGES=[{code:'en',label:'English'},{code:'hi',label:'Hindi'},{code:'pa',label:'Punjabi'}];
 
@@ -34,7 +36,7 @@ function localDateTime(value:string|null){
   return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 function isoOrNull(value:string){return value?new Date(value).toISOString():null;}
-function blank():Promotion{return{id:'',title:'',subtitle:'',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,audience:{languageCodes:[],examIds:[]},isActive:true,startAt:null,endAt:null,sortOrder:1};}
+function blank():Promotion{return{id:'',title:'',subtitle:'',ctaLabel:'Explore',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,audience:{languageCodes:[],examIds:[]},isActive:true,startAt:null,endAt:null,sortOrder:1};}
 function audienceOf(value:Audience|undefined):Required<Audience>{return{languageCodes:Array.isArray(value?.languageCodes)?value!.languageCodes!:[],examIds:Array.isArray(value?.examIds)?value!.examIds!:[]};}
 
 async function call<T>(path:string,init?:RequestInit):Promise<T>{
@@ -49,13 +51,23 @@ async function call<T>(path:string,init?:RequestInit):Promise<T>{
 export function MobilePromotionsPage(){
   const[items,setItems]=useState<Promotion[]>([]);
   const[exams,setExams]=useState<Exam[]>([]);
+  const[testSeries,setTestSeries]=useState<TestSeries[]>([]);
   const[examQuery,setExamQuery]=useState('');
   const[managedPages,setManagedPages]=useState<ManagedPage[]>([]);
   const[loading,setLoading]=useState(true);
   const[editing,setEditing]=useState<Promotion|null>(null);
   const[saving,setSaving]=useState(false);
 
-  const refresh=async()=>{setLoading(true);try{const data=await call<Data>('/admin/mobile/promotions');setItems(data.promotions.map(item=>({...item,audience:audienceOf(item.audience)})));setExams(data.catalog?.exams||[]);}catch(error){showToast.error('Unable to load promotions',error instanceof Error?error.message:'Request failed.');}finally{setLoading(false);}};
+  const refresh=async()=>{setLoading(true);try{
+    const[data,pagesResult]=await Promise.all([
+      call<Data>('/admin/mobile/promotions'),
+      call<{pages:ManagedPage[]}>('/admin/mobile/pages'),
+    ]);
+    setItems(data.promotions.map(item=>({...item,ctaLabel:item.ctaLabel||'Explore',audience:audienceOf(item.audience)})));
+    setExams(data.catalog?.exams||[]);
+    setTestSeries(data.catalog?.testSeries||[]);
+    setManagedPages(pagesResult.pages.filter(page=>page.isActive));
+  }catch(error){showToast.error('Unable to load promotions',error instanceof Error?error.message:'Request failed.');}finally{setLoading(false);}};
   useEffect(()=>{void refresh();},[]);
 
   const selectedAudience=audienceOf(editing?.audience);
@@ -93,10 +105,14 @@ export function MobilePromotionsPage(){
       <Field label="Placement"><Select value={editing.placement} onValueChange={value=>setEditing({...editing,placement:value})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="home">Home</SelectItem><SelectItem value="login_popup">Login / app-open popup</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="tests">Tests</SelectItem><SelectItem value="results">Results</SelectItem></SelectContent></Select></Field>
       <div className="md:col-span-2"><Field label="Subtitle"><Textarea rows={2} value={editing.subtitle} onChange={e=>setEditing({...editing,subtitle:e.target.value})}/></Field></div>
       <div className="md:col-span-2"><Field label="Promotion image"><MediaAssetPicker value={editing.imageUrl} onChange={url=>setEditing({...editing,imageUrl:url})} preferredType="Promotion Image" label="Choose / Upload"/></Field></div>
-      <Field label="Campaign type"><Select value={editing.campaignKind} onValueChange={value=>setEditing({...editing,campaignKind:value,destinationType:value==='external'?'url':editing.destinationType})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="internal">Internal promotion</SelectItem><SelectItem value="external">External ad</SelectItem></SelectContent></Select></Field>
-      <Field label="Destination type"><Select value={editing.destinationType} onValueChange={value=>setEditing({...editing,destinationType:value,destinationValue:value==='none'?'':editing.destinationValue})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn</SelectItem><SelectItem value="page">Managed page</SelectItem><SelectItem value="url">URL</SelectItem></SelectContent></Select></Field>
-      {editing.destinationType==='page'&&<div className="md:col-span-2"><Field label="Select managed page"><Select value={editing.destinationValue} onValueChange={value=>setEditing({...editing,destinationValue:value})}><SelectTrigger><SelectValue placeholder="Choose a Screen Builder page"/></SelectTrigger><SelectContent>{managedPages.map(page=><SelectItem key={page.id} value={page.slug}>{page.title} · /{page.slug}</SelectItem>)}</SelectContent></Select></Field></div>}
-      {editing.destinationType!=='none'&&editing.destinationType!=='page'&&<div className="md:col-span-2"><Field label={editing.destinationType==='url'?'Destination URL':'Destination / deep link'}><Input value={editing.destinationValue} onChange={e=>setEditing({...editing,destinationValue:e.target.value})} placeholder={editing.destinationType==='url'?'https://…':editing.destinationType==='learn'?'/learn (blank also opens Learn)':'Shared exam/series ID'}/></Field></div>}
+      <Field label="Campaign type"><Select value={editing.campaignKind} onValueChange={value=>setEditing({...editing,campaignKind:value,destinationType:value==='external'?'url':editing.destinationType,destinationValue:value==='external'?'':editing.destinationValue})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="internal">Internal promotion</SelectItem><SelectItem value="external">External ad</SelectItem></SelectContent></Select></Field>
+      <Field label="CTA label"><Input value={editing.ctaLabel} onChange={e=>setEditing({...editing,ctaLabel:e.target.value})} placeholder="Explore"/></Field>
+      <Field label="Destination type"><Select value={editing.destinationType} onValueChange={value=>setEditing({...editing,destinationType:value,destinationValue:''})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="none">No action</SelectItem><SelectItem value="exam">Exam</SelectItem><SelectItem value="test_series">Test series</SelectItem><SelectItem value="learn">Learn / native route</SelectItem><SelectItem value="page">Managed page</SelectItem><SelectItem value="url">URL</SelectItem></SelectContent></Select></Field>
+      {editing.destinationType==='page'&&<Field label="Select managed page"><Select value={editing.destinationValue} onValueChange={value=>setEditing({...editing,destinationValue:value})}><SelectTrigger><SelectValue placeholder="Choose a Layout Composer page"/></SelectTrigger><SelectContent>{managedPages.map(page=><SelectItem key={page.id} value={page.slug}>{page.title} · /{page.slug}</SelectItem>)}</SelectContent></Select></Field>}
+      {editing.destinationType==='exam'&&<Field label="Select exam"><Select value={editing.destinationValue} onValueChange={value=>setEditing({...editing,destinationValue:value})}><SelectTrigger><SelectValue placeholder="Choose exam"/></SelectTrigger><SelectContent>{exams.map(exam=><SelectItem key={exam.id} value={exam.id}>{exam.name} · {exam.familyName}</SelectItem>)}</SelectContent></Select></Field>}
+      {editing.destinationType==='test_series'&&<Field label="Select test series"><Select value={editing.destinationValue} onValueChange={value=>setEditing({...editing,destinationValue:value})}><SelectTrigger><SelectValue placeholder="Choose test series"/></SelectTrigger><SelectContent>{testSeries.map(series=><SelectItem key={series.id} value={series.id}>{series.name} · {series.examName}</SelectItem>)}</SelectContent></Select></Field>}
+      {editing.destinationType==='learn'&&<Field label="Native route"><Input value={editing.destinationValue} onChange={e=>setEditing({...editing,destinationValue:e.target.value})} placeholder="/learn"/></Field>}
+      {editing.destinationType==='url'&&<Field label="Destination URL"><Input value={editing.destinationValue} onChange={e=>setEditing({...editing,destinationValue:e.target.value})} placeholder="https://…"/></Field>}
       <Field label="Start"><Input type="datetime-local" value={localDateTime(editing.startAt)} onChange={e=>setEditing({...editing,startAt:isoOrNull(e.target.value)})}/></Field>
       <Field label="End"><Input type="datetime-local" value={localDateTime(editing.endAt)} onChange={e=>setEditing({...editing,endAt:isoOrNull(e.target.value)})}/></Field>
       <Field label="Order"><Input type="number" min="0" max="999" value={editing.sortOrder} onChange={e=>setEditing({...editing,sortOrder:Number(e.target.value)})}/></Field>
@@ -111,6 +127,18 @@ export function MobilePromotionsPage(){
       </div>
       <div className="flex items-center justify-between rounded-lg border px-3 py-2"><div><p className="text-sm font-medium">Active</p><p className="text-xs text-muted-foreground">Eligible for delivery inside its schedule.</p></div><Switch checked={editing.isActive} onCheckedChange={checked=>setEditing({...editing,isActive:checked})}/></div>
       <div className="flex items-center justify-between rounded-lg border px-3 py-2"><div><p className="text-sm font-medium">Dismissible</p><p className="text-xs text-muted-foreground">Learner can hide this promotion.</p></div><Switch checked={editing.isDismissible} onCheckedChange={checked=>setEditing({...editing,isDismissible:checked})}/></div>
+      <div className="md:col-span-2 rounded-xl border p-4">
+        <p className="text-sm font-semibold">Preview</p>
+        <div className="mt-3 mx-auto max-w-sm overflow-hidden rounded-2xl border bg-white shadow-sm">
+          {editing.imageUrl&&<img src={editing.imageUrl} alt="" className="h-40 w-full object-cover"/>}
+          <div className="p-4">
+            <p className="font-semibold">{editing.title||'Promotion title'}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{editing.subtitle||'Promotion message appears here.'}</p>
+            {editing.destinationType!=='none'&&<Button className="mt-4 w-full" size="sm">{editing.ctaLabel||'Explore'}</Button>}
+            {editing.isDismissible&&<p className="mt-2 text-center text-xs text-muted-foreground">Learner can close/hide this promotion</p>}
+          </div>
+        </div>
+      </div>
       <div className="md:col-span-2 flex justify-end gap-2"><Button variant="outline" onClick={()=>setEditing(null)} disabled={saving}>Cancel</Button><Button onClick={()=>void save()} disabled={saving}><Save className="mr-1.5 h-4 w-4"/>{saving?'Saving…':'Save promotion'}</Button></div>
     </CardContent></Card>}
   </div>;
