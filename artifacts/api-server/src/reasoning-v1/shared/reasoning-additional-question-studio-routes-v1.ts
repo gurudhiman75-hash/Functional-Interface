@@ -28,6 +28,7 @@ import type {
 import {
   CAL_001_PACKAGE_ID,
   CAL_001_QUESTION_STUDIO_LANGUAGES,
+  CAL_001_QUESTION_STUDIO_PACKAGE,
   generateCal001QuestionStudioBatch,
   isCal001GenerationRequest,
 } from "../topics/Calendar/CAL-001/question-studio-runtime";
