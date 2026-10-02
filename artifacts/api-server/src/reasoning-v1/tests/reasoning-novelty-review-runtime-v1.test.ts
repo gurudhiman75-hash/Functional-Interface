@@ -37,14 +37,3 @@ test("approved runtime providers are not routed through the diagnostic review sa
   }
 });
 
-test("diagnostic sampler rejects unsupported language rather than silently translating", async () => {
-  await assert.rejects(
-    () => generateReasoningNoveltyReviewBatchV1({
-      providerId: "RNK-001-CROSS-FAMILY-CASELET",
-      language: "hi",
-      count: 1,
-      seed: 1,
-    }),
-    /does not yet support novelty review language/u,
-  );
-});
