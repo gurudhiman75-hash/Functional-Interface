@@ -249,6 +249,14 @@ function Router() {
           <Route path="/ssc-gd-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-gd" />)} />
           <Route path="/ssc-gd-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-gd" />)} />
           <Route path="/ssc-gd/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-gd" />)} />
+          <Route path="/ibps-po" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ibps-po" />)} />
+          <Route path="/ibps-po-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ibps-po" />)} />
+          <Route path="/ibps-po-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ibps-po" />)} />
+          <Route path="/ibps-po/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-po" />)} />
+          <Route path="/ibps-clerk" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ibps-clerk" />)} />
+          <Route path="/ibps-clerk-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ibps-clerk" />)} />
+          <Route path="/ibps-clerk-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ibps-clerk" />)} />
+          <Route path="/ibps-clerk/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-clerk" />)} />
           <Route path="/ssc-cgl-pyqs" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/punjab-police-mock-tests" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/ibps-clerk-syllabus" component={() => renderPublicRoute(SeoLanding)} />
