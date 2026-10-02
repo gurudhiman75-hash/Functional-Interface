@@ -124,11 +124,12 @@ function validatePackageRuntimeMode(
   value: unknown,
 ) {
   const requested = asString(value) || pkg.runtimeMode;
-  if (
-    requested
-    && (pkg.supportedRuntimeModes?.length ?? 0) > 0
-    && !pkg.supportedRuntimeModes!.includes(requested)
-  ) {
+  const supportedRuntimeModes = pkg.supportedRuntimeModes ?? [];
+  const validRuntimeMode = !requested
+    || supportedRuntimeModes.includes(requested)
+    || (supportedRuntimeModes.length === 0 && requested === pkg.runtimeMode);
+
+  if (!validRuntimeMode) {
     throw Object.assign(
       new Error(`Package ${pkg.packageId} does not support runtime mode ${requested}`),
       { statusCode: 400, code: "UNSUPPORTED_PACKAGE_RUNTIME_MODE" },
