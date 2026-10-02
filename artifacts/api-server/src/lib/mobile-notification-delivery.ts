@@ -66,7 +66,6 @@ async function deliver(campaign:Campaign){
         )
       )
     ORDER BY d.updated_at DESC
-    LIMIT 5000
   `;
   if(devices.length===0){
     await sqlClient`UPDATE platform.mobile_notification_campaigns SET status='sent',sent_at=now(),updated_at=now() WHERE id=${campaign.id}::uuid`;
