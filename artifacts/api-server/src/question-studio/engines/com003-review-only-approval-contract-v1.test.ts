@@ -26,7 +26,7 @@ const persistedPayload = {
 const disposition = getGeneratedItemApprovalDisposition(persistedPayload);
 assert.deepEqual(disposition, {
   mode: "review_only",
-  reason: "Payload explicitly disables Question Bank storage",
+  reason: "Question Bank storage is disabled for this generated item",
 });
 assert.equal(question.questionBankStatus, "NOT_STORED");
 assert.equal(question.questionBankWritable, false);

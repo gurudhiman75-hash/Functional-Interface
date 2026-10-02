@@ -103,7 +103,7 @@ assert.deepEqual(
   }),
   {
     mode: "review_only",
-    reason: "Payload explicitly disables Question Bank storage",
+    reason: "Question Bank storage is disabled for this generated item",
   },
 );
 

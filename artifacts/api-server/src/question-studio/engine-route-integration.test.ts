@@ -135,6 +135,9 @@ assert.match(engineRoute, /engineId:\s*result\.engineId/);
 assert.match(engineRoute, /generationSystem:\s*result\.engineId/);
 assert.match(engineRoute, /\$\{result\.engineId\}/);
 assert.match(engineRoute, /generationContext/);
+assert.match(engineRoute, /const packageLifecycle = selectedPackage/);
+assert.match(engineRoute, /\.\.\.packageLifecycle/);
+assert.match(engineRoute, /packageLifecycle,/);
 
 // The mixed-difficulty compatibility surface is now read-only and exposes only
 // the Quant exam-profile catalog. It must not remount the canonical engine route.
