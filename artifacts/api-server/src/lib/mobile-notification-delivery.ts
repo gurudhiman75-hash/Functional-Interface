@@ -77,7 +77,7 @@ async function deliver(campaign:Campaign){
     const response=await messaging.sendEachForMulticast({
       tokens:batch.map(d=>String(d.token)),
       notification:{title:campaign.title,body:campaign.body,...(campaign.imageUrl?{imageUrl:campaign.imageUrl}:{})},
-      data:{campaignId:campaign.id,destinationType:campaign.destinationType,destinationValue:campaign.destinationValue},
+      data:{campaignId:campaign.id,destinationType:campaign.destinationType,destinationValue:campaign.destinationValue,imageUrl:campaign.imageUrl},
       android:{priority:"high"},
     });
     for(let i=0;i<batch.length;i+=1){
