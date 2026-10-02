@@ -6,6 +6,7 @@ const sourceRoot = resolve(process.cwd(), "src");
 const index = readFileSync(resolve(sourceRoot, "routes/index.ts"), "utf8");
 const capabilities = readFileSync(resolve(sourceRoot, "routes/admin-question-studio-capabilities.ts"), "utf8");
 const build = readFileSync(resolve(process.cwd(), "build.mjs"), "utf8");
+const runtimeBuild = readFileSync(resolve(process.cwd(), "build-runtime.mjs"), "utf8");
 
 const capabilitiesMount = index.indexOf('router.use("/admin/question-studio", adminQuestionStudioCapabilitiesRouter)');
 const reviewMount = index.indexOf('router.use("/admin/question-studio", adminQuestionStudioReviewPageRouter)');
@@ -24,5 +25,9 @@ assert.match(capabilities, /question-studio-capabilities\.json/);
 assert.match(build, /build-question-studio-capabilities-manifest/);
 assert.match(build, /question-studio-capabilities\.json/);
 assert.match(build, /execFileAsync/);
+assert.match(runtimeBuild, /build-question-studio-capabilities-manifest/);
+assert.match(runtimeBuild, /question-studio-capabilities\.json/);
+assert.match(runtimeBuild, /QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT/);
+assert.match(runtimeBuild, /execFileAsync/);
 
 console.log("PASS_QUESTION_STUDIO_RUNTIME_READ_PATH_ISOLATION");
