@@ -12,6 +12,7 @@ import {
 } from "../lib/admin-question-studio-approval-policy";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
+import { analyzeGeneratedQuestionPayload } from "../lib/question-studio-quality";
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
@@ -154,6 +155,19 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
             new Error(`Generated item is already ${status.replaceAll("_", " ")}`),
             { code: "NO_REVIEW_STATUS_CHANGE" },
           );
+        }
+
+        if (status === "approved") {
+          const quality = analyzeGeneratedQuestionPayload(item.payload);
+          if (!quality.readyForApproval) {
+            throw Object.assign(
+              new Error("Generated item failed the transactional approval quality gate"),
+              {
+                code: "QUESTION_STUDIO_QUALITY_BLOCKED",
+                quality,
+              },
+            );
+          }
         }
 
         if (String(item.status) === "approved" && status !== "approved" && !reason) {

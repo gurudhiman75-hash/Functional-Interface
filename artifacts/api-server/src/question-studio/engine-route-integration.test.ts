@@ -225,5 +225,7 @@ assert.match(
 );
 assert.match(bulkHardeningRoute, /APPROVED_REOPEN_REASON_REQUIRED/);
 assert.match(bulkHardeningRoute, /NO_REVIEW_STATUS_CHANGE/);
+assert.match(bulkHardeningRoute, /analyzeGeneratedQuestionPayload\(item\.payload\)/);
+assert.match(bulkHardeningRoute, /transactional approval quality gate/);
 assert.match(engineRoute, /router\.post\(\s*"\/runs"/);
 assert.match(engineRoute, /generateProfiledQuantBatch/);
