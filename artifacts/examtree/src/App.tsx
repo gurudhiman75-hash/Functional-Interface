@@ -257,6 +257,14 @@ function Router() {
           <Route path="/ibps-clerk-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ibps-clerk" />)} />
           <Route path="/ibps-clerk-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ibps-clerk" />)} />
           <Route path="/ibps-clerk/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-clerk" />)} />
+          <Route path="/ibps-rrb-po" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ibps-rrb-po" />)} />
+          <Route path="/ibps-rrb-po-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ibps-rrb-po" />)} />
+          <Route path="/ibps-rrb-po-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ibps-rrb-po" />)} />
+          <Route path="/ibps-rrb-po/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-rrb-po" />)} />
+          <Route path="/ibps-rrb-office-assistant" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ibps-rrb-office-assistant" />)} />
+          <Route path="/ibps-rrb-office-assistant-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ibps-rrb-office-assistant" />)} />
+          <Route path="/ibps-rrb-office-assistant-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ibps-rrb-office-assistant" />)} />
+          <Route path="/ibps-rrb-office-assistant/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ibps-rrb-office-assistant" />)} />
           <Route path="/ssc-cgl-pyqs" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/punjab-police-mock-tests" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/ibps-clerk-syllabus" component={() => renderPublicRoute(SeoLanding)} />
