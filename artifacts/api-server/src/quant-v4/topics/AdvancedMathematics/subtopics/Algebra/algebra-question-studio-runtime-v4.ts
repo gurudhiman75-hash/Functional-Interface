@@ -19,8 +19,11 @@ import { ALGEBRA_QUESTION_STUDIO_PACKAGE_V2 } from "./algebra-question-studio-ru
 export const ALGEBRA_QUESTION_STUDIO_DELIVERY_V4_AUTHORITY =
   "ALGEBRA-FROZEN-QUESTION-STUDIO-DELIVERY-V4-SEED-DIVERSE" as const;
 
-export type AlgebraQuestionStudioQuestionV4 = AlgebraQuestionStudioQuestion & {
+export type AlgebraQuestionStudioQuestionV4 = Omit<AlgebraQuestionStudioQuestion, "sourceAuthority"> & {
   readonly deliveryAuthority: typeof ALGEBRA_QUESTION_STUDIO_DELIVERY_V4_AUTHORITY;
+  readonly sourceAuthority:
+    | typeof ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY
+    | typeof ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY;
   readonly sourceStateSeed: number;
 };
 
