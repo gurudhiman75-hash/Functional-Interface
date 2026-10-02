@@ -1,10 +1,8 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import {
-  listQuestionStudioEngines,
-  listQuestionStudioPackages,
-} from "./engine-registry";
+import { listQuestionStudioPackages as listLegacyQuestionStudioPackages } from "./shared-generation-engine-arg";
+import { quantV4QuestionStudioAdapter } from "./engines/quant-v4-adapter";
 import {
   ARG_CP015_REAL_PAPER_PROFILES,
   ARG_CP015_QUESTION_STUDIO_AUTHORITY,
@@ -138,7 +136,16 @@ if (!outputPath) {
   throw new Error("QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT is required.");
 }
 
-const packages = listQuestionStudioPackages().map(currentPackage);
+const legacyPackages = listLegacyQuestionStudioPackages()
+  .map(currentPackage)
+  .filter((pkg) => packageSubject(pkg) !== "Quantitative Aptitude");
+const currentQuantPackages = quantV4QuestionStudioAdapter.listPackages().map(currentPackage);
+const packageMap = new Map<string, ReturnType<typeof currentPackage>>();
+for (const pkg of legacyPackages) packageMap.set(pkg.packageId, pkg);
+for (const pkg of currentQuantPackages) packageMap.set(pkg.packageId, pkg);
+const packages = [...packageMap.values()].sort((left, right) =>
+  left.packageId.localeCompare(right.packageId),
+);
 
 const mensuration = packages.find((pkg) => pkg.packageId === "MENSURATION");
 const expectedMensurationCpIds = Array.from(
@@ -158,7 +165,7 @@ if (
   );
 }
 
-const generationSystems = listQuestionStudioEngines();
+const generationSystems = ["quant-v4", "language-v1", "knowledge-v1", "reasoning-v1"];
 const manifest = {
   generationSystem: "quant-v4",
   defaultGenerationSystem: "quant-v4",
