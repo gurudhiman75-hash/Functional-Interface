@@ -462,10 +462,12 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       return generateSif001QuestionStudioBatch(request);
     }
     if (isBlr001ChapterQuestionStudioRequest(request)) {
-      return generateBlr001ChapterQuestionStudioBatch(request);
+      const source = await generateBlr001ChapterQuestionStudioBatch(request);
+      return applyReasoningControlledNovelMixV1(request, source);
     }
     if (isCae001QuestionStudioRequest(request)) {
-      return generateCae001QuestionStudioBatch(request);
+      const source = await generateCae001QuestionStudioBatch(request);
+      return applyReasoningControlledNovelMixV1(request, source);
     }
     if (isAlp001QuestionStudioRequest(request)) {
       const source = await generateAlp001QuestionStudioBatch(request);
