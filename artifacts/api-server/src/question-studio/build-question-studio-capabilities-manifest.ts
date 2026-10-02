@@ -57,9 +57,9 @@ function currentPackage(pkg: any) {
   });
 }
 
-const outputPath = process.argv[2];
+const outputPath = process.env.QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT;
 if (!outputPath) {
-  throw new Error("Question Studio capabilities manifest output path is required.");
+  throw new Error("QUESTION_STUDIO_CAPABILITIES_MANIFEST_OUT is required.");
 }
 
 const manifest = {
