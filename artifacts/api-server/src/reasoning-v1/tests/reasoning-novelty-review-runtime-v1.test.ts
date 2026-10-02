@@ -60,6 +60,6 @@ test("diagnostic sampler rejects unsupported language rather than silently trans
       count: 1,
       seed: 1,
     }),
-    does not yet support novelty review language,
+    /does not yet support novelty review language/u,
   );
 });
