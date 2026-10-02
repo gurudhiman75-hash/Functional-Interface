@@ -53,15 +53,15 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Blood-Relations',
     chapterId: 'BLR-001',
-    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
+    status: 'APPROVED_CONTROLLED_NOVEL_RUNTIME',
     evidence: [
       'A coded-relation graph is decoded first, then a second-stage filtered granddaughter count is solved from the reconstructed family.',
       'The lane composes existing BLR-QL-026 coded decoding with BLR-QL-013 family-counting semantics.',
       'The existing CP006 decoder is reused; the count is independently recomputed from decoded parent edges and gender evidence.',
       'BLR-QL-036 remains unallocated and Question Studio novelty mixing remains disabled.',
     ],
-    countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
+    countsTowardControlledNovelTargetNow: true,
+    nextGate: 'Monitor governed Question Studio novelty mix quality and preserve explicit-scope/language/difficulty safeguards.',
   },
   {
     topicDirectory: 'Calendar',
@@ -79,14 +79,14 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Cause-and-Effect',
     chapterId: 'CAE-001',
-    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
+    status: 'APPROVED_CONTROLLED_NOVEL_RUNTIME',
     evidence: [
       'CP008 multi-event ordering and CP009 integrated missing-link/reconstruction families are explicitly retained as Examtree edge coverage.',
       'The existing reviewed multilingual runtime is wrapped with shared CONTROLLED_NOVEL provenance.',
       'Solver trace, unique-answer and distractor gates remain intact; no historical-paper frequency claim is made.',
     ],
-    countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
+    countsTowardControlledNovelTargetNow: true,
+    nextGate: 'Monitor governed Question Studio novelty mix quality and preserve explicit-scope/language/difficulty safeguards.',
   },
   {
     topicDirectory: 'Classification',

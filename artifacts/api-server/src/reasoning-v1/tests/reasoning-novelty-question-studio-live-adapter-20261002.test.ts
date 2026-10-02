@@ -4,6 +4,8 @@ import { reasoningV1QuestionStudioAdapter } from "../../question-studio/engines/
 
 const cases = [
   { packageId: "ALP-001", difficulty: "Medium" as const },
+  { packageId: "BLR-001", difficulty: "Medium" as const },
+  { packageId: "CAE-001", difficulty: "Medium" as const },
   { packageId: "CAL-001", difficulty: "Medium" as const },
   { packageId: "OPS-001", difficulty: "Hard" as const },
   { packageId: "DIR-001", difficulty: "Medium" as const },

@@ -74,6 +74,7 @@ export interface BlrControlledNovelCodedCountCandidateV1 {
   readonly noveltyAxes: readonly ReasoningNoveltyAxisV1[];
   readonly parentQlIds: readonly ["BLR-QL-013", "BLR-QL-026"];
   readonly seed: number;
+  readonly difficultyBand: "Medium";
   readonly sharedPrompt: string;
   readonly stem: string;
   readonly options: readonly string[];
@@ -207,6 +208,7 @@ export function generateBlrControlledNovelCodedCountCandidateV1(
     noveltyAxes,
     parentQlIds: ["BLR-QL-013", "BLR-QL-026"],
     seed,
+    difficultyBand: "Medium",
     sharedPrompt,
     stem,
     options,

@@ -2,7 +2,7 @@
 
 Date: 2026-10-02
 
-Status: `5_LIVE_QUESTION_STUDIO_PROVIDERS__3_CONTENT_APPROVED_AWAITING_ROUTE`
+Status: `7_LIVE_QUESTION_STUDIO_PROVIDERS__1_CONTENT_APPROVED_AWAITING_ROUTE`
 
 ## Live activation
 
@@ -30,11 +30,9 @@ Eligible chapter-wide English batches use the shared 80/20 source-backed / contr
 These providers passed human content review but are not marked live because their chapters do not yet have a source-backed package in the multi-engine Question Studio adapter:
 
 - `RNK-001-CROSS-FAMILY-CASELET`
-- `CAE-001-EDGE-FAMILIES`
-- `BLR-001-CODED-FILTERED-COUNT`
 
 They remain assembly-uncredited until a real source-backed chapter route exists.
 
 ## Activation result
 
-`REASONING_CONTROLLED_NOVELTY_RUNTIME_ACTIVATION_20261002__ALP_CAL_OPS_DIR_CLK_LIVE__20_PERCENT_GOVERNED`
+`REASONING_CONTROLLED_NOVELTY_RUNTIME_ACTIVATION_20261002__ALP_BLR_CAE_CAL_OPS_DIR_CLK_LIVE__20_PERCENT_GOVERNED`

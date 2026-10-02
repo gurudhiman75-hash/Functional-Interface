@@ -15,8 +15,10 @@ export interface CaeControlledNovelCandidateV1 {
   readonly provenance: 'CONTROLLED_NOVEL';
   readonly qlId: CaeControlledNovelQlV1;
   readonly checkpointId: 'CAE-CP-008' | 'CAE-CP-009';
+  readonly parentQlIds: readonly [CaeControlledNovelQlV1];
   readonly locale: CaeLocale;
   readonly seed: number;
+  readonly difficultyBand: "Easy" | "Medium" | "Hard";
   readonly noveltyAxes: readonly ReasoningNoveltyAxisV1[];
   readonly causalStructure: string;
   readonly stem: string;
@@ -153,8 +155,10 @@ export function generateCaeControlledNovelCandidateV1(input: {
     provenance: 'CONTROLLED_NOVEL',
     qlId: input.qlId,
     checkpointId: input.qlId === 'CAE-QL-008' ? 'CAE-CP-008' : 'CAE-CP-009',
+    parentQlIds: [input.qlId],
     locale: input.locale,
     seed: input.seed,
+    difficultyBand: question.difficulty === "EASY" ? "Easy" : question.difficulty === "HARD" ? "Hard" : "Medium",
     noveltyAxes,
     causalStructure: question.causalStructure,
     stem: question.stem,

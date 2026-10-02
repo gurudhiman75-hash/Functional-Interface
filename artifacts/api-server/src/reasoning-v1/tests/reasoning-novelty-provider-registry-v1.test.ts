@@ -12,13 +12,13 @@ const live = [
   "ALP-001-TRANSFORMED-GAP",
   "OPS-001-INFER-THEN-FILL",
   "CLK-001-FAULTY-TIME-ANGLE",
+  "CAE-001-EDGE-FAMILIES",
   "DIR-001-GRAPH-RELATIVE-PATH",
   "CAL-001-IMPLICIT-RANGE-FREQUENCY",
+  "BLR-001-CODED-FILTERED-COUNT",
 ] as const;
 const awaitingRoute = [
   "RNK-001-CROSS-FAMILY-CASELET",
-  "CAE-001-EDGE-FAMILIES",
-  "BLR-001-CODED-FILTERED-COUNT",
 ] as const;
 
 test("novelty provider registry has unique provider identities", () => {
@@ -47,7 +47,7 @@ test("awaiting-route providers are content-approved but production-mix disabled"
   }
 });
 
-test("five reviewed chapter providers are live Question Studio runtimes", () => {
+test("seven reviewed chapter providers are live Question Studio runtimes", () => {
   for (const providerId of live.slice(1)) {
     const provider = reasoningNoveltyProviderByIdV1(providerId);
     assert.equal(provider.status, "APPROVED_RUNTIME");
