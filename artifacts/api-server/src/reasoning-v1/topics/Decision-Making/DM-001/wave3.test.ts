@@ -18,6 +18,11 @@ for (const checkpointId of waveThreeCheckpoints) {
   assert.equal(dmQlIdsForCheckpoint(checkpointId).length, 3);
   assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 50);
   assert.equal(new Set(scenarios.map((scenario) => scenario.situational!.situation.en)).size, 50);
+  const distractorTexts = new Set(scenarios.flatMap((scenario) => scenario.situational!.choices.slice(1).map((choice) => choice.text.en)));
+  assert.ok(distractorTexts.size >= 15, checkpointId + " must use varied, scenario-relevant distractors");
+  assert.ok(!distractorTexts.has("Take a final adverse action immediately without checking the record."));
+  assert.ok(!distractorTexts.has("Ignore the matter and wait without recording any reason."));
+  assert.ok(!distractorTexts.has("Bypass the prescribed process and act only on an assumption."));
 
   for (const scenario of scenarios) {
     assert.ok(scenario.situational);
