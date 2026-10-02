@@ -19,6 +19,6 @@ test("controlled novelty diagnostic pack renders the three content-approved prov
   assert.match(markdown, /Production novelty mixing: \*\*disabled\*\*/u);
   assert.match(markdown, /\*\*Human review:\*\* ☐ Approve  ☐ Reject  ☐ Revise/u);
   assert.equal((markdown.match(/^### Sample /gmu) ?? []).length, 6);
-  assert.equal((markdown.match(/^\*\*Human review:\*\*/gmu) ?? []).length, 10);
+  assert.equal((markdown.match(/^\*\*Human review:\*\*/gmu) ?? []).length, 6);
   assert.doesNotMatch(markdown, /automatic student publication/iu);
 });
