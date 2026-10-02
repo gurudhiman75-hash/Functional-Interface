@@ -28,6 +28,16 @@ assert(
   "Question Studio cockpit should use stable package ordering without suppressing registered families.",
 );
 
+assert(
+  source.includes("{entry.label} · {entry.packageId}"),
+  "Question Studio generation selector must show package identity when multiple families share a chapter.",
+);
+
+assert(
+  source.includes("Lifecycle:"),
+  "Question Studio generation summary must expose the active package lifecycle stage.",
+);
+
 console.log("[QUESTION-STUDIO-COCKPIT-DISCOVERABILITY-CONTRACT-V1]", {
   valid: true,
   cpSubsetSuppression: false,
