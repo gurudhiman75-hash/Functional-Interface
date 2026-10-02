@@ -111,7 +111,7 @@ export function MobilePromotionsPage(){
         <div className="flex items-center gap-2 font-semibold"><Target className="h-4 w-4"/>Exam-targeted campaign</div>
         <p className="mt-2 text-xs text-muted-foreground">Targets learners by My Exams and opens the exact selected test series.</p>
       </button>
-    </Card>
+    </CardContent></Card>
 
     <Card><CardHeader><CardTitle className="text-base">Campaigns</CardTitle></CardHeader><CardContent className="space-y-3">
       {items.length===0&&<div className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">No mobile promotions configured.</div>}
