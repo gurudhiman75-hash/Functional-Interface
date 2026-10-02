@@ -73,6 +73,7 @@ router.get("/mobile/notifications",async(req,res)=>{
       FROM platform.mobile_notification_deliveries d
       JOIN platform.mobile_notification_campaigns c ON c.id=d.campaign_id
       WHERE d.user_id=${userId}::uuid
+        AND COALESCE(d.is_test,false)=false
         AND d.status IN ('sent','opened')
       ORDER BY d.campaign_id,d.created_at DESC
     `;
@@ -100,6 +101,7 @@ router.post("/mobile/notifications/:campaignId/open",async(req,res)=>{
       SET status='opened',opened_at=COALESCE(opened_at,now())
       WHERE campaign_id=${campaignId}::uuid
         AND user_id=${userId}::uuid
+        AND COALESCE(is_test,false)=false
         AND status='sent'
       RETURNING id::text AS id
     `;
