@@ -6,6 +6,9 @@ on:
       - New-main
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-route-v1.test.ts
+      - artifacts/api-server/src/routes/admin-question-studio-algebra.ts
+      - artifacts/api-server/src/routes/admin-question-studio-registry.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v4.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v4.test.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v5.ts
@@ -94,6 +97,10 @@ jobs:
             src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-bank-activation-v1.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/quant-v4/algebra/algebra-question-bank-activation-v1.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-route-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs
       - name: Run V4 reopen proofs
         run: |
           cd artifacts/api-server
@@ -106,3 +113,4 @@ jobs:
           node dist/quant-v4/algebra/algebra-question-studio-runtime-v4.test.mjs
           node dist/quant-v4/algebra/algebra-question-studio-runtime-v5.test.mjs
           node dist/quant-v4/algebra/algebra-question-bank-activation-v1.test.mjs
+          node dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs
