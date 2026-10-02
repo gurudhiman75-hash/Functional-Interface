@@ -185,11 +185,26 @@ export function generateDirControlledNovelGraphRelativePathCandidateV1(
     `In which direction and at what shortest distance is the final position from ${referenceEntity}?`,
   ].join(" ");
 
+  const firstMoveDirection = initialFacing;
+  const secondMoveDirection = turnFacing(initialFacing, turn);
+  const horizontal = Math.abs(answerVector.x);
+  const vertical = Math.abs(answerVector.y);
+  const relativeParts = [
+    horizontal > 0
+      ? `${horizontal} metre${horizontal === 1 ? "" : "s"} ${answerVector.x > 0 ? "east" : "west"}`
+      : "",
+    vertical > 0
+      ? `${vertical} metre${vertical === 1 ? "" : "s"} ${answerVector.y > 0 ? "north" : "south"}`
+      : "",
+  ].filter(Boolean).join(" and ");
+  const distanceWorking = horizontal > 0 && vertical > 0
+    ? `√(${horizontal}² + ${vertical}²) = ${answerDistance}`
+    : String(answerDistance);
   const explanation =
-    statementText(relations[0]!) + " " +
-    statementText(relations[1]!) + " " +
-    `Starting from ${startEntity}, the two moves lead to the final position. ` +
-    `From ${referenceEntity}, this position lies ${DIRECTION_LABELS[answerDirection]} at a shortest distance of ${answerDistance} metres. ` +
+    `From ${startEntity}, move ${pattern.firstMove * scale} metres ${DIRECTION_LABELS[firstMoveDirection].toLocaleLowerCase("en-IN")}, ` +
+    `then ${pattern.secondMove * scale} metres ${DIRECTION_LABELS[secondMoveDirection].toLocaleLowerCase("en-IN")}. ` +
+    `The final point is ${relativeParts} of ${referenceEntity}. ` +
+    `So its direction from ${referenceEntity} is ${DIRECTION_LABELS[answerDirection]} and the shortest distance is ${distanceWorking} metres. ` +
     `Hence the answer is ${options[correctIndex]}.`;
 
   const noveltyAxes = [
