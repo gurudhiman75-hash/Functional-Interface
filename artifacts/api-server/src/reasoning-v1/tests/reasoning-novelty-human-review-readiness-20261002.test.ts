@@ -7,7 +7,7 @@ import { buildReasoningNoveltyReviewPackV1 } from "../shared/reasoning-novelty-r
 const providers = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
   (provider) => provider.status === "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE",
 );
-assert.equal(providers.length, 5);
+assert.equal(providers.length, 3);
 
 const forbiddenLearnerTokens = [
   "controlled-novel",
