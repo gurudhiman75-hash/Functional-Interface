@@ -17,6 +17,7 @@ import { authenticate } from "../middlewares/auth";
 const router = Router();
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const STATUSES = new Set(["unreviewed", "needs_fix", "approved", "rejected"]);
+const MAX_BULK_REVIEW_ITEMS = 500;
 
 type ItemResult = {
   itemId: string;
@@ -70,8 +71,24 @@ async function refreshRunStatus(runId: string): Promise<void> {
 router.use(authenticate);
 
 router.patch("/items/bulk", requireAdminPermission("content.generation.review"), async (req, res) => {
-  const rawIds = Array.isArray(req.body?.itemIds) ? req.body.itemIds : [];
-  const itemIds = [...new Set(rawIds.map(text).filter((id) => UUID_RE.test(id)))].slice(0, 500);
+  const rawIds = Array.isArray(req.body?.itemIds) ? req.body.itemIds.map(text).filter(Boolean) : [];
+  if (rawIds.length > MAX_BULK_REVIEW_ITEMS) {
+    res.status(400).json({
+      error: `At most ${MAX_BULK_REVIEW_ITEMS} generated items can be reviewed in one request`,
+      code: "TOO_MANY_REVIEW_ITEMS",
+    });
+    return;
+  }
+  const invalidIds = rawIds.filter((id) => !UUID_RE.test(id));
+  if (invalidIds.length > 0) {
+    res.status(400).json({
+      error: "All generated item IDs must be valid UUIDs",
+      code: "INVALID_GENERATION_ITEM_ID",
+      invalidItemIds: invalidIds,
+    });
+    return;
+  }
+  const itemIds = [...new Set(rawIds)];
   const status = text(req.body?.status);
   const reason = text(req.body?.reason).slice(0, 1000);
   const actorUserId = req.adminSession?.user.id;
@@ -116,8 +133,11 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
         `;
         const item = rows[0];
         if (!item) throw Object.assign(new Error("Generated item not found"), { code: "ITEM_NOT_FOUND" });
-        if (status === "approved" && item.acceptedQuestionId) {
-          throw Object.assign(new Error("Generated item is already converted to Question Bank"), { code: "ITEM_ALREADY_CONVERTED" });
+        if (item.acceptedQuestionId) {
+          throw Object.assign(
+            new Error("Generated item is already converted to Question Bank; review the canonical question instead"),
+            { code: "ITEM_ALREADY_CONVERTED" },
+          );
         }
 
         await tx`
