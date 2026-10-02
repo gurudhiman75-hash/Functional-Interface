@@ -108,6 +108,7 @@ assert.deepEqual(
     "PFC-001-CONTROLLED-NOVEL",
     "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
+    "RNK-001-CROSS-FAMILY-CASELET",
     "CLK-001-FAULTY-TIME-ANGLE",
     "CAE-001-EDGE-FAMILIES",
     "DIR-001-GRAPH-RELATIVE-PATH",
@@ -115,13 +116,14 @@ assert.deepEqual(
     "BLR-001-CODED-FILTERED-COUNT",
   ],
 );
-assert.equal(summary.awaitingRouteProviderIds.length, 1);
+assert.equal(summary.awaitingRouteProviderIds.length, 0);
 assert.deepEqual(
   summary.assemblyCreditedProviderIds,
   [
     "PFC-001-CONTROLLED-NOVEL",
     "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
+    "RNK-001-CROSS-FAMILY-CASELET",
     "CLK-001-FAULTY-TIME-ANGLE",
     "CAE-001-EDGE-FAMILIES",
     "DIR-001-GRAPH-RELATIVE-PATH",
