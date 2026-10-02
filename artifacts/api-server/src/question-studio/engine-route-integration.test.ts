@@ -178,15 +178,15 @@ assert.doesNotMatch(routeIndex, /adminQuestionStudioMixedDifficultyRouter/);
 assert.doesNotMatch(routeIndex, /adminQuestionStudioEngineV1Router/);
 
 
-// The final shared router remains review/bulk only. All standard generation,
-// including Quant exam-profile/mixed batches, is owned by engine-v1.
+// The final shared router owns paged review only. Bulk review is owned by the
+// hardened router mounted earlier; all standard generation is owned by engine-v1.
 assert.doesNotMatch(sharedReviewRoute, /router\.post\("\/runs"/);
 assert.doesNotMatch(sharedReviewRoute, /router\.get\("\/capabilities"/);
 assert.match(sharedReviewRoute, /router\.get\("\/review-page"/);
 assert.match(sharedReviewRoute, /reviewSummary/);
 assert.match(sharedReviewRoute, /'needsFix'/);
 assert.match(sharedReviewRoute, /'rejected'/);
-assert.match(sharedReviewRoute, /router\.patch\("\/items\/bulk"/);
+assert.doesNotMatch(sharedReviewRoute, /router\.patch\("\/items\/bulk"/);
 
 const bulkHardeningRoute = readFileSync(
   resolve(sourceRoot, "routes/admin-question-studio-bulk-hardening.ts"),
