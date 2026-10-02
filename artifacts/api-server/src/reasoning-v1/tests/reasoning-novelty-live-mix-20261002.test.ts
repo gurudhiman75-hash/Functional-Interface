@@ -106,6 +106,7 @@ assert.deepEqual(
   summary.approvedProviderIds,
   [
     "PFC-001-CONTROLLED-NOVEL",
+    "RNK-001-CROSS-FAMILY-CASELET",
     "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
@@ -115,7 +116,7 @@ assert.deepEqual(
     "BLR-001-CODED-FILTERED-COUNT",
   ],
 );
-assert.equal(summary.awaitingRouteProviderIds.length, 1);
+assert.equal(summary.awaitingRouteProviderIds.length, 0);
 assert.deepEqual(
   summary.assemblyCreditedProviderIds,
   [
