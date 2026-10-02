@@ -74,7 +74,9 @@ function normalizeDifficulty(value: unknown): "Easy" | "Medium" | "Hard" | undef
 }
 
 function qlOwner(qlId: string) {
-  return sourcePackages.find((entry) => entry.qlIds.includes(qlId as never));
+  return sourcePackages.find((entry) =>
+    (entry.qlIds as readonly string[]).includes(qlId),
+  );
 }
 
 function checkpointOwner(checkpointId: string) {
@@ -114,7 +116,11 @@ export function isBlr001ChapterQuestionStudioRequest(
     ?? request.questionLanguageId
     ?? request.patternId,
   ).toUpperCase();
-  if (selector.startsWith("BLR-QL-") || selector === BLR_001_CHAPTER_QUESTION_STUDIO_PACKAGE_ID) {
+  if (
+    selector.startsWith("BLR-QL-")
+    || selector.startsWith("BLR-CP-")
+    || selector === BLR_001_CHAPTER_QUESTION_STUDIO_PACKAGE_ID
+  ) {
     return true;
   }
 
