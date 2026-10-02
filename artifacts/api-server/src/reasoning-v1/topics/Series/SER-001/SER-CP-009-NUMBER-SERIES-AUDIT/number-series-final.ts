@@ -286,11 +286,24 @@ function diversifyFactorialProgression(
   const visible = values.map((value, index) => index === target ? "?" : String(value));
   const previous = values[target - 1]!;
   const multiplier = startN + target;
-  const options: readonly SerCp009Option[] = Object.freeze([
-    { value: String(correct), errorLabel: null },
+  const wrongCandidates: readonly SerCp009Option[] = [
     { value: String(previous * (multiplier - 1)), errorLabel: "REPEATED_PREVIOUS_MULTIPLIER" },
     { value: String(previous * (multiplier + 1)), errorLabel: "SKIPPED_NEXT_MULTIPLIER" },
-    { value: String(correct + previous), errorLabel: "ADDED_PREVIOUS_TERM" },
+    { value: String(correct + multiplier), errorLabel: "ADDED_MULTIPLIER_INSTEAD_OF_MULTIPLYING" },
+    { value: String(correct - 1), errorLabel: "ARITHMETIC_SLIP_MINUS_ONE" },
+  ];
+  const seen = new Set<string>([String(correct)]);
+  const wrong = wrongCandidates.filter((option) => {
+    if (seen.has(option.value)) return false;
+    seen.add(option.value);
+    return true;
+  }).slice(0, 3);
+  if (wrong.length !== 3) {
+    throw new Error("SER-QL-035 factorial subtype could not build three unique distractors.");
+  }
+  const options: readonly SerCp009Option[] = Object.freeze([
+    { value: String(correct), errorLabel: null },
+    ...wrong,
   ]);
   const taskKind = target === 5 ? "NEXT_TERM" : "MISSING_TERM";
   const prompt = taskKind === "NEXT_TERM"
@@ -424,11 +437,18 @@ function diversifyWrongTermFactorial(
   if (question.qlId !== "SER-QL-040" || requestedSeed % 4 !== 0) return question;
 
   const descending = stableIndex(requestedSeed, 81, 2) === 1;
-  const startN = descending ? 7 : 1;
-  const values = Array.from({ length: 6 }, (_, i) => factorial(descending ? startN - i : startN + i));
-  const wrongIndex = 2 + stableIndex(requestedSeed, 82, 3);
+  const startN = descending
+    ? 6 + stableIndex(requestedSeed, 84, 3)
+    : 1 + stableIndex(requestedSeed, 84, 3);
+  const values = Array.from(
+    { length: 6 },
+    (_, i) => factorial(descending ? startN - i : startN + i),
+  );
+  const wrongIndex = 1 + stableIndex(requestedSeed, 82, 4);
   const shown = [...values];
-  shown[wrongIndex] = values[wrongIndex]! + (descending ? -2 : 2 + stableIndex(requestedSeed, 83, 5));
+  const corruptionMagnitude = 2 + stableIndex(requestedSeed, 83, 9);
+  const corruptionDirection = stableIndex(requestedSeed, 85, 2) === 0 ? -1 : 1;
+  shown[wrongIndex] = values[wrongIndex]! + corruptionDirection * corruptionMagnitude;
   const wrongValue = shown[wrongIndex]!;
   const distractors = shown
     .filter((_, index) => index !== wrongIndex)
