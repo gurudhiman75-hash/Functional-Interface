@@ -35,6 +35,18 @@ function asPositiveInteger(value: unknown, fallback: number, max: number) {
     : fallback;
 }
 
+function generationCount(value: unknown) {
+  if (value === undefined || value === null || value === "") return 5;
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed < 1 || parsed > 50) {
+    throw Object.assign(
+      new Error("Question count must be an integer between 1 and 50"),
+      { statusCode: 400, code: "INVALID_GENERATION_COUNT" },
+    );
+  }
+  return parsed;
+}
+
 function normalizeDifficulty(value: unknown) {
   const raw = asString(value);
   if (raw.toLowerCase() === "moderate") return "Medium";
@@ -410,9 +422,17 @@ router.post(
     }
 
     const packageId = asString(req.body?.packageId) || undefined;
-    const requestedCpIds = Array.isArray(req.body?.cpIds)
-      ? [...new Set(req.body.cpIds.map(asString).filter(Boolean))].slice(0, 50)
+    const rawCpIds = Array.isArray(req.body?.cpIds)
+      ? req.body.cpIds.map(asString).filter(Boolean)
       : [];
+    if (rawCpIds.length > 50) {
+      res.status(400).json({
+        error: "At most 50 CPs can be selected in one generation run",
+        code: "TOO_MANY_SELECTED_CPS",
+      });
+      return;
+    }
+    const requestedCpIds = [...new Set(rawCpIds)];
     const packageEngineId = engineForPackage(packageId);
     const selectedEngineId = requestedEngineId ?? packageEngineId ?? "quant-v4";
 
@@ -437,7 +457,7 @@ router.post(
       return;
     }
 
-    const count = asPositiveInteger(req.body?.count, 5, 50);
+    const count = generationCount(req.body?.count);
     const patternId = asString(req.body?.patternId) || undefined;
     const rawTopic = asString(req.body?.topic) || undefined;
     const rawSubtopic = asString(req.body?.subtopic) || undefined;
