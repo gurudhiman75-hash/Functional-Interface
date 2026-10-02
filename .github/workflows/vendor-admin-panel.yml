@@ -15,7 +15,6 @@ on:
       - pnpm-lock.yaml
       - firebase.json
       - scripts/assemble-hosting.mjs
-      - .github/workflows/vendor-admin-panel.yml
   pull_request:
     branches:
       - New-main
@@ -43,7 +42,6 @@ on:
       - pnpm-lock.yaml
       - firebase.json
       - scripts/assemble-hosting.mjs
-      - .github/workflows/vendor-admin-panel.yml
 
 permissions:
   contents: read
