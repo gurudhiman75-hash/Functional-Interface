@@ -64,6 +64,7 @@ const footerColumns = [
     links: [
       { label: "Browse Tests", href: "/exams" },
       { label: "Mock Tests", href: "/mock-tests" },
+      { label: "SSC CGL", href: "/ssc-cgl" },
       { label: "Free Resources", href: "/resources" },
       { label: "Store", href: "/store" },
       { label: "Exams Covered", href: "/exams-covered" },
