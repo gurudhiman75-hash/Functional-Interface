@@ -105,6 +105,7 @@ export function MobilePromotionsPage(){
   const[managedPages,setManagedPages]=useState<ManagedPage[]>([]);
   const[loading,setLoading]=useState(true);
   const[editing,setEditing]=useState<Promotion|null>(null);
+  const[previewing,setPreviewing]=useState<Promotion|null>(null);
   const[saving,setSaving]=useState(false);
 
   const refresh=async()=>{setLoading(true);try{
@@ -126,6 +127,8 @@ export function MobilePromotionsPage(){
   const save=async()=>{
     if(!editing)return;
     if(editing.title.trim().length<2){showToast.error('Title required','Enter a campaign title.');return;}
+    const scheduleError=scheduleErrorOf(editing);
+    if(scheduleError){showToast.error('Invalid schedule',scheduleError);return;}
     setSaving(true);
     try{
       const path=editing.id?`/admin/mobile/promotions/${editing.id}`:'/admin/mobile/promotions';
@@ -137,6 +140,22 @@ export function MobilePromotionsPage(){
   };
 
   const remove=async()=>{if(!editing?.id)return;if(!window.confirm(`Delete "${editing.title}"? This removes it from all mobile placements.`))return;setSaving(true);try{await call(`/admin/mobile/promotions/${editing.id}`,{method:'DELETE'});showToast.success('Promotion deleted','The campaign has been removed.');setEditing(null);await refresh();}catch(error){showToast.error('Unable to delete promotion',error instanceof Error?error.message:'Request failed.');}finally{setSaving(false);}};
+
+  const duplicate=(promotion:Promotion)=>{
+    setEditing({...promotion,id:'',title:`${promotion.title} (copy)`,isActive:false,createdAt:undefined,updatedAt:undefined,impressions:0,clicks:0,dismissals:0});
+    showToast.success('Promotion duplicated','The copy is inactive until you save and publish it.');
+  };
+
+  const toggleActive=async(promotion:Promotion)=>{
+    setSaving(true);
+    try{
+      await call(`/admin/mobile/promotions/${promotion.id}`,{method:'PUT',body:JSON.stringify({...promotion,isActive:!promotion.isActive})});
+      showToast.success(promotion.isActive?'Promotion paused':'Promotion resumed',promotion.isActive?'Learners will no longer receive this campaign.':'The campaign is eligible for delivery inside its schedule.');
+      if(editing?.id===promotion.id)setEditing({...editing,isActive:!promotion.isActive});
+      await refresh();
+    }catch(error){showToast.error('Unable to update promotion',error instanceof Error?error.message:'Request failed.');}
+    finally{setSaving(false);}
+  };
 
   return <div className="space-y-5">
     <PageHeader title="Mobile App · Promotions & Ads" description="Schedule mobile promotional placements without duplicating the shared exam, test-series or Learn content they point to." icon={<Megaphone className="h-5 w-5"/>} actions={<div className="flex gap-2"><Button variant="outline" onClick={()=>void refresh()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading?'animate-spin':''}`}/>Refresh</Button><Button onClick={()=>setEditing(blank())}><Plus className="mr-1.5 h-4 w-4"/>New promotion</Button></div>}/>
