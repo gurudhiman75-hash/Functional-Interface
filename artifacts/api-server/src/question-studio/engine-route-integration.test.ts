@@ -181,5 +181,26 @@ assert.doesNotMatch(sharedReviewRoute, /router\.post\("\/runs"/);
 assert.doesNotMatch(sharedReviewRoute, /router\.get\("\/capabilities"/);
 assert.match(sharedReviewRoute, /router\.get\("\/review-page"/);
 assert.match(sharedReviewRoute, /router\.patch\("\/items\/bulk"/);
+
+const bulkHardeningRoute = readFileSync(
+  resolve(sourceRoot, "routes/admin-question-studio-bulk-hardening.ts"),
+  "utf8",
+);
+const qualityRoute = readFileSync(
+  resolve(sourceRoot, "routes/admin-question-studio-quality.ts"),
+  "utf8",
+);
+
+assert.match(bulkHardeningRoute, /MAX_BULK_REVIEW_ITEMS = 500/);
+assert.match(qualityRoute, /MAX_BULK_REVIEW_ITEMS = 500/);
+assert.doesNotMatch(bulkHardeningRoute, /slice\(0, 500\)/);
+assert.doesNotMatch(qualityRoute, /slice\(0, 100\)/);
+assert.match(bulkHardeningRoute, /TOO_MANY_REVIEW_ITEMS/);
+assert.match(qualityRoute, /TOO_MANY_REVIEW_ITEMS/);
+assert.match(bulkHardeningRoute, /INVALID_GENERATION_ITEM_ID/);
+assert.match(
+  bulkHardeningRoute,
+  /Generated item is already converted to Question Bank; review the canonical question instead/,
+);
 assert.match(engineRoute, /router\.post\(\s*"\/runs"/);
 assert.match(engineRoute, /generateProfiledQuantBatch/);
