@@ -24,13 +24,17 @@ assert.match(generator, /process\.env\.RENDER_EXTERNAL_URL/);
 assert.match(generator, /url\.protocol !== "https:" && url\.protocol !== "http:"/);
 assert.match(generator, /url\.pathname !== "\/" \|\| url\.search \|\| url\.hash/);
 
-for (const route of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility"]) {
+for (const route of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility", "/ssc-cgl", "/ssc-cgl-preparation", "/ssc-cgl-syllabus"]) {
   assert.ok(generator.includes(`path: "${route}"`), `prerender route set must include ${route}`);
 }
 for (const route of ["/pyqs", "/blog", "/ssc-cgl-pyqs", "/punjab-police-mock-tests", "/ibps-clerk-syllabus", "/dashboard", "/test/"]) {
   assert.ok(!generator.includes(`path: "${route}"`), `prerender route set must exclude ${route}`);
 }
 
+for (const topic of ["percentage", "profit-and-loss", "average", "ratio-and-proportion", "time-and-work", "time-speed-distance", "number-system", "syllogism", "coding-decoding", "indian-polity"]) {
+  assert.ok(generator.includes(`["${topic}",`), `SSC CGL public practice registry must include ${topic}`);
+}
+assert.match(generator, /routes\.push\([\s\S]*sscCglPracticeTopics\.map/, "SSC CGL topic pages must be added to the crawlable route set");
 assert.match(generator, /sitemap\.xml/);
 assert.match(generator, /Sitemap: \$\{publicOrigin\}\/sitemap\.xml/);
 assert.match(generator, /property="og:url"/);
