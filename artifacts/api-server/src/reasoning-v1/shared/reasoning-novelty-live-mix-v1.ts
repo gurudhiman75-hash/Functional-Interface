@@ -16,12 +16,13 @@ import { generateAlpControlledNovelTransformedGapCandidateV1 } from "../topics/A
 import { generateCalControlledNovelImplicitRangeFrequencyCandidateV1 } from "../topics/Calendar/CAL-001/cal-001-controlled-novelty-discovery-v1";
 import { generateCaeControlledNovelCandidateV1 } from "../topics/Cause-and-Effect/CAE-001/cae-001-controlled-novelty-discovery-v1";
 import { generateBlrControlledNovelCodedCountCandidateV1 } from "../topics/Blood-Relations/BLR-001/blr-001-controlled-novelty-discovery-v1";
+import { generateRnkControlledNovelCaseletV1 } from "../topics/Ranking-and-Order/RNK-001/rnk-001-controlled-novelty-discovery-v1";
 
 export const REASONING_V1_LIVE_NOVELTY_MIX_VERSION =
   "REASONING_V1_LIVE_NOVELTY_MIX_2026_10_02_V1" as const;
 
 type LiveActivation = Readonly<{
-  packageId: "ALP-001" | "BLR-001" | "CAE-001" | "CAL-001" | "OPS-001" | "DIR-001" | "CLK-001";
+  packageId: "ALP-001" | "BLR-001" | "CAE-001" | "CAL-001" | "OPS-001" | "DIR-001" | "CLK-001" | "RNK-001";
   providerId:
     | "ALP-001-TRANSFORMED-GAP"
     | "BLR-001-CODED-FILTERED-COUNT"
@@ -29,7 +30,8 @@ type LiveActivation = Readonly<{
     | "CAL-001-IMPLICIT-RANGE-FREQUENCY"
     | "OPS-001-INFER-THEN-FILL"
     | "DIR-001-GRAPH-RELATIVE-PATH"
-    | "CLK-001-FAULTY-TIME-ANGLE";
+    | "CLK-001-FAULTY-TIME-ANGLE"
+    | "RNK-001-CROSS-FAMILY-CASELET";
   calibratedDifficulty: "Medium" | "Hard";
 }>;
 
@@ -68,6 +70,11 @@ export const REASONING_V1_LIVE_NOVELTY_ACTIVATIONS: readonly LiveActivation[] = 
     packageId: "CLK-001",
     providerId: "CLK-001-FAULTY-TIME-ANGLE",
     calibratedDifficulty: "Hard",
+  },
+  {
+    packageId: "RNK-001",
+    providerId: "RNK-001-CROSS-FAMILY-CASELET",
+    calibratedDifficulty: "Medium",
   },
 ] as const;
 
@@ -144,6 +151,9 @@ function candidateFor(providerId: LiveActivation["providerId"], seed: number) {
   }
   if (providerId === "DIR-001-GRAPH-RELATIVE-PATH") {
     return generateDirControlledNovelGraphRelativePathCandidateV1(seed);
+  }
+  if (providerId === "RNK-001-CROSS-FAMILY-CASELET") {
+    return generateRnkControlledNovelCaseletV1(seed);
   }
   return generateClockControlledNovelAngleCandidateV1(seed);
 }
