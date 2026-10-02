@@ -673,7 +673,7 @@ function profileFields(scenario: DmScenario): readonly DmField[] {
 function formatApplicant(profile: DmCandidateProfile, scenario: DmScenario, locale: DmLocale): string {
   const label = PROMPTS[locale].applicant;
   const items = profileFields(scenario).map((field) => FIELD_LABELS[locale][field] + ": " + formatCandidateValue(field, profile, scenario, locale));
-  return label + " " + profile.name + ": " + items.join(locale === "en" ? "; " : "। ") + ".";
+  return label + " " + profile.name + ": " + items.join(locale === "en" ? "; " : "। ") + (locale === "en" ? "." : "।");
 }
 
 function localizedStem(scenario: DmScenario, profile: DmCandidateProfile, locale: DmLocale, seed: number): string {
@@ -728,9 +728,9 @@ const SET_QUESTIONS: Readonly<Record<DmLocale, Readonly<Record<DmSetQuestionKind
 });
 
 const SET_STEM_WRAPPERS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
-  en: ["According to the stated conditions, {q}", "After applying every rule, {q}", "On checking all the profiles, {q}", "Under the common rule block, {q}", "Which option correctly states {q}", "Based only on the information given, {q}", "After considering the applicable exception, {q}", "What follows from the rule-wise scrutiny: {q}", "Using the published conditions, {q}", "When each profile is decided independently, {q}", "After checking ordinary rules before exceptions, {q}", "Under the stated decision procedure, {q}", "Which result is supported by the complete set: {q}", "On a condition-by-condition check, {q}", "After resolving the referral rules in order, {q}", "For this group of applicants, {q}", "Which conclusion follows from the shared notice: {q}", "Applying the rules without adding assumptions, {q}"],
-  hi: ["दी गई शर्तों के अनुसार, {q}", "हर नियम लागू करने के बाद, {q}", "सभी प्रोफाइल जाँचने पर, {q}", "समान नियम-खंड के तहत, {q}", "कौन-सा विकल्प सही बताता है कि {q}", "केवल दी गई जानकारी के आधार पर, {q}", "लागू अपवाद पर विचार करने के बाद, {q}", "नियमवार जाँच से क्या निकलता है: {q}", "प्रकाशित शर्तों का उपयोग करते हुए, {q}", "हर प्रोफाइल का स्वतंत्र निर्णय करने पर, {q}", "अपवाद से पहले सामान्य नियम जाँचने के बाद, {q}", "दी गई निर्णय प्रक्रिया के तहत, {q}", "पूर्ण सेट से कौन-सा परिणाम समर्थित है: {q}", "हर शर्त की जाँच करने पर, {q}", "संदर्भ नियमों को क्रम से हल करने के बाद, {q}", "इस आवेदक समूह के लिए, {q}", "समान सूचना से कौन-सा निष्कर्ष निकलता है: {q}", "बिना कोई अनुमान जोड़े नियम लागू करने पर, {q}"],
-  pa: ["ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਅਨੁਸਾਰ, {q}", "ਹਰ ਨਿਯਮ ਲਾਗੂ ਕਰਨ ਮਗਰੋਂ, {q}", "ਸਾਰੀਆਂ ਪ੍ਰੋਫਾਈਲਾਂ ਜਾਂਚਣ ਤੇ, {q}", "ਸਾਂਝੇ ਨਿਯਮ-ਖੰਡ ਹੇਠ, {q}", "ਕਿਹੜਾ ਵਿਕਲਪ ਠੀਕ ਦੱਸਦਾ ਹੈ ਕਿ {q}", "ਸਿਰਫ਼ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਤੇ, {q}", "ਲਾਗੂ ਅਪਵਾਦ ਵੇਖਣ ਮਗਰੋਂ, {q}", "ਨਿਯਮਵਾਰ ਜਾਂਚ ਤੋਂ ਕੀ ਨਿਕਲਦਾ ਹੈ: {q}", "ਜਾਰੀ ਸ਼ਰਤਾਂ ਦੀ ਵਰਤੋਂ ਕਰਦਿਆਂ, {q}", "ਹਰ ਪ੍ਰੋਫਾਈਲ ਦਾ ਸੁਤੰਤਰ ਫੈਸਲਾ ਕਰਨ ਤੇ, {q}", "ਅਪਵਾਦ ਤੋਂ ਪਹਿਲਾਂ ਆਮ ਨਿਯਮ ਜਾਂਚਣ ਮਗਰੋਂ, {q}", "ਦਿੱਤੀ ਫੈਸਲਾ ਪ੍ਰਕਿਰਿਆ ਹੇਠ, {q}", "ਪੂਰੇ ਸੈੱਟ ਤੋਂ ਕਿਹੜਾ ਨਤੀਜਾ ਸਹੀ ਹੈ: {q}", "ਹਰ ਸ਼ਰਤ ਦੀ ਜਾਂਚ ਕਰਨ ਤੇ, {q}", "ਰੈਫਰਲ ਨਿਯਮ ਕ੍ਰਮ ਨਾਲ ਹੱਲ ਕਰਨ ਮਗਰੋਂ, {q}", "ਇਸ ਬਿਨੈਕਾਰ ਸਮੂਹ ਲਈ, {q}", "ਸਾਂਝੀ ਸੂਚਨਾ ਤੋਂ ਕਿਹੜਾ ਨਤੀਜਾ ਨਿਕਲਦਾ ਹੈ: {q}", "ਬਿਨਾਂ ਕੋਈ ਅਨੁਮਾਨ ਜੋੜੇ ਨਿਯਮ ਲਾਗੂ ਕਰਨ ਤੇ, {q}"],
+  en: ["According to the stated conditions, {q}", "After applying every rule, {q}", "On checking all the profiles, {q}", "Under the common rule block, {q}", "Which option correctly states {q}", "Based only on the information given, {q}", "After considering the applicable exception, {q}", "What follows from the rule-wise scrutiny: {q}", "Using the published conditions, {q}", "When each profile is decided independently, {q}", "After checking ordinary rules before exceptions, {q}", "Under the stated decision procedure, {q}", "From the complete set, {q}", "On a condition-by-condition check, {q}", "After resolving the referral rules in order, {q}", "For this group of applicants, {q}", "Which conclusion follows from the shared notice: {q}", "Applying the rules without adding assumptions, {q}"],
+  hi: ["दी गई शर्तों के अनुसार, {q}", "हर नियम लागू करने के बाद, {q}", "सभी प्रोफाइल जाँचने पर, {q}", "समान नियम-खंड के तहत, {q}", "कौन-सा विकल्प सही बताता है कि {q}", "केवल दी गई जानकारी के आधार पर, {q}", "लागू अपवाद पर विचार करने के बाद, {q}", "नियमवार जाँच से क्या निकलता है: {q}", "प्रकाशित शर्तों का उपयोग करते हुए, {q}", "हर प्रोफाइल का स्वतंत्र निर्णय करने पर, {q}", "अपवाद से पहले सामान्य नियम जाँचने के बाद, {q}", "दी गई निर्णय प्रक्रिया के तहत, {q}", "पूर्ण सेट के आधार पर, {q}", "हर शर्त की जाँच करने पर, {q}", "प्रेषण नियमों को क्रम से लागू करने के बाद, {q}", "इस आवेदक समूह के लिए, {q}", "समान सूचना से कौन-सा निष्कर्ष निकलता है: {q}", "बिना कोई अनुमान जोड़े नियम लागू करने पर, {q}"],
+  pa: ["ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਅਨੁਸਾਰ, {q}", "ਹਰ ਨਿਯਮ ਲਾਗੂ ਕਰਨ ਮਗਰੋਂ, {q}", "ਸਾਰੀਆਂ ਪ੍ਰੋਫਾਈਲਾਂ ਜਾਂਚਣ ਤੇ, {q}", "ਸਾਂਝੇ ਨਿਯਮ-ਖੰਡ ਹੇਠ, {q}", "ਕਿਹੜਾ ਵਿਕਲਪ ਠੀਕ ਦੱਸਦਾ ਹੈ ਕਿ {q}", "ਸਿਰਫ਼ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਤੇ, {q}", "ਲਾਗੂ ਅਪਵਾਦ ਵੇਖਣ ਮਗਰੋਂ, {q}", "ਨਿਯਮਵਾਰ ਜਾਂਚ ਤੋਂ ਕੀ ਨਿਕਲਦਾ ਹੈ: {q}", "ਜਾਰੀ ਸ਼ਰਤਾਂ ਦੀ ਵਰਤੋਂ ਕਰਦਿਆਂ, {q}", "ਹਰ ਪ੍ਰੋਫਾਈਲ ਦਾ ਸੁਤੰਤਰ ਫੈਸਲਾ ਕਰਨ ਤੇ, {q}", "ਅਪਵਾਦ ਤੋਂ ਪਹਿਲਾਂ ਆਮ ਨਿਯਮ ਜਾਂਚਣ ਮਗਰੋਂ, {q}", "ਦਿੱਤੀ ਫੈਸਲਾ ਪ੍ਰਕਿਰਿਆ ਹੇਠ, {q}", "ਪੂਰੇ ਸੈੱਟ ਦੇ ਆਧਾਰ ਤੇ, {q}", "ਹਰ ਸ਼ਰਤ ਦੀ ਜਾਂਚ ਕਰਨ ਤੇ, {q}", "ਰੈਫਰਲ ਨਿਯਮ ਕ੍ਰਮ ਨਾਲ ਲਾਗੂ ਕਰਨ ਮਗਰੋਂ, {q}", "ਇਸ ਬਿਨੈਕਾਰ ਸਮੂਹ ਲਈ, {q}", "ਸਾਂਝੀ ਸੂਚਨਾ ਤੋਂ ਕਿਹੜਾ ਨਤੀਜਾ ਨਿਕਲਦਾ ਹੈ: {q}", "ਬਿਨਾਂ ਕੋਈ ਅਨੁਮਾਨ ਜੋੜੇ ਨਿਯਮ ਲਾਗੂ ਕਰਨ ਤੇ, {q}"],
 });
 
 function setProfileModes(scenario: DmScenario, kind: DmSetQuestionKind, count: number, seed: number): DmCandidateMode[] {
@@ -797,7 +797,11 @@ function buildSetCohort(scenario: DmScenario, locale: DmLocale, seed: number, mo
 }
 
 function sharedSetStimulus(scenario: DmScenario, cohort: readonly DmCandidateProfile[], locale: DmLocale): string {
-  const intro = PROMPTS[locale].intro.replaceAll("{context}", scenario.context[locale]);
+  const intro = locale === "en"
+    ? scenario.context.en + ": applicants must meet every condition listed."
+    : locale === "hi"
+      ? scenario.context.hi + " के अंतर्गत आवेदकों को नीचे दी गई सभी शर्तें पूरी करनी होंगी।"
+      : scenario.context.pa + " ਅਧੀਨ ਬਿਨੈਕਾਰਾਂ ਨੂੰ ਹੇਠ ਲਿਖੀਆਂ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਨੀਆਂ ਲਾਜ਼ਮੀ ਹਨ।";
   const ruleLines = scenario.baseConditions.map((item, index) => String(index + 1) + ". " + formatDmRequirement(item, locale));
   const additional = scenario.ruleNotes.length ? [PROMPTS[locale].additional + ":", ...scenario.ruleNotes.map((note) => "• " + note[locale])] : [];
   const applicants = locale === "en" ? "Applicants" : locale === "hi" ? "आवेदक" : "ਬਿਨੈਕਾਰ";
