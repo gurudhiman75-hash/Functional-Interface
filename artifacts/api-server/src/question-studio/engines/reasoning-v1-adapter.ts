@@ -63,6 +63,11 @@ import {
 } from "../../reasoning-v1/topics/Venn-Diagrams/VEN-001/ven-001-shape-regions.ts";
 
 import { applyReasoningControlledNovelMixV1 } from "../../reasoning-v1/shared/reasoning-novelty-live-mix-v1";
+import {
+  RNK_CP004_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
+  generateRnkCp004QuestionStudioBatch,
+  isRnkCp004QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/question-studio-integration";
 
 import {
   ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE,
@@ -433,6 +438,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       BLR001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       CAE001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       CAL001_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
+      RNK_CP004_STANDARD_QUESTION_STUDIO_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       CLK_001_QUESTION_STUDIO_PACKAGE,
       MIS_001_QUESTION_STUDIO_PACKAGE,
@@ -475,6 +481,10 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isCal001QuestionStudioRequest(request)) {
       const source = await generateCal001StandardQuestionStudioBatch(request);
+      return applyReasoningControlledNovelMixV1(request, source);
+    }
+    if (isRnkCp004QuestionStudioRequest(request)) {
+      const source = await generateRnkCp004QuestionStudioBatch(request);
       return applyReasoningControlledNovelMixV1(request, source);
     }
     if (isClk001QuestionStudioRequest(request)) {
