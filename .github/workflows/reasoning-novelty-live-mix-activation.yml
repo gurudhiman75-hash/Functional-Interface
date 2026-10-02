@@ -1,0 +1,36 @@
+name: Validate Reasoning novelty live mix activation
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/question-studio/engines/reasoning-v1-adapter.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-live-mix-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-runtime-activation-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-provider-registry-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-inventory-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-live-mix-20261002.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/reasoning-novelty-question-studio-live-adapter-20261002.test.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-novelty-live-mix-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/reasoning-novelty-live-mix-20261002.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/reasoning-novelty-live-mix-20261002.test.mjs
+      - run: node artifacts/api-server/dist/reasoning-v1/reasoning-novelty-live-mix-20261002.test.mjs
+      - run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/reasoning-novelty-question-studio-live-adapter-20261002.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/reasoning-novelty-question-studio-live-adapter-20261002.test.mjs
+      - run: node artifacts/api-server/dist/reasoning-v1/reasoning-novelty-question-studio-live-adapter-20261002.test.mjs
