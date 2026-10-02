@@ -63,10 +63,34 @@ const routes = [
     description: "Read the terms and conditions governing access to ExamTree mock tests, accounts, and services.",
   },
   {
-    path: "/refund-policy",
-    title: "Refund Policy | ExamTree",
-    heading: "ExamTree refund policy",
-    description: "Read the ExamTree refund policy for eligible purchases and support requests.",
+    path: "/cancellation-refund-policy",
+    title: "Cancellation & Refund Policy | ExamTree",
+    heading: "ExamTree cancellation and refund policy",
+    description: "Read the ExamTree cancellation and refund policy for digital purchases, duplicate charges, failed access, and eligible refunds.",
+  },
+  {
+    path: "/disclaimer",
+    title: "Disclaimer | ExamTree",
+    heading: "ExamTree disclaimer",
+    description: "Read important boundaries for official exam information, practice material, exam names, and third-party services.",
+  },
+  {
+    path: "/billing-help",
+    title: "Payment & Billing Help | ExamTree",
+    heading: "ExamTree payment and billing help",
+    description: "Get help with payments, missing access, duplicate charges, refunds, coupons, and billing questions.",
+  },
+  {
+    path: "/grievance-redressal",
+    title: "Grievance Redressal | ExamTree",
+    heading: "ExamTree grievance redressal",
+    description: "Learn how to raise account, payment, privacy, content, or service concerns with ExamTree.",
+  },
+  {
+    path: "/accessibility",
+    title: "Accessibility | ExamTree",
+    heading: "Accessibility at ExamTree",
+    description: "Read how ExamTree approaches keyboard access, readable interfaces, responsive layouts, zoom, and accessibility feedback.",
   },
 ];
 
