@@ -64,7 +64,7 @@ function normalize(input: unknown) {
     campaignKind: CAMPAIGN_KINDS.has(campaignKind) ? campaignKind : "internal",
     isDismissible: raw.isDismissible !== false,
     frequencyCapPerDay: frequencyCapPerDay == null ? null : Math.max(1, Math.min(50, frequencyCapPerDay)),
-    repeatOnEveryOpen: raw.repeatOnEveryOpen === true,
+    repeatOnEveryOpen: placement === "login_popup" && raw.repeatOnEveryOpen === true,
     audience: normalizeAudience(raw.audience),
     isActive: raw.isActive !== false,
     startAt: dateOrNull(raw.startAt),
