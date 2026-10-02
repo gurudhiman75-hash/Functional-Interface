@@ -9,7 +9,9 @@ const exams = [
   { label: "SSC GD", href: "/ssc-gd", description: "Prepare for the next Constable (GD) cycle with CBE practice, physical-stage planning, and free questions." },
   { label: "Punjab Government Exams", href: "/category/punjab", description: "Browse published Punjab government exam tests, including available reasoning, GK, Punjabi, and computer awareness practice." },
   { label: "PSSSB", href: "/category/punjab", description: "Open the Punjab catalog for published PSSSB and related state-exam preparation when available." },
-  { label: "IBPS & Banking", href: "/category/banking", description: "Browse published banking mock tests and available reasoning, quant, and computer awareness practice." },
+  { label: "IBPS PO", href: "/ibps-po", description: "Prepare for PO/MT XVI with prelims and mains guidance, free topic questions, and banking mock tests." },
+  { label: "IBPS Clerk / CSA", href: "/ibps-clerk", description: "Prepare for the current Customer Service Associate recruitment with prelims and mains guidance, free questions, and banking mocks." },
+  { label: "IBPS & Banking", href: "/category/banking", description: "Browse the wider published banking mock-test catalog and available practice." },
   { label: "Railways", href: "/category/railways", description: "Browse railway exam tests and practice sets currently published in the ExamTree catalog." },
 ];
 

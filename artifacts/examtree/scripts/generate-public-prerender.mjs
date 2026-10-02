@@ -200,6 +200,42 @@ const routes = [
     heading: "SSC GD syllabus and selection pattern 2027",
     description: "Review the SSC GD CBE subjects and later PET/PST, medical, and verification stages.",
   },
+  {
+    path: "/ibps-po",
+    title: "IBPS PO 2026 Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    heading: "IBPS PO 2026 preparation hub",
+    description: "Prepare for IBPS PO/MT XVI with prelims and mains guidance, mock tests, and free topic-wise banking questions.",
+  },
+  {
+    path: "/ibps-po-preparation",
+    title: "How to Prepare for IBPS PO 2026 | ExamTree",
+    heading: "How to prepare for IBPS PO 2026",
+    description: "Build prelims speed while preparing mains-level reasoning, data analysis, awareness, English, and mock strategy.",
+  },
+  {
+    path: "/ibps-po-syllabus",
+    title: "IBPS PO 2026 Syllabus & Exam Pattern | ExamTree",
+    heading: "IBPS PO/MT XVI syllabus and exam pattern 2026",
+    description: "Review the current IBPS PO/MT XVI preliminary and main examination stages and preparation priorities.",
+  },
+  {
+    path: "/ibps-clerk",
+    title: "IBPS Clerk / CSA 2026 Preparation, Syllabus, Mock Tests & Free Questions | ExamTree",
+    heading: "IBPS Clerk / CSA 2026 preparation hub",
+    description: "Prepare for IBPS Customer Service Associate XVI with prelims and mains guidance, mock tests, and free questions.",
+  },
+  {
+    path: "/ibps-clerk-preparation",
+    title: "How to Prepare for IBPS Clerk / CSA 2026 | ExamTree",
+    heading: "How to prepare for IBPS Clerk / CSA 2026",
+    description: "Build separately timed prelims speed and mains-level banking awareness, Quant, Reasoning, and English.",
+  },
+  {
+    path: "/ibps-clerk-syllabus",
+    title: "IBPS Clerk / CSA 2026 Syllabus & Exam Pattern | ExamTree",
+    heading: "IBPS Customer Service Associate XVI syllabus and exam pattern 2026",
+    description: "Review the current IBPS CSA XVI preliminary and main examination structure and preparation priorities.",
+  },
 ];
 
 const sscPracticeTopics = [
@@ -220,6 +256,9 @@ const stenographerPracticeTopics = sscPracticeTopics.filter(([slug]) =>
 );
 const gdPracticeTopics = sscPracticeTopics.filter(([slug]) =>
   ["percentage", "average", "ratio-and-proportion", "time-and-work", "time-speed-distance", "number-system", "coding-decoding", "indian-polity"].includes(slug),
+);
+const bankingPracticeTopics = sscPracticeTopics.filter(([slug]) =>
+  ["percentage", "profit-and-loss", "average", "ratio-and-proportion", "time-and-work", "time-speed-distance", "number-system", "syllogism", "coding-decoding"].includes(slug),
 );
 
 routes.push(
@@ -259,6 +298,18 @@ routes.push(
     heading: `${name} questions for SSC GD`,
     description: `Solve free ${name} questions for SSC GD with answers and explanations.`,
   })),
+  ...bankingPracticeTopics.map(([slug, name]) => ({
+    path: `/ibps-po/questions/${slug}`,
+    title: `${name} Questions for IBPS PO – Free Practice | ExamTree`,
+    heading: `${name} questions for IBPS PO`,
+    description: `Solve free ${name} questions for IBPS PO with answers and explanations.`,
+  })),
+  ...bankingPracticeTopics.map(([slug, name]) => ({
+    path: `/ibps-clerk/questions/${slug}`,
+    title: `${name} Questions for IBPS Clerk / CSA – Free Practice | ExamTree`,
+    heading: `${name} questions for IBPS Clerk / CSA`,
+    description: `Solve free ${name} questions for IBPS Clerk / CSA with answers and explanations.`,
+  })),
 );
 
 const discoveryLinks = [
@@ -269,6 +320,8 @@ const discoveryLinks = [
   ["SSC CHSL", "/ssc-chsl"],
   ["SSC MTS", "/ssc-mts"],
   ["SSC CPO", "/ssc-cpo"],
+  ["IBPS PO", "/ibps-po"],
+  ["IBPS Clerk / CSA", "/ibps-clerk"],
   ["FAQ", "/faq"],
   ["About", "/about"],
   ["Contact", "/contact"],
