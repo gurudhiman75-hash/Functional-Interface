@@ -67,6 +67,8 @@ for (const field of [
 assert.match(engineRoute, /selectedEngineId === "quant-v4"/);
 assert.match(engineRoute, /generateProfiledQuantBatch/);
 assert.match(engineRoute, /selectedCpIds/);
+assert.match(engineRoute, /questions\.length !== request\.count/);
+assert.match(engineRoute, /expected exactly \$\{request\.count\}/);
 assert.match(engineRoute, /difficultyDistribution/);
 assert.doesNotMatch(engineRoute, /nonQuantRunGate/);
 assert.match(engineRoute, /shouldDeferQuantCompatibilityRun/);
