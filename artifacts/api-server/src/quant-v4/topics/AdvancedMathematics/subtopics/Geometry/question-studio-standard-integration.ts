@@ -5,6 +5,7 @@ import {
 import { generateGeometryPermanentEnglishFrozenV1 } from "./permanent-review/geometry-permanent-english-freeze-v1";
 import { generateGeometryPermanentMultilingualFrozenV1 } from "./permanent-review/geometry-permanent-multilingual-freeze-v1";
 import { GEO_PERMANENT_MULTILINGUAL_FREEZE_PROOF_V1 } from "./permanent-review/geometry-permanent-multilingual-freeze-proof-v1";
+import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../../question-studio/standard-lifecycle";
 
 export type Geo001QuestionStudioLanguage = "en" | "hi" | "pa";
 export type Geo001QuestionStudioCpId = `GEO-CP-${string}`;
@@ -161,11 +162,20 @@ export function listGeo001StandardQuestionStudioPackages() {
       runtimeMode: "QUESTION_STUDIO_ACTIVE",
       supportedRuntimeModes: ["QUESTION_STUDIO_ACTIVE"],
       reviewStatus: "FROZEN_MULTILINGUAL_CONTENT_AUTHORITY",
-      questionBankStatus: "NOT_STORED",
-      questionBankWritable: false,
-      testEligibility: "INELIGIBLE",
-      testEligible: false,
-      publiclyPublishable: false,
+      lifecycleId: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.lifecycleId,
+      lifecycleStage: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.stage,
+      reviewSurfaceRequired: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.reviewSurfaceRequired,
+      manualApprovalRequired: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.manualApprovalRequired,
+      questionBankStatus: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.questionBankStatus,
+      questionBankWritable: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.questionBankWritable,
+      questionBankAcceptanceMode: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.questionBankAcceptanceMode,
+      questionBankAcceptanceAuthority: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.questionBankAcceptanceAuthority,
+      testEligibility: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.testEligibility,
+      testEligible: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.testEligible,
+      mockTestEligible: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.mockTestEligible,
+      publiclyPublishable: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.publiclyPublishable,
+      automaticStudentPublication: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.automaticStudentPublication,
+      productionReleaseAuthorized: QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1.productionReleaseAuthorized,
       questionStudioDiscoverable: true,
     },
   ];
