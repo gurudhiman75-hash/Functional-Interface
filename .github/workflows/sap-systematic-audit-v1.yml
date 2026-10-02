@@ -1,0 +1,51 @@
+name: Validate SAP Systematic Audit V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/**"
+      - ".github/workflows/sap-systematic-audit-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sap-systematic-audit-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sap-systematic-audit-v1:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle SAP systematic audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/sap-systematic-audit-v1.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-systematic-audit-v1.mjs
+      - name: Run SAP systematic audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-systematic-audit-v1.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/sap-systematic-audit-v1.log
+          grep -q "PASS_SAP_SYSTEMATIC_AUDIT_V1_CORE_INTEGRITY" artifacts/api-server/dist/quant-v4/sap-systematic-audit-v1.log
+      - name: Upload SAP systematic audit evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-systematic-audit-v1
+          path: artifacts/api-server/dist/quant-v4/sap-systematic-audit-v1.log
