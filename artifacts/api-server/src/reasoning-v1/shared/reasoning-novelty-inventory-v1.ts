@@ -130,10 +130,16 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Course-of-Action',
     chapterId: 'COA-001',
-    status: 'DEDICATED_NOVELTY_AUDIT_PENDING',
-    evidence: [],
+    status: 'DEDICATED_NOVELTY_AUDIT_COMPLETE_NO_ADMISSIBLE_PROVIDER',
+    evidence: [
+      'COA-QL-008 already owns ordered/dependency reasoning over action sequences.',
+      'COA-QL-009 already owns integrated multi-constraint action validity across evidence, proportionality, timing, authority and constraints.',
+      'Three-course and five-code Either-I-or-II forms are frozen as presentation architecture rather than separate semantic contracts.',
+      'Single-best-action situational judgment remains outside core COA at the Decision Making boundary.',
+      'COA-001-CONTROLLED-NOVELTY-AUDIT-CLOSURE-20261002.md records the dedicated novelty decision.',
+    ],
     countsTowardControlledNovelTargetNow: false,
-    nextGate: 'Audit scenario-policy interaction novelty under action-validity constraints.',
+    nextGate: 'Re-open only on recurring source evidence for a bounded Course-of-Action learner contract not representable by the active semantic QLs.',
   },
   {
     topicDirectory: 'Data-Sufficiency',
