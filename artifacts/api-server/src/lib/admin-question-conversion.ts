@@ -79,8 +79,10 @@ export function getGeneratedQuestionBankEligibilityIssue(
   if (questionBankStatus === "NOT_STORED") {
     return "questionBankStatus is NOT_STORED";
   }
-  if (questionBankWritable === false) {
-    return "questionBankWritable is false";
+  if (questionBankWritable !== true) {
+    return questionBankWritable === false
+      ? "questionBankWritable is false"
+      : "questionBankWritable is not explicitly enabled";
   }
   if (runtimeMode === "DYNAMIC_CANDIDATE") {
     return `runtimeMode ${runtimeMode} is review-only`;
