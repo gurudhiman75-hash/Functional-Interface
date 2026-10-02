@@ -200,6 +200,10 @@ const regenerationRoute = readFileSync(
   resolve(sourceRoot, "routes/admin-question-studio-regeneration.ts"),
   "utf8",
 );
+const probabilityRoute = readFileSync(
+  resolve(sourceRoot, "routes/admin-question-studio-probability.ts"),
+  "utf8",
+);
 
 assert.match(bulkHardeningRoute, /MAX_BULK_REVIEW_ITEMS = 500/);
 assert.match(qualityRoute, /MAX_BULK_REVIEW_ITEMS = 500/);
@@ -221,6 +225,8 @@ assert.match(qualityRoute, /GENERATION_ITEM_VERSION_CONFLICT/);
 assert.match(qualityRoute, /delete nextPayload\.contentFingerprint/);
 assert.match(qualityRoute, /INVALID_EXPECTED_VERSION/);
 assert.match(regenerationRoute, /GENERATION_RUN_CANCELLED/);
+assert.doesNotMatch(probabilityRoute, /native-review\/items\/:itemId\/decision/);
+assert.doesNotMatch(probabilityRoute, /reviewer_user_id/);
 assert.doesNotMatch(regenerationRoute, /slice\(0, 50\)/);
 assert.match(
   bulkHardeningRoute,
