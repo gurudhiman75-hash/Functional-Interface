@@ -18,6 +18,7 @@ const notificationsMigrationPath = path.resolve(here, "../../docs/database-migra
 const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
 const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
 const analyticsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-analytics.sql");
+const analyticsPromotionDismissMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-mobile-analytics-promotion-dismiss.sql");
 const mediaMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-media-assets.sql");
 const pagesMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-pages.sql");
 const sql = postgres(databaseUrl, {
@@ -231,6 +232,27 @@ try {
     throw new Error("Mobile analytics migration completed without creating platform.mobile_analytics_events");
   }
   console.log("[render-build] mobile analytics schema verified");
+  const [promotionDismissAnalyticsBefore] = await sql`
+    SELECT COALESCE(bool_or(pg_get_constraintdef(c.oid) ILIKE '%promotion_dismiss%'), false) AS supported
+    FROM pg_constraint c
+    WHERE c.conrelid='platform.mobile_analytics_events'::regclass
+      AND c.contype='c'
+  `;
+  if (!promotionDismissAnalyticsBefore?.supported) {
+    console.log("[render-build] promotion dismiss analytics support missing; applying checked-in migration");
+    await sql.unsafe(await readFile(analyticsPromotionDismissMigrationPath, "utf8"));
+  }
+  const [promotionDismissAnalyticsAfter] = await sql`
+    SELECT COALESCE(bool_or(pg_get_constraintdef(c.oid) ILIKE '%promotion_dismiss%'), false) AS supported
+    FROM pg_constraint c
+    WHERE c.conrelid='platform.mobile_analytics_events'::regclass
+      AND c.contype='c'
+  `;
+  if (!promotionDismissAnalyticsAfter?.supported) {
+    throw new Error("Mobile analytics promotion dismiss migration verification failed");
+  }
+  console.log("[render-build] promotion dismiss analytics verified");
+
 
   const [mediaBefore] = await sql`
     SELECT to_regclass('platform.media_assets')::text AS media_assets
