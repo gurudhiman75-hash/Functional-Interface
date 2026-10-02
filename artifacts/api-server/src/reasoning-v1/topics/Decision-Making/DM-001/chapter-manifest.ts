@@ -1,0 +1,56 @@
+import { DM_001_CHECKPOINT_IDS, DM_001_QL_IDS } from "./types.ts";
+import { DM_001_QL_REGISTRY } from "./ql-registry.ts";
+
+export const DM_001_MANIFEST = Object.freeze({
+  chapterId: "DM-001",
+  subjectCode: "REAS-DCS",
+  title: "Decision Making / Eligibility",
+  family: "FAMILY_C_LOGIC_AND_DEDUCTION",
+  examinations: ["SSC", "BANKING", "PUNJAB_STATE", "CLERICAL_ADMINISTRATIVE"] as const,
+  locales: ["en-IN", "hi-IN", "pa-IN"] as const,
+  blueprintCheckpointIds: ["DM-001", "DM-002", "DM-003", "DM-004", "DM-005"] as const,
+  checkpointIds: DM_001_CHECKPOINT_IDS,
+  semanticQlCount: DM_001_QL_IDS.length,
+  qlIds: DM_001_QL_IDS,
+  qlRegistry: DM_001_QL_REGISTRY,
+  checkpoints: [
+    { checkpointId: "DM-CP-001", blueprintCheckpointId: "DM-001", purpose: "Basic eligibility decisions with three or four direct conditions", scenarioTarget: 25 },
+    { checkpointId: "DM-CP-002", blueprintCheckpointId: "DM-002", purpose: "Five to seven simultaneous eligibility conditions and boundary checks", scenarioTarget: 25 },
+    { checkpointId: "DM-CP-003", blueprintCheckpointId: "DM-003", purpose: "Ordered conditional exceptions and referral outcomes", scenarioTarget: 25 },
+    { checkpointId: "DM-CP-004", blueprintCheckpointId: "DM-004", purpose: "Selection, rejection, authority referral and insufficient-data decisions", scenarioTarget: 25 },
+    { checkpointId: "DM-CP-005", blueprintCheckpointId: "DM-005", purpose: "Age on a specified date, qualification level and relevant experience", scenarioTarget: 25 },
+  ] as const,
+  qlAllocation: {
+    policy: "NEED_BASED",
+    qlIdPermanence: "PERMANENT_AFTER_MERGE",
+    qlSequence: "CHAPTER_WIDE_CONTINUOUS",
+    implementedRange: "DM-QL-001..DM-QL-015",
+    waveOneQlCount: 15,
+    laterWaveQlAllocation: "NOT_YET_ALLOCATED",
+  },
+  runtime: {
+    deterministic: true,
+    structuralRuleRepresentation: true,
+    independentSolverRequired: true,
+    conditionByConditionExplanation: true,
+    fourUniqueOptions: true,
+    supportedLanguages: ["en", "hi", "pa"] as const,
+    scenarioAuthoritiesPerImplementedCheckpoint: 25,
+    freeFormScenarioGenerationAllowed: false,
+  },
+  lifecycle: {
+    status: "WAVE_1_TECHNICAL_CANDIDATE_REVIEW_ONLY",
+    questionStudioRegisteredReviewOnly: true,
+    questionBankWritable: false,
+    testEligible: false,
+    mockEligible: false,
+    publicEligible: false,
+    automaticPublication: false,
+  },
+  boundary: {
+    recruitmentAdmissionEligibilityOwnedBy: "REAS-DCS",
+    courseOfActionJudgmentOwnedBy: "REAS-COA",
+    currentGovernmentSchemeFactsExcluded: true,
+    downstreamReleaseAndActivation: "QUESTION_STUDIO_GOVERNANCE_ONLY",
+  },
+});

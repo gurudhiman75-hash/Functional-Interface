@@ -14,6 +14,11 @@ import {
 } from "../../reasoning-v1/topics/Mathematical-Operations/OPS-001/runtime/audited-generator";
 import { generateOpsPairedCompoundPresentation } from "../../reasoning-v1/topics/Mathematical-Operations/OPS-001/runtime/paired-compound-presentation";
 import { enrichQuestionStudioPackageCpTitles } from "../package-metadata";
+import {
+  DM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+  generateDm001QuestionStudioBatch,
+  isDm001QuestionStudioRequest,
+} from "../../reasoning-v1/topics/Decision-Making/DM-001/question-studio-integration.ts";
 import type { OpsInstanceDifficulty } from "../../reasoning-v1/topics/Mathematical-Operations/OPS-001/runtime/final-audit-remediation";
 import type {
   QuestionStudioEngineAdapter,
@@ -405,6 +410,7 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   listPackages() {
     return [
       OPS001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
+      DM001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       DIR001_STANDARD_REVIEW_ONLY_PACKAGE_V1,
       CLK_001_QUESTION_STUDIO_PACKAGE,
       MIS_001_QUESTION_STUDIO_PACKAGE,
@@ -451,6 +457,9 @@ export const reasoningV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       )
     ) {
       return generateCoaCp012ApprovedQuestionStudioBatch(request);
+    }
+    if (isDm001QuestionStudioRequest(request)) {
+      return generateDm001QuestionStudioBatch(request);
     }
     if (!isOps001Request(request))
       throw new Error(

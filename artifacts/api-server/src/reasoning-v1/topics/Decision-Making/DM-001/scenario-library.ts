@@ -1,0 +1,304 @@
+import type {
+  DmCheckpointId,
+  DmDecisionRule,
+  DmField,
+  DmQlId,
+  DmRuleCondition,
+  DmScenario,
+  LocalizedText,
+} from "./types.ts";
+import { dmQlIdsForCheckpoint } from "./ql-registry.ts";
+
+const text = (en: string, hi: string, pa: string): LocalizedText => Object.freeze({ en, hi, pa });
+const condition = (id: string, field: DmField, operator: DmRuleCondition["operator"], value: DmRuleCondition["value"]): DmRuleCondition =>
+  Object.freeze({ id, field, operator, value });
+
+const CONTEXTS: Readonly<Record<DmCheckpointId, readonly LocalizedText[]>> = Object.freeze({
+  "DM-CP-001": [
+    text("Junior clerk recruitment", "कनिष्ठ लिपिक भर्ती", "ਜੂਨੀਅਰ ਕਲਰਕ ਦੀ ਭਰਤੀ"),
+    text("ITI apprentice intake", "आईटीआई प्रशिक्षु चयन", "ਆਈਟੀਆਈ ਸਿਖਿਆਰਥੀ ਦੀ ਚੋਣ"),
+    text("Public library assistant appointment", "सार्वजनिक पुस्तकालय सहायक नियुक्ति", "ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀ ਸਹਾਇਕ ਦੀ ਨਿਯੁਕਤੀ"),
+    text("Diploma programme admission", "डिप्लोमा कार्यक्रम में प्रवेश", "ਡਿਪਲੋਮਾ ਪ੍ਰੋਗਰਾਮ ਵਿੱਚ ਦਾਖ਼ਲਾ"),
+    text("Field survey trainee selection", "क्षेत्र सर्वेक्षण प्रशिक्षु चयन", "ਫੀਲਡ ਸਰਵੇਖਣ ਸਿਖਿਆਰਥੀ ਦੀ ਚੋਣ"),
+  ],
+  "DM-CP-002": [
+    text("Revenue records assistant recruitment", "राजस्व अभिलेख सहायक भर्ती", "ਮਾਲ ਰਿਕਾਰਡ ਸਹਾਇਕ ਦੀ ਭਰਤੀ"),
+    text("State service desk trainee intake", "राज्य सेवा केंद्र प्रशिक्षु चयन", "ਰਾਜ ਸੇਵਾ ਕੇਂਦਰ ਸਿਖਿਆਰਥੀ ਦੀ ਚੋਣ"),
+    text("Polytechnic scholarship selection", "पॉलिटेक्निक छात्रवृत्ति चयन", "ਪੌਲੀਟੈਕਨਿਕ ਵਜ਼ੀਫ਼ਾ ਚੋਣ"),
+    text("Banking operations trainee recruitment", "बैंकिंग संचालन प्रशिक्षु भर्ती", "ਬੈਂਕਿੰਗ ਕਾਰਜ ਸਿਖਿਆਰਥੀ ਦੀ ਭਰਤੀ"),
+    text("Health records operator appointment", "स्वास्थ्य अभिलेख ऑपरेटर नियुक्ति", "ਸਿਹਤ ਰਿਕਾਰਡ ਓਪਰੇਟਰ ਦੀ ਨਿਯੁਕਤੀ"),
+  ],
+  "DM-CP-003": [
+    text("Departmental appointment", "विभागीय नियुक्ति", "ਵਿਭਾਗੀ ਨਿਯੁਕਤੀ"),
+    text("Teaching fellowship selection", "शिक्षण फेलोशिप चयन", "ਅਧਿਆਪਨ ਫੈਲੋਸ਼ਿਪ ਦੀ ਚੋਣ"),
+    text("Technical apprenticeship intake", "तकनीकी प्रशिक्षु चयन", "ਤਕਨੀਕੀ ਸਿਖਿਆਰਥੀ ਦੀ ਚੋਣ"),
+    text("Municipal data operator recruitment", "नगरपालिका डेटा ऑपरेटर भर्ती", "ਨਗਰ ਪਾਲਿਕਾ ਡਾਟਾ ਓਪਰੇਟਰ ਦੀ ਭਰਤੀ"),
+    text("State training programme admission", "राज्य प्रशिक्षण कार्यक्रम में प्रवेश", "ਰਾਜ ਸਿਖਲਾਈ ਪ੍ਰੋਗਰਾਮ ਵਿੱਚ ਦਾਖ਼ਲਾ"),
+  ],
+  "DM-CP-004": [
+    text("recruitment for an office post", "कार्यालय पद की भर्ती", "ਦਫ਼ਤਰੀ ਅਹੁਦੇ ਦੀ ਭਰਤੀ"),
+    text("selection by a regional recruitment board", "क्षेत्रीय भर्ती बोर्ड द्वारा चयन", "ਖੇਤਰੀ ਭਰਤੀ ਬੋਰਡ ਵੱਲੋਂ ਚੋਣ"),
+    text("admission to an institute programme", "संस्थान के कार्यक्रम में प्रवेश", "ਸੰਸਥਾ ਦੇ ਪ੍ਰੋਗਰਾਮ ਵਿੱਚ ਦਾਖ਼ਲਾ"),
+    text("a public-service internship", "लोक सेवा इंटर्नशिप", "ਲੋਕ ਸੇਵਾ ਇੰਟਰਨਸ਼ਿਪ"),
+    text("a research fellowship", "अनुसंधान फेलोशिप", "ਖੋਜ ਫੈਲੋਸ਼ਿਪ"),
+  ],
+  "DM-CP-005": [
+    text("Technical assistant recruitment", "तकनीकी सहायक भर्ती", "ਤਕਨੀਕੀ ਸਹਾਇਕ ਦੀ ਭਰਤੀ"),
+    text("College laboratory technician appointment", "कॉलेज प्रयोगशाला तकनीशियन नियुक्ति", "ਕਾਲਜ ਲੈਬੋਰਟਰੀ ਟੈਕਨੀਸ਼ਨ ਦੀ ਨਿਯੁਕਤੀ"),
+    text("Skilled apprenticeship intake", "कुशल प्रशिक्षु चयन", "ਹੁਨਰਮੰਦ ਸਿਖਿਆਰਥੀ ਦੀ ਚੋਣ"),
+    text("Clerical training seat allocation", "लिपिकीय प्रशिक्षण सीट आवंटन", "ਕਲਰਕੀ ਸਿਖਲਾਈ ਸੀਟ ਦੀ ਵੰਡ"),
+    text("Teaching assistant recruitment", "शिक्षण सहायक भर्ती", "ਅਧਿਆਪਨ ਸਹਾਇਕ ਦੀ ਭਰਤੀ"),
+  ],
+});
+
+const MONTHS: Readonly<Record<"en" | "hi" | "pa", readonly string[]>> = Object.freeze({
+  en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  hi: ["जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"],
+  pa: ["ਜਨਵਰੀ", "ਫ਼ਰਵਰੀ", "ਮਾਰਚ", "ਅਪ੍ਰੈਲ", "ਮਈ", "ਜੂਨ", "ਜੁਲਾਈ", "ਅਗਸਤ", "ਸਤੰਬਰ", "ਅਕਤੂਬਰ", "ਨਵੰਬਰ", "ਦਸੰਬਰ"],
+});
+
+const AREAS = ["TEACHING", "CLERICAL", "BANKING", "TECHNICAL", "FIELD", "LABORATORY"] as const;
+
+function makeBasicConditions(policy: number, variant: number): DmRuleCondition[] {
+  const ageLimit = 28 + policy + (variant % 2);
+  const marks = 52 + policy * 2;
+  if (variant === 0) return [
+    condition("basic-age", "age", "LTE", ageLimit),
+    condition("basic-qualification", "qualificationRank", "GTE", 3 + (policy % 2)),
+    condition("basic-registration", "registrationStatus", "EQ", "VALID"),
+  ];
+  if (variant === 1) return [
+    condition("basic-marks", "graduationMarks", "GTE", marks),
+    condition("basic-residence", "residenceStatus", "EQ", "HOME_STATE"),
+    condition("basic-certificate", "certificateStatus", "EQ", "VALID"),
+  ];
+  return [
+    condition("basic-age", "age", "LTE", ageLimit + 2),
+    condition("basic-experience", "experienceYears", "GTE", 1 + (policy % 2)),
+    condition("basic-qualification", "qualificationRank", "GTE", 2 + (policy % 2)),
+    condition("basic-registration", "registrationStatus", "EQ", "VALID"),
+  ];
+}
+
+function makeMultipleConditions(policy: number, variant: number): DmRuleCondition[] {
+  const ageLimit = 29 + policy;
+  const marks = 50 + policy * 3;
+  const experience = 1 + (policy % 3);
+  const five = [
+    condition("multi-age", "age", "LTE", ageLimit),
+    condition("multi-qualification", "qualificationRank", "GTE", 3),
+    condition("multi-marks", "graduationMarks", "GTE", marks),
+    condition("multi-experience", "experienceYears", "GTE", experience),
+    condition("multi-registration", "registrationStatus", "EQ", "VALID"),
+  ];
+  const six = [...five, condition("multi-certificate", "certificateStatus", "EQ", "VALID")];
+  const seven = [...six, condition("multi-residence", "residenceStatus", "EQ", "HOME_STATE")];
+  return variant === 0 ? five : variant === 1 ? six : seven;
+}
+
+function exceptionRules(base: readonly DmRuleCondition[], ageLimit: number, marksLimit: number, variant: number): DmDecisionRule[] {
+  const rules: DmDecisionRule[] = [];
+  if (variant !== 2) {
+    const unaffected = base.filter((item) => item.field !== "age");
+    rules.push(Object.freeze({
+      ruleId: "AGE_OVER_BY_TWO_REFER_MANAGER",
+      priority: 10,
+      conditions: Object.freeze([
+        ...unaffected,
+        condition("exception-age-lower", "age", "GTE", ageLimit + 1),
+        condition("exception-age-upper", "age", "LTE", ageLimit + 2),
+        condition("exception-experience", "experienceYears", "GTE", 5),
+      ]),
+      outcome: "REFER_TO_MANAGER",
+      explanation: text(
+        "The age limit is exceeded by no more than two years, the candidate has at least five years of relevant experience, and every other basic condition is met; the rules send the case to the Manager.",
+        "अभ्यर्थी की आयु निर्धारित सीमा से अधिकतम दो वर्ष अधिक है, उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव है और बाकी सभी मूल शर्तें पूरी हैं; नियमों के अनुसार मामला प्रबंधक को भेजा जाएगा।",
+        "ਉਮਰ ਦੀ ਹੱਦ ਵੱਧ ਤੋਂ ਵੱਧ ਦੋ ਸਾਲ ਪਾਰ ਹੈ, ਉਮੀਦਵਾਰ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੈ ਅਤੇ ਬਾਕੀ ਸਾਰੀਆਂ ਮੁੱਢਲੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ; ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
+      ),
+    }));
+  }
+  if (variant !== 0) {
+    const unaffected = base.filter((item) => item.field !== "graduationMarks" && item.field !== "qualificationRank");
+    rules.push(Object.freeze({
+      ruleId: "POSTGRADUATE_MARKS_SHORTFALL_REFER_COMMITTEE",
+      priority: 20,
+      conditions: Object.freeze([
+        ...unaffected,
+        condition("exception-postgraduate", "qualificationRank", "GTE", 4),
+        condition("exception-marks-lower", "graduationMarks", "GTE", Math.max(40, marksLimit - 5)),
+        condition("exception-marks-upper", "graduationMarks", "LTE", marksLimit - 1),
+        condition("exception-experience", "experienceYears", "GTE", 3),
+      ]),
+      outcome: "REFER_TO_COMMITTEE",
+      explanation: text(
+        "A postgraduate candidate may fall short of the marks cut-off by up to five percentage points when they have at least three years of relevant experience and meet the remaining conditions; the case goes to the Review Committee.",
+        "स्नातकोत्तर अभ्यर्थी के अंक निर्धारित सीमा से अधिकतम पाँच प्रतिशत-अंक कम हो सकते हैं, यदि उसके पास कम-से-कम तीन वर्ष का संबंधित अनुभव हो और बाकी शर्तें पूरी हों; मामला समीक्षा समिति को भेजा जाएगा।",
+        "ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਉਮੀਦਵਾਰ ਦੇ ਅੰਕ ਨਿਰਧਾਰਤ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਪੰਜ ਅੰਕ ਘੱਟ ਹੋ ਸਕਦੇ ਹਨ, ਜੇ ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਤਿੰਨ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੋਵੇ ਅਤੇ ਬਾਕੀ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
+      ),
+    }));
+  }
+  return rules;
+}
+
+function makeExceptionConditions(policy: number): DmRuleCondition[] {
+  const ageLimit = 29 + policy;
+  const marksLimit = 54 + policy * 2;
+  return [
+    condition("exception-base-age", "age", "LTE", ageLimit),
+    condition("exception-base-qualification", "qualificationRank", "GTE", 3),
+    condition("exception-base-marks", "graduationMarks", "GTE", marksLimit),
+    condition("exception-base-registration", "registrationStatus", "EQ", "VALID"),
+    condition("exception-base-certificate", "certificateStatus", "EQ", "VALID"),
+  ];
+}
+
+function makeReferralRules(base: readonly DmRuleCondition[], policy: number, variant: number): DmDecisionRule[] {
+  const rules: DmDecisionRule[] = [Object.freeze({
+    ruleId: "CERTIFICATE_MISMATCH_REFER_MANAGER",
+    priority: 5,
+    conditions: Object.freeze([condition("certificate-mismatch", "certificateStatus", "EQ", "MISMATCH")]),
+    outcome: "REFER_TO_MANAGER",
+    explanation: text(
+      "The certificate details do not match the application, so the case must be checked by the Manager before a final decision.",
+      "प्रमाणपत्र का विवरण आवेदन से मेल नहीं खाता; अंतिम निर्णय से पहले मामला प्रबंधक से जाँचवाना होगा।",
+      "ਸਰਟੀਫਿਕੇਟ ਦਾ ਵੇਰਵਾ ਅਰਜ਼ੀ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ; ਅੰਤਿਮ ਫੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਤੋਂ ਜਾਂਚਵਾਉਣਾ ਲਾਜ਼ਮੀ ਹੈ।",
+    ),
+  })];
+  if (variant !== 0) {
+    const ageLimit = 29 + policy;
+    rules.push(Object.freeze({
+      ruleId: "AGE_OVER_BY_TWO_REFER_DIRECTOR",
+      priority: 10,
+      conditions: Object.freeze([
+        ...base.filter((item) => item.field !== "age"),
+        condition("director-age-lower", "age", "GTE", ageLimit + 1),
+        condition("director-age-upper", "age", "LTE", ageLimit + 2),
+        condition("director-experience", "experienceYears", "GTE", 5),
+      ]),
+      outcome: "REFER_TO_DIRECTOR",
+      explanation: text(
+        "The applicant is no more than two years above the age limit and has at least five years of relevant experience while meeting the other requirements; the rules require the Director to decide the case.",
+        "आवेदक आयु-सीमा से अधिकतम दो वर्ष ऊपर है, उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव है और बाकी शर्तें पूरी हैं; नियमों के अनुसार मामला निदेशक के निर्णय के लिए भेजा जाएगा।",
+        "ਬਿਨੈਕਾਰ ਉਮਰ ਦੀ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਦੋ ਸਾਲ ਉੱਪਰ ਹੈ, ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੈ ਅਤੇ ਬਾਕੀ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ; ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਦੇ ਫੈਸਲੇ ਲਈ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
+      ),
+    }));
+  }
+  if (variant === 2) {
+    const marksLimit = 54 + policy * 2;
+    rules.push(Object.freeze({
+      ruleId: "POSTGRADUATE_BORDERLINE_MARKS_REFER_COMMITTEE",
+      priority: 20,
+      conditions: Object.freeze([
+        ...base.filter((item) => item.field !== "graduationMarks"),
+        condition("committee-postgraduate", "qualificationRank", "GTE", 4),
+        condition("committee-marks-lower", "graduationMarks", "GTE", marksLimit - 2),
+        condition("committee-marks-upper", "graduationMarks", "LTE", marksLimit - 1),
+        condition("committee-experience", "experienceYears", "GTE", 3),
+      ]),
+      outcome: "REFER_TO_COMMITTEE",
+      explanation: text(
+        "A postgraduate applicant is one or two percentage points below the marks cut-off and has the required relevant experience; the case must go to the Review Committee.",
+        "स्नातकोत्तर आवेदक के अंक निर्धारित सीमा से एक या दो प्रतिशत-अंक कम हैं और संबंधित अनुभव की शर्त पूरी है; मामला समीक्षा समिति को भेजा जाएगा।",
+        "ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਬਿਨੈਕਾਰ ਦੇ ਅੰਕ ਨਿਰਧਾਰਤ ਹੱਦ ਤੋਂ ਇੱਕ ਜਾਂ ਦੋ ਅੰਕ ਘੱਟ ਹਨ ਅਤੇ ਸੰਬੰਧਤ ਤਜਰਬੇ ਦੀ ਸ਼ਰਤ ਪੂਰੀ ਹੈ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜਿਆ ਜਾਵੇਗਾ।",
+      ),
+    }));
+  }
+  return rules;
+}
+
+function makeReferralBase(policy: number): DmRuleCondition[] {
+  return [
+    condition("referral-age", "age", "LTE", 29 + policy),
+    condition("referral-qualification", "qualificationRank", "GTE", 3),
+    condition("referral-marks", "graduationMarks", "GTE", 54 + policy * 2),
+    condition("referral-registration", "registrationStatus", "EQ", "VALID"),
+    condition("referral-certificate", "certificateStatus", "EQ", "VALID"),
+  ];
+}
+
+function makeAgeQualificationExperience(policy: number, variant: number): DmRuleCondition[] {
+  const ageLimit = 27 + policy;
+  const minimumQualification = 2 + (policy % 3);
+  const years = 1 + (policy % 3);
+  if (variant === 0) return [
+    condition("date-age-limit", "ageAtDate", "LTE", ageLimit),
+    condition("date-qualification", "qualificationRank", "GTE", minimumQualification),
+    condition("date-experience", "experienceYears", "GTE", years),
+  ];
+  if (variant === 1) return [
+    condition("ordinary-age-limit", "age", "LTE", ageLimit + 1),
+    condition("field-qualification", "qualificationRank", "GTE", minimumQualification),
+    condition("field-experience", "experienceYears", "GTE", years + 1),
+    condition("field-experience-area", "experienceArea", "EQ", AREAS[(policy + 1) % AREAS.length]!),
+  ];
+  return [
+    condition("date-minimum-age", "ageAtDate", "GTE", 18),
+    condition("date-maximum-age", "ageAtDate", "LTE", ageLimit),
+    condition("date-qualification", "qualificationRank", "GTE", minimumQualification),
+    condition("date-experience", "experienceYears", "GTE", years),
+    condition("date-experience-area", "experienceArea", "EQ", AREAS[policy % AREAS.length]!),
+  ];
+}
+
+const REFERENCE_DATES = ["2026-01-01", "2026-03-31", "2026-06-30", "2026-09-01", "2026-10-01"] as const;
+
+function rulesFor(checkpointId: DmCheckpointId, policy: number, variant: number): { base: DmRuleCondition[]; exceptions: DmDecisionRule[]; referenceDate?: string } {
+  if (checkpointId === "DM-CP-001") return { base: makeBasicConditions(policy, variant), exceptions: [] };
+  if (checkpointId === "DM-CP-002") return { base: makeMultipleConditions(policy, variant), exceptions: [] };
+  if (checkpointId === "DM-CP-003") {
+    const base = makeExceptionConditions(policy);
+    return { base, exceptions: exceptionRules(base, 29 + policy, 54 + policy * 2, variant) };
+  }
+  if (checkpointId === "DM-CP-004") {
+    const base = makeReferralBase(policy);
+    return { base, exceptions: makeReferralRules(base, policy, variant) };
+  }
+  const referenceDate = REFERENCE_DATES[policy]!;
+  return { base: makeAgeQualificationExperience(policy, variant), exceptions: [], referenceDate };
+}
+
+export function buildDmScenarioLibrary(): readonly DmScenario[] {
+  const checkpoints = Object.keys(CONTEXTS) as DmCheckpointId[];
+  const scenarios: DmScenario[] = [];
+  for (const checkpointId of checkpoints) {
+    const contexts = CONTEXTS[checkpointId];
+    for (let contextIndex = 0; contextIndex < contexts.length; contextIndex += 1) {
+      for (let policy = 0; policy < 5; policy += 1) {
+        const variant = (contextIndex + policy) % 3;
+        const qlId = dmQlIdsForCheckpoint(checkpointId)[variant] as DmQlId;
+        const built = rulesFor(checkpointId, policy, variant);
+        const notes = built.exceptions.map((rule) => rule.explanation);
+        scenarios.push(Object.freeze({
+          scenarioId: checkpointId + "-SC-" + String(contextIndex * 5 + policy + 1).padStart(3, "0"),
+          checkpointId,
+          blueprintCheckpointId: checkpointId.replace("DM-CP-", "DM-"),
+          qlId,
+          context: contexts[contextIndex]!,
+          baseConditions: Object.freeze(built.base),
+          decisionRules: Object.freeze(built.exceptions),
+          ruleNotes: Object.freeze(notes),
+          ...(built.referenceDate ? { referenceDate: built.referenceDate } : {}),
+        }));
+      }
+    }
+  }
+  return Object.freeze(scenarios);
+}
+
+export const DM_001_SCENARIO_LIBRARY = buildDmScenarioLibrary();
+
+export function dmScenariosForCheckpoint(checkpointId: DmCheckpointId): readonly DmScenario[] {
+  return DM_001_SCENARIO_LIBRARY.filter((scenario) => scenario.checkpointId === checkpointId);
+}
+
+export function dmScenarioForQl(qlId: DmQlId): readonly DmScenario[] {
+  return DM_001_SCENARIO_LIBRARY.filter((scenario) => scenario.qlId === qlId);
+}
+
+export function formatDmDate(isoDate: string, locale: "en" | "hi" | "pa"): string {
+  const parts = isoDate.split("-").map(Number);
+  const year = parts[0] ?? 0;
+  const month = parts[1] ?? 1;
+  const day = parts[2] ?? 1;
+  return String(day) + " " + (MONTHS[locale][month - 1] ?? MONTHS[locale][0]) + " " + String(year);
+}
