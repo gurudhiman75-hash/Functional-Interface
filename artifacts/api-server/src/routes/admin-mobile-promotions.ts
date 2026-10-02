@@ -64,6 +64,7 @@ function normalize(input: unknown) {
     campaignKind: CAMPAIGN_KINDS.has(campaignKind) ? campaignKind : "internal",
     isDismissible: raw.isDismissible !== false,
     frequencyCapPerDay: frequencyCapPerDay == null ? null : Math.max(1, Math.min(50, frequencyCapPerDay)),
+    repeatOnEveryOpen: placement === "login_popup" && raw.repeatOnEveryOpen === true,
     audience: normalizeAudience(raw.audience),
     isActive: raw.isActive !== false,
     startAt: dateOrNull(raw.startAt),
@@ -98,6 +99,7 @@ router.get("/", requireAdminPermission("content.taxonomy.read"), async (_req, re
           campaign_kind AS "campaignKind",
           is_dismissible AS "isDismissible",
           frequency_cap_per_day AS "frequencyCapPerDay",
+          repeat_on_every_open AS "repeatOnEveryOpen",
           audience,
           is_active AS "isActive",
           start_at AS "startAt",
@@ -143,11 +145,11 @@ router.post("/", requireAdminPermission("content.taxonomy.manage"), async (req, 
       await tx`
         INSERT INTO platform.mobile_promotions (
           id,title,subtitle,cta_label,image_url,placement,destination_type,destination_value,campaign_kind,
-          is_dismissible,frequency_cap_per_day,audience,is_active,start_at,end_at,sort_order,
+          is_dismissible,frequency_cap_per_day,repeat_on_every_open,audience,is_active,start_at,end_at,sort_order,
           created_by,updated_by,created_at,updated_at
         ) VALUES (
           ${id}::uuid,${input.title},${input.subtitle},${input.ctaLabel},${input.imageUrl},${input.placement},${input.destinationType},${input.destinationValue},${input.campaignKind},
-          ${input.isDismissible},${input.frequencyCapPerDay},${tx.json(input.audience)},${input.isActive},${input.startAt}::timestamptz,${input.endAt}::timestamptz,${input.sortOrder},
+          ${input.isDismissible},${input.frequencyCapPerDay},${input.repeatOnEveryOpen},${tx.json(input.audience)},${input.isActive},${input.startAt}::timestamptz,${input.endAt}::timestamptz,${input.sortOrder},
           ${actorUserId}::uuid,${actorUserId}::uuid,now(),now()
         )
       `;
@@ -170,7 +172,7 @@ router.put("/:id", requireAdminPermission("content.taxonomy.manage"), async (req
       UPDATE platform.mobile_promotions SET
         title=${input.title},subtitle=${input.subtitle},cta_label=${input.ctaLabel},image_url=${input.imageUrl},placement=${input.placement},
         destination_type=${input.destinationType},destination_value=${input.destinationValue},campaign_kind=${input.campaignKind},
-        is_dismissible=${input.isDismissible},frequency_cap_per_day=${input.frequencyCapPerDay},audience=${sqlClient.json(input.audience)},
+        is_dismissible=${input.isDismissible},frequency_cap_per_day=${input.frequencyCapPerDay},repeat_on_every_open=${input.repeatOnEveryOpen},audience=${sqlClient.json(input.audience)},
         is_active=${input.isActive},start_at=${input.startAt}::timestamptz,end_at=${input.endAt}::timestamptz,sort_order=${input.sortOrder},
         updated_by=${actorUserId}::uuid,updated_at=now()
       WHERE id=${id}::uuid

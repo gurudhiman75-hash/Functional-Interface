@@ -19,7 +19,7 @@ const apiBase=((import.meta.env.VITE_API_URL as string|undefined)?.trim()||'/api
 type Audience={languageCodes?:string[];examIds?:string[]};
 type Promotion={
   id:string;title:string;subtitle:string;ctaLabel:string;imageUrl:string;placement:string;destinationType:string;destinationValue:string;
-  campaignKind:string;isDismissible:boolean;frequencyCapPerDay:number|null;audience:Audience;isActive:boolean;
+  campaignKind:string;isDismissible:boolean;frequencyCapPerDay:number|null;repeatOnEveryOpen:boolean;audience:Audience;isActive:boolean;
   startAt:string|null;endAt:string|null;sortOrder:number;createdAt?:string;updatedAt?:string;
 };
 type Exam={id:string;code:string;name:string;familyName:string};
@@ -36,7 +36,7 @@ function localDateTime(value:string|null){
   return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 function isoOrNull(value:string){return value?new Date(value).toISOString():null;}
-function blank():Promotion{return{id:'',title:'',subtitle:'',ctaLabel:'Explore',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,audience:{languageCodes:[],examIds:[]},isActive:true,startAt:null,endAt:null,sortOrder:1};}
+function blank():Promotion{return{id:'',title:'',subtitle:'',ctaLabel:'Explore',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,repeatOnEveryOpen:false,audience:{languageCodes:[],examIds:[]},isActive:true,startAt:null,endAt:null,sortOrder:1};}
 function audienceOf(value:Audience|undefined):Required<Audience>{return{languageCodes:Array.isArray(value?.languageCodes)?value!.languageCodes!:[],examIds:Array.isArray(value?.examIds)?value!.examIds!:[]};}
 function preset(kind:'popup'|'home'|'targeted'):Promotion{
   const base={...blank(),isActive:false};
@@ -69,7 +69,7 @@ export function MobilePromotionsPage(){
       call<Data>('/admin/mobile/promotions'),
       call<{pages:ManagedPage[]}>('/admin/mobile/pages'),
     ]);
-    setItems(data.promotions.map(item=>({...item,ctaLabel:item.ctaLabel||'Explore',audience:audienceOf(item.audience)})));
+    setItems(data.promotions.map(item=>({...item,ctaLabel:item.ctaLabel||'Explore',repeatOnEveryOpen:item.repeatOnEveryOpen===true,audience:audienceOf(item.audience)})));
     setExams(data.catalog?.exams||[]);
     setTestSeries(data.catalog?.testSeries||[]);
     setManagedPages(pagesResult.pages.filter(page=>page.isActive));
@@ -137,7 +137,7 @@ export function MobilePromotionsPage(){
       <Field label="Start"><Input type="datetime-local" value={localDateTime(editing.startAt)} onChange={e=>setEditing({...editing,startAt:isoOrNull(e.target.value)})}/></Field>
       <Field label="End"><Input type="datetime-local" value={localDateTime(editing.endAt)} onChange={e=>setEditing({...editing,endAt:isoOrNull(e.target.value)})}/></Field>
       <Field label="Order"><Input type="number" min="0" max="999" value={editing.sortOrder} onChange={e=>setEditing({...editing,sortOrder:Number(e.target.value)})}/></Field>
-      <Field label="Frequency cap / day"><Input type="number" min="1" max="50" value={editing.frequencyCapPerDay??''} onChange={e=>setEditing({...editing,frequencyCapPerDay:e.target.value?Number(e.target.value):null})} placeholder="No cap"/></Field>
+      <Field label="Frequency cap / day"><Input type="number" min="1" max="50" disabled={editing.placement==='login_popup'&&editing.repeatOnEveryOpen} value={editing.frequencyCapPerDay??''} onChange={e=>setEditing({...editing,frequencyCapPerDay:e.target.value?Number(e.target.value):null})} placeholder={editing.placement==='login_popup'&&editing.repeatOnEveryOpen?'Ignored in every-open mode':'No cap'}/></Field>
       <div className="md:col-span-2 rounded-xl border p-4">
         <p className="text-sm font-semibold">Audience</p>
         <p className="mt-1 text-xs text-muted-foreground">Leave language and exam targeting empty to show this campaign to all eligible learners.</p>
@@ -148,6 +148,7 @@ export function MobilePromotionsPage(){
       </div>
       <div className="flex items-center justify-between rounded-lg border px-3 py-2"><div><p className="text-sm font-medium">Active</p><p className="text-xs text-muted-foreground">Eligible for delivery inside its schedule.</p></div><Switch checked={editing.isActive} onCheckedChange={checked=>setEditing({...editing,isActive:checked})}/></div>
       <div className="flex items-center justify-between rounded-lg border px-3 py-2"><div><p className="text-sm font-medium">Dismissible</p><p className="text-xs text-muted-foreground">Learner can hide this promotion.</p></div><Switch checked={editing.isDismissible} onCheckedChange={checked=>setEditing({...editing,isDismissible:checked})}/></div>
+      {editing.placement==='login_popup'&&<div className="md:col-span-2 flex items-center justify-between rounded-lg border px-3 py-3"><div><p className="text-sm font-medium">Show on every app open</p><p className="text-xs text-muted-foreground">Test mode: ignore saved impressions and dismissals for this app-open popup. It still shows only once per running app session.</p></div><Switch checked={editing.repeatOnEveryOpen} onCheckedChange={checked=>setEditing({...editing,repeatOnEveryOpen:checked,frequencyCapPerDay:checked?null:editing.frequencyCapPerDay})}/></div>}
       <div className="md:col-span-2 rounded-xl border p-4">
         <p className="text-sm font-semibold">Preview</p>
         <div className="mt-3 mx-auto max-w-sm overflow-hidden rounded-2xl border bg-white shadow-sm">
