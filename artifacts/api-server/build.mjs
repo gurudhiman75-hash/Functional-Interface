@@ -132,11 +132,12 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     distDir,
     "question-studio-capabilities.json",
   );
-  const capabilitiesBuildConfig = { ...commonConfig };
-  delete capabilitiesBuildConfig.outdir;
-  delete capabilitiesBuildConfig.outExtension;
   await esbuild({
-    ...capabilitiesBuildConfig,
+    platform: "node",
+    bundle: true,
+    format: "esm",
+    logLevel: "info",
+    external: commonConfig.external,
     sourcemap: false,
     entryPoints: [
       path.resolve(
