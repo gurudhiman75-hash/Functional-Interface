@@ -149,6 +149,13 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
           );
         }
 
+        if (String(item.status) === status) {
+          throw Object.assign(
+            new Error(`Generated item is already ${status.replaceAll("_", " ")}`),
+            { code: "NO_REVIEW_STATUS_CHANGE" },
+          );
+        }
+
         if (String(item.status) === "approved" && status !== "approved" && !reason) {
           throw Object.assign(
             new Error("A reason is required to reopen an approved review-only item"),
