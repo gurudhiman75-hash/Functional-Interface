@@ -47,7 +47,12 @@ export const REASONING_V1_NOVELTY_PROVIDERS_V1: readonly ReasoningNoveltyProvide
     chapterId: "ALP-001",
     topicDirectory: "Alphabet-Test",
     status: "DISCOVERY_REVIEW_ONLY",
-    parentQlIds: ["ALP-QL-031", "ALP-CP-004-DYNAMIC"],
+    parentQlIds: [
+      "ALP-QL-031",
+      "ALP-QL-049", "ALP-QL-051", "ALP-QL-053", "ALP-QL-055",
+      "ALP-QL-059", "ALP-QL-061", "ALP-QL-063", "ALP-QL-065",
+      "ALP-QL-071", "ALP-QL-073",
+    ],
     noveltyAxes: [
       "MULTI_STAGE_COMPOSITION",
       "REPRESENTATION_LOGIC",
