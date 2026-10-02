@@ -49,29 +49,50 @@ router.use(authenticate);
 
 router.get("/",requireAdminPermission("content.taxonomy.read"),async(_req,res)=>{
   try{
-    const campaigns=await sqlClient`
-      SELECT
-        c.id::text AS id,c.title,c.body,c.image_url AS "imageUrl",
-        c.destination_type AS "destinationType",c.destination_value AS "destinationValue",
-        c.audience,c.status,c.scheduled_at AS "scheduledAt",c.sent_at AS "sentAt",
-        c.created_at AS "createdAt",c.updated_at AS "updatedAt",
-        COUNT(d.id)::int AS "deliveryCount",
-        COUNT(d.id) FILTER (WHERE d.status='sent')::int AS "sentCount",
-        COUNT(d.id) FILTER (WHERE d.status='failed')::int AS "failedCount",
-        COUNT(d.id) FILTER (WHERE d.status='opened')::int AS "openedCount"
-      FROM platform.mobile_notification_campaigns c
-      LEFT JOIN platform.mobile_notification_deliveries d ON d.campaign_id=c.id
-      GROUP BY c.id
-      ORDER BY COALESCE(c.scheduled_at,c.created_at) DESC
-      LIMIT 250
-    `;
-    const [deviceSummary]=await sqlClient`
-      SELECT
-        COUNT(*) FILTER (WHERE is_active)::int AS "activeDevices",
-        COUNT(DISTINCT user_id) FILTER (WHERE is_active)::int AS "reachableUsers"
-      FROM platform.mobile_push_devices
-    `;
-    res.json({campaigns,deviceSummary:deviceSummary??{activeDevices:0,reachableUsers:0},generatedAt:new Date().toISOString()});
+    const [campaigns,deviceRows,exams,testSeries]=await Promise.all([
+      sqlClient`
+        SELECT
+          c.id::text AS id,c.title,c.body,c.image_url AS "imageUrl",
+          c.destination_type AS "destinationType",c.destination_value AS "destinationValue",
+          c.audience,c.status,c.scheduled_at AS "scheduledAt",c.sent_at AS "sentAt",
+          c.created_at AS "createdAt",c.updated_at AS "updatedAt",
+          COUNT(d.id) FILTER (WHERE COALESCE(d.is_test,false)=false)::int AS "deliveryCount",
+          COUNT(d.id) FILTER (WHERE COALESCE(d.is_test,false)=false AND d.status IN ('sent','opened'))::int AS "sentCount",
+          COUNT(d.id) FILTER (WHERE COALESCE(d.is_test,false)=false AND d.status='failed')::int AS "failedCount",
+          COUNT(DISTINCT d.user_id) FILTER (WHERE COALESCE(d.is_test,false)=false AND d.status='opened')::int AS "openedCount",
+          COUNT(DISTINCT d.user_id) FILTER (WHERE COALESCE(d.is_test,false)=false AND d.status IN ('sent','opened'))::int AS "deliveredUsers"
+        FROM platform.mobile_notification_campaigns c
+        LEFT JOIN platform.mobile_notification_deliveries d ON d.campaign_id=c.id
+        GROUP BY c.id
+        ORDER BY COALESCE(c.scheduled_at,c.created_at) DESC
+        LIMIT 250
+      `,
+      sqlClient`
+        SELECT
+          COUNT(*) FILTER (WHERE is_active)::int AS "activeDevices",
+          COUNT(DISTINCT user_id) FILTER (WHERE is_active)::int AS "reachableUsers"
+        FROM platform.mobile_push_devices
+      `,
+      sqlClient`
+        SELECT e.id::text AS id,e.code,e.name,f.name AS "familyName"
+        FROM catalog.exams e
+        JOIN catalog.exam_families f ON f.id=e.family_id
+        WHERE e.is_active=true AND f.is_active=true
+        ORDER BY f.name,e.name
+        LIMIT 500
+      `,
+      sqlClient`
+        SELECT s.id::text AS id,s.code,s.name,e.name AS "examName"
+        FROM assessment.test_series s
+        JOIN catalog.exam_versions ev ON ev.id=s.exam_version_id
+        JOIN catalog.exams e ON e.id=ev.exam_id
+        WHERE s.deleted_at IS NULL
+        ORDER BY s.updated_at DESC,s.name
+        LIMIT 500
+      `
+    ]);
+    const deviceSummary=deviceRows[0]??{activeDevices:0,reachableUsers:0};
+    res.json({campaigns,deviceSummary,catalog:{exams,testSeries},generatedAt:new Date().toISOString()});
   }catch(error){
     console.error("Unable to load mobile notifications",error);
     res.status(500).json({error:"Unable to load mobile notifications",code:"MOBILE_NOTIFICATIONS_LOAD_FAILED"});
