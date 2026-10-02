@@ -229,6 +229,10 @@ function Router() {
           <Route path="/ssc-cgl-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-cgl" />)} />
           <Route path="/ssc-cgl-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-cgl" />)} />
           <Route path="/ssc-cgl/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-cgl" />)} />
+          <Route path="/ssc-chsl" component={() => renderPublicRoute(() => <ConfiguredExamHub examSlug="ssc-chsl" />)} />
+          <Route path="/ssc-chsl-preparation" component={() => renderPublicRoute(() => <ConfiguredExamPreparation examSlug="ssc-chsl" />)} />
+          <Route path="/ssc-chsl-syllabus" component={() => renderPublicRoute(() => <ConfiguredExamSyllabus examSlug="ssc-chsl" />)} />
+          <Route path="/ssc-chsl/questions/:topicSlug" component={() => renderPublicRoute(() => <ConfiguredExamQuestions examSlug="ssc-chsl" />)} />
           <Route path="/ssc-cgl-pyqs" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/punjab-police-mock-tests" component={() => renderPublicRoute(SeoLanding)} />
           <Route path="/ibps-clerk-syllabus" component={() => renderPublicRoute(SeoLanding)} />
