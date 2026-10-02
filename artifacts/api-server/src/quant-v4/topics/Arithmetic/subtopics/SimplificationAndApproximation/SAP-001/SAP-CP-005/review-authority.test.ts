@@ -52,7 +52,7 @@ const qlIds = new Set<string>();
 const directions = new Set<string>();
 const difficulties = new Set<string>();
 const coreConcepts = new Map<string, string>();
-const answersByPrototype = new Map<string, Set<string>>();
+const answersByPrototype = new Map<string, Set<string>>();\nconst stemFramesByPrototype = new Map<string, Set<string>>();
 const METHOD_GIVING = /\b(?:by extracting the common factor|using the structural shortcut|without multiplying large numbers first|by compressing the repeated block first)\b/i;
 const categorical = new Set([
   "SAP-CP005-PROT-ILLEGAL-CANCELLATION-DIAGNOSIS",
@@ -136,7 +136,7 @@ for (const [index, record] of records.entries()) {
   assert.equal(record.lifecycle.testEligible, false);
   assert.equal(record.lifecycle.publiclyPublishable, false);
 
-  counts.set(record.prototypeId, (counts.get(record.prototypeId) ?? 0) + 1);
+  const frameSet = stemFramesByPrototype.get(record.prototypeId) ?? new Set<string>();\n  frameSet.add(record.stem.replace(/\\d+/g, "N"));\n  stemFramesByPrototype.set(record.prototypeId, frameSet);\n\n  counts.set(record.prototypeId, (counts.get(record.prototypeId) ?? 0) + 1);
   qlIds.add(record.proposedPermanentQlId);
   directions.add(record.taskDirection);
   difficulties.add(record.difficulty);
@@ -166,7 +166,7 @@ for (const prototypeId of SAP_CP005_REVIEW_PROTOTYPE_IDS) {
   }
 }
 
-assert.ok((answersByPrototype.get("SAP-CP005-PROT-SYMMETRIC-FRACTION-PAIR")?.size ?? 0) >= 4, "Symmetric fraction-pair QL must not collapse to a constant answer.");
+assert.ok((answersByPrototype.get("SAP-CP005-PROT-SYMMETRIC-FRACTION-PAIR")?.size ?? 0) >= 4, "Symmetric fraction-pair QL must not collapse to a constant answer.");\nassert.ok((stemFramesByPrototype.get("SAP-CP005-PROT-ILLEGAL-CANCELLATION-DIAGNOSIS")?.size ?? 0) >= 4, "Illegal-cancellation diagnosis must expose at least four learner-facing stem frames.");
 assert.equal(qlIds.size, 20);
 assert.deepEqual([...qlIds].sort(), Array.from({ length: 20 }, (_, index) => `SAP-QL-${String(72 + index).padStart(3, "0")}`));
 assert.deepEqual([...directions].sort(), ["DIAGNOSIS", "FORWARD", "INVERSE", "STRATEGY"]);
