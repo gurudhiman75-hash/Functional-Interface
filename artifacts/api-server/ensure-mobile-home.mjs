@@ -16,6 +16,7 @@ const firstPromotionMigrationPath = path.resolve(here, "../../docs/database-migr
 const repeatOnOpenMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-promotion-repeat-on-open.sql");
 const notificationsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-notifications.sql");
 const notificationsV2MigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-mobile-notifications-v2.sql");
+const notificationsV3MigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-mobile-notifications-v3.sql");
 const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
 const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
 const analyticsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-analytics.sql");
@@ -219,6 +220,30 @@ try {
     throw new Error("Mobile notifications v2 migration verification failed");
   }
   console.log("[render-build] mobile notifications v2 schema verified");
+  const [notificationsV3Before] = await sql`
+    SELECT EXISTS (
+      SELECT 1 FROM information_schema.columns
+      WHERE table_schema='platform'
+        AND table_name='mobile_notification_deliveries'
+        AND column_name='read_at'
+    ) AS has_read_at
+  `;
+  if (!notificationsV3Before?.has_read_at) {
+    console.log("[render-build] mobile notifications v3 schema missing; applying checked-in migration");
+    await sql.unsafe(await readFile(notificationsV3MigrationPath, "utf8"));
+  }
+  const [notificationsV3After] = await sql`
+    SELECT EXISTS (
+      SELECT 1 FROM information_schema.columns
+      WHERE table_schema='platform'
+        AND table_name='mobile_notification_deliveries'
+        AND column_name='read_at'
+    ) AS has_read_at
+  `;
+  if (!notificationsV3After?.has_read_at) {
+    throw new Error("Mobile notifications v3 migration verification failed");
+  }
+  console.log("[render-build] mobile notifications v3 schema verified");
 
 
   const [contentPlanningBefore] = await sql`

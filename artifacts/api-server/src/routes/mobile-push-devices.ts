@@ -69,7 +69,8 @@ router.get("/mobile/notifications",async(req,res)=>{
         c.destination_value AS "destinationValue",
         CASE WHEN MAX(d.opened_at) IS NULL THEN 'sent' ELSE 'opened' END AS status,
         MAX(d.sent_at) AS "sentAt",
-        MAX(d.opened_at) AS "openedAt"
+        MAX(d.opened_at) AS "openedAt",
+        MAX(COALESCE(d.read_at,d.opened_at)) AS "readAt"
       FROM platform.mobile_notification_deliveries d
       JOIN platform.mobile_notification_campaigns c ON c.id=d.campaign_id
       WHERE d.user_id=${userId}::uuid
@@ -86,6 +87,24 @@ router.get("/mobile/notifications",async(req,res)=>{
   }
 });
 
+router.post("/mobile/notifications/read-all",async(req,res)=>{
+  try{
+    const firebaseUid=req.user?.id??"";
+    const userId=await canonicalUserId(firebaseUid);
+    if(!userId)return void res.status(404).json({error:"Student profile not found.",code:"MOBILE_PUSH_PROFILE_NOT_FOUND"});
+    const rows=await sqlClient`
+      UPDATE platform.mobile_notification_deliveries
+      SET read_at=COALESCE(read_at,now())
+      WHERE user_id=${userId}::uuid
+        AND COALESCE(is_test,false)=false
+        AND status IN ('sent','opened')
+        AND COALESCE(read_at,opened_at) IS NULL
+      RETURNING id::text AS id
+    `;
+    res.json({read:true,deliveryCount:rows.length});
+  }catch(error){console.error("Unable to mark notifications read",error);res.status(500).json({error:"Unable to mark notifications read",code:"MOBILE_NOTIFICATION_READ_ALL_FAILED"});}
+});
+
 router.post("/mobile/notifications/:campaignId/open",async(req,res)=>{
   try{
     const firebaseUid=req.user?.id??"";
@@ -95,7 +114,7 @@ router.post("/mobile/notifications/:campaignId/open",async(req,res)=>{
     if(!/^[0-9a-f-]{36}$/i.test(campaignId))return void res.status(400).json({error:"Invalid campaign identifier.",code:"MOBILE_NOTIFICATION_ID_INVALID"});
     const rows=await sqlClient`
       UPDATE platform.mobile_notification_deliveries
-      SET status='opened',opened_at=COALESCE(opened_at,now())
+      SET status='opened',opened_at=COALESCE(opened_at,now()),read_at=COALESCE(read_at,opened_at,now())
       WHERE campaign_id=${campaignId}::uuid
         AND user_id=${userId}::uuid
         AND COALESCE(is_test,false)=false
