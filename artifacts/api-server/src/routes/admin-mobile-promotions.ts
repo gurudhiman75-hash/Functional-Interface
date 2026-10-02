@@ -56,6 +56,7 @@ function normalize(input: unknown) {
   return {
     title: text(raw.title, 140),
     subtitle: text(raw.subtitle, 280),
+    ctaLabel: text(raw.ctaLabel, 60) || "Explore",
     imageUrl: text(raw.imageUrl, 1000),
     placement: PLACEMENTS.has(placement) ? placement : "home",
     destinationType: DESTINATION_TYPES.has(destinationType) ? destinationType : "none",
@@ -76,18 +77,20 @@ function assertValid(input: ReturnType<typeof normalize>) {
   if (input.campaignKind === "external" && input.destinationType !== "url") throw Object.assign(new Error("External campaigns must use a URL destination."), { statusCode: 400, code: "MOBILE_PROMOTION_EXTERNAL_DESTINATION_INVALID" });
   if (["exam", "test_series", "page"].includes(input.destinationType) && !input.destinationValue) throw Object.assign(new Error("This destination requires a target identifier."), { statusCode: 400, code: "MOBILE_PROMOTION_DESTINATION_REQUIRED" });
   if (input.destinationType === "url" && !isHttpUrl(input.destinationValue)) throw Object.assign(new Error("URL destinations must use http:// or https://."), { statusCode: 400, code: "MOBILE_PROMOTION_URL_INVALID" });
+  if (input.placement === "login_popup" && !input.isDismissible && input.destinationType === "none") throw Object.assign(new Error("A non-dismissible login popup must have an action."), { statusCode: 400, code: "MOBILE_PROMOTION_BLOCKING_POPUP_INVALID" });
 }
 
 router.use(authenticate);
 
 router.get("/", requireAdminPermission("content.taxonomy.read"), async (_req, res) => {
   try {
-    const [rows, exams] = await Promise.all([
+    const [rows, exams, testSeries] = await Promise.all([
       sqlClient`
         SELECT
           id::text AS id,
           title,
           subtitle,
+          cta_label AS "ctaLabel",
           image_url AS "imageUrl",
           placement,
           destination_type AS "destinationType",
@@ -112,9 +115,18 @@ router.get("/", requireAdminPermission("content.taxonomy.read"), async (_req, re
         WHERE e.is_active=true AND f.is_active=true
         ORDER BY f.name,e.name
         LIMIT 500
+      `,
+      sqlClient`
+        SELECT s.id::text AS id,s.code,s.name,e.name AS "examName"
+        FROM assessment.test_series s
+        JOIN catalog.exam_versions ev ON ev.id=s.exam_version_id
+        JOIN catalog.exams e ON e.id=ev.exam_id
+        WHERE s.deleted_at IS NULL
+        ORDER BY s.updated_at DESC,s.name
+        LIMIT 500
       `
     ]);
-    res.json({ promotions: rows, catalog: { exams }, generatedAt: new Date().toISOString() });
+    res.json({ promotions: rows, catalog: { exams, testSeries }, generatedAt: new Date().toISOString() });
   } catch (error) {
     console.error("Unable to load mobile promotions", error);
     res.status(500).json({ error: "Unable to load mobile promotions", code: "MOBILE_PROMOTIONS_LOAD_FAILED" });
@@ -130,11 +142,11 @@ router.post("/", requireAdminPermission("content.taxonomy.manage"), async (req, 
     await sqlClient.begin(async (tx) => {
       await tx`
         INSERT INTO platform.mobile_promotions (
-          id,title,subtitle,image_url,placement,destination_type,destination_value,campaign_kind,
+          id,title,subtitle,cta_label,image_url,placement,destination_type,destination_value,campaign_kind,
           is_dismissible,frequency_cap_per_day,audience,is_active,start_at,end_at,sort_order,
           created_by,updated_by,created_at,updated_at
         ) VALUES (
-          ${id}::uuid,${input.title},${input.subtitle},${input.imageUrl},${input.placement},${input.destinationType},${input.destinationValue},${input.campaignKind},
+          ${id}::uuid,${input.title},${input.subtitle},${input.ctaLabel},${input.imageUrl},${input.placement},${input.destinationType},${input.destinationValue},${input.campaignKind},
           ${input.isDismissible},${input.frequencyCapPerDay},${tx.json(input.audience)},${input.isActive},${input.startAt}::timestamptz,${input.endAt}::timestamptz,${input.sortOrder},
           ${actorUserId}::uuid,${actorUserId}::uuid,now(),now()
         )
@@ -156,7 +168,7 @@ router.put("/:id", requireAdminPermission("content.taxonomy.manage"), async (req
     const input=normalize(req.body);assertValid(input);const actorUserId=req.adminSession!.user.id;
     const rows=await sqlClient`
       UPDATE platform.mobile_promotions SET
-        title=${input.title},subtitle=${input.subtitle},image_url=${input.imageUrl},placement=${input.placement},
+        title=${input.title},subtitle=${input.subtitle},cta_label=${input.ctaLabel},image_url=${input.imageUrl},placement=${input.placement},
         destination_type=${input.destinationType},destination_value=${input.destinationValue},campaign_kind=${input.campaignKind},
         is_dismissible=${input.isDismissible},frequency_cap_per_day=${input.frequencyCapPerDay},audience=${sqlClient.json(input.audience)},
         is_active=${input.isActive},start_at=${input.startAt}::timestamptz,end_at=${input.endAt}::timestamptz,sort_order=${input.sortOrder},
