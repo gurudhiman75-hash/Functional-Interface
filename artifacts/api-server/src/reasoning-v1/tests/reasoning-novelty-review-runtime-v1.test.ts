@@ -7,7 +7,6 @@ test("diagnostic sampler remains available for content-approved providers awaiti
   const requests = [
     { providerId: "RNK-001-CROSS-FAMILY-CASELET", language: "en" as const },
     { providerId: "CAE-001-EDGE-FAMILIES", language: "pa" as const },
-    { providerId: "BLR-001-CODED-FILTERED-COUNT", language: "en" as const },
   ];
 
   for (let index = 0; index < requests.length; index += 1) {
@@ -37,6 +36,7 @@ test("approved runtime providers are not routed through the diagnostic review sa
     "PFC-001-CONTROLLED-NOVEL",
     "ALP-001-TRANSFORMED-GAP",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
+    "BLR-001-CODED-FILTERED-COUNT",
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
     "DIR-001-GRAPH-RELATIVE-PATH",
