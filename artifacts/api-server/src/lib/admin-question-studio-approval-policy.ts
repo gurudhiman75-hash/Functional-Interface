@@ -31,10 +31,17 @@ export function getGeneratedItemApprovalDisposition(
   const questionBankWritable =
     payload.questionBankWritable ?? generationContext.questionBankWritable;
 
-  if (questionBankStatus === "NOT_STORED" && questionBankWritable === false) {
+  if (questionBankStatus === "NOT_STORED" || questionBankWritable === false) {
     return Object.freeze({
       mode: "review_only" as const,
-      reason: "Payload explicitly disables Question Bank storage",
+      reason: "Question Bank storage is disabled for this generated item",
+    });
+  }
+
+  if (questionBankWritable !== true) {
+    return Object.freeze({
+      mode: "review_only" as const,
+      reason: "Question Bank lifecycle authority is missing; approval remains review-only",
     });
   }
 
