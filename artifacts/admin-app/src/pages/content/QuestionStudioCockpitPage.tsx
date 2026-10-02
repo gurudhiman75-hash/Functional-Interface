@@ -192,6 +192,7 @@ export function QuestionStudioCockpitPage() {
   const [reviewPageSize, setReviewPageSize] = useState(20);
   const [reviewSubjectFilter, setReviewSubjectFilter] = useState(ALL);
   const [reviewChapterFilter, setReviewChapterFilter] = useState(ALL);
+  const [reviewPackageFilter, setReviewPackageFilter] = useState(ALL);
   const [statusFilter, setStatusFilter] = useState(ALL);
   const [qualityFilter, setQualityFilter] = useState<QualityFilter>('all');
   const [reason, setReason] = useState('');
@@ -224,9 +225,27 @@ export function QuestionStudioCockpitPage() {
   useEffect(() => {
     if (reviewChapterFilter !== ALL && !reviewChapters.includes(reviewChapterFilter)) {
       setReviewChapterFilter(ALL);
+      setReviewPackageFilter(ALL);
       setReviewPageNumber(1);
     }
   }, [reviewChapterFilter, reviewChapters]);
+
+  const reviewPackages = useMemo(
+    () => enabledPackages.filter((entry) =>
+      (reviewSubjectFilter === ALL || packageSubject(entry) === reviewSubjectFilter)
+      && (reviewChapterFilter === ALL || packageChapter(entry) === reviewChapterFilter)),
+    [enabledPackages, reviewChapterFilter, reviewSubjectFilter],
+  );
+
+  useEffect(() => {
+    if (
+      reviewPackageFilter !== ALL
+      && !reviewPackages.some((entry) => entry.packageId === reviewPackageFilter)
+    ) {
+      setReviewPackageFilter(ALL);
+      setReviewPageNumber(1);
+    }
+  }, [reviewPackageFilter, reviewPackages]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -246,6 +265,7 @@ export function QuestionStudioCockpitPage() {
     pageSize: reviewPageSize,
     subject: reviewSubjectFilter === ALL ? undefined : reviewSubjectFilter,
     chapter: reviewChapterFilter === ALL ? undefined : reviewChapterFilter,
+    packageId: reviewPackageFilter === ALL ? undefined : reviewPackageFilter,
     status: statusFilter === ALL ? undefined : statusFilter as GenerationItemStatus,
     search: serverSearch || undefined,
   });
@@ -445,6 +465,7 @@ export function QuestionStudioCockpitPage() {
       setExpandedRuns((current) => new Set(current).add(result.id));
       setReviewSubjectFilter(packageSubject(activePackage));
       setReviewChapterFilter(packageChapter(activePackage));
+      setReviewPackageFilter(activePackage.packageId);
       setStatusFilter(ALL);
       setQualityFilter('all');
       setSearch('');
@@ -697,14 +718,25 @@ export function QuestionStudioCockpitPage() {
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search run code, stem, CP, topic, package or exam" className="pl-9" />
           </div>
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            <Select value={reviewSubjectFilter} onValueChange={(value) => { setReviewSubjectFilter(value); setReviewChapterFilter(ALL); setReviewPageNumber(1); }}>
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+            <Select value={reviewSubjectFilter} onValueChange={(value) => { setReviewSubjectFilter(value); setReviewChapterFilter(ALL); setReviewPackageFilter(ALL); setReviewPageNumber(1); }}>
               <SelectTrigger><SelectValue placeholder="Subject" /></SelectTrigger>
               <SelectContent><SelectItem value={ALL}>All subjects</SelectItem>{reviewSubjects.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
             </Select>
-            <Select value={reviewChapterFilter} onValueChange={(value) => { setReviewChapterFilter(value); setReviewPageNumber(1); }}>
+            <Select value={reviewChapterFilter} onValueChange={(value) => { setReviewChapterFilter(value); setReviewPackageFilter(ALL); setReviewPageNumber(1); }}>
               <SelectTrigger><SelectValue placeholder="Chapter" /></SelectTrigger>
               <SelectContent><SelectItem value={ALL}>All chapters</SelectItem>{reviewChapters.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}</SelectContent>
+            </Select>
+            <Select value={reviewPackageFilter} onValueChange={(value) => { setReviewPackageFilter(value); setReviewPageNumber(1); }}>
+              <SelectTrigger><SelectValue placeholder="Question family" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL}>All question families</SelectItem>
+                {reviewPackages.map((entry) => (
+                  <SelectItem key={entry.packageId} value={entry.packageId}>
+                    {entry.label} · {entry.packageId}
+                  </SelectItem>
+                ))}
+              </SelectContent>
             </Select>
             <Select value={statusFilter} onValueChange={(value) => { setStatusFilter(value); setReviewPageNumber(1); }}><SelectTrigger><Filter className="mr-2 h-4 w-4" /><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>All statuses</SelectItem><SelectItem value="unreviewed">Unreviewed</SelectItem><SelectItem value="needs_fix">Needs fix</SelectItem><SelectItem value="approved">Approved</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select>
             <Select value={qualityFilter} onValueChange={(value) => setQualityFilter(value as QualityFilter)}><SelectTrigger><ShieldCheck className="mr-2 h-4 w-4" /><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All quality states</SelectItem><SelectItem value="ready">Approval ready</SelectItem><SelectItem value="warning">Warnings only</SelectItem><SelectItem value="blocked">Approval blocked</SelectItem><SelectItem value="duplicate">Duplicate signals</SelectItem></SelectContent></Select>
