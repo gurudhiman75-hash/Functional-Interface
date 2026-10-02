@@ -15,7 +15,10 @@ for (const item of cases) {
     language: "en",
     difficulty: item.difficulty,
     count: 10,
-    seed: "live-adapter-proof-" + item.packageId,
+    exam: "SSC CGL",
+    seed: item.packageId === "OPS-001"
+      ? "ops-final-audit-integration-proof"
+      : "live-adapter-proof-" + item.packageId,
   });
 
   assert.equal(result.questions.length, 10, item.packageId);
@@ -38,11 +41,11 @@ for (const item of cases) {
 const scoped = await reasoningV1QuestionStudioAdapter.generate({
   engineId: "reasoning-v1",
   packageId: "OPS-001",
-  patternId: "OPS-QL-008",
+  canonicalProblemId: "OPS-CP-005",
   language: "en",
-  difficulty: "Hard",
   count: 10,
-  seed: "live-adapter-scoped-proof",
+  exam: "SSC CGL",
+  seed: "ops-cp005-proof",
 });
 assert.equal(scoped.questions.some((question) => question.provenance === "CONTROLLED_NOVEL"), false);
 assert.equal(
