@@ -1,0 +1,41 @@
+name: Validate final pending Reasoning novelty closures
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-inventory-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-provider-registry-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/shared/reasoning-novelty-final-pending-closures-20261002.md"
+      - "artifacts/api-server/src/reasoning-v1/tests/reasoning-final-pending-novelty-closures-20261002.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/InputOutput/IOP-001/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Missing-Number/MIS-001/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Word-Formation/WFM-001/**"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-final-pending-novelty-closures-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/tests/reasoning-final-pending-novelty-closures-20261002.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/reasoning-final-pending-novelty-closures-20261002.test.mjs
+      - run: node artifacts/api-server/dist/reasoning-v1/reasoning-final-pending-novelty-closures-20261002.test.mjs
