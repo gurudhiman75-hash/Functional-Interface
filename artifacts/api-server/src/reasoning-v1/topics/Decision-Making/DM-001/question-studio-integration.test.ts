@@ -1,10 +1,8 @@
 import assert from "node:assert/strict";
-import {
-  generateQuestionStudioQuestions,
-  listQuestionStudioPackages,
-} from "../../../../question-studio/engine-registry.ts";
+import { generateQuestionStudioQuestions } from "../../../../question-studio/engine-registry.ts";
+import { reasoningV1QuestionStudioAdapter } from "../../../../question-studio/engines/reasoning-v1-adapter.ts";
 
-const registered = listQuestionStudioPackages().find((entry) => entry.packageId === "DM-001");
+const registered = reasoningV1QuestionStudioAdapter.listPackages().find((entry) => entry.packageId === "DM-001");
 assert.ok(registered, "DM-001 must be discoverable through the shared Question Studio registry");
 assert.equal(registered.engineId, "reasoning-v1");
 assert.deepEqual(registered.supportedLanguages, ["en", "hi", "pa"]);
