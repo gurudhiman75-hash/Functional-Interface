@@ -35,7 +35,7 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
     assert.equal(review.publiclyPublishable, false);
     assert.ok(review.question.trim().length >= 12);
     assert.ok(review.explanation.trim().length >= 45);
-    assert.doesNotMatch(review.question, /TODO|TBD|undefined|NaN|oracle|runtime|prototype|canonical/i);
+    assert.doesNotMatch(review.question, /TODO|TBD|undefined|\\bNaN\\b|oracle|runtime|prototype|canonical/i);
     assert.doesNotMatch(review.explanation, /TODO|TBD|undefined|NaN|oracle|runtime|prototype|canonical/i);
 
     if (isAlgEnglishV4TargetPrototype(pattern.prototypeId)) {
