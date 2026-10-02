@@ -124,6 +124,7 @@ assert.deepEqual(
     "CLK-001-FAULTY-TIME-ANGLE",
     "DIR-001-GRAPH-RELATIVE-PATH",
     "CAL-001-IMPLICIT-RANGE-FREQUENCY",
+    "BLR-001-CODED-FILTERED-COUNT",
   ],
 );
 assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.safeguards.questionBankReleaseChanged, false);
