@@ -37,6 +37,11 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Verify global route index isolates read paths before the registry
         shell: bash
         run: |
@@ -76,8 +81,7 @@ jobs:
         run: |
           set -euo pipefail
           cd artifacts/api-server
-          pnpm exec esbuild src/question-studio/runtime-read-path-isolation.test.ts --bundle --platform=node --format=esm --outfile=dist/runtime-read-path-isolation.test.mjs
-          node dist/runtime-read-path-isolation.test.mjs
+          node --experimental-strip-types src/question-studio/runtime-read-path-isolation.test.ts
 
       - name: Report focused CI contract
         run: echo 'Question Studio route registry + runtime read isolation PASS'
