@@ -17,6 +17,8 @@ import {
 } from "../question-studio/engine-registry";
 
 const router = Router();
+const MAX_REGENERATION_ITEMS = 50;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function asString(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -34,8 +36,26 @@ router.post(
   "/items/regenerate",
   requireAdminPermission("content.generation.run"),
   async (req, res) => {
-    const rawIds = Array.isArray(req.body?.itemIds) ? req.body.itemIds : [];
-    const itemIds = [...new Set(rawIds.map(asString).filter(Boolean))].slice(0, 50);
+    const rawIds = Array.isArray(req.body?.itemIds)
+      ? req.body.itemIds.map(asString).filter(Boolean)
+      : [];
+    if (rawIds.length > MAX_REGENERATION_ITEMS) {
+      res.status(400).json({
+        error: `At most ${MAX_REGENERATION_ITEMS} generated items can be regenerated in one request`,
+        code: "TOO_MANY_REGENERATION_ITEMS",
+      });
+      return;
+    }
+    const invalidIds = rawIds.filter((id) => !UUID_RE.test(id));
+    if (invalidIds.length > 0) {
+      res.status(400).json({
+        error: "All generated item IDs must be valid UUIDs",
+        code: "INVALID_GENERATION_ITEM_ID",
+        invalidItemIds: invalidIds,
+      });
+      return;
+    }
+    const itemIds = [...new Set(rawIds)];
     const reason = asString(req.body?.reason);
     const actorUserId = req.adminSession?.user.id;
 
