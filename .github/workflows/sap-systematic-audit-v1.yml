@@ -49,6 +49,19 @@ jobs:
           node artifacts/api-server/dist/quant-v4/sap-cp001-semantic-remediation-audit-v1.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp001-semantic-remediation-audit-v1.log
           grep -q "PASS_SAP_CP001_SEMANTIC_REMEDIATION_AUDIT_V1" artifacts/api-server/dist/quant-v4/sap-cp001-semantic-remediation-audit-v1.log
+      - name: Bundle SAP CP002 semantic audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-002/cp002-semantic-remediation-audit-v1.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp002-semantic-remediation-audit-v1.mjs
+      - name: Run SAP CP002 semantic audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp002-semantic-remediation-audit-v1.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp002-semantic-remediation-audit-v1.log
+          grep -q "PASS_SAP_CP002_SEMANTIC_REMEDIATION_AUDIT_V1" artifacts/api-server/dist/quant-v4/sap-cp002-semantic-remediation-audit-v1.log
       - name: Run SAP systematic audit
         shell: bash
         run: |
@@ -64,3 +77,4 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/sap-systematic-audit-v1.log
             artifacts/api-server/dist/quant-v4/sap-cp001-semantic-remediation-audit-v1.log
+            artifacts/api-server/dist/quant-v4/sap-cp002-semantic-remediation-audit-v1.log
