@@ -54,6 +54,13 @@ export interface QuestionStudioRun {
   updatedAt: string;
   requestSnapshot: Record<string, unknown>;
   recipeVersionId: string | null;
+  reviewSummary: {
+    total: number;
+    unreviewed: number;
+    needsFix: number;
+    approved: number;
+    rejected: number;
+  };
   items: QuestionStudioItem[];
 }
 
