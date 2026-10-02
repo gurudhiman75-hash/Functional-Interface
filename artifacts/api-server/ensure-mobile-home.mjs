@@ -11,6 +11,7 @@ if (!databaseUrl) {
 const here = path.dirname(fileURLToPath(import.meta.url));
 const homeMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-home-configuration.sql");
 const promotionsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-promotions.sql");
+const promotionsV2MigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-02-mobile-promotions-v2.sql");
 const notificationsMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-notifications.sql");
 const contentPlanningMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-content-planning.sql");
 const appConfigurationMigrationPath = path.resolve(here, "../../docs/database-migrations/2026-10-01-mobile-app-configuration.sql");
@@ -77,6 +78,33 @@ try {
     throw new Error("Mobile promotions migration completed without creating platform.mobile_promotions");
   }
   console.log("[render-build] mobile promotions schema verified");
+  const [promotionsV2Before] = await sql`
+    SELECT EXISTS (
+      SELECT 1
+      FROM information_schema.columns
+      WHERE table_schema='platform'
+        AND table_name='mobile_promotions'
+        AND column_name='cta_label'
+    ) AS has_cta_label
+  `;
+  if (!promotionsV2Before?.has_cta_label) {
+    console.log("[render-build] mobile promotions v2 schema missing; applying checked-in migration");
+    await sql.unsafe(await readFile(promotionsV2MigrationPath, "utf8"));
+  }
+  const [promotionsV2After] = await sql`
+    SELECT EXISTS (
+      SELECT 1
+      FROM information_schema.columns
+      WHERE table_schema='platform'
+        AND table_name='mobile_promotions'
+        AND column_name='cta_label'
+    ) AS has_cta_label
+  `;
+  if (!promotionsV2After?.has_cta_label) {
+    throw new Error("Mobile promotions v2 migration completed without cta_label");
+  }
+  console.log("[render-build] mobile promotions v2 schema verified");
+
 
   const [notificationsBefore] = await sql`
     SELECT
