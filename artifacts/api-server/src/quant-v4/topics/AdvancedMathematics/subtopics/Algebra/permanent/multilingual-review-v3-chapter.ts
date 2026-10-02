@@ -137,6 +137,34 @@ function localizeCp003Target(english: any, locale: AlgReviewLocale) {
   return null;
 }
 
+function localizeCp012Target(english: any, locale: AlgReviewLocale) {
+  if (!["ALG-CP012-CAND-011", "ALG-CP012-CAND-012"].includes(english.prototypeId)) return null;
+  const raw = english.v4RawCandidate ?? {};
+  const state = raw.state ?? {};
+  const sum = String(state.sum ?? "");
+  const answer = String(raw.answerText ?? "");
+  const balanced = raw.balancedVariable ? formatRational(raw.balancedVariable) : "";
+
+  const reciprocal = english.prototypeId === "ALG-CP012-CAND-011";
+  const question = locale === "hi-IN"
+    ? (reciprocal
+        ? `यदि x, y और z धनात्मक वास्तविक संख्याएँ हैं तथा x + y + z = ${sum}, तो 1/x + 1/y + 1/z का न्यूनतम मान ज्ञात कीजिए।`
+        : `यदि x, y और z धनात्मक वास्तविक संख्याएँ हैं तथा x + y + z = ${sum}, तो x² + y² + z² का न्यूनतम मान ज्ञात कीजिए।`)
+    : (reciprocal
+        ? `ਜੇ x, y ਅਤੇ z ਧਨਾਤਮਕ ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ ਹਨ ਅਤੇ x + y + z = ${sum}, ਤਾਂ 1/x + 1/y + 1/z ਦਾ ਘੱਟੋ-ਘੱਟ ਮਾਨ ਪਤਾ ਕਰੋ।`
+        : `ਜੇ x, y ਅਤੇ z ਧਨਾਤਮਕ ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ ਹਨ ਅਤੇ x + y + z = ${sum}, ਤਾਂ x² + y² + z² ਦਾ ਘੱਟੋ-ਘੱਟ ਮਾਨ ਪਤਾ ਕਰੋ।`);
+
+  const explanation = locale === "hi-IN"
+    ? (reciprocal
+        ? `कॉशी असमानता से (x + y + z)(1/x + 1/y + 1/z) ≥ 9। यहाँ x + y + z = ${sum}, इसलिए 1/x + 1/y + 1/z ≥ ${answer}। समानता x = y = z = ${balanced} पर प्राप्त होती है। अतः न्यूनतम मान ${answer} है।`
+        : `कॉशी असमानता से (x + y + z)² ≤ 3(x² + y² + z²)। यहाँ x + y + z = ${sum}, इसलिए x² + y² + z² ≥ ${answer}। समानता x = y = z = ${balanced} पर प्राप्त होती है। अतः न्यूनतम मान ${answer} है।`)
+    : (reciprocal
+        ? `ਕਾਊਸ਼ੀ ਅਸਮਾਨਤਾ ਤੋਂ (x + y + z)(1/x + 1/y + 1/z) ≥ 9। ਇੱਥੇ x + y + z = ${sum}, ਇਸ ਲਈ 1/x + 1/y + 1/z ≥ ${answer}। ਬਰਾਬਰੀ x = y = z = ${balanced} ਤੇ ਮਿਲਦੀ ਹੈ। ਇਸ ਲਈ ਘੱਟੋ-ਘੱਟ ਮਾਨ ${answer} ਹੈ।`
+        : `ਕਾਊਸ਼ੀ ਅਸਮਾਨਤਾ ਤੋਂ (x + y + z)² ≤ 3(x² + y² + z²)। ਇੱਥੇ x + y + z = ${sum}, ਇਸ ਲਈ x² + y² + z² ≥ ${answer}। ਬਰਾਬਰੀ x = y = z = ${balanced} ਤੇ ਮਿਲਦੀ ਹੈ। ਇਸ ਲਈ ਘੱਟੋ-ਘੱਟ ਮਾਨ ${answer} ਹੈ।`);
+
+  return { question, explanation };
+}
+
 function localizeCp011Target(english: any, locale: AlgReviewLocale) {
   if (english.prototypeId !== "ALG-CP011-CAND-005") return null;
   const raw = english.v4RawCandidate ?? {};
@@ -245,8 +273,9 @@ export function generateAlgPermanentMultilingualV3ChapterReview(
   const cp007 = localizeCp007Target(english, locale);
   const cp009 = localizeCp009Target(english, locale);
   const cp011 = localizeCp011Target(english, locale);
-  const question = cp003?.question ?? cp007?.question ?? cp009?.question ?? cp011?.question ?? localizeV4Question(english.question, locale);
-  const explanation = cp003?.explanation ?? cp007?.explanation ?? cp009?.explanation ?? cp011?.explanation ?? english.explanation
+  const cp012 = localizeCp012Target(english, locale);
+  const question = cp003?.question ?? cp007?.question ?? cp009?.question ?? cp011?.question ?? cp012?.question ?? localizeV4Question(english.question, locale);
+  const explanation = cp003?.explanation ?? cp007?.explanation ?? cp009?.explanation ?? cp011?.explanation ?? cp012?.explanation ?? english.explanation
     .split(/\n+/)
     .map((line) => polishV4Explanation(line, locale))
     .join("\n");
