@@ -79,14 +79,14 @@ export const REASONING_V1_NOVELTY_INVENTORY_V1: readonly ReasoningNoveltyInvento
   {
     topicDirectory: 'Cause-and-Effect',
     chapterId: 'CAE-001',
-    status: 'APPROVED_CONTROLLED_NOVEL_RUNTIME',
+    status: 'CONTENT_REVIEW_APPROVED_AWAITING_QUESTION_STUDIO_ROUTE',
     evidence: [
       'CP008 multi-event ordering and CP009 integrated missing-link/reconstruction families are explicitly retained as Examtree edge coverage.',
       'The existing reviewed multilingual runtime is wrapped with shared CONTROLLED_NOVEL provenance.',
       'Solver trace, unique-answer and distractor gates remain intact; no historical-paper frequency claim is made.',
     ],
-    countsTowardControlledNovelTargetNow: true,
-    nextGate: 'Monitor governed Question Studio novelty mix quality and preserve explicit-scope/language/difficulty safeguards.',
+    countsTowardControlledNovelTargetNow: false,
+    nextGate: 'Register a truthful source-backed Question Studio chapter route before runtime mix activation.',
   },
   {
     topicDirectory: 'Classification',
