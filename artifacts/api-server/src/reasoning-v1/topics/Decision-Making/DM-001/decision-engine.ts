@@ -81,11 +81,16 @@ export function evaluateDmDecision(
   }
 
   const baseChecks = scenario.baseConditions.map((item) => checkDmCondition(item, candidate, scenario));
-  if (baseChecks.some((check) => check.status === "UNKNOWN")) {
-    return Object.freeze({ outcome: "INFORMATION_REQUIRED", checks: Object.freeze(baseChecks), unresolvedRuleIds: Object.freeze(unresolvedRuleIds) });
-  }
   if (baseChecks.every((check) => check.status === "PASS")) {
     return Object.freeze({ outcome: "SELECT", checks: Object.freeze(baseChecks), unresolvedRuleIds: Object.freeze([]) });
+  }
+  // A failed mandatory condition is already decisive unless an unresolved exception could still rescue the case.
+  // This distinction is essential for DM-018: missing data is not automatically material.
+  if (baseChecks.some((check) => check.status === "FAIL") && unresolvedRuleIds.length === 0) {
+    return Object.freeze({ outcome: "REJECT", checks: Object.freeze(baseChecks), unresolvedRuleIds: Object.freeze([]) });
+  }
+  if (baseChecks.some((check) => check.status === "UNKNOWN")) {
+    return Object.freeze({ outcome: "INFORMATION_REQUIRED", checks: Object.freeze(baseChecks), unresolvedRuleIds: Object.freeze(unresolvedRuleIds) });
   }
   if (unresolvedRuleIds.length > 0) {
     return Object.freeze({ outcome: "INFORMATION_REQUIRED", checks: Object.freeze(baseChecks), unresolvedRuleIds: Object.freeze(unresolvedRuleIds) });

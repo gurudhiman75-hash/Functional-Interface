@@ -12,6 +12,7 @@ import type {
 import { dmQlIdsForCheckpoint } from "./ql-registry.ts";
 import { DM_001_CHECKPOINT_IDS } from "./types.ts";
 import { buildDmSituationalScenarios } from "./situational-library.ts";
+import { buildDmAdvancedScenarios } from "./advanced-library.ts";
 
 const text = (en: string, hi: string, pa: string): LocalizedText => Object.freeze({ en, hi, pa });
 const condition = (id: string, field: DmField, operator: DmRuleCondition["operator"], value: DmRuleCondition["value"]): DmRuleCondition =>
@@ -456,6 +457,7 @@ export function buildDmScenarioLibrary(): readonly DmScenario[] {
     }
   }
   scenarios.push(...buildDmSituationalScenarios());
+  scenarios.push(...buildDmAdvancedScenarios());
   return Object.freeze(scenarios);
 }
 

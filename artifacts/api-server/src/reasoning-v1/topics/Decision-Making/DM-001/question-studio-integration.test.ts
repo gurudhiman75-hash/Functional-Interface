@@ -6,7 +6,7 @@ const registered = reasoningV1QuestionStudioAdapter.listPackages().find((entry) 
 assert.ok(registered, "DM-001 must be discoverable through the shared Question Studio registry");
 assert.equal(registered.engineId, "reasoning-v1");
 assert.deepEqual(registered.supportedLanguages, ["en", "hi", "pa"]);
-assert.deepEqual(registered.cpIds, Array.from({ length: 16 }, (_, index) => "DM-CP-" + String(index + 1).padStart(3, "0")));
+assert.deepEqual(registered.cpIds, Array.from({ length: 20 }, (_, index) => "DM-CP-" + String(index + 1).padStart(3, "0")));
 assert.equal(registered.lifecycleStage, "REVIEW_ONLY");
 assert.equal(registered.questionBankWritable, false);
 assert.equal(registered.testEligible, false);
@@ -89,4 +89,18 @@ const resources = await generateQuestionStudioQuestions({
 assert.ok(resources.questions.every((question) => question.checkpointId === "DM-CP-016"));
 assert.ok(resources.questions.every((question) => question.answerMode === "SITUATIONAL_ACTION"));
 
-console.log("DM-001 passed shared Question Studio registration, routing, Waves 1–3 selectors, locale, difficulty and review-only lifecycle checks.");
+const incomplete = await generateQuestionStudioQuestions({
+  engineId: "reasoning-v1", patternId: "DM-018", language: "pa", difficulty: "Hard", count: 8, seed: "dm001-incomplete-information",
+});
+assert.ok(incomplete.questions.every((question) => question.checkpointId === "DM-CP-018"));
+assert.ok(incomplete.questions.every((question) => question.ruleOutcome === "REJECT"));
+
+const mixedSet = await generateQuestionStudioQuestions({
+  engineId: "reasoning-v1", patternId: "DM-020", language: "en", difficulty: "Hard", count: 10, seed: "dm001-mixed-set",
+});
+assert.ok(mixedSet.questions.every((question) => question.checkpointId === "DM-CP-020"));
+assert.ok(mixedSet.questions.every((question) => question.answerMode === "MIXED_DECISION_SET"));
+assert.ok(mixedSet.questions.every((question) => question.answer === question.canonicalAnswer));
+assert.ok(mixedSet.questions.every((question) => Array.isArray(question.selectedCandidates)));
+
+console.log("DM-001 passed shared Question Studio registration, routing, Waves 1–4 selectors, locale, difficulty and review-only lifecycle checks.");

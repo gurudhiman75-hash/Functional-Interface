@@ -15,6 +15,10 @@ export const DM_001_CHECKPOINT_IDS = [
   "DM-CP-014",
   "DM-CP-015",
   "DM-CP-016",
+  "DM-CP-017",
+  "DM-CP-018",
+  "DM-CP-019",
+  "DM-CP-020",
 ] as const;
 
 export const DM_001_QL_IDS = [
@@ -34,6 +38,10 @@ export const DM_001_QL_IDS = [
   "DM-QL-040", "DM-QL-041", "DM-QL-042",
   "DM-QL-043", "DM-QL-044", "DM-QL-045",
   "DM-QL-046", "DM-QL-047", "DM-QL-048",
+  "DM-QL-049", "DM-QL-050", "DM-QL-051",
+  "DM-QL-052", "DM-QL-053", "DM-QL-054",
+  "DM-QL-055", "DM-QL-056", "DM-QL-057",
+  "DM-QL-058", "DM-QL-059", "DM-QL-060",
 ] as const;
 
 export type DmCheckpointId = (typeof DM_001_CHECKPOINT_IDS)[number];
@@ -47,7 +55,8 @@ export type DmOutcome =
   | "REFER_TO_DIRECTOR"
   | "REFER_TO_COMMITTEE"
   | "INFORMATION_REQUIRED"
-  | "TAKE_ACTION";
+  | "TAKE_ACTION"
+  | "SET_RESULT";
 export type DmField =
   | "age"
   | "ageAtDate"
@@ -84,7 +93,8 @@ export type DmCandidateMode =
   | "DOCUMENT_REFERRAL"
   | "DIRECTOR_REFERRAL"
   | "COMMITTEE_REFERRAL"
-  | "BOTH_RELAXATION";
+  | "BOTH_RELAXATION"
+  | "DETERMINED_REJECT_WITH_MISSING";
 
 export type LocalizedText = Readonly<Record<DmLocale, string>>;
 
@@ -122,6 +132,22 @@ export type DmSituationalSpec = Readonly<{
   focus: "BEST_ACTION" | "FIRST_ACTION" | "RESOURCE_PRIORITY";
   policyOrder: readonly DmSituationalPrinciple[];
   choices: readonly DmSituationalChoice[];
+}>;
+
+export type DmSetQuestionKind =
+  | "COUNT_SELECTED"
+  | "IDENTIFY_REJECTED"
+  | "IDENTIFY_REFERRED"
+  | "SAME_DECISION_PAIR"
+  | "SATISFIES_ALL"
+  | "INFORMATION_REQUIRED";
+
+export type DmSetSpec = Readonly<{
+  setFamily: "MULTI_PERSON" | "MIXED_ADVANCED";
+  questionKinds: readonly DmSetQuestionKind[];
+  minimumProfiles: 4 | 5;
+  maximumProfiles: 5 | 6;
+  referralModes: readonly Extract<DmCandidateMode, "DOCUMENT_REFERRAL" | "DIRECTOR_REFERRAL" | "COMMITTEE_REFERRAL" | "AGE_EXCEPTION" | "MARKS_EXCEPTION" | "BOTH_RELAXATION">[];
 }>;
 
 export type DmRuleCondition = Readonly<{
@@ -181,6 +207,7 @@ export type DmScenario = Readonly<{
   experienceAreaForBase?: string;
   ranking?: DmRankingSpec;
   situational?: DmSituationalSpec;
+  setSpec?: DmSetSpec;
 }>;
 
 export type DmConditionCheck = Readonly<{
@@ -206,9 +233,11 @@ export type DmGeneratedQuestion = Readonly<{
   locale: DmLocale;
   difficulty: DmDifficulty;
   candidate: DmCandidateProfile;
-  answerMode: "ELIGIBILITY_OUTCOME" | "RANKED_CANDIDATE_SET" | "SITUATIONAL_ACTION";
+  answerMode: "ELIGIBILITY_OUTCOME" | "RANKED_CANDIDATE_SET" | "SITUATIONAL_ACTION" | "MULTI_PERSON_DECISION_SET" | "MIXED_DECISION_SET";
   candidateGroup?: readonly DmCandidateProfile[];
   selectedCandidates?: readonly string[];
+  setQuestionKind?: DmSetQuestionKind;
+  setQuestionNumber?: number;
   stem: string;
   options: readonly string[];
   correctIndex: number;

@@ -13,7 +13,7 @@ import type { DmCheckpointId, DmDifficulty, DmLocale, DmQlId } from "./types.ts"
 
 export const DM001_QUESTION_STUDIO_PACKAGE_ID_V1 = "DM-001" as const;
 export const DM001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
-export const DM001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 = "DM-001-WAVES-1-3-DETERMINISTIC-DECISIONS-V1" as const;
+export const DM001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1 = "DM-001-WAVES-1-4-COMPLETE-DETERMINISTIC-DECISIONS-V1" as const;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const qlIds = DM_001_QL_REGISTRY.map((entry) => entry.qlId);
@@ -35,6 +35,10 @@ const blueprintCpAliases: Readonly<Record<string, DmCheckpointId>> = Object.free
   "DM-014": "DM-CP-014",
   "DM-015": "DM-CP-015",
   "DM-016": "DM-CP-016",
+  "DM-017": "DM-CP-017",
+  "DM-018": "DM-CP-018",
+  "DM-019": "DM-CP-019",
+  "DM-020": "DM-CP-020",
 });
 
 type DisplayDifficulty = "Easy" | "Medium" | "Hard";
@@ -156,7 +160,7 @@ export const DM001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefinit
   metadata: {
     registrationAuthorityId: DM001_QUESTION_STUDIO_REGISTRATION_AUTHORITY_V1,
     semanticQlCount: DM_001_MANIFEST.semanticQlCount,
-    permanentQlRange: "DM-QL-001..DM-QL-048",
+    permanentQlRange: "DM-QL-001..DM-QL-060",
     checkpointCount: cpIds.length,
     deterministicGeneration: true,
     multilingualParityVerified: true,
@@ -180,8 +184,12 @@ export const DM001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefinit
       "DM-CP-014": "Workplace Decisions · DM-014",
       "DM-CP-015": "Public-Service Situations · DM-015",
       "DM-CP-016": "Resource Allocation · DM-016",
+      "DM-CP-017": "Conflicting Conditions and Tie-breaking · DM-017",
+      "DM-CP-018": "Incomplete Information Decisions · DM-018",
+      "DM-CP-019": "Multi-person Decision Sets · DM-019",
+      "DM-CP-020": "Mixed Decision-Making Sets · DM-020",
     },
-    chapterBlueprintStatus: "WAVES_1_TO_3_IMPLEMENTED",
+    chapterBlueprintStatus: "WAVES_1_TO_4_CHAPTER_COMPLETE",
     questionBankWritesEnabled: false,
     testActivationEnabled: false,
     mockActivationEnabled: false,
@@ -200,7 +208,7 @@ export async function generateDm001QuestionStudioBatch(
   const count = normalizeCount(request.count);
   const requestedDifficulty = normalizeDifficulty(request.difficulty);
   const qlPool = resolveQlPool(request);
-  const seedText = text(request.seed) || "dm001-waves-1-3-review-v1";
+  const seedText = text(request.seed) || "dm001-waves-1-4-review-v1";
   const start = hash(seedText + ":ql-start") % qlPool.length;
   const questions: Record<string, unknown>[] = [];
 
@@ -236,6 +244,7 @@ export async function generateDm001QuestionStudioBatch(
       ruleOutcome: generated.outcome,
       answerMode: generated.answerMode,
       ...(generated.selectedCandidates ? { selectedCandidates: [...generated.selectedCandidates] } : {}),
+      ...(generated.setQuestionKind ? { setQuestionKind: generated.setQuestionKind, setQuestionNumber: generated.setQuestionNumber } : {}),
       subject: "Reasoning",
       topic: "Decision Making / Eligibility",
       subtopic: "Eligibility and Rule Application",
@@ -284,6 +293,7 @@ export async function generateDm001QuestionStudioBatch(
         scenarioId: generated.scenarioId,
         ruleOutcome: generated.outcome,
         answerMode: generated.answerMode,
+        ...(generated.setQuestionKind ? { setQuestionKind: generated.setQuestionKind, setQuestionNumber: generated.setQuestionNumber } : {}),
       },
     });
   }
@@ -305,6 +315,7 @@ export async function generateDm001QuestionStudioBatch(
       scenarioCount: DM_001_SCENARIO_LIBRARY.length,
       ruleBasedScenarioCountPerCheckpoint: 25,
       situationalScenarioCountPerCheckpoint: 50,
+      advancedScenarioCountPerCheckpoint: 25,
       language,
       requestedDifficulty: requestedDifficulty ? displayDifficulty(requestedDifficulty) : "Mixed",
       difficultyDistributionTarget: "30% Easy / 45% Medium / 25% Hard",

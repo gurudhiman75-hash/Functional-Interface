@@ -5,13 +5,13 @@ import { DM_001_SCENARIO_LIBRARY, dmScenariosForCheckpoint } from "./scenario-li
 import { solveDmSituation } from "./situational-engine.ts";
 import { DM_001_CHECKPOINT_IDS, DM_001_QL_IDS } from "./types.ts";
 
-assert.equal(DM_001_CHECKPOINT_IDS.length, 16);
-assert.equal(DM_001_QL_IDS.length, 48);
-assert.equal(DM_001_QL_REGISTRY.length, 48);
-assert.equal(DM_001_SCENARIO_LIBRARY.length, 550);
+assert.equal(DM_001_CHECKPOINT_IDS.slice(0, 16).length, 16);
+assert.equal(DM_001_QL_IDS.slice(0, 48).length, 48);
+assert.equal(DM_001_QL_REGISTRY.filter((entry) => Number(entry.checkpointId.slice(-3)) <= 16).length, 48);
+assert.equal(DM_001_SCENARIO_LIBRARY.filter((scenario) => Number(scenario.checkpointId.slice(-3)) <= 16).length, 550);
 assertContinuousDmQlIds();
 
-const waveThreeCheckpoints = DM_001_CHECKPOINT_IDS.slice(10);
+const waveThreeCheckpoints = DM_001_CHECKPOINT_IDS.slice(10, 16);
 for (const checkpointId of waveThreeCheckpoints) {
   const scenarios = dmScenariosForCheckpoint(checkpointId);
   assert.equal(scenarios.length, 50, checkpointId + " must expose 50 situational seeds");

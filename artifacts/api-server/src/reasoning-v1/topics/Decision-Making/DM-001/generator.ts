@@ -14,6 +14,7 @@ import type {
   DmRuleCondition,
   DmScenario,
   DmRankingSpec,
+  DmSetQuestionKind,
 } from "./types.ts";
 
 const NAMES: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
@@ -82,18 +83,21 @@ const OUTCOME_LABELS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, strin
     REFER_TO_DIRECTOR: "Refer the case to the Director", REFER_TO_COMMITTEE: "Refer the case to the Review Committee",
     INFORMATION_REQUIRED: "Decision cannot be made; information is required",
     TAKE_ACTION: "Take the identified action",
+    SET_RESULT: "Use the computed set result",
   },
   hi: {
     SELECT: "चयन के लिए पात्र", REJECT: "अपात्र", REFER_TO_MANAGER: "मामला प्रबंधक को भेजें",
     REFER_TO_DIRECTOR: "मामला निदेशक को भेजें", REFER_TO_COMMITTEE: "मामला समीक्षा समिति को भेजें",
     INFORMATION_REQUIRED: "निर्णय के लिए अतिरिक्त जानकारी आवश्यक है",
     TAKE_ACTION: "निर्धारित कार्रवाई करें",
+    SET_RESULT: "गणना किए गए सेट परिणाम का उपयोग करें",
   },
   pa: {
     SELECT: "ਚੋਣ ਲਈ ਯੋਗ", REJECT: "ਅਯੋਗ", REFER_TO_MANAGER: "ਮਾਮਲਾ ਪ੍ਰਬੰਧਕ ਕੋਲ ਭੇਜੋ",
     REFER_TO_DIRECTOR: "ਮਾਮਲਾ ਡਾਇਰੈਕਟਰ ਕੋਲ ਭੇਜੋ", REFER_TO_COMMITTEE: "ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ",
     INFORMATION_REQUIRED: "ਫੈਸਲੇ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ",
     TAKE_ACTION: "ਪਛਾਣੀ ਕਾਰਵਾਈ ਕਰੋ",
+    SET_RESULT: "ਗਿਣੇ ਹੋਏ ਸੈੱਟ ਨਤੀਜੇ ਦੀ ਵਰਤੋਂ ਕਰੋ",
   },
 });
 
@@ -238,6 +242,7 @@ const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>
     REFER_TO_COMMITTEE: "The listed rule assigns this case to the Review Committee.",
     INFORMATION_REQUIRED: "A required detail is missing or an exception cannot be checked, so a final decision cannot yet be made.",
     TAKE_ACTION: "The action follows the applicable administrative principle.",
+    SET_RESULT: "The answer follows from the independently computed decision for every profile.",
   },
   hi: {
     SELECT: "सभी अनिवार्य शर्तें पूरी हैं, इसलिए आवेदक चयन के लिए पात्र है।",
@@ -247,6 +252,7 @@ const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>
     REFER_TO_COMMITTEE: "दिए गए नियम के अनुसार इस मामले को समीक्षा समिति के पास भेजना है।",
     INFORMATION_REQUIRED: "एक आवश्यक विवरण उपलब्ध नहीं है या अपवाद की जाँच संभव नहीं है, इसलिए अभी अंतिम निर्णय नहीं लिया जा सकता।",
     TAKE_ACTION: "यह कार्रवाई लागू प्रशासनिक सिद्धांत का पालन करती है।",
+    SET_RESULT: "उत्तर प्रत्येक प्रोफाइल के स्वतंत्र रूप से निकाले गए निर्णय से मिलता है।",
   },
   pa: {
     SELECT: "ਸਾਰੀਆਂ ਲਾਜ਼ਮੀ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹਨ, ਇਸ ਲਈ ਬਿਨੈਕਾਰ ਚੋਣ ਲਈ ਯੋਗ ਹੈ।",
@@ -256,6 +262,7 @@ const CONCLUSIONS: Readonly<Record<DmLocale, Readonly<Record<DmOutcome, string>>
     REFER_TO_COMMITTEE: "ਦਿੱਤੇ ਨਿਯਮ ਅਨੁਸਾਰ ਇਸ ਮਾਮਲੇ ਨੂੰ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜਣਾ ਹੈ।",
     INFORMATION_REQUIRED: "ਇੱਕ ਲਾਜ਼ਮੀ ਵੇਰਵਾ ਉਪਲਬਧ ਨਹੀਂ ਜਾਂ ਅਪਵਾਦ ਦੀ ਜਾਂਚ ਨਹੀਂ ਹੋ ਸਕਦੀ, ਇਸ ਲਈ ਹਾਲੇ ਅੰਤਿਮ ਫੈਸਲਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।",
     TAKE_ACTION: "ਇਹ ਕਾਰਵਾਈ ਲਾਗੂ ਪ੍ਰਸ਼ਾਸਕੀ ਸਿਧਾਂਤ ਦੀ ਪਾਲਣਾ ਕਰਦੀ ਹੈ।",
+    SET_RESULT: "ਜਵਾਬ ਹਰ ਪ੍ਰੋਫਾਈਲ ਲਈ ਸੁਤੰਤਰ ਤੌਰ ਤੇ ਕੱਢੇ ਫੈਸਲੇ ਤੋਂ ਮਿਲਦਾ ਹੈ।",
   },
 });
 
@@ -417,6 +424,12 @@ export function buildDmCandidate(
     const required = scenario.baseConditions[seed % scenario.baseConditions.length]!;
     delete values[propertyFor(required.field)];
   }
+  if (mode === "DETERMINED_REJECT_WITH_MISSING") {
+    const failed = scenario.baseConditions[seed % scenario.baseConditions.length]!;
+    const missing = scenario.baseConditions[(seed + 1) % scenario.baseConditions.length]!;
+    setField(values, failed.field, valueFailing(failed, seed, scenario));
+    delete values[propertyFor(missing.field)];
+  }
   const specialRule = ruleForMode(scenario, mode);
   if (specialRule) {
     const byField = new Map<DmField, DmRuleCondition[]>();
@@ -552,7 +565,7 @@ function rankingOptions(
   if (!correct) throw new Error("The ranked selection must be present in the candidate option pool.");
   const alternatives = combinations.filter((group) => key(group) !== correctKey);
   const offset = alternatives.length ? seed % alternatives.length : 0;
-  const selectedOptions = [correct, ...Array.from({ length: 3 }, (_, index) => alternatives[(offset + index) % alternatives.length]!)];
+  const selectedOptions = [selected, ...Array.from({ length: 3 }, (_, index) => alternatives[(offset + index) % alternatives.length]!)];
   const options = selectedOptions.map((group) => group.map((candidate) => candidate.name).join(locale === "en" ? " and " : locale === "hi" ? " और " : " ਅਤੇ "));
   if (options.length !== 4 || new Set(options).size !== 4) throw new Error("DM-010 requires four distinct candidate-set options.");
   const ordered = [...options];
@@ -627,8 +640,7 @@ function generateRankedQuestion(scenario: DmScenario, locale: DmLocale, seed: nu
   if (ranked.eligibleRanking.length < scenario.ranking!.seatCount) throw new Error("DM-010 must have enough eligible applicants to fill the available seats.");
   const candidate = ranked.selected[0]!;
   const eligibility = evaluateDmDecision(candidate, scenario);
-  const eligibleProfiles = ranked.eligibleRanking.map((entry) => entry.candidate);
-  const options = rankingOptions(scenario, eligibleProfiles, ranked.selected, locale, seed);
+  const options = rankingOptions(scenario, cohort, ranked.selected, locale, seed);
   return Object.freeze({
     chapterId: "DM-001",
     checkpointId: scenario.checkpointId,
@@ -709,6 +721,112 @@ function buildExplanation(result: DmDecisionResult, candidate: DmCandidateProfil
   return prompt.conditions + ":\n" + rows.join("\n") + "\n\n" + prompt.result + ": " + OUTCOME_LABELS[locale][result.outcome] + ".\n" + ruleLine;
 }
 
+const SET_QUESTIONS: Readonly<Record<DmLocale, Readonly<Record<DmSetQuestionKind, string>>>> = Object.freeze({
+  en: { COUNT_SELECTED: "how many applicants should be selected?", IDENTIFY_REJECTED: "which applicant must be rejected?", IDENTIFY_REFERRED: "which applicant must be referred to the designated authority?", SAME_DECISION_PAIR: "which pair receives the same decision?", SATISFIES_ALL: "which applicant satisfies every ordinary condition?", INFORMATION_REQUIRED: "for which applicant is additional information required?" },
+  hi: { COUNT_SELECTED: "कितने आवेदकों का चयन होना चाहिए?", IDENTIFY_REJECTED: "किस आवेदक को अस्वीकार करना होगा?", IDENTIFY_REFERRED: "किस आवेदक का मामला नामित प्राधिकारी को भेजना होगा?", SAME_DECISION_PAIR: "किस जोड़ी को समान निर्णय मिलता है?", SATISFIES_ALL: "कौन-सा आवेदक सभी सामान्य शर्तें पूरी करता है?", INFORMATION_REQUIRED: "किस आवेदक के लिए अतिरिक्त जानकारी आवश्यक है?" },
+  pa: { COUNT_SELECTED: "ਕਿੰਨੇ ਬਿਨੈਕਾਰ ਚੁਣੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ?", IDENTIFY_REJECTED: "ਕਿਹੜੇ ਬਿਨੈਕਾਰ ਨੂੰ ਰੱਦ ਕਰਨਾ ਲਾਜ਼ਮੀ ਹੈ?", IDENTIFY_REFERRED: "ਕਿਹੜੇ ਬਿਨੈਕਾਰ ਦਾ ਮਾਮਲਾ ਨਾਮਜ਼ਦ ਅਧਿਕਾਰੀ ਕੋਲ ਭੇਜਣਾ ਲਾਜ਼ਮੀ ਹੈ?", SAME_DECISION_PAIR: "ਕਿਹੜੀ ਜੋੜੀ ਨੂੰ ਇੱਕੋ ਫੈਸਲਾ ਮਿਲਦਾ ਹੈ?", SATISFIES_ALL: "ਕਿਹੜਾ ਬਿਨੈਕਾਰ ਸਾਰੀਆਂ ਆਮ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦਾ ਹੈ?", INFORMATION_REQUIRED: "ਕਿਹੜੇ ਬਿਨੈਕਾਰ ਲਈ ਹੋਰ ਜਾਣਕਾਰੀ ਲੋੜੀਂਦੀ ਹੈ?" },
+});
+
+const SET_STEM_WRAPPERS: Readonly<Record<DmLocale, readonly string[]>> = Object.freeze({
+  en: ["According to the stated conditions, {q}", "After applying every rule, {q}", "On checking all the profiles, {q}", "Under the common rule block, {q}", "Which option correctly states {q}", "Based only on the information given, {q}", "After considering the applicable exception, {q}", "What follows from the rule-wise scrutiny: {q}", "Using the published conditions, {q}", "When each profile is decided independently, {q}", "After checking ordinary rules before exceptions, {q}", "Under the stated decision procedure, {q}", "Which result is supported by the complete set: {q}", "On a condition-by-condition check, {q}", "After resolving the referral rules in order, {q}", "For this group of applicants, {q}", "Which conclusion follows from the shared notice: {q}", "Applying the rules without adding assumptions, {q}"],
+  hi: ["दी गई शर्तों के अनुसार, {q}", "हर नियम लागू करने के बाद, {q}", "सभी प्रोफाइल जाँचने पर, {q}", "समान नियम-खंड के तहत, {q}", "कौन-सा विकल्प सही बताता है कि {q}", "केवल दी गई जानकारी के आधार पर, {q}", "लागू अपवाद पर विचार करने के बाद, {q}", "नियमवार जाँच से क्या निकलता है: {q}", "प्रकाशित शर्तों का उपयोग करते हुए, {q}", "हर प्रोफाइल का स्वतंत्र निर्णय करने पर, {q}", "अपवाद से पहले सामान्य नियम जाँचने के बाद, {q}", "दी गई निर्णय प्रक्रिया के तहत, {q}", "पूर्ण सेट से कौन-सा परिणाम समर्थित है: {q}", "हर शर्त की जाँच करने पर, {q}", "संदर्भ नियमों को क्रम से हल करने के बाद, {q}", "इस आवेदक समूह के लिए, {q}", "समान सूचना से कौन-सा निष्कर्ष निकलता है: {q}", "बिना कोई अनुमान जोड़े नियम लागू करने पर, {q}"],
+  pa: ["ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਅਨੁਸਾਰ, {q}", "ਹਰ ਨਿਯਮ ਲਾਗੂ ਕਰਨ ਮਗਰੋਂ, {q}", "ਸਾਰੀਆਂ ਪ੍ਰੋਫਾਈਲਾਂ ਜਾਂਚਣ ਤੇ, {q}", "ਸਾਂਝੇ ਨਿਯਮ-ਖੰਡ ਹੇਠ, {q}", "ਕਿਹੜਾ ਵਿਕਲਪ ਠੀਕ ਦੱਸਦਾ ਹੈ ਕਿ {q}", "ਸਿਰਫ਼ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਤੇ, {q}", "ਲਾਗੂ ਅਪਵਾਦ ਵੇਖਣ ਮਗਰੋਂ, {q}", "ਨਿਯਮਵਾਰ ਜਾਂਚ ਤੋਂ ਕੀ ਨਿਕਲਦਾ ਹੈ: {q}", "ਜਾਰੀ ਸ਼ਰਤਾਂ ਦੀ ਵਰਤੋਂ ਕਰਦਿਆਂ, {q}", "ਹਰ ਪ੍ਰੋਫਾਈਲ ਦਾ ਸੁਤੰਤਰ ਫੈਸਲਾ ਕਰਨ ਤੇ, {q}", "ਅਪਵਾਦ ਤੋਂ ਪਹਿਲਾਂ ਆਮ ਨਿਯਮ ਜਾਂਚਣ ਮਗਰੋਂ, {q}", "ਦਿੱਤੀ ਫੈਸਲਾ ਪ੍ਰਕਿਰਿਆ ਹੇਠ, {q}", "ਪੂਰੇ ਸੈੱਟ ਤੋਂ ਕਿਹੜਾ ਨਤੀਜਾ ਸਹੀ ਹੈ: {q}", "ਹਰ ਸ਼ਰਤ ਦੀ ਜਾਂਚ ਕਰਨ ਤੇ, {q}", "ਰੈਫਰਲ ਨਿਯਮ ਕ੍ਰਮ ਨਾਲ ਹੱਲ ਕਰਨ ਮਗਰੋਂ, {q}", "ਇਸ ਬਿਨੈਕਾਰ ਸਮੂਹ ਲਈ, {q}", "ਸਾਂਝੀ ਸੂਚਨਾ ਤੋਂ ਕਿਹੜਾ ਨਤੀਜਾ ਨਿਕਲਦਾ ਹੈ: {q}", "ਬਿਨਾਂ ਕੋਈ ਅਨੁਮਾਨ ਜੋੜੇ ਨਿਯਮ ਲਾਗੂ ਕਰਨ ਤੇ, {q}"],
+});
+
+function setProfileModes(scenario: DmScenario, kind: DmSetQuestionKind, count: number, seed: number): DmCandidateMode[] {
+  const referral = scenario.setSpec!.referralModes[seed % scenario.setSpec!.referralModes.length] ?? "DOCUMENT_REFERRAL";
+  const plans: Record<DmSetQuestionKind, DmCandidateMode[]> = {
+    COUNT_SELECTED: ["ALL_PASS", "BOUNDARY_PASS", "SINGLE_FAIL", "MISSING_REQUIRED", referral, "MULTIPLE_FAIL"],
+    IDENTIFY_REJECTED: ["ALL_PASS", "BOUNDARY_PASS", "SINGLE_FAIL", "MISSING_REQUIRED", referral, "MISSING_REQUIRED"],
+    IDENTIFY_REFERRED: ["ALL_PASS", "BOUNDARY_PASS", referral, "SINGLE_FAIL", "MISSING_REQUIRED", "MULTIPLE_FAIL"],
+    SAME_DECISION_PAIR: ["ALL_PASS", "BOUNDARY_PASS", "SINGLE_FAIL", "MISSING_REQUIRED", referral],
+    SATISFIES_ALL: ["ALL_PASS", "SINGLE_FAIL", "MISSING_REQUIRED", referral, "MULTIPLE_FAIL", "MISSING_REQUIRED"],
+    INFORMATION_REQUIRED: ["ALL_PASS", "SINGLE_FAIL", "MISSING_REQUIRED", referral, "BOUNDARY_PASS", "MULTIPLE_FAIL"],
+  };
+  return plans[kind].slice(0, count);
+}
+
+function setAnswer(kind: DmSetQuestionKind, cohort: readonly DmCandidateProfile[], results: readonly DmDecisionResult[], locale: DmLocale): { label: string; names: readonly string[] } {
+  const indices = (outcome: DmOutcome) => results.map((result, index) => result.outcome === outcome ? index : -1).filter((index) => index >= 0);
+  if (kind === "COUNT_SELECTED") return { label: String(indices("SELECT").length), names: indices("SELECT").map((index) => cohort[index]!.name) };
+  if (kind === "IDENTIFY_REJECTED") { const found = indices("REJECT"); if (found.length !== 1) throw new Error("Decision set must contain exactly one rejected profile."); return { label: cohort[found[0]!]!.name, names: [cohort[found[0]!]!.name] }; }
+  if (kind === "IDENTIFY_REFERRED") {
+    const found = results.map((result, index) => result.outcome.startsWith("REFER_") ? index : -1).filter((index) => index >= 0);
+    if (found.length !== 1) throw new Error("Decision set must contain exactly one referred profile.");
+    return { label: cohort[found[0]!]!.name, names: [cohort[found[0]!]!.name] };
+  }
+  if (kind === "INFORMATION_REQUIRED") { const found = indices("INFORMATION_REQUIRED"); if (found.length !== 1) throw new Error("Decision set must contain exactly one unresolved profile."); return { label: cohort[found[0]!]!.name, names: [cohort[found[0]!]!.name] }; }
+  if (kind === "SATISFIES_ALL") { const found = indices("SELECT"); if (found.length !== 1) throw new Error("Decision set must contain exactly one ordinary selection."); return { label: cohort[found[0]!]!.name, names: [cohort[found[0]!]!.name] }; }
+  const groups = new Map<DmOutcome, number[]>();
+  results.forEach((result, index) => groups.set(result.outcome, [...(groups.get(result.outcome) ?? []), index]));
+  const pair = [...groups.values()].find((group) => group.length === 2);
+  if (!pair || [...groups.values()].filter((group) => group.length === 2).length !== 1) throw new Error("Decision set must contain one unique same-decision pair.");
+  const names = pair.map((index) => cohort[index]!.name);
+  return { label: names.join(locale === "en" ? " and " : locale === "hi" ? " और " : " ਅਤੇ "), names };
+}
+
+function setOptions(kind: DmSetQuestionKind, answer: string, cohort: readonly DmCandidateProfile[], locale: DmLocale, seed: number): { options: readonly string[]; correctIndex: number } {
+  let alternatives: string[];
+  if (kind === "COUNT_SELECTED") alternatives = ["0", "1", "2", "3", "4", "5", "6"].filter((value) => value !== answer);
+  else if (kind === "SAME_DECISION_PAIR") {
+    alternatives = [];
+    for (let left = 0; left < cohort.length; left += 1) for (let right = left + 1; right < cohort.length; right += 1) {
+      const label = [cohort[left]!.name, cohort[right]!.name].join(locale === "en" ? " and " : locale === "hi" ? " और " : " ਅਤੇ ");
+      if (label !== answer) alternatives.push(label);
+    }
+  } else alternatives = cohort.map((candidate) => candidate.name).filter((name) => name !== answer);
+  const offset = seed % alternatives.length;
+  const options = [answer, ...Array.from({ length: 3 }, (_, index) => alternatives[(offset + index) % alternatives.length]!)];
+  if (new Set(options).size !== 4) throw new Error("Decision-set options must be distinct.");
+  for (let index = options.length - 1; index > 0; index -= 1) {
+    const swap = hash(String(seed) + ":set-option:" + String(index)) % (index + 1);
+    [options[index], options[swap]] = [options[swap]!, options[index]!];
+  }
+  return { options: Object.freeze(options), correctIndex: options.indexOf(answer) };
+}
+
+function generateSetQuestion(scenario: DmScenario, locale: DmLocale, seed: number, mode: DmCandidateMode): DmGeneratedQuestion {
+  const spec = scenario.setSpec!;
+  const kindIndex = seed % spec.questionKinds.length;
+  const kind = spec.questionKinds[kindIndex]!;
+  const requestedDifficulty = dmDifficultyForMode(scenario.checkpointId, mode);
+  const count = kind === "SAME_DECISION_PAIR" ? 5 : requestedDifficulty === "EASY" ? spec.minimumProfiles : requestedDifficulty === "HARD" ? spec.maximumProfiles : 5;
+  const modes = setProfileModes(scenario, kind, count, seed);
+  const cohort = Object.freeze(modes.map((profileMode, index) => {
+    const built = buildDmCandidate(scenario, profileMode, seed + index * 19, locale);
+    return Object.freeze({
+      ...built,
+      ...(profileMode === "SINGLE_FAIL" || profileMode === "MULTIPLE_FAIL" ? { registrationStatus: "INVALID" } : {}),
+      name: NAMES[locale][(seed + index) % NAMES[locale].length]!,
+    });
+  }));
+  const results = cohort.map((candidate) => evaluateDmDecision(candidate, scenario));
+  const answer = setAnswer(kind, cohort, results, locale);
+  const options = setOptions(kind, answer.label, cohort, locale, seed);
+  const intro = PROMPTS[locale].intro.replaceAll("{context}", scenario.context[locale]);
+  const ruleLines = scenario.baseConditions.map((item, index) => String(index + 1) + ". " + formatDmRequirement(item, locale));
+  const additional = scenario.ruleNotes.length ? [PROMPTS[locale].additional + ":", ...scenario.ruleNotes.map((note) => "• " + note[locale])] : [];
+  const applicants = locale === "en" ? "Applicants" : locale === "hi" ? "आवेदक" : "ਬਿਨੈਕਾਰ";
+  const question = SET_QUESTIONS[locale][kind];
+  const prompt = SET_STEM_WRAPPERS[locale][seed % SET_STEM_WRAPPERS[locale].length]!.replace("{q}", question);
+  const stem = [intro, PROMPTS[locale].conditions + ":", ...ruleLines, ...additional, applicants + ":", ...cohort.map((candidate, index) => String(index + 1) + ". " + formatApplicant(candidate, scenario, locale)), prompt].join("\n");
+  const resultRows = cohort.map((candidate, index) => candidate.name + " — " + OUTCOME_LABELS[locale][results[index]!.outcome]);
+  const explanation = (locale === "en" ? "Each profile is decided independently" : locale === "hi" ? "हर प्रोफाइल का स्वतंत्र निर्णय" : "ਹਰ ਪ੍ਰੋਫਾਈਲ ਦਾ ਸੁਤੰਤਰ ਫੈਸਲਾ") + ":\n" + resultRows.join("\n") + "\n\n" + (locale === "en" ? "Therefore: " : locale === "hi" ? "अतः: " : "ਇਸ ਲਈ: ") + answer.label + ".";
+  const rows = results.flatMap((result, index) => result.checks.map((check) => Object.freeze({
+    condition: cohort[index]!.name + " — " + FIELD_LABELS[locale][check.condition.field],
+    candidateValue: formatCandidateValue(check.condition.field, cohort[index]!, scenario, locale),
+    requirement: formatDmRequirement(check.condition, locale), result: check.status,
+  })));
+  return Object.freeze({
+    chapterId: "DM-001", checkpointId: scenario.checkpointId, blueprintCheckpointId: scenario.blueprintCheckpointId,
+    qlId: scenario.qlId, scenarioId: scenario.scenarioId, seed, locale, difficulty: requestedDifficulty,
+    candidate: cohort[0]!, candidateGroup: cohort, selectedCandidates: Object.freeze(answer.names),
+    answerMode: spec.setFamily === "MIXED_ADVANCED" ? "MIXED_DECISION_SET" : "MULTI_PERSON_DECISION_SET",
+    setQuestionKind: kind, setQuestionNumber: kindIndex + 1, stem, options: options.options, correctIndex: options.correctIndex,
+    outcome: "SET_RESULT", explanation, explanationRows: Object.freeze(rows),
+  });
+}
+
 function distractors(correct: DmOutcome): readonly DmOutcome[] {
   const preferred: Readonly<Record<DmOutcome, readonly DmOutcome[]>> = {
     SELECT: ["REJECT", "INFORMATION_REQUIRED", "REFER_TO_MANAGER"],
@@ -718,6 +836,7 @@ function distractors(correct: DmOutcome): readonly DmOutcome[] {
     REFER_TO_COMMITTEE: ["SELECT", "REJECT", "REFER_TO_MANAGER"],
     INFORMATION_REQUIRED: ["SELECT", "REJECT", "REFER_TO_MANAGER"],
     TAKE_ACTION: ["SELECT", "REJECT", "INFORMATION_REQUIRED"],
+    SET_RESULT: ["SELECT", "REJECT", "INFORMATION_REQUIRED"],
   };
   return preferred[correct];
 }
@@ -772,6 +891,7 @@ export function dmDifficultyForMode(checkpointId: DmScenario["checkpointId"], mo
   if (checkpointId === "DM-CP-003" && (mode === "AGE_EXCEPTION" || mode === "MARKS_EXCEPTION")) return "HARD";
   if (checkpointId === "DM-CP-009" && (mode === "AGE_EXCEPTION" || mode === "MARKS_EXCEPTION" || mode === "BOTH_RELAXATION")) return "HARD";
   if (checkpointId === "DM-CP-004" && (mode === "DIRECTOR_REFERRAL" || mode === "COMMITTEE_REFERRAL")) return "HARD";
+  if (mode === "DETERMINED_REJECT_WITH_MISSING") return "HARD";
   return "HARD";
 }
 
@@ -800,6 +920,7 @@ export function modesForDmDifficulty(
     if (rule?.outcome === "REFER_TO_DIRECTOR") return "DIRECTOR_REFERRAL";
     if (rule?.outcome === "REFER_TO_COMMITTEE") return "COMMITTEE_REFERRAL";
   }
+  if (scenario.checkpointId === "DM-CP-018") return "DETERMINED_REJECT_WITH_MISSING";
   return "MULTIPLE_FAIL";
 }
 
@@ -810,6 +931,7 @@ export function generateDmQuestion(input: {
   mode: DmCandidateMode;
 }): DmGeneratedQuestion {
   const { scenario, locale, seed, mode } = input;
+  if (scenario.setSpec) return generateSetQuestion(scenario, locale, seed, mode);
   if (scenario.situational) return generateSituationalQuestion(scenario, locale, seed, mode);
   if (scenario.ranking) return generateRankedQuestion(scenario, locale, seed, mode);
   const candidate = buildDmCandidate(scenario, mode, seed, locale);

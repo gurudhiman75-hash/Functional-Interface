@@ -5,5 +5,6 @@ export * from "./scenario-library.ts";
 export * from "./decision-engine.ts";
 export * from "./situational-engine.ts";
 export * from "./situational-library.ts";
+export * from "./advanced-library.ts";
 export * from "./generator.ts";
 export * from "./question-studio-integration.ts";
