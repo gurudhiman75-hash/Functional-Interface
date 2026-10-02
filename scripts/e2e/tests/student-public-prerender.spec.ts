@@ -8,7 +8,7 @@ test.describe("CP03 build-time sitemap and crawlable snapshots", () => {
     expect(sitemapResponse.ok()).toBe(true);
     const sitemap = await sitemapResponse.text();
 
-    for (const path of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility"]) {
+    for (const path of ["/", "/exams", "/mock-tests", "/exams-covered", "/about", "/contact", "/faq", "/privacy-policy", "/terms-and-conditions", "/cancellation-refund-policy", "/disclaimer", "/billing-help", "/grievance-redressal", "/accessibility", "/ssc-cgl", "/ssc-cgl-preparation", "/ssc-cgl-syllabus", "/ssc-cgl/questions/percentage", "/ssc-cgl/questions/syllogism"]) {
       expect(sitemap).toContain(`<loc>${DEFAULT_ORIGIN}${path === "/" ? "/" : path}</loc>`);
     }
     expect(sitemap).not.toContain(`${DEFAULT_ORIGIN}/pyqs`);
@@ -40,6 +40,21 @@ test.describe("CP03 build-time sitemap and crawlable snapshots", () => {
     expect(html).toContain("About ExamTree");
     expect(html).toContain("Learn how ExamTree approaches mock-test practice");
     expect(html).toContain('aria-label="Explore ExamTree"');
+  });
+
+  test("SSC CGL acquisition snapshots are crawlable", async ({ request }) => {
+    const hubResponse = await request.get("/ssc-cgl.html");
+    expect(hubResponse.ok()).toBe(true);
+    const hubHtml = await hubResponse.text();
+    expect(hubHtml).toContain("<title>SSC CGL Preparation, Syllabus, Mock Tests & Free Questions | ExamTree</title>");
+    expect(hubHtml).toContain(`<link rel="canonical" href="${DEFAULT_ORIGIN}/ssc-cgl"`);
+    expect(hubHtml).toContain("SSC CGL preparation hub");
+
+    const topicResponse = await request.get("/ssc-cgl/questions/percentage.html");
+    expect(topicResponse.ok()).toBe(true);
+    const topicHtml = await topicResponse.text();
+    expect(topicHtml).toContain("Percentage Questions for SSC CGL");
+    expect(topicHtml).toContain(`<link rel="canonical" href="${DEFAULT_ORIGIN}/ssc-cgl/questions/percentage"`);
   });
 
   test("exam discovery snapshot has unique metadata and static discovery content", async ({ request }) => {
