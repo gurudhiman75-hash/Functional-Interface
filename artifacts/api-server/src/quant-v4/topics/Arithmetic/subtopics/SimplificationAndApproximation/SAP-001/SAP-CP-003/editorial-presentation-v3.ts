@@ -48,6 +48,35 @@ function distinguishDiagnosisSurface(pkg: SapCp003Package): SapCp003Package {
   return stem === pkg.stem ? pkg : Object.freeze({ ...pkg, stem });
 }
 
+
+function diversifyPowerOfTenDivisionStem(pkg: SapCp003Package): SapCp003Package {
+  if (pkg.prototypeId !== "SAP-CP003-PROT-DECIMAL-DIVISION-POWER-OF-TEN") return pkg;
+  const match = pkg.stem.match(/^Evaluate (.+) ÷ (10|100|1000)\.$/);
+  if (!match) return pkg;
+  const expression = `${match[1]} ÷ ${match[2]}`;
+  const frames = [
+    `Evaluate ${expression}.`,
+    `What is the value of ${expression}?`,
+    `Find the value of ${expression}.`,
+    `Which of the following is equal to ${expression}?`,
+  ] as const;
+  return Object.freeze({ ...pkg, stem: frames[(pkg.seed - 1) % frames.length]! });
+}
+
+function diversifyDecimalPlacementStem(pkg: SapCp003Package): SapCp003Package {
+  if (pkg.prototypeId !== "SAP-CP003-PROT-SELECT-CORRECT-DECIMAL-PLACEMENT") return pkg;
+  const match = pkg.stem.match(/^Which option is the correct value of (.+)\?$/);
+  if (!match) return pkg;
+  const expression = match[1]!;
+  const frames = [
+    `Which option is the correct value of ${expression}?`,
+    `What is the value of ${expression}?`,
+    `Find the correct product: ${expression}.`,
+    `Which of the following is equal to ${expression}?`,
+  ] as const;
+  return Object.freeze({ ...pkg, stem: frames[(pkg.seed - 1) % frames.length]! });
+}
+
 function bindFinalAnswer(pkg: SapCp003Package): SapCp003Package {
   if (pkg.explanation.finalAnswer.includes(pkg.canonicalAnswer)) return pkg;
   return Object.freeze({
@@ -63,5 +92,7 @@ export function applySapCp003EditorialPresentationV3(pkg: SapCp003Package): SapC
   const recurringReady = makeRecurringConversionExplicit(pkg);
   const inverseReady = addInverseVerification(recurringReady);
   const diagnosisReady = distinguishDiagnosisSurface(inverseReady);
-  return bindFinalAnswer(diagnosisReady);
+  const powerOfTenReady = diversifyPowerOfTenDivisionStem(diagnosisReady);
+  const placementReady = diversifyDecimalPlacementStem(powerOfTenReady);
+  return bindFinalAnswer(placementReady);
 }
