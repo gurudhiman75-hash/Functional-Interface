@@ -2,7 +2,7 @@
 
 Date: 2026-10-01
 
-Status: **validation candidate**
+Status: **CLOSED — exact-head CP034 validation passed**
 
 CP034 is the executable closure overlay for the current DSF Question Studio review surface.
 
