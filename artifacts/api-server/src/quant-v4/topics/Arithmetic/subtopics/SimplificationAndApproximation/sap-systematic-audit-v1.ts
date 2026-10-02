@@ -123,8 +123,6 @@ assert.deepEqual(
   Array.from({ length: 211 }, (_, index) => `SAP-QL-${String(index + 1).padStart(3, "0")}`),
   "SAP permanent QL range is not contiguous",
 );
-assert.equal(duplicateFullQuestions.length, 0, "Duplicate full learner questions found in systematic seed sweep");
-
 const cpSummary = Object.fromEntries(SAP_QUESTION_STUDIO_CP_IDS.map((cpId) => {
   const cpRows = rows.filter((row) => row.checkpointId === cpId);
   return [cpId, {
@@ -157,7 +155,10 @@ console.log(JSON.stringify({
   duplicateFullQuestionCount: duplicateFullQuestions.length,
   cpSummary,
   diagnostics,
+  duplicateFullQuestions,
   rows,
 }, null, 2));
+
+assert.equal(duplicateFullQuestions.length, 0, "Duplicate full learner questions found in systematic seed sweep");
 
 console.log("PASS_SAP_SYSTEMATIC_AUDIT_V1_CORE_INTEGRITY");
