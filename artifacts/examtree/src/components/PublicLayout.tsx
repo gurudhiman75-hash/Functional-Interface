@@ -78,6 +78,8 @@ const footerColumns = [
       { label: "FAQ", href: "/faq" },
       { label: "Contact", href: "/contact" },
       { label: "About ExamTree", href: "/about" },
+      { label: "Payment & Billing", href: "/billing-help" },
+      { label: "Grievance Redressal", href: "/grievance-redressal" },
     ],
   },
   {
@@ -85,7 +87,9 @@ const footerColumns = [
     links: [
       { label: "Privacy Policy", href: "/privacy-policy" },
       { label: "Terms & Conditions", href: "/terms-and-conditions" },
-      { label: "Refund Policy", href: "/refund-policy" },
+      { label: "Cancellation & Refund", href: "/cancellation-refund-policy" },
+      { label: "Disclaimer", href: "/disclaimer" },
+      { label: "Accessibility", href: "/accessibility" },
     ],
   },
 ];
