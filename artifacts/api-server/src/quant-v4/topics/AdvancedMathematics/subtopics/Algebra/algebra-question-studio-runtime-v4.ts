@@ -1,7 +1,8 @@
 import {
-  ALG_MULTILINGUAL_V2_FREEZE_ID,
-  generateAlgPermanentEnglishV3Frozen,
-  generateAlgPermanentMultilingualV2Frozen,
+  ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY,
+  ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
+  generateAlgPermanentEnglishV4ChapterReview,
+  generateAlgPermanentMultilingualV3ChapterReview,
   type AlgReviewLocale,
 } from "./permanent";
 import {
@@ -60,8 +61,10 @@ function phrase(language: AlgebraStudioLanguage, en: string, hi: string, pa: str
 }
 
 function frozenSource(pattern: AlgebraQuestionStudioPattern, seed: number, language: AlgebraStudioLanguage): any {
-  if (language === "en") return generateAlgPermanentEnglishV3Frozen(pattern.qlId, seed, pattern.variantIndex);
-  return generateAlgPermanentMultilingualV2Frozen(
+  if (language === "en") {
+    return generateAlgPermanentEnglishV4ChapterReview(pattern.qlId, seed, pattern.variantIndex);
+  }
+  return generateAlgPermanentMultilingualV3ChapterReview(
     pattern.qlId,
     seed,
     localeFor(language) as AlgReviewLocale,
@@ -640,7 +643,9 @@ export function generateAlgebraStudioQuestionV4(input: {
     explanation: { steps, shortcut: "", traps: [] },
     solveMode: String(source.prototypeSolveMode),
     renderer: "TEXT_MATH",
-    sourceAuthority: language === "en" ? "ALG-EN-v3-frozen" : ALG_MULTILINGUAL_V2_FREEZE_ID,
+    sourceAuthority: language === "en"
+      ? ALG_ENGLISH_V4_CHAPTER_REVIEW_AUTHORITY
+      : ALG_MULTILINGUAL_V3_CHAPTER_REVIEW_AUTHORITY,
     sourceMaturity: String(source.maturity),
     sourceReviewStatus: String(source.reviewStatus),
     integrationAuthority: ALGEBRA_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
