@@ -168,6 +168,65 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
               },
             );
           }
+
+          const payload = item.payload && typeof item.payload === "object"
+            ? item.payload as Record<string, unknown>
+            : {};
+          const sourceStem = text(payload.text) || text(payload.stem);
+          const sourceFingerprint = text(payload.contentFingerprint) || null;
+          const duplicates = sourceStem
+            ? await tx`
+                WITH current_payloads AS (
+                  SELECT
+                    other.id,
+                    run.public_code AS "runCode",
+                    NULLIF(version.payload ->> 'contentFingerprint', '') AS fingerprint,
+                    LOWER(
+                      REGEXP_REPLACE(
+                        TRIM(COALESCE(NULLIF(version.payload ->> 'text', ''), version.payload ->> 'stem', '')),
+                        '[[:space:][:punct:]]+',
+                        ' ',
+                        'g'
+                      )
+                    ) AS "normalizedStem"
+                  FROM content.generation_run_items other
+                  INNER JOIN content.generation_runs run
+                    ON run.id = other.generation_run_id
+                  INNER JOIN content.generation_item_versions version
+                    ON version.generation_item_id = other.id
+                   AND version.version_number = other.current_version_number
+                  WHERE other.id <> ${itemId}::uuid
+                )
+                SELECT
+                  current_payloads.id::text AS "matchedItemId",
+                  current_payloads."runCode" AS "matchedRunCode"
+                FROM current_payloads
+                WHERE current_payloads."normalizedStem" = LOWER(
+                  REGEXP_REPLACE(TRIM(${sourceStem}), '[[:space:][:punct:]]+', ' ', 'g')
+                )
+                  AND (
+                    ${sourceFingerprint}::text IS NULL
+                    OR current_payloads.fingerprint IS NULL
+                    OR current_payloads.fingerprint = ${sourceFingerprint}
+                  )
+                LIMIT 1
+              `
+            : [];
+
+          if (duplicates.length > 0) {
+            throw Object.assign(
+              new Error("Generated item is an exact duplicate of an existing generated question"),
+              {
+                code: "QUESTION_STUDIO_DUPLICATE_BLOCKED",
+                duplicate: {
+                  matchedItemId: String(duplicates[0]?.matchedItemId ?? ""),
+                  matchedRunCode: String(duplicates[0]?.matchedRunCode ?? ""),
+                  similarity: 1,
+                  exact: true,
+                },
+              },
+            );
+          }
         }
 
         if (String(item.status) === "approved" && status !== "approved" && !reason) {
