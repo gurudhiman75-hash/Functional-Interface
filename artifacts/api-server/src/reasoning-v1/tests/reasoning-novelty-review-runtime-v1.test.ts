@@ -2,35 +2,18 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import { generateReasoningNoveltyReviewBatchV1 } from "../shared/reasoning-novelty-review-runtime-v1";
+import {
+  reasoningNoveltyProviderByIdV1,
+  reasoningNoveltyProviderSummaryV1,
+} from "../shared/reasoning-novelty-provider-registry-v1";
 
-test("diagnostic sampler remains available for content-approved providers awaiting a live route", async () => {
-  const requests = [
-    { providerId: "RNK-001-CROSS-FAMILY-CASELET", language: "en" as const },
-  ];
-
-  for (let index = 0; index < requests.length; index += 1) {
-    const request = requests[index]!;
-    const result = await generateReasoningNoveltyReviewBatchV1({
-      ...request,
-      count: 2,
-      seed: 100 + index * 10,
-    });
-
-    assert.equal(result.reviewOnly, true);
-    assert.equal(result.questionStudioNoveltyMixActivated, false);
-    assert.equal(result.provider.status, "CONTENT_REVIEW_APPROVED_AWAITING_ROUTE");
-    assert.equal(result.candidates.length, 2);
-
-    for (const candidate of result.candidates) {
-      assert.equal(candidate.provenance, "CONTROLLED_NOVEL");
-      assert.equal(candidate.reviewOnly, true);
-      assert.equal(candidate.questionStudioNoveltyMixActivated, false);
-      assert.equal(candidate.noveltyReviewProviderId, request.providerId);
-    }
-  }
+test("diagnostic sampler has no content-approved provider left awaiting a live route", () => {
+  const summary = reasoningNoveltyProviderSummaryV1();
+  assert.deepEqual(summary.awaitingRouteProviderIds, []);
+  assert.deepEqual(summary.reviewOnlyProviderIds, []);
 });
 
-test("approved runtime providers are not routed through the diagnostic review sampler", async () => {
+test("all approved reviewed runtime providers are excluded from the diagnostic sampler", async () => {
   for (const providerId of [
     "PFC-001-CONTROLLED-NOVEL",
     "ALP-001-TRANSFORMED-GAP",
@@ -40,6 +23,7 @@ test("approved runtime providers are not routed through the diagnostic review sa
     "OPS-001-INFER-THEN-FILL",
     "CLK-001-FAULTY-TIME-ANGLE",
     "DIR-001-GRAPH-RELATIVE-PATH",
+    "RNK-001-CROSS-FAMILY-CASELET",
   ]) {
     await assert.rejects(
       () => generateReasoningNoveltyReviewBatchV1({
@@ -52,14 +36,11 @@ test("approved runtime providers are not routed through the diagnostic review sa
   }
 });
 
-test("diagnostic sampler rejects unsupported language rather than silently translating", async () => {
-  await assert.rejects(
-    () => generateReasoningNoveltyReviewBatchV1({
-      providerId: "RNK-001-CROSS-FAMILY-CASELET",
-      language: "hi",
-      count: 1,
-      seed: 1,
-    }),
-    /does not yet support novelty review language/u,
-  );
+test("RNK live provider remains English-only after activation", () => {
+  const provider = reasoningNoveltyProviderByIdV1("RNK-001-CROSS-FAMILY-CASELET");
+  assert.equal(provider.status, "APPROVED_RUNTIME");
+  assert.deepEqual(provider.supportedLanguages, ["en"]);
+  assert.equal(provider.questionStudioNoveltyMixActivated, true);
+  assert.equal(provider.humanReviewRequired, false);
+  assert.equal(provider.countsTowardAssemblyNoveltyNow, true);
 });

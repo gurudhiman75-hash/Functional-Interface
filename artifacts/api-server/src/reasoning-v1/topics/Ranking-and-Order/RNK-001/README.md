@@ -6,7 +6,7 @@ Student-facing chapter: **Ranking and Order**
 Reasoning V1 package: `RNK-001`  
 Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/`
 
-This is an **English content freeze with technically complete Hindi/Punjabi review candidates**, not a multilingual/product freeze. Human language approval and all product lifecycle surfaces remain locked.
+This is an **English content freeze with technically complete Hindi/Punjabi review candidates**, not a multilingual/product release freeze. The English source-backed Question Studio review route is now registered; Hindi/Punjabi product approval, Question Bank release, test eligibility and public publication remain locked.
 
 ## Authority order
 
@@ -258,7 +258,7 @@ CP007: 1 frozen authority   / RNK-QL-042      /   192 permanent questions
 CP008: 0 frozen authorities / adapter + caselet closure
 ```
 
-The chapter-wide gate requires one continuous unique permanent sequence `RNK-QL-001..042`, unchanged CP004-CP007 projection anchors, CP008 zero allocation, and RNK absence from the live Reasoning Question Studio review registry.
+The chapter-wide freeze gate requires one continuous unique permanent sequence `RNK-QL-001..042`, unchanged CP004-CP007 projection anchors and CP008 zero allocation. The legacy Reasoning V1 review registry remains intentionally untouched; the post-freeze RNK activation uses the newer multi-engine Question Studio adapter.
 
 ## Current lifecycle
 
@@ -270,11 +270,13 @@ CP008 adapter/caselet closure:       validated candidate
 chapter-wide English content freeze: true
 multilingual/product final freeze:   false
 Hindi/Punjabi:                       CP001..CP007 TECHNICAL REVIEW CANDIDATES
-Question Studio:                     DISABLED / NOT REGISTERED
-persistence:                         DISABLED
+Question Studio:                     ENGLISH REVIEW-ONLY / REGISTERED
+controlled novelty:                  RNK-001-CROSS-FAMILY-CASELET / Medium / governed 20% chapter-wide mix
+explicit QL/CP scope:                SOURCE-BACKED ONLY
+persistence:                         REVIEW-RUN ONLY; CANONICAL PERSISTENCE DISABLED
 Question Bank:                       NOT_STORED
 test eligibility:                    INELIGIBLE
 public publication:                  false
 ```
 
-No deployment, publication, persistence, Question Studio activation or translation is authorized by the English content freeze.
+The post-freeze activation authorizes only the English review-only Question Studio route and governed controlled-novel mixing. It does not authorize canonical Question Bank persistence, test use, automatic student publication, public release or Hindi/Punjabi product activation.

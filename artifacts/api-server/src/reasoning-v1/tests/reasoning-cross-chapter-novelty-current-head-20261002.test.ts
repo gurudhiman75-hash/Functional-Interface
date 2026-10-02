@@ -24,14 +24,15 @@ const approvedProviders = REASONING_V1_NOVELTY_PROVIDERS_V1.filter(
 );
 
 assert.equal(REASONING_V1_NOVELTY_INVENTORY_V1.length, 26);
-assert.equal(awaitingRouteProviders.length, 1);
-assert.equal(approvedProviders.length, 8);
+assert.equal(awaitingRouteProviders.length, 0);
+assert.equal(approvedProviders.length, 9);
 assert.deepEqual(
   approvedProviders.map((provider) => provider.providerId),
   [
     "PFC-001-CONTROLLED-NOVEL",
     "ALP-001-TRANSFORMED-GAP",
     "OPS-001-INFER-THEN-FILL",
+    "RNK-001-CROSS-FAMILY-CASELET",
     "CLK-001-FAULTY-TIME-ANGLE",
     "CAE-001-EDGE-FAMILIES",
     "DIR-001-GRAPH-RELATIVE-PATH",
@@ -96,16 +97,16 @@ for (const provider of approvedProviders) {
 
 const providerSummary = reasoningNoveltyProviderSummaryV1();
 assert.equal(providerSummary.providerCount, 9);
-assert.equal(providerSummary.approvedProviderIds.length, 8);
-assert.equal(providerSummary.awaitingRouteProviderIds.length, 1);
+assert.equal(providerSummary.approvedProviderIds.length, 9);
+assert.equal(providerSummary.awaitingRouteProviderIds.length, 0);
 assert.equal(providerSummary.reviewOnlyProviderIds.length, 0);
-assert.equal(providerSummary.assemblyCreditedProviderIds.length, 8);
+assert.equal(providerSummary.assemblyCreditedProviderIds.length, 9);
 
 const inventorySummary = reasoningNoveltyInventorySummaryV1();
 assert.equal(inventorySummary.topicCount, 26);
 assert.deepEqual(
   inventorySummary.controlledNovelTargetCreditedTopics,
-  ["Alphabet-Test", "Blood-Relations", "Calendar", "Cause-and-Effect", "Clocks", "Direction-Sense", "Mathematical-Operations", "Non-Verbal-Reasoning"].sort(),
+  ["Alphabet-Test", "Blood-Relations", "Calendar", "Cause-and-Effect", "Clocks", "Direction-Sense", "Mathematical-Operations", "Non-Verbal-Reasoning", "Ranking-and-Order"].sort(),
 );
 
 const syntheticAssembly = [
@@ -116,8 +117,8 @@ const mixAudit = auditReasoningNoveltyMixV1(syntheticAssembly);
 assert.equal(mixAudit.controlledNovelShare, REASONING_V1_NOVELTY_GOVERNANCE_V1.assemblyMix.controlledNovelOperatingTarget);
 assert.equal(mixAudit.withinOperatingBand, true);
 
-assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.liveQuestionStudioProviders.length, 7);
-assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.contentApprovedAwaitingQuestionStudioRoute.length, 1);
+assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.liveQuestionStudioProviders.length, 8);
+assert.equal(REASONING_V1_NOVELTY_RUNTIME_ACTIVATION_V1.contentApprovedAwaitingQuestionStudioRoute.length, 0);
 
 const pendingDedicated = REASONING_V1_NOVELTY_INVENTORY_V1.filter(
   (entry) => entry.status === "DEDICATED_NOVELTY_AUDIT_PENDING",
