@@ -59,8 +59,8 @@ const adminQuestionStudioRouter = lazyRouter(() => import("./admin-question-stud
  * diversity-hardened internal authority; CP014/CP013/CP012/CP010/CP007 and the
  * base ARG router remain historical fallbacks. COM-003, SRI and the multi-engine
  * V1 route retain their current New-main ownership and ordering, followed by
- * chapter/workflow routers and compatibility fallbacks. The final shared router
- * owns paged review and bulk disposition only; it no longer generates runs.
+ * chapter/workflow routers and compatibility fallbacks. The hardened bulk router
+ * owns item disposition; the final shared router owns paged review only.
  */
 const router: IRouter = Router();
 
