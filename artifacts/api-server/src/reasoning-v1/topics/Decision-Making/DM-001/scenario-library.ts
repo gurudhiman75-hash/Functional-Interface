@@ -62,7 +62,7 @@ const CONTEXTS: Readonly<Partial<Record<DmCheckpointId, readonly LocalizedText[]
     text("Nirman micro-enterprise support (fictional scheme)", "निर्माण सूक्ष्म-उद्यम सहायता (काल्पनिक योजना)", "ਨਿਰਮਾਣ ਛੋਟੇ ਕਾਰੋਬਾਰ ਲਈ ਸਹਾਇਤਾ (ਕਾਲਪਨਿਕ ਯੋਜਨਾ)"),
   ],
   "DM-CP-008": [
-    text("Written and sectional cut-offs for an examination", "परीक्षा के लिखित और अनुभागीय न्यूनतम अंक", "ਇਮਤਿਹਾਨ ਲਈ ਲਿਖਤੀ ਅਤੇ ਭਾਗੀ ਕੱਟ-ਆਫ਼"),
+    text("an examination with written and sectional cut-offs", "लिखित और अनुभागीय न्यूनतम अंकों वाली परीक्षा", "ਲਿਖਤੀ ਅਤੇ ਭਾਗੀ ਕੱਟ-ਆਫ਼ ਵਾਲੀ ਪ੍ਰੀਖਿਆ"),
     text("Interview and overall score cut-offs", "साक्षात्कार और कुल अंक की न्यूनतम सीमा", "ਇੰਟਰਵਿਊ ਅਤੇ ਕੁੱਲ ਅੰਕਾਂ ਦੀ ਕੱਟ-ਆਫ਼"),
     text("Experience and written-score minimums", "अनुभव और लिखित अंक की न्यूनतम शर्तें", "ਤਜਰਬੇ ਅਤੇ ਲਿਖਤੀ ਅੰਕਾਂ ਦੀ ਘੱਟੋ-ਘੱਟ ਹੱਦ"),
     text("Sectional, interview and overall cut-offs", "अनुभागीय, साक्षात्कार और कुल न्यूनतम अंक", "ਭਾਗੀ, ਇੰਟਰਵਿਊ ਅਤੇ ਕੁੱਲ ਕੱਟ-ਆਫ਼"),
@@ -76,7 +76,7 @@ const CONTEXTS: Readonly<Partial<Record<DmCheckpointId, readonly LocalizedText[]
     text("Departmental promotion with dependent relaxations", "परस्पर निर्भर छूट के साथ विभागीय पदोन्नति", "ਆਪਸੀ ਨਿਰਭਰ ਛੋਟਾਂ ਨਾਲ ਵਿਭਾਗੀ ਤਰੱਕੀ"),
   ],
   "DM-CP-010": [
-    text("Two training seats ranked by the published priorities", "प्रकाशित प्राथमिकताओं के अनुसार दो प्रशिक्षण सीटों की वरीयता", "ਦਿੱਤੀਆਂ ਤਰਜੀਹਾਂ ਅਨੁਸਾਰ ਸਿਖਲਾਈ ਦੀਆਂ ਦੋ ਸੀਟਾਂ"),
+    text("training seats awarded by the published priorities", "प्रकाशित प्राथमिकताओं के अनुसार प्रशिक्षण सीटों का आवंटन", "ਜਾਰੀ ਤਰਜੀਹਾਂ ਅਨੁਸਾਰ ਸਿਖਲਾਈ ਸੀਟਾਂ ਦੀ ਵੰਡ"),
     text("Limited college programme seats", "कॉलेज कार्यक्रम की सीमित सीटें", "ਕਾਲਜ ਪ੍ਰੋਗਰਾਮ ਦੀਆਂ ਸੀਮਤ ਸੀਟਾਂ"),
     text("Apprenticeship shortlist and waitlist", "प्रशिक्षुता की चयन-सूची और प्रतीक्षा-सूची", "ਸਿਖਿਆਰਥੀ ਚੋਣ-ਸੂਚੀ ਅਤੇ ਉਡੀਕ-ਸੂਚੀ"),
     text("Scholarship awards under a fixed seat limit", "निश्चित संख्या की छात्रवृत्ति", "ਨਿਰਧਾਰਤ ਗਿਣਤੀ ਦੇ ਵਜ਼ੀਫ਼ੇ"),
@@ -353,11 +353,6 @@ function makeRelaxationRules(policy: number): { base: DmRuleCondition[]; excepti
     condition("relax-base-experience", "experienceYears", "GTE", 1),
     condition("relax-base-certificate", "certificateStatus", "EQ", "VALID"),
   ];
-  const explanation = text(
-    "The stated dependent relaxation applies only because every linked condition is met; the case must be referred to the Review Committee.",
-    "दी गई परस्पर-निर्भर छूट तभी लागू होती है जब उससे जुड़ी सभी शर्तें पूरी हों; मामला समीक्षा समिति को भेजना होगा।",
-    "ਦਿੱਤੀ ਆਪਸੀ ਨਿਰਭਰ ਛੋਟ ਤਦ ਹੀ ਲਾਗੂ ਹੁੰਦੀ ਹੈ ਜਦੋਂ ਇਸ ਨਾਲ ਜੁੜੀਆਂ ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜਣਾ ਲਾਜ਼ਮੀ ਹੈ।",
-  );
   const common = base.filter((item) => item.field !== "age" && item.field !== "graduationMarks" && item.field !== "qualificationRank");
   const both = [
     ...common,
@@ -383,9 +378,21 @@ function makeRelaxationRules(policy: number): { base: DmRuleCondition[]; excepti
     condition("marks-relax-age", "age", "LTE", ageLimit),
   ];
   const exceptions: DmDecisionRule[] = [
-    Object.freeze({ ruleId: "BOTH_RELAXATIONS_REFER_COMMITTEE", priority: 5, conditions: Object.freeze(both), outcome: "REFER_TO_COMMITTEE", explanation }),
-    Object.freeze({ ruleId: "AGE_EXPERIENCE_RELAXATION_REFER_COMMITTEE", priority: 10, conditions: Object.freeze(age), outcome: "REFER_TO_COMMITTEE", explanation }),
-    Object.freeze({ ruleId: "POSTGRADUATE_MARKS_RELAXATION_REFER_COMMITTEE", priority: 20, conditions: Object.freeze(marks), outcome: "REFER_TO_COMMITTEE", explanation }),
+    Object.freeze({ ruleId: "BOTH_RELAXATIONS_REFER_COMMITTEE", priority: 5, conditions: Object.freeze(both), outcome: "REFER_TO_COMMITTEE", explanation: text(
+      "A candidate exceeding the age limit and falling short of the marks cut-off receives the combined relaxation only if the postgraduate and five-year experience conditions are also met; refer the case to the Review Committee.",
+      "आयु-सीमा से अधिक और अंक-सीमा से कम होने पर संयुक्त छूट तभी मिलेगी जब स्नातकोत्तर योग्यता तथा पाँच वर्ष के अनुभव की शर्त भी पूरी हो; मामला समीक्षा समिति को भेजें।",
+      "ਉਮਰ ਹੱਦ ਤੋਂ ਵੱਧ ਅਤੇ ਅੰਕ ਹੱਦ ਤੋਂ ਘੱਟ ਹੋਣ ਤੇ ਸਾਂਝੀ ਛੋਟ ਤਾਂ ਹੀ ਮਿਲੇਗੀ ਜੇ ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਯੋਗਤਾ ਅਤੇ ਪੰਜ ਸਾਲ ਦੇ ਤਜਰਬੇ ਦੀ ਸ਼ਰਤ ਵੀ ਪੂਰੀ ਹੋਵੇ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ।",
+    ) }),
+    Object.freeze({ ruleId: "AGE_EXPERIENCE_RELAXATION_REFER_COMMITTEE", priority: 10, conditions: Object.freeze(age), outcome: "REFER_TO_COMMITTEE", explanation: text(
+      "An applicant up to three years above the age limit may be considered only with at least five years of relevant experience and all other ordinary conditions met; refer the case to the Review Committee.",
+      "आयु-सीमा से अधिकतम तीन वर्ष अधिक आवेदक पर तभी विचार होगा जब उसके पास कम-से-कम पाँच वर्ष का संबंधित अनुभव हो और अन्य सभी सामान्य शर्तें पूरी हों; मामला समीक्षा समिति को भेजें।",
+      "ਉਮਰ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਤਿੰਨ ਸਾਲ ਵੱਧ ਬਿਨੈਕਾਰ ਉੱਤੇ ਤਾਂ ਹੀ ਵਿਚਾਰ ਹੋਵੇਗਾ ਜੇ ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਪੰਜ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੋਵੇ ਅਤੇ ਬਾਕੀ ਸਾਰੀਆਂ ਆਮ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ।",
+    ) }),
+    Object.freeze({ ruleId: "POSTGRADUATE_MARKS_RELAXATION_REFER_COMMITTEE", priority: 20, conditions: Object.freeze(marks), outcome: "REFER_TO_COMMITTEE", explanation: text(
+      "A postgraduate applicant within five percentage points of the marks cut-off may be considered only with at least three years of relevant experience and within the ordinary age limit; refer the case to the Review Committee.",
+      "अंक-सीमा से अधिकतम पाँच प्रतिशत-अंक कम स्नातकोत्तर आवेदक पर तभी विचार होगा जब उसके पास कम-से-कम तीन वर्ष का संबंधित अनुभव हो और वह सामान्य आयु-सीमा में हो; मामला समीक्षा समिति को भेजें।",
+      "ਅੰਕ ਹੱਦ ਤੋਂ ਵੱਧ ਤੋਂ ਵੱਧ ਪੰਜ ਅੰਕ ਘੱਟ ਪੋਸਟਗ੍ਰੈਜੂਏਟ ਬਿਨੈਕਾਰ ਉੱਤੇ ਤਾਂ ਹੀ ਵਿਚਾਰ ਹੋਵੇਗਾ ਜੇ ਉਸ ਕੋਲ ਘੱਟੋ-ਘੱਟ ਤਿੰਨ ਸਾਲ ਦਾ ਸੰਬੰਧਤ ਤਜਰਬਾ ਹੋਵੇ ਅਤੇ ਉਹ ਆਮ ਉਮਰ ਹੱਦ ਵਿੱਚ ਹੋਵੇ; ਮਾਮਲਾ ਸਮੀਖਿਆ ਕਮੇਟੀ ਕੋਲ ਭੇਜੋ।",
+    ) }),
   ];
   return { base, exceptions };
 }
