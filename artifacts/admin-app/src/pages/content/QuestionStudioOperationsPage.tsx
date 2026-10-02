@@ -23,7 +23,9 @@ import { QuestionStudioEnglishReviewPanel } from './QuestionStudioEnglishReviewP
 import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSummary';
 import { QuestionStudioInputOutputReviewPanel } from './QuestionStudioInputOutputReviewPanel';
 import { QuestionStudioInterestReviewPanel } from './QuestionStudioInterestReviewPanel';
+import { QuestionStudioMensurationReviewPanel } from './QuestionStudioMensurationReviewPanel';
 import { QuestionStudioProfileCalibration } from './QuestionStudioProfileCalibration';
+import { QuestionStudioProbabilityReviewPanel } from './QuestionStudioProbabilityReviewPanel';
 import { QuestionStudioRecoveryDock } from './QuestionStudioRecoveryDock';
 import { QuestionStudioSeriesReviewPanel } from './QuestionStudioSeriesReviewPanel';
 import { QuestionStudioSpatialReviewPanel } from './QuestionStudioSpatialReviewPanel';
@@ -38,6 +40,8 @@ type AdvancedWorkspace =
   | 'spatial'
   | 'cubes-dice'
   | 'interest'
+  | 'mensuration'
+  | 'probability'
   | 'series'
   | 'calendar'
   | 'input-output'
@@ -50,6 +54,8 @@ const ADVANCED_WORKSPACES: Array<{
 }> = [
   { value: 'algebra', label: 'Algebra', group: 'Quantitative Aptitude' },
   { value: 'interest', label: 'Interest', group: 'Quantitative Aptitude' },
+  { value: 'mensuration', label: 'Mensuration', group: 'Quantitative Aptitude' },
+  { value: 'probability', label: 'Probability · native parity review', group: 'Quantitative Aptitude' },
   { value: 'data-sufficiency', label: 'Data Sufficiency', group: 'Reasoning' },
   { value: 'spatial', label: 'Spatial Reasoning', group: 'Reasoning' },
   { value: 'cubes-dice', label: 'Cubes & Dice', group: 'Reasoning' },
@@ -157,6 +163,8 @@ function AdvancedPanel({ workspace }: { workspace: AdvancedWorkspace }) {
     spatial: <QuestionStudioSpatialReviewPanel />,
     'cubes-dice': <QuestionStudioCubesDiceReviewPanel />,
     interest: <QuestionStudioInterestReviewPanel />,
+    mensuration: <QuestionStudioMensurationReviewPanel />,
+    probability: <QuestionStudioProbabilityReviewPanel />,
     series: <QuestionStudioSeriesReviewPanel />,
     calendar: <QuestionStudioCalendarReviewPanel />,
     'input-output': <QuestionStudioInputOutputReviewPanel />,
