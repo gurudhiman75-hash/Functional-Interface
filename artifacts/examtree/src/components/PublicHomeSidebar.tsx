@@ -132,7 +132,7 @@ export function PublicHomeSidebar() {
         <div className="mt-auto pt-5">
           <div className="rounded-xl border border-sidebar-border bg-sidebar-accent/60 p-3.5">
             <p className="text-xs font-black text-sidebar-foreground">Ready to practise?</p>
-            <p className="mt-1 text-[11px] leading-4 text-sidebar-foreground/70">Choose an exam and continue with mocks, PYQs or free practice.</p>
+            <p className="mt-1 text-[11px] leading-4 text-sidebar-foreground/70">Choose an exam and continue with mock tests or free practice.</p>
             <Link
               href="/exams"
               className="et-interactive mt-3 flex min-h-11 items-center justify-center rounded-lg bg-sidebar-foreground px-3 py-2 text-xs font-black text-sidebar shadow-sm hover:opacity-90"

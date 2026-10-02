@@ -14,9 +14,7 @@ const footerGroups = [
     title: "Resources",
     links: [
       { label: "Mock Tests", href: "/mock-tests" },
-      { label: "PYQs", href: "/pyqs" },
       { label: "Exams Covered", href: "/exams-covered" },
-      { label: "Blog", href: "/blog" },
     ],
   },
   {
@@ -56,7 +54,7 @@ export function PublicFooter() {
             </div>
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
-            ExamTree helps aspirants discover mock tests, PYQs, multilingual practice, and deep performance analysis for serious exam preparation.
+            ExamTree helps aspirants discover mock tests, multilingual practice, and structured exam preparation from one student workspace.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-md border border-teal-200 bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-700">

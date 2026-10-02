@@ -33,7 +33,6 @@ type MobileStudyLink = {
 const primaryLinks = [
   { label: "Tests", href: "/exams" },
   { label: "Mock Tests", href: "/mock-tests" },
-  { label: "PYQs", href: "/pyqs" },
   { label: "Resources", href: "/resources" },
   { label: "Store", href: "/store" },
   { label: "Exams Covered", href: "/exams-covered" },
@@ -43,7 +42,6 @@ const primaryLinks = [
 const homeLinks = [
   { label: "Exams", href: "/exams" },
   { label: "Test Series", href: "/exams" },
-  { label: "Previous Papers", href: "/pyqs" },
   { label: "Practice", href: "/mock-tests" },
   { label: "Resources", href: "/resources" },
   { label: "Store", href: "/store" },
@@ -66,7 +64,6 @@ const footerColumns = [
     links: [
       { label: "Browse Tests", href: "/exams" },
       { label: "Mock Tests", href: "/mock-tests" },
-      { label: "Previous Year Questions", href: "/pyqs" },
       { label: "Free Resources", href: "/resources" },
       { label: "Store", href: "/store" },
       { label: "Exams Covered", href: "/exams-covered" },
