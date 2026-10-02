@@ -6,6 +6,7 @@ import {
   optionKey,
   type QuestionSqlExecutor,
 } from "../lib/admin-question-conversion";
+import { getGeneratedItemApprovalDisposition } from "../lib/admin-question-studio-approval-policy";
 import {
   QuestionManagementError,
   assertQuestionPublishable,
@@ -887,16 +888,30 @@ router.post(
       }
       const converted = await sqlClient.begin(async (tx) => {
         const pending = await tx`
-          SELECT id::text AS id
-          FROM content.generation_run_items
-          WHERE status = 'approved'::generation_item_status
-            AND accepted_question_id IS NULL
-          ORDER BY updated_at ASC
+          SELECT
+            i.id::text AS id,
+            v.payload
+          FROM content.generation_run_items i
+          INNER JOIN content.generation_item_versions v
+            ON v.generation_item_id = i.id
+           AND v.version_number = i.current_version_number
+          WHERE i.status = 'approved'::generation_item_status
+            AND i.accepted_question_id IS NULL
+          ORDER BY i.updated_at ASC
           LIMIT 500
-          FOR UPDATE SKIP LOCKED
+          FOR UPDATE OF i SKIP LOCKED
         `;
         const results = [];
+        const skipped: Array<{ itemId: string; reason: string }> = [];
         for (const row of pending) {
+          const disposition = getGeneratedItemApprovalDisposition(row.payload);
+          if (disposition.mode !== "question_bank") {
+            skipped.push({
+              itemId: String(row.id),
+              reason: disposition.reason ?? "Question Bank conversion is not authorized",
+            });
+            continue;
+          }
           const result = await convertApprovedGenerationItem(
             tx as QuestionSqlExecutor,
             String(row.id),
@@ -904,9 +919,14 @@ router.post(
           );
           if (result) results.push(result);
         }
-        return results;
+        return { converted: results, skipped };
       });
-      res.json({ converted, convertedCount: converted.length });
+      res.json({
+        converted: converted.converted,
+        convertedCount: converted.converted.length,
+        skipped: converted.skipped,
+        skippedCount: converted.skipped.length,
+      });
     } catch (error) {
       sendQuestionError(res, error, "Unable to reconcile approved questions");
     }
