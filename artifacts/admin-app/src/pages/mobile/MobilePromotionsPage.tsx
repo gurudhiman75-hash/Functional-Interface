@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Megaphone, Plus, RefreshCw, Save, Trash2 } from 'lucide-react';
+import { Home, Megaphone, Plus, RefreshCw, Save, Sparkles, Target, Trash2 } from 'lucide-react';
 
 import { MediaAssetPicker } from '@/components/shared/MediaAssetPicker';
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -38,6 +38,12 @@ function localDateTime(value:string|null){
 function isoOrNull(value:string){return value?new Date(value).toISOString():null;}
 function blank():Promotion{return{id:'',title:'',subtitle:'',ctaLabel:'Explore',imageUrl:'',placement:'home',destinationType:'none',destinationValue:'',campaignKind:'internal',isDismissible:true,frequencyCapPerDay:null,audience:{languageCodes:[],examIds:[]},isActive:true,startAt:null,endAt:null,sortOrder:1};}
 function audienceOf(value:Audience|undefined):Required<Audience>{return{languageCodes:Array.isArray(value?.languageCodes)?value!.languageCodes!:[],examIds:Array.isArray(value?.examIds)?value!.examIds!:[]};}
+function preset(kind:'popup'|'home'|'targeted'):Promotion{
+  const base={...blank(),isActive:false};
+  if(kind==='popup')return{...base,title:'App update / important promotion',subtitle:'Add the message learners should see when they open the app.',ctaLabel:'Explore',placement:'login_popup',destinationType:'page',frequencyCapPerDay:1,isDismissible:true,sortOrder:1};
+  if(kind==='targeted')return{...base,title:'Relevant test series for your exam',subtitle:'Promote a specific test series only to learners who selected the matching exam.',ctaLabel:'View test series',placement:'home',destinationType:'test_series',frequencyCapPerDay:2,isDismissible:true,sortOrder:2};
+  return{...base,title:'Featured promotion',subtitle:'Use this as a dismissible promotional card on the Home screen.',ctaLabel:'Explore',placement:'home',destinationType:'page',frequencyCapPerDay:3,isDismissible:true,sortOrder:1};
+}
 
 async function call<T>(path:string,init?:RequestInit):Promise<T>{
   const user=getFirebaseAuth()?.currentUser;if(!user)throw new Error('Your administrator session has expired.');
@@ -91,6 +97,21 @@ export function MobilePromotionsPage(){
 
   return <div className="space-y-5">
     <PageHeader title="Mobile App · Promotions & Ads" description="Schedule mobile promotional placements without duplicating the shared exam, test-series or Learn content they point to." icon={<Megaphone className="h-5 w-5"/>} actions={<div className="flex gap-2"><Button variant="outline" onClick={()=>void refresh()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading?'animate-spin':''}`}/>Refresh</Button><Button onClick={()=>setEditing(blank())}><Plus className="mr-1.5 h-4 w-4"/>New promotion</Button></div>}/>
+
+    <Card><CardHeader><CardTitle className="text-base">Start from a promotion preset</CardTitle></CardHeader><CardContent className="grid gap-3 md:grid-cols-3">
+      <button type="button" onClick={()=>setEditing(preset('popup'))} className="rounded-xl border p-4 text-left transition-colors hover:bg-muted/40">
+        <div className="flex items-center gap-2 font-semibold"><Sparkles className="h-4 w-4"/>Login / app-open popup</div>
+        <p className="mt-2 text-xs text-muted-foreground">One-per-day dismissible popup with image, message and CTA. Created inactive until you publish it.</p>
+      </button>
+      <button type="button" onClick={()=>setEditing(preset('home'))} className="rounded-xl border p-4 text-left transition-colors hover:bg-muted/40">
+        <div className="flex items-center gap-2 font-semibold"><Home className="h-4 w-4"/>Home promotion</div>
+        <p className="mt-2 text-xs text-muted-foreground">Dismissible Home campaign for launches, offers, new content or announcements.</p>
+      </button>
+      <button type="button" onClick={()=>setEditing(preset('targeted'))} className="rounded-xl border p-4 text-left transition-colors hover:bg-muted/40">
+        <div className="flex items-center gap-2 font-semibold"><Target className="h-4 w-4"/>Exam-targeted campaign</div>
+        <p className="mt-2 text-xs text-muted-foreground">Targets learners by My Exams and opens the exact selected test series.</p>
+      </button>
+    </CardContent></Card>
 
     <Card><CardHeader><CardTitle className="text-base">Campaigns</CardTitle></CardHeader><CardContent className="space-y-3">
       {items.length===0&&<div className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">No mobile promotions configured.</div>}
