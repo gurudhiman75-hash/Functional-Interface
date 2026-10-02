@@ -1,3 +1,5 @@
+import type { QuestionStudioPackageDefinition } from "../../../question-studio/engine-types";
+import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../../../question-studio/standard-lifecycle";
 import {
   ALP_001_CHECKPOINTS,
   ALP_001_QLS,
@@ -14,7 +16,7 @@ import type {
 
 export const ALP_001_QUESTION_STUDIO_PACKAGE_ID = "ALP-001" as const;
 
-export const ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE = Object.freeze({
+export const ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = {
   engineId: "reasoning-v1",
   packageId: ALP_001_QUESTION_STUDIO_PACKAGE_ID,
   subject: "Reasoning",
@@ -38,6 +40,7 @@ export const ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE = Object.freeze({
   publiclyPublishable: false,
   automaticStudentPublication: false,
   productionReleaseAuthorized: false,
+  ...QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1,
   metadata: {
     runtimeVersion: ALP_001_QUESTION_STUDIO_REGISTRY.runtimeVersion,
     qlCount: ALP_001_QLS.length,
@@ -45,7 +48,7 @@ export const ALP_001_STANDARD_QUESTION_STUDIO_PACKAGE = Object.freeze({
     deterministicGeneration: true,
     multilingualFreeze: true,
   },
-} as const);
+};
 
 export type Alp001QuestionStudioRequest = Readonly<{
   packageId?: string;
