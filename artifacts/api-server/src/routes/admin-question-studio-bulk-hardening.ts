@@ -90,6 +90,19 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
     return;
   }
   const itemIds = [...new Set(rawIds)];
+  const expectedStatuses = req.body?.expectedStatuses && typeof req.body.expectedStatuses === "object"
+    && !Array.isArray(req.body.expectedStatuses)
+    ? req.body.expectedStatuses as Record<string, unknown>
+    : {};
+  const missingExpectedStatusIds = itemIds.filter((id) => !STATUSES.has(text(expectedStatuses[id])));
+  if (missingExpectedStatusIds.length > 0) {
+    res.status(400).json({
+      error: "Expected current status is required for every generated item",
+      code: "EXPECTED_REVIEW_STATUS_REQUIRED",
+      itemIds: missingExpectedStatusIds,
+    });
+    return;
+  }
   const status = text(req.body?.status);
   const reason = text(req.body?.reason).slice(0, 1000);
   const actorUserId = req.adminSession?.user.id;
@@ -137,6 +150,18 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
         `;
         const item = rows[0];
         if (!item) throw Object.assign(new Error("Generated item not found"), { code: "ITEM_NOT_FOUND" });
+        const expectedStatus = text(expectedStatuses[itemId]);
+        if (String(item.status) !== expectedStatus) {
+          throw Object.assign(
+            new Error(`Generated item changed from ${expectedStatus} to ${String(item.status)}; refresh before reviewing`),
+            {
+              code: "GENERATION_ITEM_STATUS_CONFLICT",
+              expectedStatus,
+              currentStatus: String(item.status),
+            },
+          );
+        }
+
         if (String(item.runStatus) === "cancelled") {
           throw Object.assign(
             new Error("Cancelled generation runs are immutable"),
