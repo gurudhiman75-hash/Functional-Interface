@@ -73,18 +73,11 @@ const LANGUAGE_LABELS: Record<string, string> = { en: 'English', hi: 'Hindi', pa
 const SUBJECT_ORDER = ['Quantitative Aptitude', 'Reasoning Ability', 'English', 'Static GK', 'Punjabi Language'];
 
 function packageSubject(entry: GenerationPackage) {
-  const explicit = entry.subject?.trim();
-  if (explicit) return explicit;
-  if (entry.engineId === 'quant-v4') return 'Quantitative Aptitude';
-  if (entry.engineId === 'reasoning-v1') return 'Reasoning Ability';
-  if (entry.engineId === 'language-v1') return 'English';
-  if (entry.engineId === 'knowledge-v1') return 'Static GK';
-  return 'Other';
+  return entry.subject.trim();
 }
 
 function packageChapter(entry: GenerationPackage) {
-  if (entry.engineId === 'quant-v4') return entry.subtopic?.trim() || entry.topic?.trim() || entry.label;
-  return entry.topic?.trim() || entry.subtopic?.trim() || entry.label;
+  return entry.chapter.trim();
 }
 
 function packageCpIds(entry: GenerationPackage) {
