@@ -181,18 +181,40 @@ export function listGeo001StandardQuestionStudioPackages() {
   ];
 }
 
+function matchingVariantIndexesForDifficulty(
+  qlId: string,
+  seed: string,
+  difficulty: Geo001QuestionStudioDifficulty,
+): number[] {
+  const definition = getGeometryPermanentEnglishRuntimeDefinitionV1(qlId);
+  const matches: number[] = [];
+  for (let variantIndex = 0; variantIndex < definition.prototypeIds.length; variantIndex += 1) {
+    const candidate = generateGeometryPermanentEnglishFrozenV1(qlId, seed, variantIndex);
+    if (candidate.difficulty === difficulty) matches.push(variantIndex);
+  }
+  return matches;
+}
+
 function generateFrozenGeometryItem(
   qlId: string,
   seed: string,
   language: Geo001QuestionStudioLanguage,
+  difficulty: Geo001QuestionStudioDifficulty,
 ) {
+  const matchingVariantIndexes = matchingVariantIndexesForDifficulty(qlId, seed, difficulty);
+  if (matchingVariantIndexes.length === 0) {
+    throw new Error(`${qlId} has no ${difficulty} Geometry variant in the frozen source.`);
+  }
+  const variantIndex =
+    matchingVariantIndexes[seededHash(`${qlId}:${seed}:${difficulty}:variant`) % matchingVariantIndexes.length]!;
   if (language === "en") {
-    return generateGeometryPermanentEnglishFrozenV1(qlId, seed);
+    return generateGeometryPermanentEnglishFrozenV1(qlId, seed, variantIndex);
   }
   return generateGeometryPermanentMultilingualFrozenV1(
     qlId,
     seed,
     language === "hi" ? "hi-IN" : "pa-IN",
+    variantIndex,
   );
 }
 
@@ -202,7 +224,10 @@ function buildQuestionStudioPackage(
   language: Geo001QuestionStudioLanguage,
   difficulty: Geo001QuestionStudioDifficulty,
 ) {
-  const item = generateFrozenGeometryItem(qlId, seed, language) as any;
+  const item = generateFrozenGeometryItem(qlId, seed, language, difficulty) as any;
+  if (item.difficulty !== difficulty) {
+    throw new Error(`${qlId}: requested ${difficulty} but frozen source generated ${String(item.difficulty)}.`);
+  }
   const questionId = `GEO-001:${item.qlId}:${item.prototypeId}:${seed}`;
   const explanationId = `${item.qlId}:${language}:EXP`;
   const traceability = Object.freeze({
@@ -264,7 +289,8 @@ function buildQuestionStudioPackage(
       prototypeId: item.prototypeId,
       prototypeSolveMode: item.prototypeSolveMode,
       variantIndex: item.variantIndex,
-      difficultyRoutingMode: "QUESTION_STUDIO_REQUEST_LABEL_ONLY",
+      difficultyRoutingMode: "FROZEN_SOURCE_DIFFICULTY_MATCH",
+      sourceDifficulty: item.difficulty,
     }),
   });
 }
@@ -409,7 +435,7 @@ export async function generateGeo001StandardQuestionStudioBatch(
   }
   const fixedCp = (explicitCp ?? inferredCp) as Geo001QuestionStudioCpId | undefined;
 
-  const eligibleDefinitions = explicitQl
+  const scopeDefinitions = explicitQl
     ? [getGeometryPermanentEnglishRuntimeDefinitionV1(explicitQl)]
     : fixedCp
       ? GEO_PERMANENT_ENGLISH_RUNTIME_DEFINITIONS_V1.filter(
@@ -417,8 +443,15 @@ export async function generateGeo001StandardQuestionStudioBatch(
         )
       : [...GEO_PERMANENT_ENGLISH_RUNTIME_DEFINITIONS_V1];
 
+  const eligibilityProbeSeed = `geo-difficulty-eligibility:${difficulty}`;
+  const eligibleDefinitions = scopeDefinitions.filter((definition) =>
+    matchingVariantIndexesForDifficulty(definition.qlId, eligibilityProbeSeed, difficulty).length > 0,
+  );
+
   if (eligibleDefinitions.length === 0) {
-    throw new Error(`GEO-001 has no Question Studio QLs for ${fixedCp ?? "the selected scope"}.`);
+    throw new Error(
+      `GEO-001 has no ${difficulty} Question Studio QLs for ${fixedCp ?? explicitQl ?? "the selected scope"}.`,
+    );
   }
 
   const batchSeed =
